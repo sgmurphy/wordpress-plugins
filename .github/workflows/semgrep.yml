@@ -1,3 +1,5 @@
+name: Semgrep
+
 on:
   workflow_dispatch: {}
   pull_request: {}
@@ -9,8 +11,11 @@ on:
     - .github/workflows/semgrep.yml
   schedule:
   # random HH:MM to avoid a load spike on GitHub Actions at 00:00
-  - cron: 45 3 * * *
-name: Semgrep
+  - cron: 5 6 * * *
+
+permissions:
+  security-events: write
+
 jobs:
   semgrep:
     name: semgrep/ci
@@ -21,4 +26,9 @@ jobs:
       image: returntocorp/semgrep
     steps:
     - uses: actions/checkout@v3
-    - run: semgrep ci
+    - run: semgrep ci --sarif > semgrep.sarif
+    - name: Upload SARIF results for GitHub Advanced Security
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: semgrep.sarif
+      if: always()
