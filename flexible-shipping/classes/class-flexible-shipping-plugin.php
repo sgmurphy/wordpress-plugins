@@ -474,7 +474,7 @@ class Flexible_Shipping_Plugin extends AbstractPlugin implements HookableCollect
 			->set_integration_name( $this->plugin_namespace . '-free-shipping-notice-block-integration' )
 			->set_script_name( '' )
 			->set_script_path( '/assets/blocks/free-shipping-notice-block-integration/' );
-		( new StoreEndpoint( $integration_data->get_integration_name(), 'page_type' ) )->hooks();
+		( new StoreEndpoint( $integration_data->get_integration_name(), 'page_type', false ) )->hooks();
 		( new FreeShippingStoreEndpointData( $integration_data->get_integration_name() ) )->hooks();
 		( new Registrator(
 			$integration_data,

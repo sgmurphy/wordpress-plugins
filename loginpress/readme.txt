@@ -5,7 +5,7 @@ Contributors: WPBrigade, hiddenpearls, AbdulWahab610
 Donate link: https://loginpress.pro/pricing/?utm_source=loginpress-lite
 Author URI: https://wpbrigade.com/?utm_source=loginpress-lite&utm_medium=author-url-link
 Tags: wp-login, login, login customizer, custom login, wordpress login,
-Stable tag: 3.0.4
+Stable tag: 3.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -221,6 +221,14 @@ Please visit <a target="_blank" rel="friend" href="https://loginpress.pro?utm_so
 23. Custom Login page (Company theme) Example #23 with Captcha [Pro feature](https://loginpress.pro?utm_source=loginpress-lite&utm_medium=screenshots&utm_campaign=pro-upgrade)
 
 == Changelog ==
+
+= 3.0.5 – 2024-01-04 =
+* Bugfix: Background issue for lost password form in customizer.
+* Bugfix: Google reCaptcha layout issue at login page.
+* Enhancement: Update Built-in Layout with [Password Protected] (https://wordpress.org/plugins/password-protected/) plugin.
+* Enhancement: Update the LoginPress Premium Add-Ons routine.
+* Enhancement: Update the Import/Export settings.
+* Enhancement: Important Security update.
 
 = 3.0.4 – 2023-12-12 =
 * Bugfix: Background image conflict with login Form image.
@@ -717,5 +725,5 @@ Please visit <a target="_blank" rel="friend" href="https://loginpress.pro?utm_so
 
 == Upgrade Notice ==
 
-= 3.0.4 =
+= 3.0.5 =
 * Upgrade carefully. New Feature Release and Compatible with 6.4

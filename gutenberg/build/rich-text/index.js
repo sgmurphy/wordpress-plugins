@@ -1571,6 +1571,17 @@ class RichTextData {
     return this[RichTextInternalData].text;
   }
 }
+for (const name of Object.getOwnPropertyNames(String.prototype)) {
+  if (RichTextData.prototype.hasOwnProperty(name)) {
+    continue;
+  }
+  Object.defineProperty(RichTextData.prototype, name, {
+    value(...args) {
+      // Should we convert back to RichTextData?
+      return this.toHTMLString()[name](...args);
+    }
+  });
+}
 
 /**
  * Create a RichText value from an `Element` tree (DOM), an HTML string or a

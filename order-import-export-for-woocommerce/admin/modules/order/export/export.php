@@ -394,7 +394,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Export {
                             $value = $value->meta_value;
                         if (is_array($value))
                             $value = implode(',', $value);
-                        $line_item[$key] = $value;
+						$line_item['meta:' . $key] = $value;
                         break;
                 }
             }

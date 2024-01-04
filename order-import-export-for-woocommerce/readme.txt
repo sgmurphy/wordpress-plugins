@@ -5,7 +5,7 @@ Tags: order export, woocommerce, order, export, csv, order import, woocommerce e
 Requires at least: 3.0
 Tested up to: 6.4.2
 Requires PHP: 5.6
-Stable tag: 2.4.5
+Stable tag: 2.4.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,7 +31,7 @@ The following are functionalities offered by the basic version of the order impo
  &#128312; Supports various export filters (order status, product, coupon, customer, date range) for order export to CSV.
  &#128312; Tested OK with WooCommerce 8.4
  &#128312; Tested OK with WordPress 6.4.2
- &#128312; Tested OK with PHP 8.2.0
+ &#128312; Tested OK with PHP 8.3
 
 Additional features of the order import and order export plugin that will help you in the CSV export and import process:
 
@@ -208,6 +208,10 @@ Yes.
 
 == Changelog ==
 
+= 2.4.6 2024-01-04 =
+* [Fix] - Conflict with order item meta key named quantity and quantity.
+* [Compatibility] - Tested OK with WooCommerce 8.4
+* [Compatibility] - Tested OK with PHP 8.3
 = 2.4.5 2023-12-28 =
 * [Fix] - Invalid File type CSV in Windows OS/Firefox.
 = 2.4.3 2023-12-08 =
@@ -554,5 +558,7 @@ Yes.
 
 == Upgrade Notice ==
 
-= 2.4.5 =
-* [Fix] - Invalid File type CSV in Windows OS/Firefox.
+= 2.4.6 =
+* [Fix] - Conflict with order item meta key named quantity and quantity.
+* [Compatibility] - Tested OK with WooCommerce 8.4
+* [Compatibility] - Tested OK with PHP 8.3

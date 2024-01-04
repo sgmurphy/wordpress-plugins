@@ -4,9 +4,9 @@ namespace FSVendor\Octolize\Blocks;
 
 class IntegrationData
 {
-    const INTEGRATION_NAME = 'integration_name';
-    const SCRIPT_NAME = 'script_name';
-    const SCRIPT_PATH = 'script_path';
+    private const INTEGRATION_NAME = 'integrationName';
+    private const SCRIPT_NAME = 'scriptName';
+    private const SCRIPT_PATH = 'scriptPath';
     /**
      * @var array <string, string>
      */

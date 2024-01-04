@@ -1190,7 +1190,7 @@ class Admin_Controller {
 				'type'  => 'cpsw_webhook_url',
 				'class' => 'wc_cpsw_webhook_url',
 				/* translators: %1$1s - %2$2s HTML markup */
-				'desc'  => sprintf( __( 'Important: the webhook URL is called by Stripe when events occur in your account, like a source becomes chargeable. %1$1sWebhook Guide%2$2s or create webhook on %3$3sstripe dashboard%4$4s', 'checkout-plugins-stripe-woo' ), '<a href="https://checkoutplugins.com/docs/stripe-card-payments/#webhook" target="_blank">', '</a>', '<a href="https://dashboard.stripe.com/webhooks/create" target="_blank">', '</a>' ),
+				'desc'  => sprintf( __( 'Important: the webhook URL is called by Stripe when events occur in your account, like a source becomes chargeable. Refer to the %1$1sWebhook Guide%2$2s or create webhook on %3$3sstripe dashboard%4$4s', 'checkout-plugins-stripe-woo' ), '<a href="https://checkoutplugins.com/docs/stripe-card-payments/#webhook" target="_blank">', '</a>', '<a href="https://dashboard.stripe.com/webhooks/create" target="_blank">', '</a>' ),
 				'id'    => 'cpsw_webhook_url',
 			],
 			'create_webhook'      => [
@@ -2016,11 +2016,11 @@ class Admin_Controller {
 						'name' => __( 'Express Checkout', 'checkout-plugins-stripe-woo' ),
 						'type' => 'title',
 						/* translators: HTML Markup*/
-						'desc' => sprintf( __( 'Accept payment using Apple Pay, Google Pay, Browser Payment Method.%1$1sExpress Checkout uses Payment Request API which is based on client\'s browser and saved cards.%1$1sPlease check %2$2sprerequisite%3$3s for Apple Pay, Google Pay and Browser Payment Method.', 'checkout-plugins-stripe-woo' ), '<br/>', '<a href="https://stripe.com/docs/stripe-js/elements/payment-request-button#html-js-testing" target="_blank">', '</a>' ),
+						'desc' => sprintf( __( 'Accept payments using Apple Pay, Google Pay, and Browser Payment Method.%1$1sExpress Checkout uses Payment Request API which is based on client\'s browser and saved cards.%1$1sPlease check the %2$2sprerequisites%3$3s for Apple Pay, Google Pay, and Browser Payment Method.', 'checkout-plugins-stripe-woo' ), '<br/>', '<a href="https://stripe.com/docs/stripe-js/elements/payment-request-button#html-js-testing" target="_blank">', '</a>' ),
 						'id'   => 'cpsw_express_checkout',
 					],
 					'enable'                      => [
-						'name'  => __( 'Enable Express Checkout', 'checkout-plugins-stripe-woo' ),
+						'name'  => __( 'Activate Express Checkout', 'checkout-plugins-stripe-woo' ),
 						'id'    => 'cpsw_express_checkout_enabled',
 						'type'  => 'checkbox',
 						'value' => $values['express_checkout_enabled'],
@@ -2100,7 +2100,7 @@ class Admin_Controller {
 					'sticky_footer'               => [
 						'name'  => __( 'Responsive behaviour', 'checkout-plugins-stripe-woo' ),
 						/* translators: HTML Markup*/
-						'desc'  => sprintf( __( 'If checked the Express Checkout button will stick%1$1sat bottom of screen on responsive devices.', 'checkout-plugins-stripe-woo' ), '<br/>' ),
+						'desc'  => sprintf( __( 'If checked, the Express Checkout button will stick%1$1sat bottom of screen on responsive devices.', 'checkout-plugins-stripe-woo' ), '<br/>' ),
 						'class' => 'cpsw_product_options',
 						'type'  => 'checkbox',
 						'id'    => 'cpsw_express_checkout_product_sticky_footer',

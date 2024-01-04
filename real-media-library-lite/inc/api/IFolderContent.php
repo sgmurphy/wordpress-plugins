@@ -21,7 +21,7 @@ interface IFolderContent
      * (Pro only) See API function for more information.
      *
      * @param int $attachmentId
-     * @param int $nextId
+     * @param int|false $nextId
      * @param int|boolean $lastIdInView
      * @throws \Exception
      * @return true

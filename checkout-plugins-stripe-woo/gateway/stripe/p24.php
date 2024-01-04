@@ -67,7 +67,7 @@ class P24 extends Local_Gateway {
 
 		return sprintf(
 			/* translators: %1$s: Break, %2$s: HTML entities */
-			__( 'Accept payment using Przelewy24. %1$s %2$s', 'checkout-plugins-stripe-woo' ),
+			__( 'Accept payments using Przelewy24. %1$s %2$s', 'checkout-plugins-stripe-woo' ),
 			'<br/>',
 			$payment_description
 		);

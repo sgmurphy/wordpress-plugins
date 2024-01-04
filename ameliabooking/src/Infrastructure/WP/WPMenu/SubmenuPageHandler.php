@@ -7,6 +7,7 @@ use AmeliaBooking\Domain\Services\DateTime\DateTimeService;
 use AmeliaBooking\Domain\Services\Settings\SettingsService;
 use AmeliaBooking\Infrastructure\WP\Integrations\WooCommerce\WooCommerceService;
 use AmeliaBooking\Infrastructure\WP\Translations\BackendStrings;
+use AmeliaBooking\Infrastructure\Licence\Licence;
 
 /**
  * Renders menu pages
@@ -75,6 +76,7 @@ class SubmenuPageHandler
 
 
         if ($page === 'wpamelia-notifications') {
+            wp_enqueue_script('amelia_paddle', Licence::getPaddleUrl());
         }
 
         // Enqueue Styles

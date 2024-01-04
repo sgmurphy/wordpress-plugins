@@ -194,4 +194,12 @@ class Licence
 
         return $availableProviders;
     }
+
+    /**
+     * @return string
+     */
+    public static function getPaddleUrl()
+    {
+        return AMELIA_URL . 'public/js/paddle/paddle.js';
+    }
 }

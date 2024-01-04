@@ -6,8 +6,8 @@ Author URI: https://publishpress.com
 Tags: capabilities, permissions, admin menus, user roles, user role editor, access control, members, edit capabilities, publishpress capabilities, multisite capabilities, roles access, post editing screen, taxonomy capabilities, post permissions, page permisisons, woocommerce capabilities, user testing, user switching, hide metaboxes, hide editor features, media library capabilities, post type permissions, user role capabilities, edit user roles, administrator, editor, subscriber, contributor, author, shop manager
 Requires at least: 5.5
 Requires PHP: 7.2.5
-Tested up to: 6.3
-Stable tag: 2.10.3
+Tested up to: 6.4
+Stable tag: 2.11.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,10 +36,9 @@ PublishPress Capabilities is **safe to use**. Every time you change your site's 
 2. **Capabilities**: You can control all WordPress and plugin capabilities.
 3. **Editor Features**: You decide what users see when they're writing posts in Gutenberg or the Classic Editor.
 4. **Admin Features**: You can remove items from the WordPress admin, toolbar, and even dashboard widgets.
-5. **Frontend Features**: This feature allows you to modify the site's frontend by hiding or adding CSS.
-6. **Profile Features**: You can hide features for users in the "Profile" screen.
-7. **Nav Menus**: You can restrict access to navigation menus by user role, or logged in status.
-8. **Admin menus**: You can stop users from accessing any admin menu link.
+5. **Profile Features**: You can hide features for users in the "Profile" screen.
+6. **Nav Menus**: You can restrict access to navigation menus by user role, or logged in status.
+7. **Admin menus**: You can stop users from accessing any admin menu link.
 
 ## Feature 1. Roles##
 
@@ -75,29 +74,23 @@ WordPress has a feature called “metaboxes”. This is a strange name, but you 
 
 ## Feature 4. Admin Features ##
 
-“ Admin Features” allows you to hide features in the WordPress admin area and toolbar. You can decide what users see in your WordPress dashboard. You can use this option to hide all the links in the toolbar including "About WordPress", "Visit Site" and more. You can also hide dashboard widgets such as "At a Glance", "Quick Draft", and "WordPress Events and News".
+“Admin Features” allows you to hide features in the WordPress admin area and toolbar. You can decide what users see in your WordPress dashboard. You can use this option to hide all the links in the toolbar including "About WordPress", "Visit Site" and more. You can also hide dashboard widgets such as "At a Glance", "Quick Draft", and "WordPress Events and News".
 
 [Click here to learn about removing toolbar items and dashboard widgets](https://publishpress.com/knowledge-base/how-to-use-admin-features/).
 
-## Feature 5. Frontend Features ##
-
-The "Frontend Features" screen allows you to modify the features that show on the frontend of your website. You can choose to  hide IDs or classes, add CSS styles, or add body classes. All of these changes can be targeted to specific user roles.
-
-[Click here to learn about frontend changes](https://publishpress.com/knowledge-base/frontend-features/).
-
-## Feature 6. Profile Features ##
+## Feature 5. Profile Features ##
 
 “Profile Features” allows you to hide features in the "Profile" screen. You can decide what users see in their accounts.  This “Profile” area is used as a dumping ground for the settings of many different plugins.
 
 [Click here to learn about the Profile Features option](https://publishpress.com/knowledge-base/profile-features/).
 
-## Feature 7. Nav Menu Restrictions ##
+## Feature 6. Nav Menu Restrictions ##
 
 PublishPress Capabilities enables you to restrict access to navigation menus by roles, logged in and logged out users. This is useful because a default WordPress site does not give you way to control the visibility of your links.
 
 [Click to see how to block frontend menu access](https://publishpress.com/knowledge-base/nav-menus/).
 
-## Feature 8. WordPress Admin Menu Restrictions (Pro version) ##
+## Feature 7. WordPress Admin Menu Restrictions (Pro version) ##
 
 With PublishPress Capabilities you can restrict access to admin menu screens by user roles. This is useful because many plugin do not have any way to control who can access their admin screens.
 
@@ -380,10 +373,6 @@ Here's another comparison:
 * PublishPress Capabilities allows you to control who can read all your Pages.
 * PublishPress Permissions allows you to control who can read Pages with a specific Status, Category or Tag, or even Pages with a particular parent Page.
 
-= What plugin does PublishPress Capabilities support? =
-
-We do our best to support every WordPress plugin, but have officially tested support for plugins including WooCommerce, BetterDocs, GravityView, Gravity Forms, NextGEN Gallery, BackWPup, Forminator, LearnDash, MailPoet, Fluent Forms, All in One SEO, Smash Balloon, Site Kit by Google, Wordfence, Yoast Duplicate Post, Smart Slider, Loco Translate, Rank Math SEO, Query Monitor, Strong Testimonials, Download Monitor, Yoast SEO, Formidable Forms, GiveWP, BuddyPress, bbPress, and Sunshine Photo Cart.
-
 = What's the correct way to spell PublishPress Capabilities? =
 
 PublishPress is the official brandname. When writing about this user role editor plugin, please make sure to uppercase the Ps.
@@ -420,6 +409,9 @@ Fixed : Non-administrators with user editing capabilities could add new Administ
 Fixed : Security issue. Please update.
 
 == Changelog ==
+
+= 2.11.1 - 04 Jan 2024 =
+  * Fixed: Inconsistencies with language files, #311
 
 = 2.10.3 - 12 Dec 2023 =
   * Fixed: Nav menu not working in latest WordPress version for FSE theme, #1048

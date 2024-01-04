@@ -9813,7 +9813,7 @@ jQuery(window).on('elementor/frontend/init', function() {
         var $settings = $readingProgress.data('settings');
 
         jQuery(document).ready(function(){
-            // jQuery($readingProgress).progressScroll([$settings.progress_bg, $settings.scroll_bg]); 
+
             var settings = {
                 borderSize: 10,
                 mainBgColor: '#E6F4F7',
@@ -9852,7 +9852,6 @@ jQuery(window).on('elementor/frontend/init', function() {
                 $('.' + textContainer, container).text(per + '%');
             };
             var prepare = function () {
-                    //$(container).addClass("bdt-reading-progress");
                     $(container).html("<div class='" + borderContainer + "'><div class='" + circleContainer + "'><span class='" + textContainer + "'></span></div></div>");
 
                     $('.' + borderContainer, container).css({
@@ -9924,8 +9923,6 @@ jQuery(window).on('elementor/frontend/init', function() {
         }
 
         $(document).ready(function() {
-
-
             //Scroll indicator
             var progressPath = document.querySelector('.bdt-progress-wrap path');
             var pathLength = progressPath.getTotalLength();

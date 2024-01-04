@@ -3,16 +3,21 @@
  * Get option and check the key exists in it.
  *
  * @since 1.0.0
- * @version 3.0.0
+ * @version 3.0.5
  * * * * * * * * * * * * * * * */
 
+/**
+ * @var loginpress_preset Set the default preset value.
+ * @since 3.0.5
+ */
+$loginpress_preset        = get_option( 'customize_presets_settings', true );
+$loginpress_default_theme = $loginpress_preset === true && ( empty( $this->loginpress_key ) && empty( $this->loginpress_setting ) ) ? 'minimalist' : 'default1';
 
  /**
  * @var loginpress_array get_option
  * @since 1.0.0
  * @since 3.0.3
  */
-$loginpress_default_theme = $this->loginpress_preset === true && ( empty( $this->loginpress_key ) && empty( $this->loginpress_setting ) ) ? 'minimalist' : 'default1';
 $loginpress_array         = (array) get_option( 'loginpress_customization' );
 $loginpress_preset        = get_option( 'customize_presets_settings', $loginpress_default_theme );
 
@@ -583,7 +588,7 @@ body .language-switcher{
 	<?php endif; ?>
 }
 .wp-core-ui #login .button-primary, body.wp-core-ui #login .two-factor-email-resend .button, .wp-core-ui #login .wp-generate-pw{
-
+	min-width: fit-content;
 	box-shadow: <?php echo loginpress_box_shadow( $loginpress_login_button_shadow, $loginpress_login_button_shadow_opacity ); ?>
   /* box-shadow: none; */
 	height: auto;
@@ -659,12 +664,25 @@ box-shadow: <?php echo loginpress_box_shadow( $loginpress_textfield_shadow, $log
 	box-shadow: <?php echo loginpress_box_shadow( $loginpress_textfield_shadow, $loginpress_textfield_shadow_opacity, '0', $loginpress_inset ); ?>
 }
 
+<?php if ($loginpress_theme_tem !== 'default6' && $loginpress_theme_tem !== 'default10'): ?>
 #login {
 	<?php if ( ! empty( $loginpress_form_width ) ) : ?>
 	max-width: <?php echo loginpress_check_px( $loginpress_form_width ) . loginpress_important(); ?>;
 	<?php else : ?>
 	<?php endif; ?>
+
 }
+
+<?php else: ?>
+#login form{
+	<?php if ( ! empty( $loginpress_form_width ) ) : ?>
+	max-width: <?php echo loginpress_check_px( $loginpress_form_width ) . loginpress_important(); ?>;
+	<?php else : ?>
+	<?php endif; ?>
+
+}
+<?php endif; ?>
+
 body.login form.shake{
 	transform: none;
 	animation: loginpress_shake_anim .2s cubic-bezier(.19,.49,.38,.79) both;
@@ -744,8 +762,14 @@ body.login form.shake{
 #wfls-prompt-wrapper input[type="text"]{
     padding-left: 20px;
 }
-
+<?php if( $loginpress_theme_tem === 'minimalist' ) : ?>
 #lostpasswordform {
+	<?php if ( true != $loginpress_form_display_bg && ! empty( $loginpress_form_background_clr ) ) : ?>
+	background-color: <?php echo $loginpress_form_background_clr; ?>;
+	<?php endif; ?>
+	<?php if ( ! empty( $loginpress_form_display_bg ) && true == $loginpress_form_display_bg ) : ?>
+	background: transparent;
+	<?php endif; ?>
 	<?php $loginpress_forget_form_bg_img = apply_filters( 'loginpress_lostpassword_form_background_image', $loginpress_forget_form_bg_img ); ?>
 	<?php if ( ! empty( $loginpress_forget_form_bg_img ) ) : ?>
 	background-image: url(<?php echo $loginpress_forget_form_bg_img; ?>);
@@ -756,14 +780,27 @@ body.login form.shake{
   <?php if ( ! empty( $loginpress_form_padding ) ) : ?>
 	padding: <?php echo $loginpress_form_padding; ?>;
 	<?php endif; ?>
+}
+<?php else: ?>
+.login-action-lostpassword #login {
 	<?php if ( true != $loginpress_form_display_bg && ! empty( $loginpress_form_background_clr ) ) : ?>
 	background-color: <?php echo $loginpress_form_background_clr; ?>;
 	<?php endif; ?>
 	<?php if ( ! empty( $loginpress_form_display_bg ) && true == $loginpress_form_display_bg ) : ?>
 	background: transparent;
 	<?php endif; ?>
+	<?php $loginpress_forget_form_bg_img = apply_filters( 'loginpress_lostpassword_form_background_image', $loginpress_forget_form_bg_img ); ?>
+	<?php if ( ! empty( $loginpress_forget_form_bg_img ) ) : ?>
+	background-image: url(<?php echo $loginpress_forget_form_bg_img; ?>);
+	<?php endif; ?>
+	<?php if ( ! empty( $loginpress_forget_form_bg_clr ) ) : ?>
+	background-color: <?php echo $loginpress_forget_form_bg_clr; ?>;
+	<?php endif; ?>
+	<?php if ( ! empty( $loginpress_form_padding ) ) : ?>
+	padding: <?php echo $loginpress_form_padding; ?>;
+	<?php endif; ?>
 }
-
+<?php endif; ?>
 #registerform {
   <?php if ( ! empty( $loginpress_form_padding ) ) : ?>
 	padding: <?php echo $loginpress_form_padding; ?>;
@@ -804,6 +841,7 @@ body.login form.shake{
 }
 
 .login #nav {
+	font-family: inherit;
 	<?php if ( ! empty( $loginpress_footer_bg_color ) ) : ?>
 	background-color: <?php echo $loginpress_footer_bg_color; ?>;
 	<?php endif; ?>
@@ -832,7 +870,9 @@ body.login form.shake{
 	<?php endif; ?>
 }
 
-.login p input[type="submit"]{
+.login p input[type="submit"],
+.wp-core-ui.login .button-group.button-large .button, .wp-core-ui.login .button.button-large, .wp-core-ui.login .button-primary,
+.wp-core-ui #login .button-primary{
 	<?php if ( ! empty( $loginpress_login_button_text_size ) ) : ?>
 	font-size: <?php echo $loginpress_login_button_text_size . 'px;'; ?>;
 	<?php endif; ?>

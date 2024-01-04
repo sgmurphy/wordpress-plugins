@@ -70,7 +70,7 @@ class Wechat extends Local_Gateway {
 
 		return sprintf(
 			/* translators: %1$s: Break, %2$s: Gateway appear message, %3$s: Break, %4$s: Gateway appear message currency wise, %4$s:  HTML entities */
-			__( 'Accept payment using WeChat. %1$s %2$s', 'checkout-plugins-stripe-woo' ),
+			__( 'Accept payments using WeChat. %1$s %2$s', 'checkout-plugins-stripe-woo' ),
 			'<br/>',
 			$payment_description
 		);

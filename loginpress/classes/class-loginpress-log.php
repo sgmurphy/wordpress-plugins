@@ -63,7 +63,7 @@ class LoginPress_Log_Info {
 		// Plugin Configuration
 		$html .= "\n" . '-- LoginPress Configuration --' . "\n\n";
 		$html .= 'Plugin Version:           ' . LOGINPRESS_VERSION . "\n";
-		$html .= 'Expiration:               ' . $session_expiration . "\n";
+		$html .= 'Expiration:           	' . $session_expiration . "\n";
 		$html .= 'Login Order:              ' . ucfirst( $login_order ) . "\n";
 		$html .= 'PCI Compliance:           ' . ucfirst( $pci_compliance ) . "\n";
 		$html .= 'Force Password Reset:     ' . ucfirst( $enable_password_reset ) . "\n";
@@ -85,8 +85,6 @@ class LoginPress_Log_Info {
 		 * Add option to remove language switcher option
 		 *
 		 * @since 1.5.13
-		 * @version 3.0.3
-		 * 
 		 */
 		if ( version_compare( $GLOBALS['wp_version'], '5.9', '>=' ) && ! empty( get_available_languages() ) ) {
 			$html .= 'Language Switcher:        ' . ucfirst( $lang_switcher ) . "\n";
@@ -108,7 +106,7 @@ class LoginPress_Log_Info {
 			$html .= 'LoginPress Template:      ' . $loginpress_preset . "\n";
 			$html .= 'License Status:           ' . $license_key . "\n";
 			$html .= 'Force Login:              ' . $enable_force . "\n";
-			$html .= 'Google Recaptcha Status:  ' . $enable_recaptcha . "\n";
+			$html .= 'Google Recaptcha Status:   ' . $enable_recaptcha . "\n";
 
 			if ( 'on' == $enable_recaptcha ) {
 				$site_key          = ( isset( $loginpress_setting['site_key'] ) ) ? $loginpress_setting['site_key'] : 'Not Set';

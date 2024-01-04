@@ -197,7 +197,7 @@ class CPSW_Loader {
 		);
 		echo '<div class="notice notice-error is-dismissible"><p>';
 		// translators: 1$-2$: opening and closing <strong> tags, 3$-4$: link tags, takes to woocommerce plugin on wp.org, 5$-6$: opening and closing link tags, leads to plugins.php in admin.
-		echo sprintf( esc_html__( '%1$sCheckout Plugins - Stripe for WooCommerce is inactive.%2$s The %3$sWooCommerce plugin%4$s must be active for Checkout Plugins - Stripe for WooCommerce to work. Please %5$sinstall & activate WooCommerce &raquo;%6$s', 'checkout-plugins-stripe-woo' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' . esc_url( $install_url ) . '">', '</a>' );
+		echo sprintf( esc_html__( '%1$sCheckout Plugins - Stripe for WooCommerce is currently inactive.%2$s The %3$sWooCommerce plugin%4$s must be active for Checkout Plugins - Stripe for WooCommerce to work. Please %5$sinstall & activate WooCommerce &raquo;%6$s', 'checkout-plugins-stripe-woo' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' . esc_url( $install_url ) . '">', '</a>' );
 		echo '</p></div>';
 	}
 

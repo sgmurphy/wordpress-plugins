@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.22.4 (2024-01-04)
+
+
+### Bug Fixes
+
+* when sorting folder content a file could not be moved to the end (CU-8693eq8j1)
+
+
+<details><summary>Dependency updates @devowl-wp/utils 1.17.7</summary>
+
+
+**_Purpose of dependency:_** _Utility functionality for all your WordPress plugins._
+##### Build Process
+
+* correctly autoload composer package files autoload.files per plugin (CU-8693dhuhv)</details>
+
+
+
+
+
 ## 4.22.3 (2023-12-21)
 
 **Note:** This package (@devowl-wp/real-media-library) has been updated because a dependency, which is also shipped with this package, has changed.

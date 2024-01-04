@@ -1,8 +1,8 @@
 /**
- * CodeDropz Uploader v1.3.7.2
+ * CodeDropz Uploader v1.3.7.5
  * Copyright 2018 Glen Mongaya
  * CodeDrop Drag&Drop Uploader
- * @version 1.3.7.2
+ * @version 1.3.7.5
  * @author CodeDropz, Glen Don L. Mongaya
  * @license The MIT License (MIT)
  */
@@ -79,7 +79,7 @@
         // Element Handler
         const form_handler = options.handler.closest('form');
         const options_handler = options.handler.closest('.codedropz-upload-wrapper');
-        const btnOBJ = form_handler.querySelector('input[type="submit"]');
+        const btnOBJ = form_handler.querySelector('input[type="submit"], button[type="submit"]');
 
         // Append Format
         options.handler.insertAdjacentHTML('afterend', cdropz_template);
@@ -225,7 +225,7 @@
                     var progressBar = document.getElementById( progressBarID );
                     var progressElement = progressBar.querySelector('.dnd-progress-bar');
                     var detailsElement = progressBar.querySelector('.dnd-upload-details');
-                    var submitButton = form_handler.querySelector('input[type="submit"]');
+                    var submitButton = form_handler.querySelector('input[type="submit"], button[type="submit"]');
 
                     xhr.open(form_handler.getAttribute('method'), options.ajax_url);
                     xhr.onreadystatechange = function() {
@@ -245,15 +245,19 @@
                                 } else {
                                     progressElement.remove();
                                     detailsElement.insertAdjacentHTML('beforeend', '<span class="has-error">'+ response.data +'</span>');
-                                    submitButton.classList.remove('disabled');
-                                    submitButton.removeAttribute('disabled');
+                                    if( submitButton ){
+                                        submitButton.classList.remove('disabled');
+                                        submitButton.removeAttribute('disabled');
+                                    }
                                     progressBar.classList.remove('in-progress');
                                 }
                             } else {
                                 progressElement.remove();
                                 detailsElement.insertAdjacentHTML('beforeend', '<span class="has-error">'+ options.server_max_error +'</span>');
-                                submitButton.classList.remove('disabled');
-                                submitButton.removeAttribute('disabled');
+                                if( submitButton ){
+                                    submitButton.classList.remove('disabled');
+                                    submitButton.removeAttribute('disabled');
+                                }
                                 progressBar.classList.remove('in-progress');
                             }
                         }
@@ -322,7 +326,9 @@
                 if (statusBar) {
 
                     // Disable submit button
-                    CodeDropz_Object.disableBtn(btnOBJ);
+                    if( btnOBJ ){
+                        CodeDropz_Object.disableBtn(btnOBJ);
+                    }
 
                     // Compute Progress bar
                     let progress_width = percent * statusBar.offsetWidth / 100;
@@ -509,7 +515,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     // If it's complete remove disabled attribute in button
                     if ( ( span && span.classList.contains('optional') ) || ! span || checkboxInput.checked || form.classList.contains('wpcf7-acceptance-as-validation')) {
                         setTimeout(function(){ 
-                            form.querySelector('input[type="submit"]').removeAttribute('disabled'); 
+                            const submitButton = form.querySelector('button[type=submit], input[type=submit]');
+                            if( submitButton ){
+                                submitButton.removeAttribute('disabled');
+                            }
                         }, 1);
                     }
 

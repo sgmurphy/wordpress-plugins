@@ -36,6 +36,19 @@ class Alipay extends Local_Gateway {
 	public $payment_method_types = 'alipay';
 
 	/**
+	 * Allowed countries based on currency codes.
+	 *
+	 * The keys represent currency codes, and the values are arrays of countries allowed for each currency.
+	 * 
+	 * Reference : https://stripe.com/docs/payments/alipay#supported-currencies
+	 * 
+	 * @var array
+	 */
+	public $allowed_countries = [
+		'EUR' => [ 'AT', 'BE', 'BG', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'NO', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'CH' ],
+	];
+
+	/**
 	 * Constructor
 	 *
 	 * @since 1.2.0
@@ -66,11 +79,11 @@ class Alipay extends Local_Gateway {
 	public function method_description() {
 		$payment_description = $this->payment_description();
 		/* translators: HTML Entities.*/
-		$extra_description = $this->is_current_section() && 'EUR' === get_woocommerce_currency() ? sprintf( __( '%1$sEUR%2$s is supported only for billing country %1$sDenmark (DK), Norway (NO), Sweden (SE) & Switzerland (CH)%2$s.', 'checkout-plugins-stripe-woo' ), '<strong>', '</strong>' ) : '';
+		$extra_description = $this->is_current_section() && 'EUR' === get_woocommerce_currency() ? sprintf( __( '%1$sEUR%2$s is supported only for billing country %1$sDenmark (DK), Belgium (BE), Bulgaria (BG), Cyprus (CY), Czech Republic (CZ), Estonia (EE), Finland (FI), France (FR), Germany (DE), Greece (GR), Ireland (IE), Italy (IT), Latvia (LV), Lithuania (LT), Luxembourg (LU), Malta (MT), Netherlands (NL), Norway (NO), Portugal (PT), Romania (RO), Slovakia (SK), Slovenia (SI), Spain (ES), Sweden (SE), and Switzerland (CH)%2$s.', 'checkout-plugins-stripe-woo' ), '<strong>', '</strong>' ) : '';
 
 		return sprintf(
 			/* translators: %1$s: Break, %2$s: Gateway appear message, %3$s: Break, %4$s: Gateway appear message currency wise, %4$s:  HTML entities */
-			__( 'Accept payment using Alipay. %1$s %2$s %3$s %4$s', 'checkout-plugins-stripe-woo' ),
+			__( 'Accept payments using Alipay. %1$s %2$s %3$s %4$s', 'checkout-plugins-stripe-woo' ),
 			'<br/>',
 			$payment_description,
 			'<br/>',
@@ -116,7 +129,7 @@ class Alipay extends Local_Gateway {
 			return false;
 		}
 
-		if ( 'EUR' === $this->get_currency() && ! in_array( $this->get_billing_country(), [ 'DK', 'NO', 'SE', 'CH' ], true ) ) {
+		if ( 'EUR' === $this->get_currency() && ! in_array( $this->get_billing_country(), $this->allowed_countries['EUR'], true ) ) {
 			return false;
 		}
 

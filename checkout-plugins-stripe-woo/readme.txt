@@ -3,7 +3,7 @@ Contributors: brainstormforce
 Tags: stripe, credit card, apple pay, google pay, express checkout
 Requires at least: 5.4
 Tested up to: 6.4
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -115,6 +115,10 @@ We understand the need for a quality product backed by dedicated support that ca
 4. Express Checkout Button on Checkout Page
 
 == Changelog ==
+= 1.6.1 - THURSDAY, 4TH JANUARY 2024 =
+* Improvement: Enhanced Alipay payment gateway now supports additional countries for broader accessibility.
+* Fix: Updated strings in plugin for better user experience.
+
 = 1.6.0 - THURSDAY, 28TH DECEMBER 2023 =
 * New: Adding WooCommerce Gutenberg checkout block support for Credit Card payment method
 

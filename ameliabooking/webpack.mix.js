@@ -10,13 +10,14 @@ mix
   .less('assets/less/backend/amelia-booking.less', 'public/css/backend')
   .less('assets/less/external/vendor.less', 'public/css/frontend')
   .less('assets/less/external/quill.less', 'public/css/frontend')
-  .less('assets/less/frontend/amelia-booking.less', 'public/css/frontend/amelia-booking-1-0-94.css')
+  .less('assets/less/frontend/amelia-booking.less', 'public/css/frontend/amelia-booking-1-0-95.css')
   .less('assets/less/backend/elementor.less', 'public/css/frontend')
   .copyDirectory('assets/img', 'public/img')
   .copyDirectory('assets/json', 'public/json')
   .copyDirectory('assets/js/tinymce', 'public/js/tinymce')
   .copyDirectory('assets/js/gutenberg', 'public/js/gutenberg')
   .copyDirectory('assets/js/plugins', 'public/js/plugins')
+  .copyDirectory('assets/js/paddle', 'public/js/paddle')
   .webpackConfig({
     entry: {
       app: ['idempotent-babel-polyfill', './assets/js/backend/amelia-booking.js', './assets/js/frontend/amelia-booking.js']

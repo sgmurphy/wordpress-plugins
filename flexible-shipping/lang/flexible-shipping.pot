@@ -1,15 +1,15 @@
-# Copyright (C) 2023 Octolize
+# Copyright (C) 2024 Octolize
 # This file is distributed under the same license as the Flexible Shipping plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Flexible Shipping 4.24.6\n"
+"Project-Id-Version: Flexible Shipping 4.24.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flexible-shipping\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-21T14:27:46+00:00\n"
+"POT-Creation-Date: 2024-01-04T12:19:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: flexible-shipping\n"
@@ -1728,7 +1728,7 @@ msgstr ""
 msgid "Track shipment: "
 msgstr ""
 
-#: vendor_prefixed/octolize/octolize-checkout-block-integration/src/Blocks/StoreEndpoint.php:35
+#: vendor_prefixed/octolize/octolize-checkout-block-integration/src/Blocks/StoreEndpoint.php:57
 msgid "Field"
 msgstr ""
 

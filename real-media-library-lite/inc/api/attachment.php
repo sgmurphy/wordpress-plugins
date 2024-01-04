@@ -90,7 +90,7 @@ if (!\function_exists('wp_attachment_order_update')) {
      *
      * @param int $folderId The folder id where the attachment exists
      * @param int $attachmentId The attachment which should be moved
-     * @param int $nextId The attachment next to the currentId, if it is false the currentId should be moved to the end of table.
+     * @param int|false $nextId The attachment next to the currentId, if it is false the currentId should be moved to the end of table.
      * @param int $lastIdInView If you have pagination, you can pass the last id from this view
      * @return boolean True or array with error strings
      * @internal

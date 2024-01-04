@@ -1580,7 +1580,6 @@ const ImportAiSite = ( { onClickNext } ) => {
 					'astra-sites'
 				),
 			} );
-			await checkRequiredPlugins( storedState );
 			setIsReadyForImport( true );
 		}
 	};
@@ -1608,7 +1607,6 @@ const ImportAiSite = ( { onClickNext } ) => {
 			} );
 		}
 		sendReportFlag = false;
-		installRequiredPlugins();
 	};
 
 	/**
@@ -1638,6 +1636,12 @@ const ImportAiSite = ( { onClickNext } ) => {
 			importPart1();
 		}
 	}, [ requiredPluginsDone, themeStatus ] );
+
+	useEffect( () => {
+		if ( themeStatus ) {
+			installRequiredPlugins();
+		}
+	}, [ themeStatus ] );
 
 	/**
 	 * Start Part 2 of the import once the XML is imported sucessfully.

@@ -241,7 +241,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 /**
  * Outputs the footer for the login page.
  *
- * @since 3.1.0
+ * @since 3.0.5
  *
  * @global bool|string $interim_login Whether interim login modal is being displayed. String 'success'
  * upon successful login.
@@ -373,7 +373,7 @@ function login_footer( $input_id = '' ) {
 	/**
 	 * Fires in the login page footer.
 	 *
-	 * @since 3.1.0
+	 * @since 3.0.5
 	 */
 	do_action( 'login_footer' );
 

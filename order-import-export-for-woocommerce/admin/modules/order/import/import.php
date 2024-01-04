@@ -1323,6 +1323,10 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                         $tax_data = $value;
                         break;
                     default :
+                        $pair = str_replace('meta:', '', $pair);
+                        $split = strpos($pair, ':');
+                        $name = substr($pair, 0, $split);
+                        $value = substr($pair, $split + 1);
                         $item_meta[$name] = $value;
                 }
 

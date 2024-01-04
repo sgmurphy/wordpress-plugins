@@ -156,12 +156,12 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 				'description' => sprintf( __( 'This option lets you limit the %1$s gateway to which countries you are willing to sell to.', 'checkout-plugins-stripe-woo' ), $method_title ),
 				'options'     => array(
 					'all'        => __( 'Sell to all countries', 'checkout-plugins-stripe-woo' ),
-					'all_except' => __( 'Sell to all countries, except for&hellip;', 'checkout-plugins-stripe-woo' ),
-					'specific'   => __( 'Sell to specific countries', 'checkout-plugins-stripe-woo' ),
+					'all_except' => __( 'Selling in all countries, except for&hellip;', 'checkout-plugins-stripe-woo' ),
+					'specific'   => __( 'Sell in specific countries', 'checkout-plugins-stripe-woo' ),
 				),
 			],
 			'except_countries'   => [
-				'title'             => __( 'Sell to all countries, except for&hellip;', 'checkout-plugins-stripe-woo' ),
+				'title'             => __( 'Selling in all countries, except for&hellip;', 'checkout-plugins-stripe-woo' ),
 				'type'              => 'multi_select_countries',
 				'options'           => [],
 				'default'           => [],
@@ -173,7 +173,7 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 				},
 			],
 			'specific_countries' => [
-				'title'             => __( 'Sell to specific countries', 'checkout-plugins-stripe-woo' ),
+				'title'             => __( 'Sell in specific countries', 'checkout-plugins-stripe-woo' ),
 				'type'              => 'multi_select_countries',
 				'options'           => [],
 				'default'           => [],

@@ -132,14 +132,14 @@ $	 */
 				'statement_descriptor' => [
 					'title'       => __( 'Statement Descriptor', 'checkout-plugins-stripe-woo' ),
 					'type'        => 'text',
-					'description' => __( 'Statement descriptors are limited to 22 characters, cannot use the special characters >, <, ", \, *, /, (, ), {, }, and must not consist solely of numbers. This will appear on your customer\'s statement in capital letters.', 'checkout-plugins-stripe-woo' ),
+					'description' => __( 'Statement descriptors should be 22 characters or less. Avoid special characters  >, <, ", \, *, /, (, ), {, }, and and ensure your descriptor isn\'t solely numeric. This will appear on your customer\'s statement in capital letters.', 'checkout-plugins-stripe-woo' ),
 					'default'     => get_bloginfo( 'name' ),
 					'desc_tip'    => true,
 				],
 				'charge_type'          => [
 					'title'       => __( 'Charge Type', 'checkout-plugins-stripe-woo' ),
 					'type'        => 'select',
-					'description' => __( 'Select how to charge Order', 'checkout-plugins-stripe-woo' ),
+					'description' => __( 'Select how to charge your order', 'checkout-plugins-stripe-woo' ),
 					'default'     => 'automatic',
 					'options'     => [
 						'automatic' => __( 'Charge', 'checkout-plugins-stripe-woo' ),
@@ -148,7 +148,7 @@ $	 */
 					'desc_tip'    => true,
 				],
 				'enable_saved_cards'   => [
-					'label'       => __( 'Enable Payment via Saved Cards', 'checkout-plugins-stripe-woo' ),
+					'label'       => __( 'Enable Payments via Saved Cards', 'checkout-plugins-stripe-woo' ),
 					'title'       => __( 'Saved Cards', 'checkout-plugins-stripe-woo' ),
 					'type'        => 'checkbox',
 					'description' => __( 'Save card details for future orders', 'checkout-plugins-stripe-woo' ),
@@ -167,7 +167,7 @@ $	 */
 					'title'       => __( 'Allowed Cards', 'checkout-plugins-stripe-woo' ),
 					'type'        => 'multiselect',
 					'class'       => 'cpsw_select_woo',
-					'desc_tip'    => __( 'Accepts payments using selected cards. If empty all stripe cards are accepted.', 'checkout-plugins-stripe-woo' ),
+					'desc_tip'    => __( 'Accepts payments using selected cards. If empty, all stripe cards are accepted.', 'checkout-plugins-stripe-woo' ),
 					'options'     => [
 						'mastercard' => 'MasterCard',
 						'visa'       => 'Visa',
@@ -178,7 +178,7 @@ $	 */
 						'unionpay'   => 'UnionPay',
 					],
 					'default'     => [],
-					'description' => __( 'Select cards for accepts payments. If empty all stripe cards are accepted.', 'checkout-plugins-stripe-woo' ),
+					'description' => __( 'Select cards for accepting payments. If empty, all stripe cards are accepted.', 'checkout-plugins-stripe-woo' ),
 				],
 				'order_status'         => [
 					'type'        => 'select',
@@ -193,7 +193,7 @@ $	 */
 					'default'     => '',
 					'tool_tip'    => true,
 					/* translators: HTML tag */
-					'description' => sprintf( __( '%1$1sDefault%2$2s option is recommended. This option applies the WooCommerce\'s default status on order completion.%3$3sIf you want different order status on order completion, you can use any of the following %4$4sProcessing, On Hold, Completed%5$5s as the order status.', 'checkout-plugins-stripe-woo' ), '<strong>', '</strong>', '<br/>', '<strong>', '</strong>' ),
+					'description' => sprintf( __( '%1$1sDefault%2$2s option is recommended. This option applies the WooCommerce\'s default status upon order completion.%3$3sIf you want different order status on order completion, you can choose from - %4$4sProcessing, On Hold, Completed%5$5s as the order status.', 'checkout-plugins-stripe-woo' ), '<strong>', '</strong>', '<br/>', '<strong>', '</strong>' ),
 
 				],
 				'order_button_text'    => [

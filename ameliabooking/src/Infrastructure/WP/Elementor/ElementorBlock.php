@@ -9,12 +9,9 @@ namespace AmeliaBooking\Infrastructure\WP\Elementor;
 use Elementor\AmeliaBookingElementorWidget;
 use Elementor\AmeliaStepBookingElementorWidget;
 use Elementor\AmeliaCatalogBookingElementorWidget;
-use Elementor\AmeliaCustomerPanelElementorWidget;
 use Elementor\AmeliaCatalogElementorWidget;
-use Elementor\AmeliaEmployeePanelElementorWidget;
 use Elementor\AmeliaEventsElementorWidget;
 use Elementor\AmeliaEventsListBookingElementorWidget;
-use Elementor\AmeliaSearchElementorWidget;
 use Elementor\Plugin;
 
 /**
@@ -49,12 +46,9 @@ class ElementorBlock
         require_once(AMELIA_PATH . '/src/Infrastructure/WP/Elementor/AmeliaStepBookingElementorWidget.php');
         require_once(AMELIA_PATH . '/src/Infrastructure/WP/Elementor/AmeliaCatalogBookingElementorWidget.php');
         require_once(AMELIA_PATH . '/src/Infrastructure/WP/Elementor/AmeliaBookingElementorWidget.php');
-        require_once(AMELIA_PATH . '/src/Infrastructure/WP/Elementor/AmeliaSearchElementorWidget.php');
         require_once(AMELIA_PATH . '/src/Infrastructure/WP/Elementor/AmeliaCatalogElementorWidget.php');
         require_once(AMELIA_PATH . '/src/Infrastructure/WP/Elementor/AmeliaEventsElementorWidget.php');
         require_once(AMELIA_PATH . '/src/Infrastructure/WP/Elementor/AmeliaEventsListBookingElementorWidget.php');
-        require_once(AMELIA_PATH . '/src/Infrastructure/WP/Elementor/AmeliaCustomerPanelElementorWidget.php');
-        require_once(AMELIA_PATH . '/src/Infrastructure/WP/Elementor/AmeliaEmployeePanelElementorWidget.php');
     }
 
     public function register_widgets()
@@ -63,12 +57,9 @@ class ElementorBlock
         Plugin::instance()->widgets_manager->register(new AmeliaStepBookingElementorWidget());
         Plugin::instance()->widgets_manager->register(new AmeliaCatalogBookingElementorWidget());
         Plugin::instance()->widgets_manager->register(new AmeliaBookingElementorWidget());
-        Plugin::instance()->widgets_manager->register(new AmeliaSearchElementorWidget());
         Plugin::instance()->widgets_manager->register(new AmeliaCatalogElementorWidget());
         Plugin::instance()->widgets_manager->register(new AmeliaEventsElementorWidget());
         Plugin::instance()->widgets_manager->register(new AmeliaEventsListBookingElementorWidget());
-        Plugin::instance()->widgets_manager->register(new AmeliaCustomerPanelElementorWidget());
-        Plugin::instance()->widgets_manager->register(new AmeliaEmployeePanelElementorWidget());
     }
 
     public function widget_styles()

@@ -75,10 +75,6 @@ export default {
     isPlaceholderInLicence (codeValue) {
       let unavailablePlaceholders = []
 
-      if (this.$root.licence.isLite || this.$root.licence.isStarter || this.$root.licence.isBasicthis.$root.licence.isPro) {
-
-      }
-
       if (this.$root.licence.isLite || this.$root.licence.isStarter || this.$root.licence.isBasic) {
         unavailablePlaceholders = unavailablePlaceholders.concat(
           [
