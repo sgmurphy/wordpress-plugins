@@ -696,7 +696,6 @@
   //
   $.fn.wpcf_field_slider = function () {
     return this.each(function () {
-
       var $this = $(this),
         $input = $this.find('input'),
         $slider = $this.find('.wpcf-slider-ui'),
@@ -1206,6 +1205,47 @@
 
       base.init();
 
+    });
+  };
+
+  //
+  // Field: tabbed
+  //
+  $.fn.wpcf_field_tabbed = function () {
+    return this.each(function () {
+      var $this = $(this),
+        $links = $this.find('.wpcf-tabbed-nav a'),
+        $sections = $this.find('.wpcf-tabbed-section');
+      $links.on('click', function (e) {
+        e.preventDefault();
+        var $link = $(this),
+          index = $link.index(),
+          $section = $sections.eq(index);
+
+        // Store the active tab index in a cookie
+        SP_WPCF.helper.set_cookie('activeTabIndex', index);
+
+        $link.addClass('wpcf-tabbed-active').siblings().removeClass('wpcf-tabbed-active');
+        $section.wpcf_reload_script();
+        $section.removeClass('hidden').siblings().addClass('hidden');
+      });
+      // Check if there's a stored active tab index in the cookie
+      var activeTabIndex = SP_WPCF.helper.get_cookie('activeTabIndex');
+      // Check if the cookie exists
+      if (activeTabIndex !== null) {
+        $links.eq(activeTabIndex).trigger('click');
+      } else {
+        $links.first().trigger('click');
+      }
+    });
+  };
+
+  //
+  // Field: fieldset
+  //
+  $.fn.wpcf_field_fieldset = function () {
+    return this.each(function () {
+      $(this).find('.wpcf-fieldset-content').wpcf_reload_script();
     });
   };
 
@@ -2047,32 +2087,47 @@
 
       var $this = $(this),
         $tooltip,
-        offset_left;
+        offset_left,
+        $class = '';
 
       $this.on({
         mouseenter: function () {
+          // this class add with the support tooltip.
+          if ($this.find('.wpcf-support').length > 0) {
+            $class = 'support-tooltip';
+          }
 
-          $tooltip = $('<div class="wpcf-tooltip"></div>').html($this.find('.wpcf-help-text').html()).appendTo('body');
-          //offset_left = (SP_WPCF.vars.is_rtl) ? ($this.offset().left + 24) : ($this.offset().left - $tooltip.outerWidth());
+          var help_text = $this.find('.wpcf-help-text').html();
+          if ($('.wpcf-tooltip').length > 0) {
+            $tooltip = $('.wpcf-tooltip').html(help_text);
+          } else {
+            $tooltip = $('<div class="wpcf-tooltip ' + $class + '"></div>').html(help_text).appendTo('body');
+          }
 
           offset_left = SP_WPCF.vars.is_rtl
-            ? $this.offset().left + 24
-            : $this.offset().left + 24
+            ? $this.offset().left + 36
+            : $this.offset().left + 36
 
           $tooltip.css({
             top: $this.offset().top - (($tooltip.outerHeight() / 2) - 14),
             left: offset_left,
+            textAlign: 'left',
           });
 
         },
         mouseleave: function () {
-
-          if ($tooltip !== undefined) {
+          if (!$tooltip.is(':hover')) {
             $tooltip.remove();
           }
 
         }
 
+      });
+      // Event delegation to handle tooltip removal when the cursor leaves the tooltip itself.
+      $('body').on('mouseleave', '.wpcf-tooltip', function () {
+        if ($tooltip !== undefined) {
+          $tooltip.remove();
+        }
       });
 
     });
@@ -2206,6 +2261,10 @@
         $this.children('.wpcf-field-spinner').wpcf_field_spinner();
         $this.children('.wpcf-field-switcher').wpcf_field_switcher();
         $this.children('.wpcf-field-typography').wpcf_field_typography();
+        $this.children('.wpcf-field-tabbed').wpcf_field_tabbed();
+        $this.children('.wpcf-field-fieldset').wpcf_field_fieldset();
+        $this.children('.wpcf-field-fieldset_tx').wpcf_field_fieldset();
+        $this.children('.wpcf-field-fieldset_cpt').wpcf_field_fieldset();
 
         // Field colors
         $this.children('.wpcf-field-border').find('.wpcf-color').wpcf_color();
@@ -2453,6 +2512,21 @@
         $(".wpcf-nav-metabox li:nth-child(5)").show();
       }
     });
+
+    // hide Lightbox Settings when Click Action Type = 'none'.
+    if ($('.wpcp_logo_link_show_class input[name="sp_wpcp_shortcode_options[wpcp_logo_link_show]"]:checked').val() == 'none') {
+      $(".wpcf-nav-metabox li:nth-child(4)").hide();
+    } else {
+      $(".wpcf-nav-metabox li:nth-child(4)").show();
+    }
+    $('.wpcf-field-image_select.wpcp_logo_link_show_class').on('change', function () {
+      if ($('.wpcp_logo_link_show_class input[name="sp_wpcp_shortcode_options[wpcp_logo_link_show]"]:checked').val() == 'none') {
+        $(".wpcf-nav-metabox li:nth-child(4)").hide();
+      } else {
+        $(".wpcf-nav-metabox li:nth-child(4)").show();
+      }
+    });
+
   });
   $(document).on('keyup change', '.sp_wp_carousel_page_wpcp_settings #wpcf-form', function (e) {
     e.preventDefault();
@@ -2535,4 +2609,40 @@
     })
   });
 
+  /* Carousel Navigation - Select Position Preview */
+	function navigationPositionPreview(selector, regex) {
+		var str = "";
+		$(selector + ' option:selected').each(function () {
+			str = $(this).val();
+		});
+		var src = $(selector + ' .wpcf-fieldset img').attr('src');
+		var result = src.match(regex);
+		if (result && result[1]) {
+			src = src.replace(result[1], str);
+			$(selector + ' .wpcf-fieldset img').attr('src', src);
+		}
+	}
+	$('.wpcp-carousel-nav-position').on('change', function () {
+		navigationPositionPreview(".wpcp-carousel-nav-position", /carousel-navigation\/(.+)\.svg/);
+	});
+
+	// Disable and style the switcher element
+	$('.wpcf_show_hide .wpcf--switcher').attr('disabled', 'disabled').addClass('wp_carousel_only_pro_switcher').css({ 'background': '#B0BCC4' });
+
+	// Apply common styling to elements with the 'wp_carousel_only_pro_switcher' class
+	$('.wp_carousel_only_pro_switcher').css({ 'pointer-events': 'none', 'color': '#8796A1', 'position': 'relative' });
+
+	$(document).on("change", ".wpcp_logo_link_show_class", function (event) {
+		event.stopPropagation();
+		var select_value = $(this)
+			.find("input:checked")
+			.val();  
+
+		if (select_value == "l_box" || select_value == "image-carousel" ) {
+			$(".sp_wpcp-metabox .sp_wpcp-nav.sp_wpcp-nav-metabox li:nth-child(4) a").show();
+		} else {
+			$(".sp_wpcp-metabox .sp_wpcp-nav.sp_wpcp-nav-metabox li:nth-child(4) a").hide();
+			$(".sp_wpcp-metabox .sp_wpcp-nav.sp_wpcp-nav-metabox li:nth-child(1) a").trigger('click');
+		}
+	});
 })(jQuery, window, document);

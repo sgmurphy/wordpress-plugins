@@ -514,7 +514,9 @@ html[dir="rtl"] .wpcp-single-item {
 .wpcp-carousel-section .wpcp-slide-image {
 	line-height: 0;
 	text-align: center;
+	overflow: hidden;
 }
+
 .wpcp-carousel-section i.fa {
 	font-style: normal;
 }
@@ -591,4 +593,15 @@ body.admin-bar .wpcf-fancybox-wrapper.fancybox-container .fancybox-toolbar {
 /* Elementor Pro v3.14.1 conflict */
 .elementor-default .wpcp-carousel-wrapper .swiper-container:not(.swiper-container-initialized) .swiper-wrapper {
     overflow: initial;
+}
+
+/* transition CSS for carousel image */
+.wpcp-carousel-wrapper .wpcp-carousel-section.wpcp-image-carousel .wpcp-single-item img,
+.wpcp-carousel-wrapper .wpcp-carousel-section.wpcp-post-carousel .wpcp-single-item img,
+.wpcp-carousel-wrapper .wpcp-carousel-section.wpcp-product-carousel .wpcp-single-item img {
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
 }

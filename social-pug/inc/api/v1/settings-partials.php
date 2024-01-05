@@ -394,6 +394,10 @@ function get_settings_partials() {
 			'type'        => 'string',
 			'description' => esc_html__( 'Medium Username', 'mediavine' ),
 		],
+		'flipboard_username'                  => [
+			'type'        => 'string',
+			'description' => esc_html__( 'Flipboard Username', 'mediavine' ),
+		],
 	];
 }
 

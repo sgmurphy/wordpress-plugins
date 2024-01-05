@@ -25,8 +25,18 @@ function dpsp_cron_schedules( $schedules ) {
  * @return void
  */
 function dpsp_set_cron_jobs() {
-	if ( false === wp_get_schedule( 'dpsp_cron_update_serial_key_status' ) ) {
-		wp_schedule_event( time(), 'daily', 'dpsp_cron_update_serial_key_status' );
+	// Commented out the update_serial_key check 
+	// Since it wasn't doing anything
+	// Will remove in a future update.
+	// if ( false === wp_get_schedule( 'dpsp_cron_update_serial_key_status' ) ) {
+	// 	wp_schedule_event( time(), 'daily', 'dpsp_cron_update_serial_key_status' );
+	// }
+	if ( \Social_Pug::is_free() ) :
+		return;
+	endif;
+	
+	if ( false === wp_get_schedule( 'dpsp_cron_check_serial_key_status' ) ) {
+		wp_schedule_event( time(), 'weekly', 'dpsp_cron_check_serial_key_status' );
 	}
 }
 
@@ -45,12 +55,23 @@ function dpsp_stop_cron_jobs() {
 }
 
 /**
- * Checks the status of the users serial key and updates the returned value
+ * Updates the status of the users serial key and updates the returned value
+ * This doesn't really work, because it relies on the settings being updated. Unsure why this is still here.
+ * // TODO: Possibly remove
  *
  * @return void
  */
 function dpsp_cron_update_serial_key_status() {
 	dpsp_update_serial_key_status();
+}
+
+/**
+ * Checks the status of the users serial key and updates the returned value
+ *
+ * @return void
+ */
+function dpsp_cron_check_serial_key_status() {
+	dpsp_check_serial_key_status();
 }
 
 /**
@@ -77,5 +98,6 @@ function dpsp_register_functions_cron() {
 	// Not sure what this sniff is going on about: Detected changing of cron_schedules, but could not detect the interval value.
 	add_filter( 'cron_schedules', 'dpsp_cron_schedules' ); // @codingStandardsIgnoreLine — WordPress.VIP.CronInterval.ChangeDetected
 	add_action( 'dpsp_cron_update_serial_key_status', 'dpsp_cron_update_serial_key_status' );
+	add_action( 'dpsp_cron_check_serial_key_status', 'dpsp_cron_check_serial_key_status' );
 	add_action( 'dpsp_update_database', 'dpsp_cron_disable_old_crons', 10, 2 );
 }

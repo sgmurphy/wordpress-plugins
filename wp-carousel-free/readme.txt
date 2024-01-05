@@ -2,8 +2,8 @@
 Contributors: shapedplugin, khalilu, shamimmiashuhagh, rubel_miah
 Tags: wordpress carousel, best carousel plugin, image carousel, image slider, post carousel, custom post carousel, custom taxonomy carousel, woocommerce product carousel, content carousel, video carousel, video slider, video lightbox, youtube carousel, video gallery, carousel, slider, responsive slider, responsive carousel, carousel slider, ticker carousel, center mode carousel, slide anything, image gallery, image lightbox, wordpress image gallery, photo gallery, gallery slider, wordpress gallery plugin, gallery, post slider, vimeo slider, self hosted video carousel, content slider, wordpress slider, featured content slider, html slider, horizontal carousel slider, posts content slider, product carousel, woocommerce slider, woocommerce product slider
 Requires at least: 5.0
-Tested up to: 6.4.1
-Stable tag: 2.5.10
+Tested up to: 6.4.2
+Stable tag: 2.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -235,7 +235,7 @@ clicking "Install Now" and then "Activate".
 
 **Uploading in WordPress Dashboard**
 
-* Download wp-carousel-free.zip
+* Download [wp-carousel-free.zip](https://downloads.wordpress.org/plugin/wp-carousel-free.zip)
 * Navigate to the ‘Add New’ in the plugins dashboard
 * Navigate to the ‘Upload’ area
 * Select wp-carousel-free.zip from your computer
@@ -244,12 +244,12 @@ clicking "Install Now" and then "Activate".
 
 **Using FTP**
 
-* Download wp-carousel-free.zip
+* Download [wp-carousel-free.zip](https://downloads.wordpress.org/plugin/wp-carousel-free.zip)
 * Extract the wp-carousel-free directory to your computer
 * Upload the wp-carousel-free directory to the /wp-content/plugins/ directory
 * Activate the plugin in the Plugin dashboard
 
-The WordPress codex contains <a href="https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation">instructions</a> on how to install a WordPress plugin.
+The WordPress codex contains <a href="https://wordpress.org/documentation/article/manage-plugins/#installing-plugins-1">instructions</a> on how to install a WordPress plugin.
 
 
 == Frequently Asked Questions ==
@@ -325,6 +325,17 @@ Thank you!
 
 
 == Changelog ==
+
+= 2.6.0 – Jan 05, 2024 =
+* New: The Zoom In, Zoom Out feature
+* Improved: The Tool Tip/Help text of the plugin options to make it more user-friendly.
+* Improved: The Margin Bottom of the Section Title option has moved to the Typography Section.
+* Improved: SVG icons have been optimized. 
+* Improved: The Carousel options were reorganized by the Nested Tab system.
+* Improved: The Carousel Navigation and Pagination's Hide in mobile option have been separated.
+* Improved: Set the default image size to medium size.
+* Improved: The Lightbox options were reorganized by the Nested Tab system.
+* Fixed: The issue that the navigation right does not show in mobile view.
 
 = 2.5.10 – Nov 09, 2023 =
 * New: To add anything before and after the rating star, two hooks, 'wpcp_before_product_rating_woocommerce,' and 'wpcp_after_product_rating_woocommerce.'

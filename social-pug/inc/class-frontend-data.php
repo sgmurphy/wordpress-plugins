@@ -2,6 +2,7 @@
 namespace Mediavine\Grow;
 
 use Mediavine\Grow\Tools\Toolkit;
+use Mediavine\Grow\Settings;
 use Social_Pug;
 use Mediavine\Grow\Share_Counts;
 use WP_Post;
@@ -49,6 +50,7 @@ class Frontend_Data extends Asset_Loader {
 		add_filter( 'mv_grow_frontend_admin_data', [ $this, 'get_admin_svg' ] );
 		add_filter( 'mv_grow_frontend_admin_data', [ $this, 'get_admin_is_free' ] );
 		add_filter( 'mv_grow_frontend_admin_data', [ $this, 'get_admin_api_data' ] );
+		add_filter( 'mv_grow_frontend_admin_data', [ $this, 'get_twitter_4ever' ] );
 		add_filter( 'mv_grow_frontend_admin_data', [ $this, 'get_admin_is_development' ] );
 	}
 
@@ -163,6 +165,20 @@ class Frontend_Data extends Asset_Loader {
 	public function get_admin_svg( $admin_data = [] ) {
 		$networks               = Networks::get_instance();
 		$admin_data['iconData'] = dpsp_get_svg_data_for_networks( $networks->get_all() );
+		return $admin_data;
+	}
+
+	/**
+	 * Output Twitter 4ever preference (whether or not they'd prefer the Twitter branding over X brand)
+	 *
+	 * @param $admin_data array Existing data that will be output to frontend
+	 * @return array
+	 */
+	public function get_twitter_4ever( $admin_data = [] ) {
+		$settings = get_option('dpsp_settings');
+		if ( ! empty( $settings['twitter_4ever'] ) ) :
+			$admin_data['twitter_4ever'] = $settings['twitter_4ever'];
+		endif;
 		return $admin_data;
 	}
 

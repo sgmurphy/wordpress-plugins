@@ -590,6 +590,9 @@ ai_adb_detection_type = function (n) {
       case 14:
         return "14 quantserve.com";
         break;
+      case 15:
+        return "15 ezodn.com";
+        break;
       default:
         return n;
         break;
@@ -1243,6 +1246,15 @@ window.addEventListener ('load', (event) => {
         ai_adb_undetected (14);
       } else {
           if (!ai_adb_active || ai_debugging_active) ai_adb_detected (14);
+        }
+    }
+
+    var element = document.querySelector (b64d ("I2FpLWFkYi1leg=="));
+    if (element != null) {
+      if (!!(element.clientWidth * element.clientHeight)) {
+        ai_adb_undetected (15);
+      } else {
+          if (!ai_adb_active || ai_debugging_active) ai_adb_detected (15);
         }
     }
   }

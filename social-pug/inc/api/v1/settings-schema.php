@@ -105,6 +105,7 @@ function get_general_settings() : array {
 			'github_username',
 			'telegram_username',
 			'medium_username',
+			'flipboard_username',
 		] );
 }
 

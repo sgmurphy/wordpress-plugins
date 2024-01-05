@@ -137,6 +137,7 @@ function put_general_settings() {
 			'github_username',
 			'telegram_username',
 			'medium_username',
+			'flipboard_username',
 		]
 	);
 }

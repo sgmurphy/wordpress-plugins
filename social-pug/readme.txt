@@ -107,7 +107,13 @@ You can place both the inline social share buttons and the floating sidebar soci
 == Changelog ==
 This changelog is for Hubbub Lite. Here is [the changelog for Hubbub Pro](https://morehubbub.com/changelog).
 
-= 1.31.0 =
+= 1.32.0 =
+* January 4, 2024
+* New: Twitter renamed to X and added X branding.  (Want to keep the old-school Twitter Icons? [Upgrade to Hubbub Pro](https://morehubbub.com/)!)
+* Fix: Fixed a potential XSS vulnerability as first reported to WPScan.
+* New: Hubbub version information now included in a meta tag to help with customer support.
+
+= 1.31.1 =
 * December 20, 2023
 * New: Hello Hubbub Lite blue! Hubbub Lite now has its own distinct style, to help distinguish it from Hubbub Pro.
 * Fix: Sharing by email now puts the page's title as the Subject line and the page's URL as the body of the message.

@@ -2,11 +2,11 @@
 
 Contributors: adinserter, spacetime
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LHGZEMRTR7WB4
-Tags: ads, adsense, ad rotation, ad manager, amp, amazon, ad blocking detection, header code, banners, in-feed ads, sticky fixed widgets, hooks
+Tags: ads, adsense, amp, ad rotation, ad manager, ad blocking detection, header code, footer code, banners, sticky fixed widgets, hooks
 Requires at least: 4.9
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 2.7.32
+Stable tag: 2.7.33
 License: GPLv3
 
 Manage Google AdSense, Media.net, Amazon banners, ads.txt, ad rotation, sticky widgets, AMP ads, DFP, tracking, AdSense header and footer code
@@ -66,6 +66,7 @@ It's all about the [settings](https://adinserter.pro/documentation).
 *   Insert raw HTTP response header lines
 *   Insert Google Analytics, Matomo (Piwik) or any other tracking code
 *   Insert images, HTML, CSS, Javascript or PHP code
+*   Insert into Ajax, RSS and REST requests
 *   Code generator for banners and placeholders
 *   AdSense code generator
 *   Support to detect, hide or replace blank AdSense blocks
@@ -361,6 +362,12 @@ If you are not happy to reveal this information and you have opted in, simply di
 
 == Changelog ==
 
+= 2.7.33 =
+- Changed widget class name
+- Added option to define maximum number of list selection items
+- Fix for Amazon external script causing false ad blocking detection
+- Few minor bug fixes, cosmetic changes and code improvements
+
 = 2.7.32 =
 - Added experimental support for REST requests
 - Added support for data shortcode for url parameters
@@ -554,6 +561,12 @@ If you are not happy to reveal this information and you have opted in, simply di
 For the changelog of earlier versions, please refer to the separate changelog.txt file.
 
 == Upgrade Notice ==
+
+= 2.7.33 =
+Changed widget class name;
+Added option to define maximum number of list selection items;
+Fix for Amazon external script causing false ad blocking detection;
+Few minor bug fixes, cosmetic changes and code improvements
 
 = 2.7.32 =
 Added experimental support for REST requests;

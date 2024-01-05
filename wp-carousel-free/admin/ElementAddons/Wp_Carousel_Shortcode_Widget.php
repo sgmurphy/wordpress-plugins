@@ -38,7 +38,7 @@ class Wp_Carousel_Shortcode_Widget extends \Elementor\Widget_Base {
 	 * @return string Widget icon.
 	 */
 	public function get_icon() {
-		return 'wpc-icon-block';
+		return 'icon-wpc-block';
 	}
 
 	/**

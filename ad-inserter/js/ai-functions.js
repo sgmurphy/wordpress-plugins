@@ -9678,6 +9678,8 @@ function ai_scroll_update () {
   }
 }
 
+setTimeout (function() {ai_scroll_update ();}, 100);
+
 if (typeof ai_process_sticky_elements_on_ready != 'undefined') {
 
 if (typeof ai_sticky_delay != 'number') {

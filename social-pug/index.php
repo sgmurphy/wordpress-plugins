@@ -3,7 +3,7 @@
  * Plugin Name:         Hubbub Lite (formerly Grow Social)
  * Plugin URI:          https://morehubbub.com/
  * Description:         Add beautiful social sharing buttons to your posts, pages and custom post types.
- * Version:             1.31.1
+ * Version:             1.32.0
 
  * Requires at least:   5.3
  * Requires PHP:        7.1

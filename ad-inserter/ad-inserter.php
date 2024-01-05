@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Ad Inserter
-Version: 2.7.32
+Version: 2.7.33
 Description: Ad management with many advanced advertising features to insert ads at optimal positions
 Author: Igor Funa
 Author URI: http://igorfuna.com/
@@ -17,8 +17,11 @@ Requires PHP: 7.2
 
 Change Log
 
-Ad Inserter 2.7.33 - 2023-10-30
+Ad Inserter 2.7.33 - 2024-01-03
 - Changed widget class name
+- Added option to define maximum number of list selection items
+- Fix for Amazon external script causing false ad blocking detection
+- Few minor bug fixes, cosmetic changes and code improvements
 
 Ad Inserter 2.7.32 - 2023-10-29
 - Added experimental support for REST requests
@@ -331,11 +334,11 @@ Ad Inserter 2.6.9 - 2020-05-22
 
 */
 
+use Detection\MobileDetect;
 
 if (!defined ('ABSPATH')) exit;
 
 if (!defined ('AD_INSERTER_VERSION')) {
-
 
 function ai_wp_default_editor () {
   return 'tinymce';
@@ -415,8 +418,15 @@ function ai_toolbar_menu_items () {
   $debug_settings_class = $debug_settings_on ? ' on' : '';
   if ($insertion_disabled) $debug_settings_class .= ' red';
 
-  $top_menu_url = $debug_settings_on ? (defined ('AI_DEBUGGING_DEMO') ? get_permalink () : add_query_arg (AI_URL_DEBUG, '0', remove_debug_parameters_from_url ())) :
-                                       add_query_arg (array (AI_URL_DEBUG_BLOCKS => '1', AI_URL_DEBUG_POSITIONS => '0'), remove_debug_parameters_from_url ());
+//  $settings_page = get_menu_position () == AI_SETTINGS_SUBMENU ? 'options-general.php?page=ad-inserter.php' : 'admin.php?page=ad-inserter.php';
+//  $settings_link = '<a href="'.admin_url ($settings_page).'">'._x('Settings', 'Menu item', 'ad-inserter') . '</a>';
+
+  if (defined ('AI_DEBUGGING_DEMO')) {
+    $top_menu_url = $debug_settings_on ? get_permalink () :
+                                         add_query_arg (array (AI_URL_DEBUG_BLOCKS => '1', AI_URL_DEBUG_POSITIONS => '0'), remove_debug_parameters_from_url ());
+  } else {
+      $top_menu_url = admin_url (get_menu_position () == AI_SETTINGS_SUBMENU ? 'options-general.php?page=ad-inserter.php' : 'admin.php?page=ad-inserter.php');
+    }
 
   $ai_wp_data [AI_DEBUG_MENU_ITEMS][] = array (
     'id' => 'ai-toolbar',
@@ -437,6 +447,15 @@ function ai_toolbar_menu_items () {
       'id' => 'ai-toolbar-status',
       'parent' => 'ai-toolbar-settings',
       'title' => '&nbsp;'.$statuses,
+    );
+  }
+
+  if ($debug_settings_on) {
+    $ai_wp_data [AI_DEBUG_MENU_ITEMS][] = array (
+      'id' => 'ai-toolbar-off',
+      'parent' => 'ai-toolbar-settings',
+      'title' => '<span class="ab-icon"></span>' . _x('Disable Debugging', 'Menu item, to disable debugging', 'ad-inserter'),
+      'href' => add_query_arg (AI_URL_DEBUG, '0', remove_debug_parameters_from_url ()),
     );
   }
 
@@ -2392,6 +2411,9 @@ function ai_get_admin_toolbar_debugging_styles () {
 ul li#wp-admin-bar-ai-toolbar-status {
   margin: 0 0 5px 0;
 }
+#wp-admin-bar-ai-toolbar-off .ab-icon:before {
+  content: '\\f153';
+}
 #wp-admin-bar-ai-toolbar-blocks .ab-icon:before {
   content: '\\f135';
 }
@@ -2510,6 +2532,8 @@ function add_head_inline_styles () {
       echo ".ai-parallax-background {position: absolute; width: 100%; height: 100%; background-attachment: fixed; background-position: center; background-repeat: no-repeat;}\n";
       // CSS specific to iOS devices
       echo "@supports (-webkit-touch-callout: none) {.ai-parallax-background {background-attachment: scroll; }}\n";
+//      echo "@media (max-width: 768px) {.ai-parallax-background {background-attachment: scroll; }}";
+//      echo "@supports (-webkit-overflow-scrolling: touch) {.ai-parallax-background {background-attachment: scroll; }}";
     }
 
     // Before alignment CSS to not override alignment margin
@@ -3026,8 +3050,11 @@ function ai_adb_external_scripts () {
   if (!defined ('AI_ADB_NO_MEDIA_NET')) {
     $code .= '<object id="ai-adb-mn" data="//contextual.media.net/dmedianet.js" style="position:absolute; z-index: -100; top: -1000px; left: -1000px; visibility: hidden;"></object>' . "\n";
   }
-  if (!defined ('AI_ADB_NO_AMAZON-ADSYSTEM')) {
-    $code .= '<object id="ai-adb-am" data="https://z-na.amazon-adsystem.com/widgets/onejs" style="position:absolute; z-index: -100; top: -1000px; left: -1000px; visibility: hidden;"></object>' . "\n";
+//  if (!defined ('AI_ADB_NO_AMAZON-ADSYSTEM')) {
+//    $code .= '<object id="ai-adb-am" data="https://z-na.amazon-adsystem.com/widgets/onejs" style="position:absolute; z-index: -100; top: -1000px; left: -1000px; visibility: hidden;"></object>' . "\n";
+//  }
+  if (!defined ('AI_ADB_NO_EZOIC_CMP')) {
+    $code .= '<object id="ai-adb-ez" data="https://g.ezodn.com/cmp/v2/v.js" style="position:absolute; z-index: -100; top: -1000px; left: -1000px; visibility: hidden;"></object>' . "\n";
   }
   if (!defined ('AI_ADB_NO_QUANT')) {
     $code .= '<object id="ai-adb-qu" data="https://secure.quantserve.com/quant.js" style="position:absolute; z-index: -100; top: -1000px; left: -1000px; visibility: hidden;"></object>' . "\n";
@@ -4704,6 +4731,7 @@ function ai_write_debug_info ($write_processing_log = false) {
   }
 
   echo 'PLUGIN PRIORITY:         ', get_plugin_priority (), "\n";
+  echo 'MAX LIST ITEMS:          ', get_max_list_items (), "\n";
   echo 'TAB SETUP DELAY:         ', get_tab_setup_delay (), "\n";
   echo 'ADMIN DISABLE CACHING:   ', get_disable_caching () ? 'ENABLED' : 'DISABLED', "\n";
   echo 'DON\'T USE jQuery CODE:   ', defined ('AI_NO_JQUERY') ? 'PHP CONSTANT' : (isset ($_GET [AI_URL_DEBUG_NO_JQUERY]) && !empty ($_GET [AI_URL_DEBUG_NO_JQUERY]) ? 'URL PARAMETER' : 'NOT SET'), "\n";
@@ -5282,8 +5310,12 @@ function ai_check_plugin_options ($plugin_options = array ()) {
   if (!isset ($plugin_options ['PLUGIN_PRIORITY']))               $plugin_options ['PLUGIN_PRIORITY']               = DEFAULT_PLUGIN_PRIORITY;
   $plugin_options ['PLUGIN_PRIORITY'] =                           ai_check_limits ($plugin_options ['PLUGIN_PRIORITY'], 0, 999999, DEFAULT_PLUGIN_PRIORITY);
 
+  if (!isset ($plugin_options ['MAX_LIST_ITEMS']))                $plugin_options ['MAX_LIST_ITEMS']                = DEFAULT_MAX_LIST_ITEMS;
+  $plugin_options ['MAX_LIST_ITEMS'] =                            ai_check_limits ($plugin_options ['MAX_LIST_ITEMS'], 100, 99999, DEFAULT_MAX_LIST_ITEMS);
+
   if (!isset ($plugin_options ['TAB_SETUP_DELAY']))               $plugin_options ['TAB_SETUP_DELAY']               = DEFAULT_TAB_SETUP_DELAY;
   $plugin_options ['TAB_SETUP_DELAY'] =                           ai_check_limits ($plugin_options ['TAB_SETUP_DELAY'], 0, 9999, DEFAULT_TAB_SETUP_DELAY);
+
 
   if (!isset ($plugin_options ['CLICK_FRAUD_PROTECTION']))        $plugin_options ['CLICK_FRAUD_PROTECTION']        = DEFAULT_CLICK_FRAUD_PROTECTION;
   if (!isset ($plugin_options ['CLICK_FRAUD_PROTECTION_TIME']))   $plugin_options ['CLICK_FRAUD_PROTECTION_TIME']   = DEFAULT_CLICK_FRAUD_PROTECTION_TIME;
@@ -5692,6 +5724,14 @@ function get_plugin_priority () {
   if (!isset ($ai_db_options [AI_OPTION_GLOBAL]['PLUGIN_PRIORITY'])) $ai_db_options [AI_OPTION_GLOBAL]['PLUGIN_PRIORITY'] = DEFAULT_PLUGIN_PRIORITY;
 
   return ($ai_db_options [AI_OPTION_GLOBAL]['PLUGIN_PRIORITY']);
+}
+
+function get_max_list_items () {
+  global $ai_db_options;
+
+  if (!isset ($ai_db_options [AI_OPTION_GLOBAL]['MAX_LIST_ITEMS'])) $ai_db_options [AI_OPTION_GLOBAL]['MAX_LIST_ITEMS'] = DEFAULT_MAX_LIST_ITEMS;
+
+  return ($ai_db_options [AI_OPTION_GLOBAL]['MAX_LIST_ITEMS']);
 }
 
 function get_tab_setup_delay () {
@@ -7974,6 +8014,7 @@ function ai_settings () {
         if (isset ($_POST ['cfp-block-ip-address']))                $options ['CFP_BLOCK_IP_ADDRESS']         = filter_option ('CFP_BLOCK_IP_ADDRESS',          $_POST ['cfp-block-ip-address']);
         if (isset ($_POST ['max-page-blocks']))                     $options ['MAX_PAGE_BLOCKS']              = filter_option ('MAX_PAGE_BLOCKS',               $_POST ['max-page-blocks']);
         if (isset ($_POST ['plugin_priority']))                     $options ['PLUGIN_PRIORITY']              = filter_option ('PLUGIN_PRIORITY',               $_POST ['plugin_priority']);
+        if (isset ($_POST ['max-list-items']))                      $options ['MAX_LIST_ITEMS']               = filter_option ('MAX_LIST_ITEMS',                $_POST ['max-list-items']);
         if (isset ($_POST ['tab-setup-delay']))                     $options ['TAB_SETUP_DELAY']              = filter_option ('TAB_SETUP_DELAY',               $_POST ['tab-setup-delay']);
         if (isset ($_POST ['dynamic_blocks']))                      $options ['DYNAMIC_BLOCKS']               = filter_option ('DYNAMIC_BLOCKS',                $_POST ['dynamic_blocks']);
         if (isset ($_POST ['paragraph_counting_functions']))        $options ['PARAGRAPH_COUNTING_FUNCTIONS'] = filter_option ('PARAGRAPH_COUNTING_FUNCTIONS',  $_POST ['paragraph_counting_functions']);
@@ -8816,6 +8857,10 @@ function ai_comment_end_callback ($comment, $args, $depth) {
   }
 
   if ($depth == 0) {
+
+    if (!isset ($ai_wp_data [AI_NUMBER_OF_COMMENTS])) {
+      $ai_wp_data [AI_NUMBER_OF_COMMENTS] = 0;
+    }
 
     if (isset ($ai_db_options_extract [AFTER_COMMENTS_HOOK_BLOCKS][$ai_wp_data [AI_WP_PAGE_TYPE]]) &&
         $ai_db_options_extract [AFTER_COMMENTS_HOOK_BLOCKS][$ai_wp_data [AI_WP_PAGE_TYPE]] != 0 &&
@@ -9985,6 +10030,9 @@ ul li.ai-debug-ai-toolbar-status {
   color: #aaa;
   margin: 0 0 10px 0;
 }
+.ai-debug-ai-toolbar-off .ab-icon:before {
+  content: '\\f153';
+}
 .ai-debug-ai-toolbar-blocks .ab-icon:before {
   content: '\\f135';
 }
@@ -10755,7 +10803,7 @@ function ai_get_category_list () {
     if (is_array ($data)) return $data;
   }
 
-  $args = array ("hide_empty" => 0, 'number' => AI_MAX_LIST_ITEMS);
+  $args = array ("hide_empty" => 0, 'number' => get_max_list_items ());
   return (get_categories ($args));
 }
 
@@ -10765,7 +10813,7 @@ function ai_get_tag_list () {
     if (is_array ($data)) return $data;
   }
 
-  $args = array ('number' => AI_MAX_LIST_ITEMS);
+  $args = array ('number' => get_max_list_items ());
   return (get_tags ($args));
 }
 
@@ -10777,13 +10825,14 @@ function ai_get_taxonomy_list ($limited = false) {
 
   $term_data = get_terms ();
   $taxonomies = array ();
+  $max_list_items = get_max_list_items ();
   foreach ($term_data as $term) {
     if ($term->taxonomy == 'category') continue;
     if ($term->taxonomy == 'post_tag') continue;
 
     $term_taxonomy = strtolower ($term->taxonomy);
     $taxonomies [$term_taxonomy . ':' . strtolower ($term->slug)] = $term->name;
-    if (count ($taxonomies) >= AI_MAX_LIST_ITEMS) break;
+    if (count ($taxonomies) > $max_list_items) break;
   }
 
   $args = array (
@@ -10806,10 +10855,11 @@ function ai_get_taxonomy_list ($limited = false) {
 
   if (!$limited) {
     $users = get_users ();
+    $max_list_items = get_max_list_items ();
     foreach ($users as $user) {
       $taxonomies ['user:'   . strtolower ($user->data->user_login)] = $user->data->display_name;
       $taxonomies ['author:' . strtolower ($user->data->user_login)] = $user->data->display_name;
-      if (count ($taxonomies) >= AI_MAX_LIST_ITEMS) break;
+      if (count ($taxonomies) > $max_list_items) break;
     }
   }
 
@@ -10831,36 +10881,41 @@ function ai_get_post_id_list () {
   $custom_post_types = get_post_types ($args, 'names', 'and');
   $screens = array_values (array_merge (array ('post', 'page'), $custom_post_types));
 
-  $args = array (
-    'posts_per_page'   => 3 * AI_MAX_LIST_ITEMS,
-    'offset'           => 0,
-    'category'         => '',
-    'category_name'    => '',
-    'orderby'          => 'ID',
-    'order'            => 'ASC',
-    'include'          => '',
-    'exclude'          => '',
-    'meta_key'         => '',
-    'meta_value'       => '',
-    'post_type'        => $screens,
-    'post_mime_type'   => '',
-    'post_parent'      => '',
-    'author'           => '',
-    'author_name'      => '',
-    'post_status'      => '',
-    'suppress_filters' => true,
-  );
-  $posts_pages = get_posts ($args);
-  $posts_pages = array_slice ($posts_pages, 0, AI_MAX_LIST_ITEMS);
+  $posts_pages = array ();
+  $offset = 0;
 
-  foreach ($posts_pages as $index => $post_page) {
-    foreach ($post_page as $key => $value) {
-      if ($key == 'ID' ||
-          $key == 'post_type' ||
-          $key == 'post_title') continue;
-      unset ($posts_pages [$index]->$key);
+  $max_list_items = get_max_list_items ();
+
+  do {
+    $args = array (
+      'posts_per_page'   => AI_MAX_WP_QUERY_ITEMS,
+      'offset'           => $offset,
+      'category'         => '',
+      'category_name'    => '',
+      'orderby'          => 'ID',
+      'order'            => 'ASC',
+      'include'          => '',
+      'exclude'          => '',
+      'meta_key'         => '',
+      'meta_value'       => '',
+      'post_type'        => $screens,
+      'post_mime_type'   => '',
+      'post_parent'      => '',
+      'author'           => '',
+      'author_name'      => '',
+      'post_status'      => '',
+      'suppress_filters' => true,
+    );
+    $temp_posts_pages = get_posts ($args);
+
+    foreach ($temp_posts_pages as $index => $post_page) {
+      $posts_pages [] =  (object) ['ID' => $post_page->ID, 'post_type' => $post_page->post_type, 'post_title' => $post_page->post_title];
     }
-  }
+
+    $offset += count ($temp_posts_pages);
+  } while (count ($temp_posts_pages) != 0 && count ($posts_pages) <= $max_list_items);
+
+  $posts_pages = array_slice ($posts_pages, 0, $max_list_items);
 
   return $posts_pages;
 }
@@ -12236,7 +12291,15 @@ if (get_dynamic_blocks () == AI_DYNAMIC_BLOCKS_SERVER_SIDE_W3TC) {
 if ($ai_wp_data [AI_SERVER_SIDE_DETECTION] && !is_admin ()) {
   require_once AD_INSERTER_PLUGIN_DIR.'includes/mobiledetect/Mobile_Detect.php';
 
+//  require_once AD_INSERTER_PLUGIN_DIR.'includes/mobiledetect/MobileDetect.php';
+//  require_once AD_INSERTER_PLUGIN_DIR.'includes/mobiledetect/Cache/CacheItem.php';
+//  require_once AD_INSERTER_PLUGIN_DIR.'includes/mobiledetect/Cache/Cache.php';
+//  require_once AD_INSERTER_PLUGIN_DIR.'includes/mobiledetect/Cache/CacheException.php';
+//  require_once AD_INSERTER_PLUGIN_DIR.'includes/mobiledetect/Exception/MobileDetectException.php';
+
   $detect = new ai_Mobile_Detect;
+
+//  $detect = new MobileDetect ();
 
   define ('AI_MOBILE',   $detect->isMobile ());
   define ('AI_TABLET',   $detect->isTablet ());

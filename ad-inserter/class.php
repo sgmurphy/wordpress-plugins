@@ -6936,10 +6936,14 @@ echo '</body>
 
         if (!isset ($paragraph_end_positions)) {
           $paragraph_end_positions = array ();
+          $dummy = array ();
           get_paragraph_end_positions ($content, $multibyte, $paragraph_positions, $paragraph_start_strings, $paragraph_end_positions, $dummy);
         }
 
         foreach ($paragraph_positions as $index => $paragraph_position) {
+
+          // check for undefined array key
+          if (!isset ($active_paragraph_positions [$index])) continue;
 
           if ($active_paragraph_positions [$index] == 0) continue;
 
@@ -6963,6 +6967,7 @@ echo '</body>
 
         if (!isset ($paragraph_end_positions)) {
           $paragraph_end_positions = array ();
+          $dummy = array ();
           get_paragraph_end_positions   ($content, $multibyte, $paragraph_positions, $paragraph_start_strings, $paragraph_end_positions, $dummy);
         }
 
@@ -7077,12 +7082,17 @@ echo '</body>
 //    if ($position_preview || $position_text == '') {        // Prepare always
       if (!isset ($paragraph_end_positions)) {
         $paragraph_end_positions = array ();
+        $dummy = array ();
         get_paragraph_end_positions ($content, $multibyte, $paragraph_positions, $paragraph_start_strings, $paragraph_end_positions, $dummy);
       }
 
       $filtered_paragraph_end_positions = array ();
       // Use $paragraph_positions for counting as it is checked for consistency
       foreach ($paragraph_positions as $index => $paragraph_position) {
+
+        // check for undefined array key
+        if (!isset ($active_paragraph_positions [$index])) continue;
+
         if ($active_paragraph_positions [$index]) $filtered_paragraph_end_positions [] = $paragraph_end_positions [$index];
       }
       $paragraph_end_positions = $filtered_paragraph_end_positions;
@@ -7095,6 +7105,10 @@ echo '</body>
 
     $filtered_paragraph_positions = array ();
     foreach ($paragraph_positions as $index => $paragraph_position) {
+
+      // check for undefined array key
+      if (!isset ($active_paragraph_positions [$index])) continue;
+
       if ($active_paragraph_positions [$index]) $filtered_paragraph_positions [] = $paragraph_position;
     }
     $paragraph_positions = $filtered_paragraph_positions;
@@ -7409,6 +7423,7 @@ echo '</body>
 
 //      if (!isset ($paragraph_end_positions)) {
 //        $paragraph_end_positions = array ();
+//        $dummy = array ();
 //        get_paragraph_end_positions ($content, $multibyte, $paragraph_positions, $paragraph_start_strings, $paragraph_end_positions, $dummy);
 //      }
 
@@ -7795,6 +7810,7 @@ echo '</body>
     $ai_last_check = AI_CHECK_PARAGRAPH_TAGS;
     if (count ($paragraph_end_strings) == 0) return $content;
 
+    $dummy = array ();
     get_paragraph_end_positions ($content, $multibyte, $dummy, $paragraph_end_strings, $paragraph_positions, $active_paragraph_positions);
 
     // Nothing to do
@@ -8002,10 +8018,14 @@ echo '</body>
 
         if (!isset ($paragraph_start_positions)) {
           $paragraph_start_positions = array ();
+          $dummy = array ();
           get_paragraph_start_positions ($content, $multibyte, $paragraph_positions, $paragraph_end_strings, $paragraph_start_positions, $dummy);
         }
 
         foreach ($paragraph_positions as $index => $paragraph_position) {
+
+          // check for undefined array key
+          if (!isset ($active_paragraph_positions [$index])) continue;
 
           if ($active_paragraph_positions [$index] == 0) continue;
 
@@ -8030,6 +8050,7 @@ echo '</body>
 
         if (!isset ($paragraph_start_positions)) {
           $paragraph_start_positions = array ();
+          $dummy = array ();
           get_paragraph_start_positions ($content, $multibyte, $paragraph_positions, $paragraph_end_strings, $paragraph_start_positions, $dummy);
         }
 
@@ -8143,12 +8164,17 @@ echo '</body>
 //    if ($position_preview || $position_text == '') {            // Prepare always
       if (!isset ($paragraph_start_positions)) {
         $paragraph_start_positions = array ();
+        $dummy = array ();
         get_paragraph_start_positions ($content, $multibyte, $paragraph_positions, $paragraph_end_strings, $paragraph_start_positions, $dummy);
       }
 
       $filtered_paragraph_positions = array ();
       // Use $paragraph_positions for counting as it is checked for consistency
       foreach ($paragraph_positions as $index => $paragraph_position) {
+
+        // check for undefined array key
+        if (!isset ($active_paragraph_positions [$index])) continue;
+
         if ($active_paragraph_positions [$index]) $filtered_paragraph_positions [] = $paragraph_start_positions [$index];
       }
       $paragraph_start_positions = $filtered_paragraph_positions;
@@ -8161,6 +8187,10 @@ echo '</body>
 
     $filtered_paragraph_positions = array ();
     foreach ($paragraph_positions as $index => $paragraph_position) {
+
+      // check for undefined array key
+      if (!isset ($active_paragraph_positions [$index])) continue;
+
       if ($active_paragraph_positions [$index]) $filtered_paragraph_positions [] = $paragraph_position;
     }
     $paragraph_positions = $filtered_paragraph_positions;
@@ -8478,6 +8508,7 @@ echo '</body>
       // Not needed anymore
 //      if (!isset ($paragraph_start_positions)) {
 //        $paragraph_start_positions = array ();
+//        $dummy = array ();
 //        get_paragraph_start_positions ($content, $multibyte, $paragraph_positions, $paragraph_end_strings, $paragraph_start_positions, $dummy);
 //      }
 
@@ -10836,7 +10867,7 @@ class ai_code_generator {
       $options = explode (AD_ROTATE_SEPARATOR, $code);
       $data ['options'] = array ();
       foreach ($options as $index => $option) {
-        $option_code = trim ($option, "\n");
+        $option_code = trim ($option, " \n");
 
         $rotation_groups = 0;
         if (isset ($rotate_parameters [$index - 1]['group']) && $rotate_parameters [$index - 1]['group'] != '') {

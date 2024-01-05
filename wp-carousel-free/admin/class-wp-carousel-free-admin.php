@@ -67,6 +67,8 @@ class WP_Carousel_Free_Admin {
 			wp_enqueue_style( 'font-awesome', WPCAROUSELF_URL . 'public/css/font-awesome.min.css', array(), $this->version, 'all' );
 		}
 		wp_enqueue_style( $this->plugin_name . 'admin', WPCAROUSELF_URL . 'admin/css/wp-carousel-free-admin' . $this->suffix . '.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'sp_wp_carousel_tabbed_icons', WPCAROUSELF_URL . 'admin/css/fontello.css', array(), $this->version, 'all' );
+
 		// Scripts.
 		wp_enqueue_script( $this->plugin_name . 'admin', WPCAROUSELF_URL . 'admin/js/wp-carousel-free-admin' . $this->suffix . '.js', array( 'jquery' ), $this->version, true );
 

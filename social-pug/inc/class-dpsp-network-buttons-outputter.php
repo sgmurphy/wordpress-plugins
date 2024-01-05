@@ -51,6 +51,7 @@ class DPSP_Network_Buttons_Outputter {
 		end( $data['settings']['networks'] );
 		$last_key = key( $data['settings']['networks'] );
 		$networks = Networks::get_instance();
+		
 		foreach ( $data['settings']['networks'] as $network_slug => $network_data ) {
 			// Check if we are at the last position to for the css class
 			if ( $last_key === $network_slug ) {
@@ -196,10 +197,10 @@ class DPSP_Network_Buttons_Outputter {
 		// Load pinterest and grow as a button when no href value is used
 		if ( ( 'pinterest' === $slug || 'grow' === $slug ) && 'share' === $data['action'] ) {
 			$button_data['tag']            = 'button';
-			$button_data['href_attribute'] = 'data-href="' . $network_share_link . '"';
+			$button_data['href_attribute'] = 'data-href="' . esc_url( $network_share_link ) . '"';
 		} else {
 			$button_data['tag']            = 'a';
-			$button_data['href_attribute'] = 'href="' . $network_share_link . '"';
+			$button_data['href_attribute'] = 'href="' . esc_url( $network_share_link ) . '"';
 		}
 
 		// Filter the "rel" attribute before adding it.

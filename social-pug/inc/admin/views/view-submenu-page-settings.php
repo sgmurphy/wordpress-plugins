@@ -19,8 +19,8 @@
 
 				<div class="dpsp-card-inner">
 
-					<?php dpsp_settings_field( 'text', 'dpsp_settings[twitter_username]', ( isset( $dpsp_settings['twitter_username'] ) ? $dpsp_settings['twitter_username'] : '' ), __( 'Twitter Username', 'social-pug' ), [ '' ] ); ?>
-					<?php dpsp_settings_field( 'switch', 'dpsp_settings[tweets_have_username]', ( isset( $dpsp_settings['tweets_have_username'] ) ? $dpsp_settings['tweets_have_username'] : '' ), __( 'Add Twitter Username to all tweets', 'social-pug' ), [ 'yes' ] ); ?>
+					<?php dpsp_settings_field( 'text', 'dpsp_settings[twitter_username]', ( isset( $dpsp_settings['twitter_username'] ) ? $dpsp_settings['twitter_username'] : '' ), __( 'X Username', 'social-pug' ), [ '' ] ); ?>
+					<?php dpsp_settings_field( 'switch', 'dpsp_settings[tweets_have_username]', ( isset( $dpsp_settings['tweets_have_username'] ) ? $dpsp_settings['tweets_have_username'] : '' ), __( 'Add X Username to all tweets', 'social-pug' ), [ 'yes' ] ); ?>
 
 				</div>
 

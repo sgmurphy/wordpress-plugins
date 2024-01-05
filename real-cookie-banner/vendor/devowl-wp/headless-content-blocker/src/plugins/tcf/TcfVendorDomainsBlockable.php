@@ -10,6 +10,10 @@ use DevOwl\RealCookieBanner\Vendor\DevOwl\HeadlessContentBlocker\HeadlessContent
  */
 class TcfVendorDomainsBlockable extends AbstractBlockable
 {
+    const SKIP_DOMAINS = [
+        // This modifies all available links, so skip it
+        '*',
+    ];
     private $vendorId;
     /**
      * C'tor.
@@ -24,7 +28,9 @@ class TcfVendorDomainsBlockable extends AbstractBlockable
         parent::__construct($headlessContentBlocker);
         $this->vendorId = $vendorId;
         foreach ($domains as $row) {
-            $this->appendFromStringArray([$row['domain']]);
+            if (!\in_array($row['domain'], self::SKIP_DOMAINS, \true)) {
+                $this->appendFromStringArray([$row['domain']]);
+            }
         }
     }
     // Documented in AbstractBlockable

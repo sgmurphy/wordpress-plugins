@@ -12,8 +12,14 @@ class Network_Icons {
 		],
 		'twitter'    => [
 			'paths'  => [ 'M28.928 7.296q-1.184 1.728-2.88 2.976 0 0.256 0 0.736 0 2.336-0.672 4.64t-2.048 4.448-3.296 3.744-4.608 2.624-5.792 0.96q-4.832 0-8.832-2.592 0.608 0.064 1.376 0.064 4.032 0 7.168-2.464-1.888-0.032-3.36-1.152t-2.048-2.848q0.608 0.096 1.088 0.096 0.768 0 1.536-0.192-2.016-0.416-3.328-1.984t-1.312-3.68v-0.064q1.216 0.672 2.624 0.736-1.184-0.8-1.888-2.048t-0.704-2.752q0-1.568 0.8-2.912 2.176 2.656 5.248 4.256t6.656 1.76q-0.16-0.672-0.16-1.312 0-2.4 1.696-4.064t4.064-1.696q2.528 0 4.224 1.824 1.952-0.384 3.68-1.408-0.672 2.048-2.56 3.2 1.664-0.192 3.328-0.896z' ],
-			'width'  => 30,
-			'height' => 32,
+			'width'  => 31,
+			'height' => 30,
+			'pro'    => false,
+		],
+		'x'   		 => [
+			'paths'  => [ 'M30.3 29.7L18.5 12.4l0 0L29.2 0h-3.6l-8.7 10.1L10 0H0.6l11.1 16.1l0 0L0 29.7h3.6l9.7-11.2L21 29.7H30.3z M8.6 2.7 L25.2 27h-2.8L5.7 2.7H8.6z' ],
+			'width'  => 32,
+			'height' => 30,
 			'pro'    => false,
 		],
 		'pinterest'  => [
@@ -182,6 +188,15 @@ class Network_Icons {
 			return false;
 		}
 
+		if ( $slug == 'twitter' ) :
+			$settings = \Mediavine\Grow\Settings::get_setting( 'dpsp_settings', [] );
+			if ( ! empty($settings['twitter_4ever']) ) :
+				return self::$icons[ $slug ];
+			else : 
+				return self::$icons[ 'x' ];
+			endif;
+		endif;
+
 		return self::$icons[ $slug ];
 	}
 
@@ -191,7 +206,19 @@ class Network_Icons {
 	 * @return array[]
 	 */
 	public static function get_icons() {
-		return self::$icons;
+		$settings = \Mediavine\Grow\Settings::get_setting( 'dpsp_settings', [] );
+		$all_icons = self::$icons;
+
+		if ( ! empty($settings['twitter_4ever']) ) : // This beautiful person would like to see Twitter intead of X
+			$x_icon = $all_icons['x'];
+			unset($all_icons['x']);
+			$filtered_icons = array_replace( $all_icons, array( 'twitter', $x_icon ) ); // Twitter becomes X, let that sink in
+		else : 
+			$filter_icons = self::$icons;
+			unset($filtered_icons['x']); // remove X, keep Twitter
+		endif;
+
+		return $filtered_icons;
 
 	}
 }

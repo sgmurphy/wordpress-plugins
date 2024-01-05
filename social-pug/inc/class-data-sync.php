@@ -49,7 +49,7 @@ class Data_Sync extends \Social_Pug {
 		if ( ! wp_next_scheduled( 'mv_grow_sync_data' ) ) {
 			// Because we are also running data sync on every activation,
 			// we wait 12 hours before running the first scheduled event
-			wp_schedule_event( time() + HOUR_IN_SECONDS * 12, 'twicedaily', 'mv_grow_sync_data' );
+			// TURNED OFF SYNC: 2.19.0 wp_schedule_event( time() + HOUR_IN_SECONDS * 12, 'twicedaily', 'mv_grow_sync_data' );
 		}
 	}
 
@@ -112,6 +112,7 @@ class Data_Sync extends \Social_Pug {
 	 * @return void
 	 */
 	public function sync_data() {
+		return; // Added 2.19.0 to stop syncing data
 		// Check if the data sync has already run
 		if ( $this::$data_sync_run ) {
 			return;

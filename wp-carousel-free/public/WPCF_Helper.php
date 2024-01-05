@@ -175,14 +175,14 @@ if ( ! class_exists( 'WPCF_Helper' ) ) {
 		public static function get_item_loops( $upload_data, $shortcode_data, $carousel_type, $post_id ) {
 			$show_slide_image = isset( $shortcode_data['show_image'] ) ? $shortcode_data['show_image'] : '';
 			$show_img_title   = isset( $shortcode_data['wpcp_post_title'] ) ? $shortcode_data['wpcp_post_title'] : '';
-			$image_link_show  = isset( $shortcode_data['wpcp_logo_link_show'] ) ? $shortcode_data['wpcp_logo_link_show'] : 'l_box';
+			$image_link_show  = isset( $shortcode_data['wpcp_click_action_type_group']['wpcp_logo_link_show'] ) ? $shortcode_data['wpcp_click_action_type_group']['wpcp_logo_link_show'] : 'l_box';
 			$wpcp_layout      = isset( $shortcode_data['wpcp_layout'] ) ? $shortcode_data['wpcp_layout'] : 'carousel';
 			$lazy_load_img    = apply_filters( 'wpcp_lazy_load_img', WPCAROUSELF_URL . 'public/css/spinner.svg' );
 			$lazy_load_image  = isset( $shortcode_data['wpcp_image_lazy_load'] ) ? $shortcode_data['wpcp_image_lazy_load'] : 'false';
 
 			$_image_title_att      = isset( $shortcode_data['_image_title_attr'] ) ? $shortcode_data['_image_title_attr'] : '';
 			$show_image_title_attr = ( $_image_title_att ) ? 'true' : 'false';
-			$image_sizes           = isset( $shortcode_data['wpcp_image_sizes'] ) ? $shortcode_data['wpcp_image_sizes'] : '';
+			$image_sizes           = isset( $shortcode_data['wpcp_image_sizes'] ) ? $shortcode_data['wpcp_image_sizes'] : 'medium';
 			$post_order_by         = isset( $shortcode_data['wpcp_post_order_by'] ) ? $shortcode_data['wpcp_post_order_by'] : '';
 			$post_order            = isset( $shortcode_data['wpcp_post_order'] ) ? $shortcode_data['wpcp_post_order'] : '';
 			$grid_column           = '';

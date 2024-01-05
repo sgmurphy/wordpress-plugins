@@ -66,6 +66,13 @@ class Networks {
 				'has_share_count' => Social_Pug::get_instance()->has_license,
 			],
 			[
+				'slug'            => 'twitter',
+				'name'            => 'X',
+				'share_format'    => 'https://x.com/intent/tweet?text=%2$s&url=%1$s',
+				'follow_format'   => 'https://x.com/%1$s',
+				'has_share_count' => Social_Pug::get_instance()->has_license,
+			],
+			[
 				'slug'            => 'pinterest',
 				'name'            => 'Pinterest',
 				'share_format'    => 'https://pinterest.com/pin/create/button/?url=%1$s&media=%3$s&description=%2$s',
@@ -100,6 +107,14 @@ class Networks {
 		if ( class_exists( '\Mediavine\Grow\Pro_Networks' ) ) {
 			$raw_networks = array_merge( $raw_networks, Pro_Networks::get_raw() );
 		}
+		
+		$settings = \Mediavine\Grow\Settings::get_setting( 'dpsp_settings', [] );
+		if ( empty($settings['twitter_4ever']) ) :
+			unset($raw_networks[1]); // Remove Twitter
+		else :
+			unset($raw_networks[2]); // Remove X
+		endif;
+
 
 		return $raw_networks;
 	}

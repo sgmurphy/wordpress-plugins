@@ -15,6 +15,8 @@ class Activation extends \Social_Pug {
 
 	public const MARKETPLACE_API_BASE_URL = 'https://morehubbub.com';
 
+	public const LICENSE_STATUS_INACTIVE = 'inactive';
+
 	public const LICENSE_STATUS_INVALID = 'invalid';
 
 	public const LICENSE_STATUS_EXPIRED = 'expired';
@@ -62,6 +64,87 @@ class Activation extends \Social_Pug {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Check the current Hubbub license status. Likely via CRON
+	 * Mostly a duplication of validate_license except it isn't reliant on
+	 * a settings update. I've duplicated it to keep a separation of concerns. 
+	 * Can consolidate in a future update.
+	 */
+	public function check_license() {
+		$license_status 	= get_option ( self::OPTION_LICENSE_STATUS ) ?? null;
+		$license_key 		= get_option( 'mv_grow_license' );
+
+		if ( null === $license_key ) : // No license key found
+			return;
+		else :
+			// Check this license key
+			try {
+				$response = $this->api_request( [
+					'edd_action' => 'check_license',
+					'item_id'    => self::ITEM_ID,
+					'license'    => $license_key,
+					'url'        => get_site_url(),
+				] );
+			} catch ( \Exception $e ) {
+				add_settings_error(
+					'mv_grow_license',
+					'mv_grow_license_request_error',
+					__( 'An error was encountered while verifying the license.', 'mediavine' )
+				);
+				$this->set_license_status( null );
+				return;
+			}
+
+			$edd_license_status = $response['license'] ?? null;
+
+			switch ( $edd_license_status) {
+				case 'expired':
+					$this->set_license_status( self::LICENSE_STATUS_EXPIRED );
+					return;
+				case 'inactive':
+					$this->set_license_status( self::LICENSE_STATUS_INACTIVE );
+					try {
+						$activation_response = $this->api_request( [
+							'edd_action' => 'activate_license',
+							'item_id'    => self::ITEM_ID,
+							'license'    => $license_key,
+							'url'        => get_site_url(),
+						] );
+					} catch ( \Exception $e ) {
+						add_settings_error(
+							'mv_grow_license',
+							'mv_grow_license_request_error',
+							__( 'An error occurred while trying to activate this website for the Hubbub Pro License you entered.', 'mediavine' )
+						);
+						return;
+					}
+	
+					if ( isset( $activation_response['error'] ) ) {
+						update_option('hubbub_temp_site_activated_message', $response['error'] );
+					} else {
+						$this->set_license_status( self::LICENSE_STATUS_VALID ); // Sets license to active
+					}
+					
+					return;
+				case 'invalid':
+					$this->set_license_status( self::LICENSE_STATUS_INVALID );
+					return;
+				case 'valid':
+					$this->set_license_status( self::LICENSE_STATUS_VALID );
+					return;
+			}
+
+			$this->set_license_status( null );
+			add_settings_error(
+				'mv_grow_license',
+				'mv_grow_license_invalid',
+				__( 'The Hubbub Pro license could not be validated.', 'mediavine' )
+			);
+
+		endif;
+		
 	}
 
 	/**
@@ -215,6 +298,7 @@ class Activation extends \Social_Pug {
 
 		$valid_statuses = [
 			self::LICENSE_STATUS_EXPIRED => self::LICENSE_STATUS_EXPIRED,
+			self::LICENSE_STATUS_INACTIVE => self::LICENSE_STATUS_INACTIVE,
 			self::LICENSE_STATUS_INVALID => self::LICENSE_STATUS_INVALID,
 			self::LICENSE_STATUS_VALID   => self::LICENSE_STATUS_VALID,
 		];
@@ -241,16 +325,16 @@ class Activation extends \Social_Pug {
 	 */
 	public function validate_license( $old_values, $new_values ) {
 		$grow_license = $new_values['mv_grow_license'] ?? null;
-		if ( null === $grow_license ) {
-			return;
-		}
+
+		if ( empty( $grow_license ) || null === $grow_license ) return;
 
 		try {
 			$response = $this->api_request( [
-				'edd_action' => 'check_license',
-				'item_id'    => self::ITEM_ID,
-				'license'    => $grow_license,
-				'url'        => get_site_url(),
+				'edd_action' 		=> 'check_license',
+				'item_id'    		=> self::ITEM_ID,
+				'license'    		=> $grow_license,
+				'url'        		=> get_site_url(),
+				'hubbub_version' 	=> MV_GROW_VERSION,
 			] );
 		} catch ( \Exception $e ) {
 			add_settings_error(
@@ -266,6 +350,35 @@ class Activation extends \Social_Pug {
 		switch ( $license_valid ) {
 			case 'expired':
 				$this->set_license_status( self::LICENSE_STATUS_EXPIRED );
+				return;
+			case 'inactive':
+			case 'site_inactive':
+				$this->set_license_status( self::LICENSE_STATUS_INACTIVE ); // Sets license to inactive
+				// If license status is valid but inactive, activate the site URL for this key
+				// Added Hubbub Pro 2.19.0
+				try {
+					$activation_response = $this->api_request( [
+						'edd_action' 		=> 'activate_license',
+						'item_id'    		=> self::ITEM_ID,
+						'license'   		=> $grow_license,
+						'url'        		=> get_site_url(),
+						'hubbub_version' 	=> MV_GROW_VERSION,
+					] );
+				} catch ( \Exception $e ) {
+					add_settings_error(
+						'mv_grow_license',
+						'mv_grow_license_request_error',
+						__( 'An error occurred while trying to activate this website for the Hubbub Pro License you entered.', 'mediavine' )
+					);
+					return;
+				}
+
+				if ( ! isset( $activation_response['error'] ) ) {
+					$this->set_license_status( self::LICENSE_STATUS_VALID ); // Sets license to active
+				}
+
+				if ( $activation_response['error'])
+				
 				return;
 			case 'invalid':
 				$this->set_license_status( self::LICENSE_STATUS_INVALID );
@@ -284,7 +397,7 @@ class Activation extends \Social_Pug {
 	}
 
 	/**
-	 * Conditionally verify the license during a settings update, if modified.
+	 * Updates the license to the value the user enters. If empty, nullifies the license status
 	 *
 	 * @param array $old_values Original settings form values.
 	 * @param array $new_values Updated settings form values.
@@ -296,11 +409,15 @@ class Activation extends \Social_Pug {
 		if ( $old_license !== $new_license ) {
 			update_option( 'mv_grow_license', $new_license );
 
-			if ( ! empty( $new_license ) ) {
-				$this->validate_license( $old_values, $new_values );
-			} else {
+			// DEPRECATED in 2.19.0, Unnecessary caused duplicate calls. if ( ! empty( $new_license ) ) {
+			// 	$this->validate_license( $old_values, $new_values );
+			// } else {
+			// 	$this->set_license_status( null );
+			// }
+
+			if ( empty($new_license ) ) :
 				$this->set_license_status( null );
-			}
+			endif;
 		}
 	}
 }

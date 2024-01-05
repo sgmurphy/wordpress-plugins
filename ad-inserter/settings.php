@@ -10,7 +10,9 @@ require_once AD_INSERTER_PLUGIN_DIR.'constants.php';
 function generate_settings_form (){
 
   if (defined ('AI_SAFE_MODE') || isset ($_GET ['ai-safe-mode'])) {
-    delete_transient (AI_CONNECTED_WEBSITE);
+    if (defined ('AI_CONNECTED_WEBSITE')) {
+      delete_transient (AI_CONNECTED_WEBSITE);
+    }
 
     $url_parameters = '&ai-safe-mode';
   } else $url_parameters = '';
@@ -2816,6 +2818,14 @@ function generate_settings_form (){
         </tr>
         <tr>
           <td>
+          <?php /* translators: Maximum number of list selection items */ _e ('Max list selection items', 'ad-inserter'); ?>
+          </td>
+          <td>
+            <input type="text" name="max-list-items" value="<?php echo get_max_list_items (); ?>"  default="<?php echo DEFAULT_MAX_LIST_ITEMS; ?>" size="6" maxlength="6" />
+          </td>
+        </tr>
+        <tr>
+          <td>
           <?php _e ('Tab setup delay', 'ad-inserter'); ?>
           </td>
           <td>
@@ -5157,12 +5167,13 @@ function generate_list_options ($options) {
     case 'id':
       $posts_pages = ai_get_post_id_list ();
 
-      $counter = 0;
+      $counter = 2;
+      $max_list_items = get_max_list_items ();
       foreach ($posts_pages as $post_page) {
         if ($post_page->post_title == '') continue;
         echo "              <option value='{$post_page->ID}'>{$post_page->ID} ({$post_page->post_type} \"{$post_page->post_title}\")</option>\n";
         $counter ++;
-        if ($counter >= AI_MAX_LIST_ITEMS) break;
+        if ($counter > $max_list_items) break;
       }
       echo "              <option value='posts'>posts (", __('All posts', 'ad-inserter'), ")</option>\n";
       echo "              <option value='pages'>pages (", __('All static pages', 'ad-inserter'), ")</option>\n";

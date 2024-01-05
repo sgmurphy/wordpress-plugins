@@ -13,7 +13,6 @@ use Mediavine\Grow\Share_Counts;
  */
 function dpsp_get_output_network_buttons( $settings, $action = 'share', $location = '', $data = [] ) {
 	$output = DPSP_Network_Buttons_Outputter::get_render( $settings, $action, $location, $data );
-
 	return $output;
 }
 

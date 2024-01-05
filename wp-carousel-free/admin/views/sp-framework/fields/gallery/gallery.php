@@ -55,7 +55,7 @@ if ( ! class_exists( 'SP_WPCF_Field_gallery' ) ) {
 			$hidden = ( empty( $this->value ) ) ? ' hidden' : '';
 
 			echo wp_kses_post( $this->field_before() );
-			echo '<a href="#" class="button button-primary wpcf-button"><img src="' . esc_url( WPCAROUSELF_URL ) . 'admin/img/layout/add-image.svg" alt="">' . esc_html( $args['add_title'] ) . '</a>';
+			echo '<a href="#" class="button button-primary wpcf-button"><img src="' . esc_url( WPCAROUSELF_URL ) . 'admin/img/layouts/add-image.svg" alt="">' . esc_html( $args['add_title'] ) . '</a>';
 
 			echo '<ul class="sp-gallery-images">';
 			if ( ! empty( $this->value ) ) {

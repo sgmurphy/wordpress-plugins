@@ -423,8 +423,9 @@ if ( ! class_exists( 'SP_WPCF' ) ) {
 					'color',
 					'color_group',
 					'custom_import',
-					'dimensions_advanced',
 					'column',
+					'dimensions_advanced',
+					'fieldset',
 					'gallery',
 					'heading',
 					'image_select',
@@ -437,6 +438,8 @@ if ( ! class_exists( 'SP_WPCF' ) ) {
 					'spacing',
 					'spinner',
 					'subheading',
+					'slider',
+					'tabbed',
 					'submessage',
 					'switcher',
 					'text',
@@ -464,9 +467,7 @@ if ( ! class_exists( 'SP_WPCF' ) ) {
 		public static function set_used_fields( $sections ) {
 
 			if ( ! empty( $sections['fields'] ) ) {
-
 				foreach ( $sections['fields'] as $field ) {
-
 					if ( ! empty( $field['fields'] ) ) {
 						self::set_used_fields( $field );
 					}
@@ -484,7 +485,6 @@ if ( ! class_exists( 'SP_WPCF' ) ) {
 					}
 				}
 			}
-
 		}
 
 		/**
@@ -498,7 +498,9 @@ if ( ! class_exists( 'SP_WPCF' ) ) {
 			$wpscreen              = get_current_screen();
 			$current_screen        = get_current_screen();
 			$the_current_post_type = $current_screen->post_type;
-			if ( 'sp_wp_carousel' === $the_current_post_type ) {
+			$settings_page_base    = 'sp_wp_carousel_page_wpcp_settings' === $current_screen->base;
+			$tools_page_base       = 'sp_wp_carousel_page_wpcf_tools' === $current_screen->base;
+			if ( 'sp_wp_carousel' === $the_current_post_type || $settings_page_base || $tools_page_base ) {
 				if ( ! empty( self::$args['admin_options'] ) ) {
 					foreach ( self::$args['admin_options'] as $argument ) {
 						if ( substr( $wpscreen->id, -strlen( $argument['menu_slug'] ) ) === $argument['menu_slug'] ) {
@@ -664,9 +666,15 @@ if ( ! class_exists( 'SP_WPCF' ) ) {
 
 				if ( ! empty( $field['title'] ) ) {
 					echo '<div class="wpcf-title">';
-					echo '<h4>' . wp_kses_post( $field['title'] ) . '</h4>';
+					$help_title = ( ! empty( $field['title_help'] ) ) ? '
+					<div class="wpcf-help wpcf-title-help">
+					<span class="wpcf-help-text">' . $field['title_help'] . '</span>
+					<img src="' . self::include_plugin_url( 'assets/images/info.svg' ) . '">
+					</div>' : '';
+					echo '<h4>' . wp_kses_post( $field['title'] . $help_title ) . '</h4>';
 					echo ( ! empty( $field['subtitle'] ) ) ? '<div class="wpcf-subtitle-text">' . wp_kses_post( $field['subtitle'] ) . '</div>' : '';
 					echo '</div>';
+
 				}
 
 				echo ( ! empty( $field['title'] ) || ! empty( $field['fancy_title'] ) ) ? '<div class="wpcf-fieldset">' : '';

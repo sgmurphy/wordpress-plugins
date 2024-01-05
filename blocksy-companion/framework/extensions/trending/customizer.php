@@ -44,7 +44,7 @@ foreach ($all_post_types as $custom_post_type => $label) {
 		$taxonomies = get_object_taxonomies($custom_post_type);
 
 		if (count($taxonomies) > 0) {
-			$taxonomy = $taxonomies;
+			$taxonomy = array_slice($taxonomies, 0, 20);
 		} else {
 			$taxonomy = 'nonexistent';
 		}
@@ -134,6 +134,7 @@ $options = [
 											'h4' => 'H4',
 											'h5' => 'H5',
 											'h6' => 'H6',
+											'p' => 'p',
 											'span' => 'span',
 										]
 									),
@@ -444,7 +445,11 @@ $options = [
 
 										'var(--theme-heading-6-color, var(--theme-headings-color))' => [
 											'trending_block_label_tag' => 'h6'
-										]
+										],
+
+										'var(--theme-text-color)' => [
+											'trending_block_label_tag' => 'span|p'
+										],
 									]
 								],
 							],

@@ -336,8 +336,20 @@ function dpsp_output_selectable_networks( array $networks = [], array $settings_
 			$output .= '<li>';
 			$output .= '<div class="dpsp-network-item" data-network="' . $network_slug . '" data-network-name="' . $network->get_name() . '" ' . ( isset( $settings_networks[ $network_slug ] ) ? 'data-checked="true"' : '' ) . '>';
 			$output .= '<div class="dpsp-network-item-checkbox dpsp-icon-ok">' . dpsp_get_svg_icon_output( 'ok' ) . '</div>';
-			$output .= '<div class="dpsp-network-item-name-wrapper dpsp-network-' . $network_slug . ' dpsp-background-color-network-' . $network_slug . '">';
-			$output .= '<span class="dpsp-list-icon dpsp-list-icon-social dpsp-icon-' . $network_slug . ' dpsp-background-color-network-' . $network_slug . '">' . dpsp_get_svg_icon_output( $network_slug ) . '</span>';
+			
+			/** 
+			 * Get settings to determine Twitter or X
+			 */
+			$network_slug_background_color = $network_slug;
+			if ( $network_slug == 'twitter' ):
+				$settings = \Mediavine\Grow\Settings::get_setting( 'dpsp_settings', [] );
+				if ( empty($settings['twitter_4ever']) ) :
+					$network_slug_background_color = 'x';
+				endif;
+			endif;
+
+			$output .= '<div class="dpsp-network-item-name-wrapper dpsp-network-' . $network_slug . ' dpsp-background-color-network-' . $network_slug_background_color . '">';
+			$output .= '<span class="dpsp-list-icon dpsp-list-icon-social dpsp-icon-' . $network_slug_background_color . ' dpsp-background-color-network-' . $network_slug_background_color . '">' . dpsp_get_svg_icon_output( $network_slug ) . '</span>';
 			$output .= '<h4>' . $network->get_name() . '</h4>';
 			$output .= '</div>';
 			if ( ! empty( $tooltip ) ) {
@@ -382,12 +394,31 @@ function dpsp_output_sortable_networks( array $networks, string $settings_name =
 			// The sort handle
 			$output .= '<div class="dpsp-sort-handle"><!-- --></div>';
 
+			/** 
+			 * Get settings to determine Twitter or X
+			 */
+			$network_slug_background_color = $network_slug;
+			$network_label = $networks[ $network_slug ]['label'] ? $networks[ $network_slug ]['label'] : $network->get_label(); // This will load the default label, unless they've customized it
+			if ( $network_slug == 'twitter' ):
+				$settings = \Mediavine\Grow\Settings::get_setting( 'dpsp_settings', [] );
+				if ( empty($settings['twitter_4ever']) ) :
+					$network_slug_background_color = 'x';
+					if ( $network_label == 'Twitter' ) : // This means the person didn't customize the label, make it X
+						$network_label = 'X';
+					endif;
+				else :
+					if ( $network_label == 'X' ) : // The person has switched back to Twitter from X, and didn't customize the label
+						$network_label = 'Twitter';
+					endif;
+				endif;
+			endif;
+
 			// The social network icon
-			$output .= '<div class="dpsp-list-icon dpsp-list-icon-social dpsp-icon-' . esc_attr( $network_slug ) . ' dpsp-background-color-network-' . esc_attr( $network_slug ) . '">' . dpsp_get_svg_icon_output( $network_slug ) . '</div>';
+			$output .= '<div class="dpsp-list-icon dpsp-list-icon-social dpsp-icon-' . esc_attr( $network_slug_background_color ) . ' dpsp-background-color-network-' . esc_attr( $network_slug_background_color ) . '">' . dpsp_get_svg_icon_output( $network_slug ) . '</div>';
 
 			// The label edit field
 			$output .= '<div class="dpsp-list-input-wrapper">';
-			$output .= '<input type="text" placeholder="' . __( 'This button has no label text.', 'social-pug' ) . '" name="' . esc_attr( $settings_name ) . '[networks][' . $network_slug . '][label]" value="' . ( $networks[ $network_slug ]['label'] ? $networks[ $network_slug ]['label'] : $network->get_label() ) . '" />';
+			$output .= '<input type="text" placeholder="' . __( 'This button has no label text.', 'social-pug' ) . '" name="' . esc_attr( $settings_name ) . '[networks][' . $network_slug . '][label]" value="' . ( $network_label ) . '" />';
 			$output .= '</div>';
 
 			// List item actions
@@ -570,9 +601,10 @@ function dpsp_add_submenu_page_sidebar() {
 	echo '<h3>' . esc_html__( 'Create more Hubbub! Upgrade to Pro', 'social-pug' ) . '</h3>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Force a custom image to be shared on Pinterest when using the Pinterest button.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Add unlimited hidden Pinterest images to your posts and pages.', 'social-pug' ) . '</p>';
+	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Optionally revert X icons to old-school Twitter icons.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Make your website mobile-friendly with sticky footer social share buttons.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Trigger a pop-up with the social sharing buttons when a user starts to scroll, arrives at the bottom of a post or begins to leave your site.', 'social-pug' ) . '</p>';
-	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Attract users to your social media profiles with our Follow Buttons Widget and follow shortcode. You can place it in your sidebar, template files, or anywhere on your site. Buttons include Facebook, Twitter, Pinterest, LinkedIn, Reddit, Instagram, YouTube, Vimeo, SoundCloud, Twitch, Yummly, and Behance.', 'social-pug' ) . '</p>';
+	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Attract users to your social media profiles with our Follow Buttons Widget and follow shortcode. You can place it in your sidebar, template files, or anywhere on your site. Buttons include Facebook, X, Pinterest, LinkedIn, Reddit, Instagram, YouTube, Flipboard, Vimeo, SoundCloud, Twitch, Yummly, and Behance.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Add a "Pin It" button that appears when visitors hover your in-post images.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Add custom pin descriptions and repin IDs to your in-post images.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( "Recover your lost social share counts if you've ever changed your permalink structure.", 'social-pug' ) . '</p>';
