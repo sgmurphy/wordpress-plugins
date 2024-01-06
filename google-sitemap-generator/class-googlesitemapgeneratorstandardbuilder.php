@@ -33,6 +33,10 @@ class GoogleSitemapGeneratorStandardBuilder {
 	 * @param String                 $params Parameters for the sitemap.
 	 */
 	public function content( $gsg, $type, $params ) {
+		if (strpos($params, '/') !== false){
+            $newType = explode('/', $params);
+            $params = end($newType);
+        }
 		switch ( $type ) {
 			case 'pt':
 				$this->build_posts( $gsg, $params );
@@ -544,7 +548,7 @@ class GoogleSitemapGeneratorStandardBuilder {
 		$offset         = $taxonomy;
 		$links_per_page = $gsg->get_option( 'links_page' );
 		if ( gettype( $links_per_page ) !== 'integer' ) {
-			$links_per_page = (int) 10;
+			$links_per_page = (int) 1000;
 		}
 		if ( strpos( $taxonomy, '-' ) !== false ) {
 			$offset   = substr( $taxonomy, strrpos( $taxonomy, '-' ) + 1 );
@@ -570,6 +574,7 @@ class GoogleSitemapGeneratorStandardBuilder {
 				$excludes = $excl_cats;
 			}
 			add_filter( 'get_terms_fields', array( $this, 'filter_terms_query' ), 20, 2 );
+			/*
 			$terms = get_terms(
 				$taxonomy,
 				array(
@@ -580,7 +585,18 @@ class GoogleSitemapGeneratorStandardBuilder {
 					'exclude'      => $excludes,
 				)
 			);
+			*/
+			$terms = array_values(
+				array_unique(
+					array_filter(get_terms(), function ($term) use ($taxonomy) {
+						return $term->taxonomy === $taxonomy;
+					}),
+					SORT_REGULAR
+				)
+			);
 			remove_filter( 'get_terms_fields', array( $this, 'filter_terms_query' ), 20, 2 );
+	
+			//$terms = array_values(array_unique($terms, SORT_REGULAR));
 
 			$step          = 1;
 			$size_of_terms = count( $terms );
@@ -594,7 +610,7 @@ class GoogleSitemapGeneratorStandardBuilder {
 						$gsg->add_url( get_term_link( $term, $step ), $term->_mod_date, $gsg->get_option( 'cf_product_cat' ), $gsg->get_option( 'pr_product_cat' ) );
 						break;
 					default:
-						$gsg->add_url( get_term_link( $term, $step ), $term->_mod_date, $gsg->get_option( 'cf_tags' ), $gsg->get_option( 'pr_tags' ) );
+						$gsg->add_url( get_term_link( $term, $step ), $this->getTaxonomyUpdatedDate($term->term_id) ?: 0, $gsg->get_option( 'pr_tags' ) );
 						break;
 				}
 				$step++;
@@ -663,7 +679,7 @@ class GoogleSitemapGeneratorStandardBuilder {
 	public function build_product_tags( GoogleSitemapGenerator $gsg, $offset ) {
 		$links_per_page = $gsg->get_option( 'links_page' );
 		if ( gettype( $links_per_page ) !== 'integer' ) {
-			$links_per_page = (int) 10;
+			$links_per_page = (int) 1000;
 		}
 		$offset         = ( --$offset ) * $links_per_page;
 
@@ -697,7 +713,7 @@ class GoogleSitemapGeneratorStandardBuilder {
 	public function build_product_categories( GoogleSitemapGenerator $gsg, $offset ) {
 		$links_per_page = $gsg->get_option( 'links_page' );
 		if ( gettype( $links_per_page ) !== 'integer' ) {
-			$links_per_page = (int) 10;
+			$links_per_page = (int) 1000;
 		}
 		$offset         = ( --$offset ) * $links_per_page;
 		$excludes       = array();
@@ -849,7 +865,7 @@ class GoogleSitemapGeneratorStandardBuilder {
 			foreach ( $pages as $page ) {
 				$url = ! empty( $page->get_url() ) ? $page->get_url() : ( property_exists( $page, '_url' ) ? $page->_url : '' );
 				if ( $page instanceof GoogleSitemapGeneratorPage && $url ) {
-					$gsg->add_sitemap( 'externals', null, $blog_update );
+					$gsg->add_sitemap( 'externals-sitemap', null, $blog_update );
 					break;
 				}
 			}
@@ -903,6 +919,7 @@ class GoogleSitemapGeneratorStandardBuilder {
 						$has_posts = true;
 					}
 					$has_enabled_post_types_posts = true;
+
 					foreach ( $posts as $post ) {
 						$step = 1;
 						for ( $i = 0; $i < $post->numposts; $i++ ) {

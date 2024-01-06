@@ -3,7 +3,7 @@ Contributors: auctollo
 Tags: sitemap, seo, xml sitemap, indexnow, google sitemaps, google search console, news sitemap, image sitemap, image seo, video sitemap, video seo, woo commerce, robots.txt, site kit, schema, bing, baidu, yandex
 Requires at least: 4.6
 Tested up to: 6.4.2
-Stable tag: 4.1.16
+Stable tag: 4.1.17
 Requires PHP: 5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -100,6 +100,16 @@ Please post your question at the [WordPress support forum](https://wordpress.org
 
 
 == Changelog ==
+
+= 4.1.17 (2024-01-05) =
+* Fixed 404 issue
+* Fixed sitemap URL issue in robots.txt etc
+* Improved LastMod syntax for better support for indexation by Google
+* Improved Network mode support
+* Improved localization plugin support
+* Improved custom taxonomy support
+* Added IndexNow Protocol support for Microsoft Bing. Deprecated Sitemap Ping Protocol
+* Added JetPack sitemap generator conflict detection
 
 = 4.1.16 (2023-12-18) =
 * Fixed a syntax error causing fatal errors for some users.
@@ -573,5 +583,5 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 
 == Upgrade Notice ==
 
-= 4.1.16 =
-Thanks for using XML Sitemaps! This release includes important security improvements. Make sure to "Enable auto-updates!"
+= 4.1.17 =
+Thanks for using XML Sitemaps! This release includes critical Google and Microsoft Bing indexation improvements. Enable IndexNow option for Microsoft Bing in settings. Make sure to "Enable auto-updates!"

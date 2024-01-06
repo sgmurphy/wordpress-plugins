@@ -16,10 +16,10 @@
  * Plugin Name: XML Sitemap Generator for Google
  * Plugin URI: https://auctollo.com/
  * Description: This plugin improves SEO using sitemaps for best indexation by search engines like Google, Bing, Yahoo and others.
- * Version: 4.1.16
+ * Version: 4.1.17
  * Author: Auctollo
  * Author URI: https://auctollo.com/
- * Text Domain: sitemap
+ * Text Domain: google-sitemap-generator
  * Domain Path: /lang
 
 
@@ -51,6 +51,7 @@ if ( (int) $wp_version > 4 ) {
 }
 
 require_once trailingslashit( dirname( __FILE__ ) ) . 'sitemap-core.php';
+require_once trailingslashit( dirname( __FILE__ ) ) . 'class-googlesitemapgeneratorindexnow.php'; //add class indexNow file
 
 include_once( ABSPATH . 'wp-admin/includes/file.php' );
 include_once( ABSPATH . 'wp-admin/includes/misc.php' );
@@ -60,11 +61,17 @@ define( 'SM_SUPPORTFEED_URL', 'https://wordpress.org/support/plugin/google-sitem
 define( 'SM_BETA_USER_INFO_URL', 'https://api.auctollo.com/beta/consent' );
 define( 'SM_LEARN_MORE_API_URL', 'https://api.auctollo.com/lp' );
 define( 'SM_BANNER_HIDE_DURATION_IN_DAYS', 7 );
-define( 'SM_CONFLICT_PLUGIN_LIST', 'All in One SEO,Yoast SEO' );
+define( 'SM_CONFLICT_PLUGIN_LIST', 'All in One SEO,Yoast SEO, Jetpack' );
 add_action( 'admin_init', 'register_consent', 1 );
 add_action( 'admin_head', 'ga_header' );
 add_action( 'admin_footer', 'ga_footer' );
+add_action( 'plugins_loaded', function() {
+	load_plugin_textdomain( 'google-sitemap-generator', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
 
+
+});
+
+add_action( 'save_post', 'indexnow_after_post_save', 10, 3 ); //send to indexNow
 
 /**
  * Google analytics .
@@ -416,6 +423,17 @@ function disable_plugins_callback(){
                     update_option('wpseo', $yoast_options);
                 }
             }
+			if ($plugin === 'jetpack/jetpack.php') {
+                /* jetpack sitemap deactivation */
+                $modules_array = get_option('jetpack_active_modules');
+				if(is_array($modules_array)) {
+					if (in_array('sitemaps', $modules_array)) {
+						$key = array_search('sitemaps', $modules_array);
+						unset($modules_array[$key]);
+						update_option('jetpack_active_modules', $modules_array);
+					}
+				}
+            }
         }
 
         echo 'Plugins sitemaps disabled successfully';
@@ -426,6 +444,15 @@ function disable_plugins_callback(){
  function conflict_plugins_admin_notice(){
 	GoogleSitemapGeneratorLoader::create_notice_conflict_plugin();
  }
+
+ /* send to index updated url */
+function indexnow_after_post_save( $post_ID, $post, $update ) {
+	$indexnow = get_option('sm_options');
+	if($indexnow['sm_b_indexnow']){
+	    $newUrlToIndex = new GoogleSitemapGeneratorIndexNow();
+        $newUrlToIndex->start( get_permalink( $post_ID ) );
+    }
+}
 
 // Don't do anything if this file was called directly.
 if ( defined( 'ABSPATH' ) && defined( 'WPINC' ) && ! class_exists( 'GoogleSitemapGeneratorLoader', false ) ) {
