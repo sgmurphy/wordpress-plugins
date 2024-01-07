@@ -8,12 +8,14 @@ use wpdFormAttr\Login\twitter\TwitterOAuth;
 use wpdFormAttr\Login\Utils;
 use wpdFormAttr\Tools\Sanitizer;
 
-class SocialLogin {
+class SocialLogin
+{
 
     private static $_instance = null;
     private $generalOptions;
 
-    private function __construct($options) {
+    private function __construct($options)
+    {
         $this->generalOptions = $options;
         add_action("init", [&$this, "requestHandler"]);
         add_action("wpdiscuz_front_scripts", [&$this, "socialScripts"]);
@@ -28,7 +30,8 @@ class SocialLogin {
         add_filter("get_avatar", [&$this, "userAvatar"], 999, 6);
     }
 
-    public function requestHandler() {
+    public function requestHandler()
+    {
         if ($this->generalOptions->social["enableInstagramLogin"] && (strpos($_SERVER['REQUEST_URI'], "wpdiscuz_auth/instagram") !== false)) {
             $this->instagramLoginCallBack();
         }
@@ -37,7 +40,8 @@ class SocialLogin {
         }
     }
 
-    public function login() {
+    public function login()
+    {
         $postID = Sanitizer::sanitize(INPUT_POST, "postID", FILTER_SANITIZE_NUMBER_INT);
         $provider = Sanitizer::sanitize(INPUT_POST, "provider", "FILTER_SANITIZE_STRING");
         $token = Sanitizer::sanitize(INPUT_POST, "token", "FILTER_SANITIZE_STRING");
@@ -86,7 +90,8 @@ class SocialLogin {
         wp_die(json_encode(apply_filters("wpdiscuz_social_login_response", $response, $provider, $postID, $token, $userID)));
     }
 
-    public function loginCallBack() {
+    public function loginCallBack()
+    {
         $this->deleteCookie();
         $provider = Sanitizer::sanitize(INPUT_GET, "provider", "FILTER_SANITIZE_STRING") ? Sanitizer::sanitize(INPUT_GET, "provider", "FILTER_SANITIZE_STRING") : Sanitizer::sanitize(INPUT_POST, "provider", "FILTER_SANITIZE_STRING");
         if ($provider === "facebook") {
@@ -120,7 +125,8 @@ class SocialLogin {
         }
     }
 
-    private function getPostLink($postID) {
+    private function getPostLink($postID)
+    {
         $url = home_url();
         if ($postID) {
             $url = get_permalink($postID);
@@ -129,7 +135,8 @@ class SocialLogin {
     }
 
     // https://developers.facebook.com/docs/apps/register
-    public function facebookLogin($token, $userID, $response) {
+    public function facebookLogin($token, $userID, $response)
+    {
         if (!$token || !$userID) {
             $response["message"] = esc_html__("Facebook access token or user ID invalid.", "wpdiscuz");
             return $response;
@@ -167,7 +174,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function facebookLoginPHP($postID, $response) {
+    public function facebookLoginPHP($postID, $response)
+    {
         if (!$this->generalOptions->social["fbAppID"] || !$this->generalOptions->social["fbAppSecret"]) {
             $response["message"] = esc_html__("Facebook Application ID and Application Secret  required.", "wpdiscuz");
             return $response;
@@ -189,7 +197,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function facebookLoginPHPCallBack() {
+    public function facebookLoginPHPCallBack()
+    {
         $code = Sanitizer::sanitize(INPUT_GET, "code", "FILTER_SANITIZE_STRING");
         $state = Sanitizer::sanitize(INPUT_GET, "state", "FILTER_SANITIZE_STRING");
         $providerData = Utils::getProviderByState($state);
@@ -240,7 +249,8 @@ class SocialLogin {
     }
 
     // https://developers.facebook.com/docs/instagram-basic-display-api/getting-started
-    public function instagramLogin($postID, $response) {
+    public function instagramLogin($postID, $response)
+    {
         if (!$this->generalOptions->social["instagramAppID"] || !$this->generalOptions->social["instagramAppSecret"]) {
             $response["message"] = esc_html__("Instagram Application ID and Application Secret  required.", "wpdiscuz");
             return $response;
@@ -263,7 +273,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function instagramLoginCallBack() {
+    public function instagramLoginCallBack()
+    {
         $code = Sanitizer::sanitize(INPUT_GET, "code", "FILTER_SANITIZE_STRING");
         $state = Sanitizer::sanitize(INPUT_GET, "state", "FILTER_SANITIZE_STRING");
         $providerData = Utils::getProviderByState($state);
@@ -317,7 +328,8 @@ class SocialLogin {
     }
 
     // https://console.developers.google.com/
-    public function googleLogin($postID, $response) {
+    public function googleLogin($postID, $response)
+    {
         if (!$this->generalOptions->social["googleClientID"] || !$this->generalOptions->social["googleClientSecret"]) {
             $response["message"] = esc_html__("Google Client ID and Client Secret  required.", "wpdiscuz");
             return $response;
@@ -341,7 +353,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function googleLoginCallBack() {
+    public function googleLoginCallBack()
+    {
         $code = Sanitizer::sanitize(INPUT_GET, "code", "FILTER_SANITIZE_STRING");
         $state = Sanitizer::sanitize(INPUT_GET, "state", "FILTER_SANITIZE_STRING");
         $providerData = Utils::getProviderByState($state);
@@ -386,7 +399,8 @@ class SocialLogin {
         $this->redirect($postID);
     }
 
-    public function telegramLogin($postID, $response) {
+    public function telegramLogin($postID, $response)
+    {
         if (!$this->generalOptions->social["telegramToken"]) {
             $response["message"] = esc_html__("Telegram token is required.", "wpdiscuz");
             return $response;
@@ -406,7 +420,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function telegramLoginCallBack() {
+    public function telegramLoginCallBack()
+    {
         if (!$this->generalOptions->social["telegramToken"]) {
             wp_send_json_error(__("Telegram token is required.", "wpdiscuz"));
         }
@@ -440,7 +455,8 @@ class SocialLogin {
     }
 
     // https://docs.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow?context=linkedin/context
-    public function linkedinLogin($postID, $response) {
+    public function linkedinLogin($postID, $response)
+    {
         if (!$this->generalOptions->social["linkedinClientID"] || !$this->generalOptions->social["linkedinClientSecret"]) {
             $response["message"] = esc_html__("Linkedin Client ID and Client Secret  required.", "wpdiscuz");
             return $response;
@@ -464,7 +480,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function linkedinLoginCallBack() {
+    public function linkedinLoginCallBack()
+    {
         $code = Sanitizer::sanitize(INPUT_GET, "code", "FILTER_SANITIZE_STRING");
         $state = Sanitizer::sanitize(INPUT_GET, "state", "FILTER_SANITIZE_STRING");
         $providerData = Utils::getProviderByState($state);
@@ -535,7 +552,6 @@ class SocialLogin {
             }
 
 
-
             $getLinkedinUserResponse = wp_remote_get($linkedinGetUserDataURL, $getLinkedinRequestArgs);
             if (is_wp_error($getLinkedinUserResponse)) {
                 $this->redirect($postID, $getLinkedinUserResponse->get_error_message());
@@ -563,7 +579,8 @@ class SocialLogin {
         $this->redirect($postID);
     }
 
-    public function disqusLogin($postID, $response) {
+    public function disqusLogin($postID, $response)
+    {
         if (!$this->generalOptions->social["disqusPublicKey"] || !$this->generalOptions->social["disqusSecretKey"]) {
             $response["message"] = esc_html__("Disqus Public Key and Secret Key  required.", "wpdiscuz");
             return $response;
@@ -586,7 +603,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function disqusLoginCallBack() {
+    public function disqusLoginCallBack()
+    {
         $code = Sanitizer::sanitize(INPUT_GET, "code", "FILTER_SANITIZE_STRING");
         $state = Sanitizer::sanitize(INPUT_GET, "state", "FILTER_SANITIZE_STRING");
         $providerData = Utils::getProviderByState($state);
@@ -649,7 +667,8 @@ class SocialLogin {
     }
 
     //https://developer.wordpress.com/docs/oauth2/  https://developer.wordpress.com/docs/wpcc/
-    public function wordpressLogin($postID, $response) {
+    public function wordpressLogin($postID, $response)
+    {
         if (!$this->generalOptions->social["wordpressClientID"] || !$this->generalOptions->social["wordpressClientSecret"]) {
             $response["message"] = esc_html__("Wordpress Client ID and Client Secret required.", "wpdiscuz");
             return $response;
@@ -672,7 +691,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function wordpressLoginCallBack() {
+    public function wordpressLoginCallBack()
+    {
         $code = Sanitizer::sanitize(INPUT_GET, "code", "FILTER_SANITIZE_STRING");
         $state = Sanitizer::sanitize(INPUT_GET, "state", "FILTER_SANITIZE_STRING");
         $providerData = Utils::getProviderByState($state);
@@ -739,7 +759,8 @@ class SocialLogin {
     }
 
     // https://apps.twitter.com/
-    public function twitterLogin($postID, $response) {
+    public function twitterLogin($postID, $response)
+    {
         if ($this->generalOptions->social["twitterAppID"] && $this->generalOptions->social["twitterAppSecret"]) {
             $twitter = new TwitterOAuth($this->generalOptions->social["twitterAppID"], $this->generalOptions->social["twitterAppSecret"]);
             $twitterCallBack = $this->createCallBackURL("twitter");
@@ -759,7 +780,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function twitterLoginCallBack() {
+    public function twitterLoginCallBack()
+    {
         $oauthToken = Sanitizer::sanitize(INPUT_GET, "oauth_token", "FILTER_SANITIZE_STRING");
         $oauthVerifier = Sanitizer::sanitize(INPUT_GET, "oauth_verifier", "FILTER_SANITIZE_STRING");
         $oauthSecretData = Utils::getProviderByState($oauthToken);
@@ -789,7 +811,8 @@ class SocialLogin {
     }
 
     // https://vk.com/editapp?act=create
-    public function vkLogin($postID, $response) {
+    public function vkLogin($postID, $response)
+    {
         if (!$this->generalOptions->social["vkAppID"] || !$this->generalOptions->social["vkAppSecret"]) {
             $response["message"] = esc_html__("VK Client ID and Client Secret  required.", "wpdiscuz");
             return $response;
@@ -812,7 +835,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function vkLoginCallBack() {
+    public function vkLoginCallBack()
+    {
         $code = Sanitizer::sanitize(INPUT_GET, "code", "FILTER_SANITIZE_STRING");
         $state = Sanitizer::sanitize(INPUT_GET, "state", "FILTER_SANITIZE_STRING");
         $providerData = Utils::getProviderByState($state);
@@ -868,7 +892,8 @@ class SocialLogin {
     }
 
     //https://apiok.ru/dev/app/create
-    public function okLogin($postID, $response) {
+    public function okLogin($postID, $response)
+    {
         if (!$this->generalOptions->social["okAppID"] || !$this->generalOptions->social["okAppSecret"] || !$this->generalOptions->social["okAppKey"]) {
             $response["message"] = esc_html__("OK Application ID, Application Key  and Application Secret  required.", "wpdiscuz");
             return $response;
@@ -889,7 +914,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function okLoginCallBack() {
+    public function okLoginCallBack()
+    {
         $code = Sanitizer::sanitize(INPUT_GET, "code", "FILTER_SANITIZE_STRING");
         $state = Sanitizer::sanitize(INPUT_GET, "state", "FILTER_SANITIZE_STRING");
         $providerData = Utils::getProviderByState($state);
@@ -946,7 +972,8 @@ class SocialLogin {
     }
 
     //https://yandex.ru/dev/oauth/doc/dg/reference/auto-code-client-docpage/#auto-code-client
-    public function yandexLogin($postID, $response) {
+    public function yandexLogin($postID, $response)
+    {
         if (!$this->generalOptions->social["yandexID"] || !$this->generalOptions->social["yandexPassword"]) {
             $response["message"] = esc_html__("Yandex ID and Password  required.", "wpdiscuz");
             return $response;
@@ -966,7 +993,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function yandexLoginCallBack() {
+    public function yandexLoginCallBack()
+    {
         $error = Sanitizer::sanitize(INPUT_GET, "error", "FILTER_SANITIZE_STRING");
         $errorDesc = Sanitizer::sanitize(INPUT_GET, "error_description", "FILTER_SANITIZE_STRING");
         $code = Sanitizer::sanitize(INPUT_GET, "code", "FILTER_SANITIZE_STRING");
@@ -1032,7 +1060,8 @@ class SocialLogin {
     }
 
     //https://o2.mail.ru/docs/
-    public function mailruLogin($postID, $response) {
+    public function mailruLogin($postID, $response)
+    {
         if (!$this->generalOptions->social["mailruClientID"] || !$this->generalOptions->social["mailruClientSecret"]) {
             $response["message"] = esc_html__("Mail.ru  Client ID  and Client Secret  required.", "wpdiscuz");
             return $response;
@@ -1055,7 +1084,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function mailruLoginCallBack() {
+    public function mailruLoginCallBack()
+    {
         $error = Sanitizer::sanitize(INPUT_GET, "error", "FILTER_SANITIZE_STRING");
         $errorDesc = Sanitizer::sanitize(INPUT_GET, "error_description", "FILTER_SANITIZE_STRING");
         $code = Sanitizer::sanitize(INPUT_GET, "code", "FILTER_SANITIZE_STRING");
@@ -1123,7 +1153,8 @@ class SocialLogin {
     }
 
     //https://developers.weixin.qq.com/doc/oplatform/en/Website_App/WeChat_Login/Wechat_Login.html
-    public function wechatLogin($postID, $response) {
+    public function wechatLogin($postID, $response)
+    {
         if (!$this->generalOptions->social["wechatAppID"] || !$this->generalOptions->social["wechatSecret"]) {
             $response["message"] = esc_html__("WeChat AppKey and AppSecret  required.", "wpdiscuz");
             return $response;
@@ -1145,7 +1176,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function wechatLoginCallBack() {
+    public function wechatLoginCallBack()
+    {
         $error = Sanitizer::sanitize(INPUT_GET, "errcode", "FILTER_SANITIZE_STRING");
         $errorDesc = Sanitizer::sanitize(INPUT_GET, "errmsg", "FILTER_SANITIZE_STRING");
         $code = Sanitizer::sanitize(INPUT_GET, "code", "FILTER_SANITIZE_STRING");
@@ -1208,7 +1240,8 @@ class SocialLogin {
     }
 
     //https://wiki.connect.qq.com/%E5%BC%80%E5%8F%91%E6%94%BB%E7%95%A5_server-side
-    public function qqLogin($postID, $response) {
+    public function qqLogin($postID, $response)
+    {
         if (!$this->generalOptions->social["qqAppID"] || !$this->generalOptions->social["qqSecret"]) {
             $response["message"] = esc_html__("QQ AppKey and AppSecret  required.", "wpdiscuz");
             return $response;
@@ -1230,7 +1263,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function qqLoginCallBack() {
+    public function qqLoginCallBack()
+    {
         $error = Sanitizer::sanitize(INPUT_GET, "error", "FILTER_SANITIZE_STRING");
         $errorDesc = Sanitizer::sanitize(INPUT_GET, "error_description", "FILTER_SANITIZE_STRING");
         $code = Sanitizer::sanitize(INPUT_GET, "code", "FILTER_SANITIZE_STRING");
@@ -1315,7 +1349,8 @@ class SocialLogin {
 
     //https://gwu-libraries.github.io/sfm-ui/posts/2016-04-26-weibo-api-guide
     //https://open.weibo.com/wiki/Connect/login
-    public function weiboLogin($postID, $response) {
+    public function weiboLogin($postID, $response)
+    {
         if (!$this->generalOptions->social["weiboKey"] || !$this->generalOptions->social["weiboSecret"]) {
             $response["message"] = esc_html__("Weibo App Key and App Secret  required.", "wpdiscuz");
             return $response;
@@ -1336,7 +1371,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function weiboLoginCallBack() {
+    public function weiboLoginCallBack()
+    {
         $error = Sanitizer::sanitize(INPUT_GET, "error", "FILTER_SANITIZE_STRING");
         $errorDesc = Sanitizer::sanitize(INPUT_GET, "error_description", "FILTER_SANITIZE_STRING");
         $code = Sanitizer::sanitize(INPUT_GET, "code", "FILTER_SANITIZE_STRING");
@@ -1401,7 +1437,8 @@ class SocialLogin {
 
     //https://developer.baidu.com/wiki/index.php?title=docs/oauth/application
     //https://developer.baidu.com/wiki/index.php?title=docs/oauth/showcase
-    public function baiduLogin($postID, $response) {
+    public function baiduLogin($postID, $response)
+    {
         if (!$this->generalOptions->social["baiduAppID"] || !$this->generalOptions->social["baiduSecret"]) {
             $response["message"] = esc_html__("Baidu Client ID and Client Secret  required.", "wpdiscuz");
             return $response;
@@ -1425,7 +1462,8 @@ class SocialLogin {
         return $response;
     }
 
-    public function baiduLoginCallBack() {
+    public function baiduLoginCallBack()
+    {
         $error = Sanitizer::sanitize(INPUT_GET, "error", "FILTER_SANITIZE_STRING");
         $errorDesc = Sanitizer::sanitize(INPUT_GET, "error_description", "FILTER_SANITIZE_STRING");
         $code = Sanitizer::sanitize(INPUT_GET, "code", "FILTER_SANITIZE_STRING");
@@ -1480,7 +1518,8 @@ class SocialLogin {
         $this->redirect($postID);
     }
 
-    private function redirect($postID, $message = "") {
+    private function redirect($postID, $message = "")
+    {
         if ($message) {
             setcookie('wpdiscuz_social_login_message', $message, time() + 3600, '/');
         }
@@ -1489,25 +1528,29 @@ class SocialLogin {
         exit();
     }
 
-    private function createCallBackURL($provider) {
+    private function createCallBackURL($provider)
+    {
         $adminAjaxURL = admin_url("admin-ajax.php");
         $urlAttributs = ["action" => "wpd_login_callback", "provider" => $provider];
         return add_query_arg($urlAttributs, $adminAjaxURL);
     }
 
-    private function deleteCookie() {
+    private function deleteCookie()
+    {
         unset($_COOKIE["wpdiscuz_social_login_message"]);
-        setcookie("wpdiscuz_social_login_message", "", time() - ( 15 * 60 ));
+        setcookie("wpdiscuz_social_login_message", "", time() - (15 * 60));
     }
 
-    private function setCurrentUser($userID) {
+    private function setCurrentUser($userID)
+    {
         $user = get_user_by("id", $userID);
         wp_set_current_user($userID, $user->user_login);
-        wp_set_auth_cookie($userID, (bool) $this->generalOptions->social["rememberLoggedinUser"]);
+        wp_set_auth_cookie($userID, (bool)$this->generalOptions->social["rememberLoggedinUser"]);
         do_action("wp_login", $user->user_login, $user);
     }
 
-    public function getButtons() {
+    public function getButtons()
+    {
         global $post;
         if (!is_user_logged_in() && wpDiscuz()->helper->isLoadWpdiscuz($post) && $this->generalOptions->isShowLoginButtons()) {
             echo "<div class='wpd-social-login'>";
@@ -1533,13 +1576,15 @@ class SocialLogin {
         }
     }
 
-    public function getReplyFormButtons() {
+    public function getReplyFormButtons()
+    {
         if ($this->generalOptions->social["socialLoginInSecondaryForm"]) {
             $this->getButtons();
         }
     }
 
-    public function getAgreement() {
+    public function getAgreement()
+    {
         global $post;
         if (!is_user_logged_in() && wpDiscuz()->helper->isLoadWpdiscuz($post) && $this->generalOptions->isShowLoginButtons() && $this->generalOptions->social["socialLoginAgreementCheckbox"]) {
             ?>
@@ -1547,7 +1592,10 @@ class SocialLogin {
                 <div class="wpd-agreement-title"><?php echo $this->generalOptions->getPhrase("wc_social_login_agreement_label"); ?></div>
                 <div class="wpd-agreement"><?php echo $this->generalOptions->getPhrase("wc_social_login_agreement_desc"); ?></div>
                 <div class="wpd-agreement-buttons">
-                    <div class="wpd-agreement-buttons-right"><span class="wpd-agreement-button wpd-agreement-button-disagree"><?php echo $this->generalOptions->getPhrase("wc_agreement_button_disagree"); ?></span><span class="wpd-agreement-button wpd-agreement-button-agree"><?php echo $this->generalOptions->getPhrase("wc_agreement_button_agree"); ?></span></div>
+                    <div class="wpd-agreement-buttons-right"><span
+                                class="wpd-agreement-button wpd-agreement-button-disagree"><?php echo $this->generalOptions->getPhrase("wc_agreement_button_disagree"); ?></span><span
+                                class="wpd-agreement-button wpd-agreement-button-agree"><?php echo $this->generalOptions->getPhrase("wc_agreement_button_agree"); ?></span>
+                    </div>
                     <div class="wpd-clear"></div>
                 </div>
             </div>
@@ -1555,103 +1603,120 @@ class SocialLogin {
         }
     }
 
-    private function facebookButton() {
+    private function facebookButton()
+    {
         if ($this->generalOptions->social["enableFbLogin"] && $this->generalOptions->social["fbAppID"] && $this->generalOptions->social["fbAppSecret"]) {
             echo "<span class='wpdsn wpdsn-fb wpdiscuz-login-button' wpd-tooltip='Facebook'><i class='fab fa-facebook'></i></span>";
         }
     }
 
-    private function instagramButton() {
+    private function instagramButton()
+    {
         if ($this->generalOptions->social["enableInstagramLogin"] && $this->generalOptions->social["instagramAppID"] && $this->generalOptions->social["instagramAppSecret"]) {
             echo "<span class='wpdsn wpdsn-insta wpdiscuz-login-button' wpd-tooltip='Instagram'><i class='fab fa-instagram'></i></span>";
         }
     }
 
-    private function linkedinButton() {
+    private function linkedinButton()
+    {
         if ($this->generalOptions->social["enableLinkedinLogin"] && $this->generalOptions->social["linkedinClientID"] && $this->generalOptions->social["linkedinClientSecret"]) {
             echo "<span class='wpdsn wpdsn-linked wpdiscuz-login-button' wpd-tooltip='Linkedin'><i class='fab fa-linkedin-in'></i></span>";
         }
     }
 
-    private function twitterButton() {
+    private function twitterButton()
+    {
         if ($this->generalOptions->social["enableTwitterLogin"] && $this->generalOptions->social["twitterAppID"] && $this->generalOptions->social["twitterAppSecret"]) {
             echo "<span class='wpdsn wpdsn-tw wpdiscuz-login-button' wpd-tooltip='Twitter'><i class='fab fa-twitter'></i></span>";
         }
     }
 
-    private function googleButton() {
+    private function googleButton()
+    {
         if ($this->generalOptions->social["enableGoogleLogin"] && $this->generalOptions->social["googleClientID"] && $this->generalOptions->social["googleClientSecret"]) {
             echo "<span class='wpdsn wpdsn-gg wpdiscuz-login-button' wpd-tooltip='Google'><i class='fab fa-google'></i></span>";
         }
     }
 
-    private function disqusButton() {
+    private function disqusButton()
+    {
         if ($this->generalOptions->social["enableDisqusLogin"] && $this->generalOptions->social["disqusPublicKey"] && $this->generalOptions->social["disqusSecretKey"]) {
             echo "<span class='wpdsn wpdsn-ds wpdiscuz-login-button' wpd-tooltip='Disqus'><i class='wpd-disqus'>D</i></span>";
         }
     }
 
-    private function wordpressButton() {
+    private function wordpressButton()
+    {
         if ($this->generalOptions->social["enableWordpressLogin"] && $this->generalOptions->social["wordpressClientID"] && $this->generalOptions->social["wordpressClientSecret"]) {
             echo "<span class='wpdsn wpdsn-wp wpdiscuz-login-button' wpd-tooltip='WordPress'><i class='fab fa-wordpress-simple'></i></span>";
         }
     }
 
-    private function telegramButton() {
+    private function telegramButton()
+    {
         if ($this->generalOptions->social["enableTelegramLogin"] && $this->generalOptions->social["telegramToken"]) {
             echo "<span class='wpdsn wpdsn-telegram wpdiscuz-login-button' wpd-tooltip='Telegram'><i class='fab fa-telegram-plane'></i></span>";
         }
     }
 
-    private function okButton() {
+    private function okButton()
+    {
         if ($this->generalOptions->social["enableOkLogin"] && $this->generalOptions->social["okAppID"] && $this->generalOptions->social["okAppSecret"]) {
             echo "<span class='wpdsn wpdsn-ok wpdiscuz-login-button' wpd-tooltip='Odnoklassniki'><i class='fab fa-odnoklassniki'></i></span>";
         }
     }
 
-    private function vkButton() {
+    private function vkButton()
+    {
         if ($this->generalOptions->social["enableVkLogin"] && $this->generalOptions->social["vkAppID"] && $this->generalOptions->social["vkAppSecret"]) {
             echo "<span class='wpdsn wpdsn-vk wpdiscuz-login-button' wpd-tooltip='VKontakte'><i class='fab fa-vk'></i></span>";
         }
     }
 
-    private function yandexButton() {
+    private function yandexButton()
+    {
         if ($this->generalOptions->social["enableYandexLogin"] && $this->generalOptions->social["yandexID"] && $this->generalOptions->social["yandexPassword"]) {
             echo "<span class='wpdsn wpdsn-yandex wpdiscuz-login-button' wpd-tooltip='Yandex'><i class='fab fa-yandex-international'></i></span>";
         }
     }
 
-    private function mailruButton() {
+    private function mailruButton()
+    {
         if ($this->generalOptions->social["enableMailruLogin"] && $this->generalOptions->social["mailruClientID"] && $this->generalOptions->social["mailruClientSecret"]) {
             echo "<span class='wpdsn wpdsn-mailru wpdiscuz-login-button' wpd-tooltip='Mail.ru'><i class='fas fa-at'></i></span>";
         }
     }
 
-    private function wechatButton() {
+    private function wechatButton()
+    {
         if ($this->generalOptions->social["enableWechatLogin"] && $this->generalOptions->social["wechatAppID"] && $this->generalOptions->social["wechatSecret"]) {
             echo "<span class='wpdsn wpdsn-weixin wpdiscuz-login-button' wpd-tooltip='WeChat'><i class='fab fa-weixin'></i></span>";
         }
     }
 
-    private function baiduButton() {
+    private function baiduButton()
+    {
         if ($this->generalOptions->social["enableBaiduLogin"] && $this->generalOptions->social["baiduAppID"] && $this->generalOptions->social["baiduSecret"]) {
             echo "<span class='wpdsn wpdsn-baidu wpdiscuz-login-button' wpd-tooltip='Baidu'><i class='fas fa-paw'></i></span>";
         }
     }
 
-    private function qqButton() {
+    private function qqButton()
+    {
         if ($this->generalOptions->social["enableQQLogin"] && $this->generalOptions->social["qqAppID"] && $this->generalOptions->social["qqSecret"]) {
             echo "<span class='wpdsn wpdsn-qq wpdiscuz-login-button' wpd-tooltip='Tencent QQ'><i class='fab fa-qq'></i></span>";
         }
     }
 
-    private function weiboButton() {
+    private function weiboButton()
+    {
         if ($this->generalOptions->social["enableWeiboLogin"] && $this->generalOptions->social["weiboKey"] && $this->generalOptions->social["weiboSecret"]) {
             echo "<span class='wpdsn wpdsn-weibo wpdiscuz-login-button' wpd-tooltip='Sina Weibo'><i class='fab fa-weibo'></i></span>";
         }
     }
 
-    public function userAvatar($avatar, $id_or_email, $size, $default, $alt, $args = []) {
+    public function userAvatar($avatar, $id_or_email, $size, $default, $alt, $args = [])
+    {
         if (strpos($avatar, "gravatar.com") === false || !$this->generalOptions->social["displaySocialAvatar"]) {
             return $avatar;
         }
@@ -1662,10 +1727,10 @@ class SocialLogin {
             }
         } else {
             if (is_numeric($id_or_email)) {
-                $userID = (int) $id_or_email;
+                $userID = (int)$id_or_email;
             } elseif (is_object($id_or_email)) {
                 if (!empty($id_or_email->user_id)) {
-                    $userID = (int) $id_or_email->user_id;
+                    $userID = (int)$id_or_email->user_id;
                 }
             } else {
                 $user = get_user_by("email", $id_or_email);
@@ -1675,7 +1740,7 @@ class SocialLogin {
 
         if ($userID && $avatarURL = get_user_meta($userID, wpdFormConst::WPDISCUZ_SOCIAL_AVATAR_KEY, true)) {
 //            $avatarURL = apply_filters("get_avatar_url", $avatarURL, $id_or_email, $args);
-            $class = ["avatar", "avatar-" . (int) $args["size"], "photo"];
+            $class = ["avatar", "avatar-" . (int)$args["size"], "photo"];
             if (is_array($args["class"])) {
                 $class = array_merge($class, $args["class"]);
             } else {
@@ -1686,7 +1751,8 @@ class SocialLogin {
         return $avatar;
     }
 
-    public function socialScripts() {
+    public function socialScripts()
+    {
         if (!$this->generalOptions->general["loadComboVersion"] && ($this->generalOptions->social["enableFbShare"] || (!is_user_logged_in() && $this->generalOptions->isShowLoginButtons()))) {
             $suf = $this->generalOptions->general["loadMinVersion"] ? ".min" : "";
             wp_register_script("wpdiscuz-social-js", plugins_url(WPDISCUZ_DIR_NAME . "/assets/js/wpdiscuz-social$suf.js"), ["wpdiscuz-ajax-js"], get_option("wc_plugin_version", "1.0.0"), true);
@@ -1694,7 +1760,8 @@ class SocialLogin {
         }
     }
 
-    public static function getInstance($options) {
+    public static function getInstance($options)
+    {
         if (is_null(self::$_instance)) {
             self::$_instance = new self($options);
         }

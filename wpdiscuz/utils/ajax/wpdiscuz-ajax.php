@@ -157,7 +157,8 @@ if (in_array($wpdiscuz_ajax_action, $allowedActions)) {
     die("-1");
 }
 
-function wpdiscuz_ABSPATH() {
+function wpdiscuz_ABSPATH()
+{
     $path = join(DIRECTORY_SEPARATOR, ["wp-content", "plugins", "wpdiscuz", "utils", "ajax"]);
     return str_replace($path, "", __DIR__);
 }

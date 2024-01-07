@@ -16,32 +16,32 @@ if ($wmuIsActive) {
 
     /* ===== Comment Images Reloaded ===== */
     $cirComments = get_comments(
-            [
-                "count" => true,
-                "meta_query" => [
-                    [
-                        "key" => "comment_image_reloaded",
-                        "value" => "",
-                        "compare" => "!="
-                    ]
+        [
+            "count" => true,
+            "meta_query" => [
+                [
+                    "key" => "comment_image_reloaded",
+                    "value" => "",
+                    "compare" => "!="
                 ]
             ]
+        ]
     );
     $cirImagesCount = intval($cirComments);
     $cirDisabled = $cirImagesCount ? "" : "disabled";
 
     /* ===== DCO Comment Attachment ===== */
     $dcoComments = get_comments(
-            [
-                "count" => true,
-                "meta_query" => [
-                    [
-                        "key" => "attachment_id",
-                        "value" => "",
-                        "compare" => "!="
-                    ]
+        [
+            "count" => true,
+            "meta_query" => [
+                [
+                    "key" => "attachment_id",
+                    "value" => "",
+                    "compare" => "!="
                 ]
             ]
+        ]
     );
     $dcoImagesCount = intval($dcoComments);
     $dcoDisabled = $dcoImagesCount ? "" : "disabled='disabled'";
@@ -65,12 +65,14 @@ if ($wmuIsActive) {
             <form action="" method="post" class="wc-tools-settings-form wc-form">
                 <?php wp_nonce_field("wc_tools_form", "wpd-cir-images"); ?>
                 <div class="wpdtool-block">
-                    <button type="submit" class="button button-secondary import-cir" <?php echo esc_attr($cirDisabled); ?>>
+                    <button type="submit"
+                            class="button button-secondary import-cir" <?php echo esc_attr($cirDisabled); ?>>
                         <?php esc_html_e("Import images", "wpdiscuz"); ?>&nbsp;
                         <i class="fas wc-hidden"></i>
                     </button>
                     <span class="cir-import-progress">&nbsp;</span>
-                    <input type="hidden" name="cir-images-count" value="<?php echo esc_attr($cirImagesCount); ?>" class="cir-images-count" />
+                    <input type="hidden" name="cir-images-count" value="<?php echo esc_attr($cirImagesCount); ?>"
+                           class="cir-images-count"/>
                     <input type="hidden" name="cir-step" value="0" class="cir-step"/>
                 </div>
             </form>
@@ -81,12 +83,14 @@ if ($wmuIsActive) {
             <form action="" method="post" class="wc-tools-settings-form wc-form">
                 <?php wp_nonce_field("wc_tools_form", "wpd-dco-images"); ?>
                 <div class="wpdtool-block">
-                    <button type="submit" class="button button-secondary import-dco" <?php echo esc_attr($dcoDisabled); ?>>
+                    <button type="submit"
+                            class="button button-secondary import-dco" <?php echo esc_attr($dcoDisabled); ?>>
                         <?php esc_html_e("Import images", "wpdiscuz"); ?>&nbsp;
                         <i class="fas wc-hidden"></i>
                     </button>
                     <span class="dco-import-progress">&nbsp;</span>
-                    <input type="hidden" name="dco-images-count" value="<?php echo esc_attr($dcoImagesCount); ?>" class="dco-images-count" />
+                    <input type="hidden" name="dco-images-count" value="<?php echo esc_attr($dcoImagesCount); ?>"
+                           class="dco-images-count"/>
                     <input type="hidden" name="dco-step" value="0" class="dco-step"/>
                 </div>
             </form>

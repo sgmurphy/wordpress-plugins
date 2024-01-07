@@ -4,7 +4,8 @@ if (!defined("ABSPATH")) {
     exit();
 }
 
-class WpdiscuzHelperUpload implements WpDiscuzConstants {
+class WpdiscuzHelperUpload implements WpDiscuzConstants
+{
 
     private $options;
     private $dbManager;
@@ -16,7 +17,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
     private $requestUri;
     private $mimeTypes = [];
 
-    public function __construct($options, $dbManager, $wpdiscuzForm, $helper) {
+    public function __construct($options, $dbManager, $wpdiscuzForm, $helper)
+    {
         $this->options = $options;
         $this->dbManager = $dbManager;
         $this->wpdiscuzForm = $wpdiscuzForm;
@@ -60,7 +62,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         }
     }
 
-    public function uploadButtons($html, $uniqueId) {
+    public function uploadButtons($html, $uniqueId)
+    {
         if ($this->isUploadingAllowed()) {
             $type = apply_filters("wpdiscuz_mu_upload_type", "");
             $faIcon = apply_filters("wpdiscuz_mu_upload_icon", "far fa-image");
@@ -75,7 +78,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return $html;
     }
 
-    public function uploadPreview($uniqueId, $currentUser) {
+    public function uploadPreview($uniqueId, $currentUser)
+    {
         if ($this->isUploadingAllowed()) {
             $html = "<div class='wmu-action-wrap'>";
             $html .= "<div class='wmu-tabs wmu-" . self::KEY_IMAGES . "-tab wmu-hide'></div>";
@@ -85,18 +89,21 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         }
     }
 
-    public function commentText($content, $comment) {
+    public function commentText($content, $comment)
+    {
         if ($comment && strpos($this->requestUri, self::PAGE_COMMENTS) !== false && $this->options->content["wmuIsShowFilesDashboard"]) {
             $content = $this->getAttachments($content, $comment);
         }
         return $content;
     }
 
-    public function afterReadMore($content, $comment) {
+    public function afterReadMore($content, $comment)
+    {
         return $this->getAttachments($content, $comment);
     }
 
-    private function getAttachments($content, $comment) {
+    private function getAttachments($content, $comment)
+    {
         $attachments = get_comment_meta($comment->comment_ID, self::METAKEY_ATTACHMENTS, true);
         if ($attachments && is_array($attachments)) {
             // get files from jetpack CDN on ajax calls
@@ -118,7 +125,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return $content;
     }
 
-    public function getAttachedImages($attachIds, $currentUser = null, $size = "full", $lazyLoad = true) {
+    public function getAttachedImages($attachIds, $currentUser = null, $size = "full", $lazyLoad = true)
+    {
         global $pagenow;
         $images = "";
         if ($attachIds) {
@@ -213,7 +221,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return $images;
     }
 
-    public function addAttachments($cId) {
+    public function addAttachments($cId)
+    {
         if ($cId && !empty($_POST["wmu_attachments"])) {
             $wmuAttachments = json_decode(stripslashes($_POST["wmu_attachments"]), JSON_OBJECT_AS_ARRAY);
             if ($wmuAttachments && is_array($wmuAttachments)) {
@@ -238,18 +247,21 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         }
     }
 
-    public function postComment($response) {
+    public function postComment($response)
+    {
         $response["callbackFunctions"][] = "wmuHideAll";
         $response["callbackFunctions"][] = "wmuAddLightBox";
         return $response;
     }
 
-    public function wmuImageCallbacks($response) {
+    public function wmuImageCallbacks($response)
+    {
         $response["callbackFunctions"][] = "wmuAddLightBox";
         return $response;
     }
 
-    public function uploadFiles() {
+    public function uploadFiles()
+    {
         $this->helper->validateNonce();
         $response = ["errorCode" => "", "error" => "", "errors" => [], "attachmentsHtml" => "", "previewsData" => ""];
         $postId = WpdiscuzHelper::sanitize(INPUT_POST, "postId", FILTER_SANITIZE_NUMBER_INT, 0);
@@ -390,7 +402,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         wp_send_json_success($response);
     }
 
-    public static function encrypt($data) {
+    public static function encrypt($data)
+    {
         $key = __FILE__;
         $plaintext = $data;
         $ivlen = openssl_cipher_iv_length($cipher = 'AES-128-CBC');
@@ -401,7 +414,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return $ciphertext;
     }
 
-    public static function decrypt($data) {
+    public static function decrypt($data)
+    {
         $key = __FILE__;
         $c = base64_decode($data);
         $ivlen = openssl_cipher_iv_length($cipher = 'AES-128-CBC');
@@ -416,7 +430,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return false;
     }
 
-    private function isAllowedFileType($mimeType, $extension) {
+    private function isAllowedFileType($mimeType, $extension)
+    {
         $isAllowed = false;
         if (!empty($this->mimeTypes) && is_array($this->mimeTypes)) {
             foreach ($this->mimeTypes as $ext => $mimes) {
@@ -430,7 +445,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return $isAllowed;
     }
 
-    private function getMimeType($file, $extension) {
+    private function getMimeType($file, $extension)
+    {
         $mimeType = "";
         if (function_exists("finfo_open") && function_exists("finfo_file")) {
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -449,7 +465,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return $mimeType;
     }
 
-    public function removeAttachmentPreview() {
+    public function removeAttachmentPreview()
+    {
         $this->helper->validateNonce();
         $response = ["errorCode" => "", "error" => "", "attachmentsHtml" => ""];
         $attachmentId = WpdiscuzHelper::sanitize(INPUT_POST, "attachmentId", "FILTER_SANITIZE_STRING", 0);
@@ -506,7 +523,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         wp_send_json_success($response);
     }
 
-    public function deleteAttachment() {
+    public function deleteAttachment()
+    {
         $this->helper->validateNonce();
         $response = ["errorCode" => "", "error" => ""];
         $attachmentId = isset($_POST["attachmentId"]) ? trim($_POST["attachmentId"]) : 0;
@@ -533,7 +551,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         }
     }
 
-    public function isUploadingAllowed($postObj = null) {
+    public function isUploadingAllowed($postObj = null)
+    {
         global $post;
         $gPost = $postObj ? $postObj : $post;
         $isAllowed = false;
@@ -550,12 +569,14 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return $isAllowed;
     }
 
-    public function isAllowedPostType($post) {
+    public function isAllowedPostType($post)
+    {
         $allowedPosttypes = apply_filters("wpdiscuz_mu_allowed_posttypes", $this->getDefaultPostTypes());
         return ($post && is_object($post) && isset($post->post_type) && in_array($post->post_type, $allowedPosttypes));
     }
 
-    public function canUserUpload($currentUser) {
+    public function canUserUpload($currentUser)
+    {
         $bool = false;
         if ($currentUser && $currentUser->ID) {
             $userRoles = $currentUser->roles;
@@ -570,7 +591,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return $bool;
     }
 
-    private function uploadSingleFile($file) {
+    private function uploadSingleFile($file)
+    {
         $currentTime = WpdiscuzHelper::getMicrotime();
         $attachmentData = [];
         $path = $this->wpUploadsPath . "/";
@@ -617,7 +639,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return $attachmentData;
     }
 
-    private function getImageSizes() {
+    private function getImageSizes()
+    {
         $sizes = [];
         $this->options->content["wmuImageSizes"] = array_filter($this->options->content["wmuImageSizes"], function ($v) {
             return in_array($v, get_intermediate_image_sizes());
@@ -634,7 +657,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return $sizes;
     }
 
-    public function getImagesSizes() {
+    public function getImagesSizes()
+    {
         $sizes = $this->options->content["wmuImageSizes"];
         if ($sizes && is_array($sizes) && !in_array("full", $sizes)) {
             $sizes[] = "full";
@@ -646,7 +670,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return $sizes;
     }
 
-    private function combineArray($array) {
+    private function combineArray($array)
+    {
         $combinedArray = [];
         foreach ($array as $k => $v) {
             foreach ($v as $k1 => $v1) {
@@ -656,7 +681,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return $combinedArray;
     }
 
-    private function imageFixOrientation($filename) {
+    private function imageFixOrientation($filename)
+    {
         $isFunctionsExists = function_exists("exif_read_data") && function_exists("imagecreatefromjpeg") && function_exists("imagerotate") && function_exists("imagejpeg");
         if ($isFunctionsExists) {
             $exif = @exif_read_data($filename);
@@ -678,7 +704,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         }
     }
 
-    public function getFileName($attachment) {
+    public function getFileName($attachment)
+    {
         $name = false;
         if ($attachment) {
             if (is_object($attachment) && (isset($attachment->post_excerpt) || isset($attachment->post_title))) {
@@ -695,7 +722,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return $name;
     }
 
-    public function deleteLinkedAttachments($commentId) {
+    public function deleteLinkedAttachments($commentId)
+    {
         if ($commentId) {
             $metaData = get_comment_meta($commentId, self::METAKEY_ATTACHMENTS, true);
             if ($metaData && is_array($metaData)) {
@@ -710,7 +738,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         }
     }
 
-    public function deleteAttachmentIdFromMeta($postId) {
+    public function deleteAttachmentIdFromMeta($postId)
+    {
         $commentId = get_post_meta($postId, self::METAKEY_ATTCHMENT_COMMENT_ID, true);
         if ($commentId) {
             $attachments = get_comment_meta($commentId, self::METAKEY_ATTACHMENTS, true);
@@ -735,7 +764,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         }
     }
 
-    public static function hasAttachments($attachments) {
+    public static function hasAttachments($attachments)
+    {
         $hasItems = false;
         if ($attachments && is_array($attachments)) {
             foreach ($attachments as $attachment) {
@@ -748,7 +778,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return $hasItems;
     }
 
-    public function canEditAttachments($currentUser, $attachment) {
+    public function canEditAttachments($currentUser, $attachment)
+    {
         $args = [];
         if (isset($this->currentUser->user_email)) {
             $args["comment_author_email"] = $this->currentUser->user_email;
@@ -758,13 +789,15 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return current_user_can("moderate_comments") || ($this->helper->isCommentEditable($comment) && $this->helper->canUserEditComment($comment, $currentUser, $args));
     }
 
-    public function getDeleteHtml($currentUser, $attachment, $type) {
+    public function getDeleteHtml($currentUser, $attachment, $type)
+    {
         $attachmentId = self::encrypt($attachment->ID);
         $deleteHtml = "<div class='wmu-attachment-delete wmu-delete-$type' title='" . esc_html__("Delete", "wpdiscuz") . "' data-wmu-attachment='$attachmentId'>&nbsp;</div>";
         return $this->canEditAttachments($currentUser, $attachment) ? $deleteHtml : "<div class='wmu-separator'></div>";
     }
 
-    public function commentListArgs($args) {
+    public function commentListArgs($args)
+    {
         if (empty($args["current_user"])) {
             $this->currentUser = WpdiscuzHelper::getCurrentUser();
         } else {
@@ -773,26 +806,31 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return $args;
     }
 
-    public function setCurrentUser($currentUser) {
+    public function setCurrentUser($currentUser)
+    {
         $this->currentUser = $currentUser;
     }
 
-    private function getDefaultPostTypes() {
+    private function getDefaultPostTypes()
+    {
         return ["post", "page", "attachment"];
     }
 
-    private function getDefaultRoles() {
+    private function getDefaultRoles()
+    {
         return ["administrator", "editor", "author", "contributor", "subscriber"];
     }
 
-    public function isImage($file) {
+    public function isImage($file)
+    {
         return wp_get_image_mime($file["tmp_name"]);
     }
 
     /**
      * DEPRECATED due to some secuirty issues
      */
-    public function getMimeTypeFromContent($path) {
+    public function getMimeTypeFromContent($path)
+    {
         $fileContent = $path && function_exists("file_get_contents") && ($v = file_get_contents($path)) ? $v : "";
         if ($fileContent && preg_match('/\A(?:(\xff\xd8\xff)|(GIF8[79]a)|(\x89PNG\x0d\x0a)|(BM)|(\x49\x49(?:\x2a\x00|\x00\x4a))|(FORM.{4}ILBM))/', $fileContent, $hits)) {
             $type = [
@@ -808,7 +846,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return false;
     }
 
-    public function exportPersonalData($data, $commentId) {
+    public function exportPersonalData($data, $commentId)
+    {
         $attachments = get_comment_meta($commentId, self::METAKEY_ATTACHMENTS, true);
         if ($attachments && is_array($attachments)) {
             $isWmuExists = apply_filters("wpdiscuz_mu_exists", false);
@@ -831,7 +870,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         return $data;
     }
 
-    public function deleteUnattachedFiles() {
+    public function deleteUnattachedFiles()
+    {
         if (!apply_filters("wpdiscuz_delete_unattached_files", true)) {
             wp_clear_scheduled_hook(self::DELETE_UNATTACHED_FILES_ACTION);
             return;
@@ -861,7 +901,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         }
     }
 
-    public function wpdiscuzMediaFiler() {
+    public function wpdiscuzMediaFiler()
+    {
         $scr = get_current_screen();
         if ($scr->base !== "upload") {
             return;
@@ -877,7 +918,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         echo $dropdown;
     }
 
-    function getWpdiscuzMedia($query) {
+    function getWpdiscuzMedia($query)
+    {
         global $pagenow;
         $mode = WpdiscuzHelper::sanitize(INPUT_GET, "mode", "FILTER_SANITIZE_STRING");
         $source = WpdiscuzHelper::sanitize(INPUT_GET, "media_source", "FILTER_SANITIZE_STRING");
@@ -889,7 +931,8 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
         }
     }
 
-    public function wpdiscuzMediaCommentColumn($columns, $detached) {
+    public function wpdiscuzMediaCommentColumn($columns, $detached)
+    {
         if ($columns && is_array($columns)) {
             $columns['wpdcomment'] = esc_html__('Attached To Comment', 'wpdiscuz');
         }

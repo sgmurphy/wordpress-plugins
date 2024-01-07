@@ -12,7 +12,7 @@ $lstcDisabled = $lstcSubscriptionsCount ? "" : "disabled='disabled'";
 <div class="wpdtool-accordion-item">
 
     <div class="fas wpdtool-accordion-title" data-wpdtool-selector="wpdtool-<?php echo $tool["selector"]; ?>">
-        <p><?php esc_html_e("Import Subscriptions", "wpdiscuz"); ?></p>        
+        <p><?php esc_html_e("Import Subscriptions", "wpdiscuz"); ?></p>
     </div>
 
     <div class="wpdtool-accordion-content">
@@ -27,7 +27,8 @@ $lstcDisabled = $lstcSubscriptionsCount ? "" : "disabled='disabled'";
                         <i class="fas wc-hidden"></i>
                     </button>
                     <span class="stcr-import-progress">&nbsp;</span>
-                    <input type="hidden" name="stcr-subscriptions-count" value="<?php echo esc_attr($stcrSubscriptionsCount); ?>" class="stcr-subscriptions-count" />
+                    <input type="hidden" name="stcr-subscriptions-count"
+                           value="<?php echo esc_attr($stcrSubscriptionsCount); ?>" class="stcr-subscriptions-count"/>
                     <input type="hidden" name="stcr-step" value="0" class="stcr-step"/>
                 </div>
             </form>
@@ -43,7 +44,8 @@ $lstcDisabled = $lstcSubscriptionsCount ? "" : "disabled='disabled'";
                         <i class="fas wc-hidden"></i>
                     </button>
                     <span class="lstc-import-progress">&nbsp;</span>
-                    <input type="hidden" name="lstc-subscriptions-count" value="<?php echo esc_attr($lstcSubscriptionsCount); ?>" class="lstc-subscriptions-count" />
+                    <input type="hidden" name="lstc-subscriptions-count"
+                           value="<?php echo esc_attr($lstcSubscriptionsCount); ?>" class="lstc-subscriptions-count"/>
                     <input type="hidden" name="lstc-step" value="0" class="lstc-step"/>
                 </div>
             </form>

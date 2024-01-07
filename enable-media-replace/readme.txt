@@ -3,7 +3,7 @@ Contributors: ShortPixel
 Donate link: https://www.paypal.me/resizeImage
 Tags: replace, attachment, media, files, replace image, remove background, replace jpg, change media, replace media, image, file
 Requires at least: 4.9.7
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 5.6
 Stable tag: 4.1.5
 

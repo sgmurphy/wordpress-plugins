@@ -3,7 +3,7 @@ Contributors: gVectors Team
 Tags: comment, comments, ajax comments, comment form, comment fields
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 7.6.13
+Stable tag: 7.6.14
 Requires PHP: 5.6 and higher
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -188,6 +188,14 @@ Nothing will be lost!  **Comments - wpDiscuz** will show all old comments.
 **IMPORTANT!**
 
 Please don't forget delete all caches and purge CDN after the update.
+
+= Comments - wpDiscuz v7.6.14 - 07.01.2024 =
+
+* Added: Comment author URL validation for the comments that weren't added by wpDiscuz
+* Fixed: Post authors URLs on comment author label
+* Fixed: Automatically adding wpDiscuz as a default comment form/system on block themes
+* Fixed: Ensure text remains visible during webfont load
+* Fixed: An issue with notifications with the type of "all my comments"
 
 = Comments - wpDiscuz v7.6.13 - 16.11.2023 =
 

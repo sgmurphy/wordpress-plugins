@@ -4,9 +4,11 @@ namespace wpdFormAttr\Login;
 
 use wpdFormAttr\FormConst\wpdFormConst;
 
-class Utils {
+class Utils
+{
 
-    public static function addUser($socialUser, $provider) {
+    public static function addUser($socialUser, $provider)
+    {
         $userID = 0;
         $userData = [];
         if ($provider === "facebook") {
@@ -58,7 +60,8 @@ class Utils {
         return $userID;
     }
 
-    private static function updateUserData($userData) {
+    private static function updateUserData($userData)
+    {
         $userProvider = get_user_meta($userData["ID"], wpdFormConst::WPDISCUZ_SOCIAL_PROVIDER_KEY, true);
         if ($userProvider !== $userData["provider"]) {
             wp_update_user(["ID" => $userData["ID"], "user_url" => $userData["user_url"]]);
@@ -67,13 +70,15 @@ class Utils {
         }
     }
 
-    private static function generateLogin($email) {
+    private static function generateLogin($email)
+    {
         $username = str_replace("-", "_", sanitize_title(strstr($email, "@", true)));
         $username = sanitize_user($username);
         return self::saitizeUsername($username);
     }
 
-    private static function saitizeUsername($username) {
+    private static function saitizeUsername($username)
+    {
         if (mb_strlen($username) > 60) {
             $username = mb_substr($username, 0, 20);
         }
@@ -86,7 +91,8 @@ class Utils {
         return $alt_username;
     }
 
-    private static function sanitizeFacebookUser($fbUser) {
+    private static function sanitizeFacebookUser($fbUser)
+    {
         $userData = [
             "user_login" => self::generateLogin($fbUser["email"]),
             "first_name" => $fbUser["first_name"],
@@ -101,7 +107,8 @@ class Utils {
         return $userData;
     }
 
-    private static function sanitizeInstagramUser($instagramUser) {
+    private static function sanitizeInstagramUser($instagramUser)
+    {
         $userData = [
             "user_login" => self::saitizeUsername($instagramUser["username"]),
             "first_name" => '',
@@ -116,7 +123,8 @@ class Utils {
         return $userData;
     }
 
-    private static function sanitizeGoogleUser($googleUser) {
+    private static function sanitizeGoogleUser($googleUser)
+    {
         $userData = [
             "user_login" => self::generateLogin($googleUser["email"]),
             "first_name" => $googleUser["given_name"],
@@ -131,7 +139,8 @@ class Utils {
         return $userData;
     }
 
-    private static function sanitizeTelegramUser($telegramUser) {
+    private static function sanitizeTelegramUser($telegramUser)
+    {
         $userID = $telegramUser["id"] ? $telegramUser["id"] : uniqid();
         $username = $telegramUser["username"] ? $telegramUser["username"] : "tlg_" . $userID;
         $dname = $telegramUser["first_name"] ? $telegramUser["first_name"] : $username;
@@ -150,7 +159,8 @@ class Utils {
         return $userData;
     }
 
-    private static function sanitizeDisqusUser($disqusUser) {
+    private static function sanitizeDisqusUser($disqusUser)
+    {
         $userData = [
             "user_login" => self::saitizeUsername($disqusUser["username"]),
             "first_name" => "",
@@ -165,7 +175,8 @@ class Utils {
         return $userData;
     }
 
-    private static function sanitizeWordpressUser($wordpressUser) {
+    private static function sanitizeWordpressUser($wordpressUser)
+    {
         $userData = [
             "user_login" => self::saitizeUsername($wordpressUser["username"]),
             "first_name" => "",
@@ -180,7 +191,8 @@ class Utils {
         return $userData;
     }
 
-    private static function sanitizeTwitterUser($socialUser) {
+    private static function sanitizeTwitterUser($socialUser)
+    {
         $userData = [
             "user_login" => self::saitizeUsername($socialUser->screen_name),
             "first_name" => $socialUser->name,
@@ -195,7 +207,8 @@ class Utils {
         return $userData;
     }
 
-    private static function sanitizeVkUser($socialUser) {
+    private static function sanitizeVkUser($socialUser)
+    {
         $userData = [
             "user_login" => self::generateLogin($socialUser["email"]),
             "first_name" => $socialUser["first_name"],
@@ -210,7 +223,8 @@ class Utils {
         return $userData;
     }
 
-    private static function sanitizeLinkedinUser($socialUser) {
+    private static function sanitizeLinkedinUser($socialUser)
+    {
         $fname = "";
         $lname = "";
         $dname = "";
@@ -270,7 +284,8 @@ class Utils {
         return $userData;
     }
 
-    private static function sanitizeOkUser($socialUser) {
+    private static function sanitizeOkUser($socialUser)
+    {
         $email = !empty($socialUser['email']) ? $socialUser['email'] : $socialUser['uid'] . '_anonymous@ok.ru';
         $userData = [
             "user_login" => self::generateLogin($email),
@@ -286,7 +301,8 @@ class Utils {
         return $userData;
     }
 
-    private static function sanitizeYandexUser($socialUser) {
+    private static function sanitizeYandexUser($socialUser)
+    {
         $userData = [
             "user_login" => self::saitizeUsername($socialUser["login"]),
             "first_name" => $socialUser["first_name"],
@@ -301,7 +317,8 @@ class Utils {
         return $userData;
     }
 
-    private static function sanitizeMailruUser($socialUser) {
+    private static function sanitizeMailruUser($socialUser)
+    {
         $userData = [
             "user_login" => self::generateLogin($socialUser["email"]),
             "first_name" => $socialUser["first_name"],
@@ -316,7 +333,8 @@ class Utils {
         return $userData;
     }
 
-    private static function sanitizeWeChatUser($socialUser) {
+    private static function sanitizeWeChatUser($socialUser)
+    {
         $userData = [
             "user_login" => self::saitizeUsername("wechat_" . uniqid()),
             "first_name" => "",
@@ -331,7 +349,8 @@ class Utils {
         return $userData;
     }
 
-    private static function sanitizeQQUser($socialUser) {
+    private static function sanitizeQQUser($socialUser)
+    {
         $avatar = "";
         if (isset($socialUser['figureurl_qq_2']) && !empty($socialUser['figureurl_qq_2'])) {
             $avatar = $socialUser['figureurl_qq_2'];
@@ -357,7 +376,8 @@ class Utils {
         return $userData;
     }
 
-    private static function sanitizeWeiboUser($socialUser) {
+    private static function sanitizeWeiboUser($socialUser)
+    {
         $userData = [
             "user_login" => self::saitizeUsername("weibo_" . $socialUser["idstr"]),
             "first_name" => "",
@@ -372,7 +392,8 @@ class Utils {
         return $userData;
     }
 
-    private static function sanitizeBaiduUser($socialUser) {
+    private static function sanitizeBaiduUser($socialUser)
+    {
         $login = self::saitizeUsername("baidu_" . $socialUser["uid"]);
         $name = $socialUser["uname"] ? $socialUser["uname"] : $login;
         $avatar = $socialUser["portrait"] ? "https://himg.bdimg.com/sys/portrait/item/" . $socialUser["portrait"] . ".jpg" : "";
@@ -390,15 +411,18 @@ class Utils {
         return $userData;
     }
 
-    public static function addOAuthState($provider, $secret, $postID) {
+    public static function addOAuthState($provider, $secret, $postID)
+    {
         set_transient(wpdFormConst::WPDISCUZ_OAUTH_STATE_TOKEN . md5($secret), [wpdFormConst::WPDISCUZ_OAUTH_STATE_PROVIDER => $provider, wpdFormConst::WPDISCUZ_OAUTH_CURRENT_POSTID => $postID], HOUR_IN_SECONDS);
     }
 
-    public static function generateOAuthState($appID) {
+    public static function generateOAuthState($appID)
+    {
         return md5("appID=$appID;date=" . time());
     }
 
-    public static function getProviderByState($state) {
+    public static function getProviderByState($state)
+    {
         $option_key = wpdFormConst::WPDISCUZ_OAUTH_STATE_TOKEN . md5($state);
         $providerData = get_transient($option_key);
         return $providerData;

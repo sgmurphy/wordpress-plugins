@@ -5,7 +5,8 @@ if (!defined("ABSPATH")) {
 
 include_once WPDISCUZ_DIR_PATH . "/options/class.WpdiscuzAddons.php";
 
-class WpdiscuzOptions implements WpDiscuzConstants {
+class WpdiscuzOptions implements WpDiscuzConstants
+{
 
     /**
      * @var WpdiscuzAddons
@@ -51,7 +52,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
     private $addonsArray;
     private $tips;
 
-    public function __construct($dbManager) {
+    public function __construct($dbManager)
+    {
         $this->dbManager = $dbManager;
         $this->addons = new WpdiscuzAddons($this);
         $this->wmuUploadMaxFileSize = $this->getSizeInBytes(ini_get('upload_max_filesize'));
@@ -82,14 +84,16 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         add_action("admin_notices", [&$this, "adminNotices"]);
     }
 
-    public function getOptions() {
+    public function getOptions()
+    {
         $options = $this->toArray();
         $optionsWp = ['wp' => $this->wp];
         $options = array_merge($options, $optionsWp);
         return $options;
     }
 
-    public function getOption($key, $tab = null) {
+    public function getOption($key, $tab = null)
+    {
         if (!$key) {
             return null;
         }
@@ -114,7 +118,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         return new WP_Error("wpdiscuz_option_not_found", __("The option not exists in the wpDiscuz options", "wpdiscuz"));
     }
 
-    public function initOptions($serialize_options) {
+    public function initOptions($serialize_options)
+    {
         $options = maybe_unserialize($serialize_options);
         $defaultOptions = $this->getDefaultOptions();
         /* form */
@@ -381,7 +386,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
     /**
      * initialize default phrases
      */
-    public function initPhrases() {
+    public function initPhrases()
+    {
         $this->phrases = [
             "wc_be_the_first_text" => esc_html__("Be the First to Comment!", "wpdiscuz"),
             "wc_comment_start_text" => esc_html__("Start the discussion", "wpdiscuz"),
@@ -594,7 +600,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
      * @param array $args custom arguments for filtering
      * @return string|null phrase as string (if exists), default phrase (if exists in $args) or null
      */
-    public function getPhrase($key, $args = []) {
+    public function getPhrase($key, $args = [])
+    {
         $args = wp_parse_args($args, [
             "default" => null,
             "apply_filter" => true,
@@ -605,7 +612,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         return $args["default"];
     }
 
-    public function toArray() {
+    public function toArray()
+    {
         $options = [
             self::TAB_FORM => [
                 "commentFormView" => $this->form["commentFormView"],
@@ -880,15 +888,18 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         return $options;
     }
 
-    public function updateOptions() {
+    public function updateOptions()
+    {
         update_option(self::OPTION_SLUG_OPTIONS, $this->toArray());
     }
 
-    public function addOptions() {
+    public function addOptions()
+    {
         add_option(self::OPTION_SLUG_OPTIONS, $this->getDefaultOptions());
     }
 
-    public function getDefaultOptions() {
+    public function getDefaultOptions()
+    {
         return [
             self::TAB_FORM => [
                 "commentFormView" => "collapsed",
@@ -1145,7 +1156,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         ];
     }
 
-    public function initPhrasesOnLoad() {
+    public function initPhrasesOnLoad()
+    {
         if (!$this->general["isUsePoMo"] && $this->dbManager->isPhraseExists("wc_be_the_first_text")) {
             $this->phrases = $this->dbManager->getPhrases();
         } else {
@@ -1154,16 +1166,19 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         do_action("wpdiscuz_phrases_loaded", $this->phrases);
     }
 
-    private function initFormRelations() {
+    private function initFormRelations()
+    {
         $this->formContentTypeRel = get_option("wpdiscuz_form_content_type_rel", []);
         $this->formPostRel = get_option("wpdiscuz_form_post_rel", []);
     }
 
-    public function isShareEnabled() {
+    public function isShareEnabled()
+    {
         return $this->social["enableFbShare"] || $this->social["enableTwitterShare"] || $this->social["enableVkShare"] || $this->social["enableOkShare"];
     }
 
-    public function getOptionsForJs() {
+    public function getOptionsForJs()
+    {
         $jsArgs = [];
         $jsArgs["wc_hide_replies_text"] = esc_html($this->phrases["wc_hide_replies_text"]);
         $jsArgs["wc_show_replies_text"] = esc_html($this->phrases["wc_show_replies_text"]);
@@ -1238,8 +1253,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         $jsArgs["bubbleHintTimeout"] = $this->live["bubbleHintTimeout"];
         $jsArgs["bubbleHintHideTimeout"] = $this->live["bubbleHintHideTimeout"];
         $jsArgs["cookieHideBubbleHint"] = self::COOKIE_HIDE_BUBBLE_HINT;
-	    $jsArgs["bubbleHintShowOnce"] = apply_filters("wpdiscuz_bubble_hint_show_once", true);
-	    $jsArgs["bubbleHintCookieExpires"] = apply_filters("wpdiscuz_bubble_hint_cookie_expires", 7);
+        $jsArgs["bubbleHintShowOnce"] = apply_filters("wpdiscuz_bubble_hint_show_once", true);
+        $jsArgs["bubbleHintCookieExpires"] = apply_filters("wpdiscuz_bubble_hint_cookie_expires", 7);
         $jsArgs["bubbleShowNewCommentMessage"] = $this->live["bubbleShowNewCommentMessage"];
         $jsArgs["bubbleLocation"] = $this->live["bubbleLocation"];
         $jsArgs["firstLoadWithAjax"] = $this->thread_display["firstLoadWithAjax"];
@@ -1277,17 +1292,19 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         return $jsArgs;
     }
 
-    private function initGoodbyeCaptchaField() {
+    private function initGoodbyeCaptchaField()
+    {
         $this->isGoodbyeCaptchaActive = is_callable([
-                    "GdbcWordPressPublicModule",
-                    "isCommentsProtectionActivated",
-                ]) && GdbcWordPressPublicModule::isCommentsProtectionActivated();
+                "GdbcWordPressPublicModule",
+                "isCommentsProtectionActivated",
+            ]) && GdbcWordPressPublicModule::isCommentsProtectionActivated();
         if ($this->isGoodbyeCaptchaActive) {
             $this->goodbyeCaptchaTocken = GdbcWordPressPublicModule::getInstance()->getTokenFieldHtml();
         }
     }
 
-    public function editorOptions() {
+    public function editorOptions()
+    {
         ob_start();
         ?>
         var wpdiscuzEditorOptions = {
@@ -1311,7 +1328,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         return ob_get_clean();
     }
 
-    public function saveAndResetOptionsAndPhrases() {
+    public function saveAndResetOptionsAndPhrases()
+    {
         if (!empty($_GET["wpd_wizard"]) && ($wizard = absint($_GET["wpd_wizard"])) && !empty($_POST)) {
             check_admin_referer("wpd_wizard_form");
             if ($wizard === 2) {
@@ -1352,7 +1370,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         do_action("wpdiscuz_addons_check");
     }
 
-    public function saveOptions() {
+    public function saveOptions()
+    {
         if (isset($_POST["wc_submit_options"]) && !empty($_POST["wpd_tab"])) {
             if (!current_user_can("manage_options")) {
                 die(esc_html_e("Hacker?", "wpdiscuz"));
@@ -1508,9 +1527,9 @@ class WpdiscuzOptions implements WpDiscuzConstants {
                 $this->thread_display["highlightUnreadComments"] = isset($_POST[self::TAB_THREAD_DISPLAY]["highlightUnreadComments"]) ? absint($_POST[self::TAB_THREAD_DISPLAY]["highlightUnreadComments"]) : 0;
                 $this->thread_display["scrollToComment"] = isset($_POST[self::TAB_THREAD_DISPLAY]["scrollToComment"]) ? absint($_POST[self::TAB_THREAD_DISPLAY]["scrollToComment"]) : 0;
                 $this->thread_display["orderCommentsBy"] = isset($_POST[self::TAB_THREAD_DISPLAY]["orderCommentsBy"]) && ($o = trim(sanitize_text_field($_POST[self::TAB_THREAD_DISPLAY]["orderCommentsBy"]))) && in_array($o, [
-                            "comment_ID",
-                            "comment_date_gmt",
-                        ]) ? $o : "comment_ID";
+                    "comment_ID",
+                    "comment_date_gmt",
+                ]) ? $o : "comment_ID";
             } else if (self::TAB_THREAD_LAYOUTS === $_POST["wpd_tab"]) {
                 $this->thread_layouts["showCommentLink"] = isset($_POST[self::TAB_THREAD_LAYOUTS]["showCommentLink"]) ? absint($_POST[self::TAB_THREAD_LAYOUTS]["showCommentLink"]) : 0;
                 $this->thread_layouts["showCommentDate"] = isset($_POST[self::TAB_THREAD_LAYOUTS]["showCommentDate"]) ? absint($_POST[self::TAB_THREAD_LAYOUTS]["showCommentDate"]) : 0;
@@ -1639,7 +1658,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         }
     }
 
-    public function savePhrases() {
+    public function savePhrases()
+    {
         if (isset($_POST["wc_submit_phrases"])) {
             if (!current_user_can("manage_options")) {
                 die(esc_html_e("Hacker?", "wpdiscuz"));
@@ -1858,7 +1878,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         }
     }
 
-    public function resetOptions() {
+    public function resetOptions()
+    {
         $nonce = WpdiscuzHelper::sanitize(INPUT_GET, "_wpnonce", "FILTER_SANITIZE_STRING");
         $page = WpdiscuzHelper::sanitize(INPUT_GET, "page", "FILTER_SANITIZE_STRING");
         $tab = WpdiscuzHelper::sanitize(INPUT_GET, "wpd_tab", "FILTER_SANITIZE_STRING");
@@ -1922,14 +1943,16 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         exit(wp_safe_redirect($redirect_to));
     }
 
-    public function mainOptionsForm() {
+    public function mainOptionsForm()
+    {
         if (isset($_POST["wc_submit_options"])) {
             add_settings_error("wpdiscuz", "settings_updated", esc_html__("Settings updated", "wpdiscuz"), "updated");
         }
         include_once WPDISCUZ_DIR_PATH . "/options/html-options.php";
     }
 
-    public function phrasesOptionsForm() {
+    public function phrasesOptionsForm()
+    {
         if (isset($_POST["wc_submit_phrases"])) {
             add_settings_error("wpdiscuz", "phrases_updated", esc_html__("Phrases updated", "wpdiscuz"), "updated");
         }
@@ -1937,7 +1960,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         include_once WPDISCUZ_DIR_PATH . "/options/html-phrases.php";
     }
 
-    public function exportOptionsOrPhrases() {
+    public function exportOptionsOrPhrases()
+    {
         if (current_user_can("manage_options")) {
             if (isset($_POST["tools-action"])) {
                 $action = $_POST["tools-action"];
@@ -1969,7 +1993,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         }
     }
 
-    public function tools() {
+    public function tools()
+    {
         if (current_user_can("manage_options")) {
             if (isset($_POST["tools-action"])) {
                 $action = $_POST["tools-action"];
@@ -2017,14 +2042,16 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         include_once WPDISCUZ_DIR_PATH . "/options/html-tools.php";
     }
 
-    public function adminNotices() {
+    public function adminNotices()
+    {
         if (current_user_can("manage_options")) {
             $this->regenerateMessage();
             $this->addonActivationMessages();
         }
     }
 
-    private function regenerateMessage() {
+    private function regenerateMessage()
+    {
         global $pagenow;
         $notWpdiscuzSettingsPage = $pagenow !== "admin.php" || ($pagenow === "admin.php" && (!isset($_GET["page"]) || (isset($_GET["page"]) && $_GET["page"] !== self::PAGE_SETTINGS)));
         $wizardCompleted = intval(get_option(self::OPTION_SLUG_WIZARD_COMPLETED));
@@ -2032,7 +2059,7 @@ class WpdiscuzOptions implements WpDiscuzConstants {
             ?>
             <div class='notice notice-warning'>
                 <p style="font-size: 14px; font-weight: 600;">
-            <?php esc_html_e("Please complete required steps to start using wpDiscuz 7", "wpdiscuz"); ?> &nbsp;
+                    <?php esc_html_e("Please complete required steps to start using wpDiscuz 7", "wpdiscuz"); ?> &nbsp;
                     <a href="<?php echo esc_url_raw(admin_url("admin.php?page=" . self::PAGE_SETTINGS . "&wpd_wizard=1")); ?>"
                        class="button button-primary"><?php intval(get_option(self::OPTION_SLUG_WIZARD_AFTER_UPDATE)) ? esc_html_e("Go to Update Wizard &raquo;", "wpdiscuz") : esc_html_e("Go to Installation Wizard &raquo;", "wpdiscuz"); ?></a>
                 </p>
@@ -2043,7 +2070,7 @@ class WpdiscuzOptions implements WpDiscuzConstants {
             ?>
             <div class='notice notice-warning'>
                 <p>
-            <?php esc_html_e("Jetpack Comments are active.", "wpdiscuz"); ?>
+                    <?php esc_html_e("Jetpack Comments are active.", "wpdiscuz"); ?>
                 </p>
             </div>
             <?php
@@ -2052,7 +2079,7 @@ class WpdiscuzOptions implements WpDiscuzConstants {
             ?>
             <div class='notice notice-warning'>
                 <p>
-            <?php esc_html_e("Comment votes meta data need to be regenerated", "wpdiscuz"); ?>&nbsp;
+                    <?php esc_html_e("Comment votes meta data need to be regenerated", "wpdiscuz"); ?>&nbsp;
                     <a href="<?php echo esc_url_raw(admin_url("admin.php?page=" . self::PAGE_TOOLS . "#wpdtool-regenerate")); ?>"
                        class="button button-primary"><?php esc_html_e("Regenerate Vote Metas", "wpdiscuz"); ?></a>
                 </p>
@@ -2063,7 +2090,7 @@ class WpdiscuzOptions implements WpDiscuzConstants {
             ?>
             <div class='notice notice-warning'>
                 <p>
-            <?php esc_html_e("Closed Comments data need be regenerated", "wpdiscuz"); ?>&nbsp;
+                    <?php esc_html_e("Closed Comments data need be regenerated", "wpdiscuz"); ?>&nbsp;
                     <a href="<?php echo esc_url_raw(admin_url("admin.php?page=" . self::PAGE_TOOLS . "#wpdtool-regenerate")); ?>"
                        class="button button-primary"><?php esc_html_e("Regenerate Closed Comments", "wpdiscuz"); ?></a>
                 </p>
@@ -2074,7 +2101,7 @@ class WpdiscuzOptions implements WpDiscuzConstants {
             ?>
             <div class='notice notice-warning'>
                 <p>
-            <?php esc_html_e("Comments votes data need to be regenerated", "wpdiscuz"); ?>&nbsp;
+                    <?php esc_html_e("Comments votes data need to be regenerated", "wpdiscuz"); ?>&nbsp;
                     <a href="<?php echo esc_url_raw(admin_url("admin.php?page=" . self::PAGE_TOOLS . "#wpdtool-regenerate")); ?>"
                        class="button button-primary"><?php esc_html_e("Regenerate Vote Data", "wpdiscuz"); ?></a>
                 </p>
@@ -2085,7 +2112,7 @@ class WpdiscuzOptions implements WpDiscuzConstants {
             ?>
             <div class='notice notice-warning'>
                 <p>
-            <?php esc_html_e("Please synchronize comment data for the best performance and fastest experience", "wpdiscuz"); ?>
+                    <?php esc_html_e("Please synchronize comment data for the best performance and fastest experience", "wpdiscuz"); ?>
                     &nbsp;
                     <a href="<?php echo esc_url_raw(admin_url("admin.php?page=" . self::PAGE_TOOLS . "#wpdtool-regenerate")); ?>"
                        class="button button-primary"><?php esc_html_e("Synchronize Commenters Data", "wpdiscuz"); ?></a>
@@ -2097,7 +2124,7 @@ class WpdiscuzOptions implements WpDiscuzConstants {
             ?>
             <div class='notice notice-warning'>
                 <p>
-            <?php esc_html_e("Please rebuild ratings for the best performance and fastest experience", "wpdiscuz"); ?>
+                    <?php esc_html_e("Please rebuild ratings for the best performance and fastest experience", "wpdiscuz"); ?>
                     &nbsp;
                     <a href="<?php echo esc_url_raw(admin_url("admin.php?page=" . self::PAGE_TOOLS . "#wpdtool-ratings")); ?>"
                        class="button button-primary"><?php esc_html_e("Rebuild Ratings", "wpdiscuz"); ?></a>
@@ -2107,7 +2134,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         }
     }
 
-    public function getDefaultFileTypes() {
+    public function getDefaultFileTypes()
+    {
         $types = [
             "jpg" => "image/jpeg",
             "jpeg" => "image/jpeg",
@@ -2123,7 +2151,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         return $types;
     }
 
-    private function getSizeInBytes($size) {
+    private function getSizeInBytes($size)
+    {
         $value = trim($size);
         if (is_numeric($value)) {
             return $value;
@@ -2146,23 +2175,28 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         return intval($value);
     }
 
-    public function getDefaultImageSizes() {
+    public function getDefaultImageSizes()
+    {
         return ["thumbnail", "medium", "medium_large", "large"];
     }
 
-    public function dashboard() {
+    public function dashboard()
+    {
         include_once WPDISCUZ_DIR_PATH . "/options/html-dashboard.php";
     }
 
-    public function isShowLoginButtons() {
-        return $this->social["enableFbLogin"] || $this->social["enableTwitterLogin"] || $this->social["enableGoogleLogin"]|| $this->social["enableTelegramLogin"] || $this->social["enableDisqusLogin"] || $this->social["enableWordpressLogin"] || $this->social["enableVkLogin"] || $this->social["enableOkLogin"] || $this->social["enableInstagramLogin"] || $this->social["enableLinkedinLogin"] || $this->social["enableYandexLogin"] || $this->social["enableMailruLogin"] || $this->social["enableWeiboLogin"] || $this->social["enableWechatLogin"] || $this->social["enableQQLogin"] || $this->social["enableBaiduLogin"];
+    public function isShowLoginButtons()
+    {
+        return $this->social["enableFbLogin"] || $this->social["enableTwitterLogin"] || $this->social["enableGoogleLogin"] || $this->social["enableTelegramLogin"] || $this->social["enableDisqusLogin"] || $this->social["enableWordpressLogin"] || $this->social["enableVkLogin"] || $this->social["enableOkLogin"] || $this->social["enableInstagramLogin"] || $this->social["enableLinkedinLogin"] || $this->social["enableYandexLogin"] || $this->social["enableMailruLogin"] || $this->social["enableWeiboLogin"] || $this->social["enableWechatLogin"] || $this->social["enableQQLogin"] || $this->social["enableBaiduLogin"];
     }
 
-    public function showEditorToolbar() {
+    public function showEditorToolbar()
+    {
         return $this->form["boldButton"] || $this->form["italicButton"] || $this->form["underlineButton"] || $this->form["strikeButton"] || $this->form["olButton"] || $this->form["ulButton"] || $this->form["blockquoteButton"] || $this->form["codeblockButton"] || $this->form["linkButton"] || $this->form["sourcecodeButton"] || $this->form["spoilerButton"];
     }
 
-    public function replaceOldOptions($oldOptions, $update = true) {
+    public function replaceOldOptions($oldOptions, $update = true)
+    {
         $newOptions = $this->getDefaultOptions();
         if (!$update && isset($oldOptions[self::TAB_GENERAL])) {
             foreach ($newOptions as $key => $value) {
@@ -2200,12 +2234,12 @@ class WpdiscuzOptions implements WpDiscuzConstants {
             $newOptions[self::TAB_LOGIN]["showLoggedInUsername"] = $oldOptions[self::TAB_LOGIN]["showLoggedInUsername"];
         }
         if (isset($oldOptions["hideLoginLinkForGuests"])) {
-            $newOptions[self::TAB_LOGIN]["showLoginLinkForGuests"] = (int) !$oldOptions["hideLoginLinkForGuests"];
+            $newOptions[self::TAB_LOGIN]["showLoginLinkForGuests"] = (int)!$oldOptions["hideLoginLinkForGuests"];
         } else if (isset($oldOptions[self::TAB_LOGIN]["showLoginLinkForGuests"])) {
             $newOptions[self::TAB_LOGIN]["showLoginLinkForGuests"] = $oldOptions[self::TAB_LOGIN]["showLoginLinkForGuests"];
         }
         if (isset($oldOptions["hideUserSettingsButton"])) {
-            $settingsButton = (int) !$oldOptions["hideUserSettingsButton"];
+            $settingsButton = (int)!$oldOptions["hideUserSettingsButton"];
             $newOptions[self::TAB_LOGIN]["showActivityTab"] = $settingsButton;
             $newOptions[self::TAB_LOGIN]["showSubscriptionsTab"] = $settingsButton;
             $newOptions[self::TAB_LOGIN]["showFollowsTab"] = $settingsButton;
@@ -2221,7 +2255,7 @@ class WpdiscuzOptions implements WpDiscuzConstants {
             }
         }
         if (isset($oldOptions["disableProfileURLs"])) {
-            $newOptions[self::TAB_LOGIN]["enableProfileURLs"] = (int) !$oldOptions["disableProfileURLs"];
+            $newOptions[self::TAB_LOGIN]["enableProfileURLs"] = (int)!$oldOptions["disableProfileURLs"];
         } else if (isset($oldOptions[self::TAB_LOGIN]["enableProfileURLs"])) {
             $newOptions[self::TAB_LOGIN]["enableProfileURLs"] = $oldOptions[self::TAB_LOGIN]["enableProfileURLs"];
         }
@@ -2391,17 +2425,17 @@ class WpdiscuzOptions implements WpDiscuzConstants {
             $newOptions[self::TAB_THREAD_DISPLAY]["highlightUnreadComments"] = $oldOptions[self::TAB_THREAD_DISPLAY]["highlightUnreadComments"];
         }
         if (isset($oldOptions["showHideCommentLink"])) {
-            $newOptions[self::TAB_THREAD_DISPLAY]["showCommentLink"] = (int) !$oldOptions["showHideCommentLink"];
+            $newOptions[self::TAB_THREAD_DISPLAY]["showCommentLink"] = (int)!$oldOptions["showHideCommentLink"];
         } else if (isset($oldOptions[self::TAB_THREAD_DISPLAY]["showCommentLink"])) {
             $newOptions[self::TAB_THREAD_DISPLAY]["showCommentLink"] = $oldOptions[self::TAB_THREAD_DISPLAY]["showCommentLink"];
         }
         if (isset($oldOptions["hideCommentDate"])) {
-            $newOptions[self::TAB_THREAD_LAYOUTS]["showCommentDate"] = (int) !$oldOptions["hideCommentDate"];
+            $newOptions[self::TAB_THREAD_LAYOUTS]["showCommentDate"] = (int)!$oldOptions["hideCommentDate"];
         } else if (isset($oldOptions[self::TAB_THREAD_LAYOUTS]["showCommentDate"])) {
             $newOptions[self::TAB_THREAD_LAYOUTS]["showCommentDate"] = $oldOptions[self::TAB_THREAD_LAYOUTS]["showCommentDate"];
         }
         if (isset($oldOptions["wc_voting_buttons_show_hide"])) {
-            $newOptions[self::TAB_THREAD_LAYOUTS]["showVotingButtons"] = (int) !$oldOptions["wc_voting_buttons_show_hide"];
+            $newOptions[self::TAB_THREAD_LAYOUTS]["showVotingButtons"] = (int)!$oldOptions["wc_voting_buttons_show_hide"];
         } else if (isset($oldOptions[self::TAB_THREAD_LAYOUTS]["showVotingButtons"])) {
             $newOptions[self::TAB_THREAD_LAYOUTS]["showVotingButtons"] = $oldOptions[self::TAB_THREAD_LAYOUTS]["showVotingButtons"];
         }
@@ -2451,7 +2485,7 @@ class WpdiscuzOptions implements WpDiscuzConstants {
             $newOptions[self::TAB_THREAD_STYLES]["commentTextSize"] = $oldOptions[self::TAB_THREAD_STYLES]["commentTextSize"];
         }
         if (isset($oldOptions["disableFontAwesome"])) {
-            $newOptions[self::TAB_THREAD_STYLES]["enableFontAwesome"] = (int) !$oldOptions["disableFontAwesome"];
+            $newOptions[self::TAB_THREAD_STYLES]["enableFontAwesome"] = (int)!$oldOptions["disableFontAwesome"];
         } else if (isset($oldOptions[self::TAB_THREAD_STYLES]["enableFontAwesome"])) {
             $newOptions[self::TAB_THREAD_STYLES]["enableFontAwesome"] = $oldOptions[self::TAB_THREAD_STYLES]["enableFontAwesome"];
         }
@@ -2466,12 +2500,12 @@ class WpdiscuzOptions implements WpDiscuzConstants {
             $newOptions[self::TAB_SUBSCRIPTION]["isNotifyOnCommentApprove"] = $oldOptions[self::TAB_SUBSCRIPTION]["isNotifyOnCommentApprove"];
         }
         if (isset($oldOptions["wc_disable_member_confirm"])) {
-            $newOptions[self::TAB_SUBSCRIPTION]["enableMemberConfirm"] = (int) !$oldOptions["wc_disable_member_confirm"];
+            $newOptions[self::TAB_SUBSCRIPTION]["enableMemberConfirm"] = (int)!$oldOptions["wc_disable_member_confirm"];
         } else if (isset($oldOptions[self::TAB_SUBSCRIPTION]["enableMemberConfirm"])) {
             $newOptions[self::TAB_SUBSCRIPTION]["enableMemberConfirm"] = $oldOptions[self::TAB_SUBSCRIPTION]["enableMemberConfirm"];
         }
         if (isset($oldOptions["disableGuestsConfirm"])) {
-            $newOptions[self::TAB_SUBSCRIPTION]["enableGuestsConfirm"] = (int) !$oldOptions["disableGuestsConfirm"];
+            $newOptions[self::TAB_SUBSCRIPTION]["enableGuestsConfirm"] = (int)!$oldOptions["disableGuestsConfirm"];
         } else if (isset($oldOptions[self::TAB_SUBSCRIPTION]["enableGuestsConfirm"])) {
             $newOptions[self::TAB_SUBSCRIPTION]["enableGuestsConfirm"] = $oldOptions[self::TAB_SUBSCRIPTION]["enableGuestsConfirm"];
         }
@@ -2552,7 +2586,7 @@ class WpdiscuzOptions implements WpDiscuzConstants {
             $newOptions[self::TAB_LIVE]["commentListUpdateType"] = $oldOptions[self::TAB_LIVE]["commentListUpdateType"];
         }
         if (isset($oldOptions["wc_live_update_guests"])) {
-            $newOptions[self::TAB_LIVE]["liveUpdateGuests"] = (int) !$oldOptions["wc_live_update_guests"];
+            $newOptions[self::TAB_LIVE]["liveUpdateGuests"] = (int)!$oldOptions["wc_live_update_guests"];
         } else if (isset($oldOptions[self::TAB_LIVE]["liveUpdateGuests"])) {
             $newOptions[self::TAB_LIVE]["liveUpdateGuests"] = $oldOptions[self::TAB_LIVE]["liveUpdateGuests"];
         }
@@ -2604,7 +2638,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
     }
 
     // TODO
-    public function addEmailTemplates($update = false) {
+    public function addEmailTemplates($update = false)
+    {
         if ($this->dbManager->isPhraseExists("wc_be_the_first_text") && $update) {
             $defaultOptions = $this->getDefaultOptions();
             $wc_saved_phrases = $this->dbManager->getPhrases();
@@ -2633,18 +2668,20 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         }
     }
 
-    public function printDocLink($docUrl) {
+    public function printDocLink($docUrl)
+    {
         if ($docUrl && $docUrl !== "#") {
             echo "<a href='" . esc_url_raw($docUrl) . "' title='" . esc_attr("Read the documentation", "wpdiscuz") . "' target='_blank'><i class='far fa-question-circle'></i></a>";
         }
     }
 
-    public function addonActivationMessages() {
+    public function addonActivationMessages()
+    {
         foreach (get_option("wpd_admin_notices", []) as $key => $msg) {
             ?>
             <div class='notice notice-error'>
                 <p style="font-size: 14px; font-weight: 600;">
-            <?php esc_html_e($msg, "wpdiscuz"); ?>
+                    <?php esc_html_e($msg, "wpdiscuz"); ?>
                 </p>
             </div>
             <?php
@@ -2652,7 +2689,8 @@ class WpdiscuzOptions implements WpDiscuzConstants {
         update_option("wpd_admin_notices", []);
     }
 
-    public function settingsArray() {
+    public function settingsArray()
+    {
         $settings = [
             "core" => [
                 WpdiscuzCore::TAB_FORM => [
