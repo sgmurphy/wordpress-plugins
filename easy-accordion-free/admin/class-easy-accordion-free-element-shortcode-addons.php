@@ -86,7 +86,7 @@ class Easy_Accordion_Free_Element_Shortcode_Addons {
 		 * class.
 		 */
 
-		wp_enqueue_style( 'sp-ea-font-awesome' );
+		wp_enqueue_style( 'sp-ea-fontello-icons' );
 		wp_enqueue_style( 'sp-ea-style' );
 	}
 	/**

@@ -99,7 +99,7 @@ class PinterestShipping extends Shipping {
 					$key = array_search( $shipping_attr, $this->config->mattributes, true );
 					if ( $key ) {
 						$attributeValue = ( $this->config->type[ $key ] === 'pattern' ) ? $this->config->default[ $key ] : $this->config->attributes[ $key ];
-						$value          = ProductHelper::getAttributeValueByType( $attributeValue, $this->product, $this->config, $shipping_attr );
+						$value          = ProductHelper::get_attribute_value_by_type( $attributeValue, $this->product, $this->config, $shipping_attr );
 						$str            .= "<g:$shipping_attr>$value</g:$shipping_attr>" . PHP_EOL;
 					}
 				}
@@ -175,7 +175,7 @@ class PinterestShipping extends Shipping {
 		if ( $mKey ) {
 			$attributeValue = ( $this->config->type[ $mKey ] === 'pattern' ) ? $this->config->default[ $mKey ] : $this->config->attributes[ $mKey ];
 
-			return ProductHelper::getAttributeValueByType( $attributeValue, $this->product, $this->config, $shipping_attr );
+			return ProductHelper::get_attribute_value_by_type( $attributeValue, $this->product, $this->config, $shipping_attr );
 		}
 
 		return "";

@@ -257,7 +257,6 @@ if ( ! function_exists( 'woo_feed_black_friday_notice' ) ) {
                     $(document).on('click', '.woo-feed-ctx-startup-notice button.notice-dismiss', function (e) {
                         e.preventDefault();
                         let nonce = $('#woo_feed_to_ctx_feed_nonce').val();
-
                         //woo feed black friday notice cancel callback
                         wp.ajax.post('woo_feed_save_black_friday_notice_2023_notice', {
                             _wp_ajax_nonce: nonce,
@@ -2968,6 +2967,7 @@ if ( ! function_exists( 'woo_feed_add_custom_identifier' ) ) {
 				if( empty( $custom_field_value ) && is_plugin_active( 'woocommerce-multilingual/wpml-woocommerce.php' )){
 					$wcmlCurrency  = new WCMLCurrency();
 					$originalId = $wcmlCurrency->woo_feed_wpml_get_original_post_id( get_the_ID() );
+
 					$custom_field_value = get_post_meta( $originalId, $custom_field_key, true );
 				}
 

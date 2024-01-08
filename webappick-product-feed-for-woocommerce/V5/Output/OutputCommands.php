@@ -197,17 +197,17 @@ class OutputCommands extends FormatOutput {
 				switch ( $function ) {
 					case 'substr':
 						$args   = preg_split( '/\s+/', $command );
-						$output = CommonHelper::woo_feed_strip_all_tags( $output );
+						$output = CommonHelper::strip_all_tags( $output );
 						$output = substr( $output, $args[1], $args[2] );
 						break;
 					case 'strip_tags':
-						$output = CommonHelper::woo_feed_strip_all_tags( $output );
+						$output = CommonHelper::strip_all_tags( $output );
 						break;
 					case 'htmlentities':
 						$output = htmlentities( $output );
 						break;
 					case 'clear':
-						$output = CommonHelper::woo_feed_stripInvalidXml( $output );
+						$output = CommonHelper::strip_invalid_xml( $output );
 						break;
 					case 'ucwords':
 						$output = ucwords( mb_strtolower( $output ) );

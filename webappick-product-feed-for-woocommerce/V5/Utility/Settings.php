@@ -11,10 +11,10 @@ class Settings {
 	/**
 	 * Get saved settings.
 	 *
-	 * @param string $key Option name.
+	 * @param string $key     Option name.
 	 *                        All default values will be returned if this set to 'defaults',
 	 *                        all settings will be return if set to 'all'.
-	 * @param bool $default value to return if no matching data found for the key (option)
+	 * @param bool   $default value to return if no matching data found for the key (option)
 	 *
 	 * @return array|bool|string|mixed
 	 * @since 3.3.11
@@ -40,7 +40,7 @@ class Settings {
 			'only_free_shipping'            => 'yes',
 			'only_local_pickup_shipping'    => 'no',
 			'enable_ftp_upload'             => 'no',
-			'enable_cdata'                   => 'no',
+			'enable_cdata'                  => 'no',
 			'woo_feed_taxonomy'             => array(
 				'brand' => 'disable',
 			),

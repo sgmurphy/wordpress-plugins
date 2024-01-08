@@ -73,8 +73,7 @@ class TemplateFactory {
 		$template = ucfirst( str_replace( array( '_', '.' ), '', $template ) );
 		$class    = '\CTXFeed\V5\Structure\\' . $template . 'Structure';
 
-		$file_type = strtoupper( $config->feedType );// phpcs:ignore
-		$method    = 'get' . $file_type . 'Structure';
+		$method    = 'get_' . $config->feedType . '_structure';
 
 		if ( 'Googlereview' === $template && class_exists( $class ) && method_exists( $class, $method ) ) {
 			return ( new $class( $config, $ids ) )->$method();

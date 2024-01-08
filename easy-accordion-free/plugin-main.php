@@ -5,7 +5,7 @@
  * Description: The best Responsive and Touch-friendly drag & drop <strong>Accordion FAQ</strong> builder plugin for WordPress.
  * Author:      ShapedPlugin LLC
  * Author URI:  https://shapedplugin.com/
- * Version:     2.2.5
+ * Version:     2.3.0
  * Text Domain: easy-accordion-free
  * Domain Path: /languages/
  *
@@ -51,7 +51,7 @@ class SP_EASY_ACCORDION_FREE {
 	 *
 	 * @var string
 	 */
-	public $version = '2.2.5';
+	public $version = '2.3.0';
 
 	/**
 	 * The name of the plugin.
@@ -170,6 +170,20 @@ class SP_EASY_ACCORDION_FREE {
 		if ( ( is_plugin_active( 'elementor/elementor.php' ) || is_plugin_active_for_network( 'elementor/elementor.php' ) ) ) {
 			require_once SP_EA_PATH . 'admin/class-easy-accordion-free-element-shortcode-addons.php';
 		}
+		add_filter( 'body_class', array( $this, 'sp_easy_accordion_body_class' ) );
+	}
+
+	/**
+	 * Adds a custom body class for SP Easy Accordion to the body tag.
+	 *
+	 * @param array $classes An array of body classes.
+	 * @return array An updated array of body classes.
+	 */
+	public function sp_easy_accordion_body_class( $classes ) {
+		// Add the custom body class for SP Easy Accordion.
+		$classes[] = 'sp-easy-accordion';
+
+		return $classes;
 	}
 
 	/**
@@ -228,7 +242,6 @@ class SP_EASY_ACCORDION_FREE {
 	 */
 	private function load_dependencies() {
 		$this->loader = new Easy_Accordion_Free_Loader();
-
 	}
 
 	/**

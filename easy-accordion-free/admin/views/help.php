@@ -78,7 +78,7 @@ class Easy_Accordion_Free_Help {
 								<span><?php echo esc_html( SP_EA_VERSION ); ?></span>
 							</div>
 							<div class="header-content">
-								<p>Thank you for installing Easy Accordion plugin! This video will help you get started with the plugin.</p>
+								<p><?php echo esc_html__( 'Thank you for installing Easy Accordion plugin! This video will help you get started with the plugin.', 'easy-accordion-free' ); ?></p>
 							</div>
 						</div>
 					</div>
@@ -88,8 +88,8 @@ class Easy_Accordion_Free_Help {
 					<div class="content-area">
 						<div class="container">
 							<div class="content-button">
-								<a href="<?php echo esc_url( $add_shortcode_link ); ?>">Start Adding Accordion</a>
-								<a href="https://docs.shapedplugin.com/docs/easy-accordion/introduction/" target="_blank">Read Documentation</a>
+								<a href="<?php echo esc_url( $add_shortcode_link ); ?>"><?php echo esc_html__( 'Start Adding Accordion', 'easy-accordion-free' ); ?></a>
+								<a href="https://docs.shapedplugin.com/docs/easy-accordion/introduction/" target="_blank"><?php echo esc_html__( 'Read Documentation', 'easy-accordion-free' ); ?></a>
 							</div>
 						</div>
 					</div>
@@ -102,48 +102,48 @@ class Easy_Accordion_Free_Help {
 					<div class="upgrade-img"> 
 					<img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/eap-25.svg' ); ?>" alt="">
 					</div>
-						<h2>Upgrade To Unleash the Power of Easy Accordion Pro</h2> 
-						<p>Get the most out of Easy Accordion by upgrading to unlock all of its powerful features. With Easy Accordion Pro, you can unlock amazing features like:</p>
+						<h2><?php echo esc_html__( 'Upgrade To Unleash the Power of Easy Accordion Pro', 'easy-accordion-free' ); ?></h2> 
+						<p><?php echo esc_html__( 'Get the most out of Easy Accordion by upgrading to unlock all of its powerful features. With Easy Accordion Pro, you can unlock amazing features like:', 'easy-accordion-free' ); ?></p>
 					</div>
 					<div class="upgrade-info">
 						<div class="container">
 							<div class="row">
 								<div class="col-lg-6">
 									<ul class="upgrade-list">
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">
-										16+ Beautiful Themes with Preview.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">
-										2 Layouts. (Horizontal and Vertical).</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Advanced Shortcode Generator.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Multi-level or Nested Accordion.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">14+ Expand & Collapse Icon Style Sets.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Accordion from Posts, Pages & Category.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Accordion from Custom Post Types & Taxonomy.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">WooCommerce FAQ Tab Accordion.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Group Accordion FAQs Showcase.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Limit To Display Number of Accordion.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Margin Between Accordions.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Accordion Border and Radius options.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">AutoPlay Accordion.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">940+ Google Fonts. (Typography Options).</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Supported any Contents. (e.g. HTML, shortcodes, images, YouTube, audio etc.)</li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( '16+ Beautiful Themes with Preview.', 'easy-accordion-free' ); ?>
+										</li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( '2 Layouts. (Horizontal and Vertical).', 'easy-accordion-free' ); ?>
+										</li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Advanced Shortcode Generator.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Multi-level or Nested Accordion.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( '14+ Expand & Collapse Icon Style Sets.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Accordion from Posts, Pages & Category.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Accordion from Custom Post Types & Taxonomy.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'WooCommerce FAQ Tab Accordion.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Group Accordion FAQs Showcase.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Limit To Display Number of Accordion.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Margin Between Accordions.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Accordion Border and Radius options.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'AutoPlay Accordion.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( '940+ Google Fonts. (Typography Options).', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Supported any Contents. (e.g. HTML, shortcodes, images, YouTube, audio etc.)', 'easy-accordion-free' ); ?></li>
 									</ul>
 								</div>
 								<div class="col-lg-6">
 									<ul class="upgrade-list">
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Multiple Ajax Pagination Options for Accordion Items.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Expand/Collapse All Button.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Ajax Search through all FAQ items in the front-end.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Accordion Title Background Color & Custom Padding.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Accordion Description Background Color.</li>						
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Accordion Description Custom Padding.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">FontAwesome Icon Picker before Accordion Title.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">HTML Title Tag (H1-H6 tags) and Strip HTML.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Multilingual & RTL Ready.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Widget Supported.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Multi-site Supported.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt="">Highly Customizable & developer friendly.</li>
-										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><span>Not Happy? 100% No Questions Asked <a href="https://shapedplugin.com/refund-policy/" target="_blank">Refund Policy!</a></span></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Multiple Ajax Pagination Options for Accordion Items.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Expand/Collapse All Button.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Ajax Search through all FAQ items in the front-end.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Accordion Title Background Color & Custom Padding.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Accordion Description Background Color.', 'easy-accordion-free' ); ?></li>						
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Accordion Description Custom Padding.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'FontAwesome Icon Picker before Accordion Title.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'HTML Title Tag (H1-H6 tags) and Strip HTML.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Multilingual & RTL Ready.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Widget Supported.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Multi-site Supported.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><?php echo esc_html__( 'Highly Customizable & developer friendly.', 'easy-accordion-free' ); ?></li>
+										<li><img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/checkmark.svg' ); ?>" alt=""><span><?php echo esc_html__( 'Not Happy? 100% No Questions Asked', 'easy-accordion-free' ); ?> <a href="https://shapedplugin.com/refund-policy/" target="_blank"><?php echo esc_html__( 'Refund Policy!', 'easy-accordion-free' ); ?></a></span></li>
 									</ul>
 								</div>
 							</div>
@@ -156,12 +156,12 @@ class Easy_Accordion_Free_Help {
 									<img src="<?php echo esc_url( SP_EA_URL . 'admin/css/images/eap-256.svg' ); ?>" alt="">
 								</div>
 								<div class="pro-text">
-									<h2>Upgrade To Easy Accordion Pro</h2>
-									<p>Start creating beautiful Accordion or FAQ in minutes!</p>
+									<h2><?php echo esc_html__( 'Upgrade To Easy Accordion Pro', 'easy-accordion-free' ); ?></h2>
+									<p><?php echo esc_html__( 'Start creating beautiful Accordion or FAQ in minutes!', 'easy-accordion-free' ); ?></p>
 								</div>
 							</div>
 							<div class="pro-btn">
-								<a href="https://easyaccordion.io/pricing/?ref=1" target="_blank">Upgrade To Pro Now</a>
+								<a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><?php echo esc_html__( 'Upgrade To Pro Now', 'easy-accordion-free' ); ?></a>
 							</div>
 						</div>
 					</div>

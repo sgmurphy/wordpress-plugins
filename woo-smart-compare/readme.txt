@@ -4,7 +4,7 @@ Donate link: https://wpclever.net
 Tags: woocommerce, woo, wpc, smart, compare, product-compare, smart-compare
 Requires at least: 4.0
 Tested up to: 6.4
-Stable tag: 6.1.8
+Stable tag: 6.1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,9 @@ Example:
 `echo do_shortcode('[woosc id="99"]');`
 
 == Changelog ==
+
+= 6.1.9 =
+* Added: Enable/disable variations compare
 
 = 6.1.8 =
 * Updated: Optimized the code

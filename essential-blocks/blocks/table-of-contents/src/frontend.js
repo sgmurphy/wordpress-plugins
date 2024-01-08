@@ -155,7 +155,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
                 function onScrollPage() {
                     document.body.scrollTop > 30 ||
-                    document.documentElement.scrollTop > 20
+                        document.documentElement.scrollTop > 20
                         ? showScroll()
                         : hideScroll();
                 }
@@ -322,11 +322,11 @@ window.addEventListener("DOMContentLoaded", function () {
 
                     let all_header =
                         undefined !== allowed_h_tags_str &&
-                        "" !== allowed_h_tags_str
+                            "" !== allowed_h_tags_str
                             ? document.body.querySelectorAll(allowed_h_tags_str)
                             : document.body.querySelectorAll(
-                                  "h1, h2, h3, h4, h5, h6"
-                              );
+                                "h1, h2, h3, h4, h5, h6"
+                            );
 
                     if (undefined !== headers && 0 !== all_header.length) {
                         headers.forEach((element, headerIndex) => {
@@ -348,16 +348,14 @@ window.addEventListener("DOMContentLoaded", function () {
                                         if (isValidHtmlId(element.link)) {
                                             new ClipboardJS(`#${element.link}`);
                                         }
-                                        item.innerHTML = `${
-                                            item.innerHTML
-                                        }<span id="${element.link}"
-                                    class="eb-toc__heading-anchor" data-clipboard-text="${
-                                        location.protocol +
-                                        "//" +
-                                        location.host +
-                                        location.pathname +
-                                        (location.search ? location.search : "")
-                                    }#${element.link}">${copyLinkHtml}</span>`;
+                                        item.innerHTML = `${item.innerHTML
+                                            }<span id="${element.link}"
+                                    class="eb-toc__heading-anchor" data-clipboard-text="${location.protocol +
+                                            "//" +
+                                            location.host +
+                                            location.pathname +
+                                            (location.search ? location.search : "")
+                                            }#${element.link}">${copyLinkHtml}</span>`;
                                     }
                                 });
                             } else {

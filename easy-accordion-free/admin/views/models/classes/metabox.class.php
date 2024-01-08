@@ -417,7 +417,7 @@ if ( ! class_exists( 'SP_EAP_Metabox' ) ) {
 
 						foreach ( $section['fields'] as $field ) {
 
-							if ( ! empty( $field['id'] ) ) {
+							if ( ! empty( $field['id'] ) && ! isset( $field['only_pro'] ) ) {
 
 								$field_id    = $field['id'];
 								$field_value = isset( $request[ $field_id ] ) ? $request[ $field_id ] : '';

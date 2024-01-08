@@ -18,7 +18,7 @@ Use CAPTCHA to stop spam and allow customers & users to interact with your websi
 Protect your WordPress forms and login pages from spam and automated attacks with [CAPTCHA 4WP](https://melapress.com/wordpress-captcha/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp). Choose from multiple ReCAPTCHA versions and strike the right balance between security and user experience.
 
 
-[Features](https://melapress.com/wordpress-captcha/features/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp) | [Gt the Premium!](https://melapress.com/wordpress-captcha/pricing/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp) | [Getting Started](https://melapress.com/support/kb/captcha-4wp-getting-started/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp)
+[Features](https://melapress.com/wordpress-captcha/features/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp) | [Get the Premium!](https://melapress.com/wordpress-captcha/pricing/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp) | [Getting Started](https://melapress.com/support/kb/captcha-4wp-getting-started/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp)
 
 Use the CAPTCHA 4WP plugin to add CAPTCHA checks to WordPress forms and logins. Choose from V2 (I’m not a robot), V2 Invisible, and V3 noCAPTCHA to ensure the best user experience at all times without compromosing security. Avoid false positives falling through the crack with V3 failover to ensure humans can still pass the test even if the result comes back below the passmark.
 

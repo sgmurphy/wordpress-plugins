@@ -139,29 +139,12 @@ class TableOfContents extends Block {
 
         $wp_charset = get_bloginfo( 'charset' );
         $doc        = new \DOMDocument( '1.0', $wp_charset );
-        libxml_use_internal_errors( true );
-        $tempPostContentDOM = mb_convert_encoding( $postContent, 'HTML-ENTITIES', 'UTF-8' );
-        $doc->loadHTML(
-            // loadHTML expects ISO-8859-1, so we need to convert the post content to
-            // that format. We use htmlentities to encode Unicode characters not
-            // supported by ISO-8859-1 as HTML entities. However, this function also
-            // converts all special characters like <pre or > to HTML entities, so we use
-            // htmlspecialchars_decode to decode them.
-            htmlspecialchars_decode(
-                utf8_decode(
-                    htmlentities(
-                        '<!DOCTYPE html><html><head><title>:D</title><body>' .
-                        htmlspecialchars( $tempPostContentDOM ) .
-                        '</body></html>',
-                        ENT_COMPAT,
-                        'UTF-8',
-                        false
-                    )
-                ),
-                ENT_COMPAT
-            )
-        );
-        libxml_use_internal_errors( false );
+        $string     = <<<HTML
+        $postContent
+        HTML;
+
+        $dom = new \DOMDocument();
+        $dom->loadHTML( $string );
 
         $queryArray = ["h1", "h2", "h3", "h4", "h5", "h6"];
         if ( isset( $visibleHeaders ) ) {
@@ -190,7 +173,7 @@ class TableOfContents extends Block {
         $queryString = '//*[' . $queryString . ']';
 
         if ( ! $this->areAllFalse( $visibleHeaders ) ) {
-            $xpath           = new \DOMXPath( $doc );
+            $xpath           = new \DOMXpath( $dom );
             $headingElements = iterator_to_array( $xpath->query( $queryString ) );
             return $this->getHeadingsFromHeadingElements( $headingElements );
         }
@@ -294,7 +277,8 @@ class TableOfContents extends Block {
         $hideOnTab          = $attributes['hideOnTab'] ? 'true' : 'false';
         $hideOnMobile       = $attributes['hideOnMobile'] ? 'true' : 'false';
         $visibleHeaders     = isset( $attributes['visibleHeaders'] ) ? $attributes['visibleHeaders'] : array_fill( 0, 6, true );
-        $headers            = $this->getHeadersFromContent( $visibleHeaders, wp_kses_post($the_post->post_content) );
+        $content            = html_entity_decode( preg_replace( "~<!--(.*?)-->~s", "", $the_post->post_content ) );
+        $headers            = $this->getHeadersFromContent( $visibleHeaders, wp_kses_post( $content ) );
         $deleteHeaderList   = isset( $attributes['deleteHeaderList'] ) ? $attributes['deleteHeaderList'] : [];
         $classHook          = isset( $attributes['classHook'] ) ? $attributes['classHook'] : '';
 
@@ -332,6 +316,7 @@ class TableOfContents extends Block {
         if ( $displayTitle == 'true' ) {
             $output .= '<div class="eb-toc-title">' . $title . '</div>';
         }
+
         $output .= '</div>'; // header
         $output .= '<div class="eb-toc-wrapper ' . implode( " ", $wrapper_class ) . '"
         data-headers="' . htmlspecialchars( json_encode( $headers ), ENT_QUOTES, 'UTF-8' ) . '"

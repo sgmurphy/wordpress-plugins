@@ -53,8 +53,9 @@ foreach ( $content_sources as $key => $content_source ) {
 		$expand_class      = '';
 		$aria_expanded     = 'false';
 	}
+
 	$data_parent_id      = ( ! $eap_mutliple_collapse ) ? 'data-parent=#sp-ea-' . $post_id . '' : '';
-	$eap_exp_icon_markup = ( $eap_icon ) ? '<i class="ea-expand-icon fa ' . $expand_icon_first . '"></i>' : '';
+	$eap_exp_icon_markup = ( $eap_icon ) ? '<i class="ea-expand-icon ea-icon-expand-' . $expand_icon_first . '"></i>' : '';
 	$data_sptarget       = 'data-sptarget=#collapse' . $post_id . $key . '';
 	$eap_icon_markup     = $eap_exp_icon_markup;
 

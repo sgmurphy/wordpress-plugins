@@ -51,7 +51,7 @@ if ( ! class_exists( 'Easy_Accordion_Free_Gutenberg_Block_Init' ) ) {
 			/**
 			 * Register block editor css file enqueue for backend.
 			 */
-			wp_enqueue_style( 'sp-ea-font-awesome' );
+			wp_enqueue_style( 'sp-ea-fontello-icons' );
 			wp_enqueue_style( 'sp-ea-style' );
 		}
 		/**

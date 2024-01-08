@@ -98,8 +98,8 @@ class MultiVendor
 	}
 
 	/**
-	 * Check any multi vendor plugin installed or not
-	 * Check if any of following multi vendor plugin class exists
+	 * Check any multi-vendor plugin installed or not
+	 * Check if any of following multi-vendor plugin class exists
 	 *
 	 * @link https://wedevs.com/dokan/
 	 * @link https://www.wcvendors.com/

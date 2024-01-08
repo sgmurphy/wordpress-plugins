@@ -2,7 +2,7 @@
 
 namespace CTXFeed\V5\Query;
 
-use CTXFeed\V5\Utility\Settings;
+use CTXFeed\V5\Helper\CommonHelper;
 use CTXFeed\V5\Utility\Config;
 use WC_Product_Query;
 
@@ -12,7 +12,7 @@ class WCQuery implements QueryInterface {
 
 	/**
 	 * @param Config $config
-	 * @param $args
+	 * @param        $args
 	 */
 	public function __construct( $config, $args = [] ) {
 		$this->config    = $config;
@@ -20,22 +20,7 @@ class WCQuery implements QueryInterface {
 	}
 
 	public function get_product_types() {
-		$productTypes = [
-			'simple',
-			'variable',
-			'variation',
-			'grouped',
-			'external',
-			'composite',
-			'bundle',
-			'bundled',
-			'yith_bundle',
-			'yith-composite',
-			'subscription',
-			'variable-subscription',
-			'woosb',
-			'woosg'
-		];
+		$productTypes = CommonHelper::supported_product_types();
 
 		// Include Product Variations with db query if configured.
 //		if ('variable' !== Settings::get('variation_query_type')) {

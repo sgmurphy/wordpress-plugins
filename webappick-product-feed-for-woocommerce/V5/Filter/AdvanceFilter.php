@@ -51,7 +51,7 @@ class AdvanceFilter {
 					$totalOr ++;
 				}
 
-				$conditionName    = ProductHelper::getAttributeValueByType( $check, $product, $config );
+				$conditionName    = ProductHelper::get_attribute_value_by_type( $check, $product, $config );
 				$condition        = $conditions[ $key ];
 				$conditionCompare = stripslashes( $filterCompare[ $key ] );
 				// DEBUG HERE

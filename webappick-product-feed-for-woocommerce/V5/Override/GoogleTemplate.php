@@ -1,96 +1,209 @@
 <?php
+/**
+ * This class is responsible for all override google template.
+ *
+ * @package    CTXFeed
+ */
 
 namespace CTXFeed\V5\Override;
-use CTXFeed\V5\Utility\Config;
-use WC_Product;
 
-class GoogleTemplate
-{
-	public function __construct()
-	{
-		add_filter('woo_feed_get_google_color_attribute', [
-			$this,
-			'woo_feed_get_google_color_size_attribute_callback'
-		], 10, 5);
+/**
+ * Class GoogleTemplate
+ *
+ * @package    CTXFeed
+ * @subpackage CTXFeed\V5\Override
+ */
+class GoogleTemplate {
 
-		add_filter('woo_feed_get_google_size_attribute', [
-			$this,
-			'woo_feed_get_google_color_size_attribute_callback'
-		], 10, 5);
+	/**
+	 * GoogleTemplate class constructor
+	 */
+	public function __construct() {
+		add_filter(
+			'woo_feed_get_google_color_attribute',
+			array(
+				$this,
+				'woo_feed_get_google_color_size_attribute_callback',
+			),
+			10,
+			1
+		);
 
-		add_filter('woo_feed_get_google_attribute', [
-			$this,
-			'woo_feed_get_google_attribute_callback'
-		], 10, 5);
+		add_filter(
+			'woo_feed_get_google_size_attribute',
+			array(
+				$this,
+				'woo_feed_get_google_color_size_attribute_callback',
+			),
+			10,
+			1
+		);
 
-		add_filter('woo_feed_filter_product_title', [$this, 'woo_feed_filter_product_title_callback'], 10, 3);
+		// NOTE: This filter is unnecessary, because we can get expected output ( space separated dimension unit ) without applying this filter.
+//		add_filter( 'woo_feed_get_google_attribute', array( $this, 'woo_feed_get_google_attribute_callback' ), 10, 5 );
+
+		add_filter( 'woo_feed_filter_product_title', array( $this, 'woo_feed_filter_product_title_callback' ), 10, 1 );
+
+		add_filter(
+            'woo_feed_filter_product_description',
+            array(
+				$this,
+				'woo_feed_filter_product_description_callback',
+		),
+            10,
+            1
+            );
+
+		add_filter(
+            'woo_feed_filter_product_availability_date',
+            array(
+				$this,
+				'woo_feed_filter_product_availability_date_callback',
+		),
+            10,
+            1
+            );
+
+		add_filter(
+			'woo_feed_filter_product_availability',
+			array(
+				$this,
+				'woo_feed_filter_product_availability_callback',
+			),
+			10,
+			1
+		);
 	}
 
-	public function woo_feed_get_google_color_size_attribute_callback($output)
-	{
-		return str_replace([' ', ','], ['', '/'], $output);
+	/**
+	 * Google template attribute value override.
+	 *
+	 * @param string $output attribute value.
+     * @return mixed|string
+	 */
+	public function woo_feed_get_google_color_size_attribute_callback( $output ) {
+		return str_replace( array( ' ', ',' ), array( '', '/' ), $output );
 	}
 
-	public function woo_feed_get_google_attribute_callback($output, $product, $config, $product_attribute, $merchant_attribute)
-	{
-		$weightAttributes = ['product_weight', 'shipping_weight'];
-		$dimensionAttributes = [
+	/**
+	 * Google template attribute
+	 *
+	 * @param string                                                                            $output attribute.
+	 * @param \WC_Product_Simple|\WC_Product_Variable|\WC_Product_Grouped|\WC_Product_Variation $product woocommerce product.
+	 * @param \CTXFeed\V5\Utility\Config                                                        $config feed config.
+	 * @param string                                                                            $product_attribute attribute name.
+	 * @param string                                                                            $merchant_attribute merchant name.
+     * @return mixed|string
+	 */
+	public function woo_feed_get_google_attribute_callback( //phpcs:ignore
+		$output,
+		$product, //phpcs:ignore
+		$config,
+		$product_attribute,
+		$merchant_attribute
+	) {
+		$weight_attributes    = array( 'product_weight', 'shipping_weight' );
+		$dimension_attributes = array(
 			'product_length',
 			'product_width',
 			'product_height',
 			'shipping_length',
 			'shipping_width',
-			'shipping_height'
-		];
+			'shipping_height',
+		);
 
 
-		$wc_unit = '';
+		$wc_unit  = '';
 		$override = false;
-		if (in_array($merchant_attribute, $weightAttributes)) {
+
+		if ( in_array( $merchant_attribute, $weight_attributes, true ) ) {
 			$override = true;
-			$wc_unit = ' ' . get_option('woocommerce_weight_unit');
+			$wc_unit  = ' ' . get_option( 'woocommerce_weight_unit' );
 		}
 
-		if (in_array($merchant_attribute, $dimensionAttributes)) {
+		if ( in_array( $merchant_attribute, $dimension_attributes, true ) ) {
 			$override = true;
-			$wc_unit = ' ' . get_option('woocommerce_dimension_unit');
+			$wc_unit  = ' ' . get_option( 'woocommerce_dimension_unit' );
 		}
 
-		if (!$override) {
+		if ( ! $override ) {
 			return $output;
 		}
 
-		$attributes = ($config->attributes) ?: false;
+		$attributes = false;
 
-		if (!$attributes) {
+		if ( $config->attributes ) {
+			$attributes = $config->attributes;
+		}
+
+		if ( ! $attributes ) {
 			return $output;
 		}
 
-		$key = array_search($product_attribute, $attributes);
-		if (isset($config->suffix) && !empty($key) && array_key_exists($key, $config->suffix)) {
-			$unit = $config->suffix[$key];
+		$key = array_search( $product_attribute, $attributes, true );
+
+		// ! empty( $key ) this condition is removed because it is not working for 0 index.
+		if ( isset( $config->suffix ) && array_key_exists( $key, $config->suffix ) ) {
+			$unit = $config->suffix[ $key ];
 
 			if ( ! empty( $unit ) && ! empty( $output ) ) {
 				$output .= ' ' . $unit;
-			} else if ( ! empty( $wc_unit ) && ! empty( $output ) ) {
+			} elseif ( ! empty( $wc_unit ) && ! empty( $output ) ) {
 				$output .= $wc_unit;
 			}
 		}
-
 
 		return $output;
 	}
 
 	/**
-	 * Replace comma with dash
-	 * @param $title
-	 * @param WC_Product $product
-	 * @param Config $config
-	 * @return string
+	 * Google Shopping Product Description Character limit: max 5000.
+	 *
+	 * @param string $description product description.
+     * @return string
+	 * @link https://webappick.atlassian.net/browse/CBT-150
 	 */
-	public function woo_feed_filter_product_title_callback($title, $product, $config)
-	{
-		return str_replace(',', '-', $title);
+	public function woo_feed_filter_product_description_callback( $description ) {
+		return substr( $description, 0, 5000 );
 	}
-}
 
+	/**
+	 * Modify product title for google merchant.
+	 *
+	 * @param string $title product title.
+     * @return string
+	 */
+	public function woo_feed_filter_product_title_callback( $title ) {
+		// Replace comma with dash.
+		$title = str_replace( ',', '-', $title );
+
+		// Google Shopping Product Title Character limit: max 150.
+		$title = substr( $title, 0, 150 );
+
+		return $title;
+	}
+
+	/**
+	 * Set (_) as separator for google merchant.
+	 *
+	 * @param string $status product start.
+     * @return string
+	 */
+	public function woo_feed_filter_product_availability_callback( $status ) {
+		$status = explode( ' ', $status );
+		$status = implode( '_', $status );
+
+		return $status;
+	}
+
+	/**
+	 * Modify product availability date.
+	 *
+	 * @param string $availability_date availability date.
+     * @return string
+	 */
+	public function woo_feed_filter_product_availability_date_callback( $availability_date ) {
+		return gmdate( 'c', strtotime( $availability_date ) );
+	}
+
+}

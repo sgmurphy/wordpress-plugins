@@ -1,11 +1,35 @@
 <?php
 namespace CTXFeed\V5\File;
+
+/**
+ * XLSX file creation class implementing the FileInterface.
+ *
+ * This class is responsible for creating XLSX formatted files based on provided data and configuration.
+ */
 class XLSX implements FileInterface {
 
-
+	/**
+	 * Data to be written to the XLSX file.
+	 *
+	 * @var array
+	 */
 	private $data;
+
+	/**
+	 * Configuration settings for the XLSX file creation.
+	 *
+	 * @var Config
+	 */
 	private $config;
 
+	/**
+	 * Constructor for the XLSX class.
+	 *
+	 * Initializes the XLSX file with provided data and configuration.
+	 *
+	 * @param array  $data   Data for the XLSX file.
+	 * @param Config $config Configuration settings for the XLSX file.
+	 */
 	public function __construct( $data, $config ) {
 
 		$this->data = $data;
@@ -13,12 +37,12 @@ class XLSX implements FileInterface {
 	}
 
 	/**
-	 * Make Header & Footer.
+	 * Creates the header and footer for the XLSX file.
 	 *
-	 * @return array
+	 * @return array An array with 'header' and 'footer' keys.
 	 */
 	public function make_header_footer() {
-		$HF = [
+		$header_footer = [
 			'header' => '',
 			'footer' => '',
 		];
@@ -29,19 +53,19 @@ class XLSX implements FileInterface {
 		if ( ! empty( $this->data ) && is_array( $this->data ) ) {
 			$first = $this->implode_all( $delimiter, $enclosure, $this->data, 'key' ) . "\n";
 
-			$HF = [
+			$header_footer = [
 				'header' => $first,
 				'footer' => '',
 			];
 		}
 
-		return apply_filters( "ctx_make_{$this->config->feedType}_feed_header_footer", $HF, $this->data, $this->config );
+		return apply_filters( "ctx_make_{$this->config->feedType}_feed_header_footer", $header_footer, $this->data, $this->config );
 	}
 
 	/**
-	 * Make CSV body.
+	 * Creates the body of the XLSX file.
 	 *
-	 * @return string
+	 * @return string The formatted body content of the XLSX file.
 	 */
 	public function make_body(  ) {
 
@@ -57,18 +81,18 @@ class XLSX implements FileInterface {
 	}
 
 	/**
-	 * Convert Multi Dimension array to string.
+	 * Helper method to convert multi-dimensional arrays to a string.
 	 *
-	 * @param $delimiter
-	 * @param $enclosure
-	 * @param $arr
+	 * @param string $delimiter Delimiter for separating elements.
+	 * @param string $enclosure Enclosure for wrapping elements.
+	 * @param array  $array     Array to be imploded.
 	 *
-	 * @return string
+	 * @return string Imploded string.
 	 */
 	private function implode_all( $delimiter, $enclosure, $arr ) {
-		foreach ( $arr as $i => $iValue ) {
-			if ( is_array( $iValue ) ) {
-				$arr[ $i ] = $this->implode_all( $delimiter, $enclosure, $iValue );
+		foreach ( $arr as $i => $i_value ) {
+			if ( is_array( $i_value ) ) {
+				$arr[ $i ] = $this->implode_all( $delimiter, $enclosure, $i_value );
 			}
 		}
 

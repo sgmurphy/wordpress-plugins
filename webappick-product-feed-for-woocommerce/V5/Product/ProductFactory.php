@@ -1,127 +1,159 @@
 <?php
+/**
+ * Product Factory.
+ *
+ * @package CTXFeed\V5\Product
+ */
 
 namespace CTXFeed\V5\Product;
 
+use CTXFeed\V5\Compatibility\CompatibilityFactory;
 use CTXFeed\V5\File\FileFactory;
-use CTXFeed\V5\File\FileInfo;
 use CTXFeed\V5\Filter\ValidateProduct;
 use CTXFeed\V5\Helper\ProductHelper;
-use CTXFeed\V5\Structure\GooglereviewStructure;
+use CTXFeed\V5\Override\OverrideFactory;
 use CTXFeed\V5\Utility\Logs;
-use Exception;
-use WC_Product;
 
 /**
+ * Class ProductFactory
  *
+ * @package CTXFeed\V5\Product
  */
 class ProductFactory {
 
 	/**
-	 * @param $ids
-	 * @param $config
-	 * @param $structure
+	 * Get content for the specified products.
 	 *
-	 * @return FileInfo
-	 * @throws Exception
-	 */
-	public static function get_content( $ids, $config, $structure ) {
-		$info = [];
-		Logs::write_log( $config->filename, 'Getting Products Information.' );
-		Logs::write_log( $config->filename, 'Validating Product' );
-
-
-		if( $config->get_feed_template()!=='googlereview' ) {
-			foreach ($ids as $id) {
-				$product_or_products = ProductHelper::get_product_object($id, $config);
-
-				if($product_or_products instanceof  WC_Product) {
-					// Validate Product and add for feed.
-					if (ValidateProduct::is_valid($product_or_products, $config, $id)) {
-						$info1 = [];
-
-						$info [] = self::get_product_info($product_or_products, $structure, $config, $info1);
-					}
-				}else if( count( $product_or_products ) ) {
-					foreach ( $product_or_products as $product ) {
-						if (ValidateProduct::is_valid($product, $config, $product->get_id())) {
-							$info1 = [];
-
-							$info [] = self::get_product_info($product, $structure, $config, $info1);
-						}
-					}
-				}
-			}
-		}else{
-			$info [] = $structure;
-		}
-
-		return FileFactory::GetData( $info, $config );
-	}
-
-	/**
-	 * @param $product
-	 * @param $structure
-	 * @param $config
-	 * @param $info
+	 * Retrieves product information based on provided IDs, configuration, and structure.
 	 *
-	 * @return array|mixed
+	 * @param array                      $ids       Array of product IDs.
+	 * @param \CTXFeed\V5\Utility\Config $config    Configuration object.
+	 * @param array                      $structure Data structure for the content.
+     * @return \CTXFeed\V5\File\FileInfo Information about the fetched content.
+	 * @throws \Exception If an error occurs during content retrieval.
 	 */
-	public static function get_product_info( $product, $structure, $config, $info ) {
-		$value = [];
-		if ( is_array( $structure ) ) {
-			foreach ( $structure as $key => $attribute ) {
-				if ( is_array( $attribute ) ) {
-					$value[ $key ] = self::get_product_info( $product, $attribute, $config, $info );
-				} elseif ( $config->feedType === 'xml' ) {
-					$value[ $key ] = ProductHelper::getAttributeValueByType( $attribute, $product, $config, $key );
-				} else {
-					$value[ $key ] = self::get_csv_attribute_value( $attribute, $product, $config, $key );
+	public static function get_content( $ids, $config, $structure ) {//phpcs:ignore
+		$product_info = array();
+		Logs::write_log( $config->get_feed_file_name(), 'Getting Products Information.' );
+		Logs::write_log( $config->get_feed_file_name(), 'Validating Product' );
+
+		/**
+		 * Load Merchant Template Override File.
+		 *
+		 * Based current feed config all filters in the "ProductInfo" class will be added to respective class
+		 * Example: If template is "google" then "Override\GoogleTemplate" class will be initialized
+		 * and all filter from "ProductInfo" class will be applied for Google merchant specific requirement.
+		 */
+		OverrideFactory::TemplateOverride( $config );
+
+		if ( $config->get_feed_template() !== 'googlereview' ) {
+			foreach ( $ids as $id ) {
+				$product = ProductHelper::get_product_object( $id, $config );
+
+				// If product is a variation, then get the parent product.
+				$parent_product = null;
+
+				if ( $product && $product->is_type( 'variation' ) ) {
+					$parent_product = wc_get_product( $product->get_parent_id() );
 				}
+
+				// Validate Product and add for feed.
+				if ( ! ValidateProduct::is_valid( $product, $config, $id ) ) {
+					continue;
+				}
+				$product_info[] = self::get_product_info( $product, $structure, $config, array(), $parent_product );
 			}
 		} else {
-			return $info;
+			$product_info[] = $structure;
 		}
 
-		return $value;
+		return FileFactory::get_file_data( $product_info, $config );
 	}
 
 	/**
-	 * @param                            $attribute
-	 * @param                            $product
-	 * @param \CTXFeed\V5\Utility\Config $config
-	 * @param                            $merchant_attribute
+	 * Get product information.
 	 *
-	 * @return mixed|void
+	 * Processes and returns information for a given product based on the specified structure and configuration.
+	 *
+	 * @param \WC_Product                $product        The product object.
+	 * @param array                      $structure      The structure defining the attributes to retrieve.
+	 * @param \CTXFeed\V5\Utility\Config $config         Configuration object.
+	 * @param array                      $info           Additional information (if any).
+	 * @param null                       $parent_product The parent product object (if any).
+     * @return array The processed product information.
 	 */
-	public static function get_csv_attribute_value( $attribute, $product, $config, $merchant_attribute ) {
 
-		$attribute= ($attribute === null ? '' : $attribute);
-		$value = [];
-		if ( strpos( $attribute, ',' ) ) {
-			$separator = ',';
-			$data3     = explode( ',', $attribute );
-			foreach ( $data3 as $data2 ) {
-				if ( strpos( $attribute, ':' ) ) {
-					$value[] = self::get_csv_attribute_value( $data2, $product, $config, $merchant_attribute );
+	public static function get_product_info( $product, $structure, $config, $info, $parent_product = null ) {
+		$product_info = array();
+
+		foreach ( $structure as $merchant_attribute => $attribute ) {
+			if ( is_array( $attribute ) ) {
+				$product_info[ $merchant_attribute ] = self::get_product_info( $product, $attribute, $config, $info, $parent_product );
+			} elseif ( $config->get_feed_file_type() === 'xml' ) {
+				$product_info[ $merchant_attribute ] = ProductHelper::get_attribute_value_by_type( $attribute, $product, $config, $merchant_attribute, $parent_product );
+			} else {
+				$product_info[ $merchant_attribute ] = self::get_csv_attribute_value( $attribute, $product, $config, $merchant_attribute, $parent_product );
+			}
+		}
+
+		return $product_info;
+	}
+
+	/**
+	 * Get CSV attribute value.
+	 *
+	 * Retrieves the value of a CSV-formatted attribute for a product.
+	 *
+	 * @param string                     $attribute          The attribute to be processed.
+	 * @param mixed                      $product            The product object.
+	 * @param \CTXFeed\V5\Utility\Config $config             Configuration object.
+	 * @param mixed                      $merchant_attribute Merchant-specific attribute information.
+	 * @param null                       $parent_product     The parent product object (if any).
+     * @return mixed The value of the attribute or void if not found.
+	 */
+	public static function get_csv_attribute_value(
+		$attribute,
+		$product,
+		$config,
+		$merchant_attribute,
+		$parent_product = null
+	) {
+		if ( ! $attribute ) {
+			$attribute = '';
+		}
+
+		$values = array();
+
+		// Check if attribute contains a comma and process accordingly
+		if ( strpos( $attribute, ',' ) !== false ) {
+			$separator  = ',';
+			$attributes = explode( ',', $attribute );
+
+			foreach ( $attributes as $attr ) {
+				if ( strpos( $attr, ':' ) !== false ) {
+					$values[] = self::get_csv_attribute_value( $attr, $product, $config, $merchant_attribute );
 				} else {
-					$value[] = ProductHelper::getAttributeValueByType( $data2, $product, $config, $merchant_attribute );
+					$values[] = ProductHelper::get_attribute_value_by_type( $attr, $product, $config, $merchant_attribute, $parent_product );
 				}
 			}
 
-			return implode( $separator, array_filter( $value ) );
+			return implode( $separator, array_filter( $values ) );
 		}
 
-		if ( strpos( $attribute, ':' ) ) {
-			$separator = ':';
-			$attribute = explode( ':', $attribute );
-			foreach ( $attribute as $data ) {
-				$value [] = ProductHelper::getAttributeValueByType( $data, $product, $config, $merchant_attribute );
+		// Check if attribute contains a colon and process accordingly
+		if ( strpos( $attribute, ':' ) !== false ) {
+			$separator  = ':';
+			$attributes = explode( ':', $attribute );
+
+			foreach ( $attributes as $attr ) {
+				$values[] = ProductHelper::get_attribute_value_by_type( $attr, $product, $config, $merchant_attribute, $parent_product );
 			}
 
-			return implode( $separator, array_filter( $value ) );
+			return implode( $separator, array_filter( $values ) );
 		}
 
-		return ProductHelper::getAttributeValueByType( $attribute, $product, $config, $merchant_attribute );
+		// Return the attribute value directly
+		return ProductHelper::get_attribute_value_by_type( $attribute, $product, $config, $merchant_attribute, $parent_product );
 	}
 
 }

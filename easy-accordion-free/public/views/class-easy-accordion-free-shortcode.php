@@ -93,8 +93,8 @@ class Easy_Accordion_Free_Shortcode {
 		$content_sources = isset( $upload_data['accordion_content_source'] ) ? $upload_data['accordion_content_source'] : '';
 
 		// Shortcode Option.
-		$accordion_layout      = isset( $shortcode_data['eap_accordion_layout'] ) ? $shortcode_data['eap_accordion_layout'] : '';
-		$accordion_theme_class = isset( $shortcode_data['eap_accordion_theme'] ) ? $shortcode_data['eap_accordion_theme'] : '';
+		$accordion_layout      = isset( $shortcode_data['eap_accordion_layout'] ) ? $shortcode_data['eap_accordion_layout'] : 'vertical';
+		$accordion_theme_class = 'sp-ea-one';
 		$eap_accordion_uniq_id = isset( $shortcode_data['eap_accordion_uniq_id'] ) ? $shortcode_data['eap_accordion_uniq_id'] : 'sp_easy_accordion-' . time() . '';
 
 		global $accordion_wrapper_class;
@@ -112,11 +112,11 @@ class Easy_Accordion_Free_Shortcode {
 		$eap_scroll_to_active_item = isset( $shortcode_data['eap_scroll_to_active_item'] ) ? $shortcode_data['eap_scroll_to_active_item'] : false;
 		$eap_offset_to_scroll      = apply_filters( 'eap_offset_to_scroll', 0 );
 
-		$eap_accordion_fillspace_height  = isset( $shortcode_data['eap_accordion_fillspace_height']['all'] ) ? $shortcode_data['eap_accordion_fillspace_height']['all'] : $shortcode_data['eap_accordion_fillspace_height'];
-		$acc_section_title               = isset( $shortcode_data['section_title'] ) ? $shortcode_data['section_title'] : '';
-		$acc_section_title_margin_bottom = isset( $shortcode_data['section_title_margin_bottom']['all'] ) ? $shortcode_data['section_title_margin_bottom']['all'] : $shortcode_data['section_title_margin_bottom'];
-		$accordion_height                = isset( $shortcode_data['accordion_height'] ) ? $shortcode_data['accordion_height'] : '';
-		$eap_animation_time              = isset( $shortcode_data['eap_animation_time'] ) ? $shortcode_data['eap_animation_time'] : '';
+		$eap_accordion_fillspace_height = isset( $shortcode_data['eap_accordion_fillspace_height']['all'] ) ? $shortcode_data['eap_accordion_fillspace_height']['all'] : $shortcode_data['eap_accordion_fillspace_height'];
+		$acc_section_title              = isset( $shortcode_data['section_title'] ) ? $shortcode_data['section_title'] : '';
+		// $acc_section_title_margin_bottom = isset( $shortcode_data['section_title_margin_bottom']['all'] ) ? $shortcode_data['section_title_margin_bottom']['all'] : $shortcode_data['section_title_margin_bottom'];
+		$accordion_height   = isset( $shortcode_data['accordion_height'] ) ? $shortcode_data['accordion_height'] : '';
+		$eap_animation_time = isset( $shortcode_data['eap_animation_time'] ) ? $shortcode_data['eap_animation_time'] : '';
 
 		$eap_border       = isset( $shortcode_data['eap_border_css'] ) ? $shortcode_data['eap_border_css'] : '';
 		$eap_border_width = isset( $eap_border['all'] ) ? $eap_border['all'] : $eap_border['width'];
@@ -138,8 +138,8 @@ class Easy_Accordion_Free_Shortcode {
 		$eap_ex_icon_position     = isset( $shortcode_data['eap_icon_position'] ) ? $shortcode_data['eap_icon_position'] : '';
 		$eap_icon_size            = isset( $shortcode_data['eap_icon_size']['all'] ) ? $shortcode_data['eap_icon_size']['all'] : $shortcode_data['eap_icon_size'];
 		$eap_icon_color           = isset( $shortcode_data['eap_icon_color_set'] ) ? $shortcode_data['eap_icon_color_set'] : '';
-		$eap_collapse_icon        = 'fa-plus';
-		$eap_expand_icon          = 'fa-minus';
+		$eap_collapse_icon        = 'plus';
+		$eap_expand_icon          = 'minus';
 		// Description.
 		$eap_autop              = isset( $shortcode_data['eap_autop'] ) ? $shortcode_data['eap_autop'] : true;
 		$eap_content_typo       = isset( $shortcode_data['eap_content_typography'] ) ? $shortcode_data['eap_content_typography'] : '';
@@ -179,7 +179,7 @@ class Easy_Accordion_Free_Shortcode {
 		$found_generator_id = $get_page_data['generator_id'];
 		if ( ! is_array( $found_generator_id ) || ! $found_generator_id || ! in_array( $post_id, $found_generator_id ) ) {
 			// CSS Files.
-			wp_enqueue_style( 'sp-ea-font-awesome' );
+			wp_enqueue_style( 'sp-ea-fontello-icons' );
 			wp_enqueue_style( 'sp-ea-style' );
 			$ea_dynamic_css = SP_EA_Front_Scripts::load_dynamic_style( $post_id, $shortcode_data );
 			echo '<style>' . $ea_dynamic_css['dynamic_css'] . '</style>';

@@ -1,19 +1,34 @@
 <?php
-namespace CTXFeed\V5\Price;
-use CTXFeed\V5\Utility\Config;
-use WC_Product;
+/**
+ * Simple Product price.
+ *
+ * @package CTXFeed\V5\Price
+ */
 
+namespace CTXFeed\V5\Price;
+
+/**
+ * Simple Product price.
+ *
+ * @package CTXFeed\V5\Price
+ */
 class SimpleProductPrice implements PriceInterface {
 
+	/**
+	 * @var \WC_Product $product WC Product.
+	 */
 	private $product;
+
+	/**
+	 * @var \CTXFeed\V5\Utility\Config $config Config.
+	 */
 	private $config;
 
 	/**
-	 * @param WC_Product $product
-	 * @param Config     $config
+	 * @param \WC_Product                $product WC Product.
+	 * @param \CTXFeed\V5\Utility\Config $config  Config.
 	 */
 	public function __construct( $product, $config ) {
-
 		$this->product = $product;
 		$this->config  = $config;
 	}
@@ -21,68 +36,28 @@ class SimpleProductPrice implements PriceInterface {
 	/**
 	 * Get Regular Price.
 	 *
-	 * @param bool $tax
-	 *
-	 * @return float|int
+	 * @return string
 	 */
-	public function regular_price( $tax = false ) {
-		$regular_price = $this->product->get_regular_price();
-		$regular_price = $this->convert_currency( $regular_price, 'regular_price' );
-		return $this->add_tax( $regular_price, $tax );
+	public function regular_price() {
+		return $this->product->get_regular_price();
 	}
 
 	/**
 	 * Get Price.
 	 *
-	 * @param bool $tax
-	 *
-	 * @return int|float
+	 * @return string
 	 */
-	public function price( $tax = false ) {
-		$price = $this->product->get_price();
-		$price = $this->convert_currency( $price, 'price' );
-		return $this->add_tax( $price, $tax );
+	public function price() {
+		return $this->product->get_price();
 	}
 
 	/**
 	 * Get Sale Price.
-	 *
-	 * @param bool $tax
-	 *
-	 * @return int|float
+     *
+	 * @return string
 	 */
-	public function sale_price( $tax = false ) {
-		$sale_price = $this->product->get_sale_price();
-		$sale_price = $this->convert_currency( $sale_price, 'sale_price' );
-		return $this->add_tax( $sale_price, $tax );
+	public function sale_price() {
+		return $this->product->get_sale_price();
 	}
 
-	/**
-	 * Convert Currency.
-	 *
-	 * @param $price
-	 * @param string $price_type price type (regular_price|price|sale_price)
-	 *
-	 * @return mixed|void
-	 */
-	public function convert_currency( $price, $price_type ) {
-
-		return apply_filters( 'woo_feed_wcml_price',
-			$price, $this->product->get_id(), $this->config->get_feed_currency(), '_' . $price_type
-		);
-	}
-
-	/**
-	 * @param $price
-	 * @param $tax
-	 *
-	 * @return float|mixed|string|null
-	 */
-	public function add_tax( $price, $tax = false ) {
-		if ( true === $tax ) {
-			return woo_feed_get_price_with_tax( $price, $this->product );
-		}
-
-		return $price;
-	}
 }

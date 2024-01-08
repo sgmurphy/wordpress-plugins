@@ -277,21 +277,21 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.4.6", "essential-blocks")}
+                                    {__("Version: 4.4.7", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("28/12/2023", "essential-blocks")}
+                                        {__("08/01/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Fixed: Advanced Tab editor error",
+                                            "Improved: Security Enhancement",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Minor bug fixes & improvements",
+                                            "Fixed: Table of Content block warnings with PHP 8.2 or higher",
                                             "essential-blocks"
                                         )}
                                     </li>

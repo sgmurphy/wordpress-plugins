@@ -4,7 +4,7 @@ Donate link: https://www.patreon.com/wp_armour
 Tags: anti spam, spam checker, spam filter, gravity forms, contact form 7
 Requires at least: 3.0
 Tested up to: 6.4.2
-Stable tag: 2.1.11
+Stable tag: 2.1.12
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -141,6 +141,10 @@ With WP Armour - Honeypot Anti Spam plugin it is No. But if you want you can use
 1. Screenshot #11. Anti Spam for Fluent Forms
 
 == Changelog ==
+
+= = 2.1.12 =
+
+* Fixed login submission issue.
 
 = = 2.1.11 =
 

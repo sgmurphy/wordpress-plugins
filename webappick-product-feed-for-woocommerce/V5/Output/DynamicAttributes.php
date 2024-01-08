@@ -33,7 +33,7 @@ class DynamicAttributes {
 	 */
 	public static function getDynamicAttributeValue( $attribute, $merchant_attribute, $product, $config ) {
 
-		//$getAttributeValueByType = new AttributeValueByType( $attribute, $merchant_attribute, $product, $config );
+		//$get_attribute_value_by_type = new AttributeValueByType( $attribute, $merchant_attribute, $product, $config );
 		$getValue         = maybe_unserialize( get_option( $attribute ) );
 		$wfDAttributeCode = isset( $getValue['wfDAttributeCode'] ) ? $getValue['wfDAttributeCode'] : '';
 		$attribute        = isset( $getValue['attribute'] ) ? (array) $getValue['attribute'] : array();
@@ -91,7 +91,7 @@ class DynamicAttributes {
 
 					switch ( $conditionOperator ) {
 						case '==':
-							if ( ProductHelper::validateDate( $conditionName ) && ProductHelper::validateDate( $conditionCompare ) ) {
+							if ( ProductHelper::validate_date( $conditionName ) && ProductHelper::validate_date( $conditionCompare ) ) {
 								$conditionName    = strtotime( $conditionName );
 								$conditionCompare = strtotime( $conditionCompare );
 							}
@@ -103,7 +103,7 @@ class DynamicAttributes {
 							}
 							break;
 						case '!=':
-							if ( ProductHelper::validateDate( $conditionName ) && ProductHelper::validateDate( $conditionCompare ) ) {
+							if ( ProductHelper::validate_date( $conditionName ) && ProductHelper::validate_date( $conditionCompare ) ) {
 								$conditionName    = strtotime( $conditionName );
 								$conditionCompare = strtotime( $conditionCompare );
 							}
@@ -115,7 +115,7 @@ class DynamicAttributes {
 							}
 							break;
 						case '>=':
-							if ( ProductHelper::validateDate( $conditionName ) && ProductHelper::validateDate( $conditionCompare ) ) {
+							if ( ProductHelper::validate_date( $conditionName ) && ProductHelper::validate_date( $conditionCompare ) ) {
 								$conditionName    = strtotime( $conditionName );
 								$conditionCompare = strtotime( $conditionCompare );
 							}
@@ -128,7 +128,7 @@ class DynamicAttributes {
 
 							break;
 						case '<=':
-							if ( ProductHelper::validateDate( $conditionName ) && ProductHelper::validateDate( $conditionCompare ) ) {
+							if ( ProductHelper::validate_date( $conditionName ) && ProductHelper::validate_date( $conditionCompare ) ) {
 								$conditionName    = strtotime( $conditionName );
 								$conditionCompare = strtotime( $conditionCompare );
 							}
@@ -140,7 +140,7 @@ class DynamicAttributes {
 							}
 							break;
 						case '>':
-							if ( ProductHelper::validateDate( $conditionName ) && ProductHelper::validateDate( $conditionCompare ) ) {
+							if ( ProductHelper::validate_date( $conditionName ) && ProductHelper::validate_date( $conditionCompare ) ) {
 								$conditionName    = strtotime( $conditionName );
 								$conditionCompare = strtotime( $conditionCompare );
 							}
@@ -152,7 +152,7 @@ class DynamicAttributes {
 							}
 							break;
 						case '<':
-							if ( ProductHelper::validateDate( $conditionName ) && ProductHelper::validateDate( $conditionCompare ) ) {
+							if ( ProductHelper::validate_date( $conditionName ) && ProductHelper::validate_date( $conditionCompare ) ) {
 								$conditionName    = strtotime( $conditionName );
 								$conditionCompare = strtotime( $conditionCompare );
 							}
@@ -189,7 +189,7 @@ class DynamicAttributes {
 										$result = $prefix[ $key ] . $result . $suffix[ $key ];
 									}
 								}
-							} elseif ( isset( $compare_items[1] ) && ProductHelper::validateDate( $compare_items[0] ) && ProductHelper::validateDate( $compare_items[1] ) ) {
+							} elseif ( isset( $compare_items[1] ) && ProductHelper::validate_date( $compare_items[0] ) && ProductHelper::validate_date( $compare_items[1] ) ) {
 								if ( $conditionName >= $compare_items[0] && $conditionName <= $compare_items[1] ) {
 									$result = ProductHelper::price_format( $name, $conditionName, $conditionValue );
 									if ( '' != $result ) {

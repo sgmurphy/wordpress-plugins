@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-assets.git",
-                "reference": "b15a18a1878c7c7205fd04b019eb3315c968005c"
+                "reference": "940cba518b9ffe0d652c266923d90d89eb7238aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-assets/zipball/b15a18a1878c7c7205fd04b019eb3315c968005c",
-                "reference": "b15a18a1878c7c7205fd04b019eb3315c968005c",
+                "url": "https://api.github.com/repos/Automattic/jetpack-assets/zipball/940cba518b9ffe0d652c266923d90d89eb7238aa",
+                "reference": "940cba518b9ffe0d652c266923d90d89eb7238aa",
                 "shasum": ""
             },
             "require": {
@@ -28,7 +28,7 @@
             "suggest": {
                 "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
             },
-            "time": "2023-12-11T20:50:04+00:00",
+            "time": "2024-01-04T16:42:34+00:00",
             "default-branch": true,
             "type": "jetpack-library",
             "extra": {

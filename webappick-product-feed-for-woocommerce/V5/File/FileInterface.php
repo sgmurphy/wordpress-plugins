@@ -1,18 +1,36 @@
 <?php
+/**
+ * @package CTXFeed\V5\File
+ */
 namespace CTXFeed\V5\File;
+
+/**
+ * Interface for file handling in CTXFeed.
+ *
+ * This interface defines the structure for creating files, including headers, footers,
+ * and body content specific to the file type.
+ */
+
 interface FileInterface {
 	/**
-	 * Make Header & Footer.
+	 * Creates the header and footer for a file.
 	 *
-	 * @return array
+	 * This method should return an array with predefined structures for the file's header and footer.
+	 * It is crucial for defining the starting and ending points of the file.
+	 *
+	 * @return array An associative array with 'header' and 'footer' as keys.
 	 */
 	public function make_header_footer();
 
 	/**
-	 * Make Feed File body.
+	 * Generates the main body of the file.
 	 *
-	 * @return false|string
+	 * This method is responsible for creating the central content of the file.
+	 * It should return the content as a string or false on failure.
+	 *
+	 * @return false|string The generated body content as a string, or false on failure.
 	 */
 	public function make_body();
+
 }
 

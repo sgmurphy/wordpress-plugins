@@ -57,7 +57,7 @@ class SP_EA_Front_Scripts {
 		$found_generator_id = $get_page_data['generator_id'];
 		// CSS Files.
 		if ( $found_generator_id ) {
-			wp_enqueue_style( 'sp-ea-font-awesome' );
+			wp_enqueue_style( 'sp-ea-fontello-icons' );
 			wp_enqueue_style( 'sp-ea-style' );
 			// Load dynamic style for the existing shordcodes.
 			$ea_dynamic_css = self::load_dynamic_style( $found_generator_id );
@@ -76,7 +76,7 @@ class SP_EA_Front_Scripts {
 
 		// CSS Files.
 		if ( $settings['eap_dequeue_fa_css'] ) {
-			wp_register_style( 'sp-ea-font-awesome', esc_url( SP_EA_URL . 'public/assets/css/font-awesome.min.css' ), array(), SP_EA_VERSION );
+			wp_register_style( 'sp-ea-fontello-icons', esc_url( SP_EA_URL . 'public/assets/css/fontello.css' ), array(), SP_EA_VERSION );
 		}
 		wp_register_style( 'sp-ea-style', esc_url( SP_EA_URL . 'public/assets/css/ea-style.css' ), array(), SP_EA_VERSION );
 		// Admin style of the plugin.
@@ -85,6 +85,11 @@ class SP_EA_Front_Scripts {
 		// JS Files.
 		wp_register_script( 'sp-ea-accordion-js', esc_url( SP_EA_URL . 'public/assets/js/collapse' . $prefix . '.js' ), array( 'jquery' ), SP_EA_VERSION, false );
 		wp_register_script( 'sp-ea-accordion-config', esc_url( SP_EA_URL . 'public/assets/js/script.js' ), array( 'jquery', 'sp-ea-accordion-js' ), SP_EA_VERSION, true );
+
+		$ea_custom_js = isset( $settings['custom_js'] ) ? trim( html_entity_decode( $settings['custom_js'] ) ) : '';
+		if ( ! empty( $ea_custom_js ) ) {
+			wp_add_inline_script( 'sp-ea-accordion-config', $ea_custom_js );
+		}
 	}
 
 	/**

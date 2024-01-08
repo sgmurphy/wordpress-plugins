@@ -1,4 +1,5 @@
 <?php // phpcs:disable
+
 /**
  * This class contains feed information.
  *
@@ -36,23 +37,23 @@ class Config {// phpcs:ignore
 	/**
 	 * Config constructor.
 	 *
-	 * @param array  $feed_info Feed Info.
-	 * @param string $context   Feed Configuration context.
+	 * @param array $feed_info Feed Info.
+	 * @param string $context Feed Configuration context.
 	 */
+
 	public function __construct( $feed_info, $context = 'view' ) {
 		if ( isset( $feed_info['option_value']['feedrules'] ) ) {
 			$feed_info = self::process_old_version_feed_created_products_id( $feed_info );
-			$config    = $feed_info['option_value']['feedrules'];
-		}
-		else {
-			$config =  [];
+			$feedrules    = $feed_info['option_value']['feedrules'];
+		} else {
+			$feedrules =  [];
 			$feed_info =  [];
 		}
 
 		$this->feed_info = $feed_info;
 		$this->context   = $context;
 
-		$this->set_config( $config );
+		$this->set_config( $feedrules );
 	}
 
 	/**
@@ -96,7 +97,8 @@ class Config {// phpcs:ignore
 	 *  Get Feed name.
 	 *
 	 * @param bool $full Full name with prefix.
-     * @return string
+	 *
+	 * @return string
 	 */
 	public function get_feed_option_name( $full = false ) {
 		$option_name = '';
@@ -120,7 +122,8 @@ class Config {// phpcs:ignore
 	 *  Get Feed file name.
 	 *
 	 * @param bool $infos Get file info.
-     * @return string
+	 *
+	 * @return string
 	 */
 	public function get_feed_file_name( $infos = false ) {
 		$url = $this->get_feed_url();
@@ -575,13 +578,13 @@ class Config {// phpcs:ignore
 	 */
 	public function get_variations_to_include() {
 		return isset( $this->config['is_variations'] ) && in_array(
-            $this->config['is_variations'],
-            array(
-				'y',
-				'both',
-			),
-            true
-            );
+				$this->config['is_variations'],
+				array(
+					'y',
+					'both',
+				),
+				true
+			);
 	}
 
 	/**
@@ -638,11 +641,11 @@ class Config {// phpcs:ignore
 	 */
 	public function get_variable_config() {
 		if ( isset( $this->config['is_variations'] ) ) {
-			return array(
-				'is_variations'     => $this->config['is_variations'],
-				'variable_price'    => $this->config['variable_price'],
-				'variable_quantity' => $this->config['variable_quantity'],
-			);
+			return [
+				"is_variations"     => $this->config['is_variations'],
+				"variable_price"    => isset( $this->config['variable_price'] ) ? $this->config['variable_price'] : 'min',
+				"variable_quantity" => isset( $this->config['variable_quantity'] ) ? $this->config['variable_quantity'] : 'sum',
+			];
 		}
 
 		return false;
@@ -682,9 +685,10 @@ class Config {// phpcs:ignore
 	/**
 	 * Add or Update Feed Configuration
 	 *
-	 * @param array       $feedrules        Feed Rules.
+	 * @param array $feedrules Feed Rules.
 	 * @param string|null $feed_option_name Feed Option Name.
-     * @return bool|string
+	 *
+	 * @return bool|string
 	 */
 	public function save_config( $feedrules, $feed_option_name = null ) {
 		$prepared_data    = FeedHelper::prepare_feed_rules_to_save( $feedrules, $feed_option_name );
@@ -748,9 +752,10 @@ class Config {// phpcs:ignore
 	/**
 	 * Get Output Types of an attribute.
 	 *
-	 * @param string $attribute          Product Attribute.
+	 * @param string $attribute Product Attribute.
 	 * @param string $merchant_attribute Merchant Attribute.
-     * @return array|mixed
+	 *
+	 * @return array|mixed
 	 */
 	public function get_attribute_output_types( $attribute, $merchant_attribute ) {
 		$output_types    = $this->config['output_type'];
@@ -766,9 +771,10 @@ class Config {// phpcs:ignore
 	/**
 	 * Get Limit Commands of an attribute.
 	 *
-	 * @param string $attribute          Product Attribute.
+	 * @param string $attribute Product Attribute.
 	 * @param string $merchant_attribute Merchant Attribute.
-     * @return array|mixed
+	 *
+	 * @return array|mixed
 	 */
 	public function get_attribute_commands( $attribute, $merchant_attribute ) {
 		$commands        = $this->config['limit'];
@@ -784,9 +790,10 @@ class Config {// phpcs:ignore
 	/**
 	 * Get Prefix and Suffix of an attribute.
 	 *
-	 * @param string $attribute          Product Attribute.
+	 * @param string $attribute Product Attribute.
 	 * @param string $merchant_attribute Merchant Attribute.
-     * @return array
+	 *
+	 * @return array
 	 */
 	public function get_prefix_suffix( $attribute, $merchant_attribute ) {
 		$prefixes        = $this->config['prefix'];
@@ -814,15 +821,16 @@ class Config {// phpcs:ignore
 	/**
 	 * Get index of an attribute.
 	 *
-	 * @param string $attribute          Product Attribute.
+	 * @param string $attribute Product Attribute.
 	 * @param string $merchant_attribute Merchant Attribute.
-     * @return int|string
+	 *
+	 * @return int|string
 	 */
 	public function get_attribute_index( $attribute, $merchant_attribute ) {
 		$value_attributes    = $this->config['attributes'];
 		$merchant_attributes = $this->config['mattributes'];
 		$attributes_type     = $this->config['type'];
-		$attribute_index     = -1;
+		$attribute_index     = - 1;
 
 
 		$special_templates = FeedHelper::get_special_templates();
@@ -868,10 +876,11 @@ class Config {// phpcs:ignore
 	 * Process Product Ids.
 	 *
 	 * @param array $feed_info Feed Config.
-     * @return array
+	 *
+	 * @return array
 	 */
 	public static function process_old_version_feed_created_products_id( $feed_info ) {
-		if ( ! is_array( $feed_info['option_value']['feedrules']['product_ids'] ) ) {
+		if ( isset( $feed_info['option_value']['feedrules']['product_ids'] ) && ! is_array( $feed_info['option_value']['feedrules']['product_ids'] ) ) {
 			$included_ids_str = $feed_info['option_value']['feedrules']['product_ids'];
 
 			$included_ids = array();
@@ -894,7 +903,8 @@ class Config {// phpcs:ignore
 	 * Set Feed Configuration.
 	 *
 	 * @param array $config Feed Config.
-     * @return void
+	 *
+	 * @return void
 	 */
 	private function set_config( $config ) {// phpcs:ignore
 		$defaults = array(
@@ -969,28 +979,34 @@ class Config {// phpcs:ignore
 			/**
 			 * Filter parsed rules for provider.
 			 *
-			 * @param array  $rules
+			 * @param array $rules
 			 * @param string $context
-             * @since 3.3.7
+			 *
+			 * @since 3.3.7
 			 */
 			$this->config = apply_filters( "woo_feed_{$this->config['provider']}_parsed_rules", $this->config, $this->context );
 		}
 
+		$this->config = FeedHelper::validate_config( $this->config );
+
 		/**
 		 * Filter parsed rules.
 		 *
-		 * @param array  $rules
+		 * @param array $rules
 		 * @param string $context
-         * @since 3.3.7 $provider parameter removed
+		 *
+		 * @since 3.3.7 $provider parameter removed
 		 */
 		$this->config = apply_filters( 'woo_feed_parsed_rules', $this->config, $this->context );
+
 	}
 
 	/**
 	 * Isset Feed Config.
 	 *
 	 * @param string $name Feed Config.
-     * @return bool
+	 *
+	 * @return bool
 	 */
 	public function __isset( $name ) {
 		return isset( $this->config[ $name ] );
@@ -1000,7 +1016,8 @@ class Config {// phpcs:ignore
 	 * Get Feed Config.
 	 *
 	 * @param string $name Feed Config.
-     * @return mixed
+	 *
+	 * @return mixed
 	 */
 	public function __get( $name ) {
 		return $this->config[ $name ];
@@ -1009,9 +1026,10 @@ class Config {// phpcs:ignore
 	/**
 	 * Set Feed Config.
 	 *
-	 * @param string $name  Feed Config.
+	 * @param string $name Feed Config.
 	 * @param string $value Feed Config.
-     * @return string
+	 *
+	 * @return string
 	 */
 	public function __set( $name, $value ) {
 		return $this->config[ $name ] = $value;
@@ -1021,10 +1039,139 @@ class Config {// phpcs:ignore
 	 * Unset Feed Config.
 	 *
 	 * @param string $name Feed Config.
-     * @return void
+	 *
+	 * @return void
 	 */
 	public function __unset( $name ) {
 		unset( $this->config[ $name ] );
+	}
+
+	/**
+	 * Get pro version feed default rules.
+	 *
+	 * @param $rules
+	 *
+	 * @return mixed|null
+	 */
+	public static function free_default_feed_rules( $rules = [] ) {
+		$defaults = array(
+			'provider'            => '',
+			'filename'            => '',
+			'feedType'            => '',
+			'feed_country'        => '',
+			'ftpenabled'          => 0,
+			'ftporsftp'           => 'ftp',
+			'ftphost'             => '',
+			'ftpport'             => '21',
+			'ftpuser'             => '',
+			'ftppassword'         => '',
+			'ftppath'             => '',
+			'ftpmode'             => 'active',
+			'is_variations'       => 'y',
+			'variable_price'      => 'first',
+			'variable_quantity'   => 'first',
+			'feedLanguage'        => apply_filters( 'wpml_current_language', null ),
+			'feedCurrency'        => get_woocommerce_currency(),
+			'itemsWrapper'        => 'products',
+			'itemWrapper'         => 'product',
+			'delimiter'           => ',',
+			'enclosure'           => 'double',
+			'extraHeader'         => '',
+			'vendors'             => array(),
+			// Feed Config
+			'mattributes'         => array(), // merchant attributes
+			'prefix'              => array(), // prefixes
+			'type'                => array(), // value (attribute) types
+			'attributes'          => array(), // product attribute mappings
+			'default'             => array(), // default values (patterns) if value type set to pattern
+			'suffix'              => array(), // suffixes
+			'output_type'         => array(), // output type (output filter)
+			'limit'               => array(), // limit or command
+			// filters tab
+			'composite_price'     => '',
+			'shipping_country'    => '',
+			'tax_country'         => '',
+			'product_ids'         => '',
+			'categories'          => array(),
+			'post_status'         => array( 'publish' ),
+			'filter_mode'         => array(),
+			'campaign_parameters' => array(),
+
+			'ptitle_show'        => '',
+			'decimal_separator'  => wc_get_price_decimal_separator(),
+			'thousand_separator' => wc_get_price_thousand_separator(),
+			'decimals'           => wc_get_price_decimals(),
+		);
+		$rules    = wp_parse_args( $rules, $defaults );
+
+		return apply_filters( 'woo_feed_free_default_feed_rules', $rules );
+	}
+
+	/**
+	 * Get pro version feed default rules.
+	 *
+	 * @param $rules
+	 *
+	 * @return mixed|null
+	 */
+	public static function pro_default_feed_rules( $rules = [] ) {
+		$defaults = array(
+			'provider'              => '',
+			'feed_country'          => '',
+			'filename'              => '',
+			'feedType'              => '',
+			'ftpenabled'            => 0,
+			'ftporsftp'             => 'ftp',
+			'ftphost'               => '',
+			'ftpport'               => '21',
+			'ftpuser'               => '',
+			'ftppassword'           => '',
+			'ftppath'               => '',
+			'ftpmode'               => 'active',
+			'is_variations'         => 'y', // Only Variations (All Variations)
+			'variable_price'        => 'first',
+			'variable_quantity'     => 'first',
+			'feedLanguage'          => apply_filters( 'wpml_current_language', null ),
+			'feedCurrency'          => get_woocommerce_currency(),
+			'itemsWrapper'          => 'products',
+			'itemWrapper'           => 'product',
+			'delimiter'             => ',',
+			'enclosure'             => 'double',
+			'extraHeader'           => '',
+			'vendors'               => array(),
+			// Feed Config
+			'mattributes'           => array(), // merchant attributes
+			'prefix'                => array(), // prefixes
+			'type'                  => array(), // value (attribute) types
+			'attributes'            => array(), // product attribute mappings
+			'default'               => array(), // default values (patterns) if value type set to pattern
+			'suffix'                => array(), // suffixes
+			'output_type'           => array(), // output type (output filter)
+			'limit'                 => array(), // limit or command
+			// filters tab
+			'composite_price'       => 'all_product_price',
+			'product_ids'           => '',
+			'categories'            => array(),
+			'post_status'           => array( 'publish' ),
+			'filter_mode'           => array(),
+			'campaign_parameters'   => array(),
+			'is_outOfStock'         => 'n',
+			'is_backorder'          => 'n',
+			'is_emptyDescription'   => 'n',
+			'is_emptyImage'         => 'n',
+			'is_emptyPrice'         => 'n',
+			'product_visibility'    => 0,
+			// include hidden ? 1 yes 0 no
+			'outofstock_visibility' => 0,
+			// override wc global option for out-of-stock product hidden from catalog? 1 yes 0 no
+			'ptitle_show'           => '',
+			'decimal_separator'     => wc_get_price_decimal_separator(),
+			'thousand_separator'    => wc_get_price_thousand_separator(),
+			'decimals'              => wc_get_price_decimals(),
+		);
+		$rules    = wp_parse_args( $rules, $defaults );
+
+		return apply_filters( 'woo_feed_pro_default_feed_rules', $rules );
 	}
 
 }

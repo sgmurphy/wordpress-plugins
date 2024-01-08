@@ -1,69 +1,46 @@
 <?php
-namespace CTXFeed\V5\Price;
-use CTXFeed\V5\Utility\Config;
-use WC_Product;
 
+namespace CTXFeed\V5\Price;
+
+/**
+ * Class PriceFactory
+ *
+ * @package CTXFeed\V5\Price
+ */
 class PriceFactory {
-    /**
-     * @param WC_Product $product
-     * @param Config $config
-     * @return ProductPrice
-     */
-	public static function get( $product, $config ) {
+
+	/**
+	 * @param \WC_Product|\WC_Product_Simple|\WC_Product_Variable|\WC_Product_Variation|\WC_Product_Grouped $product WC
+	 *                                                                                                               Product.
+	 * @param \CTXFeed\V5\Utility\Config                                                                    $config  Config.
+     * @return \CTXFeed\V5\Price\ProductPrice Product Price.
+	 */
+	public static function get( $product, $config ) {// phpcs:ignore
 		if ( $product->is_type( 'variable' ) ) {
 			/**
-			 * Variable Product does not have its price. So its depends on variations.
+			 * Variable Product does not have its price. So it depends on variations.
 			 */
-			$class = new ProductPrice( new VariableProductPrice( $product, $config ) );
+			$class = new ProductPrice( new VariableProductPrice( $product, $config ), $product );
 		} elseif ( $product->is_type( 'grouped' ) ) {
 			/**
-			 * Grouped Product does not have its price. So its depends on a group of simple Products.
+			 * Grouped Product does not have its price. So it depends on a group of simple Products.
 			 */
-			$class = new ProductPrice( new GroupProductPrice( $product, $config ) );
-		} /**
-		 * Plugin Name: WooCommerce Product Bundles.
-		 * @link https://woocommerce.com/products/product-bundles
-		 */
-		elseif ( class_exists( 'WC_Product_Bundle' ) && $product->is_type( 'bundle' ) ) {
-			$class = new ProductPrice( new WCBundleProductPrice( $product, $config ) );
-		} /**
-		 * Plugin Name: WooCommerce Product Bundles.
-		 * @link https://iconicwp.com/products/woocommerce-bundled-products/
-		 */
-		elseif ( class_exists( 'WC_Product_Bundled' ) && $product->is_type( 'bundled' ) ) {
-			$class = new ProductPrice( new IconicBundleProductPrice( $product, $config ) );
-		} /**
-		 * Plugin Name:
-		 * @link
-		 */
-		elseif ( class_exists( 'WC_Product_Composite' ) && $product->is_type( 'composite' ) ) {
-			$class = new ProductPrice( new WCCompositeProductPrice( $product, $config ) );
-		} /**
-		 * Plugin Name: WooCommerce Composite Products.
-		 * @link https://wordpress.org/plugins/wpc-composite-products/
-		 */
-		elseif ( class_exists( 'WPCleverWooco' ) && $product->is_type( 'composite' ) ) {
-			$class = new ProductPrice( new WPCCompositeProductPrice( $product, $config ) );
-		} /**
-		 * Plugin Name: WooCommerce Composite Products.
-		 * @link https://woocommerce.com/products/composite-products/
-		 */
-		elseif ( class_exists( 'WC_Composite_Products' ) && $product->is_type( 'composite' ) ) {
-			$class = new ProductPrice( new WCCompositeProductPrice( $product, $config ) );
+			$class = new ProductPrice( new GroupProductPrice( $product, $config ), $product );
 		}elseif ( is_plugin_active( 'wpc-grouped-product/wpc-grouped-product.php' ) && $product->is_type( 'woosg' ) ) {
 			/**
 			 * Grouped Product does not have its price. So its depends on a group of simple Products.
 			 * Plugin Name: WPC Grouped Product for WooCommerce.
 			 */
-			$class = new ProductPrice( new SgGroupProductPrice( $product, $config ) );
-		} else {
+			$class = new ProductPrice( new SgGroupProductPrice( $product, $config ), $product );
+		}  else {
 			/**
 			 * Simple Product, External Product, Product Variation, YITH Composite etc.
 			 * Note*: YITH does not auto select components. So no need to calculate component price.
 			 */
-			$class = new ProductPrice( new SimpleProductPrice( $product, $config ) );
+			$class = new ProductPrice( new SimpleProductPrice( $product, $config ), $product );
 		}
 
 		return $class;
 	}
+
 }

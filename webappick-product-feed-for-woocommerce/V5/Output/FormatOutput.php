@@ -4,6 +4,7 @@ namespace CTXFeed\V5\Output;
 
 use CTXFeed\V5\Compatibility\WCMLCurrency;
 use CTXFeed\V5\Helper\CommonHelper;
+use CTXFeed\V5\Helper\CompatibilityHelper;
 use CTXFeed\V5\Helper\ProductHelper;
 use CTXFeed\V5\Utility\Config;
 
@@ -36,7 +37,7 @@ class FormatOutput {
 			// Format Output According to output type
 			if ( in_array( 2, $outputTypes ) ) { // Strip Tags
 				//return $outputTypes;
-				$output = CommonHelper::woo_feed_strip_all_tags( html_entity_decode( $output ) );
+				$output = CommonHelper::strip_all_tags( html_entity_decode( $output ) );
 			}
 
 			if ( in_array( 4, $outputTypes ) ) { // htmlentities
@@ -61,7 +62,7 @@ class FormatOutput {
 			}
 
 			if ( in_array( 10, $outputTypes ) ) { // Remove Invalid Character
-				$output = CommonHelper::woo_feed_stripInvalidXml( $output );
+				$output = CommonHelper::strip_invalid_xml( $output );
 			}
 
 			if ( in_array( 11, $outputTypes ) ) {  // Remove ShortCodes
@@ -163,7 +164,7 @@ class FormatOutput {
 		if ( $this->product->is_type( 'variation' ) ) {
 			$id     = $this->product->get_parent_id();
 			$parent = wc_get_product( $id );
-			$output = ProductHelper::getAttributeValueByType( $this->attribute, $parent, $this->config );
+			$output = ProductHelper::get_attribute_value_by_type( $this->attribute, $parent, $this->config );
 		}
 
 		return $output;
@@ -180,9 +181,9 @@ class FormatOutput {
 		if ( $this->product->is_type( 'variation' ) ) {
 			$id            = $this->product->get_parent_id();
 			$parentProduct = wc_get_product( $id );
-			$output        = ProductHelper::getAttributeValueByType( $this->attribute, $parentProduct, $this->config );
+			$output        = ProductHelper::get_attribute_value_by_type( $this->attribute, $parentProduct, $this->config );
 			if ( empty( $output ) ) {
-				$output = ProductHelper::getAttributeValueByType( $this->attribute, $this->product, $this->config );
+				$output = ProductHelper::get_attribute_value_by_type( $this->attribute, $this->product, $this->config );
 			}
 		}
 
@@ -198,11 +199,11 @@ class FormatOutput {
 	 */
 	protected function get_parent_if_empty( $output ) {
 		if ( $this->product->is_type( 'variation' ) ) {
-			$output = ProductHelper::getAttributeValueByType( $this->attribute, $this->product, $this->config );
+			$output = ProductHelper::get_attribute_value_by_type( $this->attribute, $this->product, $this->config );
 			if ( empty( $output ) ) {
 				$id     = $this->product->get_parent_id();
 				$parent = wc_get_product( $id );
-				$output = ProductHelper::getAttributeValueByType( $this->attribute, $parent, $this->config );
+				$output = ProductHelper::get_attribute_value_by_type( $this->attribute, $parent, $this->config );
 			}
 		}
 
@@ -232,8 +233,7 @@ class FormatOutput {
 		if ( isset($force_parent) ) {
 			//when wpml plugin is activated, get parent language post id
 			if ( class_exists( 'SitePress', false ) ) {
-				$wpml = new WCMLCurrency();
-				$parent_id =  $wpml->woo_feed_wpml_get_original_post_id( $id );
+				$parent_id = apply_filters( 'woo_feed_original_post_id', $id );
 				//remove wpml term filter
 				global $sitepress;
 				remove_filter( 'get_term', array( $sitepress, 'get_term_adjust_id' ), 1 );
@@ -248,7 +248,7 @@ class FormatOutput {
 			//get attribute value of parent language post id
 			if ( ! empty( $parent_id ) ) {
 				$parentProduct = wc_get_product( $parent_id );
-				$output        = ProductHelper::getAttributeValueByType( $this->attribute, $parentProduct, $this->config );
+				$output        = ProductHelper::get_attribute_value_by_type( $this->attribute, $parentProduct, $this->config );
 			}
 		}
 

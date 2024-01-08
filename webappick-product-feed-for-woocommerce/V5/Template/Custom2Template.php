@@ -247,7 +247,7 @@ class Custom2Template implements TemplateInterface {
 		// Make XML Element Text
 		if ( ! empty( $element['elementTextInfo'] ) ) {
 			if ( 'attribute' === $element['attr_type'] ) {
-				$output = ProductHelper::getAttributeValueByType( $element['attr_code'], $product, $this->config );
+				$output = ProductHelper::get_attribute_value_by_type( $element['attr_code'], $product, $this->config );
 				$output = ProductHelper::str_replace( $output, $element['attr_code'], $this->config );
 			} elseif ( 'return' === $element['attr_type'] ) {
 //				$output = $this->getReturnTypeValue( $element, $product );
@@ -393,7 +393,7 @@ class Custom2Template implements TemplateInterface {
 
 	public function getAttributeTypeAndValue( $attribute, $product ) {
 
-		return ProductHelper::getAttributeValueByType( $attribute, $product, $this->config );
+		return ProductHelper::get_attribute_value_by_type( $attribute, $product, $this->config );
 
 	}
 

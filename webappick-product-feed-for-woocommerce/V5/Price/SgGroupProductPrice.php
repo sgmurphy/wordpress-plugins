@@ -27,7 +27,7 @@ class SgGroupProductPrice implements PriceInterface {
 	 *
 	 * @return int|string
 	 */
-	protected function getSgGroupProductPrice( $price_type, $tax = false ) {
+	protected function get_sg_group_product_price( $price_type, $tax = false ) {
 		$groupProductIds = get_post_meta($this->product->get_id(), 'woosg_ids', true);
 		$price           = 0;
 		if ( ! empty( $groupProductIds ) ) {
@@ -68,7 +68,7 @@ class SgGroupProductPrice implements PriceInterface {
 	 * @return int|string
 	 */
 	public function regular_price( $tax = false ) {
-		return $this->getSgGroupProductPrice( 'regular_price', $tax );
+		return $this->get_sg_group_product_price( 'regular_price', $tax );
 	}
 
 	/**
@@ -79,7 +79,7 @@ class SgGroupProductPrice implements PriceInterface {
 	 * @return int|string
 	 */
 	public function price( $tax = false ) {
-		return $this->getSgGroupProductPrice( 'price', $tax );
+		return $this->get_sg_group_product_price( 'price', $tax );
 	}
 
 	/**
@@ -90,7 +90,7 @@ class SgGroupProductPrice implements PriceInterface {
 	 * @return int|string
 	 */
 	public function sale_price( $tax = false ) {
-		return $this->getSgGroupProductPrice( 'sale_price', $tax );
+		return $this->get_sg_group_product_price( 'sale_price', $tax );
 	}
 
 	/**

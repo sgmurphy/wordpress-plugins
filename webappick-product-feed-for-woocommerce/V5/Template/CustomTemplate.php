@@ -67,7 +67,7 @@ class CustomTemplate implements TemplateInterface {
 	 * @return mixed
 	 */
 	public function get_header() {
-		$feed = FileFactory::GetData( $this->structure, $this->config );
+		$feed = FileFactory::get_file_data( $this->structure, $this->config );
 		$feed = $feed->make_header_footer();
 
 		return $feed['header'];
@@ -79,7 +79,7 @@ class CustomTemplate implements TemplateInterface {
 	 * @return mixed
 	 */
 	public function get_footer() {
-		$feed = FileFactory::GetData( $this->structure, $this->config );
+		$feed = FileFactory::get_file_data( $this->structure, $this->config );
 		$feed = $feed->make_header_footer();
 
 		return $feed['footer'];

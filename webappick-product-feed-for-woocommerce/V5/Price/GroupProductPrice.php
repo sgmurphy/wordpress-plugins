@@ -1,120 +1,114 @@
 <?php
-namespace CTXFeed\V5\Price;
-use CTXFeed\V5\Utility\Config;
-use WC_Product;
+/**
+ * Group Product price.
+ *
+ * @package CTXFeed\V5\Price
+ */
 
+namespace CTXFeed\V5\Price;
+
+/**
+ * Group Product price.
+ *
+ * @package CTXFeed\V5\Price
+ */
 class GroupProductPrice implements PriceInterface {
 
+	/**
+	 * @var \WC_Product $product WC Product.
+	 */
 	private $product;
+
+	/**
+	 * @var \CTXFeed\V5\Utility\Config $config Config.
+	 */
 	private $config;
 
 	/**
-	 * @param WC_Product $product
-	 * @param Config     $config
+	 * @param \WC_Product                $product WC Product.
+	 * @param \CTXFeed\V5\Utility\Config $config  Config.
 	 */
 	public function __construct( $product, $config ) {
-
 		$this->product = $product;
 		$this->config  = $config;
 	}
 
 	/**
-	 * Get Grouped Product Price.
-	 *
-	 * @param $price_type
-	 * @param $tax
-	 *
-	 * @return int|string
-	 */
-	protected function getGroupProductPrice( $price_type, $tax = false ) {
-		$groupProductIds = $this->product->get_children();
-		$price           = 0;
-		if ( ! empty( $groupProductIds ) ) {
-			foreach ( $groupProductIds as $id ) {
-				$product = wc_get_product( $id );
-				if ( ! is_object( $product ) ) {
-					continue; // make sure that the product exists.
-				}
-				switch ( $price_type ) {
-					case 'regular_price':
-						$get_price = $this->product->get_regular_price();
-						break;
-					case 'sale_price':
-						$get_price = $this->product->get_sale_price();
-						break;
-					default:
-						$get_price = $this->product->get_price();
-						break;
-				}
-				$get_price = $this->convert_currency( $get_price, $price_type );
-				$get_price = $this->add_tax( $get_price, $tax );
-				if ( ! empty( $get_price ) ) {
-					$price += $get_price;
-				}
-			}
-		}
-
-		return $price > 0 ? $price : '';
-	}
-
-	/**
 	 * Get Regular Price.
 	 *
-	 * @param bool $tax
-	 *
 	 * @return int|string
 	 */
-	public function regular_price( $tax = false ) {
-		return $this->getGroupProductPrice( 'regular_price', $tax );
+	public function regular_price() {
+		return $this->get_group_product_price( 'regular_price' );
 	}
 
 	/**
 	 * Get Price.
 	 *
-	 * @param bool $tax
-	 *
 	 * @return int|string
 	 */
-	public function price( $tax = false ) {
-		return $this->getGroupProductPrice( 'price', $tax );
+	public function price() {
+		return $this->get_group_product_price( 'price' );
 	}
 
 	/**
 	 * Get Sale Price.
 	 *
-	 * @param bool $tax
-	 *
 	 * @return int|string
 	 */
-	public function sale_price( $tax = false ) {
-		return $this->getGroupProductPrice( 'sale_price', $tax );
+	public function sale_price() {
+		return $this->get_group_product_price( 'sale_price' );
 	}
 
 	/**
-	 * Convert Currency.
+	 * Get Grouped Product Price.
 	 *
-	 * @param $price
-	 * @param string $price_type price type (regular_price|price|sale_price)
-	 *
-	 * @return mixed|void
+	 * @param string $price_type price type (regular_price|price|sale_price).
+     * @return float
 	 */
-	public function convert_currency( $price, $price_type ) {
+	protected function get_group_product_price( $price_type = 'price' ) {// phpcs:ignore
+		$group_product_ids = $this->product->get_children();
+		$price             = 0;
 
-		return apply_filters( 'woo_feed_wcml_price',
-			$price, $this->product->get_id(), $this->config->get_feed_currency(), '_' . $price_type
-		);
-	}
+		if ( ! empty( $group_product_ids ) ) {
+			foreach ( $group_product_ids as $id ) {
+				$product = wc_get_product( $id );
 
-	/**
-	 * Get Price with Tax.
-	 *
-	 * @return int
-	 */
-	public function add_tax( $price, $tax = false ) {
-		if ( true === $tax ) {
-			return woo_feed_get_price_with_tax( $price, $this->product );
+				if ( ! is_object( $product ) ) {
+					continue; // make sure that the product exists.
+				}
+
+				switch ( $price_type ) {
+					case 'regular_price':
+						$get_price = $product->get_regular_price();
+
+						break;
+
+					case 'sale_price':
+						$get_price = $product->get_sale_price();
+
+						break;
+
+					default:
+						$get_price = $product->get_price();
+
+						break;
+				}
+
+				if ( empty( $get_price ) ) {
+					continue;
+				}
+
+				$get_price = (float) $get_price;
+				$price    += $get_price;
+			}
+		}
+
+		if ( $price === 0 ) {
+			$price = '';
 		}
 
 		return $price;
 	}
+
 }

@@ -51,6 +51,11 @@ Note: This plugin is an addon of [Elementor Page Builder](https://wordpress.org/
 1. Upload the plugin files to the `/wp-content/plugins/` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress
 
+== Frequently Asked Questions ==
+
+= How can I report security bugs? = 
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/anywhere-elementor)
 
 == Changelog ==
 

@@ -1,14 +1,45 @@
 <?php
 
+/**
+ * Class GooglereviewStructure
+ *
+ * @package    CTXFeed
+ * @subpackage CTXFeed\V5\Structure
+ */
+
 namespace CTXFeed\V5\Structure;
 
 use CTXFeed\V5\Filter\ValidateProduct;
+use CTXFeed\V5\Helper\CommonHelper;
 use CTXFeed\V5\Helper\ProductHelper;
-use CTXFeed\V5\Query\QueryFactory;
+
+/**
+ * Class representing the structure for GoogleReview.
+ * Implements the GoogleReview-related operations.
+ */
 
 class GooglereviewStructure {
+	/**
+	 * Configuration settings.
+	 *
+	 * @var \Config $config
+	 */
 	private $config;
+
+
+	/**
+	 * Product ids.
+	 *
+	 * @var array $ids
+	 */
 	private $ids;
+
+	/**
+	 * Constructor for GooglereviewStructure.
+	 *
+	 * @param mixed $config Configuration settings.
+	 * @param array $ids Product ids.
+	 */
 
 	public function __construct( $config, $ids ) {
 		$this->config = $config;
@@ -18,27 +49,24 @@ class GooglereviewStructure {
 	}
 
 	/**
-	 * Process Reviews Data
+	 * Retrieves the XML structure.
 	 *
-	 * @param mixed $config feed configuration
-	 *
+	 * @return array The constructed XML data structure.
 	 */
-	public function getXMLStructure() {
+	public function get_xml_structure() {
 		$attributes  = $this->config->attributes;
 		$mattributes = $this->config->mattributes;
-		$static      = $this->config->default;
-		$type        = $this->config->type;
-		$wrapper     = str_replace( " ", "_", $this->config->itemWrapper );;
+		$wrapper     = \str_replace( " ", "_", $this->config->itemWrapper );;
 		$data = [];
 		$ids = $this->ids;
 		foreach ( $ids as $id ) {
 			$review = array();
-			$product = wc_get_product( $id );
+			$product = \wc_get_product( $id );
 			if( !ValidateProduct::is_valid( $product, $this->config, $id ) ){
 				continue;
 			}
-//			error_log( print_r( ["is_valid"=>ValidateProduct::is_valid($product, $this->config, $id), "id"=>$id], true ));
-			$reviews = get_comments(
+
+			$reviews = \get_comments(
 				array(
 					'post_id'     => $id,
 					'status'      => 'approve',
@@ -48,7 +76,7 @@ class GooglereviewStructure {
 				)
 			);
 			$i      = 0;
-			if ( $reviews && is_array( $reviews ) ) {
+			if ( $reviews && \is_array( $reviews ) ) {
 				foreach ( $reviews as $single_review ) {
 
 					$review_content = $single_review->comment_content;
@@ -56,16 +84,16 @@ class GooglereviewStructure {
 						continue;
 					}
 
-					$rating = get_comment_meta( $single_review->comment_ID, 'rating', true );
+					$rating = \get_comment_meta( $single_review->comment_ID, 'rating', true );
 					if (empty($rating)) {
 						continue;
 					}
 
-					$review_time = !empty($single_review->comment_date_gmt) ? gmdate('c', strtotime($single_review->comment_date_gmt)) : "";
+					$review_time = !empty($single_review->comment_date_gmt) ? \gmdate('c', \strtotime($single_review->comment_date_gmt)) : "";
 					//Review Content
 					//strip tags and spacial characters
-					$strip_review_content = woo_feed_strip_all_tags( wp_specialchars_decode($review_content ) );
-					$review_content = !empty( strlen($strip_review_content ) ) && 0 < strlen( $strip_review_content ) ? $strip_review_content : $review_content;
+					$strip_review_content = CommonHelper::strip_all_tags( wp_specialchars_decode($review_content ) );
+					$review_content = !empty( \strlen($strip_review_content ) ) && 0 < \strlen( $strip_review_content ) ? $strip_review_content : $review_content;
 
 					$review_product_url = !empty( $product->get_permalink() ) ? $product->get_permalink() : "";
 
@@ -128,13 +156,13 @@ class GooglereviewStructure {
 			if ( ! empty( $variations ) ) {
 				$variation_ids = [];
 				foreach ( $variations as $key => $variation ) {
-					$variation = wc_get_product( $variation );
+					$variation = \wc_get_product( $variation );
 					if ( 'pattern' === $config->type[ $attr_key ] ) {
-						$attributeValue = $prefix." ".$config->default[ $attr_key ]." ".$suffix;
+						$attribute_value = $prefix." ".$config->default[ $attr_key ]." ".$suffix;
 					} else {
-						$attributeValue = $prefix." ".ProductHelper::getAttributeValueByType( $attribute, $variation,  $this->config )." ".$suffix;
+						$attribute_value = $prefix." ".ProductHelper::get_attribute_value_by_type( $attribute, $variation,  $this->config )." ".$suffix;
 					}
-					$variation_ids[ $key ][ $id_type ] = trim( $attributeValue  );
+					$variation_ids[ $key ][ $id_type ] = \trim( $attribute_value  );
 				}
 
 				return $variation_ids;
@@ -142,51 +170,72 @@ class GooglereviewStructure {
 		}
 
 		// For non variation products
-		$attributeValue = "";
+		$attribute_value = "";
 		if ( 'pattern' === $config->type[ $attr_key ] ) {
-			$attributeValue = $config->default[ $attr_key ];
+			$attribute_value = $config->default[ $attr_key ];
 		} else {
-			$attributeValue = ProductHelper::getAttributeValueByType( $attribute, $product, $this->config );
+			$attribute_value = ProductHelper::get_attribute_value_by_type( $attribute, $product, $this->config );
 		}
 		// Add Prefix and Suffix into Output
-		$attributeValue = trim($prefix)." ".trim($attributeValue)." ".trim($suffix);
-		$attributeValue = ! empty( $attributeValue ) ? $attributeValue : "";
+		$attribute_value = \trim( $prefix )." ".\trim( $attribute_value )." ".\trim( $suffix );
+		$attribute_value = ! empty( $attribute_value ) ? $attribute_value : "";
 
-		return [ $id_type => trim($attributeValue) ];
+		return [ $id_type => trim( $attribute_value ) ];
 	}
 
-	public function getCSVStructure() {
-		return $this->getXMLStructure();
+	/**
+	 * Retrieves the CSV structure.
+	 * Currently, this method serves as a wrapper for the get_xml_structure method.
+	 *
+	 * @return mixed The XML structure converted to CSV format.
+	 */
+	public function get_csv_structure() {
+		return $this->get_xml_structure();
 	}
 
-
-	public
-	function getTSVStructure() {
-		return $this->getXMLStructure();
+	/**
+	 * Retrieves the TSV structure.
+	 * Currently, this method serves as a wrapper for the get_xml_structure method.
+	 *
+	 * @return mixed The XML structure converted to TSV format.
+	 */
+	public function get_tsv_structure() {
+		return $this->get_xml_structure();
 	}
 
-	public
-	function getTXTStructure() {
-		return $this->getXMLStructure();
+	/**
+	 * Retrieves the TXT structure.
+	 * Currently, this method serves as a wrapper for the get_xml_structure method.
+	 *
+	 * @return mixed The XML structure converted to TXT format.
+	 */
+	public function get_txt_structure() {
+		return $this->get_xml_structure();
 	}
 
-	public
-	function getXLSStructure() {
-		return $this->getXMLStructure();
+	/**
+	 * Retrieves the XML structure.
+	 * Currently, this method serves as a wrapper for the get_xml_structure method.
+	 *
+	 * @return mixed The XML structure converted to XLS format.
+	 */
+	public function get_xls_structure() {
+		return $this->get_xml_structure();
 	}
 
-	public
-	function getXLSXStructure() {
-		return $this->getXMLStructure();
-	}
-
-	public
-	function getJSONStructure() {
-		return $this->getXMLStructure();
+	/**
+	 * Retrieves the JSON structure.
+	 * Currently, this method serves as a wrapper for the get_xml_structure method.
+	 *
+	 * @return mixed The XML structure converted to JSON format.
+	 */
+	public function get_json_structure() {
+		return $this->get_xml_structure();
 	}
 
 	/**
 	 * Process Reviews Product Header
+	 * @return mixed
 	 */
 	public static function make_google_review_header() {
 		$version           = '2.3';
@@ -201,7 +250,7 @@ class GooglereviewStructure {
 							</publisher>";
 
 		$xml_header_link = '<feed xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation= "http://www.google.com/shopping/reviews/schema/product/2.3/product_reviews.xsd">';
-		return '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL . $xml_header_link. PHP_EOL . $provider_onfo. "<" . wp_unslash( 'reviews' ) . ">";
+		return '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL . $xml_header_link. PHP_EOL . $provider_onfo. "<" . \wp_unslash( 'reviews' ) . ">";
 	}
 
 }

@@ -1,5 +1,6 @@
 <?php
 namespace CTXFeed\V5\Price;
+use CTXFeed\V5\Helper\ProductHelper;
 use CTXFeed\V5\Utility\Config;
 use WC_Product;
 use WC_Product_Variable;
@@ -113,7 +114,7 @@ class WCCompositeProductPrice implements PriceInterface {
 	 */
 	public function add_tax( $price, $tax = false ) {
 		if ( true === $tax ) {
-			return woo_feed_get_price_with_tax( $price, $this->product );
+			return ProductHelper::get_price_with_tax( $price, $this->product );
 		}
 
 		return $price;

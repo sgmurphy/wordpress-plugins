@@ -175,7 +175,7 @@ class DynamicDiscount {
 
 		// Get Price with tax
 		if ( $discount_plugin_activate && $tax ) {
-			$price = ProductHelper::woo_feed_get_price_with_tax($price, $product);
+			$price = ProductHelper::get_price_with_tax($price, $product);
 		}
 
 		$price = isset($base_price) || ($price > 0) && ($price < $base_price)  ? $price : $base_price;

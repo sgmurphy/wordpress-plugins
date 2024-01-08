@@ -48,8 +48,7 @@ class InputCustomFiled implements CustomFieldInterface {
 					$custom_field_value = get_post_meta( get_the_ID(), $custom_field_key, true );
 
 					if( empty( $custom_field_value ) && is_plugin_active( 'woocommerce-multilingual/wpml-woocommerce.php' )){
-						$wcmlCurrency  = new WCMLCurrency();
-						$originalId = $wcmlCurrency->woo_feed_wpml_get_original_post_id( get_the_ID() );
+						$originalId = apply_filters('woo_feed_original_post_id',  get_the_ID() );
 						$custom_field_value = get_post_meta( $originalId, $custom_field_key, true );
 					}
 

@@ -139,7 +139,7 @@ class IconicBundleProductPrice implements PriceInterface {
 	 */
 	public function add_tax( $price, $tax = false ) {
 		if ( true === $tax ) {
-			return woo_feed_get_price_with_tax( $price, $this->product );
+			return ProductHelper::get_price_with_tax( $price, $this->product );
 		}
 
 		return $price;

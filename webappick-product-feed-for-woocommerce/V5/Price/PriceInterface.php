@@ -1,19 +1,41 @@
 <?php
+
 namespace CTXFeed\V5\Price;
-interface PriceInterface {
+
+/**
+ * Interface PriceInterface
+ *
+ * @package CTXFeed\V5\Price
+ */
+interface PriceInterface {// phpcs:ignore
+
+	/**
+	 * PriceInterface constructor.
+	 *
+	 * @param \WC_Product                $product WC Product.
+	 * @param \CTXFeed\V5\Utility\Config $config  Config.
+	 */
 	public function __construct( $product, $config );
 
-	public function regular_price( $tax = false );
+	/**
+	 * Get regular price.
+	 *
+     * @return float
+	 */
+	public function regular_price();
 
-	public function price( $tax = false );
+	/**
+	 * Get price.
+	 *
+     * @return float
+	 */
+	public function price();
 
-	public function sale_price( $tax = false );
-
-	public function convert_currency( $price, $price_type );
-
-	public function add_tax( $price );
+	/**
+	 * Get sale price.
+	 *
+     * @return float
+	 */
+	public function sale_price();
 
 }
-
-
-

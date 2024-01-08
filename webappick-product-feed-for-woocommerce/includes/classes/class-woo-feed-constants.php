@@ -23,7 +23,8 @@ if( ! class_exists("Woo_Feed_Constants") ) {
 				 * @var string
 				 * @since 3.1.6
 				 */
-				define( 'WOO_FEED_FREE_VERSION', '6.3.12' );
+
+				define( 'WOO_FEED_FREE_VERSION', '6.4.0' );
 
 			}
 

@@ -13,6 +13,10 @@ import {
 import { ToolbarButton, ToolbarGroup } from "@wordpress/components";
 import { select, withSelect } from "@wordpress/data";
 import { decodeEntities } from "@wordpress/html-entities";
+import {
+    safeHTML, removeInvalidHTML
+} from "@wordpress/dom";
+
 
 /*
  * External dependencies
@@ -56,52 +60,26 @@ function getHeadingsFromHeadingElements(headingElements) {
                 level = 6;
                 break;
         }
+        const content = heading.textContent;
 
         return {
             level: level,
-            content: heading.textContent,
-            text: heading.textContent,
-            link: parseTocSlug(striptags(heading.textContent)),
+            content: content,
+            text: content,
+            link: parseTocSlug(striptags(content)),
         };
     });
 }
 
-//remove all events from given element string
-function removeJsEvents(htmlString) {
-    // Create a temporary div element
-    const tempDiv = document.createElement('div');
-
-    // Set the innerHTML of the div to the provided HTML string
-    tempDiv.innerHTML = htmlString;
-
-    // Iterate through elements and remove event attributes
-    tempDiv.querySelectorAll('*').forEach(element => {
-        // Get all attributes of the current element
-        const attributes = Array.from(element.attributes);
-
-        // Iterate through attributes and remove those starting with "on"
-        attributes.forEach(attribute => {
-            if (attribute.name.startsWith('on')) {
-                element.removeAttribute(attribute.name);
-            }
-        });
-    });
-
-    // Return the sanitized HTML
-    return tempDiv.innerHTML;
-}
-
 const getHeadersFromContent = (attributes, postContent) => {
-    const tempPostContentDOM = document.createElement("div");
+    const safeContent = safeHTML(decodeEntities(postContent));
 
-    tempPostContentDOM.innerHTML = removeJsEvents(postContent);
+    const tempPostContentDOM = document.createElement("div");
+    tempPostContentDOM.innerHTML = safeContent;
+
 
     let queryArray = ["h1", "h2", "h3", "h4", "h5", "h6"];
-    if (
-        attributes &&
-        undefined !== attributes.visibleHeaders &&
-        undefined !== attributes.visibleHeaders[0]
-    ) {
+    if (attributes && undefined !== attributes.visibleHeaders && undefined !== attributes.visibleHeaders[0]) {
         queryArray = [];
         if (attributes.visibleHeaders[0]) {
             queryArray.push("h1");
@@ -166,8 +144,7 @@ function Edit(props) {
         "core/block-editor"
     ).wasBlockJustInserted(clientId);
 
-    const headerList = useMemo(
-        () => getHeadersFromContent(attributes, postContent),
+    const headerList = useMemo(() => getHeadersFromContent(attributes, postContent),
         [blockOrder, isTyping, postContent]
     );
     const deleteHeadersLists = useMemo(() => {
@@ -190,9 +167,7 @@ function Edit(props) {
         if (!isMigrated && !isBlockJustInserted) {
             if (JSON.stringify(headerList) !== JSON.stringify(headers)) {
                 let newHeaderList = headerList.map((item) => item.text);
-                let newHeaders = headers.map((item) =>
-                    decodeEntities(item.text)
-                );
+                let newHeaders = headers.map((item) => item.text);
                 let difference = newHeaderList.filter(
                     (x) => !newHeaders.includes(x)
                 );
@@ -362,7 +337,7 @@ export default compose([
     withSelect((select, ownProps) => {
         const postContent = select("core/editor") ? select("core/editor").getEditedPostContent() : "";
         return {
-            postContent: postContent,
+            postContent: postContent.replace(/<\!--.*?-->/g, ""),
             blockOrder: select("core/block-editor").getBlockOrder(),
             isTyping: select("core/block-editor").isTyping(),
         };

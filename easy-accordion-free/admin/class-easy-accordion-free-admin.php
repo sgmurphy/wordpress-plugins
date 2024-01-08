@@ -50,7 +50,7 @@ class Easy_Accordion_Free_Admin {
 		$current_screen        = get_current_screen();
 		$the_current_post_type = $current_screen->post_type;
 		if ( 'sp_easy_accordion' === $the_current_post_type ) {
-			wp_enqueue_style( 'sp-ea-font-awesome' );
+			wp_enqueue_style( 'sp-ea-fontello-icons' );
 			wp_enqueue_style( 'sp-ea-style' );
 
 			wp_enqueue_script( 'sp-ea-accordion-js' );
