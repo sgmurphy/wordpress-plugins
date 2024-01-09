@@ -208,9 +208,9 @@
 
 		if ( d.valid() ) {
 
-			i = new Date(d.getFullYear(), 0, 1);
+			i = new Date(d.getFullYear(), 0, 1, 0, 0, 0, 0);
 			n = ( d - i ) / ( 24 * 60 * 60 * 1000 );
-			r = Math.max( Math.ceil( n / 7 ), 1 );
+			r = Math.max( Math.ceil( (n+1) / 7 ), 1 );
 			if ( leading_zeros ) r = _leadingZeros( r );
 
 		}

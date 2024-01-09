@@ -488,6 +488,7 @@ a.helpfbuilder{font-size:80%;text-decoration:underline;color:#00f;cursor:pointer
 .cff-events-list th{white-space:nowrap;}
 
 .cff-addon-item{padding-right:10px;padding-bottom:5px;box-sizing:border-box;width:50%;float:left;}
+.cff-forms-list,
 .cff-forms-list td:nth-child(2){width:100%;}
 .cff-forms-list [type="text"]{width:100%;}
 

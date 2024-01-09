@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce Advanced Shipment Tracking\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-11 09:34+0000\n"
-"PO-Revision-Date: 2023-12-18 11:12+0000\n"
+"PO-Revision-Date: 2023-12-25 05:26+0000\n"
 "Last-Translator: \n"
 "Language-Team: Hebrew\n"
 "Language: he_IL\n"
@@ -18,17 +18,12 @@ msgstr ""
 msgid "3plwinner"
 msgstr "מנצח 3"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:1897
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2210
-msgid "Add"
-msgstr "לְהוֹסִיף"
-
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2154
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2180
 msgid "Add API Name alias"
 msgstr "הוסף כינוי שם API"
 
-#: includes/views/admin_options_shipping_provider.php:30
-#: includes/views/admin_options_shipping_provider.php:114
+#: includes/views/admin_options_shipping_provider.php:37
+#: includes/views/admin_options_shipping_provider.php:95
 msgid "Add Custom Carrier"
 msgstr "הוסף ספק מותאם אישית"
 
@@ -137,15 +132,15 @@ msgid "Cannot create existing order shipment tracking."
 msgstr ""
 "לא ניתן ליצור מעקב אחר משלוחים להזמנות.\n"
 
-#: includes/views/admin_options_shipping_provider.php:181
+#: includes/views/admin_options_shipping_provider.php:162
 msgid "Carriers Added"
 msgstr "נוספו מובילים"
 
-#: includes/views/admin_options_shipping_provider.php:183
+#: includes/views/admin_options_shipping_provider.php:164
 msgid "Carriers Deleted"
 msgstr "הספקים נמחקו"
 
-#: includes/views/admin_options_shipping_provider.php:182
+#: includes/views/admin_options_shipping_provider.php:163
 msgid "Carriers Updated"
 msgstr "הספקים עודכנו"
 
@@ -253,7 +248,7 @@ msgid_plural "Delivered <span class=\"count\">(%s)</span>"
 msgstr[0] "נמסר <span class=\"count\">(%s)</span>"
 msgstr[1] "נמסר <span class=\"count\">(%s)</span>"
 
-#: includes/views/admin_options_shipping_provider.php:33
+#: includes/views/admin_options_shipping_provider.php:40
 msgid "Deselect All"
 msgstr "הסר סימון מהכל"
 
@@ -319,7 +314,7 @@ msgstr "סוג דוא\"ל"
 
 #: includes/class-wc-advanced-shipment-tracking-admin.php:1602
 #: includes/class-wc-advanced-shipment-tracking-admin.php:1688
-#: includes/views/admin_options_shipping_provider.php:29
+#: includes/views/admin_options_shipping_provider.php:36
 msgid "Enable Carriers"
 msgstr "הפעל את הספקים"
 
@@ -331,13 +326,13 @@ msgstr "אפשר אימייל"
 msgid "Enable Integration"
 msgstr "אפשר אינטגרציה"
 
-#: includes/views/admin_options_shipping_provider.php:75
+#: includes/views/admin_options_shipping_provider.php:64
 #| msgid "Add Shipping Carriers"
 msgid "Enable Shipping Carriers"
 msgstr "אפשר מובילי משלוח"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2046
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2063
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2072
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2089
 msgid "Filter by shipping provider"
 msgstr "סנן לפי ספק שילוח"
 
@@ -472,9 +467,12 @@ msgid "more info"
 msgstr ""
 "עוד מידע\n"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2154
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2180
 msgid "Multiple API names mapping is a pro features"
 msgstr "מיפוי שמות API מרובים הוא תכונות מקצועיות"
+
+msgid "New message"
+msgstr "הודעה חדשה"
 
 #: includes/customizer/ast-customizer.php:581
 msgid "Normal"
@@ -521,8 +519,8 @@ msgstr "אחר"
 msgid "ParcelForce"
 msgstr "ParcelForce"
 
-#: includes/class-wc-advanced-shipment-tracking.php:495
 #: includes/class-wc-advanced-shipment-tracking-admin.php:915
+#: includes/class-wc-advanced-shipment-tracking.php:495
 #: includes/class-wc-advanced-shipment-tracking-settings.php:282
 #: includes/class-wc-advanced-shipment-tracking-settings.php:314
 #: includes/customizer/ast-customizer.php:131
@@ -595,7 +593,7 @@ msgstr "QuickBooks Commerce (לשעבר TradeGecko)"
 msgid "ReadyToShip"
 msgstr "מוכן למשלוח"
 
-#: includes/views/admin_options_shipping_provider.php:24
+#: includes/views/admin_options_shipping_provider.php:31
 #| msgid "Delete Selected"
 msgid "Remove Selected"
 msgstr "מחק את הנבחר"
@@ -608,7 +606,7 @@ msgstr "שנה את שם תווית סטטוס ההזמנה \"הושלמה\" ל-
 msgid "Replace tracking information?"
 msgstr "החלף מידע מעקב?"
 
-#: includes/views/admin_options_shipping_provider.php:187
+#: includes/views/admin_options_shipping_provider.php:168
 #| msgid ""
 #| "Reset providers database, it will reset all your shipping provider "
 #| "\tdatabase"
@@ -632,12 +630,12 @@ msgstr "שמור סגור"
 msgid "Saved"
 msgstr "שמור"
 
-#: includes/views/admin_options_shipping_provider.php:88
+#: includes/views/admin_options_shipping_provider.php:77
 #| msgid "Search by provider / country"
 msgid "Search by carrier / country"
 msgstr "חפש לפי ספק / מדינה"
 
-#: includes/views/admin_options_shipping_provider.php:32
+#: includes/views/admin_options_shipping_provider.php:39
 msgid "Select All"
 msgstr "בחר הכל"
 
@@ -666,10 +664,10 @@ msgstr "הגדרות נשמרו"
 msgid "Shipment status changed to %s"
 msgstr "סטטוס המשלוח השתנה ל-% s"
 
-#: includes/class-wc-advanced-shipment-tracking.php:142
-#: includes/class-wc-advanced-shipment-tracking.php:233
 #: includes/class-wc-advanced-shipment-tracking-admin.php:195
 #: includes/class-wc-advanced-shipment-tracking-admin.php:237
+#: includes/class-wc-advanced-shipment-tracking.php:142
+#: includes/class-wc-advanced-shipment-tracking.php:233
 msgid "Shipment Tracking"
 msgstr "מעקב משלוחים"
 
@@ -677,8 +675,8 @@ msgstr "מעקב משלוחים"
 msgid "Shipment Tracking API"
 msgstr "ממשק API למעקב אחר משלוחים"
 
-#: includes/class-wc-advanced-shipment-tracking.php:479
 #: includes/class-wc-advanced-shipment-tracking-admin.php:573
+#: includes/class-wc-advanced-shipment-tracking.php:479
 #: includes/class-wc-advanced-shipment-tracking-settings.php:438
 #: includes/customizer/ast-customizer.php:127
 #: includes/customizer/ast-customizer.php:353
@@ -716,21 +714,13 @@ msgstr "נשלח ב:"
 msgid "Shipped Order"
 msgstr "הזמנה נשלחה"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2220
-msgid "Shipping Carrier Already Added"
-msgstr "מוביל משלוח כבר נוסף"
-
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2224
-msgid "Shipping Carrier Not Found!"
-msgstr "לא נמצא מוביל משלוח!"
-
 #: includes/class-wc-advanced-shipment-tracking-admin.php:288
 #: includes/class-wc-advanced-shipment-tracking-admin.php:292
-#: includes/views/admin_options_shipping_provider.php:19
+#: includes/views/admin_options_shipping_provider.php:26
 msgid "Shipping Carriers"
 msgstr "מובילי משלוח"
 
-#: includes/views/admin_options_shipping_provider.php:185
+#: includes/views/admin_options_shipping_provider.php:166
 #| msgid "Shipping providers database reset successfully."
 msgid "Shipping carriers database reset successfully."
 msgstr "מסד הנתונים של מובילי המשלוח אופס בהצלחה."
@@ -764,17 +754,17 @@ msgstr "ענן חולצה"
 msgid "Stamps.com"
 msgstr "Stamps.com"
 
-#: includes/views/admin_options_shipping_provider.php:31
+#: includes/views/admin_options_shipping_provider.php:38
 msgid "Sync Carriers"
 msgstr "סנכרון ספקים"
 
-#: includes/views/admin_options_shipping_provider.php:171
-#: includes/views/admin_options_shipping_provider.php:189
+#: includes/views/admin_options_shipping_provider.php:152
+#: includes/views/admin_options_shipping_provider.php:170
 #| msgid "Sync Shipping Providers"
 msgid "Sync Shipping Carriers"
 msgstr "סנכרון מובילי משלוח"
 
-#: includes/views/admin_options_shipping_provider.php:179
+#: includes/views/admin_options_shipping_provider.php:160
 #| msgid ""
 #| "Syncing the shipping providers list add or updates the pre-set shipping "
 #| "providers and will not effect custom shipping providers."

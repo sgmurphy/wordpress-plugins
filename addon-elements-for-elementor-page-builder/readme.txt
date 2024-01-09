@@ -116,6 +116,9 @@ Yes, absolutely.
 
 New elements are added at the end of the default elementor widget area under the category “Elementor Addons Elements”.
 
+= How can I report security bugs? = 
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/addon-elements-for-elementor-page-builder)
 
 == Screenshots ==
 
@@ -129,6 +132,9 @@ New elements are added at the end of the default elementor widget area under the
 8. Elementor addon widgets section
 
 == Changelog ==
+= 1.12.11 =
+* Fixed : Input sanitization and output escaping added on some of missing fields.
+
 = 1.12.10 =
 * Fixed : Timeline widget resize issue
 

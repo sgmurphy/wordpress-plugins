@@ -39,6 +39,13 @@ class Elementor extends ElementorLocal {
 			}
 		);
 
+		if (!isset($args['page_settings'])) {
+			$args['page_settings'] = array();
+		}
+		if(!isset($args['page_settings']["template"])){
+			$args['page_settings']["template"] = "elementor_header_footer";
+		}
+
 //		$post_id  = false; // FIXME: need to check later on.
 //		$document = ElementorPlugin::$instance->documents->get( $post_id );
 //		if ( $document ) {
@@ -118,17 +125,23 @@ class Elementor extends ElementorLocal {
 	private function page_settings( $template_data ) {
 		$page_settings = [];
 
-		if ( ! empty( $template_data['page_settings'] ) ) {
-			$page = new Model( [
-				'id' => 0,
-				'settings' => $template_data['page_settings'],
-			] );
+		if (!isset($template_data['page_settings'])) {
+			$template_data['page_settings'] = array();
+		}
 
-			$page_settings_data = $this->process_element_export_import_content( $page, 'on_import' );
+		if(!isset($template_data['page_settings']["template"])){
+			$template_data['page_settings']["template"] = "elementor_header_footer";
+		}
 
-			if ( ! empty( $page_settings_data['settings'] ) ) {
-				$page_settings = $page_settings_data['settings'];
-			}
+		$page = new Model([
+			'id' => 0,
+			'settings' => $template_data['page_settings'],
+		]);
+
+		$page_settings_data = $this->process_element_export_import_content($page, 'on_import');
+
+		if (!empty($page_settings_data['settings'])) {
+			$page_settings = $page_settings_data['settings'];
 		}
 
 		return $page_settings;

@@ -1,5 +1,9 @@
 jQuery(document).ready(function($){
 
+	$(document.body).on( 'wc-blocks_added_to_cart', function(){
+		$( document.body ).trigger( 'wc_fragment_refresh' );
+	} )
+
 	var isCartPage 		= xoo_wsc_params.isCart == '1',
 		isCheckoutPage 	= xoo_wsc_params.isCheckout == '1';
 

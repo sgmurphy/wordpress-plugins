@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-27 12:11+0530\n"
+"POT-Creation-Date: 2024-01-09 16:17+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -717,7 +717,7 @@ msgstr ""
 #: modules/widgets/tp_heading_animation.php:261
 #: modules/widgets/tp_heading_title.php:1151
 #: modules/widgets/tp_info_box.php:2617 modules/widgets/tp_ninja_form.php:1950
-#: modules/widgets/tp_number_counter.php:1562
+#: modules/widgets/tp_number_counter.php:1849
 #: modules/widgets/tp_post_search.php:849
 #: modules/widgets/tp_pricing_table.php:2641
 #: modules/widgets/tp_progress_bar.php:841
@@ -1225,6 +1225,7 @@ msgid " Check"
 msgstr ""
 
 #: includes/welcome-page.php:77
+#: includes/user-experience/class-tp-onbording.php:368
 msgid "Memory Limit : "
 msgstr ""
 
@@ -1245,15 +1246,15 @@ msgid "Notable additions made to The Plus Addons for Elementor."
 msgstr ""
 
 #: includes/welcome-page.php:92
-msgid "Fix : Social Icon : Border color not working in style 3"
+msgid "Fix : Number Counter : Title Gradient color not working"
 msgstr ""
 
-#: includes/welcome-page.php:93
-msgid "Fix : Team Member : Controller UI Improvement"
+#: includes/welcome-page.php:93 includes/welcome-page.php:104
+msgid "Add : Number Counter : Digit Gradient Color"
 msgstr ""
 
-#: includes/welcome-page.php:94 includes/welcome-page.php:105
-msgid "Fix : Minor bug fixes & Improvements"
+#: includes/welcome-page.php:94
+msgid "Fix : Minor Bug Fixes & Improvements"
 msgstr ""
 
 #: includes/welcome-page.php:97 includes/welcome-page.php:108
@@ -1265,13 +1266,11 @@ msgid "Lite Full Change log"
 msgstr ""
 
 #: includes/welcome-page.php:103
-msgid ""
-"Fix : Woo Product Listing : Column layouts compatibility with lazy load and "
-"load more."
+msgid "Fix : Social Feed : Load More and Lazy Load not working"
 msgstr ""
 
-#: includes/welcome-page.php:104
-msgid "Update : Accordian : Title Background padding responsive compatibility"
+#: includes/welcome-page.php:105
+msgid "Fix : Minor bug Fixes & Improvements"
 msgstr ""
 
 #: includes/welcome-page.php:108
@@ -1383,6 +1382,7 @@ msgid ""
 msgstr ""
 
 #: includes/welcome-page.php:148 includes/notices/class-tp-plugin-page.php:114
+#: includes/user-experience/class-tp-onbording.php:420
 msgid "Video Tutorials"
 msgstr ""
 
@@ -1516,6 +1516,7 @@ msgid "Share Feedback"
 msgstr ""
 
 #: includes/welcome-page.php:231
+#: includes/user-experience/class-tp-onbording.php:410
 msgid "Suggest Feature"
 msgstr ""
 
@@ -1540,6 +1541,26 @@ msgstr ""
 
 #: includes/blog/blog-style-1.php:28
 msgid "By "
+msgstr ""
+
+#: includes/notices/class-tp-dashboard-overview.php:129
+msgid "ThePlus Addons Overview"
+msgstr ""
+
+#: includes/notices/class-tp-dashboard-overview.php:186
+msgid "ThePlus Addons "
+msgstr ""
+
+#: includes/notices/class-tp-dashboard-overview.php:192
+msgid "ThePlus Addons Pro "
+msgstr ""
+
+#: includes/notices/class-tp-dashboard-overview.php:246
+msgid "Blog"
+msgstr ""
+
+#: includes/notices/class-tp-dashboard-overview.php:250
+msgid "Help"
 msgstr ""
 
 #: includes/notices/class-tp-plugin-page.php:79
@@ -1588,7 +1609,7 @@ msgstr ""
 
 #: includes/notices/class-tp-tpag-install-notice.php:132
 msgid ""
-"Then check our Gutenberg Block version, where we provide you over 80+ "
+"Then check our Gutenberg Block version, where we provide you over 85+ "
 "WordPress Blocks (40 Free Blocks) to help you create fast websites without "
 "compromising on design."
 msgstr ""
@@ -1606,6 +1627,7 @@ msgid "Dismiss this notice"
 msgstr ""
 
 #: includes/notices/class-tp-tpag-install-notice.php:174
+#: includes/user-experience/class-tp-onbording.php:695
 msgid "You are not allowed to do this action"
 msgstr ""
 
@@ -1839,6 +1861,8 @@ msgid "Linkedin Link"
 msgstr ""
 
 #: includes/plus-options/custom-metabox/teammember_options.php:95
+#: includes/user-experience/class-tp-onbording.php:477
+#: includes/user-experience/class-tp-onbording.php:538
 #: modules/widgets/tp_post_comment.php:893
 msgid "Email"
 msgstr ""
@@ -2332,55 +2356,420 @@ msgstr ""
 msgid "No terms"
 msgstr ""
 
-#: includes/user-experience/class-tp-deactivate-feedback.php:154
+#: includes/user-experience/class-tp-deactivate-feedback.php:165
 msgid "This is a temporary deactivation"
 msgstr ""
 
-#: includes/user-experience/class-tp-deactivate-feedback.php:158
+#: includes/user-experience/class-tp-deactivate-feedback.php:169
 msgid "No more planning to use Elementor"
 msgstr ""
 
-#: includes/user-experience/class-tp-deactivate-feedback.php:162
+#: includes/user-experience/class-tp-deactivate-feedback.php:173
 msgid "Performance Issues"
 msgstr ""
 
-#: includes/user-experience/class-tp-deactivate-feedback.php:166
+#: includes/user-experience/class-tp-deactivate-feedback.php:177
 msgid "Found an alternative Elementor Addon"
 msgstr ""
 
-#: includes/user-experience/class-tp-deactivate-feedback.php:167
+#: includes/user-experience/class-tp-deactivate-feedback.php:178
 msgid "Please share which plugin"
 msgstr ""
 
-#: includes/user-experience/class-tp-deactivate-feedback.php:170
+#: includes/user-experience/class-tp-deactivate-feedback.php:181
 msgid "Its missing the feature i require."
 msgstr ""
 
-#: includes/user-experience/class-tp-deactivate-feedback.php:174
+#: includes/user-experience/class-tp-deactivate-feedback.php:185
 msgid "Dont want to use any Elementor Addon, just Elementor."
 msgstr ""
 
-#: includes/user-experience/class-tp-deactivate-feedback.php:178
+#: includes/user-experience/class-tp-deactivate-feedback.php:189
 msgid "Facing technical issues/bugs with the plugin."
 msgstr ""
 
-#: includes/user-experience/class-tp-deactivate-feedback.php:182
+#: includes/user-experience/class-tp-deactivate-feedback.php:193
+#: includes/user-experience/class-tp-onbording.php:197
 #: modules/widgets/tp_smooth_scroll.php:336
 msgid "Other"
 msgstr ""
 
-#: includes/user-experience/class-tp-deactivate-feedback.php:183
+#: includes/user-experience/class-tp-deactivate-feedback.php:194
 msgid "Please share the reason"
 msgstr ""
 
-#: includes/user-experience/class-tp-deactivate-feedback.php:225
+#: includes/user-experience/class-tp-deactivate-feedback.php:236
 msgid "Quick Feedback"
 msgstr ""
 
-#: includes/user-experience/class-tp-deactivate-feedback.php:232
+#: includes/user-experience/class-tp-deactivate-feedback.php:243
 msgid ""
 " If you have a moment, please let us know why you're deactivating The Plus "
 "Addons for Elementor :"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:154
+msgid "Basic"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:158
+msgid "Moderate"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:162
+#: modules/widgets/tp_heading_title.php:1120
+msgid "Advanced"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:169
+msgid "Blog/Magazine"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:173
+msgid "eCommerce"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:177
+msgid "Landing Page"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:181
+msgid "Dynamic"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:185
+msgid "Business"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:189
+msgid "Personal"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:193
+msgid "Portfolio"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:216
+msgid "Well done!"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:216
+msgid " on installing The Plus Addons for Elementor."
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:218
+msgid ""
+"We suggest you to complete this flow to make sure you enjoy a smooth "
+"experience with the plugin"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:227
+msgid "Select your website complexity"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:228
+msgid ""
+"Based on your website requirements we will activate only the necessary "
+"Widgets."
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:247
+msgid "Select your website type"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:264
+msgid "Know Your Addon (1/5)"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:267
+msgid "Great, We're almost done, now let's explore the features"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:271
+msgid "Click here to learn more about features"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:279
+msgid "Know Your Addon (2/5)"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:282
+msgid "Will so many features slow down my site?"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:283
+msgid "First Elementor Addon"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:284
+msgid ""
+"Not at all! We bring you the power of scanning unused widgets for The Plus & "
+"Core Elementor widgets. Use this once you complete making your website. This "
+"will ensure that no extra code is loaded on your website."
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:298
+msgid "Know Your Addon (3/5)"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:301
+msgid "Progressive CSS & JS delivery"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:302
+msgid ""
+"Regardless of any number of Widgets you use, our plugin will load only 1 CSS "
+"and 1 JS file dynamically for each page. This reduces the overall request "
+"counts and guarantees better speed."
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:314
+msgid ""
+"Note: Not to be confused with Cache plugin, you would still require them, as "
+"this only affects our plus files. We are compatible to all the Popular Cache "
+"plugins."
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:317
+msgid "Know Your Addon (4/5)"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:320
+msgid "System Requirements :"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:321
+msgid ""
+"Make sure the following system requirements are met so that you enjoy a "
+"smoother experience"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:336
+msgid "WordPress: v5 or above"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:347
+msgid "PHP : v7.2 or above "
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:383
+msgid "Max Execution Time: 300 or above"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:400
+msgid "Know Your Addon (5/5)"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:402
+msgid "We're here to help:"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:405
+msgid "Get Support"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:406
+msgid ""
+"Facing issue? Feel free to reach us at helpdesk, our team will get back to "
+"you typically within 24 working hours"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:407
+msgid "RAISE A TICKET"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:411
+msgid ""
+"Feels something missing? We`re open to hear your feedback, please share your "
+"ideas with us to shape your perfect addon."
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:412
+msgid "REQUEST FEATURE"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:415
+msgid "Detailed Docs"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:416
+msgid ""
+"Stuck somewhere? Follow our step-by-step detailed documentation to know "
+"everything about a Widgets. "
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:417
+msgid "READ DOCS"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:421
+msgid ""
+"Love watching videos? We create weekly in-depth video tutorials showing you "
+"the amazing possibilities of The Plus Addons for Elementor."
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:422
+msgid "WATCH VIDEO"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:446
+msgid "Level Up with NexterWP Theme!"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:447
+msgid "WordPress Redefined"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:448
+msgid ""
+"Using WordPress will never be the same, as Nexter Theme backs you with a "
+"Theme Builder, Fastest Performance & Better Security."
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:449
+msgid "Learn More"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:451
+msgid "Why use Nexter Theme?"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:454
+msgid "Agree to install & activate"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:454
+msgid "Nexter"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:454
+msgid "Theme "
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:454
+msgid "Recommended"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:460
+msgid "Check All Features"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:474
+msgid "Stay Updated!"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:475
+msgid ""
+"Never miss whats happening in the World of WordPress, we send monthly emails "
+"with WordPress News, Product Updates, Speed & Security Tips, Special Offers "
+"and more"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:476
+msgid "Name"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:478
+msgid "Please enter your email correctly"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:480
+msgid "NO SPAM GUARANTEE"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:482
+msgid "Submit"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:497
+msgid "Limited Time FLASH DEAL!"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:498
+msgid "USE CODE "
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:499
+msgid "FIRSTTIME20"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:500
+msgid " to get FLAT 20% OFF"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:502
+msgid "UPGRADE NOW "
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:503
+msgid "Compare FREE vs PRO"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:506
+msgid "60 DAYS MONEY-BACK GUARANTEE"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:523
+msgid "Congratulations All set!"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:524
+msgid ""
+"We have configured The Plus Addons for Elementor based on your site "
+"requirements, where only necessary widgets are activated & rest are disabled."
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:526
+msgid ""
+"Agree to contribute to make The Plus Addons for Elementor better by sharing "
+"non-sensitive details. "
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:526
+msgid " See what details are shared "
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:529
+msgid "We collect :"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:532
+msgid "PHP Version"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:533
+msgid "Server Details"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:534
+msgid "WordPress Version"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:535
+msgid "Plugins & Theme Used"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:536
+msgid "No. of Plus Widgets Used"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:537
+msgid "Site Language"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:541
+msgid ""
+"The following details will help us serve you better, and will not be shared "
+"with any third-party or used to spam you in anyway."
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:552
+#: modules/widgets/tp_flip_box.php:1799 modules/widgets/tp_flip_box.php:1859
+msgid "Back"
+msgstr ""
+
+#: includes/user-experience/class-tp-onbording.php:553
+msgid "Proceed"
 msgstr ""
 
 #: modules/helper-function.php:11
@@ -3240,9 +3629,10 @@ msgstr ""
 #: modules/widgets/tp_ninja_form.php:1631
 #: modules/widgets/tp_number_counter.php:435
 #: modules/widgets/tp_number_counter.php:894
-#: modules/widgets/tp_number_counter.php:1344
-#: modules/widgets/tp_number_counter.php:1439
-#: modules/widgets/tp_number_counter.php:1480
+#: modules/widgets/tp_number_counter.php:1265
+#: modules/widgets/tp_number_counter.php:1631
+#: modules/widgets/tp_number_counter.php:1726
+#: modules/widgets/tp_number_counter.php:1767
 #: modules/widgets/tp_page_scroll.php:746
 #: modules/widgets/tp_post_author.php:193
 #: modules/widgets/tp_post_author.php:291
@@ -3427,6 +3817,7 @@ msgstr ""
 #: modules/widgets/tp_ninja_form.php:1329
 #: modules/widgets/tp_number_counter.php:461
 #: modules/widgets/tp_number_counter.php:919
+#: modules/widgets/tp_number_counter.php:1408
 #: modules/widgets/tp_post_author.php:202
 #: modules/widgets/tp_post_author.php:226
 #: modules/widgets/tp_post_author.php:300
@@ -3578,9 +3969,10 @@ msgstr ""
 #: modules/widgets/tp_ninja_form.php:1645
 #: modules/widgets/tp_number_counter.php:637
 #: modules/widgets/tp_number_counter.php:1044
-#: modules/widgets/tp_number_counter.php:1396
-#: modules/widgets/tp_number_counter.php:1455
-#: modules/widgets/tp_number_counter.php:1494
+#: modules/widgets/tp_number_counter.php:1422
+#: modules/widgets/tp_number_counter.php:1683
+#: modules/widgets/tp_number_counter.php:1742
+#: modules/widgets/tp_number_counter.php:1781
 #: modules/widgets/tp_post_author.php:217
 #: modules/widgets/tp_post_author.php:315
 #: modules/widgets/tp_post_author.php:413
@@ -4397,7 +4789,7 @@ msgstr ""
 #: modules/widgets/tp_ninja_form.php:1147
 #: modules/widgets/tp_ninja_form.php:1502
 #: modules/widgets/tp_ninja_form.php:1755
-#: modules/widgets/tp_number_counter.php:1320
+#: modules/widgets/tp_number_counter.php:1607
 #: modules/widgets/tp_post_meta.php:103 modules/widgets/tp_post_search.php:390
 #: modules/widgets/tp_post_search.php:653
 #: modules/widgets/tp_pricing_table.php:2405
@@ -4495,7 +4887,7 @@ msgstr ""
 #: modules/widgets/tp_ninja_form.php:1148
 #: modules/widgets/tp_ninja_form.php:1503
 #: modules/widgets/tp_ninja_form.php:1756
-#: modules/widgets/tp_number_counter.php:1321
+#: modules/widgets/tp_number_counter.php:1608
 #: modules/widgets/tp_post_search.php:391
 #: modules/widgets/tp_post_search.php:654
 #: modules/widgets/tp_pricing_table.php:2406
@@ -4750,6 +5142,7 @@ msgstr ""
 #: modules/widgets/tp_navigation_menu_lite.php:1143
 #: modules/widgets/tp_navigation_menu_lite.php:1294
 #: modules/widgets/tp_number_counter.php:886
+#: modules/widgets/tp_number_counter.php:1254
 #: modules/widgets/tp_page_scroll.php:808
 #: modules/widgets/tp_post_author.php:179
 #: modules/widgets/tp_post_author.php:277
@@ -4947,6 +5340,8 @@ msgstr ""
 #: modules/widgets/tp_number_counter.php:647
 #: modules/widgets/tp_number_counter.php:904
 #: modules/widgets/tp_number_counter.php:1054
+#: modules/widgets/tp_number_counter.php:1275
+#: modules/widgets/tp_number_counter.php:1432
 #: modules/widgets/tp_pricing_table.php:913
 #: modules/widgets/tp_pricing_table.php:1104
 #: modules/widgets/tp_pricing_table.php:1319
@@ -4969,6 +5364,8 @@ msgstr ""
 #: modules/widgets/tp_number_counter.php:651
 #: modules/widgets/tp_number_counter.php:908
 #: modules/widgets/tp_number_counter.php:1058
+#: modules/widgets/tp_number_counter.php:1279
+#: modules/widgets/tp_number_counter.php:1436
 #: modules/widgets/tp_pricing_table.php:917
 #: modules/widgets/tp_pricing_table.php:1108
 #: modules/widgets/tp_pricing_table.php:1323
@@ -4991,6 +5388,8 @@ msgstr ""
 #: modules/widgets/tp_number_counter.php:677
 #: modules/widgets/tp_number_counter.php:933
 #: modules/widgets/tp_number_counter.php:1083
+#: modules/widgets/tp_number_counter.php:1290
+#: modules/widgets/tp_number_counter.php:1447
 #: modules/widgets/tp_pricing_table.php:942
 #: modules/widgets/tp_pricing_table.php:1134
 #: modules/widgets/tp_pricing_table.php:1348
@@ -5013,6 +5412,8 @@ msgstr ""
 #: modules/widgets/tp_number_counter.php:690
 #: modules/widgets/tp_number_counter.php:946
 #: modules/widgets/tp_number_counter.php:1096
+#: modules/widgets/tp_number_counter.php:1306
+#: modules/widgets/tp_number_counter.php:1460
 #: modules/widgets/tp_pricing_table.php:955
 #: modules/widgets/tp_pricing_table.php:1147
 #: modules/widgets/tp_pricing_table.php:1361
@@ -5034,6 +5435,8 @@ msgstr ""
 #: modules/widgets/tp_number_counter.php:706
 #: modules/widgets/tp_number_counter.php:962
 #: modules/widgets/tp_number_counter.php:1112
+#: modules/widgets/tp_number_counter.php:1322
+#: modules/widgets/tp_number_counter.php:1476
 #: modules/widgets/tp_pricing_table.php:971
 #: modules/widgets/tp_pricing_table.php:1163
 #: modules/widgets/tp_pricing_table.php:1377
@@ -5056,6 +5459,8 @@ msgstr ""
 #: modules/widgets/tp_number_counter.php:719
 #: modules/widgets/tp_number_counter.php:975
 #: modules/widgets/tp_number_counter.php:1125
+#: modules/widgets/tp_number_counter.php:1338
+#: modules/widgets/tp_number_counter.php:1489
 #: modules/widgets/tp_pricing_table.php:984
 #: modules/widgets/tp_pricing_table.php:1176
 #: modules/widgets/tp_pricing_table.php:1390
@@ -5077,6 +5482,8 @@ msgstr ""
 #: modules/widgets/tp_number_counter.php:735
 #: modules/widgets/tp_number_counter.php:991
 #: modules/widgets/tp_number_counter.php:1141
+#: modules/widgets/tp_number_counter.php:1354
+#: modules/widgets/tp_number_counter.php:1505
 #: modules/widgets/tp_pricing_table.php:1000
 #: modules/widgets/tp_pricing_table.php:1192
 #: modules/widgets/tp_pricing_table.php:1406
@@ -5098,6 +5505,8 @@ msgstr ""
 #: modules/widgets/tp_number_counter.php:747
 #: modules/widgets/tp_number_counter.php:1003
 #: modules/widgets/tp_number_counter.php:1153
+#: modules/widgets/tp_number_counter.php:1366
+#: modules/widgets/tp_number_counter.php:1517
 #: modules/widgets/tp_pricing_table.php:1012
 #: modules/widgets/tp_pricing_table.php:1204
 #: modules/widgets/tp_pricing_table.php:1418
@@ -5121,6 +5530,8 @@ msgstr ""
 #: modules/widgets/tp_number_counter.php:772
 #: modules/widgets/tp_number_counter.php:1027
 #: modules/widgets/tp_number_counter.php:1177
+#: modules/widgets/tp_number_counter.php:1391
+#: modules/widgets/tp_number_counter.php:1541
 #: modules/widgets/tp_pricing_table.php:1037
 #: modules/widgets/tp_pricing_table.php:1229
 #: modules/widgets/tp_pricing_table.php:1442
@@ -5258,8 +5669,8 @@ msgstr ""
 #: modules/widgets/tp_info_box.php:1196 modules/widgets/tp_info_box.php:1363
 #: modules/widgets/tp_navigation_menu_lite.php:1208
 #: modules/widgets/tp_navigation_menu_lite.php:1359
-#: modules/widgets/tp_number_counter.php:1311
-#: modules/widgets/tp_number_counter.php:1430
+#: modules/widgets/tp_number_counter.php:1598
+#: modules/widgets/tp_number_counter.php:1717
 #: modules/widgets/tp_pricing_table.php:2385
 #: modules/widgets/tp_pricing_table.php:2511
 #: modules/widgets/tp_tabs_tours.php:1251
@@ -5285,7 +5696,7 @@ msgstr ""
 #: modules/widgets/tp_heading_animation.php:270
 #: modules/widgets/tp_heading_title.php:1160
 #: modules/widgets/tp_info_box.php:2626 modules/widgets/tp_ninja_form.php:1959
-#: modules/widgets/tp_number_counter.php:1571
+#: modules/widgets/tp_number_counter.php:1858
 #: modules/widgets/tp_post_search.php:858
 #: modules/widgets/tp_pricing_table.php:2650
 #: modules/widgets/tp_progress_bar.php:850
@@ -5322,7 +5733,7 @@ msgstr ""
 #: modules/widgets/tp_heading_animation.php:287
 #: modules/widgets/tp_heading_title.php:1177
 #: modules/widgets/tp_info_box.php:2644 modules/widgets/tp_ninja_form.php:1976
-#: modules/widgets/tp_number_counter.php:1588
+#: modules/widgets/tp_number_counter.php:1875
 #: modules/widgets/tp_post_search.php:875
 #: modules/widgets/tp_pricing_table.php:2667
 #: modules/widgets/tp_progress_bar.php:867
@@ -5350,7 +5761,7 @@ msgstr ""
 #: modules/widgets/tp_heading_animation.php:307
 #: modules/widgets/tp_heading_title.php:1197
 #: modules/widgets/tp_info_box.php:2664 modules/widgets/tp_ninja_form.php:1996
-#: modules/widgets/tp_number_counter.php:1608
+#: modules/widgets/tp_number_counter.php:1895
 #: modules/widgets/tp_post_search.php:895
 #: modules/widgets/tp_pricing_table.php:2687
 #: modules/widgets/tp_progress_bar.php:887
@@ -5392,8 +5803,8 @@ msgstr ""
 #: modules/widgets/tp_info_box.php:2676 modules/widgets/tp_info_box.php:2745
 #: modules/widgets/tp_ninja_form.php:2008
 #: modules/widgets/tp_ninja_form.php:2077
-#: modules/widgets/tp_number_counter.php:1620
-#: modules/widgets/tp_number_counter.php:1689
+#: modules/widgets/tp_number_counter.php:1907
+#: modules/widgets/tp_number_counter.php:1976
 #: modules/widgets/tp_post_search.php:907
 #: modules/widgets/tp_post_search.php:976
 #: modules/widgets/tp_pricing_table.php:2699
@@ -5429,7 +5840,7 @@ msgstr ""
 #: modules/widgets/tp_heading_animation.php:340
 #: modules/widgets/tp_heading_title.php:1230
 #: modules/widgets/tp_info_box.php:2697 modules/widgets/tp_ninja_form.php:2029
-#: modules/widgets/tp_number_counter.php:1641
+#: modules/widgets/tp_number_counter.php:1928
 #: modules/widgets/tp_post_search.php:928
 #: modules/widgets/tp_pricing_table.php:2720
 #: modules/widgets/tp_progress_bar.php:920
@@ -5457,7 +5868,7 @@ msgstr ""
 #: modules/widgets/tp_heading_animation.php:354
 #: modules/widgets/tp_heading_title.php:1244
 #: modules/widgets/tp_info_box.php:2711 modules/widgets/tp_ninja_form.php:2043
-#: modules/widgets/tp_number_counter.php:1655
+#: modules/widgets/tp_number_counter.php:1942
 #: modules/widgets/tp_post_search.php:942
 #: modules/widgets/tp_pricing_table.php:2734
 #: modules/widgets/tp_progress_bar.php:934
@@ -5485,7 +5896,7 @@ msgstr ""
 #: modules/widgets/tp_heading_animation.php:375
 #: modules/widgets/tp_heading_title.php:1265
 #: modules/widgets/tp_info_box.php:2732 modules/widgets/tp_ninja_form.php:2064
-#: modules/widgets/tp_number_counter.php:1676
+#: modules/widgets/tp_number_counter.php:1963
 #: modules/widgets/tp_post_search.php:963
 #: modules/widgets/tp_pricing_table.php:2755
 #: modules/widgets/tp_progress_bar.php:955
@@ -5933,8 +6344,8 @@ msgstr ""
 #: modules/widgets/tp_ninja_form.php:1855
 #: modules/widgets/tp_number_counter.php:611
 #: modules/widgets/tp_number_counter.php:812
-#: modules/widgets/tp_number_counter.php:1384
-#: modules/widgets/tp_number_counter.php:1416
+#: modules/widgets/tp_number_counter.php:1671
+#: modules/widgets/tp_number_counter.php:1703
 #: modules/widgets/tp_page_scroll.php:841
 #: modules/widgets/tp_post_author.php:481
 #: modules/widgets/tp_post_author.php:650
@@ -6406,7 +6817,7 @@ msgstr ""
 #: modules/widgets/tp_info_box.php:2430
 #: modules/widgets/tp_navigation_menu_lite.php:139
 #: modules/widgets/tp_navigation_menu_lite.php:1427
-#: modules/widgets/tp_number_counter.php:1512
+#: modules/widgets/tp_number_counter.php:1799
 #: modules/widgets/tp_page_scroll.php:148
 #: modules/widgets/tp_post_title.php:148
 #: modules/widgets/tp_scroll_navigation.php:1053
@@ -6613,7 +7024,7 @@ msgstr ""
 #: modules/widgets/tp_ninja_form.php:1145
 #: modules/widgets/tp_ninja_form.php:1500
 #: modules/widgets/tp_ninja_form.php:1753
-#: modules/widgets/tp_number_counter.php:1318
+#: modules/widgets/tp_number_counter.php:1605
 #: modules/widgets/tp_post_search.php:388
 #: modules/widgets/tp_post_search.php:651
 #: modules/widgets/tp_pricing_table.php:2403
@@ -6664,7 +7075,7 @@ msgstr ""
 #: modules/widgets/tp_ninja_form.php:1156
 #: modules/widgets/tp_ninja_form.php:1511
 #: modules/widgets/tp_ninja_form.php:1765
-#: modules/widgets/tp_number_counter.php:1328
+#: modules/widgets/tp_number_counter.php:1615
 #: modules/widgets/tp_post_search.php:399
 #: modules/widgets/tp_post_search.php:662
 #: modules/widgets/tp_pricing_table.php:2112
@@ -6750,8 +7161,8 @@ msgstr ""
 #: modules/widgets/tp_ninja_form.php:1807
 #: modules/widgets/tp_ninja_form.php:1840
 #: modules/widgets/tp_number_counter.php:597
-#: modules/widgets/tp_number_counter.php:1350
-#: modules/widgets/tp_number_counter.php:1402
+#: modules/widgets/tp_number_counter.php:1637
+#: modules/widgets/tp_number_counter.php:1689
 #: modules/widgets/tp_post_search.php:444
 #: modules/widgets/tp_post_search.php:483
 #: modules/widgets/tp_post_search.php:707
@@ -6814,7 +7225,7 @@ msgstr ""
 #: modules/widgets/tp_ninja_form.php:1171
 #: modules/widgets/tp_ninja_form.php:1526
 #: modules/widgets/tp_ninja_form.php:1780
-#: modules/widgets/tp_number_counter.php:1364
+#: modules/widgets/tp_number_counter.php:1651
 #: modules/widgets/tp_post_search.php:414
 #: modules/widgets/tp_post_search.php:677
 #: modules/widgets/tp_pricing_table.php:1889
@@ -6849,7 +7260,7 @@ msgstr ""
 #: modules/widgets/tp_ninja_form.php:746
 #: modules/widgets/tp_ninja_form.php:1258
 #: modules/widgets/tp_ninja_form.php:1622
-#: modules/widgets/tp_number_counter.php:1471
+#: modules/widgets/tp_number_counter.php:1758
 #: modules/widgets/tp_post_search.php:513
 #: modules/widgets/tp_post_search.php:776
 #: modules/widgets/tp_pricing_table.php:2568
@@ -6867,7 +7278,7 @@ msgstr ""
 #: modules/widgets/tp_heading_animation.php:277
 #: modules/widgets/tp_heading_title.php:1167
 #: modules/widgets/tp_info_box.php:2634 modules/widgets/tp_ninja_form.php:1966
-#: modules/widgets/tp_number_counter.php:1578
+#: modules/widgets/tp_number_counter.php:1865
 #: modules/widgets/tp_post_search.php:865
 #: modules/widgets/tp_pricing_table.php:2657
 #: modules/widgets/tp_social_icon.php:814
@@ -7183,7 +7594,7 @@ msgstr ""
 #: modules/widgets/tp_info_box.php:600 modules/widgets/tp_info_box.php:2225
 #: modules/widgets/tp_info_box.php:2255 modules/widgets/tp_info_box.php:2459
 #: modules/widgets/tp_info_box.php:2487
-#: modules/widgets/tp_number_counter.php:1538
+#: modules/widgets/tp_number_counter.php:1825
 #: modules/widgets/tp_smooth_scroll.php:355
 #: modules/widgets/tp_tabs_tours.php:297 modules/widgets/tp_tabs_tours.php:579
 #: modules/widgets/tp_team_member_listout.php:1111
@@ -7216,7 +7627,7 @@ msgstr ""
 #: modules/widgets/tp_info_box.php:601 modules/widgets/tp_info_box.php:2226
 #: modules/widgets/tp_info_box.php:2256 modules/widgets/tp_info_box.php:2460
 #: modules/widgets/tp_info_box.php:2488
-#: modules/widgets/tp_number_counter.php:1539
+#: modules/widgets/tp_number_counter.php:1826
 #: modules/widgets/tp_smooth_scroll.php:354
 #: modules/widgets/tp_tabs_tours.php:298 modules/widgets/tp_tabs_tours.php:580
 #: modules/widgets/tp_team_member_listout.php:1112
@@ -8749,6 +9160,7 @@ msgstr ""
 #: modules/widgets/tp_navigation_menu_lite.php:957
 #: modules/widgets/tp_number_counter.php:663
 #: modules/widgets/tp_number_counter.php:1069
+#: modules/widgets/tp_number_counter.php:1557
 #: modules/widgets/tp_pricing_table.php:1120
 #: modules/widgets/tp_pricing_table.php:1484
 #: modules/widgets/tp_pricing_table.php:1642
@@ -8797,12 +9209,8 @@ msgstr ""
 msgid "Overlay Background Color"
 msgstr ""
 
-#: modules/widgets/tp_flip_box.php:1799 modules/widgets/tp_flip_box.php:1859
-msgid "Back"
-msgstr ""
-
 #: modules/widgets/tp_flip_box.php:1910 modules/widgets/tp_info_box.php:2437
-#: modules/widgets/tp_number_counter.php:1519
+#: modules/widgets/tp_number_counter.php:1806
 msgid "Box Padding"
 msgstr ""
 
@@ -8815,7 +9223,7 @@ msgid "Odd Columns"
 msgstr ""
 
 #: modules/widgets/tp_flip_box.php:2004 modules/widgets/tp_info_box.php:2552
-#: modules/widgets/tp_number_counter.php:1549
+#: modules/widgets/tp_number_counter.php:1836
 msgid "Box Hover Effects"
 msgstr ""
 
@@ -9711,10 +10119,6 @@ msgstr ""
 msgid "Extra Title Color"
 msgstr ""
 
-#: modules/widgets/tp_heading_title.php:1120
-msgid "Advanced"
-msgstr ""
-
 #: modules/widgets/tp_heading_title.php:1129
 msgid "Title Position"
 msgstr ""
@@ -10207,7 +10611,7 @@ msgid "Pin Text Style"
 msgstr ""
 
 #: modules/widgets/tp_info_box.php:2457
-#: modules/widgets/tp_number_counter.php:1536
+#: modules/widgets/tp_number_counter.php:1823
 msgid "Vertical Center"
 msgstr ""
 
@@ -10641,19 +11045,15 @@ msgstr ""
 msgid "Digit Style"
 msgstr ""
 
-#: modules/widgets/tp_number_counter.php:1254
-msgid "Digit Typography"
+#: modules/widgets/tp_number_counter.php:1271
+msgid "Gradient Color"
 msgstr ""
 
-#: modules/widgets/tp_number_counter.php:1264
-msgid "Digit Color"
+#: modules/widgets/tp_number_counter.php:1428
+msgid "Gradient Hover Color"
 msgstr ""
 
-#: modules/widgets/tp_number_counter.php:1274
-msgid "Digit Hover Color"
-msgstr ""
-
-#: modules/widgets/tp_number_counter.php:1285
+#: modules/widgets/tp_number_counter.php:1572
 msgid "Number Top Space"
 msgstr ""
 

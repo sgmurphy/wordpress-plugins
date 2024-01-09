@@ -4,7 +4,7 @@ Donate link: https://ninjateam.org/wordpress-media-library-folders/
 Tags: wordpress media library folders, file manager, folders, media, gallery, media folder
 Requires at least: 3.0
 Tested up to: 6.4.2
-Stable tag: 5.5.8.1
+Stable tag: 5.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -208,6 +208,15 @@ Happy Organizing! 😍
 
 
 == Changelog ==
+
+= Jan 9, 2024 - Version 5.6.0 =
+- Fixed: Firewall blocking (Sucuri, GoDaddy, etc.)
+
+= Jan 9, 2024 - Version 5.5.9 = 
+- Fixed: I18N issues 
+- Fixed: Support SVG file
+- Fixed: Special symbols in folder name when exported
+- Updated: POT file
 
 = Dec 7, 2023 - Version 5.5.8.1 =
 - Fixed: Folder names in document library not seen on mobile

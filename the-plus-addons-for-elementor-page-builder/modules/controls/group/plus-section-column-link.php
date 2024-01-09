@@ -79,8 +79,8 @@ class L_Theplus_Section_Column_Link extends Elementor\Widget_Base {
 		if((!empty($settings['sc_link_switch']) && $settings['sc_link_switch']=='yes') && !empty($settings['sc_link']) && !empty($settings['sc_link']['url'])){			
 			$element->add_render_attribute( '_wrapper', 
 			array(			
-				'data-tp-sc-link' => $settings['sc_link']['url'],
-				'data-tp-sc-link-external' => $settings['sc_link']['is_external'],
+				'data-tp-sc-link' => esc_url($settings['sc_link']['url']),
+				'data-tp-sc-link-external' => esc_attr($settings['sc_link']['is_external']),
 				'style' => 'cursor: pointer'
 			) );
 		}

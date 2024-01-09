@@ -92,7 +92,7 @@ class Module {
 			$element->add_render_attribute(
 				'_wrapper',
 				[
-					'data-wts-url'        => $link['url'],
+					'data-wts-url'        => esc_url($link['url']),
 					'data-wts-link'       => $element->get_settings( 'enable_wrapper_link' ),
 					'data-wts-new-window' => $settings['enable_wrapper_open_in_new_window'],
 				]

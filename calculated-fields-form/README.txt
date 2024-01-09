@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator,calculated,quote calculator,forms,form editor,advanced forms,payment calculator,payment,recurring payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf,language
 Requires at least: 3.0.5
 Tested up to: 6.4
-Stable tag: 1.2.46
+Stable tag: 1.2.47
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -999,12 +999,18 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 1.2.47 =
+
+* Improves the search forms module.
+* Fixes an issue with WEEKNUM operation.
+* Modifies the Managing Fields Operations module to fix an issue with websites that load multiple instances of jQuery.
+* Modifies the submissions' shortcode in the Users Permissions add-on (Developer and Platinum plugin versions).
+
 = 1.2.46 =
 
 * Implements a search box to search by form name and content.
 * Configures the PayPal integration deactivated by default.
 * Includes a new option in the Default Settings section to activate/deactivate the PayPal integration (Professional, Developer, and Platinum plugin versions).
-
 
 = 1.2.45 =
 
@@ -1042,8 +1048,3 @@ A: Please, follow the steps below:
 * Includes a pair of classes to allow including page breaks on printed forms.
 * Modifies the Date/Time control.
 * Modifies the z-index on Datepickers to display them when forms are loaded into Elementor pop-ups.
-
-= 1.2.39 =
-
-* Implements the RANDOM operation. It allows getting random numbers in a range.
-* Modifies the forms builder dashboard.

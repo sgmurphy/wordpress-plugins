@@ -26,7 +26,6 @@ class Admin extends Base {
 	 */
 	public function __construct() {
 		add_action( 'admin_enqueue_scripts', [ $this, 'scripts' ] );
-		add_action( 'admin_init', [ $this, 'maybe_redirect_templately' ] );
 		add_action( 'admin_menu', [ $this, 'admin_menu' ] );
 
 		self::$cache_bank = CacheBank::get_instance();
@@ -250,26 +249,6 @@ class Admin extends Base {
 
 	public function display() {
 		Helper::views( 'settings' );
-	}
-
-	/**
-	 * Redirect on Active
-	 */
-	public function maybe_redirect_templately() {
-		if ( ! get_transient( 'templately_activation_redirect' ) ) {
-			return;
-		}
-		if ( wp_doing_ajax() ) {
-			return;
-		}
-
-		delete_transient( 'templately_activation_redirect' );
-		if ( is_network_admin() || isset( $_GET['activate-multi'] ) ) {
-			return;
-		}
-		// Safe Redirect to Templately Page
-		wp_safe_redirect( admin_url( 'admin.php?page=templately' ) );
-		exit;
 	}
 
 	/**

@@ -5,7 +5,7 @@ Tags: Elementor, template, templates, Gutenberg, template kits, elementor templa
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 2.2.12
+Stable tag: 2.2.13
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -135,6 +135,11 @@ Every month we are adding new Elementor templates, along with Gutenberg template
 
 
 == Changelog ==
+= 2.2.13 – 09-01-2023 =
+Fixed: Page layout breaking issue while importing on Elementor.
+Improved: Template search option
+Few minor bug fixes & improvements
+
 = 2.2.12 - 06-12-2023 =
 Fixed: Templately wasn't opening from Elementor editor
 Fixed: Warning on PHP 7.3

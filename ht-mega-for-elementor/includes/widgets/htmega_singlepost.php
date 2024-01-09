@@ -27,7 +27,13 @@ class HTMega_Elementor_Widget_SinglePost extends Widget_Base {
             'htmega-widgets',
         ];
     }
+    public function get_keywords() {
+        return ['single post','post widget','post details','htmega', 'ht mega'];
+    }
 
+    public function get_help_url() {
+        return 'https://wphtmega.com/docs/post-widgets/single-post-widget/';
+    }
     protected function register_controls() {
 
         $this->start_controls_section(

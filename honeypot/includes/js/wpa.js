@@ -66,7 +66,7 @@ function wpa_add_honeypot_field(){
 	jQuery('form.spectra-pro-login-form').append(wpa_hidden_field);	// SPECTRA LOGIN FORM
 	jQuery('form#loginform').append(wpa_hidden_field);	// SPECTRA LOGIN FORM
 	jQuery('form#edd_login_form').append(wpa_hidden_field);	// EDD LOGIN FORM
-
+	jQuery('form.uwp-login-form').append(wpa_hidden_field);	// USER WP LOGIN FORM
 }
 
 function wpa_add_test_block(){

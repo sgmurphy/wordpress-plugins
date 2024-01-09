@@ -541,7 +541,7 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 					<h2> <span class="dashicons dashicons-share"></span> <?php esc_html_e( 'Spread the Word', 'wp-headers-and-footers' ); ?></h2>
 						<ul>
 							<li>
-								<a href="http://twitter.com/share?text=This is Best header and footer code JS and CSS insert plugin without touching theme files;url=https://wordpress.org/plugins/wp-headers-and-footers/" data-count="none" class="button twitter" target="_blank" title="<?php esc_html_e( 'Post to Twitter Now', 'wp-headers-and-footers' ); ?>">
+								<a href="https://twitter.com/share?text=This is Best header and footer code JS and CSS insert plugin without touching theme files;url=https://wordpress.org/plugins/wp-headers-and-footers/" data-count="none" class="button twitter" target="_blank" title="<?php esc_html_e( 'Post to Twitter Now', 'wp-headers-and-footers' ); ?>">
 									<?php esc_html_e( 'Share on X/Twitter', 'wp-headers-and-footers' ); ?>
 									<span class="dashicons dashicons-twitter"></span>
 								</a>
@@ -582,7 +582,7 @@ if ( ! class_exists( 'WPHeaderAndFooter_Settings_API' ) ) :
 							</a>
 						</li>
 						<li>
-							<a href="http://wpbrigade.com/recommend/maintenance-mode?utm_source=wp-headers-and-footers&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" target="_blank" title="<?php esc_html_e( 'Socialize your Website', 'wp-headers-and-footers' ); ?>">
+							<a href="https://wpbrigade.com/recommend/maintenance-mode?utm_source=wp-headers-and-footers&amp;utm_medium=sidebar&amp;utm_campaign=pro-upgrade" target="_blank" title="<?php esc_html_e( 'Socialize your Website', 'wp-headers-and-footers' ); ?>">
 							<?php esc_html_e( 'Under Construction & Maintenance mode', 'wp-headers-and-footers' ); ?>
 							</a>
 						</li>

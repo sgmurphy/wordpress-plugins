@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit8c2b8d69fc399e93aadffa6f47d0ad76
+class ComposerStaticInita715523d44e1f0154b77465f8ac1d977
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -833,6 +833,7 @@ class ComposerStaticInit8c2b8d69fc399e93aadffa6f47d0ad76
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Auth\\FetchAuthTokenInterface' => __DIR__ . '/..' . '/google/auth/src/FetchAuthTokenInterface.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Auth\\GCECache' => __DIR__ . '/..' . '/google/auth/src/GCECache.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Auth\\GetQuotaProjectInterface' => __DIR__ . '/..' . '/google/auth/src/GetQuotaProjectInterface.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Auth\\GetUniverseDomainInterface' => __DIR__ . '/..' . '/google/auth/src/GetUniverseDomainInterface.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Auth\\HttpHandler\\Guzzle6HttpHandler' => __DIR__ . '/..' . '/google/auth/src/HttpHandler/Guzzle6HttpHandler.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Auth\\HttpHandler\\Guzzle7HttpHandler' => __DIR__ . '/..' . '/google/auth/src/HttpHandler/Guzzle7HttpHandler.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Auth\\HttpHandler\\HttpClientCache' => __DIR__ . '/..' . '/google/auth/src/HttpHandler/HttpClientCache.php',
@@ -928,6 +929,7 @@ class ComposerStaticInit8c2b8d69fc399e93aadffa6f47d0ad76
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\BuiltInSimpleAction' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/BuiltInSimpleAction.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\BuiltInSimpleActionAdditionalContent' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/BuiltInSimpleActionAdditionalContent.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\BusinessDayConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/BusinessDayConfig.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\BusinessMessagesLink' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/BusinessMessagesLink.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\BuyOnGoogleProgramStatus' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/BuyOnGoogleProgramStatus.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\CaptureOrderRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/CaptureOrderRequest.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\CaptureOrderResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/CaptureOrderResponse.php',
@@ -1014,6 +1016,7 @@ class ComposerStaticInit8c2b8d69fc399e93aadffa6f47d0ad76
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\LinkedAccount' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/LinkedAccount.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\ListAccountLabelsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/ListAccountLabelsResponse.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\ListAccountReturnCarrierResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/ListAccountReturnCarrierResponse.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\ListBusinessMessagesLinksResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/ListBusinessMessagesLinksResponse.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\ListCollectionStatusesResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/ListCollectionStatusesResponse.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\ListCollectionsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/ListCollectionsResponse.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\ListConversionSourcesResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/ListConversionSourcesResponse.php',
@@ -1242,6 +1245,7 @@ class ComposerStaticInit8c2b8d69fc399e93aadffa6f47d0ad76
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\RequestReviewFreeListingsRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/RequestReviewFreeListingsRequest.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\RequestReviewShoppingAdsRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/RequestReviewShoppingAdsRequest.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\Resource\\Accounts' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/Resource/Accounts.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\Resource\\AccountsBusinessmessageslinks' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/Resource/AccountsBusinessmessageslinks.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\Resource\\AccountsCredentials' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/Resource/AccountsCredentials.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\Resource\\AccountsLabels' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/Resource/AccountsLabels.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Vendor\\Google\\Service\\ShoppingContent\\Resource\\AccountsReturncarrier' => __DIR__ . '/..' . '/google/apiclient-services/src/ShoppingContent/Resource/AccountsReturncarrier.php',
@@ -3940,6 +3944,7 @@ class ComposerStaticInit8c2b8d69fc399e93aadffa6f47d0ad76
         'phpseclib3\\Crypt\\EC\\Formats\\Keys\\XML' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Keys/XML.php',
         'phpseclib3\\Crypt\\EC\\Formats\\Keys\\libsodium' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Keys/libsodium.php',
         'phpseclib3\\Crypt\\EC\\Formats\\Signature\\ASN1' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Signature/ASN1.php',
+        'phpseclib3\\Crypt\\EC\\Formats\\Signature\\IEEE' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Signature/IEEE.php',
         'phpseclib3\\Crypt\\EC\\Formats\\Signature\\Raw' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Signature/Raw.php',
         'phpseclib3\\Crypt\\EC\\Formats\\Signature\\SSH2' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Signature/SSH2.php',
         'phpseclib3\\Crypt\\EC\\Parameters' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Parameters.php',
@@ -4150,9 +4155,9 @@ class ComposerStaticInit8c2b8d69fc399e93aadffa6f47d0ad76
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit8c2b8d69fc399e93aadffa6f47d0ad76::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit8c2b8d69fc399e93aadffa6f47d0ad76::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit8c2b8d69fc399e93aadffa6f47d0ad76::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita715523d44e1f0154b77465f8ac1d977::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita715523d44e1f0154b77465f8ac1d977::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInita715523d44e1f0154b77465f8ac1d977::$classMap;
 
         }, null, ClassLoader::class);
     }

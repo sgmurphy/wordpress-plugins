@@ -62,7 +62,7 @@ function cau_incompatiblePlugins() {
 	$return	= false;
 
 	foreach ( cau_incompatiblePluginlist() as $key => $value ) {
-		if( is_plugin_active( $key ) ) {
+		if( function_exists( 'is_plugin_active' ) && is_plugin_active( $key ) ) {
 			$return = true;
 		}
 	}
@@ -97,7 +97,7 @@ function cau_pluginIssueCount() {
 	// cau_incompatiblePlugins
 	if( cau_incompatiblePlugins() ) {
 		foreach ( cau_incompatiblePluginlist() as $key => $value ) {
-			if( is_plugin_active( $key ) ) {
+			if( function_exists( 'is_plugin_active' ) && is_plugin_active( $key ) ) {
 				$count++;
 			}
 		}

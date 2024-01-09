@@ -2696,6 +2696,7 @@ class L_ThePlus_Hovercard extends Widget_Base {
 							$get_ele_pre = '.elementor-element'.$this->get_unique_selector().' '.$item['cst_hover_class'].':hover .elementor-repeater-item-'.$item['_id'];
 														
 							if(!empty($item['cst_hover_class'])){
+								
 									if(!empty($item['b_color_option']) && $item['b_color_option']=='solid'){
 										if(!empty($item['b_color_solid'])){
 											$loopcss .=  $get_ele_pre.'{background-color:'.$item['b_color_solid'].' !important;}';
@@ -2712,7 +2713,7 @@ class L_ThePlus_Hovercard extends Widget_Base {
 										}
 									}else if(!empty($item['b_color_option']) && $item['b_color_option']=='image'){
 										if(!empty($item['b_h_image']['url'])){
-											$loopcss .=$get_ele_pre.'{background-image:url('.$item['b_h_image']['url'].') !important;background-position:'.$item['b_h_image_position'].' !important;background-attachment:'.$item['b_h_image_attach'].' !important;background-repeat:'.$item['b_h_image_repeat'].' !important;background-size:'.$item['b_h_image_size'].' !important;}';	
+											$loopcss .=$get_ele_pre.'{background-image:url(' . esc_url( $item['b_h_image']['url'] ) . ') !important;background-position:'.$item['b_h_image_position'].' !important;background-attachment:'.$item['b_h_image_attach'].' !important;background-repeat:'.$item['b_h_image_repeat'].' !important;background-size:'.$item['b_h_image_size'].' !important;}';	
 										}
 									}
 									

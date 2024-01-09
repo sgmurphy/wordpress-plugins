@@ -198,11 +198,11 @@ class WC_Advanced_Shipment_Tracking_Admin_Notice {
 	*/
 	public function ast_db_update_notice() { 		
 		
-		if ( get_option('ast_db_update_notice_updated_ignore') ) {
+		if ( get_option('ast_3_6_5_db_update_notice_updated_ignore') ) {
 			return;
 		}	
 		
-		$dismissable_url = esc_url(  add_query_arg( 'ast-db-update-notice-updated-ignore', 'true' ) );
+		$dismissable_url = esc_url(  add_query_arg( 'ast-3-6-5-db-update-notice-updated-ignore', 'true' ) );
 		// $update_providers_url = esc_url( admin_url( '/admin.php?page=woocommerce-advanced-shipment-tracking&tab=shipping-providers&open=synch_providers' ) );
 		?>
 		<style>		
@@ -245,11 +245,11 @@ class WC_Advanced_Shipment_Tracking_Admin_Notice {
 	* Dismiss admin notice for trackship
 	*/
 	public function ast_db_update_notice_ignore() {
-		if ( isset( $_GET['ast-db-update-notice-updated-ignore'] ) ) {
-			update_option( 'ast_db_update_notice_updated_ignore', 'true' );
+		if ( isset( $_GET['ast-3-6-5-db-update-notice-updated-ignore'] ) ) {
+			update_option( 'ast_3_6_5_db_update_notice_updated_ignore', 'true' );
 		}
 		if ( isset( $_GET['open'] ) && 'synch_providers' == $_GET['open'] ) {
-			update_option( 'ast_db_update_notice_updated_ignore', 'true' );
+			update_option( 'ast_3_6_5_db_update_notice_updated_ignore', 'true' );
 		}
 	}
 

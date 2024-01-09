@@ -3,7 +3,7 @@ Contributors: hasthemes, htplugins, devitemsllc, tarekht, zenaulislam, aslamhasi
 Tags: elementor, elementor addons, elementor widgets, elementor templates, addons, elementor slider, elementor page builder, mega menu, addons for elementor, post grid, elements, header footer builder
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 2.4.1
+Stable tag: 2.4.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -188,7 +188,7 @@ This slider widget comes in handy when you want to present your sliders more app
 
 It's easy to use and comes with a variety of options to customize the look and feel of your slider. You can also use the slider widget to create a text slider or a custom post type slider. 
 
-Whether you're looking for a slider widget for posts, text,image or photo slider widget, or anything else, this unique slider widget is a powerful tool that can help you achieve your goals.
+Whether you're looking for a slider widget for posts, text, image or photo slider widget, or anything else, this unique slider widget is a powerful tool that can help you achieve your goals.
 
 <strong>[Pricing List View Widget (3 Styles)](https://wphtmega.com/widget/element-pricing-list-view/)</strong> - The HT Mega Pricing table widget offers different types of pricing table styles for your single product. 
 
@@ -207,7 +207,7 @@ This widget offers different types of pricing table styles for your single produ
 
 <strong>[Services Widget (7 Styles)](https://wphtmega.com/widget/element-services/)</strong> - The Services Widget by HT Mega makes it easy to display services on your website. It comes with seven different styles for displaying the 'services' content on web pages.
 
-<strong>[Single Post Widget (5 Styles)](https://wphtmega.com/widget/element-single-post/)</strong> -Using a WordPress single post widget to your WordPress site is a simple way to add posts and customize your site. This widget enables you to highlight a single post on your website.It allows for more flexibility when it comes to displaying individual posts in different ways. This posts widget helps showcasing your posts a more professional way. Plus, you can use this post widget with image.You can also choose to display the post title, excerpt, author, date, and even the number of comments using this exclusive widget.
+<strong>[Single Post Widget (5 Styles)](https://wphtmega.com/widget/element-single-post/)</strong> - Using a WordPress single post widget to your WordPress site is a simple way to add posts and customize your site. This widget enables you to highlight a single post on your website. It allows for more flexibility when it comes to displaying individual posts in different ways. This posts widget helps showcasing your posts a more professional way. Plus, you can use this post widget with image. You can also choose to display the post title, excerpt, author, date, and even the number of comments using this exclusive widget.
 
 <strong>[Social Share Widget (9 Styles)](https://wphtmega.com/widget/elementor-social-share-widget/)</strong> - Social share widget is a special widget to share any of your products in any social media. This widget will increase your sales and earn more visitors.
 
@@ -237,6 +237,10 @@ This simple twitter widget for WordPress is simple and easy to use, and it allow
 <strong>[Video Player Widget (4 Styles)](https://wphtmega.com/widget/elementor-video-player/)</strong> - The Video Player Widget is a useful tool with intuitive options to showcase your YouTube and/or Vimeo videos on your WordPress site. You can also add a custom thumbnail image and set an overlay that will present the videos on web pages in a more appealing and attractive way. If you are planning to showcase your YouTube and/or Vimeo videos in a professional way, you should check this video player widget out.
 
 <strong>[Weather Widget (3 Styles)](https://wphtmega.com/widget/element-weather/)</strong> - The weather widget is perfect for showing the weather updates of your location. You can also set multiple locations and have the latest weather updates.
+
+<strong>[Tab Widget ](https://wphtmega.com/widget/elementor-tab-widget/)</strong> - The Tab Widget is a versatile tool for showcasing tabs on your web pages. Customize titles and content effortlessly, selecting between horizontal or vertical tabs. Easily rearrange tab order using our drag-and-drop interface. HT Mega presents five stylish tab designs, simplifying tabbed content creation. Additionally, you can incorporate tab content as an Elementor-built template.
+
+<strong>[Image Grid Widget ](https://wphtmega.com/widget/elementor-image-grid-widget/)</strong> - Enhance your website with the Image Grid widget, allowing you to create a captivating gallery. Customize content, layouts, thumbnails, filters, captions, animations, and more to craft a stunning visual experience.
 
 <strong>[Working Process Widget (4 Styles)](https://wphtmega.com/widget/element-working-process/)</strong> - Add an eye-catching working process section to your website while offering a wide range of layout options. This widget displays the working steps in an easy-to-follow order, with text indicators that show which step you're working on.
 
@@ -395,7 +399,7 @@ This widget is easy to use and comes with a variety of features that make it a v
 
 <strong>[Event Box Widget (Style 5)](https://wphtmega.com/elementor-event-box-widget/)</strong> - HT Mega Event Box Widget enables you to display boxes of upcoming events on your website. You can create an upcoming event with an event title, event description, date, and any other relevant information.
 
-<strong>[Filterable Gallery Widget (Style 7)](https://wphtmega.com/elementor-filterable-gallery-widget/)</strong> - The HT Mega Filterable Gallery widget allows you to add a gallery with filtering options. Photos, projects images can be easily displayed using this widget. Visitors can filter items easily by category. This plugin has 7 default styles for filterable galleries, which can be customized easily from the widget settings panel.Try this exclusive filter widget to add a filterable gallery to your website. 
+<strong>[Filterable Gallery Widget (Style 7)](https://wphtmega.com/elementor-filterable-gallery-widget/)</strong> - The HT Mega Filterable Gallery widget allows you to add a gallery with filtering options. Photos, projects images can be easily displayed using this widget. Visitors can filter items easily by category. This plugin has 7 default styles for filterable galleries, which can be customized easily from the widget settings panel. Try this exclusive filter widget to add a filterable gallery to your website. 
 
 <strong>[WhatsApp Chat Widget](https://wphtmega.com/elementor-whatsapp-chat-widget/)</strong> - With HT Mega WhatsApp Widget, you can create a button, using which your website visitors will be able to text you directly from your site. It is a simple but effective way of communicating with clients.
 
@@ -417,7 +421,7 @@ This widget is easy to use and comes with a variety of features that make it a v
 
 <strong>[Advanced Slider Widget](https://wphtmega.com/widget/elementor-advanced-slider-widget/)</strong> - With the HT Mega Advanced Slider widget, you can develop stunning slides with a live editor, custom content, animation options and basic styling options. Additionally, access to a template library allows you to easily create effective slides that will stand out from your competition. With the power of the HT Mega Advanced Slider widget, you can quickly boost the visual appeal of your website and effectively engage potential customers.
 
-<strong>[Flip Carousel Widget](https://wphtmega.com/widget/elementor-flip-carousel-widget/)</strong> - Enhance your website's visual appeal with the Elmentor Flip Carousel widget for HT Mega. Create interactive and captivating carousels with flip animations that grab your visitors' attention. Showcase your products, portfolio items, or any content in an engaging and dynamic way. With easy customization options, you can tailor the widget to match your website's style effortlessly.
+<strong>[Flip Carousel Widget](https://wphtmega.com/widget/elementor-flip-carousel-widget/)</strong> - Enhance your website's visual appeal with the Elementor Flip Carousel widget for HT Mega. Create interactive and captivating carousels with flip animations that grab your visitors' attention. Showcase your products, portfolio items, or any content in an engaging and dynamic way. With easy customization options, you can tailor the widget to match your website's style effortlessly.
 
 <strong>[Interactive Circle Infographic Widget](https://wphtmega.com/widget/elementor-interactive-circle-infographic-widget/)</strong> - The Interactive Circle Infographic widget is your key to presenting content in a visually captivating way within the Elementor page builder. This exclusive element offers a unique and interactive circular layout, enriched with mouse effects and hover animations that effortlessly engage your website visitors. With HTMega Interactive Circle widget, you can showcase your content beautifully and leave a lasting impression on your audience.
 
@@ -493,6 +497,9 @@ Visit [HasThemes](https://hasthemes.com/) for more details about HTML, Shopify a
 
 
 == Changelog ==
+= Version 2.4.2 - Date: 2024-01-09 =
+* Updated: Documentation link and search keywords in Search, Section title, Service, and single post widgets.
+* Updated: Language translation file.
 
 = Version 2.4.1 - Date: 2023-12-27 =
 * Fixed: Inherited color issue with 'a' tags.

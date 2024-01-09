@@ -240,12 +240,12 @@
 
     lib.disableequations = lib.DISABLEEQUATIONS = function(f)
 	{
-		jQuery(f || '[id*="cp_calculatedfieldsf_pform_"]').attr('data-evalequations',0);
+		fbuilderjQuery(f || '[id*="cp_calculatedfieldsf_pform_"]').attr('data-evalequations',0);
 	};
 
 	lib.enableequations = lib.ENABLEEQUATIONS = function(f)
 	{
-		jQuery(f || '[id*="cp_calculatedfieldsf_pform_"]').attr('data-evalequations',1);
+		fbuilderjQuery(f || '[id*="cp_calculatedfieldsf_pform_"]').attr('data-evalequations',1);
 	};
 
 	lib.EVALEQUATIONS = lib.evalequations = function(f)
@@ -254,7 +254,7 @@
 			fbuilderjQuery.fbuilder.calculator.defaultCalc(f, false, true);
 		} else {
 			for( var i in fbuilderjQuery.fbuilder.forms ) {
-				fbuilderjQuery.fbuilder.calculator.defaultCalc(jQuery('[id="'+fbuilderjQuery.fbuilder.forms[i].formId+'"]'), false, true);
+				fbuilderjQuery.fbuilder.calculator.defaultCalc(fbuilderjQuery('[id="'+fbuilderjQuery.fbuilder.forms[i].formId+'"]'), false, true);
 			}
 		}
 	};
@@ -421,10 +421,10 @@
 		}
 
 		if( typeof f != 'undefined') {
-			_reset(jQuery(f));
+			_reset(fbuilderjQuery(f));
 		} else {
 			for( var i in fbuilderjQuery.fbuilder.forms ) {
-				_reset(jQuery('[id="'+fbuilderjQuery.fbuilder.forms[i].formId+'"]'));
+				_reset(fbuilderjQuery('[id="'+fbuilderjQuery.fbuilder.forms[i].formId+'"]'));
 			}
 		}
 	};
@@ -451,7 +451,7 @@
 							 .replace(/<script[^>]*>/ig, '')
 							 .replace(/(\b)(on[a-z]+)\s*=/ig, "$1_$2=");
 					} else {
-						v = jQuery( '<p>' ).text( v ).html();
+						v = fbuilderjQuery( '<p>' ).text( v ).html();
 					}
 				}
 			}

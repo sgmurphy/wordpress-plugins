@@ -106,6 +106,7 @@ if ( ! class_exists( 'Tp_Widget_Notice' ) ) {
 
 				if ( empty( $this->whitelabel ) || 'on' !== $this->hidden_label ) {
 					include L_THEPLUS_PATH . 'includes/notices/class-tp-widget-notice.php';
+					include L_THEPLUS_PATH . 'includes/notices/class-tp-dashboard-overview.php';
 				}
 
 				/**Remove Key In Databash*/

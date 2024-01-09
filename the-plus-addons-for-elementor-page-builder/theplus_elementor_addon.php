@@ -3,7 +3,7 @@
 * Plugin Name: The Plus Addons for Elementor
 * Plugin URI: https://theplusaddons.com/
 * Description: Highly Customisable 120+ Advanced Elementor Widgets & Extensions for Performance Driven Website.
-* Version: 5.3.3
+* Version: 5.3.4
 * Author: POSIMYTH
 * Author URI: https://posimyth.com/
 * Text Domain: tpebl
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-defined( 'L_THEPLUS_VERSION' ) or define( 'L_THEPLUS_VERSION', '5.3.3' );
+defined( 'L_THEPLUS_VERSION' ) or define( 'L_THEPLUS_VERSION', '5.3.4' );
 define( 'L_THEPLUS_FILE__', __FILE__ );
 
 define( 'L_THEPLUS_PATH', plugin_dir_path( __FILE__ ) );
@@ -80,4 +80,14 @@ if ( ! function_exists( 'theplus_elementor_activated' ) ) {
 		
 		return isset( $installed_plugins[ $file_path ] );
 	}
+}
+
+/**Redirect to TPAE welcom page */
+add_action( 'activated_plugin', 'tpae_activate_redirect' );
+
+function tpae_activate_redirect($plugin){
+	
+    if( $plugin == 'the-plus-addons-for-elementor-page-builder/theplus_elementor_addon.php' ) {
+            exit( wp_redirect( admin_url( 'admin.php?page=theplus_welcome_page' ) ) );
+    }
 }

@@ -129,7 +129,7 @@ if ( ! class_exists( 'Tp_Tpag_Install_Notice' ) ) {
 
 			$admin_notice  = '<h3>' . esc_html__( "It's Live 🎉 The Plus Blocks for Gutenberg is Ready to Use!", 'tpebl' ) . '</h3>';
 			$admin_notice .= '<p>' . esc_html__( 'Do you use Gutenberg Block Editor to create websites or post blogs?', 'tpebl' ) . '</p>';
-			$admin_notice .= '<p>' . esc_html__( 'Then check our Gutenberg Block version, where we provide you over 80+ WordPress Blocks (40 Free Blocks) to help you create fast websites without compromising on design.', 'tpebl' ) . '</p>';
+			$admin_notice .= '<p>' . esc_html__( 'Then check our Gutenberg Block version, where we provide you over 85+ WordPress Blocks (40 Free Blocks) to help you create fast websites without compromising on design.', 'tpebl' ) . '</p>';
 			$admin_notice .= '<p>' . sprintf( '<a href="%s" class="tp-block-notice-checkdemos" target="_blank" rel="noopener noreferrer">%s</a>', $this->t_p_a_g_doc_url, esc_html__( 'Check Live demos', 'tpebl' ) ) . '</p>';
 			$admin_notice .= '<p>' . sprintf( '<a href="%s" class="button-primary">%s</a>', $install_url, esc_html__( 'Install The Plus Blocks', 'tpebl' ) ) . '</p>';
 			$admin_notice .= '<button type="button" class="notice-dismiss"><span class="screen-reader-text">' . esc_html__( 'Dismiss this notice', 'tpebl' ) . '</span></button>';

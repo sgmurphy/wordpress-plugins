@@ -164,6 +164,21 @@ class ButtonCheck extends _wordpress_element__WEBPACK_IMPORTED_MODULE_2__.Compon
       question,
       answered
     } = this.props;
+
+    // Fix temporary for FIB.
+    if (question.type === 'fill_in_blanks') {
+      const elFIB = document.querySelector(`.question-fill_in_blanks[data-id="${question.id}"]`);
+      const elInputs = elFIB.querySelectorAll('.lp-fib-input > input');
+      elInputs.forEach(elInput => {
+        if (elInput.value.length > 0) {
+          this.setState({
+            loading: true
+          });
+          checkAnswer(question.id);
+          return false;
+        }
+      });
+    }
     if (answered) {
       checkAnswer(question.id);
       this.setState({
@@ -177,8 +192,7 @@ class ButtonCheck extends _wordpress_element__WEBPACK_IMPORTED_MODULE_2__.Compon
     } = this.props;
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
       className: classnames__WEBPACK_IMPORTED_MODULE_1___default()('lp-button', 'instant-check', {
-        loading: this.state.loading,
-        disable: !answered
+        loading: this.state.loading
       }),
       onClick: this.checkAnswer
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
@@ -1321,11 +1335,13 @@ class Question extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component
 }), (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.withDispatch)(dispatch => {
   const {
     updateUserQuestionAnswers,
+    updateUserQuestionFibAnswers,
     markQuestionRendered
   } = dispatch('learnpress/quiz');
   return {
     markQuestionRendered,
-    updateUserQuestionAnswers
+    updateUserQuestionAnswers,
+    updateUserQuestionFibAnswers
   };
 })])(Question));
 
@@ -1708,7 +1724,7 @@ const Status = () => {
       indexHtml = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Question <span>%d of %d</span>', 'learnpress'), start, questionsCount);
     }
   } else {
-    indexHtml = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Question <span>%d to %d</span>', 'learnpress'), start, end);
+    indexHtml = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Question <span>%d of %d</span>', 'learnpress'), start, end);
   }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: classNames.join(' ')
@@ -1978,7 +1994,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   showHint: () => (/* binding */ showHint),
 /* harmony export */   startQuiz: () => (/* binding */ startQuiz),
 /* harmony export */   submitQuiz: () => (/* binding */ submitQuiz),
-/* harmony export */   updateUserQuestionAnswers: () => (/* binding */ updateUserQuestionAnswers)
+/* harmony export */   updateUserQuestionAnswers: () => (/* binding */ updateUserQuestionAnswers),
+/* harmony export */   updateUserQuestionFibAnswers: () => (/* binding */ updateUserQuestionFibAnswers)
 /* harmony export */ });
 /* harmony import */ var _learnpress_data_controls__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @learnpress/data-controls */ "@learnpress/data-controls");
 /* harmony import */ var _learnpress_data_controls__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_learnpress_data_controls__WEBPACK_IMPORTED_MODULE_0__);
@@ -1999,8 +2016,8 @@ const {
 /**
  * Set user data for app.
  *
- * @param  key
- * @param  data
+ * @param key
+ * @param data
  */
 function setQuizData(key, data) {
   if (typeof key === 'string') {
@@ -2019,7 +2036,7 @@ function setQuizData(key, data) {
 /**
  * Set question will display.
  *
- * @param  questionId
+ * @param questionId
  */
 function setCurrentQuestion(questionId) {
   return {
@@ -2205,6 +2222,27 @@ function updateUserQuestionAnswers(questionId, answers, quizId, courseId = 0, us
     type: 'UPDATE_USER_QUESTION_ANSWERS',
     questionId,
     answers
+  };
+}
+
+/**
+ * Handle when user change value on input fill in blanks.
+ *
+ * @param questionId
+ * @param idInput
+ * @param valueInput
+ * @param quizId
+ * @param courseId
+ * @param userId
+ * @since 4.2.5.9
+ * @version 1.0.0
+ */
+function updateUserQuestionFibAnswers(questionId, idInput, valueInput, quizId, courseId = 0, userId = 0) {
+  return {
+    type: 'UPDATE_USER_QUESTION_FIB_ANSWERS',
+    questionId,
+    idInput,
+    valueInput
   };
 }
 function __requestShowHintSuccess(id, showHint) {
@@ -2456,6 +2494,28 @@ const updateUserQuestionAnswer = (state, action) => {
     }
   };
 };
+const updateUserQuestionFibAnswer = (state, action) => {
+  const {
+    id
+  } = state;
+  const {
+    questionId,
+    idInput,
+    valueInput
+  } = action;
+  if (state.answered.hasOwnProperty(questionId)) {
+    state.answered[questionId].answered[idInput] = valueInput;
+  } else {
+    state.answered[action.questionId] = {
+      answered: {
+        [idInput]: valueInput
+      },
+      temp: true
+    };
+  }
+  localStorage.setItem(`LP_Quiz_${id}_Answered`, JSON.stringify(state.answered));
+  return state;
+};
 const markQuestionRendered = (state, action) => {
   const {
     questionsRendered
@@ -2524,7 +2584,7 @@ const checkAnswer = (state, action) => {
   return {
     ...state,
     questions: [...questions],
-    answered: answered,
+    answered,
     checkedQuestions: [...state.checkedQuestions, action.questionId]
   };
 };
@@ -2605,6 +2665,8 @@ const userQuiz = (state = STORE_DATA, action) => {
       return submitQuiz(state, action);
     case 'UPDATE_USER_QUESTION_ANSWERS':
       return state.status === 'started' ? updateUserQuestionAnswer(state, action) : state;
+    case 'UPDATE_USER_QUESTION_FIB_ANSWERS':
+      return state.status === 'started' ? updateUserQuestionFibAnswer(state, action) : state;
     case 'MARK_QUESTION_RENDERED':
       return markQuestionRendered(state, action);
     case 'SET_QUIZ_MODE':

@@ -4089,6 +4089,7 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
   display: none;
   padding: 0;
   border: none;
+  margin: 15px 20px 15px 0;
 }
 .lp-admin-notices .lp-admin-notice {
   position: relative;
@@ -6574,6 +6575,7 @@ body.lp-item-moving {
 .learn-press-notice {
   position: relative;
   padding: 12px;
+  margin: 0;
 }
 .lp-notice h4,
 .learn-press-notice h4 {

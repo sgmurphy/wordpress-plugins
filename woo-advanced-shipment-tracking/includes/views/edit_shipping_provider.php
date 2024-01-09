@@ -1,40 +1,40 @@
 <div class="slidout_header">	
 	<?php
 	
-	$WC_Countries = new WC_Countries();
-	$countries = $WC_Countries->get_countries();
+	// $WC_Countries = new WC_Countries();
+	// $countries = $WC_Countries->get_countries();
 	$upload_dir   = wp_upload_dir();	
 	$ast_directory = $upload_dir['baseurl'] . '/ast-shipping-providers/';
 	
-	if ( 0 != $shippment_provider->custom_thumb_id ) {
-		$image = wp_get_attachment_url( $shippment_provider->custom_thumb_id );	
-	} else {
-		$image = null;
-	}
+	// if ( 0 != $shippment_provider->custom_thumb_id ) {
+	// 	$image = wp_get_attachment_url( $shippment_provider->custom_thumb_id );	
+	// } else {
+	// 	$image = null;
+	// }
 	
-	if ( isset( $shippment_provider->custom_tracking_url ) && '' != $shippment_provider->custom_tracking_url ) {
-		$tracking_url = $shippment_provider->custom_tracking_url;	
-	} else {
-		$tracking_url = $shippment_provider->provider_url;
-	}
+	// if ( isset( $shippment_provider->custom_tracking_url ) && '' != $shippment_provider->custom_tracking_url ) {
+	// 	$tracking_url = $shippment_provider->custom_tracking_url;	
+	// } else {
+	// 	$tracking_url = $shippment_provider->provider_url;
+	// }
 
-	$default_provider = 0;	
-	if ( get_option( 'wc_ast_default_provider', '' ) == $id ) {
-		$default_provider = 1;	
-	}
-	$checked = ( 1 == $default_provider ) ? 'checked' : '';
+	// $default_provider = 0;	
+	// if ( get_option( 'wc_ast_default_provider', '' ) == $id ) {
+	// 	$default_provider = 1;	
+	// }
+	// $checked = ( 1 == $default_provider ) ? 'checked' : '';
 
-	if ( 1 == $shippment_provider->shipping_default ) {
-		$provider_type = 'default_provider';
-	} else {
-		$provider_type = 'custom_provider';
-	}
+	// if ( 1 == $shippment_provider->shipping_default ) {
+	// 	$provider_type = 'default_provider';
+	// } else {
+	// 	$provider_type = 'custom_provider';
+	// }
 	
-	if ( '' != $shippment_provider->api_provider_name ) {
-		$api_provider_array = json_decode( $shippment_provider->api_provider_name );
-	} else {
-		$api_provider_array = array();
-	}
+	// if ( '' != $shippment_provider->api_provider_name ) {
+	// 	$api_provider_array = json_decode( $shippment_provider->api_provider_name );
+	// } else {
+	// 	$api_provider_array = array();
+	// }
 
 	?>
 	<div class="slidout_header_title">
@@ -42,23 +42,25 @@
 		<div class="grid-top">        
 			<div class="grid-provider-img">
 				<?php
-				$custom_thumb_id = $shippment_provider->custom_thumb_id;				
+				// $custom_thumb_id = $shippment_provider->custom_thumb_id;				
 				if ( 1 == $shippment_provider->shipping_default ) {
-					if ( 0 != $custom_thumb_id ) {
-						$image_attributes = wp_get_attachment_image_src( $custom_thumb_id , array( '60', '60' ) );
-						$provider_image = $image_attributes[0];
-					} else {
-						$provider_image = $ast_directory . '' . sanitize_title( $shippment_provider->provider_name ) . '.png?v=' . wc_advanced_shipment_tracking()->version;
-					}
+					$provider_image = $ast_directory . '' . sanitize_title( $shippment_provider->provider_name ) . '.png?v=' . wc_advanced_shipment_tracking()->version;
+					// if ( 0 != $custom_thumb_id ) {
+					// 	$image_attributes = wp_get_attachment_image_src( $custom_thumb_id , array( '60', '60' ) );
+					// 	$provider_image = $image_attributes[0];
+					// } else {
+					// 	$provider_image = $ast_directory . '' . sanitize_title( $shippment_provider->provider_name ) . '.png?v=' . wc_advanced_shipment_tracking()->version;
+					// }
 					echo '<img class="provider-thumb" src="' . esc_url( $provider_image ) . '">';
 				} else { 
-					$image_attributes = wp_get_attachment_image_src( $custom_thumb_id , array( '60', '60' ) );
+					echo '<img class="provider-thumb" src="' . esc_url( wc_advanced_shipment_tracking()->plugin_dir_url() ) . 'assets/images/icon-default.png">';
+					// $image_attributes = wp_get_attachment_image_src( $custom_thumb_id , array( '60', '60' ) );
 				
-					if ( 0 != $custom_thumb_id ) { 
-						echo '<img class="provider-thumb" src="' . esc_url( $image_attributes[0] ) . '">';
-					} else { 
-						echo '<img class="provider-thumb" src="' . esc_url( wc_advanced_shipment_tracking()->plugin_dir_url() ) . 'assets/images/icon-default.png">';
-					}  
+					// if ( 0 != $custom_thumb_id ) { 
+					// 	echo '<img class="provider-thumb" src="' . esc_url( $image_attributes[0] ) . '">';
+					// } else { 
+					// 	echo '<img class="provider-thumb" src="' . esc_url( wc_advanced_shipment_tracking()->plugin_dir_url() ) . 'assets/images/icon-default.png">';
+					// }  
 				}
 				?>
 			</div>

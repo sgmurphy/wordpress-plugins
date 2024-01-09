@@ -568,20 +568,20 @@ class WC_Advanced_Shipment_Tracking_Actions {
 			
 			$upload_dir   = wp_upload_dir();	
 			$ast_directory = $upload_dir['baseurl'] . '/ast-shipping-providers/';
-			$ast_base_directory = $upload_dir['basedir'] . '/ast-shipping-providers/';
+			// $ast_base_directory = $upload_dir['basedir'] . '/ast-shipping-providers/';
 			
-			$custom_thumb_id = $results->custom_thumb_id;			
+			// $custom_thumb_id = $results->custom_thumb_id;		
 			
-			if ( 0 == (int) $custom_thumb_id && 1 == (int) $results->shipping_default ) {
-				$src = $ast_directory . '' . sanitize_title( $results->provider_name ) . '.png?v=' . wc_advanced_shipment_tracking()->version;
-			} else if ( 0 != (int) $custom_thumb_id ) {
-				$image_attributes = wp_get_attachment_image_src( (int) $custom_thumb_id , array( '60', '60' ) );
-				if ( $image_attributes[0] ) {
-					$src = $image_attributes[0];
-				}
-			} else {
-				$src = wc_advanced_shipment_tracking()->plugin_dir_url() . 'assets/images/icon-default.png';
-			}
+			$src = $ast_directory . '' . sanitize_title( $results->provider_name ) . '.png?v=' . wc_advanced_shipment_tracking()->version;
+			// if ( 0 == (int) $custom_thumb_id && 1 == (int) $results->shipping_default ) {
+			// } else if ( 0 != (int) $custom_thumb_id ) {
+			// 	$image_attributes = wp_get_attachment_image_src( (int) $custom_thumb_id , array( '60', '60' ) );
+			// 	if ( $image_attributes[0] ) {
+			// 		$src = $image_attributes[0];
+			// 	}
+			// } else {
+			// 	$src = wc_advanced_shipment_tracking()->plugin_dir_url() . 'assets/images/icon-default.png';
+			// }
 		} else {
 			$src = wc_advanced_shipment_tracking()->plugin_dir_url() . 'assets/images/icon-default.png';
 		}
@@ -1462,9 +1462,9 @@ class WC_Advanced_Shipment_Tracking_Actions {
 			$suffix .= date_i18n( get_option( 'wcj_order_number_date_suffix', '' ) );
 	
 			// Ignore suffix and prefix from search input
-			$search_no_suffix            = preg_replace( "/\A{$prefix}/i", '', $order_id );
-			$search_no_suffix_and_prefix = preg_replace( "/{$suffix}\z/i", '', $search_no_suffix );
-			$final_search                = empty( $search_no_suffix_and_prefix ) ? $search : $search_no_suffix_and_prefix;	
+			$search_no_suffix            = $order_id ? preg_replace( "/\A{$prefix}/i", '', $order_id ) : '';
+			$search_no_suffix_and_prefix = $search_no_suffix ? preg_replace( "/{$suffix}\z/i", '', $search_no_suffix ) : '';
+			$final_search                = empty( $search_no_suffix_and_prefix ) ? $search : $search_no_suffix_and_prefix;
 			
 			if ( 'yes' == $wcj_order_numbers_enabled ) {
 				$query_args = array(

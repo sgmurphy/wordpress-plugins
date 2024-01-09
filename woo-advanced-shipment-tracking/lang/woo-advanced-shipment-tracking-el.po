@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce Advanced Shipment Tracking\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-11 09:34+0000\n"
-"PO-Revision-Date: 2023-12-18 11:12+0000\n"
+"PO-Revision-Date: 2023-12-25 05:23+0000\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
 "Language: el\n"
@@ -18,17 +18,12 @@ msgstr ""
 msgid "3plwinner"
 msgstr "3plwinner"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:1897
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2210
-msgid "Add"
-msgstr "Προσθήκη"
-
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2154
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2180
 msgid "Add API Name alias"
 msgstr "Προσθήκη ψευδωνύμου ονόματος API"
 
-#: includes/views/admin_options_shipping_provider.php:30
-#: includes/views/admin_options_shipping_provider.php:114
+#: includes/views/admin_options_shipping_provider.php:37
+#: includes/views/admin_options_shipping_provider.php:95
 msgid "Add Custom Carrier"
 msgstr "Προσθήκη προσαρμοσμένης εταιρείας κινητής τηλεφωνίας"
 
@@ -141,15 +136,15 @@ msgstr ""
 "Δεν είναι δυνατή η δημιουργία της υπάρχουσας παρακολούθησης αποστολής "
 "παραγγελιών."
 
-#: includes/views/admin_options_shipping_provider.php:181
+#: includes/views/admin_options_shipping_provider.php:162
 msgid "Carriers Added"
 msgstr "Προστέθηκαν μεταφορείς"
 
-#: includes/views/admin_options_shipping_provider.php:183
+#: includes/views/admin_options_shipping_provider.php:164
 msgid "Carriers Deleted"
 msgstr "Διαγράφηκαν φορείς"
 
-#: includes/views/admin_options_shipping_provider.php:182
+#: includes/views/admin_options_shipping_provider.php:163
 msgid "Carriers Updated"
 msgstr "Ενημερώθηκαν οι μεταφορείς"
 
@@ -255,7 +250,7 @@ msgid_plural "Delivered <span class=\"count\">(%s)</span>"
 msgstr[0] "Παραδόθηκε <span class=\"count\">(%s)</span>"
 msgstr[1] "Παραδόθηκε <span class=\"count\">(%s)</span>"
 
-#: includes/views/admin_options_shipping_provider.php:33
+#: includes/views/admin_options_shipping_provider.php:40
 msgid "Deselect All"
 msgstr "Αποεπιλογή όλων"
 
@@ -321,7 +316,7 @@ msgstr "Τύπος email"
 
 #: includes/class-wc-advanced-shipment-tracking-admin.php:1602
 #: includes/class-wc-advanced-shipment-tracking-admin.php:1688
-#: includes/views/admin_options_shipping_provider.php:29
+#: includes/views/admin_options_shipping_provider.php:36
 msgid "Enable Carriers"
 msgstr "Ενεργοποίηση παρόχων"
 
@@ -333,13 +328,13 @@ msgstr "Ενεργοποίηση email"
 msgid "Enable Integration"
 msgstr "Ενεργοποίηση ενσωμάτωσης"
 
-#: includes/views/admin_options_shipping_provider.php:75
+#: includes/views/admin_options_shipping_provider.php:64
 #| msgid "Add Shipping Carriers"
 msgid "Enable Shipping Carriers"
 msgstr "Ενεργοποίηση μεταφορέων αποστολής"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2046
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2063
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2072
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2089
 msgid "Filter by shipping provider"
 msgstr "Φιλτράρισμα ανά πάροχο αποστολής"
 
@@ -472,10 +467,13 @@ msgstr "Περισσότερες πληροφορίες"
 msgid "more info"
 msgstr "περισσότερες πληροφορίες"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2154
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2180
 msgid "Multiple API names mapping is a pro features"
 msgstr ""
 "Η αντιστοίχιση πολλαπλών ονομάτων API είναι επαγγελματικά χαρακτηριστικά"
+
+msgid "New message"
+msgstr "Νέο μήνυμα"
 
 #: includes/customizer/ast-customizer.php:581
 msgid "Normal"
@@ -526,8 +524,8 @@ msgstr "Αλλα"
 msgid "ParcelForce"
 msgstr "ParcelForce"
 
-#: includes/class-wc-advanced-shipment-tracking.php:495
 #: includes/class-wc-advanced-shipment-tracking-admin.php:915
+#: includes/class-wc-advanced-shipment-tracking.php:495
 #: includes/class-wc-advanced-shipment-tracking-settings.php:282
 #: includes/class-wc-advanced-shipment-tracking-settings.php:314
 #: includes/customizer/ast-customizer.php:131
@@ -600,7 +598,7 @@ msgstr "QuickBooks Commerce (πρώην TradeGecko)"
 msgid "ReadyToShip"
 msgstr "Ετοιμο για ΑΠΟΣΤΟΛΗ"
 
-#: includes/views/admin_options_shipping_provider.php:24
+#: includes/views/admin_options_shipping_provider.php:31
 #| msgid "Delete Selected"
 msgid "Remove Selected"
 msgstr "Διαγραφή επιλεγμένων"
@@ -615,7 +613,7 @@ msgstr ""
 msgid "Replace tracking information?"
 msgstr "Replace tracking information?Αντικατάσταση πληροφοριών παρακολούθησης;"
 
-#: includes/views/admin_options_shipping_provider.php:187
+#: includes/views/admin_options_shipping_provider.php:168
 #| msgid ""
 #| "Reset providers database, it will reset all your shipping provider "
 #| "\tdatabase"
@@ -640,12 +638,12 @@ msgstr "Αποθήκευση & Κλείσιμο"
 msgid "Saved"
 msgstr "Αποθηκεύτηκε"
 
-#: includes/views/admin_options_shipping_provider.php:88
+#: includes/views/admin_options_shipping_provider.php:77
 #| msgid "Search by provider / country"
 msgid "Search by carrier / country"
 msgstr "Αναζήτηση ανά μεταφορέα / χώρα"
 
-#: includes/views/admin_options_shipping_provider.php:32
+#: includes/views/admin_options_shipping_provider.php:39
 msgid "Select All"
 msgstr "Επιλογή όλων"
 
@@ -673,10 +671,10 @@ msgstr "Οι Ρυθμίσεις Αποθηκεύτηκαν."
 msgid "Shipment status changed to %s"
 msgstr "Η κατάσταση αποστολής άλλαξε στο% s"
 
-#: includes/class-wc-advanced-shipment-tracking.php:142
-#: includes/class-wc-advanced-shipment-tracking.php:233
 #: includes/class-wc-advanced-shipment-tracking-admin.php:195
 #: includes/class-wc-advanced-shipment-tracking-admin.php:237
+#: includes/class-wc-advanced-shipment-tracking.php:142
+#: includes/class-wc-advanced-shipment-tracking.php:233
 msgid "Shipment Tracking"
 msgstr "Παρακολούθηση Αποστολής"
 
@@ -684,8 +682,8 @@ msgstr "Παρακολούθηση Αποστολής"
 msgid "Shipment Tracking API"
 msgstr "API παρακολούθησης αποστολών"
 
-#: includes/class-wc-advanced-shipment-tracking.php:479
 #: includes/class-wc-advanced-shipment-tracking-admin.php:573
+#: includes/class-wc-advanced-shipment-tracking.php:479
 #: includes/class-wc-advanced-shipment-tracking-settings.php:438
 #: includes/customizer/ast-customizer.php:127
 #: includes/customizer/ast-customizer.php:353
@@ -721,21 +719,13 @@ msgstr "Αποστέλλεται στις:"
 msgid "Shipped Order"
 msgstr "Αποστολή παραγγελίας"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2220
-msgid "Shipping Carrier Already Added"
-msgstr "Ο μεταφορέας αποστολής έχει ήδη προστεθεί"
-
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2224
-msgid "Shipping Carrier Not Found!"
-msgstr "Ο μεταφορέας αποστολής δεν βρέθηκε!"
-
 #: includes/class-wc-advanced-shipment-tracking-admin.php:288
 #: includes/class-wc-advanced-shipment-tracking-admin.php:292
-#: includes/views/admin_options_shipping_provider.php:19
+#: includes/views/admin_options_shipping_provider.php:26
 msgid "Shipping Carriers"
 msgstr "Μεταφορείς αποστολής"
 
-#: includes/views/admin_options_shipping_provider.php:185
+#: includes/views/admin_options_shipping_provider.php:166
 #| msgid "Shipping providers database reset successfully."
 msgid "Shipping carriers database reset successfully."
 msgstr "Επιτυχής επαναφορά της βάσης δεδομένων μεταφορέων αποστολής."
@@ -769,17 +759,17 @@ msgstr "Shirtee Cloud"
 msgid "Stamps.com"
 msgstr "Stamps.com"
 
-#: includes/views/admin_options_shipping_provider.php:31
+#: includes/views/admin_options_shipping_provider.php:38
 msgid "Sync Carriers"
 msgstr "Συγχρονισμός παρόχων"
 
-#: includes/views/admin_options_shipping_provider.php:171
-#: includes/views/admin_options_shipping_provider.php:189
+#: includes/views/admin_options_shipping_provider.php:152
+#: includes/views/admin_options_shipping_provider.php:170
 #| msgid "Sync Shipping Providers"
 msgid "Sync Shipping Carriers"
 msgstr "Συγχρονισμός μεταφορέων αποστολής"
 
-#: includes/views/admin_options_shipping_provider.php:179
+#: includes/views/admin_options_shipping_provider.php:160
 #| msgid ""
 #| "Syncing the shipping providers list add or updates the pre-set shipping "
 #| "providers and will not effect custom shipping providers."

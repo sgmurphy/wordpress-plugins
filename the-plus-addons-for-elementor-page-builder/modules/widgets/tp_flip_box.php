@@ -5,7 +5,7 @@
  * Author: Theplus
  * Author URI: https://posimyth.com
  *
- * @package ThePlus
+ * @package The Plus Addons for Elementor
  */
 
 namespace TheplusAddons\Widgets;
@@ -2310,22 +2310,8 @@ class L_ThePlus_Flip_Box extends Widget_Base {
 			
 		}
 		
-		if ( ! empty( $settings['url_link']['url'] ) ) {
-			$this->add_render_attribute( 'box_link', 'href', $settings['url_link']['url'] );
-			if ( $settings['url_link']['is_external'] ) {
-				$this->add_render_attribute( 'box_link', 'target', '_blank' );
-			}
-			if ( $settings['url_link']['nofollow'] ) {
-				$this->add_render_attribute( 'box_link', 'rel', 'nofollow' );
-			}
-		}
-		
 		if(!empty($settings["title"])){
-			if (!empty($settings['url_link']['url'])){
-				$service_title= '<div class="service-title"> '.esc_html($settings["title"]).' </div>';
-			}else{
-				$service_title= '<div class="service-title"> '.esc_html($settings["title"]).' </div>';
-			}
+			$service_title= '<div class="service-title"> '.esc_html($settings["title"]).' </div>';
 		}
 		
 		

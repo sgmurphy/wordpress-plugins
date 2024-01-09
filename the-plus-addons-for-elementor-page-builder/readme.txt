@@ -4,7 +4,7 @@ Tags: Elementor, elementor widgets, elements, elementor addon, elementor templat
 Requires at least: 6.0
 Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 5.3.3
+Stable tag: 5.3.4
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -428,6 +428,11 @@ We have the most advanced caching architecture, Which will never bloat your site
 12. Unique 22+ Elementor Extensions
 
 == Changelog ==
+
+= 5.3.4 =
+Fix : Number Counter : Title Gradient color not working
+Add : Number Counter : Digit Gradient Color
+Fix : Minor bug fixes & Improvements
 
 = 5.3.3 =
 Fix : Social Icon : Border Color Not Working In Style 3

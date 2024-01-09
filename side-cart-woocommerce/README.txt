@@ -1,4 +1,4 @@
-===Side Cart Woocommerce (Ajax)===
+===Side Cart Woocommerce | Woocommerce Cart===
 Contributors: XootiX
 Donate link: https://www.paypal.me/xootix
 Tags: woocommerce cart, floating cart, cart popup, woocommerce, slider

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce Advanced Shipment Tracking\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-11 09:34+0000\n"
-"PO-Revision-Date: 2023-12-18 11:16+0000\n"
+"PO-Revision-Date: 2023-12-25 05:23+0000\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (Spain)\n"
 "Language: es_ES\n"
@@ -18,17 +18,12 @@ msgstr ""
 msgid "3plwinner"
 msgstr "3plganador"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:1897
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2210
-msgid "Add"
-msgstr "Agregar"
-
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2154
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2180
 msgid "Add API Name alias"
 msgstr "Agregar alias de nombre de API"
 
-#: includes/views/admin_options_shipping_provider.php:30
-#: includes/views/admin_options_shipping_provider.php:114
+#: includes/views/admin_options_shipping_provider.php:37
+#: includes/views/admin_options_shipping_provider.php:95
 msgid "Add Custom Carrier"
 msgstr "Agregar transportista personalizado"
 
@@ -140,15 +135,15 @@ msgid "Cannot create existing order shipment tracking."
 msgstr ""
 "No se puede crear el seguimiento de envío de pedidos existente.\n"
 
-#: includes/views/admin_options_shipping_provider.php:181
+#: includes/views/admin_options_shipping_provider.php:162
 msgid "Carriers Added"
 msgstr "Transportistas agregados"
 
-#: includes/views/admin_options_shipping_provider.php:183
+#: includes/views/admin_options_shipping_provider.php:164
 msgid "Carriers Deleted"
 msgstr "Transportistas eliminados"
 
-#: includes/views/admin_options_shipping_provider.php:182
+#: includes/views/admin_options_shipping_provider.php:163
 msgid "Carriers Updated"
 msgstr "Transportistas actualizados"
 
@@ -255,7 +250,7 @@ msgid_plural "Delivered <span class=\"count\">(%s)</span>"
 msgstr[0] "Entregado <span class=\"count\">(%s)</span>"
 msgstr[1] "Entregado <span class=\"count\">(%s)</span>"
 
-#: includes/views/admin_options_shipping_provider.php:33
+#: includes/views/admin_options_shipping_provider.php:40
 msgid "Deselect All"
 msgstr "Deseleccionar todo"
 
@@ -321,7 +316,7 @@ msgstr "Tipo de correo electrónico"
 
 #: includes/class-wc-advanced-shipment-tracking-admin.php:1602
 #: includes/class-wc-advanced-shipment-tracking-admin.php:1688
-#: includes/views/admin_options_shipping_provider.php:29
+#: includes/views/admin_options_shipping_provider.php:36
 msgid "Enable Carriers"
 msgstr "Habilitar transportistas"
 
@@ -333,13 +328,13 @@ msgstr "Habilitar correo electrónico"
 msgid "Enable Integration"
 msgstr "Habilitar integración"
 
-#: includes/views/admin_options_shipping_provider.php:75
+#: includes/views/admin_options_shipping_provider.php:64
 #| msgid "Add Shipping Carriers"
 msgid "Enable Shipping Carriers"
 msgstr "Habilitar transportistas de envío"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2046
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2063
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2072
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2089
 msgid "Filter by shipping provider"
 msgstr "Filtrar por proveedor de envío"
 
@@ -477,10 +472,13 @@ msgid "more info"
 msgstr ""
 "más información\n"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2154
+#: includes/class-wc-advanced-shipment-tracking-admin.php:2180
 msgid "Multiple API names mapping is a pro features"
 msgstr ""
 "La asignación de varios nombres de API es una característica profesional"
+
+msgid "New message"
+msgstr "Nuevo mensaje"
 
 #: includes/customizer/ast-customizer.php:581
 msgid "Normal"
@@ -529,8 +527,8 @@ msgstr "Otra"
 msgid "ParcelForce"
 msgstr "ParcelForce"
 
-#: includes/class-wc-advanced-shipment-tracking.php:495
 #: includes/class-wc-advanced-shipment-tracking-admin.php:915
+#: includes/class-wc-advanced-shipment-tracking.php:495
 #: includes/class-wc-advanced-shipment-tracking-settings.php:282
 #: includes/class-wc-advanced-shipment-tracking-settings.php:314
 #: includes/customizer/ast-customizer.php:131
@@ -609,7 +607,7 @@ msgstr "Comercio de QuickBooks (anteriormente TradeGecko)"
 msgid "ReadyToShip"
 msgstr "Listo para enviar"
 
-#: includes/views/admin_options_shipping_provider.php:24
+#: includes/views/admin_options_shipping_provider.php:31
 #| msgid "Delete Selected"
 msgid "Remove Selected"
 msgstr "Eliminar selección"
@@ -622,7 +620,7 @@ msgstr "Renombrar el estado de pedido \"Completado\" a \"Enviado\""
 msgid "Replace tracking information?"
 msgstr "¿Reemplazar la información de seguimiento?"
 
-#: includes/views/admin_options_shipping_provider.php:187
+#: includes/views/admin_options_shipping_provider.php:168
 #| msgid ""
 #| "Reset providers database, it will reset all your shipping provider "
 #| "\tdatabase"
@@ -647,12 +645,12 @@ msgstr "Guardar cerrar"
 msgid "Saved"
 msgstr "Salvado"
 
-#: includes/views/admin_options_shipping_provider.php:88
+#: includes/views/admin_options_shipping_provider.php:77
 #| msgid "Search by provider / country"
 msgid "Search by carrier / country"
 msgstr "Buscar por transportista / país"
 
-#: includes/views/admin_options_shipping_provider.php:32
+#: includes/views/admin_options_shipping_provider.php:39
 msgid "Select All"
 msgstr "Seleccionar todo"
 
@@ -681,10 +679,10 @@ msgstr "Se guardó la configuración."
 msgid "Shipment status changed to %s"
 msgstr "El estado del envío cambió a% s"
 
-#: includes/class-wc-advanced-shipment-tracking.php:142
-#: includes/class-wc-advanced-shipment-tracking.php:233
 #: includes/class-wc-advanced-shipment-tracking-admin.php:195
 #: includes/class-wc-advanced-shipment-tracking-admin.php:237
+#: includes/class-wc-advanced-shipment-tracking.php:142
+#: includes/class-wc-advanced-shipment-tracking.php:233
 msgid "Shipment Tracking"
 msgstr "Rastreo de envío"
 
@@ -692,8 +690,8 @@ msgstr "Rastreo de envío"
 msgid "Shipment Tracking API"
 msgstr "API de seguimiento de envíos"
 
-#: includes/class-wc-advanced-shipment-tracking.php:479
 #: includes/class-wc-advanced-shipment-tracking-admin.php:573
+#: includes/class-wc-advanced-shipment-tracking.php:479
 #: includes/class-wc-advanced-shipment-tracking-settings.php:438
 #: includes/customizer/ast-customizer.php:127
 #: includes/customizer/ast-customizer.php:353
@@ -731,21 +729,13 @@ msgstr "Embarcado:"
 msgid "Shipped Order"
 msgstr "Pedido enviado"
 
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2220
-msgid "Shipping Carrier Already Added"
-msgstr "Transportista ya agregado"
-
-#: includes/class-wc-advanced-shipment-tracking-admin.php:2224
-msgid "Shipping Carrier Not Found!"
-msgstr "¡Transportista no encontrado!"
-
 #: includes/class-wc-advanced-shipment-tracking-admin.php:288
 #: includes/class-wc-advanced-shipment-tracking-admin.php:292
-#: includes/views/admin_options_shipping_provider.php:19
+#: includes/views/admin_options_shipping_provider.php:26
 msgid "Shipping Carriers"
 msgstr "Transportistas de envío"
 
-#: includes/views/admin_options_shipping_provider.php:185
+#: includes/views/admin_options_shipping_provider.php:166
 #| msgid "Shipping providers database reset successfully."
 msgid "Shipping carriers database reset successfully."
 msgstr "La base de datos de los transportistas se restableció correctamente."
@@ -779,17 +769,17 @@ msgstr "Nube de camisa"
 msgid "Stamps.com"
 msgstr "Sellos.com"
 
-#: includes/views/admin_options_shipping_provider.php:31
+#: includes/views/admin_options_shipping_provider.php:38
 msgid "Sync Carriers"
 msgstr "Operadores de sincronización"
 
-#: includes/views/admin_options_shipping_provider.php:171
-#: includes/views/admin_options_shipping_provider.php:189
+#: includes/views/admin_options_shipping_provider.php:152
+#: includes/views/admin_options_shipping_provider.php:170
 #| msgid "Sync Shipping Providers"
 msgid "Sync Shipping Carriers"
 msgstr "Sincronizar transportistas de envío"
 
-#: includes/views/admin_options_shipping_provider.php:179
+#: includes/views/admin_options_shipping_provider.php:160
 #| msgid ""
 #| "Syncing the shipping providers list add or updates the pre-set shipping "
 #| "providers and will not effect custom shipping providers."

@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 1.2.47 =
+
+* Improves the search forms module.
+* Fixes an issue with WEEKNUM operation.
+* Modifies the Managing Fields Operations module to fix an issue with websites that load multiple instances of jQuery.
+* Modifies the submissions' shortcode in the Users Permissions add-on (Developer and Platinum plugin versions).
+
 = 1.2.46 =
 
 * Implements a search box to search by form name and content.

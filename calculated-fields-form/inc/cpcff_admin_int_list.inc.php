@@ -274,11 +274,12 @@ endif;
 						<input type="button" onclick="cff_openLibraryDialog();" name="gobtn" value="<?php esc_attr_e( 'From Template', 'calculated-fields-form' ); ?>" class="button-secondary" style="margin-top:5px;" />
                     </div>
                 </form>
+                <i id="cff-top-position"></i>
             </div>
         </div>
 
 		<!-- Form Categories -->
-        <form id="metabox_categories_list" action="admin.php?page=cp_calculated_fields_form" method="post">
+        <form id="metabox_categories_list" action="admin.php?page=cp_calculated_fields_form#cff-top-position" method="post">
 			<input type="hidden" name="_cpcff_nonce" value="<?php echo esc_attr( wp_create_nonce( 'cff-change-category' ) ); ?>" />
 			<b><?php esc_html_e( 'Form Categories', 'calculated-fields-form' ); ?></b>
             <select name="calculated-fields-form-category" onchange="this.form.submit();">
@@ -290,7 +291,7 @@ endif;
             <b><?php _e('Search', 'calculated-fields-form'); ?></b>
             <input type="text" name="calculated-fields-search-form" placeholder="<?php esc_attr_e( '- search term -', 'calculated-fields-form' ); ?>" value="<?php esc_attr_e( $cff_search_form_term ); ?>" />
             <input type="submit" value="<?php esc_attr_e( 'Search', 'calculated-fields-form' ); ?>" class="button-primary" />
-            <input type="submit" value="<?php esc_attr_e( 'Reset', 'calculated-fields-form' ); ?>" onclick="jQuery('[name=\'calculated-fields-form-category\'] option:first-child').prop('selected', true);jQuery('[name=\'calculated-fields-search-form\']').val('');" class="button-secondary" />
+            <input id="cff-reset-forms-filter" type="submit" value="<?php esc_attr_e( 'Reset', 'calculated-fields-form' ); ?>" onclick="jQuery('[name=\'calculated-fields-form-category\'] option:first-child').prop('selected', true);jQuery('[name=\'calculated-fields-search-form\']').val('');" class="button-secondary" />
 		</form>
 
         <div id="forms_pagination">
@@ -318,7 +319,7 @@ endif;
 							min( $total_pages, max( 1, intval( sanitize_text_field( wp_unslash( $_REQUEST['page-number'] ) ) ) ) ) :
 							1;
             ?>
-            <form action="admin.php?page=cp_calculated_fields_form#forms_pagination" method="post">
+            <form action="admin.php?page=cp_calculated_fields_form#cff-top-position" method="post">
                 <input type="hidden" name="_cpcff_nonce" value="<?php echo wp_create_nonce( 'cff-records-per-page' ); ?>" />
                 <input type="hidden" name="page-number" value="<?php echo esc_attr( $current_page ); ?>" />
                 <select name="calculated-fields-form-records-per-page" onchange="this.form.submit();" style="margin-left: 20px; margin-bottom:10px;">
@@ -359,6 +360,11 @@ endif;
 			if ( '' != $cff_current_form_category ) {
 				print '&nbsp;' . esc_html__( 'in', 'calculated-fields-form' ) . '&nbsp;<u>' . esc_html( $cff_current_form_category ) . '</u>&nbsp;' . esc_html__( 'category', 'calculated-fields-form' );
 			}
+
+			if($cff_search_form_term != '')
+			{
+				print ',&nbsp;'.__('search term(s)', 'calculated-fields-form').'&nbsp;<u>' . esc_html( $cff_search_form_term ) . '</u>';
+			}
 			?></span></h3>
 			<div class="inside" style="overflow-x:auto;">
 				<table cellspacing="10" class="cff-custom-table cff-forms-list">
@@ -374,6 +380,21 @@ endif;
 					</thead>
 					<tbody>
 					<?php
+					if ( count( $myrows ) == 0 ) {
+						print '<tr><td colspan="4" style="text-align:center;margin-top:20px;font-size:1.2em;">' .
+						esc_html__( 'Forms list is empty.', 'calculated-fields-form' ) .
+						(
+							$cff_search_form_term != '' ?
+							'&nbsp;' . esc_html__( 'No forms match the search term(s)', 'calculated-fields-form' ) . '&nbsp;<b><u>' . esc_html( $cff_search_form_term ) . '</u></b>' .
+							(
+								$cff_current_form_category != '' ?
+								'&nbsp;' . esc_html__( 'in the', 'calculated-fields-form' ) .
+								'&nbsp;<b><u>' . $cff_current_form_category . '</u></b>&nbsp;' . esc_html__( 'category', 'calculated-fields-form' )
+								:  ''
+							) . '&nbsp;(<a href="javascript:jQuery(\'#cff-reset-forms-filter\').click();">' . esc_html__( 'reset', 'calculated-fields-form' ) . '</a>)' :
+							''
+						) . '</td></tr>';
+					}
 					for ( $items_index = ( $current_page - 1 ) * $records_per_page; $items_index < min( $current_page * $records_per_page, count( $myrows ) ); $items_index++ ) {
 						$item = $myrows[ $items_index ];
 						?>

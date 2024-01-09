@@ -55,6 +55,11 @@ Check out the [ManageWP promo video](https://vimeo.com/220647227).
 https://vimeo.com/220647227
 
 == Changelog ==
+= 4.9.19 =
+- Fix: Absolute path on Windows systems
+- Code cleanup
+
+== Changelog ==
 = 4.9.18 =
 - Fix: PHP 8.X Compatibility notices
 - WordPress 6.4 compatibility bump

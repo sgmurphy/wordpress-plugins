@@ -49,9 +49,7 @@
                   this.addButton({
                     name: 'skip',
                     text: 'Skip & Deactivate',
-                    callback: function callback() {
-                      self.deactivate();
-                    }
+                    callback: self.skipFeedback.bind(self)
                   });
                 },
                 onShow: function onShow() {
@@ -105,6 +103,28 @@
           location.href = $('#the-list').find('[data-slug="the-plus-addons-for-elementor-page-builder"] span.deactivate a').attr('href')
         }
       });
+    },
+    skipFeedback: function skipFeedback() {
+      var self = this,
+          formData = self.cache.$dialogForm.serialize(),
+          queryParams = new URLSearchParams(formData);
+
+          jQuery.ajax({
+            url: theplus_ajax_url,
+            type: "post",
+            data: {
+              action: 'tp_skip_rateus_notice',
+              nonce: queryParams.get('nonce'),
+            },
+            beforeSend: function () {
+            },
+            success: function (response) {
+              location.href = $('#the-list').find('[data-slug="the-plus-addons-for-elementor-page-builder"] span.deactivate a').attr('href')
+            },
+            error: function (xhr, status, error) {
+              location.href = $('#the-list').find('[data-slug="the-plus-addons-for-elementor-page-builder"] span.deactivate a').attr('href')
+            }
+          });
     },
     init: function init() {
       this.initModal();

@@ -80,7 +80,7 @@ if ( ! class_exists( 'Tp_User_Experience_Main' ) ) {
 		 */
 		public function __construct() {
 			$this->tp_white_label();
-			$this->tp_user_experience_feedback();
+			$this->tp_user_experience();
 		}
 
 		/**
@@ -100,7 +100,14 @@ if ( ! class_exists( 'Tp_User_Experience_Main' ) ) {
 		 * @since 5.3.3
 		 * @access public
 		 */
-		public function tp_user_experience_feedback() {
+		public function tp_user_experience() {
+
+			$tpae_exoption = get_option( 'tpae_onbording_end' );
+
+			if ( empty( $tpae_exoption ) ) {
+				include L_THEPLUS_PATH . 'includes/user-experience/class-tp-onbording.php';
+			}
+
 			include L_THEPLUS_PATH . 'includes/user-experience/class-tp-deactivate-feedback.php';
 		}
 	}

@@ -326,7 +326,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/Bzbl0LmNZ1s',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 192 512"><path d="M166.9 264.5l-117.8 116c-4.7 4.7-12.3 4.7-17 0l-7.1-7.1c-4.7-4.7-4.7-12.3 0-17L127.3 256 25.1 155.6c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0l117.8 116c4.6 4.7 4.6 12.3-.1 17z"/></svg>',
-				'keyword' => ['breadcrumbs bar'],
+				'keyword' => ['Breadcrumb', 'Navigation', 'Trail', 'Path', 'Links', 'Navigational Links', 'Navigation Bar'],
 			],
 			'tp_button' => [
 				'label' => esc_html__('Button','tpebl'),
@@ -425,7 +425,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/XIFS3qq-q-s',
 				'tag' => 'pro',
 				'labelIcon' => '<svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="tags" class="svg-inline--fa fa-tags fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 640 512"><path d="M625.941 293.823L421.823 497.941c-18.746 18.746-49.138 18.745-67.882 0l-1.775-1.775 22.627-22.627 1.775 1.775c6.253 6.253 16.384 6.243 22.627 0l204.118-204.118c6.238-6.239 6.238-16.389 0-22.627L391.431 36.686A15.895 15.895 0 0 0 380.117 32h-19.549l-32-32h51.549a48 48 0 0 1 33.941 14.059L625.94 225.941c18.746 18.745 18.746 49.137.001 67.882zM252.118 32H48c-8.822 0-16 7.178-16 16v204.118c0 4.274 1.664 8.292 4.686 11.314l211.882 211.882c6.253 6.253 16.384 6.243 22.627 0l204.118-204.118c6.238-6.239 6.238-16.389 0-22.627L263.431 36.686A15.895 15.895 0 0 0 252.118 32m0-32a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.746 18.746-49.138 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118V48C0 21.49 21.49 0 48 0h204.118zM144 124c-11.028 0-20 8.972-20 20s8.972 20 20 20 20-8.972 20-20-8.972-20-20-20m0-28c26.51 0 48 21.49 48 48s-21.49 48-48 48-48-21.49-48-48 21.49-48 48-48z"></path></svg>',
-				'keyword' => ['coupon','promo code','code','discount'],
+				'keyword' => ['Coupon', 'Code', 'Discount', 'Promo', 'Voucher', 'Offer', 'Deal', 'Savings', 'Discount Code', 'Promo Code', 'Voucher Code', 'Coupon Deal', 'Coupon Offer', 'Coupon Savings', 'Discount Offer', 'Discount Deal', 'Promo Offer', 'Promo Deal', 'Voucher Offer', 'Voucher Deal'],
 			],
 			'tp_dark_mode' => [
 				'label' => esc_html__('Dark Mode','tpebl'),
@@ -461,7 +461,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/Atp_gVyWko8',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path d="M256 224c-79.41 0-192 122.76-192 200.25 0 34.9 26.81 55.75 71.74 55.75 48.84 0 81.09-25.08 120.26-25.08 39.51 0 71.85 25.08 120.26 25.08 44.93 0 71.74-20.85 71.74-55.75C448 346.76 335.41 224 256 224zm120.26 224c-20.3 0-37.81-5.77-56.35-11.88-19.68-6.49-40.02-13.19-63.91-13.19-23.65 0-43.85 6.67-63.39 13.12-18.64 6.15-36.25 11.96-56.87 11.96C96 448 96 430.12 96 424.25 96 361.35 196.19 256 256 256s160 105.35 160 168.25c0 5.87 0 23.75-39.74 23.75zm98.57-286.73c-3.57-.86-7.2-1.27-10.81-1.27-25.85 0-51.62 21-60.74 51.39-10.4 34.65 4.77 68.38 33.89 75.34 3.58.86 7.2 1.27 10.81 1.27 25.85 0 51.62-21 60.74-51.39 10.4-34.65-4.77-68.38-33.89-75.34zm3.24 66.14C472.7 245.3 458.55 256 447.98 256c-1.16 0-2.29-.13-3.37-.39-3.7-.88-6.72-3.32-8.98-7.25-4.13-7.18-4.76-17.55-1.7-27.76 5.37-17.9 19.52-28.6 30.1-28.6 1.16 0 2.29.13 3.37.39 3.7.88 6.72 3.33 8.98 7.25 4.12 7.18 4.76 17.55 1.69 27.77zm-159.51-36.8c3.55.93 7.15 1.38 10.76 1.38 27.84 0 56.22-26.82 66.7-65.25 11.84-43.42-3.64-85.21-34.58-93.36a41.92 41.92 0 0 0-10.76-1.39c-27.84 0-56.22 26.82-66.7 65.26-11.84 43.42 3.64 85.22 34.58 93.36zm-3.71-84.93C322.27 78.48 340.43 64 350.68 64c.91 0 1.77.11 2.61.33 4.13 1.09 7.12 5 8.9 8.09 5.08 8.8 8.52 25.48 2.95 45.91-7.42 27.19-25.57 41.67-35.83 41.67-.91 0-1.77-.11-2.62-.33-4.12-1.08-7.12-4.99-8.9-8.08-5.07-8.81-8.51-25.48-2.94-45.91zM182.68 192c3.61 0 7.21-.45 10.76-1.38 30.94-8.14 46.42-49.94 34.58-93.36C217.54 58.82 189.16 32 161.32 32c-3.61 0-7.21.45-10.76 1.39-30.94 8.14-46.42 49.94-34.58 93.36 10.48 38.43 38.87 65.25 66.7 65.25zM149.8 72.42c1.78-3.09 4.78-7 8.9-8.09.85-.22 1.7-.33 2.61-.33 10.26 0 28.41 14.48 35.83 41.68 5.57 20.43 2.13 37.11-2.95 45.91-1.78 3.09-4.77 7-8.9 8.08-.85.22-1.7.33-2.61.33-10.26 0-28.41-14.48-35.83-41.68-5.57-20.42-2.13-37.1 2.95-45.9zM74.84 286.73c29.12-6.96 44.29-40.69 33.88-75.34C99.6 181 73.83 160 47.98 160c-3.62 0-7.24.41-10.81 1.27-29.12 6.96-44.29 40.69-33.89 75.34C12.4 267 38.18 288 64.02 288c3.62 0 7.24-.41 10.82-1.27zM33.93 227.4c-3.06-10.21-2.43-20.59 1.7-27.76 2.26-3.93 5.28-6.37 8.98-7.25 1.08-.26 2.21-.39 3.37-.39 10.57 0 24.72 10.7 30.09 28.59 3.06 10.21 2.43 20.59-1.7 27.77-2.26 3.93-5.28 6.37-8.98 7.25-1.1.26-2.2.39-3.37.39-10.57 0-24.72-10.7-30.09-28.6z"/></svg>',
-				'keyword' => ['dynamic categories','categories','listing'],
+				'keyword' => ['Dynamic Category', 'Category', 'Category Widget', 'Dynamic Category Widget', 'Elementor Dynamic Category', 'Elementor Category Widget', 'Elementor Dynamic Category Widget', 'Dynamic Category Elementor Addon', 'Category Elementor Addon', 'Dynamic Category Plus Addons', 'Category Plus Addons', 'Dynamic Category The Plus Addons', 'Category The Plus Addons'],
 			],
 			'tp_dynamic_device' => [
 				'label' => esc_html__('Dynamic Device','tpebl'),
@@ -488,7 +488,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/lGgVQpbmuWg',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path fill="currentColor" d="M187.7 153.7c-34 0-61.7 25.7-61.7 57.7 0 31.7 27.7 57.7 61.7 57.7s61.7-26 61.7-57.7c0-32-27.7-57.7-61.7-57.7zm143.4 0c-34 0-61.7 25.7-61.7 57.7 0 31.7 27.7 57.7 61.7 57.7 34.3 0 61.7-26 61.7-57.7.1-32-27.4-57.7-61.7-57.7zm156.6 90l-6 4.3V49.7c0-27.4-20.6-49.7-46-49.7H76.6c-25.4 0-46 22.3-46 49.7V248c-2-1.4-4.3-2.9-6.3-4.3-15.1-10.6-25.1 4-16 17.7 18.3 22.6 53.1 50.3 106.3 72C58.3 525.1 252 555.7 248.9 457.5c0-.7.3-56.6.3-96.6 5.1 1.1 9.4 2.3 13.7 3.1 0 39.7.3 92.8.3 93.5-3.1 98.3 190.6 67.7 134.3-124 53.1-21.7 88-49.4 106.3-72 9.1-13.8-.9-28.3-16.1-17.8zm-30.5 19.2c-68.9 37.4-128.3 31.1-160.6 29.7-23.7-.9-32.6 9.1-33.7 24.9-10.3-7.7-18.6-15.5-20.3-17.1-5.1-5.4-13.7-8-27.1-7.7-31.7 1.1-89.7 7.4-157.4-28V72.3c0-34.9 8.9-45.7 40.6-45.7h317.7c30.3 0 40.9 12.9 40.9 45.7v190.6z"></path></svg>',
-				'keyword' => ['dynamic magazine filter', 'dynamic magazine slider', 'dynamic post ticker', 'post ticker', 'ticker', 'dynamic ticker', 'post magazine', 'magazine slider','magazine filter', 'blog slider', 'dynamic slider', 'dynamic filter', 'magazine', 'blog'],
+				'keyword' => ['Magazine Slider', 'Elementor Magazine Slider', 'Slider Widget', 'Magazine Carousel', 'Elementor Carousel', 'Slider Elementor Addon', 'Magazine Slider Elementor Addon', 'Elementor Slider Plugin', 'Magazine Slider Plugin', 'Elementor Magazine Carousel', 'Magazine Slider Widget', 'Magazine', 'Filter', 'Elementor Addon', 'Search bar', 'Widget', 'Dynamic Ticker', 'Ticker widget', 'News ticker', 'Scrolling news', 'Breaking news', 'Headline ticker', 'News feed', 'Live updates', 'Latest news', 'News marquee', 'News carousel', 'News slider', 'News ticker plugin', 'Elementor news ticker', 'Elementor ticker widget', 'Elementor scrolling news', 'Elementor breaking news', 'Elementor headline ticker', 'Elementor news feed', 'Elementor live updates', 'Elementor latest news', 'Elementor news marquee', 'Elementor news carousel', 'Elementor news slider'],
 			],
 			'tp_everest_form' => [
 				'label' => esc_html__('Everest Form','tpebl'),
@@ -515,7 +515,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/tw7aIjUKbIk',
 				'tag' => 'freemium',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path fill="currentColor" d="M301.1 212c4.4 4.4 4.4 11.9 0 16.3l-9.7 9.7c-4.4 4.7-11.9 4.7-16.6 0l-10.5-10.5c-4.4-4.7-4.4-11.9 0-16.6l9.7-9.7c4.4-4.4 11.9-4.4 16.6 0l10.5 10.8zm-30.2-19.7c3-3 3-7.8 0-10.5-2.8-3-7.5-3-10.5 0-2.8 2.8-2.8 7.5 0 10.5 3.1 2.8 7.8 2.8 10.5 0zm-26 5.3c-3 2.8-3 7.5 0 10.2 2.8 3 7.5 3 10.5 0 2.8-2.8 2.8-7.5 0-10.2-3-3-7.7-3-10.5 0zm72.5-13.3c-19.9-14.4-33.8-43.2-11.9-68.1 21.6-24.9 40.7-17.2 59.8.8 11.9 11.3 29.3 24.9 17.2 48.2-12.5 23.5-45.1 33.2-65.1 19.1zm47.7-44.5c-8.9-10-23.3 6.9-15.5 16.1 7.4 9 32.1 2.4 15.5-16.1zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-66.2 42.6c2.5-16.1-20.2-16.6-25.2-25.7-13.6-24.1-27.7-36.8-54.5-30.4 11.6-8 23.5-6.1 23.5-6.1.3-6.4 0-13-9.4-24.9 3.9-12.5.3-22.4.3-22.4 15.5-8.6 26.8-24.4 29.1-43.2 3.6-31-18.8-59.2-49.8-62.8-22.1-2.5-43.7 7.7-54.3 25.7-23.2 40.1 1.4 70.9 22.4 81.4-14.4-1.4-34.3-11.9-40.1-34.3-6.6-25.7 2.8-49.8 8.9-61.4 0 0-4.4-5.8-8-8.9 0 0-13.8 0-24.6 5.3 11.9-15.2 25.2-14.4 25.2-14.4 0-6.4-.6-14.9-3.6-21.6-5.4-11-23.8-12.9-31.7 2.8.1-.2.3-.4.4-.5-5 11.9-1.1 55.9 16.9 87.2-2.5 1.4-9.1 6.1-13 10-21.6 9.7-56.2 60.3-56.2 60.3-28.2 10.8-77.2 50.9-70.6 79.7.3 3 1.4 5.5 3 7.5-2.8 2.2-5.5 5-8.3 8.3-11.9 13.8-5.3 35.2 17.7 24.4 15.8-7.2 29.6-20.2 36.3-30.4 0 0-5.5-5-16.3-4.4 27.7-6.6 34.3-9.4 46.2-9.1 8 3.9 8-34.3 8-34.3 0-14.7-2.2-31-11.1-41.5 12.5 12.2 29.1 32.7 28 60.6-.8 18.3-15.2 23-15.2 23-9.1 16.6-43.2 65.9-30.4 106 0 0-9.7-14.9-10.2-22.1-17.4 19.4-46.5 52.3-24.6 64.5 26.6 14.7 108.8-88.6 126.2-142.3 34.6-20.8 55.4-47.3 63.9-65 22 43.5 95.3 94.5 101.1 59z"></path></svg>',
-				'keyword' => ['gallery listing'],
+				'keyword' => ['ACF', 'gallery', 'field','gallery listing'],
 			],
 			'tp_google_map' => [
 				'label' => esc_html__('Google Map','tpebl'),
@@ -524,7 +524,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/NwY-Pt8q-6g',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 576 512"><path d="M560.02 32c-1.96 0-3.98.37-5.96 1.16L384.01 96H384L212 35.28A64.252 64.252 0 0 0 191.76 32c-6.69 0-13.37 1.05-19.81 3.14L20.12 87.95A32.006 32.006 0 0 0 0 117.66v346.32C0 473.17 7.53 480 15.99 480c1.96 0 3.97-.37 5.96-1.16L192 416l172 60.71a63.98 63.98 0 0 0 40.05.15l151.83-52.81A31.996 31.996 0 0 0 576 394.34V48.02c0-9.19-7.53-16.02-15.98-16.02zM30.63 118.18L176 67.61V387.8L31.91 441.05l-1.28-322.87zM208 387.71V67.8l160 56.48v319.91l-160-56.48zm192 56.68V124.2l144.09-53.26 1.28 322.87L400 444.39z"/></svg>',
-				'keyword' => ['google map','map'],
+				'keyword' => ['Google Map', 'map', 'location', 'directions', 'navigation', 'interactive map', 'map widget', 'map element', 'map plugin', 'map addon', 'map extension'],
 			],
 			'tp_gravity_form' => [
 				'label' => esc_html__('Gravity Form','tpebl'),
@@ -587,7 +587,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => '#',
 				'tag' => 'pro',
 				'labelIcon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.53002 7.46967C7.23712 7.17678 6.76225 7.17678 6.46936 7.46967L2.14936 11.7897C2.00719 11.9318 1.92806 12.1251 1.92971 12.3262C1.93137 12.5272 2.01367 12.7192 2.15816 12.859L6.47816 17.039C6.77584 17.327 7.25065 17.3192 7.53868 17.0215C7.82671 16.7238 7.81889 16.249 7.52121 15.961L3.74915 12.3112L7.53002 8.53033C7.82291 8.23744 7.82291 7.76256 7.53002 7.46967ZM16.4694 7.46967C16.7622 7.17678 17.2371 7.17678 17.53 7.46967L21.85 11.7897C21.9922 11.9318 22.0713 12.1251 22.0697 12.3262C22.068 12.5272 21.9857 12.7192 21.8412 12.859L17.5212 17.039C17.2235 17.327 16.7487 17.3192 16.4607 17.0215C16.1727 16.7238 16.1805 16.249 16.4782 15.961L20.2502 12.3112L16.4694 8.53033C16.1765 8.23744 16.1765 7.76256 16.4694 7.46967ZM13.4997 12C13.4997 12.8284 12.8281 13.5 11.9997 13.5C11.1713 13.5 10.4997 12.8284 10.4997 12C10.4997 11.1716 11.1713 10.5 11.9997 10.5C12.8281 10.5 13.4997 11.1716 13.4997 12ZM14.9997 12C14.9997 13.6569 13.6565 15 11.9997 15C10.3428 15 8.99969 13.6569 8.99969 12C8.99969 10.3431 10.3428 9 11.9997 9C13.6565 9 14.9997 10.3431 14.9997 12Z" fill="black"/></svg>',
-				'keyword' => ['Page Scroll, Horizontal Scroll, Horizontal Page Scroll, Horizontal Scrolling, Horizontal Scroll Section'],
+				'keyword' => ['Page Piling', 'Page Scroll', 'Scrollable Pages', 'Vertical Scroll', 'Full Page Scroll', 'Scrollable Sections', 'Full Page', 'Full-Width Page', 'Full Width', 'Full Width Template'],
 			],
 			'tp_image_factory' => [
 				'label' => esc_html__('Creative Image','tpebl'),
@@ -605,7 +605,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/wcnlT5JE0vM',
 				'tag' => 'freemium',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-36 344h12V232h-12c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12h48c6.627 0 12 5.373 12 12v140h12c6.627 0 12 5.373 12 12v8c0 6.627-5.373 12-12 12h-72c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12zm36-240c-17.673 0-32 14.327-32 32s14.327 32 32 32 32-14.327 32-32-14.327-32-32-32z"/></svg>',
-				'keyword' => [ 'Info Box', 'Information Box', 'Content Box', 'Text Box', 'Feature Box', 'Icon Box', 'Callout Box', 'Highlight Box', 'Notification Box', 'Alert Box', 'Message Box', 'Card Box', 'Box Widget', 'Box Element', 'Box Container' ],
+				'keyword' => [ 'Message Box', 'Alert Box', 'Notification Box', 'Info Box', 'Callout Box', 'Warning Box', 'Success Box', 'Error Box', 'Message Widget', 'Alert Widget', 'Notification Widget', 'Info Widget', 'Callout Widget', 'Warning Widget', 'Success Widget', 'Error Widget' ],
 			],
 			'tp_instagram' => [
 				'label' => esc_html__('Instagram','tpebl'),
@@ -632,7 +632,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/I7BLgbK6nBA',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path d="M464 64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zM48 96h416c8.8 0 16 7.2 16 16v41.4c-21.9 18.5-53.2 44-150.6 121.3-16.9 13.4-50.2 45.7-73.4 45.3-23.2.4-56.6-31.9-73.4-45.3C85.2 197.4 53.9 171.9 32 153.4V112c0-8.8 7.2-16 16-16zm416 320H48c-8.8 0-16-7.2-16-16V195c22.8 18.7 58.8 47.6 130.7 104.7 20.5 16.4 56.7 52.5 93.3 52.3 36.4.3 72.3-35.5 93.3-52.3 71.9-57.1 107.9-86 130.7-104.7v205c0 8.8-7.2 16-16 16z"/></svg>',
-				'keyword' => ['mailchimp'],
+				'keyword' => ['Mailchimp', 'Subscription', 'Email Subscription', 'Email Opt-in', 'Email Signup', 'Newsletter Signup', 'Newsletter Subscription'],
 			],
 			'tp_meeting_scheduler' => [
 				'label' => esc_html__('Meeting Scheduler','tpebl'),
@@ -659,7 +659,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/PDXbtRsYwGE',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 320 512"><path d="M192 416c0 17.7-14.3 32-32 32s-32-14.3-32-32 14.3-32 32-32 32 14.3 32 32zM320 48v416c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48C0 21.5 21.5 0 48 0h224c26.5 0 48 21.5 48 48zm-32 0c0-8.8-7.2-16-16-16H48c-8.8 0-16 7.2-16 16v416c0 8.8 7.2 16 16 16h224c8.8 0 16-7.2 16-16V48z"/></svg>',
-				'keyword' => ['accordion','faq'],
+				'keyword' => ['Mobile Menu', 'Hamburger Menu', 'Responsive Menu', 'Navigation Menu', 'Menu Widget', 'Elementor Menu', 'Elementor Navigation', 'Elementor Mobile Menu'],
 			],
 			'tp_morphing_layouts' => [
 				'label' => esc_html__('Morphing Layouts','tpebl'),
@@ -677,7 +677,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://youtu.be/ggEhdsdjxxw',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 320 512"><path d="M154.149 488.438l-41.915-101.865-46.788 52.8C42.432 465.345 0 448.788 0 413.5V38.561c0-34.714 41.401-51.675 64.794-26.59L309.547 274.41c22.697 24.335 6.074 65.09-27.195 65.09h-65.71l42.809 104.037c8.149 19.807-1.035 42.511-20.474 50.61l-36 15.001c-19.036 7.928-40.808-1.217-48.828-20.71zm-31.84-161.482l61.435 149.307c1.182 2.877 4.117 4.518 6.926 3.347l35.999-15c3.114-1.298 4.604-5.455 3.188-8.896L168.872 307.5h113.479c5.009 0 7.62-7.16 3.793-11.266L41.392 33.795C37.785 29.932 32 32.879 32 38.561V413.5c0 5.775 5.935 8.67 9.497 4.65l80.812-91.194z"/></svg>',
-				'keyword' => ['mouse cursor'],
+				'keyword' => ['Mouse Cursor', 'Cursor', 'Elementor Cursor', 'Elementor Mouse Cursor', 'Custom Cursor', 'Elementor Custom Cursor', 'Cursor Widget', 'Mouse Cursor Widget', 'Elementor Cursor Widget', 'Elementor Mouse Cursor Widget', 'The Plus Addons Cursor', 'The Plus Addons Mouse Cursor', 'The Plus Addons Elementor Cursor', 'Elementor Addon Cursor', 'Elementor Addon Mouse Cursor', 'Elementor Addon Custom Cursor'],
 			],
 			'tp_navigation_menu_lite' => [
 				'label' => esc_html__('TP Navigation Menu Lite','tpebl'),
@@ -785,7 +785,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://youtu.be/74bj6WcEhiY',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 448 512"><path d="M442 114H6a6 6 0 0 1-6-6V84a6 6 0 0 1 6-6h436a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6zm0 160H6a6 6 0 0 1-6-6v-24a6 6 0 0 1 6-6h436a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6zm0 160H6a6 6 0 0 1-6-6v-24a6 6 0 0 1 6-6h436a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6z"/></svg>',
-				'keyword' => [ 'Offcanvas', 'Off-canvas', 'Slide out', 'Slide-in', 'Side menu', 'Overlay menu', 'Hidden menu', 'Drawer menu', 'Hamburger menu', 'Mobile menu' ],
+				'keyword' => [ 'Offcanvas', 'Off-canvas', 'Slide out', 'Slide-in', 'Side menu', 'Overlay menu', 'Hidden menu', 'Drawer menu', 'Hamburger menu', 'Mobile menu', 'Popup', 'Modal', 'Pop-up', 'Overlay', 'Lightbox', 'Popover', 'Dialog', 'Message box', 'Notification', 'Alert' ],
 			],
 			'tp_page_scroll' => [
 				'label' => esc_html__('Page Scroll','tpebl'),
@@ -803,7 +803,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://youtu.be/pi5i45p8sxc',
 				'tag' => 'pro',
 				'labelIcon' => '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" class="svg-inline--fa fa-spinner fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path></svg>',
-				'keyword' => ['loader', 'preloader', 'pre loader'],
+				'keyword' => ['Preloader', 'Loading screen', 'Page loader', 'Spinner', 'Loading animation', 'Loading icon', 'Elementor preloader', 'Elementor loading screen', 'Elementor page loader', 'Elementor spinner', 'Elementor loading animation', 'Elementor loading icon'],
 			],
 			'tp_pricing_list' => [
 				'label' => esc_html__('Pricing List','tpebl'),
@@ -875,7 +875,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/2uIMQCIfjlM',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path d="M455.59 0c-15.81 0-30.62 6.99-41.93 17.15C195.73 211.82 169.77 216.5 179.98 281.99c-41.52 4.96-78.59 24.05-100.32 81.32-2.68 7.08-9.12 11.38-16.64 11.38-12.67 0-51.85-31.56-63.02-39.19C0 429.45 43.26 512 146 512c117.18 0 152.72-87.75 145.06-145.89 56.9-7.01 97.15-62.51 206.45-266.49C505.2 84.65 512 68.48 512 51.66 512 21.52 484.89 0 455.59 0zM236.52 445.55C216.47 468.41 186.02 480 146 480c-63.78 0-92.29-38.83-104.75-78.69 8.02 3.65 14.98 5.39 21.77 5.39 20.92 0 39.2-12.58 46.56-32.03 6.65-17.52 16.05-53.95 83.76-62.04l65.08 50.62c4.03 30.68-1.25 58.75-21.9 82.3zM469.31 84.5c-118.4 220.96-143.69 245.11-194.08 251.31l-62-48.22c-8.8-56.43-14.8-35.28 221.82-246.64 6.33-5.69 13.81-8.95 20.54-8.95C467.38 32 480 39.9 480 51.66c0 10.58-5.54 22.79-10.69 32.84z"/></svg>',
-				'keyword' => ['row background', 'section background', 'canvas', 'particles js', 'segmentation', 'gallery background', 'slideshow background', 'video background', 'youtube background', 'vimeo background', 'mobile video background', 'parallax background, segment', 'animated gradient background', 'on scroll background color change', 'on scroll morphing shape background', 'background fixed SVG morphing', 'on Scroll background Image change', 'kenburn gallery', 'kenburn background'],
+				'keyword' => ['Row Background', 'Background for Row', 'Row Background Color', 'Row Background Image', 'Row Background Options', 'Row Background Styles', 'Parallax', 'Background', 'Parallax Background', 'Elementor Parallax', 'Elementor Background', 'Segment', 'Elementor', 'Widget', 'Canvas', 'Plus Addons', 'Search bar', 'Keywords', 'Terms', 'Gallery', 'Image', 'Photo', 'Picture', 'Slider', 'Carousel', 'Grid', 'Masonry', 'Thumbnail', 'Portfolio', 'Special Backgrounds', 'Backgrounds', 'Custom Backgrounds', 'Unique Backgrounds', 'Elementor Backgrounds', 'Plus Addons Widget', 'The Plus Addons Widget', 'Video Background', 'Background Video', 'Video Background Widget', 'Background Video Widget', 'Elementor Video Background', 'Elementor Background Video', 'Video Background Addon', 'Background Video Addon', 'The Plus Addons Video Background', 'The Plus Addons Background Video'],
 			],
 			'tp_scroll_navigation' => [
 				'label' => esc_html__('Scroll Navigation','tpebl'),
@@ -911,7 +911,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/pO_uo2EFCP0',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path d="M25.07 140.44a11.93 11.93 0 0 0 16.91.09L96 87.86V472a8 8 0 0 0 8 8h16a8 8 0 0 0 8-8V88.08l53.94 52.35a12 12 0 0 0 16.92 0l5.64-5.66a12 12 0 0 0 0-17l-84.06-82.3a11.94 11.94 0 0 0-16.87 0l-84 82.32a12 12 0 0 0-.09 17zM276 192h152a20 20 0 0 0 20-20V52a20 20 0 0 0-20-20H276a20 20 0 0 0-20 20v120a20 20 0 0 0 20 20zm12-128h128v96H288zm196 192H284a28 28 0 0 0-28 28v168a28 28 0 0 0 28 28h200a28 28 0 0 0 28-28V284a28 28 0 0 0-28-28zm-4 192H288V288h192z"></path></svg>',
-				'keyword' => ['search filter'],
+				'keyword' => ['WooCommerce', 'Filter', 'Product Filter', 'Shop Filter', 'Ecommerce Filter', 'Elementor WooCommerce Filter', 'Elementor Product Filter', 'Elementor Shop Filter', 'Elementor Ecommerce Filter', 'Search bar', 'search widget', 'search element', 'search tool', 'search functionality', 'search feature', 'search box', 'search option', 'search module', 'search plugin', 'search extension', 'search component', 'search elementor addon', 'search plus addons for elementor', 'search filters', 'filter widget', 'filter element', 'filter tool', 'filter functionality', 'filter feature', 'filter box', 'filter option', 'filter module', 'filter plugin', 'filter extension', 'filter component', 'filter elementor addon', 'filter plus addons for elementor'],
 			],
 			'tp_site_logo' => [
 				'label' => esc_html__('Site Logo','tpebl'),
@@ -920,7 +920,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/96Wh1AEKNtU',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 384 512"><path d="M216 24.01c0-23.8-31.16-33.11-44.15-13.04C76.55 158.25 200 238.73 200 288c0 22.06-17.94 40-40 40s-40-17.94-40-40V182.13c0-19.39-21.85-30.76-37.73-19.68C30.75 198.38 0 257.28 0 320c0 105.87 86.13 192 192 192s192-86.13 192-192c0-170.29-168-192.85-168-295.99zM192 480c-88.22 0-160-71.78-160-160 0-46.94 20.68-97.75 56-128v96c0 39.7 32.3 72 72 72s72-32.3 72-72c0-65.11-112-128-45.41-248C208 160 352 175.3 352 320c0 88.22-71.78 160-160 160z"/></svg>',
-				'keyword' => ['site logo','logo'],
+				'keyword' => ['site logo', 'logo widget', 'logo', 'elementor site logo', 'logo for elementor', 'elementor logo addon'],
 			],
 			'tp_smooth_scroll' => [
 				'label' => esc_html__('Smooth Scroll','tpebl'),
@@ -947,7 +947,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://youtu.be/oiGi2NaEj7o',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 448 512"><path  d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"></path></svg>',
-				'keyword' => ['social feed'],
+				'keyword' => ['Social Feed', 'Social Media Feed', 'Instagram Feed', 'Facebook Feed', 'Twitter Feed', 'Pinterest Feed', 'LinkedIn Feed', 'Social Wall', 'Social Stream', 'Social Grid', 'Social Carousel', 'Social Tiles', 'Social Widget', 'Facebook', 'feed', 'social media', 'social feed', 'Facebook widget', 'social media widget', 'Instagram', 'Feed', 'Instagram Feed', 'Social Media Feed', 'Social Feed', 'Elementor Instagram Feed', 'Instagram Widget', 'Twitter', 'feed', 'social media', 'social feed', 'social media feed', 'twitter feed widget', 'twitter feed elementor', 'elementor twitter feed', 'twitter widget', 'elementor social feed', 'Vimeo', 'video', 'feed', 'gallery', 'player', 'video feed', 'Vimeo gallery', 'Vimeo player', 'Multi Social Feed', 'Social Feed', 'Social Media Feed', 'Social Wall', 'Social Stream', 'Social Gallery', 'Instagram Feed', 'Facebook Feed', 'Twitter Feed', 'Pinterest Feed', 'YouTube Feed', 'LinkedIn Feed', 'Social Media Widget', 'YouTube', 'Feed', 'YouTube Widget', 'YouTube', 'YouTube Feed Widget', 'YouTube Feed'],
 			],
 			'tp_social_icon' => [
 				'label' => esc_html__('Social Icon','tpebl'),
@@ -965,7 +965,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://youtu.be/9HiV2h_z_oM',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 576 512"><path  d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"></path></svg>',
-				'keyword' => ['social reviews'],
+				'keyword' => ['Social Reviews', 'Elementor Social Reviews', 'Elementor Reviews Widget', 'Elementor Social Proof Widget', 'Social Proof Reviews', 'Elementor Social Proof', 'Reviews Widget for Elementor', 'for Social Reviews', 'Social Reviews Plugin for Elementor', 'Facebook', 'Badge', 'Social media', 'Profile', 'Page', 'Like', 'Follow', 'Share', 'Google Badge', 'Google logo', 'Google icon', 'Google branding', 'Google symbol', 'Google mark', 'Reviews Wall', 'Testimonials Wall', 'Feedback Wall', 'Customer Reviews Wall', 'User Reviews Wall', 'Review Showcase', 'Testimonials Showcase', 'Feedback Showcase', 'Customer Reviews Showcase', 'User Reviews Showcase', 'Reviews Grid', 'Testimonials Grid', 'Feedback Grid', 'Customer Reviews Grid', 'User Reviews Grid', 'Reviews Carousel', 'Testimonials Carousel', 'Feedback Carousel', 'Customer Reviews Carousel', 'User Reviews Carousel'],
 			],
 			'tp_social_sharing' => [
 				'label' => esc_html__('Social Sharing','tpebl'),
@@ -974,7 +974,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://youtu.be/PIfGW6Kxs2M',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 576 512"><path fill="currentColor" d="M568.482 177.448L424.479 313.433C409.3 327.768 384 317.14 384 295.985v-71.963c-144.575.97-205.566 35.113-164.775 171.353 4.483 14.973-12.846 26.567-25.006 17.33C155.252 383.105 120 326.488 120 269.339c0-143.937 117.599-172.5 264-173.312V24.012c0-21.174 25.317-31.768 40.479-17.448l144.003 135.988c10.02 9.463 10.028 25.425 0 34.896zM384 379.128V448H64V128h50.916a11.99 11.99 0 0 0 8.648-3.693c14.953-15.568 32.237-27.89 51.014-37.676C185.708 80.83 181.584 64 169.033 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48v-88.806c0-8.288-8.197-14.066-16.011-11.302a71.83 71.83 0 0 1-34.189 3.377c-7.27-1.046-13.8 4.514-13.8 11.859z"></path></svg>',
-				'keyword' => ['social sharing'],
+				'keyword' => ['Social Sharing', 'Share Buttons', 'Social Media Sharing', 'Social Icons', 'Social Share', 'Social Share Buttons', 'Share Widget', 'Share Icons', 'Share Buttons Widget'],
 			],
 			'tp_style_list' => [
 				'label' => esc_html__('Style List','tpebl'),
@@ -992,7 +992,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/nYhVnMnD_UA',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 576 512"><path d="M384 96c88.426 0 160 71.561 160 160 0 88.426-71.561 160-160 160H192c-88.426 0-160-71.561-160-160 0-88.425 71.561-160 160-160h192m0-32H192C85.961 64 0 149.961 0 256s85.961 192 192 192h192c106.039 0 192-85.961 192-192S490.039 64 384 64zm0 304c61.856 0 112-50.144 112-112s-50.144-112-112-112-112 50.144-112 112c0 28.404 10.574 54.339 27.999 74.082C320.522 353.335 350.548 368 384 368z"/></svg>',
-				'keyword' => ['switcher'],
+				'keyword' => ['Switcher', 'Elementor switcher', 'switcher', 'switcher addon', 'switcher plugin', 'switcher elementor addon', 'switcher', 'switcher plus addons', 'switcher plus addons for elementor', 'switcher the plus addons for elementor'],
 			],
 			'tp_syntax_highlighter' => [
 				'label' => esc_html__('Syntax Highlighter','tpebl'),
@@ -1001,7 +1001,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => '#',
 				'tag' => 'pro',
 				'labelIcon' => '<svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="brackets-curly" class="svg-inline--fa fa-brackets-curly fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 576 512"><g class="fa-group"><path class="fa-secondary" d="M566.64 233.37a32 32 0 0 1 0 45.25l-45.25 45.25a32 32 0 0 0-9.39 22.64V384a96 96 0 0 1-96 96h-48a16 16 0 0 1-16-16v-32a16 16 0 0 1 16-16h48a32 32 0 0 0 32-32v-37.48a96 96 0 0 1 28.13-67.89L498.76 256l-22.62-22.62A96 96 0 0 1 448 165.47V128a32 32 0 0 0-32-32h-48a16 16 0 0 1-16-16V48a16 16 0 0 1 16-16h48a96 96 0 0 1 96 96v37.48a32 32 0 0 0 9.38 22.65l45.25 45.24z" opacity="0.4"></path><path class="fa-primary"  d="M208 32h-48a96 96 0 0 0-96 96v37.48a32.12 32.12 0 0 1-9.38 22.65L9.38 233.37a32 32 0 0 0 0 45.25l45.25 45.25A32.05 32.05 0 0 1 64 346.51V384a96 96 0 0 0 96 96h48a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16h-48a32 32 0 0 1-32-32v-37.48a96 96 0 0 0-28.13-67.89L77.26 256l22.63-22.63A96 96 0 0 0 128 165.48V128a32 32 0 0 1 32-32h48a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></g></svg>',
-				'keyword' => ['syntax highlighter','code','php','html','css','text box'],
+				'keyword' => ['Syntax Highlighter', 'code highlighter', 'code syntax', 'code editor', 'code formatting', 'code styling', 'code display', 'code snippet', 'code block'],
 			],
 			'tp_table' => [
 				'label' => esc_html__('Table','tpebl'),
@@ -1019,7 +1019,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://youtu.be/NWhr5lOm_3Y',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM160 448H48c-8.837 0-16-7.163-16-16v-80h128v96zm0-128H32v-96h128v96zm0-128H32V96h128v96zm160 256H192v-96h128v96zm0-128H192v-96h128v96zm0-128H192V96h128v96zm160 160v80c0 8.837-7.163 16-16 16H352v-96h128zm0-32H352v-96h128v96zm0-128H352V96h128v96z"/></svg>',
-				'keyword' => ['table of content'],
+				'keyword' => ['Table Of Contents', 'TOC', 'Contents Table', 'Navigation', 'Index', 'Menu', 'Links', 'Anchor Links', 'Scroll', 'Scrollspy', 'Elementor Table Of Contents', 'Elementor TOC'],
 			],
 			'tp_tabs_tours' => [
 				'label' => esc_html__('Tabs/Tours','tpebl'),
@@ -1091,7 +1091,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://youtu.be/zLBnX4lMhWU',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 576 512"><path  d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"></path></svg>',
-				'keyword' => ['woocommerce','cart','woo cart'],
+				'keyword' => ['WooCommerce', 'Cart', 'Ecommerce', 'Shopping Cart', 'Online Store', 'Add to Cart', 'Buy Now', 'Product Cart', 'Shop Cart', 'Store Cart'],
 			],
 			'tp_woo_checkout' => [
 				'label' => esc_html__('Woo Checkout','tpebl'),
@@ -1100,7 +1100,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://youtu.be/ChCaCmuoPKE',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 576 512"><path d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z"></path></svg>',
-				'keyword' => ['woocommerce','checkout','woo checkout'],
+				'keyword' => ['WooCommerce', 'checkout', 'online store', 'e-commerce', 'shopping cart', 'payment gateway', 'purchase', 'buy', 'transaction', 'order', 'customer', 'billing', 'shipping', 'checkout page', 'checkout form', 'checkout process'],
 			],
 			'tp_woo_myaccount' => [
 				'label' => esc_html__('Woo My Account','tpebl'),
@@ -1109,7 +1109,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => '#',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 384 512"><path d="M336 0H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48zm0 464H48V48h288v416zM144 112h96c8.8 0 16-7.2 16-16s-7.2-16-16-16h-96c-8.8 0-16 7.2-16 16s7.2 16 16 16zm48 176c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm-89.6 128h179.2c12.4 0 22.4-8.6 22.4-19.2v-19.2c0-31.8-30.1-57.6-67.2-57.6-10.8 0-18.7 8-44.8 8-26.9 0-33.4-8-44.8-8-37.1 0-67.2 25.8-67.2 57.6v19.2c0 10.6 10 19.2 22.4 19.2z"></path></svg>',
-				'keyword' => ['woocommerce','myaccount','woo myaccount'],
+				'keyword' => ['My Account', 'Account', 'User Account', 'User Profile', 'Profile', 'Login', 'Sign In', 'Register', 'Sign Up', 'Dashboard', 'User Dashboard', 'User Panel', 'Account Panel', 'Account Settings', 'Account Information', 'Account Details', 'User Details', 'User Profile Settings', 'My Profile', 'Edit Profile', 'Update Profile', 'Change Password', 'Forgot Password', 'Reset Password', 'User Login', 'User Registration', 'User Sign In', 'User Sign Up', 'User Dashboard', 'User Account Panel', 'User Account Settings', 'User Account Information', 'User Account Details'],
 			],
 			'tp_woo_order_track' => [
 				'label' => esc_html__('Woo Order Track','tpebl'),
@@ -1118,7 +1118,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => '#',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 640 512"><path d="M624 352h-16V243.9c0-12.7-5.1-24.9-14.1-33.9L494 110.1c-9-9-21.2-14.1-33.9-14.1H416V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48v320c0 26.5 21.5 48 48 48h16c0 53 43 96 96 96s96-43 96-96h128c0 53 43 96 96 96s96-43 96-96h48c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM160 464c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm320 0c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm80-208H416V144h44.1l99.9 99.9V256z"></path></svg>',
-				'keyword' => ['woocommerce','order track','woo order track'],
+				'keyword' => ['Order Track', 'Order Tracking', 'Track Order', 'Tracking Order', 'Order Status', 'Order Progress', 'Order Updates', 'Order Locator', 'Order Finder'],
 			],
 			'tp_woo_single_basic' => [
 				'label' => esc_html__('Woo Single Basic','tpebl'),
@@ -1127,7 +1127,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://youtu.be/y2KrybXgwV8',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"></path></svg>',
-				'keyword' => ['woocommerce','single basic'],
+				'keyword' => ['WooCommerce', 'Single', 'Basic','single basic'],
 			],
 			'tp_woo_single_image' => [
 				'label' => esc_html__('Woo Product Images','tpebl'),
@@ -1136,7 +1136,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => '',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 384 512"><path fill="currentColor" d="M369.9 97.9L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zM332.1 128H256V51.9l76.1 76.1zM48 464V48h160v104c0 13.3 10.7 24 24 24h104v288H48zm32-48h224V288l-23.5-23.5c-4.7-4.7-12.3-4.7-17 0L176 352l-39.5-39.5c-4.7-4.7-12.3-4.7-17 0L80 352v64zm48-240c-26.5 0-48 21.5-48 48s21.5 48 48 48 48-21.5 48-48-21.5-48-48-48z"></path></svg>',
-				'keyword' => ['woocommerce','single image'],
+				'keyword' => ['WooCommerce', 'Single Image', 'Product Image', 'Product Picture', 'Image Widget', 'Elementor Image'],
 			],
 			'tp_woo_single_pricing' => [
 				'label' => esc_html__('Woo Single Pricing','tpebl'),
@@ -1145,7 +1145,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => '',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 640 512"><path fill="currentColor" d="M320 144c-53.02 0-96 50.14-96 112 0 61.85 42.98 112 96 112 53 0 96-50.13 96-112 0-61.86-42.98-112-96-112zm40 168c0 4.42-3.58 8-8 8h-64c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h16v-55.44l-.47.31a7.992 7.992 0 0 1-11.09-2.22l-8.88-13.31a7.992 7.992 0 0 1 2.22-11.09l15.33-10.22a23.99 23.99 0 0 1 13.31-4.03H328c4.42 0 8 3.58 8 8v88h16c4.42 0 8 3.58 8 8v16zM608 64H32C14.33 64 0 78.33 0 96v320c0 17.67 14.33 32 32 32h576c17.67 0 32-14.33 32-32V96c0-17.67-14.33-32-32-32zm-16 272c-35.35 0-64 28.65-64 64H112c0-35.35-28.65-64-64-64V176c35.35 0 64-28.65 64-64h416c0 35.35 28.65 64 64 64v160z"></path></svg>',
-				'keyword' => ['woocommerce','single pricing'],
+				'keyword' => ['WooCommerce', 'Single Pricing', 'Pricing', 'Product Pricing', 'WooCommerce Pricing', 'Pricing Widget', 'Product Widget', 'Elementor Pricing'],
 			],
 			'tp_woo_single_tabs' => [
 				'label' => esc_html__('Woo Single Tabs','tpebl'),
@@ -1154,7 +1154,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => '',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 576 512"><path fill="currentColor" d="M384 64H192C85.961 64 0 149.961 0 256s85.961 192 192 192h192c106.039 0 192-85.961 192-192S490.039 64 384 64zM64 256c0-70.741 57.249-128 128-128 70.741 0 128 57.249 128 128 0 70.741-57.249 128-128 128-70.741 0-128-57.249-128-128zm320 128h-48.905c65.217-72.858 65.236-183.12 0-256H384c70.741 0 128 57.249 128 128 0 70.74-57.249 128-128 128z"></path></svg>',
-				'keyword' => ['woocommerce','single tabs'],
+				'keyword' => ['WooCommerce', 'Single Tabs', 'Product Tabs', 'Tabbed Content', 'WooCommerce Tabs'],
 			],
 			'tp_woo_thank_you' => [
 				'label' => esc_html__('Woo Thank You','tpebl'),
@@ -1163,7 +1163,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => '',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path fill="currentColor" d="M32 448c0 17.7 14.3 32 32 32h160V320H32v128zm256 32h160c17.7 0 32-14.3 32-32V320H288v160zm192-320h-42.1c6.2-12.1 10.1-25.5 10.1-40 0-48.5-39.5-88-88-88-41.6 0-68.5 21.3-103 68.3-34.5-47-61.4-68.3-103-68.3-48.5 0-88 39.5-88 88 0 14.5 3.8 27.9 10.1 40H32c-17.7 0-32 14.3-32 32v80c0 8.8 7.2 16 16 16h480c8.8 0 16-7.2 16-16v-80c0-17.7-14.3-32-32-32zm-326.1 0c-22.1 0-40-17.9-40-40s17.9-40 40-40c19.9 0 34.6 3.3 86.1 80h-86.1zm206.1 0h-86.1c51.4-76.5 65.7-80 86.1-80 22.1 0 40 17.9 40 40s-17.9 40-40 40z"></path></svg>',
-				'keyword' => ['woocommerce','thank you','woo thank you'],
+				'keyword' => ['WooCommerce', 'Thank You', 'Elementor addon', 'Confirmation Page'],
 			],
 			'tp_wp_login_register' => [
 				'label' => esc_html__('WP Login & Register','tpebl'),
@@ -1186,7 +1186,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/rwbYhQhuSLI',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 640 512"><path d="M616 352h-72v-73.38L521.38 256 544 233.38v-82.75L521.38 128l22.25-22.28-.97-7.77C535.59 42.11 488.03 0 432 0H80C35.88 0 0 35.89 0 80v88c0 13.23 10.78 24 24 24h104v41.38L150.62 256 128 278.62v132.81c0 51.28 37.84 95.23 86.16 100.08 1.5.15 3 .14 4.5.23v.26h312C590.94 512 640 462.95 640 402.67V376c0-13.23-10.78-24-24-24zM128 160H32V80c0-26.47 21.53-48 48-48s48 21.53 48 48v80zm32 251.44V291.88L195.88 256 160 220.12V80c0-18-5.97-34.62-16.03-48H432c37.41 0 69.56 26.39 77.59 62.5L476.12 128 512 163.88v56.25L476.12 256 512 291.88V352h-73.38L416 374.62 393.38 352H320c-17.66 0-32 14.36-32 32v32c0 18.05-7.69 35.34-21.06 47.47-13.59 12.3-31.12 18.09-49.59 16.2-32.16-3.22-57.35-33.19-57.35-68.23zm448-8.77c0 42.64-34.69 77.33-77.34 77.33H294.83c15.82-17.55 25.17-40.18 25.17-64v-32h60.12L416 419.88 451.88 384H608v18.67z"/></svg>',
-				'keyword' => ['section scroll animation'],
+				'keyword' => ['Row', 'Section', 'Scroll', 'Animation'],
 			],
 			'section_custom_css' => [
 				'label' => esc_html__('Section Custom CSS','tpebl'),
@@ -1204,7 +1204,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/9a4Akh7EFvg',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 448 512"><path d="M448 348.106V80c0-26.51-21.49-48-48-48H48C21.49 32 0 53.49 0 80v351.988c0 26.51 21.49 48 48 48h268.118a48 48 0 0 0 33.941-14.059l83.882-83.882A48 48 0 0 0 448 348.106zm-120.569 95.196a15.89 15.89 0 0 1-7.431 4.195v-95.509h95.509a15.88 15.88 0 0 1-4.195 7.431l-83.883 83.883zM416 80v239.988H312c-13.255 0-24 10.745-24 24v104H48c-8.837 0-16-7.163-16-16V80c0-8.837 7.163-16 16-16h352c8.837 0 16 7.163 16 16z"/></svg>',
-				'keyword' => ['sticky column'],
+				'keyword' => ['Sticky', 'Column', 'Fixed', 'Floating', 'Elementor', 'Widget'],
 			],
 			'custom_width_column' => [
 				'label' => esc_html__('Custom/Media Width Column','tpebl'),
@@ -1213,7 +1213,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/9a4Akh7EFvg',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path d="M496,416H480V32A32,32,0,0,0,448,0H64A32,32,0,0,0,32,32V416H16A16,16,0,0,0,0,432v64a16,16,0,0,0,16,16H496a16,16,0,0,0,16-16V432A16,16,0,0,0,496,416ZM272,32H448V208H272Zm0,208H448V416H272ZM64,32H240V208H64Zm0,208H240V416H64ZM480,480H32V448H480Z"/></svg>',
-				'keyword' => ['custom media width column'],
+				'keyword' => ['Custom', 'Media', 'Query', 'Breakpoints', 'Column Width', 'Width in Pixels', 'Width in Percentage', 'Width Calculation', 'Column Width in Pixels', 'Column Width in Percentage', 'Column Width Calculation', 'Width in Px', 'Width in %', 'Width in calc()', 'Column Width in Px', 'Column Width in %', 'Column Width in calc()'],
 			],
 			'order_sort_column' => [
 				'label' => esc_html__('Order AND Width Column','tpebl'),
@@ -1222,7 +1222,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/9a4Akh7EFvg',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path d="M464,160H208a48,48,0,0,0-48,48V464a48,48,0,0,0,48,48H464a48,48,0,0,0,48-48V208A48,48,0,0,0,464,160Zm16,304a16,16,0,0,1-16,16H208a16,16,0,0,1-16-16V208a16,16,0,0,1,16-16H464a16,16,0,0,1,16,16ZM32,304V48A16,16,0,0,1,48,32H304a16,16,0,0,1,16,16v80h32V48A48,48,0,0,0,304,0H48A48,48,0,0,0,0,48V304a48,48,0,0,0,48,48h80V320H48A16,16,0,0,1,32,304Zm400-80H240a16,16,0,0,0-16,16V432a16,16,0,0,0,16,16H432a16,16,0,0,0,16-16V240A16,16,0,0,0,432,224ZM416,416H256V256H416Z"/></svg>',
-				'keyword' => ['order and width column'],
+				'keyword' => ['Column Ordering', 'Devices', 'Responsive Column Ordering', 'Elementor Column Ordering', 'Elementor Devices', 'Elementor Responsive Column Ordering'],
 			],
 			'column_custom_css' => [
 				'label' => esc_html__('Column Custom CSS','tpebl'),
@@ -1231,7 +1231,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/9a4Akh7EFvg',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 384 512"><path d="M0 32l34.9 395.8L192 480l157.1-52.2L384 32H0zm313.1 80l-4.8 47.3L193 208.6l-.3.1h111.5l-12.8 146.6-98.2 28.7-98.8-29.2-6.4-73.9h48.9l3.2 38.3 52.6 13.3 54.7-15.4 3.7-61.6-166.3-.5v-.1l-.2.1-3.6-46.3L193.1 162l6.5-2.7H76.7L70.9 112h242.2z"/></svg>',
-				'keyword' => ['column custom css'],
+				'keyword' => ['Custom CSS', 'CSS', 'Section', 'Column'],
 			],
 			'column_mouse_cursor' => [
 				'label' => esc_html__('Column Mouse Cursor','tpebl'),
@@ -1240,7 +1240,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/glP290dAkOM',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 320 512"><path d="M154.149 488.438l-41.915-101.865-46.788 52.8C42.432 465.345 0 448.788 0 413.5V38.561c0-34.714 41.401-51.675 64.794-26.59L309.547 274.41c22.697 24.335 6.074 65.09-27.195 65.09h-65.71l42.809 104.037c8.149 19.807-1.035 42.511-20.474 50.61l-36 15.001c-19.036 7.928-40.808-1.217-48.828-20.71zm-31.84-161.482l61.435 149.307c1.182 2.877 4.117 4.518 6.926 3.347l35.999-15c3.114-1.298 4.604-5.455 3.188-8.896L168.872 307.5h113.479c5.009 0 7.62-7.16 3.793-11.266L41.392 33.795C37.785 29.932 32 32.879 32 38.561V413.5c0 5.775 5.935 8.67 9.497 4.65l80.812-91.194z"/></svg>',
-				'keyword' => ['column mouse cursor'],
+				'keyword' => ['Mouse Cursor Icon', 'Cursor Icon', 'Mouse Icon', 'Icon Widget', 'Global', 'Mouse Hover', 'Parallax'],
 			],
 			'plus_display_rules' => [
 				'label' => esc_html__('Display Condition','tpebl'),
@@ -1249,7 +1249,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/xn9vPYHbogI',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 640 512"><path d="M536 480H104a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h432a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8zM608 0H32A32 32 0 0 0 0 32v352a32 32 0 0 0 32 32h576a32 32 0 0 0 32-32V32a32 32 0 0 0-32-32zm0 384H32V32h576z"/></svg>',
-				'keyword' => ['display rules','display condition'],
+				'keyword' => ['Conditional Rules', 'Conditional Logic', 'Dynamic Rules', 'Rule-based Widgets', 'Elementor Conditional Widgets', 'Elementor Rule-based Widgets', 'Elementor Dynamic Widgets', 'with Conditional Logic', 'Conditional Widget for Elementor', 'Elementor Addon with Conditional Rules', 'with Dynamic Rules', 'with Rule-based Logic'],
 			],
 			'plus_event_tracker' => [
 				'label' => esc_html__('Event Tracker','tpebl'),
@@ -1258,7 +1258,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/9a4Akh7EFvg',
 				'tag' => 'pro',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 576 512"><path d="M80 352H16c-8.84 0-16 7.16-16 16v128c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V368c0-8.84-7.16-16-16-16zM64 480H32v-96h32v96zm496-288h-64c-8.84 0-16 7.16-16 16v288c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V208c0-8.84-7.16-16-16-16zm-16 288h-32V224h32v256zM502.77 88.68C510.12 93.24 518.71 96 528 96c26.51 0 48-21.49 48-48S554.51 0 528 0s-48 21.49-48 48c0 5.51 1.12 10.71 2.83 15.64l-89.6 71.68c-7.35-4.57-15.94-7.33-25.23-7.33s-17.88 2.76-25.23 7.33l-89.6-71.68C254.88 58.72 256 53.51 256 48c0-26.51-21.49-48-48-48s-48 21.49-48 48c0 7.4 1.81 14.32 4.8 20.58L68.58 164.8C62.32 161.81 55.4 160 48 160c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-7.4-1.81-14.32-4.8-20.58l96.22-96.22C193.68 94.19 200.6 96 208 96c9.29 0 17.88-2.76 25.23-7.33l89.6 71.68c-1.71 4.93-2.83 10.14-2.83 15.65 0 26.51 21.49 48 48 48s48-21.49 48-48c0-5.51-1.12-10.72-2.83-15.65l89.6-71.67zM528 32c8.82 0 16 7.18 16 16s-7.18 16-16 16-16-7.18-16-16 7.18-16 16-16zM48 224c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16zM208 64c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16zm160 128c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16zm-128 0h-64c-8.84 0-16 7.16-16 16v288c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V208c0-8.84-7.16-16-16-16zm-16 288h-32V224h32v256zm176-160h-64c-8.84 0-16 7.16-16 16v160c0 8.84 7.16 16 16 16h64c8.84 0 16-7.16 16-16V336c0-8.84-7.16-16-16-16zm-16 160h-32V352h32v128z"/></svg>',
-				'keyword' => ['event tracker'],
+				'keyword' => ['FB & Google Event Tracker', 'Facebook and Google Event Tracker', 'Event Tracker for Facebook and Google', 'Facebook and Google Analytics', 'Event Tracking for Facebook and Google', 'Facebook Pixel and Google Analytics Integration', 'Elementor FB & Google Event Tracker', 'The Plus Addons FB & Google Event Tracker'],
 			],
 			'plus_section_column_link' => [
 				'label' => esc_html__('Wrapper Link','tpebl'),
@@ -1267,7 +1267,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/KMpzq3D4oT8',
 				'tag' => 'free',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><g class="fa-group"><path class="fa-secondary" fill="currentColor" d="M44.45 252.59l37.11-37.1c9.84-9.84 26.78-3.3 27.29 10.6a184.45 184.45 0 0 0 9.69 52.72 16.08 16.08 0 0 1-3.78 16.61l-13.09 13.09c-28 28-28.9 73.66-1.15 102a72.07 72.07 0 0 0 102.32.51L270 343.79A72 72 0 0 0 270 242a75.64 75.64 0 0 0-10.34-8.57 16 16 0 0 1-6.95-12.6A39.86 39.86 0 0 1 264.45 191l21.06-21a16.06 16.06 0 0 1 20.58-1.74A152.05 152.05 0 0 1 327 400l-.36.37-67.2 67.2c-59.27 59.27-155.7 59.26-215 0s-59.26-155.72.01-214.98z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M410.33 203.49c28-28 28.9-73.66 1.15-102a72.07 72.07 0 0 0-102.32-.49L242 168.21A72 72 0 0 0 242 270a75.64 75.64 0 0 0 10.34 8.57 16 16 0 0 1 6.94 12.6A39.81 39.81 0 0 1 247.55 321l-21.06 21.05a16.07 16.07 0 0 1-20.58 1.74A152.05 152.05 0 0 1 185 112l.36-.37 67.2-67.2c59.27-59.27 155.7-59.26 215 0s59.27 155.7 0 215l-37.11 37.1c-9.84 9.84-26.78 3.3-27.29-10.6a184.45 184.45 0 0 0-9.69-52.72 16.08 16.08 0 0 1 3.78-16.61z"></path></g></svg>',
-				'keyword' => ['wrapper link'],
+				'keyword' => ['Wrapper Link', 'Link Wrapper', 'Link Container', 'Container Link', 'Link Box', 'Box Link', 'Elementor Wrapper Link', 'Elementor Link Wrapper', 'Elementor Link Container', 'Elementor Container Link', 'Elementor Link Box', 'Elementor Box Link'],
 			],
 			'plus_equal_height' => [
 				'label' => esc_html__('Equal Height','tpebl'),
@@ -1276,7 +1276,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/Bwp3GBOlkaw',
 				'tag' => 'free',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 640 512"><g class="fa-group"><path class="fa-secondary" fill="currentColor" d="M626.29 224H269.71c-7.57 0-13.71 7.16-13.71 16v32c0 8.84 6.14 16 13.71 16h356.58c7.57 0 13.71-7.16 13.71-16v-32c0-8.84-6.14-16-13.71-16zm0 160H269.71c-7.57 0-13.71 7.16-13.71 16v32c0 8.84 6.14 16 13.71 16h356.58c7.57 0 13.71-7.16 13.71-16v-32c0-8.84-6.14-16-13.71-16zm0-320H269.71C262.14 64 256 71.16 256 80v32c0 8.84 6.14 16 13.71 16h356.58c7.57 0 13.71-7.16 13.71-16V80c0-8.84-6.14-16-13.71-16z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M176 144c14.31 0 21.33-17.31 11.31-27.31l-80-80a16 16 0 0 0-22.62 0l-80 80C-4.64 126 .36 144 16 144h48v224H16c-14.29 0-21.31 17.31-11.29 27.31l80 80a16 16 0 0 0 22.62 0l80-80C196.64 386 191.64 368 176 368h-48V144z"></path></g></svg>',
-				'keyword' => ['equal height'],
+				'keyword' => ['Equal Height', 'Equal Height Widget', 'Elementor Equal Height', 'The Plus Addons Equal Height', 'Developer Friendly Equal Height'],
 			],
 			'plus_glass_morphism' => [
 				'label' => esc_html__('Glass Morphism','tpebl'),
@@ -1285,7 +1285,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => '#',
 				'tag' => 'free',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 496 512"><g class="fa-group"><path class="fa-secondary" fill="currentColor" d="M487.54,320.4H438.9a15.8,15.8,0,0,1-11.4-4.8l-32-32.6a11.92,11.92,0,0,1,.1-16.7l12.5-12.5v-8.7a11.37,11.37,0,0,0-3.3-8l-9.4-9.4a11.37,11.37,0,0,0-8-3.3h-16a11.31,11.31,0,0,1-8-19.3l9.4-9.4a11.37,11.37,0,0,1,8-3.3h32a11.35,11.35,0,0,0,11.3-11.3v-9.4a11.35,11.35,0,0,0-11.3-11.3H376.1a16,16,0,0,0-16,16v4.5a16,16,0,0,1-10.9,15.2l-31.6,10.5a8,8,0,0,0-5.5,7.6v2.2a8,8,0,0,1-8,8h-16a8,8,0,0,1-8-8,8,8,0,0,0-8-8H269a8.14,8.14,0,0,0-7.2,4.4l-9.4,18.7a15.94,15.94,0,0,1-14.3,8.8H216a16,16,0,0,1-16-16V199a16,16,0,0,1,4.7-11.3l20.1-20.1a24.77,24.77,0,0,0,7.2-17.5,8,8,0,0,1,5.5-7.6l40-13.3a11.66,11.66,0,0,0,4.4-2.7l26.8-26.8a11.31,11.31,0,0,0-8-19.3H280l-16,16v8a8,8,0,0,1-8,8H240a8,8,0,0,1-8-8v-20a8.05,8.05,0,0,1,3.2-6.4l82.42-60.08A247.79,247.79,0,0,0,248,8C111,8,0,119,0,256S111,504,248,504a251.57,251.57,0,0,0,32.1-2.06V448.4a16,16,0,0,0-16-16H243.9c-10.8,0-26.7-5.3-35.4-11.8l-22.2-16.7a45.42,45.42,0,0,1-18.2-36.4V343.6a45.46,45.46,0,0,1,22.1-39l42.9-25.7a46.13,46.13,0,0,1,23.4-6.5h31.2a45.62,45.62,0,0,1,29.6,10.9l43.2,37.1h18.3a32,32,0,0,1,22.6,9.4l17.3,17.3.08.08C432,359.06,440,375.62,440,393.37V413A247.11,247.11,0,0,0,487.54,320.4ZM187.4,157.1a11.37,11.37,0,0,1-8,3.3h-16a11.31,11.31,0,0,1-8-19.3l25.4-25.4a11.31,11.31,0,0,1,19.3,8v16a11.37,11.37,0,0,1-3.3,8Z" opacity="0.4"></path><path class="fa-primary" fill="currentColor" d="M187.4,157.1l9.4-9.4a11.37,11.37,0,0,0,3.3-8v-16a11.31,11.31,0,0,0-19.3-8l-25.4,25.4a11.31,11.31,0,0,0,8,19.3h16A11.37,11.37,0,0,0,187.4,157.1ZM418.78,347.18l-.08-.08-17.3-17.3a32,32,0,0,0-22.6-9.4H360.5l-43.2-37.1a45.62,45.62,0,0,0-29.6-10.9H256.5a46.13,46.13,0,0,0-23.4,6.5l-42.9,25.7a45.46,45.46,0,0,0-22.1,39v23.9a45.42,45.42,0,0,0,18.2,36.4l22.2,16.7c8.7,6.5,24.6,11.8,35.4,11.8h20.2a16,16,0,0,1,16,16v53.54A247.57,247.57,0,0,0,440,413V393.37C440,375.62,432,359.06,418.78,347.18ZM317.62,17.92,235.2,78a8.05,8.05,0,0,0-3.2,6.4v20a8,8,0,0,0,8,8h16a8,8,0,0,0,8-8v-8l16-16h20.7a11.31,11.31,0,0,1,8,19.3l-26.8,26.8a11.66,11.66,0,0,1-4.4,2.7l-40,13.3a8,8,0,0,0-5.5,7.6,24.77,24.77,0,0,1-7.2,17.5l-20.1,20.1A16,16,0,0,0,200,199v25.3a16,16,0,0,0,16,16h22.1a15.94,15.94,0,0,0,14.3-8.8l9.4-18.7a8.14,8.14,0,0,1,7.2-4.4h3.1a8,8,0,0,1,8,8,8,8,0,0,0,8,8h16a8,8,0,0,0,8-8v-2.2a8,8,0,0,1,5.5-7.6l31.6-10.5a16,16,0,0,0,10.9-15.2v-4.5a16,16,0,0,1,16-16h36.7a11.35,11.35,0,0,1,11.3,11.3v9.4a11.35,11.35,0,0,1-11.3,11.3h-32a11.37,11.37,0,0,0-8,3.3l-9.4,9.4a11.31,11.31,0,0,0,8,19.3h16a11.37,11.37,0,0,1,8,3.3l9.4,9.4a11.37,11.37,0,0,1,3.3,8v8.7l-12.5,12.5a11.92,11.92,0,0,0-.1,16.7l32,32.6a15.8,15.8,0,0,0,11.4,4.8h48.64A248.29,248.29,0,0,0,496,256C496,143.18,420.71,48,317.62,17.92Z"></path></g></svg>',
-				'keyword' => ['equal height'],
+				'keyword' => ['Glass Morphism', 'Glassmorphism', 'Glass Effect', 'Frosted Glass', 'Frosted Glass Effect', 'Transparent Effect', 'Blurred Effect', 'Blur Effect', 'Glass Style'],
 			],
 			'plus_adv_shadow' => [
 				'label' => esc_html__('Advanced Shadows','tpebl'),
@@ -1303,7 +1303,7 @@ class L_Theplus_Elementor_Plugin_Options
 				'videoUrl' => 'https://www.youtube.com/embed/qNvQdIzrJd8',
 				'tag' => 'free',
 				'labelIcon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16.867" height="23" viewBox="0 0 512 512"><path d="M464 0H144c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h320c26.51 0 48-21.49 48-48v-48h48c26.51 0 48-21.49 48-48V48c0-26.51-21.49-48-48-48zm-80 464c0 8.82-7.18 16-16 16H48c-8.82 0-16-7.18-16-16V144c0-8.82 7.18-16 16-16h48v240c0 26.51 21.49 48 48 48h240v48zm96-96c0 8.82-7.18 16-16 16H144c-8.82 0-16-7.18-16-16V48c0-8.82 7.18-16 16-16h320c8.82 0 16 7.18 16 16v320z"/></svg>',
-				'keyword' => ['Cross Domain Copy Paste','live copy'],
+				'keyword' => ['Cross Domain Copy Paste', 'Copy Paste', 'Cross Domain', 'Elementor Copy Paste', 'Copy Paste Widget', '', 'Elementor Addon'],
 			]
 		];
 	}

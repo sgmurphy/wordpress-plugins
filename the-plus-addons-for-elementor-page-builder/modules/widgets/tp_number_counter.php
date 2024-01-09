@@ -1012,7 +1012,7 @@ class L_ThePlus_Number_Counter extends Widget_Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title,{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title a' => 'background-color: transparent; background-image: linear-gradient({{SIZE}}{{UNIT}}, {{title_gradient_color1.VALUE}} {{title_gradient_color1_control.SIZE}}{{title_gradient_color1_control.UNIT}}, {{title_gradient_color2.VALUE}} {{title_gradient_color2_control.SIZE}}{{title_gradient_color2_control.UNIT}})',
+					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title,{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title a' => 'background-color: transparent;-webkit-background-clip: text;-webkit-text-fill-color: transparent; background-image: linear-gradient({{SIZE}}{{UNIT}}, {{title_gradient_color1.VALUE}} {{title_gradient_color1_control.SIZE}}{{title_gradient_color1_control.UNIT}}, {{title_gradient_color2.VALUE}} {{title_gradient_color2_control.SIZE}}{{title_gradient_color2_control.UNIT}})',
 				],
 				'condition'    => [
 					'title_color_option' => 'gradient',
@@ -1028,7 +1028,7 @@ class L_ThePlus_Number_Counter extends Widget_Base {
 				'options' => l_theplus_get_position_options(),
 				'default' => 'center center',
 				'selectors' => [
-					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title,{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title a' => 'background-color: transparent; background-image: radial-gradient(at {{VALUE}}, {{title_gradient_color1.VALUE}} {{title_gradient_color1_control.SIZE}}{{title_gradient_color1_control.UNIT}}, {{title_gradient_color2.VALUE}} {{title_gradient_color2_control.SIZE}}{{title_gradient_color2_control.UNIT}})',
+					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title,{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-title a' => 'background-color: transparent;-webkit-background-clip: text;-webkit-text-fill-color: transparent; background-image: radial-gradient(at {{VALUE}}, {{title_gradient_color1.VALUE}} {{title_gradient_color1_control.SIZE}}{{title_gradient_color1_control.UNIT}}, {{title_gradient_color2.VALUE}} {{title_gradient_color2_control.SIZE}}{{title_gradient_color2_control.UNIT}})',
 				],
 				'condition' => [
 					'title_color_option' => 'gradient',
@@ -1241,47 +1241,334 @@ class L_ThePlus_Number_Counter extends Widget_Base {
 		/*title style*/
 		/* digits */
 		$this->start_controls_section(
-				'section_digit_option',
-				[
-					'label' => esc_html__('Digit Style', 'tpebl'),
-					'tab' => Controls_Manager::TAB_STYLE,
-				]
+			'section_digit_option',
+			[
+				'label' => esc_html__('Digit Style', 'tpebl'),
+				'tab' => Controls_Manager::TAB_STYLE,
+			]
 		);
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'digit_typography',
-				'label' => esc_html__( 'Digit Typography', 'tpebl' ),
+				'label' => esc_html__( 'Typography', 'tpebl' ),
 				'global' => [
 					'default' => Global_Typography::TYPOGRAPHY_PRIMARY
 				],
 				'selector' => '{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number',
-	       ]
+		]
+		);
+		$this->start_controls_tabs( 'digit_gradient' );
+		$this->start_controls_tab(
+			'digit_gradient_normal',
+			[
+				'label' => esc_html__( 'Normal', 'tpebl' ),
+			]
+		);
+		$this->add_control(
+			'digit_gradient_color',
+			[
+				'label' => esc_html__( 'Gradient Color', 'tpebl' ),
+				'type' => Controls_Manager::CHOOSE,
+				'options' => [
+					'color' => [
+						'title' => esc_html__( 'Classic', 'theplus' ),
+						'icon' => 'eicon-paint-brush',
+					],
+					'gradient' => [
+						'title' => esc_html__( 'Gradient', 'tpebl' ),
+						'icon' => 'eicon-barcode',
+					],
+				],
+				'label_block' => false,
+				'default' => 'color',
+			]
+		);
+		$this->add_control(
+			'digit_gradient_color1',
+			[
+				'label' => esc_html__('Color 1', 'tpebl'),
+				'type' => Controls_Manager::COLOR,
+				'default' => 'orange',
+				'selectors' => [
+					'{{WRAPPER}} .counter-number .number-counter-inner-block .counter-number' => 'color: {{VALUE}}',
+				],
+				'condition' => [
+					'digit_gradient_color' => 'gradient',
+				],
+				'of_type' => 'gradient',
+			]
+		);
+		$this->add_control(
+			'digit_gradient_color1_control',
+			[
+				'type' => Controls_Manager::SLIDER,
+				'label' => esc_html__('Color 1 Location', 'tpebl'),
+				'size_units' => [ '%' ],
+				'default' => [
+					'unit' => '%',
+					'size' => 0,
+				],
+				'render_type' => 'ui',
+				'condition' => [
+					'digit_gradient_color' => 'gradient',
+				],
+				'of_type' => 'gradient',
+			]
+		);
+		$this->add_control(
+			'digit_gradient_color2',
+			[
+				'label' => esc_html__('Color 2', 'tpebl'),
+				'type' => Controls_Manager::COLOR,
+				'default' => 'cyan',
+				'selectors' => [
+					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number' => 'color: {{VALUE}}',
+				],
+				'condition' => [
+					'digit_gradient_color' => 'gradient',
+				],
+				'of_type' => 'gradient',
+			]
+		);
+		$this->add_control(
+			'digit_gradient_color2_control',
+			[
+				'type' => Controls_Manager::SLIDER,
+				'label' => esc_html__('Color 2 Location', 'tpebl'),
+				'size_units' => [ '%' ],
+				'default' => [
+					'unit' => '%',
+					'size' => 100,
+					],
+				'render_type' => 'ui',
+				'condition' => [
+					'digit_gradient_color' => 'gradient',
+				],
+				'of_type' => 'gradient',
+			]
+		);	
+		$this->add_control(
+			'digit_gradient_style', [
+				'type' => Controls_Manager::SELECT,
+				'label' => esc_html__('Gradient Style', 'tpebl'),
+				'default' => 'linear',
+				'options' => l_theplus_get_gradient_styles(),
+				'condition' => [
+					'digit_gradient_color' => 'gradient',
+				],
+				'of_type' => 'gradient',
+			]
+		);
+		$this->add_control(
+			'digit_gradient_angle', [
+				'type' => Controls_Manager::SLIDER,
+				'label' => esc_html__('Gradient Angle', 'tpebl'),
+				'size_units' => [ 'deg' ],
+				'default' => [
+					'unit' => 'deg',
+					'size' => 180,
+				],
+				'range' => [
+					'deg' => [
+						'step' => 10,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number' => '-webkit-background-clip:text !important;-webkit-text-fill-color: transparent; background: linear-gradient({{SIZE}}{{UNIT}}, {{digit_gradient_color1.VALUE}} {{digit_gradient_color1_control.SIZE}}{{digit_gradient_color1_control.UNIT}}, {{digit_gradient_color2.VALUE}} {{digit_gradient_color2_control.SIZE}}{{digit_gradient_color2_control.UNIT}})',
+				],
+				'condition'    => [
+					'digit_gradient_color' => 'gradient',
+					'digit_gradient_style' => ['linear']
+				],
+				'of_type' => 'gradient',
+				'separator' => 'after',
+			]
+		);
+		$this->add_control(
+			'normal_gradient_position', [
+				'type' => Controls_Manager::SELECT,
+				'label' => esc_html__('Position', 'tpebl'),
+				'options' => l_theplus_get_position_options(),
+				'default' => 'center center',
+				'selectors' => [
+					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number' => '-webkit-background-clip:text !important;-webkit-text-fill-color: transparent; background-color: transparent; background-image: radial-gradient(at {{VALUE}}, {{digit_gradient_color1.VALUE}} {{digit_gradient_color1_control.SIZE}}{{digit_gradient_color1_control.UNIT}}, {{digit_gradient_color2.VALUE}} {{digit_gradient_color2_control.SIZE}}{{digit_gradient_color2_control.UNIT}})',
+					
+				],
+					'condition' => [
+						'digit_gradient_color' => 'gradient',
+						'digit_gradient_style' => 'radial',
+						],
+			'of_type' => 'gradient',
+			]
 		);
 		$this->add_control(
 			'style_color',
 			[
-				'label' => esc_html__( 'Digit Color', 'tpebl' ),
+				'label' => esc_html__( 'Color', 'tpebl' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number' => 'color: {{VALUE}}',
 				],
+				'condition'    => [
+					'digit_gradient_color' => 'color',
+				],
 			]
 		);
-        $this->add_control(
+		$this->end_controls_tab();
+		$this->start_controls_tab(
+			'gradient_title_hover',
+			[
+				'label' => esc_html__( 'Hover', 'tpebl' ),
+			]
+		);
+		$this->add_control(
+			'gradient_hover_color_option',
+			[
+				'label' => esc_html__( 'Gradient Hover Color', 'tpebl' ),
+				'type' => Controls_Manager::CHOOSE,
+				'options' => [
+					'color' => [
+						'title' => esc_html__( 'Classic', 'theplus' ),
+						'icon' => 'eicon-paint-brush',
+					],
+					'gradient' => [
+						'title' => esc_html__( 'Gradient', 'tpebl' ),
+						'icon' => 'eicon-barcode',
+					],
+				],
+				'label_block' => false,
+				'default' => 'color',
+			]
+		);
+		$this->add_control(
+			'hover_gradient_color1',
+			[
+				'label' => esc_html__('Color 1', 'tpebl'),
+				'type' => Controls_Manager::COLOR,
+				'default' => 'orange',
+				'condition' => [
+					'gradient_hover_color_option' => 'gradient',
+				],
+				'of_type' => 'gradient',
+			]
+		);
+		$this->add_control(
+			'hover_gradient_color1_control',
+			[
+				'type' => Controls_Manager::SLIDER,
+				'label' => esc_html__('Color 1 Location', 'tpebl'),
+				'size_units' => [ '%' ],
+				'default' => [
+					'unit' => '%',
+					'size' => 0,
+				],
+				'render_type' => 'ui',
+				'condition' => [
+					'gradient_hover_color_option' => 'gradient',
+				],
+				'of_type' => 'gradient',
+			]
+		);
+		$this->add_control(
+			'hover_gradient_color2',
+			[
+				'label' => esc_html__('Color 2', 'thepltpeblus'),
+				'type' => Controls_Manager::COLOR,
+				'default' => 'cyan',
+				'condition' => [
+					'gradient_hover_color_option' => 'gradient',
+				],
+				'of_type' => 'gradient',
+			]
+		);
+		$this->add_control(
+			'hover_gradient_color2_control',
+			[
+				'type' => Controls_Manager::SLIDER,
+				'label' => esc_html__('Color 2 Location', 'tpebl'),
+				'size_units' => [ '%' ],
+				'default' => [
+					'unit' => '%',
+					'size' => 100,
+					],
+				'render_type' => 'ui',
+				'condition' => [
+					'gradient_hover_color_option' => 'gradient',
+				],
+				'of_type' => 'gradient',
+			]
+		);
+		$this->add_control(
+			'hover_gradient_style', [
+				'type' => Controls_Manager::SELECT,
+				'label' => esc_html__('Gradient Style', 'tpebl'),
+				'default' => 'linear',
+				'options' => l_theplus_get_gradient_styles(),
+				'condition' => [
+					'gradient_hover_color_option' => 'gradient',
+					],
+				'of_type' => 'gradient',
+			]
+		);
+		$this->add_control(
+			'hover_gradient_angle', [
+				'type' => Controls_Manager::SLIDER,
+				'label' => esc_html__('Gradient Angle', 'tpebl'),
+				'size_units' => [ 'deg' ],
+				'default' => [
+					'unit' => 'deg',
+					'size' => 180,
+				],
+				'range' => [
+					'deg' => [
+						'step' => 10,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block:hover .counter-number' => '-webkit-background-clip:text !important;-webkit-text-fill-color: transparent; background: linear-gradient({{SIZE}}{{UNIT}}, {{hover_gradient_color1.VALUE}} {{hover_gradient_color1_control.SIZE}}{{hover_gradient_color1_control.UNIT}}, {{hover_gradient_color2.VALUE}} {{hover_gradient_color2_control.SIZE}}{{hover_gradient_color2_control.UNIT}})',
+				],
+					'condition'    => [
+						'gradient_hover_color_option' => 'gradient',
+						'hover_gradient_style' => ['linear']
+					],
+				'of_type' => 'gradient',
+			]
+		);
+		$this->add_control(
+			'hover_gradient_position', [
+				'type' => Controls_Manager::SELECT,
+				'label' => esc_html__('Position', 'tpebl'),
+				'options' => l_theplus_get_position_options(),
+				'default' => 'center center',
+				'selectors' => [
+					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block:hover .counter-number,{{WRAPPER}} .plus-number-counter .number-counter-inner-block:hover .counter-number' => 'background-color: transparent; background-image: radial-gradient(at {{VALUE}}, {{hover_gradient_color1.VALUE}} {{hover_gradient_color1_control.SIZE}}{{hover_gradient_color1_control.UNIT}}, {{hover_gradient_color2.VALUE}} {{hover_gradient_color2_control.SIZE}}{{hover_gradient_color2_control.UNIT}})',
+				],
+					'condition' => [
+						'gradient_hover_color_option' => 'gradient',
+						'hover_gradient_style' => 'radial',
+						],
+			'of_type' => 'gradient',
+			]
+		);
+		$this->add_control(
 			'style_hover_color',
 			[
-				'label' => esc_html__( 'Digit Hover Color', 'tpebl' ),
+				'label' => esc_html__( 'Hover Color', 'tpebl' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block:hover .counter-number' => 'color: {{VALUE}}',
 				],
+				'condition'    => [
+					'gradient_hover_color_option' => 'color',
+				],
 			]
 		);
+		$this->end_controls_tabs();
 		$this->add_control(
-            'number_top_space',
-            [
-                'type' => Controls_Manager::SLIDER,
+			'number_top_space',
+			[
+				'type' => Controls_Manager::SLIDER,
 				'label' => esc_html__('Number Top Space', 'tpebl'),
 				'size_units' => [ 'px' ],
 				'range' => [
@@ -1300,9 +1587,9 @@ class L_ThePlus_Number_Counter extends Widget_Base {
 				'selectors' => [
 					'{{WRAPPER}} .plus-number-counter .number-counter-inner-block .counter-number' => 'margin-top : {{SIZE}}{{UNIT}}',
 				],
-            ]
-        );
-       $this->end_controls_section();
+			]
+		);
+	$this->end_controls_section();
 	    /* digits */
 		/*background option*/
 		$this->start_controls_section(

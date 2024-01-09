@@ -68,7 +68,7 @@ if ( ! class_exists( 'Tp_Notices_Remove' ) ) {
 		}
 
 		/**
-		 * Delete Notice Black Friday In Databash 
+		 * Delete Notice Black Friday In Databash
 		 *
 		 * @since 5.3.3
 		 * @access public
@@ -100,6 +100,34 @@ if ( ! class_exists( 'Tp_Notices_Remove' ) ) {
 		public function tp_widget_notice() {
 			if ( get_user_meta( get_current_user_id(), 'tp_dismissed_notice_widget', true ) ) {
 				delete_user_meta( get_current_user_id(), 'tp_dismissed_notice_widget' );
+			}
+		}
+
+		/**
+		 * Delete OnBording Databash entry
+		 *
+		 * @since 5.3.4
+		 * @access public
+		 */
+		public function tp_onbording_end() {
+			$option_value = get_option( 'tpae_onbording_end' );
+
+			if ( false !== $option_value ) {
+				delete_option( 'tpae_onbording_end' );
+			}
+		}
+
+		/**
+		 * Delete tp_dashboard_overview transient remove
+		 *
+		 * @since 5.3.4
+		 * @access public
+		 */
+		public function tp_dashboard_overview() {
+			$option_value = get_transient( 'tp_dashboard_overview' );
+
+			if ( false !== $option_value ) {
+				delete_transient( 'tp_dashboard_overview' );
 			}
 		}
 	}

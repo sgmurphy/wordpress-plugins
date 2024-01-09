@@ -443,6 +443,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function courseCurriculumSkeleton(courseID = '') {
+  let idItemViewing = 0;
+  const elItemViewing = document.querySelector('.viewing-course-item');
+  if (elItemViewing) {
+    const regex = new RegExp('^viewing-course-item-([0-9].*)');
+    const classList = elItemViewing.classList;
+    classList.forEach(function (className) {
+      const compare = regex.exec(className);
+      if (compare) {
+        idItemViewing = compare[1];
+        return false;
+      }
+    });
+  }
   let isLoadingItems = false;
   let isLoadingSections = false;
   const Sekeleton = () => {
@@ -462,7 +475,8 @@ function courseCurriculumSkeleton(courseID = '') {
       url = (0,_wordpress_url__WEBPACK_IMPORTED_MODULE_0__.addQueryArgs)(url, {
         courseId: courseID || lpGlobalSettings.post_id || '',
         page,
-        sectionID: sectionID || ''
+        sectionID: sectionID || '',
+        idItemViewing
       });
       let paramsFetch = {};
       if (0 !== parseInt(lpData.user_id)) {
@@ -1281,7 +1295,7 @@ const courseContinue = () => {
     getResponse(formContinue).then(function (result) {
       if (result.status === 'success') {
         formContinue.forEach(form => {
-          form.style.display = 'block';
+          form.style.display = 'inline-block';
           form.action = result.data;
         });
       }

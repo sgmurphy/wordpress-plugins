@@ -5,7 +5,7 @@ Author URI: https://wpbrigade.com/?utm_source=wphf-org&utm_medium=author-url-lin
 Tags: header, footer, Google Analytics, custom css, Facebook Pixel
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -38,7 +38,7 @@ The simple interface of this plugin allows you to add code and different scripts
 * [LoginPress](https://loginpress.pro/?utm_source=wp-headers-and-footers) - For Custom login page and login page security
 * [Simple Social Buttons](https://simplesocialbuttons.com?utm_source=wp-headers-and-footers&amp;utm_medium=readme&amp;utm_campaign=pro-upgrade) - Plugin for Social share buttons and social icons
 * [Related Posts Thumbnails Plugin](https://wordpress.org/plugins/related-posts-thumbnails/) - For related posts/products
-* [Under Construction, Coming Soon & Maintenance Mode](http://wpbrigade.com/recommend/maintenance-mode?utm_source=wp-headers-and-footers&amp;utm_medium=readme&amp;utm_campaign=pro-upgrade) - Plugin for Under construction & Coming soon page
+* [Under Construction, Coming Soon & Maintenance Mode](https://wpbrigade.com/recommend/maintenance-mode?utm_source=wp-headers-and-footers&amp;utm_medium=readme&amp;utm_campaign=pro-upgrade) - Plugin for Under construction & Coming soon page
 
 == Installation ==
 
@@ -76,6 +76,11 @@ You can insert code in Header, Body and Footer areas of any WordPress site.
 
 
 == Changelog ==
+
+= 2.1.1 - 2024-01-09 =
+* Bugfix: Warning with PHP 8.3 in Diagnostic log.
+* Enhancement: Update data in Diagnostic log.
+* Compatibility: Compatible with PHP 8.3 and WordPress 6.4
 
 = 2.1.0 - 2023-11-07 =
 * New Feature: Introduced an option for removing the scripts/settings during uninstallation of the plugin.

@@ -27,6 +27,13 @@ class HTMega_Elementor_Widget_Search extends Widget_Base {
         ];
     }
 
+    public function get_keywords() {
+        return ['seach','find','quick search', 'ht mega'];
+    }
+
+    public function get_help_url() {
+        return 'https://wphtmega.com/docs/general-widgets/search-widget/';
+    }
     protected function register_controls() {
 
         $this->start_controls_section(

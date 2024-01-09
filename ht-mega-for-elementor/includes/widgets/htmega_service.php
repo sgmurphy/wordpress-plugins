@@ -27,7 +27,13 @@ class HTMega_Elementor_Widget_Service extends Widget_Base {
             'htmega-widgets',
         ];
     }
+    public function get_keywords() {
+        return ['service box','info box','content box','icon box','image box','htmega', 'ht mega'];
+    }
 
+    public function get_help_url() {
+        return 'https://wphtmega.com/docs/general-widgets/services-widget/';
+    }
     protected function register_controls() {
 
         $this->start_controls_section(

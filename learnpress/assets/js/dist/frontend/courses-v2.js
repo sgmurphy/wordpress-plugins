@@ -23,6 +23,7 @@ if ('undefined' !== typeof lpDataAdmin) {
     apiAdminOrderStatic: lpDataAdmin.lp_rest_url + 'lp/v1/orders/statistic',
     apiAddons: lpDataAdmin.lp_rest_url + 'lp/v1/addon/all',
     apiAddonAction: lpDataAdmin.lp_rest_url + 'lp/v1/addon/action',
+    apiAddonsPurchase: lpDataAdmin.lp_rest_url + 'lp/v1/addon/info-addons-purchase',
     apiSearchCourses: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/search-course',
     apiSearchUsers: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/search-user',
     apiAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/assign-user-course',
@@ -255,6 +256,7 @@ window.lpCoursesList = (() => {
   const classListCourseWrapper = '.learn-press-courses-wrapper';
   const classListCourse = '.learn-press-courses';
   const classLPTarget = '.lp-target';
+  const classLoadMore = 'courses-btn-load-more';
   const urlCurrent = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.lpGetCurrentURLNoParam)();
   return {
     clickNumberPage: (e, target) => {
@@ -333,8 +335,12 @@ window.lpCoursesList = (() => {
       window.lpAJAXG.fetchAPI(_api__WEBPACK_IMPORTED_MODULE_0__["default"].frontend.apiAJAX, dataSend, callBack);
     },
     LoadMore: (e, btnLoadMore) => {
-      if (!btnLoadMore.classList.contains('courses-btn-load-more')) {
-        return;
+      const parent = btnLoadMore.closest(`.${classLoadMore}`);
+      if (!btnLoadMore.classList.contains(classLoadMore)) {
+        if (!parent) {
+          return;
+        }
+        btnLoadMore = parent;
       }
       const elLPTarget = btnLoadMore.closest(`${classLPTarget}`);
       if (!elLPTarget) {

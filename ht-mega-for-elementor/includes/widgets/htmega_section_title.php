@@ -26,6 +26,13 @@ class HTMega_Elementor_Widget_Section_Title extends Widget_Base {
         ];
     }
 
+    public function get_keywords() {
+        return ['heading','section title','title','htmega', 'ht mega'];
+    }
+
+    public function get_help_url() {
+        return 'https://wphtmega.com/docs/general-widgets/section-title-widget/';
+    }
     protected function register_controls() {
 
         $this->start_controls_section(

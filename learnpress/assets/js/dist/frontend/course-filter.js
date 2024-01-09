@@ -23,6 +23,7 @@ if ('undefined' !== typeof lpDataAdmin) {
     apiAdminOrderStatic: lpDataAdmin.lp_rest_url + 'lp/v1/orders/statistic',
     apiAddons: lpDataAdmin.lp_rest_url + 'lp/v1/addon/all',
     apiAddonAction: lpDataAdmin.lp_rest_url + 'lp/v1/addon/action',
+    apiAddonsPurchase: lpDataAdmin.lp_rest_url + 'lp/v1/addon/info-addons-purchase',
     apiSearchCourses: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/search-course',
     apiSearchUsers: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/search-user',
     apiAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/assign-user-course',
@@ -327,7 +328,8 @@ window.lpCourseFilter = {
       return;
     }
     const widgetData = parent.dataset.widget ? JSON.parse(parent.dataset.widget) : '';
-    const url = _api__WEBPACK_IMPORTED_MODULE_0__["default"].frontend.apiWidgets;
+    const lang = lpData.urlParams.lang ? `?lang=${lpData.urlParams.lang}` : '';
+    const url = _api__WEBPACK_IMPORTED_MODULE_0__["default"].frontend.apiWidgets + lang;
     const formData = new FormData(widgetForm);
     const filterCourses = {
       paged: 1

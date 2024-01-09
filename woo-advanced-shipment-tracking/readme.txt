@@ -4,7 +4,7 @@ Tags: WooCommerce, delivery, shipping, shipment tracking, tracking
 Requires at least: 5.3
 Tested up to: 6.4.2
 Requires PHP: 7.2
-Stable tag: 3.6.4
+Stable tag: 3.6.5
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,11 @@ Yes, if you use external shipping services that work with the WooCommerce REST A
 3. Select default shipping provider from setting page and add tracking number in order page.
 
 == Changelog ==
+
+= 3.6.5 =
+* Dev - Test plugin with WordPress 6.4.2
+* Dev - change date format to 'Y-m-d' in the shipment tracking API response
+* Fix - Undefined variable $src 
 
 = 3.6.4 =
 * Fix - $ is not a function while add Tracking

@@ -38,6 +38,16 @@ if ( ! class_exists( 'Tp_Deactivate_Feedback' ) ) {
 		private static $instance = null;
 
 		/**
+		 * Singleton Instance of the Class.
+		 *
+		 * @since 5.3.4
+		 * @access private
+		 * @static
+		 * @var string|deactive_count_api $deactive_count_api An instance of the class or null if not instantiated yet.
+		 */
+		private $count_api = 'https://api.posimyth.com/wp-json/tpae/v2/tpae_deactive_user_count_api';
+
+		/**
 		 * Singleton Instance Creation Method.
 		 *
 		 * This public static method ensures that only one instance of the class is loaded or can be loaded.
@@ -70,6 +80,7 @@ if ( ! class_exists( 'Tp_Deactivate_Feedback' ) ) {
 			$this->tp_deactivate_feedback();
 
 			add_action( 'wp_ajax_tp_deactivate_rateus_notice', array( $this, 'tp_deactivate_rateus_notice' ) );
+			add_action( 'wp_ajax_tp_skip_rateus_notice', array( $this, 'tp_skip_rateus_notice' ) );
 		}
 
 		/**
@@ -158,7 +169,7 @@ if ( ! class_exists( 'Tp_Deactivate_Feedback' ) ) {
 					'title'             => esc_html__( 'No more planning to use Elementor', 'tpebl' ),
 					'input_placeholder' => '',
 				),
-				'tp_performance_issues' => array(
+				'tp_performance_issues'             => array(
 					'title'             => esc_html__( 'Performance Issues', 'tpebl' ),
 					'input_placeholder' => '',
 				),
@@ -170,11 +181,11 @@ if ( ! class_exists( 'Tp_Deactivate_Feedback' ) ) {
 					'title'             => esc_html__( 'Its missing the feature i require.', 'tpebl' ),
 					'input_placeholder' => '',
 				),
-				'tp_Dont_want_elementor_addon' => array(
+				'tp_Dont_want_elementor_addon'      => array(
 					'title'             => esc_html__( 'Dont want to use any Elementor Addon, just Elementor.', 'tpebl' ),
 					'input_placeholder' => '',
 				),
-				'tp_facing_technical'   => array(
+				'tp_facing_technical'               => array(
 					'title'             => esc_html__( 'Facing technical issues/bugs with the plugin.', 'tpebl' ),
 					'input_placeholder' => '',
 				),
@@ -241,7 +252,7 @@ if ( ! class_exists( 'Tp_Deactivate_Feedback' ) ) {
 									<?php echo esc_html( $reason['title'] ); ?>
 								</label>
 
-								<?php if ( ! empty( $reason['input_placeholder'] ) ){ ?>
+								<?php if ( ! empty( $reason['input_placeholder'] ) ) { ?>
 									<input class="tp-feedback-text" type="text" name="reason_<?php echo esc_attr( $reason_key ); ?>" placeholder="<?php echo esc_attr( $reason['input_placeholder'] ); ?>" />
 								<?php } ?>
 							</div>
@@ -292,6 +303,34 @@ if ( ! class_exists( 'Tp_Deactivate_Feedback' ) ) {
 					'timeout'   => 30,
 					'sslverify' => false,
 					'body'      => $api_params,
+				)
+			);
+
+			wp_die();
+		}
+
+		/**
+		 * Deactivates skip notice
+		 *
+		 * This function handles the AJAX request to deactivate the rate-us notice,
+		 * and sends the necessary data to the remote API for processing.
+		 *
+		 * @since 5.3.4
+		 * @access public
+		 *
+		 * @return void
+		 */
+		public function tp_skip_rateus_notice() {
+
+			check_ajax_referer( 'tp-deactivate-feedback', 'nonce' );
+
+			$response = wp_remote_post(
+				$this->count_api,
+				array(
+					'body'    => array(),
+					'headers' => array(
+						'Content-Type' => 'application/x-www-form-urlencoded',
+					),
 				)
 			);
 

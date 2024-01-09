@@ -23,6 +23,7 @@ if ('undefined' !== typeof lpDataAdmin) {
     apiAdminOrderStatic: lpDataAdmin.lp_rest_url + 'lp/v1/orders/statistic',
     apiAddons: lpDataAdmin.lp_rest_url + 'lp/v1/addon/all',
     apiAddonAction: lpDataAdmin.lp_rest_url + 'lp/v1/addon/action',
+    apiAddonsPurchase: lpDataAdmin.lp_rest_url + 'lp/v1/addon/info-addons-purchase',
     apiSearchCourses: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/search-course',
     apiSearchUsers: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/search-user',
     apiAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/assign-user-course',
@@ -224,8 +225,9 @@ function widgetRestAPI() {
     return;
   }
   const getResponse = ele => {
+    const lang = lpData.urlParams.lang ? `?lang=${lpData.urlParams.lang}` : '';
     const widgetData = ele.dataset.widget ? JSON.parse(ele.dataset.widget) : '';
-    const url = _api__WEBPACK_IMPORTED_MODULE_1__["default"].frontend.apiWidgets;
+    const url = _api__WEBPACK_IMPORTED_MODULE_1__["default"].frontend.apiWidgets + lang;
     const paramsFetch = {
       method: 'POST',
       headers: {

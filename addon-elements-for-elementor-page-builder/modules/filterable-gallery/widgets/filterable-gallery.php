@@ -1394,7 +1394,7 @@ class FilterableGallery extends EAE_Widget_Base {
 		?>
 		<div <?php echo $this->get_render_attribute_string( 'gallery-wrapper' ); ?>>
 			<div class="eae-gallery-filter">
-				<?PHP if ( $settings['show_all'] === 'yes' && count( $settings['eae_filterable_gallery_content'] ) > 1 ) { ?>
+				<?php if ( $settings['show_all'] === 'yes' && count( $settings['eae_filterable_gallery_content'] ) > 1 ) { ?>
 					<a href="#" data-filter="*" data-filter-name="all" class="eae-filter-label current"><?php echo $settings['show_all_tab_text']; ?></a>
 				<?php } ?>
 				<?php
@@ -1412,10 +1412,11 @@ class FilterableGallery extends EAE_Widget_Base {
 							$filter_label = $filter_group['eae_filter_label'];
 							$filter_name  = strtolower( $filter_group['eae_filter_label'] );
 							$filter_name  = str_replace( ' ', '-', $filter_name );
-							?>
-							<a href="#" data-filter=".<?php echo $filter_name; ?>"
-							class="eae-filter-label" data-filter-name="<?php echo $filter_name; ?>"> <?php echo $filter_label; ?></a>
-							<?php
+							$this->add_render_attribute( 'filter-item-' . $filter_group['_id'], 'class', ['eae-filter-label' ] );
+							$this->add_render_attribute( 'filter-item-' . $filter_group['_id'], 'href', '#' );
+							$this->add_render_attribute( 'filter-item-' . $filter_group['_id'], 'data-filter-name', $filter_name );
+							$this->add_render_attribute( 'filter-item-' . $filter_group['_id'], 'data-filter', '.'.$filter_name );
+							echo sprintf( '<a %1$s>%2$s</a>', $this->get_render_attribute_string( 'filter-item-' . $filter_group['_id'] ), $filter_label );
 						}
 					}
 				}
