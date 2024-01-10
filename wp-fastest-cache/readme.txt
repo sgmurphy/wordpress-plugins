@@ -1,10 +1,10 @@
 === WP Fastest Cache ===
 Contributors: emrevona
 Donate link: https://profiles.wordpress.org/emrevona/
-Tags: cache, Optimize, performance, wp-cache, core web vitals
+Tags: cache, Optimize, performance, PageSpeed, core web vitals
 Requires at least: 3.3
 Tested up to: 6.4
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,14 +14,15 @@ The simplest and fastest WP Cache system
 
 <h4>Official Website</h4>
 
-You can find more information on our web site (<a href="https://www.wpfastestcache.com/">wpfastestcache.com</a>)
+You can find more information on our website (<a href="https://www.wpfastestcache.com/">wpfastestcache.com</a>)
 
-When a page is rendered, php and mysql are used. Therefore, system needs RAM and CPU. 
-If many visitors come to a site, system uses lots of RAM and CPU so page is rendered so slowly. In this case, you need a cache system not to render page again and again. Cache system generates a static html file and saves. Other users reach to static html page.
+Welcome to the world of enhanced website performance with WP Fastest Cache, a powerful cache plugin designed for WordPress optimization.
 <br><br>
-In addition, the site speed is used in Google’s search ranking algorithm so cache plugins that can improve your page load time will also improve your SEO ranking.
+WordPress, where every second counts, optimizing your website's performance is key. Introducing WP Fastest Cache, your go-to cache plugin for turbocharging WordPress websites.
 <br><br>
-Setup of this plugin is so easy. You don't need to modify the .htacces file. It will be modified automatically.
+Boost your website's speed with WP Fastest Cache. Improve Google PageSpeed score, meet Core Web Vitals, and optimize performance on GTmetrix and Pingdom for a seamless user experience.
+<br><br>
+In addition, site speed plays a crucial role in Google's search ranking algorithm. Therefore, utilizing cache plugins to enhance your page load time can significantly contribute to improving your SEO ranking. Our WordPress optimization solution not only accelerates your site but also boosts SEO rankings.
 
 <h4>Features</h4>
 
@@ -35,8 +36,8 @@ Setup of this plugin is so easy. You don't need to modify the .htacces file. It 
 8. Enable/Disable cache option for mobile devices
 9. Enable/Disable cache option for logged-in users
 10. SSL support
-11. CDN support
-12. Cloudflare support
+11. CDN support - Effortlessly enhance website speed and performance with seamless CDN integration, supporting Bunny CDN, Cloudflare, and various other leading CDN providers. CDN integration modifies the URLs of static resources, enabling these assets to be served from your CDN service provider
+12. Cloudflare support - Cloudflare integration triggers the clearing of the cache on Cloudflare through API when a cache purge is initiated. As a result, WP Fastest Cache and Cloudflare operate seamlessly in tandem
 13. Preload Cache - Create the cache of all the site automatically
 14. Exclude pages and user-agents
 15. WP-CLI cache clearing
@@ -46,11 +47,11 @@ Setup of this plugin is so easy. You don't need to modify the .htacces file. It 
 
 WP Fastest Cache is not only a wp cache plugin but also a speed optimization wordpress cache plugin. There are many features such as Minify Html, Minify Css, Enable Gzip Compression, Leverage Browser Caching, Add Expires Headers, Combine CSS, Combine JS, Disable Emoji.
 
-1. Generating static html files from your dynamic WordPress blog
-2. Minify Html - You can decrease the size of page
-3. Minify Css - You can decrease the size of css files
+1. Page Caching - Page caching feature generates and store static HTML files from your dynamic WordPress blog to reduce initial server response time, and improving page load times
+2. Minify Html - Minify HTML is the process of reducing the size of page by removing unnecessary characters, spaces, and line breaks, optimizing it for faster webpage loading
+3. Minify Css - Minify CSS is the process of reducing the size of CSS files by removing unnecessary characters, spaces, and comments to improve website loading performance
 4. Enable Gzip Compression - Reduce the size of files sent from your server to increase the speed to which they are transferred to the browser
-5. Leverage browser caching - Reduce page load times for repeat visitors
+5. Leverage browser caching - Browser caching can help to reduce page load times by reducing the number of requests per page for repeat visitors
 6. Combine CSS - Reduce number of HTTP round-trips by combining multiple CSS resources into one
 7. Combine JS
 8. Disable Emoji - You can remove the emoji inline css and wp-emoji-release.min.js
@@ -80,11 +81,11 @@ WP Fastest Cache is compatible with most popular plugins such as Contact Form 7,
 
 <h4>Supported Languages</h4>
 
-Although there are over 7000 languages spoken in the world today, we feel very lucky to support 27 languages for now.
+Although there are over 7000 languages spoken in the world today, we feel very lucky to support 28 languages for now.
 
 However, localizing or adapting a plugin to another language or culture is time consuming and a demanding task. That's where the amazing Translation Contributors team of WordPress comes into play. These selfless people spent their precious time without expecting anything in return so that other people can use the add-ons more easily. We sincerely thank all of them.
 
-Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium), Dutch (Netherlands), English (South Africa), English (UK), Finnish, French (France), Galician, German (Germany), Hungarian, Indonesian, Italian, Japanese, Korean (Korea), Persian, Russian, Slovak (Slovakia), Spanish (Argentina), Spanish (Colombia), Spanish (Ecuador), Spanish (Mexico), Spanish (Spain), Spanish (Venezuela), Swedish, Turkish
+Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium), Dutch (Netherlands), English (South Africa), English (UK), Finnish, French (France), Galician, German (Germany), Hungarian, Indonesian, Italian, Japanese, Korean (Korea), Persian, Russian, Slovak (Slovakia), Slovenian, Spanish (Argentina), Spanish (Colombia), Spanish (Ecuador), Spanish (Mexico), Spanish (Spain), Spanish (Venezuela), Swedish, Turkish
 
 == Installation ==
 
@@ -115,6 +116,14 @@ Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium)
 18. Database Cleanup
 
 == Changelog ==
+
+= 1.2.3 =
+* Farewell, StackPath, and a warm welcome to BunnyCDN
+* to update translation files
+* to exclude script element from minification when data-no-minify attribute is set
+* <strong>[FEATURE]</strong> to add Slovenian language
+* refactroning of specificDeleteCache()
+
 = 1.2.2 =
 * Security Enhancements
 * to update translation files

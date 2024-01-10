@@ -2169,7 +2169,9 @@
 .wpdt-c .opacity-5 {
     opacity: .5;
 }
-
+.wpdt-c .opacity-1 {
+    opacity: 1 !important;
+}
 @media (min-width: 768px) {
     .wpdt-c .col-sm-0-8,
     .wpdt-c .col-sm-0-1,

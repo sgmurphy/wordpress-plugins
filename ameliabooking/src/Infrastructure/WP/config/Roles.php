@@ -39,6 +39,7 @@ class Roles
         'amelia_read_custom_fields',
         'amelia_read_settings',
 
+        'amelia_read_others_settings',
         'amelia_read_others_dashboard',
         'amelia_read_others_calendar',
         'amelia_read_others_appointments',
@@ -63,6 +64,7 @@ class Roles
         'amelia_write_settings',
         'amelia_write_status',
 
+        'amelia_write_others_settings',
         'amelia_write_others_calendar',
         'amelia_write_others_appointments',
         'amelia_write_others_services',

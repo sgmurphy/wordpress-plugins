@@ -4,26 +4,9 @@ namespace AmeliaBooking\Application\Commands;
 
 use AmeliaBooking\Application\Commands\Booking\Appointment\AddBookingCommand;
 use AmeliaBooking\Application\Commands\Booking\Appointment\SuccessfulBookingCommand;
-use AmeliaBooking\Application\Commands\Coupon\GetValidCouponCommand;
-use AmeliaBooking\Application\Commands\Google\FetchAccessTokenWithAuthCodeCommand;
-use AmeliaBooking\Application\Commands\Google\GetGoogleAuthURLCommand;
 use AmeliaBooking\Application\Commands\Notification\GetSMSNotificationsHistoryCommand;
-use AmeliaBooking\Application\Commands\Notification\WhatsAppWebhookCommand;
-use AmeliaBooking\Application\Commands\Notification\WhatsAppWebhookRegisterCommand;
-use AmeliaBooking\Application\Commands\Outlook\FetchAccessTokenWithAuthCodeOutlookCommand;
 use AmeliaBooking\Application\Commands\Payment\CalculatePaymentAmountCommand;
-use AmeliaBooking\Application\Commands\Payment\PaymentCallbackCommand;
-use AmeliaBooking\Application\Commands\Payment\PaymentLinkCommand;
-use AmeliaBooking\Application\Commands\PaymentGateway\MolliePaymentCommand;
-use AmeliaBooking\Application\Commands\PaymentGateway\MolliePaymentNotifyCommand;
-use AmeliaBooking\Application\Commands\PaymentGateway\PayPalPaymentCallbackCommand;
-use AmeliaBooking\Application\Commands\PaymentGateway\PayPalPaymentCommand;
-use AmeliaBooking\Application\Commands\PaymentGateway\WooCommercePaymentCommand;
-use AmeliaBooking\Application\Commands\PaymentGateway\RazorpayPaymentCommand;
 use AmeliaBooking\Application\Commands\Stats\AddStatsCommand;
-use AmeliaBooking\Application\Commands\User\Customer\ReauthorizeCommand;
-use AmeliaBooking\Application\Commands\User\LoginCabinetCommand;
-use AmeliaBooking\Application\Commands\User\LogoutCabinetCommand;
 use AmeliaBooking\Application\Services\User\UserApplicationService;
 use AmeliaBooking\Domain\Services\Permissions\PermissionsService;
 use AmeliaBooking\Domain\Services\Settings\SettingsService;
@@ -195,29 +178,12 @@ abstract class Command
         if ($request->getMethod() === 'POST' &&
             !self::getToken() &&
             !($this instanceof CalculatePaymentAmountCommand) &&
-            !($this instanceof ReauthorizeCommand) &&
-            !($this instanceof LoginCabinetCommand) &&
-            !($this instanceof LogoutCabinetCommand) &&
             !($this instanceof AddBookingCommand) &&
             !($this instanceof AddStatsCommand) &&
-            !($this instanceof GetValidCouponCommand) &&
-            !($this instanceof MolliePaymentCommand) &&
-            !($this instanceof MolliePaymentNotifyCommand) &&
-            !($this instanceof PayPalPaymentCommand) &&
-            !($this instanceof PayPalPaymentCallbackCommand) &&
-            !($this instanceof RazorpayPaymentCommand) &&
-            !($this instanceof WooCommercePaymentCommand) &&
-            !($this instanceof PaymentCallbackCommand) &&
             !($this instanceof SuccessfulBookingCommand) &&
-            !($this instanceof GetGoogleAuthURLCommand) &&
-            !($this instanceof FetchAccessTokenWithAuthCodeOutlookCommand) &&
-            !($this instanceof FetchAccessTokenWithAuthCodeCommand) &&
-            !($this instanceof WhatsAppWebhookRegisterCommand) &&
-            !($this instanceof WhatsAppWebhookCommand) &&
-            !($this instanceof GetSMSNotificationsHistoryCommand) &&
-            !($this instanceof PaymentLinkCommand)
+            !($this instanceof GetSMSNotificationsHistoryCommand)
         ) {
-            wp_verify_nonce(
+            return wp_verify_nonce(
                 $request->getQueryParams()['wpAmeliaNonce'] ?: $request->getQueryParams()['ameliaNonce'],
                 'ajax-nonce'
             );

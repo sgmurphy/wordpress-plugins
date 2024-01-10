@@ -6,8 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'WpOop\\TransientCache\\' => array($vendorDir . '/wp-oop/transient-cache/src'),
     'RebelCode\\WordPress\\Http\\' => array($vendorDir . '/rebelcode/wp-http/src'),
+    'RebelCode\\Spotlight\\Instagram\\Vendor\\' => array($baseDir . '/vendor_scoped/psr4'),
     'RebelCode\\Spotlight\\Instagram\\Pro\\' => array($baseDir . '/src/pro'),
     'RebelCode\\Spotlight\\Instagram\\Performance\\' => array($baseDir . '/src/performance'),
     'RebelCode\\Spotlight\\Instagram\\Modules\\' => array($baseDir . '/modules'),
@@ -16,9 +16,8 @@ return array(
     'RebelCode\\Psr7\\' => array($vendorDir . '/rebelcode/psr7/src'),
     'RebelCode\\Iris\\' => array($vendorDir . '/rebelcode/iris-engine/src'),
     'RebelCode\\Atlas\\' => array($vendorDir . '/rebelcode/atlas/src'),
-    'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
-    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src', $vendorDir . '/psr/http-factory/src'),
+    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-factory/src', $vendorDir . '/psr/http-message/src'),
     'Psr\\Http\\Client\\' => array($vendorDir . '/psr/http-client/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Liborm85\\ComposerVendorCleaner\\' => array($vendorDir . '/liborm85/composer-vendor-cleaner/src'),

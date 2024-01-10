@@ -590,7 +590,9 @@
             var $block = $(this).closest('div.wdt-conditional-formatting-rule');
             $block.remove();
         });
-
+        $('#wdt-wcag').change(function (e) {
+            wpdatatable_config.setWCAG($(this).is(':checked') ? 1 : 0);
+        });
         /**
          * Show/hide different settings for different column types
          */

@@ -49,7 +49,7 @@
             ></component>
             <EventListFooter
               :loading="loading"
-              :second-button-show="secondBtnVisibility && secBtnShow"
+              :second-button-show="secondBtnVisibility && secBtnShow && amSettings.roles.customerCabinet.enabled && amSettings.roles.customerCabinet.pageUrl !== null"
               :payment-gateway="store.getters['payment/getPaymentGateway']"
               :customized-labels="customizedStepLabels"
               :primary-footer-button-type="customizedStepOptions.primBtn.buttonType"

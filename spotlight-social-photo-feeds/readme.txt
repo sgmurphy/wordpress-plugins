@@ -5,8 +5,8 @@ Plugin URI: https://spotlightwp.com
 Tags: Instagram, Instagram feed, Instagram feeds, Instagram block, Instagram embed, social media, social media feed, Instagram widget, link in bio, Instagram gallery, shoppable Instagram, hashtag feed
 Requires at least: 5.7
 Requires PHP: 7.1
-Tested up to: 6.4
-Stable tag: 1.6.7
+Tested up to: 6.3
+Stable tag: 1.6.8
 License: GPLv3
 
 Instagram feeds made easy. Responsive, customizable, accessible, and SEO-friendly out of the box. Includes Instagram blocks & oEmbed support.
@@ -266,6 +266,14 @@ Yes, aside from the customisation options provided by Spotlight itself, the plug
 7. [Premium] Create shoppable Instagram Feeds and Instagram bio link pages in seconds. Link Instagram posts to articles, products, recipes, and much more.
 
 == Changelog ==
+
+= 1.6.8 (2024-01-10) =
+
+**Changed**
+- The photo/video URLs for imported posts are now forcefully updated on every fetch.
+
+**Fixed**
+- A common conflict with other plugins that use a newer version of the `psr/simple-cache` package.
 
 = 1.6.7 (2023-11-17) =
 

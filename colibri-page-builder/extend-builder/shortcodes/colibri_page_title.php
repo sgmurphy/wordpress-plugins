@@ -25,7 +25,9 @@ function colibri_page_title_html( $atts, $titles ) {
 		$tag = 'h2';
 	}
 
-	$html = "<span><" . $tag . " style='margin-bottom:0'>" . get_title( $titles ) . "</" . $tag. "></span>";
+	$title = wp_kses_post(get_title( $titles ));
+
+	$html = "<span><" . $tag . " style='margin-bottom:0'>" . $title . "</" . $tag. "></span>";
 
 	return $html;
 }

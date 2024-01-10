@@ -149,7 +149,7 @@ class UserApplicationService
      */
     public function setWpUserIdForNewUser($userId, $user)
     {
-        if (!$user->getEmail() || !trim($user->getEmail()->getValue())) {
+        if (!$user->getEmail() || !$user->getEmail()->getValue() || !trim($user->getEmail()->getValue())) {
             return;
         }
 

@@ -1,26 +1,29 @@
-=== Starter Templates by Kadence WP ===
+=== AI Powered Starter Templates by Kadence WP ===
 Contributors: britner
 Tags: templates, gutenberg
-Requires at least: 5.6
+Requires at least: 6.1
 Tested up to: 6.4
-Stable tag: 1.2.24
+Stable tag: 2.0.1
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Build a Beautiful "performance optimized" website with 3 mouse clicks.
+Build a Beautiful "performance optimized" website with ease.
 
 == Description ==
 
-= BUILD A BEAUTIFUL "PERFORMANCE OPTIMIZED" WEBSITE WITH 3 MOUSE CLICKS =
+= BUILD A BEAUTIFUL "PERFORMANCE OPTIMIZED" WEBSITE WITH EASE =
 
-Create and customize professionally designed websites in minutes.
+Create and customize professionally designed websites in minutes with content already tailored to you through the help of AI.
 
-Kadence Starter Templates give you full access to pre-made website designs using the WordPress block builder.
+Kadence Starter Templates gives you AI powered starter templates that have images and text generated for your specific site. Each AI powered template is optimized for performance, accessibility and built using the WordPress Block editor.
 
-Unlike other website templates that are difficult to change fonts and colors, our template are built on a globally linked color palette and font selector. This allows you to change the color scheme or font on your entire website with a few mouse clicks.
+Unlike other website starter templates that are difficult to change fonts and colors, our ai powered templates are built on a globally linked color palette and font selector. This allows you to change the color scheme or font on your entire website with a few mouse clicks.
 
-Simply choose your template, choose your colors, and import. Done!
+Simply setup your business profile, choose your template, choose your colors and fonts, and import. Done!
+
+= VIDEO OVERVIEW =
+https://www.youtube.com/watch?v=JxQd4jYQ96o
 
 = KADENCE STARTER TEMPLATES PUTS THE E BACK IN EASY =
 
@@ -78,19 +81,15 @@ All of our starter templates are designed to work with the free Kadence Theme.
 
 = Will this work with my page builder? =
 
-Currently all the starter templates are built using the default WordPress block builder and Kadence Blocks which adds page builder like features to your website. We will be adding Elementor site templates in the future and will be keeping tabs on what our users request.  
+Currently all the starter templates are built using the default WordPress block builder and Kadence Blocks which adds page builder like features to your website. We have some classic templates built with Elementor. In the future and will be keeping tabs on what our users request.  
 
 = Can I import a starter template on an existing website? =
 
-It's best that you install one of our starter templates on a fresh WordPress installation. 
+Yes you can, however it's best that you install one of our starter templates on a fresh WordPress installation. 
 
 = Do I still need the plugin after I install a starter template? =
 
 You can disable the plugin however you would lose out on the additional features we are adding to make it easier to having and customizing your website. 
-
-= How often will you be adding new starter templates? =
-
-We will be adding 1 - 2 new site templates each month. 
 
 = Will this slow down my website? =
 
@@ -106,12 +105,12 @@ notify the developers of this plugin.
 
 == Screenshots ==
 
-1. Choose a starter template.
-2. Choose a color palette while previewing.
+1. Setup business profile for AI.
+2. Choose website image collections.
 3. Choose a color palette while previewing.
 4. Choose a color palette while previewing.
-5. Choose a color palette while previewing.
-6. Choose a color palette while previewing.
+5. Choose a font pair while previewing.
+6. Choose which pages to import.
 
 == Security Policy ==
 
@@ -125,6 +124,15 @@ assist you with verification, CVE assignment, and notify the
 developers of this plugin.
 
 == Changelog ==
+
+= 2.0.1 =
+* Fix: Link in admin.
+* Update: Readme.
+
+= 2.0.0 =
+* Add: New AI Powered Starter Templates
+* Update: UI for classic starter templates.
+* Update: Import Logic.
 
 = 1.2.24 =
 * Fix: Issue with Pro site imports.

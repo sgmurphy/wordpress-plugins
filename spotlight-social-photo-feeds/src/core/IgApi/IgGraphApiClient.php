@@ -3,7 +3,7 @@
 namespace RebelCode\Spotlight\Instagram\IgApi;
 
 use Psr\Http\Client\ClientInterface;
-use Psr\SimpleCache\CacheInterface;
+use RebelCode\Spotlight\Instagram\Vendor\Psr\SimpleCache\CacheInterface;
 
 class IgGraphApiClient
 {
@@ -112,81 +112,5 @@ class IgGraphApiClient
         $user = IgUser::create($userData);
 
         return new IgAccount($user, $accessToken);
-    }
-
-    /**
-     * @since 0.1
-     *
-     * @param string $userId
-     * @param string $accessToken
-     *
-     * @return array An array containing two keys, "media" and "next", which correspond to the media list and a function
-     *               for retrieving the next batch of media or null if there are is more media to retrieve.
-     */
-    public function getMedia(string $userId, string $accessToken): array
-    {
-        $getRemote = function () use ($userId, $accessToken) {
-            $request = IgApiUtils::createRequest('GET', static::API_URI . "/{$userId}/media", [
-                'fields' => implode(',', IgApiUtils::getBusinessMediaFields()),
-                'access_token' => $accessToken,
-                'limit' => 9,
-            ]);
-
-            return IgApiUtils::sendRequest($this->client, $request);
-        };
-
-        $body = IgApiUtils::getCachedResponse($this->cache, "media_b_{$userId}", $getRemote);
-        $media = $body['data'];
-        $media = !is_array($media) ? [] : $media;
-        $media = array_map([IgMedia::class, 'create'], $media);
-
-        $nextUrl = $body['paging']['next'] ?? null;
-        $next = ($nextUrl !== null)
-            ? function () use ($nextUrl, $userId, $accessToken) {
-                $request = IgApiUtils::createRequest('GET', $nextUrl);
-                $response = IgApiUtils::sendRequest($this->client, $request);
-                $responseData = IgApiUtils::parseResponse($response);
-                $responseData['data'] = $this->expandWithComments($responseData['data'], $accessToken);
-
-                return $responseData;
-            }
-            : null;
-
-        return compact('media', 'next');
-    }
-
-    /**
-     * @since 0.1
-     *
-     * @param array  $mediaList
-     * @param string $accessToken
-     *
-     * @return IgMedia[]
-     */
-    protected function expandWithComments(array $mediaList, string $accessToken): array
-    {
-        $mediaIds = array_filter(array_column($mediaList, 'id'));
-
-        $request = IgApiUtils::createRequest('GET', static::API_URI . "/comments", [
-            'ids' => implode(',', $mediaIds),
-            'fields' => implode(',', IgApiUtils::getCommentFields()),
-            'access_token' => $accessToken,
-        ]);
-
-        $response = IgApiUtils::sendRequest($this->client, $request);
-
-        $comments = IgApiUtils::parseResponse($response);
-
-        foreach ($mediaList as $idx => $media) {
-            $mediaId = $media['id'];
-
-            if (!isset($comments[$mediaId])) {
-                continue;
-            }
-
-            $mediaList[$idx]['comments'] = $comments[$mediaId]['data'];
-        }
-
-        return $mediaList;
     }
 }

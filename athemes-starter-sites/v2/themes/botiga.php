@@ -18,6 +18,13 @@ function botiga_demos_list() {
 		'required' => true
 	);
 
+	$plugins[] = array(
+		'name'     => 'Merchant',
+		'slug'     => 'merchant',
+		'path'     => 'merchant/merchant.php',
+		'required' => false
+	);
+
 	$demos = array(
 		'beauty'      => array(
 			'name'       => esc_html__( 'Beauty', 'botiga' ),
@@ -376,6 +383,17 @@ add_filter( 'atss_register_demos_list', 'botiga_demos_list' );
  * Define actions that happen after import
  */
 function botiga_setup_after_import( $demo_id ) {
+
+	// Enable Merchant modules.
+	if ( class_exists( 'Merchant' ) ) {
+		$modules = get_option( 'merchant-modules', array() );
+		
+		update_option( 'merchant-modules', array_merge( $modules, array( 
+			'inactive-tab-message'    => true,
+			'agree-to-terms-checkbox' => true,
+			'payment-logos'           => true,
+		) ) );
+	}
 
 	// Assign the menu.
 	$main_menu = get_term_by( 'name', 'Main', 'nav_menu' );

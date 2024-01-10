@@ -188,6 +188,27 @@ var wdtRenderDataTable = null;
                 }
 
             }
+            if(tableDescription.pagination && tableDescription.table_wcag){
+                $(tableDescription.selector + '_paginate').addClass('wcag_paginate');
+                wpDataTables[tableDescription.tableId].fnSettings().oLanguage.oPaginate.sFirst = wpdatatables_frontend_strings.firstPageWCAG;
+                wpDataTables[tableDescription.tableId].fnSettings().oLanguage.oPaginate.sLast = wpdatatables_frontend_strings.lastPageWCAG;
+                wpDataTables[tableDescription.tableId].fnSettings().oLanguage.oPaginate.sNext = wpdatatables_frontend_strings.nextPageWCAG;
+                wpDataTables[tableDescription.tableId].fnSettings().oLanguage.oPaginate.sPrevious = wpdatatables_frontend_strings.previousPageWCAG;
+                $(document).ready(function () {
+                    $('#' + tableDescription.tableId + '_paginate').find('span .paginate_button').each(function (index) {
+                        $(this).attr('aria-label', wpdatatables_frontend_strings.pageWCAG + this.text);
+                    });
+                });
+            }
+            $(document).ready(function () {
+                if (tableDescription.table_wcag) {
+                    $(tableDescription.selector + '_wrapper .dt-buttons .dt-button.DTTT_button_spacer').attr('aria-label', wpdatatables_frontend_strings.spacerWCAG).attr('role', 'button');
+                    $(tableDescription.selector + '_wrapper .dt-buttons .dt-button.DTTT_button_colvis').attr('aria-label', wpdatatables_frontend_strings.colvisWCAG).attr('role', 'button');
+                    $(tableDescription.selector + '_wrapper .dt-buttons .dt-button.DTTT_button_print').attr('aria-label', wpdatatables_frontend_strings.printTableWCAG).attr('role', 'button');
+                    $(tableDescription.selector + '_wrapper .dt-buttons .dt-button.DTTT_button_export').attr('aria-label', wpdatatables_frontend_strings.exportTableWCAG).attr('role', 'button');
+                    $(tableDescription.selector + '_wrapper .dt-buttons .dt-button.DTTT_button_clear_filters').attr('aria-label', wpdatatables_frontend_strings.clearFiltersWCAG).attr('role', 'button');
+                }
+            });
 
             /**
              * Remove pagination when "All" is selected from length menu or

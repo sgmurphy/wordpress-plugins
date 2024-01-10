@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WP Fastest Cache - Development (trunk) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-08-03 09:37:49+0000\n"
+"PO-Revision-Date: 2023-11-17 11:50:33+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -54,11 +54,11 @@ msgstr "Vooraf laden instellingen"
 
 #: inc/admin.php:1452 inc/admin.php:1458 inc/admin.php:1465
 msgid "Some js sources will not be loaded until scrolling or moving the mouse"
-msgstr "Sommige js sources zullen niet geladen worden, totdat er gescrolled wordt of de muis bewogen"
+msgstr "Sommige js bronnen zullen niet geladen worden, totdat er gescrold wordt of de muis bewogen"
 
 #: inc/admin.php:1451 inc/admin.php:1457 inc/admin.php:1464
 msgid "Delay Js"
-msgstr "Vertraag Js"
+msgstr "Vertraag JS"
 
 #: inc/admin.php:1061
 msgid "WP Fastest Cache Options"
@@ -102,7 +102,7 @@ msgstr "Cache wissen"
 
 #: inc/admin.php:1357 inc/admin.php:1363 inc/admin.php:1370
 msgid "Eliminate render-blocking JavaScript resources"
-msgstr "Elimineer render blokkering javascript bronnen"
+msgstr "Elimineer render blokkering JavaScript gegevensbronnen"
 
 #: inc/admin.php:461 inc/admin.php:464
 msgid "Options have been saved"
@@ -110,7 +110,7 @@ msgstr "Opties zijn opgeslagen"
 
 #: inc/admin.php:1956 templates/exclude.php:115
 msgid "has Woocommerce Items in Cart"
-msgstr "heeft Woocommerce artikelen in winkelwagentje"
+msgstr "heeft WooCommerce artikelen in winkelwagen"
 
 #: inc/admin.php:1954 templates/exclude.php:113
 msgid "has Google Analytics Parameters"
@@ -170,7 +170,7 @@ msgstr "Cache timeout wizard"
 
 #: templates/lazy_load.php:9
 msgid "Lazy Load Settings"
-msgstr "Instellingen voor lazy load"
+msgstr "Instellingen voor lazy-load"
 
 #: templates/nginx_gzip.php:9
 msgid "Enable Gzip"
@@ -211,7 +211,7 @@ msgstr "Alle cachebestanden worden ook verwijderd"
 
 #: inc/admin.php:1620
 msgid "If you modify any css file, you have to delete minified css files"
-msgstr "Als je een css bestand wijzigt, moet je minified css bestanden verwijderen"
+msgstr "Als je een CSS bestand wijzigt, moet je verkleinde CSS bestanden verwijderen"
 
 #: inc/admin.php:1608 inc/admin.php:1622 inc/admin.php:1623
 msgid "Target folder"
@@ -227,7 +227,7 @@ msgstr "Uitsluiten"
 
 #: inc/admin.php:1071
 msgid "Image Optimization"
-msgstr "Afbeeldingoptimalisatie"
+msgstr "Afbeeldingsoptimalisatie"
 
 #: inc/admin-toolbar.php:115 inc/admin.php:1069
 msgid "Settings"
@@ -316,7 +316,7 @@ msgstr "OK"
 
 #: templates/preload.php:215
 msgid "Restart After Completed"
-msgstr "Opnieuw starten nadat deze is voltooid"
+msgstr "Opnieuw starten nadat deze is afgerond"
 
 #: templates/preload.php:210
 msgid "pages per minute"
@@ -356,7 +356,7 @@ msgstr "Homepage"
 
 #: inc/admin.php:1304 inc/admin.php:1312 inc/admin.php:1318 inc/admin.php:1324
 msgid "Reduce HTTP requests through combined js files"
-msgstr "HTTP aanvragen verminderen via gecombineerde js-bestanden"
+msgstr "HTTP aanvragen verminderen via gecombineerde js bestanden"
 
 #: inc/admin.php:1412 inc/admin.php:1433 inc/admin.php:1440
 msgid "Load images and iframes when they enter the browsers viewport"
@@ -372,7 +372,7 @@ msgstr "Google Fonts"
 
 #: inc/admin.php:1356 inc/admin.php:1362 inc/admin.php:1369
 msgid "Render Blocking Js"
-msgstr "Render blokkeren Js"
+msgstr "Weergave blokkerende js"
 
 #: inc/admin.php:1348
 msgid "You can remove the emoji inline css and wp-emoji-release.min.js"
@@ -400,15 +400,15 @@ msgstr "Gzip"
 
 #: inc/admin.php:1310 inc/admin.php:1317 inc/admin.php:1323
 msgid "Combine Js Plus"
-msgstr "Combineer Js Plus"
+msgstr "Combineer JS Plus"
 
 #: inc/admin.php:1303
 msgid "Combine Js"
-msgstr "Combineer Js"
+msgstr "Combineer JS"
 
 #: inc/admin.php:1287 inc/admin.php:1292 inc/admin.php:1298
 msgid "You can decrease the size of js files"
-msgstr "Je kunt de grootte van js-bestanden verkleinen"
+msgstr "Je kunt de grootte van je js bestanden verkleinen"
 
 #: inc/admin.php:1286 inc/admin.php:1291 inc/admin.php:1297
 msgid "Minify Js"
@@ -420,11 +420,11 @@ msgstr "HTTP aanvragen verminderen via gecombineerde css bestanden"
 
 #: inc/admin.php:1278
 msgid "Combine Css"
-msgstr "Css combineren"
+msgstr "Combineer CSS"
 
 #: inc/admin.php:1267 inc/admin.php:1272
 msgid "More powerful minify css"
-msgstr "Krachtiger minify css"
+msgstr "Krachtiger verkleinen van css"
 
 #: inc/admin.php:1266 inc/admin.php:1271
 msgid "Minify Css Plus"
@@ -432,15 +432,15 @@ msgstr "Minify Css Plus"
 
 #: inc/admin.php:1258
 msgid "You can decrease the size of css files"
-msgstr "Je kunt de grootte van css-bestanden verkleinen"
+msgstr "Je kunt de grootte van css bestanden verkleinen"
 
 #: inc/admin.php:1257
 msgid "Minify Css"
-msgstr "Minify Css"
+msgstr "Verklein css"
 
 #: inc/admin.php:1245 inc/admin.php:1250
 msgid "More powerful minify html"
-msgstr "Krachtiger minify html"
+msgstr "Krachtiger verkleinen van HTML"
 
 #: inc/admin.php:1244 inc/admin.php:1249
 msgid "Minify HTML Plus"

@@ -6,8 +6,8 @@ namespace RebelCode\Spotlight\Instagram\SaaS;
 
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
-use Psr\SimpleCache\CacheInterface;
-use Psr\SimpleCache\InvalidArgumentException;
+use RebelCode\Spotlight\Instagram\Vendor\Psr\SimpleCache\CacheInterface;
+use RebelCode\Spotlight\Instagram\Vendor\Psr\SimpleCache\InvalidArgumentException;
 use RebelCode\Psr7\Request;
 
 class SaasResourceFetcher

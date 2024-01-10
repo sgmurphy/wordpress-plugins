@@ -3,73 +3,91 @@
 Contributors: yithemes
 Tags: woocommerce search by sku, woocommerce search results, woocommerce search shortcode, woocommerce search page, woocommerce search form, woocommerce search filter, woocommerce search products, woocommerce search content, woocommerce search autocomplete, woocommerce advanced search, woocommerce search category, woocommerce search product attributes, woocommerce search by tag, woocommerce search by brand, woocommerce predictive, woocommerce live search, woocommerce single product search, woocommerce site search, woocommerce search tex, tajax, search, woocommerce, products, themes, yit, e-commerce, shop, yith, ajax search, instant search, premium, yithemes, autocomplete, autosuggest, better search, category search, custom search, highlight terms, Live Search, Predictive Search, product search, relevant search, search highlight, search product, suggest, typeahead, WooCommerce Plugin, woocommerce product search, woocommerce search, wordpress ecommerce
 Requires at least: 6.2
+Requires at least PHP: 7.4
 Tested up to: 6.4
-Stable tag: 1.38.0
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 YITH WooCommerce Ajax Search allows your users to search products in real time.
 
 == Description ==
+According to several usability studies, **85% of users who access an e-commerce store go straight to the search form.** If they cannot find it and search for the products they want to buy, most of them will abandon the site after a few seconds.
 
-= Improve user experience, improve your sales =
+If you already have a search form on your website, but it does not work properly or suggests irrelevant products, the same will happen: **they will abandon your shop and you will lose those sales.**
 
-YITH WooCommerce Ajax Search is a very easy-to-use plugin for WooCommerce. You just need to install it and it's ready to work.
+With the latest version of **YITH WooCommerce AJAX Search**, in just a few minutes, you can set up a modern and usable search form in WooCommerce that’s designed to deliver effective results consistently, search after search.
 
-It creates a simple search box that shows you instant search results, by suggesting you products from your WooCommerce store that match your searching criteria.
+**The new version of the plugin** is powerful, flexible, and easy to configure. You can place your search form anywhere using the built-in block or shortcode, customize its style and colors, and, most importantly, set a tolerance threshold to find results even if there are some typos in the text.
 
-It is very useful to assist your users while they are trying to search any product in your website. They can just enter a keyword for the WooCommerce product they are looking for and YITH WooCommerce Ajax Search will spare them the nuisance to browse all WooCommerce categories one at a time.
+Go ahead, install the plugin and in just a few clicks you’ll have your customers searching and quickly finding the products they are interested in.
 
-Did you ever forget the name of a WooCommerce product? Just start to write your keyphrase. A list of useful suggestion will be shown to you  and the more you write, the more accurate search results will be. At that point, you'll only need to choose what you need.
+**Features of the free version:**
 
-It works just like Google Suggest, but this tool will be available on your WooCommerce site and will be using your database.
+* Insert the search form using the Gutenberg block
 
-= Features of YITH WooCommerce Ajax Search: =
+* Insert the search form using the shortcode
 
-* Widget and shortcodes to show your WooCommerce searchform in anywhere you want in your WooCommerce site.
-* Options for customization of your WooCommerce searchform:
- * Customize WooCommerce input label
- * Customise WooCommerce search submit
-* Options for displaying of WooCommerce search results.
- * Set minimum number of characters for WooCommerce search
- * Set maximum number of WooCommerce results
+* Choose the size of the search form
 
-If you want to boost your YITH WooCommerce Ajax Search, you can also visit YITH page and explore the [live demo](https://plugins.yithemes.com/yith-woocommerce-ajax-search/) of the premium version, which includes all the following features to improve at the best your WooCommerce site search.
+* Set the placeholder text to show in the form search input
 
-= Premium features of YITH WooCommerce Ajax Search: =
+* Set the colors of the form and the “Submit” button
 
-* All features of the free version of YITH WooCommerce Ajax Search
-* Show filter for WooCommerce search fields
-* Show list of WooCommerce categories (main categories/all categories)
-* Extend search in WooCommerce product excerpt
-* Extend search in WooCommerce product content
-* Extend search in WooCommerce product categories
-* Extend search in WooCommerce product tags
-* Extend search also to WooCommerce product SKU
-* Extend SKU search including WooCommerce variable products
-* Show WooCommerce thumbnails in the list of search suggestions
-* Show WooCommerce product price in the list of search suggestions
-* Show WooCommerce sale badge (customization options available too)
-* Show WooCommerce featured badge (customization options available too)
-* Show excerpt of WooCommerce product (set the text to show as WooCommerce product excerpt)
-* Customize WooCommerce search loader .gif image
+* Enable instant search (autocomplete feature)
 
+* Set the number of characters after which the instant search is triggered
 
-For a more detailed list of options and features of YITH WooCommerce Ajax Search, please read the [official documentation](https://docs.yithemes.com/yith-woocommerce-ajax-search/ "YITH Woocommerce Ajax Search official documentation").
+* Search for keywords in product names
 
-YITH WooCommerce Ajax Search is available in combination with many other plugins in [**YITH Essential Kit for WooCommerce #1**](https://wordpress.org/plugins/yith-essential-kit-for-woocommerce-1/), a bundle of indispensable tools to make your WooCommerce site look more professional and be more user-friendly. Learn more about all of WooCommerce plugins included and boost your WooCommerce site with a simple click!
+* Search for keywords in product (main and short) description
+
+* Show search results in a list layout, one below the other
+
+* Show product names and images
+
+* Configure the maximum number of results to show
+
+* Choose whether to show a "View all results" link
+
+* 100% mobile-friendly layout
+
+Want to see the plugin in action? [Check out the live demo of the free version >](https://plugins.yithemes.com/yith-woocommerce-ajax-search-free/)
+
+**Need an extra boost? Upgrade to premium!**
 
 
-= Compatibility with WooCommerce plugins =
+In the free version of YITH WooCommerce AJAX Search, you’ll find everything you need to add a modern and powerful search form to your shop. But if you are looking for advanced options and even more flexibility, we invite you to **upgrade the plugin to the premium version.**
 
-YITH WooCommerce Ajax Search has been tested and compatibility is certain with the following WooCommerce plugins that you can add to your site:
+**Features of the premium version:**
 
-* [**YITH Woocommerce Quick view**](https://wordpress.org/plugins/yith-woocommerce-quick-view/)
-* [**YITH Woocommerce magnifier**](https://wordpress.org/plugins/yith-woocommerce-zoom-magnifier/)
-* [**YITH Woocommerce Ajax Product Filter**](http://it.wordpress.org/plugins/yith-woocommerce-ajax-navigation/)
-* [**YITH Woocommerce Infinite scrolling**](http://it.wordpress.org/plugins/yith-infinite-scrolling/)
+* Enable searching in product SKUs
 
-Nevertheless, it could be compatible with many other WooCommerce plugins that have not been tested yet. If you want to inform us about compatibility with other plugins, please, [email to us](mailto:plugins@yithemes.com "Your Inspiration Themes").
+* Extend the search to categories, tags, attributes, and custom fields
+
+* Extend the search to posts and/or pages to suggest related content to your users
+
+* Show search suggestions and choose whether to show popular searches or specific keywords
+
+* Configure synonym sets to show relevant results regardless of the keywords typed by the user
+
+* Show search results in a grid layout
+
+* Hide out-of-stock products from search results
+
+* Optional: show product price, SKU, and stock
+
+* Optional: show categories, “Add to cart” button, and short description
+
+* Set a maximum length for product descriptions
+
+* Choose whether to show badges on discounted, featured, or out-of-stock products and customize the colors of the badges
+
+* Show links to categories related to the search keys
+
+* Show the user’s history with the latest searches
+
+[Check out the live demo of the premium version >](https://plugins.yithemes.com/yith-woocommerce-ajax-search/)
 
 == Installation ==
 Important: First of all, you have to download and activate WooCommerce plugin, because without it YITH WooCommerce Ajax Search cannot work.
@@ -77,10 +95,6 @@ Important: First of all, you have to download and activate WooCommerce plugin, b
 1. Unzip the downloaded .zip file.
 2. Upload the YITH WooCommerce Ajax Search folder into the `wp-content/plugins/` directory of your WordPress site.
 3. Activate `YITH WooCommerce Ajax Search` from Plugins page
-
-
-= Configuration =
-YITH WooCommerce Ajax Search will add a new tab called "Ajax Search" in "YITH" menu. There, you will find all YITH plugins and you will be able to access quickly plugin settings page.
 
 == Frequently Asked Questions ==
 
@@ -109,35 +123,27 @@ You can get more features with the premium version of YITH WooCommerce Ajax Sear
 
 If you want to see a demonstration version of the premium plugin, you can see that in [this page](https://plugins.yithemes.com/yith-woocommerce-ajax-search/). Browse it and try all options available so that you can see how your plugin looks like.
 
-= What are the main changes in plugin translation? =
-Recently YITH WooCommerce Ajax Search has been selected to be included in the "translate.wordpress.org" translate programme.
-In order to import correctly the plugin strings in the new system, we had to change the text domain form 'yit' to 'yith-woocommerce-ajax-search'.
-Once the plugin will be imported in the translate.wordpress.org system, the translations of other languages will be downloaded directly from WordPress, without using any .po and .mo files. Moreover, users will be able to participate in a more direct way to plugin translations, suggesting texts in their languages in the dedicated tab on translate.wordpress.org.
-During this transition step, .po and .mo files will be used as always, but in order to be recognized by WordPress, they will need to have a new nomenclature, renaming them in:
-
-* yith-woocommerce-ajax-search-[WORDPRESS LOCALE].po
-* yith-woocommerce-ajax-search-[WORDPRESS LOCALE].mo
-
-== Suggestions ==
-If you have any suggestions for improving YITH WooCommerce Ajax Search, you can [write to us](mailto:plugins@yithemes.com "Your Inspiration Themes"), and contribute in making your YITH WooCommerce Ajax Search more and more performing.
-
-== Translators ==
-
-= Available Languages =
-* English (Default)
-* Italian
-
-If you have created your own language pack for YITH WooCommerce Ajax Search, or have an update for an existing one, you can send [gettext PO and MO file](http://codex.wordpress.org/Translating_WordPress "Translating WordPress")
-[to us](mailto:plugins@yithemes.com "Your Inspiration Themes") so we can bundle it into YITH WooCommerce Ajax Search.
-
-
 
 == Screenshots ==
 
-1. YITH WooCommerce Ajax Search settings page
-2. YITH WooCommerce Ajax Search in operation displaying WooCommerce search results
+1. General Settings
+2. Search fields and indexing
+3. Shortcode configuration - general tab
+4. Shortcode configuration - search input tab
+5. Shortcode configuration - submit button tab
+6. Shortcode configuration - search results tab
 
 == Changelog ==
+= 2.0.0 - Released on 10 January 2024 =
+* New: Classic Search block
+* New: Fuzzy Search option
+* New: Shortcode fully customizable from the plugin options panel
+* New: Support for WooCommerce 8.5
+* Update: YITH plugin framework
+* Update: Language file
+* Dev: Template yith-woocommerce-ajax-search.php now is deprecated
+* Tweak: Improvement search engine by specific table
+
 = 1.38.0 - Released on 19 December 2023 =
 * New: support for WooCommerce 8.4
 * Update: YITH plugin framework

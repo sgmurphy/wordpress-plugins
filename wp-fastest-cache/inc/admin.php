@@ -1427,12 +1427,6 @@
 										}
 									?>
 
-								<?php }else{ ?>
-									<div class="questionCon update-needed">
-										<div class="question">Lazy Load</div>
-										<div class="inputCon"><input type="checkbox" id="wpFastestCacheLazyLoad" name="wpFastestCacheLazyLoad"><label for="wpFastestCacheLazyLoad"><?php _e("Load images and iframes when they enter the browsers viewport", "wp-fastest-cache"); ?></label></div>
-										<div class="get-info"><a target="_blank" href="http://www.wpfastestcache.com/premium/lazy-load-reduce-http-request-and-page-load-time/"><img src="<?php echo plugins_url("wp-fastest-cache/images/info.png"); ?>" /></a></div>
-									</div>
 								<?php } ?>
 							<?php }else{ ?>
 								<div class="questionCon disabled">
@@ -1443,33 +1437,22 @@
 							<?php } ?>
 
 
-							<?php if(defined('WPFC_ENABLE_DELAY_JS') && WPFC_ENABLE_DELAY_JS){ ?>
 
-								<?php if(class_exists("WpFastestCachePowerfulHtml")){ ?> 
-									<?php if(method_exists("WpFastestCachePowerfulHtml", "google_fonts")){ ?>
-										<div class="questionCon">
-											<div class="question"><?php _e('Delay Js', 'wp-fastest-cache'); ?></div>
-											<div class="inputCon"><input type="checkbox" <?php echo $wpFastestCacheDelayJS; ?> id="wpFastestCacheDelayJS" name="wpFastestCacheDelayJS"><label for="wpFastestCacheDelayJS"><?php _e("Some js sources will not be loaded until scrolling or moving the mouse", "wp-fastest-cache"); ?></label></div>
-											<div class="get-info"><a target="_blank" href="https://www.wpfastestcache.com/premium/delay-javascript/"><img src="<?php echo plugins_url("wp-fastest-cache/images/info.png"); ?>" /></a></div>
-										</div>
-									<?php }else{ ?>
-										<div class="questionCon update-needed">
-											<div class="question"><?php _e('Delay Js', 'wp-fastest-cache'); ?></div>
-											<div class="inputCon"><input type="checkbox" id="wpFastestCacheDelayJS" name="wpFastestCacheDelayJS"><label for="wpFastestCacheDelayJS"><?php _e("Some js sources will not be loaded until scrolling or moving the mouse", "wp-fastest-cache"); ?></label></div>
-											<div class="get-info"><a target="_blank" href="https://www.wpfastestcache.com/premium/delay-javascript/"><img src="<?php echo plugins_url("wp-fastest-cache/images/info.png"); ?>" /></a></div>
-										</div>
-									<?php } ?>
-								<?php }else{ ?>
-									<div class="questionCon disabled">
+							<?php if(class_exists("WpFastestCachePowerfulHtml")){ ?> 
+								<?php if(file_exists(WPFC_WP_PLUGIN_DIR."/wp-fastest-cache-premium/pro/library/delay-js.php")){ ?>
+									<div class="questionCon">
 										<div class="question"><?php _e('Delay Js', 'wp-fastest-cache'); ?></div>
-										<div class="inputCon"><input type="checkbox" id="wpFastestCacheDelayJS" name="wpFastestCacheDelayJS"><label for="wpFastestCacheDelayJS"><?php _e("Some js sources will not be loaded until scrolling or moving the mouse", "wp-fastest-cache"); ?></label></div>
+										<div class="inputCon"><input type="checkbox" <?php echo $wpFastestCacheDelayJS; ?> id="wpFastestCacheDelayJS" name="wpFastestCacheDelayJS"><label for="wpFastestCacheDelayJS"><?php _e("Some js sources will not be loaded until scrolling or moving the mouse", "wp-fastest-cache"); ?></label></div>
 										<div class="get-info"><a target="_blank" href="https://www.wpfastestcache.com/premium/delay-javascript/"><img src="<?php echo plugins_url("wp-fastest-cache/images/info.png"); ?>" /></a></div>
 									</div>
 								<?php } ?>
-								
+							<?php }else{ ?>
+								<div class="questionCon disabled">
+									<div class="question"><?php _e('Delay Js', 'wp-fastest-cache'); ?></div>
+									<div class="inputCon"><input type="checkbox" id="wpFastestCacheDelayJS" name="wpFastestCacheDelayJS"><label for="wpFastestCacheDelayJS"><?php _e("Some js sources will not be loaded until scrolling or moving the mouse", "wp-fastest-cache"); ?></label></div>
+									<div class="get-info"><a target="_blank" href="https://www.wpfastestcache.com/premium/delay-javascript/"><img src="<?php echo plugins_url("wp-fastest-cache/images/info.png"); ?>" /></a></div>
+								</div>
 							<?php } ?>
-							
-
 
 
 
@@ -1497,6 +1480,7 @@
 															  'nl_NL' => 'Nederlands',
 															  'nl_BE' => 'Nederlands (België)',
 															  'sk_SK' => 'Slovenčina',
+															  'sl_SI' => 'Slovenščina',
 															  'fi' => 'Suomi',
 															  'sv_SE' => 'Svenska',
 															  'tr_TR' => 'Türkçe',
@@ -2086,10 +2070,10 @@
 				    		<div class="integration-page" style="display: block;width:98%;float:left;">
 
 				    			<div wpfc-cdn-name="maxcdn" class="int-item int-item-left">
-				    				<img style="border-radius:50px;" src="<?php echo plugins_url("wp-fastest-cache/images/stackpath.png"); ?>" />
+				    				<img style="border-radius:50px;" src="<?php echo plugins_url("wp-fastest-cache/images/bunny-cdn-icon.png"); ?>" />
 				    				<div class="app">
-				    					<div style="font-weight:bold;font-size:14px;">CDN by StackPath</div>
-				    					<p>Secure and accelerate your web sites</p>
+				    					<div style="font-weight:bold;font-size:14px;">CDN by Bunny</div>
+				    					<p>Speed up content with next-generation CDN</p>
 				    				</div>
 				    				<div class="meta"></div>
 				    			</div>

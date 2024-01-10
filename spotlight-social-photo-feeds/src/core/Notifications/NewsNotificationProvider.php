@@ -3,7 +3,7 @@
 namespace RebelCode\Spotlight\Instagram\Notifications;
 
 use Psr\Http\Client\ClientInterface;
-use Psr\SimpleCache\CacheInterface;
+use RebelCode\Spotlight\Instagram\Vendor\Psr\SimpleCache\CacheInterface;
 use RebelCode\Psr7\Request;
 use Throwable;
 

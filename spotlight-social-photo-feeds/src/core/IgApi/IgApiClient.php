@@ -81,21 +81,4 @@ class IgApiClient
             return $this->graphApi->getAccountForUser($user->id, $accessToken);
         }
     }
-
-    /**
-     * Retrieves media for a given account, using either the Basic Display or the Graph API depending on user type.
-     *
-     * @since 0.1
-     *
-     * @param IgAccount $account The account for which to retrieve media.
-     *
-     * @return array An array containing two keys, "media" and "next", which correspond to the media list and a function
-     *               for retrieving the next batch of media or null if there are is more media to retrieve.
-     */
-    public function getAccountMedia(IgAccount $account)
-    {
-        return ($account->user->type === IgUser::TYPE_PERSONAL)
-            ? $this->basicApi->getMedia($account->user->id, $account->accessToken)
-            : $this->graphApi->getMedia($account->user->id, $account->accessToken->code);
-    }
 }

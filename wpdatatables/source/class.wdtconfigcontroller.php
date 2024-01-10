@@ -181,6 +181,7 @@ class WDTConfigController {
             $table->pdfPageOrientation = isset($advancedSettings->pdfPageOrientation) ? $advancedSettings->pdfPageOrientation : 'portrait';
             $table->show_table_description = isset($advancedSettings->show_table_description) ? $advancedSettings->show_table_description : false;
             $table->table_description = isset($advancedSettings->table_description) ? $advancedSettings->table_description : '';
+            $table->table_wcag = isset($table->table_wcag) || isset($advancedSettings->table_wcag) ? $advancedSettings->table_wcag : 0;
 
             $table = self::sanitizeTableConfig($table);
 
@@ -312,7 +313,8 @@ class WDTConfigController {
                     'pdfPaperSize' => $table->pdfPaperSize,
                     'pdfPageOrientation' => $table->pdfPageOrientation,
                     'table_description' => $table->table_description,
-                    'show_table_description' => $table->show_table_description
+                    'show_table_description' => $table->show_table_description,
+                    'table_wcag' =>  $table->table_wcag,
                 )
             )
         );
@@ -397,6 +399,7 @@ class WDTConfigController {
         $table->showRowsPerPage = (int)$table->showRowsPerPage;
         $table->pdfPaperSize = sanitize_text_field($table->pdfPaperSize);
         $table->pdfPageOrientation = sanitize_text_field($table->pdfPageOrientation);
+        $table->table_wcag = (int)($table->table_wcag);
         $table->userid_column_id = $table->userid_column_id != null ?
             (int)$table->userid_column_id : null;
 
@@ -1199,7 +1202,7 @@ class WDTConfigController {
         $table->pdfPageOrientation = 'portrait';
         $table->table_description = '';
         $table->show_table_description = 0;
-
+        $table->table_wcag = 0;
         return $table;
     }
     /**

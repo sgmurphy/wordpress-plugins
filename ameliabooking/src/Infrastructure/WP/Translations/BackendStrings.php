@@ -829,6 +829,7 @@ class BackendStrings
             'price'                            => __('Price', 'wpamelia'),
             'special_days'                     => __('Special Days', 'wpamelia'),
             'service_provider_remove_fail'     => __('Provider has appointments for this service', 'wpamelia'),
+            'timezone'                         => __('Timezone', 'wpamelia'),
         ];
     }
 

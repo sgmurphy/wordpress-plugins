@@ -4,7 +4,7 @@ namespace RebelCode\Spotlight\Instagram\IgApi;
 
 use Exception;
 use Psr\Http\Client\ClientInterface;
-use Psr\SimpleCache\CacheInterface;
+use RebelCode\Spotlight\Instagram\Vendor\Psr\SimpleCache\CacheInterface;
 
 /**
  * API client for the Instagram Basic Display API.
@@ -117,47 +117,6 @@ class IgBasicApiClient
         $expiry = time() + intval($body['expires_in']);
 
         return new AccessToken($code, $expiry);
-    }
-
-    /**
-     * Retrieves media for a specific user.
-     *
-     * @since 0.1
-     *
-     * @param string      $userId      The ID of the user whose media to fetch.
-     * @param AccessToken $accessToken The access token.
-     * @param int         $limit       The max number of media to fetch.
-     *
-     * @return array An array containing two keys, "media" and "next", which correspond to the media list and a function
-     *               for retrieving the next batch of media or null if there are is more media to retrieve.
-     */
-    public function getMedia($userId, AccessToken $accessToken, int $limit = 200) : array
-    {
-        $getRemote = function () use ($userId, $accessToken, $limit) {
-            $request = IgApiUtils::createRequest('GET', static::BASE_URL . "/{$userId}/media", [
-                'fields' => implode(',', IgApiUtils::getPersonalMediaFields()),
-                'access_token' => $accessToken->code,
-                'limit' => $limit,
-            ]);
-
-            return IgApiUtils::sendRequest($this->client, $request);
-        };
-
-        $body = IgApiUtils::getCachedResponse($this->cache, "media_p_{$userId}", $getRemote);
-        $media = $body['data'];
-        $media = array_map([IgMedia::class, 'create'], $media);
-
-        $nextUrl = $body['paging']['next'] ?? null;
-        $next = ($nextUrl !== null)
-            ? function () use ($nextUrl, $userId, $accessToken) {
-                $request = IgApiUtils::createRequest('GET', $nextUrl);
-                $response = IgApiUtils::sendRequest($this->client, $request);
-
-                return IgApiUtils::parseResponse($response);
-            }
-            : null;
-
-        return compact('media', 'next');
     }
 
     /**

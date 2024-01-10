@@ -1435,8 +1435,30 @@ $globalAutoUpdateOption = get_option('wdtAutoUpdateOption');
                             </div>
 
                         </div>
+                        <div class="col-sm-4 wdt-table-wcag">
+                            <h4 class="c-title-color m-b-2">
+                                <?php esc_html_e( 'WCAG compatibility', 'wpdatatables' ); ?>
+                                <i class=" wpdt-icon-info-circle-thin"
+                                   data-placement="right"  data-popover-content="#table-wcag-hint"  data-toggle="html-popover" data-trigger="hover"></i>
+                            </h4>
+                            <div class="hidden" id="table-wcag-hint">
+                                <div class="popover-heading">
+                                    <?php esc_html_e('Web Content Accessibility Guidelines', 'wpdatatables'); ?>
+                                </div>
+                                <div class="popover-body">
+                                    <?php esc_html_e('Enable this option to ensure table is WCAG compatible.', 'wpdatatables'); ?>
+                                    <br>
+                                    <br>
+                                    <?php esc_html_e('If you decide to enable this option, you might notice some changes in the appearance of the table. This is because we have fixed issues with low contrast or focus that were present before.', 'wpdatatables'); ?>
+                                </div>
+                            </div>
+                            <div class="toggle-switch" data-ts-color="blue">
+                                <input id="wdt-wcag" type="checkbox">
+                                <label for="wdt-wcag"
+                                       class="ts-label"><?php esc_html_e( 'Make table WCAG compatible', 'wpdatatables' ); ?></label>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
                 <!-- /Table tools settings -->
 

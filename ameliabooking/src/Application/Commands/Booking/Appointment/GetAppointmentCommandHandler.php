@@ -88,10 +88,13 @@ class GetAppointmentCommandHandler extends CommandHandler
             /** @var Payment $payment */
             foreach ($booking->getPayments()->getItems() as $payment) {
                 if ($payment->getParentId() && $payment->getParentId()->getValue()) {
-                    /** @var Payment $parentPayment */
-                    $parentPayment = $paymentRepository->getById($payment->getParentId()->getValue());
+                    try {
+                        /** @var Payment $parentPayment */
+                        $parentPayment = $paymentRepository->getById($payment->getParentId()->getValue());
 
-                    $bookingIds[] = $parentPayment->getCustomerBookingId()->getValue();
+                        $bookingIds[] = $parentPayment->getCustomerBookingId()->getValue();
+                    } catch (\Exception $e) {
+                    }
                 }
 
                 /** @var Collection $relatedPayments */

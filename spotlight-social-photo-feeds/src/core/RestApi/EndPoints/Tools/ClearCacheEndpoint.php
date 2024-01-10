@@ -3,7 +3,7 @@
 namespace RebelCode\Spotlight\Instagram\RestApi\EndPoints\Tools;
 
 use Exception;
-use Psr\SimpleCache\CacheInterface;
+use RebelCode\Spotlight\Instagram\Vendor\Psr\SimpleCache\CacheInterface;
 use RebelCode\Spotlight\Instagram\RestApi\EndPoints\AbstractEndpointHandler;
 use WP_REST_Request;
 use WP_REST_Response;

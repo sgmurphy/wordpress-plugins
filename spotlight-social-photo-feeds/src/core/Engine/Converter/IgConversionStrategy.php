@@ -44,6 +44,7 @@ class IgConversionStrategy implements ConversionStrategy
         $newItem = $existing
             ->withAddedSources($incoming->sources)
             ->withChanges([
+                MediaItem::MEDIA_URL => $incoming->get(MediaItem::MEDIA_URL),
                 MediaItem::CAPTION => $incoming->get(MediaItem::CAPTION),
                 MediaItem::LIKES_COUNT => $incoming->get(MediaItem::LIKES_COUNT),
                 MediaItem::COMMENTS_COUNT => $incoming->get(MediaItem::COMMENTS_COUNT),

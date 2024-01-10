@@ -4,7 +4,7 @@
 /** @var string $tableContent */
 /** @var WPDataTable $this */
 ?>
-<div class="wpdt-c">
+    <div class="wpdt-c <?php if ($this->isTableWCAG()) { ?> wpTableWCAG<?php } ?>">
     <?php echo $tableContent; ?>
 </div>
 

@@ -15,8 +15,8 @@ use RebelCode\Spotlight\Instagram\IgApi\IgBasicApiClient;
 use RebelCode\Spotlight\Instagram\IgApi\IgGraphApiClient;
 use RebelCode\Spotlight\Instagram\Module;
 use RebelCode\WordPress\Http\WpClient;
-use WpOop\TransientCache\CachePool;
-use WpOop\TransientCache\SilentPool;
+use RebelCode\Spotlight\Instagram\Vendor\WpOop\TransientCache\CachePool;
+use RebelCode\Spotlight\Instagram\Vendor\WpOop\TransientCache\SilentPool;
 
 /**
  * The module that contains all functionality related to Instagram's APIs.

@@ -68,6 +68,9 @@ Go to Plugins > Add New and search for aThemes Starter Sites. Install and activa
 
 == Changelog ==
 
+= 1.0.48 =
+* Added Merchant plugin to Botiga starters
+
 = 1.0.45 =
 * New starter site added for Botiga Pro
 

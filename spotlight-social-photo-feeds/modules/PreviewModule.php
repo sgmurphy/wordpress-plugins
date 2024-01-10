@@ -10,13 +10,13 @@ use Dhii\Services\Factories\StringService;
 use Dhii\Services\Factories\Value;
 use Dhii\Services\Factory;
 use Psr\Container\ContainerInterface;
-use Psr\SimpleCache\CacheException;
+use RebelCode\Spotlight\Instagram\Vendor\Psr\SimpleCache\CacheException;
 use RebelCode\Psr7\Uri;
 use RebelCode\Spotlight\Instagram\Feeds\Preview\FeedPreviewProvider;
 use RebelCode\Spotlight\Instagram\Module;
 use RebelCode\WordPress\Http\WpClient;
 use wpdb;
-use WpOop\TransientCache\CachePool;
+use RebelCode\Spotlight\Instagram\Vendor\WpOop\TransientCache\CachePool;
 
 class PreviewModule extends Module
 {

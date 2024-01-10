@@ -6,7 +6,6 @@ use Dhii\Services\Extension;
 use Dhii\Services\Factory;
 use LogicException;
 use Psr\Container\ContainerInterface;
-use RebelCode\Spotlight\Instagram\Utils\Arrays;
 
 /**
  * The container implementation for the services provided by the plugin's modules.

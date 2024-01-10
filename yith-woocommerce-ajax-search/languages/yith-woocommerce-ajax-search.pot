@@ -1,305 +1,1018 @@
-# Copyright (C) 2023 YITH
-# This file is distributed under the same license as the YITH WooCommerce Ajax Search package.
+# Copyright (C) 2024 YITH
+# This file is distributed under the same license as the YITH WooCommerce Ajax Search plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: YITH WooCommerce Ajax Search 1.35.0\n"
-"Report-Msgid-Bugs-To: "
-"https://wordpress.org/support/plugin/yith-woocommerce-ajax-search\n"
-"POT-Creation-Date: 2023-09-13 12:27:43+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: YITH WooCommerce Ajax Search 2.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-ajax-search\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: grunt-wp-i18n 1.0.3\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-01-10T10:48:30+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.9.0\n"
+"X-Domain: yith-woocommerce-ajax-search\n"
 
-#: includes/class.yith-wcas-admin.php:168
-msgid "Convert the search field into an advanced search engine"
+#. Plugin Name of the plugin
+#: includes/class-yith-wcas-search-widget.php:32
+#: includes/legacy/elementor/class-yith-wcas-search-form-elementor.php:41
+#: includes/legacy/elementor/class-yith-wcas-search-form-elementor.php:78
+msgid "YITH WooCommerce Ajax Search"
 msgstr ""
 
-#: includes/class.yith-wcas-admin.php:169
-msgid ""
-"Choose whether to show the filter for the search fields and the list of "
-"categories (only the main ones or all of them), a solution inspired by "
-"Amazon's search form."
+#. Plugin URI of the plugin
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-ajax-search/"
 msgstr ""
 
-#: includes/class.yith-wcas-admin.php:172
-msgid "Extend the search to pages and posts"
+#. Description of the plugin
+msgid "<code><strong>YITH WooCommerce Ajax Search</strong></code> is the plugin that allows you to search for a specific product by inserting a few characters. Thanks to <strong>Ajax Search</strong>, users can quickly find the contents they are interested in without wasting time among site pages. <a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>."
 msgstr ""
 
-#: includes/class.yith-wcas-admin.php:173
-msgid ""
-"Choose whether to search for the keyword also in the pages’ content and "
-"blog articles. "
+#: includes/abstracts/abstract-yith-wcas-gb-block.php:53
+msgid "Block name is required."
 msgstr ""
 
-#: includes/class.yith-wcas-admin.php:176
-msgid "Extend the search to categories and product tags"
+#: includes/abstracts/abstract-yith-wcas-gb-block.php:182
+msgid "Add to cart"
 msgstr ""
 
-#: includes/class.yith-wcas-admin.php:177
-msgid ""
-"Choose to also search the keyword in the categories and product tags of "
-"your shop. "
+#: includes/abstracts/abstract-yith-wcas-gb-block.php:183
+msgctxt "add to cart label for not purchasable products"
+msgid "Read more"
 msgstr ""
 
-#: includes/class.yith-wcas-admin.php:180
-msgid "Extend the search to product excerpts and descriptions"
+#: includes/abstracts/abstract-yith-wcas-gb-block.php:184
+msgctxt "add to cart label for variable products"
+msgid "Select options"
 msgstr ""
 
-#: includes/class.yith-wcas-admin.php:181
-msgid ""
-"Choose whether to search for the keyword in summaries and product "
-"descriptions."
+#: includes/abstracts/abstract-yith-wcas-gb-block.php:185
+msgid "In stock"
 msgstr ""
 
-#: includes/class.yith-wcas-admin.php:184
-msgid "Allow searching by product SKU "
+#: includes/abstracts/abstract-yith-wcas-gb-block.php:186
+#: includes/class-yith-wcas-settings.php:262
+msgid "Out of stock"
 msgstr ""
 
-#: includes/class.yith-wcas-admin.php:185
-msgid ""
-"Enable the option to enter an SKU in the search field so users can quickly "
-"locate products they are interested in. "
+#: includes/abstracts/abstract-yith-wcas-gb-block.php:187
+msgid "SKU: "
 msgstr ""
 
-#: includes/class.yith-wcas-admin.php:188
-msgid "Choose what to show in the suggestion list"
+#: includes/abstracts/abstract-yith-wcas-gb-block.php:194
+msgid "0  results for "
 msgstr ""
 
-#: includes/class.yith-wcas-admin.php:189
-msgid ""
-"Decide whether or not to show product images, prices, and short "
-"descriptions (summaries) in the suggestion list."
+#: includes/abstracts/abstract-yith-wcas-gb-block.php:195
+msgid "Results for "
 msgstr ""
 
-#: includes/class.yith-wcas-admin.php:192
-msgid "Use custom badges to enhance search results"
+#: includes/admin/views/custom-fields/types/content/search-input.php:47
+msgctxt "[admin]option to select"
+msgid "Enable all categories"
 msgstr ""
 
-#: includes/class.yith-wcas-admin.php:193
-msgid ""
-"Show and customize the \"On sale\" badge to enhance products with a "
-"discount or the \"Featured\" badge for products marked as such on "
-"WooCommerce."
+#: includes/admin/views/custom-fields/types/content/search-input.php:48
+msgctxt "[admin]option to select"
+msgid "Enable specific categories"
 msgstr ""
 
-#: includes/class.yith-wcas.php:233
-msgid "No results"
+#: includes/admin/views/custom-fields/types/content/search-input.php:49
+msgctxt "[admin]option to select"
+msgid "Disable specific categories"
 msgstr ""
 
-#: includes/compatibility/elementor/class.yith-wcas-search-form-elementor.php:87
-msgid ""
-"This widget inherits the style from the settings of YITH WooCommerce Ajax "
-"Search plugin that you can edit"
+#: includes/admin/views/custom-fields/types/content/search-input.php:69
+msgctxt "[admin]option to select"
+msgid "Enable all tags"
 msgstr ""
 
-#: includes/compatibility/elementor/class.yith-wcas-search-form-elementor.php:89
-msgid "here"
+#: includes/admin/views/custom-fields/types/content/search-input.php:70
+msgctxt "[admin]option to select"
+msgid "Enable specific tags"
 msgstr ""
 
-#: includes/widgets/class.yith-wcas-ajax-search.php:29
+#: includes/admin/views/custom-fields/types/content/search-input.php:71
+msgctxt "[admin]option to select"
+msgid "Disable specific tags"
+msgstr ""
+
+#: includes/admin/views/custom-fields/types/content/search-input.php:162
+msgid "Search for a tag..."
+msgstr ""
+
+#: includes/admin/views/custom-fields/types/content/search-input.php:180
+#: includes/admin/views/custom-fields/types/ywcas-synonymous.php:47
+#: includes/admin/views/custom-fields/types/ywcas-synonymous.php:91
+msgctxt "Tip to delete the sender info"
+msgid "Delete"
+msgstr ""
+
+#. translators: 'Placeholders are HTML tags'.
+#: includes/admin/views/custom-fields/types/search-fields.php:17
+msgctxt "Placeholders are HTML tags"
+msgid "Some options, like search on product attributes or priority, are available only in the new search form. %1$sUpdate the plugin now, it's easy >%2$s"
+msgstr ""
+
+#: includes/admin/views/custom-fields/types/search-fields.php:31
+msgctxt "Name of column field"
+msgid "Field"
+msgstr ""
+
+#: includes/admin/views/custom-fields/types/search-fields.php:34
+msgctxt "priority of the field"
+msgid "Priority"
+msgstr ""
+
+#: includes/admin/views/custom-fields/types/search-fields.php:56
+msgctxt "Add search field button label"
+msgid "+ Add field"
+msgstr ""
+
+#: includes/admin/views/custom-fields/types/ywcas-index.php:22
+msgid "The search index has been built successfully!"
+msgstr ""
+
+#: includes/admin/views/custom-fields/types/ywcas-index.php:33
+msgid "Search indexing has started! You can leave this page if you want to, the indexing process will continue in the background."
+msgstr ""
+
+#: includes/admin/views/custom-fields/types/ywcas-index.php:38
+msgctxt "label to show the number of element indexed"
+msgid "Indexed:"
+msgstr ""
+
+#: includes/admin/views/custom-fields/types/ywcas-index.php:41
+msgid "%1$d / %2$d items - %3$d%%"
+msgstr ""
+
+#: includes/admin/views/custom-fields/types/ywcas-index.php:48
+msgctxt "label to show the number of element indexed"
+msgid "On date:"
+msgstr ""
+
+#: includes/admin/views/custom-fields/types/ywcas-index.php:51
+msgctxt "label of a button"
+msgid "The shop data are not indexed. Click \"Rebuild index\" to start the process"
+msgstr ""
+
+#: includes/admin/views/custom-fields/types/ywcas-index.php:54
+msgctxt "label of a button"
+msgid "Rebuild index"
+msgstr ""
+
+#: includes/admin/views/custom-fields/types/ywcas-synonymous.php:63
+msgid "+ Add another list of synonyms"
+msgstr ""
+
+#: includes/admin/views/panel/shortcode-configuration.php:26
+#: includes/admin/views/panel/shortcodes.php:17
+#: includes/class-yith-wcas-settings.php:451
+msgid "Name"
+msgstr ""
+
+#: includes/admin/views/panel/shortcode-configuration.php:27
+#: includes/admin/views/panel/shortcodes.php:18
+msgid "Code"
+msgstr ""
+
+#: includes/admin/views/panel/shortcode-configuration.php:39
+msgctxt "title of hidden actions column"
+msgid "Actions"
+msgstr ""
+
+#: includes/admin/views/panel/shortcode-configuration.php:44
+msgctxt "Edit the shortcode"
+msgid "Edit"
+msgstr ""
+
+#: includes/admin/views/panel/shortcode-configuration.php:52
+msgctxt "Shortcode action"
+msgid "Trash"
+msgstr ""
+
+#: includes/admin/views/panel/shortcode-configuration.php:56
+msgid "Move to trash?"
+msgstr ""
+
+#: includes/admin/views/panel/shortcode-configuration.php:57
+msgid "Are you sure you want to delete this shortcode?"
+msgstr ""
+
+#: includes/admin/views/panel/shortcode-configuration.php:58
+msgid "No"
+msgstr ""
+
+#: includes/admin/views/panel/shortcode-configuration.php:59
+msgctxt "Trash confirmation action"
+msgid "Yes, move to trash"
+msgstr ""
+
+#: includes/admin/views/panel/shortcode-configuration.php:67
+msgctxt "Shortcode action"
+msgid "Duplicate"
+msgstr ""
+
+#: includes/admin/views/panel/shortcode-configuration.php:121
+msgid "Save"
+msgstr ""
+
+#: includes/admin/views/panel/shortcodes.php:37
+msgid "Add new shortcode"
+msgstr ""
+
+#. translators: Placeholders are HTML tags.
+#: includes/admin/views/upgrade-modal/upgrade-modal.php:29
+msgctxt "Placeholders are HTML tags"
+msgid "Welcome to AJAX Search 2.0,%1$sthe advanced search form that will make the difference in your shop."
+msgstr ""
+
+#. translators: Placeholders are HTML tags.
+#: includes/admin/views/upgrade-modal/upgrade-modal.php:39
+msgctxt "Placeholders are HTML tags"
+msgid "In this new version, you'll find the %1$s new features %2$s and an improved %1$scompatibility with the latest WooCommerce versions%2$s. Updating the current search module in your shop is a piece of cake: we will show you how to do that step by step in %3$sthis video.%4$s"
+msgstr ""
+
+#: includes/admin/views/upgrade-modal/upgrade-modal.php:49
+msgid "Ready for this new adventure?"
+msgstr ""
+
+#: includes/admin/views/upgrade-modal/upgrade-modal.php:51
+msgid "Update your search form now!"
+msgstr ""
+
+#: includes/admin/views/upgrade-modal/upgrade-modal.php:56
+msgid "Update the search form to the advanced version"
+msgstr ""
+
+#. translators: Placeholders are HTML tags.
+#: includes/admin/views/upgrade-modal/upgrade-modal.php:62
+msgctxt "Placeholders are HTML tags."
+msgid "%1$sPlease note:%2$s the old search form will be supported until January 15, 2024. After that date, it will be automatically updated to the new form."
+msgstr ""
+
+#: includes/class-yith-wcas-admin.php:107
+#: includes/class-yith-wcas-admin.php:134
+#: plugin-options/search-fields-options.php:93
+msgctxt "Admin label option"
+msgid "Index status"
+msgstr ""
+
+#: includes/class-yith-wcas-admin.php:200
+msgid "General Options"
+msgstr ""
+
+#: includes/class-yith-wcas-admin.php:202
+msgid "Set the general options for the plugin behavior."
+msgstr ""
+
+#: includes/class-yith-wcas-admin.php:205
+msgid "Search Fields"
+msgstr ""
+
+#: includes/class-yith-wcas-admin.php:209
+msgctxt "description of \"Search field\" section"
+msgid "Choose which fields will be used when a search is performed in your shop and set the priority for each enabled field."
+msgstr ""
+
+#: includes/class-yith-wcas-admin.php:216
+msgid "Search Shortcodes"
+msgstr ""
+
+#: includes/class-yith-wcas-admin.php:217
+msgctxt "description of \"Search shortcodes\" section"
+msgid "Create and customize your search shortcodes."
+msgstr ""
+
+#: includes/class-yith-wcas-assets.php:259
+msgid "This field is required."
+msgstr ""
+
+#: includes/class-yith-wcas-assets.php:263
+#: includes/class-yith-wcas-assets.php:268
+msgid "Are you sure?"
+msgstr ""
+
+#: includes/class-yith-wcas-assets.php:264
+msgid "Do you want to remove this field from your search field list?"
+msgstr ""
+
+#: includes/class-yith-wcas-assets.php:265
+#: includes/class-yith-wcas-assets.php:270
+msgid "Yes, proceed"
+msgstr ""
+
+#: includes/class-yith-wcas-assets.php:269
+msgid "Do you want to remove this shortcode preset?"
+msgstr ""
+
+#: includes/class-yith-wcas-search-widget.php:30
+#: includes/legacy/class-yith-wcas-ajax-search.php:30
 msgid "An Ajax Search box for products only."
 msgstr ""
 
-#: includes/widgets/class.yith-wcas-ajax-search.php:31
-msgid "YITH WooCommerce Ajax Product Search"
-msgstr ""
-
-#: includes/widgets/class.yith-wcas-ajax-search.php:94
+#: includes/class-yith-wcas-search-widget.php:122
+#: includes/class-yith-wcas-search-widget.php:168
+msgctxt "[Widget] The widget title"
 msgid "Title:"
 msgstr ""
 
-#: init.php:57
+#: includes/class-yith-wcas-search-widget.php:128
+msgctxt "[Widget] The widget arg"
+msgid "Template wide"
+msgstr ""
+
+#: includes/class-yith-wcas-search-widget.php:135
+msgctxt "[Widget] The widget arg"
+msgid "Filters above"
+msgstr ""
+
+#: includes/class-yith-wcas-search-widget.php:176
+msgctxt "[Widget] The widget arg"
+msgid "Search shortcode"
+msgstr ""
+
+#: includes/class-yith-wcas-search.php:118
+msgid "Unable to make a search with an empty query!"
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:253
+msgid "On Sale"
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:271
+msgid "Featured"
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:353
+#: includes/legacy/elementor/class-yith-wcas-search-form-elementor.php:103
+msgid "Default"
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:358
+#: includes/class-yith-wcas-settings.php:528
+msgid "Search for products..."
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:395
+msgid "Price:"
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:398
+msgid "No results. Try with a different keyword!"
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:400
+msgid "See all products ({total})"
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:405
+msgid "Related content"
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:413
+msgid "Latest searches"
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:416
+msgid "Trending"
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:454
+msgid "Enter a name..."
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:456
+msgid "Set a name for this shortcode."
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:461
+msgid "Layout"
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:463
+#: assets/js/blocks/src/blocks/search-block/edit.js:43
+msgid "Small"
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:464
+#: assets/js/blocks/src/blocks/search-block/edit.js:44
+msgid "Large"
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:467
+msgid "Choose the search size."
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:472
+msgid "CSS class"
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:474
 msgid ""
-"You can't activate the free version of YITH WooCommerce Ajax Search while "
-"you are using the premium one."
+"Enter additional CSS classes to customize this search. \n"
+"Separate multiple classes with spaces."
 msgstr ""
 
-#: init.php:96
-msgid ""
-"YITH WooCommerce Ajax Search is enabled but not effective. It requires "
-"WooCommerce in order to work."
+#: includes/class-yith-wcas-settings.php:496
+msgctxt "Settings tab header"
+msgid "General"
 msgstr ""
 
-#: plugin-options/settings-options.php:24
-msgid "General settings"
+#: includes/class-yith-wcas-settings.php:497
+msgctxt "Settings tab header"
+msgid "Search input"
 msgstr ""
 
-#: plugin-options/settings-options.php:33
-msgid "Search input label"
+#: includes/class-yith-wcas-settings.php:498
+msgctxt "Settings tab header"
+msgid "Submit button"
 msgstr ""
 
-#: plugin-options/settings-options.php:35
-#: plugin-options/settings-options.php:43
-msgid "Label for Search input field."
+#: includes/class-yith-wcas-settings.php:499
+msgctxt "Settings tab header"
+msgid "Search results"
 msgstr ""
 
-#: plugin-options/settings-options.php:37
-msgid "Search for products"
+#: includes/class-yith-wcas-settings.php:525
+#: includes/class-yith-wcas-settings.php:545
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:114
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:131
+msgid "Placeholder"
 msgstr ""
 
-#: plugin-options/settings-options.php:41
-msgid "Search submit label"
+#: includes/class-yith-wcas-settings.php:530
+msgid "Enter the placeholder text to show inside the search form."
 msgstr ""
 
-#: plugin-options/settings-options.php:45
-msgid "Search"
+#: includes/class-yith-wcas-settings.php:535
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:49
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:136
+msgid "Text"
 msgstr ""
 
-#: plugin-options/settings-options.php:49
-msgid "Minimum number of characters"
+#: includes/class-yith-wcas-settings.php:540
+msgid "Color"
 msgstr ""
 
-#: plugin-options/settings-options.php:50
-msgid "Minimum number of characters required to trigger autosuggest."
+#: includes/class-yith-wcas-settings.php:550
+#: includes/class-yith-wcas-settings.php:623
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:84
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:141
+msgid "Background"
 msgstr ""
 
-#: plugin-options/settings-options.php:63
-msgid "Maximum number of results"
+#: includes/class-yith-wcas-settings.php:555
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:146
+msgid "Background focus"
 msgstr ""
 
-#: plugin-options/settings-options.php:64
-msgid "Maximum number of results showed within the autosuggest box."
+#: includes/class-yith-wcas-settings.php:560
+#: includes/class-yith-wcas-settings.php:633
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:94
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:151
+msgid "Border"
 msgstr ""
 
-#: plugin-options/settings-options.php:77
-msgid "Enable transients to cache autocomplete results"
+#: includes/class-yith-wcas-settings.php:565
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:156
+msgid "Border focus"
 msgstr ""
 
-#: plugin-options/settings-options.php:78
-msgid "Save the results of a query in a transient"
+#: includes/class-yith-wcas-settings.php:591
+msgid "Icon position"
 msgstr ""
 
-#: plugin-options/settings-options.php:87
-msgid "Set the duration of transient"
+#: includes/class-yith-wcas-settings.php:594
+msgid "Left"
 msgstr ""
 
-#: plugin-options/settings-options.php:88
-msgid "(hours)"
+#: includes/class-yith-wcas-settings.php:595
+msgid "Right"
 msgstr ""
 
-#: templates/admin/premium.php:238 templates/admin/premium.php:390
-#. translators: placeholders html tag.
-msgid ""
-"Upgrade to %1$spremium version%2$s of %1$sYITH WooCommerce Ajax Search%2$s "
-"to benefit from all features!"
+#: includes/class-yith-wcas-settings.php:599
+msgid "Choose the icon alignment inside the search field."
 msgstr ""
 
-#: templates/admin/premium.php:243 templates/admin/premium.php:395
-msgid "UPGRADE"
+#: includes/class-yith-wcas-settings.php:608
+msgid "Button colors"
 msgstr ""
 
-#: templates/admin/premium.php:249
-msgid "Premium Features"
+#: includes/class-yith-wcas-settings.php:613
+msgid "Label"
 msgstr ""
 
-#: templates/admin/premium.php:258
-msgid "Show a preview of the product"
+#: includes/class-yith-wcas-settings.php:618
+msgid "Label hover"
 msgstr ""
 
-#: templates/admin/premium.php:264
-msgid ""
-"For better usability, you can show an image of the product and choose its "
-"position in the preview of search results"
+#: includes/class-yith-wcas-settings.php:628
+msgid "Background hover"
 msgstr ""
 
-#: templates/admin/premium.php:274
-msgid "Show the price of the product"
+#: includes/class-yith-wcas-settings.php:638
+msgid "Border hover"
 msgstr ""
 
-#: templates/admin/premium.php:278
-msgid ""
-"Show also the price in the search results and highlight discounts and "
-"promotions"
+#: includes/class-yith-wcas-settings.php:642
+msgid "Customize the submit button colors."
 msgstr ""
 
-#: templates/admin/premium.php:296
-msgid "Show a brief description of the product"
+#: includes/class-yith-wcas-settings.php:661
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:51
+msgid "Max results to show"
 msgstr ""
 
-#: templates/admin/premium.php:302
-msgid "Give helpful information about the product immediately"
+#: includes/class-yith-wcas-settings.php:665
+msgid "Set how many results to show."
 msgstr ""
 
-#: templates/admin/premium.php:312
-msgid "Highlight promotional products"
+#: includes/class-yith-wcas-settings.php:670
+msgid "Product info to show"
 msgstr ""
 
-#: templates/admin/premium.php:316
-msgid "Add a customizable label to emphasize discounted and promotion products"
+#: includes/class-yith-wcas-settings.php:672
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:59
+msgid "Title"
 msgstr ""
 
-#: templates/admin/premium.php:334
-msgid "Extend the product search through tags, SKUs and categories"
+#: includes/class-yith-wcas-settings.php:673
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:78
+msgid "Image"
 msgstr ""
 
-#: templates/admin/premium.php:340
-msgid ""
-"To make your products easier to find and to improve the quality of the user "
-"experience in your shop"
+#: includes/class-yith-wcas-settings.php:679
+msgid "Title color"
 msgstr ""
 
-#: templates/admin/premium.php:351
-msgid "Show the search form in two different layouts"
+#: includes/class-yith-wcas-settings.php:694
+msgid "Results layout"
 msgstr ""
 
-#: templates/admin/premium.php:355
-msgid ""
-"A wide style in addition to the default one. The form will adjust to the "
-"whole width of the page"
+#: includes/class-yith-wcas-settings.php:700
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:85
+msgid "Image size (px)"
 msgstr ""
 
-#: templates/admin/premium.php:373
-msgid "Search products by vendor"
+#: includes/class-yith-wcas-settings.php:717
+msgid "Image position"
 msgstr ""
 
-#: templates/admin/premium.php:377
-msgid "By using the plugin in combination with YITH WooCommerce Multi Vendor"
+#: includes/class-yith-wcas-settings.php:719
+msgid "Show left"
 msgstr ""
 
-#: templates/yith-woocommerce-ajax-search.php:19
-msgid "Search for:"
+#: includes/class-yith-wcas-settings.php:720
+msgid "Show right"
 msgstr ""
 
-#. Description of the plugin/theme
-msgid ""
-"<code><strong>YITH WooCommerce Ajax Search</strong></code> is the plugin "
-"that allows you to search for a specific product by inserting a few "
-"characters. Thanks to <strong>Ajax Search</strong>, users can quickly find "
-"the contents they are interested in without wasting time among site pages. "
-"<a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for "
-"your e-commerce shop on <strong>YITH</strong></a>."
+#: includes/class-yith-wcas-settings.php:739
+msgid "No results notice"
 msgstr ""
 
-#: includes/class.yith-wcas-admin.php:110
-msgctxt "Settings tab name"
-msgid "Settings"
+#: includes/class-yith-wcas-settings.php:745
+#: includes/class-yith-wcas-settings.php:747
+msgid "Show “View all results\" link."
 msgstr ""
 
-#: includes/class.yith-wcas-admin.php:111
-msgctxt "Tab description in plugin settings panel"
-msgid "Configure the plugin settings."
+#: includes/class-yith-wcas-settings.php:751
+msgid "“View all results\" text"
 msgstr ""
 
-#: plugin-options/gutenberg/blocks.php:21
+#: includes/class-yith-wcas-settings.php:754
+msgid "Use {total} to show the total number of results."
+msgstr ""
+
+#: includes/functions-yith-wcas.php:19
+msgid "YITH WooCommerce Ajax Search Premium is enabled but not effective. It requires WooCommerce in order to work."
+msgstr ""
+
+#: includes/functions-yith-wcas.php:142
+msgctxt "[Admin]search field type"
+msgid "Product name"
+msgstr ""
+
+#: includes/functions-yith-wcas.php:143
+msgctxt "[Admin]search field type"
+msgid "Description"
+msgstr ""
+
+#: includes/functions-yith-wcas.php:144
+msgctxt "[Admin]search field type"
+msgid "Short description"
+msgstr ""
+
+#. translators: Placeholders are HTML tags.
+#: includes/functions-yith-wcas.php:530
+msgctxt "Placeholders are HTML tags"
+msgid "This option is available only in the new search form. %1$sUpdate the plugin now, it's easy >%2$s"
+msgstr ""
+
+#: includes/functions-yith-wcas.php:563
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/attributes.js:9
+msgid "Search products..."
+msgstr ""
+
+#: includes/legacy/class-yith-wcas-ajax-search.php:32
+msgid "YITH WooCommerce Ajax Product Search[Deprecated]"
+msgstr ""
+
+#: includes/legacy/class-yith-wcas-legacy-manager.php:59
 msgctxt "[gutenberg]: block name"
-msgid "Ajax Search"
+msgid "Ajax Search[Deprecated]"
 msgstr ""
 
-#: plugin-options/gutenberg/blocks.php:22
+#: includes/legacy/class-yith-wcas-legacy-manager.php:60
 msgctxt "[gutenberg]: block description"
 msgid "Show Ajax Search Form"
 msgstr ""
 
-#: plugin-options/gutenberg/blocks.php:27
+#: includes/legacy/class-yith-wcas-legacy-manager.php:64
 msgctxt "[gutenberg]: keywords"
 msgid "Ajax Search"
 msgstr ""
 
-#: plugin-options/gutenberg/blocks.php:28
+#: includes/legacy/class-yith-wcas-legacy-manager.php:65
 msgctxt "[gutenberg]: keywords"
 msgid "Search"
+msgstr ""
+
+#. translators: Placeholders are HTML tags.
+#: includes/legacy/class-yith-wcas-legacy-manager.php:88
+msgctxt "Placeholders are HTML tags"
+msgid "Update your search form now to unlock new advanced features! %1$sPlease, note: the old search form will be supported until January 15, 2024. After that date, it will be automatically updated to the new form. %2$sClick here to learn more >%3$s"
+msgstr ""
+
+#: includes/legacy/class-yith-wcas-legacy.php:199
+msgid "No results"
+msgstr ""
+
+#: includes/legacy/elementor/class-yith-wcas-search-form-elementor.php:88
+msgid "This widget inherits the style from the settings of the YITH WooCommerce Ajax Search plugin that you can edit"
+msgstr ""
+
+#: includes/legacy/elementor/class-yith-wcas-search-form-elementor.php:90
+msgid "here"
+msgstr ""
+
+#: includes/legacy/elementor/class-yith-wcas-search-form-elementor.php:99
+msgid "Template"
+msgstr ""
+
+#: includes/legacy/elementor/class-yith-wcas-search-form-elementor.php:104
+msgid "Wide"
+msgstr ""
+
+#: includes/legacy/elementor/class-yith-wcas-search-form-elementor.php:112
+msgid "Class"
+msgstr ""
+
+#: init.php:57
+msgid "You can't activate the free version of YITH WooCommerce Ajax Search while you are using the premium one."
+msgstr ""
+
+#: init.php:108
+msgid "YITH WooCommerce Ajax Search is enabled but not effective. It requires WooCommerce in order to work."
+msgstr ""
+
+#: plugin-options/elementor/blocks.php:6
+msgctxt "[elementor]: block name"
+msgid "Classic Search"
+msgstr ""
+
+#: plugin-options/elementor/blocks.php:7
+msgctxt "[elementor]: block description"
+msgid "Add the classic search block"
+msgstr ""
+
+#: plugin-options/elementor/blocks.php:14
+msgctxt "[elementor]: keywords"
+msgid "Search"
+msgstr ""
+
+#: plugin-options/elementor/blocks.php:15
+msgctxt "[elementor]: keywords"
+msgid "Ajax Search Widget"
+msgstr ""
+
+#: plugin-options/general-options.php:17
+msgctxt "Admin section title"
+msgid "Autocomplete"
+msgstr ""
+
+#: plugin-options/general-options.php:23
+msgctxt "Admin option label"
+msgid "Enable autocomplete feature in search field"
+msgstr ""
+
+#: plugin-options/general-options.php:24
+msgctxt "Admin option description"
+msgid "Enable to display a list of suggested queries automatically generated based on what the user types in the search form."
+msgstr ""
+
+#: plugin-options/general-options.php:31
+msgctxt "Admin option label"
+msgid "Minimum number of characters to trigger autocomplete"
+msgstr ""
+
+#: plugin-options/general-options.php:49
+msgctxt "Admin section label"
+msgid "Suggested/Trending searches"
+msgstr ""
+
+#: plugin-options/general-options.php:55
+msgctxt "Admin option label"
+msgid "Searches to suggest"
+msgstr ""
+
+#: plugin-options/general-options.php:61
+msgctxt "Admin select option"
+msgid "Specific keywords"
+msgstr ""
+
+#: plugin-options/general-options.php:62
+msgctxt "Admin select option"
+msgid "Popular searches"
+msgstr ""
+
+#: plugin-options/general-options.php:71
+msgctxt "Admin option label"
+msgid "Keywords"
+msgstr ""
+
+#: plugin-options/general-options.php:72
+msgid "Enter the keywords, comma separated, for the suggested searches."
+msgstr ""
+
+#: plugin-options/general-options.php:78
+msgctxt "Admin option placeholder"
+msgid "E.g. iPhone 11, Air Max 1, Vintage dress with buttons"
+msgstr ""
+
+#: plugin-options/general-options.php:88
+msgctxt "Admin section label"
+msgid "Fuzzy strings & synonyms"
+msgstr ""
+
+#: plugin-options/general-options.php:95
+msgctxt "Admin option label"
+msgid "Enable fuzzy strings matching"
+msgstr ""
+
+#. translators: placeholders are HTML tags.
+#: plugin-options/general-options.php:98
+msgctxt "Admin option description.sprintf"
+msgid ""
+"Enable to help users find relevant results even when the search terms are misspelled.%s\n"
+"Example: “skrit” instead of “skirt”."
+msgstr ""
+
+#: plugin-options/general-options.php:112
+msgctxt "Admin option label"
+msgid "Fuzzy matching level"
+msgstr ""
+
+#. translators: Admin option description. Placeholders are HTML tags.
+#: plugin-options/general-options.php:116
+msgctxt "Admin option description. Placeholders are HTML tags"
+msgid "Choose the fuzzy matching level. %1$sNote: a 100%% level can produce a significant number of false positives.%1$sSuggested value: 50%%"
+msgstr ""
+
+#: plugin-options/general-options.php:133
+msgctxt "Admin option label"
+msgid "Synonyms"
+msgstr ""
+
+#. translators: placeholders are HTML tags.
+#: plugin-options/general-options.php:136
+msgctxt "Admin option description. Placeholders are HTML tags"
+msgid "Each field can include a list of synonymous words or concepts to help users easily find products with different name types. Use single words or phrases separated by commas."
+msgstr ""
+
+#: plugin-options/general-options.php:147
+msgctxt "Admin option placeholder"
+msgid "E.g. Pregnancy, Maternity, Nursing, Motherhood, Postpartum"
+msgstr ""
+
+#: plugin-options/premium-tab.php:16
+msgid "Convert the search field into an advanced search engine"
+msgstr ""
+
+#: plugin-options/premium-tab.php:17
+msgid "Choose whether to show the filter for the search fields and the list of categories (only the main ones or all of them), a solution inspired by Amazon's search form. "
+msgstr ""
+
+#: plugin-options/premium-tab.php:20
+msgid "Extend the search to pages and posts"
+msgstr ""
+
+#: plugin-options/premium-tab.php:21
+msgid "Choose whether to search for the keyword also in the pages' content and blog articles."
+msgstr ""
+
+#: plugin-options/premium-tab.php:24
+msgid "Extend the search to categories and product tags"
+msgstr ""
+
+#: plugin-options/premium-tab.php:25
+msgid "Choose to also search the keyword in the categories and product tags of your shop."
+msgstr ""
+
+#: plugin-options/premium-tab.php:28
+msgid "Extend the search to product excerpts and descriptions"
+msgstr ""
+
+#: plugin-options/premium-tab.php:29
+msgid "Choose whether to search for the keyword in summaries and product descriptions."
+msgstr ""
+
+#: plugin-options/premium-tab.php:32
+msgid "Allow searching by product SKU"
+msgstr ""
+
+#: plugin-options/premium-tab.php:33
+msgid "Enable the option to enter an SKU in the search field so users can quickly locate products they are interested in."
+msgstr ""
+
+#: plugin-options/premium-tab.php:36
+msgid "Choose what to show in the suggestion list"
+msgstr ""
+
+#: plugin-options/premium-tab.php:37
+msgid "Decide whether or not to show product images, prices, and short descriptions (summaries) in the suggestion list."
+msgstr ""
+
+#: plugin-options/premium-tab.php:40
+msgid "Use custom badges to enhance search results "
+msgstr ""
+
+#: plugin-options/premium-tab.php:41
+msgid "Show and customize the \"On sale\" badge to enhance products with a discount or the \"Featured\" badge for products marked as such on WooCommerce."
+msgstr ""
+
+#: plugin-options/search-fields-options.php:41
+msgid "Search index"
+msgstr ""
+
+#: plugin-options/search-fields-options.php:43
+msgid "A search index helps your users quickly find information and products on your shop. It is designed to map search queries to documents or URLs that might appear in the results."
+msgstr ""
+
+#: plugin-options/search-fields-options.php:48
+msgctxt "Admin label option"
+msgid "Schedule indexing"
+msgstr ""
+
+#: plugin-options/search-fields-options.php:49
+msgid "Enable a recurring indexing of fields."
+msgstr ""
+
+#: plugin-options/search-fields-options.php:56
+msgctxt "Admin label option"
+msgid "Indexing interval"
+msgstr ""
+
+#: plugin-options/search-fields-options.php:63
+msgid "Daily"
+msgstr ""
+
+#: plugin-options/search-fields-options.php:64
+msgid "Weekly"
+msgstr ""
+
+#: plugin-options/search-fields-options.php:76
+msgctxt "Admin label option"
+msgid "Schedule time"
+msgstr ""
+
+#: templates/yith-woocommerce-ajax-search.php:20
+msgid "Search for:"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/attributes.js:27
+msgid "Search Input"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/attributes.js:31
+msgid "Filled Results"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/edit.js:35
+msgid "Settings"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/edit.js:39
+msgid "Size"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/index.js:10
+msgid "Classic Search"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/index.js:11
+msgid "Add the classic search block"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:48
+msgid "Icon"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:50
+msgid "Text and Icon"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:51
+msgid "Icon Hover"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:52
+msgid "Text Hover"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:53
+msgid "Text and Icon Hover"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:89
+msgid "Background Hover"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:99
+msgid "Border Hover"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:110
+msgid "Search input settings"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:117
+msgid "Enter search placeholder text"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:164
+msgid "Search icon"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:168
+msgid "Icon on the right"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:169
+msgid "Icon on the left"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:47
+msgid "Product results settings"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:57
+msgid "Info to show"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:69
+msgid "Product Title Color"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:95
+msgid "\"No results\" text"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:103
+msgid "Show \"View all results\" link"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:111
+msgid "\"View all results\" text"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/filled-block/block.json
+msgctxt "block title"
+msgid "Filled State Block"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/filled-block/block.json
+msgctxt "block description"
+msgid "Contains the blocks that will be shown after results are found."
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/block.json
+msgctxt "block title"
+msgid "Input Block"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/block.json
+msgctxt "block description"
+msgid "Contains the block that manages the search field."
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/block.json
+msgctxt "block title"
+msgid "Product Results Block"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/block.json
+msgctxt "block description"
+msgid "Shows the found products."
 msgstr ""

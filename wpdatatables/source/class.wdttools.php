@@ -318,6 +318,16 @@ class WDTTools
             'redo' => __('Redo', 'wpdatatables'),
             'text_wrapping' => __('Text wrapping', 'wpdatatables'),
             'merge_cells' => __('Merge cells', 'wpdatatables'),
+            'firstPageWCAG' => __('First page', 'wpdatatables'),
+            'lastPageWCAG' => __('Last page', 'wpdatatables'),
+            'nextPageWCAG' => __('Next page', 'wpdatatables'),
+            'previousPageWCAG' => __('Previous page', 'wpdatatables'),
+            'pageWCAG' => __('wpDataTable Page ', 'wpdatatables'),
+            'spacerWCAG' => __('Spacer', 'wpdatatables'),
+            'printTableWCAG' => __('Print table', 'wpdatatables'),
+            'exportTableWCAG' => __('Export table', 'wpdatatables'),
+            'clearFiltersWCAG' => __('Clear filters', 'wpdatatables'),
+            'colvisWCAG' => __('Column visibility', 'wpdatatables'),
         );
     }
 
@@ -1116,12 +1126,14 @@ class WDTTools
      */
     public static function wdtConvertStringToUnixTimestamp($dateString, $dateFormat)
     {
-        if (null !== $dateFormat && $dateFormat == 'd/m/Y') {
+        if ($dateString == '') return null;
+        if (!$dateFormat) $dateFormat = get_option('wdtDateFormat');
+
+        if (null !== $dateFormat && substr($dateFormat, 0,5) === 'd/m/Y') {
             $returnDate = strtotime(str_replace('/', '-', $dateString));
         } else if (null !== $dateFormat && in_array($dateFormat, ['m.d.Y', 'm-d-Y', 'm-d-y','d.m.y','Y.m.d','d-m-Y'])) {
             $returnDate = strtotime(str_replace(['.', '-'], '/', $dateString));
         } else if (null !== $dateFormat && $dateFormat == 'm/Y') {
-            if ($dateString == '') return $dateString;
             $dateObject = DateTime::createFromFormat($dateFormat, $dateString);
             if (!$dateObject) return strtotime($dateString);
             $returnDate = $dateObject->getTimestamp();
@@ -1129,7 +1141,7 @@ class WDTTools
             $returnDate = strtotime($dateString);
         }
 
-        return $returnDate;
+        return $returnDate ?: '';
     }
 
     /**

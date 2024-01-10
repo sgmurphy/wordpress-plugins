@@ -7,8 +7,8 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
-use Psr\SimpleCache\CacheException as PsrCacheException;
-use Psr\SimpleCache\CacheInterface;
+use RebelCode\Spotlight\Instagram\Vendor\Psr\SimpleCache\CacheException as PsrCacheException;
+use RebelCode\Spotlight\Instagram\Vendor\Psr\SimpleCache\CacheInterface;
 use RebelCode\Psr7\Request;
 use RebelCode\Psr7\Uri;
 use RuntimeException;
@@ -143,7 +143,9 @@ class IgApiUtils
                 // Do nothing
             }
 
-            error_log($e->getMessage() . " (attempt $attempt of 3)");
+            if (method_exists($e, 'getResponse')) {
+                error_log($e->getMessage() . " (attempt $attempt of 3)");
+            }
 
             $attempt++;
             if ($attempt > 3) {

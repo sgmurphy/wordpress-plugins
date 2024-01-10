@@ -19,6 +19,8 @@ class DataModifier
     {
         self::commonRestoreSettings($settings, $savedSettings);
 
+        $settings['payments']['coupons'] = $savedSettings['payments']['coupons'];
+
         $settings['roles']['customerCabinet']['enabled'] = $savedSettings['roles']['customerCabinet']['enabled'];
 
         $settings['roles']['providerCabinet']['enabled'] = $savedSettings['roles']['providerCabinet']['enabled'];
@@ -82,6 +84,10 @@ class DataModifier
 
 
         self::commonModifySettings($settings);
+
+        if ($settings && isset($settings['payments'])) {
+            $settings['payments']['coupons'] = false;
+        }
 
         if ($settings && isset($settings['activation'])) {
             $settings['activation']['hideUnavailableFeatures'] = false;
@@ -147,7 +153,7 @@ class DataModifier
 
             $settings['roles']['limitPerEmployee']['enabled'] = $rolesSettings['limitPerEmployee']['enabled'];
 
-            $settings['roles']['allowCustomerCancelPackages'] = $rolesSettings['allowCustomerCancelPackages'];
+            $settings['roles']['allowCustomerCancelPackages'] = false;
 
             $settings['roles']['enableNoShowTag'] = false;
         }

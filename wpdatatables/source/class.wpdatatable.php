@@ -99,6 +99,7 @@ class WPDataTable
     private $_clearFilters = false;
     private $_pdfPaperSize = 'A4';
     private $_pdfPageOrientation = 'portrait';
+    private $_table_wcag = 0;
     public $column_id;
     public static $allowedTableTypes = array('xls', 'csv', 'manual', 'mysql', 'json','nested_json', 'google_spreadsheet', 'xml', 'serialized', 'simple');
 
@@ -433,7 +434,14 @@ class WPDataTable
     {
         $this->_wpId = $wpId;
     }
-
+    public function isTableWCAG()
+    {
+        return $this->_table_wcag;
+    }
+    public function setTableWCAG($tableWCAG)
+    {
+        $this->_table_wcag = $tableWCAG;
+    }
     public function getCssClassesArr()
     {
         $classesStr = $this->_cssClassArray;
@@ -1748,7 +1756,7 @@ class WPDataTable
 					++$r;
 					foreach ($headingsArray as $dataColumnIndex => $dataColumnHeading) {
 						$dataColumnHeading = trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $dataColumnHeading)));
-						$namedDataArray[$r][$dataColumnHeading] = trim($dataRows[$row][$dataColumnIndex]);
+                        $namedDataArray[$r][$dataColumnHeading] = trim(isset($dataRows[$row][$dataColumnIndex]) ? $dataRows[$row][$dataColumnIndex] : '');
 						$currentDateFormat = isset($wdtParameters['dateInputFormat'][$dataColumnHeading]) ? $wdtParameters['dateInputFormat'][$dataColumnHeading] : null;
 						if (!empty($wdtParameters['data_types'][$dataColumnHeading]) && in_array($wdtParameters['data_types'][$dataColumnHeading], array('date', 'datetime', 'time'))) {
 							if ($format === 'xls' || $format === 'ods') {
@@ -2402,6 +2410,7 @@ class WPDataTable
             isset($advancedSettings->pdfPageOrientation) ? $this->setPdfPageOrientation($advancedSettings->pdfPageOrientation) : $this->setPdfPageOrientation('portrait');
             isset($advancedSettings->show_table_description) ? $this->setShowDescription($advancedSettings->show_table_description) : $this->setShowDescription(false);
             isset($advancedSettings->table_description) ? $this->setDescription($advancedSettings->table_description) : $this->setDescription('');
+            isset($advancedSettings->table_wcag) ? $this->setTableWCAG($advancedSettings->table_wcag) : $this->setTableWCAG(0);
         } else {
             $this->setInfoBlock(true);
             $this->setGlobalSearch(true);
@@ -2424,6 +2433,7 @@ class WPDataTable
             $this->setPdfPageOrientation('portrait');
             $this->setShowDescription(false);
             $this->setDescription('');
+            $this->setTableWCAG(0);
         }
 
         if (!empty($columnData['columnOrder'])) {
@@ -2565,7 +2575,7 @@ class WPDataTable
         $obj->file_location = $this->getFileLocation();
         $obj->globalSearch = $this->isGlobalSearch();
         $obj->showRowsPerPage = $this->isShowRowsPerPage();
-
+        $obj->table_wcag = $this->isTableWCAG();
         $obj->hideBeforeLoad = $this->doHideBeforeLoad();
         $obj->number_format = (int)(get_option('wdtNumberFormat') ? get_option('wdtNumberFormat') : 1);
         $obj->decimalPlaces = (int)(get_option('wdtDecimalPlaces') ? get_option('wdtDecimalPlaces') : 2);
