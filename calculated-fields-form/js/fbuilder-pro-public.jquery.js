@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '1.2.47';
+	$.fbuilder['version'] = '1.2.48';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 
@@ -238,7 +238,13 @@
 					if(isNotFirstTime)
 					{
 						$('[name="'+items[i].name+'"]').trigger('depEvent');
-						if(items[i].usedInEquations) $.fbuilder['calculator'].enqueueEquation(id, items[i].usedInEquations);
+						if(items[i].usedInEquations) {
+							var equations = [];
+							for( var j in items[i].usedInEquations )
+								if( getField(items[i].usedInEquations[j].result)['dynamicEval'] ) equations.push( items[i].usedInEquations[j] );
+							if ( equations.length )
+								$.fbuilder['calculator'].enqueueEquation(id, equations);
+						}
 					}
 					if('showHideDep' in items[i])
 					{

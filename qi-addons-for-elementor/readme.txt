@@ -12,11 +12,11 @@ Qi Addons for Elementor is a comprehensive library of 60+ custom, flexible & eas
 
 == Description ==
 
-<a href="https://qodeinteractive.com/qi-addons-for-elementor/" target="_blank">Qi Addons for Elementor</a> is the largest free library of custom and fully flexible Elementor widgets developed by one of bestselling premium WordPress theme authors, the award-winning <a href="https://qodeinteractive.com/" target="_blank">Qode Interactive</a>. The free version of Qi Addons comes with 60+ powerful custom widgets for Elementor, while <a href="https://qodeinteractive.com/qi-addons-for-elementor/" target="_blank">Qi Addons for Elementor Premium</a> gives you a stunning selection of 100+ carefully designed, comprehensive widgets. All elements bundled with this plugin were designed with ease of use and customizability in mind. As with all our products, we put special emphasis on design and the aesthetic side of things.
+<a href="https://qodeinteractive.com/qi-addons-for-elementor/" target="_blank">Qi Addons for Elementor</a> is the largest free library of custom and fully flexible Elementor widgets developed by one of bestselling premium WordPress theme authors, the award-winning <a href="https://qodeinteractive.com/" target="_blank">Qode Interactive</a>. The free version of Qi Addons comes with 60+ powerful custom widgets for Elementor, while <a href="https://qodeinteractive.com/qi-addons-for-elementor/" target="_blank">Qi Addons for Elementor Premium</a> gives you a stunning selection of 100+ carefully designed, comprehensive Elementor addons. All elements bundled with this plugin were designed with ease of use and customizability in mind. As with all our products, we put special emphasis on design and the aesthetic side of things.
 
 <a href="https://qodeinteractive.com/qi-addons-for-elementor/" target="_blank">Qi Addons for Elementor</a> provide you with a powerful, simple and streamlined way to create your captivating new website with the Elementor Page Builder the way you envisioned it.
 
-<h3>THE LARGEST FREE COLLECTION OF ELEMENTOR WIDGETS</h3>
+<h3>THE LARGEST FREE COLLECTION OF ELEMENTOR ADDONS</h3>
 Not only do you get one of the largest widget collections for free, but every element was designed to let you create a wide range of diverse, beautifully designed sections for your pages without any effort or coding involved. On top of that, you can upgrade to <a href="https://qodeinteractive.com/qi-addons-for-elementor/" target="_blank">Qi Addons for Elementor Premium</a>, and get 100+ powerful custom widgets.
 
 <h3>CUSTOMIZE WITH TOTAL EASE</h3>

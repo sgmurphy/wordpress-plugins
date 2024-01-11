@@ -11,6 +11,7 @@ use CTXFeed\V5\Query\WCQuery;
 use CTXFeed\V5\Utility\Cache;
 use CTXFeed\V5\Utility\Config;
 use CTXFeed\V5\Utility\DropDown;
+use WOOMC\DAO\Factory;
 
 /**
  * @package    CTXFeed
@@ -1094,7 +1095,7 @@ class DropDownOptions {
 			} elseif ( is_plugin_active( 'woocommerce-multicurrency/woocommerce-multicurrency.php' ) ) {
 
 				if ( class_exists( 'WOOMC\DAO\Factory' ) ) {
-					$currencies = WOOMC\DAO\Factory::getDao()->getEnabledCurrencies();
+					$currencies = Factory::getDao()->getEnabledCurrencies();
 					$currencies = array_combine( $currencies, $currencies );
 
 					$options = $currencies;

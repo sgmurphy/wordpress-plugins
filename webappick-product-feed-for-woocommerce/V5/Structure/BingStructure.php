@@ -155,7 +155,7 @@ class BingStructure implements StructureInterface {
 			$i_max = \count( $methods );
 			$group['shipping'] = array( "country", "region", "service", "price");
 			for ( $i = 0; $i < $i_max; $i ++ ) {
-				$data[][ 'shipping(' . \implode( ':', $group['shipping'] ) . ')' ] .= "csv_shipping_" . $i ;
+				$data[][ 'shipping(' . \implode( ':', $group['shipping'] ) . ')' ]  = "csv_shipping_" . $i ;
 			}
 		}
 

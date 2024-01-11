@@ -4,7 +4,7 @@ Tags: security, firewall, malware scanner, web application firewall, two factor 
 Requires at least: 4.7
 Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 1.4.9
+Stable tag: 1.4.10
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -143,6 +143,13 @@ By enforcing a password reset, you can ensure that all users are prompted to cha
 1. Go to Plugins -> Installed Plugins and click the 'Activate' link under the WordPress Security Optimizer by SiteGround listing
 
 == Changelog ==
+
+= Version 1.4.10 =
+
+Release Date: Jan 11th, 2024
+
+* Static assets are now part of the plugin package and load locally.
+* New users will be prompted to give their consent for the collection of technical data upon their initial use of the plugin.
 
 = Version 1.4.9 =
 
@@ -400,4 +407,4 @@ Release Date: July 27th, 2021
 
 ## Data Collection ##
 
-By default the plugin collects the information [listed here](https://www.siteground.com/kb/what-information-wp-plugins-collect). This data is collected only for technical analysis, improvements and the possibility to contact the plugin user in case urgent issues need to be fixed (for example a critical security release that needs to be communicated to site owners). The plugin user may opt out from the WP admin from the collection of this data, but we do not recommend this, as it may negatively impact the plugin performance. You may find more information on data collection in our [Plugins Privacy Notice](https://www.siteground.com/viewtos/siteground_plugins_privacy_notice).
+Collection of technical data is optional and is [listed here](https://www.siteground.com/kb/what-information-wp-plugins-collect). This data is collected only for technical analysis, improvements and the possibility to contact the plugin user in case urgent issues need to be fixed (for example a critical security release that needs to be communicated to site owners). The plugin user can manage their preferences within the WP admin to control the collection of technical data. We advise opting in for this data collection, as it can enhance the plugin's performance. You may find more information on data collection in our [Plugins Privacy Notice](https://www.siteground.com/viewtos/siteground_plugins_privacy_notice).

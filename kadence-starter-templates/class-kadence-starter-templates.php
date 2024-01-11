@@ -1573,6 +1573,7 @@ class Starter_Templates {
 		if ( empty( $selected_index ) || empty( $selected_builder ) ) {
 			wp_send_json_error( 'Missing Parameters' );
 		}
+		delete_transient( 'kadence_importer_data' );
 		if ( empty( $this->import_files ) || ( is_array( $this->import_files ) && ! isset( $this->import_files[ $selected_index ] ) ) ) {
 			$template_database  = Template_Database_Importer::get_instance();
 			$this->import_files = $template_database->get_importer_files( $selected_index, $selected_builder );
@@ -1597,6 +1598,7 @@ class Starter_Templates {
 		if ( empty( $selected_index ) || empty( $selected_builder ) ) {
 			wp_send_json_error( 'Missing Parameters' );
 		}
+		delete_transient( 'kadence_importer_data' );
 		if ( empty( $this->import_files ) || ( is_array( $this->import_files ) && ! isset( $this->import_files[ $selected_index ] ) ) ) {
 			$template_database  = Template_Database_Importer::get_instance();
 			$this->import_files = $template_database->get_importer_files( $selected_index, $selected_builder );
@@ -1895,7 +1897,6 @@ class Starter_Templates {
 				}
 			}
 		}
-
 		if ( false === $install ) {
 			wp_send_json_error();
 		} else {
@@ -2397,13 +2398,10 @@ class Starter_Templates {
 	public function import_demo_data_ajax_callback() {
 		// Try to update PHP memory limit (so that it does not run out of it).
 		ini_set( 'memory_limit', apply_filters( 'kadence-starter-templates/import_memory_limit', '350M' ) );
-
 		// Verify if the AJAX call is valid (checks nonce and current_user_can).
 		Helpers::verify_ajax_call();
-
 		// Is this a new AJAX call to continue the previous import?
 		$use_existing_importer_data = $this->use_existing_importer_data();
-
 		if ( ! $use_existing_importer_data ) {
 			// Create a date and time string to use for demo and log file names.
 			Helpers::set_demo_import_start_time();

@@ -253,7 +253,6 @@ class Importer extends WXRImporter {
 
 		// Reset other variables
 		$this->base_url = '';
-
 		// Start parsing!
 		while ( $reader->read() ) {
 			// Only deal with element opens.

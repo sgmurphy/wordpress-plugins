@@ -77,7 +77,7 @@ class Rest_Helper_Dashboard extends Rest_Helper {
 		return self::send_response(
 			'',
 			1,
-			$this->get_remote_banners()
+			$this->get_banners()
 		);
 	}
 
@@ -113,34 +113,66 @@ class Rest_Helper_Dashboard extends Rest_Helper {
 	}
 
 	/**
-	 * Make a remote request to fetch the banner assets and texts in the dashboard.
+	 * Get Dashboard banner.
 	 *
-	 * @since  1.2.0
+	 * @since 1.4.10
 	 *
-	 * @return array $result The array containing the link and titles.
+	 * @return array $banner The banner array image, link and title.
 	 */
-	public function get_remote_banners() {
-		// Get the banner content.
-		$response = wp_remote_get( 'https://sgwpdemo.com/jsons/sg-security-banners.json' );
-
-		// Bail if the request fails.
-		if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-			return self::send_response( 'Error fetching banners', 0, array() );
-		}
-
+	public function get_banners() {
 		// Get the locale.
 		$locale = get_locale();
-
 		// Determine the type of asset we are going to show.
 		$type = Helper_Service::is_siteground() ? 'ebook' : 'banners';
 
-		// Get the body of the response.
-		$body = wp_remote_retrieve_body( $response );
+		// Default banners.
+		$banners = array(
+			'ebook' => array(
+				'it_IT' => array(
+					'image' => SG_Security\URL . '/assets/images/banners/ebook_it.png',
+					'link'  => 'https://it.siteground.com/ebook-sicurezza-wordpress?utm_source=sgsecurityplugin',
+					'title' => 'eBook gratuit',
+				),
+				'es_ES' => array(
+					'image' => SG_Security\URL . '/assets/images/banners/ebook_es.png',
+					'link'  => 'https://www.siteground.es/ebook-seguridad-wordpress?utm_source=sgsecurityplugin',
+					'title' => 'Ebook gratuito',
+				),
+				'de_DE' => array(
+					'image' => SG_Security\URL . '/assets/images/banners/ebook_de.png',
+					'link'  => 'https://de.siteground.com/wordpress-security-ebook?utm_source=sgsecurityplugin',
+					'title' => 'Kostenloses e-book',
+				),
+				'default' => array(
+					'image' => SG_Security\URL . '/assets/images/banners/ebook.png',
+					'link'  => 'https://www.siteground.com/wordpress-security-ebook?utm_source=sgsecurityplugin',
+					'title' => 'Free Ebook',
+				),
+			),
+			'banners' => array(
+				'it_IT' => array(
+					'image' => SG_Security\URL . '/assets/images/banners/banner_it.png',
+					'link'  => 'https://it.siteground.com/hosting-wordpress?mktafcode=a805e6613d5c68d989401d7137d91194&utm_source=sgsecurityplugin',
+					'title' => 'Ottieni un hosting WordPress sicuro',
+				),
+				'es_ES' => array(
+					'image' => SG_Security\URL . '/assets/images/banners/banner_es.png',
+					'link'  => 'https://www.siteground.es/hosting-wordpress.htm?mktafcode=a805e6613d5c68d989401d7137d91194&utm_source=sgsecurityplugin',
+					'title' => 'Consigue hosting seguro',
+				),
+				'de_DE' => array(
+					'image' => SG_Security\URL . '/assets/images/banners/banner_de.png',
+					'link'  => 'https://de.siteground.com/wordpress-hosting.htm?mktafcode=a805e6613d5c68d989401d7137d91194&utm_source=sgsecurityplugin',
+					'title' => 'Sicheres WordPress-Hosting',
+				),
+				'default' => array(
+					'image' => SG_Security\URL . '/assets/images/banners/banner.png',
+					'link'  => 'https://www.siteground.com/wordpress-hosting.htm?mktafcode=a805e6613d5c68d989401d7137d91194&utm_source=sgsecurityplugin',
+					'title' => 'Get Secure WordPress Hosting',
+				),
+			),
+		);
 
-		// Decode the json response.
-		$banners = json_decode( $body, true );
-
-		// Return the correct assets, title and marketing urls.
 		return array_key_exists( $locale, $banners[ $type ] ) ? $banners[ $type ][ $locale ] : $banners[ $type ]['default'];
 	}
 }

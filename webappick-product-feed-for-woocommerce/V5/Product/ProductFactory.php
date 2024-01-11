@@ -13,6 +13,7 @@ use CTXFeed\V5\Filter\ValidateProduct;
 use CTXFeed\V5\Helper\ProductHelper;
 use CTXFeed\V5\Override\OverrideFactory;
 use CTXFeed\V5\Utility\Logs;
+use WC_Product;
 
 /**
  * Class ProductFactory
@@ -52,16 +53,24 @@ class ProductFactory {
 
 				// If product is a variation, then get the parent product.
 				$parent_product = null;
+				if($product instanceof  WC_Product) {
+					if ( $product && $product->is_type( 'variation' ) ) {
+						$parent_product = wc_get_product( $product->get_parent_id() );
+					}
 
-				if ( $product && $product->is_type( 'variation' ) ) {
-					$parent_product = wc_get_product( $product->get_parent_id() );
+					// Validate Product and add for feed.
+					if ( ! ValidateProduct::is_valid( $product, $config, $id ) ) {
+						continue;
+					}
+					$product_info[] = self::get_product_info( $product, $structure, $config, array(), $parent_product );
+				}else if( count( $product ) ) {
+					foreach ( $product as $pro ) {
+						if (ValidateProduct::is_valid($pro, $config, $pro->get_id())) {
+							$product_info[] = self::get_product_info( $pro, $structure, $config, array(), $parent_product );
+						}
+					}
 				}
 
-				// Validate Product and add for feed.
-				if ( ! ValidateProduct::is_valid( $product, $config, $id ) ) {
-					continue;
-				}
-				$product_info[] = self::get_product_info( $product, $structure, $config, array(), $parent_product );
 			}
 		} else {
 			$product_info[] = $structure;

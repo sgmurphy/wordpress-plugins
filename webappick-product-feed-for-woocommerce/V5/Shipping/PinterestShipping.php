@@ -1,9 +1,20 @@
 <?php
 
+/**
+ * Class PinterestShipping
+ *
+ * @package    CTXFeed
+ * @subpackage CTXFeed\V5\Shipping
+ */
+
 namespace CTXFeed\V5\Shipping;
 
 use CTXFeed\V5\Helper\ProductHelper;
 use CTXFeed\V5\Utility\Settings;
+
+/**
+ * Class representing the shipping for Pinterest.
+ */
 
 class PinterestShipping extends Shipping {
 	/**
@@ -11,6 +22,23 @@ class PinterestShipping extends Shipping {
 	 */
 	private $config;
 
+	/**
+	 * @var string[] Shipping attributes
+	 */
+	public static $shipping_attrs = [
+		'location_id',
+		'location_group_name',
+		'min_handling_time',
+		'max_handling_time',
+		'min_transit_time',
+		'max_transit_time'
+	];
+
+	/**
+	 * Constructor for PinterestShipping.
+	 *
+	 * @param mixed $config Configuration settings.
+	 */
 	public function __construct( $product, $config ) {
 		parent::__construct( $product, $config );
 		$this->config = $config;
@@ -43,27 +71,13 @@ class PinterestShipping extends Shipping {
 	private function get_xml() {
 		$str = "";
 
-		$shippingAttrs = [
-			'location_id',
-			'location_group_name',
-			'min_handling_time',
-			'max_handling_time',
-			'min_transit_time',
-			'max_transit_time'
-		];
-
-		$allow_all_shipping = Settings::get( 'allow_all_shipping' );
-		$local_pickup_shipping = Settings::get('only_local_pickup_shipping');
-		$country            = $this->config->get_shipping_country();
-		$feed_country            = $this->config->get_feed_country();
-		$currency           = $this->config->get_feed_currency();
+		$allow_all_shipping         = Settings::get( 'allow_all_shipping' );
+		$local_pickup_shipping      = Settings::get('only_local_pickup_shipping');
+		$country                    = $this->config->get_shipping_country();
+		$feed_country               = $this->config->get_feed_country();
+		$currency                   = $this->config->get_feed_currency();
 
 		$methods = $this->shipping;
-//		if ( 'no' === $allow_all_shipping) {
-//			$methods = array_filter( $this->shipping, static function ( $var ) use ( $country ) {
-//				return ( $var['country'] === $country );
-//			} );
-//		}
 
 		if( is_array( $methods ) || is_object( $methods ) ){
 			foreach ( $methods as $key=>$shipping ) {
@@ -95,7 +109,7 @@ class PinterestShipping extends Shipping {
 				$str .= ( empty( $shipping['service'] ) ) ? "" : "<g:service>" . $shipping['service'] . "</g:service>" . PHP_EOL;
 				$str .= "<g:price>" . $shipping['price'] . " " . $currency . "</g:price>" . PHP_EOL;
 
-				foreach ( $shippingAttrs as $shipping_attr ) {
+				foreach ( self::$shipping_attrs as $shipping_attr ) {
 					$key = array_search( $shipping_attr, $this->config->mattributes, true );
 					if ( $key ) {
 						$attributeValue = ( $this->config->type[ $key ] === 'pattern' ) ? $this->config->default[ $key ] : $this->config->attributes[ $key ];
@@ -113,31 +127,19 @@ class PinterestShipping extends Shipping {
 	}
 
 	private function get_csv( $key ) {
-//		return "";
-		$allow_all_shipping = Settings::get( 'allow_all_shipping' );
+
+		$allow_all_shipping             = Settings::get( 'allow_all_shipping' );
 		$local_pickup_shipping = Settings::get('only_local_pickup_shipping');
 		$country            = $this->config->get_shipping_country();
 		$feed_country            = $this->config->get_feed_country();
 		$currency           = $this->config->get_feed_currency();
-		$shippingAttrs = [
-			'location_id',
-			'location_group_name',
-			'min_handling_time',
-			'max_handling_time',
-			'min_transit_time',
-			'max_transit_time'
-		];
+
 
 		$methods = $this->shipping;
-//		if ( 'no' === $allow_all_shipping ) {
-//			$methods = array_filter( $this->shipping, static function ( $var ) use ( $country ) {
-//				return ( $var['country'] === $country );
-//			} );
-//		}
 
 		foreach ( $methods as $k=>$shipping ) {
 			if ('local_pickup' == $shipping['method_id'] && $local_pickup_shipping=='yes') {
-				unset($methods[$key]);
+				unset($methods[$k]);
 			}
 
 			if($country!=""){
@@ -158,12 +160,6 @@ class PinterestShipping extends Shipping {
 				isset( $methods[ $key ]['state'] ) ? $methods[ $key ]['state'] : "",
 				isset( $methods[ $key ]['service'] ) ? $methods[ $key ]['service'] : "",
 				isset( $methods[ $key ]['price'] ) ? $methods[ $key ]['price'] . " " . $currency : "",
-				//			$this->get_value( 'location_id' ),
-				//			$this->get_value( 'location_group_name' ),
-				//			$this->get_value( 'min_handling_time' ),
-				//			$this->get_value( 'max_handling_time' ),
-				//			$this->get_value( 'min_transit_time' ),
-				//			$this->get_value( 'max_transit_time' ),
 			];
 		}
 

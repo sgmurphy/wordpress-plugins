@@ -3,7 +3,7 @@ Contributors: britner
 Tags: templates, gutenberg
 Requires at least: 6.1
 Tested up to: 6.4
-Stable tag: 2.0.1
+Stable tag: 2.0.3
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -124,6 +124,12 @@ assist you with verification, CVE assignment, and notify the
 developers of this plugin.
 
 == Changelog ==
+
+= 2.0.3 =
+* Fix: Issue importing custom customizer settings.
+
+= 2.0.2 =
+* Fix: Issue importing custom templates.
 
 = 2.0.1 =
 * Fix: Link in admin.

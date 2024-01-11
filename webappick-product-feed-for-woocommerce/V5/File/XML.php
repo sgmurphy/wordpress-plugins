@@ -82,7 +82,7 @@ class XML implements FileInterface {
 				}
 			} else {
 				$value = $this->format_value( $key, $value );
-				$this->feed_body .= "<$key>" . $value . "</$key>" . PHP_EOL;
+				$this->feed_body .= $value;
 			}
 		}
 	}
@@ -104,11 +104,15 @@ class XML implements FileInterface {
 		}
 
 		if ( $this->config->get_feed_template() === 'googlereview' ) {
-			if (" overall" === $key ) {
-				$value = "<$key min='1' max='5'>" . $value . "</$key>";
+			if ( "overall" === $key ) {
+				$value = "<$key min='1' max='5'>" . $value . "</$key>". PHP_EOL;
 			} elseif ( "review_url" === $key ) {
-				$value = "<$key type='group'>" . $value . "</$key>";
+				$value = "<$key type='group'>" . $value . "</$key>". PHP_EOL;
+			}else {
+				$value = "<$key>" . $value . "</$key>" . PHP_EOL;
 			}
+		}else{
+			$value = "<$key>" . $value . "</$key>" . PHP_EOL;
 		}
 
 		return $value;

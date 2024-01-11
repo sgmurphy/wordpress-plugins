@@ -101,6 +101,7 @@ return array(
    'KadenceWP\KadenceBlocks\StellarWP\Uplink\Auth\Admin\Connect_Controller' => $strauss_src . '/stellarwp/uplink/src/Uplink/Auth/Admin/Connect_Controller.php',
    'KadenceWP\KadenceBlocks\StellarWP\Uplink\Auth\Nonce' => $strauss_src . '/stellarwp/uplink/src/Uplink/Auth/Nonce.php',
    'KadenceWP\KadenceBlocks\StellarWP\Uplink\Auth\Auth_Url_Builder' => $strauss_src . '/stellarwp/uplink/src/Uplink/Auth/Auth_Url_Builder.php',
+   'KadenceWP\KadenceBlocks\StellarWP\Uplink\Auth\Action_Manager' => $strauss_src . '/stellarwp/uplink/src/Uplink/Auth/Action_Manager.php',
    'KadenceWP\KadenceBlocks\StellarWP\Uplink\Auth\Provider' => $strauss_src . '/stellarwp/uplink/src/Uplink/Auth/Provider.php',
    'KadenceWP\KadenceBlocks\StellarWP\Uplink\Register' => $strauss_src . '/stellarwp/uplink/src/Uplink/Register.php',
    'KadenceWP\KadenceBlocks\StellarWP\Uplink\Contracts\Provider_Interface' => $strauss_src . '/stellarwp/uplink/src/Uplink/Contracts/Provider_Interface.php',

@@ -2,7 +2,7 @@
 /**
  * @license GPL-2.0-or-later
  *
- * Modified by kadencewp on 09-January-2024 using Strauss.
+ * Modified by kadencewp on 10-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */ declare( strict_types=1 );
 
@@ -70,7 +70,7 @@ final class Connect_Controller {
 	/**
 	 * Store the token data passed back from the Origin site.
 	 *
-	 * @action admin_init
+	 * @action stellarwp/uplink/{$prefix}/admin_action_{$slug}
 	 *
 	 * @throws \RuntimeException
 	 */

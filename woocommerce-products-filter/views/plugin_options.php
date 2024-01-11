@@ -24,26 +24,12 @@
                 <h3 class="woof_plugin_name"><?php esc_html_e('HUSKY - Products Filter Professional for WooCommerce', 'woocommerce-products-filter') ?>&nbsp;<span class="woof__text-success">v.<?php echo esc_attr(WOOF_VERSION) ?></span>&nbsp;<span id="woof-head"><svg><use xlink:href="#svg-woof"></use></svg></span></h3>
                 <i><?php printf(esc_html__('Actualized for WooCommerce v.%s.x', 'woocommerce-products-filter'), WOOCOMMERCE_VERSION) ?></i><br />
             </div>
-
-
-
-
-            <?php if (time() < 1): ?>
-                <div>
-                    <br>
-                    <a href="https://products-filter.com/downloads" target="_blank">
-                        <img src="https://pluginus.net/wp-content/uploads/2023/11/cyber-monday-min.png" width="100" alt="50 OFF Cybermonday&BlackFriday" />
-                    </a>
-                </div>
-            <?php else: ?>
-                <div>
-
+            <div>
+                <?php if ($this->show_notes): ?>
                     <br>
                     <a href="https://codecanyon.pluginus.net/item/woof-woocommerce-products-filter/11498469" target="_blank" class="woof-button"><span class="icon-upload"></span><?php esc_html_e('Upgrade', 'woocommerce-products-filter') ?></a>
-
-                </div>
-            <?php endif; ?>
-
+                <?php endif; ?>
+            </div>
         </div>
 
         <input type="hidden" name="woof_settings" value="" />
@@ -1714,7 +1700,7 @@
                                     </div>
 
                                 </div><!--/ .woof-control-section-->
-
+								<?php do_action('woof_print_option_advanced'); ?>
                             </section>
 
                             <?php do_action('woof_print_applications_tabs_content_advanced'); ?>
@@ -2965,7 +2951,7 @@
 function woof_print_tax($key, $tax, $woof_settings) {
     ?>
     <li data-key="<?php echo esc_attr($key) ?>" class="woof_options_li">
-        <span class="icon-arrow-combo help_tip woof_drag_and_drope" data-tip="<?php esc_html_e("drag and drope", 'woocommerce-products-filter'); ?>"></span>
+        <span class="icon-arrow-combo help_tip woof_drag_and_drope" data-tip="<?php esc_html_e("drag and drop", 'woocommerce-products-filter'); ?>"></span>
         <?php
         $opt_group = array(
             'standard' => array(
@@ -3196,7 +3182,7 @@ function woof_print_item_by_key($key, $woof_settings) {
                 }
                 ?>
 
-                <span class="icon-arrow-combo help_tip woof_drag_and_drope" data-tip="<?php esc_html_e("drag and drope", 'woocommerce-products-filter'); ?>"></span>
+                <span class="icon-arrow-combo help_tip woof_drag_and_drope" data-tip="<?php esc_html_e("drag and drop", 'woocommerce-products-filter'); ?>"></span>
 
 
                 <strong class="woof_fix1"><?php esc_html_e("Search by Price", 'woocommerce-products-filter'); ?>:</strong>

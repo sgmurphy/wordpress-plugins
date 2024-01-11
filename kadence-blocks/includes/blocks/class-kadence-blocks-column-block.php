@@ -51,7 +51,7 @@ class Kadence_Blocks_Column_Block extends Kadence_Blocks_Abstract_Block {
 	public function build_css( $attributes, $css, $unique_id, $unique_style_id ) {
 		$css->set_style_id( 'kb-' . $this->block_name . $unique_style_id );
 		// Style.
-		$is_version_two = ( isset( $attributes['kbVersion'] ) && 2 < $attributes['kbVersion'] ? true : false );
+		$is_version_two = ( isset( $attributes['kbVersion'] ) && 1 < $attributes['kbVersion'] ? true : false );
 		$desktop_vertical_align = ! empty( $attributes['verticalAlignment'] ) ? $attributes['verticalAlignment'] : '';
 		$tablet_vertical_align = ! empty( $attributes['verticalAlignmentTablet'] ) ? $attributes['verticalAlignmentTablet'] : $desktop_vertical_align;
 		$mobile_vertical_align = ! empty( $attributes['verticalAlignmentMobile'] ) ? $attributes['verticalAlignmentMobile'] : $tablet_vertical_align;
@@ -64,6 +64,31 @@ class Kadence_Blocks_Column_Block extends Kadence_Blocks_Abstract_Block {
 		$desktop_text_align = ! empty( $attributes['textAlign'][0] ) ? $attributes['textAlign'][0] : '';
 		$tablet_text_align = ! empty( $attributes['textAlign'][1] ) ? $attributes['textAlign'][1] : $desktop_text_align;
 		$mobile_text_align = ! empty( $attributes['textAlign'][2] ) ? $attributes['textAlign'][2] : $tablet_text_align;
+		$is_desktop_flex = in_array( $desktop_direction, array( 'horizontal', 'horizontal-reverse', 'vertical-reverse' ) ) || ! empty( $desktop_vertical_align ) || ! empty( $desktop_horizontal_align ) || ! empty( $attributes['rowGapVariable'][0] ) ? true : false;
+		$is_tablet_flex = false;
+		$is_mobile_flex = false;
+		if ( $is_desktop_flex ) {
+			$css->set_selector( '.kadence-column' . $unique_id . ' > .kt-inside-inner-col' );
+			$css->add_property( 'display', 'flex' );
+		}
+		if ( ! $is_desktop_flex ) {
+			$is_tablet_flex = in_array( $tablet_direction, array( 'horizontal', 'horizontal-reverse', 'vertical-reverse' ) ) || ! empty( $tablet_vertical_align ) || ! empty( $tablet_horizontal_align ) || ! empty( $attributes['rowGapVariable'][1] ) ? true : false;
+			if ( $is_tablet_flex ) {
+				$css->set_media_state( 'tablet' );
+				$css->set_selector( '.kadence-column' . $unique_id . ' > .kt-inside-inner-col' );
+				$css->add_property( 'display', 'flex' );
+				$css->set_media_state( 'desktop' );
+			}
+		}
+		if ( ! $is_desktop_flex && ! $is_tablet_flex ) {
+			$is_mobile_flex = in_array( $mobile_direction, array( 'horizontal', 'horizontal-reverse', 'vertical-reverse' ) ) || ! empty( $mobile_vertical_align ) || ! empty( $mobile_horizontal_align ) || ! empty( $attributes['rowGapVariable'][2] ) ? true : false;
+			if ( $is_mobile_flex ) {
+				$css->set_media_state( 'mobile' );
+				$css->set_selector( '.kadence-column' . $unique_id . ' > .kt-inside-inner-col' );
+				$css->add_property( 'display', 'flex' );
+				$css->set_media_state( 'desktop' );
+			}
+		}
 		if ( ! empty( $attributes['maxWidth'][0] ) ) {
 			$css->set_selector( '.kadence-column' . $unique_id );
 			$css->add_property( 'max-width', $attributes['maxWidth'][0] . ( isset( $attributes['maxWidthUnit'] ) ? $attributes['maxWidthUnit'] : 'px' ) );
@@ -289,11 +314,18 @@ class Kadence_Blocks_Column_Block extends Kadence_Blocks_Abstract_Block {
 		// Gap.
 		$css->set_selector( '.kadence-column' . $unique_id . ' > .kt-inside-inner-col' );
 		if ( ! $is_version_two && 'horizontal' === $desktop_direction ) {
+			$gutter = isset( $attributes['gutter'] ) && is_array( $attributes['gutter'] ) && isset( $attributes['gutter'][0] ) && is_numeric( $attributes['gutter'][0] ) ? $attributes['gutter'][0] : null;
+			if ( null === $gutter ) {
+				$attributes['gutter'][0] = 10;
+			}
 			if ( empty( $attributes['gutterVariable'] ) ) {
 				$attributes['gutterVariable'] = array( 'custom', 'custom', 'custom' );
 			}
 			$css->render_row_gap( $attributes, 'gutterVariable', 'gap', 'gutter', 'gutterUnit' );
 		} else {
+			if ( empty( $attributes['gutterVariable'][0] ) ) {
+				$attributes['gutterVariable'][0] = 'sm';
+			}
 			$css->render_row_gap( $attributes, 'rowGapVariable', 'row-gap', 'rowGap', 'rowGapUnit' );
 			$css->render_row_gap( $attributes, 'gutterVariable', 'column-gap', 'gutter', 'gutterUnit' );
 		}

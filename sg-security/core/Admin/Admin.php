@@ -233,6 +233,7 @@ class Admin {
 			'wp_nonce'           => wp_create_nonce( 'wp_rest' ),
 			'log_page_url'       => admin_url( 'admin.php?page=activity-log' ),
 			'data_consent_popup' => $this->get_popup_settings(),
+			'assetsPath'         => SG_Security\URL . '/assets/images',
 		);
 
 		echo '<script>window.addEventListener("load", function(){ SGSecurity.init({page: SGSecurity.PAGE.' . $id . ',config:' . json_encode( $data ) . '})});</script>';
@@ -290,21 +291,22 @@ class Admin {
 		}
 
 		if ( Helper_Service::is_siteground() ) {
+			if ( 1 === $data_consent ) {
+				return array(
+					'show_data_field'  => 0,
+					'show_email_field' => 0,
+				);
+			}
+
 			return array(
-				'show_data_field' => 0,
+				'show_data_field'  => 1,
 				'show_email_field' => 0,
 			);
 		}
 
-		return array(
-			'show_data_field'  => 0,
-			'show_email_field' => 1,
-		);
-
-
 		$settings = array();
 
-		$settings['show_data_field'] = 0;
+		$settings['show_data_field'] = 0 === $data_consent ? 1 : 0;
 		$settings['show_email_field'] = 0 === $email_consent ? 1 : 0;
 
 		return $settings;
@@ -314,7 +316,7 @@ class Admin {
 		if ( false === $this->is_plugin_page() ) {
 			return $text;
 		}
-		return __( 'By installing and using this plugin you acknowledge that you have read and understood <a href="//siteground.com/viewtos/siteground_plugins_privacy_notice"> SiteGround Plugins Privacy Notice </a> and you give your consent for your personal data to be collected, processed and used as described in the Plugins Privacy Notice.', 'sg-security' );
+		return __( 'By installing and using this plugin you acknowledge that you have read and understood <a href="//siteground.com/viewtos/siteground_plugins_privacy_notice"> SiteGround Plugins Privacy Notice </a>.', 'sg-security' );
 	}
 
 }

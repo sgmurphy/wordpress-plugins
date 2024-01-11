@@ -4,7 +4,7 @@ Tags: gutenberg, blocks, page builder, google fonts, dual buttons, svg icons, ed
 Donate link: https://www.kadencewp.com/about-us/
 Requires at least: 6.1
 Tested up to: 6.4
-Stable tag: 3.2.12
+Stable tag: 3.2.14
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -96,6 +96,18 @@ assist you with verification, CVE assignment, and notify the
 developers of this plugin.
 
 == Changelog ==
+
+= 3.2.14 =
+Release Date: January 10th, 2024
+* Fix: Floating Layouts inside of section blocks.
+
+= 3.2.13 =
+Release Date: January 10th, 2024
+* Update: Change limits on typography font size field.
+* Update: Prevent changing unit for typography sizes in tablet, mobile.
+* Fix: Possible spacing issue in columns, flex layouts.
+* Fix: Default color in accordion example for better accessibility.
+* Fix: Possible issue with captions below images in gallery not centered
 
 = 3.2.12 =
 Release Date: January 9th, 2024

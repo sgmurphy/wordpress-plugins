@@ -1,3 +1,7 @@
+.menu-location-menus .locations-row-links {
+    float: none;
+    display: inline-block;
+}
 .themify-cm-conditions-container{
 	background:#fff;
 	font:normal 13px/150% Arial, Helvetica, sans-serif;
@@ -6,7 +10,7 @@
 	width:900px;
 	max-width:100%;
 	padding:20px 25px;
-	position:absolute;
+	position:fixed;
 	left:50%;
 	top:6.5vh !important;
 	margin:auto auto auto -450px;
@@ -16,12 +20,14 @@
 	border-radius:12px;
 	box-shadow:0 1px 20px 3px rgba(0,0,0,.2)
 }
+.themify-cm-conditions-container .themify-cm-close{
+	width:30px;
+	height:30px;
+}
 .themify-cm-close{
 	position:absolute;
 	top:10px;
 	right:20px;
-	width:30px;
-	height:30px;
 	padding-top:2px;
 	text-align:center;
 	cursor:pointer;
@@ -40,7 +46,7 @@
 	height:30px;
 	background:#666
 }
-.themify-cm-close:hover{
+.themify-cm-conditions-container .themify-cm-close:hover{
 	color:#fff;
 	outline:0;
 	transform:rotate(90deg) scale(.9)
@@ -151,7 +157,7 @@ form.ui-widget.ui-widget-content{
 .themify-visibility-inner-tabs .inline-tabs li{
 	display:inline-block;
 	padding:0;
-	margin:0 0 5px;
+	margin:0 0 10px;
 	border:none;
 	border-radius:0;
 	color:inherit;
@@ -527,6 +533,106 @@ p.button-controls{
 	content:'';
 	animation:themify_cm_circle_loader 1.4s infinite linear
 }
+.themify_cm_conditions {
+    clear: both;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 7px;
+	font-size:12px;
+    margin-top: 10px;
+}
+.themify_cm_conditions li {
+	padding: 4px 10px;
+	background: rgb(0,0,0,.05);
+	border-radius: 10px;
+	margin: 0;
+	position: relative;
+}
+.themify_cm_conditions li:hover{
+	color:#000
+}
+
+/**
+ * Tooltip Styles
+ */
+[data-cm_tooltip]{
+    position:relative;
+}
+[data-cm_tooltip]:before,
+[data-cm_tooltip]:after{
+    position:absolute;
+    visibility:hidden;
+    opacity:0;
+    transition:opacity .2s ease-in-out, visibility .2s ease-in-out, transform .2s cubic-bezier(.71, 1.7, .77, 1.24);
+    transform:translate3d(0, 28px, 0);
+    pointer-events:none;
+    bottom:100%;
+    left:0
+}
+[data-cm_tooltip]:hover:before,
+[data-cm_tooltip]:hover:after,
+[data-cm_tooltip]:focus:before,
+[data-cm_tooltip]:focus:after{
+    visibility:visible;
+    opacity:1;
+    transform:translateY(25px)
+}
+[data-cm_tooltip]:before{
+    content:"";
+    background:0;
+    border:6px solid transparent;
+    border-top-width:0;
+    border-bottom-color:#000;
+    top:0;
+    z-index:1001
+}
+[data-cm_tooltip]:after{
+    content:attr(data-cm_tooltip);
+    padding:8px;
+    background-color:#000;
+    color:#fff;
+    font-size:11px;
+    line-height:1.2;
+    border-radius:12px;
+    margin-left:-1.75em;
+    margin-bottom:5px;
+    z-index:1000;
+    top:5px;
+    bottom:auto;
+	min-width: 100px;
+	text-align: center;
+}
+.themify_cm_conditions .remove-item .themify-cm-close:before,
+.themify_cm_conditions .remove-item .themify-cm-close:after {
+    height: 10px;
+    background: #fff;
+}
+.themify_cm_conditions .remove-item {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    width: 22px;
+    height: 21px;
+    display: none;
+    border-radius: 5em;
+    text-align: center;
+    color: #fff;
+    padding-top: 1px;
+    background: #E15855;
+    box-shadow: 0 2px 3px rgba(0,0,0,.2);
+    cursor: pointer;
+}
+.themify_cm_conditions li:hover .remove-item {
+    display: block;
+}
+.themify_cm_conditions .remove-item span{
+    font-size:11px;
+    position:absolute;
+    top:5px;
+    right:27px;
+    font-weight:700;
+}
+
 @keyframes themify_cm_circle_loader{
     0%{ transform:rotate(0deg) }
     100%{ transform:rotate(360deg) }

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Class Shipping
+ *
+ * @package    CTXFeed
+ * @subpackage CTXFeed\V5\Shipping
+ */
+
 namespace CTXFeed\V5\Shipping;
 
 use CTXFeed\V5\Utility\Cache;
@@ -8,11 +15,9 @@ use WC_Shipping_Flat_Rate;
 use WC_Shipping_Zones;
 
 /**
- * Class ShippingInterface
- *
- * @package    CTXFeed\V5\Shipping
- * @subpackage CTXFeed\V5\Shipping
+ * Class representing the shipping.
  */
+
 class Shipping {
 
 	protected $shipping;
@@ -46,7 +51,7 @@ class Shipping {
 	 *
 	 * @throws \Exception
 	 */
-	protected function get_shipping_zones($type) {
+	protected function get_shipping_zones( $type ) {
 		$shippingInfo = Cache::get( 'ctx_feed_shipping_info' );
 		if ( ! $shippingInfo ) {
 			$zones = WC_Shipping_Zones::get_zones('json');
@@ -59,6 +64,7 @@ class Shipping {
 				}
 			}
 			Cache::set( 'ctx_feed_shipping_info', $this->shipping );
+			$shippingInfo = Cache::get( 'ctx_feed_shipping_info' );
 		}
 		if ( $type=='csv' ) {
 			$zones = WC_Shipping_Zones::get_zones('json');
@@ -71,6 +77,7 @@ class Shipping {
 				}
 			}
 			Cache::set( 'ctx_feed_shipping_info', $this->shipping );
+			$shippingInfo = Cache::get( 'ctx_feed_shipping_info' );
 		}
 		$this->shipping = $shippingInfo;
 	}
@@ -118,7 +125,6 @@ class Shipping {
 		if ( ! empty( $this->methods ) ) {
 			foreach ( $this->methods as $method ) {
 
-				//if ( 'yes' === $method->enabled && 'local_pickup' !== $method->id ) {
 				if ( 'yes' === $method->enabled) {
 
 					if ( empty( $this->country ) ) {

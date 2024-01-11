@@ -6,6 +6,8 @@ $post_types = array_map( 'get_post_type_object', $post_types );
 
 $taxonomies = apply_filters( 'themify_hooks_visibility_taxonomies', get_taxonomies( array( 'public' => true ) ) );
 $taxonomies = array_map( 'get_taxonomy', $taxonomies );
+
+$is_wc_active = Themify_Conditional_Menus_Utils::is_woocommerce_active();
 ?>
 
 <div id="themify-cm-conditions" class="themify-cm-conditions-container themify-admin-lightbox tf_clearfix" style="display: none;">
@@ -21,6 +23,7 @@ $taxonomies = array_map( 'get_taxonomy', $taxonomies );
 				<li><a href="#visibility-tab-post-types" class="themify_cm_load_ajax"><?php _e( 'Post Types', 'themify-cm' ) ?></a></li>
 				<li><a href="#visibility-tab-taxonomies" class="themify_cm_load_ajax"><?php _e( 'Taxonomies', 'themify-cm' ) ?></a></li>
 				<li><a href="#visibility-tab-userroles"><?php _e( 'User Roles', 'themify-cm' ) ?></a></li>
+                <?php if ( $is_wc_active ) : ?><li><a href="#visibility-tab-wc"><?php _e( 'WooCommerce', 'themify-cm' ) ?></a></li><?php endif; ?>
 			</ul>
 
 			<div id="visibility-tab-general" class="themify-visibility-options tf_clearfix">
@@ -126,6 +129,20 @@ $taxonomies = array_map( 'get_taxonomy', $taxonomies );
 					<label><input type="checkbox" name="roles[<?php echo $key ?>]" /><?php echo $role['name'] ?></label>
 				<?php endforeach; ?>
 			</div><!-- #visibility-tab-userroles -->
+
+            <?php if ( $is_wc_active ) : ?>
+                <div id="visibility-tab-wc" class="themify-visibility-options tf_clearfix">
+                    <label><input type="checkbox" name="wc[orders]" /><?php _e( 'Orders', 'themify-cm' ) ?></label>
+                    <label><input type="checkbox" name="wc[view-order]" /><?php _e( 'View Order', 'themify-cm' ) ?></label>
+                    <label><input type="checkbox" name="wc[downloads]" /><?php _e( 'Downloads', 'themify-cm' ) ?></label>
+                    <label><input type="checkbox" name="wc[edit-account]" /><?php _e( 'Edit Account', 'themify-cm' ) ?></label>
+                    <label><input type="checkbox" name="wc[edit-address]" /><?php _e( 'Edit Address', 'themify-cm' ) ?></label>
+                    <label><input type="checkbox" name="wc[lost-password]" /><?php _e( 'Lost Password', 'themify-cm' ) ?></label>
+                    <label><input type="checkbox" name="wc[order-pay]" /><?php _e( 'Pay', 'themify-cm' ) ?></label>
+                    <label><input type="checkbox" name="wc[order-received]" /><?php _e( 'Order Received', 'themify-cm' ) ?></label>
+                    <label><input type="checkbox" name="wc[payment-methods]" /><?php _e( 'Payment Methods', 'themify-cm' ) ?></label>
+                </div><!-- #visibility-tab-wc -->
+            <?php endif; ?>
 
 		</form>
 	</div>

@@ -10,6 +10,7 @@
 namespace CTXFeed\V5\Structure;
 
 use CTXFeed\V5\Merchant\MerchantAttributeReplaceFactory;
+use CTXFeed\V5\Shipping\PinterestShipping;
 use CTXFeed\V5\Shipping\ShippingFactory;
 use CTXFeed\V5\Tax\Tax;
 use CTXFeed\V5\Tax\TaxFactory;
@@ -109,6 +110,15 @@ class PinterestStructure implements StructureInterface {
 			\array_push( $attributes,'identifier_exists' );
 			\array_push( $mattributes,'identifier_exists' );
 			\array_push( $type,'attribute' );
+		}
+
+		foreach ( PinterestShipping::$shipping_attrs as $shipping_attr ) {
+			$key = \array_search( $shipping_attr, $mattributes, true );
+			if ( $key ) {
+				unset( $mattributes[ $key ] );
+				unset( $attributes[ $key ] );
+				unset( $type[ $key ] );
+			}
 		}
 
 		foreach ( $mattributes as $key => $attribute ) {
@@ -310,7 +320,7 @@ class PinterestStructure implements StructureInterface {
 			$i_max = \count( $methods );
 			$group['shipping'] = array( "country", "region", "service", "price");
 			for ( $i = 0; $i < $i_max; $i ++ ) {
-				$data[][ 'shipping(' . \implode( ':', $group['shipping'] ) . ')' ] .= "csv_shipping_" . $i ;
+				$data[][ 'shipping(' . \implode( ':', $group['shipping'] ) . ')' ] = "csv_shipping_" . $i ;
 			}
 		}
 
@@ -332,7 +342,7 @@ class PinterestStructure implements StructureInterface {
 			$i_max = \count( $taxes );
 			$group['tax'] = array( "country", "region", "service", "price");
 			for ( $i = 0; $i < $i_max; $i ++ ) {
-				$data[][ 'tax(' . \implode( ':', $group['tax'] ) . ')' ] .= "csv_tax_" . $i;
+				$data[][ 'tax(' . \implode( ':', $group['tax'] ) . ')' ] = "csv_tax_" . $i;
 			}
 		}
 

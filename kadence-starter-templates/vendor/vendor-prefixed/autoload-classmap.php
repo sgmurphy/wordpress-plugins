@@ -78,6 +78,7 @@ return array(
    'KadenceWP\KadenceStarterTemplates\StellarWP\Uplink\Auth\Admin\Connect_Controller' => $strauss_src . '/stellarwp/uplink/src/Uplink/Auth/Admin/Connect_Controller.php',
    'KadenceWP\KadenceStarterTemplates\StellarWP\Uplink\Auth\Nonce' => $strauss_src . '/stellarwp/uplink/src/Uplink/Auth/Nonce.php',
    'KadenceWP\KadenceStarterTemplates\StellarWP\Uplink\Auth\Auth_Url_Builder' => $strauss_src . '/stellarwp/uplink/src/Uplink/Auth/Auth_Url_Builder.php',
+   'KadenceWP\KadenceStarterTemplates\StellarWP\Uplink\Auth\Action_Manager' => $strauss_src . '/stellarwp/uplink/src/Uplink/Auth/Action_Manager.php',
    'KadenceWP\KadenceStarterTemplates\StellarWP\Uplink\Auth\Provider' => $strauss_src . '/stellarwp/uplink/src/Uplink/Auth/Provider.php',
    'KadenceWP\KadenceStarterTemplates\StellarWP\Uplink\Register' => $strauss_src . '/stellarwp/uplink/src/Uplink/Register.php',
    'KadenceWP\KadenceStarterTemplates\StellarWP\Uplink\Contracts\Provider_Interface' => $strauss_src . '/stellarwp/uplink/src/Uplink/Contracts/Provider_Interface.php',

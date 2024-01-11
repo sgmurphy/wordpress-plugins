@@ -1,14 +1,18 @@
 <?php
 
-namespace CTXFeed\V5\Shipping;
-
-
 /**
  * Class ShippingFactory
  *
- * @package    CTXFeed\V5\Shipping
+ * @package    CTXFeed
  * @subpackage CTXFeed\V5\Shipping
  */
+
+namespace CTXFeed\V5\Shipping;
+
+/**
+ * Class representing the shipping factory .
+ */
+
 class ShippingFactory {
 	/**
 	 * @param \WC_Product                $product
@@ -22,7 +26,7 @@ class ShippingFactory {
 		if ( class_exists( $class ) ) {
 			return new $class( $product, $config );
 		}
-		
+
 		return new CustomShipping( $product, $config );
 	}
 }

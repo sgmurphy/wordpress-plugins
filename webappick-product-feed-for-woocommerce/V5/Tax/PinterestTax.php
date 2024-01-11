@@ -52,9 +52,9 @@ class PinterestTax  implements TaxInterface  {
 							$all_tax_rates [ $tax_class_name ][ $key ]['id']             = $tax->tax_rate_id;
 							$all_tax_rates [ $tax_class_name ][ $key ]['country']        = $tax->tax_rate_country;
 							$all_tax_rates [ $tax_class_name ][ $key ]['state']          = $tax->tax_rate_state;
-							$all_tax_rates [ $tax_class_name ][ $key ]['postcode']       = is_array( $tax->postcode ) ? implode( ',', $tax->postcode ) : $tax->postcode;
+							$all_tax_rates [ $tax_class_name ][ $key ]['postcode']       = isset( $tax->postcode ) ? is_array( $tax->postcode ) ? implode( ',', $tax->postcode ) : $tax->postcode : '';
 							$all_tax_rates [ $tax_class_name ][ $key ]['postcode_count'] = $tax->postcode_count;
-							$all_tax_rates [ $tax_class_name ][ $key ]['city']           = is_array( $tax->city ) ? implode( ',', $tax->city ) : $tax->city;
+							$all_tax_rates [ $tax_class_name ][ $key ]['city']           = isset( $tax->city ) ? is_array( $tax->city ) ? implode( ',', $tax->city ) : $tax->city : '';
 							$all_tax_rates [ $tax_class_name ][ $key ]['city_count ']    = $tax->city_count;
 							$all_tax_rates [ $tax_class_name ][ $key ]['rate']           = number_format( $tax->tax_rate, 2 );
 							$all_tax_rates [ $tax_class_name ][ $key ]['name']           = $tax->tax_rate_name;

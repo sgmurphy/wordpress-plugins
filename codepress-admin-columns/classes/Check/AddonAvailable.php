@@ -77,7 +77,7 @@ final class AddonAvailable
 			sprintf( '<strong>%s</strong>', $this->integration->get_title() )
 		);
 
-		$link = sprintf( '<a href="%s">%s</a>', 'https://www.google.com', __( 'Get Admin Columns Pro', 'codepress-admin-columns' ) );
+		$link = sprintf( '<a href="%s">%s</a>', 'https://www.admincolumns.com', __( 'Get Admin Columns Pro', 'codepress-admin-columns' ) );
 		$message = sprintf( '%s %s', $support_text, $link );
 
 		$notice = new Dismissible( $message, $this->get_ajax_handler() );

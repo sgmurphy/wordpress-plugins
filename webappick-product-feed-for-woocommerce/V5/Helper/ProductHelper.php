@@ -14,6 +14,12 @@ use Exception;
 use TRP_Settings;
 use TRP_Translation_Render;
 use WC_Product;
+use WC_Product_Simple;
+use WC_Product_Composite;
+use WC_Product_External;
+use WC_Product_Grouped;
+use WC_Product_Variable;
+use WC_Product_Variation;
 use WC_Product_Variation_Data_Store_CPT;
 use WP_Term;
 
@@ -1035,6 +1041,18 @@ class ProductHelper {
 			return $id ? \wc_get_product( $id ) : $product;
 		}
 
+		if($config->get_categories_to_include() && $product->is_type( 'variable' )){
+			$products = [];
+			$variations = $product->get_visible_children();
+			foreach ($variations as $variation_id) {
+				$variation_product = wc_get_product( $variation_id );
+				array_push( $products, $variation_product);
+			}
+
+			return $products;
+		}
+
+
 		return $product;
 	}
 
@@ -1046,8 +1064,8 @@ class ProductHelper {
 	 *
 	 * @return int|null The ID of the determined product variation, or null if not found.
 	 */
-	private static function determine_variable_product( $product, $variation_type ) {
-		$variations       = $product->get_visible_children();
+	private static function determine_variable_product( $product, $variation_type  ) {
+		$variations = $product->get_visible_children();
 		$variations_price = $product->get_variation_prices();
 		switch ( $variation_type ) {
 			case 'default':

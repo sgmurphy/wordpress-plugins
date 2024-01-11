@@ -8,6 +8,7 @@
 
 namespace CTXFeed\V5\Utility;
 
+use CTXFeed\V5\Common\Helper;
 use CTXFeed\V5\Helper\FeedHelper;
 use CTXFeed\V5\Merchant\MerchantAttributeReplaceFactory;
 use CTXFeed\V5\Product\AttributeValueByType;
@@ -448,11 +449,20 @@ class Config {// phpcs:ignore
 	 */
 	public function get_number_format() {
 		if ( isset( $this->config['decimal_separator'] ) ) {
-			$number_format = array(
-				'decimal_separator'  => apply_filters( 'ctx_feed_number_format_decimal_separator', $this->config['decimal_separator'], $this->config ),
-				'thousand_separator' => apply_filters( 'ctx_feed_number_format_thousand_separator', $this->config['thousand_separator'], $this->config ),
-				'decimals'           => apply_filters( 'ctx_feed_number_format_decimals', $this->config['decimals'], $this->config ),
-			);
+            if( Helper::is_pro() ){
+                $number_format = array(
+                    'decimal_separator'  => apply_filters( 'ctx_feed_number_format_decimal_separator', $this->config['decimal_separator'], $this->config ),
+                    'thousand_separator' => apply_filters( 'ctx_feed_number_format_thousand_separator', $this->config['thousand_separator'], $this->config ),
+                    'decimals'           => apply_filters( 'ctx_feed_number_format_decimals', $this->config['decimals'], $this->config ),
+                );
+            }else{
+                $number_format = array(
+                    'decimal_separator'     => apply_filters( 'wc_get_price_decimal_separator', get_option( 'woocommerce_price_decimal_sep' ) ),
+			        'thousand_separator'    => stripslashes( apply_filters( 'wc_get_price_thousand_separator', get_option( 'woocommerce_price_thousand_sep' ) ) ),
+			         'decimals'              => absint( apply_filters( 'wc_get_price_decimals', get_option( 'woocommerce_price_num_decimals', 2 ) ) ),
+                );
+            }
+
 
 			return apply_filters( 'ctx_feed_number_format', $number_format, $this->config );
 		}

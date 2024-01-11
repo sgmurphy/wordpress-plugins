@@ -395,7 +395,8 @@ endif;
 							''
 						) . '</td></tr>';
 					}
-					for ( $items_index = ( $current_page - 1 ) * $records_per_page; $items_index < min( $current_page * $records_per_page, count( $myrows ) ); $items_index++ ) {
+
+					for ( $items_index = max(0, ( $current_page - 1 ) * $records_per_page ); $items_index < min( $current_page * $records_per_page, count( $myrows ) ); $items_index++ ) {
 						$item = $myrows[ $items_index ];
 						?>
 						<tr>

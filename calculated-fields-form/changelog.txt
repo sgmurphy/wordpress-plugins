@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 1.2.48 =
+
+* Fixes a minor issue with equations configured to be evaluated manually.
+* Modifies the settings of DropDown, Checkbox, and Radio Button fields.
+* Modifies the search form builder.
+* Remove invalid characters from the file name in the PDF Generator add-on (Platinum plugin version).
+
 = 1.2.47 =
 
 * Improves the search forms module.

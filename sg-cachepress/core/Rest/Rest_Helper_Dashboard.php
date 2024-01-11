@@ -162,7 +162,7 @@ class Rest_Helper_Dashboard extends Rest_Helper {
 	public function ebook() {
 		self::send_json_success(
 			'',
-			$this->get_remote_banners()
+			$this->get_banners()
 		);
 	}
 
@@ -201,34 +201,66 @@ class Rest_Helper_Dashboard extends Rest_Helper {
 	}
 
 	/**
-	 * Make a remote request to fetch the banner assets and texts in the dashboard.
+	 * Get Dashboard banner.
 	 *
-	 * @since  7.0.5
+	 * @since 7.4.6
 	 *
-	 * @return array $result The array containing the link and titles.
+	 * @return array $banner The banner array containing image, link and title.
 	 */
-	public function get_remote_banners() {
-		// Get the banner content.
-		$response = wp_remote_get( 'https://sgwpdemo.com/jsons/sg-cachepress-banners.json' );
-
-		// Bail if the request fails.
-		if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-			self::send_json_error( 'Error' );
-		}
-
+	public function get_banners() {
 		// Get the locale.
 		$locale = get_locale();
-
 		// Determine the type of asset we are going to show.
 		$type = Helper_Service::is_siteground() ? 'ebook' : 'banners';
 
-		// Get the body of the response.
-		$body = wp_remote_retrieve_body( $response );
+		// Default banners.
+		$banners = array(
+			'ebook' => array(
+				'it_IT' => array(
+					'image' => SiteGround_Optimizer\URL . '/assets/images/banners/ebook_it.png',
+					'link'  => 'https://it.siteground.com/ebook-wordpress?utm_medium=banner&utm_source=sgoptimizerplugin&utm_campaign=ebook_banner_sg_optimizer',
+					'title' => 'eBook gratuito',
+				),
+				'es_ES' => array(
+					'image' => SiteGround_Optimizer\URL . '/assets/images/banners/ebook_es.png',
+					'link'  => 'https://www.siteground.es/ebook-wordpress?utm_medium=banner&utm_source=sgoptimizerplugin&utm_campaign=ebook_banner_sg_optimizer',
+					'title' => 'Ebook gratuit',
+				),
+				'de_DE' => array(
+					'image' => SiteGround_Optimizer\URL . '/assets/images/banners/ebook_de.png',
+					'link'  => 'https://de.siteground.com/wordpress-speed-optimization-ebook?utm_source=sitegroundoptimizer',
+					'title' => 'Kostenloses E-Book',
+				),
+				'default' => array(
+					'image' => SiteGround_Optimizer\URL . '/assets/images/banners/ebook.png',
+					'link'  => 'https://www.siteground.com/wordpress-speed-optimization-ebook?utm_source=sitegroundoptimizer',
+					'title' => 'Free Ebook',
+				),
+			),
+			'banners' => array(
+				'it_IT' => array(
+					'image' => SiteGround_Optimizer\URL . '/assets/images/banners/banner_it.png',
+					'link'  => 'https://it.siteground.com/unlock-speed-options?utm_source=sgoptimizerbanner',
+					'title' => 'Hosting WordPress ultraveloce',
+				),
+				'es_ES' => array(
+					'image' => SiteGround_Optimizer\URL . '/assets/images/banners/banner_es.png',
+					'link'  => 'https://www.siteground.es/unlock-speed-options?utm_source=sgoptimizerbanner',
+					'title' => 'Hosting WordPress ultrarrápido',
+				),
+				'de_DE' => array(
+					'image' => SiteGround_Optimizer\URL . '/assets/images/banners/banner_de.png',
+					'link'  => 'https://de.siteground.com/unlock-speed-options?utm_source=sgoptimizerbanner',
+					'title' => 'Ultraschnelles WordPress-Hosting',
+				),
+				'default' => array(
+					'image' => SiteGround_Optimizer\URL . '/assets/images/banners/banner.png',
+					'link'  => 'https://www.siteground.com/unlock-speed-options?utm_source=sgoptimizerbanner',
+					'title' => 'Ultrafast WordPress Hosting',
+				),
+			),
+		);
 
-		// Decode the json response.
-		$banners = json_decode( $body, true );
-
-		// Return the correct assets, title and marketing urls.
 		return array_key_exists( $locale, $banners[ $type ] ) ? $banners[ $type ][ $locale ] : $banners[ $type ]['default'];
 	}
 }

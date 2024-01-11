@@ -1,15 +1,15 @@
-# Copyright (C) 2023 GiveWP
+# Copyright (C) 2024 GiveWP
 # This file is distributed under the same license as the Give - Donation Plugin plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Give - Donation Plugin 3.2.2\n"
+"Project-Id-Version: Give - Donation Plugin 3.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/givewp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-20T21:16:32+00:00\n"
+"POT-Creation-Date: 2024-01-10T19:07:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: give\n"
@@ -106,11 +106,11 @@ msgstr ""
 msgid "Give"
 msgstr ""
 
-#: give.php:437
+#: give.php:449
 msgid "The Visual Form Builder Beta plugin is no longer needed, since the form builder is included in your current version of GiveWP. To prevent conflicts, the Beta plugin has been deactivated and can be safely deleted."
 msgstr ""
 
-#: give.php:464
+#: give.php:476
 msgid "<strong>Attention:</strong> GiveWP 2.5.0+ requires the latest version of the Recurring Donations add-on to process payments properly with Stripe. Please update to the latest version add-on to resolve compatibility issues. If your license is active, you should see the update available in WordPress. Otherwise, you can access the latest version by <a href=\"%1$s\" target=\"_blank\">logging into your account</a> and visiting <a href=\"%1$s\" target=\"_blank\">your downloads</a> page on the GiveWP website."
 msgstr ""
 
@@ -122,7 +122,7 @@ msgstr ""
 msgid "GiveWP version %s is required to update this add-on."
 msgstr ""
 
-#: includes/admin/abstract-admin-settings-page.php:188
+#: includes/admin/abstract-admin-settings-page.php:189
 #: includes/admin/views/html-admin-settings.php:193
 msgid "Oops, this settings page does not exist."
 msgstr ""
@@ -431,7 +431,7 @@ msgstr ""
 
 #: includes/admin/admin-actions.php:1194
 #: includes/admin/payments/view-payment-details.php:738
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:142
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:178
 #: src/Receipt/DonationReceipt.php:86
 #: build/formBuilderRegistrars.js:1
 msgid "Billing Address"
@@ -507,6 +507,7 @@ msgstr ""
 
 #: includes/admin/admin-pages.php:71
 #: includes/admin/plugins.php:31
+#: build/formBuilderApp.js:13
 #: build/formBuilderRegistrars.js:1
 msgid "Settings"
 msgstr ""
@@ -847,7 +848,7 @@ msgstr ""
 #: includes/admin/tools/export/export-functions.php:152
 #: includes/admin/tools/views/html-admin-page-system-info.php:1005
 #: src/DonationForms/V2/ListTable/Columns/TitleColumn.php:37
-#: src/Exports/DonorsExport.php:146
+#: src/Exports/DonorsExport.php:165
 msgid "Name"
 msgstr ""
 
@@ -858,9 +859,8 @@ msgstr ""
 #: includes/admin/import-functions.php:475
 #: includes/admin/reports/class-donor-reports-table.php:219
 #: includes/admin/tools/export/export-functions.php:153
-#: src/Exports/DonorsExport.php:147
+#: src/Exports/DonorsExport.php:166
 #: templates/shortcode-register.php:39
-#: build/formBuilderApp.js:1
 #: build/formBuilderRegistrars.js:1
 msgid "Email"
 msgstr ""
@@ -894,7 +894,7 @@ msgstr ""
 #: includes/admin/reports/class-donor-reports-table.php:221
 #: includes/admin/reports/class-gateways-reports-table.php:147
 #: includes/admin/tools/export/export-functions.php:158
-#: src/Exports/DonorsExport.php:159
+#: src/Exports/DonorsExport.php:178
 msgid "Total Donated"
 msgstr ""
 
@@ -1361,7 +1361,7 @@ msgstr ""
 #: includes/forms/template.php:961
 #: includes/forms/template.php:976
 #: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:127
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:135
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:171
 #: src/Receipt/DonationReceipt.php:78
 #: templates/email-login-form.php:108
 #: templates/shortcode-profile-editor.php:118
@@ -1662,12 +1662,10 @@ msgid "No give email notification found."
 msgstr ""
 
 #: includes/admin/emails/class-email-notification-util.php:260
-#: build/formBuilderApp.js:1
 msgid "HTML"
 msgstr ""
 
 #: includes/admin/emails/class-email-notification-util.php:261
-#: build/formBuilderApp.js:1
 msgid "Plain"
 msgstr ""
 
@@ -1676,7 +1674,6 @@ msgid "Email Notifications"
 msgstr ""
 
 #: includes/admin/emails/class-email-notifications.php:127
-#: build/formBuilderApp.js:1
 msgid "Email Options"
 msgstr ""
 
@@ -1690,14 +1687,12 @@ msgstr ""
 #: includes/admin/forms/class-metabox-form-data.php:576
 #: includes/admin/forms/class-metabox-form-data.php:633
 #: includes/gateways/offline-donations.php:50
-#: build/formBuilderApp.js:1
 #: build/formBuilderRegistrars.js:1
 msgid "Customize"
 msgstr ""
 
 #: includes/admin/emails/class-email-notifications.php:138
 #: includes/admin/settings/class-settings-email.php:207
-#: build/formBuilderApp.js:1
 msgid "Email Template"
 msgstr ""
 
@@ -1713,30 +1708,27 @@ msgstr ""
 
 #: includes/admin/emails/class-email-notifications.php:147
 #: includes/admin/settings/class-settings-email.php:215
+#: build/formBuilderApp.js:13
 msgid "Upload or choose a logo to be displayed at the top of the donation receipt emails. Displayed on HTML emails only."
 msgstr ""
 
 #: includes/admin/emails/class-email-notifications.php:152
 #: includes/admin/settings/class-settings-email.php:220
-#: build/formBuilderApp.js:1
 msgid "From Name"
 msgstr ""
 
 #: includes/admin/emails/class-email-notifications.php:153
 #: includes/admin/settings/class-settings-email.php:221
-#: build/formBuilderApp.js:1
 msgid "The name which appears in the \"From\" field in all GiveWP donation emails."
 msgstr ""
 
 #: includes/admin/emails/class-email-notifications.php:159
 #: includes/admin/settings/class-settings-email.php:227
-#: build/formBuilderApp.js:1
 msgid "From Email"
 msgstr ""
 
 #: includes/admin/emails/class-email-notifications.php:160
 #: includes/admin/settings/class-settings-email.php:228
-#: build/formBuilderApp.js:1
 msgid "Email address from which all GiveWP emails are sent from. This will act as the \"from\" and \"reply-to\" email address."
 msgstr ""
 
@@ -1881,7 +1873,6 @@ msgid "Notification"
 msgstr ""
 
 #: includes/admin/emails/class-email-setting-field.php:210
-#: build/formBuilderApp.js:1
 msgid "Email Subject"
 msgstr ""
 
@@ -1890,7 +1881,6 @@ msgid "Enter the email subject line."
 msgstr ""
 
 #: includes/admin/emails/class-email-setting-field.php:230
-#: build/formBuilderApp.js:1
 msgid "Email Header"
 msgstr ""
 
@@ -1915,6 +1905,7 @@ msgid "for examples of how to use custom meta email tags to output additional do
 msgstr ""
 
 #: includes/admin/emails/class-email-setting-field.php:268
+#: build/formBuilderApp.js:13
 msgid "Email message"
 msgstr ""
 
@@ -1951,7 +1942,6 @@ msgid "This email is automatically sent to the donor and the recipient cannot be
 msgstr ""
 
 #: includes/admin/emails/class-email-setting-field.php:379
-#: build/formBuilderApp.js:1
 msgid "Preview Email"
 msgstr ""
 
@@ -2080,7 +2070,7 @@ msgid "Preview"
 msgstr ""
 
 #: includes/admin/emails/filters.php:42
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Send test email"
 msgstr ""
 
@@ -2338,12 +2328,12 @@ msgstr ""
 #: includes/admin/forms/class-metabox-form-data.php:495
 #: includes/admin/forms/class-metabox-form-data.php:546
 #: assets/dist/js/admin-onboarding-wizard.js:4622
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Donation Goal"
 msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:456
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Do you want to set a donation goal for this form?"
 msgstr ""
 
@@ -2356,7 +2346,7 @@ msgid "Do you want to display the total amount raised based on your monetary goa
 msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:473
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:115
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:116
 msgid "Amount Raised"
 msgstr ""
 
@@ -2367,19 +2357,19 @@ msgstr ""
 #: includes/admin/forms/class-metabox-form-data.php:475
 #: includes/admin/shortcodes/shortcode-give-donation-grid.php:66
 #: includes/admin/tools/export/pdf-reports.php:113
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:121
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:122
 #: build/adminBlocks.js:1
 #: build/formBuilderRegistrars.js:1
 msgid "Number of Donations"
 msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:476
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:126
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:127
 msgid "Number of Donors"
 msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:481
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Goal Amount"
 msgstr ""
 
@@ -2413,12 +2403,12 @@ msgid "Close Form"
 msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:524
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Do you want to close the donation forms and stop accepting donations once this goal has been met?"
 msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:535
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Goal Achieved Message"
 msgstr ""
 
@@ -2467,7 +2457,7 @@ msgstr ""
 #: includes/forms/template.php:1850
 #: includes/forms/template.php:1855
 #: includes/install.php:355
-#: src/FormMigration/FormMetaDecorator.php:150
+#: src/FormMigration/FormMetaDecorator.php:151
 msgid "Agree to Terms?"
 msgstr ""
 
@@ -2484,7 +2474,7 @@ msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:622
 #: includes/admin/forms/class-metabox-form-data.php:626
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Form Grid"
 msgstr ""
 
@@ -2497,6 +2487,7 @@ msgid "Default options"
 msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:640
+#: build/formBuilderApp.js:13
 msgid "Redirect URL"
 msgstr ""
 
@@ -2505,12 +2496,12 @@ msgid "The full URL of the page you want this form to redirect to when clicked o
 msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:651
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Donate Button Text"
 msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:652
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "The text on the Donate Button for this form when displayed on the Form Grid. This setting only applies if the Donate Button display option is enabled in your Form Grid."
 msgstr ""
 
@@ -2667,7 +2658,7 @@ msgstr ""
 #: includes/admin/shortcodes/shortcode-give-donor-wall.php:56
 #: includes/admin/tools/import/class-give-import-donations.php:511
 #: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:68
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:99
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:135
 #: src/Receipt/DonationReceipt.php:131
 #: build/adminBlocks.js:1
 #: build/formBuilderRegistrars.js:1
@@ -2678,7 +2669,7 @@ msgstr ""
 #: includes/admin/tools/export/give-export-donations-exporter.php:206
 #: includes/admin/tools/export/give-export-donations-functions.php:278
 #: src/DonationSummary/resources/views/summary.php:109
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:116
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:152
 #: src/Receipt/DonationReceipt.php:144
 #: build/donationFormRegistrars.js:1
 #: build/formBuilderRegistrars.js:1
@@ -2761,7 +2752,7 @@ msgstr ""
 #: includes/forms/template.php:924
 #: includes/forms/template.php:939
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:39
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:161
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:198
 #: templates/shortcode-profile-editor.php:67
 #: templates/shortcode-receipt.php:56
 #: build/formBuilderRegistrars.js:1
@@ -2791,7 +2782,7 @@ msgstr ""
 #: includes/admin/import-functions.php:455
 #: includes/admin/tools/export/class-batch-export-donors.php:187
 #: includes/admin/tools/export/export-functions.php:154
-#: src/Exports/DonorsExport.php:149
+#: src/Exports/DonorsExport.php:168
 msgid "Address"
 msgstr ""
 
@@ -2799,7 +2790,7 @@ msgstr ""
 #: includes/admin/tools/export/class-batch-export-donors.php:188
 #: includes/admin/tools/export/give-export-donations-exporter.php:196
 #: includes/forms/template.php:1301
-#: src/Exports/DonorsExport.php:150
+#: src/Exports/DonorsExport.php:169
 #: build/formBuilderRegistrars.js:1
 msgid "Address 2"
 msgstr ""
@@ -2809,7 +2800,7 @@ msgstr ""
 #: includes/admin/tools/export/give-export-donations-exporter.php:197
 #: includes/forms/template.php:1322
 #: includes/forms/template.php:1334
-#: src/Exports/DonorsExport.php:151
+#: src/Exports/DonorsExport.php:170
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:91
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:92
 #: src/Framework/FieldsAPI/BillingAddress.php:66
@@ -2826,7 +2817,7 @@ msgstr ""
 #: includes/country-functions.php:552
 #: includes/country-functions.php:810
 #: includes/forms/template.php:1344
-#: src/Exports/DonorsExport.php:152
+#: src/Exports/DonorsExport.php:171
 #: build/donationFormRegistrars.js:1
 msgid "State"
 msgstr ""
@@ -2862,7 +2853,7 @@ msgstr ""
 #: includes/admin/tools/export/class-batch-export-donors.php:192
 #: includes/admin/tools/export/give-export-donations-exporter.php:200
 #: includes/forms/template.php:1253
-#: src/Exports/DonorsExport.php:154
+#: src/Exports/DonorsExport.php:173
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:85
 #: src/Framework/FieldsAPI/BillingAddress.php:54
 #: assets/dist/js/admin-onboarding-wizard.js:5016
@@ -2877,7 +2868,7 @@ msgstr ""
 #: includes/admin/import-functions.php:468
 #: includes/admin/tools/export/class-batch-export-donors.php:191
 #: includes/admin/tools/export/give-export-donations-exporter.php:199
-#: src/Exports/DonorsExport.php:153
+#: src/Exports/DonorsExport.php:172
 #: build/formBuilderRegistrars.js:1
 msgid "Zip"
 msgstr ""
@@ -2906,7 +2897,7 @@ msgid "Donation Status"
 msgstr ""
 
 #: includes/admin/import-functions.php:483
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:95
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:131
 #: src/Receipt/DonationReceipt.php:125
 #: templates/history-donations.php:73
 #: templates/shortcode-receipt.php:100
@@ -2968,7 +2959,7 @@ msgstr ""
 #: includes/admin/tools/export/export-functions.php:155
 #: includes/admin/tools/export/give-export-donations-exporter.php:242
 #: includes/admin/tools/export/give-export-donations-functions.php:487
-#: src/Exports/DonorsExport.php:156
+#: src/Exports/DonorsExport.php:175
 msgid "User ID"
 msgstr ""
 
@@ -2985,7 +2976,7 @@ msgstr ""
 #: src/DonationForms/Properties/FormSettings.php:197
 #: src/Donations/ListTable/Columns/FormColumn.php:37
 #: build/adminBlocks.js:1
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Donation Form"
 msgstr ""
 
@@ -4151,7 +4142,7 @@ msgid "Admin Emails"
 msgstr ""
 
 #: includes/admin/settings/class-settings-email.php:354
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Email Settings"
 msgstr ""
 
@@ -4308,6 +4299,7 @@ msgstr ""
 
 #: includes/admin/settings/class-settings-general.php:32
 #: includes/admin/settings/class-settings-general.php:568
+#: build/formBuilderApp.js:13
 msgid "General"
 msgstr ""
 
@@ -4688,7 +4680,6 @@ msgstr ""
 #: includes/admin/shortcodes/abstract-shortcode-generator.php:91
 #: includes/class-give-scripts.php:306
 #: src/Views/IframeView.php:253
-#: build/formBuilderApp.js:1
 #: build/formBuilderApp.js:13
 #: build/formBuilderRegistrars.js:1
 msgid "Close"
@@ -5534,7 +5525,7 @@ msgid "Donor Created Date"
 msgstr ""
 
 #: includes/admin/tools/export/export-functions.php:157
-#: src/Exports/DonorsExport.php:158
+#: src/Exports/DonorsExport.php:177
 msgid "Number of donations"
 msgstr ""
 
@@ -7400,12 +7391,12 @@ msgid "Every Third Day"
 msgstr ""
 
 #. translators: %s: property key
-#: includes/class-give-donate-form.php:404
-#: includes/class-give-donor.php:379
+#: includes/class-give-donate-form.php:405
+#: includes/class-give-donor.php:380
 msgid "Can't get property %s."
 msgstr ""
 
-#: includes/class-give-donate-form.php:427
+#: includes/class-give-donate-form.php:428
 msgid "New Donation Form"
 msgstr ""
 
@@ -7632,7 +7623,7 @@ msgid "Confirm"
 msgstr ""
 
 #: includes/class-give-scripts.php:308
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 #: build/offlineGatewayFormBuilder.js:1
 msgid "Copied!"
 msgstr ""
@@ -12811,7 +12802,6 @@ msgid "Default Template"
 msgstr ""
 
 #: includes/emails/class-give-emails.php:190
-#: build/formBuilderApp.js:1
 msgid "No template, plain text only"
 msgstr ""
 
@@ -13010,7 +13000,7 @@ msgstr ""
 #: includes/forms/template.php:1033
 #: src/FormBuilder/Actions/ConvertGlobalDefaultOptionsToDefaultBlocks.php:34
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:109
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:170
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:207
 #: build/formBuilderRegistrars.js:1
 msgid "Comment"
 msgstr ""
@@ -14181,7 +14171,6 @@ msgstr ""
 #: includes/gateways/stripe/includes/give-stripe-scripts.php:45
 #: templates/shortcode-form-grid.php:221
 #: build/donationFormApp.js:2
-#: build/formBuilderApp.js:1
 #: build/formBuilderApp.js:13
 msgid "Donate"
 msgstr ""
@@ -14230,7 +14219,7 @@ msgid "The Stripe Gateway returned an error while creating a pending donation."
 msgstr ""
 
 #: includes/install.php:444
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Donation Confirmation"
 msgstr ""
 
@@ -14959,7 +14948,7 @@ msgid "Classic"
 msgstr ""
 
 #: src/DonationForms/FormDesigns/MultiStepFormDesign/MultiStepFormDesign.php:27
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Multi-Step"
 msgstr ""
 
@@ -14968,12 +14957,12 @@ msgid "Help our organization by donating today! Donations go to making a differe
 msgstr ""
 
 #: src/DonationForms/Properties/FormSettings.php:215
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:283
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:320
 msgid "Hey {first_name}, thanks for your donation!"
 msgstr ""
 
 #: src/DonationForms/Properties/FormSettings.php:219
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:300
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:337
 msgid "{first_name}, your contribution means a lot and will be put to good use in making a difference. We’ve sent your donation receipt to {email}."
 msgstr ""
 
@@ -15092,7 +15081,8 @@ msgstr ""
 
 #: src/DonationForms/V2/ValueObjects/DonationFormStatus.php:42
 #: assets/dist/js/give-admin-donation-forms.js:1323
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
+#: src/FormBuilder/resources/js/form-builder/src/settings/group-general/form-summary/index.jsx:49
 msgid "Private"
 msgstr ""
 
@@ -15145,7 +15135,7 @@ msgid "Created At"
 msgstr ""
 
 #: src/Donations/ListTable/Columns/DonorColumn.php:37
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:131
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:167
 #: src/Receipt/DonationReceipt.php:71
 #: build/formBuilderRegistrars.js:1
 msgid "Donor Name"
@@ -15310,6 +15300,14 @@ msgstr ""
 msgid "User was logged out successfully."
 msgstr ""
 
+#: src/DonorDashboards/Routes/PasswordResetRoute.php:65
+msgid "The password reset email has been sent."
+msgstr ""
+
+#: src/DonorDashboards/Routes/PasswordResetRoute.php:75
+msgid "Unable to reset password. Please try again."
+msgstr ""
+
 #: src/DonorDashboards/Routes/VerifyEmailRoute.php:87
 #: src/DonorDashboards/Routes/VerifyEmailRoute.php:122
 msgid "Email sent. If not received, make sure it is a valid donor email."
@@ -15414,7 +15412,7 @@ msgstr ""
 msgid "Sincerely "
 msgstr ""
 
-#: src/Exports/DonorsExport.php:157
+#: src/Exports/DonorsExport.php:176
 msgid "Donor Created"
 msgstr ""
 
@@ -15619,54 +15617,54 @@ msgid_plural "<p>The following blocks were not found and are required for the fo
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:116
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:117
 msgid "The total amount raised for the form"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:122
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:123
 msgid "The total number of donations made for the form"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:127
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:128
 msgid "The total number of unique donors who have donated to the form"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:135
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:136
 msgid "Subscription Amount Raised"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:136
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:137
 msgid "The total amount raised for the form through subscriptions"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:141
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:142
 msgid "Number of Subscriptions"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:142
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:143
 msgid "The total number of subscriptions made for the form"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:146
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:147
 msgid "Number of Subscribers"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:147
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:148
 msgid "The total number of unique donors who have donated to the form through subscriptions"
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:177
 #: src/FormBuilder/ViewModels/FormBuilderViewModel.php:178
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:179
 msgid "The first name supplied by the donor during their donation."
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:184
 #: src/FormBuilder/ViewModels/FormBuilderViewModel.php:185
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:186
 msgid "The last name supplied by the donor during their donation."
 msgstr ""
 
-#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:191
 #: src/FormBuilder/ViewModels/FormBuilderViewModel.php:192
+#: src/FormBuilder/ViewModels/FormBuilderViewModel.php:193
 msgid "The email supplied by the donor during their donation."
 msgstr ""
 
@@ -15735,11 +15733,11 @@ msgstr ""
 msgid "Form migrated from v2 to v3."
 msgstr ""
 
-#: src/FormMigration/ServiceProvider.php:80
+#: src/FormMigration/ServiceProvider.php:83
 msgid "The ID of the form (v2) to migrate to v3."
 msgstr ""
 
-#: src/FormMigration/ServiceProvider.php:104
+#: src/FormMigration/ServiceProvider.php:107
 msgid "The ID of the form (v3) to transfer donations (from v2)."
 msgstr ""
 
@@ -15772,37 +15770,37 @@ msgstr ""
 msgid "An unexpected error occurred while processing your donation.  Please try again or contact us to help resolve."
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:91
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:127
 #: src/Receipt/DonationReceipt.php:108
 msgid "Payment Status"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:108
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:144
 msgid "Processing Fee"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:179
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:216
 #: build/formBuilderRegistrars.js:1
 msgid "Anonymous Donation"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:206
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:243
 msgid "Subscription"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:217
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:254
 msgid "Subscription Status"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:221
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:258
 msgid "Renewal Date"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:225
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:262
 msgid "Progress"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:229
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:266
 #: src/LegacySubscriptions/includes/give-subscription.php:967
 #: build/formBuilderRegistrars.js:1
 msgid "Ongoing"
@@ -18006,7 +18004,6 @@ msgid "Shop now"
 msgstr ""
 
 #: src/Promotions/InPluginUpsells/resources/views/sale-banners.php:43
-#: build/formBuilderApp.js:1
 msgid "Dismiss"
 msgstr ""
 
@@ -18245,12 +18242,10 @@ msgid "donation activity"
 msgstr ""
 
 #: src/Views/Admin/Form/FormGrid-Settings.php:7
-#: build/formBuilderApp.js:1
 msgid "What is the Form Grid?"
 msgstr ""
 
 #: src/Views/Admin/Form/FormGrid-Settings.php:8
-#: build/formBuilderApp.js:1
 msgid "The GiveWP Form Grid provides a way to add a grid layout of multiple forms into posts and pages using either a block or shortcode."
 msgstr ""
 
@@ -18362,7 +18357,7 @@ msgstr ""
 
 #: src/Views/Form/Templates/Classic/optionConfig.php:12
 #: src/Views/Form/Templates/Sequoia/optionConfig.php:27
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Primary Color"
 msgstr ""
 
@@ -18426,6 +18421,7 @@ msgstr ""
 #: assets/dist/js/give-log-list-table-app.js:6555
 #: assets/dist/js/give-log-list-table-app.js:6676
 #: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Description"
 msgstr ""
 
@@ -18711,12 +18707,13 @@ msgid "Upload an eye-catching image that reflects your cause. For best results u
 msgstr ""
 
 #: src/Views/Form/Templates/Sequoia/optionConfig.php:120
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Donate Button"
 msgstr ""
 
 #: src/Views/Form/Templates/Sequoia/optionConfig.php:121
 #: src/Views/Form/Templates/Sequoia/optionConfig.php:175
+#: build/formBuilderApp.js:13
 msgid "Customize the text that appears prompting the user to go to the next step."
 msgstr ""
 
@@ -20465,12 +20462,12 @@ msgid "multi form goals"
 msgstr ""
 
 #: build/adminBlocks.js:1
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Heading"
 msgstr ""
 
 #: build/adminBlocks.js:1
-#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
 msgid "Summary"
 msgstr ""
 
@@ -20781,255 +20778,7 @@ msgid "If enabled, the data collected by this field is saved to the Donor record
 msgstr ""
 
 #: build/formBuilderApp.js:1
-msgid "Updating your changes"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Preparing your form design"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Enable Donation Goal"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Auto-Close Form"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Goal Type"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "User Registration"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Send new account notifications"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "When enabled, donors will be notified that they have an account they can use to manage their donations. Disable if you do not want donors to be aware of their account."
-msgstr ""
-
-#: build/formBuilderApp.js:1
-#: build/formBuilderRegistrars.js:1
-msgid "URL"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Permalink"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "The last part of the URL."
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Visibility"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Public"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Only visible to site admins and editors"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Visible to everyone"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Form design"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Colors"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Secondary Color"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Button caption"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Enter the text you want to display on the donation button."
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Header"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Show Header"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Show Heading"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Show Description"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "First Step Button Text"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Next Step Button Text"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Custom Styles"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Edit in Modal"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-#: build/offlineGatewayFormBuilder.js:1
-msgid "Copy Tag"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-#: build/offlineGatewayFormBuilder.js:1
-msgid "Template tags"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "This is the first message that displays in the donation confirmation."
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "This is the second message that displays in the donation confirmation."
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Customize form grid"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Redirect Url"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "The full URL of the page you want this form to redirect to when clicked on from the Form Grid. This only applies when the Form Grid uses the \"Redirect\" method."
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Learn more about the Form Grid"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Email options"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Global options are set in GiveWP settings. You may override them for this form here"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Enter the email subject line"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Enter the email header that appears at the top of the email"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Email Message"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Email content type"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Choose email type"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Email recipient"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Email address that should receive a notification"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Add email"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "This email is automatically sent to the individual fundraiser and the recipient cannot be customized."
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Copy tag"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Send a test email"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Specify below the email address you want to send a test email to"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Generating preview..."
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Available template tags for this email. HTML is accepted. <a>See our documentation</a> for examples of how to use custom meta email tags to output additional donor or donation information in your GiveWP emails"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Customize email templates"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Back to template settings"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Preview email"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Preview the email message in your browser"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Logo URL"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Add or upload file"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-#: build/formBuilderRegistrars.js:1
-msgid "Global"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Choose your template from the available registered template types"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "Default template"
-msgstr ""
-
-#: build/formBuilderApp.js:1
-msgid "These settings affect how your form functions and is presented, as well as the form page."
+msgid "Block"
 msgstr ""
 
 #: build/formBuilderApp.js:1
@@ -21045,6 +20794,37 @@ msgid "Upgrade to unlock additional fields"
 msgstr ""
 
 #. translators: accessibility text for the footer landmark region.
+#: build/formBuilderApp.js:13
+#: build/formBuilderRegistrars.js:1
+#: src/FormBuilder/resources/js/form-builder/src/settings/group-general/form-summary/page-slug.jsx:39
+msgid "URL"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+#: src/FormBuilder/resources/js/form-builder/src/settings/group-general/form-summary/page-slug.jsx:39
+msgid "The last part of the URL"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+#: src/FormBuilder/resources/js/form-builder/src/settings/group-general/form-summary/index.jsx:40
+msgid "Visibility"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+#: src/FormBuilder/resources/js/form-builder/src/settings/group-general/form-summary/index.jsx:43
+msgid "Only visible to site admins and editors"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+#: src/FormBuilder/resources/js/form-builder/src/settings/group-general/form-summary/index.jsx:44
+msgid "Visible to everyone"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+#: src/FormBuilder/resources/js/form-builder/src/settings/group-general/form-summary/index.jsx:48
+msgid "Public"
+msgstr ""
+
 #: build/formBuilderApp.js:13
 msgid "Publishing"
 msgstr ""
@@ -21214,11 +20994,11 @@ msgid "Draft saved."
 msgstr ""
 
 #: build/formBuilderApp.js:13
-msgid "Edit form design"
+msgid "Build"
 msgstr ""
 
 #: build/formBuilderApp.js:13
-msgid "Edit form"
+msgid "Design"
 msgstr ""
 
 #: build/formBuilderApp.js:13
@@ -21270,6 +21050,228 @@ msgid "Got it!"
 msgstr ""
 
 #: build/formBuilderApp.js:13
+msgid "Updating your changes"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Preparing your form design"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Back to main menu"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Customize form grid"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Customize the Redirect URL and Donate button text for this form in the Form Grid."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "The full URL of the page you want this form to redirect to when clicked on from the Form Grid. This only applies when the Form Grid uses the \"Redirect\" method."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Send new account notifications"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "When enabled, donors will be notified that they have an account they can use to manage their donations. Disable if you do not want donors to be aware of their account."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+#: build/offlineGatewayFormBuilder.js:1
+msgid "Copy Tag"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Logo URL"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Add or upload file"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Generating preview..."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Email notification"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Global options are set in GiveWP settings. You may override them for this form here."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Template details"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Set the content structure for the email"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "View template tags"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Email recipient"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Email address that should receive a notification"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Available template tags for this email. HTML is accepted. <a>See our documentation</a> for examples of how to use custom meta email tags to output additional donor or donation information in your GiveWP emails"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Back to template settings"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Send a test email"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Enter the email address you want to send a test email to."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+#: build/offlineGatewayFormBuilder.js:1
+msgid "Template tags"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Preview email"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "The GiveWP Form Grid provides a way to add a grid layout of multiple forms into posts and pages using either a block or shortcode. <a>Learn more about the Form Grid</a>"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "This includes the form name, the permalink and the visibility of this form."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "User Registration"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Notify donors that they have an account they can use to manage their donations"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Header"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "This is the first message that displays in the donation confirmation."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "This is the second message that displays in the donation confirmation."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Available template tags for the header and description of the donation confirmation."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Email notifications"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "GiveWP sends emails to both donors and specified site admins for various purposes."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Customize email options"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Uses global settings when disabled."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Duplicate path found in FormSettings routes:"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Enable Donation Goal"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Auto-Close Form"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Goal Type"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Form layout"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Change the appearance of your donation form on your site. Each option has a different layout."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Colors"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Secondary Color"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Button caption"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Enter the text you want to display on the donation button."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Show Header"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Show Heading"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Show Description"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "First Step Button Text"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Customize the text that appears in the first step, prompting the user to go to the next step."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Next Step Button Text"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Custom Styles"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Edit in Modal"
+msgstr ""
+
+#: build/formBuilderApp.js:13
 msgid "<strong>Step <stepNumber /></strong> of <stepCount />"
 msgstr ""
 
@@ -21278,11 +21280,11 @@ msgid "Exit tour"
 msgstr ""
 
 #: build/formBuilderApp.js:13
-msgid "Editing a form design"
+msgid "Editing a form layout"
 msgstr ""
 
 #: build/formBuilderApp.js:13
-msgid "This is where you can customize the appearance (i.e. colors and features) of your form based on the selected form design."
+msgid "This is where you can customize the appearance (i.e. colors and features) of your form based on the selected form layout."
 msgstr ""
 
 #: build/formBuilderApp.js:13
@@ -21330,7 +21332,7 @@ msgid "Select a block to edit the settings for that individual block on the Bloc
 msgstr ""
 
 #: build/formBuilderApp.js:13
-msgid "Choose your form design"
+msgid "Choose your form layout"
 msgstr ""
 
 #: build/formBuilderApp.js:13
@@ -21513,15 +21515,15 @@ msgid "Donors can input their company name"
 msgstr ""
 
 #: build/formBuilderRegistrars.js:1
-msgid "Options"
-msgstr ""
-
-#: build/formBuilderRegistrars.js:1
 msgid "Donation amount level"
 msgstr ""
 
 #: build/formBuilderRegistrars.js:1
 msgid "Value"
+msgstr ""
+
+#: build/formBuilderRegistrars.js:1
+msgid "Options"
 msgstr ""
 
 #: build/formBuilderRegistrars.js:1
@@ -21534,6 +21536,10 @@ msgstr ""
 
 #: build/formBuilderRegistrars.js:1
 msgid "Show Name Title Prefix"
+msgstr ""
+
+#: build/formBuilderRegistrars.js:1
+msgid "Global"
 msgstr ""
 
 #: build/formBuilderRegistrars.js:1

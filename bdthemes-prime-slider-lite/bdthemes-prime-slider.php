@@ -4,7 +4,7 @@
  * Plugin Name: Prime Slider
  * Plugin URI: https://primeslider.pro/
  * Description: Prime Slider is a packed of elementor widget that gives you some awesome header and slider combination for your website.
- * Version: 3.11.11
+ * Version: 3.11.12
  * Author: BdThemes
  * Author URI: https://bdthemes.com/
  * Text Domain: bdthemes-prime-slider
@@ -18,7 +18,7 @@
 // Some pre define value for easy use
 
 if ( ! defined( 'BDTPS_CORE_VER' ) ) {
-	define( 'BDTPS_CORE_VER', '3.11.11' );
+	define( 'BDTPS_CORE_VER', '3.11.12' );
 }
 if ( ! defined( 'BDTPS_CORE__FILE__' ) ) {
 	define( 'BDTPS_CORE__FILE__', __FILE__ );
@@ -129,11 +129,12 @@ function prime_slider_fail_load() {
 if ( ! function_exists( 'rc_ps_lite_plugin' ) ) {
 	function rc_ps_lite_plugin() {
 
-		require_once BDTPS_CORE_INC_PATH . 'reviews-collector/start.php';
+		require_once BDTPS_CORE_INC_PATH . 'feedback-hub/start.php';
 
 		rc_dynamic_init( array(
 			'sdk_version'  => '1.0.0',
 			'plugin_name'  => 'Prime Slider',
+			'plugin_icon'  => BDTPS_CORE_ASSETS_URL . 'images/logo.png',
 			'slug'         => 'prime_slider_options',
 			'menu'         => array(
 				'slug' => 'prime_slider_options',
@@ -144,5 +145,35 @@ if ( ! function_exists( 'rc_ps_lite_plugin' ) ) {
 		) );
 
 	}
-	add_action( 'plugins_loaded', 'rc_ps_lite_plugin' );
+	add_action( 'admin_init', 'rc_ps_lite_plugin' );
+}
+
+
+/**
+ * SDK Integration
+ */
+
+if ( ! function_exists( 'dci_plugin_prime_slider' ) ) {
+	function dci_plugin_prime_slider() {
+
+		// Include DCI SDK.
+		require_once dirname( __FILE__ ) . '/dci/start.php';
+
+		dci_dynamic_init( array(
+			'sdk_version'  => '1.1.0',
+			'product_id'   => 2,
+			'plugin_name'  => 'Prime Slider', // make simple, must not empty
+			'plugin_title' => 'Prime Slider ( Never miss an Important Update )', // You can describe your plugin title here
+			'plugin_icon'  => BDTPS_CORE_ASSETS_URL . 'images/logo.png',
+			'api_endpoint' => 'https://analytics.bdthemes.com/wp-json/dci/v1/data-insights',
+			'menu'         => array(
+				'slug' => 'prime_slider_options',
+			),
+			'public_key'   => 'pk_DktcEizxpygp4RjRkhYtVrtseZPaHrtr',
+			'is_premium'   => false,
+			'plugin_msg'   => '<p>Would you allow us to collect non-sensitive data to improve your experiences with our product?</p> <p>We respect your privacy. Any data collected by your approval is non-sensitive and does not include personal/sensitive information.</p>',
+		) );
+
+	}
+	add_action( 'admin_init', 'dci_plugin_prime_slider' );
 }

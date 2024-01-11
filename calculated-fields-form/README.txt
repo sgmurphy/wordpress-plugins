@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator,calculated,quote calculator,forms,form editor,advanced forms,payment calculator,payment,recurring payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf,language
 Requires at least: 3.0.5
 Tested up to: 6.4
-Stable tag: 1.2.47
+Stable tag: 1.2.48
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -999,6 +999,13 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 1.2.48 =
+
+* Fixes a minor issue with equations configured to be evaluated manually.
+* Modifies the settings of DropDown, Checkbox, and Radio Button fields.
+* Modifies the search form builder.
+* Remove invalid characters from the file name in the PDF Generator add-on (Platinum plugin version).
+
 = 1.2.47 =
 
 * Improves the search forms module.
@@ -1042,9 +1049,3 @@ A: Please, follow the steps below:
 * Includes new features to align the form title and description, select the header tag to apply, as well as modify their colors through the form settings tab.
 * Fixes minor errors in the form templates.
 * Modifies the Users Permissions add-on and data source fields backend (Developer and Platinum plugin versions).
-
-= 1.2.40 =
-
-* Includes a pair of classes to allow including page breaks on printed forms.
-* Modifies the Date/Time control.
-* Modifies the z-index on Datepickers to display them when forms are loaded into Elementor pop-ups.

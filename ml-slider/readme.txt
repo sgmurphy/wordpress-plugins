@@ -12,7 +12,7 @@ The best slider, gallery, and carousel plugin for WordPress. Responsive and easy
 
 == Description ==
 
-With MetaSlider, you can create a powerful, SEO-optimized slider, slideshow, carousel, or gallery in minutes. MetaSlider is world’s #1 responsive WordPress slider plugin. MetaSlider is the best choice for image, photo, video (YouTube, Vimeo, local, and external), layer, HTML, WooCommerce product, and post feed sliders!
+With MetaSlider, you can create a powerful, SEO-optimized slider, slideshow, carousel, or gallery in minutes. MetaSlider is the world’s #1 responsive WordPress slider plugin. MetaSlider is the best choice for image, photo, video (YouTube, Vimeo, local, and external), layer, HTML, WooCommerce product, and post feed sliders!
 
 [vimeo https://vimeo.com/393891282]
 
@@ -43,7 +43,7 @@ If you’re looking for further customization, [MetaSlider Pro](https://www.meta
 * **External Video slides**: Create your slideshows with videos from almost any external service.
 * **Layer slides**: Create CSS3 animated HTML Layer slides using the built in drag-and-drop WYSIWYG editor.
 * **Dynamic Post Feed slides**: Automatically show your latest blog posts, events or WooCommerce products in your slide show.
-* **External URL slides**: Display images directly from a non-WordPress sources such as CDNs or image hosts.
+* **External URL slides**: Display images directly from a non-WordPress sources, such as CDNs or image hosts.
 * **Slide scheduling and slide visibility**: Pro customers can now schedule sliders to appear only within specific dates, times, and days of the week.
 * **Custom Themes – build your own theme**: MetaSlider now has stunning free slider themes for you to explore. With MetaSlider Pro, you can also build your own themes.
 * **Thumbnail Navigation**: Give your slideshows a gallery feel with customizable Thumbnail and Filmstrip Navigation.
@@ -95,7 +95,7 @@ Post Feed slides can be used to show one post at a time but they work particular
 
 With [MetaSlider Pro](https://www.metaslider.com/upgrade/) you can easily include responsive high definition YouTube and Vimeo videos in your slider, slideshow, or carousel. A video slide will display a video in your slide show directly from Vimeo or YouTube. The video will automatically pause if the user skips to the next slide.
 
-Simply add the URL of your video to a YouTube or Vimeo slide and MetaSlider will add it to your slider, slideshow, or carousel. Either create a slide show full of you favourite videos or mix it in between slides of other types to get just the result that you want.
+Simply add the URL of your video to a YouTube or Vimeo slide and MetaSlider will add it to your slider, slideshow, or carousel. Either create a slide show full of you favorite videos or mix it in between slides of other types to get just the result that you want.
 
 If you select the FlexSlider option with video slides you can take advantage of MetaSliders play/pause functionality. This means that you can have your slideshow autoplay but will pause when you set a video to play and carry on once the video has finished. You could even have the slider or slide show autoplay to give you a smooth, completely automatic presentation!
 
