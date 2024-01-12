@@ -1,9 +1,9 @@
-﻿=== Easy Accordion - Best Accordion FAQ ===
+﻿=== Easy Accordion - Best Accordion FAQ Plugin for WordPress ===
 Contributors: shapedplugin, khalilu, rubel_miah, shamimmiashuhagh
 Tags: accordion, accordions, accordion faq, vertical accordion, faq, faqs, faq widget, accordion widget, accordion menu, wordpress faq plugin, easy accordion, premium accordion, bootstrap accordion, horizontal accordion, responsive accordion, accordion jquery, css3 accordion, accordion shortcode, collapsible content, toggle, toggle accordion, wordpress accordion plugin, wordpress accordion, bootstrap collapse, post accordion, post faq, custom post accordion, accordion grid, accordion bar, product faq, woocommerce product accordion, woocommerce accordion, wordpress post accordion, content hide, hidden content, expand content
 Requires at least: 4.7
 Tested up to: 6.4.2
-Stable tag: 2.3.0
+Stable tag: 2.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -263,13 +263,16 @@ Thank you!
 
 == Changelog ==
 
+= 2.3.1 - Jan 12, 2024 =
+* Fix: A CSS conflict issue with the div or section that does not contain an accordion.
+
 = 2.3.0 - Jan 08, 2024 =
 * New: The Space Between Accordion Items option.
 * New: The Custom JS option. 
 * Improved: The Tooltip/Help text of the plugin options to make it more user-friendly.
 * Improved: The Margin Bottom of the Section Title option has moved to the Typography tab.
 * Improved: The Font Awesome asset has been replaced by the Fontello icon, as the light version used only two icons in the accordion layout.
-* Fix The issue that the video iframe got changed into a tag automatically after updating the shortcode rarely.
+* Fix: The issue that the video iframe got changed into a tag automatically after updating the shortcode rarely.
 * Tested: WordPress 6.4.2 compatibility
 
 = 2.2.5 - Oct 26, 2023 =

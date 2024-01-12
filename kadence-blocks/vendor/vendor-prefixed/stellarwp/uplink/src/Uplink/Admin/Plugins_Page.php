@@ -2,7 +2,7 @@
 /**
  * @license GPL-2.0-or-later
  *
- * Modified by kadencewp on 10-January-2024 using Strauss.
+ * Modified by kadencewp on 11-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */ declare( strict_types=1 );
 
@@ -57,47 +57,6 @@ class Plugins_Page {
 
 			if ( ! empty( $resource->update->license_error ) ) {
 				$messages[] = $resource->update->license_error;
-			} elseif ( current_user_can( 'update_plugins' ) ) {
-				if ( empty( $resource->update->new_version ) ) {
-					continue;
-				}
-
-				// A plugin update is available
-				$update_now = sprintf(
-					esc_html__( 'Update now to version %s.', '%TEXTDOMAIN%' ),
-					$resource->update->new_version
-				);
-
-				$href = wp_nonce_url(
-					self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $plugin_file,
-					'upgrade-plugin_' . $plugin_file
-				);
-
-				$update_now_link = sprintf(
-					' <a href="%1$s" class="update-link">%2$s</a>',
-					$href,
-					$update_now
-				);
-
-				if ( ! empty ( $resource->update->upgrade_notice ) ) {
-					$update_message = sprintf(
-						esc_html__( '%1$s. %2$s', '%TEXTDOMAIN%' ),
-						$resource->update->upgrade_notice,
-						$update_now_link
-					);
-				} else {
-					$update_message = sprintf(
-						esc_html__( 'There is a new version of %1$s available. %2$s', '%TEXTDOMAIN%' ),
-						$plugin->get_name(),
-						$update_now_link
-					);
-				}
-
-
-				$messages[] = sprintf(
-					'<p>%s</p>',
-					$update_message
-				);
 			}
 
 			if ( empty( $messages ) ) {

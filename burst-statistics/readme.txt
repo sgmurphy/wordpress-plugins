@@ -6,7 +6,7 @@ Requires at least: 5.8
 License: GPL2
 Requires PHP: 7.2
 Tested up to: 6.4
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 
 Self-hosted and privacy-friendly analytics for Wordpress.
 
@@ -17,7 +17,7 @@ Burst Statistics keeps all data on your server, making it fully compliant with p
 
 **This plugin is free and does not require an account.**
 
-**Benefits**
+= Key Features for Powerful Insights =
 * **Privacy-Friendly:** All data is stored on your own server.
 * **Essential Metrics:** Get the core data you need, like Pageviews, Visitors, Sessions, Time on Page, and Referrers.
 * **Real-Time Data:** Get instant insights directly on your dashboard.
@@ -29,8 +29,9 @@ Burst Statistics keeps all data on your server, making it fully compliant with p
 >“On-premise Analytics is a great, if not the best, alternative to Google Analytics in the GDPR era. On top of that, since it’s native to WordPress, it’s so easy to configure Goals, etc. That’s awesome.”
 >- [Daan from Daan.dev (@daanvandenbergh)](https://wordpress.org/support/topic/great-product-with-great-potential/)
 
-**From the creators of Really Simple SSL & Complianz**
+= From the creators of Really Simple SSL & Complianz =
 Burst Statistics was created by experienced developers who created [Really Simple SSL](https://wordpress.org/plugins/really-simple-ssl/) & [Complianz](https://wordpress.org/plugins/complianz-gdpr/), with over 6,000,000 active installs combined. With a proven track record of providing top-notch, user-friendly solutions, you can trust that Burst Statistics meets the same high standards.
+
 Our community speaks for itself: with over 1,000,000 downloads and 100,000 active users, Burst Statistics is a trusted choice for your analytics needs.
 
 = Make Burst Statistics better! =
@@ -39,11 +40,12 @@ Our team is always working on improving our plugin, and your input as a user can
 = Get even more insight with Burst Pro =
 Unlock comprehensive insights into your website’s user behavior with Burst Pro. Benefit from advanced features designed to improve performance, boost engagement, and drive conversions. [Elevate your data analysis experience by upgrading to Burst Pro today.](https://burst-statistics.com/pricing/)
 
-Pro Features Include:
-* **Geo-Tracking:** Identify the countries your visitors are coming from.
-* **Data Archiving:** Automatic archiving and manual restore options.
-* **Multiple Goals:** Track multiple objectives to measure your site’s success.
-* **Premium Support:** Premium Support from our fantastic team.
+Burst Pro Features Include:
+* Geo-Tracking: Identify the countries your visitors are coming from.
+* Data Archiving: Automatic archiving and manual restore options.
+* Multiple Goals: Track multiple objectives to measure your site’s success.
+* More metrics: Get more insights into your website’s performance.
+* Premium Support: Premium Support from our fantastic team.
 
 For upcoming features, please [visit our roadmap on our website.](https://burst-statistics.com/development-roadmap/)
 
@@ -85,6 +87,15 @@ Performance is almost not affected. We have built Burst to be very performant fo
 We value your feedback. You can [submit a support request on the WordPress forums](https://wordpress.org/support/plugin/burst-statistics/), and we will respond promptly.
 
 == Change log ==
+= 1.5.4 =
+* Improvement: We have added summary tables, which will speed up the dashboard tremendously on large websites. The summary tables are updated every hour.
+* Improvement: We have added some indexes and removed some unused data which speeds up the dashboard and it will reduce the database size quite a bit.
+* Improvement: Save the last used date range in local storage, so when you return the date is the same.
+* Fix: Added more data to delete on uninstall. This will prevent data from being left behind when uninstalling the plugin.
+* Improvement: Updated referrer spam list.
+* Fix: Referer spam would not be filtered out. This has been resolved.
+* Fix: Click goals where an ID was on a parent class, would not be tracked. Now this is checked recursively.
+
 = 1.5.3 =
 * Fix: Fixed error in class-statistics.php
 * Fix: Changed query for post count per page on for logged in users.

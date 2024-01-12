@@ -52,10 +52,6 @@
 		);
 	}
 
-    function isNumeric(n) {
-        return !isNaN( parseFloat( n ) ) && isFinite( n );
-    }
-
 	// Generate inner page for tab
 	function getPaginationPages(e) {
 		let type = this.dataset.type;
@@ -93,24 +89,7 @@
 		value = value || '';
 		$el.find( '.locations-row-links' ).empty().html( '<input type="hidden" data-id="'+ id +'" name="'+ input_name +'" value=\''+ value +'\' /><a href="#" class="themify-cm-conditions">' + vars.lang.conditions + '</a> <a class="themify-cm-remove" href="#">x</a>' );
 		return $el;
-	}
-
-    function updateConditionsList( target ) {
-        $.ajax( {
-            url : ajaxurl,
-            type : 'POST',
-            data : {
-                action : 'themify_cm_parse_conditions',
-                nonce : vars.nonce,
-                selected : target.value
-            },
-            success : function( response ) {
-                $( target ).closest( '.menu-location-menus' )
-                    .find( '.themify_cm_conditions' ).remove().end()
-                .append( response );
-            }
-        } );
-    }
+	};
 
 	function add_assignment( $menu_row, new_id, selected_menu, condition_value ) {
 		var clone = $menu_row.clone().removeClass( 'cm-location' );
@@ -119,7 +98,7 @@
 		if( new_id == null ) {
 			if( typeof last_ids[menu_id] == 'undefined' ) {
 				last_ids[menu_id] = parseInt( $( getKeys( vars.options[menu_id] ) ).last()[0] );
-				if( ! isNumeric( last_ids[menu_id] ) )
+				if( ! $.isNumeric( last_ids[menu_id] ) )
 					last_ids[menu_id] = 1;
 			}
 			new_id = last_ids[menu_id]++;
@@ -136,8 +115,6 @@
 		if (menu_num > conditions_num) {
 			$('.themify-cm-conditions-container:first').clone().removeClass().addClass('themify-cm-conditions-container themify-admin-lightbox tf_clearfix themify-cm-conditions-container-' + menu_id + new_id).data('item', menu_id + new_id).insertAfter('.themify-cm-conditions-container:last');
 		}
-
-        updateConditionsList( clone[0].querySelector( 'input[name^="themify_cm"]' ) );
 	}
 
 	/* remove the Edit & Use New Menu links */
@@ -228,7 +205,7 @@
 		}
 	} )
 
-	.on( 'click', '.themify-cm-conditions-container .themify-cm-close, #themify-cm-overlay', function(e){
+	.on( 'click', '.themify-cm-close, #themify-cm-overlay', function(e){
 		e.preventDefault();
 		$( lightbox ).animate({
 			'top': getDocHeight()
@@ -248,7 +225,6 @@
 		/* save the data from conditions lightbox */
 		target.value = currentValues;
 		$('.menu-location-menus[data-item=' + target.dataset.id + ']').val( currentValues );
-        updateConditionsList( target );
 		/* close conditions lightbox */
 		overlay.click();
 		return false;
@@ -262,25 +238,9 @@
 		currentValues = '';
 		update_inputs();
 	})
-    .on( 'mouseover', '.themify_cm_conditions li', function() {
-        if ( this.getElementsByClassName( 'remove-item' )[0] ) {
-            return;
-        }
-
-        const el = document.createElement( 'a' ),
-            span = document.createElement( 'span' );
-        el.className = 'remove-item';
-        span.className = 'themify-cm-close';
-        el.appendChild( span );
-        this.appendChild( el );
-    } )
-    .on( 'click', '.themify_cm_conditions .remove-item', function(e){
-        e.preventDefault();
-        const input = this.closest( '.menu-location-menus' ).querySelector( 'input[name^="themify_cm"]' ),
-            item = this.closest( 'li' );
-        input.value = decodeURIComponent( input.value ).replace( item.dataset.id + '=on', '' );
-        item.remove();
-    } );
+	.on('click', '.themify-cm-conditions-container .themify_apply_all_conditions', function(){
+		
+	});
 
 	window.addEventListener( 'load', function() {
 		/* add the Menu Replacement button */

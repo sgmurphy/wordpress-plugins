@@ -3,7 +3,7 @@ Contributors: themifyme
 Tags: menu, conditional-tags, context, menu-items, admin
 Requires at least: 4.0
 Tested up to: 6.4.2
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 License: GPLv2 or later
 
 This plugin enables you to set conditional menus per posts, pages, categories, archive pages, etc.
@@ -34,6 +34,9 @@ Visit https://themify.me/conditional-menus for more details.
 1. Admin interface
 
 == Changelog ==
+
+= 1.2.5 (2024.01.11) =
+* Reverted plugin to previous version due to major compatibility issue with Polylang from v1.2.4
 
 = 1.2.4 (2024.01.10) =
 * Fix: WPML support: auto switch conditional menus based on menu translations

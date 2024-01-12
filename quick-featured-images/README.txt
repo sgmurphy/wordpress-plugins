@@ -29,9 +29,11 @@ The plugin 'Quick Featured Images' helps you bulk managing featured images, sett
 If you want to include **audios, videos and custom post types** and get more options, than take a look the **Pro version** [Quick Featured Images Pro](https://www.quickfeaturedimages.com/?utm_source=wordpress_org&utm_medium=plugin&utm_campaign=quick-featured-images&utm_content=go_pro).
 
 = Demo =
-You want to test Quick Featured Images before installing on your site? Try it out on your free dummy site and [click here](https://demo.tastewp.com/quick-featured-images).
+You want to test Quick Featured Images before installing on your site? Try it out on your individual and free dummy site and [click here](https://demo.tastewp.com/quick-featured-images).
 
 = What users said =
+* **&#8220;Great for my needs&#8221;** in [Reviews at wordpress.org](https://wordpress.org/support/topic/great-for-my-needs-7/#post-17337619/) by gaiusjaugustus on Januars 12, 2024
+* **&#8220;simple to use&#8221;** in [Reviews at wordpress.org](https://wordpress.org/support/topic/simple-to-use-337/) by rabbitace on September 8, 2023
 * **&#8220;SO helpful!&#8221;** in [Reviews at wordpress.org](https://wordpress.org/support/topic/so-helpful-130/) by brandcandyamy on June 6, 2023
 * **&#8220;OMG, so good!&#8221;** in [Reviews at wordpress.org](https://wordpress.org/support/topic/omg-so-good-2/) by marverix on February 27, 2021
 * **&#8220;This was awesome and saves so much time&#8221;** in [Reviews at wordpress.org](https://wordpress.org/support/topic/this-was-awesome-and-saves-so-much-time/) by frank on December 31, 2020

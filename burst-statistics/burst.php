@@ -2,13 +2,13 @@
 /**
  * Plugin Name: Burst Statistics - Privacy-Friendly Analytics for WordPress
  * Plugin URI: https://www.wordpress.org/plugins/burst-statistics
- * Description: Get detailed insights into visitors’ behavior with Burst Statistics, the privacy-friendly analytics dashboard from Really Simple Plugins.
- * Version: 1.5.3
+ * Description: Get detailed insights into visitors’ behavior with Burst Statistics, the privacy-friendly analytics dashboard.
+ * Version: 1.5.4
  * Requires at least: 5.8
  * Requires PHP: 7.2
  * Text Domain: burst-statistics
  * Domain Path: /languages
- * Author: Really Simple Plugins
+ * Author: Burst Statistics B.V.
  * Author URI: https://burst-statistics.com
  */
 
@@ -43,12 +43,12 @@ if ( ! class_exists( 'BURST' ) ) {
 		public $admin;
 		public $settings;
 		public $frontend;
-		public $wizard;
 		public $review;
 		public $config;
 		public $notices;
-		public $db_upgrade;
+		public $summary;
 		public $dashboard_widget;
+		public $db_upgrade;
 
 		private function __construct() {
 		}
@@ -70,6 +70,7 @@ if ( ! class_exists( 'BURST' ) ) {
 
 				if ( burst_admin_logged_in() ) {
 					self::$instance->admin      = new burst_admin();
+					self::$instance->summary    = new burst_summary();
 					self::$instance->review     = new burst_review();
 					self::$instance->notices    = new burst_notices();
 					self::$instance->db_upgrade = new burst_db_upgrade();
@@ -97,7 +98,7 @@ if ( ! class_exists( 'BURST' ) ) {
 			$burst_plugin = implode( '/', $burst_plugin );
 			define( 'burst_plugin_folder', $burst_plugin );
 			$debug = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '#'.time() : '';
-			define( 'burst_version', '1.5.3' . $debug );
+			define( 'burst_version', '1.5.4' . $debug );
 			define( 'burst_plugin_file', __FILE__ );
 			define( 'burst_main_menu_position', 100 );
 			define( 'burst_pro_url', 'https://burst-statistics.com/pricing/?src=burst-plugin' );
@@ -141,6 +142,7 @@ if ( ! class_exists( 'BURST' ) ) {
 
 			if ( burst_admin_logged_in() ) {
 				require_once( burst_path . 'class-admin.php' );
+				require_once( burst_path . 'statistics/class-summary.php' );
 				require_once( burst_path . 'settings/settings.php' );
 				require_once( burst_path . 'class-review.php' );
 				require_once( burst_path . 'class-notices.php' );

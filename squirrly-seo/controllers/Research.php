@@ -856,12 +856,10 @@ class SQ_Controllers_Research extends SQ_Classes_FrontController
 	            $keywords = SQ_Classes_Helpers_Tools::getValue('inputs', array());
 
 	            if (!empty($keywords)) {
-	                foreach ($keywords as $keyword) {
-	                    //set ignore on API
-	                    $args = array();
-	                    $args['keyword'] = stripslashes($keyword);
-	                    SQ_Classes_RemoteController::removeBriefcaseKeyword($args);
-	                }
+		            //set ignore on API
+		            $args = array();
+		            $args['keywords'] = $keywords;
+		            SQ_Classes_RemoteController::removeBriefcaseKeywords($args);
 
 	                echo wp_json_encode(array('message' => esc_html__("Deleted!", 'squirrly-seo')));
 	            } else {

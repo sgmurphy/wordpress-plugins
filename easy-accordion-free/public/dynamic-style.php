@@ -50,7 +50,7 @@ if ( $eap_preloader ) {
 	$ea_dynamic_css .= '#sp-ea-' . $accordion_id . '{ position: relative; }#sp-ea-' . $accordion_id . ' .ea-card{ opacity: 0;}#eap-preloader-' . $accordion_id . '{ position: absolute; left: 0; top: 0; height: 100%;width: 100%; text-align: center;display: flex; align-items: center;justify-content: center;}';
 }
 if ( $acc_section_title ) {
-	$ea_dynamic_css .= '.sp-easy-accordion .eap_section_title_' . $accordion_id . ' { color: ' . $section_title_typho_color . '; margin-bottom:  ' . $acc_section_title_margin_bottom . 'px; }';
+	$ea_dynamic_css .= '.sp-easy-accordion-enabled .eap_section_title_' . $accordion_id . ', body .eap_section_title_' . $accordion_id . ' { color: ' . $section_title_typho_color . '; margin-bottom:  ' . $acc_section_title_margin_bottom . 'px; }';
 }
 if ( 'vertical' === $accordion_layout ) {
 	$ea_dynamic_css .= '#sp-ea-' . $accordion_id . '.sp-easy-accordion>.sp-ea-single {margin-bottom: ' . $acc_bottom_margin . 'px; border: ' . $eap_border_width . 'px ' . $eap_border_style . ' ' . $eap_border_color . '; }#sp-ea-' . $accordion_id . '.sp-easy-accordion>.sp-ea-single>.ea-header a {color: ' . $eap_title_typho_color . ';}#sp-ea-' . $accordion_id . '.sp-easy-accordion>.sp-ea-single>.sp-collapse>.ea-body {background: ' . $eap_description_bg . '; color: ' . $eap_content_typo_color . ';}';

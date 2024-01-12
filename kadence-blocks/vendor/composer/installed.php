@@ -3,7 +3,7 @@
         'name' => 'kadencewp/kadence-blocks',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '0b2d008b75fad99fe013b83db20baa389ebaac9c',
+        'reference' => '89d750ac651572c6524cd63ae840258548d92680',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -31,7 +31,7 @@
         'kadencewp/kadence-blocks' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '0b2d008b75fad99fe013b83db20baa389ebaac9c',
+            'reference' => '89d750ac651572c6524cd63ae840258548d92680',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

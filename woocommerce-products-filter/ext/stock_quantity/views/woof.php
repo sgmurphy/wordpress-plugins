@@ -61,7 +61,7 @@ $hide_dynamic_empty_pos = get_option('woof_hide_dynamic_empty_pos', 0);
 if (empty($current_request)) {
     if ($hide_dynamic_empty_pos) {
         $meta_field = array(
-            'key' => '_stock_quantity',
+            'key' => '_stock',
             'value' => array($min, $max),
         );
         $count_data = array();
@@ -104,6 +104,7 @@ if (in_array($show_toggle, array(1, 2))) {
     }
 }
 $woof_ext_stock_quantity_label = apply_filters('woof_ext_custom_title_stock_quantity', __('Stock Quantity', 'woocommerce-products-filter'));
+
 if ($show){
     $top_panel_txt = "";
     //$top_panel_txt = WOOF_HELPER::wpml_translate(null, $woof_ext_stock_quantity_label);

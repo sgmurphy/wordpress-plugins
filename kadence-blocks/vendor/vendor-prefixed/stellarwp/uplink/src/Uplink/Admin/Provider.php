@@ -2,7 +2,7 @@
 /**
  * @license GPL-2.0-or-later
  *
- * Modified by kadencewp on 10-January-2024 using Strauss.
+ * Modified by kadencewp on 11-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */ declare( strict_types=1 );
 
@@ -51,7 +51,6 @@ class Provider extends Abstract_Provider {
 		add_action( 'admin_enqueue_scripts', [ $this, 'register_assets' ], 10, 0 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'store_admin_notices' ], 10, 1 );
 		add_action( 'admin_notices', [ $this, 'admin_notices' ], 10, 0 );
-		add_action( 'load-plugins.php', [ $this, 'remove_default_update_message' ], 50, 0 );
 	}
 
 	/**
