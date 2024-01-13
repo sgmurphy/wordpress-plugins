@@ -1340,7 +1340,9 @@ final class GoogleSitemapGenerator {
 		$this->options['sm_b_style_default'] = true; // Use default style .
 		$this->options['sm_b_style']         = ''; // Include a stylesheet in the XML .
 		$this->options['sm_b_baseurl']       = ''; // The base URL of the sitemap .
-		$this->options['sm_b_indexnow']		 = false; //On indexnow functionality
+		$this->options['sm_b_rewrites']		 = false; //status updating url rules
+		$this->options['sm_b_indexnow']		 = true; //On indexnow functionality
+		$this->options['sm_b_index_date'] = ''; //On indexnow date
 		$this->options['sm_b_robots']        = true; // Add sitemap location to WordPress' virtual robots.txt file .
 		$this->options['sm_b_html']          = true; // Include a link to a html version of the sitemap in the XML sitemap .
 		$this->options['sm_b_exclude']       = array(); // List of post / page IDs to exclude .
@@ -1727,6 +1729,7 @@ final class GoogleSitemapGenerator {
 			//	? '.html' : '.xml' ) . ( $zip ? '.gz' : '' );
 			if($type === 'misc') return trailingslashit( $base_url ) . ( '' === $sm_sitemap_name ? 'sitemap' : $sm_sitemap_name ) . ( $options ? '-' . $options : '' ) . ( $html
 				? '.html' : '.xml' ) . ( $zip ? '.gz' : '' );
+			else if($type === 'main') return trailingslashit( $base_url ). ( substr($_SERVER['REQUEST_URI'], -4) === '.xml' ? '.html' : '.html' ) . ( $zip ? '.gz' : '' );
 			else return trailingslashit( $base_url ) . ( '' !== $sm_sitemap_name ? '' : $sm_sitemap_name ) . ( $options ? '' . $options : '' ) . ( $html
 				? '.html' : '.xml' ) . ( $zip ? '.gz' : '' );
 		} else {
@@ -2332,18 +2335,18 @@ final class GoogleSitemapGenerator {
 			$pings = array();
 
 			if ( $this->get_option( 'b_ping' ) ) {
-				$pings['google'] = array(
-					'name'  => 'Google',
-					'url'   => 'http://www.google.com/webmasters/sitemaps/ping?sitemap=%s',
+				$pings['bing'] = array(
+					'name'  => 'Bing',
 					'check' => 'successfully',
 				);
 			}
 
 			foreach ( $pings as $service_id => $service ) {
-				$url = str_replace( '%s', rawurlencode( $ping_url ), $service['url'] );
+				$url = rawurlencode( $ping_url );
 				$status->start_ping( $service_id, $url, $service['name'] );
 
-				$pingres = $this->remote_open( $url );
+				$newUrlToIndex = new GoogleSitemapGeneratorIndexNow();
+				$pingres = $newUrlToIndex->start( $url );
 
 				if ( null === $pingres || false === $pingres || false === strpos( $pingres, $service['check'] ) ) {
 					$status->end_ping( $service_id, false );

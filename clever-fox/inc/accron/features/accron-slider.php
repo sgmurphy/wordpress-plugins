@@ -198,3 +198,33 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 }
 
 add_action( 'customize_register', 'accron_slider_setting' );
+
+
+// slider selective refresh
+function accron_home_slider_section_partials( $wp_customize ){	
+	// slider title
+	$wp_customize->selective_refresh->add_partial( 'accron_slide_title', array(
+		'selector'            => '.slider-section .firstword1',
+		'settings'            => 'accron_slide_title',
+		'render_callback'  	  => 'accron_slider_title_render_callback',
+	) );
+	
+	// slider Subtitle
+	$wp_customize->selective_refresh->add_partial( 'accron_slide_subtitle', array(
+		'selector'            => '.slider-section .lastword',
+		'settings'            => 'accron_slide_subtitle',
+		'render_callback'  	  => 'accron_slider_subtitle_render_callback',
+	) );	
+}
+
+add_action( 'customize_register', 'accron_home_slider_section_partials' );
+
+// slider title
+function accron_slider_title_render_callback() {
+	return get_theme_mod( 'accron_slide_title' );
+}
+
+// slider subtitle
+function accron_slider_subtitle_render_callback() {
+	return get_theme_mod( 'accron_slide_subtitle' );
+}

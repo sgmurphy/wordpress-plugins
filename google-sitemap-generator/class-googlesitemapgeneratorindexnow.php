@@ -12,7 +12,8 @@ class GoogleSitemapGeneratorIndexNow {
 		$this->siteUrl = get_home_url();
 		$this->version = $this->getVersion();
 		$apiKey = $this->getApiKey();
-		$this->sendToIndex($this->siteUrl, $indexUrl, $apiKey, false);
+		
+		return $this->sendToIndex($this->siteUrl, $indexUrl, $apiKey, false);
     }
 
     private function getApiKey(){
@@ -55,6 +56,9 @@ class GoogleSitemapGeneratorIndexNow {
 		}
 		try {
 			if ( 200 === $response['response']['code'] || 202 === $response['response']['code'] ) {
+				//$updateUrlRules['sm_b_index_date'] = time();
+				//update_option('sm_options', $updateUrlRules);
+
 				return 'success';
 			} else {
 				if ( 400 === $response['response']['code'] ) {

@@ -1,8 +1,9 @@
 <?php
 $theme = wp_get_theme(); // gets the current theme
+$theme_name = strtolower($theme->name);
 
-	$file = CLEVERFOX_PLUGIN_URL .'inc/'.$theme->name.'/images/logo.png';
-	$ImagePath = CLEVERFOX_PLUGIN_URL .'inc/'.$theme->name.'/images';
+$file = CLEVERFOX_PLUGIN_URL .'inc/'.$theme_name.'/images/logo.png';
+$ImagePath = CLEVERFOX_PLUGIN_URL .'inc/'.$theme_name.'/images';
 
 $images = array(
 $ImagePath. '/logo.png',

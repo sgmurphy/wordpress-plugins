@@ -599,7 +599,7 @@ class GoogleSitemapGeneratorLoader {
 		if ( ! is_array( $auto_update_plugins ) ) {
 			$auto_update_plugins = array();
 		}
-		if ( ! in_array( 'google-sitemap-generator/sitemap.php', $auto_update_plugins, true ) && 'google-sitemap-generator/sitemap.php' === $current_page && 'yes' !== $hide_auto_update_banner ) {
+		if ( (! in_array( 'google-sitemap-generator/sitemap.php', $auto_update_plugins, true ) && ('google-sitemap-generator/sitemap.php' === $current_page || $_SERVER['REQUEST_URI'] === '/wp-admin/index.php' || $_SERVER['REQUEST_URI'] === '/wp-admin/') && 'yes' !== $hide_auto_update_banner) ) {
 			?>
 			<style>
 				.justify-content{
@@ -785,6 +785,12 @@ class GoogleSitemapGeneratorLoader {
 					$postType[1] = $arrayType[1];
 				}
 				else $postType = explode('-sitemap', $currentUrl);
+
+				if (strpos($postType[0], '/') !== false){
+					$newType = explode('/', $postType[0]);
+					$postType[0] = end($newType);
+				}
+
 				if(count($postType) > 1 ){
 					preg_match('/\d+/', $postType[1], $matches);
 					if(empty($matches)) $matches[0] = 1;
@@ -793,7 +799,8 @@ class GoogleSitemapGeneratorLoader {
 					else if($postType[0] === 'post_tag' || $postType[0] === 'category' || taxonomy_exists($postType[0])) return 'params=tax-' . $postType[0] . '-' . $matches[0];
 					else if($postType[0] === 'productcat') return 'params=productcat-' . $matches[0];
 					else if($postType[0] === 'authors' || $postType[0] === 'archives') return 'params=' . $postType[0];
-					else if($postType[0] === 'productcat') return 'params=productcat-' . $matches[0];					
+					else if($postType[0] === 'productcat') return 'params=productcat-' . $matches[0];
+					else if($postType[0] === 'producttags') return 'params=producttags-' . $matches[0];
 					else return 'params=pt-' . $postType[0] . '-p' . $matches[0] . '-2023-11';
 				}
 			}
@@ -1044,7 +1051,7 @@ class GoogleSitemapGeneratorLoader {
 			if ( strpos( $key, 'google-sitemap-generator' ) !== false ) {
 				continue;
 			}
-			if ( ( strpos( $key, 'sitemap' ) !== false || strpos( $key, 'seo' ) !== false ) && is_plugin_active( ( $key ) ) ) {
+			if ( ( strpos( $key, 'sitemap' ) !== false || strpos( $key, 'seo' ) !== false || $jetpack_sm_enabled ) && is_plugin_active( ( $key ) ) ) {
 				array_push( $plug, $key );
 				foreach ( $value as $k => $v ) {
 					if ( 'Name' === $k ) {
@@ -1209,15 +1216,25 @@ class GoogleSitemapGeneratorLoader {
 	*/
 	public static function activation_indexnow_setup(){
 		$api_key = wp_generate_uuid4();
-		update_option( 'gsg_indexnow-is_valid_api_key', '2' );
-		update_option( 'gsg_indexnow-admin_api_key', base64_encode( $api_key ) );
+		if(is_multisite()){
+			update_site_option('gsg_indexnow-is_valid_api_key', '2');
+			update_site_option('gsg_indexnow-admin_api_key', base64_encode( $api_key ));
+		} else {
+			update_option( 'gsg_indexnow-is_valid_api_key', '2' );
+			update_option( 'gsg_indexnow-admin_api_key', base64_encode( $api_key ) );
+		}
 	}
 
 	public static function deactivation_indexnow() {
-		delete_option( 'gsg_indexnow-is_valid_api_key' );
-		delete_option( 'gsg_indexnow-admin_api_key' );
+		if(is_multisite()){
+			delete_site_option( 'gsg_indexnow-is_valid_api_key' );
+			delete_site_option( 'gsg_indexnow-admin_api_key' );
+		} else {
+			delete_option( 'gsg_indexnow-is_valid_api_key' );
+			delete_option( 'gsg_indexnow-admin_api_key' );
+		}
 	}
-
+	
 }
 
 // Enable the plugin for the init hook, but only if WP is loaded. Calling this php file directly will do nothing.

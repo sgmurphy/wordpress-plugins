@@ -249,7 +249,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
     	array(
 			'default' 			=> esc_html__('Contact With Us','clever-fox'),
 			'capability'     	=> 'edit_theme_options',
-			'sanitize_callback' => 'accron_sanitize_url',
+			'sanitize_callback' => 'accron_sanitize_text',
 			'priority' => 9,
 		)
 	);	
@@ -374,7 +374,7 @@ function accron_ata_section_partials( $wp_customize ){
 	$wp_customize->selective_refresh->add_partial( 'accron_cta_call_icon', array(
 		'selector'            => '.cta-section-1 .cta-content .cta-info-wrap .widget-contact .contact-icon ',
 		'settings'            => 'accron_cta_call_icon',
-		'render_callback'  => 'accron_accron_cta_btn_lbl_render_callback',
+		'render_callback'  => 'accron_accron_cta_call_icon_render_callback',
 	) );
 	
 	// accron_cta_btn_lbl
@@ -408,15 +408,10 @@ function accron_ata_section_partials( $wp_customize ){
 
 add_action( 'customize_register', 'accron_ata_section_partials' );
 
-// accron_cta_title
-function accron_accron_cta_title_render_callback() {
-	return get_theme_mod( 'accron_cta_title' );
-}
 
-
-// accron_cta_description
-function accron_accron_cta_description_render_callback() {
-	return get_theme_mod( 'accron_cta_description' );
+// accron_cta_call_icon
+function accron_accron_cta_call_icon_render_callback() {
+	return get_theme_mod( 'accron_cta_call_icon' );
 }
 
 // accron_cta_btn_lbl
@@ -427,4 +422,15 @@ function accron_accron_cta_btn_lbl_render_callback() {
 // accron_cta_phone_number
 function accron_accron_cta_phone_number_render_callback() {
 	return get_theme_mod( 'accron_cta_phone_number' );
+}
+
+// accron_cta_title
+function accron_accron_cta_title_render_callback() {
+	return get_theme_mod( 'accron_cta_title' );
+}
+
+
+// accron_cta_description
+function accron_accron_cta_description_render_callback() {
+	return get_theme_mod( 'accron_cta_description' );
 }

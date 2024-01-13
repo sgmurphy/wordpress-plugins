@@ -16,7 +16,7 @@
  * Plugin Name: XML Sitemap Generator for Google
  * Plugin URI: https://auctollo.com/
  * Description: This plugin improves SEO using sitemaps for best indexation by search engines like Google, Bing, Yahoo and others.
- * Version: 4.1.17
+ * Version: 4.1.18
  * Author: Auctollo
  * Author URI: https://auctollo.com/
  * Text Domain: google-sitemap-generator
@@ -376,6 +376,7 @@ function register_consent() {
 					}
 				}
 			}
+			
 			/*
 			if ( isset( $_POST['disable_plugin'] ) ) {
 				if (isset($_POST['disable_plugin_sitemap_nonce_token']) && check_admin_referer('disable_plugin_sitemap_nonce', 'disable_plugin_sitemap_nonce_token')){
@@ -396,6 +397,22 @@ function register_consent() {
 			}
 			*/
 		}
+	}
+	$updateUrlRules = get_option('sm_options');
+	if(!isset($updateUrlRules['sm_b_rewrites']) || $updateUrlRules['sm_b_rewrites'] == false){
+		GoogleSitemapGeneratorLoader::setup_rewrite_hooks();
+		GoogleSitemapGeneratorLoader::activate_rewrite();
+		GoogleSitemapGeneratorLoader::activation_indexnow_setup();
+
+		if (isset($updateUrlRules['sm_b_rewrites'])) {
+			$updateUrlRules['sm_b_rewrites'] = true;
+			update_option('sm_options', $updateUrlRules);
+		} else {
+			$updateUrlRules['sm_b_rewrites'] = true;
+			add_option('sm_options', $updateUrlRules);
+			update_option('sm_options', $updateUrlRules);
+		}
+		
 	}
 }
 
@@ -441,17 +458,20 @@ function disable_plugins_callback(){
     }
 }
 
- function conflict_plugins_admin_notice(){
+function conflict_plugins_admin_notice(){
 	GoogleSitemapGeneratorLoader::create_notice_conflict_plugin();
- }
+}
 
  /* send to index updated url */
 function indexnow_after_post_save( $post_ID, $post, $update ) {
 	$indexnow = get_option('sm_options');
-	if($indexnow['sm_b_indexnow']){
+	$indexNowStatus = false;
+	if(isset($indexnow['sm_b_indexnow'])) $indexNowStatus = $indexnow['sm_b_indexnow'];
+	if($indexNowStatus === true){
 	    $newUrlToIndex = new GoogleSitemapGeneratorIndexNow();
         $newUrlToIndex->start( get_permalink( $post_ID ) );
     }
+
 }
 
 // Don't do anything if this file was called directly.

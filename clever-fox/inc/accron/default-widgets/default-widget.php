@@ -1,6 +1,8 @@
 <?php
 $theme = wp_get_theme(); // gets the current theme
-$footer_logo_default = CLEVERFOX_PLUGIN_URL .'inc/'.$theme->name.'/images/logo.png';
+$theme_name = strtolower($theme->name);
+
+$footer_logo_default = CLEVERFOX_PLUGIN_URL .'inc/'.$theme_name.'/images/logo.png';
 	
 $activate = array(
         'accron-sidebar-primary' => array(
@@ -65,16 +67,16 @@ $activate = array(
                             </aside>
                             <div class="our-rewards">
                                 <div class="reward">
-                                    <img src="'.esc_url(CLEVERFOX_PLUGIN_URL .'inc/'.$theme->name.'/images/award/award1.png').'" alt="award1">
+                                    <img src="'.esc_url(CLEVERFOX_PLUGIN_URL .'inc/'.$theme_name.'/images/award/award1.png').'" alt="award1">
                                 </div>
                                 <div class="reward">
-                                    <img src="'.esc_url(CLEVERFOX_PLUGIN_URL .'inc/'.$theme->name.'/images/award/award2.png').'" alt="award2">
+                                    <img src="'.esc_url(CLEVERFOX_PLUGIN_URL .'inc/'.$theme_name.'/images/award/award2.png').'" alt="award2">
                                 </div>
                                 <div class="reward">
-                                    <img src="'.esc_url(CLEVERFOX_PLUGIN_URL .'inc/'.$theme->name.'/images/award/award3.png').'" alt="award3">
+                                    <img src="'.esc_url(CLEVERFOX_PLUGIN_URL .'inc/'.$theme_name.'/images/award/award3.png').'" alt="award3">
                                 </div>
                                 <div class="reward">
-                                    <img src="'.esc_url(CLEVERFOX_PLUGIN_URL .'inc/'.$theme->name.'/images/award/award4.png').'" alt="award4">
+                                    <img src="'.esc_url(CLEVERFOX_PLUGIN_URL .'inc/'.$theme_name.'/images/award/award4.png').'" alt="award4">
                                 </div>
                             </div>
                             <aside class="widget widget-contact">

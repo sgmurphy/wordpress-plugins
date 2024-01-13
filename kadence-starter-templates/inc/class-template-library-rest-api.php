@@ -4097,14 +4097,9 @@ class Library_REST_Controller extends WP_REST_Controller {
 	 * @return string
 	 */
 	public function get_local_template_data_filename() {
-		$ktp_api = 'free';
-		if ( class_exists( 'Kadence_Theme_Pro' ) ) {
-			$ktp_data = get_option( 'ktp_api_manager' );
-			if ( $ktp_data && isset( $ktp_data['ktp_api_key'] ) && ! empty( $ktp_data['ktp_api_key'] ) ) {
-				$ktp_api = $ktp_data['ktp_api_key'];
-			} else if ( $ktp_data && isset( $ktp_data['ithemes_key'] ) && ! empty( $ktp_data['ithemes_key'] ) ) {
-				$ktp_api = $ktp_data['ithemes_key'];
-			}
+		$ktp_api = $this->get_current_license_key();
+		if ( empty( $ktp_api ) ) {
+			$ktp_api = 'free';
 		}
 		return md5( $this->get_base_url() . $this->get_base_path() . $this->template_type . KADENCE_STARTER_TEMPLATES_VERSION . $ktp_api );
 	}

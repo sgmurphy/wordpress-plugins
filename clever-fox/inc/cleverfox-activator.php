@@ -207,6 +207,7 @@ class Cleverfox_Activator {
 				require CLEVERFOX_PLUGIN_DIR . 'inc/accron/default-pages/upload-media.php';
 				require CLEVERFOX_PLUGIN_DIR . 'inc/accron/default-pages/home-page.php';
 				require CLEVERFOX_PLUGIN_DIR . 'inc/accron/default-widgets/default-widget.php';
+				require CLEVERFOX_PLUGIN_DIR . 'inc/accron/default-pages/default-pages.php';
 			}
 			
 			update_option( 'item_details_page', 'Done' );

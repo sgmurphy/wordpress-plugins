@@ -553,6 +553,15 @@ class GoogleSitemapGeneratorUI {
 			delete_option( 'sm_disabe_other_plugin' );
 			$this->sg->init_options();
 			$this->sg->save_options();
+
+			$auto_update_plugins = get_option( 'auto_update_plugins' );
+			if ( is_array( $auto_update_plugins ) ) {
+				foreach( $auto_update_plugins as $one_plugin){
+					if($one_plugin != 'google-sitemap-generator/sitemap.php') $newArr[] = $one_plugin;
+				}
+				update_option( 'auto_update_plugins', $newArr );
+			}
+
 			$message .= __( 'The default configuration was restored.', 'google-sitemap-generator' );
 		} elseif ( ! empty( $_GET['sm_delete_old'] ) ) { // Delete old sitemap files.
 			check_admin_referer( 'sitemap' );
@@ -642,7 +651,7 @@ class GoogleSitemapGeneratorUI {
 				return;
 			}
 
-			$this->sg->send_ping();
+			$this->sg->send_ping();    
 			$message = __( 'Ping was executed, please see below for the result.', 'google-sitemap-generator' );
 		} elseif ( get_option( 'sm_beta_opt_in' ) ) {
 			delete_option( 'sm_beta_opt_in' );
@@ -1097,12 +1106,13 @@ class GoogleSitemapGeneratorUI {
 
 									$status = GoogleSitemapGeneratorStatus::Load();
 									$head   = __( 'Search engines haven\'t been notified yet', 'google-sitemap-generator' );
-									if ( null !== $status && 0 < $status->get_start_time() ) {
+
+									if ( null !== $status && 0 < $status->get_start_time() && $this->sg->get_option('b_indexnow') ) {
 										$opt = get_option( 'gmt_offset' );
 										$st  = $status->get_start_time() + ( $opt * 3600 );
 										/* translators: %s: search term */
 										$head = str_replace( '%date%', date_i18n( get_option( 'date_format' ), $st ) . ' ' . date_i18n( get_option( 'time_format' ), $st ), esc_html__( 'Result of the last ping, started on %date%.', 'google-sitemap-generator' ) );
-									}
+									} else esc_html__( '“Search engines have not been notified yet. Publish or update a post to update your sitemap modification dates and notify IndexNow-compatible search engines.”', 'google-sitemap-generator' );
 
 									$this->html_print_box_header( 'sm_rebuild', $head );
 									?>
@@ -1140,7 +1150,7 @@ class GoogleSitemapGeneratorUI {
 
 
 									<div style='min-height:150px;'>
-										<!-- <ul>
+										<ul>
 											<?php
 
 											if ( $this->sg->old_file_exists() ) {
@@ -1156,12 +1166,12 @@ class GoogleSitemapGeneratorUI {
 												'strong' => array(),
 											);
 											/* translators: %s: search term */
-											echo '<!-- <li>' . wp_kses( str_replace( array( '%1$s', '%2$s' ), $this->sg->get_base_sitemap_url(), __( 'The URL to your sitemap index file is: <a href=\'%1$s\'>%2$s</a>.', 'google-sitemap-generator' ) ), $arr ) . '</li>';
-											if ( null === $status || null === $this->sg->get_option( 'i_tid' ) || '' === $this->sg->get_option( 'i_tid' ) ) {
+											echo '<li>' . wp_kses( str_replace( array( '%1$s', '%2$s' ), $this->sg->get_base_sitemap_url(), __( 'The URL to your sitemap index file is: <a href=\'%1$s\'>%2$s</a>.', 'google-sitemap-generator' ) ), $arr ) . '</li>';
+											if ( !$this->sg->get_option('b_indexnow') ) {
 												echo '<li>' . esc_html__( 'Search engines haven\'t been notified yet. Write a post to let them know about your sitemap.', 'google-sitemap-generator' ) . '</li>';
 											} else {
 
-												$services = $status->get_used_ping_services();
+												$services = (null !== $status) ? $status->get_used_ping_services() : array();
 
 												foreach ( $services as $service ) {
 													$name = $status->get_service_name( $service );
@@ -1182,13 +1192,13 @@ class GoogleSitemapGeneratorUI {
 														}
 													} else {
 														/* translators: %s: search term */
-														echo '<li class=\'sm_error\'>' . wp_kses( str_replace( array( '%s', '%name%' ), array( wp_nonce_url( $this->sg->get_back_link() . '&sm_ping_service=' . $service . '&noheader=true', 'sitemap' ), $name ), __( 'There was a problem while notifying %name%. <a href=\'%s\' target=\'_blank\'>View result</a>', 'google-sitemap-generator' ) ), $arr ) . '</li>';
+														//echo '<li class=\'sm_error\'>' . wp_kses( str_replace( array( '%s', '%name%' ), array( wp_nonce_url( $this->sg->get_back_link() . '&sm_ping_service=' . $service . '&noheader=true', 'sitemap' ), $name ), __( 'There was a problem while notifying %name%. <a href=\'%s\' target=\'_blank\'>View result</a>', 'google-sitemap-generator' ) ), $arr ) . '</li>';
 													}
 												}
 											}
 
 											?>
-											<?php if ( $this->sg->get_option( 'b_ping' ) ) : ?>
+											<?php if ($this->sg->get_option('b_indexnow')) : ?>
 												<li>
 													Notify Search Engines about <a id="ping_google" href='<?php echo esc_url( wp_nonce_url( $this->sg->get_back_link() . '&sm_ping_main=true', 'sitemap' ) ); ?>'>your sitemap </a> or <a id="ping_google" href='<?php echo esc_url( wp_nonce_url( $this->sg->get_back_link() . '&sm_ping_main=true', 'sitemap' ) ); ?>'>your main sitemap and all sub-sitemaps</a> now.
 												</li>
@@ -1207,7 +1217,7 @@ class GoogleSitemapGeneratorUI {
 												echo '<li>' . wp_kses( str_replace( '%d', wp_nonce_url( $this->sg->get_back_link() . '&sm_rebuild=true&sm_do_debug=true', 'sitemap' ), __( 'If you encounter any problems with your sitemap you can use the <a href="%d">debug function</a> to get more information.', 'google-sitemap-generator' ) ), $arr ) . '</li>';
 											}
 											?>
-										</ul> -->
+										</ul>
 										<ul>
 											<li>
 												<?php
@@ -1269,7 +1279,7 @@ class GoogleSitemapGeneratorUI {
 										</li> -->
 										<li>
 											<label for='sm_b_indexnow'>
-												<input type='checkbox' id='sm_b_indexnow' name='sm_b_indexnow' <?php echo ( $this->sg->get_option( 'b_indexnow' ) === true ? 'checked=\'checked\'' : '' ); ?> />
+												<input type='checkbox' id='sm_b_indexnow' name='sm_b_indexnow' <?php echo ( $this->sg->get_option('b_indexnow') ? 'checked=\'checked\'' : '' ); ?> />
 												<?php esc_html_e( 'Use IndexNow Protocol to notify Microsoft Bing, Seznam.cz, Naver, and Yandex search engines about updates to your site', 'google-sitemap-generator' ); ?>
 											</label><br />
 											<small>
