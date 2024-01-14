@@ -23,6 +23,7 @@ const {
     generateBorderShadowStyles,
     generateResponsiveRangeStyles,
     generateBackgroundControlStyles,
+    StyleComponent
 } = window.EBControls;
 
 export default function Style(props) {

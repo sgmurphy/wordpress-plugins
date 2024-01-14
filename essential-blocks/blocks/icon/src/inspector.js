@@ -14,11 +14,6 @@ import {
 } from "@wordpress/components";
 
 /**
- * External depencencies
- */
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
-
-/**
  * Internal depencencies
  */
 import {
@@ -44,6 +39,7 @@ const {
     BackgroundControl,
     ColorControl,
     AdvancedControls,
+    EBIconPicker
 } = window.EBControls;
 
 import objAttributes from "./attributes";
@@ -101,18 +97,14 @@ function Inspector(props) {
                             {tab.name === "general" && (
                                 <>
                                     <PanelBody title={__("General", "essential-blocks")} initialOpen={true}>
-                                        <BaseControl label={__("Icon", "essential-blocks")}>
-                                            <FontIconPicker
-                                                icons={faIcons}
-                                                value={icon}
-                                                onChange={(value) =>
-                                                    setAttributes({
-                                                        icon: value,
-                                                    })
-                                                }
-                                                appendTo="body"
-                                            />
-                                        </BaseControl>
+                                        <EBIconPicker
+                                            value={icon}
+                                            onChange={(icon) =>
+                                                setAttributes({
+                                                    icon,
+                                                })
+                                            }
+                                        />
                                         <SelectControl
                                             label={__("Icon View", "essential-blocks")}
                                             value={iconView}
@@ -293,8 +285,8 @@ function Inspector(props) {
                                         <BorderShadowControl
                                             controlName={WRAPPER_BORDER_SHADOW}
                                             resRequiredProps={resRequiredProps}
-                                            // noShadow
-                                            // noBorder
+                                        // noShadow
+                                        // noBorder
                                         />
                                     </PanelBody>
 

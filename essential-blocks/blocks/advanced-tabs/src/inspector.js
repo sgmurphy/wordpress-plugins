@@ -3,7 +3,7 @@
  */
 import { __ } from "@wordpress/i18n";
 import { InspectorControls } from "@wordpress/block-editor";
-import { useEffect, useState } from "@wordpress/element";
+import { useState } from "@wordpress/element";
 import {
     PanelBody,
     SelectControl,

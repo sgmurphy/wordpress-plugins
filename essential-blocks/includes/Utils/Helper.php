@@ -560,4 +560,23 @@
 		</div>
 		<?php
             }
+            public static function eb_get_icon_type( $value ) {
+                    if ( strpos( $value, 'fa-' ) !== false ) {
+                        return 'fontawesome';
+                    }
+                    return 'dashicon';
+                }
+
+        public static function eb_render_icon( $icon_type, $class_name, $icon ) {
+            if ( $icon_type === 'dashicon' ) {
+                // Render Dashicon
+                return '<span class="dashicon dashicons ' . $icon . ' ' . $class_name . '"></span>';
+            } elseif ( $icon_type === 'fontawesome' ) {
+                // Render FontAwesome icon
+                return '<i class="' . $icon . ' ' . $class_name . '"></i>';
+            }
+
+            // Handle other icon types or return an error message
+            return esc_html__( "Invalid icon type", "essential-blocks" );
+        }
         }

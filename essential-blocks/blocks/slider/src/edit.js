@@ -42,6 +42,7 @@ const {
     generateResponsiveRangeStyles,
     duplicateBlockIdFix,
     isValidHtml,
+    EBDisplayIcon
 } = window.EBControls;
 
 /**
@@ -121,7 +122,7 @@ export default function Edit(props) {
                 style={{ ...style, display: "block" }}
                 onClick={onClick}
             >
-                <i aria-hidden="true" className={arrowNextIcon}></i>
+                <EBDisplayIcon icon={arrowNextIcon} />
             </div>
         );
     }
@@ -134,7 +135,7 @@ export default function Edit(props) {
                 style={{ ...style, display: "block" }}
                 onClick={onClick}
             >
-                <i aria-hidden="true" className={arrowPrevIcon}></i>
+                <EBDisplayIcon icon={arrowPrevIcon} />
             </div>
         );
     }

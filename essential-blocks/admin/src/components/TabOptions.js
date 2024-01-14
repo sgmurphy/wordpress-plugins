@@ -47,6 +47,11 @@ export default function TabOptions() {
             ),
             doc: "https://essential-blocks.com/docs/configure-google-fonts/",
         },
+        enableFontawesome: {
+            logo: `${EssentialBlocksLocalize.image_url}/admin/logo-fontawesome.png`,
+            title: "Font Awesome",
+            description: __("Enable Font Awesome.", "essential-blocks"),
+        },
     };
 
     const apiIntegrations = applyFilters('eb_admin_option_integrations', {

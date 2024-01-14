@@ -26,9 +26,10 @@ use EssentialBlocks\Integrations\GlobalStyles;
 use EssentialBlocks\Integrations\AssetGeneration;
 use EssentialBlocks\Integrations\PluginInstaller;
 
-final class Plugin {
+final class Plugin
+{
     use HasSingletone;
-    public $version = '4.4.7';
+    public $version = '4.4.8';
 
     public $admin;
     /**
@@ -54,7 +55,8 @@ final class Plugin {
      *
      * @access private
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->define_constants();
         $this->set_locale();
 
@@ -126,9 +128,9 @@ final class Plugin {
             self::$blocks->register_blocks( $this->assets );
         } );
 
-        add_action( 'plugins_loaded', [$this, 'plugins_loaded'] );
+        add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ] );
 
-        add_action( 'wp_loaded', [$this, 'wp_loaded'] );
+        add_action( 'wp_loaded', [ $this, 'wp_loaded' ] );
         /**
          * Initialize.
          */
@@ -140,7 +142,8 @@ final class Plugin {
      *
      * @since 2.0
      */
-    public function __clone() {
+    public function __clone()
+    {
         _doing_it_wrong( __FUNCTION__, esc_html__( 'Cloning is forbidden.', 'essential-blocks' ), '2.0' );
     }
 
@@ -149,7 +152,8 @@ final class Plugin {
      *
      * @since 2.0
      */
-    public function __wakeup() {
+    public function __wakeup()
+    {
         _doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of this class is forbidden.', 'essential-blocks' ), '2.0' );
     }
 
@@ -157,7 +161,8 @@ final class Plugin {
      * Initializing Things on Plugins Loaded
      * @return void
      */
-    public function plugins_loaded() {
+    public function plugins_loaded()
+    {
         /**
          * Migrator for Templately
          */
@@ -168,7 +173,8 @@ final class Plugin {
      * Initializing Things on WP Loaded
      * @return void
      */
-    public function wp_loaded() {
+    public function wp_loaded()
+    {
 
         ModifyWPCore::get_instance();
     }
@@ -179,7 +185,8 @@ final class Plugin {
      * @since 2.0.0
      * @return void
      */
-    public function define_constants() {
+    public function define_constants()
+    {
         $this->define( 'ESSENTIAL_BLOCKS_WP_VERSION', (float) get_bloginfo( 'version' ) );
         $this->define( 'ESSENTIAL_BLOCKS_WHATSNEW_REDIRECT', 'none' );
         $this->define( 'ESSENTIAL_BLOCKS_NAME', 'essential-blocks' );
@@ -207,7 +214,8 @@ final class Plugin {
      *
      * @return void
      */
-    private function define( $name, $value ) {
+    private function define( $name, $value )
+    {
         if ( ! defined( $name ) ) {
             define( $name, $value );
         }
@@ -218,8 +226,9 @@ final class Plugin {
      * @since 1.0.0
      * @return void
      */
-    public function set_locale() {
-        add_action( 'init', [$this, 'load_textdomain'] );
+    public function set_locale()
+    {
+        add_action( 'init', [ $this, 'load_textdomain' ] );
     }
 
     /**
@@ -228,11 +237,13 @@ final class Plugin {
      *
      * @return void
      */
-    public function load_textdomain() {
+    public function load_textdomain()
+    {
         load_plugin_textdomain( 'essential-blocks', false, dirname( ESSENTIAL_BLOCKS_PLUGIN_BASENAME ) . '/languages' );
     }
 
-    private function load_admin_dependencies() {
+    private function load_admin_dependencies()
+    {
         //Admin dependency codes here
     }
 }

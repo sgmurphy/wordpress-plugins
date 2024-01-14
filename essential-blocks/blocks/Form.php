@@ -90,8 +90,8 @@ class Form extends Block {
         $submit_btn_classes = apply_filters( 'eb_form_submit_btn_classes', 'btn btn-primary eb-form-submit-button' );
 
         $submit_button_icon = sprintf(
-            '<i class="%1$s eb-button-icon"></i>',
-            $attributes['icon']
+            '%1$s',
+            Helper::eb_render_icon( Helper::eb_get_icon_type( $attributes['icon'] ), 'eb-button-icon', $attributes['icon'] )
         );
 
         $submit_button_html = sprintf(

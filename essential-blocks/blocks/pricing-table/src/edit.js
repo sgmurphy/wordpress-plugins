@@ -22,6 +22,7 @@ import Style from "./style";
 const {
     duplicateBlockIdFix,
     DynamicInputValueHandler,
+    EBDisplayIcon
 } = window.EBControls;
 
 const edit = (props) => {
@@ -157,13 +158,7 @@ const edit = (props) => {
                                                     className="eb-pricing-icon"
                                                     data-icon={headerIcon}
                                                 >
-                                                    <span className="icon">
-                                                        <i
-                                                            className={
-                                                                headerIcon
-                                                            }
-                                                        ></i>
-                                                    </span>
+                                                    <EBDisplayIcon className={`icon`} icon={headerIcon} />
                                                 </div>
                                             )}
                                             <div className="eb-pricing-tag">
@@ -287,11 +282,9 @@ const edit = (props) => {
                                                                                 link
                                                                             }
                                                                         >
-                                                                            <span
-                                                                                className={`eb-pricebox-icon ${icon}`}
-                                                                                style={{
-                                                                                    color: color,
-                                                                                }}
+                                                                            <EBDisplayIcon
+                                                                                className={`eb-pricebox-icon`}
+                                                                                icon={icon}
                                                                             />
                                                                             <span className="eb-pricebox-feature-text">
                                                                                 {
@@ -301,11 +294,9 @@ const edit = (props) => {
                                                                         </a>
                                                                     ) : (
                                                                         <>
-                                                                            <span
-                                                                                className={`eb-pricebox-icon ${icon}`}
-                                                                                style={{
-                                                                                    color: color,
-                                                                                }}
+                                                                            <EBDisplayIcon
+                                                                                className={`eb-pricebox-icon`}
+                                                                                icon={icon}
                                                                             />
                                                                             <span className="eb-pricebox-feature-text">
                                                                                 {
@@ -333,11 +324,7 @@ const edit = (props) => {
                                                         >
                                                             {buttonIconPosition ===
                                                                 "left" && (
-                                                                    <i
-                                                                        className={
-                                                                            buttonIcon
-                                                                        }
-                                                                    ></i>
+                                                                    <EBDisplayIcon icon={buttonIcon} />
                                                                 )}
                                                             <DynamicInputValueHandler
                                                                 value={
@@ -358,11 +345,7 @@ const edit = (props) => {
                                                             />
                                                             {buttonIconPosition ===
                                                                 "right" && (
-                                                                    <i
-                                                                        className={
-                                                                            buttonIcon
-                                                                        }
-                                                                    ></i>
+                                                                    <EBDisplayIcon icon={buttonIcon} />
                                                                 )}
                                                         </a>
                                                     </div>
@@ -379,11 +362,7 @@ const edit = (props) => {
                                                 className="eb-pricing-icon"
                                                 data-icon={headerIcon}
                                             >
-                                                <span className="icon">
-                                                    <i
-                                                        className={headerIcon}
-                                                    ></i>
-                                                </span>
+                                                <EBDisplayIcon className={`icon`} icon={headerIcon} />
                                             </div>
                                         )}
                                         <div className="eb-pricing-header">
@@ -503,11 +482,10 @@ const edit = (props) => {
                                                                             link
                                                                         }
                                                                     >
-                                                                        <span
-                                                                            className={`eb-pricebox-icon ${icon}`}
-                                                                            style={{
-                                                                                color: color,
-                                                                            }}
+                                                                        <EBDisplayIcon
+                                                                            className={`eb-pricebox-icon`}
+                                                                            icon={icon}
+                                                                            style={{ color: color }}
                                                                         />
                                                                         <span className="eb-pricebox-feature-text">
                                                                             {
@@ -517,11 +495,10 @@ const edit = (props) => {
                                                                     </a>
                                                                 ) : (
                                                                     <>
-                                                                        <span
-                                                                            className={`eb-pricebox-icon ${icon}`}
-                                                                            style={{
-                                                                                color: color,
-                                                                            }}
+                                                                        <EBDisplayIcon
+                                                                            className={`eb-pricebox-icon`}
+                                                                            icon={icon}
+                                                                            style={{ color: color }}
                                                                         />
                                                                         <span className="eb-pricebox-feature-text">
                                                                             {
@@ -617,11 +594,7 @@ const edit = (props) => {
                                                     >
                                                         {buttonIconPosition ===
                                                             "left" && (
-                                                                <i
-                                                                    className={
-                                                                        buttonIcon
-                                                                    }
-                                                                ></i>
+                                                                <EBDisplayIcon icon={buttonIcon} />
                                                             )}
                                                         <DynamicInputValueHandler
                                                             value={buttonText}
@@ -638,11 +611,7 @@ const edit = (props) => {
                                                         />
                                                         {buttonIconPosition ===
                                                             "right" && (
-                                                                <i
-                                                                    className={
-                                                                        buttonIcon
-                                                                    }
-                                                                ></i>
+                                                                <EBDisplayIcon icon={buttonIcon} />
                                                             )}
                                                     </a>
                                                 </div>

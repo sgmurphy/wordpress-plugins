@@ -13,19 +13,14 @@ import {
     BaseControl,
 } from "@wordpress/components";
 
-/**
- * External depencencies
- */
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
-
 const {
-    faIcons,
     ColorControl,
     ResponsiveDimensionsControl,
     TypographyDropdown,
     BorderShadowControl,
     ResponsiveRangeController,
     BackgroundControl,
+    EBIconPicker
 } = window.EBControls;
 
 /**
@@ -345,19 +340,15 @@ function DualButton(props) {
 
                                 {connectorType === "icon" && (
                                     <PanelBody title={__("Icon Settings", "essential-blocks")} initialOpen={true}>
-                                        <BaseControl label={__("Icon", "essential-blocks")}>
-                                            <FontIconPicker
-                                                icons={faIcons}
-                                                value={innerButtonIcon}
-                                                onChange={(icon) =>
-                                                    handleBlockDefault({
-                                                        innerButtonIcon: icon,
-                                                    })
-                                                }
-                                                appendTo="body"
-                                            />
-                                        </BaseControl>
-
+                                        <EBIconPicker
+                                            value={innerButtonIcon}
+                                            onChange={(icon) =>
+                                                handleBlockDefault({
+                                                    innerButtonIcon: icon,
+                                                })
+                                            }
+                                            title={__("Icon", "essential-blocks")}
+                                        />
                                         <ResponsiveRangeController
                                             baseLabel={__("Icon Size", "essential-blocks")}
                                             controlName={BUTTONS_CONNECTOR_ICON_SIZE}

@@ -1,3 +1,4 @@
+const { EBGetIconClass, EBGetIconType } = window.eb_frontend;
 document.addEventListener("DOMContentLoaded", function (event) {
     let accordions = document.querySelectorAll(
         ".eb-accordion-container > .eb-accordion-inner"
@@ -76,21 +77,38 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let expandedIcon =
             accordion.getAttribute("data-expanded-icon") || "_ _";
 
+        tabIcon = EBGetIconClass(tabIcon);
+        expandedIcon = EBGetIconClass(expandedIcon);
+
         // Seperate fontawesome 5 prefix and postfix classes.
         let faTabPrefix = tabIcon.split(" ")[0];
-        let faTabPostfix = tabIcon.split(" ")[1];
+        let faTabPostfix = "fontawesome" === EBGetIconType(tabIcon) ? tabIcon.split(" ")[1] : tabIcon.split(" ")[2];
         let faExpandPrefix = expandedIcon.split(" ")[0];
-        let faExpandPostfix = expandedIcon.split(" ")[1];
+        let faExpandPostfix = "fontawesome" === EBGetIconType(expandedIcon) ? expandedIcon.split(" ")[1] : expandedIcon.split(" ")[2];
+
         function changeIcon(clickedTab) {
             // Replace tab icon with expanded or vice versa
             let iconNode =
                 clickedTab.querySelector(".eb-accordion-icon") || testEl;
             let isExpanded = iconNode.classList.contains(faExpandPostfix);
             if (isExpanded) {
+                if ("dashicon" === EBGetIconType(faExpandPostfix)) {
+                    iconNode.classList.remove('dashicons');
+                }
                 iconNode.classList.remove(faExpandPrefix, faExpandPostfix);
+                if ("dashicon" === EBGetIconType(faTabPostfix)) {
+                    iconNode.classList.add('dashicons');
+                }
                 iconNode.classList.add(faTabPrefix, faTabPostfix);
+
             } else {
+                if ("dashicon" === EBGetIconType(faTabPostfix)) {
+                    iconNode.classList.remove('dashicons');
+                }
                 iconNode.classList.remove(faTabPrefix, faTabPostfix);
+                if ("dashicon" === EBGetIconType(faExpandPostfix)) {
+                    iconNode.classList.add('dashicons');
+                }
                 iconNode.classList.add(faExpandPrefix, faExpandPostfix);
             }
         }

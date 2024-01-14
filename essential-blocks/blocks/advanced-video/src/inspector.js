@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from "@wordpress/i18n";
-import { InspectorControls, PanelColorSettings, MediaUpload } from "@wordpress/block-editor";
+import { InspectorControls, MediaUpload } from "@wordpress/block-editor";
 import {
     PanelBody,
     SelectControl,
@@ -16,12 +16,6 @@ import {
     __experimentalDivider as Divider,
 } from "@wordpress/components";
 import { useEffect, useState } from "@wordpress/element";
-import { select } from "@wordpress/data";
-
-/**
- * External Dependencies
- */
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 
 /**
  * Internal depencencies
@@ -38,7 +32,6 @@ import {
     SIZE_UNIT_TYPES,
     VIDEO_BORDER_SHADOW,
     OPTIONS,
-    OVERLAY,
     PLAY_ICON_WIDTH,
     LIGHTBOX_WIDTH,
     LIGHTBOX_HEIGHT,
@@ -56,12 +49,10 @@ import {
     stickyVisibility,
     STICKY_VISIBILITY,
 } from "./constants";
-import { sizeUnitTypes } from "../../advanced-tabs/src/constants";
 
 const {
     faIcons: iconList,
     ResponsiveDimensionsControl,
-    TypographyDropdown,
     BorderShadowControl,
     ImageAvatar,
     ResponsiveRangeController,
@@ -69,6 +60,7 @@ const {
     ColorControl,
     AdvancedControls,
     ResponsiveSelectController,
+    EBIconPicker
 } = window.EBControls;
 
 function Inspector(props) {
@@ -327,15 +319,13 @@ function Inspector(props) {
 
                                                                 {placeholderCustomPlayIconType === "icon" && (
                                                                     <BaseControl>
-                                                                        <FontIconPicker
-                                                                            icons={iconList}
+                                                                        <EBIconPicker
                                                                             value={customPlayIconlib}
-                                                                            onChange={(customPlayIconlib) =>
+                                                                            onChange={(icon) =>
                                                                                 setAttributes({
-                                                                                    customPlayIconlib,
+                                                                                    customPlayIconlib: icon,
                                                                                 })
                                                                             }
-                                                                            appendTo="body"
                                                                         />
                                                                     </BaseControl>
                                                                 )}
@@ -498,15 +488,13 @@ function Inspector(props) {
 
                                                         {lightboxPlayIconType === "icon" && (
                                                             <BaseControl>
-                                                                <FontIconPicker
-                                                                    icons={iconList}
+                                                                <EBIconPicker
                                                                     value={lightboxPlayIconlib}
-                                                                    onChange={(lightboxPlayIconlib) =>
+                                                                    onChange={(icon) =>
                                                                         setAttributes({
-                                                                            lightboxPlayIconlib,
+                                                                            lightboxPlayIconlib: icon,
                                                                         })
                                                                     }
-                                                                    appendTo="body"
                                                                 />
                                                             </BaseControl>
                                                         )}

@@ -2,7 +2,6 @@
  * WordPress dependencies
  */
 import { __ } from "@wordpress/i18n";
-import { useEffect } from "@wordpress/element";
 import { InspectorControls } from "@wordpress/block-editor";
 import {
     PanelBody,
@@ -14,12 +13,6 @@ import {
     BaseControl,
     TabPanel,
 } from "@wordpress/components";
-import { select } from "@wordpress/data";
-
-/**
- * External depencencies
- */
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 
 /**
  * Internal depencencies
@@ -50,7 +43,6 @@ import {
 import { BUTTONS_TYPOGRAPHY, BUTTONS_CONNECTOR_TYPOGRAPHY } from "./constants/typographyPrefixConstants";
 
 const {
-    faIcons,
     ColorControl,
     ResponsiveDimensionsControl,
     TypographyDropdown,
@@ -59,6 +51,7 @@ const {
     BackgroundControl,
     AdvancedControls,
     DynamicInputControl,
+    EBIconPicker
 } = window.EBControls;
 
 function Inspector(props) {
@@ -382,17 +375,15 @@ function Inspector(props) {
                                                         title={__("Icon Settings", "essential-blocks")}
                                                         initialOpen={true}
                                                     >
-                                                        <BaseControl label={__("Icon", "essential-blocks")}>
-                                                            <FontIconPicker
-                                                                icons={faIcons}
-                                                                value={innerButtonIcon}
-                                                                onChange={(icon) =>
-                                                                    setAttributes({ innerButtonIcon: icon })
-                                                                }
-                                                                appendTo="body"
-                                                            />
-                                                        </BaseControl>
-
+                                                        <EBIconPicker
+                                                            value={innerButtonIcon}
+                                                            onChange={(innerButtonIcon) =>
+                                                                setAttributes({
+                                                                    innerButtonIcon,
+                                                                })
+                                                            }
+                                                            title={__("Icon", "essential-blocks")}
+                                                        />
                                                         <ResponsiveRangeController
                                                             baseLabel={__("Icon Size", "essential-blocks")}
                                                             controlName={BUTTONS_CONNECTOR_ICON_SIZE}

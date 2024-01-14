@@ -11,7 +11,7 @@ import classnames from "classnames";
 import Inspector from "./inspector";
 import Style from "./style";
 
-const { duplicateBlockIdFix } = window.EBControls;
+const { duplicateBlockIdFix, EBDisplayIcon, getIconClass } = window.EBControls;
 
 export default function Edit(props) {
     const { attributes, setAttributes, className, isSelected, clientId } = props;
@@ -53,13 +53,14 @@ export default function Edit(props) {
     const accordionTitle = useRef(null);
     const handleSlidingOfAccordion = () => {
         let contentWrapper = accordionTitle.current.nextElementSibling;
-        let tabIcon = accordionTitle.current.getAttribute("data-tab-icon")?.split(" ");
-        let expandedIcon = accordionTitle.current.getAttribute("data-expanded-icon")?.split(" ");
+        let tabIcon = accordionTitle.current.getAttribute("data-tab-icon");
+        let expandedIcon = accordionTitle.current.getAttribute("data-expanded-icon");
         let iconWrapper = accordionTitle.current.children[0].children[0];
 
         if (contentWrapper.style.display === "block") {
             contentWrapper.style.display = "none";
             iconWrapper.removeAttribute("class");
+            tabIcon = getIconClass(tabIcon).split(" ");
             for (let i = 0;i < tabIcon.length;i++) {
                 iconWrapper.classList.add(tabIcon[i]);
             }
@@ -68,6 +69,7 @@ export default function Edit(props) {
             contentWrapper.style.display = "block";
             contentWrapper.style.opacity = "1";
             iconWrapper.removeAttribute("class");
+            expandedIcon = getIconClass(expandedIcon).split(" ");
             for (let i = 0;i < expandedIcon.length;i++) {
                 iconWrapper.classList.add(expandedIcon[i]);
             }
@@ -94,9 +96,7 @@ export default function Edit(props) {
                     >
                         {inheritedDisplayIcon && (
                             <span className="eb-accordion-icon-wrapper">
-                                <span
-                                    className={`${inheritedTabIcon} eb-accordion-icon`}
-                                ></span>
+                                <EBDisplayIcon icon={inheritedTabIcon} />
                             </span>
                         )}
 

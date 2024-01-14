@@ -23,7 +23,6 @@ import { doAction, applyFilters } from "@wordpress/hooks";
  * External Dependencies
  */
 import Select2 from "react-select";
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 import SortableContents from "./sortable-content";
 
 /**
@@ -102,6 +101,7 @@ const {
     ProSelectControl,
     faIcons,
     DynamicInputControl,
+    EBIconPicker
 } = window.EBControls;
 
 function Inspector(props) {
@@ -934,19 +934,14 @@ function Inspector(props) {
                                                     />
                                                     {addIcon && (
                                                         <>
-                                                            <BaseControl label={__("Select Icon", "essential-blocks")}>
-                                                                <FontIconPicker
-                                                                    icons={faIcons}
-                                                                    value={icon}
-                                                                    onChange={(icon) =>
-                                                                        setAttributes({
-                                                                            icon,
-                                                                        })
-                                                                    }
-                                                                    appendTo="body"
-                                                                    closeOnSelect
-                                                                />
-                                                            </BaseControl>
+                                                            <EBIconPicker
+                                                                value={icon}
+                                                                onChange={(icon) =>
+                                                                    setAttributes({
+                                                                        icon,
+                                                                    })
+                                                                }
+                                                            />
                                                             <BaseControl label={__("Icon Postion", "essential-blocks")}>
                                                                 <ButtonGroup id="eb-button-group-alignment">
                                                                     {ICON_POSITION.map((item, index) => (

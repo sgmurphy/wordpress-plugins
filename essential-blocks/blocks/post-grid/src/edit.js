@@ -27,6 +27,7 @@ const {
     ebJsonStringCheck,
     CustomQuery,
     DynamicInputValueHandler,
+    EBDisplayIcon
 } = window.EBControls;
 
 export default function Edit(props) {
@@ -110,7 +111,7 @@ export default function Edit(props) {
         const totalPages = Math.floor(options.totalPosts / perPage);
         let html = "";
         html += `<button class="ebpg-pagination-item-previous">${options.prevTxt}</button>`;
-        for (let i = 1; i <= totalPages; i++) {
+        for (let i = 1;i <= totalPages;i++) {
             if (i === 1) {
                 html += `<button class="ebpg-pagination-item active">${i}</button>`;
             } else if (i <= 3) {
@@ -652,9 +653,7 @@ export default function Edit(props) {
                                                                 <div className="ebpg-readmore-btn">
                                                                     <a href={'#'}>
                                                                         {addIcon && iconPosition === "left" ? (
-                                                                            <i
-                                                                                className={`${icon} eb-button-icon eb-button-icon-left hvr-icon`}
-                                                                            ></i>
+                                                                            <EBDisplayIcon icon={icon} className={"eb-button-icon eb-button-icon-left hvr-icon"} />
                                                                         ) : (
                                                                             ""
                                                                         )}

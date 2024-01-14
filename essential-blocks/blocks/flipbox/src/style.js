@@ -809,6 +809,9 @@ export default function Style(props) {
 		 .eb-flipbox-container.${blockId} .eb-flipbox-icon-front:hover {
 			 ${frontIconBorderHoverDesktop}
 		 }
+         .eb-flipbox-container.${blockId} .eb-flipbox-icon-front  .dashicons {
+            ${frontFontSizeDesktop}
+         }
 	 `;
 
     const frontIconStyleTab = `
@@ -822,6 +825,9 @@ export default function Style(props) {
 	 .eb-flipbox-container.${blockId} .eb-flipbox-icon-front:hover {
 		${frontIconBorderHoverTab}
 	}
+    .eb-flipbox-container.${blockId} .eb-flipbox-icon-front  .dashicons {
+        ${frontFontSizeTab}
+    }
 	 `;
 
     const frontIconStyleMobile = `
@@ -835,6 +841,9 @@ export default function Style(props) {
 	 .eb-flipbox-container.${blockId} .eb-flipbox-icon-front:hover {
 		${frontIconBorderHoverMobile}
 	}
+    .eb-flipbox-container.${blockId} .eb-flipbox-icon-front  .dashicons {
+        ${frontFontSizeMobile}
+    }
 	 `;
 
     const backStyleDesktop = `
@@ -993,10 +1002,12 @@ export default function Style(props) {
 		display: ${backIconOrImage === "icon" && backIcon ? "block" : "none"};
 		transition: ${backIconTransitionStyle};
 	 }
-
 	 .eb-flipbox-container.${blockId} .eb-flipbox-icon-back:hover {
 		${backIconBorderHoverDesktop}
 	 }
+     .eb-flipbox-container.${blockId} .eb-flipbox-icon-back .dashicons {
+        ${backFontSizeDesktop}
+     }
 	 `;
 
     const backIconStyleTab = `
@@ -1010,6 +1021,9 @@ export default function Style(props) {
 	.eb-flipbox-container.${blockId} .eb-flipbox-icon-back:hover {
 		${backIconBorderHoverTab}
 	}
+    .eb-flipbox-container.${blockId} .eb-flipbox-icon-back .dashicons {
+        ${backFontSizeTab}
+     }
 	`;
 
     const backIconStyleMobile = `
@@ -1023,6 +1037,9 @@ export default function Style(props) {
 	.eb-flipbox-container.${blockId} .eb-flipbox-icon-back:hover {
 		${backIconBorderHoverMobile}
 	}
+    .eb-flipbox-container.${blockId} .eb-flipbox-icon-back .dashicons {
+        ${backFontSizeMobile}
+     }
 	`;
 
     let backButtonStyleDesktop = "";

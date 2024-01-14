@@ -29,180 +29,180 @@ export default function Style(props) {
     const { attributes, setAttributes, name } = props;
     const {
         blockId,
-		blockMeta,
-		// responsive control attribute ⬇
-		resOption,
-		preset,
-		contentPosition,
-		buttonTextOne,
-		buttonTextTwo,
-		textOneColor,
-		hoverTextOneColor,
-		textTwoColor,
-		hoverTextTwoColor,
-		innerButtonText,
-		innerButtonColor,
-		innerButtonTextColor,
-		innerButtonIcon,
-		showConnector,
-		connectorType,
-		buttonTextAlign,
-		classHook,
-		buttonsWidthType,
+        blockMeta,
+        // responsive control attribute ⬇
+        resOption,
+        preset,
+        contentPosition,
+        buttonTextOne,
+        buttonTextTwo,
+        textOneColor,
+        hoverTextOneColor,
+        textTwoColor,
+        hoverTextTwoColor,
+        innerButtonText,
+        innerButtonColor,
+        innerButtonTextColor,
+        innerButtonIcon,
+        showConnector,
+        connectorType,
+        buttonTextAlign,
+        classHook,
+        buttonsWidthType,
     } = attributes;
 
     //
-	// CSS/styling Codes Starts from Here
+    // CSS/styling Codes Starts from Here
 
-	const {
-		typoStylesDesktop: buttonsTypoStylesDesktop,
-		typoStylesTab: buttonsTypoStylesTab,
-		typoStylesMobile: buttonsTypoStylesMobile,
-	} = generateTypographyStyles({
-		attributes,
-		prefixConstant: BUTTONS_TYPOGRAPHY,
-		defaultFontSize: 16,
-	});
+    const {
+        typoStylesDesktop: buttonsTypoStylesDesktop,
+        typoStylesTab: buttonsTypoStylesTab,
+        typoStylesMobile: buttonsTypoStylesMobile,
+    } = generateTypographyStyles({
+        attributes,
+        prefixConstant: BUTTONS_TYPOGRAPHY,
+        defaultFontSize: 16,
+    });
 
-	const {
-		typoStylesDesktop: connectorTypoStylesDesktop,
-		typoStylesTab: connectorTypoStylesTab,
-		typoStylesMobile: connectorTypoStylesMobile,
-	} = generateTypographyStyles({
-		attributes,
-		prefixConstant: BUTTONS_CONNECTOR_TYPOGRAPHY,
-		defaultFontSize: 14,
-	});
+    const {
+        typoStylesDesktop: connectorTypoStylesDesktop,
+        typoStylesTab: connectorTypoStylesTab,
+        typoStylesMobile: connectorTypoStylesMobile,
+    } = generateTypographyStyles({
+        attributes,
+        prefixConstant: BUTTONS_CONNECTOR_TYPOGRAPHY,
+        defaultFontSize: 14,
+    });
 
-	const {
-		dimensionStylesDesktop: wrapperMarginStylesDesktop,
-		dimensionStylesTab: wrapperMarginStylesTab,
-		dimensionStylesMobile: wrapperMarginStylesMobile,
-	} = generateDimensionsControlStyles({
-		controlName: WRAPPER_MARGIN,
-		styleFor: "margin",
-		attributes,
-	});
+    const {
+        dimensionStylesDesktop: wrapperMarginStylesDesktop,
+        dimensionStylesTab: wrapperMarginStylesTab,
+        dimensionStylesMobile: wrapperMarginStylesMobile,
+    } = generateDimensionsControlStyles({
+        controlName: WRAPPER_MARGIN,
+        styleFor: "margin",
+        attributes,
+    });
 
-	const {
-		dimensionStylesDesktop: buttonsPaddingStylesDesktop,
-		dimensionStylesTab: buttonsPaddingStylesTab,
-		dimensionStylesMobile: buttonsPaddingStylesMobile,
-	} = generateDimensionsControlStyles({
-		controlName: BUTTONS_PADDING,
-		styleFor: "padding",
-		attributes,
-	});
+    const {
+        dimensionStylesDesktop: buttonsPaddingStylesDesktop,
+        dimensionStylesTab: buttonsPaddingStylesTab,
+        dimensionStylesMobile: buttonsPaddingStylesMobile,
+    } = generateDimensionsControlStyles({
+        controlName: BUTTONS_PADDING,
+        styleFor: "padding",
+        attributes,
+    });
 
-	const {
-		styesDesktop: buttonOneBDShadowDesktop,
-		styesTab: buttonOneBDShadowTab,
-		styesMobile: buttonOneBDShadowMobile,
-		stylesHoverDesktop: buttonOneBDShadowHoverDesktop,
-		stylesHoverTab: buttonOneBDShadowHoverTab,
-		stylesHoverMobile: buttonOneBDShadowHoverMobile,
-		transitionStyle: buttonOneBDShadowtransitionStyle,
-	} = generateBorderShadowStyles({
-		controlName: BUTTON_ONE_BORDER_SHADOW,
-		attributes,
-		noShadow: true,
-	});
+    const {
+        styesDesktop: buttonOneBDShadowDesktop,
+        styesTab: buttonOneBDShadowTab,
+        styesMobile: buttonOneBDShadowMobile,
+        stylesHoverDesktop: buttonOneBDShadowHoverDesktop,
+        stylesHoverTab: buttonOneBDShadowHoverTab,
+        stylesHoverMobile: buttonOneBDShadowHoverMobile,
+        transitionStyle: buttonOneBDShadowtransitionStyle,
+    } = generateBorderShadowStyles({
+        controlName: BUTTON_ONE_BORDER_SHADOW,
+        attributes,
+        noShadow: true,
+    });
 
-	const {
-		styesDesktop: buttonTwoBDShadowDesktop,
-		styesTab: buttonTwoBDShadowTab,
-		styesMobile: buttonTwoBDShadowMobile,
-		stylesHoverDesktop: buttonTwoBDShadowHoverDesktop,
-		stylesHoverTab: buttonTwoBDShadowHoverTab,
-		stylesHoverMobile: buttonTwoBDShadowHoverMobile,
-		transitionStyle: buttonTwoBDShadowtransitionStyle,
-	} = generateBorderShadowStyles({
-		controlName: BUTTON_TWO_BORDER_SHADOW,
-		attributes,
-		noShadow: true,
-	});
+    const {
+        styesDesktop: buttonTwoBDShadowDesktop,
+        styesTab: buttonTwoBDShadowTab,
+        styesMobile: buttonTwoBDShadowMobile,
+        stylesHoverDesktop: buttonTwoBDShadowHoverDesktop,
+        stylesHoverTab: buttonTwoBDShadowHoverTab,
+        stylesHoverMobile: buttonTwoBDShadowHoverMobile,
+        transitionStyle: buttonTwoBDShadowtransitionStyle,
+    } = generateBorderShadowStyles({
+        controlName: BUTTON_TWO_BORDER_SHADOW,
+        attributes,
+        noShadow: true,
+    });
 
-	// responsive range controller
-	const {
-		rangeStylesDesktop: buttonWidthStyleDesktop,
-		rangeStylesTab: buttonWidthStyleTab,
-		rangeStylesMobile: buttonWidthStyleMobile,
-	} = generateResponsiveRangeStyles({
-		controlName: BUTTONS_WIDTH,
-		property: "width",
-		attributes,
-	});
+    // responsive range controller
+    const {
+        rangeStylesDesktop: buttonWidthStyleDesktop,
+        rangeStylesTab: buttonWidthStyleTab,
+        rangeStylesMobile: buttonWidthStyleMobile,
+    } = generateResponsiveRangeStyles({
+        controlName: BUTTONS_WIDTH,
+        property: "width",
+        attributes,
+    });
 
-	const {
-		rangeStylesDesktop: buttonGapDesktop,
-		rangeStylesTab: buttonGapTab,
-		rangeStylesMobile: buttonGapMobile,
-	} = generateResponsiveRangeStyles({
-		controlName: BUTTONS_GAP,
-		property: "margin",
-		attributes,
-	});
+    const {
+        rangeStylesDesktop: buttonGapDesktop,
+        rangeStylesTab: buttonGapTab,
+        rangeStylesMobile: buttonGapMobile,
+    } = generateResponsiveRangeStyles({
+        controlName: BUTTONS_GAP,
+        property: "margin",
+        attributes,
+    });
 
-	const {
-		rangeStylesDesktop: buttonConnectorHeightDesktop,
-		rangeStylesTab: buttonConnectorHeightTab,
-		rangeStylesMobile: buttonConnectorHeightMobile,
-	} = generateResponsiveRangeStyles({
-		controlName: BUTTONS_CONNECTOR_SIZE,
-		property: "height",
-		attributes,
-	});
+    const {
+        rangeStylesDesktop: buttonConnectorHeightDesktop,
+        rangeStylesTab: buttonConnectorHeightTab,
+        rangeStylesMobile: buttonConnectorHeightMobile,
+    } = generateResponsiveRangeStyles({
+        controlName: BUTTONS_CONNECTOR_SIZE,
+        property: "height",
+        attributes,
+    });
 
-	const {
-		rangeStylesDesktop: buttonConnectorWidthDesktop,
-		rangeStylesTab: buttonConnectorWidthTab,
-		rangeStylesMobile: buttonConnectorWidthMobile,
-	} = generateResponsiveRangeStyles({
-		controlName: BUTTONS_CONNECTOR_SIZE,
-		property: "width",
-		attributes,
-	});
+    const {
+        rangeStylesDesktop: buttonConnectorWidthDesktop,
+        rangeStylesTab: buttonConnectorWidthTab,
+        rangeStylesMobile: buttonConnectorWidthMobile,
+    } = generateResponsiveRangeStyles({
+        controlName: BUTTONS_CONNECTOR_SIZE,
+        property: "width",
+        attributes,
+    });
 
-	const {
-		rangeStylesDesktop: buttonConnectorLineHeightDesktop,
-		rangeStylesTab: buttonConnectorLineHeightTab,
-		rangeStylesMobile: buttonConnectorLineHeightMobile,
-	} = generateResponsiveRangeStyles({
-		controlName: BUTTONS_CONNECTOR_SIZE,
-		property: "line-height",
-		attributes,
-	});
+    const {
+        rangeStylesDesktop: buttonConnectorLineHeightDesktop,
+        rangeStylesTab: buttonConnectorLineHeightTab,
+        rangeStylesMobile: buttonConnectorLineHeightMobile,
+    } = generateResponsiveRangeStyles({
+        controlName: BUTTONS_CONNECTOR_SIZE,
+        property: "line-height",
+        attributes,
+    });
 
-	const {
-		rangeStylesDesktop: buttonConnectorIconSizeDesktop,
-		rangeStylesTab: buttonConnectorIconSizeTab,
-		rangeStylesMobile: buttonConnectorIconSizeMobile,
-	} = generateResponsiveRangeStyles({
-		controlName: BUTTONS_CONNECTOR_ICON_SIZE,
-		property: "font-size",
-		attributes,
-	});
+    const {
+        rangeStylesDesktop: buttonConnectorIconSizeDesktop,
+        rangeStylesTab: buttonConnectorIconSizeTab,
+        rangeStylesMobile: buttonConnectorIconSizeMobile,
+    } = generateResponsiveRangeStyles({
+        controlName: BUTTONS_CONNECTOR_ICON_SIZE,
+        property: "font-size",
+        attributes,
+    });
 
-	// button background styles
-	const {
-		backgroundStylesDesktop: btnOneBg,
-		hoverBackgroundStylesDesktop: btnOneHoverBg,
-		bgTransitionStyle: btnOneBgTransition,
-	} = generateBackgroundControlStyles({
-		attributes,
-		controlName: BUTTON_ONE_BACKGROUND,
-	});
-	const {
-		backgroundStylesDesktop: btnTwoBg,
-		hoverBackgroundStylesDesktop: btnTwoHoverBg,
-		bgTransitionStyle: btnTwoBgTransition,
-	} = generateBackgroundControlStyles({
-		attributes,
-		controlName: BUTTON_TWO_BACKGROUND,
-	});
+    // button background styles
+    const {
+        backgroundStylesDesktop: btnOneBg,
+        hoverBackgroundStylesDesktop: btnOneHoverBg,
+        bgTransitionStyle: btnOneBgTransition,
+    } = generateBackgroundControlStyles({
+        attributes,
+        controlName: BUTTON_ONE_BACKGROUND,
+    });
+    const {
+        backgroundStylesDesktop: btnTwoBg,
+        hoverBackgroundStylesDesktop: btnTwoHoverBg,
+        bgTransitionStyle: btnTwoBgTransition,
+    } = generateBackgroundControlStyles({
+        attributes,
+        controlName: BUTTON_TWO_BACKGROUND,
+    });
 
-	// wrapper styles css in strings ⬇
-	const wrapperStylesDesktop = `
+    // wrapper styles css in strings ⬇
+    const wrapperStylesDesktop = `
 		.eb-button-group-wrapper.${blockId}{
 			display: flex;
 			flex-direction: row;
@@ -212,21 +212,21 @@ export default function Style(props) {
 			${wrapperMarginStylesDesktop}
 		}
 	`;
-	const wrapperStylesTab = `
+    const wrapperStylesTab = `
 		.eb-button-group-wrapper.${blockId}{
 			${wrapperMarginStylesTab}
 
 		}
 	`;
-	const wrapperStylesMobile = `
+    const wrapperStylesMobile = `
 		.eb-button-group-wrapper.${blockId}{
 			${wrapperMarginStylesMobile}
 
 		}
 	`;
 
-	// Buttons Common styles css in strings ⬇
-	const buttonsCommonStyleDesktop = `
+    // Buttons Common styles css in strings ⬇
+    const buttonsCommonStyleDesktop = `
 		.eb-button-group-wrapper.${blockId} .eb-button-parent {
 			${buttonsPaddingStylesDesktop}
 			${buttonsWidthType === "custom" ? buttonWidthStyleDesktop : "width: auto;"}
@@ -240,17 +240,16 @@ export default function Style(props) {
 
 		.eb-button-group-wrapper.${blockId}.preset-4 {
 			width: fit-content;
-			margin: ${
-				contentPosition === "center"
-					? "0 auto;"
-					: contentPosition === "flex-end"
-					? "0 0 0 auto;"
-					: "auto 0;"
-			}
+			margin: ${contentPosition === "center"
+            ? "0 auto;"
+            : contentPosition === "flex-end"
+                ? "0 0 0 auto;"
+                : "auto 0;"
+        }
 		}
 	`;
 
-	const buttonsCommonStyleTab = `
+    const buttonsCommonStyleTab = `
 		.eb-button-group-wrapper.${blockId} .eb-button-parent {
 			${buttonsPaddingStylesTab}
 			${buttonsWidthType === "custom" ? buttonWidthStyleTab : "width: auto;"}
@@ -261,7 +260,7 @@ export default function Style(props) {
 		}
 	`;
 
-	const buttonsCommonStyleMobile = `
+    const buttonsCommonStyleMobile = `
 		.eb-button-group-wrapper.${blockId} .eb-button-parent {
 			${buttonsPaddingStylesMobile}
 			${buttonsWidthType === "custom" ? buttonWidthStyleMobile : "width: auto;"}
@@ -272,8 +271,8 @@ export default function Style(props) {
 		}
 	`;
 
-	// Buttons One styles css in strings ⬇
-	const buttonOneStyleDesktop = `
+    // Buttons One styles css in strings ⬇
+    const buttonOneStyleDesktop = `
 		.eb-button-group-wrapper.${blockId} .eb-button-parent.eb-button-one {
 			${buttonOneBDShadowDesktop}
 			transition:${buttonOneBDShadowtransitionStyle};
@@ -292,7 +291,7 @@ export default function Style(props) {
 			color: ${hoverTextOneColor};
 		}
 	`;
-	const buttonOneStyleTab = `
+    const buttonOneStyleTab = `
 		.eb-button-group-wrapper.${blockId} .eb-button-parent.eb-button-one {
 			${buttonOneBDShadowTab}
 		}
@@ -303,7 +302,7 @@ export default function Style(props) {
 
 		}
 	`;
-	const buttonOneStyleMobile = `
+    const buttonOneStyleMobile = `
 		.eb-button-group-wrapper.${blockId} .eb-button-parent.eb-button-one {
 			${buttonOneBDShadowMobile}
 		}
@@ -315,8 +314,8 @@ export default function Style(props) {
 		}
 	`;
 
-	// Buttons Two styles css in strings ⬇
-	const buttonTwoStyleDesktop = `
+    // Buttons Two styles css in strings ⬇
+    const buttonTwoStyleDesktop = `
 		.eb-button-group-wrapper.${blockId} .eb-button-parent.eb-button-two {
 			${buttonTwoBDShadowDesktop}
 			${buttonGapDesktop}
@@ -336,7 +335,7 @@ export default function Style(props) {
 			color: ${hoverTextTwoColor};
 		}
 	`;
-	const buttonTwoStyleTab = `
+    const buttonTwoStyleTab = `
 		.eb-button-group-wrapper.${blockId} .eb-button-parent.eb-button-two {
 			${buttonTwoBDShadowTab}
 			${buttonGapTab}
@@ -348,7 +347,7 @@ export default function Style(props) {
 
 		}
 	`;
-	const buttonTwoStyleMobile = `
+    const buttonTwoStyleMobile = `
 		.eb-button-group-wrapper.${blockId} .eb-button-parent.eb-button-two {
 			${buttonTwoBDShadowMobile}
 			${buttonGapMobile}
@@ -361,55 +360,47 @@ export default function Style(props) {
 		}
 	`;
 
-	// Connector styles css in strings ⬇
-	const connectorStylesDesktop = `
+    // Connector styles css in strings ⬇
+    const connectorStylesDesktop = `
 		.eb-button-group-wrapper.${blockId} .eb-button-group__midldeInner span {
-			${
-				connectorType === "text"
-					? connectorTypoStylesDesktop
-					: buttonConnectorIconSizeDesktop
-			}
+			${connectorType === "text"
+            ? connectorTypoStylesDesktop
+            : buttonConnectorIconSizeDesktop
+        }
 			${buttonConnectorHeightDesktop}
 			${buttonConnectorWidthDesktop}
 			${buttonConnectorLineHeightDesktop}
-			${
-				connectorType === "icon"
-					? 'font-family: "Font Awesome 5 Brands" !important'
-					: " "
-			};
 			background: ${innerButtonColor};
 			color: ${innerButtonTextColor};
 		}
 	`;
 
-	const connectorStylesTab = `
+    const connectorStylesTab = `
 		.eb-button-group-wrapper.${blockId} .eb-button-group__midldeInner span {
-			${
-				connectorType === "text"
-					? connectorTypoStylesTab
-					: buttonConnectorIconSizeTab
-			}
+			${connectorType === "text"
+            ? connectorTypoStylesTab
+            : buttonConnectorIconSizeTab
+        }
 			${buttonConnectorHeightTab}
 			${buttonConnectorWidthTab}
 			${buttonConnectorLineHeightTab}
 		}
 	`;
 
-	const connectorStylesMobile = `
+    const connectorStylesMobile = `
 		.eb-button-group-wrapper.${blockId} .eb-button-group__midldeInner span {
-			${
-				connectorType === "text"
-					? connectorTypoStylesMobile
-					: buttonConnectorIconSizeMobile
-			}
+			${connectorType === "text"
+            ? connectorTypoStylesMobile
+            : buttonConnectorIconSizeMobile
+        }
 			${buttonConnectorHeightMobile}
 			${buttonConnectorWidthMobile}
 			${buttonConnectorLineHeightMobile}
 		}
 	`;
 
-	// all css styles for large screen width (desktop/laptop) in strings ⬇
-	const desktopAllStyles = softMinifyCssStrings(`
+    // all css styles for large screen width (desktop/laptop) in strings ⬇
+    const desktopAllStyles = softMinifyCssStrings(`
 			${wrapperStylesDesktop}
 			${buttonsCommonStyleDesktop}
 			${buttonOneStyleDesktop}
@@ -417,8 +408,8 @@ export default function Style(props) {
 			${connectorStylesDesktop}
 		`);
 
-	// all css styles for Tab in strings ⬇
-	const tabAllStyles = softMinifyCssStrings(`
+    // all css styles for Tab in strings ⬇
+    const tabAllStyles = softMinifyCssStrings(`
 			${wrapperStylesTab}
 			${buttonsCommonStyleTab}
 			${buttonOneStyleTab}
@@ -426,8 +417,8 @@ export default function Style(props) {
 			${connectorStylesTab}
 		`);
 
-	// all css styles for Mobile in strings ⬇
-	const mobileAllStyles = softMinifyCssStrings(`
+    // all css styles for Mobile in strings ⬇
+    const mobileAllStyles = softMinifyCssStrings(`
 			${wrapperStylesMobile}
 			${buttonsCommonStyleMobile}
 			${buttonOneStyleMobile}

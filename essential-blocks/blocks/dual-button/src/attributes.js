@@ -120,6 +120,7 @@ const attributes = {
     },
     innerButtonIcon: {
         type: "string",
+        default: "fas fa-arrows-alt-h",
     },
     showConnector: {
         type: "boolean",

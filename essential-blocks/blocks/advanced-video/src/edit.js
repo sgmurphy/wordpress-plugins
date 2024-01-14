@@ -26,6 +26,7 @@ import { isEmpty } from "lodash";
 
 const {
     duplicateBlockIdFix,
+    EBDisplayIcon
 } = window.EBControls;
 
 import Style from "./style";
@@ -101,7 +102,7 @@ export default function Edit(props) {
             if (placeholderCustomPlayIconType == "image") {
                 setVideoPlayIcon(<img src={customPlayIconURL} />);
             } else {
-                setVideoPlayIcon(<i className={customPlayIconlib}></i>);
+                setVideoPlayIcon(<EBDisplayIcon icon={customPlayIconlib} />);
             }
         } else {
             setVideoPlayIcon(null);
@@ -176,7 +177,7 @@ export default function Edit(props) {
                                 >
                                     {lightboxPlayIcon && (
                                         <>
-                                            {lightboxPlayIconType == "icon" && <i className={lightboxPlayIconlib} />}
+                                            {lightboxPlayIconType == "icon" && <EBDisplayIcon icon={lightboxPlayIconlib} />}
                                             {lightboxPlayIconType == "image" && placeholderPlayIconURL && (
                                                 <img src={placeholderPlayIconURL} alt="" />
                                             )}

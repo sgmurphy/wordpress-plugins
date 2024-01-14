@@ -82,7 +82,7 @@ class OpenVerse extends ThirdPartyIntegration {
         $response_array = is_object( $response ) ? get_object_vars( $response ) : $response;
 
         if ( isset( $response_array['client_id'], $response_array['client_secret'], $response_array['name'] ) ) {
-            $this->settings()->save(
+            $this->settings()->save_eb_settings(
                 'openverseApi',
                 [
                     'client_id'     => $response_array['client_id'],

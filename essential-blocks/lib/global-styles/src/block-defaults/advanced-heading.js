@@ -16,13 +16,7 @@ import {
     ColorPicker,
 } from "@wordpress/components";
 
-/**
- * External depencencies
- */
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
-
 const {
-    faIcons,
     ResponsiveDimensionsControl,
     TypographyDropdown,
     BorderShadowControl,
@@ -30,6 +24,7 @@ const {
     BackgroundControl,
     AdvancedControls,
     ColorControl,
+    EBIconPicker
 } = window.EBControls;
 
 /**
@@ -391,18 +386,18 @@ function AdvancedHeading(props) {
 
                             {seperatorType === "icon" && (
                                 <>
-                                    <BaseControl label={__("Icon", "essential-blocks")}>
-                                        <FontIconPicker
-                                            icons={faIcons}
-                                            value={separatorIcon}
-                                            onChange={(icon) =>
-                                                handleBlockDefault({
-                                                    separatorIcon: icon,
-                                                })
-                                            }
-                                            appendTo="body"
-                                        />
-                                    </BaseControl>
+                                    <EBIconPicker
+                                        value={separatorIcon}
+                                        onChange={(icon) =>
+                                            handleBlockDefault({
+                                                separatorIcon: icon,
+                                            })
+                                        }
+                                        title={__(
+                                            "Select Icon",
+                                            "essential-blocks-pro"
+                                        )}
+                                    />
                                     <ResponsiveRangeController
                                         baseLabel={__("Icon Size", "essential-blocks")}
                                         controlName={SEPARATOR_ICON_SIZE}
@@ -472,8 +467,8 @@ function AdvancedHeading(props) {
                             <BorderShadowControl
                                 controlName={WRAPPER_BORDER_SHADOW}
                                 resRequiredProps={resRequiredProps}
-                                // noShadow
-                                // noBorder
+                            // noShadow
+                            // noBorder
                             />
                         </PanelBody>
                     </PanelBody>

@@ -6,7 +6,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
     Class: ChildThemeConfiguratorCSS
     Plugin URI: http://www.childthemeplugin.com/
     Description: Handles all CSS input, output, parsing, normalization and storage
-    Version: 2.6.3
+    Version: 2.6.4
     Author: Lilaea Media
     Author URI: http://www.lilaeamedia.com/
     Text Domain: chld_thm_cfg
@@ -172,7 +172,7 @@ class ChildThemeConfiguratorCSS {
         $this->ignoreparnt      = 0;
         $this->qpriority        = 10;
         $this->mpriority        = 10;
-        $this->version          = '2.6.3';
+        $this->version          = '2.6.4';
         
         // do not set enqueue, not being set is used to flag old versions
 
@@ -1114,7 +1114,7 @@ class ChildThemeConfiguratorCSS {
      * FIXME - this function has grown too monolithic - refactor and componentize
      * FIXME - migrate to event parser? handle comments?
      */
-    function parse_css( $template, $basequery = NULL, $parse_imports = TRUE, $relpath = '', $reset = FALSE ) {
+    function parse_css( $template, $basequery = '', $parse_imports = TRUE, $relpath = '', $reset = FALSE ) {
         //$this->load_config( 'sel_ndx' );
         $this->load_config( 'val_ndx' );
         $this->load_config( 'dict_query' );

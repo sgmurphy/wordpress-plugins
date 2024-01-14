@@ -153,7 +153,7 @@ const attributes = {
         type: "number",
     },
 
-    //
+    // cant delete it as we migrate it to infoboxIcon attribute
     selectedIcon: {
         type: "string",
         source: "attribute",
@@ -161,6 +161,10 @@ const attributes = {
         attribute: "data-icon",
         default: "far fa-gem",
         // default: "far fa-sun",
+    },
+    infoboxIcon: {
+        type: "string",
+        default: "far fa-gem",
     },
 
     //

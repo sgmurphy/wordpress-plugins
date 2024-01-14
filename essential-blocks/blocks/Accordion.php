@@ -40,7 +40,8 @@ class Accordion extends Block {
     public function register_scripts() {
         $this->assets_manager->register(
             'accordion-frontend',
-            $this->path() . '/frontend/index.js'
+            $this->path() . '/frontend/index.js',
+            ['essential-blocks-controls-frontend']
         );
     }
 }

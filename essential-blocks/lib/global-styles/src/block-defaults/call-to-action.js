@@ -13,19 +13,14 @@ import {
     ToggleControl,
 } from "@wordpress/components";
 
-/**
- * External depencencies
- */
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
-
 const {
-    faIcons: iconList,
     ColorControl,
     ResponsiveDimensionsControl,
     TypographyDropdown,
     BackgroundControl,
     BorderShadowControl,
     ResponsiveRangeController,
+    EBIconPicker
 } = window.EBControls;
 
 /**
@@ -191,14 +186,10 @@ function CallToAction(props) {
                 <div className="eb-panel-control">
                     {showIcon && (
                         <PanelBody title={__("Icon Settings", "essential-blocks")} initialOpen={true}>
-                            <BaseControl>
-                                <FontIconPicker
-                                    icons={iconList}
-                                    value={icon}
-                                    onChange={(icon) => handleBlockDefault({ icon })}
-                                    appendTo="body"
-                                />
-                            </BaseControl>
+                            <EBIconPicker
+                                value={icon}
+                                onChange={(icon) => handleBlockDefault({ icon })}
+                            />
                             <ResponsiveRangeController
                                 baseLabel={__("Size", "essential-blocks")}
                                 controlName={ICON_SIZE}

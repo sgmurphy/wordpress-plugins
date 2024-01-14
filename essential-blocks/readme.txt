@@ -4,7 +4,7 @@ Tags: block, gutenberg, blocks, gutenberg blocks, editor, button, post grid, TOC
 Requires at least: 5.8
 Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 4.4.7
+Stable tag: 4.4.8
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -130,7 +130,8 @@ Design without limits in WordPress block editor, using 50+ of the most useful Es
 - **[Fancy Chart (PRO)](https://essential-blocks.com/demo/fancy-chart)** - Design visually stunning & interactive charts to bring life to dull datasets
 - **[Multicolumn Pricing Table (PRO)](https://essential-blocks.com/demo/multicolumn-pricing-table)** - Use a variety of layouts to impact your customers to choose the pricing best plan by showcasing comparison table by mentioning features, displaying icons, and so on
 - **[Stacked Cards (PRO)](https://essential-blocks.com/demo/stacked-cards)** - Display your content in a unique style with the EB Stacked Cards block. With this block, you can easily make your stacked cards sticky in place and provide users an interactive experience when they scroll through your website
-- **[Testimonial Slide (PRO)](https://essential-blocks.com/demo/testimonial-slider)** - Display engaging and credible customer testimonials, reviews and ratings in a sleek slider format to build trust and encourage conversions
+- **[Testimonial Slider (PRO)](https://essential-blocks.com/demo/testimonial-slider)** - Display engaging and credible customer testimonials, reviews and ratings in a sleek slider format to build trust and encourage conversions
+- **[Offcanvas (PRO)](https://essential-blocks.com/demo/offcanvas/)** - Showcase a sidebar menu on your Gutenberg site using the Offcanvas block and grab visitors’ attention with various stunning transitions & effects
 
 More blocks and demos coming soon (weekly update)
 
@@ -221,6 +222,11 @@ Yes, you can effortlessly display your WooCommerce products on your store websit
 If you found the recent version of Essential Blocks isn’t working or conflicting with other plugins, then you can use earlier versions of the plugin.
 
 == Changelog ==
+
+= 4.4.8 - 14/01/2024
+- Added: New **Icon Picker** with FontAwesome v6 and Dashicon support
+- Fixed: **Team Member** block preset 5 issue
+- Fixed: **Openverse** block image loading issue
 
 = 4.4.7 - 08/01/2024
 - Improved: Security Enhancement

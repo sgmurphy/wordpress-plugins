@@ -14,6 +14,7 @@ const { times } = lodash;
 
 const {
     duplicateBlockIdFix,
+    EBDisplayIcon
 } = EBControls;
 
 import classnames from "classnames";
@@ -50,8 +51,6 @@ export default function Edit(props) {
     const activeDefaultTabId = (
         tabTitles.find((item) => item.isDefault) || { id: "1" }
     ).id;
-
-
 
     const handleTabTitleClick = (id) => {
         setIsClickTab(true);
@@ -209,9 +208,7 @@ export default function Edit(props) {
                                                 <>
                                                     {item.media === "icon" &&
                                                         item.icon && (
-                                                            <span
-                                                                className={`tabIcon ${item.icon}`}
-                                                            />
+                                                            <EBDisplayIcon icon={item.icon} />
                                                         )}
                                                     {item.media === "image" &&
                                                         item.imgUrl && (

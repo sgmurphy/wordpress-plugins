@@ -77,7 +77,7 @@ export default function Edit(props) {
             },
             {
                 title: "Twitter",
-                icon: "fab fa-twitter",
+                icon: "fab fa-x-twitter",
                 color: "#fff",
                 bgColor: "#A0A8BD",
                 link: "",

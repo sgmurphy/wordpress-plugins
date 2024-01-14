@@ -24,6 +24,7 @@ import Inspector from "./inspector";
 const {
     duplicateBlockIdFix,
     DynamicInputValueHandler,
+    EBDisplayIcon
 } = window.EBControls;
 
 import Style from "./style";
@@ -102,12 +103,13 @@ export default function Edit(props) {
                         {displaySeperator && seperatorPosition === "top" && (
                             <div className={"eb-ah-separator " + seperatorType}>
                                 {seperatorType === "icon" && (
-                                    <i
-                                        className={`${separatorIcon
-                                            ? separatorIcon
-                                            : "fas fa-arrow-circle-down"
-                                            }`}
-                                    ></i>
+                                    // <i
+                                    //     className={`${separatorIcon
+                                    //         ? separatorIcon
+                                    //         : "fas fa-arrow-circle-down"
+                                    //         }`}
+                                    // ></i>
+                                    <EBDisplayIcon icon={separatorIcon} />
                                 )}
                             </div>
                         )}
@@ -152,12 +154,13 @@ export default function Edit(props) {
                         {displaySeperator && seperatorPosition === "bottom" && (
                             <div className={"eb-ah-separator " + seperatorType}>
                                 {seperatorType === "icon" && (
-                                    <i
-                                        className={`${separatorIcon
-                                            ? separatorIcon
-                                            : "fas fa-arrow-circle-down"
-                                            }`}
-                                    ></i>
+                                    // <i
+                                    //     className={`${separatorIcon
+                                    //         ? separatorIcon
+                                    //         : "fas fa-arrow-circle-down"
+                                    //         }`}
+                                    // ></i>
+                                    <EBDisplayIcon icon={separatorIcon} />
                                 )}
                             </div>
                         )}

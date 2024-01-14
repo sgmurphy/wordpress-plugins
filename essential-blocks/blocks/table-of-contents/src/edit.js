@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from "@wordpress/i18n";
-import { useState, useEffect, useMemo } from "@wordpress/element";
+import { renderToString, useEffect, useMemo } from "@wordpress/element";
 import { compose } from "@wordpress/compose";
 import {
     BlockControls,
@@ -26,6 +26,7 @@ import striptags from "striptags";
 const {
     duplicateBlockIdFix,
     DynamicInputValueHandler,
+    EBDisplayIcon
 } = window.EBControls;
 
 import { parseTocSlug } from "./helper";
@@ -205,7 +206,8 @@ function Edit(props) {
         }
 
         const goTop = document.createElement("span");
-        goTop.innerHTML = `<i class="${scrollToTopIcon}"></i>`;
+        goTop.innerHTML = renderToString(<EBDisplayIcon icon={scrollToTopIcon} />);
+
         goTop.setAttribute("class", "eb-toc-go-top ");
         goTop.style.right = "300px";
         document.body.insertBefore(goTop, document.body.lastChild);

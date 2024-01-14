@@ -649,7 +649,7 @@ class WP_Members_Shortcodes {
 		$fields = wpmem_fields();
 
 		// Additional fields from $user_info that are allowed by default.
-		$allowed_fields = array_merge( array( 'ID', 'user_registered', 'user_url', 'description', 'display_name' ), array_keys( $fields ) );
+		$allowed_fields = array_merge( array( 'ID', 'user_login', 'user_email', 'user_registered', 'user_url', 'description', 'display_name' ), array_keys( $fields ) );
 
 		// Remove some (it won't ever get here for these, but just so they don't show up in the filter array to confuse someone).
 		unset( $allowed_fields['password'] );

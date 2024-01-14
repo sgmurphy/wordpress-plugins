@@ -23,7 +23,6 @@ import { doAction, applyFilters } from "@wordpress/hooks";
  * External Dependencies
  */
 import Select2 from "react-select";
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 
 /**
  * Internal depencencies
@@ -93,6 +92,7 @@ const {
     AdvancedControls,
     faArrowIcons,
     DynamicInputControl,
+    EBIconPicker
 } = window.EBControls;
 
 function Inspector(props) {
@@ -1480,30 +1480,28 @@ function Inspector(props) {
 
                                     {arrows && (
                                         <PanelBody title={__("Arrow", "essential-blocks")} initialOpen={false}>
-                                            <BaseControl label={__("Left Arrow Icon", "essential-blocks")}>
-                                                <FontIconPicker
-                                                    icons={faArrowIcons}
-                                                    value={leftArrowIcon}
-                                                    onChange={(icon) =>
-                                                        setAttributes({
-                                                            leftArrowIcon: icon,
-                                                        })
-                                                    }
-                                                    appendTo="body"
-                                                />
-                                            </BaseControl>
-                                            <BaseControl label={__("Right Arrow Icon", "essential-blocks")}>
-                                                <FontIconPicker
-                                                    icons={faArrowIcons}
-                                                    value={rightArrowIcon}
-                                                    onChange={(icon) =>
-                                                        setAttributes({
-                                                            rightArrowIcon: icon,
-                                                        })
-                                                    }
-                                                    appendTo="body"
-                                                />
-                                            </BaseControl>
+                                            <EBIconPicker
+                                                value={leftArrowIcon}
+                                                onChange={(icon) =>
+                                                    setAttributes({
+                                                        leftArrowIcon: icon,
+                                                    })
+                                                }
+                                                title={__("Left Arrow Icon", "essential-blocks")}
+                                                icons={{ fontAwesome: faArrowIcons }}
+                                                disableDashicon={true}
+                                            />
+                                            <EBIconPicker
+                                                value={rightArrowIcon}
+                                                onChange={(icon) =>
+                                                    setAttributes({
+                                                        rightArrowIcon: icon,
+                                                    })
+                                                }
+                                                title={__("Right Arrow Icon", "essential-blocks")}
+                                                icons={{ fontAwesome: faArrowIcons }}
+                                                disableDashicon={true}
+                                            />
                                             <ButtonGroup className="eb-inspector-btn-group">
                                                 {NORMAL_HOVER.map((item, index) => (
                                                     <Button

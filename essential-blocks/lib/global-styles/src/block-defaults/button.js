@@ -14,11 +14,6 @@ import {
     __experimentalDivider as Divider,
 } from "@wordpress/components";
 
-/**
- * External depencencies
- */
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
-
 const {
     ColorControl,
     ResponsiveRangeController,
@@ -27,6 +22,7 @@ const {
     BackgroundControl,
     faIcons,
     BorderShadowControl,
+    EBIconPicker,
 } = window.EBControls;
 
 /**
@@ -206,15 +202,10 @@ function EBButton(props) {
                         />
                         {addIcon && (
                             <>
-                                <BaseControl label={__("Select Icon", "essential-blocks")}>
-                                    <FontIconPicker
-                                        icons={faIcons}
-                                        value={icon}
-                                        onChange={(icon) => handleBlockDefault({ icon })}
-                                        appendTo="body"
-                                        closeOnSelect
-                                    />
-                                </BaseControl>
+                                <EBIconPicker
+                                    value={icon}
+                                    onChange={(icon) => handleBlockDefault({ icon })}
+                                />
                                 <BaseControl label={__("Icon Postion", "essential-blocks")}>
                                     <ButtonGroup id="eb-button-group-alignment">
                                         {ICON_POSITION.map((item, index) => (
@@ -298,7 +289,7 @@ function EBButton(props) {
                     {/* Advanced */}
                     <PanelBody
                         title={__("Wrapper Margin", "essential-blocks")}
-                        // initialOpen={true}
+                    // initialOpen={true}
                     >
                         <ResponsiveDimensionsControl
                             resRequiredProps={resRequiredProps}

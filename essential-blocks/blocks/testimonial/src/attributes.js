@@ -40,6 +40,14 @@ const attributes = {
     blockMeta: {
         type: "object",
     },
+    layoutPreset: {
+        type: "string",
+        default: "layout-preset-1",
+    },
+    imageOverlayColor: {
+        type: "string",
+        default: "var(--eb-global-primary-color)",
+    },
     avaterContainerFontSize: {
         type: "number",
         default: 16,

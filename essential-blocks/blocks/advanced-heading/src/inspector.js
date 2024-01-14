@@ -2,26 +2,17 @@
  * WordPress dependencies
  */
 import { __ } from "@wordpress/i18n";
-import { useEffect } from "@wordpress/element";
 import { InspectorControls } from "@wordpress/block-editor";
 import {
     PanelBody,
     SelectControl,
     ToggleControl,
-    TextControl,
-    TextareaControl,
     Button,
     ButtonGroup,
     BaseControl,
     TabPanel,
 } from "@wordpress/components";
-import { select } from "@wordpress/data";
-import { doAction, applyFilters } from "@wordpress/hooks";
-
-/**
- * External depencencies
- */
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
+import { applyFilters } from "@wordpress/hooks";
 
 /**
  * Internal depencencies
@@ -38,7 +29,6 @@ import {
     SEPARATOR_ICON_SIZE,
     SEPARATOR_WIDTH,
     SEPARATOR_POSITION,
-    NORMAL_HOVER,
     UNIT_TYPES,
     SEPARATOR_UNIT_TYPES,
     PRESETS,
@@ -49,7 +39,6 @@ import {
 } from "./constants/constants";
 import { TITLE_TYPOGRAPHY, SUBTITLE_TYPOGRAPHY } from "./constants/typographyPrefixConstants";
 const {
-    faIcons,
     ResponsiveDimensionsControl,
     TypographyDropdown,
     BorderShadowControl,
@@ -58,6 +47,7 @@ const {
     AdvancedControls,
     DynamicInputControl,
     ColorControl,
+    EBIconPicker
 } = window.EBControls;
 
 import objAttributes from "./attributes";
@@ -415,14 +405,14 @@ function Inspector(props) {
 
                                             {seperatorType === "icon" && (
                                                 <>
-                                                    <BaseControl label={__("Icon", "essential-blocks")}>
-                                                        <FontIconPicker
-                                                            icons={faIcons}
-                                                            value={separatorIcon}
-                                                            onChange={(icon) => setAttributes({ separatorIcon: icon })}
-                                                            appendTo="body"
-                                                        />
-                                                    </BaseControl>
+                                                    <EBIconPicker
+                                                        value={separatorIcon}
+                                                        onChange={(icon) =>
+                                                            setAttributes({
+                                                                separatorIcon: icon,
+                                                            })
+                                                        }
+                                                    />
                                                     <ResponsiveRangeController
                                                         baseLabel={__("Icon Size", "essential-blocks")}
                                                         controlName={SEPARATOR_ICON_SIZE}
@@ -489,8 +479,8 @@ function Inspector(props) {
                                         <BorderShadowControl
                                             controlName={WRAPPER_BORDER_SHADOW}
                                             resRequiredProps={resRequiredProps}
-                                            // noShadow
-                                            // noBorder
+                                        // noShadow
+                                        // noBorder
                                         />
                                     </PanelBody>
 

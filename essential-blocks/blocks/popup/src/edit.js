@@ -9,6 +9,7 @@ import { select } from "@wordpress/data";
 const {
     duplicateBlockIdFix,
     DynamicInputValueHandler,
+    EBDisplayIcon
 } = window.EBControls;
 
 import Style from "./style";
@@ -96,9 +97,10 @@ const Edit = (props) => {
                                                         "left" ===
                                                         iconPosition && (
                                                             <>
-                                                                <i
-                                                                    className={`${btnIcon} eb-popup-button-icon eb-popup-button-icon-left`}
-                                                                ></i>
+                                                                <EBDisplayIcon
+                                                                    classNam={`eb-popup-button-icon eb-popup-button-icon-left`}
+                                                                    icon={btnIcon}
+                                                                />
                                                             </>
                                                         )}
                                                     <DynamicInputValueHandler
@@ -124,18 +126,17 @@ const Edit = (props) => {
                                                         "right" ===
                                                         iconPosition && (
                                                             <>
-                                                                <i
-                                                                    className={`${btnIcon} eb-popup-button-icon eb-popup-button-icon-right`}
-                                                                ></i>
+                                                                <EBDisplayIcon
+                                                                    classNam={`eb-popup-button-icon eb-popup-button-icon-right`}
+                                                                    icon={btnIcon}
+                                                                />
                                                             </>
                                                         )}
                                                 </>
                                             )}
                                             {"icon" === btnType && (
                                                 <>
-                                                    <i
-                                                        className={`${triggerIcon} eb-popup-icon`}
-                                                    ></i>
+                                                    <EBDisplayIcon classNam={`eb-popup-icon`} icon={triggerIcon} />
                                                 </>
                                             )}
                                         </a>

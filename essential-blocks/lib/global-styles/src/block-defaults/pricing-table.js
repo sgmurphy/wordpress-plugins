@@ -58,16 +58,15 @@ import {
     typoPrefix_ribbon,
 } from "../../../../blocks/pricing-table/src/constants/typographyPrefixConstants";
 import objAttributes from "../../../../blocks/pricing-table/src/attributes";
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 
 const {
-    faIcons,
     ColorControl,
     ResponsiveRangeController,
     ResponsiveDimensionsControl,
     TypographyDropdown,
     BackgroundControl,
     BorderShadowControl,
+    EBIconPicker
 } = window.EBControls;
 
 function PricingTable(props) {
@@ -298,15 +297,11 @@ function PricingTable(props) {
                             }}
                         />
                         {showHeaderIcon && (
-                            <BaseControl label={__("Icon", "essential-blocks")}>
-                                <FontIconPicker
-                                    icons={faIcons}
-                                    value={headerIcon}
-                                    onChange={(headerIcon) => handleBlockDefault({ headerIcon })}
-                                    appendTo="body"
-                                    closeOnSelect
-                                />
-                            </BaseControl>
+                            <EBIconPicker
+                                value={headerIcon}
+                                onChange={(headerIcon) => handleBlockDefault({ headerIcon })}
+                                title={__("Select Icon", "essential-blocks")}
+                            />
                         )}
                         {pricingStyle !== "style-4" && (
                             <ToggleControl
@@ -410,15 +405,11 @@ function PricingTable(props) {
                                 handleBlockDefault({ showButton: !showButton });
                             }}
                         />
-                        <BaseControl label={__("Button Icon", "essential-blocks")}>
-                            <FontIconPicker
-                                icons={faIcons}
-                                value={buttonIcon}
-                                onChange={(buttonIcon) => handleBlockDefault({ buttonIcon })}
-                                appendTo="body"
-                                closeOnSelect
-                            />
-                        </BaseControl>
+                        <EBIconPicker
+                            value={buttonIcon}
+                            onChange={(buttonIcon) => handleBlockDefault({ buttonIcon })}
+                            title={__("Button Icon", "essential-blocks")}
+                        />
                         <SelectControl
                             label={__("Icon Position", "essential-blocks")}
                             value={buttonIconPosition}

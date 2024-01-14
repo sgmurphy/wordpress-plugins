@@ -21,6 +21,26 @@ window.addEventListener("DOMContentLoaded", function () {
         return decodeURIComponent(encodeURIComponent(parsedSlug));
     };
 
+    let ebGetIconType = (value) => {
+        if (value.includes('fa-')) {
+            return 'fontawesome';
+        }
+        return 'dashicon';
+    }
+
+    let ebRenderIcon = (iconType, className, icon) => {
+        if (iconType === 'dashicon') {
+            // Render Dashicon
+            return '<span class="dashicon dashicons ' + icon + ' ' + className + '"></span>';
+        } else if (iconType === 'fontawesome') {
+            // Render FontAwesome icon
+            return '<i class="' + icon + ' ' + className + '"></i>';
+        }
+
+        // Handle other icon types or return an error message if needed.
+        return 'Invalid icon type';
+    }
+
     const EBTableOfContents = {
         init: function () {
             this._run();
@@ -117,8 +137,7 @@ window.addEventListener("DOMContentLoaded", function () {
                 // Create go to top element
                 const goTop = document.createElement("span");
                 goTop.setAttribute("class", "eb-toc-go-top");
-                // goTop.setAttribute("class", " ");
-                goTop.innerHTML = `<i class="${scrollIcon}"></i>`;
+                goTop.innerHTML = ebRenderIcon(ebGetIconType(scrollIcon), '', scrollIcon);
                 document.body.insertBefore(goTop, document.body.lastChild);
 
                 // Add click event

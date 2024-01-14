@@ -23,7 +23,8 @@ import Inspector from "./inspector";
 
 const {
     duplicateBlockIdFix,
-    DynamicInputValueHandler
+    DynamicInputValueHandler,
+    EBDisplayIcon
 } = window.EBControls;
 import Style from "./style";
 
@@ -97,9 +98,10 @@ const edit = (props) => {
                                     }`}
                             >
                                 {addIcon && iconPosition === "left" ? (
-                                    <i
-                                        className={`${icon} eb-button-icon eb-button-icon-left hvr-icon`}
-                                    ></i>
+                                    <EBDisplayIcon
+                                        icon={icon}
+                                        className={`eb-button-icon eb-button-icon-left hvr-icon`}
+                                    />
                                 ) : (
                                     ""
                                 )}
@@ -115,9 +117,10 @@ const edit = (props) => {
                                     ]}
                                 />
                                 {addIcon && iconPosition === "right" ? (
-                                    <i
-                                        className={`${icon} eb-button-icon eb-button-icon-right hvr-icon`}
-                                    ></i>
+                                    <EBDisplayIcon
+                                        icon={icon}
+                                        className={`eb-button-icon eb-button-icon-left hvr-icon`}
+                                    />
                                 ) : (
                                     ""
                                 )}

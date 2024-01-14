@@ -18,11 +18,9 @@ import {
     __experimentalDivider as Divider,
 } from "@wordpress/components";
 import { unescape as unescapeString } from "lodash";
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 /**
  * Internal dependencies
  */
-
 import Select2 from "react-select";
 
 import objAttributes from "./attributes";
@@ -37,6 +35,7 @@ const {
     ResetControl,
     AdvancedControls,
     DynamicInputControl,
+    EBIconPicker
 } = window.EBControls;
 
 import {
@@ -466,23 +465,14 @@ const Inspector = ({ attributes, setAttributes, deleteHeaders }) => {
                                         {scrollToTop && (
                                             <>
                                                 <Divider />
-                                                <BaseControl
-                                                    label={__(
-                                                        "Icon",
-                                                        "essential-blocks"
-                                                    )}
-                                                >
-                                                    <FontIconPicker
-                                                        icons={faIcons}
-                                                        value={scrollToTopIcon}
-                                                        onChange={(icon) =>
-                                                            setAttributes({
-                                                                scrollToTopIcon: icon,
-                                                            })
-                                                        }
-                                                        appendTo="body"
-                                                    />
-                                                </BaseControl>
+                                                <EBIconPicker
+                                                    value={scrollToTopIcon}
+                                                    onChange={(scrollToTopIcon) =>
+                                                        setAttributes({
+                                                            scrollToTopIcon,
+                                                        })
+                                                    }
+                                                />
                                                 {!isSticky && (
                                                     <SelectControl
                                                         label={__(
@@ -561,7 +551,7 @@ const Inspector = ({ attributes, setAttributes, deleteHeaders }) => {
                                     {typeof eb_conditional_localize !==
                                         "undefined" &&
                                         eb_conditional_localize?.editor_type !==
-                                            "edit-site" && (
+                                        "edit-site" && (
                                             <PanelBody
                                                 title={__(
                                                     "Exclude Headings",
@@ -762,10 +752,9 @@ const Inspector = ({ attributes, setAttributes, deleteHeaders }) => {
                                         <div className="wrap-width-range-fix-style">
                                             <ResponsiveRangeController
                                                 baseLabel={__(
-                                                    `${
-                                                        isSticky
-                                                            ? "Sticky max width"
-                                                            : "Container max width"
+                                                    `${isSticky
+                                                        ? "Sticky max width"
+                                                        : "Container max width"
                                                     }`
                                                 )}
                                                 controlName={wrapMaxWidthPrefix}
@@ -1015,7 +1004,7 @@ const Inspector = ({ attributes, setAttributes, deleteHeaders }) => {
                                 <>
                                     <PanelBody
                                         title={__("Margin & Padding")}
-                                        // initialOpen={true}
+                                    // initialOpen={true}
                                     >
                                         <ResponsiveDimensionsControl
                                             resRequiredProps={resRequiredProps}
@@ -1054,8 +1043,8 @@ const Inspector = ({ attributes, setAttributes, deleteHeaders }) => {
                                         <BorderShadowControl
                                             controlName={WrpBdShadowConst}
                                             resRequiredProps={resRequiredProps}
-                                            // noShadow
-                                            // noBorder
+                                        // noShadow
+                                        // noBorder
                                         />
                                     </PanelBody>
 

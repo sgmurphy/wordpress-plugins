@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from "@wordpress/i18n";
-import { RichText, useBlockProps } from "@wordpress/block-editor";
+import { useBlockProps } from "@wordpress/block-editor";
 import { useEffect } from "@wordpress/element";
 import { select } from "@wordpress/data";
 
@@ -16,41 +16,23 @@ import Inspector from "./inspector";
 import Style from "./style";
 
 const {
-    softMinifyCssStrings,
-    generateTypographyStyles,
-    generateDimensionsControlStyles,
-    generateBorderShadowStyles,
-    generateResponsiveRangeStyles,
-    generateBackgroundControlStyles,
-    // mimmikCssForPreviewBtnClick,
     duplicateBlockIdFix,
-    DynamicInputValueHandler
+    DynamicInputValueHandler,
+    EBDisplayIcon
 } = window.EBControls;
 
 export default function Edit(props) {
     const { attributes, setAttributes, className, clientId, isSelected, name } = props;
     const {
         blockId,
-        blockMeta,
-        // responsive control attribute ⬇
-        resOption,
         preset,
-        contentPosition,
         buttonTextOne,
         buttonTextTwo,
-        textOneColor,
-        hoverTextOneColor,
-        textTwoColor,
-        hoverTextTwoColor,
         innerButtonText,
-        innerButtonColor,
-        innerButtonTextColor,
         innerButtonIcon,
         showConnector,
         connectorType,
-        buttonTextAlign,
         classHook,
-        buttonsWidthType,
     } = attributes;
 
     // this useEffect is for creating a unique id for each block's unique className by a random unique number
@@ -115,15 +97,9 @@ export default function Edit(props) {
                             >
                                 {connectorType === "icon" && (
                                     <span>
-                                        <i
-                                            className={`${innerButtonIcon
-                                                    ? innerButtonIcon
-                                                    : "fas fa-arrows-alt-h"
-                                                }`}
-                                        ></i>
+                                        <EBDisplayIcon icon={innerButtonIcon} />
                                     </span>
                                 )}
-
                                 {connectorType === "text" && <span>{innerButtonText}</span>}
                             </div>
                         )}

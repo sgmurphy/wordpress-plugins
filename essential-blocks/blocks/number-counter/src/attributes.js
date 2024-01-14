@@ -194,13 +194,13 @@ export default {
     //
     iconBgColor: {
         type: "string",
-        default: "var(--eb-global-background-color",
+        default: "var(--eb-global-background-color)",
     },
 
     //
     iconBgGradient: {
         type: "string",
-        default: "var(--eb-global-background-color",
+        default: "var(--eb-global-background-color)",
     },
 
     //

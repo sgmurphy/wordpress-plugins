@@ -598,5 +598,16 @@ return [
         'demo'       => ESSENTIAL_BLOCKS_SITE_URL . 'demo/testimonial-slider/',
         'doc'        => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-testimonial-slider',
         'icon'       => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks-icon/testimonial-slider.svg'
-    ]
+    ],
+    'off_canvas'             => [
+        'label'      => __( 'Offcanvas', 'essential-blocks' ),
+        'value'      => 'off_canvas',
+        'visibility' => 'true',
+        'status'     => 'new',
+        'category'   => 'content',
+        'is_pro'     => true,
+        'demo'       => ESSENTIAL_BLOCKS_SITE_URL . 'demo/offcanvas/',
+        'doc'        => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-offcanvas/',
+        'icon'       => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks-icon/offcanvas.svg'
+    ],
 ];

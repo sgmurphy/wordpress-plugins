@@ -19,6 +19,7 @@ import Style from "./style";
 const {
     textInsideForEdit,
     duplicateBlockIdFix,
+    EBDisplayIcon
 } = window.EBControls;
 
 const Edit = (props) => {
@@ -146,10 +147,7 @@ const Edit = (props) => {
                         {media === "icon" ? (
                             <div className="icon-img-wrapper">
                                 <div className="eb-icon ">
-                                    <span
-                                        data-icon={selectedIcon}
-                                        className={`eb-counter-icon-data-selector  ${selectedIcon}`}
-                                    ></span>
+                                    <EBDisplayIcon icon={selectedIcon} className={`eb-counter-icon-data-selector`} />
                                 </div>
                             </div>
                         ) : null}

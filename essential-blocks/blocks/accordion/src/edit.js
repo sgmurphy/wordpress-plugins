@@ -12,6 +12,7 @@ const ALLOWED_BLOCKS = ["essential-blocks/accordion-item"];
 
 const {
     duplicateBlockIdFix,
+    EBDisplayIcon
 } = window.EBControls;
 
 /**
@@ -28,15 +29,11 @@ const Edit = (props) => {
         setAttributes,
         className,
         isSelected,
-        clientId,
-        name
+        clientId
     } = props;
     const {
-        resOption,
         blockId,
-        blockMeta,
         classHook,
-        //
         accordionType,
         displayIcon,
         tabIcon,

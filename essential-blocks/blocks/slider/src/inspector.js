@@ -19,8 +19,6 @@ import {
     BaseControl,
     __experimentalDivider as Divider,
 } from "@wordpress/components";
-import { select } from "@wordpress/data";
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 
 /*
  * Internal depencencies
@@ -84,6 +82,7 @@ const {
     AdvancedControls,
     stripHtmlTags,
     faArrowIcons,
+    EBIconPicker
 } = window.EBControls;
 
 function Inspector(props) {
@@ -306,40 +305,28 @@ function Inspector(props) {
 
                                         {arrows && (
                                             <>
-                                                <BaseControl
-                                                    label={__(
-                                                        "Arrow Prev Icon",
-                                                        "essential-blocks"
-                                                    )}
-                                                >
-                                                    <FontIconPicker
-                                                        icons={faArrowIcons}
-                                                        value={arrowPrevIcon}
-                                                        onChange={(icon) =>
-                                                            setAttributes({
-                                                                arrowPrevIcon: icon,
-                                                            })
-                                                        }
-                                                        appendTo="body"
-                                                    />
-                                                </BaseControl>
-                                                <BaseControl
-                                                    label={__(
-                                                        "Arrow Next Icon",
-                                                        "essential-blocks"
-                                                    )}
-                                                >
-                                                    <FontIconPicker
-                                                        icons={faArrowIcons}
-                                                        value={arrowNextIcon}
-                                                        onChange={(icon) =>
-                                                            setAttributes({
-                                                                arrowNextIcon: icon,
-                                                            })
-                                                        }
-                                                        appendTo="body"
-                                                    />
-                                                </BaseControl>
+                                                <EBIconPicker
+                                                    value={arrowPrevIcon}
+                                                    onChange={(arrowPrevIcon) =>
+                                                        setAttributes({
+                                                            arrowPrevIcon,
+                                                        })
+                                                    }
+                                                    title={__("Arrow Prev Icon", "essential-blocks")}
+                                                    icons={{ fontAwesome: faArrowIcons }}
+                                                    disableDashicon={true}
+                                                />
+                                                <EBIconPicker
+                                                    value={arrowNextIcon}
+                                                    onChange={(arrowNextIcon) =>
+                                                        setAttributes({
+                                                            arrowNextIcon,
+                                                        })
+                                                    }
+                                                    title={__("Arrow Next Icon", "essential-blocks")}
+                                                    icons={{ fontAwesome: faArrowIcons }}
+                                                    disableDashicon={true}
+                                                />
                                             </>
                                         )}
                                     </PanelBody>

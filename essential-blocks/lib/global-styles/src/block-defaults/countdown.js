@@ -15,11 +15,6 @@ import {
     TabPanel,
 } from "@wordpress/components";
 
-/**
- * External depencencies
- */
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
-
 const {
     TypographyDropdown,
     ResponsiveDimensionsControl,

@@ -23,6 +23,7 @@ import Style from "./style";
 
 const {
     duplicateBlockIdFix,
+    EBDisplayIcon
 } = window.EBControls;
 
 const edit = (props) => {
@@ -108,7 +109,7 @@ const edit = (props) => {
                                 } else if (value === "icon") {
                                     return (
                                         showIcon && (
-                                            <div key={index} className={`eb-cia-icon ${icon}`} />
+                                            <EBDisplayIcon className="eb-cia-icon" icon={icon} />
                                         )
                                     );
                                 } else if (value === "description") {

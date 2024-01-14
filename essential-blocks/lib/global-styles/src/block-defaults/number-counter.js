@@ -13,10 +13,6 @@ import {
 } from "@wordpress/components";
 import { MediaUpload } from "@wordpress/block-editor";
 
-/**
- * External depencencies
- */
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 
 const {
     ColorControl,
@@ -28,6 +24,7 @@ const {
     GradientColorControl,
     ImageAvatar,
     faIcons,
+    EBIconPicker,
 } = window.EBControls;
 
 /**
@@ -263,20 +260,15 @@ function NumberCounter(props) {
                         <PanelBody title={__("Media", "essential-blocks")}>
                             {media === "icon" && (
                                 <>
-                                    <BaseControl label={__("Select Icon", "essential-blocks")}>
-                                        <FontIconPicker
-                                            icons={faIcons}
-                                            onChange={(icon) =>
-                                                handleBlockDefault({
-                                                    selectedIcon: icon,
-                                                })
-                                            }
-                                            value={selectedIcon}
-                                            appendTo="body"
-                                            isMulti={false}
-                                        />
-                                    </BaseControl>
-
+                                    <EBIconPicker
+                                        value={selectedIcon}
+                                        onChange={(icon) =>
+                                            handleBlockDefault({
+                                                selectedIcon: icon,
+                                            })
+                                        }
+                                        title={__("Select Icon", "essential-blocks")}
+                                    />
                                     {selectedIcon && (
                                         <ResponsiveRangeController
                                             baseLabel={__("Icon Size", "essential-blocks")}

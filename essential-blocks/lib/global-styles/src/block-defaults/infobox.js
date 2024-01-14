@@ -15,11 +15,6 @@ import {
     TabPanel,
     __experimentalDivider as Divider,
 } from "@wordpress/components";
-/**
- * Internal dependencies
- */
-
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 
 import { infoWrapBg, infoBtnBg } from "../../../../blocks/infobox/src/constants/backgroundsConstants";
 import { wrpBdShadow, btnBdShd } from "../../../../blocks/infobox/src/constants/borderShadowConstants";
@@ -35,8 +30,7 @@ const {
     ResponsiveRangeController,
     ResponsiveDimensionsControl,
     TypographyDropdown,
-    faIcons,
-    AdvancedControls,
+    EBIconPicker,
 } = window.EBControls;
 
 import {
@@ -229,7 +223,7 @@ function Infobox(props) {
                 <div className="eb-panel-control">
                     <PanelBody
                         title={__("Infobox Settings", "essential-blocks")}
-                        // initialOpen={false}
+                    // initialOpen={false}
                     >
                         <ToggleControl
                             label={__("Clickable Infobox", "essential-blocks")}
@@ -381,19 +375,15 @@ function Infobox(props) {
                         {media !== "none" && (
                             <>
                                 {media === "icon" && (
-                                    <BaseControl label={__("Select Icon", "essential-blocks")}>
-                                        <FontIconPicker
-                                            icons={faIcons}
-                                            onChange={(icon) =>
-                                                handleBlockDefault({
-                                                    selectedIcon: icon,
-                                                })
-                                            }
-                                            value={selectedIcon}
-                                            appendTo="body"
-                                            isMulti={false}
-                                        />
-                                    </BaseControl>
+                                    <EBIconPicker
+                                        value={selectedIcon}
+                                        onChange={(icon) =>
+                                            handleBlockDefault({
+                                                selectedIcon: icon,
+                                            })
+                                        }
+                                        title={__("Select Icon", "essential-blocks")}
+                                    />
                                 )}
 
                                 {media === "icon" && selectedIcon && (
@@ -494,7 +484,7 @@ function Infobox(props) {
                                                 {numIconBgType === "gradient" && (
                                                     <PanelBody
                                                         title={__("Gradient", "essential-blocks")}
-                                                        // initialOpen={false}
+                                                    // initialOpen={false}
                                                     >
                                                         <GradientColorControl
                                                             gradientColor={numIconBgGradient}
@@ -791,9 +781,9 @@ function Infobox(props) {
                                     controlName={infoBtnBg}
                                     resRequiredProps={resRequiredProps}
                                     forButton
-                                    // noOverlay
-                                    // noMainBgi
-                                    // noOverlayBgi // if U pass 'noOverlay' prop U don't need to pass 'noOverlayBgi'
+                                // noOverlay
+                                // noMainBgi
+                                // noOverlayBgi // if U pass 'noOverlay' prop U don't need to pass 'noOverlayBgi'
                                 />
                             </PanelBody>
 

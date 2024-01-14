@@ -2,7 +2,6 @@
  * WordPress dependencies
  */
 import { __ } from "@wordpress/i18n";
-import { useEffect } from "@wordpress/element";
 import { InspectorControls } from "@wordpress/block-editor";
 import {
     PanelBody,
@@ -14,12 +13,6 @@ import {
     TabPanel,
     ToggleControl,
 } from "@wordpress/components";
-import { select } from "@wordpress/data";
-
-/**
- * External Dependencies
- */
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 
 /**
  * Internal Dependencies
@@ -53,7 +46,6 @@ import objAttributes from "./attributes";
 import SortableLists from "./sortable-lists";
 
 const {
-    faIcons: iconList,
     ColorControl,
     ResponsiveDimensionsControl,
     TypographyDropdown,
@@ -61,6 +53,7 @@ const {
     BorderShadowControl,
     ResponsiveRangeController,
     AdvancedControls,
+    EBIconPicker
 } = window.EBControls;
 
 const Inspector = ({ attributes, setAttributes }) => {
@@ -200,13 +193,13 @@ const Inspector = ({ attributes, setAttributes }) => {
                                             initialOpen={false}
                                         >
                                             <BaseControl>
-                                                <FontIconPicker
-                                                    icons={iconList}
+                                                <EBIconPicker
                                                     value={icon}
                                                     onChange={(icon) =>
-                                                        setAttributes({ icon })
+                                                        setAttributes({
+                                                            icon,
+                                                        })
                                                     }
-                                                    appendTo="body"
                                                 />
                                             </BaseControl>
                                             <ResponsiveRangeController

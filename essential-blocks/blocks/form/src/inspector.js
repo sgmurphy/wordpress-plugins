@@ -35,9 +35,8 @@ const {
     ProSelectControl,
     DynamicInputControl,
     faIcons,
+    EBIconPicker
 } = EBControls;
-
-import FontIconPicker from "@fonticonpicker/react-fonticonpicker";
 
 import {
     WRAPPER_BG,
@@ -794,24 +793,14 @@ function Inspector(props) {
                                             />
                                             {btnAddIcon && (
                                                 <>
-                                                    <BaseControl
-                                                        label={__(
-                                                            "Select Icon",
-                                                            "essential-blocks"
-                                                        )}
-                                                    >
-                                                        <FontIconPicker
-                                                            icons={faIcons}
-                                                            value={icon}
-                                                            onChange={(icon) =>
-                                                                setAttributes({
-                                                                    icon,
-                                                                })
-                                                            }
-                                                            appendTo="body"
-                                                            closeOnSelect
-                                                        />
-                                                    </BaseControl>
+                                                    <EBIconPicker
+                                                        value={icon}
+                                                        onChange={(icon) =>
+                                                            setAttributes({
+                                                                icon,
+                                                            })
+                                                        }
+                                                    />
                                                 </>
                                             )}
                                         </>

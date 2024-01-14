@@ -25,6 +25,7 @@ const {
     duplicateBlockIdFix,
     isValidHtml,
     DynamicInputValueHandler,
+    EBDisplayIcon
 } = window.EBControls;
 
 function Edit(props) {
@@ -166,11 +167,7 @@ function Edit(props) {
                                                         className="eb-flipbox-icon-front"
                                                         data-icon={frontIcon}
                                                     >
-                                                        <span
-                                                            className={
-                                                                frontIcon
-                                                            }
-                                                        />
+                                                        <EBDisplayIcon icon={frontIcon} />
                                                     </div>
                                                 )}
                                         </div>
@@ -285,9 +282,7 @@ function Edit(props) {
                                                         className="eb-flipbox-icon-back"
                                                         data-icon={backIcon}
                                                     >
-                                                        <span
-                                                            className={backIcon}
-                                                        />
+                                                        <EBDisplayIcon icon={backIcon} />
                                                     </div>
                                                 )}
                                         </div>
@@ -423,9 +418,7 @@ function Edit(props) {
                                                 <div className="eb-flipbox-button-content">
                                                     <span>{buttonText}</span>
                                                     {buttonIcon && (
-                                                        <i
-                                                            className={`${buttonIcon} eb-flipbox-button-icon`}
-                                                        ></i>
+                                                        <EBDisplayIcon icon={buttonIcon} className="eb-flipbox-button-icon" />
                                                     )}
                                                 </div>
                                             </a>

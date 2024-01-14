@@ -4,22 +4,19 @@
 import { __ } from "@wordpress/i18n";
 import {
     useBlockProps,
-    RichText,
     InnerBlocks,
     store as blockEditorStore,
 } from "@wordpress/block-editor";
-import { Button, Snackbar } from '@wordpress/components';
 import { useEffect, useState, useRef, useCallback } from "@wordpress/element";
 import {
     select,
-    useSelect,
     dispatch,
     useDispatch,
     subscribe,
 } from "@wordpress/data";
-import { doAction, applyFilters } from "@wordpress/hooks";
+import { applyFilters } from "@wordpress/hooks";
 import { createBlocksFromInnerBlocksTemplate } from "@wordpress/blocks";
-import { times } from "lodash";
+
 
 /**
  * Internal dependencies
@@ -29,6 +26,7 @@ const {
     duplicateBlockIdFix,
     fetchFormBlockData,
     saveFormBlockData,
+    EBDisplayIcon
 } = EBControls;
 
 import classnames from "classnames";
@@ -530,20 +528,14 @@ export default function Edit(props) {
                                             type="button"
                                             className="btn btn-primary eb-form-submit-button"
                                         >
-                                            {btnAddIcon &&
-                                                iconPosition === "left" ? (
-                                                <i
-                                                    className={`${icon} eb-button-icon`}
-                                                ></i>
+                                            {btnAddIcon && iconPosition === "left" ? (
+                                                <EBDisplayIcon className={"eb-button-icon"} icon={icon} />
                                             ) : (
                                                 ""
                                             )}
                                             {buttonText}
-                                            {btnAddIcon &&
-                                                iconPosition === "right" ? (
-                                                <i
-                                                    className={`${icon} eb-button-icon`}
-                                                ></i>
+                                            {btnAddIcon && iconPosition === "right" ? (
+                                                <EBDisplayIcon className={"eb-button-icon"} icon={icon} />
                                             ) : (
                                                 ""
                                             )}

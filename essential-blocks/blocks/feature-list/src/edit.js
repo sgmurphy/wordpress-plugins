@@ -24,8 +24,8 @@ import Inspector from "./inspector";
 import Style from "./style";
 
 const {
-    softMinifyCssStrings,
-    duplicateBlockIdFix
+    duplicateBlockIdFix,
+    EBDisplayIcon
 } = window.EBControls;
 
 const edit = (props) => {
@@ -127,8 +127,8 @@ const edit = (props) => {
                 <div className={`eb-parent-wrapper eb-parent-${blockId} ${classHook}`}>
                     <div
                         className={`${blockId} eb-feature-list-wrapper -icon-position-${iconPosition} -tablet-icon-position-${iconPosition} -mobile-icon-position-${iconPosition}${featureListAlignClass} ${!useInlineDesign && showConnector
-                                ? "connector-" + connectorStyle
-                                : ""
+                            ? "connector-" + connectorStyle
+                            : ""
                             }`}
                     >
                         <ul
@@ -182,9 +182,7 @@ const edit = (props) => {
                                                             className="eb-feature-list-icon"
                                                             style={iconStyle}
                                                         >
-                                                            {iconType === "icon" && (
-                                                                <i aria-hidden="true" className={icon}></i>
-                                                            )}
+                                                            {iconType === "icon" && <EBDisplayIcon icon={icon} />}
                                                             {iconType === "image" && (
                                                                 <img
                                                                     className="eb-feature-list-img"

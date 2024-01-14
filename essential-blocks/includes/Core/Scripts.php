@@ -11,10 +11,15 @@ class Scripts {
     use HasSingletone;
 
     private $is_gutenberg_editor = false;
+    private $isEnableFontAwesome = true;
+    private $isEnableGoogleFont  = true;
 
     public $plugin = null;
 
     public function __construct() {
+        $eb_settings               = get_option( 'eb_settings', [] );
+        $this->isEnableFontAwesome = ! empty( $eb_settings['enableFontawesome'] ) ? $eb_settings['enableFontawesome'] : 'true';
+        $this->isEnableGoogleFont  = ! empty( $eb_settings['googleFont'] ) ? $eb_settings['googleFont'] : 'true';
         add_action(
             'init',
             function () {
@@ -73,7 +78,7 @@ class Scripts {
 
         if ( $pagenow !== 'widgets.php' ) {
             //global-styles
-            wpdev_essential_blocks()->assets->register( 'global-styles', '../lib/global-styles/dist/index.js' );
+            wpdev_essential_blocks()->assets->register( 'global-styles', '../lib/global-styles/dist/index.js');
             $editor_scripts_deps[] = 'essential-blocks-global-styles';
 
             //templately-installer
@@ -94,23 +99,30 @@ class Scripts {
             'essential-blocks-twenty-twenty-style-image-comparison',
             'essential-blocks-hover-effects-style',
             'essential-blocks-hover-css',
-            'essential-blocks-fontpicker-material-theme',
-            'essential-blocks-fontpicker-default-theme',
-            'essential-blocks-fontawesome',
             'essential-blocks-frontend-style',
             'essential-blocks-block-common',
             'essential-blocks-common-style'
         ];
 
+        if ( $this->isEnableFontAwesome == 'true' ) {
+            $editor_styles_deps[] = 'essential-blocks-fontpicker-material-theme';
+            $editor_styles_deps[] = 'essential-blocks-fontpicker-default-theme';
+            $editor_styles_deps[] = 'essential-blocks-fontawesome';
+        }
+
         if ( $pagenow !== 'widgets.php' ) {
             //Global Styles
-            wpdev_essential_blocks()->assets->register( 'global-styles', '../lib/global-styles/dist/style.css' );
+            wpdev_essential_blocks()->assets->register( 'global-styles', '../lib/global-styles/dist/style.css', ['dashicons'] );
             $editor_styles_deps[] = 'essential-blocks-global-styles';
 
             //templately-installer
             wpdev_essential_blocks()->assets->register( 'templately-installer', '../lib/templately-installer/dist/style.css' );
             $editor_styles_deps[] = 'essential-blocks-templately-installer';
         }
+
+        //Iconpicker css
+        wpdev_essential_blocks()->assets->register( 'iconpicker-css', '../dist/style-modules.css' );
+        $editor_styles_deps[] = 'essential-blocks-iconpicker-css';
 
         // register styles
         wpdev_essential_blocks()->assets->register( 'editor-css', '../dist/modules.css', $editor_styles_deps );
@@ -127,9 +139,11 @@ class Scripts {
 
         wpdev_essential_blocks()->assets->register( 'vendor-bundle', '../vendor-bundle/index.js' );
         wpdev_essential_blocks()->assets->register( 'frontend-style', '../dist/style.css' );
-        wpdev_essential_blocks()->assets->register( 'fontawesome', 'css/font-awesome5.css' );
-        wpdev_essential_blocks()->assets->register( 'fontpicker-default-theme', 'css/fonticonpicker.base-theme.react.css' );
-        wpdev_essential_blocks()->assets->register( 'fontpicker-material-theme', 'css/fonticonpicker.material-theme.react.css' );
+        if ( $this->isEnableFontAwesome == 'true' ) {
+            wpdev_essential_blocks()->assets->register( 'fontawesome', 'fontawesome/css/all.min.css' );
+            wpdev_essential_blocks()->assets->register( 'fontpicker-default-theme', 'css/fonticonpicker.base-theme.react.css' );
+            wpdev_essential_blocks()->assets->register( 'fontpicker-material-theme', 'css/fonticonpicker.material-theme.react.css' );
+        }
         wpdev_essential_blocks()->assets->register( 'hover-css', 'css/hover-min.css' );
         wpdev_essential_blocks()->assets->register( 'hover-effects-style', 'css/hover-effects.css' );
         wpdev_essential_blocks()->assets->register( 'twenty-twenty-style-image-comparison', 'css/twentytwenty.css' );
@@ -142,6 +156,9 @@ class Scripts {
         wpdev_essential_blocks()->assets->register( 'flv', 'js/react-player/flv.min.js' );
         wpdev_essential_blocks()->assets->register( 'dash', 'js/react-player/dash.all.min.js' );
         wpdev_essential_blocks()->assets->register( 'hls', 'js/react-player/hls.min.js' );
+        // dashicon
+        wp_enqueue_style( 'dashicons' );
+        wpdev_essential_blocks()->assets->register( 'controls-frontend', '../dist/frontend.js');
 
         //CSS Var for Global Colors
         $global_color_settings = wp_unslash( get_option( 'eb_global_styles' ) );
@@ -264,8 +281,8 @@ class Scripts {
                 'all_blocks'          => $plugin::$blocks->all(),
                 'all_blocks_default'  => $plugin::$blocks->defaults( true, false ),
                 'get_plugins'         => Helper::get_plugin_list_for_localize(),
-                'googleFont'          => $googleFont,
-                'fontAwesome'         => $fontAwesome,
+                'googleFont'          => $this->isEnableGoogleFont,
+                'fontAwesome'         => $this->isEnableFontAwesome,
                 'globalColors'        => Helper::global_colors(),
                 'gradientColors'      => Helper::gradient_colors(),
                 'unfilter_capability' => current_user_can( 'unfiltered_html' ) ? 'true' : 'false'

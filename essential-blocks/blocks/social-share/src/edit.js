@@ -61,7 +61,7 @@ export default function Edit(props) {
                 isExpanded: false,
             },
             {
-                icon: "fab fa-twitter",
+                icon: "fab fa-x-twitter",
                 iconText: __("Twitter", "essential-blocks"),
                 isExpanded: false,
             },
