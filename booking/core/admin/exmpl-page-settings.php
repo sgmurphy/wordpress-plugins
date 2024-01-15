@@ -25,7 +25,7 @@ class WPBC_Page_SettingsFields extends WPBC_Page_Structure {
         $tabs = array();
         $tabs[ 'sub-toolbar' ] = array(
                               'title' =>  'Sub Toolbar Elements'                    // Title of TAB    
-                            , 'hint' =>  'Customizaton of Form Fields'             // Hint    
+                            , 'hint' =>  'Customization of Form Fields'             // Hint    
                             , 'page_title' =>  'Form fields'       // Title of Page    
                             //, 'link' => ''                                    // Can be skiped,  then generated link based on Page and Tab tags. Or can  be extenral link
                             //, 'position' => ''                                // 'left'  ||  'right'  ||  ''

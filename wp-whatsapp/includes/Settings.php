@@ -329,6 +329,10 @@ class Settings
         $new_input = Fields::getWidgetStyles();
         $new_input['title'] = sanitize_text_field(wp_unslash($_POST['title']));
         $new_input['textColor'] = sanitize_hex_color($_POST['textColor']);
+        $new_input['titleSize'] = sanitize_text_field($_POST['titleSize']);
+        $new_input['accountNameSize'] = sanitize_text_field($_POST['accountNameSize']);
+        $new_input['descriptionTextSize'] = sanitize_text_field( $_POST['descriptionTextSize'] );
+        $new_input['regularTextSize'] = sanitize_text_field( $_POST['regularTextSize'] );
         $new_input['backgroundColor'] = sanitize_hex_color($_POST['backgroundColor']);
         $new_input['description'] = wp_kses_post(wp_unslash($_POST['description']));
         $new_input['responseText'] = wp_kses_post(wp_unslash($_POST['responseText']));

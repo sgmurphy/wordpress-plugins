@@ -59,8 +59,9 @@ class WPBC_Dismiss {
 			 title="<?php echo esc_attr( $this->hint ); ?>"
 			 href="javascript:void(0)"
              onclick="javascript: if ( typeof( wpbc_hide_window ) == 'function' ) {
-				 wpbc_hide_window('<?php echo $this->element_id; ?>');
-				 wpbc_dismiss_window(<?php echo wpbc_get_current_user_id(); ?>, '<?php echo $this->element_id; ?>');
+				 	wpbc_hide_window('<?php echo $this->element_id; ?>');
+				 	wpbc_dismiss_window(<?php echo wpbc_get_current_user_id(); ?>, '<?php echo $this->element_id; ?>');
+				 	jQuery( this ).hide();
 				 } else {  jQuery('#<?php echo $this->element_id; ?>').slideUp(500); }"
           ><?php echo  $this->title; ?></a><?php
 

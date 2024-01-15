@@ -1,3 +1,6 @@
+v1.0.9 - 11th January 2024
+- Improvement: Added middleware parameter handling for the plugin slug.
+
 v1.0.8 - 18th December 2023
 - Fix: Added compatibility with PHP version 7.0 and above.
 

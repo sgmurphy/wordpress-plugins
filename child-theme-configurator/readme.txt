@@ -5,7 +5,7 @@ Tags: child, theme, child theme, child themes, custom styles, customize styles, 
 Requires at least: 4.0
 Requires PHP: 5.6.36
 Tested up to: 6.4
-Stable tag: 2.6.4
+Stable tag: 2.6.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -299,6 +299,8 @@ https://www.youtube.com/watch?v=iBiiAgsK4G4
 7. Files tab
 
 == Changelog ==
+= 2.6.5 =
+* Fixed deprecation notice for utf8_encode
 = 2.6.4 =
 * Fixed deprecation notices in Packer.php and CSS.php
 = 2.6.2/2.6.3 =

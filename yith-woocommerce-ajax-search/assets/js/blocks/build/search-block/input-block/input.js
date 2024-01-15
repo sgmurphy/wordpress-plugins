@@ -1183,6 +1183,16 @@ var Block = function Block(props) {
     setQ('');
     setInputFocused(null);
   };
+  var onCloseMobile = function onCloseMobile() {
+    resetQuery();
+    var event = new CustomEvent('ywcas-close-mobile', {
+      detail: {},
+      bubbles: true,
+      cancelable: true,
+      composed: false
+    });
+    document.dispatchEvent(event);
+  };
   var handleOnChange = function handleOnChange(event, value) {
     if (!event) {
       setQ(value);
@@ -1206,7 +1216,7 @@ var Block = function Block(props) {
     setSearchQuery: handleOnChange,
     queryString: q,
     onFocus: setFocusOn,
-    onCloseMobile: resetQuery,
+    onCloseMobile: onCloseMobile,
     size: size,
     isSmallDevice: isSmallDevice
   }, props)));

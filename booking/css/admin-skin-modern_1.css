@@ -1,7 +1,7 @@
 /*
- * New design 2.0 of Booking admin panel with  white colors and bottom  borders for selected elements
+ * New design 2.0, 2.1 of Booking admin panel with  white colors and bottom  borders for selected elements
  *
- * 2023-03-26
+ * 2023-03-26, 2023-12-17
  *
  */
 
@@ -138,11 +138,11 @@
 
 /* Toolbars at  Booking Listing */
 div.wpbc_ajx_toolbar {
-	margin: 0 0 10px 60px;
+	margin: 0 0 10px 0px;											/*   		//FixIn: 9.8.15.2 */
 }
 /* Toolbar at  Calendar Overview page*/
 .wpbc_page_tab__vm_calendar #toolbar_booking_listing{
-	margin: 0 0 10px 60px !important;
+	margin: 0 0 10px 0px !important;								/*   		//FixIn: 9.8.15.2 */
 }
 .wpbc_page_tab__vm_calendar #toolbar_booking_listing .wpdvlp-sub-tabs{
 	padding: 8px 15px 11px;
@@ -159,9 +159,11 @@ div.wpbc_ajx_toolbar {
 #toolbar_booking_listing .wpdvlp-top-tabs .nav-tab .menu_icon::before {
 	font-size: 16px;      	/* font-size: 18px; */
 }
+
 #wpbc-availability-admin-page  .wpdvlp-top-tabs .nav-tabs,
 #toolbar_booking_listing .wpdvlp-top-tabs .nav-tabs {
-	border-radius: 1px;   	/* border-radius: 2px; */
+	/*border-radius: 1px;   	*/    /* //FixIn: 9.8.15.2 */
+	/* border-radius: 2px; */
 }
 
 /* Vertical  switcher  on  Booking Listing  and Calendar  overview pages */
@@ -372,4 +374,80 @@ a.wpbc_is_new_button:hover {
 		right: 0;
 		margin-right: 22px;
 	}
+}
+/*
+ * New design 2.1 of Top menu headers.	 //FixIn: 9.8.15.2
+ *
+ * 2023-12-17
+ *
+ */
+/* TOP Message shift in version 9.9 //FixIn: 9.9.0.10 */
+.wpbc_header_menu_tabs{
+	flex:1;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	height: auto;
+}
+.wpbc_header .wpbc_message_wrapper {
+	margin-top:10px;
+}
+.wpbc_page_top__header_tabs .wpdvlp-top-tabs {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	height: auto;
+}
+/* Set Right Align */
+.wpbc_page_top__header_tabs .wpdvlp-top-tabs .nav-tab-position-right {
+	order:999;
+	margin-left:auto;
+}
+.wpbc_page_top__header_tabs .wpdvlp-top-tabs .nav-tab {
+	font-size:17px;
+	line-height: 32px;
+}
+.wpbc_page_top__header_tabs .wpdvlp-top-tabs .nav-tab.nav-tab-active {
+	border-bottom: 4px solid #64aa45;
+}
+.wpbc_page_top__header_tabs .wpdvlp-top-tabs .nav-tab.nav-tab-active:hover {
+	border-bottom-color: #d54e21;
+}
+.wpbc_page_top__header_tabs .wpdvlp-top-tabs .wpdvlp-tabs-wrapper {
+	height: auto;
+}
+.wpbc_admin_page .wpdvlp-sub-tabs {
+	border: 1px solid #dadada;
+}
+.wpdvlp-top-tabs .nav-tabs{
+	border: 1px solid #d6d6d6;
+  	border-bottom: none;
+	border-radius: 2px 2px 0 0;
+}
+#wpbc-resources-admin-page .wpdvlp-top-tabs .nav-tabs,
+#wpbc-availability-admin-page .wpdvlp-top-tabs .nav-tabs,
+.wpbc_ajx_toolbar .wpdvlp-top-tabs .nav-tabs{
+	border-bottom: 1px solid #d6d6d6;
+}
+/* Make "Seasons" filter Tab last  in line */
+.wpbc_top_tab__season_filters {
+	order: 1;
+}
+.wpbc_top_tab__general_availability,
+.wpbc_top_tab__payment_gateways {
+	order: 2;
+	border-left: 1px solid #cfcfcf !important;
+}
+
+/* Show WordPress notice messages (such as: "WordPress 6.4.2 is available!") at right side of the page. */
+.toplevel_page_wpbc #update-nag,
+.toplevel_page_wpbc .update-nag,
+body[class*='wp-booking-calendar'] #update-nag,
+body[class*='wp-booking-calendar'] .update-nag {
+	position: absolute;
+	z-index: 10;
+	margin: 5px;
+	right:0;
 }

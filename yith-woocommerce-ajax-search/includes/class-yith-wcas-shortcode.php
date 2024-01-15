@@ -121,8 +121,9 @@ if ( ! class_exists( 'YITH_WCAS_Shortcode' ) ) {
 		protected function get_input_block_code_by_options( $options ) {
 			$input_options  = $options['search-input'];
 			$submit_options = $options['submit-button'];
-			$border_size    = empty( $input_options['border_size'] ) ? '1px' : $input_options['border_size'] . 'px';
-			$border_radius  = empty( $input_options['border_radius'] ) ? '20px' : $input_options['border_radius'] . 'px';
+			$border_size    = ! isset( $input_options['border_size'] ) ? '1px' : $input_options['border_size'] . 'px';
+			$border_radius  = ! isset( $input_options['border_radius'] ) ? '20px' : $input_options['border_radius'] . 'px';
+			$border_radius_button = ! isset( $submit_options['border-radius'] ) ? '20px' : $submit_options['border-radius'].'px';
 			$block_options  = array(
 				'placeholder'             => $input_options['placeholder'],
 				'placeholderTextColor'    => $input_options['colors'] ['placeholder'],
@@ -152,10 +153,10 @@ if ( ! class_exists( 'YITH_WCAS_Shortcode' ) ) {
 				'submitBorderHoverColor'  => $submit_options['icon-colors']['border-hover'],
 				'buttonLabel'             => $submit_options['button-label'] ?? '',
 				'buttonBorderRadius'      => array(
-					'topLeft'     => $border_radius,
-					'topRight'    => $border_radius,
-					'bottomLeft'  => $border_radius,
-					'bottomRight' => $border_radius,
+					'topLeft'     => $border_radius_button,
+					'topRight'    => $border_radius_button,
+					'bottomLeft'  => $border_radius_button,
+					'bottomRight' => $border_radius_button,
 				),
 				'iconType'                => 'icon-' . $submit_options['icon-position']
 

@@ -1591,6 +1591,9 @@ class Library_REST_Controller extends WP_REST_Controller {
 		$install = true;
 		if ( ! empty( $plugins ) && is_array( $plugins ) ) {
 			$importer_plugins = $this->get_allowed_plugins();
+			if ( ! function_exists( 'request_filesystem_credentials' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/file.php';
+			}
 			if ( ! function_exists( 'plugins_api' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 			}
@@ -1668,8 +1671,7 @@ class Library_REST_Controller extends WP_REST_Controller {
 
 							// Use AJAX upgrader skin instead of plugin installer skin.
 							// ref: function wp_ajax_install_plugin().
-							$upgrader = new \Plugin_Upgrader( new \WP_Ajax_Upgrader_Skin() );
-
+							$upgrader = new Plugin_Upgrader( new WP_Ajax_Upgrader_Skin() );
 							$installed = $upgrader->install( $api->download_link );
 							if ( $installed ) {
 								$silent = ( 'give' === $base || 'elementor' === $base || 'fluentform' === $base || 'restrict-content' === $base ? false : true );

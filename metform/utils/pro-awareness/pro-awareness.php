@@ -238,22 +238,6 @@ if(!class_exists('\Wpmet\Libs\Pro_Awareness')) :
 					} ?>
                 </div>
 
-				<div class="wpmet-products">
-					<div class="wpmet-products__header">
-						<h1><?php esc_html_e('Take your website to the next level','metform'); ?></h1>
-						<p><?php esc_html_e('We have some plugins you can install to get most from Wordpress.','metform'); ?><br> <?php echo esc_html('These are absolute FREE to use.','elementskit-lite'); ?></p>
-					</div>
-					<div class="wpmet-products__content">
-						<?php foreach ( $this->products as $product ) : ?>
-							<a title="<?php echo esc_attr($product['title']); ?>" class="help-card" href="<?php echo esc_url( $product['url'] ); ?>" target="_blank">
-								<label>
-									<img src="<?php echo esc_attr( $product['thumbnail'] ); ?>" alt="Thumbnail">
-								</label>
-							<span><?php echo esc_html($product['description']); ?></span></a>
-						<?php endforeach; ?>
-					</div>
-				</div>
-
 	            <?php do_action($this->text_domain.'/pro_awareness/after_grid_contents'); ?>
 
             </div>

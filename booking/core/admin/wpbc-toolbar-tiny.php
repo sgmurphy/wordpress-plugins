@@ -185,7 +185,15 @@ class WPBC_TinyMCE_Buttons {
     public function insert_button() {
         
         $script = '';
-    
+
+		// calendar3-range		https://icons.getbootstrap.com/icons/calendar3-range/
+		$svg_icon_integarted = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3-range" viewBox="-2 -1 20 20">'
+								  . '<path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>'
+								  . '<path d="M7 10a1 1 0 0 0 0-2H1v2h6zm2-3h6V5H9a1 1 0 0 0 0 2z"/>'
+								. '</svg>';
+		$mune_icon_url = sprintf( 'data:image/svg+xml;base64,%s', base64_encode( $svg_icon_integarted ) );
+
+
         if ( ! empty( $this->settings['buttons'] ) ){
             
             $script .= '<script type="text/javascript">';
@@ -197,13 +205,13 @@ class WPBC_TinyMCE_Buttons {
                     $script .=  " if ( typeof ".$props['js_func_name_click']." == 'undefined' ) return; ";
                     $script .=  "  ed.addButton('".  $this->settings['tiny_prefix'] . '_' . $type ."', {";
                     $script .=  "		title : '". $props['hint'] ."',";
-                    $script .=  "		image : '". $props['img'] ."',";
+                    //$script .=  "		image : '". $props['img'] ."',";
+	                $script .= "		image : '" . $mune_icon_url . "',";
                     $script .=  "		onclick : function() {";
                     $script .=  "			". $props['js_func_name_click'] ."('". $type ."');";
                     $script .=  "		}";
                     $script .=  "	});";
                 }
-            
             $script .=  ' }';
 
             $script .= '</script>';
@@ -266,7 +274,7 @@ class WPBC_TinyMCE_Buttons {
                                                                                     . "jQuery( '.wpbc_tiny_modal .nav-tab i.icon-white').removeClass('icon-white');"
                                                                                     . "jQuery( '.wpbc_tiny_modal .nav-tab-active i').addClass('icon-white');"
                                                                                     . "wpbc_set_shortcode();"                                    
-
+																, 'css_classes' => 'wpbc_tiny_css_tabs wpbc_tiny_css_tab_' . $key
                                                                 , 'font_icon'   => ''
                                                                 , 'default'     => ( $key == 'booking' ) ? true : false
                                                                 , 'checkbox'    => false
@@ -296,9 +304,11 @@ class WPBC_TinyMCE_Buttons {
                     </div>
                     <div class="modal-footer" style="text-align:center;"> 
 
-                        <a href="javascript:void(0)" class="button button-primary"  style="float:none;"                                        
+                        <a href="javascript:void(0)" class="button button-primary wpbc_tiny_button__insert_to_editor"  style="float:none;"
                            onclick="javascript:wpbc_send_text_to_editor( jQuery('#wpbc_text_put_in_shortcode').val().trim() );wpbc_tiny_close();"
-                           ><?php _e( 'Insert into page' ); ?></a> <a href="javascript:void(0)" class="button" style="float:none;" data-dismiss="modal"><?php _e('Close' ,'booking'); ?></a>
+                           ><?php _e( 'Insert into page' ); ?></a> <a href="javascript:void(0)" class="button button-primary wpbc_tiny_button__insert_to_resource"  style="float:none;display:none;"
+                           onclick="javascript:wpbc_send_text_to_resource( jQuery('#wpbc_text_put_in_shortcode').val().trim() );wpbc_tiny_close();"
+                           ><?php _e( 'Insert' ); ?></a> <a href="javascript:void(0)" class="button" style="float:none;" data-dismiss="modal"><?php _e('Close' ,'booking'); ?></a>
 
                    </div>
                 </div><!-- /.modal-content -->
@@ -2444,12 +2454,44 @@ Parameters for possible usage of shortcode:
                     }
 
                     try{tb_remove();}catch(e){};
-            }            
-        <?php 
+            }
 
-        ?>
+
+            /** Open TinyMCE Modal */
+            function wpbc_resource_page_btn_click( resource_id ) {
+                //FixIn: 9.0.1.5
+                jQuery('#wpbc_tiny_modal').wpbc_my_modal({
+                    keyboard: false
+                  , backdrop: true
+                  , show: true
+                });
+
+				jQuery( "#wpbc_booking_type" ).prop( 		 'disabled', false );
+				jQuery( "#wpbc_booking_type option[value='" + resource_id + "']" ).prop( 'selected', true ).trigger( 'change' );
+				jQuery( "#wpbc_booking_type" ).prop( 		 'disabled', true );
+
+				jQuery( "#wpbc_bookingcalendar_type" ).prop( 'disabled', false );
+				jQuery( "#wpbc_bookingcalendar_type option[value='" + resource_id + "']" ).prop( 'selected', true ).trigger( 'change' );
+				jQuery( "#wpbc_bookingcalendar_type" ).prop( 'disabled', true );
+
+				jQuery( ".wpbc_tiny_css_tabs" ).hide();
+				jQuery( ".wpbc_tiny_css_tab_booking" ).show();
+				jQuery( ".wpbc_tiny_css_tab_bookingcalendar" ).show();
+
+				jQuery( ".wpbc_tiny_button__insert_to_editor" ).hide();
+				jQuery( ".wpbc_tiny_button__insert_to_resource" ).show();
+            }
+			function wpbc_send_text_to_resource( shortcode_val ){
+				jQuery( '#booking_resource_shortcode_' + jQuery( "#wpbc_booking_type" ).val() ).val( shortcode_val );
+			}
         </script>
         <!-- End WPBC JavaScript -->
+		<style type="text/css">
+			body[class*='page_wpbc-resources'] #wpbc_tiny_modal .wpdvlp-top-tabs .nav-tabs {
+				border:none;
+				border-bottom:1px solid #d6d6d6;
+			}
+		</style>
         <?php
 
     }
@@ -2458,8 +2500,13 @@ Parameters for possible usage of shortcode:
 
 $wpbc_pages_where_insert_btn = array( 'post-new.php', 'page-new.php', 'post.php', 'page.php', 'widgets.php', 'customize.php' );            //FixIn: 8.8.2.11		//FixIn: 8.8.2.12
 
-if ( ( in_array( basename( $_SERVER['PHP_SELF'] ), $wpbc_pages_where_insert_btn ) ) ) {
-    
+if (
+		( in_array( basename( $_SERVER['PHP_SELF'] ), $wpbc_pages_where_insert_btn ) )
+	 || (
+		   ( isset( $_REQUEST['page'] )
+	   	&& ( $_REQUEST['page'] == 'wpbc-resources' ) )                  // Check  if this Booking > Resources page
+		)
+ ){
     new WPBC_TinyMCE_Buttons( 
                             array(
                                       'tiny_prefix'     => 'wpbc_tiny'
@@ -2470,7 +2517,7 @@ if ( ( in_array( basename( $_SERVER['PHP_SELF'] ), $wpbc_pages_where_insert_btn 
                                     , 'pages_where_insert' => $wpbc_pages_where_insert_btn
                                     , 'buttons'            => array(
                                                                 'booking_insert' => array(
-                                                                                              'hint'  => __('Insert booking calendar' ,'booking')
+                                                                                              'hint'  => __('Insert WP Booking Calendar' ,'booking')
                                                                                             , 'title' => __('Booking calendar' ,'booking')
                                                                                             , 'img'   => WPBC_PLUGIN_URL . '/assets/img/bc_black-16x16.png'
                                                                                             , 'class' => 'bookig_buttons'

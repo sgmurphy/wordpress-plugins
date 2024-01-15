@@ -169,10 +169,10 @@ class YITH_WCAS_Data_Index_Token {
 	 *
 	 * @return array
 	 */
-	public function search_similar_token( $token, $lang, $limited = 50 ) {
+	public function search_similar_token( $token, $lang, $limited = 500 ) {
 		global $wpdb;
-
-		return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->yith_wcas_index_token WHERE token LIKE %s AND lang like %s ORDER BY frequency DESC LIMIT %d ", $token, $lang, $limited ) );
+		$result = $wpdb->get_results( $wpdb->prepare( "SELECT it.token as token, it.frequency as frequency FROM $wpdb->yith_wcas_index_token as it LEFT JOIN $wpdb->yith_wcas_index_relationship ir ON it.token_id = ir.token_id WHERE  ir.source_type LIKE %s AND it.token LIKE %s AND it.lang like %s ORDER BY it.frequency DESC LIMIT %d ", 'product', $token, $lang, $limited ), ARRAY_A );
+		return $result;
 
 	}
 
@@ -187,7 +187,6 @@ class YITH_WCAS_Data_Index_Token {
 	public function search( $token, $lang ) {
 		global $wpdb;
 		$result = $wpdb->get_col( $wpdb->prepare( "SELECT token_id FROM $wpdb->yith_wcas_index_token WHERE token LIKE %s AND lang like %s ORDER BY frequency DESC ", $token, $lang ) );
-
 		return $result;
 	}
 

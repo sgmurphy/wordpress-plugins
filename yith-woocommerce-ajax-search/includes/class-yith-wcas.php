@@ -61,7 +61,7 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 			add_action( 'init', array( $this, 'load_compatibility' ) );
 			add_action( 'rest_api_init', array( $this, 'register_ywcas_endpoint' ) );
 			add_action( 'widgets_init', array( $this, 'register_search_widget' ) );
-
+			add_action( 'after_setup_theme', array( $this, 'legacy_porto_customizations' ) );
 		}
 
 
@@ -248,6 +248,16 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 		public function register_search_widget() {
 			require_once YITH_WCAS_INC . 'class-yith-wcas-search-widget.php';
 			register_widget( 'YITH_WCAS_Ajax_Search_Widget' );
+		}
+
+		/**
+		 * Init the Porto Theme support
+		 *
+		 * @return void
+		 */
+		public function legacy_porto_customizations() {
+			require_once YITH_WCAS_INC . 'compatibility/class-yith-wcas-porto-support.php';
+			YITH_WCAS_Porto_Support::get_instance();
 		}
 	}
 }

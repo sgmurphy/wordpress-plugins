@@ -177,6 +177,21 @@ function wpbc__calendar__load( $params = array() ){
 	// Get parameters for Ajax request
 	$booking_hash   = isset( $_GET['booking_hash'] ) ? $_GET['booking_hash'] : '';
 
+	//FixIn: 9.8.15.10
+	$aggregate_type = 'all';
+	if (
+			( ! empty( $params['shortcode_options'] ) )
+	     && ( function_exists( 'wpbc_parse_calendar_options__aggregate_param' ) )
+	) {
+		$aggregate_type = wpbc_parse_calendar_options__aggregate_param( $params['shortcode_options'] );
+		if ( ( ! empty( $aggregate_type ) ) && ( ! empty( $aggregate_type['type'] ) ) ) {
+			$aggregate_type = $aggregate_type['type'];
+		} else {
+			$aggregate_type = 'all';
+		}
+	}
+
+
 	/**
 	 * About ['request_uri']:
 	 *                       At ( front-end ) side the           $_SERVER['REQUEST_URI'] = '/resource-id2/'             which is good
@@ -190,7 +205,8 @@ function wpbc__calendar__load( $params = array() ){
 									'booking_hash'   => $booking_hash,
 									'request_uri'    => $_SERVER['REQUEST_URI'],                                            // Is it the same as window.location.href or
 									'custom_form'    => $params['custom_form'],                                             // Optional.
-									'aggregate_resource_id_str' => implode( ',', $params['aggregate_resource_id_arr'] )     // Optional. Resource ID   from  aggregate parameter in shortcode.
+									'aggregate_resource_id_str' => implode( ',', $params['aggregate_resource_id_arr'] ),    // Optional. Resource ID   from  aggregate parameter in shortcode.
+									'aggregate_type' => $aggregate_type                                                     // Optional. 'all' | 'bookings_only'  <- it is depends on shortcode parameter:   options="{aggregate type=bookings_only}"
 								);
 	$params_for_request = wp_json_encode( $params_for_request );
 
@@ -237,7 +253,8 @@ function ajax_WPBC_AJX_CALENDAR_LOAD() {
 	                                'booking_hash'   => array( 'validate' => 's', 'default' => '' ),
 	                                'request_uri'    => array( 'validate' => 's', 'default' => '' ),
 									'custom_form'    => array( 'validate' => 's', 'default' => 'standard' ),
-									'aggregate_resource_id_str' => array( 'validate' => 'digit_or_csd', 'default' => '' )        // Comma separated string of resource ID,  which was used in 'aggregate' parameter.
+									'aggregate_resource_id_str' => array( 'validate' => 'digit_or_csd', 'default' => '' ),        // Comma separated string of resource ID,  which was used in 'aggregate' parameter.
+									'aggregate_type'            => array( 'validate' => 's', 'default' => 'all' )                 //  'all' | 'bookings_only'   //FixIn: 9.8.15.10
 																				 )
 											)
 					);
@@ -254,7 +271,11 @@ function ajax_WPBC_AJX_CALENDAR_LOAD() {
 	// Resource ID from  aggregate parameter  in booking shortcode!
 	$aggregate_resource_id_arr = explode( ',', $request_params['aggregate_resource_id_str'] );
 	$aggregate_resource_id_arr = array_filter( $aggregate_resource_id_arr );                                            // All entries of array equal to FALSE (0, '', '0' ) will be removed.
-
+	$aggregate_resource_id_arr = array_unique( $aggregate_resource_id_arr );                                            // Remove duplicates    //FixIn: 9.8.15.10
+	if ( ( $resource_id_key = array_search( $request_params['resource_id'], $aggregate_resource_id_arr ) ) !== false ) {
+		unset( $aggregate_resource_id_arr[ $resource_id_key ] );                                                        // Remove source booking resource  from  aggregate ARR. //FixIn: 9.8.15.10
+	}
+	$aggregate_resource_id_arr = array_values($aggregate_resource_id_arr);                                              // Reset  keys
 
 	$availability_per_days__params = array(
 											'resource_id'     => $request_params['resource_id'],
@@ -263,6 +284,7 @@ function ajax_WPBC_AJX_CALENDAR_LOAD() {
 											'request_uri'     => $request_params['request_uri'],                        // It different in Ajax requests than $_SERVER['REQUEST_URI'] . It's used for change-over days to detect for exception at specific pages
 											'custom_form'     => $request_params['custom_form']
 											, 'additional_bk_types' => $aggregate_resource_id_arr                       // It is array  of booking resources from aggregate parameter()                                 // arrays | CSD | int       // OPTIONAL
+											, 'aggregate_type' => $request_params['aggregate_type']                     // It is string: 'all' | 'bookings_only'                     // OPTIONAL
 										//	, 'as_single_resource'  => true                                             // get dates as for 'single resource' or 'parent' resource including bookings in all 'child booking resources'
 										//	, 'max_days_count'      => wpbc_get_max_visible_days_in_calendar()          // 365
 //	, 'timeslots_to_check_intersect' => $timeslots_to_check_intersect  //TODO 2023-10-25: delete it, because we get it in wpbc_get_availability_per_days_arr()  //array( '12:20 - 12:55', '13:00 - 14:00' )

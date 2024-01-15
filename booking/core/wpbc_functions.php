@@ -1509,15 +1509,19 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 		function wpbc_is_this_demo() {
 
 // return !true;
+			if ( ! class_exists( 'wpdev_bk_personal' ) ) {
+				return false;		// If this is Booking Calendar Free version,  then it's not the demo.
+			}
 
 			//FixIn: 7.2.1.17
-			if  (
-						(  ( isset( $_SERVER['SCRIPT_FILENAME'] ) ) && ( strpos( $_SERVER['SCRIPT_FILENAME'], 'wpbookingcalendar.com' ) !== false ) )
-					||  (  ( isset( $_SERVER['HTTP_HOST'] ) ) && ( strpos( $_SERVER['HTTP_HOST'], 'wpbookingcalendar.com' ) !== false )  )
-				)
-				  return true;
-				else
-				  return false;
+			if (
+				   ( ( isset( $_SERVER['SCRIPT_FILENAME'] ) ) && ( strpos( $_SERVER['SCRIPT_FILENAME'], 'wpbookingcalendar.com' ) !== false ) )
+				|| ( ( isset( $_SERVER['HTTP_HOST'] ) ) && ( strpos( $_SERVER['HTTP_HOST'], 'wpbookingcalendar.com' ) !== false ) )
+			) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 
@@ -1739,6 +1743,59 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 		}
 
 		
+
+		/**
+		 * Parse {calendar ....}  option parameter  in Calendar | Booking form   shortcode
+		 *
+		 * @param $bk_options
+		 *
+		 * @return array|false
+		 */
+		function wpbc_parse_calendar_options__aggregate_param( $bk_options ) {                    						//FixIn: 9.8.15.10
+
+			if ( empty( $bk_options ) ) {
+				return false;
+			}
+				/* $matches    structure:
+					$matches = [
+									0 = [
+											  0 = "{aggregate type=bookings_only}"
+											  1 = "aggregate"
+											  2 = "type=bookings_only"
+										]
+								 ]
+				 */
+
+			$pattern_to_search='%\s*{([^\s]+)\s*([^}]+)\s*}\s*[,]?\s*%';
+
+			preg_match_all( $pattern_to_search, $bk_options, $matches, PREG_SET_ORDER );
+
+			foreach ( $matches as $value ) {
+				if ( $value[1] == 'aggregate' ) {
+					$paramas = $value[2];
+					$paramas = trim( $paramas );
+					$paramas = explode( ' ', $paramas );
+					$options = array();
+					foreach ( $paramas as $vv ) {
+						if ( ! empty( $vv ) ) {
+							$vv = trim( $vv );
+							$vv = explode( '=', $vv );
+							if ( ( isset( $vv[0] ) ) && ( isset( $vv[1] ) ) ) {
+								$options[ $vv[0] ] = trim( $vv[1] );
+							}
+						}
+					}
+					if ( count( $options ) == 0 ) {
+						return false;
+					} else {
+						return $options;
+					}
+				}
+			}
+
+			return false;			// We are not have the "calendar" options in the shortcode
+		}
+
 	// </editor-fold>
 
 
@@ -1945,7 +2002,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 		 * @return string                   - URL  to  menu
 		 */
 		function wpbc_get_menu_url( $menu_type, $is_absolute_url = true, $is_old = true) {
-	$is_old = false;
+
+			$is_old = false;
+
 			switch ( $menu_type) {
 
 				case 'booking':                                                     // Bookings
@@ -1956,11 +2015,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 				case 'overview':
 				case 'calendar-overview':
 				case 'timeline':
-					if ( $is_old ) {
-						$link = WPBC_PLUGIN_DIRNAME . '/'. WPBC_PLUGIN_FILENAME . "wpdev-booking";
-					} else {
-						$link = 'wpbc';
-					}
+					$link = 'wpbc';
 					break;
 
 				case 'add':                                                         // Add New Booking
@@ -1969,43 +2024,29 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 				case 'new':
 				case 'new-bookings':
 				case 'new-booking':
-					if (  $is_old ) {
-						$link = WPBC_PLUGIN_DIRNAME . '/'. WPBC_PLUGIN_FILENAME . "wpdev-booking-reservation";
-					} else {
-						$link = 'wpbc-new';
-					}
+					$link = 'wpbc-new';
 					break;
 
 				case 'availability':
 					$link = 'wpbc-availability';
 					break;
 
+				case 'price':
+					$link = 'wpbc-prices';
+					break;
+
 				case 'resources':                                                   // Resources
 				case 'booking-resources':
-					if (  $is_old ) {
-						$link = WPBC_PLUGIN_DIRNAME . '/'. WPBC_PLUGIN_FILENAME . "wpdev-booking-resources";
-					} else {
-						$link = 'wpbc-resources';
-					}
+					$link = 'wpbc-resources';
 					break;
 
 				case 'settings':                                                    // Settings
 				case 'options':
-					if (  $is_old ) {
-						$link = WPBC_PLUGIN_DIRNAME . '/'. WPBC_PLUGIN_FILENAME . "wpdev-booking-option";
-					} else {
-						$link = 'wpbc-settings';
-					}
+					$link = 'wpbc-settings';
 					break;
 
 				default:                                                            // Bookings
-					if ( $is_old ) {
-						$link = WPBC_PLUGIN_DIRNAME . '/'. WPBC_PLUGIN_FILENAME . "wpdev-booking";
-					} else {
-						$link = 'wpbc';
-					}
-					break;
-
+					$link = 'wpbc';
 					break;
 			}
 
@@ -2030,7 +2071,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 		}
 
 		/**
-		 * Get URL of Booking > Add booking page
+		 * Get URL of Booking > Availability page
 		 *
 		 * @param boolean $is_absolute_url  - Absolute or relative url { default: true }
 		 * @param boolean $is_old           - { default: true }
@@ -2038,6 +2079,17 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 		 */
 		function wpbc_get_availability_url( $is_absolute_url = true, $is_old = true ) {
 			return wpbc_get_menu_url( 'availability', $is_absolute_url, $is_old );
+		}
+
+		/**
+		 * Get URL of Booking > Availability page
+		 *
+		 * @param boolean $is_absolute_url  - Absolute or relative url { default: true }
+		 * @param boolean $is_old           - { default: true }
+		 * @return string                   - URL  to  menu
+		 */
+		function wpbc_get_price_url( $is_absolute_url = true, $is_old = true ) {
+			return wpbc_get_menu_url( 'price', $is_absolute_url, $is_old );
 		}
 
 		/**
@@ -2314,7 +2366,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 			$link_res      = wpbc_get_resources_url();
 			$link_settings = wpbc_get_settings_url();
 
-
+			//FixIn: 9.8.15.9
 			$wp_admin_bar->add_menu(
 					array(
 						'id' => 'bar_wpbc',
@@ -2325,21 +2377,28 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 
 			$wp_admin_bar->add_menu(
 					array(
-						'id' => 'bar_wpbc_calendar_overview',
-						'title' => __( 'Calendar Overview', 'booking' ),
-						'href' => wpbc_get_bookings_url() . '&view_mode=vm_calendar',
+						'id' => 'bar_wpbc_bookings',
+						'title' => __( 'Bookings', 'booking' ),
+						'href' => wpbc_get_bookings_url(),
 						'parent' => 'bar_wpbc',
 					)
 			);
-			$wp_admin_bar->add_menu(
-					array(
-						'id' => 'bar_wpbc_booking_listing',
-						'title' => __( 'Booking Listing', 'booking' ),
-						'href' => wpbc_get_bookings_url() . '&view_mode=vm_listing',
-						'parent' => 'bar_wpbc',
-					)
-			);
-
+				$wp_admin_bar->add_menu(
+						array(
+							'id' => 'bar_wpbc_booking_listing',
+							'title' => __( 'Booking Listing', 'booking' ),
+							'href' => wpbc_get_bookings_url() . '&view_mode=vm_listing',
+							'parent' => 'bar_wpbc_bookings',
+						)
+				);
+				$wp_admin_bar->add_menu(
+						array(
+							'id' => 'bar_wpbc_calendar_overview',
+							'title' => __( 'Calendar Overview', 'booking' ),
+							'href' => wpbc_get_bookings_url() . '&view_mode=vm_calendar',
+							'parent' => 'bar_wpbc_bookings',
+						)
+				);
 
 
 			 $curr_user_role_settings = get_bk_option( 'booking_user_role_settings' );
@@ -2352,16 +2411,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 
 			 if (   ( ($current_user->user_level < $level) && (! $is_super_admin)  ) || !is_admin_bar_showing() ) return;
 
-
-			$wp_admin_bar->add_menu(
-					array(
-						'id' => 'bar_wpbc_availability',
-						'title' => __( 'Availability', 'booking' ),
-						'href' => wpbc_get_availability_url(),
-						'parent' => 'bar_wpbc',
-					)
-			);
-
+			// Booking > Add booking page
 			$wp_admin_bar->add_menu(
 					array(
 						'id' => 'bar_wpbc_new',
@@ -2371,61 +2421,120 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 					)
 			);
 
-			if (  class_exists( 'wpdev_bk_personal' ) )
-				$wp_admin_bar->add_menu(
+			// Booking > Availability page
+			$wp_admin_bar->add_menu(
 					array(
-						'id' => 'bar_wpbc_resources',
-						'title' => __( 'Resources', 'booking' ),
-						'href' => $link_res,
+						'id' => 'bar_wpbc_availability',
+						'title' => __( 'Availability', 'booking' ),
+						'href' => wpbc_get_availability_url(),
 						'parent' => 'bar_wpbc',
 					)
 			);
-					if ( class_exists( 'wpdev_bk_biz_m' ) )
+					$wp_admin_bar->add_menu(
+						array(
+							'id' => 'bar_wpbc_days_availability',
+							'title' => __( 'Days Availability', 'booking' ),
+							'href' => wpbc_get_availability_url() ,
+							'parent' => 'bar_wpbc_availability'
+						)
+					);
+					if ( class_exists( 'wpdev_bk_biz_m' ) ){
 						$wp_admin_bar->add_menu(
 							array(
-								'id' => 'bar_wpbc_resources_cost',
-								'title' => __( 'Costs and Rates', 'booking' ),
-								'href' => $link_res . '&tab=cost',
-								'parent' => 'bar_wpbc_resources'
-							)
-						);
-					if ( class_exists( 'wpdev_bk_biz_m' ) )
-						$wp_admin_bar->add_menu(
-							array(
-								'id' => 'bar_wpbc_resources_cost_advanced',
-								'title' => __( 'Advanced Cost', 'booking' ),
-								'href' => $link_res . '&tab=cost_advanced',
-								'parent' => 'bar_wpbc_resources'
-							)
-						);
-					if ( class_exists( 'wpdev_bk_biz_l' ) )
-						$wp_admin_bar->add_menu(
-							array(
-								'id' => 'bar_wpbc_resources_coupons',
-								'title' => __( 'Coupons', 'booking' ),
-								'href' => $link_res . '&tab=coupons',
-								'parent' => 'bar_wpbc_resources'
-							)
-						);
-					if ( class_exists( 'wpdev_bk_biz_m' ) )
-						$wp_admin_bar->add_menu(
-							array(
-								'id' => 'bar_wpbc_resources_availability',
-								'title' => __( 'Availability', 'booking' ),
-								'href' => $link_res . '&tab=availability',
-								'parent' => 'bar_wpbc_resources'
-							)
-						);
-					if ( class_exists( 'wpdev_bk_biz_m' ) )
-						$wp_admin_bar->add_menu(
-							array(
-								'id' => 'bar_wpbc_resources_filter',
-								'title' => __( 'Season Filters', 'booking' ),
-								'href' => $link_res . '&tab=filter',
-								'parent' => 'bar_wpbc_resources'
+								'id' => 'bar_wpbc_seasons_availability',
+								'title' => __( 'Season Availability', 'booking' ),
+								'href' => wpbc_get_availability_url() . '&tab=season_availability',
+								'parent' => 'bar_wpbc_availability'
 							)
 						);
 
+						$wp_admin_bar->add_menu(
+							array(
+								'id' => 'bar_wpbc_seasons_filters',
+								'title' => __( 'Seasons', 'booking' ),
+								'href' => wpbc_get_availability_url() . '&tab=filter',
+								'parent' => 'bar_wpbc_availability'
+							)
+						);
+					}
+					$wp_admin_bar->add_menu(
+						array(
+							'id' => 'bar_wpbc_general_availability',
+							'title' => __( 'General Availability', 'booking' ),
+							'href' => wpbc_get_settings_url() . '&scroll_to_section=wpbc_general_settings_availability_tab',
+							'parent' => 'bar_wpbc_availability'
+						)
+					);
+
+			// Booking > Prices page
+			if ( class_exists( 'wpdev_bk_biz_m' ) ){
+
+				$wp_admin_bar->add_menu(
+						array(
+							'id' => 'bar_wpbc_prices',
+							'title' => __( 'Prices', 'booking' ),
+							'href' => wpbc_get_price_url(),
+							'parent' => 'bar_wpbc',
+						)
+				);
+					$wp_admin_bar->add_menu(
+							array(
+								'id' => 'bar_wpbc_daily_costs',
+								'title' => __('Daily Costs','booking'),
+								'href' => wpbc_get_price_url() . '&tab=cost',
+								'parent' => 'bar_wpbc_prices',
+							)
+					);
+					$wp_admin_bar->add_menu(
+							array(
+								'id' => 'bar_wpbc_cost_advanced',
+								'title' => __('Form Options Costs','booking'),
+								'href' => wpbc_get_price_url() . '&tab=cost_advanced',
+								'parent' => 'bar_wpbc_prices',
+							)
+					);
+					if ( class_exists( 'wpdev_bk_biz_l' ) ){
+						$wp_admin_bar->add_menu(
+								array(
+									'id' => 'bar_wpbc_coupons',
+									'title' => __('Discount Coupons','booking'),
+									'href' => wpbc_get_price_url() . '&tab=coupons',
+									'parent' => 'bar_wpbc_prices',
+								)
+						);
+					}
+					$wp_admin_bar->add_menu(
+						array(
+							'id' => 'bar_wpbc_seasons_costs',
+							'title' => __( 'Seasons', 'booking' ),
+							'href' =>  wpbc_get_price_url() . '&tab=filter',
+							'parent' => 'bar_wpbc_prices'
+						)
+					);
+					$wp_admin_bar->add_menu(
+						array(
+							'id' => 'bar_wpbc_costs_payment_gateways',
+							'title' => __( 'Payment Gateways', 'booking' ),
+							'href' =>  wpbc_get_settings_url() . '&tab=payment',
+							'parent' => 'bar_wpbc_prices'
+						)
+					);
+
+			}
+
+			//Booking > Resources page
+			$wp_admin_bar->add_menu(
+					array(
+						'id' => 'bar_wpbc_resources',
+						'title' => ( ( class_exists( 'wpdev_bk_personal' ) ) ? __( 'Resources', 'booking' ) : __( 'Resource', 'booking' ) ),
+						'href' => $link_res,
+						'parent' => 'bar_wpbc',
+					)
+				);
+
+
+
+			//Booking > Settings General page
 
 			$wp_admin_bar->add_menu(
 					array(
@@ -2439,7 +2548,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 					$wp_admin_bar->add_menu(
 							array(
 								'id' => 'bar_wpbc_settings_form',
-								'title' => __( 'Form', 'booking' ),
+								'title' => __( 'Booking Form', 'booking' ),
 								'href' => $link_settings . '&tab=form',
 								'parent' => 'bar_wpbc_settings'
 							)
@@ -2452,15 +2561,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 								'parent' => 'bar_wpbc_settings'
 							)
 					);
-					if ( class_exists( 'wpdev_bk_biz_s' ) )
-						$wp_admin_bar->add_menu(
-							array(
-								'id' => 'bar_wpbc_settings_payment',
-								'title' => __( 'Payment', 'booking' ),
-								'href' => $link_settings . '&tab=payment',
-								'parent' => 'bar_wpbc_settings'
-							)
-						);
 					$wp_admin_bar->add_menu(
 							array(
 								'id' => 'bar_wpbc_settings_sync',
@@ -2469,13 +2569,32 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 								'parent' => 'bar_wpbc_settings'
 							)
 					);
+					if ( class_exists( 'wpdev_bk_biz_s' ) )
+						$wp_admin_bar->add_menu(
+							array(
+								'id' => 'bar_wpbc_settings_payment',
+								'title' => __( 'Payment Gateways', 'booking' ),
+								'href' => $link_settings . '&tab=payment',
+								'parent' => 'bar_wpbc_settings'
+							)
+						);
 					if ($is_super_admin)
 						if ( class_exists( 'wpdev_bk_biz_l' ) )
 							$wp_admin_bar->add_menu(
 								array(
 									'id' => 'bar_wpbc_settings_search',
-									'title' => __( 'Search', 'booking' ),
+									'title' => __( 'Search Availability Form', 'booking' ),
 									'href' => $link_settings . '&tab=search',
+									'parent' => 'bar_wpbc_settings'
+								)
+							);
+					if ($is_super_admin)
+						if ( class_exists( 'wpdev_bk_multiuser' ) )
+							$wp_admin_bar->add_menu(
+								array(
+									'id' => 'bar_wpbc_settings_users',
+									'title' => __( 'Users', 'booking' ),
+									'href' => $link_settings . '&tab=users',
 									'parent' => 'bar_wpbc_settings'
 								)
 							);

@@ -68,7 +68,7 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 		 * @return array
 		 */
 		public function search( $query_string, $post_type, $category, $lang, $limited = true, $num_of_results = 0, $debug = false ) {
-			$best_token = false;
+			$best_token   = false;
 			$start_search = hrtime( true ); //phpcs:ignore
 			$debug && $this->logger->log( 'Start search for ' . $query_string );
 
@@ -84,9 +84,10 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 			$debug && $this->logger->log( 'Tokens ' . print_r( $query_tokens, 1 ) );
 
 			$search_result_data = $this->get_search_results( $query_tokens, $post_type, $category, $lang );
+
 			$debug && $this->logger->log( 'Execution time 1 ' . ( hrtime( true ) - $start_search ) / 1e+9 );
 			// If the process for single strings fails, we can try to check if there are more token.
-			if ( ! $search_result_data && $is_single ) {
+			if ( ! empty( $search_result_data ) && $is_single ) {
 				$query_tokens = $this->get_search_tokens( $query_string );
 				$debug && $this->logger->log( 'Execution time single ' . ( hrtime( true ) - $start_search ) / 1e+9 );
 				if ( count( $query_tokens ) > 1 ) {
@@ -95,18 +96,16 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 			}
 
 			// If the process no return results we can check for fuzzy strings.
-			if ( apply_filters( 'yith_wcas_force_fuzzy_search', ! $search_result_data && 'yes' === ywcas()->settings->get_enable_search_fuzzy() ) ) {
-				$best_token = $this->get_fuzzy_query_string( $query_tokens, $lang);
-
-				if( $best_token ){
-					$search_result_data = $this->get_search_results( array($best_token), $post_type, $category, $lang );
-				}
-				//$fuzzy_result       = $this->get_fuzzy_search_results( $query_tokens, $post_type, $lang, $category );
-				//$search_result_data = $fuzzy_result ? array_merge( $search_result_data, $fuzzy_result ) : $search_result_data;
-
-				if ( ! $search_result_data && apply_filters( 'ywcas_search_for_sound', false !== strpos( $lang, 'en_' ) ) ) {
-					$soundex_result     = $this->get_soundex_search_results( $query_tokens, $post_type, $lang, $category );
-					$search_result_data = $soundex_result ? array_merge( $search_result_data, $soundex_result ) : $search_result_data;
+			if ( apply_filters( 'yith_wcas_force_fuzzy_search', empty( $search_result_data ) && 'yes' === ywcas()->settings->get_enable_search_fuzzy() ) ) {
+				$best_token = $this->get_fuzzy_query_string( $query_tokens, $lang );
+				if ( $best_token ) {
+					$search_result_data = $this->get_search_results( array( $best_token ), $post_type, $category, $lang );
+					$best_token         = empty( $search_result_data ) ? '' : $best_token;
+				} else {
+					if ( ! $search_result_data && apply_filters( 'ywcas_search_for_sound', false !== strpos( $lang, 'en_' ) ) ) {
+						$soundex_result     = $this->get_soundex_search_results( $query_tokens, $post_type, $lang, $category );
+						$search_result_data = $soundex_result ? array_merge( $search_result_data, $soundex_result ) : $search_result_data;
+					}
 				}
 			}
 
@@ -210,21 +209,23 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 				if ( strlen( $query_token ) < $this->fuzzy_prefix_length + 1 ) {
 					continue;
 				}
-				$token_names          = array();
+				$token_names = array();
+				$token       = substr( $query_token, 0, $this->fuzzy_prefix_length );
+				$token       = $this->prepare_token( $token );
 
-				$token                = substr( $query_token, 0, $this->fuzzy_prefix_length );
-				$token                = $this->prepare_token( $token );
-
-				$token_results                    = YITH_WCAS_Data_Index_Token::get_instance()->search_similar_token( $token, $lang, $this->fuzzy_max_tokens );
+				$token_results = YITH_WCAS_Data_Index_Token::get_instance()->search_similar_token( $token, $lang, $this->fuzzy_max_tokens );
+				$token_results = array_unique( wp_list_pluck( $token_results, 'token' ));
 
 				$tokens_grouped_by_distance_token = array();
 				if ( $token_results ) {
-					foreach ( $token_results as $token_result ) {
-						$distance = levenshtein( $token_result->token, $query_token );
+					foreach ( $token_results as $token ) {
+						$distance = levenshtein( $token, $query_token );
 						if ( $distance <= ywcas()->settings->get_fuzzy_distance() ) {
-							$tokens_grouped_by_distance_token[ $distance ][] = $token_result->token;
+							$tokens_grouped_by_distance_token[ $distance ][] = $token;
 						}
 					}
+
+
 					if ( $tokens_grouped_by_distance_token ) {
 						asort( $tokens_grouped_by_distance_token );
 
@@ -398,12 +399,17 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 		 */
 		public function get_data_index_by_tokens( $query_tokens, $lang ) {
 			$documents = array();
+
+
 			foreach ( $query_tokens as $query_token ) {
 				// searching the exact token.
 				$token_result_raw = YITH_WCAS_Data_Index_Token::get_instance()->search( $query_token, $lang );
-				$query_token      = $this->prepare_token( $query_token );
+
+
+				$query_token = $this->prepare_token( $query_token );
 				// searching the generic token.
 				$token_result = YITH_WCAS_Data_Index_Token::get_instance()->search( $query_token, $lang );
+
 				$token_result = array_unique( array_merge( $token_result_raw, $token_result ) );
 
 				if ( $token_result ) {

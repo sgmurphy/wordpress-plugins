@@ -164,6 +164,14 @@ const YWCAS_Admin_Shortcodes = () => {
         const slug = form.data('preset');
 
         const formData = new FormData();
+        const block_params = {
+            message: null,
+            overlayCSS: {
+                background: '#fff',
+                opacity: 0.6
+            },
+            ignoreIfBlocked: true
+        };
         jQuery.each(form.serializeArray(), function (i, field) {
             formData.append(field.name, field.value);
         });
@@ -178,6 +186,9 @@ const YWCAS_Admin_Shortcodes = () => {
             contentType: false,
             processData: false,
             type: 'POST',
+            beforeSend:function (){
+                form.block(block_params);
+            },
             success: function (response) {
                 if (response?.data?.content) {
                     jQuery(document).find('.ywcas-shortcodes-list').replaceWith(jQuery(response.data.content))
@@ -192,6 +203,7 @@ const YWCAS_Admin_Shortcodes = () => {
                     window.onbeforeunload = null;
 
                 }
+                form.unblock();
             },
         });
     };

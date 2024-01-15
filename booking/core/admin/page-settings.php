@@ -197,6 +197,13 @@ if (0){
             // Save Changes 
             $this->update();
         }                
+	    if ( ! empty( $_GET['scroll_to_section'] ) ) {
+			?><script type="text/javascript">
+				jQuery(document).ready(function(){
+					jQuery( '#<?php echo esc_js( $_GET['scroll_to_section'] ); ?> a' ).trigger('click');
+				});
+			</script><?php
+	    }
 
         // JavaScript: Tooltips, Popover, Datepick (js & css) //////////////////
         echo '<span class="wpdevelop">';
@@ -231,7 +238,6 @@ if (0){
 					<div id="wpbc_general_settings_capacity_tab" class="wpbc_settings_navigation_item wpbc_navigation_sub_item">
 						<a class="" original-title="" onclick="javascript:wpbc_navigation_click_show_section(this,'#wpbc_general_settings_capacity_metabox,#wpbc_general_settings_capacity_upgrade_metabox' );" href="javascript:void(0);">
 							<span><?php _e( 'Capacity', 'booking' ) ?></span>
-							<span class="wpbc_new_label"><?php _e( 'New', 'booking' ) ?></span>
 						</a>
 					</div>
 					<div id="wpbc_general_settings_form_tab" class="wpbc_settings_navigation_item">
@@ -247,7 +253,6 @@ if (0){
 					<div id="wpbc_general_settings_booking_confirmation_tab" class="wpbc_settings_navigation_item">
 						<a class="" original-title="" onclick="javascript:wpbc_navigation_click_show_section(this,'#wpbc_general_settings_booking_confirmation_metabox' );" href="javascript:void(0);">
 							<span><?php _e( 'Booking Confirmation', 'booking' ) ?></span>
-							<span class="wpbc_new_label"><?php _e( 'New', 'booking' ) ?></span>
 						</a>
 					</div>
 
@@ -294,7 +299,6 @@ if (0){
 					<div id="wpbc_general_settings_datestimes_tab" class="wpbc_settings_navigation_item wpbc_navigation_sub_item">
 						<a class="" original-title="" onclick="javascript:wpbc_navigation_click_show_section(this,'#wpbc_general_settings_datestimes_metabox' );" href="javascript:void(0);">
 							<span><?php _e( 'Date / Time Formats', 'booking' ) ?></span>
-							<span class="wpbc_new_label"><?php _e( 'New', 'booking' ) ?></span>
 						</a>
 					</div>
 					<div id="wpbc_general_settings_permissions_tab" class="wpbc_settings_navigation_item wpbc_navigation_sub_item">
@@ -603,7 +607,6 @@ if (0){
 					jQuery( '<?php echo esc_js( $_POST['form_visible_section'] ); ?> a' ).trigger('click');
 				});
 			</script><?php
-
 	    }
 
         $this->settings_api()->save_to_db( $validated_fields );                 // Save fields to DB

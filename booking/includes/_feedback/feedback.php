@@ -14,7 +14,7 @@ function wpbc_get_feedback_defaults( $param_name ){
 
     $defaults = array(
 	    'page_where_load' => 'wpbc-ajx_booking_availability',			// Name of page,  where to  load feedback. Defined in pages,  like this: 		do_action( 'wpbc_hook_settings_page_footer', 'wpbc-ajx_booking_availability' );
-		'max_version'     => '9.9',										// If version  of Booking Calendar 9.6 or newer than do not show this Feedback
+		'max_version'     => '10.1',										// If version  of Booking Calendar 9.6 or newer than do not show this Feedback
 		'feedback_email'  => 'feedback2@wpbookingcalendar.com'
 	);
 
@@ -227,7 +227,7 @@ class WPBC_Feedback_01 {
 
 		/* S T A R S */ ?>
 		<div class="wpbc_modal__feedback_01__steps wpbc_modal__feedback_01__step_1" >
-			<h4 class="modal-title"><?php printf( 'Do you like the new %sNew Update 9.8%s of Booking Calendar?'  ,'<strong>','</strong>'); ?></h4>
+			<h4 class="modal-title"><?php printf( 'Do you like the new %sNew Update%s of Booking Calendar?'  ,'<strong>','</strong>'); ?></h4>
 			<div class="wpbc_feedback_01__content_rating">
 				<div class="wpbc_feedback_01__content_rating_stars"><?php
 					for( $i = 1; $i < 6; $i++) {
@@ -603,12 +603,10 @@ function wpbc_feedback_01__send_email( $stars_num, $feedback_description ) {
  if (
 	   ( ! wpbc_is_this_demo() )
  ) {
-
 	$js_css_loading = new WPBC_Feedback_01;
 	$js_css_loading->define_ajax_hook();
 
 	if ( ! empty( get_option( 'booking_feedback_03' ) ) ){
 		$js_css_loading->init_load_css_js();
 	}
-
  }

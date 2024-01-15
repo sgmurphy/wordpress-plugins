@@ -25,7 +25,7 @@ final class Plugin {
 
     public function version()
     {
-        return '3.8.2';
+        return '3.8.3';
     }
 
     public function package_type()
@@ -117,9 +117,6 @@ final class Plugin {
             Attr::instance();
 		}
 
-       
-
-
         $filter_string = ''; // elementskit,metform-pro
         $filter_string .= ((!in_array('elementskit/elementskit.php', apply_filters('active_plugins', get_option('active_plugins')))) ? '' : ',elementskit');
         $filter_string .= (!class_exists('\MetForm\Plugin') ? '' : ',metform');
@@ -139,28 +136,27 @@ final class Plugin {
             ->set_condition(true)
             ->call();
 
-        // banner
-        \Wpmet\Libs\Banner::instance('metform')
-            ->set_filter(ltrim($filter_string, ','))
-            ->set_api_url('https://api.wpmet.com/public/jhanda')
-            ->set_plugin_screens('edit-metform-form')
-            ->set_plugin_screens('edit-metform-entry')
-            ->set_plugin_screens('metform_page_metform-menu-settings')
-            ->call();
+            // banner
+            \Wpmet\Libs\Banner::instance('metform')
+                ->set_filter(ltrim($filter_string, ','))
+                ->set_api_url('https://api.wpmet.com/public/jhanda')
+                ->set_plugin_screens('edit-metform-form')
+                ->set_plugin_screens('edit-metform-entry')
+                ->set_plugin_screens('metform_page_metform-menu-settings')
+                ->call();
 
+            /**
+             * Show WPMET stories widget in dashboard
+             */
+            \Wpmet\Libs\Stories::instance('metform')
 
+                ->set_filter($filter_string)
+                ->set_plugin('Metform', 'https://wpmet.com/plugin/metform/')
+                ->set_api_url('https://api.wpmet.com/public/stories/')
+                ->call();
 
-        /**
-         * Show WPMET stories widget in dashboard
-         */
-        \Wpmet\Libs\Stories::instance('metform')
+        }
 
-            ->set_filter($filter_string)
-            ->set_plugin('Metform', 'https://wpmet.com/plugin/metform/')
-            ->set_api_url('https://api.wpmet.com/public/stories/')
-            ->call();
-
-    }
         /**
          * Pro awareness feature;
          */
@@ -213,44 +209,6 @@ final class Plugin {
 						'description' => 'Check our upcoming new features, detailed development stories and tasks'
 				])
 
-				// set wpmet products
-				->set_products([
-						'url'       => 'https://getgenie.ai/',
-						'title'     => 'GetGenie',
-						'thumbnail' =>  $this->core_url() . 'integrations/onboard/assets/images/products/getgenie-logo.svg',
-						'description' => 'Your AI-Powered Content & SEO Assistant for WordPress',
-				])
-				->set_products([
-						'url'       => 'https://wpmet.com/plugin/shopengine/',
-						'title'     => 'ShopEngine',
-						'thumbnail' => $this->core_url() . 'integrations/onboard/assets/images/products/shopengine-logo.svg',
-						'description' => 'Complete WooCommerce Solution for Elementor',
-				])
-				->set_products([
-						'url'       => 'https://wpmet.com/plugin/metform/',
-						'title'     => 'MetForm',
-						'thumbnail' => $this->core_url() . 'integrations/onboard/assets/images/products/metform-logo.svg',
-						'description' => 'Most flexible drag-and-drop form builder'
-				])
-				->set_products([
-						'url'       => 'https://wpmet.com/plugin/wp-social/',
-						'title'     => 'WP Social',
-						'thumbnail' => $this->core_url() . 'integrations/onboard/assets/images/products/wp-social-logo.svg',
-						'description' => 'Integrate all your social media to your website'
-				])
-				->set_products([
-						'url'       => 'https://wpmet.com/plugin/wp-ultimate-review/?ref=wpmet',
-						'title'     => 'Ultimate Review',
-						'thumbnail' => $this->core_url() . 'integrations/onboard/assets/images/products/ultimate-review-logo.svg',
-						'description' => 'Integrate various styled review system in your website'
-				])
-				->set_products([
-						'url'       => 'https://products.wpmet.com/crowdfunding/?ref=wpmet',
-						'title'     => 'Fundraising & Donation Platform',
-						'thumbnail' => $this->core_url() . 'integrations/onboard/assets/images/products/wp-fundraising-logo.svg',
-						'description' => 'Enable donation system in your website'
-				])
-
 			    ->set_plugin_row_meta('Documentation', 'https://help.wpmet.com/docs-cat/metform/', ['target' => '_blank'])
 			    ->set_plugin_row_meta('Facebook Community', 'https://wpmet.com/fb-group', ['target' => '_blank'])
 			    ->set_plugin_row_meta('Rate the plugin ★★★★★', 'https://wordpress.org/support/plugin/metform/reviews/#new-post', ['target' => '_blank'])
@@ -259,7 +217,70 @@ final class Plugin {
 			    ->call();
 		}
 
+        $apps_img_path = $this->public_url() . 'assets/img/apps-page/';
 
+        /**
+         * Show apps menu for others wpmet plugins
+         */
+        \Wpmet\Libs\Apps::instance()->init('metform')
+        ->set_parent_menu_slug('metform-menu')
+        ->set_submenu_name('Apps')
+        ->set_section_title('Unleash the Full Potential of Elementor and WordPress!')
+        ->set_section_description('Install other plugins from us and take your website to the next level for absolutely free!')
+        ->set_items_per_row(4)
+        ->set_plugins(
+        [
+            'elementskit-lite/elementskit-lite.php' => [
+                'name' => esc_html__('ElementsKit', 'metform'),
+                'url'  => 'https://wordpress.org/plugins/elementskit-lite/',
+                'icon' => $apps_img_path. 'elementskit.gif',
+                'desc' => esc_html__('ElementsKit Elementor addons is an ultimate and all-in-one addons for Elementor.', 'metform'),
+            ],
+            'getgenie/getgenie.php' => [
+                'name' => esc_html__('GetGenie', 'metform'),
+                'url'  => 'https://wordpress.org/plugins/getgenie/',
+                'icon' => $apps_img_path.'getgenie.gif',
+                'desc' => esc_html__('AI SEO content writer, OpenAI ChatGPT Chatbot, Ai Copilot, NLP keyword research, SERP analysis & SEO tool for WordPress.', 'metform'),
+            ],
+            'shopengine/shopengine.php' => [
+                'name' => esc_html__('ShopEngine', 'metform'),
+                'url'  => 'https://wordpress.org/plugins/shopengine/',
+                'icon' => $apps_img_path. 'shopengine.gif',
+                'desc' => esc_html__('WooCommerce builder for Elementor with 70+ widgets, product templates & sliders, shopping cart, quick view, wishlist, and more.', 'metform'),
+            ],
+            'blocks-for-shopengine/shopengine-gutenberg-addon.php' => [
+                'name' => esc_html__('Blocks for ShopEngine', 'metform'),
+                'url'  => 'https://wordpress.org/plugins/blocks-for-shopengine/',
+                'icon' => $apps_img_path . 'shopengine.gif',
+                'desc' => esc_html__('Want a Gutenberg addon for easily building and customizing WooCommerce pages with templates and blocks? Then your wait is over.', 'metform'),
+            ],
+            'wp-social/wp-social.php' => [
+                'name' => esc_html__('Wp Social', 'metform'),
+                'url'  => 'https://wordpress.org/plugins/wp-social/',
+                'icon' => $apps_img_path . 'wp-social.png',
+                'desc' => esc_html__('Wp social lets you add social login, social counter, and social share buttons of different styles to your WordPress website.', 'metform'),
+            ],
+            'genie-image-ai/genie-image-ai.php' => [
+                'name' => esc_html__('Genie Image', 'metform'),
+                'url'  => 'https://wordpress.org/plugins/genie-image-ai/',
+                'icon' => $apps_img_path . 'genie-image.png',
+                'desc' => esc_html__('Trying to simplify your image creation journey? The Genie Image is a powerful text-to-image WordPress plugin developed using OpenAI DALL-E 2.', 'metform'),
+            ],
+            'wp-ultimate-review/wp-ultimate-review.php' => [
+                'name' => esc_html__('WP Ultimate Review', 'metform'),
+                'url'  => 'https://wordpress.org/plugins/wp-ultimate-review/',
+                'icon' => $apps_img_path . 'ultimate-review.png',
+                'desc' => esc_html__('WP Ultimate Review is the compact review plugin that allows you to collect social proof for your WordPress website.', 'metform'),
+            ],
+            'wp-fundraising-donation/wp-fundraising.php' => [
+                'name' => esc_html__('FundEngine', 'metform'),
+                'url'  => 'https://wordpress.org/plugins/wp-fundraising-donation/',
+                'icon' => $apps_img_path . 'fundengine.png',
+                'desc' => esc_html__('Fundraising Donation plugin and Crowdfunding Platform comes with Single donation and crowdfunding solution.', 'metform'),
+            ],
+        ]
+        )
+        ->call();
 
         // Check if Elementor installed and activated.
         if (!did_action('elementor/loaded')) {
@@ -296,7 +317,6 @@ final class Plugin {
             add_action( 'admin_enqueue_scripts', [$this, 'cleanoThemeConflict'], 100 );
         }
         
-
         add_action('elementor/frontend/before_enqueue_scripts', [$this, 'elementor_js']);
 
         add_action('elementor/editor/before_enqueue_styles', [$this, 'elementor_css']);

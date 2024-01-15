@@ -26,7 +26,7 @@ function wpbc_timeline_toolbar() {
 
     wpbc_toolbar_search_by_id_bookings();                                       // Search bookings by  ID - form  at the top  right side of the page
 
-    wpbc_toolbar_btn__view_mode();                                              //  Vertical Buttons
+    //wpbc_toolbar_btn__view_mode();                                              //  Vertical Buttons				//FixIn: 9.8.15.2
 
     //  Toolbar ////////////////////////////////////////////////////////////////
 
@@ -44,7 +44,7 @@ function wpbc_timeline_toolbar() {
                                                 // , 'hint' => array( 'title' => __('Manage bookings' ,'booking') , 'position' => 'top' )
                                                 , 'onclick'     =>  "jQuery('.visibility_container').hide();"
                                                                     . "jQuery('#actions_toolbar_container').show();"
-                                                                    . "jQuery('.nav-tab').removeClass('nav-tab-active');"
+                                                                    . "jQuery('#toolbar_booking_listing .nav-tab').removeClass('nav-tab-active');"					//FixIn: 9.8.15.2
                                                                     . "jQuery(this).addClass('nav-tab-active');"
                                                                     . "jQuery('.nav-tab i.icon-white').removeClass('icon-white');"
                                                                     . "jQuery('.nav-tab-active i').addClass('icon-white');"
@@ -108,12 +108,26 @@ function wpbc_add_new_booking_toolbar() {
                                                 // , 'hint' => array( 'title' => __('Manage bookings' ,'booking') , 'position' => 'top' )
                                                 , 'onclick'     =>  "jQuery('.visibility_container').hide();"
                                                                     . "jQuery('#filter_toolbar_container').show();"
-                                                                    . "jQuery('.nav-tab').removeClass('nav-tab-active');"
+                                                                    . "jQuery('#toolbar_booking_listing .nav-tab').removeClass('nav-tab-active');"						//FixIn: 9.8.15.2
                                                                     . "jQuery(this).addClass('nav-tab-active');"
                                                                     . "jQuery('.nav-tab i.icon-white').removeClass('icon-white');"
                                                                     . "jQuery('.nav-tab-active i').addClass('icon-white');"
                                                 , 'font_icon'   => 'wpbc_icn_adjust'
                                                 , 'default'     => ( $selected_tab == 'filter' ) ? true : false
+
+                                ) );
+
+            wpbc_bs_display_tab(   array(
+                                                'title'         => __('Calendar View', 'booking')
+                                                // , 'hint' => array( 'title' => __('Manage bookings' ,'booking') , 'position' => 'top' )
+                                                , 'onclick'     =>  "jQuery('.visibility_container').hide();"
+                                                                    . "jQuery('#calendar_size_toolbar_container').show();"
+                                                                    . "jQuery('#toolbar_booking_listing .nav-tab').removeClass('nav-tab-active');"						//FixIn: 9.8.15.2
+                                                                    . "jQuery(this).addClass('nav-tab-active');"
+                                                                    . "jQuery('.nav-tab i.icon-white').removeClass('icon-white');"
+                                                                    . "jQuery('.nav-tab-active i').addClass('icon-white');"
+                                                , 'font_icon'   => 'wpbc-bi-calendar2'
+                                                , 'default'     => ( $selected_tab == 'calendar' ) ? true : false
 
                                 ) );
 
@@ -151,9 +165,11 @@ function wpbc_add_new_booking_toolbar() {
             ?></div><?php
             ////////////////////////////////////////////////////////////////////
 
-
+        ?></div><?php
+        ?><div id="calendar_size_toolbar_container" class="visibility_container clearfix-height" style="display:<?php echo ( $selected_tab == 'calendar_size' ) ? 'block' : 'none'  ?>;margin-top:-5px;"><?php
+			/*
             ?><span class="advanced_booking_filter" style="display:none;"><div class="clear" style="width:100%;border-bottom:1px solid #ccc;height:10px;"></div><?php
-
+			*/
                 // Get possible saved previous "Custom User Calendar data"
                 $user_calendar_options = get_user_option( 'booking_custom_' . 'add_booking_calendar_options', wpbc_get_current_user_id() );
 
@@ -180,14 +196,14 @@ function wpbc_add_new_booking_toolbar() {
                 wpbc_toolbar_btn__calendar_options_save();
 
 				wpbc_toolbar_btn__calendar_options_reset();
-
+/*
             ?><div class="clear"></div></span><?php
 
 
             wpbc_clear_div();
 
             wpbc_toolbar_expand_collapse_btn( 'advanced_booking_filter' );
-
+*/
         ?></div><?php
 
 

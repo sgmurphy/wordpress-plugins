@@ -504,7 +504,7 @@ Class MetForm_Input_Gdpr_Consent extends Widget_Base{
 					<label>
 						<?php
 							if ( $mf_gdpr_consent_option_text_position == 'before' ):
-								echo wp_kses(str_replace('`', '\`', $mf_gdpr_consent_option_text), \MetForm\Utils\Util::get_kses_array());
+								echo str_replace('&amp;','&', wp_kses(str_replace('`', '\`', $mf_gdpr_consent_option_text), \MetForm\Utils\Util::get_kses_array()));
 							endif;
 						?>
 						<input
@@ -520,7 +520,7 @@ Class MetForm_Input_Gdpr_Consent extends Widget_Base{
 						<span>
 							<?php
 								if ( $mf_gdpr_consent_option_text_position == 'after' ):
-									echo wp_kses(str_replace('`', '\`', $mf_gdpr_consent_option_text), \MetForm\Utils\Util::get_kses_array());
+									echo str_replace('&amp;','&', wp_kses(str_replace('`', '\`', $mf_gdpr_consent_option_text), \MetForm\Utils\Util::get_kses_array()));
 								endif;
 							?>
 						</span>

@@ -152,6 +152,7 @@ class WPBC_TimelineFlex {
         if ( isset( $attr['options'] ) ) {
 
             $bk_otions = $attr['options'];
+	        $bk_otions = html_entity_decode( $bk_otions );                                //FixIn: 9.8.15.6
             $custom_params = array();
             if (! empty($bk_otions)) {
                 $param ='\s*([^\s]+)=[\'"]{1}([^\'"]+)[\'"]{1}\s*';      // Find all possible options

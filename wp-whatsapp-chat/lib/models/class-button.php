@@ -49,7 +49,9 @@ class Button {
 	}
 
 	public function save( $data ) {
+		error_log( 'data: ' . json_encode( $data, JSON_PRETTY_PRINT ) );
 		$entity = $this->repository->create( $this->sanitize( $data ) );
+		error_log( 'sanitize: ' . json_encode( $this->sanitize( $data ), JSON_PRETTY_PRINT ) );
 
 		if ( $entity ) {
 			return true;
@@ -67,7 +69,7 @@ class Button {
 			$settings['text'] = sanitize_text_field( $settings['text'] );
 		}
 		if ( isset( $settings['message'] ) ) {
-			$settings['message'] = sanitize_text_field( $settings['message'] );
+			$settings['message'] = sanitize_textarea_field( $settings['message'] );
 		}
 		if ( isset( $settings['icon'] ) ) {
 			$settings['icon'] = sanitize_html_class( $settings['icon'] );

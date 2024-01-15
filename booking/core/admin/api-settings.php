@@ -1312,6 +1312,29 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
                                 , 'group'       => 'permissions'
                                 , 'is_demo_safe' => wpbc_is_this_demo()
                         );
+		//FixIn: 9.8.15.2.6
+	    if ( class_exists( 'wpdev_bk_biz_m' ) )
+            $this->fields['booking_user_role_prices'] = array(
+                                'type'          => 'select'
+                                , 'default'     => $default_options_values['booking_user_role_prices']            //'editor'
+                                , 'title'       => __('Prices', 'booking')
+                                , 'description' => ''
+                                , 'options'     => $field_options
+                                , 'group'       => 'permissions'
+                                , 'is_demo_safe' => wpbc_is_this_demo()
+                        );
+		//FixIn: 9.8.15.2.6
+		if ( WPBC_customize_plugin )
+            $this->fields['booking_user_role_customize_plugin'] = array(
+                                'type'          => 'select'
+                                , 'default'     => $default_options_values['booking_user_role_customize_plugin']            //'editor'
+                                , 'title'       => __('Customize', 'booking')
+                                , 'description' => ''
+                                , 'options'     => $field_options
+                                , 'group'       => 'permissions'
+                                , 'is_demo_safe' => wpbc_is_this_demo()
+                        );
+
         $this->fields['booking_user_role_addbooking'] = array(
                                 'type'          => 'select'
                                 , 'default'     => $default_options_values['booking_user_role_addbooking']         //'editor'

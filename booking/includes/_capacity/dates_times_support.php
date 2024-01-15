@@ -716,7 +716,7 @@ function wpbc_is__intervals__intersected( $interval_A, $interval_B ) {
 			array( 1, _n_noop( '%s second', '%s seconds', 'booking' ) ),
 		);
 
-		if ( $time_interval_in_seconds <= 0 ) {
+		if ( ( $time_interval_in_seconds <= 0 ) || ( ! is_int( $time_interval_in_seconds ) ) ) {
 			return __( 'now', 'booking' );
 		}
 

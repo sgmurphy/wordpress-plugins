@@ -573,11 +573,19 @@ function wpbc_get_availability_per_days_arr( $params ) {
 	// Booking > Availability page
 	// -----------------------------------------------------------------------------------------------------------------
 	$search_dates = $params['dates_to_check'];    // 'CURDATE' | 'ALL' |  [ "2023-08-03" , "2023-08-04" , "2023-08-05" ]
-	$unavailable_dates__per_resources__arr = wpbc_for_resources_arr__get_unavailable_dates(
-															//$resource_id__with_children__arr,
-															wpbc_get_unique_array_of_resources_id( $resource_id__with_children__arr, $aggregate_resource_id_arr ),      // Get  unavailable dates for primary  and aggregate booking resources
-															$search_dates
+
+	//FixIn: 9.8.15.10  Aggregate or not Aggregate Booking > Availability ?     aggregate_type = 'all' | 'bookings_only'
+	if ( 'bookings_only' === $params['aggregate_type'] ) {
+		$unavailable_dates__per_resources__arr = wpbc_for_resources_arr__get_unavailable_dates(
+																$resource_id__with_children__arr,                       // Only One Primary Resource !!
+																$search_dates
+														);    // [ 2: ['2023-08-01', '2023-08-02'], 10: ['2023-08-05', '2023-08-06'] ]
+	} else {
+		$unavailable_dates__per_resources__arr = wpbc_for_resources_arr__get_unavailable_dates(
+														wpbc_get_unique_array_of_resources_id( $resource_id__with_children__arr, $aggregate_resource_id_arr ),      // Get  unavailable dates for primary  and aggregate booking resources
+														$search_dates
 													);    // [ 2: ['2023-08-01', '2023-08-02'], 10: ['2023-08-05', '2023-08-06'] ]
+	}
 	$unavailable_dates__per_resources__arr = wpbc_aggregate_merge_availability( $unavailable_dates__per_resources__arr,
 																				$resource_id__with_children__arr,
 																				$aggregate_resource_id_arr );

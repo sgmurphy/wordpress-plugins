@@ -1160,13 +1160,13 @@ var FrontendBlock = function FrontendBlock(_ref) {
       direction: "column",
       spacing: 4,
       className: "wp-block-yith-filled-block"
-    }, results.results.fuzzyToken && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_lapilli_ui_components__WEBPACK_IMPORTED_MODULE_3__.Box, {
+    }, results.results.fuzzyToken && results.results.fuzzyToken.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_lapilli_ui_components__WEBPACK_IMPORTED_MODULE_3__.Box, {
       sx: {
         lineHeight: '2.5em'
       }
     }, "".concat(_config__WEBPACK_IMPORTED_MODULE_8__.YWCAS_ZERO_RESULTS, " \"").concat(query, "\"")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_lapilli_ui_components__WEBPACK_IMPORTED_MODULE_3__.Box, {
       className: className
-    }, results.results.fuzzyToken && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_lapilli_ui_components__WEBPACK_IMPORTED_MODULE_3__.Box, {
+    }, results.results.fuzzyToken && results.results.fuzzyToken.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_lapilli_ui_components__WEBPACK_IMPORTED_MODULE_3__.Box, {
       sx: {
         marginBottom: '15px'
       }

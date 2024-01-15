@@ -558,6 +558,17 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				update_option( 'elementor_load_fa4_shim', $data['astra-page-options-data']['elementor_load_fa4_shim'] );
 			}
 
+			// Check flexbox container, If inactive then activate it.
+			$flexbox_container = get_option( 'elementor_experiment-container' );
+			// Check if the value is 'inactive'.
+			if ( 'inactive' === $flexbox_container ) {
+				// Delete the option to clear the cache.
+				delete_option( 'elementor_experiment-container' );
+				
+				// Update the option to 'active' to activate the flexbox container.
+				update_option( 'elementor_experiment-container', 'active' );
+			}
+			
 			$import      = new \Elementor\TemplateLibrary\Astra_Sites_Elementor_Pages();
 			$import_data = $import->import( $post_id, $meta );
 

@@ -177,17 +177,17 @@ class WPBC_Google_Calendar {
            $booking_gcal_events_until_offset =  $booking_gcal_events_until[1] ; 
         } else {
             switch ($booking_gcal_events_until[2]) {
-                case "second":  
-                    $booking_gcal_events_until_offset = intval( $booking_gcal_events_until[1] );
+                case "second":
+	                $booking_gcal_events_until_offset = intval( $booking_gcal_events_until[1] );
                     break;
-                case "minute":  
-                    $booking_gcal_events_until_offset = intval( $booking_gcal_events_until[1] * 60 );
+                case "minute":
+	                $booking_gcal_events_until_offset = intval( $booking_gcal_events_until[1] ) * 60;                   //FixIn: 9.8.15.1
                     break;
-                case "hour":  
-                    $booking_gcal_events_until_offset = intval( $booking_gcal_events_until[1] * 3600);
+                case "hour":
+	                $booking_gcal_events_until_offset = intval( $booking_gcal_events_until[1] ) * 3600;
                     break;
-                case "day":  
-                    $booking_gcal_events_until_offset = intval( $booking_gcal_events_until[1] * 86400);
+                case "day":
+	                $booking_gcal_events_until_offset = intval( $booking_gcal_events_until[1] ) * 86400;
                     break;
                 default:
                     $booking_gcal_events_until_offset = intval( $booking_gcal_events_until[1] );
@@ -624,6 +624,10 @@ class WPBC_Google_Calendar {
 											 'is_approve_booking'   => intval( 'On' === get_bk_option( 'booking_auto_approve_bookings_when_import' ) )		// Auto  approve booking if imported
 										);
 
+				if (  'On' != get_bk_option( 'booking_condition_import_if_available' ) ) {		//FixIn: 9.8.15.8     -  'Import only, if days are available'
+					$request_save_params['save_booking_even_if_unavailable'] = 1;
+				}
+
 				$booking_save_arr = wpbc_booking_save( $request_save_params );
 
 				if ( 'ok' === $booking_save_arr['ajx_data']['status'] ) {												// Everything Cool :) - booking has been created
@@ -690,9 +694,11 @@ class WPBC_Google_Calendar {
         $sql_sync_gid= implode( "','",$sql_sync_gid );
         
         $exist_bookings_guid = array();
-        if (! empty($sql_sync_gid)) {        
+
+		$booking_condition_import_only_new = get_bk_option( 'booking_condition_import_only_new' );        //FixIn: 9.8.15.8
+	    if ( ( ! empty( $sql_sync_gid ) ) && ( 'On' === $booking_condition_import_only_new ) ) {
             global $wpdb;       
-            $exist_bookings = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}booking WHERE sync_gid IN ('{$sql_sync_gid}')" );
+            $exist_bookings = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}booking WHERE sync_gid IN ('{$sql_sync_gid}') AND trash != 1" );		//FixIn: 9.8.15.8
             foreach ($exist_bookings as $bk) {
                 $exist_bookings_guid[]=$bk->sync_gid;
             }

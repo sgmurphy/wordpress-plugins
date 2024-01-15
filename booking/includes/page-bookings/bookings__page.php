@@ -47,7 +47,7 @@ class WPBC_Page_AJX_Bookings extends WPBC_Page_Structure {
                             , 'font_icon'	=> 'wpbc-bi-collection'			// CSS definition  of forn Icon				//FixIn: 9.5.5.3
                             , 'header_font_icon'	=> 'wpbc-bi-collection'			// CSS definition  of forn Icon				//FixIn: 9.5.5.3
                             , 'default'		=> false								// Is this tab activated by default or not: true || false.
-                            , 'disabled'	=> false                            // Is this tab disbaled: true || false.
+                            , 'disabled'	=> false                            // Is this tab disabled: true || false.
                             , 'hided'		=> true                             // Is this tab hided: true || false.
                             , 'subtabs'		=> array()
         );

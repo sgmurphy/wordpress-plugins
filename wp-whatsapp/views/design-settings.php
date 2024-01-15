@@ -37,6 +37,44 @@
             <td><input type="text" id="textColor" name="textColor" value="<?php echo esc_attr($option['textColor']) ?>" class="textColor" data-default-color="#fff" /></td>
         </tr>
 
+        <tr class="setting font-size">
+            <th scope="row"><label for=""><?php echo __( 'Widget Font Size', 'ninjateam-whatsapp' ) ?></label></th>
+            <td>
+                <div id="title-range-slider">
+                    <p><?php echo __( 'Title', 'ninjateam-whatsapp' )  ?></p>
+                    <div class="range title-size" style='--min:10; --max:20; --value:<?php echo $option['titleSize'] ?>; --text-value:"<?php echo $option['titleSize']; ?>"'>
+                        <input type="range" name="titleSize" min="10" max="20" value="<?php echo esc_attr( $option['titleSize'] )?>" oninput="this.parentNode.style.setProperty('--value',this.value); this.parentNode.style.setProperty('--text-value', JSON.stringify(this.value))">
+                        <output></output>
+                        <div class='range__progress'></div>
+                    </div>
+                </div>
+                <div id="description-range-slider">
+                    <p><?php echo __( 'Description', 'ninjateam-whatsapp' )?></p>
+                    <div class="range description-size" style='--min:10; --max:20; --value:<?php echo $option['descriptionTextSize'] ?>; --text-value:"<?php echo $option['descriptionTextSize'] ?>"'>
+                        <input type="range" name="descriptionTextSize" min="10" max="20" value="<?php echo esc_attr($option['descriptionTextSize']) ?>" oninput="this.parentNode.style.setProperty('--value',this.value); this.parentNode.style.setProperty('--text-value', JSON.stringify(this.value))"/>
+                        <output></output>
+                        <div class='range__progress'></div>
+                    </div>
+                </div>
+                <div id="account-name-range-slider">
+                    <p><?php echo __( 'Account Name', 'ninjateam-whatsapp' ) ?></p>
+                    <div class="range account-name-size" style='--min:10; --max:20; --value:<?php echo $option['accountNameSize']?>; --text-value:"<?php echo $option['accountNameSize'] ?>"'>
+                        <input type="range" name="accountNameSize" min="10" max="20" value="<?php echo esc_attr( $option['accountNameSize'] ) ?>" oninput="this.parentNode.style.setProperty('--value',this.value); this.parentNode.style.setProperty('--text-value', JSON.stringify(this.value))" />
+                        <output></output>
+                        <div class='range__progress'></div>
+                    </div>
+                </div>
+                <div id="regular-text-range-slider">
+                    <p><?php echo __( "Regular Text", 'ninjateam-whatsapp' ) ?></p>
+                    <div class="range regular-text-size" style='--min:10; --max:20; --value:<?php echo $option['regularTextSize']?>; --text-value:"<?php echo $option['regularTextSize'] ?>"'>
+                        <input type="range" name="regularTextSize" min="10" max="20" value="<?php echo esc_attr($option['regularTextSize']) ?>" oninput="this.parentNode.style.setProperty('--value',this.value); this.parentNode.style.setProperty('--text-value', JSON.stringify(this.value))"/>
+                        <output></output>
+                        <div class='range__progress'></div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
         <tr>
             <th scope="row"><label for="backgroundColor"><?php echo __('Widget Background Color', 'ninjateam-whatsapp') ?></label></th>
             <td><input id="backgroundColor" type="text" name="backgroundColor" value="<?php echo esc_attr($option['backgroundColor']) ?>" class="backgroundColor" data-default-color="#2db742" /></td>

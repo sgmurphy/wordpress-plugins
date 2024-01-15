@@ -190,7 +190,7 @@ class WPBC_API_SettingsGeneralSync extends WPBC_Settings_API  {
 										, 'title'       => __('Export only approved bookings', 'booking')
 										, 'label'       => __('Enable of export only approved bookings in .ics feeds' ,'booking')
 										, 'description' => ''
-										, 'group'       => 'import_advanced'
+										, 'group'       => 'export_advanced'
 								);
 
 			//FixIn: 8.8.3.19
@@ -206,12 +206,12 @@ class WPBC_API_SettingsGeneralSync extends WPBC_Settings_API  {
 												'plugin' 	=> __('Bookings created in Booking Calendar'),
 												'imported' 	=> __('Imported bookings'),
 											)
-										, 'group'       => 'import_advanced'
+										, 'group'       => 'export_advanced'
 								);
         }
 
         //FixIn: 8.5.1.1
-
+/*
 		//FixIn: 8.4.7.1
 		$this->fields['booking_ics_force_import'] = array(
 									  'type'        => 'checkbox'
@@ -221,6 +221,7 @@ class WPBC_API_SettingsGeneralSync extends WPBC_Settings_API  {
 									, 'description' => ''
 									, 'group'       => 'import_advanced'
 							);
+*/
 		//FixIn: 8.4.7.12	//FixIn: //FixIn: 9.1.2.6
 		$this->fields['booking_ics_force_trash_before_import'] = array(
 									  'type' => 'select'
@@ -236,6 +237,24 @@ class WPBC_API_SettingsGeneralSync extends WPBC_Settings_API  {
 										)
 									, 'group'       => 'import_advanced'
 								);
+
+
+		$this->fields['booking_condition_import_only_new'] = array(
+									  'type'        => 'checkbox'
+									, 'default'     => 'Off'
+									, 'title'       => __( 'Import conditions', 'booking' )//__('Import only new events', 'booking')
+									, 'label'       => '<strong>' . __( 'Import Only New Events', 'booking' ) . '</strong> -  ' . __( 'Import only if the event has not been imported before.', 'booking' )
+									, 'description' => ''
+									, 'group'       => 'import_advanced'
+							);
+		$this->fields['booking_condition_import_if_available'] = array(
+									  'type'        => 'checkbox'
+									, 'default'     => 'Off'
+									, 'title'       => ''//__('Import if dates available', 'booking')
+									, 'label'       => '<strong>' . __( 'Import if Dates Available', 'booking' ) . '</strong> -  ' . __( 'Import only if dates are available in the source calendar.', 'booking' )
+									, 'description' => ''
+									, 'group'       => 'import_advanced'
+							);
 
 
         ////////////////////////////////////////////////////////////////////////
@@ -430,9 +449,16 @@ class WPBC_Page_SettingsGeneralSync extends WPBC_Page_Structure {
                     //FixIn: 8.5.1.1
 					// if ( class_exists( 'wpdev_bk_biz_s' ) ) {
 
-						wpbc_open_meta_box_section( 'wpbc_settings_general_sync_events_fields', __( 'Import', 'booking' ) . ' ' . __( 'Advanced', 'booking' ) );
+						wpbc_open_meta_box_section( 'wpbc_settings_general_sync_import', __( 'Import', 'booking' ) . ' ' . __( 'Advanced', 'booking' ) );
 
 							$this->get_api()->show( 'import_advanced' );
+
+						wpbc_close_meta_box_section();
+
+
+						wpbc_open_meta_box_section( 'wpbc_settings_general_sync_export', __( 'Export', 'booking' ) . ' ' . __( 'Advanced', 'booking' ) );
+
+							$this->get_api()->show( 'export_advanced' );
 
 						wpbc_close_meta_box_section();
 					// }

@@ -137,10 +137,8 @@ class Kadence_Starter_Templates_AI_Events {
 		$slug = class_exists( '\KadenceWP\KadenceBlocks\App' ) ? 'kadence-blocks' : 'kadence-starter-templates';
 		if ( class_exists( '\KadenceWP\KadenceBlocks\App' ) ) {
 			$token          = \KadenceWP\KadenceBlocks\StellarWP\Uplink\get_authorization_token( $slug );
-			$auth_url       = \KadenceWP\KadenceBlocks\StellarWP\Uplink\build_auth_url( apply_filters( 'kadence-blocks-auth-slug', $slug ), get_license_domain() );
 		} else {
 			$token          = get_authorization_token( $slug );
-			$auth_url       = build_auth_url( apply_filters( 'kadence-blocks-auth-slug', $slug ), get_license_domain() );
 		}
 		$license_key    = $this->get_current_license_key();
 		$is_authorized = false;

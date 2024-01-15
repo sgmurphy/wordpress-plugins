@@ -80,7 +80,8 @@ if ( file_exists( WPBC_PLUGIN_DIR . '/core/lang/wpbc_all_translations.php' ) ){
 	}
 }
 
-require_once( WPBC_PLUGIN_DIR . '/core/wpbc-create-pages.php' );                // Create pages for different purposes  //FixIn: 9.6.2.10
+require_once( WPBC_PLUGIN_DIR . '/includes/publish/wpbc-create-pages.php' );                // Create pages for different purposes                  //FixIn: 9.6.2.10
+require_once( WPBC_PLUGIN_DIR . '/includes/publish/wpbc-publish-shortcode.php' );           // Publish  Booking Calendar shortcodes into the Pages   //FixIn: 9.8.15.5
 require_once( WPBC_PLUGIN_DIR . '/core/wpbc-emails.php' );                      // Emails
 // JS & CSS
 require_once( WPBC_PLUGIN_DIR . '/core/wpbc-css.php' );                         // Load CSS
@@ -105,7 +106,7 @@ require_once( WPBC_PLUGIN_DIR . '/core/admin/wpbc-dashboard.php' );             
 require_once( WPBC_PLUGIN_DIR . '/includes/_request/wpbc_request.php' );                                            //FixIn: 9.3.1.2        // Class for sanitizing $_REQUEST parameters and saving or getting it from  DB
 require_once( WPBC_PLUGIN_DIR . '/includes/_booking_hash/booking_hash.php' );                                       //FixIn: 9.2.3.3
 
-require_once( WPBC_PLUGIN_DIR . '/includes/_feedback/feedback.php');                                                //FixIn: 9.2.3.6
+
 require_once( WPBC_PLUGIN_DIR . '/includes/_news/wpbc_news.php' );
 
 // Booking Listing
@@ -151,6 +152,9 @@ require_once( WPBC_PLUGIN_DIR . '/core/admin/wpbc-gutenberg.php' );             
 if ( file_exists( WPBC_PLUGIN_DIR.'/inc/_ps/personal.php' ) ){   
     require_once WPBC_PLUGIN_DIR . '/inc/_ps/personal.php';  
 } else {
+
+	require_once( WPBC_PLUGIN_DIR . '/includes/page-resource-free/page-resource-free.php' );              // Resource page for Free version
+
 	require_once( WPBC_PLUGIN_DIR . '/core/admin/page-up.php' );                // Up                                   //FixIn: 8.0.1.6
 	require_once( WPBC_PLUGIN_DIR . '/core/admin/page-form-free.php' );         // Fields
 
@@ -167,7 +171,8 @@ if ( file_exists( WPBC_PLUGIN_DIR.'/inc/_ps/personal.php' ) ){
     require_once( WPBC_PLUGIN_DIR . '/core/admin/page-import-gcal.php' );       // Import from  Google Calendar Settings page 
 }
 
-    
+require_once( WPBC_PLUGIN_DIR . '/includes/_feedback/feedback.php');                                                    //FixIn: 9.2.3.6
+
 // Old Working        
 require_once WPBC_PLUGIN_DIR . '/core/lib/wpdev-booking-widget.php';            // W i d g e t s
 require_once WPBC_PLUGIN_DIR . '/js/captcha/captcha.php';                       // C A P T C H A

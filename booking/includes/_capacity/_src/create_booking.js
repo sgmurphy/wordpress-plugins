@@ -476,6 +476,35 @@ console.groupEnd();
 	// </editor-fold>
 
 
+	// <editor-fold     defaultstate="collapsed"                        desc="  ==  Mini Spin Loader  ==  "  >
+
+		/**
+		 * Show mini Spin Loader
+		 * @param parent_html_id
+		 */
+		function wpbc__spin_loader__mini__show( parent_html_id , color = '#0071ce' ){
+
+			if ( ('undefined' !== typeof (color)) && ('' != color) ){
+				color = 'border-color:' + color + ';';
+			}
+			// Show Spin Loader
+			jQuery( '#' + parent_html_id ).after(
+				'<div id="wpbc_mini_spin_loader' + parent_html_id + '" class="wpbc_booking_form_spin_loader" style="position: relative;min-height: 2.8rem;"><div class="wpbc_spins_loader_wrapper"><div class="wpbc_one_spin_loader_mini 0wpbc_spins_loader_mini" style="'+color+'"></div></div></div>'
+			);
+		}
+
+		/**
+		 * Remove / Hide mini Spin Loader
+		 * @param parent_html_id
+		 */
+		function wpbc__spin_loader__mini__hide( parent_html_id ){
+
+			// Remove Spin Loader
+			jQuery( '#wpbc_mini_spin_loader' + parent_html_id ).remove();
+		}
+
+	// </editor-fold>
+
 //TODO: what  about showing only  Thank you. message without payment forms.
 /**
  * Show 'Thank you'. message and payment forms

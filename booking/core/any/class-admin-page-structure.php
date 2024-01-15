@@ -66,7 +66,7 @@ abstract class WPBC_Page_Structure {
         $tabs = array();
         $tabs[ 'form' ] = array(
                               'title' => __('Form','booking')                   // Title of TAB    
-                            , 'hint' => __('Customizaton of Form Fields', 'booking')            // Hint    
+                            , 'hint' => __('Customization of Form Fields', 'booking')            // Hint    
                             , 'page_title' =>ucwords( __('Form fields', 'booking') )     // Title of Page    
                             //, 'link' => ''                                    // Can be skiped,  then generated link based on Page and Tab tags. Or can  be extenral link
                             //, 'position' => ''                                // 'left'  ||  'right'  ||  ''
@@ -174,7 +174,7 @@ abstract class WPBC_Page_Structure {
     /**
 	 * General Page Structure
      * 
-     * @param string $page_tag - its the same that  return $this->in_page()
+     * @param string $page_tag - its the same that  return $this->in_page ()
      */        
     public function content_structure( $page_tag ) {
 
@@ -193,12 +193,30 @@ abstract class WPBC_Page_Structure {
         if ( $is_show_this_page === false ) return  false;   
         
         do_action( 'wpbc_before_settings_content', $page_tag, $active_page_tab, $active_page_subtab  );                 // Fires Before showing settings Content page
-
+if ( 1 ) {
+		//FixIn: 9.8.15.2
+		?><div class="wpbc_page_top__header_tabs"><?php
+			?><div    id="<?php echo $page_tag; ?>-admin-page-top"
+				   class="wrap wpbc_page_top <?php
+							echo ' wpbc_page_tab__' . esc_attr( $active_page_tab );
+							echo ' wpbc_page_subtab__' . esc_attr( $active_page_subtab );
+					  ?>"
+			><?php
+				?><h1 class="wpbc_header wpdvlp-top-tabs"><?php
+                    ?><div class="wpbc_header_menu_tabs"><?php
+                        $this->show_tabs_line( $page_tag );                     // T O P    T A B S    in  Header
+                    ?></div><?php
+                    make_bk_action( 'wpbc_h1_header_content_end', $page_tag, $active_page_tab, $active_page_subtab );   //FixIn: 9.9.0.10
+				?></h1><?php
+			?></div><?php
+	  	?></div><?php
+} else {
 	    ?><div id="<?php echo $page_tag; ?>-admin-page-top"
 			   class="wrap wpbc_page_top wpbc_page_tab__<?php echo esc_attr( $active_page_tab ); ?> wpbc_page_subtab__<?php echo esc_attr( $active_page_subtab ); ?>" >
 			<h1 class="wpbc_header"><div class="wpbc_header_icon"><i class="menu_icon icon-1x <?php echo $this->get_page_header_h1_font_icon(); ?>"></i></div><div class="wpbc_header_text"><?php echo $this->get_page_header_h1(); ?></div><?php make_bk_action( 'wpbc_h1_header_content_end', $page_tag, $active_page_tab, $active_page_subtab ); ?></h1>
-		</div>
-	    <div id="<?php echo $page_tag; ?>-admin-page"
+		</div><?php
+}
+	  ?><div id="<?php echo $page_tag; ?>-admin-page"
 			   class="wrap wpbc_page wpbc_page_tab__<?php echo esc_attr( $active_page_tab ); ?> wpbc_page_subtab__<?php echo esc_attr( $active_page_subtab ); ?>" >
             <div class="wpbc_admin_message"></div>
             <div class="wpbc_admin_page">
@@ -244,64 +262,77 @@ abstract class WPBC_Page_Structure {
      */    
     private function is_page_activated() {
 
-        $is_page_selected = false;       
-        
+        $is_page_selected = false;
+
         $this_page = $this->in_page();
 
-        foreach ( $this->tabs() as $this_tab_tag => $this_tab ) {               // Get First Tab Element,  which  MUST be subtab element, all other tabs, can  be links,  not really  showing content!!!
-            break;
-        }
+		//FixIn: 9.8.15.2.3
+		if ( is_array( $this_page ) ) {
+			$this_page_arr = $this_page;
+		} else {
+			$this_page_arr = array( $this_page );
+		}
+		foreach ( $this_page_arr as $this_page ) {
 
-        if ( empty( $this_tab ) )
-            return $this_page;      // this page empty - tabs is empty  array,  probabaly  its was redefined in child CLASS to $tabs = array(); for not ability to open this page.
+			foreach ( $this->tabs() as $this_tab_tag => $this_tab ) {               // Get First Tab Element,  which  MUST be subtab element, all other tabs, can  be links,  not really  showing content!!!
+				break;
+			}
 
-        $this_subtab_tag = 0;
-        $this_subtab     = array( 'default' => false );    
-        
-        if ( isset( $this_tab['subtabs'] ) )
-            foreach ( $this_tab['subtabs'] as $temp_this_subtab_tag => $temp_this_subtab  ) {
-            
-                if ( $temp_this_subtab['type'] == 'subtab' ) {                  // Get First Subtab element from  subtabs array
-                    $this_subtab_tag = $temp_this_subtab_tag;
-                    $this_subtab     = $temp_this_subtab;
-                    break;
-                }
-            }
+			if ( empty( $this_tab ) ) {
+				return $this_page;      // this page empty - tabs is empty  array,  probabaly  its was redefined in child CLASS to $tabs = array(); for not ability to open this page.
+			}
 
-//debuge($this_page, $_REQUEST);            
-        if (       ( isset( $_REQUEST[ 'page' ] ) ) 
-                && ( $this_page == $_REQUEST[ 'page' ] )  ){                        // We are inside of this page. Menu item selected. 
+			$this_subtab_tag = 0;
+			$this_subtab     = array( 'default' => false );
 
-            if (   ( ! isset( $_REQUEST[ $this->tags['tab'] ] ) )                            // TAB      NOT     selected    &&  Default
-                //&& ( ! isset( $_REQUEST[ $this->tags['subtab'] ] ) )                       // SubTab   NOT     selected
-                && ( isset( $this_tab['default'] ) ) && ( $this_tab['default'] )                                     
-               ) 
-                $is_page_selected = true; 
-            
-            if (   ( isset( $_REQUEST[ $this->tags['tab'] ] ) )                              // TAB      Selected
-                && ( ! isset( $_REQUEST[ $this->tags['subtab'] ] ) )                         // SubTab   NOT     selected    &&      ! exist     ||  Default
-                && ( $_REQUEST[ $this->tags['tab'] ] == $this_tab_tag )                      
-                && ( ( $this_subtab_tag === 0 )  
-                     || ( $this_subtab['default'] )
-                   )
-               ) 
-                $is_page_selected = true; 
-            
-            if (   ( isset( $_REQUEST[ $this->tags['tab'] ] ) )                              // TAB      Selected
-                && ( isset( $_REQUEST[ $this->tags['subtab'] ] ) )                           // SubTab   Selected
-                && ( $_REQUEST[ $this->tags['tab'] ] == $this_tab_tag )
-                && ( $_REQUEST[ $this->tags['subtab'] ] == $this_subtab_tag )
-               ) 
-                $is_page_selected = true; 
-        }  
-        
-                
-        if ( $is_page_selected )                                                // If this page activated,  then define Current Page parameters
-            $this->define_current_page_parameters( $this_tab_tag,  $this_tab, $this_subtab_tag, $this_subtab );
-        
-        return $is_page_selected;
+			if ( isset( $this_tab['subtabs'] ) )
+				foreach ( $this_tab['subtabs'] as $temp_this_subtab_tag => $temp_this_subtab  ) {
+
+					if ( $temp_this_subtab['type'] == 'subtab' ) {                  // Get First Subtab element from  subtabs array
+						$this_subtab_tag = $temp_this_subtab_tag;
+						$this_subtab     = $temp_this_subtab;
+						break;
+					}
+				}
+
+			if (       ( isset( $_REQUEST[ 'page' ] ) )
+					&& ( $this_page == $_REQUEST[ 'page' ] )  ){                        // We are inside of this page. Menu item selected.
+
+				if (   ( ! isset( $_REQUEST[ $this->tags['tab'] ] ) )                            // TAB      NOT     selected    &&  Default
+					//&& ( ! isset( $_REQUEST[ $this->tags['subtab'] ] ) )                       // SubTab   NOT     selected
+					&& ( isset( $this_tab['default'] ) ) && ( $this_tab['default'] )
+				   )
+					$is_page_selected = true;
+
+				if (   ( isset( $_REQUEST[ $this->tags['tab'] ] ) )                              // TAB      Selected
+					&& ( ! isset( $_REQUEST[ $this->tags['subtab'] ] ) )                         // SubTab   NOT     selected    &&      ! exist     ||  Default
+					&& ( $_REQUEST[ $this->tags['tab'] ] == $this_tab_tag )
+					&& ( ( $this_subtab_tag === 0 )
+						 || ( $this_subtab['default'] )
+					   )
+				   )
+					$is_page_selected = true;
+
+				if (   ( isset( $_REQUEST[ $this->tags['tab'] ] ) )                              // TAB      Selected
+					&& ( isset( $_REQUEST[ $this->tags['subtab'] ] ) )                           // SubTab   Selected
+					&& ( $_REQUEST[ $this->tags['tab'] ] == $this_tab_tag )
+					&& ( $_REQUEST[ $this->tags['subtab'] ] == $this_subtab_tag )
+				   )
+					$is_page_selected = true;
+			}
+
+
+			if ( $is_page_selected )                                                // If this page activated,  then define Current Page parameters
+				$this->define_current_page_parameters( $this_tab_tag,  $this_tab, $this_subtab_tag, $this_subtab );
+
+			if ( $is_page_selected ) {
+				break;
+			}
+		}
+
+			return $is_page_selected;
     }
-    
+
     
     /**
 	 * Define parameters for current selected page
@@ -364,13 +395,23 @@ abstract class WPBC_Page_Structure {
     /**
 	 * Get all SubTabs of current opened page Tab
      * 
-     * @param string $menu_in_page_tag - Optional. Menu Tag, the same as $this->in_page();
+     * @param string $menu_in_page_tag - Optional. Menu Tag, the same as $this->in_page ();
      * @return array
      */
     private function get_all_sub_tabs_of_selected_tab( $menu_in_page_tag = false ) {
-        
-        if ($menu_in_page_tag === false ) 
-            $menu_in_page_tag = $this->in_page();
+
+	    if ( $menu_in_page_tag === false ) {
+
+			//FixIn: 9.8.15.2.3
+			$this_page = $this->in_page();
+			if ( is_array( $this_page ) ) {
+				$this_page_arr = $this_page;
+			} else {
+				$this_page_arr = array( $this_page );
+			}
+
+		    $menu_in_page_tag = $this_page_arr[0];
+	    }
 
         $all_sub_tabs_of_selected_tab = self::$nav_tabs[ $menu_in_page_tag ][ $this->current_page_params['tab']['tag'] ]['subtabs'];
         
@@ -412,7 +453,7 @@ abstract class WPBC_Page_Structure {
                     [form] => Array
                         (
                             [title] => Form
-                            [hint] => Customizaton of Form Fields
+                            [hint] => Customization of Form Fields
                             [page_title] => Form Fields
                             ...
                             [subtabs] => Array
@@ -440,7 +481,7 @@ abstract class WPBC_Page_Structure {
                     [payment] => Array
                         (
                             [title] => Payments
-                            [hint] => Customizaton of Payment
+                            [hint] => Customization of Payment
                             [page_title] => Payment Gateways
                             ...
                             [subtabs] => Array
@@ -467,46 +508,59 @@ abstract class WPBC_Page_Structure {
 
         )
  */        
-        
-        if ( ! isset( self::$nav_tabs[ $this->in_page() ] ) )
-            self::$nav_tabs[ $this->in_page() ] = array();                      // If this page does not exist, then define it.
-        
-        $current_tab = $this->tabs();
-        $current_subtabs = array();                                             // Get Subtabs in separate array.
-        foreach ( $current_tab as $tab_tag => $tab_array ) {
-            
-            if ( isset( $tab_array[ 'subtabs' ] ) ) {
-                $current_subtabs[ $tab_tag ] = $tab_array[ 'subtabs' ];         // Create new Subtabs array
-                
-                unset( $current_tab[ $tab_tag ][ 'subtabs' ] );                 // Detach Subtabs array from Tab array. Its required for do not overwrite subtabs with  already  exist subtabs in previlosly defined tab.
-            } else  
-                $current_subtabs[ $tab_tag ] = array();
-        }
-        
-        
-        foreach ( $current_tab as $tab_tag => $tab_array ) {
-                        
-            if ( ! isset( self::$nav_tabs[ $this->in_page() ][ $tab_tag ] ) ) {                 // If this tab  ( for exmaple "payment") declared previously,  then  does not do  anything
-                
-                self::$nav_tabs[ $this->in_page() ][ $tab_tag ] = $current_tab[ $tab_tag ];
-                self::$nav_tabs[ $this->in_page() ][ $tab_tag ][ 'subtabs' ] = array();
-            }
-            
-            if ( isset(self::$nav_tabs[ $this->in_page() ] ) ) {
-                                                                                                    // Merge subtabs (Ex: PayPal and Sage) and attach to current tab: (Ex: payment)
-                self::$nav_tabs[ $this->in_page() ][ $tab_tag ][ 'subtabs' ] = array_merge( 
-                                                                                    self::$nav_tabs[ $this->in_page() ][ $tab_tag ][ 'subtabs' ]
-                                                                                    , $current_subtabs[ $tab_tag ]
-                                                                                );                    
-            }
-        }        
+
+		//FixIn: 9.8.15.2.3
+		$this_page = $this->in_page();
+		if ( is_array( $this_page ) ) {
+			$this_page_arr = $this_page;
+		} else {
+			$this_page_arr = array( $this_page );
+		}
+		foreach ( $this_page_arr as $this_page ) {
+
+
+			if ( ! isset( self::$nav_tabs[ $this_page ] ) )
+				self::$nav_tabs[ $this_page ] = array();                      // If this page does not exist, then define it.
+
+			$current_tab = $this->tabs();
+			$current_subtabs = array();                                             // Get Subtabs in separate array.
+			foreach ( $current_tab as $tab_tag => $tab_array ) {
+
+				if ( isset( $tab_array[ 'subtabs' ] ) ) {
+					$current_subtabs[ $tab_tag ] = $tab_array[ 'subtabs' ];         // Create new Subtabs array
+
+					unset( $current_tab[ $tab_tag ][ 'subtabs' ] );                 // Detach Subtabs array from Tab array. Its required for do not overwrite subtabs with  already  exist subtabs in previlosly defined tab.
+				} else
+					$current_subtabs[ $tab_tag ] = array();
+			}
+
+
+			foreach ( $current_tab as $tab_tag => $tab_array ) {
+
+				if ( ! isset( self::$nav_tabs[ $this_page ][ $tab_tag ] ) ) {                 // If this tab  ( for exmaple "payment") declared previously,  then  does not do  anything
+
+					self::$nav_tabs[ $this_page ][ $tab_tag ] = $current_tab[ $tab_tag ];
+					self::$nav_tabs[ $this_page ][ $tab_tag ][ 'subtabs' ] = array();
+				}
+
+				if ( isset(self::$nav_tabs[ $this_page ] ) ) {
+																										// Merge subtabs (Ex: PayPal and Sage) and attach to current tab: (Ex: payment)
+					self::$nav_tabs[ $this_page ][ $tab_tag ][ 'subtabs' ] = array_merge(
+																						self::$nav_tabs[ $this_page ][ $tab_tag ][ 'subtabs' ]
+																						, $current_subtabs[ $tab_tag ]
+																					);
+				}
+			}
+
+		}
+
     }
     
     /**
 	 * Get array  of visible TABs
      * Tabs that  do not hided or disbaled
      * 
-     * @param string $menu_in_page_tag - Menu Tag, the same as $this->in_page();
+     * @param string $menu_in_page_tag - Menu Tag, the same as $this->in_page ();
      * @return type
      */
     private function get_visible_tabs( $menu_in_page_tag ) {
@@ -529,7 +583,7 @@ abstract class WPBC_Page_Structure {
     
     /**
      * 
-     * @param string $menu_in_page_tag - Menu Tag, the same as $this->in_page();
+     * @param string $menu_in_page_tag - Menu Tag, the same as $this->in_page ();
      * @return boolean - true if nav tabs exist  and false if does not exist
      */
     public function show_tabs_structure( $menu_in_page_tag ) {
@@ -544,18 +598,24 @@ abstract class WPBC_Page_Structure {
             return false; 
                 
         ?><span class="wpdevelop wpdvlp-nav-tabs-container">
-        <div class="clear"></div><?php 
-                
-        wpbc_bs_toolbar_tabs_html_container_start();
-        
-        do_action( 'wpbc_toolbar_top_tabs_before' , $menu_in_page_tag );
-        
-        $this->show_tabs_line( $menu_in_page_tag );                     // T O P    T A B S                              
-        
-        do_action( 'wpbc_toolbar_top_tabs_after' , $menu_in_page_tag );
-        
-        wpbc_bs_toolbar_tabs_html_container_end();
-        
+        <div class="clear"></div><?php
+
+	    //FixIn: 9.8.15.2
+		if ( 1 ) {
+
+			do_action( 'wpbc_toolbar_top_tabs_insert', $menu_in_page_tag );
+
+		} else {
+			wpbc_bs_toolbar_tabs_html_container_start();
+
+			do_action( 'wpbc_toolbar_top_tabs_before' , $menu_in_page_tag );
+
+			$this->show_tabs_line( $menu_in_page_tag );                     // T O P    T A B S
+
+			do_action( 'wpbc_toolbar_top_tabs_after' , $menu_in_page_tag );
+
+			wpbc_bs_toolbar_tabs_html_container_end();
+		}
         
         $bottom_tabs = $this->get_all_sub_tabs_of_selected_tab( $menu_in_page_tag );
 
@@ -578,7 +638,7 @@ abstract class WPBC_Page_Structure {
     /**
 	 * Show Top nav TABs line
      * 
-     * @param string $menu_in_page_tag - Menu Tag, the same as $this->in_page();
+     * @param string $menu_in_page_tag - Menu Tag, the same as $this->in_page ();
      */
     public function show_tabs_line( $menu_in_page_tag ) {
 
@@ -619,7 +679,7 @@ abstract class WPBC_Page_Structure {
 	 * Show Sub Menu Lines at the Settings page for Active Tab
      * 
      * @param array $bottom_tabs
-     * @param string $menu_in_page_tag - Menu Tag, the same as $this->in_page();
+     * @param string $menu_in_page_tag - Menu Tag, the same as $this->in_page ();
      */
     public function show_subtabs_line( $bottom_tabs, $menu_in_page_tag ) {
         

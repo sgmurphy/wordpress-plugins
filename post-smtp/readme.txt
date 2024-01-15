@@ -271,6 +271,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 6. Post SMTP Mobile App Screen - Scan the QR Code from the Mobile App and Connect it with the Plugin
 7. Post SMTP Settings - Set Email Failure Alerts on Slack, Email, Twilio, and Chrome Extension
 
+## Upgrade Notice ##
+
+### 2.8.9 ###
+Important: If you are using version 2.8.7 or lower of our plugin, please update to the latest version as soon as possible. This update contains an urgent security fix that prevents potential vulnerabilities and attacks. We apologize for any inconvenience this may cause you and we appreciate your cooperation. Thank you for using our plugin.
+
 == Changelog ==
 
 = 2.8.9 - 2024-01-11 =

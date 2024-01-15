@@ -1,11 +1,11 @@
-﻿=== Booking Calendar ===
+﻿=== WP Booking Calendar ===
 Contributors: wpdevelop, oplugins
 Donate link: https://wpbookingcalendar.com/buy/
 Tags: booking calendar, bookings, booking, booking system, appointments, availability calendar, events, appointment booking, booking form, reservation system, calendar, events calendar
 Requires at least: 5.3
 Requires PHP: 5.6
 Tested up to: 6.4
-Stable tag: 9.8.14
+Stable tag: 9.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -224,38 +224,37 @@ Administrators can manage all reservations from the modern and easy-to-use admin
 = Support Languages (local) =
 
 - English
-- German 94.11% [ 1933 / 2054 ], fuzzy 75, not translated 46
-- French (France) 93.11% [ 1904 / 2045 ], fuzzy 91, not translated 50
-- Hungarian 92.6% [ 1902 / 2054 ], fuzzy 100, not translated 52
-- Greek 92.52% [ 1892 / 2045 ], fuzzy 98, not translated 55
-- Turkish 91.3% [ 1867 / 2045 ], fuzzy 117, not translated 61
-- Portuguese (Brazil) 90.02% [ 1849 / 2054 ], fuzzy 133, not translated 72
-- Romanian 82.59% [ 1689 / 2045 ], fuzzy 235, not translated 121
-- Arabic 82.25% [ 1682 / 2045 ], fuzzy 241, not translated 122
-- Finnish 82.1% [ 1679 / 2045 ], fuzzy 245, not translated 121
-- Spanish (Mexico) 82% [ 1677 / 2045 ], fuzzy 247, not translated 121
-- Dutch 81.6% [ 1676 / 2054 ], fuzzy 260, not translated 118
-- Swedish 81.47% [ 1666 / 2045 ], fuzzy 250, not translated 129
-- Spanish (Spain) 81.37% [ 1664 / 2045 ], fuzzy 256, not translated 125
-- Norwegian (Bokmål) 81.03% [ 1657 / 2045 ], fuzzy 258, not translated 130
-- Polish 80.78% [ 1652 / 2045 ], fuzzy 259, not translated 134
-- Slovenian 79.95% [ 1635 / 2045 ], fuzzy 270, not translated 140
-- Italian 77.95% [ 1594 / 2045 ], fuzzy 291, not translated 160
-- Danish 75.99% [ 1554 / 2045 ], fuzzy 319, not translated 172
-- Bulgarian 75.94% [ 1553 / 2045 ], fuzzy 317, not translated 175
-- Chinese (Taiwan) 74.28% [ 1519 / 2045 ], fuzzy 371, not translated 155
-- Russian 72.44% [ 1488 / 2054 ], fuzzy 368, not translated 198
-- Portuguese (Portugal) 72.08% [ 1474 / 2045 ], fuzzy 371, not translated 200
-- Galician 71.98% [ 1472 / 2045 ], fuzzy 376, not translated 197
-- Thai 71.88% [ 1470 / 2045 ], fuzzy 371, not translated 204
-- Hebrew 69.68% [ 1425 / 2045 ], fuzzy 380, not translated 240
-- Chinese (China) 69.05% [ 1412 / 2045 ], fuzzy 384, not translated 249
-- Ukrainian 68.79% [ 1413 / 2054 ], fuzzy 396, not translated 245
-- Croatian 59.02% [ 1207 / 2045 ], fuzzy 371, not translated 467
-- Slovak 58.97% [ 1206 / 2045 ], fuzzy 374, not translated 465
-- Czech 58.92% [ 1205 / 2045 ], fuzzy 372, not translated 468
-- Catalan 58.78% [ 1202 / 2045 ], fuzzy 374, not translated 469
-- Belarusian 8.02% [ 164 / 2045 ], fuzzy 922, not translated 959
+- German 94.28% [ 1993 / 2114 ], fuzzy 50, not translated 71
+- French (France) 93.63% [ 1971 / 2105 ], fuzzy 42, not translated 92
+- Hungarian 89.26% [ 1887 / 2114 ], fuzzy 143, not translated 84
+- Greek 89.22% [ 1878 / 2105 ], fuzzy 140, not translated 87
+- Turkish 88.03% [ 1853 / 2105 ], fuzzy 158, not translated 94
+- Portuguese (Brazil) 86.8% [ 1835 / 2114 ], fuzzy 177, not translated 102
+- Italian 85.7% [ 1804 / 2105 ], fuzzy 49, not translated 252
+- Romanian 79.57% [ 1675 / 2105 ], fuzzy 273, not translated 157
+- Arabic 79.24% [ 1668 / 2105 ], fuzzy 279, not translated 158
+- Finnish 79.1% [ 1665 / 2105 ], fuzzy 285, not translated 155
+- Spanish (Mexico) 79% [ 1663 / 2105 ], fuzzy 289, not translated 153
+- Dutch 78.62% [ 1662 / 2114 ], fuzzy 303, not translated 149
+- Swedish 78.48% [ 1652 / 2105 ], fuzzy 290, not translated 163
+- Spanish (Spain) 78.38% [ 1650 / 2105 ], fuzzy 298, not translated 157
+- Norwegian (Bokmål) 78.05% [ 1643 / 2105 ], fuzzy 301, not translated 161
+- Polish 77.81% [ 1638 / 2105 ], fuzzy 300, not translated 167
+- Slovenian 77.01% [ 1621 / 2105 ], fuzzy 311, not translated 173
+- Danish 73.25% [ 1542 / 2105 ], fuzzy 362, not translated 201
+- Bulgarian 73.21% [ 1541 / 2105 ], fuzzy 357, not translated 207
+- Chinese (Taiwan) 71.5% [ 1505 / 2105 ], fuzzy 409, not translated 191
+- Russian 69.91% [ 1478 / 2114 ], fuzzy 408, not translated 228
+- Portuguese (Portugal) 69.55% [ 1464 / 2105 ], fuzzy 411, not translated 230
+- Galician 69.45% [ 1462 / 2105 ], fuzzy 418, not translated 225
+- Thai 69.36% [ 1460 / 2105 ], fuzzy 409, not translated 236
+- Hebrew 67.22% [ 1415 / 2105 ], fuzzy 417, not translated 273
+- Chinese (China) 66.6% [ 1402 / 2105 ], fuzzy 422, not translated 281
+- Ukrainian 66.37% [ 1403 / 2114 ], fuzzy 434, not translated 277
+- Croatian 57.01% [ 1200 / 2105 ], fuzzy 409, not translated 496
+- Slovak 56.96% [ 1199 / 2105 ], fuzzy 412, not translated 494
+- Czech 56.91% [ 1198 / 2105 ], fuzzy 409, not translated 498
+- Catalan 56.77% [ 1195 / 2105 ], fuzzy 413, not translated 497
 
 Please recheck the status of each translation, before using plugin.
 We open for your help in new translations or correcting existing ones. You can translate to new language or update exist one, using this [tutorial of translation](https://wpbookingcalendar.com/faq/make-translation-of-wp-plugin/)
@@ -287,6 +286,28 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 
 
 == Changelog ==
+= 9.9 =
+- Changes in **all** versions:
+	* **New Feature**: Redesigned "Top Tabs" for page selection in the Booking Calendar Admin UI. This update enhances space utilization, resulting in a clearer and smoother interface for users. (9.8.15.2)
+	* **New** Resource menu page simplifies embedding your booking form. Easily integrate booking form into an existing page or create a new page with the booking form in just a few clicks. (9.8.15.7)
+	* **New** Introducing General Import Conditions options for importing events into the Booking Calendar for all booking resources. You can now enable the option **Import if Dates Available** to import events only if dates are available in the source calendar. Additionally, the option **Import Only New Events** allows you to import only if the event has not been imported before. This last option replaces the deprecated "Force import" option and can be configured at Booking > Settings > Sync > "General" page in the "Import advanced" section.  (9.8.15.8)
+	* **Improvement** Updated Top WordPress Bar menu for Booking Calendar (9.8.15.9)
+	**Translation Update**: German translation has been updated, reaching 94% completion, courtesy of Res Rickli
+	**Translation Update**: French translation has been updated, reaching 93% completion, courtesy of Res Rickli
+	**Translation Update**: Italian translation has been updated, reaching 85% completion, courtesy of Res Rickli
+	* **Improvement** Updated Booking Calendar icon for WordPress Classic Editor (TinyMCE) toolbar, during adding Booking Calendar shortcode into the post or page.
+	* **Fix**: Resolved a fatal error: Uncaught TypeError: Unsupported operand types: string * int in ../core/sync/wpbc-gcal-class.php (9.8.15.1)
+- Changes in **Personal / Business Small / Business Medium / Business Large / MultiUser** versions:
+	* **New** Integrated **PayPal Standard Checkout** payment gateway. Enjoy various payment methods, including **card payments and PayPal**. Choose from different designs for PayPal buttons. The system now automatically responds from  the PayPal, updating the booking status and payment status.  *(Business Small/Medium/Large, MultiUser)*
+	* **New** The Prices menu now includes options such as "Seasonal Rates" (formerly "Rates"), "Duration-Based Cost" (formerly "Valuation days"), "Partial Payments" (formerly "Deposit"), "Form Options Costs" (formerly "Advanced costs"), and "Payment Gateways." This centralized location allows you to manage all prices for bookings in one place.  *(Business Medium/Large, MultiUser)*
+	* **New** Simplify the process of adding the booking form to your website with the **new 'Publish' button** on the Booking > Resources page. Easily add the booking form to an existing or new page with just a few clicks. (9.8.15.5)
+	* **Improvement** The "Availability" section has a new structure and titles. Now, the configuration of all "Calendars Availability" is located in the "Availability" menu page and its sub-pages, including "Days Availability," "Season Availability" (formerly "Availability"), and "General Availability." This provides a centralized location to manage all availability settings for calendars.
+	* **Improvement** The Resources menu now features an enhanced toolbar UI for creating new booking resources and managing options. This improvement provides a more user-friendly experience for resource management.
+	* **Improvement** Implemented the addition of the "autocomplete" attribute to the booking form fields. This enhancement ensures correct autofill functionality in the Chrome browser when using autofill addons. (9.8.15.3)
+	* **Fix** Resolved an issue where bookings with zero cost were not automatically approved when the option "Auto approve booking if booking cost is zero" was activated in the Booking > Settings General page under the "Auto Cancellation / Auto Approval" section. (9.8.15.4)
+	* **Fix** Resolved issue for ability to  use options parameter in the Timeline shortcode for defining links for booking resources titles: [bookingtimeline type='3,4' options='{resource_link 3="/resource-apartment3-id3/"},{resource_link 4="/resource-3-id4/"}' header_title='All Bookings'] (9.8.15.6)
+	* **Under hood** Now you can aggregate only 'bookings' without including unavailable dates from the 'Booking > Availability > Days Availability' page. If you use the 'aggregate' parameter in the Booking Calendar shortcode and wish to include only bookings, utilize the new parameter: options="{aggregate type=bookings_only}". For instance, in the shortcode example below, we aggregate only bookings: [bookingselect type='3,4' aggregate='3;4' options="{aggregate type=bookings_only}"]  (9.8.15.10)
+
 = 9.8.14 =
 - Changes in **all** versions:
 	* **Fix** PHP Warning: Undefined array key "SERVER_ADDR" in ..\core\wpbc_functions.php (9.8.14.3)
@@ -1526,5 +1547,8 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 For more information, see the [full release notes](https://wpbookingcalendar.com/changelog/).
 
 == Upgrade Notice ==
+= 9.9 =
+Explore a fresh look for Admin UI's 'Top Tabs,' offering a spacious and user-friendly interface. Now, integrate PayPal Standard Checkout for diverse payment options. Efficiently manage pricing with the new 'Prices' menu. Simplify availability settings in the consolidated 'Availability' menu.
+
 = 9.8 =
 Get ready for our biggest update yet! Enjoy a new booking engine, improved performance, structured settings, an enhanced UI, and a smoother booking process with the new booking confirmation section. Paid versions bring features like time-slot capacity for multiple bookings per time-slot and more.

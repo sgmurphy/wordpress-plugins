@@ -25,7 +25,8 @@ class WPBC_Page_AJX_Availability extends WPBC_Page_Structure {
 
         parent::__construct();
 
-		add_action( 'wpbc_toolbar_top_tabs_after', array( $this, 'wpbc_toolbar_toolbar_tabs' ) );
+		add_action( 'wpbc_toolbar_top_tabs_after',  array( $this, 'wpbc_toolbar_toolbar_tabs' ) );
+		add_action( 'wpbc_toolbar_top_tabs_insert', array( $this, 'wpbc_toolbar_toolbar_tabs' ) );
     }
 
 
@@ -38,7 +39,7 @@ class WPBC_Page_AJX_Availability extends WPBC_Page_Structure {
 
         $tabs = array();
         $tabs[ 'availability' ] = array(
-                              'title'		=> __( 'Availability', 'booking' )						// Title of TAB
+                              'title'		=> __( 'Days Availability', 'booking' )										// Title of TAB				//FixIn: 9.8.15.2.2
                             , 'hint'		=> __( 'Define available and unavailable days for calendar(s)', 'booking' )						// Hint
                             , 'page_title'	=> __( 'Calendar Availability', 'booking' )						// Title of Page
                             , 'link'		=> ''								// Can be skiped,  then generated link based on Page and Tab tags. Or can  be extenral link
@@ -64,7 +65,12 @@ class WPBC_Page_AJX_Availability extends WPBC_Page_Structure {
 		 */
 		public function wpbc_toolbar_toolbar_tabs( $menu_in_page_tag ) {
 
-			if ( $this->in_page() == $menu_in_page_tag ) {
+			if (
+					( $this->in_page() == $menu_in_page_tag )
+				 && ( ( empty( $_GET['tab'] ) ) || ( 'availability' == $_GET['tab'] ) )					//FixIn: 9.8.15.2.2
+			) {
+
+				wpbc_bs_toolbar_tabs_html_container_start();
 
 				$escaped_search_request_params = $this->get_cleaned_params__saved_requestvalue_default();
 
@@ -77,7 +83,7 @@ class WPBC_Page_AJX_Availability extends WPBC_Page_Structure {
 				}
 
 				wpbc_bs_display_tab(   array(
-													'title'         => __( 'Availability', 'booking' )
+													'title'         => __( 'Set Availability', 'booking' )
 													, 'hint' => array( 'title' => __('Availability' ,'booking') , 'position' => 'top' )
 													, 'onclick'     =>  "jQuery('.ui_container_toolbar').hide();"
 																		. "jQuery('.ui_container_info').show();"
@@ -127,7 +133,7 @@ class WPBC_Page_AJX_Availability extends WPBC_Page_Structure {
 
 									) );
 
-
+				wpbc_bs_toolbar_tabs_html_container_end();
 
 			}
 		}
@@ -285,12 +291,63 @@ if ( 	( false !== $escaped_request_params_arr )
 		 * @return void
 		 */
 		private function css_fix(){
+			//FixIn: 9.8.15.2
+			/*
+
 		    ?><style type="text/css">
 		    	.nav-tabs .nav-tab:first-child{
 				    display:none;
 			    }
 		    </style><?php
+			*/
 		}
 
 }
 add_action('wpbc_menu_created', array( new WPBC_Page_AJX_Availability() , '__construct') );    // Executed after creation of Menu
+
+
+/**
+ * Duplicated Genal  Availability Tab - Redirect  to  Booking > Settings General page in "Availability" section
+ *
+ */
+class WPBC_Page_Availability_General extends WPBC_Page_Structure {
+
+
+    public function in_page() {
+
+	    if ( ! wpbc_is_mu_user_can_be_here( 'only_super_admin' ) ) {            // If this User not "super admin",  then  do  not load this page at all
+	        return (string) rand( 100000, 1000000 );        // If this User not "super admin",  then  do  not load this page at all
+        }
+
+		return 'wpbc-availability';
+    }
+
+
+
+    public function tabs() {
+
+        $tabs = array();
+        $tabs[ 'general_availability' ] = array(
+                              'title'		=> __( 'General Availability', 'booking' )										// Title of TAB				//FixIn: 9.8.15.2.2
+                            , 'hint'		=> __( 'Define unavailable weekdays for all calendar(s) and unavailable dates depend from today date', 'booking' )						// Hint
+                            , 'page_title'	=> __( 'General Availability', 'booking' )						// Title of Page
+                            , 'link' =>  wpbc_get_settings_url( true, false ) . '&scroll_to_section=wpbc_general_settings_availability_tab'                                      // Can be skiped,  then generated link based on Page and Tab tags. Or can  be extenral link
+                            , 'position'	=> ''                               // 'left'  ||  'right'  ||  ''
+                            , 'css_classes' => 'wpbc_top_tab__general_availability'                               // CSS class(es)
+                            , 'icon'		=> ''                               // Icon - link to the real PNG img
+                            , 'font_icon'	=> 'wpbc-bi-calendar2-day 0wpbc-bi-calendar2-check'//'wpbc_icn_free_cancellation'		// CSS definition  of forn Icon
+                            , 'default'		=> false								// Is this tab activated by default or not: true || false.
+                            , 'disabled'	=> false                            // Is this tab disbaled: true || false.
+                            , 'hided'		=> false                            // Is this tab hided: true || false.
+                            , 'subtabs'		=> array()
+        );
+        // $subtabs = array();
+        // $tabs[ 'items' ][ 'subtabs' ] = $subtabs;
+        return $tabs;
+    }
+
+	public function content() {
+
+	}
+}
+add_action('wpbc_menu_created', array( new WPBC_Page_Availability_General() , '__construct') );    // Executed after creation of Menu

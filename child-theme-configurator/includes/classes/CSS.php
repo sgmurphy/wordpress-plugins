@@ -6,7 +6,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
     Class: ChildThemeConfiguratorCSS
     Plugin URI: http://www.childthemeplugin.com/
     Description: Handles all CSS input, output, parsing, normalization and storage
-    Version: 2.6.4
+    Version: 2.6.5
     Author: Lilaea Media
     Author URI: http://www.lilaeamedia.com/
     Text Domain: chld_thm_cfg
@@ -172,7 +172,7 @@ class ChildThemeConfiguratorCSS {
         $this->ignoreparnt      = 0;
         $this->qpriority        = 10;
         $this->mpriority        = 10;
-        $this->version          = '2.6.4';
+        $this->version          = '2.6.5';
         
         // do not set enqueue, not being set is used to flag old versions
 
@@ -2064,6 +2064,7 @@ class ChildThemeConfiguratorCSS {
      * sets object data to UTF8
      * flattens to array
      * and stringifies NULLs
+     * NOTE: requires mb library
      */
     function obj_to_utf8( $data ) {
         if ( is_object( $data ) )
@@ -2071,7 +2072,7 @@ class ChildThemeConfiguratorCSS {
         if ( is_array( $data ) )
             return array_map( array( &$this, __FUNCTION__ ), $data );
         else
-            return is_null( $data ) ? '' : utf8_encode( $data );
+            return is_null( $data ) ? '' : mb_convert_encoding( $data, "UTF-8", mb_detect_encoding( $data ) ); //DEPRECATED: utf8_encode( $data );
     }
     
     // convert ascii character into decimal value 

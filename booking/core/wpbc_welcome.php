@@ -283,32 +283,37 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 									$is_wp_post_booking = true;
 									?>
 									<li>
-									<div class="welcome-icon"><?php
-										printf( __( 'Start by using the %spre-configured booking page%s we have set up.', 'booking' )
-											, '<strong><a href="' . esc_url( $wp_post_booking_absolute ) . '" target="_blank">', '</a></strong>'
-										);
+										<div class="welcome-icon" style="margin: 25px 0 15px;"><?php
+											printf( __( 'Start by using the %spre-configured booking page%s we have set up.', 'booking' )
+												, '<strong><a href="' . esc_url( $wp_post_booking_absolute ) . '" class="button button-secondary"  target="_blank">', '</a></strong>'
+											);
 										?></div>
 									</li><?php
 								}
 							}
 						}
+						?><li>
+						<div class="welcome-icon" style="margin-bottom: 15px;"><?php
+							printf( __( '%sIntegrate booking form%s into a page on your website in just a few clicks.', 'booking' )
+								, '<strong><a href="' . esc_url( wpbc_get_resources_url() )  . '" class="button button-primary">', '</a></strong>'
+							);
+							?></div>
+						</li><?php
 
-						?><li><div class="welcome-icon"><?php
+						?><li><span class="welcome-icon" style="font-size: 0.95em;"><?php
 							printf( __('Learn how to %sAdd the Booking Form or Calendar to your page%s in WordPress Block Editor, Elementor, or other non-standard editors.','booking')
 									, '<strong><a href="https://wpbookingcalendar.com/faq/insert-booking-calendar-into-page/" target="_blank">', '</a></strong>'
-									, '<a href="https://wpbookingcalendar.com/faq/shortcode-booking-form/#content" target="_blank">', '</a>'
 									);
-						?></div></li><?php
-						?><li><div class="welcome-icon"><?php
-							  printf( __('See %sall shortcodes%s of the Booking Calendar that you can use in pages.','booking')
-									, '<a href="https://wpbookingcalendar.com/faq/#shortcodes" target="_blank">', '</a>'
-									, '<a href="' . admin_url( 'edit.php?post_type=page' ) . '">', '</a>'
-									, '<a href="' . admin_url( 'edit.php' ) . '">', '</a>'
+							echo '</span><span class="welcome-icon" style="font-size: 0.95em;">';
+						    printf( __('See %sall shortcodes%s of the Booking Calendar that you can use in pages.','booking')
+									, '<strong><a href="https://wpbookingcalendar.com/faq/#shortcodes" target="_blank">', '</a></strong>'
+//									, '<a href="' . admin_url( 'edit.php?post_type=page' ) . '">', '</a>'
+//									, '<a href="' . admin_url( 'edit.php' ) . '">', '</a>'
 									);
-						?></div></li>
+						?></span></li>
 					</ul>
 				</div>
-				<div class="welcome-panel-column">
+				<div class="welcome-panel-column welcome-panel-last">
 					<h4><?php _e( 'Next Steps','booking'); ?></h4>
 					<ul>
 
@@ -335,14 +340,21 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 									);
 						?></div></li>
 					</ul>
+<?php /* ?>
 				</div>
 				<div class="welcome-panel-column welcome-panel-last">
+ <?php */ ?>
 					<h4><?php _e( 'Have a questions?','booking'); ?></h4>
 					<ul>
-						<li><div class="welcome-icon"><?php
+						<li><span class="welcome-icon"><?php
 							printf( __( 'See %sFAQ%s.' ,'booking'),
 								'<a href="https://wpbookingcalendar.com/faq/" target="_blank">',
 								'</a>' );
+							echo '</span><span class="welcome-icon">';
+							printf( __( 'Contact %sSupport%s.','booking'),
+								'<a href="https://wpbookingcalendar.com/support/" target="_blank">',
+								'</a>' );
+/*
 						?></div></li>
 						<li><div class="welcome-icon"><?php
 							printf( __( 'Check out our %sHelp%s' ,'booking'),
@@ -353,7 +365,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 							printf( __( 'Still having questions? Contact %sSupport%s.','booking'),
 								'<a href="https://wpbookingcalendar.com/support/" target="_blank">',
 								'</a>' );
-						?></div></li>
+*/
+						?></span></li>
 					</ul>
 				</div>
 			</div>

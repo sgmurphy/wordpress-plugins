@@ -503,13 +503,13 @@ Class MetForm_Input_Range extends Widget_Base{
 						}}
 						value=${<?php 
 							if(esc_attr($default_value)) { ?>
-								Number(parent.state.formData['<?php echo esc_attr($mf_input_name); ?>']) || <?php if ($mf_input_min_length_range <= $multipile_value[0]) {
+								isNaN(Number(parent.state.formData['<?php echo esc_attr($mf_input_name); ?>'])) ? <?php if ($mf_input_min_length_range <= $multipile_value[0]) {
 									echo $multipile_value[0] >= $mf_input_max_length_range ? esc_attr($mf_input_max_length_range) : esc_attr($multipile_value[0]);
 								} else {
 									echo esc_attr($mf_input_min_length_range);
-								} ?>
+								} ?> : (Number(parent.state.formData['<?php echo esc_attr($mf_input_name); ?>']) == 0 ? 0 : Number(parent.state.formData['<?php echo esc_attr($mf_input_name); ?>']))
 							<?php } else { ?>
-								Number(parent.state.formData['<?php echo esc_attr($mf_input_name); ?>']) || <?php echo esc_attr($mf_input_min_length_range); ?>
+								isNaN(Number(parent.state.formData['<?php echo esc_attr($mf_input_name); ?>'])) ? <?php echo esc_attr($mf_input_min_length_range); ?> : (Number(parent.state.formData['<?php echo esc_attr($mf_input_name); ?>']) == 0 ? 0 : Number(parent.state.formData['<?php echo esc_attr($mf_input_name); ?>']))
 							<?php }
 						?>}
 						ref=${ input => {

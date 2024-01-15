@@ -27,7 +27,7 @@ function wpbc_ajx_bookings_toolbar( $escaped_search_request_params ) {
 
     //wpbc_toolbar_search_by_id_bookings();                                       // Search bookings by  ID - form  at the top  right side of the page
 
-    wpbc_toolbar_btn__view_mode();                                              //  Vertical Buttons
+    // wpbc_toolbar_btn__view_mode();                                              //  Vertical Buttons		//FixIn: 9.8.15.2
 
     //  Toolbar ////////////////////////////////////////////////////////////////
 
@@ -48,7 +48,7 @@ function wpbc_ajx_bookings_toolbar( $escaped_search_request_params ) {
 												, 'hint' => array( 'title' => __('Filter bookings' ,'booking') , 'position' => 'top' )
                                                 , 'onclick'     =>  "jQuery('.ui_container_toolbar').hide();"
                                                                     . "jQuery('.ui_container_filters').show();"
-                                                                    . "jQuery('.nav-tab').removeClass('nav-tab-active');"
+                                                                    . "jQuery('.wpbc_ajx_toolbar .nav-tab').removeClass('nav-tab-active');"		//FixIn: 9.8.15.2
                                                                     . "jQuery(this).addClass('nav-tab-active');"
                                                                     . "jQuery('.nav-tab i.icon-white').removeClass('icon-white');"
                                                                     . "jQuery('.nav-tab-active i').addClass('icon-white');"
@@ -70,7 +70,7 @@ function wpbc_ajx_bookings_toolbar( $escaped_search_request_params ) {
 												, 'hint' => array( 'title' => __('Manage bookings' ,'booking') , 'position' => 'top' )
                                                 , 'onclick'     =>  "jQuery('.ui_container_toolbar').hide();"
                                                                     . "jQuery('.ui_container_actions').show();"
-                                                                    . "jQuery('.nav-tab').removeClass('nav-tab-active');"
+                                                                    . "jQuery('.wpbc_ajx_toolbar .nav-tab').removeClass('nav-tab-active');"		//FixIn: 9.8.15.2
                                                                     . "jQuery(this).addClass('nav-tab-active');"
                                                                     . "jQuery('.nav-tab i.icon-white').removeClass('icon-white');"
                                                                     . "jQuery('.nav-tab-active i').addClass('icon-white');"
@@ -95,7 +95,7 @@ function wpbc_ajx_bookings_toolbar( $escaped_search_request_params ) {
 	                                                , 'hint' => array( 'title' => __('User Options' ,'booking') , 'position' => 'top' )
 	                                                , 'onclick'     =>  "jQuery('.ui_container_toolbar').hide();"
 	                                                                    . "jQuery('.ui_container_options').show();"
-	                                                                    . "jQuery('.nav-tab').removeClass('nav-tab-active');"
+	                                                                    . "jQuery('.wpbc_ajx_toolbar .nav-tab').removeClass('nav-tab-active');"		//FixIn: 9.8.15.2
 	                                                                    . "jQuery(this).addClass('nav-tab-active');"
 	                                                                    . "jQuery('.nav-tab i.icon-white').removeClass('icon-white');"
 	                                                                    . "jQuery('.nav-tab-active i').addClass('icon-white');"
