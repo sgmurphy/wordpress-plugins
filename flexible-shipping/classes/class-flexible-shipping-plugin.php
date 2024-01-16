@@ -220,18 +220,20 @@ class Flexible_Shipping_Plugin extends AbstractPlugin implements HookableCollect
 
 		$this->add_hookable( new WPDesk\FS\Rate\WPDesk_Flexible_Shipping_Rate_Notice() );
 
-		$this->add_hookable(
-			new TextPetitionDisplayer(
-				'woocommerce_after_settings_shipping',
-				new ShippingMethodDisplayDecision( new \WC_Shipping_Zones(), ShippingMethodSingle::SHIPPING_METHOD_ID ),
-				new RepositoryRatingPetitionText(
-					'Octolize',
-					$this->plugin_info->get_plugin_name(),
-					'https://octol.io/fs-rate',
-					'center'
+		if ( class_exists( '\WC_Shipping_Zones' ) ) {
+			$this->add_hookable(
+				new TextPetitionDisplayer(
+					'woocommerce_after_settings_shipping',
+					new ShippingMethodDisplayDecision( new \WC_Shipping_Zones(), ShippingMethodSingle::SHIPPING_METHOD_ID ),
+					new RepositoryRatingPetitionText(
+						'Octolize',
+						$this->plugin_info->get_plugin_name(),
+						'https://octol.io/fs-rate',
+						'center'
+					)
 				)
-			)
-		);
+			);
+		}
 
 
 		$this->add_hookable( new WPDesk_Flexible_Shipping_Shorcode_Unit_Weight() );

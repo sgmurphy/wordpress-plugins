@@ -64,7 +64,7 @@ class Mappress_Map extends Mappress_Obj {
 			'pois' => $json_pois,
 			'search' => $this->search,
 			'status' => $this->status,
-			'title' => $this->title,
+			'title' => sanitize_text_field($this->title),
 			'width' => $this->width,
 			'zoom' => $this->zoom
 		);
@@ -117,11 +117,11 @@ class Mappress_Map extends Mappress_Obj {
 				$count = 0;
 				foreach($maps as $map) {
 					$count++;
-					if ($count > 2) {
+					if ($count > 1) {
 						$links[] = sprintf(__('+%d more', 'mappress-google-maps-for-wordpress'), (count($maps) - $count + 1));
 						break;
 					}
-					$title = ($map->title) ? $map->title : __('Untitled', 'mappress-google-maps-for-wordpress');
+					$title = ($map->title) ? esc_html($map->title) : __('Untitled', 'mappress-google-maps-for-wordpress');
 					$links[] = sprintf('<a class="mapp-post-edit" data-oid="%d" data-mapid="%d" href="#" title="%s">%d %s</a>', $post_id, $map->mapid, __('Edit map', 'mappress-google-maps-for-wordpress'), $map->mapid, $title);
 				}
 				echo implode('<hr/>', $links);
@@ -134,14 +134,28 @@ class Mappress_Map extends Mappress_Obj {
 	static function ajax_get_post() {
 		global $post;
 
-		check_ajax_referer('mappress', 'nonce');
+		//check_ajax_referer('mappress', 'nonce');
 		ob_start();
 		$oid = (isset($_GET['oid'])) ? $_GET['oid']  : null;
+		
 		$post = get_post( $oid );
 
 		if (!$post)
 			die(sprintf(__('Post not found', 'mappress-google-maps-for-wordpress'), $oid));
 
+		// Check auths for logged in users and readers			
+		$available = false;
+		$userid = get_current_user_id();
+		if ($userid) {
+			if (current_user_can('read_post', $oid)) 
+				$available = true;
+		} else {
+			if ($post->post_status != 'private' && $post->post_status != 'draft' && !post_password_required($post))
+				$available = true;
+		}
+		if (!$available)
+			die(__('Post not available', 'mappress-google-maps-for-wordpress'));
+			
 		setup_postdata($post);
 		$html = Mappress_Template::get_template('mashup-modal');
 		die($html);
@@ -563,17 +577,20 @@ class Mappress_Map extends Mappress_Obj {
 		}
 
 		$obj = json_encode($this->to_json());
+		
+		// Sanitize
+		$title = sanitize_text_field($this->title);
 
 		// Insert if no ID, else update
 		if (!$this->mapid) {
 			$sql = "INSERT INTO $maps_table (otype, oid, status, title, obj) VALUES(%s, %d, %s, %s, %s)";
-			$result = $wpdb->query($wpdb->prepare($sql, $this->otype, $this->oid, $this->status, $this->title, $obj));
+			$result = $wpdb->query($wpdb->prepare($sql, $this->otype, $this->oid, $this->status, $title, $obj));
 			$this->mapid = $wpdb->get_var("SELECT LAST_INSERT_ID()");
 		} else {
 			$sql = "INSERT INTO $maps_table (mapid, otype, oid, status, title, obj) VALUES(%d, %s, %d, %s, %s, %s) "
 				. " ON DUPLICATE KEY UPDATE mapid=%d, otype=%s, oid=%d, status=%s, title=%s, obj=%s ";
-			$result = $wpdb->query($wpdb->prepare($sql, $this->mapid, $this->otype, $this->oid, $this->status, $this->title, $obj,
-				$this->mapid, $this->otype, $this->oid, $this->status, $this->title, $obj));
+			$result = $wpdb->query($wpdb->prepare($sql, $this->mapid, $this->otype, $this->oid, $this->status, $title, $obj,
+				$this->mapid, $this->otype, $this->oid, $this->status, $title, $obj));
 		}
 
 		if ($result === false || !$this->mapid)

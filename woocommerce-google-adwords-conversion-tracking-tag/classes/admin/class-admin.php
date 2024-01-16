@@ -5,6 +5,7 @@ namespace WCPM\Classes\Admin;
 
 use  WCPM\Classes\Admin\Opportunities\Opportunities ;
 use  WCPM\Classes\Helpers ;
+use  WCPM\Classes\Logger ;
 use  WCPM\Classes\Options ;
 use  WCPM\Classes\Pixels\Google\Google ;
 use  WCPM\Classes\Pixels\Pixel_Manager ;
@@ -256,6 +257,7 @@ class Admin
             $this->add_section_diagnostics();
         }
         $this->add_section_support();
+        self::add_section_logs();
         $this->add_section_author();
     }
     
@@ -273,8 +275,8 @@ class Admin
             [ $this, 'plugin_section_main_description' ],
             'wpm_plugin_options_page'
         );
-        $this->add_section_main_subsection_statistics( $section_ids );
         $this->add_section_main_subsection_marketing( $section_ids );
+        $this->add_section_main_subsection_statistics( $section_ids );
         $this->add_section_main_subsection_optimization( $section_ids );
     }
     
@@ -662,6 +664,14 @@ class Admin
                 $section_ids['settings_name']
             );
         }
+        // Add a button to schedule a lifetime value recalculation
+        add_settings_field(
+            'pmw_setting_ltv_recalculation',
+            esc_html__( 'Lifetime Value Recalculation', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+            [ $this, 'html_ltv_recalculation' ],
+            'wpm_plugin_options_page',
+            $section_ids['settings_name']
+        );
     }
     
     public function add_section_advanced_subsection_google( $section_ids )
@@ -1303,6 +1313,60 @@ class Admin
         }
     }
     
+    // Add a tab for the logs
+    public static function add_section_logs()
+    {
+        $section_ids = [
+            'title'         => esc_html__( 'Logs', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+            'slug'          => 'logger',
+            'settings_name' => 'wpm_plugin_log_section',
+        ];
+        self::output_section_data_field( $section_ids );
+        // Add section for the logs
+        add_settings_section(
+            'wpm_plugin_log_section',
+            esc_html__( 'Logs', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+            [ __CLASS__, 'plugin_section_logger' ],
+            'wpm_plugin_options_page'
+        );
+        // add checkbox for logger
+        add_settings_field(
+            'wpm_plugin_option_logger',
+            esc_html__( 'Logger', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+            [ __CLASS__, 'html_logger_activation' ],
+            'wpm_plugin_options_page',
+            'wpm_plugin_log_section'
+        );
+        // add dropdown for log level
+        add_settings_field(
+            'wpm_plugin_option_log_level',
+            esc_html__( 'Log Level', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+            [ __CLASS__, 'html_log_level' ],
+            'wpm_plugin_options_page',
+            'wpm_plugin_log_section'
+        );
+        // add option to log outgoing http requests
+        add_settings_field(
+            'wpm_plugin_option_log_http_requests',
+            esc_html__( 'Log HTTP Requests', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+            [ __CLASS__, 'html_log_outgoing_http_requests' ],
+            'wpm_plugin_options_page',
+            'wpm_plugin_log_section'
+        );
+        // The log files are only easily accessible in the user interface
+        // if WooCommerce is active.
+        if ( Environment::is_woocommerce_active() ) {
+            // add dropdown for log level
+            add_settings_field(
+                'wpm_plugin_option_log_files',
+                esc_html__( 'Log Files', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+                [ __CLASS__, 'html_log_files' ],
+                'wpm_plugin_options_page',
+                'wpm_plugin_log_section'
+            );
+        }
+    }
+    
     public function add_section_diagnostics()
     {
         $section_ids = [
@@ -1568,6 +1632,11 @@ class Admin
         //        esc_html_e('Find out more about this new feature: ', 'woocommerce-google-adwords-conversion-tracking-tag');
         //        echo '<a href="https://support.google.com/google-ads/answer/9028254" target="_blank">https://support.google.com/google-ads/answer/9028254</a><br>';
         //        echo '</div>';
+    }
+    
+    public static function plugin_section_logger()
+    {
+        // do nothing
     }
     
     public function plugin_section_diagnostics_html()
@@ -2023,7 +2092,7 @@ class Admin
 						<div style="display: flex; align-items: center;">
 							<div style="margin-right: 10px;"> <!-- Add some margin for spacing -->
 								<?php 
-            esc_html_e( 'Chat with our fantastic AI bot here (he knows everything we do!): ', 'woocommerce-google-adwords-conversion-tracking-tag' );
+            esc_html_e( 'Chat with our fantastic AI bot Pixie (Pixie knows everything we do!): ', 'woocommerce-google-adwords-conversion-tracking-tag' );
             ?>
 							</div>
 							<div>
@@ -4358,6 +4427,55 @@ class Admin
 		<?php 
     }
     
+    public function html_ltv_recalculation()
+    {
+        // Add a button with the text "Schedule LTV recalculation" and a confirmation dialog
+        // Add a hidden div, that will be shown after the button is clicked, with a confirmation message
+        ?>
+		<div style="display: flex;">
+			<button id="wgact_ltv_recalculation" class="button button-primary" style="margin-top: 0">
+				<span id="ltv-schedule-recalculation-button-text"
+					  class="ltv-button-text"
+					  data-action="schedule_ltv_recalculation">
+					<?php 
+        esc_html_e( 'Schedule LTV recalculation', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        ?>
+				</span>
+				<span id="ltv-instant-recalculation-button-text"
+					  class="ltv-button-text"
+					  style="display: none;" data-action="run_ltv_recalculation">
+					<?php 
+        esc_html_e( 'Instant LTV recalculation', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        ?>
+				</span>
+			</button>
+			<div id="ltv-schedule-recalculation-confirmation-message"
+				 class="ltv-message"
+				 style="display: none; margin-left: 10px;">
+				<?php 
+        esc_html_e( 'Recalculation has been scheduled for a run over night. Click one more time to start the recalculation immediately.', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        ?>
+			</div>
+			<div id="ltv-running-recalculation-confirmation-message"
+				 class="ltv-message"
+				 style="display: none; margin-left: 10px;">
+				<?php 
+        esc_html_e( 'The recalculation is running.', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        ?>
+			</div>
+			<div id="ltv-message-error"
+				 class="ltv-message"
+				 style="display: none; margin-left: 10px;">
+				<span id="ltv-message-error-text">
+				</span>
+			</div>
+			<?php 
+        self::get_documentation_html_by_key( 'ltv_recalculation' );
+        ?>
+		</div>
+		<?php 
+    }
+    
     public function html_lazy_load_pmw()
     {
         // adding the hidden input is a hack to make WordPress save the option with the value zero,
@@ -4458,6 +4576,225 @@ class Admin
         esc_html_e( 'You need to choose the correct product identifier setting in order to match the product identifiers in the product feeds.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 		</p>
+		<?php 
+    }
+    
+    public static function html_logger_activation()
+    {
+        // adding the hidden input is a hack to make WordPress save the option with the value zero,
+        // instead of not saving it and remove that array key entirely
+        // https://stackoverflow.com/a/1992745/4688612
+        ?>
+		<label>
+			<input type='hidden' value='0' name='wgact_plugin_options[general][logger][is_active]'>
+			<input type='checkbox' id='wpm_plugin_option_logger'
+				   name='wgact_plugin_options[general][logger][is_active]'
+				   value='1' <?php 
+        checked( Options::get_options()['general']['logger']['is_active'] );
+        ?> />
+
+			<?php 
+        esc_html_e( 'Enable logger', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        ?>
+		</label>
+		<?php 
+        self::display_status_icon( Options::get_options()['general']['logger']['is_active'], true, true );
+        ?>
+		<?php 
+        self::get_documentation_html_by_key( 'logger_activation' );
+        ?>
+		<?php 
+        // self::wistia_video_icon('7fhtv2s94t');
+        ?>
+		<?php 
+    }
+    
+    public static function html_log_level()
+    {
+        ?>
+		<select id="wpm_plugin_option_log_level" name="wgact_plugin_options[general][logger][level]">
+			<?php 
+        foreach ( Logger::get_log_levels() as $log_level_number => $log_level_name ) {
+            ?>
+				<option value="<?php 
+            esc_html_e( $log_level_name );
+            ?>" <?php 
+            selected( $log_level_name, Options::get_options()['general']['logger']['level'] );
+            ?>>
+					<?php 
+            esc_html_e( $log_level_number . ' - ' . $log_level_name );
+            ?>
+				</option>
+			<?php 
+        }
+        ?>
+		</select>
+		<?php 
+        self::get_documentation_html_by_key( 'log_level' );
+        ?>
+		<?php 
+        // self::wistia_video_icon('7fhtv2s94t');
+        ?>
+		<?php 
+    }
+    
+    public static function html_log_outgoing_http_requests()
+    {
+        // adding the hidden input is a hack to make WordPress save the option with the value zero,
+        // instead of not saving it and remove that array key entirely
+        // https://stackoverflow.com/a/1992745/4688612
+        ?>
+		<label>
+			<input type='hidden' value='0' name='wgact_plugin_options[general][logger][log_http_requests]'>
+			<input type='checkbox' id='wpm_plugin_option_log_http_requests'
+				   name='wgact_plugin_options[general][logger][log_http_requests]'
+				   value='1' <?php 
+        checked( Options::is_http_request_logging_enabled() );
+        ?> />
+			<?php 
+        esc_html_e( 'Enable HTTP request logging', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        ?>
+		</label>
+		<?php 
+        self::display_status_icon( Options::get_options()['general']['logger']['log_http_requests'], true, true );
+        ?>
+		<?php 
+        self::get_documentation_html_by_key( 'log_http_requests' );
+        ?>
+		<?php 
+        // self::wistia_video_icon('7fhtv2s94t');
+        ?>
+		<p>
+
+		</p>
+		<span class="dashicons dashicons-info"></span>
+		<?php 
+        esc_html_e( "This feature switches web requests from asynchronous (faster, non-blocking) to synchronous (slower, blocking) to record responses. It allows the responses to be analyzed, but also uses more server resources. It's meant for troubleshooting and will turn off automatically after 3 hours. You can extend this time if needed. See the user guide for more details.", 'woocommerce-google-adwords-conversion-tracking-tag' );
+        ?>
+		</p>
+		<?php 
+    }
+    
+    public static function html_log_files()
+    {
+        $source = 'pmw';
+        $admin_url_link_recent_wc_log = Helpers::get_admin_url_link_to_recent_wc_log( $source );
+        ?>
+
+		<button id="wgact_show_recent_log_file"
+				class="button button-primary"
+				style="margin-top: 0"
+				onclick="window.open('<?php 
+        echo  esc_url( $admin_url_link_recent_wc_log ) ;
+        ?>')"
+			<?php 
+        if ( !$admin_url_link_recent_wc_log ) {
+            ?>
+				disabled
+			<?php 
+        }
+        ?>
+		>
+			<?php 
+        
+        if ( $admin_url_link_recent_wc_log ) {
+            ?>
+				<?php 
+            esc_html_e( 'Show recent log file', 'woocommerce-google-adwords-conversion-tracking-tag' );
+            ?>
+			<?php 
+        } else {
+            ?>
+				<?php 
+            esc_html_e( 'No log file found to view', 'woocommerce-google-adwords-conversion-tracking-tag' );
+            ?>
+			<?php 
+        }
+        
+        ?>
+
+		</button>
+		<?php 
+        // Add a button with which the most recent log file can be downloaded
+        $external_url_to_most_recent_log = Helpers::get_external_url_to_most_recent_log( $source );
+        ?>
+
+		<button id="wgact_download_log_file"
+				class="button button-primary"
+				style="margin-top: 0"
+				onclick="window.open('<?php 
+        echo  esc_url( $external_url_to_most_recent_log ) ;
+        ?>')"
+			<?php 
+        if ( !$external_url_to_most_recent_log ) {
+            ?>
+				disabled
+			<?php 
+        }
+        ?>
+		>
+			<?php 
+        
+        if ( $external_url_to_most_recent_log ) {
+            ?>
+				<?php 
+            esc_html_e( 'Download recent log file', 'woocommerce-google-adwords-conversion-tracking-tag' );
+            ?>
+			<?php 
+        } else {
+            ?>
+				<?php 
+            esc_html_e( 'No log file found to download', 'woocommerce-google-adwords-conversion-tracking-tag' );
+            ?>
+			<?php 
+        }
+        
+        ?>
+		</button>
+
+		<?php 
+        // Button to copy all log file links to the clipboard
+        $all_external_log_file_urls = Helpers::get_all_external_log_file_urls( $source );
+        ?>
+
+		<button id="wgact_copy_log_file_links"
+				class="button button-primary"
+				style="margin-top: 0"
+				data-links="<?php 
+        echo  wc_esc_json( $all_external_log_file_urls ) ;
+        ?>"
+				data-text-copied="<?php 
+        esc_html_e( 'Copied!', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        ?>"
+			<?php 
+        if ( !$all_external_log_file_urls ) {
+            ?>
+				disabled
+			<?php 
+        }
+        ?>
+		>
+			<?php 
+        
+        if ( $all_external_log_file_urls ) {
+            ?>
+				<?php 
+            esc_html_e( 'Copy log file links', 'woocommerce-google-adwords-conversion-tracking-tag' );
+            ?>
+			<?php 
+        } else {
+            ?>
+				<?php 
+            esc_html_e( 'No log file links found to copy', 'woocommerce-google-adwords-conversion-tracking-tag' );
+            ?>
+			<?php 
+        }
+        
+        ?>
+		</button>
+		<?php 
+        self::get_documentation_html_by_key( 'log_files' );
+        ?>
 		<?php 
     }
     
@@ -4788,12 +5125,6 @@ class Admin
             return '';
         }
     
-    }
-    
-    public function deduper_enable()
-    {
-        $this->options['shop']['order_deduplication'] = true;
-        update_option( 'wgact_plugin_options', $this->options );
     }
     
     private static function wistia_video_icon( $wistia_id, $tooltip_text = '' )

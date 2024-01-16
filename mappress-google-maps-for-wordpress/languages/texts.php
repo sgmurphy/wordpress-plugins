@@ -46,6 +46,7 @@ __("+%d more");
 __("Edit map");
 __("Attach");
 __("Post not found");
+__("Post not available");
 __("Geocoding error: %s");
 __("Location");
 __("Invalid lat/lng coordinate: %s,%s");

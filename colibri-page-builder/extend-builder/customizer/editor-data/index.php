@@ -91,6 +91,7 @@ add_filter('extendbuilder_wp_data', function ($value) {
 
 add_filter('extendbuilder_wp_data', function ($value) {
 
+    $value['colibri_page_builder_wpmu_nonce'] = wp_create_nonce( 'colibri_page_builder_wpmu_nonce' );
     $value['forminator_is_compatible'] = colibri_plugin_is_compatible('forminator');
 //	$value['smush_is_compatible'] = colibri_plugin_is_compatible('wp-smushit');
 //	$value['hummingbird_is_compatible'] = colibri_plugin_is_compatible('hummingbird-performance');

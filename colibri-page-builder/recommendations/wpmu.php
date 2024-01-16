@@ -118,7 +118,10 @@ function colibri_is_wpmu_plugin_active( $key ) {
 }
 
 add_action( "wp_ajax_colibri_page_builder_wpmu_setting", function () {
-
+	check_ajax_referer( 'colibri_page_builder_wpmu_nonce', 'nonce' );
+	if ( !current_user_can( 'edit_theme_options' ) ) {
+		wp_send_json_error();
+	}
 	$params  = $_REQUEST;
 	$slug    = sanitize_text_field(array_get_value( $params, 'slug', '' ));
 	$option  = sanitize_text_field(array_get_value( $params, 'option', '' ));
@@ -391,7 +394,7 @@ function colibri_wpmu_get_recommended_plugins() {
 
 function colibri_plugin_is_compatible($plugin_slug) {
 	//only do requests in admin pages. For other types of pages mark it as true. We only care for admin pages where you have buttons to install the
-    //recommended plugins. 
+    //recommended plugins.
 	if(!is_admin()) {
 		return true;
 	}

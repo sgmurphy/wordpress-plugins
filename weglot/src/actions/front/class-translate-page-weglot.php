@@ -295,7 +295,7 @@ class Translate_Page_Weglot implements Hooks_Interface_Weglot {
 		$remove_google_translate = apply_filters( 'weglot_remove_google_translate', true );
 		if ( $remove_google_translate ) {
 			$original_language = $this->language_services->get_original_language();
-			$current_language  = $this->request_url_services->get_current_language( false );
+			$current_language  = $this->request_url_services->get_current_language();
 			if ( $current_language !== $original_language ) {
 				echo "\n" . '<meta name="google" content="notranslate"/>';
 			}
@@ -314,7 +314,7 @@ class Translate_Page_Weglot implements Hooks_Interface_Weglot {
 	 * @see wp_head
 	 */
 	public function weglot_custom_settings() {
-		$settings = get_transient( 'weglot_cache_cdn', false );
+		$settings = get_transient( 'weglot_cache_cdn' );
 		if ( empty( $settings ) ) {
 			$settings = $this->option_services->get_options();
 		}
@@ -334,8 +334,6 @@ class Translate_Page_Weglot implements Hooks_Interface_Weglot {
 		unset( $settings['translation_engine'] );
 		unset( $settings['auto_switch_fallback'] );
 		unset( $settings['auto_switch'] );
-		unset( $settings['language_from_custom_name'] );
-		unset( $settings['language_from_custom_flag'] );
 		unset( $settings['dynamics'] );
 		unset( $settings['technology_name'] );
 		$settings['current_language'] = $this->current_language->getInternalCode();

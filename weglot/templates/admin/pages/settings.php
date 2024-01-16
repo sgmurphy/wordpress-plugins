@@ -87,9 +87,6 @@ $url_form = wp_nonce_url(
 				case Helper_Tabs_Admin_Weglot::SUPPORT:
 					include_once WEGLOT_TEMPLATES_ADMIN_PAGES . '/tabs/support.php';
 					break;
-				case Helper_Tabs_Admin_Weglot::CUSTOM_URLS:
-					include_once WEGLOT_TEMPLATES_ADMIN_PAGES . '/tabs/custom-urls.php';
-					break;
 			}
 
 			if ( ! in_array( $this->tab_active, [ Helper_Tabs_Admin_Weglot::STATUS ], true ) ) {

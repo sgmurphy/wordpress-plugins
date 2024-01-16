@@ -166,7 +166,7 @@ trait LocalCodeceptionTrait
         $this->executeWpCliAndOutput('db reset --yes', $output, $configuration->getApacheDocumentRoot());
         $this->executeWpCliAndOutput('core install --url=' . $configuration->getWptestsIp() . ' --title=Woo-tests --admin_user=admin --admin_password=admin --admin_email=grola@seostudio.pl --skip-email', $output, $configuration->getApacheDocumentRoot());
         $commands = array('theme activate storefront-wpdesk-tests', 'plugin activate woocommerce');
-        $commands = \array_merge($commands, $this->prepareWcOptionsCommands(), $this->prepareTaxes(), $this->prepareShippingMethods(), $this->prepareWooCommercePages(), $this->prepareCustomer(), $this->prepareDisableRESTApiPermissions(), $this->prepareCreateProductsCommands(), $this->revertCartAndCheckoutToOldVersion(), $configuration->getPrepareDatabase());
+        $commands = \array_merge($commands, $this->prepareWcOptionsCommands(), $this->prepareTaxes(), $this->prepareShippingMethods(), $this->prepareWooCommercePages(), $this->prepareCustomer(), $this->prepareDisableRESTApiPermissions(), $this->prepareCreateProductsCommands(), $this->revertCartAndCheckoutToOldVersion($configuration->getApacheDocumentRoot()), $configuration->getPrepareDatabase());
         foreach ($commands as $command) {
             $this->executeWpCliAndOutput($command, $output, $configuration->getApacheDocumentRoot());
         }
@@ -270,8 +270,8 @@ trait LocalCodeceptionTrait
             }
         }
     }
-    private function revertCartAndCheckoutToOldVersion() : array
+    private function revertCartAndCheckoutToOldVersion(string $apache_document_root) : array
     {
-        return ['post update $(wp post list --field="ID" --post_type="page" --name="checkout") --post_content="[woocommerce_checkout]"', 'post update $(wp post list --field="ID" --post_type="page" --name="cart") --post_content="[woocommerce_cart]"'];
+        return ['post update $(wp post list --field="ID" --post_type="page" --name="checkout" --allow-root --path=' . $apache_document_root . ') --post_content="[woocommerce_checkout]"', 'post update $(wp post list --field="ID" --post_type="page" --name="cart" --allow-root --path=' . $apache_document_root . ') --post_content="[woocommerce_cart]"'];
     }
 }

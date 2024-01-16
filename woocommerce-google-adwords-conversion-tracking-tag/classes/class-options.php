@@ -225,6 +225,11 @@ class Options {
 				'pro_version_demo'           => false,
 				'scroll_tracker_thresholds'  => [],
 				'lazy_load_pmw'              => false,
+				'logger'                     => [
+					'is_active'         => false,
+					'level'             => 'warning',
+					'log_http_requests' => false,
+				],
 			],
 			'db_version' => PMW_DB_VERSION,
 		];
@@ -624,5 +629,29 @@ class Options {
 		}
 
 		return false;
+	}
+
+	public static function is_logging_enabled() {
+		return (bool) self::get_options_obj()->general->logger->is_active;
+	}
+
+	public static function get_log_level() {
+		return self::get_options_obj()->general->logger->level;
+	}
+
+	public static function is_http_request_logging_enabled() {
+		return self::get_options_obj()->general->logger->log_http_requests;
+	}
+
+	public static function disable_http_request_logging() {
+		self::init();
+		self::$options['general']['logger']['log_http_requests'] = false;
+		update_option(PMW_DB_OPTIONS_NAME, self::$options);
+	}
+
+	public static function enable_duplication_prevention() {
+		self::init();
+		self::$options['shop']['order_deduplication'] = true;
+		update_option(PMW_DB_OPTIONS_NAME, self::$options);
 	}
 }

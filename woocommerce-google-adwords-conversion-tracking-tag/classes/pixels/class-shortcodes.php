@@ -2,7 +2,9 @@
 
 namespace WCPM\Classes\Pixels;
 
+use WCPM\Classes\Logger;
 use WCPM\Classes\Options;
+use WCPM\Classes\Pixels\Facebook\Facebook;
 use WCPM\Classes\Product;
 
 if (!defined('ABSPATH')) {
@@ -56,7 +58,7 @@ class Shortcodes {
 			$product = wc_get_product($shortcode_attributes['product-id']);
 
 			if (Product::is_not_wc_product($product)) {
-				wc_get_logger()->debug('get_product_data_layer_script received an invalid product', [ 'source' => 'PMW' ]);
+				Logger::debug('get_product_data_layer_script received an invalid product');
 				return;
 			}
 
@@ -65,7 +67,7 @@ class Shortcodes {
 			?>
 
 			<script>
-				jQuery(document).on("wpmLoad", function () {
+				jQuery(document).on("pmw:ready", function () {
 					jQuery(document).trigger("wpmViewItem", wpm.getProductDetailsFormattedForEvent(<?php esc_html_e($shortcode_attributes['product-id']); ?>))
 				})
 			</script>
@@ -105,6 +107,10 @@ class Shortcodes {
 		// This is to maintain backwards compatibility with the old shortcode
 		if (isset($attributes['fbq-event'])) {
 			$shortcode_attributes['meta-event'] = $attributes['fbq-event'];
+		}
+
+		if (isset($attributes['fbc-event'])) {
+			$shortcode_attributes['meta-event'] = $attributes['fbc-event'];
 		}
 
 		self::output_tracking_scripts($shortcode_attributes);
@@ -296,29 +302,38 @@ class Shortcodes {
 		<?php
 	}
 
-	// https://developers.facebook.com/docs/analytics/send_data/events/
+	// https://www.facebook.com/business/help/402791146561655?id=1205376682832142
 	private static function conversion_html_facebook( $shortcode_attributes ) {
+
+		if (in_array($shortcode_attributes['meta-event'], Facebook::get_standard_event_names())) {
+			$track_instruction = 'track';
+		} else {
+			$track_instruction = 'trackCustom';
+		}
+
 
 		if (Options::is_facebook_capi_enabled()) {
 			?>
 
 			<script>
-				jQuery(document).on("wpmLoad", function () {
+				jQuery(document).on("pmw:ready", function () {
 
 					let eventId = wpm.getRandomEventId()
 
 					wpmFunctionExists("fbq").then(function () {
-							fbq("track", '<?php echo esc_js($shortcode_attributes['meta-event']); ?>', {}, {
+							fbq("<?php esc_html_e($track_instruction); ?>", "<?php echo esc_js($shortcode_attributes['meta-event']); ?>", {}, {
 								eventID: eventId,
 							})
 						},
 					)
 
-					jQuery(document).trigger("wpmFbCapiEvent", {
-						event_name      : "<?php echo esc_js($shortcode_attributes['meta-event']); ?>",
-						event_id        : eventId,
-						user_data       : wpm.getFbUserData(),
-						event_source_url: window.location.href,
+					wpm.sendEventPayloadToServer({
+						facebook: {
+							event_name      : "<?php echo esc_js($shortcode_attributes['meta-event']); ?>",
+							event_id        : eventId,
+							user_data       : wpm.getFbUserData(),
+							event_source_url: window.location.href,
+						},
 					})
 				})
 
@@ -329,7 +344,7 @@ class Shortcodes {
 
 			<script>
 				wpmFunctionExists("fbq").then(function () {
-						fbq("track", '<?php echo esc_js($shortcode_attributes['meta-event']); ?>')
+						fbq("<?php esc_html_e($track_instruction); ?>", "<?php echo esc_js($shortcode_attributes['meta-event']); ?>")
 					},
 				)
 			</script>

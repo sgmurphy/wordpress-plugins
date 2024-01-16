@@ -5,7 +5,7 @@ Tags: order export, woocommerce, order, export, csv, order import, woocommerce e
 Requires at least: 3.0
 Tested up to: 6.4.2
 Requires PHP: 5.6
-Stable tag: 2.4.6
+Stable tag: 2.4.7
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -29,7 +29,7 @@ The following are functionalities offered by the basic version of the order impo
  &#128312; Bulk update WooCommerce orders and coupons.
  &#128312; Compatible with YITH WooCommerce Order Tracking plugin.
  &#128312; Supports various export filters (order status, product, coupon, customer, date range) for order export to CSV.
- &#128312; Tested OK with WooCommerce 8.4
+ &#128312; Tested OK with WooCommerce 8.5
  &#128312; Tested OK with WordPress 6.4.2
  &#128312; Tested OK with PHP 8.3
 
@@ -207,7 +207,9 @@ Yes.
 14. Exported coupon CSV
 
 == Changelog ==
-
+= 2.4.7 2024-01-16 =
+* [Fix] - Invalid File type CSV.
+* [Compatibility] - Tested OK with WooCommerce 8.5
 = 2.4.6 2024-01-04 =
 * [Fix] - Conflict with order item meta key named quantity and quantity.
 * [Compatibility] - Tested OK with WooCommerce 8.4
@@ -558,7 +560,6 @@ Yes.
 
 == Upgrade Notice ==
 
-= 2.4.6 =
-* [Fix] - Conflict with order item meta key named quantity and quantity.
-* [Compatibility] - Tested OK with WooCommerce 8.4
-* [Compatibility] - Tested OK with PHP 8.3
+= 2.4.7 
+* [Fix] - Invalid File type CSV.
+* [Compatibility] - Tested OK with WooCommerce 8.5

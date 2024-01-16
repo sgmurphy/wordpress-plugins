@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'wpdesk/flexible-checkout-fields',
-        'pretty_version' => '3.5.19',
-        'version' => '3.5.19.0',
-        'reference' => '2817f7d269bc652f5ec48f46c5aa0373e8d17951',
+        'pretty_version' => '3.6.0',
+        'version' => '3.6.0.0',
+        'reference' => 'c7f5a5e5b6ea9392caa1877c2345c7a53d0e338f',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'php-stubs/woocommerce-stubs' => array(
-            'pretty_version' => 'v8.4.0',
-            'version' => '8.4.0.0',
-            'reference' => 'b7cc99c6c84c96b8ff0ad803d90c93f26103b737',
+            'pretty_version' => 'v8.5.1',
+            'version' => '8.5.1.0',
+            'reference' => 'd2ea3610bab1e51b81c745bfdc00eeae3da8454d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-stubs/woocommerce-stubs',
             'aliases' => array(),
@@ -38,9 +38,9 @@
             'dev_requirement' => false,
         ),
         'phpstan/phpstan' => array(
-            'pretty_version' => '1.10.50',
-            'version' => '1.10.50.0',
-            'reference' => '06a98513ac72c03e8366b5a0cb00750b487032e4',
+            'pretty_version' => '1.10.56',
+            'version' => '1.10.56.0',
+            'reference' => '27816a01aea996191ee14d010f325434c0ee76fa',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpstan/phpstan',
             'aliases' => array(),
@@ -92,9 +92,9 @@
             'dev_requirement' => false,
         ),
         'wpdesk/flexible-checkout-fields' => array(
-            'pretty_version' => '3.5.19',
-            'version' => '3.5.19.0',
-            'reference' => '2817f7d269bc652f5ec48f46c5aa0373e8d17951',
+            'pretty_version' => '3.6.0',
+            'version' => '3.6.0.0',
+            'reference' => 'c7f5a5e5b6ea9392caa1877c2345c7a53d0e338f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

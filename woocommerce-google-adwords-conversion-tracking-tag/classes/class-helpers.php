@@ -6,6 +6,7 @@ use  libphonenumber\NumberParseException ;
 use  libphonenumber\PhoneNumberFormat ;
 use  libphonenumber\PhoneNumberUtil ;
 use  stdClass ;
+use  WC_Log_Handler_File ;
 use  WCPM\Classes\Admin\Environment ;
 
 if ( !defined( 'ABSPATH' ) ) {
@@ -250,7 +251,7 @@ class Helpers
      *
      * @since 1.30.8
      */
-    public static function wp_strtotime_to_unix_timestamp( $datetime_string )
+    public static function datetime_string_to_unix_timestamp_in_local_timezone( $datetime_string )
     {
         return wp_date( 'U', strtotime( $datetime_string . ' ' . wp_timezone_string() ) );
     }
@@ -443,6 +444,18 @@ class Helpers
         return $data;
     }
     
+    /**
+     * This function takes a user data array and a country string and adds the country values to the user object.
+     *
+     * @param array  $data
+     *        The user data array.
+     *
+     * @param string $country
+     *        The country string to be added to the user object.
+     *
+     * @return array
+     *         The updated user data array with country values added to the user object.
+     */
     private static function get_user_object_country( $data, $country )
     {
         $country = self::trim_string( $country );
@@ -462,6 +475,21 @@ class Helpers
         return (bool) apply_filters( 'pmw_send_all_s2s_requests_blocking', false );
     }
     
+    /**
+     * This function takes a number and formats it as a decimal.
+     *
+     * @param mixed $number
+     *         The number to format. Can be a string or a float.
+     *
+     * @param mixed $dp
+     *         The number of decimal places to round to. Default is false, which means no rounding is performed.
+     *
+     * @param bool  $trim_zeros
+     *         Whether to trim trailing zeros and the decimal point. Default is false.
+     *
+     * @return float | null | string
+     *         Returns the formatted decimal number as a string, or false if the input is not a valid number.
+     */
     public static function format_decimal( $number, $dp = false, $trim_zeros = false )
     {
         
@@ -480,7 +508,7 @@ class Helpers
             }
             
             if ( !is_float( $number ) ) {
-                return false;
+                return null;
             }
             if ( false !== $dp ) {
                 $number = round( $number, $dp );
@@ -497,16 +525,39 @@ class Helpers
     
     }
     
+    /**
+     * Checks if experimental feature EXPERIMENTAL_PMW is enabled.
+     *
+     * @return bool
+     *        Returns true if EXPERIMENTAL_PMW is defined and has a truthy value, otherwise returns false.
+     */
     public static function is_experiment()
     {
         return defined( 'EXPERIMENTAL_PMW' ) && EXPERIMENTAL_PMW;
     }
     
+    /**
+     * This function checks if the WooCommerce compatibility declaration function exists.
+     *
+     * @return bool
+     */
     public static function does_the_woocommerce_declare_compatibility_function_exist()
     {
         return class_exists( '\\Automattic\\WooCommerce\\Utilities\\FeaturesUtil' ) && method_exists( '\\Automattic\\WooCommerce\\Utilities\\FeaturesUtil', 'declare_compatibility' );
     }
     
+    /**
+     * Declare compatibility with a feature for WooCommerce.
+     *
+     * @param string $feature_id
+     *        The ID of the feature to declare compatibility with.
+     *
+     * @param string $plugin_file
+     *        Optional. The plugin file to specify the compatibility for. Default is PMW_PLUGIN_BASENAME.
+     *
+     * @param bool   $positive_compatibility
+     *        Optional. Whether to declare positive compatibility or not. Default is true.
+     */
     public static function declare_woocommerce_compatibility( $feature_id, $plugin_file = PMW_PLUGIN_BASENAME, $positive_compatibility = true )
     {
         if ( !self::does_the_woocommerce_declare_compatibility_function_exist() ) {
@@ -515,6 +566,16 @@ class Helpers
         \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( $feature_id, $plugin_file, $positive_compatibility );
     }
     
+    /**
+     * Get the version information of the software.
+     *
+     * @return array The version information.
+     *  - 'number' : string : The current version number.
+     *  - 'pro' : bool : Whether the software is a premium version or not.
+     *  - 'eligibleForUpdates' : bool : Whether the software can receive updates or not.
+     *  - 'distro' : string : The distribution identifier of the software.
+     *  - 'beta' : bool : Whether the software is a beta version or not.
+     */
     public static function get_version_info()
     {
         return [
@@ -522,7 +583,192 @@ class Helpers
             'pro'                => wpm_fs()->is__premium_only(),
             'eligibleForUpdates' => wpm_fs()->can_use_premium_code__premium_only(),
             'distro'             => PMW_DISTRO,
+            'beta'               => self::is_beta(),
         ];
+    }
+    
+    /**
+     * This function checks if the application is running in beta mode.
+     *
+     * @return bool
+     *
+     * @see   self::is_experiment()
+     * @see   wpm_fs()->is_beta()
+     *
+     * @since 1.35.1
+     */
+    private static function is_beta()
+    {
+        if ( self::is_experiment() ) {
+            return true;
+        }
+        if ( PMW_DISTRO === 'fms' ) {
+            return wpm_fs()->is_beta();
+        }
+        return false;
+    }
+    
+    public static function is_valid_ipv6_address( $ip )
+    {
+        return filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 );
+    }
+    
+    public static function is_woocommerce_session_active()
+    {
+        // If WC() not available, return false
+        if ( !function_exists( 'WC' ) ) {
+            return false;
+        }
+        // If WC()->session not available, return false
+        if ( !isset( WC()->session ) ) {
+            return false;
+        }
+        // If WC()->session->has_session() not available, return false
+        if ( !method_exists( WC()->session, 'has_session' ) ) {
+            return false;
+        }
+        return WC()->session->has_session();
+    }
+    
+    /**
+     * Check if the WP_DEBUG constant is defined and set to true or false.
+     *
+     * This function essentially checks whether WordPress debugging mode
+     * is active or not. The WP_DEBUG constant is an in-built WordPress
+     * constant that can be used to trigger the 'debug' mode throughout
+     * WordPress.
+     *
+     * @return bool Returns true if WP_DEBUG is defined and set to true,
+     * otherwise it returns false.
+     *
+     * @since 1.35.1
+     */
+    public static function is_wp_debug_mode_active()
+    {
+        return defined( 'WP_DEBUG' ) && WP_DEBUG;
+    }
+    
+    /**
+     * Checks if the PMW_DEBUG_CONSTANT is defined and true.
+     *
+     * This function checks if the PHP constant 'PMW_DEBUG' is defined in the system. If it is defined,
+     * this function further checks that the value of the constant is truthy. It essentially determines
+     * if the PMW Debug Mode is active in the environment.
+     *
+     * @return bool Returns true if 'PMW_DEBUG' constant is defined and its value is true, else returns false.
+     *
+     * @since 1.36.0
+     */
+    public static function is_pmw_debug_mode_active()
+    {
+        return defined( 'PMW_DEBUG' ) && PMW_DEBUG;
+    }
+    
+    /**
+     * Retrieves the file name of the most recent WooCommerce log that starts with a specific source.
+     *
+     * This function fetches all log files, then filters them to retain only the ones
+     * starting with the specified source string. It then returns the file name of the
+     * most recent log matching this criteria.
+     *
+     * If there are no logs, or no logs match the source, an empty string is returned.
+     *
+     * @param string $source The source string that the log file name should start with.
+     * @return string The file name of the most recent log that starts with $source. If no such log exists, returns an empty string.
+     */
+    private static function get_file_name_of_most_recent_wc_log( $source )
+    {
+        // return if the class WC_Log_Handler_File does not exist
+        if ( !class_exists( 'WC_Log_Handler_File' ) ) {
+            return '';
+        }
+        $logs = WC_Log_Handler_File::get_log_files();
+        if ( empty($logs) ) {
+            return '';
+        }
+        // If $logs array contains a key that starts with $source . '-' then return the latest in the array
+        $pmw_logs = array_filter( $logs, function ( $key ) use( $source ) {
+            return strpos( $key, $source . '-' ) === 0;
+        }, ARRAY_FILTER_USE_KEY );
+        if ( empty($pmw_logs) ) {
+            return '';
+        }
+        $last_key = array_key_last( $pmw_logs );
+        return $pmw_logs[$last_key];
+    }
+    
+    /**
+     * Get the link to the most recent log file,
+     * for the given slug. The slug must be exactly
+     * the same as the source parameter in the log call.
+     *
+     * @param $source
+     *
+     * @return string|null
+     *
+     * @since 1.36.0
+     */
+    public static function get_admin_url_link_to_recent_wc_log( $source )
+    {
+        $file_name = self::get_file_name_of_most_recent_wc_log( $source );
+        if ( empty($file_name) ) {
+            return null;
+        }
+        return admin_url( 'admin.php?page=wc-status&tab=logs&log_file=' . $file_name );
+    }
+    
+    public static function get_external_url_to_most_recent_log( $source )
+    {
+        $file_name = self::get_file_name_of_most_recent_wc_log( $source );
+        if ( empty($file_name) ) {
+            return null;
+        }
+        return self::get_url_to_log_dir() . $file_name;
+    }
+    
+    private static function get_url_to_log_dir()
+    {
+        // return if WC_LOG_DIR is not defined
+        if ( !defined( 'WC_LOG_DIR' ) ) {
+            return '';
+        }
+        $wc_log_dir = substr( trailingslashit( WC_LOG_DIR ), strpos( trailingslashit( WC_LOG_DIR ), '/wp-content/' ) );
+        $wc_log_dir = get_bloginfo( 'url' ) . $wc_log_dir;
+        return trailingslashit( $wc_log_dir );
+    }
+    
+    /**
+     * Gets all external log file URLs based on a specific source.
+     *
+     * This function searches all log files in the WooCommerce logs directory,
+     * selects those that start with the specified source or 'fatal-errors',
+     * and returns their URL.
+     *
+     * @param string $source The source log files to search for.
+     *
+     * @return string A JSON-encoded array of URLs to the log files.
+     *
+     * @since 1.36.0
+     */
+    public static function get_all_external_log_file_urls( $source )
+    {
+        $needles = [ 'fatal-errors', $source ];
+        $logs = WC_Log_Handler_File::get_log_files();
+        $logs = array_filter( $logs, function ( $key ) use( $needles ) {
+            foreach ( $needles as $needle ) {
+                if ( strpos( $key, $needle . '-' ) === 0 ) {
+                    return true;
+                }
+            }
+            return false;
+        }, ARRAY_FILTER_USE_KEY );
+        $logs = array_values( array_map( function ( $log ) {
+            return self::get_url_to_log_dir() . $log;
+        }, $logs ) );
+        if ( empty($logs) ) {
+            return null;
+        }
+        return wp_json_encode( $logs );
     }
 
 }

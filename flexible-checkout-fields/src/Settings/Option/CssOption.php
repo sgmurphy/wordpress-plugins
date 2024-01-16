@@ -58,9 +58,10 @@ class CssOption extends OptionAbstract {
 	 */
 	public function update_field_data( array $field_data, array $field_settings ): array {
 		$option_name = $this->get_option_name();
+		$option_value = $field_settings[ $option_name ] ?? $this->get_default_value();
 
 		$field_data[ $option_name ] = $this->sanitize_option_value(
-			implode( ' ', (array) $field_settings[ $option_name ] )
+			implode( ' ', (array) $option_value )
 		);
 		return $field_data;
 	}

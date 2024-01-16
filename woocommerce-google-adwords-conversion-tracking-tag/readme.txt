@@ -4,7 +4,7 @@ Tags: woocommerce, google analytics, google ads, facebook, conversion tracking, 
 Requires at least: 3.7
 Tested up to: 6.4
 Requires PHP: 7.3
-Stable tag: 1.35.0
+Stable tag: 1.36.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -108,7 +108,7 @@ Have a look at the full feature list over [here](https://sweetcode.com/docs/wpm/
 * Google Ads Enhanced Conversions
 * Google Ads Conversion Adjustments
 * Google Analytics Universal and Google Analytics 4 Enhanced E-Commerce
-* Google Consent Mode
+* Google Consent Mode v2
 * Google Dynamic Remarketing Choice for all Business Verticals
 * Meta CAPI (Facebook CAPI)
 * Meta Microdata Output (Facebook Microdata Output)
@@ -262,25 +262,37 @@ We are committed to ensuring the security of our customers and their data. If yo
 
 == Changelog ==
 
+= 1.36.0 = 16.01.2024
+
+* New: Added GA4 enhanced e-commerce events to the free version.
+* New: Added a new logger tab to the settings page. It allows you to enable logging from within the plugin.
+* Tweak: Improved handling of session and persistent client data.
+* Tweak: Improved handling of saving and using the referrer.
+* Tweak: Implemented a possible fix for the Facebook IPv6 vs IPv4 warning.
+* Tweak: Updated vendor packages.
+* Tweak: Added new logger for better debugging.
+* Tweak: Refactored the tracking value variable into an object with more properties.
+* Tweak: Refactored the order item COG retrieval to get the COG value from the order, if available. Otherwise, it will use the current COG value from the product.
+* Tweak: Optimized shortcode trigger for the Meta pixel.
+* Tweak: Reordered the main subsection tabs.
+
+
 = 1.35.0 = 19.12.2023
 
 
 * New: AI support chat bot.
 * Fix: Safeguard for WooCommerce block editors that can cause a fatal error in rare cases.
 
-* Tweak:
-
 = 1.34.1 = 14.12.2023
+
 
 * Tweak: Removed user data output for the free version as it is not required.
 * Tweak: Bumped up WordPress version compatibility to 6.4.
 * Tweak: Bumped up WooCommerce version compatibility to 8.4
 * Tweak: Declare Cart and Checkout Blocks compatibility.
 * Tweak: Updated the Facebook pixel ID validation to allow for longer IDs.
-* Tweak: Added the value for the GA4 add_to_cart, remove_from_cart, add_to_wishlist and begin_checkout events.
-* Tweak: Improved console logs in functions_premium and event_listeners_premium
 * Tweak: Updated the jQuery ready event detection to avoid deprecation warnings.
-* Fix: Fixed shortcode trigger for Facebook when CAPI is enabled.
+
 * Fix: Don't call VarnishPurger's execute_purge() statically as it is not a static function.
 * Fix: Added a safeguard to avoid render issues on empty block-activated cart pages.
 

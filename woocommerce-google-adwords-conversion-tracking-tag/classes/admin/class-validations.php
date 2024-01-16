@@ -629,7 +629,8 @@ class Validations {
 			}
 		}
 
-		self::deduplication_check($input);
+		self::schedule_duplication_prevention_activation($input);
+		self::schedule_http_request_logging_deactivation($input);
 
 		/**
 		 * Merging with the existing options and overwriting old values
@@ -692,30 +693,60 @@ class Validations {
 		return $input;
 	}
 
-	private static function deduplication_check( $input ) {
+	private static function schedule_duplication_prevention_activation( $input ) {
 
+		// If action scheduler is not active, return
 		if (!Environment::is_action_scheduler_active()) {
 			return;
 		}
 
-		// Check if deduplication has been turned off.
-		// If so, set an action with the action scheduler to automatically reactivate deduplication in 6 hours from now.
-		if (
-			isset($input['shop']['order_deduplication'])
-			&& !$input['shop']['order_deduplication']
-		) {
-
-			if (!as_next_scheduled_action('pmw_reactivate_duplication_prevention')) {
-
-				as_schedule_single_action(time() + 6 * HOUR_IN_SECONDS, 'pmw_reactivate_duplication_prevention');
-			} else {
-				// If the action is already scheduled, update the timestamp to 6 hours from now.
-				as_unschedule_all_actions('pmw_reactivate_duplication_prevention');
-				as_schedule_single_action(time() + 6 * HOUR_IN_SECONDS, 'pmw_reactivate_duplication_prevention');
-			}
-		} elseif (as_next_scheduled_action('pmw_reactivate_duplication_prevention')) { // If set, remove the scheduled action for reactivating deduplication
-			as_unschedule_action('pmw_reactivate_duplication_prevention');
+		// If $input['shop']['order_deduplication'] is not set, return
+		if (!isset($input['shop']['order_deduplication'])) {
+			return;
 		}
+
+		// If pmw_reactivate_duplication_prevention action is already scheduled, unschedule it.
+		// If the order duplication has been reactivated manually, we don't need to schedule the reactivation.
+		// If the order duplication has been deactivated manually, and there is already a scheduled reactivation, we need to reset the time delay.
+		as_unschedule_all_actions('pmw_reactivate_duplication_prevention');
+
+		// If the order duplication is active, we don't need to do anything
+		if ($input['shop']['order_deduplication']) {
+			return;
+		}
+
+		// Schedule pmw_reactivate_duplication_prevention action
+		as_schedule_single_action(time() + 6 * HOUR_IN_SECONDS, 'pmw_reactivate_duplication_prevention');
+	}
+
+	private static function schedule_http_request_logging_deactivation( $input ) {
+
+		// If action scheduler is not active, return
+		if (!Environment::is_action_scheduler_active()) {
+			return;
+		}
+
+		// If $input['general']['logger']['log_http_requests'] is not set, return
+		if (!isset($input['general']['logger']['log_http_requests'])) {
+			return;
+		}
+
+		// If pmw_deactivate_log_http_requests action is already scheduled, unschedule it.
+		// If http request logging has been deactivated manually, we don't need to schedule the deactivation.
+		// If http request logging has been activated manually, and there is already a scheduled deactivation, we need to reset the time delay.
+		as_unschedule_all_actions('pmw_deactivate_log_http_requests');
+
+		// If $input['general']['logger']['log_http_requests'] is false, return
+		// We only want to schedule the deactivation of http request logging if it is active
+		if (!$input['general']['logger']['log_http_requests']) {
+			return;
+		}
+
+		// set delay to 3 hours
+		$delay = apply_filters('pmw_http_request_log_auto_off_delay', 3 * HOUR_IN_SECONDS);
+
+		// schedule pmw_deactivate_log_http_requests action
+		as_schedule_single_action(time() + $delay, 'pmw_deactivate_log_http_requests');
 	}
 
 	/**

@@ -5,7 +5,7 @@ Tags:  elementor addons, elementor widget, elementor extensions, elementor addon
 Requires at least: 5.0.0
 Tested up to: 6.4.2
 Requires PHP: 7.4.0
-Stable tag: 5.4.13
+Stable tag: 5.4.14
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Elementor requires at least: 3.0.0
@@ -417,6 +417,12 @@ https://youtu.be/u9JRd824Mjc
 
 
 == Changelog ==
+
+= 5.4.14 [16th January 2024] =
+
+* Added: Image position responsive option added in review card widget
+* Added: Content Padding option added in custom gallery widget
+* Fixed: Uikit print css issue fixed
 
 = 5.4.13 [5th January 2024] =
 

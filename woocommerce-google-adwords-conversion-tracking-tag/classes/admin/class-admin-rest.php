@@ -2,7 +2,9 @@
 
 namespace WCPM\Classes\Admin;
 
+use  WCPM\Classes\Admin\Opportunities\Opportunities ;
 use  WCPM\Classes\Helpers ;
+use  WCPM\Classes\Logger ;
 
 if ( !defined( 'ABSPATH' ) ) {
     exit;
@@ -31,8 +33,7 @@ class Admin_REST
         register_rest_route( $this->rest_namespace, '/notifications/', [
             'methods'             => 'POST',
             'callback'            => function ( $request ) {
-            $data = $request->get_json_params();
-            $data = Helpers::generic_sanitization( $data );
+            $data = Helpers::generic_sanitization( $request->get_json_params() );
             if ( isset( $data['notification'] ) && 'pmw-dismiss-opportunities-message-button' === $data['notification'] ) {
                 Opportunities::dismiss_dashboard_notification();
             }
@@ -51,6 +52,50 @@ class Admin_REST
             }
             
             wp_send_json_success();
+        },
+            'permission_callback' => function () {
+            return current_user_can( 'manage_options' );
+        },
+        ] );
+        // A route for the ltv recalculation
+        register_rest_route( $this->rest_namespace, '/ltv/', [
+            'methods'             => 'POST',
+            'callback'            => function ( $request ) {
+            $data = Helpers::generic_sanitization( $request->get_json_params() );
+            if ( !isset( $data['action'] ) ) {
+                wp_send_json_error( [
+                    'message' => 'No action specified',
+                    'status'  => LTV::get_ltv_recalculation_status(),
+                ] );
+            }
+            
+            if ( 'schedule_ltv_recalculation' === $data['action'] ) {
+                LTV::schedule_complete_vertical_ltv_calculation();
+                wp_send_json_success( [
+                    'message' => esc_html__( 'LTV recalculation scheduled', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+                    'status'  => LTV::get_ltv_recalculation_status(),
+                ] );
+            }
+            
+            
+            if ( 'run_ltv_recalculation' === $data['action'] ) {
+                LTV::run_complete_vertical_ltv_calculation();
+                wp_send_json_success( [
+                    'message' => esc_html__( 'LTV recalculation running', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+                    'status'  => LTV::get_ltv_recalculation_status(),
+                ] );
+            }
+            
+            if ( 'get_ltv_recalculation_status' === $data['action'] ) {
+                wp_send_json_success( [
+                    'message' => esc_html__( 'Received LTV recalculation status', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+                    'status'  => LTV::get_ltv_recalculation_status(),
+                ] );
+            }
+            wp_send_json_error( [
+                'message' => 'Unknown action',
+                'status'  => LTV::get_ltv_recalculation_status(),
+            ] );
         },
             'permission_callback' => function () {
             return current_user_can( 'manage_options' );

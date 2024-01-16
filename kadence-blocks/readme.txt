@@ -4,7 +4,7 @@ Tags: gutenberg, blocks, page builder, google fonts, dual buttons, svg icons, ed
 Donate link: https://www.kadencewp.com/about-us/
 Requires at least: 6.1
 Tested up to: 6.4
-Stable tag: 3.2.16
+Stable tag: 3.2.17
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -96,6 +96,14 @@ assist you with verification, CVE assignment, and notify the
 developers of this plugin.
 
 == Changelog ==
+
+= 3.2.17 =
+Release Date: January 15th, 2024
+* Add: Border Radius Controls to Adv Text Highlight.
+* Fix: Gradient Button transition.
+* Fix: Issue when using Kadence Conversions banner templates.
+* Fix: Possible issue with events custom excerpts.
+* Fix: Deprecation warning on PHP 8.2
 
 = 3.2.16 =
 Release Date: January 12th, 2024

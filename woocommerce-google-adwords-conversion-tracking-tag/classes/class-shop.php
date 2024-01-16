@@ -75,10 +75,10 @@ class Shop
         
         if ( in_array( Options::get_options_obj()->shop->order_total_logic, [ '0', 'order_subtotal' ], true ) ) {
             // Order subtotal
-            $order_total = $order->get_subtotal() - $order->get_total_discount() - self::get_order_fees( $order );
+            $order_total = $order->get_subtotal() - $order->get_total_discount() - self::get_order_fees( $order ) - $order->get_total_refunded() + $order->get_total_tax_refunded();
         } elseif ( in_array( Options::get_options_obj()->shop->order_total_logic, [ '1', 'order_total' ], true ) ) {
             // Order total
-            $order_total = $order->get_total();
+            $order_total = $order->get_total() - $order->get_total_refunded();
         } elseif ( in_array( Options::get_options_obj()->shop->order_total_logic, [ '2', 'order_profit_margin' ], true ) ) {
             // Order profit margin
             $order_total = Profit_Margin::get_order_profit_margin( $order );
@@ -331,26 +331,17 @@ class Shop
         return count( self::get_all_order_ids_by_billing_email( $billing_email ) );
     }
     
-    public static function can_clv_query_be_run( $billing_email )
+    public static function can_ltv_be_processed( $order )
     {
         // Abort if is not a valid email
-        if ( !Helpers::is_email( $billing_email ) ) {
-            return false;
-        }
-        // Abort if memory_limit is too low
-        if ( !Environment::is_memory_limit_higher_than( '100M' ) ) {
-            return false;
-        }
-        // Abort if customer has too many orders
-        $maximum_number_of_orders = apply_filters( 'pmw_maximum_number_of_orders_for_clv_query', 500 );
-        // Abort if customer has too many orders
-        if ( self::get_count_of_order_ids_by_billing_email( $billing_email ) > $maximum_number_of_orders ) {
+        if ( !Helpers::is_email( $order->get_billing_email() ) ) {
             return false;
         }
         // Abort if the wc_get_orders query doesn't properly accept the 'billing_email' parameter
-        if ( self::get_count_of_all_order_ids() === self::get_count_of_order_ids_by_billing_email( $billing_email ) ) {
-            return false;
-        }
+        // In that case a count filtered by billing email would return all orders of the shop
+        //		if (self::get_count_of_all_order_ids() === self::get_count_of_order_ids_by_billing_email($order->get_billing_email())) {
+        //			return false;
+        //		}
         return true;
     }
     
@@ -488,9 +479,7 @@ class Shop
                 $page = '';
             }
             
-            wc_get_logger()->debug( "WooCommerce couldn't retrieve the order ID from order key in the URL: " . $page, [
-                'source' => 'PMW',
-            ] );
+            Logger::debug( "WooCommerce couldn't retrieve the order ID from order key in the URL: " . $page );
             return false;
         }
     
@@ -507,12 +496,7 @@ class Shop
         if ( $order_id && 0 != $order_id && wc_get_order( $order_id ) ) {
             return wc_get_order( $order_id );
         } else {
-            wc_get_logger()->debug( 'WooCommerce couldn\'t retrieve the order ID from $wp->query_vars[\'order-received\']', [
-                'source' => 'PMW',
-            ] );
-            wc_get_logger()->debug( print_r( $wp->query_vars, true ), [
-                'source' => 'PMW',
-            ] );
+            Logger::debug( 'WooCommerce couldn\'t retrieve the order ID from $wp->query_vars[\'order-received\']: ' . print_r( $wp->query_vars, true ) );
             return false;
         }
     
@@ -762,6 +746,51 @@ class Shop
         }
         
         return null;
+    }
+    
+    /**
+     * Fetches the active order statuses.
+     * Initially sets a base array of statuses, then includes all statuses returned by wc_get_is_paid_statuses() function.
+     * The returned array is passed through a WordPress filter 'pmw_active_order_statuses' allowing developers to modify the active statuses.
+     *
+     * @return array Modified array of order statuses.
+     *
+     * @since 1.35.1
+     */
+    public static function get_active_order_statuses()
+    {
+        $active_order_statuses = [
+            'completed',
+            'processing',
+            'on-hold',
+            'pending'
+        ];
+        // Add all statuses from the array returned by wc_get_is_paid_statuses()
+        $active_order_statuses = array_merge( $active_order_statuses, wc_get_is_paid_statuses() );
+        // Remove duplicates
+        $active_order_statuses = array_unique( $active_order_statuses );
+        return apply_filters( 'pmw_active_order_statuses', $active_order_statuses );
+    }
+    
+    /**
+     * Retrieves the active order statuses with the 'wc-' prefix for each status.
+     *
+     * This method first invokes the `get_active_order_statuses` method to get the list of active order statuses.
+     * Then it returns the array of these statuses prefixed with 'wc-' which is suitable for database operations in WooCommerce.
+     *
+     * @return array An array of active order statuses prefixed with 'wc-'.
+     *
+     * @see   Helpers::get_active_order_statuses
+     *
+     * @since 1.35.1
+     */
+    public static function get_active_order_statuses_for_db_queries()
+    {
+        $active_order_statuses = self::get_active_order_statuses();
+        // Add the 'wc-' prefix to each status
+        return array_map( function ( $status ) {
+            return 'wc-' . $status;
+        }, $active_order_statuses );
     }
 
 }

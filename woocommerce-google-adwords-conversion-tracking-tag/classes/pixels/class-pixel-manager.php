@@ -3,10 +3,12 @@
 namespace WCPM\Classes\Pixels;
 
 use  WCPM\Classes\Admin\Environment ;
+use  WCPM\Classes\Admin\LTV ;
 use  WCPM\Classes\Admin\Validations ;
 use  WCPM\Classes\Data\GA4_Data_API ;
 use  WCPM\Classes\Geolocation ;
 use  WCPM\Classes\Helpers ;
+use  WCPM\Classes\Logger ;
 use  WCPM\Classes\Options ;
 use  WCPM\Classes\Shop ;
 use  WCPM\Classes\Product ;
@@ -47,6 +49,9 @@ class Pixel_Manager
         return self::$instance;
     }
     
+    /**
+     * Initializes the class and sets up options, states, additional classes, and pixel managers. Also registers actions and filters.
+     */
     private function __construct()
     {
         /**
@@ -451,6 +456,37 @@ class Pixel_Manager
         wp_send_json_success();
     }
     
+    public static function pmw_store_ipv6_in_server_session()
+    {
+        $_post = Helpers::get_input_vars( INPUT_POST );
+        // return error if the ipv6 field is not set
+        if ( !isset( $_post['data']['ipv6'] ) ) {
+            wp_send_json_error( 'No IPv6 address provided' );
+        }
+        // return error if the ipv6 field is not a valid IPv6 address
+        if ( !Helpers::is_valid_ipv6_address( $_post['data']['ipv6'] ) ) {
+            wp_send_json_error( 'Invalid IPv6 address' );
+        }
+        // If WooCommerce is not active, return error
+        if ( !Environment::is_woocommerce_active() ) {
+            wp_send_json_error( 'WooCommerce not active' );
+        }
+        // If WC() is not available, return error
+        if ( !function_exists( 'WC' ) ) {
+            wp_send_json_error( 'WC() not available' );
+        }
+        // If a WooCommerce session is not available, return error
+        if ( !WC()->session ) {
+            wp_send_json_error( 'WooCommerce session not available' );
+        }
+        // Set the IPv6 address in the WooCommerce session
+        WC()->session->set( 'client_ipv6', $_post['data']['ipv6'] );
+        wp_send_json_success( [
+            'ipv6'    => $_post['data']['ipv6'],
+            'message' => 'IPv6 address stored in server session',
+        ] );
+    }
+    
     public function process_server_to_server_event( $data )
     {
         // Send Facebook CAPI event
@@ -481,7 +517,6 @@ class Pixel_Manager
         }
         // Validate imported options
         if ( !Validations::validate_imported_options( $options ) ) {
-            //			wc_get_logger()->error('Invalid Options. Options not saved', ['source' => 'PMW']);
             wp_send_json_error( [
                 'message' => 'Invalid options. Didn\'t pass validation.',
             ] );
@@ -593,9 +628,7 @@ class Pixel_Manager
         $product = wc_get_product( get_the_id() );
         
         if ( Product::is_not_wc_product( $product ) ) {
-            wc_get_logger()->debug( 'woocommerce_inject_product_data_on_product_page provided no product on a product page: .' . get_the_id(), [
-                'source' => 'PMW',
-            ] );
+            Logger::debug( 'woocommerce_inject_product_data_on_product_page provided no product on a product page: .' . get_the_id() );
             return;
         }
         
@@ -1106,9 +1139,11 @@ class Pixel_Manager
                 'key'              => (string) $order->get_order_key(),
                 'affiliation'      => (string) get_bloginfo( 'name' ),
                 'currency'         => (string) Shop::get_order_currency( $order ),
-                'value_filtered'   => (double) Shop::pmw_get_order_total_marketing( $order, true ),
-                'value_regular'    => (double) $order->get_total(),
-                'value_subtotal'   => (double) $order->get_subtotal(),
+                'value'            => [
+                'marketing' => (double) Shop::pmw_get_order_total_marketing( $order, true ),
+                'total'     => (double) $order->get_total(),
+                'subtotal'  => (double) $order->get_subtotal(),
+            ],
                 'discount'         => (double) $order->get_total_discount(),
                 'tax'              => (double) $order->get_total_tax(),
                 'shipping'         => (double) $order->get_shipping_total(),
@@ -1124,9 +1159,12 @@ class Pixel_Manager
             ];
             // Process customer lifetime value
             
-            if ( Shop::can_clv_query_be_run( $order->get_billing_email() ) ) {
-                $data['order']['clv_order_total'] = Shop::get_clv_order_total_by_billing_email( $order->get_billing_email() );
-                $data['order']['clv_order_value_filtered'] = Shop::get_clv_value_filtered_by_billing_email( $order->get_billing_email() );
+            if ( Shop::can_ltv_be_processed( $order ) ) {
+                if ( !LTV::are_all_pmw_order_values_set( $order ) ) {
+                    LTV::calculate_pmw_order_values( $order );
+                }
+                $data['order']['value']['ltv']['marketing'] = (double) LTV::get_marketing_ltv_from_order( $order );
+                $data['order']['value']['ltv']['total'] = (double) LTV::get_total_ltv_from_order( $order );
             }
             
             // set em (email)
@@ -1260,6 +1298,7 @@ class Pixel_Manager
     
     public function ajax_pmw_get_cart_items()
     {
+        Logger::debug( 'ajax_pmw_get_cart_items()' );
         global  $woocommerce ;
         $cart_items = $woocommerce->cart->get_cart();
         $data = [];
@@ -1294,9 +1333,7 @@ class Pixel_Manager
                     $data['cart'][$product->get_id()]['parentId_dyn_r_ids'] = Product::get_dyn_r_ids( $parent_product );
                     $data['cart'][$product->get_id()]['brand'] = Product::get_brand_name( $parent_product->get_id() );
                 } else {
-                    wc_get_logger()->debug( 'Variation ' . $product->get_id() . ' doesn\'t link to a valid parent product.', [
-                        'source' => 'PMW',
-                    ] );
+                    Logger::debug( 'Variation ' . $product->get_id() . ' doesn\'t link to a valid parent product.' );
                 }
                 
                 $data['cart'][$product->get_id()]['isVariation'] = true;
@@ -1338,7 +1375,6 @@ class Pixel_Manager
             }
             $product = wc_get_product( $product_id );
             if ( Product::is_not_wc_product( $product ) ) {
-                //				wc_get_logger()->debug('ajax_pmw_get_product_ids received an invalid product', ['source' => 'PMW']);
                 continue;
             }
             $products[$product_id] = Product::get_product_details_for_datalayer( $product );

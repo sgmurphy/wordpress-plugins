@@ -94,9 +94,8 @@ class Product {
 
 	public static function log_problematic_product_id( $product_id = 0 ) {
 
-		wc_get_logger()->debug(
-			'WooCommerce detects the page ID ' . $product_id . ' as product, but when invoked by wc_get_product( ' . $product_id . ' ) it returns no product object',
-			[ 'source' => 'PMW' ]
+		Logger::debug(
+			'WooCommerce detects the page ID ' . $product_id . ' as product, but when invoked by wc_get_product( ' . $product_id . ' ) it returns no product object'
 		);
 	}
 
@@ -139,8 +138,7 @@ class Product {
 				$product_details['parentId']           = $parent_product->get_id();
 				$product_details['brand']              = self::get_brand_name($parent_product->get_id());
 			} else {
-
-				wc_get_logger()->debug('Variation ' . $product->get_id() . ' doesn\'t link to a valid parent product.', [ 'source' => 'PMW' ]);
+				Logger::debug('Variation ' . $product->get_id() . ' doesn\'t link to a valid parent product.');
 			}
 
 			$product_details['variant']     = self::get_formatted_variant_text($product);
@@ -274,9 +272,8 @@ class Product {
 
 	public static function log_problematic_product( $product ) {
 
-		wc_get_logger()->debug(
-			'WooCommerce detects the following product as product , but when invoked by wc_get_product( ' . $product->get_id() . ' ) it returns no product object',
-			[ 'source' => 'PMW' ]
+		Logger::debug(
+			'WooCommerce detects the following product as product , but when invoked by wc_get_product( ' . $product->get_id() . ' ) it returns no product object'
 		);
 	}
 
@@ -292,8 +289,6 @@ class Product {
 			$product = $order_item->get_product();
 
 			if (self::is_not_wc_product($product)) {
-
-//				wc_get_logger()->debug('get_order_item_data received an order item which is not a valid product: ' . $order_item->get_id(), ['source' => 'PMW']);
 				return [];
 			}
 
@@ -326,7 +321,7 @@ class Product {
 	public static function print_product_data_layer_script( $product, $set_position = true, $meta_tag = false ) {
 
 		if (self::is_not_wc_product($product)) {
-			wc_get_logger()->debug('get_product_data_layer_script received an invalid product', [ 'source' => 'PMW' ]);
+			Logger::debug('get_product_data_layer_script received an invalid product');
 			return '';
 		}
 

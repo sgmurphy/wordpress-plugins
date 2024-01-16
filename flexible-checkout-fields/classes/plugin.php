@@ -130,7 +130,7 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 100 );
 
 		add_action( 'woocommerce_checkout_fields', array( $this, 'changeCheckoutFields' ), 9999 );
-		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'updateCheckoutFields' ), 9, 2 );
+		add_action( 'woocommerce_checkout_create_order', array( $this, 'updateCheckoutFields' ), 9, 2 );
 
 		add_action( 'woocommerce_admin_order_data_after_billing_address', array(
 			$this,
@@ -236,7 +236,7 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 	 *
 	 * This is a locale for default country.
 	 *
-	 * @param array $base Local base.
+	 * @param array<string|int, mixed> $base Local base. Since WC 8.5.0 array keys could be also numeric.
 	 *
 	 * @return array
 	 */
@@ -244,6 +244,10 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 		$settings = $this->get_settings();
 
 		foreach ( $base as $key => $field ) {
+			// skip numeric key entries.
+			if ( is_numeric( $key ) ) {
+				continue;
+			}
 			unset( $base[ $key ]['placeholder'] );
 			unset( $base[ $key ]['label'] );
 			if ( version_compare( WC()->version, '4.4.1', '>=' ) ) {
@@ -783,10 +787,13 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 	/**
 	 * Update fields on checkout.
 	 *
-	 * @param int   $order_id Order id.
+	 * @param WC_Order|mixed $order Order.
 	 * @param array $data Posted data.
 	 */
-	function updateCheckoutFields( $order_id, $data ) {
+	function updateCheckoutFields( $order, $data ) {
+		if ( ! $order instanceof \WC_Order ) {
+			return;
+		}
 		$settings = $this->get_settings();
 		if ( ! empty( $settings ) ) {
 			$fields = [];
@@ -803,18 +810,18 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 					$fcf_field = new Flexible_Checkout_Fields_Field( $fields[ $key ], $this );
 					if ( $fcf_field->is_custom_field() ) {
 						if ( in_array( $fcf_field->get_type(), [ TextareaType::FIELD_TYPE ] ) ) {
-							update_post_meta( $order_id, '_' . $key, sanitize_textarea_field( wp_unslash( $value ) ) );
+							$order->update_meta_data( '_' . $key, sanitize_textarea_field( wp_unslash( $value ) ) );
 						} elseif ( in_array( $fcf_field->get_type(), [ MultiCheckboxType::FIELD_TYPE, MultiSelectType::FIELD_TYPE, FileType::FIELD_TYPE ] ) ) {
-							update_post_meta( $order_id, '_' . $key, json_encode( wp_unslash( $value ), JSON_UNESCAPED_UNICODE ) );
+							$order->update_meta_data( '_' . $key, json_encode( wp_unslash( $value ), JSON_UNESCAPED_UNICODE ) );
 						} else {
-							update_post_meta( $order_id, '_' . $key, sanitize_text_field( wp_unslash( $value ) ) );
+							$order->update_meta_data( '_' . $key, sanitize_text_field( wp_unslash( $value ) ) );
 						}
 					}
 				}
 			}
 		}
 
-		do_action( 'flexible_checkout_fields_checkout_update_order_meta', $order_id, $data );
+		do_action( 'flexible_checkout_fields_checkout_update_order_meta', $order->get_id(), $data );
 	}
 
 	public static function flexible_checkout_fields_section_settings( $key, $settings ) {

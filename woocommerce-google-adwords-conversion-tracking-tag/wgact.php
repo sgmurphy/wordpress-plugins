@@ -10,16 +10,16 @@
  * Developer URI:        https://sweetcode.com
  * Text Domain:          woocommerce-google-adwords-conversion-tracking-tag
  * Domain path:          /languages
- * * Version:              1.35.0
+ * * Version:              1.36.0
  *
  * WC requires at least: 3.7
- * WC tested up to:      8.4
+ * WC tested up to:      8.5
  *
  * License:              GNU General Public License v3.0
  * License URI:          http://www.gnu.org/licenses/gpl-3.0.html
  *
  **/
-const  PMW_CURRENT_VERSION = '1.35.0' ;
+const  PMW_CURRENT_VERSION = '1.36.0' ;
 // TODO add option checkbox on uninstall and ask if user wants to delete options from db
 
 if ( !defined( 'ABSPATH' ) ) {
@@ -32,12 +32,14 @@ use  WCPM\Classes\Admin\Admin_REST ;
 use  WCPM\Classes\Admin\Borlabs ;
 use  WCPM\Classes\Admin\Debug_Info ;
 use  WCPM\Classes\Admin\Environment ;
+use  WCPM\Classes\Admin\LTV ;
 use  WCPM\Classes\Admin\Notifications ;
 use  WCPM\Classes\Admin\Order_Columns ;
 use  WCPM\Classes\Deprecated_Filters ;
 use  WCPM\Classes\Helpers ;
-use  WCPM\Classes\Pixels\Pixel_Manager ;
+use  WCPM\Classes\Logger ;
 use  WCPM\Classes\Options ;
+use  WCPM\Classes\Pixels\Pixel_Manager ;
 use  WCPM\Classes\Product ;
 use  WCPM\Classes\Shop ;
 use  WCPM\Classes\Admin\Ask_For_Rating ;
@@ -188,7 +190,10 @@ if ( function_exists( 'wpm_fs' ) ) {
         public function register_hooks_for_woocommerce()
         {
             add_action( 'pmw_reactivate_duplication_prevention', function () {
-                Admin::get_instance()->deduper_enable();
+                Options::enable_duplication_prevention();
+            } );
+            add_action( 'pmw_deactivate_log_http_requests', function () {
+                Options::disable_http_request_logging();
             } );
             add_action( 'pmw_tracking_accuracy_analysis', function () {
                 Debug_Info::run_tracking_accuracy_analysis();
@@ -198,6 +203,37 @@ if ( function_exists( 'wpm_fs' ) ) {
             } );
             add_action( 'pmw_print_product_data_layer_script_by_product_id', function ( $product_id ) {
                 Product::print_product_data_layer_script( wc_get_product( $product_id ) );
+            } );
+            $this->register_ltv_calculation_hooks();
+        }
+        
+        private function register_ltv_calculation_hooks()
+        {
+            add_action( 'pmw_batch_process_vertical_ltv_calculation', function ( $order_id ) {
+                LTV::batch_process_vertical_ltv_calculation( $order_id );
+            } );
+            add_action( 'pmw_horizontal_ltv_calculation_check', function ( $order_id ) {
+                LTV::horizontal_ltv_calculation_check( $order_id );
+            } );
+            add_action( 'pmw_horizontal_ltv_calculation', function ( $order_id ) {
+                LTV::horizontal_ltv_calculation( $order_id );
+            } );
+            add_action( 'action_scheduler_failed_action', function ( $action_id ) {
+                LTV::handle_action_scheduler_failed_action( $action_id, 'failed action' );
+            } );
+            add_action( 'action_scheduler_failed_execution', function ( $action_id ) {
+                LTV::handle_action_scheduler_failed_action( $action_id, 'failed execution' );
+            } );
+            add_action( 'action_scheduler_unexpected_shutdown', function ( $action_id ) {
+                LTV::handle_action_scheduler_failed_action( $action_id, 'unexpected shutdown' );
+            } );
+            add_action( 'woocommerce_order_status_cancelled', function ( $order_id ) {
+                Logger::info( 'Cancellation detected. Starting horizontal LTV calculation for order ' . $order_id );
+                LTV::horizontal_ltv_calculation( $order_id );
+            } );
+            add_action( 'woocommerce_order_refunded', function ( $order_id ) {
+                Logger::info( 'Refund detected. Starting horizontal LTV calculation for order ' . $order_id );
+                LTV::horizontal_ltv_calculation( $order_id );
             } );
         }
         
@@ -229,7 +265,7 @@ if ( function_exists( 'wpm_fs' ) ) {
             if ( Environment::is_action_scheduler_active() && Environment::is_transients_enabled() ) {
                 if ( !Helpers::has_scheduled_action( 'pmw_tracking_accuracy_analysis' ) ) {
                     as_schedule_recurring_action(
-                        Helpers::wp_strtotime_to_unix_timestamp( 'today 4:25am' ),
+                        Helpers::datetime_string_to_unix_timestamp_in_local_timezone( 'today 4:25am' ),
                         DAY_IN_SECONDS,
                         'pmw_tracking_accuracy_analysis',
                         [],

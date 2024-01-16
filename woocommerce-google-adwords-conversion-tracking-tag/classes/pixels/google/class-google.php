@@ -45,7 +45,6 @@ class Google extends Pixel
     {
         $product = $order_item->get_product();
         if ( Product::is_not_wc_product( $product ) ) {
-            //			wc_get_logger()->debug('get_order_item_data received an order item which is not a valid product: ' . $order_item->get_id(), ['source' => 'PMW']);
             return [];
         }
         $dyn_r_ids = Product::get_dyn_r_ids( $product );

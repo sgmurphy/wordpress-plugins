@@ -3,6 +3,14 @@
 
 # Change Log
 
+##4.2.2 (31/10/2023) =
+* Bug: Fix deprecated issue on PHP 8.2 due to creation of dynamic property
+* Bug: Fix issue with email defer option from woocommerce
+* Improvement: Add quote about autoredirect fallback
+* Improvement: Install via wp-packagist works
+* Improvement: Add plugin version to our Weglot settings
+* Improvement: Update pageviews endpoint to enable more country stats
+
 ##4.2.1 (10/10/2023) =
 * Bug: Fix deprecated issue on PHP 8.2 due to creation of dynamic property
 * Improvement: Add Negative excludedPath implementation

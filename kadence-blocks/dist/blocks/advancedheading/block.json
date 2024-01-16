@@ -678,6 +678,37 @@
     "iconTitle": {
       "type": "string",
       "default": ""
+    },
+    "markBorderRadius": {
+      "type": "array",
+      "default": [
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    "tabletMarkBorderRadius": {
+      "type": "array",
+      "default": [
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    "mobileMarkBorderRadius": {
+      "type": "array",
+      "default": [
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    "markBorderRadiusUnit": {
+      "type": "string",
+      "default": "px"
     }
   },
   "usesContext": [

@@ -17,7 +17,7 @@ class facebook_widget extends WP_Widget {
     }
 
     function load_custom_js(){
-        wp_enqueue_script( 'load-custom-js', plugin_dir_url(__FILE__) . 'assets/js/custom.js' );
+        wp_enqueue_script( 'load-custom-js', plugin_dir_url(__FILE__) . 'admin/assets/js/custom.js' );
     }
 
     /** @see WP_Widget::widget */

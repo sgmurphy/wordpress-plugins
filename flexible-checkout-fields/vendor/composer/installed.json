@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "php-stubs/woocommerce-stubs",
-            "version": "v8.4.0",
-            "version_normalized": "8.4.0.0",
+            "version": "v8.5.1",
+            "version_normalized": "8.5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/woocommerce-stubs.git",
-                "reference": "b7cc99c6c84c96b8ff0ad803d90c93f26103b737"
+                "reference": "d2ea3610bab1e51b81c745bfdc00eeae3da8454d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/b7cc99c6c84c96b8ff0ad803d90c93f26103b737",
-                "reference": "b7cc99c6c84c96b8ff0ad803d90c93f26103b737",
+                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/d2ea3610bab1e51b81c745bfdc00eeae3da8454d",
+                "reference": "d2ea3610bab1e51b81c745bfdc00eeae3da8454d",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,7 @@
                 "symfony/polyfill-php73": "Symfony polyfill backporting some PHP 7.3+ features to lower PHP versions",
                 "szepeviktor/phpstan-wordpress": "WordPress extensions for PHPStan"
             },
-            "time": "2023-12-13T07:22:17+00:00",
+            "time": "2024-01-15T19:51:26+00:00",
             "type": "library",
             "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
@@ -43,7 +43,7 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/woocommerce-stubs/issues",
-                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v8.4.0"
+                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v8.5.1"
             },
             "install-path": "../php-stubs/woocommerce-stubs"
         },
@@ -146,17 +146,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.50",
-            "version_normalized": "1.10.50.0",
+            "version": "1.10.56",
+            "version_normalized": "1.10.56.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "06a98513ac72c03e8366b5a0cb00750b487032e4"
+                "reference": "27816a01aea996191ee14d010f325434c0ee76fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/06a98513ac72c03e8366b5a0cb00750b487032e4",
-                "reference": "06a98513ac72c03e8366b5a0cb00750b487032e4",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/27816a01aea996191ee14d010f325434c0ee76fa",
+                "reference": "27816a01aea996191ee14d010f325434c0ee76fa",
                 "shasum": ""
             },
             "require": {
@@ -165,7 +165,7 @@
             "conflict": {
                 "phpstan/phpstan-shim": "*"
             },
-            "time": "2023-12-13T10:59:42+00:00",
+            "time": "2024-01-15T10:43:00+00:00",
             "bin": [
                 "phpstan",
                 "phpstan.phar"

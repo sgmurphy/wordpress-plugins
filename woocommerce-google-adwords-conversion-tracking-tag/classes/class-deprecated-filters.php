@@ -36,5 +36,89 @@ class Deprecated_Filters {
 		 */
 		$ga4_mp_logger = apply_filters_deprecated('wooptpm_send_http_api_ga_4_requests_blocking', [ false ], '1.13.0', 'wpm_send_http_api_ga_4_requests_blocking');
 		apply_filters_deprecated('wpm_send_http_api_ga_4_requests_blocking', [ $ga4_mp_logger ], '1.27.9', 'pmw_http_send_hit_logger');
+
+		/**
+		 * Applies a deprecated filter 'pmw_maximum_number_of_orders_for_clv_query'.
+		 *
+		 * This filter was used to limit the number of orders queried for CLV (Customer Lifetime Value) calculations.
+		 * It's deprecated from version '1.35.1' without any replacement.
+		 *
+		 * @deprecated 1.35.1 No replacement filter
+		 *
+		 * @see        apply_filters_deprecated()
+		 */
+		apply_filters_deprecated(
+			'pmw_maximum_number_of_orders_for_clv_query',
+			[ 100 ],
+			'1.35.1',
+			null,
+			'This filter has been deprecated without replacement'
+		);
+
+		apply_filters_deprecated(
+			'pmw_http_send_hit_logger',
+			[ false ],
+			'1.36.0',
+			null,
+			'This filter has been deprecated. Use the new logger in the user interface.'
+		);
+
+		apply_filters_deprecated(
+			'wooptpm_send_http_api_requests_blocking', [ false ],
+			'1.36.0',
+			null,
+			'This filter has been deprecated. Use the new logger in the user interface.'
+		);
+
+		apply_filters_deprecated(
+			'wpm_send_http_api_requests_blocking', [ false ],
+			'1.36.0',
+			null,
+			'This filter has been deprecated. Use the new logger in the user interface.'
+		);
+
+		apply_filters_deprecated(
+			'pmw_send_http_api_requests_blocking',
+			[ false ],
+			'1.36.0',
+			null,
+			'This filter has been deprecated. Use the new logger in the user interface.'
+		);
+
+		apply_filters_deprecated(
+			'wpm_facebook_capi_event_logger', [ false ],
+			'1.36.0',
+			null,
+			'This filter has been deprecated. Use the new logger in the user interface.'
+		);
+
+		apply_filters_deprecated(
+			'pmw_facebook_capi_event_logger',
+			[ false ],
+			'1.36.0',
+			null,
+			'This filter has been deprecated. Use the new logger in the user interface.'
+		);
+
+		apply_filters_deprecated(
+			'wooptpm_facebook_capi_purchase_logging', [ false ],
+			'1.36.0',
+			null,
+			'This filter has been deprecated. Use the new logger in the user interface.'
+		);
+
+		apply_filters_deprecated(
+			'wpm_facebook_capi_purchase_logging', [ false ],
+			'1.36.0',
+			null,
+			'This filter has been deprecated. Use the new logger in the user interface.'
+		);
+
+		apply_filters(
+			'pmw_facebook_capi_purchase_logging', [ false ],
+			'1.36.0',
+			null,
+			'This filter has been deprecated. Use the new logger in the user interface.'
+		);
 	}
 }

@@ -59,7 +59,7 @@ class Register
         if ((int)get_option('__wpdm_signup_email_verify', 0) === 0) {
             $reg_data_fields['password'] = array(
                 'cols' => [
-                    ['label' => __("Password", "download-manager"), 'type' => 'password', 'grid_class' => 'col-md-6 col-sm-12', 'attrs' => ['name' => 'wpdm_reg[user_pass]', 'id' => 'reg_password', 'placeholder' => __("Be Secure", "download-manager"), 'required' => 'required', 'strength' => 1]],
+                    ['label' => __("Password", "download-manager"), 'type' => 'password', 'grid_class' => 'col-md-6 col-sm-12', 'attrs' => ['name' => 'wpdm_reg[user_pass]', 'id' => 'reg_password', 'placeholder' => __("Be Secure", "download-manager"), 'required' => 'required', 'strength' => (int)get_option('__wpdm_pwsc', 0)]],
                     ['label' => __("Confirm Password", "download-manager"), 'type' => 'password', 'grid_class' => 'col-md-6 col-sm-12', 'attrs' => ['name' => 'confirm_user_pass', 'data-match' => '#reg_password', 'id' => 'reg_confirm_pass', 'placeholder' => __("Do Not Forget", "download-manager"), 'required' => 'required']]
                 ]
             );

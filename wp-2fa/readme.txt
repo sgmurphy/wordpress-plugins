@@ -34,7 +34,6 @@ Browse our list of [WordPress security and administration plugins](https://melap
 - Supports multiple 2FA methods
 - Universal 2FA app support – generate codes from Google Authenticator, Authy & any other 2FA app
 - Supports 2FA backup methods
-- Require 2FA on password reset
 - Very easy to use and simple to set up
 - Use 2FA policies to enforce 2FA with a grace period or require users to instantly setup 2FA upon logging in
 - No WordPress dashboard access is required for users to set up 2FA
@@ -53,6 +52,8 @@ With the premium edition of WP 2FA, you get more 2FA methods, 1-click integratio
 -   Everything in the free version
 -   Full white labeling capabilities
 -   Trusted devices (no 2FA required)
+-   Additionl 2FA methods (such as 2FA over SMS)
+-   Require 2FA on password reset
 -   One-click integration with WooCommerce
 -   Much more
 

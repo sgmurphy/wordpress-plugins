@@ -39,8 +39,6 @@ class CommonMethodSettings implements MethodSettings {
 			$method_settings['method_free_shipping_label'] = __( 'Free', 'flexible-shipping' );
 		}
 
-		$this->settings['method_free_shipping'] = isset( $method_settings['method_free_shipping'] ) ? $method_settings['method_free_shipping'] : '';
-
 		if ( empty( $method_settings['method_integration'] ) ) {
 			$method_settings['method_integration'] = '';
 		}
@@ -161,10 +159,6 @@ class CommonMethodSettings implements MethodSettings {
 
 		if ( $with_integration_settings ) {
 			$settings = $this->append_integration_settings_if_present( $settings, $method_settings );
-		}
-
-		if ( isset( $settings['method_max_cost'] ) ) {
-			$this->settings['method_max_cost'] = $settings['method_max_cost']['default'];
 		}
 
 		$settings[ self::METHOD_RULES ] = [

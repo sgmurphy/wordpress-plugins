@@ -219,23 +219,23 @@ class Documentation {
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/features/automatic-conversion-recovery-acr/',
 			],
 			'order_list_info'                                        => [
-				'default' => '/docs/wpm/plugin-configuration/general-settings#order-list-info',
+				'default' => '/docs/wpm/diagnostics#order-list-info',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/general-settings/#order-list-info',
 			],
 			'order_total_logic'                                      => [
-				'default' => '/docs/wpm/plugin-configuration/general-settings#order-total-logic',
+				'default' => '/docs/wpm/plugin-configuration/shop-settings#order-total-logic',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/',
 			],
 			'order_subtotal'                                         => [
-				'default' => '/docs/wpm/plugin-configuration/general-settings#order-subtotal-default',
+				'default' => '/docs/wpm/plugin-configuration/shop-settings#order-subtotal-default',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/',
 			],
 			'order_total'                                            => [
-				'default' => '/docs/wpm/plugin-configuration/general-settings#order-total',
+				'default' => '/docs/wpm/plugin-configuration/shop-settings#order-total',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/',
 			],
 			'order_profit_margin'                                    => [
-				'default' => '/docs/wpm/plugin-configuration/general-settings#profit-margin',
+				'default' => '/docs/wpm/plugin-configuration/shop-settings#profit-margin',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/general-settings/#profit-margin',
 			],
 			'scroll_tracker_threshold'                               => [
@@ -263,8 +263,8 @@ class Documentation {
 				'wcm'     => '/',
 			],
 			'subscription_value_multiplier'                          => [
-				'default' => '/docs/wpm/plugin-configuration/general-settings#subscription-value-multiplier',
-				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/general-settings/#section-9',
+				'default' => '/docs/wpm/plugin-configuration/shop-settings#subscription-value-multiplier',
+				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/shop-settings/#section-9',
 			],
 			'lazy_load_pmw'                                          => [
 				'default' => '/docs/wpm/plugin-configuration/general-settings#lazy-load-the-pixel-manager',
@@ -332,6 +332,26 @@ class Documentation {
 			],
 			'google_tcf_support'                                    => [
 				'default' => '/docs/wpm/consent-management/google#google-tcf-support',
+				'wcm'     => '',
+			],
+			'logger_activation'                                    => [
+				'default' => '/docs/wpm/developers/logs#logger-activation',
+				'wcm'     => '',
+			],
+			'log_level'                                    => [
+				'default' => '/docs/wpm/developers/logs#log-levels',
+				'wcm'     => '',
+			],
+			'log_http_requests'                                    => [
+				'default' => '/docs/wpm/developers/logs#log-http-requests',
+				'wcm'     => '',
+			],
+			'log_files'                                    => [
+				'default' => '/docs/wpm/developers/logs#accessing-log-files',
+				'wcm'     => '',
+			],
+			'ltv_recalculation'                                    => [
+				'default' => '/docs/wpm/plugin-configuration/shop-settings#lifetime-value-recalculation',
 				'wcm'     => '',
 			],
 		];

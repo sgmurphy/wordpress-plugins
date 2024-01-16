@@ -4,10 +4,10 @@ namespace WCPM\Classes\Pixels\Google;
 
 use  WCPM\Classes\Admin\Environment ;
 use  WCPM\Classes\Helpers ;
+use  WCPM\Classes\Logger ;
 use  WCPM\Classes\Options ;
 use  WCPM\Classes\Shop ;
 use  WCPM\Classes\Http\Google_MP_GA4 ;
-use  WCPM\Classes\Http\Google_MP_UA ;
 
 if ( !defined( 'ABSPATH' ) ) {
     exit;
@@ -66,9 +66,7 @@ class Google_Pixel_Manager
         if ( !is_object( $user_info ) ) {
             return;
         }
-        wc_get_logger()->debug( 'Prevented order ID ' . $order->get_id() . ' to be reported through the Measurement Protocol for user ' . $user_info->user_login . ' (roles: ' . implode( ', ', $user_info->roles ) . ')', [
-            'source' => 'PMW',
-        ] );
+        Logger::debug( 'Prevented order ID ' . $order->get_id() . ' to be reported through the Measurement Protocol for user ' . $user_info->user_login . ' (roles: ' . implode( ', ', $user_info->roles ) . ')' );
     }
     
     public function inject_order_received_page_dedupe( $order, $order_total, $is_new_customer )

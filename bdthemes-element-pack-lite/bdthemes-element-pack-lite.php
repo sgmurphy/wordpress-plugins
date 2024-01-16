@@ -4,7 +4,7 @@
  * Plugin Name: Element Pack Lite - Addons for Elementor
  * Plugin URI: http://elementpack.pro/
  * Description: The all-new <a href="https://elementpack.pro/">Element Pack</a> brings incredibly advanced, and super-flexible widgets, and A to Z essential addons to the Elementor page builder for WordPress. Explore expertly-coded widgets with first-class support by experts.
- * Version: 5.4.13
+ * Version: 5.4.14
  * Author: BdThemes
  * Author URI: https://bdthemes.com/
  * Text Domain: bdthemes-element-pack-lite
@@ -68,7 +68,7 @@ if ( ! function_exists( 'element_pack_pro_activated' ) ) {
 if ( ! element_pack_pro_installed() ) {
 
 	// Some pre defined value for easy use
-	define( 'BDTEP_VER', '5.4.13' );
+	define( 'BDTEP_VER', '5.4.14' );
 	define( 'BDTEP_TPL_DB_VER', '1.0.0' );
 	define( 'BDTEP__FILE__', __FILE__ );
 	if ( ! defined( 'BDTEP_TITLE' ) ) {
@@ -223,27 +223,28 @@ if ( ! element_pack_pro_installed() ) {
 	 * Review Automation Integration
 	 */
 
-	if ( ! function_exists( 'rc_ep_pro_plugin' ) ) {
-		function rc_ep_pro_plugin() {
+	if ( ! function_exists( 'rc_ep_lite_plugin' ) ) {
+		function rc_ep_lite_plugin() {
 
 			if ( defined( 'BDTEP_INC_PATH' ) ) {
-				require_once BDTEP_INC_PATH . 'reviews-collector/start.php';
+				require_once BDTEP_INC_PATH . 'feedback-hub/start.php';
 
 				rc_dynamic_init( array(
 					'sdk_version'  => '1.0.0',
-					'plugin_name'  => 'Element Pack Free',
+					'plugin_name'  => 'Element Pack Lite',
+					'plugin_icon'  => BDTEP_ASSETS_URL . 'images/logo.svg',
 					'slug'         => 'element_pack_options',
 					'menu'         => array(
 						'slug' => 'element_pack_options',
 					),
 					'review_url'   => 'https://bdt.to/element-pack-elementor-addons-review',
-					'plugin_title' => 'Yay! Great that you\'re using <strong>Element Pack Free</strong>',
+					'plugin_title' => 'Yay! Great that you\'re using <strong>Element Pack Lite</strong>',
 					'plugin_msg'   => '<p>Loved using Element Pack on your website? Share your experience in a review and help us spread the love to everyone right now. Good words will help the community.</p>',
 				) );
 
 			}
 
 		}
-		add_action( 'plugins_loaded', 'rc_ep_pro_plugin' );
+		add_action( 'admin_init', 'rc_ep_lite_plugin' );
 	}
 }
