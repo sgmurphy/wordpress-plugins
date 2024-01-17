@@ -64,11 +64,21 @@ class ProductFactory {
 					}
 					$product_info[] = self::get_product_info( $product, $structure, $config, array(), $parent_product );
 				}else if( count( $product ) ) {
-					foreach ( $product as $pro ) {
-						if (ValidateProduct::is_valid($pro, $config, $pro->get_id())) {
-							$product_info[] = self::get_product_info( $pro, $structure, $config, array(), $parent_product );
+					foreach ( $product as $variation ) {
+
+						if($variation instanceof  WC_Product) {
+							if ( $variation && $variation->is_type( 'variation' ) ) {
+								$parent_product = wc_get_product( $variation->get_parent_id() );
+							}
+
+							// Validate Product and add for feed.
+							if ( ! ValidateProduct::is_valid( $variation, $config, $id ) ) {
+								continue;
+							}
+							$product_info[] = self::get_product_info( $variation, $structure, $config, array(), $parent_product );
 						}
 					}
+
 				}
 
 			}

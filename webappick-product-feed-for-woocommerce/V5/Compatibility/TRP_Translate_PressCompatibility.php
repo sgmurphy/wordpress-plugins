@@ -61,21 +61,31 @@ class TRP_Translate_PressCompatibility {
 			'woo_feed_translatepress_attributes_filters_list',
 			array(
 				'woo_feed_filter_product_title',
-				'woo_feed_filter_product_description',
 				'woo_feed_filter_product_parent_title',
+				'woo_feed_filter_product_yoast_wpseo_title',
+				'woo_feed_filter_product_rank_math_title',
+				'woo_feed_filter_product_aioseop_title',
+			)
+		);
+
+		$filters_description_with_param_3 = apply_filters(
+			'woo_feed_translatepress_attributes_filters_list',
+			array(
+				'woo_feed_filter_product_description',
 				'woo_feed_filter_product_description_with_html',
 				'woo_feed_filter_product_short_description',
-				'woo_feed_filter_product_yoast_wpseo_title',
 				'woo_feed_filter_product_yoast_wpseo_metadesc',
-				'woo_feed_filter_product_rank_math_title',
 				'woo_feed_filter_product_rank_math_description',
-				'woo_feed_filter_product_aioseop_title',
 				'woo_feed_filter_product_aioseop_description',
 			)
 		);
 
 		foreach ( $filters_with_param_3 as $filter ) {
 			add_filter( $filter, array( $this, 'get_tp_translate' ), 999, 3 );
+		}
+
+		foreach ($filters_description_with_param_3 as $filter) {
+			add_filter($filter, array($this, 'get_tp_translate_for_description'), 999, 3);
 		}
 
 		/**
@@ -111,6 +121,19 @@ class TRP_Translate_PressCompatibility {
 	 */
 	public function get_tp_translate( $output, $product, $config ) { // phpcs:ignore
 		return $this->translate_string( $output, $config, $product );
+	}
+
+	/**
+	 *  Get the translated string.
+	 *
+	 * @param string $output The output string.
+	 * @param \WC_Product $product The product object.
+	 * @param \CTXFeed\V5\Utility\Config $config The config object.
+	 * @return string
+	 */
+	public function get_tp_translate_for_description($output, $product, $config)
+	{ // phpcs:ignore
+		return $this->translate_desc_string($output, $config, $product);
 	}
 
 	/**
@@ -160,7 +183,7 @@ class TRP_Translate_PressCompatibility {
 				$query = $wpdb->prepare( // phpcs:ignore
 					"SELECT translated, MATCH (original) AGAINST (%s IN NATURAL LANGUAGE MODE) AS score
         FROM {$table_name}
-        WHERE MATCH (original) AGAINST (%s IN NATURAL LANGUAGE MODE) AND status != 0 LIMIT 1",
+        WHERE `original`= %s AND status != 0 LIMIT 1",
 					$string,
 					$string
 				);
@@ -184,6 +207,74 @@ class TRP_Translate_PressCompatibility {
 
 		return $output;
 	}
+
+	/**
+	 * Get the translated string.
+	 *
+	 * @param string $output The output string.
+	 * @param \CTXFeed\V5\Utility\Config $config The config object.
+	 * @param \WC_Product $product The product object.
+	 * @return string
+	 */
+	public function translate_desc_string($output, $config, $product)
+	{ // phpcs:ignore
+		global $wpdb;
+		$feed_language = $config->get_feed_language();
+		$table_name = $wpdb->prefix . 'trp_dictionary_' . strtolower($this->trp_settings['default-language']) . '_' . strtolower($feed_language);
+
+		/**
+		 * If the feed language is same as the default language or the table does not exist then return the output.
+		 * If the table does not exist then it means the language is not translated.
+		 * If the feed language is same as the default language then it means the language is not translated.
+		 */
+		if (
+			!$feed_language
+			|| $feed_language === $this->trp_settings['default-language']
+			|| !$this->table_exists($table_name)
+		) {
+			return $output;
+		}
+
+		if ($this->translatepress_renderer) {
+			// Remove empty strings.
+
+			$product_id = $product->get_id();
+			$trp_original_meta_ids_sql = $wpdb->prepare( // phpcs:ignore
+				"SELECT `original_id` FROM `{$wpdb->prefix}trp_original_meta` WHERE `meta_key` = %s AND `meta_value` =  %d ORDER BY `meta_id` ASC",
+				'post_parent_id',
+				$product_id
+			);
+			$trp_original_meta_ids = $wpdb->get_results($trp_original_meta_ids_sql, ARRAY_A); // phpcs:ignore
+			$ids = array();
+			foreach ($trp_original_meta_ids as $value) {
+				array_push($ids, $value['original_id']);
+			}
+			if (count($ids) < 1) {
+				return $output;
+			}
+			$ids_str = implode(', ', $ids);
+			$trp_dictionary_sql = "SELECT `original`,`translated` FROM {$table_name} WHERE `original_id` IN ({$ids_str})";
+			$trp_dictionary_strings = $wpdb->get_results($trp_dictionary_sql); // phpcs:ignore
+
+			$translated_strings_new = array();
+			foreach ($trp_dictionary_strings as $key => $string) {
+				if ($string->translated === '') {
+					$translated_strings_new[] = $string->original;
+				} else {
+					$translated_strings_new[] = $string->translated;
+				}
+
+			}
+
+			// If the translated strings array is not empty then implode the array with space.
+			if (count($translated_strings_new)) {
+				$output = implode(' ', $translated_strings_new);
+			}
+		}
+
+		return $output;
+	}
+
 
 	/**
 	 * Get the translated string.

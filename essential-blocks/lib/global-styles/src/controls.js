@@ -393,6 +393,7 @@ function EBGlobalControls(props) {
     useEffect(() => {
         if (globalColors.length > 0) {
             dispatch("essential-blocks").setGlobalColors(globalColors);
+            dispatch('essential-blocks').setIsSaving(true);
         }
         const root = document.documentElement;
         (globalColors.length > 0) && globalColors.map((item) => {
@@ -407,6 +408,7 @@ function EBGlobalControls(props) {
     useEffect(() => {
         if (typeof customColors === 'object') {
             dispatch("essential-blocks").setCustomColors(customColors);
+            dispatch('essential-blocks').setIsSaving(true);
         }
         const root = document.documentElement;
         (customColors.length > 0) && customColors.map((item) => {
@@ -420,6 +422,7 @@ function EBGlobalControls(props) {
     useEffect(() => {
         if (gradientColors.length > 0) {
             dispatch("essential-blocks").setGradientColors(gradientColors);
+            dispatch('essential-blocks').setIsSaving(true);
         }
         const root = document.documentElement;
         (gradientColors.length > 0) && gradientColors.map((item) => {
@@ -433,6 +436,7 @@ function EBGlobalControls(props) {
     useEffect(() => {
         if (typeof customGradientColors === 'object') {
             dispatch("essential-blocks").setCustomGradientColors(customGradientColors);
+            dispatch('essential-blocks').setIsSaving(true);
         }
         const root = document.documentElement;
         (customGradientColors.length > 0) && customGradientColors.map((item) => {

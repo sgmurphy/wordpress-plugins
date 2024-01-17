@@ -623,6 +623,62 @@ function pagelayer_render_end_pl_collapse(el){
 	pagelayer_pl_collapse(el.$);	
 };
 
+// Render the accordion item handler
+pagelayer_add_action('pagelayer_element_setup', function(e, jEle){
+	var tag = pagelayer_tag(jEle);
+	
+	if( tag != 'pl_accordion_item'){
+		return;
+	}
+	
+	var panel = jEle.find('.pagelayer-accordion-panel');
+	
+	pagelayer_add_inner_row_notice(panel);
+});
+
+// Render the accordion item handler
+pagelayer_add_action('pagelayer_do_dirty', function(e, jEle){
+	var panel = jEle.closest('.pagelayer-accordion-panel');
+	
+	pagelayer_add_inner_row_notice(panel);
+});
+
+// Add inner row notice
+function pagelayer_add_inner_row_notice(panel){
+	
+	if(panel.length < 1 || panel.children('.pagelayer-ele-wrap, .pagelayer-ele').not('.pagelayer-row-not-found').length > 0){
+		
+		if(panel.children('.pagelayer-row-not-found').length > 0){
+			panel.children('.pagelayer-row-not-found').remove();
+		}
+		
+		return;
+	}
+	
+	var div = `<div class="pagelayer-row-not-found pagelayer-ele-wrap"> There is no editable area found. Please <span class="pagelayer-click-add-row">click here</span> to Add a Row and continue editing!<div>`;
+	
+	panel.html(div);
+	
+	panel.find('.pagelayer-click-add-row').on('click', function(){
+		panel.find('.pagelayer-row-not-found').remove();
+
+		// Create Row		
+		var row = jQuery('<div pagelayer-tag="pl_inner_row"></div>');
+		panel.append(row);
+		var row_id = pagelayer_onadd(row, false);
+		var rEle = pagelayer_ele_by_id(row_id);
+		
+		// Create Column
+		var col = jQuery('<div pagelayer-tag="pl_col"></div>');
+		rEle.find('.pagelayer-row-holder').append(col);
+		var col_id = pagelayer_onadd(col, false);
+		var cEle = pagelayer_ele_by_id(col_id);
+		cEle.click();
+		
+	});
+	
+}
+
 // Shortcode Handler
 var pagelayer_shortcodes_timer;
 function pagelayer_render_pl_shortcodes(el){

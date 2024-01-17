@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) exit;
 
 define('PAGELAYER_BASE', plugin_basename(PAGELAYER_FILE));
 define('PAGELAYER_PRO_BASE', 'pagelayer-pro/pagelayer-pro.php');
-define('PAGELAYER_VERSION', '1.8.0');
+define('PAGELAYER_VERSION', '1.8.1');
 define('PAGELAYER_DIR', dirname(PAGELAYER_FILE));
 define('PAGELAYER_SLUG', 'pagelayer');
 define('PAGELAYER_URL', plugins_url('', PAGELAYER_FILE));
@@ -129,7 +129,12 @@ global $wpdb;
 			}
 		}
 	}
-
+	
+	// Show changelog notice
+	if(version_compare($current_version, '1.8.1', '<') && !defined('SITEPAD')){
+		update_option('pagelayer_changelog_notice', 1);
+	}
+	
 	// Save the new Version
 	update_option('pagelayer_version', PAGELAYER_VERSION);
 
@@ -162,13 +167,16 @@ function pagelayer_load_plugin(){
 
 	// Is there any ACTION set ?
 	$pagelayer->action = pagelayer_optreq('pagelayer-action');
-
+	
+	$tablet_breakpoint = get_option('pagelayer_tablet_breakpoint');
+	$mobile_breakpoint = get_option('pagelayer_mobile_breakpoint');
+	
 	// Load settings
 	$pagelayer->settings['post_types'] = empty(get_option('pl_support_ept')) ? ['post', 'page'] : get_option('pl_support_ept');
 	$pagelayer->settings['enable_giver'] = get_option('pagelayer_enable_giver');
 	$pagelayer->settings['max_width'] = (int) (empty(get_option('pagelayer_content_width')) ? 1170 : get_option('pagelayer_content_width'));
-	$pagelayer->settings['tablet_breakpoint'] = (int) (empty(get_option('pagelayer_tablet_breakpoint')) ? 768 : get_option('pagelayer_tablet_breakpoint'));
-	$pagelayer->settings['mobile_breakpoint'] = (int) (empty(get_option('pagelayer_mobile_breakpoint')) ? 360 : get_option('pagelayer_mobile_breakpoint'));
+	$pagelayer->settings['tablet_breakpoint'] = (int) (empty($tablet_breakpoint) ? 780 : $tablet_breakpoint);
+	$pagelayer->settings['mobile_breakpoint'] = (int) (empty($mobile_breakpoint) ? 360 : $mobile_breakpoint);
 	$pagelayer->settings['sidebar'] = get_option('pagelayer_sidebar');
 	$pagelayer->settings['body_font'] = get_option('pagelayer_body_font');
 	$pagelayer->settings['color'] = get_option('pagelayer_color');
@@ -235,6 +243,19 @@ function pagelayer_load_plugin(){
 	$seen = get_option('pagelayer_getting_started');
 	if(empty($seen) && !empty($_GET['page']) && $_GET['page'] != 'pagelayer_getting_started'){
 		add_action('admin_notices', 'pagelayer_getting_started_notice');
+	}
+	
+	// Are we to disable the changelog notice
+	if(current_user_can('activate_plugins') && isset($_GET['pagelayer-changelog-notice']) && (int)$_GET['pagelayer-changelog-notice'] == 0){
+		check_ajax_referer('pagelayer_changelog_nonce', 'pagelayer_nonce');
+		update_option('pagelayer_changelog_notice', 0);
+		die('DONE');
+	}
+	
+	// Show the changelog notice
+	$changelog = get_option('pagelayer_changelog_notice');
+	if(!empty($changelog)){
+		add_action('admin_notices', 'pagelayer_show_changelog_notice');
 	}
 	
 	include_once(PAGELAYER_DIR.'/main/customizer.php');

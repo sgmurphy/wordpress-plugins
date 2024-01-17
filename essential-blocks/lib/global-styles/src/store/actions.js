@@ -22,6 +22,9 @@ import {
     SET_CUSTOM_GRADIENT_COLORS,
     SAVE_CUSTOM_GRADIENT_COLORS,
     FETCH_CUSTOM_GRADIENT_COLORS,
+    SET_IS_SAVING,
+    FETCH_IS_SAVING
+
 } from "./constant"
 
 /**
@@ -226,5 +229,27 @@ export function saveCustomGradientColors(value) {
 export function fetchCustomGradientColor() {
     return {
         type: FETCH_CUSTOM_GRADIENT_COLORS,
+    }
+}
+
+
+/**
+ * Action: Fetch Is Saving
+ * @returns
+ */
+export function setIsSaving(value) {
+    return {
+        type: SET_IS_SAVING,
+        value
+    }
+}
+
+/**
+ * Action: Fetch Is Saving
+ * @returns
+ */
+export function fetchIsSaving() {
+    return {
+        type: FETCH_IS_SAVING,
     }
 }

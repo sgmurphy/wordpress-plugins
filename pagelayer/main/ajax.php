@@ -705,7 +705,7 @@ function pagelayer_get_section_blocks(){
 		
 	}
 	
-	if ( str_contains( $data['code'], '[pl_' ) ) {
+	if ( false !== strpos( $data['code'], '[pl_' ) ) {
 		// Load shortcodes
 		pagelayer_load_shortcodes();
 		

@@ -55,7 +55,7 @@ function autoload_class(string $fqcn): bool
     require_once $filepath;
 
     if (! class_exists($fqcn)) {
-        throw new RuntimeException("Failed to autoload class '{$fqcn}` because the file `{$filepath}` does not contain the class `${fqcn}`");
+        throw new RuntimeException("Failed to autoload class '{$fqcn}` because the file `{$filepath}` does not contain the class `{$fqcn}`");
     }
 
     return true;

@@ -69,7 +69,7 @@ class Duplicator {
 	 */
 	public function add_duplicator_actions( $actions, $post ) {
 
-		if ( current_user_can( 'edit_posts' ) && post_type_supports( $post->post_type, 'elementor' ) ) {
+		if ( current_user_can( 'edit_others_posts' ) && post_type_supports( $post->post_type, 'elementor' ) ) {
 
 			$actions[ self::DUPLICATE_ACTION ] = sprintf(
 				'<a href="%1$s" title="%2$s"><span class="screen-reader-text">%2$s</span>%3$s</a>',

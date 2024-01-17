@@ -2583,6 +2583,8 @@ class Premium_Media_Wheel extends Widget_Base {
 		foreach ( $items as $index => $item ) {
 
 			$media_type = $item['pa_media_type'];
+			
+			if($item['media_wheel_img']) {
 
 			$image_id = apply_filters( 'wpml_object_id', $item['media_wheel_img']['id'], 'elementor_library', true );
 
@@ -2593,6 +2595,7 @@ class Premium_Media_Wheel extends Widget_Base {
 			if ( isset( $image_by_id->post_title ) ) {
 				$alt = apply_filters( 'pa_media_alt', get_post( $image_id )->post_title );
 			}
+		}
 
 			if ( 'template' === $media_type ) {
 				$hover_effect = '';

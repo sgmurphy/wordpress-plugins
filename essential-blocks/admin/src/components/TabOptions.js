@@ -50,7 +50,7 @@ export default function TabOptions() {
         enableFontawesome: {
             logo: `${EssentialBlocksLocalize.image_url}/admin/logo-fontawesome.png`,
             title: "Font Awesome",
-            description: __("Enable Font Awesome.", "essential-blocks"),
+            description: __("Enable Font Awesome to get access to 2,000+ exclusive icon library and toolkit for all the fully customizable blocks of Essential Blocks.", "essential-blocks"),
         },
     };
 
@@ -297,16 +297,18 @@ export default function TabOptions() {
                                 <p className="eb-admin-block__text mp0">
                                     {optimizations[item].description}
                                 </p>
-                                <a
-                                    target="_blank"
-                                    href={optimizations[item].doc}
-                                    className="eb-admin-block__link"
-                                >
-                                    {__(
-                                        "API Documentation",
-                                        "essential-blocks"
-                                    )}
-                                </a>
+                                {optimizations[item]?.doc && (
+                                    <a
+                                        target="_blank"
+                                        href={optimizations[item].doc}
+                                        className="eb-admin-block__link"
+                                    >
+                                        {__(
+                                            "API Documentation",
+                                            "essential-blocks"
+                                        )}
+                                    </a>
+                                )}
                             </div>
                         </div>
                     ))}

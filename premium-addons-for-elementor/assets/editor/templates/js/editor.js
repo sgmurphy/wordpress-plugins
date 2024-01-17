@@ -526,12 +526,15 @@
                     }
 
                     // Wait for thumbnails to be loaded
-                    container.imagesLoaded(function () { }).done(function () {
-                        self.masonry.init({
-                            container: container,
-                            items: items
-                        });
+                    var elementorMasonry;
+                    elementorMasonry = new elementorModules.utils.Masonry({
+                        container: container,
+                        items: items
                     });
+
+                    setTimeout(function () {
+                        container.imagesLoaded(elementorMasonry.run.bind(elementorMasonry));
+                    }, 1000);
                 }
 
             });

@@ -743,7 +743,7 @@ Class WT_Form_Field_Builder{
 						<table class="wp-list-table widefat choose_date_table">
 							<thead>
 								<tr>
-									<th style="width:40%;">'.__("Date format strings",'wt_woocommerce_invoice_addon').'</th><th>'.__("Output",'wt_woocommerce_invoice_addon').'</th><th></th>
+									<th style="width:40%;">'.__("Date format strings",'print-invoices-packing-slip-labels-for-woocommerce').'</th><th>'.__("Output",'print-invoices-packing-slip-labels-for-woocommerce').'</th><th></th>
 								</tr>
 							</thead>
 							<tbody>

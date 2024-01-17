@@ -132,21 +132,36 @@ function pagelayer_website_settings(){
 		
 			// Save Header code
 			if(isset($_REQUEST['pagelayer_header_code'])){	
-				update_option( 'pagelayer_header_code', wp_unslash($_REQUEST['pagelayer_header_code'] ));
+				$header_code = wp_unslash($_REQUEST['pagelayer_header_code']);
+				if(!pagelayer_user_can_add_js_content()){
+					$header_code = sanitize_textarea_field($header_code);
+				}
+				
+				update_option( 'pagelayer_header_code', $header_code);
 			}else{
 				delete_option('pagelayer_header_code');
 			}
 
 			// Save Body open code
 			if(isset($_REQUEST['pagelayer_body_open_code'])){	
-				update_option('pagelayer_body_open_code', wp_unslash($_REQUEST['pagelayer_body_open_code'] ));
+				$body_code = wp_unslash($_REQUEST['pagelayer_body_open_code']);
+				if(!pagelayer_user_can_add_js_content()){
+					$body_code = sanitize_textarea_field($body_code);
+				}
+				
+				update_option( 'pagelayer_body_open_code', $body_code);
 			}else{
 				delete_option('pagelayer_body_open_code');
 			}
 
 			// Save Footer code
 			if(isset($_REQUEST['pagelayer_footer_code'])){
-				update_option( 'pagelayer_footer_code', wp_unslash($_REQUEST['pagelayer_footer_code'] ));
+				$footer_code = wp_unslash($_REQUEST['pagelayer_footer_code']);
+				if(!pagelayer_user_can_add_js_content()){
+					$footer_code = sanitize_textarea_field($footer_code);
+				}
+				
+				update_option( 'pagelayer_footer_code', $footer_code);
 			}else{
 				delete_option('pagelayer_footer_code');
 			}
@@ -265,7 +280,7 @@ function pagelayer_website_settings_T(){
 				<tr>
 					<th><?php echo __('Tablet Breakpoint') ?></th>
 					<td>
-						<input name="pagelayer_tablet_breakpoint" type="number" step="1" min="320" max="5000" placeholder="768" <?php if(get_option('pagelayer_tablet_breakpoint')){
+						<input name="pagelayer_tablet_breakpoint" type="number" step="1" min="320" max="5000" placeholder="780" <?php if(get_option('pagelayer_tablet_breakpoint')){
 							echo 'value="'.get_option('pagelayer_tablet_breakpoint').'"';
 						}?>>
 						<p><?php echo __('Set the breakpoint for tablet devices. The default breakpoint for tablet layout is 768px.') ?></p>

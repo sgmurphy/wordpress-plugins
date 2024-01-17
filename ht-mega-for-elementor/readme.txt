@@ -3,7 +3,7 @@ Contributors: hasthemes, htplugins, devitemsllc, tarekht, zenaulislam, aslamhasi
 Tags: elementor, elementor addons, elementor widgets, elementor templates, addons, elementor slider, elementor page builder, mega menu, addons for elementor, post grid, elements, header footer builder
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 2.4.2
+Stable tag: 2.4.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -427,7 +427,9 @@ This widget is easy to use and comes with a variety of features that make it a v
 
 <strong>[Copy Coupon Code Widget](https://wphtmega.com/widget/elementor-copy-coupon-code-widget/)</strong> - Elementor Copy Coupon Code Widget is a powerful tool for website designers and developers who use the Elementor page builder. This widget simplifies the process of creating and displaying coupon codes on your website. With just a few clicks, you can add a stylish and eye-catching coupon code box to your web pages, making it easy for visitors to copy and use the provided discount codes.
 
-<strong>[Video Gallery Widget](https://wphtmega.com/widget/elementor-video-gallery-widget/)</strong> - Elementor Video Gallery Widget is an essential feature for website creators leveraging the Elementor page builder. This widget streamlines the creation and presentation of video galleries on your website. With a user-friendly interface and intuitive controls, this widget empowers you to effortlessly showcase a collection of videos, enhancing the visual appeal and engagement of your web pages.
+<strong>[Video Gallery Widget](https://wphtmega.com/widget/elementor-video-gallery-widget/)</strong> - Video Gallery Widget is an essential feature for website creators leveraging the Elementor page builder. This widget streamlines the creation and presentation of video galleries on your website. With a user-friendly interface and intuitive controls, this widget empowers you to effortlessly showcase a collection of videos, enhancing the visual appeal and engagement of your web pages.
+
+<strong>[Video Playlist Widget](https://wphtmega.com/widget/elementor-video-playlist-widget/)</strong> - The Video Playlist Widget streamlines the arrangement and display of video playlists on your website, supporting YouTube, Vimeo, Wisita, and Self-hosted videos as needed. With an intuitive interface and controls, effortlessly create visually appealing video sequences to enhance your web pages. Elevate the user experience with dynamic playlists, making your content stand out seamlessly.
 
 
 **[PURCHASE HT Mega PRO FROM OUR WEBSITE]( https://wphtmega.com/pricing/ )**
@@ -497,6 +499,10 @@ Visit [HasThemes](https://hasthemes.com/) for more details about HTML, Shopify a
 
 
 == Changelog ==
+= Version 2.4.3 - Date: 2024-01-17 =
+* Fixed: Multiple switcher conflict issue in Switcher Widget.
+* Fixed: A few minor issues.
+
 = Version 2.4.2 - Date: 2024-01-09 =
 * Updated: Documentation link and search keywords in Search, Section title, Service, and single post widgets.
 * Updated: Language translation file.

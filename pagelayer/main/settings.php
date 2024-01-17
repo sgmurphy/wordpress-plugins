@@ -203,9 +203,7 @@ function pagelayer_settings_page(){
 		$support_ept = get_option( 'pl_support_ept');
 		
 		$done = 1;
-		
 	}
-	
 	
 	if(isset($_POST['pagelayer_icons_set'])){
 		$pagelayer_icons_set = $_REQUEST['pagelayer_icons_set'];
@@ -233,7 +231,6 @@ function pagelayer_settings_page(){
 		update_option( 'pagelayer_cf_to_email', $to_email );
 		
 		$done = 1;
-		
 	}
 	
 	if(isset($_POST['pagelayer-gmaps-api-key'])){
@@ -243,7 +240,6 @@ function pagelayer_settings_page(){
 		update_option( 'pagelayer-gmaps-api-key', $maps_id );
 		
 		$done = 1;
-			
 	}
 		
 	if(defined('PAGELAYER_PREMIUM')){
@@ -699,27 +695,27 @@ function pagelayer_settings_page(){
 						<table>
 							<tr>
 								<th><?php _e('Facebook');?></th>
-								<td><input type="text" name="pagelayer-facebook-url" <?php echo 'value="'.esc_html(get_option('pagelayer-facebook-url')).'"';?>/></td>
+								<td><input type="text" name="pagelayer-facebook-url" <?php echo 'value="'.esc_url(get_option('pagelayer-facebook-url')).'"';?>/></td>
 							</tr>
 							<tr>
 								<th><?php _e('Twitter');?></th>
-								<td><input type="text" name="pagelayer-twitter-url" <?php echo 'value="'.esc_html(get_option('pagelayer-twitter-url')).'"';?>/></td>
+								<td><input type="text" name="pagelayer-twitter-url" <?php echo 'value="'.esc_url(get_option('pagelayer-twitter-url')).'"';?>/></td>
 							</tr>
 							<tr>
 								<th><?php _e('Instagram');?></th>
-								<td><input type="text" name="pagelayer-instagram-url" <?php  echo 'value="'.esc_html(get_option('pagelayer-instagram-url')).'"'; ?>/></td>
+								<td><input type="text" name="pagelayer-instagram-url" <?php  echo 'value="'.esc_url(get_option('pagelayer-instagram-url')).'"'; ?>/></td>
 							</tr>
 							<tr>
 								<th><?php _e('LinkedIn');?></th>
-								<td><input type="text" name="pagelayer-linkedin-url" <?php echo 'value="'.esc_html(get_option('pagelayer-linkedin-url')).'"'; ?>/></td>
+								<td><input type="text" name="pagelayer-linkedin-url" <?php echo 'value="'.esc_url(get_option('pagelayer-linkedin-url')).'"'; ?>/></td>
 							</tr>
 							<tr>
 								<th><?php _e('YouTube');?></th>
-								<td><input type="text" name="pagelayer-youtube-url" <?php echo 'value="'.esc_html(get_option('pagelayer-youtube-url')).'"'; ?>/></td>
+								<td><input type="text" name="pagelayer-youtube-url" <?php echo 'value="'.esc_url(get_option('pagelayer-youtube-url')).'"'; ?>/></td>
 							</tr>
 							<tr>
 								<th><?php _e('Google+');?></th>
-								<td><input type="text" name="pagelayer-gplus-url" <?php echo 'value="'.esc_html(get_option('pagelayer-gplus-url')).'"'; ?>/></td>
+								<td><input type="text" name="pagelayer-gplus-url" <?php echo 'value="'.esc_url(get_option('pagelayer-gplus-url')).'"'; ?>/></td>
 							</tr>
 						</table>
 					</div>

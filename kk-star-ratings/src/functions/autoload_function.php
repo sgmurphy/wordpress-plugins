@@ -55,7 +55,7 @@ function autoload_function(string $fqfn): bool
     require_once $filepath;
 
     if (! function_exists($fqfn)) {
-        throw new RuntimeException("Failed to autoload function '{$fqfn}` because the file `{$filepath}` does not contain the function `${fqfn}`");
+        throw new RuntimeException("Failed to autoload function '{$fqfn}` because the file `{$filepath}` does not contain the function `{$fqfn}`");
     }
 
     return true;

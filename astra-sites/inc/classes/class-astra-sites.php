@@ -725,8 +725,6 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 				)
 			);
 
-			$api_args = array();
-
 			$api_url = add_query_arg( $api_args, trailingslashit( $url ) . 'wp-json/zipwp-client/v1/exporter/export' );
 
 			if ( ! astra_sites_is_valid_url( $api_url ) ) {

@@ -2557,10 +2557,19 @@ class Premium_Pinterest_Feed extends Widget_Base {
 
 			if ( $board_query ) {
 				$boards_feed = get_pinterest_data( $widget_id, $settings, 'boards/' );
+
+                if( ! $boards_feed ) {
+                    return;
+                }
+
 				$carousel    = false;
 			} else {
 
 				$pinterest_feed = get_pinterest_data( $widget_id, $settings, 'pins/' );
+
+                if( ! $pinterest_feed ) {
+                    return;
+                }
 
 				$carousel = 'yes' === $settings['carousel'];
 

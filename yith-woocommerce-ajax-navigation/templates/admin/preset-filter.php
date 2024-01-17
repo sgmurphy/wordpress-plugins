@@ -34,6 +34,8 @@ if ( ! defined( 'YITH_WCAN' ) ) {
 				}
 				?>
 		</h3>
+		<span class="show-on-hover delete yith-icon-trash"></span>
+		<span class="show-on-hover clone yith-icon-clone"></span>
 		<?php
 		yith_plugin_fw_get_field(
 			array(

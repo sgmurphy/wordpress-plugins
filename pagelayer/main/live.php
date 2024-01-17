@@ -46,10 +46,10 @@ class PageLayer_LiveEditor{
 		add_filter('the_content', array($this, 'the_content'), 999999);
 		
 		// Skip do_blocks for invalid blocks
-		// add_filter( 'pre_render_block', array($this, 'pre_do_render_block'), 10, 3 );
+		add_filter( 'pre_render_block', array($this, 'pre_do_render_block'), 10, 3 );
 		
 		// Skip do_shortcode for invalid shortcodes
-		// add_filter( 'pre_do_shortcode_tag',  array($this, 'pre_do_shortcode_tag'), 10, 4 );
+		add_filter( 'pre_do_shortcode_tag',  array($this, 'pre_do_shortcode_tag'), 10, 4 );
 		
 		// Build the Shortcodes MD5 for cache
 		$scmd5 = md5(json_encode($pagelayer->shortcodes).json_encode($pagelayer->groups).json_encode($pagelayer->styles));
@@ -292,15 +292,13 @@ pagelayer.el = '.json_encode($pagelayer->data_attr, JSON_FORCE_OBJECT).';
 
 			// Is it a Gutenburg Post ?
 			if(!empty($post->post_content)){
-
+				
 				// Add our surrounding tag
-				$post->post_content = '['.PAGELAYER_SC_PREFIX.'_row]
-['.PAGELAYER_SC_PREFIX.'_col col=12]
-['.PAGELAYER_SC_PREFIX.'_text]
+				$post->post_content = '<!-- '.PAGELAYER_BLOCK_PREFIX.':pagelayer/pl_row -->
+<!-- '.PAGELAYER_BLOCK_PREFIX.':pagelayer/pl_col {col=12} -->
 '.$post->post_content.'
-[/'.PAGELAYER_SC_PREFIX.'_text]
-[/'.PAGELAYER_SC_PREFIX.'_col]
-[/'.PAGELAYER_SC_PREFIX.'_row]';
+<!-- /'.PAGELAYER_BLOCK_PREFIX.':pagelayer/pl_col -->
+<!-- /'.PAGELAYER_BLOCK_PREFIX.':pagelayer/pl_row -->';
 
 			// Regular post, but its empty so we will add our blocks !
 			}else{
@@ -376,7 +374,7 @@ pagelayer.el = '.json_encode($pagelayer->data_attr, JSON_FORCE_OBJECT).';
 	}
 
 	// Skip do_blocks for invalid blocks
-	function pre_do_render_block($return, $parsed_block, $parent_block){
+	function pre_do_render_block($return, $parsed_block = [], $parent_block = null){
 		
 		if(!empty($pagelayer->dont_make_editable) ||  ! doing_filter('the_content') || empty($parsed_block['blockName'])){
 			return $return;

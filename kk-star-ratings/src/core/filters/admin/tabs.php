@@ -21,11 +21,6 @@ function tabs(array $tabs): array
     return $tabs + [
         'general' => _x('General', 'Label', 'kk-star-ratings'),
         'appearance' => _x('Appearance', 'Label', 'kk-star-ratings'),
-        'rich_snippets' => _x('Rich Snippets', 'Label', 'kk-star-ratings'),
-        'custom_stars' => [
-            'name' => 'Custom Stars',
-            'is_addon' => true,
-            'link' => add_query_arg(['page' => 'kk-star-ratings-addons'], admin_url('admin.php')),
-        ],
+        'rich_snippets' => _x('Rich Snippets', 'Label', 'kk-star-ratings')
     ];
 }

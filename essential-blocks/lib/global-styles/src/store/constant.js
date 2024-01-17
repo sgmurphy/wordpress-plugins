@@ -5,6 +5,7 @@ export const DEFAULT_STATE = {
     customGradientColors: [],
     globalTypography: [],
     blockDefaults: {},
+    isSaving: false
 };
 
 export const globalColorKey = 'global_colors';
@@ -32,3 +33,6 @@ export const FETCH_GRADIENT_COLORS = 'FETCH_GRADIENT_COLORS';
 export const SET_CUSTOM_GRADIENT_COLORS = 'SET_CUSTOM_GRADIENT_COLORS';
 export const SAVE_CUSTOM_GRADIENT_COLORS = 'SAVE_CUSTOM_GRADIENT_COLORS';
 export const FETCH_CUSTOM_GRADIENT_COLORS = 'FETCH_CUSTOM_GRADIENT_COLORS';
+
+export const SET_IS_SAVING = 'SET_IS_SAVING';
+export const FETCH_IS_SAVING = 'FETCH_IS_SAVING';

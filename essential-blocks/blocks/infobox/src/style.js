@@ -439,7 +439,7 @@ export default function Style(props) {
 
 						}
 
-						.eb-infobox-wrapper.${blockId} .number-or-icon > span{
+						.eb-infobox-wrapper.${blockId} .number-or-icon > * {
 							color: ${numIconColor || "#fff"};
 						}
 

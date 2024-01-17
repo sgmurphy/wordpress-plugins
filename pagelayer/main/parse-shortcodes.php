@@ -25,7 +25,7 @@ if(!defined('PAGELAYER_VERSION')) {
 function pagelayer_do_shortcode_to_block( $content, $ignore_html = false ) {
 	global $shortcode_tags;
 	
-	if ( ! str_contains( $content, '[' ) ) {
+	if ( false === strpos( $content, '[' ) ) {
 		return $content;
 	}
 	
@@ -91,7 +91,7 @@ function pagelayer_shortcode_to_block($attr, $content, $tag){
 
 function pagelayer_fix_block_pl_accordion_item(&$block_name, &$attr, &$content){
 	
-	if(pagelayer_has_blocks($content) || str_contains( $content, '[pl_' )){
+	if(pagelayer_has_blocks($content) || false !== strpos( $content, '[pl_' )){
 		return;
 	}
 	

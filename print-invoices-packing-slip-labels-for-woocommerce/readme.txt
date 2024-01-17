@@ -1,11 +1,11 @@
 === WooCommerce PDF Invoices, Packing Slips, Delivery Notes and Shipping Labels ===
 Contributors: WebToffee
-Version: 4.3.1
+Version: 4.4.0
 Donate link: https://www.webtoffee.com/plugins/
 Tags: WooCommerce, PDF, invoice, packing slip, print invoice, packing list, shipping label, delivery note, dispatch label, WooCommerce invoice, WooCommerce PDF invoices, order
 Requires at least: 3.0.1
 Tested up to: 6.4
-Stable tag: 4.3.1
+Stable tag: 4.4.0
 Requires PHP: 5.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -28,7 +28,7 @@ When you sell internationally, it is a standard requirement in many countries to
 
 Furthermore, it establishes an extra line of communication between you and the customer and adds a human touch.
 
-&#9989; Tested OK with WooCommerce 8.4.0
+&#9989; Tested OK with WooCommerce 8.5.1
 &#9989; Tested OK up to PHP 8.2
 
 = New updates =
@@ -278,6 +278,10 @@ Yes. The plugin addresses the needs of a multilingual website and is compatible 
 17. Invoice general settings
 
 == Changelog ==
+
+= 4.4.0 2024-01-17 =
+* [Enhancement] - Sync the Address format in the document with the WC formatted address
+* [Compatibility] - Tested OK with WooCommerce v8.5.1
 
 = 4.3.1 2023-12-28 =
 * [Fix] - Improved the user capability checking to prevent unauthorized access of PDFs.
@@ -930,10 +934,6 @@ Yes. The plugin addresses the needs of a multilingual website and is compatible 
  
 == Upgrade Notice ==
 
-= 4.3.1 =
-* [Fix] - Improved the user capability checking to prevent unauthorized access of PDFs.
-* [Fix] - Template margin issue in old templates of packing slip
-* [Fix] - Shipping label template not showing in full width
-* [Tweak] - Added a filter to alter the print button label of the invoice in my account order listing, order details page and order email
-* [Tweak] - Added a filter to alter the document print button style in the order email
-* [Compatibility] - Tested OK with WooCommerce v8.4.0
+= 4.4.0 =
+* [Enhancement] - Sync the Address format in the document with the WC formatted address
+* [Compatibility] - Tested OK with WooCommerce v8.5.1

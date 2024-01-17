@@ -15,7 +15,8 @@ import Tile from './components/tile';
 import SuggestedKeywords from './components/suggested-keywords';
 import TagsInput from './components/tags-input';
 import Dropdown from './components/dropdown';
-import { useDebounce } from './hooks/use-debounce';
+import { useDebounce, useDebounceWithCancel } from './hooks/use-debounce';
+
 import { STORE_KEY } from './store';
 import NavigationButtons from './navigation-buttons';
 import Heading from './heading';
@@ -125,7 +126,9 @@ const Images = ( { onClickPrevious, onClickNext } ) => {
 	const blackListedEngines = useRef( new Set() );
 	// const areImagesPreSelected = useRef( imagesPreSelected );
 
-	const debouncedImageKeywords = useDebounce( keyword, 500 );
+	const [ debouncedImageKeywords, cancelDebouncedImageKeywords ] =
+		useDebounceWithCancel( keyword, 500 );
+
 	const debouncedOrientation = useDebounce( orientation, 500 );
 
 	console.log( { businessContact } );
@@ -135,6 +138,7 @@ const Images = ( { onClickPrevious, onClickNext } ) => {
 	};
 
 	const handleSelectKeyword = ( keyword_value ) => {
+		cancelDebouncedImageKeywords();
 		setKeyword( keyword_value );
 	};
 
@@ -300,7 +304,8 @@ const Images = ( { onClickPrevious, onClickNext } ) => {
 	};
 
 	// Define a function to fetch all images
-	const fetchAllImages = async ( engine ) => { // eslint-disable-line
+	const fetchAllImages = async ( engine ) => {
+		// eslint-disable-line
 		let searchKeywords = keyword;
 
 		// If we the input filed is empty we are passing the keyword as businessName[category]

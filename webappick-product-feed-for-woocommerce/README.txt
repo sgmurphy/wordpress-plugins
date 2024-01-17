@@ -5,7 +5,7 @@ Tags: WooCommerce Product Feed, WooCommerce, Google Shopping, Google Merchant, F
 Requires at least: 4.4
 Tested Up To: 6.4
 Requires PHP: 5.6
-Stable tag: 6.4.1
+Stable tag: 6.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -590,6 +590,18 @@ Using pro version:
 4. Category Mapping
 
 == Changelog ==
+
+= 6.4.2 (2024-01-17) =
+* Fixed: Product title with attribute value issue
+* Fixed: Special characters removing title from feed issue
+* Fixed: Additional image link missing issue
+* Fixed: Variation title in feed issue
+* Fixed: Quantity attribute quantity missing from variation issue
+* Fixed: Price issue with Flycart Discount Rule Plugin
+* Fixed: 0 used as an attribute value issue
+* Fixed: Category hierarchy issue
+* Fixed: String replace row delete issue
+* Fixed: Quantity value issue
 
 = 6.4.1 (2024-01-11) =
 * Fixed: Separators overriding issue

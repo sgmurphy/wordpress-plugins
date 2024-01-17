@@ -3,9 +3,9 @@
 body, html{font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;}
 .clearfix::after{ display:block; clear:both; content:""; }
 
-.wfte_invoice-main{ color:#202020; font-size:12px; font-weight:400; box-sizing:border-box; width:100%; background:#fff; height:auto; }
+.wfte_invoice-main{ color:#202020; font-size:12px; font-weight:400; box-sizing:border-box; width:100%; height:auto; }
 .wfte_invoice-main *{ box-sizing:border-box;}
-.template_footer{color:#202020; font-size:12px; font-weight:400; box-sizing:border-box; padding:30px 0px; background:#fff; height:auto;}
+.template_footer{color:#202020; font-size:12px; font-weight:400; box-sizing:border-box; padding:30px 0px; height:auto;}
 .template_footer *{ box-sizing:border-box;}
 
 .wfte_row{ width:100%; display:block; }

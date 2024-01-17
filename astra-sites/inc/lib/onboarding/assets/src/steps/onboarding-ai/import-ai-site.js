@@ -1759,13 +1759,25 @@ const ImportAiSite = ( { onClickNext } ) => {
 					</div>
 				</div>
 				{ ! importError && (
-					<div className="relative flex items-center justify-center px-10 py-6 h-120 w-120 bg-loading-website-grid-texture">
-						<img
-							className="w-[30rem] h-[20.875rem]"
-							src={ `${ imageDir }/build-with-ai/migrate.svg` }
-							alt={ __( 'Migrating', 'astra-sites' ) }
-						/>
-					</div>
+					<>
+						<div className="relative flex items-center justify-center px-10 py-6 h-120 w-120 bg-loading-website-grid-texture">
+							<img
+								className="w-[30rem] h-[20.875rem]"
+								src={ `${ imageDir }/build-with-ai/migrate.svg` }
+								alt={ __( 'Migrating', 'astra-sites' ) }
+							/>
+						</div>
+						<div className="mt-3">
+							<p className="m-0 !text-sm !font-normal !text-zip-body-text">
+								The website preview was generated on{ ' ' }
+								{ websiteInfo?.url }
+							</p>
+							<p className="m-0 !text-sm !font-normal !text-zip-body-text">
+								{ `We're migrating it to your hosting at ` }
+								{ starterTemplates.siteUrl }
+							</p>
+						</div>
+					</>
 				) }
 			</div>
 		</>

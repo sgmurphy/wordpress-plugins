@@ -359,7 +359,7 @@ class Wf_Woocommerce_Packing_List_Deliverynote
 	 * @return void
 	 */
 	public function document_print_btn_on_wc_order_listing_action_column( $order ) {
-		$show_print_button	= apply_filters('wt_pklist_show_document_print_button_action_column',true,$this->module_base);
+		$show_print_button	= apply_filters('wt_pklist_show_document_print_button_action_column_free', true, $this->module_base, $order);
 		
 		if( !empty( $order ) && true === $show_print_button ) {
 			$order_id	= ( WC()->version < '2.7.0' ) ? $order->id : $order->get_id();

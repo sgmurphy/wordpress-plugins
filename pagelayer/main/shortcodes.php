@@ -3206,7 +3206,7 @@ pagelayer_add_shortcode(PAGELAYER_SC_PREFIX.'_text', array(
 			'text' => array(
 				'type' => 'editor',
 				'label' => __pl('Edit Rich Text'),
-				'default' => '<p><br></p>',
+				'default' => pagelayer_is_gutenberg_editor() ? '' : '<p><br></p>',
 				'rows' => '15',
 				'desc' => __pl('Edit the content by clicking on the content you want to edit on the website'),
 				'edit' => '.pagelayer-text-holder', // Edit the text and also mirror the same
@@ -8249,7 +8249,7 @@ pagelayer_add_shortcode(PAGELAYER_SC_PREFIX.'_missing', array(
 		'params' => array(
 			'data' => array(
 				'type' => 'textarea',
-				'label' => __pl('Missing Content'),
+				'label' => __pl('Incompatible Content'),
 				'no_val' => 1,
 				'desc' => __('This code will be saved exactly as it is with the post!'),
 			),
@@ -9526,8 +9526,8 @@ pagelayer_add_shortcode(PAGELAYER_SC_PREFIX.'_post_props', array(
 		'name' => __pl('Body and Post Props'),
 		'group' => 'other',
 		'not_visible' => 1,
-		'no_gt' => 1,
-		'overide_css_selector' => 'body',
+		'parent' => [], // To hide on left panel block list
+		'overide_css_selector' => pagelayer_is_gutenberg_editor() ? '{{element}}' : 'body', // To prevent apply style in gutenberg, we use .pagelayer-body class, that is not exists in gutenberg edit.
 		'hide_active' => 1,
 		'skip_props_cat_type' => ['product' => ['custom_hf_code']],
 		'skip_props_cat' => ['position_styles', 'animation_styles', 'responsive_styles', 'motion_effects'],

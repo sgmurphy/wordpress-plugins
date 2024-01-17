@@ -4,7 +4,7 @@ Tags: page builder, editor, drag and drop, form builder, landing page, responsiv
 Requires at least: 4.7
 Tested up to: 6.4
 Requires PHP: 5.5
-Stable tag: 1.8.0
+Stable tag: 1.8.1
 License: LGPL v2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -126,6 +126,10 @@ Do you have questions related to Pagelayer? Use the following links :
 9. **Content Slides** can be designed without the effort of installing extra plugins.
 
 == Changelog ==
+
+= 1.8.1 (Jan 09, 2024) =
+* [Feature] Added support for all Pagelayer widgets in Gutenberg, you can now use Pagelayer widgets in the Gutenberg editor.
+* [Security-Fix] In the Pagelayer -> Settings and Pagelayer -> Website Settings, certain settings were not escaped and sanitized. This is fixed.
 
 = 1.8.0 (Dec 25, 2023) =
 * [Bug-fix] In some cases Pagelayer was causing a PHP error due to the screen function returning null. This is fixed.

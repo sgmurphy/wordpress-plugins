@@ -84,12 +84,39 @@ class ProductInfo {
 	 * @since 8.0.0
 	 */
 	public function title() {
-		$name = CommonHelper::clean_content( $this->product->get_name() );
+		$title = CommonHelper::clean_content( $this->product->get_name() );
+
+		// Add all available variation attributes to variation title.
+		if ( $this->product->is_type( 'variation' ) && ! empty( $this->product->get_attributes() ) && $this->parent_product ) {
+			$title      = $this->parent_product->get_title();
+			/**
+			 * Translate press plugin support
+			 */
+			$title = apply_filters( 'woo_feed_filter_product_title', $title, $this->product, $this->config );
+			$attributes = [];
+			foreach ( $this->product->get_attributes() as $slug => $value ) {
+				$attribute = $this->product->get_attribute( $slug );
+				if ( ! empty( $attribute ) ) {
+					$attributes[ $slug ] = $attribute;
+				}
+			}
+			// set variation attributes with separator.
+			$separator            = ' , ';
+			$variation_attributes = implode( $separator, $attributes );
+
+			//get product title with variation attribute
+			$get_with_var_attributes = apply_filters( "woo_feed_get_product_title_with_variation_attribute", true, $this->product, $this->config );
+			if ( $get_with_var_attributes ) {
+				$title .= " - " . $variation_attributes;
+			}
+		}
+
 		// TODO: Remove this code after testing to override folder.
 		if ( $this->config->get_config()['provider'] == "admarkt" && $this->config->get_config()['feedType'] == 'xml' ) {
-			$name = str_replace( '&', '&amp;', $name );
+			$title = str_replace( '&', '&amp;', $title );
 		}
-		return apply_filters( 'woo_feed_filter_product_title', $name, $this->product, $this->config );
+
+		return apply_filters( 'woo_feed_filter_product_title', $title, $this->product, $this->config );
 	}
 
 	/**
@@ -210,11 +237,20 @@ class ProductInfo {
 		}
 
 		// Get child categories of the current parent ID
-		$categories = wp_strip_all_tags( wc_get_product_category_list( $id, ' > ' ) );
+		//$categories = wp_strip_all_tags( wc_get_product_category_list( $id, ' > ' ) );
+
+		$categories = '';
+		$term_list          = get_the_terms( $id, 'product_cat' );
+
+		if ( is_array( $term_list ) ) {
+			$col = array_column( $term_list, "term_id" );
+			array_multisort( $col, SORT_ASC, $term_list );
+			$term_list = array_column( $term_list, "name" );
+			$categories = implode( ' > ', $term_list );
+		}
 
 		return apply_filters( 'woo_feed_filter_product_categories', $categories, $this->product, $this->config );
 	}
-
 
 	/**
 	 * Get product categories.
@@ -594,7 +630,7 @@ class ProductInfo {
 	public function parent_sku() {
 		$parent_sku = $this->product->get_sku();
 
-		if ( $this->product->is_type( 'variation' ) ) {
+		if ( $this->product->is_type( 'variation' ) &&  $this->parent_product) {
 			$parent_sku = $this->parent_product->get_sku();
 		}
 
@@ -689,12 +725,9 @@ class ProductInfo {
 	 */
 	public function quantity() {// phpcs:ignore
 		$quantity = $this->product->get_stock_quantity();
+		$status   = $this->product->get_stock_status();
 
-		if ( $this->product->is_type( 'variation' ) ) {
-			$quantity = $this->parent_product->get_stock_quantity();
-		}
-
-		if ( $quantity === null ) {
+		if ( 'outofstock' === $status && $quantity === null ) {
 			$quantity = 0;
 		}
 
@@ -1633,36 +1666,24 @@ class ProductInfo {
 	 * @return string Comma separated image urls.
 	 * @since 8.0.0
 	 */
+
 	public function images( $additional_image = '', $separator = ' , ' ) {
-		$urls              = [];
-		$separator         = apply_filters( 'woo_feed_filter_category_separator', $separator, $this->product, $this->config );
-		$gallery_image_ids = $this->product->get_gallery_image_ids();
+		$img_urls   = ProductHelper::get_product_gallery( $this->product );
+		$separator = apply_filters( 'woo_feed_filter_category_separator', $separator , $this->product, $this->config );
 
-		if ( $this->product->is_type( 'variation' ) && ! empty( $this->parent_product ) ) {
-			$gallery_image_ids = $this->parent_product->get_gallery_image_ids();
-		}
-
-		// Get product additional images as comma separated string.
-		if ( ! empty( $gallery_image_ids ) ) {
-			$urls_array        = array_map( 'wp_get_attachment_url', $gallery_image_ids );
-			$additional_images = ProductHelper::get_product_gallery( $this->product );
-
-			if ( ! empty( $additional_images ) ) {
-				$urls_array = array_merge( $urls_array, $additional_images );
-			}
-
-			$urls = array_unique( $urls_array );
-		}
-
-		// Return Specific Additional Image URL if provided. Otherwise return all images.
+		// Return Specific Additional Image URL
 		if ( '' !== $additional_image ) {
-			if ( array_key_exists( $additional_image, $urls ) ) {
-				$images = $urls[ $additional_image ];
+			if ( array_key_exists( $additional_image, $img_urls ) ) {
+				$images = $img_urls[ $additional_image ];
 			} else {
 				$images = '';
 			}
 		} else {
-			$images = implode( $separator, $urls );
+			if ( "idealo" === $this->config->get_feed_template() ) {
+				$separator = ';';
+			}
+
+			$images = implode( $separator, array_filter( $img_urls ) );
 		}
 
 		return apply_filters( 'woo_feed_filter_product_images', $images, $this->product, $this->config );

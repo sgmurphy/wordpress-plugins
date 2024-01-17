@@ -16,7 +16,7 @@
                     timeout;
 
                 anchor.id = 'premium-wrapper-link-' + id;
-                anchor.href = settings.type === 'url' ? settings.link.url : settings.existingPage;
+                anchor.href = settings.href;
                 anchor.target = settings.type === 'url' ? settings.link.is_external ? '_blank' : '_self' : '';
                 anchor.rel = settings.type === 'url' ? settings.link.nofollow ? 'nofollow noreferer' : '' : '';
                 anchor.style.display = 'none';

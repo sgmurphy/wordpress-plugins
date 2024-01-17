@@ -56,7 +56,15 @@ if(!is_plugin_active($pro_invoice_path)){
         <div class="wt_pro_addon_tile_doc" style="<?php echo is_rtl() ? 'left:0;' : 'right:0;'; ?>">
             <div class="wt_pro_addon_widget_doc">
                 <div class="wt_pro_addon_widget_wrapper_doc">
-                    <p style="font-size:14px;"><?php _e("You are currently on the basic version of the invoice module. Checkout our premium features.","print-invoices-packing-slip-labels-for-woocommerce"); ?></p>
+                    <p><?php _e('Get advanced features for your','print-invoices-packing-slip-labels-for-woocommerce'); ?></p>
+                    <div class="wt_pro_addon_widget_wrapper_doc_logo_title">
+                        <div class="wt_pro_addon_widget_wrapper_doc_logo_title_col_1">
+                            <img src="<?php echo esc_url(WF_PKLIST_PLUGIN_URL . 'admin/images/wt_ipc_logo.png'); ?>">
+                        </div>
+                        <div class="wt_pro_addon_widget_wrapper_doc_logo_title_col_2">
+                            <h4><?php echo __("Invoices, Packing slips and Credit notes","print-invoices-packing-slip-labels-for-woocommerce"); ?></h4>
+                        </div>
+                    </div>
                 </div>
                 <div class="wt_pro_addon_features_list_doc">
                     <ul>
@@ -74,7 +82,7 @@ if(!is_plugin_active($pro_invoice_path)){
                     <a class="wt_pro_addon_show_less_doc"><p><? echo __("Show Less","print-invoices-packing-slip-labels-for-woocommerce"); ?></p></a>
                 </div>
                 <a class="wt_pro_addon_premium_link_div_doc" href="<?php echo esc_url($sidebar_pro_link); ?>" target="_blank">
-                    <?php _e("Checkout Premium","print-invoices-packing-slip-labels-for-woocommerce"); ?> <span class="dashicons dashicons-arrow-right-alt"></span>
+                    <?php _e("View add-on","print-invoices-packing-slip-labels-for-woocommerce"); ?> <span class="dashicons dashicons-arrow-right-alt"></span>
                 </a>
             </div>
         </div>

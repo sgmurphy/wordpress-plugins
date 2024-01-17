@@ -1,12 +1,12 @@
 
-=== kk Star Ratings ===
-Contributors: bhittani
-Donate link: https://www.buymeacoffee.com/bhittani
-Tags: star ratings, votings, rate posts, ajax ratings, infinite stars, unlimited stars, google rich snippets, structured data, SEO, SERP
+=== kk Star Ratings - Rate Post & Collect User Feedbacks ===
+Contributors: bhittani, collizo4sky
+Donate link: https://feedbackwp.com/
+Tags: star ratings, voting, rate post, ajax ratings, feedback, unlimited stars, google rich snippets, structured data, SEO, SERP
 Requires at least: 5.0
 Requires PHP: 7.2
-Tested up to: 6.2
-Stable tag: 5.4.6
+Tested up to: 6.4
+Stable tag: 5.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 kk Star Ratings allows blog visitors to involve and interact more effectively with your website by rating posts.
 
-This plugin has been renewed from the ground up as of v5.
+The feedbacks gotten can help you better understand the posts users consider valuable.
 
 
 
@@ -105,6 +105,11 @@ The source of this plugin is located at [Github](https://github.com/kamalkhan/kk
 
 
 == Changelog ==
+
+= 5.4.7 =
+
+* Upgraded Freemius to 2.6.2
+* Improved PHP 8 compatibility.
 
 = 5.x =
 

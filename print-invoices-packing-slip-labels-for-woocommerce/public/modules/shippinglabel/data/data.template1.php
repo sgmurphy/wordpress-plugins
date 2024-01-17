@@ -3,7 +3,7 @@
 body, html{font-family:"Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;}
 .clearfix::after{ display:block; clear:both; content:""; }
 
-.wfte_invoice-main{ color:#202020; font-size:12px; font-weight:400; box-sizing:border-box; background:#fff; height:auto;width: auto; }
+.wfte_invoice-main{ color:#202020; font-size:12px; font-weight:400; box-sizing:border-box; height:auto;width: auto; }
 .wfte_invoice-main *{ box-sizing:border-box;}
 
 .wfte_row{ width:100%; display:block; }

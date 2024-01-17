@@ -538,3 +538,14 @@ padding: 10px;
 border-radius: 3px;
 font-size: 13px;
 }
+
+.pagelayer-row-not-found{
+padding: 6px;
+margin: 10px 5px;
+border: 1px dashed #5a5a5a;
+}
+
+.pagelayer-row-not-found .pagelayer-click-add-row{
+cursor: pointer;
+color: #007bff !important;
+}

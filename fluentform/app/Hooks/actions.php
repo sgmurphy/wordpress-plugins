@@ -430,6 +430,44 @@ $app->addAction('fluentform/loading_editor_assets', function ($form) {
         $item['attributes']['name'] = 'cf-turnstile-response';
         return $item;
     }, 10, 2);
+
+    add_filter('fluentform/editor_init_element_address', function ($item) {
+        foreach ($item['fields'] as &$addressField) {
+            if (
+                !isset($addressField['settings']['label_placement']) &&
+                !isset($addressField['settings']['label_placement_options'])
+            ) {
+                $addressField['settings']['label_placement'] = '';
+                $addressField['settings']['label_placement_options'] = [
+                    [
+                        'value' => '',
+                        'label' => __('Default', 'fluentform'),
+                    ],
+                    [
+                        'value' => 'top',
+                        'label' => __('Top', 'fluentform'),
+                    ],
+                    [
+                        'value' => 'right',
+                        'label' => __('Right', 'fluentform'),
+                    ],
+                    [
+                        'value' => 'bottom',
+                        'label' => __('Bottom', 'fluentform'),
+                    ],
+                    [
+                        'value' => 'left',
+                        'label' => __('Left', 'fluentform'),
+                    ],
+                    [
+                        'value' => 'hide_label',
+                        'label' => __('Hidden', 'fluentform'),
+                    ],
+                ];
+            }
+        }
+        return $item;
+    });
 }, 10);
 
 $app->addAction('fluentform/addons_page_render_fluentform_pdf', function () use ($app) {
@@ -586,6 +624,19 @@ add_action('wp', function () use ($app) {
             }
             wp_enqueue_script('fluent-form-submission');
             wp_enqueue_style('fluent-form-preview', fluentFormMix('css/preview.css'));
+            if (!defined('FLUENTFORMPRO')) {
+                wp_enqueue_script(
+                    'fluentform-preview_app',
+                    fluentFormMix('js/form_preview_app.js'),
+                    ['jquery'],
+                    FLUENTFORM_VERSION,
+                    true
+                );
+
+                wp_localize_script('fluentform-preview_app', 'fluent_preview_var', [
+                    'i18n'    => \FluentForm\App\Modules\Registerer\TranslationString::getPreviewI18n()
+                ]);
+            }
         });
 
         (new \FluentForm\App\Modules\ProcessExteriorModule())->handleExteriorPages();

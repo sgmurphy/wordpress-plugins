@@ -75,6 +75,14 @@ $defaultValues = array(
 				'type'    => 'string',
 				'default' => ''
 			),
+			'border'              => array(
+				'type'    => 'array',
+				'default' => array()
+			),
+			'borderRadius'              => array(
+				'type'    => 'array',
+				'default' => array()
+			),
 			'margin'              => array(
 				'type'    => 'array',
 				'default' => array()
@@ -727,6 +735,14 @@ $defaultValues = array(
 	),
 	'ub/divider'                    => array(
 		'attributes' => array(
+			'lineHeight'      => array(
+				'type'    => 'string',
+				'default' => '300px'
+			),
+			'orientation'      => array(
+				'type'    => 'string',
+				'default' => 'horizontal'
+			),
 			'blockID'      => array(
 				'type'    => 'string',
 				'default' => ''
@@ -753,7 +769,7 @@ $defaultValues = array(
 			),
 			'borderHeight' => array(
 				'type'    => 'number',
-				'default' => 20
+				'default' => 2
 			),
 			'width'        => array(
 				'type'    => 'number',
@@ -1156,6 +1172,10 @@ $defaultValues = array(
 	),
 	'ub/image-slider'               => array(
 		'attributes' => array(
+			'align'          => array(
+				'type'    => 'string',
+				'default' => ''
+			),
 			'blockID'          => array(
 				'type'    => 'string',
 				'default' => ''

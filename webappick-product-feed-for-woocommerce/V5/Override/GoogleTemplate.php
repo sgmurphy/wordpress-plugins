@@ -178,7 +178,8 @@ class GoogleTemplate {
 		$title = str_replace( ',', '-', $title );
 
 		// Google Shopping Product Title Character limit: max 150.
-		$title = substr( $title, 0, 150 );
+//		$title = substr( $title, 0, 150 );
+		$title = mb_substr($title, 0, 150, 'UTF-8');
 
 		return $title;
 	}

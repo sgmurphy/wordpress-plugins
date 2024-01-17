@@ -13,6 +13,8 @@
 use PHPUnit\Event\Runtime\PHP;
 use Ultimate_Blocks\includes\Editor_Data_Manager;
 
+use function Ultimate_Blocks\includes\get_border_css;
+
 require_once dirname(__DIR__) . '/src/extensions/extension-manager.php';
 require_once dirname(__DIR__) . '/includes/ultimate-blocks-styles-css-generator.php';
 
@@ -301,26 +303,17 @@ function ub_include_block_attribute_css() {
 												 '}';
 						}
 					}
+					$blockStylesheets .= $prefix . '{' .
+											 ( !empty($attributes['border'])  ? 'border-top: ' . Ultimate_Blocks\includes\get_single_side_border_value( get_border_css( $attributes['border'] ), 'top' ) . ';' : '' ) .
+											 ( !empty($attributes['border'])  ? 'border-left: ' . Ultimate_Blocks\includes\get_single_side_border_value( get_border_css( $attributes['border'] ), 'left' ) . ';' : '' ) .
+											 ( !empty($attributes['border'])  ? 'border-right: ' . Ultimate_Blocks\includes\get_single_side_border_value( get_border_css( $attributes['border'] ), 'right' ) . ';' : '' ) .
+											 ( !empty($attributes['border'])  ? 'border-bottom: ' . Ultimate_Blocks\includes\get_single_side_border_value( get_border_css( $attributes['border'] ), 'bottom' ) . ';' : '' ) .
 
-					if ( json_encode( array_unique( array(
-									$attributes['topBorderSize'],
-									$attributes['leftBorderSize'],
-									$attributes['rightBorderSize'],
-									$attributes['bottomBorderSize']
-							) ) ) !== '[0]' ) {
-
-						$blockStylesheets .= $prefix . '{' .
-											 ( $attributes['topBorderSize'] > 0 ? 'border-top: ' . $attributes['topBorderSize'] . 'px ' . $attributes['topBorderStyle'] . ' ' . $attributes['topBorderColor'] . ';' . PHP_EOL : '' ) .
-											 ( $attributes['leftBorderSize'] > 0 ? 'border-left: ' . $attributes['leftBorderSize'] . 'px ' . $attributes['leftBorderStyle'] . ' ' . $attributes['leftBorderColor'] . ';' . PHP_EOL : '' ) .
-											 ( $attributes['rightBorderSize'] > 0 ? 'border-right: ' . $attributes['rightBorderSize'] . 'px ' . $attributes['rightBorderStyle'] . ' ' . $attributes['rightBorderColor'] . ';' . PHP_EOL : '' ) .
-											 ( $attributes['bottomBorderSize'] > 0 ? 'border-bottom: ' . $attributes['bottomBorderSize'] . 'px ' . $attributes['bottomBorderStyle'] . ' ' . $attributes['bottomBorderColor'] . ';' . PHP_EOL : '' ) .
-
-											 ( $attributes['topLeftRadius'] > 0 ? 'border-top-left-radius: ' . $attributes['topLeftRadius'] . 'px;' . PHP_EOL : '' ) .
-											 ( $attributes['topRightRadius'] > 0 ? 'border-top-right-radius: ' . $attributes['topRightRadius'] . 'px;' . PHP_EOL : '' ) .
-											 ( $attributes['bottomLeftRadius'] > 0 ? 'border-bottom-left-radius: ' . $attributes['bottomLeftRadius'] . 'px;' . PHP_EOL : '' ) .
-											 ( $attributes['bottomRightRadius'] > 0 ? 'border-bottom-right-radius: ' . $attributes['bottomRightRadius'] . 'px;' . PHP_EOL : '' ) .
+											 ( !empty( $attributes['borderRadius']['topLeft'] ) ? 'border-top-left-radius: ' . $attributes['borderRadius']['topLeft'] . ';': "" ) .
+											 ( !empty( $attributes['borderRadius']['topRight'] ) ? 'border-top-right-radius: ' . $attributes['borderRadius']['topRight'] . ';': "" ) .
+											 ( !empty( $attributes['borderRadius']['bottomLeft'] ) ? 'border-bottom-left-radius: ' . $attributes['borderRadius']['bottomLeft'] . ';': "" ) .
+											 ( !empty( $attributes['borderRadius']['bottomRight'] ) ? 'border-bottom-right-radius: ' . $attributes['borderRadius']['bottomRight'] . ';': "" ) .
 											 '}';
-					}
 					//if one of showInDesktop, showInTablet, showInMobile
 					if ( in_array( false, [
 							$attributes['showInDesktop'],
@@ -429,41 +422,50 @@ function ub_include_block_attribute_css() {
 													 'color: ' . ( $attributes['buttons'][ $key ]['buttonTextColor'] ?: 'inherit' ) . ';' . PHP_EOL .
 													 'border: none;';
 							}
-							if ( $attributes['buttons'][ $key ]['buttonRounded'] ) {
-								if ( array_key_exists( 'topLeftRadius',
-												$button ) && array_key_exists( 'topLeftRadiusUnit', $button ) &&
-									 array_key_exists( 'topRightRadius',
-											 $button ) && array_key_exists( 'topRightRadiusUnit', $button ) &&
-									 array_key_exists( 'bottomLeftRadius',
-											 $button ) && array_key_exists( 'bottomLeftRadiusUnit', $button ) &&
-									 array_key_exists( 'bottomRightRadius',
-											 $button ) && array_key_exists( 'bottomRightRadiusUnit', $button ) ) {
-									if ( count( array_unique( [
-													$button['topLeftRadius'],
-													$button['topRightRadius'],
-													$button['bottomLeftRadius'],
-													$button['bottomRightRadius']
-											] ) ) === 1
-										 && count( array_unique( [
-													$button['topLeftRadiusUnit'],
-													$button['topRightRadiusUnit'],
-													$button['bottomLeftRadiusUnit'],
-													$button['bottomRightRadiusUnit']
-											] ) ) === 1 ) {
-										$blockStylesheets .= 'border-radius: ' . $button['topLeftRadius'] . $button['topLeftRadiusUnit'] . ';';
+							if(isset($attributes['isBorderComponentChanged']) && $attributes['isBorderComponentChanged']){
+								$blockStylesheets .=  ( !empty( $attributes['buttons'][$key]['borderRadius']['topLeft'] ) ? 'border-top-left-radius: ' . $attributes['buttons'][$key]['borderRadius']['topLeft'] . ';': "" ) .
+												 ( !empty( $attributes['buttons'][$key]['borderRadius']['topRight'] ) ? 'border-top-right-radius: ' . $attributes['buttons'][$key]['borderRadius']['topRight'] . ';': "" ) .
+												 ( !empty( $attributes['buttons'][$key]['borderRadius']['bottomLeft'] ) ? 'border-bottom-left-radius: ' . $attributes['buttons'][$key]['borderRadius']['bottomLeft'] . ';': "" ) .
+												 ( !empty( $attributes['buttons'][$key]['borderRadius']['bottomRight'] ) ? 'border-bottom-right-radius: ' . $attributes['buttons'][$key]['borderRadius']['bottomRight'] . ';': "" );
+							} else{
+								if ( $attributes['buttons'][ $key ]['buttonRounded'] ) {
+									if ( array_key_exists( 'topLeftRadius',
+													$button ) && array_key_exists( 'topLeftRadiusUnit', $button ) &&
+										array_key_exists( 'topRightRadius',
+												$button ) && array_key_exists( 'topRightRadiusUnit', $button ) &&
+										array_key_exists( 'bottomLeftRadius',
+												$button ) && array_key_exists( 'bottomLeftRadiusUnit', $button ) &&
+										array_key_exists( 'bottomRightRadius',
+												$button ) && array_key_exists( 'bottomRightRadiusUnit', $button ) ) {
+										if ( count( array_unique( [
+														$button['topLeftRadius'],
+														$button['topRightRadius'],
+														$button['bottomLeftRadius'],
+														$button['bottomRightRadius']
+												] ) ) === 1
+											&& count( array_unique( [
+														$button['topLeftRadiusUnit'],
+														$button['topRightRadiusUnit'],
+														$button['bottomLeftRadiusUnit'],
+														$button['bottomRightRadiusUnit']
+												] ) ) === 1 ) {
+											$blockStylesheets .= 'border-radius: ' . $button['topLeftRadius'] . $button['topLeftRadiusUnit'] . ';';
+										} else {
+											$blockStylesheets .= 'border-radius: ' . $button['topLeftRadius'] . $button['topLeftRadiusUnit'] . ' ' . $button['topRightRadius'] . $button['topRightRadiusUnit'] . ' ' .
+																$button['bottomRightRadius'] . $button['bottomRightRadiusUnit'] . ' ' . $button['bottomLeftRadius'] . $button['bottomLeftRadiusUnit'] . ';';
+										}
 									} else {
-										$blockStylesheets .= 'border-radius: ' . $button['topLeftRadius'] . $button['topLeftRadiusUnit'] . ' ' . $button['topRightRadius'] . $button['topRightRadiusUnit'] . ' ' .
-															 $button['bottomRightRadius'] . $button['bottomRightRadiusUnit'] . ' ' . $button['bottomLeftRadius'] . $button['bottomLeftRadiusUnit'] . ';';
+										$blockStylesheets .= 'border-radius: ' . ( array_key_exists( 'buttonRadius',
+														$attributes['buttons'][ $key ] ) && $attributes['buttons'][ $key ]['buttonRadius'] ? $attributes['buttons'][ $key ]['buttonRadius'] : '60' )
+															. ( array_key_exists( 'buttonRadiusUnit',
+														$attributes['buttons'][ $key ] ) && $attributes['buttons'][ $key ]['buttonRadiusUnit'] ? $attributes['buttons'][ $key ]['buttonRadiusUnit'] : 'px' ) . ';' . PHP_EOL;
 									}
+
 								} else {
-									$blockStylesheets .= 'border-radius: ' . ( array_key_exists( 'buttonRadius',
-													$attributes['buttons'][ $key ] ) && $attributes['buttons'][ $key ]['buttonRadius'] ? $attributes['buttons'][ $key ]['buttonRadius'] : '60' )
-														 . ( array_key_exists( 'buttonRadiusUnit',
-													$attributes['buttons'][ $key ] ) && $attributes['buttons'][ $key ]['buttonRadiusUnit'] ? $attributes['buttons'][ $key ]['buttonRadiusUnit'] : 'px' ) . ';' . PHP_EOL;
+									$blockStylesheets .= 'border-radius: 0;' . PHP_EOL;
 								}
 
-							} else {
-								$blockStylesheets .= 'border-radius: 0;' . PHP_EOL;
+								
 							}
 
 							$blockStylesheets .= '}' . PHP_EOL .
@@ -604,12 +606,16 @@ function ub_include_block_attribute_css() {
 				case 'ub/divider':
 					$prefix = '#ub_divider_' . $attributes['blockID'];
 					$styles = ub_get_spacing_styles($attributes);
+					$orientation = isset($attributes['orientation']) ? $attributes['orientation'] : 'horizontal';
+					$divider_style = $orientation === 'horizontal' ?
+						 'margin-top: ' . $attributes['borderHeight'] . 'px;' . PHP_EOL .
+						'margin-bottom: ' . $attributes['borderHeight'] . 'px;' . PHP_EOL .
+						'width: ' . $attributes['width'] . '%;' . PHP_EOL :
+						'width:fit-content; height:'. $attributes['lineHeight'] .';';
 					$blockStylesheets .= $prefix . '{' . PHP_EOL . $styles . PHP_EOL . "}"; 
 					$blockStylesheets .= $prefix . ' .ub_divider{' . PHP_EOL .
-										 'border-top: ' . $attributes['borderSize'] . 'px ' . $attributes['borderStyle'] . ' ' . $attributes['borderColor'] . ';' . PHP_EOL .
-										 'margin-top: ' . $attributes['borderHeight'] . 'px;' . PHP_EOL .
-										 'margin-bottom: ' . $attributes['borderHeight'] . 'px;' . PHP_EOL .
-										 'width: ' . $attributes['width'] . '%;' . PHP_EOL;
+										($orientation === 'horizontal' ? 'border-top:' : 'border-left:') . $attributes['borderSize'] . 'px ' . $attributes['borderStyle'] . ' ' . $attributes['borderColor'] . ';' . PHP_EOL . 
+										$divider_style;
 
 					if ( $attributes['alignment'] !== 'center' ) {
 						$blockStylesheets .= 'margin-' . $attributes['alignment'] . ': 0 !important;' . PHP_EOL;
@@ -1130,13 +1136,13 @@ function ub_include_block_attribute_css() {
 					$styles 		   = ub_get_spacing_styles($attributes);
 					$blockStylesheets .= $prefix . '{' . PHP_EOL . $styles . PHP_EOL . "}";
 					$blockStylesheets .= $prefix . ' > .wp-block-ub-tabbed-content-tab-holder > .wp-block-ub-tabbed-content-tabs-title > .wp-block-ub-tabbed-content-tab-title-wrap, ' .
-										 $prefix . ' > .wp-block-ub-tabbed-content-tab-holder > .wp-block-ub-tabbed-content-tabs-title > .wp-block-ub-tabbed-content-tab-title-vertical-wrap{' . PHP_EOL .
+										 $prefix . ' > .wp-block-ub-tabbed-content-tab-holder > .wp-block-ub-tabbed-content-tabs-title-vertical-tab > .wp-block-ub-tabbed-content-tab-title-vertical-wrap{' . PHP_EOL .
 										 ( $attributes['tabStyle'] === 'underline' ? '' : 'background-color: ' . ( $attributes['normalColor'] ?: 'inherit' ) . ';' . PHP_EOL ) .
 										 ( ( $attributes['tabStyle'] === 'tabs' ? 'border-color: lightgrey;' : 'border: none;' ) . PHP_EOL ) .
 										 'color: ' . ( $attributes['normalTitleColor'] ?: 'inherit' ) . ';' . PHP_EOL .
 										 '}' . PHP_EOL .
 										 $prefix . ' > .wp-block-ub-tabbed-content-tab-holder > .wp-block-ub-tabbed-content-tabs-title > .wp-block-ub-tabbed-content-tab-title-wrap.active, ' .
-										 $prefix . ' > .wp-block-ub-tabbed-content-tab-holder > .wp-block-ub-tabbed-content-tabs-title > .wp-block-ub-tabbed-content-tab-title-vertical-wrap.active,' .
+										 $prefix . ' > .wp-block-ub-tabbed-content-tab-holder > .wp-block-ub-tabbed-content-tabs-title-vertical-tab > .wp-block-ub-tabbed-content-tab-title-vertical-wrap.active,' .
 										 $prefix . ' > .wp-block-ub-tabbed-content-tab-holder > .wp-block-ub-tabbed-content-tabs-title > .wp-block-ub-tabbed-content-accordion-toggle.active{' . PHP_EOL .
 										 ( $attributes['tabStyle'] === 'underline' ? 'border-bottom: 5px solid ' . $attributes['titleColor'] . ';' . PHP_EOL :
 												 'background-color: ' . $attributes['theme'] . ';' . PHP_EOL ) .

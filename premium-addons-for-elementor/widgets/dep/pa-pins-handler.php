@@ -72,6 +72,10 @@ function get_pinterest_data( $id, $settings, $endpoint ) {
 
 		$response = json_decode( $response, true );
 
+        if( 'failure' === $response['status'] ) {
+            return;
+        }
+
 		$transient = $settings['reload'];
 
 		$expire_time = Helper_Functions::transient_expire( $transient );

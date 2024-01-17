@@ -502,7 +502,7 @@ function pagelayer_has_blocks($post = null) {
 		}
 	}
 
-	return str_contains( $post, '<!-- wp:pagelayer/' );
+	return false !== strpos( $post, '<!-- wp:pagelayer/' );
 }
 
 // Can the current user edit the post ?
@@ -1264,6 +1264,41 @@ jQuery(document).ready(function(){
 		}
 		
 	echo '</p>
+	</div>';
+	
+}
+
+// Show Changelog promo
+function pagelayer_show_changelog_notice(){
+	
+	// Is Sitepad setup done?	
+	if(defined('SITEPAD')){
+		return;
+	}
+	
+	echo '
+<script type="application/javascript">
+jQuery(document).ready(function(){
+	jQuery("#pagelayer-changelog-notice").click(function(e){
+		
+		if(jQuery(e.target).hasClass("notice-dismiss")){
+			var data;
+			jQuery("#pagelayer-changelog-notice").hide();
+			// Save this preference
+			jQuery.post("'.admin_url('?pagelayer-changelog-notice=0&pagelayer_nonce='.wp_create_nonce("pagelayer_changelog_nonce") ).'", data, function(response) {
+			//alert(response);
+			});
+			return false;
+		}
+		
+	});
+});
+</script>
+
+	<div id="pagelayer-changelog-notice" class="notice notice-info is-dismissible">
+		<p style="font-size: 14px; font-weight: 600">
+			<a href="'.PAGELAYER_WWW_URL.'"><img src="'.PAGELAYER_URL.'/images/pagelayer-logo-256.png" style="vertical-align: middle; margin:0px 10px" width="24" /></a>'.__('Empower Your Designs: Pagelayer 1.8.1 - Unleashing Seamless Integration with Gutenberg for Enhanced Website Creation! <a href="'.PAGELAYER_WWW_URL.'/blog/reinventing-pagelayer-for-gutenberg-a-seamless-fusion-of-powerful-page-building-and-wordpress-editor/">Read More</a>.', 'pagelayer') .'
+		</p>
 	</div>';
 	
 }
@@ -2647,7 +2682,13 @@ function pagelayer_get_social_urls(){
 	$urls['google'] = get_option('pagelayer-gplus-url');
 	
 	foreach($urls as $k => $v){
-		if(empty($v)) unset($urls[$k]);
+		
+		if(empty($v)){
+			unset($urls[$k]);
+			continue;
+		}
+		
+		$urls[$k] = esc_url($v);
 	}
 	
 	return $urls;
@@ -2669,7 +2710,7 @@ function pagelayer_get_option($opt){
 		return $opts[$opt];
 	}
 	
-	return $ret;
+	return wp_kses_post($ret);
 }
 
 // Uploads an image / media

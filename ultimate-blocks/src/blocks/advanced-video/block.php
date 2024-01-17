@@ -2,9 +2,17 @@
 function ub_render_advanced_video_block($attributes){
     require_once dirname(dirname(__DIR__)) . '/common.php';
     extract($attributes);
+    $classes = array( 'ub-advanced-video-container' );
+    $ids = array( 'ub-advanced-video-'.$blockID.'' );
 
+    $block_wrapper_attributes = get_block_wrapper_attributes(
+		array(
+			'class' => implode(' ', $classes),
+			'id'    => implode(' ', $ids)
+		)
+    );
     //enclosing div needed to prevent embedded video from trying to use the full height of the screen
-    return '<div id="ub-advanced-video-'.$blockID.'" class="ub-advanced-video-container">' .
+    return '<div ' . $block_wrapper_attributes . ' >' .
 
     (!in_array($videoSource, ['local', 'unknown', 'videopress']) && $thumbnail !== '' ?
     ('<div class="ub-advanced-video-thumbnail" style="height:' . $height .'px; width:' . $width . '%;">' .
@@ -19,7 +27,16 @@ function ub_render_advanced_video_block($attributes){
         ($thumbnail !== '' && !in_array($videoSource, ['local', 'unknown', 'videopress']) ? ' hidden' : '') . '>'
     . $videoEmbedCode . ($autofit && $videoSource === 'vimeo' ? '<script src="https://player.vimeo.com/api/player.js"></script>' : '') . '</div></div>';
 }
-
+function ub_enqueue_advanced_video_assets() {
+  wp_enqueue_script(
+        'ub-tiktok-script',
+         plugins_url( 'advanced-video/tiktok-script.js', dirname( __FILE__ ) ),
+        array('jquery'),
+        uniqid(),
+        true
+    );
+}
+add_action( 'admin_enqueue_scripts', 'ub_enqueue_advanced_video_assets' );
 function ub_register_advanced_video_block() {
 	if ( function_exists( 'register_block_type' ) ) {
         require dirname(dirname(__DIR__)) . '/defaults.php';

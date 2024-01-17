@@ -216,7 +216,8 @@ class Filter {
 		if ( $this->config->remove_empty_description() ) {
 			if ( $this->product->is_type( 'variation' ) == 1 && empty( $this->product->get_description() ) ) {
 				$parent_product = wc_get_product( $this->product->get_parent_id() );
-				if ( empty( $parent_product->get_description() ) ) {
+
+				if ( $parent_product && empty( $parent_product->get_description() ) ) {
 					return true;
 				}
 			} else if ( empty( $this->product->get_description() ) ) {

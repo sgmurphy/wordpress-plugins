@@ -125,74 +125,79 @@ class ProductHelper {
 	 * @return array<string> An array of attachment IDs.
 	 * @since 3.2.6
 	 */
+
 	public static function get_product_gallery( $product ) {
-		// Return early if the product is not a variation type.
-		if ( ! $product->is_type( 'variation' ) ) {
-			return array();
-		}
-		// Attempt to retrieve the gallery based on various plugins or themes.
-		return self::get_variation_gallery_by_plugin( $product );
-	}
+		$img_urls       = [];
+		$attachment_ids = [];
 
-	/**
-	 * Retrieves variation gallery images based on the active plugin or theme.
-	 *
-	 * @param WC_Product_Variation $product The variation product object.
-	 *
-	 * @return array<string> An array of attachment IDs.
-	 */
-	private static function get_variation_gallery_by_plugin( $product ) {
-		$product_id = $product->get_id();
+		if ( $product->is_type( 'variation' ) ) {
+			if ( class_exists( 'Woo_Variation_Gallery' ) ) {
+				/**
+				 * Get Variation Additional Images for "Additional Variation Images Gallery for WooCommerce"
+				 *
+				 * @plugin Additional Variation Images Gallery for WooCommerce
+				 * @link   https://wordpress.org/plugins/woo-variation-gallery/
+				 */
+				$attachment_ids = \get_post_meta( $product->get_id(), 'woo_variation_gallery_images', true );
+			} elseif ( \class_exists( 'WooProductVariationGallery' ) ) {
+				/**
+				 * Get Variation Additional Images for "Variation Images Gallery for WooCommerce"
+				 *
+				 * @plugin Variation Images Gallery for WooCommerce
+				 * @link   https://wordpress.org/plugins/woo-product-variation-gallery/
+				 */
+				$attachment_ids = \get_post_meta( $product->get_id(), 'rtwpvg_images', true );
+			} elseif ( \class_exists( 'WC_Additional_Variation_Images' ) ) {
+				/**
+				 * Get Variation Additional Images for "WooCommerce Additional Variation Images"
+				 *
+				 * @plugin WooCommerce Additional Variation Images
+				 * @link   https://woocommerce.com/products/woocommerce-additional-variation-images/
+				 */
+				$attachment_ids = \xplode( ',', \get_post_meta( $product->get_id(), '_wc_additional_variation_images', true ) );
+			} elseif ( \class_exists( 'WOODMART_Theme' ) ) {
+				/**
+				 * Get Variation Additional Images for "WOODMART Theme -> Variation Gallery Images Feature"
+				 *
+				 * @theme WOODMART
+				 * @link  https://themeforest.net/item/woodmart-woocommerce-wordpress-theme/20264492
+				 */
+				$var_id    = $product->get_id();
+				$parent_id = $product->get_parent_id();
 
-		if ( \class_exists( 'Woo_Variation_Gallery' ) ) {
-			/**
-			 * Get Variation Additional Images for "Additional Variation Images Gallery for WooCommerce"
-			 *
-			 * @plugin Additional Variation Images Gallery for WooCommerce
-			 * @link   https://wordpress.org/plugins/woo-variation-gallery/
-			 */
-			return \get_post_meta( $product_id, 'woo_variation_gallery_images', true );
-		} elseif ( \class_exists( 'WooProductVariationGallery' ) ) {
-			/**
-			 * Get Variation Additional Images for "Variation Images Gallery for WooCommerce"
-			 *
-			 * @plugin Variation Images Gallery for WooCommerce
-			 * @link   https://wordpress.org/plugins/woo-product-variation-gallery/
-			 */
-			return \get_post_meta( $product_id, 'rtwpvg_images', true );
-		} elseif ( \class_exists( 'WC_Additional_Variation_Images' ) ) {
-			/**
-			 * Get Variation Additional Images for "WooCommerce Additional Variation Images"
-			 *
-			 * @plugin WooCommerce Additional Variation Images
-			 * @link   https://woocommerce.com/products/woocommerce-additional-variation-images/
-			 */
-			return \explode( ',', \get_post_meta( $product_id, '_wc_additional_variation_images', true ) );
-		} elseif ( \class_exists( 'WOODMART_Theme' ) ) {
-			return self::get_woodmart_variation_images( $product );
-		}
-
-		return [];
-	}
-
-	/**
-	 * Retrieves variation gallery images for products using the WOODMART theme.
-	 *
-	 * @param WC_Product_Variation $product The variation product object.
-	 *
-	 * @return array<string> An array of attachment IDs.
-	 */
-	private static function get_woodmart_variation_images( $product ) {
-		$var_id    = $product->get_id();
-		$parent_id = $product->get_parent_id();
-
-		$variation_obj = \get_post_meta( $parent_id, 'woodmart_variation_gallery_data', true );
-
-		if ( isset( $variation_obj, $variation_obj[ $var_id ] ) ) {
-			return \explode( ',', $variation_obj[ $var_id ] );
+				$variation_obj = \get_post_meta( $parent_id, 'woodmart_variation_gallery_data', true );
+				if ( isset( $variation_obj, $variation_obj[ $var_id ] ) ) {
+					$attachment_ids = \explode( ',', $variation_obj[ $var_id ] );
+				} else {
+					$attachment_ids = \explode( ',', \get_post_meta( $var_id, 'wd_additional_variation_images_data', true ) );
+				}
+			} else {
+				/**
+				 * If any Variation Gallery Image plugin not installed then get Variable Product Additional Image Ids .
+				 */
+				$attachment_ids = \wc_get_product( $product->get_parent_id() )->get_gallery_image_ids();
+			}
 		}
 
-		return \explode( ',', \get_post_meta( $var_id, 'wd_additional_variation_images_data', true ) );
+		/**
+		 * Get Variable Product Gallery Image ids if Product is not a variation
+		 * or variation does not have any gallery images
+		 *
+		 * Test case write is pending
+		 */
+		if ( empty( $attachment_ids ) ) {
+			$attachment_ids = $product->get_gallery_image_ids();
+		}
+
+		if ( $attachment_ids && \is_array( $attachment_ids ) ) {
+			$m_key = 1;
+			foreach ( $attachment_ids as $attachment_id ) {
+				$img_urls[ $m_key ] = Helper::woo_feed_get_formatted_url( \wp_get_attachment_url( $attachment_id ) );
+				$m_key ++;
+			}
+		}
+
+		return $img_urls;
 	}
 
 	/**
@@ -858,7 +863,7 @@ class ProductHelper {
 	 */
 	public static function get_attribute_value_by_type( $attribute, $product, $config, $merchant_attribute = null, $parent_product = null ) {
 		// Error handling: validate inputs
-		if ( ! $attribute || ! $product || ! $config ) {
+		if ( ! $product || ! $config ) {
 			// Handle error or invalid input
 			return null;
 		}
@@ -881,16 +886,17 @@ class ProductHelper {
 	 * @todo Write test cases for this method.
 	 */
 	public static function str_replace( $output, $product_attribute, $config ) {
+
 		// str_replace array can contain duplicate subjects, so better loop through...
 		foreach ( $config->get_string_replace() as $str_replace ) {
-			if ( empty( $str_replace['subject'] ) || $product_attribute !== $str_replace['subject'] ) {
-				continue;
-			}
 
-			if ( \strpos( $str_replace['search'], '/' ) === false ) {
-				$output = \preg_replace( \stripslashes( '/' . $str_replace['search'] . '/mi' ), $str_replace['replace'], $output );
-			} else {
-				$output = \str_replace( $str_replace['search'], $str_replace['replace'], $output );
+			if ( !empty( $str_replace['subject'] ) && ( $product_attribute == $str_replace['subject'] || self::PRODUCT_ATTRIBUTE_PREFIX.$product_attribute == $str_replace['subject'] ) ){
+
+				if ( \strpos( $str_replace['search'], '/' ) === false ) {
+					$output = \preg_replace( \stripslashes( '/' . $str_replace['search'] . '/mi' ), $str_replace['replace'], $output );
+				} else {
+					$output = \str_replace( $str_replace['search'], $str_replace['replace'], $output );
+				}
 			}
 		}
 

@@ -521,6 +521,7 @@ class Premium_Weather extends Widget_Base {
 				'type'        => Controls_Manager::TEXT,
 				'description' => __( 'Use this option to add a title of your choice, and use the {{city_name}} placeholder to add your city name.', 'premium-addons-for-elementor' ),
 				'label_block' => true,
+				'dynamic'     => array( 'active' => true ),
 				'default'     => '{{city_name}}',
 				'condition'   => array(
 					'show_city'            => 'yes',

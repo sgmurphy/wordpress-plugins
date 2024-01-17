@@ -69,3 +69,13 @@ export function getBlockDefaultsByItem(state, item) {
     const { blockDefaults } = state
     return blockDefaults[item]
 }
+
+/**
+ * Selector: Get Is Saving
+ * @param {*} state
+ * @returns
+ */
+export function getIsSaving(state) {
+    const { isSaving } = state
+    return isSaving
+}

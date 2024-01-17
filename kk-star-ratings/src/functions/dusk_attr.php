@@ -24,5 +24,5 @@ function dusk_attr(string $name): string
 
     $name = esc_attr($name);
 
-    return " dusk=\"${name}\"";
+    return " dusk=\"{$name}\"";
 }

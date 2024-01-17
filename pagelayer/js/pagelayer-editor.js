@@ -1879,6 +1879,8 @@ function pagelayer_element_setup(selector, render){
 			wrap.addClass('pagelayer-hide-active');
 		}
 		
+		pagelayer_trigger_action('pagelayer_element_setup', [jEle]);
+		
 		// Setup the HOVER events ABD create WRAPS IF we dont have a parent
 		if(pId.length > 0){
 			return;

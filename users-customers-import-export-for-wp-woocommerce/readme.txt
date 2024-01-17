@@ -5,7 +5,7 @@ Tags: user import, user export, csv, woocommerce, customers, export import users
 Requires at least: 3.0.1
 Tested up to: 6.4.2
 Requires PHP: 5.6
-Stable tag: 2.5.0
+Stable tag: 2.5.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -19,12 +19,12 @@ You can import or export user/customer data using CSV files. This helps in migra
 &#128312; Import/export user/customer data based on user roles, user email, and date range of when the users were added to the system.
 &#128312; Batch Export/Import for easier processing of data
 &#128312; Retain existing users' passwords while migrating to a new website
-&#128312; <a rel="nofollow" href= “ https://www.webtoffee.com/update-user-field-values-in-bulk-during-woocommerce-import/”> Map and transform fields while importing customers/users </a>
+&#128312; <a rel="nofollow" href="https://www.webtoffee.com/update-user-field-values-in-bulk-during-woocommerce-import/"> Map and transform fields while importing customers/users </a>
 &#128312; Change values (bulk modify) while importing user data using Evaluation Fields
 &#128312; Export guest users - Include data of WooCommerce guest customers (users who bought products from the site without creating an account)
 &#128312; Export specific users based on username/email - Suggests email addresses and names in export data filter fields while you type in
 &#128312; Tested OK with WordPress 6.4.2
-&#128312; Tested OK with WooCommerce 8.4.0
+&#128312; Tested OK with WooCommerce 8.5
 &#128312; Tested OK with PHP 8.2
 
 = How does it work? =
@@ -209,6 +209,9 @@ Please refer the article on how to <a href="https://www.webtoffee.com/refresh-wo
 
 == Changelog ==
 
+= 2.5.1 2024-01-17 =
+* [Fix] - Invalid File type for CSV.
+* [Compatibility] - Tested OK with Woocommerce 8.5
 = 2.5.0 2023-12-28 =
 * [Fix] - Invalid File type for CSV in Windows OS/Firefox.
 * [Compatibility] - Tested OK with Woocommerce 8.4.0
@@ -482,6 +485,6 @@ Please refer the article on how to <a href="https://www.webtoffee.com/refresh-wo
 
 == Upgrade Notice ==
 
-= 2.5.0 =
-* [Fix] - Invalid File type for CSV in Windows OS/Firefox.
-* [Compatibility] - Tested OK with Woocommerce 8.4.0
+= 2.5.1 =
+* [Fix] - Invalid File type for CSV.
+* [Compatibility] - Tested OK with Woocommerce 8.5

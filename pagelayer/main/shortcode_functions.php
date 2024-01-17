@@ -36,7 +36,10 @@ function pagelayer_render_blocks($pre_render, $parsed_block){
 	$block_name = $parsed_block['blockName'];
 	$tag = '';
 	$content = $parsed_block['innerHTML'];
-	$inner_blocks = $parsed_block['innerBlocks'];
+	$inner_blocks = array(
+		'blocks' => $parsed_block['innerBlocks'],
+		'content' => $parsed_block['innerContent']
+	);
 	$atts = $parsed_block['attrs'];
 	$atts['is_not_sc'] = 1;
 	
@@ -780,9 +783,30 @@ function pagelayer_render_inner_content(&$el){
 	
 	$inner_content = '';
 	
+	// Is block code?
 	if( !empty($el['inner_blocks']) ){
-		foreach($el['inner_blocks'] as $inner_block){
+		
+		$index = 0;
+
+		foreach ( $el['inner_blocks']['content'] as $chunk ) {
+			if ( is_string( $chunk ) ) {
+				
+				// If any string in Column the conver this is text widget in pagelayer live
+				if(!empty(trim($chunk)) && pagelayer_is_live() && $el['tag'] == 'pl_col'){
+					$parsed_block['blockName'] = 'pagelayer/pl_text';
+					$parsed_block['innerHTML'] = $chunk;
+					$parsed_block['attrs'] = [];
+					$inner_content .= render_block($parsed_block);
+					continue;
+				}
+				
+				$inner_content .= $chunk;
+				continue;
+			}
+			
+			$inner_block  = $el['inner_blocks']['blocks'][ $index ];
 			$inner_content .= render_block($inner_block);
+			++$index;
 		}
 	}else{
 		$inner_content .=  do_shortcode($el['content']);

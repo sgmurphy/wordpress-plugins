@@ -958,6 +958,15 @@ class Options_Field {
                     'default'=> 'off',
                     'is_pro' => true,
                 ),
+                array(
+                    'id'  => 'video_playlistp',
+                    'name'  => __( 'Video Palylist', 'htmega-addons' ),
+                    'type'  => 'element',
+                    'label_on' => __( 'On', 'htmega-addons' ),
+                    'label_off' => __( 'Off', 'htmega-addons' ),
+                    'default'=> 'off',
+                    'is_pro' => true,
+                ),
             ),
 
             'htmega_general_tabs' => array(

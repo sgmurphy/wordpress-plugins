@@ -116,8 +116,8 @@ class Wf_Woocommerce_Packing_List {
 			self::$base_version = WF_PKLIST_VERSION;
 		}else 
 		{
-			$this->version = '4.3.1';
-			self::$base_version = '4.3.1';
+			$this->version = '4.4.0';
+			self::$base_version = '4.4.0';
 		}
 		if(defined('WF_PKLIST_PLUGIN_NAME'))
 		{
@@ -547,7 +547,7 @@ class Wf_Woocommerce_Packing_List {
 				'_wpnonce'			=> wp_create_nonce(WF_PKLIST_PLUGIN_NAME),
 				'lang'				=> get_locale(),
 				'access_key'    	=> $order->get_order_key(),
-			), home_url() );
+			), site_url() );
 			$invoice_url	= esc_url_raw($document_link);
 			$style			= '';
 			$email_button_class = '';
@@ -599,7 +599,7 @@ class Wf_Woocommerce_Packing_List {
 				'_wpnonce'			=> wp_create_nonce(WF_PKLIST_PLUGIN_NAME),
 				'lang'				=> get_locale(),
 				'access_key'    	=> $order->get_order_key(),
-			), home_url() );
+			), site_url() );
 			return esc_url_raw($document_link);
 		}
 		return '';

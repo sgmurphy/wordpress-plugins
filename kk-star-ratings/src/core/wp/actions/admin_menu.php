@@ -26,4 +26,13 @@ function admin_menu(): void
         kksr('core.actions.admin/index'),
         'dashicons-star-filled'
     );
+
+    add_submenu_page(
+        kksr('slug'),
+        esc_html__('Settings', 'kk-star-ratings'),
+        esc_html__('Settings', 'kk-star-ratings'),
+        'manage_options',
+        kksr('slug'),
+        kksr('core.actions.admin/index')
+    );
 }

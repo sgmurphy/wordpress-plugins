@@ -5,7 +5,7 @@ Tags: Elementor,Beaver Builder,Templates,Gutenberg,Block Editor,Astra Starter Si
 Requires at least: 4.4
 Requires PHP: 7.4
 Tested up to: 6.4
-Stable tag: 4.0.2
+Stable tag: 4.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -134,6 +134,10 @@ We are open to suggestions and would love to work on topics that our users are l
 8. Free Images by Pixabay right inside the WordPress media popup.
 
 == Changelog ==
+
+v4.0.3 - 17-January-2024
+- Fix: Fixed an issue where the import process was breaking for AI websites.
+- Fix: Fixed an issue where the images won't get reflected in search results as per the search keyword.
 
 v4.0.2 - 15-January-2024
 - Improvement: Added Flexbox Container compatibility in Elementor.

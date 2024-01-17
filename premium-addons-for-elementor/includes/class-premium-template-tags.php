@@ -2210,9 +2210,10 @@ class Premium_Template_Tags {
 			<<?php echo wp_kses_post( $post_tag . ' ' . $this->get_render_attribute_string( $wrap_key ) ); ?>>
 				<?php
 				if ( $show_thumbnail ) :
+					$bg_css = !$thumbnail_src ? '' : 'style="background-image:url(' .  $thumbnail_src[0]. ')"';
 					?>
 					<div class="premium-smart-listing__post-thumbnail-wrapper">
-						<div class="premium-smart-listing__thumbnail-container" style="background-image:url('<?php echo $thumbnail_src[0]; ?>')">
+						<div class="premium-smart-listing__thumbnail-container" <?php echo $bg_css; ?> >
 						<?php // $this->get_post_thumbnail( '_blank', 'magazine' ); ?>
 						</div>
 						<div class="premium-smart-listing__thumbnail-overlay">

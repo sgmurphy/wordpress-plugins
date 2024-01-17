@@ -263,7 +263,7 @@ class CommonHelper {//phpcs:ignore
 			return $ret;
 		}
 
-		if ( \is_int( $value ) ) {
+		if ( \is_int( $value ) || is_float( $value )) {
 			$ret = $value;
 		} else {
 			$length = \strlen( $value );

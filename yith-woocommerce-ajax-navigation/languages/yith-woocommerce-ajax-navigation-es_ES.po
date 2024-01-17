@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Ajax Product Filter\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "ajax-product-filter\n"
-"POT-Creation-Date: 2023-12-27 09:19:50+00:00\n"
+"POT-Creation-Date: 2024-01-17 10:31:25+00:00\n"
 "PO-Revision-Date: 2021-02-12 13:30:42+0000\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -1402,12 +1402,12 @@ msgctxt "[Admin] Term edit field label (preset edit page)"
 msgid "Color"
 msgstr "Color"
 
-#: templates/admin/preset-filter.php:91
+#: templates/admin/preset-filter.php:93
 msgctxt "[Admin] Save filter button, in new/edit preset page"
 msgid "Save Filter"
 msgstr "Guardar filtro"
 
-#: templates/admin/preset-filter.php:92
+#: templates/admin/preset-filter.php:94
 msgctxt "[Admin] Delete filter button, in new/edit preset page"
 msgid "Delete Filter"
 msgstr "Eliminar filtro"

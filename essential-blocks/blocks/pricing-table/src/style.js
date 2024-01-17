@@ -544,11 +544,11 @@ export default function Style(props) {
 			  ${iconBorderShadowHoverDesktop}
 			  ${showIconBackground ? "background-color: " + iconBackgroundHoverColor + ";" : "background-color: transparent;"}
 		  }
-		  .eb-pricing-wrapper.${blockId} .eb-pricing .eb-pricing-item .eb-pricing-icon .icon i {
+		  .eb-pricing-wrapper.${blockId} .eb-pricing .eb-pricing-item .eb-pricing-icon .icon {
 			  ${headerIconSizeDesktop}
 			  color: ${iconColor};
 		  }
-		  .eb-pricing-wrapper.${blockId} .eb-pricing .eb-pricing-item:hover .eb-pricing-icon .icon i {
+		  .eb-pricing-wrapper.${blockId} .eb-pricing .eb-pricing-item:hover .eb-pricing-icon .icon {
 			  color: ${iconHoverColor};
 		  }
 
@@ -660,7 +660,7 @@ export default function Style(props) {
 		  .eb-pricing-wrapper.${blockId} .eb-pricing .eb-pricing-item .eb-pricing-icon .icon:hover {
 			  ${iconBorderShadowHoverTab}
 		  }
-		  .eb-pricing-wrapper.${blockId} .eb-pricing .eb-pricing-item .eb-pricing-icon .icon i {
+		  .eb-pricing-wrapper.${blockId} .eb-pricing .eb-pricing-item .eb-pricing-icon .icon {
 			  ${headerIconSizeTab}
 		  }
 	  `;
@@ -744,7 +744,7 @@ export default function Style(props) {
 		  .eb-pricing-wrapper.${blockId} .eb-pricing .eb-pricing-item .eb-pricing-icon .icon:hover {
 			  ${iconBorderShadowHoverMobile}
 		  }
-		  .eb-pricing-wrapper.${blockId} .eb-pricing .eb-pricing-item .eb-pricing-icon .icon i {
+		  .eb-pricing-wrapper.${blockId} .eb-pricing .eb-pricing-item .eb-pricing-icon .icon {
 			  ${headerIconSizeMobile}
 		  }
 	  `;

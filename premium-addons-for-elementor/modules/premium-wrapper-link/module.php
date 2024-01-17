@@ -174,10 +174,16 @@ class Module {
 
 		$settings = $element->get_settings_for_display();
 
+		if( 'link' == $settings['premium_wrapper_link_selection'] ) {
+			$href = get_permalink( $settings['premium_wrapper_existing_link'] );
+		} else {
+			$href = $settings['premium_wrapper_link']['url'];
+		}
+
 		$link_settings = array(
-			'link'         => $settings['premium_wrapper_link'],
-			'type'         => $settings['premium_wrapper_link_selection'],
-			'existingPage' => $settings['premium_wrapper_link_selection'] == 'link' ? get_permalink( $settings['premium_wrapper_existing_link'] ) : '',
+			'type'	=> $settings['premium_wrapper_link_selection'],
+			'link'  => $settings['premium_wrapper_link'],
+			'href'	=> esc_url( $href )
 		);
 
 		if ( $link_settings && ( ! empty( $link_settings['link']['url'] ) || ! empty( $link_settings['existingPage'] ) ) ) {

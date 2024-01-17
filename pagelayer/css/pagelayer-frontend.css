@@ -33,7 +33,7 @@ align-content: flex-start;
 }
 
 /* Each immediate element in the col-holder should have full width */ 
-.pagelayer-col-holder>div{
+.pagelayer-col-holder>*{
 width: 100%;
 }
 

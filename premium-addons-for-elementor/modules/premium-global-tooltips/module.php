@@ -975,7 +975,7 @@ class Module {
 			if ( isEnabled ) {
 
 				var type = settings.premium_tooltip_type,
-					content = {};
+                    tooltipContent = {};
 
 					view.addRenderAttribute( 'gTooltipshtml', {
 						id: 'tooltip_content-' + view.getID(),
@@ -1026,7 +1026,7 @@ class Module {
 										if( ! gallery[0] )
 											break;
 
-										content = gallery;
+                                        tooltipContent = gallery;
 										view.addRenderAttribute( 'gTooltipsGallery', {
 											src: gallery[0]['url'],
 										});
@@ -1064,7 +1064,7 @@ class Module {
 				},
 				tooltip_settings = {
 					type: type,
-					content: content,
+					content: tooltipContent,
 					minWidth: minWidth,
 					maxWidth: maxWidth,
 					zindex: settings.pa_tooltip_zindex,
@@ -1120,7 +1120,7 @@ class Module {
 
 		$element_type = $element->get_type();
 
-		$id = rand(0,1000);
+		$id = $element->get_id();
 
 		$settings = $element->get_settings_for_display();
 
@@ -1235,8 +1235,6 @@ class Module {
 			}
 
 			$element->add_render_attribute( '_wrapper', 'data-tooltip_settings', wp_json_encode( $tooltip_settings ) );
-
-			$element->add_render_attribute( '_wrapper', 'data-tooltip-id', $id );
 
 			if ( 'widget' === $element_type && \Elementor\Plugin::instance()->editor->is_edit_mode() ) {
 				?>

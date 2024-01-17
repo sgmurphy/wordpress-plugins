@@ -13,7 +13,9 @@ import {
     FETCH_GRADIENT_COLORS,
     SET_CUSTOM_GRADIENT_COLORS,
     SAVE_CUSTOM_GRADIENT_COLORS,
-    FETCH_CUSTOM_GRADIENT_COLORS
+    FETCH_CUSTOM_GRADIENT_COLORS,
+    SET_IS_SAVING,
+    FETCH_IS_SAVING
 } from "./constant"
 
 export default function reducer(state = DEFAULT_STATE, action) {
@@ -25,8 +27,6 @@ export default function reducer(state = DEFAULT_STATE, action) {
                     ...action.value,
                 ],
             };
-        case SAVE_GLOBAL_COLORS:
-            return state
         case FETCH_GLOBAL_COLORS:
             return state
         case SET_BLOCK_DEFAULTS:
@@ -43,8 +43,6 @@ export default function reducer(state = DEFAULT_STATE, action) {
                     ...action.value,
                 ],
             };
-        case SAVE_CUSTOM_COLORS:
-            return state
         case FETCH_CUSTOM_COLORS:
             return state
         case SET_GRADIENT_COLORS:
@@ -54,8 +52,6 @@ export default function reducer(state = DEFAULT_STATE, action) {
                     ...action.value,
                 ],
             };
-        case SAVE_GRADIENT_COLORS:
-            return state
         case FETCH_GRADIENT_COLORS:
             return state
         case SET_CUSTOM_GRADIENT_COLORS:
@@ -65,9 +61,21 @@ export default function reducer(state = DEFAULT_STATE, action) {
                     ...action.value,
                 ],
             };
+        case SAVE_GLOBAL_COLORS:
+        case SAVE_CUSTOM_COLORS:
+        case SAVE_GRADIENT_COLORS:
         case SAVE_CUSTOM_GRADIENT_COLORS:
-            return state
+            return {
+                ...state
+            }
         case FETCH_CUSTOM_GRADIENT_COLORS:
+            return state
+        case SET_IS_SAVING:
+            return {
+                ...state,
+                isSaving: action.value,
+            };
+        case FETCH_IS_SAVING:
             return state
         default:
             return state;

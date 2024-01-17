@@ -85,6 +85,7 @@ class HTMegaWrapperLink_Elementor {
 		$htmega_wrapper_link = $element->get_settings_for_display( 'htmega_element_link' );
 
 		if ( $htmega_wrapper_link && ! empty( $htmega_wrapper_link['url'] ) ) {
+			$htmega_wrapper_link['url'] =  esc_url( $htmega_wrapper_link['url'] );
 			$element->add_render_attribute(
 				'_wrapper',
 				[

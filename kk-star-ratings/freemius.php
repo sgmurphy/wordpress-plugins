@@ -20,10 +20,12 @@ if ( ! function_exists( 'kksr_freemius' ) ) {
                 'type'                => 'plugin',
                 'public_key'          => 'pk_e6d3c068ac8b44274990af9fc9eeb',
                 'is_premium'          => false,
-                'has_addons'          => true,
+                'has_addons'          => false,
                 'has_paid_plans'      => false,
                 'menu'                => array(
                     'slug'           => 'kk-star-ratings',
+                    'support' => false,
+                    'contact' => false
                 ),
             ) );
         }

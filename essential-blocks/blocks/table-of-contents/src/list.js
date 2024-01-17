@@ -12,7 +12,7 @@ const List = (props) => {
         listStyle,
     } = props.attributes;
 
-    const getDynamicValue = (value) => {
+    const getDynamicValue = async (value) => {
         let data = new FormData();
         data.append("action", "dynamic_field_value");
         data.append("value", value);
@@ -38,28 +38,31 @@ const List = (props) => {
             .catch((err) => console.log(err));
     };
 
-    const [dynamicValues, setDynamicValues] = useState({});
+    const fetchData = async (headers) => {
+        const dynamicValues = {};
 
+        for (const { content } of headers) {
+            let dynamicValue = content;
+
+            if (typeof content === 'string' && content.startsWith(EssentialBlocksProLocalize?.eb_dynamic_tags + '/')) {
+                dynamicValue = await getDynamicValue(content); // Fetch dynamic value for content
+            }
+
+            dynamicValues[content] = dynamicValue;
+        }
+
+        return dynamicValues;
+    };
+
+    const [dynamicValues, setDynamicValues] = useState({});
     useEffect(() => {
         if (typeof EssentialBlocksProLocalize !== "undefined") {
-            const fetchData = async () => {
-                const dynamicValues = {};
-
-                for (let i = 0; i < headers.length; i++) {
-                    const { content } = headers[i];
-                    const dynamicValue = await getDynamicValue(content); // Fetch dynamic value for content
-                    dynamicValues[content] = dynamicValue;
-                }
-
-                setDynamicValues(dynamicValues);
-            };
-
-            fetchData();
+            fetchData(headers).then((dynamicValues) => setDynamicValues(dynamicValues));
         } else {
-            for (let i = 0; i < headers.length; i++) {
-                const { content } = headers[i];
-                dynamicValues[content] = content;
-            }
+            const dynamicValues = headers.reduce((newHeaders, { content }) => {
+                newHeaders[content] = content;
+                return newHeaders;
+            }, {});
 
             setDynamicValues(dynamicValues);
         }
@@ -69,7 +72,7 @@ const List = (props) => {
         let toc = `<${listStyle} class="eb-toc__list">`;
         let stack = [];
         let counter = 0;
-        for (let i = 0; i < data.length; i++) {
+        for (let i = 0;i < data.length;i++) {
             const { level, content, link } = data[i];
 
             while (stack.length > 0 && stack[stack.length - 1].level >= level) {

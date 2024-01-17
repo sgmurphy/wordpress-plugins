@@ -4,7 +4,7 @@
  *
  * @author  YITH <plugins@yithemes.com>
  * @package YITH\AjaxProductFilter\Templates\Filters
- * @version 4.0.0
+ * @version 4.16.0
  */
 
 /**

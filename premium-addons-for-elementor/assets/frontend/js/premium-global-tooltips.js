@@ -15,7 +15,7 @@
             }
 
             var elemType = $scope.data('element_type'),
-                id = $scope.data("tooltip-id"),
+                id = $scope.data("id"),
                 settings = {};
 
             generateSettings(elemType, id);

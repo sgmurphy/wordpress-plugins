@@ -3,7 +3,7 @@ Contributors: dotcamp, ultimateblocks, imtiazrayhan, istiakrayhan, erdembircan, 
 Tags: block, blocks, gutenberg blocks, gutenberg, block editor
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 Requires PHP: 5.6
 License: GPL3+
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
@@ -143,6 +143,23 @@ That's it. You're done!
 3. Tabbed Content Block.
 
 == Changelog ==
+
+= 3.1.1 =
+
+* IMPROVE: Top and bottom space is not same in divider block.
+* IMPROVE: Border control in button block.
+* IMPROVE: Border control in advanced video block.
+* NEW: Vertical orientation for the divider block.
+* NEW: Align full option in image slider block.
+* NEW: Tiktok url support for advanced video block.
+* FIX: Add wp-block block on frontend in all block.
+* FIX: ArgumentCount PHP Error.
+* FIX: Progress bar inside percentage position not working.
+* PRO: FIX: Opposite text breaking in timeline block.
+* PRO: FIX: Icon not showing on frontend in the tabbed content vertical tab.
+* PRO: FIX: Display Author not hiding the author in editor in the post grid block.
+* PRO: FIX: Use Content toggle panel in table of contents block.
+* PRO: FIX: Toggle Show image thumbnails twice breaks the Image slider block.
 
 = 3.1.0 =
 

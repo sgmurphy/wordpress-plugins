@@ -31,7 +31,8 @@ function ub_progress_bar_styles($attributes){
         '--ub-progress-bar-margin-top'       => isset($margin['top']) ? $margin['top']  : "",
         '--ub-progress-bar-margin-right'     => isset($margin['left']) ? $margin['left']  : "",
         '--ub-progress-bar-margin-bottom'    => isset($margin['right']) ? $margin['right']  : "",
-        '--ub-progress-bar-margin-left'      => isset($margin['bottom']) ? $margin['bottom']  : "",        
+        '--ub-progress-bar-margin-left'      => isset($margin['bottom']) ? $margin['bottom']  : "",
+        '--ub-progress-bar-label-font-size'  => isset($attributes['barThickness']) ? ($attributes['barThickness'] + 5) . '%' : "6%",         
     ];
     return ub_generate_css_string($styles);
 }
@@ -46,7 +47,7 @@ function ub_render_progress_bar_block($attributes, $block_content, $block){
     $percentage_position = $attributes['percentagePosition'];
     $is_stripe = $attributes['isStripe'];
 
-    $percentage_text = '<div class="' . $blockName . '-label'. ( $percentage_position === 'top' ? ' ub_progress-bar-label-top' : '' )  . '"' . ($blockID === '' ? ' style="width:' . $percentage . '%;"' : '') . '>' . $percentage . '%</div>';
+    $percentage_text = '<div class="' . $blockName . '-label'. ( $percentage_position === 'top' ? ' ub_progress-bar-label-top' : '' )  . '"' . ($blockID === '' ? ' style="width:' . $percentage . '%;"' : '') . '><p>' . $percentage . '%</p></div>';
 
     $inside_percentage_class = $percentage_position === 'inside' ? " ub_progress-bar-label-inside" : '';
     $stripe_style = $is_stripe ? " ub_progress-bar-stripe" : '';
@@ -120,7 +121,7 @@ function ub_render_progress_bar_block($attributes, $block_content, $block){
     $block_attributes = isset($block->parsed_block["attrs"]) ? $block->parsed_block["attrs"] : $attributes;
     $block_styles = ub_progress_bar_styles($block_attributes);
     
-    return '<div style="' . $block_styles . '" class="ub_progress-bar' . (isset($className) ? ' ' . esc_attr($className) : '').
+    return '<div style="' . $block_styles . '" class="wp-block-ub-progress-bar ub_progress-bar' . (isset($className) ? ' ' . esc_attr($className) : '').
             '"' . ($blockID === '' ? '' : ' id="ub-progress-bar-' . $blockID . '"') . '>
                 '. ( $is_style_circle || $is_style_half_circle ? $detail_text : "" ) . $chosenProgressBar
         . '</div>';

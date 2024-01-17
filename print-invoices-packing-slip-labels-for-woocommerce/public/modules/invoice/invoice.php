@@ -1568,8 +1568,15 @@ class Wf_Woocommerce_Packing_List_Invoice
 				if("" !== trim($wf_invoice_id) || in_array('wc-'.$order->get_status(),$generate_invoice_for)){
 					$print_btn_label	= apply_filters('wt_pklist_alter_document_button_label',$this->print_btn_label,'print','my_account_order_details',$template_type);
 					$download_btn_label	= apply_filters('wt_pklist_alter_document_button_label',$this->download_btn_label,'download','my_account_order_details',$template_type);
-					Wf_Woocommerce_Packing_List::generate_print_button_for_user($order,$order_id,'print_invoice',$print_btn_label);
-					Wf_Woocommerce_Packing_List::generate_print_button_for_user($order,$order_id,'download_invoice',$download_btn_label);
+					
+					if( true === apply_filters('wt_pklist_show_document_button',true,'print','my_account_order_details',$template_type,$order) ) {
+						Wf_Woocommerce_Packing_List::generate_print_button_for_user($order,$order_id,'print_invoice',$print_btn_label);
+					}
+					
+					if( true === apply_filters('wt_pklist_show_document_button',true,'download','my_account_order_details',$template_type,$order) ) {
+						Wf_Woocommerce_Packing_List::generate_print_button_for_user($order,$order_id,'download_invoice',$download_btn_label);
+					}
+					
 				}
 			}
 		}
@@ -1924,7 +1931,7 @@ class Wf_Woocommerce_Packing_List_Invoice
 	 * @return void
 	 */
 	public function document_print_btn_on_wc_order_listing_action_column( $order ) {
-		$show_print_button	= apply_filters('wt_pklist_show_document_print_button_action_column',true,$this->module_base);
+		$show_print_button	= apply_filters('wt_pklist_show_document_print_button_action_column_free', true, $this->module_base, $order);
 
 		if( !empty( $order ) && true === $show_print_button ) {
 			$order_id	= ( WC()->version < '2.7.0' ) ? $order->id : $order->get_id();

@@ -1527,23 +1527,28 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 	 */
 	protected static function get_shipping_address( $template_type, $order = null ) {
 		if ( ! is_null( $order ) ) {
+			$order					= ( WC()->version < '2.7.0' ) ? new WC_Order( $order ) : new wf_order( $order );
+			$order_id				= ( WC()->version < '2.7.0' ) ? $order->id : $order->get_id();
+			$shipping_phone        	= ( WC()->version < '5.6.0' ) ? '' : Wt_Pklist_Common::get_order_meta( $order_id, '_shipping_phone', true );
+			if ( '' !== trim( $shipping_phone ) ) {
+				$shipping_phone = __( 'Phone:', 'print-invoices-packing-slip-labels-for-woocommerce' ) . ' ' . $shipping_phone;
+			}
 			if(!has_filter('wf_pklist_alter_shipping_address')){
-				return $order->get_formatted_shipping_address();
+				$wc_formatted_shipping_address = $order->get_formatted_shipping_address();
+				if ( '' !== trim( $shipping_phone ) ) {
+					$wc_formatted_shipping_address.='<br>'.$shipping_phone;
+				}
+				return $wc_formatted_shipping_address;
 			}
 
 			$the_options           = Wf_Woocommerce_Packing_List::get_settings();
-			$order                 = ( WC()->version < '2.7.0' ) ? new WC_Order( $order ) : new wf_order( $order );
-			$order_id              = ( WC()->version < '2.7.0' ) ? $order->id : $order->get_id();
+			
 			$shipping_address      = array();
 			$countries             = WC()->countries;
 			$shipping_country      = Wt_Pklist_Common::get_order_meta( $order_id, '_shipping_country', true );
 			$shipping_state        = Wt_Pklist_Common::get_order_meta( $order_id, '_shipping_state', true );
 			$shipping_state_full   = ( $shipping_country && $shipping_state && isset( $countries->states[ $shipping_country ][ $shipping_state ] ) ) ? $countries->states[ $shipping_country ][ $shipping_state ] : $shipping_state;
 			$shipping_country_full = ( $shipping_country && isset( $countries->countries[ $shipping_country ] ) ) ? $countries->countries[ $shipping_country ] : $shipping_country;
-			$shipping_phone        = ( WC()->version < '5.6.0' ) ? '' : Wt_Pklist_Common::get_order_meta( $order_id, '_shipping_phone', true );
-			if ( trim( $shipping_phone ) != '' ) {
-				$shipping_phone = __( 'Phone:', 'print-invoices-packing-slip-labels-for-woocommerce' ) . ' ' . $shipping_phone;
-			}
 			$shipping_address = array(
 				'first_name' => $order->shipping_first_name,
 				'last_name'  => $order->shipping_last_name,
@@ -1701,7 +1706,7 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 				'postcode'   => $the_options['woocommerce_wf_packinglist_sender_postalcode'],
 				'country'    => $country_code
 			);
-			$find_replace['[wfte_from_address]'] = WC()->countries->get_formatted_address( $from_address_params );
+			$find_replace['[wfte_from_address]'] = WC()->countries->get_formatted_address( $from_address_params ) .'<br>'.$the_options['woocommerce_wf_packinglist_sender_contact_number'].'<br>'.$the_options['woocommerce_wf_packinglist_sender_vat'];
 		}
 
 		if(!has_filter('wf_pklist_alter_shipping_return_address')){
@@ -1716,7 +1721,7 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 				'postcode'   => $the_options['woocommerce_wf_packinglist_sender_postalcode'],
 				'country'    => $country_code
 			);
-			$find_replace['[wfte_return_address]'] = WC()->countries->get_formatted_address( $return_address_params );
+			$find_replace['[wfte_return_address]'] = WC()->countries->get_formatted_address( $return_address_params ).'<br>'.$the_options['woocommerce_wf_packinglist_sender_contact_number'];
 		}
 		
 		if ( isset( $countries ) ) {
@@ -1952,7 +1957,7 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 		$find_replace['[wfte_billing_address]'] = 'Billing address name <br>20 Maple Avenue <br>San Pedro <br>California <br>United States (US) <br>90731 <br>';
 
 		//Dummy shipping addresss
-		$find_replace['[wfte_shipping_address]'] = 'Shipping address name <br>20 Maple Avenue <br>San Pedro <br>California <br>United States (US) <br>90731 <br>';
+		$find_replace['[wfte_shipping_address]'] = 'Shipping address name <br>20 Maple Avenue <br>San Pedro <br>California <br>United States (US) <br>90731';
 
 		$find_replace['[wfte_vat_number]']                   = '123456';
 		$find_replace['[wfte_ssn_number]']                   = 'SSN123456';

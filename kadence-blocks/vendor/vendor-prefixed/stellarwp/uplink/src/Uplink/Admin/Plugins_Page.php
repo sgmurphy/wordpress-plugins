@@ -229,6 +229,10 @@ class Plugins_Page {
 			return $result;
 		}
 
+		if ( apply_filters( 'stellarwp/uplink/' . $args->slug . '/prevent_update_check', false ) ) {
+			return $result;
+		}
+
 		$plugin = $this->get_plugins()->offsetGet( $args->slug );
 
 		if ( ! $plugin ) {
