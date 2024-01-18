@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'woocommerce/woocommerce-square',
-        'pretty_version' => 'dev-trunk',
-        'version' => 'dev-trunk',
-        'reference' => '633178a30ea70e2163c7ab2de0185f7bfb21fd56',
+        'pretty_version' => 'dev-release/4.4.1',
+        'version' => 'dev-release/4.4.1',
+        'reference' => 'fb127a35851bdced86e76a5b1e2c0eabe5683e30',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'apimatic/core' => array(
-            'pretty_version' => '0.3.2',
-            'version' => '0.3.2.0',
-            'reference' => '32238fb83ce9a3ebef38c726b497c0f218d6e6c9',
+            'pretty_version' => '0.3.3',
+            'version' => '0.3.3.0',
+            'reference' => '984123c831598fc31749d194aa044cd46f227d29',
             'type' => 'library',
             'install_path' => __DIR__ . '/../apimatic/core',
             'aliases' => array(),
@@ -64,19 +64,10 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'woocommerce/action-scheduler' => array(
-            'pretty_version' => '3.6.4',
-            'version' => '3.6.4.0',
-            'reference' => 'e7dafe215be5ef823392204535ee2e241f99a8cb',
-            'type' => 'wordpress-plugin',
-            'install_path' => __DIR__ . '/../woocommerce/action-scheduler',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'woocommerce/woocommerce-square' => array(
-            'pretty_version' => 'dev-trunk',
-            'version' => 'dev-trunk',
-            'reference' => '633178a30ea70e2163c7ab2de0185f7bfb21fd56',
+            'pretty_version' => 'dev-release/4.4.1',
+            'version' => 'dev-release/4.4.1',
+            'reference' => 'fb127a35851bdced86e76a5b1e2c0eabe5683e30',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -77,6 +77,22 @@ class Post
                 $block = $block['innerBlocks'][0];
             }
 
+            // we have a reusable display block.
+            if ('presto-player/reusable-display' === $block['blockName']) {
+                // find the media hub post.
+                if (!empty($block['attrs']['id'])) {
+                    // get the media hub post.
+                    $block_post = get_post($block['attrs']['id']);
+                    // if it has content, get the first block.
+                    if (!empty($block_post->post_content)) {
+                        $inner_blocks = parse_blocks($block_post->post_content);
+                        if (!empty($inner_blocks[0]['innerBlocks'][0])) {
+                            $block = $inner_blocks[0]['innerBlocks'][0];
+                        }
+                    }
+                }
+            }
+
             // find the id attribute in the block
             if (in_array($block['blockName'], Block::getBlockTypes())) {
                 if (!empty($block['attrs']['id'])) {

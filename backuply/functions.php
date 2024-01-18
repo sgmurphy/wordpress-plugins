@@ -950,6 +950,7 @@ function backuply_delete_backup($tar_file) {
 	
 	$files_exists = 0;
 	$backup_infos = backuply_get_backups_info();
+	$is_bcloud = false; // We are using this so we know we need to update the quota too.
 
 	foreach($backup_infos as $backup_info){
 		// Is the backup on a remote location ? 
@@ -959,6 +960,10 @@ function backuply_delete_backup($tar_file) {
 			$remote_stream_wrappers = array('dropbox', 'gdrive', 'softftpes', 'softsftp', 'webdav', 'aws', 'caws', 'onedrive', 'bcloud');
 
 			if(in_array($backuply_remote_backup_locs[$backup_info->backup_location]['protocol'], $remote_stream_wrappers)){
+
+				if($backuply_remote_backup_locs[$backup_info->backup_location]['protocol'] === 'bcloud'){
+					$is_bcloud = true;
+				}
 				
 				if(!defined('BACKUPLY_PRO') && $backuply_remote_backup_locs[$backup_info->backup_location]['protocol'] !== 'gdrive' && $backuply_remote_backup_locs[$backup_info->backup_location]['protocol'] !== 'bcloud') {
 					$error[] = esc_html__('You are trying to access a PRO feature through FREE version', 'backuply');
@@ -1020,6 +1025,20 @@ function backuply_delete_backup($tar_file) {
 		@unlink(BACKUPLY_BACKUP_DIR . $bkey.'_log.php');
 		
 		$deleted = true;
+	}
+
+	// Updating the storage usage of Backuply Cloud.
+	if(!empty($deleted) && !empty($is_bcloud)){
+		$args = ['bcloud'];
+		$schedule_time = wp_next_scheduled('backuply_update_quota', $args);
+
+		// We are scheduling this because it makes a remote call and can take time
+		// So we are pushing it on another request so, deletion can happen smoothly.
+		// We have added a delay of some time so that if there is consecutive deletion
+		// then we only make a single quota updation request.
+		if(empty($schedule_time)){
+			wp_schedule_single_event(time() + 10, 'backuply_update_quota', $args);
+		}
 	}
 	
 	if(file_exists($backup_dir.'/'.$_file)) {
@@ -1680,7 +1699,10 @@ function backuply_restore_curl($info = array()) {
 		'body' => $info,
 		'timeout' => 5,
 		'blocking' => false,
-		'sslverify' => false
+		'sslverify' => false,
+		'headers' => [
+			'Referer' => (!empty($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : 'http') .'://'. $_SERVER['SERVER_NAME'],
+		]
 	);
 
 	wp_remote_post($info['restore_curl_url'], $args);
@@ -1736,4 +1758,90 @@ function backuply_get_quota($protocol){
 	}
 	
 	return false;
+}
+
+function backuply_schedule_quota_updation($location){
+
+	$storage_loc = sanitize_text_field($location);
+	
+	if(empty($storage_loc)){
+		backuply_log(__('No Storage location provided', 'backuply'));
+		return;
+	}
+
+	$quota = backuply_get_quota($storage_loc);
+	
+	if(empty($quota)){
+		backuply_log('Scheduled Quota Update: Nothing returned in quota fetch!');
+		return;
+	}
+	
+	$info = get_option('backuply_remote_backup_locs', []);
+	
+	if(!empty($info)){
+		foreach($info as $key => $locs){
+			if($locs['protocol'] === $storage_loc){
+				$info[$key]['backup_quota'] = (int) $quota['used'];
+				$info[$key]['allocated_storage'] = (int) $quota['total'];
+			}
+		}
+		
+		update_option('backuply_remote_backup_locs', $info);
+	}
+
+	backuply_log('Scheduled Quota Update: Fetched Quota updated successfully!');
+}
+
+// Checks every day if there is any file inside tmp or a backup with dot(.) at start
+// and have not been updated since last 24 hours, then delete them.
+function backuply_delete_tmp(){
+
+	$backup_folder = backuply_glob('backups');
+
+	// Deleting files with dot(.) at start
+	$files = glob($backup_folder .'/.*.tar.gz');
+
+	if(!empty($files)){
+		foreach($files as $file){
+			if(!file_exists($file)){
+				continue;
+			}
+
+			if(filemtime($file) < (time() - 86400)){
+				try{
+					unlink($file);
+					backuply_log('Deletion unsuccessful: '.$file);
+				}catch(Exception $e){
+					backuply_log('Deletion Error: ' . $e->getMessage());
+				}
+			}
+		}
+	}
+
+	// Deleting folders in tmp
+	$folders = glob($backup_folder .'/tmp/*/');
+
+	if(!empty($folders)){
+		foreach($folders as $folder){
+			// We dont need to delete any file in this folder.
+			if(!is_dir($folder)){
+				continue;	
+			}
+
+			if(filemtime($folder) < (time() - 86400)){
+				try{
+					global $wp_filesystem;
+
+					include_once ABSPATH . 'wp-admin/includes/file.php';
+					WP_Filesystem();
+
+					$wp_filesystem->rmdir($folder, true);
+				} catch(Exception $e){
+					backuply_log('Deletion Error: '. $e->getMessage());
+				}
+			}
+		}
+
+	}
+
 }

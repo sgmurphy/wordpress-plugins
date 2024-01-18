@@ -12,7 +12,7 @@ class WPvivid_error_log
         if(!is_dir($dir.DIRECTORY_SEPARATOR.'error'))
         {
             @mkdir($dir.DIRECTORY_SEPARATOR.'error',0777,true);
-            @fopen($dir.DIRECTORY_SEPARATOR.'error'.'/index.html', 'x');
+            //@fopen($dir.DIRECTORY_SEPARATOR.'error'.'/index.html', 'x');
             $tempfile=@fopen($dir.DIRECTORY_SEPARATOR.'error'.'/.htaccess', 'x');
             if($tempfile)
             {
@@ -44,7 +44,7 @@ class WPvivid_error_log
         if(!is_dir($dir.DIRECTORY_SEPARATOR.'wpvivid_log'.DIRECTORY_SEPARATOR.'error'))
         {
             @mkdir($dir.DIRECTORY_SEPARATOR.'wpvivid_log'.DIRECTORY_SEPARATOR.'error',0777,true);
-            @fopen($dir.DIRECTORY_SEPARATOR.'wpvivid_log'.DIRECTORY_SEPARATOR.'error'.'/index.html', 'x');
+            //@fopen($dir.DIRECTORY_SEPARATOR.'wpvivid_log'.DIRECTORY_SEPARATOR.'error'.'/index.html', 'x');
             $tempfile=@fopen($dir.DIRECTORY_SEPARATOR.'wpvivid_log'.DIRECTORY_SEPARATOR.'error'.'/.htaccess', 'x');
             if($tempfile)
             {

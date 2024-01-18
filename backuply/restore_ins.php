@@ -2693,12 +2693,12 @@ function backuply_mysql_fetch_array($result){
 
 function backuply_stream_wrapper_register($protocol, $classname){
 	
-	$protocols = array('dropbox', 'aws', 'gdrive', 'softftpes', 'softsftp', 'ftp', 'webdav', 'onedrive');
+	$protocols = array('dropbox', 'aws', 'caws', 'bcloud', 'gdrive', 'softftpes', 'softsftp', 'ftp', 'webdav', 'onedrive');
 	
 	if(!in_array($protocol, $protocols)){
-		return true;
+		return false;
 	}
-	
+
 	backuply_include_lib($protocol);
 
 	if(!stream_wrapper_register($protocol, $classname)){
@@ -2751,7 +2751,7 @@ function backuply_status_log($log, $status = 'working', $percentage = 0 ){
 	
 	$file = file($log_file);
 	if(0 == filesize($log_file)) {
-		$log = "<?php exit();?>\n" . $log; //Prepend php exit
+		$log = "<?php exit();?>\n" . $log; // Prepend php exit
 	}
 	
 	$this_log = $log . '|' . $status . '|' . $percentage . "\n";
@@ -2882,8 +2882,9 @@ function restore_curl($data) {
 	$curl->setTimeout(5);
 	$curl->setOpt(CURLOPT_SSL_VERIFYPEER, FALSE);
 	$curl->setOpt(CURLOPT_SSL_VERIFYHOST, FALSE);
+	$curl->setReferer((!empty($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : 'http') .'://'. $_SERVER['SERVER_NAME']);
 	
-	$curl->post(backuply_optPOST('restore_curl_url'), $data);	
+	$curl->post(backuply_optPOST('restore_curl_url'), $data);
 	
 	die();
 }
@@ -2909,8 +2910,12 @@ function remote_archive_download_loop(){
 	$url = parse_url($data['remote_tar']);
 	
 	if(!class_exists($url['scheme'])){
-		backuply_include_lib($url['scheme']);
-		backuply_stream_wrapper_register($url['scheme'], $url['scheme']);
+		
+		$did_register = backuply_stream_wrapper_register($url['scheme'], $url['scheme']);
+
+		if(empty($did_register)){
+			backuply_include_lib($url['scheme']);
+		}
 	}
 
 	//Create tmp directory if not present.

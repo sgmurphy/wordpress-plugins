@@ -1018,7 +1018,7 @@ class WPvivid_Staging_Copy_DB
                     {
                         if(isset($column['skip']))
                         {
-                            $wpvivid_plugin->staging->log->WriteLog('Skip MEDIUMBLOB data.', 'notice');
+                            //$wpvivid_plugin->staging->log->WriteLog('Skip MEDIUMBLOB data.', 'notice');
                             continue;
                         }
                         if($column['Field']=='option_name'&&$row[$column['Field']]=='mainwp_child_subpages')

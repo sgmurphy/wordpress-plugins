@@ -170,7 +170,7 @@ class WPvivid_Setting
         if(!is_dir(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$dir['path']))
         {
             @mkdir(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$dir['path'],0777,true);
-            @fopen(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$dir['path'].DIRECTORY_SEPARATOR.'index.html', 'x');
+            //@fopen(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$dir['path'].DIRECTORY_SEPARATOR.'index.html', 'x');
             $tempfile=@fopen(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$dir['path'].DIRECTORY_SEPARATOR.'.htaccess', 'x');
             if($tempfile)
             {

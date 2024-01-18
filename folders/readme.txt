@@ -33,7 +33,7 @@ There are several ways professionals are using the Folders file manager plugin t
 <strong>Note:</strong> adding a page/post/image into a folder will not change its URL. The folders plugin creates virtual folders, it doesn't create actual folders in your server or WordPress installation.
 
 = ▶️ Live Demo =
-A live demo for the Folders plugin is available at <a href="https://demo.premio.io/folders/?utm_source=wordpressorg" target="_blank" title="Premio.io demo site">Premio's demo site</a>.
+A live demo for the Folders plugin is available at <a href="https://folders-demo.premio.io/wp-admin/" target="_blank" title="Premio.io demo site">Premio's demo site</a>.
 
 = 👬Join the Premio community =
 Have any questions or feature suggestions? We'd love to hear from you. <strong><a href="https://www.facebook.com/groups/premioplugins/" target="_blank" title="Premio Facebook group">Join our Facebook group</a></strong> to share ideas and get updates about new features.

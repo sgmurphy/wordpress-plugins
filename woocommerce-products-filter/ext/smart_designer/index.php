@@ -2,7 +2,7 @@
 if (!defined('ABSPATH'))
     die('No direct access allowed');
 
-//18-07-2023
+//18-01-2024
 final class WOOF_SD extends WOOF_EXT {
 
     public $ext_version = '1.0.1';
@@ -184,6 +184,9 @@ final class WOOF_SD extends WOOF_EXT {
                     if (isset($this->outer_templates[$type])) {
                         $args['sd_data'] = $this->outer_templates[$type]['data'];
                     } else {
+						if(!isset($this->types[$type])){
+							$type = "checkbox";
+						}
                         $file = $self->get_ext_path() . "data/{$type}.php";
                         if (is_file($file)) {
                             $args['sd_data'] = include $file;

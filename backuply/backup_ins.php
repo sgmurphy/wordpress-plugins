@@ -1257,7 +1257,7 @@ function backuply_update_status(){
 	}
 
 	$backuply['status']['name'] = $data['name'];
-	$backuply['status']['last_file'] = $GLOBALS['end_file'];
+	$backuply['status']['last_file'] = !empty($GLOBALS['end_file']) ? $GLOBALS['end_file'] : '';
 	$backuply['status']['backup_db'] = $data['backup_db'];
 	$backuply['status']['backup_dir'] = $data['backup_dir'];
 	$backuply['status']['successfile'] = isset($GLOBALS['successfile']) ? $GLOBALS['successfile'] : '';
@@ -1297,6 +1297,10 @@ function backuply_info_json(&$info_data = []){
 	
 	if(isset($data['backup_location']) && !empty($data['backup_location'])){
 		$info_data['backup_location'] = $data['backup_location'];
+	}
+	
+	if(!empty($backuply['status']['backup_note'])){
+		$info_data['backup_note'] = esc_html($backuply['status']['backup_note']);
 	}
 
 	//Encode the Data and store it in a file
@@ -1435,6 +1439,29 @@ Backuply';
 		if(isset($backuply['status']['remote_file_path'])) {
 			backuply_upload_log();
 		}
+
+		// To update the storage data on creation of Backup.
+		if(!empty($backuply['status']['remote_file_path']) && strpos($backuply['status']['remote_file_path'], 'bcloud://') !== FALSE){
+			$args = ['bcloud'];
+			$schedule_time = wp_next_scheduled('backuply_update_quota', $args);
+
+			// Check functions.php function backuply_delete_backup for more info.
+			if(empty($schedule_time)){
+				wp_schedule_single_event(time() + 10, 'backuply_update_quota', $args);
+			}
+		}
+
+		if(!empty($backuply['status']['backup_rotation'])){
+			if(!function_exists('backuply_backup_rotation') && !defined('BACKUPLY_PRO') && file_exists(BACKUPLY_DIR . '/main/bcloud-cron.php')){
+				include_once(BACKUPLY_DIR . '/main/bcloud-cron.php');
+			}
+			
+			// The functions file of Pro Will already be included so we dont need to include it again.
+			// Just in case it wont be included we have to add this check.
+			if(function_exists('backuply_backup_rotation')){
+				backuply_backup_rotation();
+			}
+		}
 	}
 	
 	if(strpos($txt, 'INCOMPLETE') !== FALSE) {
@@ -1479,6 +1506,15 @@ function backuply_clean($data){
 
 // Requests backup via curl
 function backuply_backup_curl($action) {
+	global $data;
+	
+	// Note: A user was having a non zero user ID from a WP Cron request
+	// So this unsets the user id to 0(logged out ID)
+	// Some plugin was causing this dont have more info as user didnt gave access.
+	if(!empty($data['auto_backup']) && !empty(get_current_user_id())){
+		wp_set_current_user(0);
+	}
+
 	$nonce = wp_create_nonce('backuply_nonce');
 
 	if(empty($nonce)) {
@@ -1489,13 +1525,18 @@ function backuply_backup_curl($action) {
 	$url = site_url() . '/?action='.$action.'&security='. $nonce;
 	
 	backuply_status_log('About to call self to prevent timeout', 'info');
-
-	wp_remote_get($url, array(
+	
+	$args = array(
 		'timeout' => 5,
 		'blocking' => false,
-		'cookies' => array(LOGGED_IN_COOKIE => $_COOKIE[LOGGED_IN_COOKIE]),
 		'sslverify' => false
-	));
+	);
+
+	if(!empty($_COOKIE[LOGGED_IN_COOKIE])){
+		$args['cookies'] = array(LOGGED_IN_COOKIE => $_COOKIE[LOGGED_IN_COOKIE]);
+	}
+
+	wp_remote_get($url, $args);
 	
 	die();
 }

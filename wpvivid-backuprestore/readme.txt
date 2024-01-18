@@ -4,7 +4,7 @@ Tags: duplicate, clone, migrate, staging, backup, restore, auto backup, cloud ba
 Requires at least: 4.5
 Tested up to: 6.4.2
 Requires PHP: 5.3
-Stable tag: 0.9.94
+Stable tag: 0.9.95
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -97,6 +97,14 @@ Yes, absolutely. Whenever you need help, start a thread on the [support forum](h
 Yes, we do. Here are the guides for [migrating your site to a new host](https://wpvivid.com/get-started-transfer-site.html), [creating a manual backup](https://wpvivid.com/get-started-create-a-manual-backup.html), [restoring your site from a backup](https://wpvivid.com/get-started-restore-site.html), and more on [our docs page](https://wpvivid.com/documents).
 
 == Changelog ==
+= 0.9.95 =
+- Fixed: Backup to SFTP would fail in some environments.
+- Fixed: Backup to Google Drive would fail in some environments.
+- Fixed: Creating a staging site would fail in some cases.
+- Fixed: Some special characters would not display properly after website migration.
+- Fixed some vulnerabilities in the plugin code.
+- Fixed some bugs in the plugin code.
+- Optimized the plugin code.
 = 0.9.94 =
 - Fixed: Prefix of tables with foreign keys would not be replaced in a migration process.
 - Fixed: Corrupted backups would not be detected in some environments.

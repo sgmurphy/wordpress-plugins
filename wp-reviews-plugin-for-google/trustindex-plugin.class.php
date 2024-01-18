@@ -289,16 +289,30 @@ $settingsPageUrl
 public function add_plugin_action_links($links, $file)
 {
 if (basename($file) === basename($this->plugin_file_path)) {
-$newItem2 = '<a target="_blank" href="https://www.trustindex.io" target="_blank">by <span style="background-color: #4067af; color: white; font-weight: bold; padding: 1px 8px;">Trustindex.io</span></a>';
-$newItem1 = '<a href="' . admin_url('admin.php?page=' . $this->get_plugin_slug() . '/settings.php') . '">' . self::___('Settings') . '</a>';
-array_unshift($links, $newItem2, $newItem1);
+$platformLink = '<a style="background-color: #1a976a; color: white; font-weight: bold; padding: 3px 8px; border-radius: 4px; position: relative; top: 1px" ';
+if (get_option($this->get_option_name('widget-setted-up'), 0)) {
+$platformLink .= 'href="' . admin_url('admin.php?page=' . $this->get_plugin_slug() . '/settings.php&tab=my-reviews') . '">'. self::___('Review Management');
+}
+else {
+$platformLink .= 'href="' . admin_url('admin.php?page=' . $this->get_plugin_slug() . '/settings.php') . '">';
+if (!$this->is_noreg_linked()) {
+$platformLink .= self::___('Connect %s', [ $this->platform_name ]);
+}
+else {
+$platformLink .= self::___('Create Widget');
+}
+}
+$platformLink .= '</a>';
+$settingsLink = '<a href="' . admin_url('admin.php?page=' . $this->get_plugin_slug() . '/settings.php') . '">' . self::___('Settings') . '</a>';
+array_unshift($links, $platformLink, $settingsLink);
 }
 return $links;
 }
 public function add_plugin_meta_links($meta, $file)
 {
 if (basename($file) === basename($this->plugin_file_path)) {
-$meta[] = "<a href='http://wordpress.org/support/view/plugin-reviews/".$this->get_plugin_slug()."' target='_blank' rel='noopener noreferrer' title='" . self::___( 'Rate our plugin') . ': '.$this->plugin_name . "'>" . self::___('Rate our plugin') . '</a>';
+$meta[] = '<a href="'. admin_url('admin.php?page=' . $this->get_plugin_slug() . '/settings.php&tab=get-more-features') .'">'. self::___('Get more Features') . ' →</a>';
+$meta[] = '<a href="http://wordpress.org/support/view/plugin-reviews/'. $this->get_plugin_slug() .'" target="_blank" rel="noopener noreferrer" title="'. self::___( 'Rate our plugin') .': '. $this->plugin_name .'">'. self::___('Rate our plugin') . ' <span style="color: #F6BB07; font-size: 1.2em; line-height: 1; position: relative; top: 0.05em;">★★★★★</span></a>';
 }
 return $meta;
 }
@@ -562,7 +576,7 @@ $filePath = __FILE__;
 if (isset($this->plugin_slugs[ $forcePlatform ])) {
 $filePath = preg_replace('/[^\/\\\\]+([\\\\\/]trustindex-plugin\.class\.php)/', $this->plugin_slugs[ $forcePlatform ] . '$1', $filePath);
 }
-$chosedPlatform = new self($forcePlatform, $filePath, "do-not-care-11.3", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
+$chosedPlatform = new self($forcePlatform, $filePath, "do-not-care-11.3.1", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
 $chosedPlatform->setNotificationParam('not-using-no-widget', 'active', false);
 if (!$chosedPlatform->is_noreg_linked()) {
 return $this->error_box_for_admins(self::___('You have to connect your business (%s)!', [ $forcePlatform ]));

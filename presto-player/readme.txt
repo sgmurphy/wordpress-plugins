@@ -4,7 +4,7 @@ Donate link: https://prestoplayer.com
 Tags: video, audio, youtube, vimeo, lms, elementor, learndash, beaver builder, lifterlms
 Requires at least: 5.6
 Tested up to: 6.4
-Stable tag: 2.0.14
+Stable tag: 2.0.15
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -149,6 +149,9 @@ It is also important to point out that BunnyNet has a $1 per month minimum.
 
 
 == Changelog ==
+
+= 2.0.15 = 
+* Fix: Issue with Learndash video progression not working if media hub is added to lesson instead of a video.
 
 = 2.0.14 = 
 * Improvement: Change default mobile behavior to play inline.

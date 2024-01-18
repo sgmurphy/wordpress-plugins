@@ -9,7 +9,7 @@ Author: Trustindex.io <support@trustindex.io>
 Author URI: https://www.trustindex.io/
 Contributors: trustindex
 License: GPLv2 or later
-Version: 11.3
+Version: 11.3.1
 Text Domain: wp-reviews-plugin-for-google
 Domain Path: /languages/
 Donate link: https://www.trustindex.io/prices/
@@ -19,7 +19,7 @@ Copyright 2019 Trustindex Kft (email: support@trustindex.io)
 */
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 require_once plugin_dir_path( __FILE__ ) . 'trustindex-plugin.class.php';
-$trustindex_pm_google = new TrustindexPlugin_google("google", __FILE__, "11.3", "Widgets for Google Reviews", "Google");
+$trustindex_pm_google = new TrustindexPlugin_google("google", __FILE__, "11.3.1", "Widgets for Google Reviews", "Google");
 register_activation_hook(__FILE__, [ $trustindex_pm_google, 'activate' ]);
 register_deactivation_hook(__FILE__, [ $trustindex_pm_google, 'deactivate' ]);
 add_action('admin_menu', [ $trustindex_pm_google, 'add_setting_menu' ], 10);
@@ -34,7 +34,7 @@ add_action('init', function() {
 global $trustindex_pm_google;
 if (!isset($trustindex_pm_google) || is_null($trustindex_pm_google)) {
 require_once plugin_dir_path( __FILE__ ) . 'trustindex-plugin.class.php';
-$trustindex_pm_google = new TrustindexPlugin_google("google", __FILE__, "11.3", "Widgets for Google Reviews", "Google");
+$trustindex_pm_google = new TrustindexPlugin_google("google", __FILE__, "11.3.1", "Widgets for Google Reviews", "Google");
 }
 $path = wp_upload_dir()['baseurl'] .'/'. $trustindex_pm_google->getCssFile(true);
 if (is_ssl()) {

@@ -41,6 +41,11 @@ class Mappress_Map extends Mappress_Obj {
 
 		// Force left layout
 		$vars['layout'] = 'left';
+		
+		// Dims need to be parsed and sanitized
+		$dims = $this->get_dims();
+		$vars['width'] = $dims->width;
+		$vars['height'] = $dims->height;
 
 		$atts = Mappress::to_atts($vars);
 		$pois = join('', array_map(function($poi) { return $poi->to_html(); }, $this->pois));
@@ -50,7 +55,7 @@ class Mappress_Map extends Mappress_Obj {
 	function to_json() {
 		$json_pois = array();
 		foreach($this->pois as $poi)
-			$json_pois[] = $poi->to_json();
+			$json_pois[] = $poi->to_json(); 
 
 		return array(
 			'mapid' => $this->mapid,
@@ -353,7 +358,7 @@ class Mappress_Map extends Mappress_Obj {
 			$layout_atts = Mappress::to_atts($atts);
 			
 			// Iframes don't size like divs, so require a wrapper div			
-			$wrapper_class = 'mapp-layout mapp-has-iframe' . $alignment_class;
+			$wrapper_class = 'mapp-layout mapp-has-iframe' . $alignment_class; 
 			return "<div id='{$this->name}' class='$wrapper_class' style='$style'>"
 				. "<iframe class='mapp-iframe ' src='$url' scrolling='no' loading='lazy'></iframe>"
 				. "</div>";
@@ -401,14 +406,16 @@ class Mappress_Map extends Mappress_Obj {
 	}
 
 	function get_dims() {
-		$suffix = function($dim) {
-			return (is_string($dim) && (stristr($dim, 'px') || stristr($dim, '%') || stristr($dim, 'vh') || stristr($dim, 'vw'))) ? $dim : ($dim . 'px');
+		$parse = function($dim) {
+			$suffix = 'px';
+			foreach(array('%', 'vh', 'vw') as $s)
+				$suffix = (is_string($dim) && stristr($dim, $s)) ? $s : $suffix;
+			return floatval($dim) . $suffix;
 		};
 		$defaultSize = (isset(Mappress::$options->sizes[Mappress::$options->size])) ? (object) Mappress::$options->sizes[Mappress::$options->size] : (object) Mappress::$options->sizes[0];
-		return (object) array(
-			'width' => ($this->width) ? $suffix($this->width) : $suffix($defaultSize->width),
-			'height' => ($this->height) ? $suffix($this->height) : $suffix($defaultSize->height)
-		);
+		$width = ($this->width) ? $this->width : $defaultSize->width;
+		$height = ($this->height) ? $this->height : $defaultSize->height;
+		return (object) array('width' => $parse($width), 'height' => $parse($height));
 	}
 
 	function get_layout($content = '') {

@@ -4,7 +4,6 @@ if(!defined('ABSPATH')){
 	die('Hacking Attempt!');
 }
 
-
 // Cron for Calling Auto Backup
 add_action('backuply_auto_backup_cron', 'backuply_auto_backup_execute');
 
@@ -37,7 +36,6 @@ function backuply_auto_backup_execute(){
 
 	//$backuply['auto_backup'] = true;
 	backuply_create_log_file();
-	backuply_backup_rotation();
 
 	if($auto_backup_settings = get_option('backuply_cron_settings')){
 		$auto_backup_settings['auto_backup'] = true;
@@ -49,8 +47,8 @@ function backuply_auto_backup_execute(){
 // Rotate the backups
 function backuply_backup_rotation() {
 	global $backuply;
-	
-	if(empty($backuply['cron']['backup_rotation']) || empty($backuply['bcloud_key'])) {
+
+	if(empty($backuply['status']['backup_rotation'])) {
 		return;
 	}
 
@@ -63,7 +61,7 @@ function backuply_backup_rotation() {
 	$backup_info = array_filter($backup_info, 'backuply_bcloud_filter_backups_on_loc');
 	usort($backup_info, 'backuply_bcloud_oldest_backup');
 	
-	if(count($backup_info) >= $backuply['cron']['backup_rotation']) {
+	if(count($backup_info) >= $backuply['status']['backup_rotation']) {
 		if(empty($backup_info[0])) {
 			return;
 		}
@@ -71,10 +69,10 @@ function backuply_backup_rotation() {
 		backuply_log('Deleting Files because of Backup rotation');
 		backuply_status_log('Deleting backup because of Backup rotation', 39);
 		
-		$extra_backups = count($backup_info) - $backuply['cron']['backup_rotation'];
+		$extra_backups = count($backup_info) - $backuply['status']['backup_rotation'];
 		
 		if($extra_backups > 0) {
-			for($i = 0; $i <= $extra_backups; $i++) {
+			for($i = 0; $i < $extra_backups; $i++) {
 				backuply_delete_backup($backup_info[$i]->name .'.'. $backup_info[$i]->ext);
 			}
 		}

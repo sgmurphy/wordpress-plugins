@@ -3748,7 +3748,7 @@ class WPvivid {
      */
     public function restore()
     {
-        //check_ajax_referer( 'wpvivid_ajax', 'nonce' );
+        check_ajax_referer( 'wpvivid_ajax', 'nonce' );
 
         $this->end_shutdown_function=false;
         register_shutdown_function(array($this,'deal_restore_shutdown_error'));
@@ -3957,7 +3957,7 @@ class WPvivid {
     {
         try
         {
-            //check_ajax_referer( 'wpvivid_ajax', 'nonce' );
+            check_ajax_referer( 'wpvivid_ajax', 'nonce' );
             if(!isset($_POST['backup_id'])||empty($_POST['backup_id'])||!is_string($_POST['backup_id']))
             {
                 $this->end_shutdown_function=true;

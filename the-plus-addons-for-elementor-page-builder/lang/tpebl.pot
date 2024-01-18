@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-09 16:17+0530\n"
+"POT-Creation-Date: 2024-01-17 10:35+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,7 +127,7 @@ msgstr ""
 msgid "Accordion"
 msgstr ""
 
-#: includes/theplus_options.php:224 modules/widgets/tp_adv_text_block.php:61
+#: includes/theplus_options.php:224 modules/widgets/tp_adv_text_block.php:51
 msgid "TP Text Block"
 msgstr ""
 
@@ -186,8 +186,8 @@ msgstr ""
 msgid "Button"
 msgstr ""
 
-#: includes/theplus_options.php:341 modules/widgets/tp_caldera_forms.php:28
-#: modules/widgets/tp_caldera_forms.php:48
+#: includes/theplus_options.php:341 modules/widgets/tp_caldera_forms.php:44
+#: modules/widgets/tp_caldera_forms.php:84
 msgid "Caldera Forms"
 msgstr ""
 
@@ -706,9 +706,9 @@ msgid "Search.."
 msgstr ""
 
 #: includes/theplus_options.php:1815 modules/widgets/tp_accordion.php:872
-#: modules/widgets/tp_adv_text_block.php:248
+#: modules/widgets/tp_adv_text_block.php:244
 #: modules/widgets/tp_blockquote.php:2193
-#: modules/widgets/tp_caldera_forms.php:2436
+#: modules/widgets/tp_caldera_forms.php:2454
 #: modules/widgets/tp_contact_form_7.php:1969
 #: modules/widgets/tp_countdown.php:1401
 #: modules/widgets/tp_everest_form.php:1829
@@ -1246,18 +1246,18 @@ msgid "Notable additions made to The Plus Addons for Elementor."
 msgstr ""
 
 #: includes/welcome-page.php:92
-msgid "Fix : Number Counter : Title Gradient color not working"
+msgid "Update : Text Block : Performance and UI Improvements"
 msgstr ""
 
-#: includes/welcome-page.php:93 includes/welcome-page.php:104
-msgid "Add : Number Counter : Digit Gradient Color"
+#: includes/welcome-page.php:93
+msgid "Update : Caldera Form : Performance and UI Improvements"
 msgstr ""
 
 #: includes/welcome-page.php:94
 msgid "Fix : Minor Bug Fixes & Improvements"
 msgstr ""
 
-#: includes/welcome-page.php:97 includes/welcome-page.php:108
+#: includes/welcome-page.php:97 includes/welcome-page.php:107
 msgid "change log"
 msgstr ""
 
@@ -1266,30 +1266,30 @@ msgid "Lite Full Change log"
 msgstr ""
 
 #: includes/welcome-page.php:103
-msgid "Fix : Social Feed : Load More and Lazy Load not working"
+msgid "Fix : Scroll Sequence : Debug error"
 msgstr ""
 
-#: includes/welcome-page.php:105
+#: includes/welcome-page.php:104
 msgid "Fix : Minor bug Fixes & Improvements"
 msgstr ""
 
-#: includes/welcome-page.php:108
+#: includes/welcome-page.php:107
 msgid "Pro Full Change log"
 msgstr ""
 
-#: includes/welcome-page.php:113
+#: includes/welcome-page.php:112
 msgid "Frequently Asked Questions"
 msgstr ""
 
-#: includes/welcome-page.php:114
+#: includes/welcome-page.php:113
 msgid "You might have some, We have tried to answer them all."
 msgstr ""
 
-#: includes/welcome-page.php:117
+#: includes/welcome-page.php:116
 msgid "Are you having Elementor Loading Error?"
 msgstr ""
 
-#: includes/welcome-page.php:118
+#: includes/welcome-page.php:117
 msgid ""
 "After activation of plugin, Are you having elementor editor’s loading error? "
 "If yes, That is the most common issue of elementor regarding to memory "
@@ -1299,43 +1299,43 @@ msgid ""
 "reaching out to your hosting provider)."
 msgstr ""
 
-#: includes/welcome-page.php:121
+#: includes/welcome-page.php:120
 msgid "How to get Help/Support?"
 msgstr ""
 
-#: includes/welcome-page.php:122
+#: includes/welcome-page.php:121
 msgid "You can get "
 msgstr ""
 
-#: includes/welcome-page.php:122
+#: includes/welcome-page.php:121
 msgid "Free support"
 msgstr ""
 
-#: includes/welcome-page.php:122
+#: includes/welcome-page.php:121
 msgid " and to get "
 msgstr ""
 
-#: includes/welcome-page.php:122
+#: includes/welcome-page.php:121
 msgid "Premium support"
 msgstr ""
 
-#: includes/welcome-page.php:122
+#: includes/welcome-page.php:121
 msgid " comes with Pro plan. Join our "
 msgstr ""
 
-#: includes/welcome-page.php:122
+#: includes/welcome-page.php:121
 msgid "Facebook channel "
 msgstr ""
 
-#: includes/welcome-page.php:122
+#: includes/welcome-page.php:121
 msgid " to get help from community."
 msgstr ""
 
-#: includes/welcome-page.php:125
+#: includes/welcome-page.php:124
 msgid "What is this Performance option about?"
 msgstr ""
 
-#: includes/welcome-page.php:126
+#: includes/welcome-page.php:125
 msgid ""
 "First of all, Performance is our highest priority. We have setup caching "
 "architecture in which, It generates One CSS & One JS files for each page. "
@@ -1346,11 +1346,11 @@ msgid ""
 "possible performance."
 msgstr ""
 
-#: includes/welcome-page.php:129
+#: includes/welcome-page.php:128
 msgid "When and Why Need to remove cache?"
 msgstr ""
 
-#: includes/welcome-page.php:130
+#: includes/welcome-page.php:129
 msgid ""
 "When you make any updated in your page and If that is not reflecting "
 "properly in frontend, You need to remove cache. When you click on Purge All "
@@ -1358,22 +1358,22 @@ msgid ""
 "those files when you visit that page for first time."
 msgstr ""
 
-#: includes/welcome-page.php:133
+#: includes/welcome-page.php:132
 msgid "What If I want to remove cache of only one page?"
 msgstr ""
 
-#: includes/welcome-page.php:134
+#: includes/welcome-page.php:133
 msgid ""
 "You can do that from admin bar of page editor. That is available on top for "
 "all pages you check from front end. You will see option “The Plus "
 "Performance” -> “Purge Current Page”."
 msgstr ""
 
-#: includes/welcome-page.php:137
+#: includes/welcome-page.php:136
 msgid "Site is not working well even after removing cache at frontend."
 msgstr ""
 
-#: includes/welcome-page.php:138
+#: includes/welcome-page.php:137
 msgid ""
 "If your website is not working well even after removing cache from above "
 "button. You need to check your 3rd party caching plugin and remove cache "
@@ -1381,161 +1381,161 @@ msgid ""
 "Reload and/or try on incognito mode."
 msgstr ""
 
-#: includes/welcome-page.php:148 includes/notices/class-tp-plugin-page.php:114
+#: includes/welcome-page.php:147 includes/notices/class-tp-plugin-page.php:114
 #: includes/user-experience/class-tp-onbording.php:420
 msgid "Video Tutorials"
 msgstr ""
 
-#: includes/welcome-page.php:149
+#: includes/welcome-page.php:148
 msgid "Checkout Few of our latest video tutorials"
 msgstr ""
 
-#: includes/welcome-page.php:153
+#: includes/welcome-page.php:152
 msgid "Our Full Playlist"
 msgstr ""
 
-#: includes/welcome-page.php:184
+#: includes/welcome-page.php:183
 msgid "Technical Support"
 msgstr ""
 
-#: includes/welcome-page.php:185
+#: includes/welcome-page.php:184
 msgid "Let’s find a solutions for your all your queries."
 msgstr ""
 
-#: includes/welcome-page.php:187
+#: includes/welcome-page.php:186
 msgid ""
 "Tried everything but not found a solution? Our premium support team is "
 "always there for your backup. Just a few quick "
 msgstr ""
 
-#: includes/welcome-page.php:187
+#: includes/welcome-page.php:186
 msgid "steps to take before submitting a ticket."
 msgstr ""
 
-#: includes/welcome-page.php:187
+#: includes/welcome-page.php:186
 msgid " You may read our "
 msgstr ""
 
-#: includes/welcome-page.php:187
+#: includes/welcome-page.php:186
 msgid "Support Policy"
 msgstr ""
 
-#: includes/welcome-page.php:187
+#: includes/welcome-page.php:186
 msgid " to find out, Which things are covered."
 msgstr ""
 
-#: includes/welcome-page.php:189
+#: includes/welcome-page.php:188
 msgid "Support Time : Mon-Fri | 9 AM to 6 PM (Time Zone :UTC+5:30)"
 msgstr ""
 
-#: includes/welcome-page.php:191
+#: includes/welcome-page.php:190
 msgid "Average Response Time : 24 Hours (Weekdays)"
 msgstr ""
 
-#: includes/welcome-page.php:193
+#: includes/welcome-page.php:192
 msgid "Premium Support"
 msgstr ""
 
-#: includes/welcome-page.php:194
+#: includes/welcome-page.php:193
 msgid "Free Support"
 msgstr ""
 
-#: includes/welcome-page.php:199
+#: includes/welcome-page.php:198
 msgid "We are social"
 msgstr ""
 
-#: includes/welcome-page.php:200
+#: includes/welcome-page.php:199
 msgid "Join us to get regular Social Updates."
 msgstr ""
 
-#: includes/welcome-page.php:202
+#: includes/welcome-page.php:201
 msgid ""
 "Get to know about plugin updates, tips & tricks, New Offers and lots more "
 "from our social media accounts."
 msgstr ""
 
-#: includes/welcome-page.php:203 includes/welcome-page.php:205
+#: includes/welcome-page.php:202 includes/welcome-page.php:204
 #: modules/widgets/tp_post_author.php:767
 msgid "facebook"
 msgstr ""
 
-#: includes/welcome-page.php:204 modules/widgets/tp_post_author.php:773
+#: includes/welcome-page.php:203 modules/widgets/tp_post_author.php:773
 msgid "instagram"
 msgstr ""
 
-#: includes/welcome-page.php:206
+#: includes/welcome-page.php:205
 msgid "youtube"
 msgstr ""
 
-#: includes/welcome-page.php:207
+#: includes/welcome-page.php:206
 msgid "pinterest"
 msgstr ""
 
-#: includes/welcome-page.php:208 modules/widgets/tp_post_author.php:770
+#: includes/welcome-page.php:207 modules/widgets/tp_post_author.php:770
 msgid "twitter"
 msgstr ""
 
-#: includes/welcome-page.php:209
+#: includes/welcome-page.php:208
 msgid "blog"
 msgstr ""
 
-#: includes/welcome-page.php:216
+#: includes/welcome-page.php:215
 msgid "Rate Us"
 msgstr ""
 
-#: includes/welcome-page.php:217
+#: includes/welcome-page.php:216
 msgid "Your generous rating motivates us to do even better."
 msgstr ""
 
-#: includes/welcome-page.php:219
+#: includes/welcome-page.php:218
 msgid ""
 "Your reviews will help us to build better product for you. It even helps "
 "other Elementor users to know about our product and your experience."
 msgstr ""
 
-#: includes/welcome-page.php:220
+#: includes/welcome-page.php:219
 msgid "Rate on WordPress"
 msgstr ""
 
-#: includes/welcome-page.php:221
+#: includes/welcome-page.php:220
 msgid "Rate on Facebook"
 msgstr ""
 
-#: includes/welcome-page.php:227
+#: includes/welcome-page.php:226
 msgid "Wish to see your favorite feature in The Plus Addons ?"
 msgstr ""
 
-#: includes/welcome-page.php:230
+#: includes/welcome-page.php:229
 msgid ""
 "Who knows where great ideas start? Your feedback helps us grow together. "
 "#ThePlusFamily ♥ #CraftYourPerfectAddon"
 msgstr ""
 
-#: includes/welcome-page.php:231
+#: includes/welcome-page.php:230
 msgid "Share Feedback"
 msgstr ""
 
-#: includes/welcome-page.php:231
+#: includes/welcome-page.php:230
 #: includes/user-experience/class-tp-onbording.php:410
 msgid "Suggest Feature"
 msgstr ""
 
-#: includes/welcome-page.php:236
+#: includes/welcome-page.php:235
 msgid "Join 14,573 Subscribers"
 msgstr ""
 
-#: includes/welcome-page.php:237
+#: includes/welcome-page.php:236
 msgid "Get the latest updates, Offers and more on your email."
 msgstr ""
 
-#: includes/welcome-page.php:239
+#: includes/welcome-page.php:238
 msgid ""
 "Want to join our newsletter? We share tricks & tips related to The Plus "
 "Addons for Elementor and WordPress itself. On top of that, You will get "
 "timely notifications of new plugin updates, discount offers and lots more."
 msgstr ""
 
-#: includes/welcome-page.php:240
+#: includes/welcome-page.php:239
 msgid "Subscribe Us"
 msgstr ""
 
@@ -1544,11 +1544,11 @@ msgid "By "
 msgstr ""
 
 #: includes/notices/class-tp-dashboard-overview.php:129
-msgid "ThePlus Addons Overview"
+msgid "ThePlus Addons for Elementor Overview"
 msgstr ""
 
 #: includes/notices/class-tp-dashboard-overview.php:186
-msgid "ThePlus Addons "
+msgid "ThePlus Addons  "
 msgstr ""
 
 #: includes/notices/class-tp-dashboard-overview.php:192
@@ -2789,7 +2789,7 @@ msgid "No contact forms found"
 msgstr ""
 
 #: modules/helper-function.php:72 modules/helper-function.php:119
-#: modules/helper-function.php:138 modules/widgets/tp_caldera_forms.php:55
+#: modules/helper-function.php:138 modules/widgets/tp_caldera_forms.php:91
 #: modules/widgets/tp_contact_form_7.php:64
 #: modules/widgets/tp_everest_form.php:62
 #: modules/widgets/tp_gravity_form.php:63
@@ -3524,19 +3524,19 @@ msgstr ""
 #: modules/widgets/tp_blog_listout.php:751
 #: modules/widgets/tp_blog_listout.php:850
 #: modules/widgets/tp_blog_listout.php:900 modules/widgets/tp_button.php:482
-#: modules/widgets/tp_caldera_forms.php:224
-#: modules/widgets/tp_caldera_forms.php:390
-#: modules/widgets/tp_caldera_forms.php:517
-#: modules/widgets/tp_caldera_forms.php:618
-#: modules/widgets/tp_caldera_forms.php:725
-#: modules/widgets/tp_caldera_forms.php:811
-#: modules/widgets/tp_caldera_forms.php:1225
-#: modules/widgets/tp_caldera_forms.php:1412
-#: modules/widgets/tp_caldera_forms.php:1767
-#: modules/widgets/tp_caldera_forms.php:1885
-#: modules/widgets/tp_caldera_forms.php:1979
-#: modules/widgets/tp_caldera_forms.php:2046
-#: modules/widgets/tp_caldera_forms.php:2164
+#: modules/widgets/tp_caldera_forms.php:255
+#: modules/widgets/tp_caldera_forms.php:421
+#: modules/widgets/tp_caldera_forms.php:548
+#: modules/widgets/tp_caldera_forms.php:647
+#: modules/widgets/tp_caldera_forms.php:754
+#: modules/widgets/tp_caldera_forms.php:840
+#: modules/widgets/tp_caldera_forms.php:1252
+#: modules/widgets/tp_caldera_forms.php:1438
+#: modules/widgets/tp_caldera_forms.php:1790
+#: modules/widgets/tp_caldera_forms.php:1908
+#: modules/widgets/tp_caldera_forms.php:2002
+#: modules/widgets/tp_caldera_forms.php:2068
+#: modules/widgets/tp_caldera_forms.php:2185
 #: modules/widgets/tp_clients_listout.php:482
 #: modules/widgets/tp_clients_listout.php:583
 #: modules/widgets/tp_clients_listout.php:681
@@ -3707,8 +3707,8 @@ msgstr ""
 #: modules/controls/group/plus-adv-shadow.php:523
 #: modules/controls/group/plus-adv-shadow.php:671
 #: modules/controls/group/plus-adv-shadow.php:781
-#: modules/widgets/tp_caldera_forms.php:69
-#: modules/widgets/tp_caldera_forms.php:107
+#: modules/widgets/tp_caldera_forms.php:103
+#: modules/widgets/tp_caldera_forms.php:140
 #: modules/widgets/tp_countdown.php:995 modules/widgets/tp_dark_mode.php:277
 #: modules/widgets/tp_dark_mode.php:279 modules/widgets/tp_everest_form.php:74
 #: modules/widgets/tp_everest_form.php:112
@@ -3797,7 +3797,7 @@ msgstr ""
 #: modules/widgets/tp_blockquote.php:1489
 #: modules/widgets/tp_blockquote.php:1542
 #: modules/widgets/tp_blockquote.php:1765
-#: modules/widgets/tp_caldera_forms.php:1662
+#: modules/widgets/tp_caldera_forms.php:1686
 #: modules/widgets/tp_dark_mode.php:286 modules/widgets/tp_dark_mode.php:663
 #: modules/widgets/tp_flip_box.php:697 modules/widgets/tp_flip_box.php:1073
 #: modules/widgets/tp_heading_title.php:360
@@ -3897,13 +3897,13 @@ msgstr ""
 #: modules/widgets/tp_blog_listout.php:766
 #: modules/widgets/tp_blog_listout.php:874
 #: modules/widgets/tp_blog_listout.php:915 modules/widgets/tp_button.php:688
-#: modules/widgets/tp_caldera_forms.php:1279
-#: modules/widgets/tp_caldera_forms.php:1465
-#: modules/widgets/tp_caldera_forms.php:1796
-#: modules/widgets/tp_caldera_forms.php:1927
-#: modules/widgets/tp_caldera_forms.php:1995
-#: modules/widgets/tp_caldera_forms.php:2087
-#: modules/widgets/tp_caldera_forms.php:2205
+#: modules/widgets/tp_caldera_forms.php:1306
+#: modules/widgets/tp_caldera_forms.php:1491
+#: modules/widgets/tp_caldera_forms.php:1819
+#: modules/widgets/tp_caldera_forms.php:1950
+#: modules/widgets/tp_caldera_forms.php:2018
+#: modules/widgets/tp_caldera_forms.php:2109
+#: modules/widgets/tp_caldera_forms.php:2226
 #: modules/widgets/tp_clients_listout.php:500
 #: modules/widgets/tp_clients_listout.php:597
 #: modules/widgets/tp_clients_listout.php:720
@@ -4683,6 +4683,7 @@ msgstr ""
 
 #: modules/widgets/tp_accordion.php:59 modules/widgets/tp_accordion.php:85
 #: modules/widgets/tp_accordion.php:93 modules/widgets/tp_accordion.php:798
+#: modules/widgets/tp_adv_text_block.php:103
 #: modules/widgets/tp_age_gate.php:86 modules/widgets/tp_button.php:101
 #: modules/widgets/tp_contact_form_7.php:57 modules/widgets/tp_flip_box.php:95
 #: modules/widgets/tp_gallery_listout.php:142
@@ -4721,8 +4722,8 @@ msgid "Show Icon"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:124 modules/widgets/tp_accordion.php:174
-#: modules/widgets/tp_adv_text_block.php:165
-#: modules/widgets/tp_adv_text_block.php:203
+#: modules/widgets/tp_adv_text_block.php:160
+#: modules/widgets/tp_adv_text_block.php:199
 #: modules/widgets/tp_age_gate.php:74 modules/widgets/tp_blockquote.php:2008
 #: modules/widgets/tp_blog_listout.php:352
 #: modules/widgets/tp_blog_listout.php:375
@@ -4730,11 +4731,11 @@ msgstr ""
 #: modules/widgets/tp_blog_listout.php:427
 #: modules/widgets/tp_blog_listout.php:454
 #: modules/widgets/tp_blog_listout.php:476
-#: modules/widgets/tp_caldera_forms.php:325
-#: modules/widgets/tp_caldera_forms.php:681
-#: modules/widgets/tp_caldera_forms.php:944
-#: modules/widgets/tp_caldera_forms.php:1110
-#: modules/widgets/tp_caldera_forms.php:1836
+#: modules/widgets/tp_caldera_forms.php:356
+#: modules/widgets/tp_caldera_forms.php:710
+#: modules/widgets/tp_caldera_forms.php:972
+#: modules/widgets/tp_caldera_forms.php:1138
+#: modules/widgets/tp_caldera_forms.php:1859
 #: modules/widgets/tp_clients_listout.php:354
 #: modules/widgets/tp_clients_listout.php:385
 #: modules/widgets/tp_clients_listout.php:407
@@ -4819,8 +4820,8 @@ msgid "Show"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:125 modules/widgets/tp_accordion.php:175
-#: modules/widgets/tp_adv_text_block.php:166
-#: modules/widgets/tp_adv_text_block.php:204
+#: modules/widgets/tp_adv_text_block.php:161
+#: modules/widgets/tp_adv_text_block.php:200
 #: modules/widgets/tp_age_gate.php:75 modules/widgets/tp_blockquote.php:2009
 #: modules/widgets/tp_blog_listout.php:353
 #: modules/widgets/tp_blog_listout.php:376
@@ -4828,11 +4829,11 @@ msgstr ""
 #: modules/widgets/tp_blog_listout.php:428
 #: modules/widgets/tp_blog_listout.php:455
 #: modules/widgets/tp_blog_listout.php:477
-#: modules/widgets/tp_caldera_forms.php:326
-#: modules/widgets/tp_caldera_forms.php:682
-#: modules/widgets/tp_caldera_forms.php:945
-#: modules/widgets/tp_caldera_forms.php:1111
-#: modules/widgets/tp_caldera_forms.php:1837
+#: modules/widgets/tp_caldera_forms.php:357
+#: modules/widgets/tp_caldera_forms.php:711
+#: modules/widgets/tp_caldera_forms.php:973
+#: modules/widgets/tp_caldera_forms.php:1139
+#: modules/widgets/tp_caldera_forms.php:1860
 #: modules/widgets/tp_clients_listout.php:355
 #: modules/widgets/tp_clients_listout.php:386
 #: modules/widgets/tp_clients_listout.php:408
@@ -5008,7 +5009,7 @@ msgid "Title HTML Tag"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:285 modules/widgets/tp_age_gate.php:471
-#: modules/widgets/tp_caldera_forms.php:2402
+#: modules/widgets/tp_caldera_forms.php:2421
 #: modules/widgets/tp_contact_form_7.php:1913
 #: modules/widgets/tp_countdown.php:271 modules/widgets/tp_dark_mode.php:321
 #: modules/widgets/tp_everest_form.php:1795
@@ -5040,7 +5041,7 @@ msgid "Icon"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:316
-#: modules/widgets/tp_adv_text_block.php:136
+#: modules/widgets/tp_adv_text_block.php:122
 #: modules/widgets/tp_age_gate.php:414 modules/widgets/tp_blockquote.php:196
 #: modules/widgets/tp_blockquote.php:213 modules/widgets/tp_blockquote.php:307
 #: modules/widgets/tp_blockquote.php:620 modules/widgets/tp_blockquote.php:925
@@ -5089,8 +5090,8 @@ msgstr ""
 
 #: modules/widgets/tp_accordion.php:390 modules/widgets/tp_age_gate.php:1322
 #: modules/widgets/tp_age_gate.php:1625 modules/widgets/tp_blockquote.php:1444
-#: modules/widgets/tp_button.php:376 modules/widgets/tp_caldera_forms.php:876
-#: modules/widgets/tp_caldera_forms.php:1041
+#: modules/widgets/tp_button.php:376 modules/widgets/tp_caldera_forms.php:904
+#: modules/widgets/tp_caldera_forms.php:1069
 #: modules/widgets/tp_contact_form_7.php:695
 #: modules/widgets/tp_contact_form_7.php:843
 #: modules/widgets/tp_dark_mode.php:410
@@ -5116,8 +5117,8 @@ msgid "Icon Size"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:420 modules/widgets/tp_accordion.php:806
-#: modules/widgets/tp_adv_text_block.php:216
-#: modules/widgets/tp_adv_text_block.php:235
+#: modules/widgets/tp_adv_text_block.php:212
+#: modules/widgets/tp_adv_text_block.php:231
 #: modules/widgets/tp_age_gate.php:678 modules/widgets/tp_age_gate.php:762
 #: modules/widgets/tp_age_gate.php:901 modules/widgets/tp_age_gate.php:986
 #: modules/widgets/tp_age_gate.php:1140 modules/widgets/tp_age_gate.php:1467
@@ -5180,7 +5181,7 @@ msgid "Title Alignment (Pro Feature)"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:431
-#: modules/widgets/tp_adv_text_block.php:140
+#: modules/widgets/tp_adv_text_block.php:126
 #: modules/widgets/tp_age_gate.php:419 modules/widgets/tp_age_gate.php:447
 #: modules/widgets/tp_age_gate.php:2051 modules/widgets/tp_blockquote.php:200
 #: modules/widgets/tp_blockquote.php:218 modules/widgets/tp_blockquote.php:311
@@ -5188,7 +5189,7 @@ msgstr ""
 #: modules/widgets/tp_blockquote.php:929
 #: modules/widgets/tp_blockquote.php:1392
 #: modules/widgets/tp_blockquote.php:1618 modules/widgets/tp_button.php:235
-#: modules/widgets/tp_caldera_forms.php:1552
+#: modules/widgets/tp_caldera_forms.php:1577
 #: modules/widgets/tp_contact_form_7.php:86
 #: modules/widgets/tp_contact_form_7.php:1041
 #: modules/widgets/tp_gravity_form.php:194
@@ -5225,12 +5226,12 @@ msgid "Left"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:435
-#: modules/widgets/tp_adv_text_block.php:144
+#: modules/widgets/tp_adv_text_block.php:130
 #: modules/widgets/tp_age_gate.php:423 modules/widgets/tp_age_gate.php:451
 #: modules/widgets/tp_blockquote.php:220 modules/widgets/tp_blockquote.php:315
 #: modules/widgets/tp_blockquote.php:628 modules/widgets/tp_blockquote.php:933
 #: modules/widgets/tp_blockquote.php:1396 modules/widgets/tp_button.php:239
-#: modules/widgets/tp_caldera_forms.php:1556
+#: modules/widgets/tp_caldera_forms.php:1581
 #: modules/widgets/tp_contact_form_7.php:90
 #: modules/widgets/tp_contact_form_7.php:1045
 #: modules/widgets/tp_gravity_form.php:198
@@ -5263,13 +5264,13 @@ msgid "Center"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:439
-#: modules/widgets/tp_adv_text_block.php:148
+#: modules/widgets/tp_adv_text_block.php:134
 #: modules/widgets/tp_age_gate.php:427 modules/widgets/tp_age_gate.php:455
 #: modules/widgets/tp_age_gate.php:2090 modules/widgets/tp_blockquote.php:201
 #: modules/widgets/tp_blockquote.php:219 modules/widgets/tp_blockquote.php:319
 #: modules/widgets/tp_blockquote.php:632 modules/widgets/tp_blockquote.php:937
 #: modules/widgets/tp_blockquote.php:1400 modules/widgets/tp_button.php:243
-#: modules/widgets/tp_caldera_forms.php:1560
+#: modules/widgets/tp_caldera_forms.php:1585
 #: modules/widgets/tp_contact_form_7.php:94
 #: modules/widgets/tp_contact_form_7.php:1049
 #: modules/widgets/tp_dark_mode.php:203
@@ -5542,7 +5543,7 @@ msgid "Position"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:601 modules/widgets/tp_accordion.php:779
-#: modules/widgets/tp_caldera_forms.php:1324
+#: modules/widgets/tp_caldera_forms.php:1351
 #: modules/widgets/tp_navigation_menu_lite.php:630
 #: modules/widgets/tp_navigation_menu_lite.php:1002
 #: modules/widgets/tp_navigation_menu_lite.php:1115
@@ -5565,26 +5566,26 @@ msgid "Title Background"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:813
-#: modules/widgets/tp_adv_text_block.php:223
+#: modules/widgets/tp_adv_text_block.php:219
 #: modules/widgets/tp_age_gate.php:1026 modules/widgets/tp_age_gate.php:1080
 #: modules/widgets/tp_age_gate.php:1184 modules/widgets/tp_age_gate.php:1248
 #: modules/widgets/tp_age_gate.php:1507 modules/widgets/tp_age_gate.php:1561
 #: modules/widgets/tp_blockquote.php:396 modules/widgets/tp_blockquote.php:428
-#: modules/widgets/tp_button.php:489 modules/widgets/tp_caldera_forms.php:230
-#: modules/widgets/tp_caldera_forms.php:275
-#: modules/widgets/tp_caldera_forms.php:624
-#: modules/widgets/tp_caldera_forms.php:650
-#: modules/widgets/tp_caldera_forms.php:865
-#: modules/widgets/tp_caldera_forms.php:1030
-#: modules/widgets/tp_caldera_forms.php:1231
-#: modules/widgets/tp_caldera_forms.php:1285
-#: modules/widgets/tp_caldera_forms.php:1330
-#: modules/widgets/tp_caldera_forms.php:1418
-#: modules/widgets/tp_caldera_forms.php:1471
-#: modules/widgets/tp_caldera_forms.php:1773
-#: modules/widgets/tp_caldera_forms.php:1802
-#: modules/widgets/tp_caldera_forms.php:2295
-#: modules/widgets/tp_caldera_forms.php:2358
+#: modules/widgets/tp_button.php:489 modules/widgets/tp_caldera_forms.php:261
+#: modules/widgets/tp_caldera_forms.php:306
+#: modules/widgets/tp_caldera_forms.php:653
+#: modules/widgets/tp_caldera_forms.php:679
+#: modules/widgets/tp_caldera_forms.php:893
+#: modules/widgets/tp_caldera_forms.php:1058
+#: modules/widgets/tp_caldera_forms.php:1258
+#: modules/widgets/tp_caldera_forms.php:1312
+#: modules/widgets/tp_caldera_forms.php:1357
+#: modules/widgets/tp_caldera_forms.php:1444
+#: modules/widgets/tp_caldera_forms.php:1497
+#: modules/widgets/tp_caldera_forms.php:1796
+#: modules/widgets/tp_caldera_forms.php:1825
+#: modules/widgets/tp_caldera_forms.php:2315
+#: modules/widgets/tp_caldera_forms.php:2378
 #: modules/widgets/tp_contact_form_7.php:185
 #: modules/widgets/tp_contact_form_7.php:210
 #: modules/widgets/tp_contact_form_7.php:465
@@ -5682,10 +5683,10 @@ msgid "Hover Style"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:881
-#: modules/widgets/tp_adv_text_block.php:257
+#: modules/widgets/tp_adv_text_block.php:253
 #: modules/widgets/tp_blockquote.php:2202
 #: modules/widgets/tp_blog_listout.php:990 modules/widgets/tp_button.php:1173
-#: modules/widgets/tp_caldera_forms.php:2445
+#: modules/widgets/tp_caldera_forms.php:2462
 #: modules/widgets/tp_clients_listout.php:851
 #: modules/widgets/tp_contact_form_7.php:1978
 #: modules/widgets/tp_countdown.php:1516
@@ -5710,8 +5711,8 @@ msgid "On Scroll View Animation"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:888
-#: modules/widgets/tp_adv_text_block.php:264
-#: modules/widgets/tp_caldera_forms.php:2452
+#: modules/widgets/tp_adv_text_block.php:260
+#: modules/widgets/tp_caldera_forms.php:2469
 #: modules/widgets/tp_everest_form.php:1845
 #: modules/widgets/tp_gravity_form.php:2548
 #: modules/widgets/tp_progress_bar.php:857
@@ -5719,10 +5720,10 @@ msgid "In Animation Effect"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:898
-#: modules/widgets/tp_adv_text_block.php:274
+#: modules/widgets/tp_adv_text_block.php:270
 #: modules/widgets/tp_blockquote.php:2219
 #: modules/widgets/tp_blog_listout.php:1008 modules/widgets/tp_button.php:1190
-#: modules/widgets/tp_caldera_forms.php:2462
+#: modules/widgets/tp_caldera_forms.php:2479
 #: modules/widgets/tp_clients_listout.php:869
 #: modules/widgets/tp_contact_form_7.php:1995
 #: modules/widgets/tp_countdown.php:1533
@@ -5747,10 +5748,10 @@ msgid "Animation Delay"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:918
-#: modules/widgets/tp_adv_text_block.php:294
+#: modules/widgets/tp_adv_text_block.php:290
 #: modules/widgets/tp_blockquote.php:2239
 #: modules/widgets/tp_blog_listout.php:1066 modules/widgets/tp_button.php:1210
-#: modules/widgets/tp_caldera_forms.php:2482
+#: modules/widgets/tp_caldera_forms.php:2499
 #: modules/widgets/tp_clients_listout.php:926
 #: modules/widgets/tp_contact_form_7.php:2015
 #: modules/widgets/tp_countdown.php:1553
@@ -5775,15 +5776,15 @@ msgid "Animation Duration"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:930 modules/widgets/tp_accordion.php:999
-#: modules/widgets/tp_adv_text_block.php:306
-#: modules/widgets/tp_adv_text_block.php:375
+#: modules/widgets/tp_adv_text_block.php:302
+#: modules/widgets/tp_adv_text_block.php:371
 #: modules/widgets/tp_blockquote.php:2251
 #: modules/widgets/tp_blockquote.php:2320
 #: modules/widgets/tp_blog_listout.php:1078
 #: modules/widgets/tp_blog_listout.php:1147 modules/widgets/tp_button.php:1222
 #: modules/widgets/tp_button.php:1291
-#: modules/widgets/tp_caldera_forms.php:2494
-#: modules/widgets/tp_caldera_forms.php:2563
+#: modules/widgets/tp_caldera_forms.php:2511
+#: modules/widgets/tp_caldera_forms.php:2580
 #: modules/widgets/tp_clients_listout.php:938
 #: modules/widgets/tp_clients_listout.php:1007
 #: modules/widgets/tp_contact_form_7.php:2027
@@ -5826,10 +5827,10 @@ msgid "Duration Speed"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:951
-#: modules/widgets/tp_adv_text_block.php:327
+#: modules/widgets/tp_adv_text_block.php:323
 #: modules/widgets/tp_blockquote.php:2272
 #: modules/widgets/tp_blog_listout.php:1099 modules/widgets/tp_button.php:1243
-#: modules/widgets/tp_caldera_forms.php:2515
+#: modules/widgets/tp_caldera_forms.php:2532
 #: modules/widgets/tp_clients_listout.php:959
 #: modules/widgets/tp_contact_form_7.php:2048
 #: modules/widgets/tp_countdown.php:1583
@@ -5854,10 +5855,10 @@ msgid "Out Animation Effect"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:965
-#: modules/widgets/tp_adv_text_block.php:341
+#: modules/widgets/tp_adv_text_block.php:337
 #: modules/widgets/tp_blockquote.php:2286
 #: modules/widgets/tp_blog_listout.php:1113 modules/widgets/tp_button.php:1257
-#: modules/widgets/tp_caldera_forms.php:2529
+#: modules/widgets/tp_caldera_forms.php:2546
 #: modules/widgets/tp_clients_listout.php:973
 #: modules/widgets/tp_contact_form_7.php:2062
 #: modules/widgets/tp_countdown.php:1597
@@ -5882,10 +5883,10 @@ msgid "Out Animation Delay"
 msgstr ""
 
 #: modules/widgets/tp_accordion.php:986
-#: modules/widgets/tp_adv_text_block.php:362
+#: modules/widgets/tp_adv_text_block.php:358
 #: modules/widgets/tp_blockquote.php:2307
 #: modules/widgets/tp_blog_listout.php:1134 modules/widgets/tp_button.php:1278
-#: modules/widgets/tp_caldera_forms.php:2550
+#: modules/widgets/tp_caldera_forms.php:2567
 #: modules/widgets/tp_clients_listout.php:994
 #: modules/widgets/tp_contact_form_7.php:2083
 #: modules/widgets/tp_countdown.php:1618
@@ -5909,11 +5910,7 @@ msgstr ""
 msgid "Out Animation Duration"
 msgstr ""
 
-#: modules/widgets/tp_adv_text_block.php:117
-msgid "Advanced Text Block"
-msgstr ""
-
-#: modules/widgets/tp_adv_text_block.php:126
+#: modules/widgets/tp_adv_text_block.php:112
 #: modules/widgets/tp_flip_box.php:361 modules/widgets/tp_info_box.php:205
 msgid ""
 "I am text block. Click edit button to change this text. Lorem ipsum dolor "
@@ -5921,7 +5918,7 @@ msgid ""
 "ullamcorper mattis, pulvinar dapibus leo."
 msgstr ""
 
-#: modules/widgets/tp_adv_text_block.php:127
+#: modules/widgets/tp_adv_text_block.php:113
 #: modules/widgets/tp_flip_box.php:362
 #: modules/widgets/tp_heading_animation.php:135
 #: modules/widgets/tp_info_box.php:206
@@ -5930,35 +5927,62 @@ msgstr ""
 msgid "Type your description here"
 msgstr ""
 
-#: modules/widgets/tp_adv_text_block.php:152
+#: modules/widgets/tp_adv_text_block.php:138
 #: modules/widgets/tp_blockquote.php:323
 #: modules/widgets/tp_heading_title.php:197
 msgid "Justify"
 msgstr ""
 
-#: modules/widgets/tp_adv_text_block.php:174
+#: modules/widgets/tp_adv_text_block.php:151
+#: modules/widgets/tp_blockquote.php:337
+#: modules/widgets/tp_blog_listout.php:333
+#: modules/widgets/tp_blog_listout.php:958
+#: modules/widgets/tp_clients_listout.php:337
+#: modules/widgets/tp_clients_listout.php:819
+#: modules/widgets/tp_contact_form_7.php:108
+#: modules/widgets/tp_flip_box.php:1903
+#: modules/widgets/tp_gallery_listout.php:288
+#: modules/widgets/tp_gallery_listout.php:1043
+#: modules/widgets/tp_gravity_form.php:108
+#: modules/widgets/tp_header_extras.php:2640
+#: modules/widgets/tp_info_box.php:2430
+#: modules/widgets/tp_navigation_menu_lite.php:139
+#: modules/widgets/tp_navigation_menu_lite.php:1427
+#: modules/widgets/tp_number_counter.php:1799
+#: modules/widgets/tp_page_scroll.php:148
+#: modules/widgets/tp_post_title.php:148
+#: modules/widgets/tp_scroll_navigation.php:1053
+#: modules/widgets/tp_social_embed.php:2239
+#: modules/widgets/tp_tabs_tours.php:1270
+#: modules/widgets/tp_team_member_listout.php:517
+#: modules/widgets/tp_team_member_listout.php:1102
+#: modules/widgets/tp_testimonial_listout.php:1734
+msgid "Extra Options"
+msgstr ""
+
+#: modules/widgets/tp_adv_text_block.php:170
 #: modules/widgets/tp_heading_title.php:235
 #: modules/widgets/tp_heading_title.php:293
 msgid "Limit on"
 msgstr ""
 
-#: modules/widgets/tp_adv_text_block.php:177
+#: modules/widgets/tp_adv_text_block.php:173
 #: modules/widgets/tp_heading_title.php:238
 #: modules/widgets/tp_heading_title.php:296
 msgid "Character"
 msgstr ""
 
-#: modules/widgets/tp_adv_text_block.php:178
+#: modules/widgets/tp_adv_text_block.php:174
 #: modules/widgets/tp_heading_title.php:239
 #: modules/widgets/tp_heading_title.php:297
 msgid "Word"
 msgstr ""
 
-#: modules/widgets/tp_adv_text_block.php:188
+#: modules/widgets/tp_adv_text_block.php:184
 msgid "Count"
 msgstr ""
 
-#: modules/widgets/tp_adv_text_block.php:201
+#: modules/widgets/tp_adv_text_block.php:197
 #: modules/widgets/tp_heading_title.php:264
 #: modules/widgets/tp_heading_title.php:322
 msgid "Display Dots"
@@ -6145,12 +6169,12 @@ msgstr ""
 #: modules/widgets/tp_age_gate.php:489 modules/widgets/tp_blockquote.php:1501
 #: modules/widgets/tp_blockquote.php:1554
 #: modules/widgets/tp_blockquote.php:1704
-#: modules/widgets/tp_caldera_forms.php:1241
-#: modules/widgets/tp_caldera_forms.php:1295
-#: modules/widgets/tp_caldera_forms.php:1340
-#: modules/widgets/tp_caldera_forms.php:1428
-#: modules/widgets/tp_caldera_forms.php:1481
-#: modules/widgets/tp_caldera_forms.php:2368
+#: modules/widgets/tp_caldera_forms.php:1268
+#: modules/widgets/tp_caldera_forms.php:1322
+#: modules/widgets/tp_caldera_forms.php:1367
+#: modules/widgets/tp_caldera_forms.php:1454
+#: modules/widgets/tp_caldera_forms.php:1507
+#: modules/widgets/tp_caldera_forms.php:2388
 #: modules/widgets/tp_countdown.php:529 modules/widgets/tp_countdown.php:571
 #: modules/widgets/tp_countdown.php:612 modules/widgets/tp_countdown.php:1408
 #: modules/widgets/tp_dark_mode.php:456 modules/widgets/tp_dark_mode.php:504
@@ -6236,22 +6260,22 @@ msgstr ""
 #: modules/widgets/tp_blog_listout.php:859
 #: modules/widgets/tp_blog_listout.php:883 modules/widgets/tp_button.php:592
 #: modules/widgets/tp_button.php:606 modules/widgets/tp_button.php:827
-#: modules/widgets/tp_caldera_forms.php:424
-#: modules/widgets/tp_caldera_forms.php:482
-#: modules/widgets/tp_caldera_forms.php:747
-#: modules/widgets/tp_caldera_forms.php:786
-#: modules/widgets/tp_caldera_forms.php:1002
-#: modules/widgets/tp_caldera_forms.php:1168
-#: modules/widgets/tp_caldera_forms.php:1259
-#: modules/widgets/tp_caldera_forms.php:1446
-#: modules/widgets/tp_caldera_forms.php:1910
-#: modules/widgets/tp_caldera_forms.php:1952
-#: modules/widgets/tp_caldera_forms.php:2068
-#: modules/widgets/tp_caldera_forms.php:2109
-#: modules/widgets/tp_caldera_forms.php:2186
-#: modules/widgets/tp_caldera_forms.php:2227
-#: modules/widgets/tp_caldera_forms.php:2321
-#: modules/widgets/tp_caldera_forms.php:2386
+#: modules/widgets/tp_caldera_forms.php:455
+#: modules/widgets/tp_caldera_forms.php:513
+#: modules/widgets/tp_caldera_forms.php:776
+#: modules/widgets/tp_caldera_forms.php:815
+#: modules/widgets/tp_caldera_forms.php:1030
+#: modules/widgets/tp_caldera_forms.php:1196
+#: modules/widgets/tp_caldera_forms.php:1286
+#: modules/widgets/tp_caldera_forms.php:1472
+#: modules/widgets/tp_caldera_forms.php:1933
+#: modules/widgets/tp_caldera_forms.php:1975
+#: modules/widgets/tp_caldera_forms.php:2090
+#: modules/widgets/tp_caldera_forms.php:2131
+#: modules/widgets/tp_caldera_forms.php:2207
+#: modules/widgets/tp_caldera_forms.php:2248
+#: modules/widgets/tp_caldera_forms.php:2341
+#: modules/widgets/tp_caldera_forms.php:2406
 #: modules/widgets/tp_clients_listout.php:705
 #: modules/widgets/tp_clients_listout.php:743
 #: modules/widgets/tp_contact_form_7.php:306
@@ -6415,15 +6439,15 @@ msgstr ""
 #: modules/widgets/tp_blockquote.php:700 modules/widgets/tp_blockquote.php:914
 #: modules/widgets/tp_blockquote.php:1425
 #: modules/widgets/tp_blockquote.php:1995 modules/widgets/tp_button.php:424
-#: modules/widgets/tp_caldera_forms.php:88
-#: modules/widgets/tp_caldera_forms.php:201
-#: modules/widgets/tp_caldera_forms.php:588
-#: modules/widgets/tp_caldera_forms.php:1205
-#: modules/widgets/tp_caldera_forms.php:1392
-#: modules/widgets/tp_caldera_forms.php:1752
-#: modules/widgets/tp_caldera_forms.php:2022
-#: modules/widgets/tp_caldera_forms.php:2151
-#: modules/widgets/tp_caldera_forms.php:2265
+#: modules/widgets/tp_caldera_forms.php:121
+#: modules/widgets/tp_caldera_forms.php:232
+#: modules/widgets/tp_caldera_forms.php:617
+#: modules/widgets/tp_caldera_forms.php:1232
+#: modules/widgets/tp_caldera_forms.php:1418
+#: modules/widgets/tp_caldera_forms.php:1775
+#: modules/widgets/tp_caldera_forms.php:2044
+#: modules/widgets/tp_caldera_forms.php:2172
+#: modules/widgets/tp_caldera_forms.php:2285
 #: modules/widgets/tp_contact_form_7.php:166
 #: modules/widgets/tp_contact_form_7.php:446
 #: modules/widgets/tp_contact_form_7.php:1204
@@ -6477,8 +6501,8 @@ msgstr ""
 #: modules/widgets/tp_blockquote.php:1413
 #: modules/widgets/tp_blockquote.php:1984
 #: modules/widgets/tp_blog_listout.php:835 modules/widgets/tp_button.php:435
-#: modules/widgets/tp_caldera_forms.php:1194
-#: modules/widgets/tp_caldera_forms.php:1380
+#: modules/widgets/tp_caldera_forms.php:1221
+#: modules/widgets/tp_caldera_forms.php:1406
 #: modules/widgets/tp_countdown.php:622 modules/widgets/tp_countdown.php:1414
 #: modules/widgets/tp_flip_box.php:1445
 #: modules/widgets/tp_gravity_form.php:1044
@@ -6530,14 +6554,14 @@ msgstr ""
 #: modules/widgets/tp_blockquote.php:1563
 #: modules/widgets/tp_blockquote.php:1713
 #: modules/widgets/tp_blockquote.php:1883
-#: modules/widgets/tp_caldera_forms.php:1252
-#: modules/widgets/tp_caldera_forms.php:1439
-#: modules/widgets/tp_caldera_forms.php:2061
-#: modules/widgets/tp_caldera_forms.php:2102
-#: modules/widgets/tp_caldera_forms.php:2179
-#: modules/widgets/tp_caldera_forms.php:2220
-#: modules/widgets/tp_caldera_forms.php:2314
-#: modules/widgets/tp_caldera_forms.php:2379
+#: modules/widgets/tp_caldera_forms.php:1279
+#: modules/widgets/tp_caldera_forms.php:1465
+#: modules/widgets/tp_caldera_forms.php:2083
+#: modules/widgets/tp_caldera_forms.php:2124
+#: modules/widgets/tp_caldera_forms.php:2200
+#: modules/widgets/tp_caldera_forms.php:2241
+#: modules/widgets/tp_caldera_forms.php:2334
+#: modules/widgets/tp_caldera_forms.php:2399
 #: modules/widgets/tp_countdown.php:1040 modules/widgets/tp_countdown.php:1086
 #: modules/widgets/tp_countdown.php:1132 modules/widgets/tp_countdown.php:1178
 #: modules/widgets/tp_countdown.php:1369 modules/widgets/tp_countdown.php:1449
@@ -6803,32 +6827,6 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#: modules/widgets/tp_blockquote.php:337
-#: modules/widgets/tp_blog_listout.php:333
-#: modules/widgets/tp_blog_listout.php:958
-#: modules/widgets/tp_clients_listout.php:337
-#: modules/widgets/tp_clients_listout.php:819
-#: modules/widgets/tp_contact_form_7.php:108
-#: modules/widgets/tp_flip_box.php:1903
-#: modules/widgets/tp_gallery_listout.php:288
-#: modules/widgets/tp_gallery_listout.php:1043
-#: modules/widgets/tp_gravity_form.php:108
-#: modules/widgets/tp_header_extras.php:2640
-#: modules/widgets/tp_info_box.php:2430
-#: modules/widgets/tp_navigation_menu_lite.php:139
-#: modules/widgets/tp_navigation_menu_lite.php:1427
-#: modules/widgets/tp_number_counter.php:1799
-#: modules/widgets/tp_page_scroll.php:148
-#: modules/widgets/tp_post_title.php:148
-#: modules/widgets/tp_scroll_navigation.php:1053
-#: modules/widgets/tp_social_embed.php:2239
-#: modules/widgets/tp_tabs_tours.php:1270
-#: modules/widgets/tp_team_member_listout.php:517
-#: modules/widgets/tp_team_member_listout.php:1102
-#: modules/widgets/tp_testimonial_listout.php:1734
-msgid "Extra Options"
-msgstr ""
-
 #: modules/widgets/tp_blockquote.php:343 modules/widgets/tp_blockquote.php:507
 msgid "Drop Cap"
 msgstr ""
@@ -6989,11 +6987,11 @@ msgid "Corner Size"
 msgstr ""
 
 #: modules/widgets/tp_blockquote.php:2006
-#: modules/widgets/tp_caldera_forms.php:323
-#: modules/widgets/tp_caldera_forms.php:679
-#: modules/widgets/tp_caldera_forms.php:942
-#: modules/widgets/tp_caldera_forms.php:1108
-#: modules/widgets/tp_caldera_forms.php:1834
+#: modules/widgets/tp_caldera_forms.php:354
+#: modules/widgets/tp_caldera_forms.php:708
+#: modules/widgets/tp_caldera_forms.php:970
+#: modules/widgets/tp_caldera_forms.php:1136
+#: modules/widgets/tp_caldera_forms.php:1857
 #: modules/widgets/tp_clients_listout.php:634
 #: modules/widgets/tp_contact_form_7.php:238
 #: modules/widgets/tp_contact_form_7.php:518
@@ -7037,11 +7035,11 @@ msgid "Box Border"
 msgstr ""
 
 #: modules/widgets/tp_blockquote.php:2016 modules/widgets/tp_button.php:530
-#: modules/widgets/tp_button.php:736 modules/widgets/tp_caldera_forms.php:334
-#: modules/widgets/tp_caldera_forms.php:689
-#: modules/widgets/tp_caldera_forms.php:953
-#: modules/widgets/tp_caldera_forms.php:1119
-#: modules/widgets/tp_caldera_forms.php:1845
+#: modules/widgets/tp_button.php:736 modules/widgets/tp_caldera_forms.php:365
+#: modules/widgets/tp_caldera_forms.php:718
+#: modules/widgets/tp_caldera_forms.php:981
+#: modules/widgets/tp_caldera_forms.php:1147
+#: modules/widgets/tp_caldera_forms.php:1868
 #: modules/widgets/tp_clients_listout.php:645
 #: modules/widgets/tp_contact_form_7.php:249
 #: modules/widgets/tp_contact_form_7.php:529
@@ -7089,17 +7087,17 @@ msgstr ""
 
 #: modules/widgets/tp_blockquote.php:2038
 #: modules/widgets/tp_blockquote.php:2087 modules/widgets/tp_button.php:575
-#: modules/widgets/tp_button.php:647 modules/widgets/tp_caldera_forms.php:399
-#: modules/widgets/tp_caldera_forms.php:458
-#: modules/widgets/tp_caldera_forms.php:734
-#: modules/widgets/tp_caldera_forms.php:772
-#: modules/widgets/tp_caldera_forms.php:988
-#: modules/widgets/tp_caldera_forms.php:1154
-#: modules/widgets/tp_caldera_forms.php:1305
-#: modules/widgets/tp_caldera_forms.php:1350
-#: modules/widgets/tp_caldera_forms.php:1491
-#: modules/widgets/tp_caldera_forms.php:1894
-#: modules/widgets/tp_caldera_forms.php:1936
+#: modules/widgets/tp_button.php:647 modules/widgets/tp_caldera_forms.php:430
+#: modules/widgets/tp_caldera_forms.php:489
+#: modules/widgets/tp_caldera_forms.php:763
+#: modules/widgets/tp_caldera_forms.php:801
+#: modules/widgets/tp_caldera_forms.php:1016
+#: modules/widgets/tp_caldera_forms.php:1182
+#: modules/widgets/tp_caldera_forms.php:1332
+#: modules/widgets/tp_caldera_forms.php:1377
+#: modules/widgets/tp_caldera_forms.php:1517
+#: modules/widgets/tp_caldera_forms.php:1917
+#: modules/widgets/tp_caldera_forms.php:1959
 #: modules/widgets/tp_clients_listout.php:690
 #: modules/widgets/tp_clients_listout.php:729
 #: modules/widgets/tp_contact_form_7.php:291
@@ -7184,11 +7182,11 @@ msgid "Border Color"
 msgstr ""
 
 #: modules/widgets/tp_blockquote.php:2049 modules/widgets/tp_button.php:553
-#: modules/widgets/tp_button.php:773 modules/widgets/tp_caldera_forms.php:359
-#: modules/widgets/tp_caldera_forms.php:704
-#: modules/widgets/tp_caldera_forms.php:968
-#: modules/widgets/tp_caldera_forms.php:1134
-#: modules/widgets/tp_caldera_forms.php:1862
+#: modules/widgets/tp_button.php:773 modules/widgets/tp_caldera_forms.php:390
+#: modules/widgets/tp_caldera_forms.php:733
+#: modules/widgets/tp_caldera_forms.php:996
+#: modules/widgets/tp_caldera_forms.php:1162
+#: modules/widgets/tp_caldera_forms.php:1885
 #: modules/widgets/tp_clients_listout.php:660
 #: modules/widgets/tp_contact_form_7.php:264
 #: modules/widgets/tp_contact_form_7.php:544
@@ -7240,9 +7238,9 @@ msgid "Border Width"
 msgstr ""
 
 #: modules/widgets/tp_blockquote.php:2152
-#: modules/widgets/tp_caldera_forms.php:508
-#: modules/widgets/tp_caldera_forms.php:802
-#: modules/widgets/tp_caldera_forms.php:1970
+#: modules/widgets/tp_caldera_forms.php:539
+#: modules/widgets/tp_caldera_forms.php:831
+#: modules/widgets/tp_caldera_forms.php:1993
 #: modules/widgets/tp_contact_form_7.php:351
 #: modules/widgets/tp_contact_form_7.php:631
 #: modules/widgets/tp_contact_form_7.php:1389
@@ -8030,14 +8028,14 @@ msgstr ""
 msgid "Interval Shake Duration"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:76
-#: modules/widgets/tp_caldera_forms.php:178
-#: modules/widgets/tp_caldera_forms.php:576
-#: modules/widgets/tp_caldera_forms.php:1738
-#: modules/widgets/tp_caldera_forms.php:2033
-#: modules/widgets/tp_caldera_forms.php:2140
-#: modules/widgets/tp_caldera_forms.php:2276
-#: modules/widgets/tp_caldera_forms.php:2339
+#: modules/widgets/tp_caldera_forms.php:110
+#: modules/widgets/tp_caldera_forms.php:210
+#: modules/widgets/tp_caldera_forms.php:606
+#: modules/widgets/tp_caldera_forms.php:1761
+#: modules/widgets/tp_caldera_forms.php:2055
+#: modules/widgets/tp_caldera_forms.php:2161
+#: modules/widgets/tp_caldera_forms.php:2296
+#: modules/widgets/tp_caldera_forms.php:2359
 #: modules/widgets/tp_clients_listout.php:622
 #: modules/widgets/tp_contact_form_7.php:155
 #: modules/widgets/tp_contact_form_7.php:434
@@ -8080,19 +8078,19 @@ msgstr ""
 msgid "Inner Padding"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:118
+#: modules/widgets/tp_caldera_forms.php:151
 #: modules/widgets/tp_everest_form.php:123
 msgid "Inline/Description Text"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:129
+#: modules/widgets/tp_caldera_forms.php:162
 #: modules/widgets/tp_everest_form.php:134
 #: modules/widgets/tp_gravity_form.php:372
 #: modules/widgets/tp_ninja_form.php:178 modules/widgets/tp_wp_forms.php:174
 msgid "Required Symbol"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:142
+#: modules/widgets/tp_caldera_forms.php:174
 #: modules/widgets/tp_contact_form_7.php:131
 #: modules/widgets/tp_everest_form.php:147
 #: modules/widgets/tp_gravity_form.php:462
@@ -8100,8 +8098,8 @@ msgstr ""
 msgid "Input Fields Styling"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:165
-#: modules/widgets/tp_caldera_forms.php:607
+#: modules/widgets/tp_caldera_forms.php:197
+#: modules/widgets/tp_caldera_forms.php:636
 #: modules/widgets/tp_contact_form_7.php:145
 #: modules/widgets/tp_contact_form_7.php:424
 #: modules/widgets/tp_everest_form.php:165
@@ -8114,12 +8112,12 @@ msgstr ""
 msgid "Placeholder Color"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:269
-#: modules/widgets/tp_caldera_forms.php:449
-#: modules/widgets/tp_caldera_forms.php:541
-#: modules/widgets/tp_caldera_forms.php:644
-#: modules/widgets/tp_caldera_forms.php:763
-#: modules/widgets/tp_caldera_forms.php:825
+#: modules/widgets/tp_caldera_forms.php:300
+#: modules/widgets/tp_caldera_forms.php:480
+#: modules/widgets/tp_caldera_forms.php:572
+#: modules/widgets/tp_caldera_forms.php:673
+#: modules/widgets/tp_caldera_forms.php:792
+#: modules/widgets/tp_caldera_forms.php:854
 #: modules/widgets/tp_contact_form_7.php:204
 #: modules/widgets/tp_contact_form_7.php:318
 #: modules/widgets/tp_contact_form_7.php:374
@@ -8152,11 +8150,11 @@ msgstr ""
 msgid "Focus"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:315
-#: modules/widgets/tp_caldera_forms.php:671
-#: modules/widgets/tp_caldera_forms.php:934
-#: modules/widgets/tp_caldera_forms.php:1100
-#: modules/widgets/tp_caldera_forms.php:1826
+#: modules/widgets/tp_caldera_forms.php:346
+#: modules/widgets/tp_caldera_forms.php:700
+#: modules/widgets/tp_caldera_forms.php:962
+#: modules/widgets/tp_caldera_forms.php:1128
+#: modules/widgets/tp_caldera_forms.php:1849
 #: modules/widgets/tp_contact_form_7.php:230
 #: modules/widgets/tp_contact_form_7.php:510
 #: modules/widgets/tp_contact_form_7.php:748
@@ -8185,14 +8183,14 @@ msgstr ""
 msgid "Border Options"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:569
+#: modules/widgets/tp_caldera_forms.php:599
 #: modules/widgets/tp_everest_form.php:485
 #: modules/widgets/tp_gravity_form.php:750
 #: modules/widgets/tp_ninja_form.php:525 modules/widgets/tp_wp_forms.php:578
 msgid "Textarea Fields Styling"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:843
+#: modules/widgets/tp_caldera_forms.php:871
 #: modules/widgets/tp_contact_form_7.php:672
 #: modules/widgets/tp_everest_form.php:759
 #: modules/widgets/tp_gravity_form.php:1058
@@ -8200,7 +8198,7 @@ msgstr ""
 msgid "CheckBox/Radio Field"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:852
+#: modules/widgets/tp_caldera_forms.php:880
 #: modules/widgets/tp_contact_form_7.php:681
 #: modules/widgets/tp_everest_form.php:768
 #: modules/widgets/tp_gravity_form.php:1067
@@ -8208,8 +8206,8 @@ msgstr ""
 msgid "Check Box"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:893
-#: modules/widgets/tp_caldera_forms.php:1058
+#: modules/widgets/tp_caldera_forms.php:921
+#: modules/widgets/tp_caldera_forms.php:1086
 #: modules/widgets/tp_everest_form.php:810
 #: modules/widgets/tp_everest_form.php:975
 #: modules/widgets/tp_gravity_form.php:1109
@@ -8219,8 +8217,8 @@ msgstr ""
 msgid "UnChecked Color"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:903
-#: modules/widgets/tp_caldera_forms.php:1068
+#: modules/widgets/tp_caldera_forms.php:931
+#: modules/widgets/tp_caldera_forms.php:1096
 #: modules/widgets/tp_contact_form_7.php:717
 #: modules/widgets/tp_contact_form_7.php:865
 #: modules/widgets/tp_everest_form.php:820
@@ -8234,8 +8232,8 @@ msgstr ""
 msgid "Checked Color"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:913
-#: modules/widgets/tp_caldera_forms.php:1079
+#: modules/widgets/tp_caldera_forms.php:941
+#: modules/widgets/tp_caldera_forms.php:1107
 #: modules/widgets/tp_contact_form_7.php:727
 #: modules/widgets/tp_contact_form_7.php:875
 #: modules/widgets/tp_everest_form.php:830
@@ -8247,8 +8245,8 @@ msgstr ""
 msgid "UnChecked Bg Color"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:924
-#: modules/widgets/tp_caldera_forms.php:1090
+#: modules/widgets/tp_caldera_forms.php:952
+#: modules/widgets/tp_caldera_forms.php:1118
 #: modules/widgets/tp_contact_form_7.php:738
 #: modules/widgets/tp_contact_form_7.php:886
 #: modules/widgets/tp_everest_form.php:841
@@ -8261,7 +8259,7 @@ msgstr ""
 msgid "Checked Bg Color"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1017
+#: modules/widgets/tp_caldera_forms.php:1045
 #: modules/widgets/tp_contact_form_7.php:829
 #: modules/widgets/tp_everest_form.php:934
 #: modules/widgets/tp_gravity_form.php:1233
@@ -8269,74 +8267,74 @@ msgstr ""
 msgid "Radio Button"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1187
+#: modules/widgets/tp_caldera_forms.php:1214
 msgid "Toggle Button"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1373
+#: modules/widgets/tp_caldera_forms.php:1399
 #: modules/widgets/tp_contact_form_7.php:982
 #: modules/widgets/tp_gravity_form.php:1403
 msgid "File/Upload Field"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1513
+#: modules/widgets/tp_caldera_forms.php:1538
 msgid "Section Break / Summary"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1520
+#: modules/widgets/tp_caldera_forms.php:1545
 msgid "Section Break Color"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1538
+#: modules/widgets/tp_caldera_forms.php:1563
 msgid "Summry Heading Color"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1548
+#: modules/widgets/tp_caldera_forms.php:1573
 msgid "Summary Heading  Alignment"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1572
+#: modules/widgets/tp_caldera_forms.php:1597
 #: modules/widgets/tp_gallery_listout.php:492
 #: modules/widgets/tp_post_comment.php:408
 msgid "Bottom Space"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1591
+#: modules/widgets/tp_caldera_forms.php:1616
 msgid "Summry Padding"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1609
+#: modules/widgets/tp_caldera_forms.php:1634
 msgid "Summry Color"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1623
+#: modules/widgets/tp_caldera_forms.php:1647
 msgid "Caldera Special"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1637
+#: modules/widgets/tp_caldera_forms.php:1661
 msgid "Calculation Color"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1648
+#: modules/widgets/tp_caldera_forms.php:1672
 msgid "Consent Field"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1672
+#: modules/widgets/tp_caldera_forms.php:1696
 msgid "Privacy Hover Color"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1682
+#: modules/widgets/tp_caldera_forms.php:1706
 msgid "* Sign Color"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1695
+#: modules/widgets/tp_caldera_forms.php:1718
 #: modules/widgets/tp_contact_form_7.php:1429
 #: modules/widgets/tp_everest_form.php:1104
 #: modules/widgets/tp_ninja_form.php:1022 modules/widgets/tp_wp_forms.php:1467
 msgid "Submit/Send Button"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:1703
+#: modules/widgets/tp_caldera_forms.php:1726
 #: modules/widgets/tp_everest_form.php:1112
 #: modules/widgets/tp_gravity_form.php:1678
 #: modules/widgets/tp_hovercard.php:634 modules/widgets/tp_hovercard.php:2000
@@ -8355,21 +8353,21 @@ msgstr ""
 msgid "Width"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:2015
+#: modules/widgets/tp_caldera_forms.php:2037
 #: modules/widgets/tp_everest_form.php:1392
 #: modules/widgets/tp_gravity_form.php:2083
 #: modules/widgets/tp_ninja_form.php:1299 modules/widgets/tp_wp_forms.php:1759
 msgid "Outer Field"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:2132
+#: modules/widgets/tp_caldera_forms.php:2153
 #: modules/widgets/tp_everest_form.php:1509
 #: modules/widgets/tp_gravity_form.php:2200
 #: modules/widgets/tp_ninja_form.php:1428 modules/widgets/tp_wp_forms.php:1876
 msgid "Form Container"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:2250
+#: modules/widgets/tp_caldera_forms.php:2270
 #: modules/widgets/tp_contact_form_7.php:1706
 #: modules/widgets/tp_everest_form.php:1627
 #: modules/widgets/tp_gravity_form.php:2318
@@ -8377,7 +8375,7 @@ msgstr ""
 msgid "Response Message"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:2259
+#: modules/widgets/tp_caldera_forms.php:2279
 #: modules/widgets/tp_contact_form_7.php:1745
 #: modules/widgets/tp_contact_form_7.php:1844
 #: modules/widgets/tp_everest_form.php:1636
@@ -8387,14 +8385,14 @@ msgstr ""
 msgid "Success"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:2333
+#: modules/widgets/tp_caldera_forms.php:2353
 #: modules/widgets/tp_everest_form.php:1710
 #: modules/widgets/tp_gravity_form.php:2401
 #: modules/widgets/tp_wp_forms.php:2077
 msgid "Validation/Error"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:2410
+#: modules/widgets/tp_caldera_forms.php:2429
 #: modules/widgets/tp_contact_form_7.php:1437
 #: modules/widgets/tp_contact_form_7.php:1921
 #: modules/widgets/tp_everest_form.php:1803
@@ -8406,7 +8404,7 @@ msgstr ""
 msgid "Maximum Width"
 msgstr ""
 
-#: modules/widgets/tp_caldera_forms.php:2588
+#: modules/widgets/tp_caldera_forms.php:2612
 msgid "Please select a Caldera Forms"
 msgstr ""
 

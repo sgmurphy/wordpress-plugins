@@ -75,9 +75,7 @@ class SP_EA_Front_Scripts {
 		$prefix   = defined( 'WP_DEBUG' ) && WP_DEBUG ? '' : '.min';
 
 		// CSS Files.
-		if ( $settings['eap_dequeue_fa_css'] ) {
-			wp_register_style( 'sp-ea-fontello-icons', esc_url( SP_EA_URL . 'public/assets/css/fontello.css' ), array(), SP_EA_VERSION );
-		}
+		wp_register_style( 'sp-ea-fontello-icons', esc_url( SP_EA_URL . 'public/assets/css/fontello.css' ), array(), SP_EA_VERSION );
 		wp_register_style( 'sp-ea-style', esc_url( SP_EA_URL . 'public/assets/css/ea-style.css' ), array(), SP_EA_VERSION );
 		// Admin style of the plugin.
 		wp_register_style( 'sp-ea-style-admin', esc_url( SP_EA_URL . 'admin/css/easy-accordion-free-admin.min.css' ), array(), SP_EA_VERSION, 'all' );

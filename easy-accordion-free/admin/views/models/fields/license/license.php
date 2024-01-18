@@ -49,13 +49,12 @@ if ( ! class_exists( 'SP_EAP_Field_license' ) ) {
 			} else {
 				?>
 				<div class="sp-easy-accordion-license text-center">
-					<h3>You're using Easy Accordion Lite - No License Needed. Enjoy! 🙂</h3>
-					<p>To get access to more premium features, consider <b><a href="https://easyaccordion.io/pricing/?ref=1" target="_blank">Upgrade to Pro!</a></b></p>
+					<h3><?php esc_html_e( 'You\'re using Easy Accordion Lite - No License Needed. Enjoy', 'easy-accordion-free' ); ?>! 🙂</h3>
+					<p><?php esc_html_e( 'Upgrade to Easy Accordion Pro and unlock all the features.', 'easy-accordion-free' ); ?></p>
 					<div class="sp-easy-accordion-license-area">
 						<div class="sp-easy-accordion-license-key">
-							<input class="sp-easy-accordion-license-key-input" type="text" name="" value="">
+							<div class="eap-upgrade-button"><a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><?php esc_html_e( 'Upgrade To Pro Now', 'easy-accordion-free' ); ?></a></div>
 						</div>
-						<input type="submit" class="button-secondary btn-license-save-activate" name="" value="Activate">
 					</div>
 				</div>
 				<?php

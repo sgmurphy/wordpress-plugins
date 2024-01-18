@@ -48,7 +48,7 @@ SP_EAP::createSection(
 // Metabox of the footer section / shortcode section.
 // Set a unique slug-like ID.
 //
-$eap_display_shortcode = 'sp_eap_display_shortcode';
+$eap_display_shortcode = 'sp_eap_display_shortcode_sidebar';
 
 //
 // Create a metabox.

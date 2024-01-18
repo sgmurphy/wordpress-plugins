@@ -2244,12 +2244,12 @@ class S3
 			$combinedHeaders[strtolower($k)] = trim($v);
 		foreach ($amzHeaders as $k => $v) 
 			$combinedHeaders[strtolower($k)] = trim($v);
-		uksort($combinedHeaders, array('self', '__sortMetaHeadersCmp'));
+		uksort($combinedHeaders, array(self::class, '__sortMetaHeadersCmp'));
 
 		// Convert null query string parameters to strings and sort
 		$parameters = array_map('strval', $parameters); 
-		uksort($parameters, array('self', '__sortMetaHeadersCmp'));
-		$queryString = http_build_query($parameters, null, '&', PHP_QUERY_RFC3986);
+		uksort($parameters, array(self::class, '__sortMetaHeadersCmp'));
+		$queryString = http_build_query($parameters, '', '&', PHP_QUERY_RFC3986);
 
 		// Payload
 		$amzPayload = array($method);
@@ -2662,8 +2662,8 @@ final class S3Request
 		curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeaders);
 		curl_setopt($curl, CURLOPT_HEADER, false);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, false);
-		curl_setopt($curl, CURLOPT_WRITEFUNCTION, array(&$this, '__responseWriteCallback'));
-		curl_setopt($curl, CURLOPT_HEADERFUNCTION, array(&$this, '__responseHeaderCallback'));
+		curl_setopt($curl, CURLOPT_WRITEFUNCTION, array($this, '__responseWriteCallback'));
+		curl_setopt($curl, CURLOPT_HEADERFUNCTION, array($this, '__responseHeaderCallback'));
 		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 
 		// Request types
@@ -2744,11 +2744,11 @@ final class S3Request
 	/**
 	* CURL write callback
 	*
-	* @param resource &$curl CURL resource
-	* @param string &$data Data
+	* @param resource $curl CURL resource
+	* @param string $data Data
 	* @return integer
 	*/
-	private function __responseWriteCallback(&$curl, &$data)
+	private function __responseWriteCallback($curl, $data)
 	{
 		if (in_array($this->response->code, array(200, 206, 6)) && $this->fp !== false)
 			return fwrite($this->fp, $data);
@@ -2864,6 +2864,10 @@ class bcloud extends S3 {
 	
 	public $product_name = 'Backuply Cloud';
 	public $app_dir = 'Backuply';
+	public $path = '';
+	public $filename = '';
+	public $filesize = 0;
+	public $url = [];
 
 	public function url_stat($path) {
 		self::set_bcloud_endpoint($path); // Updating endpoint

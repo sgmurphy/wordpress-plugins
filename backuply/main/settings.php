@@ -93,7 +93,7 @@ function backuply_promotion_tmpl() {
 background: linear-gradient(61deg, rgba(56,120,255,1) 0%, rgba(98,178,255,1) 100%);
  color: white; margin-bottom:10px; position:relative;">
 		<h2 style="color:white; margin:0 0 5px 0; padding:0;">Rate us <span class="dashicons dashicons-star-filled"></span></h2>
-		<p style="margin:0; padding:0;">If you find it useful, Please rate and support us.</p>
+		<p style="margin:0; padding:0;"><?php esc_html_e('If you find it useful, Please rate and support us.', 'backuply');?></p>
 	</div>
 	</a>
 	
@@ -103,12 +103,12 @@ background: linear-gradient(61deg, rgba(56,120,255,1) 0%, rgba(98,178,255,1) 100
 			<div class="backuply-cloud-gtext"><div>Backuply</div> <div>Cloud</div></div>
 			<div class="bcloud-banner-content">
 				<ul>
-					<li>Never lose your data with Backuply Cloud.</li>
-					<li>Easy to integrate with Backuply.</li>
-					<li>10 GB of free storage for All Pro users</li>
+					<li>'.__('Never lose your data with Backuply Cloud.', 'backuply').'</li>
+					<li>'.__('Easy to integrate with Backuply.', 'backuply').'</li>
+					<li>'.__('10 GB of free storage for All Pro users', 'backuply').'</li>
 				</ul>
 				<div style="text-align:center;">
-					<a href="https://backuply.com/wordpress-backup-trial" class="backuply-trial-btn" target="_blank">Try Now <span class="dashicons dashicons-external"></span></a>
+					<a href="https://backuply.com/wordpress-backup-trial" class="backuply-trial-btn" target="_blank">'.__('Try Now').' <span class="dashicons dashicons-external"></span></a>
 				</div>
 			</div>
 		</div>';
@@ -1137,8 +1137,11 @@ if(file_exists(BACKUPLY_BACKUP_DIR . 'restoration/restoration.php')){
 						}
 						?>
 					</select>
-					<br>
-					<br>
+					<details style="margin:6px 0 15px 0;">
+						<summary style="color:rgba(56,120,255); cursor:pointer; user-select: none;">Additional Options</summary>
+						<label style="font-weight:500;" for="backup-note"><?php _e('Backup Note(Optional)', 'backuply');?></label><br/>
+						<textarea name="backup_note" id="backup-note" maxlength="80" cols="40" placeholder="<?php _e('You can write maximum of 80 characters', 'backuply'); ?>"></textarea>
+					</details>
 					<input name="backuply_create_backup" class="button action" style="background: #5cb85c; color:white; border:#5cb85c" value="<?php esc_html_e('Create Backup', 'backuply'); ?>" type="submit" <?php echo ($backuply_active ? 'disabled' : '');?>/>
 					<input name="backuply_stop_backup" class="button-secondary" value="<?php esc_html_e('Stop Backup', 'backuply');?>" type="submit" <?php echo ($backuply_active ? '' : 'disabled'); ?>>
 				</form>
@@ -1878,21 +1881,25 @@ if(file_exists(BACKUPLY_BACKUP_DIR . 'restoration/restoration.php')){
 								<input type="checkbox" name="backuply_selected_bak[]" value="'.esc_attr($all_info->name .'.'. $all_info->ext).'"/>
 							</td>
 							<td>
-								<div style="position:relative;" title="'.(!empty($all_info->backup_site_url) ? esc_url($all_info->backup_site_url) : '').'">'.date('jS F Y h:i A', esc_html($all_info->btime));
+								<div style="position:relative;" title="URL where the Backup was created '.(!empty($all_info->backup_site_url) ? esc_url($all_info->backup_site_url) : '').'">'.date('jS F Y h:i A', esc_html($all_info->btime));
 
 						if(!empty($all_info->auto_backup)){
 							echo ' <span class="backuply-auto-mark">Auto</span>';
 						}
 						
-						echo '
-									<span class="dashicons dashicons-media-text backuply-backup-last-log" title="Logs" style="cursor:pointer; text-decoration:none;" data-file-name="'.$all_info->name . '_log.php"></span>
-								</div>
-							</td>';
+						echo '<span class="dashicons dashicons-media-text backuply-backup-last-log" title="Logs" style="cursor:pointer; text-decoration:none;" data-file-name="'.esc_attr($all_info->name) . '_log.php"></span>';
+						
+						if(!empty($all_info->backup_note)){
+							echo '<span class="backuply-backup-note-tip" title="'.esc_attr($all_info->backup_note).'" style="cursor:pointer; vertical-align:middle;"><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512" fill="#f9be01"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H288V368c0-26.5 21.5-48 48-48H448V96c0-35.3-28.7-64-64-64H64zM448 352H402.7 336c-8.8 0-16 7.2-16 16v66.7V480l32-32 64-64 32-32z"/></svg></span>';
+						}
+
+						echo'</div>
+						</td>';
 							
-							$remote_icon = $backup_protocol;
-							if(!empty($s3_compat)){
-								$remote_icon = $s3_compat;
-							}
+						$remote_icon = $backup_protocol;
+						if(!empty($s3_compat)){
+							$remote_icon = $s3_compat;
+						}
 
 						echo '<td>
 							<div style="display:flex; align-items:center;">';

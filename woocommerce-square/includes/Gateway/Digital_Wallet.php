@@ -104,11 +104,17 @@ class Digital_Wallet {
 		$available_pages = $this->get_available_pages();
 
 		if ( ( $is_user_logged_in || ! $is_registration_required ) && in_array( 'product', $available_pages, true ) ) {
-			add_action( 'woocommerce_after_add_to_cart_quantity', array( $this, 'render_button' ) );
+			add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'render_button' ) );
 		}
 
 		if ( ( $is_user_logged_in || ! $is_registration_required ) && in_array( 'cart', $available_pages, true ) ) {
-			add_action( 'woocommerce_proceed_to_checkout', array( $this, 'render_button' ) );
+			/*
+			 * Add Express Pay buttons to cart page.
+			 *
+			 * This is registered to run late (at priority 20) to ensure the buttons are
+			 * added following the default WooCommerce proceed to checkout button.
+			 */
+			add_action( 'woocommerce_proceed_to_checkout', array( $this, 'render_button' ), 20 );
 		}
 
 		if ( ( $is_user_logged_in || ! $is_registration_required || $is_registration_enabled ) && in_array( 'checkout', $available_pages, true ) ) {
@@ -295,7 +301,26 @@ class Digital_Wallet {
 			</div>
 
 			<div id="wc-square-google-pay" lang="<?php echo esc_attr( substr( get_locale(), 0, 2 ) ); ?>"></div>
-			<p id="wc-square-wallet-divider">&ndash; <?php esc_html_e( 'OR', 'woocommerce-square' ); ?> &ndash;</p>
+
+			<?php
+			/**
+			 * Filter whether to show the divider between the Square digital wallet buttons and the checkout.
+			 *
+			 * This filter allows extensions to hide the "-- OR --" divider between express pay/wallet buttons
+			 * and the checkout. This is useful for plugins adding their own express pay/wallet buttons following
+			 * the Square buttons.
+			 *
+			 * @since 4.4.1
+			 *
+			 * @param bool $show_divider Whether to show the divider. Default true.
+			 */
+			$show_divider = apply_filters( 'wp_square_show_digital_wallet_divider_on_checkout', true );
+			if ( $show_divider && is_checkout() ) :
+				?>
+				<p id="wc-square-wallet-divider">&ndash; <?php esc_html_e( 'OR', 'woocommerce-square' ); ?> &ndash;</p>
+				<?php
+			endif;
+			?>
 		</div>
 		<?php
 	}

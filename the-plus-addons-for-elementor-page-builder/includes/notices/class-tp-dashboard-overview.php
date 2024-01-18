@@ -126,7 +126,7 @@ if ( ! class_exists( 'Tp_Dashboard_Overview' ) ) {
 		 */
 		public function tp_dashbord_overview_manage() {
 			add_action( 'admin_enqueue_scripts', array( $this, 'tp_admin_scripts' ), 10, 1 );
-			wp_add_dashboard_widget( 'tp-dashboard-overview', esc_html__( 'ThePlus Addons Overview', 'tpebl' ), array( $this, 'tp_dashboard_overview_widget' ) );
+			wp_add_dashboard_widget( 'tp-dashboard-overview', esc_html__( 'ThePlus Addons for Elementor Overview', 'tpebl' ), array( $this, 'tp_dashboard_overview_widget' ) );
 		}
 
 		/**
@@ -183,7 +183,7 @@ if ( ! class_exists( 'Tp_Dashboard_Overview' ) ) {
 
 				$output         .= '<div class="tp-overview-versions-text">';
 					$output     .= '<span class="tp-overview-version">';
-						$output .= esc_html__( 'ThePlus Addons ', 'tpebl' );
+						$output .= esc_html__( 'ThePlus Addons  ', 'tpebl' );
 						$output .= 'v' . L_THEPLUS_VERSION;
 					$output     .= '</span>';
 

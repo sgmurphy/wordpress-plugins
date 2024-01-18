@@ -10,7 +10,7 @@ if(!function_exists('add_action')){
 	exit;
 }
 
-define('BACKUPLY_VERSION', '1.2.2');
+define('BACKUPLY_VERSION', '1.2.3');
 define('BACKUPLY_DIR', dirname(BACKUPLY_FILE));
 define('BACKUPLY_URL', plugins_url('', BACKUPLY_FILE));
 define('BACKUPLY_BACKUP_DIR', str_replace('\\' , '/', WP_CONTENT_DIR).'/backuply/');
@@ -102,6 +102,8 @@ function backuply_load_plugin(){
 	}
 	
 	add_action('init', 'backuply_handle_self_call'); // To make sure all plugins are loaded.
+	add_action('backuply_clean_tmp', 'backuply_delete_tmp'); // This is for daily cleaning of backups folder.
+	add_action('backuply_update_quota', 'backuply_schedule_quota_updation'); // This is for scheduled quota updation
 	
 	if(file_exists(BACKUPLY_BACKUP_DIR . '.htaccess')) {
 		$backuply['htaccess_error'] = false;
@@ -137,6 +139,11 @@ function backuply_load_plugin(){
 		if($trial_time >= 0 && empty($backuply['bcloud_key']) && $trial_time < (time() - (86400))){
 			$showing_promo = true;
 			add_action('admin_notices', 'backuply_free_trial_promo');
+		}
+
+		// Schedule for backup folder tmp cleanup.
+		if(!wp_next_scheduled('backuply_clean_tmp')){
+			wp_schedule_event(time(), 'backuply_daily', 'backuply_clean_tmp');
 		}
 	}
 	
@@ -439,7 +446,7 @@ function backuply_backup_execute(){
 
 function backuply_handle_self_call(){
 	// CURL call for bacukup when its incomplete
-	if(isset($_GET['action'])  && ($_GET['action'] == 'backuply_curl_backup' || $_GET['action'] == 'backuply_curl_upload')) {
+	if(isset($_GET['action'])  && ($_GET['action'] === 'backuply_curl_backup' || $_GET['action'] === 'backuply_curl_upload')) {
 
 		if(!wp_verify_nonce(backuply_optreq('security'), 'backuply_nonce')){
 			backuply_status_log('Security Check Failed', 'error');

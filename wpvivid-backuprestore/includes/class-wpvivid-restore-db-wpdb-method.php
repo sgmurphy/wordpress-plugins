@@ -8,7 +8,7 @@ class WPvivid_Restore_DB_WPDB_Method
     public function connect_db()
     {
         global $wpdb;
-        $wpdb->get_results('SET NAMES utf8', ARRAY_A);
+        $wpdb->get_results('SET NAMES utf8mb4', ARRAY_A);
         $ret['result']=WPVIVID_SUCCESS;
         return $ret;
     }

@@ -126,7 +126,7 @@ class ProductInfo {
 	 * @since 8.0.0
 	 */
 	public function parent_title() {
-		if ( $this->product->is_type( 'variation' ) ) {
+		if ( $this->product->is_type( 'variation' ) && $this->parent_product ) {
 			$name = CommonHelper::clean_content( $this->parent_product->get_name() );
 		} else {
 			$name = $this->title();
@@ -410,7 +410,7 @@ class ProductInfo {
 	public function parent_link() {
 		$permalink = $this->product->get_permalink();
 
-		if ( $this->product->is_type( 'variation' ) && ! empty( $this->parent_product ) ) {
+		if ( $this->product->is_type( 'variation' ) && $this->parent_product ) {
 			$permalink = $this->parent_product->get_permalink();
 		}
 
@@ -459,7 +459,7 @@ class ProductInfo {
 	public function feature_image() {
 		$image_link = wp_get_attachment_url( $this->product->get_image_id() );
 
-		if ( empty( $image_link ) && $this->product->is_type( 'variation' ) ) {
+		if ( empty( $image_link ) && $this->product->is_type( 'variation' ) && $this->parent_product ) {
 			$image_link = wp_get_attachment_url( $this->parent_product->get_image_id() );
 		}
 
@@ -1454,7 +1454,7 @@ class ProductInfo {
 				}
 
 				// Get Variation Description
-				if ( empty( $description ) && $this->product->is_type( 'variation' ) ) {
+				if ( empty( $description ) && $this->product->is_type( 'variation' ) && $this->parent_product ) {
 					$description = $this->parent_product->get_description();
 				}
 			}

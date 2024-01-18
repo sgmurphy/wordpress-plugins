@@ -21,7 +21,7 @@ class WPvivid_Restore_DB_PDO_Mysql_Method
             }
             $this->db = null;
             $this->db=new PDO($dsn, DB_USER, DB_PASSWORD);
-            $this->db->exec('SET NAMES utf8');
+            $this->db->exec('SET NAMES utf8mb4');
             if(empty($this->db) || !$this->db)
             {
                 if(class_exists('PDO'))

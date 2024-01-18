@@ -392,6 +392,9 @@ class Order {
 		wc_square()->log( 'New order from other gateway inventory syncing..' );
 		$idempotency_key = wc_square()->get_idempotency_key( md5( serialize( $inventory_adjustments ) ) . '_change_inventory' );
 		wc_square()->get_api()->batch_change_inventory( $idempotency_key, $inventory_adjustments );
+
+		// Reset the staged inventory updates.
+		$this->products_to_sync = array();
 	}
 
 	/**

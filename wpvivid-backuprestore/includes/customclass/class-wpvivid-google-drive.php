@@ -696,100 +696,123 @@ class Wpvivid_Google_drive extends WPvivid_Remote
         }
     }
 
-    public function _upload($task_id, $file,$client,$service,$folder_id, $callback = '')
+    public function _upload($task_id, $file,$client,$service,$folder_id, $callback = '', $retry_times=0)
     {
         global $wpvivid_plugin;
         $wpvivid_plugin->wpvivid_log->WriteLog('Check if the server already has the same name file.','notice');
-        if(!$this->delete_exist_file($folder_id,basename($file),$service))
-        {
-            return array('result' =>WPVIVID_FAILED,'error'=>'Uploading '.$file.' to Google Drive server failed. '.$file.' might be deleted or network doesn\'t work properly . Please verify the file and confirm the network connection and try again later.');
-        }
-
-        $upload_job=WPvivid_taskmanager::get_backup_sub_task_progress($task_id,'upload',WPVIVID_REMOTE_GOOGLEDRIVE);
-        $this -> current_file_size = filesize($file);
-        $this -> current_file_name = basename($file);
-
-
-        $fileMetadata = new WPvivid_Google_Service_Drive_DriveFile(array(
-            'name' => basename($file),
-            'parents' => array($folder_id)));
-        $chunk_size = 1 * 1024 * 1024;
-        $client->setDefer(true);
-        $request = $service->files->create($fileMetadata);
-        $media = new WPvivid_Google_Http_MediaFileUpload(
-            $client,
-            $request,
-            'text/plain',
-            null,
-            true,
-            $chunk_size
-        );
-        $media->setFileSize(filesize($file));
-
-        $status = false;
-        $handle = fopen($file, "rb");
-
-        if(!empty($upload_job['job_data'][basename($file)]['resumeUri']))
-        {
-            $media->resume( $upload_job['job_data'][basename($file)]['resumeUri'] );
-
-            $media->setResumeUri($upload_job['job_data'][basename($file)]['resumeUri'] );
-            $media->setProgress($upload_job['job_data'][basename($file)]['progress'] );
-
-            $wpvivid_plugin->wpvivid_log->WriteLog('Resume uploading '.basename($file).'.','notice');
-            $wpvivid_plugin->wpvivid_log->WriteLog('resumeUri:'.$media->getResumeUri().'.','notice');
-            $wpvivid_plugin->wpvivid_log->WriteLog('progress:'.$media->getProgress().'.','notice');
-
-            $offset = $upload_job['job_data'][basename($file)]['progress'];
-            fseek($handle, $offset);
-            WPvivid_taskmanager::update_backup_sub_task_progress($task_id,'upload',WPVIVID_REMOTE_GOOGLEDRIVE,WPVIVID_UPLOAD_UNDO,'Resume uploading '.basename($file).'.',$upload_job['job_data']);
-        }
-        else
-        {
-            $wpvivid_plugin->wpvivid_log->WriteLog('Initiate a resumable upload session.','notice');
-            $offset=0;
-            WPvivid_taskmanager::update_backup_sub_task_progress($task_id,'upload',WPVIVID_REMOTE_GOOGLEDRIVE,WPVIVID_UPLOAD_UNDO,'Start uploading '.basename($file).'.',$upload_job['job_data']);
-        }
-
-        while (!$status && !feof($handle))
-        {
-            $chunk = fread($handle, $chunk_size);
-
-            $status = $media->nextChunk($chunk);
-
-            $offset+=strlen($chunk);
-
-            if((time() - $this -> last_time) >3)
+        try{
+            if(!$this->delete_exist_file($folder_id,basename($file),$service))
             {
-                if(is_callable($callback))
-                {
-                    call_user_func_array($callback,array($offset,$this -> current_file_name,
-                        $this->current_file_size,$this -> last_time,$this -> last_size));
-                }
-                $this -> last_size = $offset;
-                $this -> last_time = time();
+                return array('result' =>WPVIVID_FAILED,'error'=>'Uploading '.$file.' to Google Drive server failed. '.$file.' might be deleted or network doesn\'t work properly . Please verify the file and confirm the network connection and try again later.');
             }
 
-            $upload_job['job_data'][basename($file)]['resumeUri']=$media->getResumeUri();
-            $upload_job['job_data'][basename($file)]['progress']=$media->getProgress();
+            $upload_job=WPvivid_taskmanager::get_backup_sub_task_progress($task_id,'upload',WPVIVID_REMOTE_GOOGLEDRIVE);
+            $this -> current_file_size = filesize($file);
+            $this -> current_file_name = basename($file);
 
-            //$wpvivid_plugin->wpvivid_log->WriteLog('resumeUri:'.$media->getResumeUri().'.','notice');
-            $wpvivid_plugin->wpvivid_log->WriteLog('progress:'.$media->getProgress().'.','notice');
-            WPvivid_taskmanager::update_backup_sub_task_progress($task_id,'upload',WPVIVID_REMOTE_GOOGLEDRIVE,WPVIVID_UPLOAD_SUCCESS,'Uploading '.basename($file),$upload_job['job_data']);
-        }
 
-        fclose($handle);
-        $client->setDefer(false);
-        if ($status != false)
-        {
-            $wpvivid_plugin->wpvivid_log->WriteLog('Finished uploading '.basename($file),'notice');
-            $upload_job['job_data'][basename($file)]['uploaded']=1;
-            WPvivid_taskmanager::update_backup_sub_task_progress($task_id,'upload',WPVIVID_REMOTE_GOOGLEDRIVE,WPVIVID_UPLOAD_SUCCESS,'Uploading '.basename($file).' completed.',$upload_job['job_data']);
-            return array('result' =>WPVIVID_SUCCESS);
+            $fileMetadata = new WPvivid_Google_Service_Drive_DriveFile(array(
+                'name' => basename($file),
+                'parents' => array($folder_id)));
+            $chunk_size = 1 * 1024 * 1024;
+            $client->setDefer(true);
+            $request = $service->files->create($fileMetadata);
+            $media = new WPvivid_Google_Http_MediaFileUpload(
+                $client,
+                $request,
+                'text/plain',
+                null,
+                true,
+                $chunk_size
+            );
+            $media->setFileSize(filesize($file));
+
+            $status = false;
+            $handle = fopen($file, "rb");
+
+            if(!empty($upload_job['job_data'][basename($file)]['resumeUri']))
+            {
+                $media->resume( $upload_job['job_data'][basename($file)]['resumeUri'] );
+
+                $media->setResumeUri($upload_job['job_data'][basename($file)]['resumeUri'] );
+                $media->setProgress($upload_job['job_data'][basename($file)]['progress'] );
+
+                $wpvivid_plugin->wpvivid_log->WriteLog('Resume uploading '.basename($file).'.','notice');
+                $wpvivid_plugin->wpvivid_log->WriteLog('resumeUri:'.$media->getResumeUri().'.','notice');
+                $wpvivid_plugin->wpvivid_log->WriteLog('progress:'.$media->getProgress().'.','notice');
+
+                $offset = $upload_job['job_data'][basename($file)]['progress'];
+                fseek($handle, $offset);
+                WPvivid_taskmanager::update_backup_sub_task_progress($task_id,'upload',WPVIVID_REMOTE_GOOGLEDRIVE,WPVIVID_UPLOAD_UNDO,'Resume uploading '.basename($file).'.',$upload_job['job_data']);
+            }
+            else
+            {
+                $wpvivid_plugin->wpvivid_log->WriteLog('Initiate a resumable upload session.','notice');
+                $offset=0;
+                WPvivid_taskmanager::update_backup_sub_task_progress($task_id,'upload',WPVIVID_REMOTE_GOOGLEDRIVE,WPVIVID_UPLOAD_UNDO,'Start uploading '.basename($file).'.',$upload_job['job_data']);
+            }
+
+
+            while (!$status && !feof($handle))
+            {
+                $chunk = fread($handle, $chunk_size);
+
+                $status = $media->nextChunk($chunk);
+
+                $offset+=strlen($chunk);
+                $retry_times=0;
+
+                if((time() - $this -> last_time) >3)
+                {
+                    if(is_callable($callback))
+                    {
+                        call_user_func_array($callback,array($offset,$this -> current_file_name,
+                            $this->current_file_size,$this -> last_time,$this -> last_size));
+                    }
+                    $this -> last_size = $offset;
+                    $this -> last_time = time();
+                }
+
+                $upload_job['job_data'][basename($file)]['resumeUri']=$media->getResumeUri();
+                $upload_job['job_data'][basename($file)]['progress']=$media->getProgress();
+
+                //$wpvivid_plugin->wpvivid_log->WriteLog('resumeUri:'.$media->getResumeUri().'.','notice');
+                $wpvivid_plugin->wpvivid_log->WriteLog('progress:'.$media->getProgress().'.','notice');
+                WPvivid_taskmanager::update_backup_sub_task_progress($task_id,'upload',WPVIVID_REMOTE_GOOGLEDRIVE,WPVIVID_UPLOAD_SUCCESS,'Uploading '.basename($file),$upload_job['job_data']);
+            }
+
+            fclose($handle);
+            $client->setDefer(false);
+            if ($status != false)
+            {
+                $wpvivid_plugin->wpvivid_log->WriteLog('Finished uploading '.basename($file),'notice');
+                $upload_job['job_data'][basename($file)]['uploaded']=1;
+                WPvivid_taskmanager::update_backup_sub_task_progress($task_id,'upload',WPVIVID_REMOTE_GOOGLEDRIVE,WPVIVID_UPLOAD_SUCCESS,'Uploading '.basename($file).' completed.',$upload_job['job_data']);
+                $wpvivid_plugin->wpvivid_log->WriteLog('Upload success.','notice');
+                return array('result' =>WPVIVID_SUCCESS);
+            }
+            else
+            {
+                $wpvivid_plugin->wpvivid_log->WriteLog('Upload failed.','notice');
+                return array('result' =>WPVIVID_FAILED,'error'=>'Uploading '.$file.' to Google Drive server failed. '.$file.' might be deleted or network doesn\'t work properly. Please verify the file and confirm the network connection and try again later.');
+            }
         }
-        else
+        catch (WPvivid_Google_Service_Exception $e)
         {
-            return array('result' =>WPVIVID_FAILED,'error'=>'Uploading '.$file.' to Google Drive server failed. '.$file.' might be deleted or network doesn\'t work properly. Please verify the file and confirm the network connection and try again later.');
+            $retry_times++;
+            fclose($handle);
+            $client->setDefer(false);
+            $message = 'A exception ('.get_class($e).') occurred '.$e->getMessage().' (Code: '.$e->getCode().', line '.$e->getLine().' in '.$e->getFile().') ';
+            if($retry_times < 15)
+            {
+                $wpvivid_plugin->wpvivid_log->WriteLog('Upload Google_Service_Exception, '.$message.', retry times: '.$retry_times,'notice');
+                return $this->_upload($task_id, $file,$client,$service,$folder_id, $callback, $retry_times);
+            }
+            else
+            {
+                $wpvivid_plugin->wpvivid_log->WriteLog('Upload Google_Service_Exception, retry times: '.$retry_times,'notice');
+                return array('result' =>WPVIVID_PRO_FAILED,'error'=>$message);
+            }
         }
     }
 

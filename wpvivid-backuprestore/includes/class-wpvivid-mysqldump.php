@@ -150,7 +150,7 @@ class WPvivid_Mysqldump
         $this->dbName=$dbname;
         $this->dumpSettings = self::array_replace_recursive($dumpSettingsDefault, $dumpSettings);
 
-        $this->dumpSettings['init_commands'][] = "SET NAMES " . $this->dumpSettings['default-character-set'];
+        $this->dumpSettings['init_commands'][] = "SET NAMES " . WPvivid_Mysqldump::UTF8MB4;
 
         if (false === $this->dumpSettings['skip-tz-utc'])
         {

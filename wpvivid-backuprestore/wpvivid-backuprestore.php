@@ -7,7 +7,7 @@
  * @wordpress-plugin
  * Plugin Name:       WPvivid Backup Plugin
  * Description:       Clone or copy WP sites then move or migrate them to new host (new domain), schedule backups, transfer backups to leading remote storage. All in one.
- * Version:           0.9.94
+ * Version:           0.9.95
  * Author:            WPvivid Team
  * Author URI:        https://wpvivid.com
  * License:           GPL-3.0+
@@ -21,7 +21,7 @@ if ( ! defined( 'WPINC' ) ) {
     die;
 }
 
-define( 'WPVIVID_PLUGIN_VERSION', '0.9.94' );
+define( 'WPVIVID_PLUGIN_VERSION', '0.9.95' );
 //
 define('WPVIVID_RESTORE_INIT','init');
 define('WPVIVID_RESTORE_READY','ready');
@@ -100,6 +100,56 @@ define('WPVIVID_FAILED','failed');
 
 function wpvivid_plugin_activate()
 {
+    $dir=get_option('wpvivid_local_setting');
+
+    if(!isset($dir['path']))
+    {
+        $backup_dir=WPVIVID_DEFAULT_BACKUP_DIR;
+        $backup_log_dir=WPVIVID_DEFAULT_LOG_DIR;
+    }
+    else
+    {
+        $backup_dir=$dir['path'];
+        $backup_log_dir=$dir['path'].DIRECTORY_SEPARATOR.'wpvivid_log';
+    }
+
+    if(!is_dir(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$backup_dir))
+    {
+        @mkdir(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$backup_dir,0777,true);
+        @fopen(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$backup_dir.DIRECTORY_SEPARATOR.'index.html', 'x');
+        $tempfile=@fopen(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$backup_dir.DIRECTORY_SEPARATOR.'.htaccess', 'x');
+        if($tempfile)
+        {
+            $text="<IfModule mod_rewrite.c>\r\nRewriteEngine On\r\nRewriteRule .* - [F,L]\r\n</IfModule>";
+            fwrite($tempfile,$text );
+            fclose($tempfile);
+        }
+    }
+    if(!is_dir(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$backup_log_dir))
+    {
+        @mkdir(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$backup_log_dir,0777,true);
+        @fopen(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$backup_log_dir.DIRECTORY_SEPARATOR.'index.html', 'x');
+        $tempfile=@fopen(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$backup_log_dir.DIRECTORY_SEPARATOR.'.htaccess', 'x');
+        if($tempfile)
+        {
+            $text="<IfModule mod_rewrite.c>\r\nRewriteEngine On\r\nRewriteRule .* - [F,L]\r\n</IfModule>";
+            fwrite($tempfile,$text );
+            fclose($tempfile);
+        }
+    }
+    if(!is_dir(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$backup_log_dir.DIRECTORY_SEPARATOR.'error'))
+    {
+        @mkdir(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$backup_log_dir.DIRECTORY_SEPARATOR.'error',0777,true);
+        @fopen(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$backup_log_dir.DIRECTORY_SEPARATOR.'error'.DIRECTORY_SEPARATOR.'index.html', 'x');
+        $tempfile=@fopen(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$backup_log_dir.DIRECTORY_SEPARATOR.'error'.DIRECTORY_SEPARATOR.'.htaccess', 'x');
+        if($tempfile)
+        {
+            $text="<IfModule mod_rewrite.c>\r\nRewriteEngine On\r\nRewriteRule .* - [F,L]\r\n</IfModule>";
+            fwrite($tempfile,$text );
+            fclose($tempfile);
+        }
+    }
+
     add_option('wpvivid_do_activation_redirect', true);
 }
 function wpvivid_init_plugin_redirect()

@@ -773,7 +773,7 @@ class gdrive{
 		global $error;
 		
 		$headers = array('Authorization: Bearer '.$this->access_token, 'Range: bytes='.$lower_limit.'-'.$upper_limit);
-		$url = 'https://www.googleapis.com/drive/v3/files/'.$this->gdrive_fileid.'?alt=media';
+		$url = 'https://www.googleapis.com/drive/v3/files/'.$this->gdrive_fileid.'?alt=media&acknowledgeAbuse=true';
 		//backuply_log('__read URL : '.$url);
 		
 		$resp = $this->__curl($url, $headers, '', 0, '', 1, 'GET');

@@ -94,7 +94,7 @@ class WPvivid_Log
         if(!is_dir(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$options['log_save_location']))
         {
             @mkdir(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$options['log_save_location'],0777,true);
-            @fopen(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$options['log_save_location'].DIRECTORY_SEPARATOR.'index.html', 'x');
+            //@fopen(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$options['log_save_location'].DIRECTORY_SEPARATOR.'index.html', 'x');
             $tempfile=@fopen(WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$options['log_save_location'].DIRECTORY_SEPARATOR.'.htaccess', 'x');
             if($tempfile)
             {

@@ -371,7 +371,8 @@ class ProductHelper {
 		// Retrieve attribute value from the parent product if it's a variation and the attribute value is empty.
 		if ( '' === $value && $product->is_type( 'variation' ) ) {
 			$parent_product = \wc_get_product( $product->get_parent_id() );
-			$value          = self::fetch_product_attribute( $attr, $parent_product );
+			if($parent_product)
+				$value          = self::fetch_product_attribute( $attr, $parent_product );
 		}
 
 		return apply_filters( 'woo_feed_filter_product_attribute', $value, $attr, $product, $config );

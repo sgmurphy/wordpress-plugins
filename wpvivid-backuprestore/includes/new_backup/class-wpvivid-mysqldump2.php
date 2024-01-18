@@ -156,7 +156,7 @@ class WPvivid_Mysqldump2
 
         $this->dumpSettings = $this->array_replace_recursive($dumpSettingsDefault, $dump_setting);
 
-        $this->dumpSettings['init_commands'][] = "SET NAMES " . WPvivid_Mysqldump2::UTF8;
+        $this->dumpSettings['init_commands'][] = "SET NAMES " . WPvivid_Mysqldump2::UTF8MB4;
 
         if (false === $this->dumpSettings['skip-tz-utc'])
         {

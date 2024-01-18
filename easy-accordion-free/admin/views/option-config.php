@@ -56,15 +56,6 @@ SP_EAP::createSection(
 				'title_info' => __( 'Check this box if you would like Easy Accordion to completely remove all of its data when the plugin is deleted.', 'easy-accordion-free' ),
 				'default'    => false,
 			),
-			array(
-				'id'         => 'eap_dequeue_fa_css',
-				'type'       => 'switcher',
-				'title'      => __( 'Fontello CSS', 'easy-accordion-free' ),
-				'default'    => true,
-				'text_on'    => __( 'enqueue', 'easy-accordion-free' ),
-				'text_off'   => __( 'dequeue', 'easy-accordion-free' ),
-				'text_width' => '92',
-			),
 		),
 	)
 );
@@ -96,7 +87,7 @@ SP_EAP::createSection(
 	array(
 		'id'     => 'custom_css_section',
 		'title'  => __( 'Custom CSS & JS', 'easy-accordion-free' ),
-		'icon'   => 'fa fa-css3',
+		'icon'   => 'fa fa-file-code-o',
 		'fields' => array(
 			array(
 				'id'       => 'ea_custom_css',

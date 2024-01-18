@@ -65,6 +65,7 @@ if ( ! class_exists( 'Tp_Notices_Remove' ) ) {
 		 */
 		public function __construct() {
 			$this->tp_black_friday_2023();
+			$this->tp_widget_notice();
 		}
 
 		/**
@@ -92,9 +93,10 @@ if ( ! class_exists( 'Tp_Notices_Remove' ) ) {
 		}
 
 		/**
-		 * Delete Notice Horizontal Scroll Banner Widget Currency Not active this function
+		 * Delete Notice Horizontal Scroll Banner Widget Currency Not active this function ( 17-01-2024 )
 		 *
 		 * @since 5.3.3
+		 * @version 5.3.4
 		 * @access public
 		 */
 		public function tp_widget_notice() {

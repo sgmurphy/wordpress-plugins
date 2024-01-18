@@ -2414,20 +2414,6 @@
 		sel.addRange(r);
 	}
 
-	// Hide shortcode option on update tab.
-	$("#sp_eap_shortcode_options .eapro-nav-metabox ul li:last-of-type a").addClass("eapro_update_to_pro");
-
-	$(document).on("click", "#sp_eap_shortcode_options .eapro-nav-metabox ul li a", function (event) {
-		event.stopPropagation();
-		var upgrade_pro = $(this).hasClass("eapro_update_to_pro");
-		if (upgrade_pro == true) {
-			$("#sp_eap_display_shortcode").hide();
-		} else {
-			$("#sp_eap_display_shortcode").show();
-		}
-	}
-	);
-
 	function isValidJSONString(str) {
 		try {
 			JSON.parse(str);
@@ -2600,9 +2586,11 @@
 		}
 		if (type.includes(str)) {
 			$(selector + ' .eap-pro-notice').hide();
+			$(selector + ' .theme_preview').css('opacity', '1');
 		} else {
 			var noticeText = "This is a <a href='https://easyaccordion.io/pricing/' target='_blank'>Pro Theme!</a>";
 			$(selector + ' .eap-pro-notice').html(noticeText).show();
+			$(selector + ' .theme_preview').css('opacity', '.6');
 		}
 	}
 	if ($('.sp_eap_accordion_theme').length > 0) {

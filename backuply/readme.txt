@@ -4,7 +4,7 @@ Tags: backup, restore, database backup, cloud backup, wordpress backup, migratio
 Requires at least: 4.7
 Tested up to: 6.4
 Requires PHP: 5.5
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: LGPL v2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -84,6 +84,14 @@ Go To your WordPress install -> Plugins -> Add New Button -> In Search Box searc
 7. **Backup Process** easy to understand backup progress.
 
 == Changelog ==
+
+= 1.2.3 (January 18 2024) =
+* [Feature] Option to add notes to every manual backups.
+* [Bug-Fix] The /backuply/backups folder was getting filled with tmp files or the backup files in case of faliure, which has been fixed, by adding a daily Cron to clean it.
+* [Bug-Fix] Backuply Cloud storage was not getting updated on deletion or Creation of backups, it has been fixed.
+* [Bug-Fix] cPgaurd was blocking restores, this has been fixed.
+* [Bug-Fix] There was an issue while auto backup where security check was failing which has been fixed.
+* [Tweak] Backup Rotation was happening before creation of Backup, which is risky, this has been changed to delete after successful backup.
 
 = 1.2.2 (December 15 2023) =
 * [Security-fix] There was a privilege check failure which has been fixed.
