@@ -175,6 +175,12 @@
          * @return bool true if banner can be displayed
          */
         private function can_be_displayed() {
+          
+          global $pagenow;
+          
+          if ($pagenow == 'post.php' || $pagenow == 'profile.php') {
+            return false;
+          }
 
           $uid = get_current_user_id();
           if (!defined('IRB_H_CHECK_LOADED') && function_exists('get_current_user_id') && isset($uid) && intval($uid) > 0) {

@@ -1,14 +1,5 @@
 <?php
-/* 
-*      Robo Gallery     
-*      Version: 3.2.14 - 40722
-*      By Robosoft
-*
-*      Contact: https://robogallery.co/ 
-*      Created: 2021
-*      Licensed under the GPLv2 license - http://opensource.org/licenses/gpl-2.0.php
-
- */
+/* @@copyright@@ */
 
 if ( ! defined( 'WPINC' ) ) exit;
 
@@ -53,10 +44,10 @@ add_action('admin_head', 'robo_gallery_hide_fieldattachment');
 		$form_fields[ROBO_GALLERY_PREFIX.'gallery_tags'] = array(
 			'label' => __('Tags'),
 			'input' => 'textarea',
-			'value' => get_post_meta( $post->ID, ROBO_GALLERY_PREFIX.'gallery_tags', true ),
+			'value' => sanitize_textarea_field(  get_post_meta( $post->ID, ROBO_GALLERY_PREFIX.'gallery_tags', true ) ),
 		);
 
-		$value = get_post_meta( $post->ID, ROBO_GALLERY_PREFIX.'gallery_col', true );
+		$value = (int) get_post_meta( $post->ID, ROBO_GALLERY_PREFIX.'gallery_col', true );
 		$selectBox = 
 		"<select name='attachments[{$post->ID}][".ROBO_GALLERY_PREFIX."gallery_col]' id='attachments[{$post->ID}][".ROBO_GALLERY_PREFIX."gallery_col]'>
     		<option value='1' ".($value=='1' || !$value?'selected':'').">1</option>
@@ -77,10 +68,10 @@ add_action('admin_head', 'robo_gallery_hide_fieldattachment');
 		$form_fields[ROBO_GALLERY_PREFIX.'gallery_link'] = array(
 			'label' => __('Link'),
 			'input' => 'text',
-			'value' => get_post_meta( $post->ID, ROBO_GALLERY_PREFIX.'gallery_link', true ),
+			'value' => sanitize_url( get_post_meta( $post->ID, ROBO_GALLERY_PREFIX.'gallery_link', true ) ),
 		);
 
-		$value = get_post_meta( $post->ID, ROBO_GALLERY_PREFIX.'gallery_type_link', true );
+		$value = (int) get_post_meta( $post->ID, ROBO_GALLERY_PREFIX.'gallery_type_link', true );
 		$selectBox = 
 		"<select name='attachments[{$post->ID}][".ROBO_GALLERY_PREFIX."gallery_type_link]' id='attachments[{$post->ID}][".ROBO_GALLERY_PREFIX."gallery_type_link]'>
     		<option value='1' ".($value=='1'?'selected':'').">".__( 'On' )."</option>
@@ -98,11 +89,11 @@ add_action('admin_head', 'robo_gallery_hide_fieldattachment');
 		$form_fields[ROBO_GALLERY_PREFIX.'gallery_video_link'] = array(
 			'label' => __('Video'),
 			'input' => 'text',
-			'value' => get_post_meta( $post->ID, ROBO_GALLERY_PREFIX.'gallery_video_link', true ),
+			'value' => sanitize_url( get_post_meta( $post->ID, ROBO_GALLERY_PREFIX.'gallery_video_link', true ) ),
 		);
 
 		
-		$value = get_post_meta( $post->ID, ROBO_GALLERY_PREFIX.'gallery_effect', true );
+		$value = sanitize_text_field( get_post_meta( $post->ID, ROBO_GALLERY_PREFIX.'gallery_effect', true ) );
 		
 		$listSelect = array(
 			 'push-up' 				=> __( 'push-up' , 'cmb' ),

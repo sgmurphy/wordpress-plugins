@@ -428,7 +428,9 @@ $hide = "display:none;";
                         <input name="sfsi_facebook_countsFrom" <?php echo ($option4['sfsi_facebook_countsFrom'] == 'mypage') ?  'checked="true"' : ''; ?> type="radio" value="mypage" class="styled" />
                         <?php _e('Retrieve the number of likes ','ultimate-social-media-icons') ?><strong><?php _e('of your Facebook page ','ultimate-social-media-icons') ?></strong><br>
                         <div class="sfsi_fbpgiddesc sfsi_fbpaget">
-                            <div class="sfsi_fbpgidwpr sfsi_count" style="<?php echo ($option4['sfsi_facebook_countsFrom'] == 'likes' || $option4['sfsi_facebook_countsFrom'] == 'followers' || $option4['sfsi_facebook_countsFrom'] == 'manual') ?  'display:none;' : ''; ?>">Facebook page ID:</div>
+                            <div class="sfsi_fbpgidwpr sfsi_count" style="<?php echo ($option4['sfsi_facebook_countsFrom'] == 'likes' || $option4['sfsi_facebook_countsFrom'] == 'followers' || $option4['sfsi_facebook_countsFrom'] == 'manual') ?  'display:none;' : ''; ?>">
+                                Facebook page ID:
+                            </div>
                             <input name="sfsi_facebook_mypageCounts" type="text" class="input mypginpt" value="<?php echo ($option4['sfsi_facebook_mypageCounts'] != '') ? esc_attr($option4['sfsi_facebook_mypageCounts']) : ''; ?>" style="<?php echo ($option4['sfsi_facebook_countsFrom'] == 'likes' || $option4['sfsi_facebook_countsFrom'] == 'followers' || $option4['sfsi_facebook_countsFrom'] == 'manual') ?  'display:none;' : ''; ?>" />
                             <div class="sfsi_fbpgidwpr sfsi_fbpgiddesc sfsi_facebook_count" style="<?php echo ($option4['sfsi_facebook_countsFrom'] == 'likes' || $option4['sfsi_facebook_countsFrom'] == 'followers' || $option4['sfsi_facebook_countsFrom'] == 'manual') ?  'display:none;' : ''; ?>"><?php _e("(You'll find it at the bottom of the ",'ultimate-social-media-icons') ?><code>
                                     <<</code><?php _e("About",'ultimate-social-media-icons') ?> <code>>>
@@ -437,6 +439,10 @@ $hide = "display:none;";
                     </li>
                     <li>
                         <input name="sfsi_facebook_countsFrom" <?php echo ($option4['sfsi_facebook_countsFrom'] == 'manual') ?  'checked="true"' : ''; ?> type="radio" value="manual" class="styled" />Enter the figure manually:<input name="sfsi_facebook_manualCounts" type="text" class="input" value="<?php echo ($option4['sfsi_facebook_manualCounts'] != '') ? esc_attr($option4['sfsi_facebook_manualCounts']) : ''; ?>" style="<?php echo ($option4['sfsi_facebook_countsFrom'] == 'likes' || $option4['sfsi_facebook_countsFrom'] == 'followers' || $option4['sfsi_facebook_countsFrom'] == 'mypage') ?  'display:none;' : ''; ?>" />
+                    </li>
+
+                    <li style="margin-left: 7px">
+                        <input name="sfsi_facebook_enableCache" <?php echo (isset($option4['sfsi_facebook_enableCache']) && $option4['sfsi_facebook_enableCache'] == 'yes') ?  'checked="true"' : ''; ?> type="checkbox" class="styled" />Enable cache for 24 hours
                     </li>
                 </ul>
                 <div class="sfsi_facebook_pagedeasc" style="<?php echo (isset($option4['sfsi_facebook_countsFrom']) && $option4['sfsi_facebook_countsFrom'] == 'manual') ?  'display:none;' : ''; ?>">
@@ -480,7 +486,7 @@ $hide = "display:none;";
             <div class="listing">
                 <ul>
                     <li>
-                        <input name="sfsi_twitter_countsFrom" <?php echo ($option4['sfsi_twitter_countsFrom'] == 'source') ?  'checked="true"' : ''; ?> type="radio" value="source" class="styled" />Retrieve the number of Twitter followers
+                        <input name="sfsi_twitter_countsFrom" <?php echo ($option4['sfsi_twitter_countsFrom'] == 'source') ?  'checked="true"' : ''; ?> type="radio" value="source" class="styled" />Retrieve the number of X (Twitter) followers
                     </li>
 
                     <li class="SFSI_tglli">
@@ -503,7 +509,7 @@ $hide = "display:none;";
                             </li>
                         </ul>
                         <ul class="SFSI_instructions">
-                            <li class="tw_follow_options" style="<?php echo ($option4['sfsi_twitter_countsFrom'] == 'manual') ?  'display:none;' : ''; ?>"><?php _e(" Please make sure you have entered the",'ultimate-social-media-icons') ?> <b><?php _e("Username",'ultimate-social-media-icons') ?> </b> <?php _e("for",'ultimate-social-media-icons') ?> <b><?php _e('Follow me on Twitter:"','ultimate-social-media-icons') ?></b><?php _e(" in Twitter settings under question number 2.",'ultimate-social-media-icons') ?> </li>
+                            <li class="tw_follow_options" style="<?php echo ($option4['sfsi_twitter_countsFrom'] == 'manual') ?  'display:none;' : ''; ?>"><?php _e(" Please make sure you have entered the",'ultimate-social-media-icons') ?> <b><?php _e("Username",'ultimate-social-media-icons') ?> </b> <?php _e("for",'ultimate-social-media-icons') ?> <b><?php _e('"Follow me on X (Twitter):"','ultimate-social-media-icons') ?></b><?php _e(" in X (Twitter) settings under question number 2.",'ultimate-social-media-icons') ?> </li>
                             <li class="tw_follow_options" style="<?php echo ($option4['sfsi_twitter_countsFrom'] == 'manual') ?  'display:none;' : ''; ?>">
                                 <!-- <h3> --><b><?php _e("To get this information:",'ultimate-social-media-icons') ?> </b><!-- </h3> -->
                             </li>

@@ -399,6 +399,7 @@ function sfsi_options_updater4()
 
     $sfsi_facebook_countsDisplay     = isset( $_POST["sfsi_facebook_countsDisplay"] ) ? sanitize_text_field($_POST["sfsi_facebook_countsDisplay"] ) : 'no';
     $sfsi_facebook_countsFrom        = isset( $_POST["sfsi_facebook_countsFrom"] ) ? sanitize_text_field($_POST["sfsi_facebook_countsFrom"] ) : 'manual';
+    $sfsi_facebook_enableCache        = isset( $_POST["sfsi_facebook_enableCache"] ) && ($_POST["sfsi_facebook_enableCache"] === true || $_POST["sfsi_facebook_enableCache"] == "true") ? 'yes' : 'no';
     $sfsi_facebook_mypageCounts      = isset( $_POST["sfsi_facebook_mypageCounts"] ) ? sanitize_text_field(trim($_POST["sfsi_facebook_mypageCounts"] )) : '';
     $sfsi_facebook_manualCounts      = isset( $_POST["sfsi_facebook_manualCounts"] ) ? intval(trim($_POST["sfsi_facebook_manualCounts"] )) : '';
     $sfsi_facebook_PageLink          = isset( $_POST["sfsi_facebook_PageLink"] ) ? sanitize_text_field(trim($_POST["sfsi_facebook_PageLink"] )) : '';
@@ -490,6 +491,7 @@ function sfsi_options_updater4()
 
         'sfsi_facebook_countsDisplay' => sanitize_text_field($sfsi_facebook_countsDisplay),
         'sfsi_facebook_countsFrom'  => sanitize_text_field($sfsi_facebook_countsFrom),
+        'sfsi_facebook_enableCache'  => sanitize_text_field($sfsi_facebook_enableCache),
         'sfsi_facebook_mypageCounts' => sfsi_sanitize_field($sfsi_facebook_mypageCounts),
         'sfsi_facebook_manualCounts' => intval($sfsi_facebook_manualCounts),
         //'sfsi_facebook_PageLink'  => $sfsi_facebook_PageLink,
@@ -616,6 +618,7 @@ function sfsi_options_updater5()
     $sfsi_fbmessenger_MouseOverText      = isset( $_POST["sfsi_fbmessenger_MouseOverText"] ) ? sanitize_text_field($_POST["sfsi_fbmessenger_MouseOverText"] ) : '';
     $sfsi_tiktok_MouseOverText      = isset( $_POST["sfsi_tiktok_MouseOverText"] ) ? sanitize_text_field($_POST["sfsi_tiktok_MouseOverText"] ) : '';
     $sfsi_mastodon_MouseOverText      = isset( $_POST["sfsi_mastodon_MouseOverText"] ) ? sanitize_text_field($_POST["sfsi_mastodon_MouseOverText"] ) : '';
+    $sfsi_copylink_MouseOverText      = isset( $_POST["sfsi_copylink_MouseOverText"] ) ? sanitize_text_field($_POST["sfsi_copylink_MouseOverText"] ) : '';
 
     $sfsi_youtube_MouseOverText     = isset( $_POST["sfsi_youtube_MouseOverText"] ) ? sanitize_text_field($_POST["sfsi_youtube_MouseOverText"] ) : '';
     if (isset( $_POST["sfsi_custom_orders"] )) {
@@ -710,6 +713,7 @@ function sfsi_options_updater5()
         'sfsi_fbmessenger_MouseOverText'     => sanitize_text_field($sfsi_fbmessenger_MouseOverText),
         'sfsi_tiktok_MouseOverText'     => sanitize_text_field($sfsi_tiktok_MouseOverText),
         'sfsi_mastodon_MouseOverText'     => sanitize_text_field($sfsi_mastodon_MouseOverText),
+        'sfsi_copylink_MouseOverText'     => sanitize_text_field($sfsi_copylink_MouseOverText),
         'sfsi_reddit_MouseOverText'     => sanitize_text_field($sfsi_reddit_MouseOverText),
         'sfsi_CustomIcons_order'        => $sfsi_custom_orders,
         'sfsi_rssIcon_order'            => intval($sfsi_rssIcon_order),
@@ -779,7 +783,7 @@ function sfsi_options_updater6()
     $sfsi_responsive_icons_default = array(
         "default_icons" => array(
             "facebook" => array("active" => "yes", "text" => "Share on Facebook", "url" => ""),
-            "Twitter" => array("active" => "yes", "text" => "Tweet", "url" => ""),
+            "Twitter" => array("active" => "yes", "text" => "Post on X", "url" => ""),
             "Follow" => array("active" => "yes", "text" => "Follow us", "url" => ""),
             "Pinterest" => array("active" => "yes", "text" => "Save", "url" => "")
         ),

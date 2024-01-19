@@ -652,7 +652,9 @@ class Zip {
       for ($i = 0; $i < sizeof($this->db_exporter_files); ++$i) {
         if (file_exists($this->db_exporter_files[$i])) @unlink($this->db_exporter_files[$i]);
       }
-      @rmdir($better_database_files_dir);
+      if (file_exists($better_database_files_dir) && is_dir($better_database_files_dir)) {
+        @rmdir($better_database_files_dir);
+      }
     }
 
     if ($database_file && file_exists($database_file)) @unlink($database_file);

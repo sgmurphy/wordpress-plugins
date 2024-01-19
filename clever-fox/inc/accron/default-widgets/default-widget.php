@@ -23,7 +23,7 @@ $activate = array(
 				'text'=>'<aside class="widget widget_text">
                             <div class="textwidget">
                                 <div class="logo">
-                                    <a href="https://www.nayrathemes.com/demo/lite/accron"><img src="'.esc_url($footer_logo_default).'" alt="Accron" width="212" height="65"></a>
+                                    <a href="#"><img src="'.esc_url($footer_logo_default).'" alt="Accron" width="212" height="65"></a>
                                 </div>
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit sed, labore optio ab cum ducimus? Nulla aliquam voluptatibus laboriosam reprehenderit.</p>
                                 <aside class="widget widget_social_widget">
@@ -96,7 +96,16 @@ $activate = array(
             ')
         ));
 		 update_option('widget_categories', array(
-			1 => array('title' => 'Categories')));	
+			1 => array('title' => 'Categories')));
+		
+		update_option('widget_search', array(
+			1 => array('title' => 'Search')));
+		
+		update_option('widget_recent_entries', array(
+			1 => array('title' => 'Recent Posts')));
+		
+		update_option('widget_archive', array(
+			1 => array('title' => 'Archives')));	
 		
     update_option('sidebars_widgets',  $activate);
 	$MediaId = get_option('accron_media_id');

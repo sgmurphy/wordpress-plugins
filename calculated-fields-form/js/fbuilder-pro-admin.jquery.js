@@ -946,7 +946,7 @@
 					}
 
 					try{
-						if( $.parseJSON( itemsStringified ) != null && $.parseJSON( theFormStringified ) != null )
+						if( JSON.parse( itemsStringified ) != null && JSON.parse( theFormStringified ) != null )
 						{
 							str = "["+ itemsStringified +",["+ theFormStringified +"]]";
 							$( "#"+f ).val( str );
@@ -969,7 +969,7 @@
 					fBuild = this;
 
 				try{
-					structure =  $.parseJSON( $("#"+form_structure).val() );
+					structure =  JSON.parse( $("#"+form_structure).val() );
 				}
 				catch(err)
 				{
@@ -978,7 +978,7 @@
 				}
 
 			    try{
-					 if( typeof available_templates != 'undefined' ) templates = $.parseJSON( $("#"+available_templates).val() );
+					 if( typeof available_templates != 'undefined' ) templates = JSON.parse( $("#"+available_templates).val() );
 				}
 				catch(err)
 				{

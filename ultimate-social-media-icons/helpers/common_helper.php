@@ -165,9 +165,7 @@ if(!function_exists('sfsi_icon_generate_other_icon_effect_admin_html')){
 
                 }
 
-            }
-
-            else{
+            }else{
 
                 $dbKey = "sfsi_".$iconName."_display";
 
@@ -200,7 +198,7 @@ if(!function_exists('sfsi_icon_generate_other_icon_effect_admin_html')){
             ?>
             <div <?php echo $attrCustomIconIndex;?><?php echo $attrIconName; ?> class="col-md-3 bottommargin20 <?php echo $displayIconClass.' '.$active_theme; ?>">
 
-                <label <?php echo $attrCustomIconSrNo; ?> class="mouseover_other_icon_label"><?php echo ucfirst($iconNameStr); ?> </label>
+                <label <?php echo $attrCustomIconSrNo; ?> class="mouseover_other_icon_label"><?php if ($iconNameStr == 'twitter') echo 'X (Twitter)'; else echo  ucfirst($iconNameStr); ?> </label>
 
                 <?php if ( $sfsi_flat_theme_flag ) { ?>
                     <span class="sfsi_icon_img_wrapper mouseover_sfsi_<?php echo esc_attr( $iconName ); ?>_bgColor" <?php echo esc_html( $sfsi_flat_icon_color ); ?>>

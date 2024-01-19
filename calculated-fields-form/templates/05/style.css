@@ -90,3 +90,6 @@ body{
 .cp_cff_decorative #fbuilder .discount-container{margin-top:10px;font-weight:bold;}
 
 .cp_cff_decorative #fbuilder span.files-list img{border-color:rgb(223, 221, 193);}
+
+.cp_cff_decorative #fbuilder .cff-popup-container{background: url(form_bg.jpg);}
+.cp_cff_decorative #fbuilder .cff-popup-header{border: 0;}

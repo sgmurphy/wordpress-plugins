@@ -98,3 +98,6 @@ border-radius:5px;
 .cp_cff_clean #fbuilder span.files-list img{border-color:#D7D9DA;}
 .cp_cff_clean #fbuilder .cff-slider-field .mark{background:#aed0ea;}
 .cp_cff_clean #fbuilder .cff-slider-field .ui-slider-range{background:#0093DA;}
+
+.cp_cff_clean #fbuilder .cff-popup-header{border-color:#EBECEC;}
+.cp_cff_clean #fbuilder .cff-popup-close{color:#0093DA;}

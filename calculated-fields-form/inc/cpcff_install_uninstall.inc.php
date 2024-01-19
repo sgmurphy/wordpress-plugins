@@ -190,7 +190,7 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				cache longtext DEFAULT '' NOT NULL,
 				cu_user_email_bcc_field VARCHAR(250),
 				UNIQUE KEY id (id)
-				) $charset_collate ROW_FORMAT=DYNAMIC;";
+				) $charset_collate ENGINE=InnoDB ROW_FORMAT=DYNAMIC;";
 
 			// Revisions table
 			$db_queries[] = 'CREATE TABLE ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_REVISIONS_TABLE . " (

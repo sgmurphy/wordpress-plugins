@@ -2308,6 +2308,7 @@
       $ignored_paths_default[] = "***ABSPATH***/wp-content/uploads/wp-file-manager-pro";
       $ignored_paths_default[] = "***ABSPATH***/wp-content/uploads/wp-file-manager";
       $ignored_paths_default[] = "***ABSPATH***/wp-content/plugins/akeebabackupwp";
+      $ignored_paths_default[] = "***ABSPATH***/wp-content/uploads/jetbackup";
       
       // Exclude cache directory permanently as it's just cache
       $ignored_paths_default[] = "***ABSPATH***/wp-content/cache";
@@ -2562,7 +2563,7 @@
           continue;
         }
 
-        if (strpos($files[$i], 'bmi-pclzip-') !== false) {
+        if (strpos($files[$i], 'bmi-pclzip-') !== false || strpos($files[$i], 'backup-migration') !== false) {
           array_splice($files, $i, 1);
           $maxfor--;
           $i--;
@@ -3520,7 +3521,7 @@
       // Process handler
       if (isset($this->post['delete'])) {
         $staging->requestDelete();
-      } else $staging->continue();
+      } else $staging->continueProcess();
 
       // Append the return if staging process requires more batches
       if ($staging->continue == true) return $staging->continuationData;

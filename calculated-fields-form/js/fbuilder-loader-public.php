@@ -77,7 +77,7 @@ try {
 					{
 						if($("#fbuilder"+fnum).is(':visible'))
 						{
-							var f = $("#fbuilder"+fnum).fbuilder(( typeof cp_calculatedfieldsf_fbuilder_config.obj == 'string' ) ?  $.parseJSON(cp_calculatedfieldsf_fbuilder_config.obj) : cp_calculatedfieldsf_fbuilder_config.obj );
+							var f = $("#fbuilder"+fnum).fbuilder(( typeof cp_calculatedfieldsf_fbuilder_config.obj == 'string' ) ?  JSON.parse(cp_calculatedfieldsf_fbuilder_config.obj) : cp_calculatedfieldsf_fbuilder_config.obj );
 							f.attr('data-processed', 1);
 							f.fBuild.loadData("form_structure"+fnum);
 						}

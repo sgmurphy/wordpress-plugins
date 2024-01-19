@@ -229,3 +229,10 @@ background: #394D61;
 .cp_cff_dark_notebook #fbuilder .cff-file-clearer:hover{color:#fff;}
 
 .cp_cff_dark_notebook #fbuilder span.files-list img{border-color:#83A4C5;}
+
+.cp_cff_dark_notebook #fbuilder .cff-popup-container{background:#495C70;border:0;}
+.cp_cff_dark_notebook #fbuilder .cff-popup-title,
+.cp_cff_dark_notebook #fbuilder .cff-popup-close{color:white;}
+.cp_cff_dark_notebook #fbuilder .cff-popup-header:not(:empty){
+border-bottom: 1px dashed #83A4C5;
+}

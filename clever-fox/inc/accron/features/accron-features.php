@@ -53,7 +53,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	
 	// Features Title // 
 	$wp_customize->add_setting(
-    	'accron_features_title',
+    	'features_title',
     	array(
 	        'default'			=> __('<span class=\'primary-color\'>What</span> We Do','clever-fox'),
 			'capability'     	=> 'edit_theme_options',
@@ -64,7 +64,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	);	
 	
 	$wp_customize->add_control( 
-		'accron_features_title',
+		'features_title',
 		array(
 		    'label'   => __('Title','clever-fox'),
 		    'section' => 'features_setting',
@@ -74,7 +74,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	
 	// Features Subtitle // 
 	$wp_customize->add_setting(
-    	'accron_features_subtitle',
+    	'features_subtitle',
     	array(
 	        'default'			=> __('Outstanding Features','clever-fox'),
 			'capability'     	=> 'edit_theme_options',
@@ -85,7 +85,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	);	
 	
 	$wp_customize->add_control( 
-		'accron_features_subtitle',
+		'features_subtitle',
 		array(
 		    'label'   => __('Subtitle','clever-fox'),
 		    'section' => 'features_setting',
@@ -95,7 +95,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	
 	// Features Description // 
 	$wp_customize->add_setting(
-    	'accron_features_desc',
+    	'features_desc',
     	array(
 	        'default'			=> __('There are many variations of passages of Lorem Ipsum available.','clever-fox'),
 			'capability'     	=> 'edit_theme_options',
@@ -106,7 +106,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	);	
 	
 	$wp_customize->add_control( 
-		'accron_features_desc',
+		'features_desc',
 		array(
 		    'label'   => __('Description','clever-fox'),
 		    'section' => 'features_setting',
@@ -138,7 +138,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	 * Customizer Repeater for add features
 	 */
 	
-		$wp_customize->add_setting( 'accron_features_contents', 
+		$wp_customize->add_setting( 'features_contents', 
 			array(
 			 'sanitize_callback' => 'accron_repeater_sanitize',
 			 'transport'         => $selective_refresh,
@@ -149,7 +149,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 		
 		$wp_customize->add_control( 
 			new Accron_Repeater( $wp_customize, 
-				'accron_features_contents', 
+				'features_contents', 
 					array(
 						'label'   => esc_html__('Features','clever-fox'),
 						'section' => 'features_setting',
@@ -224,28 +224,28 @@ add_action( 'customize_register', 'accron_features_setting' );
 // features selective refresh
 function accron_home_features_section_partials( $wp_customize ){	
 	// features title
-	$wp_customize->selective_refresh->add_partial( 'accron_features_title', array(
+	$wp_customize->selective_refresh->add_partial( 'features_title', array(
 		'selector'            => '.features-home .section-title h2.section-title-heading',
-		'settings'            => 'accron_features_title',
-		'render_callback'  	  => 'accron_features_title_render_callback',
+		'settings'            => 'features_title',
+		'render_callback'  	  => 'features_title_render_callback',
 	) );
 	
 	// features subtitle
-	$wp_customize->selective_refresh->add_partial( 'accron_features_subtitle', array(
+	$wp_customize->selective_refresh->add_partial( 'features_subtitle', array(
 		'selector'            => '.features-home .section-title span.sub-title',
-		'settings'            => 'accron_features_subtitle',
-		'render_callback'     => 'accron_features_subtitle_render_callback',
+		'settings'            => 'features_subtitle',
+		'render_callback'     => 'features_subtitle_render_callback',
 	) );
 	
 	// features description
-	$wp_customize->selective_refresh->add_partial( 'accron_features_desc', array(
+	$wp_customize->selective_refresh->add_partial( 'features_desc', array(
 		'selector'            => '.features-home .section-title p',
-		'settings'            => 'accron_features_desc',
-		'render_callback'     => 'accron_features_desc_render_callback',
+		'settings'            => 'features_desc',
+		'render_callback'     => 'features_desc_render_callback',
 	) );
 	
 	// features content
-	$wp_customize->selective_refresh->add_partial( 'accron_features_contents', array(
+	$wp_customize->selective_refresh->add_partial( 'features_contents', array(
 		'selector'            => '.features-home .feature-content h3'
 	) );
 	
@@ -254,15 +254,15 @@ function accron_home_features_section_partials( $wp_customize ){
 add_action( 'customize_register', 'accron_home_features_section_partials' );
 
 // features title
-function accron_features_title_render_callback() {
-	return get_theme_mod( 'accron_features_title' );
+function features_title_render_callback() {
+	return get_theme_mod( 'features_title' );
 }
 // features subtitle
-function accron_features_subtitle_render_callback() {
-	return get_theme_mod( 'accron_features_subtitle' );
+function features_subtitle_render_callback() {
+	return get_theme_mod( 'features_subtitle' );
 }
 
 // features description
-function accron_features_desc_render_callback() {
-	return get_theme_mod( 'accron_features_desc' );
+function features_desc_render_callback() {
+	return get_theme_mod( 'features_desc' );
 }

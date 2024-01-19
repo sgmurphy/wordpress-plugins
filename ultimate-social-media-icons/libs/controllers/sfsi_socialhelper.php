@@ -56,44 +56,171 @@ class sfsi_SocialHelper
 	// 	}
 	// 	return $count;
 	// }
-	function sfsi_get_fb( $url ) {
-		$count = 0;
-		$appid = '1158609188420319';
-		$appsecret = '191de9759fc4109320cdfc4b46279ff7';
-		$json_string = $this->file_get_contents_curl( 'https://graph.facebook.com/v12.0/?id='.$url."&fields=engagement&access_token=".$appid.'|'.$appsecret, true );
-		$json 		 = json_decode( $json_string );
-		if( isset( $json ) && isset( $json->engagement ) ) {
-			$count = $json->engagement->share_count + $json->engagement->reaction_count + $json->engagement->comment_count + $json->engagement->comment_plugin_count;
-		}
-		return $count;
-	}
+    function sfsi_get_fb($url, $return_json = false)
+    {
+        $count = 0;
+        $appid = '1400199447602334';
+        $appsecret = '0efd3fb7877b13d4b1346b5c47a2620e';
+
+        //get last update
+        $lastUpdate = get_option('sfsi_last_update_facebook');
+        $countInfo = get_option('sfsi_facebok_url_count_' . $url);
+        $option4 = maybe_unserialize( get_option( 'sfsi_section4_options', false ) );
+        if (!$lastUpdate || !$countInfo ||
+            !isset( $option4['sfsi_facebook_enableCache']) ||
+            ($option4['sfsi_facebook_enableCache'] == 'no')) {
+
+            $json_string = $this->file_get_contents_curl('https://graph.facebook.com/v12.0/?id=' . $url . "&fields=engagement&access_token=" . $appid . '|' . $appsecret, true);
+            $json = json_decode($json_string);
+            if (isset($json) && isset($json->engagement)) {
+                if ($return_json){
+                    $count =  $json->engagement;
+                    update_option('sfsi_facebok_url_count_json_' . $url, serialize($count));
+
+                }else{
+                    $count = $json->engagement->share_count + $json->engagement->reaction_count + $json->engagement->comment_count + $json->engagement->comment_plugin_count;
+
+                    //update option
+                    update_option('sfsi_facebok_url_count_' . $url, $count);
+                }
+
+                //update date last update
+                update_option('sfsi_last_update_facebook', time());
+            }
+
+        }else{
+            $dif = time() - $lastUpdate;
+            if ($dif > 86400)
+            {
+                $json_string = $this->file_get_contents_curl('https://graph.facebook.com/v12.0/?id=' . $url . "&fields=engagement&access_token=" . $appid . '|' . $appsecret, true);
+
+                $json = json_decode($json_string);
+                if (isset($json) && isset($json->engagement)) {
+                    if ($return_json){
+                        $count =  $json->engagement;
+
+                        //update option
+                        update_option('sfsi_facebok_url_count_json_' . $url, serialize($count));
+                    }else{
+                        $count = $json->engagement->share_count + $json->engagement->reaction_count + $json->engagement->comment_count + $json->engagement->comment_plugin_count;
+
+                        //update option
+                        update_option('sfsi_facebok_url_count_' . $url, $count);
+                    }
+                    //update date last update
+                    update_option('sfsi_last_update_facebook', time());
+
+                }
+
+            }else {
+                if ($return_json){
+                    $count = unserialize(get_option('sfsi_facebok_url_count_json_' . $url));
+                }else{
+                    $count = get_option('sfsi_facebok_url_count_' . $url);
+                }
+            }
+        }
+
+        return $count;
+    }
 
 	function sfsi_banner_get_fb( $url ) {
 		$count 		 = 0;
-		$appid = '1158609188420319';
-		$appsecret = '191de9759fc4109320cdfc4b46279ff7';
-		$json_string = $this->file_get_contents_curl( 'https://graph.facebook.com/v12.0/?id='.$url."&fields=engagement&access_token=".$appid.'|'.$appsecret, true );
-		$json 		 = json_decode( $json_string );
-		if( isset( $json ) && isset( $json->engagement ) ) {
-			$count = $json->engagement->share_count + $json->engagement->reaction_count + $json->engagement->comment_count +  $json->engagement->comment_plugin_count;
-		}
+		$appid = '1400199447602334';
+		$appsecret = '0efd3fb7877b13d4b1346b5c47a2620e';
+
+        //get last update
+        $lastUpdate = get_option('sfsi_last_update_facebook');
+        $option4 = maybe_unserialize( get_option( 'sfsi_section4_options', false ) );
+        if (!$lastUpdate || (isset( $option4['sfsi_facebook_enableCache']) && $option4['sfsi_facebook_enableCache'] == 'no')) {
+            $json_string = $this->file_get_contents_curl( 'https://graph.facebook.com/v12.0/?id='.$url."&fields=engagement&access_token=".$appid.'|'.$appsecret, true );
+            $json 		 = json_decode( $json_string );
+            if( isset( $json ) && isset( $json->engagement ) ) {
+                $count = $json->engagement->share_count + $json->engagement->reaction_count + $json->engagement->comment_count +  $json->engagement->comment_plugin_count;
+
+                //update option
+                update_option('sfsi_facebok_url_count_' . $url, $count);
+
+                //update date last update
+                update_option('sfsi_last_update_facebook', time());
+            }
+        }else{
+            $dif = time() - $lastUpdate;
+
+            if ($dif > 86400)
+            {
+                $json_string = $this->file_get_contents_curl('https://graph.facebook.com/v12.0/?id=' . $url . "&fields=engagement&access_token=" . $appid . '|' . $appsecret, true);
+                $json = json_decode($json_string);
+                if (isset($json) && isset($json->engagement)) {
+                    $count = $json->engagement->share_count + $json->engagement->reaction_count + $json->engagement->comment_count + $json->engagement->comment_plugin_count;
+
+                    //update option
+                    update_option('sfsi_facebok_url_count_' . $url, $count);
+
+                    //update date last update
+                    update_option('sfsi_last_update_facebook', time());
+
+                }
+
+            }else {
+                $count = get_option('sfsi_facebok_url_count_' . $url);
+            }
+        }
+
 		return $count;
 	}
 
 	/* get facebook page likes */
 	function sfsi_get_fb_pagelike( $url ) {
 
-        /* Get AppId from option */
-//        $option4 = maybe_unserialize(get_option('sfsi_section4_options', false));
-//        $appid = $option4['sfsi_facebook_mypageAppId'];
-        		$appid = '1158609188420319';
-//        $appsecret = $option4['sfsi_facebook_mypageAppSecret'];
-		$appsecret = '191de9759fc4109320cdfc4b46279ff7';
+        $count = 0;
 
-		$json_url ='https://graph.facebook.com/'.$url.'?fields=fan_count&access_token='.$appid.'|'.$appsecret;
-		$json_string = $this->file_get_contents_curl( $json_url, true );
-		$json = json_decode( $json_string, true );
-		return isset( $json['fan_count'] ) ? $json['fan_count'] : 0;
+        $appid = '1158609188420319';
+		$appsecret = '191de9759fc4109320cdfc4b46279ff7';
+        $lastUpdate = get_option('sfsi_last_update_facebook_page');
+
+        $option4 = maybe_unserialize( get_option( 'sfsi_section4_options', false ) );
+        if (!$lastUpdate || !isset( $option4['sfsi_facebook_enableCache']) || $option4['sfsi_facebook_enableCache'] == 'no') {
+            $json_url ='https://graph.facebook.com/'.$url.'?fields=fan_count&access_token='.$appid.'|'.$appsecret;
+            $json_string = $this->file_get_contents_curl( $json_url, true );
+            $json = json_decode( $json_string, true );
+
+            if( isset( $json ) && isset( $json['fan_count']  ) ) {
+                $count = $json['fan_count'];
+
+                //update option
+                update_option('sfsi_facebok_url_count_' . $url, $count);
+
+                //update date last update
+                update_option('sfsi_last_update_facebook_page', time());
+
+            }
+        }else{
+            $dif = time() - $lastUpdate;
+
+            if ($dif > 86400)
+            {
+                $json_url ='https://graph.facebook.com/'.$url.'?fields=fan_count&access_token='.$appid.'|'.$appsecret;
+                $json_string = $this->file_get_contents_curl( $json_url, true );
+                $json = json_decode( $json_string, true );
+
+                if( isset( $json ) && isset( $json['fan_count']  ) ) {
+                    $count = $json['fan_count'];
+
+                    //update option
+                    update_option('sfsi_facebok_url_count_' . $url, $count);
+
+                    //update date last update
+                    update_option('sfsi_last_update_facebook_page', time());
+
+                }
+
+            }else {
+                $count = get_option('sfsi_facebok_url_count_' . $url);
+            }
+        }
+
+		return $count;
 	}
 
 	/* get youtube subscribers  */
@@ -401,7 +528,7 @@ class sfsi_SocialHelper
 
 		$twitter_html = "<div class='sf_twiter' style='display: inline-block;vertical-align: middle;width: auto;'>
 						<a " . sfsi_checkNewWindow() . " href='https://twitter.com/intent/tweet?text=" . urlencode($tweettext).'+'.$permalink. "' style='display:inline-block' >
-							<img data-pin-nopin= true class='sfsi_wicon' src='" . $icon . "' alt='Tweet' title='Tweet' >
+							<img data-pin-nopin= true class='sfsi_wicon' src='" . $icon . "' alt='Post on X' title='Post on X' >
 						</a>
 					</div>";
 		return $twitter_html;

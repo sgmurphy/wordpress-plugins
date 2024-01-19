@@ -81,3 +81,7 @@ body{
 }
 .cp_cff_letter #fbuilder .select2-dropdown *{text-shadow:none;}
 .cp_cff_letter #fbuilder .select2-results__option--highlighted{background:#2c85d4;}
+
+.cp_cff_letter #fbuilder .cff-popup-container{
+background: url(bg_top.png) 0 -12px repeat-x #E4E4E4;
+}

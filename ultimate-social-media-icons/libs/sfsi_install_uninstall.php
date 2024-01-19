@@ -4,7 +4,7 @@ function sfsi_update_plugin()
     $sfsi_responsive_icons_default = array(
         "default_icons" => array(
             "facebook" => array("active" => "yes", "text" => "Share on Facebook", "url" => ""),
-            "Twitter" => array("active" => "yes", "text" => "Tweet", "url" => ""),
+            "Twitter" => array("active" => "yes", "text" => "Post on X", "url" => ""),
             "Follow" => array("active" => "yes", "text" => "Follow us", "url" => ""),
             "Pinterest" => array("active" => "yes", "text" => "Save", "url" => "")
         ),
@@ -1027,7 +1027,7 @@ function sfsi_activate_plugin()
     $sfsi_responsive_icons_default = array(
         "default_icons" => array(
             "facebook" => array("active" => "yes", "text" => "Share on Facebook", "url" => ""),
-            "Twitter" => array("active" => "yes", "text" => "Tweet", "url" => ""),
+            "Twitter" => array("active" => "yes", "text" => "Post on X", "url" => ""),
             "Follow" => array("active" => "yes", "text" => "Follow us", "url" => ""),
             "Pinterest" => array("active" => "yes", "text" => "Save", "url" => ""),
         ),
@@ -1122,7 +1122,7 @@ function sfsi_activate_plugin()
             'sfsi_twitter_aboutPage'     => 'yes',
             'sfsi_twitter_page'          => 'no',
             'sfsi_twitter_pageURL'       => '',
-            'sfsi_twitter_aboutPageText' => 'Hey, check out this cool site I found: www.yourname.com #Topic via@my_twitter_name',
+            'sfsi_twitter_aboutPageText' => 'Hey, check out this cool site I found: www.yourname.com #Topic via@my_x_twitter_name',
             'sfsi_youtube_pageUrl'       => '',
             'sfsi_youtube_page'          => 'no',
             'sfsi_youtubeusernameorid'   => '',
@@ -1209,6 +1209,7 @@ function sfsi_activate_plugin()
             'sfsi_facebook_PageLink' => '',
             'sfsi_facebook_countsDisplay' => 'no',
             'sfsi_facebook_countsFrom' => 'manual',
+            'sfsi_facebook_enableCache' => 'yes',
             'sfsi_facebook_manualCounts' => '20',
             'sfsi_twitter_countsDisplay' => 'no',
             'sfsi_twitter_countsFrom' => 'manual',
@@ -1355,7 +1356,7 @@ function sfsi_activate_plugin()
             'sfsi_CustomIcons_order'    => '',
             'sfsi_rss_MouseOverText'    => 'RSS',
             'sfsi_email_MouseOverText'    => 'Follow by Email',
-            'sfsi_twitter_MouseOverText' => 'Twitter',
+            'sfsi_twitter_MouseOverText' => 'X (Twitter)',
             'sfsi_facebook_MouseOverText' => 'Facebook',
             'sfsi_linkedIn_MouseOverText' => 'LinkedIn',
             'sfsi_pinterest_MouseOverText' => 'Pinterest',

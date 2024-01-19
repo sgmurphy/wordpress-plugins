@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 1.2.49 =
+
+* Implements a Pop-up control.
+* Modifies the form templates.
+* Modifies deprecated jQuery methods.
+* Fixes an issue in the SERVER SIDE Equations add-on (Developer and Platinum plugin versions).
+* Increase the size of the attribute to enter the file content (Platinum plugin version).
+
 = 1.2.48 =
 
 * Fixes a minor issue with equations configured to be evaluated manually.

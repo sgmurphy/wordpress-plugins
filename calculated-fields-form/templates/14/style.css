@@ -164,3 +164,6 @@ body{
 .cp_cff_14 #fbuilder .cff-audio-icon::before,
 .cp_cff_14 #fbuilder .cff-help-icon::before{background:#3cce88 !important;}
 .uh-tooltip{border-color:#3cce88 !important;}
+
+.cp_cff_14 #fbuilder .cff-popup-container{background:#f4f4f4;}
+.cp_cff_14 #fbuilder .cff-popup-close{color:#3cce88;}

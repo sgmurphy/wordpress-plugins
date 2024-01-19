@@ -32,7 +32,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 		'service_doc_link' , 
 			array(
 			'capability'     => 'edit_theme_options',
-			'sanitize_callback' => 'sanitize_text_field',
+			'accron_sanitize_callback' => 'accron_sanitize_text_field',
 		) 
 	);
 
@@ -51,7 +51,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 		'service_headings'
 			,array(
 			'capability'     	=> 'edit_theme_options',
-			'sanitize_callback' => 'accron_sanitize_text',
+			'accron_sanitize_callback' => 'accron_sanitize_text',
 			'priority' => 3,
 		)
 	);
@@ -71,7 +71,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 			,array(
 			'default'     	=> '1',	
 			'capability'     	=> 'edit_theme_options',
-			'sanitize_callback' => 'accron_sanitize_checkbox',
+			'accron_sanitize_callback' => 'accron_sanitize_checkbox',
 			'priority' => 1,
 		)
 	);
@@ -87,18 +87,18 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	
 	// Service Title // 
 	$wp_customize->add_setting(
-    	'accron_service_title',
+    	'service_title',
     	array(
 	        'default'			=> __('Out Standing Service','clever-fox'),
 			'capability'     	=> 'edit_theme_options',
-			'sanitize_callback' => 'accron_sanitize_html',
+			'accron_sanitize_callback' => 'accron_sanitize_html',
 			'transport'         => $selective_refresh,
 			'priority' => 4,
 		)
 	);	
 	
 	$wp_customize->add_control( 
-		'accron_service_title',
+		'service_title',
 		array(
 		    'label'   => __('Title','clever-fox'),
 		    'section' => 'service_setting',
@@ -108,17 +108,17 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	
 	// Service Subtitle // 
 	$wp_customize->add_setting(
-    	'accron_service_subtitle',
+    	'service_subtitle',
     	array(
 	        'default'			=> __('What We Do','clever-fox'),
 			'capability'     	=> 'edit_theme_options',
-			'sanitize_callback' => 'accron_sanitize_html',
+			'accron_sanitize_callback' => 'accron_sanitize_html',
 			'priority' => 5,
 		)
 	);	
 	
 	$wp_customize->add_control( 
-		'accron_service_subtitle',
+		'service_subtitle',
 		array(
 		    'label'   => __('Subtitle','clever-fox'),
 		    'section' => 'service_setting',
@@ -128,17 +128,17 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	
 	// Service Subtitle // 
 	$wp_customize->add_setting(
-    	'accron_service_description',
+    	'service_description',
     	array(
 	        'default'			=> __('There are many variations of passages of Lorem Ipsum available.','clever-fox'),
 			'capability'     	=> 'edit_theme_options',
-			'sanitize_callback' => 'accron_sanitize_html',
+			'accron_sanitize_callback' => 'accron_sanitize_html',
 			'priority' => 5,
 		)
 	);	
 	
 	$wp_customize->add_control( 
-		'accron_service_description',
+		'service_description',
 		array(
 		    'label'   => __('Description','clever-fox'),
 		    'section' => 'service_setting',
@@ -148,17 +148,17 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 
 	// Service Subtitle // 
 	$wp_customize->add_setting(
-    	'accron_service_description2',
+    	'service_description2',
     	array(
 	        'default'			=> __('Digital Agency Services Built Specifically For Your Business.','clever-fox'),
 			'capability'     	=> 'edit_theme_options',
-			'sanitize_callback' => 'accron_sanitize_html',
+			'accron_sanitize_callback' => 'accron_sanitize_html',
 			'priority' => 5,
 		)
 	);	
 	
 	$wp_customize->add_control( 
-		'accron_service_description2',
+		'service_description2',
 		array(
 		    'label'   => __('Info Description','clever-fox'),
 		    'section' => 'service_setting',
@@ -168,17 +168,17 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	
 	// Service button // 
 	$wp_customize->add_setting(
-    	'accron_service_btn_lbl',
+    	'service_btn_lbl',
     	array(
 	        'default'			=> __('Find Your Solution','clever-fox'),
 			'capability'     	=> 'edit_theme_options',
-			'sanitize_callback' => 'accron_sanitize_html',
+			'accron_sanitize_callback' => 'accron_sanitize_html',
 			'priority' => 5,
 		)
 	);	
 	
 	$wp_customize->add_control( 
-		'accron_service_btn_lbl',
+		'service_btn_lbl',
 		array(
 		    'label'   => __('Button Label','clever-fox'),
 		    'section' => 'service_setting',
@@ -188,17 +188,17 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 
 	// Service button // 
 	$wp_customize->add_setting(
-    	'accron_service_btn_link',
+    	'service_btn_link',
     	array(
 	        'default'			=> '#',
 			'capability'     	=> 'edit_theme_options',
-			'sanitize_callback' => 'accron_sanitize_html',
+			'accron_sanitize_callback' => 'accron_sanitize_html',
 			'priority' => 5,
 		)
 	);	
 	
 	$wp_customize->add_control( 
-		'accron_service_btn_link',
+		'service_btn_link',
 		array(
 		    'label'   => __('Button Link','clever-fox'),
 		    'section' => 'service_setting',
@@ -212,7 +212,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 		'service_content_head'
 			,array(
 			'capability'     	=> 'edit_theme_options',
-			'sanitize_callback' => 'accron_sanitize_text',
+			'accron_sanitize_callback' => 'accron_sanitize_text',
 			'priority' => 7,
 		)
 	);
@@ -230,9 +230,9 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	 * Customizer Repeater for add service
 	 */
 	
-		$wp_customize->add_setting( 'accron_service_contents', 
+		$wp_customize->add_setting( 'service_contents', 
 			array(
-			 'sanitize_callback' => 'accron_repeater_sanitize',
+			 'accron_sanitize_callback' => 'repeater_accron_sanitize',
 			 'transport'         => $selective_refresh,
 			 'priority' => 8,
 			 'default' => accron_get_service_default()
@@ -241,19 +241,19 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 		
 		$wp_customize->add_control( 
 			new Accron_Repeater( $wp_customize, 
-				'accron_service_contents', 
+				'service_contents', 
 					array(
 						'label'   => esc_html__('Service','clever-fox'),
 						'section' => 'service_setting',
 						'add_field_label'                   => esc_html__( 'Add New Service', 'clever-fox' ),
 						'item_name'                         => esc_html__( 'Service', 'clever-fox' ),
 						'customizer_repeater_icon_control' => true,
-						'customizer_repeater_image_control' => true,
+						'customizer_repeater_image_control' => false,
 						'customizer_repeater_title_control' => true,
 						'customizer_repeater_text_control' => true,
-						'customizer_repeater_text2_control' => true,
+						// 'customizer_repeater_text2_control' => true,
 						'customizer_repeater_link_control' => true,						
-						'customizer_repeater_image2_control' => false,
+						'customizer_repeater_image2_control' => true,
 					) 
 				) 
 			);
@@ -269,15 +269,15 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 			<?php }
 		}
 		
-		$wp_customize->add_setting( 'accron_service_upgrade_to_pro', array(
+		$wp_customize->add_setting( 'service_upgrade_to_pro', array(
 			'capability'			=> 'edit_theme_options',
-			'sanitize_callback'	=> 'wp_filter_nohtml_kses',
+			'accron_sanitize_callback'	=> 'wp_filter_nohtml_kses',
 			'priority' => 5,
 		));
 		$wp_customize->add_control(
 			new Accron_service__section_upgrade(
 			$wp_customize,
-			'accron_service_upgrade_to_pro',
+			'service_upgrade_to_pro',
 				array(
 					'section'				=> 'service_setting',
 				)
@@ -290,35 +290,35 @@ add_action( 'customize_register', 'accron_service_setting' );
 // service selective refresh
 function accron_home_service_section_partials( $wp_customize ){	
 	// service title
-	$wp_customize->selective_refresh->add_partial( 'accron_service_title', array(
+	$wp_customize->selective_refresh->add_partial( 'service_title', array(
 		'selector'            => '.service-home .section-title-heading',
-		'settings'            => 'accron_service_title',
-		'render_callback'  	  => 'accron_service_title_render_callback',
+		'settings'            => 'service_title',
+		'render_callback'  	  => 'service_title_render_callback',
 	) );
 	
 	// service title
-	$wp_customize->selective_refresh->add_partial( 'accron_service_subtitle', array(
+	$wp_customize->selective_refresh->add_partial( 'service_subtitle', array(
 		'selector'            => '.service-home .sub-title',
-		'settings'            => 'accron_service_subtitle',
-		'render_callback'     => 'accron_service_subtitle_render_callback',
+		'settings'            => 'service_subtitle',
+		'render_callback'     => 'service_subtitle_render_callback',
 	) );
 
 	// service Description
-	$wp_customize->selective_refresh->add_partial( 'accron_service_description', array(
+	$wp_customize->selective_refresh->add_partial( 'service_description', array(
 		'selector'            => '.service-home .sub-title + p',
-		'settings'            => 'accron_service_description',
-		'render_callback'     => 'accron_service_subtitle_render_callback',
+		'settings'            => 'service_description',
+		'render_callback'     => 'service_subtitle_render_callback',
 	) );
 
 	// service Description 2
-	$wp_customize->selective_refresh->add_partial( 'accron_service_description2', array(
+	$wp_customize->selective_refresh->add_partial( 'service_description2', array(
 		'selector'            => '.service-home p',
-		'settings'            => 'accron_service_description2',
-		'render_callback'     => 'accron_service_subtitle_render_callback',
+		'settings'            => 'service_description2',
+		'render_callback'     => 'service_subtitle_render_callback',
 	) );
 
 	// service content
-	$wp_customize->selective_refresh->add_partial( 'accron_service_contents', array(
+	$wp_customize->selective_refresh->add_partial( 'service_contents', array(
 		'selector'            => '.service-home .service-box .service-content'
 	) );
 }
@@ -327,10 +327,10 @@ add_action( 'customize_register', 'accron_home_service_section_partials' );
 
 // service title
 function accron_service_title_render_callback() {
-	return get_theme_mod( 'accron_service_title' );
+	return get_theme_mod( 'service_title' );
 }
 
 // service subtitle
 function accron_service_subtitle_render_callback() {
-	return get_theme_mod( 'accron_service_subtitle' );
+	return get_theme_mod( 'service_subtitle' );
 }

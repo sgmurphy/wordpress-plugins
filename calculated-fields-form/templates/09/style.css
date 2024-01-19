@@ -152,3 +152,6 @@ body{
 .cp_cff_box .kbw-signature ~ div{margin: 15px 0 0 5px;}
 
 .cp_cff_box #fbuilder span.files-list img{border-color:#DDD;}
+
+.cp_cff_box #fbuilder .cff-popup-header:not(:empty){border-bottom:0;}
+.cp_cff_box #fbuilder .cff-popup-close{color:#2471FF;}

@@ -151,3 +151,8 @@ body{
 .cp_cff_minimalist #fbuilder .discount-container{margin-top:10px;font-weight:bold;}
 
 .cp_cff_minimalist #fbuilder span.files-list img{border-color:#DDD;}
+
+.cp_cff_minimalist #fbuilder .cff-popup-container{border:0;}
+.cp_cff_minimalist #fbuilder .cff-popup-header:not(:empty){background:#4D4D4D;border:0;}
+.cp_cff_minimalist #fbuilder .cff-popup-title{color:#AAAAAA;}
+.cp_cff_minimalist #fbuilder .cff-popup-close{color:#2CBBBB;}

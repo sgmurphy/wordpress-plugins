@@ -154,6 +154,13 @@
     
     $newConfigStaticPath = BMI_STATIC_PHP_CONFIG;
     if (file_exists($newConfigStaticPath)) {
+      $configContents = file_get_contents(BMI_STATIC_PHP_CONFIG);
+      if (strpos($configContents, "<?php //[]") !== false) {
+        unlink(BMI_STATIC_PHP_CONFIG);
+      }
+    }
+    
+    if (file_exists($newConfigStaticPath)) {
       
       if (!defined('BMI_CONFIG_PHP')) define('BMI_CONFIG_PHP', true);
       if (!defined('BMI_CONFIG_STATUS')) define('BMI_CONFIG_STATUS', true);

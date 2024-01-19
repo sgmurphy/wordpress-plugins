@@ -573,11 +573,22 @@ class BMI_Database_Exporter {
 
         if ($format_in_order[$i] == '%f') {
 
-          $query .= floatval($data_in_order[$i]);
+          $floatresult = floatval($data_in_order[$i]);
+          if (!is_infinite($floatresult) && is_numeric($floatresult)) {
+            $query .= $floatresult;
+          } else {
+            if (defined('PHP_FLOAT_MAX')) $query .= PHP_INT_MAX;
+            else $query .= PHP_FLOAT_MAX;
+          }
 
         } elseif ($format_in_order[$i] == '%d') {
 
-          $query .= intval($data_in_order[$i]);
+          $intresult = intval($data_in_order[$i]);
+          if (!is_infinite($intresult) && is_numeric($intresult)) {
+            $query .= $intresult;
+          } else {
+            $query .= PHP_INT_MAX;
+          }
 
         } elseif ($format_in_order[$i] == '%null') {
 

@@ -1,4 +1,26 @@
 <?php
+	
+/*
+	*
+ * Slider Default
+ */
+ function accron_get_slider_default() {
+	return apply_filters(
+		'accron_get_slider_default', json_encode(
+				 array(
+				array(
+					'image_url'       	=> esc_url(CLEVERFOX_PLUGIN_URL. 'inc/accron/images/slider/slider-img1.jpg'),
+					'title'           	=> esc_html__('20 Years Of Successful Business Consulting','clever-fox'),
+					'subtitle'         	=> esc_html__('Your Business Innovative Strategies For Success','clever-fox'),
+					'text2'	  			=>  esc_html__('Our Service','clever-fox'),
+					'link'	  			=>  esc_html__( '#', 'clever-fox' ),
+					'id'              	=> 'customizer_repeater_slider_001',
+				)
+			)
+		)
+	);
+}	
+	
 /*
  *
  * Service Default
@@ -8,7 +30,7 @@ function accron_get_service_default() {
 		'accron_get_service_default', json_encode(
 			array(
 				array(
-					'image_url'   => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/accron/images/service/service-img1.jpg'),	
+					'image_url2'   => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/accron/images/service/service-img1.jpg'),	
 					'icon_value'   => 'fa-tags',	
 					'title'        => esc_html__( 'Branding Service', 'clever-fox' ),
 					'text'        => esc_html__( 'Building Brands', 'clever-fox' ),
@@ -17,7 +39,7 @@ function accron_get_service_default() {
 					'id'           => 'customizer_repeater_service_001',
 				),
 				array(
-					'image_url'   => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/accron/images/service/service-img2.jpg'),
+					'image_url2'   => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/accron/images/service/service-img2.jpg'),
 					'icon_value'   => 'fa-laptop',	
 					'title'        => esc_html__( 'Digital Product', 'clever-fox' ),
 					'text'        => esc_html__( 'Innovation Redefined', 'clever-fox' ),
@@ -26,7 +48,7 @@ function accron_get_service_default() {
 					'id'           => 'customizer_repeater_service_002',
 				),
 				array(
-					'image_url'   => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/accron/images/service/service-img3.jpg'),
+					'image_url2'   => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/accron/images/service/service-img3.jpg'),
 					'icon_value'   => 'fa-image',	
 					'title'        => esc_html__( 'Media Planing', 'clever-fox' ),
 					'text'        => esc_html__( 'Media Solution', 'clever-fox' ),
@@ -35,7 +57,7 @@ function accron_get_service_default() {
 					'id'           => 'customizer_repeater_service_003',
 				),
 				array(
-					'image_url'   => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/accron/images/service/service-img4.jpg'),
+					'image_url2'   => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/accron/images/service/service-img4.jpg'),
 					'icon_value'   => 'fa-users',	
 					'title'        => esc_html__( 'IT Consulting', 'clever-fox' ),
 					'text'        => esc_html__( 'Accelerating Business', 'clever-fox' ),
@@ -184,7 +206,7 @@ if ( ! function_exists( 'blog_header_content' ) ){
 	
 	/* Blog Header */
 	$blog_title 			= get_theme_mod('blog_title',__('<span class="primary-color">What</span> People Writes','clever-fox'));
-	$blog_subttl 			= get_theme_mod('blog_subttl',__('Outstanding Blog','clever-fox'));
+	$blog_subttl 			= get_theme_mod('blog_subtitle',__('Outstanding Blog','clever-fox'));
 	$blog_description 		= get_theme_mod('blog_description',__('Discover key strategies for managing remote teams effectively.','clever-fox'));
 ?>
 

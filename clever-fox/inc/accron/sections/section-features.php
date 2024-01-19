@@ -1,10 +1,10 @@
 <?php 
 	$feature_hs							= get_theme_mod('feature_hs','1');
-	$accron_features_title 				= get_theme_mod('accron_features_title',__('<span class=\'primary-color\'>What</span> We Do','clever-fox'));
-	$accron_features_subtitle			= get_theme_mod('accron_features_subtitle',__('Outstanding Features','clever-fox')); 
-	$accron_features_desc				= get_theme_mod('accron_features_desc',__('There are many variations of passages of Lorem Ipsum available.','clever-fox')); 
-	$accron_features_contents			= get_theme_mod('accron_features_contents',accron_get_features_default());
-	$accron_features_sec_column			= get_theme_mod('accron_features_sec_column','3'); 	
+	$accron_features_title 				= get_theme_mod('features_title',__('<span class=\'primary-color\'>What</span> We Do','clever-fox'));
+	$accron_features_subtitle			= get_theme_mod('features_subtitle',__('Outstanding Features','clever-fox')); 
+	$accron_features_desc				= get_theme_mod('features_desc',__('There are many variations of passages of Lorem Ipsum available.','clever-fox')); 
+	$accron_features_contents			= get_theme_mod('features_contents',accron_get_features_default());
+	$accron_features_sec_column			= get_theme_mod('features_sec_column','3'); 	
 	if($feature_hs=='1'){
 ?>	
 	<!-- features -->

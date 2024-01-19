@@ -33,7 +33,7 @@
 
     }
 
-    public function continue() {
+    public function continueProcess() {
 
       if (isset($this->siteConfig['step'])) {
         $this->step = intval($this->siteConfig['step']);

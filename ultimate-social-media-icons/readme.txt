@@ -2,8 +2,8 @@
 Contributors: socialdude, socialtech
 Tags: share, social, share icons, social media, widget, sharing icons, sharing buttons, social share, sharing
 Requires at least: 3.5
-Tested up to: 6.4
-Stable tag: 2.8.6
+Tested up to: 6.4.2
+Stable tag: 2.8.7
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -301,6 +301,21 @@ It depends on which language you speak :) however probably the answer is â€œyesâ
 
 
 == Changelog ==
+
+= 2.8.7 =
+* [NEW] Improved look of Dark X icons and buttons
+* [NEW] Refactored code of facebook share/likes API
+* [NEW] Added alternate text to icons in reader mode
+* [FIX] Adjusted text of "Tweet" -> "Post on X" where needed
+* [FIX] Adjusted X icon position on desktop screens
+* [FIX] Resolved minor issues with floating icons
+* [FIX] Resolved issues with facebook share cache count
+* [FIX] Resolved issues with hover text of copy icon
+* [FIX] Added proper setting validation to prevent issues with PHP 8+
+* [NOTE] Upgraded "TryItOut" module to latest version
+* [NOTE] Upgraded analyst module to latest version
+* [NOTE] Tested with WordPress v6.4.2
+* [NOTE] Tested up to PHP v8.3
 
 = 2.8.6 =
 * Tested with WordPress 6.4-beta & PHP 8.2
@@ -1128,11 +1143,17 @@ It depends on which language you speak :) however probably the answer is â€œyesâ
 
 == Upgrade Notice ==
 
-= 2.8.6 =
-* Tested with WordPress 6.4-beta & PHP 8.2
-* Now icons are disabled in page builders
-* Improved copy icon functionality to support more systems
-* Replaced twitter icon with X
-* Changed default colors for X
-* Updated carrousel module for PHP 8.2 and resolved conflicts
-* Improved overall compatiblity with PHP 8.2
+= 2.8.7 =
+* [NEW] Improved look of Dark X icons and buttons
+* [NEW] Refactored code of facebook share/likes API
+* [NEW] Added alternate text to icons in reader mode
+* [FIX] Adjusted text of "Tweet" -> "Post on X" where needed
+* [FIX] Adjusted X icon position on desktop screens
+* [FIX] Resolved minor issues with floating icons
+* [FIX] Resolved issues with facebook share cache count
+* [FIX] Resolved issues with hover text of copy icon
+* [FIX] Added proper setting validation to prevent issues with PHP 8+
+* [NOTE] Upgraded "TryItOut" module to latest version
+* [NOTE] Upgraded analyst module to latest version
+* [NOTE] Tested with WordPress v6.4.2
+* [NOTE] Tested up to PHP v8.3

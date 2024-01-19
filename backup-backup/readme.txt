@@ -3,7 +3,7 @@ Contributors: Migrate
 Tags: Migration, Backup, Staging, Migrate, Backups, Restore, All In One, Duplicate, Clone, Import, Export, Transfer
 Requires at least: 4.6
 Tested up to: 6.4.2
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv3
 Requires PHP: 5.6
 
@@ -162,6 +162,16 @@ Vietnamese: [Tạo sao lưu, khôi phục các bản sao lưu và di chuyển c�
 5. The plugin should be shown below the settings menu.
 
 == Changelog ==
+
+= 1.4.2 =
+* [PRO] Added failure prevention when third party plugin(s) removes one of our files
+* [FIX] Adjusted the code to support and fit PHP 8.3 standards based on user reports (also PHP 5.6)
+* [FIX] Errors caused by removal of file that does not exist should be resolved (during database backup)
+* [FIX] Infinite number will be now converted to max allowed value, allowing upload of tables with INF values
+* [FIX] Attempt of minimizing PCL temporary file issues caused most likely by insufficent storage space
+* [NOTE] Added new default exclusion rules in terms of files (optional usage)
+* [NOTE] Extended hard directory blacklist
+* [NOTE] Upgraded analyst module to latest version
 
 = 1.4.1 =
 * [FIX] Removed unwanted file that prevented our plugin from installation on Windows
@@ -702,7 +712,13 @@ Vietnamese: [Tạo sao lưu, khôi phục các bản sao lưu và di chuyển c�
 
 == Upgrade Notice ==
 
-= 1.4.1 =
-What's new in 1.4.1?
-* [FIX] Removed unwanted file that prevented our plugin from installation on Windows
-* [CHANGE] Censored table prefix in live-log
+= 1.4.2 =
+What's new in 1.4.2?
+* [PRO] Added failure prevention when third party plugin(s) removes one of our files
+* [FIX] Adjusted the code to support and fit PHP 8.3 standards based on user reports (also PHP 5.6)
+* [FIX] Errors caused by removal of file that does not exist should be resolved (during database backup)
+* [FIX] Infinite number will be now converted to max allowed value, allowing upload of tables with INF values
+* [FIX] Attempt of minimizing PCL temporary file issues caused most likely by insufficent storage space
+* [NOTE] Added new default exclusion rules in terms of files (optional usage)
+* [NOTE] Extended hard directory blacklist
+* [NOTE] Upgraded analyst module to latest version

@@ -779,6 +779,7 @@ function sfsi_update_step4() {
             sfsi_rss_manualCounts: c,
             sfsi_facebook_countsDisplay: p,
             sfsi_facebook_countsFrom: _,
+            sfsi_facebook_enableCache: SFSI("input[name='sfsi_facebook_enableCache']").is(":checked") ,
             sfsi_facebook_mypageCounts: mp,
             sfsi_facebook_manualCounts: l,
             sfsi_twitter_countsDisplay: S,
@@ -942,6 +943,7 @@ function sfsi_update_step5() {
         fbM = 1 == SFSI("input[name='sfsi_fbmessenger_MouseOverText']").prop("disabled") ? "" : SFSI("input[name='sfsi_fbmessenger_MouseOverText']").val(),
         tik = 1 == SFSI("input[name='sfsi_tiktok_MouseOverText']").prop("disabled") ? "" : SFSI("input[name='sfsi_tiktok_MouseOverText']").val(),
         mast = 1 == SFSI("input[name='sfsi_mastodon_MouseOverText']").prop("disabled") ? "" : SFSI("input[name='sfsi_mastodon_MouseOverText']").val(),
+        copy = 1 == SFSI("input[name='sfsi_copylink_MouseOverText']").prop("disabled") ? "" : SFSI("input[name='sfsi_copylink_MouseOverText']").val(),
         O = {};
     SFSI("input[name='sfsi_custom_MouseOverTexts[]']").each(function() {
         O[SFSI(this).attr("file-id")] = this.value;
@@ -989,6 +991,7 @@ function sfsi_update_step5() {
         sfsi_fbmessenger_MouseOverText: fbM,
         sfsi_tiktok_MouseOverText: tik,
         sfsi_mastodon_MouseOverText: mast,
+        sfsi_copylink_MouseOverText: copy,
         sfsi_custom_MouseOverTexts: O,
         sfsi_rssIcon_order: p,
         sfsi_emailIcon_order: _,
@@ -2138,7 +2141,8 @@ function selectText(containerid) {
  * @param {*} input
  * @returns
  */
-function escapeHtml(unsafe) {
+function escapeHtml(unsafe = '') {
+  if (typeof unsafe != 'string') unsafe = '';
     return unsafe
          .replace(/&/g, "&amp;")
          .replace(/</g, "&lt;")

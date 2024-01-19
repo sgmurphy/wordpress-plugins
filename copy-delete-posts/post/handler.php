@@ -342,9 +342,9 @@ function cdp_insert_new_post($areWePro = false) {
      * @param  int    $site     ID of the destination subsite
      * @return array [ids of categories in subsite]
      */
-    function cdp_duplicate_categories($origin, $taxonomyName, $site, $areWePro = false) {
+    function cdp_duplicate_categories($origin, $taxonomyName, $site, $areWePro = false, $previousType = 'post', $newType = 'post', $returnAsArray = false) {
 
-      if ($areWePro && $site != -1) {
+      if (($areWePro && $site != -1) || ($previousType != $newType)) {
 
         $origin_ids = [];
         $origin_names = [];
@@ -356,6 +356,12 @@ function cdp_insert_new_post($areWePro = false) {
             $origin_ids[] = $cat_id;
             $origin_names[] = $term->name;
           }
+        }
+        
+        $names = [];
+        if ($newType == 'post' && $previousType != 'post') {
+          if (strpos($taxonomyName, 'tag') !== false) $taxonomyName = 'post_tag';
+          else if (strpos($taxonomyName, 'categ') !== false) $taxonomyName = 'category';
         }
 
         if (function_exists('cdpp_handle_multisite')) {
@@ -374,6 +380,7 @@ function cdp_insert_new_post($areWePro = false) {
             $newIds[] = $cat_id[0];
           } else {
             $createdId = wp_insert_term($cat_name, $taxonomyName);
+            $names[] = $cat_name;
             if (isset($createdId['term_id']) && is_numeric($createdId['term_id'])) {
               $newIds[] = $createdId['term_id'];
             }
@@ -384,9 +391,15 @@ function cdp_insert_new_post($areWePro = false) {
           cdpp_handle_multisite_after($site);
         }
 
-        return $newIds;
+        if ($returnAsArray == true) {
+          return [ 'ids' => $newIds, 'taxonomy' => $taxonomyName, 'names' => $names ];
+        } else return $newIds;
 
-      } else return $origin;
+      } else {
+        if ($returnAsArray == true) {
+          return [ 'ids' => $origin ];
+        } else return $origin;
+      }
 
     }
 
@@ -439,12 +452,6 @@ function cdp_insert_new_post($areWePro = false) {
             }
         }
 
-        foreach ($ft as $taxonomyName => $ids) {
-          $fixed_categories = cdp_duplicate_categories($ids, $taxonomyName, $site, $areWePro);
-          $ft[$taxonomyName] = $fixed_categories;
-        }
-        
-
         // Create array with required values and contant values
         $new = array(
             'post_title' => ($settings['title'] ? cdp_create_title($post['post_title'], $settings['names'], $post['ID'], $areWePro) : __('Untitled Copy', 'copy-delete-posts')),
@@ -453,20 +460,30 @@ function cdp_insert_new_post($areWePro = false) {
             'post_author' => ($settings['author'] ? $post['post_author'] : wp_get_current_user()->ID),
             'post_content' => ($settings['content']) ? addslashes($post['post_content']) : '',
             'comment_status' => $post['comment_status'], // that's additional element which cannot be edited by user
-            'post_parent' => $post['post_parent'], // that's additional element which cannot be edited by user
-            'multisite_taxonomy' => $ft
+            'post_parent' => $post['post_parent'] // that's additional element which cannot be edited by user
         );
-
-        // For WooCommerce
-        if ($post['post_type'] == 'product_variation' || $post['post_type'] == 'acf-field') {
-          $new['post_status'] = 'publish';
-        }
-
+        
         // Converter
         if ((($opt == '2' && $swap == 'true') || $swap == 'true') && $areWePro && function_exists('cdpp_post_converter')) {
           $new['post_type'] = cdpp_post_converter($post['post_type']);
         } else {
           $new['post_type'] = $post['post_type'];
+        }
+        
+        $ft_tags = [];
+        $ft_categories = [];
+        foreach ($ft as $taxonomyName => $ids) {
+          $fixed_categories = cdp_duplicate_categories($ids, $taxonomyName, $site, $areWePro, $post['post_type'], $new['post_type'], true);
+          $ft[$taxonomyName] = $fixed_categories['ids'];
+          if ($fixed_categories['taxonomy'] == 'post_tag') $ft_tags = $fixed_categories['ids'];
+          if ($fixed_categories['taxonomy'] == 'category') $ft_categories = $fixed_categories['ids'];
+        }
+        
+        $new['multisite_taxonomy'] = $ft;
+
+        // For WooCommerce
+        if ($post['post_type'] == 'product_variation' || $post['post_type'] == 'acf-field') {
+          $new['post_status'] = 'publish';
         }
 
         // Add optional values of post – depending on settings
@@ -482,10 +499,12 @@ function cdp_insert_new_post($areWePro = false) {
             $new['menu_order'] = $post['menu_order'];
         if ($settings['category']) {
           $fixed_categories = cdp_duplicate_categories($post['post_category'], 'post_category', $site, $areWePro);
+          $fixed_categories = array_values(array_unique(array_merge($fixed_categories, $ft_categories)));
           $new['post_category'] = $fixed_categories;
         }
         if ($settings['post_tag'])
-            $new['tags_input'] = $post['tags_input'];
+            $tags = array_values(array_unique(array_merge($post['tags_input'], $ft_tags)));
+            $new['tags_input'] = $tags;
         if ($taxonomies != false)
             $new['tax_input'] = $ft;
 

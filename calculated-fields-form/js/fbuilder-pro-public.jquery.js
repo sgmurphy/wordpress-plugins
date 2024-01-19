@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '1.2.48';
+	$.fbuilder['version'] = '1.2.49';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 
@@ -771,8 +771,8 @@
 						var d =  window[ f ];
 						if ( typeof d != 'undefined' )
 						{
-							if( typeof d == 'object' && ( typeof d.nodeType !== 'undefined' || d instanceof jQuery ) ){ d = jQuery.parseJSON( jQuery(d).val() ); }
-							else if( typeof d == 'string' ){ d = jQuery.parseJSON( d ); }
+							if( typeof d == 'object' && ( typeof d.nodeType !== 'undefined' || d instanceof jQuery ) ){ d = JSON.parse( jQuery(d).val() ); }
+							else if( typeof d == 'string' ){ d = JSON.parse( d ); }
 
 							if (d.length == 2)
 							{

@@ -212,7 +212,7 @@ if (isset($option2['sfsi_youtubeusernameorid']) && "id" == $option2['sfsi_youtub
                     <ul>
                         <li><span><?php _e( 'More people come back', 'ultimate-social-media-icons' ); ?></span> <?php _e( 'to your site', 'ultimate-social-media-icons' ); ?> </li>
                         <li><?php _e( 'See your', 'ultimate-social-media-icons' ); ?><span> <?php _e( 'subscribers’ emails', 'ultimate-social-media-icons' ); ?> </span> & <span><?php _e( 'interesting statistics', 'ultimate-social-media-icons' ); ?></span></li>
-                        <li><?php _e( 'Automatically post on', 'ultimate-social-media-icons' ); ?><span> <?php _e( 'Facebook & Twitter', 'ultimate-social-media-icons' ); ?></span></li>
+                        <li><?php _e( 'Automatically post on', 'ultimate-social-media-icons' ); ?><span> <?php _e( 'Facebook & X (Twitter)', 'ultimate-social-media-icons' ); ?></span></li>
                     </ul>
                 </div>
                 <div class='sfsi_service_column'>
@@ -289,26 +289,26 @@ if (isset($option2['sfsi_youtubeusernameorid']) && "id" == $option2['sfsi_youtub
 
     <!-- TWITTER ICON -->
     <div class="row twitter_section">
-        <h2 class="sfsicls_twt"><?php _e( 'Twitter', 'ultimate-social-media-icons' ); ?></h2>
+        <h2 class="sfsicls_twt"><?php _e( 'X (Twitter)', 'ultimate-social-media-icons' ); ?></h2>
         <div class="inr_cont twt_tab_2">
             <p>
                 <?php
                     printf(
-                        __( 'The Twitter icon can perform several actions. Pick below which ones it should perform. If you select several options, then users can select what they want to do %1s (see an example) %2s ', 'ultimate-social-media-icons' ),
+                        __( 'The X (Twitter) icon can perform several actions. Pick below which ones it should perform. If you select several options, then users can select what they want to do %1s (see an example) %2s ', 'ultimate-social-media-icons' ),
                         '<a class="rit_link pop-up" href="javascript:;" data-id="twex-s2">',
                         '</a>'
                     );
                 ?>
             </p>
-            <p><?php _e( 'The Twitter icon should allow users to...', 'ultimate-social-media-icons' ); ?></p>
+            <p><?php _e( 'The X (Twitter) icon should allow users to...', 'ultimate-social-media-icons' ); ?></p>
 
-            <p class="radio_section fb_url" style="display:flow-root"><input name="sfsi_twitter_page" <?php echo ($option2['sfsi_twitter_page'] == 'yes') ? 'checked="true"' : ''; ?> type="checkbox" value="yes" class="styled" /><label><?php _e( 'Visit me on Twitter:', 'ultimate-social-media-icons' ); ?></label><input name="sfsi_twitter_pageURL" type="url" placeholder="http://" value="<?php echo ($option2['sfsi_twitter_pageURL'] != '') ?  $option2['sfsi_twitter_pageURL'] : ''; ?>" class="add" /></p>
+            <p class="radio_section fb_url" style="display:flow-root"><input name="sfsi_twitter_page" <?php echo ($option2['sfsi_twitter_page'] == 'yes') ? 'checked="true"' : ''; ?> type="checkbox" value="yes" class="styled" /><label><?php _e( 'Visit me on X (Twitter):', 'ultimate-social-media-icons' ); ?></label><input name="sfsi_twitter_pageURL" type="url" placeholder="http://" value="<?php echo ($option2['sfsi_twitter_pageURL'] != '') ?  $option2['sfsi_twitter_pageURL'] : ''; ?>" class="add" /></p>
 
-            <div class="radio_section fb_url twt_fld"><input name="sfsi_twitter_followme" <?php echo ($option2['sfsi_twitter_followme'] == 'yes') ? 'checked="true"' : ''; ?> type="checkbox" value="yes" class="styled" /><label><?php _e( 'Follow me on Twitter:', 'ultimate-social-media-icons' ); ?></label><input name="sfsi_twitter_followUserName" type="text" value="<?php echo ($option2['sfsi_twitter_followUserName'] != '') ? esc_attr($option2['sfsi_twitter_followUserName']) : ''; ?>" placeholder="my_twitter_name" class="add" /></div>
+            <div class="radio_section fb_url twt_fld"><input name="sfsi_twitter_followme" <?php echo ($option2['sfsi_twitter_followme'] == 'yes') ? 'checked="true"' : ''; ?> type="checkbox" value="yes" class="styled" /><label><?php _e( 'Follow me on X (Twitter):', 'ultimate-social-media-icons' ); ?></label><input name="sfsi_twitter_followUserName" type="text" value="<?php echo ($option2['sfsi_twitter_followUserName'] != '') ? esc_attr($option2['sfsi_twitter_followUserName']) : ''; ?>" placeholder="my_x_twitter_name" class="add" /></div>
             <?php
             $twitter_text = isset($option2['sfsi_twitter_aboutPageText']) && !empty($option2['sfsi_twitter_aboutPageText']) ? $option2['sfsi_twitter_aboutPageText'] : '';
             ?>
-            <div class="radio_section fb_url twt_fld_2"><input name="sfsi_twitter_aboutPage" <?php echo ($option2['sfsi_twitter_aboutPage'] == 'yes') ? 'checked="true"' : ''; ?> type="checkbox" value="yes" class="styled" /><label>Tweet about my page:</label><textarea name="sfsi_twitter_aboutPageText" id="sfsi_twitter_aboutPageText" class="add_txt" placeholder="Hey, check out this cool site I found: www.yourname.com #Topic via@my_twitter_name"><?php echo $twitter_text; ?></textarea><?php /*echo ($option2['sfsi_twitter_aboutPageText']!='') ?  stripslashes($option2['sfsi_twitter_aboutPageText']) : '' ;*/ ?></div>
+            <div class="radio_section fb_url twt_fld_2"><input name="sfsi_twitter_aboutPage" <?php echo ($option2['sfsi_twitter_aboutPage'] == 'yes') ? 'checked="true"' : ''; ?> type="checkbox" value="yes" class="styled" /><label>X Post about my page:</label><textarea name="sfsi_twitter_aboutPageText" id="sfsi_twitter_aboutPageText" class="add_txt" placeholder="Hey, check out this cool site I found: www.yourname.com #Topic via@my_x_twitter_name"><?php echo $twitter_text; ?></textarea><?php /*echo ($option2['sfsi_twitter_aboutPageText']!='') ?  stripslashes($option2['sfsi_twitter_aboutPageText']) : '' ;*/ ?></div>
 
             <div class="radio_section twt_fld_23 sfsi-max-content clear">
                 <label class="sfsi_tooltip_premium sfsi_tooltip_premium_small d-flex flex-row">
@@ -316,8 +316,8 @@ if (isset($option2['sfsi_youtubeusernameorid']) && "id" == $option2['sfsi_youtub
                         <span class="checkbox" style="background-position:0px 0px!important;width:31px"></span>
                     </div>
                     <div class="sfsicnwrp" style="margin-top: 5px;">
-                        <?php _e( 'Twitter cards', 'ultimate-social-media-icons' ); ?><span class="sfsi_premium_logo_icon"></span>
-                        <span class="sfsi_tooltip_text_premium sfsi_tooltip_text_premium_small tp-checkbox-link tp-checkbox-twitter-link" style="width: 500px;"><?php _e( "Tweeting becomes really fun in the Premium Plugin – you can insert tags to automatically pull the title of the story & link to the story, attach pictures & snippets to the Tweets ('Twitter cards') and user Url-shorteners, all leading to more Tweets and traffic for your site", 'ultimate-social-media-icons' ); ?> - <a href="https://www.ultimatelysocial.com/usm-premium/" target="_blank" style="color: #fff;"><?php _e( 'learn more', 'ultimate-social-media-icons' ); ?></a></span>
+                        <?php _e( 'X (Twitter) cards', 'ultimate-social-media-icons' ); ?><span class="sfsi_premium_logo_icon"></span>
+                        <span class="sfsi_tooltip_text_premium sfsi_tooltip_text_premium_small tp-checkbox-link tp-checkbox-twitter-link" style="width: 500px;"><?php _e( "X Posting becomes really fun in the Premium Plugin – you can insert tags to automatically pull the title of the story & link to the story, attach pictures & snippets to the X Posts ('X (Twitter) cards') and user Url-shorteners, all leading to more X Posts and traffic for your site", 'ultimate-social-media-icons' ); ?> - <a href="https://www.ultimatelysocial.com/usm-premium/" target="_blank" style="color: #fff;"><?php _e( 'learn more', 'ultimate-social-media-icons' ); ?></a></span>
                     </div>
                 </label>
             </div>
@@ -775,7 +775,10 @@ if (isset($option2['sfsi_youtubeusernameorid']) && "id" == $option2['sfsi_youtub
     <!-- COPY LINK ICON -->
     <div class="row copylink_section">
         <h2 class="sfsicls_copylink"><?php _e('Copy link', 'ultimate-social-media-icons'); ?></h2>
-        <label class="sfsiLabel infoLabel"><?php _e('Copies the link of the webpage to clipboard.', 'ultimate-social-media-icons'); ?></label>
+        <div class="inr_cont mastodon_tab_2">
+           <p><?php _e('Copies the link of the webpage to clipboard.', 'ultimate-social-media-icons'); ?></p>
+        </div>
+
     </div>
     <!-- COPY LINK ICON -->
 

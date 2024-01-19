@@ -72,6 +72,8 @@
 #ffieldset.itemForm::before{content:"\eb73";}
 .cff-button-drag.fdiv::before,
 #fdiv.itemForm::before{content:"\eb73";}
+.cff-button-drag.fpopup::before,
+#fpopup.itemForm::before{content:"\eb73";}
 .cff-button-drag.fhtml::before,
 .cff-button-drag.fhtmlds::before,
 #fhtmlds.itemForm::before,
@@ -192,6 +194,7 @@
 #fbuilder .fPageBreak:before{background-color:rgba(181,206,191,0.7);}
 #fbuilder .fsummary:before{background-color:rgba(206,220,199,0.7);}
 #fbuilder .ffieldset:before{background-color:rgba(255,238,165,0.7);}
+#fbuilder .fpopup:before{background-color:rgba(229,221,230,1);}
 #fbuilder .frepeater:before{background-color:rgba(175,122,179,0.3);}
 #fbuilder .frecordav:before{background-color:rgb(228,209,146,0.2);}
 #fbuilder .fdiv:before{background-color:rgba(255,203,165,0.7);}
@@ -239,9 +242,14 @@
 #fbuilder .fields .uncollapse{right:40px;}
 #fbuilder .fields .copy{right:20px;}
 
-#fbuilder legend{ border:1px solid rgba(222,222,222,.75); background:#FFF; margin-left:5px; padding: 0 5px; }
+#fbuilder legend{ border:1px solid #CDCDCD; background:#FFF; margin-left:5px; padding: 0 5px; }
 #fbuilder .fcontainer{ border:1px solid #CDCDCD;min-height:67px;padding:10px 5px;position:relative;border-radius:2px;}
 #fbuilder .fieldscontainer{min-height:67px;}
+#fbuilder .cff-popup-header{position:relative;padding:5px;}
+#fbuilder .cff-popup-header:not(:empty){border:1px solid #CDCDCD;border-bottom:0;background:white;min-height:24px;}
+#fbuilder .cff-popup-close{position:absolute;top:50%;right:10px;transform:translateY(-50%);}
+#fbuilder .cff-popup-close:hover{transform:translateY(-50%) !important;color:initial !important;}
+#fbuilder .cff-popup-title{margin:0;}
 
 .cff-goto-top{text-align:right;}
 .cff-goto-top a::after{display:inline-block; content: " ↑"}
@@ -252,6 +260,7 @@
 #fbuilder .sticker i{display:inline-block;height:15px;border:1px solid rgba(0,0,0,.2);margin-left:3px;min-width:10px;}
 #fbuilder .ffieldset .sticker i{background-color:rgba(255,238,165,0.7);}
 #fbuilder .fdiv .sticker i{background-color:rgba(255,203,165,0.7);}
+#fbuilder .fpopup .sticker i{background-color:rgba(223,202,225,1);}
 #fbuilder .sticker i.sticker-1{display:none;}
 #fbuilder .sticker i.sticker-2{width:32px;}
 #fbuilder .sticker i.sticker-3{width:21px;}

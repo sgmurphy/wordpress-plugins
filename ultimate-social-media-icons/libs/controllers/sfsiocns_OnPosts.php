@@ -116,9 +116,11 @@ function sfsi_social_buttons_below( $content ) {
 								if ($sfsi_section4['sfsi_facebook_countsFrom'] == "manual") {
 									$counts = $sfsi_section4['sfsi_facebook_manualCounts'];
 								} else if ($sfsi_section4['sfsi_facebook_countsFrom'] == "likes") {
-									$counts = $socialObj->sfsi_get_fb($permalink);
+									$counts = $socialObj->sfsi_get_fb($permalink,true);
+                                    $counts = $counts->share_count;
 								} else if ($sfsi_section4['sfsi_facebook_countsFrom'] == "followers") {
-									$counts = $socialObj->sfsi_get_fb($permalink);
+									$counts = $socialObj->sfsi_get_fb($permalink, true);
+                                    $counts = $counts->share_count;
 								} else if ($sfsi_section4['sfsi_facebook_countsFrom'] == "mypage") {
 									$current_url = $sfsi_section4['sfsi_facebook_mypageCounts'];
 									$counts      = $socialObj->sfsi_get_fb_pagelike(urlencode($current_url));
@@ -329,8 +331,12 @@ function sfsi_FBlike($permalink, $show_count)
 	$fb_like_html = '';
 
 	$option6 = maybe_unserialize(get_option('sfsi_section6_options', false));
-
-	$fb_like_html .= '<div class="fb-like" data-href="' . $permalink . '"  data-send="' . $send . '" ';
+    /* Check Show count on */
+    $className = 'margin-disable-count';
+    if ($show_count){
+        $className = 'margin-enable-count';
+    }
+	$fb_like_html .= '<div class="fb-like '. $className .'" data-href="' . $permalink . '"  data-send="' . $send . '" ';
 
 	if ($show_count == 1) {
 		$fb_like_html .= 'data-layout="button_count"';
@@ -388,10 +394,25 @@ function sfsiFB_Share_Custom($permalink, $show_count = false)
 /* add all external javascript to wp_footer */
 function sfsi_footer_script() {
 
-	$sfsi_section1 = maybe_unserialize(get_option('sfsi_section1_options', false));
-	$sfsi_section6 = maybe_unserialize(get_option('sfsi_section6_options', false));
-	$sfsi_section9 = maybe_unserialize(get_option('sfsi_section9_options', false));
-	$sfsi_section2 = maybe_unserialize(get_option('sfsi_section2_options', false));
+    $sfsi_section1 = maybe_unserialize(get_option('sfsi_section1_options', false));
+    if (!is_array($sfsi_section1)){
+        $sfsi_section1 = [];
+    }
+
+    $sfsi_section6 = maybe_unserialize(get_option('sfsi_section6_options', false));
+    if (!is_array($sfsi_section6)){
+        $sfsi_section6 = [];
+    }
+
+    $sfsi_section9 = maybe_unserialize(get_option('sfsi_section9_options', false));
+    if (!is_array($sfsi_section9)){
+        $sfsi_section9 = [];
+    }
+
+    $sfsi_section2 = maybe_unserialize(get_option('sfsi_section2_options', false));
+    if (!is_array($sfsi_section2)){
+        $sfsi_section2 = [];
+    }
 
 	if (!isset($sfsi_section6['sfsi_rectsub'])) {
 		$sfsi_section6['sfsi_rectsub'] = 'no';
@@ -411,67 +432,80 @@ function sfsi_footer_script() {
 	if (!isset($sfsi_section6['sfsi_rectfbshare'])) {
 		$sfsi_section6['sfsi_rectfbshare'] = 'no';
 	}
-	$sisi_common_options_check = (($sfsi_section9['sfsi_show_via_widget'] == "yes") || ($sfsi_section9['sfsi_icons_float'] == "yes") && (isset($sfsi_section9['sfsi_icons_floatPosition'])) || ($sfsi_section9['sfsi_show_via_shortcode'] == "yes"));
-    $flagIconAfterPost = $sfsi_section9['sfsi_show_via_afterposts'] === 'yes';
 
-    $flagEnableLikeAndShare = ($sfsi_section6['sfsi_rectfb'] == "yes" || $sfsi_section6['sfsi_rectfbshare'] == "yes");
+    $sisi_common_options_check = false;
+    if (isset($sfsi_section9['sfsi_show_via_widget'], $sfsi_section9['sfsi_icons_float'],$sfsi_section9['sfsi_show_via_shortcode'])){
+        $sisi_common_options_check = (($sfsi_section9['sfsi_show_via_widget'] == "yes") || ($sfsi_section9['sfsi_icons_float'] == "yes") && (isset($sfsi_section9['sfsi_icons_floatPosition'])) || ($sfsi_section9['sfsi_show_via_shortcode'] == "yes"));
+    }
+
+    $flagIconAfterPost =false;
+    if (isset($sfsi_section9['sfsi_show_via_afterposts'])){
+        $flagIconAfterPost = $sfsi_section9['sfsi_show_via_afterposts'] === 'yes';
+    }
+
+    $flagEnableLikeAndShare =false;
+    if (isset($sfsi_section6['sfsi_rectfb'],$sfsi_section6['sfsi_rectfbshare'])){
+        $flagEnableLikeAndShare = ($sfsi_section6['sfsi_rectfb'] == "yes" || $sfsi_section6['sfsi_rectfbshare'] == "yes");
+    }
 
     if ($sfsi_section1['sfsi_facebook_display'] == "yes" || ($flagIconAfterPost && $flagEnableLikeAndShare) ) {
 
-		if ((($sfsi_section6['sfsi_rectfb'] == "yes")) || $sisi_common_options_check && ($sfsi_section2['sfsi_facebookLike_option'] == "yes")) {
+        if (isset($sfsi_section6['sfsi_rectfb'])){
+            if ((($sfsi_section6['sfsi_rectfb'] == "yes")) || $sisi_common_options_check && ($sfsi_section2['sfsi_facebookLike_option'] == "yes")) {
 
-			$sfsi_section5 = maybe_unserialize(get_option('sfsi_section5_options', false));
-			if ( isset( $sfsi_section5['sfsi_icons_language'] ) && !empty( $sfsi_section5['sfsi_icons_language'] ) ) {
-				$icons_language = $sfsi_section5['sfsi_icons_language'];
+                $sfsi_section5 = maybe_unserialize(get_option('sfsi_section5_options', false));
+                if ( isset( $sfsi_section5['sfsi_icons_language'] ) && !empty( $sfsi_section5['sfsi_icons_language'] ) ) {
+                    $icons_language = $sfsi_section5['sfsi_icons_language'];
 
-				if ($icons_language == 'ar') {
-					$icons_language = 'ar_AR';
-				}
-				if ( $icons_language == "ja" ) {
-					$icons_language = "ja_JP";
-				}
-				if ( $icons_language == "el" ) {
-					$icons_language = "el_GR";
-				}
-				if ( $icons_language == "fi" ) {
-					$icons_language = "fi_FI";
-				}
-				if ( $icons_language == "th" ) {
-					$icons_language = "th_TH";
-				}
-				if ( $icons_language == "vi" ) {
-					$icons_language = "vi_VN";
-				}
+                    if ($icons_language == 'ar') {
+                        $icons_language = 'ar_AR';
+                    }
+                    if ( $icons_language == "ja" ) {
+                        $icons_language = "ja_JP";
+                    }
+                    if ( $icons_language == "el" ) {
+                        $icons_language = "el_GR";
+                    }
+                    if ( $icons_language == "fi" ) {
+                        $icons_language = "fi_FI";
+                    }
+                    if ( $icons_language == "th" ) {
+                        $icons_language = "th_TH";
+                    }
+                    if ( $icons_language == "vi" ) {
+                        $icons_language = "vi_VN";
+                    }
 
-				if ( "automatic" == $icons_language ) {
-					if (function_exists('icl_object_id') && has_filter('wpml_current_language')) {
-						$icons_language = apply_filters('wpml_current_language', NULL);
-						if (!empty($icons_language)) {
-							$icons_language = sfsi_wordpress_locale_from_locale_code_global($icons_language);
-						}
-					} else {
-						$icons_language = get_locale();
-					}
-				}
-			} else {
-				$icons_language = "en_US";
-			}
+                    if ( "automatic" == $icons_language ) {
+                        if (function_exists('icl_object_id') && has_filter('wpml_current_language')) {
+                            $icons_language = apply_filters('wpml_current_language', NULL);
+                            if (!empty($icons_language)) {
+                                $icons_language = sfsi_wordpress_locale_from_locale_code_global($icons_language);
+                            }
+                        } else {
+                            $icons_language = get_locale();
+                        }
+                    }
+                } else {
+                    $icons_language = "en_US";
+                }
 
-			?>
-			<!--facebook like and share js -->
-			<div id="fb-root"></div>
-			<script>
-				(function(d, s, id) {
-					var js, fjs = d.getElementsByTagName(s)[0];
-					if (d.getElementById(id)) return;
-					js = d.createElement(s);
-					js.id = id;
-					js.src = "//connect.facebook.net/<?php echo $icons_language; ?>/sdk.js#xfbml=1&version=v2.5";
-					fjs.parentNode.insertBefore(js, fjs);
-				}(document, 'script', 'facebook-jssdk'));
-			</script>
-		<?php
-				}
+                ?>
+                <!--facebook like and share js -->
+                <div id="fb-root"></div>
+                <script>
+                    (function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "//connect.facebook.net/<?php echo $icons_language; ?>/sdk.js#xfbml=1&version=v2.5";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));
+                </script>
+                <?php
+            }
+        }
 			}
 			$isYoutubeFollowFeatureActive = (isset($sfsi_section2['sfsi_youtube_follow']) && "yes" == $sfsi_section2['sfsi_youtube_follow']) && (isset($sfsi_section2['sfsi_youtubeusernameorid']) &&
 				!empty($sfsi_section2['sfsi_youtubeusernameorid'])) && (
@@ -480,36 +514,41 @@ function sfsi_footer_script() {
 					!empty($sfsi_section2['sfsi_ytube_user'])) || ("id" == $sfsi_section2['sfsi_youtubeusernameorid'] &&
 					isset($sfsi_section2['sfsi_ytube_chnlid']) &&
 					!empty($sfsi_section2['sfsi_ytube_chnlid'])));
-			if ($sfsi_section1['sfsi_youtube_display'] == "yes" && $sisi_common_options_check && $isYoutubeFollowFeatureActive) {
-				?>
-		<script type="text/javascript">
-			window.___gcfg = {
-				lang: 'en-US'
-			};
-			(function() {
-				var po = document.createElement('script');
-				po.type = 'text/javascript';
-				po.async = true;
-				po.src = 'https://apis.google.com/js/plusone.js';
-				var s = document.getElementsByTagName('script')[0];
-				s.parentNode.insertBefore(po, s);
-			})();
-		</script>
-	<?php
-		}
+    if(isset($sfsi_section1['sfsi_youtube_display'])){
+        if ($sfsi_section1['sfsi_youtube_display'] == "yes" && $sisi_common_options_check && $isYoutubeFollowFeatureActive) {
+            ?>
+            <script type="text/javascript">
+                window.___gcfg = {
+                    lang: 'en-US'
+                };
+                (function() {
+                    var po = document.createElement('script');
+                    po.type = 'text/javascript';
+                    po.async = true;
+                    po.src = 'https://apis.google.com/js/plusone.js';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(po, s);
+                })();
+            </script>
+            <?php
+        }
+    }
+
 		$isLinkedInFollowFeatureActive = (isset($sfsi_section2['sfsi_linkedin_follow']) && !empty($sfsi_section2['sfsi_linkedin_follow']) && ("yes" == $sfsi_section2['sfsi_linkedin_follow']) && isset($sfsi_section2['sfsi_linkedin_followCompany']) && !empty($sfsi_section2['sfsi_linkedin_followCompany']));
 
 		$isLinkedInRecommnedFeatureActive = (isset($sfsi_section2['sfsi_linkedin_recommendBusines']) && !empty($sfsi_section2['sfsi_linkedin_recommendBusines']) && ("yes" == $sfsi_section2['sfsi_linkedin_recommendBusines'])
 			&& isset($sfsi_section2['sfsi_linkedin_recommendProductId']) && !empty($sfsi_section2['sfsi_linkedin_recommendProductId'])
 			&& isset($sfsi_section2['sfsi_linkedin_recommendCompany']) && !empty($sfsi_section2['sfsi_linkedin_recommendCompany']));
 
-		if ($sfsi_section1['sfsi_linkedin_display'] == "yes" && ($isLinkedInFollowFeatureActive || $isLinkedInRecommnedFeatureActive) && $sisi_common_options_check) {
-			?>
-		<script src="//platform.linkedin.com/in.js" type="text/javascript">
-			lang: en_US
-		</script>
-	<?php
-		}
+        if(isset($sfsi_section1['sfsi_linkedin_display'])){
+            if ($sfsi_section1['sfsi_linkedin_display'] == "yes" && ($isLinkedInFollowFeatureActive || $isLinkedInRecommnedFeatureActive) && $sisi_common_options_check) {
+                ?>
+                <script src="//platform.linkedin.com/in.js" type="text/javascript">
+                    lang: en_US
+                </script>
+                <?php
+            }
+        }
 
 		/* activate footer credit link */
 		if (get_option('sfsi_footer_sec') == "yes") {
@@ -590,7 +629,7 @@ function sfsi_footer_script() {
 					$sfsi_responsive_icons = array(
 						"default_icons" => array(
 							"facebook" => array( "active" => "yes", "text" => "Share on Facebook", "url" => "" ),
-							"Twitter" => array( "active" => "yes", "text" => "Tweet", "url" => "" ),
+							"Twitter" => array( "active" => "yes", "text" => "Post on X", "url" => "" ),
 							"Follow" => array( "active" => "yes", "text" => "Follow us", "url" => "" ),
 							"Pinterest" => array( "active" => "yes", "text" => "Save", "url" => "" ),
 						),
@@ -617,6 +656,7 @@ function sfsi_footer_script() {
 					return ""; // dont return anything if options not set;
 				}
 			}
+
 			$twitter_text = isset($option2['sfsi_twitter_aboutPageText']) && !empty($option2['sfsi_twitter_aboutPageText']) ? $option2['sfsi_twitter_aboutPageText'] : false;
 
 			$icon_width_type = $sfsi_responsive_icons["settings"]["icon_width_type"];

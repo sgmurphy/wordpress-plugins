@@ -852,7 +852,7 @@
 		<!-- Twitter «Visit»-icon start here -->
 		<div class="icons_size">
 			<div class="follows-btn">
-				<span><?php _e( 'Twitter «Visit»-icon:', 'ultimate-social-media-icons' ); ?></span>
+				<span><?php _e( 'X (Twitter) «Visit»-icon:', 'ultimate-social-media-icons' ); ?></span>
 			</div>
 			<div class="field language-field">
 				<?php sfsi_selectoption( "sfsi_twitter_icons_language", "Visit_us", "Visit_me" ); ?>
@@ -1048,7 +1048,7 @@
 		<!-- Like & Share buttons (Facebook, Twitter, Youtube) start here -->
 		<div class="icons_size">
 			<span>
-				<?php _e( 'Language for Like, Share and Subscribe buttons (Facebook, Twitter, Youtube):', 'ultimate-social-media-icons' ); ?>
+				<?php _e( 'Language for Like, Share and Subscribe buttons (Facebook, X (Twitter), Youtube):', 'ultimate-social-media-icons' ); ?>
 			</span>
 			<div class="language_field">
 				<select name="sfsi_icons_language" id="sfsi_icons_language" class="language">
@@ -1387,7 +1387,7 @@
 
 		<div class="clear">
 		<div class="mouseover_field twitter_section">
-			<label><?php _e("Twitter:",'ultimate-social-media-icons' ) ?></label>
+			<label><?php _e("X (Twitter):",'ultimate-social-media-icons' ) ?></label>
 			<input name="sfsi_twitter_MouseOverText" value="<?php echo ( $option5['sfsi_twitter_MouseOverText']!='' ) ? esc_attr($option5['sfsi_twitter_MouseOverText']) : '' ;?>" type="text" />
 		</div>
 		<div class="mouseover_field facebook_section">
@@ -1529,7 +1529,7 @@
 
 	<div class="row new_wind">
 		<h4><?php _e( 'Support widget', 'ultimate-social-media-icons' ); ?></h4>
-		<div class="row_onl"><p><?php _e( 'Show USM support widget on front-end?', 'ultimate-social-media-icons' ) ?></p>
+		<div class="row_onl"><p><?php _e( 'Show the USM support widget on the front-end?', 'ultimate-social-media-icons' ) ?></p>
 			<ul class="enough_waffling">
 		    	<li>
 		    		<input name="sfsi_show_admin_popup" <?php echo ( $sfsi_show_admin_popup == 'yes' ) ? 'checked="true"' : '' ;?> type="radio" value="yes" class="styled" />

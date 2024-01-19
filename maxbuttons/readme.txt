@@ -4,7 +4,7 @@ Tags: wordpress button plugin, share button, wordpress buttons, css3 button gene
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 9.7.6
+Stable tag: 9.7.7
 WordPress button plugin so powerful and easy to use anyone can create beautiful buttons, share buttons and social icons.
 
 == Description ==
@@ -275,6 +275,10 @@ Secondly, please use latin only characters for button name ( Basic settings) and
 Upgrading to the PRO version is quite simple. Obtain a license key via our [site](https://maxbuttons.com). You can enter the license code within the free version on the 'Upgrade to PRO' page. After entering the license key, the PRO version will automatically download and install. You are good to go!
 
 == Changelog ==
+
+= 9.7.7 =
+
+* Tweak/Fix - Security Don't allow javascript by default in the shortcode.
 
 = 9.7.6 =
 

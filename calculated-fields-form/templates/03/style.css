@@ -79,3 +79,9 @@
 .cp_cff_natural #fbuilder .select2-selection--multiple,
 .cp_cff_natural #fbuilder .select2-selection--single{border-radius:0;}
 .cp_cff_natural #fbuilder .select2-results__option--highlighted{background:#9ac77b;}
+
+.cp_cff_natural #fbuilder .cff-popup-container{
+background: url(top_bg.png) 0 0 repeat-x #f3f6ea;
+}
+.cp_cff_natural #fbuilder .cff-popup-header:not(:empty){border:0;}
+.cp_cff_natural #fbuilder .cff-popup-close{color:white;}

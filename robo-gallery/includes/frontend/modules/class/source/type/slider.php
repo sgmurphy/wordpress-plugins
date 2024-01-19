@@ -1,15 +1,6 @@
 <?php
 
-/* 
-*      Robo Gallery     
-*      Version: 3.2.14 - 40722
-*      By Robosoft
-*
-*      Contact: https://robogallery.co/ 
-*      Created: 2021
-*      Licensed under the GPLv2 license - http://opensource.org/licenses/gpl-2.0.php
-
- */
+/* @@copyright@@ */
 
 if ( ! defined( 'WPINC' ) ) exit;
 
@@ -166,12 +157,15 @@ class RoboSliderSource {
 			$this->items[ $imgKey ]['sizeW']    = ( isset( $thumb[1] ) ) ? $thumb[1] : $this->width; //*($i%2 ? 1.5: 1)
 			$this->items[ $imgKey ]['sizeH']    = ( isset( $thumb[2] ) ) ? $thumb[2] : $this->height;
 			$this->items[ $imgKey ]['data']     = get_post( $imgId );
-			$this->items[ $imgKey ]['link']     = get_post_meta( $imgId, ROBO_GALLERY_PREFIX . 'gallery_link', true );
-			$this->items[ $imgKey ]['typelink'] = get_post_meta( $imgId, ROBO_GALLERY_PREFIX . 'gallery_type_link', true );
+			if(isset($this->items[ $imgKey ]['data']->post_title)){
+				$this->items[ $imgKey ]['data']->post_title = sanitize_text_field($this->items[ $imgKey ]['data']->post_title);
+			}
+			$this->items[ $imgKey ]['link']     = esc_url( get_post_meta( $imgId, ROBO_GALLERY_PREFIX . 'gallery_link', true ) );
+			$this->items[ $imgKey ]['typelink'] = (int) get_post_meta( $imgId, ROBO_GALLERY_PREFIX . 'gallery_type_link', true );
 			$this->items[ $imgKey ]['videolink']= $this->getItemVideoLink($imgId);
-			$this->items[ $imgKey ]['col']    	= get_post_meta( $imgId, ROBO_GALLERY_PREFIX . 'gallery_col', true );
-			$this->items[ $imgKey ]['effect'] 	= get_post_meta( $imgId, ROBO_GALLERY_PREFIX . 'gallery_effect', true );
-			$this->items[ $imgKey ]['alt']    	= get_post_meta( $imgId, '_wp_attachment_image_alt', true );
+			$this->items[ $imgKey ]['col']    	= (int) get_post_meta( $imgId, ROBO_GALLERY_PREFIX . 'gallery_col', true );
+			$this->items[ $imgKey ]['effect'] 	= sanitize_text_field( get_post_meta( $imgId, ROBO_GALLERY_PREFIX . 'gallery_effect', true ) );
+			$this->items[ $imgKey ]['alt']    	= sanitize_text_field( get_post_meta( $imgId, '_wp_attachment_image_alt', true ) );
 			$this->items[ $imgKey ]['tags'] 	= $this->getItemTags( $imgId );									
 		}		
 
@@ -179,7 +173,7 @@ class RoboSliderSource {
 	}
 
 	private function getItemVideoLink( $imgId ){
-		$videolink = get_post_meta( $imgId, ROBO_GALLERY_PREFIX.'gallery_video_link', true );
+		$videolink = esc_url( get_post_meta( $imgId, ROBO_GALLERY_PREFIX.'gallery_video_link', true ) );
 		if(!$videolink) return '';
 		if( strpos( $videolink, 'youtu' ) !== false ){
 			$matches = array();
@@ -191,7 +185,7 @@ class RoboSliderSource {
 
 
 	private function getItemTag( $imageId ){ 
-		return get_post_meta( $imageId, ROBO_GALLERY_PREFIX . 'gallery_tags', true ); 
+		return sanitize_textarea_field( get_post_meta( $imageId, ROBO_GALLERY_PREFIX . 'gallery_tags', true ) ); 
 	}
 
 	private function getItemTags( $imageId ) {

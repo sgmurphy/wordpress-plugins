@@ -140,10 +140,10 @@ $connectFeedLgn	= "http://api.follow.it/?".base64_encode("userprofile=wordpress&
 <div class="pop-overlay read-overlay twex-s2">
     <div class="pop_up_box_ex sfsi_pop_up adPopWidth">
         <img src="<?php echo SFSI_PLUGURL; ?>images/close.jpg" alt="error" id="close_popup" class="sfsicloseBtn" />
-    	<h4 id="readmore_text"><?php _e("Move over the Twiiter-icon… ",'ultimate-social-media-icons') ?></h4>
+    	<h4 id="readmore_text"><?php _e("Move over the X (Twitter)-icon… ",'ultimate-social-media-icons') ?></h4>
 
         <div class="adminTooltip">
-        	<a href="javascript:"><img width="51" class="sfsi_wicon" src="<?php echo SFSI_PLUGURL; ?>images/twitter.png" title="Twitter" alt="Twitter" /></a>
+        	<a href="javascript:"><img width="51" class="sfsi_wicon" src="<?php echo SFSI_PLUGURL; ?>images/twitter.png" title="X (Twitter)" alt="Twitter" /></a>
             <div class="sfsi_tool_tip_2 sfsi_tool_tip_2_inr twt_tool_bdr">
            		<span class="bot_arow bot_twt_arow"></span>
            		<div class="sfsi_inside">
@@ -584,18 +584,17 @@ $pin_url= isset($option2['sfsi_pinterest_pageUrl']) && !empty($option2['sfsi_pin
     <h1 class="checkout-card__heading"><?php _e( 'How do you want to pay?', 'ultimate-social-media-icons' ); ?></h1>
     <div class="checkout-card__select-payment">
       <div class="checkout-card__payement-card-container">
-        <div tabindex="1" role="button" class="checkout-card__payement-card" onclick="document.querySelector('.sc-pay-method-credit-card').click()">
+        <div tabindex="1" role="button" class="checkout-card__payement-card" id="usm_scclick_cc">
           <img class="checkout-card__payement-img" src="<?php echo SFSI_PLUGURL; ?>images/popup/visa-mastercard.png">
         </div>
       </div>
       <div class="checkout-card__payement-card-container">
-        <div tabindex="2" role="button" class="checkout-card__payement-card" onclick="document.querySelector('.sc-pay-method-paypal').click()">
+        <div tabindex="2" role="button" class="checkout-card__payement-card" id="usm_scclick_pp">
           <img class="checkout-card__payement-img" src="<?php echo SFSI_PLUGURL; ?>images/popup/paypal.png">
         </div>
       </div>
-      <div class="checkout-card__payement-card-container-hide">
+      <div class="checkout-card__payement-card-container-hide" id="usmi_loadscscript">
         <sellcodes-checkout offer="XdHlrQnc" button-text="Buy Now" show-pay-methods="true" link-image-card="<?php echo SFSI_PLUGURL; ?>images/popup/visa-mastercard.png" link-image-paypal="<?php echo SFSI_PLUGURL; ?>images/popup/paypal.png"/>
-        <script src="https://sellcodes.com/quick-checkout/sellcodes-checkout.js"></script>
       </div>
     </div>
     <p class="checkout-card__text-after-btns"><?php _e( 'Click will establish a connection to Sellcodes.com', 'ultimate-social-media-icons' ); ?></p>
@@ -641,3 +640,48 @@ $pin_url= isset($option2['sfsi_pinterest_pageUrl']) && !empty($option2['sfsi_pin
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  jQuery(function($) {
+    
+    function openPayPal() {
+      document.querySelector('.sc-pay-method-paypal').click();
+    }
+    
+    function openCC() {
+      document.querySelector('.sc-pay-method-credit-card').click();
+    }
+    
+    function loadSCScriptIfNeeded(paypal = false) {
+      if (window.scScriptLoaded === true) {
+        if (paypal) openPayPal();
+        else openCC();
+        return; 
+      }
+      let scriptbox = $('#usmi_loadscscript');
+      let scriptURL = "https://sellcodes.com/quick-checkout/sellcodes-checkout.js";
+      let scriptEl = document.createElement('script');
+          scriptEl.setAttribute('src', scriptURL);
+      
+      scriptbox.append(scriptEl);
+      let intervalLoader = setInterval(() => {
+        if (document.querySelector('.sc-pay-method-credit-card') != null) {
+          clearInterval(intervalLoader);
+          if (paypal) openPayPal();
+          else openCC();
+        }
+      }, 100);
+      
+      window.scScriptLoaded = true;
+    }
+    
+    $('#usm_scclick_cc').on('click', (e) => {
+      e.preventDefault();
+      loadSCScriptIfNeeded();
+    });
+    
+    $('#usm_scclick_pp').on('click', (e) => {
+      e.preventDefault();
+      loadSCScriptIfNeeded(true);
+    });
+  });
+</script>

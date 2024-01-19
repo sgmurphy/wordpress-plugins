@@ -44,7 +44,7 @@ $option6['sfsi_show_premium_placement_box'] = (isset($option6['sfsi_show_premium
 $sfsi_responsive_icons_default = array(
   "default_icons" => array(
     "facebook" => array("active" => "yes", "text" => "Share on Facebook", "url" => ""),
-    "Twitter" => array("active" => "yes", "text" => "Tweet", "url" => ""),
+    "Twitter" => array("active" => "yes", "text" => "Post on X", "url" => ""),
     "Follow" => array("active" => "yes", "text" => "Follow us", "url" => ""),
     "Pinterest" => array("active" => "yes", "text" => "Save", "url" => ""),
   ),
@@ -279,9 +279,9 @@ $sfsi_responsive_icon_dummy = array(
                       <div class="radio_section tb_4_ck"><input name="sfsi_recttwtr" <?php echo ($option6['sfsi_recttwtr'] == 'yes') ? 'checked="true"' : ''; ?> id="sfsi_recttwtr" type="checkbox" value="yes" class="styled" />
                       </div>
 
-                      <a href="#" title="twitter" class="cstmdspltwtr">
+                      <a href="#" title="X (Twitter)" class="cstmdspltwtr">
 
-                        <img src="<?php echo SFSI_PLUGURL; ?>images/twiiter.png" alt="Twitter like" />
+                        <img src="<?php echo SFSI_PLUGURL; ?>images/twiiter.png" alt="X (Twitter)" />
                       </a>
 
                     </li>
@@ -303,7 +303,7 @@ $sfsi_responsive_icon_dummy = array(
                 <ul class="usually">
                   <li><?php _e("1. The follow-icon ensures that your visitors subscribe to your newsletter",'ultimate-social-media-icons') ?></li>
                   <li><?php _e("2. Facebook is No.1 in «liking», so it’s a must have",'ultimate-social-media-icons') ?></li>
-                  <li><?php _e("3. The Tweet-button allows quick tweeting of your article",'ultimate-social-media-icons') ?></li>
+                  <li><?php _e("3. The X post-button allows quick X posting of your article",'ultimate-social-media-icons') ?></li>
                 </ul>
                 <?php if ($option6['sfsi_show_premium_placement_box'] == 'yes') { ?>
                   <p class="sfsi_prem_plu_desc" style="float:left"><?php

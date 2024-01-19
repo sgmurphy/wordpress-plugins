@@ -557,9 +557,13 @@ function sfsi_prepairIcons($icon_name, $is_front = 0)
 	// $current_url = $scheme.'://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
 
 	$current_url = sfsi_get_current_page_url();
-
+  if (isset($post) && isset($post->ID)) {
     $permalink = add_query_arg( $_GET ? $_GET : array(), get_permalink( $post->ID ) );
-    $permalink = esc_url( $permalink );
+  } else {
+    $permalink = get_site_url();
+  }
+
+  $permalink = esc_url( $permalink );
 
 	$url 		= "#";
 	$cmcls 		= '';
@@ -776,12 +780,12 @@ function sfsi_prepairIcons($icon_name, $is_front = 0)
 				if ($sfsi_section4_options['sfsi_facebook_countsFrom'] == "manual") {
 					$counts = $socialObj->format_num($sfsi_section4_options['sfsi_facebook_manualCounts']);
 				} else if ($sfsi_section4_options['sfsi_facebook_countsFrom'] == "likes") {
-					$counts = $socialObj->sfsi_get_fb(urlencode($current_url));
+					$counts = $socialObj->sfsi_get_fb(urlencode(trailingslashit($current_url)));
 				} else if ($sfsi_section4_options['sfsi_facebook_countsFrom'] == "followers") {
-					$counts = $socialObj->sfsi_get_fb(urlencode($current_url));
+					$counts = $socialObj->sfsi_get_fb(urlencode(trailingslashit($current_url)));
 				} else if ($sfsi_section4_options['sfsi_facebook_countsFrom'] == "mypage") {
 					$current_url = $sfsi_section4_options['sfsi_facebook_mypageCounts'];
-					$fb_data = $socialObj->sfsi_get_fb_pagelike(urlencode($current_url));
+					$fb_data = $socialObj->sfsi_get_fb_pagelike(urlencode(trailingslashit($current_url)));
 					$counts = $socialObj->format_num($fb_data);
 				}
 			}

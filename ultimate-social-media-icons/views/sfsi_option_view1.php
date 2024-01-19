@@ -51,7 +51,7 @@ $option1['sfsi_mastodon_display'] = isset( $option1['sfsi_mastodon_display'] ) ?
 
             <div class="right_info">
 
-                <p><span><?php _e('Strongly recommended:','ultimate-social-media-icons') ?></span> 
+                <p><span><?php _e('Strongly recommended:','ultimate-social-media-icons') ?></span>
                     <?php _e('RSS is still popular, esp. among the tech-savvy crowd.','ultimate-social-media-icons') ?>
                 
                     <label class="expanded-area"><?php _e('RSS stands for Really Simply Syndication and is an easy way for people to read your content. You can learn more about it ','ultimate-social-media-icons') ?><a href="http://en.wikipedia.org/wiki/RSS" target="new" title="Syndication"><?php _e('here','ultimate-social-media-icons') ?></a>. </label></p>
@@ -130,13 +130,13 @@ $option1['sfsi_mastodon_display'] = isset( $option1['sfsi_mastodon_display'] ) ?
 
             <div class="radio_section tb_4_ck"><input name="sfsi_twitter_display" <?php echo ($option1['sfsi_twitter_display'] == 'yes') ? 'checked="true"' : ''; ?> id="sfsi_twitter_display" type="checkbox" value="yes" class="styled" /></div>
 
-            <span class="sfsicls_twt"><?php _e('Twitter','ultimate-social-media-icons') ?></span>
+            <span class="sfsicls_twt"><?php _e('X (Twitter)','ultimate-social-media-icons') ?></span>
 
             <div class="right_info">
 
                 <p><span><?php _e('Strongly recommended:','ultimate-social-media-icons') ?></span> <?php _e('Can have a strong promotional effect.','ultimate-social-media-icons') ?>
 
-                    <label class="expanded-area"><?php _e('If you have a Twitter-account then adding this icon is a no-brainer. However, similar as with Facebook, even if you don’t have one you should still show this icon so that Twitter-users can share your site.','ultimate-social-media-icons') ?></label>
+                    <label class="expanded-area"><?php _e('If you have a X (Twitter)-account then adding this icon is a no-brainer. However, similar as with Facebook, even if you don’t have one you should still show this icon so that X (Twitter)-users can share your site.','ultimate-social-media-icons') ?></label>
 
                 </p>
 
@@ -387,7 +387,7 @@ $option1['sfsi_mastodon_display'] = isset( $option1['sfsi_mastodon_display'] ) ?
                 <span class="sfsicls_mastodon"><?php _e( 'Mastodon', 'ultimate-social-media-icons' ); ?></span>
             </div>
             <div class="right_info">
-                <p><?php _e( 'Mastodon is the largest decentralized social network on the internet that functions much like Twitter.', 'ultimate-social-media-icons' ); ?></p>
+                <p><?php _e( 'Mastodon is the largest decentralized social network on the internet that functions much like X (Twitter).', 'ultimate-social-media-icons' ); ?></p>
             </div>
         </li>
         <!-- END MASTODON ICON -->

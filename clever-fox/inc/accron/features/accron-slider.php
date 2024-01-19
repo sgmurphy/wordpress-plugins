@@ -93,108 +93,61 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 		)
 	);
 	
-	// Slider Title
-	$wp_customize->add_setting(
-	'accron_slide_title', 
-	array(
-		'capability' => 'edit_theme_options',
-		'sanitize_callback' => 'sanitize_text_field',
-		'default' =>  '20 Years Of Successful Business Consulting'
-    ));
+	/**
+	 * Customizer Repeater for add service
+	 */
 	
-	$wp_customize->add_control( 
-		'accron_slide_title', 
-		array(
-			'label'      => __( 'Title', 'clever-fox' ),
-			'section'    => 'slider_setting',
-		)
-	);
-	
-	// Slider Subtitle
-	$wp_customize->add_setting(
-	'accron_slide_subtitle', 
-	array(
-		'capability' => 'edit_theme_options',
-		'sanitize_callback' => 'sanitize_text_field',
-		'default' =>  'Your Business Innovative Strategies For Success'
-    ));
-	
-	$wp_customize->add_control( 
-		'accron_slide_subtitle', 
-		array(
-			'label'      => __( 'Subtitle', 'clever-fox' ),
-			'section'    => 'slider_setting',
-		)
-	);
-	
-	// Slider Button
-	$wp_customize->add_setting(
-	'accron_slide_button', 
-	array(
-		'capability' => 'edit_theme_options',
-		'sanitize_callback' => 'sanitize_text_field',
-		'default' =>  'Our Service'
-    ));
-	
-	$wp_customize->add_control( 
-		'accron_slide_button', 
-		array(
-			'label'      => __( 'Button Label', 'clever-fox' ),
-			'section'    => 'slider_setting',
-		)
-	);
-	
-	// Slider Link
-	$wp_customize->add_setting(
-	'accron_slide_link', 
-	array(
-		'capability' => 'edit_theme_options',
-		'sanitize_callback' => 'sanitize_text_field',
-		'default' =>  '#'
-    ));
-	
-	$wp_customize->add_control( 
-		'accron_slide_link', 
-		array(
-			'label'      => __( 'Button Url', 'clever-fox' ),
-			'section'    => 'slider_setting',
-		)
-	);
-	
-	// Slider Text
-	$wp_customize->add_setting(
-	'accron_slide_text', 
-	array(
-		'capability' => 'edit_theme_options',
-		'sanitize_callback' => 'sanitize_text_field',
-		'default' =>  __('It is a long established fact that a reader will be distracted by readable content of a page when looking at its layout. The point of using Lorem ipsum','clever-fox')
-    ));
-	
-	$wp_customize->add_control( 
-		'accron_slide_text', 
-		array(
-			'label'      => __( 'Description', 'clever-fox' ),
-			'section'    => 'slider_setting',
-		)
-	);
-	
-	// Slider Image
-	$wp_customize->add_setting(
-	'accron_slide_image', 
-	array(
-		'capability' => 'edit_theme_options',
-		'sanitize_callback' => 'sanitize_text_field',
-		'default' =>  esc_url(CLEVERFOX_PLUGIN_URL. 'inc/accron/images/slider/slider-img1.jpg')
-    ));
-	
-	$wp_customize->add_control( 
-	new WP_Customize_Image_Control( $wp_customize ,
-			'accron_slide_image', 
+		$wp_customize->add_setting( 'slider', 
 			array(
-				'label'      => __( 'Background Image', 'clever-fox' ),
-				'section'    => 'slider_setting',
+			 'accron_sanitize_callback' => 'repeater_accron_sanitize',
+			 'transport'         => $selective_refresh,
+			 'priority' => 8,
+			 'default' => accron_get_slider_default()
 			)
-	));
+		);
+		
+		$wp_customize->add_control( 
+			new Accron_Repeater( $wp_customize, 
+				'slider', 
+					array(
+						'label'   => esc_html__('Slider','clever-fox'),
+						'section' => 'slider_setting',
+						'add_field_label'                   => esc_html__( 'Add New Slider', 'clever-fox' ),
+						'item_name'                         => esc_html__( 'Slider', 'clever-fox' ),
+						'customizer_repeater_image_control' => true,
+						'customizer_repeater_subtitle_control' => true,
+						'customizer_repeater_title_control' => true,
+						'customizer_repeater_text2_control' => true,
+						'customizer_repeater_link_control' => true,
+					) 
+				) 
+			);
+		
+		//Pro feature
+		class Accron_slider__section_upgrade extends WP_Customize_Control {
+			public function render_content() { 
+				$theme = wp_get_theme(); // gets the current theme	
+				
+			?>
+				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/accron-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				
+			<?php }
+		}
+		
+		$wp_customize->add_setting( 'slider_upgrade_to_pro', array(
+			'capability'			=> 'edit_theme_options',
+			'accron_sanitize_callback'	=> 'wp_filter_nohtml_kses',
+			'priority' => 5,
+		));
+		$wp_customize->add_control(
+			new Accron_slider__section_upgrade(
+			$wp_customize,
+			'slider_upgrade_to_pro',
+				array(
+					'section'				=> 'slider_setting',
+				)
+			)
+		);
 }
 
 add_action( 'customize_register', 'accron_slider_setting' );
@@ -203,28 +156,9 @@ add_action( 'customize_register', 'accron_slider_setting' );
 // slider selective refresh
 function accron_home_slider_section_partials( $wp_customize ){	
 	// slider title
-	$wp_customize->selective_refresh->add_partial( 'accron_slide_title', array(
-		'selector'            => '.slider-section .firstword1',
-		'settings'            => 'accron_slide_title',
-		'render_callback'  	  => 'accron_slider_title_render_callback',
+	$wp_customize->selective_refresh->add_partial( 'slider', array(
+		'selector'            => '.slider-section .carousel-caption .firstword1, .slider-section .carousel-caption .lastword',
 	) );
-	
-	// slider Subtitle
-	$wp_customize->selective_refresh->add_partial( 'accron_slide_subtitle', array(
-		'selector'            => '.slider-section .lastword',
-		'settings'            => 'accron_slide_subtitle',
-		'render_callback'  	  => 'accron_slider_subtitle_render_callback',
-	) );	
 }
 
 add_action( 'customize_register', 'accron_home_slider_section_partials' );
-
-// slider title
-function accron_slider_title_render_callback() {
-	return get_theme_mod( 'accron_slide_title' );
-}
-
-// slider subtitle
-function accron_slider_subtitle_render_callback() {
-	return get_theme_mod( 'accron_slide_subtitle' );
-}

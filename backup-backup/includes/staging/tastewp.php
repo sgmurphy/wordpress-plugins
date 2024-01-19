@@ -29,7 +29,7 @@
       if ($delete) $this->abort(true);
       else {
         if ($initialize) $this->initialization();
-        else $this->continue();
+        else $this->continueProcess();
       }
       
     }
@@ -122,7 +122,7 @@
       
     }
     
-    private function continue() {
+    private function continueProcess() {
       
       if (isset($this->siteConfig['step'])) {
         $this->step = intval($this->siteConfig['step']);

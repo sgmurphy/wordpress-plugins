@@ -5,7 +5,7 @@ Author URI: https://backupbliss.com
 Requires PHP: 5.5
 Requires at least: 3.3
 Tested up to: 6.4.2
-Stable tag: 2.4.3
+Stable tag: 2.4.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -132,6 +132,10 @@ You can back up the website database only, if you navigate to the Advanced Setti
 Backup and migration FAQ are under construction
 
 == Changelog ==
+
+= 2.4.4 =
+* [NOTE] Upgraded "TryItOut" module to latest version
+* [NOTE] Upgraded analyst module to latest version
 
 = 2.4.3 =
 * Improved plugin security 
@@ -269,7 +273,6 @@ Backup and migration FAQ are under construction
 1. Configuration Page
 
 == Upgrade Notice ==
-= 2.4.3 =
-* Improved plugin security 
-* Tested with WordPress 6.4.2
-* Tested with PHP 8.3
+= 2.4.4 =
+* [NOTE] Upgraded "TryItOut" module to latest version
+* [NOTE] Upgraded analyst module to latest version

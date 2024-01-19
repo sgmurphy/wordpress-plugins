@@ -333,7 +333,7 @@ ul.icn_listing li .tb_4_ck {
     color: #1e88c9;
 }
 .tab1 ul.icn_listing li .sfsicls_whatsapp {
-    background-position: 0 -929px;
+    background-position: -4px -938px;
 }
 .tab1 ul.icn_listing li .sfsicls_pinterest {
     background-position: 0 -623px;
@@ -502,7 +502,7 @@ ul.icn_listing li .right_info a {
     width: 100%;
 }
 .tab2 .row h2.sfsicls_whatsapp {
-    background-position: 0 -929px;
+    background-position: 0 -939px;
     width: 100%;
 }
 .tab2 .row h2.sfsicls_pinterest {
@@ -525,14 +525,14 @@ ul.tab_2_email_sec .sf_arow {
     background-size: 52px;
 }
 ul.tab_2_email_sec .email_icn {
-    background: url(../images/tab_1_icn_list.png) 0 -71px no-repeat;
+    background: url(../images/tab_1_icn_list.png) -4px -71px no-repeat;
     width: 52px;
     height: 52px;
     float: left;
     margin: 0 8px;
 }
 ul.tab_2_email_sec .subscribe_icn {
-    background: url(../images/tab_1_icn_list.png) 0 -860px no-repeat;
+    background: url(../images/tab_1_icn_list.png) -4px -860px no-repeat;
     width: 52px;
     height: 52px;
     float: left;
@@ -5758,6 +5758,7 @@ body .specify_counts .listing .sfsi_instagramInstruction p {
     color: #b6b6b6;
     font-size: large;
     width: auto !important;
+    align-items: center;
 }
 
 .sfsi_tooltip_premium .sfsi_tooltip_text_premium {
@@ -7720,7 +7721,23 @@ ul.sfsi_icn_listing8.sfsi_closerli.popupDesktopMobileUl li label {
     background-size: contain;
 }
 
-.icns_tab_3 .row_17_29, .icns_tab_3 .row_18_29, .icns_tab_3 .row_19_29, .icns_tab_3 .row_20_29 {
+.icns_tab_3 .row_17_29 {
+    background: url(../images/icons_theme/default/default_copylink.png) no-repeat;
+    background-position: 0;
+    background-size: contain;
+}
+
+.icns_tab_3 .row_18_29 {
+    background: url(../images/icons_theme/default/default_copylink.png) no-repeat;
+    background-position: 0;
+    background-size: contain;
+}
+.icns_tab_3 .row_19_29 {
+    background: url(../images/icons_theme/default/default_copylink.png) no-repeat;
+    background-position: 0;
+    background-size: contain;
+}
+.icns_tab_3 .row_20_29 {
     background: url(../images/icons_theme/default/default_copylink.png) no-repeat;
     background-position: 0;
     background-size: contain;

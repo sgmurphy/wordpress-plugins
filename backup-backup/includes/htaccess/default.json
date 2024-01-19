@@ -29,7 +29,8 @@
     {"txt": ".tmp",            "pos": "3", "whr": "1" },
     {"txt": ".zip",            "pos": "3", "whr": "1" },
     {"txt": ".tr",             "pos": "3", "whr": "1" },
-    {"txt": ".gz",             "pos": "3", "whr": "1" }
+    {"txt": ".gz",             "pos": "3", "whr": "1" },
+    {"txt": ".sgbp",             "pos": "3", "whr": "1" }
   ],
   "BACKUP:FILES::FILTER:FPATHS:IN": [],
   "BACKUP:FILES::FILTER:DPATHS:IN": [],

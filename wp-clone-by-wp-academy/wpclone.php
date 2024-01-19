@@ -6,7 +6,7 @@
  *  Author URI: https://backupbliss.com
  *  Plugin URI: https://backupbliss.com
  * Text Domain: wp-clone
- *     Version: 2.4.3
+ *     Version: 2.4.4
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 // Exit on direct access
@@ -186,6 +186,7 @@ function wpa_enqueue_scripts(){
     wp_enqueue_script('wpclone');
     wp_enqueue_style('wpclone');
     wp_enqueue_style('wpclone_modals');
+    wp_deregister_script('wp-auth-check');
     wp_deregister_script('heartbeat');
     add_thickbox();
 }

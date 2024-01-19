@@ -4,7 +4,7 @@ Tags: contact form, quiz, wp forms, forms, form builder, contact form builder, f
 Requires at least: 4.5
 Tested up to: 6.4.2
 Requires PHP: 7.4
-Stable tag: 5.1.7
+Stable tag: 5.1.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -323,6 +323,7 @@ Fluent Forms Documentation comes with a detailed step-by-step instruction of how
 	<li><a href="https://wpmanageninja.com/docs/fluent-form/field-types/" target="_blank">Available Field Types in WordPress Forms</a></li>
 	<li><a href="https://wpmanageninja.com/docs/fluent-form/advanced-features-functionalities-in-wp-fluent-form/conditional-logic-fluent-form/" target="_blank">Set up Forms with Conditional Logic</a></li>
 	<li><a href="https://wpmanageninja.com/docs/fluent-form/advanced-features-functionalities-in-wp-fluent-form/form-restrictions/" target="_blank">WordPress Form Scheduling and Restriction Feature</a></li>
+	<li><a href="https://wpmanageninja.com/docs/fluent-form/advanced-features-functionalities-in-wp-fluent-form/global-inventory-manager-in-fluent-forms/" target="_blank">Global Inventory Manager in Fluent Forms</a></li>
 	<li><a href="https://wpmanageninja.com/docs/fluent-form/integrations-availabel-in-wp-fluent-form/" target="_blank">All Available CRM and Marketing Tools Integration Modules</a></li>
 </ul>
 
@@ -440,6 +441,10 @@ You can get support from our official support thread at <a href="https://wpmanag
 12. Asset Loading Comparison with Other Plugins
 
 == Changelog ==
+= 5.1.8 (Date: January 19, 2023) =
+- Fix step navigation button issue
+- Improves sanitization on form import
+
 = 5.1.7 (Date: January 17, 2023) =
 - Adds Contact Form 7 Migration
 - Adds Inherit theme style support in form Styler
@@ -447,12 +452,12 @@ You can get support from our official support thread at <a href="https://wpmanag
 - Adds more translations string
 - Adds Filter to skip validation of selectable inputs
 - Improves Admin Mobile responsiveness
-- Fixes Conversational form Custom HTML automatically scrolls to bottom of page
-- Fixes predefined form filter issue on form creation
-- Fixes hidden field mapping on integration
-- Fixes CC/BCC email on Email Notification Routing
-- Fixes Sync visual report order with form fields order
-- Fixes nested conditional field
+- Fix Conversational form Custom HTML automatically scrolls to bottom of page
+- Fix predefined form filter issue on form creation
+- Fix hidden field mapping on integration
+- Fix CC/BCC email on Email Notification Routing
+- Fix Sync visual report order with form fields order
+- Fixed nested conditional field
 
 = 5.1.5 (Date: November 23, 2023) =
 - Fixes max length validation

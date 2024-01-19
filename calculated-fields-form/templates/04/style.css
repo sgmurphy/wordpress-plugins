@@ -80,3 +80,5 @@ body{
 .cp_cff_elegant #fbuilder .cff-switch{background:#b29d8673;}
 
 .cp_cff_elegant #fbuilder span.files-list img{border-color:rgb(148, 132, 116);}
+
+.cp_cff_elegant #fbuilder .cff-popup-header:not(:empty){border-bottom: 1px dotted rgb(164, 147, 132);}
