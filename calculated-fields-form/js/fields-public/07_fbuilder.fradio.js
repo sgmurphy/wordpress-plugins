@@ -66,6 +66,10 @@
 							e.data('previous-status', m.checked);
 						});
 					}
+
+					if( me.readonly ) {
+						$('[id*="'+me.name+'"][_onclick]').each(function(){$(this).attr('onclick', $(this).attr('_onclick'));});
+					}
 				},
 			showHideDep:function(toShow, toHide, hiddenByContainer, interval)
 				{

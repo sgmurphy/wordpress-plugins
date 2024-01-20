@@ -55,9 +55,14 @@
             after_show:function()
                 {
                     var m = this, tmp;
+
                     $(document).off('click','[id*="'+m.name+'"]')
 					.on('click','[id*="'+m.name+'"]', function(){m.enable_disable();});
                     m.enable_disable();
+
+					if( m.readonly ) {
+						$('[id*="'+m.name+'"][_onclick]').each(function(){$(this).attr('onclick', $(this).attr('_onclick'));});
+					}
 
 					if(0 < m.max && 0 < m.min && m.max < m.min){
 						tmp = m.min;

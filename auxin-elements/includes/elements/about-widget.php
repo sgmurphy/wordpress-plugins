@@ -7,7 +7,7 @@
  * @license    LICENSE.txt
  * @author     averta
  * @link       http://phlox.pro/
- * @copyright  (c) 2010-2023 averta
+ * @copyright  (c) 2010-2024 averta
  */
 
 function  get_auxin_about_widget( $master_array ) {
@@ -223,7 +223,7 @@ function auxin_widget_about_callback( $atts, $shortcode_content = null ){
         <?php
 
             if ( !empty( $about_image ) && is_numeric( $about_image ) ) {
-                echo '<div class="aux-about-image aux-style-' . $image_style . '">' . auxin_get_the_resized_attachment( $about_image, 240, ( $image_style == 'square' ? 400 : 240 ), true ) . '</div>';
+                echo '<div class="aux-about-image aux-style-' . esc_attr( $image_style ) . '">' . auxin_get_the_resized_attachment( $about_image, 240, ( $image_style == 'square' ? 400 : 240 ), true ) . '</div>';
             }
 
             echo '<dl>';

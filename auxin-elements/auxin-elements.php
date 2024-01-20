@@ -7,12 +7,12 @@
  * @license    LICENSE.txt
  * @author     averta
  * @link       http://phlox.pro/
- * @copyright  (c) 2010-2023 averta
+ * @copyright  (c) 2010-2024 averta
  *
  * Plugin Name:       Phlox Core Elements
  * Plugin URI:        https://wordpress.org/plugins/auxin-elements/
  * Description:       Exclusive and comprehensive plugin that extends the functionality of Phlox theme by adding new Elements, widgets and options.
- * Version:           2.15.4
+ * Version:           2.15.5
  * Author:            averta
  * Author URI:        http://averta.net
  * Text Domain:       auxin-elements

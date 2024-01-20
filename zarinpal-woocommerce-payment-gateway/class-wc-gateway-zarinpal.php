@@ -4,7 +4,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-
 function Load_ZarinPal_Gateway()
 {
 
@@ -134,14 +133,6 @@ function Load_ZarinPal_Gateway()
                             'default' => '',
                             'desc_tip' => true
                         ),
-                        'zarinwebgate' => array(
-                            'title' => __('فعالسازی زرین گیت', 'woocommerce'),
-                            'type' => 'checkbox',
-                            'label' => __('برای فعالسازی درگاه مستقیم (زرین گیت) باید چک باکس را تیک بزنید', 'woocommerce'),
-                            'description' => __('درگاه مستقیم زرین پال', 'woocommerce'),
-                            'default' => '',
-                            'desc_tip' => true,
-                        ),
                         'payment_config' => array(
                             'title' => __('تنظیمات عملیات پرداخت', 'woocommerce'),
                             'type' => 'title',
@@ -180,30 +171,18 @@ function Load_ZarinPal_Gateway()
              */
             public function SendRequestToZarinPal($action, $params)
             {
-
                 try {
-                    $number_of_connection_tries = 5;
-                    $response = null;
-                    while ($number_of_connection_tries > 0) {
-                        $response = wp_safe_remote_post('https://api.zarinpal.com/pg/v4/payment/' . $action . '.json', array(
-                            'body' => $params,
-                            'headers' => array(
-                                'Content-Type' => 'application/json',
-                                'Content-Length' =>   strlen($params) ,
-                                'User-Agent' => 'ZarinPal Rest Api v4'
-                            )
-                        ));
-                        if (is_wp_error($response)) {
-                            $number_of_connection_tries--;
-                            continue;
-                        } else {
-                            break;
-                        }
-                    }
-
-                    $body = wp_remote_retrieve_body($response);
-
-                    return json_decode($body, true);
+                    $ch = curl_init('https://api.zarinpal.com/pg/v4/payment/' . $action . '.json');
+                    curl_setopt($ch, CURLOPT_USERAGENT, 'ZarinPal Rest Api v1');
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                        'Content-Type: application/json',
+                        'Content-Length: ' . strlen($params)
+                    ));
+                    $result = curl_exec($ch);
+                    return json_decode($result, true);
                 } catch (Exception $ex) {
                     return false;
                 }
@@ -222,7 +201,7 @@ function Load_ZarinPal_Gateway()
 
                 $form = '<form action="" method="POST" class="zarinpal-checkout-form" id="zarinpal-checkout-form">
 						<input type="submit" name="zarinpal_submit" class="button alt" id="zarinpal-payment-button" value="' . __('پرداخت', 'woocommerce') . '"/>
-						<a class="button cancel" href="' . $woocommerce->cart->get_checkout_url() . '">' . __('بازگشت', 'woocommerce') . '</a>
+						<a class="button cancel" href="' . wc_get_checkout_url() .  '">' . __('بازگشت', 'woocommerce') . '</a>
 					 </form><br/>';
                 $form = apply_filters('WC_ZPal_Form', $form, $order_id, $woocommerce);
 
@@ -236,7 +215,7 @@ function Load_ZarinPal_Gateway()
                 do_action('WC_ZPal_Gateway_After_Form', $order_id, $woocommerce);
 
 
-                $Amount = (int)$order->order_total;
+                $Amount = intval( $order->get_total() );
                 $Amount = apply_filters('woocommerce_order_amount_total_IRANIAN_gateways_before_check_currency', $Amount, $currency);
                 $strToLowerCurrency = strtolower($currency);
 
@@ -263,10 +242,10 @@ function Load_ZarinPal_Gateway()
                 }
                 $products = implode(' - ', $products);
 
-                $Description = 'خرید به شماره سفارش : ' . $order->get_order_number() . ' | خریدار : ' . $order->billing_first_name . ' ' . $order->billing_last_name ;
-                $Mobile = get_post_meta($order_id, '_billing_phone', true) ?: '-';
-                $Email = $order->billing_email;
-                $Payer = $order->billing_first_name . ' ' . $order->billing_last_name;
+                $Description = 'خرید به شماره سفارش : ' . $order->get_order_number() . ' | خریدار : ' . $order->get_billing_first_name()  . ' ' . $order->get_billing_last_name()  ;
+                $Mobile = $order->get_billing_phone();
+                $Email = $order->get_billing_email();
+                $Payer = $order->get_billing_first_name(). ' ' . $order->get_billing_last_name();
                 $ResNumber = (int)$order->get_order_number();
 
                 //Hooks for iranian developer
@@ -288,7 +267,7 @@ function Load_ZarinPal_Gateway()
                             'description' => $Description,
                             "currency"=> "IRR",
 
-                            "metadata" => [ "order_id" => "سفارش شماره $order_id"]);
+                            "metadata" => [ "email" => $Email,"mobile"=>$Mobile,"order_id" => "سفارش شماره $order_id"]);
                     }else {
 
                         $data = array("merchant_id" => $this->merchantCode,
@@ -324,7 +303,7 @@ function Load_ZarinPal_Gateway()
                             'description' => $Description,
                             "currency"=> "IRT",
 
-                            "metadata" => [ "order_id" => "سفارش شماره  $order_id"]);
+                            "metadata" => [ "email" => $Email,"mobile"=>$Mobile,"order_id" => "سفارش شماره $order_id"]);
                     }else {
 
                         $data = array('merchant_id' => $this->merchantCode,
@@ -406,7 +385,7 @@ function Load_ZarinPal_Gateway()
                         if ($_GET['Status'] === 'OK') {
 
                             $MerchantID = $this->merchantCode;
-                            $Amount = (int)$order->order_total;
+                            $Amount = intval( $order->get_total() );
                             $Amount = apply_filters('woocommerce_order_amount_total_IRANIAN_gateways_before_check_currency', $Amount, $currency);
                             $strToLowerCurrency = strtolower($currency);
                             if (
@@ -511,7 +490,7 @@ function Load_ZarinPal_Gateway()
 
                         do_action('WC_ZPal_Return_from_Gateway_Failed', $order_id, $Transaction_ID, $Fault);
 
-                        wp_redirect($woocommerce->cart->get_checkout_url());
+                        wp_redirect(wc_get_checkout_url());
                         exit;
                     }
 
@@ -542,7 +521,7 @@ function Load_ZarinPal_Gateway()
 
                 do_action('WC_ZPal_Return_from_Gateway_No_Order_ID', $order_id, '0', $Fault);
 
-                wp_redirect($woocommerce->cart->get_checkout_url());
+                wp_redirect(wc_get_checkout_url());
                 exit;
             }
 

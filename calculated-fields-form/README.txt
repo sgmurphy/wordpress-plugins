@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator,calculated,quote calculator,forms,form editor,advanced forms,payment calculator,payment,recurring payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf,language
 Requires at least: 3.0.5
 Tested up to: 6.4
-Stable tag: 1.2.49
+Stable tag: 1.2.50
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -999,6 +999,10 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 1.2.50 =
+
+* Fixes an issue with the Readonly attribute in Checkbox, Radio Button, Checkbox DS, and Radion Button DS controls.
+
 = 1.2.49 =
 
 * Implements a Pop-up control.
@@ -1045,7 +1049,3 @@ A: Please, follow the steps below:
 
 * Modifies the forms builder appearance to improve the user experience.
 * Modifies the Stripe add-on to accept other payment methods than card only.
-
-= 1.2.42 =
-
-* Modifies the predefined value assignments of controls to allow numbers with leading zeros.

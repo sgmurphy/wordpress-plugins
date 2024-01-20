@@ -3,8 +3,8 @@ Tags: page builder, responsive, parallax, widgets, blocks, gallery, layout, grid
 Requires at least: 4.7
 Tested up to: 6.4
 Requires PHP: 5.6.20
-Stable tag: 2.29.3
-Build time: 2024-01-03T20:16:29+00:00
+Stable tag: 2.29.4
+Build time: 2024-01-19T19:39:04+00:00
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Donate link: https://siteorigin.com/downloads/premium/
@@ -120,6 +120,11 @@ Page Builder is compatible with the vast majority of third-party plugins and wid
 SiteOrigin offers a single premium plugin that enhances and extends Page Builder, the Widgets Bundle, SiteOrigin CSS and all of our free themes. Find out more about [SiteOrigin Premium](https://siteorigin.com/downloads/premium/) and the powerful addons it offers.
 
 == Changelog ==
+
+= 2.29.4 - 19 January 2023 =
+* Added compatibility with Pagelayer Templates. The panels filter is selectively enabled or disabled based on template usage.
+* Prevented the row overlay from covering widget contents by adjusting CSS rules in `front-flex.less`.
+* Developer: Added `siteorigin_panels_data` filter. Allows for the filtering of `$panels_data` when `generate_css` is run.
 
 = 2.29.3 - 03 January 2023 =
 * Vantage Theme: Account for unmigrated legacy row layouts.
