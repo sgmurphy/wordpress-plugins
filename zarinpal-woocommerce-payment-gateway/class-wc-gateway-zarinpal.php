@@ -87,13 +87,13 @@ function Load_ZarinPal_Gateway()
 
                 add_action('woocommerce_receipt_' . $this->id . '', array($this, 'Send_to_ZarinPal_Gateway'));
                 add_action('woocommerce_api_' . strtolower(get_class($this)) . '', array($this, 'Return_from_ZarinPal_Gateway'));
-
-
             }
 
             public function init_form_fields()
             {
-                $this->form_fields = apply_filters('WC_ZPal_Config', array(
+                $this->form_fields = apply_filters(
+                    'WC_ZPal_Config',
+                    array(
                         'base_config' => array(
                             'title' => __('تنظیمات پایه ای', 'woocommerce'),
                             'type' => 'title',
@@ -206,16 +206,16 @@ function Load_ZarinPal_Gateway()
                 $form = apply_filters('WC_ZPal_Form', $form, $order_id, $woocommerce);
 
                 do_action('WC_ZPal_Gateway_Before_Form', $order_id, $woocommerce);
-                echo wp_kses($form,array(
-                    'form'=>array('action','method','class','id'),
-                    'input'=>array('type','name','class','id','value'),
-                    'a'=>array('class','href')
+                echo wp_kses($form, array(
+                    'form' => array('action', 'method', 'class', 'id'),
+                    'input' => array('type', 'name', 'class', 'id', 'value'),
+                    'a' => array('class', 'href')
 
                 ));
                 do_action('WC_ZPal_Gateway_After_Form', $order_id, $woocommerce);
 
 
-                $Amount = intval( $order->get_total() );
+                $Amount = intval($order->get_total());
                 $Amount = apply_filters('woocommerce_order_amount_total_IRANIAN_gateways_before_check_currency', $Amount, $currency);
                 $strToLowerCurrency = strtolower($currency);
 
@@ -242,45 +242,48 @@ function Load_ZarinPal_Gateway()
                 }
                 $products = implode(' - ', $products);
 
-                $Description = 'خرید به شماره سفارش : ' . $order->get_order_number() . ' | خریدار : ' . $order->get_billing_first_name()  . ' ' . $order->get_billing_last_name()  ;
+                $Description = 'خرید به شماره سفارش : ' . $order->get_order_number() . ' | خریدار : ' . $order->get_billing_first_name()  . ' ' . $order->get_billing_last_name();
                 $Mobile = $order->get_billing_phone();
                 $Email = $order->get_billing_email();
-                $Payer = $order->get_billing_first_name(). ' ' . $order->get_billing_last_name();
+                $Payer = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
                 $ResNumber = (int)$order->get_order_number();
 
                 //Hooks for iranian developer
                 $Description = apply_filters('WC_ZPal_Description', $Description, $order_id);
                 $Mobile = apply_filters('WC_ZPal_Mobile', $Mobile, $order_id);
+
                 $Email = apply_filters('WC_ZPal_Email', $Email, $order_id);
                 $Payer = apply_filters('WC_ZPal_Paymenter', $Payer, $order_id);
                 $ResNumber = apply_filters('WC_ZPal_ResNumber', $ResNumber, $order_id);
                 do_action('WC_ZPal_Gateway_Payment', $order_id, $Description, $Mobile);
                 $Email = !filter_var($Email, FILTER_VALIDATE_EMAIL) === false ? $Email : '';
+
+                if (preg_match('/^9[0-9]{9}/i', $Mobile)) {
+                    $Mobile = preg_replace('/^9/', '0$0', $Mobile);
+                } elseif (preg_match('/^(\+989|989)[0-9]{9}/i', $Mobile)) {
+                    $Mobile = preg_replace('/^(\+98|98)/', '0', $Mobile);
+                }
                 $Mobile = preg_match('/^09[0-9]{9}/i', $Mobile) ? $Mobile : '';
-                if(strtolower($currency) === strtolower('IRR')){
 
-                    if($Mobile =="" || $Email==""){
+                if (strtolower($currency) === strtolower('IRR')) {
 
-                        $data = array('merchant_id' => $this->merchantCode,
-                            'amount' => $Amount,
-                            'callback_url' => $CallbackUrl,
-                            'description' => $Description,
-                            "currency"=> "IRR",
+                    $data = array(
+                        'merchant_id' => $this->merchantCode,
+                        'amount' => $Amount,
+                        'callback_url' => $CallbackUrl,
+                        'description' => $Description,
+                        "currency" => "IRR",
 
-                            "metadata" => [ "email" => $Email,"mobile"=>$Mobile,"order_id" => "سفارش شماره $order_id"]);
-                    }else {
+                        "metadata" => ["order_id" => "سفارش شماره $order_id"]
+                    );
 
-                        $data = array("merchant_id" => $this->merchantCode,
-                            "amount" => $Amount,
-                            "callback_url" => $CallbackUrl,
-                            "description" => $Description,
-                            "currency"=> "IRR",
-                            "metadata" => [ "email" => $Email,"mobile"=>$Mobile,"order_id" => "سفارش شماره $order_id"],
-                        );
-
+                    if ($Mobile) {
+                        $data['metadata']['mobile'] = $Mobile;
                     }
-
-                }else if (
+                    if ($Email) {
+                        $data['metadata']["email"] = $Email;
+                    }
+                } else if (
                     ($strToLowerCurrency === strtolower('IRT')) ||
                     ($strToLowerCurrency === strtolower('TOMAN')) ||
                     $strToLowerCurrency === strtolower('Iran TOMAN') ||
@@ -292,47 +295,45 @@ function Load_ZarinPal_Gateway()
                     $strToLowerCurrency === strtolower('IRHT')  ||
                     $strToLowerCurrency === strtolower('تومان') ||
                     $strToLowerCurrency === strtolower('IRHR') ||
-                    $strToLowerCurrency === strtolower('تومان ایران'
-                    )){
-                    if($Mobile =="" || $Email==""){
+                    $strToLowerCurrency === strtolower(
+                        'تومان ایران'
+                    )
+                ) {
+                    $data = array(
+                        'merchant_id' => $this->merchantCode,
+                        'amount' => $Amount,
+                        'callback_url' => $CallbackUrl,
+                        'description' => $Description,
+                        "currency" => "IRT",
 
+                        "metadata" => ["order_id" => "سفارش شماره $order_id"]
+                    );
 
-                        $data = array('merchant_id' => $this->merchantCode,
-                            'amount' => $Amount,
-                            'callback_url' => $CallbackUrl,
-                            'description' => $Description,
-                            "currency"=> "IRT",
-
-                            "metadata" => [ "email" => $Email,"mobile"=>$Mobile,"order_id" => "سفارش شماره $order_id"]);
-                    }else {
-
-                        $data = array('merchant_id' => $this->merchantCode,
-                            'amount' => $Amount,
-                            'callback_url' => $CallbackUrl,
-                            'description' => $Description,
-                            "currency"=> "IRT",
-
-                            "metadata" => [  "email" => $Email,"mobile"=>$Mobile,"order_id" => "سفارش شماره $order_id"]);
-
+                    if ($Mobile) {
+                        $data['metadata']['mobile'] = $Mobile;
                     }
-
+                    if ($Email) {
+                        $data['metadata']["email"] = $Email;
+                    }
                 }
+
 
 
 
                 $result = $this->SendRequestToZarinPal('request', json_encode($data));
 
                 if ($result === false) {
-                    echo esc_html('cURL Error #:') ;
+                    echo esc_html('cURL Error #:');
                 } else if ($result['data']['code'] == 100) {
 
 
-                    //wp_redirect(sprintf($acczarin, $result['data']["authority"]));
+
                     header('Location: https://www.zarinpal.com/pg/StartPay/' . $result['data']["authority"]);
                     exit;
                 } else {
-                    //$Message= var_dump($data);
+
                     $Message = ' تراکنش ناموفق بود- کد خطا : ' . $result['errors']['code'];
+
                     $Fault = '';
                 }
 
@@ -358,13 +359,13 @@ function Load_ZarinPal_Gateway()
             {
 
 
-                $InvoiceNumber = isset($_POST['InvoiceNumber']) ? sanitize_text_field($_POST['InvoiceNumber'] ): '';
+                $InvoiceNumber = isset($_POST['InvoiceNumber']) ? sanitize_text_field($_POST['InvoiceNumber']) : '';
 
                 global $woocommerce;
 
 
                 if (isset($_GET['wc_order'])) {
-                    $order_id = sanitize_text_field($_GET['wc_order']) ;
+                    $order_id = sanitize_text_field($_GET['wc_order']);
                 } else if ($InvoiceNumber) {
                     $order_id = $InvoiceNumber;
                 } else {
@@ -385,7 +386,7 @@ function Load_ZarinPal_Gateway()
                         if ($_GET['Status'] === 'OK') {
 
                             $MerchantID = $this->merchantCode;
-                            $Amount = intval( $order->get_total() );
+                            $Amount = intval($order->get_total());
                             $Amount = apply_filters('woocommerce_order_amount_total_IRANIAN_gateways_before_check_currency', $Amount, $currency);
                             $strToLowerCurrency = strtolower($currency);
                             if (
@@ -400,7 +401,8 @@ function Load_ZarinPal_Gateway()
                                 $strToLowerCurrency === strtolower('IRHT')  ||
                                 $strToLowerCurrency === strtolower('تومان') ||
                                 $strToLowerCurrency === strtolower('IRHR') ||
-                                $strToLowerCurrency === strtolower('تومان ایران'
+                                $strToLowerCurrency === strtolower(
+                                    'تومان ایران'
                                 )
                             )  if (strtolower($currency) === strtolower('IRHT')) {
                                 $Amount *= 1000;
@@ -524,9 +526,7 @@ function Load_ZarinPal_Gateway()
                 wp_redirect(wc_get_checkout_url());
                 exit;
             }
-
         }
-
     }
 }
 

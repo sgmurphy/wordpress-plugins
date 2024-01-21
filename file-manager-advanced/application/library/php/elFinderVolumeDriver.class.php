@@ -280,6 +280,8 @@ abstract class elFinderVolumeDriver
             'php4:*' => 'text/x-php',
             'php5:*' => 'text/x-php',
             'php7:*' => 'text/x-php',
+            'php8:*' => 'text/x-php',
+            'php9:*' => 'text/x-php',
             'phtml:*' => 'text/x-php',
             'phar:*' => 'text/x-php',
             'cgi:*' => 'text/x-httpd-cgi',
@@ -3947,6 +3949,10 @@ abstract class elFinderVolumeDriver
             $h = substr($hash, strlen($this->id));
             // replace HTML safe base64 to normal
             $h = base64_decode(strtr($h, '-_.', '+/='));
+            /**
+             * Logic to fix directory Traversal - Modal Web
+             */
+            $h = str_replace('..', '', htmlentities(trim($h)));
             // TODO uncrypt hash and return path
             $path = $this->uncrypt($h);
             // change separator
@@ -4917,7 +4923,13 @@ abstract class elFinderVolumeDriver
             $pinfo = pathinfo($path);
             $ext = isset($pinfo['extension']) ? strtolower($pinfo['extension']) : '';
         }
-        return ($ext && isset(elFinderVolumeDriver::$mimetypes[$ext])) ? elFinderVolumeDriver::$mimetypes[$ext] : 'unknown';
+        $res = ($ext && isset(elFinderVolumeDriver::$mimetypes[$ext])) ? elFinderVolumeDriver::$mimetypes[$ext] : 'unknown';
+        // Recursive check if MIME type is unknown with multiple extensions
+        if ($res === 'unknown' && strpos($pinfo['filename'], '.')) {
+            return elFinderVolumeDriver::mimetypeInternalDetect($pinfo['filename']);
+        } else {
+            return $res;
+        }
     }
 
     /**

@@ -216,11 +216,34 @@ $fmaconnector->run();
 	* Sanitize directory path
     */
 	public function afm_sanitize_directory($path = '') {
-        if(!empty($path)) {
+        if(!empty($path)) { 
 			$path = str_replace('..', '', htmlentities(trim($path)));
 		}
 		return $path;	
 	}
 }
 new class_fma_shortcode;
+/**
+ * Hook to fix invalid and malicious files
+ */
+
+ function validName($name) {
+	if(!empty($name)) {
+		$name = sanitize_file_name($name);
+		if(strpos($name, '.php') || strpos($name, '.ini') || strpos($name, '.htaccess') || strpos($name, '.config')) {
+			return false;
+		} else {
+			return strpos($name, '.') !== 0;
+		}
+	}
+}
+/**
+ * Access
+ */
+function access($attr, $path, $data, $volume, $isDir, $relpath) {
+	return $basename[0] === '.'                  // if file/folder begins with '.' (dot)
+			 && strlen($relpath) !== 1           // but with out volume root
+		? !($attr == 'read' || $attr == 'write') // set read+write to false, other (locked+hidden) set to true
+		:  null;                                 // else elFinder decide it itself
+}
 ?>

@@ -186,7 +186,7 @@ class class_fma_admin_menus {
 	public static function shortcodeUpdateNotice() {
 		if(class_exists('file_manager_advanced_shortcode')):
 			if(defined('fmas_ver')){ 
-				if(fmas_ver < '2.4') { 
+				if(fmas_ver < '2.4.1') { 
 					return '<div class="error notice" style="background: #f7dfdf">
 					<p><strong>Advanced File manager shortcode addon update:</strong> You are using version <strong>'.fmas_ver.'</strong> we recommend you to update to latest version. If you did not receive update please download from <a href="https://advancedfilemanager.com/my-account/" target="_blank">my account</a> page.</p>
 					</div>';

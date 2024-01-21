@@ -13,6 +13,7 @@ class class_fma_main {
 			 add_action('admin_menu', array(&$this, 'fma_menus'));
 			 add_action( 'admin_enqueue_scripts', array(&$this,'fma_scripts'));
 			 add_action( 'wp_ajax_fma_load_fma_ui', array(&$this, 'fma_load_fma_ui'));
+			 add_action('wp_ajax_fma_review_ajax', array($this, 'fma_review_ajax'));
 			 $this->settings = get_option('fmaoptions');
 			}
 			public function fma_menus() {
@@ -179,4 +180,23 @@ class class_fma_main {
 				}
 		
 			}
+		/*
+         review
+        */
+        public function fma_review_ajax()
+        {
+			$nonce = $_REQUEST['nonce'];
+			if ( ! wp_verify_nonce( $nonce, 'afm_review' ) ) {
+				die( __( 'Security check', 'file-manager-advanced' ) ); 
+			} else {
+				$task = sanitize_text_field($_POST['task']);
+				$done = update_option('fma_hide_review_section', $task);
+					if ($done) {
+						echo '1';
+					} else {
+						echo '0';
+					}
+				die;
+           }
+	     }
 }

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: افزونه پرداخت امن زرین‌پال برای ووکامرس
-Version: 4.9.1
+Version: 4.9.2
 Description:  افزونه درگاه پرداخت امن زرین‌پال برای فروشگاه ساز ووکامرس
 Plugin URI: http://zarinpal.com
 Author: Masoud Amini , alireza yousefi
