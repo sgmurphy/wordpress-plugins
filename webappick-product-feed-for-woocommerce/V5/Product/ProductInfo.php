@@ -2,21 +2,14 @@
 
 namespace CTXFeed\V5\Product;
 
-use CTXFeed\V5\Compatibility\WCMLCurrency;
 use CTXFeed\V5\Helper\CommonHelper;
 use CTXFeed\V5\Helper\ProductHelper;
 use CTXFeed\V5\Price\PriceFactory;
 use CTXFeed\V5\Shipping\ShippingFactory;
 use CTXFeed\V5\Tax\TaxFactory;
-use CTXFeed\V5\Utility\Config;
 use CTXFeed\V5\Utility\Settings;
 use Exception;
 use RankMath\Helper;
-use WC_Product;
-use WC_Product_External;
-use WC_Product_Grouped;
-use WC_Product_Variable;
-use WC_Product_Variation;
 use WPSEO_Meta;
 use WPSEO_Option_Titles;
 use WPSEO_Primary_Term;
@@ -42,10 +35,10 @@ class ProductInfo {
 	/**
 	 * ProductInfos constructor.
 	 *
-	 * @param \WC_Product $product Product object.
-	 * @param \CTXFeed\V5\Utility\Config $config Config object.
-	 * @param \WC_Product_Variable $parent_product Parent product object.
-	 * @param array $children Optional. Array of product variations.
+	 * @param \WC_Product                $product        Product object.
+	 * @param \CTXFeed\V5\Utility\Config $config         Config object.
+	 * @param \WC_Product_Variable       $parent_product Parent product object.
+	 * @param array                      $children       Optional. Array of product variations.
 	 */
 	public function __construct( $product, $config, $parent_product = null, $children = array() ) {
 		$this->product        = $product;
@@ -88,11 +81,10 @@ class ProductInfo {
 
 		// Add all available variation attributes to variation title.
 		if ( $this->product->is_type( 'variation' ) && ! empty( $this->product->get_attributes() ) && $this->parent_product ) {
-			$title      = $this->parent_product->get_title();
+			$title = $this->parent_product->get_title();
 			/**
-			 * Translate press plugin support
+			 * Translate press plugin support.
 			 */
-			$title = apply_filters( 'woo_feed_filter_product_title', $title, $this->product, $this->config );
 			$attributes = [];
 			foreach ( $this->product->get_attributes() as $slug => $value ) {
 				$attribute = $this->product->get_attribute( $slug );
@@ -101,19 +93,15 @@ class ProductInfo {
 				}
 			}
 			// set variation attributes with separator.
-			$separator            = ' , ';
+			$separator            = apply_filters( 'woo_feed_attribute_separator', ' , ', $this->config, $this->product );
 			$variation_attributes = implode( $separator, $attributes );
 
-			//get product title with variation attribute
-			$get_with_var_attributes = apply_filters( "woo_feed_get_product_title_with_variation_attribute", true, $this->product, $this->config );
-			if ( $get_with_var_attributes ) {
-				$title .= " - " . $variation_attributes;
+			// Merge product title with variation attributes.
+			if ( ! empty( $variation_attributes ) ) {
+				// get product title with variation attributes merger.
+				$product_title_and_attribute_merger = apply_filters( "woo_feed_product_title_and_attributes_merger", " - ", $this->product, $this->config );
+				$title                              .= $product_title_and_attribute_merger . $variation_attributes;
 			}
-		}
-
-		// TODO: Remove this code after testing to override folder.
-		if ( $this->config->get_config()['provider'] == "admarkt" && $this->config->get_config()['feedType'] == 'xml' ) {
-			$title = str_replace( '&', '&amp;', $title );
 		}
 
 		return apply_filters( 'woo_feed_filter_product_title', $title, $this->product, $this->config );
@@ -133,24 +121,6 @@ class ProductInfo {
 		}
 
 		return apply_filters( 'woo_feed_filter_product_parent_title', $name, $this->product, $this->config );
-	}
-
-	/**
-	 * Get product description.
-	 *
-	 * @return string
-	 * @since 8.0.0
-	 */
-	public function description() {
-
-		$description = CommonHelper::clean_content( $this->product->get_description() );
-
-		// For variation product.
-		if ( ! is_null( $this->parent_product ) && $this->product->is_type( 'variation' ) ) {
-			$description = CommonHelper::clean_content( $this->parent_product->get_description() );
-		}
-
-		return apply_filters( 'woo_feed_filter_product_description', $description, $this->product, $this->config, $this->parent_product );
 	}
 
 	/**
@@ -227,35 +197,6 @@ class ProductInfo {
 	 * Get product categories.
 	 *
 	 * @return array
-	 * @since 8.0.0
-	 */
-	public function categories() {
-		$id = $this->product->get_id();
-
-		if ( $this->product->is_type( 'variation' ) ) {
-			$id = $this->product->get_parent_id();
-		}
-
-		// Get child categories of the current parent ID
-		//$categories = wp_strip_all_tags( wc_get_product_category_list( $id, ' > ' ) );
-
-		$categories = '';
-		$term_list          = get_the_terms( $id, 'product_cat' );
-
-		if ( is_array( $term_list ) ) {
-			$col = array_column( $term_list, "term_id" );
-			array_multisort( $col, SORT_ASC, $term_list );
-			$term_list = array_column( $term_list, "name" );
-			$categories = implode( ' > ', $term_list );
-		}
-
-		return apply_filters( 'woo_feed_filter_product_categories', $categories, $this->product, $this->config );
-	}
-
-	/**
-	 * Get product categories.
-	 *
-	 * @return array
 	 * @since      1.0.0
 	 * @deprecated 8.0.0
 	 */
@@ -266,6 +207,104 @@ class ProductInfo {
 
 		// Optionally, you can still call the new function from the old one
 		return $this->categories();
+	}
+
+	/**
+	 * Get product categories.
+	 *
+	 * @return array
+	 * @since 8.0.0
+	 */
+	public function categories() {
+
+		$id = $this->product->get_id();
+
+		if ( $this->product->is_type( 'variation' ) ) {
+			$id = $this->product->get_parent_id();
+		}
+
+		// Get child categories of the current parent ID
+		//$categories = wp_strip_all_tags( wc_get_product_category_list( $id, ' > ' ) );
+
+		$categories = '';
+		$term_list  = get_the_terms( $id, 'product_cat' );
+
+		$separator = apply_filters( 'woo_feed_product_type_separator', ' > ', $this->config, $this->product );
+
+		if ( is_array( $term_list ) ) {
+			$col = array_column( $term_list, "parent" );
+			array_multisort( $col, SORT_ASC, $term_list );
+			$term_list = array_column( $term_list, "name" );
+			$categories = implode( $separator , $term_list );
+
+		}
+
+		return apply_filters( 'woo_feed_filter_product_categories', $categories, $this->product, $this->config );
+	}
+
+	/**
+	 * Format term ids to names.
+	 *
+	 * @param array  $term_ids Term IDs to format.
+	 * @param string $taxonomy Taxonomy name.
+	 *
+	 * @return string
+	 * @since 3.1.0
+	 */
+	public function format_term_ids( $term_ids, $taxonomy , $separator ) {
+		$term_ids = wp_parse_id_list( $term_ids );
+
+
+		if ( ! count( $term_ids ) ) {
+			return '';
+		}
+
+		$formatted_terms = array();
+
+		if ( is_taxonomy_hierarchical( $taxonomy ) ) {
+			foreach ( $term_ids as $term_id ) {
+				$formatted_term = array();
+				$ancestor_ids   = array_reverse( get_ancestors( $term_id, $taxonomy ) );
+				foreach ( $ancestor_ids as $ancestor_id ) {
+					$term = get_term( $ancestor_id, $taxonomy );
+					if ( $term && ! is_wp_error( $term ) ) {
+						$formatted_term[] = $term->name;
+					}
+				}
+
+				$term = get_term( $term_id, $taxonomy );
+
+				if ( $term && ! is_wp_error( $term ) ) {
+					$formatted_term[] = $term->name;
+				}
+
+				$formatted_terms[] = implode( $separator , $formatted_term );
+			}
+		} else {
+			foreach ( $term_ids as $term_id ) {
+				$term = get_term( $term_id, $taxonomy );
+
+				if ( $term && ! is_wp_error( $term ) ) {
+					$formatted_terms[] = $term->name;
+				}
+			}
+		}
+
+		$formatted_value = '';
+
+		if ( count( $formatted_terms ) == 1 ) {
+			$formatted_value = $formatted_terms[0];
+		} else {
+			foreach ( $formatted_terms as $terms ) {
+				// Ensure that the item is a string
+				if ( is_string( $terms ) && strlen( $terms ) > strlen( $formatted_value ) ) {
+					$formatted_value = $terms;
+				}
+			}
+		}
+
+		return $formatted_value;
+
 	}
 
 	/**
@@ -377,14 +416,24 @@ class ProductInfo {
 	 */
 	public function product_full_cat() {
 
-		$id = $this->product->get_id();
-		if ( $this->product->is_type( 'variation' ) ) {
-			$id = $this->product->get_parent_id();
+//		$id = $this->product->get_id();
+//		if ( $this->product->is_type( 'variation' ) ) {
+//			$id = $this->product->get_parent_id();
+//		}
+//
+//		$separator = apply_filters( 'woo_feed_product_type_separator', ' > ', $this->config, $this->product );
+//
+//		$product_type = wp_strip_all_tags( wc_get_product_category_list( $id, $separator ) );
+
+		$term_ids   = $this->product->get_category_ids();
+
+		if ( $this->product->is_type( 'variation' ) &&  $this->parent_product) {
+			$term_ids = $this->parent_product->get_category_ids();
 		}
 
 		$separator = apply_filters( 'woo_feed_product_type_separator', ' > ', $this->config, $this->product );
 
-		$product_type = wp_strip_all_tags( wc_get_product_category_list( $id, $separator ) );
+		$product_type = $this->format_term_ids( $term_ids, 'product_cat', $separator );
 
 		return apply_filters( 'woo_feed_filter_product_local_category', htmlspecialchars_decode( $product_type ), $this->product, $this->config );
 	}
@@ -446,6 +495,7 @@ class ProductInfo {
 	 */
 	public function image() {
 		$image_link = wp_get_attachment_url( $this->product->get_image_id() );
+		$image_link    = CTX_Helper::woo_feed_get_formatted_url( $image_link );
 
 		return apply_filters( 'woo_feed_filter_product_image', $image_link, $this->product, $this->config );
 	}
@@ -457,10 +507,13 @@ class ProductInfo {
 	 * @since 8.0.0
 	 */
 	public function feature_image() {
-		$image_link = wp_get_attachment_url( $this->product->get_image_id() );
-
-		if ( empty( $image_link ) && $this->product->is_type( 'variation' ) && $this->parent_product ) {
+		if ( $this->product->is_type( 'variation' ) && $this->parent_product ) {
 			$image_link = wp_get_attachment_url( $this->parent_product->get_image_id() );
+			if( empty( $image_link ) ){
+				$image_link = wp_get_attachment_url( $this->product->get_image_id() );
+			}
+		}else{
+			$image_link = wp_get_attachment_url( $this->product->get_image_id() );
 		}
 
 		return apply_filters( 'woo_feed_filter_product_feature_image', $image_link, $this->product, $this->config );
@@ -630,7 +683,7 @@ class ProductInfo {
 	public function parent_sku() {
 		$parent_sku = $this->product->get_sku();
 
-		if ( $this->product->is_type( 'variation' ) &&  $this->parent_product) {
+		if ( $this->product->is_type( 'variation' ) && $this->parent_product ) {
 			$parent_sku = $this->parent_product->get_sku();
 		}
 
@@ -804,7 +857,6 @@ class ProductInfo {
 
 	}
 
-
 	/**
 	 * Get Product Regular Price with Tax.
 	 *
@@ -927,11 +979,11 @@ class ProductInfo {
 	 *
 	 * @return mixed|void
 	 */
-	public function checkout_link_template(){
-		if( $this->config->get_feed_file_type() === 'xml'){
-			$checkout_link_url = wc_get_checkout_url().$this->product->get_id();
-		}else{
-			$checkout_link_url = wc_get_page_permalink( 'cart' )."?productId=".$this->product->get_id();
+	public function checkout_link_template() {
+		if ( $this->config->get_feed_file_type() === 'xml' ) {
+			$checkout_link_url = wc_get_checkout_url() . $this->product->get_id();
+		} else {
+			$checkout_link_url = wc_get_page_permalink( 'cart' ) . "?productId=" . $this->product->get_id();
 		}
 
 		return apply_filters( 'woo_feed_filter_product_checkout_link_url', $checkout_link_url, $this->product, $this->config );
@@ -1243,8 +1295,6 @@ class ProductInfo {
 		return apply_filters( 'woo_feed_filter_wc_germanized_mpn', $wc_germanized_mpn, $this->product, $this->config );
 	}
 
-	# SEO Plugins
-
 	public function yoast_primary_category() {
 		$primary_category = '';
 		$product_id       = CommonHelper::parent_product_id( $this->product );
@@ -1256,6 +1306,8 @@ class ProductInfo {
 
 		return apply_filters( 'woo_feed_filter_product_yoast_primary_category', $primary_category, $this->product, $this->config );
 	}
+
+	# SEO Plugins
 
 	/**
 	 * Get product Yoast WP SEO title.
@@ -1315,8 +1367,25 @@ class ProductInfo {
 		return apply_filters( 'woo_feed_filter_product_yoast_wpseo_metadesc', $meta_description, $this->product, $this->config );
 	}
 
-	# SEO Plugins
+	/**
+	 * Get product description.
+	 *
+	 * @return string
+	 * @since 8.0.0
+	 */
+	public function description() {
 
+		$description = CommonHelper::clean_content( $this->product->get_description() );
+
+		// For variation product.
+		if ( ! is_null( $this->parent_product ) && $this->product->is_type( 'variation' ) ) {
+			$description = CommonHelper::clean_content( $this->parent_product->get_description() );
+		}
+
+		return apply_filters( 'woo_feed_filter_product_description', $description, $this->product, $this->config, $this->parent_product );
+	}
+
+	# SEO Plugins
 
 	/**
 	 * Get product Yoast WP SEO canonical URL.
@@ -1668,8 +1737,8 @@ class ProductInfo {
 	 */
 
 	public function images( $additional_image = '', $separator = ' , ' ) {
-		$img_urls   = ProductHelper::get_product_gallery( $this->product );
-		$separator = apply_filters( 'woo_feed_filter_category_separator', $separator , $this->product, $this->config );
+		$img_urls  = ProductHelper::get_product_gallery( $this->product );
+		$separator = apply_filters( 'woo_feed_filter_category_separator', $separator, $this->product, $this->config );
 
 		// Return Specific Additional Image URL
 		if ( '' !== $additional_image ) {

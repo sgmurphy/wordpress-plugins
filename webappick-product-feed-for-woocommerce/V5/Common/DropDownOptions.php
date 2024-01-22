@@ -917,8 +917,8 @@ class DropDownOptions {
 			'18' => 'only_parent',
 			'19' => 'parent',
 			'20' => 'parent_if_empty',
-			'21' => '',
-			'22' => '',
+			'21' => 'htmlspecialchars',
+			'22' => 'htmlspecialchars_decode',
 		);
 
 		//when wpml or polylang plugin is activated

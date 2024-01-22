@@ -596,7 +596,7 @@ if ( !class_exists( 'PT_CV_Hooks' ) ) {
 				$dimension_ready = $dimensions && !empty( $dimensions[ 0 ] ) && !empty( $dimensions[ 1 ] );				
 				$width	 = $dimension_ready ? esc_attr( $dimensions[ 0 ] ) : '';
 				$attr	 = array(
-					'src'	 => plugins_url( 'public/assets/images/default_image.png', PT_CV_FILE ),
+					'src'	 => apply_filters( PT_CV_PREFIX_ . 'default_image', plugins_url( 'public/assets/images/default_image.png', PT_CV_FILE ) ),
 					'class'	 => $gargs[ 'class' ] . ' cv-default-img',
 					'alt'	 => !empty( $post->cvp_img_alt ) ? esc_attr( $post->cvp_img_alt ) : esc_attr( $post->post_title ),
 					'title'	 => !empty( $post->cvp_img_title ) ? esc_attr( $post->cvp_img_title ) : '',

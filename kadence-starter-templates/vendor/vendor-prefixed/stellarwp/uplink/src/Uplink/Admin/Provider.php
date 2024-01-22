@@ -2,7 +2,7 @@
 /**
  * @license GPL-2.0-or-later
  *
- * Modified by kadencewp on 10-January-2024 using Strauss.
+ * Modified by kadencewp on 17-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */ declare( strict_types=1 );
 
@@ -51,7 +51,6 @@ class Provider extends Abstract_Provider {
 		add_action( 'admin_enqueue_scripts', [ $this, 'register_assets' ], 10, 0 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'store_admin_notices' ], 10, 1 );
 		add_action( 'admin_notices', [ $this, 'admin_notices' ], 10, 0 );
-		add_action( 'load-plugins.php', [ $this, 'remove_default_update_message' ], 50, 0 );
 	}
 
 	/**
@@ -154,17 +153,6 @@ class Provider extends Abstract_Provider {
 	 */
 	public function store_admin_notices( $page ): void {
 		$this->container->get( Plugins_Page::class )->store_admin_notices( (string) $page );
-	}
-
-	/**
-	 * Remove the default inline update message for a plugin.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
-	public function remove_default_update_message(): void {
-		$this->container->get( Plugins_Page::class )->remove_default_inline_update_msg();
 	}
 
 	/**

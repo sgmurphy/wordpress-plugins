@@ -116,6 +116,68 @@ class Moove_GDPR_Content {
 		return $cache_array;
 	}
 
+	public static function gdpr_google_consent_mode2_snippet(){
+		$gdpr_default_content = new Moove_GDPR_Content();
+  	$option_name          = $gdpr_default_content->moove_gdpr_get_option_name();
+		$gdpr_options         = get_option( $option_name );
+		$gdin_values       	 	= isset( $gdpr_options['gdin_values'] ) ? json_decode( $gdpr_options['gdin_values'], true ) : array();
+   	$gdin_modules       	= gdpr_get_integration_modules( $gdpr_options, $gdin_values );
+   	if ( isset( $gdin_modules['gtmc2'] ) && isset( $gdin_modules['gtmc2']['tacking_id'] ) && $gdin_modules['gtmc2']['status'] ) :
+			?>
+				<script>
+				  // Define dataLayer and the gtag function.
+				  window.dataLayer = window.dataLayer || [];
+				  function gtag(){dataLayer.push(arguments);}
+
+				  // Set default consent to 'denied' as a placeholder
+				  // Determine actual values based on your own requirements
+				  gtag('consent', 'default', {
+				    'ad_storage': 'denied',
+				    'ad_user_data': 'denied',
+				    'ad_personalization': 'denied',
+				    'analytics_storage': 'denied',
+				    'personalization_storage': 'denied',
+						'security_storage': 'denied',
+						'functionality_storage': 'denied',
+				  });
+				</script>
+
+				<!-- Google Tag Manager -->
+				<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+				new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+				j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+				'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+				})(window,document,'script','dataLayer','GTM-XXXXXX');</script>
+				<!-- End Google Tag Manager -->
+			<?php
+		endif;
+	}
+
+	public static function gdpr_insert_integration_gtmc2_snippet( $cache_array, $_gdin_module ) {
+		if ( isset( $_gdin_module['tacking_id'] ) && $_gdin_module['tacking_id'] && intval( $_gdin_module['cookie_cat'] ) ) :
+			$cookie_cat_n = intval( $_gdin_module['cookie_cat'] ) === 2 ? 'thirdparty' : ( intval( $_gdin_module['cookie_cat'] ) === 3 ? 'advanced' : '' );
+			if ( $cookie_cat_n ) :
+				ob_start();
+				?>
+				<script>
+					gtag('consent', 'update', {
+			      'ad_storage': 'granted',
+				    'ad_user_data': 'granted',
+				    'ad_personalization': 'granted',
+				    'analytics_storage': 'granted',
+				    'personalization_storage': 'granted',
+						'security_storage': 'granted',
+						'functionality_storage': 'granted',
+			    });
+				</script>	
+				<?php
+				$cache_array[$cookie_cat_n]['header'] .= ob_get_clean();
+				ob_start();
+			endif;
+		endif;
+		return $cache_array;
+	}
+
 	public static function gdpr_insert_integration_gadc_snippet( $cache_array, $_gdin_module ) {
 		if ( isset( $_gdin_module['tacking_id'] ) && $_gdin_module['tacking_id'] && intval( $_gdin_module['cookie_cat'] ) ) :
 			$cookie_cat_n = intval( $_gdin_module['cookie_cat'] ) === 2 ? 'thirdparty' : ( intval( $_gdin_module['cookie_cat'] ) === 3 ? 'advanced' : '' );

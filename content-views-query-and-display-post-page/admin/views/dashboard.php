@@ -83,6 +83,7 @@ if ( !defined( 'ABSPATH' ) ) {
 	}
 	p {
 		margin-bottom: 15px;
+		font-size: 14px;
 	}
 </style>
 
@@ -100,18 +101,18 @@ function cvsetting_tmp_utm1( $campaign = '' ) {
 	</div>
 
 
-	<div class="cv-admin-content">
+	<div class="cv-admin-content">		
 		<div class="cv-admin-grid-left">
 			<div class="cv-admin-section" id="block-intro-video">
 				<h3>Blocks Introduction</h3>
-				<p>We added 15+ advanced post blocks to help you display posts, pages, custom post types stunningly with endless customization options.</p>
+				<p>We added 15+ advanced post blocks to the Block Editor to help you display posts, pages, custom post types stunningly with endless customization options.</p>
 				<div class="cv-admin-video">
 					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/bptDnUq9DI0?controls=1&modestbranding=1&rel=0&cc_load_policy=1&start=15" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 				</div>
 			</div>
 			<div class="cv-admin-section">
 				<h3>View Shortcode Introduction</h3>
-				<p>We built a dedicated powerful tool to help you display content using shortcode with the Classic editor easily.</p>
+				<p>We built a powerful shortcode feature to help you display content in the Classic editor and page builder easily. Simply create shortcodes, then insert shortcodes to where you want.</p>
 				<div class="cv-admin-video">
 					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/2vVqoBJA9K8?controls=1&modestbranding=1&rel=0&cc_load_policy=1" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 				</div>

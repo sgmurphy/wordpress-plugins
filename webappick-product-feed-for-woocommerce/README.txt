@@ -5,7 +5,7 @@ Tags: WooCommerce Product Feed, WooCommerce, Google Shopping, Google Merchant, F
 Requires at least: 4.4
 Tested Up To: 6.4
 Requires PHP: 5.6
-Stable tag: 6.4.3
+Stable tag: 6.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -590,6 +590,15 @@ Using pro version:
 4. Category Mapping
 
 == Changelog ==
+
+= 6.4.5 (2024-01-22) =
+* Fixed: Variation Product Title issue
+* Fixed: Feature image issue
+
+= 6.4.4 (2024-01-22) =
+* Fixed: Image URL Conversion issue
+* Fixed: Category and  Full Category hierarchy issue
+* Fixed: Product Title comma issue
 
 = 6.4.3 (2024-01-18) =
 * Fixed: Parent Product null issue

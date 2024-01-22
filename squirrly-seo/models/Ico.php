@@ -260,10 +260,9 @@ class SQ_Models_Ico
                 $alpha = ( 1 - ( $alpha / 127 ) ) * 255;
 
                 $color &= 0xFFFFFF;
-                $color |= 0xFF000000 & ( $alpha << 24 );
+                $color |= 0xFF000000 & ( (int) $alpha << 24 );
 
                 $pixel_data[] = $color;
-
 
                 $opacity = ( $alpha <= 127 ) ? 1 : 0;
 

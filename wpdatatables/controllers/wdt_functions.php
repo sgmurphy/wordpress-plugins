@@ -260,6 +260,9 @@ function wdtActivationCreateTables() {
     if (get_option('wdtTempFutureDate') === false) {
         update_option('wdtTempFutureDate', date( 'Y-m-d'));
     }
+    if (get_option('wdtGoogleStableVersion') === false) {
+        update_option('wdtGoogleStableVersion', 1);
+    }
 }
 
 /**
@@ -433,6 +436,7 @@ function wdtUninstallDelete() {
         delete_option('wdtVersion');
         delete_option('wdtBorderRemoval');
         delete_option('wdtBorderRemovalHeader');
+        delete_option('wdtGoogleStableVersion');
 
         delete_option('wdtSiteLink');
 

@@ -393,6 +393,7 @@ div.mce-widget button i.mce-i-wpdatachart{
 .wpdt-c .wdt-datatables-admin-wrap .wdt-table-settings input.form-control:not(.fc-alt),
 .wpdt-c .wdt-datatables-admin-wrap .wdt-chart-wizard input.form-control:not(.fc-alt),
 .wpdt-c .wdt-datatables-admin-wrap .wdt-addons input.form-control:not(.fc-alt),
+.wpdt-c .wdt-datatables-admin-wrap .wdt-chart-wizard label.form-control:not(.fc-alt),
 .wpdt-c .wdt-datatables-admin-wrap .wdt-browse-table input.form-control:not(.fc-alt){
     font-size: 13px;
     line-height: 20px;

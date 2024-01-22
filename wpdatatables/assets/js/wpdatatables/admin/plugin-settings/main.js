@@ -225,7 +225,14 @@
 
         $('#wdt-site-link').change(function(e){
             wpdatatable_plugin_config.setWdtSiteLink( $(this).is(':checked') ? 1 : 0 );
-        })
+        });
+
+        /**
+         * Toggle GoogleCharts stable version
+         */
+        $('#wdt-use-google-stable-version').on('change', function () {
+            wpdatatable_plugin_config.setGoogleStableVersion($(this).is(':checked') ? 1 : 0);
+        });
 
         /**
          * Load current config on load
@@ -259,6 +266,7 @@
         wpdatatable_plugin_config.setWdtSiteLink   ( wdt_current_config.wdtSiteLink == 1 ? 1 : 0 );
         wpdatatable_plugin_config.setBorderRemoval(wdt_current_config.wdtBorderRemoval == 1 ? 1 : 0);
         wpdatatable_plugin_config.setBorderRemovalHeader(wdt_current_config.wdtBorderRemovalHeader == 1 ? 1 : 0);
+        wpdatatable_plugin_config.setGoogleStableVersion(wdt_current_config.wdtGoogleStableVersion == 1 ? 1 : 0);
 
         for (var value in wdt_current_config.wdtFontColorSettings) {
             wpdatatable_plugin_config.setColorFontSetting(value, wdt_current_config.wdtFontColorSettings[value]);

@@ -331,7 +331,7 @@ class Hustle_Module_Front {
 		if ( ! empty( $modules_deps['adblocker'] ) ) {
 			wp_enqueue_script(
 				'hustle_front_ads',
-				Opt_In::$plugin_url . 'assets/js/adb.min.js',
+				Opt_In::$plugin_url . 'assets/js/ad.min.js',
 				array(),
 				Opt_In::VERSION,
 				true

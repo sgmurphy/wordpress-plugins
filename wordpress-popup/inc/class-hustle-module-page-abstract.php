@@ -468,7 +468,7 @@ abstract class Hustle_Module_Page_Abstract extends Hustle_Admin_Page_Abstract {
 			'capability'       => $capability,
 			'entries_per_page' => $entries_per_page,
 			'message'          => filter_input( INPUT_GET, 'message', FILTER_SANITIZE_SPECIAL_CHARS ),
-			'sui'              => $this->get_sui_summary_config( 'sui-summary-sm' ),
+			'sui'              => $this->get_sui_summary_config( '' ),
 		);
 	}
 

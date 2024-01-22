@@ -950,13 +950,60 @@
 
 /* Styles for Initial View */
 
+.ticket_table_intro {
+	display: flex;
+	justify-content: flex-start;
+}
+
 .ticket_table_intro .button-secondary {
-		float: right;
-		margin-bottom: 15px;
-		margin-left: 5px;
+		margin-left: var(--tec-spacer-3);
 	}
 
-.ticket_table_intro #ticket_form_total_capacity {
+.ticket_table_intro .button-secondary:first-of-type {
+			margin-left: 0;
+		}
+
+.ticket_table_intro .button-secondary {
+		height: 35px;
+}
+
+.ticket_table_intro #settings_form_toggle {
+		/* If the intro contains the Settings button, then move it to the end of the flex row. */
+		margin-left: auto;
+	}
+
+.ticket_table_intro .tec_ticket-panel__helper_link__wrap {
+		margin-left: auto;
+	}
+
+.ticket_table_intro__warnings {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+/* Assume each warning will be wrapped in a dedicated div. */
+
+.ticket_table_intro__warnings div {
+		width: 100%;
+	}
+
+.tribe_ticket_list_table .table-header .ticket_name {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+	}
+
+.tribe_ticket_list_table .table-header .ticket_name .tribe-tickets-svgicon {
+			margin-right: var(--tec-spacer-0);
+		}
+
+.tribe-ticket-control-wrap {
+	display: flex;
+	justify-content: space-between;
+	font-size: 13px;
+}
+
+.tribe-ticket-control-wrap #ticket_form_total_capacity {
 		display: inline-block;
 		line-height: 28px;
 		position: relative;
@@ -964,7 +1011,7 @@
 		position: relative;
 	}
 
-.ticket_table_intro #ticket_form_total_capacity .tooltip {
+.tribe-ticket-control-wrap #ticket_form_total_capacity .tooltip {
 		background-color: #efefef;
 		border: 1px solid var(--tec-color-border-secondary);
 		border-radius: 3px;
@@ -977,14 +1024,42 @@
 		z-index: 1;
 	}
 
-.ticket_table_intro #ticket_form_total_capacity:hover .tooltip {
+.tribe-ticket-control-wrap #ticket_form_total_capacity:hover .tooltip {
 			display: block;
 		}
 
-.ticket_table_intro #ticket_form_total_capacity .tooltip {
+.tribe-ticket-control-wrap #ticket_form_total_capacity .tooltip {
 			left: 100%;
 			top: 53%;
 			white-space: nowrap;
+		}
+
+.tribe-ticket-control-wrap .tribe-ticket-control-wrap__ctas {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+	}
+
+.tribe-ticket-control-wrap .tribe-ticket-control-wrap__ctas a:not(:first-of-type):before {
+			color: #2c3338;
+			content: '|';
+			margin-right: 2px;
+			margin-left: 2px;
+			text-decoration: none;
+		}
+
+.tribe-ticket-control-wrap .tribe-ticket-control-wrap__settings {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+
+.tribe-ticket-control-wrap .tribe-ticket-control-wrap__settings > * {
+			margin-right: var(--tec-spacer-1);
+		}
+
+.tribe-ticket-control-wrap .tribe-ticket-control-wrap__settings:last-child {
+			margin-right: 0;
 		}
 
 /* Form styles */
@@ -1020,8 +1095,17 @@
 		margin-top: 0;
 	}
 
+.input_block .input_block.ticket_form_right--flex, .input_block .ticket_form_right.ticket_form_right--flex {
+			display: flex;
+			align-items: center;
+		}
+
 .input_block .input_block:last-child, .input_block .ticket_form_right:last-child {
 			margin-bottom: 0;
+		}
+
+.input_block .input_block .ticket-type__text, .input_block .ticket_form_right .ticket-type__text {
+			margin-left: var(--tec-spacer-0);
 		}
 
 .input_block .input_block {
@@ -1197,12 +1281,14 @@ p.description {
 	padding: 10px;
 }
 
-.ticket-editor-notice.info {
-		background-color: #edf6fc;
-	}
-
 .ticket-editor-notice.info .dashicons {
 			color: #2a709d;
+			margin-right: var(--tec-spacer-0);
+		}
+
+.ticket-editor-notice.info.info--background{
+			background-color: #f0f6fc;
+			border: 1px solid #c5d9ed;
 		}
 
 .ticket-editor-notice.tribe-dependent {
@@ -1220,6 +1306,10 @@ p.description {
 		width: 20px;
 	}
 
+.ticket-editor-notice.table-stick--before {
+		margin-top: 16px;
+	}
+
 .tribe_events_page_tickets-attendees .search-box .button {
 	text-transform: capitalize;
 }
@@ -1230,6 +1320,57 @@ p.description {
 
 .tec-admin__upsell-tec-tickets-capacity-arf .tec-admin__upsell-content {
 		padding: var(--tec-spacer-1) 0;
+	}
+
+.tec-tickets__series_attached_ticket-types {
+	padding: 10px 0;
+}
+
+.tec-tickets__series_attached_ticket-types .tec-tickets__series_attached_ticket-type {
+		display: flex;
+		align-items: center;
+		margin-bottom: var(--tec-spacer-2);
+	}
+
+.tec-tickets__series_attached_ticket-types .tec-tickets__series_attached_ticket-type__icon {
+		background-repeat: no-repeat;
+		display: inline-block;
+		height: 20px;
+		margin-right: var(--tec-spacer-0);
+		width: 20px;
+	}
+
+.tec-tickets__series_attached_ticket-types .tec-tickets__series_attached_ticket-type__icon--rsvp {
+		background-image: url( '../icons/ticket-rsvp-icon.svg' );
+		margin-top: 5px;
+	}
+
+.tec-tickets__series_attached_ticket-types .tec-tickets__series_attached_ticket-type__icon--ticket {
+		background-image: url( '../icons/ticket-default-icon.svg' );
+	}
+
+.tec-tickets__series_attached_ticket-types .tec-tickets__series_attached_ticket-type__icon--series-pass {
+		background-image: url( '../icons/ticket-series-pass-icon.svg' );
+	}
+
+.tec-tickets__series_attached_ticket-types .tickets__series_attached_ticket-type__title {
+		font-size: var(--tec-font-size-2);
+	}
+
+.tec_tickets_editor__header__ticket-type-upsell-notice {
+	display: flex;
+	align-items: center;
+	margin-left: 132px;
+	margin-bottom: var(--tec-spacer-3);
+	color: var(--tec-color-text-primary);
+	font-size: 13px;
+	font-weight: var(--tec-font-weight-regular);
+}
+
+.tec_tickets_editor__header__ticket-type-upsell-notice img {
+		height: 12px;
+		width: 12px;
+		margin-right: 4px;
 	}
 
 .tickets_page_tec-tickets-settings p.description,
@@ -1284,14 +1425,14 @@ p.description {
 
 @media screen and (max-width: 520px) {
 
-.ticket_table_intro #ticket_form_total_capacity {
+.tribe-ticket-control-wrap #ticket_form_total_capacity {
 			width: 100%
 	}
 		}
 
 @media screen and (max-width: 782px) {
 
-.ticket_table_intro #ticket_form_total_capacity .tooltip {
+.tribe-ticket-control-wrap #ticket_form_total_capacity .tooltip {
 				left: auto;
 				margin-top: 5px;
 				position: relative;

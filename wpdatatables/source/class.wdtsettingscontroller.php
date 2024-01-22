@@ -102,6 +102,7 @@ class WDTSettingsController {
 			'wdtMaxFunctionsLabel'      => get_option('wdtMaxFunctionsLabel'),
             'wdtFontColorSettings'      => get_option('wdtFontColorSettings') ? get_option('wdtFontColorSettings') : new stdClass(),
 		    'wdtAutoUpdateOption'       => get_option('wdtAutoUpdateOption'),
+            'wdtGoogleStableVersion' => get_option('wdtGoogleStableVersion'),
 		);
 	}
 

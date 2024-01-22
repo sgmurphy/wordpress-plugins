@@ -258,6 +258,7 @@ if ( cv_is_active_plugin( 'optimizePressPlugin' ) ) {
 			}
 			$oep[ $key ][]	 = 'content-views-query-and-display-post-page';
 			$oep[ $key ][]	 = 'pt-content-views-pro';
+			$oep[ $key ]	 = array_unique($oep[ $key ]);
 		}
 		update_option( 'opd_external_plugins', $oep );
 	}

@@ -516,7 +516,7 @@ if ( !class_exists( 'PT_CV_Html' ) ) {
 
 			$readmore_text	 = self::get_readmore_text( $fargs[ 'content' ] );
 			$btn_class		 = PT_CV_PREFIX . 'readmore ' . apply_filters( PT_CV_PREFIX_ . 'field_content_readmore_class', 'btn btn-success', $fargs );
-			$btn_html		 = self::_field_href( $post, $readmore_text, $btn_class );
+			$btn_html		 = self::_field_href( $post, wp_kses_post( $readmore_text ), $btn_class );
 			return strpos( $btn_class, 'textlink' ) !== false ? $btn_html : '<div class="' . PT_CV_PREFIX . 'rmwrap">' . $btn_html . '</div>';
 		}
 
@@ -718,7 +718,7 @@ if ( !class_exists( 'PT_CV_Html' ) ) {
 
 						$text = PT_CV_Functions::setting_value( PT_CV_PREFIX . 'authorPrefix' );
 						if ( !empty( $text ) ) {
-							$author_info = $text . ' ' . $author_info;
+							$author_info = wp_kses_post( $text ) . ' ' . $author_info;
 						}
 
 						if ( PT_CV_Functions::setting_value( PT_CV_PREFIX . 'authorAvatar' ) ) {

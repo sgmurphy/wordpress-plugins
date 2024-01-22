@@ -154,7 +154,7 @@ class ProductHelper {
 				 * @plugin WooCommerce Additional Variation Images
 				 * @link   https://woocommerce.com/products/woocommerce-additional-variation-images/
 				 */
-				$attachment_ids = \xplode( ',', \get_post_meta( $product->get_id(), '_wc_additional_variation_images', true ) );
+				$attachment_ids = \explode( ',', \get_post_meta( $product->get_id(), '_wc_additional_variation_images', true ) );
 			} elseif ( \class_exists( 'WOODMART_Theme' ) ) {
 				/**
 				 * Get Variation Additional Images for "WOODMART Theme -> Variation Gallery Images Feature"

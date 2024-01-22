@@ -2160,7 +2160,8 @@ class WPDataChart
 
         if ($this->_engine == 'google') {
             // Google Chart JS
-            wp_enqueue_script('wdt-google-charts', '//www.gstatic.com/charts/loader.js', array(), WDT_CURRENT_VERSION);
+            $googleLibSource = get_option('wdtGoogleStableVersion') ? WDT_JS_PATH . 'wpdatatables/googlecharts.js' : '//www.gstatic.com/charts/loader.js';
+            wp_enqueue_script('wdt-google-charts', $googleLibSource, array(), WDT_CURRENT_VERSION);
             wp_enqueue_script('wpdatatables-google-chart', WDT_JS_PATH . 'wpdatatables/wdt.googleCharts' . $js_ext, array('jquery'), WDT_CURRENT_VERSION);
             $json_chart_render_data = json_encode($this->_render_data);
         } else if ($this->_engine == 'chartjs') {

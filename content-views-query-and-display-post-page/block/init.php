@@ -724,7 +724,7 @@ if ( !class_exists( 'ContentViews_Block' ) ) {
 			$style	 = PT_CV_Functions::setting_value( PT_CV_PREFIX . 'headingStyle', null, 'heading1' );
 			$prefix	 = PT_CV_PREFIX;
 			$heading = "<{$tag} class='{$prefix}heading-container $style' data-blockid='{$pt_cv_id}'><span class='{$prefix}heading'> $text </span></{$tag}>";
-			return $heading;
+			return wp_kses_post( $heading );
 		}
 
 		static function topmeta_reposition( $settings, $from_view = false ) {			

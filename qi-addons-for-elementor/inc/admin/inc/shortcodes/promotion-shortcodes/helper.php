@@ -310,6 +310,16 @@ if ( ! function_exists( 'qi_addons_for_elementor_promotion_shortcodes_list' ) ) 
 				'active'        => false,
 				'icon'          => 'qodef-custom-elementor-icon qi-addons-for-elementor-premium-mailchimp-form',
 			),
+			'qi_addons_for_elementor_premium_news_ticker'                        => array(
+				'base'          => 'news-ticker',
+				'title'         => esc_html__( 'News Ticker', 'qi-addons-for-elementor' ),
+				'subcategory'   => esc_html__( 'Creative', 'qi-addons-for-elementor' ),
+				'demo'          => 'https://qodeinteractive.com/qi-addons-for-elementor/news-ticker/',
+				'documentation' => 'https://qodeinteractive.com/qi-addons-for-elementor/documentation/#news-ticker',
+				'premium'       => true,
+				'active'        => false,
+				'icon'          => 'qodef-custom-elementor-icon qi-addons-for-elementor-premium-news-ticker',
+			),
 			'qi_addons_for_elementor_premium_numbered_slider'                        => array(
 				'base'          => 'numbered-slider',
 				'title'         => esc_html__( 'Numbered Slider', 'qi-addons-for-elementor' ),

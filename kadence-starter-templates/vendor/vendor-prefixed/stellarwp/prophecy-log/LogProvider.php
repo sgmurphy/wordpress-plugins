@@ -2,14 +2,14 @@
 /**
  * @license GPL-2.0-only
  *
- * Modified by kadencewp on 10-January-2024 using Strauss.
+ * Modified by kadencewp on 17-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */ declare(strict_types=1);
 
 namespace KadenceWP\KadenceStarterTemplates\StellarWP\ProphecyMonorepo\Log;
 
 use KadenceWP\KadenceStarterTemplates\lucatume\DI52\Container;
-use KadenceWP\KadenceStarterTemplates\Monolog\Handler\AbstractHandler;
+use KadenceWP\KadenceStarterTemplates\Monolog\Formatter\LineFormatter;
 use KadenceWP\KadenceStarterTemplates\Monolog\Handler\ErrorLogHandler;
 use KadenceWP\KadenceStarterTemplates\Monolog\Handler\StreamHandler;
 use KadenceWP\KadenceStarterTemplates\Monolog\Logger;
@@ -21,13 +21,19 @@ use KadenceWP\KadenceStarterTemplates\StellarWP\ProphecyMonorepo\Log\Handlers\Nu
 
 final class LogProvider extends Provider
 {
-	public const CHANNELS = [
+	public const LOG_LEVEL = 'prophecy.log.log_level';
+	public const CHANNELS  = [
 		'console'  => [
 			'class'     => StreamHandler::class,
 			'formatter' => ColoredLineFormatter::class,
 		],
 		'errorlog' => [
-			'class' => ErrorLogHandler::class,
+			'class'     => ErrorLogHandler::class,
+			'formatter' => LineFormatter::class,
+		],
+		'stack'    => [
+			'console',
+			'errorlog',
 		],
 		'null'     => [
 			'class' => NullHandler::class,
@@ -38,20 +44,21 @@ final class LogProvider extends Provider
 	 * {@inheritDoc}
 	 */
 	public function register(): void {
+		$this->container->singleton(self::LOG_LEVEL, LogLevel::fromName($this->config->get('log.level', 'debug')));
+
 		$this->container->when(ColoredLineFormatter::class)
 						->needs('$dateFormat')
 						->give('Y-m-d H:i:s.v e');
-
-		$this->container->when(AbstractHandler::class)
-						->needs('$level')
-						->give(LogLevel::fromName($this->config->get('log.level')));
 
 		$channel = $this->config->get('log.channel');
 
 		$this->container->singleton(
 			StreamHandler::class,
-			function () use ($channel) {
-				return new StreamHandler($this->config->get("log.channels.$channel.with.stream", ''));
+			function ($c) use ($channel) {
+				return new StreamHandler(
+					$this->config->get("log.channels.$channel.with.stream", 'php://stdout'),
+					$c->get(self::LOG_LEVEL)
+				);
 			}
 		);
 
@@ -69,16 +76,40 @@ final class LogProvider extends Provider
 					);
 				}
 
-				/** @var \KadenceWP\KadenceStarterTemplates\Monolog\Handler\AbstractProcessingHandler $handlerInstance */
-				$handlerInstance = $c->get($handler['class']);
-
 				$logger = new Logger($channel);
 
-				if (isset($handler['formatter'])) {
-					$handlerInstance->setFormatter($c->get($handler['formatter']));
+				/**
+				 * @var array{handler: \KadenceWP\KadenceStarterTemplates\Monolog\Handler\AbstractProcessingHandler, formatter: string|class-string} $handlers
+				 */
+				$handlers = [];
+
+				// Single handler channel.
+				if (! empty($handler['class'])) {
+					$handlers[] = [
+						'handler'   => $c->get($handler['class']),
+						'formatter' => $handler['formatter'] ?? '',
+					];
+				} else {
+					// We are on a stack channel, which uses multiple existing handlers.
+					foreach ($handler as $stackChannel) {
+						$handlers[] = [
+							'handler'   => $c->get(self::CHANNELS[$stackChannel]['class']),
+							'formatter' => self::CHANNELS[$stackChannel]['formatter'] ?? '',
+						];
+					}
 				}
 
-				$logger->pushHandler($handlerInstance);
+				/** @var array{handler: \KadenceWP\KadenceStarterTemplates\Monolog\Handler\AbstractProcessingHandler, formatter: string|class-string} $registeredHandler */
+				foreach ($handlers as $registeredHandler) {
+					if (! empty($registeredHandler['formatter'])) {
+						$registeredHandler['handler']->setFormatter($c->get($registeredHandler['formatter']));
+					}
+
+					// Set the configured log level for each handler.
+					$registeredHandler['handler']->setLevel($c->get(self::LOG_LEVEL));
+
+					$logger->pushHandler($registeredHandler['handler']);
+				}
 
 				return $logger;
 			}

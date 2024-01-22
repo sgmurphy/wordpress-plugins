@@ -34,6 +34,7 @@ var settingsPageLinks = {
     'custom-js-and-css': '#custom-js-css',
     'google-sheet-api-settings': '#google-sheet-api-settings',
     'cache-settings': '#cache-settings',
+    'wdt-charts': '#charts',
 };
 
 var constructorLinks = {

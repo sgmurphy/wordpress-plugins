@@ -4,23 +4,25 @@ Tags: post grid, post blocks, recent posts, gutenberg blocks, grid, display post
 Requires at least: 3.3
 Tested up to: 6.4
 Requires PHP: 5.5
-Stable tag: 3.6.2
+Stable tag: 3.6.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Post grid, post list, slider & more for your WordPress site. 15 blocks & 75 patterns for Block Editor, shortcode for Classic Editor and page builders.
+Query, sort, and show posts in grid, list, slider, accordion... layouts. Blocks & patterns for Gutenberg. Shortcode for Classic Editor, page builders.
 
 == Description ==
 
 Content Views is the most popular grid shortcode & block plugin to create stunning Blogs, News, Personal, Portfolio, and Business sites.
+
 Easy to display posts, pages, custom post types, taxonomy terms in attractive grid, list, slider, accordion, pinterest, timeline, and more.
+
 Classic editor friendly & Gutenberg block editor ready!
 
 [See Live Demo](https://contentviewspro.com/demo/?utm_source=wordpress&utm_medium=link&utm_campaign=readme) | [Content Views Pro](https://contentviewspro.com/?utm_source=wordpress&utm_medium=link&utm_campaign=readme) | [Documentation](https://contentviewspro.com/documentation/?utm_source=wordpress&utm_medium=link&utm_campaign=readme) | [Support](https://contentviewspro.com/contact/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)
 
-## 🏆 CLASSIC EDITOR FRIENDLY
+## 🏆 CLASSIC EDITOR AND PAGE BUILDER SUPPORT
 
-Content Views provides a dedicated module to work with the Classic editor in 2 simple steps:
+Content Views provides a powerful shortcode feature to work with the Classic editor and page builders in 2 simple steps:
 
 https://www.youtube.com/watch?v=2vVqoBJA9K8&controls=1&modestbranding=1&rel=0&cc_load_policy=1
 
@@ -33,7 +35,7 @@ Add the created view shortcode to the Classic editor, page builder, widget, or a
 
 ## 🏆 GUTENBERG BLOCK EDITOR READY
 
-### 💎 15 GUTENBERG POST BLOCKS AND COUNTING
+### 💎 15 GUTENBERG POST BLOCKS
 
 Content Views adds 15 amazing and feature-rich blocks to help you display WordPress posts, pages, custom post types stunningly. Using our awesome Gutenberg blocks plugin, you can build and show website content with endless customization options:
 
@@ -57,7 +59,7 @@ To save your time and help you to build faster in the WordPress Block editor, we
 We provide various attractive & responsive layouts in blocks and shortcode for different types of websites and purposes. Pick one from our beautiful grid, list, slider/carousel, pinterest, masonry, timeline, glossary, accordion layouts that fits your need, and then customize it as you want with a lot of block and shortcode settings.
 Content Views is proud of helping bloggers, business/shop owners, companies, religious communities, universities, and government departments to show and build their WordPress websites content amazingly and efficiently.
 
-### ? POWERFUL QUERY FILTERS
+### 💎 POWERFUL QUERY FILTERS
 
 Whether you use our blocks or shortcode, Content Views provides a lot of options to help you query, filter, search and sort any posts, pages, custom post types easily.
 
@@ -91,7 +93,7 @@ If you are looking for a truly powerful front-end filter or faceted search for y
 
 ### 💎 AJAX & NORMAL PAGINATION
 
-Our blocks and shortcode have both normal and AJAX pagination. AJAX pagination will retrieve posts without reloading the page, using 3 different pagination styles including numeric pagination, load more, and infinite scroll. It is easy to enable/disable pagination in our post grid.
+Our blocks and shortcode have both normal and AJAX pagination. AJAX pagination will retrieve posts without reloading the page, using 3 different pagination styles including ajax numeric pagination, ajax load more, and ajax infinite scroll. It is easy to enable/disable pagination in our post grid.
 
 ### 💎 REPLACE THEME LAYOUT (PRO)
 
@@ -229,6 +231,11 @@ If you encounter any difficulties or if you have questions about Content Views, 
 
 
 == Changelog ==
+
+= 3.6.3 =
+* Update: Revert to the Green background color for Readmore button in View shortcode (for Free version only. The selected blue/custom color in Pro version is unaffected)
+* Improve: Security Enhancement
+* Other tweaks and improvements
 
 = 3.6.2 =
 * New: Introduce the "Overlay Clickable" option for Overlay blocks/layouts

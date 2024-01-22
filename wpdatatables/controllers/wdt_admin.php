@@ -420,6 +420,9 @@ function wdtBrowseChartsEnqueue() {
  * Enqueue JS and CSS files for the Chart Wizard (Create Chart Wizard) Page
  */
 function wdtChartWizardEnqueue() {
+
+    $googleLibSource = get_option('wdtGoogleStableVersion') ? WDT_JS_PATH . 'wpdatatables/googlecharts.js' : '//www.gstatic.com/charts/loader.js';
+
     WDTTools::wdtUIKitEnqueue();
 
     wp_enqueue_style('wdt-dragula');
@@ -428,7 +431,7 @@ function wdtChartWizardEnqueue() {
     wp_enqueue_script('wdt-jsrender');
     wp_enqueue_script('wdt-dragula');
 
-    wp_enqueue_script('wdt-google-charts', '//www.gstatic.com/charts/loader.js', array(), WDT_CURRENT_VERSION, true);
+    wp_enqueue_script('wdt-google-charts', $googleLibSource, array(), WDT_CURRENT_VERSION, true);
 
     wp_enqueue_script('wdt-chart-js', WDT_JS_PATH . 'chartjs/Chart.js', array(), WDT_CURRENT_VERSION, true);
     wp_enqueue_script('wdt-wp-chart-js', WDT_JS_PATH . 'wpdatatables/wdt.chartJS.js', array(), WDT_CURRENT_VERSION, true);

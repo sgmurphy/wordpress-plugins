@@ -764,6 +764,36 @@
 					flex: 1 0 100%;
 				}
 
+/**
+ * Event Tickets - Tickets Stylesheet - My Tickets -> Flexible Tickets
+ *
+ * @since 5.8.0
+ */
+
+.tec-tickets__my-tickets-list__series-link {
+	font-size: var(--tec-font-size-3);
+	font-weight: var(--tec-font-weight-regular);
+	line-height: var(--tec-line-height-3);
+}
+
+.single-tribe_event_series .tribe_event_series-title{
+		display: none;
+	}
+
+.single-tribe_event_series .tribe-events-schedule h2 {
+		font-size: var(--tec-font-size-3);
+		line-height: var(--tec-line-height-3);
+		font-weight: var(--tec-font-weight-regular);
+	}
+
+.single-tribe_event_series .tribe-events-cost {
+		color: var(--tec-color-text-primary);
+		font-weight: var(--tec-font-weight-bold);
+		font-size: var(--tec-font-size-3);
+		line-height: var(--tec-line-height-2);
+		text-transform: uppercase;
+	}
+
 @media (min-width: 768px) {
 
 .tribe-common-c-loader.tribe-tickets-loader__tickets-block,
@@ -810,6 +840,16 @@
 						flex: 0 1 auto;
 						order: 2;
 					}
+
+.tec-tickets__my-tickets-list-title-container.type-series_pass {
+		display: inline-block
+}
+
+.tec-tickets__my-tickets-list__series-link {
+		float: right;
+		position: relative;
+		top: 1.3em
+}
 		}
 
 @media(min-width: 960px) {

@@ -16,7 +16,7 @@
 }
 
 .contentviews-panelbody > div > *, div[id*="subtab2"] > div > * {
-	margin-bottom: 10px !important;
+	margin-bottom: 15px !important;
 }
 
 .relative-wrapper .cvb-label {
@@ -374,7 +374,7 @@
 	margin: 0 !important;
 }
 
-.cvb-active {outline: 2px solid #3F51B5 !important;}
+.cvb-active {outline: 2px solid var(--wp-components-color-accent, var(--wp-admin-theme-color, #3F51B5)) !important;}
 
 /*.pt-cv-wrapper * {
 	pointer-events: none !important;

@@ -422,7 +422,10 @@ if ( ! class_exists( 'Hustle_Admin_Page_Abstract' ) ) :
 				get_bloginfo( 'name' ),
 				$module->module_name
 			);
-			ob_clean();
+			if ( ob_get_contents() ) {
+				// To prevent other plugins' errors fail the export.
+				ob_clean();
+			}
 			$filename = strtolower( $filename );
 			$filename = sanitize_file_name( $filename );
 			/**

@@ -36,12 +36,8 @@ class CommonHelper {//phpcs:ignore
 		$expression = '/\[\/?[a-zA-Z0-9_| -=\'"{}]*\/?\]/';
 		$content    = \preg_replace( $expression, '', \strip_shortcodes( $content ) );
 
-
 		// Remove invalid characters
 		$content = \preg_replace( '/[^\x{9}\x{A}\x{D}\x{20}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', '', $content );
-
-		// Encode special characters
-		$content = \htmlspecialchars( $content, ENT_XML1 | ENT_QUOTES, 'UTF-8' );
 
 		// Remove HTML comments
 		$content = \preg_replace( '/<!--(.|\s)*?-->/', '', $content );

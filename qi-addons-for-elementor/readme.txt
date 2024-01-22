@@ -4,7 +4,7 @@ Tags: elementor, elementor addons, elementor widgets, elementor elements, addons
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 1.6.6
+Stable tag: 1.6.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -186,6 +186,7 @@ Your new, beautifully designed website is right at your fingertips thanks to Qi 
     <li><a href="https://qodeinteractive.com/qi-addons-for-elementor/intro-scrolling-images/" target="_blank">Intro Scrolling Images</a> - Easily display intro sections with text & scrolling images</li>
     <li><a href="https://qodeinteractive.com/qi-addons-for-elementor/horizontal-double-row-projects/" target="_blank">Horizontal Double Row</a> - Create appealing horizontally scrolling image showcases aligned in two rows.</li>
     <li><a href="https://qodeinteractive.com/qi-addons-for-elementor/flip-box/" target="_blank">Flip Box</a> - Display easily configurable interactive two-sided boxes containing your content, with some transition animations applied.</li>
+    <li><a href="https://qodeinteractive.com/qi-addons-for-elementor/news-ticker/" target="_blank">News Ticker</a> - A custom widget that allows you to easily display headlines or pieces of news in horizontally laid out, automatically scrolling crawler elements.</li>
 </ul>
 
 <h4>Premium Infographics Addons:</h4>
@@ -321,6 +322,9 @@ From wordpress.org
 
 
 == Changelog ==
+
+= 1.6.7 - 22-01-2024 =
+- Minor changes
 
 = 1.6.6 - 24-11-2023 =
 - Fixed list tag bug for 'Pricing List' widget

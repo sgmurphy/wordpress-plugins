@@ -1,16 +1,16 @@
-# Copyright (C) 2023 The Events Calendar
+# Copyright (C) 2024 The Events Calendar
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 5.1.16\n"
+"Project-Id-Version: Tribe Common 5.2.0\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-11T06:29:35-08:00\n"
-"PO-Revision-Date: 2023-12-11 14:29\n"
+"POT-Creation-Date: 2024-01-15T19:04:29-08:00\n"
+"PO-Revision-Date: 2024-01-16 03:04\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: tribe-common\n"
 
@@ -1385,20 +1385,21 @@ msgstr ""
 msgid "There are a few %s to resolve and prevent 404 errors."
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:38
+#: src/Tribe/Ajax/Dropdown.php:41
 msgid "Cannot look for Terms without a taxonomy"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:270
+#: src/Tribe/Ajax/Dropdown.php:279
 msgid "Missing data source for this dropdown"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:283
+#: src/Tribe/Ajax/Dropdown.php:301
 msgid "Empty data set for this dropdown"
 msgstr ""
 
-#: src/Tribe/Ajax/Dropdown.php:336
-msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
+#. Translators: %1$s is the name of the source, %2$s is the class name
+#: src/Tribe/Ajax/Dropdown.php:353
+msgid "The \"%1$s\" source is invalid and cannot be reached on \"%2$s\" instance."
 msgstr ""
 
 #: src/Tribe/App_Shop.php:50
@@ -1679,33 +1680,33 @@ msgstr ""
 msgid "The Events Calendar JSON-LD Data"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:157
+#: src/Tribe/Dialog/View.php:169
 msgid "Open the modal window"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:158
+#: src/Tribe/Dialog/View.php:170
 msgid "Close this modal window"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:228
-#: src/Tribe/Dialog/View.php:300
+#: src/Tribe/Dialog/View.php:240
+#: src/Tribe/Dialog/View.php:312
 msgid "Cancel"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:229
+#: src/Tribe/Dialog/View.php:241
 msgid "Confirm"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:302
-#: src/Tribe/Dialog/View.php:371
+#: src/Tribe/Dialog/View.php:314
+#: src/Tribe/Dialog/View.php:383
 msgid "OK"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:443
+#: src/Tribe/Dialog/View.php:455
 msgid "Open the dialog window"
 msgstr ""
 
-#: src/Tribe/Dialog/View.php:460
+#: src/Tribe/Dialog/View.php:472
 msgid "Close this dialog window"
 msgstr ""
 
@@ -3106,89 +3107,89 @@ msgstr ""
 msgid "Null logger (will log nothing)"
 msgstr ""
 
-#: src/Tribe/Main.php:401
+#: src/Tribe/Main.php:396
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/Tribe/Main.php:402
+#: src/Tribe/Main.php:397
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/Tribe/Main.php:404
+#: src/Tribe/Main.php:399
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:405
+#: src/Tribe/Main.php:400
 msgid "No data available in table"
 msgstr ""
 
-#: src/Tribe/Main.php:406
+#: src/Tribe/Main.php:401
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/Tribe/Main.php:407
+#: src/Tribe/Main.php:402
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/Tribe/Main.php:408
+#: src/Tribe/Main.php:403
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/Tribe/Main.php:409
+#: src/Tribe/Main.php:404
 msgid "No matching records found"
 msgstr ""
 
-#: src/Tribe/Main.php:410
+#: src/Tribe/Main.php:405
 msgid "Search:"
 msgstr ""
 
-#: src/Tribe/Main.php:411
+#: src/Tribe/Main.php:406
 msgid "All items on this page were selected. "
 msgstr ""
 
-#: src/Tribe/Main.php:412
+#: src/Tribe/Main.php:407
 msgid "Select all pages"
 msgstr ""
 
-#: src/Tribe/Main.php:413
+#: src/Tribe/Main.php:408
 msgid "Clear Selection."
 msgstr ""
 
-#: src/Tribe/Main.php:415
+#: src/Tribe/Main.php:410
 msgid "All"
 msgstr ""
 
-#: src/Tribe/Main.php:416
-#: src/Tribe/Main.php:433
+#: src/Tribe/Main.php:411
+#: src/Tribe/Main.php:428
 msgid "Next"
 msgstr ""
 
-#: src/Tribe/Main.php:417
+#: src/Tribe/Main.php:412
 msgid "Previous"
 msgstr ""
 
-#: src/Tribe/Main.php:422
+#: src/Tribe/Main.php:417
 msgid ": Selected %d rows"
 msgstr ""
 
-#: src/Tribe/Main.php:423
+#: src/Tribe/Main.php:418
 msgid ": Selected 1 row"
 msgstr ""
 
-#: src/Tribe/Main.php:434
+#: src/Tribe/Main.php:429
 msgid "Prev"
 msgstr ""
 
-#: src/Tribe/Main.php:435
-#: src/Tribe/Main.php:437
+#: src/Tribe/Main.php:430
+#: src/Tribe/Main.php:432
 msgid "Today"
 msgstr ""
 
-#: src/Tribe/Main.php:436
+#: src/Tribe/Main.php:431
 msgid "Done"
 msgstr ""
 
-#: src/Tribe/Main.php:438
+#: src/Tribe/Main.php:433
 msgid "Clear"
 msgstr ""
 
@@ -3667,7 +3668,7 @@ msgstr ""
 msgid "Your update failed due to an incompatibility between the version (%1$s) of the %2$s you tried to update to and the version of %3$s that you are using. %4$s"
 msgstr ""
 
-#: src/Tribe/Repository.php:2543
+#: src/Tribe/Repository.php:2563
 msgid "Could not delete post with ID "
 msgstr ""
 

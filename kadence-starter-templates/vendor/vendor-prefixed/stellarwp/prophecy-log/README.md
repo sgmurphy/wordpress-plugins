@@ -45,10 +45,15 @@ The config.php file map environment variables, either from an `.env` file or man
 return [
 	'log'             => [
 		'level'    => $_ENV['APP_LOG_LEVEL'] ?? 'debug',
-		'channel'  => $_ENV['APP_LOG_CHANNEL'] ?? 'null', // console, errorlog or null
+		'channel'  => $_ENV['APP_LOG_CHANNEL'] ?? 'null', // console, errorlog, stack (both console and errorlog) or null
 		'channels' => [
 			'errorlog' => [],
 			'console'  => [
+				'with' => [
+					'stream' => 'php://stdout',
+				],
+			],
+			'stack'    => [
 				'with' => [
 					'stream' => 'php://stdout',
 				],

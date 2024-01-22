@@ -55,6 +55,7 @@ class Moove_GDPR_Actions {
 		add_action( 'gdpr_cc_keephtml', array( &$this, 'gdpr_cc_keephtml' ), 10, 2 );
 
 		add_action( 'wp_footer', array( 'Moove_GDPR_Controller', 'moove_gdpr_cookie_popup_modal' ), 99 );
+		add_action( 'wp_head', array( 'Moove_GDPR_Content', 'gdpr_google_consent_mode2_snippet' ) );
 
 		add_action( 'admin_init', array( 'Moove_GDPR_Controller', 'moove_gdpr_add_editor_styles' ) );
 		add_action( 'wp_footer', array( 'Moove_GDPR_Controller', 'moove_gdpr_cookie_popup_info' ) );
@@ -109,6 +110,7 @@ class Moove_GDPR_Actions {
 		add_action( 'gdpr_insert_integration_ga_snippet', array( 'Moove_GDPR_Content', 'gdpr_insert_integration_ga_snippet' ), 10, 2 );
 		add_action( 'gdpr_insert_integration_ga4_snippet', array( 'Moove_GDPR_Content', 'gdpr_insert_integration_ga4_snippet' ), 10, 2 );
 		add_action( 'gdpr_insert_integration_gtm_snippet', array( 'Moove_GDPR_Content', 'gdpr_insert_integration_gtm_snippet' ), 10, 2 );
+		add_action( 'gdpr_insert_integration_gtmc2_snippet', array( 'Moove_GDPR_Content', 'gdpr_insert_integration_gtmc2_snippet' ), 10, 2 );		
 		add_action( 'gdpr_insert_integration_fbp_snippet', array( 'Moove_GDPR_Content', 'gdpr_insert_integration_fbp_snippet' ), 10, 2 );
 		add_action( 'gdpr_insert_integration_gtm4wp_snippet', array( 'Moove_GDPR_Content', 'gdpr_insert_integration_gtm4wp_snippet' ), 10, 2 );
 		add_action( 'gdpr_insert_integration_gadc_snippet', array( 'Moove_GDPR_Content', 'gdpr_insert_integration_gadc_snippet' ), 10, 2 );

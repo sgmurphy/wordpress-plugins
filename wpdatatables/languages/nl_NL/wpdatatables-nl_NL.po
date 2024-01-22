@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpdatatables\n"
-"POT-Creation-Date: 2024-01-09 14:16+0100\n"
-"PO-Revision-Date: 2024-01-09 14:16+0100\n"
+"POT-Creation-Date: 2024-01-19 12:00+0100\n"
+"PO-Revision-Date: 2024-01-19 12:00+0100\n"
 "Last-Translator: \n"
 "Language-Team: wpdatatables <cjbug@yandex.ru>\n"
 "Language: en\n"
@@ -150,30 +150,30 @@ msgid "Welcome page"
 msgstr ""
 
 #: controllers/wdt_admin.php:123 controllers/wdt_admin.php:124
-#: controllers/wdt_functions.php:1035
+#: controllers/wdt_functions.php:1039
 msgid "Go Premium"
 msgstr ""
 
-#: controllers/wdt_admin.php:572 controllers/wdt_admin.php:621
-#: controllers/wdt_admin.php:664 controllers/wdt_admin.php:685
-#: controllers/wdt_admin.php:732 controllers/wdt_admin.php:772
-#: controllers/wdt_admin.php:791 controllers/wdt_admin.php:811
-#: controllers/wdt_admin.php:830 controllers/wdt_admin.php:850
-#: controllers/wdt_admin.php:870 controllers/wdt_admin.php:890
-#: controllers/wdt_admin.php:909
+#: controllers/wdt_admin.php:575 controllers/wdt_admin.php:624
+#: controllers/wdt_admin.php:667 controllers/wdt_admin.php:688
+#: controllers/wdt_admin.php:735 controllers/wdt_admin.php:775
+#: controllers/wdt_admin.php:794 controllers/wdt_admin.php:814
+#: controllers/wdt_admin.php:833 controllers/wdt_admin.php:853
+#: controllers/wdt_admin.php:873 controllers/wdt_admin.php:893
+#: controllers/wdt_admin.php:912
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Je hebt niet voldoende permissies om de pagina te laden."
 
-#: controllers/wdt_functions.php:1030
+#: controllers/wdt_functions.php:1034
 msgid "Go to Settings"
 msgstr ""
 
-#: controllers/wdt_functions.php:1059
+#: controllers/wdt_functions.php:1063
 #, php-format
 msgid "By %s"
 msgstr ""
 
-#: controllers/wdt_functions.php:1063
+#: controllers/wdt_functions.php:1067
 msgid "Docs"
 msgstr ""
 
@@ -1498,7 +1498,7 @@ msgid "NEW"
 msgstr ""
 
 #: templates/admin/addons/addons.inc.php:54
-#: templates/admin/dashboard/dashboard.inc.php:558
+#: templates/admin/dashboard/dashboard.inc.php:557
 msgid "Forminator Forms integration for wpDataTables"
 msgstr ""
 
@@ -1510,7 +1510,7 @@ msgid ""
 msgstr ""
 
 #: templates/admin/addons/addons.inc.php:62
-#: templates/admin/dashboard/dashboard.inc.php:740
+#: templates/admin/dashboard/dashboard.inc.php:739
 msgid "Free Download"
 msgstr ""
 
@@ -1524,7 +1524,7 @@ msgid "Learn more"
 msgstr ""
 
 #: templates/admin/addons/addons.inc.php:79
-#: templates/admin/dashboard/dashboard.inc.php:578
+#: templates/admin/dashboard/dashboard.inc.php:577
 #: templates/admin/system-info/system_info.inc.php:270
 #: templates/admin/system-info/system_info.inc.php:291
 #: templates/admin/system-info/system_info.inc.php:309
@@ -1534,7 +1534,7 @@ msgid "Installed"
 msgstr ""
 
 #: templates/admin/addons/addons.inc.php:94
-#: templates/admin/dashboard/dashboard.inc.php:595
+#: templates/admin/dashboard/dashboard.inc.php:594
 msgid "Master Detail Tables for wpDataTables"
 msgstr ""
 
@@ -1547,7 +1547,7 @@ msgid ""
 msgstr ""
 
 #: templates/admin/addons/addons.inc.php:121
-#: templates/admin/dashboard/dashboard.inc.php:622
+#: templates/admin/dashboard/dashboard.inc.php:621
 msgid "Powerful Filters for wpDataTables"
 msgstr ""
 
@@ -1559,36 +1559,36 @@ msgid ""
 msgstr ""
 
 #: templates/admin/addons/addons.inc.php:148
-#: templates/admin/dashboard/dashboard.inc.php:648
+#: templates/admin/dashboard/dashboard.inc.php:647
 msgid "Report Builder"
 msgstr ""
 
 #: templates/admin/addons/addons.inc.php:151
-#: templates/admin/dashboard/dashboard.inc.php:652
+#: templates/admin/dashboard/dashboard.inc.php:651
 msgid ""
 "A unique tool that allows you to generate almost any Word DOCX and Excel "
 "XLSX documents filled in with actual data from your database."
 msgstr ""
 
 #: templates/admin/addons/addons.inc.php:172
-#: templates/admin/dashboard/dashboard.inc.php:675
+#: templates/admin/dashboard/dashboard.inc.php:674
 msgid "Formidable Forms integration for wpDataTables"
 msgstr ""
 
 #: templates/admin/addons/addons.inc.php:175
-#: templates/admin/dashboard/dashboard.inc.php:679
+#: templates/admin/dashboard/dashboard.inc.php:678
 msgid ""
 "Tool that adds \"Formidable Form\" as a new table type and allows you to "
 "create wpDataTables from Formidable Forms entries data."
 msgstr ""
 
 #: templates/admin/addons/addons.inc.php:194
-#: templates/admin/dashboard/dashboard.inc.php:701
+#: templates/admin/dashboard/dashboard.inc.php:700
 msgid "Gravity Forms integration for wpDataTables"
 msgstr ""
 
 #: templates/admin/addons/addons.inc.php:197
-#: templates/admin/dashboard/dashboard.inc.php:705
+#: templates/admin/dashboard/dashboard.inc.php:704
 msgid ""
 "Tool that adds \"Gravity Form\" as a new table type and allows you to create "
 "wpDataTables from Gravity Forms entries data."
@@ -2762,7 +2762,7 @@ msgstr ""
 #: templates/admin/dashboard/dashboard.inc.php:30
 #: templates/admin/getting-started/getting_started.inc.php:34
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:31
-#: templates/admin/settings/settings.inc.php:108
+#: templates/admin/settings/settings.inc.php:116
 #: templates/admin/support/support.inc.php:31
 #: templates/admin/support/support.inc.php:47
 #: templates/admin/system-info/system_info.inc.php:29
@@ -2969,6 +2969,7 @@ msgid "Latest table created."
 msgstr ""
 
 #: templates/admin/dashboard/dashboard.inc.php:169
+#: templates/admin/settings/settings.inc.php:70
 msgid "Charts"
 msgstr ""
 
@@ -3039,22 +3040,22 @@ msgstr ""
 msgid "Version "
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:359
+#: templates/admin/dashboard/dashboard.inc.php:358
 msgid "Go Premium!"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:365
+#: templates/admin/dashboard/dashboard.inc.php:364
 msgid "View Comparison"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:373
+#: templates/admin/dashboard/dashboard.inc.php:372
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:48
 msgid ""
 "Get the most out of wpDataTables by upgrading to Premium and unlocking all "
 "of the powerful features."
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:377
+#: templates/admin/dashboard/dashboard.inc.php:376
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:518
 #: templates/admin/table-settings/table_settings_block.inc.php:2680
 #, fuzzy
@@ -3062,7 +3063,7 @@ msgstr ""
 msgid "Fixed headers"
 msgstr "Weergegeven header"
 
-#: templates/admin/dashboard/dashboard.inc.php:380
+#: templates/admin/dashboard/dashboard.inc.php:379
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:539
 #: templates/admin/table-settings/table_settings_block.inc.php:2574
 #: templates/admin/table-settings/table_settings_block.inc.php:2583
@@ -3070,143 +3071,143 @@ msgstr "Weergegeven header"
 msgid "Fixed columns"
 msgstr "ID kolom"
 
-#: templates/admin/dashboard/dashboard.inc.php:383
+#: templates/admin/dashboard/dashboard.inc.php:382
 msgid "Create a table manually"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:386
+#: templates/admin/dashboard/dashboard.inc.php:385
 #, fuzzy
 #| msgid "Hide on tablets"
 msgid "Update manual tables"
 msgstr "Verbergen op tablets"
 
-#: templates/admin/dashboard/dashboard.inc.php:389
+#: templates/admin/dashboard/dashboard.inc.php:388
 msgid "Creating tables from Google Spreadsheet"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:392
+#: templates/admin/dashboard/dashboard.inc.php:391
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:662
 msgid "Creating tables via Google Sheet API"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:395
+#: templates/admin/dashboard/dashboard.inc.php:394
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:682
 msgid "Creating tables from Private Google Spreadsheet"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:398
+#: templates/admin/dashboard/dashboard.inc.php:397
 msgid "Creating MySQL-based tables from database"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:401
+#: templates/admin/dashboard/dashboard.inc.php:400
 msgid "Creating MySQL-based tables from Wordpress post types"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:404
+#: templates/admin/dashboard/dashboard.inc.php:403
 msgid "Creating tables where users can see and edit own data"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:407
+#: templates/admin/dashboard/dashboard.inc.php:406
 msgid "Creating table relations (Foreign key)"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:410
+#: templates/admin/dashboard/dashboard.inc.php:409
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:804
 msgid "Advanced filtering"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:413
+#: templates/admin/dashboard/dashboard.inc.php:412
 msgid "Pre-filtering tables through URL"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:416
+#: templates/admin/dashboard/dashboard.inc.php:415
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:581
 msgid "Table Customization"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:419
+#: templates/admin/dashboard/dashboard.inc.php:418
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:743
 #: templates/admin/table-settings/table_settings_block.inc.php:211
 msgid "Server-side processing"
 msgstr "Server-side verwerking"
 
-#: templates/admin/dashboard/dashboard.inc.php:422
+#: templates/admin/dashboard/dashboard.inc.php:421
 msgid "Multiple databases support (MySQL,MS SQL and PostgreSQL)"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:425
+#: templates/admin/dashboard/dashboard.inc.php:424
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:824
 msgid "Front-end table editing"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:428
+#: templates/admin/dashboard/dashboard.inc.php:427
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:844
 msgid "Excel-like editing"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:431
+#: templates/admin/dashboard/dashboard.inc.php:430
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:884
 msgid "Creating charts with ApexCharts"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:434
+#: templates/admin/dashboard/dashboard.inc.php:433
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:864
 msgid "Creating charts with Highcharts"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:437
+#: templates/admin/dashboard/dashboard.inc.php:436
 msgid "Export Highcharts data to CSV and XLS files"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:440
+#: templates/admin/dashboard/dashboard.inc.php:439
 msgid "Follow table filtering in charts"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:443
+#: templates/admin/dashboard/dashboard.inc.php:442
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:944
 #: templates/admin/table-settings/column_settings_panel.inc.php:60
 #, fuzzy
 msgid "Conditional formatting"
 msgstr "Extra instellingen"
 
-#: templates/admin/dashboard/dashboard.inc.php:446
+#: templates/admin/dashboard/dashboard.inc.php:445
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:964
 msgid "Calculating Tools"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:449
+#: templates/admin/dashboard/dashboard.inc.php:448
 msgid "Formula columns"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:452
+#: templates/admin/dashboard/dashboard.inc.php:451
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1005
 #, fuzzy
 msgid "Rotate column headers"
 msgstr "Kolomgrafiek"
 
-#: templates/admin/dashboard/dashboard.inc.php:455
+#: templates/admin/dashboard/dashboard.inc.php:454
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:984
 #: templates/admin/table-settings/table_settings_block.inc.php:89
 msgid "Placeholders"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:458
+#: templates/admin/dashboard/dashboard.inc.php:457
 msgid "Premium support"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:462
+#: templates/admin/dashboard/dashboard.inc.php:461
 msgid "Get Premium Today"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:469
+#: templates/admin/dashboard/dashboard.inc.php:468
 msgid "News Blog"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:474
+#: templates/admin/dashboard/dashboard.inc.php:473
 msgid "Checkout useful articles from wpdatatables.com"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:521
+#: templates/admin/dashboard/dashboard.inc.php:520
 msgid ""
 "Never miss notifications about new cool features, promotions,\n"
 "                                    giveaways or freebies – subscribe to our "
@@ -3214,74 +3215,74 @@ msgid ""
 "                                    about 1 message per month and never spam!"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:537
+#: templates/admin/dashboard/dashboard.inc.php:536
 msgid "wpDataTables Addons"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:538
+#: templates/admin/dashboard/dashboard.inc.php:537
 msgid "Premium "
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:541
+#: templates/admin/dashboard/dashboard.inc.php:540
 msgid ""
 "While wpDataTables itself provides quite a large amount of features and "
 "unlimited customisation, flexibility, you can achieve even more with our "
 "premium addons."
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:543
+#: templates/admin/dashboard/dashboard.inc.php:542
 msgid ""
 "(except Forminator Forms integration which is free and can be used with Lite "
 "version as well, all others requires wpDataTables Premium version)"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:551
+#: templates/admin/dashboard/dashboard.inc.php:550
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:74
 msgid "Free"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:562
+#: templates/admin/dashboard/dashboard.inc.php:561
 msgid ""
 "Tool that adds \"Forminator Form\" as a new table type and allows you to "
 "create wpDataTables from Forminator Forms submissions."
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:569
-#: templates/admin/dashboard/dashboard.inc.php:605
-#: templates/admin/dashboard/dashboard.inc.php:632
-#: templates/admin/dashboard/dashboard.inc.php:658
-#: templates/admin/dashboard/dashboard.inc.php:685
-#: templates/admin/dashboard/dashboard.inc.php:711
-#: templates/admin/dashboard/dashboard.inc.php:744
+#: templates/admin/dashboard/dashboard.inc.php:568
+#: templates/admin/dashboard/dashboard.inc.php:604
+#: templates/admin/dashboard/dashboard.inc.php:631
+#: templates/admin/dashboard/dashboard.inc.php:657
+#: templates/admin/dashboard/dashboard.inc.php:684
+#: templates/admin/dashboard/dashboard.inc.php:710
+#: templates/admin/dashboard/dashboard.inc.php:743
 msgid "Learn More"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:599
+#: templates/admin/dashboard/dashboard.inc.php:598
 msgid ""
 "A wpDataTables addon which allows showing additional details for a specific "
 "row in a popup or a separate page or post."
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:626
+#: templates/admin/dashboard/dashboard.inc.php:625
 msgid ""
 "An add-on for wpDataTables that provides powerful filtering features: "
 "cascade filtering, applying filters on button click, hide table before "
 "filtering."
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:722
+#: templates/admin/dashboard/dashboard.inc.php:721
 msgid "Need a free booking plugin?"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:731
+#: templates/admin/dashboard/dashboard.inc.php:730
 msgid "Appointments and Events WordPress Booking Plugin"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:737
+#: templates/admin/dashboard/dashboard.inc.php:736
 msgid "Rating: 4.3 - 255 reviews"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:755
+#: templates/admin/dashboard/dashboard.inc.php:754
 #: templates/admin/getting-started/getting_started.inc.php:184
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1041
 #: templates/admin/support/support.inc.php:78
@@ -3290,7 +3291,7 @@ msgstr ""
 msgid "Made by"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard.inc.php:763
+#: templates/admin/dashboard/dashboard.inc.php:762
 #: templates/admin/getting-started/getting_started.inc.php:192
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1049
 #: templates/admin/support/support.inc.php:45
@@ -3302,7 +3303,7 @@ msgstr ""
 msgid "Documentation"
 msgstr "wpDataTables documentatie"
 
-#: templates/admin/dashboard/dashboard.inc.php:767
+#: templates/admin/dashboard/dashboard.inc.php:766
 #: templates/admin/getting-started/getting_started.inc.php:196
 #: templates/admin/lite-vs-premium/lite_vs_premium.inc.php:1053
 #: templates/admin/support/support.inc.php:24
@@ -3645,7 +3646,7 @@ msgid ""
 msgstr ""
 
 #: templates/admin/settings/settings.inc.php:33
-#: templates/admin/settings/settings.inc.php:103
+#: templates/admin/settings/settings.inc.php:111
 #: templates/admin/table-settings/column_settings_panel.inc.php:25
 #: templates/admin/table-settings/column_settings_panel.inc.php:1186
 #: templates/admin/table-settings/simple_table_settings_block.inc.php:56
@@ -3684,7 +3685,7 @@ msgstr ""
 msgid "Cache settings"
 msgstr "Hoofdinstellingen"
 
-#: templates/admin/settings/settings.inc.php:100
+#: templates/admin/settings/settings.inc.php:108
 msgid "Reset colors and fonts to default"
 msgstr "Reset kleuren en fonts naar standaard"
 
@@ -3718,6 +3719,35 @@ msgstr ""
 
 #: templates/admin/settings/tabs/cache_settings.php:76
 msgid "Delete errors log"
+msgstr ""
+
+#: templates/admin/settings/tabs/charts.php:7
+msgid "Use stable GoogleCharts version"
+msgstr ""
+
+#: templates/admin/settings/tabs/charts.php:9
+#: templates/admin/settings/tabs/charts.php:27
+#: templates/admin/settings/tabs/charts.php:45
+msgid ""
+"Choose weather to use the chart engine library directly from the CDN (as "
+"they get updated, some features may break), or use the latest version "
+"wpDataTables has been tested with. Leaving this option unchecked means the "
+"code is pulled from the CDN."
+msgstr ""
+
+#: templates/admin/settings/tabs/charts.php:16
+#: templates/admin/settings/tabs/charts.php:34
+#: templates/admin/settings/tabs/charts.php:52
+#, fuzzy
+msgid "Use stable version"
+msgstr "Nieuwe tabelnaam"
+
+#: templates/admin/settings/tabs/charts.php:24
+msgid "Use stable HighChart version"
+msgstr ""
+
+#: templates/admin/settings/tabs/charts.php:42
+msgid "Use stable ApexChart version"
 msgstr ""
 
 #: templates/admin/settings/tabs/color_and_font_settings.php:18

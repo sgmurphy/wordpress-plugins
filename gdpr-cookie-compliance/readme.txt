@@ -2,7 +2,7 @@
 Contributors: MooveAgency
 Donate link: https://www.mooveagency.com/wordpress-plugins/gdpr-cookie-compliance/
 Tags: GDPR, CCPA, DSGVO, cookie banner, cookie notice
-Stable tag: 4.12.8
+Stable tag: 4.13.0
 Requires at least: 4.5
 Tested up to: 6.4
 Requires PHP: 5.6
@@ -23,6 +23,7 @@ Cookie notice banner for GDPR, CCPA, CPRA, LGPD, PECR, AAP, PIPEDA, VCDPA, CPRA,
 * **Fully customisable** - upload your own logo, colours, fonts
 * **Fully editable** - change all text
 * Direct integration of **GTM, GA, Meta Pixel**, GTM4WP and more
+* Google Consent Mode v2** fully supported
 * **Set the position** of the Cookie Consent Banner: at the top or bottom of your pages
 * **Flexible** - decide which scripts will be loaded by default or only when the user gives consent
 * **'Accept'**, **'Reject'**, 'Close' and 'Settings' buttons & you can also change their order
@@ -42,7 +43,7 @@ Cookie notice banner for GDPR, CCPA, CPRA, LGPD, PECR, AAP, PIPEDA, VCDPA, CPRA,
 
 ### Premium Features Available
 
-* **[NEW] Google Site Kit integration** - our plugin supports the Google Site Kit natively
+* **Google Site Kit integration** - our plugin supports the Google Site Kit natively
 * **Cookie wall / Full-screen layout** - if enabled, the Cookie Consent Banner will be display in a full screen mode, and force users to either accept or reject cookies before they can see your content
 * **Export & import settings** - transfer your custom settings between sites with ease
 * **WordPress Multisite features** - you can manage the plugin settings globally, and clone them from one site to another within your multi-site setup. You can also sync users consent between individual subsites on your multisite network
@@ -276,12 +277,15 @@ The Brazilian General Data Protection Law (“Lei Geral de Proteção de Dados�
 39. GDPR Cookie Compliance - Front-end - Cookie Shortcode [Premium]
 
 == Changelog ==
+= 4.13.0: 22 January 2024 =
+* Google Consent V2 added to integrations
+
 = 4.12.8: 16 October 2023 =
 * Restricted loading plugin to Elementor previews
 
 = 4.12.7: 1 September 2023 =
 * Licence functions improved
-= Minor CSS fixes
+* Minor CSS fixes
 
 = 4.12.6: 22 August 2023 =
 * Accessibility fixes

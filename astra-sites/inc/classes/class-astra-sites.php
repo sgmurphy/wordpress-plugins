@@ -2524,8 +2524,8 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-image-processing.php';
 			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-wp-cli.php';
 			require_once ASTRA_SITES_DIR . 'inc/lib/class-astra-sites-ast-block-templates.php';
+			require_once ASTRA_SITES_DIR . 'inc/lib/class-astra-sites-zip-ai.php';
 			require_once ASTRA_SITES_DIR . 'inc/lib/onboarding/class-onboarding.php';
-			require_once ASTRA_SITES_DIR . 'inc/lib/zip-ai/zip-ai.php';
 
 			// Batch Import.
 			require_once ASTRA_SITES_DIR . 'inc/classes/batch-import/class-astra-sites-batch-import.php';

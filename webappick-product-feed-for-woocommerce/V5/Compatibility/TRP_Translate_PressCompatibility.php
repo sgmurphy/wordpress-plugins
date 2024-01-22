@@ -216,7 +216,7 @@ class TRP_Translate_PressCompatibility {
 	 * @param \WC_Product $product The product object.
 	 * @return string
 	 */
-	public function translate_desc_string($output, $config, $product)
+	public function translate_desc_string( $output, $config, $product )
 	{ // phpcs:ignore
 		global $wpdb;
 		$feed_language = $config->get_feed_language();
@@ -235,30 +235,33 @@ class TRP_Translate_PressCompatibility {
 			return $output;
 		}
 
-		if ($this->translatepress_renderer) {
+		if ( $this->translatepress_renderer ) {
 			// Remove empty strings.
-
 			$product_id = $product->get_id();
+			if( $product->get_type() === 'variation' && $product->get_description() === '' ){
+				$product_id = $product->get_parent_id();
+			}
+
 			$trp_original_meta_ids_sql = $wpdb->prepare( // phpcs:ignore
 				"SELECT `original_id` FROM `{$wpdb->prefix}trp_original_meta` WHERE `meta_key` = %s AND `meta_value` =  %d ORDER BY `meta_id` ASC",
 				'post_parent_id',
 				$product_id
 			);
-			$trp_original_meta_ids = $wpdb->get_results($trp_original_meta_ids_sql, ARRAY_A); // phpcs:ignore
+			$trp_original_meta_ids = $wpdb->get_results( $trp_original_meta_ids_sql, ARRAY_A ); // phpcs:ignore
 			$ids = array();
-			foreach ($trp_original_meta_ids as $value) {
-				array_push($ids, $value['original_id']);
+			foreach ( $trp_original_meta_ids as $value ) {
+				array_push( $ids, $value['original_id'] );
 			}
-			if (count($ids) < 1) {
+			if ( count( $ids ) < 1 ) {
 				return $output;
 			}
-			$ids_str = implode(', ', $ids);
+			$ids_str = implode( ', ', $ids );
 			$trp_dictionary_sql = "SELECT `original`,`translated` FROM {$table_name} WHERE `original_id` IN ({$ids_str})";
 			$trp_dictionary_strings = $wpdb->get_results($trp_dictionary_sql); // phpcs:ignore
 
 			$translated_strings_new = array();
-			foreach ($trp_dictionary_strings as $key => $string) {
-				if ($string->translated === '') {
+			foreach ( $trp_dictionary_strings as $key => $string ) {
+				if ( $string->translated === '' ) {
 					$translated_strings_new[] = $string->original;
 				} else {
 					$translated_strings_new[] = $string->translated;
@@ -267,8 +270,8 @@ class TRP_Translate_PressCompatibility {
 			}
 
 			// If the translated strings array is not empty then implode the array with space.
-			if (count($translated_strings_new)) {
-				$output = implode(' ', $translated_strings_new);
+			if ( count( $translated_strings_new ) ) {
+				$output = implode( ' ', $translated_strings_new );
 			}
 		}
 

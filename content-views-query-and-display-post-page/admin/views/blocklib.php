@@ -23,8 +23,8 @@ if ( !defined( 'ABSPATH' ) ) {
 		<li>or import these patterns directly on the Block Editor (<a href="https://contentviewspro.com/documentation/article/how-to-use-prebuilt-patterns/?utm_source=setting-page&utm_medium=library&utm_campaign=import" target="_blank">read more</a>)</li>
 	</ul>
 
-	If you use the <b>Classic Editor, classic themes, or page builder plugins</b>, you can import these patterns directly on the View page (<a href="https://contentviewspro.com/documentation/article/how-to-use-prebuilt-patterns-on-view-shortcode/?utm_source=setting-page&utm_medium=library&utm_campaign=import-classic" target="_blank">read more</a>).
-	Then copy the View shortcode and paste to the Classic Editor or page builder.
+	If you use the <b>Classic Editor, classic themes, page builder plugins</b>, you can import these patterns directly on the View page (<a href="https://contentviewspro.com/documentation/article/use-patterns-on-shortcode/?utm_source=setting-page&utm_medium=library&utm_campaign=import-classic" target="_blank">read more</a>). <br>
+	Then copy and paste the View shortcode to where you want to display it.
 </div>
 <div id="cv-block-library-page">
 	<div class="loading"></div>

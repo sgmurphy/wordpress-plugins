@@ -1,15 +1,15 @@
-# Copyright (C) 2023 Qode Interactive
+# Copyright (C) 2024 Qode Interactive
 # This file is distributed under the same license as the Qi Addons For Elementor plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Qi Addons For Elementor 1.6.6\n"
+"Project-Id-Version: Qi Addons For Elementor 1.6.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/qi-addons-for-elementor\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-24T10:44:12+00:00\n"
+"POT-Creation-Date: 2024-01-22T10:25:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: qi-addons-for-elementor\n"
@@ -83,7 +83,7 @@ msgid "Qi Addons For Elementor"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://qodeinteractive.com"
+msgid "https://qodeinteractive.com/qi-addons-for-elementor/"
 msgstr ""
 
 #. Description of the plugin
@@ -871,8 +871,8 @@ msgid "Documentation"
 msgstr ""
 
 #: inc/admin/inc/admin-pages/sub-pages/widgets/templates/parts/no-woocommerce.php:4
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:326
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:356
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:336
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:366
 #: inc/plugins/woocommerce/shortcodes/add-to-cart-button/class-qiaddonsforelementor-add-to-cart-button-shortcode.php:33
 #: inc/plugins/woocommerce/shortcodes/product-category-list/class-qiaddonsforelementor-product-category-list-shortcode.php:38
 #: inc/plugins/woocommerce/shortcodes/product-list/class-qiaddonsforelementor-product-list-shortcode.php:39
@@ -1155,8 +1155,8 @@ msgstr ""
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:96
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:116
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:196
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:346
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:366
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:356
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:376
 #: inc/blog/shortcodes/blog-list/class-qiaddonsforelementor-blog-list-shortcode.php:39
 #: inc/blog/shortcodes/blog-slider/class-qiaddonsforelementor-blog-slider-shortcode.php:39
 #: inc/shortcodes/banner/class-qiaddonsforelementor-banner-shortcode.php:36
@@ -1197,10 +1197,11 @@ msgstr ""
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:286
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:296
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:316
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:406
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:426
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:446
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:326
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:416
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:436
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:456
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:466
 #: inc/shortcodes/cards-gallery/class-qiaddonsforelementor-cards-gallery-shortcode.php:29
 #: inc/shortcodes/device-carousel/class-qiaddonsforelementor-device-carousel-shortcode.php:36
 #: inc/shortcodes/device-slider/class-qiaddonsforelementor-device-slider-shortcode.php:36
@@ -1226,8 +1227,8 @@ msgstr ""
 
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:66
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:76
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:386
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:396
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:406
 #: inc/shortcodes/faq/class-qiaddonsforelementor-faq-shortcode.php:36
 #: inc/shortcodes/how-to/class-qiaddonsforelementor-how-to-shortcode.php:33
 #: inc/shortcodes/table-of-contents/class-qiaddonsforelementor-table-of-contents-shortcode.php:29
@@ -1254,8 +1255,8 @@ msgstr ""
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:236
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:246
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:256
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:376
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:466
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:386
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:476
 #: inc/shortcodes/before-after/class-qiaddonsforelementor-before-after-shortcode.php:35
 #: inc/shortcodes/cards-slider/class-qiaddonsforelementor-cards-slider-shortcode.php:29
 #: inc/shortcodes/countdown/class-qiaddonsforelementor-countdown-shortcode.php:35
@@ -1361,26 +1362,30 @@ msgid "MailChimp Form"
 msgstr ""
 
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:306
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:436
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:446
 #: inc/plugins/contact-form-7/shortcodes/contact-form-7/class-qiaddonsforelementor-contact-form-7-shortcode.php:29
 #: inc/plugins/wp-forms/shortcodes/wp-forms/class-qiaddonsforelementor-wp-forms-shortcode.php:29
 msgid "Form Style"
 msgstr ""
 
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:315
-msgid "Numbered Slider"
+msgid "News Ticker"
 msgstr ""
 
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:325
-msgid "Order Tracking Form"
+msgid "Numbered Slider"
 msgstr ""
 
 #: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:335
+msgid "Order Tracking Form"
+msgstr ""
+
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:345
 msgid "Premium Button"
 msgstr ""
 
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:336
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:416
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:346
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:426
 #: inc/shortcodes/accordion/class-qiaddonsforelementor-accordion-shortcode.php:35
 #: inc/shortcodes/animated-text/class-qiaddonsforelementor-animated-text-shortcode.php:29
 #: inc/shortcodes/blockquote/class-qiaddonsforelementor-blockquote-shortcode.php:40
@@ -1403,55 +1408,55 @@ msgstr ""
 msgid "Typography"
 msgstr ""
 
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:345
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:355
 msgid "Pricing Slider"
 msgstr ""
 
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:355
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:365
 msgid "Product Comparison"
 msgstr ""
 
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:365
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:375
 msgid "Rating"
 msgstr ""
 
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:375
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:385
 msgid "Rotating Image Tiles"
 msgstr ""
 
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:385
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:395
 msgid "Social Links"
 msgstr ""
 
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:395
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:405
 msgid "Social Share Buttons"
 msgstr ""
 
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:405
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:415
 msgid "Stacked Item Scroll"
 msgstr ""
 
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:415
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:425
 msgid "Text Gradient"
 msgstr ""
 
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:425
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:435
 msgid "Textual Project Showcase"
 msgstr ""
 
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:435
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:445
 msgid "Typeforms Form"
 msgstr ""
 
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:445
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:455
 msgid "Vertical Circled Slider"
 msgstr ""
 
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:455
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:465
 msgid "Vertical Project Reel"
 msgstr ""
 
-#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:465
+#: inc/admin/inc/shortcodes/promotion-shortcodes/helper.php:475
 msgid "Vertical Timeline"
 msgstr ""
 

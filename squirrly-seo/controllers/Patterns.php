@@ -79,15 +79,15 @@ class SQ_Controllers_Patterns extends SQ_Classes_FrontController
                 if ($name <> '' && !is_array($value) && $value <> '') {
 
 	                if (strpos($value, '%%') !== false) { //in case there are still patterns from Yoast
-		                $value = preg_replace('/%%([^\%]+)%%/s', '{{$1}}', $value);
+		                $value = preg_replace('/%%([^\%\s]+)%%/s', '{{$1}}', $value);
 	                }
 
 	                if (strpos($value, '%') !== false) { //in case there are still patterns from Rank Math
-		                $value = preg_replace('/%([^\%]+)%/s', '{{$1}}', $value);
+		                $value = preg_replace('/%([^\%\s]+)%/s', '{{$1}}', $value);
 	                }
 
                     if(is_string($value) && $value <> '') {
-	                    $object->{$name} = preg_replace_callback('/\{\{([^\}]+)\}\}/s',array($this, 'processPattern'), $value);
+	                    $object->{$name} = preg_replace_callback('/\{\{([^\}\s]+)\}\}/s',array($this, 'processPattern'), $value);
                     }
 
                 }

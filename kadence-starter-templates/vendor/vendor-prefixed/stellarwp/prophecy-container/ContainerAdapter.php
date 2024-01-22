@@ -2,7 +2,7 @@
 /**
  * @license GPL-2.0-only
  *
- * Modified by kadencewp on 10-January-2024 using Strauss.
+ * Modified by kadencewp on 17-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */ declare(strict_types=1);
 
@@ -16,6 +16,8 @@ use KadenceWP\KadenceStarterTemplates\StellarWP\ProphecyMonorepo\Container\Contr
 /**
  * @method mixed make(string $id)
  * @method mixed getVar(string $key, mixed|null $default = null)
+ * @method void  singletonDecorators($id, array $decorators, ?array $afterBuildMethods = null)
+ * @method void  bindDecorators($id, array $decorators, ?array $afterBuildMethods = null)
  */
 final class ContainerAdapter implements Container
 {

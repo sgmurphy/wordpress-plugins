@@ -97,6 +97,18 @@ if ( ! function_exists('gdpr_get_integration_modules') ) :
 				),
 				'status'		=> isset( $gdin_values['gtm'] )
 			),
+			'gtmc2'	=> array(
+				'name'			=> 'Google Tag Manager',
+				'desc'			=> 'Consent Mode - V2',
+				'cookie_cat'	=> isset( $gdin_values['gtmc2'] ) ? intval( $gdin_values['gtmc2'] ) : 2,
+				'tacking_id'	=> isset( $gdin_values['gtmc2_id'] ) ? $gdin_values['gtmc2_id'] : '',
+				'id_format'	=> 'GTM-XXXXXX',
+				'atts'				=> array(
+					'toggle'		=> true,
+					'input'			=> ''
+				),
+				'status'		=> isset( $gdin_values['gtmc2'] )
+			),
 			'gadc'	=> array(
 				'name'			=> 'Google Ads',
 				'desc'			=> '',

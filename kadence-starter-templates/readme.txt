@@ -3,7 +3,7 @@ Contributors: britner
 Tags: templates, gutenberg
 Requires at least: 6.1
 Tested up to: 6.4
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -124,6 +124,11 @@ assist you with verification, CVE assignment, and notify the
 developers of this plugin.
 
 == Changelog ==
+
+= 2.0.6 =
+* Update: AI template cache refresh.
+* Fix: Plugin view details.
+* Fix: Font issue on load.
 
 = 2.0.5 =
 * Fix: Possible issue installing plugins.

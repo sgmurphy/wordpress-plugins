@@ -352,6 +352,11 @@ var wpdatatable_plugin_config = {
         if( jQuery('#wdt-site-link').val() != wdtSiteLink ){
             jQuery('#wdt-site-link').prop( 'checked', wdtSiteLink );
         }
-    }
-
+    },
+    setGoogleStableVersion: function (googleStableVersion) {
+        wdt_current_config.wdtGoogleStableVersion = googleStableVersion;
+        if (jQuery('#wdt-use-google-stable-version').val() != googleStableVersion) {
+            jQuery('#wdt-use-google-stable-version').prop('checked', googleStableVersion);
+        }
+    },
 };

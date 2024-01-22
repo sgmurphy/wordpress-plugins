@@ -131,7 +131,7 @@ if ( ! class_exists( 'Hustle_Module_Admin' ) ) :
 				if ( Opt_In_Utils::is_free() ) {
 					if ( ! Opt_In_Utils::is_hustle_included_in_membership() ) {
 						$url   = Opt_In_Utils::get_link( 'wpmudev', 'hustle_pluginlist_upgrade' );
-						$label = __( 'Upgrade For 60% Off!', 'hustle' );
+						$label = __( 'Upgrade For 80% Off!', 'hustle' );
 					} else {
 						$url   = Opt_In_Utils::get_link( 'install_plugin' );
 						$label = __( 'Upgrade', 'hustle' );
@@ -140,7 +140,8 @@ if ( ! class_exists( 'Hustle_Module_Admin' ) ) :
 						$links['upgrade'] = '<a href="' . esc_url( $url ) . '" aria-label="' . esc_attr( $label ) . '" target="_blank" style="color: #8D00B1;">' . esc_html( $label ) . '</a>';
 					}
 				} else {
-					if ( 'expired' === Opt_In_Utils::get_membership_status() ) {
+					$status = Opt_In_Utils::get_membership_status();
+					if ( in_array( $status, array( 'expired', 'free', 'paused', '' ), true ) ) {
 						$links['renew'] = '<a href="' . esc_url( Opt_In_Utils::get_link( 'wpmudev', 'hustle_pluginlist_renew' ) ) . '" target="_blank" style="color: #8D00B1;">' . esc_html__( 'Renew Membership', 'hustle' ) . '</a>';
 					}
 				}

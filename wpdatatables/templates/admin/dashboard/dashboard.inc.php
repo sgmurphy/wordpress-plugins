@@ -337,13 +337,12 @@ $tableChartsCount = (int)WDTTools::getTablesCount('chart');
                                  </span>
                         </p>
                         <p class="wpdt-text wpdt-font m-b-18">
-                            New update with new improvements and bug fixes:
+                            New update with new features and bug fixes:
                         </p>
                         <div class="alert alert-info m-b-0" role="alert">
                             <i class="wpdt-icon-info-circle-full"></i>
                             <ul>
-                                <li><strong>Improvement:</strong> Added option that allows Frontend WCAG compliance.</li>
-                                <li><strong>Bugfix:</strong> Fixed issue with deprecated warnings.</li>
+                                <li><strong>Feature:</strong> Added "Use stable version" option for the GoogleCharts engine. </li>
                                 <li>Other small bug fixes</li>
                             </ul>
                         </div>
