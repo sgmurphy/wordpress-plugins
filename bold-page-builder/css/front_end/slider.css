@@ -146,6 +146,10 @@ button.slick-arrow {
 			&:before {content: '\e684';}
 		}
 	}
+	&.slick-disabled {
+		opacity: 0.5;
+		cursor: default;
+	}
 	&:before {
 		color: #fff;
 		display: block;

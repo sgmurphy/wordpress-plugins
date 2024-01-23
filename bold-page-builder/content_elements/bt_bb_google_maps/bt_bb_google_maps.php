@@ -111,10 +111,10 @@ class bt_bb_google_maps extends BT_BB_Element {
 	function map_shortcode() {
 		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Google Maps', 'bold-builder' ), 'description' => esc_html__( 'Google Map with custom content', 'bold-builder' ), 'container' => 'vertical', 'accept' => array( 'bt_bb_google_maps_location' => true ), 'toggle' => true, 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
 			'params' => array(
-				array( 'param_name' => 'api_key', 'type' => 'textfield', 'heading' => esc_html__( 'API key', 'bold-builder' ) ),
-				array( 'param_name' => 'zoom', 'type' => 'textfield', 'heading' => esc_html__( 'Zoom (e.g. 14)', 'bold-builder' ) ),
-				array( 'param_name' => 'height', 'type' => 'textfield', 'heading' => esc_html__( 'Height (e.g. 250px)', 'bold-builder' ), 'description' => esc_html__( 'Used for static map or for interactive map without content; static image map width is 1280px ', 'bold-builder' ) ),
-				array( 'param_name' => 'custom_style', 'type' => 'textarea_object', 'heading' => esc_html__( 'Custom map style array (interactive map) or querystring (static image map)', 'bold-builder' ), 'description' => esc_html__( 'Find more custom styles at https://snazzymaps.com/ or https://mapstyle.withgoogle.com/ (for static maps). ', 'bold-builder' ) ),
+				array( 'param_name' => 'api_key', 'type' => 'textfield', 'heading' => esc_html__( 'API key', 'bold-builder' ), 'description' => __( 'Google Maps require an API key for site domains. <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">Get your API key</a>.', 'bold-builder' ) ),
+				array( 'param_name' => 'zoom', 'type' => 'textfield', 'heading' => esc_html__( 'Zoom', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 14', 'bold-builder' ) ),
+				array( 'param_name' => 'height', 'type' => 'textfield', 'heading' => esc_html__( 'Height', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 250px', 'bold-builder' ), 'description' => esc_html__( 'Used for static map or for interactive map without content; static image map width is 1280px ', 'bold-builder' ) ),
+				array( 'param_name' => 'custom_style', 'type' => 'textarea_object', 'heading' => esc_html__( 'Custom map style array (interactive map) or querystring (static image map)', 'bold-builder' ), 'description' => __( 'Find more custom styles on <a href="https://snazzymaps.com/" target="_blank">Snazzy Maps</a> or <a href="https://mapstyle.withgoogle.com/" target="_blank">Map Style (for static maps)</a>. ', 'bold-builder' ) ),
 				array( 'param_name' => 'map_type', 'type' => 'dropdown', 'default' => 'interactive', 'heading' => esc_html__( 'Map type', 'bold-builder' ),
 					'value' => array(
 						esc_html__( 'Interactive (JavaScript API)', 'bold-builder' ) 		=> 'interactive',
@@ -123,9 +123,9 @@ class bt_bb_google_maps extends BT_BB_Element {
 				),
 				array( 'param_name' => 'center_map', 'type' => 'dropdown', 'heading' => esc_html__( 'Center map', 'bold-builder' ),
 					'value' => array(
-						esc_html__( 'No (use first location as center)', 'bold-builder' ) => 'no',
-						esc_html__( 'Yes', 'bold-builder' ) => 'yes',
-						esc_html__( 'Yes (without overlay initially)', 'bold-builder' ) => 'yes_no_overlay'
+						esc_html__( 'No (use first location as center)', 'bold-builder' ) 	=> 'no',
+						esc_html__( 'Yes', 'bold-builder' ) 								=> 'yes',
+						esc_html__( 'Yes (without overlay initially)', 'bold-builder' ) 	=> 'yes_no_overlay'
 					)
 				),
 			)

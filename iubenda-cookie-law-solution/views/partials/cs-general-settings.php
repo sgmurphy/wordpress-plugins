@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Is the current configuration type is simplified.
 $is_cs_simplified = ( new Iubenda_CS_Product_Service() )->is_cs_simplified();
+$site_id = iub_array_get( iubenda()->options['global_options'], 'site_id' );
 ?>
 <div class="tabs">
 	<h3 class="text-bold text-gray text-md mb-0"><?php esc_html_e( 'Configuration', 'iubenda' ); ?></h3>
@@ -19,7 +20,7 @@ $is_cs_simplified = ( new Iubenda_CS_Product_Service() )->is_cs_simplified();
 		<fieldset class="radio-large">
 			<div class="d-flex tabs__nav">
 				<?php
-				if ( iub_array_get( iubenda()->options['global_options'], 'site_id' ) ) :
+				if ( $site_id ) :
 					$_status = '';
 					if ( $is_cs_simplified ) {
 						$_status = 'active';
@@ -73,7 +74,7 @@ $is_cs_simplified = ( new Iubenda_CS_Product_Service() )->is_cs_simplified();
 	</div>
 	<div class="my-4 subOptions">
 		<?php
-		if ( iub_array_get( iubenda()->options['global_options'], 'site_id' ) ) {
+		if ( $site_id ) {
 			$_status = '';
 			if ( $is_cs_simplified ) {
 				$_status = 'active';
@@ -101,6 +102,11 @@ $is_cs_simplified = ( new Iubenda_CS_Product_Service() )->is_cs_simplified();
 		</section>
 	</div>
 </div>
+
+<?php
+// Including partial cs-simplified-configuration.
+require_once IUBENDA_PLUGIN_PATH . '/views/partials/auto-block-section.php';
+?>
 
 <div class="d-flex align-items-center pt-3">
 	<label class="checkbox-regular">
@@ -135,45 +141,9 @@ if ( ! (bool) iubenda()->options['cs']['amp_support'] ) {
 	<section id="auto_generated_conf_file" class="text-xs text-gray amp_configuration_file <?php echo esc_attr( $_status ); ?>">
 		<div class="border-1 border-gray rounded mt-2 py-2 px-3 d-flex flex-wrap align-items-center">
 			<?php
-
-			if ( empty( iubenda()->options['cs']['amp_template_done'] ) ) {
-				echo '
-					<p class="description">' . esc_html_e( 'No file available. Save changes to generate iubenda AMP configuration file.', 'iubenda' ) . '</p>';
-			} else {
-				?>
-			<table class="table">
-				<tbody>
-				<?php
-				// multi-language support.
-				if ( iubenda()->multilang && ! empty( iubenda()->languages ) ) {
-					foreach ( iubenda()->languages as $lang_id => $lang_name ) {
-						$is_amp_template_done = (bool) ! iub_array_get( iubenda()->options['cs']['amp_template_done'], $lang_id, false );
-						if ( $is_amp_template_done ) {
-							continue;
-						}
-						?>
-						<tr>
-							<td><p class="text-bold"><?php echo esc_html( $lang_name ); ?></p></td>
-							<td>
-								<a href="<?php echo esc_url( iubenda()->AMP->get_amp_template_url( $lang_id ) ); ?>" target="_blank"><?php echo esc_url( iubenda()->AMP->get_amp_template_url( $lang_id ) ); ?></a>
-							</td>
-						</tr>
-						<?php
-					}
-				} else {
-					?>
-					<tr>
-						<td><p class="text-bold"><?php esc_html_e( 'Default language', 'iubenda' ); ?></p></td>
-						<td>
-							<a href="<?php echo esc_url( iubenda()->AMP->get_amp_template_url() ); ?>" target="_blank"><?php echo esc_url( iubenda()->AMP->get_amp_template_url() ); ?></a>
-						</td>
-					</tr>
-					<?php
-				}
-			}
+			// Including partial amp-files-section.
+			require_once IUBENDA_PLUGIN_PATH . '/views/partials/amp-template-links.php';
 			?>
-				</tbody>
-			</table>
 		</div>
 
 		<div class="notice notice--general mt-2 p-3 d-flex align-items-center text-xs">
@@ -202,12 +172,13 @@ if ( ! (bool) iubenda()->options['cs']['amp_support'] ) {
 			</tbody>
 		</table>
 	</section>
+
 </section>
 
 <div class="d-flex align-items-center pt-3">
 	<label class="checkbox-regular">
-		<input type="checkbox" name="iubenda_cookie_law_solution[parse]" value="1" class="mr-2 section-checkbox-control" data-section-name="#iub_parser_engine_container" <?php checked( true, (bool) iubenda()->options['cs']['parse'] ); ?>>
-		<span><?php esc_html_e( 'Automatically block scripts detected by the plugin', 'iubenda' ); ?> <a target="_blank" href="<?php echo esc_url( iubenda()->settings->links['automatic_block_scripts'] ); ?>" class="ml-1 tooltip-icon">?</a></span>
+		<input type="checkbox" name="iubenda_cookie_law_solution[parse]" value="1" class="mr-2 section-checkbox-control blocking-method native-blocking-method" data-section-name="#iub_parser_engine_container" <?php checked( true, (bool) iubenda()->options['cs']['parse'] ); ?>>
+		<span><?php esc_html_e( 'Native Blocking', 'iubenda' ); ?> <a target="_blank" href="<?php echo esc_url( iubenda()->settings->links['automatic_block_scripts'] ); ?>" class="ml-1 tooltip-icon">?</a></span>
 	</label>
 </div>
 <?php
@@ -350,6 +321,12 @@ if ( ! can_use_dom_document_class() ) {
 		</div>
 	</fieldset>
 </section>
+<div id="both-blocking-methods-disabled-warning-message" class="mxx-4 mb-4 notice notice--warning mt-2 p-3 align-items-center text-warning text-xs d-flex <?php echo iubenda()->options['cs']['parse'] ? 'd-flex' : '' ?>">
+	<img class="mr-2" src="<?php echo esc_url( IUBENDA_PLUGIN_URL ); ?>/assets/images/warning-icon.svg">
+	<p>
+		<?php esc_html_e( 'Most legislation explicitly require prior consent in order to process user’s data. By disabling these blocking options you may be in breach of such requirements', 'iubenda' ); ?>
+	</p>
+</div>
 <div class="d-flex align-items-center pt-3">
 	<label class="checkbox-regular">
 		<input type="checkbox" class="mr-2" name="iubenda_cookie_law_solution[stop_showing_cs_for_admins]" value="1" <?php checked( true, (bool) iubenda()->options['cs']['stop_showing_cs_for_admins'] ); ?>>

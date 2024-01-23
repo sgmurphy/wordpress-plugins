@@ -5,7 +5,7 @@
     font-style: normal;
     }
 
-/* Colors */
+/* Shapes */
 /* Colors */
 /* Mixins */
 .bt_bb_fe_wrap {
@@ -516,7 +516,7 @@ body:not(.bt_bb_fe_preview_toggle) .bt_bb_text.bt_bb_fe_editing_box > .bt_bb_fe_
     transition: background 300ms ease,box-shadow 300ms ease;
     }
 #bt_bb_fe_dialog_main .bt_bb_dialog_header .bt_bb_dialog_close:hover:after {
-    background: #ff7f00;
+    background: #065da1;
     -webkit-box-shadow: 0 0 .8em .01em rgba(0,0,0,.25);
     box-shadow: 0 0 .8em .01em rgba(0,0,0,.25);
     }
@@ -932,7 +932,7 @@ body.bt_bb_fe_dialog_on:not(.bt_bb_fe_preview_toggle) #bt_bb_fe_dialog {
     pointer-events: all;
     }
 
-/* Add section button*/
+/* Add section button */
 body.bt_bb_fe_add_section {
     background: #fff !important;
     }
@@ -1011,7 +1011,7 @@ body.bt_bb_fe_add_section .bt_bb_fe_count {
     pointer-events: all;
     }
 
-/* Add Section ] */
+/* Add Section */
 #bt_bb_fe_save {
     display: block;
     position: fixed;
@@ -1025,7 +1025,7 @@ body.bt_bb_fe_add_section .bt_bb_fe_count {
     height: 40px;
     line-height: 40px;
     z-index: 100;
-    background: red;
+    background: #ff5d0d;
     -webkit-box-shadow: none;
     box-shadow: none;
     border-radius: 50%;
@@ -1049,6 +1049,7 @@ body.bt_bb_fe_add_section .bt_bb_fe_count {
     -webkit-animation: pulse-animation 1s infinite;
     -moz-animation: pulse-animation 1s infinite;
     animation: pulse-animation 1s infinite;
+    background: #ff7f00;
     }
 #bt_bb_fe_save:before {
     font-family: bold-builder;

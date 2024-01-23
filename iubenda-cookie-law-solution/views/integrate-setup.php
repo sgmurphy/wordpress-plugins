@@ -44,6 +44,17 @@ require_once IUBENDA_PLUGIN_PATH . '/views/partials/header.php';
 				?>
 
 				<div class="my-5">
+					<?php
+					$site_id = iub_array_get( iubenda()->options['global_options'], 'site_id' );
+					$predefined_auto_block_section_data = array(
+						'frontend-auto-blocking-checkbox-status' => iubenda()->iub_auto_blocking->is_autoblocking_feature_available( $site_id ),
+					);
+
+					// Including partial auto-block-section.
+					require_once IUBENDA_PLUGIN_PATH . '/views/partials/auto-block-section.php';
+					?>
+				</div>
+				<div class="my-5">
 					<label class="checkbox-regular">
 						<input type="checkbox" class="mr-2 section-checkbox-control" name="iubenda_cookie_law_solution[amp_support]" value="1" checked data-section-name="#amp_support"/>
 						<span><?php esc_html_e( 'Enable Google AMP support', 'iubenda' ); ?> <a target="_blank" href="<?php echo esc_url( iubenda()->settings->links['enable_amp_support'] ); ?>" class="ml-1 tooltip-icon">?</a></span>
@@ -64,44 +75,9 @@ require_once IUBENDA_PLUGIN_PATH . '/views/partials/header.php';
 						<section id="auto_generated_conf_file" class="text-xs text-gray amp_configuration_file">
 							<div class="border-1 border-gray rounded mt-2 py-2 px-3 d-flex flex-wrap align-items-center">
 								<?php
-								if ( empty( iubenda()->options['cs']['amp_template_done'] ) ) {
-									echo '
-					<p class="description">' . esc_html_e( 'No file available. Save changes to generate iubenda AMP configuration file.', 'iubenda' ) . '</p>';
-								} else {
-									?>
-								<table class="table">
-									<tbody>
-									<?php
-									// multi-language support.
-									if ( iubenda()->multilang && ! empty( iubenda()->languages ) ) {
-										foreach ( iubenda()->languages as $lang_id => $lang_name ) {
-											$is_amp_template_done = (bool) ! iub_array_get( iubenda()->options['cs']['amp_template_done'], $lang_id, false );
-											if ( $is_amp_template_done ) {
-												continue;
-											}
-											?>
-											<tr>
-												<td><p class="text-bold"><?php echo esc_html( $lang_name ); ?></p></td>
-												<td>
-													<a href="<?php echo esc_url( iubenda()->AMP->get_amp_template_url( $lang_id ) ); ?>" target="_blank"><?php echo esc_url( iubenda()->AMP->get_amp_template_url( $lang_id ) ); ?></a>
-												</td>
-											</tr>
-											<?php
-										}
-									} else {
-										?>
-										<tr>
-											<td><p class="text-bold"><?php esc_html_e( 'Default language', 'iubenda' ); ?></p></td>
-											<td>
-												<a href="<?php echo esc_url( iubenda()->AMP->get_amp_template_url() ); ?>" target="_blank"><?php echo esc_url( iubenda()->AMP->get_amp_template_url() ); ?></a>
-											</td>
-										</tr>
-										<?php
-									}
-								}
+								// Including partial amp-files-section.
+								require_once IUBENDA_PLUGIN_PATH . '/views/partials/amp-template-links.php';
 								?>
-									</tbody>
-								</table>
 							</div>
 							<div class="notice notice--general mt-2 p-3 d-flex align-items-center text-xs">
 								<p><?php esc_html_e( 'Seeing the AMP cookie notice when testing from Google but not when visiting your AMP pages directly?', 'iubenda' ); ?> <a target="_blank" href="<?php echo esc_url( iubenda()->settings->links['amp_support'] ); ?>" class="link-underline"><?php esc_html_e( 'Learn how to fix it', 'iubenda' ); ?></a></p>
@@ -133,9 +109,15 @@ require_once IUBENDA_PLUGIN_PATH . '/views/partials/header.php';
 				?>
 				<div class="my-5">
 					<label class="checkbox-regular">
-						<input type="checkbox" name="iubenda_cookie_law_solution[parse]" value="1" class="mr-2 section-checkbox-control" data-section-name="#iub_parser_engine_container" checked>
-						<span><?php esc_html_e( 'Automatically block scripts detected by the plugin', 'iubenda' ); ?> <a target="_blank" href="<?php echo esc_url( iubenda()->settings->links['automatic_block_scripts'] ); ?>" class="ml-1 tooltip-icon">?</a></span>
+						<input type="checkbox" name="iubenda_cookie_law_solution[parse]" value="1" class="mr-2 section-checkbox-control blocking-method native-blocking-method" data-section-name="#iub_parser_engine_container" checked>
+						<span><?php esc_html_e( 'Native Blocking', 'iubenda' ); ?> <a target="_blank" href="<?php echo esc_url( iubenda()->settings->links['automatic_block_scripts'] ); ?>" class="ml-1 tooltip-icon">?</a></span>
 					</label>
+					<div id="both-blocking-methods-disabled-warning-message" class="mxx-4 mb-4 notice notice--warning mt-2 p-3 align-items-center text-warning text-xs <?php echo iubenda()->options['cs']['parse'] ? 'd-flex' : '' ?>">
+						<img class="mr-2" src="<?php echo esc_url( IUBENDA_PLUGIN_URL ); ?>/assets/images/warning-icon.svg">
+						<p>
+							<?php esc_html_e( 'Most legislation explicitly require prior consent in order to process user’s data. By disabling these blocking options you may be in breach of such requirements', 'iubenda' ); ?>
+						</p>
+					</div>
 					<section id="iub_parser_engine_container" class="subOptions">
 						<h4><?php esc_html_e( 'Select Parsing Engine', 'iubenda' ); ?></h4>
 						<div class="mb-3 d-flex flex-wrap align-items-center">

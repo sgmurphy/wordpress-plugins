@@ -56,7 +56,7 @@ class bt_bb_google_maps_location extends BT_BB_Element {
 		
 		$class = apply_filters( $this->shortcode . '_class', $class, $atts );
 
-		$output = '<div' . $id_attr . ' class="' . implode( ' ', $class ) . '"' . $style_attr . ' data-lat="' . esc_attr( $latitude ) . '" data-lng="' . esc_attr( $longitude ) . '" data-icon="' . esc_attr( $icon ) . '">' . do_shortcode( $content ) . '</div>';
+		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . ' data-lat="' . esc_attr( $latitude ) . '" data-lng="' . esc_attr( $longitude ) . '" data-icon="' . esc_attr( $icon ) . '">' . do_shortcode( $content ) . '</div>';
 		
 		$output = apply_filters( 'bt_bb_general_output', $output, $atts );
 		$output = apply_filters( $this->shortcode . '_output', $output, $atts );
@@ -68,8 +68,8 @@ class bt_bb_google_maps_location extends BT_BB_Element {
 	function map_shortcode() {
 		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Google Maps Location', 'bold-builder' ), 'description' => esc_html__( 'Google Map Location', 'bold-builder' ), 'container' => 'vertical', 'accept' => array( 'bt_bb_headline' => true, 'bt_bb_text' => true, 'bt_bb_button' => true, 'bt_bb_icon' => true, 'bt_bb_service' => true, 'bt_bb_service' => true, 'bt_bb_image' => true, 'bt_bb_separator' => true ), 'toggle' => true, 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
 			'params' => array(
-				array( 'param_name' => 'latitude', 'type' => 'textfield', 'heading' => esc_html__( 'Latitude', 'bold-builder' ), 'preview' => true ),
-				array( 'param_name' => 'longitude', 'type' => 'textfield', 'heading' => esc_html__( 'Longitude', 'bold-builder' ), 'preview' => true ),
+				array( 'param_name' => 'latitude', 'type' => 'textfield', 'heading' => esc_html__( 'Latitude', 'bold-builder' ), 'placeholder' => esc_html__( '40.000000', 'bold-builder' ), 'preview' => true ),
+				array( 'param_name' => 'longitude', 'type' => 'textfield', 'heading' => esc_html__( 'Longitude', 'bold-builder' ), 'placeholder' => esc_html__( '40.000000', 'bold-builder' ), 'preview' => true ),
 				array( 'param_name' => 'icon', 'type' => 'attach_image', 'heading' => esc_html__( 'Icon', 'bold-builder' ), 'preview' => true )
 			)
 		) );

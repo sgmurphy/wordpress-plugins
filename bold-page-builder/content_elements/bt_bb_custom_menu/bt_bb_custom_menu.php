@@ -56,7 +56,7 @@ class bt_bb_custom_menu extends BT_BB_Element {
 		
 		$class = apply_filters( $this->shortcode . '_class', $class, $atts );
 		
-		$output = '<div' . $id_attr . ' class="' . implode( ' ', $class ) . '"' . $style_attr . '>' . $output . '</div>';
+		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . '>' . $output . '</div>';
 		
 		$output = apply_filters( 'bt_bb_general_output', $output, $atts );
 		$output = apply_filters( $this->shortcode . '_output', $output, $atts );

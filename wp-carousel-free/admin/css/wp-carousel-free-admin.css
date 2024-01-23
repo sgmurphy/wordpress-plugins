@@ -119,10 +119,11 @@
 
 /* Review notice */
 #sp-wpcfree-review-notice {
-    padding: 15px 15px 15px 0;
+    padding: 18px 15px 18px 0;
     background-color: #fff;
     border-radius: 3px;
     margin: 20px 20px 0 0;
+    box-shadow: 0 0 20px 0 rgba(36,39,50,.08);
 }
 
 #sp-wpcfree-review-notice .sp-wpcfree-plugin-icon {
@@ -130,11 +131,13 @@
     float: left;
     line-height: 90px;
     text-align: center;
+    margin-left: 8px;
 }
 
 #sp-wpcfree-review-notice .sp-wpcfree-plugin-icon img {
-    max-width: 83px;
+    max-width: 94px;
     vertical-align: middle;
+    margin-right: 8px;
 }
 
 #sp-wpcfree-review-notice .sp-wpcfree-notice-text {
@@ -286,10 +289,14 @@
 /**
 Go Pro
 **/
-#adminmenu #menu-posts-sp_wp_carousel li:last-child a,
+/* #adminmenu #menu-posts-sp_wp_carousel li:last-child a,
 #adminmenu #menu-posts-sp_wp_carousel li:last-child a:hover {
     color: #11b916;
     font-weight: 700;
+} */
+
+#adminmenu #menu-posts-sp_wp_carousel li:nth-child(7) a{
+    color: #dba617;
 }
 
 #adminmenu #menu-posts-sp_wp_carousel li a .sp-go-pro-icon {
@@ -317,4 +324,8 @@ Go Pro
     100% {
         transform: rotate(360deg);
     }
+}
+
+.spwpcp-footer-text-star {
+    color: #dba617;
 }

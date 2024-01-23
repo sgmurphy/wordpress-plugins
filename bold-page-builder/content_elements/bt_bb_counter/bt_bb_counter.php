@@ -106,7 +106,7 @@ class bt_bb_counter extends BT_BB_Element {
 		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Counter', 'bold-builder' ), 'description' => esc_html__( 'Animated counter', 'bold-builder' ),  
 			'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
 			'params' => array(
-				array( 'param_name' => 'number', 'type' => 'textfield', 'heading' => esc_html__( 'Number', 'bold-builder' ), 'preview' => true ),
+				array( 'param_name' => 'number', 'type' => 'textfield', 'heading' => esc_html__( 'Number', 'bold-builder' ), 'placeholder' => esc_html__( 'Add number', 'bold-builder' ), 'preview' => true ),
 				array( 'param_name' => 'size', 'type' => 'dropdown', 'heading' => esc_html__( 'Size', 'bold-builder' ), 'preview' => true, 'responsive_override' => true,
 					'value' => array(
 						esc_html__( 'Extra small', 'bold-builder' ) => 'xsmall',

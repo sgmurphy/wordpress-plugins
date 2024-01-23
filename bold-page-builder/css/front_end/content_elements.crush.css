@@ -1427,6 +1427,11 @@ html[data-bt_bb_screen_resolution="xl"].bt_bb_backgroud_fixed_supported .bt_bb_p
 .bt_bb_row .bt_bb_column .bt_bb_column_content {
     width: 100%;
     }
+.bt_bb_row .bt_bb_column .bt_bb_column_content[style*="background-image"] {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    }
 .bt_bb_row .bt_bb_column .bt_bb_column_content {
     color: var(--column-inner-primary-color);
     background-color: var(--column-inner-secondary-color);
@@ -1485,6 +1490,11 @@ html[data-bt_bb_screen_resolution="xl"].bt_bb_backgroud_fixed_supported .bt_bb_p
     }
 .bt_bb_row_inner .bt_bb_column_inner .bt_bb_column_inner_content {
     width: 100%;
+    }
+.bt_bb_row_inner .bt_bb_column_inner .bt_bb_column_inner_content[style*="background-image"] {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     }
 .bt_bb_row_inner .bt_bb_column_inner .bt_bb_column_inner_content {
     color: var(--inner-column-inner-primary-color);
@@ -42777,6 +42787,9 @@ body:not(.bt_bb_fe_preview_toggle) .bt_bb_separator.bt_bb_top_spacing_100.bt_bb_
     -ms-flex-align: start;
     align-items: flex-start;
     }
+.bt_bb_image:not(.bt_bb_content_exists) > span > img {
+    pointer-events: none;
+    }
 .bt_bb_image.bt_bb_content_display_show-on-hover .bt_bb_image_content {
     opacity: 0;
     -webkit-transition: transform 650ms ease-in-out,opacity 650ms ease-in-out;
@@ -43375,7 +43388,11 @@ ul.bt_bb_tabs_header li {
 .bt_bb_video {
     display: block;
     position: relative;
-    padding-bottom: 56.25%;
+    --bt-bb-video-aspect-ratio: 16/9;
+    padding-bottom: -webkit-calc(100% * 1 / (var(--bt-bb-video-aspect-ratio)));
+    padding-bottom: -moz-calc(100% * 1 / (var(--bt-bb-video-aspect-ratio)));
+    padding-bottom: calc(100% * 1 / (var(--bt-bb-video-aspect-ratio)));
+    overflow: hidden;
     }
 .bt_bb_video > .wp-video {
     display: block;
@@ -43564,6 +43581,10 @@ button.slick-arrow.slick-prev:before {
     }
 .rtl button.slick-arrow.slick-prev:before {
     content: '\e684';
+    }
+button.slick-arrow.slick-disabled {
+    opacity: .5;
+    cursor: default;
     }
 button.slick-arrow:before {
     color: #fff;

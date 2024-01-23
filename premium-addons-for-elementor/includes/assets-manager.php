@@ -656,9 +656,19 @@ class Assets_Manager {
 
 		$pa_elems = Admin_Helper::get_free_widgets_names();
 
-		// add smart post listing
-		$pa_elems[] = 'premium-smart-post-listing';
-		$pa_elems[] = 'premium-addon-instagram-feed';
+		// add some other pro widgets.
+        $pa_elems = array_merge(
+            $pa_elems,
+            array(
+                'premium-smart-post-listing',
+                'premium-addon-instagram-feed',
+                'premium-notbar',
+                'premium-addon-flip-box',
+                'premium-addon-icon-box',
+                'premium-addon-magic-section',
+                'premium-whatsapp-chat'
+            )
+        );
 
 		$has_free = array_intersect( $post_elems, $pa_elems ) ? true : false;
 

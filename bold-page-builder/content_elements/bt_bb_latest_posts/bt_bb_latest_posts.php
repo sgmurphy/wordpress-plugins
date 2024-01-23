@@ -75,20 +75,18 @@ class bt_bb_latest_posts extends BT_BB_Element {
 
 				if ( $post_thumbnail_id != '' ) {
 					$img = wp_get_attachment_image_src( $post_thumbnail_id, $size = 'medium' );
-					$img_src = BT_BB_Root::$path . 'img/blank.gif';
-					$data_img = '';
-					if ( $lazy_load == 'yes' ) {
-						$img_class = 'btLazyLoadImage';
-						if ( $img ) {
-							$data_img = ' data-image_src="' . esc_attr( $img[0] ) . '"';
-						}
+					if ( $img ) {
+						$img_src = $img[0];
 					} else {
-						if ( $img ) {
-							$img_src = $img[0];
-						}
-						$img_class = '';
+						$img_src = BT_BB_Root::$path . 'img/blank.gif';
 					}
-					$output .= '<div class="' . esc_attr( $this->shortcode ) . '_item_image"><a href="' . esc_url_raw( $post_item['permalink'] ) . '" target="' . esc_attr( $target ) . '"><img src="' . esc_url_raw( $img_src ) . '" alt="' . esc_attr( $post_item['title'] ) . '" title="' . esc_attr( $post_item['title'] ) . '" class="' . $img_class . '" ' . $data_img .  '"></a></div>';
+					$data_img = '';
+
+					if ( $lazy_load == 'yes' ) {
+						$data_img = ' loading="lazy"';
+					}
+					
+					$output .= '<div class="' . esc_attr( $this->shortcode ) . '_item_image"><a href="' . esc_url_raw( $post_item['permalink'] ) . '" target="' . esc_attr( $target ) . '"><img src="' . esc_url_raw( $img_src ) . '" alt="' . esc_attr( $post_item['title'] ) . '" title="' . esc_attr( $post_item['title'] ) . '" ' . $data_img .  '"></a></div>';
 				}
 
 				$output .= '<div class="' . esc_attr( $this->shortcode ) . '_item_content">';
@@ -154,7 +152,7 @@ class bt_bb_latest_posts extends BT_BB_Element {
 
 		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Latest Posts', 'bold-builder' ), 'description' => esc_html__( 'List of latest posts', 'bold-builder' ), 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
 			'params' => array(
-				array( 'param_name' => 'rows', 'type' => 'textfield', 'value' => '1', 'heading' => esc_html__( 'Rows', 'bold-builder' ), 'preview' => true ),
+				array( 'param_name' => 'rows', 'type' => 'textfield', 'value' => '1', 'heading' => esc_html__( 'Rows', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 2', 'bold-builder' ), 'preview' => true ),
 				array( 'param_name' => 'columns', 'type' => 'dropdown', 'value' => '3', 'heading' => esc_html__( 'Columns', 'bold-builder' ), 'preview' => true,
 					'value' => array(
 						esc_html__( '1', 'bold-builder' ) => '1',
@@ -166,13 +164,13 @@ class bt_bb_latest_posts extends BT_BB_Element {
 				),
 				array( 'param_name' => 'gap', 'type' => 'dropdown', 'heading' => esc_html__( 'Gap', 'bold-builder' ), 'preview' => true,
 					'value' => array(
-						esc_html__( 'Normal', 'bold-builder' ) 	=> 'normal',
 						esc_html__( 'No gap', 'bold-builder' ) 	=> 'no_gap',
+						esc_html__( 'Normal', 'bold-builder' ) 	=> 'normal',
 						esc_html__( 'Small', 'bold-builder' ) 	=> 'small',
 						esc_html__( 'Large', 'bold-builder' ) 	=> 'large'
 					)
-				),				
-				array( 'param_name' => 'category', 'type' => 'textfield', 'heading' => esc_html__( 'Category', 'bold-builder' ), 'description' => esc_html__( 'Enter category slug or leave empty to show all', 'bold-builder' ), 'preview' => true ),
+				),
+				array( 'param_name' => 'category', 'type' => 'textfield', 'heading' => esc_html__( 'Category', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. music', 'bold-builder' ), 'description' => esc_html__( 'Add category slug or leave empty to show all', 'bold-builder' ), 'preview' => true ),
 				array( 'param_name' => 'target', 'type' => 'dropdown', 'heading' => esc_html__( 'Target', 'bold-builder' ),
 					'value' => array(
 						esc_html__( 'Self (open in same tab)', 'bold-builder' ) 	=> '_self',

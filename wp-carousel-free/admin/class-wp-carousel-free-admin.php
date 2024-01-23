@@ -198,24 +198,27 @@ class WP_Carousel_Free_Admin {
 	 */
 	public function sp_wpcp_review_text( $text ) {
 		$screen = get_current_screen();
-		if ( 'sp_wp_carousel' === get_post_type() || 'sp_wp_carousel_page_wpcp_settings' === $screen->id || 'sp_wp_carousel_page_wpcp_help' === $screen->id ) {
+		if ( 'sp_wp_carousel' === $screen->post_type ) {
 			$url  = 'https://wordpress.org/support/plugin/wp-carousel-free/reviews/?filter=5#new-post';
-			$text = sprintf( 'If you like <strong>WP Carousel</strong>, please leave us a <a href="%s" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a> rating. Your Review is very important to us as it helps us to grow more. ', $url );
+			$text = sprintf( 'Enjoying <strong>WP Carousel?</strong> Please rate us <span class="spwpcp-footer-text-star">★★★★★</span> <a href="%s" target="_blank">WordPress.org</a>. Your positive feedback will help us grow more. Thank you! 😊', $url );
 		}
 
 		return $text;
 	}
-
 	/**
-	 * Redirect after activation.
+	 * Bottom review notice.
 	 *
-	 * @param string $plugin_file Path to the plugin file, relative to the plugin.
-	 * @return void
+	 * @since 2.0.0
+	 * @param string $text The review notice.
+	 * @return string
 	 */
-	public function sp_wpcf_redirect_after_activation( $plugin_file ) {
-		if ( WPCAROUSELF_BASENAME === $plugin_file ) {
-			exit( esc_url( wp_safe_redirect( admin_url( 'edit.php?post_type=sp_wp_carousel&page=wpcf_help' ) ) ) );
+	public function sp_wpcp_version_text( $text ) {
+		$screen = get_current_screen();
+		if ( 'sp_wp_carousel' === $screen->post_type ) {
+			$text = 'WP Carousel ' . $this->version;
 		}
+
+		return $text;
 	}
 
 	/**

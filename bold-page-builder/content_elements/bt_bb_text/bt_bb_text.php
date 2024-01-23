@@ -44,9 +44,9 @@ class bt_bb_text extends BT_BB_Element {
 		}
 		
 		if ( strpos( $content, '[' ) == 0 && substr( $content, -1 ) == ']' ) {
-			$output = '<div ' . $id_attr . ' class="' . implode( ' ', $class ) . '" ' . $style_attr . $data_content . '>' . do_shortcode( $content ) . '</div>';
+			$output = '<div ' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '" ' . $style_attr . $data_content . '>' . do_shortcode( $content ) . '</div>';
 		} else {
-			$output = '<div ' . $id_attr . ' class="' . implode( ' ', $class ) . '" ' . $style_attr . $data_content . '>' . wptexturize( wpautop( do_shortcode( $content ) ) ) . '</div>';
+			$output = '<div ' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '" ' . $style_attr . $data_content . '>' . wptexturize( wpautop( do_shortcode( $content ) ) ) . '</div>';
 		}
 		
 		$output = apply_filters( 'bt_bb_general_output', $output, $atts );

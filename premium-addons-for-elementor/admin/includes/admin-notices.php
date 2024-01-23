@@ -61,10 +61,10 @@ class Admin_Notices {
 
 		self::$notices = array(
 			'pa-review',
-			'textual_showcase',
+			'buttons_hovers',
 		);
 
-		delete_option( 'bf23_notice' );
+		delete_option( 'textual_showcase' );
 
 	}
 
@@ -106,7 +106,7 @@ class Admin_Notices {
 			return;
 		}
 
-		$this->get_textual_showcase_notice();
+		$this->get_buttons_hover_notice();
 
 	}
 
@@ -242,15 +242,15 @@ class Admin_Notices {
 	 *
 	 * @return void
 	 */
-	public function get_textual_showcase_notice() {
+	public function get_buttons_hover_notice() {
 
-		$textual_showcase = get_option( 'textual_showcase' );
+		$buttons_notice = get_option( 'buttons_hovers' );
 
-		if ( '1' === $textual_showcase ) {
+		if ( '1' === $buttons_notice ) {
 			return;
 		}
 
-		$textual_showcase = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-textual-showcase-widget/', 'textual-showcase-notification', 'wp-dash', 'textual-showcase' );
+		$buttons = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/button-widget-for-elementor-page-builder/', 'buttons-hover-notification', 'wp-dash', 'buttons-hover' );
 
 		?>
 
@@ -260,11 +260,11 @@ class Admin_Notices {
 			</div>
 			<div class="pa-text-wrap">
 				<p>
-					<strong><?php echo __( 'Premium Textual Showcase widget', 'premium-addons-for-elemetor' ); ?></strong>
-					<?php echo sprintf( __( 'is now available in Premium Addons for Elementor. <a href="%s" target="_blank">Check it out now!</a>', 'premium-addons-for-elementor' ), $textual_showcase ); ?>
+					<strong><?php echo __( 'New Hover Effects', 'premium-addons-for-elemetor' ); ?></strong>
+					<?php echo sprintf( __( 'added to all the buttons all over the plugin. <a href="%s" target="_blank">Check it out now!</a>', 'premium-addons-for-elementor' ), $buttons ); ?>
 				</p>
 			</div>
-			<div class="pa-notice-close" data-notice="showcase">
+			<div class="pa-notice-close" data-notice="buttons">
 				<span class="dashicons dashicons-dismiss"></span>
 			</div>
 		</div>

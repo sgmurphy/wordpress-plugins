@@ -196,45 +196,58 @@
 					&.bt_bb_icon_bt_bb_headline:before {
 						content: '\e90a';
 					}
+					&.bt_bb_icon_bt_bb_cost_calculator_simple:before {
+						content: '\e967';
+					}
 					&.bt_bb_icon_bt_bb_cost_calculator:before {
+						content: '\e967';
+						opacity: 0.5;
+					}
+					&.bt_bb_icon_bt_bb_cc_element:before {
 						content: '\e967';
 					}
 					&.bt_bb_icon_bt_bb_cost_calculator_item:before {
 						content: '\e902'; 
+						opacity: 0.5;
 					}
 					&:any(.bt_bb_icon_bt_bb_cost_calculator_group:before, .bt_bb_icon_bt_cc_group:before) {
 						content: '\e965';
+						opacity: 0.5;
 					}
 					&:any(.bt_bb_icon_bt_bb_cost_calculator_multiply:before, .bt_bb_icon_bt_cc_multiply:before) {
 						content: '\e966';
+						opacity: 0.5;
 					}
 					&:any(.bt_bb_icon_bt_bb_cost_calculator_text:before, .bt_bb_icon_bt_cc_text:before) {
 						content: '\e960';
+						opacity: 0.5;
 					}
 					&:any(.bt_bb_icon_bt_bb_cost_calculator_slider:before, .bt_bb_icon_bt_cc_slider:before) {
 						content: '\e962';
+						opacity: 0.5;
 					}
 					&:any(.bt_bb_icon_bt_bb_cost_calculator_switch:before, .bt_bb_icon_bt_cc_switch:before) {
 						content: '\e961';
+						opacity: 0.5;
 					}
 					&:any(.bt_bb_icon_bt_bb_cost_calculator_select:before, .bt_bb_icon_bt_cc_select:before) {
 						content: '\e964';
+						opacity: 0.5;
 					}
 					&.bt_bb_icon_bt_bb_video:before {
 						content: '\e956';
 					}
 					&.bt_bb_icon_bt_bb_masonry_post_grid:before {
 						content: '\e955';
+						opacity: 0.5;
 					}
 					&.bt_bb_icon_bt_bb_masonry_image_grid:before {
 						content: '\e908';
+						opacity: 0.5;
 					}
 					&:any(.bt_bb_icon_bt_bb_raw_content:before, .bt_bb_icon_bt_cc_raw_html:before) {
 						content: '\e94e';
 					}		
-					&.bt_bb_icon_bt_bb_accordion:before {
-						content: '\e901';	
-					}
 					&.bt_bb_icon_bt_bb_progress_bar:before {
 						content: '\e902';
 					}

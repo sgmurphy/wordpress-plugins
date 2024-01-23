@@ -5,7 +5,7 @@ Tags: Elementor,Beaver Builder,Templates,Gutenberg,Block Editor,Astra Starter Si
 Requires at least: 4.4
 Requires PHP: 7.4
 Tested up to: 6.4
-Stable tag: 4.0.4
+Stable tag: 4.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -134,6 +134,9 @@ We are open to suggestions and would love to work on topics that our users are l
 8. Free Images by Pixabay right inside the WordPress media popup.
 
 == Changelog ==
+
+v4.0.5 - 23-January-2024
+- Improvement: Added Flexbox Container compatibility for Elementor templates.
 
 v4.0.4 - 22-January-2024
 - Fix: Fixed the fatal error issue that would occur after Spectra v2.12.0.

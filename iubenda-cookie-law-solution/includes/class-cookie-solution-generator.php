@@ -166,6 +166,15 @@ class Cookie_Solution_Generator {
 		// phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 		$after_configuration .= '<script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>';
 
+		$autoblocking_feature_status = iubenda()->iub_auto_blocking->is_autoblocking_feature_available( $site_id );
+		if ( $autoblocking_feature_status ) {
+			// phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
+			$after_configuration .= '<script type="text/javascript" src="//iubenda.com/autoblocking/' . $site_id . '.js" charset="UTF-8" async></script>';
+		} else {
+			// phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
+			$after_configuration .= '<script type="text/javascript" src="//iubenda.com/sync/' . $site_id . '.js" charset="UTF-8" async></script>';
+		}
+
 		return $before_configuration . wp_json_encode( $cs_configuration ) . '; ' . $after_configuration;
 	}
 }

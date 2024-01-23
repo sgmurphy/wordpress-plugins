@@ -760,51 +760,64 @@
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_headline:before {
     content: '\e90a';
     }
+#bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_cost_calculator_simple:before {
+    content: '\e967';
+    }
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_cost_calculator:before {
+    content: '\e967';
+    opacity: .5;
+    }
+#bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_cc_element:before {
     content: '\e967';
     }
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_cost_calculator_item:before {
     content: '\e902';
+    opacity: .5;
     }
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_cost_calculator_group:before,
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_cc_group:before {
     content: '\e965';
+    opacity: .5;
     }
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_cost_calculator_multiply:before,
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_cc_multiply:before {
     content: '\e966';
+    opacity: .5;
     }
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_cost_calculator_text:before,
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_cc_text:before {
     content: '\e960';
+    opacity: .5;
     }
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_cost_calculator_slider:before,
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_cc_slider:before {
     content: '\e962';
+    opacity: .5;
     }
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_cost_calculator_switch:before,
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_cc_switch:before {
     content: '\e961';
+    opacity: .5;
     }
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_cost_calculator_select:before,
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_cc_select:before {
     content: '\e964';
+    opacity: .5;
     }
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_video:before {
     content: '\e956';
     }
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_masonry_post_grid:before {
     content: '\e955';
+    opacity: .5;
     }
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_masonry_image_grid:before {
     content: '\e908';
+    opacity: .5;
     }
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_raw_content:before,
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_cc_raw_html:before {
     content: '\e94e';
-    }
-#bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_accordion:before {
-    content: '\e901';
     }
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_progress_bar:before {
     content: '\e902';
@@ -1426,7 +1439,7 @@
     transition: 300ms ease all;
     }
 #bt_bb_dialog .bt_bb_dialog_content .bt_bb_dialog_enter_layout_container > div[class*="bt_bb_edit_layout_"] .bt_bb_dialog_enter_layout::placeholder {
-    color: #CCC;
+    color: #cacaca;
     letter-spacing: 2px;
     }
 #bt_bb_dialog .bt_bb_dialog_content .bt_bb_dialog_enter_layout_container > div[class*="bt_bb_edit_layout_"]:hover {
@@ -1574,7 +1587,7 @@
     transition: all 270ms ease;
     }
 .bt_bb_dialog_button.button.button-small:hover {
-    background-color: #0367B4;
+    background-color: #ff7f00;
     -webkit-box-shadow: 0 0 1em 0 rgba(0,0,0,.2);
     box-shadow: 0 0 1em 0 rgba(0,0,0,.2);
     }
@@ -1775,7 +1788,11 @@
 .bt_bb_dialog_content .bt_bb_icon_bt_cc_separator:before {
     content: '\e914';
     }
+.bt_bb_dialog_content .bt_bb_icon_bt_bb_cc_element:before {
+    content: '\e967';
+    }
 .bt_bb_dialog_content .bt_bb_icon_bt_bb_cost_calculator:before,
+.bt_bb_dialog_content .bt_bb_icon_bt_bb_cost_calculator_simple:before,
 .bt_bb_dialog_content .bt_bb_icon_bt_cc:before {
     content: '\e967';
     }
@@ -1812,6 +1829,9 @@
     }
 .bt_bb_dialog_content .bt_bb_icon_bt_bb_headline:before {
     content: '\e90a';
+    }
+.bt_bb_dialog_content .bt_bb_icon_bt_bb_cost_calculator {
+    opacity: .3;
     }
 .bt_bb_dialog_content .bt_bb_icon_bt_bb_masonry_post_grid {
     opacity: .3;
@@ -2366,11 +2386,15 @@
     padding-bottom: 0;
     overflow: visible;
     }
+.bt_bb_dialog_item.bt_bb_dialog_add_element.bt_bb_icon.bt_bb_icon_bt_bb_cost_calculator,
 .bt_bb_dialog_item.bt_bb_dialog_add_element.bt_bb_icon.bt_bb_icon_bt_bb_masonry_post_grid,
 .bt_bb_dialog_item.bt_bb_dialog_add_element.bt_bb_icon.bt_bb_icon_bt_bb_masonry_image_grid {
     -webkit-order: 999;
     -ms-flex-order: 999;
     order: 999;
+    }
+.bt_bb_dialog_item ::-webkit-input-placeholder {
+    opacity: .5;
     }
 
 /* Iconpicker */
@@ -3183,6 +3207,7 @@ ul.menu .bt_bb_iconpicker .bt_bb_iconpicker_select {
     -webkit-order: 3;
     -ms-flex-order: 3;
     order: 3;
+    font-size: 13px;
     -webkit-flex-basis: 100%;
     flex-basis: 100%;
     background: #2196f3;
@@ -3192,6 +3217,8 @@ ul.menu .bt_bb_iconpicker .bt_bb_iconpicker_select {
     -webkit-transition: all 270ms ease;
     -moz-transition: all 270ms ease;
     transition: all 270ms ease;
+    text-transform: uppercase;
+    font-family: inherit;
     }
 .bt_bb_dialog_item[data-type="ai_prompt"] .bt_bb_dialog_item_inner.bt_bb_dialog_item_inner_ai_buttons .bt_bb_ai_regenerate_button:hover {
     background-color: #0367B4;

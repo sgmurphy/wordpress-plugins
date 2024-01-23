@@ -2299,6 +2299,11 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'title'   => esc_html__( 'Dynamic Page', 'astra-sites' ),
 					'tooltip' => '<p>' . esc_html__( 'The page template you are about to import contains a dynamic widget/module. Please note this dynamic data will not be available with the imported page.', 'astra-sites' ) . '</p><p>' . esc_html__( 'You will need to add it manually on the page.', 'astra-sites' ) . '</p><p>' . esc_html__( 'This dynamic content will be available when you import the entire site.', 'astra-sites' ) . '</p>',
 				),
+				'flexbox-container'         => array(
+					'title'   => esc_html__( 'Enable Flexbox Container from Elementor', 'astra-sites' ),
+					/* translators: %s doc link. */
+					'tooltip' => '<p>' . esc_html__( 'The Flexbox Container widget is disabled on your website. With this disabled, the import process will be affected. Kindly enable it to continue importing the Starter Template.', 'astra-sites' ) . '</p><p>' . sprintf( __( 'Read an article <a href="%s" target="_blank">here</a> to resolve the issue.', 'astra-sites' ), 'https://wpastra.com/docs/enable-flexbox-container-from-elementor' ) . '</p>',
+				),
 			);
 		}
 
@@ -2328,6 +2333,12 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			if ( ! function_exists( 'curl_version' ) ) {
 				$compatibilities['errors']['curl'] = $data['curl'];
+			}
+
+			$flexbox_container = get_option( 'elementor_experiment-container' );
+			// Check if the value is 'inactive'.
+			if ( 'inactive' === $flexbox_container ) {
+				$compatibilities['warnings']['flexbox-container'] = $data['flexbox-container'];
 			}
 
 			return $compatibilities;

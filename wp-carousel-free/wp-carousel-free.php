@@ -9,7 +9,7 @@
  * Plugin Name:       WP Carousel
  * Plugin URI:        https://wordpresscarousel.com/
  * Description:       The most powerful and user-friendly carousel, slider, and gallery plugin for WordPress. Create unlimited beautiful carousels, sliders, and galleries in minutes using images, posts, WooCommerce products, etc.
- * Version:           2.6.1
+ * Version:           2.6.2
  * Author:            ShapedPlugin LLC
  * Author URI:        https://shapedplugin.com/
  * License:           GPL-2.0+
@@ -17,7 +17,7 @@
  * Text Domain:       wp-carousel-free
  * Domain Path:       /languages
  * WC requires at least: 4.0
- * WC tested up to: 8.4.0
+ * WC tested up to: 8.5.1
  */
 
 // If this file is called directly, abort.
@@ -119,7 +119,7 @@ class SP_WP_Carousel_Free {
 	 */
 	public function setup() {
 		$this->plugin_name = 'wp-carousel-free';
-		$this->version     = '2.6.1';
+		$this->version     = '2.6.2';
 		$this->define_constants();
 		$this->includes();
 		$this->load_dependencies();
@@ -176,8 +176,7 @@ class SP_WP_Carousel_Free {
 		include_once WPCAROUSELF_PATH . '/public/WPCF_Helper.php';
 		include_once WPCAROUSELF_PATH . '/public/class-wp-carousel-free-public.php';
 		include_once WPCAROUSELF_PATH . '/admin/class-wp-carousel-free-admin.php';
-		include_once WPCAROUSELF_PATH . '/admin/views/help.php';
-		include_once WPCAROUSELF_PATH . '/admin/views/premium.php';
+		include_once WPCAROUSELF_PATH . '/admin/help-page/help.php';
 		include_once WPCAROUSELF_PATH . '/admin/preview/class-wp-carousel-free-preview.php';
 		include_once WPCAROUSELF_PATH . '/admin/class-wp-carousel-free-gutenberg-block.php';
 		require_once WPCAROUSELF_PATH . '/admin/class-wp-carousel-free-elementor-block.php';
@@ -236,7 +235,7 @@ class SP_WP_Carousel_Free {
 		$this->loader->add_filter( 'plugin_action_links', $plugin_admin, 'add_plugin_action_links', 10, 2 );
 		$this->loader->add_filter( 'plugin_row_meta', $plugin_admin, 'plugin_row_meta', 10, 2 );
 		$this->loader->add_filter( 'admin_footer_text', $plugin_admin, 'sp_wpcp_review_text', 10, 2 );
-		$this->loader->add_action( 'activated_plugin', $plugin_admin, 'sp_wpcf_redirect_after_activation', 10, 2 );
+		$this->loader->add_filter( 'update_footer', $plugin_admin, 'sp_wpcp_version_text', 11 );
 		$this->loader->add_action( 'before_woocommerce_init', $plugin_admin, 'declare_compatibility_with_woo_hpos_feature' );
 
 		// Export and Import ajax call.
@@ -244,14 +243,6 @@ class SP_WP_Carousel_Free {
 
 		$this->loader->add_action( 'wp_ajax_wpcp_export_shortcodes', $import_export, 'export_shortcodes' );
 		$this->loader->add_action( 'wp_ajax_wpcp_import_shortcodes', $import_export, 'import_shortcodes' );
-
-		// Help Page.
-		$help_page = new WP_Carousel_Free_Help( $this->get_plugin_name(), $this->get_version() );
-		$this->loader->add_action( 'admin_menu', $help_page, 'help_admin_menu', 35 );
-
-		// Premium Page.
-		$upgrade_page = new WP_Carousel_Free_Upgrade( $this->get_plugin_name(), $this->get_version() );
-		$this->loader->add_action( 'admin_menu', $upgrade_page, 'upgrade_admin_menu', 40 );
 
 		// Gutenberg block.
 		if ( version_compare( $GLOBALS['wp_version'], '5.3', '>=' ) ) {
@@ -350,4 +341,17 @@ function load_sp_wordpress_carousel_plugin() {
 	}
 }
 
+/**
+ * Redirect after activation.
+ *
+ * @param string $plugin_file Path to the plugin file, relative to the plugin.
+ * @return void
+ */
+function sp_wpcf_redirect_after_activation( $plugin_file ) {
+	if ( plugin_basename( __FILE__ ) === $plugin_file ) {
+		exit( esc_url( wp_safe_redirect( admin_url( 'edit.php?post_type=sp_wp_carousel&page=wpcf_help' ) ) ) );
+	}
+}
+
 add_action( 'plugins_loaded', 'load_sp_wordpress_carousel_plugin' );
+add_action( 'activated_plugin', 'sp_wpcf_redirect_after_activation' );

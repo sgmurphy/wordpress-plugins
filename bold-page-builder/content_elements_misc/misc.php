@@ -203,7 +203,7 @@ if ( ! function_exists( 'bt_bb_get_color_scheme_array' ) ) {
 }
 
 if ( ! function_exists( 'bt_bb_enqueue_google_font' ) ) {
-	function bt_bb_enqueue_google_font( $font, $subset ) {
+	function bt_bb_enqueue_google_font( $font, $subset, $font_load_extension = "" ) {
 		
 		if ( property_exists( 'BoldThemesFramework', 'custom_fonts' ) && property_exists( 'BoldThemesFramework', 'custom_fonts_enqueue' ) ) {
 			if ( array_key_exists( $font, BoldThemesFramework::$custom_fonts ) ) {
@@ -213,8 +213,13 @@ if ( ! function_exists( 'bt_bb_enqueue_google_font' ) ) {
 		}
 
 		if ( ! in_array( $font, BT_BB_State::$fonts_added ) ) {
+			
+			$default_load_font_extension = ':ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900';
+			// $default_load_font_extension = ':ital,opsz,wght@0,9..144,100;0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,100;1,9..144,200;1,9..144,300;1,9..144,400';
+			
+			$font_load_extension = $font_load_extension != '' ? $font_load_extension : $default_load_font_extension;
 
-			BT_BB_State::$fonts_added[] = $font;
+			BT_BB_State::$fonts_added[$font] = $font . $font_load_extension;
 
 			$subset = preg_replace( '/\s+/', '', $subset );
 			$subset_arr = explode( ',', $subset );
@@ -232,19 +237,23 @@ if ( ! function_exists( 'bt_bb_enqueue_google_fonts' ) ) {
 
 		if ( count( BT_BB_State::$fonts_added ) > 0 ) {
 
+
 			$font_families = array();
 
 			foreach( BT_BB_State::$fonts_added as $item ) {
-				$font_families[] = urldecode( $item ) . ':100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic';
+				// $font_families[] = urldecode( $item ) . ':100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic';
+				$font_families[] = urldecode( $item ) . $default_load_font_extension;
 			}
 
 			$query_args = array(
-				'family' => urlencode( implode( '|', $font_families ) ),
-				'subset' => urlencode( implode( ',', BT_BB_State::$font_subsets_added ) ),
+				'family' => implode( '&family=', $font_families ),
+				'subset' => implode( ',', BT_BB_State::$font_subsets_added ),
+				'display' => ( 'swap' ),
 			);
 
-			$font_url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
-			wp_enqueue_style( 'bt_bb_google_fonts', $font_url, array(), '1.0.0' );
+			$font_url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css2' );
+			
+			wp_enqueue_style( 'bt_bb_google_fonts', $font_url, array(), null );
 
 		}
 	}

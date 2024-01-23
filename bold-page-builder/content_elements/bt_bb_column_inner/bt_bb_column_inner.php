@@ -12,7 +12,7 @@ class bt_bb_column_inner extends BT_BB_Element {
 			'width_xs'               => '',
 			'align'                  => 'left',
 			'vertical_align'         => 'top',
-			'padding'                => '',
+			'padding'                => 'normal',
 			'order'                  => '',
 			'background_image'       => '',
 			'inner_background_image' => '',
@@ -58,33 +58,6 @@ class bt_bb_column_inner extends BT_BB_Element {
 			$id_attr = 'id="' . esc_attr( $el_id ) . '"';
 		}
 		
-		$this->responsive_data_override_class(
-			$class, $data_override_class,
-			array(
-				'prefix' => $this->prefix,
-				'param' => 'align',
-				'value' => $align
-			)
-		);
-		
-		if ( $vertical_align != '' ) {
-			$class[] = $this->prefix . 'vertical_align' . '_' . $vertical_align;
-		}
-
-		/*if ( $padding != '' ) {
-			$class[] = $this->prefix . 'padding' . '_' . $padding;
-		}*/
-		
-		$this->responsive_override_class(
-			$class,
-			array(
-				'prefix' => $this->prefix,
-				'ignore' => '0',
-				'param'  => 'order',
-				'value'  => $order
-			)
-		);
-
 		$el_inner_style = '';
 		
 		$color_scheme_id = NULL;
@@ -110,6 +83,34 @@ class bt_bb_column_inner extends BT_BB_Element {
 		if ( $inner_color_scheme != '' ) {
 			$inner_class[] = $this->prefix . 'inner_color_scheme' . '_' . bt_bb_get_color_scheme_id( $inner_color_scheme );
 		}
+		
+		if ( $vertical_align != '' ) {
+			$class[] = $this->prefix . 'vertical_align' . '_' . $vertical_align;
+		}
+
+		/*if ( $padding != '' ) {
+			$class[] = $this->prefix . 'padding' . '_' . $padding;
+		}*/
+		
+		$this->responsive_data_override_class(
+			$class, $data_override_class,
+			array(
+				'prefix' => $this->prefix,
+				'param' => 'align',
+				'value' => $align
+			)
+		);
+		
+		$this->responsive_override_class(
+			$class,
+			array(
+				'prefix' => $this->prefix,
+				'ignore' => '0',
+				'param'  => 'order',
+				'value'  => $order
+			)
+		);
+
 		
 		if ( $background_color != '' ) {
 			if ( strpos( $background_color, '#' ) !== false ) {
@@ -139,9 +140,17 @@ class bt_bb_column_inner extends BT_BB_Element {
 		$inner_background_data_attr = '';
 		
 		if ( $background_image != '' ) {
-			$background_image = wp_get_attachment_image_src( $background_image, 'full' );
-			if ( $background_image ) {
-				$background_image_url = $background_image[0];
+			if ( is_numeric( $background_image ) ) {
+				$background_image = wp_get_attachment_image_src( $background_image, 'full' );
+				if ( $background_image ) {
+					$background_image_url = $background_image[0];
+				}
+			} else {
+				$background_image_url = $background_image;
+			}
+			
+			if ( $background_image_url ) {
+				
 				if ( $lazy_load == 'yes' ) {
 					$blank_image_src = BT_BB_Root::$path . 'img/blank.gif';
 					$el_style .= 'background-image:url(\'' . $blank_image_src . '\');';
@@ -152,25 +161,36 @@ class bt_bb_column_inner extends BT_BB_Element {
 				}
 			}
 				
-			$class[] = 'bt_bb_column_inner_background_image';
+			$class[] = 'bt_bb_column_background_image';
 		}
 		
 		if ( $inner_background_image != '' ) {
-			$inner_background_image = wp_get_attachment_image_src( $inner_background_image, 'full' );
-			$inner_background_image_url = $inner_background_image[0];
-			if ( $lazy_load == 'yes' ) {
-				$blank_image_src = BT_BB_Root::$path . 'img/blank.gif';
-				$el_inner_style .= 'background-image:url(\'' . $blank_image_src . '\'); ';
-				$inner_background_data_attr .= ' data-background_image_src="' . $inner_background_image_url . '"';
-				$inner_class[] = 'btLazyLoadBackground';
+			if ( is_numeric( $inner_background_image ) ) {
+				$inner_background_image = wp_get_attachment_image_src( $inner_background_image, 'full' );
+				if ( $inner_background_image ) {
+					$inner_background_image_url = $inner_background_image[0];
+				}
 			} else {
-				$el_inner_style .= 'background-image:url(\'' . $inner_background_image_url . '\'); ';				
+				$inner_background_image_url = $inner_background_image;
 			}
-			$class[] = 'bt_bb_column_inner_inner_background_image';
+			if ( $inner_background_image_url ) {
+				if ( $lazy_load == 'yes' ) {
+					$blank_image_src = BT_BB_Root::$path . 'img/blank.gif';
+					$el_inner_style .= 'background-image:url(\'' . $blank_image_src . '\');';
+					$inner_background_data_attr .= ' data-background_image_src="' . $inner_background_image_url . '"';
+					$inner_class[] = 'btLazyLoadBackground';
+				} else {
+					$el_inner_style .= 'background-image:url(\'' . $inner_background_image_url . '\');';				
+				}				
+			}
+			$inner_class[] = 'bt_bb_column_content_background_image';
 		}
 		
 		$el_inner_style = apply_filters( $this->shortcode . '_inner_style', $el_inner_style, $atts );
-		if ( $el_inner_style != "" ) $el_inner_style = ' style="' . $el_inner_style . '"';
+
+		if ( $el_inner_style != '' ) {
+			$el_inner_style = ' style="' . esc_attr( $el_inner_style ) . '"';
+		}
 		
 		$style_attr = '';
 		$el_style = apply_filters( $this->shortcode . '_style', $el_style, $atts );
@@ -202,7 +222,7 @@ class bt_bb_column_inner extends BT_BB_Element {
 		
 		$class = apply_filters( $this->shortcode . '_class', $class, $atts );		
 	
-		$output = '<div ' . $id_attr . ' class="' . implode( ' ', $class ) . '" ' . $style_attr . $background_data_attr . ' data-width="' . esc_attr( $this->get_width2( $width ) ) . '" data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">';
+		$output = '<div ' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '" ' . $style_attr . $background_data_attr . ' data-width="' . esc_attr( $this->get_width2( $width ) ) . '" data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">';
 			$output .= '<div class="' . implode( ' ', $inner_class ) . '"' . $el_inner_style . $inner_background_data_attr . '>';
 				$output .= do_shortcode( $content );
 			$output .= '</div>';
@@ -277,7 +297,7 @@ class bt_bb_column_inner extends BT_BB_Element {
 					esc_html__( 'Center', 'bold-builder' ) => 'center',
 					esc_html__( 'Right', 'bold-builder' ) => 'right',
 				) ),
-				array( 'param_name' => 'vertical_align', 'type' => 'dropdown', 'heading' => esc_html__( 'Vertical Align', 'bold-builder' ), 'preview' => true,
+				array( 'param_name' => 'vertical_align', 'type' => 'dropdown', 'heading' => esc_html__( 'Vertical align', 'bold-builder' ), 'preview' => true,
 					'value' => array(
 						esc_html__( 'Top', 'bold-builder' )     => 'top',
 						esc_html__( 'Middle', 'bold-builder' )  => 'middle',

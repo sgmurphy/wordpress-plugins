@@ -258,12 +258,14 @@ function Load_ZarinPal_Gateway()
                 do_action('WC_ZPal_Gateway_Payment', $order_id, $Description, $Mobile);
                 $Email = !filter_var($Email, FILTER_VALIDATE_EMAIL) === false ? $Email : '';
 
-                if (preg_match('/^9[0-9]{9}/i', $Mobile)) {
+
+                if (preg_match('/^(\+989|989|\+9809|9809)([0-9]{9})$/i', $Mobile, $matches)) {
+                    $Mobile = '09' . $matches[2];
+                } elseif (preg_match('/^9[0-7]{1}[0-9]{8}$/i', $Mobile)) {
                     $Mobile = preg_replace('/^9/', '0$0', $Mobile);
-                } elseif (preg_match('/^(\+989|989)[0-9]{9}/i', $Mobile)) {
-                    $Mobile = preg_replace('/^(\+98|98)/', '0', $Mobile);
+                } else {
+                    $Mobile = preg_match('/^09[0-7]{1}[0-9]{8}$/i', $Mobile) ? $Mobile : '';
                 }
-                $Mobile = preg_match('/^09[0-9]{9}/i', $Mobile) ? $Mobile : '';
 
                 if (strtolower($currency) === strtolower('IRR')) {
 
@@ -316,9 +318,6 @@ function Load_ZarinPal_Gateway()
                         $data['metadata']["email"] = $Email;
                     }
                 }
-
-
-
 
                 $result = $this->SendRequestToZarinPal('request', json_encode($data));
 

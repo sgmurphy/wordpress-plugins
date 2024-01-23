@@ -51,7 +51,7 @@ class Helper_Functions {
 	 */
 	private static $google_localize = null;
 
-    /**
+	/**
 	 * SVG Shapes
 	 *
 	 * @var shapes
@@ -1031,7 +1031,7 @@ class Helper_Functions {
 		);
 
 		$control_attr[ $nested ] = $conditions;
-		
+
 		$elem->add_control(
 			'draw_svg_notice_' . $index,
 			$control_attr
@@ -1050,15 +1050,15 @@ class Helper_Functions {
 
 		if ( defined( 'ELEMENTOR_PRO_VERSION' ) ) {
 
-            if( version_compare( ELEMENTOR_PRO_VERSION, '3.16.0', '>=' ) ) {
-                return true;
-            } else if( version_compare( ELEMENTOR_PRO_VERSION, '3.8', '>=' ) ) {
-                $is_loop_enabled = self::check_elementor_experiment( 'loop' );
+			if ( version_compare( ELEMENTOR_PRO_VERSION, '3.16.0', '>=' ) ) {
+				return true;
+			} elseif ( version_compare( ELEMENTOR_PRO_VERSION, '3.8', '>=' ) ) {
+				$is_loop_enabled = self::check_elementor_experiment( 'loop' );
 
-                if ( $is_loop_enabled ) {
-                    return true;
-                }
-            }
+				if ( $is_loop_enabled ) {
+					return true;
+				}
+			}
 		}
 
 		return false;
@@ -1213,69 +1213,222 @@ class Helper_Functions {
 
 	}
 
+	/**
+	 * Render Rating Stars
+	 *
+	 * @since 4.10.13
+	 * @access public
+	 *
+	 * @param float  $rating rating score.
+	 * @param string $fill_color fill color.
+	 * @param string $empty_color empty color.
+	 * @param float  $star_size star size.
+	 */
+	public static function render_rating_stars( $rating, $fill_color, $empty_color, $star_size ) {
+
+		?>
+
+		<span class="premium-fb-rev-stars">
+		<?php
+
+		foreach ( array( 1, 2, 3, 4, 5 ) as $val ) {
+			$score = round( ( $rating - $val ), 2 );
+
+			if ( $score >= -0.2 ) {
+
+				?>
+					<span class="premium-fb-rev-star"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="<?php echo esc_attr( $star_size ); ?>" height="<?php echo esc_attr( $star_size ); ?>" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="<?php echo esc_attr( $fill_color ); ?>"></path></svg></span>
+				<?php
+			} elseif ( $score > -0.8 && $score < -0.2 ) {
+				?>
+					<span class="premium-fb-rev-star"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="<?php echo esc_attr( $star_size ); ?>" height="<?php echo esc_attr( $star_size ); ?>" viewBox="0 0 1792 1792"><path d="M1250 957l257-250-356-52-66-10-30-60-159-322v963l59 31 318 168-60-355-12-66zm452-262l-363 354 86 500q5 33-6 51.5t-34 18.5q-17 0-40-12l-449-236-449 236q-23 12-40 12-23 0-34-18.5t-6-51.5l86-500-364-354q-32-32-23-59.5t54-34.5l502-73 225-455q20-41 49-41 28 0 49 41l225 455 502 73q45 7 54 34.5t-24 59.5z" fill="<?php echo esc_attr( $fill_color ); ?>"></path></svg></span>
+			<?php } else { ?>
+					<span class="premium-fb-rev-star"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="<?php echo esc_attr( $star_size ); ?>" height="<?php echo esc_attr( $star_size ); ?>" viewBox="0 0 1792 1792"><path d="M1201 1004l306-297-422-62-189-382-189 382-422 62 306 297-73 421 378-199 377 199zm527-357q0 22-26 48l-363 354 86 500q1 7 1 20 0 50-41 50-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="<?php echo esc_attr( $empty_color ); ?>"></path></svg></span>
+					<?php
+			}
+		}
+		?>
+		</span>
+
+		<?php
+	}
+
+
+	/**
+	 * Get SVG Shapes
+	 *
+	 * @since 4.10.13
+	 * @access public
+	 */
+	public static function get_svg_shapes( $shape = '' ) {
+
+		if ( null === self::$shapes ) {
+
+			self::$shapes = require PREMIUM_ADDONS_PATH . 'modules/premium-shape-divider/shapes.php';
+
+		}
+
+		$shapes = self::$shapes;
+
+		if ( empty( $shape ) ) {
+			return $shapes;
+		} else {
+			return $shapes[ $shape ]['imagesmall'];
+		}
+
+	}
+
+	public static function get_btn_svgs( $style = 'line1' ) {
+
+		$html = '';
+
+		switch ( $style ) {
+			case 'line1':
+				$html = '<div class="premium-btn-line-wrap"><svg class="premium-btn-svg" width="100%" height="9" viewBox="0 0 101 9">
+                <path d="M.426 1.973C4.144 1.567 17.77-.514 21.443 1.48 24.296 3.026 24.844 4.627 27.5 7c3.075 2.748 6.642-4.141 10.066-4.688 7.517-1.2 13.237 5.425 17.59 2.745C58.5 3 60.464-1.786 66 2c1.996 1.365 3.174 3.737 5.286 4.41 5.423 1.727 25.34-7.981 29.14-1.294" pathLength="1"></path>
+                </svg></div>';
+				break;
+
+            case 'line3':
+                $html = '<div class="premium-btn-line-wrap"><svg class="premium-btn-svg" width="100%" height="18" viewBox="0 0 59 18">
+                <path d="M.945.149C12.3 16.142 43.573 22.572 58.785 10.842" pathLength="1"></path>
+                </svg></div>';
+                break;
+
+			case 'line4':
+				$html = '<svg class="premium-btn-svg" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>
+                </svg>';
+				break;
+
+			default:
+				// code...
+				break;
+		}
+
+		return $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+	}
+
+	/**
+	 * Add Button Hover Controls
+	 *
+	 * @since 4.10.17
+	 * @access public
+	 *
+	 * @param object $elem widget object.
+	 * @param array  $conditions controls conditions.
+	 */
+	public static function add_btn_hover_controls( $elem, $conditions ) {
+
+		$elem->add_control(
+			'premium_button_hover_effect',
+			array(
+				'label'       => __( 'Hover Effect', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'none',
+				'options'     => array(
+					'none'   => __( 'None', 'premium-addons-for-elementor' ),
+					'style1' => __( 'Slide', 'premium-addons-for-elementor' ),
+					'style2' => __( 'Shutter', 'premium-addons-for-elementor' ),
+					'style5' => apply_filters( 'pa_pro_label', __( 'In & Out (Pro)', 'premium-addons-for-elementor' ) ),
+					'style6' => apply_filters( 'pa_pro_label', __( 'Grow (Pro)', 'premium-addons-for-elementor' ) ),
+					'style7' => apply_filters( 'pa_pro_label', __( 'Double Layers (Pro)', 'premium-addons-for-elementor' ) ),
+					'style8' => apply_filters( 'pa_pro_label', __( 'Animated Underline (Pro)', 'premium-addons-for-elementor' ) )
+				),
+				'separator'   => 'before',
+				'label_block' => true,
+				'condition'   => $conditions,
+			)
+		);
+
+        do_action( 'pa_button_hover_controls', $elem, $conditions );
+
+		$elem->add_control(
+			'premium_button_style1_dir',
+			array(
+				'label'       => __( 'Slide Direction', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'bottom',
+				'options'     => array(
+					'bottom' => __( 'Top to Bottom', 'premium-addons-for-elementor' ),
+					'top'    => __( 'Bottom to Top', 'premium-addons-for-elementor' ),
+					'left'   => __( 'Right to Left', 'premium-addons-for-elementor' ),
+					'right'  => __( 'Left to Right', 'premium-addons-for-elementor' ),
+				),
+				'condition'   => array_merge(
+					$conditions,
+					array(
+						'premium_button_hover_effect' => 'style1',
+					)
+				),
+				'label_block' => true,
+			)
+		);
+
+		$elem->add_control(
+			'premium_button_style2_dir',
+			array(
+				'label'       => __( 'Shutter Direction', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'shutouthor',
+				'options'     => array(
+					'shutinhor'    => __( 'Shutter in Horizontal', 'premium-addons-for-elementor' ),
+					'shutinver'    => __( 'Shutter in Vertical', 'premium-addons-for-elementor' ),
+					'shutoutver'   => __( 'Shutter out Horizontal', 'premium-addons-for-elementor' ),
+					'shutouthor'   => __( 'Shutter out Vertical', 'premium-addons-for-elementor' ),
+					'scshutoutver' => __( 'Scaled Shutter Vertical', 'premium-addons-for-elementor' ),
+					'scshutouthor' => __( 'Scaled Shutter Horizontal', 'premium-addons-for-elementor' ),
+					'dshutinver'   => __( 'Tilted Left', 'premium-addons-for-elementor' ),
+					'dshutinhor'   => __( 'Tilted Right', 'premium-addons-for-elementor' ),
+				),
+				'condition'   => array_merge(
+					$conditions,
+					array(
+						'premium_button_hover_effect' => 'style2',
+					)
+				),
+				'label_block' => true,
+			)
+		);
+
+	}
+
     /**
-     * Render Rating Stars
+     * Get Button Class
      *
-     * @since 4.10.13
+     * @since 4.10.17
      * @access public
      *
-     * @param float $rating rating score.
-     * @param string $fill_color fill color.
-     * @param string $empty_color empty color.
-     * @param float $star_size star size.
-     */
-    public static function render_rating_stars( $rating, $fill_color, $empty_color, $star_size ) {
-
-        ?>
-
-        <span class="premium-fb-rev-stars">
-        <?php
-
-        foreach ( array( 1, 2, 3, 4, 5 ) as $val ) {
-            $score = round( ( $rating - $val ), 2 );
-
-            if ( $score >= -0.2 ) {
-
-                ?>
-                    <span class="premium-fb-rev-star"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="<?php echo esc_attr( $star_size ); ?>" height="<?php echo esc_attr( $star_size ); ?>" viewBox="0 0 1792 1792"><path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="<?php echo esc_attr( $fill_color ); ?>"></path></svg></span>
-                <?php
-            } elseif ( $score > -0.8 && $score < -0.2 ) {
-                ?>
-                    <span class="premium-fb-rev-star"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="<?php echo esc_attr( $star_size ); ?>" height="<?php echo esc_attr( $star_size ); ?>" viewBox="0 0 1792 1792"><path d="M1250 957l257-250-356-52-66-10-30-60-159-322v963l59 31 318 168-60-355-12-66zm452-262l-363 354 86 500q5 33-6 51.5t-34 18.5q-17 0-40-12l-449-236-449 236q-23 12-40 12-23 0-34-18.5t-6-51.5l86-500-364-354q-32-32-23-59.5t54-34.5l502-73 225-455q20-41 49-41 28 0 49 41l225 455 502 73q45 7 54 34.5t-24 59.5z" fill="<?php echo esc_attr( $fill_color ); ?>"></path></svg></span>
-            <?php } else { ?>
-                    <span class="premium-fb-rev-star"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="<?php echo esc_attr( $star_size ); ?>" height="<?php echo esc_attr( $star_size ); ?>" viewBox="0 0 1792 1792"><path d="M1201 1004l306-297-422-62-189-382-189 382-422 62 306 297-73 421 378-199 377 199zm527-357q0 22-26 48l-363 354 86 500q1 7 1 20 0 50-41 50-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z" fill="<?php echo esc_attr( $empty_color ); ?>"></path></svg></span>
-                    <?php
-            }
-        }
-        ?>
-        </span>
-
-        <?php
-    }
-
-
-    /**
-     * Get SVG Shapes
+     * @param $settings object widget settings.
      *
-     * @since 4.10.13
-     * @access public
-     *
+     * @return string $class css class.
      */
-    public static function get_svg_shapes( $shape = '' ) {
+    public static function get_button_class( $settings ) {
 
-        if ( null === self::$shapes ) {
+        $class = '';
 
-            self::$shapes = require PREMIUM_ADDONS_PATH . 'modules/premium-shape-divider/shapes.php';
+        $papro_activated = apply_filters( 'papro_activated', false );
 
+        if( ! $papro_activated && ! in_array( $settings['premium_button_hover_effect'], array( 'none', 'style1', 'style2' ) ) ) {
+            return '';
         }
 
-        $shapes = self::$shapes;
-
-        if( empty( $shape ) ) {
-            return $shapes;
-        } else {
-            return $shapes[ $shape ]['imagesmall'];
+        if ( 'style1' === $settings['premium_button_hover_effect'] ) {
+			$class = 'premium-button-style1-' . $settings['premium_button_style1_dir'];
+		} elseif ( 'style2' === $settings['premium_button_hover_effect'] ) {
+			$class = 'premium-button-style2-' . $settings['premium_button_style2_dir'];
+		} elseif ( 'style5' === $settings['premium_button_hover_effect'] ) {
+			$class = 'premium-button-style5-' . $settings['premium_button_style5_dir'];
+		} elseif ( 'style6' === $settings['premium_button_hover_effect'] ) {
+			$class    = 'premium-button-style6';
+		} elseif ( 'style7' === $settings['premium_button_hover_effect'] ) {
+			$class = 'premium-button-style7-' . $settings['premium_button_style7_dir'];
+		} elseif ( 'style8' === $settings['premium_button_hover_effect'] ) {
+            $class = 'premium-button-' . $settings['underline_style'];
         }
+
+        return 'premium-button-' . $settings['premium_button_hover_effect'] . ' ' . $class;
 
     }
 

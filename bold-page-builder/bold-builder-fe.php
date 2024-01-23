@@ -44,8 +44,14 @@ function bt_bb_fe_init() {
 			'bt_bb_column' => array(
 				'edit_box_selector' => '',
 				'params' => array(
+					'align' 					=> array( 'ajax_filter' => array( 'class', 'data-bt-override-class' ) ),
+					'vertical_align' 			=> array( 'ajax_filter' => array( 'class' ) ),
+					'padding' 					=> array( 'ajax_filter' => array( 'class', 'data-bt-override-class' ) ),
 					'background_image'			=> array( 'js_handler' => array( 'target_selector' => '', 'type' => 'background_image' ) ),
-					'inner_background_image'	=> array( 'js_handler' => array( 'target_selector' =>  '>div', 'type' => 'background_image' ) ),
+					'inner_background_image'	=> array( 'js_handler' => array( 'target_selector' =>  '.bt_bb_column_content', 'type' => 'background_image' ) ),
+					'color_scheme'				=> array( 'ajax_filter' => array( 'class', 'style' ) ),
+					'inner_color_scheme'		=> array( 'ajax_filter' => array( 'class', 'style' ) ),
+					'background_color'			=> array( 'js_handler'  => array( 'target_selector' => '', 'type' => 'background_color' ) ),
 				),
 				'condition_params' => true,
 			),
@@ -53,7 +59,7 @@ function bt_bb_fe_init() {
 				'edit_box_selector' => '',
 				'params' => array(
 					'background_image'			=> array( 'js_handler' => array( 'target_selector' => '', 'type' => 'background_image' ) ),
-					'inner_background_image'	=> array( 'js_handler' => array( 'target_selector' =>  '.bt_bb_column_content', 'type' => 'background_image' ) ),
+					'inner_background_image'	=> array( 'js_handler' => array( 'target_selector' =>  '.bt_bb_column_inner_content', 'type' => 'background_image' ) ),
 				),
 				'condition_params' => true,
 			),
@@ -209,13 +215,13 @@ function bt_bb_fe_init() {
 			'bt_bb_section' => array(
 				'edit_box_selector' => '',
 				'params' => array(
-					'background_image'		=> array( 'js_handler'  => array( 'target_selector' => '.bt_bb_background_image_holder', 'type' => 'background_image' ) ),
-					'parallax'				=> array( 'js_handler'  => array( 'target_selector' => '','type' => 'attr', 'attr' => 'data-parallax' ) ),
-					'parallax_offset'		=> array( 'js_handler'  => array( 'target_selector' => '', 'type' => 'attr', 'attr' => 'data-parallax-offset' ) ),
 					'top_spacing'			=> array( 'ajax_filter' => array( 'class', 'data-bt-override-class' ) ),
 					'bottom_spacing'		=> array( 'ajax_filter' => array( 'class', 'data-bt-override-class' ) ),
 					'full_screen'			=> array( 'ajax_filter' => array( 'class' ) ), 
 					'vertical_align'		=> array( 'ajax_filter' => array( 'class' ) ), 
+					'background_image'		=> array( 'js_handler'  => array( 'target_selector' => '.bt_bb_background_image_holder', 'type' => 'background_image' ) ),
+					'parallax'				=> array( 'js_handler'  => array( 'target_selector' => '','type' => 'attr', 'attr' => 'data-parallax' ) ),
+					'parallax_offset'		=> array( 'js_handler'  => array( 'target_selector' => '', 'type' => 'attr', 'attr' => 'data-parallax-offset' ) ),
 					'color_scheme'			=> array( 'ajax_filter' => array( 'class', 'style' ) ), 
 					'background_overlay'	=> array( 'ajax_filter' => array( 'class' ) ), 
 					'background_color'		=> array( 'js_handler'  => array( 'target_selector' => '', 'type' => 'background_color' ) ),

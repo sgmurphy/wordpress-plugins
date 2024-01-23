@@ -138,8 +138,8 @@ class bt_bb_service extends BT_BB_Element {
 					'system_prompt' => 'You are a copywriter and your GOAL is to help users generate website content. Based on the user prompt generate title and text for the website page.',
 				),
 				array( 'param_name' => 'icon', 'type' => 'iconpicker', 'heading' => esc_html__( 'Icon', 'bold-builder' ), 'preview' => true ),
-				array( 'param_name' => 'title', 'type' => 'textfield', 'heading' => esc_html__( 'Title', 'bold-builder' ), 'preview' => true ),
-				array( 'param_name' => 'text', 'type' => 'textarea', 'heading' => esc_html__( 'Text', 'bold-builder' ) ),
+				array( 'param_name' => 'title', 'type' => 'textfield', 'heading' => esc_html__( 'Title', 'bold-builder' ), 'placeholder' => esc_html__( 'Add Service title', 'bold-builder' ), 'preview' => true ),
+				array( 'param_name' => 'text', 'type' => 'textarea', 'heading' => esc_html__( 'Text', 'bold-builder' ), 'placeholder' => esc_html__( 'Add Service text', 'bold-builder' ) ),
 				array( 'param_name' => 'align', 'type' => 'dropdown', 'heading' => esc_html__( 'Icon position', 'bold-builder' ), 'responsive_override' => true,
 					'value' => array(
 						esc_html__( 'Inherit', 'bold-builder' ) => 'inherit',
@@ -159,13 +159,12 @@ class bt_bb_service extends BT_BB_Element {
 				array( 'param_name' => 'size', 'type' => 'dropdown', 'heading' => esc_html__( 'Icon size', 'bold-builder' ), 'responsive_override' => true, 'preview' => true, 'group' => esc_html__( 'Design', 'bold-builder' ),
 					'value' => array(
 						esc_html__( 'Extra small', 'bold-builder' ) => 'xsmall',
-						esc_html__( 'Small', 'bold-builder' ) => 'small',
-						esc_html__( 'Normal', 'bold-builder' ) => 'normal',
-						esc_html__( 'Large', 'bold-builder' ) => 'large',
+						esc_html__( 'Small', 'bold-builder' ) 		=> 'small',
+						esc_html__( 'Normal', 'bold-builder' ) 		=> 'normal',
+						esc_html__( 'Large', 'bold-builder' ) 		=> 'large',
 						esc_html__( 'Extra large', 'bold-builder' ) => 'xlarge'
 					)
 				),
-				array( 'param_name' => 'color_scheme', 'type' => 'dropdown', 'heading' => esc_html__( 'Color scheme', 'bold-builder' ), 'description' => esc_html__( 'Define color schemes in Bold Builder settings or define accent and alternate colors in theme customizer (if avaliable)', 'bold-builder' ), 'value' => $color_scheme_arr, 'preview' => true, 'group' => esc_html__( 'Design', 'bold-builder' ) ),
 				array( 'param_name' => 'style', 'type' => 'dropdown', 'heading' => esc_html__( 'Icon style', 'bold-builder' ), 'preview' => true, 'group' => esc_html__( 'Design', 'bold-builder' ),
 					'value' => array(
 						esc_html__( 'Outline', 'bold-builder' ) => 'outline',
@@ -179,7 +178,8 @@ class bt_bb_service extends BT_BB_Element {
 						esc_html__( 'Square', 'bold-builder' ) => 'square',
 						esc_html__( 'Rounded Square', 'bold-builder' ) => 'round'
 					)
-				)
+				),
+				array( 'param_name' => 'color_scheme', 'type' => 'dropdown', 'heading' => esc_html__( 'Color scheme', 'bold-builder' ), 'description' => esc_html__( 'Define color schemes in Bold Builder settings or define accent and alternate colors in theme customizer (if avaliable)', 'bold-builder' ), 'value' => $color_scheme_arr, 'preview' => true, 'group' => esc_html__( 'Design', 'bold-builder' ) ),
 			)
 		) );
 	}

@@ -1,6 +1,6 @@
 
 
-(function($){
+(function ($) {
     $(window).on('elementor/frontend/init', function () {
 
         var PremiumBannerHandler = elementorModules.frontend.handlers.Base.extend({
@@ -43,6 +43,24 @@
             run: function () {
 
                 var $bannerElement = this.$element;
+
+                //Button grow hover effect.
+                var $btnGrow = $bannerElement.find('.premium-button-style6-bg');
+
+                if ($btnGrow.length !== 0 && $bannerElement.hasClass('premium-mouse-detect-yes')) {
+                    $bannerElement.on('mouseenter mouseleave', '.premium-button-style6', function (e) {
+
+                        var parentOffset = $(this).offset(),
+                            left = e.pageX - parentOffset.left,
+                            top = e.pageY - parentOffset.top;
+
+                        $btnGrow.css({
+                            top: top,
+                            left: left,
+                        });
+
+                    });
+                }
 
                 if ($bannerElement.hasClass("premium-banner-tilt-yes")) {
 

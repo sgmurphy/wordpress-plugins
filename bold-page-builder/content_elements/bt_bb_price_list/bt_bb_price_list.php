@@ -79,7 +79,7 @@ class bt_bb_price_list extends BT_BB_Element {
 
 		$class = apply_filters( $this->shortcode . '_class', $class, $atts );
 
-		$output = '<div' . $id_attr . ' class="' . implode( ' ', $class ) . '"' . $style_attr . '>' . $output . '</div>';
+		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . '>' . $output . '</div>';
 		
 		$output = apply_filters( 'bt_bb_general_output', $output, $atts );
 		$output = apply_filters( $this->shortcode . '_output', $output, $atts );
@@ -95,17 +95,17 @@ class bt_bb_price_list extends BT_BB_Element {
 		
 		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Price List', 'bold-builder' ), 'description' => esc_html__( 'List of items with total price', 'bold-builder' ), 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
 			'params' => array(
-				array( 'param_name' => 'title', 'type' => 'textfield', 'heading' => esc_html__( 'Title', 'bold-builder' ), 'preview' => true ),
-				array( 'param_name' => 'subtitle', 'type' => 'textfield', 'heading' => esc_html__( 'Subtitle', 'bold-builder' ) ),
-				array( 'param_name' => 'currency', 'type' => 'textfield', 'heading' => esc_html__( 'Currency', 'bold-builder' ) ),
+				array( 'param_name' => 'title', 'type' => 'textfield', 'heading' => esc_html__( 'Title', 'bold-builder' ), 'placeholder' => esc_html__( 'Add Price List title', 'bold-builder' ), 'preview' => true ),
+				array( 'param_name' => 'subtitle', 'type' => 'textfield', 'heading' => esc_html__( 'Subtitle', 'bold-builder' ), 'placeholder' => esc_html__( 'Add Price List subtitle', 'bold-builder' ) ),
+				array( 'param_name' => 'currency', 'type' => 'textfield', 'heading' => esc_html__( 'Currency', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. $', 'bold-builder' ) ),
 				array( 'param_name' => 'currency_position', 'type' => 'dropdown', 'heading' => esc_html__( 'Currency position', 'bold-builder' ),
 					'value' => array(
-						esc_html__( 'Left', 'bold-builder' ) => 'left',
-						esc_html__( 'Right', 'bold-builder' ) => 'right'
+						esc_html__( 'Left', 'bold-builder' ) 	=> 'left',
+						esc_html__( 'Right', 'bold-builder' ) 	=> 'right'
 					)
 				),
-				array( 'param_name' => 'price', 'type' => 'textfield', 'heading' => esc_html__( 'Price', 'bold-builder' ) ),				
-				array( 'param_name' => 'items', 'type' => 'textarea_object', 'heading' => esc_html__( 'Items', 'bold-builder' ) ),
+				array( 'param_name' => 'price', 'type' => 'textfield', 'heading' => esc_html__( 'Price', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 299.99', 'bold-builder' ) ),				
+				array( 'param_name' => 'items', 'type' => 'textarea_object', 'heading' => esc_html__( 'Items', 'bold-builder' ), 'description' => esc_html__( 'Add Price List items separated by new line', 'bold-builder' ) ),
 				array( 'param_name' => 'color_scheme', 'type' => 'dropdown', 'heading' => esc_html__( 'Color scheme', 'bold-builder' ), 'description' => esc_html__( 'Define color schemes in Bold Builder settings or define accent and alternate colors in theme customizer (if avaliable)', 'bold-builder' ), 'value' => $color_scheme_arr, 'preview' => true ),			
 			)
 		) );

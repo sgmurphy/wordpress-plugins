@@ -172,6 +172,10 @@ h4 {
 	margin-left: 1.5rem !important;
 }
 
+.mxx-4 {
+	margin-left: 2.5rem !important;
+}
+
 .m-5 {
 	margin: 3rem !important;
 }
@@ -1160,6 +1164,10 @@ hr {
 	background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg width='34px' height='24px' viewBox='0 0 34 24' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Ctitle%3ERectangle 13%3C/title%3E%3Cdesc%3ECreated with Sketch.%3C/desc%3E%3Cdefs%3E%3C/defs%3E%3Cg id='spec' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='elements' transform='translate(-2505.000000, -3840.000000)' fill-rule='nonzero' fill='%231CC691'%3E%3Cpath d='M2515,3858.6 C2513.89543,3858.6 2513,3859.49543 2513,3860.6 C2513,3861.70457 2513.89543,3862.6 2515,3862.6 L2529,3862.6 C2530.10457,3862.6 2531,3861.70457 2531,3860.6 L2531,3834 C2531,3832.89543 2530.10457,3832 2529,3832 C2527.89543,3832 2527,3832.89543 2527,3834 L2527,3858.6 L2515,3858.6 Z' id='Rectangle-13' transform='translate(2522.000000, 3847.300000) rotate(-315.000000) translate(-2522.000000, -3847.300000) '%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 	background-repeat: no-repeat;
 	background-position: center;
+}
+
+.checkbox-regular input[type=checkbox]:disabled {
+	cursor: not-allowed;
 }
 
 .checkbox-regular input[type=checkbox]:focus {

@@ -131,6 +131,8 @@ class Iubenda_CS_Product_Service extends Iubenda_Abstract_Product_Service {
 					$new_cs_option['amp_template'][ $lang_id ]      = iub_array_get( $amp_options, 'amp_template' );
 					$new_cs_option['amp_template_done'][ $lang_id ] = iub_array_get( $amp_options, 'amp_template_done' );
 				}
+
+                iubenda()->iub_auto_blocking->fetch_auto_blocking_status_by_site_id($site_id);
 			}
 		} elseif ( 'manual' === $new_cs_option['configuration_type'] ) {
 			foreach ( $new_cs_option as $index => $option ) {
@@ -166,6 +168,13 @@ class Iubenda_CS_Product_Service extends Iubenda_Abstract_Product_Service {
 						$new_cs_option['amp_template'][ $lang_id ]      = iub_array_get( $amp_options, 'amp_template' );
 						$new_cs_option['amp_template_done'][ $lang_id ] = iub_array_get( $amp_options, 'amp_template_done' );
 					}
+
+                    // Try to get the Site ID from code
+                    $parsed_site_id = iub_array_get($parsed_code, 'siteId');
+                    if ( $parsed_site_id ) {
+                        // Check if auto-blocking is enabled for this site
+                        iubenda()->iub_auto_blocking->fetch_auto_blocking_status_by_site_id($parsed_site_id);
+                    }
 				}
 			}
 			// validating Embed Codes of CS contains at least one valid code.
@@ -209,6 +218,7 @@ class Iubenda_CS_Product_Service extends Iubenda_Abstract_Product_Service {
 		$old_cs_options = $this->iub_strip_slashes_deep( iubenda()->options['cs'] );
 		$new_cs_option  = wp_parse_args( $new_cs_option, $old_cs_options );
 
+        $new_cs_option['frontend_auto_blocking'] = iubenda()->iub_auto_blocking->auto_block_sites_status;
 		// Saving and update the current instance with new CS options.
 		iubenda()->options['cs'] = $new_cs_option;
 		iubenda()->iub_update_options( 'iubenda_cookie_law_solution', $new_cs_option );

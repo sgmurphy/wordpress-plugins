@@ -369,7 +369,7 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 
 		$output .= '<div class="bt_bb_post_grid_loader"></div>';
 
-		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . ' data-columns="' . esc_attr( $columns ) . '" data-offset="0">' . $output . '<div  class="bt_bb_css_post_grid_button_holder"><button type="button" class="bt_bb_css_post_grid_button">Load more</button></div></div>';
+		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . ' data-columns="' . esc_attr( $columns ) . '" data-offset="0">' . $output . '<div  class="bt_bb_css_post_grid_button_holder"><button type="button" class="bt_bb_css_post_grid_button">'. esc_html__( 'Load more', 'bold-builder' ). '</button></div></div>';
 
 		$output = apply_filters( 'bt_bb_general_output', $output, $atts );
 		$output = apply_filters( $this->shortcode . '_output', $output, $atts );
@@ -391,7 +391,7 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 		}
 
 		$array = array_merge( $array, array(
-			array( 'param_name' => 'initial_items_number', 'type' => 'textfield', 'heading' => esc_html__( 'Inital number of items', 'bold-builder' ), 'description' => esc_html__( 'Enter initial number of items or leave empty to show all (up to 1000)', 'bold-builder' ), 'default' => '6', 'preview' => true ),
+			array( 'param_name' => 'initial_items_number', 'type' => 'textfield', 'heading' => esc_html__( 'Inital number of items', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 6', 'bold-builder' ), 'description' => esc_html__( 'Enter initial number of items or leave empty to show all (up to 1000)', 'bold-builder' ), 'default' => '6', 'preview' => true ),
 			array( 'param_name' => 'auto_loading', 'type' => 'dropdown', 'heading' => esc_html__( 'Navigation', 'bold-builder' ), 'preview' => true, 
 				'value' => array( 
 					esc_html__( 'No navigation', 'bold-builder' ) => '',
@@ -425,8 +425,8 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 						esc_html__( 'Hard Rounded', 'bold-builder' ) 	=> 'round'
 					)
 				),
-			array( 'param_name' => 'format', 'type' => 'textfield', 'preview' => true, 'heading' => esc_html__( 'Tiles format', 'bold-builder' ), 'description' => esc_html__( 'e.g. 21, 11, 11', 'bold-builder' ) ),
-			array( 'param_name' => 'category', 'type' => 'textfield', 'heading' => esc_html__( 'Category', 'bold-builder' ), 'description' => esc_html__( 'Enter category slug or leave empty to show all', 'bold-builder' ), 'preview' => true ),
+			array( 'param_name' => 'format', 'type' => 'textfield', 'preview' => true, 'heading' => esc_html__( 'Tiles format', 'bold-builder' ), 'placeholder' => esc_html__( '21, 11, 11', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 21, 11, 11', 'bold-builder' ) ),
+			array( 'param_name' => 'category', 'type' => 'textfield', 'heading' => esc_html__( 'Category', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. music', 'bold-builder' ), 'description' => esc_html__( 'Enter category slug or leave empty to show all', 'bold-builder' ), 'preview' => true ),
 			array( 'param_name' => 'category_filter', 'type' => 'dropdown', 'heading' => esc_html__( 'Category filter', 'bold-builder' ),
 				'value' => array(
 					esc_html__( 'No', 'bold-builder' ) 			=> 'no',

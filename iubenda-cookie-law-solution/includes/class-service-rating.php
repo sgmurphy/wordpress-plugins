@@ -179,7 +179,7 @@ class Service_Rating {
 			'cons' => array(
 				'status'    => boolval( $this->is_cookie_solution_activated() && $this->is_cookie_solution_automatically_parse_enabled() ),
 				'label'     => __( 'Only track users that give consent', 'iubenda' ),
-				'paragraph' => __( 'This accounts for 25&#37; of your score. If you’re based in Europe or have Europe-based users, you likely need to block cookies from running until you receive user consent. To do this, select “Automatically block scripts detected by the plugin”.', 'iubenda' ),
+				'paragraph' => __( 'This accounts for 25&#37; of your score. If you’re based in Europe or have Europe-based users, you likely need to block cookies from running until you receive user consent. To do this, select “Native Blocking”.', 'iubenda' ),
 			),
 			'pp'   => array(
 				'status'    => $this->is_privacy_policy_activated(),

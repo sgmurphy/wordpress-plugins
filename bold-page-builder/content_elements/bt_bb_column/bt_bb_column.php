@@ -16,8 +16,8 @@ class bt_bb_column extends BT_BB_Element {
 			'padding'                => 'normal',
 			'order'                  => '',
 			'background_image'       => '',
-			'lazy_load'              => 'no',
 			'inner_background_image' => '',
+			'lazy_load'              => 'no',
 			'color_scheme'           => '',
 			'inner_color_scheme'     => '',
 			'background_color'       => '',
@@ -70,7 +70,7 @@ class bt_bb_column extends BT_BB_Element {
 		$color_scheme_colors = bt_bb_get_color_scheme_colors_by_id( $color_scheme_id - 1 );
 		if ( $color_scheme_colors ) $el_style .= '; --column-primary-color:' . $color_scheme_colors[0] . '; --column-secondary-color:' . $color_scheme_colors[1] . ';';
 		if ( $color_scheme != '' ) $class[] = $this->prefix . 'color_scheme_' .  $color_scheme_id;
-		
+
 		$inner_color_scheme_id = NULL;
 		if ( is_numeric ( $inner_color_scheme ) ) {
 			$inner_color_scheme_id = $inner_color_scheme;
@@ -78,20 +78,13 @@ class bt_bb_column extends BT_BB_Element {
 			$inner_color_scheme_id = bt_bb_get_color_scheme_id( $inner_color_scheme );
 		}
 		$inner_color_scheme_colors = bt_bb_get_color_scheme_colors_by_id( $inner_color_scheme_id - 1 );
-		if ( $inner_color_scheme_colors ) $el_inner_style .= '; --column-inner-primary-color:' . $inner_color_scheme_colors[0] . '; --column-inner-secondary-color:' . $inner_color_scheme_colors[1] . ';';
+		if ( $inner_color_scheme_colors ) $el_style .= '; --column-inner-primary-color:' . $inner_color_scheme_colors[0] . '; --column-inner-secondary-color:' . $inner_color_scheme_colors[1] . ';';
 		if ( $inner_color_scheme != '' ) $inner_class[] = $this->prefix . 'inner_color_scheme_' .  $inner_color_scheme_id;
-
-		if ( $inner_color_scheme != '' ) {
-			$inner_class[] = $this->prefix . 'inner_color_scheme' . '_' . bt_bb_get_color_scheme_id( $inner_color_scheme );
-		}
+		if ( $inner_color_scheme != '' ) $class[] = $this->prefix . 'inner_color_scheme_' .  $inner_color_scheme_id;
 		
 		if ( $vertical_align != '' ) {
 			$class[] = $this->prefix . 'vertical_align' . '_' . $vertical_align;
 		}
-
-		/*if ( $padding != '' ) {
-			$class[] = $this->prefix . 'padding' . '_' . $padding;
-		}*/
 		
 		$this->responsive_data_override_class(
 			$class, $data_override_class,
@@ -139,9 +132,17 @@ class bt_bb_column extends BT_BB_Element {
 		$inner_background_data_attr = '';
 		
 		if ( $background_image != '' ) {
-			$background_image = wp_get_attachment_image_src( $background_image, 'full' );
-			if ( $background_image ) {
-				$background_image_url = $background_image[0];
+			if ( is_numeric( $background_image ) ) {
+				$background_image = wp_get_attachment_image_src( $background_image, 'full' );
+				if ( $background_image ) {
+					$background_image_url = $background_image[0];
+				}
+			} else {
+				$background_image_url = $background_image;
+			}
+			
+			if ( $background_image_url ) {
+				
 				if ( $lazy_load == 'yes' ) {
 					$blank_image_src = BT_BB_Root::$path . 'img/blank.gif';
 					$el_style .= 'background-image:url(\'' . $blank_image_src . '\');';
@@ -156,17 +157,25 @@ class bt_bb_column extends BT_BB_Element {
 		}
 		
 		if ( $inner_background_image != '' ) {
-			$inner_background_image = wp_get_attachment_image_src( $inner_background_image, 'full' );
-			$inner_background_image_url = $inner_background_image[0];
-			if ( $lazy_load == 'yes' ) {
-				$blank_image_src = BT_BB_Root::$path . 'img/blank.gif';
-				$el_inner_style .= 'background-image:url(\'' . $blank_image_src . '\');';
-				$inner_background_data_attr .= ' data-background_image_src="' . $inner_background_image_url . '"';
-				$inner_class[] = 'btLazyLoadBackground';
+			if ( is_numeric( $inner_background_image ) ) {
+				$inner_background_image = wp_get_attachment_image_src( $inner_background_image, 'full' );
+				if ( $inner_background_image ) {
+					$inner_background_image_url = $inner_background_image[0];
+				}
 			} else {
-				$el_inner_style .= 'background-image:url(\'' . $inner_background_image_url . '\');';				
+				$inner_background_image_url = $inner_background_image;
 			}
-			$class[] = 'bt_bb_column_inner_background_image';
+			if ( $inner_background_image_url ) {
+				if ( $lazy_load == 'yes' ) {
+					$blank_image_src = BT_BB_Root::$path . 'img/blank.gif';
+					$el_inner_style .= 'background-image:url(\'' . $blank_image_src . '\');';
+					$inner_background_data_attr .= ' data-background_image_src="' . $inner_background_image_url . '"';
+					$inner_class[] = 'btLazyLoadBackground';
+				} else {
+					$el_inner_style .= 'background-image:url(\'' . $inner_background_image_url . '\');';				
+				}				
+			}
+			$inner_class[] = 'bt_bb_column_content_background_image';
 		}
 		
 		$el_inner_style = apply_filters( $this->shortcode . '_inner_style', $el_inner_style, $atts );
@@ -204,7 +213,7 @@ class bt_bb_column extends BT_BB_Element {
 		
 		$class = apply_filters( $this->shortcode . '_class', $class, $atts );
 
-		$output = '<div ' . $id_attr . ' class="' . implode( ' ', $class ) . '" ' . $style_attr . $background_data_attr . ' data-width="' . esc_attr( $this->get_width2( $width ) ) . '" data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">';
+		$output = '<div ' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '" ' . $style_attr . $background_data_attr . ' data-width="' . esc_attr( $this->get_width2( $width ) ) . '" data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">';
 			$output .= '<div class="' . esc_attr( implode( ' ', $inner_class ) ) . '"' . $el_inner_style . $inner_background_data_attr . '>';
 				$output .= '<div class="' . esc_attr( $this->shortcode . '_content_inner' ) . '">';
 					$output .= do_shortcode( $content );
@@ -229,7 +238,6 @@ class bt_bb_column extends BT_BB_Element {
 	}
 	
 	function get_width1( $width ) {
-		// $array = explode( '/', $width );
 		$array = array_map( 'trim', explode( '/', $width ) );
 
 		if ( empty( $array ) || count( $array ) != 2 || !is_numeric( $array[0] ) || !is_numeric( $array[1] ) || $array[0] == 0 || $array[1] == 0 ) {
@@ -249,7 +257,6 @@ class bt_bb_column extends BT_BB_Element {
 	}
 	
 	function get_width2( $width ) {
-		// $array = explode( '/', $width );
 		$array = array_map( 'trim', explode( '/', $width ) );
 
 		if ( empty( $array ) || count( $array ) != 2 || !is_numeric( $array[0] ) || !is_numeric( $array[1] ) || $array[0] == 0 || $array[1] == 0 ) {
@@ -274,9 +281,9 @@ class bt_bb_column extends BT_BB_Element {
 			'params' => array(
 				array( 'param_name' => 'align', 'type' => 'dropdown', 'heading' => esc_html__( 'Align', 'bold-builder' ), 'preview' => true, 'responsive_override' => true,
 					'value' => array(
-						esc_html__( 'Left', 'bold-builder' ) => 'left',
-						esc_html__( 'Center', 'bold-builder' ) => 'center',
-						esc_html__( 'Right', 'bold-builder' ) => 'right'
+						esc_html__( 'Left', 'bold-builder' ) 	=> 'left',
+						esc_html__( 'Center', 'bold-builder' ) 	=> 'center',
+						esc_html__( 'Right', 'bold-builder' ) 	=> 'right'
 					)
 				),
 				array( 'param_name' => 'vertical_align', 'type' => 'dropdown', 'heading' => esc_html__( 'Vertical align', 'bold-builder' ), 'preview' => true,
@@ -289,8 +296,8 @@ class bt_bb_column extends BT_BB_Element {
 				array( 'param_name' => 'padding', 'type' => 'dropdown', 'heading' => esc_html__( 'Inner padding', 'bold-builder' ), 'responsive_override' => true, 'preview' => true,
 					'value' => array(
 						esc_html__( 'No padding', 'bold-builder' ) 	=> 'none',
-						esc_html__( 'Normal', 'bold-builder' ) => 'normal',
-						esc_html__( 'Double', 'bold-builder' ) => 'double',
+						esc_html__( 'Normal', 'bold-builder' ) 		=> 'normal',
+						esc_html__( 'Double', 'bold-builder' ) 		=> 'double',
 						esc_html__( 'Text Indent', 'bold-builder' ) => 'text_indent',
 						esc_html__( '5px', 'bold-builder' ) => '5',
 						esc_html__( '10px', 'bold-builder' ) => '10',
@@ -333,7 +340,7 @@ class bt_bb_column extends BT_BB_Element {
 				array( 'param_name' => 'inner_background_image', 'type' => 'attach_image',  'preview' => true, 'heading' => esc_html__( 'Inner background image', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
 				array( 'param_name' => 'lazy_load', 'type' => 'dropdown', 'default' => 'yes', 'heading' => esc_html__( 'Lazy load background image', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ),
 					'value' => array(
-						esc_html__( 'No', 'bold-builder' ) => 'no',
+						esc_html__( 'No', 'bold-builder' ) 	=> 'no',
 						esc_html__( 'Yes', 'bold-builder' ) => 'yes'
 					) ),
 				array( 'param_name' => 'color_scheme', 'type' => 'dropdown', 'heading' => esc_html__( 'Color scheme', 'bold-builder' ), 'description' => esc_html__( 'Define color schemes in Bold Builder settings or define accent and alternate colors in theme customizer (if avaliable)', 'bold-builder' ), 'value' => $color_scheme_arr, 'preview' => true, 'group' => esc_html__( 'Design', 'bold-builder' )  ),

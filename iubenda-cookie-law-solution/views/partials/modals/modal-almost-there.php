@@ -121,7 +121,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					// Add CS default options.
 					if ( 'cs' === (string) $key ) :
 						?>
-						<input type="hidden" name="iubenda_cookie_law_solution[parse]" value="1">
+						<input type="hidden" class="blocking-method native-blocking-method" name="iubenda_cookie_law_solution[parse]" value="1">
 						<input type="hidden" name="iubenda_cookie_law_solution[parser_engine]" value="<?php echo can_use_dom_document_class() ? esc_attr( 'new' ) : 'default'; ?>">
 					<?php endif; ?>
 				</section>

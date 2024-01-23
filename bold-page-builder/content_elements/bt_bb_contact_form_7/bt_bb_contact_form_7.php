@@ -40,7 +40,7 @@ class bt_bb_contact_form_7 extends BT_BB_Element {
 		$class = apply_filters( $this->shortcode . '_class', $class, $atts );
 
 		if ( intval( $contact_form_id ) > 0 ) {
-			$output = '<div' . $id_attr . ' class="' . implode( ' ', $class ) . '"' . $style_attr . '>';
+			$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . '>';
 				$output .= do_shortcode('[contact-form-7 id="' . $contact_form_id . '"]');
 			$output .= '</div>';			
 		}
@@ -67,7 +67,7 @@ class bt_bb_contact_form_7 extends BT_BB_Element {
 
 		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Contact Form 7', 'bold-builder' ), 'description' => esc_html__( 'Choose CF7 form', 'bold-builder' ), 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
 			'params' => array(
-				array( 'param_name' => 'contact_form_id', 'type' => 'dropdown', 'heading' => esc_html__( 'Contact form 7', 'bold-builder' ), 'preview' => true,
+				array( 'param_name' => 'contact_form_id', 'type' => 'dropdown', 'heading' => esc_html__( 'Contact Form 7', 'bold-builder' ), 'description' => esc_html__( 'Add new Contact form on your Dashboard > Contact', 'bold-builder' ), 'preview' => true,
 					'value' => $forms_data )		
 			) )
 		);

@@ -77,7 +77,7 @@ class bt_bb_accordion extends BT_BB_Element {
 
 		$output = '';
 
-		$output .= '<div' . $id_attr . ' class="' . implode( ' ', $class ) . '"' . $style_attr . $data_attr . '>' . $content . '</div>';
+		$output .= '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . $data_attr . '>' . $content . '</div>';
 		
 		$output = apply_filters( 'bt_bb_general_output', $output, $atts );
 		$output = apply_filters( $this->shortcode . '_output', $output, $atts );

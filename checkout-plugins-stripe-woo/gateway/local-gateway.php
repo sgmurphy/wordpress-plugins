@@ -73,10 +73,14 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 			return false;
 		}
 
-		if ( ! empty( $this->get_option( 'allowed_countries' ) ) && 'all_except' === $this->get_option( 'allowed_countries' ) ) {
-			return ! in_array( $this->get_billing_country(), $this->get_option( 'except_countries', array() ), true );
-		} elseif ( ! empty( $this->get_option( 'allowed_countries' ) ) && 'specific' === $this->get_option( 'allowed_countries' ) ) {
-			return in_array( $this->get_billing_country(), $this->get_option( 'specific_countries', array() ), true );
+		// Perform a conditional check based on allowed countries in admin settings.
+		// This check is applicable only for the classic checkout. For checkout blocks, it's handled in JavaScript.
+		if ( ! Helper::is_block_checkout() ) {
+			if ( ! empty( $this->get_option( 'allowed_countries' ) ) && 'all_except' === $this->get_option( 'allowed_countries' ) ) {
+				return ! in_array( $this->get_billing_country(), $this->get_option( 'except_countries', array() ), true );
+			} elseif ( ! empty( $this->get_option( 'allowed_countries' ) ) && 'specific' === $this->get_option( 'allowed_countries' ) ) {
+				return in_array( $this->get_billing_country(), $this->get_option( 'specific_countries', array() ), true );
+			}
 		}
 
 		return parent::is_available();
@@ -322,8 +326,10 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 			! in_array( get_woocommerce_currency(), $this->get_supported_currency(), true ) &&
 			'no' !== get_option( 'cpsw_show_' . $this->id . '_currency_notice' )
 		) {
+			$method = ( 'cpsw_ideal' === $this->id ) ? 'iDEAL' : ucfirst( str_replace( 'cpsw_', '', $this->id ) );
+
 			/* translators: %1$s Payment method, %2$s List of supported currencies */
-			$notice->add( $this->id . '_currency', 'notice notice-error', sprintf( __( '%1$s is enabled - it requires store currency to be set to %2$s.', 'checkout-plugins-stripe-woo' ), ucfirst( str_replace( 'cpsw_', '', $this->id ) ), implode( ', ', $this->get_supported_currency() ) ), true );
+			$notice->add( $this->id . '_currency', 'notice notice-error', sprintf( __( '%1$s is enabled - it requires store currency to be set to %2$s.', 'checkout-plugins-stripe-woo' ), $method, implode( ', ', $this->get_supported_currency() ) ), true );
 		}
 
 		// Add notice if currency not supported.
@@ -372,8 +378,7 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 	 * @since 1.2.0
 	 */
 	public function get_test_mode_description() {
-		/* translators: HTML Entities. */
-		return apply_filters( 'cpsw_local_gateway_test_description', sprintf( esc_html__( '%1$1sTest Mode Enabled :%2$2s You will be redirected to an authorization page hosted by Stripe.', 'checkout-plugins-stripe-woo' ), '<strong>', '</strong>' ) );
+		return Helper::get_local_test_mode_description();
 	}
 
 	/**
@@ -445,16 +450,27 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 					wc_add_notice( $error . $intent_data['message'], 'error' );
 
 					return [
-						'result'   => 'fail',
-						'redirect' => '',
+						'result'      => 'fail',
+						'redirect'    => '',
+						'stripeError' => $error . $intent_data['message'],
 					];
 				}
 
-				return [
+				$response_data = [
 					'result'        => 'success',
 					'redirect'      => false,
 					'intent_secret' => $intent_data['client_secret'],
 				];
+
+				/**
+				 * This is used to verify nonce for payment method checkout perform by block checkout.
+				 */
+				if ( isset( $_POST['payment_local_nonce'] ) && wp_verify_nonce( sanitize_text_field( $_POST['payment_local_nonce'] ), 'stripe_local_nonce' ) ) {
+					$response_data['verification_url'] = $this->get_verification_url( $order_id, $this->get_return_url( $order ) );
+				}
+
+				return $response_data;
+
 			} else {
 				return [
 					'result'   => 'fail',
@@ -561,5 +577,25 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 		}
 		wp_safe_redirect( $redirect_url );
 		exit();
+	}
+
+	/**
+	 * Get verification url for payment intent
+	 *
+	 * @param int    $order_id woocommerce order id.
+	 * @param string $redirect_url redirect url.
+	 * @since 1.7.0
+	 * @return string verification url.
+	 */
+	public function get_verification_url( $order_id, $redirect_url ) {
+		// Put the final thank you page redirect into the verification URL.
+		return add_query_arg(
+			[
+				'order'                 => $order_id,
+				'confirm_payment_nonce' => wp_create_nonce( 'cpsw_confirm_payment_intent' ),
+				'redirect_to'           => rawurlencode( $redirect_url ),
+			],
+			WC_AJAX::get_endpoint( $this->id . '_verify_payment_intent' )
+		);
 	}
 }

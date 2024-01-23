@@ -244,6 +244,11 @@ html[data-bt_bb_screen_resolution="xl"].bt_bb_backgroud_fixed_supported .bt_bb_p
 		}
 		.bt_bb_column_content {
 			width: 100%;
+			&[style*="background-image"] {
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
 		}
 		color: var(--column-primary-color);
 		background-color: var(--column-secondary-color);
@@ -299,6 +304,11 @@ html[data-bt_bb_screen_resolution="xl"].bt_bb_backgroud_fixed_supported .bt_bb_p
 		}
 		.bt_bb_column_inner_content {
 			width: 100%;
+			&[style*="background-image"] {
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
 		}
 		color: var(--inner-column-primary-color);
 		background-color: var(--inner-column-secondary-color);

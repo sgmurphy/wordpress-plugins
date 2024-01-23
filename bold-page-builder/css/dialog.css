@@ -114,6 +114,9 @@
 					transform: translate(-50%,-50%) scale(1);
 					width: 30%;
 				}
+				&:after {
+					height: calc(1em + 1px);
+				}
 			}
 			/* Line */
 			&:before {
@@ -226,7 +229,7 @@
 					text-align: center;
 					transition: 300ms ease all;
 					&::placeholder {
-						color: #CCC;
+						color: #cacaca;
 						letter-spacing: 2px;
 					}
 				}
@@ -394,7 +397,7 @@
 	padding: 0.95em 1.25em;
 	transition: all 270ms ease;
 	&:hover {
-		background-color: $(accentDark);
+		background-color: $(alternateColor);
 		box-shadow: 0 0 1em 0 rgba(0,0,0,.2);
 	}
 	#bt_bb_dialog & {
@@ -623,7 +626,10 @@
 	:any(.bt_bb_icon_bt_bb_separator:before, .bt_bb_icon_bt_cc_separator:before) {
 		content: '\e914';
 	}
-	:any(.bt_bb_icon_bt_bb_cost_calculator:before, .bt_bb_icon_bt_cc:before) {
+	:any(.bt_bb_icon_bt_bb_cc_element:before) {
+		content: '\e967';
+	}
+	:any(.bt_bb_icon_bt_bb_cost_calculator:before, .bt_bb_icon_bt_bb_cost_calculator_simple:before, .bt_bb_icon_bt_cc:before) {
 		content: '\e967';
 	}
 	:any(.bt_bb_icon_bt_bb_cost_calculator_item:before, .bt_bb_icon_bt_cc_item:before) {
@@ -662,13 +668,16 @@
 		content: '\e90a';
 	}
 
+	/* Depricated */
+	.bt_bb_icon_bt_bb_cost_calculator {
+		opacity: 0.3;
+	}
 	.bt_bb_icon_bt_bb_masonry_post_grid {
 		opacity: 0.3;
 		&:before {
 			content: '\e955';
 		}
 	}
-
 	.bt_bb_icon_bt_bb_masonry_image_grid {
 		opacity: 0.3;
 		&:before {

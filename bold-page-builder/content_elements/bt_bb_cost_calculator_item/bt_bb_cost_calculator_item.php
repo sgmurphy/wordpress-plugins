@@ -81,7 +81,7 @@ class bt_bb_cost_calculator_item extends BT_BB_Element {
 			
 		}
 		
-		$output = '<div' . $id_attr . ' class="' . implode( ' ', $class ) . '"' . $style_attr . '>' . $output . '</div>';
+		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . '>' . $output . '</div>';
 		
 		$output = apply_filters( 'bt_bb_general_output', $output, $atts );
 		$output = apply_filters( $this->shortcode . '_output', $output, $atts );
@@ -93,7 +93,7 @@ class bt_bb_cost_calculator_item extends BT_BB_Element {
 	function map_shortcode() {
 		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Simple Cost Calculator Item', 'bold-builder' ), 'description' => esc_html__( 'Simple cost calculator item element', 'bold-builder' ), 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
 			'params' => array(
-				array( 'param_name' => 'title', 'type' => 'textfield', 'heading' => esc_html__( 'Title', 'bold-builder' ), 'preview' => true ),
+				array( 'param_name' => 'title', 'type' => 'textfield', 'heading' => esc_html__( 'Title', 'bold-builder' ), 'placeholder' => esc_html__( 'Add Item title', 'bold-builder' ), 'preview' => true ),
 				array( 'param_name' => 'type', 'type' => 'dropdown', 'heading' => esc_html__( 'Input type', 'bold-builder' ), 'preview' => true, 
 					'value' => array(
 						esc_html__( 'Number', 'bold-builder' ) => 'number',

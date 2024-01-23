@@ -8,6 +8,8 @@
 
 namespace CPSW\Inc;
 
+use WC_HTTPS;
+
 /**
  * Stripe Webhook.
  */
@@ -312,5 +314,91 @@ class Helper {
 	 */
 	public static function get_stripe_pub_key() {
 		return self::get_payment_mode() === 'live' ? self::get_setting( 'cpsw_pub_key' ) : self::get_setting( 'cpsw_test_pub_key' );
+	}
+
+	/**
+	 * Get icon details of a particular gateway.
+	 *
+	 * @since 1.7.0
+	 * 
+	 * @param string $gateway gateway unique id or name to fetch icon.
+	 * 
+	 * @return array
+	 */
+	public static function get_payment_icon( $gateway ) {
+		// Check if $gateway is a non-empty string.
+		if ( empty( $gateway ) || ! is_string( $gateway ) ) {
+			return [];
+		}
+
+		$icon_url = WC_HTTPS::force_https_url( CPSW_URL . 'assets/icon/' );
+	
+		$icons = [
+			'cpsw_alipay'     => [
+				'src'   => $icon_url . 'alipay.svg',
+				'alt'   => __( 'Alipay', 'checkout-plugins-stripe-woo' ),
+				'id'    => 'cpsw-alipay',
+				'width' => '50px',
+			],
+			'cpsw_ideal'      => [
+				'src'   => $icon_url . 'ideal.svg',
+				'alt'   => __( 'iDEAL', 'checkout-plugins-stripe-woo' ),
+				'id'    => 'cpsw-ideal',
+				'width' => '32',
+			],
+			'cpsw_klarna'     => [
+				'src'   => $icon_url . 'klarna.svg',
+				'alt'   => __( 'Klarna', 'checkout-plugins-stripe-woo' ),
+				'id'    => 'cpsw-klarna',
+				'width' => '60',
+			],
+			'cpsw_p24'        => [
+				'src'   => $icon_url . 'p24.svg',
+				'alt'   => __( 'Przelewy24', 'checkout-plugins-stripe-woo' ),
+				'id'    => 'cpsw-p24',
+				'width' => '60',
+			],
+			'cpsw_bancontact' => [
+				'src'   => $icon_url . 'bancontact.svg',
+				'alt'   => __( 'Bancontact', 'checkout-plugins-stripe-woo' ),
+				'id'    => 'cpsw-bancontact',
+				'width' => '40',
+			],
+			'cpsw_wechat'     => [
+				'src'   => $icon_url . 'wechat.svg',
+				'alt'   => __( 'WeChat', 'checkout-plugins-stripe-woo' ),
+				'id'    => 'cpsw-wechat',
+				'width' => '80',
+			],
+			'cpsw_sepa'       => [
+				'src'   => $icon_url . 'sepa.svg',
+				'alt'   => __( 'SEPA', 'checkout-plugins-stripe-woo' ),
+				'id'    => 'cpsw-sepa',
+				'width' => '50px',
+			],
+		];
+	
+		return ! empty( $icons[ $gateway ] ) ? $icons[ $gateway ] : [];
+	}
+	
+	/**
+	 * Get test mode description for all local gateways
+	 *
+	 * @return string
+	 * @since 1.7.0
+	 */
+	public static function get_local_test_mode_description() {
+		/* translators: HTML Entities. */
+		return apply_filters( 'cpsw_local_gateway_test_description', sprintf( esc_html__( '%1$1sTest Mode Enabled :%2$2s You will be redirected to an authorization page hosted by Stripe.', 'checkout-plugins-stripe-woo' ), '<strong>', '</strong>' ) );
+	}
+
+	/**
+	 * Checks the current page to see if it contains checkout block.
+	 *
+	 * @return bool
+	 * @since 1.7.0
+	 */
+	public static function is_block_checkout() {
+		return has_block( 'woocommerce/checkout' );
 	}
 }

@@ -22,11 +22,22 @@ class bt_bb_content_slider_item extends BT_BB_Element {
 			$id_attr = ' ' . 'id="' . esc_attr( $el_id ) . '"';
 		}
 		
+	
 		if ( $image != '' ) {
-			$image_src = wp_get_attachment_image_src( $image, $image_size );
-			if ( $image_src ) {
-				$el_style .= ';background-image:url(' . $image_src[0] . ');';
+			if ( is_numeric( $image ) ) {
+				$image = wp_get_attachment_image_src( $image, 'full' );
+				if ( $image ) {
+					$background_image_url = $image[0];
+				}
+			} else {
+				$background_image_url = $image;
 			}
+			
+			if ( $background_image_url ) {
+				$el_style .= ';background-image:url(\'' . $background_image_url . '\');';				
+			}
+				
+			$class[] = 'bt_bb_column_background_image';
 		}
 		
 		if ( $background_overlay != '' ) {
@@ -53,7 +64,7 @@ class bt_bb_content_slider_item extends BT_BB_Element {
 			$style_attr = ' ' . 'style="' . esc_attr( $el_style ) . '"';
 		}
 
-		$output = '<div' . $id_attr . ' class="' . implode( ' ', $class ) . '"' . $style_attr . '><div class="bt_bb_content_slider_item_content content">' . do_shortcode( $content ) . '</div></div>';
+		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . '><div class="bt_bb_content_slider_item_content content">' . do_shortcode( $content ) . '</div></div>';
 		
 		$output = apply_filters( 'bt_bb_general_output', $output, $atts );
 		$output = apply_filters( $this->shortcode . '_output', $output, $atts );

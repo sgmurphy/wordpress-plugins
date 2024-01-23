@@ -22,6 +22,8 @@
 			navItem.addClass( 'active' );
 
 			groupTargets.hide();
+
+			target.addClass( 'active' );
 			target.show();
 
 			// target.find('.tabs__nav__item:first-of-type').click();.

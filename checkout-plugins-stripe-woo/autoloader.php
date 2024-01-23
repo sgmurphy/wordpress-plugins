@@ -23,6 +23,9 @@ use CPSW\Gateway\Stripe\Webhook;
 use CPSW\Gateway\Stripe\Frontend_Scripts;
 use CPSW\Wizard\Onboarding;
 use CPSW\Gateway\BlockSupport\Credit_Card_Payments;
+use CPSW\Gateway\BlockSupport\Ideal_Payments;
+use CPSW\Gateway\BlockSupport\Alipay_Payments;
+use CPSW\Gateway\BlockSupport\Klarna_Payments;
 
 /**
  * CPSW_Loader
@@ -317,18 +320,28 @@ class CPSW_Loader {
 			function( \Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry $payment_method_registry ) {
 
 				$container = \Automattic\WooCommerce\Blocks\Package::container();
-				// registers as shared instance.
-				$container->register(
+
+				$payment_gateways = [
 					Credit_Card_Payments::class,
-					function() {
-						
-							return new Credit_Card_Payments();
-						
-					}
-				);
-				$payment_method_registry->register(
-					$container->get( Credit_Card_Payments::class )
-				);
+					Ideal_Payments::class,
+					Alipay_Payments::class,
+					Klarna_Payments::class,
+				];
+
+				// registers as shared instance.
+				foreach ( $payment_gateways as $gateway_class ) {
+					$container->register(
+						$gateway_class,
+						function () use ( $gateway_class ) {
+							return new $gateway_class();
+						}
+					);
+
+					// Register the payment gateway with the PaymentMethodRegistry.
+					$payment_method_registry->register(
+						$container->get( $gateway_class )
+					);
+				}
 			},
 			5
 		);

@@ -1125,6 +1125,30 @@ class Premium_Pricing_Table extends Widget_Base {
 			)
 		);
 
+        $this->add_responsive_control(
+			'button_width',
+			array(
+				'label'      => __( 'Width', 'premium-addons-for-elementor' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'custom' ),
+				'range'      => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 500,
+					),
+				),
+                'default'=> [
+                    'size'=> 100,
+                    'unit'=> '%'
+                ],
+				'selectors'  => array(
+					'{{WRAPPER}} .premium-pricing-price-button' => 'width: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+        Helper_Functions::add_btn_hover_controls( $this, array() );
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -2506,34 +2530,6 @@ class Premium_Pricing_Table extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'premium_pricing_button_color',
-			array(
-				'label'     => __( 'Color', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => array(
-					'default' => Global_Colors::COLOR_SECONDARY,
-				),
-				'selectors' => array(
-					'{{WRAPPER}} .premium-pricing-price-button'  => 'color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'premium_pricing_button_hover_color',
-			array(
-				'label'     => __( 'Hover Text Color', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => array(
-					'default' => Global_Colors::COLOR_SECONDARY,
-				),
-				'selectors' => array(
-					'{{WRAPPER}} .premium-pricing-price-button:hover'  => 'color: {{VALUE}};',
-				),
-			)
-		);
-
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
@@ -2554,12 +2550,26 @@ class Premium_Pricing_Table extends Widget_Base {
 			)
 		);
 
+        $this->add_control(
+			'premium_pricing_button_color',
+			array(
+				'label'     => __( 'Text Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-pricing-price-button'  => 'color: {{VALUE}};',
+				),
+			)
+		);
+
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'premium_pricing_table_button_background',
 				'types'    => array( 'classic', 'gradient' ),
-				'selector' => '{{WRAPPER}} .premium-pricing-price-button',
+				'selector' => '{{WRAPPER}} .premium-pricing-price-button, {{WRAPPER}} .premium-button-style2-shutinhor:before , {{WRAPPER}} .premium-button-style2-shutinver:before , {{WRAPPER}} .premium-button-style5-radialin:before , {{WRAPPER}} .premium-button-style5-rectin:before',
 			)
 		);
 
@@ -2599,7 +2609,7 @@ class Premium_Pricing_Table extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-pricing-price-button' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .premium-pricing-button-container' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -2618,7 +2628,7 @@ class Premium_Pricing_Table extends Widget_Base {
 					'unit'   => 'px',
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-pricing-price-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .premium-pricing-price-button, {{WRAPPER}} .premium-button-line6::after' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -2632,13 +2642,83 @@ class Premium_Pricing_Table extends Widget_Base {
 			)
 		);
 
+        $this->add_control(
+			'premium_pricing_button_hover_color',
+			array(
+				'label'     => __( 'Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-pricing-price-button:hover, {{WRAPPER}} .premium-button-line6::after'  => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+        $this->add_control(
+			'underline_color',
+			array(
+				'label'     => __( 'Line Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+                'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-btn-svg'   => 'stroke: {{VALUE}};',
+                    '{{WRAPPER}} .premium-button-line2::before,  {{WRAPPER}} .premium-button-line4::before, {{WRAPPER}} .premium-button-line5::before, {{WRAPPER}} .premium-button-line5::after, {{WRAPPER}} .premium-button-line6::before, {{WRAPPER}} .premium-button-line7::before'   => 'background-color: {{VALUE}};'
+				),
+				'condition' => array(
+					'premium_button_hover_effect' => 'style8',
+				),
+			)
+		);
+
+        $this->add_control(
+			'first_layer_hover',
+			array(
+				'label'     => __( 'Layer #1 Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-button-style7 .premium-button-text-icon-wrapper:before' => 'background-color: {{VALUE}}',
+				),
+				'condition' => array(
+					'premium_button_hover_effect' => 'style7',
+
+				),
+			)
+		);
+
+		$this->add_control(
+			'second_layer_hover',
+			array(
+				'label'     => __( 'Layer #2 Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_TEXT,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-button-style7 .premium-button-text-icon-wrapper:after' => 'background-color: {{VALUE}}',
+				),
+				'condition' => array(
+					'premium_button_hover_effect' => 'style7',
+				),
+			)
+		);
+
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			array(
 				'name'     => 'premium_pricing_table_button_background_hover',
 				'types'    => array( 'classic', 'gradient' ),
-				'selector' => '{{WRAPPER}} .premium-pricing-price-button:hover',
-			)
+				'selector' => '{{WRAPPER}} .premium-button-none:hover, {{WRAPPER}} .premium-button-style8:hover, {{WRAPPER}} .premium-button-style1:before, {{WRAPPER}} .premium-button-style2-shutouthor:before, {{WRAPPER}} .premium-button-style2-shutoutver:before, {{WRAPPER}} .premium-button-style2-shutinhor, {{WRAPPER}} .premium-button-style2-shutinver, {{WRAPPER}} .premium-button-style2-dshutinhor:before, {{WRAPPER}} .premium-button-style2-dshutinver:before, {{WRAPPER}} .premium-button-style2-scshutouthor:before, {{WRAPPER}} .premium-button-style2-scshutoutver:before, {{WRAPPER}} .premium-button-style5-radialin, {{WRAPPER}} .premium-button-style5-radialout:before, {{WRAPPER}} .premium-button-style5-rectin, {{WRAPPER}} .premium-button-style5-rectout:before, {{WRAPPER}} .premium-button-style6-bg, {{WRAPPER}} .premium-button-style6:before',
+                'condition' => array(
+                    'premium_button_hover_effect!' => 'style7',
+                ),
+            ),
 		);
 
 		$this->add_group_control(
@@ -2677,7 +2757,7 @@ class Premium_Pricing_Table extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-pricing-price-button:hover' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .premium-pricing-button-container:hover' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -2721,7 +2801,7 @@ class Premium_Pricing_Table extends Widget_Base {
 		$this->add_control(
 			'premium_pricing_badge_text_color',
 			array(
-				'label'     => __( 'Text Color', 'premium-addons-for-elementor' ),
+				'label'     => __( 'Color', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => array(
 					'default' => Global_Colors::COLOR_SECONDARY,
@@ -3060,7 +3140,17 @@ class Premium_Pricing_Table extends Widget_Base {
 		}
 
 		if ( ! empty( $link_url ) ) {
-			$this->add_render_attribute( 'button', 'class', 'premium-pricing-price-button' );
+
+            $effect_class = Helper_Functions::get_button_class( $settings );
+
+            $this->add_render_attribute( 'button', array(
+                'class' => array(
+                    'premium-pricing-price-button',
+                    $effect_class
+                ),
+                'data-text' => $settings['premium_pricing_table_button_text']
+            ));
+
 			if ( 'link' === $link_type ) {
 				$this->add_render_attribute( 'button', 'href', $link_url );
 			} else {
@@ -3370,7 +3460,17 @@ class Premium_Pricing_Table extends Widget_Base {
 		<?php if ( 'yes' === $settings['premium_pricing_table_button_switcher'] ) : ?>
 		<div class="premium-pricing-button-container">
 			<a <?php echo wp_kses_post( $this->get_render_attribute_string( 'button' ) ); ?>>
-				<?php echo wp_kses_post( $settings['premium_pricing_table_button_text'] ); ?>
+                <div class="premium-button-text-icon-wrapper">
+                    <span><?php echo wp_kses_post( $settings['premium_pricing_table_button_text'] ); ?></span>
+                </div>
+                <?php if ( 'style6' === $settings['premium_button_hover_effect'] && 'yes' === $settings['mouse_detect'] ) : ?>
+                    <span class="premium-button-style6-bg"></span>
+                <?php endif; ?>
+
+                <?php if ( 'style8' === $settings['premium_button_hover_effect'] ) : ?>
+                    <?php echo Helper_Functions::get_btn_svgs( $settings['underline_style'] ); ?>
+                <?php endif; ?>
+
 			</a>
 		</div>
 		<?php endif; ?>
@@ -3399,7 +3499,7 @@ class Premium_Pricing_Table extends Widget_Base {
 
 		var titleTag = elementor.helpers.validateHTMLTag( settings.premium_pricing_table_title_size ),
 			linkType = settings.premium_pricing_table_button_url_type,
-			linkURL = 'link' === linkType ? settings.premium_pricing_table_button_link_existing_content : settings.premium_pricing_table_button_link;
+			linkURL = 'link' === linkType ? settings.premium_pricing_table_button_link_existing_content : settings.premium_pricing_table_button_link.url;
 
 		if( 'yes' === settings.premium_pricing_table_icon_switcher ) {
 
@@ -3615,10 +3715,62 @@ class Premium_Pricing_Table extends Widget_Base {
 					{{{ settings.premium_pricing_table_description_text }}}
 				</div>
 			<# } #>
-			<# if('yes' === settings.premium_pricing_table_button_switcher ) { #>
+			<# if( 'yes' === settings.premium_pricing_table_button_switcher ) {
+
+                var btnClass = '';
+
+                if ( 'none' === settings.premium_button_hover_effect ) {
+                    btnClass = 'premium-button-none';
+                } else if ( 'style1' === settings.premium_button_hover_effect ) {
+                    btnClass = 'premium-button-style1-' + settings.premium_button_style1_dir;
+                } else if ( 'style2' === settings.premium_button_hover_effect ) {
+                    btnClass = 'premium-button-style2-' + settings.premium_button_style2_dir;
+                } else if ( 'style5' === settings.premium_button_hover_effect ) {
+                    btnClass = 'premium-button-style5-' + settings.premium_button_style5_dir;
+                } else if ( 'style6' === settings.premium_button_hover_effect ) {
+                    btnClass = 'premium-button-style6';
+                } else if ( 'style7' === settings.premium_button_hover_effect ) {
+                    btnClass = 'premium-button-style7-' + settings.premium_button_style7_dir;
+                } else if ( 'style8' === settings.premium_button_hover_effect ) {
+                    btnClass = 'premium-button-' + settings.underline_style;
+
+                    var btnSVG = '';
+                    switch ( settings.underline_style ) {
+                        case 'line1':
+                            btnSVG = '<div class="premium-btn-line-wrap"><svg class="premium-btn-svg" width="100%" height="9" viewBox="0 0 101 9"><path d="M.426 1.973C4.144 1.567 17.77-.514 21.443 1.48 24.296 3.026 24.844 4.627 27.5 7c3.075 2.748 6.642-4.141 10.066-4.688 7.517-1.2 13.237 5.425 17.59 2.745C58.5 3 60.464-1.786 66 2c1.996 1.365 3.174 3.737 5.286 4.41 5.423 1.727 25.34-7.981 29.14-1.294" pathLength="1"></path></svg></div>';
+                            break;
+
+                        case 'line3':
+                            btnSVG = '<div class="premium-btn-line-wrap"><svg class="premium-btn-svg" width="100%" height="18" viewBox="0 0 59 18"><path d="M.945.149C12.3 16.142 43.573 22.572 58.785 10.842" pathLength="1"></path></svg></div>';
+                            break;
+
+                        case 'line4':
+                            btnSVG = '<svg class="premium-btn-svg" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path></svg>';
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                }
+
+                btnClass = 'premium-button-' + settings.premium_button_hover_effect + ' ' + btnClass;
+
+                #>
 				<div class="premium-pricing-button-container">
-					<a class="premium-pricing-price-button" target="_{{ settings.premium_pricing_table_button_link_target }}" href="{{ linkURL }}">
-						{{{ settings.premium_pricing_table_button_text }}}
+					<a class="premium-pricing-price-button {{ btnClass }}" target="_{{ settings.premium_pricing_table_button_link_target }}" href="{{ linkURL }}" data-text="{{ settings.premium_pricing_table_button_text }}">
+                        <div class="premium-button-text-icon-wrapper">
+                            <span>{{{ settings.premium_pricing_table_button_text }}}</span>
+                        </div>
+
+                        <# if ( 'style6' === settings.premium_button_hover_effect && 'yes' === settings.mouse_detect ) { #>
+                            <span class="premium-button-style6-bg"></span>
+                        <# } #>
+
+                        <# if( 'style8' === settings.premium_button_hover_effect ) { #>
+                            {{{ btnSVG }}}
+                        <# } #>
+
 					</a>
 				</div>
 			<# } #>

@@ -1918,7 +1918,8 @@
                     fill: drawSettings.svgFill,
                     stroke: drawSettings.svgStroke,
                     onComplete: function () {
-                        $paths.removeClass("no-transition");
+                        if (!drawSettings.svgLoop && !drawSettings.svgYoyo)
+                            $paths.removeClass("no-transition");
                     }
                 }, lastPathIndex);
             }

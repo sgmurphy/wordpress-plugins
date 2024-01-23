@@ -65,16 +65,35 @@ class Iubenda_Code_Extractor {
 	 */
 	private $code;
 
-	/**
-	 * Listeners to handle special scripts.
-	 *
-	 * @var string[][]
-	 */
-	private $observers = array(
-		'iubenda.com/sync/' => array(
-			'head-script-handler'
-		),
-	);
+    /**
+     * Auto Blocking Enabled.
+     *
+     * @var bool
+     */
+	private $is_auto_blocking_enabled  = false;
+
+    /**
+     * Site ID.
+     *
+     * @var string
+     */
+    private $site_id;
+
+    /**
+     * List of scripts that will be ignored from appending to body
+     *
+     * @var string[]
+     */
+    private $escaped_scripts_from_body = array(
+        'iubenda.com/sync/',
+        'iubenda.com/autoblocking/',
+    );
+
+
+    private $required_scripts_in_head = array(
+        Auto_Blocking_Script_Appender::class,
+        Sync_Script_Appender::class,
+    );
 
 	/**
 	 * Extract scripts and styles from embed code and enqueue it
@@ -86,12 +105,41 @@ class Iubenda_Code_Extractor {
 	public function enqueue_embed_code( $code ) {
 		$this->code = $code;
 
+        $this->set_auto_blocking_state($code);
 		$this->extract_html_tags();
 		$this->handle_scripts();
+        $this->dispatch_scripts_in_head();
 		$this->handle_styles();
 
 		add_filter( 'script_loader_tag', array( $this, 'iub_add_attribute_to_scripts' ), 10, 3 );
 	}
+
+    /**
+     * Dispatch the required scripts in head based on conditions
+     *
+     * @return void
+     */
+    private function dispatch_scripts_in_head()
+    {
+        foreach ( $this->required_scripts_in_head as $class ) {
+            $instance = new $class( $this );
+            $instance->handle();
+        }
+    }
+
+    /**
+     * Declare auto blocking feature state
+     *
+     * @param $code
+     */
+    private function set_auto_blocking_state($code)
+    {
+        $instance = new Auto_Blocking();
+        $this->site_id = $instance->get_site_id_from_cs_code($code);
+        if ( $this->site_id ) {
+            $this->is_auto_blocking_enabled = (bool)iub_array_get(iubenda()->options, "cs.frontend_auto_blocking.{$this->site_id}");
+        }
+    }
 
 	/**
 	 * Extract tampered scripts from embed code and return it
@@ -140,21 +188,20 @@ class Iubenda_Code_Extractor {
 
 		// Extract scripts with src to enqueue it.
 		foreach ( $this->scripts as $key => $script ) {
-			$observerMatch = $this->process_observer_for_script( $script );
+            if ( $this->may_escape_script_from_body( $script ) ) {
+                continue;
+            }
 
-			// If no observer matches, enqueue the script.
-			if ( ! $observerMatch ) {
-				wp_enqueue_script(
-					"iubenda-head-scripts-{$key}",
-					$script['src'],
-					array(),
-					iubenda()->version,
-					false
-				);
+            wp_enqueue_script(
+                "iubenda-head-scripts-{$key}",
+                $script['src'],
+                array(),
+                iubenda()->version,
+                false
+            );
 
-				// Store script attributes for reference.
-				$this->script_attributes["iubenda-head-scripts-{$key}"] = $script['attributes'];
-			}
+            // Store script attributes for reference.
+            $this->script_attributes["iubenda-head-scripts-{$key}"] = $script['attributes'];
 		}
 	}
 
@@ -468,11 +515,9 @@ class Iubenda_Code_Extractor {
 	 *
 	 * @return bool
 	 */
-	private function process_observer_for_script( $script ): bool {
-		foreach ( $this->observers as $observer => $classes ) {
-			if ( strpos( $script['src'], $observer ) !== false ) {
-				$this->handle_listener_classes( $script, $classes );
-
+	private function may_escape_script_from_body($script ): bool {
+		foreach ( $this->escaped_scripts_from_body as $url ) {
+			if ( strpos( $script['src'], $url ) !== false ) {
 				return true;
 			}
 		}
@@ -480,51 +525,34 @@ class Iubenda_Code_Extractor {
 		return false;
 	}
 
-	/**
-	 * Resolve class name from file name.
-	 *
-	 * @param   string  $file_name
-	 *
-	 * @return string
-	 */
-	private function resolve_class_name( $file_name ) {
-		// Replace hyphens with underscores.
-		$file_name = str_replace( '-', '_', $file_name );
+    /**
+     * Get List of scripts
+     *
+     * @return array
+     */
+    public function get_scripts()
+    {
+        return $this->scripts;
+    }
 
-		// Capitalize each word and concatenate with underscores.
-		return str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $file_name ) ) );
-	}
+    /**
+     * Get Site ID
+     *
+     * @return string
+     */
+    public function get_site_id()
+    {
+        return $this->site_id;
+    }
 
-	/**
-	 * Handle the instantiation and execution of listener classes.
-	 *
-	 * @param   array  $script
-	 * @param   array  $classes
-	 */
-	private function handle_listener_classes( $script, $classes ) {
-		foreach ( $classes as $class ) {
-			$class_file = IUBENDA_PLUGIN_PATH . "includes/listeners/class-{$class}.php";
-
-			if ( ! file_exists( $class_file ) ) {
-				// Listener class file does not exist.
-				continue;
-			}
-
-			require_once $class_file;
-			$class_name = $this->resolve_class_name( $class );
-
-			if ( ! class_exists( $class_name ) ) {
-				// Listener class does not exist after including the file.
-				continue;
-			}
-
-			$listener_instance = new $class_name( $script );
-
-			if ( method_exists( $listener_instance, 'handle' ) ) {
-				$listener_instance->handle();
-			}
-		}
-	}
-
+    /**
+     * Get Auto Blocking State
+     *
+     * @return bool
+     */
+    public function is_auto_blocking_enabled()
+    {
+        return $this->is_auto_blocking_enabled;
+    }
 	// phpcs:enable
 }

@@ -15,7 +15,7 @@
     window.wpfront_notification_bar = function (data, process) {
         var log = function (msg) {
             if (data.log) {
-                console.log(data.log_prefix + msg);
+                console.log(data.log_prefix + ' ' + msg);
             }
         };
 
@@ -287,14 +287,16 @@
             });
         }
 
-
         if (data.keep_closed) {
             if (Cookies.get(keep_closed_cookie)) {
                 log('Keep closed enabled and keep closed cookie exists. Hiding notification bar.');
-                setHeight(0);
+                setHeight(0, function(){
+                    bar.removeClass('keep-closed');
+                });
                 return;
             }
         }
+        bar.removeClass('keep-closed');
 
         if (data.set_max_views) {
             bar_views = Cookies.get(max_views_cookie);
@@ -303,10 +305,13 @@
             }
             if (bar_views >= data.max_views) {
                 log('Reached max views, hiding notification bar.');
-                setHeight(0);
+                setHeight(0, function(){
+                    bar.removeClass('max-views-reached');
+                });
                 return;
             }
         }
+        bar.removeClass('max-views-reached');
 
         closed = true;
 

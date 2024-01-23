@@ -76,7 +76,7 @@ class bt_bb_tabs extends BT_BB_Element {
 			}
 		$output .='</div>';
 
-		$output = '<div' . $id_attr . ' class="' . implode( ' ', $class ) . '"' . $style_attr . ' data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">' . $output . '</div>';
+		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . ' data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">' . $output . '</div>';
 		
 		$output = apply_filters( 'bt_bb_general_output', $output, $atts );
 		$output = apply_filters( $this->shortcode . '_output', $output, $atts );
@@ -92,12 +92,11 @@ class bt_bb_tabs extends BT_BB_Element {
 		
 		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Tabs', 'bold-builder' ), 'description' => esc_html__( 'Tabs container', 'bold-builder' ), 'container' => 'vertical', 'toggle' => true, 'accept' => array( 'bt_bb_tab_item' => true ), 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
 			'params' => array(
-				array( 'param_name' => 'color_scheme', 'type' => 'dropdown', 'heading' => esc_html__( 'Color scheme', 'bold-builder' ), 'description' => esc_html__( 'Define color schemes in Bold Builder settings or define accent and alternate colors in theme customizer (if avaliable)', 'bold-builder' ), 'value' => $color_scheme_arr, 'preview' => true ),
 				array( 'param_name' => 'style', 'type' => 'dropdown', 'heading' => esc_html__( 'Style', 'bold-builder' ), 'preview' => true,
 					'value' => array(
-						esc_html__( 'Outline', 'bold-builder' ) => 'outline',
-						esc_html__( 'Filled', 'bold-builder' ) => 'filled',
-						esc_html__( 'Simple', 'bold-builder' ) => 'simple'
+						esc_html__( 'Outline', 'bold-builder' ) 	=> 'outline',
+						esc_html__( 'Filled', 'bold-builder' ) 		=> 'filled',
+						esc_html__( 'Simple', 'bold-builder' ) 		=> 'simple'
 					)
 				),
 				array( 'param_name' => 'shape', 'type' => 'dropdown', 'heading' => esc_html__( 'Shape', 'bold-builder' ),
@@ -106,7 +105,8 @@ class bt_bb_tabs extends BT_BB_Element {
 						esc_html__( 'Soft Rounded', 'bold-builder' ) 	=> 'rounded',
 						esc_html__( 'Hard Rounded', 'bold-builder' ) 	=> 'round'
 					)
-				)				
+				),
+				array( 'param_name' => 'color_scheme', 'type' => 'dropdown', 'heading' => esc_html__( 'Color scheme', 'bold-builder' ), 'description' => esc_html__( 'Define color schemes in Bold Builder settings or define accent and alternate colors in theme customizer (if avaliable)', 'bold-builder' ), 'value' => $color_scheme_arr, 'preview' => true )				
 			)
 		) );
 	}

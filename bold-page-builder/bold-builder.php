@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Bold Builder
  * Description: WordPress page builder.
- * Version: 4.7.6
+ * Version: 4.7.7
  * Author: BoldThemes
  * Author URI: https://www.bold-themes.com
  * Text Domain: bold-builder
@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // VERSION --------------------------------------------------------- \\
-define( 'BT_BB_VERSION', '4.7.6' );
+define( 'BT_BB_VERSION', '4.7.7' );
 // VERSION --------------------------------------------------------- \\
  
 /**
@@ -29,14 +29,12 @@ if ( file_exists( get_template_directory() . '/bt_bb_config.php' ) ) {
 
 add_filter( 'the_content', 'bt_bb_parse_content', 20 );
 function bt_bb_parse_content( $content ) {
-	if ( ! is_singular() ) return $content;
 	if ( bt_bb_active_for_post_type_fe() ) {
 		$content = str_ireplace( array( '``', '`{`', '`}`' ), array( '&quot;', '&#91;', '&#93;' ), $content );
 		$content = str_ireplace( array( '*`*`*', '*`*{*`*', '*`*}*`*' ), array( '``', '`{`', '`}`' ), $content );
-		return '<div class="bt_bb_wrapper">' . $content . '</div>';
-	} else {
-		return $content;
+		if ( is_singular() ) $content = '<div class="bt_bb_wrapper">' . $content . '</div>';
 	}
+	return $content;
 }
 
 add_filter( 'body_class', 'bt_bb_body_class' );
@@ -571,7 +569,7 @@ function bt_bb_settings() {
 		<div class="wrap">
 			<h2><?php _e( 'Bold Builder Settings', 'bold-builder' ); ?></h2>
 			<p class="description bt_bb_wrap_documentation dashicons-editor-help dashicons-before"><?php printf(
-				   _x( 'For more details check out our <a href="%1$s" title="%2$s" target="_blank">documentation</a>.', 'bold-builder' ), 'https://documentation.bold-themes.com/bold-builder', _x( 'Bold Builder documentation', 'bold-builder' )
+				   _x( 'For additional help check out <a href="%1$s" title="%2$s" target="_blank">Online Documentation</a>.', 'bold-builder' ), 'https://documentation.bold-themes.com/bold-builder', _x( 'Bold Builder documentation', 'bold-builder' )
 			 ); ?>
 			</p>
 			<form method="post" action="options.php">
@@ -586,7 +584,7 @@ function bt_bb_settings() {
 						</fieldset></td>
 					</tr>
 					<tr>
-						<th scope="row"><?php _e( 'Post Types', 'bold-builder' ); ?></th>
+						<th scope="row"><?php _e( 'Post types', 'bold-builder' ); ?></th>
 						<td><fieldset><legend class="screen-reader-text"><span><?php _e( 'Post Types', 'bold-builder' ); ?></span></legend>
 						<p>
 						<?php 
@@ -605,7 +603,7 @@ function bt_bb_settings() {
 						</fieldset></td>
 					</tr>
 					<tr>
-						<th scope="row"><?php _e( 'Color Schemes', 'bold-builder' ); ?></th>
+						<th scope="row"><?php _e( 'Color schemes', 'bold-builder' ); ?></th>
 						<td><fieldset><legend class="screen-reader-text"><span><?php _e( 'Color Schemes', 'bold-builder' ); ?></span></legend>
 						<p>
 						<textarea name="bt_bb_settings[color_schemes]" rows="10" cols="50"><?php echo sanitize_textarea_field( $color_schemes ); ?></textarea>
@@ -1621,11 +1619,11 @@ class BT_BB_Element extends BT_BB_Basic_Element {
 			);
 		}
 		
-		$params[] = array( 'param_name' => 'publish_datetime', 'type' => 'datetime-local', 'heading' => esc_html__( 'Publish date', 'bold-builder' ), 'description' => esc_html__( 'Please, fill both the date and time', 'bold-builder' ), 'group' => esc_html__( 'Custom', 'bold-builder' ), 'weight' => 990 );
-		$params[] = array( 'param_name' => 'expiry_datetime', 'type' => 'datetime-local', 'heading' => esc_html__( 'Expiry date', 'bold-builder' ), 'description' => esc_html__( 'Please, fill both the date and time', 'bold-builder' ), 'group' => esc_html__( 'Custom', 'bold-builder' ), 'weight' => 995 );
+		$params[] = array( 'param_name' => 'publish_datetime', 'type' => 'datetime-local', 'heading' => esc_html__( 'Publish date', 'bold-builder' ), 'description' => esc_html__( 'Fill both the date and time', 'bold-builder' ), 'group' => esc_html__( 'Custom', 'bold-builder' ), 'weight' => 990 );
+		$params[] = array( 'param_name' => 'expiry_datetime', 'type' => 'datetime-local', 'heading' => esc_html__( 'Expiry date', 'bold-builder' ), 'description' => esc_html__( 'Fill both the date and time', 'bold-builder' ), 'group' => esc_html__( 'Custom', 'bold-builder' ), 'weight' => 995 );
 		$params[] = array( 'param_name' => 'el_id', 'preview' => true, 'type' => 'textfield', 'heading' => esc_html__( 'Element ID', 'bold-builder' ), 'group' => esc_html__( 'Custom', 'bold-builder' ), 'weight' => 1000 );
 		$params[] = array( 'param_name' => 'el_class', 'type' => 'textfield', 'heading' => esc_html__( 'Extra class name(s)', 'bold-builder' ), 'group' => esc_html__( 'Custom', 'bold-builder' ), 'weight' => 1005 );
-		$params[] = array( 'param_name' => 'el_style', 'type' => 'textfield', 'heading' => esc_html__( 'Inline style', 'bold-builder' ), 'group' => esc_html__( 'Custom', 'bold-builder' ), 'weight' => 1010 );
+		$params[] = array( 'param_name' => 'el_style', 'type' => 'textfield', 'heading' => esc_html__( 'Inline CSS style', 'bold-builder' ), 'group' => esc_html__( 'Custom', 'bold-builder' ), 'weight' => 1010 );
 		
 		$params[] = array( 'param_name' => 'bb_version', 'type' => 'hidden', 'value' => BT_BB_VERSION );
 		
@@ -1640,14 +1638,14 @@ class BT_BB_Element extends BT_BB_Basic_Element {
 					esc_html__( 'Move Left', 'bold-builder' ) => 'move_left',
 					esc_html__( 'Move Right', 'bold-builder' ) => 'move_right',
 					esc_html__( 'Move Down', 'bold-builder' ) => 'move_down',
-					esc_html__( 'Zoom in', 'bold-builder' ) => 'zoom_in',
-					esc_html__( 'Zoom out', 'bold-builder' ) => 'zoom_out',
+					esc_html__( 'Zoom In', 'bold-builder' ) => 'zoom_in',
+					esc_html__( 'Zoom Out', 'bold-builder' ) => 'zoom_out',
 					esc_html__( 'Fade In / Move Up', 'bold-builder' ) => 'fade_in move_up',
 					esc_html__( 'Fade In / Move Left', 'bold-builder' ) => 'fade_in move_left',
 					esc_html__( 'Fade In / Move Right', 'bold-builder' ) => 'fade_in move_right',
 					esc_html__( 'Fade In / Move Down', 'bold-builder' ) => 'fade_in move_down',
-					esc_html__( 'Fade In / Zoom in', 'bold-builder' ) => 'fade_in zoom_in',
-					esc_html__( 'Fade In / Zoom out', 'bold-builder' ) => 'fade_in zoom_out'
+					esc_html__( 'Fade In / Zoom In', 'bold-builder' ) => 'fade_in zoom_in',
+					esc_html__( 'Fade In / Zoom Out', 'bold-builder' ) => 'fade_in zoom_out'
 				)
 			);
 		}

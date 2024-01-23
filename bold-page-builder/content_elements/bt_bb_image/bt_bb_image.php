@@ -235,7 +235,7 @@ class bt_bb_image extends BT_BB_Element {
 				array( 'param_name' => 'size', 'type' => 'dropdown', 'heading' => esc_html__( 'Size', 'bold-builder' ), 'preview' => true,
 					'value' => bt_bb_get_image_sizes()
 				),
-				array( 'param_name' => 'image_height', 'type' => 'textfield', 'heading' => esc_html__( 'Image height', 'bold-builder' )),
+				array( 'param_name' => 'image_height', 'type' => 'textfield', 'heading' => esc_html__( 'Image height', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 90px', 'bold-builder' ) ),
 				array( 'param_name' => 'shape', 'type' => 'dropdown', 'heading' => esc_html__( 'Shape', 'bold-builder' ),
 					'value' => array(
 						esc_html__( 'Square', 'bold-builder' ) 			=> 'square',
@@ -243,7 +243,7 @@ class bt_bb_image extends BT_BB_Element {
 						esc_html__( 'Hard Rounded', 'bold-builder' ) 	=> 'hard-rounded'
 					)
 				),
-				array( 'param_name' => 'lazy_load', 'type' => 'dropdown', 'default' => 'yes', 'heading' => esc_html__( 'Lazy load this image', 'bold-builder' ),
+				array( 'param_name' => 'lazy_load', 'type' => 'dropdown', 'default' => 'yes', 'heading' => esc_html__( 'Lazy load image', 'bold-builder' ),
 					'value' => array(
 						esc_html__( 'No', 'bold-builder' ) 		=> 'no',
 						esc_html__( 'Yes', 'bold-builder' ) 	=> 'yes'
@@ -259,14 +259,14 @@ class bt_bb_image extends BT_BB_Element {
 				),
 				array( 'param_name' => 'caption', 'type' => 'textfield', 'heading' => esc_html__( 'Caption', 'bold-builder' ) ),
 				array( 'param_name' => 'url', 'type' => 'link', 'heading' => esc_html__( 'URL', 'bold-builder' ), 'description' => esc_html__( 'Enter full or local URL (e.g. https://www.bold-themes.com or /pages/about-us), post slug (e.g. about-us)', 'bold-builder' ), 'group' => esc_html__( 'URL', 'bold-builder' ) ),
-				array( 'param_name' => 'target', 'type' => 'dropdown', 'heading' => esc_html__( 'Target', 'bold-builder' ), 'description' => esc_html__( 'To open current image in full size select lightbox and leave url empty.', 'bold-builder' ), 'group' => esc_html__( 'URL', 'bold-builder' ),
+				array( 'param_name' => 'target', 'type' => 'dropdown', 'heading' => esc_html__( 'Target', 'bold-builder' ), 'description' => esc_html__( 'To open current image in full size select Lightbox and leave URL field empty.', 'bold-builder' ), 'group' => esc_html__( 'URL', 'bold-builder' ),
 					'value' => array(
 						esc_html__( 'Self (open in same tab)', 'bold-builder' ) 		=> '_self',
 						esc_html__( 'Blank (open in new tab)', 'bold-builder' ) 		=> '_blank',
 						esc_html__( 'Lightbox (open in new layer)', 'bold-builder' ) 	=> '_lightbox'
 					)
 				),
-				array( 'param_name' => 'hover_style', 'type' => 'dropdown', 'heading' => esc_html__( 'Mouse hover style', 'bold-builder' ), 'group' => esc_html__( 'URL', 'bold-builder' ),
+				array( 'param_name' => 'hover_style', 'type' => 'dropdown', 'heading' => esc_html__( 'Hover style', 'bold-builder' ), 'group' => esc_html__( 'URL', 'bold-builder' ),
 					'value' => array(
 						esc_html__( 'Simple', 'bold-builder' ) 					=> 'simple',
 						esc_html__( 'Flip', 'bold-builder' ) 					=> 'flip',

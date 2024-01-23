@@ -119,8 +119,12 @@ class Klarna extends Local_Gateway {
 			return false;
 		}
 
-		if ( ! in_array( $this->get_billing_country(), $this->allow_countries, true ) ) {
-			return false;
+		// Perform a conditional check based on billing country.
+		// This check is applicable only for the classic checkout. For checkout blocks, it's handled in JavaScript.
+		if ( ! Helper::is_block_checkout() ) {
+			if ( ! in_array( $this->get_billing_country(), $this->allow_countries, true ) ) {
+				return false;
+			}
 		}
 
 		return parent::is_available();

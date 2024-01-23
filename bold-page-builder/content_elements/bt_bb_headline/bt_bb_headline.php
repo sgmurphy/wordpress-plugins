@@ -9,6 +9,7 @@ class bt_bb_headline extends BT_BB_Element {
 			'html_tag'      				=> '',
 			'font'          				=> '',
 			'font_subset'   				=> '',
+			'font_load_extension'   		=> '',
 			'size'     						=> '',
 			'font_size'     				=> '',
 			'font_weight'   				=> '',
@@ -34,7 +35,7 @@ class bt_bb_headline extends BT_BB_Element {
 
 		if ( $font != '' && $font != 'inherit' ) {
 			require_once( dirname(__FILE__) . '/../../content_elements_misc/misc.php' );
-			bt_bb_enqueue_google_font( $font, $font_subset );
+			bt_bb_enqueue_google_font( $font, $font_subset, $font_load_extension );
 		}
 
 		$class = array( $this->shortcode );
@@ -202,7 +203,7 @@ class bt_bb_headline extends BT_BB_Element {
 		require_once( dirname(__FILE__) . '/../../content_elements_misc/misc.php' );
 		$color_scheme_arr = bt_bb_get_color_scheme_param_array();
 
-		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Headline', 'bold-builder' ), 'description' => esc_html__( 'Headline with custom Google fonts (and AI help)', 'bold-builder' ), 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode, 'highlight' => true,
+		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Headline', 'bold-builder' ), 'description' => esc_html__( 'Headline with custom fonts (and AI help)', 'bold-builder' ), 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode, 'highlight' => true,
 			'params' => array(
 				array(
 					'param_name' => 'ai_prompt',
@@ -215,9 +216,9 @@ class bt_bb_headline extends BT_BB_Element {
 						),
 					'system_prompt' => 'You are a copywriter and your goal is to help users generate website content. Based on the user prompt generate supertitle, title and subtitle for the website page.',
 				),
-				array( 'param_name' => 'superheadline', 'type' => 'textfield', 'heading' => esc_html__( 'Superheadline', 'bold-builder' ) ),
-				array( 'param_name' => 'headline', 'type' => 'textarea', 'heading' => esc_html__( 'Headline', 'bold-builder' ), 'preview' => true, 'preview_strong' => true ),
-				array( 'param_name' => 'subheadline', 'type' => 'textarea', 'heading' => esc_html__( 'Subheadline', 'bold-builder' ) ),
+				array( 'param_name' => 'superheadline', 'type' => 'textfield', 'heading' => esc_html__( 'Superheadline', 'bold-builder' ), 'placeholder' => esc_html__( 'Add Superheadline text', 'bold-builder' ) ),
+				array( 'param_name' => 'headline', 'type' => 'textarea', 'heading' => esc_html__( 'Headline', 'bold-builder' ), 'placeholder' => esc_html__( 'Add Headline text', 'bold-builder' ), 'preview' => true, 'preview_strong' => true ),
+				array( 'param_name' => 'subheadline', 'type' => 'textarea', 'heading' => esc_html__( 'Subheadline', 'bold-builder' ), 'placeholder' => esc_html__( 'Add Subheadline text', 'bold-builder' ), ),
 				array( 'param_name' => 'html_tag', 'type' => 'dropdown', 'heading' => esc_html__( 'HTML tag', 'bold-builder' ), 'preview' => true,
 					'value' => array(
 						esc_html__( 'h1', 'bold-builder' ) 	=> 'h1',
@@ -227,7 +228,7 @@ class bt_bb_headline extends BT_BB_Element {
 						esc_html__( 'h5', 'bold-builder' ) 	=> 'h5',
 						esc_html__( 'h6', 'bold-builder' ) 	=> 'h6'
 				) ),
-				array( 'param_name' => 'size', 'type' => 'dropdown', 'heading' => esc_html__( 'Size', 'bold-builder' ), 'description' => esc_html__( 'Predefined heading sizes, independent of html tag', 'bold-builder' ), 'preview' => true, 'responsive_override' => true,
+				array( 'param_name' => 'size', 'type' => 'dropdown', 'heading' => esc_html__( 'Size', 'bold-builder' ), 'description' => esc_html__( 'Predefined Headline sizes, independent of HTML tag', 'bold-builder' ), 'preview' => true, 'responsive_override' => true,
 					'value' => array(
 						esc_html__( 'Inherit', 'bold-builder' ) 	=> 'inherit',
 						esc_html__( 'Extra Small', 'bold-builder' ) => 'extrasmall',
@@ -257,12 +258,14 @@ class bt_bb_headline extends BT_BB_Element {
 				),
 				array( 'param_name' => 'color_scheme', 'type' => 'dropdown', 'heading' => esc_html__( 'Color scheme', 'bold-builder' ), 'description' => esc_html__( 'Define color schemes in Bold Builder settings or define accent and alternate colors in theme customizer (if avaliable)', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ), 'value' => $color_scheme_arr, 'preview' => true ),
 				array( 'param_name' => 'color', 'type' => 'colorpicker', 'heading' => esc_html__( 'Color', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ), 'preview' => true ),
-				array( 'param_name' => 'supertitle_position', 'type' => 'checkbox', 'value' => array( esc_html__( 'Yes', 'bold-builder' ) => 'outside' ), 'default' => 'outside', 'heading' => esc_html__( 'Put supertitle outside H tag', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ), 'preview' => true ),
+				array( 'param_name' => 'supertitle_position', 'type' => 'checkbox', 'value' => array( esc_html__( 'Yes', 'bold-builder' ) => 'outside' ), 'default' => 'outside', 'heading' => esc_html__( 'Put Superheadline outside HTML tag', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ), 'preview' => true ),
 				array( 'param_name' => 'font', 'type' => 'dropdown', 'heading' => esc_html__( 'Font', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ), 'preview' => true,
 					'value' => array( esc_html__( 'Inherit', 'bold-builder' ) => 'inherit' ) + BT_BB_Root::$font_arr
 				),
-				array( 'param_name' => 'font_subset', 'type' => 'textfield', 'heading' => esc_html__( 'Google Font subset', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ), 'value' => 'latin,latin-ext', 'description' => esc_html__( 'E.g. latin,latin-ext,cyrillic,cyrillic-ext', 'bold-builder' ) ),
-				array( 'param_name' => 'font_size', 'type' => 'textfield', 'heading' => esc_html__( 'Custom font size', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ), 'description' => esc_html__( 'E.g. 20px or 1.5rem', 'bold-builder' ) ),
+				array( 'param_name' => 'font_subset', 'type' => 'textfield', 'heading' => esc_html__( 'Google font subset', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ), 'value' => 'latin,latin-ext', 'placeholder' => esc_html__( 'E.g. latin,latin-ext,cyrillic,cyrillic-ext', 'bold-builder' ) ),
+				
+				array( 'param_name' => 'font_load_extension', 'type' => 'textfield', 'heading' => esc_html__( 'Google variable font style specification', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ), 'value' => '', 'description' => __( 'Define Google variable font style specification. For more details, <a href="https://fonts.google.com/knowledge/glossary/variable_fonts" target="_blank">read here</a>. Leave empty to load default font settings.', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. :ital,wght@0,200;1,700', 'bold-builder' ) ),
+				array( 'param_name' => 'font_size', 'type' => 'textfield', 'heading' => esc_html__( 'Custom font size', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 20px or 1.5rem', 'bold-builder' ) ),
 				array( 'param_name' => 'font_weight', 'type' => 'dropdown', 'heading' => esc_html__( 'Headline font weight', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ),
 					'value' => array(
 						esc_html__( 'Default', 'bold-builder' ) 	=> '',

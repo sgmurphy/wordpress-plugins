@@ -81,8 +81,13 @@ document.addEventListener(
 			IUB.ELEMS.body.on( 'click', '.required-control', requiredControl );
 			IUB.ELEMS.body.on( 'click', '.update-button-style', updateButtonStyle );
 			IUB.ELEMS.body.on( 'change keyup past', '.iub-embed-code-tc, .iub-embed-code-pp', syncEmbedCode );
+			IUB.ELEMS.body.on( 'change past', '.iub-embed-code-tc, .iub-embed-code-pp', syncEmbedCode );
 			IUB.ELEMS.body.on( 'change click', '.iub-toggle-elements-status', toggleCheckboxes );
 			IUB.ELEMS.body.on( 'click', '.legislation-checkbox', legislationDivVisibilityHandle );
+			IUB.ELEMS.body.on( 'change', '.iub-embed-code-cs', updateFrontendAutoBlockingStatus);
+			IUB.ELEMS.body.on( 'change', '.cs-configuration-type', updateFrontendAutoBlockingStatus);
+			IUB.ELEMS.body.on( 'click', '.iub-language-tab', handleTabClickForCheckAutoBlockingStatus );
+			IUB.ELEMS.body.on( 'change', '.blocking-method', handleChangeOfBlockingMethods );
 		}
 	);
 
@@ -656,8 +661,8 @@ document.addEventListener(
 						$( '.iub-language-code' ).attr( "disabled", false )
 					}
 				}
-			).trigger( 'change' );
-
+			);
+			$('.cs-configuration-type:checked:first').trigger( 'change' )
 		}
 	);
 
@@ -908,4 +913,127 @@ document.addEventListener(
 			$( alert_div_container ).fadeIn( 300 );
 		}
 	}
+
+	/**
+	 * Gets the code from the event target textarea, if available.
+	 * @param {Event} evt - The event object.
+	 * @returns {string} The code value.
+	 */
+	function getCodeFromEvent(evt) {
+		let targetTextarea = $(evt.target).data('target-textarea');
+		return targetTextarea ? $(targetTextarea).val() : '';
+	}
+
+	/**
+	 * Updates the frontend auto-blocking status based on the event target value.
+	 * @param {Event} evt - The event object.
+	 */
+	function updateFrontendAutoBlockingStatus(evt) {
+		let code = $(evt.target).val();
+		if (code == 'manual') {
+			code = $('.iub-embed-code-cs-container.active textarea.iub-embed-code-cs').val();
+		}
+
+		let configurationType = $('input[name="iubenda_cookie_law_solution[configuration_type]"]:checked').val();
+
+		if (code !== null) {
+			fetchAjaxAutoBlockingStatus(code, configurationType);
+		}
+	}
+
+	/**
+	 * Handles tab clicks to check the auto-blocking status.
+	 * @param {Event} evt - The event object.
+	 */
+	function handleTabClickForCheckAutoBlockingStatus(evt) {
+		let code = getCodeFromEvent(evt);
+		let configurationType = $('input[name="iubenda_cookie_law_solution[configuration_type]"]:checked').val();
+
+		if (code !== null) {
+			fetchAjaxAutoBlockingStatus(code, configurationType);
+		}
+	}
+
+	/**
+	 * Fetches the auto-blocking status via Ajax and updates the UI.
+	 * @param {string} code - The code value.
+	 * @param {string} configurationType - The configuration type.
+	 */
+	function fetchAjaxAutoBlockingStatus(code, configurationType){
+		let activeRequest = false;
+		if (activeRequest) {
+			return;
+		}
+		activeRequest = true;
+
+		$.ajax(
+			{
+				type: "post",
+				dataType: "json",
+				url: iub_js_vars['site_url'] + "/wp-admin/admin-ajax.php",
+				data: {
+					action: "check_frontend_auto_blocking_status",
+					code: code,
+					configuration_type: configurationType,
+					iub_nonce: iub_js_vars['check_frontend_auto_blocking_status'],
+				},
+				success: function(response) {
+					$( '#frontend_auto_blocking' ).prop('checked', response).change()
+					toggleAutoBlockingMessageBox(response)
+					activeRequest = false;
+				},
+				error: function() {
+					activeRequest = false;
+				},
+				complete: function() {
+					activeRequest = false;
+				},
+			}
+		)
+	}
+
+	/**
+	 * Toggles the visibility of the auto-blocking message box based on the provided flag.
+	 * If shouldShow is true, the warning message is shown; if false, the info message is shown.
+	 * @param {boolean} shouldShowWarning - A flag indicating whether to show the warning message (true) or info message (false).
+	 */
+	function toggleAutoBlockingMessageBox(shouldShowWarning) {
+		let warningEl = $('#auto-blocking-warning-message');
+		let infoEl = $('#auto-blocking-info-message');
+
+		if (shouldShowWarning) {
+			warningEl.removeClass('d-flex');
+			infoEl.addClass('d-flex');
+		} else {
+			warningEl.addClass('d-flex');
+			infoEl.removeClass('d-flex');
+		}
+	}
+
+	/**
+	 * Handles changes in blocking methods and displays a warning message if all blocking methods are disabled.
+	 */
+	function handleChangeOfBlockingMethods() {
+		// Get all elements with class "blocking-method"
+		let blockingMethods = $(".blocking-method");
+
+		// Check if all blocking methods are false
+		let allFalse = blockingMethods.toArray().every(function (element) {
+			return !$(element).prop("checked");
+		});
+
+		// Get the warning message element
+		let bothBlockingMethodsDisabledWarningMessage = $("#both-blocking-methods-disabled-warning-message");
+
+		// Show/hide the warning message based on the condition
+		if (allFalse) {
+			// If all blocking methods are disabled, display the warning message
+			bothBlockingMethodsDisabledWarningMessage.addClass('d-flex');
+		} else {
+			// If at least one blocking method is enabled, hide the warning message
+			bothBlockingMethodsDisabledWarningMessage.removeClass('d-flex');
+		}
+	}
+	handleChangeOfBlockingMethods();
+
 }(window, jQuery));

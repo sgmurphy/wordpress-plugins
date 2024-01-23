@@ -3712,7 +3712,7 @@ class Premium_Weather extends Widget_Base {
 
 		$settings = $this->get_settings_for_display();
 
-        $papro_activated = apply_filters( 'papro_activated', false );
+		$papro_activated = apply_filters( 'papro_activated', false );
 
 		if ( ! $papro_activated ) {
 
@@ -3815,7 +3815,7 @@ class Premium_Weather extends Widget_Base {
 				$api_settings['long'] = $long;
 			}
 
-			$transient_name = sprintf( 'pa_weather_%s_%s_%s', $api_key, $id, get_the_ID(  ) );
+			$transient_name = sprintf( 'pa_weather_%s_%s_%s', $api_key, $id, get_the_ID() );
 
 			if ( $is_edit_mode ) {
 				$weather_data = false;
@@ -3841,11 +3841,10 @@ class Premium_Weather extends Widget_Base {
 					<?php
 					return;
 				} else {
-                    $expire_time = HOUR_IN_SECONDS * $settings['reload'];
+					$expire_time = HOUR_IN_SECONDS * $settings['reload'];
 
-                    set_transient( $transient_name, $weather_data, $expire_time );
-                }
-
+					set_transient( $transient_name, $weather_data, $expire_time );
+				}
 			}
 		} else {
 
@@ -3854,13 +3853,13 @@ class Premium_Weather extends Widget_Base {
 			$weather_data = $api_handler::get_weather_data();
 
 			// if ( isset( $weather_data['status'] ) && ! $weather_data['status'] ) {
-                if ( isset( $weather_data['cod'] ) || ( isset( $weather_data['status'] ) && empty( $weather_data['status'] ) ) ) {
+			if ( isset( $weather_data['cod'] ) || ( isset( $weather_data['status'] ) && empty( $weather_data['status'] ) ) ) {
 
 				$notice = __( 'Something Went Wrong, Please make sure you\'ve entered valid data, CODE:', 'premium-addons-for-elementor' ) . $weather_data['cod'];
 
 				?>
 					<div class="premium-error-notice">
-						<?php echo wp_kses_post( $notice ); ?>
+					<?php echo wp_kses_post( $notice ); ?>
 					</div>
 				<?php
 				return;
@@ -3935,9 +3934,15 @@ class Premium_Weather extends Widget_Base {
 			$this->add_render_attribute( 'outer_wrapper', 'data-pa-daily-settings', wp_json_encode( $daily_settings ) );
 		}
 
+		if ( 'layout-2' !== $layout ) {
+			$hourly_data = 'vertical' === $settings['hourly_layout'] ? is_array( $settings['hourly_weather_data'] ) : true;
+		}
+
 		?>
 		<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'outer_wrapper' ) ); ?>>
 		<?php
+
+			// hourly_weather_data
 		if ( 'layout-1' === $layout ) {
 			?>
 				<?php if ( $show_current_weather ) : ?>
@@ -3974,9 +3979,9 @@ class Premium_Weather extends Widget_Base {
 				</div>
 				<?php endif; ?>
 
-				<?php if ( false !== $hourly_forecast && is_array( $settings['hourly_weather_data'] ) ) { ?>
+				<?php if ( false !== $hourly_forecast && $hourly_data ) { ?>
 					<div class="premium-weather__hourly-forecast-wrapper">
-						<?php $this->render_hourly_forecast( $hourly_forecast, $settings ); ?>
+						<?php $this->render_hourly_forecast( $hourly_forecast ); ?>
 					</div>
 				<?php } ?>
 				<?php
@@ -4019,7 +4024,7 @@ class Premium_Weather extends Widget_Base {
 							</div>
 						</div>
 					<?php endif; ?>
-					<?php if ( ( $show_current_weather && count( $extra_weather ) ) || ( false !== $hourly_forecast && is_array( $settings['hourly_weather_data'] ) ) ) : ?>
+					<?php if ( ( $show_current_weather && count( $extra_weather ) ) || ( false !== $hourly_forecast ) ) : ?>
 					<div class="premium-weather__extra-outer-wrapper" <?php // echo $hourly_forecast_css; ?>>
 						<?php if ( $show_current_weather && count( $extra_weather ) ) { ?>
 							<div class="premium-weather__extra-weather">
@@ -4028,8 +4033,8 @@ class Premium_Weather extends Widget_Base {
 							<?php
 						}
 
-						if ( false !== $hourly_forecast && is_array( $settings['hourly_weather_data'] ) ) {
-							$this->render_hourly_forecast( $hourly_forecast, $settings );
+						if ( false !== $hourly_forecast ) {
+							$this->render_hourly_forecast( $hourly_forecast );
 						}
 						?>
 					</div>
@@ -4083,9 +4088,9 @@ class Premium_Weather extends Widget_Base {
 				</div>
 			<?php endif; ?>
 
-			<?php if ( false !== $hourly_forecast && is_array( $settings['hourly_weather_data'] ) ) { ?>
+			<?php if ( false !== $hourly_forecast && $hourly_data ) { ?>
 				<div class="premium-weather__hourly-forecast-wrapper">
-					<?php $this->render_hourly_forecast( $hourly_forecast, $settings ); ?>
+					<?php $this->render_hourly_forecast( $hourly_forecast ); ?>
 				</div>
 
 			<?php } ?>

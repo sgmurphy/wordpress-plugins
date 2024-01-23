@@ -281,7 +281,13 @@ class Iubenda_AMP {
 	public function prepare_amp_template( $code ) {
 		$html = '';
 
-		$configuration_raw    = iubenda()->parse_configuration( $code );
+		$configuration_raw = iubenda()->parse_configuration( $code );
+
+		if ( empty( $configuration_raw ) ) {
+			$code              = stripslashes( $code );
+			$configuration_raw = iubenda()->parse_configuration( $code );
+		}
+
 		$banner_configuration = iubenda()->parse_configuration(
 			$code,
 			array(
@@ -306,7 +312,7 @@ class Iubenda_AMP {
 			// remove quotes.
 			$configuration = preg_replace( '/"([a-zA-Z]+[a-zA-Z0-9]*)":/', '$1:', $configuration );
 			// replace first and last bracket.
-			$configuration = substr( $configuration, 1, -1 );
+			$configuration = substr( $configuration, 1, - 1 );
 
 			// Here we are generating amp page, for this reason no need to use enqueue.
 			// phpcs:disable WordPress.WP.EnqueuedResources.NonEnqueuedScript
@@ -441,7 +447,11 @@ class Iubenda_AMP {
 		}
 
 		$template_dir  = IUBENDA_PLUGIN_PATH . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
-		$template_file = $template_dir . ( ! empty( $lang ) && in_array( (string) $lang, array_keys( iubenda()->languages ), true ) ? 'amp-' . $lang . '.html' : 'amp.html' );
+		if ( ! empty( $lang ) && array_key_exists( (string) $lang, iubenda()->languages ) ) {
+			$template_file = $template_dir . ( 'amp-' . $lang . '.html' );
+		} else {
+			$template_file = $template_dir . ( 'amp.html' );
+		}
 		$html          = $this->prepare_amp_template( $code );
 
 		// bail if the template was not created properly.

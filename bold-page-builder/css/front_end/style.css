@@ -8,7 +8,7 @@
     font-style: normal;
 }
 
-/* Colors */
+/* Shapes */
 @set borderRadius 5px;
 @set borderRadiusUp 5px 5px 0 0;
 @set borderRadiusDown 0 0 5px 5px;
@@ -37,7 +37,6 @@
 @set foldedColor #eee;
 
 /* Mixins */
-
 @mixin dialog-main {
 	font-family: "Source Sans Pro", Arial, Helvetica, sans-serif !important;
 	position: fixed;
@@ -90,7 +89,6 @@
 	color: #777;
 	border-top: 1px solid #ccc;
 	display: flex;
-	/* margin-right: 12px; */
 }
 
 .bt_bb_fe_wrap {
@@ -119,7 +117,7 @@
 		}
 	}
 	.bt_bb_fe_preview_toggle & {
-		 min-height: auto;
+		min-height: auto;
 	}
 	/*body:not(.bt_bb_fe_preview_toggle) & .bt_bb_floating_image {
 		pointer-events: none;
@@ -553,7 +551,7 @@ body:not(.bt_bb_fe_preview_toggle) .bt_bb_text.bt_bb_fe_editing_box > .bt_bb_fe_
 				transition: background 300ms ease,box-shadow 300ms ease;
 			}
 			&:hover:after {
-				background: $(alternateColor);
+				background: #065da1;
 				box-shadow: 0 0 0.8em 0.01em rgba(0,0,0,0.25);
 			}
 		}
@@ -863,7 +861,7 @@ body.bt_bb_fe_dialog_on:not(.bt_bb_fe_preview_toggle) #bt_bb_fe_dialog {
 	pointer-events: all;
 }
 
-/* Add section button*/
+/* Add section button */
 
 body.bt_bb_fe_add_section {
 	background: #fff !important;
@@ -946,7 +944,7 @@ body.bt_bb_fe_add_section {
 	pointer-events: all;
 }
     
-/* Add Section ] */
+/* Add Section */
 
 #bt_bb_fe_save {
 	display: block;
@@ -958,7 +956,7 @@ body.bt_bb_fe_add_section {
 	height: 40px;
 	line-height: 40px;
 	z-index: 100;
-	background: red;
+	background: #ff5d0d;
 	box-shadow: none;
 	border-radius: 50%;
 	cursor: pointer;
@@ -972,6 +970,7 @@ body.bt_bb_fe_add_section {
 	}
 	&:hover {
 		animation: pulse-animation 1s infinite;
+		background: $(alternateColor);
 	}
 	&:before {
 		font-family: bold-builder;

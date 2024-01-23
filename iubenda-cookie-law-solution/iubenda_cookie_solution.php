@@ -3,7 +3,7 @@
  * Plugin Name: iubenda | All-in-one Compliance for GDPR / CCPA Cookie Consent + more
  * Plugin URI: https://www.iubenda.com
  * Description: The iubenda plugin is an <strong>all-in-one</strong>, extremely easy to use 360° compliance solution, with text crafted by actual lawyers, that quickly <strong>scans your site and auto-configures to match your specific setup</strong>.  It supports the GDPR (DSGVO, RGPD), UK-GDPR, ePrivacy, LGPD, USPR, CalOPPA, PECR and more.
- * Version: 3.9.0
+ * Version: 3.10.0
  * Author: iubenda
  * Author URI: https://www.iubenda.com
  * License: MIT License
@@ -45,7 +45,7 @@ define( 'IUB_DEBUG', false );
  * @property Iubenda_Legal_Widget       $widget
  *
  * @class   iubenda
- * @version 3.9.0
+ * @version 3.10.0
  */
 class iubenda {
 // phpcs:enable
@@ -105,6 +105,7 @@ class iubenda {
 				'explicit_accept'    => true,
 				'explicit_reject'    => true,
 				'tcf'                => true,
+                'frontend_auto_blocking'     => array(),
 			),
 		),
 		'pp'   => array(
@@ -137,7 +138,7 @@ class iubenda {
 	 *
 	 * @var string
 	 */
-	public $version = '3.9.0';
+	public $version = '3.10.0';
 
 	/**
 	 * Plugin activation info.
@@ -293,6 +294,11 @@ class iubenda {
 	private $radar_dashboard_widget;
 
 	/**
+	 * @var Auto_Blocking
+	 */
+	public $iub_auto_blocking;
+
+	/**
 	 * Disable object clone.
 	 *
 	 * @throws Exception Cloning is not allowed.
@@ -336,6 +342,7 @@ class iubenda {
 			self::$instance->block                     = new Iubenda_Legal_Block();
 			self::$instance->notice                    = new Iubenda_Notice();
 			self::$instance->no_script_policy_embedder = new No_Script_Policy_Embedder();
+			self::$instance->iub_auto_blocking         = new Auto_Blocking();
 			self::$instance->radar_dashboard_widget    = new Radar_Dashboard_Widget();
 		}
 
@@ -384,7 +391,6 @@ class iubenda {
 		add_action( 'upgrader_overwrote_package', array( $this, 'do_upgrade_processes' ) );
 		add_action( 'after_switch_theme', array( $this, 'assign_legal_block_or_widget' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
-		add_action( 'wp_head', array( $this, 'wp_head_scripts' ), 1 );
 	}
 
 	/**
@@ -533,6 +539,9 @@ class iubenda {
 		include_once IUBENDA_PLUGIN_PATH . 'includes/services/class-iubenda-plugin-setting-service.php';
 		include_once IUBENDA_PLUGIN_PATH . 'includes/services/class-iubenda-code-extractor.php';
 		include_once IUBENDA_PLUGIN_PATH . 'includes/class-no-script-policy-embedder.php';
+		include_once IUBENDA_PLUGIN_PATH . 'includes/class-auto-blocking.php';
+		include_once IUBENDA_PLUGIN_PATH . 'includes/class-auto-blocking-script-appender.php';
+		include_once IUBENDA_PLUGIN_PATH . 'includes/class-sync-script-appender.php';
 		include_once IUBENDA_PLUGIN_PATH . 'includes/class-radar-dashboard-widget.php';
 	}
 
@@ -1655,28 +1664,6 @@ class iubenda {
 	 */
 	public static function is_wp_cli() {
 		return defined('WP_CLI') && WP_CLI;
-	}
-
-	/**
-	 * Custom function to add scripts to the <head> section of WordPress.
-	 *
-	 * This function adds a script to the <head> section only if a valid site ID is available.
-	 * The script is sourced from the Iubenda service for compliance purposes.
-	 *
-	 * @return void
-	 */
-	public function wp_head_scripts() {
-		// Get the site ID from Iubenda global options.
-		$site_id = iub_array_get( iubenda()->options['global_options'], 'site_id' );
-
-		// Is the current configuration type is simplified.
-		$is_cs_simplified = ( new Iubenda_CS_Product_Service() )->is_cs_simplified();
-
-		// Check if the site ID is not empty.
-		if ( $is_cs_simplified && ! empty( $site_id ) ): ?>
-            <script src="https://cs.iubenda.com/sync/<?php echo esc_attr( $site_id ); ?>.js"></script>
-		<?php
-		endif;
 	}
 }
 

@@ -1,7 +1,10 @@
 .bt_bb_video {
 	display: block;
 	position: relative;
-	padding-bottom: 56.25%;
+	--bt-bb-video-aspect-ratio: 16/9;
+	/* padding-bottom: 56.25%; */
+	padding-bottom: calc(100% * 1 / (var(--bt-bb-video-aspect-ratio)));
+	overflow: hidden;
 	> .wp-video {
 		display: block;
 		width: 100% !important;

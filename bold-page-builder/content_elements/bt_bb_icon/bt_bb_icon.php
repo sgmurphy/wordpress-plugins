@@ -107,7 +107,7 @@ class bt_bb_icon extends BT_BB_Element {
 
 		$output = $this->get_html( $icon, $text, $url, $url_title, $target );
 		
-		$output = '<div' . $id_attr . ' class="' . implode( ' ', $class ) . '"' . $style_attr . ' data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">' . $output . '</div>';
+		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . ' data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">' . $output . '</div>';
 		
 		$output = apply_filters( 'bt_bb_general_output', $output, $atts );
 		$output = apply_filters( $this->shortcode . '_output', $output, $atts );
@@ -162,7 +162,7 @@ class bt_bb_icon extends BT_BB_Element {
 		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Icon', 'bold-builder' ), 'description' => esc_html__( 'Single icon with link', 'bold-builder' ), 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
 			'params' => array(
 				array( 'param_name' => 'icon', 'type' => 'iconpicker', 'heading' => esc_html__( 'Icon', 'bold-builder' ), 'preview' => true ),
-				array( 'param_name' => 'text', 'type' => 'textfield', 'heading' => esc_html__( 'Text', 'bold-builder' ), 'preview' => true ),
+				array( 'param_name' => 'text', 'type' => 'textfield', 'heading' => esc_html__( 'Text', 'bold-builder' ), 'placeholder' => esc_html__( 'Add Icon text', 'bold-builder' ), 'preview' => true ),
 				array( 'param_name' => 'url', 'type' => 'link', 'heading' => esc_html__( 'URL', 'bold-builder' ), 'group' => esc_html__( 'URL', 'bold-builder' ), 'description' => esc_html__( 'Enter full or local URL (e.g. https://www.bold-themes.com or /pages/about-us) or post slug (e.g. about-us) or search for existing content.', 'bold-builder' ) ),
 				array( 'param_name' => 'url_title', 'type' => 'textfield', 'group' => esc_html__( 'URL', 'bold-builder' ), 'heading' => esc_html__( 'Mouse hover title', 'bold-builder' ) ),
 				array( 'param_name' => 'target', 'type' => 'dropdown', 'heading' => esc_html__( 'Target', 'bold-builder' ), 'group' => esc_html__( 'URL', 'bold-builder' ),
@@ -189,7 +189,6 @@ class bt_bb_icon extends BT_BB_Element {
 						esc_html__( 'Extra large', 'bold-builder' ) => 'xlarge'
 					)
 				),
-				array( 'param_name' => 'color_scheme', 'type' => 'dropdown', 'heading' => esc_html__( 'Color scheme', 'bold-builder' ), 'description' => esc_html__( 'Define color schemes in Bold Builder settings or define accent and alternate colors in theme customizer (if avaliable)', 'bold-builder' ), 'value' => $color_scheme_arr, 'preview' => true, 'group' => esc_html__( 'Design', 'bold-builder' ) ),
 				array( 'param_name' => 'style', 'type' => 'dropdown', 'heading' => esc_html__( 'Style', 'bold-builder' ), 'preview' => true, 'group' => esc_html__( 'Design', 'bold-builder' ),
 					'value' => array(
 						esc_html__( 'Outline', 'bold-builder' ) => 'outline',
@@ -203,7 +202,9 @@ class bt_bb_icon extends BT_BB_Element {
 						esc_html__( 'Square', 'bold-builder' ) => 'square',
 						esc_html__( 'Rounded Square', 'bold-builder' ) => 'round'
 					)
-				)
+				),
+				array( 'param_name' => 'color_scheme', 'type' => 'dropdown', 'heading' => esc_html__( 'Color scheme', 'bold-builder' ), 'description' => esc_html__( 'Define color schemes in Bold Builder settings or define accent and alternate colors in theme customizer (if avaliable)', 'bold-builder' ), 'value' => $color_scheme_arr, 'preview' => true, 'group' => esc_html__( 'Design', 'bold-builder' ) ),
+				
 			)
 		) );
 	}

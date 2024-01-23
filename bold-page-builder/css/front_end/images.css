@@ -188,6 +188,12 @@
 			}
 		}
 	}
+
+	&:not(.bt_bb_content_exists) {
+		> span > img {
+			pointer-events: none;
+		}
+	}
 	/* Showing and hiding the content */
 	&.bt_bb_content_display_ {
 		&show-on-hover .bt_bb_image_content {

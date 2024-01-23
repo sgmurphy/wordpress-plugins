@@ -5,7 +5,7 @@ Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_c
 Requires at least: 5.0
 Tested Up To: 6.4.2
 Requires PHP: 7.0
-Stable Tag: 4.10.17
+Stable Tag: 4.10.18
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -249,6 +249,13 @@ Premium Addonsis 100% Ads Free, Ads can only be detected from Youtube videos, th
 14. Premium Progress Bar Widget
 
 == Changelog ==
+
+= 4.10.18 =
+
+- New: Added new hover effects to all the buttons all over the plugin - [here](https://premiumaddons.com/button-widget-for-elementor-page-builder/).
+- Fixed: Hourly Forecast option not working with layout #1 in Weahter widget.
+- Fixed: Floating Effects addon not working with nested flexbox containers.
+- Fixed: Conflict with Global Tooltips addon causing Elementor editor not to work.
 
 = 4.10.17 =
 

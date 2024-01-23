@@ -167,20 +167,26 @@ if ( ! function_exists( 'iub_get_request_parameter' ) ) {
 	/**
 	 * Gets the request parameter.
 	 *
-	 * @param   string $key      The query parameter.
-	 * @param   string $default  The default value to return if not found.
+	 * @param   string $key             The query parameter.
+	 * @param   string $default         The default value to return if not found.
+	 * @param   string $with_sanitize   With sanitize. Default true.
 	 *
 	 * @return     string  The request parameter.
 	 */
-	function iub_get_request_parameter( string $key, $default = '' ) {
+	function iub_get_request_parameter( string $key, $default = '', $with_sanitize = true ) {
 		// If key not exist or empty return default.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! isset( $_REQUEST[ $key ] ) || empty( $_REQUEST[ $key ] ) ) {
 			return $default;
 		}
 
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		return sanitize_key( $_REQUEST[ $key ] );
+		if ( $with_sanitize ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return sanitize_key( $_REQUEST[ $key ] );
+		}
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		return $_REQUEST[ $key ];
 	}
 }
 

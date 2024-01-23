@@ -4,21 +4,22 @@ class bt_bb_button extends BT_BB_Element {
 
 	function handle_shortcode( $atts, $content ) {
 		extract( shortcode_atts( apply_filters( 'bt_bb_extract_atts_' . $this->shortcode, array(
-			'text'				=> '',
-			'icon'				=> '',
-			'icon_position'		=> '',
-			'url'				=> '',
-			'target'			=> '',
-			'color_scheme'  	=> '',
-			'font'          	=> '',
-			'font_subset'   	=> '',
-			'font_weight'   	=> '',
-			'text_transform'   => '',
-			'style'				=> '',
-			'size'				=> '',
-			'width'				=> '',
-			'shape'				=> '',
-			'align'				=> 'inherit'
+			'text'						=> '',
+			'icon'						=> '',
+			'icon_position'				=> '',
+			'url'						=> '',
+			'target'					=> '',
+			'color_scheme'  			=> '',
+			'font'          			=> '',
+			'font_subset'   			=> '',
+			'font_load_extension'   	=> '',
+			'font_weight'   			=> '',
+			'text_transform'   			=> '',
+			'style'						=> '',
+			'size'						=> '',
+			'width'						=> '',
+			'shape'						=> '',
+			'align'						=> 'inherit'
 		) ), $atts, $this->shortcode ) );
 		
 		$class = array( $this->shortcode );
@@ -26,7 +27,7 @@ class bt_bb_button extends BT_BB_Element {
 
 		if ( $font != '' && $font != 'inherit' ) {
 			require_once( dirname(__FILE__) . '/../../content_elements_misc/misc.php' );
-			bt_bb_enqueue_google_font( $font, $font_subset );
+			bt_bb_enqueue_google_font( $font, $font_subset, $font_load_extension );
 		}		
 		
 		if ( $el_class != '' ) {
@@ -125,7 +126,7 @@ class bt_bb_button extends BT_BB_Element {
 		
 		$output = $this->get_html( $icon, $text, $font, $url, $target );
 		
-		$output = '<div' . $id_attr . ' class="' . implode( ' ', $class ) . '"' . $style_attr . ' data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">' . $output . '</div>';
+		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . ' data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">' . $output . '</div>';
 		
 		$output = apply_filters( 'bt_bb_general_output', $output, $atts );
 		$output = apply_filters( $this->shortcode . '_output', $output, $atts );
@@ -177,9 +178,9 @@ class bt_bb_button extends BT_BB_Element {
 
 		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Button', 'bold-builder' ), 'description' => esc_html__( 'Button with custom link', 'bold-builder' ), 'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
 			'params' => array(
-				array( 'param_name' => 'text', 'type' => 'textfield', 'heading' => esc_html__( 'Text', 'bold-builder' ), 'placeholder' => esc_html__( 'Text', 'bold-builder' ), 'preview' => true ),
+				array( 'param_name' => 'text', 'type' => 'textfield', 'heading' => esc_html__( 'Text', 'bold-builder' ), 'placeholder' => esc_html__( 'Add Button Text', 'bold-builder' ), 'preview' => true ),
 				array( 'param_name' => 'icon', 'type' => 'iconpicker', 'heading' => esc_html__( 'Icon', 'bold-builder' ), 'preview' => true ),
-				array( 'param_name' => 'icon_position', 'type' => 'dropdown', 'heading' => esc_html__( 'Icon Position', 'bold-builder' ),
+				array( 'param_name' => 'icon_position', 'type' => 'dropdown', 'heading' => esc_html__( 'Icon position', 'bold-builder' ),
 					'value' => array(
 						esc_html__( 'Left', 'bold-builder' ) 	=> 'left',
 						esc_html__( 'Right', 'bold-builder' ) 	=> 'right'
@@ -208,39 +209,6 @@ class bt_bb_button extends BT_BB_Element {
 						esc_html__( 'Normal', 'bold-builder' ) 		=> 'normal',
 						esc_html__( 'Large', 'bold-builder' ) 		=> 'large'
 					)
-				),				
-				array( 'param_name' => 'color_scheme', 'type' => 'dropdown', 'heading' => esc_html__( 'Color scheme', 'bold-builder' ), 'description' => esc_html__( 'Define color schemes in Bold Builder settings or define accent and alternate colors in theme customizer (if avaliable)', 'bold-builder' ), 'value' => $color_scheme_arr, 'preview' => true, 'group' => esc_html__( 'Design', 'bold-builder' ) ),
-				array( 'param_name' => 'font', 'type' => 'dropdown', 'heading' => esc_html__( 'Font', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ), 'preview' => true,
-					'value' => array( esc_html__( 'Inherit', 'bold-builder' ) => 'inherit' ) + BT_BB_Root::$font_arr
-				),
-				array( 'param_name' => 'font_subset', 'type' => 'textfield', 'heading' => esc_html__( 'Google Font subset', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ), 'value' => 'latin,latin-ext', 'description' => esc_html__( 'E.g. latin,latin-ext,cyrillic,cyrillic-ext', 'bold-builder' ) ),
-				array( 'param_name' => 'font_weight', 'type' => 'dropdown', 'heading' => esc_html__( 'Font weight', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ),
-					'value' => array(
-						esc_html__( 'Default', 'bold-builder' ) 	=> '',
-						esc_html__( 'Normal', 'bold-builder' ) 		=> 'normal',
-						esc_html__( 'Bold', 'bold-builder' ) 		=> 'bold',
-						esc_html__( 'Bolder', 'bold-builder' ) 		=> 'bolder',
-						esc_html__( 'Lighter', 'bold-builder' ) 	=> 'lighter',
-						esc_html__( 'Light', 'bold-builder' ) 		=> 'light',
-						esc_html__( '100', 'bold-builder' ) 		=> '100',
-						esc_html__( '200', 'bold-builder' ) 		=> '200',
-						esc_html__( '300', 'bold-builder' ) 		=> '300',
-						esc_html__( '400', 'bold-builder' ) 		=> '400',
-						esc_html__( '500', 'bold-builder' ) 		=> '500',
-						esc_html__( '600', 'bold-builder' ) 		=> '600',
-						esc_html__( '700', 'bold-builder' ) 		=> '700',
-						esc_html__( '800', 'bold-builder' ) 		=> '800',
-						esc_html__( '900', 'bold-builder' ) 		=> '900'
-					)
-				),
-				array( 'param_name' => 'text_transform', 'type' => 'dropdown', 'heading' => esc_html__( 'Text transform', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ),
-					'value' => array(
-						esc_html__( 'Inherit', 'bold-builder' ) 	=> 'inherit',
-						esc_html__( 'None', 'bold-builder' ) 		=> 'none',
-						esc_html__( 'UPPERCASE', 'bold-builder' ) 	=> 'uppercase',
-						esc_html__( 'Lowercase', 'bold-builder' ) 	=> 'lowercase',
-						esc_html__( 'Capitalize', 'bold-builder' ) 	=> 'capitalize'
-					)
 				),
 				array( 'param_name' => 'style', 'type' => 'dropdown', 'heading' => esc_html__( 'Style', 'bold-builder' ), 'preview' => true, 'group' => esc_html__( 'Design', 'bold-builder' ),
 					'value' => array(
@@ -262,7 +230,45 @@ class bt_bb_button extends BT_BB_Element {
 						esc_html__( 'Inline', 'bold-builder' ) 			=> 'inline',
 						esc_html__( 'Full', 'bold-builder' ) 			=> 'full'
 					)
-				)
+				),
+				array( 'param_name' => 'color_scheme', 'type' => 'dropdown', 'heading' => esc_html__( 'Color scheme', 'bold-builder' ), 'description' => esc_html__( 'Define color schemes in Bold Builder settings or define accent and alternate colors in theme customizer (if avaliable)', 'bold-builder' ), 'value' => $color_scheme_arr, 'preview' => true, 'group' => esc_html__( 'Design', 'bold-builder' ) ),
+				
+				array( 'param_name' => 'font', 'type' => 'dropdown', 'heading' => esc_html__( 'Font', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ), 'preview' => true,
+					'value' => array( esc_html__( 'Inherit', 'bold-builder' ) => 'inherit' ) + BT_BB_Root::$font_arr
+				),
+				array( 'param_name' => 'font_subset', 'type' => 'textfield', 'heading' => esc_html__( 'Google font subset', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ), 'value' => 'latin,latin-ext', 'description' => esc_html__( 'E.g. latin,latin-ext,cyrillic,cyrillic-ext', 'bold-builder' ) ),
+				array( 'param_name' => 'font_load_extension', 'type' => 'textfield', 'heading' => esc_html__( 'Google variable font style specification', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ), 'value' => '', 'description' => __( 'Define Google variable font style specification. For more details, <a href="https://fonts.google.com/knowledge/glossary/variable_fonts" target="_blank">read here</a>. Leave empty to load default font settings.', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. :ital,wght@0,200;1,700', 'bold-builder' ) ),
+				array( 'param_name' => 'font_weight', 'type' => 'dropdown', 'heading' => esc_html__( 'Font weight', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ),
+					'value' => array(
+						esc_html__( 'Default', 'bold-builder' ) 	=> '',
+						esc_html__( 'Normal', 'bold-builder' ) 		=> 'normal',
+						esc_html__( 'Bold', 'bold-builder' ) 		=> 'bold',
+						esc_html__( 'Bolder', 'bold-builder' ) 		=> 'bolder',
+						esc_html__( 'Lighter', 'bold-builder' ) 	=> 'lighter',
+						esc_html__( 'Light', 'bold-builder' ) 		=> 'light',
+						esc_html__( '100', 'bold-builder' ) 		=> '100',
+						esc_html__( '200', 'bold-builder' ) 		=> '200',
+						esc_html__( '300', 'bold-builder' ) 		=> '300',
+						esc_html__( '400', 'bold-builder' ) 		=> '400',
+						esc_html__( '500', 'bold-builder' ) 		=> '500',
+						esc_html__( '600', 'bold-builder' ) 		=> '600',
+						esc_html__( '700', 'bold-builder' ) 		=> '700',
+						esc_html__( '800', 'bold-builder' ) 		=> '800',
+						esc_html__( '900', 'bold-builder' ) 		=> '900'
+					)
+				),
+				array( 'param_name' => 'text_transform', 'type' => 'dropdown', 'heading' => esc_html__( 'Text transform', 'bold-builder' ), 'group' => esc_html__( 'Font', 'bold-builder' ),
+					'value' => array(
+						esc_html__( 'Inherit', 'bold-builder' ) 	=> 'inherit',
+						esc_html__( 'None', 'bold-builder' ) 		=> 'none',
+						esc_html__( 'UPPERCASE', 'bold-builder' ) 	=> 'uppercase',
+						esc_html__( 'Lowercase', 'bold-builder' ) 	=> 'lowercase',
+						esc_html__( 'Capitalize', 'bold-builder' ) 	=> 'capitalize'
+					)
+				),
+				
+				
+				
 			)
 		) );
 	} 

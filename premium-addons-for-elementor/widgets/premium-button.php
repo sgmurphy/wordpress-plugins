@@ -252,9 +252,95 @@ class Premium_Button extends Widget_Base {
 					'style5' => __( 'In & Out', 'premium-addons-for-elementor' ),
 					'style6' => __( 'Grow', 'premium-addons-for-elementor' ),
 					'style7' => __( 'Double Layers', 'premium-addons-for-elementor' ),
+                    'style8' => __( 'Animated Underline', 'premium-addons-for-elementor' ),
 				),
 				'separator'   => 'before',
 				'label_block' => true,
+			)
+		);
+
+        $this->add_control(
+			'underline_style',
+			array(
+				'label'       => __( 'Underline Style', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'line1',
+				'options'     => array(
+					'line1' => __( 'Style 1', 'premium-addons-for-elementor' ),
+					'line2' => __( 'Style 2', 'premium-addons-for-elementor' ),
+					'line3' => __( 'Style 3', 'premium-addons-for-elementor' ),
+					'line4' => __( 'Style 4', 'premium-addons-for-elementor' ),
+					'line5' => __( 'Style 5', 'premium-addons-for-elementor' ),
+					'line6' => __( 'Style 6', 'premium-addons-for-elementor' ),
+                    'line7' => __( 'Style 7', 'premium-addons-for-elementor' ),
+				),
+				'condition'   => array(
+					'premium_button_hover_effect' => 'style8',
+				),
+				'label_block' => true,
+			)
+		);
+
+        $this->add_responsive_control(
+			'line_width',
+			array(
+				'label'     => __( 'Line Width (%)', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SLIDER,
+				'condition' => array(
+					'premium_button_hover_effect' => 'style8',
+                    'underline_style' => [ 'line1', 'line3', 'line5' ]
+				),
+                'default' => [
+                    'size'=> 100
+                ],
+				'selectors' => array(
+					'{{WRAPPER}} .premium-btn-svg, {{WRAPPER}} .premium-button-line5::before, {{WRAPPER}} .premium-button-line5::after' => 'width: {{SIZE}}%',
+				),
+			)
+		);
+
+        $this->add_responsive_control(
+			'line_height',
+			array(
+				'label'     => __( 'Line Height (PX)', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SLIDER,
+				'condition' => array(
+					'premium_button_hover_effect' => 'style8',
+                    'underline_style!' => [ 'line1', 'line3', 'line4' ]
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-button-line2::before, {{WRAPPER}} .premium-button-line5::before, {{WRAPPER}} .premium-button-line5::after, {{WRAPPER}} .premium-button-line6::before, {{WRAPPER}} .premium-button-line7::before' => 'height: {{SIZE}}px',
+				),
+			)
+		);
+
+        $this->add_responsive_control(
+			'line_h_position',
+			array(
+				'label'     => __( 'Line Horizontal Position (%)', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SLIDER,
+				'condition' => array(
+					'premium_button_hover_effect' => 'style8',
+                    'underline_style'             => array( 'line3', 'line5' ),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-btn-line-wrap, {{WRAPPER}} .premium-button-line5::before, {{WRAPPER}} .premium-button-line5::after' => 'left: {{SIZE}}%',
+				),
+			)
+		);
+
+        $this->add_responsive_control(
+			'line_v_position',
+			array(
+				'label'     => __( 'Line Vertical Position (%)', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SLIDER,
+				'condition' => array(
+					'premium_button_hover_effect' => 'style8',
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-btn-line-wrap, {{WRAPPER}} .premium-button-line2::before, {{WRAPPER}} .premium-button-line5::before, {{WRAPPER}} .premium-button-line6::before, {{WRAPPER}} .premium-button-line7::before' => 'top: {{SIZE}}%',
+                    '{{WRAPPER}} .premium-button-line5::after' => 'top: calc( ( {{SIZE}}% + 2px ) + {{line_height.SIZE}}px )',
+				),
 			)
 		);
 
@@ -561,7 +647,7 @@ class Premium_Button extends Widget_Base {
 						)
 					),
 					'selectors' => array(
-						'{{WRAPPER}} .premium-button-text-icon-wrapper svg *' => 'stroke-width: {{SIZE}}',
+						'{{WRAPPER}} .premium-button-text-icon-wrapper svg:not(.premium-btn-svg) *' => 'stroke-width: {{SIZE}}',
 					),
 				)
 			);
@@ -986,7 +1072,6 @@ class Premium_Button extends Widget_Base {
 			array(
 				'label'     => __( 'onclick Event', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'separator' => 'before',
 			)
 		);
 
@@ -1272,7 +1357,7 @@ class Premium_Button extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .premium-button, {{WRAPPER}} .premium-button-line6::after' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -1295,7 +1380,7 @@ class Premium_Button extends Widget_Base {
 					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-button:hover .premium-button-text-icon-wrapper span'   => 'color: {{VALUE}};',
+					'{{WRAPPER}} .premium-button:hover .premium-button-text-icon-wrapper span, {{WRAPPER}} .premium-button-line6::after'   => 'color: {{VALUE}};',
 				),
 				'condition' => array(
 					'premium_button_hover_effect!' => 'style4',
@@ -1319,6 +1404,24 @@ class Premium_Button extends Widget_Base {
 					'premium_button_icon_switcher' => 'yes',
 					'icon_type'                    => 'icon',
 					'premium_button_hover_effect!' => 'style4',
+				),
+			)
+		);
+
+        $this->add_control(
+			'underline_color',
+			array(
+				'label'     => __( 'Line Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+                'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-btn-svg'   => 'stroke: {{VALUE}};',
+                    '{{WRAPPER}} .premium-button-line2::before, {{WRAPPER}} .premium-button-line4::before, {{WRAPPER}} .premium-button-line5::before, {{WRAPPER}} .premium-button-line5::after, {{WRAPPER}} .premium-button-line6::before, {{WRAPPER}} .premium-button-line7::before'   => 'background-color: {{VALUE}};'
+				),
+				'condition' => array(
+					'premium_button_hover_effect' => 'style8',
 				),
 			)
 		);
@@ -1372,7 +1475,7 @@ class Premium_Button extends Widget_Base {
 					'default' => Global_Colors::COLOR_TEXT,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-button-none:hover, {{WRAPPER}} .premium-button-style1:before, {{WRAPPER}} .premium-button-style2-shutouthor:before, {{WRAPPER}} .premium-button-style2-shutoutver:before, {{WRAPPER}} .premium-button-style2-shutinhor, {{WRAPPER}} .premium-button-style2-shutinver, {{WRAPPER}} .premium-button-style2-dshutinhor:before, {{WRAPPER}} .premium-button-style2-dshutinver:before, {{WRAPPER}} .premium-button-style2-scshutouthor:before, {{WRAPPER}} .premium-button-style2-scshutoutver:before, {{WRAPPER}} .premium-button-style3-after:hover, {{WRAPPER}} .premium-button-style3-before:hover, {{WRAPPER}} .premium-button-style4-icon-wrapper, {{WRAPPER}} .premium-button-style5-radialin, {{WRAPPER}} .premium-button-style5-radialout:before, {{WRAPPER}} .premium-button-style5-rectin, {{WRAPPER}} .premium-button-style5-rectout:before, {{WRAPPER}} .premium-button-style6-bg, {{WRAPPER}} .premium-button-style6:before' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .premium-button-none:hover, {{WRAPPER}} .premium-button-style8:hover, {{WRAPPER}} .premium-button-style1:before, {{WRAPPER}} .premium-button-style2-shutouthor:before, {{WRAPPER}} .premium-button-style2-shutoutver:before, {{WRAPPER}} .premium-button-style2-shutinhor, {{WRAPPER}} .premium-button-style2-shutinver, {{WRAPPER}} .premium-button-style2-dshutinhor:before, {{WRAPPER}} .premium-button-style2-dshutinver:before, {{WRAPPER}} .premium-button-style2-scshutouthor:before, {{WRAPPER}} .premium-button-style2-scshutoutver:before, {{WRAPPER}} .premium-button-style3-after:hover, {{WRAPPER}} .premium-button-style3-before:hover, {{WRAPPER}} .premium-button-style4-icon-wrapper, {{WRAPPER}} .premium-button-style5-radialin, {{WRAPPER}} .premium-button-style5-radialout:before, {{WRAPPER}} .premium-button-style5-rectin, {{WRAPPER}} .premium-button-style5-rectout:before, {{WRAPPER}} .premium-button-style6-bg, {{WRAPPER}} .premium-button-style6:before' => 'background-color: {{VALUE}}',
 				),
 				'condition' => array(
 					'premium_button_hover_effect!' => 'style7',
@@ -1684,7 +1787,11 @@ class Premium_Button extends Widget_Base {
 			$this->add_render_attribute( 'style6', 'class', 'premium-button-style6-bg' );
 		} elseif ( 'style7' === $settings['premium_button_hover_effect'] ) {
 			$style_dir = 'premium-button-style7-' . $settings['premium_button_style4_dir'];
-		}
+		} else {
+            $style_dir = 'premium-button-' . $settings['underline_style'];
+
+            $this->add_render_attribute( 'button', 'data-text', $button_text );
+        }
 
 		$this->add_render_attribute(
 			'button',
@@ -1716,6 +1823,8 @@ class Premium_Button extends Widget_Base {
 		<a <?php echo wp_kses_post( $this->get_render_attribute_string( 'button' ) ); ?>>
 			<div class="premium-button-text-icon-wrapper">
 				<?php if ( 'yes' === $settings['premium_button_icon_switcher'] ) : ?>
+
+                    <!-- Before Icon -->
 					<?php if ( 'before' === $settings['premium_button_icon_position'] && 'style4' !== $settings['premium_button_hover_effect'] ) : ?>
 						<?php if ( 'icon' === $icon_type ) : ?>
 							<?php
@@ -1740,9 +1849,12 @@ class Premium_Button extends Widget_Base {
 						<?php endif; ?>
 					<?php endif; ?>
 				<?php endif; ?>
+
 				<span <?php echo wp_kses_post( $this->get_render_attribute_string( 'premium_button_text' ) ); ?>>
 					<?php echo wp_kses_post( $button_text ); ?>
 				</span>
+
+                <!-- After Icon -->
 				<?php if ( 'yes' === $settings['premium_button_icon_switcher'] ) : ?>
 					<?php if ( 'after' === $settings['premium_button_icon_position'] && 'style4' !== $settings['premium_button_hover_effect'] ) : ?>
 						<?php if ( 'icon' === $icon_type ) : ?>
@@ -1769,6 +1881,7 @@ class Premium_Button extends Widget_Base {
 					<?php endif; ?>
 				<?php endif; ?>
 			</div>
+
 			<?php if ( 'style4' === $settings['premium_button_hover_effect'] ) : ?>
 				<div class="premium-button-style4-icon-wrapper <?php echo esc_attr( $settings['premium_button_style4_dir'] ); ?>">
 					<?php if ( 'icon' === $slide_icon_type ) : ?>
@@ -1784,9 +1897,15 @@ class Premium_Button extends Widget_Base {
 					<?php endif; ?>
 				</div>
 			<?php endif; ?>
+
 			<?php if ( 'style6' === $settings['premium_button_hover_effect'] && 'yes' === $mouse_detect ) : ?>
 				<span <?php echo wp_kses_post( $this->get_render_attribute_string( 'style6' ) ); ?>></span>
 			<?php endif; ?>
+
+            <?php if ( 'style8' === $settings['premium_button_hover_effect'] ) : ?>
+                <?php echo Helper_Functions::get_btn_svgs( $settings['underline_style'] ); ?>
+			<?php endif; ?>
+
 		</a>
 
 
@@ -1864,7 +1983,28 @@ class Premium_Button extends Widget_Base {
 			view.addRenderAttribute( 'style6','class' , 'premium-button-style6-bg' );
 		} else if ( 'style7' === hoverEffect ) {
 			styleDir = 'premium-button-style7-' + settings.premium_button_style4_dir;
-		}
+		} else {
+            styleDir = 'premium-button-' + settings.underline_style;
+
+            var btnSVG = '';
+            switch ( settings.underline_style ) {
+                case 'line1':
+                    btnSVG = '<div class="premium-btn-line-wrap"><svg class="premium-btn-svg" width="100%" height="9" viewBox="0 0 101 9"><path d="M.426 1.973C4.144 1.567 17.77-.514 21.443 1.48 24.296 3.026 24.844 4.627 27.5 7c3.075 2.748 6.642-4.141 10.066-4.688 7.517-1.2 13.237 5.425 17.59 2.745C58.5 3 60.464-1.786 66 2c1.996 1.365 3.174 3.737 5.286 4.41 5.423 1.727 25.34-7.981 29.14-1.294" pathLength="1"></path></svg></div>';
+                    break;
+
+                case 'line3':
+                    btnSVG = '<div class="premium-btn-line-wrap"><svg class="premium-btn-svg" width="100%" height="18" viewBox="0 0 59 18"><path d="M.945.149C12.3 16.142 43.573 22.572 58.785 10.842" pathLength="1"></path></svg></div>';
+                    break;
+
+                case 'line4':
+                    btnSVG = '<svg class="premium-btn-svg" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path></svg>';
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
 
 		if( 'yes' === settings.premium_button_icon_switcher ) {
 
@@ -1925,7 +2065,7 @@ class Premium_Button extends Widget_Base {
 
 		#>
 
-		<a class="premium-button {{ buttonSize }} {{ styleDir }} {{ changeToScope }} premium-button-{{hoverEffect}}" href="{{ buttonUrl }}" onclick="{{ buttonEvent }}">
+		<a class="premium-button {{ buttonSize }} {{ styleDir }} {{ changeToScope }} premium-button-{{hoverEffect}}" href="{{ buttonUrl }}" onclick="{{ buttonEvent }}" data-text="{{ buttonText }}">
 			<div class="premium-button-text-icon-wrapper">
 				<# if ('yes' === settings.premium_button_icon_switcher ) {
 					if( 'before' === settings.premium_button_icon_position &&  'style4' !== hoverEffect ) {
@@ -1980,6 +2120,10 @@ class Premium_Button extends Widget_Base {
 			<# if( 'style6' === hoverEffect  && 'yes' === mouseDetect) { #>
 				<span {{{ view.getRenderAttributeString('style6') }}}></span>
 			<# } #>
+
+            <# if( 'style8' === hoverEffect ) { #>
+                {{{ btnSVG }}}
+            <# } #>
 		</a>
 
 

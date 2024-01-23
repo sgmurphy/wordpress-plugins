@@ -79,7 +79,7 @@ class Alipay extends Local_Gateway {
 	public function method_description() {
 		$payment_description = $this->payment_description();
 		/* translators: HTML Entities.*/
-		$extra_description = $this->is_current_section() && 'EUR' === get_woocommerce_currency() ? sprintf( __( '%1$sEUR%2$s is supported only for billing country %1$sDenmark (DK), Belgium (BE), Bulgaria (BG), Cyprus (CY), Czech Republic (CZ), Estonia (EE), Finland (FI), France (FR), Germany (DE), Greece (GR), Ireland (IE), Italy (IT), Latvia (LV), Lithuania (LT), Luxembourg (LU), Malta (MT), Netherlands (NL), Norway (NO), Portugal (PT), Romania (RO), Slovakia (SK), Slovenia (SI), Spain (ES), Sweden (SE), and Switzerland (CH)%2$s.', 'checkout-plugins-stripe-woo' ), '<strong>', '</strong>' ) : '';
+		$extra_description = $this->is_current_section() && 'EUR' === get_woocommerce_currency() ? sprintf( __( '%1$sEUR%2$s is supported only for billing country %1$sDenmark (DK), Belgium (BE), Austria (AT), Bulgaria (BG), Cyprus (CY), Czech Republic (CZ), Estonia (EE), Finland (FI), France (FR), Germany (DE), Greece (GR), Ireland (IE), Italy (IT), Latvia (LV), Lithuania (LT), Luxembourg (LU), Malta (MT), Netherlands (NL), Norway (NO), Portugal (PT), Romania (RO), Slovakia (SK), Slovenia (SI), Spain (ES), Sweden (SE), and Switzerland (CH)%2$s.', 'checkout-plugins-stripe-woo' ), '<strong>', '</strong>' ) : '';
 
 		return sprintf(
 			/* translators: %1$s: Break, %2$s: Gateway appear message, %3$s: Break, %4$s: Gateway appear message currency wise, %4$s:  HTML entities */
@@ -129,10 +129,13 @@ class Alipay extends Local_Gateway {
 			return false;
 		}
 
-		if ( 'EUR' === $this->get_currency() && ! in_array( $this->get_billing_country(), $this->allowed_countries['EUR'], true ) ) {
-			return false;
+		// Perform a conditional check based on currency and billing country.
+		// This check is applicable only for the classic checkout. For checkout blocks, it's handled in JavaScript.
+		if ( ! Helper::is_block_checkout() ) {
+			if ( 'EUR' === $this->get_currency() && ! in_array( $this->get_billing_country(), $this->allowed_countries['EUR'], true ) ) {
+				return false;
+			}
 		}
-
 		return parent::is_available();
 	}
 

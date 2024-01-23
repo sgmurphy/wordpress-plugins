@@ -72,56 +72,62 @@ class bt_bb_section extends BT_BB_Element {
 			$class[] = $this->prefix . 'vertical_align' . '_' . $vertical_align;
 		}
 
-		if ( $background_image != '' ) {
-			$background_image = wp_get_attachment_image_src( $background_image, 'full' );
-		}
 		
 		$background_image_data_attr = '';
 		$background_image_url = '';
 		$data_parallax_attr = '';
 		
 		$background_image_style = '';
-		$background_image_holder_style = '';
-			
-		if ( $background_image ) {
-			$background_image_url = isset($background_image[0]) ? $background_image[0] : '';
-		}
-		if ( $background_image_url != '' ) {
-			if ( $lazy_load == 'yes' ) {
-				$blank_image_src = BT_BB_Root::$path . 'img/blank.gif';
-				$background_image_holder_style = ' background-image: url(\'' . $blank_image_src . '\');';
-				$background_image_data_attr .= ' data-background_image_src="' . $background_image_url . '"';
-				$background_image_holder_class[] = 'btLazyLoadBackground';
-			} else {
-				$background_image_holder_style = ' background-image:url(\'' . $background_image_url . '\');';
-				
-			}
-			
-			$el_style = $el_style;	
+		$background_image_holder_style = '';		
 
-			if ( $parallax != '' ) {
-				$data_parallax_attr .= ' data-parallax="' . esc_attr( $parallax ) . '" data-parallax-offset="' . esc_attr( intval( $parallax_offset ) ) . '"';
-				$background_image_holder_class[] = $this->prefix . 'parallax';
-			}
+
+		if ( $background_image != ''){
 			
-			$parallax_zoom_start 	= $parallax_zoom_start != ''	? 	floatval( $parallax_zoom_start ) 	: 	1;
-			$parallax_zoom_end 		= $parallax_zoom_end != ''		? 	floatval( $parallax_zoom_end ) 		: 	1;
-			
-			$parallax_blur_start 	= $parallax_blur_start != '' 	? 	floatval( $parallax_blur_start ) 	: 	0;
-			$parallax_blur_end 		= $parallax_blur_end != '' 		? 	floatval( $parallax_blur_end ) 		: 	0;
-			
-			$parallax_opacity_start = $parallax_opacity_start != '' ? 	floatval( $parallax_opacity_start ) : 	1;
-			$parallax_opacity_end 	= $parallax_opacity_end != '' 	? 	floatval( $parallax_opacity_end ) 	: 	1;
-			
-			$data_parallax_attr .= ' data-parallax-zoom-start="' . esc_attr( $parallax_zoom_start ) . '"';
-			$data_parallax_attr .= ' data-parallax-zoom-end="' . esc_attr( $parallax_zoom_end ) . '"';
-			
-			$data_parallax_attr .= ' data-parallax-blur-start="' . esc_attr( $parallax_blur_start ) . '"';
-			$data_parallax_attr .= ' data-parallax-blur-end="' . esc_attr( $parallax_blur_end ) . '"';
-			
-			$data_parallax_attr .= ' data-parallax-opacity-start="' . esc_attr( $parallax_opacity_start ) . '"';
-			$data_parallax_attr .= ' data-parallax-opacity-end="' . esc_attr( $parallax_opacity_end ) . '"';
-		}
+			if ( is_numeric( $background_image ) ) {
+				$background_image = wp_get_attachment_image_src( $background_image, 'full' );
+				if ( $background_image ) {
+					$background_image_url = $background_image[0];
+				}
+			} else {
+				$background_image_url = $background_image;
+			}	
+			if ( $background_image_url != '' ) {
+				if ( $lazy_load == 'yes' ) {
+					$blank_image_src = BT_BB_Root::$path . 'img/blank.gif';
+					$background_image_holder_style = ' background-image: url(\'' . $blank_image_src . '\');';
+					$background_image_data_attr .= ' data-background_image_src="' . $background_image_url . '"';
+					$background_image_holder_class[] = 'btLazyLoadBackground';
+				} else {
+					$background_image_holder_style = ' background-image:url(\'' . $background_image_url . '\');';
+					
+				}
+				
+				$el_style = $el_style;	
+
+				if ( $parallax != '' ) {
+					$data_parallax_attr .= ' data-parallax="' . esc_attr( $parallax ) . '" data-parallax-offset="' . esc_attr( intval( $parallax_offset ) ) . '"';
+					$background_image_holder_class[] = $this->prefix . 'parallax';
+				}
+				
+				$parallax_zoom_start 	= $parallax_zoom_start != ''	? 	floatval( $parallax_zoom_start ) 	: 	1;
+				$parallax_zoom_end 		= $parallax_zoom_end != ''		? 	floatval( $parallax_zoom_end ) 		: 	1;
+				
+				$parallax_blur_start 	= $parallax_blur_start != '' 	? 	floatval( $parallax_blur_start ) 	: 	0;
+				$parallax_blur_end 		= $parallax_blur_end != '' 		? 	floatval( $parallax_blur_end ) 		: 	0;
+				
+				$parallax_opacity_start = $parallax_opacity_start != '' ? 	floatval( $parallax_opacity_start ) : 	1;
+				$parallax_opacity_end 	= $parallax_opacity_end != '' 	? 	floatval( $parallax_opacity_end ) 	: 	1;
+				
+				$data_parallax_attr .= ' data-parallax-zoom-start="' . esc_attr( $parallax_zoom_start ) . '"';
+				$data_parallax_attr .= ' data-parallax-zoom-end="' . esc_attr( $parallax_zoom_end ) . '"';
+				
+				$data_parallax_attr .= ' data-parallax-blur-start="' . esc_attr( $parallax_blur_start ) . '"';
+				$data_parallax_attr .= ' data-parallax-blur-end="' . esc_attr( $parallax_blur_end ) . '"';
+				
+				$data_parallax_attr .= ' data-parallax-opacity-start="' . esc_attr( $parallax_opacity_start ) . '"';
+				$data_parallax_attr .= ' data-parallax-opacity-end="' . esc_attr( $parallax_opacity_end ) . '"';
+			}			
+		} 
 
 		if ( $background_overlay != '' ) {
 			$class[] = $this->prefix . 'background_overlay' . '_' . $background_overlay;
@@ -401,18 +407,18 @@ class bt_bb_section extends BT_BB_Element {
 						esc_html__( 'Dark gradient', 'bold-builder' )	  => 'dark_gradient'
 					)
 				),
-				array( 'param_name' => 'parallax', 'type' => 'textfield', 'heading' => esc_html__( 'Parallax (e.g. 0.7, 2 = fixed)', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
-				array( 'param_name' => 'parallax_offset', 'type' => 'textfield', 'heading' => esc_html__( 'Parallax offset in px (e.g. -100)', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
-				array( 'param_name' => 'parallax_zoom_start', 'type' => 'textfield', 'heading' => esc_html__( 'Background parallax zoom start (e.g. 1)', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
-				array( 'param_name' => 'parallax_zoom_end', 'type' => 'textfield', 'heading' => esc_html__( 'Background parallax zoom end (e.g. 2)', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
-				array( 'param_name' => 'parallax_blur_start', 'type' => 'textfield', 'heading' => esc_html__( 'Background parallax blur start (e.g. 0)', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
-				array( 'param_name' => 'parallax_blur_end', 'type' => 'textfield', 'heading' => esc_html__( 'Background parallax blur end (e.g. 10)', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
-				array( 'param_name' => 'parallax_opacity_start', 'type' => 'textfield', 'heading' => esc_html__( 'Background parallax opacity start (e.g. 1)', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
-				array( 'param_name' => 'parallax_opacity_end', 'type' => 'textfield', 'heading' => esc_html__( 'Background parallax opacity end (e.g. 0)', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
+				array( 'param_name' => 'parallax', 'type' => 'textfield', 'heading' => esc_html__( 'Parallax', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 0.7, 2 = fixed', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
+				array( 'param_name' => 'parallax_offset', 'type' => 'textfield', 'heading' => esc_html__( 'Parallax offset in px', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. -100', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
+				array( 'param_name' => 'parallax_zoom_start', 'type' => 'textfield', 'heading' => esc_html__( 'Background parallax zoom start', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 1', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
+				array( 'param_name' => 'parallax_zoom_end', 'type' => 'textfield', 'heading' => esc_html__( 'Background parallax zoom end', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 2', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
+				array( 'param_name' => 'parallax_blur_start', 'type' => 'textfield', 'heading' => esc_html__( 'Background parallax blur start', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 0', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
+				array( 'param_name' => 'parallax_blur_end', 'type' => 'textfield', 'heading' => esc_html__( 'Background parallax blur end', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 10', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
+				array( 'param_name' => 'parallax_opacity_start', 'type' => 'textfield', 'heading' => esc_html__( 'Background parallax opacity start', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 1', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
+				array( 'param_name' => 'parallax_opacity_end', 'type' => 'textfield', 'heading' => esc_html__( 'Background parallax opacity end', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 0', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
 				array( 'param_name' => 'top_section_coverage_image', 'type' => 'attach_image',  'preview' => true, 'heading' => esc_html__( 'Top coverage image', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
 				array( 'param_name' => 'bottom_section_coverage_image', 'type' => 'attach_image',  'preview' => true, 'heading' => esc_html__( 'Bottom coverage image', 'bold-builder' ), 'group' => esc_html__( 'Design', 'bold-builder' ) ),
 				array( 'param_name' => 'background_video_yt', 'type' => 'textfield', 'heading' => esc_html__( 'YouTube background video', 'bold-builder' ), 'group' => esc_html__( 'Video', 'bold-builder' ) ),
-				array( 'param_name' => 'yt_video_settings', 'type' => 'textfield', 'heading' => esc_html__( 'YouTube video settings (e.g. startAt:20, mute:true, stopMovieOnBlur:false)', 'bold-builder' ), 'group' => esc_html__( 'Video', 'bold-builder' ) ),
+				array( 'param_name' => 'yt_video_settings', 'type' => 'textfield', 'heading' => esc_html__( 'YouTube video settings', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. startAt:20, mute:true, stopMovieOnBlur:false', 'bold-builder' ), 'group' => esc_html__( 'Video', 'bold-builder' ) ),
 				array( 'param_name' => 'background_video_mp4', 'type' => 'textfield', 'heading' => esc_html__( 'MP4 background video', 'bold-builder' ), 'group' => esc_html__( 'Video', 'bold-builder' ) ),
 				array( 'param_name' => 'background_video_ogg', 'type' => 'textfield', 'heading' => esc_html__( 'OGG background video', 'bold-builder' ), 'group' => esc_html__( 'Video', 'bold-builder' ) ),
 				array( 'param_name' => 'background_video_webm', 'type' => 'textfield', 'heading' => esc_html__( 'WEBM background video', 'bold-builder' ), 'group' => esc_html__( 'Video', 'bold-builder' ) ),

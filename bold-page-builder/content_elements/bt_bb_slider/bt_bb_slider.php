@@ -81,20 +81,43 @@ class bt_bb_slider extends BT_BB_Element {
 			$data_slick .= ', "rtl": true' ;
 		}
 		
-		if ( $slides_to_show > 1 ) {
+		$slides_to_show_arr =  explode( ',;,', $slides_to_show );
+		
+		
+		if ( count( $slides_to_show_arr ) == 1 || count( array_count_values( $slides_to_show_arr ) ) < 3 ) {
+
+			// old format used, just saved in new format ( $slides_to_show and '' are the only values )
+			if ( count( array_count_values( $slides_to_show_arr ) ) == 2 ) {
+				$slides_to_show = $slides_to_show_arr[0];
+			}
+			// old format
+			$slides_to_show_arr = array( 6 );
+			
+			// switch to new format
+			$slides_to_show_arr[0] = $slides_to_show;
+			$slides_to_show_arr[1] = $slides_to_show;
+			$slides_to_show_arr[2] = $slides_to_show;
+			$slides_to_show_arr[3] = ( intval( $slides_to_show ) > 3 ) ? '3' : $slides_to_show;
+			$slides_to_show_arr[4] = ( intval( $slides_to_show ) > 2 ) ? '2' : $slides_to_show;
+			$slides_to_show_arr[5] = ( intval( $slides_to_show ) > 1 ) ? '1' : $slides_to_show;
+		}
+		
+		// new format
+		if ( $slides_to_show_arr[1] == '' ) { $slides_to_show_arr[1] = $slides_to_show_arr[0]; } // 1400
+		if ( $slides_to_show_arr[2] == '' ) { $slides_to_show_arr[2] = $slides_to_show_arr[1]; } // 1200
+		if ( $slides_to_show_arr[3] == '' ) { $slides_to_show_arr[3] = $slides_to_show_arr[2]; } // 992
+		if ( $slides_to_show_arr[4] == '' ) { $slides_to_show_arr[4] = $slides_to_show_arr[3]; } // 768
+		if ( $slides_to_show_arr[5] == '' ) { $slides_to_show_arr[5] = $slides_to_show_arr[4]; } // 480
+		
+		if ( intval( $slides_to_show_arr[0] ) > 1 ) {
+			$data_slick .= ',"slidesToShow": ' . intval( $slides_to_show_arr[0] );
+			$class[] = $this->prefix . 'multiple_slides';
 			$data_slick .= ', "responsive": [';
-			if ( $slides_to_show > 1 ) {
-				$data_slick .= '{ "breakpoint": 480, "settings": { "slidesToShow": 1, "slidesToScroll": 1 } }';	
-			}
-			if ( $slides_to_show > 2 ) {
-				$data_slick .= ',{ "breakpoint": 768, "settings": { "slidesToShow": 2, "slidesToScroll": 2 } }';	
-			}
-			if ( $slides_to_show > 3 ) {
-				$data_slick .= ',{ "breakpoint": 920, "settings": { "slidesToShow": 3, "slidesToScroll": 3 } }';	
-			}
-			if ( $slides_to_show > 4 ) {
-				$data_slick .= ',{ "breakpoint": 1024, "settings": { "slidesToShow": 3, "slidesToScroll": 3 } }';	
-			}				
+				$data_slick .= '{ "breakpoint": 480, "settings": { "slidesToShow": ' . $slides_to_show_arr[5] . ', "slidesToScroll": ' . $slides_to_show_arr[5] . ' } }';	
+				$data_slick .= ',{ "breakpoint": 768, "settings": { "slidesToShow": ' . $slides_to_show_arr[4] . ', "slidesToScroll": ' . $slides_to_show_arr[4] . ' } }';	
+				$data_slick .= ',{ "breakpoint": 992, "settings": { "slidesToShow": ' . $slides_to_show_arr[3] . ', "slidesToScroll": ' . $slides_to_show_arr[3] . ' } }';	
+				$data_slick .= ',{ "breakpoint": 1200, "settings": { "slidesToShow": ' . $slides_to_show_arr[2] . ', "slidesToScroll": ' . $slides_to_show_arr[2] . ' } }';	
+				$data_slick .= ',{ "breakpoint": 1400, "settings": { "slidesToShow": ' . $slides_to_show_arr[1] . ', "slidesToScroll": ' . $slides_to_show_arr[1] . ' } }';		
 			$data_slick .= ']';
 		}
 		
@@ -161,7 +184,7 @@ class bt_bb_slider extends BT_BB_Element {
 			}
 		}
 
-		$output = '<div' . $id_attr . ' class="' . implode( ' ', $class ) . '"' . $style_attr . '><div class="' . esc_attr( implode( ' ', $slider_class ) ) . '" ' . $data_slick . '>' . $output . '</div></div>';
+		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . '><div class="' . esc_attr( implode( ' ', $slider_class ) ) . '" ' . $data_slick . '>' . $output . '</div></div>';
 		
 		$output = apply_filters( 'bt_bb_general_output', $output, $atts );
 		$output = apply_filters( $this->shortcode . '_output', $output, $atts );
@@ -188,7 +211,7 @@ class bt_bb_slider extends BT_BB_Element {
 				array( 'param_name' => 'animation', 'type' => 'dropdown', 'heading' => esc_html__( 'Animation', 'bold-builder' ), 'description' => esc_html__( 'If fade is selected, number of slides to show will be 1', 'bold-builder' ),
 					'value' => array(
 						esc_html__( 'Default', 'bold-builder' ) => 'slide',
-						esc_html__( 'Fade', 'bold-builder' ) => 'fade'
+						esc_html__( 'Fade', 'bold-builder' ) 	=> 'fade'
 					)
 				),
 				array( 'param_name' => 'show_arrows', 'default' => 'show', 'type' => 'dropdown', 'heading' => esc_html__( 'Navigation arrows', 'bold-builder' ),
@@ -199,12 +222,27 @@ class bt_bb_slider extends BT_BB_Element {
 				),
 				array( 'param_name' => 'show_dots', 'type' => 'dropdown', 'heading' => esc_html__( 'Dots navigation', 'bold-builder' ),
 					'value' => array(
-						esc_html__( 'Bottom', 'bold-builder' ) => 'bottom',
-						esc_html__( 'Below', 'bold-builder' ) => 'below',
-						esc_html__( 'Hide', 'bold-builder' ) => 'hide'
+						esc_html__( 'Bottom', 'bold-builder' ) 	=> 'bottom',
+						esc_html__( 'Below', 'bold-builder' ) 	=> 'below',
+						esc_html__( 'Hide', 'bold-builder' ) 	=> 'hide'
 					)
 				),
-				array( 'param_name' => 'slides_to_show', 'type' => 'textfield', 'preview' => true, 'default' => 1, 'heading' => esc_html__( 'Number of slides to show', 'bold-builder' ), 'description' => esc_html__( 'E.g. 3, but if fade animation is selected, number will  be 1 anyway', 'bold-builder' ) ),
+				array( 'param_name' => 'slides_to_show', 'type' => 'dropdown', 'preview' => true, 'default' => 1, 'heading' => esc_html__( 'Number of slides to show', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 1', 'bold-builder' ), 'description' => esc_html__( 'If fade animation is selected, number will  be 1 anyway', 'bold-builder' ), 'responsive_override' => true,
+					'value' => array(
+						esc_html__( '1', 'bold-builder' ) 		=> '1',
+						esc_html__( '2', 'bold-builder' ) 		=> '2',
+						esc_html__( '3', 'bold-builder' ) 		=> '3',
+						esc_html__( '4', 'bold-builder' ) 		=> '4',
+						esc_html__( '5', 'bold-builder' ) 		=> '5',
+						esc_html__( '6', 'bold-builder' ) 		=> '6',
+						esc_html__( '7', 'bold-builder' ) 		=> '7',
+						esc_html__( '8', 'bold-builder' ) 		=> '8',
+						esc_html__( '9', 'bold-builder' ) 		=> '9',
+						esc_html__( '10', 'bold-builder' ) 		=> '10',
+						esc_html__( '11', 'bold-builder' ) 		=> '11',
+						esc_html__( '12', 'bold-builder' ) 		=> '12'
+					) 
+				),
 				array( 'param_name' => 'additional_settings', 'type' => 'textfield', 'heading' => esc_html__( 'Additional settings', 'bold-builder' ), 'description' => esc_html__( 'E.g. "slidesToScroll": 3, "infinite": false (check https://kenwheeler.github.io/slick/ for more)', 'bold-builder' ) ),
 				array( 'param_name' => 'auto_play', 'type' => 'textfield', 'heading' => esc_html__( 'Autoplay interval (ms)', 'bold-builder' ), 'description' => esc_html__( 'e.g. 2000', 'bold-builder' ),
 				array( 'param_name' => 'pause_on_hover', 'default' => 'yes', 'type' => 'dropdown', 'heading' => esc_html__( 'Pause slideshow on hover', 'bold-builder' ),

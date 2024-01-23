@@ -144,7 +144,7 @@ class bt_bb_css_image_grid extends BT_BB_Element {
 				array( 'param_name' => 'img_base_size', 'type' => 'dropdown', 'default' => 'large', 'heading' => esc_html__( 'Base image size', 'bold-builder' ),
 					'value' => bt_bb_get_image_sizes()
 				),
-				array( 'param_name' => 'format', 'type' => 'textfield', 'preview' => true, 'heading' => esc_html__( 'Tiles format', 'bold-builder' ), 'description' => esc_html__( 'e.g. 21, 11, 11', 'bold-builder' ) ),
+				array( 'param_name' => 'format', 'type' => 'textfield', 'preview' => true, 'heading' => esc_html__( 'Tiles format', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 21, 11, 11', 'bold-builder' ) ),
 				array( 'param_name' => 'lightbox_img_base_size', 'type' => 'dropdown', 'default' => 'full', 'heading' => esc_html__( 'Popup image size', 'bold-builder' ),
 					'value' => bt_bb_get_image_sizes()
 				),

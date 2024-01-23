@@ -520,20 +520,17 @@ abstract class Abstract_Payment_Gateway extends WC_Payment_Gateway {
 	 * @return array
 	 */
 	public function payment_icons( $gateway_id ) {
-		$icons = [
-			'cpsw_alipay'     => '<img src="' . $this->assets_url . 'icon/alipay.svg" class="cpsw-alipay-icon" alt="Alipay" width="50px" />',
-			'cpsw_ideal'      => '<img src="' . $this->assets_url . 'icon/ideal.svg" class="cpsw-ideal-icon" alt="iDEAL" width="32" />',
-			'cpsw_klarna'     => '<img src="' . $this->assets_url . 'icon/klarna.svg" class="cpsw-klarna-icon" alt="Klarna" width="60" />',
-			'cpsw_p24'        => '<img src="' . $this->assets_url . 'icon/p24.svg" class="cpsw-p24-icon" alt="Przelewy24" width="60" />',
-			'cpsw_bancontact' => '<img src="' . $this->assets_url . 'icon/bancontact.svg" class="cpsw-bancontact-icon" alt="Bancontact" width="40" />',
-			'cpsw_wechat'     => '<img src="' . $this->assets_url . 'icon/wechat.svg" class="cpsw-wechat-icon" alt="WeChat" width="80" />',
-			'cpsw_sepa'       => '<img src="' . $this->assets_url . 'icon/sepa.svg" class="cpsw-sepa-icon" alt="SEPA" width="50px" />',
-		];
+		$icon = Helper::get_payment_icon( $gateway_id );
 
-		return apply_filters(
-			'cpsw_payment_icons',
-			isset( $icons[ $gateway_id ] ) ? $icons[ $gateway_id ] : ''
-		);
+		$icon_image = empty( $icon ) ? '' : sprintf(
+			'<img src="%s" class="%s" alt="%s" width="%s" />',
+			esc_url( $icon['src'] ),
+			esc_attr( $icon['id'] . '-icon' ),
+			esc_attr( $icon['alt'] ),
+			esc_attr( $icon['width'] )
+		);      
+
+		return apply_filters( 'cpsw_payment_icons', $icon_image );
 	}
 
 	/**

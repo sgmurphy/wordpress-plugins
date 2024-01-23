@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					$_status = 'active';
 				}
 				?>
-				<li id="<?php echo esc_html( "code_{$k}-iubenda_{$service['name']}_solution_tab" ); ?>" class="tabs__nav__item <?php echo esc_html( $_status ); ?>" data-target="tab-<?php echo esc_html( $k ); ?>" data-group="language-tabs">
+				<li id="<?php echo esc_html( "code_{$k}-iubenda_{$service['name']}_solution_tab" ); ?>" class="iub-language-tab tabs__nav__item <?php echo esc_html( $_status ); ?>" data-target="tab-<?php echo esc_html( $k ); ?>" data-target-textarea="#<?php echo esc_html( "iub-embed-code-{$k}-{$service['name']}" ); ?>" data-group="language-tabs">
 					<?php echo esc_html( strtoupper( $k ) ); ?>
 				</li>
 			<?php endforeach; ?>
@@ -35,8 +35,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$method = "get_{$key}_embed_code_by_lang";
 			$code   = $product_helper->{$method}( $lang_id );
 			?>
-			<div data-target="tab-<?php echo esc_html( $lang_id ); ?>" class="tabs__target <?php echo (string) iubenda()->lang_default === (string) $lang_id || 'default' === (string) $lang_id ? 'active' : ''; ?>" data-group="language-tabs">
-				<textarea class='form-control text-sm m-0 iub-language-code iub-embed-code-<?php echo esc_html( $key ); ?>' data-language="<?php echo esc_html( $lang_id ); ?>" placeholder='<?php esc_html_e( 'Paste your embed code here', 'iubenda' ); ?>' name='iubenda_<?php echo esc_html( $service['name'] ); ?>_solution[code_<?php echo esc_html( $lang_id ); ?>]' rows='4'><?php echo esc_html( $code ); ?></textarea>
+			<div data-target="tab-<?php echo esc_html( $lang_id ); ?>" class="tabs__target iub-embed-code-<?php echo esc_html( $key ); ?>-container <?php echo (string) iubenda()->lang_default === (string) $lang_id || 'default' === (string) $lang_id ? 'active' : ''; ?>" data-group="language-tabs">
+				<textarea
+						class='form-control text-sm m-0 iub-language-code iub-embed-code-<?php echo esc_html( $key ); ?>'
+						data-language="<?php echo esc_html( $lang_id ); ?>"
+						placeholder='<?php esc_html_e( 'Paste your embed code here', 'iubenda' ); ?>'
+						id='<?php echo esc_html( "iub-embed-code-{$lang_id}-{$service['name']}" ); ?>'
+						name='iubenda_<?php echo esc_html( $service['name'] ); ?>_solution[code_<?php echo esc_html( $lang_id ); ?>]'
+						rows='4'
+				><?php echo esc_html( $code ); ?></textarea>
 			</div>
 		<?php endforeach; ?>
 

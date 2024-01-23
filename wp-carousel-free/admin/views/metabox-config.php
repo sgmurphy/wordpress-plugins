@@ -426,7 +426,7 @@ SP_WPCF::createSection(
 					'modified'   => __( 'Modified', 'wp-carousel-free' ),
 					'menu_order' => __( 'Menu Order', 'wp-carousel-free' ),
 				),
-				'default'    => 'menu_order',
+				'default'    => 'date',
 				'dependency' => array( 'wpcp_carousel_type', 'any', 'post-carousel,product-carousel', true ),
 			),
 			array(
@@ -438,7 +438,7 @@ SP_WPCF::createSection(
 					'ASC'  => __( 'Ascending', 'wp-carousel-free' ),
 					'DESC' => __( 'Descending', 'wp-carousel-free' ),
 				),
-				'default'    => 'rand',
+				'default'    => 'DESC',
 				'dependency' => array( 'wpcp_carousel_type', 'any', 'post-carousel,product-carousel', true ),
 			),
 			array(
@@ -1199,7 +1199,7 @@ SP_WPCF::createSection(
 				'tabs'  => array(
 					array(
 						'title'  => __( 'General (Pro)', 'wp-carousel-free' ),
-						'icon'   => 'icon-wpc-lightbox-general',
+						'icon'   => 'wpcf-icon-lightbox-general',
 						'fields' => array(// Navigation.
 							array(
 								'type'    => 'notice',
@@ -1302,7 +1302,7 @@ SP_WPCF::createSection(
 					),
 					array(
 						'title'  => __( 'Lightbox Icons (Pro)', 'wp-carousel-free' ),
-						'icon'   => 'icon-wpc-lightbox-icon',
+						'icon'   => 'wpcf-icon-lightbox-icon',
 						'fields' => array(// Navigation.
 							array(
 								'id'       => 'l_box_icon_style',
@@ -1395,7 +1395,7 @@ SP_WPCF::createSection(
 					),
 					array(
 						'title'  => __( 'Image & Thumbs (Pro)', 'wp-carousel-free' ),
-						'icon'   => 'icon-wpc-image-and-thumbnail',
+						'icon'   => 'wpcf-icon-image-and-thumbnail',
 						'fields' => array(// Navigation.
 							array(
 								'id'         => 'l_box_icon_overlay_color',
@@ -1501,7 +1501,7 @@ SP_WPCF::createSection(
 					),
 					array(
 						'title'  => __( 'Toolbar (Pro)', 'wp-carousel-free' ),
-						'icon'   => 'icon-wpc-lightbox-toolbar',
+						'icon'   => 'wpcf-icon-lightbox-toolbar',
 						'fields' => array(// Toolbar.
 							array(
 								'id'         => 'l_box_zoom_button',
@@ -1573,7 +1573,7 @@ SP_WPCF::createSection(
 					),
 					array(
 						'title'  => __( 'Animations (Pro)', 'wp-carousel-free' ),
-						'icon'   => 'icon-wpc-lightbox-animation',
+						'icon'   => 'wpcf-icon-lightbox-animation',
 						'fields' => array(// Navigation.
 							array(
 								'id'       => 'l_box_sliding_effect',
@@ -1636,7 +1636,7 @@ SP_WPCF::createSection(
 				'tabs'  => array(
 					array(
 						'title'  => __( 'General', 'wp-carousel-free' ),
-						'icon'   => 'icon-wpc-lightbox-general',
+						'icon'   => 'wpcf-icon-lightbox-general',
 						'fields' => array(
 							array(
 								'id'         => 'wpcp_carousel_orientation',
@@ -1801,7 +1801,7 @@ SP_WPCF::createSection(
 					),
 					array(
 						'title'  => __( 'Navigation', 'wp-carousel-free' ),
-						'icon'   => 'icon-wpc-navigation',
+						'icon'   => 'wpcf-icon-navigation',
 						'fields' => array(// Navigation.
 
 							array(
@@ -1898,14 +1898,14 @@ SP_WPCF::createSection(
 								'subtitle'   => __( 'Choose a carousel navigation arrow icon.', 'wp-carousel-free' ),
 								'class'      => 'wpcf_navigation_icons',
 								'options'    => array(
-									'right_open'         => '<i class="icon-wpcp-right-open"></i>',
-									'angle'              => '<i class="icon-wpcp-angle-right"></i>',
-									'chevron_open_big'   => '<i class="icon-wpcp-right-open-big"></i>',
-									'chevron'            => '<i class="icon-wpcp-right-open-1"></i>',
-									'right_open_3'       => '<i class="icon-wpcp-right-open-3"></i>',
-									'right_open_outline' => '<i class="icon-wpcp-right-open-outline"></i>',
-									'arrow'              => '<i class="icon-wpcp-right"></i>',
-									'triangle'           => '<i class="icon-wpcp-arrow-triangle-right"></i>',
+									'right_open'         => '<i class="wpcf-icon-right-open"></i>',
+									'angle'              => '<i class="wpcf-icon-angle-right"></i>',
+									'chevron_open_big'   => '<i class="wpcf-icon-right-open-big"></i>',
+									'chevron'            => '<i class="wpcf-icon-right-open-1"></i>',
+									'right_open_3'       => '<i class="wpcf-icon-right-open-3"></i>',
+									'right_open_outline' => '<i class="wpcf-icon-right-open-outline"></i>',
+									'arrow'              => '<i class="wpcf-icon-right"></i>',
+									'triangle'           => '<i class="wpcf-icon-arrow-triangle-right"></i>',
 								),
 								'default'    => 'right_open',
 								'radio'      => true,
@@ -1989,7 +1989,7 @@ SP_WPCF::createSection(
 
 					array(
 						'title'  => __( 'Pagination', 'wp-carousel-free' ),
-						'icon'   => 'icon-wpc-pagination',
+						'icon'   => 'wpcf-icon-pagination',
 						'fields' => array(// Pagination.
 							array(
 								'id'     => 'wpcp_carousel_pagination',
@@ -2114,7 +2114,7 @@ SP_WPCF::createSection(
 
 					array(
 						'title'  => __( 'Miscellaneous', 'wp-carousel-free' ),
-						'icon'   => 'icon-wpc-miscellaneous',
+						'icon'   => 'wpcf-icon-miscellaneous',
 						'fields' => array(// Miscellaneous.
 							array(
 								'id'         => 'slider_swipe',

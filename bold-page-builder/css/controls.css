@@ -140,9 +140,15 @@
 	}
 
 	/* Depricated elements */
+	&.bt_bb_dialog_add_element.bt_bb_icon.bt_bb_icon_bt_bb_cost_calculator,
 	&.bt_bb_dialog_add_element.bt_bb_icon.bt_bb_icon_bt_bb_masonry_post_grid,
 	&.bt_bb_dialog_add_element.bt_bb_icon.bt_bb_icon_bt_bb_masonry_image_grid {
 		order: 999;
+	}
+
+	/* Placeholder */
+	::-webkit-input-placeholder {
+		opacity: 0.5;
 	}
 }
 
@@ -894,11 +900,14 @@ ul.menu {
 		}
 		.bt_bb_ai_regenerate_button  {
 			order: 3;
+			font-size: 13px;
 			flex-basis: 100%;
 			background: $(accentColor);
 			color: $(darkFontColor);
 			box-shadow: 0 0 0.75em 0 rgba(0,0,0,.2);
 			transition: all 270ms ease;
+			text-transform: uppercase;
+			font-family: inherit;
 			&:hover {
 				background-color: $(accentDark);
 				box-shadow: 0 0 1em 0 rgba(0,0,0,.2);

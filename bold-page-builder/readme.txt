@@ -136,6 +136,11 @@ It is not possible to test Bold Builder with all themes - it should work fine wi
 
 == Changelog ==
 
+= 4.7.7 =
+* Fixed background image editing on FE.
+* Added Column background color editing on FE.
+* Other minor bug fixes and improvements.
+
 = 4.7.6 =
 * Added tab navigation in FE editor.
 

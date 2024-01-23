@@ -77,7 +77,7 @@ class bt_bb_countdown extends BT_BB_Element {
 
 		$class = apply_filters( $this->shortcode . '_class', $class, $atts );		
 
-		$output = '<div' . $id_attr . ' class="' . implode( ' ', $class ) . '"' . $style_attr . ' data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">';
+		$output = '<div' . $id_attr . ' class="' . esc_attr( implode( ' ', $class ) ) . '"' . $style_attr . ' data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">';
 			$output .= '<div class="btCountdownHolder" data-init-seconds="' . esc_attr( $init_seconds ) . '" data-init-target-seconds="' . esc_attr( $target ) . '">';
 							
 				$output .= '<span class="days" data-text="' . esc_attr( $d_text ) . '"></span>';
@@ -101,7 +101,7 @@ class bt_bb_countdown extends BT_BB_Element {
 		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Countdown', 'bold-builder' ), 'description' => esc_html__( 'Animated countdown', 'bold-builder' ),  
 			'icon' => $this->prefix_backend . 'icon' . '_' . $this->shortcode,
 			'params' => array(
-				array( 'param_name' => 'datetime', 'type' => 'textfield', 'heading' => esc_html__( 'Target date and time', 'bold-builder' ), 'description' => esc_html__( 'YY-mm-dd HH:mm:ss, e.g. 2024-02-22 22:45:00' ), 'preview' => true ),
+				array( 'param_name' => 'datetime', 'type' => 'textfield', 'heading' => esc_html__( 'Target date and time', 'bold-builder' ), 'placeholder' => esc_html__( 'YY-mm-dd HH:mm:ss', 'bold-builder' ), 'description' => esc_html__( 'YY-mm-dd HH:mm:ss, e.g. 2024-02-22 22:45:00' ), 'preview' => true ),
 				array( 'param_name' => 'size', 'type' => 'dropdown', 'heading' => esc_html__( 'Size', 'bold-builder' ), 'preview' => true, 'responsive_override' => true,
 					'value' => array(
 						esc_html__( 'Normal', 'bold-builder' ) => 'normal',
