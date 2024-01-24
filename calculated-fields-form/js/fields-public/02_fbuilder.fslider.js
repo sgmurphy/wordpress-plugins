@@ -117,17 +117,17 @@
 				_toNumber:function(n){return (new String(n)).replace(/[^\-\d\.]/g,'')*1;},
 				init:function()
 					{
-						this.min  = (/^\s*$/.test(this.min)) ? 0   : $.trim(this.min);
-						this.max  = (/^\s*$/.test(this.max)) ? 100 : $.trim(this.max);
-						this.step = (/^\s*$/.test(this.step)) ? 1   : $.trim(this.step);
-						this.predefinedMin = (/^\s*$/.test(this.predefinedMin))? this.min : $.trim(this.predefinedMin);
-						this.predefinedMax = (/^\s*$/.test(this.predefinedMax))? this.max : $.trim(this.predefinedMax);
+						this.min  = (/^\s*$/.test(this.min)) ? 0   : String(this.min).trim();
+						this.max  = (/^\s*$/.test(this.max)) ? 100 : String(this.max).trim();
+						this.step = (/^\s*$/.test(this.step)) ? 1   : String(this.step).trim();
+						this.predefinedMin = (/^\s*$/.test(this.predefinedMin))? this.min : String(this.predefinedMin).trim();
+						this.predefinedMax = (/^\s*$/.test(this.predefinedMax))? this.max : String(this.predefinedMax).trim();
 						this._setHndl('min');
 						this._setHndl('max');
 						this._setHndl('step');
 						this._setHndl('predefinedMin');
 						this._setHndl('predefinedMax');
-						this.centSeparator = (/^\s*$/.test(this.centSeparator)) ? '.' : $.trim(this.centSeparator);
+						this.centSeparator = (/^\s*$/.test(this.centSeparator)) ? '.' : String(this.centSeparator).trim();
 						if(this.logarithmic && !isNaN(this.step)) { // TO CHECK
 							this.calc_step = this.step;
 							this.step = Math.min(this.step, 1);
@@ -337,7 +337,7 @@
 							);
 						});
 						me._setFieldValue();
-						$('#cp_calculatedfieldsf_pform'+me.form_identifier).bind('reset', function(){
+						$('#cp_calculatedfieldsf_pform'+me.form_identifier).on('reset', function(){
 							setTimeout(function(){
 								$('#'+me.name+'_slider').slider(opt); me._setFieldValue();
 							}, 20);

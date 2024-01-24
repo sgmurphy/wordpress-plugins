@@ -106,7 +106,7 @@
 							{s:"#sStepMinute",e:"change keyup", l:"stepMinute", x:1},
 							{s:"#sDefaultTime",e:"change keyup", l:"defaultTime", x:1}
 						];
-					$(".working_dates input").bind("click", {obj: this}, function(e) {
+					$(".working_dates input").on("click", {obj: this}, function(e) {
 						e.data.obj.working_dates[$(this).val()] = $(this).is(':checked');
 						$.fbuilder.reloadItems({'field':e.data.obj});
 					});

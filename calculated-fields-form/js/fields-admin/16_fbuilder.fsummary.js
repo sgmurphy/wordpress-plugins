@@ -30,7 +30,7 @@
 							{s:"#sPlusBtn",e:"click", l:"fields",f:function(){
 								var v = $( "#sSelectedField" ).val(),
 									e = $( "#sFields" ),
-									f = $.trim( e.val() );
+									f = String( e.val() ).trim();
 								f += ((f!='')?',':'')+v;
 								e.val(f)
 								return f;

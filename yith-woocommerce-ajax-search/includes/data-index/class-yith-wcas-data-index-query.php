@@ -109,6 +109,7 @@ class YITH_WCAS_Data_Index_Query {
 			'fields'           => 'ids',
 			'tax_query'        => $tax_query,
 			'posts_per_page'   => $limit,
+			'post_status'      => 'publish',
 			'suppress_filters' => true,
 			'offset'           => $offset,
 		);
@@ -131,6 +132,7 @@ class YITH_WCAS_Data_Index_Query {
 				'posts_per_page'   => $limit,
 				'suppress_filters' => true,
 				'post_parent__in'  => $this->data,
+				'post_status'      => 'publish',
 				'offset'           => 0,
 			);
 

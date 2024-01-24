@@ -1,6 +1,8 @@
-	$.fbuilder['version'] = '1.2.50';
+	$.fbuilder['version'] = '1.2.51';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
+
+	$.fbuilder['isNumeric'] = function(n){return !isNaN(parseFloat(n)) && isFinite(n);};
 
 	$.fbuilder['htmlEncode'] = window['cff_esc_attr'] = function(value)
 	{
@@ -33,9 +35,9 @@
 	{
 		raw = raw || false;
         no_quotes = no_quotes || false;
-		value = $.trim(value || '');
+		value = String(value || '').trim();
 		value = value.replace(/\\/g, "\\\\").replace(/'/g, "\\'").replace(/"/g, '\\"');
-		var r = ($.isNumeric(value)) ? ((raw) ? value : value*1) : ((no_quotes) ? value : '"' + value + '"');
+		var r = ($.fbuilder.isNumeric(value)) ? ((raw) ? value : value*1) : ((no_quotes) ? value : '"' + value + '"');
 		return raw ? r : ( window.cffsanitize != undefined ? cffsanitize( r, true ) : r );
 	};
 
@@ -48,8 +50,8 @@
 			return $.fbuilder[ 'parseValStr' ]( value, false, no_quotes );
 
 		/* number */
-		thousand = $.fbuilder.escapeSymbol($.trim((typeof thousand != 'undefined') ? thousand : ','));
-		decimal  = $.trim((!!!decimal || /^\s*$/.test(decimal)) ? '.': decimal);
+		thousand = $.fbuilder.escapeSymbol(String((typeof thousand != 'undefined') ? thousand : ',').trim());
+		decimal  = String((!!!decimal || /^\s*$/.test(decimal)) ? '.': decimal).trim();
 
 		var p, _thousand = /^\s*$/.test(thousand) ? '\,' : thousand,
 			t = new String(value);
@@ -428,7 +430,7 @@
 									a.appendTo(e.find('.dfield'));
 									c.appendTo($(e.children('label')[0] || e));
 
-									c.click(function(evt){
+									c.on( 'click', function(evt){
 										var e = $(this);
 										if(e.hasClass('cff-audio-stop-icon')) {
 											e.removeClass('cff-audio-stop-icon');
@@ -491,9 +493,9 @@
 						});
 					}
 
-					fieldlist_tag.find(".pbPrevious,.pbNext").bind("keyup", function(evt){
+					fieldlist_tag.find(".pbPrevious,.pbNext").on("keyup", function(evt){
 						if(evt.which == 13 || evt.which == 32) $(this).click();
-					}).bind("click", {'identifier' : opt.identifier}, function(evt){
+					}).on("click", {'identifier' : opt.identifier}, function(evt){
 						var _from = ($.fbuilder.forms[evt.data.identifier]['currentPage'] || 0),
 							_inc  = ($(this).hasClass("pbPrevious")) ? -1 : 1,
 							_p = $.fbuilder['goToPage'](
@@ -550,9 +552,9 @@
                 });
 				$( form_tag ).find( '.captcha img' ).click();
 
-				$( '#fieldlist'+opt.identifier).find(".pbSubmit").unbind('click').bind("keyup", function(evt){
+				$( '#fieldlist'+opt.identifier).find(".pbSubmit").off('click').on("keyup", function(evt){
 					if(evt.which == 13 || evt.which == 32) $(this).click();
-				}).bind("click", { 'identifier' : opt.identifier }, function(evt){
+				}).on("click", { 'identifier' : opt.identifier }, function(evt){
 					$(this).closest("form").submit();
 				});
 
@@ -668,7 +670,7 @@
 									e = $.fbuilder['forms'][f[0]].getItem( el.name );
 									r = new RegExp('^\\s*('+esc(e.currencySymbol)+')?\\s*\\-?\\d+('+esc(e.thousandSeparator)+'\\d{3})*'+((e.noCents) ? '': '('+e.centSeparator+'\\d+)?')+'\\s*('+esc(e.currencyText)+')?\\s*$','i');
 
-									return this.optional(el) || r.test(v) || ($.isNumeric(v) && (!e.noCents || v === FLOOR(v)));
+									return this.optional(el) || r.test(v) || ($.fbuilder.isNumeric(v) && (!e.noCents || v === FLOOR(v)));
 								},
 								$.validator.messages['currency']
 							);
@@ -683,7 +685,7 @@
 								else v = e.val();
 
 								r = new RegExp('^\\s*\\-?\\d+('+esc(e.thousandSeparator)+'\\d{3})*('+esc(e.decimalSymbol)+'\\d+)?\\s*\\%?\\s*$','i');
-								return this.optional(el) || r.test(v) || $.isNumeric(v);
+								return this.optional(el) || r.test(v) || $.fbuilder.isNumeric(v);
 							};
                         $.validator.methods.min = function(v, el, p)
 							{
@@ -737,7 +739,7 @@
 							};
 						} )(this.evalequations) )
 						.find( 'input,select' )
-						.blur( function(){ try{ if(!$(this).is(':file')) $(this).valid(); }catch(e){};} );
+						.on( 'blur',  function(){ try{ if(!$(this).is(':file')) $(this).valid(); }catch(e){};} );
 
 					if(!this.autocomplete) form.find('input[name*="fieldname"]:not([autocomplete])').attr('autocomplete', 'new-password');
                 }
@@ -832,28 +834,28 @@
 				init:function(){},
 				_getAttr:function(attr, raw)
 					{
-						var me = this, f, v = $.trim(me[attr]), raw = raw || false;
-						if(!raw && $.isNumeric(v)) return parseFloat(v);
+						var me = this, f, v = String(me[attr]).trim(), raw = raw || false;
+						if(!raw && $.fbuilder.isNumeric(v)) return parseFloat(v);
 						f = (/^fieldname\d+$/i.test(v)) ? me.getField(v) : false;
 						if(f)
 						{
 							v = f.val();
 							if(f.ftype == 'fdate') return v ? new Date(v*86400000) : '';
-							if(!raw && $.isNumeric(v)) return parseFloat(v);
+							if(!raw && $.fbuilder.isNumeric(v)) return parseFloat(v);
 							return (new String(v)).replace(/^"+/, '').replace(/"+$/, '');
 						}
 						return v;
 					},
 				_setHndl:function(attr, one)
 					{
-						var me = this, v = $.trim(me[attr]);
-						if($.isNumeric(v)) return;
+						var me = this, v = String(me[attr]).trim();
+						if($.fbuilder.isNumeric(v)) return;
 						var s = (/^fieldname\d+$/i.test(v)) ? '[id*="'+v+me.form_identifier+'"]' : v,
 							i = (one) ? 'one' : 'on';
 						if('string' == typeof s && !/^\s*$/.test(s))
 						{
-							s = $.trim(s);
-							if(!$.isNumeric(s.charAt(0)))
+							s = String(s).trim();
+							if(!$.fbuilder.isNumeric(s.charAt(0)))
 							{
 								$(document)[i]('change depEvent', s, function(evt){
 									if(me['set_'+attr]) me['set_'+attr](me._getAttr(attr), $(evt.target).hasClass('ignore'));
@@ -889,8 +891,8 @@
 						var v = e.val();
 						if(raw) return $.fbuilder.parseValStr(v, raw, no_quotes);
 
-						v = $.trim(v);
-						return ($.isNumeric(v)) ? $.fbuilder.parseVal(v) : $.fbuilder.parseValStr(v, raw, no_quotes);
+						v = String(v).trim();
+						return ($.fbuilder.isNumeric(v)) ? $.fbuilder.parseVal(v) : $.fbuilder.parseValStr(v, raw, no_quotes);
 					}
 					return 0;
 				},

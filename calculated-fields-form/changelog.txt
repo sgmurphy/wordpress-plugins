@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 1.2.51 =
+
+* Replaces jQuery deprecated functions and events.
+* Modifies the equations processing.
+* Fixes an issue with DS controls and SERVER-SIDE equations (Developer and Platinum plugin versions).
+
 = 1.2.50 =
 
 * Fixes an issue with the Readonly attribute in Checkbox, Radio Button, Checkbox DS, and Radion Button DS controls.

@@ -62,10 +62,10 @@
                         l = [],
                         r = '';
 
-                    if( $.trim( d.sWidth ) ) a.push( 'width="'+esc( d.sWidth )+'"' );
-                    if( $.trim( d.sHeight ) ) a.push( 'height="'+esc( d.sHeight )+'"' );
-                    if( $.trim( d.sSrc ) ) a.push( 'src="'+esc( d.sSrc )+'"' );
-                    if( $.trim( d.sAlt ) ) a.push( 'alt="'+esc( d.sAlt )+'"' );
+                    if( String( d.sWidth ).trim() ) a.push( 'width="'+esc( d.sWidth )+'"' );
+                    if( String( d.sHeight ).trim() ) a.push( 'height="'+esc( d.sHeight )+'"' );
+                    if( String( d.sSrc ).trim() ) a.push( 'src="'+esc( d.sSrc )+'"' );
+                    if( String( d.sAlt ).trim() ) a.push( 'alt="'+esc( d.sAlt )+'"' );
 				r = '<img '+a.join( ' ' )+' />';
 
                     return r;
@@ -77,10 +77,10 @@
 						s = [],
                         t = ( isV) ? 'video' : 'audio';
 
-                    if( $.trim( d.sWidth ) ) s.push( 'width:'+esc( d.sWidth )+';' );
-                    if( isV && $.trim( d.sHeight ) ) s.push( 'height:'+esc( d.sHeight )+';' );
-                    if( isV && $.trim( d.sPoster ) ) a.push( 'poster="'+esc( d.sPoster )+'"' );
-                    if( $.trim( d.sSrc ) ) a.push( 'src="'+esc( d.sSrc )+'"' );
+                    if( String( d.sWidth ).trim() ) s.push( 'width:'+esc( d.sWidth )+';' );
+                    if( isV && String( d.sHeight ).trim() ) s.push( 'height:'+esc( d.sHeight )+';' );
+                    if( isV && String( d.sPoster ).trim() ) a.push( 'poster="'+esc( d.sPoster )+'"' );
+                    if( String( d.sSrc ).trim() ) a.push( 'src="'+esc( d.sSrc )+'"' );
                     if( d.sAutoplay ) a.push( 'autoplay' );
                     if( d.sControls ) a.push( 'controls' );
                     if( d.sLoop ) a.push( 'loop' );
@@ -88,7 +88,7 @@
 					if( d.sHideDownload ) a.push( 'controlsList="nodownload"' );
                     a.push( 'preload="'+esc( d.sPreload )+'"' );
 
-                    return '<'+t+' '+a.join(' ')+' style="'+s.join(' ')+'">'+(($.trim(d.sSrcAlt)) ? '<source src="'+esc(d.sSrcAlt)+'" />' : '')+'<p>'+d.sFallback+'</p></'+t+'>';
+                    return '<'+t+' '+a.join(' ')+' style="'+s.join(' ')+'">'+((String(d.sSrcAlt).trim()) ? '<source src="'+esc(d.sSrcAlt)+'" />' : '')+'<p>'+d.sFallback+'</p></'+t+'>';
                 },
             _display_audio: function()
                 {
@@ -105,30 +105,30 @@
 			editItemEvents:function()
 				{
                     var me = this;
-                    $("#sMediaBtn").bind("click", function(e)
+                    $("#sMediaBtn").on("click", function(e)
 						{
 							me._loadMedia( 'sSrc', me.sMediaType );
 						});
-                    $("#sMediaAltBtn").bind("click", function(e)
+                    $("#sMediaAltBtn").on("click", function(e)
 						{
 							me._loadMedia( 'sSrcAlt', me.sMediaType );
 						});
-                    $("#sPosterBtn").bind("click", function(e)
+                    $("#sPosterBtn").on("click", function(e)
 						{
 							me._loadMedia( 'sPoster', 'image' );
 						});
-                    $("[name='sMediaType']").bind("click", {obj: this}, function(e)
+                    $("[name='sMediaType']").on("click", {obj: this}, function(e)
                         {
                             e.data.obj[ this.name ] = $(this).val();
                             $.fbuilder.editItem( e.data.obj.index );
                             $.fbuilder.reloadItems({'field':e.data.obj});
                         });
-					$("#sControls,#sLoop,#sAutoplay,#sMuted,#sHideDownload").bind("click", {obj: this}, function(e)
+					$("#sControls,#sLoop,#sAutoplay,#sMuted,#sHideDownload").on("click", {obj: this}, function(e)
                         {
                             e.data.obj[ 'data' ][ e.data.obj[ 'sMediaType' ] ][ this.id ] = ( this.checked) ? 1 : 0;
                             $.fbuilder.reloadItems({'field':e.data.obj});
                         });
-					$("#sWidth,#sHeight,#sSrc,#sSrcAlt,#sPoster,#sAlt,#sLink,#sTarget,#sFallback,#sFigcaption,#sPreload").bind("change keyup", {obj: this}, function(e)
+					$("#sWidth,#sHeight,#sSrc,#sSrcAlt,#sPoster,#sAlt,#sLink,#sTarget,#sFallback,#sFigcaption,#sPreload").on("change keyup", {obj: this}, function(e)
 						{
 							e.data.obj[ 'data' ][ e.data.obj[ 'sMediaType' ] ][ this.id ] = $(this).val();
                             $.fbuilder.reloadItems({'field':e.data.obj});

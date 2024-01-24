@@ -34,8 +34,8 @@
 					str = '<div class="'+this.size+' components_container">';
 					for (var i=0;i<tmp.length;i++)
 					{
-						if ($.trim(tmp[i])!="")
-							str += '<div class="uh_phone" style="min-width:'+(100/nc*tmp[i].length)+'%"><input type="text" class="field disabled" value="'+cff_esc_attr((tmpv[i])?tmpv[i]:"")+'" maxlength="'+$.trim(tmp[i]).length+'" /><div class="l">'+$.trim(tmp[i])+'</div></div>';
+						if (String(tmp[i]).trim()!="")
+							str += '<div class="uh_phone" style="min-width:'+(100/nc*tmp[i].length)+'%"><input type="text" class="field disabled" value="'+cff_esc_attr((tmpv[i])?tmpv[i]:"")+'" maxlength="'+String(tmp[i]).trim().length+'" /><div class="l">'+String(tmp[i]).trim()+'</div></div>';
 					}
 					str += '</div>';
 					return '<div class="fields '+this.name+' '+this.ftype+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Phone Field')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield">'+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer" /></div>';
@@ -50,7 +50,7 @@
                         {s:"#sDefaultCountry",e:"change", l:"defaultCountry"},
                     ];
 					$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this,evt);
-                    $('#sSelectAll').click(function(){var e = $("#sCountries"); e.find('option').prop('selected', true); e.change();});
+                    $('#sSelectAll').on( 'click', function(){var e = $("#sCountries"); e.find('option').prop('selected', true); e.change();});
 				},
 			showFormatIntance: function()
 				{

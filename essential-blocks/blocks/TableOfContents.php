@@ -147,13 +147,10 @@ class TableOfContents extends Block
             return [  ];
         }
 
-        $string = <<<HTML
-        $postContent
-        HTML;
-
         $dom = new \DOMDocument();
         libxml_use_internal_errors( true );
-        $dom->loadHTML( $string );
+        $dom->loadHTML('<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body>' . $postContent . '</body></html>');
+        libxml_use_internal_errors( false );
 
         $queryArray = [ "h1", "h2", "h3", "h4", "h5", "h6" ];
         if ( isset( $visibleHeaders ) ) {

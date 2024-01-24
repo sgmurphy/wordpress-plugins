@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator,calculated,quote calculator,forms,form editor,advanced forms,payment calculator,payment,recurring payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf,language
 Requires at least: 3.0.5
 Tested up to: 6.4
-Stable tag: 1.2.50
+Stable tag: 1.2.51
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -999,6 +999,12 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 1.2.51 =
+
+* Replaces jQuery deprecated functions and events.
+* Modifies the equations processing.
+* Fixes an issue with DS controls and SERVER-SIDE equations (Developer and Platinum plugin versions).
+
 = 1.2.50 =
 
 * Fixes an issue with the Readonly attribute in Checkbox, Radio Button, Checkbox DS, and Radion Button DS controls.
@@ -1044,8 +1050,3 @@ A: Please, follow the steps below:
 * Display characters counter in Text Area controls with max length attribute.
 * Modifies the SHOWFIELD operation.
 * Fixes a minor issue in editable calculated fields.
-
-= 1.2.43 =
-
-* Modifies the forms builder appearance to improve the user experience.
-* Modifies the Stripe add-on to accept other payment methods than card only.

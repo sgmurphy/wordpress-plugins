@@ -44,7 +44,7 @@ define( 'CP_CALCULATEDFIELDSF_DEFAULT_fp_message', "The following contact messag
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cu_enable_copy_to_user', 'true' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cu_user_email_field', '' );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_cu_subject', 'Confirmation: Message received...' );
-define( 'CP_CALCULATEDFIELDSF_DEFAULT_cu_message', "Thank you for your message. We will reply you as soon as possible.\n\nThis is a copy of the data sent:\n\n<%INFO%>\n\nBest Regards." );
+define( 'CP_CALCULATEDFIELDSF_DEFAULT_cu_message', "Thank you for your message. We will reply to you as soon as possible.\n\nThis is a copy of the data sent:\n\n<%INFO%>\n\nBest Regards." );
 define( 'CP_CALCULATEDFIELDSF_DEFAULT_email_format', 'text' );
 
 // Captcha constants

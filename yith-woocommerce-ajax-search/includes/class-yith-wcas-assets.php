@@ -139,22 +139,22 @@ if ( ! class_exists( 'YITH_WCAS_Assets' ) ) {
 		public static function register_backend_script() {
 			$admin_scripts = array(
 				'ywcas-admin'         => array(
-					'src'     => yit_load_js_file( YITH_WCAS_ASSETS_URL . '/js/admin/panel.js' ),
+					'src'     => yit_load_js_file( YITH_WCAS_ASSETS_URL . '/js/admin/build/panel.js' ),
 					'deps'    => array( 'jquery' ),
 					'version' => YITH_WCAS_VERSION,
 				),
 				'ywcas-search-fields' => array(
-					'src'     => yit_load_js_file( YITH_WCAS_ASSETS_URL . '/js/admin/search-fields.js' ),
+					'src'     => yit_load_js_file( YITH_WCAS_ASSETS_URL . '/js/admin/build/search-fields.js' ),
 					'deps'    => array( 'jquery', 'selectWoo', 'ywcas-admin' ),
 					'version' => YITH_WCAS_VERSION,
 				),
 				'ywcas-indexing'      => array(
-					'src'     => yit_load_js_file( YITH_WCAS_ASSETS_URL . '/js/admin/indexing.js' ),
+					'src'     => yit_load_js_file( YITH_WCAS_ASSETS_URL . '/js/admin/build/indexing.js' ),
 					'deps'    => array( 'jquery', 'ywcas-admin' ),
 					'version' => YITH_WCAS_VERSION,
 				),
 				'ywcas-shortcodes'    => array(
-					'src'     => yit_load_js_file( YITH_WCAS_ASSETS_URL . '/js/admin/shortcodes.js' ),
+					'src'     => yit_load_js_file( YITH_WCAS_ASSETS_URL . '/js/admin/build/shortcodes.js' ),
 					'deps'    => array( 'jquery' ),
 					'version' => YITH_WCAS_VERSION,
 				),

@@ -67,6 +67,8 @@ class Elementor extends ElementorLocal {
 
 		$page_settings = $this->page_settings( $data );
 
+		// TODO: type check for (theme builder)
+
 		$template_id = $this->save_item( [
 			'content' => $content,
 			'title' => $data['title'],

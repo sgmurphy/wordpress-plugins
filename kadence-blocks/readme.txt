@@ -4,7 +4,7 @@ Tags: gutenberg, blocks, page builder, google fonts, dual buttons, svg icons, ed
 Donate link: https://www.kadencewp.com/about-us/
 Requires at least: 6.1
 Tested up to: 6.4
-Stable tag: 3.2.18
+Stable tag: 3.2.19
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -96,6 +96,15 @@ assist you with verification, CVE assignment, and notify the
 developers of this plugin.
 
 == Changelog ==
+
+= 3.2.19 =
+Release Date: January 23rd, 2024
+* Add: Dynamic loading of alt option for image block.
+* Fix: Timezone calculation issue in countdown block.
+* Fix: Border radius on submit button in Form block.
+* Fix: Issue with width on images in some patterns.
+* Fix: Possible php undefined.
+* Fix: Possible issue with pexels and third party plugin.
 
 = 3.2.18 =
 Release Date: January 17th, 2024

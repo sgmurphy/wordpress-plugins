@@ -389,21 +389,20 @@ export default function Style(props) {
 		}
 
 		.${blockId}.eb-advanced-navigation-wrapper .wp-block-navigation-item__content {
-			${navTextColor ? `color:${navTextColor};` : ""}
+			${navTextColor ? `color:${navTextColor} !important;` : ""}
 			${navTypoStylesDesktop}
-
 		}
 		.${blockId}.eb-advanced-navigation-wrapper .wp-block-navigation-item:hover >.wp-block-navigation-item__content {
-			${hvNavTextColor ? `color:${hvNavTextColor};` : ""}
+			${hvNavTextColor ? `color:${hvNavTextColor} !important;` : ""}
 		}
 
 		.${blockId}.eb-advanced-navigation-wrapper .current-menu-item .wp-block-navigation-item__content {
-			${actNavTextColor ? `color:${actNavTextColor};` : ""}
+			${actNavTextColor ? `color:${actNavTextColor} !important;` : ""}
 		}
 		.${blockId}.eb-advanced-navigation-wrapper .current-menu-item:hover >.wp-block-navigation-item__content {
 			${actHvNavTextColor
-            ? `color:${actHvNavTextColor};`
-            : `color:${hvNavTextColor};`
+            ? `color:${actHvNavTextColor} !important;`
+            : `color:${hvNavTextColor} !important;`
         }
 		}
 

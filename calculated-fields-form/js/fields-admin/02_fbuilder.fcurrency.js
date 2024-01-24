@@ -33,11 +33,11 @@
 				getPredefinedValue:function()
 					{
 						var me = this,
-							v = $.trim( me.predefined );
+							v = String( me.predefined ).trim();
 
 						if(me.predefinedClick || !me.formatDynamically) return v;
 
-						me.centSeparator = $.trim(me.centSeparator);
+						me.centSeparator = String(me.centSeparator).trim();
 						if( /^\s*$/.test( me.centSeparator ) ) me.centSeparator = '.';
 
 

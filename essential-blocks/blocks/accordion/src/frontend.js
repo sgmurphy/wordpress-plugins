@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             );
         });
 
+        let hide = "eb-accordion-hidden";
         //  add a className after the domcontent has been loaded
         accordion.classList.add("eb_accdn_loaded");
 
@@ -127,6 +128,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             } else {
                 contentNodes[i].setAttribute("data-collapsed", "true");
                 slideUp(contentNodes[i], transitionDuration);
+                contentNodes[i].parentElement.classList.add(hide);
             }
         }
 
@@ -176,10 +178,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 slideDown(contentNode, transitionDuration);
                 contentNode.setAttribute("data-collapsed", "false");
                 clickedTab.setAttribute("aria-expanded", "true");
+                clickedTab.parentElement.classList.remove(hide);
             } else {
                 slideUp(contentNode, transitionDuration);
                 contentNode.setAttribute("data-collapsed", "true");
                 clickedTab.setAttribute("aria-expanded", "false");
+                clickedTab.parentElement.classList.add(hide);
             }
             // Change tab icon
             changeIcon(clickedTab);
@@ -203,7 +207,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         function onAccordionTabClick() {
             let clickedTab = this;
-
+            Array.from(accordionWrapper).forEach((item) => {
+                item.classList.add(hide);
+            });
             let contentNode = clickedTab.nextElementSibling;
             let isCollapsed = contentNode.getAttribute("data-collapsed") === "true";
 
@@ -214,11 +220,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 slideDown(contentNode, transitionDuration);
                 contentNode.setAttribute("data-collapsed", "false");
                 clickedTab.setAttribute("aria-expanded", "true");
+                clickedTab.parentElement.classList.remove(hide);
             } else {
                 slideUp(contentNode, transitionDuration);
                 contentNode.setAttribute("data-collapsed", "true");
                 clickedTab.setAttribute("aria-expanded", "false");
                 changeIcon(clickedTab);
+                clickedTab.parentElement.classList.add(hide);
             }
             //Change tab icon
             changeIcon(clickedTab);

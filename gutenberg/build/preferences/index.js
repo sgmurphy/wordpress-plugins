@@ -289,20 +289,12 @@ var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external
  */
 
 const withDeprecatedKeys = originalGet => (state, scope, name) => {
-  const settingsToMoveToCore = ['allowRightClickOverrides', 'distractionFree', 'editorMode', 'fixedToolbar', 'focusMode', 'hiddenBlockTypes', 'inactivePanels', 'keepCaretInsideBlock', 'mostUsedBlocks', 'openPanels', 'showBlockBreadcrumbs', 'showIconLabels', 'showListViewByDefault'];
+  const settingsToMoveToCore = ['allowRightClickOverrides', 'distractionFree', 'fixedToolbar', 'focusMode', 'inactivePanels', 'keepCaretInsideBlock', 'mostUsedBlocks', 'openPanels', 'showBlockBreadcrumbs', 'showIconLabels', 'showListViewByDefault'];
   if (settingsToMoveToCore.includes(name) && ['core/edit-post', 'core/edit-site'].includes(scope)) {
     external_wp_deprecated_default()(`wp.data.select( 'core/preferences' ).get( '${scope}', '${name}' )`, {
       since: '6.5',
       alternative: `wp.data.select( 'core/preferences' ).get( 'core', '${name}' )`
     });
-    const value = originalGet(state, 'core', name);
-
-    // Hotfix for 17.5. Some of the preferences in the list above haven't been
-    // migrated to core in 17.5 (i.e: `editorMode`, https://github.com/WordPress/gutenberg/pull/57642))
-    // so we should fallback to the passed scope to avoid unexpected `undefined` values.
-    if (value === undefined) {
-      return originalGet(state, scope, name);
-    }
     return originalGet(state, 'core', name);
   }
   return originalGet(state, scope, name);

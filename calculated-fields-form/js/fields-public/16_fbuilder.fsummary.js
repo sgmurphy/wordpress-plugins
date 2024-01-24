@@ -14,7 +14,7 @@
 				{
 					var me = this;
 					if('string' != typeof me.fields) return;
-                    var p = $.trim(me.fields.replace(/\,+/g, ',')).split(','),
+                    var p = String(me.fields.replace(/\,+/g, ',')).trim().split(','),
 					    l = p.length;
 					if(l)
 					{
@@ -26,7 +26,7 @@
 			after_show: function(){
                     var me = this;
 					if('string' != typeof me.fields) return;
-                    var p = $.trim(me.fields.replace(/\,+/g, ',')).split(','),
+                    var p = String(me.fields.replace(/\,+/g, ',')).trim().split(','),
                         l = p.length,
 						str = '';
 
@@ -36,7 +36,7 @@
                         {
                             if(!/^\s*$/.test(p[i]))
                             {
-								p[i] = $.trim(p[i])+me.form_identifier;
+								p[i] = String(p[i]).trim()+me.form_identifier;
 								if ( $( '[class*="'+p[i]+'"]' ).length ) {
 									str += '<div ref="'+p[i]+'" class="cff-summary-item"><span class="'+cff_esc_attr(me.titleClassname)+' cff-summary-title"></span><span class="'+cff_esc_attr(me.valueClassname)+' cff-summary-value"></span></div>';
 
@@ -51,7 +51,7 @@
 						    me.update();
                         });
 
-                        $('#cp_calculatedfieldsf_pform'+me.form_identifier).bind('reset', function(){ setTimeout(function(){ me.update(); }, 10); });
+                        $('#cp_calculatedfieldsf_pform'+me.form_identifier).on('reset', function(){ setTimeout(function(){ me.update(); }, 10); });
                     }
 					$('[id="'+me.name+'"]').html(str);
                 },
@@ -72,7 +72,7 @@
 									.find('.r,.dformat')
 									.remove()
 									.end(),
-								t  = $.trim(l.text())
+								t  = String(l.text()).trim()
 									.replace(/\:$/,''),
 								v  = [];
 

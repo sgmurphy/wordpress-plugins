@@ -2174,7 +2174,12 @@ function pagelayer_trash_post(){
 		$ret = ['error' => __pl('invalid_post_id')];
 		pagelayer_json_output($ret);
 	}
-	
+
+	if(!current_user_can( 'delete_post', $_POST['postid'] )){
+		$ret = ['error' => __pl('no_permission')];
+		pagelayer_json_output($ret);
+	}
+
 	$ret['url'] = admin_url('/edit.php?post_type=') .get_post_type($_POST['postid']);
 	
 	wp_trash_post($_POST['postid']);	

@@ -37,7 +37,7 @@
                 {
 					var me = this;
 					$('#'+this.name).mousedown(function(){eval(me.sOnmousedown);});
-					$('#'+this.name).click(
+					$('#'+this.name).on( 'click',
                         function()
                             {
                                 var e = $(this), f = e.closest('form'), fid = me.form_identifier;

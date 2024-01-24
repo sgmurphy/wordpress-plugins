@@ -194,6 +194,9 @@ function Inspector(props) {
     const [metaOptions, setMetaOptions] = useState([]);
     const [defaultFilterOptions, setDefaultFilterOptions] = useState('');
 
+    /**
+     * Prepare Post Terms
+     */
     useEffect(() => {
         const meta = [
             { value: "date", label: "Published Date" },
@@ -2242,37 +2245,52 @@ function Inspector(props) {
 }
 
 export default withSelect((select, ownProps) => {
-    const { queryData, selectedTaxonomy, selectedTaxonomyItems } = ownProps.attributes;
+    const {
+        queryData,
+        selectedTaxonomy,
+        showTaxonomyFilter
+    } = ownProps.attributes;
 
-    //Get Taxonomies by post type
-    const postTypes = select("core").getPostTypes();
+    if (showTaxonomyFilter) {
+        //Get Taxonomies by post type
+        const postTypes = select("core").getPostTypes();
 
-    //Get Terms
-    const selectedTax = selectedTaxonomy ? JSON.parse(selectedTaxonomy).value : "category";
-    const terms = select("core").getEntityRecords("taxonomy", selectedTax, {
-        per_page: -1,
-    });
-    const termArr = [
-        {
-            label: "All",
-            value: "all",
-        },
-    ];
-    if (terms && typeof terms === "object" && terms.length > 0) {
-        terms.map((term, index) => {
-            termArr.push({
-                label: term.name,
-                value: term.slug,
-            });
+        //Get Terms
+        const selectedTax = selectedTaxonomy ? JSON.parse(selectedTaxonomy).value : "category";
+        const terms = select("core").getEntityRecords("taxonomy", selectedTax, {
+            per_page: -1,
         });
+        const termArr = [
+            {
+                label: "All",
+                value: "all",
+            },
+        ];
+        if (terms && typeof terms === "object" && terms.length > 0) {
+            terms.map((term, index) => {
+                termArr.push({
+                    label: term.name,
+                    value: term.slug,
+                });
+            });
+        }
+
+        return {
+            taxonomyData: {
+                taxonomies: taxonomyFilter(postTypes, queryData),
+                terms: termArr,
+            },
+        };
+    }
+    else {
+        return {
+            taxonomyData: {
+                taxonomies: [],
+                terms: [],
+            },
+        };
     }
 
-    return {
-        taxonomyData: {
-            taxonomies: taxonomyFilter(postTypes, queryData),
-            terms: termArr,
-        },
-    };
 })(Inspector);
 
 //Function for filter taxonomies

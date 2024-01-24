@@ -57,7 +57,7 @@
 				{
 					if(value == '') return value;
 					var ts = this.thousandSeparator,
-						ds = ((ds=$.trim(this.decimalSymbol)) !== '') ? ds : '.',
+						ds = ((ds=String(this.decimalSymbol).trim()) !== '') ? ds : '.',
 						v = $.fbuilder.parseVal(value, ts, ds),
 						s = '',
 						counter = 0,
@@ -147,8 +147,8 @@
 					var e = $('[id="'+this.name+'"]:not(.ignore)');
 					if(e.length)
 					{
-						var v = $.trim(e.val());
-						if(raw) return ($.isNumeric(v) && this.thousandSeparator != '.') ? v : $.fbuilder.parseValStr(v, raw, no_quotes);
+						var v = String(e.val()).trim();
+						if(raw) return ($.fbuilder.isNumeric(v) && this.thousandSeparator != '.') ? v : $.fbuilder.parseValStr(v, raw, no_quotes);
 
 						v = v.replace(new RegExp($.fbuilder[ 'escapeSymbol' ](this.prefix), 'g'), '')
 						     .replace(new RegExp($.fbuilder[ 'escapeSymbol' ](this.postfix), 'g'), '');

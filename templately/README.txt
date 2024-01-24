@@ -4,8 +4,8 @@ Donate link: https://templately.com
 Tags: Elementor, template, templates, Gutenberg, template kits, elementor template, Gutenberg template, block pattern, Website Design, design, Responsive Templates, landing page, Ready Templates, Free Templates, page builder, WoCommerce Templates, templates cloud, Gutenberg Template library, Elementor template library
 Requires at least: 5.0
 Tested up to: 6.4
-Requires PHP: 5.6
-Stable tag: 2.2.13
+Requires PHP: 7.2
+Stable tag: 3.0.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,6 +26,10 @@ Save all your designs with Templately & deploy in hundreds of websites with 1-cl
 ### 🌟 STUNNING FREE TEMPLATES: ###
 
 Sign up right now and get started with beautiful Templates. You can just import these designs with 1 click & start creating WordPress pages.
+
+### 🔥 Full Site Import: ###
+
+Templately Full Site Import will help you import your entire template pack just in one click. It will change your existing design & not at all affect your current designs.
 
 ### 🚀 FREE STORAGE AT MYCLOUD ###
 
@@ -79,7 +83,7 @@ This Templates Cloud is brought to you by the team behind [WPDeveloper](https://
 
 If you like Templately, then consider checking out our other WordPress Plugins:
 
-- 🔝 [Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/) – Most popular Elementor extensions with 1 Million+ active users in the WordPress repository.
+- 🔝 [Essential Addons For Elementor](https://wordpress.org/plugins/essential-addons-for-elementor-lite/) – Most popular Elementor extensions with 2 Million+ active users in the WordPress repository.
 - 🧱 [Essential Blocks for Gutenberg](https://wordpress.org/plugins/essential-blocks/) – Ultimate Gutenberg block library with 45+ exclusive blocks.
 - 🔔 [NotificationX](https://notificationx.com/) – Best Social Proof & FOMO Marketing Solution to increase conversion rates.
 - ⏰ [SchedulePress](https://wordpress.org/plugins/wp-scheduled-posts/) – Complete solution for WordPress Post Scheduling to manage schedules through an editorial calendar.
@@ -135,7 +139,11 @@ Every month we are adding new Elementor templates, along with Gutenberg template
 
 
 == Changelog ==
-= 2.2.13 – 09-01-2023 =
+= 3.0.0 – 24-01-2024 =
+Added: Templately Full Site Import 🚀
+Few minor bug fixes & improvements
+
+= 2.2.13 – 09-01-2024 =
 Fixed: Page layout breaking issue while importing on Elementor.
 Improved: Template search option
 Few minor bug fixes & improvements

@@ -25,7 +25,7 @@ class Migrator extends Base {
 		/**
 		 * Migration for v1.3.6 to v2.0.1
 		 */
-        if( \version_compare(TEMPLATELY_VERSION, '2.0.1', '=') && \version_compare($_old_version, '1.3.6', '=') ) {
+		if( \version_compare(TEMPLATELY_VERSION, '2.0.1', '=') && \version_compare($_old_version, '1.3.6', '=') ) {
 			$user_choice = $this->options->get_option('_templately_user_login_choice');
 			$user_id = false;
 			if( ! empty( $user_choice ) && isset($user_choice['choice']) ) {
@@ -59,12 +59,12 @@ class Migrator extends Base {
 				$this->options->set('user', $user_profile, $user_id );
 				$this->options->set('favourites', $_favourites, $user_id );
 			}
-        }
+		}
 
 		/**
 		 * Migration for v2.2.10 to v2.2.11
 		 */
-        if( TEMPLATELY_VERSION !== $_old_version && \version_compare($_old_version, '2.2.10', '<=') ) {
+		if( TEMPLATELY_VERSION !== $_old_version && \version_compare($_old_version, '2.2.10', '<=') ) {
 			Profile::get_instance()->sync();
 		}
 

@@ -30,12 +30,12 @@
                                 }
                             }
 						}
-                        $('.'+me.name+'>fieldset>legend').bind('click', function(evt){
+                        $('.'+me.name+'>fieldset>legend').on('click', function(evt){
                             collapseApply($(this).closest('.cff-collapsible'));
 							evt.preventDefault();
 							evt.stopPropagation();
                         });
-						$('.'+me.name).bind('click', function(){
+						$('.'+me.name).on('click', function(){
 							var e = $(this);
                             if(e.hasClass('cff-collapsed')) collapseApply(e);
                         });

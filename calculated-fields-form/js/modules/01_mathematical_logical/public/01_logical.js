@@ -56,7 +56,7 @@
 				_term = _reduce( _term );
 				if( typeof _values == 'string' )
                 {
-                    if($.isNumeric(_term) && $.isNumeric(_values)) return _term == _values;
+                    if($.fbuilder.isNumeric(_term) && $.fbuilder.isNumeric(_values)) return _term == _values;
                     return _reduce(_values).indexOf(_term) != -1;
                 }
 				else if( typeof _values == 'object' && _values.length ){

@@ -114,7 +114,7 @@ Apart from setting a global date and time-based countdown, you can also start an
 
 = 🔒 My Sticky Bar IS GDPR COMPLAINT  =
 We don’t store any local data about your visitors. Any time your menu or notification bar appears on your site, the plugin will not store any local data about it. 
-<strong>Pro tip:</strong> You can the plugin's notification bar to let your website visitors know about your cookie policy :)
+<strong>Pro tip:</strong> You can use the plugin's notification bar to let your website's visitors know about your cookie policy :)
 
 = 📧 Grow your email list using the notification bar contact form =
 Collect valuable visitor information from your website, by giving them access to a contact from any time anywhere. The notification bar contact form helps you get leads into your local database. Use these leads to create highly effective marketing campaigns and to contact your website visitors. Using the contact form in combination with features like a countdown, coupons, etc gives you a powerful way to convince users to share their lead information with you. 

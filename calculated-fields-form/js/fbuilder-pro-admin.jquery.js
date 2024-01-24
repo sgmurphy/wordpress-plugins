@@ -6,6 +6,8 @@
 	$.fbuilder[ 'displayedDuplicateContainerMessage' ] = false;
 	$.fbuilder[ 'duplicateContainerMessage' ] = 'Note: If the container field being duplicated includes calculated fields or fields with dependency rules, the equations and dependencies rules in the new fields are exactly the same equations and dependency rules than in the original fields.';
 
+	$.fbuilder['isNumeric'] = function(n){return !isNaN(parseFloat(n)) && isFinite(n);};
+
 	$.fbuilder[ 'intializeDeletedFields' ] = function(){
 		for(let i in $.fbuilder[ 'deletedFields' ] ) {
 			$.fbuilder['deletedFields'][i] = 0;
@@ -278,13 +280,13 @@
 					$.fbuilder.reloadItems({'form':1});
 				});
 
-				$("#fTitleTag").change(function()
+				$("#fTitleTag").on( 'change', function()
 				{
 					theForm.titletag = $(this).val();
 					$.fbuilder.reloadItems({'form':1});
 				});
 
-				$("[name='fTextAlign']").click(function()
+				$("[name='fTextAlign']").on( 'click', function()
 				{
 					theForm.textalign = $("[name='fTextAlign']:checked").val();
 					$.fbuilder.reloadItems({'form':1});
@@ -296,55 +298,55 @@
 					$.fbuilder.reloadItems({'form':1});
 				});
 
-				$("#fEvalEquations").click(function()
+				$("#fEvalEquations").on( 'click', function()
 				{
 					theForm.evalequations = ($(this).is( ':checked' )) ? 1 : 0;
 					$.fbuilder.reloadItems({'form':1});
 				});
 
-				$("#fEvalEquationsDelay").click(function()
+				$("#fEvalEquationsDelay").on( 'click', function()
 				{
 					theForm.evalequations_delay = ($(this).is( ':checked' )) ? 1 : 0;
 					$.fbuilder.reloadItems({'form':1});
 				});
 
-				$("#fAnimateForm").click(function()
+				$("#fAnimateForm").on( 'click', function()
 				{
 					theForm.animate_form = ($(this).is( ':checked' )) ? 1 : 0;
 					$.fbuilder.reloadItems({'form':1});
 				});
 
-				$("#fAnimationEffect").change(function()
+				$("#fAnimationEffect").on( 'change', function()
 				{
 					theForm.animation_effect = $(this).val();
 					$.fbuilder.reloadItems({'form':1});
 				});
 
-				$("[name='fEvalEquationsEvent']").change(function()
+				$("[name='fEvalEquationsEvent']").on( 'change', function()
 				{
 					theForm.evalequationsevent = $("[name='fEvalEquationsEvent']:checked").val();
 					$.fbuilder.reloadItems({'form':1});
 				});
 
-				$("#fDirection").click(function()
+				$("#fDirection").on( 'click', function()
 				{
 					theForm.direction = $(this).val();
 					$.fbuilder.reloadItems({'form':1});
 				});
 
-				$("#fLoadingAnimation").click(function()
+				$("#fLoadingAnimation").on( 'click', function()
 				{
 					theForm.loading_animation = ($(this).is( ':checked' )) ? 1 : 0;
 					$.fbuilder.reloadItems({'form':1});
 				});
 
-				$("#fAutocomplete").click(function()
+				$("#fAutocomplete").on( 'click', function()
 				{
 					theForm.autocomplete = ($(this).is( ':checked' )) ? 1 : 0;
 					$.fbuilder.reloadItems({'form':1});
 				});
 
-				$("#fPersistence").click(function()
+				$("#fPersistence").on( 'click', function()
 				{
 					theForm.persistence = ($(this).is( ':checked' )) ? 1 : 0;
 					$.fbuilder.reloadItems({'form':1});
@@ -356,13 +358,13 @@
 					$.fbuilder.reloadItems({'form':1});
 				});
 
-				$("#fLayout").change(function()
+				$("#fLayout").on( 'change', function()
 				{
 					theForm.formlayout = $(this).val();
 					$.fbuilder.reloadItems();
 				});
 
-				$("#fTemplate").change(function()
+				$("#fTemplate").on( 'change', function()
 				{
 					theForm.formtemplate = $(this).val();
 					var template 	= $.fbuilder.showSettings.formTemplateDic[ theForm.formtemplate ],
@@ -385,7 +387,7 @@
 					$.fbuilder.reloadItems({'form':1});
 				});
 
-				$("#fCustomStyles").change(function()
+				$("#fCustomStyles").on( 'change', function()
 				{
 					theForm.customstyles = $(this).val();
 					$.fbuilder.reloadItems({'form':1});
@@ -1148,7 +1150,7 @@
 						* f -> function to apply the value
                         * x -> escape
 						*/
-						$(e[i].s).bind(e[i].e, {obj:this, i:e[i]}, function(e){
+						$(e[i].s).on(e[i].e, {obj:this, i:e[i]}, function(e){
 							var v = $(this).val();
 							if(typeof e.data.i['f'] != 'undefined') v = e.data.i.f($(this));
 							e.data.obj[e.data.i.l] = ('x' in e.data.i && e.data.i.x) ? cff_esc_attr(v) : v;
@@ -1157,98 +1159,98 @@
 					}
 				}
 
-				$("#sTitle").bind("keyup", {obj: this}, function(e)
+				$("#sTitle").on("keyup", {obj: this}, function(e)
 					{
 						var str = $(this).val();
 						e.data.obj.title = str.replace(/\n/g,"<br />");
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("[name='sFieldLayout']").bind("click change", {obj: this}, function(e)
+				$("[name='sFieldLayout']").on("click change", {obj: this}, function(e)
 					{
 						e.data.obj.fieldlayout = $("[name='sFieldLayout']:checked").val();
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("[name='sSize']").bind("click change", {obj: this}, function(e)
+				$("[name='sSize']").on("click change", {obj: this}, function(e)
 					{
 						e.data.obj.size = $("[name='sSize']:checked").val();
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sShortlabel").bind("keyup", {obj: this}, function(e)
+				$("#sShortlabel").on("keyup", {obj: this}, function(e)
 					{
 						e.data.obj.shortlabel = $(this).val();
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sReadonly").bind("click", {obj: this}, function(e)
+				$("#sReadonly").on("click", {obj: this}, function(e)
 					{
 						e.data.obj.readonly = $(this).is(':checked');
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sNumberpad").bind("click", {obj: this}, function(e)
+				$("#sNumberpad").on("click", {obj: this}, function(e)
 					{
 						e.data.obj.numberpad = $(this).is(':checked');
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sAutocomplete").bind("change", {obj: this}, function(e)
+				$("#sAutocomplete").on("change", {obj: this}, function(e)
 					{
 						e.data.obj.autocomplete = $(this).val();
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sPredefined").bind("keyup", {obj: this}, function(e)
+				$("#sPredefined").on("keyup", {obj: this}, function(e)
 					{
 						e.data.obj.predefined = $(this).val();
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sPredefinedClick").bind("click", {obj: this}, function(e)
+				$("#sPredefinedClick").on("click", {obj: this}, function(e)
 					{
 						e.data.obj.predefinedClick = $(this).is(':checked');
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sRequired").bind("click", {obj: this}, function(e)
+				$("#sRequired").on("click", {obj: this}, function(e)
 					{
 						e.data.obj.required = $(this).is(':checked');
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sExclude").bind("click", {obj: this}, function(e)
+				$("#sExclude").on("click", {obj: this}, function(e)
 					{
 						e.data.obj.exclude = $(this).is(':checked');
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sUserhelp").bind("keyup", {obj: this}, function(e)
+				$("#sUserhelp").on("keyup", {obj: this}, function(e)
 					{
 						e.data.obj.userhelp = $(this).val();
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sUserhelpTooltip").bind("click", {obj: this}, function(e)
+				$("#sUserhelpTooltip").on("click", {obj: this}, function(e)
 					{
 						e.data.obj.userhelpTooltip = $(this).is(':checked');
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sTooltipIcon").bind("click", {obj: this}, function(e)
+				$("#sTooltipIcon").on("click", {obj: this}, function(e)
 					{
 						e.data.obj.tooltipIcon = $(this).is(':checked');
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sAudioSrc").bind("keyup change", {obj: this}, function(e)
+				$("#sAudioSrc").on("keyup change", {obj: this}, function(e)
 					{
 						e.data.obj.audiotutorial = $(this).val();
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-				$("#sSelectAudioBtn").bind("click", {obj: this}, function(e)
+				$("#sSelectAudioBtn").on("click", {obj: this}, function(e)
 					{
 						var media = wp.media({
 									title: 'Select Source',
@@ -1271,14 +1273,14 @@
 						return false;
 					});
 
-				$("#sCsslayout").bind("keyup", {obj: this}, function(e)
+				$("#sCsslayout").on("keyup", {obj: this}, function(e)
 					{
 						e.data.obj.csslayout = $(this).val().replace(/\,/g, ' ').replace(/\s+/g, ' ');
 						$.fbuilder.reloadItems( {'field': e.data.obj} );
 					});
 
-                $(".helpfbuilder").unbind('click');
-				$(".helpfbuilder").bind('click', function()
+                $(".helpfbuilder").off('click');
+				$(".helpfbuilder").on('click', function()
 					{
 						alert($(this).attr("text"));
 					});

@@ -5,7 +5,7 @@ Tags: woocommerce search by sku, woocommerce search results, woocommerce search 
 Requires at least: 6.2
 Requires PHP: 7.4
 Tested up to: 6.4
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -134,6 +134,11 @@ If you want to see a demonstration version of the premium plugin, you can see th
 6. Shortcode configuration - search results tab
 
 == Changelog ==
+= 2.0.2 - Released on 24 January 2024 =
+* Fix: Product price was not displayed with tax and in the correct format.
+* Fix: Shortcode option was not being saved.
+* Fix: Products in draft status were being displayed in search results.
+
 = 2.0.1 - Released on 15 January 2024 =
 * Update: YITH plugin framework
 * Fix: Fuzzy search strings only on products

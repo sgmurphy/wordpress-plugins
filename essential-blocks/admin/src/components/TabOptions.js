@@ -30,7 +30,7 @@ export default function TabOptions() {
 
     useEffect(() => {
         /**
-         * fetch settings data using AJAX
+         * fetch eb_settings data using AJAX
          */
         fetchEBSettingsData("eb_settings").then((data) => {
             setSettingsData(data ?? {});

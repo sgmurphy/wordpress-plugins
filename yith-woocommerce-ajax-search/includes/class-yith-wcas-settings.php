@@ -797,6 +797,19 @@ Separate multiple classes with spaces.',
 		public function get_hide_out_of_stock() {
 			return false;
 		}
+
+		/**
+		 * Return the field that should be checked before save the shortcode
+		 *
+		 * @return array[]
+		 */
+		public function get_shortcode_fields_to_check() {
+			return array(
+				'search-results' => array(
+					'info-to-show' => array(),
+				)
+			);
+		}
 	}
 
 

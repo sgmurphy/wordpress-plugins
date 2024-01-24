@@ -29,7 +29,7 @@ use EssentialBlocks\Integrations\PluginInstaller;
 final class Plugin
 {
     use HasSingletone;
-    public $version = '4.4.9';
+    public $version = '4.4.11';
 
     public $admin;
     /**
@@ -200,6 +200,7 @@ final class Plugin
         $this->define( 'ESSENTIAL_BLOCKS_SITE_URL', 'https://essential-blocks.com/' );
         $this->define( 'ESSENTIAL_BLOCKS_UPGRADE_PRO_URL', 'https://essential-blocks.com/upgrade' );
         $this->define( 'ESSENTIAL_BLOCKS_PLACEHOLDER_IMAGE', ESSENTIAL_BLOCKS_URL . 'assets/images/placeholder.png' );
+        $this->define( 'EB_PATTERN', true );
 
         //Table Name constants
         global $wpdb;

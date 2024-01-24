@@ -70,8 +70,11 @@ class YITH_WCAS_Data_Index_Updater {
 		$post = get_post( $post_id );
 		if ( $post ) {
 			ywcas()->indexer->delete( $post );
-			ywcas()->indexer->schedule( $post_id, 0, array( $post_id ) );
-			$this->post_processed[] = $post_id;
+			if( 'publish' === $post->post_status ){
+				ywcas()->indexer->schedule( $post_id, 0, array( $post_id ) );
+
+				$this->post_processed[] = $post_id;
+			}
 		}
 
 	}

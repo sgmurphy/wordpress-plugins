@@ -12,7 +12,8 @@ use PriyoMukul\WPNotice\Utils\NoticeRemover;
 
 // use EssentialBlocks\Dependencies\WPNotice\Notices;
 
-class Admin {
+class Admin
+{
 
     use HasSingletone;
 
@@ -24,7 +25,8 @@ class Admin {
     private $insights = null;
     private static $cache_bank;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->plugin_usage_insights();
 
         require_once ESSENTIAL_BLOCKS_DIR_PATH . 'includes/Dependencies/wpnotice.php';
@@ -39,29 +41,30 @@ class Admin {
         // Remove OLD notice from 1.0.0 (if other WPDeveloper plugin has notice)
         NoticeRemover::get_instance( '1.0.0' );
 
-        add_action( 'admin_init', [$this, 'notices'] );
+        add_action( 'admin_init', [ $this, 'notices' ] );
 
-        add_action( 'admin_menu', [$this, 'admin_menu'] );
+        add_action( 'admin_menu', [ $this, 'admin_menu' ] );
 
         // Update message for showing notice for new release
-        add_action( 'in_plugin_update_message-essential-blocks/essential-blocks.php', [$this, 'plugin_update'], 10, 2 );
+        add_action( 'in_plugin_update_message-essential-blocks/essential-blocks.php', [ $this, 'plugin_update' ], 10, 2 );
 
-        add_filter( 'block_categories_all', [$this, 'register_category'], 99, 2 );
+        add_filter( 'block_categories_all', [ $this, 'register_category' ], 99, 2 );
 
-        add_action( 'admin_enqueue_scripts', [$this, 'enqueue_styles'] );
-        add_action( 'admin_enqueue_scripts', [$this, 'enqueue_scripts'] );
+        add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_styles' ] );
+        add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 
-        add_action( 'wp_ajax_save_eb_admin_options', [$this, 'save'] );
-        add_action( 'wp_ajax_get_eb_admin_options', [$this, 'get'] );
-        add_action( 'wp_ajax_get_eb_admin_templates', [$this, 'templates'] );
-        add_action( 'wp_ajax_get_eb_admin_template_count', [$this, 'template_count'] );
-        add_action( 'plugin_action_links', [$this, 'eb_menu_action_links'], 10, 2 );
+        add_action( 'wp_ajax_save_eb_admin_options', [ $this, 'save' ] );
+        add_action( 'wp_ajax_get_eb_admin_options', [ $this, 'get' ] );
+        add_action( 'wp_ajax_get_eb_admin_templates', [ $this, 'templates' ] );
+        add_action( 'wp_ajax_get_eb_admin_template_count', [ $this, 'template_count' ] );
+        add_action( 'plugin_action_links', [ $this, 'eb_menu_action_links' ], 10, 2 );
 
         // Redirect after Plugin is updated
-        add_action( 'admin_init', [$this, 'maybe_redirect'] );
+        add_action( 'admin_init', [ $this, 'maybe_redirect' ] );
     }
 
-    public function maybe_redirect() {
+    public function maybe_redirect()
+    {
         if ( wp_doing_ajax() ) {
             return;
         }
@@ -70,18 +73,19 @@ class Admin {
             delete_transient( 'essential_block_maybe_whatsnew_redirect' );
 
             if ( ! is_multisite() ) {
-                wp_safe_redirect( add_query_arg( ['page' => 'welcome-essential-blocks'], admin_url( 'admin.php' ) ) );
+                wp_safe_redirect( add_query_arg( [ 'page' => 'welcome-essential-blocks' ], admin_url( 'admin.php' ) ) );
             }
         }
     }
 
-    public function admin_menu() {
+    public function admin_menu()
+    {
         add_menu_page(
             __( 'Essential Blocks', 'essential-blocks' ),
             __( 'Essential Blocks', 'essential-blocks' ),
             'activate_plugins',
             'essential-blocks',
-            [$this, 'admin_page'],
+            [ $this, 'admin_page' ],
             ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/images/eb-icon-21x21.svg',
             60
         );
@@ -93,16 +97,18 @@ class Admin {
             'Welcome Page',
             'activate_plugins',
             'welcome-essential-blocks',
-            [$this, 'welcome_page']
+            [ $this, 'welcome_page' ]
         );
     }
 
-    public function admin_page() {
-        Helper::views( 'admin', [] );
+    public function admin_page()
+    {
+        Helper::views( 'admin', [  ] );
     }
 
-    public function welcome_page() {
-        Helper::views( 'welcome', [] );
+    public function welcome_page()
+    {
+        Helper::views( 'welcome', [  ] );
     }
 
     /**
@@ -110,7 +116,8 @@ class Admin {
      *
      * @since 4.1.0
      */
-    public function eb_menu_action_links( $links, $file ) {
+    public function eb_menu_action_links( $links, $file )
+    {
         if ( $file === ESSENTIAL_BLOCKS_PLUGIN_BASENAME ) {
             $settings_links = sprintf(
                 '<a href="%1$s">Settings</a>',
@@ -130,11 +137,12 @@ class Admin {
         return $links;
     }
 
-    public function register_category( $categories, $post ) {
+    public function register_category( $categories, $post )
+    {
         array_unshift( $categories, [
             'slug'  => 'essential-blocks',
             'title' => __( 'Essential Blocks', 'essential-blocks' )
-        ] );
+         ] );
 
         return $categories;
     }
@@ -142,27 +150,29 @@ class Admin {
     /**
      * Update message for showing notice for new release
      */
-    public function plugin_update( $plugin_data, $new_data ) {
+    public function plugin_update( $plugin_data, $new_data )
+    {
         require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
         $upgrade_notice = false;
         if ( isset( $new_data->upgrade_notice ) ) {
             $upgrade_notice = $new_data->upgrade_notice;
         }
 
-        Helper::version_update_warning( $plugin_data['Version'], $plugin_data['new_version'], $upgrade_notice );
+        Helper::version_update_warning( $plugin_data[ 'Version' ], $plugin_data[ 'new_version' ], $upgrade_notice );
     }
 
     /**
      * WP Insights Integration
      */
-    public function plugin_usage_insights() {
+    public function plugin_usage_insights()
+    {
         $this->insights = Insights::get_instance(
             ESSENTIAL_BLOCKS_FILE,
             [
                 'opt_in'       => true,
                 'goodbye_form' => true,
                 'item_id'      => 'fa45e4a52a650579e98c'
-            ]
+             ]
         );
         $this->insights->set_notice_options(
             [
@@ -175,7 +185,7 @@ class Admin {
                 ),
                 'yes'          => __( 'Send me FREE Templates', 'wpinsight' ),
                 'no'           => __( 'I don\'t want FREE Templates', 'wpinsight' )
-            ]
+             ]
         );
         $this->insights->init();
     }
@@ -185,7 +195,8 @@ class Admin {
      *
      * @return void
      */
-    public function notices() {
+    public function notices()
+    {
         $notices = new Notices(
             [
                 'id'             => 'essential_blocks',
@@ -195,7 +206,7 @@ class Admin {
                 'stylesheet_url' => ESSENTIAL_BLOCKS_URL . 'assets/css/notices.css',
                 'styles'         => ESSENTIAL_BLOCKS_URL . 'assets/css/notices.css'
                 // 'dev_mode'       => true
-            ]
+             ]
         );
 
         /**
@@ -221,40 +232,40 @@ class Admin {
                         'target'       => '_blank',
                         'class'        => 'btn',
                         'data-dismiss' => false
-                    ]
-                ],
+                     ]
+                 ],
                 'allready'         => [
                     'label'      => __( 'I already did', 'essential-blocks' ),
                     'icon_class' => 'dashicons dashicons-smiley',
                     'attributes' => [
                         'data-dismiss' => true
-                    ]
-                ],
+                     ]
+                 ],
                 'maybe_later'      => [
                     'label'      => __( 'Maybe Later', 'essential-blocks' ),
                     'icon_class' => 'dashicons dashicons-calendar-alt',
                     'attributes' => [
                         'data-later' => true,
                         'class'      => 'dismiss-btn'
-                    ]
-                ],
+                     ]
+                 ],
                 'support'          => [
                     'link'       => 'https://wpdeveloper.com/support',
                     'attributes' => [
                         'target' => '_blank'
-                    ],
+                     ],
                     'label'      => __( 'I need help', 'essential-blocks' ),
                     'icon_class' => 'dashicons dashicons-sos'
-                ],
+                 ],
                 'never_show_again' => [
                     'label'      => __( 'Never show again', 'essential-blocks' ),
                     'icon_class' => 'dashicons dashicons-dismiss',
                     'attributes' => [
                         'data-dismiss' => true
-                    ]
-                ]
-            ]
-        ];
+                     ]
+                 ]
+             ]
+         ];
 
         /**
          * Early bird specials
@@ -266,7 +277,7 @@ class Admin {
         $_black_friday_notice = [
             'thumbnail' => ESSENTIAL_BLOCKS_URL . 'assets/images/eb-logo-full.svg',
             'html'      => $b_message
-        ];
+         ];
 
         //Black Fridy Notice Add
         $notices->add(
@@ -280,7 +291,7 @@ class Admin {
                 'refresh'     => ESSENTIAL_BLOCKS_VERSION,
                 'do_action'   => 'eb_early_bird_campaign',
                 'display_if'  => ! ESSENTIAL_BLOCKS_IS_PRO_ACTIVE
-            ]
+             ]
         );
 
         // Review Notice Add
@@ -303,8 +314,8 @@ class Admin {
                     'tools',
                     'options-general',
                     'nav-menus'
-                ]
-            ]
+                 ]
+             ]
         );
 
         /**
@@ -313,7 +324,7 @@ class Admin {
         if ( $this->insights != null ) {
             $notices->add(
                 'opt_in',
-                [$this->insights, 'notice'],
+                [ $this->insights, 'notice' ],
                 [
                     'classes'     => 'updated put-dismiss-notice',
                     'start'       => $notices->strtotime( '+2 days' ),
@@ -322,7 +333,7 @@ class Admin {
                     'refresh'     => ESSENTIAL_BLOCKS_VERSION,
                     'do_action'   => 'wpdeveloper_notice_clicked_for_essential-blocks',
                     'display_if'  => ! ESSENTIAL_BLOCKS_IS_PRO_ACTIVE
-                ]
+                 ]
             );
         }
 
@@ -330,7 +341,8 @@ class Admin {
         self::$cache_bank->calculate_deposits( $notices );
     }
 
-    public function enqueue_styles( $hook ) {
+    public function enqueue_styles( $hook )
+    {
         wpdev_essential_blocks()->assets->enqueue( 'menu', 'css/eb-menu.css' );
 
         if ( $hook !== 'toplevel_page_essential-blocks' ) {
@@ -341,14 +353,15 @@ class Admin {
         wpdev_essential_blocks()->assets->enqueue( 'admin-custom', ESSENTIAL_BLOCKS_URL . 'admin/style.css' );
     }
 
-    public function enqueue_scripts( $hook ) {
+    public function enqueue_scripts( $hook )
+    {
         if ( $hook !== 'toplevel_page_essential-blocks' ) {
             return;
         }
 
         wpdev_essential_blocks()->assets->register( 'admin-controls-util', '../dist/modules.js', [
             'essential-blocks-blocks-localize'
-        ] );
+         ] );
         wpdev_essential_blocks()->assets->register( 'vendor-bundle', '../../vendor-bundle/index.js' );
         wpdev_essential_blocks()->assets->register( 'flv', 'js/react-player/flv.min.js' );
         wpdev_essential_blocks()->assets->register( 'dash', 'js/react-player/dash.all.min.js' );
@@ -363,7 +376,7 @@ class Admin {
                 'essential-blocks-hls',
                 'essential-blocks-flv',
                 'essential-blocks-dash'
-            ]
+             ]
         );
 
         wpdev_essential_blocks()->assets->enqueue( 'category-icon', '../lib/update-category-icon/index.js' );
@@ -372,18 +385,19 @@ class Admin {
     /**
      * AJAX Save function
      */
-    public function save() {
-        if ( ! isset( $_POST['admin_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['admin_nonce'] ), 'admin-nonce' ) ) {
+    public function save()
+    {
+        if ( ! isset( $_POST[ 'admin_nonce' ] ) || ! wp_verify_nonce( sanitize_key( $_POST[ 'admin_nonce' ] ), 'admin-nonce' ) ) {
             wp_send_json_error( __( 'Nonce Error', 'essential-blocks' ) );
         }
         if ( ! current_user_can( 'activate_plugins' ) ) {
             wp_send_json_error( __( 'You are not authorized to save this!', 'essential-blocks' ) );
         }
 
-        if ( isset( $_POST['type'] ) ) {
-            $type  = trim( sanitize_text_field( $_POST['type'] ) );
-            $key   = isset( $_POST['key'] ) ? trim( sanitize_text_field( $_POST['key'] ) ) : '';
-            $value = isset( $_POST['value'] ) ? trim( sanitize_text_field( $_POST['value'] ) ) : '';
+        if ( isset( $_POST[ 'type' ] ) ) {
+            $type  = trim( sanitize_text_field( $_POST[ 'type' ] ) );
+            $key   = isset( $_POST[ 'key' ] ) ? trim( sanitize_text_field( $_POST[ 'key' ] ) ) : '';
+            $value = isset( $_POST[ 'value' ] ) ? trim( sanitize_text_field( $_POST[ 'value' ] ) ) : '';
 
             $settings = Settings::get_instance();
 
@@ -413,23 +427,28 @@ class Admin {
     }
 
     /**
-     * AJAX Get function
+     * AJAX Get function for get data from Options Table
      */
-    public function get() {
-        if ( ! isset( $_POST['admin_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['admin_nonce'] ), 'admin-nonce' ) ) {
+    public function get()
+    {
+        if ( ! isset( $_POST[ 'admin_nonce' ] ) || ! wp_verify_nonce( sanitize_key( $_POST[ 'admin_nonce' ] ), 'admin-nonce' ) ) {
             wp_send_json_error( __( 'Nonce Error', 'essential-blocks' ) );
         }
         if ( ! current_user_can( 'edit_posts' ) ) {
             wp_send_json_error( __( 'You are not authorized to save this!', 'essential-blocks' ) );
         }
 
-        if ( isset( $_POST['key'] ) ) {
-            $key      = trim( sanitize_text_field( $_POST['key'] ) );
-            $settings = Settings::get_instance();
-            $data     = $settings->get( $key );
+        if ( isset( $_POST[ 'key' ] ) ) {
+            $key = trim( sanitize_text_field( $_POST[ 'key' ] ) );
+            if ( str_contains( $key, 'eb_' ) ) {
+                $settings = Settings::get_instance();
+                $data     = $settings->get( $key );
 
-            if ( $data ) {
-                wp_send_json_success( wp_unslash( $data ) );
+                if ( $data ) {
+                    wp_send_json_success( wp_unslash( $data ) );
+                } else {
+                    wp_send_json_error( __( 'Invalid Key', 'essential-blocks' ) );
+                }
             } else {
                 wp_send_json_error( __( 'Invalid Key', 'essential-blocks' ) );
             }
@@ -441,8 +460,9 @@ class Admin {
     /**
      * AJAX Get Templately Templates
      */
-    public function templates() {
-        if ( ! isset( $_POST['admin_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['admin_nonce'] ), 'admin-nonce' ) ) {
+    public function templates()
+    {
+        if ( ! isset( $_POST[ 'admin_nonce' ] ) || ! wp_verify_nonce( sanitize_key( $_POST[ 'admin_nonce' ] ), 'admin-nonce' ) ) {
             wp_send_json_error( __( 'Nonce Error', 'essential-blocks' ) );
         }
 
@@ -452,7 +472,7 @@ class Admin {
 
         $headers = [
             'Content-Type' => 'application/json'
-        ];
+         ];
         $query = '{
 			packs(plan_type: 0, per_page: 8){
 			  data{
@@ -474,9 +494,9 @@ class Admin {
                 'body'    => wp_json_encode(
                     [
                         'query' => $query
-                    ]
+                     ]
                 )
-            ]
+             ]
         );
         if ( $response ) {
             wp_send_json_success( $response );
@@ -488,8 +508,9 @@ class Admin {
     /**
      * AJAX Get Templately Templates
      */
-    public function template_count() {
-        if ( ! isset( $_POST['admin_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['admin_nonce'] ), 'admin-nonce' ) ) {
+    public function template_count()
+    {
+        if ( ! isset( $_POST[ 'admin_nonce' ] ) || ! wp_verify_nonce( sanitize_key( $_POST[ 'admin_nonce' ] ), 'admin-nonce' ) ) {
             wp_send_json_error( __( 'Nonce Error', 'essential-blocks' ) );
         }
         if ( ! current_user_can( 'activate_plugins' ) ) {
@@ -498,7 +519,7 @@ class Admin {
 
         $headers = [
             'Content-Type' => 'application/json'
-        ];
+         ];
         $query = '{
 			getCounts {
                 key
@@ -513,9 +534,9 @@ class Admin {
                 'body'    => wp_json_encode(
                     [
                         'query' => $query
-                    ]
+                     ]
                 )
-            ]
+             ]
         );
         if ( $response ) {
             wp_send_json_success( $response );

@@ -277,33 +277,27 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.4.9", "essential-blocks")}
+                                    {__("Version: 4.4.11", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("17/01/2024", "essential-blocks")}
+                                        {__("24/01/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Improved: Reduce too many request on update page/post",
+                                            "Table of Contents block issue with PHP@7.2",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Improved: Table of Contents block multiple request reduce on editor load",
+                                            "Fixed: Table of Contents block special character support issue",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Infobox block icon color issue",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Advanced Navigation default margin bottom removed",
+                                            "Fixed: Accordion block expanded color issue",
                                             "essential-blocks"
                                         )}
                                     </li>

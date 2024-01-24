@@ -63,7 +63,7 @@
 						{s:"#sCurrency",e:"click", l:"currency", f:function(el){return el.is(':checked');}}
 					];
 
-					$("#sEq").bind("change keyup", {obj: this}, function(e)
+					$("#sEq").on("change keyup", {obj: this}, function(e)
 						{
                             if($.inArray(e.keyCode, [16,17,18,27,37,38,39,40]) == -1)
                             {
@@ -73,10 +73,10 @@
 						});
 					$(document).on('click', '.cff-light-modal-close-icon', function(){$('[id="cff-advanced-equation-editor"]').remove();$(this).remove();});
 					$(document).on('keyup', function(e){if(e.key === 'Escape') $('.cff-light-modal-close-icon').click();});
-					$("#sAdvancedEditor").bind("click", {obj: this}, function(e)
+					$("#sAdvancedEditor").on("click", {obj: this}, function(e)
 						{
-							$(window).unbind('message');
-							$(window).bind('message', function(event){$('#sEq').val(event.originalEvent.data).change();});
+							$(window).off('message');
+							$(window).on('message', function(event){$('#sEq').val(event.originalEvent.data).change();});
                             var advEditor = '<div class="cff-light-modal" id="cff-advanced-equation-editor" role="dialog" aria-hidden="false">'+
 							'<div class="cff-light-modal-content">'+
 							'<div class="cff-light-modal-body">'+
@@ -114,7 +114,7 @@
 
 							document.location.href="#cff-advanced-equation-editor";
 						});
-					$('.displayWizard').bind("click", {obj: this}, function(e)
+					$('.displayWizard').on("click", {obj: this}, function(e)
 						{
 							e.preventDefault();
 							var me = $(this),
@@ -124,14 +124,14 @@
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$('.displayComplexRule').bind("click", {obj: this}, function(e)
+					$('.displayComplexRule').on("click", {obj: this}, function(e)
 						{
 							e.preventDefault();
 							e.data.obj.dependencies[$(this).attr("i")].complex = true;
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".cf_dependence_operator").bind("change", {obj: this}, function(e)
+					$(".cf_dependence_operator").on("change", {obj: this}, function(e)
 						{
 							var me = $(this),
 								i  = me.attr("i"),
@@ -142,7 +142,7 @@
 							e.data.obj.dependencies[me.attr("i")].rule = o.rule;
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".cf_dependence_value").bind("change keyup", {obj: this}, function(e)
+					$(".cf_dependence_value").on("change keyup", {obj: this}, function(e)
 						{
 							var me = $(this),
 								i  = me.attr("i"),
@@ -153,20 +153,20 @@
 							e.data.obj.dependencies[me.attr("i")].rule = o.rule;
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".cf_dependence_rule").bind("change keyup", {obj: this}, function(e)
+					$(".cf_dependence_rule").on("change keyup", {obj: this}, function(e)
 						{
 							var me = $(this);
 							e.data.obj.dependencies[me.attr("i")].rule = me.val();
 							e.data.obj.dependencies[me.attr("i")].complex = true;
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".cf_dependence_field").bind("change", {obj: this}, function(e)
+					$(".cf_dependence_field").on("change", {obj: this}, function(e)
 						{
 							var me = $(this);
 							e.data.obj.dependencies[me.attr("i")].fields[me.attr("j")]  = me.val();
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".addDep").bind("click", {obj: this}, function(e)
+					$(".addDep").on("click", {obj: this}, function(e)
 						{
 							var j = $(this).attr("j");
 							if(typeof j == 'undefined')
@@ -180,7 +180,7 @@
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".removeDep").bind("click", {obj: this}, function(e)
+					$(".removeDep").on("click", {obj: this}, function(e)
 						{
 							var i = $(this).attr("i"),
 								j = $(this).attr("j");

@@ -666,7 +666,7 @@ function pagelayer_load_shortcodes(){
 	add_action('pre_render_block', 'pagelayer_render_blocks', 10, 2);
 	
 	// Add global widget data
-	if(defined('PAGELAYER_PREMIUM')){
+	if(defined('PAGELAYER_PREMIUM') && !pagelayer_is_gutenberg_editor()){
 		
 		// Get global widget templates id by type	
 		$args = [
@@ -1639,6 +1639,7 @@ function pagelayer_remove_excerpt_more($more){
 }
 
 function pagelayer_posts($params, $args = []){
+	global $post, $wp_query;
 	
 	if(isset($params['exc_length'])){
 		$exc_length = (int) $params['exc_length'];
@@ -1748,6 +1749,9 @@ function pagelayer_posts($params, $args = []){
 		return '<h3>No posts found!</h3>';
 	}
 	
+	// To reset the post when the $wp_query->post is empty
+	$orig_post = $post;
+	
 	while($postsquery->have_posts()) : $postsquery->the_post();
 		$data .= '<div class="pagelayer-wposts-col">
 			<div class="pagelayer-wposts-post">
@@ -1846,7 +1850,12 @@ function pagelayer_posts($params, $args = []){
 		$data .= '</div></div></div>';
 	endwhile;
 	
-	wp_reset_postdata();
+	// In the Gutenberg while adding new page the $wp_query->post was empty
+	if ( !isset( $wp_query ) || empty($wp_query->post) ) {
+		$GLOBALS['post'] = $orig_post;
+	}else{
+		wp_reset_postdata();
+	}
 	
 	return $data;	
 }

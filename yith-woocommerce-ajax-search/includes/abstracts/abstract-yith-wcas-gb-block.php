@@ -67,41 +67,42 @@ abstract class Abstract_YITH_WCAS_Gb_Block {
 	 * @return void
 	 */
 	protected function register_block_assets() {
-		$block_editor_script = $this->get_block_editor_script();
-		if ( null !== $this->get_block_editor_script() ) {
+		if ( ! wp_script_is( 'ywcas-results-editor-script' ) ) {
+			$block_editor_script = $this->get_block_editor_script();
 			wp_register_script(
-				$this->get_block_editor_script( 'handle' ),
-				$this->get_block_editor_script( 'path' ),
-				$this->get_script_dependencies( $block_editor_script['script_name'], 'dependencies' ),
+				$block_editor_script['handle'],
+				$block_editor_script['path'],
+				$block_editor_script ['dependencies'],
 				YITH_WCAS_VERSION,
 				true
 			);
 
-			if ( $this->get_block_editor_script( 'localize_param_name' ) ) {
+			if ( isset( $block_editor_script['localize_param_name'] ) ) {
 				wp_localize_script(
-					$this->get_block_editor_script( 'handle' ),
-					$this->get_block_editor_script( 'localize_param_name' ),
-					$this->get_block_editor_script( 'localize' )
+					$block_editor_script['handle'],
+					$block_editor_script['localize_param_name'],
+					$block_editor_script['localize']
 				);
 			}
-			wp_set_script_translations( $this->get_block_editor_script( 'handle' ), 'yith-woocommerce-ajax-search', plugin_basename( YITH_WCAS_DIR ) . '/languages' );
 		}
 
 		$block_script = $this->get_block_script();
-		if ( null !== $block_script ) {
+
+		if ( ! wp_script_is( 'ywcas-search-results-script' ) && ! is_null( $block_script ) ) {
+
 			wp_register_script(
-				$this->get_block_script( 'handle' ),
-				$this->get_block_script( 'path' ),
-				$this->get_script_dependencies( $block_script['script_name'], 'dependencies' ),
-				$this->get_script_dependencies( $block_script['script_name'], 'version' ),
+				$block_script['handle'],
+				$block_script['path'],
+				$block_script['dependencies'],
+				$block_script['version'],
 				true
 			);
 
-			if ( $this->get_block_script( 'localize_param_name' ) ) {
+			if ( isset( $block_script['localize_param_name'] ) ) {
 				wp_localize_script(
-					$this->get_block_script( 'handle' ),
-					$this->get_block_script( 'localize_param_name' ),
-					$this->get_block_script( 'localize' )
+					$block_script['handle'],
+					$block_script['localize_param_name'],
+					$block_script['localize']
 				);
 			}
 		}
@@ -124,45 +125,42 @@ abstract class Abstract_YITH_WCAS_Gb_Block {
 	/**
 	 * Get the editor script data for this block type.
 	 *
-	 * @param   string $key  Data to get, or default to everything.
-	 *
 	 * @return array|string
 	 * @see $this->register_block()
 	 */
-	protected function get_block_editor_script( $key = null ) {
+	protected function get_block_editor_script() {
+
 		$script_name = 'editor/editor-scripts';
-		$script      = array(
+
+		return array(
 			'script_name'         => $script_name,
 			'handle'              => 'ywcas-results-editor-script',
 			'path'                => YITH_WCAS_ASSETS_URL . "/js/blocks/build/{$script_name}.js",
 			'dependencies'        => $this->get_script_dependencies( $script_name, 'dependencies' ),
 			'localize_param_name' => 'ywcas_search_results_block_parameter',
-			'localize'            => $this->get_common_localize(),
+			'localize'            => $this->get_common_localize( true ),
 		);
-
-		return $key ? ( $script[ $key ] ?? false ) : $script;
 	}
 
 	/**
 	 * Get the script data for this block .
 	 *
-	 * @param   string $key  Data to get, or default to everything.
-	 *
 	 * @return array|string
 	 * @see $this->register_block()
 	 */
-	protected function get_block_script( $key = null ) {
+	protected function get_block_script() {
 		$script_name = 'search-block/frontend';
-		$script      = array(
+
+		return array(
 			'script_name'         => $script_name,
 			'handle'              => 'ywcas-search-results-script',
 			'path'                => YITH_WCAS_ASSETS_URL . "/js/blocks/build/{$script_name}.js",
 			'dependencies'        => $this->get_script_dependencies( $script_name, 'dependencies' ),
+			'version'             => $this->get_script_dependencies( $script_name, 'version' ),
 			'localize_param_name' => 'ywcas_search_results_block_parameter',
 			'localize'            => $this->get_common_localize(),
 		);
 
-		return $key ? ( $script[ $key ] ?? false ) : $script;
 	}
 
 	/**
@@ -170,7 +168,13 @@ abstract class Abstract_YITH_WCAS_Gb_Block {
 	 *
 	 * @return mixed|null
 	 */
-	public function get_common_localize() {
+	public function get_common_localize( $edit = false ) {
+		$default_query = get_transient( 'ywcas_blocks_default_query' );
+		if ( false === $default_query ) {
+			$default_query = YITH_WCAS_Data_Index_Token::get_instance()->get_best_token( ywcas_get_current_language() );
+			set_transient( 'ywcas_blocks_default_query', $default_query, DAY_IN_SECONDS * 7 );
+		}
+
 		return apply_filters(
 			'ywcas_block_common_localize',
 			array(
@@ -188,11 +192,11 @@ abstract class Abstract_YITH_WCAS_Gb_Block {
 				'showAutoComplete'       => ywcas()->settings->get_is_autocomplete(),
 				'minChars'               => ywcas()->settings->get_min_chars(),
 				'classicDefaultSettings' => ywcas()->settings->get_classic_default_settings(),
-				'defaultQuery'           => YITH_WCAS_Data_Index_Token::get_instance()->get_best_token( ywcas_get_current_language() ),
-				'popularSearches'        => class_exists('YITH_WCAS_Search_History') ? YITH_WCAS_Search_History::get_instance()->get_popular_searches( ywcas_get_current_language() ) : array(),
-				'historySearches'        =>  class_exists('YITH_WCAS_Search_History') ? YITH_WCAS_Search_History::get_instance()->get_history( ywcas_get_current_language() ) : array(),
-				'zeroResults'            => __('0  results for ', 'yith-woocommerce-ajax-search'),
-				'fuzzyResults'            => __('Results for ', 'yith-woocommerce-ajax-search'),
+				'defaultQuery'           => $edit ? $default_query : '',
+				'popularSearches'        => class_exists( 'YITH_WCAS_Search_History' ) ? YITH_WCAS_Search_History::get_instance()->get_popular_searches( ywcas_get_current_language() ) : array(),
+				'historySearches'        => class_exists( 'YITH_WCAS_Search_History' ) ? YITH_WCAS_Search_History::get_instance()->get_history( ywcas_get_current_language() ) : array(),
+				'zeroResults'            => __( '0  results for ', 'yith-woocommerce-ajax-search' ),
+				'fuzzyResults'           => __( 'Results for ', 'yith-woocommerce-ajax-search' ),
 			)
 		);
 	}
@@ -200,8 +204,8 @@ abstract class Abstract_YITH_WCAS_Gb_Block {
 	/**
 	 * Get the dependencies for the frontend scripts
 	 *
-	 * @param   string $script_name  Script filename.
-	 * @param   string $key          Internal param.
+	 * @param string $script_name Script filename.
+	 * @param string $key Internal param.
 	 *
 	 * @return array
 	 */
@@ -229,7 +233,7 @@ abstract class Abstract_YITH_WCAS_Gb_Block {
 	/**
 	 * Get the frontend style handle for this block type.
 	 *
-	 * @return string[]|null
+	 * @return string|null
 	 */
 	protected function get_block_style() {
 		$deps = array();
@@ -250,7 +254,7 @@ abstract class Abstract_YITH_WCAS_Gb_Block {
 	protected function register_block() {
 		$block_settings = array(
 			'render_callback' => $this->get_block_render_callback(),
-			'editor_script'   => $this->get_block_editor_script( 'handle' ),
+			'editor_script'   => 'ywcas-results-editor-script',
 			'editor_style'    => $this->get_block_editor_style(),
 			'style'           => $this->get_block_style(),
 		);
@@ -258,7 +262,7 @@ abstract class Abstract_YITH_WCAS_Gb_Block {
 		$inner_blocks = array( 'filled-block', 'empty-block', 'input-block', 'popular-block', 'history-block' );
 		if ( in_array( $this->block_name, $inner_blocks, true ) ) {
 			$metadata_path = YITH_WCAS_BLOCK_PATH . 'search-block/inner-blocks/' . $this->block_name;
-			if( file_exists( $metadata_path ) ) {
+			if ( file_exists( $metadata_path ) ) {
 				register_block_type_from_metadata(
 					$metadata_path,
 					$block_settings
@@ -321,9 +325,9 @@ abstract class Abstract_YITH_WCAS_Gb_Block {
 	/**
 	 * Render the block. Extended by children.
 	 *
-	 * @param   array    $attributes  Block attributes.
-	 * @param   string   $content     Block content.
-	 * @param   WP_Block $block       Block instance.
+	 * @param array    $attributes Block attributes.
+	 * @param string   $content Block content.
+	 * @param WP_Block $block Block instance.
 	 *
 	 * @return string Rendered block type output.
 	 */
@@ -337,9 +341,9 @@ abstract class Abstract_YITH_WCAS_Gb_Block {
 	 * @return void
 	 */
 	protected function enqueue_scripts() {
-		if ( null !== $this->get_block_script() ) {
+		if ( ! wp_script_is( 'ywcas-search-results-script' ) ) {
 			wp_enqueue_style( 'ywcas-frontend' );
-			wp_enqueue_script( $this->get_block_script( 'handle' ) );
+			wp_enqueue_script( 'ywcas-search-results-script' );
 
 		}
 	}
@@ -364,9 +368,9 @@ abstract class Abstract_YITH_WCAS_Gb_Block {
 	 * The default render_callback for all blocks. This will ensure assets are enqueued just in time, then render
 	 * the block (if applicable).
 	 *
-	 * @param   array|WP_Block $attributes  Block attributes, or an instance of a WP_Block. Defaults to an empty array.
-	 * @param   string         $content     Block content. Default empty string.
-	 * @param   WP_Block|null  $block       Block instance.
+	 * @param array|WP_Block $attributes Block attributes, or an instance of a WP_Block. Defaults to an empty array.
+	 * @param string         $content Block content. Default empty string.
+	 * @param WP_Block|null  $block Block instance.
 	 *
 	 * @return string Rendered block type output.
 	 */
@@ -392,16 +396,19 @@ abstract class Abstract_YITH_WCAS_Gb_Block {
 
 		return array(
 			'currency'             => array(
-				'code'      => $currency_code,
-				'precision' => wc_get_price_decimals(),
-				'symbol'    => html_entity_decode( get_woocommerce_currency_symbol( $currency_code ) ),
-				'position'  => get_option( 'woocommerce_currency_pos' ),
-				'decimal'   => wc_get_price_decimal_separator(),
-				'thousand'  => wc_get_price_thousand_separator(),
-				'format'    => html_entity_decode( get_woocommerce_price_format() ),
+				'code'         => $currency_code,
+				'decimals'     => wc_get_price_decimals(),
+				'symbol'       => html_entity_decode( get_woocommerce_currency_symbol( $currency_code ) ),
+				'decimal_sep'  => esc_attr( wc_get_price_decimal_separator() ),
+				'thousand_sep' => esc_attr( wc_get_price_thousand_separator() ),
+				'format'       => html_entity_decode( str_replace( array( '%1$s', '%2$s' ), array(
+					'%s',
+					'%v'
+				), get_woocommerce_price_format() ) ), // For accounting JS.
 			),
 			'placeholderImageSrc'  => wc_placeholder_img_src(),
 			'discountRoundingMode' => defined( 'WC_DISCOUNT_ROUNDING_MODE' ) && PHP_ROUND_HALF_UP === WC_DISCOUNT_ROUNDING_MODE ? 'half-up' : 'half-down',
 		);
 	}
+
 }

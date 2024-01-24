@@ -73,9 +73,9 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		/**
 		 * Init the process truncate the index table and un-schedule current process
 		 *
-		 * @param   string   $process_id  Current process id.
-		 * @param   array    $data        Data to index.
-		 * @param   boolean  $taxonomy    Processing taxonomies.
+		 * @param string  $process_id Current process id.
+		 * @param array   $data Data to index.
+		 * @param boolean $taxonomy Processing taxonomies.
 		 *
 		 * @return void
 		 * @since 2.0.0
@@ -94,8 +94,8 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		/**
 		 * Init the process truncate the index table and un-schedule current process
 		 *
-		 * @param   string  $process_id  Current process id.
-		 * @param   string  $taxonomy    Taxonomy.
+		 * @param string $process_id Current process id.
+		 * @param string $taxonomy Taxonomy.
 		 *
 		 * @return void
 		 * @since 2.0.0
@@ -110,7 +110,7 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		/**
 		 * Process scheduled data
 		 *
-		 * @param   string  $chunk  Data to process.
+		 * @param string $chunk Data to process.
 		 *
 		 * @return void
 		 */
@@ -133,7 +133,7 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		/**
 		 * Start to schedule index process for products, post or pages.
 		 *
-		 * @param   int  $process_id  Process id.
+		 * @param int $process_id Process id.
 		 *
 		 * @return void
 		 */
@@ -163,9 +163,9 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		/**
 		 * Schedule data index
 		 *
-		 * @param   string  $process_id       Current process id.
-		 * @param   int     $chunk            Current chunk.
-		 * @param   array   $data_to_process  List of elements to process.
+		 * @param string $process_id Current process id.
+		 * @param int    $chunk Current chunk.
+		 * @param array  $data_to_process List of elements to process.
 		 */
 		public function schedule( $process_id, $chunk, $data_to_process ) {
 			$transient_name = "yith_wcas_data_index_{$process_id}_{$chunk}";
@@ -179,7 +179,7 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		/**
 		 * Return the formatted data to insert on table
 		 *
-		 * @param   Object  $data  Data.
+		 * @param Object $data Data.
 		 *
 		 * @return array|boolean
 		 */
@@ -197,7 +197,7 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		/**
 		 * Return the product to insert on table
 		 *
-		 * @param   Object  $data  Data content.
+		 * @param Object $data Data content.
 		 *
 		 * @return array
 		 */
@@ -209,8 +209,8 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 				$min_price = current( $prices['price'] );
 				$max_price = end( $prices['price'] );
 			} else {
-				$min_price = $product->get_sale_price();
-				$max_price = $product->get_regular_price();
+				$min_price = $this->get_product_price_for_display( $product, $product->get_sale_price() );
+				$max_price = $this->get_product_price_for_display( $product, $product->get_regular_price() );
 			}
 
 			$is_purchasable    = 'variation' !== $product->get_type() ? $product->is_purchasable() : ywcas_is_variation_purchasable( $product );
@@ -245,11 +245,28 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		}
 
 
+		/**
+		 * Return the price for display ( so incl or excl tax )
+		 *
+		 * @param WC_Product $product The product.
+		 * @param float      $price The price.
+		 *
+		 * @return float
+		 */
+		public function get_product_price_for_display( $product, $price ) {
+			if ( 'incl' === get_option( 'woocommerce_tax_display_shop' ) ) {
+				$price = wc_get_price_including_tax( $product, array( 'qty' => 1, 'price' => $price ) );
+			}else{
+				$price = wc_get_price_excluding_tax( $product, array( 'qty' => 1, 'price' => $price ) );
+			}
+
+			return $price;
+		}
 
 		/**
 		 * Return custom fields to tokenize
 		 *
-		 * @param   WC_Product $product  Product.
+		 * @param WC_Product $product Product.
 		 *
 		 * @return string
 		 */
@@ -268,7 +285,7 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		/**
 		 * Return the list of terms of a product
 		 *
-		 * @param   WC_Product $product  Product.
+		 * @param WC_Product $product Product.
 		 *
 		 * @return int[]|string|string[]|WP_Error|WP_Term[]
 		 */
@@ -290,8 +307,8 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		/**
 		 * Return the list of terms of a product
 		 *
-		 * @param   WC_Product $product  Product.
-		 * @param   string     $lang     Product language.
+		 * @param WC_Product $product Product.
+		 * @param string     $lang Product language.
 		 *
 		 * @return int[]|string|string[]|WP_Error|WP_Term[]
 		 */
@@ -313,8 +330,8 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		/**
 		 * Return the name of transient.
 		 *
-		 * @param   string   $process_id  Process id.
-		 * @param   boolean  $taxonomy    Processing taxonomies.
+		 * @param string  $process_id Process id.
+		 * @param boolean $taxonomy Processing taxonomies.
 		 *
 		 * @return string
 		 * @since 2.0.0
@@ -326,8 +343,8 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		/**
 		 * Return the name of transient.
 		 *
-		 * @param   string   $transient_name  Transient name.
-		 * @param   boolean  $taxonomy        Processing taxonomies.
+		 * @param string  $transient_name Transient name.
+		 * @param boolean $taxonomy Processing taxonomies.
 		 *
 		 * @return string
 		 * @since 2.0.0
@@ -345,11 +362,11 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		/**
 		 * Set the process transient to trace the progress of data index
 		 *
-		 * @param   string   $process_id       Process id.
-		 * @param   int      $num_of_items     Total items.
-		 * @param   boolean  $taxonomy         Processing taxonomies.
-		 * @param   int      $processed_items  Processed items.
-		 * @param   string   $start_date       Start Date.
+		 * @param string  $process_id Process id.
+		 * @param int     $num_of_items Total items.
+		 * @param boolean $taxonomy Processing taxonomies.
+		 * @param int     $processed_items Processed items.
+		 * @param string  $start_date Start Date.
 		 *
 		 * @return void
 		 */
@@ -367,9 +384,9 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		/**
 		 * Update the process transient after that a chunk has been executed
 		 *
-		 * @param   string  $transient_name   Transient name.
-		 * @param   int     $processed_items  Num of processed items.
-		 * @param   bool    $taxonomy         Taxonomy.
+		 * @param string $transient_name Transient name.
+		 * @param int    $processed_items Num of processed items.
+		 * @param bool   $taxonomy Taxonomy.
 		 *
 		 * @return void
 		 */
@@ -388,7 +405,7 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		/**
 		 * Add the post on database
 		 *
-		 * @param   WP_Post  $data  Data to index.
+		 * @param WP_Post $data Data to index.
 		 *
 		 * @return void
 		 */
@@ -412,7 +429,7 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		/**
 		 * Process data from single events
 		 *
-		 * @param   WP_Post  $item  Item to remove.
+		 * @param WP_Post $item Item to remove.
 		 *
 		 * @return void
 		 */
@@ -424,8 +441,8 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		/**
 		 * Get additional data to tokenize
 		 *
-		 * @param   WP_Post  $data  Data to index.
-		 * @param   string   $lang  Current language.
+		 * @param WP_Post $data Data to index.
+		 * @param string  $lang Current language.
 		 *
 		 * @return array|boolean
 		 */

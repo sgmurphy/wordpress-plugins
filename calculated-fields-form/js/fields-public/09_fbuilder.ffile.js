@@ -15,15 +15,15 @@
 			thumb_height: '',
 			_patch: false, // Used only if the submission is being updated to preserves the previous values
 			init: function(){
-				this.thumb_width  = $.trim(this.thumb_width);
-				this.thumb_height = $.trim(this.thumb_height);
+				this.thumb_width  = String(this.thumb_width).trim();
+				this.thumb_height = String(this.thumb_height).trim();
 				var form_identifier = this.form_identifier.replace(/[^\d]/g, '');
 				this._patch = ('cpcff_default' in window && form_identifier in cpcff_default) ? true : false;
 			},
 			show:function()
 				{
-					this.accept = cff_esc_attr($.trim(this.accept));
-					this.upload_size = cff_esc_attr($.trim(this.upload_size));
+					this.accept = cff_esc_attr(String(this.accept).trim());
+					this.upload_size = cff_esc_attr(String(this.upload_size).trim());
 
 					return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+' cff-file-field" id="field'+this.form_identifier+'-'+this.index+'"><label for="'+this.name+'">'+this.title+''+((this.required)?"<span class='r'>*</span>":"")+'</label><div class="dfield"><input aria-label="'+cff_esc_attr(this.title)+'" type="file" id="'+this.name+'" name="'+this.name+'[]"'+((this.accept.length) ? ' accept="'+this.accept+'"' : '')+((this.upload_size.length) ? ' upload_size="'+this.upload_size+'"' : '')+' class="field '+this.size+((this.required)?" required":"")+'" '+((this.multiple) ? 'multiple' : '')+' /><div id="'+this.name+'_clearer" class="cff-file-clearer"></div>'+((this._patch) ? '<input type="hidden" id="'+this.name+'_patch" name="'+this.name+'_patch" value="1" />' : '')+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 				},
@@ -56,7 +56,7 @@
 						}
 					});
 
-				$('#'+me.name).change(function(){
+				$('#'+me.name).on( 'change', function(){
 					var h = this.files.length, n = 0;
 					$(this).siblings('span.files-list').remove();
 					$('[id="'+me.name+'_patch"]').remove();
@@ -86,7 +86,7 @@
 					}
 				});
 
-                $('#'+me.name+'_clearer').click(function(){$('#'+me.name).val('').change().valid();});
+                $('#'+me.name+'_clearer').on( 'click', function(){$('#'+me.name).val('').change().valid();});
 			},
 			val : function(raw, no_quotes)
 			{

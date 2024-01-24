@@ -257,8 +257,13 @@ class WPCaptcha_Functions extends WPCaptcha
         }
 
         $userdata = apply_filters('wp_authenticate_user', $userdata, $password);
+
         if (is_wp_error($userdata)) {
             return $userdata;
+        }
+
+        if(0 !== intval($userdata->user_status)){
+            return new WP_Error('incorrect_password', __('<strong>ERROR</strong>: Inactive account', 'advanced-google-recaptcha'));
         }
 
         if (!is_string($password) || !is_string($userdata->user_pass) || is_null($userdata->ID) || !wp_check_password($password, $userdata->user_pass, $userdata->ID)) {

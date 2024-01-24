@@ -117,7 +117,7 @@ class Items extends API {
 			$funcArgs['search'] = $search;
 		}
 
-		$query = 'total_page, current_page, data { id, name, price, rating, downloads, type, template_type{ slug }, slug, favourite_count, thumbnail, thumbnail2, thumbnail3 }';
+		$query = 'total_page, current_page, data { id, fullsite_import, name, price, rating, downloads, type, template_type{ slug }, slug, favourite_count, thumbnail, thumbnail2, thumbnail3 }';
 		if( $type !== 'packs' ) {
 			$query = 'total_page, current_page, data { id, name, price, rating, downloads, type, template_type{ slug }, slug, favourite_count, dependencies{ id, name, icon, plugin_file, plugin_original_slug, is_pro, link }, thumbnail }';
 		}
@@ -155,7 +155,7 @@ class Items extends API {
 		$params       = 'data { ' . $items_params . ', variations { name, slug, type, platform } }';
 
 		if ( $type == 'packs' ) {
-			$params = 'data { id, name, rating, type, slug, live_url, price, features, favourite_count, thumbnail, downloads, categories{ id, name, slug }, items { ' . $items_params . ' }, variations { name, slug, type, platform } }';
+			$params = 'data { id, fullsite_import, name, rating, type, slug, live_url, price, features, favourite_count, thumbnail, downloads, categories{ id, name, slug }, items { ' . $items_params . ' }, variations { name, slug, type, platform } }';
 		}
 
 		$response = $this->http()->query( $type, $params, [ 'slug' => $slug ] )->post();

@@ -160,7 +160,7 @@ jQuery(function () {
 
     function formsByText(me) {
 
-        var v = $.trim(me.value);
+        var v = String(me.value).trim();
 
         $('.cff-form-library-active-category').removeClass('cff-form-library-active-category');
 

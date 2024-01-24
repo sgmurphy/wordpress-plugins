@@ -400,6 +400,16 @@ if ( ! class_exists( 'YITH_WCAS_Admin' ) ) {
 
 			$shortcodes = ywcas()->settings->get_shortcodes_list();
 
+			$uncheck_fields = ywcas()->settings->get_shortcode_fields_to_check();
+
+			foreach ( $uncheck_fields as $tab => $option ) {
+				foreach ( $option as $option_key => $value ) {
+					if ( ! isset( $shortcode[ $tab ][ $option_key ] ) ) {
+						$shortcode[ $tab ][ $option_key ] = $value;
+					}
+				}
+			}
+
 			if ( isset( $shortcodes[ $slug ] ) ) {
 				$shortcodes[ $slug ]['name']    = $name;
 				$shortcodes[ $slug ]['options'] = $shortcode;

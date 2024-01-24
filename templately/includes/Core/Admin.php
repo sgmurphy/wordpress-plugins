@@ -1,5 +1,4 @@
 <?php
-
 namespace Templately\Core;
 
 use Exception;
@@ -7,11 +6,11 @@ use PriyoMukul\WPNotice\Notices;
 use PriyoMukul\WPNotice\Utils\CacheBank;
 use PriyoMukul\WPNotice\Utils\NoticeRemover;
 use Templately\API\Login;
-use Templately\Core\Platform\Elementor;
-use Templately\Core\Platform\Gutenberg;
 use Templately\Utils\Base;
 use Templately\Utils\Helper;
 use Templately\Utils\Options;
+use Templately\Core\Platform\Elementor;
+use Templately\Core\Platform\Gutenberg;
 
 class Admin extends Base {
 
@@ -40,16 +39,88 @@ class Admin extends Base {
 		NoticeRemover::get_instance( '1.0.0' );
 	}
 
+	public function register_post_type() {
+		$labels = [
+			'name'                  => _x( 'Theme Builders', 'Post type general name', 'templately' ),
+			'singular_name'         => _x( 'Theme Builder', 'Post type singular name', 'templately' ),
+			'menu_name'             => _x( 'Theme Builder', 'Admin Menu text', 'templately' ),
+			'name_admin_bar'        => _x( 'Book', 'Add New on Toolbar', 'templately' ),
+			'add_new'               => __( 'Add New', 'templately' ),
+			'add_new_item'          => __( 'Add New Template', 'templately' ),
+			'new_item'              => __( 'New Template', 'templately' ),
+			'edit_item'             => __( 'Edit Template', 'templately' ),
+			'view_item'             => __( 'View Template', 'templately' ),
+			'all_items'             => __( 'All Templates', 'templately' ),
+			'search_items'          => __( 'Search Templates', 'templately' ),
+			'parent_item_colon'     => __( 'Parent Templates:', 'templately' ),
+			'not_found'             => __( 'No templates found.', 'templately' ),
+			'not_found_in_trash'    => __( 'No templates found in Trash.', 'templately' ),
+			'featured_image'        => _x( 'Template Cover Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'templately' ),
+			'set_featured_image'    => _x( 'Set cover image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'templately' ),
+			'remove_featured_image' => _x( 'Remove cover image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'templately' ),
+			'use_featured_image'    => _x( 'Use as cover image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'templately' ),
+			'archives'              => _x( 'Template archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'templately' ),
+			'insert_into_item'      => _x( /** @lang text */ "Insert Into Theme Builder", 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'templately' ),
+			'uploaded_to_this_item' => _x( 'Uploaded to this template', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'templately' ),
+			'filter_items_list'     => _x( 'Filter templates list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'templately' ),
+			'items_list_navigation' => _x( 'Templates list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'templately' ),
+			'items_list'            => _x( 'Templates list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'templately' ),
+		];
+
+		$args = [
+			'labels'             => $labels,
+			'public'             => true,
+			'publicly_queryable' => true,
+			'show_ui'            => true,
+			'show_in_menu'       => false,
+			'query_var'          => true,
+			'rewrite'            => [ 'slug' => 'templately-library' ],
+			'capability_type'    => 'post',
+			'has_archive'        => true,
+			'hierarchical'       => false,
+			'menu_position'      => 10,
+			'supports'           => [ 'title', 'editor', 'author', 'thumbnail', 'custom-field' ],
+		];
+
+		register_post_type( 'templately_library', $args );
+	}
+
 	/**
 	 * Enqueuing Assets
 	 *
-	 * @param string $hook
-	 *
+	 * @param  string $hook
 	 * @return void
 	 */
-	public function scripts( $hook ) {
-		if ( ! in_array( $hook, [ 'toplevel_page_templately', 'elementor', 'gutenberg' ], true ) ) {
+	public function scripts( string $hook ) {
+		if ( ! in_array( $hook, [ 'edit.php', 'toplevel_page_templately', 'elementor', 'gutenberg' ], true ) ) {
 			return;
+		}
+
+		$templately = [];
+
+		if ( 'edit.php' === $hook ) {
+			global $current_screen;
+			if ( $current_screen->post_type !== 'templately_library' ) {
+				return;
+			}
+
+			$types = templately()->theme_builder::$templates_manager->get_template_types();
+			$types = array_filter( $types, function ( $item ) {
+				return $item::get_property( 'builder' ) || $item::get_property( 'builder' ) === null;
+			} );
+
+			$types = array_reduce( $types, function ( $carry, $item ) {
+				return array_merge( $carry, [
+					[
+						'value' => call_user_func( [ $item, 'get_type' ] ),
+						'label' => call_user_func( [ $item, 'get_title' ] )
+					]
+				] );
+			}, [] );
+
+			$templately = [
+				'types' => $types
+			];
 		}
 
 		$script_dependencies = [];
@@ -59,25 +130,28 @@ class Admin extends Base {
 		if ( $hook === 'elementor' || $hook === 'gutenberg' ) {
 			$_current_screen     = $hook;
 			$_localize_handle    = 'templately-' . $hook;
-			$script_dependencies = [ $_localize_handle ];
+			$script_dependencies = [$_localize_handle];
 		}
 
-		if ( $hook === 'toplevel_page_templately' ) {
+		if ( $hook === 'toplevel_page_templately' || $hook == 'edit.php' ) {
 			templately()->assets->enqueue( 'templately-admin', 'css/admin.css', [ 'templately' ] );
 		}
 
 		// Google Font Enqueueing
-		templately()->assets->enqueue( 'templately-dmsans', set_url_scheme( '//fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap' ) );
+		templately()->assets->enqueue(
+			'templately-dmsans',
+			set_url_scheme( '//fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap' )
+		);
 
 		templately()->assets->enqueue( 'templately', 'js/templately.js', $script_dependencies, true );
-		templately()->assets->enqueue( 'templately', 'css/templately.css', [ 'templately-dmsans' ] );
+		templately()->assets->enqueue( 'templately', 'css/templately.css', ['templately-dmsans'] );
 
 		/**
 		 * @var Elementor|Gutenberg $platform
 		 */
 		$platform = $this->platform( $_current_screen );
 
-		templately()->assets->localize( $_localize_handle, 'templately', [
+		$templately = array_merge( [
 			'url'                => home_url(),
 			'site_url'           => site_url(),
 			'nonce'              => wp_create_nonce( 'templately_nonce' ),
@@ -88,8 +162,9 @@ class Admin extends Base {
 			'log'                => defined( 'TEMPLATELY_DEBUG_LOG' ) && TEMPLATELY_DEBUG_LOG,
 			'dev_mode'           => defined( 'TEMPLATELY_DEV' ) && TEMPLATELY_DEV,
 			"icons"              => [
-				'profile' => templately()->assets->icon( 'icons/profile.svg' ),
-				'warning' => templately()->assets->icon( 'icons/warning.png' )
+				'construction' => templately()->assets->icon( 'icons/construction.gif' ),
+				'profile'      => templately()->assets->icon( 'icons/profile.svg' ),
+				'warning'      => templately()->assets->icon( 'icons/warning.png' )
 			],
 			'promo_image'        => templately()->assets->icon( 'single-page-promo.png' ),
 			'default_image'      => templately()->assets->icon( 'clouds/cloud-item.svg' ),
@@ -102,13 +177,17 @@ class Admin extends Base {
 			'signed_as_global'   => Login::signed_as_global(),
 			'current_screen'     => $_current_screen,
 			'has_elementor_pro'  => rest_sanitize_boolean( is_plugin_active( 'elementor-pro/elementor-pro.php' ) ),
-			'theme'              => $_current_screen == 'templately' ? 'light' : $platform->ui_theme()
-		] );
+			'theme'                   => $_current_screen == 'templately' ? 'light' : $platform->ui_theme(),
+			'is_wp_support_gutenberg' => version_compare( get_bloginfo( 'version' ), '5.0.0', '>=' ),
+		], $templately );
+
+		templately()->assets->localize( $_localize_handle, 'templately', $templately );
 	}
 
 	/**
 	 * Admin notices for Review and others.
 	 *
+	 * @since 2.0.0
 	 * @return void
 	 * @throws Exception
 	 * @since 2.0.0
@@ -214,7 +293,7 @@ class Admin extends Base {
 			] );
 
 			$notice_text = '<p style="margin-top: 0; margin-bottom: 10px;">Black Friday Sale: Save up to 70% and <strong>get access to 5000+ ready templates</strong> to design amazing websites ✨</p>
-            <a class="button button-primary" href="https://wpdeveloper.com/upgrade/templately-bfcm" target="_blank">Upgrade to pro</a> <button data-dismiss="true" class="dismiss-btn button button-link">I don’t want to save money</button>';
+			<a class="button button-primary" href="https://wpdeveloper.com/upgrade/templately-bfcm" target="_blank">Upgrade to pro</a> <button data-dismiss="true" class="dismiss-btn button button-link">I don’t want to save money</button>';
 
 			$_black_friday = [
 				'thumbnail' => templately()->assets->icon( 'logos/logo-full.svg' ),
@@ -241,10 +320,20 @@ class Admin extends Base {
 	 */
 	public function admin_menu() {
 		// TODO: Role Management
-		add_menu_page( 'Templately', 'Templately', 'delete_posts', 'templately', [
+
+		add_menu_page( 'Templately', 'Templately', 'delete_posts', 'templately', '', templately()->assets->icon( 'logos/logo-icon.svg' ), '58.7' );
+
+		add_submenu_page( 'templately', 'Templately', 'Template Library', 'delete_posts', 'templately', [
 			$this,
 			'display'
-		], templately()->assets->icon( 'logos/logo-icon.svg' ), '58.7' );
+		], '58.7' );
+
+		add_submenu_page( 'templately', 'Theme Builder', 'Theme Builder', 'delete_posts', 'edit.php?post_type=templately_library', '', '58.7' );
+
+		// add_submenu_page( 'templately', 'Settings', 'Settings', 'administrator', 'templately-settings', [
+		// 	Settings::get_instance(),
+		// 	'display'
+		// ], '58.7' );
 	}
 
 	public function display() {
@@ -264,7 +353,15 @@ class Admin extends Base {
 			$button_text = 'Activate Elementor';
 		}
 		$output = '<div class="notice notice-error">';
-		$output .= sprintf( "<p><strong>%s</strong> %s <strong>%s</strong> %s &nbsp;&nbsp;<a  class='button-primary' href='%s'>%s</a></p>", __( 'Templately', 'templately' ), __( 'requires', 'templately' ), __( 'Elementor', 'templately' ), __( 'plugin to be installed and activated. Please install Elementor to continue.', 'templately' ), esc_url( $plugin_url ), __( $button_text, 'templately' ) );
+		$output .= sprintf(
+			"<p><strong>%s</strong> %s <strong>%s</strong> %s &nbsp;&nbsp;<a  class='button-primary' href='%s'>%s</a></p>",
+			__( 'Templately', 'templately' ),
+			__( 'requires', 'templately' ),
+			__( 'Elementor', 'templately' ),
+			__( 'plugin to be installed and activated. Please install Elementor to continue.', 'templately' ),
+			esc_url( $plugin_url ),
+			__( $button_text, 'templately' )
+		);
 		$output .= '</div>';
 		echo $output;
 	}

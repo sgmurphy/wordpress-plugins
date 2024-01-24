@@ -147,7 +147,7 @@ if ( get_option( 'CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS', CP_CALCULATEDFIELDSF
 			function calculatedFieldsFormReady()
 			{
 				/* Revisions code */
-				$calculatedfieldsfQuery('[name="cff_apply_revision"]').click(
+				$calculatedfieldsfQuery('[name="cff_apply_revision"]').on( 'click',
 					function(){
 						var revision = $calculatedfieldsfQuery('[name="cff_revision_list"]').val();
 						if(revision*1)
@@ -183,7 +183,7 @@ if ( get_option( 'CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS', CP_CALCULATEDFIELDSF
 					run_fbuilder($calculatedfieldsfQuery);
 				}
 
-				$calculatedfieldsfQuery(".itemForm").click(function() {
+				$calculatedfieldsfQuery(".itemForm").on( 'click', function() {
 				   f.fBuild.addItem($calculatedfieldsfQuery(this).attr("id"));
 				})
 				.draggable({
@@ -208,7 +208,7 @@ if ( get_option( 'CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS', CP_CALCULATEDFIELDSF
 				});
 
 				jQuery(".metabox_disabled_section .inside")
-				.click( function(){
+				.on( 'click',  function(){
 				  if(confirm("<?php print esc_js( __( 'These features aren\'t available in this version. Do you want to open the plugin\'s page to check other versions?', 'calculated-fields-form' ) ); ?>"))
 					  window.open( 'https://cff.dwbooster.com/download', '_blank' );
 				})

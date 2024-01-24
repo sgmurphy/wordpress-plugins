@@ -105,7 +105,7 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'default' ] = {
                     pr = pr || 0;
                     if_not_integer = if_not_integer || 0;
 
-					if(/^\d+$/.test(pr) && $.isNumeric(num))
+					if(/^\d+$/.test(pr) && $.fbuilder.isNumeric(num))
 					{
                         if(
                             Math.floor(num) != num ||

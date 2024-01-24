@@ -2,7 +2,7 @@
 /**
  * @license GPL-2.0-or-later
  *
- * Modified by kadencewp on 11-January-2024 using Strauss.
+ * Modified by kadencewp on 23-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */ declare( strict_types=1 );
 
@@ -168,18 +168,6 @@ class Plugins_Page {
 	}
 
 	/**
-	 * Prevent the default inline update-available messages from appearing, as we
-	 * have implemented our own
-	 *
-	 * @return void
-	 */
-	public function remove_default_inline_update_msg(): void {
-		foreach ( $this->get_plugins() as $plugin ) {
-			remove_action( "after_plugin_row_{$plugin->get_path()}", 'wp_plugin_update_row' );
-		}
-	}
-
-	/**
 	 * @param mixed $transient
 	 *
 	 * @return mixed
@@ -228,7 +216,6 @@ class Plugins_Page {
 		if ( ! $relevant ) {
 			return $result;
 		}
-
 		if ( apply_filters( 'stellarwp/uplink/' . $args->slug . '/prevent_update_check', false ) ) {
 			return $result;
 		}

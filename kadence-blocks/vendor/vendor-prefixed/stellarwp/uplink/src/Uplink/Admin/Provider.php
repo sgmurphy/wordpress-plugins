@@ -2,7 +2,7 @@
 /**
  * @license GPL-2.0-or-later
  *
- * Modified by kadencewp on 11-January-2024 using Strauss.
+ * Modified by kadencewp on 23-January-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */ declare( strict_types=1 );
 
@@ -153,17 +153,6 @@ class Provider extends Abstract_Provider {
 	 */
 	public function store_admin_notices( $page ): void {
 		$this->container->get( Plugins_Page::class )->store_admin_notices( (string) $page );
-	}
-
-	/**
-	 * Remove the default inline update message for a plugin.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
-	public function remove_default_update_message(): void {
-		$this->container->get( Plugins_Page::class )->remove_default_inline_update_msg();
 	}
 
 	/**

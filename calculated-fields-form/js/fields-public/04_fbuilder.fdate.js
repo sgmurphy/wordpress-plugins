@@ -74,7 +74,7 @@
 					$(document).off('change', '#'+me.name+'_minutes').on('change', '#'+me.name+'_minutes', function(){f();});
 					$(document).off('change', '#'+me.name+'_ampm').on('change', '#'+me.name+'_ampm', function(){f();});
 
-					$('#cp_calculatedfieldsf_pform'+me.form_identifier).bind('reset', function(){
+					$('#cp_calculatedfieldsf_pform'+me.form_identifier).on('reset', function(){
                         setTimeout(function(){me.set_DefaultDate(true); me.set_DefaultTime(); me.set_dateTime();},500);
                     });
 				},
@@ -295,7 +295,7 @@
 						};
 					}
 
-					dp.click(function(){ $(document).click(); $(this).focus(); });
+					dp.on( 'click', function(){ $(document).click(); $(this).focus(); });
 					if(me.showDropdown) p = $.extend(p,{changeMonth: true,changeYear: true,yearRange: me.dropdownRange});
 					p = $.extend(p, {beforeShowDay:function(d){return [me._validateDate(d), ""];}});
 					if(me.defaultDate != "") p.defaultDate = me.defaultDate;
@@ -407,7 +407,7 @@
 						var v  = e.val();
 						if(raw) return $.fbuilder.parseValStr(v, raw, no_quotes);
 
-						v  = $.trim(e.val());
+						v  = String(e.val()).trim();
 						var re = new RegExp('('+o.r+')?(\\s*(\\d{1,2})[:\\.](\\d{1,2})\\s*([amp]{2})?)?'),
 							d  = re.exec(v),
 							h  = 0,
@@ -450,7 +450,7 @@
 							else if(
 								(
 									! me.showDatepicker ||
-									'' == $.trim( $('[id="'+me.name+'_date"]').val() )
+									'' == String( $('[id="'+me.name+'_date"]').val() ).trim()
 								) && me.showTimepicker
 							) return (h*3600000+m*60000)/86400000;
 						}
@@ -462,7 +462,7 @@
 					init = init || false;
 					try
 					{
-						v = $.trim(v)
+						v = String(v).trim()
 							 .replace(/\s+/g, ' ')
 							 .split(' ');
 						if(this.showDatepicker)

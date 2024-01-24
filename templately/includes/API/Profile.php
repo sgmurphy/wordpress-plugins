@@ -156,8 +156,6 @@ class Profile extends API {
 
 		$response = $this->http()->query( 'myItems', $query, $funcArgs )->post();
 
-		// dlog( $response );
-
 		if ( $response ) {
 			// $user = $this->utils('options')->get('user');
 

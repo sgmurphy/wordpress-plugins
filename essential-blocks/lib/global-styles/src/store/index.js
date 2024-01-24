@@ -41,7 +41,6 @@ subscribe(() => {
     const isAutosavingPost = select('core/editor').isAutosavingPost();
 
     const ebIsSaving = select('essential-blocks').getIsSaving()
-    // console.log('ebIsSaving', ebIsSaving)
 
     if (!ebIsSaving || isAutosavingPost || !isSavingPost) {
         return;
@@ -60,7 +59,6 @@ subscribe(() => {
 
     //Gradient Colors
     const gradientColors = select('essential-blocks').getGradientColors()
-
     dispatch('essential-blocks').saveGradientColors(gradientColors)
 
     //Custom Gradient Colors

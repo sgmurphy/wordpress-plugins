@@ -56,7 +56,7 @@ class Elementor extends Platform {
 	 */
 	public function scripts() {
 		templately()->assets->enqueue( 'templately-elementor', 'css/elementor.css' );
-		templately()->assets->enqueue( 'templately-elementor', 'js/elementor.js', [ 'jquery' ] );
+		templately()->assets->enqueue( 'templately-elementor', 'js/elementor.js', [ 'jquery' ], true );
 		templately()->admin->scripts( 'elementor' );
 	}
 

@@ -59,7 +59,7 @@
 					if(value == '') return value;
 					var me = this,
 						ts = me.thousandSeparator,
-						cs = ((cs = $.trim(me.centSeparator)) !== '') ? cs : '.',
+						cs = ((cs = String(me.centSeparator).trim()) !== '') ? cs : '.',
 						v = $.fbuilder.parseVal(value, ts, cs),
 						parts = [],
 						counter = 0,
@@ -130,8 +130,8 @@
 					if(e.length)
 					{
 						var v = e.val();
-						if(raw) return ($.isNumeric(v)) ? v : $.fbuilder.parseValStr(v, raw, no_quotes);
-						v = $.trim(v);
+						if(raw) return ($.fbuilder.isNumeric(v)) ? v : $.fbuilder.parseValStr(v, raw, no_quotes);
+						v = String(v).trim();
 
 						v = v.replace(new RegExp($.fbuilder[ 'escapeSymbol' ](this.currencySymbol), 'g'), '')
 						     .replace(new RegExp($.fbuilder[ 'escapeSymbol' ](this.currencyText), 'g'), '');

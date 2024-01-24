@@ -1,10 +1,10 @@
 === Page Builder: Pagelayer - Drag and Drop website builder ===
 Contributors: pagelayer, softaculous
-Tags: page builder, editor, drag and drop, form builder, landing page, responsive, woocommerce, website builder, website design, visual editor, maintenance mode, wysiwyg, page editor, front end, parallax design, widgets, block, button, category, contact, contact form, e-commerce, facebook, form, gallery, image, import, coming soon, links, menu, mega menu, multisite, site builder, fast performance, plugin, popup, post, SEO, shortcode, sidebar, slider, social, tags, themes, Twitter, video, widget, youtube, header, footer, portfolio, custom, color, full site editing, sticky post, template, under construction, grid layout, popular, page, softaculous, design
+Tags: page builder, editor, drag and drop, gutenberg, blocks, form builder, landing page, responsive, woocommerce, website builder, website design, visual editor, maintenance mode, wysiwyg, page editor, front end, parallax design, widgets, block, button, category, contact, contact form, e-commerce, facebook, form, gallery, image, import, coming soon, links, menu, mega menu, multisite, site builder, fast performance, plugin, popup, post, SEO, shortcode, sidebar, slider, social, tags, themes, Twitter, video, widget, youtube, header, footer, portfolio, custom, color, full site editing, sticky post, template, under construction, grid layout, popular, page, softaculous, design, gutenberg blocks
 Requires at least: 4.7
 Tested up to: 6.4
 Requires PHP: 5.5
-Stable tag: 1.8.1
+Stable tag: 1.8.2
 License: LGPL v2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -19,6 +19,10 @@ https://www.youtube.com/watch?v=JiY_oOND7rA
 Pagelayer is an awesome page builder that allows you to create and design your website instantly in the simplest way possible. Take control over your page content with the most advanced page builder plugin available. With Pagelayer, you can create just about everything !
 
 [Home Page](https://pagelayer.com "Pagelayer Homepage") | [Support](https://pagelayer.deskuss.com "Pagelayer Support") | [Documents](http://pagelayer.com/docs "Documents")
+
+== Gutenberg Editor Blocks Integration ==
+
+Pagelayer smoothly collaborates with the Gutenberg editor, ensuring it aligns seamlessly with WordPress' built-in block editor. This means you can effortlessly blend Pagelayer's advanced page-building tools with the user-friendly Gutenberg blocks, giving you the best of both worlds. Whether you fancy the straightforwardness of Gutenberg blocks or the sophistication of Pagelayer's drag-and-drop editor, the decision is entirely yours. This compatibility grants you the flexibility to harness the strengths of both systems, resulting in unmatched design versatility for your WordPress website. Explore the synergy of Pagelayer and Gutenberg, unlocking a new level of creativity for your web projects.
 
 == Next generation Drag & Drop Editor ==
 
@@ -127,9 +131,15 @@ Do you have questions related to Pagelayer? Use the following links :
 
 == Changelog ==
 
+= 1.8.2 (Jan 23, 2024) =
+* [Security-Fix] The security check for "Move to trash" from pagelayer editor has been further improved.
+* [Bug-fix] In some cases in Gutenberg, slider blocks were broken during move child. This is fixed.
+* [Bug-fix] In some cases, the content of the previous post was loaded when adding a new page. This is fixed.
+* [Bug-fix] In some cases, the video and facebook blocks were not working properly. This is fixed.
+
 = 1.8.1 (Jan 09, 2024) =
 * [Feature] Added support for all Pagelayer widgets in Gutenberg, you can now use Pagelayer widgets in the Gutenberg editor.
-* [Security-Fix] In the Pagelayer -> Settings and Pagelayer -> Website Settings, certain settings were not escaped and sanitized. This is fixed.
+* [Bug-fix] In the Pagelayer -> Settings and Pagelayer -> Website Settings, certain settings were not escaped and sanitized. This is fixed.
 
 = 1.8.0 (Dec 25, 2023) =
 * [Bug-fix] In some cases Pagelayer was causing a PHP error due to the screen function returning null. This is fixed.

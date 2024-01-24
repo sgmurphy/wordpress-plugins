@@ -124,7 +124,7 @@ class YITH_WCAS_Data_Index_Lookup {
 	 */
 	public function get_data_by_id( $ids, $post_type, $category = 0 ) {
 		global $wpdb;
-		$instock = 'yes' === ywcas()->settings->get_hide_out_of_stock() ? array(1) : array(0,1);
+		$instock = 'yes' === ywcas()->settings->get_hide_out_of_stock() ? array( 1 ) : array( 0, 1 );
 		if ( ! $category ) {
 			$results = $wpdb->get_results( "SELECT * FROM $wpdb->yith_wcas_data_index_lookup WHERE post_id IN(" . implode( ',', $ids ) . ") AND post_type IN('" . implode( "','", $post_type ) . "') AND instock IN('" . implode( "','", $instock ) . "') ORDER BY FIELD(post_id, " . implode( ',', $ids ) . " )", ARRAY_A ); //phpcs:ignore
 		} else {
@@ -135,7 +135,7 @@ class YITH_WCAS_Data_Index_Lookup {
 		}
 
 		// ORDER BY FIELD returns results following the order of ids.
-		return (array) $results;
+		return array_filter( $results );
 	}
 
 	/**
@@ -161,7 +161,7 @@ class YITH_WCAS_Data_Index_Lookup {
 	public function get_element_by_post_id( $id ) {
 		global $wpdb;
 
-		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->yith_wcas_data_index_lookup  WHERE post_id = %d", $id ),ARRAY_A );
+		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->yith_wcas_data_index_lookup  WHERE post_id = %d", $id ), ARRAY_A );
 	}
 
 }

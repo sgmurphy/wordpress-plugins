@@ -36,7 +36,7 @@
 				},
 			editItemEvents:function()
 				{
-					$(".choice_text").bind("change keyup", {obj: this}, function(e)
+					$(".choice_text").on("change keyup", {obj: this}, function(e)
 						{
 							if (e.data.obj.choices[$(this).attr("i")] == e.data.obj.choicesVal[$(this).attr("i")])
 							{
@@ -46,18 +46,18 @@
 							e.data.obj.choices[$(this).attr("i")]= cff_sanitize($(this).val());
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_value").bind("change keyup", {obj: this}, function(e)
+					$(".choice_value").on("change keyup", {obj: this}, function(e)
 						{
 							e.data.obj.choicesVal[$(this).attr("i")]= cff_sanitize($(this).val());
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_optgroup").bind("change", {obj: this}, function(e)
+					$(".choice_optgroup").on("change", {obj: this}, function(e)
 						{
 							e.data.obj.optgroup[$(this).attr("i")]= $(this).is(':checked');
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_select").bind("mousedown", function(){$(this).data('previous-status', $(this).is(':checked'));});
-					$(".choice_select").bind("click", {obj: this}, function(e)
+					$(".choice_select").on("mousedown", function(){$(this).data('previous-status', $(this).is(':checked'));});
+					$(".choice_select").on("click", {obj: this}, function(e)
 						{
 							var el = $(this),
 								i = el.attr("i");
@@ -66,7 +66,7 @@
 							e.data.obj.choiceSelected = (el.is(':checked')) ? e.data.obj.choices[i] + ' - ' + e.data.obj.choicesVal[i] : "";
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_up").bind("click", {obj: this}, function(e)
+					$(".choice_up").on("click", {obj: this}, function(e)
 						{
 							var i = $(this).attr("i")*1;
 							if (i!=0)
@@ -79,7 +79,7 @@
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_down").bind("click", {obj: this}, function(e)
+					$(".choice_down").on("click", {obj: this}, function(e)
 						{
 							var i = $(this).attr("i")*1;
 							var n = $(this).attr("n")*1;
@@ -93,7 +93,7 @@
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_removeDep").bind("click", {obj: this}, function(e)
+					$(".choice_removeDep").on("click", {obj: this}, function(e)
 						{
 							if (e.data.obj.choicesDep[$(this).attr("i")].length == 1)
 							{
@@ -106,13 +106,13 @@
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_addDep").bind("click", {obj: this}, function(e)
+					$(".choice_addDep").on("click", {obj: this}, function(e)
 						{
 							e.data.obj.choicesDep[$(this).attr("i")].splice($(this).attr("j")*1+1,0,"");
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_remove").bind("click", {obj: this}, function(e)
+					$(".choice_remove").on("click", {obj: this}, function(e)
 						{
 							var i = $(this).attr("i");
 
@@ -139,7 +139,7 @@
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_add").bind("click", {obj: this}, function(e)
+					$(".choice_add").on("click", {obj: this}, function(e)
 						{
 							e.data.obj.choices.splice($(this).attr("i")*1+1,0,"");
 							e.data.obj.choicesVal.splice($(this).attr("i")*1+1,0,"");
@@ -148,7 +148,7 @@
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".showHideDependencies").bind("click", {obj: this}, function(e)
+					$(".showHideDependencies").on("click", {obj: this}, function(e)
 						{
 							if (e.data.obj.showDep)
 							{
@@ -167,7 +167,7 @@
 							$.fbuilder.editItem(e.data.obj.index);
 							return false;
 						});
-					$('.dependencies').bind("change", {obj: this}, function(e)
+					$('.dependencies').on("change", {obj: this}, function(e)
 						{
 							e.data.obj.choicesDep[$(this).attr("i")][$(this).attr("j")] = $(this).val();
 							$.fbuilder.reloadItems({'field':e.data.obj});
@@ -181,7 +181,7 @@
 							{s:'[name="sMultiple"]', e:"click", l:"multiple", f: function(el){return el.is(':checked');}},
 							{s:'[name="sVChoices"]', e:"change keyup", l:"vChoices", f: function(el){
 								var v = el.val();
-								return ($.isNumeric(v)) ? Math.ceil(v) : 1;
+								return ($.fbuilder.isNumeric(v)) ? Math.ceil(v) : 1;
 							}}
 						];
 					$('.dependencies').each(function()
@@ -209,7 +209,7 @@
 				multipleSelection: function()
 				{
 					return '<label style="margin-bottom"><input type="checkbox" name="sMultiple" '+((typeof this.multiple != 'undefined' && this.multiple) ? ' CHECKED ' : '')+' /> Allows to select multiple choices.</label>'+
-					'<label><input type="number" name="sVChoices" value="'+(($.isNumeric(this.vChoices) && this.vChoices) ? this.vChoices : 1)+'" style="max-width:60px;" min="1" /> Number of visual choices.</label>';
+					'<label><input type="number" name="sVChoices" value="'+(($.fbuilder.isNumeric(this.vChoices) && this.vChoices) ? this.vChoices : 1)+'" style="max-width:60px;" min="1" /> Number of visual choices.</label>';
 				},
 				showChoiceIntance: function()
 				{

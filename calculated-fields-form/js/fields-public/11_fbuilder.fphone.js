@@ -34,7 +34,7 @@
 
 					for (var i=0;i<tmpv.length;i++)
 					{
-						if ($.trim(tmpv[i])=="")
+						if (String(tmpv[i]).trim()=="")
 						{
 							tmpv.splice(i,1);
 						}
@@ -65,9 +65,9 @@
 
 					for (var i = 0, h = tmp.length;i<h;i++)
 					{
-                        if ($.trim(tmp[i]) != "")
+                        if (String(tmp[i]).trim() != "")
 						{
-							str += '<div class="uh_phone" style="min-width:'+(100/nc*tmp[i].length)+'%"><input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((me.required) ? ' required ' : '')+'" size="'+$.trim(tmp[i]).length+'" '+attr+'="'+((tmpv[i])?tmpv[i]:"")+'" maxlength="'+$.trim(tmp[i]).length+'" minlength="'+$.trim(tmp[i]).length+'" '+((me.readonly)?'readonly':'')+' /><div class="l">'+$.trim(tmp[i])+'</div></div>';
+							str += '<div class="uh_phone" style="min-width:'+(100/nc*tmp[i].length)+'%"><input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((me.required) ? ' required ' : '')+'" size="'+String(tmp[i]).trim().length+'" '+attr+'="'+((tmpv[i])?tmpv[i]:"")+'" maxlength="'+String(tmp[i]).trim().length+'" minlength="'+String(tmp[i]).trim().length+'" '+((me.readonly)?'readonly':'')+' /><div class="l">'+String(tmp[i]).trim()+'</div></div>';
 							c++;
 						}
 					}
@@ -89,14 +89,14 @@
 
 					for (var i = 0, h = tmp.length+(me.countryComponent ? 1 : 0); i < h; i++)
 					{
-						$('#'+me.name+'_'+i).bind('change', function(){
+						$('#'+me.name+'_'+i).on('change', function(){
 							var v = '';
                             $('[id*="'+me.name+'_"]').each(function(){v+=$(this).val();});
 							$('#'+me.name).val(v).change();
 						});
 						if(i+1 < h)
 						{
-							$('#'+me.name+'_'+i).bind('keyup', { 'next': i+1 }, function(evt){
+							$('#'+me.name+'_'+i).on('keyup', { 'next': i+1 }, function(evt){
 								var e = $(this);
 								if(e.val().length == e.attr('maxlength'))
 								{
@@ -115,7 +115,7 @@
 					var e = $('[id="'+this.name+'"]:not(.ignore)'),
 						p = $.fbuilder.parseValStr(e.val(), raw, no_quotes);
 
-					if(e.length) return ($.isNumeric(p) && !no_quotes) ? '"'+p+'"' : p;
+					if(e.length) return ($.fbuilder.isNumeric(p) && !no_quotes) ? '"'+p+'"' : p;
 					return 0;
 				},
 			setVal:function(v)

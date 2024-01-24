@@ -44,7 +44,7 @@
 				},
 			editItemEvents:function()
 				{
-					$(".choice_text").bind("change keyup", {obj: this}, function(e)
+					$(".choice_text").on("change keyup", {obj: this}, function(e)
 						{
 							if (e.data.obj.choices[$(this).attr("i")] == e.data.obj.choicesVal[$(this).attr("i")])
 							{
@@ -54,12 +54,12 @@
 							e.data.obj.choices[$(this).attr("i")]= cff_sanitize($(this).val());
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_value").bind("change keyup", {obj: this}, function(e)
+					$(".choice_value").on("change keyup", {obj: this}, function(e)
 						{
 							e.data.obj.choicesVal[$(this).attr("i")]= cff_sanitize($(this).val());
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_check").bind("click", {obj: this}, function(e)
+					$(".choice_check").on("click", {obj: this}, function(e)
 						{
 							if ($(this).is(':checked'))
 							{
@@ -71,12 +71,12 @@
 							}
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$("#sLayout").bind("change", {obj: this}, function(e)
+					$("#sLayout").on("change", {obj: this}, function(e)
 						{
 							e.data.obj.layout = $(this).val();
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_up").bind("click", {obj: this}, function(e)
+					$(".choice_up").on("click", {obj: this}, function(e)
 						{
 							var i = $(this).attr("i")*1;
 							if (i!=0)
@@ -88,7 +88,7 @@
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_down").bind("click", {obj: this}, function(e)
+					$(".choice_down").on("click", {obj: this}, function(e)
 						{
 							var i = $(this).attr("i")*1;
 							var n = $(this).attr("n")*1;
@@ -101,7 +101,7 @@
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_removeDep").bind("click", {obj: this}, function(e)
+					$(".choice_removeDep").on("click", {obj: this}, function(e)
 						{
 							if (e.data.obj.choicesDep[$(this).attr("i")].length == 1)
 							{
@@ -114,13 +114,13 @@
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_addDep").bind("click", {obj: this}, function(e)
+					$(".choice_addDep").on("click", {obj: this}, function(e)
 						{
 							e.data.obj.choicesDep[$(this).attr("i")].splice($(this).attr("j")*1+1,0,"");
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_remove").bind("click", {obj: this}, function(e)
+					$(".choice_remove").on("click", {obj: this}, function(e)
 						{
 							if (e.data.obj.choices.length==1)
 							{
@@ -148,7 +148,7 @@
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".choice_add").bind("click", {obj: this}, function(e)
+					$(".choice_add").on("click", {obj: this}, function(e)
 						{
 							e.data.obj.choices.splice($(this).attr("i")*1+1,0,"");
 							e.data.obj.choicesVal.splice($(this).attr("i")*1+1,0,"");
@@ -160,7 +160,7 @@
 							$.fbuilder.editItem(e.data.obj.index);
 							$.fbuilder.reloadItems({'field':e.data.obj});
 						});
-					$(".showHideDependencies").bind("click", {obj: this}, function(e)
+					$(".showHideDependencies").on("click", {obj: this}, function(e)
 						{
 							if (e.data.obj.showDep)
 							{
@@ -179,7 +179,7 @@
 							$.fbuilder.editItem(e.data.obj.index);
 							return false;
 						});
-					$('.dependencies').bind("change", {obj: this}, function(e)
+					$('.dependencies').on("change", {obj: this}, function(e)
 						{
 							e.data.obj.choicesDep[$(this).attr("i")][$(this).attr("j")] = $(this).val();
 							$.fbuilder.reloadItems({'field':e.data.obj});
@@ -192,11 +192,11 @@
 							{s:'[name="sOnOff"]', e:"change", l:"onoff", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
 							{s:'[name="sMax"]', e:"change keyup", l:"max", f: function(el){
 								var v = el.val();
-								return ($.isNumeric(v)) ? Math.round(v) : -1;
+								return ($.fbuilder.isNumeric(v)) ? Math.round(v) : -1;
 							}},
 							{s:'[name="sMin"]', e:"change keyup", l:"min", f: function(el){
 								var v = el.val();
-								return ($.isNumeric(v)) ? Math.round(v) : -1;
+								return ($.fbuilder.isNumeric(v)) ? Math.round(v) : -1;
 							}},
 							{s:'[name="sMaxError"]', e:"change keyup", l:"maxError"},
 							{s:'[name="sMinError"]', e:"change keyup", l:"minError"}
@@ -227,12 +227,12 @@
 				},
 			minChoices: function()
 				{
-					return '<label style="margin-bottom:10px;"><input type="number" name="sMin" value="'+(($.isNumeric(this.min) && 0<=this.min) ? this.min : '')+'" style="max-width:60px;" /> Minimum number of choices to be ticked.</label>'+
+					return '<label style="margin-bottom:10px;"><input type="number" name="sMin" value="'+(($.fbuilder.isNumeric(this.min) && 0<=this.min) ? this.min : '')+'" style="max-width:60px;" /> Minimum number of choices to be ticked.</label>'+
 					'<input type="text" name="sMinError" class="large" value="'+cff_esc_attr(cff_html_decode(this.minError))+'" placeholder="Min choices error messages" />';
 				},
 			maxChoices: function()
 				{
-					return '<label style="margin-bottom:10px;"><input type="number" name="sMax" value="'+(($.isNumeric(this.max) && 0<=this.max) ? this.max : '')+'" style="max-width:60px;" min="1" /> Maximum number of choices to be ticked.</label>'+
+					return '<label style="margin-bottom:10px;"><input type="number" name="sMax" value="'+(($.fbuilder.isNumeric(this.max) && 0<=this.max) ? this.max : '')+'" style="max-width:60px;" min="1" /> Maximum number of choices to be ticked.</label>'+
 					'<input type="text" name="sMaxError" class="large" value="'+cff_esc_attr(cff_html_decode(this.maxError))+'" placeholder="Max choices error messages" />';
 				},
 			showChoiceIntance: function()

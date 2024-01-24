@@ -142,12 +142,12 @@
 					{
 						e.each(function(){
 							var t = (m) ? $.fbuilder.parseVal(this.value) : $.fbuilder.parseValStr((raw == 'vt') ? this.getAttribute('vt') : this.value, raw, no_quotes);
-							if(!$.isNumeric(t)) t = t.replace(/^"/,'').replace(/"$/,'');
+							if(!$.fbuilder.isNumeric(t)) t = t.replace(/^"/,'').replace(/"$/,'');
 							if(m) v = (v)?v+t:t;
 							else v.push(t);
 						});
 					}
-					return (typeof v == 'object' && typeof v['length'] !== 'undefined') ? v : ((v) ? (($.isNumeric(v)) ? v : '"'+v+'"') : 0);
+					return (typeof v == 'object' && typeof v['length'] !== 'undefined') ? v : ((v) ? (($.fbuilder.isNumeric(v)) ? v : '"'+v+'"') : 0);
 				},
 			setVal:function(v, nochange, _default)
 				{

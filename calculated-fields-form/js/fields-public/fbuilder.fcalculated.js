@@ -65,7 +65,7 @@
 
 					me.dependencies = dependencies;
 					var eq = me.eq;
-					eq = eq/*.replace(/\n/g, ' ')*/.replace(/fieldname(\d+)/g, "fieldname$1"+me.form_identifier).replace(/form_identifier/g, '\''+this['form_identifier']+'\'').replace(/;\s*\)/g, ')').replace(/;\s*$/, '');
+					eq = eq.replace(/\/\/[^\n\r]*/g, ' ').replace(/[\n\r]/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+me.form_identifier).replace(/form_identifier/g, '\''+this['form_identifier']+'\'').replace(/;\s*\)/g, ')').replace(/;\s*$/, '');
 
 					if(!/^\s*$/.test(eq))
                     {
@@ -75,7 +75,7 @@
                     // Events
 			        var e = $('[id="'+me.name+'"]');
 
-					e.bind(
+					e.on(
                         'calcualtedfield_changed',
                         {obj: me},
                         function(evt){
@@ -121,7 +121,7 @@
 						if( ! me.noEvalIfManual ) e.data('manually', 0);
 					});
 
-					$('#cp_calculatedfieldsf_pform'+me.form_identifier).bind('reset', function(){e.removeData('manually');});
+					$('#cp_calculatedfieldsf_pform'+me.form_identifier).on('reset', function(){e.removeData('manually');});
 				},
 			showHideDep: function(toShow, toHide, hiddenByContainer, interval)
 				{
@@ -206,7 +206,7 @@
 					{
 						var v = e.val();
 						if(raw) return $.fbuilder.parseValStr(v, raw, no_quotes);
-						v = $.trim(v);
+						v = String(v).trim();
 
 						v = v.replace(new RegExp($.fbuilder['escapeSymbol'](this.prefix), 'g'), '')
 						     .replace(new RegExp($.fbuilder['escapeSymbol'](this.suffix), 'g'), '');
@@ -323,7 +323,7 @@
 								{
 									v = field.val((_match[3]) ? ((_match[3] == '|v') ? 'vt' : ((_match[3] == '|r') ? true : false)) : false);
 									if(typeof v == 'object' && typeof window.JSON != 'undefined') v = JSON.stringify(v);
-									else if($.isNumeric(v)) v = '('+v+')';
+									else if($.fbuilder.isNumeric(v)) v = '('+v+')';
 								}
 							}
 							eq = eq.replace(_match[0], v+''+_match[4]); // Replace the variable name by value
@@ -594,7 +594,7 @@
 							if(!/^\s*$/.test(value))
                             {
 								var symbol = '', isNumeric = false;
-                                if($.isNumeric(value) && !/[+\-]?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)/.test(value))
+                                if($.fbuilder.isNumeric(value) && !/[+\-]?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)/.test(value))
                                 {
 									isNumeric = true;
 									if(value < 0) symbol =  '-';

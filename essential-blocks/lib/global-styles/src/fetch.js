@@ -30,7 +30,7 @@ export const updateGlobalStyle = (value, key = 'global_colors') => {
                 return response.data
             }
             else {
-                console.log("failed update", data)
+                console.log("Update failed! ", response.data)
             }
         })
         .catch(err => console.log(err));

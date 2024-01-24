@@ -18,7 +18,7 @@
 
 					if(!/^\s*$/.test(me.url))
 					{
-						label = '<a href="'+cff_esc_attr($.trim(me.url))+'" target="_blank">'+label+'</a>';
+						label = '<a href="'+cff_esc_attr(String(me.url).trim())+'" target="_blank">'+label+'</a>';
 					}
 					else if(!/^\s*$/.test(me.message))
 					{
@@ -56,9 +56,9 @@
 					if(e.length)
 					{
 						var t = $.fbuilder.parseValStr(e[0].value, raw, no_quotes);
-						if(!$.isNumeric(t)) t = t.replace(/^"/,'').replace(/"$/,'');
+						if(!$.fbuilder.isNumeric(t)) t = t.replace(/^"/,'').replace(/"$/,'');
 					}
-					return (t) ? (($.isNumeric(t) && !no_quotes) ? t : '"'+t+'"') : 0;
+					return (t) ? (($.fbuilder.isNumeric(t) && !no_quotes) ? t : '"'+t+'"') : 0;
 				}
 		}
 	);

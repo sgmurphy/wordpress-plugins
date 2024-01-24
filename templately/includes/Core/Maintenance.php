@@ -2,14 +2,16 @@
 
 namespace Templately\Core;
 
+use Templately\Admin\Roles;
+
 class Maintenance {
 	/**
 	 * Init Maintenance
 	 *
-	 * @since 2.0.1
 	 * @return void
+	 * @since 2.0.1
 	 */
-	public static function init(){
+	public static function init() {
 		register_activation_hook( TEMPLATELY_PLUGIN_BASENAME, [ __CLASS__, 'activation' ] );
 		register_uninstall_hook( TEMPLATELY_PLUGIN_BASENAME, [ __CLASS__, 'uninstall' ] );
 		register_deactivation_hook( TEMPLATELY_PLUGIN_BASENAME, [ __CLASS__, 'deactivation' ] );
@@ -19,13 +21,33 @@ class Maintenance {
 	/**
 	 * Runs on activation
 	 *
+	 * @return void
 	 * @since 2.0.1
 	 */
 	public static function activation( $network_wide ) {
+		// Initialize Roles
+		( new Roles() )->setup();
+
 		if ( wp_doing_ajax() ) {
 			return;
 		}
 
+        if ( is_multisite() && $network_wide ) {
+			return;
+        }
+
+        set_transient( 'templately_activation_redirect', true, MINUTE_IN_SECONDS );
+	}
+
+	/**
+	 * Runs on activation
+	 *
+	 * @return void
+	 * @since 2.0.1
+	 */
+	public static function deactivation($network_wide) {
+		// De-initialize Roles
+		( new Roles() )->setup( true );
 		if ( is_multisite() && $network_wide ) {
 			return;
 		}
@@ -33,16 +55,14 @@ class Maintenance {
 		set_transient( 'templately_activation_redirect', true, MINUTE_IN_SECONDS );
 	}
 
-	public static function deactivation() {
-	}
 
 	/**
 	 * Runs on uninstallation.
 	 *
-	 * @since 2.0.1
 	 * @return void
+	 * @since 2.0.1
 	 */
-	public static function uninstall(){
+	public static function uninstall() {
 
 	}
 

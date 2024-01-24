@@ -46,12 +46,25 @@ if ( ! class_exists( 'YITH_WCAS_Shortcode' ) ) {
 			);
 			$template         = ! empty( $args['template'] ) ? '-wide' : '';
 			unset( $args['template'] );
+
+			return $this->get_legacy_template( $template, $args );
+
+		}
+
+		/**
+		 * Return the legacy template
+		 *
+		 * @param string $template The template type.
+		 * @param array  $args The args.
+		 *
+		 * @return false|string
+		 */
+		public function get_legacy_template( $template, $args ) {
 			ob_start();
 			$wc_get_template = function_exists( 'wc_get_template' ) ? 'wc_get_template' : 'woocommerce_get_template';
-			$wc_get_template( 'yith-woocommerce-ajax-search' . $template . '.php', $args, '', YITH_WCAS_DIR . 'templates/' );
+			$wc_get_template( 'yith-woocommerce-ajax-search.php', $args, '', YITH_WCAS_DIR . 'templates/' );
 
 			return ob_get_clean();
-
 		}
 
 		/**
@@ -97,7 +110,7 @@ if ( ! class_exists( 'YITH_WCAS_Shortcode' ) ) {
 			);
 
 			$block = '<!-- wp:yith/search-block ' . wp_json_encode( $block_options ) . '  -->';
-			$block .= '<div class="wp-block-yith-search-block alignwide">';
+			$block .= '<div class="wp-block-yith-search-block alignwide ' . esc_attr( $block_options['className'] ) . '">';
 
 			// Input.
 			$block .= $this->get_input_block_code_by_options( $options );
@@ -119,12 +132,12 @@ if ( ! class_exists( 'YITH_WCAS_Shortcode' ) ) {
 		 * @return string
 		 */
 		protected function get_input_block_code_by_options( $options ) {
-			$input_options  = $options['search-input'];
-			$submit_options = $options['submit-button'];
-			$border_size    = ! isset( $input_options['border_size'] ) ? '1px' : $input_options['border_size'] . 'px';
-			$border_radius  = ! isset( $input_options['border_radius'] ) ? '20px' : $input_options['border_radius'] . 'px';
-			$border_radius_button = ! isset( $submit_options['border-radius'] ) ? '20px' : $submit_options['border-radius'].'px';
-			$block_options  = array(
+			$input_options        = $options['search-input'];
+			$submit_options       = $options['submit-button'];
+			$border_size          = ! isset( $input_options['border_size'] ) ? '1px' : $input_options['border_size'] . 'px';
+			$border_radius        = ! isset( $input_options['border_radius'] ) ? '20px' : $input_options['border_radius'] . 'px';
+			$border_radius_button = ! isset( $submit_options['border-radius'] ) ? '20px' : $submit_options['border-radius'] . 'px';
+			$block_options        = array(
 				'placeholder'             => $input_options['placeholder'],
 				'placeholderTextColor'    => $input_options['colors'] ['placeholder'],
 				'inputTextColor'          => $input_options['colors'] ['textcolor'],

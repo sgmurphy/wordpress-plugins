@@ -135,7 +135,7 @@
 					recording_flag = false;
 				};
 
-				record_btn.click(function(evt){
+				record_btn.on( 'click', function(evt){
 					var settings = {
 							video: (me._is_video()) ? {'facingMode':{exact:'user'}} : false,
 							audio: (me._is_audio()) ? true : false
@@ -191,7 +191,7 @@
 						_stopRecording();
 					}
 				});
-				play_btn.click(function(){
+				play_btn.on( 'click', function(){
 					if(_load_file())
 					{
 						play_btn.toggleClass('cff-record-stop-btn');
