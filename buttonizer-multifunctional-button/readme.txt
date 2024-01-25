@@ -4,7 +4,7 @@ Buy plugin: https://buttonizer.io
 Tags: Conversion, action button, call, marketing, Social Sharing
 Requires at least: 4.7
 Tested up to: 6.4
-Stable tag: 3.4.1
+Stable tag: 3.4.2
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -47,7 +47,7 @@ Watch the video below to learn more on adding a Facebook Messenger Chat widget t
 * **Click to Chat**
  * Facebook Messenger Widget
  * WhatsApp Chat Widget (with popup)
- * Twitter Direct Message
+ * X (Twitter) Direct Message
  * Slack
  * Snapchat
  * Skype
@@ -60,7 +60,7 @@ Watch the video below to learn more on adding a Facebook Messenger Chat widget t
 * Browser share menu
 * **Social Sharing buttons**
  * Share on Facebook
- * Share on Twitter
+ * Share on X (Twitter)
  * Share on Instagram
  * Share on Whatsapp
  * Share on  LinkedIn
@@ -222,7 +222,7 @@ And the beauty of all: All actions are hidden in one button. The moment a visito
 In fact, Buttonizer is an addiction to use. Your website visitors will interact as never before.
 
 = Which buttons are available with Buttonizer? =
-WhatsApp chat, Facebook Messenger, Instagram, Email, SMS, Snapchat, Twitter, LinkedIn, Skype, Vkontakte, Phone (click to call), Telegram, Line, WeChat, Viber, Waze, Google maps, Poptin, Custom URL, Page Select.
+WhatsApp chat, Facebook Messenger, Instagram, Email, SMS, Snapchat, X (Twitter), LinkedIn, Skype, Vkontakte, Phone (click to call), Telegram, Line, WeChat, Viber, Waze, Google maps, Poptin, Custom URL, Page Select.
 
 = I don’t see the button on my site, what should I do? =
 Please make sure you’ve chosen at least one button and clicked on the green “Publish” button. If you still don't see any changes on the live site, you can clear the cache of your website if you have a caching plugin.
@@ -245,6 +245,22 @@ Languages can have a different direction of writing and reading? While languages
 
 
 == Changelog ==
+
+= 3.4.2 =
+Release date: January 25, 2024
+
+**New in Buttonizer:**
+- Shortcodes
+- New designed contact form
+- Widgets & parameters
+- Advanced widget positioning
+- Contact form webhooks
+
+**Changelog:**
+- Fix: Not hiding review request properly
+- Fix: Fixed issue with selecting WordPress pages
+
+If you experience bugs, problems or you just have some feedback, let us know on our [Buttonizer community](https://community.buttonizer.pro/)!
 
 = 3.4.1 =
 Release date: October 26, 2023
@@ -1137,7 +1153,7 @@ List of new button actions:
 
 * **Click to Chat**
   * Facebook Messenger Widget
-  * Twitter Direct Message
+  * X (Twitter) Direct Message
   * Snapchat
   * Skype
   * LINE
@@ -1146,7 +1162,7 @@ List of new button actions:
   * Viber
 * **Social Sharing buttons**
   * Facebook
-  * Twitter
+  * X (Twitter)
   * Instagram
   * Whatsapp
   * LinkedIn

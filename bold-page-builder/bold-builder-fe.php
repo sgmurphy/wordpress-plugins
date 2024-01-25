@@ -53,20 +53,25 @@ function bt_bb_fe_init() {
 					'inner_color_scheme'		=> array( 'ajax_filter' => array( 'class', 'style' ) ),
 					'background_color'			=> array( 'js_handler'  => array( 'target_selector' => '', 'type' => 'background_color' ) ),
 				),
-				'condition_params' => true,
 			),
 			'bt_bb_column_inner' => array(
 				'edit_box_selector' => '',
 				'params' => array(
+					'align' 					=> array( 'ajax_filter' => array( 'class', 'data-bt-override-class' ) ),
+					'vertical_align' 			=> array( 'ajax_filter' => array( 'class' ) ),
+					'padding' 					=> array( 'ajax_filter' => array( 'class', 'data-bt-override-class' ) ),
 					'background_image'			=> array( 'js_handler' => array( 'target_selector' => '', 'type' => 'background_image' ) ),
 					'inner_background_image'	=> array( 'js_handler' => array( 'target_selector' =>  '.bt_bb_column_inner_content', 'type' => 'background_image' ) ),
+					'color_scheme'				=> array( 'ajax_filter' => array( 'class', 'style' ) ),
+					'inner_color_scheme'		=> array( 'ajax_filter' => array( 'class', 'style' ) ),
+					'background_color'			=> array( 'js_handler'  => array( 'target_selector' => '', 'type' => 'background_color' ) ),
+					'inner_background_color'	=> array( 'js_handler'  => array( 'target_selector' => '.bt_bb_column_inner_content', 'type' => 'background_color' ) ),
 				),
-				'condition_params' => true,
 			),
 			'bt_bb_content_slider_item' => array(
 				'edit_box_selector' => '',
 				'params' => array(
-					'image'			=> array( 'js_handler' => array( 'target_selector' => '', 'type' => 'background_image' ) ),
+					'image'						=> array( 'js_handler' => array( 'target_selector' => '', 'type' => 'background_image' ) ),
 				),
 				'condition_params' => true,
 			),

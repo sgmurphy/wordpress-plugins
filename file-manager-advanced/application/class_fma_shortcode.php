@@ -197,8 +197,8 @@ class class_fma_shortcode {
 						'uploadDeny'    => $denyUpload,                // All Mimetypes not allowed to upload
 						'uploadAllow'   => $allowUpload,// Mimetype `image` and `text/plain` allowed to upload
 						'uploadOrder'   => array('deny', 'allow'),      // allowed Mimetype `image` and `text/plain` only
-						'accessControl' => 'access',                     // disable and hide dot starting files (OPTIONAL)
-						'acceptedName' => 'validName',
+						'accessControl' => 'fma_plugin_file_access',                     // disable and hide dot starting files (OPTIONAL)
+						'acceptedName' => 'fma_plugin_file_validName',
 						'uploadMaxSize' => $max_upload_size, 
 						'disabled'      => $el_opr,
 						'attributes' => $re,
@@ -227,7 +227,7 @@ new class_fma_shortcode;
  * Hook to fix invalid and malicious files
  */
 
- function validName($name) {
+ function fma_plugin_file_validName($name) {
 	if(!empty($name)) {
 		$name = sanitize_file_name($name);
 		if(strpos($name, '.php') || strpos($name, '.ini') || strpos($name, '.htaccess') || strpos($name, '.config')) {
@@ -240,7 +240,7 @@ new class_fma_shortcode;
 /**
  * Access
  */
-function access($attr, $path, $data, $volume, $isDir, $relpath) {
+function fma_plugin_file_access($attr, $path, $data, $volume, $isDir, $relpath) {
 	return $basename[0] === '.'                  // if file/folder begins with '.' (dot)
 			 && strlen($relpath) !== 1           // but with out volume root
 		? !($attr == 'read' || $attr == 'write') // set read+write to false, other (locked+hidden) set to true

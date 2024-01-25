@@ -4,7 +4,7 @@ Tags: backup, restore, database backup, cloud backup, wordpress backup, migratio
 Requires at least: 4.7
 Tested up to: 6.4
 Requires PHP: 5.5
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 License: LGPL v2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -84,6 +84,12 @@ Go To your WordPress install -> Plugins -> Add New Button -> In Search Box searc
 7. **Backup Process** easy to understand backup progress.
 
 == Changelog ==
+
+= 1.2.4 (January 25 2024) =
+* [Feature] Option to upload backup files to the user server, directly form the plugin.
+* [Improvement] A suggestion made by Bence Szalai to add limit on admin access on Exclude list folder.
+* [Improvement] Made the settings of Custom Auto Backups simpler.
+* [Bug-Fix] There was an issue with deletion in Backup rotation which has been fixed.
 
 = 1.2.3 (January 18 2024) =
 * [Feature] Option to add notes to every manual backups.

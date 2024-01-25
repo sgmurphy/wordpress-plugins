@@ -1024,7 +1024,7 @@ class ProductHelper {
 	 * @param int $product_id Product ID.
 	 * @param Config $config Configuration settings for handling variable products.
 	 *
-	 * @return WC_Product                   The product object, which may be a variation for variable products.
+	 * @return mixed                The product object, which may be a variation for variable products.
 	 * @throws Exception                    If the product is not found or an error occurs.
 	 */
 	public static function get_product_object( $product_id, $config ) {
@@ -1041,14 +1041,15 @@ class ProductHelper {
 				'cheap',
 				'first',
 				'last',
-				'expensive'
+				'expensive',
+				'n'
 			], true ) ) {
 			$id = self::determine_variable_product( $product, $variation_type );
 
 			return $id ? \wc_get_product( $id ) : $product;
 		}
 
-		if($config->get_categories_to_include() && $product->is_type( 'variable' )){
+		if( $config->get_categories_to_include() && $product->is_type( 'variable' ) ){
 			$products = [];
 			$variations = $product->get_visible_children();
 			foreach ($variations as $variation_id) {

@@ -3,6 +3,114 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.22.6 (2024-01-25)
+
+
+### Maintenance
+
+* update to antd@5 (CU-863gku332)
+
+
+<details><summary>Dependency updates @devowl-wp/real-product-manager-wp-client 1.19.11</summary>
+
+
+**_Purpose of dependency:_** _A WordPress client for Real Product Manager_
+##### Bug Fixes
+
+* allow to copy client UUID by hovering the installation type icon (CU-8693hv7vb)
+* show a notice for successor templates which replace other templates (CU-869372jf7)
+
+
+##### Maintenance
+
+* update to antd@5 (CU-863gku332)</details>
+
+<details><summary>Dependency updates @devowl-wp/utils 1.17.9</summary>
+
+
+**_Purpose of dependency:_** _Utility functionality for all your WordPress plugins._
+##### Bug Fixes
+
+* php error automatic conversion of false to array is deprecated (CU-apv5uu)
+* show a notice for successor templates which replace other templates (CU-869372jf7)
+* sometimes the WordPress REST API is contacted infinite when WP heartbeat is deactivated and login no longer valid (CU-8693jq17r)
+
+
+##### Maintenance
+
+* update to antd@5 (CU-863gku332)
+
+
+##### Performance
+
+* reduce bundle size by replacing sha-1 by a simple hash function (CU-apv5uu)</details>
+
+<details><summary>Development dependency update @devowl-wp/eslint-config 0.2.6</summary>
+
+
+**_Purpose of dependency:_** _Provide eslint configuration for our complete monorepo._
+##### Maintenance
+
+* update to antd@5 (CU-863gku332)</details>
+
+<details><summary>Development dependency update @devowl-wp/node-gitlab-ci 0.7.11</summary>
+
+
+**_Purpose of dependency:_** _Create dynamic GitLab CI pipelines in JavaScript or TypeScript for each project. Reuse and inherit instructions and avoid duplicate code!_
+##### Continuous Integration
+
+* use project ID to read associated merge request for pipeline (CU-apv5uu)</details>
+
+<details><summary>Development dependency update @devowl-wp/webpack-config 0.2.27</summary>
+
+
+**_Purpose of dependency:_** _Webpack config builder for multiple ecosystems like standalone React frontends, Antd, Preact and WordPress._
+##### Maintenance
+
+* update to antd@5 (CU-863gku332)</details>
+
+
+
+
+
+## 4.22.5 (2024-01-18) (not released)
+
+**Note:** This version of the package has not (yet) been released publicly. This happens if changes have been made in dependencies that do not affect this package (e.g. changes for the development of the package). The changes will be rolled out with the next official update.
+
+**Note:** This package (@devowl-wp/real-media-library) has been updated because a dependency, which is also shipped with this package, has changed.
+
+
+<details><summary>Development dependency update @devowl-wp/continuous-integration 0.6.0</summary>
+
+
+**_Purpose of dependency:_** _DevOps macros, job templates and jobs for Gitlab CI and @devowl-wp/node-gitlab-ci._
+##### Bug Fixes
+
+* output ci summary for review application URLs for traefik v2 (CU-2rjtd0)
+
+
+##### Continuous Integration
+
+* automatically retry to fetch the git repository three times when there is a temporary error (CU-8693j5ngt)
+* deploy backends in production to docker-host-6.owlsrv.de (CU-2rjtd0)
+
+
+##### Features
+
+* introduce public-changelogs command (CU-2mjxz4x)</details>
+
+<details><summary>Development dependency update @devowl-wp/monorepo-utils 0.2.0</summary>
+
+
+**_Purpose of dependency:_** _Predefined monorepo utilities and tasks._
+##### Features
+
+* introduce public-changelogs command (CU-2mjxz4x)</details>
+
+
+
+
+
 ## 4.22.4 (2024-01-04)
 
 

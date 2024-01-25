@@ -219,7 +219,7 @@ if ( ! function_exists( 'bt_bb_enqueue_google_font' ) ) {
 			
 			$font_load_extension = $font_load_extension != '' ? $font_load_extension : $default_load_font_extension;
 
-			BT_BB_State::$fonts_added[$font] = $font . $font_load_extension;
+			BT_BB_State::$fonts_added[ $font ] = $font . $font_load_extension;
 
 			$subset = preg_replace( '/\s+/', '', $subset );
 			$subset_arr = explode( ',', $subset );
@@ -242,7 +242,8 @@ if ( ! function_exists( 'bt_bb_enqueue_google_fonts' ) ) {
 
 			foreach( BT_BB_State::$fonts_added as $item ) {
 				// $font_families[] = urldecode( $item ) . ':100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic';
-				$font_families[] = urldecode( $item ) . $default_load_font_extension;
+				// $font_families[] = urldecode( $item ) . $default_load_font_extension;
+				$font_families[] = urldecode( $item );
 			}
 
 			$query_args = array(

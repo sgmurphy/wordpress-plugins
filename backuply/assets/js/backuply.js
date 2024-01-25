@@ -9,8 +9,6 @@ jQuery(document).ready(function(){
 	
 	backuply_handle_tab();
 	
-	backuply_handle_custom_cron();
-	
 	// To Copy text on click
 	jQuery('.backuply-code-copy').click( function() {
 		navigator.clipboard.writeText(jQuery(this).parent().find('.backuply-code-text').text());
@@ -319,6 +317,47 @@ jQuery(document).ready(function(){
 			});
 		});
 	});
+	
+	jQuery('#backuply-btn-upload-bak').on('click', function(){
+		let title = jQuery('#backuply-upload-backup').attr('title');
+		
+		jQuery('#backuply-upload-backup').dialog({
+			autoOpen: true,
+			draggable: false,
+			height: 430,
+			width: 500,
+			modal: true,
+			title : title
+		});
+		
+		// Triggers The Select file button
+		jQuery('.backuply-upload-select-file-btn').off('click').on('click', function(){
+			jQuery('#backuply-upload-backup-input').click();
+		});
+
+		jQuery(".backuply-backup-uploader-selection").on('dragenter', function(ev) {
+			// Entering drop area. Highlight area
+			jQuery(".backuply-backup-uploader-selection").addClass("backuply-highlight-drop-area");
+		});
+
+		jQuery(".backuply-backup-uploader-selection").on('dragleave', function(ev) {
+			// Going out of drop area. Remove Highlight
+			jQuery(".backuply-backup-uploader-selection").removeClass("backuply-highlight-drop-area");
+		});
+
+		jQuery('.backuply-upload-stop-upload').off('click').on('click', function(ev){
+			backuply_obj.upload_aborted = true;
+		});
+
+		jQuery(".backuply-backup-uploader-selection").on('drop', backuply_upload_backup);
+		jQuery("#backuply-upload-backup-input").off().on('change', backuply_upload_backup);
+		
+		jQuery(".backuply-backup-uploader-selection").on('dragover', function(ev) {
+			ev.preventDefault();
+		});
+
+	});
+	
 
 	if(jQuery('.error').length > 0 && window.location.hash == '#backuply-location') {
 		jQuery('#add_backup_loc_form').dialog({
@@ -334,7 +373,6 @@ jQuery(document).ready(function(){
 		event.preventDefault();
 		backuply_sync_backup(jQuery(this));
 	});
-	
 	
 	jQuery('#backuply-exclude-file-pattern').click(function() {
 		jQuery('#backuply-exclude-pattern').dialog({
@@ -507,71 +545,6 @@ function backuply_bak_multi_delete(jEle) {
 				spinner.removeClass('is-active');
 			}
 		});
-	});
-}
-
-// Updates Custom Cron on Input
-function backuply_handle_custom_cron() {
-	var custom_cron = jQuery('#backuply-custom-cron');
-	
-	custom_cron.find('[name="cron_minute"]').on('input', function() {
-		var star = custom_cron.find('#backuply-cron-min'),
-			input_val = jQuery(this).val();
-		
-		if(!input_val) {
-			star.text('*');
-			return;
-		}
-		
-		star.text(input_val);
-	});
-	
-	custom_cron.find('[name="cron_hour"]').on('input', function() {
-		var star = custom_cron.find('#backuply-cron-hour'),
-			input_val = jQuery(this).val();
-		
-		if(!input_val) {
-			star.text('*');
-			return;
-		}
-		
-		star.text(input_val);
-	});
-	
-	custom_cron.find('[name="cron_day"]').on('input', function() {
-		var star = custom_cron.find('#backuply-cron-day'),
-			input_val = jQuery(this).val();
-		
-		if(!input_val) {
-			star.text('*');
-			return;
-		}
-		
-		star.text(input_val);
-	});
-	
-	custom_cron.find('[name="cron_month"]').on('input', function() {
-		var star = custom_cron.find('#backuply-cron-month'),
-			input_val = jQuery(this).val();
-		
-		if(!input_val) {
-			star.text('*');
-			return;
-		}
-		
-		star.text(input_val);
-	});
-	
-	custom_cron.find('[name="cron_weekday"]').on('input', function() {
-		var star = custom_cron.find('#backuply-cron-weekday'),
-			input_val = jQuery(this).val();
-		
-		if(!input_val) {
-			star.text('*');
-			return;
-		}
-		
-		star.text(input_val);
 	});
 }
 
@@ -1749,4 +1722,193 @@ function backuply_download_bcloud(ele){
 			link.remove();
 		}
 	});
+}
+
+function backuply_upload_backup(ev){
+	// Dropping files
+	ev.preventDefault();
+	ev.stopPropagation();
+
+	let files = '';
+	if(ev.target.files){
+		files = ev.target;
+	} else if(ev.originalEvent.dataTransfer){
+		files = ev.originalEvent.dataTransfer;
+	}
+	
+	if(backuply_obj.uploading_backup){
+		return false;
+	}
+
+	backuply_obj.uploading_backup = true;
+	
+	const show_alert = (ele, msg, type) => {
+		
+		switch(type){
+			case 'error':
+				ele.style.borderColor = '#f5c6cb';
+				ele.style.backgroundColor = '#f8d7da';
+				ele.style.color = '#721c24';
+				break;
+			
+			case 'success':
+				ele.style.backgroundColor = '#d4edda';
+				ele.style.borderColor = '#c3e6cb';
+				ele.style.color = '#155724';
+				break;
+				
+			case 'alert':
+				ele.style.backgroundColor = '#fff3cd';
+				ele.style.borderColor = '#ffeeba';
+				ele.style.color = '#856404';
+				break;
+		}
+		
+		if(type !== 'alert'){
+			document.querySelector('.backuply-backup-uploader-selection').style.display = 'block'; // Show the select file block.
+			backuply_obj.uploading_backup = false;
+		}
+		
+		ele.style.display = 'block';
+		ele.innerHTML = msg;
+	}
+
+	document.querySelector('.backuply-backup-uploader-selection').style.display = 'none'; // Hiding selector to prevent attempt to upload.
+	
+	let error_div = document.querySelector('#backuply-upload-alert');
+	error_div.style.display = 'none';
+
+	// Clear previous messages
+	if(!files){
+		// Add message Here
+		show_alert(error_div, 'Please select, or drop a file to proceed', 'error');
+		return;
+	}
+
+	if(!files.files.length || !files.files[0]){
+		// Add message Here
+		show_alert(error_div, 'Please select, or drop a file to proceed', 'error');
+		return;
+	}
+
+	let dropped_file = files.files[0];
+
+	// Checking if the file is tar.gz
+	if(!dropped_file.name.indexOf('.tar.gz') === -1 || dropped_file.type !== 'application/gzip'){
+		show_alert(error_div, 'Please select a .tar.gz file, only .tar.gz files are backup files.', 'error');
+		return;
+	}
+
+	// Updating the UI
+	let progress_block = document.querySelector('.backuply-upload-backup'),
+	file_name = document.querySelector('.backuply-upload-backup-name'),
+	size_placeholder = document.querySelector('.backuply-upload-backup-size'),
+	progress_bar = document.querySelector('#backuply-upload-bar-progress'),
+	progress_percentage = document.querySelector('.backuply-upload-percentage');
+
+	const chunk_size = 1024 * 1024;
+	const total_chunks = Math.ceil(dropped_file.size / chunk_size);
+	const reader = new FileReader();
+	let chunk_number = 0;
+
+	reader.addEventListener('load', (e) => {
+		let chunk_data = e.target.result;
+		chunk_data = new Uint8Array(chunk_data);
+		chunk_data = new Blob([chunk_data]);
+		
+		let form = new FormData();
+		
+		form.append('action', 'backuply_backup_upload');
+		form.append('file_name', dropped_file.name);
+		form.append('file', chunk_data);
+		form.append('security', backuply_obj.nonce);
+		form.append('chunk_number', chunk_number);
+		form.append('total_chunks', total_chunks);
+		
+		jQuery.ajax({
+			url : backuply_obj.ajax_url,
+			method : "POST",
+			contentType: false,
+			processData: false,
+			data : form,
+			success: function(res) {
+				if(!res.success){
+					// Message for upload failed
+					show_alert(error_div, res.data, 'error');
+					return;
+				}
+
+				//let percentage_str = Math.floor(((res.data - 1) * 100) /  dropped_file.size);
+				let percentage_str = Math.round((chunk_number * 100) / total_chunks);
+				percentage_str += '%';
+
+				progress_bar.style.width = percentage_str;
+				progress_percentage.innerHTML = percentage_str;
+
+				if(chunk_number < total_chunks){
+					read_file(res.data);
+					return;
+				}
+				
+				show_alert(error_div, 'Backup <strong>'+ dropped_file.name + '</strong> of size ' + backuply_size_format(dropped_file.size) + ' successfully uploaded', 'success');
+				;
+			}
+			
+		});	
+	});
+
+	const read_file = (start_byte) =>  {
+		if(backuply_obj.upload_aborted){
+			backuply_obj.upload_aborted = false; // Setting it back to its initial state.
+			show_alert(error_div, 'Attempting to abort the upload please wait for a few seconds', 'alert');
+
+			jQuery.ajax({
+				url : backuply_obj.ajax_url,
+				method : "POST",
+				data : {
+					'action' : 'backuply_backup_upload',
+					'file_name' : dropped_file.name,
+					'security' : backuply_obj.nonce,
+					'abort' : true
+				},
+				success : function(res){
+					if(!res.success){
+						show_alert(error_div, 'Unable to abort upload, refresh the page to force stop it', 'error');
+					}
+
+					show_alert(error_div, (res.data ? res.data : 'Upload aborted successfully, refresh the page'), 'success');
+					return;
+				}
+
+			})
+			
+			return;
+		}
+
+		let end_byte = start_byte + chunk_size;
+		// When its the last chunk
+		if(chunk_number === total_chunks){
+			end_byte = dropped_file.size;
+		}
+
+		const slice = dropped_file.slice(start_byte, end_byte);
+		reader.readAsArrayBuffer(slice);
+		chunk_number++;
+	}
+
+	progress_block.style.display = "block";
+	size_placeholder.innerHTML = backuply_size_format(parseInt(dropped_file.size));
+	file_name.innerHTML = dropped_file.name;
+
+	read_file(0); // Initiates the reading of file.
+
+	jQuery(".backuply-backup-uploader-selection").removeClass("backuply-highlight-drop-area");
+	return false;
+	
+}
+
+function backuply_size_format(bytes) {
+    const sizes = ["B", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(1024));
+    return parseFloat((bytes / Math.pow(1024, i)).toFixed(2)) + " " + sizes[i];
 }

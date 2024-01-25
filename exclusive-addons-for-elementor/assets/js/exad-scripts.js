@@ -457,14 +457,31 @@ var exclusiveImageMagnifier = function($scope, $) {
     var $magnify = $scope.find( '.exad-image-magnify' ).eq(0),
     $large       = $magnify.find( '.exad-magnify-large' ),
     $small       = $magnify.find( '.exad-magnify-small > img' );
+	
+	// Support lazysizes JS library (used by Wordpress plugins like EWWW Image Optimizer)
+	if ( $small.hasClass('lazyload') 
+		&& typeof window.lazySizesConfig !== 'undefined' ) {
+		
+		document.addEventListener('lazyloaded', function(e){
+			
+			exclusiveImageMagnifier( $scope, $ );
+		});
+		
+		return;
+	}
     
-
+    if ( $large.hasClass('exad-image-magnified') ) {
+		
+		return;
+    }
+	
     var native_width  = 0;
     var native_height = 0;
     $large.css("background","url('" + $small.attr("src") + "') no-repeat");
+    $large.addClass('exad-image-magnified');
     
     //Now the mousemove function
-    $magnify.mousemove( function(e){
+    $magnify.on( "mousemove", function( e ) {
         
         if(!native_width && !native_height) {
             var image_object = new Image();

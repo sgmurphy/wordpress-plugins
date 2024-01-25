@@ -44,6 +44,7 @@ add_action('wp_ajax_backuply_get_restore_key', 'backuply_get_restore_key');
 add_action('wp_ajax_backuply_handle_backup', 'backuply_handle_backup_request');
 add_action('wp_ajax_backuply_download_bcloud', 'backuply_download_bcloud');
 add_action('wp_ajax_backuply_update_quota', 'backuply_update_quota');
+add_action('wp_ajax_backuply_backup_upload', 'backuply_backup_upload');
 
 // Backuply CLoud
 add_action('wp_ajax_bcloud_trial', 'backuply_bcloud_trial');
@@ -704,6 +705,11 @@ function backuply_get_jstree() {
 	if(empty($scan_path)){
 		wp_send_json(array('success' => true, 'nodes' => $nodes));
 	}
+	
+	// Making sure we only show files inside WP Content Dir.
+	if(strpos($scan_path, backuply_cleanpath(WP_CONTENT_DIR)) !== 0){
+		wp_send_json(array('success' => true, 'nodes' => $nodes));
+	}
 
 	$contents = @scandir($scan_path);
 	
@@ -1030,4 +1036,79 @@ function backuply_update_quota(){
 
 	wp_send_json_success();
 	
+}
+
+function backuply_backup_upload(){
+	
+	if(!wp_verify_nonce($_POST['security'], 'backuply_nonce')){
+		wp_send_json_error('Security Check failed!');
+	}
+	
+	if(!current_user_can('manage_options')){
+		wp_send_json_error('You don\'t have privilege to upload the backup!');
+	}
+	
+	$file_name = sanitize_file_name($_POST['file_name']);
+	$file_name = backuply_cleanpath($file_name); // Makes sure the file name is safe
+	$backup_dir = backuply_glob('backups');
+	
+	if(strpos($file_name, '.tar.gz') === FALSE){
+		wp_send_json_error(__('You are not uploading a Backup file, please choose the correct backup file', 'backuply'));
+	}
+	
+	// Attempting to abort the process
+	if(!empty($_POST['abort'])){
+		if(file_exists($backup_dir . '/.' . $file_name)){
+			if(unlink($backup_dir . '/.' . $file_name)){
+				wp_send_json_success(__('Abort successful', 'backuply'));
+			}
+			
+			wp_send_json_error(__('Unable to clean the already uploaded data.', 'backuply'));
+		}
+		
+		wp_send_json_error(__('Unable to clean the already uploaded data.', 'backuply'));
+	}
+	
+	// Sanitizing the parameters.
+	$chunk_number = (int) sanitize_text_field($_POST['chunk_number']);
+	$total_chunks = (int) sanitize_text_field($_POST['total_chunks']);
+	$chunk_data = file_get_contents($_FILES['file']['tmp_name']);
+
+	$chunk_size = 1024 * 1024;
+	$chunk_data_size = strlen($chunk_data);
+	
+	if(file_exists($backup_dir . '/' . $file_name)){
+		wp_send_json_error(__('File with same name already exists', 'backuply'));
+	}
+	
+	if($chunk_data_size < $chunk_size && $total_chunks !== $chunk_number){
+		wp_send_json_error(__('The data recieved is malformed, the size of data is less then the data sent!', 'backuply'));
+	}
+	
+	if($chunk_data_size > $chunk_size){
+		wp_send_json_error(__('The data recieved is malformed, the size of data is more then the data sent!', 'backuply'));
+	}
+
+	$file_loc = $backup_dir . '/.' . $file_name;
+
+	$fh = fopen($file_loc, 'ab');
+	if($chunk_number > 1){
+		fseek($fh, (($chunk_number - 1) * $chunk_size));
+	}
+
+	fwrite($fh, $chunk_data);
+	fclose($fh);
+	
+	if($chunk_number === $total_chunks){
+		$mime = mime_content_type($file_loc);
+		
+		if($mime !== 'application/gzip'){
+			wp_send_json_error(__('Upload failed, file type is different than the expected', 'backuply'));
+		}
+		
+		rename($file_loc, $backup_dir . '/' . $file_name);
+	}
+	
+	wp_send_json_success($chunk_number * $chunk_size);
+
 }

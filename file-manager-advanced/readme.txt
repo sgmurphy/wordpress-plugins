@@ -4,7 +4,7 @@ Tags: file manager, wordpress file manager, wp file manager, file manager pro, d
 Requires at least: 4.0
 Tested up to: 6.4.2
 Requires PHP: 7.0
-Stable tag: 5.2.1
+Stable tag: 5.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,6 +111,11 @@ Yes you can, go to settings, change root path.
 
 
 == Changelog ==
+
+= 5.2.2 (25th Jan, 2024) =
+
+* Directory creation with special character issue fixes
+* Files restriction issue resolved.
 
 = 5.2.1 (21st Jan, 2024) =
 

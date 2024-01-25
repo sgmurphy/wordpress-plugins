@@ -122,6 +122,7 @@ background: linear-gradient(61deg, rgba(56,120,255,1) 0%, rgba(98,178,255,1) 100
 			<div>
 				<em>The Best WordPress <b>Site Builder</b> </em>:<br>
 				<ul>
+					<li>Gutenberg Blocks</li>
 					<li>Drag & Drop Editor</li>
 					<li>Widgets</li>
 					<li>In-line Editing</li>
@@ -1607,48 +1608,13 @@ if(file_exists(BACKUPLY_BACKUP_DIR . 'restoration/restoration.php')){
 
 						<div class="backuply-option-wrap" id="backuply-custom-cron"  style="<?php echo (!empty($cron_task['backuply_cron_schedule']) && $cron_task['backuply_cron_schedule'] == 'custom') ? 'display:none' : ''?>">
 							<div class="backuply-opt-label">
-								<span class="backuply-opt-label__title"><?php esc_html_e('Auto Backup Cron Time', 'backuply')?></span>
-								<span class="backuply-opt-label_helper"><?php esc_html_e('You will need to manually set Custom Cron', 'backuply'); ?> <a href="https://backuply.com/docs" target="_blank"><i class="fa-solid fa-up-right-from-square"></i></a></span>
-							</div>
-							<div class="backuply-cron-custom-time">
-								<div class="backuply-cron-time">
-									<label class="backuply-opt-label">
-										<span class="backuply-opt-label__title"><?php esc_html_e('Minute', 'backuply'); ?></span>
-									</label>
-									<input type="text" name="cron_minute" value="<?php echo isset($cron_task['backuply_custom_cron'][0]) ? esc_attr($cron_task['backuply_custom_cron'][0]) : '';?>"/>
-								</div>
-								<div class="backuply-cron-time">
-									<label class="backuply-opt-label">
-										<span class="backuply-opt-label__title"><?php esc_html_e('Hour', 'backuply'); ?></span>
-									</label>
-									<input type="text" name="cron_hour" value="<?php echo isset($cron_task['backuply_custom_cron'][1]) ? esc_attr($cron_task['backuply_custom_cron'][1]) : '';?>"/>
-								</div>
-								<div class="backuply-cron-time">
-									<label class="backuply-opt-label">
-										<span class="backuply-opt-label__title"><?php esc_html_e('Day', 'backuply'); ?></span>
-									</label>
-									<input type="text" name="cron_day" value="<?php echo isset($cron_task['backuply_custom_cron'][2]) ? esc_attr($cron_task['backuply_custom_cron'][2]) : '';?>"/>
-								</div>
-								<div class="backuply-cron-time">
-									<label class="backuply-opt-label">
-										<span class="backuply-opt-label__title"><?php esc_html_e('Month', 'backuply'); ?></span>
-									</label>
-									<input type="text" name="cron_month" value="<?php echo isset($cron_task['backuply_custom_cron'][3]) ? esc_attr($cron_task['backuply_custom_cron'][3]) : '';?>"/>
-								</div>
-								<div class="backuply-cron-time">
-									<label class="backuply-opt-label">
-										<span class="backuply-opt-label__title"><?php esc_html_e('Weekday', 'backuply'); ?></span>
-									</label>
-									<input type="text" name="cron_weekday" value="<?php echo isset($cron_task['backuply_custom_cron'][4]) ? esc_attr($cron_task['backuply_custom_cron'][4]) : '';?>"/>
-								</div>
+								<span class="backuply-opt-label__title"><?php esc_html_e('Auto Backup Cron Command', 'backuply')?></span>
+								<span class="backuply-opt-label_helper"><?php esc_html_e('You will need to manually set Custom Cron', 'backuply'); ?> <a href="https://backuply.com/docs/how-to/how-to-setup-custom-auto-backup/" target="_blank" title="<?php esc_html_e('Doc on how to setup Custom Auto Backup', 'backuply');?>"><span class="dashicons dashicons-external"></span></a></span>
+								<span class="backuply-opt-label_helper"><?php esc_html_e('Set cron time as per your choice in the Cron Job wizard', 'backuply'); ?></span>
 							</div>
 							<div class="backuply-code-text-wrap">
 								<span class="backuply-code-text">
-									<span id="backuply-cron-min"><?php echo (!empty($cron_task['backuply_custom_cron'][0]) ? esc_html($cron_task['backuply_custom_cron'][0]) : '*');?></span>&nbsp;
-									<span id="backuply-cron-hour"><?php echo (!empty($cron_task['backuply_custom_cron'][1]) ? esc_html($cron_task['backuply_custom_cron'][1]) : '*');?></span>&nbsp;
-									<span id="backuply-cron-day"><?php echo (!empty($cron_task['backuply_custom_cron'][2]) ? esc_html($cron_task['backuply_custom_cron'][2]) : '*');?></span>&nbsp;
-									<span id="backuply-cron-month"><?php echo (!empty($cron_task['backuply_custom_cron'][3]) ? esc_html($cron_task['backuply_custom_cron'][3]) : '*');?></span>&nbsp;
-									<span id="backuply-cron-weekday"><?php echo (!empty($cron_task['backuply_custom_cron'][4]) ? esc_html($cron_task['backuply_custom_cron'][4]) : '*'); ?></span>&nbsp;wget --delete-after "<?php echo esc_url(site_url()); ?>/?action=backuply_custom_cron&backuply_key=<?php echo esc_html(get_option('backuply_config_keys')['BACKUPLY_KEY']); ?>"</span>
+									wget --delete-after "<?php echo esc_url(site_url()); ?>/?action=backuply_custom_cron&backuply_key=<?php echo esc_html(get_option('backuply_config_keys')['BACKUPLY_KEY']); ?>"</span>
 								<span class="backuply-code-copy">Copy</span>
 								<span class="backuply-code-copied">Copied</span>
 							</div>
@@ -1821,10 +1787,12 @@ if(file_exists(BACKUPLY_BACKUP_DIR . 'restoration/restoration.php')){
 					}
 
 					echo '</select>
-					<button class="button button-primary" id="backuply-btn-sync-bak">Sync Backups</button>';
+					<button class="button button-primary" id="backuply-btn-sync-bak">Sync Backups</button>
+					<button class="button button-primary" id="backuply-btn-upload-bak" style="margin-left:10px;" title="Upload Backup"><span class="dashicons dashicons-upload" style="vertical-align:sub;"></span></button>';
 					
 					?>
 					</div>
+					
 				<span><?php esc_html_e('Backup History', 'backuply'); ?></span>
 				<div style="display:flex; gap:10px;">
 					<span class="spinner"></span>
@@ -1964,6 +1932,44 @@ if(file_exists(BACKUPLY_BACKUP_DIR . 'restoration/restoration.php')){
 				</table>
 			</div>
 		</div>
+	</div>
+
+	<div class="postbox" id="backuply-upload-backup" title="Upload Backup File" style="display:none;">
+	<?php
+	
+		echo '<div class="backuply-backup-uploader-selection">
+			<input type="file" id="backuply-upload-backup-input" name="backuply-upload-backup" accept=".tar.gz" style="display:none;"/>
+			<p style="font-size:18px; margin-bottom:6px;">Drag and Drop a file</p>
+			<p style="font-size: 14px; margin-bottom:6px;">OR</p>
+			<p><button class="button button-primary backuply-upload-select-file-btn">'.__('Select File').'</button></p>
+			<p style="color:#6d6d6d; font-size:12px; margin-top:4px;">Supported file format .tar.gz</p>
+		
+		</div>
+		<div class="backuply-upload-backup">
+			<div class="backuply-upload-info-row">
+				<div class="backuply-upload-info">
+					<div class="backuply-upload-info-image">
+						<img src="'.BACKUPLY_URL.'/assets/images/targz.png"/>
+					</div>
+					<div class="backuply-upload-info-text">
+						<span class="backuply-upload-backup-name">Backup Name</span>
+						<span class="backuply-upload-backup-size">Size</span>
+					</div>
+				</div>
+				<div class="backuply-upload-stop-upload">
+					<span class="dashicons dashicons-no-alt"></span>
+				</div>
+			</div>
+			<div class="backuply-upload-progress-row">
+				<div class="backuply-upload-bar">
+					<div id="backuply-upload-bar-progress"></div>
+				</div>
+				<div class="backuply-upload-percentage">0%</div>
+			</div>	
+		</div>
+		<div id="backuply-upload-alert" class="backuply-upload-alert">Backup Upload Alert</div>
+		';
+	?>
 	</div>
 	
 	<!--Support-->

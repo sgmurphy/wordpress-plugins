@@ -66,11 +66,9 @@ class Register_Widget_Weglot implements Hooks_Interface_Weglot {
 		if ( 'widget' === $type_block ) {
 			$button = $button_service->get_html( $class_name.' weglot-widget weglot-widget-block ' );
 			$button = str_replace( 'name="menu" ', 'name="menu" value=""', $button );
-			$button = str_replace( 'data-wg-notranslate=""', '', $button );
 		} elseif ( 'menu' === $type_block ) {
 			$button = $button_service->get_html( $class_name.' weglot-menu weglot-menu-block ' );
 			$button = str_replace( 'name="menu" ', 'name="menu" value=""', $button );
-			$button = str_replace( 'data-wg-notranslate=""', '', $button );
 		}
 
 		return $button;

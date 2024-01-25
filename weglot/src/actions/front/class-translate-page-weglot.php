@@ -109,6 +109,7 @@ class Translate_Page_Weglot implements Hooks_Interface_Weglot {
 		add_action( 'init', array( $this, 'weglot_init' ), 11 );
 		add_action( 'wp_head', array( $this, 'weglot_href_lang' ) );
 		add_action( 'wp_head', array( $this, 'weglot_custom_settings' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_switcher_templatefile' ) );
 	}
 
 	/**
@@ -360,43 +361,48 @@ class Translate_Page_Weglot implements Hooks_Interface_Weglot {
 			echo '<script type="application/json" id="weglot-data">';
 			echo wp_json_encode( $settings );
 			echo '</script>';
-			echo wp_kses($this->add_custom_templatefile( $settings['custom_settings']['switchers'] ), array(
-				'script'      => array(
-					'id'  => array(),
-					'src' => array(),
-				)
-			));
 		}
 	}
 
 	/**
-	 * @param array $switchers array of switchers.
 	 *
-	 * @return string
+	 * @return void
 	 * @since 2.3.0
 	 */
-	public function add_custom_templatefile( $switchers ) {
+	public function enqueue_switcher_templatefile() {
+		$settings = $this->option_services->get_options();
 		$template_file = array();
-		$file_to_load  = '';
-		foreach ( $switchers as $switcher ) {
-			if ( isset( $switcher['template'] ) ) {
-				if ( ! in_array( $switcher['template'], $template_file ) ) {
-					$template_file[] = $switcher['template'];
-				}
-			}
-		}
-		if ( ! empty( $template_file ) ) {
-			$template_file = array_merge( $template_file );
-			foreach ( $template_file as $filename ) {
-				$filename_esc = esc_attr( 'weglot-switcher-' . $filename['name'] );
-				if ( isset( $filename['hash'] ) && ! empty( $filename['hash'] ) ) {
-					$file_to_load .= '<script id="' . $filename_esc . '" src="' . esc_url(Helper_API::get_tpl_switchers_url() . $filename['name'] . '.' . $filename['hash']) . '.min.js"></script>';
-				} else {
-					$file_to_load .= '<script id="' . $filename_esc . '" src="' . esc_url(Helper_API::get_tpl_switchers_url() . $filename['name'] ) . '.min.js"></script>';
-				}
-			}
-		}
 
-		return $file_to_load;
+		if ( isset( $settings['custom_settings']['switchers'] ) && ! empty( $settings['custom_settings']['switchers'] ) ) {
+			$switchers = $settings['custom_settings']['switchers'];
+			foreach ( $switchers as $switcher ) {
+				if ( isset( $switcher['template'] ) ) {
+					if ( ! in_array( $switcher['template'], $template_file ) ) {
+						$template_file[] = $switcher['template'];
+					}
+				}
+			}
+			if ( ! empty( $template_file ) ) {
+				$template_file = array_merge( $template_file );
+				foreach ( $template_file as $filename ) {
+					$filename_esc = esc_attr( 'weglot-switcher-' . $filename['name'] );
+					if ( isset( $filename['hash'] ) && ! empty( $filename['hash'] ) ) {
+						$file_to_load = esc_url(Helper_API::get_tpl_switchers_url() . $filename['name'] . '.' . $filename['hash']) . '.min.js';
+					} else {
+						$file_to_load = esc_url(Helper_API::get_tpl_switchers_url() . $filename['name'] ) . '.min.js';
+					}
+
+					if( !empty($file_to_load)){
+						wp_enqueue_script(
+							$filename_esc, // Handle name
+							$file_to_load, // Script URL
+							array(), // Dependencies (none in this case)
+							null, // Version (null to avoid adding a version number)
+							true // Load in the footer
+						);
+					}
+				}
+			}
+		}
 	}
 }

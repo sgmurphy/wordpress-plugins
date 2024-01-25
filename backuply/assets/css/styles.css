@@ -706,3 +706,101 @@ animation: backuply-fadein 0.5s, backuply-fadeout 0.5s 2.5s;
   from {bottom: 30px; opacity: 1;}
   to {bottom: 0; opacity: 0;}
 }
+
+.backuply-backup-uploader-selection{
+border:4px dashed #d9d9d9;
+border-radius:4px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.backuply-backup-uploader-selection p{
+padding:0;
+margin: 0;
+text-align:center;
+}
+
+.backuply-highlight-drop-area{
+background-color: rgba(56,120,255, 0.1);
+border: 4px dashed #3878ff;
+}
+
+.backuply-upload-backup{
+display:none;
+width:100%;
+border:1px solid #dbd8d8;
+border-radius:7px;
+margin-top:5px;
+padding: 10px 15px;
+box-sizing:border-box;
+}
+
+.backuply-upload-info-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.backuply-upload-info-row img{
+padding: 3px;
+border: 1px solid #dcdcdc;
+border-radius: 7px;
+width: 40px;
+}
+
+.backuply-upload-stop-upload{
+align-self:baseline;
+cursor: pointer;
+}
+
+.backuply-upload-info{
+display:flex;
+gap:10px;
+}
+
+.backuply-upload-info-text{
+display:flex;
+flex-direction:column;
+gap:7px;
+}
+
+.backuply-upload-info-text :first-child{
+font-weight:600;
+}
+
+.backuply-upload-progress-row{
+margin-top:10px;
+display:flex;
+align-items:center;
+gap:5px;
+}
+
+.backuply-upload-bar{
+width: 97%;
+height: 10px;
+background-color:#d9d9d9;
+border-radius: 5px;
+}
+
+#backuply-upload-bar-progress{
+width:0%;
+background-color: #0096FF;
+height:10px;
+border-radius: 5px;
+}
+
+.backuply-upload-percentage{
+font-size:12px;
+}
+
+.backuply-upload-alert {
+display:none;
+padding: 12px 15px;
+margin: 5px auto;
+line-height: 1.5;
+border-radius: 5px;
+border:1px solid #d9d9d9;
+}

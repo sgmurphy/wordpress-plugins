@@ -65,7 +65,7 @@
 
 					me.dependencies = dependencies;
 					var eq = me.eq;
-					eq = eq.replace(/\/\/[^\n\r]*/g, ' ').replace(/[\n\r]/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+me.form_identifier).replace(/form_identifier/g, '\''+this['form_identifier']+'\'').replace(/;\s*\)/g, ')').replace(/;\s*$/, '');
+					eq = eq.replace(/([^\:"'])\/\/[^\n\r]*/g, '$1 ').replace(/^\/\/[^\n\r]*/g, '').replace(/[\n\r]/g, ' ').replace(/fieldname(\d+)/g, "fieldname$1"+me.form_identifier).replace(/form_identifier/g, '\''+this['form_identifier']+'\'').replace(/;\s*\)/g, ')').replace(/;\s*$/, '');
 
 					if(!/^\s*$/.test(eq))
                     {

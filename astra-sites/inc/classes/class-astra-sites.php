@@ -2069,6 +2069,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'rest_api_nonce' => ( current_user_can( 'manage_options' ) ) ? wp_create_nonce( 'wp_rest' ) : '',
 					'zip_token_exists' => Astra_Sites_ZipWP_Helper::get_token() !== '' ? true : false,
 					'zip_plans' => ( $plans && isset( $plans['data'] ) ) ? $plans['data'] : array(),
+					'dashboard_url' => admin_url(),
 				)
 			);
 

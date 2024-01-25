@@ -258,6 +258,11 @@
     transform: translate(-50%,-50%) scale(1);
     width: 30%;
     }
+#bt_bb_dialog .bt_bb_dialog_header_tools .bt_bb_group_tab.bt_bb_group_tab_active:after {
+    height: -webkit-calc(1em + 1px);
+    height: -moz-calc(1em + 1px);
+    height: calc(1em + 1px);
+    }
 #bt_bb_dialog .bt_bb_dialog_header_tools .bt_bb_group_tab:before {
     content: ' ';
     display: block;

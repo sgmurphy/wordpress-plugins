@@ -61,11 +61,7 @@ Also the plugin has ajaxed shortcode/widget of [currency converter](https://demo
 
 &#9989;&nbsp;**Currencies visibility**: possibility to set currencies as Public or as Private. In private mode currency not published in switchers and user cannot set it by link through '?currency=XXX'
 
-&#9989;&nbsp;**Light video to understand basics**:
-
-
-
-Note: for today design of the plugin is different of the video (is improved), see screenshots below!
+&#9989;&nbsp;You can **ask help to chatGPT** about the plugin using the plugin former name WOOCS, example: "How to use [[woocs]] shortcode?"
 
 &#9989;&nbsp;**Payments rules**: rules to hide/show payment gates on the checkout page depending on the current currency
 

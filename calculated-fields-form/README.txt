@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator,calculated,quote calculator,forms,form editor,advanced forms,payment calculator,payment,recurring payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf,language
 Requires at least: 3.0.5
 Tested up to: 6.4
-Stable tag: 1.2.51
+Stable tag: 1.2.52
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -999,6 +999,7 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 1.2.52 =
 = 1.2.51 =
 
 * Replaces jQuery deprecated functions and events.
@@ -1043,10 +1044,3 @@ A: Please, follow the steps below:
 * Modifies the GETDATEOBJ operation.
 * Modifies the Default Settings section to allow selecting the option to not change the templates used by the forms.
 * Allows controlling the robots metatags in forms and amp pages with the "Do not load the forms with crawlers" attribute in the "Troubleshoot Area & General Settings" section.
-
-= 1.2.44 =
-
-* Modifies the DIV field edition and column identifier.
-* Display characters counter in Text Area controls with max length attribute.
-* Modifies the SHOWFIELD operation.
-* Fixes a minor issue in editable calculated fields.

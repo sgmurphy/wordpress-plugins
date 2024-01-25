@@ -91,7 +91,7 @@ function backuply_bcloud_filter_backups_on_loc($backup) {
 		return ($backup->auto_backup);
 	}
 	
-	return ($backuply['cron']['backup_location'] == $backup->backup_location && $backup->auto_backup);
+	return ($backuply['status']['backup_location'] == $backup->backup_location && $backup->auto_backup);
 }
 
 function backuply_bcloud_isallowed(){

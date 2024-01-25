@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: woocommerce, funnel builder, sales funnels, elementor, beaver builder
 Requires at least: 5.8
 Tested up to: 6.4
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -321,6 +321,18 @@ This includes, but is not limited to:
 5. Easily edit anything with your page builder.
 
 == Changelog ==
+
+= Version 2.0.3 - Thursday, 25th January 2024 =
+* Improvement: Modified the location of Change Template button for store checkout steps. It is now available in the funnel's setting.
+* Fix: Fixed province field issue not showing selected value with certain countries for Google address autocomplete.
+* Fix: The URL parameters was not getting updated if the same parameters are present in the URL.
+* Fix: Google autocomplete address settings was not getting saved properly on multi-site setup.
+* Fix: Default value for email field was not getting populated after logged-in from the Checkout page using the Modern Checkout Layout.
+* Fix: Long label text was getting displayed for custom fields in the backend settings.
+* Fix: Minor UI improvement in dynamic offers for dropdown select field display.
+* Fix: Fixed the `null` parameter deprecation warning for `strpos` function.
+* Fix: Resolved typography inconsistency between input's text and it's placeholder for checkout fields.
+* Fix: The step setting's slide-out popup was getting closed when another popup OR alert window is opened.
 
 = Version 2.0.2 - Monday, 4th December 2023 =
 * Security Fix: Hardened the security of the plugin suggested by PatchStack.

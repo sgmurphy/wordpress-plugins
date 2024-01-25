@@ -77,8 +77,9 @@ class bt_bb_column_inner extends BT_BB_Element {
 			$inner_color_scheme_id = bt_bb_get_color_scheme_id( $inner_color_scheme );
 		}
 		$inner_color_scheme_colors = bt_bb_get_color_scheme_colors_by_id( $inner_color_scheme_id - 1 );
-		if ( $inner_color_scheme_colors ) $el_inner_style .= '; --inner-column-inner-primary-color:' . $inner_color_scheme_colors[0] . '; --inner-column-inner-secondary-color:' . $inner_color_scheme_colors[1] . ';';
+		if ( $inner_color_scheme_colors ) $el_style .= '; --inner-column-inner-primary-color:' . $inner_color_scheme_colors[0] . '; --inner-column-inner-secondary-color:' . $inner_color_scheme_colors[1] . ';';
 		if ( $inner_color_scheme != '' ) $inner_class[] = $this->prefix . 'inner_color_scheme_' .  $inner_color_scheme_id;
+		if ( $inner_color_scheme != '' ) $class[] = $this->prefix . 'inner_color_scheme_' .  $inner_color_scheme_id;
 
 		if ( $inner_color_scheme != '' ) {
 			$inner_class[] = $this->prefix . 'inner_color_scheme' . '_' . bt_bb_get_color_scheme_id( $inner_color_scheme );
@@ -87,10 +88,6 @@ class bt_bb_column_inner extends BT_BB_Element {
 		if ( $vertical_align != '' ) {
 			$class[] = $this->prefix . 'vertical_align' . '_' . $vertical_align;
 		}
-
-		/*if ( $padding != '' ) {
-			$class[] = $this->prefix . 'padding' . '_' . $padding;
-		}*/
 		
 		$this->responsive_data_override_class(
 			$class, $data_override_class,

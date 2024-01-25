@@ -3952,7 +3952,7 @@ abstract class elFinderVolumeDriver
             /**
              * Logic to fix directory Traversal - Modal Web
              */
-            $h = str_replace('..', '', htmlentities(trim($h)));
+            $h = str_replace('..', '', $h);
             // TODO uncrypt hash and return path
             $path = $this->uncrypt($h);
             // change separator

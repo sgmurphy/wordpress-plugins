@@ -1,0 +1,20 @@
+{
+    "authors": [
+        {
+            "name": "Codexpert",
+            "email": "hi@codexpert.io"
+        }
+    ],
+    "require": {
+        "codexpert/plugin": "dev-master",
+        "pluggable/marketing": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Codexpert\\ThumbPress\\" : "classes/",
+            "Codexpert\\ThumbPress\\App\\" : "app/",
+            "Codexpert\\ThumbPress\\API\\" : "api/"
+        },
+        "files": []
+    }
+}

@@ -87,6 +87,12 @@ class CompatibilityFactory {
 		 * And the file name is 'woocommerce_wpmlCompatibility.php' with value 'Compatibility' as suffix.
 		 * So, the file name is 'woocommerce_wpmlCompatibility.php' and the class name is 'woocommerce_wpmlCompatibility'.
 		 */
+		$AWDP_Discount = [];
+		if (is_plugin_active('aco-woo-dynamic-pricing/start.php') ){
+			$AWDP_Discount = [ 'aco-woo-dynamic-pricing/start.php'  => 'AWDP_Discount' ];
+		}else if( is_plugin_active('aco-woo-dynamic-pricing-pro/start.php') ){
+			$AWDP_Discount = [ 'aco-woo-dynamic-pricing-pro/start.php'  => 'AWDP_Discount'];
+		}
 		$compatible_plugins = [
 			#################################################################################
 			# WooCommerce Dynamic Pricing & Discounts plugins                               #
@@ -97,7 +103,7 @@ class CompatibilityFactory {
 			 */
 //			'pricing-deals-for-woocommerce/vt-pricing-deals.php'                        => 'PricingDealsForWoocommerceVT',
 			// https://wordpress.org/plugins/pricing-deals-for-woocommerce/
-			'aco-woo-dynamic-pricing/start.php'                                         => 'AWDP_Discount',
+//			'aco-woo-dynamic-pricing/start.php'                                         => 'AWDP_Discount',
 			// DONE
 			// https://wordpress.org/plugins/aco-woo-dynamic-pricing/
 //			'aco-woo-dynamic-pricing-pro/start.php'                                     => 'AWDP_Discount',
@@ -172,6 +178,8 @@ class CompatibilityFactory {
 			'polylang/polylang.php'                                                     => 'Polylang',
 			// DONE
 		];
+		$compatible_plugins = array_merge( $compatible_plugins, $AWDP_Discount );
+
 		$compatible_plugins_for_free = [
 			#################################################################################
 			# WooCommerce Dynamic Pricing & Discounts plugins                               #
@@ -182,7 +190,7 @@ class CompatibilityFactory {
 			 */
 //			'pricing-deals-for-woocommerce/vt-pricing-deals.php'                        => 'PricingDealsForWoocommerceVT',
 			// https://wordpress.org/plugins/pricing-deals-for-woocommerce/
-			'aco-woo-dynamic-pricing/start.php'                                         => 'AWDP_Discount',
+//			'aco-woo-dynamic-pricing/start.php'                                         => 'AWDP_Discount',
 			// DONE
 			// https://wordpress.org/plugins/aco-woo-dynamic-pricing/
 //			'aco-woo-dynamic-pricing-pro/start.php'                                     => 'AWDP_Discount',
@@ -201,6 +209,7 @@ class CompatibilityFactory {
 			// https://codecanyon.net/item/woocommerce-dynamic-pricing-discounts/7119279
 
 		];
+		$compatible_plugins_for_free = array_merge( $compatible_plugins_for_free, $AWDP_Discount );
 
 		// If WooCommerce Multi Currency Pro version by VillaTheme is active, Free version will be removed from the list.
 		if ( is_plugin_active( 'woocommerce-multi-currency/woocommerce-multi-currency.php' ) ) {

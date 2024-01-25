@@ -364,20 +364,53 @@ class Admin
         // Verify if we can show our review message here
         if (!$currentScreen || ($currentScreen && !in_array($currentScreen->id, $adminPages))) return;
 
-        // Dismiss review request
-        if (isset($_GET["_action_buttonizer_dismiss_review_request"])) {
-            // Mark reviewed as done
-            Settings::setSetting("review_marked_as_done", true, true);
+        // nonce and endpoint to pass to frontend
+        $nonce = wp_create_nonce("wp_rest");
+        $endPoint = get_rest_url() . 'buttonizer/settings?nonce=' . $nonce;
 
-            return;
+        // if permalink is plain, change the structure
+        if (get_option('permalink_structure') === "") {
+            $endPoint = substr(get_rest_url(), 0, -1) . urlencode('/buttonizer/settings') . '&nonce=' . $nonce;
         }
 
         // Show notice
         echo '
-        <div class="notice notice-info">
+        <div id="buttonizer-admin-notice" class="notice notice-info">
             <p>Hey there! You\'re currently using <b>Buttonizer</b> for a while now and we really hope you like it! Would you like to review us on WordPress and share your experience? This way you support us developing new features for Buttonizer and spread the love!</p>
 
-            <p><a href="https://r.buttonizer.io/review/wordpress?utm_source=wp-plugin-request-review-btn" target="_blank" class="button button-primary"><span class="dashicons dashicons-star-filled" style="vertical-align: middle; font-size: 16px;"></span> Review buttonizer</a>&nbsp;&nbsp;<a href="?_action_buttonizer_dismiss_review_request=true" class="button">Dismiss message</a>&nbsp;&nbsp;or&nbsp;&nbsp;<a href="https://r.buttonizer.io/feedback?utm_source=wp-plugin-request-review-btn" target="_blank">send us feedback</a></p>
-        </div>';
+            <p><a href="https://r.buttonizer.io/review/wordpress?utm_source=wp-plugin-request-review-btn" target="_blank" onClick="buttonizerAdminNotice()" class="button button-primary"><span class="dashicons dashicons-star-filled" style="vertical-align: middle; font-size: 16px;"></span> Review buttonizer</a>&nbsp;&nbsp;<a href="javascript:void(0)" onClick="buttonizerAdminNotice()" class="button">Dismiss message</a>&nbsp;&nbsp;or&nbsp;&nbsp;<a href="https://r.buttonizer.io/feedback?utm_source=wp-plugin-request-review-btn" target="_blank">send us feedback</a></p>
+        </div>
+
+        <script>
+            function buttonizerAdminNotice() {
+                const notice = document.querySelector("#buttonizer-admin-notice");
+                notice.style.height  = (notice.clientHeight - 2) + "px";
+                notice.style.transition = "all 150ms ease-in-out";
+
+                setTimeout(() => {
+                    notice.style.opacity = 0;
+                    notice.style.height = "0px";
+                    notice.style.margin = "0px";
+                }, 150)
+                setTimeout(() => {
+                    notice.remove();
+                }, 500)
+
+                fetch("' . $endPoint . '", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-WP-Nonce": "' . $nonce . '",
+                    },
+                    body: JSON.stringify({
+                        data: {
+                            markAsReviewed: true
+                        }
+                    }),
+                  })
+            }
+        </script>
+
+        ';
     }
 }
