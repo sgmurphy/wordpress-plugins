@@ -45,13 +45,11 @@ function inFrame() {
 	}
 }
 
-setTimeout(() => {
-	if (document.readyState === "loading") {
-		document.addEventListener( "DOMContentLoaded", () => switcherPlacement() );
-	} else {
-		switcherPlacement();
-	}
-}, 1500);
+if (document.readyState === "loading") {
+	document.addEventListener( "DOMContentLoaded", () => switcherPlacement() );
+} else {
+	switcherPlacement();
+}
 
 document.addEventListener( "DOMContentLoaded", function ( event ) {
 

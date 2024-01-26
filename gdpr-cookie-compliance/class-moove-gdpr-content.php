@@ -147,7 +147,7 @@ class Moove_GDPR_Content {
 				new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 				j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-				})(window,document,'script','dataLayer','GTM-XXXXXX');</script>
+				})(window,document,'script','dataLayer','<?php echo $gdin_modules['gtmc2']['tacking_id']; ?>');</script>
 				<!-- End Google Tag Manager -->
 			<?php
 		endif;

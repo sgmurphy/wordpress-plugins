@@ -4,7 +4,7 @@ Tags: translate, multilingual, language, translation, localization, multilingual
 Requires at least: 4.5
 Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 4.2.4
+Stable tag: 4.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -251,10 +251,16 @@ See changelog for upgrade changes.
 
 == Changelog ==
 
-= 4.2.4 (25/01/2024) =
-* Bug: Fixed slug translation update
-* Bug: Fixed issue using block menu or widget
-* Bug: Fixed bug deleting body tag
+= 4.2.3 (16/01/2024) =
+* Bug: Fixed WooCommerce cart translations
+* Bug: Fixed issue with custom flags when using the switcher template
+* Improvement: Added filter to enable translation links into multisite config
+* Improvement: Reworked switcher editor location
+* Improvement: Removed page settings custom-urls
+* Improvement: Added filter to increase wp_remote_get timeout
+* Quality: Improved regex performance for translation links
+* Quality: Improved JavaScript organization and appearance
+* Quality: Achieved PHPStan level 2
 
 = Older versions =
 

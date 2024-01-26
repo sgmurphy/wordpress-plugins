@@ -10,7 +10,7 @@
 *
 * @package  : OMGF
 * @author   : Daan van den Bergh
-* @copyright: © 2023 Daan van den Bergh
+* @copyright: © 2024 Daan van den Bergh
 * @url      : https://daan.dev
 * * * * * * * * * * * * * * * * * * * */
 
@@ -237,7 +237,7 @@ class Optimize {
 	 *
 	 * @param string $url Google Fonts API request, e.g. https://fonts.googleapis.com/css?family=Open+Sans:100,200,300,400italic
 	 *
-	 * @return array|string
+	 * @return string
 	 */
 	private function fetch_stylesheet( $url ) {
 		OMGF::debug( __( 'Fetching stylesheet from: ', 'host-webfonts-local' ) . $url );
@@ -255,7 +255,7 @@ class Optimize {
 		$code = wp_remote_retrieve_response_code( $response );
 
 		if ( $code !== 200 ) {
-			return [];
+			return '';
 		}
 
 		return wp_remote_retrieve_body( $response );

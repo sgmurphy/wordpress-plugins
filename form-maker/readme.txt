@@ -3,7 +3,7 @@ Contributors: webdorado,10web,wdsupport,formmakersupport
 Tags:  form, forms, form builder, contact form, feedback, custom form, contact, web contact form, captcha, email, form manager, survey
 Requires at least: 4.6
 Tested up to: 6.4
-Stable tag: 1.15.21
+Stable tag: 1.15.22
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -557,6 +557,9 @@ Where **{{field_id}}** is the ID of the field you wish to prefill. Also, **{{par
 
 
 == Changelog ==
+= 1.15.22 =
+* Fixed: Vulnerability issue fix.
+
 = 1.15.21 =
 * Fixed: Captcha field security issue.
 

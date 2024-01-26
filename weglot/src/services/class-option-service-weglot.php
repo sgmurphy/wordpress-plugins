@@ -275,20 +275,9 @@ class Option_Service_Weglot {
 		}
 		$custom_timeout = apply_filters('custom_http_request_timeout', 3);
 		$slugs = array();
-		$settings = get_transient( 'weglot_cache_cdn' );
-		if ( empty( $settings ) ) {
-			$settings = $this->get_options();
-		}
-		$slug_translation_version = $settings['versions']['slugTranslation'];
 		foreach ( $destinations_languages as $destinations_language ) {
 
-			$url = sprintf(
-				'%s/translations/slugs?api_key=%s&language_to=%s&v=%s',
-				Helper_API::get_api_url(),
-				$api_key,
-				$destinations_language,
-				$slug_translation_version
-			);
+			$url = sprintf( '%s/translations/slugs?api_key=%s&&language_to=%s', Helper_API::get_api_url(), $api_key, $destinations_language );
 
 			$response = wp_remote_get( $url, array( 'timeout' => $custom_timeout ) ); // phpcs:ignore
 

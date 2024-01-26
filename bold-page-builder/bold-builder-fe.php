@@ -377,7 +377,7 @@ function bt_bb_fe_dialog() {
 		echo '</div>';
 	echo '</div>';
 	
-	if ( ! isset( $_GET['bt_bb_fe_add_section'] ) ) {
+	/*if ( ! isset( $_GET['bt_bb_fe_add_section'] ) ) {
 		echo '<div id="bt_bb_fe_add_section_dialog">';
 			echo '<div class="bt_bb_add_section_header">';
 				echo '<div class="bt_bb_add_section_header_text">' . esc_html__( 'Add Section', 'bold-builder' ) . '</div>';
@@ -394,7 +394,7 @@ function bt_bb_fe_dialog() {
 				echo '<div id="bt_bb_fe_add_section_to_clipboard" role="button"><i class="fa fa-clipboard"></i><span>' . esc_html__( 'Add to Clipboard', 'bold-builder' ) . '</span></div>';
 			echo '</div>';
 		echo '</div>';
-	}
+	}*/
 	
 	echo '<div id="bt_bb_fe_init_mouseover"></div>';
 }

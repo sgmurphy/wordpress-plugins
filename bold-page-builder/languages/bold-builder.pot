@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-25 12:03+0100\n"
+"POT-Creation-Date: 2024-01-25 20:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,34 +46,11 @@ msgid ""
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/bold-builder-fe.php:360
-#: D:/WP/BoldBuilder/trunk/bold-builder-fe.php:384
 msgid "Close dialog"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/bold-builder-fe.php:361
-#: D:/WP/BoldBuilder/trunk/bold-builder-fe.php:385
 msgid "Switch side"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/bold-builder-fe.php:383
-msgid "Add Section"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/bold-builder-fe.php:386
-#: D:/WP/BoldBuilder/trunk/bold-builder.php:818
-msgid "Filter..."
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/bold-builder-fe.php:392
-msgid "Add to Top"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/bold-builder-fe.php:393
-msgid "Add to Bottom"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/bold-builder-fe.php:394
-msgid "Add to Clipboard"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/bold-builder.php:115
@@ -195,8 +172,8 @@ msgid "Show shortcode tags instead of mapped names"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/bold-builder.php:582
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:343
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:349
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:346
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:352
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:227
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_countdown/bt_bb_countdown.php:112
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_css_image_grid/bt_bb_css_image_grid.php:151
@@ -205,8 +182,8 @@ msgstr ""
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_latest_posts/bt_bb_latest_posts.php:199
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_masonry_image_grid/bt_bb_masonry_image_grid.php:159
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_masonry_post_grid/bt_bb_masonry_post_grid.php:336
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:379
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:395
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:380
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:396
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:251
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:254
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_video/bt_bb_video.php:76
@@ -216,8 +193,8 @@ msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/bold-builder.php:583
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_accordion/bt_bb_accordion.php:111
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:344
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:350
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:347
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:353
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:226
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_countdown/bt_bb_countdown.php:113
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_css_image_grid/bt_bb_css_image_grid.php:151
@@ -245,9 +222,9 @@ msgstr ""
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_masonry_post_grid/bt_bb_masonry_post_grid.php:346
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_masonry_post_grid/bt_bb_masonry_post_grid.php:348
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_masonry_post_grid/bt_bb_masonry_post_grid.php:350
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:380
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:396
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:425
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:381
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:397
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:426
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:250
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:254
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_video/bt_bb_video.php:77
@@ -399,6 +376,10 @@ msgstr ""
 msgid "Manage Clipboard"
 msgstr ""
 
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:818
+msgid "Filter..."
+msgstr ""
+
 #: D:/WP/BoldBuilder/trunk/bold-builder.php:819
 msgid "Shortcode Mapper"
 msgstr ""
@@ -420,7 +401,7 @@ msgid "Are you sure you want to switch editor?"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/bold-builder.php:825
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:301
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:302
 msgid "General"
 msgstr ""
 
@@ -717,15 +698,15 @@ msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_accordion/bt_bb_accordion.php:96
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_button/bt_bb_button.php:234
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:346
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:352
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:349
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:355
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_cost_calculator/bt_bb_cost_calculator.php:75
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_headline/bt_bb_headline.php:259
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_icon/bt_bb_icon.php:206
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_price_list/bt_bb_price_list.php:109
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_progress_bar/bt_bb_progress_bar.php:141
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:170
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:390
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:391
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:248
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_service/bt_bb_service.php:182
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_tabs/bt_bb_tabs.php:109
@@ -734,15 +715,15 @@ msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_accordion/bt_bb_accordion.php:96
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_button/bt_bb_button.php:234
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:346
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:352
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:349
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:355
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_cost_calculator/bt_bb_cost_calculator.php:75
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_headline/bt_bb_headline.php:259
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_icon/bt_bb_icon.php:206
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_price_list/bt_bb_price_list.php:109
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_progress_bar/bt_bb_progress_bar.php:141
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:170
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:390
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:391
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:248
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_service/bt_bb_service.php:182
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_tabs/bt_bb_tabs.php:109
@@ -891,8 +872,8 @@ msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_button/bt_bb_button.php:185
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_button/bt_bb_button.php:192
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:284
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:293
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:287
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:296
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_headline/bt_bb_headline.php:246
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_icon/bt_bb_icon.php:178
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_image/bt_bb_image.php:255
@@ -904,8 +885,8 @@ msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_button/bt_bb_button.php:186
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_button/bt_bb_button.php:194
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:286
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:295
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:289
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:298
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_headline/bt_bb_headline.php:248
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_icon/bt_bb_icon.php:180
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_image/bt_bb_image.php:257
@@ -946,8 +927,8 @@ msgid "Inherit"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_button/bt_bb_button.php:193
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:285
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:294
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:288
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:297
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_headline/bt_bb_headline.php:247
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_icon/bt_bb_icon.php:179
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_image/bt_bb_image.php:256
@@ -1030,22 +1011,22 @@ msgstr ""
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_button/bt_bb_button.php:220
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_button/bt_bb_button.php:228
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_button/bt_bb_button.php:234
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:339
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:340
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:341
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:346
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:347
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:348
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:342
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:343
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:344
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:349
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:350
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:345
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:346
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:347
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:352
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:353
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:354
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:351
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:352
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:353
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:348
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:349
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:350
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:355
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:356
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:357
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:358
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:359
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_headline/bt_bb_headline.php:251
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_headline/bt_bb_headline.php:259
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_headline/bt_bb_headline.php:260
@@ -1061,11 +1042,10 @@ msgstr ""
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:170
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:171
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:172
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:390
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:391
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:392
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:399
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:410
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:393
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:400
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:411
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:412
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:413
@@ -1075,6 +1055,7 @@ msgstr ""
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:417
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:418
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:419
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:420
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_service/bt_bb_service.php:159
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_service/bt_bb_service.php:168
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_service/bt_bb_service.php:175
@@ -1096,8 +1077,8 @@ msgstr ""
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_progress_bar/bt_bb_progress_bar.php:124
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:122
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:91
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:319
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:350
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:320
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:351
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:141
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:172
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:253
@@ -1114,8 +1095,8 @@ msgstr ""
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_masonry_image_grid/bt_bb_masonry_image_grid.php:154
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:124
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:93
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:321
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:352
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:322
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:353
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:143
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:174
 #: D:/WP/BoldBuilder/trunk/content_elements/_deprecated/bt_bb_separator/bt_bb_separator.php:84
@@ -1125,8 +1106,8 @@ msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_button/bt_bb_button.php:209
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_button/bt_bb_button.php:244
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:299
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:306
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:302
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:309
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:213
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:251
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_countdown/bt_bb_countdown.php:107
@@ -1145,8 +1126,8 @@ msgstr ""
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_progress_bar/bt_bb_progress_bar.php:125
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:123
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:92
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:320
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:351
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:321
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:352
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:142
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:173
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:254
@@ -1173,8 +1154,8 @@ msgstr ""
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_masonry_post_grid/bt_bb_masonry_post_grid.php:330
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:125
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:94
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:322
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:353
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:323
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:354
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:144
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:175
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:255
@@ -1378,75 +1359,75 @@ msgstr ""
 msgid "Capitalize"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:280
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:283
 msgid "Column"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:280
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:283
 msgid "Column element"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:282
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:291
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:285
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:294
 msgid "Align"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:289
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:297
-msgid "Vertical align"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:291
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:299
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_headline/bt_bb_headline.php:254
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_image/bt_bb_image.php:293
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:385
-msgid "Top"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:292
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:300
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_image/bt_bb_image.php:292
+msgid "Vertical align"
+msgstr ""
+
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:294
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:302
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_headline/bt_bb_headline.php:254
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_image/bt_bb_image.php:293
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:386
+msgid "Top"
+msgstr ""
+
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:295
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:303
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_image/bt_bb_image.php:292
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:387
 msgid "Middle"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:293
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:301
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:296
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:304
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:219
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_headline/bt_bb_headline.php:255
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_image/bt_bb_image.php:294
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:387
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:388
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:225
 msgid "Bottom"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:296
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:303
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:299
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:306
 msgid "Inner padding"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:298
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:305
-msgid "No padding"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:300
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:307
-msgid "Double"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:301
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:308
+msgid "No padding"
+msgstr ""
+
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:303
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:310
+msgid "Double"
+msgstr ""
+
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:304
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:311
 msgid "Text Indent"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:302
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:309
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:305
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:312
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:127
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:96
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:324
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:355
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:325
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:356
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:146
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:177
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:213
@@ -1455,12 +1436,12 @@ msgstr ""
 msgid "5px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:303
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:310
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:306
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:313
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:128
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:97
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:325
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:356
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:326
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:357
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:147
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:178
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:218
@@ -1469,12 +1450,12 @@ msgstr ""
 msgid "10px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:304
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:311
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:307
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:314
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:129
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:98
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:326
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:357
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:327
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:358
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:148
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:179
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:223
@@ -1483,12 +1464,12 @@ msgstr ""
 msgid "15px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:305
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:312
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:308
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:315
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:130
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:99
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:327
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:358
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:328
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:359
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:149
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:180
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:228
@@ -1497,12 +1478,12 @@ msgstr ""
 msgid "20px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:306
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:313
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:309
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:316
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:131
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:100
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:328
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:359
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:329
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:360
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:150
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:181
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:229
@@ -1511,12 +1492,12 @@ msgstr ""
 msgid "25px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:307
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:314
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:310
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:317
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:132
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:101
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:329
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:360
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:330
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:361
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:151
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:182
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:230
@@ -1525,12 +1506,12 @@ msgstr ""
 msgid "30px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:308
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:315
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:311
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:318
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:133
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:102
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:330
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:361
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:331
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:362
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:152
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:183
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:231
@@ -1539,12 +1520,12 @@ msgstr ""
 msgid "35px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:309
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:316
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:312
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:319
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:134
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:103
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:331
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:362
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:332
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:363
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:153
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:184
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:232
@@ -1553,12 +1534,12 @@ msgstr ""
 msgid "40px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:310
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:317
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:313
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:320
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:135
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:104
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:332
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:363
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:333
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:364
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:154
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:185
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:233
@@ -1567,12 +1548,12 @@ msgstr ""
 msgid "45px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:311
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:318
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:314
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:321
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:136
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:105
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:333
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:364
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:334
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:365
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:155
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:186
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:234
@@ -1581,12 +1562,12 @@ msgstr ""
 msgid "50px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:312
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:319
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:315
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:322
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:137
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:106
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:334
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:365
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:335
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:366
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:156
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:187
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:235
@@ -1595,12 +1576,12 @@ msgstr ""
 msgid "55px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:313
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:320
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:316
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:323
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:138
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:107
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:335
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:366
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:336
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:367
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:157
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:188
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:236
@@ -1609,12 +1590,12 @@ msgstr ""
 msgid "60px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:314
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:321
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:317
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:324
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:139
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:108
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:336
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:367
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:337
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:368
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:158
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:189
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:237
@@ -1623,12 +1604,12 @@ msgstr ""
 msgid "65px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:315
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:322
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:318
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:325
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:140
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:109
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:337
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:368
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:338
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:369
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:159
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:190
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:238
@@ -1637,12 +1618,12 @@ msgstr ""
 msgid "70px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:316
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:323
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:319
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:326
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:141
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:110
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:338
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:369
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:339
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:370
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:160
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:191
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:239
@@ -1651,12 +1632,12 @@ msgstr ""
 msgid "75px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:317
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:324
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:320
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:327
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:142
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:111
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:339
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:370
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:340
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:371
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:161
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:192
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:240
@@ -1665,12 +1646,12 @@ msgstr ""
 msgid "80px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:318
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:325
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:321
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:328
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:143
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:112
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:340
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:371
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:341
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:372
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:162
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:193
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:241
@@ -1679,12 +1660,12 @@ msgstr ""
 msgid "85px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:319
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:326
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:322
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:329
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:144
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:113
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:341
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:372
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:342
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:373
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:163
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:194
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:242
@@ -1693,12 +1674,12 @@ msgstr ""
 msgid "90px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:320
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:327
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:323
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:330
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:145
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:114
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:342
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:373
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:343
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:374
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:164
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:195
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:243
@@ -1707,12 +1688,12 @@ msgstr ""
 msgid "95px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:321
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:328
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:324
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:331
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:146
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:115
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:343
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:374
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:344
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:375
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:165
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:196
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:244
@@ -1721,122 +1702,122 @@ msgstr ""
 msgid "100px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:324
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:330
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:327
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:333
 msgid "Order"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:324
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:330
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:327
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:333
 msgid ""
 "Columns are placed in the visual order according to selected order, lowest "
 "values first."
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:326
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:332
-msgid " -5"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:327
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:333
-msgid " -4"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:328
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:334
-msgid " -3"
-msgstr ""
-
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:329
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:335
-msgid " -2"
+msgid " -5"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:330
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:336
-msgid " -1"
+msgid " -4"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:331
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:337
-msgid " 0 (default)"
+msgid " -3"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:332
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:338
-msgid " 1"
+msgid " -2"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:333
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:339
-msgid " 2"
+msgid " -1"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:334
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:340
-msgid " 3"
+msgid " 0 (default)"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:335
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:341
-msgid " 4"
+msgid " 1"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:336
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:342
-msgid " 5"
+msgid " 2"
+msgstr ""
+
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:337
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:343
+msgid " 3"
+msgstr ""
+
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:338
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:344
+msgid " 4"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:339
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:345
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:79
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:392
+msgid " 5"
+msgstr ""
+
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:342
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:348
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:81
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:393
 msgid "Background image"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:340
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:346
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:343
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:349
 msgid "Inner background image"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:341
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:347
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:393
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:344
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:350
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:394
 msgid "Lazy load background image"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:347
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:353
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:350
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:356
 msgid "Inner color scheme"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:348
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:354
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:351
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:357
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:171
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:391
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:392
 msgid "Background color"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:349
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:355
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:352
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:358
 msgid "Inner background color"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:350
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column/bt_bb_column.php:353
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:172
 msgid "Background color opacity (deprecated)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:287
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:290
 msgid "Inner Column"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:287
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:290
 msgid "Inner Column element"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:356
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_column_inner/bt_bb_column_inner.php:359
 msgid "Opacity (deprecated)"
 msgstr ""
 
@@ -1891,7 +1872,7 @@ msgid "Half screen"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:193
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:377
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:378
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:205
 msgid "Full screen"
 msgstr ""
@@ -1966,8 +1947,8 @@ msgid "Number of slides to show"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:230
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:412
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:416
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:413
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:417
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:230
 msgid "E.g. 1"
 msgstr ""
@@ -2109,55 +2090,55 @@ msgstr ""
 msgid "E.g. 2000"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:77
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:79
 msgid "Slider Item"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:77
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:79
 msgid "Individual slide element"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:80
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:399
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:82
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:400
 msgid "Background overlay"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:82
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:401
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:84
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:402
 msgid "No overlay"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:83
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:402
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:85
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:403
 msgid "Light stripes"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:84
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:403
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:86
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:404
 msgid "Dark stripes"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:85
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:404
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:87
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:405
 msgid "Light solid"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:86
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:405
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:88
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:406
 msgid "Dark solid"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:87
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:406
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:89
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:407
 msgid "Light gradient"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:88
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:407
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:90
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:408
 msgid "Dark gradient"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:91
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider_item/bt_bb_content_slider_item.php:93
 msgid "Background image size"
 msgstr ""
 
@@ -2284,8 +2265,8 @@ msgstr ""
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_masonry_image_grid/bt_bb_masonry_image_grid.php:137
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row/bt_bb_row.php:121
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:90
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:318
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:349
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:319
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:350
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:140
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:171
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:252
@@ -2299,8 +2280,8 @@ msgstr ""
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_counter/bt_bb_counter.php:116
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_headline/bt_bb_headline.php:239
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_icon/bt_bb_icon.php:189
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:323
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:354
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:324
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:355
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:145
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:176
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:256
@@ -2905,7 +2886,7 @@ msgid "Rows"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_latest_posts/bt_bb_latest_posts.php:155
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:413
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:414
 msgid "E.g. 2"
 msgstr ""
 
@@ -3259,7 +3240,7 @@ msgid "For the best experience set section width to wide."
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_row_inner/bt_bb_row_inner.php:120
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:312
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:313
 msgid "Wide"
 msgstr ""
 
@@ -3271,62 +3252,62 @@ msgstr ""
 msgid "Boxed 1400px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:299
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:300
 msgid "Section"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:299
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:300
 msgid "Basic root element"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:301
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:302
 msgid "Layout"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:303
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:304
 msgid "Boxed (800px)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:304
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:305
 msgid "Boxed (900px)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:305
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:306
 msgid "Boxed (1000px)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:306
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:307
 msgid "Boxed (1100px)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:307
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:308
 msgid "Boxed (1200px)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:308
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:309
 msgid "Boxed (1300px)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:309
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:310
 msgid "Boxed (1400px)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:310
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:311
 msgid "Boxed (1500px)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:311
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:312
 msgid "Boxed (1600px)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:315
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:316
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:137
 #: D:/WP/BoldBuilder/trunk/content_elements/_deprecated/bt_bb_separator/bt_bb_separator.php:78
 msgid "Top spacing"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:317
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:348
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:318
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:349
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:139
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:170
 #: D:/WP/BoldBuilder/trunk/content_elements/_deprecated/bt_bb_separator/bt_bb_separator.php:80
@@ -3334,109 +3315,109 @@ msgstr ""
 msgid "No spacing"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:346
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:347
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_separator/bt_bb_separator.php:168
 #: D:/WP/BoldBuilder/trunk/content_elements/_deprecated/bt_bb_separator/bt_bb_separator.php:109
 msgid "Bottom spacing"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:383
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:384
 msgid "Vertical align (for fullscreen section)"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:410
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:411
 msgid "Parallax"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:410
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:411
 msgid "E.g. 0.7, 2 = fixed"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:411
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:412
 msgid "Parallax offset in px"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:411
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:412
 msgid "E.g. -100"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:412
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:413
 msgid "Background parallax zoom start"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:413
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:414
 msgid "Background parallax zoom end"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:414
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:415
 msgid "Background parallax blur start"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:414
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:417
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:415
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:418
 msgid "E.g. 0"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:415
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:416
 msgid "Background parallax blur end"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:415
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:416
 msgid "E.g. 10"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:416
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:417
 msgid "Background parallax opacity start"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:417
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:418
 msgid "Background parallax opacity end"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:418
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:419
 msgid "Top coverage image"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:419
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:420
 msgid "Bottom coverage image"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:420
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:421
 msgid "YouTube background video"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:420
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:421
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:422
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:423
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:424
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:425
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:426
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_video/bt_bb_video.php:70
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_video/bt_bb_video.php:72
 msgid "Video"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:421
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:422
 msgid "YouTube video settings"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:421
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:422
 msgid "E.g. startAt:20, mute:true, stopMovieOnBlur:false"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:422
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:423
 msgid "MP4 background video"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:423
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:424
 msgid "OGG background video"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:424
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:425
 msgid "WEBM background video"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:425
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:426
 msgid "Show video on mobile devices"
 msgstr ""
 
@@ -3580,6 +3561,15 @@ msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_service/bt_bb_service.php:175
 msgid "Icon shape"
+msgstr ""
+
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_shortcode/bt_bb_shortcode.php:41
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_shortcode/bt_bb_shortcode.php:43
+msgid "Shortcode"
+msgstr ""
+
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_shortcode/bt_bb_shortcode.php:41
+msgid "Custom shortcode content"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:197

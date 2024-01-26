@@ -474,7 +474,7 @@ class Elementor_Image_Hover_Effects_EIHE extends Widget_Base {
 		$eihe_tag = $this->validate_html_tag($settings['eihe_tag']);
 		$icon = $settings['icon'];
 		$icon_order = $settings['icon_order'];
-		$eihe_align = $settings['eihe_align'];
+		$eihe_align = esc_attr($settings['eihe_align']);
 
 		$target = $settings['eihe_link']['is_external'] ? ' target="_blank"' : '';
 		$nofollow = $settings['eihe_link']['nofollow'] ? ' rel="nofollow"' : '';

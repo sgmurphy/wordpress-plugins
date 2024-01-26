@@ -1,5 +1,8 @@
 <?php
 
+global $wp_query;
+$wp_query->is_singular = true;
+
 if ( ! function_exists( 'bt_bb_noindex_nofollow' ) ) {
 	function bt_bb_noindex_nofollow( $array ) {
 		$array['noindex'] = true;

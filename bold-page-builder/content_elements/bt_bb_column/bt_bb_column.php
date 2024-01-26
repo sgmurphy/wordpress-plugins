@@ -131,6 +131,9 @@ class bt_bb_column extends BT_BB_Element {
 		$background_data_attr = '';
 		$inner_background_data_attr = '';
 		
+		$background_image_url = '';
+		$inner_background_image_url = '';
+		
 		if ( $background_image != '' ) {
 			if ( is_numeric( $background_image ) ) {
 				$background_image = wp_get_attachment_image_src( $background_image, 'full' );

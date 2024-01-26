@@ -2,7 +2,7 @@
 Contributors: MooveAgency
 Donate link: https://www.mooveagency.com/wordpress-plugins/gdpr-cookie-compliance/
 Tags: GDPR, CCPA, DSGVO, cookie banner, cookie notice
-Stable tag: 4.13.0
+Stable tag: 4.13.1
 Requires at least: 4.5
 Tested up to: 6.4
 Requires PHP: 5.6
@@ -277,6 +277,9 @@ The Brazilian General Data Protection Law (“Lei Geral de Proteção de Dados�
 39. GDPR Cookie Compliance - Front-end - Cookie Shortcode [Premium]
 
 == Changelog ==
+= 4.13.1: 26 January 2024 =
+* Tracking ID fixed in Google Consent V2 integration module
+
 = 4.13.0: 22 January 2024 =
 * Google Consent V2 added to integrations
 

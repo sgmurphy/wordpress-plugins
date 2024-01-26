@@ -22,6 +22,7 @@ class bt_bb_content_slider_item extends BT_BB_Element {
 			$id_attr = ' ' . 'id="' . esc_attr( $el_id ) . '"';
 		}
 		
+		$background_image_url = '';
 	
 		if ( $image != '' ) {
 			if ( is_numeric( $image ) ) {
@@ -34,10 +35,11 @@ class bt_bb_content_slider_item extends BT_BB_Element {
 			}
 			
 			if ( $background_image_url ) {
-				$el_style .= ';background-image:url(\'' . $background_image_url . '\');';				
+				$el_style .= ';background-image:url(\'' . $background_image_url . '\');';
+				$class[] = 'bt_bb_column_background_image';				
 			}
 				
-			$class[] = 'bt_bb_column_background_image';
+			
 		}
 		
 		if ( $background_overlay != '' ) {

@@ -78,8 +78,9 @@ class bt_bb_section extends BT_BB_Element {
 		$data_parallax_attr = '';
 		
 		$background_image_style = '';
-		$background_image_holder_style = '';		
-
+		$background_image_holder_style = '';	
+		
+		$background_image_url = '';	
 
 		if ( $background_image != ''){
 			

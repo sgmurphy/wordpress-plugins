@@ -37,10 +37,15 @@ class BoosterController {
     require_once($this->booster->plugin_dir . '/view.php');
     $this->view = new BoosterView();
     if ( !$task ) {
-      $task = isset($_GET['task']) ? sanitize_text_field($_GET['task']) : (isset($_POST['task']) ? sanitize_text_field($_POST['task']) : '');
+      $task = isset($_POST['task']) ? sanitize_text_field($_POST['task']) : '';
     }
-    if ( $task != 'display' && method_exists($this, $task) ) {
-      $this->$task($params);
+    if ( $task != 'display' && method_exists($this, $task) && $task != 'execute' && $task != '__construct' ) {
+        $speed_ajax_nonce = isset($_POST['speed_ajax_nonce']) ? sanitize_text_field($_POST['speed_ajax_nonce']) : '';
+        if ( !wp_verify_nonce($speed_ajax_nonce, 'speed_ajax_nonce') ) {
+            die('Permission Denied.');
+        }
+
+        $this->$task($params);
     }
     else {
       $this->display();
