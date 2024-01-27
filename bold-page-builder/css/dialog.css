@@ -713,6 +713,10 @@
 	.bt_bb_icon_hero_posts_bt_bb:before {
 		content: '\e908';
 	}
+
+	.bt_bb_icon_bt_bb_shortcode:before {
+		content: '\e96d';
+	}
 	
 } /* /bt_bb_dialog_item */
 

@@ -1,22 +1,21 @@
 === Optimize Database after Deleting Revisions ===
-Contributors: CAGE Web Design | Rolf van Gelder
-Donate link: http://cagewebdev.com/donations-odb/
-Plugin Name: Optimize Database after Deleting Revisions
-Plugin URI: http://cagewebdev.com/optimize-database-after-deleting-revisions-wordpress-plugin
-Tags: database, delete, revisions, optimize, post, posts, page, pages, clean, clean up, trash, spam, trashed, spammed, database size, scheduler, transients, unused tags, pingback, trackback, unix cron tab, crontab, multisite, custom post types, oembed
-Author URI: http://cagewebdev.com
-Author: CAGE Web Design | Rolf van Gelder, Eindhoven, The Netherlands
 Contributors: cageehv, nerdpressteam
+Tags: database, cleanup, delete, revisions, optimize, trash, spam, trashed, database size, scheduler, transients, unused tags
+Author URI: https://www.nerdpress.net
+Author: NerdPress
 Requires at least: 2.8
-Requires PHP: 5.0
-Tested up to: 6.2.2
+Requires PHP: 5.6
+Tested up to: 6.4
 Stable tag: 5.1.1
 Version: 5.1.1
 License: GPLv2 or later
+A One-Click WordPress Database Cleaner & Optimizer. Speeding up sites since 2011!
 
 == Description ==
 
-This plugin is a 'One Click' WordPress Database Cleaner / Optimizer.
+NerdPress has adopted Optimize Database After Deleting Revisions! [Read our blog post.](https://www.nerdpress.net/announcing-optimize-database/)
+
+This plugin is a 'One Click' WordPress Database Cleaner and Optimizer.
 
 = Main Features =
 * Deletes revisions of posts, pages and / or custom post types (you optionally can keep an 'x'-amount of the most recent revisions and you can choose to delete revisions older than...)
@@ -81,21 +80,8 @@ Then, start the .php file from your crontab!<br>
 * Turkish [tr_TR] - translated by Keremcan Buyuktaskin
 * Ukranian [uk_UA] - translated by Anna Goriacha, Coupofy - http://coupofy.com
 
-= Author =
-CAGE Web Design | Rolf van Gelder, Eindhoven, The Netherlands - http://cagewebdev.com - http://rvg.cage.nl
-
-= Plugin URL =
-http://cagewebdev.com/optimize-database-after-deleting-revisions-wordpress-plugin
-
-= Download URL =
-http://wordpress.org/plugins/rvg-optimize-database/
-
 = Disclaimer =
-NO WARRANTY, USE IT AT YOUR OWN RISK!
-
-= Plugins by CAGE Web Design | Rolf van Gelder =
-WordPress plugins created by CAGE Web Design | Rolf van Gelder<br>
-http://cagewebdev.com/category/news-tech-art/wordpress/
+NO WARRANTY, USE IT AT YOUR OWN RISK! MAKE BACKUPS FIRST!
 
 == Installation ==
 

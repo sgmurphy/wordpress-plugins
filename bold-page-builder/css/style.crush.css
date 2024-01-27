@@ -841,6 +841,9 @@
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_hero_posts:before {
     content: '\e908';
     }
+#bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_icon.bt_bb_icon_bt_bb_shortcode:before {
+    content: '\e96d';
+    }
 #bt_bb > .bt_bb_item_list > .bt_bb_wrap .bt_bb_item.bt_bb_image_preview[style*="url"] > .bt_bb_toolbar > .bt_bb_preview {
     margin: 0 -5px 0 0;
     border-radius: 5px;
@@ -1872,6 +1875,9 @@
 .bt_bb_dialog_content .bt_bb_icon_bt_bb_hero_posts:before,
 .bt_bb_dialog_content .bt_bb_icon_hero_posts_bt_bb:before {
     content: '\e908';
+    }
+.bt_bb_dialog_content .bt_bb_icon_bt_bb_shortcode:before {
+    content: '\e96d';
     }
 
 /* /bt_bb_dialog_item */

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-25 20:11+0100\n"
+"POT-Creation-Date: 2024-01-27 08:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3570,6 +3570,10 @@ msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_shortcode/bt_bb_shortcode.php:41
 msgid "Custom shortcode content"
+msgstr ""
+
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_shortcode/bt_bb_shortcode.php:43
+msgid "Add your Shortcode"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:197

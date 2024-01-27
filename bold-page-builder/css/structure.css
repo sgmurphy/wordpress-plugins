@@ -269,9 +269,12 @@
 					&.bt_bb_icon_hero_posts_bt_bb:before,
 					&.bt_bb_icon_bt_bb_hero_posts:before {
 						content: '\e908';
-					}		
+					}
+					&.bt_bb_icon_bt_bb_shortcode:before {
+						content: '\e96d';
+					}
 				}
-										
+
 				&.bt_bb_image_preview[style*="url"] {
 					/*background-position: center;
 					background-repeat: no-repeat;

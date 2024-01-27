@@ -136,6 +136,9 @@ It is not possible to test Bold Builder with all themes - it should work fine wi
 
 == Changelog ==
 
+= 4.8.0 =
+* Added Shortcode content element.
+
 = 4.7.9 =
 * Minor bug fixes.
 
