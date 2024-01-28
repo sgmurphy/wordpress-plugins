@@ -3,10 +3,10 @@ Plugin Name: PDF Flipbook, 3D Flipbook - DearFlip
 Author: dearhive
 Author URI: https://dearflip.com/go/wp-lite-author
 Contributors: deip, dearhive
-Tags: pdf, flipbook, flip book, 3d flipbook, pdf flipbook, pdf viewer,  pdf embed
-Requires at least: 3.0.1
+Tags: flipbook, flip book, 3d flipbook, pdf flipbook, pdf viewer, pdf,  pdf embed
+Requires at least: 4.6
 Tested up to: 6.4
-Stable tag: 2.0.86
+Stable tag: 2.2.26
 Requires PHP: 5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -95,7 +95,8 @@ WordPress is famous for its easy to learn and use structure. DearFlip follows Wo
 ### Diversified User Base ###
 DearFlip is available on various platforms. It's serving more than 25,000 users on various niches:
 - 10,000+ users on WordPress plugin repository [4.5/5 based on 16 ratings](https://wordpress.org/support/plugin/3d-flipbook-dflip-lite/reviews/)
-- 3,000+ users on Chrome App. [Available as Chrome Extension](https://dearflip.com/go/chrome-app)
+- 4,500+ premium customers on CodeCanyon - [Best Rated Premium WordPress Flipbook: 4.9/5 based on 107 ratings](https://dearflip.com/go/dflip-wp-codecanyon)
+- 12,000+ users on Chrome App. [4.8/5 based on 45 ratings](https://dearflip.com/go/chrome-app)
 
 
 ### What do users say about DearFlip? ###
@@ -275,11 +276,26 @@ This will create your PDF flipbook or image flipbook to open at page 5 when it s
 == Changelog ==
 
 This lite version is available in WordPress plugin directory since version 1.2.8
+= 2.2.26: =
+* Add: Translate Support
+* Fix: Mobile zoom improved and stabilized
+* Fix: Reordering custom outline
+* Improvement: PDF.js is upgraded to 3.7
+
+= 2.1.183: =
+* Not Released on wordpress.org
+* Fix: PHP 8.2 compatibility
+* Fix: jQuery conflicts solved
+* Improvement: Settings Categorized
+* Improvement: Lightbox Thumbnails are more realistic
+* Improvement: Zoom Logic Improved
+* Improvement: 3D browser support check
 
  = 2.0.86: =
-  * Fix: 2D flipbook mobile drag and release
-  * Fix: Keyboard navigation for embedded missing
-  * Improvement: jQuery conflicts improved, recommended jQuery version 3.0+
+ * Fix: 2D flipbook mobile drag and release
+ * Fix: Keyboard navigation for embedded missing
+ * Improvement: jQuery conflicts improved, recommended jQuery version 3.0+
+ * Improvement: WP 6.3 support
 
  = 2.0.79: =
  * Added: Detection of 3D support in browser

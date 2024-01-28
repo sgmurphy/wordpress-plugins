@@ -27,7 +27,7 @@ $html .= '}';
 
 if ($add_iframe_url_as_param === 'remote') {
     $html .= 'function aiChangeUrl(loc) {';
-    $html .= '  aiChangeUrlParam(loc,"'.$map_parameter_to_url.'","'.$src_orig.'","'.$add_iframe_url_as_param_prefix.'",'.$add_iframe_url_as_param_direct.');';
+    $html .= '  aiChangeUrlParam(loc,"'.$map_parameter_to_url.'","'.$src_orig.'","'.$this->filterXss($add_iframe_url_as_param_prefix).'",'.$add_iframe_url_as_param_direct.');';
     $html .= '}';
 }
  
@@ -178,7 +178,7 @@ if ($reload_interval != '') {
 		}
 		$html .= ' function() {
 			jQuery( "#'.$id.'" ).attr( "src", function ( i, val ) { return val; })
-		}, '.$reload_interval.');';
+		}, '.esc_js($reload_interval).');';
     }
 }
 

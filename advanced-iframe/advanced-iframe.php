@@ -2,7 +2,7 @@
 /*
 Plugin Name: Advanced iFrame
 Plugin URI: https://1.envato.market/VDRDJ
-Version: 2023.10
+Version: 2024.0
 Text Domain: advanced-iframe
 Domain Path: /languages
 Author: Michael Dempfle
@@ -30,12 +30,12 @@ define('AIP_IMGURL', AIP_URL.'img');
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
 
-$isFreemius = file_exists(dirname(__FILE__) . "/freemius/");
+$freemiusConfig = dirname(__FILE__) . "/config-freemius.php";
+$isFreemius = file_exists($freemiusConfig);
 
 if ($isFreemius) {
-	// freemius code 
+	include $freemiusConfig;
 }
-
 
 if (isset($aip_standalone)) {
 define('AIP_URL_CUSTOM', plugins_url() . '/../advanced-iframe-custom/');
@@ -46,7 +46,7 @@ define('AIP_URL_CUSTOM', plugins_url() . '/advanced-iframe-custom/');
 include dirname(__FILE__) . '/includes/advanced-iframe-main-helper.php';
 include dirname(__FILE__) . '/includes/advanced-iframe-main-cookie.php';
 
-$aiVersion = '2023.10';
+$aiVersion = '2024.0';
 // check $aiJsSize
 
 if (!class_exists('advancediFrame')) {
@@ -687,7 +687,7 @@ if (!class_exists('advancediFrame')) {
 				return "";
 			}
 			
-            global $aip_standalone, $iframeStandaloneDefaultOptions, $iframeStandaloneOptions;
+            global $aip_standalone, $iframeStandaloneDefaultOptions, $iframeStandaloneOptions, $isFreemius;
 			if (!is_array($atts)) {
 				$atts = array(); 
 			}
@@ -1171,7 +1171,7 @@ if (!class_exists('advancediFrame')) {
 			$showDiscountMessage = $hasDiscount && !(isset($devOptions['closed_messages']) && isset($devOptions['closed_messages']['show-discount-message']));
 
 			if ($showDiscountMessage) {  
-			    echo '<script>jQuery(document).on( "click", "#show-discount-message.is-permanent-closable button", function() { closeInfoPermanent("show-discount-message"); });</script>';
+			    echo '<script>jQuery(document).on( "click touchstart", "#show-discount-message.is-permanent-closable button", function() { closeInfoPermanent("show-discount-message"); });</script>';
 				echo '<div id="show-discount-message" class="notice notice-success is-dismissible is-permanent-closable"><p><strong>';
 				echo get_transient('aip_discount_message');
 				echo '</strong></p></div>';
@@ -1469,29 +1469,32 @@ if (!class_exists('advancediFrame')) {
 	  $options = get_option($this->adminOptionsName);
 	  $check_save = $options['check_iframes_when_save'];
 	  
-	  // check if the user has the capability unfiltered_html and is therefore allowed to use the custom and onload shortcode attribute. 
-	  if (!current_user_can( 'unfiltered_html' )) {
-		  $tags = array('advanced_iframe', 'advanced-iframe', 'iframe');
-          $pattern = get_shortcode_regex($tags);
-		  if (preg_match_all('/' . $pattern . '/s', $content, $matches)) {
-              $oldContent = $content;  
-			  foreach ($matches[0] as $hit) {
-				  $attsArray = shortcode_parse_atts($hit);
-				  $content = $this->filterAttribute('onload', $attsArray, $hit, $content);
-				  $content = $this->filterAttribute('custom', $attsArray, $hit, $content);				 	  
-			  }
-			  if ($oldContent != $content) {					  
-				  $error_unfiltered = __('You are not allowed add unfiltered HTML. If you like to use the attributes "onload" and "custom" in advanced iframe you need the unfiltered_html permission. By default, the unfiltered_html permission is only given to Super Admins, Administrators and Editors. On WordPress multisite networks, only Super Admins have the unfiltered_html permission. ', 'advanced-iframe');  
-				  set_transient("ai_save_post_unfiltered_html", $error_unfiltered);
-			  }
-		  }  
-	  }
+	
+	  $tags = array('advanced_iframe', 'advanced-iframe', 'iframe');
+	  $pattern = get_shortcode_regex($tags);
+	  if (preg_match_all('/' . $pattern . '/s', $content, $matches)) {
+		  $oldContent = $content;  
+		  foreach ($matches[0] as $hit) {
+			  $attsArray = shortcode_parse_atts($hit);
+			  // check if the user has the capability unfiltered_html and is therefore allowed to use the custom and onload shortcode attribute. 
+			  if (!current_user_can( 'unfiltered_html' )) {
+				   $content = $this->filterAttribute('onload', $attsArray, $content);
+				   $content = $this->filterAttribute('custom', $attsArray, $content);
+				   $content = $this->filterAttribute('include_html', $attsArray, $content);	
+                   $content = $this->filterXSSAttributes($attsArray, $content);				   
+			  }		  
+		  }
+		  if ($oldContent != $content) {					  
+			  $error_unfiltered = __('You are not allowed add unfiltered HTML. If you like to use the attributes "onload", "include_html" and "custom" in advanced iframe you need the unfiltered_html permission. By default, the unfiltered_html permission is only given to Super Admins, Administrators and Editors. On WordPress multisite networks, only Super Admins have the unfiltered_html permission.<br>All attributes which are used in the shortcode where filtered to avoid XSS attacks. Please check your filtered shortcode.', 'advanced-iframe');  
+			  set_transient("ai_save_post_unfiltered_html", $error_unfiltered);
+		  }
+	  }  
 
 	  if ($check_save === 'false') {
 		  return $content;
 	  }
 
-	  // disable the feature because if it fails is should not be exectued again.
+	  // disable the feature because if it fails is should not be executed again.
 	  $options['check_iframes_when_save'] = 'false';
 	  update_option($this->adminOptionsName, $options);
 	  $error_execution = __('The integrated check of iframes on save failed. "Check iframes on save" is now disabled. You can enable this again on the "Options" tab. Check the description of this options what maybe caused this problem.', 'advanced-iframe');  
@@ -1532,7 +1535,7 @@ if (!class_exists('advancediFrame')) {
 	   return $content;
 	}
 	
-	function filterAttribute($attribute, $attsArray, $hit, $content) {
+	function filterAttribute($attribute, $attsArray, $content) {
 		foreach($attsArray as $element) {
 			if (AdvancedIframeHelper::ai_startsWith($element, $attribute)) {
 				$element_replace = addslashes(rtrim($element,']'));
@@ -1541,7 +1544,21 @@ if (!class_exists('advancediFrame')) {
 		}
 	    return $content;
 	}
-
+	
+	/**
+	* Detects possible XSS attacks in the shortcode attributes.
+	*/
+	function filterXSSAttributes($attsArray, $content) {
+		$replaceArray = array("'",' ', '(',')',';');
+		foreach($attsArray as $element) {	
+			$checkedElement = str_replace($replaceArray, '', $element);
+			if ($checkedElement != $element) {
+				$content = str_replace(addslashes($element), addslashes($checkedElement), $content);
+			}
+		}
+	    return $content;
+	}
+	
         /**
          * Intercepts the Ajax resize events in iframes.
          */

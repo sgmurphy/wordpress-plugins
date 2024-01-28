@@ -41,25 +41,25 @@ class DFlip_Post_Type {
     $this->base = DFlip::get_instance();
     
     $labels = array(
-        'name'               => __( 'dFlip Book', 'DFLIP' ),
-        'singular_name'      => __( 'dFlip Book', 'DFLIP' ),
-        'menu_name'          => __( 'dFlip Books', 'DFLIP' ),
-        'name_admin_bar'     => __( 'dFlip Book', 'DFLIP' ),
-        'add_new'            => __( 'Add New Book', 'DFLIP' ),
-        'add_new_item'       => __( 'Add New Book', 'DFLIP' ),
-        'new_item'           => __( 'New dFlip Book', 'DFLIP' ),
-        'edit_item'          => __( 'Edit dFlip Book', 'DFLIP' ),
-        'view_item'          => __( 'View dFlip Book', 'DFLIP' ),
-        'all_items'          => __( 'All Books', 'DFLIP' ),
-        'search_items'       => __( 'Search dFlip Books', 'DFLIP' ),
-        'parent_item_colon'  => __( 'Parent dFlip Books:', 'DFLIP' ),
-        'not_found'          => __( 'No dFlip-Books found.', 'DFLIP' ),
-        'not_found_in_trash' => __( 'No dFlip Books found in Trash.', 'DFLIP' )
+        'name'               => __( 'dFlip Book', '3d-flipbook-dflip-lite' ),
+        'singular_name'      => __( 'dFlip Book', '3d-flipbook-dflip-lite' ),
+        'menu_name'          => __( 'dFlip Books', '3d-flipbook-dflip-lite' ),
+        'name_admin_bar'     => __( 'dFlip Book', '3d-flipbook-dflip-lite' ),
+        'add_new'            => __( 'Add New Book', '3d-flipbook-dflip-lite' ),
+        'add_new_item'       => __( 'Add New Book', '3d-flipbook-dflip-lite' ),
+        'new_item'           => __( 'New dFlip Book', '3d-flipbook-dflip-lite' ),
+        'edit_item'          => __( 'Edit dFlip Book', '3d-flipbook-dflip-lite' ),
+        'view_item'          => __( 'View dFlip Book', '3d-flipbook-dflip-lite' ),
+        'all_items'          => __( 'All Books', '3d-flipbook-dflip-lite' ),
+        'search_items'       => __( 'Search dFlip Books', '3d-flipbook-dflip-lite' ),
+        'parent_item_colon'  => __( 'Parent dFlip Books:', '3d-flipbook-dflip-lite' ),
+        'not_found'          => __( 'No dFlip-Books found.', '3d-flipbook-dflip-lite' ),
+        'not_found_in_trash' => __( 'No dFlip Books found in Trash.', '3d-flipbook-dflip-lite' )
     );
     
     $args = array(
         'labels'             => $labels,
-        'description'        => __( 'Description.', 'DFLIP' ),
+        'description'        => __( 'Description.', '3d-flipbook-dflip-lite' ),
         'public'             => false,  //this removes the permalink option
         'publicly_queryable' => false,
         'show_ui'            => true,
@@ -141,8 +141,8 @@ class DFlip_Post_Type {
    */
   public function dflip_columns( $columns ) {
     
-    $columns['shortcode'] = __( 'Shortcode', 'DFLIP' );
-    $columns['modified'] = __( 'Last Modified', 'DFLIP' );
+    $columns['shortcode'] = __( 'Shortcode', '3d-flipbook-dflip-lite' );
+    $columns['modified'] = __( 'Last Modified', '3d-flipbook-dflip-lite' );
     
     return $columns;
   }

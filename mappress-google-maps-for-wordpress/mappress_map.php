@@ -139,7 +139,7 @@ class Mappress_Map extends Mappress_Obj {
 	static function ajax_get_post() {
 		global $post;
 
-		//check_ajax_referer('mappress', 'nonce');
+		check_ajax_referer('mappress', 'nonce');
 		ob_start();
 		$oid = (isset($_GET['oid'])) ? $_GET['oid']  : null;
 		
@@ -585,7 +585,7 @@ class Mappress_Map extends Mappress_Obj {
 
 		$obj = json_encode($this->to_json());
 		
-		// Sanitize
+		// Sanitize for db keys used in search, JSON object is done separately
 		$title = sanitize_text_field($this->title);
 
 		// Insert if no ID, else update

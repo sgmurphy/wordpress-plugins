@@ -479,5 +479,11 @@ class AdvancedIframeHelper {
 	        wp_delete_post( $page->ID, true);
 	    }
 	}
+	
+	static $replaceArrayXSS = array('"',"'",' ', '(',')',';','=');
+	
+	static function filterXSS($value) {
+		return empty($value) ? '' : str_replace(static::$replaceArrayXSS, '', $value);
+	}
 }
 ?>

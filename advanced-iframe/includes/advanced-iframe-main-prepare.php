@@ -92,7 +92,6 @@ if (!class_exists('AdvancediFramePrepareJs')) {
 		if ($fullscreen_button_full === 'true') {
 			$html_js .=  'var aiRealFullscreen=true;';
 		}
-
 		if ($onload_scroll_top !== 'false') {
 			$html_js .=  'var aiOnloadScrollTop="' . $onload_scroll_top . '";';   
 		} else {

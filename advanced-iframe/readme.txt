@@ -4,7 +4,7 @@ Donate link: http://www.tinywebgallery.com
 Tags: iframe, embed, resize, zoom, content, advanced, shortcode, modify css, widget 
 Requires at least: 3.3
 Tested up to: 6.4.2
-Stable tag: 2023.10
+Stable tag: 2024.0
 Requires PHP: 5.4
 License: Envato market standard or extended license
 License URI: https://themeforest.net/licenses/standard
@@ -150,7 +150,7 @@ Setting an attribute does overwrite the setting in the administration.
 1. Comparison between normal iframe and advanced iframe wrapper. The red areas are modified by the advanced iframe to display the content better.
 2. This image shows the difference with an url forward parameter. In the advanced iframe a sub album is shown while the normal iframe still shows the entry screen.
 3. The basic admin screen to enable standard settings
-4. The advanced admin screen to enable advanced settings like html and css changes
+4. The advanced admin screen to enable advanced settings like HTML and css changes
 5. The advanced admin screen to enable Javascript scroll to top and autoresize resize
  
 == Frequently Asked Questions ==
@@ -169,9 +169,17 @@ Use the Wordpress installer to update or simply overwrite all files from your pr
 If you have some radio elements empty after the update simply select the one you like and save again.
 
 == Changelog ==
+= 2024.0 =
+- Security fix: The include_html attribute are now only allowed to be used if you have the permission "unfiltered_html", that you need in WordPress to use iframes. If you do not have this permission, during save the attribute is removed and an error message is shown.
+- Security fix: All shortcode attributes have now input sanitation to avoid Stored Cross-Site Scripting at save if you do not have the permission "unfiltered_html"! This happens in the normal editor and also in the Gutenberg block! Please get the unfiltered_html permission if you get an error message while you want to use '();= or a space in attributes. This sanitation is very general and does not allow all possible things you can do with advanced iframe. As 99.9% of the users who add an iframe are editors or above this should affect almost no one directly and it makes the plugin more secure. 
+- Security fix: " inside advanced iframe shortcode attributes is not allowed anymore to avoid XSS attacks.
+- Security fix: Additional output filtering of short code attributes directly used in HTML or Javascript to avoid XSS attacks.  This is done for ALL roles!
+- New: The scroll to top in the external workaround is now also supporting the "touched" event next to the "click" event. 
+- New: The documentation was improved for scroll to top as the external workaround is also supporting "iframe" if "Scrolls the parent window/iframe to the top" is set to iframe.
+
 = 2023.10 =
 - New: Support for Partitioned; See https://developer.chrome.com/docs/privacy-sandbox/third-party-cookie-phase-out/ for details. All places where SameSite=None is set also Partitioned; is added now.
-- Fix: When saving the administration the detection of modified ai.min.js could cause a file_exists too long error with a lot of text shown. A wrong variable was used here which is fixed now. Now also the detection works that ai.min.js is regenerated again and again. 
+- Fix: When saving the administration the detection of modified ai.min.js could cause a file_exists too long error with a lot of text shown. A wrong variaentation ble was used here which is fixed now. Now also the detection works that ai.min.js is regenerated again and again. 
 
 = 2023.9 =
 - Security fix: The onload and custom attributes are now only allowed to be used if you have the permission "unfiltered_html", that you need in WordPress to use iframes. If you do not have this permission, during save the attributes are removed and an error message is shown.
@@ -225,7 +233,7 @@ If you have some radio elements empty after the update simply select the one you
 - Fix: The Javascript minimizer changed their URL. Now the new one is used. 
 - Fix: During search the help page is fully available now. This enables, that the links to the help section works properly.
 - Fix: auto_update_plugin filter was improved to not show a warning if "$item->slug" is not set.
-- Fix: Deprecated message in printReferrerpolicy fixed.
+- Fix: Deprecated message in printReferrerpolicy fixed. 
 
 = 2023 =
 - New: hide_part_of_iframe does now support position:fixed. This enables this feature also to work together with fullscreen iframes. Adding an f (position:fixed) in front of the zIndex has to be used to enable this. 

@@ -6,6 +6,7 @@ defined('_VALID_AI') or die('Direct Access to this location is not allowed.');
  
 $filenamedir  = dirname(__FILE__) . '/../../advanced-iframe-custom'; 
 
+
 if ($debug_js === 'bottom' && !isset($_REQUEST['debugRendered'])) {
     $html .= '<div id="aiDebugDivTotal"><div id="aiDebugDivHeader">Advanced iframe debug console - l: local messages, r: remote messages</div><div id="aiDebugDiv">';
     include_once dirname(__FILE__) . '/advanced-iframe-admin-functions.php';

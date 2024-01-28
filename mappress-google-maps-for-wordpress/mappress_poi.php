@@ -30,7 +30,7 @@ class Mappress_Poi extends Mappress_Obj {
 	function to_json() {
 		return array(
 			'address' => $this->address,
-			'body' => wpautop($this->body),
+			'body' => wp_kses_post($this->body),
 			'data' => $this->data,
 			'iconid' => $this->iconid,
 			'images' => $this->images,
@@ -45,6 +45,8 @@ class Mappress_Poi extends Mappress_Obj {
 
 	function __construct($atts = '') {
 		parent::__construct($atts);
+		$this->body = ($this->body) ? wp_kses_post($this->body) : null;
+		$this->title = ($this->title) ? sanitize_text_field($this->title) : null;
 	}
 
 	/**

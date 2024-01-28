@@ -36,9 +36,9 @@ if (isset($aip_standalone)) {
   }
 
 } else {
-// all $atts are checked if they contain invalid double quotes
-// if they do it will be removed. Spaces and commas are trimed
-$search = array("“","”","‘","’");
+// all $atts are checked if they contain invalid double quotes or double quotes
+// if they do it will be removed. Spaces and commas are trimmed
+$search = array("“","”","‘","’",'"');
 foreach($atts as $key => $value) {          
     $fix_value = str_replace($search, '', $value);
     $atts[$key] = trim($fix_value, " \n\r\t\v\0,");
@@ -566,17 +566,17 @@ if (file_exists(dirname(__FILE__) . '/advanced-iframe-browser-detection.php')) {
 
 // calculates dynamic width and height for + and -
 if ($pro) {
-if (strpos($width, '-') !== false || strpos($width, '+') !== false ) {
-   // + and - needs a space before and after the + and -. Otherwise is does not work in Firefox
-   $width = $this->formatCalcString($width);
-   $style .= ';width: calc('.esc_html($width).');';
-   $width = '';
-}
-if (strpos($height, '-') !== false || strpos($height, '+') !== false ) {
-   $height = $this->formatCalcString($height);
-   $style .= ';height: calc('.esc_html($height).');';
-   $height = '';
-}
+	if (strpos($width, '-') !== false || strpos($width, '+') !== false ) {
+	   // + and - needs a space before and after the + and -. Otherwise is does not work in Firefox
+	   $width = $this->formatCalcString($width);
+	   $style .= ';width: calc('.esc_html($width).');';
+	   $width = '';
+	}
+	if (strpos($height, '-') !== false || strpos($height, '+') !== false ) {
+	   $height = $this->formatCalcString($height);
+	   $style .= ';height: calc('.esc_html($height).');';
+	   $height = '';
+	}
 }
 
 $show_iframe_as_layer_div = false;
@@ -674,4 +674,11 @@ if ($fullscreen_button != 'false') {
     }
     $hide_part_of_iframe .= $right_location . ','.$top_location.',32,32,transparent$fullscreen,auto';     
 }    
+
+// filter possible XSS attacks
+$onload_resize_delay = AdvancedIframeHelper::filterXSS($onload_resize_delay);
+$reload_interval = AdvancedIframeHelper::filterXSS($reload_interval);
+$resize_on_element_resize_delay = AdvancedIframeHelper::filterXSS($resize_on_element_resize_delay);
+$include_fade = AdvancedIframeHelper::filterXSS($include_fade);
+$include_height = AdvancedIframeHelper::filterXSS($include_height);
 ?>

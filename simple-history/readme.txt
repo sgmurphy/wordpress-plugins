@@ -4,7 +4,7 @@ Contributors: eskapism
 Donate link: https://www.paypal.me/eskapism
 Tags: history, log, changes, changelog, audit, audit log, event log, user tracking, trail, pages, attachments, users, dashboard, admin, syslog, feed, activity, stream, audit trail, brute-force
 Tested up to: 6.4
-Stable tag: 4.9.0
+Stable tag: 4.10.0
 
 View changes made by users within WordPress. See who created a page, uploaded an attachment or approved an comment, and more.
 
@@ -210,6 +210,29 @@ This can be modified using the filter [`simple_history/db_purge_days_interval`](
    A simple way to see any uncommon activity, for example an increased number of logins or similar.
 
 ## Changelog
+
+### 4.10.0 (January 2024)
+
+This version introduces new features and improvements, including an enhanced first experience for new users. For more details and screenshots, check out the [release post](https://simple-history.com/2024/simple-history-4-10-0/).
+
+**Added**
+
+- Add logging of terms (custom taxonomies and built in tags and categories supported) added or removed to a post. [#214](https://github.com/bonny/WordPress-Simple-History/issues/214).
+
+**Improved**
+
+- Terms that are added, removed, or modified are now grouped. [#398](https://github.com/bonny/WordPress-Simple-History/issues/398).
+- Show a more user-friendly and informative welcome message after installation. [#418](https://github.com/bonny/WordPress-Simple-History/issues/418).
+
+**Fixed**
+
+- Missing translation in sidebar. [#417](https://github.com/bonny/WordPress-Simple-History/issues/417).
+- 'Activated plugin "{plugin_name}"' message after first install.
+- Duplicated plugin installed and activated messages after first install. [#317](https://github.com/bonny/WordPress-Simple-History/issues/317).
+
+**Removed**
+
+- Remove usage of [load_plugin_textdomain()](https://developer.wordpress.org/reference/functions/load_plugin_textdomain/) since it's not required for plugins that are translated via https://translate.wordpress.org/. [#419](https://github.com/bonny/WordPress-Simple-History/issues/419).
 
 ### 4.9.0 (January 2024)
 

@@ -86,10 +86,11 @@ class DFlip_Meta_boxes {
     // Load necessary metabox styles.
     wp_register_style( $this->base->plugin_slug . '-metabox-style', plugins_url( '../assets/css/metaboxes.css', __FILE__ ), array(), $this->base->version );
     wp_enqueue_style( $this->base->plugin_slug . '-metabox-style' );
+    wp_enqueue_style( 'wp-color-picker' );
     
     // Load necessary metabox scripts.
-    wp_register_script( $this->base->plugin_slug . '-metabox-script', plugins_url( '../assets/js/metaboxes.js', __FILE__ ), array( 'jquery-ui-sortable', 'jquery-ui-draggable', 'jquery-ui-resizable' ),
-        $this->base->version );
+    wp_register_script( $this->base->plugin_slug . '-metabox-script', plugins_url( '../assets/js/metaboxes.js', __FILE__ ),
+      array( 'jquery-ui-sortable', 'jquery-ui-draggable', 'jquery-ui-resizable', 'wp-color-picker' ), $this->base->version );
     wp_enqueue_script( $this->base->plugin_slug . '-metabox-script' );
     
     wp_enqueue_media( array( 'post' => $post_id ) );
@@ -102,13 +103,13 @@ class DFlip_Meta_boxes {
    * @since 1.0.0
    */
   public function add_meta_boxes() {
-    add_meta_box( 'dflip_post_meta_box_support_us', __( 'More Features in FULL VERSION!', 'DFLIP' ), array( $this, 'create_meta_boxes_support_us' ), 'dflip', 'normal', 'high' );
+    add_meta_box( 'dflip_post_meta_box_support_us', __( 'More Features in FULL VERSION!', '3d-flipbook-dflip-lite' ), array( $this, 'create_meta_boxes_support_us' ), 'dflip', 'normal', 'high' );
     
-    add_meta_box( 'dflip_post_meta_box', __( 'dFlip Settings', 'DFLIP' ), array( $this, 'create_meta_boxes' ), 'dflip', 'normal', 'high' );
+    add_meta_box( 'dflip_post_meta_box', __( 'dFlip Settings', '3d-flipbook-dflip-lite' ), array( $this, 'create_meta_boxes' ), 'dflip', 'normal', 'high' );
     
-    add_meta_box( 'dflip_post_meta_box_shortcode', __( 'Shortcode', 'DFLIP' ), array( $this, 'create_meta_boxes_shortcode' ), 'dflip', 'side', 'high' );
+    add_meta_box( 'dflip_post_meta_box_shortcode', __( 'Shortcode', '3d-flipbook-dflip-lite' ), array( $this, 'create_meta_boxes_shortcode' ), 'dflip', 'side', 'high' );
     
-    add_meta_box( 'dflip_post_meta_box_video', __( 'Useful Links', 'DFLIP' ), array( $this, 'create_meta_boxes_video' ), 'dflip', 'side', 'low' );
+    add_meta_box( 'dflip_post_meta_box_video', __( 'Useful Links', '3d-flipbook-dflip-lite' ), array( $this, 'create_meta_boxes_video' ), 'dflip', 'side', 'low' );
     
   }
   
@@ -157,9 +158,15 @@ class DFlip_Meta_boxes {
     
     $postId = $post->ID;
     $tabs = array(
-        'normal' => __( 'Normal', 'DFLIP' ),
-        'thumb'  => __( 'Thumbnail', 'DFLIP' ),
-        //        'button' => __( 'Button', 'DFLIP' )
+        'lightbox' => array(
+            'title'   => __( 'LightBox(Popup)', '3d-flipbook-dflip-lite' ),
+            'content' => 'Thumb:<br><code>[dflip id="{id}" type="thumb"][/dflip]</code>'
+        ),
+        'embed'    => array(
+            'title'   => __( 'Embed', '3d-flipbook-dflip-lite' ),
+            'content' => '<code>[dflip id="{id}" ][/dflip]</code><hr>
+                  <a class="df-notice" href="https://wordpress.dearflip.com/docs/multiple-flipbooks-in-a-page/" target="_blank">Not best for multiple viewers in a page.</a>'
+        )
     );
     
     if ( $current_screen->post_type == 'dflip' ) {
@@ -173,10 +180,10 @@ class DFlip_Meta_boxes {
             <?php
             //create tabs
             $active_set = false;
-            foreach ( (array) $tabs as $id => $title ) {
+                foreach ( (array) $tabs as $id => $tab ) {
               ?>
               <li class="dflip-tab <?php echo( $active_set == false ? 'dflip-active' : '' ) ?>">
-                <a href="#dflip-tab-content-<?php echo esc_attr( $id ) ?>"><?php echo esc_attr( $title ) ?></a></li>
+                        <a href="#dflip-tab-content-<?php echo $id ?>"><?php echo $tab['title'] ?></a></li>
               <?php $active_set = true;
             }
             ?>
@@ -184,15 +191,16 @@ class DFlip_Meta_boxes {
           <?php
           
           $active_set = false;
-          foreach ( (array) $tabs as $id => $title ) {
+            foreach ( (array) $tabs as $id => $tab ) {
             ?>
-            <div id="dflip-tab-content-<?php echo esc_attr( $id ) ?>"
+                <div id="dflip-tab-content-<?php echo $id ?>"
                     class="dflip-tab-content <?php echo( $active_set == false ? "dflip-active" : "" ) ?>">
-              <code>[dflip id="<?php echo esc_attr( $postId ) ?>"<?php echo( $active_set == true ? ' type="' . esc_attr( $id ) . '"' : '' ) ?>
-                ][/dflip]</code>
+                  <?php echo str_replace( "{id}", $postId, $tab['content'] ) ?>
               <?php $active_set = true; ?>
             </div>
           <?php } ?>
+              <br>
+              <a target="_blank" href="https://wordpress.dearflip.com/docs/shortcode-options/">More Shortcode Options</a>
         </div>
         <?php
       }
@@ -225,12 +233,9 @@ class DFlip_Meta_boxes {
             Documentation</a>
         </li>
         <li>
-          <a class="video-tutorial" href="https://wordpress.org/support/plugin/3d-flipbook-dflip-lite/" target="_blank"><span
-                    class="dashicons dashicons-format-chat"></span>Any Issues? Share with us!</a>
+                <a class="video-tutorial df-chrome" href="https://chrome.google.com/webstore/detail/pdf-viewer-pdf-flipbook-d/bbbnbmpdkfkndckfmcndgabefnmdedfp/?page=post" target="_blank">FREE Flipbook
+                    for Chrome</a>
         </li>
-        <!--        <li>-->
-        <!--          <a class="df-offer-notice" href="https://dearflip.com/go/wp-lite-notice" target="_blank"><img src="https://dearflip.com/go/wp-lite-notice-img" alt="Notice"></a>-->
-        <!--        </li>-->
       </ul>
       <?php
     }
@@ -252,9 +257,10 @@ class DFlip_Meta_boxes {
     wp_nonce_field( $this->base->plugin_slug, $this->base->plugin_slug );
     
     $tabs = array(
-        'source'  => __( 'Source', 'DFLIP' ),
-        'layout'  => __( 'Layout', 'DFLIP' ),
-        'outline' => __( 'Outline', 'DFLIP' )
+        'source'  => __( 'Source', '3d-flipbook-dflip-lite' ),
+        'layout'   => __( 'General/Layout', '3d-flipbook-dflip-lite' ),
+        'flipbook' => __( 'Flipbook', '3d-flipbook-dflip-lite' ),
+        'outline' => __( 'Outline', '3d-flipbook-dflip-lite' )
     );
     
     if ( $error = get_transient( "my_save_post_errors_{$post->ID}" ) ) { ?>
@@ -320,19 +326,19 @@ class DFlip_Meta_boxes {
     ?>
 
     <!--Pages for the book-->
-    <div id="dflip_pages_box" class="dflip-box " data-condition="dflip_source_type:is(image)" data-operator="and">
+      <div id="dflip_pages_box" class="df-box hide-on-fail " data-condition="dflip_source_type:is(image)" data-operator="and">
 
       <label for="dflip_pages" class="dflip-label">
-        <?php echo __( 'Custom Pages', 'DFLIP' ); ?>
+        <?php echo __( 'Custom Pages', '3d-flipbook-dflip-lite' ); ?>
       </label>
 
       <div class="dflip-desc">
-        <?php echo __( 'Add or remove pages as per your requirement. Plus reorder them in the order needed.', 'DFLIP' ); ?>
+        <?php echo __( 'Add or remove pages as per your requirement. Plus reorder them in the order needed.', '3d-flipbook-dflip-lite' ); ?>
       </div>
       <div class="dflip-option dflip-page-list">
         <a href="javascript:void(0);" class="dflip-page-list-add button button-primary"
                 title="Add New Page">
-          <?php echo __( 'Add New Page', 'DFLIP' ); ?>
+          <?php echo __( 'Add New Page', '3d-flipbook-dflip-lite' ); ?>
         </a>
         <ul id="dflip_page_list">
           <?php
@@ -353,7 +359,7 @@ class DFlip_Meta_boxes {
                 <div class="dflip-page-options">
 
                   <label for="dflip-page-<?php echo esc_attr( $index ); ?>-title">
-                    <?php echo __( 'Title', 'DFLIP' ); ?>
+                    <?php echo __( 'Title', '3d-flipbook-dflip-lite' ); ?>
                   </label>
                   <input type="text"
                           name="_dflip[pages][<?php echo esc_attr( $index ); ?>][url]"
@@ -362,7 +368,7 @@ class DFlip_Meta_boxes {
                           class="widefat">
 
                   <label for="dflip-page-<?php echo esc_attr( $index ); ?>-content">
-                    <?php echo __( 'Content', 'DFLIP' ); ?>
+                    <?php echo __( 'Content', '3d-flipbook-dflip-lite' ); ?>
                   </label>
                   <textarea rows="10" cols="40"
                           name="_dflip[pages][<?php echo esc_attr( $index ); ?>][content]"
@@ -444,26 +450,15 @@ class DFlip_Meta_boxes {
    *
    */
   public function layout_tab( $post ) {
-    
-    $this->create_global_setting( 'webgl', $post, 'global' );
-    $this->create_global_setting( 'hard', $post, 'global' );
+    $this->create_global_setting( 'texture_size', $post, 'global' );
+    $this->base->create_separator( 'Layout' );
+    $this->create_global_setting( 'height', $post, '' );
     $this->create_global_setting( 'bg_color', $post, '' );
     $this->create_global_setting( 'bg_image', $post, '' );
-    $this->create_global_setting( 'duration', $post, '' );
-    $this->create_global_setting( 'height', $post, '' );
-    $this->create_global_setting( 'texture_size', $post, 'global' );
-    
+    $this->base->create_separator( 'Controls' );
     $this->create_global_setting( 'auto_sound', $post, 'global' );
     $this->create_global_setting( 'enable_download', $post, 'global' );
-    $this->create_global_setting( 'page_mode', $post, 'global' );
-    $this->create_global_setting( 'single_page_mode', $post, 'global' );
     $this->create_global_setting( 'controls_position', $post, 'global' );
-    $this->create_normal_setting( 'direction', $post );
-    $this->create_normal_setting( 'force_fit', $post );
-    $this->create_global_setting( 'autoplay', $post, 'global' );
-    $this->create_global_setting( 'autoplay_duration', $post, '' );
-    $this->create_global_setting( 'autoplay_start', $post, 'global' );
-    $this->create_normal_setting( 'page_size', $post );
     ?>
 
     <!--Clear-fix-->
@@ -471,6 +466,25 @@ class DFlip_Meta_boxes {
     <?php
     
   }
+  
+  public function flipbook_tab( $post ) {
+    $this->create_global_setting( 'webgl', $post, 'global' );
+    $this->create_global_setting( 'hard', $post, 'global' );
+    $this->create_global_setting( 'duration', $post, '' );
+    $this->create_global_setting( 'page_mode', $post, 'global' );
+    $this->create_global_setting( 'single_page_mode', $post, 'global' );
+    $this->create_normal_setting( 'page_size', $post );
+    $this->create_global_setting( 'direction', $post, 'global' );
+    
+    $this->base->create_separator( 'Misc' );
+    $this->create_global_setting( 'autoplay', $post, 'global' );
+    $this->create_global_setting( 'autoplay_duration', $post, '' );
+    $this->create_global_setting( 'autoplay_start', $post, 'global' );
+    ?><!--Clear-fix-->
+      <div class="dflip-box"></div>
+    <?php
+  }
+  
   
   /**
    * Creates the UI for outline tab
@@ -485,8 +499,6 @@ class DFlip_Meta_boxes {
     $this->create_normal_setting( 'auto_outline', $post );
     $this->create_normal_setting( 'auto_thumbnail', $post );
     $this->create_normal_setting( 'overwrite_outline', $post );
-    
-    $data = get_post_meta( $post->ID, '_dflip_data', true );
     ?>
 
     <!--Outline/Bookmark-->
@@ -494,13 +506,12 @@ class DFlip_Meta_boxes {
 
       <div class="dflip-desc">
         <p>
-          <?php echo sprintf( __( 'Create a tree structure bookmark/outline of your book for easy access:<br>%s', 'DFLIP' ),
+          <?php echo sprintf( __( 'Create a tree structure bookmark/outline of your book for easy access:<br>%s', '3d-flipbook-dflip-lite' ),
               '<code>	Outline Name : (destination as blank or link to url or page number)</code>' ); ?>
         </p>
       </div>
 
       <div class="dflip-option dflip-textarea-simple">
-        <textarea rows="8" cols="40" id="dflip_settings">[[<?php echo json_encode( $data ); ?>]]</textarea>
         <textarea rows="8" cols="40" id="dflip_outline">
 					<?php
           $outline = $this->get_config( 'outline', $post );
@@ -690,7 +701,7 @@ class DFlip_Meta_boxes {
     $sanitized_data['overwrite_outline'] = sanitize_text_field( $_POST['_dflip']['overwrite_outline'] );
     
     $sanitized_data['outline'] = isset( $_POST['_dflip']['outline'] ) ? $this->array_text_sanitize( $_POST['_dflip']['outline'] ) : array();
-    
+    $sanitized_data['outline'] = $this->array_val($sanitized_data['outline'],'items');
     
     $settings = get_post_meta( $post_id, '_dflip_data', true );
     if ( empty( $settings ) ) {
@@ -741,6 +752,37 @@ class DFlip_Meta_boxes {
     }
     
     return $arr;
+    
+  }
+  
+  /**
+   * Removes index of array and returns only values array
+   *
+   * @param array Array to be de-ordered
+   * @param string $scan key index that needs to be de-ordered
+   *
+   * @return array sanitized array
+   * @since 1.0.0
+   *
+   */
+  private function array_val( $arr = array(), $scan = '' ) {
+    
+    if ( is_null( $arr ) ) {
+      return array();
+    }
+    
+    $_arr = array_values( $arr );
+    if ( $_arr != null && $scan !== '' ) {
+      foreach ( $_arr as &$val ) {
+        if ( is_array( $val ) ) {
+          if ( isset( $val[ $scan ] ) ) {
+            $val[ $scan ] = $this->array_val( $val[ $scan ], $scan );
+          }
+        }
+      }
+    }
+    
+    return $_arr;
     
   }
   
