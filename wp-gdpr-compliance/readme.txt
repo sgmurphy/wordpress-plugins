@@ -4,7 +4,7 @@ Tags: gdpr, law, regulations, compliance, data, protection, privacy, data protec
 Requires at least: 5.3
 Tested up to: 5.9
 Requires PHP: 7.0
-Stable tag: 2.0.22
+Stable tag: 2.0.23
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,10 @@ Get immediate access to:
 4. Overview of the view and delete requests by your site's visitors.
 
 == Changelog ==
+
+= 2.0.23 =
+*Release date: 29th Jan 2024*
+* Security improvements
 
 = 2.0.22 =
 *Release date: 15th Feb 2023*

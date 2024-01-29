@@ -70,7 +70,7 @@ final class Adapta_RGPD {
 	 * @var    string
 	 * @since  0.0.0
 	 */
-	const VERSION = '1.3.8.2';
+	const VERSION = '1.3.8.3';
 
 	/**
 	 * URL of plugin directory.

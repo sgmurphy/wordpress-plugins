@@ -221,7 +221,7 @@ __webpack_require__.r(__webpack_exports__);
  * Handle events for courses list.
  *
  * @since 4.2.5.8
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 
@@ -253,14 +253,15 @@ document.addEventListener('submit', function (e) {
 const elListenScroll = [];
 let timeOutSearch;
 window.lpCoursesList = (() => {
-  const classListCourseWrapper = '.learn-press-courses-wrapper';
-  const classListCourse = '.learn-press-courses';
+  const classListCourse = '.lp-list-courses-no-css';
   const classLPTarget = '.lp-target';
-  const classLoadMore = 'courses-btn-load-more';
+  const classLoadMore = 'courses-btn-load-more-no-css';
+  const classPageResult = '.courses-page-result';
+  const classLoading = '.lp-loading-no-css';
   const urlCurrent = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.lpGetCurrentURLNoParam)();
   return {
     clickNumberPage: (e, target) => {
-      const btnNumber = target.closest('.page-numbers');
+      const btnNumber = target.closest('.page-numbers:not(.disabled)');
       if (!btnNumber) {
         return;
       }
@@ -303,15 +304,12 @@ window.lpCoursesList = (() => {
       }
       // End
 
-      // Scroll to archive element
-      const elCoursesWrapper = elLPTarget.closest(`${classListCourseWrapper}`);
-      if (elCoursesWrapper) {
-        const optionScroll = {
-          behavior: 'smooth'
-        };
-        elCoursesWrapper.scrollIntoView(optionScroll);
-        //window.scrollBy( 0, -40 );
-      }
+      // Scroll to archive element{
+      const optionScroll = {
+        behavior: 'smooth'
+      };
+      elLPTarget.scrollIntoView(optionScroll);
+      window.scrollBy(0, -40);
       const callBack = {
         success: response => {
           //console.log( 'response', response );
@@ -334,20 +332,18 @@ window.lpCoursesList = (() => {
       };
       window.lpAJAXG.fetchAPI(_api__WEBPACK_IMPORTED_MODULE_0__["default"].frontend.apiAJAX, dataSend, callBack);
     },
-    LoadMore: (e, btnLoadMore) => {
-      const parent = btnLoadMore.closest(`.${classLoadMore}`);
-      if (!btnLoadMore.classList.contains(classLoadMore)) {
-        if (!parent) {
-          return;
-        }
-        btnLoadMore = parent;
+    LoadMore: (e, target) => {
+      const btnLoadMore = target.closest(`.${classLoadMore + ':not(.disabled)'}`);
+      if (!btnLoadMore) {
+        return;
       }
       const elLPTarget = btnLoadMore.closest(`${classLPTarget}`);
       if (!elLPTarget) {
         return;
       }
       e.preventDefault();
-      const elLoading = btnLoadMore.querySelector('.lp-loading-circle');
+      btnLoadMore.classList.add('disabled');
+      const elLoading = btnLoadMore.querySelector(classLoading);
       const dataObj = JSON.parse(elLPTarget.dataset.send);
       const dataSend = {
         ...dataObj
@@ -357,7 +353,9 @@ window.lpCoursesList = (() => {
       }
       dataSend.args.paged++;
       elLPTarget.dataset.send = JSON.stringify(dataSend);
-      elLoading.classList.remove('hide');
+      if (elLoading) {
+        elLoading.classList.remove('hide');
+      }
       const callBack = {
         success: response => {
           const {
@@ -365,21 +363,30 @@ window.lpCoursesList = (() => {
             message,
             data
           } = response;
+          const paged = parseInt(data.paged);
+          const totalPages = parseInt(data.total_pages);
           const newEl = document.createElement('div');
           newEl.innerHTML = data.content || '';
-          const elListCourse = elLPTarget.querySelector(`${classListCourse}`);
-          elListCourse.insertAdjacentHTML('beforeend', newEl.querySelector(`${classListCourse}`).innerHTML);
-          if (data.total_pages === data.paged) {
-            const elPagination = elLPTarget.querySelector('.learn-press-pagination');
-            elPagination.remove();
+          const elListCourse = elLPTarget.querySelector(classListCourse);
+          const elPageResult = elLPTarget.querySelector(classPageResult);
+          const elPageResultNew = newEl.querySelector(classPageResult);
+          elListCourse.insertAdjacentHTML('beforeend', newEl.querySelector(classListCourse).innerHTML);
+          if (elPageResult && elPageResultNew) {
+            elPageResult.innerHTML = elPageResultNew.innerHTML;
+          }
+          if (paged >= totalPages) {
+            btnLoadMore.remove();
           }
         },
         error: error => {
           console.log(error);
         },
         completed: () => {
-          console.log('completed');
-          elLoading.classList.add('hide');
+          //console.log( 'completed' );
+          if (elLoading) {
+            elLoading.classList.add('hide');
+          }
+          btnLoadMore.classList.remove('disabled');
         }
       };
       window.lpAJAXG.fetchAPI(_api__WEBPACK_IMPORTED_MODULE_0__["default"].frontend.apiAJAX, dataSend, callBack);
@@ -388,8 +395,12 @@ window.lpCoursesList = (() => {
       // When see element, will call API to load more items.
       const callBackAfterSeeItem = entry => {
         const elInfinite = entry.target;
-        const elLoading = elInfinite.querySelector('.lp-loading-circle');
+        const elLoading = elInfinite.querySelector(`${classLoading}:not(.disabled)`);
+        if (!elLoading) {
+          return;
+        }
         elLoading.classList.remove('hide');
+        elLoading.classList.add('disabled');
         const elLPTarget = elInfinite.closest(classLPTarget);
         if (!elLPTarget) {
           return;
@@ -416,7 +427,12 @@ window.lpCoursesList = (() => {
             const newEl = document.createElement('div');
             newEl.innerHTML = data.content || '';
             const elListCourse = elLPTarget.querySelector(classListCourse);
+            const elPageResult = elLPTarget.querySelector(classPageResult);
+            const elPageResultNew = newEl.querySelector(classPageResult);
             elListCourse.insertAdjacentHTML('beforeend', newEl.querySelector(classListCourse).innerHTML);
+            if (elPageResult && elPageResultNew) {
+              elPageResult.innerHTML = elPageResultNew.innerHTML;
+            }
             if (data.total_pages === data.paged) {
               elInfinite.remove();
             }
@@ -426,6 +442,8 @@ window.lpCoursesList = (() => {
           },
           completed: () => {
             //console.log( 'completed' );
+            elLoading.classList.add('hide');
+            elLoading.classList.remove('disabled');
           }
         };
         window.lpAJAXG.fetchAPI(_api__WEBPACK_IMPORTED_MODULE_0__["default"].frontend.apiAJAX, dataSend, callBack);
@@ -433,13 +451,13 @@ window.lpCoursesList = (() => {
 
       // Listen el courses load infinite have just created.
       (0,_utils__WEBPACK_IMPORTED_MODULE_1__.listenElementCreated)(node => {
-        if (node.classList.contains('courses-load-infinite')) {
+        if (node.classList.contains('courses-load-infinite-no-css')) {
           (0,_utils__WEBPACK_IMPORTED_MODULE_1__.listenElementViewed)(node, callBackAfterSeeItem);
         }
       });
 
       // If el created on DOMContentLoaded.
-      const elInfinite = document.querySelector('.courses-load-infinite');
+      const elInfinite = document.querySelector('.courses-load-infinite-no-css');
       if (elInfinite) {
         (0,_utils__WEBPACK_IMPORTED_MODULE_1__.listenElementViewed)(elInfinite, callBackAfterSeeItem);
       }

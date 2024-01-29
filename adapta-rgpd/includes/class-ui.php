@@ -571,7 +571,7 @@ class ARGPD_Ui {
 							break;
 						case "modern-flex":
 							img_name = "moderno-oscuro-columnas.png";
-							break;						
+							break;
 					}
 					$('#theme-preview').attr("src", ruta + img_name);	
 				}
@@ -1986,6 +1986,21 @@ class ARGPD_Ui {
 									<br/><br/>
 									<img id="theme-preview" src="" width="500px">
 									<br/><br/>
+									
+									<label  for="cookies-settings-button">
+										<input 	name="cookies-settings-button" 
+												type="checkbox" 
+												id="cookies-settings-button"
+												value="1"							
+												<?php ( $settings->get_setting( 'cookies-settings-button' ) == 1 ) && printf( 'checked' ); ?>
+												>
+												<?php esc_html_e( 'Botón para &laquo;Configurar cookies&raquo;', 'argpd' ); ?> 
+												<br/>
+												<p class="description">
+													<?php esc_html_e( 'Recomendado', 'argpd' ); ?>
+												</p>
+									</label>
+
 									<label  for="cookies-sticky-button">
 										<input 	name="cookies-sticky-button" 
 												type="checkbox" 
@@ -1993,10 +2008,10 @@ class ARGPD_Ui {
 												value="1"							
 												<?php ( $settings->get_setting( 'cookies-sticky-button' ) == 1 ) && printf( 'checked' ); ?>
 												>
-												<?php esc_html_e( 'Botón flotante para mostrar el Banner de Cookies.', 'argpd' ); ?> 
+												<?php esc_html_e( 'Botón flotante para mostrar el Banner de Cookies', 'argpd' ); ?> 
 												<br/>
 												<p class="description">
-													<?php esc_html_e( 'Recomendado.', 'argpd' ); ?>
+													<?php esc_html_e( 'Recomendado', 'argpd' ); ?>
 												</p>
 									</label>
 								</td>

@@ -2307,16 +2307,32 @@ class ModuleService {
         ];
 
         $settings_fields['element_pack_third_party_widget'][] = [
-            'name'        => 'bbpress',
-            'label'       => esc_html__('bbPress (deprecated)', 'bdthemes-element-pack'),
-            'type'        => 'checkbox',
-            'default'     => 'off',
-            'plugin_name' => 'bbpress',
-            'plugin_path' => 'bbpress/bbpress.php',
-            'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/bbpress',
-            'video_url'   => 'https://youtu.be/7vkAHZ778c4',
-        ];
+			'name'        => 'acf-accordion',
+			'label'       => esc_html__('ACF Accordion', 'bdthemes-element-pack'),
+			'type'        => 'checkbox',
+			'default'     => 'off',
+			'plugin_name' => 'advanced-custom-fields-pro',
+			'plugin_path' => 'advanced-custom-fields-pro/acf.php',
+			'paid'        => 'https://www.advancedcustomfields.com/pro/',
+			'widget_type' => 'pro',
+			'content_type' => 'acf new',
+			'demo_url'    => 'https://www.elementpack.pro/demo/element/acf-accordion',
+			'video_url'   => '',
+		];
+		
+		$settings_fields['element_pack_third_party_widget'][] = [
+			'name'        => 'acf-gallery',
+			'label'       => esc_html__('ACF Gallery', 'bdthemes-element-pack'),
+			'type'        => 'checkbox',
+			'default'     => 'off',
+			'plugin_name' => 'advanced-custom-fields-pro',
+			'plugin_path' => 'advanced-custom-fields-pro/acf.php',
+			'paid'        => 'https://www.advancedcustomfields.com/pro/',
+			'widget_type' => 'pro',
+			'content_type' => 'acf new',
+			'demo_url'    => 'https://www.elementpack.pro/demo/element/acf-gallery',
+			'video_url'   => '',
+		];
 
         $settings_fields['element_pack_third_party_widget'][] = [
             'name'        => 'bbpress-forum-form',

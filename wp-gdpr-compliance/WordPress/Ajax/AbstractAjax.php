@@ -58,6 +58,10 @@ abstract class AbstractAjax {
 	public static function execute() {
         check_ajax_referer( Plugin::AJAX_NONCE, Plugin::AJAX_ARG );
 
+        if ( !static::isPublic() && !current_user_can('manage_options') ) {
+            static::returnError(__('You do not have sufficient permissions to access this page.', 'vo-gdpr-compliance'));
+        }
+
 		if ( ! static::hasData() ) {
 			static::buildResponse([]);
 			return;

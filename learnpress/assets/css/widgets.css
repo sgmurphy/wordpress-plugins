@@ -343,23 +343,25 @@
     max-width: 400px;
   }
 }
-.learnpress.widget .learnpress-widget-wrapper {
+.learnpress.widget h3 {
+  margin-bottom: 20px;
+}
+.learnpress.widget a {
+  text-decoration: none;
+}
+
+.learnpress-widget-wrapper {
   margin-top: 16px;
   position: relative;
 }
-.learnpress.widget .learnpress-widget-wrapper .lp-widget-loading-change {
+.learnpress-widget-wrapper .lp-widget-loading-change {
   position: absolute;
   display: none;
   width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, 0.38);
   top: 0;
-}
-.learnpress.widget h3 {
-  margin-bottom: 20px;
-}
-.learnpress.widget a {
-  text-decoration: none;
+  z-index: 10;
 }
 
 .learnpress-widget-wrapper .lp-widget-course {

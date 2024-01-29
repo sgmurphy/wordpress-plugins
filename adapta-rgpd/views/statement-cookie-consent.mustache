@@ -19,12 +19,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
           
           {{! if custom cookies page exists }}
           {{#custom-cookies-page-url}}
-          <a class="argpd-cookies-politica" rel="nofollow" id="cookies-eu-more" href="{{ custom-cookies-page-url }}">{{#cookies-linklabel}}{{cookies-linklabel}}{{/cookies-linklabel}}{{^cookies-linklabel}}{{#__}}Configurar y más información{{/__}}{{/cookies-linklabel}}</a>
+          {{^cookies-settings-button}}
+          <a class="argpd-cookies-politica" rel="nofollow" id="cookies-eu-more" href="{{ custom-cookies-page-url }}">{{cookies-linklabel}}</a>
+          {{/cookies-settings-button}}
           {{/custom-cookies-page-url}}
 
           {{! if custom cookies page doesnt exists }}
           {{^custom-cookies-page-url}}
-          {{# cookiesURL }}<a class="argpd-cookies-politica" rel="nofollow" id="cookies-eu-more" href="{{ cookiesURL }}">{{#cookies-linklabel}}{{cookies-linklabel}}{{/cookies-linklabel}}{{^cookies-linklabel}}{{#__}}Configurar y más información{{/__}}{{/cookies-linklabel}}</a>{{/ cookiesURL }}
+          {{# cookiesURL }}<a class="argpd-cookies-politica" rel="nofollow" id="cookies-eu-more" href="{{ cookiesURL }}">{{cookies-linklabel}}</a>{{/ cookiesURL }}
           {{/custom-cookies-page-url}}
 
       {{/cookies-label}}
@@ -36,7 +38,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       {{/cookies-label}}
       </div>
 
-        <div id="cookies-eu-buttons"><button id="cookies-eu-reject" class="cookies-eu-reject">{{ cookies-rejectlabel }}</button>
+      <div id="cookies-eu-buttons">
+        {{#cookies-settings-button}}
+        <form action="{{ custom-cookies-page-url }}">
+          <button id="cookies-eu-settings" class="cookies-eu-settings">{{cookies-linklabel}}</button>
+        </form>
+        {{/cookies-settings-button}}
+        <button id="cookies-eu-reject" class="cookies-eu-reject">{{ cookies-rejectlabel }}</button>
         <button id="cookies-eu-accept" class="cookies-eu-accept">{{ cookies-btnlabel }}</button></div>
     </div>
 </div>

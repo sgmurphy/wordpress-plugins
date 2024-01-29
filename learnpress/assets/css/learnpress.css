@@ -5744,7 +5744,7 @@ a {
 .learn-press-courses[data-layout=grid] .course-content .course-title {
   font-size: 1.25em;
 }
-.learn-press-courses[data-layout=grid] .course-content .course-wrap-meta, .learn-press-courses[data-layout=grid] .course-content .course-excerpt, .learn-press-courses[data-layout=grid] .course-content .course-readmore {
+.learn-press-courses[data-layout=grid] .course-content .course-wrap-meta, .learn-press-courses[data-layout=grid] .course-content .course-excerpt, .learn-press-courses[data-layout=grid] .course-content .course-short-description, .learn-press-courses[data-layout=grid] .course-content .course-readmore {
   display: none;
 }
 .learn-press-courses[data-layout=grid] .course-content .separator {
@@ -5792,7 +5792,7 @@ a {
   display: none;
 }
 
-#lp-list-courses-default .lp-skeleton-animation {
+.lp-list-courses-default .lp-skeleton-animation {
   clear: both;
   padding: 5px 0 0 0;
 }

@@ -291,7 +291,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const elListCoursesIdNewDefault = '#lp-list-courses-default';
+const elListCoursesIdNewDefault = '.lp-list-courses-default';
 if ('undefined' === typeof lpData || 'undefined' === typeof lpSettingCourses) {
   console.log('lpData || lpSettingCourses is undefined');
 }

@@ -140,7 +140,7 @@ const callAdminNotices = (set = '') => {
   let params = tab ? `?tab=${tab}` : '';
   params += set ? (tab ? '&' : '?') + `${set}` : '';
   fetch(_api__WEBPACK_IMPORTED_MODULE_0__["default"].apiAdminNotice + params, {
-    method: 'GET',
+    method: 'POST',
     headers: {
       'X-WP-Nonce': lpGlobalSettings.nonce
     }

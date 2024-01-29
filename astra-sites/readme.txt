@@ -5,7 +5,7 @@ Tags: Elementor,Beaver Builder,Templates,Gutenberg,Block Editor,Astra Starter Si
 Requires at least: 4.4
 Requires PHP: 7.4
 Tested up to: 6.4
-Stable tag: 4.0.6
+Stable tag: 4.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -134,6 +134,9 @@ We are open to suggestions and would love to work on topics that our users are l
 8. Free Images by Pixabay right inside the WordPress media popup.
 
 == Changelog ==
+
+v4.0.7 - 29-January-2024
+- Fix: Resolved an issue where the Premium Template Kits won't get imported.
 
 v4.0.6 - 25-January-2024
 - Improvement: Enhanced user experience by providing informative error messages for better troubleshooting.

@@ -51,8 +51,10 @@
   }
 }
 
+#cookies-eu-settings,
 #cookies-eu-accept,
 #cookies-eu-reject,
+.cookies-eu-settings,
 .cookies-eu-accept,
 .cookies-eu-reject {
   text-decoration: none;
@@ -97,17 +99,23 @@
     color: #fff;
 }
 
+#cookies-eu-settings, 
+.cookies-eu-settings,
 #cookies-eu-reject,
 .cookies-eu-reject {
     background: none;
     font-weight: normal;
-    color: #333;
+    color: #444;
     cursor: pointer;
     padding: 10px 10px;
     /*margin: 2px 0;*/
     border: 1px solid #666;
 }
 
+#cookies-eu-settings:hover,
+#cookies-eu-settings:focus,
+.cookies-eu-settings:hover,
+.cookies-eu-settings:focus,
 #cookies-eu-reject:hover,
 #cookies-eu-reject:focus,
 .cookies-eu-reject:hover,
@@ -116,6 +124,16 @@
     background: #222;
     color: #fff;
 }
+
+#cookies-eu-banner .cookies-eu-reject,
+#cookies-eu-banner .cookies-eu-settings{
+  color: white!important;
+}
+
+#cookies-eu-banner form{
+  display: contents;
+}
+
 
 /* custom-cookies-option */
 

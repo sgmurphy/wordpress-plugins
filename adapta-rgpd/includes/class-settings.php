@@ -97,6 +97,7 @@ class ARGPD_Settings {
 		'cookies-filter-known-scripts' => 0,
 		'cookies-reload'               => 0,
 		'cookies-sticky-button'        => 0,
+		'cookies-settings-button'      => 0, // button to manage cookie options
 		'remove-iframes'               => 0,
 		'consentimiento-label'         => '',
 		'informbox-theme'              => 'simple',

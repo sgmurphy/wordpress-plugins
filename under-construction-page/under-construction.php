@@ -4,7 +4,7 @@
   Plugin URI: https://underconstructionpage.com/
   Description: Put your site behind a great looking under construction, coming soon, maintenance mode or landing page.
   Author: WebFactory Ltd
-  Version: 3.97
+  Version: 3.98
   Requires at least: 4.0
   Requires PHP: 5.2
   Tested up to: 6.4
@@ -784,7 +784,7 @@ class UCP
             !self::is_construction_mode_enabled(false)
         )
             // keeping everything inline due to minimal CSS
-            echo '<div style="background-color: #333; line-height: 140%; font-size: 14px; position: fixed; display: block; top: 50px; z-index: 99999; color: #fefefe; padding: 20px 35px 20px 20px; width: 500px; border: thin solid #fefefe; left: -1px;"><a style="color: #ea1919; font-weight: 900; text-decoration: none; position: absolute; top: 7px; right: 10px;" href="' . esc_url($dismiss_url) . '" alt="Dismiss notice" onclick="window.location.href = \'' . esc_url($dismiss_url) . '\'; return false;" title="Dismiss notice">X</a>' . __('<b>Under Construction Mode is enabled</b> but you are whitelisted so you see the normal site.', 'under-construction-page') . '<br><a href="' . esc_url(get_home_url()) . '/?ucp_preview" style="text-decoration: underline; color: #fefefe;">' . esc_attr__('Preview UnderConstructionPage', 'under-construction-page') . '</a><br><a href="' . esc_url(admin_url('options-general.php?page=ucp')) . '" style="text-decoration: underline; color: #fefefe;">' . esc_attr__('Configure UnderConstructionPage', 'under-construction-page') . '</a></div>';
+            echo '<div style="background-color: #333; line-height: 140%; font-size: 14px; position: fixed; display: block; top: 50px; z-index: 99999; color: #fefefe; padding: 20px 35px 20px 20px; width: 100%; max-width:400px; border: thin solid #fefefe; left: -1px;"><a style="color: #ea1919;font-weight: 900;text-decoration: none;position: absolute;top: 12px;right: 10px;font-size: 40px;background: #000;padding: 5px 4px 4px 4px;border: 3px solid #ea1919;border-radius: 20px; height: 35px;" href="' . esc_url($dismiss_url) . '" alt="Dismiss notice" onclick="window.location.href = \'' . esc_url($dismiss_url) . '\'; return false;" title="Dismiss notice">×</a>' . __('<b>Under Construction Mode is enabled</b> but you are whitelisted so you see the normal site.', 'under-construction-page') . '<br><a href="' . esc_url(get_home_url()) . '/?ucp_preview" style="text-decoration: underline; color: #fefefe;">' . esc_attr__('Preview UnderConstructionPage', 'under-construction-page') . '</a><br><a href="' . esc_url(admin_url('options-general.php?page=ucp')) . '" style="text-decoration: underline; color: #fefefe;">' . esc_attr__('Configure UnderConstructionPage', 'under-construction-page') . '</a></div>';
     } // whitelisted_notification
 
 

@@ -5,7 +5,7 @@
  * Description:       The consent solution for non-businesses. This is a free plug-in that offers basic features.
  * Author:            Cookie Information
  * Author URI:        https://cookieinformation.com/
- * Version:           2.0.22
+ * Version:           2.0.23
  * Text Domain:       wp-gdpr-compliance
  * Domain Path:       /Resources/languages
  * Requires at least: 5.3
@@ -33,7 +33,7 @@ spl_autoload_register( __NAMESPACE__ . '\\autoload' );
 define( 'WPGDPRC_ROOT', dirname( __FILE__ ) . '/' );
 define( 'WPGDPRC_ROOT_FILE', __FILE__ );
 define( 'WPGDPRC_FILE', plugin_basename( __FILE__ ) );
-define( 'WPGDPRC_VERSION', '2.0.22' );
+define( 'WPGDPRC_VERSION', '2.0.23' );
 define( 'WPGDPRC_PREFIX', strtolower( __NAMESPACE__ ) );
 
 // register activation & deactivation hook to add/remove plugin specific database options

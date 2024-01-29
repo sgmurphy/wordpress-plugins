@@ -140,6 +140,14 @@ class HMWP_Models_Compatibility_Others extends HMWP_Models_Compatibility_Abstrac
 
         //Check if login recaptcha is loaded
         add_filter('hmwp_option_brute_use_math', function ($check){
+            global $hmwp_bruteforce;
+
+            //check if the shortcode was called
+            if(isset($hmwp_bruteforce) && $hmwp_bruteforce){
+                return true;
+            }
+
+            //check the brute force
             if($check && !HMWP_Classes_Tools::getValue('brute_ck')){
                 if(isset($_SERVER['REQUEST_URI'])){
                     $url = $_SERVER['REQUEST_URI'];

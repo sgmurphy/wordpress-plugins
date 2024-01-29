@@ -4,7 +4,7 @@
  * Plugin Name: Element Pack Lite - Addons for Elementor
  * Plugin URI: http://elementpack.pro/
  * Description: The all-new <a href="https://elementpack.pro/">Element Pack</a> brings incredibly advanced, and super-flexible widgets, and A to Z essential addons to the Elementor page builder for WordPress. Explore expertly-coded widgets with first-class support by experts.
- * Version: 5.4.14
+ * Version: 5.5.0
  * Author: BdThemes
  * Author URI: https://bdthemes.com/
  * Text Domain: bdthemes-element-pack-lite
@@ -68,7 +68,7 @@ if ( ! function_exists( 'element_pack_pro_activated' ) ) {
 if ( ! element_pack_pro_installed() ) {
 
 	// Some pre defined value for easy use
-	define( 'BDTEP_VER', '5.4.14' );
+	define( 'BDTEP_VER', '5.5.0' );
 	define( 'BDTEP_TPL_DB_VER', '1.0.0' );
 	define( 'BDTEP__FILE__', __FILE__ );
 	if ( ! defined( 'BDTEP_TITLE' ) ) {
@@ -173,52 +173,6 @@ if ( ! element_pack_pro_installed() ) {
 
 	add_action( 'activated_plugin', 'ep_activation_redirect', 20 );
 
-
-	if ( ! function_exists( 'bdtep_fs' ) ) {
-		// Create a helper function for easy SDK access.
-		function bdtep_fs() {
-			global $bdtep_fs;
-
-			if ( ! isset( $bdtep_fs ) ) {
-				// Include Freemius SDK.
-				require_once dirname( __FILE__ ) . '/freemius/start.php';
-
-				$bdtep_fs = fs_dynamic_init( array(
-					'id'                  => '12687',
-					'slug'                => 'bdthemes-element-pack-lite',
-					'premium_slug'        => 'bdthemes-element-pack',
-					'type'                => 'plugin',
-					'public_key'          => 'pk_a3dc126cd59aadc29e8aec86e3159',
-					'is_premium'          => false,
-					'premium_suffix'      => 'Pro',
-					// If your plugin is a serviceware, set this option to false.
-					'has_premium_version' => false,
-					'has_addons'          => false,
-					'has_paid_plans'      => false,
-					'menu'                => array(
-						'slug'        => 'element_pack_options',
-						'first-path'  => 'admin.php?page=element_pack_options',
-						'contact'     => false,
-						'support'     => false,
-						'account'     => false,
-						'affiliation' => false,
-					),
-					// Set the SDK to work in a sandbox mode (for development & testing).
-					// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
-					'secret_key'          => 'sk_Wv&@AuP20ijQDykiwCQSw1_:OqMjZ',
-				) );
-			}
-
-			return $bdtep_fs;
-		}
-
-		// Init Freemius.
-		bdtep_fs();
-		// Signal that SDK was initiated.
-		do_action( 'bdtep_fs_loaded' );
-	}
-
-
 	/**
 	 * Review Automation Integration
 	 */
@@ -246,5 +200,34 @@ if ( ! element_pack_pro_installed() ) {
 
 		}
 		add_action( 'admin_init', 'rc_ep_lite_plugin' );
+	}
+
+
+/**
+ * SDK Integration
+ */
+
+	if (!function_exists('dci_plugin_element_pack_lite')) {
+			function dci_plugin_element_pack_lite() {
+
+				// Include DCI SDK.
+				require_once dirname(__FILE__) . '/dci/start.php';
+
+				dci_dynamic_init(array(
+					'sdk_version'  => '1.1.0',
+					'product_id'   => 4,
+					'plugin_name'  => 'Element Pack Lite', // make simple, must not empty
+					'plugin_title' => 'Love using Element Pack Lite? Congrats 🎉  ( Never miss an Important Update )', // You can describe your plugin title here
+					'plugin_icon'  => BDTEP_ASSETS_URL . 'images/logo.svg',
+					'api_endpoint' => 'https://analytics.bdthemes.com/wp-json/dci/v1/data-insights',
+					'menu'         => array(
+						'slug' => 'element_pack_options',
+					),
+					'public_key'   => 'pk_ilWmdZmKDWVCdkkKvf5SnD5ib3nZmLJr',
+					'is_premium'   => false,
+					'plugin_msg'   => '<p>Be Top-contributor by sharing non-sensitive plugin data and create an impact to the global WordPress community today! You can receive valuable emails periodically.</p>',
+				));
+			}
+			add_action('admin_init', 'dci_plugin_element_pack_lite');
 	}
 }

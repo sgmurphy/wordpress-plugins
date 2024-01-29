@@ -50,9 +50,9 @@ class Custom_Gallery extends Module_Base {
 
 	public function get_script_depends() {
 		if ($this->ep_is_edit_mode()) {
-			return ['imagesloaded', 'tilt', 'ep-scripts'];
+			return ['tilt', 'ep-scripts'];
 		} else {
-			return ['imagesloaded', 'tilt', 'ep-custom-gallery'];
+			return ['tilt', 'ep-custom-gallery'];
 		}
 	}
 

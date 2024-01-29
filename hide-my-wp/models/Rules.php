@@ -537,7 +537,7 @@ class HMWP_Models_Rules
 		            $rules .= "RewriteCond %{HTTP_REFERER} (order(\s|%20)by(\s|%20)1--) [NC,OR]" . PHP_EOL;
 		            $rules .= "RewriteCond %{HTTP_REFERER} (blue\spill|cocaine|ejaculat|erectile|erections|hoodia|huronriveracres|impotence|levitra|libido|lipitor|phentermin|pro[sz]ac|sandyauer|tramadol|troyhamby|ultram|unicauca|valium|viagra|vicodin|xanax|ypxaieo) [NC,OR]" . PHP_EOL;
 
-		            $rules .= "RewriteCond %{REQUEST_METHOD ^(connect|debug|move|trace|track) [NC]" . PHP_EOL;
+		            $rules .= "RewriteCond %{REQUEST_METHOD} ^(connect|debug|move|trace|track) [NC]" . PHP_EOL;
 
 	            }
 

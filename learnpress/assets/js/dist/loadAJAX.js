@@ -267,7 +267,12 @@ const lpAJAX = () => {
         elements.forEach(element => {
           //console.log( 'Element handing', element );
           element.classList.add('loaded');
-          const url = _api__WEBPACK_IMPORTED_MODULE_1__["default"].frontend.apiAJAX;
+          let url = _api__WEBPACK_IMPORTED_MODULE_1__["default"].frontend.apiAJAX;
+          if (lpData.urlParams.hasOwnProperty('lang')) {
+            url = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.lpAddQueryArgs)(url, {
+              lang: lpData.urlParams.lang
+            });
+          }
           const elTarget = element.querySelector('.lp-target');
           const dataObj = JSON.parse(elTarget.dataset.send);
           const dataSend = {

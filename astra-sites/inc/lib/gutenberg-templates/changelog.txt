@@ -1,3 +1,6 @@
+v2.1.10 - 29-January-2023
+- Fix: Resolved premium pages import issue in the kits section..
+
 v2.1.9 - 08-January-2023
 - Fix: Reverted capabilities check from manage_options to edit_post.
 

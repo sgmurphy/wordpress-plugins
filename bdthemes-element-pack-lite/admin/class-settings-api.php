@@ -859,9 +859,8 @@ if (!class_exists('ElementPack_Settings_API')) :
                                                         <li class="ep-widget-slider" bdt-filter-control="filter: [data-content-type*='slider']; group: data-widget-type"><a href="#">Slider</a></li>
                                                         <li class="ep-widget-carousel" bdt-filter-control="filter: [data-content-type*='carousel']; group: data-widget-type"><a href="#">Carousel</a></li>
                                                         <?php if ($form['id'] == 'element_pack_third_party_widget') : ?>
+                                                            <li class="ep-widget-acf" bdt-filter-control="filter: [data-content-type*='acf']; group: data-widget-type"><a href="#">ACF</a></li>
                                                             <li class="ep-widget-forms" bdt-filter-control="filter: [data-content-type*='forms']; group: data-widget-type"><a href="#">Forms</a></li>
-                                                        <?php endif; ?>
-                                                        <?php if ($form['id'] == 'element_pack_third_party_widget') : ?>
                                                             <li class="ep-widget-ecommerce" bdt-filter-control="filter: [data-content-type*='ecommerce']; group: data-widget-type"><a href="#">eCommerce</a></li>
                                                         <?php endif; ?>
 

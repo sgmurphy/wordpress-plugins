@@ -3,7 +3,7 @@ Contributors: pt-guy
 Tags: post grid, post blocks, recent posts, gutenberg blocks, grid, display posts, post list, post slider, post accordion, gutenberg, blocks, category post, news, magazine, portfolio, latest posts, related posts
 Requires at least: 3.3
 Tested up to: 6.4
-Requires PHP: 5.5
+Requires PHP: 5.6
 Stable tag: 3.6.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html

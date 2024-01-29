@@ -4,7 +4,7 @@ Tags: coming soon page, under construction mode, under construction, under const
 Requires at least: 4.0
 Requires PHP: 5.2
 Tested up to: 6.4
-Stable tag: 3.97
+Stable tag: 3.98
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -140,6 +140,10 @@ Or if needed, upload manually;
 
 
 == Changelog ==
+
+= 3.98 =
+* 2024/01/29
+* fixed notice popup close button
 
 = 3.97 =
 * 2023/02/10

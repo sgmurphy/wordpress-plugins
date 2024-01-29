@@ -303,6 +303,9 @@ class ARGPD_Admin {
 		$cookies_fixed = isset( $_POST['cookies-sticky-button'] ) ? 1 : 0;
 		$this->plugin->argpd_settings->update_setting( 'cookies-sticky-button', $cookies_fixed );
 
+		$cookies_settings_button = isset( $_POST['cookies-settings-button'] ) ? 1 : 0;
+		$this->plugin->argpd_settings->update_setting( 'cookies-settings-button', $cookies_settings_button );
+
 		$remove_iframes = isset( $_POST['remove-iframes'] ) ? 1 : 0;
 		$this->plugin->argpd_settings->update_setting( 'remove-iframes', $remove_iframes );
 

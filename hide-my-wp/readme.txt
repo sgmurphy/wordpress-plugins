@@ -292,6 +292,7 @@ Enjoy!
 * Fixed - Specify the jQuery on Disable Click feature
 * Update - Compatibility with Hostinger
 * Update - Compatibility with InstaWP
+* Update - Add shortcode on BruteForce [hmwp_bruteforce] for any login form
 * Fixed - Small Bugs
 
 = 5.0.26 (28 Aug 2023) =

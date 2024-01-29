@@ -196,4 +196,3 @@ class BdThemes_Duplicator {
 if ( class_exists( '\ElementPack\Includes\BdThemes_Duplicator' ) ) {
 	new BdThemes_Duplicator();
 }
-

@@ -92,7 +92,6 @@ if ( ! class_exists( 'Astra_Sites_Zip_AI' ) ) :
 		public function load() {
 			global $zip_ai_path;
 			if ( ! is_null( $zip_ai_path ) && is_file( realpath( $zip_ai_path ) ) ) {
-				error_log($zip_ai_path);
 				include_once realpath( $zip_ai_path );
 			}
 		}

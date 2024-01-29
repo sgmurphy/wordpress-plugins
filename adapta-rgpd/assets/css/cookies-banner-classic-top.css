@@ -50,6 +50,8 @@
   }
 }
 
+#cookies-eu-settings,
+.cookies-eu-settings,
 #cookies-eu-accept,
 #cookies-eu-reject,
 .cookies-eu-accept,
@@ -96,6 +98,13 @@
     color: #fff;
 }
 
+#cookies-eu-banner .cookies-eu-reject,
+#cookies-eu-banner .cookies-eu-settings{
+  color: #white!important;
+}
+
+#cookies-eu-settings, 
+.cookies-eu-settings,
 #cookies-eu-reject,
 .cookies-eu-reject {
     background: none;
@@ -107,6 +116,10 @@
     border: 1px solid #666;
 }
 
+#cookies-eu-settings:hover,
+#cookies-eu-settings:focus,
+.cookies-eu-settings:hover,
+.cookies-eu-settings:focus,
 #cookies-eu-reject:hover,
 #cookies-eu-reject:focus,
 .cookies-eu-reject:hover,
@@ -115,6 +128,11 @@
     background: #222;
     color: #fff;
 }
+
+#cookies-eu-banner form{
+  display: contents;
+}
+
 
 /* custom-cookies-option */
 

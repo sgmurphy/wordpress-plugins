@@ -5,7 +5,7 @@ Tags:  elementor addons, elementor widget, elementor extensions, elementor addon
 Requires at least: 5.0.0
 Tested up to: 6.4.2
 Requires PHP: 7.4.0
-Stable tag: 5.4.14
+Stable tag: 5.5.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Elementor requires at least: 3.0.0
@@ -244,6 +244,8 @@ More features & extensions are coming soon...
 
 == Pro Version 3rd Party Widgets 🔥 ==
 
+0. **[ACF Accordion](https://elementpack.pro/demo/element/acf-accordion/)** - Customize your accordions made with Advanced Custom Fields with features by Element Pack.
+0. **[ACF Gallery](https://elementpack.pro/demo/element/acf-gallery/)** - Display customizable gallery with the popular Advanced Custom Fields code.
 0. **[bbPress](https://elementpack.pro/demo/element/bbpress/)** - Element Pack pro now integrates bbPress to let you create and maintain forums in WordPress. Watch all of the demos in this page to see it in action
 0. **[bbPress Forum Form](https://elementpack.pro/demo/element/bbpress-forum-form/)** - Let's your users access a form setup to create their forum topic inside your forum site with the help of bbPress integration.
 0. **[bbPress Forum Index](https://elementpack.pro/demo/element/bbpress-forum-index/)** - Helps you display a list of available forums created within your website and lets your users navigate them from one place.
@@ -356,6 +358,7 @@ More features & extensions are coming soon...
 0. **[Essential Shortcodes](https://www.elementpack.pro/knowledge-base/how-to-use-element-pack-essential-shortcodes/)** - If you need element pack essential shortcodes feature so you can do that from here. it's included some basic content feature that not possible by element pack.
 0. **[Context Menu](https://www.elementpack.pro/knowledge-base/how-to-use-element-pack-context-menu/)** - Turn on this switcher to enable the Context Menu inside "Site Settings" of there editor page to use the right-click menu.
 0. **[Smooth Scroller](https://www.elementpack.pro/knowledge-base/how-to-use-element-pack-smooth-scroller/)** - Now customize your page scroll speed and span to suit your audience with the Smooth Scroller feature by Element Pack addon.
+0. **[SEO Performance](https://www.elementpack.pro/knowledge-base/how-to-use-element-pack-seo-performance/)** - Get powerful Keyword tracking app under your WordPress dashboard. Track and analyze keywords, win SEO game easily.
 
 **[PURCHASE ELEMENT PACK PRO FROM OUR WEBSITE]( https://www.elementpack.pro/pricing/ )**
 
@@ -417,6 +420,10 @@ https://youtu.be/u9JRd824Mjc
 
 
 == Changelog ==
+
+= 5.5.0 [29th January 2024] =
+
+* Updated: System improved
 
 = 5.4.14 [16th January 2024] =
 

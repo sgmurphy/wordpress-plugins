@@ -1,280 +1,357 @@
 /******/ (() => { // webpackBootstrap
-var __webpack_exports__ = {};
-/*!*************************************************!*\
-  !*** ./assets/src/apps/js/frontend/checkout.js ***!
-  \*************************************************/
-(function ($, settings) {
-  'use strict';
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
 
-  if (window.LP === undefined) {
-    window.LP = {};
+/***/ "./assets/src/js/utils.js":
+/*!********************************!*\
+  !*** ./assets/src/js/utils.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   listenElementCreated: () => (/* binding */ listenElementCreated),
+/* harmony export */   listenElementViewed: () => (/* binding */ listenElementViewed),
+/* harmony export */   lpAddQueryArgs: () => (/* binding */ lpAddQueryArgs),
+/* harmony export */   lpFetchAPI: () => (/* binding */ lpFetchAPI),
+/* harmony export */   lpGetCurrentURLNoParam: () => (/* binding */ lpGetCurrentURLNoParam)
+/* harmony export */ });
+/**
+ * Fetch API.
+ *
+ * @param url
+ * @param data
+ * @param functions
+ * @since 4.2.5.1
+ */
+const lpFetchAPI = (url, data = {}, functions = {}) => {
+  if ('function' === typeof functions.before) {
+    functions.before();
   }
-
-  /**
-   * Checkout
-   *
-   * @param options
-   */
-  const Checkout = LP.Checkout = function (options) {
-    const $formCheckout = $('#learn-press-checkout-form'),
-      $formLogin = $('#learn-press-checkout-login'),
-      $formRegister = $('#learn-press-checkout-register'),
-      $payments = $('.payment-methods'),
-      $buttonCheckout = $('#learn-press-checkout-place-order'),
-      $checkoutEmail = $('input[name="guest_email"]');
-    let selectedMethod = '';
-    if (String.prototype.isEmail === undefined) {
-      String.prototype.isEmail = function () {
-        return new RegExp('^[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+@[-!#$%&\'*+\\/0-9=?A-Z^_`a-z{|}~]+\.[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+$').test(this);
-      };
+  fetch(url, {
+    method: 'GET',
+    ...data
+  }).then(response => response.json()).then(response => {
+    if ('function' === typeof functions.success) {
+      functions.success(response);
     }
-    const needPayment = function () {
-      return $payments.length > 0;
-    };
-    const selectedPayment = function () {
-      return $payments.find('input[name="payment_method"]:checked').val();
-    };
-    const isLoggedIn = function () {
-      return $formCheckout.find('input[name="checkout-account-switch-form"]:checked').length = 0;
-    };
-    const getActiveFormData = function () {
-      const formName = $formCheckout.find('input[name="checkout-account-switch-form"]:checked').val();
-      const $form = $('#checkout-account-' + formName);
-      return $form.serializeJSON();
-    };
-    const getPaymentData = function () {
-      return $('#checkout-payment').serializeJSON();
-    };
-    const getPaymentNote = function () {
-      return $('.learn-press-checkout-comment').serializeJSON();
-    };
-    const showErrors = function (errors) {
-      showMessage(errors);
-      const firstId = Object.keys(errors)[0];
-      $('input[name="' + firstId + '"]:visible').trigger('focus');
-    };
-    const _formSubmit = function (e) {
-      e.preventDefault();
-      if (needPayment() && !selectedPayment()) {
-        showMessage('Please select payment method', true);
-        return false;
-      }
-      let formData = {};
-      if (!isLoggedIn()) {
-        formData = $.extend(formData, getActiveFormData(), getPaymentNote());
-      }
-      formData = $.extend(formData, getPaymentData());
-      removeMessage();
-      const btnText = $buttonCheckout.text();
-      const urlHandle = new URL(options.ajaxurl);
-      urlHandle.searchParams.set('lp-ajax', 'checkout');
-      const elCheckoutForm = document.querySelector('#learn-press-checkout-form');
-      const elInputNonce = document.querySelector('input[name="learn-press-checkout-nonce"]');
-      const elElCheckoutAccountType = elCheckoutForm.querySelector('input[name="checkout-account-switch-form"]:checked');
-      if (elElCheckoutAccountType) {
-        formData['checkout-account-switch-form'] = elElCheckoutAccountType.value;
-      }
-      formData['learn-press-checkout-nonce'] = elInputNonce.value;
-      $.ajax({
-        url: urlHandle,
-        dataType: 'html',
-        data: formData,
-        type: 'POST',
-        beforeSend() {
-          $('#learn-press-checkout-place-order').addClass('loading');
-          $buttonCheckout.html(options.i18n_processing);
-        },
-        success(response) {
-          response = LP.parseJSON(response);
-          if (response.messages) {
-            showErrors(response.messages);
-          } else if (response.message) {
-            showMessage(response.message);
-          }
-          $('#learn-press-checkout-place-order').removeClass('loading');
-          if ('success' === response.result) {
-            if (response.redirect && response.redirect.match(/https?/)) {
-              $buttonCheckout.html(options.i18n_redirecting);
-              window.location = response.redirect;
-            }
-          } else {
-            $buttonCheckout.html(btnText);
-          }
-        },
-        error(jqXHR, textStatus, errorThrown) {
-          $('#learn-press-checkout-place-order').removeClass('loading');
-          showMessage('<div class="learn-press-message error">' + errorThrown + '</div>');
-          $buttonCheckout.html(btnText);
-          LP.unblockContent();
-        }
-      });
-      return false;
-    };
-    const _selectPaymentChange = function () {
-      const id = $(this).val(),
-        $selected = $payments.children().filter('.selected').removeClass('selected'),
-        buttonText = $selected.find('#payment_method_' + selectedMethod).data('order_button_text');
-      $selected.find('.payment-method-form').slideUp();
-      $selected.end().filter('#learn-press-payment-method-' + id).addClass('selected').find('.payment-method-form').hide().slideDown();
-      selectedMethod = $selected.find('payment_method').val();
-      if (buttonText) {
-        $buttonCheckout.html(buttonText);
-      }
-    };
-
-    /**
-     * Button to switch between mode login/register or place order
-     * in case user is not logged in and guest checkout is enabled.
-     */
-    const _guestCheckoutClick = function () {
-      const showOrHide = $formCheckout.toggle().is(':visible');
-      $formLogin.toggle(!showOrHide);
-      $formRegister.toggle(!showOrHide);
-      $('#learn-press-button-guest-checkout').toggle(!showOrHide);
-    };
-
-    /**
-     * Append messages into document.
-     *
-     * @param message
-     * @param wrap
-     */
-    const showMessage = function (message, wrap = false) {
-      removeMessage();
-      if ($.isPlainObject(message)) {
-        Object.keys(message).reverse().forEach(id => {
-          const m = message[id];
-          let msg = Array.isArray(m) ? m[0] : m;
-          const type = Array.isArray(m) ? m[1] : '';
-          msg = '<div class="learn-press-message ' + (typeof type === 'string' ? type : '') + '">' + msg + '</div>';
-          $formCheckout.prepend(msg);
-        });
-        return;
-      }
-      if (wrap) {
-        message = '<div class="learn-press-message ' + (typeof wrap === 'string' ? wrap : '') + '">' + message + '</div>';
-      }
-      if (Array.isArray(message)) {
-        message.map(msg => $formCheckout.prepend('<div class="learn-press-message error">' + msg + '</div>'));
-      } else {
-        $formCheckout.prepend('<div class="learn-press-message error">' + message + '</div>');
-      }
-      $('html, body').animate({
-        scrollTop: $formCheckout.offset().top - 100
-      }, 1000);
-      $(document).trigger('learn-press/checkout-error');
-    };
-
-    /**
-     * Callback function for guest email.
-     *
-     * @private
-     */
-    const _checkEmail = function () {
-      if (!this.value.isEmail()) {
-        return;
-      }
-      this.timer && clearTimeout(this.timer);
-      $checkoutEmail.addClass('loading');
-      this.timer = setTimeout(function () {
-        $.post({
-          url: window.location.href,
-          data: {
-            'lp-ajax': 'checkout-user-email-exists',
-            email: $checkoutEmail.val()
-          },
-          success(response) {
-            const res = LP.parseJSON(response);
-            $checkoutEmail.removeClass('loading');
-            $('.lp-guest-checkout-output').remove();
-            if (res && res.output) {
-              $checkoutEmail.after(res.output);
-            }
-          }
-        });
-      }, 500);
-    };
-
-    /**
-     * Remove all messages
-     */
-    const removeMessage = function () {
-      $('.learn-press-error, .learn-press-notice, .learn-press-message').remove();
-    };
-
-    /**
-     * Callback function for showing/hiding register form.
-     *
-     * @param e
-     * @param toggle
-     */
-    const _toggleRegisterForm = function (e, toggle) {
-      toggle = $formRegister.find('.learn-press-form-register').toggle(toggle).is(':visible');
-      $formRegister.find('.checkout-form-register-toggle[data-toggle="show"]').toggle(!toggle);
-      e && (e.preventDefault(), _toggleLoginForm(null, !toggle));
-    };
-
-    /**
-     * Callback function for showing/hiding login form.
-     *
-     * @param e      {Event}
-     * @param toggle {boolean}
-     * @private
-     */
-    const _toggleLoginForm = function (e, toggle) {
-      toggle = $formLogin.find('.learn-press-form-login').toggle(toggle).is(':visible');
-      $formLogin.find('.checkout-form-login-toggle[data-toggle="show"]').toggle(!toggle);
-      e && (e.preventDefault(), _toggleRegisterForm(null, !toggle));
-    };
-
-    /**
-     * Place order action
-     */
-    $buttonCheckout.on('click', function (e) {});
-    $('.lp-button-guest-checkout').on('click', _guestCheckoutClick);
-    $('#learn-press-button-cancel-guest-checkout').on('click', _guestCheckoutClick);
-    $checkoutEmail.on('keyup changex', _checkEmail).trigger('changex');
-    $payments.on('change select', 'input[name="payment_method"]', _selectPaymentChange);
-    $formCheckout.on('submit', _formSubmit);
-    $payments.children('.selected').find('input[name="payment_method"]').trigger('select');
-    $formLogin.on('click', '.checkout-form-login-toggle', _toggleLoginForm);
-    $formRegister.on('click', '.checkout-form-register-toggle', _toggleRegisterForm);
-    $formRegister.find('input').each(function () {
-      if (-1 !== $.inArray($(this).attr('type').toLowerCase(), ['text', 'email', 'number']) && $(this).val()) {
-        _toggleRegisterForm();
-        return false;
-      }
-    });
-    $formLogin.find('input:not([type="hidden"])').each(function () {
-      if (-1 !== $.inArray($(this).attr('type').toLowerCase(), ['text', 'email', 'number']) && $(this).val()) {
-        _toggleLoginForm();
-        return false;
-      }
-    });
-
-    // Show form if there is only one form Register or Login
-    if ($formRegister.length && !$formLogin.length) {
-      _toggleRegisterForm();
-    } else if (!$formRegister.length && $formLogin.length) {
-      _toggleLoginForm();
+  }).catch(err => {
+    if ('function' === typeof functions.error) {
+      functions.error(err);
     }
-    $formCheckout.on('change', 'input[name="checkout-account-switch-form"]', function () {
-      $(this).next().find('input:not([type="hidden"]):visible').first().trigger('focus');
-    }).on('change', '#guest_email', function () {
-      $formCheckout.find('#reg_email').val(this.value);
-    }).on('change', '#reg_email', function () {
-      $formCheckout.find('#guest_email').val(this.value);
-    });
-    setTimeout(function () {
-      $formCheckout.find('input:not([type="hidden"]):visible').first().trigger('focus');
-    }, 300);
-  };
-  $(document).ready(function () {
-    if (typeof lpCheckoutSettings !== 'undefined') {
-      LP.$checkout = new Checkout(lpCheckoutSettings);
+  }).finally(() => {
+    if ('function' === typeof functions.completed) {
+      functions.completed();
     }
   });
-})(jQuery);
+};
+
+/**
+ * Get current URL without params.
+ *
+ * @since 4.2.5.1
+ */
+const lpGetCurrentURLNoParam = () => {
+  let currentUrl = window.location.href;
+  const hasParams = currentUrl.includes('?');
+  if (hasParams) {
+    currentUrl = currentUrl.split('?')[0];
+  }
+  return currentUrl;
+};
+const lpAddQueryArgs = (endpoint, args) => {
+  const url = new URL(endpoint);
+  Object.keys(args).forEach(arg => {
+    url.searchParams.set(arg, args[arg]);
+  });
+  return url;
+};
+
+/**
+ * Listen element viewed.
+ *
+ * @param el
+ * @param callback
+ * @since 4.2.5.8
+ */
+const listenElementViewed = (el, callback) => {
+  const observerSeeItem = new IntersectionObserver(function (entries) {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        callback(entry);
+      }
+    }
+  });
+  observerSeeItem.observe(el);
+};
+
+/**
+ * Listen element created.
+ *
+ * @param callback
+ * @since 4.2.5.8
+ */
+const listenElementCreated = callback => {
+  const observerCreateItem = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      if (mutation.addedNodes) {
+        mutation.addedNodes.forEach(function (node) {
+          if (node.nodeType === 1) {
+            callback(node);
+          }
+        });
+      }
+    });
+  });
+  observerCreateItem.observe(document, {
+    childList: true,
+    subtree: true
+  });
+  // End.
+};
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+/*!********************************************!*\
+  !*** ./assets/src/js/frontend/checkout.js ***!
+  \********************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils */ "./assets/src/js/utils.js");
+/**
+ * File JS handling checkout page.
+ */
+
+
+
+// Events
+document.addEventListener('submit', e => {
+  window.lpCheckout.submit(e);
+});
+document.addEventListener('change', e => {
+  window.lpCheckout.paymentSelect(e);
+});
+document.addEventListener('keyup', e => {
+  window.lpCheckout.checkEmailGuest(e);
+});
+window.lpCheckout = {
+  idFormCheckout: 'learn-press-checkout-form',
+  idBtnPlaceOrder: 'learn-press-checkout-place-order',
+  classPaymentMethod: 'lp-payment-method',
+  classPaymentMethodForm: 'payment-method-form',
+  timeOutCheckEmail: null,
+  fetchAPI: (url, params, callBack) => {
+    const option = {
+      headers: {}
+    };
+    if (0 !== parseInt(lpData.user_id)) {
+      option.headers['X-WP-Nonce'] = lpData.nonce;
+    }
+    const searchParams = new URLSearchParams();
+    Object.keys(params).forEach(key => {
+      searchParams.append(key, params[key]);
+    });
+    option.method = 'POST';
+    option.body = searchParams;
+    fetch(url, option).then(res => res.text()).then(data => {
+      data = LP.parseJSON(data);
+      callBack.success(data);
+    }).finally(() => {
+      callBack.completed();
+    }).catch(err => callBack.error(err));
+  },
+  submit: e => {
+    const formCheckout = e.target;
+    if (formCheckout.id !== window.lpCheckout.idFormCheckout) {
+      return;
+    }
+    if (formCheckout.classList.contains('processing')) {
+      return;
+    }
+    e.preventDefault();
+    formCheckout.classList.add('processing');
+    const btnSubmit = formCheckout.querySelector('button[type="submit"]');
+    btnSubmit.disabled = true;
+    window.lpCheckout.removeMessage();
+    const elBtnPlaceOrder = document.getElementById(window.lpCheckout.idBtnPlaceOrder);
+    const urlHandle = new URL(lpCheckoutSettings.ajaxurl);
+    urlHandle.searchParams.set('lp-ajax', 'checkout');
+
+    // get values from FormData
+    const formData = new FormData(formCheckout);
+    const dataSend = Object.fromEntries(Array.from(formData.keys(), key => {
+      const val = formData.getAll(key);
+      return [key, val.length > 1 ? val : val.pop()];
+    }));
+    elBtnPlaceOrder.classList.add('loading');
+    const callBack = {
+      success: response => {
+        response = LP.parseJSON(response);
+        const {
+          messages,
+          result
+        } = response;
+        if ('success' !== result) {
+          window.lpCheckout.showErrors(formCheckout, 'error', messages);
+        } else {
+          window.location.href = response.redirect;
+        }
+      },
+      error: error => {
+        window.lpCheckout.showErrors(formCheckout, 'error', error);
+      },
+      completed: () => {
+        elBtnPlaceOrder.classList.remove('loading');
+        formCheckout.classList.remove('processing');
+        btnSubmit.disabled = false;
+      }
+    };
+    window.lpCheckout.fetchAPI(urlHandle, dataSend, callBack);
+  },
+  paymentSelect: e => {
+    const target = e.target;
+    const elPaymentMethod = target.closest(`.${window.lpCheckout.classPaymentMethod}`);
+    if (!elPaymentMethod) {
+      return;
+    }
+    const elUlPaymentMethods = elPaymentMethod.closest('.payment-methods');
+    if (!elUlPaymentMethods) {
+      return;
+    }
+    const elPaymentMethods = elUlPaymentMethods.querySelectorAll(`.${window.lpCheckout.classPaymentMethod}`);
+    elPaymentMethods.forEach(el => {
+      const elPaymentMethodForm = el.querySelector(`.${window.lpCheckout.classPaymentMethodForm}`);
+      if (!elPaymentMethodForm) {
+        return;
+      }
+      if (elPaymentMethod !== el) {
+        elPaymentMethodForm.style.display = 'none';
+      } else {
+        elPaymentMethodForm.style.display = 'block';
+      }
+    });
+  },
+  checkEmailGuest: e => {
+    const target = e.target;
+    if (target.id !== 'guest_email') {
+      return;
+    }
+    if (!window.lpCheckout.isEmail(target.value)) {
+      return;
+    }
+    target.classList.add('loading');
+    if (window.lpCheckout.timeOutCheckEmail !== null) {
+      clearTimeout(window.lpCheckout.timeOutCheckEmail);
+    }
+    window.lpCheckout.timeOutCheckEmail = setTimeout(() => {
+      const callBack = {
+        success: response => {
+          const {
+            message,
+            data,
+            status
+          } = response;
+          if ('success' === status) {
+            const content = data.content || '';
+            const elGuestOutput = document.querySelector('.lp-guest-checkout-output');
+            if (elGuestOutput) {
+              elGuestOutput.remove();
+            }
+            target.insertAdjacentHTML('afterend', content);
+          } else {
+            window.lpCheckout.showErrors(target.closest('form'), status, message);
+          }
+        },
+        error: error => {
+          window.lpCheckout.showErrors(target.closest('form'), 'error', error);
+        },
+        completed: () => {
+          target.classList.remove('loading');
+        }
+      };
+      window.lpCheckout.fetchAPI(window.location.href, {
+        'lp-ajax': 'checkout-user-email-exists',
+        email: target.value
+      }, callBack);
+    }, 500);
+  },
+  removeMessage: () => {
+    const lpMessage = document.querySelector('.learn-press-message');
+    if (!lpMessage) {
+      return;
+    }
+    lpMessage.remove();
+  },
+  showErrors: (form, status, message) => {
+    const mesHtml = `<div class="learn-press-message ${status}">${message}</div>`;
+    form.insertAdjacentHTML('afterbegin', mesHtml);
+    form.scrollIntoView();
+  },
+  isEmail: email => {
+    return new RegExp('^[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+@[-!#$%&\'*+\\/0-9=?A-Z^_`a-z{|}~]+\.[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+$').test(email);
+  }
+};
+})();
+
 /******/ })()
 ;
 //# sourceMappingURL=checkout.js.map

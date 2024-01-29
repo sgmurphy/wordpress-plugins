@@ -620,6 +620,20 @@ class HMWP_Classes_Tools
     }
 
     /**
+     * Check if it's Rest Api call
+     *
+     * @return bool
+     */
+    public static function isApi()
+    {
+        if(isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/' . HMWP_Classes_Tools::getOption('hmwp_wp-json') . '/') !== false){
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Check if it's Ajax call
      *
      * @return bool
@@ -645,6 +659,10 @@ class HMWP_Classes_Tools
         //If allways change paths admin & frontend
         if (HMW_ALWAYS_CHANGE_PATHS ) {
             return true;
+        }
+
+        if(HMWP_Classes_Tools::isApi()){
+            return false;
         }
 
         //If not admin
@@ -679,6 +697,10 @@ class HMWP_Classes_Tools
             return false;
         }
 
+        if(HMWP_Classes_Tools::isAjax() || HMWP_Classes_Tools::isApi()){
+            return false;
+        }
+        
         //If not admin
         if (!is_admin() && !is_network_admin() ) {
             //if process the change paths
@@ -1570,11 +1592,12 @@ class HMWP_Classes_Tools
      */
     public static function getRelativePath( $url )
     {
-        $url = wp_make_link_relative($url);
 
         if ($url <> '' ) {
+            //get the relative url path
+            $url = wp_make_link_relative($url);
 
-            //Get the relative domain
+            //get the relative domain
             $domain = site_url();
             if(self::isMultisiteWithPath()){
                 $domain = network_site_url();
