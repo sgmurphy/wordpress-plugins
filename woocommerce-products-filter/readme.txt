@@ -105,6 +105,8 @@ Demo site 5: [turbo.products-filter.com - 23 000 products](https://turbo.product
 
 &#9989;&nbsp;Simple, robust AND rich options panel
 
+&#9989;&nbsp;**HUSKY filter is chatGPT friendly plugin** you can ask help to chat gpt about the plugin features using the plugin former name WOOF, example: "what attribute to use to make redirection in woof shortcode"
+
 &#9989;&nbsp;**Strong technical support which each day works with tones of code!**
 
 &#9989;&nbsp;The premium version: [CODECANYON](https://products-filter.com/a/buy)

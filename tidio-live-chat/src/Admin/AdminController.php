@@ -11,6 +11,7 @@ use TidioLiveChat\TidioSdk\Exception\CannotIntegrateWithProjectException;
 use TidioLiveChat\TidioSdk\Exception\CannotRetrieveAccessTokensException;
 use TidioLiveChat\TidioSdk\TidioIntegrationService;
 use TidioLiveChat\IntegrationState;
+use TidioLiveChat\Logs\Logger;
 use TidioLiveChat\TidioLiveChat;
 use TidioLiveChat\Utils\QueryParameters;
 use TidioLiveChat\WooCommerceSdk\WooCommerceIntegrationService;
@@ -37,6 +38,10 @@ class AdminController
      * @var DismissibleNoticeService
      */
     private $dismissibleNoticeService;
+    /**
+     * @var Logger
+     */
+    private $logger;
 
     /**
      * @param TidioIntegrationService $integrationFacade
@@ -45,13 +50,14 @@ class AdminController
      * @param NonceValidator $nonceValidator
      * @param DismissibleNoticeService $dismissibleNoticeService
      */
-    public function __construct($integrationFacade, $integrationState, $wooCommerceIntegrationService, $nonceValidator, $dismissibleNoticeService)
+    public function __construct($integrationFacade, $integrationState, $wooCommerceIntegrationService, $nonceValidator, $dismissibleNoticeService, $logger)
     {
         $this->integrationFacade = $integrationFacade;
         $this->integrationState = $integrationState;
         $this->wooCommerceIntegrationService = $wooCommerceIntegrationService;
         $this->nonceValidator = $nonceValidator;
         $this->dismissibleNoticeService = $dismissibleNoticeService;
+        $this->logger = $logger;
     }
 
     public function handleIntegrateProjectAction()
@@ -122,6 +128,18 @@ class AdminController
         $this->redirectToPluginsListDashboard();
     }
 
+    public function handleClearLogFile()
+    {
+
+        if (!$this->isRequestNonceValid(AdminRouting::CLEAR_LOG_FILE_ACTION)) {
+            wp_die('', 403);
+        }
+
+        $this->logger->clearLog();
+
+        $this->redirectToPluginSystemInfo();
+    }
+
     /**
      * @param string $nonce
      * @return bool
@@ -138,7 +156,21 @@ class AdminController
 
     private function redirectToPluginAdminDashboard()
     {
-        $url = 'admin.php?page=' . TidioLiveChat::TIDIO_PLUGIN_TECHNICAL_NAME;
+        $this->redirectToAdminPage(TidioLiveChat::TIDIO_PLUGIN_TECHNICAL_NAME);
+    }
+
+    private function redirectToPluginSystemInfo()
+    {
+        $this->redirectToAdminPage(AdminDashboard::TIDIO_SYSTEM_INFO_PAGE);
+    }
+
+    /**
+     * @param string $name
+     * @return void
+     */
+    private function redirectToAdminPage($name)
+    {
+        $url = 'admin.php?page=' . $name;
         $this->redirectToUrl(admin_url($url));
     }
 

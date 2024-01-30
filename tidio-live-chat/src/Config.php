@@ -38,6 +38,14 @@ final class Config
     }
 
     /**
+     * @return string
+     */
+    public static function getDebugLogPath()
+    {
+        return self::getConfig()['debug_log_path'];
+    }
+
+    /**
      * @return array<string, string>
      */
     private static function getConfig()

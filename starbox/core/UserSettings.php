@@ -61,7 +61,11 @@ class ABH_Core_UserSettings extends ABH_Classes_BlockController {
             //Update the user data in User Profile
             case 'update':
             case 'createuser':
-                $user_id = ABH_CLasses_Tools::getValue('user_id');
+                $user_id = (int)ABH_CLasses_Tools::getValue('user_id');
+
+                if(!current_user_can('edit_users') && get_current_user_id() <> $user_id){
+                    return;
+                }
 
                 //Get the default settings
                 $settings = ABH_Classes_Tools::getOption('abh_author' . $user_id);
@@ -128,9 +132,12 @@ class ABH_Core_UserSettings extends ABH_Classes_BlockController {
                 break;
 
             case 'abh_get_box':
-                $user_id = ABH_CLasses_Tools::getValue('user_id');
+                $user_id = (int)ABH_CLasses_Tools::getValue('user_id');
                 $theme = ABH_CLasses_Tools::getValue('abh_theme');
 
+                if(!current_user_can('edit_users') && get_current_user_id() <> $user_id){
+                    return;
+                }
 
                 ABH_CLasses_Tools::setOption('abh_titlefontsize', ABH_CLasses_Tools::getValue('abh_titlefontsize', 'default'));
                 ABH_CLasses_Tools::setOption('abh_descfontsize', ABH_CLasses_Tools::getValue('abh_descfontsize', 'default'));

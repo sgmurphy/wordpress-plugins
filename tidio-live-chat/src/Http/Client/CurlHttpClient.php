@@ -10,10 +10,17 @@ use TidioLiveChat\Http\Exception\ErrorResponseException;
 use TidioLiveChat\Http\Exception\HttpClientException;
 use TidioLiveChat\Http\Exception\UnauthorizedResponseException;
 use TidioLiveChat\Http\HttpClient;
+use TidioLiveChat\Logs\Logger;
 use TidioLiveChat\Utils\Url;
+use function curl_error;
+use function json_encode;
 
 class CurlHttpClient implements HttpClient
 {
+    /**
+     * @var Logger
+     */
+    private $logger;
     /**
      * @var string
      */
@@ -24,11 +31,13 @@ class CurlHttpClient implements HttpClient
     private $headers;
 
     /**
+     * @param Logger $logger
      * @param string $apiUrl
      * @param string[] $additionalHeaders
      */
-    public function __construct($apiUrl, $additionalHeaders = [])
+    public function __construct($logger, $apiUrl, $additionalHeaders = [])
     {
+        $this->logger = $logger;
         $this->apiUrl = $apiUrl;
         $this->headers = array_merge(
             [
@@ -57,7 +66,12 @@ class CurlHttpClient implements HttpClient
 
         $response = curl_exec($ch);
         $responseInfo = curl_getinfo($ch);
+        $curlError = curl_error($ch);
         curl_close($ch);
+
+        if ($curlError) {
+            $this->logger->error($curlError);
+        }
 
         $responseData = $this->parseResponseData($response, $responseInfo);
         $this->validateResponse($responseData, $responseInfo);
@@ -81,7 +95,12 @@ class CurlHttpClient implements HttpClient
 
         $response = curl_exec($ch);
         $responseInfo = curl_getinfo($ch);
+        $curlError = curl_error($ch);
         curl_close($ch);
+
+        if ($curlError) {
+            $this->logger->error($curlError);
+        }
 
         $responseData = $this->parseResponseData($response, $responseInfo);
         $this->validateResponse($responseData, $responseInfo);

@@ -115,6 +115,8 @@ Also the plugin has ajaxed shortcode/widget of [currency converter](https://demo
 
 &#9989;&nbsp;**Easy to use for administrators and shop customers**: install, set settings for couple of minutes and let your shop make more money!
 
+&#9989;&nbsp;**FOX filter is chatGPT friendly plugin** you can ask help to chat gpt about the plugin features using the plugin former name WOOCS, example: "How to use [woocs] shortcode?"
+
 &#9989;&nbsp;Compatible with [WPML](https://wpml.org/plugin/woocommerce-currency-switcher/)
 
 &#9989;&nbsp;Compatible with [WooCommerce Products Filter](https://products-filter.com/)

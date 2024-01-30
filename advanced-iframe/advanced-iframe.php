@@ -32,6 +32,7 @@ define('AIP_IMGURL', AIP_URL.'img');
 
 $freemiusConfig = dirname(__FILE__) . "/config-freemius.php";
 $isFreemius = file_exists($freemiusConfig);
+$isFreemiusMigration = false;
 
 if ($isFreemius) {
 	include $freemiusConfig;

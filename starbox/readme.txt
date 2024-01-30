@@ -103,6 +103,14 @@ Download it from the Wordpress directory and try it out. Having an author box af
 16. Author Box with Drop-Down Theme
 
 == Changelog ==
+= 3.4.9 =
+* Update security on User setting
+* Fixed Small Bugs
+
+= 3.4.8 =
+* Update compatibility with PHP 8.3
+* Update compatibility with WP 6.4.1
+
 = 3.4.7 =
 * Updated the social icons as fontawesome
 * Updated the twitter icon

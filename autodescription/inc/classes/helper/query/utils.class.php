@@ -19,7 +19,7 @@ use \The_SEO_Framework\Helper\{
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2023 Sybre Waaijer, CyberWire B.V. (https://cyberwire.nl/)
+ * Copyright (C) 2023 - 2024 Sybre Waaijer, CyberWire B.V. (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -69,6 +69,7 @@ class Utils {
 	 *              3. Moved from `\The_SEO_Framework\Load`.
 	 *              4. Also removed detection of `wp_doing_ajax()` and `wp_doing_cron()`,
 	 *                 this is now being handled by `_init_tsf()`.
+	 * @since 5.0.3 Now considers the query supported when the homepage is assigned a broken ID.
 	 *
 	 * @return bool
 	 */
@@ -80,12 +81,12 @@ class Utils {
 		switch ( true ) {
 			case \is_feed():
 			case \is_customize_preview():
-			case \defined( 'REST_REQUEST' ) && \REST_REQUEST:
+			case \defined( 'REST_REQUEST' ) && \REST_REQUEST: // TODO WP 6.5+ https://core.trac.wordpress.org/ticket/42061
 				$supported = false;
 				break;
 			case Query::is_singular():
 				// This is the most likely scenario, but may collide with is_feed() et al.
-				$supported = Post_Type::is_supported() && Query::get_the_real_id();
+				$supported = Post_Type::is_supported() && ( Query::get_the_real_id() || Query::is_real_front_page() );
 				break;
 			case \is_post_type_archive():
 				$supported = Post_Type::is_pta_supported();
@@ -265,5 +266,16 @@ class Utils {
 	 */
 	public static function has_page_on_front() {
 		return 'page' === \get_option( 'show_on_front' );
+	}
+
+	/**
+	 * Determines whether the blog page exists.
+	 *
+	 * @since 5.0.3
+	 *
+	 * @return bool
+	 */
+	public static function blog_page_exists() {
+		return ! static::has_page_on_front() && \get_option( 'page_for_posts' );
 	}
 }

@@ -3,7 +3,7 @@ Contributors: hasthemes, htplugins, devitemsllc, tarekht, zenaulislam, aslamhasi
 Tags: elementor, elementor addons, elementor widgets, elementor templates, addons, elementor slider, elementor page builder, mega menu, addons for elementor, post grid, elements, header footer builder
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 2.4.3
+Stable tag: 2.4.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,7 +23,7 @@ If you want to view the demo templates available in this plugin, you can check t
 
 == Free Unique Advanced Features of HT Mega: 🔥 ==
 
-== ✅    Header/Footer Builder ==
+== ✅ Header/Footer Builder ==
 
 This feature allows creating a header/footer layout for the full website or specific page. There is an option to select the preferred header/footer globally or for a single page/post. You will additionally get tons of header templates or footer templates to choose from, and customize one if you like.
 
@@ -431,6 +431,30 @@ This widget is easy to use and comes with a variety of features that make it a v
 
 <strong>[Video Playlist Widget](https://wphtmega.com/widget/elementor-video-playlist-widget/)</strong> - The Video Playlist Widget streamlines the arrangement and display of video playlists on your website, supporting YouTube, Vimeo, Wisita, and Self-hosted videos as needed. With an intuitive interface and controls, effortlessly create visually appealing video sequences to enhance your web pages. Elevate the user experience with dynamic playlists, making your content stand out seamlessly.
 
+<strong>[Blob Shape Widget](https://wphtmega.com/widget/elementor-blob-shape-widget/)</strong> – An innovative design element that brings dynamic and organic visual appeal to your website. With its fluid and playful contours, the Blob Shape Widget allows you to effortlessly create unique and eye-catching sections, seamlessly integrating with the flexibility of Elementor. Elevate your web design by adding a touch of creativity with these customizable, organic shapes. Shape your content in a way that stands out and captures attention, setting your website apart in a visually engaging manner. Discover the endless possibilities of design with the Blob Shape Widget and transform your Elementor-powered site into a captivating visual experience.
+
+== AVAILABLE GUTENBERG BLOCKS ==
+
+<strong>Accordion Block</strong> - HT Mega's Gutenberg Accordion Block is a dynamic way to embed interactive accordion content vertically or horizontally into any part of your website. This exceptional Block allows you to design attractive accordions that will surely engage your visitors. Present your elements in striking accordion formats with this extraordinary Gutenberg block.
+
+<strong>Brand Logo Block</strong> - Gutenberg blocks streamline the task of embedding brand logo blocks into your web pages. It arrives with an array of pre-configured settings for optimal management of these logos.
+
+<strong>Button Block</strong> - Button Block is a practical tool for incorporating various types of buttons into your WordPress website. These can include download buttons, back buttons, subscribe buttons, and gradient buttons, among others.
+
+<strong>Call to Action Block</strong> - HT Mega's Gutenberg Call to Action block is a fantastic resource for integrating a dynamic, modifiable Call-to-Action button on your WordPress site. With 7 styles to choose from and adjustable size, it can be tailored to suit any page.
+
+<strong>Image Grid Block</strong> - Improve your website's appeal with the Gutenberg Image Grid Block, designed to help you build an engaging gallery. Personalize elements like content, layouts, animations, thumbnails, filters, captions, and more to construct an eye-catching visual display.
+
+<strong>Info Box Block</strong> - HT Mega comes with an impressive Info Box Block that lets you incorporate features or display your content in the form of info boxes on your WordPress site. This Block enables you to include a title, description, and call to action along with images or icons, crafting an engaging and aesthetically pleasing element.
+
+<strong>Section Title Block</strong> - The Gutenberg Section Title Block is used to label different sections of your webpage clearly. It helps to organize content and make it easier for visitors to understand and navigate your site. This block also allows you to customize text color and typography.
+
+<strong>Tabs Block</strong> - The Gutenberg Tabs Block offers a flexible solution for displaying tabs on your website pages. It enables straightforward customization of titles and content, with the choice of either horizontal or vertical tabs. The tab order can be effortlessly adjusted using our intuitive drag-and-drop feature. With the Tab Block, you get access to five elegant tab designs, making the creation of tabbed content straightforward. Moreover, the option to include tab content as a Gutenberg block-created template is also available.
+
+<strong>Team Block</strong> - The Gutenberg Team Block provides an excellent way to display the individual team members who have been part of your company. You can add team member's names, links to their social media profiles, and a concise overview of their roles. Consider using this team block to present your team members elegantly on your WordPress website.
+
+<strong>Testimonial Block</strong> - The Testimonial Gutenberg Block offers a dynamic way for websites to showcase client feedback. This block boosts the user experience through its extensive customization options, which include a variety of layout designs. Additionally, it has an adaptable customer review slider that effectively showcases your customer feedback. This innovative way assists visitors in understanding your ethos, adding a professional touch to your site. Moreover, HT Mega Testimonial Block has become an invaluable resource for creating effective WordPress testimonials.
+
 
 **[PURCHASE HT Mega PRO FROM OUR WEBSITE]( https://wphtmega.com/pricing/ )**
 
@@ -499,6 +523,19 @@ Visit [HasThemes](https://hasthemes.com/) for more details about HTML, Shopify a
 
 
 == Changelog ==
+= Version 2.4.4 - Date: 2024-01-30 =
+* Added: Accordion Gutenberg Block.
+* Added: Brand Logo Gutenberg Block.
+* Added: Button Gutenberg Block.
+* Added: Call to Action Gutenberg Block.
+* Added: Image Grid Gutenberg Block.
+* Added: Info Box Gutenberg Block.
+* Added: Section Title Gutenberg Block.
+* Added: Tabs Gutenberg Block.
+* Added: Team Gutenberg Block.
+* Added: Testimonial Gutenberg Block.
+* Fixed: A few minor issues.
+
 = Version 2.4.3 - Date: 2024-01-17 =
 * Fixed: Multiple switcher conflict issue in Switcher Widget.
 * Fixed: A few minor issues.

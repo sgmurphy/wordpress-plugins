@@ -13,14 +13,14 @@ use Go_Live_Update_Urls\Traits\Singleton;
 class Core {
 	use Singleton;
 
-	const MEMORY_LIMIT = '256M';
-	const PLUGIN_FILE  = 'go-live-update-urls/go-live-update-urls.php';
+	public const MEMORY_LIMIT = '256M';
+	public const PLUGIN_FILE  = 'go-live-update-urls/go-live-update-urls.php';
 
 
 	/**
 	 * Actions and filters.
 	 */
-	protected function hook() {
+	protected function hook(): void {
 		add_action( 'go-live-update-urls/database/before-update', [ $this, 'raise_resource_limits' ], 0, 0 );
 		add_action( 'go-live-update-urls/database/after-update', [ $this, 'flush_caches' ] );
 		add_filter( 'go-live-update-urls/database/memory-limit_memory_limit', [ $this, 'raise_memory_limit' ], 0, 0 );
@@ -54,9 +54,9 @@ class Core {
 	 *
 	 * @ticket #7751
 	 *
-	 * @see   \Elementor\Settings::update_css_print_method
-	 *
 	 * @since 6.2.1
+	 *
+	 * @see   \Elementor\Settings::update_css_print_method
 	 */
 	public function flush_caches() {
 		// Special flushing of CSS cache for Elementor #7751.
@@ -86,17 +86,17 @@ class Core {
 	 * Like `sanitize_text_field` except we don't remove
 	 * URL encoded characters and HTML tags.
 	 *
-	 * @since 6.3.4
+	 * @see        go_live_update_urls_sanitize_field()
+	 *
+	 * @deprecated in favor of go_live_update_urls_sanitize_field
 	 *
 	 * @param int|float|string $value - User provided value to sanitize.
 	 *
 	 * @return string
 	 */
 	public function sanitize_field( $value ): string {
-		$filtered = wp_unslash( (string) $value );
-		$filtered = wp_check_invalid_utf8( $filtered );
-		$filtered = \preg_replace( '/[\r\n\t ]+/', ' ', $filtered );
-		return \trim( (string) $filtered );
+		_deprecated_function( __METHOD__, '6.7.2', 'go_live_update_urls_sanitize_field' );
+		return go_live_update_urls_sanitize_field( $value );
 	}
 
 
@@ -105,10 +105,10 @@ class Core {
 	 *
 	 * Mostly used for unit testing and future WP-CLI command
 	 *
+	 * @since 5.0.1
+	 *
 	 * @param string $old_url - The old URL.
 	 * @param string $new_url - The new URL.
-	 *
-	 * @since 5.0.1
 	 *
 	 * @return int[]
 	 */

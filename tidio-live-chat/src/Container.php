@@ -15,8 +15,11 @@ use TidioLiveChat\Admin\IframeSetup;
 use TidioLiveChat\Admin\NonceValidator;
 use TidioLiveChat\Admin\Notice\DismissibleNoticeController;
 use TidioLiveChat\Admin\Notice\DismissibleNoticeService;
+use TidioLiveChat\Admin\SystemInfoQuery;
+use TidioLiveChat\Clock\Clock;
 use TidioLiveChat\Encryption\EncryptionService;
 use TidioLiveChat\Encryption\Service\EncryptionServiceFactory;
+use TidioLiveChat\Logs\Logger;
 use TidioLiveChat\TidioSdk\TidioApiClientFactory;
 use TidioLiveChat\TidioSdk\TidioIntegrationService;
 use TidioLiveChat\Translation\ErrorTranslator;
@@ -56,11 +59,11 @@ class Container
                 break;
 
             case TidioApiClientFactory::class:
-                $service = new TidioApiClientFactory();
+                $service = $this->buildTidioApiClientFactory();
                 break;
 
             case WooCommerceApiV3ClientFactory::class:
-                $service = new WooCommerceApiV3ClientFactory();
+                $service = $this->buildWooCommerceApiV3ClientFactory();
                 break;
 
             case NonceValidator::class:
@@ -69,6 +72,10 @@ class Container
 
             case DismissibleNoticeService::class:
                 $service = new DismissibleNoticeService();
+                break;
+
+            case Logger::class:
+                $service = $this->buildLogger();
                 break;
 
             case EncryptionService::class:
@@ -115,8 +122,16 @@ class Container
                 $service = $this->buildAdminDashboard();
                 break;
 
+            case SystemInfoQuery::class:
+                $service = $this->buildSystemInfoQuery();
+                break;
+
             case DismissibleNoticeController::class:
                 $service = $this->buildDismissibleNoticeController();
+                break;
+
+            case Clock::class:
+                $service = new Clock();
                 break;
 
             default:
@@ -226,7 +241,29 @@ class Container
             $this->get(IntegrationState::class),
             $this->get(WooCommerceIntegrationService::class),
             $this->get(NonceValidator::class),
-            $this->get(DismissibleNoticeService::class)
+            $this->get(DismissibleNoticeService::class),
+            $this->get(Logger::class)
+        );
+    }
+
+    /**
+     * @return SystemInfoQuery
+     */
+    public function buildSystemInfoQuery()
+    {
+        return new SystemInfoQuery(
+            $this->get(Logger::class),
+            $this->get(Clock::class)
+        );
+    }
+
+    /**
+     * @return TidioApiClientFactory
+     */
+    private function buildTidioApiClientFactory()
+    {
+        return new TidioApiClientFactory(
+            $this->get(Logger::class)
         );
     }
 
@@ -259,7 +296,8 @@ class Container
     {
         return new AdminDashboard(
             $this->get(IntegrationState::class),
-            $this->get(IframeSetup::class)
+            $this->get(IframeSetup::class),
+            $this->get(SystemInfoQuery::class)
         );
     }
 
@@ -269,5 +307,23 @@ class Container
             $this->get(DismissibleNoticeService::class),
             $this->get(NonceValidator::class)
         );
+    }
+
+    /**
+     * @return WooCommerceApiV3ClientFactory
+     */
+    private function buildWooCommerceApiV3ClientFactory()
+    {
+        return new WooCommerceApiV3ClientFactory(
+            $this->get(Logger::class)
+        );
+    }
+
+    /**
+     * @return Logger
+     */
+    private function buildLogger()
+    {
+        return new Logger(Config::getDebugLogPath(), $this->get(Clock::class));
     }
 }

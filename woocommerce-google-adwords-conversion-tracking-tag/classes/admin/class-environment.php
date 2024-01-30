@@ -428,7 +428,7 @@ class Environment {
 	 */
 
 	public static function is_action_scheduler_active() {
-		return function_exists('as_has_scheduled_action');
+		return function_exists('as_next_scheduled_action');
 	}
 
 	public static function is_elementor_pro_active() {

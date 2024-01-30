@@ -19,7 +19,7 @@ use The_SEO_Framework\{
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2023 Sybre Waaijer, CyberWire B.V. (https://cyberwire.nl/)
+ * Copyright (C) 2023 - 2024 Sybre Waaijer, CyberWire B.V. (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -677,8 +677,7 @@ class Plugin {
 						break;
 
 					case 'redirect':
-						// Allow all protocols also allowed by WP:
-						$val = \sanitize_url( $val );
+						$val = Sanitize::redirect_url( $val );
 						break;
 
 					case 'title_no_blog_name':

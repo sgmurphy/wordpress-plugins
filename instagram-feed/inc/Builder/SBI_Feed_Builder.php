@@ -1216,7 +1216,7 @@ class SBI_Feed_Builder {
 			);
 		}
 
-		wp_send_json_success( $output );
+		wp_send_json_success( ['output' => $output] );
 		wp_die();
 	}
 

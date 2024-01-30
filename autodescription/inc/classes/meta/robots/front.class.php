@@ -22,7 +22,7 @@ use \The_SEO_Framework\Helper\{
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2023 Sybre Waaijer, CyberWire B.V. (https://cyberwire.nl/)
+ * Copyright (C) 2023 - 2024 Sybre Waaijer, CyberWire B.V. (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -202,8 +202,6 @@ final class Front extends Factory {
 					 * because page builders and templates can and will take over.
 					 *
 					 * Don't use empty(), null is regarded as indexable; it's why we coalesce to true whence null.
-					 *
-					 * @FIXME? In admin, this always yields "true" when trying query instead of args; ergo, noindex is set.
 					 *
 					 * post_count can be 0,    which is false -> thus yield true  -> noindex.
 					 * post_count can be null, which is true  -> thus yield false -> index.

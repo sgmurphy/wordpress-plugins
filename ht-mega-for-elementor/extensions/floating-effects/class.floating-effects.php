@@ -33,7 +33,7 @@ class HTMegaFloatingEffects_Elementor {
 	public static function enqueue_scripts() {
         // JS File
         wp_enqueue_script( 'htmega-floating-effects', HTMEGA_ADDONS_PL_URL . 'extensions/floating-effects/assets/js/htmega-floating-effects.js', array('jquery'),HTMEGA_VERSION );
-        wp_enqueue_script( 'anime', HTMEGA_ADDONS_PL_URL . 'extensions/floating-effects/assets/js/anime.min.js', array('jquery'), HTMEGA_VERSION );
+        wp_enqueue_script( 'anime' );
 
 	}
 

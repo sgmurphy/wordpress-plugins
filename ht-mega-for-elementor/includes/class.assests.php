@@ -322,7 +322,11 @@ if ( !class_exists( 'HTMega_Elementor_Addons_Assests' ) ) {
                     'version' => HTMEGA_VERSION,
                     'deps'    => [ 'jquery' ]
                 ],
-
+                'anime' => [
+                    'src'     => HTMEGA_ADDONS_PL_URL . 'extensions/floating-effects/assets/js/anime.min.js',
+                    'version' => HTMEGA_VERSION,
+                    'deps'    => [ 'jquery' ]
+                ],
             ];
 
             if( !empty( $google_map_api_key ) ){

@@ -6,6 +6,7 @@ use ActionScheduler;
 use WC_Order;
 use WCPM\Classes\Helpers;
 use WCPM\Classes\Logger;
+use WCPM\Classes\Options;
 use WCPM\Classes\Shop;
 
 if (!defined('ABSPATH')) {
@@ -241,7 +242,7 @@ class LTV {
 	 *
 	 * @param int $order_id The ID of the order to check.
 	 * @return void
-	 * @uses  wc_get_order(), apply_filters(), in_array(), \WCPM\Classes\Admin\LTV::get_previous_order_with_same_email_address(), Logger::warning(), Logger::info(), as_has_scheduled_action(), as_enqueue_async_action(),
+	 * @uses  wc_get_order(), apply_filters(), in_array(), \WCPM\Classes\Admin\LTV::get_previous_order_with_same_email_address(), Logger::warning(), Logger::info(), Helpers::pmw_as_has_scheduled_action(), as_enqueue_async_action(),
 	 *
 	 * @since 1.35.1
 	 */
@@ -269,7 +270,7 @@ class LTV {
 
 		// Stop if there is already an action scheduled for the same order ID
 		if (
-			as_has_scheduled_action(
+			Helpers::pmw_as_has_scheduled_action(
 				'pmw_horizontal_ltv_calculation',
 				[ $order_id ]
 			)
@@ -320,7 +321,7 @@ class LTV {
 
 		// Stop if there is already an action scheduled for the same order ID
 		if (
-			as_has_scheduled_action(
+			Helpers::pmw_as_has_scheduled_action(
 				'pmw_horizontal_ltv_calculation',
 				[ $next_order_id ]
 			)
@@ -368,10 +369,12 @@ class LTV {
 
 		// If there is a previous order
 		// and not all PMW order values are set,
-		// schedule a complete vertical LTV calculation.
+		// it means the LTV calculation on that old order came from a previous version of the plugin.
+		// Therefore, we need to schedule a complete vertical LTV calculation.
 		if (
 			$previous_order
 			&& !self::are_all_pmw_order_values_set($previous_order)
+			&& Options::is_automatic_ltv_recalculation_active()
 		) {
 			self::schedule_complete_vertical_ltv_calculation();
 		}
@@ -412,16 +415,33 @@ class LTV {
 	 */
 	private static function vertical_recalculation_if_the_marketing_order_value_calculation_changed( $order ) {
 
+		// Return if the automatic LTV recalculation is not active
+		if (!Options::is_automatic_ltv_recalculation_active()) {
+			return;
+		}
+
+		// If the order has been partially refunded,
+		// abort the recalculation.
+		// We do recalculate the LTV for partially refunded orders already.
+		// But that doesn't happen immediately.
+		// So there is a chance that the marketing values are not correct when the current check runs.
+		// Therefore, we abort the recalculation.
+		if (Shop::has_order_been_partially_refunded($order)) {
+			return;
+		}
+
 		$marketing_order_value_old = self::get_marketing_order_value_from_order($order);
 		$marketing_order_value_new = Shop::pmw_get_order_total_marketing($order);
 
 		// Stop if it is null
 		// It means the marketing order value was never calculated on that order
 		if (null === $marketing_order_value_old) {
+			Logger::info('LTV::has_the_marketing_order_value_calculation_changed() - marketing_order_value_old is null. scheduling a complete vertical recalculation');
 			self::schedule_complete_vertical_ltv_calculation();
 			return;
 		}
 
+		// If the values are different, schedule a complete vertical LTV calculation
 		if ($marketing_order_value_old != $marketing_order_value_new) {
 			Logger::info('LTV::has_the_marketing_order_value_calculation_changed() - marketing_order_value_old != $marketing_order_value_new. scheduling a complete vertical recalculation');
 			self::schedule_complete_vertical_ltv_calculation();
@@ -512,7 +532,7 @@ class LTV {
 
 			// Stop if the action is already scheduled with the same order ID
 			if (
-				as_has_scheduled_action(
+				Helpers::pmw_as_has_scheduled_action(
 					'pmw_horizontal_ltv_calculation_check',
 					[ $order_id ],
 					self::$as_group_name
@@ -534,7 +554,7 @@ class LTV {
 
 			// Stop if the action is already scheduled with the same order ID
 			if (
-				as_has_scheduled_action(
+				Helpers::pmw_as_has_scheduled_action(
 					'pmw_batch_process_vertical_ltv_calculation',
 					[ $last_order_id ],
 					self::$as_group_name
@@ -575,7 +595,7 @@ class LTV {
 
 		// Stop if the action is already scheduled
 		if (
-			as_has_scheduled_action(
+			Helpers::pmw_as_has_scheduled_action(
 				'pmw_batch_process_vertical_ltv_calculation',
 				[ $first_order_id ],
 				self::$as_group_name
@@ -628,7 +648,7 @@ class LTV {
 		// it is probably scheduled to run sometime in the future.
 		// Therefore unschedule it.
 		if (
-			as_has_scheduled_action(
+			Helpers::pmw_as_has_scheduled_action(
 				'pmw_batch_process_vertical_ltv_calculation',
 				[ $first_order_id ],
 				self::$as_group_name
@@ -664,13 +684,13 @@ class LTV {
 	}
 
 	private static function is_recalculation_running() {
-		return as_has_scheduled_action('pmw_horizontal_ltv_calculation_check')
-			|| as_has_scheduled_action('pmw_horizontal_ltv_calculation')
+		return Helpers::pmw_as_has_scheduled_action('pmw_horizontal_ltv_calculation_check')
+			|| Helpers::pmw_as_has_scheduled_action('pmw_horizontal_ltv_calculation')
 			|| true === as_next_scheduled_action('pmw_batch_process_vertical_ltv_calculation');
 	}
 
 	private static function is_recalculation_scheduled() {
-		return as_has_scheduled_action('pmw_batch_process_vertical_ltv_calculation')
+		return Helpers::pmw_as_has_scheduled_action('pmw_batch_process_vertical_ltv_calculation')
 			&& self::is_recalculation_running() === false;
 	}
 
@@ -717,7 +737,7 @@ class LTV {
 
 		// Stop if the same action is already scheduled
 		if (
-			as_has_scheduled_action(
+			Helpers::pmw_as_has_scheduled_action(
 				$action->get_hook(),
 				[ $action->get_args()[0] ],
 				$action->get_group()
@@ -770,7 +790,7 @@ class LTV {
 		}
 
 		if (
-			as_has_scheduled_action(
+			Helpers::pmw_as_has_scheduled_action(
 				'pmw_horizontal_ltv_calculation',
 				null,
 				self::$as_group_name . '_' . $order->get_billing_email()

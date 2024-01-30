@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita715523d44e1f0154b77465f8ac1d977
+class ComposerStaticInitb2e58e182082cdefecbd4f7e619b375c
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -767,6 +767,7 @@ class ComposerStaticInita715523d44e1f0154b77465f8ac1d977
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Tracking\\EventTracking' => __DIR__ . '/../..' . '/src/Tracking/EventTracking.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Tracking\\Events\\ActivatedEvents' => __DIR__ . '/../..' . '/src/Tracking/Events/ActivatedEvents.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Tracking\\Events\\BaseEvent' => __DIR__ . '/../..' . '/src/Tracking/Events/BaseEvent.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Tracking\\Events\\GenericEvents' => __DIR__ . '/../..' . '/src/Tracking/Events/GenericEvents.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Tracking\\Events\\SiteClaimEvents' => __DIR__ . '/../..' . '/src/Tracking/Events/SiteClaimEvents.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Tracking\\Events\\SiteVerificationEvents' => __DIR__ . '/../..' . '/src/Tracking/Events/SiteVerificationEvents.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Tracking\\Events\\TracksEventInterface' => __DIR__ . '/../..' . '/src/Tracking/Events/TracksEventInterface.php',
@@ -4155,9 +4156,9 @@ class ComposerStaticInita715523d44e1f0154b77465f8ac1d977
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita715523d44e1f0154b77465f8ac1d977::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita715523d44e1f0154b77465f8ac1d977::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita715523d44e1f0154b77465f8ac1d977::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb2e58e182082cdefecbd4f7e619b375c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb2e58e182082cdefecbd4f7e619b375c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb2e58e182082cdefecbd4f7e619b375c::$classMap;
 
         }, null, ClassLoader::class);
     }

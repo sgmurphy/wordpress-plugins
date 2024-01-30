@@ -2,6 +2,9 @@
 /**
  * Options class
  * https://stackoverflow.com/a/55658771/4688612
+ *
+ * TODO: in an new db version move cookie_consent_mgmt to the general section
+ * TODO: change ->google->consent_mode->active to ->google->consent_mode->is_active
  */
 
 namespace WCPM\Classes;
@@ -218,6 +221,11 @@ class Options {
 				'disable_tracking_for'          => [],
 				'order_list_info'               => true,
 				'subscription_value_multiplier' => 1.00,
+				'ltv'                           => [
+					'automatic_recalculation' => [
+						'is_active' => true,
+					],
+				],
 			],
 			'general'    => [
 				'variations_output'          => true,  // TODO maybe should be in the shop section
@@ -653,5 +661,33 @@ class Options {
 		self::init();
 		self::$options['shop']['order_deduplication'] = true;
 		update_option(PMW_DB_OPTIONS_NAME, self::$options);
+	}
+
+	public static function get_marketing_value_logic() {
+		return self::get_options_obj()->shop->order_total_logic;
+	}
+
+	public static function get_marketing_value_logic_input_field_name() {
+		return PMW_DB_OPTIONS_NAME . '[shop][order_total_logic]';
+	}
+
+	public static function is_cookie_consent_explicit_consent_active() {
+		return (bool) self::get_options_obj()->shop->cookie_consent_mgmt->explicit_consent;
+	}
+
+	public static function get_cookie_consent_explicit_consent_input_field_name() {
+		return PMW_DB_OPTIONS_NAME . '[shop][cookie_consent_mgmt][explicit_consent]';
+	}
+
+	public static function is_google_tcf_support_active() {
+		return (bool) self::get_options_obj()->google->tcf_support;
+	}
+
+	public static function is_google_consent_mode_active() {
+		return (bool) self::get_options_obj()->google->consent_mode->active;
+	}
+
+	public static function is_automatic_ltv_recalculation_active() {
+		return (bool) self::get_options_obj()->shop->ltv->automatic_recalculation->is_active;
 	}
 }

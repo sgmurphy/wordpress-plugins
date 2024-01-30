@@ -56,9 +56,9 @@ class Admin
             add_action( 'add_meta_boxes', function () {
                 $screen = ( Helpers::is_wc_hpos_enabled() && wc_get_container()->get( \Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled() ? wc_get_page_screen_id( 'shop-order' ) : 'shop_order' );
                 add_meta_box(
-                    'ga4-attribution-modal',
-                    esc_html__( 'GA4 Attribution', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
-                    [ $this, 'ga4_attribution_modal__premium_only' ],
+                    'pixel-manager-order-modal',
+                    esc_html__( 'Pixel Manager', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
+                    [ $this, 'pmw_order_modal__premium_only' ],
                     $screen,
                     'side',
                     'core'
@@ -249,9 +249,7 @@ class Admin
         if ( Environment::is_woocommerce_active() ) {
             $this->add_section_dynamic_remarketing();
         }
-        if ( defined( 'EXPERIMENTAL_PMW_OPPORTUNITIES_TAB' ) && EXPERIMENTAL_PMW_OPPORTUNITIES_TAB ) {
-            $this->add_section_opportunities();
-        }
+        self::add_section_opportunities();
         //		$this->add_section_opportunities();
         if ( Environment::is_woocommerce_active() ) {
             $this->add_section_diagnostics();
@@ -620,11 +618,11 @@ class Admin
             'slug'  => 'shop',
         ];
         self::add_subsection_div( $section_ids, $sub_section_ids );
-        // add fields for the order total logic
+        // add fields for the marketing value logic
         add_settings_field(
-            'wpm_plugin_order_total_logic',
-            esc_html__( 'Order Total Logic', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->get_documentation_html_e( Documentation::get_link( 'order_total_logic' ) ),
-            [ $this, 'option_html_shop_order_total_logic' ],
+            'pmw_plugin_marketing_value_logic',
+            esc_html__( 'Marketing Value Logic', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->get_documentation_html_e( Documentation::get_link( 'marketing_value_logic' ) ),
+            [ $this, 'html_marketing_value_logic' ],
             'wpm_plugin_options_page',
             $section_ids['settings_name']
         );
@@ -664,11 +662,19 @@ class Admin
                 $section_ids['settings_name']
             );
         }
+        // Add a button to enable the automatic lifetime value recalculation
+        add_settings_field(
+            'pmw_setting_ltv_automatic_recalculation',
+            esc_html__( 'Automatic Lifetime Value Recalculation', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_experiment(),
+            [ $this, 'html_ltv_automatic_recalculation' ],
+            'wpm_plugin_options_page',
+            $section_ids['settings_name']
+        );
         // Add a button to schedule a lifetime value recalculation
         add_settings_field(
-            'pmw_setting_ltv_recalculation',
-            esc_html__( 'Lifetime Value Recalculation', 'woocommerce-google-adwords-conversion-tracking-tag' ),
-            [ $this, 'html_ltv_recalculation' ],
+            'pmw_setting_ltv_manual_recalculation',
+            esc_html__( 'Manual Lifetime Value Recalculation', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
+            [ $this, 'ltv_manual_recalculation' ],
             'wpm_plugin_options_page',
             $section_ids['settings_name']
         );
@@ -1383,7 +1389,7 @@ class Admin
         );
     }
     
-    public function add_section_opportunities()
+    public static function add_section_opportunities()
     {
         $section_ids = [
             'title'         => esc_html__( 'Opportunities', 'woocommerce-google-adwords-conversion-tracking-tag' ),
@@ -1394,7 +1400,7 @@ class Admin
         add_settings_section(
             'wpm_plugin_opportunities_section',
             esc_html__( 'Opportunities', 'woocommerce-google-adwords-conversion-tracking-tag' ),
-            [ $this, 'plugin_section_opportunities_html' ],
+            [ __CLASS__, 'plugin_section_opportunities_html' ],
             'wpm_plugin_options_page'
         );
     }
@@ -1930,7 +1936,7 @@ class Admin
 		<?php 
     }
     
-    public function plugin_section_opportunities_html()
+    public static function plugin_section_opportunities_html()
     {
         Opportunities::html();
     }
@@ -2956,46 +2962,61 @@ class Admin
         self::html_pro_feature();
     }
     
-    public function option_html_shop_order_total_logic()
+    public function html_marketing_value_logic()
     {
         ?>
 		<label>
-			<input type='radio' id='wpm_plugin_order_total_logic_0' name='wgact_plugin_options[shop][order_total_logic]'
-				   value='0' <?php 
-        echo  checked( 0, $this->options['shop']['order_total_logic'], false ) ;
-        ?>>
+			<input type="radio"
+				   id="pmw_plugin_marketing_value_logic_0"
+				   name="<?php 
+        esc_html_e( Options::get_marketing_value_logic_input_field_name() );
+        ?>"
+				   value="0"
+				<?php 
+        echo  checked( 0, Options::get_marketing_value_logic(), false ) ;
+        ?>
+			>
 			<?php 
         esc_html_e( 'Order Subtotal: Doesn\'t include tax, shipping, and if available, fees like PayPal or Stripe fees (default)', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 			<?php 
-        self::get_documentation_html_by_key( 'order_subtotal' );
+        self::get_documentation_html_by_key( 'marketing_value_subtotal' );
         ?>
 		</label>
 		<br>
 		<label>
-			<input type='radio' id='wpm_plugin_order_total_logic_1' name='wgact_plugin_options[shop][order_total_logic]'
-				   value='1' <?php 
-        echo  checked( 1, $this->options['shop']['order_total_logic'], false ) ;
-        ?>>
+			<input type="radio"
+				   id="pmw_plugin_marketing_value_logic_1"
+				   name="<?php 
+        esc_html_e( Options::get_marketing_value_logic_input_field_name() );
+        ?>"
+				   value="1"
+				<?php 
+        echo  checked( 1, Options::get_marketing_value_logic(), false ) ;
+        ?>
+			>
 			<?php 
         esc_html_e( 'Order Total: Includes tax and shipping', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 			<?php 
-        self::get_documentation_html_by_key( 'order_total' );
+        self::get_documentation_html_by_key( 'marketing_value_total' );
         ?>
 
 		</label>
 		<?php 
         
-        if ( wpm_fs()->can_use_premium_code__premium_only() || '2' === $this->options['shop']['order_total_logic'] || Options::pro_version_demo_active() ) {
+        if ( wpm_fs()->can_use_premium_code__premium_only() || '2' === Options::get_marketing_value_logic() || Options::pro_version_demo_active() ) {
             ?>
 			<br>
 			<label>
-				<input type='radio' id='wpm_plugin_order_total_logic_2'
-					   name='wgact_plugin_options[shop][order_total_logic]'
-					   value='2'
+				<input type="radio"
+					   id="pmw_plugin_marketing_value_logic_2"
+					   name="<?php 
+            esc_html_e( Options::get_marketing_value_logic_input_field_name() );
+            ?>"
+					   value="2"
 					<?php 
-            echo  checked( 2, $this->options['shop']['order_total_logic'], false ) ;
+            echo  checked( 2, Options::get_marketing_value_logic(), false ) ;
             ?>
 					<?php 
             if ( !Environment::is_a_cog_plugin_active() || !wpm_fs()->can_use_premium_code__premium_only() ) {
@@ -3009,7 +3030,7 @@ class Admin
             esc_html_e( 'Profit Margin: Only reports the profit margin. Excludes tax, shipping, and where possible, gateway fees.', 'woocommerce-google-adwords-conversion-tracking-tag' );
             ?>
 				<?php 
-            self::get_documentation_html_by_key( 'order_profit_margin' );
+            self::get_documentation_html_by_key( 'marketing_value_profit_margin' );
             ?>
 				<?php 
             self::html_pro_feature();
@@ -3023,7 +3044,7 @@ class Admin
 			<div>
 				<span class="dashicons dashicons-info"></span>
 				<?php 
-        esc_html_e( 'This is the order total amount reported back to the marketing pixels (such as Google Ads, Meta (Facebook), etc.). It excludes statistics pixels.', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        esc_html_e( 'This is the total value reported back to the marketing pixels (such as Google Ads, Meta (Facebook), etc.). It excludes statistics pixels.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 				<?php 
         
@@ -3120,7 +3141,7 @@ class Admin
 			<input type='checkbox' id='wpm_setting_google_consent_mode_active'
 				   name='wgact_plugin_options[google][consent_mode][active]'
 				   value='1' <?php 
-        checked( $this->options['google']['consent_mode']['active'] );
+        checked( Options::is_google_consent_mode_active() );
         ?> <?php 
         esc_html_e( self::disable_if_demo() );
         ?> />
@@ -3129,7 +3150,7 @@ class Admin
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( $this->options['google']['consent_mode']['active'], true, true );
+        self::display_status_icon( Options::is_google_consent_mode_active(), true, true );
         ?>
 		<?php 
         self::get_documentation_html_by_key( 'google_consent_mode' );
@@ -3168,14 +3189,19 @@ class Admin
         // https://developer.woocommerce.com/2017/08/08/selectwoo-an-accessible-replacement-for-select2/
         // https://github.com/woocommerce/selectWoo
         ?>
-		<select id="wpm_setting_google_consent_regions" multiple="multiple"
-				name="wgact_plugin_options[google][consent_mode][regions][]" style="width:350px;"
+		<select id="wpm_setting_google_consent_regions"
+				name="wgact_plugin_options[google][consent_mode][regions][]"
+				multiple="multiple"
+				style="width:350px;"
 				data-placeholder="<?php 
         esc_html_e( 'Choose countries', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>&hellip;"
-				aria-label="Country" class="wc-enhanced-select" <?php 
+				aria-label="Country"
+				class="wc-enhanced-select"
+			<?php 
         esc_html_e( self::disable_if_demo() );
-        ?>>
+        ?>
+		>
 			<?php 
         foreach ( Consent_Mode_Regions::get_consent_mode_regions() as $region_code => $region_name ) {
             ?>
@@ -3812,20 +3838,31 @@ class Admin
         // https://stackoverflow.com/a/1992745/4688612
         ?>
 		<label>
-			<input type='hidden' value='0' name='wgact_plugin_options[shop][cookie_consent_mgmt][explicit_consent]'>
-			<input type='checkbox' id='wpm_setting_explicit_consent_mode'
-				   name='wgact_plugin_options[shop][cookie_consent_mgmt][explicit_consent]'
-				   value='1' <?php 
-        checked( $this->options['shop']['cookie_consent_mgmt']['explicit_consent'] );
-        ?> <?php 
+			<input type="hidden"
+				   value="0"
+				   name="<?php 
+        esc_html_e( Options::get_cookie_consent_explicit_consent_input_field_name() );
+        ?>"
+			>
+			<input type="checkbox"
+				   id="wpm_setting_explicit_consent_mode"
+				   name="<?php 
+        esc_html_e( Options::get_cookie_consent_explicit_consent_input_field_name() );
+        ?>"
+				   value="1"
+				<?php 
+        checked( Options::is_cookie_consent_explicit_consent_active() );
+        ?>
+				<?php 
         esc_html_e( self::disable_if_demo() );
-        ?> />
+        ?>
+			/>
 			<?php 
         esc_html_e( 'Enable Explicit Consent Mode', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 		</label>
 		<?php 
-        self::display_status_icon( $this->options['shop']['cookie_consent_mgmt']['explicit_consent'], true, true );
+        self::display_status_icon( Options::is_cookie_consent_explicit_consent_active(), true, true );
         self::get_documentation_html_by_key( 'explicit_consent_mode' );
         self::html_pro_feature();
         echo  '<p style="margin-top:10px">' ;
@@ -4427,7 +4464,33 @@ class Admin
 		<?php 
     }
     
-    public function html_ltv_recalculation()
+    public function html_ltv_automatic_recalculation()
+    {
+        // adding the hidden input is a hack to make WordPress save the option with the value zero,
+        // instead of not saving it and remove that array key entirely
+        // https://stackoverflow.com/a/1992745/4688612
+        ?>
+		<label>
+			<input type='hidden' value='0' name='wgact_plugin_options[shop][ltv][automatic_recalculation][is_active]'>
+			<input type='checkbox' id='pmw_setting_order_list_info'
+				   name='wgact_plugin_options[shop][ltv][automatic_recalculation][is_active]'
+				   value='1' <?php 
+        checked( Options::is_automatic_ltv_recalculation_active() );
+        ?>
+			/>
+
+			<?php 
+        esc_html_e( 'Enable the automatic detection and recalculation of the lifetime value.', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        ?>
+		</label>
+		<?php 
+        self::display_status_icon( Options::is_automatic_ltv_recalculation_active() );
+        ?>
+		<?php 
+        self::get_documentation_html_by_key( 'ltv_recalculation' );
+    }
+    
+    public function ltv_manual_recalculation()
     {
         // Add a button with the text "Schedule LTV recalculation" and a confirmation dialog
         // Add a hidden div, that will be shown after the button is clicked, with a confirmation message
@@ -5025,6 +5088,11 @@ class Admin
     private function html_beta()
     {
         return '<div class="pmw-status-icon beta">' . esc_html__( 'beta', 'woocommerce-google-adwords-conversion-tracking-tag' ) . '</div>';
+    }
+    
+    private function html_experiment()
+    {
+        return '<div class="pmw-status-icon beta">' . esc_html__( 'experiment', 'woocommerce-google-adwords-conversion-tracking-tag' ) . '</div>';
     }
     
     private function html_beta_e( $margin_top = '1px' )

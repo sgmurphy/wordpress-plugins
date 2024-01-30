@@ -222,19 +222,19 @@ class Documentation {
 				'default' => '/docs/wpm/diagnostics#order-list-info',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/general-settings/#order-list-info',
 			],
-			'order_total_logic'                                      => [
-				'default' => '/docs/wpm/plugin-configuration/shop-settings#order-total-logic',
+			'marketing_value_logic'                                      => [
+				'default' => '/docs/wpm/plugin-configuration/shop-settings#marketing-value-logic',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/',
 			],
-			'order_subtotal'                                         => [
+			'marketing_value_subtotal'                                         => [
 				'default' => '/docs/wpm/plugin-configuration/shop-settings#order-subtotal-default',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/',
 			],
-			'order_total'                                            => [
+			'marketing_value_total'                                            => [
 				'default' => '/docs/wpm/plugin-configuration/shop-settings#order-total',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/',
 			],
-			'order_profit_margin'                                    => [
+			'marketing_value_profit_margin'                                    => [
 				'default' => '/docs/wpm/plugin-configuration/shop-settings#profit-margin',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/general-settings/#profit-margin',
 			],
@@ -330,28 +330,32 @@ class Documentation {
 				'default' => '/docs/wpm/plugin-configuration/linkedin#partner-id',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/linkedin/',
 			],
-			'google_tcf_support'                                    => [
+			'google_tcf_support'                                     => [
 				'default' => '/docs/wpm/consent-management/google#google-tcf-support',
 				'wcm'     => '',
 			],
-			'logger_activation'                                    => [
+			'logger_activation'                                      => [
 				'default' => '/docs/wpm/developers/logs#logger-activation',
 				'wcm'     => '',
 			],
-			'log_level'                                    => [
+			'log_level'                                              => [
 				'default' => '/docs/wpm/developers/logs#log-levels',
 				'wcm'     => '',
 			],
-			'log_http_requests'                                    => [
+			'log_http_requests'                                      => [
 				'default' => '/docs/wpm/developers/logs#log-http-requests',
 				'wcm'     => '',
 			],
-			'log_files'                                    => [
+			'log_files'                                              => [
 				'default' => '/docs/wpm/developers/logs#accessing-log-files',
 				'wcm'     => '',
 			],
-			'ltv_recalculation'                                    => [
+			'ltv_recalculation'                                      => [
 				'default' => '/docs/wpm/plugin-configuration/shop-settings#lifetime-value-recalculation',
+				'wcm'     => '',
+			],
+			'order_modal_ltv'                                        => [
+				'default' => '/docs/wpm/shop#lifetime-value',
 				'wcm'     => '',
 			],
 		];

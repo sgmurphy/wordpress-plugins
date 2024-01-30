@@ -114,11 +114,16 @@ class Deprecated_Filters {
 			'This filter has been deprecated. Use the new logger in the user interface.'
 		);
 
-		apply_filters(
+		apply_filters_deprecated(
 			'pmw_facebook_capi_purchase_logging', [ false ],
 			'1.36.0',
 			null,
 			'This filter has been deprecated. Use the new logger in the user interface.'
 		);
+
+		$mini_cart_filter_deprecation_message
+			= 'The filter has become obsolete since PMW now tracks cart item data using the browser cache and doesn\'t rely entirely on the server anymore.';
+		apply_filters_deprecated('wooptpm_track_mini_cart', [ true ], '1.13.0', '', $mini_cart_filter_deprecation_message);
+		apply_filters_deprecated('wpm_track_mini_cart', [ true ], '1.15.5', '', $mini_cart_filter_deprecation_message);
 	}
 }

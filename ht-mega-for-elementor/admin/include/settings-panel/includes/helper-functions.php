@@ -23,7 +23,9 @@ function htmegaopt_data_clean( $var ) {
  */
 function htmegaopt_get_option( $key, $section, $default = false ){
     $options = get_option( $section );
-    if ( isset( $options[$key] ) ) {
+    if ( isset( $options['blocks'] ) && isset( $options['blocks'][$key] ) ) {
+        $value = $options['blocks'][$key];
+    }elseif ( isset( $options[$key] ) ) {
         $value = $options[$key];
     }else{
         $value = $default;
@@ -44,9 +46,16 @@ function htmegaopt_get_options( $registered_settings = [] ) {
     $settings = [];
     $options = [];
     foreach ( $registered_settings as $section_key => $setting_section ) {
-        foreach ( $setting_section as $setting ) {
-            $default                   = isset( $setting['std'] ) ? $setting['std'] : ( isset( $setting['default'] ) ? $setting['default'] : '' );
-            $options[ $setting['id'] ] = htmegaopt_get_option( $setting['id'], $section_key, $default );
+        foreach ( $setting_section as $key => $setting ) {
+            if( $key === 'blocks' ) {
+                foreach ( $setting as $block ) {
+                    $default                   = $block['default'];
+                    $options['blocks'][$block['id']] = htmegaopt_get_option( $block['id'], $section_key, $default );
+                }
+            } else {
+                $default                   = isset( $setting['std'] ) ? $setting['std'] : ( isset( $setting['default'] ) ? $setting['default'] : '' );
+                $options[ $setting['id'] ] = htmegaopt_get_option( $setting['id'], $section_key, $default );
+            }
         }
         $settings[$section_key] = $options;
         $options = [];

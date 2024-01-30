@@ -526,3 +526,39 @@ a.advanced-section-link {
     height: 36px;
     margin-top: -3px;
 }
+
+.pmw.order-modal h1 {
+    font-size: 100%;
+    /* make the font   bold*/
+    font-weight: bold;
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*text-align: center;*/
+    /*background-color: lightgrey;*/
+    padding: 4px;
+}
+
+.pmw.order-modal h2 {
+    font-size: 80%;
+    /*font-weight: bold;*/
+    padding: 0 !important;
+}
+
+.pmw.order-modal h4 {
+    font-size: 1em;
+    /*font-weight: bold;*/
+    padding: 0 !important;
+    /*margin: 0;*/
+    margin-top: 0.4em;
+    margin-bottom: 0.2em;
+}
+
+.pmw.order-modal .data {
+    padding: 0px 2px 0px 8px;
+}
+
+.pmw.order-modal .title {
+    /*background-color: lightgrey;*/
+    display: flex;
+    align-items: center;
+}

@@ -11499,7 +11499,7 @@ justify-content: center;
    * Blog Post Css
   */
   
-  .row-1 > [class*="col"] {
+  [class*="htmega"] .row-1 > [class*="col"] {
     padding-left: 1px;
     padding-right: 1px;
   }

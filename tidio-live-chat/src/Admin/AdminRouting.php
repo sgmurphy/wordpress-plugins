@@ -16,6 +16,7 @@ class AdminRouting
     const AUTHORIZE_WOOCOMMERCE_ACTION = 'tidio-live-chat-authorize-woocommerce';
     const INTEGRATE_WOOCOMMERCE_ACTION = 'tidio-live-chat-integrate-woocommerce';
     const DISMISS_NOTICE_ACTION = 'tidio-live-chat-dismiss-notice';
+    const CLEAR_LOG_FILE_ACTION = 'tidio-clear-log';
 
     /**
      * @var AdminController
@@ -45,6 +46,7 @@ class AdminRouting
         add_action('admin_post_' . self::AUTHORIZE_WOOCOMMERCE_ACTION, [$this->adminController, 'handleAuthorizeWooCommerceAction']);
         add_action('admin_post_' . self::INTEGRATE_WOOCOMMERCE_ACTION, [$this->adminController, 'handleIntegrateWooCommerceAction']);
         add_action('admin_post_' . self::DISMISS_NOTICE_ACTION, [$this->dismissibleNoticeController, 'handleDismissNotice']);
+        add_action('admin_post_' . self::CLEAR_LOG_FILE_ACTION, [$this->adminController, 'handleClearLogFile']);
     }
 
     /**
@@ -97,6 +99,14 @@ class AdminRouting
             self::DISMISS_NOTICE_ACTION,
             [DismissibleNoticeController::TIDIO_NOTICE_QUERY_PARAM_NAME => $noticeOptionName]
         );
+    }
+
+    /**
+     * @return string
+     */
+    public static function getEndpointForClearLogFileAction()
+    {
+        return self::getEndpointForAction(self::CLEAR_LOG_FILE_ACTION);
     }
 
     /**

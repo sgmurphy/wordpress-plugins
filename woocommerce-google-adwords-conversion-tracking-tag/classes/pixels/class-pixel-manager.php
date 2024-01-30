@@ -1570,26 +1570,6 @@ class Pixel_Manager
         }
         
         $data['currency'] = get_woocommerce_currency();
-        //		$data['mini_cart']['track'] = apply_filters_deprecated('wooptpm_track_mini_cart', [true], '1.13.0', 'wpm_track_mini_cart');
-        //		$data['mini_cart']['track'] = apply_filters('wpm_track_mini_cart', $data['mini_cart']['track']);
-        $mini_cart_filter_deprecation_message = 'The filter has become obsolete since PMW now tracks cart item data using the browser cache and doesn\'t rely entirely on the server anymore.';
-        apply_filters_deprecated(
-            'wooptpm_track_mini_cart',
-            [ true ],
-            '1.13.0',
-            '',
-            $mini_cart_filter_deprecation_message
-        );
-        apply_filters_deprecated(
-            'wpm_track_mini_cart',
-            [ true ],
-            '1.15.5',
-            '',
-            $mini_cart_filter_deprecation_message
-        );
-        $data['cookie_consent_mgmt'] = [
-            'explicit_consent' => (bool) $this->options_obj->shop->cookie_consent_mgmt->explicit_consent,
-        ];
         $data['selectors'] = [
             'addToCart'     => (array) apply_filters( 'pmw_add_selectors_add_to_cart', [] ),
             'beginCheckout' => (array) apply_filters( 'pmw_add_selectors_begin_checkout', [] ),
@@ -1613,6 +1593,9 @@ class Pixel_Manager
             'server2server'            => [
             'active'        => Options::server_2_server_enabled(),
             'ipExcludeList' => apply_filters( 'pmw_exclude_ips_from_server2server_events', [] ),
+        ],
+            'cookie_consent_mgmt'      => [
+            'explicit_consent' => Options::is_cookie_consent_explicit_consent_active(),
         ],
         ];
     }

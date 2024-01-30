@@ -99,6 +99,10 @@ class HMWP_Controllers_Brute extends HMWP_Classes_FrontController
     public function hmwp_bruteforce_shortcode( $atts = array(), $content = '' ){
         global $hmwp_bruteforce;
 
+        if (function_exists('is_user_logged_in') && is_user_logged_in()) {
+            return;
+        }
+
         $hmwp_bruteforce = true;
 
         if (HMWP_Classes_Tools::getOption('brute_use_math')) {

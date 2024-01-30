@@ -10,10 +10,15 @@ use TidioLiveChat\Http\Exception\ErrorResponseException;
 use TidioLiveChat\Http\Exception\HttpClientException;
 use TidioLiveChat\Http\Exception\UnauthorizedResponseException;
 use TidioLiveChat\Http\HttpClient;
+use TidioLiveChat\Logs\Logger;
 use TidioLiveChat\Utils\Url;
 
 class FileGetContentsHttpClient implements HttpClient
 {
+    /**
+     * @var Logger
+     */
+    private $logger;
     /**
      * @var string
      */
@@ -24,11 +29,13 @@ class FileGetContentsHttpClient implements HttpClient
     private $headers;
 
     /**
+     * @param Logger $logger
      * @param string $apiUrl
      * @param string[] $additionalHeaders
      */
-    public function __construct($apiUrl, $additionalHeaders = [])
+    public function __construct($logger, $apiUrl, $additionalHeaders = [])
     {
+        $this->logger = $logger;
         $this->apiUrl = $apiUrl;
         $this->headers = array_merge(
             [

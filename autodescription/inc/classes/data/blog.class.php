@@ -20,7 +20,7 @@ use \The_SEO_Framework\{
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2023 Sybre Waaijer, CyberWire B.V. (https://cyberwire.nl/)
+ * Copyright (C) 2023 - 2024 Sybre Waaijer, CyberWire B.V. (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -185,7 +185,7 @@ class Blog {
 	 *              3. Optimized code and removed memoization.
 	 * @credits Jetpack for some code.
 	 *
-	 * @return array List of active plugins.
+	 * @return string[] List of active plugins.
 	 */
 	public static function get_active_plugins() {
 

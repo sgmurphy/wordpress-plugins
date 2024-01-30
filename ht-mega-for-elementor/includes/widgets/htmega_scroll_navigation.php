@@ -323,7 +323,16 @@ class HTMega_Elementor_Widget_Scroll_Navigation extends Widget_Base {
                     'default' => 'yes',
                 ]
             );
-
+            $this->add_control(
+                'slide_custom_menup',
+                [
+                    'label' => esc_html__( 'External menu for Navigation', 'htmega-addons' ),
+                    'type' => Controls_Manager::SWITCHER,
+                    'return_value' => 'yes',
+                    'default' => 'no',
+                ]
+            );
+            htmega_pro_notice( $this,'slide_custom_menup', 'yes', Controls_Manager::RAW_HTML );
         $this->end_controls_section(); // Slider Options Section End
 
         // Style tab section

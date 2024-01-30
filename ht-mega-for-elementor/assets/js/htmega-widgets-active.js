@@ -843,7 +843,17 @@ template: '<div class="htmega-alert-wrap-'+notify_opt.wrapid+' '+notify_opt.widt
         if( swiper_opt.mousewheel == false){
             swiper.mousewheel.disable();
         }
+        if( true == swiper_opt.slide_custom_menu ) {
+        $('a[href^="#htmega-scroll-slide"]').on('click', function (e) {
+            e.preventDefault();
 
+            var fullIndex = $(this).attr('href');
+            var slideIndex = parseInt(fullIndex.replace('#htmega-scroll-slide-',''), 0);
+            if( fullIndex !== slideIndex && slideIndex > 0 ){
+                swiper.slideTo(slideIndex-1); 
+            }
+          });
+        }
     }
 
     /*=========== Post Grid Tab =======*/

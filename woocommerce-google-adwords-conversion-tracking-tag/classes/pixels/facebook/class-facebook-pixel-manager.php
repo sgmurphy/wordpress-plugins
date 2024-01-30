@@ -3,6 +3,7 @@
 namespace WCPM\Classes\Pixels\Facebook;
 
 use  WCPM\Classes\Http\Facebook_CAPI ;
+use  WCPM\Classes\Logger ;
 use  WCPM\Classes\Shop ;
 
 if ( !defined( 'ABSPATH' ) ) {

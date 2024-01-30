@@ -4,84 +4,87 @@ Tags: woocommerce, google analytics, google ads, facebook, conversion tracking, 
 Requires at least: 3.7
 Tested up to: 6.4
 Requires PHP: 7.3
-Stable tag: 1.36.0
+Stable tag: 1.37.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Track visitors and conversions for WooCommerce Google Analytics Universal, GA4, Google Ads, Meta, Facebook, TikTok, Microsoft, and many more!
+Track visitors and conversions for WooCommerce Google Analytics GA4, Google Ads, Meta (Facebook, Instagram), TikTok, Microsoft, and many more!
 
 == Description ==
 
-This plugin <strong>tracks WooCommerce shop visitors and collects valuable data for conversion optimization, dynamic remarketing and reporting</strong>.
+Boost your sales and cut advertising costs with the Pixel Manager, a plugin that excels in precise e-commerce tracking.
 
-_This plugin was recommended to us by Google’s Tag Implementation Team. That should say enough._ - [dpackert24](https://wordpress.org/support/topic/simple-easy-to-use-does-what-it-says-on-the-tin/)
+🚀 Endorsed by Google’s Tag Team – a big deal, right?
 
-_Look no further than this plugin. This plugin saved my advertising efforts. I was desperate to get accurate tracking and lost thousands of dollars due to wrong tracking and missed data. This plugin saved the day. There’s plenty of well crafted documentation and the support is very proactive and helpful._ - [caesarsandiego](https://wordpress.org/support/topic/world-class-quality-solution/)
+> This plugin was recommended to us by Google’s Tag Implementation Team. That should say enough.
 
-The Pixel Manager is the most complete and flexible solution for implementing pixels of various providers, like Google Analytics (Universal and GA4), Google Ads (formerly Google AdWords) Pixel, Meta Pixel (Facebook Pixel), Microsoft Pixel, TikTok Pixel, and many more.
+[says @dpackert24](https://wordpress.org/support/topic/simple-easy-to-use-does-what-it-says-on-the-tin/)
 
-The Pixel Managers advanced architecture has numerous advantages:
+> Saved me thousands...and top-notch support and docs.
 
-- Data privacy features allow you to achieve the highest level of GDPR (and other privacy) compliance.
-- It is very easy to use and easy to understand.
-- Filters allow you to modify the output very flexibly and customize it perfectly to your needs.
-- Standardized output to all pixels allows a much better apples-to-apples comparison between different providers.
-- Payment gateway accuracy report that shows how many conversions are lost due to redirect issues.
-- Automatic Conversion Recovery (ACR) feature allows you to recover lost conversions due to redirect issues.
-- Its transpiled and optimized JavaScript library ensures compatibility with more than 98% of all browsers that visit your website.
+[says @caesarsandiego](https://wordpress.org/support/topic/world-class-quality-solution/)
 
-While the setup is as simple as it can get, the pixel engine under the hood is very powerful. It tracks all e-commerce events and implements all advanced pixel features like Meta CAPI (Facebook CAPI) (Pro version), Google Analytics Enhanced E-Commerce, Google Shopping Cart Item Tracking, TikTok Events API (Pro version), and much more. For advanced users, the plugin offers filters that allow them to tweak the output flexibly and fine-tune the behavior for each shop.
+This plugin tracks WooCommerce shop visitors and collects valuable data for conversion optimization of your shop and paid ads, dynamic remarketing and reporting. It's designed to boost your sales and cut advertising costs through precise e-commerce tracking.
 
-<strong>What makes the Pixel Manager unique?</strong>
+The Pixel Manager integrates smoothly with platforms like Google Analytics, Google Ads, Meta (Facebook, Instagram), Hotjar, Microsoft (Pro), and TikTok (Pro).
 
-The unparalleled and high tracking accuracy, the simple user interface, and constant innovation make Pixel Manager the best solution for e-commerce tracking.
+<strong>Key features</strong>
 
-For instance, the [Payment Gateway Accuracy Report](https://sweetcode.com/docs/wpm/diagnostics?utm_source=wordpress.org&utm_medium=wpm-plugin-page&utm_campaign=pixel-manager-for-woocommerce-docs&utm_content=payment-gateway-accuracy-report#payment-gateway-tracking-accuracy-report) shows how many conversions are lost due to redirect issues. Payment gateway accuracy issues are more common than you might think and the Pixel Manager is the only tracking solution that provides insights into that problem.
+&#9989; User-friendly and intuitive.
+&#9989; Customizable filters for even preciser tracking.
+&#9989; GDPR-aligned with advanced data privacy features.
+&#9989; Standardized data output across platforms.
+&#9989; In-depth payment gateway reports – goodbye conversion drops.
+&#9989; Lightweight JavaScript library for a speedy site.
+&#9989; Auto Conversion Recovery (ACR) – catch those lost conversions (Pro).
 
-And with the [Automatic Conversion Recovery (ACR)](https://sweetcode.com/docs/wpm/features/acr?utm_source=wordpress.org&utm_medium=wpm-plugin-page&utm_campaign=pixel-manager-for-woocommerce-docs&utm_content=acr) (premium feature), which helps you recover lost conversions due to redirect issues, the Pixel Manager solidifies its pole position in tracking solutions. There is no other tracking solution that ships that type of feature (yet).
+This plugin goes beyond basic setup, offering comprehensive tracking of all e-commerce activities. Advanced features like Google Analytics Enhanced E-Commerce and dynamic remarketing events are included, with the pro version adding Meta CAPI, TikTok Events API and much more.
 
-Read more about the importance of tracking accuracy over [here](https://sweetcode.com/docs/wpm/faq/?utm_source=wordpress.org&utm_medium=wpm-plugin-page&utm_campaign=pixel-manager-for-woocommerce-docs&utm_content=tracking-accuracy#why-is-tracking-accuracy-so-important).
+<strong>Why the Pixel Manager?</strong>
 
-<strong>The plugin comes with integrations for:</strong>
+Accuracy, simplicity, innovation.
 
-* Google Ads Pixel (formerly Google AdWords)
-* Google Analytics Pixel (Universal and Google Analytics 4)
-* Google Optimize Pixel
+Extensive feature range in the free and especially the pro version.
+
+Unique tools like the [Payment Gateway Accuracy Report](https://sweetcode.com/docs/wpm/diagnostics?utm_source=wordpress.org&utm_medium=wpm-plugin-page&utm_campaign=pixel-manager-for-woocommerce-docs&utm_content=payment-gateway-accuracy-report#payment-gateway-tracking-accuracy-report) and [ACR](https://sweetcode.com/docs/wpm/features/acr?utm_source=wordpress.org&utm_medium=wpm-plugin-page&utm_campaign=pixel-manager-for-woocommerce-docs&utm_content=acr) (Pro).
+
+<strong>Plugin Integrations</strong>
+
+* Google Ads Pixel
+* Google Analytics Pixel (GA4)
 * HotJar Pixel
-* Meta Ads Pixel (Facebook Ads Pixel)
-* Microsoft Ads Pixel (Pro version) (formerly Bing Ads)
-* Outbrain Ads Pixel (Pro version)
-* Pinterest Ads Pixel (Pro version)
-* Reddit Ads Pixel (Pro version)
-* Snapchat Ads Pixel (Pro version)
-* Taboola Ads Pixel (Pro version)
-* TikTok Ads Pixel (Pro version)
-* Twitter Ads Pixel (Pro version)
+* Meta Ads Pixel
+* Microsoft Ads Pixel (Pro)
+* Outbrain Ads Pixel (Pro)
+* Pinterest Ads Pixel (Pro)
+* Reddit Ads Pixel (Pro)
+* Snapchat Ads Pixel (Pro)
+* Taboola Ads Pixel (Pro)
+* TikTok Ads Pixel (Pro)
+* Twitter Ads Pixel (Pro)
 
 <strong>Highlights</strong>
 
-* Google Ads Enhanced Conversions (Pro version)
-* Google Ads Conversion Adjustments (Pro version)
-* Meta Conversion API (Facebook Conversion API) (Pro version)
-* Google Analytics Enhanced E-Commerce (Pro version)
-* Precise measurement by preventing duplicate reporting effectively, and not counting failed payments.
-* Collects dynamic remarketing audiences for dynamic retargeting (Google Ads, Meta (Facebook), etc.)
-* Google Add Cart Data feature. [Google support page](https://support.google.com/google-ads/answer/9028254)
-* Support for various consent management platforms
-* [Payment gateway accuracy report](https://sweetcode.com/docs/wpm/diagnostics?utm_source=wordpress.org&utm_medium=wpm-plugin-page&utm_campaign=pixel-manager-for-woocommerce-docs&utm_content=payment-gateway-accuracy-report#payment-gateway-tracking-accuracy-report)
-* [Automatic Conversion Recovery (ACR)](https://sweetcode.com/docs/wpm/features/acr?utm_source=wordpress.org&utm_medium=wpm-plugin-page&utm_campaign=pixel-manager-for-woocommerce-docs&utm_content=acr)
+* Effective order duplication prevention.
+* Dynamic remarketing audience collection.
+* Google Ads Cart Data tracking.
+* Consent management platform compatibility.
+* Google Analytics Enhanced E-Commerce.
+* [Payment Gateway Accuracy Report](https://sweetcode.com/docs/wpm/diagnostics?utm_source=wordpress.org&utm_medium=wpm-plugin-page&utm_campaign=pixel-manager-for-woocommerce-docs&utm_content=payment-gateway-accuracy-report#payment-gateway-tracking-accuracy-report)
+* Google Ads Enhanced Conversions (Pro)
+* Server-side tracking for many platforms (Pro)
+* Meta Conversion API (Pro)
+* [Automatic Conversion Recovery (ACR)](https://sweetcode.com/docs/wpm/features/acr?utm_source=wordpress.org&utm_medium=wpm-plugin-page&utm_campaign=pixel-manager-for-woocommerce-docs&utm_content=acr) (Pro)
 
 <strong>Free Features</strong>
 
-* Google Ads Conversion Tracking (formerly Google AdWords)
+* Google Ads Conversion Value Tracking
 * Google Ads Dynamic Remarketing
 * Google Ads Cart Item Tracking
 * Google Shopping New Customer Parameter
-* Google Analytics Universal Pixel (includes purchase tracking)
-* Google Analytics 4 Pixel (includes purchase tracking)
-* Google Optimize Pixel
+* GA4 Enhanced E-Commerce
 * Meta Pixel (Facebook Pixel)
-* Meta Remarketing Events (Facebook Remarketing Events)
+* Meta Remarketing Events
 * Hotjar Pixel
 * Basic Order Duplication Prevention
 * Many useful filters that help tweak the plugin output
@@ -92,74 +95,31 @@ Have a look at the full feature list over [here](https://sweetcode.com/docs/wpm/
 
 <strong>Premium Pixels</strong>
 
-* Microsoft Advertising Pixel with purchase and all remarketing events
-* Pinterest Ads Pixel with purchase and all remarketing events
-* Reddit Ads Pixel with purchase and all remarketing events
-* Snapchat Ads Pixel with purchase and all remarketing events
-* TikTok Ads Pixel with purchase and all remarketing events
-* TikTok Events API
-* Twitter Ads Pixel with purchase and all remarketing events
+* Microsoft Advertising
+* Pinterest Ads
+* Reddit Ads
+* Snapchat Ads
+* TikTok Ads
+* Twitter Ads
 
 <strong>Premium Features</strong>
 
 * [Automatic Conversion Recovery (ACR)](https://sweetcode.com/docs/wpm/features/acr?utm_source=wordpress.org&utm_medium=wpm-plugin-page&utm_campaign=pixel-manager-for-woocommerce-docs&utm_content=acr)
 * Advanced Order Duplication Prevention
-* Google Ads Conversion Adjustments
 * Google Ads Enhanced Conversions
 * Google Ads Conversion Adjustments
-* Google Analytics Universal and Google Analytics 4 Enhanced E-Commerce
 * Google Consent Mode v2
-* Google Dynamic Remarketing Choice for all Business Verticals
 * Meta CAPI (Facebook CAPI)
-* Meta Microdata Output (Facebook Microdata Output)
 * Scroll Tracking
+* Automatic Phone and Link Click Tracking
 
 Have a look at the full feature list over [here](https://sweetcode.com/docs/wpm/features).
 
 Are you interested in buying the [Pro version](https://sweetcode.com)? Come and visit us [here](https://sweetcode.com).
 
-<strong>Plugin Compatibility</strong>
-
-The Pixel Manager is ready for the new WooCommerce [High Performance Orders Storage (HPOS)](https://developer.woocommerce.com/2022/09/14/high-performance-order-storage-progress-report/) feature.
-
-It is also compatible with the following third-party plugins:
-
-* Async Javascript
-* Automptimize
-* CartFlows
-* Cloudflare Plugin
-* Cost of Goods for WooCommerce (WPFactory)
-* FlyingPress
-* Hummingbird
-* Litespeed Cache
-* Litespeed ESI
-* NitroPack
-* Siteground Optimizer
-* W3 Total Cache
-* WooCommerce Brands
-* WooCommerce Composite Products
-* WooCommerce Cost of Goods (SkyVerge)
-* WooCommerce Deposits
-* WooCommerce Google Product Feed
-* WooCommerce Subscriptions
-* WooCommerce Wishlists
-* WooFunnels
-* Woo Discount Rules
-* WP Fastest Cache
-* WP Marketing Robot Feed Manager
-* WP Optimize
-* WP Rocket
-* WP Super Cache
-* YITH WooCommerce Brands
-* YITH WooCommerce Wishlist
-
 <strong>Documentation</strong>
 
 Link to the full documentation of the plugin: [Open the documentation](https://sweetcode.com/docs/wpm/?utm_source=wordpress.org&utm_medium=wpm-plugin-page&utm_campaign=pixel-manager-for-woocommerce-docs)
-
-<strong>Roadmap</strong>
-
-Take a look at our [roadmap](https://roadmap.sweetcode.com/pixel-manager-for-woocommerce) to see what's coming next.
 
 <strong>Consent Management</strong>
 
@@ -194,16 +154,26 @@ Although we follow security best practices, we wanted to make sure that we didn'
 
 The summary of their report was: "We were unable to detect any vulnerabilities that would impact the security status of the plugin in a serious way."
 
-<strong>managed Vulnerability Disclosure Program</strong>
+<strong>Managed Vulnerability Disclosure Program</strong>
 
 We are committed to ensuring the security of our customers and their data. If you believe you have found a security vulnerability in the Pixel Manager for WooCommerce, we encourage you to report it through Patchstack our security partner. Patchstack runs a managed Vulnerability Disclosure Program (mVDP) that helps us receive, triage, and respond to reported vulnerabilities. Patchstack also provides a reward for the responsible disclosure of security vulnerabilities. [Report a vulnerability](https://patchstack.com/database/vdp/woocommerce-google-adwords-conversion-tracking-tag)
 
 == Installation ==
 
 1. Upload the plugin directory into your plugin's directory `/wp-content/plugins/`
+
 2. Activate the plugin through the 'Plugins' menu in WordPress
+
 3. Get the Google Ads conversion ID and the conversion label. You will find both values in the Google Ads conversion tracking code. [Get the conversion ID and the conversion label](https://www.youtube.com/watch?v=p9gY3JSrNHU)
+
 4. In the WordPress admin panel go to WooCommerce and then into the 'Google Ads Conversion Tracking' menu. Please enter the conversion ID and the conversion label into their respective fields.
+
+5. Head over to our documentation and follow our installation guides. Here are some of our most popular guides:
+ * [Google Ads](https://sweetcode.com/docs/wpm/plugin-configuration/google-ads)
+ * [Google Analytics](https://sweetcode.com/docs/wpm/plugin-configuration/google-analytics)
+ * [Meta (Facebook)](https://sweetcode.com/docs/wpm/plugin-configuration/meta)
+
+6. And read through our [FAQ](https://sweetcode.com/docs/wpm/faq).
 
 == Frequently Asked Questions ==
 
@@ -221,6 +191,58 @@ Yes. Head over to this link: [Documentation](https://sweetcode.com/docs/wpm/?utm
 6. Wait up to 48 hours until the conversion shows up in Google Ads. (usually takes only a few hours)
 
 With the Google Tag Assistant you will also be able to see the tag fired on the thankyou page.
+
+= HPOS (High Performance Orders Storage) =
+
+The Pixel Manager is ready for the new WooCommerce [High Performance Orders Storage (HPOS)](https://developer.woocommerce.com/2022/09/14/high-performance-order-storage-progress-report/) feature.
+
+= Plugin compatibility =
+
+The plugin works fine with 99.99% of all plugins. We test the Pixel Manager very thoroughly and continuously. In case of problems with third party plugins we usually find a fix or a workaround.
+
+The Pixel Manager is compatible with the following third-party plugins:
+
+* Async Javascript
+* Automptimize
+* CartFlows
+* Cloudflare Plugin
+* Cost of Goods for WooCommerce (WPFactory)
+* FlyingPress
+* Hummingbird
+* Litespeed Cache
+* Litespeed ESI
+* NitroPack
+* Siteground Optimizer
+* W3 Total Cache
+* WooCommerce Brands
+* WooCommerce Composite Products
+* WooCommerce Cost of Goods (SkyVerge)
+* WooCommerce Deposits
+* WooCommerce Google Product Feed
+* WooCommerce Subscriptions
+* WooCommerce Wishlists
+* Woo Discount Rules
+* WP Fastest Cache
+* WP Marketing Robot Feed Manager
+* WP Optimize
+* WP Rocket
+* WP Super Cache
+* YITH WooCommerce Brands
+* YITH WooCommerce Wishlist
+
+= Will the Pixel Manager slow down my site? =
+
+No. The plugin is very lightweight and fast.
+
+* The back-end features are small and efficient.
+* Database queries are designed to be fast and are cached where possible.
+* Larger tasks are executed during nighttime using the Action Scheduler.
+* The front-end JavaScript library is compiled, minified and pre-compressed with gzip and brotli.
+* The pro version even allows lazy loading of the JavaScript library.
+
+= Do you have videos that show how to set up the plugin and get most out of it? =
+
+Yes, they are part of the step by step documentation. Head over to this link: [Documentation](https://sweetcode.com/docs/wpm/)
 
 = I get a fatal error and I am running old versions of WordPress and/or WooCommerce. What can I do? =
 
@@ -262,7 +284,22 @@ We are committed to ensuring the security of our customers and their data. If yo
 
 == Changelog ==
 
-= 1.36.0 = 16.01.2024
+= 1.37.0  =
+*Release date - 30.01.2024*
+
+* New: Opportunities tab that shows opportunities to improve tracking and marketing performance.
+* Tweak: Updated the order modal created by the Pixel Manager and added LTV values to it.
+* Tweak: Renamed the setting "order total logic" to "marketing value logic".
+* Tweak: Updated the translation file.
+* Tweak: Added more debug messages for Meta CAPI events.
+* Tweak: Added option to disable the automatic lifetime value calculation.
+* Tweak: Added an automatic library version checker that shows an error message in the console if the library version is not matching the currently installed plugin version.
+* Tweak: Added a front-end error log output in case the gtag.js library can't be loaded.
+* Tweak: Added a safeguard for calls to as_has_scheduled_action().
+
+
+= 1.36.0  =
+*Release date - 16.01.2024*
 
 * New: Added GA4 enhanced e-commerce events to the free version.
 * New: Added a new logger tab to the settings page. It allows you to enable logging from within the plugin.
@@ -277,13 +314,15 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Reordered the main subsection tabs.
 
 
-= 1.35.0 = 19.12.2023
+= 1.35.0  =
+*Release date - 19.12.2023*
 
 
 * New: AI support chat bot.
 * Fix: Safeguard for WooCommerce block editors that can cause a fatal error in rare cases.
 
-= 1.34.1 = 14.12.2023
+= 1.34.1  =
+*Release date - 14.12.2023*
 
 
 * Tweak: Removed user data output for the free version as it is not required.
@@ -296,7 +335,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Fix: Don't call VarnishPurger's execute_purge() statically as it is not a static function.
 * Fix: Added a safeguard to avoid render issues on empty block-activated cart pages.
 
-= 1.34.0 = 10.10.2023
+= 1.34.0  =
+*Release date - 10.10.2023*
 
 * New: Added support for WP Consent API.
 
@@ -309,7 +349,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Fix: Fixed the fallback function to retrieve the product ID on product pages that don't use the regular WooCommerce product template.
 * Fix: Added safeguard for pure WP installs and WC is not active.
 
-= 1.33.1 = 13.09.2023
+= 1.33.1  =
+*Release date - 13.09.2023*
 
 
 * Tweak: Added an autodetect algorithm for product template elements which help tracking view_item_list events.
@@ -326,7 +367,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Fix: Fixed the tax price output for additional currencies when WPML Multicurrency is active.
 * Fix: Fixed a bug in the view_item_list template detector for the niche case when detecting a list of one single product.
 
-= 1.33.0 = 09.08.2023
+= 1.33.0  =
+*Release date - 09.08.2023*
 
 
 * Tweak: Updated vendor libraries.
@@ -340,7 +382,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Fix: Fixed Litespeed ESI implementation. Now only the Pixel Manager ESI block will be excluded from caching for logged in users (not the entire page). (except the woocommerce.com distribution which requires a patch in WP core)
 * Fix: Put the automatic phone and link click tracking info in the UX behind a premium feature flag as it is only available in the premium version.
 
-= 1.32.5 = 19.07.2023
+= 1.32.5  =
+*Release date - 19.07.2023*
 
 * Tweak: Support for the Iubenda CMP.
 * Tweak: Also flush cache on the first option save.
@@ -351,7 +394,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Fix: Fixed a user data retrieval bug when the main administrator views an order confirmation page.
 * Fix: Fixed a PMW Lazy Load activation bug.
 
-= 1.32.4 = 11.07.2023
+= 1.32.4  =
+*Release date - 11.07.2023*
 
 * Tweak: Made the pmw:ready event trigger independent of jQuery.
 * Tweak: Added a begin_checkout event trigger for the XT Floating Cart for WooCommerce plugin.
@@ -360,13 +404,15 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Removed the WC requirement for the wp.org distribution.
 * Fix: Fixed the consent detection for CookieScript when the Google Consent Mode is enabled in CookieScript.
 
-= 1.32.3 = 05.07.2023
+= 1.32.3  =
+*Release date - 05.07.2023*
 
 * Tweak: Disabled Google Analytics Universal.
 * Tweak: Updated vendor libraries.
 * Tweak: Several smaller UX improvements.
 
-= 1.32.2 = 30.06.2023
+= 1.32.2  =
+*Release date - 30.06.2023*
 
 * New: Support for the Real Cookie Banner by devowl.io
 
@@ -378,7 +424,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Added a new pmw_order_fees filter.
 * Tweak: Added more debugging info to the debugging page.
 
-= 1.32.1 = 23.06.2023
+= 1.32.1  =
+*Release date - 23.06.2023*
 
 * Tweak: Added a safeguard to prevent fatal errors if the Action Scheduler could not be loaded.
 * Tweak: Safeguard if Lazy Loading is active and the wpmDataLayer was modified by another plugin.
@@ -386,7 +433,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Bumped up WC version compatibility to 7.8
 
 
-= 1.32.0 = 13.06.2023
+= 1.32.0  =
+*Release date - 13.06.2023*
 
 
 
@@ -405,12 +453,14 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Updated the vendor libraries.
 * Fix: Fixed a load order issue which would cause a wpm.updateGoogleConsentMode error if called on the pmwCookieConsentManagementLoaded event.
 
-= 1.31.1 = 24.05.2023
+= 1.31.1  =
+*Release date - 24.05.2023*
 
 * Tweak: Updated all vendor libraries.
 * Tweak: Optimized the safeguard for the order output on the thankyou page.
 
-= 1.31.0 = 23.05.2023
+= 1.31.0  =
+*Release date - 23.05.2023*
 
 
 * Tweak: Better handling of options.
@@ -427,7 +477,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 
 
 
-= 1.30.6 = 04.05.2023
+= 1.30.6  =
+*Release date - 04.05.2023*
 
 
 
@@ -437,11 +488,13 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Adjusted tel and mailto click events for GA4.
 * Tweak: Use of more compatible way to check if servers are reachable.
 
-= 1.30.5 = 19.04.2023
+= 1.30.5  =
+*Release date - 19.04.2023*
 
 * Fix: Use Litespeed ESI exclusion only for logged in users.
 
-= 1.30.4 = 19.04.2023
+= 1.30.4  =
+*Release date - 19.04.2023*
 
 
 * New: Added support for Termly CMP.
@@ -454,23 +507,27 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Bumped up the Facebook API version to v16.0.
 * Fix: Fixed variation output for pixel based purchase event order output.
 
-= 1.30.3 = 14.02.2023
+= 1.30.3  =
+*Release date - 14.02.2023*
 
 
 * Tweak: Deprecated a PWM filter to add paid order statuses and info to use the WooCommerce internal filter instead.
 * Tweak: Improved safety checks for order confirmation page. (Thanks https://github.com/Willianvdv for raising this.)
 
-= 1.30.2 = 26.01.2023
+= 1.30.2  =
+*Release date - 26.01.2023*
 
 * Fix: Fixed brotli and gzip compressed JavaScript files.
 
-= 1.30.1 = 26.01.2023
+= 1.30.1  =
+*Release date - 26.01.2023*
 
 
 * Tweak: Added workaround if a WP install plugin or theme loads a very old Composer version that doesn't contain the setApcuPrefix function. (Thanks @johnbillion for the solution)
 * Tweak: Brought back filter to disable the WooCommerce Google Analytics Integration, but only if GA3 and GA4 are both simultaneously enabled in the PMW.
 
-= 1.30.0 = 24.01.2023
+= 1.30.0  =
+*Release date - 24.01.2023*
 
 
 * Tweak: Workaround for an elusive bug in the consent regions in_array call.
@@ -480,12 +537,14 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Removed filter to disable the WooCommerce Google Analytics Integration plugin when GA3 is enabled in the Pixel Manager.
 
 
-= 1.29.1 = 12.01.2023
+= 1.29.1  =
+*Release date - 12.01.2023*
 
 * Tweak: Proper output of optimized composer autoload files.
 * Tweak: Adjusted define() to avoid warnings with old PHP versions.
 
-= 1.29.0 = 12.01.2023
+= 1.29.0  =
+*Release date - 12.01.2023*
 
 
 
@@ -495,15 +554,18 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Optimize composer autoload files.
 * Fix: Fixed a type check bug that happened in rare cases for grouped products.
 
-= 1.28.2 = 03.01.2023
+= 1.28.2  =
+*Release date - 03.01.2023*
 
 * Fix: Fixed an issue when activating the lazy loading feature of the plugin for the wc.com distribution.
 
-= 1.28.1 = 03.01.2023
+= 1.28.1  =
+*Release date - 03.01.2023*
 
 * Fix: Put new experimental opportunities dashboard notification behind a feature flag.
 
-= 1.28.0 = 03.01.2023
+= 1.28.0  =
+*Release date - 03.01.2023*
 
 
 
@@ -521,7 +583,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Fix: HPOS compatibility declaration now returns true as it should.
 * Fix: Get PMW payment accuracy report scheduler to schedule the report correctly.
 
-= 1.27.9 = 09.12.2022
+= 1.27.9  =
+*Release date - 09.12.2022*
 
 
 * Tweak: Added case insensitive flag to define() calls to prevent future PHP warnings.
@@ -530,7 +593,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Refactored logging.
 * Tweak: Improved a few descriptions.
 
-= 1.27.8 = 06.12.2022
+= 1.27.8  =
+*Release date - 06.12.2022*
 
 
 
@@ -540,16 +604,19 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Made sure that the action scheduler hooks always get registered (even when an Ajax request is happening).
 
 
-= 1.27.7 = 24.11.2022
+= 1.27.7  =
+*Release date - 24.11.2022*
 
 * Fix: Fixed Google Ads dynamic ID output for custom filters product ID filters.
 
-= 1.27.6 = 23.11.2022
+= 1.27.6  =
+*Release date - 23.11.2022*
 
 
 * Fix: Fixed an HPOS check for the debug info tab.
 
-= 1.27.5 = 23.11.2022
+= 1.27.5  =
+*Release date - 23.11.2022*
 
 * Tweak: Prioritize order billing info over logged-in user billing info.
 * Tweak: If available, also subtract order fees (such as PayPal or Stripe fees) from the subtotal.
@@ -558,28 +625,33 @@ We are committed to ensuring the security of our customers and their data. If yo
 
 
 
-= 1.27.4 = 18.11.2022
+= 1.27.4  =
+*Release date - 18.11.2022*
 
 * Tweak: Various UX improvements.
 
 
-= 1.27.3 = 17.11.2022
+= 1.27.3  =
+*Release date - 17.11.2022*
 
 * Tweak: Various UX improvements.
 
 
 
-= 1.27.2 = 16.11.2022
+= 1.27.2  =
+*Release date - 16.11.2022*
 
 * Fix: Fixed saving status after conversion pixels fired.
 
-= 1.27.1 = 16.11.2022
+= 1.27.1  =
+*Release date - 16.11.2022*
 
 * Tweak: Removed a console.log statement.
 * Tweak: Remove an error_log if an invalid phone number is passed to the e164 formatter.
 * Fix: Fixed a check if conversions have already fired for logged-in users.
 
-= 1.27.0 = 15.11.2022
+= 1.27.0  =
+*Release date - 15.11.2022*
 
 
 
@@ -594,7 +666,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Fix: Fixed an edge case where get_pmw_tracked_payment_methods would throw an error if no orders were found.
 * Fix: Fixed generation of precompressed admin .js files.
 
-= 1.26.0 = 07.11.2022
+= 1.26.0  =
+*Release date - 07.11.2022*
 
 
 
@@ -608,13 +681,15 @@ We are committed to ensuring the security of our customers and their data. If yo
 
 * Fix: Fixed a bug which would overwrite the data layer if products are added to it above the pmw main script.
 
-= 1.25.1 = 25.10.2022
+= 1.25.1  =
+*Release date - 25.10.2022*
 
 
 * Tweak: Switched getting tracking scripts from fetch back to jQuery.ajax() as fetch on some sites returned type errors.
 
 
-= 1.25.0 = 11.10.2022
+= 1.25.0  =
+*Release date - 11.10.2022*
 
 * New: Added support for the WP AutoTerms plugin
 * New: Added support for the Usercentrics CMP
@@ -622,7 +697,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Better detect order_received_page on themes that don't use the proper WooCommerce conditional and return page_type cart instead.
 
 
-= 1.24.0 = 06.10.2022
+= 1.24.0  =
+*Release date - 06.10.2022*
 
 * New: The Pixel Manager has been refactored to be ready for the upcoming WooCommerce High Performance Orders Storage
 * Tweak: Some UI improvements
@@ -630,17 +706,20 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Refactor for HPOS
 
 
-= 1.23.0 = 30.09.2022
+= 1.23.0  =
+*Release date - 30.09.2022*
 
 
 
 * Tweak: Few styling fixes in the settings page.
 
-= 1.22.1 = 26.09.2022
+= 1.22.1  =
+*Release date - 26.09.2022*
 
 * Tweak: Adjusted the consent API settings parameters
 
-= 1.22.0 = 26.09.2022
+= 1.22.0  =
+*Release date - 26.09.2022*
 
 
 * New: Added API for developers to handle consent management.
@@ -650,7 +729,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Fix: Fixed the input tag name for the product data.
 * Fix: Fix for the bug that caused multiple action scheduler entries.
 
-= 1.21.0 = 12.09.2022
+= 1.21.0  =
+*Release date - 12.09.2022*
 
 
 * Tweak: Added option to disable the PMW order list info output.
@@ -660,17 +740,20 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Fix: Fixed options validation when importing the settings.
 * Fix: Added safeguard to not fire the conversion pixels on the /order-pay/ page.
 
-= 1.20.2 = 31.08.2022
+= 1.20.2  =
+*Release date - 31.08.2022*
 
 * Fix: Fixed division by zero if WPML multi currency is enabled and a product has a price of zero or has no price set.
 
-= 1.20.1 = 31.08.2022
+= 1.20.1  =
+*Release date - 31.08.2022*
 
 * Tweak: Added statuses "cancelled" and "refunded" to the exclusions when conversions should not be fired.
 * Tweak: Moved PMW column on orders page after WC actions
 * Fix: Made PMW admin css to only target PMW elements
 
-= 1.20.0 = 30.08.2022
+= 1.20.0  =
+*Release date - 30.08.2022*
 
 
 * New: Column on order list, showing for which orders the browser conversion pixels have fired.
@@ -689,25 +772,30 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Fix: Fixed a bug that caused the conversion pixels to fire on purchase order payment pages (orders manually created by the shop manager and sent to the customer for payment).
 * Fix: Fixed variations output for FB CAPI server side orders when variations output is enabled.
 
-= 1.19.4 = 14.08.2022
+= 1.19.4  =
+*Release date - 14.08.2022*
 
 * Tweak: Added safeguard if function as_enqueue_async_action isn't available.
 
-= 1.19.3 = 14.08.2022
+= 1.19.3  =
+*Release date - 14.08.2022*
 
 * Tweak: Performance improvements for the new Diagnostics page.
 
-= 1.19.2 = 13.08.2022
+= 1.19.2  =
+*Release date - 13.08.2022*
 
 * Tweak: Few formatting fixes for payment gateway accuracy report
 * Tweak: Improved performance for purchase confirmation page detection and order retrieval.
 * Fix: Removed possible division by zero on settings page
 
-= 1.19.1 = 10.08.2022
+= 1.19.1  =
+*Release date - 10.08.2022*
 
 * Tweak: Performance improvements for the new diagnostics report.
 
-= 1.19.0 = 10.08.2022
+= 1.19.0  =
+*Release date - 10.08.2022*
 
 * New: Introduced new diagnostics section in the settings page.
 * Tweak: Refactored documentation URL link compilation.
@@ -715,12 +803,14 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Improved sanitization for arrays.
 * Tweak: Added sanitization for saving state when purchase pixels have fired.
 
-= 1.18.1 = 04.08.2022
+= 1.18.1  =
+*Release date - 04.08.2022*
 
 * Fix: Fixed the test which checks if Facebook CAPI is enabled.
 * Fix: Fixed a division by zero error when no conversions have been tracked yet.
 
-= 1.18.0 = 03.08.2022
+= 1.18.0  =
+*Release date - 03.08.2022*
 
 
 * New: Switched all server requests to use the REST API with AJAX fallback. Much faster. Reduces server load by approx. 30%.
@@ -736,7 +826,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Fix: Fixed the ask-for-rating.js script
 * Fix: Fixed a bug which prevented to run an environment server check on servers that don't return the INPUT_SERVER array.
 
-= 1.17.11 = 08.07.2022
+= 1.17.11  =
+*Release date - 08.07.2022*
 
 * New: Added export and import functionality.
 * Tweak: Removed the deprecated ttq.track("Browse") event.
@@ -744,7 +835,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Added an additional trigger if a visitor clicks on an Elementor checkout button.
 * Fix: Added the content_type to the FB InitiateCheckout event.
 
-= 1.17.10 = 21.06.2022
+= 1.17.10  =
+*Release date - 21.06.2022*
 
 
 * Tweak: Bumped up Facebook API version to v14.0
@@ -755,12 +847,14 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Adjusted price output for wpmDataLayer products to two decimals
 
 
-= 1.17.9 = 07.06.2022
+= 1.17.9  =
+*Release date - 07.06.2022*
 
 * Fix: Fixed the Facebook browser pixel external ID for anonymous users
 * Fix: Replaced str_contains() with a backward compatible version for the admin notification check
 
-= 1.17.8 = 07.06.2022
+= 1.17.8  =
+*Release date - 07.06.2022*
 
 
 * Tweak: Optimized ViewItem event on variable product pages when no product is preselected. The user has now the choice to fire a ViewItem event without product.
@@ -768,24 +862,28 @@ We are committed to ensuring the security of our customers and their data. If yo
 
 * Fix: Don't process CLV calculation if no billing email is available
 
-= 1.17.7 = 30.08.2022
+= 1.17.7  =
+*Release date - 30.08.2022*
 
 * Tweak: Bumped up WordPress version to 6.0
 * Tweak: Bumped up WoCommerce version to 6.5
 * Fix: Fixed documentation links that contain anchors
 * Fix: Fixed ask-for-rating scripts
 
-= 1.17.6 = 28.05.2022
+= 1.17.6  =
+*Release date - 28.05.2022*
 
 
 
-= 1.17.5 = 28.05.2022
+= 1.17.5  =
+*Release date - 28.05.2022*
 
 
 * Tweak: Added safeguard to check if wpmDataLayer.products exists before trying to filter it
 
 
-= 1.17.4 = 26.05.2022
+= 1.17.4  =
+*Release date - 26.05.2022*
 
 * New: Added GA4 session ID handling over the Measurement Protocol. This is not documented by Google and is experimental.
 * Tweak: Added tier info into debug info
@@ -795,7 +893,8 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Fix: Workaround if $_server['HTTP_HOST'] is not set
 * Fix: Workaround if $_server['REMOTE_ADDR'] is not set
 
-= 1.17.3 = 19.05.2022
+= 1.17.3  =
+*Release date - 19.05.2022*
 
 
 * Tweak: Optimized clv query for clv output
@@ -807,15 +906,18 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Fix: Prevent that the Freemius menu tabs get displayed in other plugins
 * Fix: Fixed the documentation links
 
-= 1.17.2 = 13.05.2022
+= 1.17.2  =
+*Release date - 13.05.2022*
 
 * Fix: Additional safeguard to check for array when checking for updates
 
-= 1.17.1 =  12.05.2022
+= 1.17.1  =
+*Release date - 12.05.2022*
 
 * Tweak: Adjusted db query for clv order total
 
-= 1.17.0 =  12.05.2022
+= 1.17.0  =
+*Release date - 12.05.2022*
 
 
 * New: Added customer lifetime value output for Google Ads
@@ -827,26 +929,30 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Fix: Fixed the position of the 'scripts blocked' warning message in the back-end if admin scripts don't load
 * Fix: Fixed the link of the 'admin scripts not loaded' message
 
-= 1.16.14 =  02.05.2022
+= 1.16.14  =
+*Release date - 02.05.2022*
 
 
 * Tweak: Set that admins and shop managers are being tracked by default, because the majority of new users expects this
 * Fix: Fixed document links for Meta (Facebook) settings
 
-= 1.16.13 =  30.04.2022
+= 1.16.13  =
+*Release date - 30.04.2022*
 
 * Tweak: One more adjustment to make sure categories are being output for purchase events on shops that don't properly sync the categories down to the variants
 * Fix: It can happen that no proper product object is created by WC and is passed to the Facebook microdata output. In that case WPM will now terminate the microdata output seamlessly.
 * Fix: Fixed a syntax error in on of the back-end admin scripts
 
-= 1.16.12 =  27.04.2022
+= 1.16.12  =
+*Release date - 27.04.2022*
 
 * Tweak: Added a new event listener for the Complianz Cookie Banner
 * Tweak: Added polyfill iconv to fix an edge case: https://wordpress.org/support/topic/update-to-pho-8-crash-wp/
 
 
 
-= 1.16.11 =  25.04.2022
+= 1.16.11  =
+*Release date - 25.04.2022*
 
 * New: Added function with which custom Facebook events can be triggered (including Facebook CAPI if it is enabled in the pro version)
 * Tweak: Changed cursor for submenu links in the back-end
@@ -855,12 +961,14 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Updated libphone library
 * Tweak: Updated Freemius library
 
-= 1.16.10 =  21.04.2022
+= 1.16.10  =
+*Release date - 21.04.2022*
 
 
 * Fix: Borlabs cookie auto-detection for Microsoft Ads (Bing Ads) fixed
 
-= 1.16.9 =  19.04.2022
+= 1.16.9  =
+*Release date - 19.04.2022*
 
 
 * Tweak: Refactored some of the GA4 functions
@@ -871,39 +979,46 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Updated selectWoo.full.*.js
 * Tweak: Tested up to WooCommerce 6.4
 
-= 1.16.8 =  14.04.2022
+= 1.16.8  =
+*Release date - 14.04.2022*
 
 Tweak: Added more page type outputs (for better product list performance analysis in GA)
 Tweak: Refactored GA3 and GA4 product data collection
 Fix: Fix for view item events on single variation pages
 
 
-= 1.16.6 =  11.04.2022
+= 1.16.6  =
+*Release date - 11.04.2022*
 
 * Tweak: Safeguard for JavaScript optimizers that ignore the jQuery dependency of WPM and load jQuery after WPM
 * Tweak: Refactored the WPM JavaScript library (split code logically and into folders)
 
-= 1.16.5 =  08.04.2022
+= 1.16.5  =
+*Release date - 08.04.2022*
 
 * Tweak: More verbose logging of WPM load and pixel consent status into the dev console
 * Tweak: Added new logic to retrieve categories for variations
 
-= 1.16.4 =  07.04.2022
+= 1.16.4  =
+*Release date - 07.04.2022*
 
 * Fix: Fixed a bug that prevented disabling user role tracking
 
-= 1.16.3 =  07.04.2022
+= 1.16.3  =
+*Release date - 07.04.2022*
 
 * Tweak: Remove the IPv6 to IPv4 mapping in case the the external user IP contains one
 * Tweak: Improved local IP detection
 * Tweak: Replaced deprecated FILTER_SANITIZE_STRING filter with FILTER_SANITIZE_FULL_SPECIAL_CHARS
 
-= 1.16.2 =  05.04.2022
+= 1.16.2  =
+*Release date - 05.04.2022*
 
 
 * Fix: Improved detection of users that are deactivated for tracking
 
-= 1.16.1 =  05.04.2022
+= 1.16.1  =
+*Release date - 05.04.2022*
 
 * Tweak: Removed data-cfasync=”false” to allow Cloudflare Rocket Loader to optimize scripts
 * Tweak: Removed unused functions
@@ -913,14 +1028,16 @@ Fix: Fix for view item events on single variation pages
 * Tweak: Renamed Facebook to Meta
 * Tweak: Add log entry when a purchase hit has been prevented because of a user role that has been opted out from tracking
 
-= 1.16.0 =  01.04.2022
+= 1.16.0  =
+*Release date - 01.04.2022*
 
 
 * Tweak: Removed a few deprecated and inactive settings
 * Tweak: Updated Enhanced Conversions output as per updated specs by Google
 * Tweak: Improved formatting for Facebook CAPI event parameters
 
-= 1.15.5 =  30.03.2022
+= 1.15.5  =
+*Release date - 30.03.2022*
 
 * Tweak: Removed an obsolete db cleanup function
 * Tweak: On variable products, with no preselection send the valid variation ID if variations output is enabled
@@ -935,16 +1052,19 @@ Fix: Fix for view item events on single variation pages
 * Tweak: Initiate WC session later in the checkout funnel (if necessary at all) to improve caching conditions
 * Tweak: Added URL parameter debugConsentMode for verbose debug output in the browser console in relation to user cookie consent
 
-= 1.15.4 =  23.03.2022
+= 1.15.4  =
+*Release date - 23.03.2022*
 
 * Fix: Product name transmission for Google Analytics Universal purchases
 
-= 1.15.3 =  22.03.2022
+= 1.15.3  =
+*Release date - 22.03.2022*
 
 * Tweak: Attach click handlers later during loading in order to better deal with some side cases
 * Tweak: Fire viewItem event on variable product pages when no variation is selected yet, sending the ID of the parent product
 
-= 1.15.2 =  21.03.2022
+= 1.15.2  =
+*Release date - 21.03.2022*
 
 * Tweak: Silenced status icon on compatibility mode setting when disabled
 * Tweak: Made Autoptimize, FlyingPress, Async JavaScript, Optimocha and WP Optimize JavaScript optimization disabler optional through compatibility mode
@@ -953,13 +1073,15 @@ Fix: Fix for view item events on single variation pages
 * Fix: Added safeguard if old version of WP Rocket is being used and compatibility mode is enabled
 * Fix: Added safeguard if Yoast SEO is being used and compatibility mode is enabled
 
-= 1.15.1 =  18.03.2022
+= 1.15.1  =
+*Release date - 18.03.2022*
 
 * Tweak: Made WP Rocket JavaScript optimization disabler optional through compatibility mode
 * Tweak: Adjusted sourcemaps output to make them work with Firefox
 * Fix: Proper check for user id when logged in
 
-= 1.15.0 =  15.03.2022
+= 1.15.0  =
+*Release date - 15.03.2022*
 
 * Experiment: Added experimental filter which defers the WPM script. The filter may be removed without prior notice. If you like the filter vote it up over here: https://roadmap.sweetcode.com/pixel-manager-for-woocommerce?card=622f4ba9d0b938002e8378c0
 * Experiment: Added experimental filter which moves the WPM script to the footer. The filter may be removed without prior notice. If you like the filter vote it up over here: https://roadmap.sweetcode.com/pixel-manager-for-woocommerce?card=622f4bc2d0b938002e8378e2
@@ -968,25 +1090,29 @@ Fix: Fix for view item events on single variation pages
 * Tweak: Bumped up WC version
 
 
-= 1.14.3 =  24.02.2022
+= 1.14.3  =
+*Release date - 24.02.2022*
 
 * Tweak: Adjusted all documentation links to point to new domain and sub-folder
 * Tweak: Improved handling with SG Optimizer
 
 
-= 1.14.2 =  17.02.2022
+= 1.14.2  =
+*Release date - 17.02.2022*
 
 * Tweak: Added items to Microsoft Ads purchase event
 * Tweak: Added 'wpm-js' to optimization exclusion list
 * Fix: Added a safeguard when checking for order purchase redirects in the UX
 * Fix: Fixed a double json encoded string for the GA4 browser purchase event
 
-= 1.14.1 =  12.02.2022
+= 1.14.1  =
+*Release date - 12.02.2022*
 
 * Tweak: Avoid loading the entire admin UX in case an admin is not viewing the plugin admin page itself
 * Fix: Fixed a side case where the plugin would output wrong html in case the pro version demo is enabled
 
-= 1.14.0 =  11.02.2022
+= 1.14.0  =
+*Release date - 11.02.2022*
 
 
 
@@ -995,11 +1121,13 @@ Fix: Fix for view item events on single variation pages
 * Fix: Plenty of syntax adjustments in order to adhere to all WooCommerce and WordPress coding standards
 * Fix: Fixed refunds for GA UA measurement protocol
 
-= 1.13.1 =  28.01.2022
+= 1.13.1  =
+*Release date - 28.01.2022*
 
 * Fix: fixed an error that would appear if no Google pixel is turned on and the wpm scripts are looking for Google values in the wpmDataLayer
 
-= 1.13.0 =  28.01.2022
+= 1.13.0  =
+*Release date - 28.01.2022*
 
 
 * Tweak: Tweaked settings for new cookie names in CMP Complianz >= version 6.0.0
@@ -1012,7 +1140,8 @@ Fix: Fix for view item events on single variation pages
 * Tweak: Combined all front-end and back-end scripts into single, optimized and compressed files
 * Tweak: Removed functions from the newly combined files that are not necessary anymore, like Promise.allSettled
 
-= 1.12.4 =  11.01.2022
+= 1.12.4  =
+*Release date - 11.01.2022*
 
 * Tweak: Removed some unnecessary console.log outputs
 * Tweak: Added a safeguard when flushing Flying Press Cache
@@ -1023,11 +1152,13 @@ Fix: Fix for view item events on single variation pages
 * Tweak: Improvements to read out of Cookie Script consent cookie
 * Tweak: Improvements to read out of Cookiebot consent cookie
 
-= 1.12.3 =  04.01.2022
+= 1.12.3  =
+*Release date - 04.01.2022*
 
 Fix: Deliver proper updated wpm.jsx
 
-= 1.12.2 =  03.01.2022
+= 1.12.2  =
+*Release date - 03.01.2022*
 
 * Tweak: Added automatic improvements for users of the Optimocha Speed Booster Pack plugin
 * Tweak: Added automatic improvements for users of the Async JavaScript plugin
@@ -1035,12 +1166,14 @@ Fix: Deliver proper updated wpm.jsx
 * Tweak: Added a few console warnings if wooptpm scripts are being deferred
 * Fix: Fixed a bug that appeared when a shop was using the "Complianz | GDPR/CCPA Cookie Consent" consent management plugin
 
-= 1.12.1 =  02.01.2022
+= 1.12.1  =
+*Release date - 02.01.2022*
 
 * Tweak: Added back the cookie prevention filter and included a deprecation notice
 * Fix: Fixed a bug that appeared when a shop was using the "CookieYes, GDPR Cookie Consent (Cookie Law Info)" consent management plugin
 
-= 1.12.0 =  31.12.2021
+= 1.12.0  =
+*Release date - 31.12.2021*
 
 * New: Added dynamic remarketing ID output for the WooCommerce Google Listings & Ads plugin
 
@@ -1049,7 +1182,8 @@ Fix: Deliver proper updated wpm.jsx
 * Tweak: Added support for several more Cookie Consent Platforms
 * Tweak: Properly handle error if WooCommerce is not active
 
-= 1.11.7 =  29.10.2021
+= 1.11.7  =
+*Release date - 29.10.2021*
 
 
 
@@ -1058,12 +1192,14 @@ Fix: Deliver proper updated wpm.jsx
 
 
 
-= 1.11.6 =  17.09.2021
+= 1.11.6  =
+*Release date - 17.09.2021*
 
 
 * Tweak: Improved some admin interface text
 
-= 1.11.5 =  02.09.2021
+= 1.11.5  =
+*Release date - 02.09.2021*
 
 
 
@@ -1072,15 +1208,18 @@ Fix: Deliver proper updated wpm.jsx
 * Tweak: Removed query to remove old refund keys from db
 
 
-= 1.11.4 =  13.08.2021
+= 1.11.4  =
+*Release date - 13.08.2021*
 
 
 
-= 1.11.3 =  13.08.2021
+= 1.11.3  =
+*Release date - 13.08.2021*
 
 * Fix: Fixed an array type error that could happen in rare cases
 
-= 1.11.2 =  13.08.2021
+= 1.11.2  =
+*Release date - 13.08.2021*
 
 
 * New: Added shortcodes for Snapchat and TikTok
@@ -1091,7 +1230,8 @@ Fix: Deliver proper updated wpm.jsx
 * Tweak: Added fallback to get an order from the order received page in case a plugin messes with query vars
 
 
-= 1.11.1 =  05.08.2021
+= 1.11.1  =
+*Release date - 05.08.2021*
 
 * New: Automatic cache purge for Kinsta on plugin updates and saved settings
 * Tweak: Added safeguard in order to prevent a fatal error when coming across a variation that doesn't properly link to a parent product
@@ -1101,7 +1241,8 @@ Fix: Deliver proper updated wpm.jsx
 
 * Fix: Built in a safeguard for the debug info in case no order exists yet in the shop
 
-= 1.11.0 =  26.07.2021
+= 1.11.0  =
+*Release date - 26.07.2021*
 
 
 * Tweak: Added coupons to GA UA and GA4 purchase events
@@ -1111,7 +1252,8 @@ Fix: Deliver proper updated wpm.jsx
 
 * Fix: Fixed some events on cart page for variable products
 
-= 1.10.11 =  19.07.2021
+= 1.10.11  =
+*Release date - 19.07.2021*
 
 
 * New: Filter for order items

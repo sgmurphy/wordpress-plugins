@@ -17,7 +17,7 @@ use \The_SEO_Framework\{
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2023 Sybre Waaijer, CyberWire B.V. (https://cyberwire.nl/)
+ * Copyright (C) 2023 - 2024 Sybre Waaijer, CyberWire B.V. (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -113,6 +113,7 @@ class Compatibility {
 			'schema'       => [],
 			'multilingual' => [
 				'Polylang'       => 'polylang/polylang.php',
+				'Polylang Pro'   => 'polylang-pro/polylang.php',
 				'WPML'           => 'sitepress-multilingual-cms/sitepress.php',
 				'TranslatePress' => 'translatepress-multilingual/index.php',
 				'WPGlobus'       => 'wpglobus/wpglobus.php',

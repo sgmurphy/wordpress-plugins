@@ -5,7 +5,7 @@
  * Description: Updates every URL on your site when going live or changing domains.
  * Author: OnPoint Plugins
  * Author URI: https://onpointplugins.com
- * Version: 6.7.1
+ * Version: 6.7.2
  * Text Domain: go-live-update-urls
  * Domain Path: /languages/
  * Network: false
@@ -15,7 +15,7 @@
  * @package go-live-update-urls
  */
 
-define( 'GO_LIVE_UPDATE_URLS_VERSION', '6.7.1' );
+define( 'GO_LIVE_UPDATE_URLS_VERSION', '6.7.2' );
 define( 'GO_LIVE_UPDATE_URLS_REQUIRED_PRO_VERSION', '6.10.3' );
 define( 'GO_LIVE_UPDATE_URLS_URL', plugin_dir_url( __FILE__ ) );
 
@@ -95,4 +95,24 @@ function go_live_update_urls_pro_plugin_notice() {
 		</p>
 	</div>
 	<?php
+}
+
+/**
+ * Sanitize a field in a way that PHPCS may be configured to honor
+ * the function as a sanitization callback.
+ *
+ * Like `sanitize_text_field` except we don't remove
+ * URL encoded characters and HTML tags.
+ *
+ * @since 6.7.2
+ *
+ * @param int|float|string $value - User provided value to sanitize.
+ *
+ * @return string
+ */
+function go_live_update_urls_sanitize_field( $value ): string {
+	$filtered = wp_unslash( (string) $value );
+	$filtered = wp_check_invalid_utf8( $filtered );
+	$filtered = \preg_replace( '/[\r\n\t ]+/', ' ', $filtered );
+	return \trim( (string) $filtered );
 }

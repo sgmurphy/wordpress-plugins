@@ -5,7 +5,7 @@ Tags: seo, xml sitemap, google search, open graph, schema.org, twitter card, per
 Requires at least: 5.9
 Tested up to: 6.4
 Requires PHP: 7.4.0
-Stable tag: 5.0.2
+Stable tag: 5.0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -114,7 +114,7 @@ The SEO Framework works on many things without notifying you, because the best s
 
 * Internationalization through WordPress.org. You can [contribute here](https://translate.wordpress.org/projects/wp-plugins/autodescription/).
 * Unicode (UTF-8) character recognition and rendering, including Emoji and CJKV (Chinese, Japanese, Korean, Vietnamese).
-* Right to Left (RTL) languages (Arabic, Hebrew, Farsi, et al.), through its interface and metatag generation.
+* Right to Left (RTL) languages (Arabic, Hebrew, Farsi, etc.), through its interface and metatag generation.
 * Complete color-vision deficiency accessibility thanks to a carefully picked color scheme.
 * Full keyboard navigation, so that you can inspect tooltips quickly without ever having to reach for your mouse.
 * Full screen-reader accessibility via field anchors, ARIA labels, and title attributes.
@@ -201,7 +201,7 @@ Learn more [about contributing](https://tsf.fyi/contributing).
 
 We use different colors to convey messages. Red is an error that you must resolve. Yellow is a non-critical warning that you may want to address. Green is good. Blue is informational and situational. Gray is undefined or unprocessable.
 
-= The sitemap doesn't contain categories, images, et al. =
+= The sitemap doesn't contain categories, images, etc. =
 
 Not having every single page listed is not an issue. Search engines love crawling WordPress because its structure is consistent and well known.
 
@@ -241,6 +241,10 @@ The SEO Framework outputs hidden breadcrumbs for search engines to find via its 
 You can also output these breadcrumbs visually in your theme by [using a shortcode](https://kb.theseoframework.com/?p=212).
 
 == Changelog ==
+
+= 5.0.3 =
+
+This minor update fixes compatibility with Polylang Pro. We also perfected the detection of unassigned home and blog pages and improved the Block Editor's load time by [resolving a glitch](https://theseoframework.com/?p=4204).
 
 = 5.0.2 =
 

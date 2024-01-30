@@ -95,7 +95,7 @@
 
 .htmega-navigation-menu li {
     display: inline-block;
-    margin-right: 50px;
+    margin-right: 30px;
 }
 
 .htmega-navigation-menu li:last-child {
@@ -106,7 +106,7 @@
     display: block;
     font-size: 15px;
     font-weight: 500;
-    padding: 25px 15px;
+    padding: 25px 10px;
     color: #333;
     text-align: center;
     text-decoration: none;

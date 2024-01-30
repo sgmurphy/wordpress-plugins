@@ -73,7 +73,7 @@ class Debug_Info
                 
                 if ( Environment::does_one_order_exist() ) {
                     $last_order_url = Environment::get_last_order_url();
-                    $html .= 'Last order URL: ' . $last_order_url . '&nodedupe' . PHP_EOL;
+                    $html .= 'Last order URL: ' . $last_order_url . '&nodedupe&pmwloggeron' . PHP_EOL;
                     $html .= 'Last order email: ' . Environment::get_last_order()->get_billing_email() . PHP_EOL;
                     $last_order_url_contains_order_received_page_url = ( strpos( Environment::get_last_order_url(), $order_received_page_url ) !== false ? 'yes' : 'no' );
                     $html .= 'Order received page uses proper is_order_received() url: ' . $last_order_url_contains_order_received_page_url . PHP_EOL;

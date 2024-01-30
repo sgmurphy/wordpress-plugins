@@ -129,15 +129,7 @@ class Replace_Link_Service_Weglot {
 			}
 
 		} else {
-			$a_opening_tag_pattern         = '/<a' . preg_quote( $sometags, '/' ) . '/';
-			$href_attribute_pattern        = 'href=' . preg_quote( $quote1 . $current_url . $quote2, '/' ) . preg_quote( $sometags2, '/' );
-			$closing_angle_bracket_pattern = '>/';
-			// Replace <a opening tag.
-			$translated_page = preg_replace( $a_opening_tag_pattern, '<a' . $sometags, $translated_page );
-			// Replace href attribute.
-			$translated_page = preg_replace( '/' . $href_attribute_pattern . '/', 'href=' . $quote1 . $this->replace_url( $current_url, $current_language ) . $quote2 . $sometags2, $translated_page );
-			// Replace closing angle bracket.
-			$translated_page = preg_replace( '/' . preg_quote( $closing_angle_bracket_pattern, '/' ) . '/', '>', $translated_page );
+			$translated_page = preg_replace( '/<a' . preg_quote( $sometags, '/' ) . 'href=' . preg_quote( $quote1 . $current_url . $quote2, '/' ) . preg_quote( $sometags2, '/' ) . '>/', '<a' . $sometags . 'href=' . $quote1 . $this->replace_url( $current_url, $current_language ) . $quote2 . $sometags2 . '>', $translated_page );
 		}
 
 		return $translated_page;

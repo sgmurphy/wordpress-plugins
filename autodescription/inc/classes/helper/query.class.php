@@ -17,7 +17,7 @@ use \The_SEO_Framework\{
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2023 Sybre Waaijer, CyberWire B.V. (https://cyberwire.nl/)
+ * Copyright (C) 2023 - 2024 Sybre Waaijer, CyberWire B.V. (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -115,7 +115,7 @@ class Query {
 			 */
 			$id = \apply_filters(
 				'the_seo_framework_real_id',
-				\is_feed() ? \get_the_ID() : 0,
+				\is_feed() ? \get_the_id() : 0,
 			);
 		}
 
@@ -151,7 +151,7 @@ class Query {
 		return (int) \apply_filters(
 			'the_seo_framework_current_admin_id',
 			// Get in the loop first, fall back to globals or get parameters.
-			   \get_the_ID()
+			   \get_the_id()
 			?: static::get_admin_post_id()
 			?: static::get_admin_term_id()
 		);
@@ -298,6 +298,7 @@ class Query {
 	public static function is_singular_archive( $post = null ) {
 
 		if ( isset( $post ) ) {
+			// Keep this an integer, even if 0. Only "null" may tell it's in the loop.
 			$id = \is_int( $post )
 				? $post
 				: ( \get_post( $post )->ID ?? 0 );
@@ -475,6 +476,8 @@ class Query {
 	 * @since 4.2.0 Added the first parameter to allow custom query testing.
 	 * @since 5.0.0 1. Renamed from `is_home()`.
 	 *              2. Moved from `\The_SEO_Framework\Load`.
+	 * @since 5.0.3 1. Will no longer validate `0` as a plausible blog page.
+	 *              2. Will no longer validate `is_home()` when the blog page is not assigned.
 	 *
 	 * @param int|WP_Post|null $post Optional. Post ID or post object.
 	 *                               Do not supply from WP_Query's main loop-query.
@@ -484,13 +487,14 @@ class Query {
 
 		if ( isset( $post ) ) {
 			$id = \is_int( $post )
-				? $post
-				: ( \get_post( $post )->ID ?? 0 );
+				? ( $post ?: null )
+				: ( \get_post( $post )->ID ?? null );
 
-			return (int) \get_option( 'page_for_posts' ) === $id;
+			return ( (int) \get_option( 'page_for_posts' ) ) === $id;
 		}
 
-		return \is_home();
+		// If not blog page is assigned, it won't exist. Ignore whatever WP thinks.
+		return Query\Utils::blog_page_exists() && \is_home();
 	}
 
 	/**
@@ -650,7 +654,7 @@ class Query {
 	 * @since 2.6.0
 	 * @since 4.0.0 This is now deemed a secure method.
 	 *              1. Added is_user_logged_in() check.
-	 *              2. Added is_singular() check, so get_the_ID() won't cross with blog pages.
+	 *              2. Added is_singular() check, so get_the_id() won't cross with blog pages.
 	 *              3. Added current_user_can() check.
 	 *              4. Added wp_verify_nonce() check.
 	 * @since 5.0.0 Moved from `\The_SEO_Framework\Load`.
@@ -665,7 +669,7 @@ class Query {
 			   \is_preview()
 			&& \is_user_logged_in()
 			&& \is_singular()
-			&& \current_user_can( 'edit_post', \get_the_ID() )
+			&& \current_user_can( 'edit_post', \get_the_id() )
 			&& isset( $_GET['preview_id'], $_GET['preview_nonce'] )
 			&& \wp_verify_nonce( $_GET['preview_nonce'], 'post_preview_' . (int) $_GET['preview_id'] )
 		) {
@@ -794,7 +798,7 @@ class Query {
 			?? umemo(
 				__METHOD__,
 				'page' === \get_option( 'show_on_front' )
-					? (int) \get_option( 'page_on_front' )
+					? ( (int) \get_option( 'page_on_front' ) ?: false )
 					: false,
 			);
 

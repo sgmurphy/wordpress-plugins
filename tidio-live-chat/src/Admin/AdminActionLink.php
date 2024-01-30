@@ -37,7 +37,8 @@ class AdminActionLink
      */
     public function addPluginActionLinks($links, $file)
     {
-        if (!$this->isPluginConfigurationFile($file) ||
+        if (
+            !$this->isPluginConfigurationFile($file) ||
             !$this->integrationState->isPluginIntegrated()
         ) {
             return $links;
@@ -45,6 +46,11 @@ class AdminActionLink
 
         $links[] = $this->prepareClearAccountDataActionLink();
         $links[] = $this->prepareToggleAsyncLoadingActionLink();
+        $links[] = sprintf(
+            '<a href="%s">%s</a>',
+            menu_page_url(AdminDashboard::TIDIO_SYSTEM_INFO_PAGE, false),
+            esc_html(I18n::_t('System Info'))
+        );
 
         return $links;
     }

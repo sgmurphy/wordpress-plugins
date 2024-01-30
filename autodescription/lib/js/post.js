@@ -8,7 +8,7 @@
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2019 - 2023 Sybre Waaijer, CyberWire B.V. (https://cyberwire.nl/)
+ * Copyright (C) 2019 - 2024 Sybre Waaijer, CyberWire B.V. (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -465,16 +465,24 @@ window.tsfPost = function( $ ) {
 		const updateDefaultTitle = val => {
 			val = val?.trim() || '';
 
-			let defaultTitle = tsfTitle.stripTitleTags ? tsf.stripTags( val ) : val
-
-			tsfTitle.updateStateOf( _titleId, 'defaultTitle', defaultTitle || tsfTitle.untitledTitle );
+			tsfTitle.updateStateOf(
+				_titleId,
+				'defaultTitle',
+				( tsfTitle.stripTitleTags ? tsf.stripTags( val ) : val ) || tsfTitle.untitledTitle,
+			);
 		}
 		//= The homepage listens to a static preset value. Update all others.
 		if ( ! l10n.params.isFront ) {
-			const classicTitleInput = document.querySelector( '#titlewrap #title' );
-			classicTitleInput && classicTitleInput.addEventListener( 'input', event => updateDefaultTitle( event.target.value ) );
+			document.querySelector( '#titlewrap #title' )
+				?.addEventListener(
+					'input',
+					event => { updateDefaultTitle( event.target.value ) },
+				);
 
-			$( document ).on( 'tsf-updated-gutenberg-title', ( event, title ) => updateDefaultTitle( title ) );
+			$( document ).on(
+				'tsf-updated-gutenberg-title',
+				( event, title ) => { updateDefaultTitle( title ) },
+			);
 		}
 
 		tsfTitle.enqueueUnregisteredInputTrigger( _titleId );

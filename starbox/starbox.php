@@ -1,13 +1,13 @@
 <?php defined('ABSPATH') || die('Cheatin\' uh?'); ?>
 <?php
 /*
-*  Copyright (c) 2013-2023, Squirrly Limited.
+*  Copyright (c) 2013-2024, Squirrly Limited.
 *  The copyrights to the software code in this file are licensed under the (revised) BSD open source license.
 *
 *  Plugin Name: StarBox
 *  Author: Squirrly UK
 *  Description: Starbox is the Author Box for Humans. Professional Themes to choose from, HTML5, Social Media Profiles, Google Authorship
-*  Version: 3.4.7
+*  Version: 3.4.9
 *  Author URI: https://www.squirrly.co/wordpress-seo-by-squirrly
 *  License:     GPLv2 or later
 *  License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -26,7 +26,7 @@
 */
 
 /* SET THE CURRENT VERSION ABOVE AND BELOW */
-define('ABH_VERSION', '3.4.7');
+define('ABH_VERSION', '3.4.9');
 
 if (!defined('ABHP_VERSION')) {
 

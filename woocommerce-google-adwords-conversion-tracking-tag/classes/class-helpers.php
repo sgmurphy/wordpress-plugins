@@ -229,21 +229,6 @@ class Helpers
     }
     
     /**
-     * Check if there is a scheduled action for a given hook and a given group.
-     *
-     * @param string $hook
-     * @param string $group
-     *
-     * @return bool
-     *
-     * @since 1.30.8
-     */
-    public static function has_scheduled_action( $hook, $group = '' )
-    {
-        return as_has_scheduled_action( $hook, [], $group );
-    }
-    
-    /**
      * Given a datetime string, return the unix timestamp for the local timezone.
      *
      * @param $datetime_string
@@ -529,11 +514,11 @@ class Helpers
      * Checks if experimental feature EXPERIMENTAL_PMW is enabled.
      *
      * @return bool
-     *        Returns true if EXPERIMENTAL_PMW is defined and has a truthy value, otherwise returns false.
+     *        Returns true if EXPERIMENTAL_PMW or PMW_EXPERIMENTS are defined and have a truthy value, otherwise returns false.
      */
     public static function is_experiment()
     {
-        return defined( 'EXPERIMENTAL_PMW' ) && EXPERIMENTAL_PMW;
+        return defined( 'EXPERIMENTAL_PMW' ) && EXPERIMENTAL_PMW || defined( 'PMW_EXPERIMENTS' ) && PMW_EXPERIMENTS;
     }
     
     /**
@@ -769,6 +754,31 @@ class Helpers
             return null;
         }
         return wp_json_encode( $logs );
+    }
+    
+    /**
+     * Checks if a scheduled action exists in Action Scheduler.
+     *
+     * This function checks if a scheduled action with a specific hook, arguments, and group exists in Action Scheduler.
+     * If the function 'as_has_scheduled_action' exists, it uses it to check for the scheduled action.
+     * If 'as_has_scheduled_action' does not exist, it uses 'as_next_scheduled_action' to check for the scheduled action.
+     * This is necessary as installs that use plugins with versions of Action Scheduler older than 3.2.1 don't reliably load
+     * the latest version of Action Scheduler which contains the 'as_has_scheduled_action' function.
+     *
+     * Read: https://developer.woo.com/2021/10/12/best-practices-for-deconflicting-different-versions-of-action-scheduler/
+     *
+     * @param string $hook The hook of the scheduled action to check for.
+     * @param array  $args Optional. The arguments of the scheduled action to check for. Default is an empty array.
+     * @param string $group Optional. The group of the scheduled action to check for. Default is an empty string.
+     *
+     * @return bool Returns true if a scheduled action with the specified hook, arguments, and group exists, otherwise returns false.
+     */
+    public static function pmw_as_has_scheduled_action( $hook, $args = array(), $group = '' )
+    {
+        if ( !function_exists( 'as_has_scheduled_action' ) ) {
+            return (bool) as_next_scheduled_action( $hook, $args, $group );
+        }
+        return as_has_scheduled_action( $hook, $args, $group );
     }
 
 }

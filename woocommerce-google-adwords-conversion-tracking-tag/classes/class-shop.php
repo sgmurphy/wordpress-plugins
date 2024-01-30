@@ -792,5 +792,14 @@ class Shop
             return 'wc-' . $status;
         }, $active_order_statuses );
     }
+    
+    public static function has_order_been_partially_refunded( $order )
+    {
+        $refunded_amount = $order->get_total_refunded();
+        if ( 0 < $refunded_amount ) {
+            return true;
+        }
+        return false;
+    }
 
 }

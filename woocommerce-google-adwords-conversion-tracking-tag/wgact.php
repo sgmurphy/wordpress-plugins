@@ -10,7 +10,7 @@
  * Developer URI:        https://sweetcode.com
  * Text Domain:          woocommerce-google-adwords-conversion-tracking-tag
  * Domain path:          /languages
- * * Version:              1.36.0
+ * * Version:              1.37.0
  *
  * WC requires at least: 3.7
  * WC tested up to:      8.5
@@ -19,7 +19,7 @@
  * License URI:          http://www.gnu.org/licenses/gpl-3.0.html
  *
  **/
-const  PMW_CURRENT_VERSION = '1.36.0' ;
+const  PMW_CURRENT_VERSION = '1.37.0' ;
 // TODO add option checkbox on uninstall and ask if user wants to delete options from db
 
 if ( !defined( 'ABSPATH' ) ) {
@@ -263,7 +263,7 @@ if ( function_exists( 'wpm_fs' ) ) {
             // and if transients are enabled
             
             if ( Environment::is_action_scheduler_active() && Environment::is_transients_enabled() ) {
-                if ( !Helpers::has_scheduled_action( 'pmw_tracking_accuracy_analysis' ) ) {
+                if ( !Helpers::pmw_as_has_scheduled_action( 'pmw_tracking_accuracy_analysis' ) ) {
                     as_schedule_recurring_action(
                         Helpers::datetime_string_to_unix_timestamp_in_local_timezone( 'today 4:25am' ),
                         DAY_IN_SECONDS,

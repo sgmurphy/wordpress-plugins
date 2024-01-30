@@ -151,6 +151,7 @@ class Settings extends WP_REST_Controller {
         $data_to_save = [];
 
         if ( is_array( $get_settings ) && ! empty( $get_settings ) ) {
+            $get_settings = isset($get_settings['blocks']) ? $get_settings['blocks'] : $get_settings;
 			foreach ( $get_settings as $setting ) {
 
                 // Skip if no setting type.
@@ -169,13 +170,13 @@ class Settings extends WP_REST_Controller {
                 }
 
                 // Skip if the ID doesn't exist in the data received.
-                if ( ! array_key_exists( $setting['id'], $settings_received ) ) {
+                if ( !isset($settings_received['blocks']) && ! array_key_exists( $setting['id'], $settings_received ) ) {
                     continue;
                 }
 
                 // Sanitize the input.
                 $setting_type = $setting['type'];
-                $output       = apply_filters( $this->slug . '_settings_sanitize', $settings_received[ $setting['id'] ], $this->errors, $setting );
+                $output       = apply_filters( $this->slug . '_settings_sanitize', isset($settings_received['blocks']) ? $settings_received['blocks'][ $setting['id'] ] : $settings_received[ $setting['id'] ], $this->errors, $setting );
                 $output       = apply_filters( $this->slug . '_settings_sanitize_' . $setting['id'], $output, $this->errors, $setting );
 
                 if ( $setting_type == 'checkbox' && $output == false ) {
@@ -184,7 +185,11 @@ class Settings extends WP_REST_Controller {
 
                 // Add the option to the list of ones that we need to save.
                 if ( ! empty( $output ) && ! is_wp_error( $output ) ) {
-                    $data_to_save[ $setting['id'] ] = $output;
+                    if(isset($settings_received['blocks'])) {
+                        $data_to_save['blocks'][ $setting['id'] ] = $output;
+                    } else {
+                        $data_to_save[ $setting['id'] ] = $output;
+                    }
                 }
 
             }
