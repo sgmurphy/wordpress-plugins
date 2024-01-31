@@ -103,7 +103,7 @@ Download it from the Wordpress directory and try it out. Having an author box af
 16. Author Box with Drop-Down Theme
 
 == Changelog ==
-= 3.4.9 =
+= 3.5.0 =
 * Update security on User setting
 * Fixed Small Bugs
 

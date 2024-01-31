@@ -170,6 +170,52 @@ class ABH_Classes_Tools extends ABH_Classes_FrontController {
     }
 
     /**
+     * Clear the field string
+     *
+     * @param  $value
+     * @return mixed|null|string|string[]
+     */
+    public static function sanitizeField($value)
+    {
+
+        if(is_array($value)){
+            return array_map(array('ABH_Classes_Tools', 'sanitizeField'), $value);
+        }
+
+        if (is_string($value) && $value <> '') {
+
+            $search = array(
+                "'<!--(.*?)-->'is",
+                "'<script[^>]*?>.*?<\/script>'si", // strip out javascript
+                "'<style[^>]*?>.*?<\/style>'si", // strip out styles
+                "'<form.*?<\/form>'si",
+                "'<iframe.*?<\/iframe>'si",
+                "'&lt;!--(.*?)--&gt;'is",
+                "'&lt;script&gt;.*?&lt;\/script&gt;'si", // strip out javascript
+                "'&lt;style&gt;.*?&lt;\/style&gt;'si", // strip out styles
+            );
+            $value = preg_replace($search, "", $value);
+
+            $search = array(
+                "/&nbsp;/si",
+                "/\s{2,}/",
+            );
+            $value = preg_replace($search, " ", $value);
+
+            //more sanitization
+            $value = wp_strip_all_tags($value);
+            $value = ent2ncr($value);
+            $value = trim($value);
+
+            $value = ABH_Classes_Tools::i18n($value);
+
+        }
+
+        return $value;
+    }
+
+
+    /**
      * Get a value from $_POST / $_GET
      * if unavailable, take a default value
      *
@@ -182,7 +228,8 @@ class ABH_Classes_Tools extends ABH_Classes_FrontController {
             return false;
         }
 
-        $ret = sanitize_text_field((isset($_POST[$key]) ? $_POST[$key] : $defaultValue));
+        $ret = (isset($_POST[$key]) ? $_POST[$key] : $defaultValue);
+        $ret = ABH_Classes_Tools::sanitizeField($ret);
 
         return wp_unslash($ret);
     }

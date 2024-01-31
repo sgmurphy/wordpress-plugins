@@ -1,5 +1,7 @@
 <?php
 // phpcs:ignoreFile
+
+use AdvancedAds\Assets_Registry;
 use AdvancedAds\Utilities\WordPress;
 
 /**
@@ -47,6 +49,12 @@ class Advanced_Ads_Frontend_Checks {
 
 		if ( Advanced_Ads_Ad_Health_Notices::notices_enabled() ) {
 			add_action( 'body_class', [ $this, 'body_class' ] );
+		}
+
+		if( $this->has_adblocker_placements() ) {
+			if ( ! Assets_Registry::script_is('find-adblocker', 'enqueued') ) {
+				Assets_Registry::enqueue_script('find-adblocker');
+			}
 		}
 	}
 
@@ -1114,6 +1122,22 @@ class Advanced_Ads_Frontend_Checks {
 				return true;
 			}
 		}
+		return false;
+	}
+
+	/**
+	 * Check if atleast one placement uses `adblocker item`.
+	 *
+	 * @return bool True/False.
+	 */
+	private function has_adblocker_placements() {
+		$placements = Advanced_Ads::get_instance()->get_model()->get_ad_placements_array();
+		foreach ($placements as $placement) {
+			if (!empty($placement['options']['item_adblocker'])) {
+				return true;
+			}
+		}
+
 		return false;
 	}
 }

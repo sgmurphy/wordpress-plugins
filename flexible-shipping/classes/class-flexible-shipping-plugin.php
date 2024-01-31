@@ -490,7 +490,7 @@ class Flexible_Shipping_Plugin extends AbstractPlugin implements HookableCollect
 	 * .
 	 */
 	public function init_multicurrency() {
-		$prefix = 'flexible-shipping';
+		$prefix = $this->plugin_info->get_plugin_dir();
 		( new FilterConvertersFactory( $prefix ) )->hooks();
 		( new MultiCurrency( $this->logger, $prefix ) )->hooks();
 	}

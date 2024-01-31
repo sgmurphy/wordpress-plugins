@@ -54,20 +54,7 @@ echo '
   		</p>
   		<?php
 	}
-
-	echo '<h2 class="cx-products">' . __( 'And.. 👋', 'image-sizes' ) . '</h2>';
 	
-	printf( '
-		<p>
-			<input type="checkbox" class="cx-suggestion-checkbox" id="cx-allow-credit" name="cx-footer_credit" %3$s />
-			<label class="cx-suggestion-label" for="cx-allow-credit">%1$s</label>
-			<sub class="cx-suggestion-sub">%2$s</sub>
-		</p>',
-		__( 'Show appreciation for our work with footer credit', 'image-sizes' ),
-		__( 'It\'s optional, but we recommend you keep this checked and help spread the word.', 'image-sizes' ),
-		( Helper::get_option( 'image-sizes_tools', 'footer_credit' ) == 'yes' ? 'checked' : '' )
-	);
- 
 echo '
 </div>
 

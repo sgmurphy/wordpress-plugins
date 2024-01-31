@@ -23,7 +23,8 @@ import Style from "./style";
 
 const {
     duplicateBlockIdFix,
-    EBDisplayIcon
+    EBDisplayIcon,
+    DynamicInputValueHandler
 } = window.EBControls;
 
 const edit = (props) => {
@@ -82,27 +83,28 @@ const edit = (props) => {
                             {sortableLists.map(({ label, value }, index) => {
                                 if (value === "title") {
                                     return (
-                                        <RichText
+                                        <DynamicInputValueHandler
                                             key={index}
+                                            value={title}
                                             tagName={titleTag}
                                             className="eb-cia-title"
                                             placeholder={__("Add title...", "essential-blocks")}
-                                            value={title}
                                             onChange={(newTitle) => setAttributes({ title: newTitle })}
+                                            readOnly={true}
                                         />
                                     );
                                 } else if (value === "subtitle") {
                                     return (
                                         showSubtitle && (
-                                            <RichText
+                                            <DynamicInputValueHandler
                                                 key={index}
                                                 tagName="h4"
-                                                className="eb-cia-subtitle"
                                                 placeholder={__("Add subtitle...")}
                                                 value={subtitle}
                                                 onChange={(newSubtitle) =>
                                                     setAttributes({ subtitle: newSubtitle })
                                                 }
+                                                readOnly={true}
                                             />
                                         )
                                     );
@@ -114,15 +116,14 @@ const edit = (props) => {
                                     );
                                 } else if (value === "description") {
                                     return (
-                                        <RichText
+                                        <DynamicInputValueHandler
                                             key={index}
                                             tagName="p"
-                                            className="eb-cia-description"
-                                            placeholder={__("Add Description...", "essential-blocks")}
                                             value={description}
-                                            onChange={(newText) =>
-                                                setAttributes({ description: newText })
-                                            }
+                                            placeholder={__("Add Description...", "essential-blocks")}
+                                            className="eb-cia-description"
+                                            onChange={(newText) => setAttributes({ description: newText })}
+                                            readOnly={true}
                                         />
                                     );
                                 }
@@ -130,12 +131,13 @@ const edit = (props) => {
                         </div>
                         {showButton && (
                             <div className="eb-cia-button-wrapper">
-                                <RichText
+                                <DynamicInputValueHandler
+                                    value={buttonText}
                                     className={`eb-cia-button is-${buttonSize}${btnHoverEffect ? ` ${btnHoverEffect}` : ""
                                         }`}
                                     placeholder={__("Add Text", "essential-blocks")}
-                                    value={buttonText}
                                     onChange={(newText) => setAttributes({ buttonText: newText })}
+                                    readOnly={true}
                                 />
                             </div>
                         )}

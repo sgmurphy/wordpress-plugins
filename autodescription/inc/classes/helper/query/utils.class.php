@@ -270,12 +270,13 @@ class Utils {
 
 	/**
 	 * Determines whether the blog page exists.
+	 * This is not always a "blog as page" -- for that, use `tsf()->query()->is_blog_as_page()`.
 	 *
-	 * @since 5.0.3
+	 * @since 5.0.4
 	 *
 	 * @return bool
 	 */
-	public static function blog_page_exists() {
-		return ! static::has_page_on_front() && \get_option( 'page_for_posts' );
+	public static function has_blog_page() {
+		return ! static::has_page_on_front() || \get_option( 'page_for_posts' );
 	}
 }

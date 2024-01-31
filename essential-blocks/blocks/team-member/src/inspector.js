@@ -187,6 +187,9 @@ function Inspector({ attributes, setAttributes }) {
         descsColor,
         jobColor,
         nameColor,
+        name,
+        jobTitle,
+        description,
 
         // social profiles
         showSocials,
@@ -1137,8 +1140,8 @@ function Inspector({ attributes, setAttributes }) {
                                     </PanelBody>
 
                                     <PanelBody
-                                        title={__("Avatar", "essential-blocks")}
-                                    // initialOpen={false}
+                                        title={__("Content", "essential-blocks")}
+                                        initialOpen={false}
                                     >
                                         {!imageUrl && (
                                             <MediaUpload
@@ -1174,19 +1177,6 @@ function Inspector({ attributes, setAttributes }) {
                                                         })
                                                     }
                                                 />
-
-                                                {/* <TextControl
-                                                    label={__(
-                                                        "URL",
-                                                        "essential-blocks"
-                                                    )}
-                                                    value={avatarURL}
-                                                    onChange={(newURL) =>
-                                                        setAttributes({
-                                                            avatarURL: newURL,
-                                                        })
-                                                    }
-                                                /> */}
                                                 <DynamicInputControl
                                                     label={__(
                                                         "URL",
@@ -1202,6 +1192,55 @@ function Inspector({ attributes, setAttributes }) {
                                                             avatarURL: newURL,
                                                         })
                                                     }
+                                                />
+                                                <DynamicInputControl
+                                                    label={__(
+                                                        "Title",
+                                                        "essential-blocks"
+                                                    )}
+                                                    attrName="name"
+                                                    inputValue={name}
+                                                    setAttributes={
+                                                        setAttributes
+                                                    }
+                                                    onChange={(newName) =>
+                                                        setAttributes({
+                                                            name: newName,
+                                                        })
+                                                    }
+                                                />
+                                                <DynamicInputControl
+                                                    label={__(
+                                                        "Designation",
+                                                        "essential-blocks"
+                                                    )}
+                                                    attrName="jobTitle"
+                                                    inputValue={jobTitle}
+                                                    setAttributes={
+                                                        setAttributes
+                                                    }
+                                                    onChange={(newJobTitle) =>
+                                                        setAttributes({
+                                                            jobTitle: newJobTitle,
+                                                        })
+                                                    }
+                                                />
+                                                <DynamicInputControl
+                                                    label={__(
+                                                        "Description",
+                                                        "essential-blocks"
+                                                    )}
+                                                    attrName="description"
+                                                    inputValue={description}
+                                                    setAttributes={
+                                                        setAttributes
+                                                    }
+                                                    onChange={(newDescription) =>
+                                                        setAttributes({
+                                                            description: newDescription,
+                                                        })
+                                                    }
+                                                    isTextarea={true}
                                                 />
                                                 {avatarURL && (
                                                     <ToggleControl

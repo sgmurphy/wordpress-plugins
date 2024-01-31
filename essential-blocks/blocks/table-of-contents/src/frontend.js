@@ -52,6 +52,7 @@ window.addEventListener("DOMContentLoaded", function () {
             this._hideOnMobileView();
             this._hideOnDevice();
             this._tooltip();
+            this._itemCollapsed();
         },
 
         _tooltip: function () {
@@ -117,6 +118,31 @@ window.addEventListener("DOMContentLoaded", function () {
                             content.classList.toggle("hide-content");
                         });
                     }
+                }
+            }
+        },
+        _itemCollapsed: function () {
+            let containers = document.querySelectorAll(".eb-toc-container");
+
+            for (let container of containers) {
+                const isItemCollapsed =
+                    container.getAttribute("data-itemCollapsed") === "true";
+
+                if (isItemCollapsed) {
+                    const items = container.querySelectorAll(".eb-toc-wrapper .eb-toc__list-wrap > .eb-toc__list > li");
+
+                    for (let item of items) {
+                        const selector = item.querySelector("a");
+                        const selectorIcon = item.querySelector("svg");
+                        const collapsedItem = item.querySelector(".eb-toc__list");
+
+                        if (collapsedItem !== null) {
+                            selectorIcon.addEventListener("click", function () {
+                                item.classList.toggle("hide-items");
+                            });
+                        }
+                    }
+
                 }
             }
         },
@@ -211,13 +237,14 @@ window.addEventListener("DOMContentLoaded", function () {
                     node.getAttribute("data-top-offset")
                 );
                 if (isSmooth) {
-                    node.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-                        anchor.addEventListener("click", function (e) {
+                    const listItems = node.querySelectorAll('a[href^="#"]');
+                    listItems.forEach((anchor) => {
+                        anchor.addEventListener("click", function (event) {
                             let selector = this.getAttribute("href").replace(
                                 "#",
                                 ""
                             );
-                            e.preventDefault();
+                            event.preventDefault();
                             if (
                                 typeof wrapperOffset === "number" &&
                                 wrapperOffset
@@ -242,6 +269,19 @@ window.addEventListener("DOMContentLoaded", function () {
                                     .scrollIntoView({
                                         behavior: "smooth",
                                     });
+                            }
+
+                            // Remove active class from all list items
+                            listItems.forEach(function (li) {
+                                li.parentNode.classList.remove('eb-toc-active', 'recent');
+                            });
+
+                            this.parentNode.classList.add('recent');
+
+                            let currentListItem = event.target.closest('li');
+                            while (currentListItem) {
+                                currentListItem.classList.add('eb-toc-active');
+                                currentListItem = currentListItem.parentElement.closest('li');
                             }
                         });
                     });

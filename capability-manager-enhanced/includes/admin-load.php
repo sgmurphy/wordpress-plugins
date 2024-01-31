@@ -1,5 +1,4 @@
 <?php
-
 /*
  * PublishPress Capabilities [Free]
  *

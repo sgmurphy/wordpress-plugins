@@ -342,9 +342,14 @@ export default function Style(props) {
         };
 		}
 
-		${btnHoverEffect && buttonBackgroundColor
+		${btnHoverEffect
             ? `.eb-cia-wrapper.${blockId} .eb-cia-button:before {
-					background-color: ${buttonBackgroundColor};
+                ${btnBdShadowStylesHoverDesktop ? btnBdShadowStylesHoverDesktop : btnBdShadowStyesDesktop}
+                ${buttonHoverTextColor ? `color: ${buttonHoverTextColor}` : ""};
+                ${buttonHoverBackgroundColor
+                ? `background-color: ${buttonHoverBackgroundColor}`
+                : ""
+            };
 			}
 			`
             : ""
@@ -410,6 +415,14 @@ export default function Style(props) {
 			${iconSizeStylesTab}
 			${iconPaddingStylesTab}
 		}
+
+        ${btnHoverEffect
+            ? `.eb-cia-wrapper.${blockId} .eb-cia-button:before {
+                ${btnBdShadowStylesHoverTab ? btnBdShadowStylesHoverTab : btnBdShadowStyesDesktop}
+			}
+			`
+            : ""
+        }
 	`;
 
     const mobileStyles = `
@@ -470,6 +483,13 @@ export default function Style(props) {
 			${iconSizeStylesMobile}
 			${iconPaddingStylesMobile}
 		}
+        ${btnHoverEffect
+            ? `.eb-cia-wrapper.${blockId} .eb-cia-button:before {
+                ${btnBdShadowStylesHoverMobile ? btnBdShadowStylesHoverMobile : btnBdShadowStyesDesktop}
+			}
+			`
+            : ""
+        }
 	`;
 
     // all css styles for large screen width (desktop/laptop) in strings ⬇

@@ -113,7 +113,6 @@ export default function Style(props) {
         classHook,
         isContentOverlay,
     } = attributes;
-
     //
     // styling codes start from here
     //
@@ -571,7 +570,7 @@ export default function Style(props) {
 
 		 ${preset === "preset3"
             ? `
-				 .${blockId}.eb-team-wrapper .image{
+				 .${blockId}.eb-team-wrapper .eb-team-member-image{
 					 position: relative;
 				 }
 				 `
@@ -579,7 +578,7 @@ export default function Style(props) {
         }
 		 ${preset === "preset3" && isContentOverlay
             ? `
-            .${blockId}.eb-team-wrapper.content-overlay .contents {
+            .${blockId}.eb-team-wrapper.content-overlay .eb-team-member-contents {
                 justify-content: ${conVtAlign || "center"};
                 ${contentsPaddingDesktop}
                 ${contentsMarginDesktop}
@@ -595,7 +594,7 @@ export default function Style(props) {
 
 		 ${preset === "preset2"
             ? `
-				 .${blockId}.eb-team-wrapper .contents{
+				 .${blockId}.eb-team-wrapper .eb-team-member-contents{
 					 ${isConBgGradient
                 ? `background-image: ${conBgGradient};`
                 : `background-color: ${conBgColor};`
@@ -606,15 +605,15 @@ export default function Style(props) {
 					 justify-content: center;
 				 }
 
-				 .${blockId}.eb-team-wrapper div.contents .job_title {
+				 .${blockId}.eb-team-wrapper div.eb-team-member-contents .eb-team-member-job-title {
 					 display: block;
 				 }
 
-				 .${blockId}.eb-team-wrapper div.contents ul.socials {
+				 .${blockId}.eb-team-wrapper div.eb-team-member-contents ul.socials {
 					 display: flex;
 				 }
 
-				 .${blockId}.eb-team-wrapper:hover .contents{
+				 .${blockId}.eb-team-wrapper:hover .eb-team-member-contents{
 					 top: 50%;
 				 }
 
@@ -624,7 +623,7 @@ export default function Style(props) {
 
          ${preset === "new-preset1" || preset === "new-preset2" || preset === "new-preset3"
             ? `
-                .${blockId}.eb-team-wrapper .contents-inner{
+                .${blockId}.eb-team-wrapper .eb-team-member-contents-inner{
                     ${isConBgGradient
                 ? `background-image: ${conBgGradient};`
                 : `background-color: ${conBgColor};`
@@ -634,22 +633,22 @@ export default function Style(props) {
 			        ${ovlBdShdStyleDesktop}
                 }
 
-                .${blockId}.eb-team-wrapper .job_title {
+                .${blockId}.eb-team-wrapper .eb-team-member-job-title {
                     ${jobTypoStylesDesktop}
                     ${jobPaddingDesktop}
                     color: ${jobColor};
                     ${preset === "preset2" ? `display:none;` : ""}
                 }
 
-                .${blockId}.eb-team-wrapper div.contents .job_title {
+                .${blockId}.eb-team-wrapper div.eb-team-member-contents .eb-team-member-job-title {
                     display: block;
                 }
 
-                .${blockId}.eb-team-wrapper div.contents ul.socials {
+                .${blockId}.eb-team-wrapper div.eb-team-member-contents ul.socials {
                     display: flex;
                 }
 
-                .${blockId}.eb-team-wrapper:hover .contents{
+                .${blockId}.eb-team-wrapper:hover .eb-team-member-contents{
                     top: 50%;
                 }
 
@@ -668,11 +667,11 @@ export default function Style(props) {
 					 ${p9flexGapDesktop}
 				 }
 
-				 .${blockId}.eb-team-wrapper .image {
+				 .${blockId}.eb-team-wrapper .eb-team-member-image {
 					 ${imgWidthDesktop}
 				 }
 
-				 .${blockId}.eb-team-wrapper .contents {
+				 .${blockId}.eb-team-wrapper .eb-team-member-contents {
 					 flex:1;
 				 }
 				 `
@@ -699,7 +698,7 @@ export default function Style(props) {
 
 		 }
 
-         .${blockId}.eb-team-wrapper .image {
+         .${blockId}.eb-team-wrapper .eb-team-member-image {
             ${imageAlign === "left"
             ? "text-align: left;"
             : imageAlign === "right"
@@ -708,7 +707,7 @@ export default function Style(props) {
         }
          }
 
-		 .${blockId}.eb-team-wrapper .image img {
+		 .${blockId}.eb-team-wrapper .eb-team-member-image img {
 			 max-width: 100%;
 			 object-fit: cover;
 			 display: inline-block;
@@ -726,7 +725,7 @@ export default function Style(props) {
 
 		 ${imgBeforeEl
             ? `
-			 .${blockId}.eb-team-wrapper .image:before {
+			 .${blockId}.eb-team-wrapper .eb-team-member-image:before {
 				 content: "";
 				 display: block;
 				 ${imgTopBgHeightDesktop}
@@ -735,7 +734,7 @@ export default function Style(props) {
 
 			 }
 
-			 .${blockId}.eb-team-wrapper .image:hover:before{
+			 .${blockId}.eb-team-wrapper .eb-team-member-image:hover:before{
 				 ${imgTopHoverBackgroundStyles}
 			 }
 			 `
@@ -744,12 +743,12 @@ export default function Style(props) {
 
 
 
-		 .${blockId}.eb-team-wrapper .image:hover > img {
+		 .${blockId}.eb-team-wrapper .eb-team-member-image:hover > img {
 			 ${imageBdShdStylesHoverDesktop}
 			 transition: ${imageBdShdTransitionStyle};
 		 }
 
-		 .${blockId}.eb-team-wrapper .contents {
+		 .${blockId}.eb-team-wrapper .eb-team-member-contents {
 			 text-align: ${contentsAlign};
 			 box-sizing: border-box;
 			 ${preset === "preset2"
@@ -764,13 +763,13 @@ export default function Style(props) {
         }
 		 }
 
-		 .${blockId}.eb-team-wrapper .contents .name {
+		 .${blockId}.eb-team-wrapper .eb-team-member-contents .eb-team-member-name {
 			 ${nameTypoStylesDesktop}
 			 ${namePaddingDesktop}
 			 color: ${nameColor};
 		 }
 
-		 .${blockId}.eb-team-wrapper .contents .job_title {
+		 .${blockId}.eb-team-wrapper .eb-team-member-contents .eb-team-member-job-title {
 			 ${jobTypoStylesDesktop}
 			 ${jobPaddingDesktop}
 			 color: ${jobColor};
@@ -779,7 +778,7 @@ export default function Style(props) {
 
 		 ${showDescs
             ? `
-				 .${blockId}.eb-team-wrapper .contents .description {
+				 .${blockId}.eb-team-wrapper .eb-team-member-contents .eb-team-member-description {
 					 color: ${descsColor};
 					 ${descsPaddingDesktop}
 					 ${descsTypoStylesDesktop}
@@ -790,7 +789,7 @@ export default function Style(props) {
 
  ${showCSeparator
             ? `
-		 .${blockId}.eb-team-wrapper .contents .content_separator {
+		 .${blockId}.eb-team-wrapper .eb-team-member-contents .eb-team-member-content-separator {
 			 border: none;
 			 margin: auto;
 			 border-bottom: 1px ${cSepType} ${cSepColor};
@@ -809,7 +808,7 @@ export default function Style(props) {
 
  ${showSocials && showSSeparator
             ? `
-		 .${blockId}.eb-team-wrapper .social_separator {
+		 .${blockId}.eb-team-wrapper .eb-team-member-social-separator {
 			 border: none;
 			 margin: auto;
 			 border-bottom: 1px ${sSepType} ${sSepColor};
@@ -832,11 +831,11 @@ export default function Style(props) {
 			 position: relative;
 		 }
 
-		 .${blockId}.eb-team-wrapper:hover .contents {
+		 .${blockId}.eb-team-wrapper:hover .eb-team-member-contents {
 			 opacity: 1;
 		 }
 
-		 .${blockId}.eb-team-wrapper .contents {
+		 .${blockId}.eb-team-wrapper .eb-team-member-contents {
 			 transition: 0.5s;
 			 opacity: 0;
 			 position: absolute;
@@ -953,6 +952,16 @@ export default function Style(props) {
 			 ${socialBordersHoverDesktop}
 		 }
 
+         ${icnEffect
+                ? `.${blockId}.eb-team-wrapper ul.socials li a:before {
+                background-color:${hvIcnBgc};
+			    color:${hvIcnColor};
+			    ${socialBordersHoverDesktop}
+			}
+			`
+                : ""
+            }
+
 		 `
             : ""
         }
@@ -989,7 +998,7 @@ export default function Style(props) {
 
 	 ${preset === "preset5"
             ? `
-			 .${blockId}.eb-team-wrapper .image {
+			 .${blockId}.eb-team-wrapper .eb-team-member-image {
 				 ${imgWidthTab}
 			 }
 
@@ -1004,7 +1013,7 @@ export default function Style(props) {
 
 	 ${imgBeforeEl
             ? `
-		 .${blockId}.eb-team-wrapper .image:before {
+		 .${blockId}.eb-team-wrapper .eb-team-member-image:before {
 			 ${imgTopBgHeightTab}
 		 }
 		 `
@@ -1012,7 +1021,7 @@ export default function Style(props) {
         }
 
 
-	 .${blockId}.eb-team-wrapper .image > img {
+	 .${blockId}.eb-team-wrapper .eb-team-member-image > img {
 		 ${imageBdShdStyleTab}
 		 ${imageMarginTab}
 		 ${imagePaddingTab}
@@ -1021,7 +1030,7 @@ export default function Style(props) {
 	 }
 
 
-	 .${blockId}.eb-team-wrapper .image:hover > img {
+	 .${blockId}.eb-team-wrapper .eb-team-member-image:hover > img {
 		 ${imageBdShdStylesHoverTab}
 
 	 }
@@ -1029,7 +1038,7 @@ export default function Style(props) {
 
 	 ${showDescs
             ? `
-			 .${blockId}.eb-team-wrapper .contents .description {
+			 .${blockId}.eb-team-wrapper .eb-team-member-contents .eb-team-member-description {
 				 ${descsTypoStylesTab}
 				 ${descsPaddingTab}
 			 }
@@ -1037,12 +1046,12 @@ export default function Style(props) {
             : ""
         }
 
-	 .${blockId}.eb-team-wrapper .contents .name {
+	 .${blockId}.eb-team-wrapper .eb-team-member-contents .eb-team-member-name {
 		 ${nameTypoStylesTab}
 		 ${namePaddingTab}
 	 }
 
-	 .${blockId}.eb-team-wrapper .contents .job_title {
+	 .${blockId}.eb-team-wrapper .eb-team-member-contents .eb-team-member-job-title {
 		 ${jobTypoStylesTab}
 		 ${jobPaddingTab}
 	 }
@@ -1051,7 +1060,7 @@ export default function Style(props) {
 
  ${showCSeparator
             ? `
-		 .${blockId}.eb-team-wrapper .contents .content_separator {
+		 .${blockId}.eb-team-wrapper .eb-team-member-contents .eb-team-member-content-separator {
 			 ${contentSepWidthTab}
 			 ${contentSepHeightTab}
 		 }
@@ -1061,7 +1070,7 @@ export default function Style(props) {
 
  ${showSocials && showSSeparator
             ? `
-		 .${blockId}.eb-team-wrapper .social_separator {
+		 .${blockId}.eb-team-wrapper .eb-team-member-social-separator {
 			 ${socialSepWidthTab}
 			 ${socialSepHeightTab}
 		 }
@@ -1071,7 +1080,7 @@ export default function Style(props) {
 
  ${preset === "preset4"
             ? `
-		 .${blockId}.eb-team-wrapper .contents {
+		 .${blockId}.eb-team-wrapper .eb-team-member-contents {
 			 ${contentsPaddingTab}
 			 ${contentsMarginTab}
 			 ${ovlBdShdStyleTab}
@@ -1122,6 +1131,14 @@ export default function Style(props) {
             : ""
         }
 
+        ${icnEffect
+            ? `.${blockId}.eb-team-wrapper ul.socials li a:before {
+            ${socialBordersHoverTab}
+        }
+        `
+            : ""
+        }
+
 
 	 `;
 
@@ -1152,7 +1169,7 @@ export default function Style(props) {
 
 	 ${preset === "preset5"
             ? `
-			 .${blockId}.eb-team-wrapper .image {
+			 .${blockId}.eb-team-wrapper .eb-team-member-image {
 				 ${imgWidthMobile}
 			 }
 
@@ -1166,14 +1183,14 @@ export default function Style(props) {
 
 	 ${imgBeforeEl
             ? `
-		 .${blockId}.eb-team-wrapper .image:before {
+		 .${blockId}.eb-team-wrapper .eb-team-member-image:before {
 			 ${imgTopBgHeightMobile}
 		 }
 		 `
             : ""
         }
 
-	 .${blockId}.eb-team-wrapper .image > img {
+	 .${blockId}.eb-team-wrapper .eb-team-member-image > img {
 		 ${preset === "preset5" ? "" : imgWidthMobile}
 		 ${imageBdShdStyleMobile}
 		 ${imageMarginMobile}
@@ -1185,13 +1202,13 @@ export default function Style(props) {
 
 
 
-	 .${blockId}.eb-team-wrapper .image:hover > img {
+	 .${blockId}.eb-team-wrapper .eb-team-member-image:hover > img {
 		 ${imageBdShdStylesHoverMobile}
 	 }
 
 	 ${showDescs
             ? `
-			 .${blockId}.eb-team-wrapper .contents .description {
+			 .${blockId}.eb-team-wrapper .eb-team-member-contents .eb-team-member-description {
 				 ${descsTypoStylesMobile}
 				 ${descsPaddingMobile}
 			 }
@@ -1199,12 +1216,12 @@ export default function Style(props) {
             : ""
         }
 
-	 .${blockId}.eb-team-wrapper .contents .name {
+	 .${blockId}.eb-team-wrapper .eb-team-member-contents .eb-team-member-name {
 		 ${nameTypoStylesMobile}
 		 ${namePaddingMobile}
 	 }
 
-	 .${blockId}.eb-team-wrapper .contents .job_title {
+	 .${blockId}.eb-team-wrapper .eb-team-member-contents .eb-team-member-job-title {
 		 ${jobTypoStylesMobile}
 		 ${jobPaddingMobile}
 	 }
@@ -1213,7 +1230,7 @@ export default function Style(props) {
 
 	 ${showCSeparator
             ? `
-			 .${blockId}.eb-team-wrapper .contents .content_separator {
+			 .${blockId}.eb-team-wrapper .eb-team-member-contents .eb-team-member-content-separator {
 				 ${contentSepWidthMobile}
 				 ${contentSepHeightMobile}
 			 }
@@ -1223,7 +1240,7 @@ export default function Style(props) {
 
 	 ${showSocials && showSSeparator
             ? `
-			 .${blockId}.eb-team-wrapper .social_separator {
+			 .${blockId}.eb-team-wrapper .eb-team-member-social-separator {
 				 ${socialSepWidthMobile}
 				 ${socialSepHeightMobile}
 			 }
@@ -1234,7 +1251,7 @@ export default function Style(props) {
 
 	 ${preset === "preset4"
             ? `
-			 .${blockId}.eb-team-wrapper .contents {
+			 .${blockId}.eb-team-wrapper .eb-team-member-contents {
 				 ${contentsPaddingMobile}
 				 ${contentsMarginMobile}
 				 ${ovlBdShdStyleMobile}
@@ -1281,6 +1298,14 @@ export default function Style(props) {
 			 .${blockId}.eb-team-wrapper ul.socials li:hover a {
 				 ${socialBordersHoverMobile}
 			 }
+
+             ${icnEffect
+                ? `.${blockId}.eb-team-wrapper ul.socials li a:before {
+                ${socialBordersHoverMobile}
+            }
+            `
+                : ""
+            }
 
 			 `
             : ""

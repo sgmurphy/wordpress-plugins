@@ -263,7 +263,7 @@ select + .advads-conditions-single { display: inline-flex; flex-wrap: wrap; alig
 #ad-targeting-box hr { margin-top: 25px; }
 #advads-display-conditions, #advads-visitor-conditions { margin-top: 0; }
 #ad-targeting-box .advads-conditions-terms-show-search { height: 22px; line-height: 22px; font-weight: bold; font-size: 1.5em; }
-.advads-conditions-terms-search { display: none; }
+.advads-conditions-terms-search, .advads-conditions-authors-search { display: none; }
 #advads-ad-usage .advads-usage input { width: 300px; }
 .post-type-advanced_ads #ad-parameters-box .advads-ad-parameters-spinner { display: block; float: none; }
 .post-type-advanced_ads #advanced-ads-ad-parameters-size label + label { margin-left: 1em; }

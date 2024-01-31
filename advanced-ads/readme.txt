@@ -4,7 +4,7 @@ Tags: ads, adsense, amp, ads.txt, ad rotations, ad blocker, amazon, banner, clic
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.48.1
+Stable tag: 1.49.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,29 +12,31 @@ Manage and optimize all ad types. Support for Google AdSense Auto ads, Amazon, i
 
 == Description ==
 
-Are you looking for a simple ad manager plugin? These are the top arguments to use Advanced Ads:
+= The ultimate ad management plugin for WordPress =
 
-* approved in publishing and ad optimization since 2009
-* works with all ad types and networks, including Google AdSense, Google Ad Manager (formerly Google DoubleClick for Publishers, DFP), Amazon ads, or media.net ads
-* most features to test and optimize ads
-* unlimited ad units
-* ads.txt support
-* dedicated ad block for the block editor
-* Google AdSense Partner, who implements all technical changes early and in 100% compliance with the Google AdSense policies
-* the only advertising solution with *Ad Health* integration and Google AdSense violation checks
-* best rated [free support](https://wordpress.org/support/plugin/advanced-ads)
+Advanced Ads is the most comprehensive ad management tool available. It strikes the perfect balance between ease of use and powerful features, trusted by thousands of companies and businesses.
 
-This is what our users are saying about Advanced Ads:
+We took the pain out of advertising and made it easy to embed ads, banners, or any other code automatically—all within minutes and without the need for theme file editing. If you are looking for the best plugin for ad management, you have found it.
 
-> We use this plugin to deliver rotating ads on a community news site, and it’s great. Both feature-rich and reliable, your imagination is the limit when it comes to the product you want to create for your users. We’ve delivered over a million ad impressions since we launched less than a year ago, using a combination of sidebar, top, sticky and in-content placements — both HTML5 and images. Advanced Ads makes it easy for our small team to deliver a good experience to our users and our advertisers.
-> mytown304 on wp.org
+[Manual](https://wpadvancedads.com/manual/?utm_source=wporg&utm_medium=link&utm_campaign=wp-linkbar-manual) | [Support](https://wpadvancedads.com/aa-links/support) | [Demo](https://wpadvancedads.com/aa-links/demo) | [Premium Features](https://wpadvancedads.com/add-ons/all-access/?utm_source=wporg&utm_medium=link&utm_campaign=wp-linkbar-features)
+
+* <strong>Usability:</strong> Clearly structured interface • Smart workflows for fluid day-to-day operations
+* <strong>Functionality:</strong> Setting the gold standard for the market with outstanding features
+* <strong>Compatibility:</strong> All ad networks • Dedicated integrations with loads of popular plugins and themes
+* <strong>Expertise:</strong> Fast and top-rated support • Approved in publishing and ad optimization since 2009
+* <strong>Reputation:</strong> Recommended by Google • Fully compliant with Google AdSense policies
 
 Would you like to know if there is a certain feature, what the optimized setup would be, or how to implement your client’s demands? Just [open a thread in the forum](https://wordpress.org/support/plugin/advanced-ads#new-post)!
 
-Advanced Ads allowed us to grow from 0 to 100 MM monthly ad impressions. Benefit from our experience as a publisher and monetize your website today!
+This is what our users are saying about Advanced Ads:
 
-> **Advanced Ads All Access**
->This plugin is the lite version of the Advanced Ads plugin that comes with all the features you will ever need to optimize your ads and increase your revenues, including advanced ad targeting, split tests, click fraud protection, lazy loading, background, popups and sticky ads, full AMP support, adblocker detection, the most comfortable Google Ad Manager integration, and tons more. [Click here to purchase the best premium WordPress ad management plugin now!](https://wpadvancedads.com/add-ons/all-access/?utm_source=wporg&utm_medium=link&utm_campaign=wp-all-access)
+> We use this plugin to deliver rotating ads on a community news site, and it’s great. We’ve delivered over a million ad impressions since we launched less than a year ago, using a combination of sidebar, top, sticky and in-content placements — both HTML5 and images. Advanced Ads makes it easy for our small team to deliver a good experience to our users and our advertisers.
+> <i>mytown304 on wp.org</i>
+
+Advanced Ads allowed our founder to grow from 0 to 100 MM monthly ad impressions. Benefit from our experience as publishers and monetize your website today!
+
+= Premium Features =
+This plugin is the lite version of the Advanced Ads plugin that comes with all the features you will ever need to optimize your ads and increase your revenues, including performance tracking, advanced ad targeting, split tests, click fraud protection, lazy loading, background ads, popups and sticky ads, full AMP support, adblocker detection, the most comfortable Google Ad Manager integration, and tons more. [Click here to purchase the best premium WordPress ad management plugin now!](https://wpadvancedads.com/add-ons/all-access/?utm_source=wporg&utm_medium=link&utm_campaign=wp-all-access)
 
 [Full Feature List](https://wpadvancedads.com/features/?utm_source=wporg&utm_medium=link&utm_campaign=wp-features)
 
@@ -149,20 +151,20 @@ Like j4ckson185, there are thousands of happy AdSense users:
 
 https://vimeo.com/577170591
 
-> <strong>Add-Ons</strong>
->
-> * all add-ons include priority email support
-> * [All Access](https://wpadvancedads.com/add-ons/all-access/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) – includes all available add-ons
-> * [Advanced Ads Pro](https://wpadvancedads.com/advanced-ads-pro/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) – powerful tools for ad optimizations: cache-busting, more placements, [lazy loading](https://wpadvancedads.com/lazy-load-ads/?utm_source=wporg&utm_medium=link&utm_campaign=features), ad blocker module, [click fraud protection](https://wpadvancedads.com/manual/click-fraud-protection/?utm_source=wporg&utm_medium=link&utm_campaign=features), [geo targeting](https://wpadvancedads.com/add-ons/geo-targeting/?utm_source=wporg&utm_medium=link&utm_campaign=features), [parallax ads](https://wpadvancedads.com/parallax-ads/?utm_source=wporg&utm_medium=link&utm_campaign=features) and many more
-> * [Tracking](https://wpadvancedads.com/add-ons/tracking/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) – track ad impressions and ad clicks with local methods or Google Analytics
-> * [AMP Ads](https://wpadvancedads.com/add-ons/amp-ads/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) – make your ads compatible with AMP and convert Google AdSense ads automatically
-> * [Google Ad Manager Integration](https://wpadvancedads.com/add-ons/google-ad-manager/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) – a quick and error-free way to load ad units from your Google Ad Manager (formerly Google DoubleClick for Publishers, DFP) account without touching any ad codes
-> * [Sticky Ads](https://wpadvancedads.com/add-ons/sticky-ads/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) – increase click rates with fixed, sticky, and anchor ads
-> * [Fixed Widget for WordPress](https://wordpress.org/plugins/q2w3-fixed-widget/) – turn sidebar widgets into performant fixed sticky ads
-> * [PopUp and Layer Ads](https://wpadvancedads.com/add-ons/popup-and-layer-ads/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) – display ads and other content in layers, popups, and interstitials
-> * [Selling Ads](https://wpadvancedads.com/add-ons/selling-ads/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) - allows you to sell ads on your website fully automated, including payments and advertiser profiles
-> * [Ad Slider](https://wpadvancedads.com/add-ons/slider/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) – create a simple slider from your ads
-> * [Full Feature List](https://wpadvancedads.com/features/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons)
+= Add-Ons = 
+
+* all add-ons include priority email support
+* [All Access](https://wpadvancedads.com/add-ons/all-access/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) – includes all available add-ons
+* [Advanced Ads Pro](https://wpadvancedads.com/advanced-ads-pro/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) – powerful tools for ad optimizations: cache-busting, more placements, [lazy loading](https://wpadvancedads.com/lazy-load-ads/?utm_source=wporg&utm_medium=link&utm_campaign=features), ad blocker module, [click fraud protection](https://wpadvancedads.com/manual/click-fraud-protection/?utm_source=wporg&utm_medium=link&utm_campaign=features), [geo targeting](https://wpadvancedads.com/add-ons/geo-targeting/?utm_source=wporg&utm_medium=link&utm_campaign=features), [parallax ads](https://wpadvancedads.com/parallax-ads/?utm_source=wporg&utm_medium=link&utm_campaign=features) and many more
+* [Tracking](https://wpadvancedads.com/add-ons/tracking/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) – track ad impressions and ad clicks with local methods or Google Analytics
+* [AMP Ads](https://wpadvancedads.com/add-ons/amp-ads/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) – make your ads compatible with AMP and convert Google AdSense ads automatically
+* [Google Ad Manager Integration](https://wpadvancedads.com/add-ons/google-ad-manager/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) – a quick and error-free way to load ad units from your Google Ad Manager (formerly Google DoubleClick for Publishers, DFP) account without touching any ad codes
+* [Sticky Ads](https://wpadvancedads.com/add-ons/sticky-ads/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) – increase click rates with fixed, sticky, and anchor ads
+* [Fixed Widget for WordPress](https://wordpress.org/plugins/q2w3-fixed-widget/) – turn sidebar widgets into performant fixed sticky ads
+* [PopUp and Layer Ads](https://wpadvancedads.com/add-ons/popup-and-layer-ads/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) – display ads and other content in layers, popups, and interstitials
+* [Selling Ads](https://wpadvancedads.com/add-ons/selling-ads/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) - allows you to sell ads on your website fully automated, including payments and advertiser profiles
+* [Ad Slider](https://wpadvancedads.com/add-ons/slider/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons) – create a simple slider from your ads
+* [Full Feature List](https://wpadvancedads.com/features/?utm_source=wporg&utm_medium=link&utm_campaign=wp-add-ons)
 
 = ad blocker =
 
@@ -336,16 +338,10 @@ Yes. You can use plenty of [hooks](https://wpadvancedads.com/codex/) to customiz
 
 == Changelog ==
 
-= 1.48.1 (December 6, 2023) =
+= 1.49.0 (January 31, 2024) =
 
-- Fix: prevent ad weight from always showing 10
-
-= 1.48.0 (December 5, 2023) =
-
-- Improvement: show Google Ad Manager debug link in Ad Health even when only a head tag exists
-- Improvement: add arrows to jump through highlighted ads
-- Improvement: link ads in the group modal
-- Improvement: update the plugin list and its descriptions on the dashboard
-- Improvement: add correct jumping through highlighted AdSense ads
-- Fix: ensure ads without a stored ad weight in the database are displayed on the group page
-- Fix: show the tooltip with placement and ad names only when 'highlight ads' is enabled
+- Improvement: enhance ad blocker detection to identify more ad blockers reliably
+- Improvement: remove universal analytics description
+- Fix: allow content age display condition to work with AJAX cache busting
+- Fix: show search bar for author if max terms reach the limit
+- Fix: prevent a fatal error on the ad edit page related to Display Conditions

@@ -65,7 +65,7 @@ class Creator implements HookableCollection {
 			$this->create_dpd_contextual_info( $phrases_in );
 			$other_phrases_not_in = $this->merge_phrases( $other_phrases_not_in, $phrases_in );
 
-			$phrases_in = [ 'List', 'poczta polska', 'pocztex', 'polecony', 'poczt' ];
+			$phrases_in = [ 'List', 'poczta polska', 'pocztex', 'polecony', 'poczt', 'enadawca' ];
 			$this->create_enadawca_contextual_info( $phrases_in );
 			$other_phrases_not_in = $this->merge_phrases( $other_phrases_not_in, $phrases_in );
 

@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Flexible Shipping plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Flexible Shipping 4.24.8\n"
+"Project-Id-Version: Flexible Shipping 4.24.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flexible-shipping\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-01-16T11:21:40+00:00\n"
+"POT-Creation-Date: 2024-01-31T15:21:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: flexible-shipping\n"
@@ -955,12 +955,12 @@ msgstr ""
 
 #. Translators: amount with currency or number of items.
 #. Translators: amount with currency.
-#: src/WPDesk/FS/TableRate/FreeShipping/FreeShippingNoticeGenerator.php:174
+#: src/WPDesk/FS/TableRate/FreeShipping/FreeShippingNoticeGenerator.php:175
 #: src/WPDesk/FS/TableRate/FreeShipping/NoticeTextSettings.php:44
 msgid "You only need %1$s more to get free shipping!"
 msgstr ""
 
-#: src/WPDesk/FS/TableRate/FreeShipping/FreeShippingNoticeGenerator.php:194
+#: src/WPDesk/FS/TableRate/FreeShipping/FreeShippingNoticeGenerator.php:195
 msgid "Continue shopping"
 msgstr ""
 

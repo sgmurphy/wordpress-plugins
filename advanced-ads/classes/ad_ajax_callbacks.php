@@ -30,6 +30,7 @@ class Advanced_Ads_Ad_Ajax_Callbacks {
 		add_action( 'wp_ajax_load_visitor_conditions_metabox', [ $this, 'load_visitor_condition' ] );
 		add_action( 'wp_ajax_load_display_conditions_metabox', [ $this, 'load_display_condition' ] );
 		add_action( 'wp_ajax_advads-terms-search', [ $this, 'search_terms' ] );
+		add_action( 'wp_ajax_advads-authors-search', [ $this, 'search_authors' ] );
 		add_action( 'wp_ajax_advads-close-notice', [ $this, 'close_notice' ] );
 		add_action( 'wp_ajax_advads-hide-notice', [ $this, 'hide_notice' ] );
 		add_action( 'wp_ajax_advads-subscribe-notice', [ $this, 'subscribe' ] );
@@ -199,6 +200,39 @@ class Advanced_Ads_Ad_Ajax_Callbacks {
 		$results = get_terms( $taxonomy, $args );
 		echo wp_json_encode( $results );
 		echo "\n";
+		die();
+	}
+
+	/**
+	 * Search authors
+	 *
+	 * @since 1.47.5
+	 */
+	public function search_authors() {
+		check_ajax_referer( 'advanced-ads-admin-ajax-nonce', 'nonce' );
+
+		if ( ! WordPress::user_can( 'advanced_ads_edit_ads' ) ) {
+			return;
+		}
+
+		$args                   = [];
+		$args['search_columns'] = [ 'ID', 'user_login', 'user_nicename', 'display_name' ];
+
+		if ( version_compare( get_bloginfo( 'version' ), '5.9' ) > -1 ) {
+			$args['capability'] = [ 'edit_posts' ];
+		} else {
+			$args['who'] = 'authors';
+		}
+
+		if ( ! isset( $_POST['search'] ) || '' === $_POST['search'] ) {
+			die();
+		}
+
+		$args['search'] = '*' . sanitize_text_field( wp_unslash( $_POST['search'] ) ) . '*';
+
+		$results = get_users( $args );
+
+		echo wp_json_encode( $results );
 		die();
 	}
 

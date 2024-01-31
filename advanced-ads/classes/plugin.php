@@ -214,9 +214,11 @@ class Advanced_Ads_Plugin {
 			return;
 		}
 
+		$frontend_prefix = $this->get_frontend_prefix();
+
 		ob_start();
 		?>
-		<script id="<?php echo esc_attr( $this->get_frontend_prefix() ); ?>ready">
+		<script id="<?php echo esc_attr( $frontend_prefix ); ?>ready">
 			<?php
 			readfile( sprintf(
 				'%spublic/assets/js/ready%s.js',
@@ -226,6 +228,13 @@ class Advanced_Ads_Plugin {
 			?>
 		</script>
 		<?php
+
+		/**
+		 * Print inline script in the page header form add-ons.
+		 *
+		 * @param string $frontend_prefix the prefix used for Advanced Ads related HTML ID-s and classes.
+		 */
+		do_action( 'advanced_ads_inline_header_scripts', $frontend_prefix );
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaping would break the HTML
 		echo Advanced_Ads_Utils::get_inline_asset( ob_get_clean() );
 	}

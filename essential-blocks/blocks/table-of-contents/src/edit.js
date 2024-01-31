@@ -137,7 +137,10 @@ function Edit(props) {
         isMigrated,
         scrollToTopIcon,
         classHook,
-        cover
+        cover,
+        enableListStyle,
+        preset,
+        itemCollapsed
     } = attributes;
 
 
@@ -241,6 +244,29 @@ function Edit(props) {
         className: classnames(className, `eb-guten-block-main-parent-wrapper`),
     });
 
+
+    // CollapsedItem
+    useEffect(() => {
+        if (itemCollapsed) {
+            let container = document.querySelector(`.eb-toc-container.${blockId}`);
+            const items = container?.querySelectorAll(".eb-toc-wrapper .eb-toc__list-wrap > .eb-toc__list > li");
+
+            for (let item of items) {
+                const selector = item?.querySelector("a");
+                const selectorIcon = item?.querySelector("svg");
+                const collapsedItem = item?.querySelector(".eb-toc__list");
+
+                if (collapsedItem !== null) {
+                    selectorIcon?.addEventListener("click", function () {
+                        item?.classList.toggle("hide-items");
+                    });
+                }
+
+            }
+
+        }
+    })
+
     return cover.length ? (
         <div>
             <img src={cover} alt="table of content" style={{ maxWidth: "100%" }} />
@@ -291,7 +317,7 @@ function Edit(props) {
                 <div
                     className={`eb-parent-wrapper eb-parent-${blockId} ${classHook}`}
                 >
-                    <div className={`${blockId} eb-toc-container`}>
+                    <div className={`${blockId} eb-toc-container ${preset} ${!enableListStyle ? 'list-style-none' : ''}`}>
                         <div
                             onClick={() => collapsible && setVisible(!visible)}
                         >

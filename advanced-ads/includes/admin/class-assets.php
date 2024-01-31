@@ -63,7 +63,7 @@ class Assets implements Integration_Interface {
 
 		// TODO: add conditional loading.
 		Assets_Registry::enqueue_script( 'admin-global' );
-		Assets_Registry::enqueue_script( 'admin-find-adblocker' );
+		Assets_Registry::enqueue_script( 'find-adblocker' );
 
 		$params = [
 			'ajax_nonce'           => wp_create_nonce( 'advanced-ads-admin-ajax-nonce' ),

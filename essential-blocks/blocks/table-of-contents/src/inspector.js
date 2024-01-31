@@ -52,11 +52,13 @@ import {
     WrpPaddingConst,
     titlePaddingConst,
     contentPaddingConst,
+    
 } from "./constants/dimensionsConstants";
 
 import {
-    //
     WrpBdShadowConst,
+    ItemBdShadow,
+    CLOSE_BORDER
 } from "./constants/borderShadowConstants";
 
 import {
@@ -66,6 +68,7 @@ import {
     BORDER_STYLES,
     SCROLL_OPTIONS,
     STICKY_POSITION,
+    PRESET
 } from "./constants";
 
 const Inspector = ({ attributes, setAttributes, deleteHeaders }) => {
@@ -116,6 +119,16 @@ const Inspector = ({ attributes, setAttributes, deleteHeaders }) => {
         enableCopyLink,
         scrollToTopIcon,
         listStyle,
+        preset,
+        enableListStyle,
+        contentItemBg,
+        itemCollapsed,
+        closeBtnColor,
+        closeBtnHoverColor,
+        closeBtnBgColor,
+        closeBtnBgHvColor,
+        closeBtnSize,
+        closeIconSize
     } = attributes;
 
     const [options, setOptions] = useState(HEADERS);
@@ -176,6 +189,61 @@ const Inspector = ({ attributes, setAttributes, deleteHeaders }) => {
         setAttributes({ deleteHeaderList: [...deleteHeaderList] });
     };
 
+    const handlePresetChange = (preset) => {
+
+        switch (preset) {
+            case "style-1":
+                setAttributes({
+                    seperator: false,
+
+                    contentItemBg: '#fff',
+                    itemB_Rds_Bottom: "4",
+                    itemB_Rds_Left: "4",
+                    itemB_Rds_Right: "4",
+                    itemB_Rds_Top: "4",
+                    itemB_Rds_Unit: "px",
+                    itemB_Rds_isLinked: true,
+
+                    wrpB_borderColor: "var(--eb-global-heading-color)",
+                    wrpB_borderStyle: "none",
+                    wrpB_Bdr_Bottom: "0",
+                    wrpB_Bdr_Left: "0",
+                    wrpB_Bdr_Right: "0",
+                    wrpB_Bdr_Top: "0",
+                    wrpB_Bdr_Unit: "px",
+                    wrpB_Bdr_isLinked: false,
+                });
+                break;
+
+            case "style-2":
+                setAttributes({
+                    seperator: true,
+                    seperatorSize: 1,
+
+                    contentItemBg: '',
+                    itemB_Rds_Bottom: "0",
+                    itemB_Rds_Left: "0",
+                    itemB_Rds_Right: "0",
+                    itemB_Rds_Top: "0",
+                    itemB_Rds_Unit: "px",
+                    itemB_Rds_isLinked: true,
+
+
+                    wrpB_borderColor: "var(--eb-global-heading-color)",
+                    wrpB_borderStyle: "solid",
+                    wrpB_Bdr_Bottom: "0",
+                    wrpB_Bdr_Left: "0",
+                    wrpB_Bdr_Right: "0",
+                    wrpB_Bdr_Top: "5",
+                    wrpB_Bdr_Unit: "px",
+                    wrpB_Bdr_isLinked: false,
+                });
+                break;
+        }
+
+        setAttributes({ preset });
+    };
+
     return (
         <InspectorControls key="controls">
             <div className="eb-panel-control">
@@ -229,63 +297,21 @@ const Inspector = ({ attributes, setAttributes, deleteHeaders }) => {
 										`}
                                     </style>
                                     <PanelBody
-                                        title={__("Title", "essential-block")}
-                                    >
-                                        <>
-                                            {!isSticky && (
-                                                <ToggleControl
-                                                    label={__(
-                                                        "Display Title",
-                                                        "essential-blocks"
-                                                    )}
-                                                    checked={displayTitle}
-                                                    onChange={() =>
-                                                        setAttributes({
-                                                            displayTitle: !displayTitle,
-                                                        })
-                                                    }
-                                                />
-                                            )}
-                                            <DynamicInputControl
-                                                label={__(
-                                                    "Title Text",
-                                                    "essential-blocks"
-                                                )}
-                                                attrName="title"
-                                                inputValue={title}
-                                                setAttributes={setAttributes}
-                                                onChange={(text) =>
-                                                    setAttributes({
-                                                        title: text,
-                                                    })
-                                                }
-                                            />
-                                        </>
-                                    </PanelBody>
-                                    <PanelBody
-                                        title={__(
-                                            "Supported Heading Tags",
-                                            "essential-blocks"
-                                        )}
-                                    >
-                                        <div className="fix-select-over-lapping">
-                                            <Select2
-                                                options={options}
-                                                value={defaultOptions}
-                                                defaultValue={defaultOptions}
-                                                isMulti
-                                                onChange={onHeaderChange}
-                                            />
-                                        </div>
-                                    </PanelBody>
-
-                                    <PanelBody
                                         title={__(
                                             "Content Settings",
                                             "essential-blocks"
                                         )}
-                                        initialOpen={false}
+                                        initialOpen={true}
                                     >
+                                        <SelectControl
+                                            label={__(
+                                                "Preset",
+                                                "essential-blocks"
+                                            )}
+                                            value={preset}
+                                            options={PRESET}
+                                            onChange={(preset) => handlePresetChange(preset)}
+                                        />
                                         <ToggleControl
                                             label={__(
                                                 "Display Underline",
@@ -376,6 +402,19 @@ const Inspector = ({ attributes, setAttributes, deleteHeaders }) => {
                                         )}
                                         <ToggleControl
                                             label={__(
+                                                "Enable Item Collapsed",
+                                                "essential-blocks"
+                                            )}
+                                            checked={itemCollapsed}
+                                            onChange={() =>
+                                                setAttributes({
+                                                    itemCollapsed: !itemCollapsed,
+                                                })
+                                            }
+                                        />
+
+                                        <ToggleControl
+                                            label={__(
                                                 "Enable Copy Link",
                                                 "essential-blocks"
                                             )}
@@ -402,34 +441,102 @@ const Inspector = ({ attributes, setAttributes, deleteHeaders }) => {
                                             }
                                             type="number"
                                         />
-                                        <SelectControl
+
+                                        <ToggleControl
                                             label={__(
-                                                "List Style",
+                                                "Enable List Style",
                                                 "essential-blocks"
                                             )}
-                                            value={listStyle}
-                                            options={[
-                                                {
-                                                    label: __(
-                                                        "Unordered",
-                                                        "essential-blocks"
-                                                    ),
-                                                    value: "ul",
-                                                },
-                                                {
-                                                    label: __(
-                                                        "Ordered",
-                                                        "essential-blocks"
-                                                    ),
-                                                    value: "ol",
-                                                },
-                                            ]}
-                                            onChange={(listStyle) =>
+                                            checked={enableListStyle}
+                                            onChange={() =>
                                                 setAttributes({
-                                                    listStyle,
+                                                    enableListStyle: !enableListStyle,
                                                 })
                                             }
                                         />
+
+                                        {enableListStyle && (
+                                            <SelectControl
+                                                label={__(
+                                                    "List Style",
+                                                    "essential-blocks"
+                                                )}
+                                                value={listStyle}
+                                                options={[
+                                                    {
+                                                        label: __(
+                                                            "Unordered",
+                                                            "essential-blocks"
+                                                        ),
+                                                        value: "ul",
+                                                    },
+                                                    {
+                                                        label: __(
+                                                            "Ordered",
+                                                            "essential-blocks"
+                                                        ),
+                                                        value: "ol",
+                                                    },
+                                                ]}
+                                                onChange={(listStyle) =>
+                                                    setAttributes({
+                                                        listStyle,
+                                                    })
+                                                }
+                                            />
+                                        )}
+
+
+                                    </PanelBody>
+                                    <PanelBody
+                                        title={__("Title", "essential-block")} initialOpen={false}
+                                    >
+                                        <>
+                                            {!isSticky && (
+                                                <ToggleControl
+                                                    label={__(
+                                                        "Display Title",
+                                                        "essential-blocks"
+                                                    )}
+                                                    checked={displayTitle}
+                                                    onChange={() =>
+                                                        setAttributes({
+                                                            displayTitle: !displayTitle,
+                                                        })
+                                                    }
+                                                />
+                                            )}
+                                            <DynamicInputControl
+                                                label={__(
+                                                    "Title Text",
+                                                    "essential-blocks"
+                                                )}
+                                                attrName="title"
+                                                inputValue={title}
+                                                setAttributes={setAttributes}
+                                                onChange={(text) =>
+                                                    setAttributes({
+                                                        title: text,
+                                                    })
+                                                }
+                                            />
+                                        </>
+                                    </PanelBody>
+                                    <PanelBody
+                                        title={__(
+                                            "Supported Heading Tags",
+                                            "essential-blocks"
+                                        )}
+                                    >
+                                        <div className="fix-select-over-lapping">
+                                            <Select2
+                                                options={options}
+                                                value={defaultOptions}
+                                                defaultValue={defaultOptions}
+                                                isMulti
+                                                onChange={onHeaderChange}
+                                            />
+                                        </div>
                                     </PanelBody>
 
                                     <PanelBody
@@ -938,6 +1045,34 @@ const Inspector = ({ attributes, setAttributes, deleteHeaders }) => {
                                                     />
                                                 </>
                                             )}
+
+                                            {preset == 'style-1' && (
+                                                <>
+                                                    <Divider />
+                                                    <ColorControl
+                                                        label={__(
+                                                            "Item Background Color",
+                                                            "essential-blocks"
+                                                        )}
+                                                        color={contentItemBg}
+                                                        onChange={(contentItemBg) =>
+                                                            setAttributes({ contentItemBg })
+                                                        }
+                                                    />
+                                                    <PanelBody
+                                                        title={__("Border & Shadow")}
+                                                        initialOpen={false}
+                                                    >
+                                                        <BorderShadowControl
+                                                            controlName={ItemBdShadow}
+                                                            resRequiredProps={resRequiredProps}
+                                                        // noShadow
+                                                        // noBorder
+                                                        />
+                                                    </PanelBody>
+                                                </>
+                                            )}
+
                                         </div>
                                     </PanelBody>
                                     {isSticky && (
@@ -996,6 +1131,123 @@ const Inspector = ({ attributes, setAttributes, deleteHeaders }) => {
                                                 min={0}
                                                 max={100}
                                             />
+
+                                            <PanelBody
+                                                title={__(
+                                                    "Close Button",
+                                                    "essential-blocks"
+                                                )}
+                                                initialOpen={false}
+                                            >
+                                                <>
+
+                                                    <ColorControl
+                                                        label={__(
+                                                            "Color",
+                                                            "essential-blocks"
+                                                        )}
+                                                        color={closeBtnColor}
+                                                        onChange={(
+                                                            closeBtnColor
+                                                        ) =>
+                                                            setAttributes({
+                                                                closeBtnColor
+                                                            })
+                                                        }
+                                                    />
+                                                    <ColorControl
+                                                        label={__(
+                                                            "Hover Color",
+                                                            "essential-blocks"
+                                                        )}
+                                                        color={closeBtnHoverColor}
+                                                        onChange={(
+                                                            closeBtnHoverColor
+                                                        ) =>
+                                                            setAttributes({
+                                                                closeBtnHoverColor,
+                                                            })
+                                                        }
+                                                    />
+                                                    <ColorControl
+                                                        label={__(
+                                                            "Background Color",
+                                                            "essential-blocks"
+                                                        )}
+                                                        color={closeBtnBgColor}
+                                                        onChange={(
+                                                            closeBtnBgColor
+                                                        ) =>
+                                                            setAttributes({
+                                                                closeBtnBgColor,
+                                                            })
+                                                        }
+                                                    />
+                                                    <ColorControl
+                                                        label={__(
+                                                            "Background Hover Color",
+                                                            "essential-blocks"
+                                                        )}
+                                                        color={
+                                                            closeBtnBgHvColor
+                                                        }
+                                                        onChange={(
+                                                            closeBtnBgHvColor
+                                                        ) =>
+                                                            setAttributes({
+                                                                closeBtnBgHvColor,
+                                                            })
+                                                        }
+                                                    />
+                                                    <RangeControl
+                                                        label={__(
+                                                            "Button Size",
+                                                            "essential-blocks"
+                                                        )}
+                                                        value={closeBtnSize}
+                                                        onChange={(closeBtnSize) =>
+                                                            setAttributes({
+                                                                closeBtnSize,
+                                                            })
+                                                        }
+                                                        min={0}
+                                                        max={100}
+                                                    />
+                                                    <RangeControl
+                                                        label={__(
+                                                            "Icon Size",
+                                                            "essential-blocks"
+                                                        )}
+                                                        value={closeIconSize}
+                                                        onChange={(closeIconSize) =>
+                                                            setAttributes({
+                                                                closeIconSize,
+                                                            })
+                                                        }
+                                                        min={0}
+                                                        max={100}
+                                                    />
+
+
+                                                    <PanelBody
+                                                        title={__(
+                                                            "Border",
+                                                            "essential-blocks"
+                                                        )}
+                                                        initialOpen={false}
+                                                    >
+                                                        <BorderShadowControl
+                                                            controlName={
+                                                                CLOSE_BORDER
+                                                            }
+                                                            resRequiredProps={
+                                                                resRequiredProps
+                                                            }
+                                                            noShadow={true}
+                                                        />
+                                                    </PanelBody>
+                                                </>
+                                            </PanelBody>
                                         </PanelBody>
                                     )}
                                 </>

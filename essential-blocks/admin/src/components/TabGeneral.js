@@ -277,27 +277,33 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.4.11", "essential-blocks")}
+                                    {__("Version: 4.4.12", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("24/01/2024", "essential-blocks")}
+                                        {__("31/01/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Table of Contents block issue with PHP@7.2",
+                                            "Added: New preset for Table of Contents Block",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Table of Contents block special character support issue",
+                                            "Added: Slider Block H tags change option",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Accordion block expanded color issue",
+                                            "Fixed: Attempt block recovery issue in Team Member and Testimonial blocks",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Buttons hover color not working when sweep animation effect use",
                                             "essential-blocks"
                                         )}
                                     </li>

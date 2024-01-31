@@ -83,6 +83,8 @@ export default function Edit(props) {
         arrowNextIcon,
         arrowPrevIcon,
         isRTLEnable,
+        titleTag,
+        contentTag
     } = attributes;
 
     // this useEffect is for creating a unique id for each block's unique className by a random unique number
@@ -97,6 +99,10 @@ export default function Edit(props) {
         });
         const { isRTL } = select("core/editor").getEditorSettings();
         setAttributes({ isRTLEnable: isRTL });
+
+        // Default value for old version
+        if (titleTag == undefined) { setAttributes({ titleTag: 'h2' }) }
+        if (contentTag == undefined) { setAttributes({ contentTag: 'p' }) }
     }, []);
 
     const blockProps = useBlockProps({
@@ -113,6 +119,7 @@ export default function Edit(props) {
         property: "",
         attributes,
     });
+
 
     function SampleNextArrow(props) {
         const { className, style, onClick, arrowNextIcon } = props;
@@ -375,7 +382,7 @@ export default function Edit(props) {
                                                 image.title.length > 0 && (
                                                     <>
                                                         <RichText
-                                                            tagName={"h2"}
+                                                            tagName={titleTag}
                                                             className="eb-slider-title"
                                                             value={
                                                                 isValidHtml(
@@ -406,7 +413,7 @@ export default function Edit(props) {
                                                 image.subtitle.length > 0 && (
                                                     <>
                                                         <RichText
-                                                            tagName={"p"}
+                                                            tagName={contentTag}
                                                             className="eb-slider-subtitle"
                                                             value={
                                                                 isValidHtml(

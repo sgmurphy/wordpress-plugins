@@ -86,7 +86,8 @@ export default function Style(props) {
         TABnumberSizeUnit,
         MOBnumberSizeUnit,
         isInfoClick,
-        enableButton
+        enableButton,
+        btnEffect
     } = attributes;
 
     const buttonThakbe = !isInfoClick && enableButton;
@@ -271,6 +272,10 @@ export default function Style(props) {
     const {
         backgroundStylesDesktop: btnBackgroundStylesDesktop,
         hoverBackgroundStylesDesktop: btnHoverBackgroundStylesDesktop,
+        backgroundStylesTab: btnBackgroundStylesTab,
+        hoverBackgroundStylesTab: btnHoverBackgroundStylesTab,
+        backgroundStylesMobile: btnBackgroundStylesMobile,
+        hoverBackgroundStylesMobile: btnHoverBackgroundStylesMobile,
         bgTransitionStyle: btnBgTransitionStyle,
     } = generateBackgroundControlStyles({
         attributes,
@@ -552,10 +557,17 @@ export default function Style(props) {
 					${btnBdShadowStylesHoverDesktop}
 				}
 
+                ${btnEffect
+                ? `.eb-infobox-wrapper.${blockId} .contents-wrapper .infobox-btn:before{
+                        ${btnHoverBackgroundStylesDesktop}
+                        ${buttonHvrTextColor ? `color: ${buttonHvrTextColor};` : " "}
+                        ${btnBdShadowStylesHoverDesktop}
+                    }
+                    `
+                : ""
+            }
 
-				.eb-infobox-wrapper.${blockId} .contents-wrapper .infobox-btn:before{
-					${btnHoverBackgroundStylesDesktop}
-				}
+
 
 
 				`
@@ -726,6 +738,15 @@ export default function Style(props) {
             : " "
         }
 
+        ${btnEffect
+            ? `.eb-infobox-wrapper.${blockId} .contents-wrapper .infobox-btn:before{
+                    ${btnHoverBackgroundStylesTab}
+                    ${btnBdShadowStylesHoverTab}
+                }
+                `
+            : ""
+        }
+
 	`;
 
     const wrapperStylesMobile = `
@@ -889,7 +910,14 @@ export default function Style(props) {
         }
 
 
-
+        ${btnEffect
+            ? `.eb-infobox-wrapper.${blockId} .contents-wrapper .infobox-btn:before{
+                    ${btnHoverBackgroundStylesMobile}
+                    ${btnBdShadowStylesHoverMobile}
+                }
+                `
+            : ""
+        }
 	`;
 
     // all css styles for large screen width (desktop/laptop) in strings ⬇

@@ -512,7 +512,7 @@ function Inspector(props) {
                                             />
 
                                             <DynamicInputControl
-                                                label="Link URL (use https:// at the beginning)"
+                                                label={__("Button Link", "essential-blocks")}
                                                 placeholder="https://your-site.com"
                                                 attrName="infoboxLink"
                                                 inputValue={infoboxLink}
@@ -522,6 +522,7 @@ function Inspector(props) {
                                                         infoboxLink: text,
                                                     })
                                                 }
+                                                help={__("Link URL (use https:// at the beginning)", "essential-blocks")}
                                             />
 
                                             <ToggleControl

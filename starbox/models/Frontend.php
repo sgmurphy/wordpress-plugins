@@ -61,10 +61,10 @@ class ABH_Models_Frontend {
                 $this->details['abh_theme'] = ABH_Classes_Tools::getOption('abh_theme');
 
             $content .= '
-                         <div class="abh_box abh_box_' . $this->position . ' abh_box_' . $this->details['abh_theme'] . '">
+                         <div class="abh_box abh_box_' . $this->position . ' abh_box_' . esc_attr($this->details['abh_theme']) . '">
                                 <ul class="abh_tabs">
-                                 <li class="abh_about abh_active"><a href="#abh_about">' . __('About', _ABH_PLUGIN_NAME_) . '</a></li>
-                                 <li class="abh_posts"><a href="#abh_posts">' . __('Latest Posts', _ABH_PLUGIN_NAME_) . '</a></li>
+                                 <li class="abh_about abh_active"><a href="#abh_about">' . esc_html__('About', _ABH_PLUGIN_NAME_) . '</a></li>
+                                 <li class="abh_posts"><a href="#abh_posts">' . esc_html__('Latest Posts', _ABH_PLUGIN_NAME_) . '</a></li>
                                 </ul>
                                 <div class="abh_tab_content">' .
                 $this->showAuthorDescription() .
@@ -83,9 +83,9 @@ class ABH_Models_Frontend {
      */
     public function getProfileImage() {
         if (isset($this->details['abh_gravatar']) && $this->details['abh_gravatar'] <> '' && file_exists(_ABH_GRAVATAR_DIR_ . $this->details['abh_gravatar'])) {
-            $image =  '<img src="' . _ABH_GRAVATAR_URL_ . $this->details['abh_gravatar'] . '" class="photo" width="' . ABH_IMAGESIZE . '" alt="' . $this->author->display_name . '" />';
+            $image =  '<img src="' . _ABH_GRAVATAR_URL_ . $this->details['abh_gravatar'] . '" class="photo" width="' . ABH_IMAGESIZE . '" alt="' . esc_attr($this->author->display_name) . '" />';
         } else {
-            $image =  get_avatar($this->author->ID, ABH_IMAGESIZE, '', $this->author->display_name);
+            $image =  get_avatar($this->author->ID, ABH_IMAGESIZE, '', esc_attr($this->author->display_name));
         }
 
         return apply_filters('abh_author_profile_image', $image);
@@ -120,9 +120,9 @@ class ABH_Models_Frontend {
 
         if (ABH_AUTHORLINK) {
             if ($this->author->user_url) {
-                $content .= '<a href = "' . $this->author->user_url . '" class="url" target = "_blank" title = "' . $this->author->display_name . '" ' . $nofollow . ' > ' . $this->getProfileImage() . '</a > ';
+                $content .= '<a href = "' . esc_url($this->author->user_url) . '" class="url" target = "_blank" title = "' . esc_attr($this->author->display_name) . '" ' . $nofollow . ' > ' . $this->getProfileImage() . '</a > ';
             } else {
-                $content .= '<a href = "' . get_author_posts_url($this->author->ID) . '" class="url" title = "' . $this->author->display_name . '" > ' . $this->getProfileImage() . '</a > ';
+                $content .= '<a href = "' . get_author_posts_url($this->author->ID) . '" class="url" title = "' . esc_attr($this->author->display_name) . '" > ' . $this->getProfileImage() . '</a > ';
             }
         } else {
             $content .= $this->getProfileImage();
@@ -130,8 +130,8 @@ class ABH_Models_Frontend {
         $content .= '</div>
                     <div class="abh_social"> ' . $this->getSocial($this->single) . '</div>
                     <div class="abh_text">
-                        <div class="abh_name fn name" ' . (($this->single) ? 'itemprop="name"' : '') . ' ' . ((ABH_Classes_Tools::getOption('abh_titlefontsize') <> 'default') ? 'style="font-size:' . ABH_Classes_Tools::getOption('abh_titlefontsize') . ' !important;"' : '') . '>' . (ABH_AUTHORLINK ? (($this->author->user_url) ? '<a href="' . $this->author->user_url . '" class="url" target="_blank" ' . $nofollow . '>' . $this->author->display_name . '</a>' : '<a href="' . get_author_posts_url($this->author->ID) . '" class="url">' . $this->author->display_name . '</a>') : $this->author->display_name) . '</div>
-                        <div class="abh_job" ' . ((ABH_Classes_Tools::getOption('abh_descfontsize') <> 'default') ? 'style="font-size:' . ABH_Classes_Tools::getOption('abh_descfontsize') . ' !important;"' : '') . '>' . (($this->details['abh_title'] <> '' && $this->details['abh_company'] <> '') ? '<span class="title" ' . ((ABH_Classes_Tools::getOption('abh_descfontsize') <> 'default') ? 'style="font-size:' . ABH_Classes_Tools::getOption('abh_descfontsize') . ' !important;"' : '') . '>' . $this->details['abh_title'] . '</span> ' . __('at', _ABH_PLUGIN_NAME_) . ' <span class="org" ' . ((ABH_Classes_Tools::getOption('abh_descfontsize') <> 'default') ? 'style="font-size:' . ABH_Classes_Tools::getOption('abh_descfontsize') . ' !important;"' : '') . '>' . (($this->details['abh_company_url'] <> '') ? sprintf('<a href="%s" target="_blank">%s</a>', $this->details['abh_company_url'], $this->details['abh_company']) : $this->details['abh_company']) . '</span>' : '') . '</div>
+                        <div class="abh_name fn name" ' . (($this->single) ? 'itemprop="name"' : '') . ' ' . ((ABH_Classes_Tools::getOption('abh_titlefontsize') <> 'default') ? 'style="font-size:' . ABH_Classes_Tools::getOption('abh_titlefontsize') . ' !important;"' : '') . '>' . (ABH_AUTHORLINK ? (($this->author->user_url) ? '<a href="' . esc_url($this->author->user_url) . '" class="url" target="_blank" ' . $nofollow . '>' . esc_html($this->author->display_name) . '</a>' : '<a href="' . get_author_posts_url($this->author->ID) . '" class="url">' . esc_html($this->author->display_name) . '</a>') : esc_html($this->author->display_name)) . '</div>
+                        <div class="abh_job" ' . ((ABH_Classes_Tools::getOption('abh_descfontsize') <> 'default') ? 'style="font-size:' . ABH_Classes_Tools::getOption('abh_descfontsize') . ' !important;"' : '') . '>' . (($this->details['abh_title'] <> '' && $this->details['abh_company'] <> '') ? '<span class="title" ' . ((ABH_Classes_Tools::getOption('abh_descfontsize') <> 'default') ? 'style="font-size:' . ABH_Classes_Tools::getOption('abh_descfontsize') . ' !important;"' : '') . '>' . esc_html($this->details['abh_title']) . '</span> ' . __('at', _ABH_PLUGIN_NAME_) . ' <span class="org" ' . ((ABH_Classes_Tools::getOption('abh_descfontsize') <> 'default') ? 'style="font-size:' . ABH_Classes_Tools::getOption('abh_descfontsize') . ' !important;"' : '') . '>' . (($this->details['abh_company_url'] <> '') ? sprintf('<a href="%s" target="_blank">%s</a>', esc_url($this->details['abh_company_url']), esc_attr($this->details['abh_company'])) : esc_attr($this->details['abh_company'])) . '</span>' : '') . '</div>
                         <div class="description note abh_description" ' . (($this->single) ? 'itemprop="description"' : '') . ' ' . ((ABH_Classes_Tools::getOption('abh_descfontsize') <> 'default') ? 'style="font-size:' . ABH_Classes_Tools::getOption('abh_descfontsize') . ' !important;"' : '') . '>' . ((isset($this->details['abh_extra_description']) && $this->details['abh_extra_description'] <> '') ? nl2br($this->details['abh_extra_description']) : nl2br($this->author->user_description)) . '</div>
                     </div>
                </section>';
@@ -164,11 +164,11 @@ class ABH_Models_Frontend {
         $content = '
                 <section class="abh_posts_tab abh_tab" >
                     <div class="abh_image">
-                      ' . (ABH_AUTHORLINK ? (($this->author->user_url) ? '<a href="' . $this->author->user_url . '" class="url" target="_blank" title="' . $this->author->display_name . '" ' . $nofollow . '>' . $this->getProfileImage() . '</a>' : '<a href="' . get_author_posts_url($this->author->ID) . '" class="url" title="' . $this->author->display_name . '">' . $this->getProfileImage() . '</a>') : $this->getProfileImage()) . '
+                      ' . (ABH_AUTHORLINK ? (($this->author->user_url) ? '<a href="' . esc_url($this->author->user_url) . '" class="url" target="_blank" title="' . esc_attr($this->author->display_name) . '" ' . $nofollow . '>' . $this->getProfileImage() . '</a>' : '<a href="' . get_author_posts_url($this->author->ID) . '" class="url" title="' . esc_attr($this->author->display_name) . '">' . $this->getProfileImage() . '</a>') : $this->getProfileImage()) . '
                     </div>
                     <div class="abh_social"> ' . $this->getSocial() . '</div>
                     <div class="abh_text">
-                        <div class="abh_name" ' . ((ABH_Classes_Tools::getOption('abh_titlefontsize') <> 'default') ? 'style="font-size:' . ABH_Classes_Tools::getOption('abh_titlefontsize') . ' !important;"' : '') . '>' . sprintf(__('Latest posts by %s', _ABH_PLUGIN_NAME_), $this->author->display_name) . ' <span class="abh_allposts">' . (ABH_AUTHORLINK ? '(<a href="' . get_author_posts_url($this->author->ID) . '">' . __('see all', _ABH_PLUGIN_NAME_) . '</a>)' : '') . '</span></div>
+                        <div class="abh_name" ' . ((ABH_Classes_Tools::getOption('abh_titlefontsize') <> 'default') ? 'style="font-size:' . ABH_Classes_Tools::getOption('abh_titlefontsize') . ' !important;"' : '') . '>' . sprintf(__('Latest posts by %s', _ABH_PLUGIN_NAME_), esc_attr($this->author->display_name)) . ' <span class="abh_allposts">' . (ABH_AUTHORLINK ? '(<a href="' . get_author_posts_url($this->author->ID) . '">' . __('see all', _ABH_PLUGIN_NAME_) . '</a>)' : '') . '</span></div>
                         <div class="abh_description note" >' . $this->getLatestPosts() . '</div>
                     </div>
                </section>';
@@ -203,39 +203,39 @@ class ABH_Models_Frontend {
 
         if (isset($this->details['abh_facebook']) && $this->details['abh_facebook'] <> '') {
             $count++;
-            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_facebook'], 'http') === false) ? 'http://facebook.com/' : '') . $this->details['abh_facebook'] . '" title="' . __('Facebook', _ABH_PLUGIN_NAME_) . '" class="abh_facebook" target="_blank" ' . $nofollow . '></a>';
+            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_facebook'], 'http') === false) ? 'http://facebook.com/' : '') . esc_attr($this->details['abh_facebook']) . '" title="' . __('Facebook', _ABH_PLUGIN_NAME_) . '" class="abh_facebook" target="_blank" ' . $nofollow . '></a>';
         }
         if (isset($this->details['abh_twitter']) && $this->details['abh_twitter'] <> '') {
             $count++;
-            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_twitter'], 'http') === false) ? 'http://twitter.com/' : '') . $this->details['abh_twitter'] . '" title="' . __('Twitter', _ABH_PLUGIN_NAME_) . '" class="abh_twitter" target="_blank" ' . $nofollow . '></a>';
+            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_twitter'], 'http') === false) ? 'http://twitter.com/' : '') . esc_attr($this->details['abh_twitter']) . '" title="' . __('Twitter', _ABH_PLUGIN_NAME_) . '" class="abh_twitter" target="_blank" ' . $nofollow . '></a>';
         }
         if (isset($this->details['abh_linkedin']) && $this->details['abh_linkedin'] <> '') {
             $count++;
-            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_linkedin'], 'http') === false) ? 'http://www.linkedin.com/in/' : '') . $this->details['abh_linkedin'] . '" title="' . __('LinkedIn', _ABH_PLUGIN_NAME_) . '" class="abh_linkedin" target="_blank" ' . $nofollow . '></a>';
+            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_linkedin'], 'http') === false) ? 'http://www.linkedin.com/in/' : '') . esc_attr($this->details['abh_linkedin']) . '" title="' . __('LinkedIn', _ABH_PLUGIN_NAME_) . '" class="abh_linkedin" target="_blank" ' . $nofollow . '></a>';
         }
         if (isset($this->details['abh_instagram']) && $this->details['abh_instagram'] <> '') {
             $count++;
-            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_instagram'], 'http') === false) ? 'http://instagram.com/' : '') . $this->details['abh_instagram'] . '" title="' . __('Instagram', _ABH_PLUGIN_NAME_) . '" class="abh_instagram" target="_blank" ' . $nofollow . '></a>';
+            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_instagram'], 'http') === false) ? 'http://instagram.com/' : '') . esc_attr($this->details['abh_instagram']) . '" title="' . __('Instagram', _ABH_PLUGIN_NAME_) . '" class="abh_instagram" target="_blank" ' . $nofollow . '></a>';
         }
         if (isset($this->details['abh_flickr']) && $this->details['abh_flickr'] <> '') {
             $count++;
-            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_flickr'], 'http') === false) ? 'http://www.flickr.com/photos/' : '') . $this->details['abh_flickr'] . '" title="' . __('Flickr', _ABH_PLUGIN_NAME_) . '" class="abh_flickr" target="_blank" ' . $nofollow . '></a>';
+            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_flickr'], 'http') === false) ? 'http://www.flickr.com/photos/' : '') . esc_attr($this->details['abh_flickr']) . '" title="' . __('Flickr', _ABH_PLUGIN_NAME_) . '" class="abh_flickr" target="_blank" ' . $nofollow . '></a>';
         }
         if (isset($this->details['abh_pinterest']) && $this->details['abh_pinterest'] <> '') {
             $count++;
-            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_pinterest'], 'http') === false) ? 'http://pinterest.com/' : '') . $this->details['abh_pinterest'] . '" title="' . __('Pinterest', _ABH_PLUGIN_NAME_) . '" class="abh_pinterest" target="_blank" ' . $nofollow . '></a>';
+            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_pinterest'], 'http') === false) ? 'http://pinterest.com/' : '') . esc_attr($this->details['abh_pinterest']) . '" title="' . __('Pinterest', _ABH_PLUGIN_NAME_) . '" class="abh_pinterest" target="_blank" ' . $nofollow . '></a>';
         }
         if (isset($this->details['abh_tumblr']) && $this->details['abh_tumblr'] <> '') {
             $count++;
-            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_tumblr'], 'http') === false) ? 'http://' . $this->details['abh_tumblr'] . '.tumblr.com/' : $this->details['abh_tumblr']) . '" title="' . __('Tumblr', _ABH_PLUGIN_NAME_) . '" class="abh_tumblr" target="_blank" ' . $nofollow . '></a>';
+            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_tumblr'], 'http') === false) ? 'http://' . esc_attr($this->details['abh_tumblr']) . '.tumblr.com/' : esc_attr($this->details['abh_tumblr'])) . '" title="' . __('Tumblr', _ABH_PLUGIN_NAME_) . '" class="abh_tumblr" target="_blank" ' . $nofollow . '></a>';
         }
         if (isset($this->details['abh_youtube']) && $this->details['abh_youtube'] <> '') {
             $count++;
-            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_youtube'], 'http') === false) ? 'http://www.youtube.com/user/' : '') . $this->details['abh_youtube'] . '" title="' . __('YouTube', _ABH_PLUGIN_NAME_) . '" class="abh_youtube" target="_blank" ' . $nofollow . '></a>';
+            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_youtube'], 'http') === false) ? 'http://www.youtube.com/user/' : '') . esc_attr($this->details['abh_youtube']) . '" title="' . __('YouTube', _ABH_PLUGIN_NAME_) . '" class="abh_youtube" target="_blank" ' . $nofollow . '></a>';
         }
         if (isset($this->details['abh_vimeo']) && $this->details['abh_vimeo'] <> '') {
             $count++;
-            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_vimeo'], 'http') === false) ? 'http://vimeo.com/' : '') . $this->details['abh_vimeo'] . '" title="' . __('Vimeo', _ABH_PLUGIN_NAME_) . '" class="abh_vimeo" target="_blank" ' . $nofollow . '></a>';
+            $content .= '<a ' . (($itemprop) ? 'itemprop="sameAs"' : '') . ' href="' . ((strpos($this->details['abh_vimeo'], 'http') === false) ? 'http://vimeo.com/' : '') . esc_attr($this->details['abh_vimeo']) . '" title="' . __('Vimeo', _ABH_PLUGIN_NAME_) . '" class="abh_vimeo" target="_blank" ' . $nofollow . '></a>';
         }
 
 
@@ -250,7 +250,7 @@ class ABH_Models_Frontend {
         }
 
         if ($count > 0 && isset($this->details['abh_socialtext']) && $this->details['abh_socialtext'] <> '')
-            $content = '<div style="clear: both; font-size:12px; font-weight:normal; width: 85px; margin: 0 0 2px auto; line-height: 20px;">' . $this->details['abh_socialtext'] . '</div>' . $content;
+            $content = '<div style="clear: both; font-size:12px; font-weight:normal; width: 85px; margin: 0 0 2px auto; line-height: 20px;">' . esc_html($this->details['abh_socialtext']) . '</div>' . $content;
 
         return $content;
     }
@@ -286,7 +286,6 @@ class ABH_Models_Frontend {
                 }
                 if (!$found)
                     continue;
-                //echo '<pre>' . print_r($category, true) . '</pre>';
             }
 
             if (get_the_title() <> '')

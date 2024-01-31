@@ -33,7 +33,7 @@ export default function Save({ attributes }) {
             >
                 <div className={`${blockId} eb-team-wrapper ${preset} ${preset === 'new-preset3' ? hoverPreset : ''} ${preset === 'preset3' && isContentOverlay ? 'content-overlay' : ''}  `}>
                     <div className="eb-team-inner">
-                        <div className="image">
+                        <div className="eb-team-member-image">
                             {avatarURL && (
                                 <a
                                     // className={`eb-button-anchor`}
@@ -42,7 +42,7 @@ export default function Save({ attributes }) {
                                     rel="noopener"
                                 >
                                     <img
-                                        className="avatar"
+                                        className="eb-team-member-avatar"
                                         src={imageUrl}
                                         alt={imageAlt ? imageAlt : name}
                                     />
@@ -51,7 +51,7 @@ export default function Save({ attributes }) {
 
                             {!avatarURL && (
                                 <img
-                                    className="avatar"
+                                    className="eb-team-member-avatar"
                                     src={imageUrl}
                                     alt={imageAlt ? imageAlt : name}
                                 />
@@ -69,19 +69,19 @@ export default function Save({ attributes }) {
                             {preset === 'new-preset1' && showDesignation && (
                                 <RichText.Content
                                     tagName="h4"
-                                    className="job_title"
+                                    className="eb-team-member-job-title"
                                     value={jobTitle}
                                 />
                             )}
                         </div>
-                        <div className="contents">
+                        <div className="eb-team-member-contents">
                             {(preset === 'new-preset1' || preset === 'new-preset2' || preset === 'new-preset3') && (
-                                <div className="contents-inner">
-                                    <div className="texts">
+                                <div className="eb-team-member-contents-inner">
+                                    <div className="eb-team-member-texts">
                                         {name && (
                                             <RichText.Content
                                                 tagName="h3"
-                                                className="name"
+                                                className="eb-team-member-name"
                                                 value={name}
                                             />
                                         )}
@@ -89,19 +89,19 @@ export default function Save({ attributes }) {
                                         {preset != 'new-preset1' && showDesignation && jobTitle && (
                                             <RichText.Content
                                                 tagName="h4"
-                                                className="job_title"
+                                                className="eb-team-member-job-title"
                                                 value={jobTitle}
                                             />
                                         )}
 
                                         {showCSeparator && (
-                                            <hr className="content_separator" />
+                                            <hr className="eb-team-member-content-separator" />
                                         )}
 
                                         {showDescs && description && (
                                             <RichText.Content
                                                 tagName="p"
-                                                className="description"
+                                                className="eb-team-member-description"
                                                 value={description}
                                             />
                                         )}
@@ -109,7 +109,7 @@ export default function Save({ attributes }) {
                                     {!socialInImage && showSocials && (
                                         <>
                                             {showSSeparator && (
-                                                <hr className="social_separator" />
+                                                <hr className="eb-team-member-social-separator" />
                                             )}
                                             <SocialLinks
                                                 socialDetails={profilesOnly}
@@ -124,30 +124,30 @@ export default function Save({ attributes }) {
 
                             {(preset != 'new-preset1' && preset != 'new-preset2' && preset != 'new-preset3') && (
                                 <>
-                                    <div className="texts">
+                                    <div className="eb-team-member-texts">
                                         {name && (
                                             <RichText.Content
                                                 tagName="h3"
-                                                className="name"
+                                                className="eb-team-member-name"
                                                 value={name}
                                             />
                                         )}
                                         {showDesignation && jobTitle && (
                                             <RichText.Content
                                                 tagName="h4"
-                                                className="job_title"
+                                                className="eb-team-member-job-title"
                                                 value={jobTitle}
                                             />
                                         )}
 
                                         {showCSeparator && (
-                                            <hr className="content_separator" />
+                                            <hr className="eb-team-member-content-separator" />
                                         )}
 
                                         {showDescs && description && (
                                             <RichText.Content
                                                 tagName="p"
-                                                className="description"
+                                                className="eb-team-member-description"
                                                 value={description}
                                             />
                                         )}
@@ -155,7 +155,7 @@ export default function Save({ attributes }) {
                                     {!socialInImage && showSocials && (
                                         <>
                                             {showSSeparator && (
-                                                <hr className="social_separator" />
+                                                <hr className="eb-team-member-social-separator" />
                                             )}
                                             <SocialLinks
                                                 socialDetails={profilesOnly}

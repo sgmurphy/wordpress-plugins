@@ -5,7 +5,7 @@ Tags: RSS, RSS feed, RSS aggregator, autoblogging, RSS import, autoblog, feed to
 Requires at least: 4.0 or higher
 Tested up to: 6.4
 Requires PHP: 5.4
-Stable tag: 4.23.4
+Stable tag: 4.23.6
 License: GPLv3
 
 The #1 WordPress RSS aggregator to quickly import RSS feeds, build a news aggregator, and for easy autoblogging.
@@ -70,7 +70,7 @@ There is a lot more to an RSS aggregator than meets the eye. Here are a few addi
 
 == 🔑 Unlock Premium Upgrades ==
 
-Your website deserves the best, so we've been building (premium upgrades)[https://www.wprssaggregator.com/upgrade/] for WP RSS Aggregator since 2013 with the goal of helping you deliver the best experience possible to your visitors while improving your website's performance.
+Your website deserves the best, so we've been building [premium upgrades](https://www.wprssaggregator.com/upgrade/) for WP RSS Aggregator since 2013 with the goal of helping you deliver the best experience possible to your visitors while improving your website's performance.
 
 * **[Feed to Post](https://www.wprssaggregator.com/extension/feed-to-post/) (❤️ Most Popular)**: Automatically convert RSS feeds into WordPress posts, pages, or any custom post type.
 
@@ -286,6 +286,10 @@ Our complete Knowledge Base with FAQs can be found [here](https://kb.wprssaggreg
 
 
 == Changelog ==
+
+= 4.23.6 (2024-01-31) =
+**Changed**
+* Error information is suppressed for feeds with local address URLs. This improves the previous fix for CVE-2024-0628.
 
 = 4.23.5 (2024-01-24) =
 **Fixed**

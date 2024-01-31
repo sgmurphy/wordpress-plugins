@@ -213,6 +213,14 @@ const attributes = {
         type: "string",
         default: "fas fa-arrow-alt-circle-right",
     },
+    titleTag: {
+        type: "string",
+        default: "h2",
+    },
+    contentTag: {
+        type: "string",
+        default: "p",
+    },
 
     // typography attributes ⬇
     ...generateTypographyAttributes(Object.values(TYPOGRAPHY)),

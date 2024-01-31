@@ -3,7 +3,7 @@
  */
 import { __ } from "@wordpress/i18n";
 import { useEffect } from "@wordpress/element";
-import { useBlockProps, MediaUpload, RichText } from "@wordpress/block-editor";
+import { useBlockProps, MediaUpload } from "@wordpress/block-editor";
 import { Button } from "@wordpress/components";
 import { select } from "@wordpress/data";
 /**
@@ -12,6 +12,7 @@ import { select } from "@wordpress/data";
 
 const {
     duplicateBlockIdFix,
+    DynamicInputValueHandler
 } = window.EBControls;
 
 import classnames from "classnames";
@@ -49,9 +50,8 @@ export default function Edit(props) {
         classHook,
         hoverPreset,
         showDesignation,
-        showSocialTitle,
         isContentOverlay,
-        preset
+        preset,
     } = attributes;
 
     //
@@ -162,7 +162,7 @@ export default function Edit(props) {
                 >
                     <div className={`${blockId} eb-team-wrapper ${preset} ${preset === 'new-preset3' ? hoverPreset : ''} ${preset === 'preset3' && isContentOverlay ? 'content-overlay' : ''}  `}>
                         <div className="eb-team-inner">
-                            <div className="image">
+                            <div className="eb-team-member-image">
                                 <MediaUpload
                                     onSelect={({ id, url }) =>
                                         setAttributes({
@@ -188,7 +188,7 @@ export default function Edit(props) {
                                         } else {
                                             return (
                                                 <img
-                                                    className="avatar"
+                                                    className="eb-team-member-avatar"
                                                     alt="member"
                                                     src={imageUrl}
                                                 />
@@ -205,74 +205,68 @@ export default function Edit(props) {
                                 )}
 
                                 {preset === 'new-preset1' && showDesignation && (
-                                    <RichText
-                                        tagName="h4"
-                                        className="job_title"
+                                    <DynamicInputValueHandler
                                         value={jobTitle}
+                                        tagName="h4"
+                                        className="eb-team-member-job-title"
                                         onChange={(jobTitle) =>
-                                            setAttributes({ jobTitle })
+                                            setAttributes({
+                                                jobTitle,
+                                            })
                                         }
-                                        placeholder={__(
-                                            "Add job title",
-                                            "team-member-block"
-                                        )}
+                                        readOnly={true}
                                     />
                                 )}
                             </div>
-                            <div className="contents">
+                            <div className="eb-team-member-contents">
                                 {(preset === 'new-preset1' || preset === 'new-preset2' || preset === 'new-preset3') && (
-                                    <div className="contents-inner">
-                                        <div className="texts">
-                                            <RichText
-                                                tagName="h3"
-                                                className="name"
+                                    <div className="eb-team-member-contents-inner">
+                                        <div className="eb-team-member-texts">
+                                            <DynamicInputValueHandler
                                                 value={name}
+                                                tagName="h3"
+                                                className="eb-team-member-name"
                                                 onChange={(name) =>
-                                                    setAttributes({ name })
+                                                    setAttributes({
+                                                        name,
+                                                    })
                                                 }
-                                                placeholder={__(
-                                                    "Add name here",
-                                                    "team-member-block"
-                                                )}
+                                                readOnly={true}
                                             />
                                             {preset != 'new-preset1' && showDesignation && (
-                                                <RichText
-                                                    tagName="h4"
-                                                    className="job_title"
+                                                <DynamicInputValueHandler
                                                     value={jobTitle}
+                                                    tagName="h4"
+                                                    className="eb-team-member-job-title"
                                                     onChange={(jobTitle) =>
-                                                        setAttributes({ jobTitle })
+                                                        setAttributes({
+                                                            jobTitle,
+                                                        })
                                                     }
-                                                    placeholder={__(
-                                                        "Add job title",
-                                                        "team-member-block"
-                                                    )}
+                                                    readOnly={true}
                                                 />
                                             )}
-
                                             {showCSeparator && (
-                                                <hr className="content_separator" />
+                                                <hr className="eb-team-member-content-separator" />
                                             )}
-
                                             {showDescs && (
-                                                <RichText
-                                                    tagName="p"
-                                                    className="description"
+                                                <DynamicInputValueHandler
                                                     value={description}
+                                                    tagName="p"
+                                                    className="eb-team-member-description"
                                                     onChange={(description) =>
-                                                        setAttributes({ description })
+                                                        setAttributes({
+                                                            description,
+                                                        })
                                                     }
-                                                    placeholder={__(
-                                                        "Add description",
-                                                        "team-member-block"
-                                                    )}
+                                                    readOnly={true}
                                                 />
                                             )}
                                         </div>
                                         {!socialInImage && showSocials && (
                                             <>
                                                 {showSSeparator && (
-                                                    <hr className="social_separator" />
+                                                    <hr className="eb-team-member-social-separator" />
                                                 )}
                                                 <SocialLinks
                                                     socialDetails={profilesOnly}
@@ -286,57 +280,54 @@ export default function Edit(props) {
 
                                 {(preset != 'new-preset1' && preset != 'new-preset2' && preset != 'new-preset3') && (
                                     <>
-                                        <div className="texts">
-                                            <RichText
-                                                tagName="h3"
-                                                className="name"
+                                        <div className="eb-team-member-texts">
+                                            <DynamicInputValueHandler
                                                 value={name}
+                                                tagName="h3"
+                                                className="eb-team-member-name"
                                                 onChange={(name) =>
-                                                    setAttributes({ name })
+                                                    setAttributes({
+                                                        name,
+                                                    })
                                                 }
-                                                placeholder={__(
-                                                    "Add name here",
-                                                    "team-member-block"
-                                                )}
+                                                readOnly={true}
                                             />
                                             {preset != 'new-preset1' && showDesignation && (
-                                                <RichText
-                                                    tagName="h4"
-                                                    className="job_title"
+                                                <DynamicInputValueHandler
                                                     value={jobTitle}
+                                                    tagName="h4"
+                                                    className="eb-team-member-job-title"
                                                     onChange={(jobTitle) =>
-                                                        setAttributes({ jobTitle })
+                                                        setAttributes({
+                                                            jobTitle,
+                                                        })
                                                     }
-                                                    placeholder={__(
-                                                        "Add job title",
-                                                        "team-member-block"
-                                                    )}
+                                                    readOnly={true}
                                                 />
                                             )}
 
                                             {showCSeparator && (
-                                                <hr className="content_separator" />
+                                                <hr className="eb-team-member-content-separator" />
                                             )}
 
                                             {showDescs && (
-                                                <RichText
-                                                    tagName="p"
-                                                    className="description"
+                                                <DynamicInputValueHandler
                                                     value={description}
+                                                    tagName="p"
+                                                    className="eb-team-member-description"
                                                     onChange={(description) =>
-                                                        setAttributes({ description })
+                                                        setAttributes({
+                                                            description,
+                                                        })
                                                     }
-                                                    placeholder={__(
-                                                        "Add description",
-                                                        "team-member-block"
-                                                    )}
+                                                    readOnly={true}
                                                 />
                                             )}
                                         </div>
                                         {!socialInImage && showSocials && (
                                             <>
                                                 {showSSeparator && (
-                                                    <hr className="social_separator" />
+                                                    <hr className="eb-team-member-social-separator" />
                                                 )}
                                                 <SocialLinks
                                                     socialDetails={profilesOnly}

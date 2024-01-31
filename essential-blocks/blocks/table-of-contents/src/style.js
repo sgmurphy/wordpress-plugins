@@ -15,6 +15,8 @@ import {
 import {
     //
     WrpBdShadowConst,
+    ItemBdShadow,
+    CLOSE_BORDER
 } from "./constants/borderShadowConstants";
 
 import { wrapMaxWidthPrefix } from "./constants/rangeNames";
@@ -36,10 +38,10 @@ export default function Style(props) {
         blockMeta,
         collapsible,
         listType,
-        titleBg = "#ff7d50",
-        titleColor = "#fff",
-        contentBg = "#fff6f3",
-        contentColor = "#707070",
+        titleBg,
+        titleColor,
+        contentBg,
+        contentColor,
         mainBgc,
         contentHoverColor,
         titleAlign,
@@ -58,13 +60,24 @@ export default function Style(props) {
         contentHeight,
         indent,
         hasUnderline,
-        contentGap = "20",
+        contentGap,
         contentGapUnit = "px",
         listSeperatorWidth = 3,
         listSeperatorStyle = "solid",
         listSeperatorColor = "#000",
         showListSeparator,
         classHook,
+        contentItemBg,
+        closeBtnColor,
+        closeBtnHoverColor,
+        closeBtnBgColor,
+        closeBtnBgHvColor,
+        closeBtnSize,
+        closeIconSize,
+        wrpP_Top,
+        wrpP_Right,
+        wrpP_Left,
+        wrpP_Unit,
     } = attributes;
 
     const [visible, setVisible] = useState(true);
@@ -88,7 +101,7 @@ export default function Style(props) {
     } = generateTypographyStyles({
         attributes,
         prefixConstant: typoPrefix_title,
-        defaultFontSize: 22,
+        defaultFontSize: 20,
     });
 
     const {
@@ -98,8 +111,38 @@ export default function Style(props) {
     } = generateTypographyStyles({
         attributes,
         prefixConstant: typoPrefix_content,
-        defaultFontSize: 20,
+        defaultFontSize: 14,
     });
+
+    const {
+        styesDesktop: itemBdShdStyesDesktop,
+        styesTab: itemBdShdStyesTab,
+        styesMobile: itemBdShdStyesMobile,
+        stylesHoverDesktop: itemBdShdStylesHoverDesktop,
+        stylesHoverTab: itemBdShdStylesHoverTab,
+        stylesHoverMobile: itemBdShdStylesHoverMobile,
+        transitionStyle: itemBdShdTransitionStyle,
+    } = generateBorderShadowStyles({
+        controlName: ItemBdShadow,
+        attributes,
+        // noShadow: true,
+        // noBorder: true,
+    });
+    const {
+        styesDesktop: closeBdShdStyesDesktop,
+        styesTab: closeBdShdStyesTab,
+        styesMobile: closeBdShdStyesMobile,
+        stylesHoverDesktop: closeBdShdStylesHoverDesktop,
+        stylesHoverTab: closeBdShdStylesHoverTab,
+        stylesHoverMobile: closeBdShdStylesHoverMobile,
+        transitionStyle: closeBdShdTransitionStyle,
+    } = generateBorderShadowStyles({
+        controlName: CLOSE_BORDER,
+        attributes,
+        // noShadow: true,
+        // noBorder: true,
+    });
+
     // // styles related to generateTypographyStyles end
 
     // // styles related to generateDimensionsControlStyles start ⬇
@@ -224,13 +267,21 @@ export default function Style(props) {
 			  ${contentTypoStylesDesktop}
 		  }
 
-		  .${blockId}.eb-toc-container .eb-toc-wrapper li:hover{
+		  .${blockId}.eb-toc-container .eb-toc-wrapper li:hover,
+          .${blockId}.eb-toc-container .eb-toc-wrapper li.eb-toc-active > a{
 			  color:${contentHoverColor};
 		  }
 
-		  .${blockId}.eb-toc-container .eb-toc-wrapper li a{
+		  .${blockId}.eb-toc-container .eb-toc-wrapper li a {
 			  color:inherit;
 		  }
+
+          .${blockId}.eb-toc-container .eb-toc-wrapper li svg path{
+            stroke:${contentColor};
+          }
+          .${blockId}.eb-toc-container .eb-toc-wrapper li:hover svg path{
+            stroke:${contentHoverColor};
+          }
 
 
 		  .${blockId}.eb-toc-container .eb-toc-wrapper li a,
@@ -268,6 +319,11 @@ export default function Style(props) {
         `
             : ""
         }
+        .${blockId}.eb-toc-container.style-1 .eb-toc__list-wrap > .eb-toc__list li .eb-toc__list{
+            background: ${contentItemBg};
+            ${itemBdShdStyesDesktop}
+        }
+
 
 	  `;
 
@@ -295,6 +351,10 @@ export default function Style(props) {
 		  .${blockId}.eb-toc-container .eb-toc-wrapper li{
 			  ${contentTypoStylesTab}
 		  }
+
+          .${blockId}.eb-toc-container.style-1 .eb-toc__list-wrap > .eb-toc__list li .eb-toc__list{
+            ${itemBdShdStyesTab}
+        }
 
 	  `;
 
@@ -324,6 +384,10 @@ export default function Style(props) {
 		  .${blockId}.eb-toc-container .eb-toc-wrapper li{
 			  ${contentTypoStylesMobile}
 		  }
+
+          .${blockId}.eb-toc-container.style-1 .eb-toc__list-wrap > .eb-toc__list li .eb-toc__list{
+            ${itemBdShdStyesMobile}
+        }
 
 	  `;
 
@@ -380,6 +444,36 @@ export default function Style(props) {
 					transform-origin: right top;
 					transform: rotate(90deg) translate(100%, 0);
 				  }
+
+                  .${blockId}.eb-toc-container .eb-toc-close{
+					color: ${closeBtnColor};
+					background: ${closeBtnBgColor};
+                    width: ${closeBtnSize}px;
+                    height: ${closeBtnSize}px;
+                    top: calc(-${wrpP_Top}${wrpP_Unit} - (${closeBtnSize}px / 2));
+                    ${closeBdShdStyesDesktop}
+				  }
+                  .${blockId}.eb-toc-container .eb-toc-close:hover{
+                    ${closeBdShdStylesHoverDesktop}
+				  }
+                  .${blockId}.eb-toc-container .eb-toc-close.eb-toc-sticky-left{
+                    right: calc(-${wrpP_Right}${wrpP_Unit} - (${closeBtnSize}px / 2));
+				  }
+                  .${blockId}.eb-toc-container .eb-toc-close.eb-toc-sticky-right{
+                    left: calc(-${wrpP_Left}${wrpP_Unit} + (${closeBtnSize}px / 2));
+				  }
+                  .${blockId}.eb-toc-container .eb-toc-close:before, .${blockId}.eb-toc-container .eb-toc-close:after{
+					background: ${closeBtnColor};
+                    height: ${closeIconSize}px;
+				  }
+
+                  .${blockId}.eb-toc-container .eb-toc-close:hover{
+					color: ${closeBtnHoverColor};
+					background: ${closeBtnBgHvColor};
+				  }
+                  .${blockId}.eb-toc-container .eb-toc-close:hover::before, .${blockId}.eb-toc-container .eb-toc-close:hover::after{
+					background: ${closeBtnHoverColor};
+				  }
 				  `
             : ""
         }
@@ -390,14 +484,33 @@ export default function Style(props) {
     // all css styles for Tab in strings ⬇
     const tabAllStyles = softMinifyCssStrings(`
 		  ${tabAllStylesCommon}
-
-
+          ${isSticky
+            ? `
+                  .${blockId}.eb-toc-container .eb-toc-close{
+                    ${closeBdShdStyesTab}
+				  }
+                  .${blockId}.eb-toc-container .eb-toc-close:hover{
+                    ${closeBdShdStylesHoverTab}
+				  }
+				  `
+            : ""
+        }
 	  `);
 
     // all css styles for Mobile in strings ⬇
     const mobileAllStyles = softMinifyCssStrings(`
 		  ${mobileAllStylesCommon}
-
+          ${isSticky
+            ? `
+                  .${blockId}.eb-toc-container .eb-toc-close{
+                    ${closeBdShdStyesMobile}
+				  }
+                  .${blockId}.eb-toc-container .eb-toc-close:hover{
+                    ${closeBdShdStylesHoverMobile}
+				  }
+				  `
+            : ""
+        }
 	  `);
 
     //

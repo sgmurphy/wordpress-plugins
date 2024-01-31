@@ -773,17 +773,13 @@ const Inspector = ({ attributes, setAttributes }) => {
                                                     }}
                                                 />
                                                 {showFrontContent && (
-                                                    <TextareaControl
-                                                        label={__(
-                                                            "Front Content",
-                                                            "essential-blocks"
-                                                        )}
-                                                        value={frontContent}
-                                                        onChange={(newText) =>
-                                                            setAttributes({
-                                                                frontContent: newText,
-                                                            })
-                                                        }
+                                                    <DynamicInputControl
+                                                        label={__("Front Content", "essential-blocks")}
+                                                        attrName="frontContent"
+                                                        inputValue={frontContent}
+                                                        setAttributes={setAttributes}
+                                                        onChange={(text) => setAttributes({ frontContent: text })}
+                                                        isTextarea={true}
                                                     />
                                                 )}
                                             </>
@@ -833,17 +829,13 @@ const Inspector = ({ attributes, setAttributes }) => {
                                                     }}
                                                 />
                                                 {showBackContent && (
-                                                    <TextareaControl
-                                                        label={__(
-                                                            "Back Content",
-                                                            "essential-blocks"
-                                                        )}
-                                                        value={backContent}
-                                                        onChange={(newText) =>
-                                                            setAttributes({
-                                                                backContent: newText,
-                                                            })
-                                                        }
+                                                    <DynamicInputControl
+                                                        label={__("Back Content", "essential-blocks")}
+                                                        attrName="backContent"
+                                                        inputValue={backContent}
+                                                        setAttributes={setAttributes}
+                                                        onChange={(text) => setAttributes({ backContent: text })}
+                                                        isTextarea={true}
                                                     />
                                                 )}
                                             </>

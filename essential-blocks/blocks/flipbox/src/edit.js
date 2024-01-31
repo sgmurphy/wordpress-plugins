@@ -242,9 +242,10 @@ function Edit(props) {
                                     )}
                                     {showFrontContent && (
                                         <div className="eb-flipbox-front-content-wrapper">
-                                            <RichText
+                                            <DynamicInputValueHandler
                                                 tagName="p"
                                                 className="eb-flipbox-front-content"
+                                                placeholder={__("Add subtitle...")}
                                                 value={
                                                     isValidHtml(frontContent)
                                                         ? frontContent
@@ -258,6 +259,7 @@ function Edit(props) {
                                                         frontContent,
                                                     })
                                                 }
+                                                readOnly={true}
                                             />
                                         </div>
                                     )}
@@ -382,7 +384,7 @@ function Edit(props) {
                                     )}
                                     {showBackContent && (
                                         <div className="eb-flipbox-back-content-wrapper">
-                                            <RichText
+                                            <DynamicInputValueHandler
                                                 tagName="p"
                                                 className="eb-flipbox-back-content"
                                                 value={
@@ -393,19 +395,12 @@ function Edit(props) {
                                                             "essential-blocks"
                                                         )
                                                 }
-                                                allowedFormats={[
-                                                    "core/bold",
-                                                    "core/italic",
-                                                    "core/link",
-                                                    "core/strikethrough",
-                                                    "core/underline",
-                                                    "core/text-color",
-                                                ]}
                                                 onChange={(backContent) =>
                                                     setAttributes({
                                                         backContent,
                                                     })
                                                 }
+                                                readOnly={true}
                                             />
                                         </div>
                                     )}

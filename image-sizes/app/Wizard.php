@@ -116,18 +116,6 @@ class Wizard extends Base {
 		if ( isset( $_POST['coschool'] ) ) {
 			$upgrader->install( 'https://downloads.wordpress.org/plugin/coschool.latest-stable.zip' );
 			activate_plugin( 'coschool/coschool.php' );
-		}
-
-		if ( isset( $_POST['cx-footer_credit'] ) ) {
-			$image_sizes_tools = get_option( 'image-sizes_tools' );
-			$image_sizes_tools['footer_credit'] = 'yes';
-			update_option( 'image-sizes_tools', $image_sizes_tools );
-		}
-		elseif( isset( $_POST['cx-complete'] ) ) { // made sure the `complete` step submitted
-			$image_sizes_tools = get_option( 'image-sizes_tools' );
-			$image_sizes_tools['footer_credit'] = 'no';
-			update_option( 'image-sizes_tools', $image_sizes_tools );
-		}
-	
+		}	
 	}
 }

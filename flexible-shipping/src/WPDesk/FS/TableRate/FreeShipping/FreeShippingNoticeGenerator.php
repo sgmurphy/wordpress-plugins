@@ -107,8 +107,9 @@ class FreeShippingNoticeGenerator implements Hookable {
 	 */
 	private function add_free_shipping_amount_to_session( $package_rates ) {
 		$shipping_method_with_lowest_free_shipping_limit = $this->get_shipping_method_with_lowest_free_shipping_limit( $package_rates );
+		$lowest_free_shipping_limit                      = floatval( $shipping_method_with_lowest_free_shipping_limit[ self::SETTING_METHOD_FREE_SHIPPING ] );
 		$lowest_free_shipping_limit                      = round(
-			(float) apply_filters( 'flexible_shipping_value_in_currency', floatval( $shipping_method_with_lowest_free_shipping_limit[ self::SETTING_METHOD_FREE_SHIPPING ] ) ),
+			(float) apply_filters( 'flexible_shipping_value_in_currency', $lowest_free_shipping_limit, $lowest_free_shipping_limit ),
 			wc_get_rounding_precision()
 		);
 		$amount                                          = $lowest_free_shipping_limit - $this->get_cart_value();

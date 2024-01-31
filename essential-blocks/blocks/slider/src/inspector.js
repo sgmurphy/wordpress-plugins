@@ -53,6 +53,7 @@ import {
     COLORS,
     TEXT_ALIGN,
     VERTICAL_ALIGN,
+    TAGS_TYPE,
 } from "./constants/constants";
 
 import objAttributes from "./attributes";
@@ -125,6 +126,8 @@ function Inspector(props) {
         verticalAlign,
         arrowPrevIcon,
         arrowNextIcon,
+        titleTag,
+        contentTag
     } = attributes;
 
     const resRequiredProps = {
@@ -333,16 +336,41 @@ function Inspector(props) {
 
                                     <PanelBody title={__("Slides", "essential-blocks")}>
                                         {sliderType === "content" && (
-                                            <SelectControl
-                                                label={__("Content Styles", "essential-blocks")}
-                                                value={sliderContentType}
-                                                options={SLIDER_CONTENT_TYPE}
-                                                onChange={(value) =>
-                                                    setAttributes({
-                                                        sliderContentType: value,
-                                                    })
-                                                }
-                                            />
+                                            <>
+                                                <SelectControl
+                                                    label={__("Content Styles", "essential-blocks")}
+                                                    value={sliderContentType}
+                                                    options={SLIDER_CONTENT_TYPE}
+                                                    onChange={(value) =>
+                                                        setAttributes({
+                                                            sliderContentType: value,
+                                                        })
+                                                    }
+                                                />
+
+                                                <SelectControl
+                                                    label={__("Title Tag", "essential-blocks")}
+                                                    value={titleTag}
+                                                    options={TAGS_TYPE}
+                                                    onChange={(titleTag) => {
+                                                        setAttributes({
+                                                            titleTag
+                                                        });
+                                                    }}
+                                                />
+                                                <SelectControl
+                                                    label={__("Content Tag", "essential-blocks")}
+                                                    value={contentTag}
+                                                    options={TAGS_TYPE}
+                                                    onChange={(contentTag) => {
+                                                        setAttributes({
+                                                            contentTag,
+                                                        });
+                                                    }}
+                                                />
+
+                                                <Divider />
+                                            </>
                                         )}
                                         {images.map((item, index) => {
                                             return (

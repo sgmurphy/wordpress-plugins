@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit0d4416fa91dd6ac09cbc9eca3bb065a0
+class ComposerStaticInit1311daa2e4f97882779b4bd4bf5e04fd
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -127,13 +127,11 @@ class ComposerStaticInit0d4416fa91dd6ac09cbc9eca3bb065a0
         'FSVendor\\Monolog\\Handler\\ZendMonitorHandler' => __DIR__ . '/../..' . '/vendor_prefixed/monolog/monolog/src/Monolog/Handler/ZendMonitorHandler.php',
         'FSVendor\\Monolog\\LogRecord' => __DIR__ . '/../..' . '/vendor_prefixed/monolog/monolog/src/Monolog/LogRecord.php',
         'FSVendor\\Monolog\\Logger' => __DIR__ . '/../..' . '/vendor_prefixed/monolog/monolog/src/Monolog/Logger.php',
-        'FSVendor\\Monolog\\Processor\\GitProcessor' => __DIR__ . '/../..' . '/vendor_prefixed/monolog/monolog/src/Monolog/Processor/GitProcessor.php',
         'FSVendor\\Monolog\\Processor\\HostnameProcessor' => __DIR__ . '/../..' . '/vendor_prefixed/monolog/monolog/src/Monolog/Processor/HostnameProcessor.php',
         'FSVendor\\Monolog\\Processor\\IntrospectionProcessor' => __DIR__ . '/../..' . '/vendor_prefixed/monolog/monolog/src/Monolog/Processor/IntrospectionProcessor.php',
         'FSVendor\\Monolog\\Processor\\MemoryPeakUsageProcessor' => __DIR__ . '/../..' . '/vendor_prefixed/monolog/monolog/src/Monolog/Processor/MemoryPeakUsageProcessor.php',
         'FSVendor\\Monolog\\Processor\\MemoryProcessor' => __DIR__ . '/../..' . '/vendor_prefixed/monolog/monolog/src/Monolog/Processor/MemoryProcessor.php',
         'FSVendor\\Monolog\\Processor\\MemoryUsageProcessor' => __DIR__ . '/../..' . '/vendor_prefixed/monolog/monolog/src/Monolog/Processor/MemoryUsageProcessor.php',
-        'FSVendor\\Monolog\\Processor\\MercurialProcessor' => __DIR__ . '/../..' . '/vendor_prefixed/monolog/monolog/src/Monolog/Processor/MercurialProcessor.php',
         'FSVendor\\Monolog\\Processor\\ProcessIdProcessor' => __DIR__ . '/../..' . '/vendor_prefixed/monolog/monolog/src/Monolog/Processor/ProcessIdProcessor.php',
         'FSVendor\\Monolog\\Processor\\ProcessorInterface' => __DIR__ . '/../..' . '/vendor_prefixed/monolog/monolog/src/Monolog/Processor/ProcessorInterface.php',
         'FSVendor\\Monolog\\Processor\\PsrLogMessageProcessor' => __DIR__ . '/../..' . '/vendor_prefixed/monolog/monolog/src/Monolog/Processor/PsrLogMessageProcessor.php',
@@ -645,9 +643,9 @@ class ComposerStaticInit0d4416fa91dd6ac09cbc9eca3bb065a0
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit0d4416fa91dd6ac09cbc9eca3bb065a0::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit0d4416fa91dd6ac09cbc9eca3bb065a0::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit0d4416fa91dd6ac09cbc9eca3bb065a0::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1311daa2e4f97882779b4bd4bf5e04fd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1311daa2e4f97882779b4bd4bf5e04fd::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1311daa2e4f97882779b4bd4bf5e04fd::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -102,6 +102,10 @@ export default function Style(props) {
     const {
         backgroundStylesDesktop: btnBackgroundStylesDesktop,
         hoverBackgroundStylesDesktop: btnHoverBackgroundStylesDesktop,
+        backgroundStylesTab: btnBackgroundStylesTab,
+        hoverBackgroundStylesTab: btnHoverBackgroundStylesTab,
+        backgroundStylesMobile: btnBackgroundStylesMobile,
+        hoverBackgroundStylesMobile: btnHoverBackgroundStylesMobile,
         bgTransitionStyle: btnBgTransitionStyle,
     } = generateBackgroundControlStyles({
         attributes,
@@ -168,7 +172,9 @@ export default function Style(props) {
 
 		${hoverEffect
             ? `.eb-button-wrapper.${blockId} .eb-button-anchor:before {
-				${btnBackgroundStylesDesktop}
+				${btnHoverBackgroundStylesDesktop}
+                ${bdShadowStylesHoverDesktop ? bdShadowStylesHoverDesktop : bdShadowStyesDesktop}
+                ${hoverTextColor ? `color: ${hoverTextColor};` : ""}
 			}
 			`
             : ""
@@ -230,6 +236,15 @@ export default function Style(props) {
 				}`
             : ""
         }
+
+        ${hoverEffect
+            ? `.eb-button-wrapper.${blockId} .eb-button-anchor:before {
+				${btnHoverBackgroundStylesTab}
+                ${bdShadowStylesHoverTab ? bdShadowStylesHoverTab : bdShadowStyesDesktop}
+			}
+			`
+            : ""
+        }
 	`;
 
     const mobileStyles = `
@@ -259,6 +274,15 @@ export default function Style(props) {
 					${iconSizeMobile}
 					${iconPosition === "left" ? iconGapRightMobile : iconGapLeftMobile}
 				}`
+            : ""
+        }
+
+        ${hoverEffect
+            ? `.eb-button-wrapper.${blockId} .eb-button-anchor:before {
+				${btnHoverBackgroundStylesMobile}
+                ${bdShadowStylesHoverMobile ? bdShadowStylesHoverMobile : bdShadowStyesDesktop}
+			}
+			`
             : ""
         }
 	`;

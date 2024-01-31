@@ -195,8 +195,14 @@ class Lifter
       return $value;
     }
 
+    if (!isset($lesson)) {
+      return $value;
+    }
+
     // get the lesson id.
-    if (empty($lesson->post->ID) || !($lesson_id = $lesson->post->ID)) {
+    $lesson_id = $lesson->post->ID ?? false;
+
+    if (empty($lesson_id)) {
       return $value;
     }
 
