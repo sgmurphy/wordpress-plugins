@@ -6,16 +6,16 @@ Author: NerdPress
 Requires at least: 2.8
 Requires PHP: 5.6
 Tested up to: 6.4
-Stable tag: 5.1.1
-Version: 5.1.1
+Stable tag: 5.2
+Version: 5.2
 License: GPLv2 or later
-A One-Click WordPress Database Cleaner & Optimizer. Speeding up sites since 2011!
+One-click database optimization with precise revision cleanup and flexible scheduling. Speeding up sites since 2011!
 
 == Description ==
 
-NerdPress has adopted Optimize Database After Deleting Revisions! [Read our blog post.](https://www.nerdpress.net/announcing-optimize-database/)
+NerdPress has adopted Optimize Database After Deleting Revisions! [Read the announcement here.](https://www.nerdpress.net/announcing-optimize-database/)
 
-This plugin is a 'One Click' WordPress Database Cleaner and Optimizer.
+This plugin is a 'One Click' WordPress database cleaner & optimizer, with precise revision cleanup and flexible scheduling.
 
 = Main Features =
 * Deletes revisions of posts, pages and / or custom post types (you optionally can keep an 'x'-amount of the most recent revisions and you can choose to delete revisions older than...)
@@ -97,6 +97,13 @@ NO WARRANTY, USE IT AT YOUR OWN RISK! MAKE BACKUPS FIRST!
 * If you run the plugin from any of the sites, it will cleanup ALL the sites in the network!
 
 == Changelog ==
+= 5.2 [01/31/2024] =
+* NerdPress has adopted Optimize Database After Deleting Revisions! [Read the announcement here.](https://www.nerdpress.net/announcing-optimize-database/)
+* Security improvement: Additional CSRF hardening.
+* Security improvement: Add capability checks.
+* Security improvement: Improve sanitization of database queries.
+* Fix: PHP 8 Deprecation Notice.
+
 = 5.1.1 [01/24/2024] =
 * Security improvement: Hardens links to prevent CSRF.
 * Security fix: Implements proper preparation of queries.

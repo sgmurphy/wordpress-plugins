@@ -521,6 +521,20 @@ const actions = {
 			type: actionsTypes.TOGGLE_UPDATE_ONBOARDING_IMAGES,
 		};
 	},
+
+	storeSiteFeatures( payload ) {
+		return {
+			type: actionsTypes.STORE_SITE_FEATURES,
+			payload,
+		};
+	},
+
+	setSiteFeatures( payload ) {
+		return {
+			type: actionsTypes.SET_SITE_FEATURES,
+			payload,
+		};
+	},
 };
 
 export default actions;

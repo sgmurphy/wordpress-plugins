@@ -4,7 +4,7 @@ Tags: woocommerce, google analytics, google ads, facebook, conversion tracking, 
 Requires at least: 3.7
 Tested up to: 6.4
 Requires PHP: 7.3
-Stable tag: 1.37.0
+Stable tag: 1.37.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -284,14 +284,22 @@ We are committed to ensuring the security of our customers and their data. If yo
 
 == Changelog ==
 
+= 1.37.1  =
+*Release date - 01.02.2024*
+
+* Tweak: Disabled the automatic LTV recalculation.
+* Tweak: Added a button to stop an active LTV recalculation.
+* Tweak: Added an option to enable or disable the order level LTV calculation.
+* Tweak: Added more debug log output for Feta CAPI subscription events.
+
 = 1.37.0  =
 *Release date - 30.01.2024*
 
 * New: Opportunities tab that shows opportunities to improve tracking and marketing performance.
+
 * Tweak: Updated the order modal created by the Pixel Manager and added LTV values to it.
 * Tweak: Renamed the setting "order total logic" to "marketing value logic".
 * Tweak: Updated the translation file.
-* Tweak: Added more debug messages for Meta CAPI events.
 * Tweak: Added option to disable the automatic lifetime value calculation.
 * Tweak: Added an automatic library version checker that shows an error message in the console if the library version is not matching the currently installed plugin version.
 * Tweak: Added a front-end error log output in case the gtag.js library can't be loaded.

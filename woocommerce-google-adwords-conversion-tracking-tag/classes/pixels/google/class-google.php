@@ -121,14 +121,6 @@ class Google extends Pixel
     
     }
     
-    public function is_ga4_data_api_active()
-    {
-        if ( $this->options['google']['analytics']['ga4']['data_api']['property_id'] && 0 < count( $this->options['google']['analytics']['ga4']['data_api']['credentials'] ) ) {
-            return true;
-        }
-        return false;
-    }
-    
     public function is_google_analytics_active()
     {
         

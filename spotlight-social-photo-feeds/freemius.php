@@ -20,10 +20,6 @@ if ( !function_exists( 'sliFreemius' ) ) {
                     'has_addons'       => false,
                     'has_paid_plans'   => true,
                     'is_org_compliant' => true,
-                    'trial'            => [
-                    'days'               => 14,
-                    'is_require_payment' => true,
-                ],
                     'has_affiliation'  => 'selected',
                     'menu'             => [
                     'slug'        => 'spotlight-instagram',

@@ -33,7 +33,6 @@ class Admin_Notices {
 		add_action( 'admin_notices', [ $this, 'dpsp_admin_notice_initial_setup_nag' ] );
 		add_action( 'admin_notices', [ $this, 'dpsp_admin_notice_facebook_access_token_expired' ] );
 		add_action( 'admin_notices', [ $this, 'dpsp_admin_notice_grow_name_change_hubbub' ] );
-		add_action( 'admin_notices', [ $this, 'notify_license_status' ] );
 
 		/*
 			Only run this action if needed
@@ -42,11 +41,15 @@ class Admin_Notices {
 			add_action( 'admin_init', [ $this, 'dpsp_admin_notice_dismiss' ] );
 		}
 
+		if ( filter_input( INPUT_GET, 'dpsp_check_license' ) != null ) {
+			add_action( 'admin_init', [ $this, 'dpsp_check_license' ] );
+		}
+
 		add_action( 'dpsp_first_activation', [ $this, 'dpsp_setup_activation_notices' ] );
 		add_filter( 'removable_query_args', [ $this, 'dpsp_removable_query_args' ] );
 
 		if ( ! \Social_Pug::is_free() ) {
-			add_action( 'admin_notices', [ $this, 'dpsp_serial_admin_notification' ] );
+			add_action( 'admin_notices', [ $this, 'dpsp_license_admin_notification' ] );
 		}
 	}
 
@@ -71,6 +74,22 @@ class Admin_Notices {
 	}
 
 	/**
+	 * Determines if the current screen being viewed is
+	 * Hubbub or not.
+	 * 
+	 * @return boolean
+	 */
+	function dpsp_is_hubbub_screen() {
+		$current_screen = get_current_screen();
+		
+		if ( strpos( $current_screen->id, 'hubbub_page' ) === false ) :
+			return false;
+		endif;
+
+		return true;
+	}
+
+	/**
 	 * Display admin notices for our pages.
 	 */
 	function dpsp_admin_notices() {
@@ -85,16 +104,28 @@ class Admin_Notices {
 		if ( false === strpos( $admin_page, 'dpsp' ) || 'dpsp-register-version' === $admin_page ) {
 			return;
 		}
-
+	
 		// Get messages
 		$message_id = ( ! empty( filter_input( INPUT_GET, 'dpsp_message_id' ) ) ? filter_input( INPUT_GET, 'dpsp_message_id', FILTER_SANITIZE_NUMBER_INT ) : 0 );
+
+		if ( get_transient('hubbub_license_activated_on_this_website') ) :
+			$message_id = 5;
+		endif;
+		
 		$message    = $this->dpsp_get_admin_notice_message( $message_id );
 
 		$class = ( ! empty( filter_input( INPUT_GET, 'dpsp_message_class' ) ) ? filter_input( INPUT_GET, 'dpsp_message_class', FILTER_SANITIZE_STRING ) : 'updated' );
 
-		if ( isset( $message ) ) {
+		if ( $message_id == 5 && isset( $message ) ) : // The user just activated Hubbub Pro on this domain name for the first time
 			echo '<div class="dpsp-admin-notice notice is-dismissible ' . esc_attr( $class ) . '">';
-			echo '<p>' . esc_attr( $message ) . '</p>';
+			echo '<h4>Woohoo! Thanks for registering Hubbub Pro! 🎉</h4>';
+			echo $message;
+			echo '</div>';
+		endif;
+
+		if ( $message_id != 5 && isset( $message ) ) {
+			echo '<div class="dpsp-admin-notice notice is-dismissible ' . esc_attr( $class ) . '">';
+			echo '<p>' . esc_html( $message ) . '</p>';
 			echo '</div>';
 		}
 	}
@@ -106,6 +137,9 @@ class Admin_Notices {
 	 * @return mixed
 	 */
 	function dpsp_get_admin_notice_message( $message_id ) {
+
+		// Message ID 5 purposely not wrapped __() due to HTML use
+
 		$messages = apply_filters(
 			'dpsp_get_admin_notice_message',
 			[
@@ -114,6 +148,7 @@ class Admin_Notices {
 				__( 'Please select an import file.', 'social-pug' ),
 				__( 'Import file is not valid.', 'social-pug' ),
 				__( 'Hubbub App authorized successfully.', 'social-pug' ),
+				'<p>Welcome to the Hubbub Pro family. To get set up, go to <a href="' . admin_url( 'admin.php?page=dpsp-toolkit' ) . '">Hubbub > Toolkit</a> and activate the ones you\'d like to use. After you save, you\'ll find new settings pages for each; you can add networks and configure them from there.</p><p>You may also find our <a href="https://morehubbub.com/docs/getting-started-with-hubbub-pro/">Getting Started</a> guide to be helpful, and if you have any questions, just send us an <a href="mailto:support@morehubbub.com?subject=Help setting up Hubbub Pro&body=Hi! I\'m setting up Hubbub Pro on: '.site_url().' and I have a question: " title="Sending an email to support@morehubbub.com will open a new support request. We try to reply to all new requests within a business day.">email</a>.</p>',
 			]
 		);
 
@@ -121,30 +156,142 @@ class Admin_Notices {
 	}
 
 	/**
-	 * Adds admin notifications for entering the license serial key.
+	 * Adds an admin notification if the license is
+	 * Empty
+	 * Invalid
+	 * Expired
 	 */
-	function dpsp_serial_admin_notification() {
+	function dpsp_license_admin_notification() {
+		if ( !$this->dpsp_is_hubbub_screen() ) return; // Limit to just Hubbub screens
+		
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
+
+		// Used to determine if the current page
+		// is the Hubbub settings page
+		$current_screen = get_current_screen();
+		$is_hubbub_settings_page = ($current_screen->id == 'hubbub_page_dpsp-settings') ? true : false;
 
 		$dpsp_settings = Settings::get_setting( 'dpsp_settings' );
 
 		$serial  = ( ! empty( $dpsp_settings['product_serial'] ) ? $dpsp_settings['product_serial'] : '' );
 		$license = ( ! empty( $dpsp_settings['mv_grow_license'] ) ? $dpsp_settings['mv_grow_license'] : '' );
-		// Check to see if serial is saved in the database
+		
 		if ( empty( $serial ) && empty( $license ) ) {
-
-			$notice_classes = 'dpsp-serial-missing';
-			// translators: %1$s is replaced by admin url, %2$s is replaced by store url
-			$message = sprintf( __( 'Your <strong>Hubbub Pro</strong> license key is empty. Please <a href="%1$s">register your copy</a> to receive automatic updates and support. <br /><br /> Need a license key? <a class="dpsp-get-license button button-primary" target="_blank" href="%2$s">Get your license here</a> and enter it on the Settings page', 'social-pug' ), admin_url( 'admin.php?page=dpsp-settings' ), 'https://morehubbub.com/' );
-
-			// Display the notice if notice classes have been added
-			echo '<div class="dpsp-admin-notice notice ' . esc_attr( $notice_classes ) . '">';
-			echo '<p>' . wp_kses( $message, View_Loader::get_allowed_tags() ) . '</p>';
-
+			echo '<div class="dpsp-admin-notice notice notice-warning dpsp-serial-missing">';
+			echo '<h4>Action needed: Add Your Hubbub Pro License Key</h4>';
+			echo '<p>Your Hubbub Pro license key is empty. You should have received it via email. Please add your key';
+			if ( ! $is_hubbub_settings_page ) :
+				echo ' in <a href="' . admin_url( 'admin.php?page=dpsp-settings' ) . '">Hubbub > Settings</a> ';
+			else:
+				echo ' below ';
+			endif;
+			echo 'to receive security updates, bug fixes, new features, and support. If you need a new license key, click the button below. Of course, if you have any questions, please <a href="mailto:support@morehubbub.com?subject=Hubbub Pro License Key Help&body=Hi! I\'m having trouble with my license key on: '.site_url().'%0D%0A%0D%0A(please enter more details here - thanks!)" title="Sending an email to support@morehubbub.com will open a new support request. We try to reply to all new requests within a business day.">email us</a>.</p>';
+			echo '<p></p>';
+			echo '<p>';
+			if ( ! $is_hubbub_settings_page ) :
+				echo '<a class="dpsp-get-license dpsp-button-secondary" href="' . admin_url( 'admin.php?page=dpsp-settings' ) . '">Update Settings</a> ';
+			endif;
+			
+			echo '<a class="dpsp-get-license dpsp-button-primary" target="_blank" href="https://morehubbub.com/pricing/">Get License</a></p>';
 			echo '</div>';
+			return;
 		}
+
+		$license_status      = get_option( 'mv_grow_license_status' );
+		$license_status_date = get_option( 'mv_grow_license_status_date' );
+
+		if ( ! $license_status ) {
+			return;
+		}
+
+		$license_key 		= get_option( 'mv_grow_license' );
+
+		switch ( $license_status ) {
+			case 'valid':
+				return;
+				break;
+			case 'invalid':
+				echo '<div class="dpsp-admin-notice notice notice-warning">';
+				echo '<h4>Action needed: Update Invalid Hubbub Pro License Key</h4>';
+				echo '<p>Oops! Your Hubbub Pro license key appears to be invalid. Please';
+				if ( ! $is_hubbub_settings_page ) :
+					echo ' go to <a href="' . admin_url( 'admin.php?page=dpsp-settings' ) . '">Hubbub > Settings</a>, and double-check that your key is entered correctly.';
+				else:
+					echo ' double-check your key and try entering it again below.';
+				endif;
+				
+				echo '</p><p>A valid license is needed to receive security updates, bug fixes, new features, and support. If you need a new license key, please click the button below. If you\'re still having trouble, please <a href="mailto:support@morehubbub.com?subject=Hubbub Pro License Key Is Invalid&body=Hi! I\'m having trouble with my license key on: '.site_url().'%0D%0A%0D%0A(please enter more details here - thanks!)" title="Sending an email to support@morehubbub.com will open a new support request. We try to reply to all new requests within a business day.">email us</a>.</p>';
+				echo '<p></p>';
+				echo '<p>';
+				if ( ! $is_hubbub_settings_page ) :
+					echo '<a class="dpsp-get-license dpsp-button-secondary" href="' . admin_url( 'admin.php?page=dpsp-settings' ) . '">Update Settings</a> ';
+				endif;
+				
+				echo '<a class="dpsp-get-license dpsp-button-primary" target="_blank" href="https://morehubbub.com/pricing/">Get License</a></p>';
+				echo '</div>';
+				return;
+				break;
+			case 'expired':
+				echo '<div class="dpsp-admin-notice notice notice-warning">';
+				echo '<h4>Action needed: Renew Your Hubbub Pro License Today</h4>';
+				echo '<p>Oh no! Your Hubbub Pro license key has expired. Your subscription fuels the ongoing development and support of Hubbub Pro. A current license key is required to receive security updates, bug fixes, new features, and support.</p><p>It\'s easy to renew: Click the button below and follow the instructions. If you\'ve already renewed your license, please click "Check License". Of course, if you have any questions, please <a href="mailto:support@morehubbub.com?subject=Hubbub Pro License Key Expiration Help&body=Hi! I\'m having trouble with my license key on: '.site_url().'%0D%0A%0D%0A(please enter more details here - thanks!)" title="Sending an email to support@morehubbub.com will open a new support request. We try to reply to all new requests within a business day.">email us</a>. Thanks!</p>';
+				$check_license_url = esc_attr( add_query_arg( [ '_wpnonce' => wp_create_nonce( 'dpsp_check_license' ), 'dpsp_check_license' => 'dpsp_check_license' ] ), remove_query_arg( ['_wpnonce', 'dpsp_check_license' ], $_SERVER['REQUEST_URI'] ) );
+				echo '<p><a class="dpsp-get-license dpsp-button-secondary" href="' . $check_license_url . '">Check License</a> <a class="dpsp-button-primary" title="Click this Renew License button to purchase a renewal for your current license" target="_blank" href="https://morehubbub.com/checkout/?edd_license_key='. $license_key . '&download_id=28&utm_source=WordPressAdmin&utm_medium=button&utm_campaign=HubbubProExpireNotice&utm_content=RenewLicense">Renew License</a></p>';
+				echo '</div>';
+				return;
+				break;
+			default:
+				return;
+		}
+	}
+
+	/**
+	 * Determines the number of admin notices that require attention
+	 * 
+	 * @return int
+	 */
+
+	public static function dpsp_count_hubbub_admin_notices() {
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			return false;
+		}
+		$admin_notices_instance = Admin_Notices::get_instance();
+
+		$numberOfNoticesToShow = 0;
+
+		// From dpsp_admin_notice_grow_name_change_hubbub
+		$numberOfNoticesToShow = ( ! $admin_notices_instance->was_first_activation_after( '2023-12-12 00:00:00' ) && '' === get_user_meta( get_current_user_id(), 'dpsp_admin_notice_grow_name_change_hubbub', true ) && empty( get_option( 'dpsp_admin_notice_grow_name_change_hubbub' ) ) ) ? $numberOfNoticesToShow+1 : $numberOfNoticesToShow;
+
+		// From dpsp_admin_notice_initial_setup_nag
+		$numberOfNoticesToShow = ( 'yes' === Settings::get_setting( 'dpsp_run_setup_info_nag', 'no' ) ) ? $numberOfNoticesToShow+1 : $numberOfNoticesToShow;
+
+		// License related checks
+		$license_key 		 = get_option( 'mv_grow_license' );
+
+		// If license key is empty
+		$numberOfNoticesToShow = ( empty( $license_key) ) ? $numberOfNoticesToShow+1 : $numberOfNoticesToShow;
+
+		if ( empty( $license_key) ) : // No need to continue without a license key
+			return $numberOfNoticesToShow;
+		endif;
+
+		$license_status      = get_option( 'mv_grow_license_status' );
+
+		// Increase notice count if the license is invalid or expired
+		switch ( $license_status ) {
+			case 'invalid':
+				$numberOfNoticesToShow++;
+				break;
+			case 'expired':
+				$numberOfNoticesToShow++;
+				break;
+			default:
+				return $numberOfNoticesToShow;
+		}
+
+		return $numberOfNoticesToShow;
 	}
 
 	/**
@@ -191,20 +338,31 @@ class Admin_Notices {
 	 * Add admin notice to announce the name change.
 	 */
 	function dpsp_admin_notice_grow_name_change_hubbub() {
+		if ( !$this->dpsp_is_hubbub_screen() ) return; // Limit to just Hubbub screens
+
 		// Do not display this notice if user cannot activate plugins
-		if ( ! current_user_can( 'activate_plugins' ) ) {
+		if ( ! current_user_can( 'activate_plugins' ) ) :
 			return;
-		}
+		endif;
 
-		// Don't show this if the plugin has been activated after December 7, 2023
-		if ( $this->was_first_activation_after( '2023-12-12 00:00:00' ) ) {
+		// Don't show this if the plugin has been activated after December 12, 2023
+		if ( $this->was_first_activation_after( '2023-12-12 00:00:00' ) ) :
 			return;
-		}
+		endif;
 
-		// Do not display this notice for users that have dismissed it
-		if ( '' !== get_user_meta( get_current_user_id(), 'dpsp_admin_notice_grow_name_change_hubbub', true ) ) {
+		// Do not display this notice for USERS that have dismissed it
+		// And, if one user has dismissed it, hide it for all users.
+		if ( '' !== get_user_meta( get_current_user_id(), 'dpsp_admin_notice_grow_name_change_hubbub', true ) ) :
+			if ( empty( get_option( 'dpsp_admin_notice_grow_name_change_hubbub' ) ) ) : // If a single user has dismissed this notice, hide for all users
+				update_option( 'dpsp_admin_notice_grow_name_change_hubbub', '1', false );
+			endif;
 			return;
-		}
+		endif;
+
+		// Do not display this notice any user on the site has dismissed it
+		if ( ! empty( get_option( 'dpsp_admin_notice_grow_name_change_hubbub' ) ) ) :
+			return;
+		endif;
 
 		// Echo the admin notice
 		echo '<div class="dpsp-admin-notice dpsp-admin-grow-notice notice notice-info" style="min-height: 300px">';
@@ -216,7 +374,7 @@ class Admin_Notices {
 		echo '<p>' . esc_html__( 'If you updated your Grow Social plugin within the last few days you may have noticed a few things have changed. NerdPress has acquired the plugin from Mediavine, and we\'ve changed the name to Hubbub. We\'ll be making lots of improvements in order to make Hubbub even better for you and your site!', 'social-pug' ) . '</p>';
 		echo '<p><a href="https://www.nerdpress.net/announcing-hubbub/" target="_blank">' . esc_html__( 'Check out our blog post', 'social-pug' ) . '</a>' . esc_html__( ' for more information and answers to frequently asked questions.', 'social-pug' ) . '</p>';
 		echo '<p class="notice-subtext">' . esc_html__( 'At NerdPress, our motto is "WordPress support that feels like family." Our acquisition of Hubbub is one more step towards fulfilling our mission of helping people do what they love, so they can lead richer, more fulfilling lives.', 'social-pug' ) . '</p>';
-		echo '<p><a href="' . $this->dpsp_create_dimiss_notice_admin_url( 'dpsp_admin_notice_grow_name_change_hubbub' ) . '">' . esc_html__( 'Awesome - Click to dismiss this notice.', 'social-pug' ) . '</a></p>';
+		echo '<p><a href="' . $this->dpsp_create_dismiss_notice_admin_url( 'dpsp_admin_notice_grow_name_change_hubbub' ) . '">' . esc_html__( 'Awesome - Click to dismiss this notice.', 'social-pug' ) . '</a></p>';
 		echo '</div>';
 		echo '</div>';
 	}
@@ -236,7 +394,7 @@ class Admin_Notices {
 	 * TODO: Possibly clear deprecated values from user's database?
 	 */
 
-	function dpsp_create_dimiss_notice_admin_url( $action ) {
+	function dpsp_create_dismiss_notice_admin_url( $action ) {
 		return esc_attr( add_query_arg( [ '_wpnonce' => wp_create_nonce( 'dpsp_admin_notice_dismiss_' . $action ), 'dpsp_admin_notice_dismiss' => $action ] ), remove_query_arg( ['_wpnonce', 'dpsp_admin_notice_dismiss' ], $_SERVER['REQUEST_URI'] ) );
 	}
 
@@ -244,6 +402,9 @@ class Admin_Notices {
 	 * Add admin notice for initial setup help documentation
 	 */
 	function dpsp_admin_notice_initial_setup_nag() {
+		if ( !$this->dpsp_is_hubbub_screen() ) return; // Limit to just Hubbub screens
+
+
 		// Do not display this notice if user cannot activate plugins
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
@@ -256,10 +417,10 @@ class Admin_Notices {
 
 		// Echo the admin notice
 		echo '<div class="dpsp-admin-notice notice notice-info">';
-		echo '<a class="notice-dismiss" href="' . $this->dpsp_create_dimiss_notice_admin_url( 'dpsp_admin_notice_initial_setup_nag' ) . '"></a>';
-		echo '<h4>' . esc_html__( 'Hubbub Notification', 'social-pug' ) . '</h4>';
-		echo '<p>' . esc_html__( 'Would you like help getting started with Hubbub? Click the button below for a step-by-step guide to setting everything up!', 'social-pug' ) . '</p>';
-		echo '<p><a class="dpsp-button-primary" target="_blank" href="https://morehubbub.com/docs/getting-started-with-social-pro/">' . esc_html__( 'Learn how to set up Hubbub', 'social-pug' ) . '</a></p>';
+		echo '<a class="notice-dismiss" href="' . $this->dpsp_create_dismiss_notice_admin_url( 'dpsp_admin_notice_initial_setup_nag' ) . '"></a>';
+		echo '<h4>' . esc_html__( 'Getting Started with Hubbub', 'social-pug' ) . '</h4>';
+		echo '<p>' . esc_html__( 'Would you like help getting started? Click the button below for a step-by-step guide to setting everything up!', 'social-pug' ) . '</p>';
+		echo '<p><a class="dpsp-button-primary" target="_blank" href="https://morehubbub.com/docs/getting-started-with-hubbub-pro/">' . esc_html__( 'Learn how to set up Hubbub', 'social-pug' ) . '</a></p>';
 		echo '</div>';
 	}
 
@@ -281,9 +442,17 @@ class Admin_Notices {
 		$notice_to_dismiss = filter_input( INPUT_GET, 'dpsp_admin_notice_dismiss' );
 
 		if ( $notice_to_dismiss == 'dpsp_admin_notice_initial_setup_nag' ) {
-			update_option( 'dpsp_run_setup_info_nag', 'no' );
+			if ( 'yes' == get_option( 'dpsp_run_setup_info_nag' ) ) :
+				update_option( 'dpsp_run_setup_info_nag', 'no' );
+				wp_redirect($_SERVER['HTTP_REFERER']);
+			endif;
 		} else {
-			add_user_meta( get_current_user_id(), $notice_to_dismiss, 1, true );
+			// If this is the name change notice, dismiss for all users
+			if ( $notice_to_dismiss == 'dpsp_admin_notice_grow_name_change_hubbub' ) :
+				update_option( 'dpsp_admin_notice_grow_name_change_hubbub', '1', false );
+			else :
+				add_user_meta( get_current_user_id(), $notice_to_dismiss, 1, true );
+			endif;
 		}
 	}
 
@@ -300,49 +469,14 @@ class Admin_Notices {
 	}
 
 	/**
-	 * Notify users of their current license status, if available, while on the Grow Social settings page.
+	 * Checks the license key based on a button click in the Renew License Admin Notice
 	 */
-	public function notify_license_status() : void {
-		$screen = get_current_screen();
-		if ( ! ( $screen instanceof WP_Screen ) || 'grow_page_dpsp-settings' !== $screen->id ) {
-			return;
+	function dpsp_check_license() {
+		if ( ! wp_verify_nonce( filter_input( INPUT_GET, '_wpnonce' ), 'dpsp_check_license' ) ) {
+			wp_die( 'Sorry, the security token on this URL is invalid. If you believe you have gotten this message in error, please reach out to Hubbub Pro support.' );
 		}
 
-		$license_status      = get_option( Activation::OPTION_LICENSE_STATUS );
-		$license_status_date = get_option( Activation::OPTION_LICENSE_STATUS_DATE );
-
-		if ( ! $license_status ) {
-			return;
-		}
-
-		switch ( $license_status ) {
-			case Activation::LICENSE_STATUS_VALID:
-				$notice_type    = Admin_Messages::MESSAGE_TYPE_SUCCESS;
-				$license_notice = __( 'The Grow Social Pro license is valid.', 'mediavine' );
-				break;
-			case Activation::LICENSE_STATUS_INVALID:
-				$notice_type    = Admin_Messages::MESSAGE_TYPE_ERROR;
-				$license_notice = __( 'The Grow Social Pro license is not valid.', 'mediavine' );
-				break;
-			case Activation::LICENSE_STATUS_EXPIRED:
-				$notice_type    = Admin_Messages::MESSAGE_TYPE_WARNING;
-				$license_notice = __( 'The Grow Social Pro license has expired.', 'mediavine' );
-				break;
-			default:
-				return;
-		}
-
-		if ( $license_status_date && filter_var( $license_status_date, FILTER_VALIDATE_INT ) ) {
-			$date_format                   = get_option( 'date_format', 'F j, Y' );
-			$license_status_date_formatted = gmdate( $date_format, $license_status_date );
-			$license_notice                = sprintf(
-				// translators: %1$s is the license status message, %2$s is the last-checked date.
-				__( '%1$s Last checked %2$s.', 'mediavine' ),
-				$license_notice,
-				$license_status_date_formatted
-			);
-		}
-
-		mv_grow_admin_error_notice( $license_notice, $notice_type );
+		$hubbub_activation = new \Mediavine\Grow\Activation;
+		$hubbub_activation->check_license();
 	}
 }

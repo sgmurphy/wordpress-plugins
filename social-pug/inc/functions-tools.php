@@ -78,6 +78,21 @@ function dpsp_is_tool_active( $tool_slug ) {
 }
 
 /**
+ * If Pro, check the status of the user's license to determine if the settings should show
+ * If Lite, always show settings
+ * @return bool
+ */
+function dpsp_should_show_settings() {
+	if ( \Social_Pug::is_free() ) return true;
+
+	$license_key 		 = get_option( 'mv_grow_license' );
+	$license_status      = get_option( 'mv_grow_license_status' );
+	$show_settings		 = ( ! empty( $license_key) && 'invalid' !== $license_status ) ? true : false;
+
+	return $show_settings;
+}
+
+/**
  * Checks to see if the legacy (non-db check) tool setting is active or not.
  *
  * @param array $tool Full details of the tool

@@ -7,26 +7,26 @@
 ?>
 <?php
 class ODB_Logger {
-	
+
 	var $sql = '';
 	var $res = array();
-	
+
 	/********************************************************************************************
 	 *	CONSTRUCTOR
-	 ********************************************************************************************/	
+	 ********************************************************************************************/
     function __construct() {
 	} // __construct()
 
 
 	/********************************************************************************************
 	 *	WRITE RESULTS TO LOG TABLE - v4.6
-	 ********************************************************************************************/	
+	 ********************************************************************************************/
 	function odb_add_log() {
 		global $odb_class, $wpdb;
 
 		// IS LOGGING ENABLED?
 		if($odb_class->odb_rvg_options['logging_on'] == "Y") {
-			
+
 			// CONVERT A TIMESTAMP TO THE mm/dd/yyyy hh:mm:ss format
 			$d = $odb_class->odb_utilities_obj->odb_parse_timestamp($odb_class->log_arr['timestamp']);
 
@@ -67,28 +67,28 @@ class ODB_Logger {
 			$wpdb->get_results($this->sql);
 		} // if($odb_class->odb_rvg_options['logging_on'] == "Y")
 	} // odb_add_log()
-	
+
 
 	/********************************************************************************************
 	 *	TRUNCATE THE LOG TABLE - v4.6
-	 ********************************************************************************************/	
+	 ********************************************************************************************/
 	function odb_clear_log() {
 		global $odb_class, $wpdb;
-		
+
 		$this->sql = "
 		TRUNCATE TABLE `" . $odb_class->odb_logtable_name . "`
 		";
-		
+
 		$wpdb->get_results($this->sql);
 	} // clear_log()
 
 
 	/********************************************************************************************
 	 *	VIEW THE LOGS - v4.6.1
-	 ********************************************************************************************/	
+	 ********************************************************************************************/
 	function odb_view_log() {
 		global $odb_class, $wpdb;
-	
+
 		$this->sql = "
 		SELECT * FROM `" . $odb_class->odb_logtable_name . "` ORDER BY odb_id ASC
 		";
@@ -97,18 +97,18 @@ class ODB_Logger {
 		$odb_class->odb_displayer_obj->display_header();
 ?>
 <div class="odb-title-bar">
-  <h2><?php _e('Logs',$odb_class->odb_txt_domain)?></h2>
+  <h2><?php _e('Logs','rvg-optimize-database')?></h2>
 </div>
 <br>
 <br>
 <div class="odb-log-table">
 <table width="97%" border="0" cellspacing="6" cellpadding="0">
-<?php		
-	
+<?php
+
 		echo '
-  <tr valign="top">		
+  <tr valign="top">
 		';
-		
+
 		echo '<th align="left">'.__('date','rvg-optimize-database').'</th>';
 		echo '<th align="right">'.__('deleted<br>revisions','rvg-optimize-database').'</th>';
 		echo '<th align="right">'.__('deleted<br>trash','rvg-optimize-database').'</th>';
@@ -123,12 +123,12 @@ class ODB_Logger {
 		echo '<th align="right">'.__('database<br>size<br>AFTER','rvg-optimize-database').'</th>';
 		echo '<th align="right">'.__('SAVINGS','rvg-optimize-database').'</th>';
 		echo '
-  </tr>		
+  </tr>
 		';
-				
+
 		for($i = 0; $i < count($this->res); $i++) {
 			echo '
-  <tr valign="top">			
+  <tr valign="top">
 			';
 			echo '<td>' . $this->res[$i]['odb_timestamp'] .'</td>';
 			echo '<td align="right">' . $this->res[$i]['odb_revisions'].'</td>';
@@ -144,7 +144,7 @@ class ODB_Logger {
 			echo '<td align="right">' . $this->res[$i]['odb_after'].'</td>';
 			echo '<td align="right">' . $this->res[$i]['odb_savings'].'</td>';
 			echo '
-  </tr>			
+  </tr>
 			';
 		}
 
@@ -152,7 +152,7 @@ class ODB_Logger {
 </table>
 		';
 		// v4.6.2
-		$msg = str_replace("'", "\'", __('Clear the log?', $odb_class->odb_txt_domain));		
+		$msg = str_replace("'", "\'", __('Clear the log?', 'rvg-optimize-database'));
 ?>
 <script>
 function odb_confirm_delete() {
@@ -161,25 +161,25 @@ function odb_confirm_delete() {
 		return;
 	}
 } // function odb_confirm_delete()
-</script> 
+</script>
 <br>
-<input class="button odb-normal" type="button" name="change_options" value="<?php _e('Change Settings', $odb_class->odb_txt_domain)?>" onclick="self.location='options-general.php?page=odb_settings_page'" />
+<input class="button odb-normal" type="button" name="change_options" value="<?php _e('Change Settings', 'rvg-optimize-database')?>" onclick="self.location='options-general.php?page=odb_settings_page'" />
 &nbsp;
-<input class="button odb-normal" type="button" name="clear_log" value="<?php _e('Clear Log', $odb_class->odb_txt_domain) ?>" onclick="return odb_confirm_delete();" />
+<input class="button odb-normal" type="button" name="clear_log" value="<?php _e('Clear Log', 'rvg-optimize-database') ?>" onclick="return odb_confirm_delete();" />
 &nbsp;&nbsp;
-<input class="button-primary button-large" type="button" name="optimize_summary" value="<?php _e('Optimize (summary)', $odb_class->odb_txt_domain)?>" onclick="self.location='tools.php?page=rvg-optimize-database&action=run_summary'" class="odb-bold" />
+<input class="button-primary button-large" type="button" name="optimize_summary" value="<?php _e('Optimize (summary)', 'rvg-optimize-database')?>" onclick="self.location='tools.php?page=rvg-optimize-database&action=run_summary'" class="odb-bold" />
 &nbsp;
-<input class="button-primary button-large" type="button" name="optimize_detail" value="<?php _e('Optimize (detail)', $odb_class->odb_txt_domain)?>" onclick="self.location='tools.php?page=rvg-optimize-database&action=run_summary'" class="odb-bold" />
+<input class="button-primary button-large" type="button" name="optimize_detail" value="<?php _e('Optimize (detail)', 'rvg-optimize-database')?>" onclick="self.location='tools.php?page=rvg-optimize-database&action=run_summary'" class="odb-bold" />
 <?php
 	} // odb_view_log()
 
 
 	/********************************************************************************************
 	 *	GET THE NUMBER OF LOG RECORDS - v4.6
-	 ********************************************************************************************/		
+	 ********************************************************************************************/
 	function odb_log_count() {
 		global $odb_class, $wpdb;
-		
+
 		$this->sql = "
 		SELECT COUNT(*) AS logcnt FROM `" . $odb_class->odb_logtable_name . "`
 		";

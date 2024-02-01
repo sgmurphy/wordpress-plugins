@@ -2,6 +2,7 @@
 
 namespace WCPM\Classes;
 
+use  ActionScheduler_Store ;
 use  libphonenumber\NumberParseException ;
 use  libphonenumber\PhoneNumberFormat ;
 use  libphonenumber\PhoneNumberUtil ;
@@ -767,18 +768,58 @@ class Helpers
      *
      * Read: https://developer.woo.com/2021/10/12/best-practices-for-deconflicting-different-versions-of-action-scheduler/
      *
-     * @param string $hook The hook of the scheduled action to check for.
-     * @param array  $args Optional. The arguments of the scheduled action to check for. Default is an empty array.
-     * @param string $group Optional. The group of the scheduled action to check for. Default is an empty string.
+     * @param string $hook             The hook of the scheduled action to check for.
+     * @param array  $args             Optional. The arguments of the scheduled action to check for. Default is an empty array.
+     * @param string $group            Optional. The group of the scheduled action to check for. Default is an empty string.
+     * @param string $partial_matching Optional. Whether to perform partial matching on the arguments or not. Default is 'off'. Can be 'like' or 'json'.
      *
      * @return bool Returns true if a scheduled action with the specified hook, arguments, and group exists, otherwise returns false.
      */
-    public static function pmw_as_has_scheduled_action( $hook, $args = array(), $group = '' )
+    public static function pmw_as_has_scheduled_action(
+        $hook,
+        $args = array(),
+        $group = '',
+        $partial_matching = 'off'
+    )
     {
-        if ( !function_exists( 'as_has_scheduled_action' ) ) {
-            return (bool) as_next_scheduled_action( $hook, $args, $group );
+        // If $partial_matching is true, set it to 'like'
+        if ( $partial_matching ) {
+            $partial_matching = 'like';
         }
-        return as_has_scheduled_action( $hook, $args, $group );
+        return (bool) as_get_scheduled_actions( [
+            'hook'                  => $hook,
+            'args'                  => $args,
+            'group'                 => $group,
+            'partial_args_matching' => $partial_matching,
+            'status'                => self::get_action_scheduler_active_states(),
+            'per_page'              => 1,
+            'orderby'               => 'none',
+        ], 'ids' );
+    }
+    
+    /**
+     * This function returns the active states for the Action Scheduler.
+     *
+     * It checks if the class 'ActionScheduler_Store' exists. If it does, it returns an array with the constants
+     * 'STATUS_PENDING' and 'STATUS_RUNNING' from the 'ActionScheduler_Store' class.
+     *
+     * If the 'ActionScheduler_Store' class does not exist, it returns an array with the strings 'Pending' and 'In-progress'.
+     *
+     * @return array An array containing the active states for the Action Scheduler.
+     *
+     * @since 1.37.1
+     */
+    private static function get_action_scheduler_active_states()
+    {
+        if ( class_exists( 'ActionScheduler_Store' ) ) {
+            return [ ActionScheduler_Store::STATUS_PENDING, ActionScheduler_Store::STATUS_RUNNING ];
+        }
+        return [ 'Pending', 'In-progress' ];
+    }
+    
+    public static function can_order_modal_be_shown()
+    {
+        return Options::is_ga4_data_api_active() || Options::is_order_level_ltv_calculation_active();
     }
 
 }

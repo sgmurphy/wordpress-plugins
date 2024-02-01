@@ -2571,7 +2571,15 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			Astra_Sites_Error_Handler::get_instance()->start_error_handler();
 
 			$plugin_init = ( isset( $_POST['init'] ) ) ? esc_attr( sanitize_text_field( $_POST['init'] ) ) : $init;
-			$activate = activate_plugin( $plugin_init, '', false, false );
+
+			/**
+			 * Disabled redirection to plugin page after activation.
+			 * Silecing the callback for WP Live Chat plugin.
+			 */
+			add_filter( 'wp_redirect', '__return_false' );
+			$silent = ( 'wp-live-chat-support/wp-live-chat-support.php' === $plugin_init ) ? true : false;
+
+			$activate = activate_plugin( $plugin_init, '', false, $silent );
 
 			Astra_Sites_Error_Handler::get_instance()->stop_error_handler();
 

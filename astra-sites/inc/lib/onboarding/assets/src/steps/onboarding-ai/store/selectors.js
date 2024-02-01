@@ -211,6 +211,14 @@ const selectors = {
 	getCreditsDetails( { credits } ) {
 		return credits;
 	},
+
+	getSiteFeatures( {
+		onboardingAI: {
+			stepData: { siteFeatures },
+		},
+	} ) {
+		return siteFeatures;
+	},
 };
 
 export default selectors;

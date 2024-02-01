@@ -4,12 +4,12 @@ Buy plugin: https://buttonizer.io
 Tags: Conversion, action button, call, marketing, Social Sharing
 Requires at least: 4.7
 Tested up to: 6.4
-Stable tag: 3.4.2
+Stable tag: 3.4.3
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-#1 Button builder. WhatsApp Chat, Facebook Messenger, Telegram, Call, SMS, Email & More. Unlimited Click to Chat, Floating Buttons, Contact Forms & Sticky Menus. With dynamic Page Rules. Use the WhatsApp widget Pop-up to convert your visitors.
+Button builder. WhatsApp Chat, Facebook Messenger, Telegram, Call, SMS, Email & More. Unlimited Click to Chat, Floating Buttons, Contact Forms, Sticky Menus & floating widgets. With dynamic Page Rules. Use the WhatsApp widget Pop-up to convert your visitors.
 
 == Description ==
 
@@ -84,6 +84,8 @@ Watch the video below to learn more on adding a Facebook Messenger Chat widget t
 * Download PDF Button
 * Print page
 * Copy page **URL**
+* Contact form with Webhook support (PRO)
+* Iframe Widget (PRO)
 * Add custom JavaScript code (PRO)
 
 = STYLING OPTIONS 💎 =
@@ -224,6 +226,18 @@ In fact, Buttonizer is an addiction to use. Your website visitors will interact 
 = Which buttons are available with Buttonizer? =
 WhatsApp chat, Facebook Messenger, Instagram, Email, SMS, Snapchat, X (Twitter), LinkedIn, Skype, Vkontakte, Phone (click to call), Telegram, Line, WeChat, Viber, Waze, Google maps, Poptin, Custom URL, Page Select.
 
+= What widgets does Buttonizer support? =
+
+We have the following widgets natively integrated:
+- WhatsApp widget
+- Facebook Messenger widget
+- Contact form with Webhook support (PRO)
+- Iframe widget (PRO)
+
+Customize their position and visibility wherever you need. With the iframe widget you are able to show YouTube video's, integrate Calendly or any other page or website.
+
+You can also interact with widgets using the Widget JavaScript API.
+
 = I don’t see the button on my site, what should I do? =
 Please make sure you’ve chosen at least one button and clicked on the green “Publish” button. If you still don't see any changes on the live site, you can clear the cache of your website if you have a caching plugin.
 
@@ -245,6 +259,14 @@ Languages can have a different direction of writing and reading? While languages
 
 
 == Changelog ==
+
+= 3.4.3 =
+Release date: February 1, 2024
+
+**Changelog:**
+- We added a message with tips for users with caching plugins activated
+
+If you experience bugs, problems or you just have some feedback, let us know on our [Buttonizer community](https://community.buttonizer.pro/)!
 
 = 3.4.2 =
 Release date: January 25, 2024

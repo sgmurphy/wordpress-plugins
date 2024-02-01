@@ -67,6 +67,9 @@ class Popup
 
     public function show_widget()
     {
+        //Used to retrieve the accurate post ID when using Elementor
+        wp_reset_postdata();
+        
         if ( !$this->shouldDisplayWidget() ) {
             return;
         }

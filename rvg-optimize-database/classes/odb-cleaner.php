@@ -8,6 +8,7 @@
 <?php
 class ODB_Cleaner {
 	var $start_size;
+	var $log_arr;
 	var $nr_of_optimized_tables;
 	var $grand_total = 0;
 
@@ -39,7 +40,7 @@ class ODB_Cleaner {
 				echo '
 		  <div id="odb-cleaner" class="odb-padding-left">
 			<div class="odb-title-bar">
-			  <h2>'.__($txt, $odb_class->odb_txt_domain).'</h2>
+			  <h2>'.__($txt, 'rvg-optimize-database').'</h2>
 			</div>
 			<br>
 			<br>
@@ -48,7 +49,7 @@ class ODB_Cleaner {
 				echo '
 		  <div id="odb-cleaner" class="odb-padding-left">
 			<div class="odb-title-bar">
-			  <h2>'.__('Cleaning Database', $odb_class->odb_txt_domain).'</h2>
+			  <h2>'.__('Cleaning Database', 'rvg-optimize-database').'</h2>
 			</div>
 			<br>
 			<br>
@@ -101,7 +102,7 @@ class ODB_Cleaner {
 				if ($action == 'analyze_summary') {
 	?>
 		<div class="odb-found-number">
-		  <?php _e('REVISIONS found to delete: ', $odb_class->odb_txt_domain);?>
+		  <?php _e('REVISIONS found to delete: ', 'rvg-optimize-database');?>
           <?php echo (count($results_older_than) + count($results_keep_revisions)) . '<br>';?>
 		</div>
 	<?php
@@ -110,7 +111,7 @@ class ODB_Cleaner {
 				if ($action == 'run_summary') {
 	?>
 		<div class="odb-found-number">
-		  <?php _e('REVISIONS deleted: ', $odb_class->odb_txt_domain);?>
+		  <?php _e('REVISIONS deleted: ', 'rvg-optimize-database');?>
           <?php echo (count($results_older_than) + count($results_keep_revisions)) . '<br>';?>
 		</div>
 	<?php
@@ -119,13 +120,13 @@ class ODB_Cleaner {
 				if ($action == 'analyze_detail' || $action == 'run_detail') {
 					// 'ANALYZE_DETAIL', 'RUN_SUMMARY' or 'RUN_DETAIL'
 					if ($action == 'analyze_detail') {
-						$msg1 = __('REVISIONS', $odb_class->odb_txt_domain);
-						$msg2 = __('total number of revisions', $odb_class->odb_txt_domain);
+						$msg1 = __('REVISIONS', 'rvg-optimize-database');
+						$msg2 = __('total number of revisions', 'rvg-optimize-database');
 					} else {
 						// 'RUN_SUMMARY' or 'RUN_DETAIL'
 						if ($action == 'run_detail') {
-							$msg1 = __('DELETED REVISIONS', $odb_class->odb_txt_domain);
-							$msg2 = __('total number of revisions deleted', $odb_class->odb_txt_domain);
+							$msg1 = __('DELETED REVISIONS', 'rvg-optimize-database');
+							$msg2 = __('total number of revisions deleted', 'rvg-optimize-database');
 						} // if ($action == 'run_detail')
 					} // if ($action == 'analyze_detail')
 	?>
@@ -137,9 +138,9 @@ class ODB_Cleaner {
 	  </tr>
 	  <tr>
 		<th align="right" class="odb-border-bottom">#</th>
-		<th align="left" class="odb-border-bottom"><?php _e('prefix', $odb_class->odb_txt_domain);?></th>
-		<th align="left" class="odb-border-bottom"><?php _e('post / page', $odb_class->odb_txt_domain);?></th>
-		<th align="left" class="odb-border-bottom"><?php _e('revision date', $odb_class->odb_txt_domain);?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('prefix', 'rvg-optimize-database');?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('post / page', 'rvg-optimize-database');?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('revision date', 'rvg-optimize-database');?></th>
 		<th align="right" class="odb-border-bottom"><?php echo $msg2?></th>
 	  </tr>
 	  <?php
@@ -168,7 +169,7 @@ class ODB_Cleaner {
 				if (!$scheduler) {
 ?>
 	<div class="odb-not-found">
-	  <?php _e('No REVISIONS found to delete', $odb_class->odb_txt_domain);?>
+	  <?php _e('No REVISIONS found to delete', 'rvg-optimize-database');?>
 	</div>
 <?php
 				} // if (!$scheduler)
@@ -191,7 +192,7 @@ class ODB_Cleaner {
 				if ($action == 'analyze_summary') {
 	?>
 		<div class="odb-found-number">
-		  <?php _e('TRASHED ITEMS found to delete: ', $odb_class->odb_txt_domain);?>
+		  <?php _e('TRASHED ITEMS found to delete: ', 'rvg-optimize-database');?>
           <?php echo count($results) . '<br>';?>
 		</div>
 	<?php
@@ -200,7 +201,7 @@ class ODB_Cleaner {
 				if ($action == 'run_summary') {
 	?>
 		<div class="odb-found-number">
-		  <?php _e('TRASHED ITEMS deleted: ', $odb_class->odb_txt_domain);?>
+		  <?php _e('TRASHED ITEMS deleted: ', 'rvg-optimize-database');?>
           <?php echo count($results) . '<br>';?>
 		</div>
 	<?php
@@ -209,12 +210,12 @@ class ODB_Cleaner {
 				if ($action == 'analyze_detail' || $action == 'run_detail') {
 					// 'RUN' or 'ANALYZE_DETAIL
 					if ($action == 'analyze_detail') {
-						$msg1 = __('TRASHED ITEMS', $odb_class->odb_txt_domain);
-						$msg2 = __('total number of trashed items', $odb_class->odb_txt_domain);
+						$msg1 = __('TRASHED ITEMS', 'rvg-optimize-database');
+						$msg2 = __('total number of trashed items', 'rvg-optimize-database');
 					} else {
 					 // ACTION = 'RUN_DETAIL'
-						$msg1 = __('DELETED TRASHED ITEMS', $odb_class->odb_txt_domain);
-						$msg2 = __('total number of trashed items deleted', $odb_class->odb_txt_domain);
+						$msg1 = __('DELETED TRASHED ITEMS', 'rvg-optimize-database');
+						$msg2 = __('total number of trashed items deleted', 'rvg-optimize-database');
 					} // if ($action == 'analyze_detail')
 	?>
 	<table border="0" cellspacing="8" cellpadding="2" class="odb-result-table">
@@ -225,10 +226,10 @@ class ODB_Cleaner {
 	  </tr>
 	  <tr>
 		<th align="right" class="odb-border-bottom">#</th>
-		<th align="left" class="odb-border-bottom"><?php _e('prefix', $odb_class->odb_txt_domain);?></th>
-		<th align="left" class="odb-border-bottom"><?php _e('type', $odb_class->odb_txt_domain);?></th>
-		<th align="left" class="odb-border-bottom"><?php _e('IP address / title', $odb_class->odb_txt_domain);?></th>
-		<th align="left" nowrap="nowrap" class="odb-border-bottom"><?php _e('date', $odb_class->odb_txt_domain);?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('prefix', 'rvg-optimize-database');?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('type', 'rvg-optimize-database');?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('IP address / title', 'rvg-optimize-database');?></th>
+		<th align="left" nowrap="nowrap" class="odb-border-bottom"><?php _e('date', 'rvg-optimize-database');?></th>
 	  </tr>
 	  <?php
 				} // if ($action == 'analyze_detail' || $action == 'run_detail')
@@ -253,7 +254,7 @@ class ODB_Cleaner {
 				if (!$scheduler) {
 ?>
 	<div class="odb-not-found">
-	  <?php _e('No TRASHED ITEMS found to delete', $odb_class->odb_txt_domain);?>
+	  <?php _e('No TRASHED ITEMS found to delete', 'rvg-optimize-database');?>
 	</div>
 <?php
 				} // if (!$scheduler)
@@ -276,7 +277,7 @@ class ODB_Cleaner {
 				if ($action == 'analyze_summary') {
 	?>
 		<div class="odb-found-number">
-		  <?php _e('SPAMMED ITEMS found to delete: ', $odb_class->odb_txt_domain);?>
+		  <?php _e('SPAMMED ITEMS found to delete: ', 'rvg-optimize-database');?>
           <?php echo count($results) . '<br>';?>
 		</div>
 	<?php
@@ -285,7 +286,7 @@ class ODB_Cleaner {
 				if ($action == 'run_summary') {
 	?>
 		<div class="odb-found-number">
-		  <?php _e('SPAMMED ITEMS deleted: ', $odb_class->odb_txt_domain);?>
+		  <?php _e('SPAMMED ITEMS deleted: ', 'rvg-optimize-database');?>
           <?php echo count($results) . '<br>';?>
 		</div>
 	<?php
@@ -293,13 +294,13 @@ class ODB_Cleaner {
 
 				if ($action == 'analyze_detail' || $action == 'run_detail') {
 					if ($action == 'analyze_detail') {
-							$msg1 = __('SPAMMED ITEMS', $odb_class->odb_txt_domain);
-							$msg2 = __('total number of spammed items', $odb_class->odb_txt_domain);
+							$msg1 = __('SPAMMED ITEMS', 'rvg-optimize-database');
+							$msg2 = __('total number of spammed items', 'rvg-optimize-database');
 					} // if ($action == 'analyze_detail')
 
 					if ($action == 'run_detail') {
-							$msg1 = __('DELETED SPAMMED ITEMS', $odb_class->odb_txt_domain);
-							$msg2 = __('total number of spammed items deleted', $odb_class->odb_txt_domain);
+							$msg1 = __('DELETED SPAMMED ITEMS', 'rvg-optimize-database');
+							$msg2 = __('total number of spammed items deleted', 'rvg-optimize-database');
 					} // if ($action == 'run_detail')
 	?>
 	<table border="0" cellspacing="8" cellpadding="2" class="odb-result-table">
@@ -310,10 +311,10 @@ class ODB_Cleaner {
 	  </tr>
 	  <tr>
 		<th align="right" class="odb-border-bottom">#</th>
-		<th align="left" class="odb-border-bottom"><?php _e('prefix', $odb_class->odb_txt_domain);?></th>
-		<th align="left" class="odb-border-bottom"><?php _e('comment author', $odb_class->odb_txt_domain);?></th>
-		<th align="left" class="odb-border-bottom"><?php _e('comment author email', $odb_class->odb_txt_domain);?></th>
-		<th align="left" nowrap="nowrap" class="odb-border-bottom"><?php _e('comment date', $odb_class->odb_txt_domain);?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('prefix', 'rvg-optimize-database');?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('comment author', 'rvg-optimize-database');?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('comment author email', 'rvg-optimize-database');?></th>
+		<th align="left" nowrap="nowrap" class="odb-border-bottom"><?php _e('comment date', 'rvg-optimize-database');?></th>
 	  </tr>
 	  <?php
 				} // if ($action == 'analyze_detail' || $action == 'run_detail')
@@ -338,7 +339,7 @@ class ODB_Cleaner {
 				if (!$scheduler) {
 ?>
 	<div class="odb-not-found">
-	  <?php _e('No SPAMMED ITEMS found to delete', $odb_class->odb_txt_domain);?>
+	  <?php _e('No SPAMMED ITEMS found to delete', 'rvg-optimize-database');?>
 	</div>
 <?php
 				} // if (!$scheduler)
@@ -363,7 +364,7 @@ class ODB_Cleaner {
 					if ($action == 'analyze_summary') {
 	?>
 		<div class="odb-found-number">
-		  <?php _e('UNUSED TAGS found to delete: ', $odb_class->odb_txt_domain);?>
+		  <?php _e('UNUSED TAGS found to delete: ', 'rvg-optimize-database');?>
           <?php echo count($results) . '<br>';?>
 		</div>
 	<?php
@@ -372,7 +373,7 @@ class ODB_Cleaner {
 					if ($action == 'run_summary') {
 	?>
 		<div class="odb-found-number">
-		  <?php _e('UNUSED TAGS deleted: ', $odb_class->odb_txt_domain);?>
+		  <?php _e('UNUSED TAGS deleted: ', 'rvg-optimize-database');?>
           <?php echo count($results) . '<br>';?>
 		</div>
 	<?php
@@ -381,12 +382,12 @@ class ODB_Cleaner {
 
 				if ($action == 'analyze_detail' || $action == 'run_detail') {
 					if ($action == 'analyze_detail') {
-						$msg1 = __('UNUSED TAGS', $odb_class->odb_txt_domain);
-						$msg2 = __('total number of unused tags', $odb_class->odb_txt_domain);
+						$msg1 = __('UNUSED TAGS', 'rvg-optimize-database');
+						$msg2 = __('total number of unused tags', 'rvg-optimize-database');
 					} else {
 						 // ACTION = 'RUN_detail'
-						$msg1 = __('DELETED UNUSED TAGS', $odb_class->odb_txt_domain);
-						$msg2 = __('total number of unused tags deleted', $odb_class->odb_txt_domain);
+						$msg1 = __('DELETED UNUSED TAGS', 'rvg-optimize-database');
+						$msg2 = __('total number of unused tags deleted', 'rvg-optimize-database');
 					} // if ($action == 'analyze_detail')
 	?>
 	<table border="0" cellspacing="8" cellpadding="2" class="odb-result-table">
@@ -397,8 +398,8 @@ class ODB_Cleaner {
 	  </tr>
 	  <tr>
 		<th align="right" class="odb-border-bottom">#</th>
-		<th align="left" class="odb-border-bottom"><?php _e('prefix', $odb_class->odb_txt_domain);?></th>
-		<th align="left" class="odb-border-bottom"><?php _e('tag', $odb_class->odb_txt_domain);?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('prefix', 'rvg-optimize-database');?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('tag', 'rvg-optimize-database');?></th>
 	  </tr>
 	  <?php
 				} // if ($action == 'analyze_detail' || $action == 'run_detail')
@@ -423,7 +424,7 @@ class ODB_Cleaner {
 				if (!$scheduler) {
 ?>
 	<div class="odb-not-found">
-	  <?php _e('No UNUSED TAGS found to delete', $odb_class->odb_txt_domain);?>
+	  <?php _e('No UNUSED TAGS found to delete', 'rvg-optimize-database');?>
 	</div>
 <?php
 				} // if (!$scheduler)
@@ -458,7 +459,7 @@ class ODB_Cleaner {
 					if ($action == 'analyze_summary') {
 	?>
 		<div class="odb-found-number">
-		  <?php _e($type . ' TRANSIENTS found to delete: ', $odb_class->odb_txt_domain);?>
+		  <?php _e($type . ' TRANSIENTS found to delete: ', 'rvg-optimize-database');?>
           <?php echo count($results) . '<br>';?>
 		</div>
 	<?php
@@ -467,7 +468,7 @@ class ODB_Cleaner {
 					if ($action == 'run_summary') {
 	?>
 		<div class="odb-found-number">
-		  <?php _e($type . ' TRANSIENTS deleted: ', $odb_class->odb_txt_domain);?>
+		  <?php _e($type . ' TRANSIENTS deleted: ', 'rvg-optimize-database');?>
           <?php echo count($results) . '<br>';?>
 		</div>
 	<?php
@@ -477,12 +478,12 @@ class ODB_Cleaner {
 				if ($action == 'analyze_detail' || $action == 'run_detail') {
 					// 'RUN' or 'ANALYZE_DETAIL
 					if ($action == 'analyze_detail') {
-						$msg1 = __($type . ' TRANSIENTS', $odb_class->odb_txt_domain);
-						$msg2 = __('total number of ' . $typeLc . ' transients', $odb_class->odb_txt_domain);
+						$msg1 = __($type . ' TRANSIENTS', 'rvg-optimize-database');
+						$msg2 = __('total number of ' . $typeLc . ' transients', 'rvg-optimize-database');
 					} else {
 						 // ACTION = 'RUN_DETAIL'
-						$msg1 = __('DELETED ' . $type . ' TRANSIENTS', $odb_class->odb_txt_domain);
-						$msg2 = __('total number of ' . $typeLc . ' deleted', $odb_class->odb_txt_domain);
+						$msg1 = __('DELETED ' . $type . ' TRANSIENTS', 'rvg-optimize-database');
+						$msg2 = __('total number of ' . $typeLc . ' deleted', 'rvg-optimize-database');
 					} // if ($action == 'analyze_detail')
 	?>
 	<table border="0" cellspacing="8" cellpadding="2" class="odb-result-table">
@@ -493,8 +494,8 @@ class ODB_Cleaner {
 	  </tr>
       <tr>
 	    <th align="right" class="odb-border-bottom">#</th>
-	    <th align="left" class="odb-border-bottom"><?php _e('prefix', $odb_class->odb_txt_domain);?></th>
-	    <th align="left" class="odb-border-bottom"><?php _e('option name', $odb_class->odb_txt_domain);?></th>
+	    <th align="left" class="odb-border-bottom"><?php _e('prefix', 'rvg-optimize-database');?></th>
+	    <th align="left" class="odb-border-bottom"><?php _e('option name', 'rvg-optimize-database');?></th>
       </tr>
 	  <?php
 				} // if ($action == 'analyze_detail' || $action == 'run_detail')
@@ -524,7 +525,7 @@ class ODB_Cleaner {
 					} // if ($option == 'Y')
 ?>
 	<div class="odb-not-found">
-	  <?php _e($msg, $odb_class->odb_txt_domain);?>
+	  <?php _e($msg, 'rvg-optimize-database');?>
 	</div>
 <?php
 				} // if (!$scheduler)
@@ -549,7 +550,7 @@ class ODB_Cleaner {
 					if ($action == 'analyze_summary') {
 	?>
 		<div class="odb-found-number">
-		  <?php _e('PINGBACKS AND/OR TRACKBACKS found to delete: ', $odb_class->odb_txt_domain);?>
+		  <?php _e('PINGBACKS AND/OR TRACKBACKS found to delete: ', 'rvg-optimize-database');?>
           <?php echo count($results) . '<br>';?>
 		</div>
 	<?php
@@ -558,7 +559,7 @@ class ODB_Cleaner {
 					if ($action == 'run_summary') {
 	?>
 		<div class="odb-found-number">
-		  <?php _e('PINGBACKS AND/OR TRACKBACKS deleted: ', $odb_class->odb_txt_domain);?>
+		  <?php _e('PINGBACKS AND/OR TRACKBACKS deleted: ', 'rvg-optimize-database');?>
           <?php echo count($results) . '<br>';?>
 		</div>
 	<?php
@@ -567,12 +568,12 @@ class ODB_Cleaner {
 
 				if ($action == 'analyze_detail' || $action == 'run_detail') {
 					if ($action == 'analyze_detail') {
-						$msg1 = __('PINGBACKS AND TRACKBACKS', $odb_class->odb_txt_domain);
-						$msg2 = __('total number of pingbacks and trackbacks', $odb_class->odb_txt_domain);
+						$msg1 = __('PINGBACKS AND TRACKBACKS', 'rvg-optimize-database');
+						$msg2 = __('total number of pingbacks and trackbacks', 'rvg-optimize-database');
 					} else {
 						 // ACTION = 'RUN'
-						$msg1 = __('DELETED PINGBACKS AND TRACKBACKS', $odb_class->odb_txt_domain);
-						$msg2 = __('total number of pingbacks and trackbacks deleted', $odb_class->odb_txt_domain);
+						$msg1 = __('DELETED PINGBACKS AND TRACKBACKS', 'rvg-optimize-database');
+						$msg2 = __('total number of pingbacks and trackbacks deleted', 'rvg-optimize-database');
 					} // if ($action == 'analyze_detail')
 	?>
 	<table border="0" cellspacing="8" cellpadding="2" class="odb-result-table">
@@ -583,10 +584,10 @@ class ODB_Cleaner {
 	  </tr>
 	  <tr>
 		<th align="right" class="odb-border-bottom">#</th>
-		<th align="left" class="odb-border-bottom"><?php _e('prefix', $odb_class->odb_txt_domain);?></th>
-		<th align="left" class="odb-border-bottom"><?php _e('type', $odb_class->odb_txt_domain);?></th>
-		<th align="left" class="odb-border-bottom"><?php _e('comment_author', $odb_class->odb_txt_domain);?></th>
-		<th align="left" nowrap="nowrap" class="odb-border-bottom"><?php _e('date', $odb_class->odb_txt_domain);?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('prefix', 'rvg-optimize-database');?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('type', 'rvg-optimize-database');?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('comment_author', 'rvg-optimize-database');?></th>
+		<th align="left" nowrap="nowrap" class="odb-border-bottom"><?php _e('date', 'rvg-optimize-database');?></th>
 	  </tr>
 	  <?php
 				} // if ($action == 'analyze_detail' || $action == 'run_detail')
@@ -612,7 +613,7 @@ class ODB_Cleaner {
 				if (!$scheduler) {
 ?>
 	<div class="odb-not-found">
-	  <?php _e('No PINGBACKS nor TRACKBACKS found to delete', $odb_class->odb_txt_domain);?>
+	  <?php _e('No PINGBACKS nor TRACKBACKS found to delete', 'rvg-optimize-database');?>
 	</div>
 <?php
 				} // if (!$scheduler)
@@ -638,7 +639,7 @@ class ODB_Cleaner {
 					if ($action == 'analyze_summary') {
 	?>
 		<div class="odb-found-number">
-		  <?php _e('OEMBED CACHE ITEMS found to delete: ', $odb_class->odb_txt_domain);?>
+		  <?php _e('OEMBED CACHE ITEMS found to delete: ', 'rvg-optimize-database');?>
           <?php echo count($results) . '<br>';?>
 		</div>
 	<?php
@@ -647,7 +648,7 @@ class ODB_Cleaner {
 					if ($action == 'run_summary') {
 	?>
 		<div class="odb-found-number">
-		  <?php _e('OEMBED CACHE ITEMS deleted: ', $odb_class->odb_txt_domain);?>
+		  <?php _e('OEMBED CACHE ITEMS deleted: ', 'rvg-optimize-database');?>
           <?php echo count($results) . '<br>';?>
 		</div>
 	<?php
@@ -656,12 +657,12 @@ class ODB_Cleaner {
 
 				if ($action == 'analyze_detail' || $action == 'run_detail') {
 					if ($action == 'analyze_detail') {
-						$msg1 = __('OEMBED CACHE items', $odb_class->odb_txt_domain);
-						$msg2 = __('total number of oembed cache items', $odb_class->odb_txt_domain);
+						$msg1 = __('OEMBED CACHE items', 'rvg-optimize-database');
+						$msg2 = __('total number of oembed cache items', 'rvg-optimize-database');
 					} else {
 						 // ACTION = 'RUN'
-						$msg1 = __('DELETED OEMBED CACHE ITEMS', $odb_class->odb_txt_domain);
-						$msg2 = __('total number of oembed cache items deleted', $odb_class->odb_txt_domain);
+						$msg1 = __('DELETED OEMBED CACHE ITEMS', 'rvg-optimize-database');
+						$msg2 = __('total number of oembed cache items deleted', 'rvg-optimize-database');
 					} // if ($action == 'analyze_detail')
 	?>
 	<table border="0" cellspacing="8" cellpadding="2" class="odb-result-table">
@@ -672,9 +673,9 @@ class ODB_Cleaner {
 	  </tr>
 	  <tr>
 		<th align="right" class="odb-border-bottom">#</th>
-		<th align="left" class="odb-border-bottom"><?php _e('prefix', $odb_class->odb_txt_domain);?></th>
-		<th align="left" class="odb-border-bottom"><?php _e('meta key', $odb_class->odb_txt_domain);?></th>
-		<th align="left" class="odb-border-bottom"><?php _e('meta value', $odb_class->odb_txt_domain);?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('prefix', 'rvg-optimize-database');?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('meta key', 'rvg-optimize-database');?></th>
+		<th align="left" class="odb-border-bottom"><?php _e('meta value', 'rvg-optimize-database');?></th>
 	  </tr>
 	  <?php
 				} // if ($action == 'analyze_detail' || $action == 'run_detail')
@@ -699,7 +700,7 @@ class ODB_Cleaner {
 				if (!$scheduler) {
 ?>
 	<div class="odb-not-found">
-	  <?php _e('No OEMBED CACHE ITEMS found to delete', $odb_class->odb_txt_domain);?>
+	  <?php _e('No OEMBED CACHE ITEMS found to delete', 'rvg-optimize-database');?>
 	</div>
 <?php
 				} // if (!$scheduler)
@@ -725,7 +726,7 @@ class ODB_Cleaner {
 					if ($action == 'analyze_summary') {
 	?>
 		<div class="odb-found-number">
-		  <?php _e('ORPHANS found to delete: ', $odb_class->odb_txt_domain);?>
+		  <?php _e('ORPHANS found to delete: ', 'rvg-optimize-database');?>
           <?php echo count($results) . '<br>';?>
 		</div>
 	<?php
@@ -734,7 +735,7 @@ class ODB_Cleaner {
 					if ($action == 'run_summary') {
 	?>
 		<div class="odb-found-number">
-		  <?php _e('ORPHANS deleted: ', $odb_class->odb_txt_domain);?>
+		  <?php _e('ORPHANS deleted: ', 'rvg-optimize-database');?>
           <?php echo count($results) . '<br>';?>
 		</div>
 	<?php
@@ -744,12 +745,12 @@ class ODB_Cleaner {
 				if ($action == 'analyze_detail' || $action == 'run_detail') {
 
 					if ($action == 'analyze_detail') {
-						$msg1 = __('ORPHANS', $odb_class->odb_txt_domain);
-						$msg2 = __('total number of orphans', $odb_class->odb_txt_domain);
+						$msg1 = __('ORPHANS', 'rvg-optimize-database');
+						$msg2 = __('total number of orphans', 'rvg-optimize-database');
 					} else {
 						// ACTION = 'RUN_DETAIL'
-						$msg1 = __('DELETED ORPHANS', $odb_class->odb_txt_domain);
-						$msg2 = __('total number of orphans deleted', $odb_class->odb_txt_domain);
+						$msg1 = __('DELETED ORPHANS', 'rvg-optimize-database');
+						$msg2 = __('total number of orphans deleted', 'rvg-optimize-database');
 					} // if ($action == 'analyze_detail')
 	?>
 	<table border="0" cellspacing="8" cellpadding="2" class="odb-result-table">
@@ -760,14 +761,14 @@ class ODB_Cleaner {
 	  </tr>
       <tr>
         <th align="right" class="odb-border-bottom">#</th>
-        <th align="left" class="odb-border-bottom"><?php _e('prefix', $odb_class->odb_txt_domain);?></th>
-        <th align="left" class="odb-border-bottom"><?php _e('type', $odb_class->odb_txt_domain);?></th>
-        <th align="left" class="odb-border-bottom"><?php _e('id', $odb_class->odb_txt_domain);?></th>
-        <th align="left" class="odb-border-bottom"><?php _e('title', $odb_class->odb_txt_domain);?></th>
-        <th align="left" nowrap="nowrap" class="odb-border-bottom"><?php _e('modified', $odb_class->odb_txt_domain);?></th>
-        <th align="left" class="odb-border-bottom"><?php _e('taxonomy', $odb_class->odb_txt_domain);?></th>
-        <th align="left" class="odb-border-bottom"><?php _e('meta key', $odb_class->odb_txt_domain);?></th>
-        <th align="left" class="odb-border-bottom"><?php _e('meta value', $odb_class->odb_txt_domain);?></th>
+        <th align="left" class="odb-border-bottom"><?php _e('prefix', 'rvg-optimize-database');?></th>
+        <th align="left" class="odb-border-bottom"><?php _e('type', 'rvg-optimize-database');?></th>
+        <th align="left" class="odb-border-bottom"><?php _e('id', 'rvg-optimize-database');?></th>
+        <th align="left" class="odb-border-bottom"><?php _e('title', 'rvg-optimize-database');?></th>
+        <th align="left" nowrap="nowrap" class="odb-border-bottom"><?php _e('modified', 'rvg-optimize-database');?></th>
+        <th align="left" class="odb-border-bottom"><?php _e('taxonomy', 'rvg-optimize-database');?></th>
+        <th align="left" class="odb-border-bottom"><?php _e('meta key', 'rvg-optimize-database');?></th>
+        <th align="left" class="odb-border-bottom"><?php _e('meta value', 'rvg-optimize-database');?></th>
       </tr>
 	  <?php
 				} // if ($action == 'analyze_detail' || $action == 'run_detail')
@@ -789,7 +790,7 @@ class ODB_Cleaner {
 				if (!$scheduler) {
 ?>
 	<div class="odb-not-found">
-	  <?php _e('No ORPHANS found to delete', $odb_class->odb_txt_domain);?>
+	  <?php _e('No ORPHANS found to delete', 'rvg-optimize-database');?>
 	</div>
 <?php
 				} // if (!$scheduler)
@@ -797,7 +798,7 @@ class ODB_Cleaner {
 		} // if($odb_class->odb_rvg_options['clear_orphans'] == 'Y')
 	?>
 		<div class="odb-found-number">
-		  <?php _e('TOTAL NUMBER OF ITEMS: ', $odb_class->odb_txt_domain);?>
+		  <?php _e('TOTAL NUMBER OF ITEMS: ', 'rvg-optimize-database');?>
           <?php echo '<span class="odb-blue">' . $this->grand_total . '</span><br>';?>
 		</div>
 	<?php
@@ -816,18 +817,18 @@ class ODB_Cleaner {
 ?>
 	<div class="odb-optimizing-table" class="odb-padding-left">
 	  <div class="odb-title-bar">
-		<h2><?php _e('Optimizing Database Tables', $odb_class->odb_txt_domain);?></h2>
+		<h2><?php _e('Optimizing Database Tables', 'rvg-optimize-database');?></h2>
 	  </div>
 	  <br>
 	  <br>
 	  <table border="0" cellspacing="8" cellpadding="2">
 		<tr>
 		  <th class="odb-border-bottom" align="right">#</th>
-		  <th class="odb-border-bottom" align="left"><?php _e('table name', $odb_class->odb_txt_domain);?></th>
-		  <th class="odb-border-bottom" align="left"><?php _e('optimization result', $odb_class->odb_txt_domain);?></th>
-		  <th class="odb-border-bottom" align="left"><?php _e('engine', $odb_class->odb_txt_domain);?></th>
-		  <th class="odb-border-bottom" align="right"><?php _e('table rows', $odb_class->odb_txt_domain);?></th>
-		  <th class="odb-border-bottom" align="right"><?php _e('table size', $odb_class->odb_txt_domain);?></th>
+		  <th class="odb-border-bottom" align="left"><?php _e('table name', 'rvg-optimize-database');?></th>
+		  <th class="odb-border-bottom" align="left"><?php _e('optimization result', 'rvg-optimize-database');?></th>
+		  <th class="odb-border-bottom" align="left"><?php _e('engine', 'rvg-optimize-database');?></th>
+		  <th class="odb-border-bottom" align="right"><?php _e('table rows', 'rvg-optimize-database');?></th>
+		  <th class="odb-border-bottom" align="right"><?php _e('table size', 'rvg-optimize-database');?></th>
 		</tr>
 		<?php
 		} // if(!$scheduler && ($action == 'analyze_detail' || $action == 'run_detail'))
@@ -878,29 +879,29 @@ class ODB_Cleaner {
 	?>
     <div id="odb-savings" class="odb-padding-left">
 	  <div class="odb-title-bar">
-		<h2><?php _e('Savings', $odb_class->odb_txt_domain);?></h2>
+		<h2><?php _e('Savings', 'rvg-optimize-database');?></h2>
 	  </div>
 	  <br>
 	  <br>
 	  <table border="0" cellspacing="8" cellpadding="2">
 		<tr>
 		  <th>&nbsp;</th>
-		  <th class="odb-border-bottom"><?php _e('size of the database', $odb_class->odb_txt_domain);?></th>
+		  <th class="odb-border-bottom"><?php _e('size of the database', 'rvg-optimize-database');?></th>
 		</tr>
 		<tr>
-		  <td align="right"><?php _e('BEFORE optimization', $odb_class->odb_txt_domain);?></td>
+		  <td align="right"><?php _e('BEFORE optimization', 'rvg-optimize-database');?></td>
 		  <td align="right" class="odb-bold"><?php echo $odb_class->odb_utilities_obj->odb_format_size($this->start_size,3); ?></td>
 		</tr>
 		<tr>
-		  <td align="right"><?php _e('AFTER optimization', $odb_class->odb_txt_domain);?></td>
+		  <td align="right"><?php _e('AFTER optimization', 'rvg-optimize-database');?></td>
 		  <td align="right" class="odb-bold"><?php echo $odb_class->odb_utilities_obj->odb_format_size($end_size,3); ?></td>
 		</tr>
 		<tr>
-		  <td align="right" class="odb-bold"><?php _e('SAVINGS THIS TIME', $odb_class->odb_txt_domain);?></td>
+		  <td align="right" class="odb-bold"><?php _e('SAVINGS THIS TIME', 'rvg-optimize-database');?></td>
 		  <td align="right" class="odb-border-top odb-bold"><?php echo $odb_class->odb_utilities_obj->odb_format_size(($this->start_size - $end_size),3); ?></td>
 		</tr>
 		<tr>
-		  <td align="right" class="odb-bold"><?php _e('TOTAL SAVINGS SINCE THE FIRST RUN', $odb_class->odb_txt_domain);?></td>
+		  <td align="right" class="odb-bold"><?php _e('TOTAL SAVINGS SINCE THE FIRST RUN', 'rvg-optimize-database');?></td>
 		  <td align="right" class="odb-border-top odb-bold"><?php echo $odb_class->odb_utilities_obj->odb_format_size($total_savings,3); ?></td>
 		</tr>
 	  </table>
@@ -928,7 +929,7 @@ class ODB_Cleaner {
       <div id="odb-done" class="odb-padding-left">
 		<div class="odb-title-bar">
 		  <h2>
-			<?php _e('DONE!', $odb_class->odb_txt_domain);?>
+			<?php _e('DONE!', 'rvg-optimize-database');?>
 		  </h2>
 		</div>
 		<br>
@@ -936,7 +937,7 @@ class ODB_Cleaner {
 <?php
 		if (!$analyze) {
 ?>
-		<span class="odb-padding-left"><?php _e('Optimization took', $odb_class->odb_txt_domain)?>&nbsp;<strong><?php echo $total_time;?></strong>&nbsp;<?php _e('seconds', $odb_class->odb_txt_domain)?>.</span>
+		<span class="odb-padding-left"><?php _e('Optimization took', 'rvg-optimize-database')?>&nbsp;<strong><?php echo $total_time;?></strong>&nbsp;<?php _e('seconds', 'rvg-optimize-database')?>.</span>
 <?php
 		} // if ($analyze)
 ?>
@@ -949,20 +950,21 @@ class ODB_Cleaner {
 <script>
 function odb_confirm_delete() {
 <?php
+		$nonce = wp_create_nonce( 'rvg-optimize-database' );
 		// v4.6.2
-		$msg = str_replace("'", "\'", __('Clear the log?', $odb_class->odb_txt_domain));
+		$msg = str_replace("'", "\'", __('Clear the log?', 'rvg-optimize-database'));
 ?>
 	if(confirm('<?php echo $msg?>')) {
-		self.location = 'tools.php?page=rvg-optimize-database&action=clear_log'
+		self.location = 'tools.php?page=rvg-optimize-database&action=clear_log&_wpnonce=<?php echo esc_attr( $nonce ); ?>'
 		return;
 	}
 } // odb_confirm_delete()
 </script>
 		<br><br>
 		&nbsp;
-		<input class="button odb-normal" type="button" name="view_log" value="<?php _e('View Log', $odb_class->odb_txt_domain);?>" onclick="self.location='tools.php?page=rvg-optimize-database&action=view_log'" />
+		<input class="button odb-normal" type="button" name="view_log" value="<?php _e('View Log', 'rvg-optimize-database');?>" onclick="self.location='tools.php?page=rvg-optimize-database&action=view_log&_wpnonce=<?php echo esc_attr( $nonce ); ?>'" />
 		&nbsp;
-		<input class="button odb-normal" type="button" name="clear_log" value="<?php _e('Clear Log', $odb_class->odb_txt_domain);?>" onclick="return odb_confirm_delete();" />
+		<input class="button odb-normal" type="button" name="clear_log" value="<?php _e('Clear Log', 'rvg-optimize-database');?>" onclick="return odb_confirm_delete();" />
 		<?php
 		} // if($odb_class->odb_logger_obj->odb_log_count() > 0)
 ?>
@@ -1012,7 +1014,7 @@ function odb_confirm_delete() {
 					p1.`post_parent`,
 					p1.`post_title`,
 					p1.`post_modified`
-					FROM " . esc_sql( $prefix . 'posts' ) . " p1, " . esc_sql( $prefix . 'posts' ) . " p2
+					FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'posts' ) . " p1, " . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'posts' ) . " p2
 					WHERE p1.`post_type` = 'revision'
 					AND p1.`post_parent` = p2.ID
 						{$where}
@@ -1088,7 +1090,7 @@ function odb_confirm_delete() {
 				p1.`post_title`,
 				p1.`post_modified`,
 				COUNT(*) cnt
-				FROM " . esc_sql( $prefix . 'posts' ) . " p1, " . esc_sql( $prefix . 'posts' ) . " p2
+				FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'posts' ) . " p1, " . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'posts' ) . " p2
 			   WHERE p1.`post_type` = 'revision'
                  AND p1.`post_parent` = p2.ID
                      {$where1}
@@ -1148,7 +1150,7 @@ function odb_confirm_delete() {
 
 				if ($scheduler || $action == 'run_summary' || $action == 'run_detail') {
 					$sql_delete = $wpdb->prepare("
-					DELETE FROM " . esc_sql( $results[$i]['site'] . 'posts' ) . "
+					DELETE FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $results[$i]['site'] . 'posts' ) . "
 					 WHERE `ID` = %d
 					", $results[$i]['ID']);
 
@@ -1184,7 +1186,7 @@ function odb_confirm_delete() {
 
 				$sql_get_posts = $wpdb->prepare( "
 				  SELECT `ID`, `post_modified`
-					FROM " . esc_sql( $results[$i]['site'] . 'posts' ) . "
+					FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $results[$i]['site'] . 'posts' ) . "
 				   WHERE `post_parent` = %d
 					 AND `post_type`   = 'revision'
 				ORDER BY `post_modified` ASC
@@ -1196,7 +1198,7 @@ function odb_confirm_delete() {
 					// if(!$scheduler) echo $results_get_posts[$j]->post_modified.'<br>';
 					if ($scheduler || $action == 'run_summary' || $action == 'run_detail') {
 						$sql_delete = $wpdb->prepare("
-						DELETE FROM " . esc_sql( $results[$i]['site'] . 'posts' ) . "
+						DELETE FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $results[$i]['site'] . 'posts' ) . "
 						 WHERE `ID` = %d
 						", $results_get_posts[$j]->ID);
 
@@ -1206,7 +1208,7 @@ function odb_confirm_delete() {
 
 				if(!$scheduler && ($action == 'analyze_detail' ||  $action == 'run_detail')) {
 		?></td>
-		  <td align="right" valign="top" class="odb-bold"><?php echo $nr_to_delete?> <?php _e('of', $odb_class->odb_txt_domain)?> <?php echo $results[$i]['cnt'];?></td>
+		  <td align="right" valign="top" class="odb-bold"><?php echo $nr_to_delete?> <?php _e('of', 'rvg-optimize-database')?> <?php echo $results[$i]['cnt'];?></td>
 		</tr>
 		<?php
 				} // if(!$scheduler && ($action == 'analyze_detail' ||  $action == 'run_detail'))
@@ -1249,7 +1251,7 @@ function odb_confirm_delete() {
 				'post' AS post_type,
 				`post_title` AS title,
 				`post_modified` AS modified
-				 FROM " . esc_sql( $prefix . 'posts' ) . "
+				 FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'posts' ) . "
 				WHERE `post_status` = 'trash'
 			UNION ALL
 			   SELECT %s AS site,
@@ -1257,7 +1259,7 @@ function odb_confirm_delete() {
 				'comment' AS post_type,
 				`comment_author_IP` AS title,
 				`comment_date` AS modified
-				 FROM " . esc_sql( $prefix . 'comments' ) . "
+				 FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'comments' ) . "
 				WHERE `comment_approved` = 'trash'
 			 ORDER BY post_type, UCASE(title)
 			", $prefix, $prefix);
@@ -1280,7 +1282,7 @@ function odb_confirm_delete() {
 	 *
 	 ********************************************************************************************/
 	function odb_delete_trash($results, $scheduler, $action) {
-		global $wpdb;
+		global $wpdb, $odb_class;
 
 		$total_deleted = count($results);
 
@@ -1301,7 +1303,7 @@ function odb_confirm_delete() {
 				// DELETE META DATA (IF ANY...)
 				if ($scheduler || $action == 'run_summary' || $action == 'run_detail') {
 					$sql_delete = $wpdb->prepare("
-					DELETE FROM " . esc_sql( $results[$i]['site'] . 'commentmeta' ) . "
+					DELETE FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $results[$i]['site'] . 'commentmeta' ) . "
 					 WHERE `comment_id` = %d
 					", $results[$i]['id']);
 					$wpdb->get_results($sql_delete);
@@ -1311,14 +1313,14 @@ function odb_confirm_delete() {
 			if ($scheduler || $action == 'run_summary' || $action == 'run_detail') {
 				// DELETE TRASHED POSTS / PAGES
 				$sql_delete = $wpdb->prepare("
-				DELETE FROM " . esc_sql( $results[$i]['site'] . 'posts' ) . "
+				DELETE FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $results[$i]['site'] . 'posts' ) . "
 				 WHERE `post_status` = %s
 				", 'trash');
 				$wpdb->get_results($sql_delete);
 
 				// DELETE TRASHED COMMENTS
 				$sql_delete = $wpdb->prepare("
-				DELETE FROM " . esc_sql( $results[$i]['site'] . 'comments' ) . "
+				DELETE FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $results[$i]['site'] . 'comments' ) . "
 				 WHERE `comment_approved` = %s
 				", 'trash');
 				$wpdb->get_results($sql_delete);
@@ -1349,7 +1351,7 @@ function odb_confirm_delete() {
 				`comment_author`,
 				`comment_author_email`,
 				`comment_date`
-				FROM " . esc_sql( $prefix . 'comments' ) . "
+				FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'comments' ) . "
 			   WHERE `comment_approved` = 'spam'
 			ORDER BY UCASE(`comment_author`)
 			", $prefix);
@@ -1370,7 +1372,7 @@ function odb_confirm_delete() {
 	 *
 	 ********************************************************************************************/
 	function odb_delete_spam($results, $scheduler, $action = 'run') {
-		global $wpdb;
+		global $wpdb, $odb_class;
 
 		$total_deleted = count($results);
 
@@ -1389,13 +1391,13 @@ function odb_confirm_delete() {
 
 			if ($scheduler || $action == 'run_summary' || $action == 'run_detail') {
 				$sql_delete = $wpdb->prepare("
-				DELETE FROM " . esc_sql( $results[$i]['site'] . 'commentmeta' ) . "
+				DELETE FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $results[$i]['site'] . 'commentmeta' ) . "
 				 WHERE `comment_id` = %d
 				", $results[$i]['comment_ID']);
 				$wpdb->get_results($sql_delete);
 
 				$sql_delete = $wpdb->prepare("
-				DELETE FROM " . esc_sql( $results[$i]['site'] . 'comments' ) . "
+				DELETE FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $results[$i]['site'] . 'comments' ) . "
 				 WHERE `comment_approved` = %s
 				", 'spam');
 				$wpdb->get_results($sql_delete);
@@ -1423,12 +1425,12 @@ function odb_confirm_delete() {
 			$sql = $wpdb->prepare("
 			SELECT %s AS site,
 				a.term_id AS term_id, a.name AS name
-			  FROM `" . esc_sql( $prefix . 'terms' ) . "` a, `" . esc_sql( $prefix . 'term_taxonomy' ) . "` b
+			  FROM `" . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'terms' ) . "` a, `" . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'term_taxonomy' ) . "` b
 			 WHERE a.term_id = b.term_id
 			   AND b.taxonomy = 'post_tag'
 			   AND b.term_taxonomy_id NOT IN (
 				SELECT term_taxonomy_id
-				  FROM " . esc_sql( $prefix . 'term_relationships' ) . "
+				  FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'term_relationships' ) . "
 			    )
 			ORDER BY name
 			", $prefix);
@@ -1466,13 +1468,13 @@ function odb_confirm_delete() {
 
 			if ($scheduler || $action == 'run_summary' || $action == 'run_detail') {
 				$sql_del = $wpdb->prepare("
-				DELETE FROM " . esc_sql( $results[$i]['site'] . 'term_taxonomy' ) . "
+				DELETE FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $results[$i]['site'] . 'term_taxonomy' ) . "
 				 WHERE term_id = %d
 				", $results[$i]['term_id']);
 				$wpdb->get_results($sql_del);
 
 				$sql_del = $wpdb->prepare("
-				DELETE FROM " . esc_sql( $results[$i]['site'] . 'terms' ) . "
+				DELETE FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $results[$i]['site'] . 'terms' ) . "
 				 WHERE term_id = %d
 				", $results[$i]['term_id']);
 				$wpdb->get_results($sql_del);
@@ -1489,11 +1491,11 @@ function odb_confirm_delete() {
 	 *
 	 ********************************************************************************************/
 	function odb_delete_tags_is_scheduled($term_id, $odb_prefix) {
-		global $wpdb;
+		global $wpdb, $odb_class;
 
 		$sql_get_posts = $wpdb->prepare("
 		SELECT p.post_status
-		  FROM " . esc_sql( $odb_prefix . 'term_relationships' ) . " t, " . esc_sql( $odb_prefix . 'posts' ) . " p
+		  FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $odb_prefix . 'term_relationships' ) . " t, " . $odb_class->odb_utilities_obj->odb_sanitize_key( $odb_prefix . 'posts' ) . " p
 		 WHERE t.term_taxonomy_id = %s
 		   AND t.object_id        = p.ID
 		", $term_id);
@@ -1533,7 +1535,7 @@ function odb_confirm_delete() {
 				$sql = $wpdb->prepare("
 					SELECT %s AS site,
 						`option_name`
-					FROM `" . esc_sql( $prefix . 'options' ) . "`
+					FROM `" . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'options' ) . "`
 					WHERE (
 						option_name LIKE '_transient_timeout_%%'
 						OR option_name LIKE '_site_transient_timeout_%%'
@@ -1547,7 +1549,7 @@ function odb_confirm_delete() {
 				$sql = $wpdb->prepare("
 					SELECT %s AS site,
 						`option_name`
-					FROM `" . esc_sql( $prefix . 'options' ) . "`
+					FROM `" . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'options' ) . "`
 					WHERE (
 						option_name LIKE '_transient_timeout_%%'
 						OR option_name LIKE '_site_transient_timeout_%%'
@@ -1599,7 +1601,7 @@ function odb_confirm_delete() {
 					$timeout = $results[$j]['option_name'];
 					$trans = str_replace('_timeout', '', $timeout);
 					$sqldel = $wpdb->prepare("
-					DELETE FROM `" . esc_sql( $prefix . 'options' ) . "`
+					DELETE FROM `" . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'options' ) . "`
 					WHERE (
 						option_name = %s
 						OR option_name = %s
@@ -1637,7 +1639,7 @@ function odb_confirm_delete() {
 				`comment_type`,
 				`comment_author`,
 				`comment_date`
-			FROM " . esc_sql( $prefix . 'comments' ) . "
+			FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'comments' ) . "
 			WHERE (
 				`comment_type` = 'pingback' OR `comment_type` = 'trackback'
 			)
@@ -1681,13 +1683,13 @@ function odb_confirm_delete() {
 				for($j = 0; $j < count($results); $j++) {
 					// DELETE METADATA FOR THIS COMMENT (IF ANY)
 					$sql = $wpdb->prepare("
-					DELETE FROM " . esc_sql( $results[$j]['site'] . 'commentmeta' ) . "
+					DELETE FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $results[$j]['site'] . 'commentmeta' ) . "
 					 WHERE `comment_id` = %d
 					", $results[$j]['comment_ID']);
 					$wpdb->get_results($sql);
 
 					$sql = $wpdb->prepare("
-					DELETE FROM " . esc_sql( $results[$j]['site'] . 'comments' ) . "
+					DELETE FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $results[$j]['site'] . 'comments' ) . "
 					WHERE (
 						`comment_type` = %s
 						OR `comment_type` = %s
@@ -1721,7 +1723,7 @@ function odb_confirm_delete() {
 				`meta_id`,
 				`meta_key`,
 				`meta_value`
-			FROM " . esc_sql( $prefix . 'postmeta' ) . "
+			FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'postmeta' ) . "
 			WHERE `meta_key` LIKE '_oembed_%%'
 			ORDER BY `meta_key`
 			", $prefix);
@@ -1761,7 +1763,7 @@ function odb_confirm_delete() {
 			if ($scheduler || $action == 'run_summary' || $action == 'run_detail') {
 				// DELETE COMMENTS
 				$wpdb->get_results("
-				DELETE FROM " . esc_sql( $results[$i]['site'] . 'postmeta' ) . "
+				DELETE FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $results[$i]['site'] . 'postmeta' ) . "
 				WHERE `meta_key` LIKE '_oembed_%%'
 				");
 			} // if ($action == 'run_summary' || $action == 'run_detail')
@@ -1794,8 +1796,8 @@ function odb_confirm_delete() {
 				 '' AS term_taxonomy_id,
 				 '' AS meta_key,
 				 '' AS meta_value
-			  FROM " . esc_sql( $prefix . 'posts' ) . "
-			 WHERE ID NOT IN (SELECT post_id FROM " . esc_sql( $prefix . 'postmeta' ) . ")
+			  FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'posts' ) . "
+			 WHERE ID NOT IN (SELECT post_id FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'postmeta' ) . ")
 			   AND post_status = 'auto-draft'
 			 ORDER BY `ID`
 			", $prefix);
@@ -1815,8 +1817,8 @@ function odb_confirm_delete() {
 				'' AS term_taxonomy_id,
 				`meta_key`,
 				`meta_value`
-			  FROM " . esc_sql( $prefix . 'postmeta' ) . "
-			 WHERE post_id NOT IN (SELECT ID FROM " . esc_sql( $prefix . 'posts' ) . ")
+			  FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'postmeta' ) . "
+			 WHERE post_id NOT IN (SELECT ID FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $prefix . 'posts' ) . ")
 			 ORDER BY `meta_key`
 			", $prefix);
 			//echo $sql . '<br>';
@@ -1869,12 +1871,12 @@ function odb_confirm_delete() {
 					// DELETE METADATA FOR THIS COMMENT (IF ANY)
 					if ($results[$j]['type'] == 'post meta') {
 						$sql = $wpdb->prepare("
-						DELETE FROM " . esc_sql( $results[$j]['site'] . 'postmeta' ) . "
+						DELETE FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $results[$j]['site'] . 'postmeta' ) . "
 						 WHERE `post_id` = %d
 						", $results[$j]['ID']);
 					} else if ($results[$j]['type'] == 'post') {
 						$sql = $wpdb->prepare("
-						DELETE FROM " . esc_sql( $results[$j]['site'] . 'posts' ) . "
+						DELETE FROM " . $odb_class->odb_utilities_obj->odb_sanitize_key( $results[$j]['site'] . 'posts' ) . "
 						 WHERE `ID` = %d
 						", $results[$j]['ID']);
 					} // for($j = 0; $j < count($results); $j++)

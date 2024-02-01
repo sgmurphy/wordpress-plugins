@@ -125,6 +125,7 @@ class Admin
             'locale' => Editor::getEditorLanguage(),
             'actionLock' => $this->getActionLock(),
             'requestReview' => $this->requestForReview(),
+            'displayCachingPluginBanner' => $this->cachingPluginDetected(),
             'beforeMigrate' => $this->getBeforeMigrate(),
             'hasMigrated' => Settings::getSetting("has_migrated", false),
             'hasLicense' => ButtonizerAccount::getSetting("site_licensed", false),
@@ -339,6 +340,42 @@ class Admin
 
             // Show after 9 days
             return $difference->days >= 9;
+        } catch (\Error $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Some times users have a caching plugin installed
+     * In some situations, they'll need to clear the cache
+     *
+     * This prevents issues like:
+     *  - Don't seeing Buttonizer in general
+     *  - Only seeing Buttonizer when signed in as admin
+     */
+    public function cachingPluginDetected()
+    {
+        try {
+            // Did the user already dismissed the banner?
+            if (Settings::getSetting("dismissed_caching_plugin_banner", false) === true) {
+                return false;
+            }
+
+            // Get current activated plugins
+            $pluginList = array_map('dirname', get_option('active_plugins'));
+
+            // Any of the plugins below
+            if (
+                in_array('litespeed-cache', $pluginList) ||
+                in_array('w3-total-cache', $pluginList) ||
+                in_array('wp-super-cache', $pluginList) ||
+                in_array('wp-fastest-cache', $pluginList) ||
+                in_array('wp-optimize', $pluginList)
+            ) {
+                return true;
+            }
+
+            return false;
         } catch (\Error $e) {
             return false;
         }

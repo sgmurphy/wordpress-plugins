@@ -276,7 +276,6 @@ function cau_run_custom_hooks_c() {
 	}
 
 	if( $fileDate >= $lastday ) {
-		array_push( $allDates, $fileDate );
 		$status = ( $fileTime > $range_start && $fileTime < $range_end ) ? __( 'Automatic', 'companion-auto-update' ) : __( 'Manual', 'companion-auto-update' );
 		$totalNum++;
 		cau_updatePluginInformation( 'core', $status );
@@ -717,10 +716,10 @@ function cau_list_outdated() {
 		$api = plugins_api( 'plugin_information', array( 'slug' => wp_unslash( $actualSlug ), 'tested' => true ) );
 
 		// Version compare
-		$tested_version 	= substr( $api->tested, 0, 3 ); // Format version number
+		$tested_version 	= !empty( $api->tested ) ? substr( $api->tested, 0, 3 ) : false; // Format version number
 
 		// Check if "tested up to" version number is set
-		if( $tested_version != '' ) {
+		if( $tested_version ) {
 
 			$current_version 	= substr( get_bloginfo( 'version' ), 0, 3 );  // Format version number
 			$version_difference = ( (int)$current_version - (int)$tested_version ); // Get the difference

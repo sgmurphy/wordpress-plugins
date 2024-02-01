@@ -4,6 +4,12 @@
  * Function that creates the sub-menu item and page for the tools page.
  */
 function dpsp_register_toolkit_subpage() {
+	// Only run if user Lite or user has valid license
+	// Temporarily deprecated
+	// if ( ! dpsp_should_show_settings() ) {
+	// 	return;
+	// }
+	
 	add_submenu_page( 'dpsp-social-pug', __( 'Toolkit', 'social-pug' ), __( 'Toolkit', 'social-pug' ), 'manage_options', 'dpsp-toolkit', 'dpsp_toolkit_subpage' );
 }
 

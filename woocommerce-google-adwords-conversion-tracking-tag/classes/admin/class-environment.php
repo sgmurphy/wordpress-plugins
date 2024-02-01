@@ -2,6 +2,7 @@
 
 namespace WCPM\Classes\Admin;
 
+use ActionScheduler_Versions;
 use WCPM\Classes\Geolocation;
 use WCPM\Classes\Helpers;
 use WCPM\Classes\Options;
@@ -1694,5 +1695,75 @@ class Environment {
 
 		$_server = Helpers::get_input_vars(INPUT_SERVER);
 		return isset($_server['SERVER_NAME']) && strpos($_server['SERVER_NAME'], 'playground.wordpress.net') !== false;
+	}
+
+	public static function get_action_scheduler_version() {
+
+		if (!class_exists('ActionScheduler')) {
+			return null;
+		}
+
+		// as_has_scheduled_action has been introduced in Action Scheduler 3.3.0
+		if (!function_exists('as_has_scheduled_action')) {
+			return '3.2.0';
+		}
+
+		// Fallback in case ActionScheduler_Versions is not available
+		if (!class_exists('ActionScheduler_Versions')) {
+			return '3.3.0';
+		}
+
+		return ActionScheduler_Versions::instance()->latest_version();
+	}
+
+
+	/**
+	 * Checks if the Action Scheduler can be run.
+	 *
+	 * This method first checks if the Action Scheduler class exists.
+	 * If it doesn't, it means that the Action Scheduler is not installed,
+	 * and the method returns false.
+	 *
+	 * If the Action Scheduler class exists,
+	 * the method retrieves the current version of the Action Scheduler and compares it with the version '3.5.3'.
+	 * If the current version is lower than '3.5.3',
+	 * it means that the Action Scheduler is installed but not supported, and the method returns false.
+	 * Otherwise, it returns true, indicating that the Action Scheduler can be run.
+	 *
+	 * The minimum required version is '3.5.3' because that's when partial query match was introduced,
+	 * which we use for finding scheduled actions.
+	 * It is also above '3.2.1' which are the versions that reliably load the latest Action Scheduler version.
+	 * And it is also above '3.3.0' which is the version that introduced the as_has_scheduled_action function.
+	 *
+	 * @return bool True if the Action Scheduler can be run, false otherwise.
+	 *
+	 * @since 1.37.1
+	 */
+	public static function can_run_action_scheduler() {
+
+		if (!class_exists('ActionScheduler')) {
+			return false;
+		}
+
+		// If the Action Scheduler is installed, but the version is too low, then we can't use it
+		if (version_compare(self::get_action_scheduler_version(), self::get_action_scheduler_minimum_version(), '<')) {
+			return false;
+		}
+
+		return true;
+	}
+
+	public static function cannot_run_action_scheduler() {
+		return !self::can_run_action_scheduler();
+	}
+
+	// If the Action Scheduler is installed, but the version is lower than 3.5.3, then we can't use it
+	// The minimum required version is 3.5.3 because that's when partial query match was introduced,
+	// which we use for finding scheduled actions.
+	// https://github.com/woocommerce/action-scheduler/releases/tag/3.5.3
+	// It is also above 3.2.1 which are the versions that reliably load the latest Action Scheduler version.
+	// And it is also above 3.3.0 which is the version that introduced the as_has_scheduled_action function.
+	public static function get_action_scheduler_minimum_version() {
+		return '3.5.3';
 	}
 }

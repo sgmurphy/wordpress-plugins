@@ -1,4 +1,4 @@
-=== Hubbub Lite (formerly Grow Social) ===
+=== Hubbub Lite ===
 Contributors: eatingrules, cdevroe, Mediavine, iova.mihai
 Tags: social share, social sharing, social sharing buttons, social share buttons, social, social media, social share icon, social share counts, social sharing icon
 Requires at least: 5.3
@@ -16,7 +16,7 @@ New: NerdPress has acquired Grow Social from Mediavine. [Read our blog post](htt
 
 **The Best Looking Social Sharing Buttons**
 
-Hubbub (formerly Grow Social by Mediavine) is one of the easiest to use social sharing plugins available. It lets you add highly customizable social share buttons that will integrate beautifully with your website's design, leading to increased interactions and social media shares.
+Hubbub Lite, formerly Grow Social by Mediavine, is one of the easiest to use social sharing plugins available. It lets you add highly customizable social share buttons that will integrate beautifully with your website's design, leading to increased interactions and social media shares.
 
 The free version of the plugin comes with five of the biggest social media platforms, mainly Facebook, Twitter, Pinterest and LinkedIn.
 
@@ -36,14 +36,14 @@ You can place the social sharing buttons before and after the post content or ha
 * **Retina Ready Sharp Share Icons** - Grow Social by Mediavine uses an icon font to display the best looking social media icons on any screen
 
 = Premium Features =
-* **10+ Social Media Networks more** - Reach more people by adding any of the following social share networks Reddit, VK, Yummly, WhatsApp, Buffer, Telegram, Flipboard, Pocket, Tumblr and Email
+* **15+ Additional Social Media Networks (including Threads)** - Reach more people by adding any of the following social share networks Reddit, VK, Yummly, WhatsApp, Buffer, Telegram, Flipboard, Pocket, Tumblr and Email
 * **Mobile Sticky Footer Social Share Buttons** - Your website needs to be mobile ready and Grow Social by Mediavine is here to help
 * **Pop-Up Social Share Buttons** - Trigger a pop-up with the social sharing buttons when a user does an action 
 * **Custom Button Colors and Hover Colors** - The social networks colors are beautiful, but you don't have to limit yourself. Add any color to your social share buttons to match your website's design.
-* **Shortcode for Social Share Buttons** - Place the buttons anywhere in your template files or the body of your content with the [mv_grow_share] shortcode
+* **Shortcode for Social Share Buttons** - Place the buttons anywhere in your template files or the body of your content with the [hubbub_share] shortcode
 * **Link Shortening through Bitly** - Hide long URL's behind their shorter version with the Bitly integration
 * **Google Analytics UTM tracking** - Track the source of your incoming traffic with the help of the Google Analytics UTM parameters
-* **Social Media Follow Buttons Widget** - Place social media follow buttons for the following social media networks: Facebook, Twitter, Pinterest, LinkedIn, Reddit, Instagram, YouTube, Vimeo, SoundCloud, Twitch, Yummly and Behance. Use the [mv_grow_follow] shortcode to place the follow buttons anywere in your template files
+* **Social Media Follow Buttons Widget** - Place social media follow buttons for the following social media networks: Facebook, Twitter, Pinterest, LinkedIn, Flipboard, Threads, Reddit, Instagram, YouTube, Vimeo, SoundCloud, Twitch, Yummly and Behance. Use the [mv_grow_follow] shortcode to place the follow buttons anywere in your template files
 * **Sharable Quotes ( Click to Tweet ) Feature** - Let your readers easily share a custom tweet with just one click
 * **Top Social Media Shared Posts Widget** - Want to showcase your most social shared articles? No problem. You can use this widget in any widget area to add your top shared posts
 * **Import / Export Settings** - Move all the settings from one website to another with just a few clicks
@@ -105,7 +105,14 @@ You can place both the inline social share buttons and the floating sidebar soci
 
 
 == Changelog ==
-This changelog is for Hubbub Lite. Here is [the changelog for Hubbub Pro](https://morehubbub.com/changelog).
+This changelog is for Hubbub Lite. Here is [the changelog for Hubbub Pro](https://morehubbub.com/changelog/).
+
+= 1.33.0 =
+* January 31, 2024
+* New: Hubbub is quieter than ever. Admin Notices no longer appear on all WordPress Admin pages.
+* New: Hubbub menu badge. The Hubbub menu badge will let you know if you have any notifications that need attention.
+* Removed "formerly Grow Social" from the plugin's name and title bar. Shoutout to our friends at Mediavine!
+* Minor improvements to user interface and messaging.
 
 = 1.32.0 =
 * January 4, 2024
@@ -400,5 +407,5 @@ Important: If you have odd issues after updating, please clear all caches for yo
 
 == Upgrade Notice ==
 
-= 1.31.0 =
+= 1.33.0 =
 Versions of Hubbub Lite greater than 1.30.0 include important bug fixes. Please keep Hubbub Lite up-to-date.

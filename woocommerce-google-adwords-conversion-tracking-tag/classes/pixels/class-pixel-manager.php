@@ -1159,7 +1159,7 @@ class Pixel_Manager
             ];
             // Process customer lifetime value
             
-            if ( Shop::can_ltv_be_processed( $order ) ) {
+            if ( Shop::can_ltv_be_processed_on_order( $order ) ) {
                 if ( !LTV::are_all_pmw_order_values_set( $order ) ) {
                     LTV::calculate_pmw_order_values( $order );
                 }

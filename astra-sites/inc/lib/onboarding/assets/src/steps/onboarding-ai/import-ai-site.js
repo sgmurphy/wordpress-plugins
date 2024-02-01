@@ -1561,6 +1561,17 @@ const ImportAiSite = ( { onClickNext } ) => {
 		}
 	};
 
+	const setStartFlag = async () => {
+		const content = new FormData();
+		content.append( 'action', 'astra-sites-set-start-flag' );
+		content.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
+
+		await fetch( ajaxurl, {
+			method: 'post',
+			body: content,
+		} );
+	};
+
 	const handleImport = async () => {
 		if ( ! importError ) {
 			localStorage.setItem( 'st-import-start', +new Date() );
@@ -1589,6 +1600,8 @@ const ImportAiSite = ( { onClickNext } ) => {
 					'astra-sites'
 				),
 			} );
+
+			await setStartFlag();
 			setIsReadyForImport( true );
 		}
 	};

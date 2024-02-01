@@ -306,7 +306,7 @@ input [readonly] {background-color: #f00;}
 	border-radius: 2px;}
 #fbuilder .fields.ui-selected .arrow,#fbuilder .fields.ui-selected>.remove,#fbuilder .fields.ui-selected>.copy,#fbuilder .fields.ui-selected>.collapse,#fbuilder .fields.ui-selected.collapsed>.uncollapse{display:inline}
 #fbuilder .fields.collapsed>.dfield>.fcontainer{border-color: rgba(255,201,38,.75);}
-#fbuilder .collapsed-label{padding:10px;}
+#fbuilder .collapsed-label{padding-top:10px;padding-bottom:10px;}
 #fbuilder .fields:not(.collapsed)>.dfield>.fcontainer>.collapsed-label{display:none;}
 #fbuilder .fields.collapsed>.dfield>.fcontainer>.collapsed-label{display:block;}
 #fbuilder .fields.collapsed>.dfield>.fcontainer>.fieldscontainer{display:none;}
@@ -363,7 +363,9 @@ textarea {resize: none}
 #fieldlist .right_aligned.fields .dfield{float:left;width:65%}
 
 #tabs  span.uh,
-#fbuilder span.uh{display:block;font-size:80%;clear:both}
+#fbuilder span.uh{display:block;font-size:90%;clear:both}
+#fbuilder .developer-note:not(:empty){display:block;font-size:90%;clear:both;}
+#fbuilder .developer-note:not(:empty)::before{content: 'Developer note: ';font-weight:bold;}
 #fbuilder .section_break{border-top:1px dotted #555;clear:both}
 
 /* METABOX */

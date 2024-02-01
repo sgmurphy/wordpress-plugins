@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator,calculated,quote calculator,forms,form editor,advanced forms,payment calculator,payment,recurring payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf,language
 Requires at least: 3.0.5
 Tested up to: 6.4
-Stable tag: 1.2.52
+Stable tag: 1.2.53
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -999,6 +999,17 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 1.2.53 =
+
+* Improves the plugin security. Special thanks to Tiffany Tyson, Customer Support Engineer at WordFence. Pay attention to users who pass additional attributes through the form shortcode. In previous plugin versions, the attributes were converted as Javascript variables with global scope. For example, in shortcodes like [CP_CALCULATED_FIELDS id="1" custom_attr="234"], the plugin created the custom_attr variable with value 234, and you could use it directly in the equations as custom_attr*fieldname1. However, this feature hides a serious problem. You could overwrite global variables like window or document. The current plugin update generates the variable as a property of the cff_var object, and you should use it as cff_var['custom_attr'] or cff_var.custom_attr
+
+The previous code example must be overwritten as cff_var['custom_attr']*fieldname1
+* Modifies the RESETFORM operation.
+* The build button supports Ctrl+click to open forms builder on another tab or window.
+* Implements the Developer Notes attribute in the forms controls to display notes in the forms builder only and help the development of complex forms.
+* Fixes an issue in the Popup control.
+* Modifies the processing of the parameters in the SERVER-SIDE equations (Developer and Platinum plugin versions).
+
 = 1.2.52 =
 = 1.2.51 =
 
@@ -1037,10 +1048,3 @@ A: Please, follow the steps below:
 * Implements a search box to search by form name and content.
 * Configures the PayPal integration deactivated by default.
 * Includes a new option in the Default Settings section to activate/deactivate the PayPal integration (Professional, Developer, and Platinum plugin versions).
-
-= 1.2.45 =
-
-* Fixes a minor issue in the RESETFORM operation and Reset button.
-* Modifies the GETDATEOBJ operation.
-* Modifies the Default Settings section to allow selecting the option to not change the templates used by the forms.
-* Allows controlling the robots metatags in forms and amp pages with the "Do not load the forms with crawlers" attribute in the "Troubleshoot Area & General Settings" section.

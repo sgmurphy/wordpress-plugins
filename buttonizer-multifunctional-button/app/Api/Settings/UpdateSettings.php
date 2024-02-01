@@ -98,6 +98,11 @@ class UpdateSettings
             Settings::deleteSetting("review_reminding_since");
         }
 
+        // Mark caching plugin message as seen
+        if (isset($data['dismissCachingPluginBanner']) && $data['dismissCachingPluginBanner'] === true) {
+            Settings::setSetting("dismissed_caching_plugin_banner", true);
+        }
+
         // Save synced info
         Settings::saveUpdatedSettings();
 

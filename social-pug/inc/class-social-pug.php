@@ -12,7 +12,7 @@ class Social_Pug {
 	public const API_NAMESPACE = 'mv-grow-social/v1';
 
 	/** @var string|null Build tool sets this. */
-	const VERSION = '1.32.0';
+	const VERSION = '1.33.0';
 
 	/** @var string|null Version number for this release. @deprecated Use MV_GROW_VERSION */
 	public static $VERSION;
@@ -147,7 +147,8 @@ class Social_Pug {
 
 		add_action( 'init', [ $this, 'init_translation' ] );
 		add_action( 'admin_menu', [ $this, 'add_main_menu_page' ], 10 );
-		add_action( 'admin_menu', [ $this, 'remove_main_menu_page' ], 25 );
+		add_action( 'admin_init', [ $this, 'add_hubbub_admin_menu_item_badge' ] );
+		add_action( 'admin_menu', [ $this, 'remove_main_menu_page' ], 9999 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'init_admin_scripts' ], 100 );
 		add_action( 'wp_enqueue_scripts', [ $this->asset_loader, 'register_front_end_scripts' ] );
 		add_action( 'wp_enqueue_scripts', [ $this->asset_loader, 'enqueue_scripts' ] );
@@ -218,7 +219,8 @@ class Social_Pug {
 
 		$this->setup_pro_tools();
 
-		add_action( 'admin_init', 'Mediavine\Grow\Intercom::get_instance' );
+		// If Pro, check if license is valid before allowing plugin update
+		add_filter('upgrader_pre_install', [ $this, 'pre_upgrade_check_license' ], 10, 2);
 
 		// Register Gutenberg editor assets
 		add_action( 'enqueue_block_editor_assets', [ $this, 'init_gutenberg_scripts' ] );
@@ -333,8 +335,33 @@ class Social_Pug {
 	 */
 	public function add_main_menu_page() {
 
-		add_menu_page( __( 'Hubbub (formerly Grow Social)', 'social-pug' ), __( 'Hubbub', 'social-pug' ), 'manage_options', 'dpsp-social-pug', '', plugins_url() . '/social-pug/assets/dist/hubbub-icon-admin-menu.svg?' . MV_GROW_VERSION );
+		add_menu_page( __( 'Hubbub', 'social-pug' ),
+						__( 'Hubbub', 'social-pug' ),
+						'manage_options',
+						'dpsp-social-pug',
+						'',
+						'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnPz48c3ZnIGlkPSdMYXllcl8xJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMic+PGRlZnM+PHN0eWxlPi5jbHMtMSwuY2xzLTJ7c3Ryb2tlLXdpZHRoOjBweDt9LmNscy0ye2ZpbGw6I2E0YWFhZjt9PC9zdHlsZT48L2RlZnM+PHBhdGggY2xhc3M9J2Nscy0yJyBkPSdtMzAuNzUsMjkuMjRsLTYuMDctNS45OS0xOC4zNS0uMDVMMS4yNSw4LjIyLDMwLjc1LDIuNzZ2MjEuNWgtMS40MlY0LjQ5djE3LjI3aDEuNDJ2Ny40OFonLz48cGF0aCBjbGFzcz0nY2xzLTEnIGQ9J20xMy4zLDE5LjI2di05LjExaDIuMDd2My40MmgzLjc2di0zLjQyaDIuMDh2OS4xMWgtMi4wOHYtMy44NWgtMy43NnYzLjg1aC0yLjA3WicvPjwvc3ZnPg=='
+					);
 
+	}
+
+	/**
+	 * Pro only: Adds a badge to the Hubbub menu if the user has notices that require attention
+	 * 
+	 */
+	public function add_hubbub_admin_menu_item_badge() {
+		if ( \Social_Pug::is_free() ) return;
+		
+		$numberOfNotices = \Mediavine\Grow\Admin_Notices::dpsp_count_hubbub_admin_notices();
+		if ( $numberOfNotices == 0 ) return;
+		
+		global $menu;
+	
+    	foreach( $menu as $key => $value ) :
+        	if( 'dpsp-social-pug' == $value[2] ) :
+            	$menu[$key][0] .= ' <span class="update-plugins"><span class="plugin-count count-' . $numberOfNotices . '">' . $numberOfNotices . '</span></span>';
+			endif;
+		endforeach;
 	}
 
 	/**
@@ -514,6 +541,48 @@ class Social_Pug {
 
 		return $links;
 
+	}
+
+	/**
+	 * 
+	 * If license is empty, invalid, or expired, do not allow plugin update
+	 * 
+	 * @return boolean or WP_Error
+	 * 
+	 * See docs: https://developer.wordpress.org/reference/hooks/upgrader_pre_install/
+	 */
+	public function pre_upgrade_check_license( $return, $plugin ) {
+		if ( is_wp_error( $return ) ) :
+			return $return;
+		endif;
+		
+		if ( $plugin['plugin'] == 'social-pug/index.php' ) :
+
+			$license_key 		= get_option( 'mv_grow_license' );
+
+			if ( empty( $license_key) ) return new WP_Error( 'hubbub-pro-license-empty', __('A valid Hubbub Pro license key is required to update the plugin. Please add your license key in <a href="' . admin_url( 'admin.php?page=dpsp-settings' ) . '">Hubbub > Settings</a> and try again.') );
+
+			$license_status      = get_option( 'mv_grow_license_status' );
+			$license_status_date = get_option( 'mv_grow_license_status_date' );
+
+			if ( ! $license_status || empty( $license_status ) ) return new WP_Error( 'hubbub-pro-expired', __('The status of your Hubbub Pro license key is unknown. Please update your license key in <a href="' . admin_url( 'admin.php?page=dpsp-settings' ) . '">Hubbub > Settings</a> and try again.') );
+			
+			switch ( $license_status ) {
+				case 'valid':
+					return $return; // Allow the plugin update to proceed
+					break;
+				case 'invalid':
+					return new WP_Error( 'hubbub-pro-license-invalid', __('The license key for Hubbub Pro is invalid. Please <a href="' . admin_url( 'admin.php?page=dpsp-settings' ) . '">update the license key</a> and try updating the plugin again.') );
+					break;
+				case 'expired':
+					return new WP_Error( 'hubbub-pro-license-expired', __('The license key for Hubbub Pro has expired. Please <a href="' . admin_url( 'admin.php?page=dpsp-settings' ) . '">renew your license</a> and try updating the plugin again.') );
+					break;
+				default: // Allow the plugin update to proceed
+					return $return;
+			}
+		endif;
+
+		return $return;
 	}
 
 	/**

@@ -113,6 +113,7 @@
 		<input type="hidden" name="action" value="update" />
 		<input type="hidden" name="dpsp_settings[always_update]" value="<?php echo ( isset( $dpsp_settings['always_update'] ) && 1 === $dpsp_settings['always_update'] ? 0 : 1 ); ?>" />
 		<p class="submit"><input type="submit" class="dpsp-button-primary" value="<?php esc_html_e( 'Save Changes' ); ?>" /></p>
+		<p><strong>Please note:</strong> To ensure that changes take effect, please clear all caches. (Need help? <a href="https://morehubbub.com/docs/cache-help/" title="Read our support doc on caches">See our support doc</a>.)</p>
 	</form>
 </div>
 

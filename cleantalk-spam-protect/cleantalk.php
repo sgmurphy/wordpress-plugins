@@ -4,7 +4,7 @@
   Plugin Name: Anti-Spam by CleanTalk
   Plugin URI: https://cleantalk.org
   Description: Max power, all-in-one, no Captcha, premium anti-spam plugin. No comment spam, no registration spam, no contact spam, protects any WordPress forms.
-  Version: 6.25.1
+  Version: 6.26
   Author: СleanTalk - Anti-Spam Protection <welcome@cleantalk.org>
   Author URI: https://cleantalk.org
   Text Domain: cleantalk-spam-protect
@@ -515,6 +515,16 @@ $apbct_active_integrations = array(
     ),
     'ProductEnquiryPro'           => array(
         'hook'    => array('mgc_pe_sender_email'),
+        'setting' => 'forms__contact_forms_test',
+        'ajax'    => false
+    ),
+    'WpGeoDirectory' => array(
+        'hook'    => array('geodir_validate_ajax_save_post_data'),
+        'setting' => 'forms__contact_forms_test',
+        'ajax'    => false
+    ),
+    'KaliForms'           => array(
+        'hook'    => array('plugins_loaded'),
         'setting' => 'forms__contact_forms_test',
         'ajax'    => false
     ),
@@ -1357,7 +1367,7 @@ function apbct_sfw_update__worker($checker_work = false)
 
         $direct_upd_res = SFWUpdateHelper::directUpdate();
 
-        if ( $direct_upd_res['error'] ) {
+        if ( !empty($direct_upd_res['error']) ) {
             $apbct->errorAdd('queue', $result['error'], 'sfw_update');
             $apbct->errorAdd('direct', $direct_upd_res['error'], 'sfw_update');
             $apbct->saveErrors();

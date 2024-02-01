@@ -1,5 +1,16 @@
 == Changelog ==
 
+= 1.2.53 =
+
+* Improves the plugin security. Special thanks to Tiffany Tyson, Customer Support Engineer at WordFence. Pay attention to users who pass additional attributes through the form shortcode. In previous plugin versions, the attributes were converted as Javascript variables with global scope. For example, in shortcodes like [CP_CALCULATED_FIELDS id="1" custom_attr="234"], the plugin created the custom_attr variable with value 234, and you could use it directly in the equations as custom_attr*fieldname1. However, this feature hides a serious problem. You could overwrite global variables like window or document. The current plugin update generates the variable as a property of the cff_var object, and you should use it as cff_var['custom_attr'] or cff_var.custom_attr
+
+The previous code example must be overwritten as cff_var['custom_attr']*fieldname1
+* Modifies the RESETFORM operation.
+* The build button supports Ctrl+click to open forms builder on another tab or window.
+* Implements the Developer Notes attribute in the forms controls to display notes in the forms builder only and help the development of complex forms.
+* Fixes an issue in the Popup control.
+* Modifies the processing of the parameters in the SERVER-SIDE equations (Developer and Platinum plugin versions).
+
 = 1.2.52 =
 = 1.2.51 =
 

@@ -84,11 +84,11 @@ function dpsp_update_serial_key_status( $old_settings = [], $new_settings = [] )
 	// Get serial status
 	//$serial_status = dpsp_get_serial_key_status( $serial );
 
-	if ( ! is_null( $serial_status ) ) {
-		update_option( 'dpsp_product_serial_status', $serial_status );
-	} else {
-		update_option( 'dpsp_product_serial_status', '' );
-	}
+	// if ( ! is_null( $serial_status ) ) {
+	// 	update_option( 'dpsp_product_serial_status', $serial_status );
+	// } else {
+	// 	update_option( 'dpsp_product_serial_status', '' );
+	// }
 }
 
 

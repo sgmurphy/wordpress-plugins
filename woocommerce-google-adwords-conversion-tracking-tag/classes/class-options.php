@@ -222,8 +222,11 @@ class Options {
 				'order_list_info'               => true,
 				'subscription_value_multiplier' => 1.00,
 				'ltv'                           => [
+					'order_calculation' => [
+						'is_active' => false,
+					],
 					'automatic_recalculation' => [
-						'is_active' => true,
+						'is_active' => false,
 					],
 				],
 			],
@@ -687,7 +690,17 @@ class Options {
 		return (bool) self::get_options_obj()->google->consent_mode->active;
 	}
 
+	public static function is_order_level_ltv_calculation_active() {
+		return (bool) self::get_options_obj()->shop->ltv->order_calculation->is_active;
+	}
+
 	public static function is_automatic_ltv_recalculation_active() {
 		return (bool) self::get_options_obj()->shop->ltv->automatic_recalculation->is_active;
+	}
+
+	public static function is_ga4_data_api_active() {
+		return
+			self::get_options_obj()->google->analytics->ga4->data_api->property_id
+			&& !empty(self::get_options_obj()->google->analytics->ga4->data_api->credentials);
 	}
 }

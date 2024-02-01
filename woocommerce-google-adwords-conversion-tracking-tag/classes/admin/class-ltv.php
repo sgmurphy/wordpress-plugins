@@ -272,7 +272,9 @@ class LTV {
 		if (
 			Helpers::pmw_as_has_scheduled_action(
 				'pmw_horizontal_ltv_calculation',
-				[ $order_id ]
+				[ 'order_id' => $order_id ],
+				self::$as_group_name,
+				true
 			)
 		) {
 			Logger::info('LTV::horizontal_ltv_calculation_check() - action already scheduled for order ID: ' . $order_id);
@@ -281,8 +283,11 @@ class LTV {
 
 		as_enqueue_async_action(
 			'pmw_horizontal_ltv_calculation',
-			[ $order_id ],
-			self::$as_group_name . '_' . $order->get_billing_email()
+			[
+				'order_id'      => $order_id,
+				'billing_email' => $order->get_billing_email(),
+			],
+			self::$as_group_name
 		);
 	}
 
@@ -301,6 +306,16 @@ class LTV {
 	 * @since 1.35.1
 	 */
 	public static function horizontal_ltv_calculation( $order_id ) {
+
+		if (Environment::cannot_run_action_scheduler()) {
+			Logger::debug('LTV::horizontal_ltv_calculation() - cannot run action scheduler');
+			return;
+		}
+
+		// Stop if the order level LTV calculation is not active
+		if (!Options::is_order_level_ltv_calculation_active()) {
+			return;
+		}
 
 		$order = wc_get_order($order_id);
 
@@ -323,7 +338,9 @@ class LTV {
 		if (
 			Helpers::pmw_as_has_scheduled_action(
 				'pmw_horizontal_ltv_calculation',
-				[ $next_order_id ]
+				[ 'order_id' => $next_order_id ],
+				self::$as_group_name,
+				true
 			)
 		) {
 			Logger::info('LTV::horizontal_ltv_calculation() - action already scheduled for order ID: ' . $next_order_id);
@@ -333,8 +350,8 @@ class LTV {
 		// Use the action scheduler to schedule the next order for LTV calculation
 		as_enqueue_async_action(
 			'pmw_horizontal_ltv_calculation',
-			[ $next_order_id ],
-			self::$as_group_name . '_' . $order->get_billing_email()
+			[ 'order_id' => $next_order_id ],
+			self::$as_group_name
 		);
 	}
 
@@ -371,13 +388,13 @@ class LTV {
 		// and not all PMW order values are set,
 		// it means the LTV calculation on that old order came from a previous version of the plugin.
 		// Therefore, we need to schedule a complete vertical LTV calculation.
-		if (
-			$previous_order
-			&& !self::are_all_pmw_order_values_set($previous_order)
-			&& Options::is_automatic_ltv_recalculation_active()
-		) {
-			self::schedule_complete_vertical_ltv_calculation();
-		}
+//		if (
+//			$previous_order
+//			&& !self::are_all_pmw_order_values_set($previous_order)
+//			&& Options::is_automatic_ltv_recalculation_active()
+//		) {
+//			self::schedule_complete_vertical_ltv_calculation();
+//		}
 
 		// If there is a previous order and all PMW order values are set, calculate the LTV
 		if ($previous_order && self::are_all_pmw_order_values_set($previous_order)) {
@@ -386,7 +403,7 @@ class LTV {
 
 			// Check if the marketing order value calculation changed
 			// If yes, schedule a complete vertical LTV calculation
-			self::vertical_recalculation_if_the_marketing_order_value_calculation_changed($previous_order);
+//			self::vertical_recalculation_if_the_marketing_order_value_calculation_changed($previous_order);
 		} else {
 			$order_values['marketing_ltv'] = $order_values['marketing_order_value'];
 			$order_values['total_ltv']     = $order_values['total_order_value'];
@@ -414,6 +431,11 @@ class LTV {
 	 * @since 1.35.1
 	 */
 	private static function vertical_recalculation_if_the_marketing_order_value_calculation_changed( $order ) {
+
+		if (Environment::cannot_run_action_scheduler()) {
+			Logger::debug('LTV::vertical_recalculation_if_the_marketing_order_value_calculation_changed() - cannot run action scheduler');
+			return;
+		}
 
 		// Return if the automatic LTV recalculation is not active
 		if (!Options::is_automatic_ltv_recalculation_active()) {
@@ -534,7 +556,7 @@ class LTV {
 			if (
 				Helpers::pmw_as_has_scheduled_action(
 					'pmw_horizontal_ltv_calculation_check',
-					[ $order_id ],
+					[ 'order_id' => $order_id ],
 					self::$as_group_name
 				)
 			) {
@@ -543,7 +565,7 @@ class LTV {
 
 			as_enqueue_async_action(
 				'pmw_horizontal_ltv_calculation_check',
-				[ $order_id ],
+				[ 'order_id' => $order_id ],
 				self::$as_group_name
 			);
 		}
@@ -556,7 +578,7 @@ class LTV {
 			if (
 				Helpers::pmw_as_has_scheduled_action(
 					'pmw_batch_process_vertical_ltv_calculation',
-					[ $last_order_id ],
+					[ 'order_id' => $last_order_id ],
 					self::$as_group_name
 				)
 			) {
@@ -565,7 +587,7 @@ class LTV {
 
 			as_enqueue_async_action(
 				'pmw_batch_process_vertical_ltv_calculation',
-				[ $last_order_id ],
+				[ 'order_id' => $last_order_id ],
 				self::$as_group_name
 			);
 		}
@@ -587,6 +609,11 @@ class LTV {
 	 */
 	public static function schedule_complete_vertical_ltv_calculation() {
 
+		if (Environment::cannot_run_action_scheduler()) {
+			Logger::debug('LTV::schedule_complete_vertical_ltv_calculation() - cannot run action scheduler');
+			return false;
+		}
+
 		$first_order_id = self::get_the_first_order_in_the_db();
 
 		if (!$first_order_id) {
@@ -597,7 +624,7 @@ class LTV {
 		if (
 			Helpers::pmw_as_has_scheduled_action(
 				'pmw_batch_process_vertical_ltv_calculation',
-				[ $first_order_id ],
+				[ 'order_id' => $first_order_id ],
 				self::$as_group_name
 			)
 		) {
@@ -608,7 +635,7 @@ class LTV {
 		as_schedule_single_action(
 			Helpers::datetime_string_to_unix_timestamp_in_local_timezone('tomorrow 2:25am'),
 			'pmw_batch_process_vertical_ltv_calculation',
-			[ $first_order_id ],
+			[ 'order_id' => $first_order_id ],
 			self::$as_group_name,
 			true
 		);
@@ -650,13 +677,13 @@ class LTV {
 		if (
 			Helpers::pmw_as_has_scheduled_action(
 				'pmw_batch_process_vertical_ltv_calculation',
-				[ $first_order_id ],
+				[ 'order_id' => $first_order_id ],
 				self::$as_group_name
 			)
 		) {
 			as_unschedule_action(
 				'pmw_batch_process_vertical_ltv_calculation',
-				[ $first_order_id ],
+				[ 'order_id' => $first_order_id ],
 				self::$as_group_name
 			);
 		}
@@ -664,7 +691,7 @@ class LTV {
 		// Schedule the calculation to run immediately
 		as_enqueue_async_action(
 			'pmw_batch_process_vertical_ltv_calculation',
-			[ $first_order_id ],
+			[ 'order_id' => $first_order_id ],
 			self::$as_group_name
 		);
 
@@ -694,6 +721,19 @@ class LTV {
 			&& self::is_recalculation_running() === false;
 	}
 
+	/**
+	 * Stops the Lifetime Value (LTV) recalculation process.
+	 *
+	 * This method unschedules all actions related to the LTV recalculation process.
+	 * It uses the Action Scheduler library to unschedule all actions with the following hooks:
+	 * - 'pmw_horizontal_ltv_calculation_check'
+	 * - 'pmw_horizontal_ltv_calculation'
+	 * - 'pmw_batch_process_vertical_ltv_calculation'
+	 *
+	 * @return void
+	 *
+	 * @since 1.37.1
+	 */
 	public static function stop_ltv_recalculation() {
 		as_unschedule_all_actions('pmw_horizontal_ltv_calculation_check');
 		as_unschedule_all_actions('pmw_horizontal_ltv_calculation');
@@ -739,14 +779,15 @@ class LTV {
 		if (
 			Helpers::pmw_as_has_scheduled_action(
 				$action->get_hook(),
-				[ $action->get_args()[0] ],
+				$action->get_args(),
 				$action->get_group()
 			)
 		) {
+			Logger::debug('LTV::handle_action_scheduler_failed_action() - action ID ' . $action_id . ' is already scheduled');
 			return;
 		}
 
-		Logger::debug('LTV::handle_action_scheduler_failed_action() - rescheduling order ID: ' . $action->get_args()[0]);
+		Logger::debug('LTV::handle_action_scheduler_failed_action() - rescheduling action: hook: ' . $action->get_hook() . ' - args: ' . print_r($action->get_args(), true) . ' - group: ' . $action->get_group());
 
 		// If the hook name is pmw_horizontal_ltv_calculation
 		// And the group name is pmw_ltv_calculation_ followed by the email address fom the order
@@ -754,7 +795,7 @@ class LTV {
 
 		if (
 			$action->get_hook() == 'pmw_horizontal_ltv_calculation'
-			&& self::is_horizontal_ltv_calculation_in_progress($action->get_args()[0])
+			&& self::is_horizontal_ltv_calculation_in_progress($action->get_args()['order_id'])
 		) {
 			Logger::debug('LTV::handle_action_scheduler_failed_action() - horizontal ltv calculation for this customer is already in progress - stopping');
 			return;
@@ -763,7 +804,7 @@ class LTV {
 		as_schedule_single_action(
 			0,
 			$action->get_hook(),
-			[ $action->get_args()[0] ],
+			$action->get_args(),
 			$action->get_group()
 		);
 	}
@@ -792,8 +833,9 @@ class LTV {
 		if (
 			Helpers::pmw_as_has_scheduled_action(
 				'pmw_horizontal_ltv_calculation',
-				null,
-				self::$as_group_name . '_' . $order->get_billing_email()
+				[ 'billing_email' => $order->get_billing_email() ],
+				self::$as_group_name,
+				true
 			)
 		) {
 			return true;

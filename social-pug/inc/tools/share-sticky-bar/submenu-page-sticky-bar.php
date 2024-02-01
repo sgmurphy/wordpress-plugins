@@ -4,6 +4,12 @@
  * Function that creates the sub-menu item and page for the sticky bar location of the share buttons.
  */
 function dpsp_register_sticky_bar_subpage() {
+	// Only run if user Lite or user has valid license
+	// Temporarily deprecated
+	// if ( ! dpsp_should_show_settings() ) {
+	// 	return;
+	// }
+	
 	// Only run if share sticky bar is active
 	if ( ! dpsp_is_tool_active( 'share_sticky_bar' ) ) {
 		return;

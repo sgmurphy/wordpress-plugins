@@ -49,22 +49,6 @@ class Admin
         add_action( 'init', [ $this, 'load_plugin_textdomain' ] );
         wpm_fs()->add_filter( 'templates/checkout.php', [ $this, 'fs_inject_additional_scripts' ] );
         wpm_fs()->add_filter( 'checkout/purchaseCompleted', [ $this, 'fs_after_purchase_js' ] );
-        // end __construct
-        if ( wpm_fs()->can_use_premium_code__premium_only() && $this->google->is_ga4_data_api_active() ) {
-            // https://stackoverflow.com/a/45617265/4688612
-            // https://stackoverflow.com/a/37780501/4688612
-            add_action( 'add_meta_boxes', function () {
-                $screen = ( Helpers::is_wc_hpos_enabled() && wc_get_container()->get( \Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled() ? wc_get_page_screen_id( 'shop-order' ) : 'shop_order' );
-                add_meta_box(
-                    'pixel-manager-order-modal',
-                    esc_html__( 'Pixel Manager', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
-                    [ $this, 'pmw_order_modal__premium_only' ],
-                    $screen,
-                    'side',
-                    'core'
-                );
-            } );
-        }
         // output some info into the wpmDataLayer object in the header
         add_action( 'admin_head', [ __CLASS__, 'wpm_data_layer' ] );
     }
@@ -662,14 +646,24 @@ class Admin
                 $section_ids['settings_name']
             );
         }
-        // Add a button to enable the automatic lifetime value recalculation
+        // Add a button to enable the lifetime calculation on orders
         add_settings_field(
-            'pmw_setting_ltv_automatic_recalculation',
-            esc_html__( 'Automatic Lifetime Value Recalculation', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_experiment(),
-            [ $this, 'html_ltv_automatic_recalculation' ],
+            'pmw_setting_ltv_on_orders',
+            esc_html__( 'Lifetime Value Calculation on Orders', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
+            [ $this, 'html_ltv_calculation_on_orders' ],
             'wpm_plugin_options_page',
             $section_ids['settings_name']
         );
+        if ( Helpers::is_experiment() ) {
+            // Add a button to enable the automatic lifetime value recalculation
+            add_settings_field(
+                'pmw_setting_ltv_automatic_recalculation',
+                esc_html__( 'Automatic Lifetime Value Recalculation', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_experiment(),
+                [ $this, 'html_ltv_automatic_recalculation' ],
+                'wpm_plugin_options_page',
+                $section_ids['settings_name']
+            );
+        }
         // Add a button to schedule a lifetime value recalculation
         add_settings_field(
             'pmw_setting_ltv_manual_recalculation',
@@ -4464,6 +4458,32 @@ class Admin
 		<?php 
     }
     
+    public function html_ltv_calculation_on_orders()
+    {
+        // adding the hidden input is a hack to make WordPress save the option with the value zero,
+        // instead of not saving it and remove that array key entirely
+        // https://stackoverflow.com/a/1992745/4688612
+        ?>
+		<label>
+			<input type='hidden' value='0' name='wgact_plugin_options[shop][ltv][order_calculation][is_active]'>
+			<input type='checkbox' id='pmw_setting_ltv_on_orders'
+				   name='wgact_plugin_options[shop][ltv][order_calculation][is_active]'
+				   value='1' <?php 
+        checked( Options::is_order_level_ltv_calculation_active() );
+        ?>
+			/>
+
+			<?php 
+        esc_html_e( 'Enable the lifetime calculation on new orders.', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        ?>
+		</label>
+		<?php 
+        self::display_status_icon( Options::is_order_level_ltv_calculation_active() );
+        ?>
+		<?php 
+        self::get_documentation_html_by_key( 'ltv_order_calculation' );
+    }
+    
     public function html_ltv_automatic_recalculation()
     {
         // adding the hidden input is a hack to make WordPress save the option with the value zero,
@@ -4497,40 +4517,55 @@ class Admin
         ?>
 		<div style="display: flex;">
 			<button id="wgact_ltv_recalculation" class="button button-primary" style="margin-top: 0">
-				<span id="ltv-schedule-recalculation-button-text"
-					  class="ltv-button-text"
-					  data-action="schedule_ltv_recalculation">
-					<?php 
+			  <span id="ltv-schedule-recalculation-button-text"
+					class="ltv-button-text"
+					data-action="schedule_ltv_recalculation"
+			  >
+			   <?php 
         esc_html_e( 'Schedule LTV recalculation', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
-				</span>
+			  </span>
 				<span id="ltv-instant-recalculation-button-text"
 					  class="ltv-button-text"
-					  style="display: none;" data-action="run_ltv_recalculation">
-					<?php 
+					  style="display: none;"
+					  data-action="run_ltv_recalculation"
+				>
+				   <?php 
         esc_html_e( 'Instant LTV recalculation', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
-				</span>
+				  </span>
+			</button>
+			<button id="pmw_stop_ltv_calculation"
+					class="button button-primary"
+					style="margin-top: 0; margin-left: 10px;"
+					data-action="stop_ltv_recalculation"
+			>
+				<?php 
+        esc_html_e( 'Stop all LTV calculations', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        ?>
 			</button>
 			<div id="ltv-schedule-recalculation-confirmation-message"
 				 class="ltv-message"
-				 style="display: none; margin-left: 10px;">
+				 style="display: none; margin-left: 10px;"
+			>
 				<?php 
         esc_html_e( 'Recalculation has been scheduled for a run over night. Click one more time to start the recalculation immediately.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 			</div>
 			<div id="ltv-running-recalculation-confirmation-message"
 				 class="ltv-message"
-				 style="display: none; margin-left: 10px;">
+				 style="display: none; margin-left: 10px;"
+			>
 				<?php 
         esc_html_e( 'The recalculation is running.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 			</div>
 			<div id="ltv-message-error"
 				 class="ltv-message"
-				 style="display: none; margin-left: 10px;">
-				<span id="ltv-message-error-text">
-				</span>
+				 style="display: none; margin-left: 10px;"
+			>
+				  <span id="ltv-message-error-text">
+				  </span>
 			</div>
 			<?php 
         self::get_documentation_html_by_key( 'ltv_recalculation' );

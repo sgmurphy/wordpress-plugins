@@ -68,7 +68,9 @@
   display: block;
   position: relative;
 }
-.twae-horizontal-timeline.twae-wrapper .twae-slider-container.swiper-container {
+
+.twae-horizontal-timeline.twae-wrapper .twae-slider-container.swiper-container,
+.twae-horizontal-timeline.twae-wrapper .twae-slider-container.swiper-container .swiper-wrapper{
   overflow: visible;
 }
 /* ------------------------------ Slider - END ------------------------------ */

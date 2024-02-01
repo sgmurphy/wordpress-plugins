@@ -4,6 +4,12 @@
  * Creates the sub-menu item and page for the floating sidebar location of the share buttons.
  */
 function dpsp_register_floating_sidebar_subpage() {
+	// Only run if user Lite or user has valid license
+	// Temporarily deprecated
+	// if ( ! dpsp_should_show_settings() ) {
+	// 	return;
+	// }
+	
 	// Only run if share sidebar is active
 	if ( ! dpsp_is_tool_active( 'share_sidebar' ) ) {
 		return;

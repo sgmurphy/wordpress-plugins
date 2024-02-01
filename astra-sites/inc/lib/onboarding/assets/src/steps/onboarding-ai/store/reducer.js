@@ -173,6 +173,7 @@ export const initialState = {
 				list: [],
 				currentPage: 0,
 			},
+			siteFeatures: [],
 		},
 		websiteInfo: aiStepValues?.websiteInfo || {},
 		websiteVersionList: [],
@@ -498,7 +499,7 @@ const reducer = ( state = initialState, action ) => {
 			disableAi: actionTypes?.payload ?? ! state.disableAi,
 		};
 	} else if ( action.type === actionTypes.SET_NEXT_AI_STEP ) {
-		const TOTAL_STEPS = 11;
+		const TOTAL_STEPS = 12;
 		const nextStep = state.onboardingAI.currentStep + 1;
 		if ( nextStep > TOTAL_STEPS ) {
 			return state;
@@ -981,6 +982,43 @@ const reducer = ( state = initialState, action ) => {
 				showOnboarding: ! state.onboardingAI.showOnboarding,
 				updateImages: ! state.onboardingAI.updateImages,
 				currentStep: ! state.onboardingAI.updateImages ? 6 : 1,
+			},
+		};
+	}
+
+	if ( action.type === actionTypes.STORE_SITE_FEATURES ) {
+		const stepData = { ...state.onboardingAI.stepData };
+		return {
+			...state,
+			onboardingAI: {
+				...state.onboardingAI,
+				stepData: {
+					...stepData,
+					siteFeatures: action.payload,
+				},
+			},
+		};
+	}
+
+	if ( action.type === actionTypes.SET_SITE_FEATURES ) {
+		return {
+			...state,
+			onboardingAI: {
+				...state.onboardingAI,
+				stepData: {
+					...state.onboardingAI.stepData,
+					siteFeatures: state.onboardingAI.stepData.siteFeatures.map(
+						( item ) => {
+							if ( item.id === action.payload ) {
+								return {
+									...item,
+									enabled: ! item.enabled,
+								};
+							}
+							return item;
+						}
+					),
+				},
 			},
 		};
 	}

@@ -97,6 +97,8 @@ class Activation extends \Social_Pug {
 				return;
 			}
 
+			$previous_license_status = get_option( self::OPTION_LICENSE_STATUS );
+
 			$edd_license_status = $response['license'] ?? null;
 
 			switch ( $edd_license_status) {
@@ -104,6 +106,7 @@ class Activation extends \Social_Pug {
 					$this->set_license_status( self::LICENSE_STATUS_EXPIRED );
 					return;
 				case 'inactive':
+				case 'site_inactive':
 					$this->set_license_status( self::LICENSE_STATUS_INACTIVE );
 					try {
 						$activation_response = $this->api_request( [
@@ -125,6 +128,9 @@ class Activation extends \Social_Pug {
 						update_option('hubbub_temp_site_activated_message', $response['error'] );
 					} else {
 						$this->set_license_status( self::LICENSE_STATUS_VALID ); // Sets license to active
+						if ( $previous_license_status != 'valid' ) : // If the license was anything except valid
+							set_transient( 'hubbub_license_activated_on_this_website', true, 60 ); // shows woohoo message
+						endif;
 					}
 					
 					return;
@@ -133,6 +139,9 @@ class Activation extends \Social_Pug {
 					return;
 				case 'valid':
 					$this->set_license_status( self::LICENSE_STATUS_VALID );
+					if ( $previous_license_status != 'valid' ) : // If the license was anything except valid
+						set_transient( 'hubbub_license_activated_on_this_website', true, 60 ); // shows woohoo message
+					endif;
 					return;
 			}
 
@@ -306,13 +315,6 @@ class Activation extends \Social_Pug {
 			throw new InvalidArgumentException( 'Invalid $license_status: ' . $license_status );
 		}
 
-		// Disallow invalid license status as of 2.16.0, clear existing status
-		if ( self::LICENSE_STATUS_INVALID === $license_status ) {
-			delete_option( self::OPTION_LICENSE_STATUS );
-			update_option( self::OPTION_LICENSE_STATUS_DATE, time() );
-			return;
-		}
-
 		update_option( self::OPTION_LICENSE_STATUS, $license_status );
 		update_option( self::OPTION_LICENSE_STATUS_DATE, time() );
 	}
@@ -327,6 +329,8 @@ class Activation extends \Social_Pug {
 		$grow_license = $new_values['mv_grow_license'] ?? null;
 
 		if ( empty( $grow_license ) || null === $grow_license ) return;
+
+		$previous_license_status = get_option( self::OPTION_LICENSE_STATUS );
 
 		try {
 			$response = $this->api_request( [
@@ -375,9 +379,8 @@ class Activation extends \Social_Pug {
 
 				if ( ! isset( $activation_response['error'] ) ) {
 					$this->set_license_status( self::LICENSE_STATUS_VALID ); // Sets license to active
+					set_transient( 'hubbub_license_activated_on_this_website', true, 60 ); // Shows woohoo message
 				}
-
-				if ( $activation_response['error'])
 				
 				return;
 			case 'invalid':
@@ -385,6 +388,10 @@ class Activation extends \Social_Pug {
 				return;
 			case 'valid':
 				$this->set_license_status( self::LICENSE_STATUS_VALID );
+
+				if ( $previous_license_status != 'valid' ) : // If the license was anything except valid
+					set_transient( 'hubbub_license_activated_on_this_website', true, 60 ); // shows woohoo message
+				endif;
 				return;
 		}
 

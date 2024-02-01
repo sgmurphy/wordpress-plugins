@@ -4,6 +4,12 @@
  * Function that creates the sub-menu item and page for the content location of the share buttons.
  */
 function dpsp_register_content_subpage() {
+	// Only run if user Lite or user has valid license
+	// Temporarily deprecated
+	// if ( ! dpsp_should_show_settings() ) {
+	// 	return;
+	// }
+	
 	// Only run if share content is active
 	if ( ! dpsp_is_tool_active( 'share_content' ) ) {
 		return;

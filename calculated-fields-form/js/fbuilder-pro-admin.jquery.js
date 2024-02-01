@@ -1284,6 +1284,11 @@
 					{
 						alert($(this).attr("text"));
 					});
+				$("#sDeveloperNotes").on("keyup", {obj: this}, function(e)
+					{
+						e.data.obj._developerNotes = $(this).val();
+						$.fbuilder.reloadItems( {'field': e.data.obj} );
+					});
 			},
 
 			showSpecialData:function()
@@ -1407,6 +1412,18 @@
 				return $.fbuilder.showSettings.showCsslayout(this.csslayout);
 			},
 
+			showDeveloperNotes:function()
+			{
+				if(typeof this._developerNotes != 'undefined')
+				{
+					return '<hr><label>Developer Notes</label><textarea class="large" name="sDeveloperNotes" id="sDeveloperNotes">'+cff_esc_attr(this._developerNotes)+'</textarea><div class="clearer"><span class="uh">Developer notes. Only visible in the Form Builder</span></div><hr>';
+				}
+				else
+				{
+					return "";
+				}
+			},
+
 			showAllSettings:function()
 			{
 				return this.showFieldType()+this.showTitle()+this.showShortLabel()+this.showName()+this.showSize()+this.showLayout()+this.showFormat()+this.showRange()+this.showRequired()+this.showSpecialData()+this.showEqualTo()+this.showPredefined()+this.showChoice()+this.showUserhelp()+this.showCsslayout();
@@ -1424,7 +1441,7 @@
 
 			showName:function()
 			{
-				return $.fbuilder.showSettings.showName(this.name);
+				return $.fbuilder.showSettings.showName(this.name)+this.showDeveloperNotes();
 			},
 
 			showShortLabel:function()

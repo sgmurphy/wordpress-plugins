@@ -399,7 +399,13 @@
 										$("#fieldlist"+fid+" .pb0").find(".field").removeClass("ignorepb");
 										try
 										{
-											$("#fieldlist"+fid+" .pb0").find(".field")[0].focus();
+											let first_field = $("#fieldlist"+fid+" .pb0").find(".field:eq(0)");
+											if ( first_field.hasClass('hasDatepicker') ) {
+												first_field.datepicker( 'option', 'showOn', 'none' );
+												first_field.focus();
+												first_field.datepicker( 'option', 'showOn', 'focus' );
+												first_field.blur();
+											} else  first_field.focus();
 										}
 										catch(e){}
 									}

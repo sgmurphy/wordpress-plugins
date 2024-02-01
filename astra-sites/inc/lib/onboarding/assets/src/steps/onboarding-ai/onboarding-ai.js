@@ -35,6 +35,7 @@ import { STORE_KEY } from './store';
 import LimitExceedModal from './components/limit-exceeded-modal';
 import GetStarted from './get-started-step-ai';
 import ContinueProgressModal from './components/continue-progress-modal';
+import Features from './features';
 
 const { imageDir } = starterTemplates;
 
@@ -96,6 +97,15 @@ const steps = [
 	},
 	{
 		stepNumber: 7,
+		name: 'Features',
+		description: 'Select features as you need',
+		screen: 'features',
+		contentClassName:
+			'px-0 pt-0 md:px-0 md:pt-0 lg:px-0 lg:pt-0 xl:px-0 xl:pt-0',
+		component: <Features />,
+	},
+	{
+		stepNumber: 8,
 		// name: 'Building Website', // actual name
 		// description: 'Building your site',
 		name: 'Configure',
@@ -114,7 +124,7 @@ const steps = [
 		hideStep: true,
 	},
 	{
-		stepNumber: 8,
+		stepNumber: 9,
 		// name: 'Migrate', // actual name
 		// description: 'Migrating your site',
 		// screen: 'migrate',

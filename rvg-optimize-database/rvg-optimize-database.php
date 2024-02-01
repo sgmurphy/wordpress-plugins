@@ -1,16 +1,15 @@
 <?php
 /**
  * @package Optimize Database after Deleting Revisions
- * @version 5.1.1
+ * @version 5.2
  */
 /*
 Plugin Name: Optimize Database after Deleting Revisions
-Plugin URI: http://cagewebdev.com/optimize-database-after-deleting-revisions-wordpress-plugin/
-Description: Optimizes the Wordpress Database after Cleaning it out
-Author: CAGE Web Design | Rolf van Gelder, Eindhoven, The Netherlands
-Author URI: http://cagewebdev.com
+Description: One-click database optimization with precise revision cleanup and flexible scheduling. <a href="https://www.nerdpress.net/announcing-optimize-database/">Now managed by NerdPress!</a>
+Author: NerdPress
+Author URI: https://www..nerdpress.net
 Network: True
-Version: 5.1.1
+Version: 5.2
 */
 
 /********************************************************************************************
@@ -28,6 +27,7 @@ add_action( 'plugins_loaded', function() {
 	if (
 		! empty( $action )
 		&& isset( $_GET['_wpnonce'] )
+		&& current_user_can( 'manage_options' )
 		&& wp_verify_nonce( $_GET['_wpnonce'], 'rvg-optimize-database' )
 	) {
 		if ($action == 'analyze_summary' ||
@@ -47,7 +47,7 @@ add_action( 'plugins_loaded', function() {
 
 	class OptimizeDatabase {
 		// VERSION
-		var $odb_version           = '5.1.1';
+		var $odb_version           = '5.2';
 
 		// PLUGIN OPTIONS
 		var $odb_rvg_options       = array();
@@ -79,6 +79,7 @@ add_action( 'plugins_loaded', function() {
 		// PLUGIN
 		var $odb_plugin_url;
 		var $odb_plugin_path;
+		var $odb_logfile_debug_path;
 
 		// DATABASE TABLE FOR LOGGING
 		// v4.6
@@ -139,7 +140,12 @@ add_action( 'plugins_loaded', function() {
 			// LOAD STYLE SHEET (ONLY ON RELEVANT PAGES)
 			// v4.0.3
 			if($this->odb_is_relevant_page()) {
-				wp_register_style('odb-style'.$this->odb_version, plugins_url('css/style'.$this->odb_minify.'.css', __FILE__));
+				wp_register_style(
+					'odb-style'.$this->odb_version,
+					plugins_url('css/style.css', __FILE__),
+					array(),
+					$this->odb_version
+				);
 				wp_enqueue_style('odb-style'.$this->odb_version);
 			} // if($this->odb_is_relevant_page())
 
@@ -685,6 +691,13 @@ add_action( 'plugins_loaded', function() {
 		function odb_start($scheduler) {
 			$this->odb_create_log_table();
 
+			// Ensure current user (if applicable) can view this page.
+			if(!$scheduler) {
+				if ( ! is_user_logged_in() || ! current_user_can( 'manage_options' ) ) {
+					return;
+				}
+			}
+
 			// PAGE LOAD TIMER
 			$time  = microtime();
 			$time  = explode(' ', $time);
@@ -692,9 +705,14 @@ add_action( 'plugins_loaded', function() {
 			$this->odb_start_time = $time;
 
 			$action = '';
-			if(isset($_REQUEST['action'])) {
+			if(isset($_REQUEST['action']) && isset($_REQUEST['page']) && 'rvg-optimize-database' === $_REQUEST['page']) {
 				$action = $_REQUEST['action'];
-
+			}
+			if (
+				! empty( $action )
+				&& isset( $_GET['_wpnonce'] )
+				&& wp_verify_nonce( $_GET['_wpnonce'], 'rvg-optimize-database' )
+			) {
 				// v4.6
 				if($action == 'view_log') {
 					// SHOW THE LOGS
@@ -713,6 +731,10 @@ add_action( 'plugins_loaded', function() {
 					echo "</p></div>";
 				} // if($action == "clear_log")
 			} // if(isset($_REQUEST['action']))
+			else {
+				// Assume there is no action or the nonce failed verification.
+				$action = '';
+			}
 
 			if(!$scheduler) {
 				// SHOW PAGE HEADER
@@ -769,11 +791,12 @@ add_action( 'plugins_loaded', function() {
 	<p>
 	<h4 class="odb-red odb-bold"><?php echo $msg1?></h4>
 	<br>
+	<?php $nonce = wp_create_nonce( 'rvg-optimize-database' ); ?>
 	<input class="button odb-normal" type="button" name="cancel" value="<?php echo $btn1?>" onclick="self.location='tools.php?page=rvg-optimize-database'">
 	&nbsp;
-	&nbsp;<input class="button-primary button-large" type="button" name="optimize_summary" value="<?php echo $btn2?>" onclick="self.location='tools.php?page=rvg-optimize-database&action=run_summary'" class="odb-bold">
+	&nbsp;<input class="button-primary button-large" type="button" name="optimize_summary" value="<?php echo $btn2?>" onclick="self.location='tools.php?page=rvg-optimize-database&action=run_summary&_wpnonce=<?php echo esc_attr( $nonce ); ?>'" class="odb-bold">
 	&nbsp;
-	&nbsp;<input class="button-primary button-large" type="button" name="optimize_detail" value="<?php echo $btn3?>" onclick="self.location='tools.php?page=rvg-optimize-database&action=run_detail'" class="odb-bold">
+	&nbsp;<input class="button-primary button-large" type="button" name="optimize_detail" value="<?php echo $btn3?>" onclick="self.location='tools.php?page=rvg-optimize-database&action=run_detail&_wpnonce=<?php echo esc_attr( $nonce ); ?>'" class="odb-bold">
 
 	</p>
 	</div><!-- /odb-start-buttons -->

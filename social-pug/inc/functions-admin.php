@@ -40,7 +40,7 @@ function dpsp_get_admin_header( string $page ) : string {
 	<span class="dpsp-logo">
 	<img alt="{$logo_alt}" class="mv-grow-logo" src="{$logo_src}">
 
-	<span class="dpsp-logo-inner">Hubbub Lite (formerly Grow Social)</span>
+	<span class="dpsp-logo-inner">Hubbub Lite</span>
 	<small class="dpsp-version">v.{$html_version}</small>
 	</span>
 
@@ -68,17 +68,17 @@ function dpsp_get_documentation_link( string $page ) : string {
 			$url = 'https://morehubbub.com/docs/how-to-add-social-sharing-buttons-as-a-floating-sidebar/';
 			break;
 		case 'content':
-			$url = 'https://morehubbub.com/docs/how-to-add-social-share-buttons-before-and-after-your-post-s-content';
+			$url = 'https://morehubbub.com/docs/how-to-add-social-share-buttons-before-and-after-your-post-s-content/';
 			break;
 		case 'sticky-bar':
 		case 'mobile':
-			$url = 'https://morehubbub.com/docs/sticky-bar-sharing-buttons';
+			$url = 'https://morehubbub.com/docs/sticky-bar-sharing-buttons/';
 			break;
 		case 'pinterest-images':
-			$url = 'https://morehubbub.com/docs/how-to-add-a-pin-it-button-to-your-post-s-images';
+			$url = 'https://morehubbub.com/docs/how-to-add-a-pin-it-button-to-your-post-s-images/';
 			break;
 		case 'follow-widget':
-			$url = 'https://morehubbub.com/docs/using-the-follow-widget-in-grow-social-pro';
+			$url = 'https://morehubbub.com/docs/using-the-follow-widget-in-grow-social-pro/';
 			break;
 		case 'import-export':
 		case 'pop-up':

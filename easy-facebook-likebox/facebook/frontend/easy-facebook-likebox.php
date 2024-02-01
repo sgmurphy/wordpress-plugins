@@ -30,7 +30,7 @@ class Easy_Facebook_Likebox
      *
      * @var     string
      */
-    const  VERSION = '6.5.3' ;
+    const  VERSION = '6.5.4' ;
     /**
      *
      * Unique identifier for your plugin.
@@ -401,7 +401,7 @@ class Easy_Facebook_Likebox
 					  if (d.getElementById(id)) return;
 					  js = d.createElement(s); js.id = id;
 					  js.async=true; 
-					  js.src = "//connect.facebook.net/' . $locale . '/all.js#xfbml=1&appId=' . $fb_appid . '";
+					  js.src = "//connect.facebook.net/' . esc_attr( $locale ) . '/all.js#xfbml=1&appId=' . esc_attr( $fb_appid ) . '";
 					  fjs.parentNode.insertBefore(js, fjs);
 					}(document, \'script\', \'facebook-jssdk\'));</script>';
         $likebox_instance = $this->likebox_instance;

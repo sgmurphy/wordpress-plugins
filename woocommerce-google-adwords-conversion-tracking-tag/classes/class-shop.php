@@ -331,8 +331,17 @@ class Shop
         return count( self::get_all_order_ids_by_billing_email( $billing_email ) );
     }
     
-    public static function can_ltv_be_processed( $order )
+    public static function can_ltv_be_processed_on_order( $order )
     {
+        if ( !Options::is_order_level_ltv_calculation_active() ) {
+            return false;
+        }
+        
+        if ( Environment::cannot_run_action_scheduler() ) {
+            Logger::debug( 'can_ltv_be_processed is not available in this environment. The active Action Scheduler version is ' . Environment::get_action_scheduler_version() . ' and the minimum required version is ' . Environment::get_action_scheduler_minimum_version() );
+            return false;
+        }
+        
         // Abort if is not a valid email
         if ( !Helpers::is_email( $order->get_billing_email() ) ) {
             return false;

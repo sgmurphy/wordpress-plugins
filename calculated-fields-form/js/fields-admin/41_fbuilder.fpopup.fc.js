@@ -13,6 +13,7 @@
 			title:"",
 			titletag:"P",
 			ftype:"fpopup",
+			_developerNotes:'',
 			fields:[],
 			open_onload:false,
 			open_onclick:'',
@@ -30,7 +31,7 @@
 					'<div class="cff-popup-header">'+(this.title.length ? '<' + this.titletag+ ' class="cff-popup-title">'+this.title+'</' + this.titletag+ '>' : '')+
 					(this.close_button ? '<div class="cff-popup-close ui-icon ui-icon-close"></div>' : '')+
 					'</div>'+
-					'<div class="fcontainer">'+$.fbuilder.controls['fcontainer'].prototype.columnsSticker.call(this)+'<label class="collapsed-label">Collapsed ['+this.name+']</label><div class="fieldscontainer"></div></div></div><div class="clearer" /></div>';
+					'<div class="fcontainer">'+$.fbuilder.controls['fcontainer'].prototype.columnsSticker.call(this)+'<span class="developer-note">'+$.fbuilder.htmlEncode(this._developerNotes)+'</span><label class="collapsed-label">Collapsed ['+this.name+']</label><div class="fieldscontainer"></div></div></div><div class="clearer" /></div>';
 				},
 			editItemEvents:function()
 				{
@@ -66,7 +67,7 @@
 					let me = this;
 					return '<label>Popup Title</label><textarea class="large" name="sTitle" id="sTitle">'+cff_esc_attr(me.title)+'</textarea>'+
 					'<div><label>Title Tag</label><select class="large" id="sTitleTag" name="sTitleTag">'+
-					['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P'].reduce(function(o, t){ return o += '<option value="'+t+'" '+(t == me.titletag ? 'SELECTED' : '')+'>'+t+'</option>';}, '');
+					['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P'].reduce(function(o, t){ return o += '<option value="'+t+'" '+(t == me.titletag ? 'SELECTED' : '')+'>'+t+'</option>';}, '')+'</select>';
 				},
 			showPopupSettings:function()
 				{

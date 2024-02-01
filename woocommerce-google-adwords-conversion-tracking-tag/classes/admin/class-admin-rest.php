@@ -69,8 +69,25 @@ class Admin_REST
                 ] );
             }
             
+            if ( 'stop_ltv_recalculation' === $data['action'] ) {
+                LTV::stop_ltv_recalculation();
+                Logger::debug( 'Stopped LTV recalculation' );
+                wp_send_json_success( [
+                    'message' => esc_html__( 'Stopped all LTV Action Scheduler tasks', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+                    'status'  => LTV::get_ltv_recalculation_status(),
+                ] );
+            }
+            
+            if ( Environment::cannot_run_action_scheduler() ) {
+                wp_send_json_error( [
+                    'message' => 'LTV recalculation is not available in this environment. The active Action Scheduler version is ' . Environment::get_action_scheduler_version() . ' and the minimum required version is ' . Environment::get_action_scheduler_minimum_version(),
+                    'status'  => LTV::get_ltv_recalculation_status(),
+                ] );
+            }
+            
             if ( 'schedule_ltv_recalculation' === $data['action'] ) {
                 LTV::schedule_complete_vertical_ltv_calculation();
+                Logger::debug( 'Scheduled LTV recalculation' );
                 wp_send_json_success( [
                     'message' => esc_html__( 'LTV recalculation scheduled', 'woocommerce-google-adwords-conversion-tracking-tag' ),
                     'status'  => LTV::get_ltv_recalculation_status(),
@@ -80,22 +97,27 @@ class Admin_REST
             
             if ( 'run_ltv_recalculation' === $data['action'] ) {
                 LTV::run_complete_vertical_ltv_calculation();
+                Logger::debug( 'Run LTV recalculation' );
                 wp_send_json_success( [
                     'message' => esc_html__( 'LTV recalculation running', 'woocommerce-google-adwords-conversion-tracking-tag' ),
                     'status'  => LTV::get_ltv_recalculation_status(),
                 ] );
             }
             
+            
             if ( 'get_ltv_recalculation_status' === $data['action'] ) {
+                Logger::debug( 'Get LTV recalculation status' );
                 wp_send_json_success( [
                     'message' => esc_html__( 'Received LTV recalculation status', 'woocommerce-google-adwords-conversion-tracking-tag' ),
                     'status'  => LTV::get_ltv_recalculation_status(),
                 ] );
             }
+            
             wp_send_json_error( [
                 'message' => 'Unknown action',
                 'status'  => LTV::get_ltv_recalculation_status(),
             ] );
+            Logger::debug( 'Unknown LTV recalculation action: ' . $data['action'] );
         },
             'permission_callback' => function () {
             return current_user_can( 'manage_options' );
