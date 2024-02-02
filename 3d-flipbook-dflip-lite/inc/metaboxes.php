@@ -512,12 +512,7 @@ class DFlip_Meta_boxes {
       </div>
 
       <div class="dflip-option dflip-textarea-simple">
-        <textarea rows="8" cols="40" id="dflip_outline">
-					<?php
-          $outline = $this->get_config( 'outline', $post );
-          echo json_encode( $this->get_config( 'outline', $post ) );
-          ?>
-				</textarea>
+          <script class="df-post-script" type="application/javascript">window.dflip_flipbook_post_outline = <?php echo json_encode( $this->get_config( 'outline', $post ) ); ?></script>
       </div>
     </div>
 
@@ -689,7 +684,7 @@ class DFlip_Meta_boxes {
     $sanitized_data['single_page_mode'] = sanitize_text_field( $_POST['_dflip']['single_page_mode'] );
     $sanitized_data['controls_position'] = sanitize_text_field( $_POST['_dflip']['controls_position'] );
     $sanitized_data['direction'] = sanitize_text_field( $_POST['_dflip']['direction'] );
-    $sanitized_data['force_fit'] = sanitize_text_field( $_POST['_dflip']['force_fit'] );
+//    $sanitized_data['force_fit'] = sanitize_text_field( $_POST['_dflip']['force_fit'] );
     $sanitized_data['autoplay'] = sanitize_text_field( $_POST['_dflip']['autoplay'] );
     $sanitized_data['autoplay_duration'] = sanitize_text_field( $_POST['_dflip']['autoplay_duration'] );
     $sanitized_data['autoplay_start'] = sanitize_text_field( $_POST['_dflip']['autoplay_start'] );

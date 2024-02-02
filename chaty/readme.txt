@@ -16,7 +16,7 @@ Display a chat button and communicate with your customers.</strong>
 <a href="https://premio.io/help/chaty/?utm_source=wordpressorg" target="_blank" title="Support">Support</a> | <a href="https://demo.premio.io/chaty/?utm_source=wordpressorg" target="_blank" title="Premio.io demo site">Demo</a> | <a href="https://premio.io/chaty-whatsapp/?utm_source=wordpressorg" target="_blank" title="WhatsApp Button Features">WhatsApp Button Features</a>
 <a href="https://premio.io/?utm_source=wordpressorg" target="_blank" title="WordPress plugins">Recommended Plugins</a> | <a href="https://premio.io/downloads/chaty/?utm_source=wordpressorg" target="_blank" title="Chaty Pro"><strong>Upgrade to Pro ⭐</strong></a>
 
-* Get leads and calls
+* Get WhatsApp, Facebook Messenger, and 20+ chat channels leads and calls
 * Chat with you via their favorite channels like Facebook Messenger, WhatsApp, WhatsApp Business, Viber, Slack, Telegram, TikTok, and many other chat channels
 * Improve your customer support
 * Direct customers to your store's location

@@ -3,7 +3,7 @@
 Plugin Name: Enhanced Text Widget
 Plugin URI: http://wordpress.org/plugins/enhanced-text-widget/
 Description: An enhanced version of the default text widget where you may have Text, HTML, CSS, JavaScript, Flash, Shortcodes, and/or PHP as content with linkable widget title.
-Version: 1.6.5
+Version: 1.6.6
 Author: Clever Widgets
 Author URI: https://themecheck.info
 Text Domain: enhanced-text-widget
@@ -46,7 +46,7 @@ class EnhancedTextWidget extends WP_Widget {
         extract($args);
 
         $title = esc_attr(apply_filters('widget_title', empty($instance['title']) ? '' : $instance['title'], $instance));
-        $titleUrl = esc_attr(empty($instance['titleUrl']) ? '' : $instance['titleUrl']);
+        $titleUrl = esc_url(empty($instance['titleUrl']) ? '' : $instance['titleUrl'], ['http', 'https']);
         $cssClass = esc_attr(empty($instance['cssClass']) ? '' : $instance['cssClass']);
         $text = apply_filters('widget_enhanced_text', $instance['text'], $instance);
         $hideTitle = !empty($instance['hideTitle']) ? true : false;
@@ -111,8 +111,8 @@ class EnhancedTextWidget extends WP_Widget {
           
         $instance['titleUrl'] = esc_attr(strip_tags($new_instance['titleUrl']));
         $instance['cssClass'] = esc_attr(strip_tags($new_instance['cssClass']));
-        $instance['hideTitle'] = esc_attr(isset($new_instance['hideTitle']));
-        $instance['hideEmpty'] = esc_attr(isset($new_instance['hideEmpty']));
+        $instance['hideTitle'] = isset($new_instance['hideTitle']);
+        $instance['hideEmpty'] = isset($new_instance['hideEmpty']);
         $instance['newWindow'] = esc_attr(isset($new_instance['newWindow']));
         $instance['filter'] = esc_attr(isset($new_instance['filter']));
         $instance['bare'] = esc_attr(isset($new_instance['bare']));
@@ -156,17 +156,17 @@ class EnhancedTextWidget extends WP_Widget {
         </style>
         <p>
             <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title', 'enhanced-text-widget' ); ?>:</label>
-            <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo sanitize_text_field($title); ?>" />
+            <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
         </p>
 
         <p>
             <label for="<?php echo $this->get_field_id('titleUrl'); ?>"><?php _e( 'URL', 'enhanced-text-widget' ); ?>:</label>
-            <input class="widefat" id="<?php echo $this->get_field_id('titleUrl'); ?>" name="<?php echo $this->get_field_name('titleUrl'); ?>" type="text" value="<?php echo sanitize_text_field($titleUrl); ?>" />
+            <input class="widefat" id="<?php echo $this->get_field_id('titleUrl'); ?>" name="<?php echo $this->get_field_name('titleUrl'); ?>" type="text" value="<?php echo esc_attr($titleUrl); ?>" />
         </p>
 
         <p>
             <label for="<?php echo $this->get_field_id('cssClass'); ?>"><?php _e( 'CSS Classes', 'enhanced-text-widget' ); ?>:</label>
-            <input class="widefat" id="<?php echo $this->get_field_id('cssClass'); ?>" name="<?php echo $this->get_field_name('cssClass'); ?>" type="text" value="<?php echo sanitize_text_field($cssClass); ?>" />
+            <input class="widefat" id="<?php echo $this->get_field_id('cssClass'); ?>" name="<?php echo $this->get_field_name('cssClass'); ?>" type="text" value="<?php echo esc_attr($cssClass); ?>" />
         </p>
 
         <p>

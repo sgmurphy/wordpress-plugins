@@ -1372,11 +1372,35 @@ class ProductInfo {
 	 */
 	public function wc_germanized_gtin() {
 		$wc_germanized_gtin = '';
-		if ( class_exists( 'WooCommerce_Germanized' ) ) { // For WooCommerce Germanized Plugin
-			$wc_germanized_gtin = ProductHelper::get_product_meta( '_ts_gtin', $this->product, $this->config );
-		}
+		$wc_germanized_gtin = ProductHelper::get_product_meta( '_ts_gtin', $this->product, $this->config );
 
 		return apply_filters( 'woo_feed_filter_wc_germanized_gtin', $wc_germanized_gtin, $this->product, $this->config );
+	}
+
+	/**
+	 * Get product unit price measure for WooCommerce_Germanized plugin.
+	 *
+	 * @return string
+	 * @since      8.0.0
+	 */
+	public function wc_germanized_unit_price_measure() {
+		$wc_germanized_unit_price_measure = '';
+		$wc_germanized_unit_price_measure = ProductHelper::get_product_meta( '_unit_product', $this->product, $this->config );
+
+		return apply_filters( 'woo_feed_filter_wc_germanized_unit_price_measure', $wc_germanized_unit_price_measure, $this->product, $this->config );
+	}
+
+	/**
+	 * Get product unit price base measure for WooCommerce_Germanized plugin.
+	 *
+	 * @return string
+	 * @since      8.0.0
+	 */
+	public function wc_germanized_unit_price_base_measure() {
+		$wc_germanized_unit_price_base_measure = '';
+		$wc_germanized_unit_price_base_measure = ProductHelper::get_product_meta( '_unit_base', $this->product, $this->config );
+
+		return apply_filters( 'woo_feed_filter_wc_germanized_unit_price_base_measure', $wc_germanized_unit_price_base_measure, $this->product, $this->config );
 	}
 
 	/**
@@ -1387,10 +1411,7 @@ class ProductInfo {
 	 */
 	public function wc_germanized_mpn() {
 		$wc_germanized_mpn = '';
-
-		if ( class_exists( 'WooCommerce_Germanized' ) ) { // For WooCommerce Germanized Plugin
-			$wc_germanized_mpn = ProductHelper::get_product_meta( '_ts_mpn', $this->product, $this->config );
-		}
+		$wc_germanized_mpn = ProductHelper::get_product_meta( '_ts_mpn', $this->product, $this->config );
 
 		return apply_filters( 'woo_feed_filter_wc_germanized_mpn', $wc_germanized_mpn, $this->product, $this->config );
 	}

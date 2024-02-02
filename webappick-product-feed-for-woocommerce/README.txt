@@ -5,7 +5,7 @@ Tags: WooCommerce Product Feed, WooCommerce, Google Shopping, Google Merchant, F
 Requires at least: 4.4
 Tested Up To: 6.4
 Requires PHP: 5.6
-Stable tag: 6.4.6
+Stable tag: 6.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -591,11 +591,14 @@ Using pro version:
 
 == Changelog ==
 
+= 6.4.7 (2024-02-02) =
+* Updated: Code refactor
+
 = 6.4.6 (2024-01-25) =
 * Fixed: Parent Category and Child Category Attribute issue
 * Fixed: WooCommerce Dynamic Pricing With Discount Rules price issue
 * Fixed: Image missing issue
-* Fixed: Code refactor
+* Updated: Code refactor
 
 = 6.4.5 (2024-01-22) =
 * Fixed: Variation Product Title issue

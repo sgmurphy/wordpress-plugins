@@ -14,7 +14,6 @@ use Exception;
 use TRP_Settings;
 use TRP_Translation_Render;
 use WC_Product;
-use WC_Product_Simple;
 use WC_Product_Composite;
 use WC_Product_External;
 use WC_Product_Grouped;
@@ -101,9 +100,9 @@ class ProductHelper {
 	/**
 	 * Retrieves IDs based on feed configuration and query arguments.
 	 *
-	 * @param Config $config Feed Configuration.
-	 * @param array $args Query Arguments.
-	 * @param mixed $settings Additional settings, if any. Default is null.
+	 * @param Config $config   Feed Configuration.
+	 * @param array  $args     Query Arguments.
+	 * @param mixed  $settings Additional settings, if any. Default is null.
 	 *
 	 * @return array        IDs retrieved based on the given configuration and arguments.
 	 * @throws Exception   If any exceptions are thrown by QueryFactory::get_ids.
@@ -201,11 +200,80 @@ class ProductHelper {
 	}
 
 	/**
+	 * Determines if a sufficient number of identifier attributes exist for a product.
+	 *
+	 * @param mixed      $attribute Ignored parameter, remains for backward compatibility.
+	 * @param WC_Product $product   The WooCommerce product object.
+	 * @param mixed      $config    Configuration or context.
+	 *
+	 * @return string 'yes' if at least two identifiers are present, 'no' otherwise.
+	 */
+	public static function overwrite_identifier_exists( $attribute, $product, $config ) {
+		$counter = 0;
+		$counter += self::count_identifiers_in_attributes( $product, $config );
+		$counter += self::count_identifiers_in_mattributes( $product, $config );
+
+		return $counter >= 2 ? 'yes' : 'no';
+	}
+
+	private static function count_identifiers_in_attributes( $product, $config ) {
+		$count       = 0;
+		$feed_rules  = $config->get_feed_rules()['option_value']['feedrules'];
+		$identifiers = [
+			self::PRODUCT_CUSTOM_IDENTIFIER . 'identifier_gtin',
+			self::PRODUCT_TAXONOMY_PREFIX . 'woo-feed-brand',
+			self::PRODUCT_CUSTOM_IDENTIFIER . 'identifier_mpn',
+		];
+
+		foreach ( \array_intersect( $feed_rules['attributes'], $identifiers ) as $key => $result ) {
+			if ( $feed_rules['type'][ $key ] === 'attribute' && self::get_custom_field( $result, $product, $config ) !== '' ) {
+				$count ++;
+			}
+		}
+
+		return $count;
+	}
+
+	/**
+	 * Retrieves custom field values for a WooCommerce product.
+	 *
+	 * @param string     $field   The custom field key.
+	 * @param WC_Product $product The WooCommerce product object.
+	 * @param mixed      $config  Additional configuration or context.
+	 *
+	 * @return mixed The formatted value of the custom field.
+	 */
+	public static function get_custom_field( $field, $product, $config ) {
+		// Adjust the meta key for variation products.
+		$meta_key = $product->is_type( 'variation' ) ? $field . '_var' : $field;
+
+		// Allow filtering of the meta key.
+		$meta_key = apply_filters( 'woo_feed_custom_field_meta', $meta_key, $product, $config );
+
+		// Determine the new and old meta keys based on the presence of '_identifier'.
+		if ( \strpos( $meta_key, '_identifier' ) !== false ) {
+			$new_meta_key = \str_replace( '_identifier', '', $meta_key );
+			$old_meta_key = $meta_key;
+		} else {
+			$new_meta_key = $meta_key;
+			$old_meta_key = \str_replace( 'woo_feed_', 'woo_feed_identifier_', $meta_key );
+		}
+
+		// Retrieve the values for the new and old meta keys.
+		$new_meta_value = self::get_product_meta( $new_meta_key, $product, $config );
+		$old_meta_value = self::get_product_meta( $old_meta_key, $product, $config );
+
+		// Return the formatted custom field value, preferring the new meta key.
+		return empty( $new_meta_value ) ? self::format_custom_field_value( $old_meta_value, $meta_key )
+			: self::format_custom_field_value( $new_meta_value, $meta_key );
+	}
+
+	/**
 	 * Retrieves a specific meta value for a WooCommerce product. Supports handling variations and RankMath integration.
 	 *
-	 * @param string $meta The meta key to retrieve.
+	 * @param string     $meta    The meta key to retrieve.
 	 * @param WC_Product $product The WooCommerce product object.
-	 * @param mixed $config Additional configuration or context.
+	 * @param mixed      $config  Additional configuration or context.
 	 *
 	 * @return mixed The value of the specified meta key. Filters the value through 'woo_feed_filter_product_meta'.
 	 */
@@ -244,72 +312,51 @@ class ProductHelper {
 	}
 
 	/**
-	 * Retrieves custom field values for a WooCommerce product.
+	 * Retrieves the taxonomy terms associated with a product.
 	 *
-	 * @param string $field The custom field key.
-	 * @param WC_Product $product The WooCommerce product object.
-	 * @param mixed $config Additional configuration or context.
+	 * @param string     $taxonomy The taxonomy for which to retrieve terms.
+	 * @param WC_Product $product  The WooCommerce product object.
+	 * @param Config     $config   Additional configuration or context.
 	 *
-	 * @return mixed The formatted value of the custom field.
+	 * @return string A string containing the taxonomy terms separated by the specified separator.
+	 *
+	 * Note: Test case writing is pending for this function.
 	 */
-	public static function get_custom_field( $field, $product, $config ) {
-		// Adjust the meta key for variation products.
-		$meta_key = $product->is_type( 'variation' ) ? $field . '_var' : $field;
+	public static function get_product_taxonomy( $taxonomy, $product, $config ) {
+		$id        = CommonHelper::parent_product_id( $product );
+		$separator = apply_filters( 'woo_feed_product_taxonomy_term_list_separator', ',', $config, $product );
+		$term_list = \get_the_term_list( $id, $taxonomy, '', $separator, '' );
 
-		// Allow filtering of the meta key.
-		$meta_key = apply_filters( 'woo_feed_custom_field_meta', $meta_key, $product, $config );
-
-		// Determine the new and old meta keys based on the presence of '_identifier'.
-		if ( \strpos( $meta_key, '_identifier' ) !== false ) {
-			$new_meta_key = \str_replace( '_identifier', '', $meta_key );
-			$old_meta_key = $meta_key;
-		} else {
-			$new_meta_key = $meta_key;
-			$old_meta_key = \str_replace( 'woo_feed_', 'woo_feed_identifier_', $meta_key );
+		if ( \is_object( $term_list ) && \get_class( $term_list ) === 'WP_Error' ) {
+			$term_list = '';
 		}
 
-		// Retrieve the values for the new and old meta keys.
-		$new_meta_value = self::get_product_meta( $new_meta_key, $product, $config );
-		$old_meta_value = self::get_product_meta( $old_meta_key, $product, $config );
+		$getTaxonomy = CommonHelper::strip_all_tags( $term_list );
 
-		// Return the formatted custom field value, preferring the new meta key.
-		return empty( $new_meta_value ) ? self::format_custom_field_value( $old_meta_value, $meta_key )
-			: self::format_custom_field_value( $new_meta_value, $meta_key );
+		return apply_filters( 'woo_feed_filter_product_taxonomy', $getTaxonomy, $product, $config );
 	}
 
 	/**
-	 * Determines if a sufficient number of identifier attributes exist for a product.
+	 * Formats the value of a custom field based on its metadata key.
 	 *
-	 * @param mixed $attribute Ignored parameter, remains for backward compatibility.
-	 * @param WC_Product $product The WooCommerce product object.
-	 * @param mixed $config Configuration or context.
+	 * @param mixed  $value    The value of the custom field.
+	 * @param string $meta_key The metadata key used to determine the formatting.
 	 *
-	 * @return string 'yes' if at least two identifiers are present, 'no' otherwise.
+	 * @return mixed Formatted value if specific formatting is required, otherwise returns the original value.
 	 */
-	public static function overwrite_identifier_exists( $attribute, $product, $config ) {
-		$counter = 0;
-		$counter += self::count_identifiers_in_attributes( $product, $config );
-		$counter += self::count_identifiers_in_mattributes( $product, $config );
+	private static function format_custom_field_value( $value, $meta_key ) {
+		if ( \strpos( $meta_key, 'availability_date' ) !== false ) {
+			$formatted_date = \strtotime( $value );
 
-		return $counter >= 2 ? 'yes' : 'no';
-	}
-
-	private static function count_identifiers_in_attributes( $product, $config ) {
-		$count       = 0;
-		$feed_rules  = $config->get_feed_rules()['option_value']['feedrules'];
-		$identifiers = [
-			self::PRODUCT_CUSTOM_IDENTIFIER . 'identifier_gtin',
-			self::PRODUCT_TAXONOMY_PREFIX . 'woo-feed-brand',
-			self::PRODUCT_CUSTOM_IDENTIFIER . 'identifier_mpn',
-		];
-
-		foreach ( \array_intersect( $feed_rules['attributes'], $identifiers ) as $key => $result ) {
-			if ( $feed_rules['type'][ $key ] === 'attribute' && self::get_custom_field( $result, $product, $config ) !== '' ) {
-				$count ++;
+			if ( $formatted_date === false ) {
+				// Handle invalid date
+				return $value;
 			}
+
+			return \date( 'c', $formatted_date );
 		}
 
-		return $count;
+		return $value;
 	}
 
 	private static function count_identifiers_in_mattributes( $product, $config ) {
@@ -353,9 +400,9 @@ class ProductHelper {
 	/**
 	 * Retrieves a specified attribute from a WooCommerce product.
 	 *
-	 * @param string $attr The attribute slug to retrieve.
+	 * @param string     $attr    The attribute slug to retrieve.
 	 * @param WC_Product $product The WooCommerce product object.
-	 * @param Config $config Additional configuration or context.
+	 * @param Config     $config  Additional configuration or context.
 	 *
 	 * @return string The value of the specified attribute.
 	 * @since 2.2.3
@@ -371,18 +418,18 @@ class ProductHelper {
 		// Retrieve attribute value from the parent product if it's a variation and the attribute value is empty.
 		if ( '' === $value && $product->is_type( 'variation' ) ) {
 			$parent_product = \wc_get_product( $product->get_parent_id() );
-			if($parent_product)
-				$value          = self::fetch_product_attribute( $attr, $parent_product );
+			if ( $parent_product ) {
+				$value = self::fetch_product_attribute( $attr, $parent_product );
+			}
 		}
 
 		return apply_filters( 'woo_feed_filter_product_attribute', $value, $attr, $product, $config );
 	}
 
-
 	/**
 	 * Fetches the attribute value from a product.
 	 *
-	 * @param string $attr The attribute slug.
+	 * @param string     $attr    The attribute slug.
 	 * @param WC_Product $product The WooCommerce product object.
 	 *
 	 * @return string The attribute value.
@@ -397,35 +444,10 @@ class ProductHelper {
 	}
 
 	/**
-	 * Retrieves the taxonomy terms associated with a product.
-	 *
-	 * @param string $taxonomy The taxonomy for which to retrieve terms.
-	 * @param WC_Product $product The WooCommerce product object.
-	 * @param Config $config Additional configuration or context.
-	 *
-	 * @return string A string containing the taxonomy terms separated by the specified separator.
-	 *
-	 * Note: Test case writing is pending for this function.
-	 */
-	public static function get_product_taxonomy( $taxonomy, $product, $config ) {
-		$id        = CommonHelper::parent_product_id( $product );
-		$separator = apply_filters( 'woo_feed_product_taxonomy_term_list_separator', ',', $config, $product );
-		$term_list = \get_the_term_list( $id, $taxonomy, '', $separator, '' );
-
-		if ( \is_object( $term_list ) && \get_class( $term_list ) === 'WP_Error' ) {
-			$term_list = '';
-		}
-
-		$getTaxonomy = CommonHelper::strip_all_tags( $term_list );
-
-		return apply_filters( 'woo_feed_filter_product_taxonomy', $getTaxonomy, $product, $config );
-	}
-
-	/**
 	 * Retrieves the value of an Advanced Custom Fields (ACF) field for a given WooCommerce product.
 	 *
-	 * @param WC_Product $product The WooCommerce product object.
-	 * @param string $field_key The ACF field key, with the prefix "acf_fields_".
+	 * @param WC_Product $product   The WooCommerce product object.
+	 * @param string     $field_key The ACF field key, with the prefix "acf_fields_".
 	 *
 	 * @return mixed|string The value of the ACF field, or an empty string if ACF is not available.
 	 *
@@ -449,7 +471,7 @@ class ProductHelper {
 	 * Returns category mapping values by product ID, considering the parent product for variations.
 	 *
 	 * @param string $mapping_name Category Mapping Name
-	 * @param int $product_id Product ID / Parent Product ID for variation product
+	 * @param int    $product_id   Product ID / Parent Product ID for variation product
 	 *
 	 * @return mixed
 	 *
@@ -493,7 +515,7 @@ class ProductHelper {
 	 * Determines the appropriate category mapping array.
 	 *
 	 * @param array $mapping_settings Configuration settings for mapping.
-	 * @param array $merchants List of suggestive category list merchants.
+	 * @param array $merchants        List of suggestive category list merchants.
 	 *
 	 * @return array The determined mapping array.
 	 */
@@ -508,10 +530,10 @@ class ProductHelper {
 	/**
 	 * Retrieves the mapped value for a specified attribute, considering the merchant attribute and configuration.
 	 *
-	 * @param WC_Product $product The product object.
-	 * @param string $attribute The attribute to map.
-	 * @param string $merchant_attribute The merchant attribute.
-	 * @param mixed $config Additional configuration or context.
+	 * @param WC_Product $product            The product object.
+	 * @param string     $attribute          The attribute to map.
+	 * @param string     $merchant_attribute The merchant attribute.
+	 * @param mixed      $config             Additional configuration or context.
 	 *
 	 * @return string The concatenated attribute values, separated by the defined glue or a space.
 	 *
@@ -538,9 +560,9 @@ class ProductHelper {
 	/**
 	 * Builds the concatenated output for the attribute mapping.
 	 *
-	 * @param array $mapping The attribute mapping array.
+	 * @param array                $mapping                     The attribute mapping array.
 	 * @param AttributeValueByType $get_attribute_value_by_type The object to retrieve attribute values.
-	 * @param string $glue The glue used for concatenation.
+	 * @param string               $glue                        The glue used for concatenation.
 	 *
 	 * @return string The concatenated attribute values.
 	 */
@@ -561,9 +583,9 @@ class ProductHelper {
 	 * Retrieves the value of a dynamic attribute for a product.
 	 *
 	 * @param WC_Product $product
-	 * @param string $attribute_name
-	 * @param string $merchant_attribute
-	 * @param mixed $config
+	 * @param string     $attribute_name
+	 * @param string     $merchant_attribute
+	 * @param mixed      $config
 	 *
 	 * @return mixed|string
 	 * @since 3.2.0
@@ -770,9 +792,9 @@ class ProductHelper {
 	/**
 	 * Formats a price or weight value based on the specified operation.
 	 *
-	 * @param string $name Attribute Name indicating whether it's a price or weight.
-	 * @param float $conditionName The initial value to be formatted.
-	 * @param string $result The operation and value to apply to the initial value.
+	 * @param string $name          Attribute Name indicating whether it's a price or weight.
+	 * @param float  $conditionName The initial value to be formatted.
+	 * @param string $result        The operation and value to apply to the initial value.
 	 *
 	 * @return float|int|string Formatted result after applying the operation.
 	 * @since 3.2.0
@@ -835,7 +857,7 @@ class ProductHelper {
 	/**
 	 * Validates a given date string against a specified format.
 	 *
-	 * @param string $date The date string to validate.
+	 * @param string $date   The date string to validate.
 	 * @param string $format The date format to validate against. Defaults to 'Y-m-d'.
 	 *
 	 * @return bool True if the date is valid and matches the format, false otherwise.
@@ -854,11 +876,11 @@ class ProductHelper {
 	/**
 	 * Retrieves a product attribute value based on its type.
 	 *
-	 * @param string $attribute The name of the product attribute.
-	 * @param \WC_Product $product The product object, representing the context of the attribute.
-	 * @param \CTXFeed\V5\Utility\Config $config Configuration settings, affecting how attribute values are processed.
-	 * @param string|null $merchant_attribute Optional merchant-specific attribute, altering the return value based on merchant requirements.
-	 * @param \WC_Product $parent_product The product object.
+	 * @param string                     $attribute          The name of the product attribute.
+	 * @param \WC_Product                $product            The product object, representing the context of the attribute.
+	 * @param \CTXFeed\V5\Utility\Config $config             Configuration settings, affecting how attribute values are processed.
+	 * @param string|null                $merchant_attribute Optional merchant-specific attribute, altering the return value based on merchant requirements.
+	 * @param \WC_Product                $parent_product     The product object.
 	 *
 	 * @return mixed The value of the attribute, which varies depending on the attribute type and configuration settings.
 	 */
@@ -878,9 +900,9 @@ class ProductHelper {
 	/**
 	 * Replaces specific strings in a product attribute based on configuration rules.
 	 *
-	 * @param string $output The initial string to be modified.
+	 * @param string $output           The initial string to be modified.
 	 * @param string $productAttribute The product attribute to be checked for replacements.
-	 * @param Config $config Configuration containing the replacement rules.
+	 * @param Config $config           Configuration containing the replacement rules.
 	 *
 	 * @return string The modified string after applying the replacement rules.
 	 *
@@ -891,7 +913,7 @@ class ProductHelper {
 		// str_replace array can contain duplicate subjects, so better loop through...
 		foreach ( $config->get_string_replace() as $str_replace ) {
 
-			if ( !empty( $str_replace['subject'] ) && ( $product_attribute == $str_replace['subject'] || self::PRODUCT_ATTRIBUTE_PREFIX.$product_attribute == $str_replace['subject'] ) ){
+			if ( ! empty( $str_replace['subject'] ) && ( $product_attribute == $str_replace['subject'] || self::PRODUCT_ATTRIBUTE_PREFIX . $product_attribute == $str_replace['subject'] ) ) {
 
 				if ( \strpos( $str_replace['search'], '/' ) === false ) {
 					$output = \preg_replace( \stripslashes( '/' . $str_replace['search'] . '/mi' ), $str_replace['replace'], $output );
@@ -907,10 +929,10 @@ class ProductHelper {
 	/**
 	 * Adds a prefix and/or suffix to a given output string based on attribute configurations.
 	 *
-	 * @param string $output The string to which the prefix and suffix will be added.
-	 * @param string $attribute The product attribute to which the prefix and suffix apply.
-	 * @param \CTXFeed\V5\Utility\Config $config Configuration settings for determining prefix and suffix.
-	 * @param string|null $merchant_attribute Optional merchant-specific attribute.
+	 * @param string                     $output             The string to which the prefix and suffix will be added.
+	 * @param string                     $attribute          The product attribute to which the prefix and suffix apply.
+	 * @param \CTXFeed\V5\Utility\Config $config             Configuration settings for determining prefix and suffix.
+	 * @param string|null                $merchant_attribute Optional merchant-specific attribute.
 	 *
 	 * @return string The modified output string with the appropriate prefix and/or suffix added.
 	 */
@@ -987,10 +1009,10 @@ class ProductHelper {
 	/**
 	 * Translates an attribute using the TranslatePress plugin.
 	 *
-	 * @param string $attribute Name of the product attribute.
-	 * @param mixed $attribute_value Value of the product attribute.
-	 * @param WC_Product $product Product object.
-	 * @param mixed $config Feed configuration settings.
+	 * @param string     $attribute       Name of the product attribute.
+	 * @param mixed      $attribute_value Value of the product attribute.
+	 * @param WC_Product $product         Product object.
+	 * @param mixed      $config          Feed configuration settings.
 	 *
 	 * @return mixed Translated attribute value if TranslatePress is active and configured, else returns original value.
 	 * @since 5.2.12
@@ -1021,8 +1043,8 @@ class ProductHelper {
 	 * Retrieves a WooCommerce product object based on the product ID and configuration settings.
 	 * For variable products, it returns a specific variation based on the configured variation type.
 	 *
-	 * @param int $product_id Product ID.
-	 * @param Config $config Configuration settings for handling variable products.
+	 * @param int    $product_id Product ID.
+	 * @param Config $config     Configuration settings for handling variable products.
 	 *
 	 * @return mixed                The product object, which may be a variation for variable products.
 	 * @throws Exception                    If the product is not found or an error occurs.
@@ -1049,12 +1071,15 @@ class ProductHelper {
 			return $id ? \wc_get_product( $id ) : $product;
 		}
 
-		if( $config->get_categories_to_include() && $product->is_type( 'variable' ) ){
+		if ( $config->get_categories_to_include() && $product->is_type( 'variable' ) ) {
 			$products = [];
+			if ( $variation_type == 'both' ) {
+				array_push( $products, $product );
+			}
 			$variations = $product->get_visible_children();
-			foreach ($variations as $variation_id) {
+			foreach ( $variations as $variation_id ) {
 				$variation_product = wc_get_product( $variation_id );
-				array_push( $products, $variation_product);
+				array_push( $products, $variation_product );
 			}
 
 			return $products;
@@ -1067,13 +1092,13 @@ class ProductHelper {
 	/**
 	 * Determines the ID of the variable product based on the variation type.
 	 *
-	 * @param WC_Product $product The variable product.
-	 * @param string $variationType The type of variation to retrieve.
+	 * @param WC_Product $product       The variable product.
+	 * @param string     $variationType The type of variation to retrieve.
 	 *
 	 * @return int|null The ID of the determined product variation, or null if not found.
 	 */
-	private static function determine_variable_product( $product, $variation_type  ) {
-		$variations = $product->get_visible_children();
+	private static function determine_variable_product( $product, $variation_type ) {
+		$variations       = $product->get_visible_children();
 		$variations_price = $product->get_variation_prices();
 		switch ( $variation_type ) {
 			case 'default':
@@ -1125,8 +1150,8 @@ class ProductHelper {
 	/**
 	 * Retrieves the product price including tax.
 	 *
-	 * @param float|string $price The base price of the product.
-	 * @param WC_Product $product The WooCommerce product object.
+	 * @param float|string $price   The base price of the product.
+	 * @param WC_Product   $product The WooCommerce product object.
 	 *
 	 * @return float The product price including tax.
 	 */
@@ -1137,29 +1162,6 @@ class ProductHelper {
 
 		return $product->get_price_including_tax( 1, $price );
 
-	}
-
-	/**
-	 * Formats the value of a custom field based on its metadata key.
-	 *
-	 * @param mixed $value The value of the custom field.
-	 * @param string $meta_key The metadata key used to determine the formatting.
-	 *
-	 * @return mixed Formatted value if specific formatting is required, otherwise returns the original value.
-	 */
-	private static function format_custom_field_value( $value, $meta_key ) {
-		if ( \strpos( $meta_key, 'availability_date' ) !== false ) {
-			$formatted_date = \strtotime( $value );
-
-			if ( $formatted_date === false ) {
-				// Handle invalid date
-				return $value;
-			}
-
-			return \date( 'c', $formatted_date );
-		}
-
-		return $value;
 	}
 
 }

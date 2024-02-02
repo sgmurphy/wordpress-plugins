@@ -632,8 +632,8 @@
     createPageOptions($("." + pageItemClass));
 
     //create Outline
-    if ($("#dflip_outline").length > 0) {
-      var data = JSON.parse($("#dflip_outline").val());
+    if (window.dflip_flipbook_post_outline) {
+      var data = window.dflip_flipbook_post_outline;
       data = revalidateArray(data, 'items');
 
       if (data.length == void 0 || data.length == 0)
@@ -673,7 +673,7 @@
   function addNode(container, prefix, option) {
     var node = $('<div class="outline-node">').data("prefix", prefix),
       wrapper = $('<div class="outline-wrapper">'),
-      label = $('<label></label>').html(option.title + " : (" + option.dest + ")"),
+      label = $('<label></label>').text(option.title + " : (" + option.dest + ")"),
       title = $('<input name=' + prefix + '[title]" dtype="title" placeholder="Name of outline"/>').val(option.title),
       dest = $('<input name=' + prefix + '[dest]" dtype="dest" placeholder="pagenumber or url"/>').val(option.dest),
       nodes = $('<div class="outline-nodes">'),

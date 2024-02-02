@@ -289,6 +289,34 @@ if ( !function_exists( 'sydney_atss_demos_list') ) {
 					),
 				),
 			),
+			'wedding-planner'   => array(
+				'name'       => esc_html__( 'Wedding Planner', 'sydney' ),
+				'type'       => 'pro',
+				'categories' => array( 'business' ),
+				'builders'   => array(
+					'elementor',
+				),
+				'preview'    => 'https://demo.athemes.com/sp-wedding-planner/',
+				'thumbnail'  => 'https://athemes.com/themes-demo-content/sydney/wedding-planner/thumb.jpg',
+				'plugins'    => array_merge(
+					array(
+						array(
+							'name'     => 'WPForms',
+							'slug'     => 'wpforms-lite',
+							'path'     => 'wpforms-lite/wpforms.php',
+							'required' => false
+						)
+					),
+					$plugins
+				),
+				'import'     => array(
+					'elementor'    => array( 
+						'content'    => 'https://athemes.com/themes-demo-content/sydney/wedding-planner/content.xml',
+						'widgets'    => 'https://athemes.com/themes-demo-content/sydney/wedding-planner/widgets.wie',
+						'customizer' => 'https://athemes.com/themes-demo-content/sydney/wedding-planner/customizer.dat',
+					),
+				),
+			),
 			'news'   => array(
 				'name'       => esc_html__( 'News (requires Elementor Containers)', 'sydney' ),
 				'type'       => 'pro',

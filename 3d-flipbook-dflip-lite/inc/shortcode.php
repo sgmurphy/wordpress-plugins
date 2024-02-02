@@ -204,7 +204,7 @@ class DFlip_ShortCode {
       $post_data['singlePageMode'] = isset( $post_data['single_page_mode'] ) ? $post_data['single_page_mode'] : null;
       $post_data['pageSize'] = isset( $post_data['page_size'] ) ? $post_data['page_size'] : null;
       $post_data['controlsPosition'] = isset( $post_data['controls_position'] ) ? $post_data['controls_position'] : null;
-      $post_data['forceFit'] = isset( $post_data['force_fit'] ) ? $post_data['force_fit'] : null;
+//      $post_data['forceFit'] = isset( $post_data['force_fit'] ) ? $post_data['force_fit'] : null;
       $post_data['autoPlay'] = isset( $post_data['autoplay'] ) ? $post_data['autoplay'] : null;
       $post_data['autoPlayDuration'] = isset( $post_data['autoplay_duration'] ) ? $post_data['autoplay_duration'] : null;
       $post_data['autoPlayStart'] = isset( $post_data['autoplay_start'] ) ? $post_data['autoplay_start'] : null;
@@ -224,7 +224,7 @@ class DFlip_ShortCode {
           'height'              => $base->get_default( 'height' ),
           'duration'            => $base->get_default( 'duration' ),
           'hard'                => $base->get_default( 'hard' ),
-          'forceFit'            => $base->get_default( 'force_fit' ),
+//          'forceFit'            => $base->get_default( 'force_fit' ),
           'autoEnableOutline'   => $base->get_default( 'auto_outline' ),
           'autoEnableThumbnail' => $base->get_default( 'auto_thumbnail' ),
           'overwritePDFOutline' => $base->get_default( 'overwrite_outline' ),
