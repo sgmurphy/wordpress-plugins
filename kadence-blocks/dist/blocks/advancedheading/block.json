@@ -709,6 +709,10 @@
     "markBorderRadiusUnit": {
       "type": "string",
       "default": "px"
+    },
+    "altTitle": {
+      "type": "string",
+      "default": ""
     }
   },
   "usesContext": [

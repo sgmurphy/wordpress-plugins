@@ -227,17 +227,17 @@ Yes, with an Extended Pass you get access to [Recurring Payments](https://easydi
 
 == Changelog ==
 = 3.2.7 =
-Admin: Improved validation of saving some settings.
-API: Improved API Key management for admins, including showing the last time a key was used.
-Customers: Prevent updating a customer to have no email address.
-Downloads: Improved the consistency of the results of setting and getting a price option name.
-Downloads: Searching the downloads dropdown was not working correctly for international characters.
-Downloads: Improved download access validation.
-Fees: Improved the reliability of the fees and tax calculations.
-Orders: The Order Status Badge API now includes the order as a parameter on filters.
-Reports: Download Taxonomy reports have been improved for large data sets.
-Reports: Some timezones and date calculations were getting incorrect date ranges.
-Stripe: Improved mixed cart messaging.
+* Admin: Improved validation of saving some store settings.
+* API: Improved API Key management for admins, including showing the last time a key was used.
+* Customers: Prevent updating a customer to have no email address.
+* Downloads: Improved the consistency of the results of setting and getting a price option name.
+* Downloads: Searching the downloads dropdown was not working correctly for international characters.
+* Downloads: Improved download access validation.
+* Fees: Improved the reliability of the fees and tax calculations.
+* Orders: The Order Status Badge API now includes the order as a parameter on filters.
+* Reports: Download Taxonomy reports have been improved for large data sets.
+* Reports: Some store timezones and date calculations were getting incorrect date ranges.
+* Stripe: Improved mixed cart messaging.
 
 View the full changelog at [https://easydigitaldownloads.com/changelogs/plugin/easy-digital-downloads/](https://easydigitaldownloads.com/changelogs/plugin/easy-digital-downloads/?utm_medium=readme&utm_source=wporg&utm_campaign=edd-plugin&utm_term=description)
 
