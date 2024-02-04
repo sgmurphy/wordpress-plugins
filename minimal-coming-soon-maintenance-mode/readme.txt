@@ -4,7 +4,7 @@ Tags: coming soon, coming soon page, maintenance mode, maintenance mode page, co
 Requires at least: 4.0
 Requires PHP: 5.2
 Tested up to: 6.4
-Stable tag: 2.37
+Stable tag: 2.38
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,6 +78,11 @@ Make sure that the name field in MailChimp (FNAME) is not mandatory. Configure i
 
 Yes and no. When activated it enables itself across the entire WP-MU network.
 
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/minimal-coming-soon-maintenance-mode)
+
+
 == Screenshots ==
 
 1. Fast & intuitive interface lets you create coming soon pages in minutes
@@ -88,6 +93,12 @@ Yes and no. When activated it enables itself across the entire WP-MU network.
 
 
 == Changelog ==
+
+= 2.38 =
+* 2024-02-04
+* fixed bug allowing bypass of maintenance page
+* various minor bugs fixed
+
 = 2.37 =
 * 2023-09-13
 * fixed footer text overlapping buttons

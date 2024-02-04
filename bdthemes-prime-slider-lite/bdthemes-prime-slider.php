@@ -4,21 +4,21 @@
  * Plugin Name: Prime Slider
  * Plugin URI: https://primeslider.pro/
  * Description: Prime Slider is a packed of elementor widget that gives you some awesome header and slider combination for your website.
- * Version: 3.11.12
+ * Version: 3.11.13
  * Author: BdThemes
  * Author URI: https://bdthemes.com/
  * Text Domain: bdthemes-prime-slider
  * Domain Path: /languages
  * License: GPL3
  * Elementor requires at least: 3.0.0
- * Elementor tested up to: 3.18.3
+ * Elementor tested up to: 3.19.0
  *
  */
 
 // Some pre define value for easy use
 
 if ( ! defined( 'BDTPS_CORE_VER' ) ) {
-	define( 'BDTPS_CORE_VER', '3.11.12' );
+	define( 'BDTPS_CORE_VER', '3.11.13' );
 }
 if ( ! defined( 'BDTPS_CORE__FILE__' ) ) {
 	define( 'BDTPS_CORE__FILE__', __FILE__ );
@@ -163,7 +163,7 @@ if ( ! function_exists( 'dci_plugin_prime_slider' ) ) {
 			'sdk_version'  => '1.1.0',
 			'product_id'   => 2,
 			'plugin_name'  => 'Prime Slider', // make simple, must not empty
-			'plugin_title' => 'Prime Slider ( Never miss an Important Update )', // You can describe your plugin title here
+			'plugin_title' => 'Love using Prime Slider? Congrats 🎉 ( Never miss an Important Update )', // You can describe your plugin title here
 			'plugin_icon'  => BDTPS_CORE_ASSETS_URL . 'images/logo.png',
 			'api_endpoint' => 'https://analytics.bdthemes.com/wp-json/dci/v1/data-insights',
 			'menu'         => array(
@@ -171,7 +171,7 @@ if ( ! function_exists( 'dci_plugin_prime_slider' ) ) {
 			),
 			'public_key'   => 'pk_DktcEizxpygp4RjRkhYtVrtseZPaHrtr',
 			'is_premium'   => false,
-			'plugin_msg'   => '<p>Would you allow us to collect non-sensitive data to improve your experiences with our product?</p> <p>We respect your privacy. Any data collected by your approval is non-sensitive and does not include personal/sensitive information.</p>',
+			'plugin_msg'   => '<p>Be Top-contributor by sharing non-sensitive plugin data and create an impact to the global WordPress community today! You can receive valuable emails periodically.</p>',
 		) );
 
 	}

@@ -2,7 +2,7 @@
 Contributors: sammartin,zoe7633,q3ahmed
 Tags: Microsoft, Clarity, behavioral analytics
 Requires at least: 4.0
-Tested up to: 6.3
+Tested up to: 6.4
 Stable tag: 0.9.3
 License: MIT
 License URI: https://docs.opensource.microsoft.com/content/releasing/license.html

@@ -7,6 +7,7 @@ if (false === class_exists('WF_Licensing_CSMM')) {
     private $version = '';
     private $slug = '';
     private $basename = '';
+    private $plugin_page = '';
     private $plugin_file = '';
     private $js_folder = '';
     protected $api_ver = 'v1/';

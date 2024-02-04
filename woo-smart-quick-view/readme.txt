@@ -4,7 +4,7 @@ Donate link: https://wpclever.net
 Tags: woocommerce, woo, wpc, smart, quickview, quick-view
 Requires at least: 4.0
 Tested up to: 6.4
-Stable tag: 3.5.5
+Stable tag: 3.5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,9 @@ Example:
 });`
 
 == Changelog ==
+
+= 3.5.6 =
+* Updated: Compatible with WP 6.4 & Woo 8.5
 
 = 3.5.5 =
 * Updated: Optimized the code

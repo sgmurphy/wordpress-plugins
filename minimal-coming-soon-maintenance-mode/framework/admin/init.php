@@ -148,7 +148,7 @@ function csmm_enqueue_pointers($hook)
 {
     $pointers = array();
     $all_pointers = csmm_get_pointers();
-    $disabled_pointers = get_option(CSMM_POINTERS);
+    $disabled_pointers = get_option(CSMM_POINTERS, array());
 
     // auto remove welcome pointer when options are opened
     // disabled

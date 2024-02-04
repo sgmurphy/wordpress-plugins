@@ -129,6 +129,10 @@ class CSMM {
 
   static function wp_kses_wf($html)
     {
+        if(empty($html)){
+            return '';
+        }
+        
         add_filter('safe_style_css', function ($styles) {
             $styles_wf = array(
                 'text-align',

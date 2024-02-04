@@ -76,6 +76,8 @@
   font-weight: bold;
 }
 
+#cookies-eu-reject,
+.cookies-eu-reject,
 #cookies-eu-accept,
 .cookies-eu-accept {
     padding: 10px 20px;
@@ -89,6 +91,10 @@
 
 }
 
+#cookies-eu-reject:hover,
+#cookies-eu-reject:focus,
+.cookies-eu-reject:hover,
+.cookies-eu-reject:focus,
 #cookies-eu-accept:hover,
 #cookies-eu-accept:focus,
 .cookies-eu-accept:hover,
@@ -104,9 +110,7 @@
 }
 
 #cookies-eu-settings, 
-.cookies-eu-settings,
-#cookies-eu-reject,
-.cookies-eu-reject {
+.cookies-eu-settings {
     background: none;
     font-weight: normal;
     color: #333;
@@ -119,11 +123,7 @@
 #cookies-eu-settings:hover,
 #cookies-eu-settings:focus,
 .cookies-eu-settings:hover,
-.cookies-eu-settings:focus,
-#cookies-eu-reject:hover,
-#cookies-eu-reject:focus,
-.cookies-eu-reject:hover,
-.cookies-eu-reject:focus {
+.cookies-eu-settings:focus {
     border-color: #fff;
     background: #222;
     color: #fff;

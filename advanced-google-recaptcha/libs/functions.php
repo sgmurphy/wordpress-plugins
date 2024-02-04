@@ -449,9 +449,16 @@ class WPCaptcha_Functions extends WPCaptcha
     static function captcha_fields()
     {
         $options = WPCaptcha_Setup::get_options();
-
         if ($options['captcha'] == 'recaptchav2') {
             echo '<div class="g-recaptcha" style="transform: scale(0.9); -webkit-transform: scale(0.9); transform-origin: 0 0; -webkit-transform-origin: 0 0;" data-sitekey="' . esc_html($options['captcha_site_key']) . '"></div>';
+
+            echo '<script>
+            jQuery("form.woocommerce-checkout").on("submit", function(){
+                setTimeout(function(){
+                    grecaptcha.reset();
+                },100);
+            });
+            </script>';
         } else if ($options['captcha'] == 'recaptchav3') {
             echo '<input type="hidden" name="g-recaptcha-response" class="agr-recaptcha-response" value="" />';
             echo '<script>
@@ -463,6 +470,12 @@ class WPCaptcha_Functions extends WPCaptcha
                 });
             });
         }
+
+        jQuery("form.woocommerce-checkout").on("submit", function(){
+            setTimeout(function(){
+                wpcaptcha_captcha();
+            },100);
+        });
         </script>';
         } else if ($options['captcha'] == 'builtin') {
             echo '<p><label for="wpcaptcha_captcha">Are you human? Please solve: ';
@@ -476,7 +489,6 @@ class WPCaptcha_Functions extends WPCaptcha
     static function login_enqueue_scripts()
     {
         $options = WPCaptcha_Setup::get_options();
-
         if ($options['captcha'] == 'recaptchav2') {
             wp_enqueue_script('wpcaptcha-recaptcha', 'https://www.google.com/recaptcha/api.js', array(), self::$version, true);
         } else if ($options['captcha'] == 'recaptchav3') {

@@ -1,13 +1,13 @@
 === Adapta RGPD ===
 Plugin Name: Adapta RGPD
-Version: 1.3.8
+Version: 1.3.9
 Author: cesarmaeso
 Author URI: https://superadmin.es
 Contributors: cesarmaeso
 Tags: LOPD, RGPD, cookies, legal, privacidad
 Requires at least: 4.7
 Tested up to: 6.4
-Stable tag: 1.3.8
+Stable tag: 1.3.9
 Requires PHP: 5.6
 License: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -42,7 +42,8 @@ Añade las casillas de consentimiento y crea la primera capa informativa en los 
 
 = Complementos =
 
-El API de LegalTech360 es un complemento adicional que permite obtener información detallada de las cookies instaladas (descripción, categoría, duración y enlaces a la política de privacidad). [Ver condiciones](https://superadmin.es/legal/condiciones-api-legaltech360/).
+El API de Adapta RGPD es un complemento adicional que permite obtener información detallada de las cookies instaladas (descripción, categoría, duración y enlaces a la política de privacidad). [Ver condiciones](https://superadmin.es/legal/condiciones-api-adapta-rgpd/).
+
 
 = Ayuda =
 

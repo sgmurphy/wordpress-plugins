@@ -41,9 +41,8 @@ function csmm_plugin_init() {
 
 
 	// This is the server address of the current page
-	@$signals_server_url = $signals_protocol . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-
-
+	@$signals_server_url = $signals_protocol . '://' . $_SERVER['HTTP_HOST'] . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    
 	// Checking for the custom_login_url value
 	if ( empty( $signals_csmm_options['custom_login_url'] ) ) {
 		$signals_csmm_options['custom_login_url'] = NULL;
