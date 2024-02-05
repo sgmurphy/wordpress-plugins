@@ -181,6 +181,41 @@
             </div>
         </div>
     </div>
-
+    <div class="wdt-chart-wizard-chart-selecter-block col-sm-2">
+        <div class="card opacity-6" data-type="google_geo_chart" data-min_columns="2" data-max_columns="3" data-toggle="html-premium-popover" data-placement="top" title="title" data-content="content">
+            <div class="card-header">
+                <div class="wdt-chart-wizard-overlay"></div>
+                <img class="img-responsive"
+                     src="<?php echo WDT_ASSETS_PATH ?>img/chart-thumbs/google_geochart_region.png">
+            </div>
+            <div class="card-body">
+                <h4 class="f-14"><i class="wpdt-icon-star-full" style="color: #FFC078;"></i><?php esc_html_e('Region Geochart', 'wpdatatables'); ?></h4>
+            </div>
+        </div>
+    </div>
+    <div class="wdt-chart-wizard-chart-selecter-block col-sm-2">
+        <div class="card opacity-6" data-type="google_marker_geo_chart" data-min_columns="2" data-max_columns="3" data-toggle="html-premium-popover" data-placement="top" title="title" data-content="content">
+            <div class="card-header">
+                <div class="wdt-chart-wizard-overlay"></div>
+                <img class="img-responsive"
+                     src="<?php echo WDT_ASSETS_PATH ?>img/chart-thumbs/google_geochart_markers.png">
+            </div>
+            <div class="card-body">
+                <h4 class="f-14"><i class="wpdt-icon-star-full" style="color: #FFC078;"></i><?php esc_html_e('Marker Geochart', 'wpdatatables'); ?></h4>
+            </div>
+        </div>
+    </div>
+    <div class="wdt-chart-wizard-chart-selecter-block col-sm-2">
+        <div class="card opacity-6" data-type="google_text_geo_chart" data-min_columns="2" data-max_columns="3" data-toggle="html-premium-popover" data-placement="top" title="title" data-content="content">
+            <div class="card-header">
+                <div class="wdt-chart-wizard-overlay"></div>
+                <img class="img-responsive"
+                     src="<?php echo WDT_ASSETS_PATH ?>img/chart-thumbs/google_geochart_text.png">
+            </div>
+            <div class="card-body">
+                <h4 class="f-14"><i class="wpdt-icon-star-full" style="color: #FFC078;"></i><?php esc_html_e('Text Geochart', 'wpdatatables'); ?></h4>
+            </div>
+        </div>
+    </div>
 
 </div>

@@ -2,10 +2,9 @@
 
 namespace FernleafSystems\Wordpress\Plugin\Shield\Modules\UserManagement;
 
-use FernleafSystems\Wordpress\Plugin\Shield\Modules\Base;
 use FernleafSystems\Wordpress\Services\Services;
 
-class Strings extends Base\Strings {
+class Strings extends \FernleafSystems\Wordpress\Plugin\Shield\Modules\Base\Strings {
 
 	public function getPassStrengthName( int $strength ) :string {
 		return [
@@ -18,73 +17,7 @@ class Strings extends Base\Strings {
 	}
 
 	public function getEventStrings() :array {
-		return [
-			'reg_email_invalid'            => [
-				'name'  => __( 'Invalid User Email Registration', 'wp-simple-firewall' ),
-				'audit' => [
-					__( 'Detected user registration with invalid email address ({{email}}).', 'wp-simple-firewall' ),
-					__( 'Email verification test that failed: {{reason}}' ),
-				],
-			],
-			'password_expired'             => [
-				'name'  => __( 'Password Expired', 'wp-simple-firewall' ),
-				'audit' => [
-					__( 'Forcing user ({{user_login}}) to update expired password.', 'wp-simple-firewall' ),
-				],
-			],
-			'password_policy_force_change' => [
-				'name'  => __( 'Forced Password Change', 'wp-simple-firewall' ),
-				'audit' => [
-					__( 'Forcing user ({{user_login}}) to update password that fails to meet policies.', 'wp-simple-firewall' ),
-				],
-			],
-			'password_policy_block'        => [
-				'name'  => __( 'Password Change Blocked', 'wp-simple-firewall' ),
-				'audit' => [
-					__( 'Blocked attempted password update that failed policy requirements.', 'wp-simple-firewall' ),
-				],
-			],
-			'session_notfound'             => [
-				'name'  => __( 'Session Not Found', 'wp-simple-firewall' ),
-				'audit' => [
-					__( 'Valid user session could not be found ({{user_login}}).', 'wp-simple-firewall' ),
-					__( 'Logging out.', 'wp-simple-firewall' )
-				],
-			],
-			'session_expired'              => [
-				'name'  => __( 'Session Expired', 'wp-simple-firewall' ),
-				'audit' => [
-					__( 'User session has expired ({{user_login}}).', 'wp-simple-firewall' ),
-					__( 'Logging out.', 'wp-simple-firewall' )
-				],
-			],
-			'session_idle'                 => [
-				'name'  => __( 'Session Idle', 'wp-simple-firewall' ),
-				'audit' => [
-					__( 'User session has expired due to inactivity ({{user_login}}).', 'wp-simple-firewall' ),
-					__( 'Logging out.', 'wp-simple-firewall' )
-				],
-			],
-			'session_iplock'               => [
-				'name'  => __( 'Session Locked To IP', 'wp-simple-firewall' ),
-				'audit' => [
-					__( 'Access to an established user session ({{user_login}}) from a different IP address.', 'wp-simple-firewall' ),
-					__( 'Logging out.', 'wp-simple-firewall' )
-				],
-			],
-			'user_hard_suspended'          => [
-				'name'  => __( 'User Manually Suspended', 'wp-simple-firewall' ),
-				'audit' => [
-					__( 'User "{{user_login}}" suspended by admin.', 'wp-simple-firewall' ),
-				],
-			],
-			'user_hard_unsuspended'        => [
-				'name'  => __( 'User Manually Unsuspended', 'wp-simple-firewall' ),
-				'audit' => [
-					__( 'User "{{user_login}}" unsuspended by admin.', 'wp-simple-firewall' ),
-				],
-			],
-		];
+		return [];
 	}
 
 	public function getSectionStrings( string $section ) :array {
@@ -207,21 +140,11 @@ class Strings extends Base\Strings {
 				];
 				break;
 
-			case 'session_lock_location' :
-				$name = __( 'Lock To Location', 'wp-simple-firewall' );
-				$summary = __( 'Locks A User Session To IP address', 'wp-simple-firewall' );
+			case 'session_lock' :
+				$name = __( 'User Session Lock', 'wp-simple-firewall' );
+				$summary = __( 'Locks A User Session To Prevent Theft', 'wp-simple-firewall' );
 				$desc = [
-					__( 'When selected, a session is restricted to the same IP address as when the user logged in.', 'wp-simple-firewall' ),
-					__( "If a logged-in user's IP address changes, the session will be invalidated and they'll be forced to re-login to WordPress.", 'wp-simple-firewall' )
-				];
-				break;
-
-			case 'session_username_concurrent_limit' :
-				$name = __( 'Max Simultaneous Sessions', 'wp-simple-firewall' );
-				$summary = __( 'Limit Simultaneous Sessions For The Same Username', 'wp-simple-firewall' );
-				$desc = [
-					__( 'The number provided here is the maximum number of simultaneous, distinct, sessions allowed for any given username.', 'wp-simple-firewall' ),
-					__( "Zero (0) will allow unlimited simultaneous sessions.", 'wp-simple-firewall' )
+					__( 'Protects against user compromise by preventing user session theft/hijacking.', 'wp-simple-firewall' ),
 				];
 				break;
 

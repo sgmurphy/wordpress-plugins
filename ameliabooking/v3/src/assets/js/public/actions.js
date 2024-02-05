@@ -129,6 +129,20 @@ function useAction (store, additionalData, action, type, successCallback, errorC
 
   switch (type) {
     case ('appointment'):
+    if (additionalData && additionalData.isCartAppointment) {
+      data.service = additionalData.serviceId ? store.getters['entities/getService'](additionalData.serviceId) : null
+      data.employee = additionalData.providerId ? store.getters['entities/getEmployee'](additionalData.providerId) : null
+      data.location = additionalData.locationId ? store.getters['entities/getLocation'](additionalData.locationId) : null
+
+      data.category = data.service ? store.getters['entities/getCategory'](
+          data.service.categoryId
+      ) : null
+
+
+      if (data.employee) {
+        data.employee.fullName = data.employee.firstName + ' ' + data.employee.lastName
+      }
+    } else {
       data.service = store.getters['booking/getServiceId'] ? store.getters['entities/getService'](
         store.getters['booking/getServiceId']
       ) : null
@@ -164,6 +178,7 @@ function useAction (store, additionalData, action, type, successCallback, errorC
       }
 
       data.booking = store.getters['booking/getBooking']
+    }
 
       break
 

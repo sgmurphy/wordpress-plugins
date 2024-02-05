@@ -142,9 +142,7 @@ function useRestore (store, shortcodeData) {
           break
       }
 
-      if (data.response.payment.gateway !== 'wc') {
-        useNotify(store, data.response, () => {}, () => {})
-      }
+      useNotify(store, data.response, () => {}, () => {})
 
       return {
         result: 'success',

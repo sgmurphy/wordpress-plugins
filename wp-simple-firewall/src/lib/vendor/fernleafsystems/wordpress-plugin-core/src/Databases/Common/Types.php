@@ -26,6 +26,7 @@ class Types {
 	public const MACROTYPE_TEXT = 'text';
 	public const MACROTYPE_MEDIUMTEXT = 'mediumtext';
 	public const MACROTYPE_LONGTEXT = 'longtext';
+	public const MACROTYPE_UUID4 = 'uuid4';
 	public const MACROTYPE_URL = 'url';
 	public const MACROTYPE_BOOL = 'bool';
 	public const MACROTYPE_CHAR = 'char';
@@ -43,7 +44,7 @@ class Types {
 
 			case self::MACROTYPE_BLOBLONG:
 				$def = \array_merge( self::GetMacroTypeDef( self::MACROTYPE_BLOB ), [
-					'type' => 'longbob',
+					'type' => 'longblob',
 				] );
 				break;
 
@@ -186,6 +187,17 @@ class Types {
 						'comment' => 'Site URL',
 					]
 				);
+				break;
+
+			case self::MACROTYPE_UUID4:
+				$def = \array_merge( self::GetMacroTypeDef( self::MACROTYPE_CHAR ), [
+					'length'  => 36,
+					'attr'    => [
+						'NOT NULL',
+						'UNIQUE'
+					],
+					'comment' => 'UUIDv4',
+				] );
 				break;
 
 			case self::MACROTYPE_VARCHAR:

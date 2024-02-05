@@ -2,6 +2,7 @@
 
 namespace WPDesk\FCF\Free\Settings\Route;
 
+use WPDesk\FCF\Free\Collections\RouteParamBag;
 use WPDesk\FCF\Free\Settings\Form\EditFieldsForm;
 
 /**
@@ -39,9 +40,9 @@ class UpdateFormFieldsRoute extends RouteAbstract {
 	 *
 	 * @throws \Exception
 	 */
-	public function get_endpoint_response( array $params ) {
+	public function get_endpoint_response( RouteParamBag $params ) {
 		try {
-			$status = ( new EditFieldsForm() )->save_form_data( $params );
+			$status = ( new EditFieldsForm() )->save_form_data( $params->toArray() );
 			if ( $status !== true ) {
 				throw new \Exception();
 			}

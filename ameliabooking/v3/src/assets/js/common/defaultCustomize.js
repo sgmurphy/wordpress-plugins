@@ -1538,7 +1538,7 @@ let defaultTranslations = {
         name: globalLabels.cil_main_header,
         labels: {
           back_btn: null,
-          heading_services: null,
+          heading_service: null,
           book_now: null,
           free: null,
           multiple_locations: null,

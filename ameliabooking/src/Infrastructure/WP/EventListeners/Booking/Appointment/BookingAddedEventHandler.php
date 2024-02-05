@@ -7,6 +7,7 @@
 namespace AmeliaBooking\Infrastructure\WP\EventListeners\Booking\Appointment;
 
 use AmeliaBooking\Application\Commands\CommandResult;
+use AmeliaBooking\Application\Services\Bookable\AbstractPackageApplicationService;
 use AmeliaBooking\Application\Services\Booking\BookingApplicationService;
 use AmeliaBooking\Application\Services\Booking\IcsApplicationService;
 use AmeliaBooking\Application\Services\Helper\HelperService;
@@ -94,6 +95,8 @@ class BookingAddedEventHandler
         $paymentAS = $container->get('application.payment.service');
         /** @var SettingsService $settingsDS */
         $settingsDS = $container->get('domain.settings.service');
+        /** @var AbstractPackageApplicationService $packageApplicationService */
+        $packageApplicationService = $container->get('application.bookable.package');
 
         $type = $commandResult->getData()['type'];
 
@@ -146,6 +149,7 @@ class BookingAddedEventHandler
             }
 
             if ($booking === null) {
+                $packageReservation['onlyOneEmployee'] = $packageApplicationService->getOnlyOneEmployee($package->toArray());
                 $emailNotificationService->sendPackageNotifications($packageReservation, true);
 
                 if ($settingsService->getSetting('notifications', 'smsSignedIn') === true) {

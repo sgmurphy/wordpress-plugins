@@ -47,7 +47,9 @@ class Migration320 implements Migration {
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Rolls back migration operations.
+	 *
+	 * @return void
 	 */
 	public function down() {
 		$plugin_settings = get_option( EditFieldsForm::SETTINGS_OPTION_NAME, [] );

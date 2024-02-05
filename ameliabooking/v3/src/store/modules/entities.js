@@ -165,10 +165,14 @@ function setEntities ({ commit, rootState }, entities, types, licence) {
           ).serviceList.find(s => parseInt(s.id) === parseInt(employeeService.id))
 
           let employeePrice = entities[ent][employeeIndex].serviceList[serviceIndex].price
+          let employeeMinCapacity = entities[ent][employeeIndex].serviceList[serviceIndex].minCapacity
+          let employeeMaxCapacity = entities[ent][employeeIndex].serviceList[serviceIndex].maxCapacity
 
           entities[ent][employeeIndex].serviceList[serviceIndex] = JSON.parse(JSON.stringify(service))
 
           entities[ent][employeeIndex].serviceList[serviceIndex].price = employeePrice
+          entities[ent][employeeIndex].serviceList[serviceIndex].minCapacity = employeeMinCapacity
+          entities[ent][employeeIndex].serviceList[serviceIndex].maxCapacity = employeeMaxCapacity
 
           entities[ent][employeeIndex].serviceList[serviceIndex].customPricing = getParsedCustomPricing(
             employeeService.customPricing ? employeeService : service

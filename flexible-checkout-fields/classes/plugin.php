@@ -1,10 +1,11 @@
 <?php
 
 use WPDesk\FCF\Free\Field\Type\FileType;
-use WPDesk\FCF\Free\Field\Type\MultiCheckboxType;
-use WPDesk\FCF\Free\Field\Type\MultiSelectType;
-use WPDesk\FCF\Free\Field\Type\TextareaType;
 use WPDesk\FCF\Free\Plugin as PluginFree;
+use WPDesk\FCF\Free\Field\Type\TextareaType;
+use WPDesk\FCF\Free\Field\Type\MultiSelectType;
+use WPDesk\FCF\Free\Field\Type\MultiCheckboxType;
+use WPDesk\FCF\Free\Settings\Form\EditFieldsForm;
 
 /**
  * Class Plugin
@@ -390,7 +391,7 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 	 * @return array
 	 */
 	public function get_settings() {
-		$settings = get_option( 'inspire_checkout_fields_settings', array() );
+		$settings = get_option( EditFieldsForm::SETTINGS_OPTION_NAME, [] );
 		if ( ! is_array( $settings ) ) {
 			$settings = array();
 		}
@@ -483,7 +484,7 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 					foreach ( $type as $field_name => $field ) {
 						if ( apply_filters( 'flexible_checkout_fields_condition', true, $field ) ) {
 							if ( $field['visible'] == 0 or
-							     ( ( isset( $_GET['page'] ) && $_GET['page'] == 'inspire_checkout_fields_settings' ) && $field['visible'] == 1 ) || $field['name'] == 'billing_country' || $field['name'] == 'shipping_country' ) {
+							     ( ( isset( $_GET['page'] ) && $_GET['page'] === EditFieldsForm::SETTINGS_OPTION_NAME ) && $field['visible'] == 1 ) || $field['name'] == 'billing_country' || $field['name'] == 'shipping_country' ) {
 								$fcf_field = new Flexible_Checkout_Fields_Field( $field, $this );
 								$custom_field = $fcf_field->is_custom_field();
 								if ( isset( $fields[ $key ][ $field['name'] ] ) ) {
@@ -640,7 +641,7 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 		if ( ! empty( $settings[ $request_type ] ) ) {
 			foreach ( $settings[ $request_type ] as $key => $field ) {
 
-				if ( $field['visible'] == 0 || $field['name'] === 'billing_country' || $field['name'] === 'shipping_country' || ( isset( $_GET['page'] ) && $_GET['page'] === 'inspire_checkout_fields_settings' && $field['visible'] == 1 ) ) {
+				if ( $field['visible'] == 0 || $field['name'] === 'billing_country' || $field['name'] === 'shipping_country' || ( isset( $_GET['page'] ) && $_GET['page'] === EditFieldsForm::SETTINGS_OPTION_NAME && $field['visible'] == 1 ) ) {
 					if ( ! empty( $fields[ $key ] ) ) {
 						$new[ $key ] = $fields[ $key ];
 					}
@@ -840,7 +841,7 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 	 * @return array
 	 */
 	public function add_woocommerce_screen_ids( $screen_ids ) {
-		$screen_ids[] = 'woocommerce_page_inspire_checkout_fields_settings';
+		$screen_ids[] = 'woocommerce_page_wpdesk_checkout_fields_settings';
 
 		return $screen_ids;
 	}
@@ -957,7 +958,7 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 	 */
 	public function links_filter( $links ) {
 		$plugin_links = array(
-			'<a href="' . admin_url( 'admin.php?page=inspire_checkout_fields_settings' ) . '">' . __( 'Settings', 'flexible-checkout-fields' ) . '</a>',
+			'<a href="' . admin_url( 'admin.php?page=' . EditFieldsForm::SETTINGS_OPTION_NAME ) . '">' . __( 'Settings', 'flexible-checkout-fields' ) . '</a>',
 			'<a href="' . esc_url( apply_filters( 'flexible_checkout_fields/short_url', '#', 'fcf-settings-row-action-docs' ) ) . '" target="_blank">' . __( 'Docs', 'flexible-checkout-fields' ) . '</a>',
 		);
 

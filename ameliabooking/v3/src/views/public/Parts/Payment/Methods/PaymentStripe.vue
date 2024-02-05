@@ -31,11 +31,28 @@
         {{ amLabels.stripe }}
       </span>
     </div>
+
+    <div
+        v-if="amSettings.general.googleRecaptcha.enabled"
+        :id="'recaptcha-' + shortcodeData.counter"
+        class="am-recaptcha-holder"
+    >
+      <vue-recaptcha
+          ref="recaptchaRef"
+          :size="amSettings.general.googleRecaptcha.invisible ? 'invisible' : null"
+          :load-recaptcha-script="true"
+          :sitekey="amSettings.general.googleRecaptcha.siteKey"
+          @verify="onRecaptchaVerify"
+          @expired="onRecaptchaExpired"
+      >
+      </vue-recaptcha>
+    </div>
+
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted, inject, watchEffect } from 'vue'
+import {computed, onMounted, inject, watchEffect, ref} from 'vue'
 import {
   usePaymentError,
   useBookingData,
@@ -49,6 +66,7 @@ import { useColorTransparency } from '../../../../../assets/js/common/colorManip
 // * Import from Vuex
 import { useStore } from 'vuex'
 import {useScrollTo} from "../../../../../assets/js/common/scrollElements";
+import { VueRecaptcha } from "vue-recaptcha";
 
 const store = useStore()
 
@@ -81,6 +99,43 @@ const {
 
 // * Components Emits
 const emits = defineEmits(['payment-error'])
+
+/*************
+ * Recaptcha *
+ ************/
+
+let recaptchaRef = ref(null)
+
+let recaptchaValid = ref(false)
+
+let recaptchaResponse = ref(null)
+
+function onRecaptchaExpired () {
+  recaptchaValid.value = false
+
+  emits('payment-error', amLabels.recaptcha_error)
+}
+
+function onRecaptchaVerify (response) {
+  recaptchaValid.value = true
+
+  recaptchaResponse.value = response
+
+  if (amSettings.general.googleRecaptcha.invisible) {
+    stripePaymentCreate(
+        useBookingData(
+            store,
+            null,
+            false,
+            {},
+            recaptchaResponse.value
+        )
+    )
+
+    return false
+  }
+}
+
 
 // * Payment Part
 let stripeObject = null
@@ -127,9 +182,12 @@ function stripePaymentInit () {
 }
 
 function stripePaymentCreate () {
-  store.commit('setLoading', true)
+  if (amSettings.general.googleRecaptcha.enabled && !amSettings.general.googleRecaptcha.invisible && !recaptchaValid.value) {
+    emits('payment-error', amLabels.recaptcha_error)
 
-  footerButtonReset()
+    return false
+  }
+
   stripeObject.createPaymentMethod(
     'card',
     cardNum,
@@ -150,11 +208,10 @@ function stripePaymentCreate () {
           {
             paymentMethodId: result.paymentMethod.id
           },
-          null
+          recaptchaResponse.value
         ),
         function (response) {
           if (response.data.data.requiresAction) {
-            store.commit('setLoading', false)
             stripePaymentActionRequired(response.data.data)
 
             return
@@ -235,6 +292,25 @@ function errorBooking (error) {
 
 let paymentStepRef = inject('paymentRef')
 
+function continueWithBooking () {
+  footerButtonReset()
+
+  store.commit('setLoading', true)
+
+  if (amSettings.general.googleRecaptcha.enabled) {
+    if (amSettings.general.googleRecaptcha.invisible) {
+      recaptchaRef.value.execute()
+    } else if (!recaptchaValid.value) {
+      emits('payment-error', amLabels.value.recaptcha_error)
+      store.commit('setLoading', false)
+    } else {
+      stripePaymentCreate()
+    }
+  } else {
+    stripePaymentCreate()
+  }
+}
+
 // * Watching when footer button was clicked
 watchEffect(() => {
   if(footerButtonClicked.value) {
@@ -243,7 +319,7 @@ watchEffect(() => {
       useScrollTo(paymentStepRef.value, paymentStepRef.value, 20, 300)
       emits('payment-error', amLabels.value.coupon_mandatory)
     } else {
-      stripePaymentCreate()
+      continueWithBooking()
     }
   }
 }, {flush: 'post'})
@@ -332,6 +408,15 @@ export default {
         }
         .am-stripe-cn {
           margin-bottom: 16px;
+        }
+      }
+
+      .am-recaptcha-holder {
+        height: 84px;
+        position: relative;
+
+        & > div > div {
+          position: absolute !important;
         }
       }
     }

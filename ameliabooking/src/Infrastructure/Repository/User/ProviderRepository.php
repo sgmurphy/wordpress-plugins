@@ -783,13 +783,16 @@ class ProviderRepository extends UserRepository implements ProviderRepositoryInt
      * @return array
      * @throws QueryExecutionException
      */
-    public function getAvailable($dayIndex)
+    public function getAvailable($dayIndex, $providerTimeZone)
     {
-        $currentDateTime = "STR_TO_DATE('" . DateTimeService::getNowDateTime() . "', '%Y-%m-%d %H:%i:%s')";
+        $currentDateTime = DateTimeService::getNowDateTime();
+        $currentDateTimeInTimeZone = DateTimeService::getCustomDateTimeObjectInTimeZone($currentDateTime, $providerTimeZone);
+        $currentDateTimeSQL = "STR_TO_DATE('" . $currentDateTimeInTimeZone->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
 
         $params = [
-            ':dayIndex' => $dayIndex === 0 ? 7 : $dayIndex,
-            ':type'     => AbstractUser::USER_ROLE_PROVIDER
+            ':dayIndex'         => $dayIndex === 0 ? 7 : $dayIndex,
+            ':type'             => AbstractUser::USER_ROLE_PROVIDER,
+            ':providerTimeZone' => $providerTimeZone
         ];
 
         try {
@@ -798,6 +801,7 @@ class ProviderRepository extends UserRepository implements ProviderRepositoryInt
                 u.firstName AS user_firstName,
                 u.lastName AS user_lastName,
                 u.translations AS user_translations,
+                u.timeZone AS user_timeZone,
                 wdt.id AS weekDay_id,
                 wdt.dayIndex AS weekDay_dayIndex,
                 wdt.startTime AS weekDay_startTime,
@@ -810,14 +814,15 @@ class ProviderRepository extends UserRepository implements ProviderRepositoryInt
               LEFT JOIN {$this->providerPeriodTable} pt ON pt.weekDayId = wdt.id
               WHERE u.type = :type AND
               wdt.dayIndex = :dayIndex AND
+              (u.timeZone = NULL OR u.timeZone = :providerTimeZone) AND
               ((
-              {$currentDateTime} >= wdt.startTime AND
-              {$currentDateTime} <= wdt.endTime AND
+              {$currentDateTimeSQL} >= wdt.startTime AND
+              {$currentDateTimeSQL} <= wdt.endTime AND
               pt.startTime IS NULL AND
               pt.endTime IS NULL
               ) OR (
-              {$currentDateTime} >= pt.startTime AND
-              {$currentDateTime} <= pt.endTime AND
+              {$currentDateTimeSQL} >= pt.startTime AND
+              {$currentDateTimeSQL} <= pt.endTime AND
               pt.startTime IS NOT NULL AND
               pt.endTime IS NOT NULL
               ))");

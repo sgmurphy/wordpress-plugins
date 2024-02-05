@@ -43,12 +43,6 @@ class Request extends DynPropertiesClass {
 	private $ms;
 
 	/**
-	 * @var float
-	 * @deprecated 3.0
-	 */
-	private $nMts;
-
-	/**
 	 * @var string
 	 */
 	private $content;
@@ -135,7 +129,6 @@ class Request extends DynPropertiesClass {
 		if ( $update || empty( $this->ts ) ) {
 			$this->ts = time();
 			$this->ms = \function_exists( 'microtime' ) ? @\microtime( true ) : false;
-			$this->nMts = $this->ms;
 		}
 		return $this->ts;
 	}
@@ -286,6 +279,48 @@ class Request extends DynPropertiesClass {
 			}
 		}
 		return is_null( $value ) ? $default : $value;
+	}
+
+	/**
+	 * @see https://github.com/ralouphie/getallheaders
+	 */
+	public function headers() :array {
+		$headers = \function_exists( '\getallheaders' ) ? \getallheaders() : [];
+		if ( empty( $headers ) ) {
+			$copy_server = [
+				'CONTENT_TYPE'   => 'Content-Type',
+				'CONTENT_LENGTH' => 'Content-Length',
+				'CONTENT_MD5'    => 'Content-Md5',
+			];
+
+			foreach ( $_SERVER as $key => $value ) {
+				if ( substr( $key, 0, 5 ) === 'HTTP_' ) {
+					$key = substr( $key, 5 );
+					if ( !isset( $copy_server[ $key ] ) || !isset( $_SERVER[ $key ] ) ) {
+						$key = str_replace( ' ', '-', ucwords( strtolower( str_replace( '_', ' ', $key ) ) ) );
+						$headers[ $key ] = $value;
+					}
+				}
+				elseif ( isset( $copy_server[ $key ] ) ) {
+					$headers[ $copy_server[ $key ] ] = $value;
+				}
+			}
+
+			if ( !isset( $headers[ 'Authorization' ] ) ) {
+				if ( isset( $_SERVER[ 'REDIRECT_HTTP_AUTHORIZATION' ] ) ) {
+					$headers[ 'Authorization' ] = $_SERVER[ 'REDIRECT_HTTP_AUTHORIZATION' ];
+				}
+				elseif ( isset( $_SERVER[ 'PHP_AUTH_USER' ] ) ) {
+					$basic_pass = $_SERVER[ 'PHP_AUTH_PW' ] ?? '';
+					$headers[ 'Authorization' ] = 'Basic '.base64_encode( $_SERVER[ 'PHP_AUTH_USER' ].':'.$basic_pass );
+				}
+				elseif ( isset( $_SERVER[ 'PHP_AUTH_DIGEST' ] ) ) {
+					$headers[ 'Authorization' ] = $_SERVER[ 'PHP_AUTH_DIGEST' ];
+				}
+			}
+		}
+
+		return $headers;
 	}
 
 	/**

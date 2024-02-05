@@ -53,6 +53,10 @@ export default {
             enabled: this.$root.settings.lessonSpace.enabled
           }
 
+          entitySettings.googleMeet = {
+            enabled: this.$root.settings.googleCalendar.enabled && this.$root.settings.googleCalendar.googleMeetEnabled
+          }
+
           break
         case ('event'):
           entitySettings.general = {
@@ -65,6 +69,10 @@ export default {
           }
           entitySettings.lessonSpace = {
             enabled: this.$root.settings.lessonSpace.enabled
+          }
+
+          entitySettings.googleMeet = {
+            enabled: this.$root.settings.googleCalendar.enabled && this.$root.settings.googleCalendar.googleMeetEnabled
           }
 
           break

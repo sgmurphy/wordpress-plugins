@@ -60,8 +60,8 @@ class GetNotificationsCommandHandler extends CommandHandler
                 $notification->setEntityIds($notificationEntitiesRepo->getEntities($notification->getId()->getValue()));
                 $notification->setEntityIds(array_map('intval', $notification->getEntityIds()));
             }
-            if (!empty($whatsAppTemplates[0]) && !empty($notification->getWhatsAppTemplate()) && !empty($whatsAppTemplates[0]['data'])) {
-                if (!in_array($notification->getWhatsAppTemplate(), array_column($whatsAppTemplates[0]['data'], 'name'))) {
+            if (!empty($whatsAppTemplates[0]) && !empty($notification->getWhatsAppTemplate()) && !empty($whatsAppTemplates[0])) {
+                if (!in_array($notification->getWhatsAppTemplate(), array_column($whatsAppTemplates[0], 'name'))) {
                     $notification->setWhatsAppTemplate('');
                     $notification->setSubject(new Name(''));
                     $notification->setContent(new Html(''));

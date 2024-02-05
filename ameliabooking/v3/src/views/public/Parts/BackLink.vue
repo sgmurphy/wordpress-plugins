@@ -1,7 +1,6 @@
 <template>
-  <div class="am-lite-footer">
+  <div v-if="licence.isLite && amSettings.general.backLink.enabled" class="am-lite-footer">
     <a
-      v-if="licence.isLite && amSettings.general.backLink.enabled"
       rel="nofollow"
       class="am-lite-footer-link"
       :href="amSettings.general.backLink.url"

@@ -17,7 +17,9 @@ class Page implements Hookable, HookablePluginDependant {
 
 	use PluginAccess;
 
-	const SETTINGS_PAGE = 'inspire_checkout_fields_settings';
+	public const SETTINGS_PAGE = 'wpdesk_checkout_fields_settings';
+
+	private const SCRIPT_HANDLE = 'fcf-admin';
 
 	/**
 	 * Class object for template rendering.
@@ -107,9 +109,10 @@ class Page implements Hookable, HookablePluginDependant {
 	 */
 	private function load_settings_data( array $menu_sections ): array {
 		$settings = [
-			'rest_api_url' => get_rest_url( null, RouteIntegration::REST_API_NAMESPACE ),
-			'header_nonce' => wp_create_nonce( 'wp_rest' ),
-			'i18n'         => $this->load_translations(),
+			'rest_api_url'      => get_rest_url( null, RouteIntegration::REST_API_NAMESPACE ),
+			'header_nonce'      => wp_create_nonce( 'wp_rest' ),
+			'i18n'              => $this->load_translations(),
+			'is_pro_compatible' => apply_filters( 'flexible_checkout_fields/is_pro_compatible', true ),
 		];
 
 		switch ( $_GET['tab'] ?? '' ) { // phpcs:ignore
@@ -166,6 +169,14 @@ class Page implements Hookable, HookablePluginDependant {
 				];
 				break;
 		}
+
+		/**
+		 * Filter settings of admin page.
+		 *
+		 * @param array  $settings   Settings of admin page.
+		 * @param array  $menu_items Items of menu with sections.
+		 */
+		$settings = apply_filters( 'flexible_checkout_fields/init_admin_settings', $settings, $menu_sections );
 
 		return $settings;
 	}
@@ -246,12 +257,12 @@ class Page implements Hookable, HookablePluginDependant {
 		$is_debug = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG );
 
 		wp_register_style(
-			'fcf-admin',
-			trailingslashit( $this->plugin->get_plugin_assets_url() ) . 'css/new-admin.css',
+			self::SCRIPT_HANDLE,
+			\trailingslashit( $this->plugin->get_plugin_assets_url() ) . 'css/new-admin.css',
 			[],
 			( $is_debug ) ? time() : $this->plugin->get_script_version()
 		);
-		wp_enqueue_style( 'fcf-admin' );
+		wp_enqueue_style( self::SCRIPT_HANDLE );
 	}
 
 	/**
@@ -261,13 +272,16 @@ class Page implements Hookable, HookablePluginDependant {
 		$is_debug = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG );
 
 		wp_register_script(
-			'fcf-admin',
-			trailingslashit( $this->plugin->get_plugin_assets_url() ) . 'js/new-admin.js',
-			[],
+			self::SCRIPT_HANDLE,
+			\trailingslashit( $this->plugin->get_plugin_assets_url() ) . 'js/new-admin.js',
+			[ 'wp-i18n' ],
 			( $is_debug ) ? time() : $this->plugin->get_script_version(),
 			true
 		);
 		wp_enqueue_media();
-		wp_enqueue_script( 'fcf-admin' );
+		wp_enqueue_script( self::SCRIPT_HANDLE );
+
+		$plugin_dir = \trailingslashit( WP_PLUGIN_DIR ) . $this->plugin->get_plugin_file_path();
+		wp_set_script_translations( self::SCRIPT_HANDLE, 'flexible-checkout-fields', \plugin_dir_path( $plugin_dir ) . 'lang' );
 	}
 }

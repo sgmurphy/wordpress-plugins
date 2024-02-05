@@ -351,7 +351,7 @@
       </el-collapse-item>
     </el-collapse>
 
-    <el-collapse v-model="integrationsSettingsCollapse" v-if="zoomSettings || lessonSpaceSettings">
+    <el-collapse v-model="integrationsSettingsCollapse" v-if="zoomSettings || lessonSpaceSettings || googleMeetSettings">
       <el-collapse-item class="am-setting-box" name="integrationsSettings">
         <!-- Title -->
         <template slot="title">
@@ -385,8 +385,25 @@
         >
         </el-alert>
 
+        <!-- Google meet -->
+        <div class="am-setting-box am-switch-box" v-if="googleMeetSettings">
+          <el-row type="flex" align="middle" :gutter="24">
+            <el-col :span="16">
+              {{ $root.labels.enable_google_meet }}
+            </el-col>
+            <el-col :span="8" class="align-right">
+              <el-switch
+                  v-model="googleMeetSettings.enabled"
+                  active-text=""
+                  inactive-text=""
+              >
+              </el-switch>
+            </el-col>
+          </el-row>
+        </div>
+
         <!-- Lesson Space -->
-        <div class="am-setting-box am-switch-box">
+        <div class="am-setting-box am-switch-box" v-if="lessonSpaceSettings">
           <el-row type="flex" align="middle" :gutter="24">
             <el-col :span="16">
               {{ $root.labels.lesson_space }}
@@ -414,6 +431,7 @@
     props: {
       zoomSettings: null,
       lessonSpaceSettings: null,
+      googleMeetSettings: null,
       paymentsSettings: null,
       generalSettings: null,
       settings: null,

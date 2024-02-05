@@ -154,6 +154,7 @@ class SettingsStorage implements SettingsStorageInterface
             'daysOff'                => $this->getCategorySettings('daysOff'),
             'general'                => [
                 'itemsPerPage'                           => $this->getSetting('general', 'itemsPerPage'),
+                'itemsPerPageBackEnd'                    => $this->getSetting('general', 'itemsPerPageBackEnd'),
                 'appointmentsPerPage'                    => $this->getSetting('general', 'appointmentsPerPage'),
                 'eventsPerPage'                          => $this->getSetting('general', 'eventsPerPage'),
                 'servicesPerPage'                        => $this->getSetting('general', 'servicesPerPage'),
@@ -189,8 +190,10 @@ class SettingsStorage implements SettingsStorageInterface
                 ],
                 'usedLanguages' => $this->getSetting('general', 'usedLanguages'),
             ],
-            'googleCalendar'         =>
-                $this->getSetting('googleCalendar', 'clientID') && $this->getSetting('googleCalendar', 'clientSecret'),
+            'googleCalendar'         => [
+              'enabled' => $this->getSetting('googleCalendar', 'clientID') && $this->getSetting('googleCalendar', 'clientSecret'),
+              'googleMeetEnabled' => $this->getSetting('googleCalendar', 'enableGoogleMeet')
+            ],
             'outlookCalendar'        =>
                 $this->getSetting('outlookCalendar', 'clientID') && $this->getSetting('outlookCalendar', 'clientSecret'),
             'zoom'                   => [

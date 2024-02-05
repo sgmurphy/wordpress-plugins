@@ -681,7 +681,7 @@
   .am-dialog-appointment {
     h3 {
       margin-bottom: 0;
-      padding: 0 4px 0 24px;
+      padding: 0 4px 0 0;
       height: 22px;
       width: fit-content;
       max-width: 95%;
@@ -692,8 +692,11 @@
       overflow: hidden;
       text-overflow: ellipsis;
 
-      &.am-no-show {
+      &.am-customer-name {
+        padding: 0 4px 0 24px;
+      }
 
+      &.am-no-show {
         &-gray {
           border: 1px solid #D1D5D7;
           background: #FBFBFB;

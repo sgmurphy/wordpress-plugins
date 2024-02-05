@@ -4,6 +4,7 @@ namespace AmeliaBooking\Application\Services\Bookable;
 
 use AmeliaBooking\Domain\Collection\Collection;
 use AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException;
+use AmeliaBooking\Domain\Entity\Bookable\Service\Package;
 use AmeliaBooking\Infrastructure\Common\Container;
 use AmeliaBooking\Infrastructure\Common\Exceptions\QueryExecutionException;
 use Exception;
@@ -127,4 +128,11 @@ abstract class AbstractPackageApplicationService
      * @throws ContainerValueNotFoundException
      */
     abstract public function getPackageUnusedBookingsCount($packageCustomerServices, $appointments);
+
+    /**
+     * @param  array $package
+     *
+     * @return array
+     */
+    abstract public function getOnlyOneEmployee($package);
 }

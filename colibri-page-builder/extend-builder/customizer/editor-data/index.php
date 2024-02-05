@@ -88,10 +88,10 @@ add_filter('extendbuilder_wp_data', function ($value) {
 
     return $value;
 });
-
 add_filter('extendbuilder_wp_data', function ($value) {
 
-    $value['colibri_page_builder_wpmu_nonce'] = wp_create_nonce( 'colibri_page_builder_wpmu_nonce' );
+    $value['plugin_activate_nonce'] = wp_create_nonce( 'plugin_activate_nonce' );
+	$value['colibri_page_builder_wpmu_nonce'] = wp_create_nonce( 'colibri_page_builder_wpmu_nonce' );
     $value['forminator_is_compatible'] = colibri_plugin_is_compatible('forminator');
 //	$value['smush_is_compatible'] = colibri_plugin_is_compatible('wp-smushit');
 //	$value['hummingbird_is_compatible'] = colibri_plugin_is_compatible('hummingbird-performance');

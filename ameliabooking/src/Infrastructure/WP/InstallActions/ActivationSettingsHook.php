@@ -124,6 +124,7 @@ class ActivationSettingsHook
             'requiredPhoneNumberField'               => false,
             'requiredEmailField'                     => true,
             'itemsPerPage'                           => 12,
+            'itemsPerPageBackEnd'                    => 30,
             'appointmentsPerPage'                    => 100,
             'eventsPerPage'                          => 100,
             'servicesPerPage'                        => 100,

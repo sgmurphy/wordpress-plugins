@@ -257,7 +257,8 @@ class BackendStrings
             'employee_cabinet'                       => __('Employee Panel Page URL', 'wpamelia'),
             'default_appointment_status'             => __('Default Appointment Status', 'wpamelia'),
             'default_appointment_status_tooltip'     => __('All appointments will be scheduled with the<br/>status you choose here.', 'wpamelia'),
-            'default_items_per_page'                 => __('Default items per page', 'wpamelia'),
+            'default_items_per_page'                 => __('Default items per page for Frontend', 'wpamelia'),
+            'default_items_per_page_backend'         => __('Default items per page for Backend', 'wpamelia'),
             'default_page_on_backend'                => __('Default page on back-end', 'wpamelia'),
             'default_payment_method'                 => __('Default Payment Method', 'wpamelia'),
             'default_phone_country_code'             => __('Default phone country code', 'wpamelia'),
@@ -269,7 +270,7 @@ class BackendStrings
             'enable_customer_cabinet'                => __('Enable Customer Panel', 'wpamelia'),
             'enable_employee_cabinet'                => __('Enable Employee Panel', 'wpamelia'),
             'enable_polyfill'                        => __('Enable usage for older IE browsers', 'wpamelia'),
-            'see_unavailable_features'               => __('Hide unlocked options', 'wpamelia'),
+            'see_unavailable_features'               => __('Hide locked options', 'wpamelia'),
             'envato_api'                             => __('Envato API', 'wpamelia'),
             'envato_api_activate'                    => __('Activate with Envato', 'wpamelia'),
             'event_title_and_description'            => __('Event Title and Description', 'wpamelia'),
@@ -380,6 +381,7 @@ class BackendStrings
             'require_cabinet_password'               => __('Require password for login', 'wpamelia'),
             'required_email_field'                   => __('Set email as a mandatory field', 'wpamelia'),
             'required_phone_number_field'            => __('Set a phone number as a mandatory field', 'wpamelia'),
+            'required_field_old_tooltip'             => __('This option does not apply to new forms,<br/> for that please check the customize page.', 'wpamelia'),
             'roles_settings'                         => __('Roles Settings', 'wpamelia'),
             'roles_settings_description'             => __('Use these settings to define settings that will be applied for the specific Amelia roles', 'wpamelia'),
             'send_event_invitation_email'            => __('Send Event Invitation Email', 'wpamelia'),
@@ -1576,6 +1578,7 @@ class BackendStrings
                 'title'       => __('Amelia - Events List', 'wpamelia'),
                 'description' => __('Event Booking is shortcode that gives your customers the option to book one of the events that you\'ve created on the back-end in a simple event list view.', 'wpamelia'),
             ],
+            'outdated_booking_gutenberg_block' => __('You are using a form that will be outdated soon!', 'wpamelia'),
         ];
     }
 

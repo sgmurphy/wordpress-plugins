@@ -19,10 +19,6 @@ export default {
     setCacheData (containerId, notify) {
       this.cacheData = 'ameliaCache' in window && window.ameliaCache.length && window.ameliaCache[0] ? JSON.parse(window.ameliaCache[0]) : null
 
-      if (this.cacheData && this.cacheData.response.payment.gateway === 'wc') {
-        notify = false
-      }
-
       if (this.cacheData) {
         this.cacheData.request.bookable.id = parseInt(this.cacheData.request.bookable.id)
         this.cacheData.request.passedCategoryId = parseInt(this.cacheData.request.passedCategoryId)

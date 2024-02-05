@@ -67,6 +67,8 @@ class OptionIntegration {
 			case OptionAbstract::FIELD_TYPE_CHECKBOX_LIST:
 			case OptionAbstract::FIELD_TYPE_GROUP:
 			case OptionAbstract::FIELD_TYPE_REPEATER:
+			case OptionAbstract::FIELD_TYPE_REPEATER_GROUP:
+			case OptionAbstract::FIELD_TYPE_REPEATER_RULES:
 				foreach ( $this->option_object->get_children() as $child_object ) {
 					$settings['items'][] = ( new OptionIntegration( $child_object ) )->get_field_settings();
 				}

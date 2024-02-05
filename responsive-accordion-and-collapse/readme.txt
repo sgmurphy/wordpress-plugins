@@ -1,10 +1,10 @@
 === Accordion FAQ - Compatible With All Page Builder (Elementor, Gutenberg) ===
 Contributors: wpshopmart
 Donate link: https://www.wpshopmart.com
-Tags: Accordion, accordions, accordion plugin, FAQ,  collapse, accordion plugin jquery, accordions plugin wordpress, accordions shortcode, accordion shortcode, accordions Widget, accordion Widget, jQuery accordions, Responsive accordion, Responsive accordions, collapsable content,  collapsible, display, expand, expandable, expandable content, hidden, hide, javascript, jquery, toggle, css accordion, css3 , bootstrap, bootstrap accordion, bootstrap collapse, wordpress accordion, widget, shortcode, responsive, plugin, wordpress accordion plugin  
+Tags: Accordion, accordions, accordion plugin, FAQ, collapse, accordion plugin jquery, accordions plugin wordpress, accordions shortcode, accordion shortcode, accordions Widget, accordion Widget, jQuery accordions, Responsive accordion, Responsive accordions, collapsable content,  collapsible, display, expand, expandable, expandable content, hidden, hide, javascript, jquery, toggle, css accordion, css3 , bootstrap, bootstrap accordion, bootstrap collapse, wordpress accordion, widget, shortcode, responsive, plugin, wordpress accordion plugin  
 Requires at least: 5.0
-Tested up to: 6.4.1
-Stable tag: 2.4.6
+Tested up to: 6.4.3
+Stable tag: 2.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Accordion And Collapse is the most easiest drag & drop accordion builder for Wor
 
 == Description ==
 
-Thanks for visit our plugin. Need an awesome accordion FAq plugin then this is it.  Responsive Accordion is has buildup with excellent accordion FAq builder for wordpress. You can add unlimited accordion and collapse with unlimited color.You can easy sort your accordion position using backend. Responsive Accordion is built-in bootstrap. 
+Thanks for visit our plugin. Need an awesome accordion FAQ plugin then this is it.  Responsive Accordion is has buildup with excellent accordion FAq builder for wordpress. You can add unlimited accordion and collapse with unlimited color.You can easy sort your accordion position using backend. Responsive Accordion is built-in bootstrap. 
 
 
 * [Accordion Pro - Live Demo](http://demo.wpshopmart.com/accordion-pro/)
@@ -182,6 +182,9 @@ We love your feedback please submit your review here [pluign review](https://wor
 11. accordion styles 2
 
 == Changelog ==
+
+= 2.4.7 =
+* minor css issue rseolved
 
 = 2.4.6 =
 * Compatible with WordPress 6.4

@@ -1303,6 +1303,7 @@
               :paymentsSettings="event.settings.payments"
               :generalSettings="event.settings.general"
               :lessonSpaceSettings="event.settings.lessonSpace"
+              :google-meet-settings="event.settings.googleMeet"
             >
             </entity-settings>
           </el-tab-pane>

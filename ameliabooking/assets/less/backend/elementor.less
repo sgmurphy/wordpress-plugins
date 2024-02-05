@@ -23,13 +23,26 @@
   background-image: url(../../img/amelia-logo-beta.svg);
 }
 
+.elementor-element .icon .amelia-logo-outdated:before{
+  content: "";
+  height: 30px;
+  display: block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-left: 19px;
+}
+.elementor-element .icon .amelia-logo-outdated:before {
+  background-image: url(../../img/amelia-logo-outdated.svg);
+}
+
 #elementor-controls {
   .elementor-control-content {
     display: block;
   }
 }
 
-.amelia-elementor-content, .amelia-elementor-content-beta {
+.amelia-elementor-content, .amelia-elementor-content-beta, .amelia-elementor-content-outdated {
   margin: 15px;
 
   &:before {
@@ -54,6 +67,10 @@
     font-size: 13px;
     line-height: 18px;
     color: #6d7882;
+
+    &-outdated {
+      color: #E3463C;
+    }
   }
 }
 
@@ -61,6 +78,15 @@
   &:before {
     width: 44px;
     background-image: url(../../img/amelia-logo-beta.svg);
+  }
+}
+
+.amelia-elementor-content-outdated {
+  margin: 28px 0 15px 15px;
+
+  &:before {
+    width: 53px;
+    background-image: url(../../img/amelia-logo-outdated.svg);
   }
 }
 

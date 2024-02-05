@@ -2,31 +2,10 @@
 
 namespace FernleafSystems\Wordpress\Plugin\Shield\Modules\Lockdown;
 
-use FernleafSystems\Wordpress\Plugin\Shield\Modules\Base;
-
-class Strings extends Base\Strings {
+class Strings extends \FernleafSystems\Wordpress\Plugin\Shield\Modules\Base\Strings {
 
 	public function getEventStrings() :array {
-		return [
-			'block_anonymous_restapi' => [
-				'name'  => sprintf( '%s: %s', __( 'Blocked', 'wp-simple-firewall' ), __( 'Anonymous REST API' ) ),
-				'audit' => [
-					__( 'Blocked Anonymous API Access through "{{namespace}}" namespace.', 'wp-simple-firewall' ),
-				],
-			],
-			'block_author_fishing'    => [
-				'name'  => sprintf( '%s: %s', __( 'Blocked', 'wp-simple-firewall' ), __( 'Author Fishing' ) ),
-				'audit' => [
-					__( 'Blocked Author Discovery via username fishing technique.', 'wp-simple-firewall' ),
-				],
-			],
-			'block_xml'               => [
-				'name'  => sprintf( '%s: %s', __( 'Blocked', 'wp-simple-firewall' ), __( 'XML-RPC' ) ),
-				'audit' => [
-					__( 'XML-RPC Request Blocked.', 'wp-simple-firewall' ),
-				],
-			],
-		];
+		return [];
 	}
 
 	public function getSectionStrings( string $section ) :array {

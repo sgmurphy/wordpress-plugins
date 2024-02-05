@@ -121,6 +121,7 @@ class ComposerStaticInit53a5e9e5eb96b78cc1fa3f284b1d3357
         'MatthiasWeb\\RealMediaLibrary\\Vendor\\MatthiasWeb\\Utils\\Localization' => __DIR__ . '/..' . '/devowl-wp/utils/src/Localization.php',
         'MatthiasWeb\\RealMediaLibrary\\Vendor\\MatthiasWeb\\Utils\\PackageLocalization' => __DIR__ . '/..' . '/devowl-wp/utils/src/PackageLocalization.php',
         'MatthiasWeb\\RealMediaLibrary\\Vendor\\MatthiasWeb\\Utils\\PluginReceiver' => __DIR__ . '/..' . '/devowl-wp/utils/src/PluginReceiver.php',
+        'MatthiasWeb\\RealMediaLibrary\\Vendor\\MatthiasWeb\\Utils\\RateLimitNotice' => __DIR__ . '/..' . '/devowl-wp/utils/src/RateLimitNotice.php',
         'MatthiasWeb\\RealMediaLibrary\\Vendor\\MatthiasWeb\\Utils\\Service' => __DIR__ . '/..' . '/devowl-wp/utils/src/Service.php',
         'MatthiasWeb\\RealMediaLibrary\\Vendor\\MatthiasWeb\\Utils\\ServiceNoStore' => __DIR__ . '/..' . '/devowl-wp/utils/src/ServiceNoStore.php',
         'MatthiasWeb\\RealMediaLibrary\\Vendor\\MatthiasWeb\\Utils\\Utils' => __DIR__ . '/..' . '/devowl-wp/utils/src/Utils.php',

@@ -1,4 +1,6 @@
 <?php
+
+use WPDesk\FCF\Free\Settings\Form\EditFieldsForm;
 	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
     class Flexible_Checkout_Fields_Settings {
@@ -23,7 +25,7 @@
 
         function init_polylang() {
         	if ( function_exists( 'pll_register_string' ) ) {
-        		$settings = get_option('inspire_checkout_fields_settings', array() );
+        		$settings = get_option( EditFieldsForm::SETTINGS_OPTION_NAME, [] );
         		foreach ( $settings as $section ) {
         			if ( is_array( $section ) ) {
         				foreach ( $section as $field ) {
@@ -53,7 +55,7 @@
         function init_wpml() {
         	if ( function_exists( 'icl_register_string' ) ) {
         		$icl_language_code = defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : get_bloginfo('language');
-        		$settings = get_option('inspire_checkout_fields_settings', array() );
+        		$settings = get_option( EditFieldsForm::SETTINGS_OPTION_NAME, [] );
         		foreach ( $settings as $section ) {
         			if ( is_array( $section ) ) {
         				foreach ( $section as $field ) {

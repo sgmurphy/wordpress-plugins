@@ -135,4 +135,14 @@ class BasicPackageApplicationService extends AbstractPackageApplicationService
     {
         return [];
     }
+
+    /**
+     * @param  array $package
+     *
+     * @return array
+     */
+    public function getOnlyOneEmployee($package)
+    {
+        return [];
+    }
 }

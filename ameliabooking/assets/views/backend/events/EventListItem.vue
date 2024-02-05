@@ -167,12 +167,16 @@ export default {
     evt: null,
     singleDatesViewActive: true,
     groupDatesViewActive: false,
+    employees: {
+      type: Array,
+      required: true
+    }
   },
 
   data () {
     return {
       event: null,
-      customer: null,
+      customer: null
     }
   },
 
@@ -188,7 +192,7 @@ export default {
     getEventOrganizerName (organizerId) {
       let organizerName = ''
       if (organizerId) {
-        let organizer = this.options.entities.employees.filter(empl => empl.id === organizerId)
+        let organizer = this.employees.filter(empl => empl.id === organizerId)
         organizerName = organizer.length ? (organizer[0].firstName + ' ' + organizer[0].lastName) : ''
       }
 

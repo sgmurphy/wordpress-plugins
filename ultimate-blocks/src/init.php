@@ -542,13 +542,14 @@ function ub_include_block_attribute_css() {
 				case 'ub/content-toggle-block':
 					$styles = ub_get_spacing_styles($attributes);
 
+					$prefix           = '#ub-content-toggle-' . $attributes['blockID'];
 					if ( $block['innerBlocks'] ) {
 						$attributes       = array_merge( $attributes,
 								array_map( function ( $attribute ) {
 									return $attribute['default'];
 								}, $defaultValues['ub/content-toggle-panel-block']['attributes'] ),
 								$block['innerBlocks'][0]['attrs'] );
-						$prefix           = '#ub-content-toggle-' . $attributes['blockID'];
+
 						$blockStylesheets .= $prefix . '{' . PHP_EOL . $styles . PHP_EOL . "}"; 
 
 						$blockStylesheets .= $prefix . ' .wp-block-ub-content-toggle-accordion{' . PHP_EOL .
@@ -737,6 +738,9 @@ function ub_include_block_attribute_css() {
 					$prefix           = '#ub_image_slider_' . $attributes['blockID'];
 					$styles = ub_get_spacing_styles($attributes);
 					$blockStylesheets .= $prefix . '{' . PHP_EOL . $styles . PHP_EOL . "}"; 
+					$blockStylesheets .= $prefix . '{'  . PHP_EOL .
+										 'min-height: ' . (35 + $attributes['sliderHeight']) . 'px;' . PHP_EOL .
+										 '}' . PHP_EOL;
 					$blockStylesheets .= $prefix . ' .swiper-slide img{' . PHP_EOL .
 										 'max-height: ' . $attributes['sliderHeight'] . 'px;' . PHP_EOL .
 										 '}' . PHP_EOL;

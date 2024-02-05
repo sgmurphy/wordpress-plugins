@@ -220,6 +220,10 @@
           <el-row type="flex" align="middle" :gutter="24">
             <el-col :span="16">
               {{ $root.labels.required_phone_number_field }}
+              <el-tooltip placement="top">
+                <div slot="content" v-html="$root.labels.required_field_old_tooltip"></div>
+                <i class="el-icon-question am-tooltip-icon"></i>
+              </el-tooltip>
             </el-col>
             <el-col :span="8" class="align-right">
               <el-switch
@@ -268,6 +272,10 @@
           <el-row type="flex" align="middle" :gutter="24">
             <el-col :span="16">
               {{ $root.labels.required_email_field }}
+              <el-tooltip placement="top">
+                <div slot="content" v-html="$root.labels.required_field_old_tooltip"></div>
+                <i class="el-icon-question am-tooltip-icon"></i>
+              </el-tooltip>
             </el-col>
             <el-col :span="8" class="align-right">
               <el-switch
@@ -321,14 +329,24 @@
 
         <!-- Default items per page -->
         <el-form-item :label="$root.labels.default_items_per_page+':'">
-          <el-select v-model="settings.itemsPerPage">
-            <el-option
-                v-for="item in options.itemsPerPage"
-                :key="item"
-                :label="item"
-                :value="item">
-            </el-option>
-          </el-select>
+          <el-input-number
+              v-model="settings.itemsPerPage"
+              :min="1"
+              :max="30"
+              type="number"
+          >
+          </el-input-number>
+        </el-form-item>
+
+        <!-- Default items per page back-end -->
+        <el-form-item :label="$root.labels.default_items_per_page_backend+':'">
+          <el-input-number
+              v-model="settings.itemsPerPageBackEnd"
+              :min="1"
+              :max="50"
+              type="number"
+          >
+          </el-input-number>
         </el-form-item>
 
         <!-- Default page on the backend -->
@@ -791,7 +809,6 @@
               value: 15768000
             }
           ],
-          itemsPerPage: [3, 6, 9, 12, 15, 18, 21, 24, 27, 30],
           defaultPageOnBackend: [
             {
               label: this.$root.labels.dashboard,

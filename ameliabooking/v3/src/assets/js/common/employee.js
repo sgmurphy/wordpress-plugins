@@ -2,11 +2,18 @@ import {settings} from "../../../plugins/settings";
 
 function getEmployeeServicePrice (store, providerId, serviceId) {
     let employeeService = store.getters['entities/getEmployeeService'](providerId, serviceId)
-    let price = employeeService.price
-    if (employeeService.customPricing && employeeService.customPricing.enabled) {
-        price = employeeService.customPricing.durations[store.getters['booking/getBookingDuration']].price
+
+    let duration = store.getters['booking/getBookingDuration'] ? store.getters['booking/getBookingDuration'] : employeeService.duration
+
+    if (employeeService.customPricing &&
+      employeeService.customPricing.enabled &&
+      duration &&
+      duration in employeeService.customPricing.durations
+    ) {
+        return employeeService.customPricing.durations[duration].price
     }
-    return price
+
+    return employeeService.price
 }
 
 function sortForEmployeeSelection (store, employeesIds, serviceId) {

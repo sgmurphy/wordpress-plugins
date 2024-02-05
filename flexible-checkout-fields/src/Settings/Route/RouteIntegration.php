@@ -2,6 +2,9 @@
 
 namespace WPDesk\FCF\Free\Settings\Route;
 
+use WPDesk\FCF\Free\Collections\RouteParamBag;
+use WPDesk\FCF\Free\Exception\UnexpectedParamException;
+
 /**
  * Initializes integration for REST API route.
  */
@@ -62,7 +65,7 @@ class RouteIntegration {
 	 * @internal
 	 */
 	public function get_endpoint_response( \WP_REST_Request $request ) {
-		$params = $request->get_params();
+		$params = new RouteParamBag( $request->get_params() );
 
 		try {
 			$response = $this->value_object->get_endpoint_response( $params );
@@ -70,6 +73,14 @@ class RouteIntegration {
 			return new \WP_REST_Response(
 				$response,
 				200
+			);
+		} catch ( UnexpectedParamException $e ) {
+			return new \WP_Error(
+				'fcf_param_error',
+				$e->getMessage(),
+				[
+					'status' => 400,
+				]
 			);
 		} catch ( \Exception $e ) {
 			$message = $e->getMessage()

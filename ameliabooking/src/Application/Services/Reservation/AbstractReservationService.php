@@ -158,13 +158,9 @@ abstract class AbstractReservationService implements ReservationServiceInterface
 
         $type = $data['type'] ?: Entities::APPOINTMENT;
 
-        /** @var AbstractUser $currentUser */
-        $currentUser = $this->container->get('logged.in.user');
-
         if (!empty($data['payment']['gateway']) &&
-            $data['payment']['gateway'] === 'onSite' &&
-            $currentUser &&
-            $currentUser->getType() === Entities::CUSTOMER
+            ($data['payment']['gateway'] === 'onSite' || ($data['payment']['gateway'] === 'stripe' && empty($data['payment']['data']['paymentIntentId']))) &&
+            empty($data['isBackendOrCabinet'])
         ) {
             /** @var SettingsService $settingsService */
             $settingsService = $this->container->get('domain.settings.service');
@@ -492,7 +488,7 @@ abstract class AbstractReservationService implements ReservationServiceInterface
         /** @var AbstractCustomFieldApplicationService $customFieldService */
         $customFieldService = $this->container->get('application.customField.service');
 
-        if ($reservation->getBooking()) {
+        if ($reservation->getBooking() && $reservation->getBooking()->getId()) {
             $customFieldService->saveUploadedFiles(
                 $reservation->getBooking()->getId()->getValue(),
                 $reservation->getUploadedCustomFieldFilesInfo(),
@@ -916,6 +912,18 @@ abstract class AbstractReservationService implements ReservationServiceInterface
 
             $bookingId = 0;
             $appointmentStatusChanged = false;
+
+            /** @var PaymentRepository $paymentRepository */
+            $paymentRepository = $this->container->get('domain.payment.repository');
+
+            if (!empty($result->getData()['paymentId'])) {
+                /** @var Payment $payment */
+                $payment = $paymentRepository->getById($result->getData()['paymentId']);
+
+                if ($payment && $payment->getActionsCompleted() && $payment->getActionsCompleted()->getValue()) {
+                    return;
+                }
+            }
 
             switch ($result->getData()['type']) {
                 case (Entities::APPOINTMENT):

@@ -1220,7 +1220,17 @@ export default {
       this.recaptchaResponse = response
 
       if (this.$root.settings.general.googleRecaptcha.invisible) {
-        this.saveBooking(this.getRequestData(false))
+        switch (this.appointment.payment.gateway) {
+          case ('onSite'):
+            this.saveBooking(this.getRequestData(false))
+
+            break
+          case ('stripe'):
+            this.stripeBooking()
+
+            break
+        }
+
         return false
       }
 
@@ -1433,26 +1443,13 @@ export default {
 
           switch (this.appointment.payment.gateway) {
             case 'stripe':
-              $this.stripePayment.stripe.createPaymentMethod('card', $this.stripePayment.cardElement, {}).then(function (result) {
-                if (result.error) {
-                  $this.headerErrorShow = true
-                  $this.headerErrorMessage = $this.$root.labels.payment_error
-                  $this.fetched = true
-                } else {
-                  let requestData = $this.getRequestData(false, {
-                    'paymentMethodId': result.paymentMethod.id
-                  })
-
-                  $this.$http.post(`${$this.$root.getAjaxUrl}/bookings`, requestData.data, requestData.options
-                  ).then(response => {
-                    if (response.data.data) {
-                      $this.handleServerResponse(response.data.data)
-                    }
-                  }).catch(e => {
-                    $this.handleSaveBookingErrors(e.response.data)
-                  })
-                }
-              })
+              if (this.$root.settings.general.googleRecaptcha.enabled &&
+                this.$root.settings.general.googleRecaptcha.invisible
+              ) {
+                this.$refs.recaptcha.execute()
+              } else {
+                this.stripeBooking()
+              }
               break
             case 'onSite':
               if (this.$root.settings.general.googleRecaptcha.enabled &&
@@ -1587,6 +1584,29 @@ export default {
         window.location = response.data.data.cartUrl
       }).catch(e => {
         this.handleSaveBookingErrors(e.response.data)
+      })
+    },
+
+    stripeBooking () {
+      this.stripePayment.stripe.createPaymentMethod('card', this.stripePayment.cardElement, {}).then((result) => {
+        if (result.error) {
+          this.headerErrorShow = true
+          this.headerErrorMessage = this.$root.labels.payment_error
+          this.fetched = true
+        } else {
+          let requestData = this.getRequestData(false, {
+            'paymentMethodId': result.paymentMethod.id
+          })
+
+          this.$http.post(`${this.$root.getAjaxUrl}/bookings`, requestData.data, requestData.options
+          ).then(response => {
+            if (response.data.data) {
+              this.handleServerResponse(response.data.data)
+            }
+          }).catch(e => {
+            this.handleSaveBookingErrors(e.response.data)
+          })
+        }
       })
     },
 

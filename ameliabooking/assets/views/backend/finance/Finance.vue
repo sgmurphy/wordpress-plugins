@@ -49,6 +49,13 @@
                           :formats="vCalendarFormats"
                       >
                       </v-date-picker>
+                      <span
+                          v-if="paymentsParams.dates"
+                          class="am-v-date-picker-suffix el-input__suffix-inner"
+                          @click="clearDateFilter"
+                      >
+                        <i class="el-select__caret el-input__icon el-icon-circle-close"></i>
+                      </span>
                     </el-form-item>
                   </el-col>
 
@@ -212,7 +219,7 @@
                       v-if="dialogPaymentsExport"
                   >
                     <dialog-export
-                        :data="Object.assign(paymentsParams, exportParamsPayments)"
+                        :data="getExportData()"
                         :action="$root.getAjaxUrl + '/report/payments'"
                         @updateAction="(action) => {this.exportPaymentsAction = action}"
                         @closeDialogExport="dialogPaymentsExport = false"
@@ -488,6 +495,7 @@
             <pagination-block
                 :params="paymentsParams"
                 :count="paymentsFilteredCount"
+                :show="paymentsParams.show"
                 :label="$root.labels.payments_lower"
                 :visible="hasPayments && hasPaymentsFiltered && !isPaymentsFiltering"
                 @change="filterPayments"
@@ -982,6 +990,7 @@
   import helperMixin from '../../../js/backend/mixins/helperMixin'
   //import DialogNewCustomize from '../parts/DialogNewCustomize.vue'
   import appointmentPriceMixin from '../../../js/backend/mixins/appointmentPriceMixin'
+  import moment from "moment/moment";
 
   export default {
 
@@ -1050,6 +1059,7 @@
 
         paymentsParams: {
           page: 1,
+          show: this.$root.settings.general.itemsPerPageBackEnd,
           dates: this.getDatePickerInitRange(),
           status: '',
           services: [],
@@ -1175,6 +1185,24 @@
     },
 
     methods: {
+      getExportData () {
+        if (!this.paymentsParams.dates) {
+          this.paymentsParams.dates = {
+            start: '',
+            end: ''
+          }
+        }
+        return Object.assign(this.paymentsParams, this.exportParamsPayments)
+      },
+
+      clearDateFilter () {
+        this.paymentsParams.dates = null
+
+        this.paymentsParams.page = 1
+
+        this.filterPayments()
+      },
+
       getPaymentsStatus (payment) {
         let allPayments = [payment].concat(payment.secondaryPayments ? Object.values(payment.secondaryPayments) : [])
 

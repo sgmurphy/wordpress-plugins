@@ -15,11 +15,4 @@ interface Migration {
 	 * @return void
 	 */
 	public function up();
-
-	/**
-	 * Rolls back migration operations.
-	 *
-	 * @return void
-	 */
-	public function down();
 }

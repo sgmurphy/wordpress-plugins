@@ -91,12 +91,13 @@
   });
 
   // quick view
-  $(document).on('click touch',
-      '#woosw_wishlist .woosq-link, #woosw_wishlist .woosq-btn',
-      function(e) {
-        woosw_wishlist_hide();
-        e.preventDefault();
-      });
+  $(document).
+      on('click touch',
+          '#woosw_wishlist .woosq-link, #woosw_wishlist .woosq-btn',
+          function(e) {
+            woosw_wishlist_hide();
+            e.preventDefault();
+          });
 
   // add to wishlist
   $(document).on('click touch', '.woosw-btn', function(e) {
@@ -209,7 +210,7 @@
   // remove product
   $(document).on('click touch', '.woosw-item--remove span', function(e) {
     var $this = $(this);
-    var key = $this.closest('.woosw-popup-inner').data('key');
+    var key = $this.closest('.woosw-items').data('key');
     var $this_item = $this.closest('.woosw-item');
     var product_id = $this_item.attr('data-id');
     var data = {
@@ -264,7 +265,7 @@
     if (confirm(woosw_vars.empty_confirm)) {
       woosw_popup_loading();
 
-      var key = $this.closest('.woosw-popup-inner').data('key');
+      var key = $this.data('key');
       var data = {
         action: 'wishlist_empty', key: key, nonce: woosw_vars.nonce,
       };
@@ -498,7 +499,7 @@
     woosw_popup_loading();
 
     var $this = $(this);
-    var key = $this.closest('.woosw-popup-inner').data('key');
+    var key = $this.closest('.woosw-items').data('key');
     var product_id = $this.closest('.woosw-item').attr('data-id');
     var note = $this.closest('.woosw-item').find('input[type="text"]').val();
     var data = {
@@ -526,8 +527,7 @@
 
   function woosw_wishlist_load() {
     var data = {
-      action: 'wishlist_load',
-      nonce: woosw_vars.nonce,
+      action: 'wishlist_load', nonce: woosw_vars.nonce,
     };
 
     $.post(woosw_vars.ajax_url, data, function(response) {
@@ -559,8 +559,7 @@
 
   function woosw_load_count() {
     var data = {
-      action: 'wishlist_load_count',
-      nonce: woosw_vars.nonce,
+      action: 'wishlist_load_count', nonce: woosw_vars.nonce,
     };
 
     $.post(woosw_vars.ajax_url, data, function(response) {
@@ -670,9 +669,10 @@
 
   function woosw_fix_height() {
     // fix for center only
-    jQuery('.woosw-popup-center .woosw-popup-content').height(2 * Math.floor(
-            jQuery('.woosw-popup-center .woosw-popup-content').height() / 2) +
-        2);
+    jQuery('.woosw-popup-center .woosw-popup-content').
+        height(2 * Math.floor(
+                jQuery('.woosw-popup-center .woosw-popup-content').height() / 2) +
+            2);
   }
 
   function woosw_load_data() {
@@ -702,8 +702,7 @@
 
   function woosw_get_data() {
     var data = {
-      action: 'woosw_get_data',
-      nonce: woosw_vars.nonce,
+      action: 'woosw_get_data', nonce: woosw_vars.nonce,
     };
 
     $.post(woosw_vars.ajax_url, data, function(response) {

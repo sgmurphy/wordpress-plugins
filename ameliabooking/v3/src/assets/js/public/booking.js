@@ -591,12 +591,40 @@ function runAction (store, response) {
     {
       appointmentId: response.appointment ? response.appointment.id : null,
       payment: Object.assign(response.payment, {currency: settings.payments.currencyCode}),
+      ...(response.isCart && {
+        providerId: response.appointment ? response.appointment.providerId : null,
+        locationId: response.appointment ? response.appointment.locationId : null,
+        serviceId: response.appointment ? response.appointment.serviceId : null,
+        isCartAppointment: response.isCart
+      })
     },
     response.payment.gateway === 'onSite' ? 'Schedule' : 'Purchase',
     response.type,
     null,
     null
   )
+
+  if (response.recurring.length) {
+    response.recurring.forEach((item) => {
+      useAction(
+        store,
+        {
+          appointmentId: item.appointment ? item.appointment.id : null,
+          payment: Object.assign(item.booking.payments[0], {currency: settings.payments.currencyCode}),
+          ...(response.isCart && {
+            providerId: item.appointment ? item.appointment.providerId : null,
+            locationId: item.appointment ? item.appointment.locationId : null,
+            serviceId: item.appointment ? item.appointment.serviceId : null,
+            isCartAppointment: true
+          })
+        },
+        item.booking.payments[0].gateway === 'onSite' ? 'Schedule' : 'Purchase',
+        item.type,
+        null,
+        null
+      )
+    })
+  }
 }
 
 function getAddressFromCF (store) {

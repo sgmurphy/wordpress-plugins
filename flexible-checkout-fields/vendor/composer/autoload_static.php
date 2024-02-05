@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitaa91df9f1d3b7baf5a8208c4824bfff8
+class ComposerStaticInitfc545f833f2d644161382955095c8145
 {
     public static $files = array (
         '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
@@ -27,6 +27,11 @@ class ComposerStaticInitaa91df9f1d3b7baf5a8208c4824bfff8
             'Psr\\Log\\' => 8,
             'PHPStan\\ExtensionInstaller\\' => 27,
             'PHPStan\\' => 8,
+        ),
+        'D' => 
+        array (
+            'Doctrine\\Deprecations\\' => 22,
+            'Doctrine\\Common\\Collections\\' => 28,
         ),
     );
 
@@ -60,10 +65,33 @@ class ComposerStaticInitaa91df9f1d3b7baf5a8208c4824bfff8
             0 => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src',
             1 => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src',
         ),
+        'Doctrine\\Deprecations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations',
+        ),
+        'Doctrine\\Common\\Collections\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections',
+        ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Doctrine\\Common\\Collections\\AbstractLazyCollection' => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections/AbstractLazyCollection.php',
+        'Doctrine\\Common\\Collections\\ArrayCollection' => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections/ArrayCollection.php',
+        'Doctrine\\Common\\Collections\\Collection' => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections/Collection.php',
+        'Doctrine\\Common\\Collections\\Criteria' => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections/Criteria.php',
+        'Doctrine\\Common\\Collections\\Expr\\ClosureExpressionVisitor' => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections/Expr/ClosureExpressionVisitor.php',
+        'Doctrine\\Common\\Collections\\Expr\\Comparison' => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections/Expr/Comparison.php',
+        'Doctrine\\Common\\Collections\\Expr\\CompositeExpression' => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections/Expr/CompositeExpression.php',
+        'Doctrine\\Common\\Collections\\Expr\\Expression' => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections/Expr/Expression.php',
+        'Doctrine\\Common\\Collections\\Expr\\ExpressionVisitor' => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections/Expr/ExpressionVisitor.php',
+        'Doctrine\\Common\\Collections\\Expr\\Value' => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections/Expr/Value.php',
+        'Doctrine\\Common\\Collections\\ExpressionBuilder' => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections/ExpressionBuilder.php',
+        'Doctrine\\Common\\Collections\\ReadableCollection' => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections/ReadableCollection.php',
+        'Doctrine\\Common\\Collections\\Selectable' => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections/Selectable.php',
+        'Doctrine\\Deprecations\\Deprecation' => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations/Deprecation.php',
+        'Doctrine\\Deprecations\\PHPUnit\\VerifyDeprecations' => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations/PHPUnit/VerifyDeprecations.php',
         'FcfVendor\\Monolog\\Attribute\\AsMonologProcessor' => __DIR__ . '/../..' . '/vendor_prefixed/monolog/monolog/src/Monolog/Attribute/AsMonologProcessor.php',
         'FcfVendor\\Monolog\\DateTimeImmutable' => __DIR__ . '/../..' . '/vendor_prefixed/monolog/monolog/src/Monolog/DateTimeImmutable.php',
         'FcfVendor\\Monolog\\ErrorHandler' => __DIR__ . '/../..' . '/vendor_prefixed/monolog/monolog/src/Monolog/ErrorHandler.php',
@@ -450,7 +478,9 @@ class ComposerStaticInitaa91df9f1d3b7baf5a8208c4824bfff8
         'SzepeViktor\\PHPStan\\WordPress\\WpThemeGetDynamicMethodReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/WpThemeGetDynamicMethodReturnTypeExtension.php',
         'SzepeViktor\\PHPStan\\WordPress\\WpThemeMagicPropertiesClassReflectionExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/WpThemeMagicPropertiesClassReflectionExtension.php',
         'WPDesk\\Dashboard\\DashboardWidget' => __DIR__ . '/..' . '/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php',
+        'WPDesk\\FCF\\Free\\Collections\\RouteParamBag' => __DIR__ . '/../..' . '/src/Collections/RouteParamBag.php',
         'WPDesk\\FCF\\Free\\Exception\\TemplateLoadingFailed' => __DIR__ . '/../..' . '/src/Exception/TemplateLoadingFailed.php',
+        'WPDesk\\FCF\\Free\\Exception\\UnexpectedParamException' => __DIR__ . '/../..' . '/src/Exception/UnexpectedParamException.php',
         'WPDesk\\FCF\\Free\\Field\\FieldData' => __DIR__ . '/../..' . '/src/Field/FieldData.php',
         'WPDesk\\FCF\\Free\\Field\\FieldTemplateLoader' => __DIR__ . '/../..' . '/src/Field/FieldTemplateLoader.php',
         'WPDesk\\FCF\\Free\\Field\\FieldTranslator' => __DIR__ . '/../..' . '/src/Field/FieldTranslator.php',
@@ -521,6 +551,7 @@ class ComposerStaticInitaa91df9f1d3b7baf5a8208c4824bfff8
         'WPDesk\\FCF\\Free\\Settings\\MigrationsManager' => __DIR__ . '/../..' . '/src/Settings/MigrationsManager.php',
         'WPDesk\\FCF\\Free\\Settings\\Migrations\\Migration' => __DIR__ . '/../..' . '/src/Settings/Migrations/Migration.php',
         'WPDesk\\FCF\\Free\\Settings\\Migrations\\Migration320' => __DIR__ . '/../..' . '/src/Settings/Migrations/Migration320.php',
+        'WPDesk\\FCF\\Free\\Settings\\Migrations\\Migration400' => __DIR__ . '/../..' . '/src/Settings/Migrations/Migration400.php',
         'WPDesk\\FCF\\Free\\Settings\\Option\\CssOption' => __DIR__ . '/../..' . '/src/Settings/Option/CssOption.php',
         'WPDesk\\FCF\\Free\\Settings\\Option\\CustomFieldDisabledOption' => __DIR__ . '/../..' . '/src/Settings/Option/CustomFieldDisabledOption.php',
         'WPDesk\\FCF\\Free\\Settings\\Option\\CustomFieldOption' => __DIR__ . '/../..' . '/src/Settings/Option/CustomFieldOption.php',
@@ -620,9 +651,9 @@ class ComposerStaticInitaa91df9f1d3b7baf5a8208c4824bfff8
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitaa91df9f1d3b7baf5a8208c4824bfff8::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitaa91df9f1d3b7baf5a8208c4824bfff8::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitaa91df9f1d3b7baf5a8208c4824bfff8::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitfc545f833f2d644161382955095c8145::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitfc545f833f2d644161382955095c8145::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitfc545f833f2d644161382955095c8145::$classMap;
 
         }, null, ClassLoader::class);
     }

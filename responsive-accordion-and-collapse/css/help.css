@@ -926,7 +926,6 @@ table th.layout-span12 {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fdfdfd', endColorstr='#eaeaea', GradientType=0);
     border-bottom: 1px solid #e0dede;
     height: 36px;
-
     -webkit-border-radius: 3px 3px 0px 0px;
     -moz-border-radius: 3px 3px 0px 0px;
     border-radius: 3px 3px 0px 0px;
@@ -1191,12 +1190,10 @@ table th.layout-span12 {
 .btn-mini .badge {
     top: 0;
 }
-
 .fluid-layout a {
 
     text-decoration: none !important
 }
-
 .fluid-layout a:hover {
 
     text-decoration: none !important
@@ -1303,7 +1300,6 @@ paging_full_numbers {
     -moz-box-shadow: 0 1px 2px #545454 inset, 0 1px 0 #fff;
     font-weight: bold;
 }
-
 .paginate_button_disabled, .paginate_button_disabled:active {
     background: #F9F9F9 !important;
     color: #CCC !important;

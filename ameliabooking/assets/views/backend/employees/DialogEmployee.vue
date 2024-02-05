@@ -235,7 +235,7 @@
 
             <!-- Google Calendar -->
             <el-row
-              v-if="$root.settings.googleCalendar && employee.id !== 0 && !$root.licence.isLite && !$root.licence.isStarter"
+              v-if="$root.settings.googleCalendar.enabled && employee.id !== 0 && !$root.licence.isLite && !$root.licence.isStarter"
               :gutter="16"
             >
               <!-- Google Calendar List -->
@@ -884,7 +884,7 @@
       },
 
       getGoogleAuthURL (inlineSVG) {
-        if (this.employee.id && this.$root.settings.googleCalendar) {
+        if (this.employee.id && this.$root.settings.googleCalendar.enabled) {
           this.$http.get(`${this.$root.getAjaxUrl}/google/authorization/url/` + this.employee.id)
             .then(response => {
               this.googleAuthURL = response.data.data.authUrl

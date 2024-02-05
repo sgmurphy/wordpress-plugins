@@ -4,9 +4,9 @@ Author URI: https://tmsproducts.io
 Plugin URI: https://wpdatatables.com/
 Tags: table, table builder, data table, table plugin, charts, tables, datatables, csv, excel, json, nested json, json authentication, json API, simple table, table from csv, table from excel, dynamic table, merge cells, cache, cache table, caching, auto update, auto update table, responsive table, responsive charts, grouping data, pricing table, row grouping, chart, pie charts, mysql tables, wp table, wordpress table plugin, wordpress table, editing charts, google charts, chartjs, xml, php array, line chart, donut, bar chart, histogram, area chart, bubble chart, gauge chart, scatter chart, candlestick, waterfall, polar, radar
 Requires at least: 4.0
-Tested up to: 6.4
+Tested up to: 6.4.3
 Requires PHP: 7.4
-Stable tag: 3.4.2.3
+Stable tag: 3.4.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -370,6 +370,11 @@ This can be changed from the “Number format” drop-down menu in the wpDataTab
 12. Google chart settings
 
 == Changelog ==
+
+= 3.4.2.4 =
+* Compatibility with WordPress 6.4.3 approved.
+Other small bug fixes and stability improvements.
+
 = 3.4.2.3 =
 * Added "Use stable version" option for the GoogleCharts engine.
 Other small bug fixes and stability improvements.

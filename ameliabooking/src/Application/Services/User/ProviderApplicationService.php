@@ -886,7 +886,19 @@ class ProviderApplicationService
             /** @var AppointmentRepository $appointmentRepo */
             $appointmentRepo = $this->container->get('domain.booking.appointment.repository');
 
-            $availableProviders = $providerRepository->getAvailable((int)date('w'));
+            $providerTimeZones = [];
+            $availableProviders = [];
+
+            $WPtimeZone = DateTimeService::getTimeZone()->getName();
+
+            foreach ($providers as $provider) {
+                $providerTimeZones[] = isset($provider['timeZone']) ? $provider['timeZone'] : $WPtimeZone;
+            }
+
+            foreach (array_unique($providerTimeZones) as $providerTimeZone) {
+                $availableProviders += $providerRepository->getAvailable((int)date('w'), $providerTimeZone);
+            }
+
             $onBreakProviders = $providerRepository->getOnBreak((int)date('w'));
             $onVacationProviders = $providerRepository->getOnVacation();
             $busyProviders = $appointmentRepo->getCurrentAppointments();

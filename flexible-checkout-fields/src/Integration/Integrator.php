@@ -123,4 +123,13 @@ class Integrator implements IntegratorInterface {
 	public function get_field_value( string $field_key, int $order_id ) {
 		return ( new Value() )->get_field_value( $field_key, $order_id );
 	}
+
+	/**
+	 * Returns raw field settings.
+	 *
+	 * @return array<string, mixed> settings.
+	 */
+	public function get_settings(): array {
+		return $this->field_groups;
+	}
 }

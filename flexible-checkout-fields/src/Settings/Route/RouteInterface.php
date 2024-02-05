@@ -2,6 +2,8 @@
 
 namespace WPDesk\FCF\Free\Settings\Route;
 
+use WPDesk\FCF\Free\Collections\RouteParamBag;
+
 /**
  * Interface for REST API route.
  */
@@ -31,10 +33,10 @@ interface RouteInterface {
 	/**
 	 * Returns data to be returned for endpoint.
 	 *
-	 * @param array $params Params for endpoint.
+	 * @param RouteParamBag<string, mixed> $params Params for endpoint.
 	 *
 	 * @return mixed Response data.
 	 * @throws \Exception .
 	 */
-	public function get_endpoint_response( array $params );
+	public function get_endpoint_response( RouteParamBag $params );
 }

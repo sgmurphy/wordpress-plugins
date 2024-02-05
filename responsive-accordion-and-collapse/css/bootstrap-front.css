@@ -4,7 +4,7 @@
   border: 1px solid transparent;
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-          box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
 .wpsm_panel-body {
   padding: 15px;
@@ -341,7 +341,6 @@
 .wpsm_panel-danger > .wpsm_panel-footer + .wpsm_panel-collapse > .wpsm_panel-body {
   border-bottom-color: #ebccd1;
 }
-
 .fade {
   -webkit-transition: opacity .15s linear;
 	-o-transition: opacity .15s linear;

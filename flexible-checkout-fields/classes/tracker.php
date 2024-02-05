@@ -1,5 +1,7 @@
 <?php
 
+use WPDesk\FCF\Free\Settings\Form\EditFieldsForm;
+
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if ( ! class_exists( 'WPDesk_Flexible_Checkout_Fields_Tracker' ) ) {
@@ -37,7 +39,7 @@ if ( ! class_exists( 'WPDesk_Flexible_Checkout_Fields_Tracker' ) ) {
 				'review_order_before_submit',
 				'review_order_after_submit',
 			);
-			$settings_fields = get_option('inspire_checkout_fields_settings', array() );
+			$settings_fields = get_option( EditFieldsForm::SETTINGS_OPTION_NAME, array() );
 			if ( ! is_array( $settings_fields ) ) {
 				$settings_fields = array();
 			}
@@ -303,7 +305,7 @@ if ( ! class_exists( 'WPDesk_Flexible_Checkout_Fields_Tracker' ) ) {
 
 		public function wpdesk_tracker_notice_screens( $screens ) {
 			$current_screen = get_current_screen();
-			if ( $current_screen->id == 'woocommerce_page_inspire_checkout_fields_settings' ) {
+			if ( $current_screen->id == 'woocommerce_page_wpdesk_checkout_fields_settings' ) {
 				$screens[] = $current_screen->id;
 			}
 			return $screens;

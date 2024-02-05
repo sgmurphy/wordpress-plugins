@@ -3,6 +3,56 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.22.7 (2024-02-05)
+
+**Note:** This package (@devowl-wp/real-media-library) has been updated because a dependency, which is also shipped with this package, has changed.
+
+
+<details><summary>Dependency updates @devowl-wp/real-product-manager-wp-client 1.19.12</summary>
+
+
+**_Purpose of dependency:_** _A WordPress client for Real Product Manager_
+##### Maintenance
+
+* use non-docker URL with HTTPS in development environment to not bypass Traefik (CU-86939q6ce)
+
+
+##### Performance
+
+* save one SQL SELECT query in WordPress admin dashboard (CU-86939q6ce)
+
+
+##### Refactoring
+
+* move some util methods to @devowl-wp/utils (CU-86939q6ce)</details>
+
+<details><summary>Dependency updates @devowl-wp/utils 1.18.0</summary>
+
+
+**_Purpose of dependency:_** _Utility functionality for all your WordPress plugins._
+##### Features
+
+* introduce a new notice when a rate limited request was done to devowl.io backend services (CU-86939q6ce)
+
+
+##### Maintenance
+
+* use non-docker URL with HTTPS in development environment to not bypass Traefik (CU-86939q6ce)
+
+
+##### Performance
+
+* save one SQL SELECT query in WordPress admin dashboard (CU-86939q6ce)
+
+
+##### Refactoring
+
+* move some util methods to @devowl-wp/utils (CU-86939q6ce)</details>
+
+
+
+
+
 ## 4.22.6 (2024-01-25)
 
 

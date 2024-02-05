@@ -74,7 +74,7 @@ class GetAppointmentsCommandHandler extends CommandHandler
 
         $isCabinetPackageRequest = $isCabinetPage && isset($params['activePackages']);
 
-        $isDashboardPackageRequest = !$isCabinetPage && isset($params['packageId']);
+        $isDashboardPackageRequest = !$isCabinetPage && (isset($params['packageId']) || !empty($params['packageBookings']));
 
         try {
             /** @var AbstractUser $user */
@@ -139,7 +139,7 @@ class GetAppointmentsCommandHandler extends CommandHandler
         $availablePackageBookings = [];
 
         if (!$isCabinetPackageRequest && !$isDashboardPackageRequest) {
-            $upcomingAppointmentsLimit = $settingsDS->getSetting('general', 'appointmentsPerPage');
+            $upcomingAppointmentsLimit = $settingsDS->getSetting('general', 'itemsPerPageBackEnd');
 
             /** @var Collection $periodAppointments */
             $periodAppointments = $appointmentRepository->getPeriodAppointments(

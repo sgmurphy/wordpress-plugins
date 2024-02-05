@@ -986,6 +986,7 @@
                 :generalSettings="service.settings.general"
                 :zoomSettings="service.settings.zoom"
                 :lessonSpaceSettings="service.settings.lessonSpace"
+                :google-meet-settings="service.settings.googleMeet"
                 :providers="service.providers"
             >
             </entity-settings>

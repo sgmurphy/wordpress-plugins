@@ -2,9 +2,10 @@
 
 namespace WPDesk\FCF\Free\Settings;
 
-use FcfVendor\WPDesk\PluginBuilder\Plugin\Hookable;
 use WPDesk\FCF\Free\Settings\Migrations\Migration;
+use FcfVendor\WPDesk\PluginBuilder\Plugin\Hookable;
 use WPDesk\FCF\Free\Settings\Migrations\Migration320;
+use WPDesk\FCF\Free\Settings\Migrations\Migration400;
 
 /**
  * Manage migration of plugin settings after plugin update.
@@ -27,6 +28,7 @@ class MigrationsManager implements Hookable {
 		$this->plugin_version = $plugin_version;
 
 		$this->migrations[] = new Migration320();
+		$this->migrations[] = new Migration400();
 	}
 
 	/**
@@ -48,9 +50,7 @@ class MigrationsManager implements Hookable {
 		}
 
 		foreach ( $this->migrations as $migration ) {
-			if ( $migration->get_version() > $this->plugin_version ) {
-				$migration->down();
-			} elseif ( $migration->get_version() > $current_migration ) {
+			if ( $migration->get_version() > $current_migration ) {
 				$migration->up();
 			}
 		}

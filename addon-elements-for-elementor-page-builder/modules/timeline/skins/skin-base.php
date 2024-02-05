@@ -1337,13 +1337,15 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 			?>
 			<?php
 			$this->parent->add_render_attribute( $item['_id'] . '-icon_wrapper', 'id', $item['_id'] );
-			$this->parent->add_render_attribute( $item['_id'] . '-link-attributes', 'href', $item['item_link']['url'] );
-			if ( $item['item_link']['is_external'] === 'on' ) {
-				$this->parent->add_render_attribute( $item['_id'] . '-link-attributes', 'target', '_blank' );
-			}
-			if ( $item['item_link']['nofollow'] ) {
-				$this->parent->add_render_attribute( $item['_id'] . '-link-attributes', 'rel', 'nofollow' );
-			}
+
+			$this->parent->add_link_attributes($item['_id'] . '-icon_wrapper', $item['item_link']);
+			// $this->parent->add_render_attribute( $item['_id'] . '-link-attributes', 'href', $item['item_link']['url'] );
+			// if ( $item['item_link']['is_external'] === 'on' ) {
+			// 	$this->parent->add_render_attribute( $item['_id'] . '-link-attributes', 'target', '_blank' );
+			// }
+			// if ( $item['item_link']['nofollow'] ) {
+			// 	$this->parent->add_render_attribute( $item['_id'] . '-link-attributes', 'rel', 'nofollow' );
+			// }
 
 			?>
 

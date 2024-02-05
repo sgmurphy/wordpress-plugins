@@ -2921,10 +2921,12 @@ class DataTable extends EAE_Widget_Base {
 	}
 
 	public function render_column( $data, $table_row ) {
+		//echo '<pre>';  print_r(array_keys($table_row)); echo '</pre>';
 
 		if ( $data['eae_row_column_type'] === 'column' ) {
 			$row_keys         = array_keys( $table_row );
 			$column_last_keys = end( $row_keys );
+			
 			$row_id           = $table_row[ $column_last_keys ]['id'];
 		}
 
@@ -2948,10 +2950,11 @@ class DataTable extends EAE_Widget_Base {
 		if ( ! empty( $data['body_column_link']['url'] ) ) {
 			$elem = 'a';
 
+			
 			$this->set_render_attribute(
 				'table_text',
 				[
-					'href'   => $data['body_column_link']['url'],
+					'href'   => esc_url($data['body_column_link']['url']),
 					'target' => $data['body_column_link']['is_external'] ? '_blank' : '',
 					'rel'    => $data['body_column_link']['nofollow'] ? 'nofollow' : '',
 				]

@@ -183,8 +183,10 @@ abstract class Command
             !($this instanceof SuccessfulBookingCommand) &&
             !($this instanceof GetSMSNotificationsHistoryCommand)
         ) {
+            $queryParams = $request->getQueryParams();
+
             return wp_verify_nonce(
-                $request->getQueryParams()['wpAmeliaNonce'] ?: $request->getQueryParams()['ameliaNonce'],
+                !empty($queryParams['wpAmeliaNonce']) ? $queryParams['wpAmeliaNonce'] : $queryParams['ameliaNonce'],
                 'ajax-nonce'
             );
         }

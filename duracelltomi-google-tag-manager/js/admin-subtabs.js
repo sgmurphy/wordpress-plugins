@@ -12,7 +12,7 @@ var adminsubtabs = {
 		},
 		"visitor": {
 			tabtext: gtm4wp.visitortabtitle,
-			numitems: 7
+			numitems: 8
 		},
 		"whichbrowser": {
 			tabtext: gtm4wp.browsertabtitle,
@@ -25,11 +25,7 @@ var adminsubtabs = {
 		"site": {
 			tabtext: gtm4wp.sitetabtitle,
 			numitems: 2
-		}/*,
-		"misc": {
-			tabtext: gtm4wp.misctabtitle,
-			numitems: 1
-		}*/
+		}
 	},
 	2: {
 		"generalevents": {
@@ -39,10 +35,6 @@ var adminsubtabs = {
 		"mediaevents": {
 			tabtext: gtm4wp.mediaeventstabtitle,
 			numitems: 3
-		},
-		"depecratedevents": {
-			tabtext: gtm4wp.depecratedeventstabtitle,
-			numitems: 0
 		}
 	},
 	3: {},
@@ -67,11 +59,7 @@ var adminsubtabs = {
 		},
 		"int-wc": {
 			tabtext: gtm4wp.wctabtitle,
-			numitems: 18
-		},
-		"int-google-optimize": {
-			tabtext: gtm4wp.gotabtitle,
-			numitems: 2
+			numitems: 15
 		},
 		"int-amp": {
 			tabtext: gtm4wp.amptabtitle,
@@ -83,7 +71,11 @@ var adminsubtabs = {
 		},
 		"int-consentmode": {
 			tabtext: gtm4wp.consentmodetabtitle,
-			numitems: 6
+			numitems: 8
+		},
+		"int-webtoffeegdpr": {
+			tabtext: gtm4wp.webtoffeetabtitle,
+			numitems: 1
 		}
 	}
 };

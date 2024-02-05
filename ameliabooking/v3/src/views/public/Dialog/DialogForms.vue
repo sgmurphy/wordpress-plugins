@@ -91,7 +91,11 @@ const amSettings = inject('settings')
 
 // * Colors block
 let amColors = computed(() => {
-  return amSettings.customizedData && 'elf' in amSettings.customizedData ? amSettings.customizedData[shortcodeData.value.triggered_form].colors : defaultCustomizeSettings[shortcodeData.value.triggered_form].colors
+  return amSettings.customizedData && shortcodeData.value.triggered_form in amSettings.customizedData ? amSettings.customizedData[shortcodeData.value.triggered_form].colors : defaultCustomizeSettings[shortcodeData.value.triggered_form].colors
+})
+
+let formData = computed(() => {
+  return amSettings.customizedData && shortcodeData.value.triggered_form in amSettings.customizedData ? amSettings.customizedData[shortcodeData.value.triggered_form] : defaultCustomizeSettings[shortcodeData.value.triggered_form]
 })
 
 let cssVars = computed(() => {
@@ -108,7 +112,7 @@ let cssVars = computed(() => {
 
 watchEffect(() => {
   if (shortcodeData.value.triggered_form === 'sbsNew') {
-    dialogWrapperWidth.value = '760px'
+    dialogWrapperWidth.value = formData.value.sidebar.options.self.visibility ? '760px' : '520px'
   }
 
   if (shortcodeData.value.triggered_form === 'cbf') {

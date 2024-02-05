@@ -50,7 +50,17 @@
 
           <div class="am-whats-new-changelog-list">
 
-            <div class="am-whats-new-changelog-list-item" v-for="item in changelog.changes" :key="item.text">
+            <p class="am-whats-new-changelog-list-title">{{$root.labels.included_plan_your}}</p>
+            <div class="am-whats-new-changelog-list-item" v-for="(item, index) in getLicencesItems(getThisAndLowerLicences())" :key="item.type + index">
+              <div class="am-whats-new-changelog-list-item-img-holder">
+                <img v-if="item.type" :src="$root.getUrl+`public/img/am-${getIconType(item.type)}.svg`" />
+              </div>
+
+              <div v-if="item.text" class="am-whats-new-blog-subtitle-text">{{item.text.replace(':','')}}</div>
+            </div>
+
+            <p class="am-whats-new-changelog-list-title" v-if="!$root.licence.isDeveloper">{{$root.labels.included_plan_higher}}</p>
+            <div v-if="!$root.licence.isDeveloper" class="am-whats-new-changelog-list-item" v-for="(item, index) in getLicencesItems(getHigherLicences())" :key="index">
               <div class="am-whats-new-changelog-list-item-img-holder">
                 <img v-if="item.type" :src="$root.getUrl+`public/img/am-${getIconType(item.type)}.svg`" />
               </div>
@@ -192,49 +202,53 @@ export default {
        isValidEmail: true,
        blogPosts: [],
        changelog: {
-         version: '7.3',
-         changes: [
-           {
-             type: 'Feature',
-             text: 'Multiple selections in shortcode- choose multiple tags or events within a single webpage when using Event List form'
-           },
-           {
-             type: 'Feature',
-             text: 'Added option to set daily appointment limits for employees'
-           },
-           {
-             type: 'Improvement',
-             text: 'Added new filter filter option for customers based on the No-show tag'
-           },
-           {
-             type: 'Improvement',
-             text: 'Updated and added new translations: Romanian, Sweden and Dutch'
-           },
-           {
-             type: 'BugFix',
-             text: 'Fixed issue with double appointments when booked at the same time in the customer panel'
-           },
-           {
-             type: 'BugFix',
-             text: 'Fixed issue with Mollie and going back to Amelia without finishing payments'
-           },
-           {
-             type: 'BugFix',
-             text: 'Fixed issue with checkbox label custom field'
-           },
-           {
-             type: 'BugFix',
-             text: 'Fixed issue with Event location and \'Load Entities on page load\' option'
-           },
-           {
-             type: 'BugFix',
-             text: 'Fixed issue with notifications not sent when appointment approved/rejected via links'
-           },
-           {
-             type: 'BugFix',
-             text: 'Fixed issue with dashboard optimization'
-           }
-         ]
+         version: '7.4',
+         starter: {
+           feature: [],
+           improvement: [
+             'Added option to delete date filter on backend pages',
+           ],
+           bugfix: [
+             'Fixed issue with the scroll on the new event list form on iPhone Safari',
+             'Fixed issue with X (close) button on Amelia popup',
+             'Fixed issue with BuddyBoss and customer/employee user roles',
+             'Fixed issue with the Order options on Customize',
+             'Fixed issue with appointment_price (extras\' price) when changing the number of people in a booking',
+             'Fixed issue with limit appointments per customer and rescheduling in the customer panel',
+             'Fixed issue with  employee availability info and timezones',
+             'Fixed issue with a label on Customize (catalog form)',
+             'Fixed issue with \'Organizer\' column on Event page',
+           ],
+         },
+         basic: {
+           feature: [],
+           improvement: [
+             'Improved post-booking actions after WooCommerce redirect',
+             'Added option for Google Meet to be enabled per event and per service',
+           ],
+           bugfix: [
+             'Fixed recaptcha with Stripe payments',
+             'Fixed issue with URLs with hashtags and Mollie',
+           ],
+         },
+         pro: {
+           feature: [],
+           improvement: [
+             'Added option to send email notifications to specific employee once package with no appointments is purchased',
+           ],
+           bugfix: [
+             'Fixed issue with Cart feature and Google Analytics and Facebook pixel tracking',
+             'Fixed issue with WhatsApp returning first 32 templates',
+             'Fixed issue with employees info for packages on the Finance page',
+           ],
+         },
+         developer: {
+           feature: [],
+           improvement: [
+             'Improved logic for API update appointment and API get package purchases'
+           ],
+           bugfix: [],
+         },
        },
        loading: false
      }
@@ -256,12 +270,69 @@ export default {
        }
      },
 
+     getThisAndLowerLicences () {
+       if (this.$root.licence.isStarter) {
+         return ['starter']
+       } else if (this.$root.licence.isBasic) {
+         return ['starter', 'basic']
+       } else if (this.$root.licence.isPro) {
+         return ['starter', 'basic', 'pro']
+       } else if (this.$root.licence.isDeveloper) {
+         return ['starter', 'basic', 'pro', 'developer']
+       }
+     },
+
+     getHigherLicences () {
+       if (this.$root.licence.isStarter) {
+         return ['basic', 'pro', 'developer']
+       } else if (this.$root.licence.isBasic) {
+         return ['pro', 'developer']
+       } else if (this.$root.licence.isPro) {
+         return ['developer']
+       } else if (this.$root.licence.isDeveloper) {
+         return []
+       }
+     },
+
+     getLicencesItems (licences) {
+       let items = []
+
+       licences.forEach((licence) => {
+         this.changelog[licence].feature.forEach((item) => {
+           items.push({
+             type: 'Feature',
+             text: item
+           })
+         })
+       })
+
+       licences.forEach((licence) => {
+         this.changelog[licence].improvement.forEach((item) => {
+           items.push({
+             type: 'Improvement',
+             text: item
+           })
+         })
+       })
+
+       licences.forEach((licence) => {
+         this.changelog[licence].bugfix.forEach((item) => {
+           items.push({
+             type: 'BugFix',
+             text: item
+           })
+         })
+       })
+
+       return items
+     },
+
      getNews () {
        this.loading = true
 
        this.$http.get(`${this.$root.getAjaxUrl}/whats-new`)
          .then(response => {
-           this.blogPosts = response.data.data.blogPosts.slice(0, 6)
+           this.blogPosts = response.data.data.blogPosts ? response.data.data.blogPosts.slice(0, 6) : []
 
            this.loading = false
          })

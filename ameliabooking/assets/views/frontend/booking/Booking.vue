@@ -226,9 +226,8 @@
 
     </div>
 
-    <div class="am-lite-footer">
+    <div v-if="$root.licence.isLite && $root.settings.general.backLink.enabled" class="am-lite-footer">
       <a
-        v-if="$root.licence.isLite && $root.settings.general.backLink.enabled"
         rel="nofollow"
         class="am-lite-footer-link"
         :href="$root.settings.general.backLink.url"

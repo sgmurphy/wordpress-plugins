@@ -132,6 +132,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 8. Elementor addon widgets section
 
 == Changelog ==
+* 1.11.12
+* Fixed : Restructured code of some widgets for better output escaping.
+
+
 = 1.12.11 =
 * Fixed : Input sanitization and output escaping added on some of missing fields.
 

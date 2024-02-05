@@ -3,7 +3,7 @@
 Plugin Name: WPC Smart Wishlist for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Smart Wishlist is a simple but powerful tool that can help your customer save products for buy later.
-Version: 4.8.1
+Version: 4.8.2
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-wishlist
@@ -18,7 +18,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSW_VERSION' ) && define( 'WOOSW_VERSION', '4.8.1' );
+! defined( 'WOOSW_VERSION' ) && define( 'WOOSW_VERSION', '4.8.2' );
 ! defined( 'WOOSW_LITE' ) && define( 'WOOSW_LITE', __FILE__ );
 ! defined( 'WOOSW_FILE' ) && define( 'WOOSW_FILE', __FILE__ );
 ! defined( 'WOOSW_URI' ) && define( 'WOOSW_URI', plugin_dir_url( __FILE__ ) );
@@ -1802,7 +1802,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 					do_action( 'woosw_before_items', $key, $products );
 
 					if ( is_array( $products ) && ( count( $products ) > 0 ) ) {
-						echo '<' . $table_tag . ' class="woosw-items">';
+						echo '<' . $table_tag . ' class="woosw-items" data-key="' . esc_attr( $key ) . '">';
 						do_action( 'woosw_wishlist_items_before', $key, $products );
 
 						foreach ( $products as $product_id => $product_data ) {
@@ -2120,7 +2120,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 								echo '<span class="woosw-count">' . esc_html( $count ) . '</span>';
 
 								if ( self::get_setting( 'empty_button', 'no' ) === 'yes' ) {
-									echo '<span class="woosw-empty"' . ( $count ? '' : ' style="display:none"' ) . '>' . self::localization( 'empty_button', esc_html__( 'remove all', 'woo-smart-wishlist' ) ) . '</span>';
+									echo '<span class="woosw-empty"' . ( $count ? '' : ' style="display:none"' ) . ' data-key="' . esc_attr( $key ) . '">' . self::localization( 'empty_button', esc_html__( 'remove all', 'woo-smart-wishlist' ) ) . '</span>';
 								}
 
 								echo '</span>';

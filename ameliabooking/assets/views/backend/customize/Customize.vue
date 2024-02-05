@@ -345,7 +345,6 @@
               <div class="am-customize-main__form-card__heading">
                 <h3>
                   <span>{{$root.labels.sbs_booking_form}}</span>
-                  <span class="am-pill-new">{{$root.labels.new_caps}}</span>
                 </h3>
                 <p>
                   {{$root.labels.redesigned_sbs_booking_form}}
@@ -364,7 +363,6 @@
               <div class="am-customize-main__form-card__heading">
                 <h3>
                   <span>{{$root.labels.cat_booking_form}}</span>
-                  <span class="am-pill-new">{{$root.labels.new_caps}}</span>
                 </h3>
                 <p>
                   {{$root.labels.redesigned_cat_booking_form}}
@@ -383,7 +381,6 @@
               <div class="am-customize-main__form-card__heading">
                 <h3>
                   <span>{{$root.labels.elf_booking_form}}</span>
-                  <span class="am-pill-new">{{$root.labels.new_caps}}</span>
                 </h3>
                 <p>
                   {{$root.labels.redesigned_elf_booking_form}}

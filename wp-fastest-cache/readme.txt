@@ -290,6 +290,5 @@ Yes, it is compatible with WP-PostViews. The current post views appear on the ad
 = Is this plugin compatible with WooCommerce Themes? =
 Yes, it is compatible with WooCommerce Themes 100%.
 
-
 == Upgrade notice ==
 ....

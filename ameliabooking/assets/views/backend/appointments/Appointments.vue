@@ -97,6 +97,13 @@
                           :formats="vCalendarFormats"
                       >
                       </v-date-picker>
+                      <span
+                        v-if="params.dates"
+                        class="am-v-date-picker-suffix el-input__suffix-inner"
+                        @click="clearDateFilter"
+                      >
+                        <i class="el-select__caret el-input__icon el-icon-circle-close"></i>
+                      </span>
                     </el-form-item>
                   </el-col>
 
@@ -219,7 +226,7 @@
                   :close-on-click-modal="false"
               >
                 <dialog-export
-                    :data="Object.assign(params, exportParams)"
+                    :data="getExportData()"
                     :action="$root.getAjaxUrl + '/report/appointments'"
                     @updateAction="(action) => {this.exportAction = action}"
                     @closeDialogExport="dialogExport = false"
@@ -787,7 +794,7 @@
         totalPeriodAppointments: 0,
         paginationParams: {
           page: 1,
-          show: this.$root.settings.general.appointmentsPerPage
+          show: this.$root.settings.general.itemsPerPageBackEnd
         },
         updateStatusDisabled: false,
         allAppointmentsChecked: false,
@@ -869,6 +876,25 @@
     },
 
     methods: {
+      getExportData () {
+        if (!this.params.dates) {
+          this.params.dates = {
+            start: '',
+            end: ''
+          }
+        }
+
+        return Object.assign(this.params, this.exportParams)
+      },
+
+      clearDateFilter () {
+        this.params.dates = null
+
+        this.paginationParams.page = 1
+
+        this.getAppointments()
+      },
+
       switchShowDeleteConfirmation (bool) {
         this.showDeleteConfirmation = bool
         this.showDeleteButton = !bool
@@ -1341,7 +1367,7 @@
       },
 
       filterApplied () {
-        return !!this.params.search || !!this.params.services.length || !!this.params.providers.length || !!this.params.customerId || !!this.params.dates.start || !!this.params.dates.end || !!this.params.status
+        return !!this.params.search || !!this.params.services.length || !!this.params.providers.length || !!this.params.customerId || (this.params.dates && (!!this.params.dates.start || !!this.params.dates.end)) || !!this.params.status
       }
     },
 

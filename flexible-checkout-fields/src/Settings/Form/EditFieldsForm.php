@@ -11,7 +11,7 @@ use WPDesk\FCF\Free\Settings\Option\ExternalFieldOption;
 class EditFieldsForm extends FormAbstract implements FormInterface {
 
 	const FORM_TYPE            = 'fields';
-	const SETTINGS_OPTION_NAME = 'inspire_checkout_fields_settings';
+	const SETTINGS_OPTION_NAME = 'wpdesk_checkout_fields_settings';
 
 	/**
 	 * {@inheritdoc}

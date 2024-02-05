@@ -232,6 +232,11 @@ let liteLabelsTreatment = deepMerge(
       },
     },
     elf: {
+      info: {
+        tabInfo: [
+          'event_organizer'
+        ],
+      },
       payment: {
         summarySegment: [
           'discount_amount_colon',

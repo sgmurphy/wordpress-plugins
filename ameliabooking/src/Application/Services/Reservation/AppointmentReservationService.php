@@ -985,7 +985,7 @@ class AppointmentReservationService extends AbstractReservationService
                 'gateway' => $paymentGateway
             ],
             'recurring'          => $recurringAppointmentsData,
-            'isCart'             => $requestData['isCart'],
+            'isCart'             => !empty($requestData['isCart']),
             'package'            => [],
             'locale'             => $reservation->getLocale()->getValue(),
             'timeZone'           => $reservation->getTimeZone()->getValue(),
@@ -1458,11 +1458,12 @@ class AppointmentReservationService extends AbstractReservationService
      * @param Service $service
      * @param int $customerId
      * @param DateTime $appointmentStart
+     * @param int $bookingId
      *
      * @return bool
      * @throws Exception
      */
-    public function checkLimitsPerCustomer($service, $customerId, $appointmentStart)
+    public function checkLimitsPerCustomer($service, $customerId, $appointmentStart, $bookingId = null)
     {
         /** @var SettingsService $settingsDS */
         $settingsDS = $this->container->get('domain.settings.service');
@@ -1501,7 +1502,8 @@ class AppointmentReservationService extends AbstractReservationService
                     $customerId,
                     $appointmentStart,
                     $limitPerCustomer,
-                    $serviceSpecific
+                    $serviceSpecific,
+                    $bookingId
                 );
 
                 if ($count >= $limitPerCustomer['numberOfApp']) {

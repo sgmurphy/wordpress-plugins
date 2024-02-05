@@ -7,23 +7,26 @@ namespace WPDesk\FCF\Free\Settings\Option;
  */
 abstract class OptionAbstract implements OptionInterface {
 
-	const FIELD_TYPE_CHECKBOX      = 'CheckboxField';
-	const FIELD_TYPE_CHECKBOX_LIST = 'CheckboxListField';
-	const FIELD_TYPE_GROUP         = 'GroupField';
-	const FIELD_TYPE_HIDDEN        = 'HiddenField';
-	const FIELD_TYPE_INFO          = 'InfoField';
-	const FIELD_TYPE_INFO_ADV      = 'InfoAdvField';
-	const FIELD_TYPE_INFO_NOTICE   = 'InfoNoticeField';
-	const FIELD_TYPE_NUMBER        = 'NumberField';
-	const FIELD_TYPE_RADIO         = 'RadioField';
-	const FIELD_TYPE_RADIO_LIST    = 'RadioListField';
-	const FIELD_TYPE_REPEATER      = 'RepeaterField';
-	const FIELD_TYPE_SELECT        = 'SelectField';
-	const FIELD_TYPE_SELECT_MULTI  = 'SelectMultiField';
-	const FIELD_TYPE_TEXTAREA      = 'TextareaField';
-	const FIELD_TYPE_TEXT          = 'TextField';
-	const FIELD_TYPE_IMAGE         = 'ImageField';
-	const FIELD_TYPE_COLOR         = 'ColorField';
+	const FIELD_TYPE_CHECKBOX       = 'CheckboxField';
+	const FIELD_TYPE_CHECKBOX_LIST  = 'CheckboxListField';
+	const FIELD_TYPE_GROUP          = 'GroupField';
+	const FIELD_TYPE_HIDDEN         = 'HiddenField';
+	const FIELD_TYPE_INFO           = 'InfoField';
+	const FIELD_TYPE_INFO_ADV       = 'InfoAdvField';
+	const FIELD_TYPE_INFO_NOTICE    = 'InfoNoticeField';
+	const FIELD_TYPE_NUMBER         = 'NumberField';
+	const FIELD_TYPE_RADIO          = 'RadioField';
+	const FIELD_TYPE_RADIO_LIST     = 'RadioListField';
+	const FIELD_TYPE_REPEATER       = 'RepeaterField';
+	const FIELD_TYPE_SELECT         = 'SelectField';
+	const FIELD_TYPE_SELECT_MULTI   = 'SelectMultiField';
+	const FIELD_TYPE_TEXTAREA       = 'TextareaField';
+	const FIELD_TYPE_TEXT           = 'TextField';
+	const FIELD_TYPE_IMAGE          = 'ImageField';
+	const FIELD_TYPE_COLOR          = 'ColorField';
+	const FIELD_TYPE_REPEATER_GROUP = 'RepeaterGroupField';
+	const FIELD_TYPE_REPEATER_RULES = 'RepeaterRulesField';
+	const FIELD_TYPE_DISPATCHER     = 'DispatcherField';
 
 	/**
 	 * {@inheritdoc}
@@ -185,6 +188,8 @@ abstract class OptionAbstract implements OptionInterface {
 			case self::FIELD_TYPE_CHECKBOX_LIST:
 			case self::FIELD_TYPE_GROUP:
 			case self::FIELD_TYPE_REPEATER:
+			case self::FIELD_TYPE_REPEATER_GROUP:
+			case self::FIELD_TYPE_REPEATER_RULES:
 				return $field_value;
 		}
 
@@ -205,6 +210,7 @@ abstract class OptionAbstract implements OptionInterface {
 				}
 				break;
 			case self::FIELD_TYPE_REPEATER:
+			case self::FIELD_TYPE_REPEATER_GROUP:
 				$rows = $field_settings[ $option_name ] ?? [];
 				if ( ! $rows ) {
 					return $field_data;

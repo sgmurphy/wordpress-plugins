@@ -2,6 +2,7 @@
 
 namespace WPDesk\FCF\Free\Settings\Route;
 
+use WPDesk\FCF\Free\Collections\RouteParamBag;
 use WPDesk\FCF\Free\Settings\Form\SettingsPageForm;
 
 /**
@@ -36,9 +37,9 @@ class UpdateFormSettingsRoute extends RouteAbstract {
 	 *
 	 * @throws \Exception
 	 */
-	public function get_endpoint_response( array $params ) {
+	public function get_endpoint_response( RouteParamBag $params ) {
 		try {
-			$status = ( new SettingsPageForm() )->save_form_data( $params );
+			$status = ( new SettingsPageForm() )->save_form_data( $params->toArray() );
 			if ( $status !== true ) {
 				throw new \Exception();
 			}

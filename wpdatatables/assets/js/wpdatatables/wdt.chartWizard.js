@@ -12,9 +12,13 @@ var wdtChartColumnsData = {};
 
     $('.wdt-chart-wizard-chart-selecter-block .card').on('click', function () {
         $('.wdt-chart-wizard-chart-selecter-block .card').removeClass('selected').addClass('not-selected');
-        $(this).addClass('selected').removeClass('not-selected');
-        nextStepButton.prop('disabled', false);
-
+        nextStepButton.prop('disabled', true);
+        if ( !($(this).data('type') == 'google_marker_geo_chart'||
+            $(this).data('type') == 'google_text_geo_chart'||
+            $(this).data('type') == 'google_geo_chart')) {
+                $(this).addClass('selected').removeClass('not-selected');
+                nextStepButton.prop('disabled', false);
+        }
     });
 
     /**

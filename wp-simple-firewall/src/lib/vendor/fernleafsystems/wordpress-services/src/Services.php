@@ -2,8 +2,6 @@
 
 namespace FernleafSystems\Wordpress\Services;
 
-use FernleafSystems\Wordpress\Services\Core;
-use FernleafSystems\Wordpress\Services\Utilities;
 use Pimple\Container;
 
 class Services {
@@ -35,8 +33,9 @@ class Services {
 	 */
 	protected function __construct() {
 		$this->registerAll();
-		self::CustomHooks(); // initiate these early
-		self::Request(); // initiate these early
+		// initiate these early
+		self::CustomHooks();
+		self::ThisRequest();
 		self::WpCron();
 	}
 
@@ -62,6 +61,9 @@ class Services {
 		};
 		self::$oDic[ 'service_request' ] = function () {
 			return new Core\Request();
+		};
+		self::$oDic[ 'service_thisrequest' ] = function () {
+			return new Request\ThisRequest();
 		};
 		self::$oDic[ 'service_response' ] = function () {
 			return new Core\Response();
@@ -181,6 +183,10 @@ class Services {
 		return ( clone $render );
 	}
 
+	public static function ThisRequest() :Request\ThisRequest {
+		return self::getObj( __FUNCTION__ );
+	}
+
 	public static function Request() :Core\Request {
 		return self::getObj( __FUNCTION__ );
 	}
@@ -251,7 +257,7 @@ class Services {
 	}
 
 	protected static function getObj( $keyFunction ) {
-		$fullKey = 'service_'.strtolower( $keyFunction );
+		$fullKey = 'service_'.\strtolower( $keyFunction );
 		if ( !isset( self::$services ) ) {
 			self::$services = self::$aItems ?? [];
 		}

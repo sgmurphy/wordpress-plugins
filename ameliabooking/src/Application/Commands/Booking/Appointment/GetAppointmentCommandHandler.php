@@ -179,6 +179,10 @@ class GetAppointmentCommandHandler extends CommandHandler
             }
         }
 
+        if (isset($appointmentArray['notifyParticipants'])) {
+            $appointmentArray['notifyParticipants'] = intval($appointmentArray['notifyParticipants']);
+        }
+
         $result->setResult(CommandResult::RESULT_SUCCESS);
         $result->setMessage('Successfully retrieved appointment');
         $result->setData(

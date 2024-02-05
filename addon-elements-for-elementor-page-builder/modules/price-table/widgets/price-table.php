@@ -774,18 +774,13 @@ class PriceTable extends EAE_Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-
 		$this->add_render_attribute( 'heading', 'class', 'eae-pt-heading' );
 		$this->add_render_attribute( 'sub_heading', 'class', 'eae-pt-sub-heading' );
 		$this->add_render_attribute( 'button', 'class', 'eae-pt-action-button' );
 		$this->add_render_attribute( 'icon-align', 'class', 'eae-pt-align-icon-' . $settings['icon_align'] );
 
 		if ( ! empty( $settings['link']['url'] ) ) {
-			$this->add_render_attribute( 'button', 'href', $settings['link']['url'] );
-
-			if ( ! empty( $settings['link']['is_external'] ) ) {
-				$this->add_render_attribute( 'button', 'target', '_blank' );
-			}
+			$this->add_link_attributes( 'button', $settings['link'] );
 		}
 
 		$icon_migrated = isset( $settings['__fa4_migrated']['icon_new'] );

@@ -50,6 +50,13 @@
                       :formats="vCalendarFormats"
                   >
                   </v-date-picker>
+                  <span
+                    v-if="!singleDatesViewActive && params.dates"
+                    class="am-v-date-picker-suffix el-input__suffix-inner"
+                    @click="clearDateFilter"
+                  >
+                    <i class="el-select__caret el-input__icon el-icon-circle-close"></i>
+                  </span>
                 </el-form-item>
               </el-col>
 
@@ -285,6 +292,7 @@
                   :evt="evt"
                   :singleDatesViewActive="singleDatesViewActive"
                   :groupDatesViewActive="groupDatesViewActive"
+                  :employees="options.entities.employees"
                   @showDialogEditEvent="(id) => {showDialogEditEvent(id)}"
                   @showDialogAttendees="(id) => {showDialogAttendees(id)}"
                 >
@@ -303,6 +311,7 @@
                       :evt="evt"
                       :singleDatesViewActive="singleDatesViewActive"
                       :groupDatesViewActive="groupDatesViewActive"
+                      :employees="options.entities.employees"
                       @showDialogEditEvent="(id) => {showDialogEditEvent(id)}"
                       @showDialogAttendees="(id) => {showDialogAttendees(id)}"
                     >
@@ -533,7 +542,7 @@
   import DialogExport from '../parts/DialogExport.vue'
   import DialogTranslate from '../parts/DialogTranslate'
   import VueCookies from "vue-cookies"
-  //import DialogNewCustomize from '../parts/DialogNewCustomize.vue'
+  // import DialogNewCustomize from '../parts/DialogNewCustomize.vue'
 
   export default {
     mixins: [entitiesMixin, imageMixin, dateMixin, durationMixin, notifyMixin, helperMixin, backendEventMixin, commonEventMixin, customerMixin],
@@ -546,7 +555,7 @@
         groupDatesViewActive: false,
         paginationParams: {
           page: 1,
-          show: this.$root.settings.general.eventsPerPage
+          show: this.$root.settings.general.itemsPerPageBackEnd
         },
         totalPeriodEvents: 0,
         exportAction: '',
@@ -645,6 +654,14 @@
     },
 
     methods: {
+      clearDateFilter () {
+        this.params.dates = null
+
+        this.paginationParams.page = 1
+
+        this.changeFilter()
+      },
+
       getEventMaxCapacity (tickets) {
         let capacity = 0
         tickets.forEach(ticket => {
@@ -775,6 +792,10 @@
 
       singleDates () {
         VueCookies.set('ameliaEventsView', 'singleDates')
+
+        if (!this.params.dates) {
+          this.params.dates = this.getDatePickerInitRange()
+        }
 
         this.singleDatesViewActive = true
         this.groupDatesViewActive = false
@@ -1012,7 +1033,7 @@
 
     computed: {
       filterApplied () {
-        return !!this.params.search || !!this.params.dates.start || !!this.params.dates.end
+        return !!this.params.search || (this.params.dates && (!!this.params.dates.start || !!this.params.dates.end))
       },
       eventCustomerIds () {
         return this.eventBookings.map(event => event.customerId)

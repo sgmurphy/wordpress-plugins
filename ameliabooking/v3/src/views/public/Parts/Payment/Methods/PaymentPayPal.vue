@@ -174,6 +174,13 @@ function payPalError(error) {
 
   if (typeof response === 'object' && response.hasOwnProperty('data')) {
     errorBooking(response)
+  } else if (typeof response === 'object' && response.hasOwnProperty('message')) {
+    usePaymentError(
+      store,
+      function () {
+        emits('payment-error', response.message)
+      }
+    )
   } else {
     usePaymentError(
       store,

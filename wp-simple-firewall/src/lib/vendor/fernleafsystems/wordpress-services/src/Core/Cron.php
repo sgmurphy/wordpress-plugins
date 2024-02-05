@@ -24,11 +24,11 @@ class Cron {
 	}
 
 	/**
-	 * @param array $aSchedules
+	 * @param array $schedules
 	 * @return array
 	 */
-	public function addSchedules( $aSchedules ) {
-		return \array_merge( $aSchedules, $this->getSchedules() );
+	public function addSchedules( $schedules ) {
+		return \array_merge( $schedules, $this->getSchedules() );
 	}
 
 	/**
@@ -57,10 +57,7 @@ class Cron {
 	}
 
 	protected function getSchedules() :array {
-		if ( !is_array( $this->aSchedules ) ) {
-			$this->aSchedules = [];
-		}
-		return $this->aSchedules;
+		return \is_array( $this->aSchedules ) ? $this->aSchedules : $this->aSchedules = [];
 	}
 
 	/**

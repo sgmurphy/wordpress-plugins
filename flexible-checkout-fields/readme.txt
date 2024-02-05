@@ -4,7 +4,7 @@ Donate link: https://www.wpdesk.net/flexible-checkout-fields-woocommerce/
 Tags: woocommerce checkout fields, woocommerce checkout manager, woocommerce checkout editor, woocommerce custom checkout fields, customize woocommerce checkout, woocommerce checkout, woocommerce custom fields checkout, woocommerce customize checkout, customize woocommerce checkout, woocommerce custom checkout page
 Requires at least: 5.2
 Tested up to: 6.4
-Stable tag: 3.6.0
+Stable tag: 4.0.0
 Requires PHP: 7.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -116,6 +116,8 @@ You can display the fields not only in the checkout page. Just mark a specific c
 * My Account - order
 * Emails
 
+For custom fields, you may also decide about field formatting on pages/emails.
+
 #### Custom CSS Class
 
 Add some style to your fields. By adding a custom class to each field you can then uniquely style it in your theme's stylesheet.
@@ -152,6 +154,10 @@ Billing, Shipping or Order sections are not enough? Now you can add fields to 12
 
 #### Conditional Logic for Fields (PRO)
 
+You can also use the PRO version of the plugin to show, hide, and set a field as required based on multiple conditions 🚀.
+
+For example, set a VAT field to be required if the customer selects the company checkbox. **You can also**:
+
 Enable conditional logic (show or hide) for fields based on other fields values (checkbox, radio, select).
 
 #### Conditional Logic for Shipping Methods (PRO)
@@ -168,6 +174,8 @@ Enable conditional logic (show or hide) for fields based on products and/or cate
 * Hide address fields for digital goods
 
 This plugin is compatible with variable products.
+
+You can set many conditions (OR) under one or more condition groups (AND) for each field. The conditional logic feature will help you in advanced WooCommerce checkout page customization 🎉!
 
 > **Upgrade to Flexible Checkout Fields PRO**<br />
 > Get all PRO features and priority e-mail support. [Upgrade Now →](https://www.wpdesk.net/products/flexible-checkout-fields-pro-woocommerce/?utm_source=wporg&utm_medium=link&utm_campaign=wporg-fcf)
@@ -334,11 +342,15 @@ The PRO version of the plugin lets you build your custom checkout page in WooCom
 
 For any field, it is possible to **set rules on when to show or hide a WooCommerce checkout field** ✔️.
 
+It's also possible to set a field as required based on selected conditions.
+
 There are three types of this logic:
 
 * Conditional Logic for Fields
-* Conditional Logic for Products and Categories
+* Conditional Logic for Products and Product Categories in the Cart
 * Conditional Logic for Shipping Methods
+
+The plugin lets you set multiple conditions for each field with OR and AND condition groups.
 
 So, you can customize the WooCommerce checkout page with dynamic fields based on customer choices.
 
@@ -488,7 +500,7 @@ Yes 😊.
 15. Text field settings
 16. Appearance of the custom WooCommerce checkout field
 17. Show a custom checkout field on other WooCommerce pages and in emails
-18. Enable conditional logic per checkout field based on WooCommerce product or category (PRO)
+18. Enable conditional logic per checkout field based on products in the cart, fields, and shipping methods (PRO)
 19. Add a custom fee with the field pricing option on your WooCommerce checkout page (PRO)
 20. How to add a custom field to the WooCommerce checkout
 21. Make the WooCommerce checkout field optional
@@ -567,6 +579,11 @@ Yes 😊.
 If you are upgrading from the old WooCommerce Checkout Fields version (1.1, woocommerce-checkout-fields) make sure to completely delete the old version first. Your settings will be kept. If you install the new version without deleting the old one you may break your WordPress installation.
 
 == Changelog ==
+
+= 4.0.0 - 2024-02-05 =
+* Major Update!
+* Added integration with a PRO plugin version 4
+* Added new conditional logic tab in admin settings
 
 = 3.6.0 - 2024-01-16 =
 * Added support for WooCommerce 8.5
@@ -732,7 +749,7 @@ If you are upgrading from the old WooCommerce Checkout Fields version (1.1, wooc
 * Fixed support for checkbox, radio and select fields added by other plugins
 * Added support for WooCommerce 5.3
 
-= 3.0.9 - 2021-04-28 =
+= 3.0.9 - 2021-04-28 =lexible Checkout Fields PRO version
 * Fixed compatibility with WPML
 * Added support for WooCommerce 5.2
 

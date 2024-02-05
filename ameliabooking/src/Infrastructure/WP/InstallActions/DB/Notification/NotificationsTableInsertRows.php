@@ -139,7 +139,7 @@ class NotificationsTableInsertRows extends AbstractDatabaseTable
 
         $addWhatsApp = !(int)$wpdb->get_row("SELECT COUNT(*) AS count FROM {$table} WHERE type = 'whatsapp'")->count;
 
-        if (false) {
+        if ($addWhatsApp) {
             $rows = array_merge($rows, NotificationsStrings::getWhatsAppNotifications());
         }
 

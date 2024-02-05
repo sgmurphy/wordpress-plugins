@@ -6,7 +6,7 @@ Donate link: https://wpamelia.com/
 Requires at least: 4.5
 Tested up to: 6.4.2
 Requires PHP: 5.6
-Stable tag: 1.0.96
+Stable tag: 1.0.97
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,7 +51,7 @@ Amelia's booking plugin features new modern, smooth & fast appointment booking f
 
 - Booking forms for online appointments and events scheduling with **great UI and UX** your customers will love
 You can easily embed appointment-booking forms with two shortcodes: **[ameliabooking]** or **[ameliacatalog}**.- By choosing one of them, you can choose whether you want to show the booking flow in a step-by-step view to your customers or you prefer the catalogue view. With catalogue view, all services are presented in the form of cards.
-- Easily embeddable event-booking form with the **[ameliaevents]** shortcode which allows you to show your events in a form of a list where all the most important informations will be shown: Event date and time, location, capacity, status, price etc.
+- Easily embeddable event-booking form with the **[ameliaevents]** shortcode which allows you to show your events in a form of a list where all the most important information will be shown: Event date and time, location, capacity, status, price etc.
 - A convenient **Calendar view** on the back-end, giving a complete overview of all scheduled appointments end events – [Calendar Admin View](https://wpamelia.com/admin-calendar/)
 - Configuration of your **provider’s details and working schedule** so you can choose in which time frames you want to be available for booking –[General Settings](https://wpamelia.com/general-settings/)
 - Creation of services and categories in which those services will be organised - [Services and Service Categories](https://wpamelia.com/services-and-categories/)
@@ -278,6 +278,14 @@ Installing Amelia Lite WordPress Booking Plugin is as easy as 1-2-3!
 
 
 == Changelog =
+V1.0.97
+* Improvement: Added option to delete date filter on backend pages
+* BugFix: Fixed issue with the scroll on the new event list form on iPhone Safari
+* BugFix: Fixed issue with X (close) button on Amelia popup
+* BugFix: Fixed issue with the Order options on Customize
+* BugFix: Fixed issue with a label on Customize (catalog form)
+* Other small bug fixes and stability improvements
+
 V1.0.96
 * BugFix: Fixed vulnerability issue
 * Small bug fixes and stability improvements

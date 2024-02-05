@@ -31,6 +31,10 @@ class ServiceProviders {
 
 	private $providers;
 
+	public function clearProviders() :void {
+		Transient::Delete( 'apto_provider_ips' );
+	}
+
 	/**
 	 * @return array[][]
 	 */
@@ -52,46 +56,29 @@ class ServiceProviders {
 		return $this->providers;
 	}
 
-	public function clearProviders() :void {
-		Transient::Delete( 'apto_provider_ips' );
-	}
-
-	/**
-	 * @return array[][]
-	 * @deprecated 2.26
-	 */
-	public static function GetProviderIPs() :array {
-		return Services::ServiceProviders()->getProviders();
-	}
-
-	public function getProviderInfo( string $providerSlug ) :array {
-		$info = [];
-		foreach ( $this->getProviders() as $category ) {
-			foreach ( $category as $slug => $provider ) {
-				if ( $providerSlug === $slug ) {
-					$info = $provider;
-					break;
-				}
-			}
+	public function getProviders_Flat() :array {
+		$result = [];
+		foreach ( \array_keys( $this->getProviders() ) as $category ) {
+			$result = \array_merge( $result, $this->getProviders()[ $category ] );
 		}
-		return $info;
+		return $result;
 	}
 
-	public function getProviderName( string $providerSlug ) :string {
-		$info = $this->getProviderInfo( $providerSlug );
-		return empty( $info ) ? 'Unknown' : $info[ 'name' ];
+	public function getProviderInfo( string $slug ) :array {
+		return $this->getProviders_Flat()[ $slug ] ?? [];
+	}
+
+	public function getProviderName( string $slug ) :string {
+		return $this->getProviderInfo( $slug )[ 'name' ] ?? 'Unknown';
 	}
 
 	public function getProvidersOfType( string $type ) :array {
-		$providers = [];
-		foreach ( $this->getProviders() as $category ) {
-			foreach ( $category as $slug => $provider ) {
-				if ( isset( $provider[ 'type' ] ) && \in_array( $type, $provider[ 'type' ] ) ) {
-					$providers[] = $slug;
-				}
+		return \array_keys( \array_filter(
+			$this->getProviders_Flat(),
+			function ( array $provider ) use ( $type ) {
+				return \in_array( $type, $provider[ 'type' ] ?? [] );
 			}
-		}
-		return $providers;
+		) );
 	}
 
 	public function getSearchProviders() :array {
@@ -165,5 +152,13 @@ class ServiceProviders {
 			$exists = false;
 		}
 		return $exists;
+	}
+
+	/**
+	 * @return array[][]
+	 * @deprecated 2.26
+	 */
+	public static function GetProviderIPs() :array {
+		return Services::ServiceProviders()->getProviders();
 	}
 }

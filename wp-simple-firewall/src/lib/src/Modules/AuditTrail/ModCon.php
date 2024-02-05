@@ -2,11 +2,10 @@
 
 namespace FernleafSystems\Wordpress\Plugin\Shield\Modules\AuditTrail;
 
-use FernleafSystems\Wordpress\Plugin\Shield;
-use FernleafSystems\Wordpress\Plugin\Shield\Modules\BaseShield;
+use FernleafSystems\Wordpress\Plugin\Shield\Tables\DataTables\LoadData\ActivityLog\BuildActivityLogTableData;
 use FernleafSystems\Wordpress\Services\Services;
 
-class ModCon extends BaseShield\ModCon {
+class ModCon extends \FernleafSystems\Wordpress\Plugin\Shield\Modules\BaseShield\ModCon {
 
 	public const SLUG = 'audit_trail';
 
@@ -68,7 +67,7 @@ class ModCon extends BaseShield\ModCon {
 					];
 				},
 				\array_filter( // Get all logs entries pertaining to this user:
-					( new Shield\Modules\AuditTrail\Lib\LogTable\BuildActivityLogTableData() )->loadForRecords(),
+					( new BuildActivityLogTableData() )->loadForRecords(),
 					function ( $log ) use ( $user ) {
 						$keep = $log[ 'user_id' ] === $user->ID;
 						if ( !$keep ) {
@@ -108,7 +107,7 @@ class ModCon extends BaseShield\ModCon {
 		try {
 			$user = Services::WpUsers()->getUserByEmail( $email );
 			if ( !empty( $user ) ) {
-				$deleter = $this->getDbH_Meta()->getQueryDeleter();
+				$deleter = self::con()->db_con->dbhActivityLogsMeta()->getQueryDeleter();
 				$deleter->addWhereEquals( 'meta_key', 'uid' )
 						->addWhereEquals( 'meta_data', $user->ID )
 						->query();
@@ -124,8 +123,5 @@ class ModCon extends BaseShield\ModCon {
 		catch ( \Exception $e ) {
 		}
 		return $data;
-	}
-
-	public function doPrePluginOptionsSave() {
 	}
 }
