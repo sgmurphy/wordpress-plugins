@@ -26,7 +26,8 @@ class PayLaterMessageCheckout extends PayLaterBaseMessage {
             case 'above_button':
                 el = document.querySelector('.wc-ppcp-checkout-container');
                 if (el) {
-                    $(el).empty().prepend('<div id="wc-ppcp-paylater-msg-checkout"></div>');
+                    $(el).find('#wc-ppcp-paylater-msg-checkout').remove();
+                    $(el).prepend('<div id="wc-ppcp-paylater-msg-checkout"></div>');
                     el = document.getElementById('wc-ppcp-paylater-msg-checkout');
                 } else {
                     setTimeout(this.createMessage.bind(this), 500);

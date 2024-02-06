@@ -536,15 +536,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/monperrus/crawler-user-agents.git",
-                "reference": "3f2ddc891dc25e053bd3ee3fc43e93d8a0ddd171"
+                "reference": "cb07d918dbf285e657c668c2906fa03e926cd7ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/monperrus/crawler-user-agents/zipball/3f2ddc891dc25e053bd3ee3fc43e93d8a0ddd171",
-                "reference": "3f2ddc891dc25e053bd3ee3fc43e93d8a0ddd171",
+                "url": "https://api.github.com/repos/monperrus/crawler-user-agents/zipball/cb07d918dbf285e657c668c2906fa03e926cd7ed",
+                "reference": "cb07d918dbf285e657c668c2906fa03e926cd7ed",
                 "shasum": ""
             },
-            "time": "2023-11-20T07:20:07+00:00",
+            "time": "2024-01-12T09:59:15+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",
@@ -747,17 +747,17 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v5.4.25",
-            "version_normalized": "5.4.25.0",
+            "version": "v5.4.35",
+            "version_normalized": "5.4.35.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "0ce3a62c9579a53358d3a7eb6b3dfb79789a6364"
+                "reference": "5a553607d4ffbfa9c0ab62facadea296c9db7086"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/0ce3a62c9579a53358d3a7eb6b3dfb79789a6364",
-                "reference": "0ce3a62c9579a53358d3a7eb6b3dfb79789a6364",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/5a553607d4ffbfa9c0ab62facadea296c9db7086",
+                "reference": "5a553607d4ffbfa9c0ab62facadea296c9db7086",
                 "shasum": ""
             },
             "require": {
@@ -766,7 +766,7 @@
                 "symfony/polyfill-mbstring": "~1.8",
                 "symfony/polyfill-php80": "^1.16"
             },
-            "time": "2023-05-31T13:04:02+00:00",
+            "time": "2024-01-23T13:51:25+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -794,7 +794,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v5.4.25"
+                "source": "https://github.com/symfony/filesystem/tree/v5.4.35"
             },
             "funding": [
                 {

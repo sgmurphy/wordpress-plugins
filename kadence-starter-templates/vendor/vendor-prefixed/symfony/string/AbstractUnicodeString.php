@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by kadencewp on 17-January-2024 using Strauss.
+ * Modified by kadencewp on 05-February-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -206,7 +206,7 @@ abstract class AbstractUnicodeString extends AbstractString
         return $str;
     }
 
-    public function join(array $strings, string $lastGlue = null): parent
+    public function join(array $strings, ?string $lastGlue = null): parent
     {
         $str = clone $this;
 

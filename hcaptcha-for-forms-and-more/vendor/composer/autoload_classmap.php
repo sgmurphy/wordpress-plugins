@@ -93,6 +93,7 @@ return array(
     'HCaptcha\\Settings\\SystemInfo' => $baseDir . '/src/php/Settings/SystemInfo.php',
     'HCaptcha\\SimpleBasicContactForm\\Form' => $baseDir . '/src/php/SimpleBasicContactForm/Form.php',
     'HCaptcha\\SimpleDownloadMonitor\\Form' => $baseDir . '/src/php/SimpleDownloadMonitor/Form.php',
+    'HCaptcha\\Spectra\\Form' => $baseDir . '/src/php/Spectra/Form.php',
     'HCaptcha\\Subscriber\\Form' => $baseDir . '/src/php/Subscriber/Form.php',
     'HCaptcha\\SupportCandy\\Base' => $baseDir . '/src/php/SupportCandy/Base.php',
     'HCaptcha\\SupportCandy\\Form' => $baseDir . '/src/php/SupportCandy/Form.php',

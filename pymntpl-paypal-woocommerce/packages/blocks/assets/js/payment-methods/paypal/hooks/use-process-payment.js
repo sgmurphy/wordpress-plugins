@@ -7,10 +7,9 @@ import {
     DEFAULT_SHIPPING_ADDRESS
 } from "../../../utils";
 
-const isOlderVersion = getSetting('ppcpGeneralData').isOlderVersion
-
 export const useProcessPayment = (
     {
+        isExpress,
         onSubmit,
         billingData,
         shippingData,
@@ -48,7 +47,8 @@ export const useProcessPayment = (
         if (order?.payer?.name) {
             address = {...address, ...extractName(order.payer.name)};
         }
-        if (order?.payer?.email_address) {
+        if (order?.payer?.email_address && isExpress) {
+            // only override email address if express checkout is being used
             address = {...address, email: order.payer.email_address};
         }
         if (order?.payer?.phone?.phone_number?.national_number) {
@@ -75,7 +75,7 @@ export const useProcessPayment = (
         if (data?.payer_info?.last_name) {
             address = {...address, last_name: data.payer_info.last_name};
         }
-        if (data?.payer_info?.email) {
+        if (data?.payer_info?.email && isExpress) {
             address = {...address, email: data.payer_info.email};
         }
         if (data?.payer_info?.phone) {
@@ -120,15 +120,6 @@ export const useProcessPayment = (
                             ppcp_paypal_order_id: orderId,
                             ppcp_billing_token: billingToken
                         },
-                        ...(isOlderVersion &&
-                            {
-                                billingData: {
-                                    ...DEFAULT_BILLING_ADDRESS,
-                                    ...billingData,
-                                    ...convertOrderDataToAddress(order),
-                                    ...(billingTokenData && convertBillingTokenToAddress(billingTokenData))
-                                }
-                            }),
                         billingAddress: {
                             ...DEFAULT_BILLING_ADDRESS,
                             ...billingData,
@@ -138,21 +129,11 @@ export const useProcessPayment = (
                     }
                 }
                 if (needsShipping) {
-                    if (isOlderVersion) {
-                        response.meta.shippingData = {
-                            address: {
-                                ...shippingAddress,
-                                ...convertShippingAddress(order),
-                                ...(billingTokenData && convertBillingTokenToAddress(billingTokenData, 'shipping'))
-                            }
-                        }
-                    } else {
-                        response.meta.shippingAddress = {
-                            ...DEFAULT_SHIPPING_ADDRESS,
-                            ...shippingAddress,
-                            ...convertShippingAddress(order),
-                            ...(billingTokenData && convertBillingTokenToAddress(billingTokenData, 'shipping'))
-                        }
+                    response.meta.shippingAddress = {
+                        ...DEFAULT_SHIPPING_ADDRESS,
+                        ...shippingAddress,
+                        ...convertShippingAddress(order),
+                        ...(billingTokenData && convertBillingTokenToAddress(billingTokenData, 'shipping'))
                     }
                 }
                 return {type: responseTypes.SUCCESS, ...response};

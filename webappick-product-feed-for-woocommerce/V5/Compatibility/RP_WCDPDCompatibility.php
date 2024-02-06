@@ -52,7 +52,7 @@ class RP_WCDPDCompatibility {
 		$price = $discount->get_price_for_product( $price, $price_type, $product );
 
 		if ( $with_tax ) {
-			$price = ProductHelper::woo_feed_get_price_with_tax( $price, $product );
+			$price = ProductHelper::get_price_with_tax( $price, $product );
 		}
 
 		return $price;

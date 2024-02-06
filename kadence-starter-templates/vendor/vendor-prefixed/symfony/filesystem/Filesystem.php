@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by kadencewp on 17-January-2024 using Strauss.
+ * Modified by kadencewp on 05-February-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -135,7 +135,7 @@ class Filesystem
      *
      * @throws IOException When touch fails
      */
-    public function touch($files, int $time = null, int $atime = null)
+    public function touch($files, ?int $time = null, ?int $atime = null)
     {
         foreach ($this->toIterable($files) as $file) {
             if (!($time ? self::box('touch', $file, $time, $atime) : self::box('touch', $file))) {
@@ -537,7 +537,7 @@ class Filesystem
      *
      * @throws IOException When file type is unknown
      */
-    public function mirror(string $originDir, string $targetDir, \Traversable $iterator = null, array $options = [])
+    public function mirror(string $originDir, string $targetDir, ?\Traversable $iterator = null, array $options = [])
     {
         $targetDir = rtrim($targetDir, '/\\');
         $originDir = rtrim($originDir, '/\\');

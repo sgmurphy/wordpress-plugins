@@ -166,10 +166,6 @@ function odb_confirm_delete() {
 <input class="button odb-normal" type="button" name="change_options" value="<?php _e('Change Settings', 'rvg-optimize-database')?>" onclick="self.location='options-general.php?page=odb_settings_page'" />
 &nbsp;
 <input class="button odb-normal" type="button" name="clear_log" value="<?php _e('Clear Log', 'rvg-optimize-database') ?>" onclick="return odb_confirm_delete();" />
-&nbsp;&nbsp;
-<input class="button-primary button-large" type="button" name="optimize_summary" value="<?php _e('Optimize (summary)', 'rvg-optimize-database')?>" onclick="self.location='tools.php?page=rvg-optimize-database&action=run_summary'" class="odb-bold" />
-&nbsp;
-<input class="button-primary button-large" type="button" name="optimize_detail" value="<?php _e('Optimize (detail)', 'rvg-optimize-database')?>" onclick="self.location='tools.php?page=rvg-optimize-database&action=run_summary'" class="odb-bold" />
 <?php
 	} // odb_view_log()
 

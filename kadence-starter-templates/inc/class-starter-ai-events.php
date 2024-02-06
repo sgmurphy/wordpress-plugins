@@ -102,21 +102,6 @@ class Kadence_Starter_Templates_AI_Events {
 			if ( ! empty( $data['key'] ) ) {
 				return $data['key'];
 			}
-		} elseif ( class_exists( 'Kadence_Theme_Pro' ) ) {
-			$pro_data = array();
-			if ( function_exists( '\KadenceWP\KadencePro\StellarWP\Uplink\get_license_key' ) ) {
-				$pro_data['ktp_api_key'] = \KadenceWP\KadencePro\StellarWP\Uplink\get_license_key( 'kadence-theme-pro' );
-			}
-			if ( empty( $pro_data ) ) {
-				if ( is_multisite() && ! apply_filters( 'kadence_activation_individual_multisites', false ) ) {
-					$pro_data = get_site_option( 'ktp_api_manager' );
-				} else {
-					$pro_data = get_option( 'ktp_api_manager' );
-				}
-			}
-			if ( ! empty( $pro_data['ktp_api_key'] ) ) {
-				return $pro_data['ktp_api_key'];
-			}
 		} else {
 			$key = get_license_key( 'kadence-starter-templates' );
 			if ( ! empty( $key ) ) {
@@ -142,8 +127,8 @@ class Kadence_Starter_Templates_AI_Events {
 		}
 		$license_key    = $this->get_current_license_key();
 		$is_authorized = false;
-		if ( $token && $license_key ) {
-			$is_authorized = is_authorized( $license_key, $token, get_license_domain() );
+		if ( ! empty( $token ) && ! empty( $license_key ) ) {
+			$is_authorized = is_authorized( $license_key, apply_filters( 'kadence-blocks-auth-slug', $slug ), $token, get_license_domain() );
 		}
 		if ( ! $is_authorized ) {
 			return;
@@ -187,7 +172,7 @@ class Kadence_Starter_Templates_AI_Events {
 		$defaults = [
 			'domain'          => $site_url,
 			'key'             => ! empty( $license_key ) ? $license_key : '',
-			'site_name'       => $site_name,
+			'site_name'       => sanitize_title( $site_name ),
 			'product_slug'    => 'kadence-starter-templates',
 			'product_version' => KADENCE_STARTER_TEMPLATES_VERSION,
 		];

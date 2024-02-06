@@ -3133,7 +3133,7 @@ class Library_REST_Controller extends WP_REST_Controller {
 			'domain'          => $site_url,
 			'key'             => ! empty( $this->api_key ) ? $this->api_key : '',
 			'email'           => ! empty( $this->api_email ) ? $this->api_email : '',
-			'site_name'       => $site_name,
+			'site_name'       => sanitize_title( $site_name ),
 			'product_slug'    => apply_filters( 'kadence-blocks-auth-slug', 'kadence-blocks' ),
 			'product_version' => KADENCE_STARTER_TEMPLATES_VERSION,
 		];

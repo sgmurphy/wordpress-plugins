@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by kadencewp on 17-January-2024 using Strauss.
+ * Modified by kadencewp on 05-February-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -168,6 +168,9 @@ final class EnglishInflector implements InflectorInterface
         // Third entry: Whether the suffix may succeed a vowel
         // Fourth entry: Whether the suffix may succeed a consonant
         // Fifth entry: plural suffix, normal
+
+        // axes (axis)
+        ['sixa', 4, false, false, 'axes'],
 
         // criterion (criteria)
         ['airetirc', 8, false, false, 'criterion'],
@@ -387,6 +390,9 @@ final class EnglishInflector implements InflectorInterface
 
         // traffic
         'ciffart',
+
+        // aircraft
+        'tfarcria',
     ];
 
     /**

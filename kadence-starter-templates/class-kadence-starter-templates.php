@@ -800,21 +800,6 @@ class Starter_Templates {
 			if ( ! empty( $data['key'] ) ) {
 				return $data['key'];
 			}
-		} elseif ( class_exists( 'Kadence_Theme_Pro' ) ) {
-			$pro_data = array();
-			if ( function_exists( '\KadenceWP\KadencePro\StellarWP\Uplink\get_license_key' ) ) {
-				$pro_data['ktp_api_key'] = \KadenceWP\KadencePro\StellarWP\Uplink\get_license_key( 'kadence-theme-pro' );
-			}
-			if ( empty( $pro_data ) ) {
-				if ( is_multisite() && ! apply_filters( 'kadence_activation_individual_multisites', false ) ) {
-					$pro_data = get_site_option( 'ktp_api_manager' );
-				} else {
-					$pro_data = get_option( 'ktp_api_manager' );
-				}
-			}
-			if ( ! empty( $pro_data['ktp_api_key'] ) ) {
-				return $pro_data['ktp_api_key'];
-			}
 		} else {
 			$key = get_license_key( 'kadence-starter-templates' );
 			if ( ! empty( $key ) ) {
@@ -834,21 +819,6 @@ class Starter_Templates {
 			$data = kadence_blocks_get_current_license_data();
 			if ( ! empty( $data['email'] ) ) {
 				return $data['email'];
-			}
-		} else if ( class_exists( 'Kadence_Theme_Pro' ) ) {
-			$pro_data = array();
-			if ( function_exists( '\KadenceWP\KadencePro\StellarWP\Uplink\get_license_key' ) ) {
-				$pro_data['ktp_api_key'] = \KadenceWP\KadencePro\StellarWP\Uplink\get_license_key( 'kadence-theme-pro' );
-			}
-			if ( empty( $pro_data ) ) {
-				if ( is_multisite() && ! apply_filters( 'kadence_activation_individual_multisites', false ) ) {
-					$pro_data = get_site_option( 'ktp_api_manager' );
-				} else {
-					$pro_data = get_option( 'ktp_api_manager' );
-				}
-			}
-			if ( ! empty( $pro_data['activation_email'] ) ) {
-				return $pro_data['activation_email'];
 			}
 		}
 		$current_user = wp_get_current_user();
@@ -876,8 +846,8 @@ class Starter_Templates {
 		$license_key    = $this->get_current_license_key();
 		$disconnect_url = '';
 		$is_authorized  = false;
-		if ( ! empty( $token ) ) {
-			$is_authorized  = is_authorized( $license_key, $token, get_license_domain() );
+		if ( ! empty( $license_key ) ) {
+			$is_authorized = is_authorized( $license_key, apply_filters( 'kadence-blocks-auth-slug', $slug ), ( ! empty( $token ) ? $token : '' ), get_license_domain() );
 		}
 		if ( $is_authorized ) {
 			$disconnect_url = get_disconnect_url( apply_filters( 'kadence-blocks-auth-slug', $slug ) );

@@ -157,7 +157,11 @@ class PackagingSettings {
 				'class'             => 'wc-enhanced-select',
 				'default'           => array(),
 				'options'           => Package::get_shipping_classes(),
-				'value'             => $packaging->get_available_shipping_classes( 'edit' ),
+				/**
+				 * Woo explicitly casts option values to strings before comparing.
+				 * @see \WC_Admin_Settings::output_fields()
+				 */
+				'value'             => array_map( 'strval', $packaging->get_available_shipping_classes( 'edit' ) ),
 				'custom_attributes' => array(
 					'data-placeholder' => _x( 'All shipping classes', 'shipments', 'woocommerce-germanized' ),
 				),
@@ -175,37 +179,31 @@ class PackagingSettings {
 				'value'     => wc_format_localized_decimal( $packaging->get_weight() ),
 			),
 			array(
-				'title'     => _x( 'Length', 'shipments', 'woocommerce-germanized' ),
-				'type'      => 'text',
-				'css'       => 'max-width: 60px;',
-				'class'     => 'wc_input_decimal',
-				'row_class' => 'with-suffix',
-				'id'        => 'length',
-				'desc'      => wc_gzd_get_packaging_dimension_unit(),
-				'default'   => '',
-				'value'     => wc_format_localized_decimal( $packaging->get_length() ),
+				'title' => _x( 'Dimensions', 'shipments', 'woocommerce-germanized' ),
+				'type'  => 'dimensions',
+				'id'    => 'dimensions',
+				'desc'  => wc_gzd_get_packaging_dimension_unit(),
+				'value' => array(
+					'length' => wc_format_localized_decimal( $packaging->get_length() ),
+					'width'  => wc_format_localized_decimal( $packaging->get_width() ),
+					'height' => wc_format_localized_decimal( $packaging->get_height() ),
+				),
 			),
 			array(
-				'title'     => _x( 'Width', 'shipments', 'woocommerce-germanized' ),
-				'type'      => 'text',
-				'css'       => 'max-width: 60px;',
-				'class'     => 'wc_input_decimal',
-				'row_class' => 'with-suffix',
-				'id'        => 'width',
-				'desc'      => wc_gzd_get_packaging_dimension_unit(),
-				'default'   => '',
-				'value'     => wc_format_localized_decimal( $packaging->get_width() ),
-			),
-			array(
-				'title'     => _x( 'Height', 'shipments', 'woocommerce-germanized' ),
-				'type'      => 'text',
-				'css'       => 'max-width: 60px;',
-				'class'     => 'wc_input_decimal',
-				'row_class' => 'with-suffix',
-				'id'        => 'height',
-				'desc'      => wc_gzd_get_packaging_dimension_unit(),
-				'default'   => '',
-				'value'     => wc_format_localized_decimal( $packaging->get_height() ),
+				'title'       => _x( 'Inner Dimensions', 'shipments', 'woocommerce-germanized' ),
+				'type'        => 'dimensions',
+				'id'          => 'inner_dimensions',
+				'desc'        => wc_gzd_get_packaging_dimension_unit(),
+				'value'       => array(
+					'length' => $packaging->get_inner_length( 'edit' ) ? wc_format_localized_decimal( $packaging->get_inner_length( 'edit' ) ) : '',
+					'width'  => $packaging->get_inner_width( 'edit' ) ? wc_format_localized_decimal( $packaging->get_inner_width( 'edit' ) ) : '',
+					'height' => $packaging->get_inner_height( 'edit' ) ? wc_format_localized_decimal( $packaging->get_inner_height( 'edit' ) ) : '',
+				),
+				'placeholder' => array(
+					'length' => wc_format_localized_decimal( $packaging->get_length() ),
+					'width'  => wc_format_localized_decimal( $packaging->get_width() ),
+					'height' => wc_format_localized_decimal( $packaging->get_height() ),
+				),
 			),
 			array(
 				'title'     => _x( 'Load Capacity', 'shipments', 'woocommerce-germanized' ),

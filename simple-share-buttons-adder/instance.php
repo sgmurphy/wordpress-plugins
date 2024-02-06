@@ -9,7 +9,7 @@ namespace SimpleShareButtonsAdder;
 
 define( 'SSBA_FILE', __FILE__ );
 define( 'SSBA_ROOT', trailingslashit( dirname( __FILE__ ) ) );
-define( 'SSBA_VERSION', '8.4.11' );
+define( 'SSBA_VERSION', '8.4.12' );
 
 global $simple_share_buttons_adder_plugin;
 

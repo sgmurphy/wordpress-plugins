@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by kadencewp on 17-January-2024 using Strauss.
+ * Modified by kadencewp on 05-February-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -42,7 +42,7 @@ class RetryableHttpClient implements HttpClientInterface, ResetInterface
     /**
      * @param int $maxRetries The maximum number of times to retry
      */
-    public function __construct(HttpClientInterface $client, RetryStrategyInterface $strategy = null, int $maxRetries = 3, LoggerInterface $logger = null)
+    public function __construct(HttpClientInterface $client, ?RetryStrategyInterface $strategy = null, int $maxRetries = 3, ?LoggerInterface $logger = null)
     {
         $this->client = $client;
         $this->strategy = $strategy ?? new GenericRetryStrategy();

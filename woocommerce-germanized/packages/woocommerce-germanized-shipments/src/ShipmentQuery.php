@@ -53,6 +53,7 @@ class ShipmentQuery extends WC_Object_Query {
 			'order_id'          => '',
 			'parent_id'         => '',
 			'product_ids'       => '',
+			'product_category'  => '',
 			'type'              => 'simple',
 			'country'           => '',
 			'tracking_id'       => '',
@@ -178,7 +179,8 @@ class ShipmentQuery extends WC_Object_Query {
 	 */
 	protected function parse_query() {
 		if ( isset( $this->args['order_id'] ) ) {
-			$this->args['order_id'] = absint( $this->args['order_id'] );
+			$this->args['order_id'] = (array) $this->args['order_id'];
+			$this->args['order_id'] = array_map( 'absint', $this->args['order_id'] );
 		}
 
 		if ( isset( $this->args['shipping_provider'] ) ) {
@@ -192,6 +194,11 @@ class ShipmentQuery extends WC_Object_Query {
 		if ( isset( $this->args['product_ids'] ) ) {
 			$this->args['product_ids'] = (array) $this->args['product_ids'];
 			$this->args['product_ids'] = array_map( 'absint', $this->args['product_ids'] );
+		}
+
+		if ( isset( $this->args['product_category'] ) ) {
+			$this->args['product_category'] = (array) $this->args['product_category'];
+			$this->args['product_category'] = array_map( 'absint', $this->args['product_category'] );
 		}
 
 		if ( isset( $this->args['tracking_id'] ) ) {
@@ -284,7 +291,9 @@ class ShipmentQuery extends WC_Object_Query {
 
 		// order id
 		if ( isset( $this->args['order_id'] ) ) {
-			$this->query_where .= $wpdb->prepare( ' AND shipment_order_id = %d', $this->args['order_id'] );
+			$order_ids          = array_filter( array_map( 'absint', $this->args['order_id'] ) );
+			$placeholders       = implode( ',', array_fill( 0, count( $order_ids ), '%d' ) );
+			$this->query_where .= $wpdb->prepare( " AND shipment_order_id IN ({$placeholders})", ...$order_ids ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
 		}
 
 		// order id
@@ -308,6 +317,15 @@ class ShipmentQuery extends WC_Object_Query {
 
 			$this->query_from  .= " JOIN {$wpdb->prefix}woocommerce_gzd_shipment_items as shipment_items ON ( shipment_items.shipment_id = {$wpdb->prefix}woocommerce_gzd_shipments.shipment_id ) ";
 			$this->query_where .= $wpdb->prepare( " AND shipment_items.shipment_item_product_id IN ({$product_ids_placeholders})", $this->args['product_ids'] ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+		}
+
+		// product category
+		if ( isset( $this->args['product_category'] ) ) {
+			$product_category_placeholders = implode( ', ', array_fill( 0, count( $this->args['product_category'] ), '%d' ) );
+
+			$this->query_from  .= " JOIN {$wpdb->prefix}woocommerce_gzd_shipment_items AS shipment_items ON {$wpdb->prefix}woocommerce_gzd_shipments.shipment_id = shipment_items.shipment_id ";
+			$this->query_from  .= " JOIN {$wpdb->prefix}term_relationships AS term_relationships ON term_relationships.object_id = shipment_items.shipment_item_product_id ";
+			$this->query_where .= $wpdb->prepare( " AND term_relationships.term_taxonomy_id IN ({$product_category_placeholders})", $this->args['product_category'] ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
 		}
 
 		// country

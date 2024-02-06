@@ -1218,7 +1218,7 @@ class Admin_Panel {
 			'name'       => 'ssba_custom_styles',
 			'label'      => 'Custom CSS',
 			'tooltip'    => 'Enter in your own custom CSS for your share buttons',
-			'value'      => isset( $arr_settings['ssba_custom_styles'] ) ? $arr_settings['ssba_custom_styles'] : '',
+			'value'      => isset( $arr_settings['ssba_custom_styles'] ) ? esc_html($arr_settings['ssba_custom_styles']) : '',
 		);
 
 		// Switch to new buttons.

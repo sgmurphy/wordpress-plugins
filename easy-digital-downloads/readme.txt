@@ -6,7 +6,7 @@ Tags: ecommerce, payments, sell, digital store, stripe
 Requires at least: 5.8
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable Tag: 3.2.7
+Stable Tag: 3.2.7.1
 License: GNU Version 2 or Any Later Version
 
 The #1 eCommerce plugin to sell digital products. Manage eCommerce orders, increase store revenue & accept credit card payments with Stripe + PayPal.
@@ -226,8 +226,11 @@ Yes, with an Extended Pass you get access to [Recurring Payments](https://easydi
 8. Checkout - Default Theme
 
 == Changelog ==
+= 3.2.7.1 =
+* Reports: Fixed issue with loading downloads reports.
+
 = 3.2.7 =
-* Admin: Improved validation of saving some store settings.
+* Admin: Improved validation of saving some settings.
 * API: Improved API Key management for admins, including showing the last time a key was used.
 * Customers: Prevent updating a customer to have no email address.
 * Downloads: Improved the consistency of the results of setting and getting a price option name.
@@ -236,7 +239,7 @@ Yes, with an Extended Pass you get access to [Recurring Payments](https://easydi
 * Fees: Improved the reliability of the fees and tax calculations.
 * Orders: The Order Status Badge API now includes the order as a parameter on filters.
 * Reports: Download Taxonomy reports have been improved for large data sets.
-* Reports: Some store timezones and date calculations were getting incorrect date ranges.
+* Reports: Some timezones and date calculations were getting incorrect date ranges.
 * Stripe: Improved mixed cart messaging.
 
 View the full changelog at [https://easydigitaldownloads.com/changelogs/plugin/easy-digital-downloads/](https://easydigitaldownloads.com/changelogs/plugin/easy-digital-downloads/?utm_medium=readme&utm_source=wporg&utm_campaign=edd-plugin&utm_term=description)

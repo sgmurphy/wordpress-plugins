@@ -384,7 +384,7 @@ class Database {
 			}
 
 			// Update custom CSS option.
-			update_option( 'ssba_custom_styles', $custom_css );
+			update_option( 'ssba_custom_styles', sanitize_text_field( wp_unslash( $custom_css ) ) );
 
 			// Content priority.
 			add_option( 'ssba_content_priority', '10' );

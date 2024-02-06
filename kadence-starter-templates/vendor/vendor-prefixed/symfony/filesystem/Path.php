@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by kadencewp on 17-January-2024 using Strauss.
+ * Modified by kadencewp on 05-February-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -260,7 +260,7 @@ final class Path
      * @param string|null $extension if specified, only that extension is cut
      *                               off (may contain leading dot)
      */
-    public static function getFilenameWithoutExtension(string $path, string $extension = null): string
+    public static function getFilenameWithoutExtension(string $path, ?string $extension = null): string
     {
         if ('' === $path) {
             return '';

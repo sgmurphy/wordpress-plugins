@@ -83,6 +83,7 @@ const PayPalPaymentMethod = (
     }, []);
 
     const {paymentData, setPaymentData} = useProcessPayment({
+        isExpress,
         onSubmit,
         billingData,
         shippingData,

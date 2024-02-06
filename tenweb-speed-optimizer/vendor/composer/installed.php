@@ -3,7 +3,7 @@
         'name' => 'plugins/tenweb-speed-optimizer',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '809a533bbd28b5f1157b1786884a7f72073c5159',
+        'reference' => 'd6c91a0be57452d4b85f55da1eaf4bf624268788',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -133,7 +133,7 @@
         'monperrus/crawler-user-agents' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '3f2ddc891dc25e053bd3ee3fc43e93d8a0ddd171',
+            'reference' => 'cb07d918dbf285e657c668c2906fa03e926cd7ed',
             'type' => 'library',
             'install_path' => __DIR__ . '/../monperrus/crawler-user-agents',
             'aliases' => array(
@@ -162,7 +162,7 @@
         'plugins/tenweb-speed-optimizer' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '809a533bbd28b5f1157b1786884a7f72073c5159',
+            'reference' => 'd6c91a0be57452d4b85f55da1eaf4bf624268788',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -178,9 +178,9 @@
             'dev_requirement' => false,
         ),
         'symfony/filesystem' => array(
-            'pretty_version' => 'v5.4.25',
-            'version' => '5.4.25.0',
-            'reference' => '0ce3a62c9579a53358d3a7eb6b3dfb79789a6364',
+            'pretty_version' => 'v5.4.35',
+            'version' => '5.4.35.0',
+            'reference' => '5a553607d4ffbfa9c0ab62facadea296c9db7086',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/filesystem',
             'aliases' => array(),

@@ -104,11 +104,14 @@ function wpm_head() {
         $output = '';
     } else {
         $output = "<!-- Add Google Fonts -->\n";
-        $output .= '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family='.str_replace(' ', '+', $o['font_title']).'|'.str_replace(' ', '+', $o['font_text']).'|'.str_replace(' ', '+', $o['font_text_bottom']).'|'.str_replace(' ', '+', $o['font_cpt']);
-        if(isset($o['newletter_font_text']) && $o['newletter_font_text'] != '') {
-        $output .= '|'.str_replace(' ', '+', $o['newletter_font_text']);    
+        $arrayfonts = array($o['font_title'], $o['font_text'], $o['font_text_bottom'], $o['font_cpt'], $o['newletter_font_text'], $o['newletter_font_text']);
+        $uniqueArrayfonts = array_unique($arrayfonts);        
+        $addFont = '';
+        foreach ($uniqueArrayfonts as $keyFont => $valFont) {
+            $valFont = str_replace(' ', '+', $valFont);
+            $addFont .= '&family='.$valFont.'';
         }
-        $output .= '">';
+        $output .= '<link rel="stylesheet" href="https://fonts.googleapis.com/css?'.substr($addFont, 0,-1).'">';
     }
     return $output;
 }
@@ -138,7 +141,7 @@ function wpm_logo() {
     if ( !empty( $o['image'] ) ) {
        if(empty($o['image_width']) ) { $o['image_width'] = 450; }
        if(empty($o['image_height']) ) { $o['image_height'] = 450; }
-        $output .= "<div id='logo'><img id='wpm-image' src='".esc_url($o['image'])."' width='".$o['image_width']."px' height='".$o['image_height']."px' alt='".get_bloginfo( 'name', 'display' )." ".get_bloginfo( 'description', 'display' )."' title='".get_bloginfo( 'name', 'display' )." ".get_bloginfo( 'description', 'display' )."' style='width:".$o['image_width']."px!important;height:".$o['image_height']."px!important;'></div>";
+        $output .= "<div id='logo'><img id='wpm-image' src='".esc_url($o['image'])."' width='".$o['image_width']."px' height='".$o['image_height']."px' alt='".get_bloginfo( 'name', 'display' )." ".get_bloginfo( 'description', 'display' )."' title='".get_bloginfo( 'name', 'display' )." ".get_bloginfo( 'description', 'display' )."'></div>";
     }
 
     return  $output;

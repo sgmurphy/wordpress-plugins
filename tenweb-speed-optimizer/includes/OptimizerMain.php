@@ -2,6 +2,7 @@
 
 namespace TenWebOptimizer;
 
+use DiDom\Exceptions\InvalidSelectorException;
 use JSMin\JSMin;
 
 class OptimizerMain
@@ -727,6 +728,17 @@ class OptimizerMain
                                       two_lazyLoadInstance.update();
                                    }
                                 });
+                                /*
+                                 * Updates lazy-load instance from every ajax request
+                                 * When we use Ajax requests and get pictures back, we need to update lazy-load instance
+                                 * */
+                                if (window.jQuery) {
+                                    jQuery.ajaxSetup({
+                                            complete: function() {
+                                                two_lazyLoadInstance.update();
+                                            }
+                                        });
+                                }
                             </script>';
                     $content = OptimizerUtils::inject_in_html($content, $init_vanilla_lazy_js, $replaceTag);
 
@@ -792,10 +804,11 @@ class OptimizerMain
     }
 
     /**
-     * @param $content
-     *                  return html content
+     * Returns optimized HTML content
      *
      * @return mixed|string|void
+     *
+     * @throws InvalidSelectorException
      */
     private function end_buffering($content)
     {

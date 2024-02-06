@@ -62,8 +62,7 @@ class Api {
 				'environment'    => $this->api_settings->get_environment(),
 				'context'        => $context,
 				'isAdmin'        => current_user_can( 'manage_woocommerce' ),
-				'blocksVersion'  => \Automattic\WooCommerce\Blocks\Package::get_version(),
-				'isOlderVersion' => \version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '9.5.0', '<' ),
+				'blocksVersion'  => \Automattic\WooCommerce\Blocks\Package::get_version()
 			];
 			$this->data_api->add( 'ppcpGeneralData', $this->rest_controller->add_asset_data( $data ) );
 		}

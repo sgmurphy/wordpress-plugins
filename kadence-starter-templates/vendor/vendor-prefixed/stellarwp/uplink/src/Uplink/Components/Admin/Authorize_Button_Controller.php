@@ -2,7 +2,7 @@
 /**
  * @license GPL-2.0-or-later
  *
- * Modified by kadencewp on 17-January-2024 using Strauss.
+ * Modified by kadencewp on 05-February-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */ declare( strict_types=1 );
 
@@ -122,7 +122,7 @@ final class Authorize_Button_Controller extends Controller {
 			$authenticated = true;
 			$target        = '_self';
 			$link_text     = __( 'Disconnect', '%TEXTDOMAIN%' );
-			$url           = $this->disconnect_controller->get_url( $slug );
+			$url           = $this->disconnect_controller->get_url( $plugin );
 			$classes[1]    = 'authorized';
 		}
 

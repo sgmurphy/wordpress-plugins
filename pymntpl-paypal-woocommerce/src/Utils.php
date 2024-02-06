@@ -38,7 +38,9 @@ class Utils {
 	 */
 	public static function is_valid_address( $address, $type = 'billing' ) {
 		$type .= '_';
-		if ( $address instanceof Address ) {
+		if ( ! $address ) {
+			return false;
+		} elseif ( $address instanceof Address ) {
 			$mappings = self::get_address_mappings( true );
 			$country  = $address->getCountryCode();
 		} else {

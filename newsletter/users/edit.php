@@ -41,7 +41,7 @@ if ($controls->is_action('save')) {
             $controls->data['token'] = $this->get_token();
         }
 
-        $controls->data['id'] = $id;
+        $controls->data['id'] = $user->id;
         $user = $this->save_user($controls->data);
         $this->add_user_log($user, 'edit');
         //$this->save_user_meta($id, 'ip', $controls->data['ip']);
@@ -55,7 +55,7 @@ if ($controls->is_action('save')) {
 }
 
 if ($controls->is_action('delete')) {
-    $this->delete_user($id);
+    $this->delete_user($user->id);
     $controls->js_redirect($this->get_admin_page_url('index'));
     return;
 }
@@ -115,7 +115,7 @@ function percentValue($value, $total) {
 
                 <div id="tabs-general" class="tnp-tab">
 
-                    <?php do_action('newsletter_users_edit_general', $id, $controls) ?>
+                    <?php do_action('newsletter_users_edit_general', $user->id, $controls) ?>
 
                     <table class="form-table">
 

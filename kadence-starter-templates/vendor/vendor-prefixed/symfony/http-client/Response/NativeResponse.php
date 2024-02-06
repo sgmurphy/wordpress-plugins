@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by kadencewp on 17-January-2024 using Strauss.
+ * Modified by kadencewp on 05-February-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -85,7 +85,7 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
     /**
      * {@inheritdoc}
      */
-    public function getInfo(string $type = null)
+    public function getInfo(?string $type = null)
     {
         if (!$info = $this->finalInfo) {
             $info = $this->info;
@@ -235,7 +235,7 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
      *
      * @param NativeClientState $multi
      */
-    private static function perform(ClientState $multi, array &$responses = null): void
+    private static function perform(ClientState $multi, ?array &$responses = null): void
     {
         foreach ($multi->openHandles as $i => [$pauseExpiry, $h, $buffer, $onProgress]) {
             if ($pauseExpiry) {

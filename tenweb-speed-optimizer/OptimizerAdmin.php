@@ -1689,8 +1689,7 @@ class OptimizerAdmin
 
         if (!get_option('two_set_not_optimizable_and_turn_off_mode_settings_v2')) {
             // This option 'two_set_not_disabled_pages' shouldn't be deleted in uninstall
-            $TwoSettings->update_setting('two_non_optimizable_speed_optimizer_pages', '/wp-admin/, /xmlrpc.php, wp-.*.php, feed, index.php, sitemap(_index)?.xml, /store.*,
-        /cart.*, /my-account.*, /checkout.*, /addons.*, well-known, acme-challenge');
+            $TwoSettings->update_setting('two_non_optimizable_speed_optimizer_pages', '/wp-admin/, /xmlrpc.php, wp-.*.php, \/feed(\/)*, index.php, sitemap(_index)?.xml, /store.*,/cart.*, /my-account.*, /checkout.*, /addons.*, well-known, acme-challenge');
 
             $two_optimized_pages = \TenWebOptimizer\OptimizerUtils::getCriticalPages();
 

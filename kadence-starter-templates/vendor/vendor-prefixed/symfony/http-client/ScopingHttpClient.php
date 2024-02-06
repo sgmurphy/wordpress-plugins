@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by kadencewp on 17-January-2024 using Strauss.
+ * Modified by kadencewp on 05-February-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -35,7 +35,7 @@ class ScopingHttpClient implements HttpClientInterface, ResetInterface, LoggerAw
     private $defaultOptionsByRegexp;
     private $defaultRegexp;
 
-    public function __construct(HttpClientInterface $client, array $defaultOptionsByRegexp, string $defaultRegexp = null)
+    public function __construct(HttpClientInterface $client, array $defaultOptionsByRegexp, ?string $defaultRegexp = null)
     {
         $this->client = $client;
         $this->defaultOptionsByRegexp = $defaultOptionsByRegexp;
@@ -46,7 +46,7 @@ class ScopingHttpClient implements HttpClientInterface, ResetInterface, LoggerAw
         }
     }
 
-    public static function forBaseUri(HttpClientInterface $client, string $baseUri, array $defaultOptions = [], string $regexp = null): self
+    public static function forBaseUri(HttpClientInterface $client, string $baseUri, array $defaultOptions = [], ?string $regexp = null): self
     {
         if (null === $regexp) {
             $regexp = preg_quote(implode('', self::resolveUrl(self::parseUrl('.'), self::parseUrl($baseUri))));
@@ -99,7 +99,7 @@ class ScopingHttpClient implements HttpClientInterface, ResetInterface, LoggerAw
     /**
      * {@inheritdoc}
      */
-    public function stream($responses, float $timeout = null): ResponseStreamInterface
+    public function stream($responses, ?float $timeout = null): ResponseStreamInterface
     {
         return $this->client->stream($responses, $timeout);
     }

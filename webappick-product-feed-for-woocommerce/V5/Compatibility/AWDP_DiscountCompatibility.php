@@ -60,7 +60,7 @@ class AWDP_DiscountCompatibility {
 		}
 
 		if ( $with_tax ) {
-			$price = ProductHelper::woo_feed_get_price_with_tax( $price, $product );
+			$price = ProductHelper::get_price_with_tax( $price, $product );
 		}
 
 		return $price;

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by kadencewp on 17-January-2024 using Strauss.
+ * Modified by kadencewp on 05-February-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -74,7 +74,7 @@ final class HttplugClient implements HttplugInterface, HttpAsyncClient, RequestF
 
     private $waitLoop;
 
-    public function __construct(HttpClientInterface $client = null, ResponseFactoryInterface $responseFactory = null, StreamFactoryInterface $streamFactory = null)
+    public function __construct(?HttpClientInterface $client = null, ?ResponseFactoryInterface $responseFactory = null, ?StreamFactoryInterface $streamFactory = null)
     {
         $this->client = $client ?? HttpClient::create();
         $this->responseFactory = $responseFactory;
@@ -148,7 +148,7 @@ final class HttplugClient implements HttplugInterface, HttpAsyncClient, RequestF
      *
      * @return int The number of remaining pending promises
      */
-    public function wait(float $maxDuration = null, float $idleTimeout = null): int
+    public function wait(?float $maxDuration = null, ?float $idleTimeout = null): int
     {
         return $this->waitLoop->wait(null, $maxDuration, $idleTimeout);
     }
@@ -250,7 +250,7 @@ final class HttplugClient implements HttplugInterface, HttpAsyncClient, RequestF
         }
     }
 
-    private function sendPsr7Request(RequestInterface $request, bool $buffer = null): ResponseInterface
+    private function sendPsr7Request(RequestInterface $request, ?bool $buffer = null): ResponseInterface
     {
         try {
             $body = $request->getBody();

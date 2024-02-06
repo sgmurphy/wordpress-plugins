@@ -65,7 +65,7 @@ class AjaxFrontendHandler {
 				if ( $paypal_order->getPurchaseUnits()->count() > 0 ) {
 					$purchase_unit = $paypal_order->getPurchaseUnits()->get( 0 );
 				}
-				$address = $payer->getAddress();
+				$address = $payer ? $payer->getAddress() : null;
 				if ( ! Utils::is_valid_address( $payer->getAddress() ) ) {
 					if ( $purchase_unit && isset( $purchase_unit->shipping->address ) ) {
 						$address = $purchase_unit->getShipping()->getAddress();

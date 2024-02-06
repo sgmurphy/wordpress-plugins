@@ -22,7 +22,9 @@ final class Checkout {
 		add_filter(
 			'woocommerce_get_item_data',
 			function( $item_data, $item ) {
-				if ( has_block( 'woocommerce/checkout' ) || has_block( 'woocommerce/cart' ) || WC()->is_rest_api_request() ) {
+				$needs_price_labels = has_block( 'woocommerce/checkout' ) || has_block( 'woocommerce/cart' ) || WC()->is_rest_api_request();
+
+				if ( apply_filters( 'woocommerce_gzd_cart_checkout_needs_block_price_labels', $needs_price_labels ) ) {
 					$labels = wc_gzd_get_checkout_shopmarks();
 
 					if ( is_checkout() || has_block( 'woocommerce/checkout' ) ) {
@@ -202,7 +204,7 @@ final class Checkout {
 				'readonly'    => true,
 			),
 			'photovoltaic_system_law_details'            => array(
-				'description' => __( 'The current cart\'s photovoltaic system law details. ', 'woocommerce-germanized' ),
+				'description' => __( 'The current cart\'s photovoltaic system law details.', 'woocommerce-germanized' ),
 				'type'        => 'object',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,

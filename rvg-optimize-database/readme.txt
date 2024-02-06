@@ -6,8 +6,8 @@ Author: NerdPress
 Requires at least: 2.8
 Requires PHP: 5.6
 Tested up to: 6.4
-Stable tag: 5.2
-Version: 5.2
+Stable tag: 5.2.1
+Version: 5.2.1
 License: GPLv2 or later
 One-click database optimization with precise revision cleanup and flexible scheduling. Speeding up sites since 2011!
 
@@ -97,6 +97,11 @@ NO WARRANTY, USE IT AT YOUR OWN RISK! MAKE BACKUPS FIRST!
 * If you run the plugin from any of the sites, it will cleanup ALL the sites in the network!
 
 == Changelog ==
+= 5.2.1 [02/05/2024] =
+* Add missing nonce on "Optimize DB (1 click)" admin bar link.
+* Remove "Optimize" buttons from Log page.
+* Fix PHP 8 Deprecation Notices.
+
 = 5.2 [01/31/2024] =
 * NerdPress has adopted Optimize Database After Deleting Revisions! [Read the announcement here.](https://www.nerdpress.net/announcing-optimize-database/)
 * Security improvement: Additional CSRF hardening.

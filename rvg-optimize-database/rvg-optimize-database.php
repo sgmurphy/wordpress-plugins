@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Optimize Database after Deleting Revisions
- * @version 5.2
+ * @version 5.2.1
  */
 /*
 Plugin Name: Optimize Database after Deleting Revisions
@@ -9,7 +9,7 @@ Description: One-click database optimization with precise revision cleanup and f
 Author: NerdPress
 Author URI: https://www..nerdpress.net
 Network: True
-Version: 5.2
+Version: 5.2.1
 */
 
 /********************************************************************************************
@@ -47,7 +47,7 @@ add_action( 'plugins_loaded', function() {
 
 	class OptimizeDatabase {
 		// VERSION
-		var $odb_version           = '5.2';
+		var $odb_version           = '5.2.1';
 
 		// PLUGIN OPTIONS
 		var $odb_rvg_options       = array();
@@ -95,6 +95,8 @@ add_action( 'plugins_loaded', function() {
 
 		// PAGE TIMER
 		var	$odb_start_time;
+
+		var $log_arr;
 
 		/*******************************************************************************
 		 *
@@ -423,13 +425,13 @@ add_action( 'plugins_loaded', function() {
 			} // if (is_multisite())
 
 			// ICON MODE: ADD ICON TO ADMIN MENU
-			if ($this->odb_rvg_options['adminmenu'] == "Y") {
+			if (! empty( $this->odb_rvg_options['adminmenu'] ) && $this->odb_rvg_options['adminmenu'] == "Y") {
 				add_action('admin_menu', array(&$this, 'odb_admin_icon'));
 				add_action('admin_menu', array(&$this, 'odb_register_options'));
 			}
 
 			// ADD THE '1 CLICK OPTIMIZE DATABASE' ITEM TO THE ADMIN BAR (IF ACTIVATED)
-			if($this->odb_rvg_options['adminbar'] == 'Y')
+			if(! empty( $this->odb_rvg_options['adminbar'] ) && $this->odb_rvg_options['adminbar'] == 'Y')
 				add_action('wp_before_admin_bar_render', array(&$this, 'odb_admin_bar'));
 
 			// INITIALIZE LOCALIZATION
@@ -493,11 +495,13 @@ add_action( 'plugins_loaded', function() {
 			if (!is_super_admin() || !is_admin_bar_showing()) return;
 
 			$siteurl = site_url('/');
+			$nonce   = wp_create_nonce( 'rvg-optimize-database' );
+
 			$wp_admin_bar->add_menu(
 				array(
 				'id'    => 'optimize',
 				'title' => __('Optimize DB (1 click)', $this->odb_txt_domain),
-				'href'  => $siteurl.'wp-admin/tools.php?page=rvg-optimize-database&action=run_detail' ));
+				'href'  => $siteurl . 'wp-admin/tools.php?page=rvg-optimize-database&action=run_detail&_wpnonce=' . $nonce ));
 		} // odb_admin_bar()
 
 
@@ -528,7 +532,7 @@ add_action( 'plugins_loaded', function() {
 		function odb_register_options() {
 			if (function_exists('add_submenu_page')) {
 				add_submenu_page(
-					null,											// parent slug (NULL is hide from menu)
+					'',											// parent slug (NULL is hide from menu)
 					__('Optimize Database', $this->odb_txt_domain),	// page title
 					__('Optimize Database', $this->odb_txt_domain),	// menu title
 					'manage_options',								// capability

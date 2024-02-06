@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by kadencewp on 17-January-2024 using Strauss.
+ * Modified by kadencewp on 05-February-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -197,7 +197,7 @@ class CodePointString extends AbstractUnicodeString
         return $str;
     }
 
-    public function slice(int $start = 0, int $length = null): AbstractString
+    public function slice(int $start = 0, ?int $length = null): AbstractString
     {
         $str = clone $this;
         $str->string = mb_substr($this->string, $start, $length, 'UTF-8');
@@ -205,7 +205,7 @@ class CodePointString extends AbstractUnicodeString
         return $str;
     }
 
-    public function splice(string $replacement, int $start = 0, int $length = null): AbstractString
+    public function splice(string $replacement, int $start = 0, ?int $length = null): AbstractString
     {
         if (!preg_match('//u', $replacement)) {
             throw new InvalidArgumentException('Invalid UTF-8 string.');
@@ -219,7 +219,7 @@ class CodePointString extends AbstractUnicodeString
         return $str;
     }
 
-    public function split(string $delimiter, int $limit = null, int $flags = null): array
+    public function split(string $delimiter, ?int $limit = null, ?int $flags = null): array
     {
         if (1 > $limit = $limit ?? \PHP_INT_MAX) {
             throw new InvalidArgumentException('Split limit must be a positive integer.');

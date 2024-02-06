@@ -2,9 +2,9 @@
 Contributors: andergmartins, htmgarcia, publishpress, stevejburge, rochdesigns
 Tags: slideshow, slider, image slider, carousel, gallery, flex slider, wordpress slider, nivoslider, rotating banner, image sliders, slide show, responsive slideshow, seo slideshow, unsplash, post sliders, video sliders, YouTube sliders, Vimeo sliders, HTML sliders, external URL sliders, layer sliders, best WordPress slider, best slider, best slideshow, best carousel, easy slider, easy slideshow, flex slider, woocommerce slider, woocommerce slideshow, video slider, video captions, video subtitles
 Requires at least: 5.0
-Stable tag: 3.60.1
+Stable tag: 3.61.0
 Requires PHP: 7.0
-Tested up to: 6.4.2
+Tested up to: 6.4.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ The best slider, gallery, and carousel plugin for WordPress. Responsive and easy
 
 == Description ==
 
-With MetaSlider, you can create a powerful, SEO-optimized slider, slideshow, carousel, or gallery in minutes. MetaSlider is the world’s #1 responsive WordPress slider plugin. MetaSlider is the best choice for image, photo, video (YouTube, Vimeo, local, and external), layer, HTML, WooCommerce product, and post feed sliders!
+With MetaSlider, you can create a powerful, SEO-optimized slider, slideshow, carousel, or gallery in minutes. MetaSlider is world’s #1 responsive WordPress slider plugin. MetaSlider is the best choice for image, photo, video (YouTube, Vimeo, local, and external), layer, HTML, WooCommerce product, and post feed sliders!
 
 [vimeo https://vimeo.com/393891282]
 
@@ -43,7 +43,7 @@ If you’re looking for further customization, [MetaSlider Pro](https://www.meta
 * **External Video slides**: Create your slideshows with videos from almost any external service.
 * **Layer slides**: Create CSS3 animated HTML Layer slides using the built in drag-and-drop WYSIWYG editor.
 * **Dynamic Post Feed slides**: Automatically show your latest blog posts, events or WooCommerce products in your slide show.
-* **External URL slides**: Display images directly from a non-WordPress sources, such as CDNs or image hosts.
+* **External URL slides**: Display images directly from a non-WordPress sources such as CDNs or image hosts.
 * **Slide scheduling and slide visibility**: Pro customers can now schedule sliders to appear only within specific dates, times, and days of the week.
 * **Custom Themes – build your own theme**: MetaSlider now has stunning free slider themes for you to explore. With MetaSlider Pro, you can also build your own themes.
 * **Thumbnail Navigation**: Give your slideshows a gallery feel with customizable Thumbnail and Filmstrip Navigation.
@@ -95,7 +95,7 @@ Post Feed slides can be used to show one post at a time but they work particular
 
 With [MetaSlider Pro](https://www.metaslider.com/upgrade/) you can easily include responsive high definition YouTube and Vimeo videos in your slider, slideshow, or carousel. A video slide will display a video in your slide show directly from Vimeo or YouTube. The video will automatically pause if the user skips to the next slide.
 
-Simply add the URL of your video to a YouTube or Vimeo slide and MetaSlider will add it to your slider, slideshow, or carousel. Either create a slide show full of you favorite videos or mix it in between slides of other types to get just the result that you want.
+Simply add the URL of your video to a YouTube or Vimeo slide and MetaSlider will add it to your slider, slideshow, or carousel. Either create a slide show full of you favourite videos or mix it in between slides of other types to get just the result that you want.
 
 If you select the FlexSlider option with video slides you can take advantage of MetaSliders play/pause functionality. This means that you can have your slideshow autoplay but will pause when you set a video to play and carry on once the video has finished. You could even have the slider or slide show autoplay to give you a smooth, completely automatic presentation!
 
@@ -398,6 +398,28 @@ Yes, you can build Elementor slides and Beaver Builder slideshows. You can creat
 
 The format is based on [Keep a Changelog recommendations](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
+
+= [3.61.0] - 05 Feb, 2024 =
+
+* ADDED: Provide touch-swipe setting, #769;
+* FIXED: Preview is broken when Mobile settings is enabled, #805;
+* FIXED: Mobile Settings Not Working on "Slide" Effect, #822;
+* FIXED: Error logs caused by get_intermediate_image_src(), #845;
+* FIXED: The ask-for-email popup keeps loading unless user dimiss it, #734;
+* FIXED: Can't Save Keyboard Field, #837;
+* FIXED: Italian, Spanish and French translation updates, #816;
+* CHANGED: Update editor on classic editor, #799;
+* CHANGED: Update schedule promo, #812;
+* CHANGED: Standardize our sample slideshows, #737;
+* CHANGED: UI improvement when selecting a video, #846;
+* CHANGED: Remove the Gallery feature core, #505;
+* CHANGED: Improve "No items found." text for empty slideshow list, #829;
+* CHANGED: Improve error message when adding a video to MetaSlider Free, #830;
+* CHANGED: Improve Add CSS upsell, #797;
+* CHANGED: Improve description of Animation Speed setting, #800;
+* CHANGED: Improve the toolbar on small screens, #796;
+* CHANGED: Move Width Setting to Main Options, #679;
+* CHANGED: Enable the mobile features for all sites, #848; 
 
 = [3.60.1] - 13 Dec, 2023 =
 

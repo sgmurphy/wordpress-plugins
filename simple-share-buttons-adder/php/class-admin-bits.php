@@ -141,9 +141,9 @@ class Admin_Bits {
 	public function ssba_ajax_add_creds() {
 		check_ajax_referer( $this->plugin->meta_prefix, 'nonce' );
 
-		$property_id = filter_input( INPUT_POST, 'propertyId', FILTER_SANITIZE_STRING );
+		$property_id = filter_input( INPUT_POST, 'propertyId', FILTER_UNSAFE_RAW );
 
-		$token = filter_input( INPUT_POST, 'token', FILTER_SANITIZE_STRING );
+		$token = filter_input( INPUT_POST, 'token', FILTER_UNSAFE_RAW );
 
 		if ( true === empty( $property_id )
 			|| true === empty( $token )
@@ -224,7 +224,7 @@ class Admin_Bits {
 			// Get settings.
 			$arr_settings = $this->class_ssba->get_ssba_settings();
 
-			$accept_terms = filter_input( INPUT_GET, 'accept-terms', FILTER_SANITIZE_STRING );
+			$accept_terms = filter_input( INPUT_GET, 'accept-terms', FILTER_UNSAFE_RAW );
 
 			// If user is accepting terms.
 			if ( 'Y' === $accept_terms ) {
@@ -284,7 +284,7 @@ class Admin_Bits {
 	public function dismiss_notice() {
 		check_ajax_referer( $this->plugin->meta_prefix, 'nonce' );
 
-		$type = filter_input( INPUT_POST, 'type', FILTER_SANITIZE_STRING );
+		$type = filter_input( INPUT_POST, 'type', FILTER_UNSAFE_RAW );
 		$type = sanitize_text_field( wp_unslash( $type ) );
 
 		if ( true === empty( $type ) ) {
@@ -409,7 +409,7 @@ class Admin_Bits {
 		// If a post has been made.
 		if ( false === empty( $ssba_post ) ) {
 			// Get posted data.
-			$selected_tab = filter_input( INPUT_POST, 'ssba_selected_tab', FILTER_SANITIZE_STRING );
+			$selected_tab = filter_input( INPUT_POST, 'ssba_selected_tab', FILTER_UNSAFE_RAW );
 			$selected_tab = sanitize_text_field( wp_unslash( $selected_tab ) );
 
 			$gdpr_config = filter_input( INPUT_POST, 'gdpr_config', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by kadencewp on 17-January-2024 using Strauss.
+ * Modified by kadencewp on 05-February-2024 using Strauss.
  * @see https://github.com/BrianHenryIE/strauss
  */
 
@@ -141,7 +141,7 @@ final class AmpResponse implements ResponseInterface, StreamableInterface
     /**
      * {@inheritdoc}
      */
-    public function getInfo(string $type = null)
+    public function getInfo(?string $type = null)
     {
         return null !== $type ? $this->info[$type] ?? null : $this->info;
     }
@@ -191,7 +191,7 @@ final class AmpResponse implements ResponseInterface, StreamableInterface
      *
      * @param AmpClientState $multi
      */
-    private static function perform(ClientState $multi, array &$responses = null): void
+    private static function perform(ClientState $multi, ?array &$responses = null): void
     {
         if ($responses) {
             foreach ($responses as $response) {

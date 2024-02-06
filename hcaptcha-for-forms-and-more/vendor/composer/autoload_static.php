@@ -134,6 +134,7 @@ class ComposerStaticInit52a5f9145f43dbcfa32cada7868c8216
         'HCaptcha\\Settings\\SystemInfo' => __DIR__ . '/../..' . '/src/php/Settings/SystemInfo.php',
         'HCaptcha\\SimpleBasicContactForm\\Form' => __DIR__ . '/../..' . '/src/php/SimpleBasicContactForm/Form.php',
         'HCaptcha\\SimpleDownloadMonitor\\Form' => __DIR__ . '/../..' . '/src/php/SimpleDownloadMonitor/Form.php',
+        'HCaptcha\\Spectra\\Form' => __DIR__ . '/../..' . '/src/php/Spectra/Form.php',
         'HCaptcha\\Subscriber\\Form' => __DIR__ . '/../..' . '/src/php/Subscriber/Form.php',
         'HCaptcha\\SupportCandy\\Base' => __DIR__ . '/../..' . '/src/php/SupportCandy/Base.php',
         'HCaptcha\\SupportCandy\\Form' => __DIR__ . '/../..' . '/src/php/SupportCandy/Form.php',
