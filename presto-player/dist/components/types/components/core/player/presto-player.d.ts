@@ -149,7 +149,9 @@ export declare class PrestoPlayer {
     };
     resetOnEnd: boolean;
     vimeo: {
-      byline: boolean;
+      byline: boolean; /**
+       * State() variables
+       */
       portrait: boolean;
       title: boolean;
       speed: boolean;
@@ -254,7 +256,9 @@ export declare class PrestoPlayer {
       };
       resetOnEnd: boolean;
       vimeo: {
-        byline: boolean;
+        byline: boolean; /**
+         * State() variables
+         */
         portrait: boolean;
         title: boolean;
         speed: boolean;

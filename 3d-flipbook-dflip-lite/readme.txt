@@ -6,7 +6,7 @@ Contributors: deip, dearhive
 Tags: flipbook, flip book, 3d flipbook, pdf flipbook, pdf viewer, pdf,  pdf embed
 Requires at least: 4.6
 Tested up to: 6.4
-Stable tag: 2.2.28
+Stable tag: 2.2.30
 Requires PHP: 5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -276,6 +276,12 @@ This will create your PDF flipbook or image flipbook to open at page 5 when it s
 == Changelog ==
 
 This lite version is available in WordPress plugin directory since version 1.2.8
+
+= 2.2.30: =
+* Fix: PDF.js fallback to stable version to support old browsers
+
+= 2.2.29: =
+* Fix: PDF.js API mismatch due to cache
 
 = 2.2.28: =
 * Fix: Share link fixes for old prefixes

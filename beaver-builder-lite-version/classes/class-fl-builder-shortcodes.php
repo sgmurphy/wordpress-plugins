@@ -34,6 +34,7 @@ final class FLBuilderShortcodes {
 		$args           = array(
 			'post_type'      => $post_type,
 			'posts_per_page' => -1,
+			'has_password'   => false,
 		);
 
 		// Build the args array.
@@ -54,6 +55,13 @@ final class FLBuilderShortcodes {
 			return;
 		}
 
+		/**
+		 * @see fl_builder_insert_layout_args
+		 */
+		$args = apply_filters( 'fl_builder_insert_layout_args', $args, $attrs );
+		/**
+		 * @see fl_builder_insert_layout_render
+		 */
 		$render = apply_filters( 'fl_builder_insert_layout_render', true, $attrs, $args );
 
 		if ( ! $render ) {

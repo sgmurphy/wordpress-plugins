@@ -1,4 +1,4 @@
-=== WP RSS Aggregator - RSS Import, News Feeds, Feed to Post, and Autoblogging ===
+=== RSS Aggregator - RSS Import, News Feeds, Feed to Post, and Autoblogging ===
 Contributors: RebelCode, jeangalea, markzahra, Mekku, gabygalea
 Plugin URI: https://www.wprssaggregator.com
 Tags: RSS, RSS feed, RSS aggregator, autoblogging, RSS import, autoblog, feed to post, news aggregator, news feeds, YouTube video feeds, rss to post, content curation

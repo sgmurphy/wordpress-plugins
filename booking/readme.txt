@@ -5,7 +5,7 @@ Tags: booking calendar, bookings, booking, booking system, appointments, availab
 Requires at least: 5.3
 Requires PHP: 5.6
 Tested up to: 6.4
-Stable tag: 9.9
+Stable tag: 9.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -286,6 +286,13 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 
 
 == Changelog ==
+= 9.9.1 =
+- Changes in **all** versions:
+	* **Fix** Resolve the issue of showing Notice: Undefined index: aggregate_type in ../includes/_capacity/capacity.php (9.9.0.16)
+	* **Fix** vulnerability of possible unauthenticated sql injection (9.9.1.1).
+- Changes in **Personal / Business Small / Business Medium / Business Large / MultiUser** versions:
+	* **Improvement** Server performance improvement by preventing of sending request to server for cost calculations, if in the booking form there is no dates or cost hints. It's prevent from 504 Error at some servers (9.9.0.20)  *(Business Medium/Large, MultiUser)*
+
 = 9.9 =
 - Changes in **all** versions:
 	* **New Feature**: Redesigned "Top Tabs" for page selection in the Booking Calendar Admin UI. This update enhances space utilization, resulting in a clearer and smoother interface for users. (9.8.15.2)

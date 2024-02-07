@@ -1610,7 +1610,7 @@
 					href = href.replace( '&fl_builder', '' );
 				}
 
-				if ( href.includes( 'playground.wordpress.net' ) ) {
+				if ( window.parent.location.host === 'playground.wordpress.net' ) {
 					const meta = '<meta http-equiv="refresh" content="0; URL=\'' + href + '\'" />';
 					$( 'head', window.parent.document ).append( meta );
 				} else {

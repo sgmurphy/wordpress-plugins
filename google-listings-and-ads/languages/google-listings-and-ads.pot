@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Google Listings and Ads plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Google Listings and Ads 2.5.16\n"
+"Project-Id-Version: Google Listings and Ads 2.5.17\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/google-listings-and-ads\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-01-30T08:21:55+00:00\n"
+"POT-Creation-Date: 2024-02-07T00:16:44+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: google-listings-and-ads\n"
@@ -1609,15 +1609,15 @@ msgstr ""
 msgid "You're just a few steps away from reaching new shoppers across Google. Finish connecting your account, create your campaign, pick your budget, and easily measure the impact of your ads."
 msgstr ""
 
-#: src/Notes/SetupCouponSharing.php:58
+#: src/Notes/SetupCouponSharing.php:59
 msgid "Show your store coupons on your Google listings"
 msgstr ""
 
-#: src/Notes/SetupCouponSharing.php:60
+#: src/Notes/SetupCouponSharing.php:61
 msgid "Sync your store promotions and coupons directly with Google to showcase on your product listings across the Google Shopping tab. <br/><br/>When creating a coupon, you’ll see a Channel Visibility settings box on the right; select \"Show coupon on Google\" to enable."
 msgstr ""
 
-#: src/Notes/SetupCouponSharing.php:73
+#: src/Notes/SetupCouponSharing.php:74
 msgid "Go to coupons"
 msgstr ""
 

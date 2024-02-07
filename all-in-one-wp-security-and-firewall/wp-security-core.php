@@ -8,7 +8,7 @@ if (!class_exists('AIO_WP_Security')) {
 
 	class AIO_WP_Security {
 
-		public $version = '5.2.6';
+		public $version = '5.2.7';
 
 		public $db_version = '2.0.8';
 

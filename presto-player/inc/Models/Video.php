@@ -126,7 +126,7 @@ class Video extends Model
     /**
      * Create a new video
      *
-     * @param array $args
+     * @param  array $args
      * @return integer
      */
     public function create($args = [])
@@ -145,17 +145,29 @@ class Video extends Model
     /**
      * Maybe auto-create title if not set
      *
-     * @param array $args
+     * @param  array $args
      * @return void
      */
     public function update($args = [])
     {
         if (!empty($args['attachment_id']) && !empty($args['title'])) {
-            wp_update_post([
+            wp_update_post(
+                [
                 'ID' => $args['attachment_id'],
                 'post_title' => $args['title']
-            ]);
+                ]
+            );
         }
         return parent::update($args);
+    }
+
+    /**
+     * Get the video's created at date.
+     * 
+     * @return int Attachment ID
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
     }
 }

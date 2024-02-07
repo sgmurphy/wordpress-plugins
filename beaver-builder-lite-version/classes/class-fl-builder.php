@@ -1951,6 +1951,25 @@ final class FLBuilder {
 	 * @return void
 	 */
 	static public function render_content_by_id( $post_id, $tag = 'div', $attrs = array() ) {
+
+		$can_view = true;
+
+		if ( ! in_array( get_post_type( $post_id ), array( 'fl-builder-template', 'fl-theme-layout' ) ) ) {
+			$can_view = FLBuilderUtils::is_post_publicly_viewable( $post_id );
+		}
+
+		if ( ! $can_view ) {
+			$can_view = current_user_can( 'read', $post_id );
+		}
+
+		if ( $can_view ) {
+			$can_view = ! post_password_required( $post_id );
+		}
+
+		if ( ! apply_filters( 'fl_render_content_by_id_can_view', $can_view, $post_id ) ) {
+			return false;
+		}
+
 		// Force the builder to use this post ID.
 		FLBuilderModel::set_post_id( $post_id );
 

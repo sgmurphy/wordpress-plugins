@@ -203,10 +203,10 @@ if ( 1 ) {
 					  ?>"
 			><?php
 				?><h1 class="wpbc_header wpdvlp-top-tabs"><?php
-                    ?><div class="wpbc_header_menu_tabs"><?php
-                        $this->show_tabs_line( $page_tag );                     // T O P    T A B S    in  Header
-                    ?></div><?php
-                    make_bk_action( 'wpbc_h1_header_content_end', $page_tag, $active_page_tab, $active_page_subtab );   //FixIn: 9.9.0.10
+					?><div class="wpbc_header_menu_tabs"><?php
+						$this->show_tabs_line( $page_tag );                     // T O P    T A B S    in  Header
+					?></div><?php
+	 				make_bk_action( 'wpbc_h1_header_content_end', $page_tag, $active_page_tab, $active_page_subtab );	//FixIn: 9.9.0.10
 				?></h1><?php
 			?></div><?php
 	  	?></div><?php

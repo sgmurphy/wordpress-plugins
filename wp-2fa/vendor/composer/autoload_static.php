@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit23720
+class ComposerStaticInit21752
 {
     public static $files = array (
         'a9ed0d27b5a698798a89181429f162c5' => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib/Common/customFunctions.php',
@@ -168,9 +168,9 @@ class ComposerStaticInit23720
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit23720::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit23720::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit23720::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit21752::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit21752::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit21752::$classMap;
 
         }, null, ClassLoader::class);
     }

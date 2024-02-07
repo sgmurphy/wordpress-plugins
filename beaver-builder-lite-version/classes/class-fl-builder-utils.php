@@ -384,4 +384,58 @@ final class FLBuilderUtils {
 		}
 		return $content;
 	}
+
+	/**
+	 * is_post_publicly_viewable was added in 5.7 so need a pollyfill
+	 * @since 2.8
+	 */
+	public static function is_post_publicly_viewable( $post ) {
+		$post = get_post( $post );
+
+		if ( ! $post ) {
+			return false;
+		}
+
+		$post_type   = get_post_type( $post );
+		$post_status = get_post_status( $post );
+
+		return is_post_type_viewable( $post_type ) && self::is_post_status_viewable( $post_status );
+	}
+
+	public static function is_post_status_viewable( $post_status ) {
+		if ( is_scalar( $post_status ) ) {
+			$post_status = get_post_status_object( $post_status );
+
+			if ( ! $post_status ) {
+				return false;
+			}
+		}
+
+		if (
+		! is_object( $post_status ) ||
+		$post_status->internal ||
+		$post_status->protected
+		) {
+			return false;
+		}
+
+		$is_viewable = $post_status->publicly_queryable || ( $post_status->_builtin && $post_status->public );
+
+		/**
+		 * Filters whether a post status is considered "viewable".
+		 *
+		 * The returned filtered value must be a boolean type to ensure
+		 * `is_post_status_viewable()` only returns a boolean. This strictness
+		 * is by design to maintain backwards-compatibility and guard against
+		 * potential type errors in PHP 8.1+. Non-boolean values (even falsey
+		 * and truthy values) will result in the function returning false.
+		 *
+		 * @since 5.9.0
+		 *
+		 * @param bool     $is_viewable Whether the post status is "viewable" (strict type).
+		 * @param stdClass $post_status Post status object.
+		 */
+		return true === apply_filters( 'is_post_status_viewable', $is_viewable, $post_status );
+	}
+
 }

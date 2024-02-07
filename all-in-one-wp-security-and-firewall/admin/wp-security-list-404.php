@@ -50,15 +50,18 @@ class AIOWPSecurity_List_404 extends AIOWPSecurity_List_Table {
 		$delete_url_nonce = wp_nonce_url($delete_url, "delete_404_log", "aiowps_nonce");
 		if ($is_locked) {
 			//Build row actions
+			$unblock_url_nonce = wp_nonce_url(sprintf('admin.php?page=%s&tab=%s', AIOWPSEC_MAIN_MENU_SLUG, $blocked_ips_tab), "404_log_item_action", "aiowps_nonce");
 			$actions = array(
-				'unblock' => sprintf('<a href="admin.php?page=%s&tab=%s">Unblock</a>', AIOWPSEC_MAIN_MENU_SLUG, $blocked_ips_tab),
+				'unblock' => '<a href="'.$unblock_url_nonce.'" onclick="return confirm(\'' . esc_js(__('Are you sure you want to unblock this item?', 'all-in-one-wp-security-and-firewall')) . '\')">'.__('Unblock', 'all-in-one-wp-security-and-firewall').'</a>',
 				'delete' => '<a href="'.$delete_url_nonce.'" onclick="return confirm(\'' . esc_js(__('Are you sure you want to delete this item?', 'all-in-one-wp-security-and-firewall')) . '\')">'. __('Delete', 'all-in-one-wp-security-and-firewall') . '</a>',
 			);
 		} else {
 			//Build row actions
+			$temp_block_url_nonce = wp_nonce_url(sprintf('admin.php?page=%s&tab=%s&action=%s&ip_address=%s&username=%s', AIOWPSEC_BRUTE_FORCE_MENU_SLUG, $tab, 'temp_block', $item['ip_or_host'], $item['username']), "404_log_item_action", "aiowps_nonce");
+			$blacklist_url_nonce = wp_nonce_url(sprintf('admin.php?page=%s&tab=%s&action=%s&ip_address=%s&username=%s', AIOWPSEC_BRUTE_FORCE_MENU_SLUG, $tab, 'blacklist_ip', $item['ip_or_host'], $item['username']), "404_log_item_action", "aiowps_nonce");
 			$actions = array(
-				'temp_block' => sprintf('<a href="admin.php?page=%s&tab=%s&action=%s&ip_address=%s&username=%s" onclick="return confirm(\'' . esc_js(__('Are you sure you want to block this IP address?', 'all-in-one-wp-security-and-firewall')) . '\')">'. __('Temp block', 'all-in-one-wp-security-and-firewall') . '</a>', AIOWPSEC_BRUTE_FORCE_MENU_SLUG, $tab, 'temp_block', $item['ip_or_host'], $item['username']),
-				'blacklist_ip' => sprintf('<a href="admin.php?page=%s&tab=%s&action=%s&ip_address=%s&username=%s" onclick="return confirm(\'' . esc_js(__('Are you sure you want to permanently block this IP address?', 'all-in-one-wp-security-and-firewall')) . '\')">'. __('Blacklist IP', 'all-in-one-wp-security-and-firewall') . '</a>', AIOWPSEC_BRUTE_FORCE_MENU_SLUG, $tab, 'blacklist_ip', $item['ip_or_host'], $item['username']),
+				'temp_block' => '<a href="'.$temp_block_url_nonce.'" onclick="return confirm(\'' . esc_js(__('Are you sure you want to block this IP address?', 'all-in-one-wp-security-and-firewall')) . '\')">'. __('Temp block', 'all-in-one-wp-security-and-firewall') . '</a>',
+				'blacklist_ip' => '<a href="'.$blacklist_url_nonce.'" onclick="return confirm(\'' . esc_js(__('Are you sure you want to permanently block this IP address?', 'all-in-one-wp-security-and-firewall')) . '\')">'. __('Blacklist IP', 'all-in-one-wp-security-and-firewall') . '</a>',
 				'delete' => '<a href="'.$delete_url_nonce.'" onclick="return confirm(\'' . esc_js(__('Are you sure you want to delete this item?', 'all-in-one-wp-security-and-firewall')) . '\')">'. __('Delete', 'all-in-one-wp-security-and-firewall') . '</a>',
 			);
 		}

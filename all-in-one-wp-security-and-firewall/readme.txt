@@ -5,7 +5,7 @@ Tags: security, malware scanning, two factor authentication, firewall, login sec
 Requires PHP: 5.6
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 5.2.6
+Stable tag: 5.2.7
 License: GPLv3 or later
 
 Protect your website investment with All-In-One Security (AIOS) – a comprehensive and easy to use security plugin designed especially for WordPress. Featuring login security tools, a cutting-edge firewall and much more.
@@ -211,6 +211,10 @@ Go to the settings menu after you activate the plugin and follow the instruction
 1. Features list.
 
 == Changelog ==
+
+= 5.2.7 - 06/Feb/2024 =
+
+* SECURITY: Added nonce checks to various list table actions to prevent a CSRF vulnerability. Thanks to dhakal_ananda for disclosing this defect. This would allow an attacker who persuaded a logged-in administrator to visit a specially crafted link to perform actions on the 404 event records.
 
 = 5.2.6 - 06/Feb/2024 =
 
@@ -1379,4 +1383,4 @@ those who want to enable the basic firewall but do not have "AllowOverride" opti
 - First commit to the WP repository.
 
 == Upgrade Notice ==
-* 5.2.6: Feature to remove the default readme and wp-config-sample, option to set the Cloudflare Turnstile CAPTCHA theme. Various tweaks, fixes and improvements. See changelog for full details. A recommended update for all.
+* 5.2.7: Feature to remove the default readme and wp-config-sample, option to set the Cloudflare Turnstile CAPTCHA theme. Fix a CSRF and non-persistent XSS vulnerability. Various tweaks, fixes and improvements. See changelog for full details. A recommended update for all.

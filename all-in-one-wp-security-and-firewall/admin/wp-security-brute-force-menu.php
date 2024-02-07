@@ -438,12 +438,24 @@ class AIOWPSecurity_Brute_Force_Menu extends AIOWPSecurity_Admin_Menu {
 		}
 
 
-		if (isset($_GET['action'])) { //Do list table form row action tasks
+		if (isset($_GET['action'])) { // Do list table form row action tasks
 			if ('temp_block' == $_GET['action']) { // Temp Block link was clicked for a row in list table
+				$nonce_user_cap_result = AIOWPSecurity_Utility_Permissions::check_nonce_and_user_cap($_GET['aiowps_nonce'], '404_log_item_action');
+
+				if (is_wp_error($nonce_user_cap_result)) {
+					$aio_wp_security->debug_logger->log_debug($nonce_user_cap_result->get_error_message(), 4);
+					die($nonce_user_cap_result->get_error_message());
+				}
 				$event_list_404->block_ip(strip_tags($_GET['ip_address']));
 			}
 
 			if ('blacklist_ip' == $_GET['action']) { //Blacklist IP link was clicked for a row in list table
+				$nonce_user_cap_result = AIOWPSecurity_Utility_Permissions::check_nonce_and_user_cap($_GET['aiowps_nonce'], '404_log_item_action');
+
+				if (is_wp_error($nonce_user_cap_result)) {
+					$aio_wp_security->debug_logger->log_debug($nonce_user_cap_result->get_error_message(), 4);
+					die($nonce_user_cap_result->get_error_message());
+				}
 				$event_list_404->blacklist_ip_address(strip_tags($_GET['ip_address']));
 			}
 

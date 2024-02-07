@@ -381,7 +381,6 @@ a.wpbc_is_new_button:hover {
  * 2023-12-17
  *
  */
-/* TOP Message shift in version 9.9 //FixIn: 9.9.0.10 */
 .wpbc_header_menu_tabs{
 	flex:1;
 	display: flex;
@@ -390,6 +389,7 @@ a.wpbc_is_new_button:hover {
 	align-items: flex-start;
 	height: auto;
 }
+/* TOP Message shift in version 9.9 //FixIn: 9.9.0.10 */
 .wpbc_header .wpbc_message_wrapper {
 	margin-top:10px;
 }

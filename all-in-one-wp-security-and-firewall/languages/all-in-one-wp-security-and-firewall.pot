@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Team Updraft <mail@example.com>\n"
 "Last-Translator: Team Updraft <mail@example.com>\n"
-"POT-Creation-Date: 2024-02-06 11:11+0000\n"
+"POT-Creation-Date: 2024-02-06 21:12+0000\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/all-in-one-wp-security-and-firewall\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
@@ -93,7 +93,7 @@ msgstr ""
 msgid "Tools"
 msgstr ""
 
-#: src/admin/wp-security-admin-init.php:239, src/admin/wp-security-admin-init.php:268, src/admin/wp-security-list-404.php:119, src/admin/wp-security-list-audit.php:138, src/admin/wp-security-list-debug.php:43
+#: src/admin/wp-security-admin-init.php:239, src/admin/wp-security-admin-init.php:268, src/admin/wp-security-list-404.php:122, src/admin/wp-security-list-audit.php:138, src/admin/wp-security-list-debug.php:43
 msgid "Date and time"
 msgstr ""
 
@@ -141,11 +141,11 @@ msgstr ""
 msgid "IP Address"
 msgstr ""
 
-#: src/admin/wp-security-admin-init.php:266, src/admin/wp-security-list-404.php:117
+#: src/admin/wp-security-admin-init.php:266, src/admin/wp-security-list-404.php:120
 msgid "Attempted URL"
 msgstr ""
 
-#: src/admin/wp-security-admin-init.php:267, src/admin/wp-security-list-404.php:118
+#: src/admin/wp-security-admin-init.php:267, src/admin/wp-security-list-404.php:121
 msgid "Referer"
 msgstr ""
 
@@ -977,71 +977,79 @@ msgstr ""
 msgid "Dismiss"
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:60, src/admin/wp-security-list-registered-users.php:50
+#: src/admin/wp-security-list-404.php:63, src/admin/wp-security-list-registered-users.php:50
 msgid "Are you sure you want to block this IP address?"
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:60
+#: src/admin/wp-security-list-404.php:63
 msgid "Temp block"
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:61
+#: src/admin/wp-security-list-404.php:64
 msgid "Are you sure you want to permanently block this IP address?"
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:61, src/admin/wp-security-list-404.php:143
+#: src/admin/wp-security-list-404.php:64, src/admin/wp-security-list-404.php:146
 msgid "Blacklist IP"
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:62, src/admin/wp-security-list-404.php:55, src/admin/wp-security-list-audit.php:60, src/admin/wp-security-list-locked-ip.php:65
+#: src/admin/wp-security-list-404.php:65, src/admin/wp-security-list-404.php:56, src/admin/wp-security-list-audit.php:60, src/admin/wp-security-list-locked-ip.php:65
 msgid "Are you sure you want to delete this item?"
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:62, src/admin/wp-security-list-404.php:55, src/admin/wp-security-list-404.php:144, src/admin/wp-security-list-locked-ip.php:65, src/admin/wp-security-list-locked-ip.php:155, src/admin/wp-security-list-registered-users.php:49, src/admin/wp-security-list-registered-users.php:116, src/templates/wp-admin/filesystem-security/partials/wp-file-access.php:30
+#: src/admin/wp-security-list-404.php:65, src/admin/wp-security-list-404.php:56, src/admin/wp-security-list-404.php:147, src/admin/wp-security-list-locked-ip.php:65, src/admin/wp-security-list-locked-ip.php:155, src/admin/wp-security-list-registered-users.php:49, src/admin/wp-security-list-registered-users.php:116, src/templates/wp-admin/filesystem-security/partials/wp-file-access.php:30
 msgid "Delete"
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:115
+#: src/admin/wp-security-list-404.php:55
+msgid "Are you sure you want to unblock this item?"
+msgstr ""
+
+#: src/admin/wp-security-list-404.php:55, src/admin/wp-security-list-permanent-blocked-ip.php:80
+msgid "Unblock"
+msgstr ""
+
+#: src/admin/wp-security-list-404.php:118
 msgid "Event type"
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:116, src/admin/wp-security-list-logged-in-users.php:59, src/admin/wp-security-list-registered-users.php:97
+#: src/admin/wp-security-list-404.php:119, src/admin/wp-security-list-logged-in-users.php:59, src/admin/wp-security-list-registered-users.php:97
 msgid "IP address"
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:120
+#: src/admin/wp-security-list-404.php:123
 msgid "Lock status"
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:142
+#: src/admin/wp-security-list-404.php:145
 msgid "Temp block IP"
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:154, src/admin/wp-security-list-404.php:162, src/admin/wp-security-list-404.php:169, src/admin/wp-security-list-audit.php:208, src/admin/wp-security-list-comment-spammer-ip.php:101, src/admin/wp-security-list-locked-ip.php:171, src/admin/wp-security-list-locked-ip.php:179, src/admin/wp-security-list-permanent-blocked-ip.php:90, src/admin/wp-security-list-registered-users.php:132, src/admin/wp-security-list-registered-users.php:140, src/admin/wp-security-list-registered-users.php:148
+#: src/admin/wp-security-list-404.php:157, src/admin/wp-security-list-404.php:165, src/admin/wp-security-list-404.php:172, src/admin/wp-security-list-audit.php:208, src/admin/wp-security-list-comment-spammer-ip.php:101, src/admin/wp-security-list-locked-ip.php:171, src/admin/wp-security-list-locked-ip.php:179, src/admin/wp-security-list-permanent-blocked-ip.php:90, src/admin/wp-security-list-registered-users.php:132, src/admin/wp-security-list-registered-users.php:140, src/admin/wp-security-list-registered-users.php:148
 msgid "Please select some records using the checkboxes"
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:210
+#: src/admin/wp-security-list-404.php:213
 msgid "The selected entry is not a valid IP address."
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:208
+#: src/admin/wp-security-list-404.php:211
 msgid "The selected IP address is now temporarily blocked."
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:194, src/admin/wp-security-list-404.php:235
+#: src/admin/wp-security-list-404.php:197, src/admin/wp-security-list-404.php:238
 msgid "Could not process the request because the IP addresses for the selected entries could not be found."
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:203
+#: src/admin/wp-security-list-404.php:206
 msgid "The selected IP addresses are now temporarily blocked."
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:256
+#: src/admin/wp-security-list-404.php:259
 msgid "The selected IP addresses have been added to the blacklist and will be permanently blocked."
 msgstr ""
 
-#: src/admin/wp-security-list-404.php:291
+#: src/admin/wp-security-list-404.php:294
 msgid "Nonce check failed for delete selected 404 event logs operation."
 msgstr ""
 
@@ -1215,10 +1223,6 @@ msgstr ""
 
 #: src/admin/wp-security-list-permanent-blocked-ip.php:61
 msgid "Blocked IP"
-msgstr ""
-
-#: src/admin/wp-security-list-permanent-blocked-ip.php:80
-msgid "Unblock"
 msgstr ""
 
 #: src/admin/wp-security-list-permanent-blocked-ip.php:131, src/admin/wp-security-list-permanent-blocked-ip.php:119

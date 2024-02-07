@@ -152,8 +152,8 @@ class Block
      * Middleware to run before outputting template
      * Should the block load?
      *
-     * @param array $attributes
-     * @param string $content
+     * @param  array  $attributes
+     * @param  string $content
      * @return boolean
      */
     public function middleware($attributes, $content)
@@ -165,8 +165,8 @@ class Block
      * Sanitize attributes function
      * Let's a parent class sanitize attributes before displaying
      *
-     * @param array $attributes
-     * @param array $default_config
+     * @param  array $attributes
+     * @param  array $default_config
      * @return array
      */
     public function sanitizeAttributes($attributes, $default_config)
@@ -177,7 +177,7 @@ class Block
     /**
      * Allow overriding attributes
      *
-     * @param array $attributes
+     * @param  array $attributes
      * @return array
      */
     public function overrideAttributes($attributes)
@@ -188,7 +188,7 @@ class Block
     /**
      * Must sanitize attributes
      *
-     * @param array $attributes
+     * @param  array $attributes
      * @return array
      */
     private function _sanitizeAttibutes($attributes)
@@ -220,7 +220,8 @@ class Block
         }
 
         // Default config
-        $default_config = apply_filters('presto_player/block/default_attributes', [
+        $default_config = apply_filters(
+            'presto_player/block/default_attributes', [
             'type' => $this->name,
             'css' => wp_kses_post($css),
             'class' => $class,
@@ -249,7 +250,8 @@ class Block
             'analytics' => Setting::get('analytics', 'enable', false),
             'automations' => Setting::get('performance', 'automations', true),
             'title' => !empty($attributes['title']) ? html_entity_decode($attributes['title']) : '',
-        ], $attributes);
+            ], $attributes
+        );
 
         return wp_parse_args(
             $this->sanitizeAttributes($attributes, $default_config),
@@ -261,7 +263,7 @@ class Block
      * Get CSS from settings
      * Is it an HLS playlist
      *
-     * @param string $src
+     * @param  string $src
      * @return boolean
      */
     public function isHls($src)
@@ -274,7 +276,7 @@ class Block
      * Get CSS from settings
      * Validates before output
      *
-     * @param integer $id
+     * @param  integer $id
      * @return string
      */
     public function getCSS($id)
@@ -291,7 +293,7 @@ class Block
     /**
      * Gets the preset
      *
-     * @param integer $id Preset ID
+     * @param  integer $id Preset ID
      * @return \PrestoPlayer\Models\Preset
      */
     public function getPreset($id)
@@ -318,7 +320,7 @@ class Block
     /**
      * Gets the audio preset
      *
-     * @param integer $id Preset ID
+     * @param  integer $id Preset ID
      * @return \PrestoPlayer\Models\AudioPreset
      */
     public function getAudioPreset($id)
@@ -336,7 +338,7 @@ class Block
     /**
      * Get player branding
      *
-     * @param \PrestoPlayer\Models\Preset $preset
+     * @param  \PrestoPlayer\Models\Preset $preset
      * @return array
      */
     public function getBranding($preset)
@@ -354,7 +356,7 @@ class Block
     /**
      * Get block classes
      *
-     * @param array $attributes
+     * @param  array $attributes
      * @return string
      */
     public function getClasses($attributes)
@@ -366,8 +368,8 @@ class Block
     /**
      * Get player classes
      *
-     * @param integer $id
-     * @param \PrestoPlayer\Models\Preset $preset
+     * @param  integer                     $id
+     * @param  \PrestoPlayer\Models\Preset $preset
      * @return string
      */
     public function getPlayerClasses($id, $preset)
@@ -395,8 +397,8 @@ class Block
     /**
      * Get player styles
      *
-     * @param \PrestoPlayer\Models\Preset $preset
-     * @param array $branding
+     * @param  \PrestoPlayer\Models\Preset $preset
+     * @param  array                       $branding
      * @return string
      */
     public function getPlayerStyles($preset, $branding)
@@ -448,7 +450,7 @@ class Block
     /**
      * Get block attributes
      *
-     * @param array $attributes
+     * @param  array $attributes
      * @return array
      */
     public function getAttributes($attributes)
@@ -459,8 +461,8 @@ class Block
     /**
      * Dynamic block output
      *
-     * @param array $attributes
-     * @param string $content
+     * @param  array  $attributes
+     * @param  string $content
      * @return void
      */
     public function html($attributes, $content)
@@ -496,6 +498,7 @@ class Block
         // get template data
         $data = apply_filters('presto_player_block_data', $this->getAttributes($attributes), $this);
 
+        
         // need and id and src
         if (empty($data['id']) && empty($data['src'])) {
             return false;
@@ -514,11 +517,87 @@ class Block
 
         $this->initComponentScript($data['id'], $data, $presto_player_instance);
         $this->iframeFallback($data);
+        
+        // output schema markup for optimized seo
+        $this->outputVideoSchemaMarkup($this->getSchema($data));
 
         $template = ob_get_contents();
         ob_end_clean();
 
         return $template;
+
+    }
+
+    /**
+     * Get json data for video schema.
+     * https://developers.google.com/search/docs/appearance/structured-data/video#video-object
+     *
+     * @param array $data the block data
+     * 
+     * @return array|bool
+     */
+    public function getSchema($data)
+    {
+
+        if (isset($data) && empty($data['id'])) {
+            return false;
+        }
+
+        if ('audio' === $data['type']) {
+            return false;
+        }
+
+        $visibility = $data['blockAttributes']['visibility'] ?? false;
+        if ($visibility && 'private' === $visibility) {
+            return false;
+        }
+
+        $title = $data['title'] ?? get_the_title();
+        if (empty($title)) {
+            return false;
+        }
+
+        $poster = $data['poster'] ?? '';
+        if (empty($poster)) {
+            return false;
+        }
+
+        $video = new Video((int) $data['id']);
+
+        return array(
+            // required:
+            '@context'     => 'https://schema.org',
+            '@type'        => 'VideoObject',
+            'name'         => wp_kses_post($title),
+            'thumbnailUrl' => esc_url($poster),
+            'uploadDate'   => wp_date('c', strtotime($video->getCreatedAt())),
+            // recommended:
+            'contentUrl'   => esc_url($data['src'] ?? ''),
+        );
+
+    }
+
+    /**
+     * Output video schema markup.
+     * 
+     * @param array $data the block data
+     * 
+     * @return void|bool
+     */
+    public function outputVideoSchemaMarkup($data)
+    {
+
+        if (empty($data)) {
+            return false;
+        }
+
+        ?>
+        <script type="application/ld+json">
+            <?php 
+                echo wp_json_encode($data); 
+            ?>
+        </script>
+        <?php
     }
 
     /**
@@ -530,7 +609,7 @@ class Block
         if (!$id) {
             return;
         }
-?>
+        ?>
         <script>
             var player = document.querySelector('presto-player#presto-player-<?php echo (int) $instance; ?>');
             player.video_id = <?php echo (int) $id; ?>;
@@ -606,7 +685,7 @@ class Block
                 <?php echo wp_oembed_get('https://vimeo.com/' . $atts['video_id']); ?>
             <?php } ?>
 
-<?php
+            <?php
             return ob_get_clean();
         }
     }

@@ -4048,12 +4048,18 @@ function* updateTicket(action) {
 }
 function* deleteTicket(action) {
   const {
-    clientId
+    clientId,
+    askForDeletion = true
   } = action.payload;
   const props = {
     clientId
   };
-  const shouldDelete = yield Object(external_tribe_modules_reduxSaga_effects_["call"])([window, 'confirm'], Object(external_wp_i18n_["__"])('Are you sure you want to delete this ticket? It cannot be undone.', 'event-tickets'));
+  let shouldDelete = false;
+  if (askForDeletion) {
+    shouldDelete = yield Object(external_tribe_modules_reduxSaga_effects_["call"])([window, 'confirm'], Object(external_wp_i18n_["__"])('Are you sure you want to delete this ticket? It cannot be undone.', 'event-tickets'));
+  } else {
+    shouldDelete = true;
+  }
   if (shouldDelete) {
     const ticketId = yield Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketId, props);
     const hasBeenCreated = yield Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketHasBeenCreated, props);
@@ -5862,10 +5868,11 @@ const updateTicket = clientId => ({
     clientId
   }
 });
-const deleteTicket = clientId => ({
+const deleteTicket = (clientId, askForDeletion) => ({
   type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].DELETE_TICKET,
   payload: {
-    clientId
+    clientId,
+    askForDeletion
   }
 });
 const setTicketInitialState = props => ({

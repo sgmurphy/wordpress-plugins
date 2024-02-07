@@ -579,6 +579,10 @@ function wpbc_sanitize_params_in_arr( $request_params_values_arr, $params_rules 
 					$clean_params[ $request_key_name ] = wpbc_sanitize_date( $request_value_check );
 					break;
 
+				case 'csv_dates':													// CSV Dates: '11.11.2025, 12.11.2025, 13.11.2025'  or  '2024-02-06, 2024-02-10'
+					$clean_params[ $request_key_name ] = wpbc_sanitize_csv_dates( $request_value_check );               //FixIn: 9.9.1.1
+					break;
+
 				case 'digit_or_date':                                            // digit or Date
 					$clean_params[ $request_key_name ] = wpbc_sanitize_digit_or_date( $request_value_check );
 					break;
@@ -732,6 +736,71 @@ function wpbc_sanitize_params_in_arr( $request_params_values_arr, $params_rules 
 		}
 
 	}
+
+	//FixIn: 9.9.1.1
+	/**
+	 * Check about Valid date, like '31.05.2022 and return this date or ''
+	 *
+	 * @param string $value
+	 *
+	 * @return string '31.05.2022' or ''
+	 */
+	function wpbc_sanitize_date_dmy( $value ) {
+
+		if ( $value === '' ) return $value;
+
+		if ( preg_match("/^(0[1-9]|[1-2][0-9]|3[0-1]).(0[1-9]|1[0-2]).[0-9]{4}$/", $value ) ) {
+
+			return $value;                                                      // Date is valid in format: 31.05.2022
+		} else {
+			return '';
+		}
+
+	}
+
+
+	//FixIn: 9.9.1.1
+	/**
+	 * Check about Valid date(s), like CSV Dates:  such  as: '11.11.2025, 12.11.2025, 13.11.2025'  or  '2024-02-06, 2024-02-10'    and then return them sanitized dates or ''
+	 *
+	 * @param string $value
+	 *
+	 * @return string '2022-05-31' or ''
+	 */
+	function wpbc_sanitize_csv_dates( $value ) {
+
+		if ( '' === $value ) { return $value; }
+
+		$value         = str_replace( ';', ',', $value );
+		$array_of_nums = explode( ',', $value );
+
+		$result = array();
+
+		foreach ( $array_of_nums as $single_date ) {
+
+			$single_date = trim( $single_date );
+
+			// Check  for date '2024-02-06
+			$date_ymd = wpbc_sanitize_date( $single_date );
+
+			if ( '' !== $date_ymd ) {
+				$result[] = $date_ymd;
+			} else {
+
+				// Otherwise check  for date: '06.02.2024'
+				$date_dmy = wpbc_sanitize_date_dmy( $single_date );
+				if ( '' !== $date_dmy ) {
+					$result[] = $date_dmy;
+				}
+			}
+		}
+
+		$result = implode( ',', $result );
+
+		return $result;
+	}
+
+
 
 
 	/**

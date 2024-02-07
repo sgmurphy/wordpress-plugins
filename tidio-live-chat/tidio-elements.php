@@ -8,7 +8,7 @@ if (!defined('WPINC')) {
  * Plugin Name: Tidio Chat
  * Plugin URI: http://www.tidio.com
  * Description: Tidio Live Chat - live chat boosted with chatbots for your online business. Integrates with your website in less than 20 seconds.
- * Version: 6.0.13
+ * Version: 6.0.14
  * Requires at least: 4.7
  * Requires PHP: 7.2
  * Author: Tidio Ltd.

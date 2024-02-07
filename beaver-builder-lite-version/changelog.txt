@@ -1,3 +1,12 @@
+<h4>2.7.4.3 - 02/07/2024</h4>
+<strong>Hotfix</strong>
+<ul>
+	<li>Security: Add additional sanitization and escaping when rendering URLs to prevent XSS</li>
+	<li>Security: Fix Reflected (DOM-Based) XSS issue</li>
+	<li>Security: Fix issues with shortcodes potentially rendering protected content to those without access (#3116)</li>
+	<li>Escape HTML in UI for saved layouts (#3064)</li>
+</ul>
+
 <h4>2.7.4.2 - 12/20/2023</h4>
 <strong>Hotfix</strong>
 <ul>

@@ -43,7 +43,7 @@ function ajax_WPBC_AJX_BOOKING__CREATE() {
 
 																					'aggregate_resource_id_arr' => array( 'validate' => 'digit_or_csd', 'default' => '' ),
 
-																					'dates_ddmmyy_csv' => array( 'validate' => 'strong', 'default' => '' ),
+																					'dates_ddmmyy_csv' => array( 'validate' => 'csv_dates', 'default' => '' ),     //FixIn: 9.9.1.1
 																					'formdata'         => array( 'validate' => 'strong', 'default' => '' ),
 																					'booking_hash'     => array( 'validate' => 'strong', 'default' => '' ),
 																					'custom_form'      => array( 'validate' => 'strong', 'default' => '' ),
@@ -228,7 +228,7 @@ function wpbc_booking_save( $request_params ){
 	// -----------------------------------------------------------------------------------------------------------------
 	$validate_arr_rules = array(
 								'resource_id'           => array( 'validate' => 'd',      'default' => 1 ),             // INT
-								'dates_ddmmyy_csv'      => array( 'validate' => 'strong', 'default' => '' ),            // String
+								'dates_ddmmyy_csv'      => array( 'validate' => 'csv_dates', 'default' => '' ),         //FixIn: 9.9.1.1
 								'form_data'             => array( 'validate' => 'strong', 'default' => '' ),
 								'booking_hash'          => array( 'validate' => 'strong', 'default' => '' ),
 								'custom_form'           => array( 'validate' => 'strong', 'default' => '' ),

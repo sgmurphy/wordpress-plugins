@@ -2391,6 +2391,41 @@ var with_save_data = __webpack_require__("fIBd");
 // EXTERNAL MODULE: ./src/modules/data/shared/move/selectors.js
 var selectors = __webpack_require__("ihba");
 
+// EXTERNAL MODULE: external "tribe.common.store"
+var external_tribe_common_store_ = __webpack_require__("g8L8");
+
+// EXTERNAL MODULE: external "tribe.common.utils.globals"
+var external_tribe_common_utils_globals_ = __webpack_require__("kczL");
+
+// CONCATENATED MODULE: ./src/Tickets/Blocks/Ticket/app/editor/hooks.js
+
+
+
+const filterBlockEdit = BlockEdit => props => {
+  const {
+    dispatch
+  } = external_tribe_common_store_["store"];
+  wp.element.useEffect(() => {
+    const {
+      name,
+      clientId
+    } = props;
+    return () => {
+      if (name === 'tribe/tickets-item') {
+        dispatch(ticket["a" /* actions */].deleteTicket(clientId, false));
+      }
+    };
+  }, []);
+  return wp.element.createElement(wp.element.Fragment, null, wp.element.createElement(BlockEdit, props));
+};
+
+/**
+ * Filter to determine if a block was deleted using the delete block option,
+ * also validates if its a ticket block, then call deleteTicket on unmount
+ */
+const initHook = () => {
+  external_tribe_common_utils_globals_["wpHooks"].addFilter('editor.BlockEdit', 'event-tickets', filterBlockEdit);
+};
 // CONCATENATED MODULE: ./src/Tickets/Blocks/Ticket/app/editor/container.js
 
 function editor_container_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -2410,6 +2445,8 @@ function editor_container_objectSpread(target) { for (var i = 1; i < arguments.l
 
 
 
+
+initHook();
 const getShowTicket = (state, ownProps) => ticket["f" /* selectors */].getTicketsIsSelected(state) || ticket["f" /* selectors */].hasATicketSelected(state) || ticket["f" /* selectors */].isTicketOnSale(state, ownProps);
 const editor_container_mapStateToProps = (state, ownProps) => {
   return {
@@ -5685,12 +5722,18 @@ function* updateTicket(action) {
 }
 function* deleteTicket(action) {
   const {
-    clientId
+    clientId,
+    askForDeletion = true
   } = action.payload;
   const props = {
     clientId
   };
-  const shouldDelete = yield Object(external_tribe_modules_reduxSaga_effects_["call"])([window, 'confirm'], Object(external_wp_i18n_["__"])('Are you sure you want to delete this ticket? It cannot be undone.', 'event-tickets'));
+  let shouldDelete = false;
+  if (askForDeletion) {
+    shouldDelete = yield Object(external_tribe_modules_reduxSaga_effects_["call"])([window, 'confirm'], Object(external_wp_i18n_["__"])('Are you sure you want to delete this ticket? It cannot be undone.', 'event-tickets'));
+  } else {
+    shouldDelete = true;
+  }
   if (shouldDelete) {
     const ticketId = yield Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketId, props);
     const hasBeenCreated = yield Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketHasBeenCreated, props);
@@ -7904,10 +7947,11 @@ const updateTicket = clientId => ({
     clientId
   }
 });
-const deleteTicket = clientId => ({
+const deleteTicket = (clientId, askForDeletion) => ({
   type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].DELETE_TICKET,
   payload: {
-    clientId
+    clientId,
+    askForDeletion
   }
 });
 const setTicketInitialState = props => ({
@@ -9267,6 +9311,13 @@ TicketContainerHeaderTitle.propTypes = {
   title: external_tribe_modules_propTypes_default.a.string
 };
 /* harmony default export */ var title_template = __webpack_exports__["a"] = (TicketContainerHeaderTitle);
+
+/***/ }),
+
+/***/ "kczL":
+/***/ (function(module, exports) {
+
+module.exports = tribe.common.utils.globals;
 
 /***/ }),
 

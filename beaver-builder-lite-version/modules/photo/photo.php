@@ -274,7 +274,7 @@ class FLPhotoModule extends FLBuilderModule {
 				}
 			}
 		}
-		return $src;
+		return esc_url( $src );
 	}
 
 	/**
@@ -295,7 +295,7 @@ class FLPhotoModule extends FLBuilderModule {
 			$link = '';
 		}
 
-		return $link;
+		return esc_url( $link );
 	}
 
 	/**

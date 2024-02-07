@@ -575,7 +575,7 @@ function wpbc_get_availability_per_days_arr( $params ) {
 	$search_dates = $params['dates_to_check'];    // 'CURDATE' | 'ALL' |  [ "2023-08-03" , "2023-08-04" , "2023-08-05" ]
 
 	//FixIn: 9.8.15.10  Aggregate or not Aggregate Booking > Availability ?     aggregate_type = 'all' | 'bookings_only'
-	if ( 'bookings_only' === $params['aggregate_type'] ) {
+	if ( ( ! empty( $params['aggregate_type'] ) ) && ( 'bookings_only' === $params['aggregate_type'] ) ) {              //FixIn: 9.9.0.16
 		$unavailable_dates__per_resources__arr = wpbc_for_resources_arr__get_unavailable_dates(
 																$resource_id__with_children__arr,                       // Only One Primary Resource !!
 																$search_dates
