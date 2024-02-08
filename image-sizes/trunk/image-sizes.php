@@ -5,7 +5,7 @@
  * Plugin URI: https://pluggable.io/plugin/thumbpress
  * Author: Codexpert, Inc
  * Author URI: https://codexpert.io
- * Version: 4.2
+ * Version: 4.2.2
  * Requires at least: 5.0
  * Requires PHP: 7.4
  * Text Domain: image-sizes

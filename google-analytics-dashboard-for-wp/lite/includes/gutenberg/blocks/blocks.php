@@ -156,7 +156,6 @@ class ExactMetrics_Blocks {
 		return wp_parse_args( $atts, $default_values );
 
 	}
-
 }
 
 new ExactMetrics_Blocks();

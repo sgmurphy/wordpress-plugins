@@ -3,6 +3,7 @@
 namespace ILJ\Backend;
 
 use  ILJ\Core\Options ;
+use  ILJ\Data\Content ;
 use  ILJ\Helper\Help ;
 use  ILJ\Type\KeywordList ;
 use  ILJ\Database\Postmeta ;
@@ -31,6 +32,7 @@ class Editor
     const  ILJ_META_KEY_LINKSPERPARAGRAPH = 'ilj_linksperparagraph' ;
     const  ILJ_META_KEY_LIMITOUTGOINGLINKS = 'ilj_limitoutgoinglinks' ;
     const  ILJ_META_KEY_MAXOUTGOINGLINKS = 'ilj_maxoutgoinglinks' ;
+    const  ILJ_KEYWORD_METABOX_FOOTER_HOOK = 'ilj_keyword_metabox_footer' ;
     /**
      * Registers the keyword metabox on all public post types
      *
@@ -40,13 +42,13 @@ class Editor
      */
     public static function addKeywordMetaBox()
     {
-        foreach ( get_post_types( [
+        foreach ( get_post_types( array(
             'public' => true,
-        ] ) as $type ) {
+        ) ) as $type ) {
             add_meta_box(
                 Postmeta::ILJ_META_KEY_LINKDEFINITION,
                 __( 'Internal Links', 'internal-links' ),
-                [ __CLASS__, 'renderKeywordMetaBox' ],
+                array( __CLASS__, 'renderKeywordMetaBox' ),
                 $type,
                 'side',
                 'default'
@@ -59,21 +61,123 @@ class Editor
      *
      * @since 1.0.0
      *
-     * @param  WP_Post $post The post object of the current page
+     * @param  \WP_Post $post The post object of the current page
      * @return void
      */
     public static function renderKeywordMetaBox( \WP_Post $post )
     {
         $keyword_list = KeywordList::fromMeta( $post->ID, 'post', Postmeta::ILJ_META_KEY_LINKDEFINITION );
-        $blacklist_keywords = KeywordList::fromMeta( $post->ID, 'post', Editor::ILJ_META_KEY_BLACKLISTDEFINITION );
+        $blacklist_keywords = KeywordList::fromMeta( $post->ID, 'post', self::ILJ_META_KEY_BLACKLISTDEFINITION );
         wp_nonce_field( basename( __FILE__ ), self::ILJ_ADMINVIEW_NONCE );
-        echo  '<p>' ;
-        echo  '<label for="' . Postmeta::ILJ_META_KEY_LINKDEFINITION . '_keys">' . __( "The keywords", 'internal-links' ) . ':</label>' ;
-        echo  '<br />' ;
-        echo  '<input type="text" name="' . Postmeta::ILJ_META_KEY_LINKDEFINITION . '_keys" value="' . $keyword_list->encoded() . '" size="30" />' ;
-        echo  '<input type="text" name="' . Editor::ILJ_IS_BLACKLISTED . '" value="' . self::isBlacklisted( $post->ID, "post" ) . '" style="display:none" />' ;
-        echo  '<input type="text" name="' . Editor::ILJ_META_KEY_BLACKLISTDEFINITION . '" value="' . $blacklist_keywords->encoded() . '" size="30" style="display:none" />' ;
-        echo  '</p>' ;
+        ?>
+		<p>
+		<label for="<?php 
+        echo  esc_attr( Postmeta::ILJ_META_KEY_LINKDEFINITION . '_keys' ) ;
+        ?>"><?php 
+        esc_html_e( 'The keywords', 'internal-links' );
+        ?>:</label>
+		<br />
+		<input
+				type="text"
+				name="<?php 
+        echo  esc_attr( Postmeta::ILJ_META_KEY_LINKDEFINITION . '_keys' ) ;
+        ?>"
+				value="<?php 
+        echo  esc_attr( $keyword_list->encoded() ) ;
+        ?>" size="30"/>
+		<?php 
+        ?>
+			<input type="text"
+				   name="<?php 
+        echo  esc_attr( self::ILJ_IS_BLACKLISTED ) ;
+        ?>"
+				   value="<?php 
+        echo  esc_attr( self::isBlacklisted( $post->ID, 'post' ) ) ;
+        ?>"
+				   style="display:none"/>
+
+			<input type="text"
+				   name="<?php 
+        echo  esc_attr( self::ILJ_META_KEY_BLACKLISTDEFINITION ) ;
+        ?>"
+				   value="<?php 
+        echo  esc_attr( $blacklist_keywords->encoded() ) ;
+        ?>"
+				   size="30"
+				   style="display:none"/>
+					</p>
+		<template id="ilj_keyword_metabox_footer">
+			<?php 
+        $content = Content::from_post( $post );
+        /**
+         * This action is used to render content dynamically in to metabox footer.
+         * The HTML content inside <template> tag will rendered at the footer of editor.
+         *
+         * @param $content Content|null The content, null if its rendered on add post or add term page.
+         * @since 2.23.5
+         */
+        do_action( self::ILJ_KEYWORD_METABOX_FOOTER_HOOK, $content );
+        ?>
+		</template>
+		<?php 
+    }
+    
+    /**
+     * Hooks in to {@link self::ILJ_KEYWORD_METABOX_FOOTER_HOOK} to add custom html to <template> tag
+     *
+     * @param Content|null $content The content, null if its rendered on add post or add term page.
+     * @return void
+     */
+    public static function render_keyword_metabox_footer( $content )
+    {
+        ?>
+		<div class="ilj-row">
+			<div class="col-12 ilj-footer">
+				<a href="https://internallinkjuicer.com/docs/editor/?utm_source=editor&utm_medium=help&utm_campaign=plugin"
+				   rel="noopener" target="_blank" class="help">
+					<span class="dashicons dashicons-editor-help"></span>
+					<?php 
+        esc_html_e( 'Get help', 'internal-links' );
+        ?>
+				</a>
+				<?php 
+        self::render_delete_cache_button( $content );
+        ?>
+			</div>
+		</div>
+		<?php 
+    }
+    
+    /**
+     * Renders delete cache button inside metabox.
+     *
+     * @param Content|null $content The content, null if its rendered on add post or add term page.
+     * @return void
+     */
+    private static function render_delete_cache_button( $content )
+    {
+        if ( !$content ) {
+            return;
+        }
+        $link = admin_url( sprintf(
+            'admin-ajax.php?action=%s&_wpnonce=%s&ilj_transient_id=%d&ilj_transient_type=%s&ilj_skip_notice=true',
+            'ilj_clear_single_transient',
+            wp_create_nonce( 'ilj_clear_single_transient' ),
+            $content->get_id(),
+            $content->get_type()
+        ) );
+        ?>
+		<div class="ilj-delete-cache-container">
+			<button class="ilj-button-danger button" id="ilj-delete-cache" type="button" data-ilj-delete-cache-url="<?php 
+        echo  esc_attr( $link ) ;
+        ?>">
+				<?php 
+        esc_html_e( 'Delete Cache', 'internal-links' );
+        ?>
+			</button>
+			<span class="spinner is-active ilj-spinner ilj-hidden"></span>
+		</div>
+		<?php 
     }
     
     /**
@@ -83,8 +187,8 @@ class Editor
      *
      * @since 1.0.0
      *
-     * @param  int     $post_id The ID of the post
-     * @param  WP_Post $post    The post object
+     * @param  int      $post_id The ID of the post
+     * @param  \WP_Post $post    The post object
      * @return void
      */
     public static function saveKeywordMeta( $post_id, \WP_Post $post )
@@ -100,38 +204,32 @@ class Editor
             return $post_id;
         }
         
-        if ( array_key_exists( Editor::ILJ_META_KEY_BLACKLISTDEFINITION, $_POST ) ) {
-            $input_blacklist = stripslashes( $_POST[Editor::ILJ_META_KEY_BLACKLISTDEFINITION] );
+        if ( array_key_exists( self::ILJ_META_KEY_BLACKLISTDEFINITION, $_POST ) ) {
+            $input_blacklist = stripslashes( $_POST[self::ILJ_META_KEY_BLACKLISTDEFINITION] );
             $sanitized_blacklist_meta_value = sanitize_text_field( $input_blacklist );
             $keywordsblacklist = KeywordList::fromInput( $sanitized_blacklist_meta_value );
-            update_post_meta( $post_id, Editor::ILJ_META_KEY_BLACKLISTDEFINITION, array_slice( $keywordsblacklist->getKeywords(), 0, 2 ) );
+            update_post_meta( $post_id, self::ILJ_META_KEY_BLACKLISTDEFINITION, array_slice( $keywordsblacklist->getKeywords(), 0, 2 ) );
         }
         
         
-        if ( array_key_exists( Editor::ILJ_IS_BLACKLISTED, $_POST ) && $_POST[Editor::ILJ_IS_BLACKLISTED] == true ) {
-            self::addToBlacklist( $post_id, "post" );
+        if ( array_key_exists( self::ILJ_IS_BLACKLISTED, $_POST ) && true == $_POST[self::ILJ_IS_BLACKLISTED] ) {
+            self::addToBlacklist( $post_id, 'post' );
         } else {
-            self::removeFromBlacklist( $post_id, "post" );
+            self::removeFromBlacklist( $post_id, 'post' );
         }
         
         
         if ( array_key_exists( Postmeta::ILJ_META_KEY_LINKDEFINITION . '_keys', $_POST ) ) {
-            $prev_value = get_post_meta( $post_id, Postmeta::ILJ_META_KEY_LINKDEFINITION, true );
             $input = stripslashes( $_POST[Postmeta::ILJ_META_KEY_LINKDEFINITION . '_keys'] );
             $sanitized_meta_value = sanitize_text_field( $input );
             $keywords = KeywordList::fromInput( $sanitized_meta_value );
-            $update_status = update_post_meta(
-                $post_id,
-                Postmeta::ILJ_META_KEY_LINKDEFINITION,
-                $keywords->getKeywords(),
-                $prev_value
-            );
+            $update_status = self::set_keywords( $post_id, $keywords );
             /**
              * Fires after keyword meta got saved
              *
              * @since 1.0.0
              */
-            if ( $update_status == true ) {
+            if ( true == $update_status ) {
                 do_action(
                     self::ILJ_ACTION_AFTER_KEYWORDS_UPDATE,
                     $_POST['post_ID'],
@@ -141,6 +239,25 @@ class Editor
             }
         }
     
+    }
+    
+    /**
+     * Set keywords for a post id, returns boolean or int based on the value.
+     *
+     * @param int         $post_id  The post id.
+     * @param KeywordList $keywords The keyword list for post.
+     *
+     * @return bool|int
+     */
+    public static function set_keywords( $post_id, $keywords )
+    {
+        $prev_value = get_post_meta( $post_id, Postmeta::ILJ_META_KEY_LINKDEFINITION, true );
+        return update_post_meta(
+            $post_id,
+            Postmeta::ILJ_META_KEY_LINKDEFINITION,
+            $keywords->getKeywords(),
+            $prev_value
+        );
     }
     
     /**
@@ -158,7 +275,7 @@ class Editor
         }
         global  $pagenow ;
         
-        if ( in_array( $pagenow, [ 'post-new.php', 'post.php' ] ) ) {
+        if ( in_array( $pagenow, array( 'post-new.php', 'post.php' ) ) ) {
             
             if ( !isset( $_GET['post_type'] ) ) {
                 self::registerAssets();
@@ -185,26 +302,26 @@ class Editor
     {
         add_action(
             'admin_enqueue_scripts',
-            function ( $hook ) {
+            function () {
             wp_enqueue_script( 'jquery-ui-sortable' );
             wp_register_script(
                 Editor::ILJ_KEYWORDS_HANDLE,
                 ILJ_URL . 'admin/js/ilj_keywords.js',
-                [],
+                array(),
                 ILJ_VERSION
             );
             wp_register_script(
                 Editor::ILJ_EDITOR_HANDLE,
                 ILJ_URL . 'admin/js/ilj_editor.js',
-                [],
+                array(),
                 ILJ_VERSION
             );
             wp_localize_script( Editor::ILJ_EDITOR_HANDLE, 'ilj_editor_translation', Editor::getTranslation() );
-            wp_add_inline_script( Editor::ILJ_EDITOR_HANDLE, "const ilj_editor_basic_restriction = " . json_encode( Editor::getBasicRestrictions() ), 'before' );
+            wp_add_inline_script( Editor::ILJ_EDITOR_HANDLE, 'const ilj_editor_basic_restriction = ' . json_encode( Editor::getBasicRestrictions() ), 'before' );
             wp_enqueue_script(
                 'ilj_tipso',
                 ILJ_URL . 'admin/js/tipso.js',
-                [],
+                array(),
                 ILJ_VERSION
             );
             wp_enqueue_script( Editor::ILJ_KEYWORDS_HANDLE );
@@ -212,19 +329,19 @@ class Editor
             wp_enqueue_style(
                 'ilj_tipso',
                 ILJ_URL . 'admin/css/tipso.css',
-                [],
+                array(),
                 ILJ_VERSION
             );
             wp_enqueue_style(
                 Editor::ILJ_EDITOR_HANDLE,
                 ILJ_URL . 'admin/css/ilj_editor.css',
-                [],
+                array(),
                 ILJ_VERSION
             );
             wp_enqueue_style(
                 'ilj_ui',
                 ILJ_URL . 'admin/css/ilj_ui.css',
-                [],
+                array(),
                 ILJ_VERSION
             );
         },
@@ -242,7 +359,7 @@ class Editor
      */
     public static function getTranslation()
     {
-        $translation = [
+        $translation = array(
             'add_keyword'                               => __( 'Add Keyword', 'internal-links' ),
             'placeholder_keyword'                       => __( 'Keyword', 'internal-links' ),
             'howto_case'                                => __( 'Keywords get used <strong>case insensitive</strong>', 'internal-links' ),
@@ -276,7 +393,6 @@ class Editor
             'gap_hover_exact'                           => __( 'Exact keyword gap:', 'internal-links' ),
             'gap_hover_max'                             => __( 'Maximum keyword gap:', 'internal-links' ),
             'gap_hover_min'                             => __( 'Minimum keyword gap:', 'internal-links' ),
-            'get_help'                                  => __( 'Get help', 'internal-links' ),
             'limit_incoming_links'                      => __( 'Limit incoming Links:', 'internal-links' ),
             'max_incoming_links'                        => __( 'Maximum incoming links:', 'internal-links' ),
             'blacklist_incoming_links'                  => __( 'Keywords, that don`t get linked in the current content:', 'internal-links' ),
@@ -288,7 +404,8 @@ class Editor
             'max_links_per_paragraph'                   => __( 'Maximum links per paragraph:', 'internal-links' ),
             'limit_outgoing_links'                      => __( 'Limit outgoing Links:', 'internal-links' ),
             'max_outgoing_links'                        => __( 'Maximum outgoing links:', 'internal-links' ),
-        ];
+            'cache_cleared'                             => __( 'Cache cleared.', 'internal-links' ),
+        );
         return $translation;
     }
     
@@ -326,7 +443,7 @@ class Editor
     public static function isBlacklisted( $id, $type )
     {
         
-        if ( $type == "post" ) {
+        if ( 'post' == $type ) {
             $postBlacklist = Options::getOption( \ILJ\Core\Options\Blacklist::getKey() );
             $blacklisted = false;
             if ( is_array( $postBlacklist ) ) {
@@ -351,11 +468,11 @@ class Editor
      */
     protected static function removeFromBlacklist( $id, $type )
     {
-        $blacklist = [];
-        if ( $type == "post" ) {
+        $blacklist = array();
+        if ( 'post' == $type ) {
             $blacklist = Options::getOption( \ILJ\Core\Options\Blacklist::getKey() );
         }
-        $blacklist = ( is_array( $blacklist ) ? $blacklist : [] );
+        $blacklist = ( is_array( $blacklist ) ? $blacklist : array() );
         
         if ( ($key = array_search( $id, $blacklist )) !== false ) {
             unset( $blacklist[$key] );
@@ -363,7 +480,7 @@ class Editor
             return;
         }
         
-        if ( $type == "post" ) {
+        if ( 'post' == $type ) {
             Options::setOption( \ILJ\Core\Options\Blacklist::getKey(), $blacklist );
         }
     }
@@ -379,16 +496,16 @@ class Editor
      */
     protected static function addToBlacklist( $id, $type )
     {
-        $blacklist = [];
-        if ( $type == "post" ) {
+        $blacklist = array();
+        if ( 'post' == $type ) {
             $blacklist = Options::getOption( \ILJ\Core\Options\Blacklist::getKey() );
         }
-        $blacklist = ( is_array( $blacklist ) ? $blacklist : [] );
+        $blacklist = ( is_array( $blacklist ) ? $blacklist : array() );
         if ( in_array( $id, $blacklist ) ) {
             return;
         }
         $blacklist[] = $id;
-        if ( $type == "post" ) {
+        if ( 'post' == $type ) {
             Options::setOption( \ILJ\Core\Options\Blacklist::getKey(), $blacklist );
         }
     }

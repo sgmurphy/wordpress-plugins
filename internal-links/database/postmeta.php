@@ -20,9 +20,10 @@ class Postmeta
      * Returns all Linkdefinitions from postmeta table
      *
      * @since  1.0.0
+     * @param  string $field Fetch single field value
      * @return array
      */
-    public static function getAllLinkDefinitions()
+    public static function getAllLinkDefinitions( $field = null )
     {
         global  $wpdb ;
         $meta_key = self::ILJ_META_KEY_LINKDEFINITION;
@@ -34,7 +35,11 @@ class Postmeta
             $public_post_types_list = "'" . implode( "','", $public_post_types ) . "'";
         }
         
-        $query = "\r\n            SELECT postmeta.*\r\n            FROM {$wpdb->postmeta} postmeta\r\n            LEFT JOIN {$wpdb->posts} posts ON postmeta.post_id = posts.ID\r\n            WHERE postmeta.meta_key = '{$meta_key}'\r\n            AND posts.post_status = 'publish'\r\n            AND posts.post_type IN ({$public_post_types_list})\r\n        ";
+        $fetch_field = '*';
+        if ( null != $field ) {
+            $fetch_field = $field;
+        }
+        $query = "\n\t\t\tSELECT postmeta." . $fetch_field . "\n\t\t\tFROM {$wpdb->postmeta} postmeta\n\t\t\tLEFT JOIN {$wpdb->posts} posts ON postmeta.post_id = posts.ID\n\t\t\tWHERE postmeta.meta_key = '{$meta_key}'\n\t\t\tAND posts.post_status = 'publish'\n\t\t\tAND posts.post_type IN ({$public_post_types_list})\n\t\t";
         return $wpdb->get_results( $query );
     }
     
@@ -42,6 +47,7 @@ class Postmeta
      * Returns all Linkdefinitions from postmeta table
      *
      * @since  1.0.0
+     * @param  int $offset
      * @return array
      */
     public static function getAllLinkDefinitionsByBatch( $offset )
@@ -58,12 +64,12 @@ class Postmeta
             $public_post_types_list = "'" . implode( "','", $public_post_types ) . "'";
         }
         
-        $query = "\r\n            SELECT postmeta.*\r\n            FROM {$wpdb->postmeta} postmeta\r\n            LEFT JOIN {$wpdb->posts} posts ON postmeta.post_id = posts.ID\r\n            WHERE postmeta.meta_key = '{$meta_key}'\r\n            AND posts.post_status = 'publish'\r\n            AND posts.post_type IN ({$public_post_types_list}) LIMIT {$offset} , {$limit} \r\n        ";
+        $query = "\n\t\t\tSELECT postmeta.*\n\t\t\tFROM {$wpdb->postmeta} postmeta\n\t\t\tLEFT JOIN {$wpdb->posts} posts ON postmeta.post_id = posts.ID\n\t\t\tWHERE postmeta.meta_key = '{$meta_key}'\n\t\t\tAND posts.post_status = 'publish'\n\t\t\tAND posts.post_type IN ({$public_post_types_list}) LIMIT {$offset} , {$limit} \n\t\t";
         return $wpdb->get_results( $query );
     }
     
     /**
-     * getLinkDefinitionsById
+     * Returns all Linkdefinitions from specific ID
      *
      * @param  int $id
      * @return array
@@ -80,7 +86,7 @@ class Postmeta
             $public_post_types_list = "'" . implode( "','", $public_post_types ) . "'";
         }
         
-        $query = "\r\n            SELECT postmeta.*\r\n            FROM {$wpdb->postmeta} postmeta\r\n            LEFT JOIN {$wpdb->posts} posts ON postmeta.post_id = posts.ID\r\n            WHERE postmeta.meta_key = '{$meta_key}'\r\n            AND posts.post_status = 'publish'\r\n            AND posts.post_type IN ({$public_post_types_list}) AND posts.ID = {$id}\r\n        ";
+        $query = "\n\t\t\tSELECT postmeta.*\n\t\t\tFROM {$wpdb->postmeta} postmeta\n\t\t\tLEFT JOIN {$wpdb->posts} posts ON postmeta.post_id = posts.ID\n\t\t\tWHERE postmeta.meta_key = '{$meta_key}'\n\t\t\tAND posts.post_status = 'publish'\n\t\t\tAND posts.post_type IN ({$public_post_types_list}) AND posts.ID = {$id}\n\t\t";
         return $wpdb->get_results( $query );
     }
     
@@ -111,7 +117,7 @@ class Postmeta
             $public_post_types_list = "'" . implode( "','", $public_post_types ) . "'";
         }
         
-        $query = "\r\n            SELECT COUNT(postmeta.meta_id)\r\n            FROM {$wpdb->postmeta} postmeta\r\n            LEFT JOIN {$wpdb->posts} posts ON postmeta.post_id = posts.ID\r\n            WHERE postmeta.meta_key = '{$meta_key}'\r\n            AND posts.post_status = 'publish'\r\n            AND posts.post_type IN ({$public_post_types_list})\r\n        ";
+        $query = "\n\t\t\tSELECT COUNT(postmeta.meta_id)\n\t\t\tFROM {$wpdb->postmeta} postmeta\n\t\t\tLEFT JOIN {$wpdb->posts} posts ON postmeta.post_id = posts.ID\n\t\t\tWHERE postmeta.meta_key = '{$meta_key}'\n\t\t\tAND posts.post_status = 'publish'\n\t\t\tAND posts.post_type IN ({$public_post_types_list})\n\t\t";
         return $wpdb->get_var( $query );
     }
 

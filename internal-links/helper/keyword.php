@@ -5,6 +5,7 @@ namespace ILJ\Helper;
 use  ILJ\Database\Postmeta ;
 use  ILJ\Posttypes\CustomLinks ;
 use  ILJ\Type\KeywordList ;
+use  ILJ\Helper\Statistic ;
 /**
  * Toolset for keywords
  *
@@ -15,6 +16,12 @@ use  ILJ\Type\KeywordList ;
  */
 class Keyword
 {
+    /**
+     * From the 6th column onwards, the export only has information for the user
+     * The code ignores anything after 5th column, but we need to make sure we have at least 5 columns
+     * This allows for compatibility between exports from different versions
+     */
+    const  ILJ_IMPORT_CSV_FORMAT_MINIMUM_REQUIRED_COLUMNS = 5 ;
     /**
      * Calculates an effective word count value with respect to configured gaps
      *
@@ -52,16 +59,16 @@ class Keyword
         if ( !file_exists( $file ) ) {
             return $import_count;
         }
-        $handle = fopen( $file, "r" );
+        $handle = fopen( $file, 'r' );
         for ( $i = 0 ;  $row = fgetcsv( $handle, 0, ';' ) ;  ++$i ) {
-            if ( $i === 0 ) {
+            if ( 0 === $i ) {
                 continue;
             }
-            if ( !is_array( $row ) || count( $row ) !== 5 ) {
+            if ( !is_array( $row ) || count( $row ) < self::ILJ_IMPORT_CSV_FORMAT_MINIMUM_REQUIRED_COLUMNS ) {
                 continue;
             }
-            $allowed_import_types = [ 'post' ];
-            if ( !in_array( $row[1], $allowed_import_types ) || $row[2] == '' ) {
+            $allowed_import_types = array( 'post' );
+            if ( !in_array( $row[1], $allowed_import_types ) || '' == $row[2] ) {
                 continue;
             }
             $id = ( is_numeric( $row[0] ) ? (int) $row[0] : null );
@@ -73,7 +80,7 @@ class Keyword
             }
             $existing_keywords->merge( $keywords );
             
-            if ( $type == 'post' ) {
+            if ( 'post' == $type ) {
                 if ( !$id || !get_post( $id ) ) {
                     continue;
                 }
@@ -83,6 +90,7 @@ class Keyword
             $import_count++;
         }
         fclose( $handle );
+        Statistic::count_all_configured_keywords();
         return $import_count;
     }
     

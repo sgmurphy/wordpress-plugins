@@ -10,80 +10,80 @@ namespace ILJ\Core\Options;
  *
  * @since 1.1.3
  */
-interface OptionInterface
-{
-    /**
-     * Get the unique identifier for the option
-     *
-     * @since  1.1.3
-     * @return string
-     */
-    public static function getKey();
+interface OptionInterface {
 
-    /**
-     * Get the default value of the option
-     *
-     * @since  1.1.3
-     * @return mixed
-     */
-    public static function getDefault();
+	/**
+	 * Get the unique identifier for the option
+	 *
+	 * @since  1.1.3
+	 * @return string
+	 */
+	public static function getKey();
 
-    /**
-     * Identifies if the current option is pro only
-     *
-     * @since  1.1.3
-     * @return bool
-     */
-    public static function isPro();
+	/**
+	 * Get the default value of the option
+	 *
+	 * @since  1.1.3
+	 * @return mixed
+	 */
+	public static function getDefault();
 
-    /**
-     * Adds the option to an option group
-     *
-     * @since  1.1.3
-     * @param  string $option_group The option group to which the option gets connected
-     * @return void
-     */
-    public function register($option_group);
+	/**
+	 * Identifies if the current option is pro only
+	 *
+	 * @since  1.1.3
+	 * @return bool
+	 */
+	public static function isPro();
 
-    /**
-     * Get the frontend label for the option
-     *
-     * @since  1.1.3
-     * @return string
-     */
-    public function getTitle();
+	/**
+	 * Adds the option to an option group
+	 *
+	 * @since  1.1.3
+	 * @param  string $option_group The option group to which the option gets connected
+	 * @return void
+	 */
+	public function register($option_group);
 
-    /**
-     * Get the frontend description for the option
-     *
-     * @since  1.1.3
-     * @return string
-     */
-    public function getDescription();
+	/**
+	 * Get the frontend label for the option
+	 *
+	 * @since  1.1.3
+	 * @return string
+	 */
+	public function getTitle();
 
-    /**
-     * Outputs the options form element for backend administration
-     *
-     * @since  1.1.3
-     * @param  $value
-     * @return mixed
-     */
-    public function renderField($value);
+	/**
+	 * Get the frontend description for the option
+	 *
+	 * @since  1.1.3
+	 * @return string
+	 */
+	public function getDescription();
 
-    /**
-     * Returns a hint text for the option, if given
-     *
-     * @since  1.1.3
-     * @return string
-     */
-    public function getHint();
+	/**
+	 * Outputs the options form element for backend administration
+	 *
+	 * @since  1.1.3
+	 * @param  mixed $value
+	 * @return mixed
+	 */
+	public function renderField($value);
 
-    /**
-     * Checks if a value is a valid value for option
-     *
-     * @since  1.2.0
-     * @param  mixed $value The value that gets validated
-     * @return bool
-     */
-    public function isValidValue($value);
+	/**
+	 * Returns a hint text for the option, if given
+	 *
+	 * @since  1.1.3
+	 * @return string
+	 */
+	public function getHint();
+
+	/**
+	 * Checks if a value is a valid value for option
+	 *
+	 * @since  1.2.0
+	 * @param  mixed $value The value that gets validated
+	 * @return bool
+	 */
+	public function isValidValue($value);
 }

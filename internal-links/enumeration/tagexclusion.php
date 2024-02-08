@@ -80,9 +80,9 @@ final class TagExclusion
     {
         switch ( $deputy ) {
             case self::HEADLINE:
-                return '/(?<parts><h[1-6].*>.*<\\/h[1-6]>)/sU';
+                return '/(?<parts><h[1-6]\\b[^>]*>.*<\\/h[1-6]>)/sU';
             case self::STRONG:
-                return '/(?<parts><strong.*>.*<\\/strong>|<b.*>.*<\\/b>)/sU';
+                return '/(?<parts><strong\\b[^>]*>.*<\\/strong>|<b\\b[^>]*>.*<\\/b>)/sU';
         }
         return false;
     }

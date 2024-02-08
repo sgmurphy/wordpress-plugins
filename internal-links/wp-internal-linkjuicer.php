@@ -1,15 +1,16 @@
 <?php
 
+// @codingStandardsIgnoreStart
 /**
  * Internal Link Juicer
  *
- * @version 2.23.4
+ * @version 2.23.5
  * @package ILJ
  *
  * @wordpress-plugin
  * Plugin Name: Internal Link Juicer
  * Plugin URI: https://www.internallinkjuicer.com
- * Version: 2.23.4
+ * Version: 2.23.5
  * Description: A performant solution for high class internal linkbuilding automation.
  * Author: Internal Link Juicer
  * Author URI: https://www.internallinkjuicer.com
@@ -34,6 +35,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+// @codingStandardsIgnoreEnd
 namespace ILJ;
 
 use  ILJ\Core\App ;
@@ -45,7 +47,7 @@ if ( !function_exists( 'add_filter' ) ) {
 }
 
 if ( !defined( 'ILJ_VERSION' ) ) {
-    define( 'ILJ_VERSION', '2.23.4' );
+    define( 'ILJ_VERSION', '2.23.5' );
 }
 if ( !defined( 'ILJ_FILE' ) ) {
     define( 'ILJ_FILE', __FILE__ );
@@ -103,9 +105,22 @@ if ( function_exists( '\\ILJ\\ilj_fs' ) ) {
         
         if ( false !== strpos( $class_name, 'ILJ\\' ) ) {
             $file = strtolower( str_replace( '\\', '/', substr( $class_name, 4 ) ) ) . '.php';
+            
             if ( file_exists( ILJ_PATH . $file ) ) {
                 include_once $file;
+            } else {
+                /**
+                 * The new classes follows UDP Standards, class names are separated by underscores, so they need to be
+                 * to be replaced with hyphen, for example Content_Type class would have file name content-type.php
+                 *
+                 * @since 2.23.5
+                 */
+                $file = strtolower( str_replace( '\\', '/', substr( str_replace( '_', '-', $class_name ), 4 ) ) ) . '.php';
+                if ( file_exists( ILJ_PATH . $file ) ) {
+                    include_once $file;
+                }
             }
+        
         }
     
     } );

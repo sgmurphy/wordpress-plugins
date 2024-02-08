@@ -138,7 +138,7 @@ class Wt_Import_Export_For_Woo_Basic_Order {
     {
         if($this->module_base==$base)
         {
-            $steps['advanced']['description']=__('Use advanced options from below to decide updates to existing orders, batch import count. You can also save the template file for future imports.');
+            $steps['advanced']['description']=__('Use options from below to decide updates to existing orders, batch import count. You can also save the template file for future imports.');
         }
         return $steps;
     }
@@ -457,17 +457,17 @@ class Wt_Import_Export_For_Woo_Basic_Order {
             'label' => __("Export line items in"),
             'type' => 'radio',
             'radio_fields' => array(
-                'default' => __('Default mode'),
+                'default' => __('Migration mode'),
                 'column' => __('Separate columns'),
                 'row' => __('Separate rows')    
             ),
-            'value' => 'default',
+            'value' => 'column',
             'merge_right'=>true,
             'field_name' => 'export_to_separate',
             //'help_text' => __("Option 'Yes' exports the line items within the order into separate columns in the exported file."),
             'help_text_conditional'=>array(
                 array(
-                    'help_text'=> __('The default option will export each line item details into a single column. This option is mainly used for the order migration purpose.'),
+                    'help_text'=> __('This option will export each line item details into a single column. This option is mainly used for the order migration purpose.'),
                     'condition'=>array(
                         array('field'=>'wt_iew_export_to_separate', 'value'=>'default')
                     )

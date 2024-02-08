@@ -95,7 +95,7 @@ function exactmetrics_admin_menu()
 		$submenu_base . '#/userfeedback'
 	);
 
-	// Add About us page.
+	// then About Us page.
 	add_submenu_page($hook, __('About Us:', 'google-analytics-dashboard-for-wp'), __('About Us', 'google-analytics-dashboard-for-wp'), 'manage_options', $submenu_base . '#/about');
 
 	if (!exactmetrics_is_pro_version() && !strstr(plugin_basename(__FILE__), 'dashboard-for')) {
@@ -105,10 +105,19 @@ function exactmetrics_admin_menu()
 
 	add_submenu_page($hook, __('Growth Tools:', 'google-analytics-dashboard-for-wp'), __('Growth Tools', 'google-analytics-dashboard-for-wp'), 'manage_options', $submenu_base . '#/growth-tools');
 
-
+	// then Upgrade To Pro.
 	if (!exactmetrics_is_pro_version()) {
 		add_submenu_page($hook, __('Upgrade to Pro:', 'google-analytics-dashboard-for-wp'), '<span class="exactmetrics-upgrade-submenu"> ' . __('Upgrade to Pro', 'google-analytics-dashboard-for-wp') . '</span>', 'exactmetrics_save_settings', exactmetrics_get_upgrade_link('admin-menu', 'submenu', "https://www.exactmetrics.com/lite/"));
 	}
+
+	// then Payments.
+	add_submenu_page(
+		$hook,
+		__('Payments:', 'google-analytics-dashboard-for-wp'),
+		__('Payments', 'google-analytics-dashboard-for-wp'),
+		'manage_options',
+		$submenu_base . '#/payments'
+	);
 }
 
 add_action('admin_menu', 'exactmetrics_admin_menu');
@@ -175,10 +184,6 @@ function exactmetrics_automated_menu($hook){
 			break;
 		}
 	}
-	
-
-
-	
 }
 
 /**
@@ -186,17 +191,16 @@ function exactmetrics_automated_menu($hook){
  */
 function exactmetrics_woocommerce_menu_item()
 {
-	// Add "Insights" sub menu item for WooCommerce Analytics menu
 	if (class_exists('WooCommerce')) {
+		// Add "Insights" sub menu item for WooCommerce Analytics menu
 		if (class_exists('ExactMetrics_eCommerce')) {
 			add_submenu_page('wc-admin&path=/analytics/overview', 'ExactMetrics', 'ExactMetrics', 'exactmetrics_view_dashboard', admin_url('admin.php?page=exactmetrics_reports#/ecommerce'), '', 2);
 		} else {
 			$submenu_base = add_query_arg('page', 'exactmetrics_settings', admin_url('admin.php'));
 			add_submenu_page('wc-admin&path=/analytics/overview', 'ExactMetrics', 'ExactMetrics', 'manage_options', $submenu_base . '#/woocommerce-insights', '', 1);
-		}
+		}		
 	}
 }
-
 add_action('admin_menu', 'exactmetrics_woocommerce_menu_item', 11);
 
 function exactmetrics_get_menu_hook()
@@ -811,3 +815,8 @@ add_action( 'network_admin_notices', 'exactmetrics_admin_setup_notices' );
 function check_is_it_exactmetrics_lite() {
     return 'googleanalytics.php' == basename( EXACTMETRICS_PLUGIN_FILE );
 }
+
+/**
+ * Add EEA Compliance file.
+ */
+require_once __DIR__ . '/eea-compliance.php';

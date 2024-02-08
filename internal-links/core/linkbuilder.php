@@ -10,6 +10,7 @@ use  ILJ\Helper\Replacement ;
 use  ILJ\Backend\Editor ;
 use  ILJ\Database\LinkindexIndividualTemp ;
 use  ILJ\Database\LinkindexTemp ;
+use  ILJ\Helper\ContentTransient ;
 use  ILJ\Helper\IndexAsset ;
 /**
  * The main LinkBuilder class
@@ -22,56 +23,101 @@ use  ILJ\Helper\IndexAsset ;
 class LinkBuilder
 {
     /**
+     * ID (post id / term id)
+     *
      * @var   int
      * @since 1.0.0
      */
     private  $id = null ;
     /**
+     * Type (post/term)
+     *
      * @var   string
      * @since 1.0.1
      */
     private  $type = null ;
     /**
+     * Link Ruleset
+     *
      * @var   Ruleset
      * @since 1.0.0
      */
     private  $link_ruleset = null ;
     /**
+     * Replace Ruleset
+     *
      * @var   Ruleset
      * @since 1.0.0
      */
     private  $replace_ruleset = null ;
     /**
+     * Content
+     *
      * @var   string
      * @since 1.0.0
      */
     private  $content = '' ;
     /**
+     * Link page count
      *
      * @var int
      */
     private  $link_page_count = 0 ;
     /**
+     * Link target count
      *
      * @var array
      */
     private  $link_target_count = array() ;
     /**
+     * Used pattern
      *
      * @var array
      */
     private  $used_pattern = array() ;
     /**
+     * Link count per paragraph
      *
      * @var int
      */
     private  $linkcount_per_paragraph = 0 ;
     /**
+     * Meta Option. Determines if greedy mode is on/off. Enables linking as often as possible.
+     *
+     * @var bool
+     */
+    private  $multi_keyword_mode = false ;
+    /**
+     * Meta Option. Maximum number of outgoing links to be created in the current post/page. Zero means no limit
+     *
+     * @var int
+     */
+    private  $links_per_page = 0 ;
+    /**
+     * Meta option. Maximum number of links to be created in the current target. Zero means no limit
+     *
+     * @var int
+     */
+    private  $links_per_target = 0 ;
+    /**
+     * Meta option. Determine if it should go deeper into the paragraph or just continue
+     *
+     * @var int
+     */
+    private  $links_per_paragraph_switch = 0 ;
+    /**
+     * Maximum number of links to be created in the current paragraph. Zero means no limit
+     *
+     * @var int
+     */
+    private  $links_per_paragraph = 0 ;
+    /**
      * Constructor of ILJ_LinkBuilder
      *
      * @since  1.0.1
-     * @param  int    $id   The ID of the current subject
-     * @param  string $type The type of the current subject
+     * @param  int    $id         The ID of the current subject
+     * @param  string $type       The type of the current subject
+     * @param  string $build_type
      * @return void
      */
     public function __construct( $id, $type, $build_type = null )
@@ -80,8 +126,8 @@ class LinkBuilder
         $this->type = $type;
         $this->replace_ruleset = new Ruleset();
         $this->multi_keyword_mode = (bool) Options::getOption( \ILJ\Core\Options\MultipleKeywords::getKey() );
-        $this->links_per_page = ( $this->multi_keyword_mode === false ? Options::getOption( \ILJ\Core\Options\LinksPerPage::getKey() ) : 0 );
-        $this->links_per_target = ( $this->multi_keyword_mode === false ? Options::getOption( \ILJ\Core\Options\LinksPerTarget::getKey() ) : 0 );
+        $this->links_per_page = ( false === $this->multi_keyword_mode ? Options::getOption( \ILJ\Core\Options\LinksPerPage::getKey() ) : 0 );
+        $this->links_per_target = ( false === $this->multi_keyword_mode ? Options::getOption( \ILJ\Core\Options\LinksPerTarget::getKey() ) : 0 );
         $this->setupInLinks( $build_type );
     }
     
@@ -89,27 +135,27 @@ class LinkBuilder
      * Loads all ingoing links to current content from linkindex table and sets a new Ruleset type with it
      *
      * @since  1.0.0
+     * @param  string $build_type
      * @return void
      */
     private function setupInLinks( $build_type = null )
     {
         $this->link_ruleset = new Ruleset();
         $this->link_page_count = 0;
-        $this->link_target_count = [];
-        $this->used_pattern = [];
+        $this->link_target_count = array();
+        $this->used_pattern = array();
         
         if ( is_null( $build_type ) ) {
             $post_rules = Linkindex::getRules( $this->id, $this->type );
-        } elseif ( $build_type == IndexAsset::ILJ_FULL_BUILD ) {
+        } elseif ( IndexAsset::ILJ_FULL_BUILD == $build_type ) {
             $post_rules = LinkindexTemp::getRules( $this->id, $this->type );
-        } elseif ( $build_type == IndexAsset::ILJ_INDIVIDUAL_BUILD ) {
+        } elseif ( IndexAsset::ILJ_INDIVIDUAL_BUILD == $build_type ) {
             $post_rules = LinkindexIndividualTemp::getRules( $this->id, $this->type );
         }
         
         foreach ( $post_rules as $post_rule ) {
             $this->link_ruleset->addRule( $post_rule->anchor, $post_rule->link_to, $post_rule->type_to );
         }
-        return;
     }
     
     /**
@@ -121,14 +167,20 @@ class LinkBuilder
      */
     public function linkContent( $content )
     {
+        if ( false != ($filtered_content = ContentTransient::get_transient( $this->id, $this->type )) ) {
+            return $filtered_content;
+        }
         $this->content = $content;
         $this->replace_ruleset = Replacement::mask( $this->content );
         
-        if ( $this->content != "" ) {
+        if ( '' != $this->content ) {
             $this->maskLinkRules();
             $this->applyReplaceRules();
         }
         
+        if ( false === ($filtered_content = ContentTransient::get_transient( $this->id, $this->type )) ) {
+            ContentTransient::set_transient( $this->id, $this->type, $this->content );
+        }
         return $this->content;
     }
     
@@ -141,15 +193,11 @@ class LinkBuilder
     private function maskLinkRules()
     {
         $link_page_count = 0;
-        $link_target_count = [];
-        $limit_outgoing_links = false;
+        $link_target_count = array();
         $outgoing_links_limit = 0;
-        
         if ( $this->links_per_page > 0 ) {
-            $limit_outgoing_links = true;
             $outgoing_links_limit = $this->links_per_page;
         }
-        
         $temp_values = $this->createLinkIndex(
             $this->content,
             0,
@@ -159,7 +207,7 @@ class LinkBuilder
             false,
             $outgoing_links_limit
         );
-        $full_content = $temp_values["content"];
+        $full_content = $temp_values['content'];
         $this->link_ruleset->reset();
         $this->content = $full_content;
     }
@@ -189,7 +237,7 @@ class LinkBuilder
     {
         while ( $this->link_ruleset->hasRule() ) {
             $link_rule = $this->link_ruleset->getRule();
-            if ( $outgoing_links_limit != 0 && $outgoing_links_limit > 0 ) {
+            if ( 0 != $outgoing_links_limit && 0 < $outgoing_links_limit ) {
                 if ( $link_page_count == $outgoing_links_limit ) {
                     break;
                 }
@@ -201,8 +249,14 @@ class LinkBuilder
             }
             
             $pattern = wptexturize( $link_rule->pattern );
-            $pattern = Encoding::escapeAscii( $pattern );
-            preg_match_all( '/' . Encoding::maskPattern( $pattern ) . '/ui', $content, $rule_match );
+            $pattern = Encoding::escape_ascii( $pattern );
+            
+            if ( Options::getOption( Options\Case_Sensitive_Mode_Switch::getKey() ) ) {
+                preg_match_all( '/' . Encoding::mask_pattern( $pattern ) . '/u', $content, $rule_match );
+            } else {
+                preg_match_all( '/' . Encoding::mask_pattern( $pattern ) . '/ui', $content, $rule_match );
+            }
+            
             
             if ( !isset( $rule_match['phrase'] ) || !count( $rule_match['phrase'] ) ) {
                 $this->link_ruleset->nextRule();
@@ -210,7 +264,7 @@ class LinkBuilder
             }
             
             $phrases = $rule_match['phrase'];
-            foreach ( $phrases as $index2 => $rule ) {
+            foreach ( $phrases as $rule ) {
                 
                 if ( $this->links_per_target > 0 && array_key_exists( $link_rule->value, $link_target_count ) && $link_target_count[$link_rule->value] == $this->links_per_target || !$this->multi_keyword_mode && in_array( $link_rule->pattern, $this->used_pattern ) ) {
                     $this->link_ruleset->nextRule();
@@ -225,13 +279,24 @@ class LinkBuilder
                     continue;
                 }
                 
-                $rule = Encoding::escapeAscii( $rule );
-                $content = preg_replace(
-                    '/' . Encoding::maskPattern( $rule ) . '/ui',
-                    $rule_id,
-                    $content,
-                    1
-                );
+                $rule = Encoding::escape_ascii( $rule );
+                
+                if ( Options::getOption( Options\Case_Sensitive_Mode_Switch::getKey() ) ) {
+                    $content = preg_replace(
+                        '/' . Encoding::mask_pattern( $rule ) . '/u',
+                        $rule_id,
+                        $content,
+                        1
+                    );
+                } else {
+                    $content = preg_replace(
+                        '/' . Encoding::mask_pattern( $rule ) . '/ui',
+                        $rule_id,
+                        $content,
+                        1
+                    );
+                }
+                
                 $this->replace_ruleset->addRule( $rule_id, $link );
                 if ( !array_key_exists( $link_rule->value, $this->link_target_count ) ) {
                     $link_target_count[$link_rule->value] = 0;
@@ -243,9 +308,9 @@ class LinkBuilder
             $this->link_ruleset->nextRule();
         }
         $obj = array(
-            "content"           => $content,
-            "link_target_count" => $link_target_count,
-            "link_page_count"   => $link_page_count,
+            'content'           => $content,
+            'link_target_count' => $link_target_count,
+            'link_page_count'   => $link_page_count,
         );
         return $obj;
     }
@@ -264,12 +329,11 @@ class LinkBuilder
             $this->replace_ruleset->nextRule();
         }
         
-        if ( preg_match( "/ilj\\_[a-z0-9]{14}\\.[0-9]{8}/", $this->content ) ) {
+        if ( preg_match( '/ilj\\_[a-z0-9]{14}\\.[0-9]{8}/', $this->content ) ) {
             $this->replace_ruleset->reset();
             $this->applyReplaceRules();
         }
-        
-        return;
+    
     }
     
     /**
@@ -282,7 +346,7 @@ class LinkBuilder
     {
         $default_template = \ILJ\Core\Options\LinkOutputInternal::getDefault();
         $template = Options::getOption( \ILJ\Core\Options\LinkOutputInternal::getKey() );
-        if ( $template == "" ) {
+        if ( '' == $template ) {
             return $default_template;
         }
         return wp_specialchars_decode( $template, \ENT_QUOTES );
@@ -292,8 +356,8 @@ class LinkBuilder
      * Generates the link markup
      *
      * @since  1.0.0
-     * @param  string $post_id The post where the link should point to
-     * @param  string $anchor  The anchortext for the link
+     * @param  string $link_rule The post where the link should point to
+     * @param  string $anchor    The anchortext for the link
      * @return bool|string
      */
     private function generateLink( $link_rule, $anchor )
@@ -301,7 +365,7 @@ class LinkBuilder
         $template = $this->getLinkTemplate();
         $nofollow = (bool) Options::getOption( \ILJ\Core\Options\InternalNofollow::getKey() );
         
-        if ( $link_rule->type == 'post' ) {
+        if ( 'post' == $link_rule->type ) {
             if ( get_post_status( $link_rule->value ) != 'publish' ) {
                 return false;
             }

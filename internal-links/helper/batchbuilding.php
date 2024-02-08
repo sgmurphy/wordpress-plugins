@@ -6,6 +6,7 @@ use  ActionScheduler ;
 use  ActionScheduler_Store ;
 use  ILJ\Backend\User ;
 use  ILJ\Core\IndexBuilder ;
+use  ILJ\Core\ActionSchedulerConfig ;
 use  ILJ\Core\Options ;
 use  ILJ\Core\ThemeCompat ;
 use  ILJ\Database\LinkindexIndividualTemp ;
@@ -13,13 +14,16 @@ use  ILJ\Database\LinkindexTemp ;
 use  ILJ\Database\Postmeta ;
 use  ILJ\Database\Termmeta ;
 use  ILJ\Enumeration\LinkType ;
+use  ILJ\Core\Options\SchedulerBatchSize ;
+use  ILJ\Helper\Stopwatch ;
+use  ILJ\Helper\ContentTransient ;
 /**
  * Batch Building helper
  *
  * Methods for handling batching of index builds
  *
- * @since   2.0.3
  * @package ILJ\Helper
+ * @since   2.0.3
  */
 class BatchBuilding
 {
@@ -28,21 +32,29 @@ class BatchBuilding
     const  ILJ_FILTER_BATCH_SIZE = 'ilj_batch_size' ;
     const  ILJ_FILTER_BATCH_KEYWORD_SIZE = 'ilj_batch_keyword_size' ;
     /**
+     * Batch size
+     *
      * @var   int
      * @since 2.0.3
      */
     public  $building_batch_size ;
     /**
+     * Fetch batch keyword size
+     *
      * @var   int
      * @since 2.0.3
      */
     public  $fetch_batch_keyword_size ;
     /**
+     * Batch size
+     *
      * @var   int
      * @since 2.0.3
      */
     public  $batch_size ;
     /**
+     * Batch keyword size
+     *
      * @var   int
      * @since 2.0.3
      */
@@ -99,17 +111,17 @@ class BatchBuilding
      */
     public function ilj_run_setting_batched_index_rebuild()
     {
-        $start = microtime( true );
+        $stopwatch = new Stopwatch();
         LinkindexTemp::install_temp_db();
         $batch_build_info = new BatchInfo();
         $batch_build_info->resetBatchedFinished();
         $this->set_keyword_batching();
         $starting_type = $this->getStartingBuildType();
         self::ilj_set_batched_index_rebuild( array(
-            "offset"         => 0,
-            "start_time"     => $start,
-            "type"           => $starting_type,
-            "keyword_offset" => 0,
+            'offset'         => 0,
+            'start_time'     => $stopwatch->get_start_time(),
+            'type'           => $starting_type,
+            'keyword_offset' => 0,
         ) );
     }
     
@@ -119,87 +131,84 @@ class BatchBuilding
      * @param  array $data
      * @return void
      */
-    function ilj_set_individual_index_rebuild( $data )
+    public function ilj_set_individual_index_rebuild( $data )
     {
-        $start = microtime( true );
+        $stopwatch = new Stopwatch();
         LinkindexIndividualTemp::install_temp_db();
         
-        if ( $data['link_type'] == LinkType::OUTGOING ) {
+        if ( LinkType::OUTGOING == $data['link_type'] ) {
             $this->set_keyword_batching();
             $batch_build_info = new BatchInfo();
             $keyword_offset = 0;
-            $meta = $data["type"];
-            if ( isset( $data["meta"] ) ) {
-                $meta = $data["meta"];
+            $meta = $data['type'];
+            if ( isset( $data['meta'] ) ) {
+                $meta = $data['meta'];
             }
-            //Log individual link build for correct execution of delete_for_individual_builds and importIndexFromTemp
+            // Log individual link build for correct execution of delete_for_individual_builds and importIndexFromTemp
             if ( !LinkindexIndividualTemp::check_exists(
-                $data["id"],
+                $data['id'],
                 0,
-                "",
+                '',
                 $meta,
-                "",
+                '',
                 $data['link_type']
             ) ) {
                 LinkindexIndividualTemp::addRule(
-                    $data["id"],
+                    $data['id'],
                     0,
-                    "",
+                    '',
                     $meta,
-                    "",
+                    '',
                     $data['link_type']
                 );
             }
             for ( $x = 0 ;  $x < $this->post_keyword_batch ;  $x++ ) {
                 as_enqueue_async_action( IndexBuilder::ILJ_INDIVIDUAL_INDEX_REBUILD_OUTGOING, array( array(
-                    "id"                => $data["id"],
-                    "type"              => $data["type"],
-                    "batched_data_type" => $meta,
-                    "start_time"        => $start,
-                    "link_type"         => $data['link_type'],
-                    "keyword_offset"    => $keyword_offset,
-                    "keyword_type"      => "post",
+                    'id'                => $data['id'],
+                    'type'              => $data['type'],
+                    'batched_data_type' => $meta,
+                    'start_time'        => $stopwatch->get_start_time(),
+                    'link_type'         => $data['link_type'],
+                    'keyword_offset'    => $keyword_offset,
+                    'keyword_type'      => 'post',
                 ) ), BatchInfo::ILJ_ASYNC_GROUP );
                 $keyword_offset += $this->fetch_batch_keyword_size;
                 $batch_build_info->incrementBatchCounter();
                 $batch_build_info->updateBatchBuildInfo();
             }
-            if ( !has_action( "action_scheduler_completed_action", [ $this, "ilj_after_scheduler_completed_action_individual" ] ) ) {
-                add_action(
-                    "action_scheduler_completed_action",
-                    [ $this, "ilj_after_scheduler_completed_action_individual" ],
-                    25,
-                    1
-                );
+            if ( !has_action( 'action_scheduler_completed_action', array( $this, 'ilj_after_scheduler_completed_action_individual' ) ) ) {
+                add_action( 'action_scheduler_completed_action', array( $this, 'ilj_after_scheduler_completed_action_individual' ), 25 );
             }
-        } elseif ( $data['link_type'] == LinkType::INCOMING ) {
-            //Log individual link build for correct execution of delete_for_individual_builds and importIndexFromTemp
+        } elseif ( LinkType::INCOMING == $data['link_type'] ) {
+            // Log individual link build for correct execution of delete_for_individual_builds and importIndexFromTemp
             if ( !LinkindexIndividualTemp::check_exists(
                 0,
-                $data["id"],
-                "",
-                "",
-                $data["type"],
+                $data['id'],
+                '',
+                '',
+                $data['type'],
                 $data['link_type']
             ) ) {
                 LinkindexIndividualTemp::addRule(
                     0,
-                    $data["id"],
-                    "",
-                    "",
-                    $data["type"],
+                    $data['id'],
+                    '',
+                    '',
+                    $data['type'],
                     $data['link_type']
                 );
             }
             $starting_type = $this->getStartingBuildType();
             $this->ilj_set_individual_index_rebuild_incoming( array(
-                "id"         => $data["id"],
-                "offset"     => 0,
-                "start_time" => $start,
-                "type"       => $data["type"],
-                "build_type" => $starting_type,
-                "link_type"  => $data['link_type'],
+                'id'         => $data['id'],
+                'offset'     => 0,
+                'start_time' => $stopwatch->get_start_time(),
+                'type'       => $data['type'],
+                'build_type' => $starting_type,
+                'link_type'  => $data['link_type'],
             ) );
+            // Delete all transient after building the link index from link type incoming, as links could be generated everywhere, thus needing to flush all the transient. Unlike building the outgoing links which is clear that we only need to clear that specific post/page.
+            ContentTransient::delete_all_ilj_transient();
         }
     
     }
@@ -214,13 +223,13 @@ class BatchBuilding
     {
         $this->set_keyword_batching();
         
-        if ( $data["build_type"] == "post" ) {
+        if ( 'post' == $data['build_type'] ) {
             $this->ilj_set_individual_post_index_rebuild( $data );
-        } elseif ( $data["build_type"] == "term" ) {
+        } elseif ( 'term' == $data['build_type'] ) {
             $this->ilj_set_individual_term_index_rebuild__premium_only( $data );
-        } elseif ( $data["build_type"] == "post_meta" ) {
+        } elseif ( 'post_meta' == $data['build_type'] ) {
             $this->ilj_set_individual_post_meta_index_rebuild__premium_only( $data );
-        } elseif ( $data["build_type"] == "term_meta" ) {
+        } elseif ( 'term_meta' == $data['build_type'] ) {
             $this->ilj_set_individual_term_meta_rebuild__premium_only( $data );
         }
     
@@ -234,27 +243,26 @@ class BatchBuilding
      */
     public function ilj_set_individual_post_index_rebuild( $data )
     {
-        $posts = IndexAsset::getPostsBatched( $this->building_batch_size, $data["offset"] );
-        $data_ids = array_column( $posts, "ID" );
-        $post_batches = array_chunk( $data_ids, $this->batch_size, true );
+        $posts = IndexAsset::getPostsBatched( $this->building_batch_size, $data['offset'] );
+        $post_batches = array_chunk( $posts, $this->batch_size, true );
         $batch_build_info = new BatchInfo();
-        foreach ( $post_batches as $index => $batch ) {
+        foreach ( $post_batches as $batch ) {
             as_enqueue_async_action( IndexBuilder::ILJ_INDIVIDUAL_INDEX_REBUILD_INCOMING, array( array(
-                "id"                => $data["id"],
-                "batched_data"      => $batch,
-                "batched_data_type" => "post",
-                "type"              => $data["type"],
-                "build_type"        => $data["build_type"],
-                "start_time"        => $data['start_time'],
-                "link_type"         => $data['link_type'],
-                "offset"            => $data['offset'],
+                'id'                => $data['id'],
+                'batched_data'      => $batch,
+                'batched_data_type' => 'post',
+                'type'              => $data['type'],
+                'build_type'        => $data['build_type'],
+                'start_time'        => $data['start_time'],
+                'link_type'         => $data['link_type'],
+                'offset'            => $data['offset'],
             ) ), BatchInfo::ILJ_ASYNC_GROUP );
             $batch_build_info->incrementBatchCounter();
             $batch_build_info->updateBatchBuildInfo();
         }
-        $data["offset"] += $this->building_batch_size;
-        //Checking for possible next recursive schedule
-        $posts = IndexAsset::getPostsBatched( $this->building_batch_size, $data["offset"] );
+        $data['offset'] += $this->building_batch_size;
+        // Checking for possible next recursive schedule
+        $posts = IndexAsset::getPostsBatched( $this->building_batch_size, $data['offset'] );
         
         if ( empty($posts) ) {
             if ( !has_action( 'action_scheduler_completed_action', array( $this, 'ilj_after_scheduler_completed_action_individual' ) ) ) {
@@ -269,58 +277,54 @@ class BatchBuilding
         }
         
         as_enqueue_async_action( IndexBuilder::ILJ_SET_INDIVIDUAL_INDEX_REBUILD_INCOMING, array( array(
-            "id"         => $data["id"],
-            "offset"     => $data["offset"],
-            "start_time" => $data['start_time'],
-            "type"       => $data["type"],
-            "build_type" => $data["build_type"],
-            "link_type"  => $data['link_type'],
+            'id'         => $data['id'],
+            'offset'     => $data['offset'],
+            'start_time' => $data['start_time'],
+            'type'       => $data['type'],
+            'build_type' => $data['build_type'],
+            'link_type'  => $data['link_type'],
         ) ), BatchInfo::ILJ_ASYNC_GROUP );
     }
     
     /**
      * Triggers the individual index rebuild for outgoing
      *
-     * @param  int    $id
-     * @param  string $type
-     * @param  string $option
+     * @param  mixed $data
      * @return void
      */
     public function ilj_individual_index_rebuild_outgoing( $data )
     {
-        User::update( 'index', [
+        User::update( 'index', array(
             'last_trigger' => new \DateTime(),
-        ] );
-        if ( !defined( "ILJ_THEME_COMPAT" ) ) {
+        ) );
+        if ( !defined( 'ILJ_THEME_COMPAT' ) ) {
             ThemeCompat::init();
         }
         $index_builder = new IndexBuilder();
-        $index_builder->setBatchedKeywordOffset( $data["keyword_offset"] );
-        $index_builder->setBatchedKeywordType( $data["keyword_type"] );
-        $index_builder->setBatchedDataType( $data["batched_data_type"] );
-        $index_builder->buildIndividualIndex( $data["id"], $data["type"], $data["link_type"] );
+        $index_builder->setBatchedKeywordOffset( $data['keyword_offset'] );
+        $index_builder->setBatchedKeywordType( $data['keyword_type'] );
+        $index_builder->setBatchedDataType( $data['batched_data_type'] );
+        $index_builder->buildIndividualIndex( $data['id'], $data['type'], $data['link_type'] );
     }
     
     /**
      * Triggers the individual index rebuild for incoming
      *
-     * @param  int    $id
-     * @param  string $type
-     * @param  string $option
+     * @param  mixed $data
      * @return void
      */
     public function ilj_individual_index_rebuild_incoming( $data )
     {
-        User::update( 'index', [
+        User::update( 'index', array(
             'last_trigger' => new \DateTime(),
-        ] );
-        if ( !defined( "ILJ_THEME_COMPAT" ) ) {
+        ) );
+        if ( !defined( 'ILJ_THEME_COMPAT' ) ) {
             ThemeCompat::init();
         }
         $index_builder = new IndexBuilder();
-        $index_builder->setBatchedData( $data["batched_data"] );
-        $index_builder->setBatchedDataType( $data["batched_data_type"] );
-        $index_builder->buildIndividualIndex( $data["id"], $data["type"], $data["link_type"] );
+        $index_builder->setBatchedData( $data['batched_data'] );
+        $index_builder->setBatchedDataType( $data['batched_data_type'] );
+        $index_builder->buildIndividualIndex( $data['id'], $data['type'], $data['link_type'] );
     }
     
     /**
@@ -342,12 +346,13 @@ class BatchBuilding
      * Set Scheduled Batch index builds for post/term
      *
      * @since 2.0.3
+     * @param  mixed $data
      * @return void
      */
     public function ilj_set_batched_index_rebuild( $data )
     {
         $this->set_keyword_batching();
-        if ( $data["type"] == "post" ) {
+        if ( 'post' == $data['type'] ) {
             $this->ilj_set_batched_post_index_rebuild( $data );
         }
     }
@@ -357,7 +362,7 @@ class BatchBuilding
      *
      * @param  mixed $batch
      * @param  mixed $data
-     * @return 
+     * @return void
      */
     public function set_looped_keywords( $batch, $data )
     {
@@ -365,11 +370,11 @@ class BatchBuilding
         $keyword_offset = 0;
         for ( $x = 0 ;  $x < $this->post_keyword_batch ;  $x++ ) {
             as_enqueue_async_action( IndexBuilder::ILJ_BUILD_BATCHED_INDEX, array( array(
-                "batched_data"   => $batch,
-                "type"           => $data["type"],
-                "start_time"     => $data['start_time'],
-                "keyword_offset" => $keyword_offset,
-                "keyword_type"   => "post",
+                'batched_data'   => $batch,
+                'type'           => $data['type'],
+                'start_time'     => $data['start_time'],
+                'keyword_offset' => $keyword_offset,
+                'keyword_type'   => 'post',
             ) ), BatchInfo::ILJ_ASYNC_GROUP );
             $keyword_offset += $this->fetch_batch_keyword_size;
             $batch_build_info->incrementBatchCounter();
@@ -385,30 +390,29 @@ class BatchBuilding
      */
     public function ilj_set_batched_post_index_rebuild( $data )
     {
-        $posts = IndexAsset::getPostsBatched( $this->building_batch_size, $data["offset"] );
-        $data_ids = array_column( $posts, "ID" );
-        $post_batches = array_chunk( $data_ids, $this->batch_size, true );
-        foreach ( $post_batches as $index => $batch ) {
+        $posts = IndexAsset::getPostsBatched( $this->building_batch_size, $data['offset'] );
+        $post_batches = array_chunk( $posts, $this->batch_size, true );
+        foreach ( $post_batches as $batch ) {
             $this->set_looped_keywords( $batch, $data );
         }
-        $data["offset"] += $this->building_batch_size;
-        //Checking for possible next recursive schedule
-        $posts = IndexAsset::getPostsBatched( $this->building_batch_size, $data["offset"] );
+        $data['offset'] += $this->building_batch_size;
+        // Checking for possible next recursive schedule
+        $posts = IndexAsset::getPostsBatched( $this->building_batch_size, $data['offset'] );
         
         if ( empty($posts) ) {
             $nextBuild = $this->getNextBuildType( $data['type'] );
-            if ( $nextBuild == '' ) {
+            if ( '' == $nextBuild ) {
                 as_enqueue_async_action( IndexBuilder::ILJ_UPDATE_STATISTICS_INFO, array( array(
-                    "switch" => true,
+                    'switch' => true,
                 ) ), BatchInfo::ILJ_ASYNC_GROUP );
             }
             return;
         }
         
         as_enqueue_async_action( IndexBuilder::ILJ_SET_BATCHED_INDEX_REBUILD, array( array(
-            "offset"     => $data["offset"],
-            "start_time" => $data['start_time'],
-            "type"       => "post",
+            'offset'     => $data['offset'],
+            'start_time' => $data['start_time'],
+            'type'       => 'post',
         ) ), BatchInfo::ILJ_ASYNC_GROUP );
     }
     
@@ -421,31 +425,32 @@ class BatchBuilding
      */
     public function ilj_build_batched_index( $data )
     {
-        if ( !defined( "ILJ_THEME_COMPAT" ) ) {
+        if ( !defined( 'ILJ_THEME_COMPAT' ) ) {
             ThemeCompat::init();
         }
         $batch_build_info = new BatchInfo();
         $index_builder = new IndexBuilder();
-        $index_builder->setBatchedData( $data["batched_data"] );
-        $index_builder->setBatchedDataType( $data["type"] );
-        $index_builder->setBatchedKeywordOffset( $data["keyword_offset"] );
-        $index_builder->setBatchedKeywordType( $data["keyword_type"] );
+        $index_builder->setBatchedData( $data['batched_data'] );
+        $index_builder->setBatchedDataType( $data['type'] );
+        $index_builder->setBatchedKeywordOffset( $data['keyword_offset'] );
+        $index_builder->setBatchedKeywordType( $data['keyword_type'] );
         $index_builder->buildBatchedIndex();
         $batch_build_info->incrementBatchFinished();
-        $updated = $batch_build_info->updateBatchBuildInfo();
+        $batch_build_info->updateBatchBuildInfo();
     }
     
     /**
      * Update Statistics info and switchTable
      *
+     * @param  mixed $data
      * @return void
      */
     public function ilj_update_statistics_info( $data )
     {
         
-        if ( $data['switch'] == true ) {
+        if ( true == $data['switch'] ) {
             LinkindexTemp::switchTableTemp();
-        } elseif ( $data['switch'] == false ) {
+        } elseif ( false == $data['switch'] ) {
             LinkindexIndividualTemp::importIndexFromTemp();
         }
         
@@ -455,10 +460,9 @@ class BatchBuilding
     /**
      * Add this call back to actionscheduler action_scheduler_completed_action hook
      *
-     * @param  mixed $action_id
      * @return void
      */
-    public function ilj_after_scheduler_completed_action_individual( $action_id )
+    public function ilj_after_scheduler_completed_action_individual()
     {
         $has_scheduled_actions = as_has_scheduled_action( IndexBuilder::ILJ_SET_INDIVIDUAL_INDEX_REBUILD );
         if ( $has_scheduled_actions ) {
@@ -476,12 +480,12 @@ class BatchBuilding
         if ( $has_scheduled_actions ) {
             return;
         }
-        remove_all_actions( "action_scheduler_completed_action", 25 );
+        remove_all_actions( 'action_scheduler_completed_action', 25 );
         if ( false === as_has_scheduled_action( IndexBuilder::ILJ_UPDATE_STATISTICS_INFO, array( array(
-            "switch" => false,
+            'switch' => false,
         ) ), BatchInfo::ILJ_ASYNC_GROUP ) ) {
             as_enqueue_async_action( IndexBuilder::ILJ_UPDATE_STATISTICS_INFO, array( array(
-                "switch" => false,
+                'switch' => false,
             ) ), BatchInfo::ILJ_ASYNC_GROUP );
         }
     }
@@ -492,11 +496,11 @@ class BatchBuilding
      * @since 2.0.0
      * @return void
      */
-    function initiate_ilj_batch_rebuild()
+    public function initiate_ilj_batch_rebuild()
     {
-        User::update( 'index', [
+        User::update( 'index', array(
             'last_trigger' => new \DateTime(),
-        ] );
+        ) );
         if ( !function_exists( 'as_has_scheduled_action' ) ) {
             return;
         }
@@ -514,29 +518,30 @@ class BatchBuilding
             LinkindexTemp::flush();
         }
         
+        ContentTransient::delete_all_ilj_transient();
         $batch_build_info = new BatchInfo();
         $batch_build_info->setBatchCounter( 0 );
         $batch_build_info->resetBatchedFinished();
-        $batch_build_info->updateBatchBuildInfo( "calculating" );
+        $batch_build_info->updateBatchBuildInfo( 'calculating' );
         as_enqueue_async_action( IndexBuilder::ILJ_RUN_SETTING_BATCHED_INDEX_REBUILD, array(), BatchInfo::ILJ_ASYNC_GROUP );
     }
     
     /**
-     * getStartingBuildType
+     * Get what type the index build will start from
      *
      * @return string
      */
     public function getStartingBuildType()
     {
         $whitelist_post = Options::getOption( \ILJ\Core\Options\Whitelist::getKey() );
-        if ( is_array( $whitelist_post ) || count( $whitelist_post ) ) {
-            return "post";
+        if ( is_array( $whitelist_post ) || is_object( $whitelist_post ) && $whitelist_post instanceof \Countable && count( $whitelist_post ) > 0 ) {
+            return 'post';
         }
-        return "";
+        return '';
     }
     
     /**
-     * getNextBuildType
+     * Get the next build type
      *
      * @param  mixed $currentType
      * @return string
@@ -549,6 +554,20 @@ class BatchBuilding
                 break;
         }
         return '';
+    }
+    
+    /**
+     * Check if the custom scheduler batch size filter is set, and if not, set it
+     *
+     * @return void
+     */
+    public static function add_scheduler_batch_size_setting()
+    {
+        $hook = 'action_scheduler_queue_runner_batch_size';
+        $handler = array( 'ILJ\\Core\\Options\\SchedulerBatchSize', 'set_scheduler_batch_size' );
+        if ( !has_filter( $hook, $handler ) ) {
+            add_filter( $hook, $handler );
+        }
     }
 
 }

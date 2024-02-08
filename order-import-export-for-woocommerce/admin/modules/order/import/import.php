@@ -1381,20 +1381,25 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
             if(!empty($tax_data)){
                 $tax_data = maybe_unserialize($tax_data);
                 $new_tax_data = array();
-                foreach($tax_data['total'] as $t_key => $t_value){
-                    if(isset($this->item_data['tax_items'][$t_key])){
-                        $new_tax_data ['total'][$this->item_data['tax_items'][$t_key]['rate_id']] = $t_value ;
-                    }else{
-                        $new_tax_data ['total'][$t_key] = $t_value;
+                if(isset($tax_data['total'])){
+                    foreach($tax_data['total'] as $t_key => $t_value){
+                        if(isset($this->item_data['tax_items'][$t_key])){
+                            $new_tax_data ['total'][$this->item_data['tax_items'][$t_key]['rate_id']] = $t_value ;
+                        }else{
+                            $new_tax_data ['total'][$t_key] = $t_value;
+                        }
                     }
                 }
-                foreach($tax_data['subtotal'] as $st_key => $st_value){
-                    if(isset($this->item_data['tax_items'][$st_key])){
-                        $new_tax_data ['subtotal'][$this->item_data['tax_items'][$st_key]['rate_id'] ] = $st_value ;
-                    }else{
-                        $new_tax_data ['subtotal'][$st_key] = $st_value;
+                if(isset($tax_data['subtotal'])){
+                    foreach($tax_data['subtotal'] as $st_key => $st_value){
+                        if(isset($this->item_data['tax_items'][$st_key])){
+                            $new_tax_data ['subtotal'][$this->item_data['tax_items'][$st_key]['rate_id'] ] = $st_value ;
+                        }else{
+                            $new_tax_data ['subtotal'][$st_key] = $st_value;
+                        }
                     }
                 }
+                
                 $order_items['tax_data'] = serialize($new_tax_data);
             }
                 
@@ -1596,10 +1601,10 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
             return $post_id;
         }else{
             if(isset($insert_order) && !$insert_order){
-                throw new Exception ('Errror in creating entry in custom order table');
+                throw new Exception ('Error in creating entry in custom order table');
             }else{
                 if($post_id === 0){
-                    throw new Exception ('Errror in creating entry in post table');
+                    throw new Exception ('Error in creating entry in post table');
                 }else{
                     throw new Exception($post_id->get_error_message());
                 }
@@ -1834,14 +1839,14 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
             }
 			
             $order->set_prices_include_tax( 'yes' === get_option( 'woocommerce_prices_include_tax' ) );
-            $order_key = apply_filters( 'woocommerce_generate_order_key', uniqid( 'wc_order_' ) );
             if( !empty(  $data['order_key']) ){
 		        $order_key = apply_filters( 'woocommerce_generate_order_key', $data['order_key'] );
+            }else{
+                $order_key = apply_filters( 'woocommerce_generate_order_key', uniqid( 'wc_order_' ) );
             }
 
-            $order->set_order_key( $order_key );
             if ($this->is_hpos_enabled) {
-                $order->set_order_key('_order_key', $order_key);                
+                $order->set_order_key( $order_key );
             } else {
                 update_post_meta( $order->get_id(), '_order_key', $order_key );
             }
@@ -2366,16 +2371,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
             foreach ($data['meta_data'] as $meta) {                                                
                 if (( 'Download Permissions Granted' == $meta['key'] || '_download_permissions_granted' == $meta['key'] ) && $meta['value']) {
                     $add_download_permissions = true;
-                }
-                
-                if ('wf_invoice_number' ==  $meta['key']) {
-                    update_post_meta($order_id, 'wf_invoice_number',$meta['value']);
-                    continue;
-                }
-                if ('_wf_invoice_date' == $meta['key'] ) {
-                    update_post_meta($order_id, '_wf_invoice_date',$meta['value']);
-                    continue;
-                }     
+                }   
                 
                 if('_wt_import_key' == $meta['key']){
                     $object->update_meta_data('_wt_import_key', apply_filters('wt_importing_order_reference_key', $meta['value'], $data)); // for future reference, this holds the order number which in the csv.
@@ -2391,6 +2387,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
 
             // Grant downloadalbe product permissions
             if ($add_download_permissions) {
+                $object->save();
                 $force = apply_filters('wt_force_update_downloadalbe_product_permissions', true);
                 wc_downloadable_product_permissions($order_id, $force);
 

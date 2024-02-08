@@ -469,6 +469,7 @@ class QueryBuilder
             'bookly_gift_card_types.wc_cart_info' => array( 'type' => "text", 'is_nullabe' => 1, 'extra' => "", 'default' => null, 'key' => "" ),
             'bookly_gift_card_types.wc_cart_info_name' => array( 'type' => "varchar(255)", 'is_nullabe' => 1, 'extra' => "", 'default' => null, 'key' => "" ),
             'bookly_gift_card_types.wc_product_id' => array( 'type' => "int unsigned", 'is_nullabe' => 0, 'extra' => "", 'default' => "0", 'key' => "" ),
+            'bookly_gift_card_types.attachment_id' => array( 'type' => "int unsigned", 'is_nullabe' => 1, 'extra' => "", 'default' => null, 'key' => "" ),
             'bookly_gift_cards.id' => array( 'type' => "int unsigned", 'is_nullabe' => 0, 'extra' => "auto_increment", 'default' => null, 'key' => "PRI" ),
             'bookly_gift_cards.code' => array( 'type' => "varchar(255)", 'is_nullabe' => 0, 'extra' => "", 'default' => "", 'key' => "" ),
             'bookly_gift_cards.gift_card_type_id' => array( 'type' => "int unsigned", 'is_nullabe' => 0, 'extra' => "", 'default' => null, 'key' => "MUL" ),

@@ -3,9 +3,9 @@ Contributors: webtoffee
 Donate link: https://www.webtoffee.com/plugins/
 Tags: order export, woocommerce, order, export, csv, order import, woocommerce export orders,  woocommerce  import orders, import, coupon export, coupon import, importer
 Requires at least: 3.0
-Tested up to: 6.4.2
+Tested up to: 6.4.3
 Requires PHP: 5.6
-Stable tag: 2.4.7
+Stable tag: 2.4.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -29,8 +29,8 @@ The following are functionalities offered by the basic version of the order impo
  &#128312; Bulk update WooCommerce orders and coupons.
  &#128312; Compatible with YITH WooCommerce Order Tracking plugin.
  &#128312; Supports various export filters (order status, product, coupon, customer, date range) for order export to CSV.
- &#128312; Tested OK with WooCommerce 8.5
- &#128312; Tested OK with WordPress 6.4.2
+ &#128312; Tested OK with WooCommerce 8.5.2
+ &#128312; Tested OK with WordPress 6.4.3
  &#128312; Tested OK with PHP 8.3
 
 Additional features of the order import and order export plugin that will help you in the CSV export and import process:
@@ -207,6 +207,11 @@ Yes.
 14. Exported coupon CSV
 
 == Changelog ==
+= 2.4.8 2024-02-08 =
+* [Fix] - Invalid File type CSV.
+* [Fix] - Unable to download downloadable products.
+* [Compatibility] - Tested OK with WooCommerce 8.5.2
+* [Compatibility] - Tested OK with WordPress 6.4.3
 = 2.4.7 2024-01-16 =
 * [Fix] - Invalid File type CSV.
 * [Compatibility] - Tested OK with WooCommerce 8.5
@@ -560,6 +565,9 @@ Yes.
 
 == Upgrade Notice ==
 
-= 2.4.7 
+= 2.4.8 =
 * [Fix] - Invalid File type CSV.
-* [Compatibility] - Tested OK with WooCommerce 8.5
+* [Fix] - Unable to download downloadable products.
+* [Compatibility] - Tested OK with WooCommerce 8.5.2
+* [Compatibility] - Tested OK with WordPress 6.4.3
+

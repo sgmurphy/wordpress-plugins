@@ -6,24 +6,29 @@ use  ILJ\Helper\Help ;
 /**
  * Option: Link template for internal links
  *
- * @since   1.1.3
  * @package ILJ\Core\Options
+ * @since   1.1.3
  */
 class LinkOutputInternal extends AbstractOption
 {
     /**
-     * @inheritdoc
+     * Adds the option to an option group
+     *
+     * @param  string $option_group The option group to which the option gets connected
+     * @return void
      */
     public function register( $option_group )
     {
-        register_setting( $option_group, static::getKey(), [
+        register_setting( $option_group, static::getKey(), array(
             'type'              => 'string',
             'sanitize_callback' => 'esc_html',
-        ] );
+        ) );
     }
     
     /**
-     * @inheritdoc
+     * Get the unique identifier for the option
+     *
+     * @return string
      */
     public static function getKey()
     {
@@ -31,7 +36,9 @@ class LinkOutputInternal extends AbstractOption
     }
     
     /**
-     * @inheritdoc
+     * Get the default value of the option
+     *
+     * @return mixed
      */
     public static function getDefault()
     {
@@ -39,7 +46,9 @@ class LinkOutputInternal extends AbstractOption
     }
     
     /**
-     * @inheritdoc
+     * Get the frontend label for the option
+     *
+     * @return string
      */
     public function getTitle()
     {
@@ -47,7 +56,9 @@ class LinkOutputInternal extends AbstractOption
     }
     
     /**
-     * @inheritdoc
+     * Get the frontend description for the option
+     *
+     * @return string
      */
     public function getDescription()
     {
@@ -55,15 +66,31 @@ class LinkOutputInternal extends AbstractOption
     }
     
     /**
-     * @inheritdoc
+     * Outputs the options form element for backend administration
+     *
+     * @param  mixed $value
+     * @return mixed
      */
     public function renderField( $value )
     {
-        echo  '<input type="text" name="' . self::getKey() . '" id="' . self::getKey() . '" value="' . $value . '" /> ' . Help::getOptionsLink( 'link-templates/', '', 'link templates' ) ;
+        $key = self::getKey();
+        ?>
+		<input type="text" name="<?php 
+        echo  esc_attr( $key ) ;
+        ?>" id="<?php 
+        echo  esc_attr( $key ) ;
+        ?>" value="<?php 
+        echo  esc_attr( $value ) ;
+        ?>"
+		/>
+		<?php 
+        echo  Help::getOptionsLink( 'link-templates/', '', 'link templates' ) ;
     }
     
     /**
-     * @inheritdoc
+     * Returns a hint text for the option, if given
+     *
+     * @return string
      */
     public function getHint()
     {
@@ -73,7 +100,10 @@ class LinkOutputInternal extends AbstractOption
     }
     
     /**
-     * @inheritdoc
+     * Checks if a value is a valid value for option
+     *
+     * @param  mixed $value The value that gets validated
+     * @return bool
      */
     public function isValidValue( $value )
     {

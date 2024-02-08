@@ -53,9 +53,8 @@
 
         var Box = {
             keywords: [],
-            blacklistKeywords: [],
 
-            inputField: $(elem).find('input[name="ilj_linkdefinition_keys"]'),
+                        inputField: $(elem).find('input[name="ilj_linkdefinition_keys"]'),
             blacklistField: $(elem).find('input[name="ilj_blacklistdefinition"]'),
             isBlacklisted: $(elem).find('input[name="ilj_is_blacklisted"]'),
             limitField: $(elem).find('input[name="ilj_limitincominglinks"]'),
@@ -272,15 +271,9 @@
                 '   <br>'
             ),
 
-            helpMessage: $(
-                '   <div class="ilj-row">'+
-                '       <div class="col-12 ilj-help">'+
-                '           <p class="meta">' +
-                '              <a href="https://internallinkjuicer.com/docs/editor/?utm_source=editor&utm_medium=help&utm_campaign=plugin" rel="noopener" target="_blank" class="help"><span class="dashicons dashicons-editor-help"></span>' + ilj_editor_translation.get_help + '</a>'+
-                '           </p>'+
-                '       </div>'+
-                '   </div>'
-            ),
+            footer: $('#ilj_keyword_metabox_footer').html(),
+
+            feedback: $('<div id="ilj-editor-feedback"></div>'),
 
             init: function() {
             	var that = this;
@@ -288,7 +281,7 @@
                 this.inputField.css('display', 'none').parent('p').hide();
                 this.clearError();
 
-                elem.find('.inside').append(this.tabs, this.errorMessage, this.inputGui, this.settingsTab, this.helpMessage);
+                elem.find('.inside').append(this.feedback, this.tabs, this.errorMessage, this.inputGui, this.settingsTab, this.footer);
                 elem.find('h2').prepend($('<i/>').addClass('icon icon-ilj'));
 
                 if(ilj_editor_basic_restriction.current_screen != "ilj_customlinks"){
@@ -419,7 +412,19 @@
                     var isBlacklistedFieldValue = that.toggleSwitchInput(toggleCheck);
                     that.isBlacklisted.val(isBlacklistedFieldValue);
                 });
-
+                $('#ilj-delete-cache').on('click', function () {
+                    $(this).prop('disabled', true);
+                    $(this).next('.spinner').removeClass('ilj-hidden');
+                    const button = $(this)
+                    const feedback = $('#ilj-editor-feedback');
+                    $.ajax({url: $(this).data('ilj-delete-cache-url')})
+                        .always(function () {
+                            button.next('.ilj-spinner').addClass('ilj-hidden');
+                            button.prop('disabled', false);
+                            feedback.html('<div class="notice notice-success is-dismissible ilj-editor-feedback-notice"><p>' + ilj_editor_translation.cache_cleared + '</p></div>');
+                            setTimeout(function () {feedback.html('');}, 2000);
+                        });
+                });
                 this.initSettingsTab();
 
             },

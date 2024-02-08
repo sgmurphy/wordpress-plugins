@@ -203,6 +203,7 @@ class ExactMetrics_Tracking_Gtag extends ExactMetrics_Tracking_Abstract {
 			echo $output; // phpcs:ignore
 		} ?>
 		<?php if ( ! empty( $v4_id ) ) {
+			do_action( 'exactmetrics_tracking_gtag_frontend_before_script_tag' );
 			?>
 			<script src="<?php echo $src; // phpcs:ignore ?>" <?php echo $attr_string; // phpcs:ignore ?> <?php echo esc_attr( $gtag_async ); ?>></script>
 			<script<?php echo $attr_string; // phpcs:ignore ?>>
@@ -210,6 +211,12 @@ class ExactMetrics_Tracking_Gtag extends ExactMetrics_Tracking_Abstract {
 				var em_track_user = <?php echo $track_user ? 'true' : 'false'; ?>;
 				var em_no_track_reason = <?php echo $reason ? "'" . esc_js( $reason ) . "'" : "''"; ?>;
 				<?php do_action( 'exactmetrics_tracking_gtag_frontend_output_after_em_track_user' ); ?>
+				var ExactMetricsDefaultLocations = <?php echo $this->get_default_locations(); ?>;
+				if ( typeof ExactMetricsPrivacyGuardFilter === 'function' ) {
+					var ExactMetricsLocations = (typeof ExactMetricsExcludeQuery === 'object') ? ExactMetricsPrivacyGuardFilter( ExactMetricsExcludeQuery ) : ExactMetricsPrivacyGuardFilter( ExactMetricsDefaultLocations );
+				} else {
+					var ExactMetricsLocations = (typeof ExactMetricsExcludeQuery === 'object') ? ExactMetricsExcludeQuery : ExactMetricsDefaultLocations;
+				}
 
 				<?php if ($this->should_do_optout()) { ?>
 				var disableStrs = [
@@ -302,6 +309,9 @@ class ExactMetrics_Tracking_Gtag extends ExactMetrics_Tracking_Abstract {
 						}
 						?>
 					});
+					if ( ExactMetricsLocations.page_location ) {
+						__gtagTracker('set', ExactMetricsLocations);
+					}
 					<?php if (! empty( $v4_id )) { ?>
 					__gtagTracker('config', '<?php echo esc_js( $v4_id ); ?>', <?php echo $options_v4; // phpcs:ignore ?> );
 					<?php } ?>
@@ -454,5 +464,20 @@ class ExactMetrics_Tracking_Gtag extends ExactMetrics_Tracking_Abstract {
 
 	public function should_do_optout() {
 		return ! ( defined( 'EM_NO_TRACKING_OPTOUT' ) && EM_NO_TRACKING_OPTOUT );
+	}
+
+	/**
+	 * Get current page URL and
+	 */
+	private function get_default_locations() {
+		global $wp;
+
+		$urls['page_location'] = add_query_arg( $_SERVER['QUERY_STRING'], '', trailingslashit( home_url( $wp->request ) ) );
+
+		if ( $referer = wp_get_referer() ) {
+			$urls['page_referrer'] = $referer;
+		}
+
+		return wp_json_encode( $urls );
 	}
 }

@@ -9,171 +9,168 @@ namespace ILJ\Backend;
  * @package ILJ\Backend
  * @since   1.1.2
  */
-class User
-{
-    const ILJ_META_USER = 'ilj_user';
+class User {
 
-    /**
-     * @var   User
-     * @since 1.1.2
-     */
-    private static $instance;
+	const ILJ_META_USER = 'ilj_user';
 
-    /**
-     * @var   int
-     * @since 1.1.2
-     */
-    private $user_id;
+	/**
+	 * User instance
+	 *
+	 * @var   User
+	 * @since 1.1.2
+	 */
+	private static $instance;
 
-    /**
-     * @var   array
-     * @since 1.1.2
-     */
-    private $user_data;
+	/**
+	 * User id
+	 *
+	 * @var   int
+	 * @since 1.1.2
+	 */
+	private $user_id;
 
-    protected function __construct()
-    {
-        $user_data_default = [
-            'hide_promo' => false,
-            'last_trigger' => null
-        ];
+	/**
+	 * User data
+	 *
+	 * @var   array
+	 * @since 1.1.2
+	 */
+	private $user_data;
 
-        $user_id   = get_current_user_id();
-        $user_data = get_user_meta($user_id, self::ILJ_META_USER, true);
+	protected function __construct() {
+		$user_data_default = array(
+			'hide_promo'   => false,
+			'last_trigger' => null,
+		);
 
-        $this->user_id   = $user_id;
-        $this->user_data = wp_parse_args($user_data, $user_data_default);
-    }
+		$user_id   = get_current_user_id();
+		$user_data = get_user_meta($user_id, self::ILJ_META_USER, true);
 
-    /**
-     * Get data
-     *
-     * @since  1.1.2
-     * @param  string $key The key
-     * @return string|bool
-     */
-    public static function get($key)
-    {
-        self::init();
+		$this->user_id   = $user_id;
+		$this->user_data = wp_parse_args($user_data, $user_data_default);
+	}
 
-        $user_data = self::$instance->user_data;
-        if (array_key_exists($key, $user_data)) {
-            return $user_data[$key];
-        }
-        return false;
-    }
+	/**
+	 * Get user data
+	 *
+	 * @since  1.1.2
+	 * @param  string $key The key
+	 * @return string|bool
+	 */
+	public static function get($key) {
+		self::init();
 
-    /**
-     * Update data
-     *
-     * @since  1.1.2
-     * @param  string $key   The key
-     * @param  mixed  $value The value
-     * @return void
-     */
-    public static function update($key, $value)
-    {
-        self::init();
-        self::$instance->user_data[$key] = $value;
-        update_user_meta(self::$instance->user_id, self::ILJ_META_USER, self::$instance->user_data);
-    }
+		$user_data = self::$instance->user_data;
+		if (array_key_exists($key, $user_data)) {
+			return $user_data[$key];
+		}
+		return false;
+	}
 
-    /**
-     * Init User class
-     *
-     * @since  1.1.2
-     * @return void
-     */
-    private static function init()
-    {
-        if (null === self::$instance) {
-            self::$instance = new self();
-        }
-    }
+	/**
+	 * Update user data
+	 *
+	 * @since  1.1.2
+	 * @param  string $key   The key
+	 * @param  mixed  $value The value
+	 * @return void
+	 */
+	public static function update($key, $value) {
+		 self::init();
+		self::$instance->user_data[$key] = $value;
+		update_user_meta(self::$instance->user_id, self::ILJ_META_USER, self::$instance->user_data);
+	}
 
-    /**
-     * Retrieves the base date for the rating notification
-     *
-     * @since  1.2.0
-     * @return \DateTime
-     */
-    public static function getRatingNotificationBaseDate()
-    {
-        $rating_notification = self::get('rating_notification');
+	/**
+	 * Init User class
+	 *
+	 * @since  1.1.2
+	 * @return void
+	 */
+	private static function init() {
+		if (null === self::$instance) {
+			self::$instance = new self();
+		}
+	}
 
-        if (!$rating_notification) {
-            $rating_notification = [];
-        }
+	/**
+	 * Retrieves the base date for the rating notification
+	 *
+	 * @since  1.2.0
+	 * @return \DateTime
+	 */
+	public static function getRatingNotificationBaseDate() {
+		$rating_notification = self::get('rating_notification');
 
-        if (!array_key_exists('base_date', $rating_notification)) {
-            $base_date = new \DateTime('now');
-            $base_date->modify('+14 day');
-            $rating_notification['base_date'] = $base_date;
+		if (!$rating_notification) {
+			$rating_notification = array();
+		}
 
-            self::update('rating_notification', $rating_notification);
-        }
+		if (!array_key_exists('base_date', $rating_notification)) {
+			$base_date = new \DateTime('now');
+			$base_date->modify('+14 day');
+			$rating_notification['base_date'] = $base_date;
 
-        return $rating_notification['base_date'];
-    }
+			self::update('rating_notification', $rating_notification);
+		}
 
-    /**
-     * Indicates if the rating notification can be shown
-     *
-     * @since  1.2.2
-     * @return bool
-     */
-    public static function canShowRatingNotification()
-    {
-        $rating_notification = self::get('rating_notification');
+		return $rating_notification['base_date'];
+	}
 
-        if (!$rating_notification) {
-            $rating_notification = [];
-        }
+	/**
+	 * Indicates if the rating notification can be shown
+	 *
+	 * @since  1.2.2
+	 * @return bool
+	 */
+	public static function canShowRatingNotification() {
+		$rating_notification = self::get('rating_notification');
 
-        if (!array_key_exists('show', $rating_notification)) {
-            $rating_notification['show'] = true;
-            self::update('rating_notification', $rating_notification);
-        }
+		if (!$rating_notification) {
+			$rating_notification = array();
+		}
 
-        return $rating_notification['show'];
-    }
+		if (!array_key_exists('show', $rating_notification)) {
+			$rating_notification['show'] = true;
+			self::update('rating_notification', $rating_notification);
+		}
 
-    /**
-     * Sets a new base date for rating notifier
-     *
-     * @since  1.2.0
-     * @param  \DateTime $date The new date
-     * @return void
-     */
-    public static function setRatingNotificationBaseDate(\DateTime $date)
-    {
-        $rating_notification = self::get('rating_notification');
-        $rating_notification['base_date'] = $date;
-        self::update('rating_notification', $rating_notification);
-    }
+		return $rating_notification['show'];
+	}
 
-    /**
-     * Unsets the rating notification
-     *
-     * @since  1.2.2
-     * @return void
-     */
-    public static function unsetRatingNotification()
-    {
-        $rating_notification = self::get('rating_notification');
-        $rating_notification['show'] = false;
-        self::update('rating_notification', $rating_notification);
-    }
+	/**
+	 * Sets a new base date for rating notifier
+	 *
+	 * @since  1.2.0
+	 * @param  \DateTime $date The new date
+	 * @return void
+	 */
+	public static function setRatingNotificationBaseDate(\DateTime $date) {
+		$rating_notification              = self::get('rating_notification');
+		$rating_notification['base_date'] = $date;
+		self::update('rating_notification', $rating_notification);
+	}
 
-    /**
-     * Returns the name of the current user
-     *
-     * @since  1.2.0
-     * @return string
-     */
-    public static function getName()
-    {
-        $user = wp_get_current_user();
-        return $user->data->display_name;
-    }
+	/**
+	 * Unsets the rating notification
+	 *
+	 * @since  1.2.2
+	 * @return void
+	 */
+	public static function unsetRatingNotification() {
+		$rating_notification         = self::get('rating_notification');
+		$rating_notification['show'] = false;
+		self::update('rating_notification', $rating_notification);
+	}
+
+	/**
+	 * Returns the name of the current user
+	 *
+	 * @since  1.2.0
+	 * @return string
+	 */
+	public static function getName() {
+		$user = wp_get_current_user();
+		return $user->data->display_name;
+	}
 }

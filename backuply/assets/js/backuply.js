@@ -1031,7 +1031,7 @@ function backuply_backup_progress() {
 				let [log, status, percent] = text.split('|'),
 					color = '';
 				percent = parseInt(percent);
-				
+
 				switch(status) {
 					case 'info':
 						color = 'yellow';
@@ -1039,6 +1039,10 @@ function backuply_backup_progress() {
 					
 					case 'error': 
 						color = 'red';
+						break;
+						
+					case 'warning':
+						color = 'orange';
 						break;
 						
 					case 'success':

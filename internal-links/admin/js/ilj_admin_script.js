@@ -1,0 +1,1 @@
+jQuery(document).ready(function(){jQuery(".iljmessage.admin-warning-litespeed").on("click",".notice-dismiss",function(e){e.preventDefault();jQuery.ajax({url:ajaxurl,type:"POST",data:{action:"ilj_dismiss_admin_warning_litespeed"},statusCode:{500:function(e){jQuery(e.responseJSON.message)}},success:function(e,n,i){}})})});

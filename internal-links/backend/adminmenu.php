@@ -22,12 +22,12 @@ class AdminMenu
     public static function init()
     {
         self::addMenuPage();
-        $submenus = [
+        $submenus = array(
             'ILJ\\Backend\\MenuPage\\Dashboard',
             'ILJ\\Backend\\MenuPage\\Tools',
             'ILJ\\Backend\\MenuPage\\Settings',
             'ILJ\\Backend\\MenuPage\\Tour'
-        ];
+        );
         foreach ( $submenus as $submenu ) {
             $menu_page = new $submenu();
             $menu_page->register();

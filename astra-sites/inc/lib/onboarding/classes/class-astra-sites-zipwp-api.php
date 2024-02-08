@@ -561,6 +561,7 @@ class Astra_Sites_ZipWP_Api {
 			'business_phone' => isset( $request['business_phone'] ) ? sanitize_text_field( $request['business_phone'] ) : '',
 			'category' => isset($request['business_category']) ? sanitize_text_field($request['business_category']) : '',
 			'category_name' => isset($request['business_category_name']) ? sanitize_text_field($request['business_category_name']) : '',
+			'category_slug' => isset($request['business_category_slug']) ? sanitize_text_field($request['business_category_slug']) : '',
 			'image_keyword' => isset( $request['keywords'] ) ? $request['keywords'] : [],
 			'images' => isset( $request['images'] ) ? $request['images'] : [],
 			'social_profiles' => isset( $request['social_profiles'] ) ? $request['social_profiles'] : [],

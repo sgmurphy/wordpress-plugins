@@ -101,28 +101,14 @@ class ExactMetrics_Onboarding_Wizard {
 	 * Load the scripts needed for the Onboarding Wizard.
 	 */
 	public function enqueue_scripts() {
+		$version_path = 'lite';
 
-		global $wp_version;
-		$version_path = exactmetrics_is_pro_version() ? 'pro' : 'lite';
-		$rtl          = is_rtl() ? '.rtl' : '';
-		if ( ! defined( 'EXACTMETRICS_LOCAL_WIZARD_JS_URL' ) ) {
-			wp_enqueue_style( 'exactmetrics-vue-style-vendors', plugins_url( $version_path . '/assets/vue/css/chunk-vendors' . $rtl . '.css', EXACTMETRICS_PLUGIN_FILE ), array(), exactmetrics_get_asset_version() );
-			wp_enqueue_style( 'exactmetrics-vue-style-common', plugins_url( $version_path . '/assets/vue/css/chunk-common' . $rtl . '.css', EXACTMETRICS_PLUGIN_FILE ), array(), exactmetrics_get_asset_version() );
-			wp_enqueue_style( 'exactmetrics-vue-style', plugins_url( $version_path . '/assets/vue/css/wizard' . $rtl . '.css', EXACTMETRICS_PLUGIN_FILE ), array(), exactmetrics_get_asset_version() );
-			wp_enqueue_script( 'exactmetrics-vue-vendors', plugins_url( $version_path . '/assets/vue/js/chunk-vendors.js', EXACTMETRICS_PLUGIN_FILE ), array(), exactmetrics_get_asset_version(), true );
-			wp_enqueue_script( 'exactmetrics-vue-common', plugins_url( $version_path . '/assets/vue/js/chunk-common.js', EXACTMETRICS_PLUGIN_FILE ), array(), exactmetrics_get_asset_version(), true );
-			wp_register_script( 'exactmetrics-vue-script', plugins_url( $version_path . '/assets/vue/js/wizard.js', EXACTMETRICS_PLUGIN_FILE ), array(
-				'exactmetrics-vue-vendors',
-				'exactmetrics-vue-common',
-			), exactmetrics_get_asset_version(), true );
-		} else {
-			wp_enqueue_script( 'exactmetrics-vue-vendors', EXACTMETRICS_LOCAL_VENDORS_JS_URL, array(), exactmetrics_get_asset_version(), true );
-			wp_enqueue_script( 'exactmetrics-vue-common', EXACTMETRICS_LOCAL_COMMON_JS_URL, array(), exactmetrics_get_asset_version(), true );
-			wp_register_script( 'exactmetrics-vue-script', EXACTMETRICS_LOCAL_WIZARD_JS_URL, array(
-				'exactmetrics-vue-vendors',
-				'exactmetrics-vue-common',
-			), exactmetrics_get_asset_version(), true );
+		if ( ! defined( 'EXACTMETRICS_LOCAL_JS_URL' ) ) {
+			ExactMetrics_Admin_Assets::enqueue_script_specific_css( 'src/modules/wizard-onboarding/wizard.js' );
 		}
+
+		$app_js_url = defined('EXACTMETRICS_LOCAL_JS_URL') && EXACTMETRICS_LOCAL_JS_URL ? EXACTMETRICS_LOCAL_JS_URL . 'src/modules/wizard-onboarding/wizard.js' : plugins_url($version_path . '/assets/vue/js/wizard.js', EXACTMETRICS_PLUGIN_FILE);
+		wp_register_script( 'exactmetrics-vue-script', $app_js_url, array(), exactmetrics_get_asset_version(), true );
 		wp_enqueue_script( 'exactmetrics-vue-script' );
 
 		$settings_page = is_network_admin() ? add_query_arg( 'page', 'exactmetrics_network', network_admin_url( 'admin.php' ) ) : add_query_arg( 'page', 'exactmetrics_settings', admin_url( 'admin.php' ) );

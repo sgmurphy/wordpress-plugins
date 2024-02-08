@@ -25,6 +25,8 @@ class Tools extends AbstractMenuPage
     const  ILJ_FILTER_MENUPAGE_TOOLS_KEYWORD_IMPORT_POST = 'ilj_filter_menupage_tools_keyword_import_post' ;
     const  ILJ_FILTER_MENUPAGE_TOOLS_KEYWORD_IMPORT_TERM = 'ilj_filter_menupage_tools_keyword_import_term' ;
     /**
+     * Csv Format
+     *
      * @var   string
      * @since 1.2.0
      */
@@ -36,36 +38,38 @@ class Tools extends AbstractMenuPage
     }
     
     /**
-     * @inheritdoc
+     * register
+     *
+     * @return void
      */
     public function register()
     {
         $this->addSubMenuPage();
-        add_action( 'current_screen', [ $this, 'exportScreen' ] );
+        add_action( 'current_screen', array( $this, 'exportScreen' ) );
         wp_register_script(
             'ilj_tools',
             ILJ_URL . 'admin/js/ilj_tools.js',
-            [],
+            array(),
             ILJ_VERSION
         );
-        wp_localize_script( 'ilj_tools', 'ilj_tools', [
+        wp_localize_script( 'ilj_tools', 'ilj_tools', array(
             'ajax_url'    => admin_url( 'admin-ajax.php' ),
             'nonce'       => wp_create_nonce( 'ilj-tools' ),
             'translation' => self::getTranslation(),
-        ] );
-        $this->addAssets( [
+        ) );
+        $this->addAssets( array(
             'tipso'             => ILJ_URL . 'admin/js/tipso.js',
             'ilj_select2'       => ILJ_URL . 'admin/js/select2.js',
             'ilj_menu_settings' => ILJ_URL . 'admin/js/ilj_menu_settings.js',
             'ilj_tools'         => ILJ_URL . 'admin/js/ilj_tools.js',
-        ], [
+        ), array(
             'tipso'             => ILJ_URL . 'admin/css/tipso.css',
             'ilj_menu_settings' => ILJ_URL . 'admin/css/ilj_menu_settings.css',
             'ilj_ui'            => ILJ_URL . 'admin/css/ilj_ui.css',
             'ilj_grid'          => ILJ_URL . 'admin/css/ilj_grid.css',
             'ilj_select2'       => ILJ_URL . 'admin/css/select2.css',
             'ilj_tools'         => ILJ_URL . 'admin/css/ilj_tools.css',
-        ] );
+        ) );
     }
     
     /**
@@ -76,7 +80,7 @@ class Tools extends AbstractMenuPage
      */
     protected static function getTranslation()
     {
-        $translation = [
+        $translation = array(
             'loading'               => __( 'Loading', 'internal-links' ),
             'error'                 => __( 'An error occured. Please try again.', 'internal-links' ),
             'close'                 => __( 'Close', 'internal-links' ),
@@ -85,12 +89,14 @@ class Tools extends AbstractMenuPage
             'upload_success'        => __( 'The upload was successful. You can now start importing the uploaded data.', 'internal-links' ),
             'import_success'        => __( 'Import completed successfully.', 'internal-links' ),
             'upload_error_filesize' => __( 'The upload exceeds the maximum allowed file size.', 'internal-links' ),
-        ];
+        );
         return $translation;
     }
     
     /**
-     * @inheritdoc
+     * render
+     *
+     * @return void
      */
     public function render()
     {
@@ -101,28 +107,28 @@ class Tools extends AbstractMenuPage
         $this->renderHeadline( __( 'Tools for data import and export', 'internal-links' ) );
         echo  '	<div class="ilj-row">' ;
         echo  '		<div class="col-6">' ;
-        $this->renderPostbox( [
+        $this->renderPostbox( array(
             'title'   => __( 'File import', 'internal-links' ),
             'content' => $this->getFileImport(),
             'class'   => 'tools',
-        ] );
-        $this->renderPostbox( [
+        ) );
+        $this->renderPostbox( array(
             'title'   => __( 'File export', 'internal-links' ),
             'content' => $this->getFileExport(),
             'class'   => 'tools',
-        ] );
+        ) );
         echo  '		</div>' ;
         echo  '		<div class="col-6">' ;
         echo  '<div><a href="' . get_admin_url( null, 'admin.php?page=' . AdminMenu::ILJ_MENUPAGE_SLUG . '-pricing' ) . '" class="ilj-upgrade tools">&rsaquo; ' . __( 'Upgrade to Pro now - unlock all features', 'internal-links' ) . ' <span class="dashicons dashicons-unlock"></span></a></div>' ;
         echo  '<div class="clear"></div>' ;
         $keyword_import_postbox_class = 'disabled has-icon';
         $before_headline = '<div class="pro-title"><span class="dashicons dashicons-lock tip" title="' . __( 'This feature is part of the Pro version', 'internal-links' ) . '"></span></div>';
-        $this->renderPostbox( [
+        $this->renderPostbox( array(
             'title'           => __( 'Import keyword configurations from WordPress', 'internal-links' ),
             'content'         => $this->getKeywordImport(),
-            'class'           => $keyword_import_postbox_class . " " . "tools",
+            'class'           => $keyword_import_postbox_class . ' ' . 'tools',
             'before_headline' => $before_headline,
-        ] );
+        ) );
         echo  '		</div>' ;
         echo  '	</div>' ;
         echo  '</div>' ;
@@ -190,7 +196,20 @@ class Tools extends AbstractMenuPage
         $output .= Options::getToggleField( 'ilj-export-empty', 'checked="checked"' );
         $output .= '</div>';
         $output .= '</div>';
+        $output .= '<div class="ilj-row">';
+        $output .= '<div class="col-6">';
+        $output .= __( sprintf( 'Include additional columns (%s)', Export::ILJ_ADDITIONAL_COLUMNS ), 'internal-links' );
+        $output .= '</div>';
+        $output .= '<div class="col-1">';
+        $output .= Options::getToggleField( 'ilj-export-additional-columns', '' );
+        $output .= '</div>';
+        $output .= '<div class="col-4">';
+        $output .= '<span class="hint">' . __( 'These columns will be ignored during import', 'internal-links' ) . '</span>';
+        $output .= '</div>';
+        $output .= '</div>';
+        $output .= '<div class="ilj-row">';
         $output .= sprintf( '<button class="button button-primary ilj-export" data-export="keywords">%s</button>', __( 'Export', 'internal-links' ) );
+        $output .= '</div>';
         $output .= '<span class="spinner"></span>';
         $output .= '<div class="clear"></div>';
         $output .= '</div>';
@@ -222,10 +241,13 @@ class Tools extends AbstractMenuPage
         $output .= '<div class="clear"></div>';
         $output .= '</div>';
         $output .= sprintf( '<p><strong>%s</strong></p>', __( 'Sources', 'internal-links' ) );
-        $output .= $this->getKeywordImportSource( [
-            "title" => __( 'Post titles', 'internal-links' ),
-            "class" => 'title',
-        ], self::ILJ_FILTER_MENUPAGE_TOOLS_KEYWORD_IMPORT_POST, self::ILJ_MENUPAGE_TOOLS_IMPORT_INTERN_POST );
+        $output .= $this->getKeywordImportSource( array( array(
+            'title' => __( 'Post titles', 'internal-links' ),
+            'class' => 'title',
+        ), array(
+            'title' => __( 'Post tags', 'internal-links' ),
+            'class' => 'tags',
+        ) ), self::ILJ_FILTER_MENUPAGE_TOOLS_KEYWORD_IMPORT_POST, self::ILJ_MENUPAGE_TOOLS_IMPORT_INTERN_POST );
         $output .= $button;
         $output .= '<span class="spinner"></span>';
         $output .= '<div class="clear"></div>';
@@ -245,10 +267,10 @@ class Tools extends AbstractMenuPage
         $output .= '<div class="clear"></div>';
         $output .= '</div>';
         $output .= sprintf( '<p><strong>%s</strong></p>', __( 'Sources', 'internal-links' ) );
-        $output .= $this->getKeywordImportSource( [
-            "title" => __( 'Term titles', 'internal-links' ),
-            "class" => 'title',
-        ], self::ILJ_FILTER_MENUPAGE_TOOLS_KEYWORD_IMPORT_TERM, self::ILJ_MENUPAGE_TOOLS_IMPORT_INTERN_TERM );
+        $output .= $this->getKeywordImportSource( array(
+            'title' => __( 'Term titles', 'internal-links' ),
+            'class' => 'title',
+        ), self::ILJ_FILTER_MENUPAGE_TOOLS_KEYWORD_IMPORT_TERM, self::ILJ_MENUPAGE_TOOLS_IMPORT_INTERN_TERM );
         $button = sprintf( '<button class="button ilj-import" disabled style="cursor:not-allowed;">%s</button>', __( 'Import', 'internal-links' ) );
         $output .= $button;
         $output .= '<span class="spinner"></span>';
@@ -271,7 +293,10 @@ class Tools extends AbstractMenuPage
     protected function getKeywordImportSource( array $source, $filter, $toggler_class )
     {
         $output = '';
-        $keyword_import_source = [ $source ];
+        $keyword_import_source = $source;
+        if ( !wp_is_numeric_array( $source ) ) {
+            $keyword_import_source = array( $source );
+        }
         /**
          * Filters the available import source entries
          *
@@ -311,7 +336,7 @@ class Tools extends AbstractMenuPage
             return;
         }
         $export_request = ( isset( $_GET['ilj_export'] ) ? $_GET['ilj_export'] : null );
-        if ( !$export_request || !in_array( $export_request, [ 'settings', 'keywords' ] ) ) {
+        if ( !$export_request || !in_array( $export_request, array( 'settings', 'keywords' ) ) ) {
             return;
         }
         $file_name = 'ilj_' . $export_request;
@@ -321,15 +346,16 @@ class Tools extends AbstractMenuPage
                 header( 'Content-type: application/json; charset=utf-8' );
                 header( sprintf( 'Content-disposition: attachment; filename="%s.json"', $file_name ) );
                 echo  json_encode( \ILJ\Core\Options::exportOptions(), JSON_UNESCAPED_SLASHES ) ;
-                die;
+                die( "" );
                 break;
             case 'keywords':
                 $option_empty = ( isset( $_GET['empty'] ) && (bool) $_GET['empty'] ? false : true );
+                $option_additional_cols = ( isset( $_GET['addcols'] ) && (bool) $_GET['addcols'] ? true : false );
                 header( 'Content-type: application/csv; charset=utf-8' );
                 header( sprintf( 'Content-disposition: attachment; filename="%s.csv"', $file_name ) );
-                Export::printCsvHeadline();
-                Export::printCsvPosts( $option_empty );
-                die;
+                Export::printCsvHeadline( false, $option_additional_cols );
+                Export::printCsvPosts( $option_empty, false, $option_additional_cols );
+                die( "" );
                 break;
         }
     }

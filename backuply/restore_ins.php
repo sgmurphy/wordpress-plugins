@@ -13,17 +13,21 @@ ignore_user_abort(true); // Dont abort if user aborts
 define('ARCHIVE_TAR_ATT_SEPARATOR', 90001);
 define('ARCHIVE_TAR_END_BLOCK', pack('a512', ''));
 
+if(empty($_SERVER['REQUEST_METHOD']) || $_SERVER['REQUEST_METHOD'] !== 'POST' || !backuply_verify_self()){
+	die('HACKING ATTEMPT!');
+}
+
 include_once __DIR__ .'/lib/Curl/Curl.php';
 use Curl\Curl;
 
 function backuply_died() {
-	backuply_log(serialize(error_get_last()));
-	
 	$last_error = error_get_last();
 		
 	if(!$last_error){
 		return false;
 	}
+	
+	backuply_log(serialize($last_error()));
 	
 	if(!empty($last_error['type']) && ($last_error['type'] === E_ERROR || $last_error['type'] === E_PARSE)){
 		backuply_log($last_error['message'], true);
@@ -36,17 +40,6 @@ function backuply_died() {
 	}
 }
 register_shutdown_function('backuply_died');
-
-if($_SERVER['REQUEST_METHOD'] !== 'POST'){
-	backuply_die('restoreerror');
-	die();
-}
-
-if(!backuply_verify_self()) {
-	$GLOBALS['error'][] = 'Security Check Failed!';
-	backuply_die('securityerror');
-	die();
-}
 
 function backuply_glob($relative_path){
 	global $data;
@@ -1532,7 +1525,9 @@ class softtar{
 							//The is_writable function always returns false for non-suphp servers and we are passing the FTP stream path which gives us writable permission
 							if(!is_writeable($v_header['filename'])){
 								$this->_error('File '.$v_header['filename'] .' already exists and is write protected');
-								return false;
+								backuply_status_log('Warning: File '.$v_header['filename'] .' already exists and is write protected', 'warning');
+								$data['not_writable'] = true;
+								$v_extract_file = false; // We don't want to kill if we can not write to a protected file.
 							}
 						}else{
 							if(is_dir($v_header['filename'])){
@@ -2476,6 +2471,7 @@ function backuply_die($txt, $l_file = '', $backuly_backup_dir = ''){
 		$array['fname'] = $data['fname'];
 		$array['dbexist'] = $data['dbexist'];
 		$array['is_migrating'] = $data['is_migrating'];
+		$array['not_writable'] = isset($data['not_writable']) ? $data['not_writable'] : false;
 		$data = $array;
 
 		restore_clean(1);
@@ -2836,6 +2832,10 @@ function final_restore_response($output, $error_str = '') {
 	
 	if(!empty($output['is_migrating'])){
 		$url .= '&is_migrating=true';
+	}
+	
+	if(!empty($output['not_writable'])){
+		$url .= '&not_writable=true';
 	}
 
 	if(!empty($error_str)) {

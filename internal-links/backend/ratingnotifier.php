@@ -27,8 +27,8 @@ class RatingNotifier
         if ( $rating_notification_base > new \DateTime( 'now' ) || !User::canShowRatingNotification() ) {
             return;
         }
-        add_action( 'admin_notices', [ '\\ILJ\\Backend\\RatingNotifier', 'registerNotifier' ] );
-        add_action( 'admin_enqueue_scripts', [ '\\ILJ\\Backend\\RatingNotifier', 'registerAssets' ] );
+        add_action( 'admin_notices', array( '\\ILJ\\Backend\\RatingNotifier', 'registerNotifier' ) );
+        add_action( 'admin_enqueue_scripts', array( '\\ILJ\\Backend\\RatingNotifier', 'registerAssets' ) );
     }
     
     /**
@@ -42,7 +42,7 @@ class RatingNotifier
         wp_enqueue_script(
             'ilj_index_rating_notification',
             ILJ_URL . 'admin/js/ilj_rating_notification.js',
-            [],
+            array(),
             ILJ_VERSION
         );
     }
@@ -67,7 +67,6 @@ class RatingNotifier
             $message,
             $buttons
         );
-        return;
     }
 
 }

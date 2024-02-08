@@ -401,6 +401,10 @@ Backuply';
 	if(!empty($mail['to'])){
 		wp_mail($mail['to'], $mail['subject'], $mail['message'], $mail['headers']);
 	}
+	
+	if(!empty($_GET['not_writable'])){
+		backuply_status_log(__('Please check the logs, there were some files, which Backuply was unable to replace as those files were not writable', 'backuply') . ' <a href="https://backuply.com/docs/common-issues/files-not-writable/" target="_blank">Read More</a>', 'info');
+	}
 
 	backuply_status_log('Restore performed successfully.', 'success', 100);
 	update_option('backuply_last_restore', time());
@@ -1048,7 +1052,8 @@ function backuply_backup_upload(){
 		wp_send_json_error('You don\'t have privilege to upload the backup!');
 	}
 	
-	$file_name = sanitize_file_name($_POST['file_name']);
+	// Were using sanitize_filename here, but it adds _ in some cases so replacing that with optpost in version 1.2.6
+	$file_name = backuply_optpost('file_name'); 
 	$file_name = backuply_cleanpath($file_name); // Makes sure the file name is safe
 	$backup_dir = backuply_glob('backups');
 	

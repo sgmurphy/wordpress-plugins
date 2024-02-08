@@ -8,15 +8,17 @@ use  ILJ\Helper\IndexAsset ;
 /**
  * Option: List of Post Custom Fields used for limiting links
  *
- * @since   2.1.0
  * @package ILJ\Core\Options
+ * @since   2.1.0
  */
 class CustomFieldsToLinkPost extends AbstractOption
 {
-    const  ILJ_ACF_HINT_FILTER_POST = "ilj_hint_for_acf_post" ;
-    const  ILJ_ACTION_ADD_PRO_FEATURES = "ilj_add_pro_features" ;
+    const  ILJ_ACF_HINT_FILTER_POST = 'ilj_hint_for_acf_post' ;
+    const  ILJ_ACTION_ADD_PRO_FEATURES = 'ilj_add_pro_features' ;
     /**
-     * @inheritdoc
+     * Get the unique identifier for the option
+     *
+     * @return string
      */
     public static function getKey()
     {
@@ -24,15 +26,19 @@ class CustomFieldsToLinkPost extends AbstractOption
     }
     
     /**
-     * @inheritdoc
+     * Get the default value of the option
+     *
+     * @return mixed
      */
     public static function getDefault()
     {
-        return [];
+        return array();
     }
     
     /**
-     * @inheritdoc
+     * Identifies if the current option is pro only
+     *
+     * @return bool
      */
     public static function isPro()
     {
@@ -40,15 +46,19 @@ class CustomFieldsToLinkPost extends AbstractOption
     }
     
     /**
-     * @inheritdoc
+     * Adds the option to an option group
+     *
+     * @param  string $option_group The option group to which the option gets connected
+     * @return void
      */
     public function register( $option_group )
     {
-        return;
     }
     
     /**
-     * @inheritdoc
+     * Get the frontend label for the option
+     *
+     * @return string
      */
     public function getTitle()
     {
@@ -56,7 +66,9 @@ class CustomFieldsToLinkPost extends AbstractOption
     }
     
     /**
-     * @inheritdoc
+     * Get the frontend description for the option
+     *
+     * @return string
      */
     public function getDescription()
     {
@@ -64,25 +76,56 @@ class CustomFieldsToLinkPost extends AbstractOption
     }
     
     /**
-     * @inheritdoc
+     * Outputs the options form element for backend administration
+     *
+     * @param  mixed $value
+     * @return mixed
      */
     public function renderField( $value )
     {
-        if ( $value == "" ) {
-            $value = [];
+        if ( '' == $value ) {
+            $value = array();
         }
-        $custom_fields = [];
-        echo  '<select name="' . self::getKey() . '[]" id="' . self::getKey() . '" multiple="multiple"' . OptionsHelper::getDisabler( $this ) . '>' ;
+        $custom_fields = array();
+        $key = self::getKey();
+        ?>
+		<select name="<?php 
+        echo  esc_attr( $key ) ;
+        ?>[]" id="<?php 
+        echo  esc_attr( $key ) ;
+        ?>" multiple="multiple" <?php 
+        echo  OptionsHelper::getDisabler( $this ) ;
+        ?>>
+		<?php 
+        
         if ( count( $custom_fields ) ) {
+            ?>
+			<?php 
             foreach ( $custom_fields as $custom_field ) {
-                echo  '<option value="' . $custom_field->meta_key . '"' . (( in_array( $custom_field->meta_key, $value ) ? ' selected' : '' )) . '>' . $custom_field->meta_key . '</option>' ;
+                ?>
+			<option value="<?php 
+                echo  esc_attr( $custom_field->meta_key ) ;
+                ?>" <?php 
+                selected( in_array( $custom_field->meta_key, $value ) );
+                ?>><?php 
+                echo  esc_html( $custom_field->meta_key ) ;
+                ?></option>
+			<?php 
             }
+            ?>
+		<?php 
         }
-        echo  '</select>' ;
+        
+        ?>
+		</select>
+		<?php 
     }
     
     /**
-     * @inheritdoc
+     * Checks if a value is a valid value for option
+     *
+     * @param  mixed $value The value that gets validated
+     * @return bool
      */
     public function isValidValue( $value )
     {
@@ -90,11 +133,13 @@ class CustomFieldsToLinkPost extends AbstractOption
     }
     
     /**
-     * @inheritdoc
+     * Returns a hint text for the option, if given
+     *
+     * @return string
      */
     public function getHint()
     {
-        $hint = "";
+        $hint = '';
         $hint = apply_filters( self::ILJ_ACF_HINT_FILTER_POST, $hint );
         return $hint;
     }

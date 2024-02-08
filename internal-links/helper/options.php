@@ -35,7 +35,7 @@ class Options
     }
     
     /**
-     * Decides wheter a form field is visually disabled
+     * Decides whether a form field is visually disabled
      *
      * @since 1.1.3
      * @param OptionInterface $option The option
@@ -55,7 +55,7 @@ class Options
      *
      * @since 1.1.3
      * @param OptionInterface $option The option
-     * @param $value  The value
+     * @param mixed           $value  The value
      *
      * @return void
      */
@@ -91,6 +91,7 @@ class Options
      * Fundamental method for rendering a toggle output
      *
      * @since 1.2.0
+     * @deprecated   Deprecated, use {@link self::getToggleField}
      * @param int    $id       The id/name of the checkbox input field
      * @param bool   $checked  Active state of the toggler
      * @param string $disabled HTML-Part for disabling form field
@@ -122,7 +123,56 @@ class Options
     }
     
     /**
-     * triggerIndividualRebuildIndex
+     * Fundamental method for printing toggle output
+     *
+     * @since 2.23.5
+     * @param string $id       The id/name of the checkbox input field
+     * @param bool   $checked  Active state of the toggler
+     * @param bool   $disabled Disabled state of the toggler
+     *
+     * @return void
+     */
+    public static function render_toggle_field( $id, $checked, $disabled )
+    {
+        ?>
+		<div class="ilj-toggler-wrap">
+			<input class="ilj-toggler-input" type="checkbox"
+				   id="<?php 
+        echo  esc_attr( $id ) ;
+        ?>"
+				   name="<?php 
+        echo  esc_attr( $id ) ;
+        ?>"
+				   value="1"
+				<?php 
+        checked( $checked );
+        ?>
+				<?php 
+        disabled( $disabled );
+        ?> />
+			<label class="ilj-toggler-label" for="<?php 
+        echo  esc_attr( $id ) ;
+        ?>">
+				<div class="ilj-toggler-switch" aria-hidden="true">
+					<div class="ilj-toggler-option-l" aria-hidden="true">
+						<svg class="ilj-toggler-svg" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0"
+							 width="548.9" height="548.9" viewBox="0 0 548.9 548.9" xml:space="preserve"><polygon
+								points="449.3 48 195.5 301.8 99.5 205.9 0 305.4 95.9 401.4 195.5 500.9 295 401.4 548.9 147.5 "/></svg>
+					</div>
+					<div class="ilj-toggler-option-r" aria-hidden="true">
+						<svg class="ilj-toggler-svg" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0"
+							 viewBox="0 0 28 28" xml:space="preserve"><polygon
+								points="28 22.4 19.6 14 28 5.6 22.4 0 14 8.4 5.6 0 0 5.6 8.4 14 0 22.4 5.6 28 14 19.6 22.4 28 "
+								fill="#030104"/></svg>
+					</div>
+				</div>
+			</label>
+		</div>
+		<?php 
+    }
+    
+    /**
+     * Triggers an individual index rebuild
      *
      * @param  int    $id
      * @param  string $type
@@ -131,10 +181,10 @@ class Options
      */
     public static function triggerIndividualRebuildIndex( $id, $type, $option )
     {
-        User::update( 'index', [
+        User::update( 'index', array(
             'last_trigger' => new \DateTime(),
-        ] );
-        if ( !defined( "ILJ_THEME_COMPAT" ) ) {
+        ) );
+        if ( !defined( 'ILJ_THEME_COMPAT' ) ) {
             ThemeCompat::init();
         }
         $index_builder = new IndexBuilder();
@@ -151,111 +201,106 @@ class Options
      */
     public static function updateOptionIndexRebuild( $option_name, $old_value, $value )
     {
-        $partial_rebuild = [ "ilj_settings_field_blacklist", "ilj_settings_field_term_blacklist" ];
-        $full_rebuild = [
-            "ilj_settings_field_whitelist",
-            "ilj_settings_field_taxonomy_whitelist",
-            "ilj_settings_field_blacklist_child_pages",
-            "ilj_settings_field_keyword_order",
-            "ilj_settings_field_links_per_page",
-            "ilj_settings_field_links_per_paragraph_switch",
-            "ilj_settings_field_links_per_paragraph",
-            "ilj_settings_field_links_per_target",
-            "ilj_settings_field_multiple_keywords",
-            "ilj_settings_field_no_link_tags",
-            "ilj_settings_field_link_output_respect_existing_links",
-            "ilj_settings_field_limit_taxonomy_list",
-            "ilj_settings_field_custom_fields_to_link_post",
-            "ilj_settings_field_custom_fields_to_link_term"
-        ];
-        $no_rebuild = [
-            "ilj_settings_field_keep_settings",
-            "ilj_settings_field_editor_role",
-            "ilj_settings_field_index_generation",
-            "ilj_settings_field_link_output_internal",
-            "ilj_settings_field_internal_nofollow",
-            "ilj_settings_field_link_output_custom"
-        ];
+        $partial_rebuild = array( 'ilj_settings_field_blacklist', 'ilj_settings_field_term_blacklist' );
+        $full_rebuild = array(
+            'ilj_settings_field_whitelist',
+            'ilj_settings_field_taxonomy_whitelist',
+            'ilj_settings_field_blacklist_child_pages',
+            'ilj_settings_field_keyword_order',
+            'ilj_settings_field_links_per_page',
+            'ilj_settings_field_links_per_paragraph_switch',
+            'ilj_settings_field_links_per_paragraph',
+            'ilj_settings_field_links_per_target',
+            'ilj_settings_field_multiple_keywords',
+            'ilj_settings_field_no_link_tags',
+            'ilj_settings_field_link_output_respect_existing_links',
+            'ilj_settings_field_limit_taxonomy_list',
+            'ilj_settings_field_custom_fields_to_link_post',
+            'ilj_settings_field_custom_fields_to_link_term',
+            'ilj_settings_field_case_sensitive_mode_switch',
+            'ilj_settings_field_limit_incoming_links',
+            'ilj_settings_field_max_incoming_links'
+        );
+        $no_rebuild = array(
+            'ilj_settings_field_keep_settings',
+            'ilj_settings_field_editor_role',
+            'ilj_settings_field_index_generation',
+            'ilj_settings_field_link_output_internal',
+            'ilj_settings_field_internal_nofollow',
+            'ilj_settings_field_link_output_custom'
+        );
         
         if ( in_array( $option_name, $no_rebuild ) ) {
             return;
-        } else {
+        } elseif ( in_array( $option_name, $partial_rebuild ) ) {
+            if ( !is_array( $old_value ) ) {
+                $old_value = array();
+            }
+            if ( !is_array( $value ) ) {
+                $value = array();
+            }
+            if ( $old_value == $value ) {
+                return;
+            }
+            $type = '';
             
-            if ( in_array( $option_name, $partial_rebuild ) ) {
-                if ( !is_array( $old_value ) ) {
-                    $old_value = [];
-                }
-                if ( !is_array( $value ) ) {
-                    $value = [];
-                }
-                if ( $old_value == $value ) {
-                    return;
-                }
-                $type = "";
-                
-                if ( $option_name == "ilj_settings_field_blacklist" ) {
-                    $type = "post";
-                } else {
-                    if ( $option_name == "ilj_settings_field_term_blacklist" ) {
-                        $type = "term";
-                    }
-                }
-                
-                $removed = array_diff( $old_value, $value );
-                $new_added = array_diff( $value, $old_value );
-                $batch_build_info = new BatchInfo();
-                
-                if ( is_array( $new_added ) ) {
-                    foreach ( $new_added as $id ) {
-                        $batch_build_info->incrementBatchCounter();
-                        as_enqueue_async_action( IndexBuilder::ILJ_INDIVIDUAL_DELETE_INDEX, array( array(
-                            "id"   => $id,
-                            "type" => $type,
-                        ) ), BatchInfo::ILJ_ASYNC_GROUP );
-                        $batch_build_info->incrementBatchCounter();
-                        as_enqueue_async_action( IndexBuilder::ILJ_SET_INDIVIDUAL_INDEX_REBUILD, array( array(
-                            "id"        => $id,
-                            "type"      => $type,
-                            "link_type" => LinkType::INCOMING,
-                        ) ), BatchInfo::ILJ_ASYNC_GROUP );
-                    }
-                    $batch_build_info->updateBatchBuildInfo();
-                }
-                
-                
-                if ( is_array( $removed ) ) {
-                    foreach ( $removed as $id ) {
-                        $batch_build_info->incrementBatchCounter();
-                        as_enqueue_async_action( IndexBuilder::ILJ_SET_INDIVIDUAL_INDEX_REBUILD, array( array(
-                            "id"        => $id,
-                            "type"      => $type,
-                            "link_type" => LinkType::OUTGOING,
-                        ) ), BatchInfo::ILJ_ASYNC_GROUP );
-                        $batch_build_info->incrementBatchCounter();
-                        as_enqueue_async_action( IndexBuilder::ILJ_SET_INDIVIDUAL_INDEX_REBUILD, array( array(
-                            "id"        => $id,
-                            "type"      => $type,
-                            "link_type" => LinkType::OUTGOING,
-                            "type"      => $type . "_meta",
-                        ) ), BatchInfo::ILJ_ASYNC_GROUP );
-                        $batch_build_info->incrementBatchCounter();
-                        as_enqueue_async_action( IndexBuilder::ILJ_SET_INDIVIDUAL_INDEX_REBUILD, array( array(
-                            "id"        => $id,
-                            "type"      => $type,
-                            "link_type" => LinkType::INCOMING,
-                        ) ), BatchInfo::ILJ_ASYNC_GROUP );
-                    }
-                    $batch_build_info->updateBatchBuildInfo();
-                }
+            if ( 'ilj_settings_field_blacklist' == $option_name ) {
+                $type = 'post';
+            } elseif ( 'ilj_settings_field_term_blacklist' == $option_name ) {
+                $type = 'term';
+            }
             
-            } else {
-                if ( in_array( $option_name, $full_rebuild ) ) {
-                    if ( $old_value != $value ) {
-                        do_action( IndexBuilder::ILJ_INITIATE_BATCH_REBUILD, BatchInfo::ILJ_ASYNC_GROUP );
-                    }
+            $removed = array_diff( $old_value, $value );
+            $new_added = array_diff( $value, $old_value );
+            $batch_build_info = new BatchInfo();
+            
+            if ( is_array( $new_added ) ) {
+                foreach ( $new_added as $id ) {
+                    $batch_build_info->incrementBatchCounter();
+                    as_enqueue_async_action( IndexBuilder::ILJ_INDIVIDUAL_DELETE_INDEX, array( array(
+                        'id'   => $id,
+                        'type' => $type,
+                    ) ), BatchInfo::ILJ_ASYNC_GROUP );
+                    $batch_build_info->incrementBatchCounter();
+                    as_enqueue_async_action( IndexBuilder::ILJ_SET_INDIVIDUAL_INDEX_REBUILD, array( array(
+                        'id'        => $id,
+                        'type'      => $type,
+                        'link_type' => LinkType::INCOMING,
+                    ) ), BatchInfo::ILJ_ASYNC_GROUP );
                 }
+                $batch_build_info->updateBatchBuildInfo();
+            }
+            
+            
+            if ( is_array( $removed ) ) {
+                foreach ( $removed as $id ) {
+                    $batch_build_info->incrementBatchCounter();
+                    as_enqueue_async_action( IndexBuilder::ILJ_SET_INDIVIDUAL_INDEX_REBUILD, array( array(
+                        'id'        => $id,
+                        'type'      => $type,
+                        'link_type' => LinkType::OUTGOING,
+                    ) ), BatchInfo::ILJ_ASYNC_GROUP );
+                    $batch_build_info->incrementBatchCounter();
+                    as_enqueue_async_action( IndexBuilder::ILJ_SET_INDIVIDUAL_INDEX_REBUILD, array( array(
+                        'id'        => $id,
+                        'type'      => $type,
+                        'link_type' => LinkType::OUTGOING,
+                        'type'      => $type . '_meta',
+                    ) ), BatchInfo::ILJ_ASYNC_GROUP );
+                    $batch_build_info->incrementBatchCounter();
+                    as_enqueue_async_action( IndexBuilder::ILJ_SET_INDIVIDUAL_INDEX_REBUILD, array( array(
+                        'id'        => $id,
+                        'type'      => $type,
+                        'link_type' => LinkType::INCOMING,
+                    ) ), BatchInfo::ILJ_ASYNC_GROUP );
+                }
+                $batch_build_info->updateBatchBuildInfo();
             }
         
+        } elseif ( in_array( $option_name, $full_rebuild ) ) {
+            if ( $old_value != $value ) {
+                do_action( IndexBuilder::ILJ_INITIATE_BATCH_REBUILD, BatchInfo::ILJ_ASYNC_GROUP );
+            }
         }
     
     }

@@ -810,6 +810,8 @@ class UserBookingData
                 } else if ( $customer_data['phone'] && ! $this->customer->loadBy( array( 'phone' => $customer_data['phone'] ) ) ) {
                     $this->customer->loadBy( array( 'email' => $customer_data['email'] ) );
                 }
+            } else {
+                $this->customer->loadBy( array( 'email' => $customer_data['email'], 'phone' => $customer_data['phone'] ) );
             }
 
             foreach ( $customer_fields as $field ) {

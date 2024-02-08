@@ -58,12 +58,12 @@ class Compat
         if ( !defined( 'POLYLANG_BASENAME' ) ) {
             return;
         }
-        add_filter( IndexBuilder::ILJ_FILTER_INDEX_STRATEGY, function ( $strategy ) {
+        add_filter( IndexBuilder::ILJ_FILTER_INDEX_STRATEGY, function () {
             return new PolylangStrategy();
         } );
         // fallback language is English whatever the default language
         add_filter( 'pll_preferred_language', function ( $slug ) {
-            return ( $slug === false ? 'en' : $slug );
+            return ( false === $slug ? 'en' : $slug );
         } );
         add_filter( 'add_to_meta_box_exception', function ( $metabox ) {
             array_push( $metabox, 'ml_box' );
@@ -71,7 +71,7 @@ class Compat
         } );
         add_filter(
             Ajax::ILJ_FILTER_AJAX_SEARCH_POSTS,
-            function ( $data, $args ) {
+            function ( $data ) {
             for ( $i = 0 ;  $i < count( $data ) ;  $i++ ) {
                 $data[$i]['text'] = $data[$i]['text'] . ' (' . pll_get_post_language( $data[$i]['id'] ) . ')';
             }
@@ -84,9 +84,9 @@ class Compat
             IndexAsset::ILJ_FILTER_INDEX_ASSET,
             function ( $meta_data, $type, $id ) {
             $asset_language = '';
-            $language_container = [];
-            $asset_language = ( $asset_language == '' ? pll_get_post_language( $id ) : $asset_language );
-            if ( !$asset_language || $asset_language == '' ) {
+            $language_container = array();
+            $asset_language = ( '' == $asset_language ? pll_get_post_language( $id ) : $asset_language );
+            if ( !$asset_language || '' == $asset_language ) {
                 return $meta_data;
             }
             if ( !isset( $language_container[$asset_language] ) ) {
@@ -115,7 +115,7 @@ class Compat
         if ( !function_exists( 'icl_object_id' ) || defined( 'POLYLANG_BASENAME' ) ) {
             return;
         }
-        add_filter( IndexBuilder::ILJ_FILTER_INDEX_STRATEGY, function ( $strategy ) {
+        add_filter( IndexBuilder::ILJ_FILTER_INDEX_STRATEGY, function () {
             return new WPMLStrategy();
         } );
         add_filter(
@@ -134,10 +134,10 @@ class Compat
                 $sitepress->switch_lang( $language, true );
                 $query = new \WP_Query( $args );
                 foreach ( $query->posts as $post ) {
-                    $data[] = [
-                        "id"   => $post->ID,
-                        "text" => $post->post_title . ' (' . $language . ')',
-                    ];
+                    $data[] = array(
+                        'id'   => $post->ID,
+                        'text' => $post->post_title . ' (' . $language . ')',
+                    );
                 }
                 $sitepress->switch_lang( $current_language, true );
             }
@@ -178,18 +178,18 @@ class Compat
             return;
         }
         add_filter( Tools::ILJ_FILTER_MENUPAGE_TOOLS_KEYWORD_IMPORT_POST, function ( $keyword_import_source ) {
-            $import_source = [
+            $import_source = array(
                 'title' => __( 'Yoast focus keywords', 'internal-links' ),
                 'class' => 'yoast-seo',
-            ];
+            );
             $keyword_import_source[] = $import_source;
             return $keyword_import_source;
         } );
         add_filter( Tools::ILJ_FILTER_MENUPAGE_TOOLS_KEYWORD_IMPORT_TERM, function ( $keyword_import_source ) {
-            $import_source = [
+            $import_source = array(
                 'title' => __( 'Yoast focus keywords', 'internal-links' ),
                 'class' => 'yoast-seo',
-            ];
+            );
             $keyword_import_source[] = $import_source;
             return $keyword_import_source;
         } );
@@ -209,18 +209,18 @@ class Compat
             return;
         }
         add_filter( Tools::ILJ_FILTER_MENUPAGE_TOOLS_KEYWORD_IMPORT_POST, function ( $keyword_import_source ) {
-            $import_source = [
+            $import_source = array(
                 'title' => __( 'RankMath focus keywords', 'internal-links' ),
                 'class' => 'rankmath',
-            ];
+            );
             $keyword_import_source[] = $import_source;
             return $keyword_import_source;
         } );
         add_filter( Tools::ILJ_FILTER_MENUPAGE_TOOLS_KEYWORD_IMPORT_TERM, function ( $keyword_import_source ) {
-            $import_source = [
+            $import_source = array(
                 'title' => __( 'RankMath focus keywords', 'internal-links' ),
                 'class' => 'rankmath',
-            ];
+            );
             $keyword_import_source[] = $import_source;
             return $keyword_import_source;
         } );
@@ -228,6 +228,7 @@ class Compat
     
     /**
      * Responsible for loading Divi's ET Builder's code
+     *
      * @static
      * @since  1.3.12
      */
@@ -237,10 +238,10 @@ class Compat
             return;
         }
         $index_mode = Options::getOption( \ILJ\Core\Options\IndexGeneration::getKey() );
-        if ( $index_mode != \ILJ\Enumeration\IndexMode::NONE && $index_mode != \ILJ\Enumeration\IndexMode::AUTOMATIC ) {
+        if ( \ILJ\Enumeration\IndexMode::NONE != $index_mode && \ILJ\Enumeration\IndexMode::AUTOMATIC != $index_mode ) {
             return;
         }
-        add_action( "builder_compat", function () {
+        add_action( 'builder_compat', function () {
             
             if ( !did_action( 'et_builder_ready' ) ) {
                 require_once ET_BUILDER_DIR . 'class-et-builder-value.php';
@@ -258,9 +259,9 @@ class Compat
     }
     
     /**
-     * Function Look up for Object to concatinate contents
+     * Function Look up for Object to concatenate contents
      *
-     * @param  array $obj
+     * @param  array  $obj
      * @param  string $content
      * @return string
      */
@@ -270,7 +271,7 @@ class Compat
             if ( is_array( $val ) ) {
                 $content = self::recurse_lookup( $val, $content );
             }
-            if ( $key !== 'content' ) {
+            if ( 'content' !== $key ) {
                 continue;
             }
             $content .= wpautop( $val );
@@ -291,7 +292,7 @@ class Compat
         add_filter(
             CustomFieldsToLinkPost::ILJ_ACF_HINT_FILTER_POST,
             function ( $hint ) {
-            $hint = "<p class='description'> <span>&#8505;</span>  " . __( "You can select the fields created by ACF for posts here", 'internal-links' ) . "</p>";
+            $hint = "<p class='description'> <span>&#8505;</span>  " . __( 'You can select the fields created by ACF for posts here', 'internal-links' ) . '</p>';
             return $hint;
         },
             10,
@@ -300,7 +301,7 @@ class Compat
         add_filter(
             CustomFieldsToLinkTerm::ILJ_ACF_HINT_FILTER_TERM,
             function ( $hint ) {
-            $hint = "<p class='description'> <span>&#8505;</span>  " . __( "You can select the fields created by ACF for terms here", 'internal-links' ) . "</p>";
+            $hint = "<p class='description'> <span>&#8505;</span>  " . __( 'You can select the fields created by ACF for terms here', 'internal-links' ) . '</p>';
             return $hint;
         },
             10,

@@ -7,7 +7,7 @@
             errorMessage: '',
             requiresPro: false,
             sortable: true,
-        }, options );
+        }, options);
 
         var tipsoConfig = {
             width: '',
@@ -164,7 +164,7 @@
 
                 var keywords_count = this.keywords.length;
                 if(settings.requiresPro == true && ilj_editor_basic_restriction.is_active == true){
-                    if(keywords_count >= ilj_editor_basic_restriction.blacklist_limit ){
+                    if(keywords_count >= ilj_editor_basic_restriction.blacklist_limit){
                         status.message = '<p>' + ilj_editor_translation.message_limited_blacklist_keyword + '</p>';
                         status.message += '<p>' + ilj_editor_translation.message_limited_blacklist_keyword_upgrade + '.</p>';
                         return status;

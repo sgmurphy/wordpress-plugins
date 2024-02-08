@@ -9,6 +9,7 @@ use Bookly\Lib\Entities\Staff;
 use Bookly\Lib;
 use Bookly\Lib\DataHolders\Booking as DataHolders;
 use Bookly\Backend\Components\Dialogs\Appointment\Edit\Proxy;
+use Bookly\Backend\Components\Dialogs\Queue\NotificationList;
 use Bookly\Backend\Modules\Calendar;
 
 class Appointment
@@ -141,7 +142,7 @@ class Appointment
                 $duration = Lib\Slots\DatePoint::fromStr( $end_date )->diff( Lib\Slots\DatePoint::fromStr( $start_date ) );
             }
             if ( ! $skip_date && isset( $repeat['enabled'] ) && $repeat['enabled'] ) {
-                $queue = array();
+                $queue = new NotificationList();
                 // Series.
                 if ( ! empty ( $schedule ) ) {
                     /** @var DataHolders\Order[] $orders */
@@ -250,13 +251,14 @@ class Appointment
                     }
                 }
                 $response['success'] = true;
-                if ( $queue ) {
+                $list = $queue->getList();
+                if ( $list ) {
                     $db_queue = new Lib\Entities\NotificationQueue();
                     $db_queue
-                        ->setData( json_encode( array( 'all' => $queue ) ) )
+                        ->setData( json_encode( array( 'all' => $list ) ) )
                         ->save();
 
-                    $response['queue'] = array( 'token' => $db_queue->getToken(), 'all' => $queue, 'changed_status' => array() );
+                    $response['queue'] = array( 'token' => $db_queue->getToken(), 'all' => $list, 'changed_status' => array() );
                 }
 
                 $response['data'] = array( 'resourceId' => $staff_id );  // make EventCalendar refetch events
@@ -289,8 +291,8 @@ class Appointment
                 $modified = $appointment->getModified();
                 if ( $appointment->save() !== false ) {
 
-                    $queue_changed_status = array();
-                    $queue = array();
+                    $queue_changed_status = new NotificationList();
+                    $queue = new NotificationList();
 
                     foreach ( $customers as &$customer ) {
                         if ( $customer['payment_for'] === 'series' ) {
@@ -381,13 +383,15 @@ class Appointment
                     $response['data'] = $skip_date
                         ? array()
                         : self::_getAppointmentForCalendar( $appointment->getId(), $display_tz );
-                    if( $queue || $queue_changed_status ) {
+                    $list = $queue->getList();
+                    $changed_status = $queue_changed_status->getList();
+                    if( $list || $changed_status ) {
                         $db_queue = new Lib\Entities\NotificationQueue();
                         $db_queue
-                            ->setData( json_encode( array( 'all' => $queue, 'changed_status' => $queue_changed_status ) ) )
+                            ->setData( json_encode( array( 'all' => $list, 'changed_status' => $changed_status ) ) )
                             ->save();
 
-                        $response['queue'] = array( 'token' => $db_queue->getToken(), 'all' => $queue, 'changed_status' => $queue_changed_status );
+                        $response['queue'] = array( 'token' => $db_queue->getToken(), 'all' => $list, 'changed_status' => $changed_status );
                     }
 
                     self::_deleteSentReminders( $appointment, $modified );

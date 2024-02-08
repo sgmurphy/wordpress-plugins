@@ -8,6 +8,7 @@ use  ILJ\Core\IndexStrategy\StrategyInterface ;
 use  ILJ\Backend\Environment ;
 use  ILJ\Database\LinkindexTemp ;
 use  ILJ\Helper\BatchInfo as HelperBatchInfo ;
+use  ILJ\Helper\Stopwatch ;
 /**
  * IndexBuilder
  *
@@ -29,25 +30,27 @@ class IndexBuilder
     const  ILJ_INDIVIDUAL_INDEX_REBUILD_OUTGOING = 'ilj_individual_index_rebuild_outgoing' ;
     const  ILJ_INDIVIDUAL_INDEX_REBUILD_INCOMING = 'ilj_individual_index_rebuild_incoming' ;
     const  ILJ_SET_INDIVIDUAL_INDEX_REBUILD_INCOMING = 'ilj_set_individual_index_rebuild_incoming' ;
-    const  ILJ_INDIVIDUAL_DELETE_INDEX = "ilj_individual_delete_index" ;
-    const  ILJ_RUN_SETTING_BATCHED_INDEX_REBUILD = "ilj_run_setting_batched_index_rebuild" ;
-    const  ILJ_UPDATE_STATISTICS_INFO = "ilj_update_statistics_info" ;
+    const  ILJ_INDIVIDUAL_DELETE_INDEX = 'ilj_individual_delete_index' ;
+    const  ILJ_RUN_SETTING_BATCHED_INDEX_REBUILD = 'ilj_run_setting_batched_index_rebuild' ;
+    const  ILJ_UPDATE_STATISTICS_INFO = 'ilj_update_statistics_info' ;
     /**
+     * Strategy variable
+     *
      * @var   StrategyInterface|null
      * @since 1.2.0
      */
     public  $strategy = null ;
     public  $link_options ;
     public  $batched_data = array() ;
-    public  $batched_data_type = "" ;
+    public  $batched_data_type = '' ;
     public  $keyword_offset = 0 ;
-    public  $keyword_type = "" ;
+    public  $keyword_type = '' ;
     public function __construct()
     {
-        $link_options = [];
+        $link_options = array();
         $link_options['multi_keyword_mode'] = (bool) Options::getOption( \ILJ\Core\Options\MultipleKeywords::getKey() );
-        $link_options['links_per_page'] = ( $link_options['multi_keyword_mode'] === false ? Options::getOption( \ILJ\Core\Options\LinksPerPage::getKey() ) : 0 );
-        $link_options['links_per_target'] = ( $link_options['multi_keyword_mode'] === false ? Options::getOption( \ILJ\Core\Options\LinksPerTarget::getKey() ) : 0 );
+        $link_options['links_per_page'] = ( false === $link_options['multi_keyword_mode'] ? Options::getOption( \ILJ\Core\Options\LinksPerPage::getKey() ) : 0 );
+        $link_options['links_per_target'] = ( false === $link_options['multi_keyword_mode'] ? Options::getOption( \ILJ\Core\Options\LinksPerTarget::getKey() ) : 0 );
         $this->link_options = $link_options;
         $strategy = new DefaultStrategy();
         /**
@@ -77,41 +80,38 @@ class IndexBuilder
     public function buildIndex()
     {
         if ( !$this->strategy ) {
-            return [];
+            return array();
         }
         LinkindexTemp::install_temp_db();
-        $start = microtime( true );
-        $offset = get_option( 'gmt_offset' );
-        $hours = (int) $offset;
-        $minutes = ($offset - floor( $offset )) * 60;
-        $status_update = [
-            "last_update" => [
+        $stopwatch = new Stopwatch();
+        $status_update = array(
+            "last_update" => array(
             "batch_count"    => 1,
             "batch_finished" => 0,
-            "last_update"    => new \DateTime( 'now', new \DateTimeZone( sprintf( '%+03d:%02d', $hours, $minutes ) ) ),
+            "last_update"    => Stopwatch::timestamp(),
             "status"         => HelperBatchInfo::STATE_BUILDING,
-        ],
-        ];
+        ),
+        );
         BatchInfo::update( 'batch_build', $status_update );
         $entries_count = $this->strategy->setIndices();
-        $duration = round( microtime( true ) - $start, 2 );
-        $feedback = [
-            "last_update" => [
-            "date"     => new \DateTime( 'now', new \DateTimeZone( sprintf( '%+03d:%02d', $hours, $minutes ) ) ),
+        $duration = $stopwatch->duration();
+        $feedback = array(
+            "last_update" => array(
+            "date"     => Stopwatch::timestamp(),
             "entries"  => $entries_count,
             "duration" => $duration,
-        ],
-        ];
+        ),
+        );
         Environment::update( 'linkindex', $feedback );
         LinkindexTemp::switchTableTemp();
-        $status_update = [
-            "last_update" => [
+        $status_update = array(
+            "last_update" => array(
             "batch_count"    => 1,
             "batch_finished" => 1,
-            "last_update"    => new \DateTime( 'now', new \DateTimeZone( sprintf( '%+03d:%02d', $hours, $minutes ) ) ),
+            "last_update"    => Stopwatch::timestamp(),
             "status"         => HelperBatchInfo::STATE_COMPLETED,
-        ],
-        ];
+        ),
+        );
         BatchInfo::update( 'batch_build', $status_update );
         /**
          * Fires after the index got built.
@@ -123,7 +123,7 @@ class IndexBuilder
     }
     
     /**
-     * buildIndividualIndex
+     * Set the individual index builds
      *
      * @param  int    $id
      * @param  string $type
@@ -133,7 +133,7 @@ class IndexBuilder
     public function buildIndividualIndex( $id, $type, $link_type )
     {
         if ( !$this->strategy ) {
-            return [];
+            return array();
         }
         $this->strategy->setIndividualIndices(
             $id,
@@ -166,10 +166,9 @@ class IndexBuilder
     }
     
     /**
-     * setBatchedData
+     * Set the batched data value
      *
      * @param  mixed $batched_data
-     * 
      */
     public function setBatchedData( $batched_data )
     {
@@ -180,7 +179,6 @@ class IndexBuilder
      * Set the Type of the batched data
      *
      * @param  string $batched_data_type
-     * 
      */
     public function setBatchedDataType( $batched_data_type )
     {
@@ -191,7 +189,6 @@ class IndexBuilder
      * Set the keyword offset
      *
      * @param  int $keyword_offset
-     * 
      */
     public function setBatchedKeywordOffset( $keyword_offset )
     {
@@ -202,7 +199,6 @@ class IndexBuilder
      * Set the type of the batched keyword
      *
      * @param  string $keyword_type
-     * 
      */
     public function setBatchedKeywordType( $keyword_type )
     {
@@ -219,7 +215,7 @@ class IndexBuilder
     public function buildBatchedIndex()
     {
         if ( !$this->strategy ) {
-            return [];
+            return array();
         }
         $this->strategy->setBatchedIndices(
             $this->batched_data,

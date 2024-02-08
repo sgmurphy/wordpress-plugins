@@ -25,31 +25,49 @@ use  ILJ\Type\Ruleset ;
 class WPMLStrategy extends DefaultStrategy
 {
     /**
+     * Link Rules
+     *
      * @var   array
      * @since 1.2.0
      */
     public  $link_rules = array() ;
     /**
+     * List of Languages
+     *
      * @var   array
      * @since 1.2.0
      */
     public  $languages = array() ;
     /**
-     * 
+     * List of blacklisted posts
+     *
      * @var   array
      * @since 1.2.15
      */
     public  $blacklisted_posts = array() ;
     /**
-     * 
+     * List of blacklisted terms
+     *
      * @var   array
      * @since 1.2.15
      */
     public  $blacklisted_terms = array() ;
+    /**
+     * Translations posts class cache
+     *
+     * @var   array
+     */
+    public  $translation_posts = array() ;
+    /**
+     * Taxonomies class cache
+     *
+     * @var   array
+     */
+    public  $translation_taxonomies = array() ;
     public function __construct()
     {
         $this->languages = self::getLanguages();
-        $this->blacklisted_posts = Blacklist::getBlacklistedList( "post" );
+        $this->blacklisted_posts = Blacklist::getBlacklistedList( 'post' );
     }
     
     /**
@@ -62,8 +80,8 @@ class WPMLStrategy extends DefaultStrategy
      */
     public static function getLanguages()
     {
-        $languages = [];
-        $languagesData = ( function_exists( 'icl_get_languages' ) ? icl_get_languages( 'skip_missing=0&orderby=code' ) : [] );
+        $languages = array();
+        $languagesData = ( function_exists( 'icl_get_languages' ) ? icl_get_languages( 'skip_missing=0&orderby=code' ) : array() );
         if ( !count( $languagesData ) ) {
             return $languages;
         }
@@ -74,7 +92,9 @@ class WPMLStrategy extends DefaultStrategy
     }
     
     /**
-     * @inheritdoc
+     * Responsible for building the index and writing possible internal links to it
+     *
+     * @return void
      */
     public function setIndices()
     {
@@ -85,10 +105,10 @@ class WPMLStrategy extends DefaultStrategy
             $this->writeToIndex(
                 $posts,
                 'post',
-                [
+                array(
                 'id'      => 'ID',
                 'content' => 'post_content',
-            ],
+            ),
                 $index_count,
                 IndexAsset::ILJ_FULL_BUILD,
                 IndexMode::NONE
@@ -98,7 +118,13 @@ class WPMLStrategy extends DefaultStrategy
     }
     
     /**
-     * @inheritdoc
+     * Responsible for building the index and writing possible internal links to it by batch
+     *
+     * @param  mixed  $data
+     * @param  string $data_type
+     * @param  int    $keyword_offset
+     * @param  string $keyword_type
+     * @return void
      */
     public function setBatchedIndices(
         $data,
@@ -110,16 +136,16 @@ class WPMLStrategy extends DefaultStrategy
         $index_count = 0;
         $this->loadLinkConfigurationsBatched( $keyword_offset, $keyword_type );
         
-        if ( $data_type == "post" ) {
+        if ( 'post' == $data_type ) {
             $posts = $data;
             if ( is_array( $posts ) && !empty($posts) ) {
                 $this->writeToIndex(
                     $posts,
                     'post',
-                    [
+                    array(
                     'id'      => 'ID',
                     'content' => 'post_content',
-                ],
+                ),
                     $index_count,
                     IndexAsset::ILJ_FULL_BUILD,
                     IndexMode::AUTOMATIC
@@ -131,7 +157,7 @@ class WPMLStrategy extends DefaultStrategy
     }
     
     /**
-     * setIndividualIndices
+     * Set individual index builds for post/term/metas in automatic mode
      *
      * @param  mixed $id
      * @param  mixed $type
@@ -155,46 +181,42 @@ class WPMLStrategy extends DefaultStrategy
         $index_count = Statistic::getLinkIndexCount();
         $posts = array();
         
-        if ( $link_type == LinkType::OUTGOING ) {
+        if ( LinkType::OUTGOING == $link_type ) {
             $this->loadLinkConfigurationsBatched( $keyword_offset, $keyword_type );
-            if ( $batched_data_type == "post" ) {
+            if ( 'post' == $batched_data_type ) {
                 array_push( $posts, $id );
             }
-            if ( $batched_data_type == "post" ) {
+            if ( 'post' == $batched_data_type ) {
                 $this->writeToIndex(
                     $posts,
                     'post',
-                    [
+                    array(
                     'id'      => 'ID',
                     'content' => 'post_content',
-                ],
+                ),
                     $index_count,
                     IndexAsset::ILJ_INDIVIDUAL_BUILD,
                     IndexMode::AUTOMATIC,
                     $link_type
                 );
             }
-        } else {
-            
-            if ( $link_type == LinkType::INCOMING ) {
-                $this->loadLinkIndividualConfigurations( $id, $type );
-                $data = $batched_data;
-                if ( $batched_data_type == "post" ) {
-                    $this->writeToIndex(
-                        $data,
-                        'post',
-                        [
-                        'id'      => 'ID',
-                        'content' => 'post_content',
-                    ],
-                        $index_count,
-                        IndexAsset::ILJ_INDIVIDUAL_BUILD,
-                        IndexMode::AUTOMATIC,
-                        $link_type
-                    );
-                }
+        } elseif ( LinkType::INCOMING == $link_type ) {
+            $this->loadLinkIndividualConfigurations( $id, $type );
+            $data = $batched_data;
+            if ( 'post' == $batched_data_type ) {
+                $this->writeToIndex(
+                    $data,
+                    'post',
+                    array(
+                    'id'      => 'ID',
+                    'content' => 'post_content',
+                ),
+                    $index_count,
+                    IndexAsset::ILJ_INDIVIDUAL_BUILD,
+                    IndexMode::AUTOMATIC,
+                    $link_type
+                );
             }
-        
         }
         
         return $index_count;
@@ -222,14 +244,13 @@ class WPMLStrategy extends DefaultStrategy
                     continue;
                 }
                 $anchors = $this->applyKeywordOrder( $anchors );
-                $this->addAnchorsToLinkRules( $anchors, [
+                $this->addAnchorsToLinkRules( $anchors, array(
                     'id'       => $definition->post_id,
                     'type'     => $type,
                     'language' => $language,
-                ] );
+                ) );
             }
         }
-        return;
     }
     
     /**
@@ -237,12 +258,15 @@ class WPMLStrategy extends DefaultStrategy
      *
      * @since 1.2.0
      *
+     * @param  int    $offset
+     * @param  string $keyword_type
+     *
      * @return void
      */
     public function loadLinkConfigurationsBatched( $offset, $keyword_type )
     {
         
-        if ( $keyword_type == "post" ) {
+        if ( 'post' == $keyword_type ) {
             $post_definitions = Postmeta::getAllLinkDefinitionsByBatch( $offset );
             foreach ( $this->languages as $language ) {
                 $this->link_rules[$language] = new Ruleset();
@@ -256,21 +280,20 @@ class WPMLStrategy extends DefaultStrategy
                         continue;
                     }
                     $anchors = $this->applyKeywordOrder( $anchors );
-                    $this->addAnchorsToLinkRules( $anchors, [
+                    $this->addAnchorsToLinkRules( $anchors, array(
                         'id'       => $definition->post_id,
                         'type'     => $type,
                         'language' => $language,
-                    ] );
+                    ) );
                 }
             }
             return;
         }
-        
-        return;
+    
     }
     
     /**
-     * loadLinkIndividualConfigurations
+     * Picks up all meta definitions for configured keywords and adds them to internal ruleset for Individual index builds
      *
      * @param  mixed $id
      * @param  mixed $type
@@ -279,7 +302,7 @@ class WPMLStrategy extends DefaultStrategy
     protected function loadLinkIndividualConfigurations( $id, $type )
     {
         
-        if ( $type == "post" ) {
+        if ( 'post' == $type ) {
             $post_definitions = Postmeta::getLinkDefinitionsById( $id );
             foreach ( $this->languages as $language ) {
                 $this->link_rules[$language] = new Ruleset();
@@ -293,19 +316,16 @@ class WPMLStrategy extends DefaultStrategy
                         continue;
                     }
                     $anchors = $this->applyKeywordOrder( $anchors );
-                    $this->addAnchorsToLinkRules( $anchors, [
+                    $this->addAnchorsToLinkRules( $anchors, array(
                         'id'       => $definition->post_id,
                         'type'     => $post_type,
                         'language' => $language,
-                    ] );
+                    ) );
                 }
             }
-        } else {
-            if ( $type == "term" ) {
-            }
+        } elseif ( 'term' == $type ) {
         }
-        
-        return;
+    
     }
     
     /**
@@ -317,7 +337,7 @@ class WPMLStrategy extends DefaultStrategy
      */
     protected function getTranslationsPosts()
     {
-        if ( !isset( $this->translation_posts ) ) {
+        if ( empty($this->translation_posts) ) {
             $this->translation_posts = Translations::getByElementType( 'post' );
         }
         return $this->translation_posts;
@@ -328,11 +348,11 @@ class WPMLStrategy extends DefaultStrategy
      *
      * @since 1.0.1
      *
-     * @param  array  $data      The data container
-     * @param  string $data_type Type of the data inside the container
-     * @param  array  $fields    Field settings for the container objects
-     * @param  int    &$counter  Counts the written operations
-     * @param  mixed $scope
+     * @param  array  $data       The data container
+     * @param  string $data_type  Type of the data inside the container
+     * @param  array  $fields     Field settings for the container objects
+     * @param  int    $counter    Counts the written operations
+     * @param  mixed  $scope
      * @param  mixed  $build_mode
      * @param  mixed  $link_type
      * @return void
@@ -350,10 +370,10 @@ class WPMLStrategy extends DefaultStrategy
         if ( !is_array( $data ) || !count( $data ) ) {
             return;
         }
-        $fields = wp_parse_args( $fields, [
+        $fields = wp_parse_args( $fields, array(
             'id'      => '',
             'content' => '',
-        ] );
+        ) );
         $IndexStrategy = new IndexStrategy(
             $data_type,
             $fields,
@@ -375,7 +395,11 @@ class WPMLStrategy extends DefaultStrategy
     }
     
     /**
-     * @inheritDoc
+     * Adds anchors to link_rules
+     *
+     * @param  array $anchors
+     * @param  array $params
+     * @return void
      */
     protected function addAnchorsToLinkRules( array $anchors, array $params )
     {
@@ -387,7 +411,6 @@ class WPMLStrategy extends DefaultStrategy
             $pattern = Regex::escapeDot( $anchor );
             $this->link_rules[$params['language']]->addRule( $pattern, $params['id'], $params['type'] );
         }
-        return;
     }
     
     /**
@@ -423,15 +446,15 @@ class WPMLStrategy extends DefaultStrategy
      */
     protected function filterDataByLanguage( $data, $language, $data_type )
     {
-        $data_filtered = [];
+        $data_filtered = array();
         foreach ( $data as $id ) {
-            if ( $data_type == "post" || $data_type == "post_meta" ) {
+            if ( 'post' == $data_type || 'post_meta' == $data_type ) {
                 $current = get_post( $id );
             }
             $data_id = ( isset( $data_id ) ? $data_id : $current->ID );
             $data_language = $this->getDataLanguage( $data_id, $data_type );
             if ( $data_language == $language ) {
-                $data_filtered[] = $current;
+                $data_filtered[] = $data_id;
             }
             unset( $data_id );
         }

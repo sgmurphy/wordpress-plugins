@@ -5,18 +5,20 @@ namespace ILJ\Helper;
 /**
  * Documentation toolset
  *
- * Methods for generation of help and documentation ressources
+ * Methods for generation of help and documentation resources
  *
- * @since   1.1.3
  * @package ILJ\Helper
+ * @since   1.1.3
  */
 class Help
 {
     /**
+     * Document url
+     *
      * @since 1.1.3
      * @var   string
      */
-    public static  $doc_url = "https://www.internallinkjuicer.com/docs/%s?pm=2&utm_source=%s&utm_medium=%s&utm_campaign=%s" ;
+    public static  $doc_url = 'https://www.internallinkjuicer.com/docs/%s?pm=2&utm_source=%s&utm_medium=%s&utm_campaign=%s' ;
     /**
      * Returns the plain url for manual pages
      *
@@ -35,7 +37,7 @@ class Help
         $source
     )
     {
-        $campaign = "plugin";
+        $campaign = 'plugin';
         $url = sprintf(
             self::$doc_url,
             $docpath,
@@ -43,7 +45,7 @@ class Help
             urlencode( $medium ),
             urlencode( $campaign )
         );
-        return ( $anchor && $anchor != '' ? $url . '#' . $anchor : $url );
+        return ( $anchor && '' != $anchor ? $url . '#' . $anchor : $url );
     }
     
     /**

@@ -22,64 +22,118 @@ use  ILJ\Helper\Url ;
 class IndexStrategy
 {
     /**
+     * Data
+     *
      * @var   Object
      * @since 1.2.15
      */
     protected  $data = array() ;
     /**
+     * Data type
+     *
      * @var   String
      * @since 1.2.15
      */
     protected  $data_type = '' ;
     /**
+     * Link Rules
+     *
      * @var   object
      * @since 1.2.15
      */
     protected  $link_rules = array() ;
     /**
+     * Fields
+     *
      * @var   Array
      * @since 1.2.15
      */
     protected  $fields = array() ;
     /**
+     * Link count per paragraph
+     *
      * @var   int
      * @since 1.2.15
      */
     protected  $linkcount_per_paragraph = 0 ;
     /**
-     * 
+     * List of blacklisted posts
+     *
      * @var   array
      * @since 1.2.15
      */
     protected  $blacklisted_posts = array() ;
     /**
-     * 
+     * List of blacklisted terms
+     *
      * @var   array
      * @since 1.2.15
      */
     protected  $blacklisted_terms = array() ;
     /**
+     * Holds the link options values
+     *
      * @var   array
      * @since 1.2.15
      */
     protected  $link_options = array() ;
     /**
+     * Counter
+     *
      * @var   int
      * @since 1.0.1
      */
     protected  $counter = 0 ;
     /**
-     * 
+     * Stores incoming links count
+     *
      * @var   array
      * @since 1.2.17
      */
     protected  $incoming_link = array() ;
     /**
+     * Meta option. Determine on which taxonomies you want enable limit linking within the same term.
+     *
+     * @var   array
+     * @since 2.23.1
+     */
+    protected  $limit_taxonomy_list = array() ;
+    /**
      * Determine the index mode and if the action is called by cli or not
      *
      * @var string
      */
-    protected  $index_mode = "" ;
+    protected  $index_mode = '' ;
+    /**
+     * Meta option. Determine if greedy mode is turned on enabling the link builder to link as often as possible.
+     *
+     * @var bool
+     */
+    private  $multi_keyword_mode = false ;
+    /**
+     * Meta option. Maximum number of outgoing links to be created in the current post. Zero means no limit
+     *
+     * @var int
+     */
+    private  $links_per_page = 0 ;
+    /**
+     * Meta option. Maximum number of links to be created in the current target. Zero means no limit
+     *
+     * @var int
+     */
+    private  $links_per_target = 0 ;
+    /**
+     * Determine if it should go deeper into the paragraph or just continue
+     *
+     * @var int
+     */
+    private  $links_per_paragraph_switch = 0 ;
+    /**
+     * Maximum number of links to be created in the current paragraph. Zero means no limit
+     *
+     * @var int
+     */
+    private  $links_per_paragraph = 0 ;
     public function __construct(
         $data_type,
         $fields,
@@ -104,7 +158,7 @@ class IndexStrategy
         $this->multi_keyword_mode = $this->link_options['multi_keyword_mode'];
         $this->links_per_page = $this->link_options['links_per_page'];
         $this->links_per_target = $this->link_options['links_per_target'];
-        $this->blacklisted_posts = Blacklist::getBlacklistedList( "post" );
+        $this->blacklisted_posts = Blacklist::getBlacklistedList( 'post' );
     }
     
     /**
@@ -135,22 +189,22 @@ class IndexStrategy
     )
     {
         $data_filtered = $data;
-        foreach ( $data_filtered as $key => $id ) {
-            $linked_urls = [];
-            $linked_anchors = [];
+        foreach ( $data_filtered as $id ) {
+            $linked_urls = array();
+            $linked_anchors = array();
             $post_outlinks_count = 0;
             $item = array();
-            if ( $this->data_type == "post" ) {
+            if ( 'post' == $this->data_type ) {
                 
                 if ( is_object( $id ) ) {
                     $item = $id;
-                    if ( $this->index_mode == IndexMode::AUTOMATIC ) {
-                        $linked_anchors = IndexAsset::getLinkedAnchors( $item->{$this->fields['id']}, "post", $scope );
+                    if ( IndexMode::AUTOMATIC == $this->index_mode ) {
+                        $linked_anchors = IndexAsset::getLinkedAnchors( $item->{$this->fields['id']}, 'post', $scope );
                     }
                 } else {
                     $item = get_post( (int) $id );
-                    if ( $this->index_mode == IndexMode::AUTOMATIC ) {
-                        $linked_anchors = IndexAsset::getLinkedAnchors( $item->{$this->fields['id']}, "post", $scope );
+                    if ( IndexMode::AUTOMATIC == $this->index_mode ) {
+                        $linked_anchors = IndexAsset::getLinkedAnchors( $item->{$this->fields['id']}, 'post', $scope );
                     }
                 }
             
@@ -170,10 +224,10 @@ class IndexStrategy
             if ( $limit_outgoing_links ) {
                 $data_type = $this->data_type;
                 
-                if ( $this->data_type == "post_meta" ) {
-                    $data_type = "post";
-                } elseif ( $this->data_type == "term_meta" ) {
-                    $data_type = "term";
+                if ( 'post_meta' == $this->data_type ) {
+                    $data_type = 'post';
+                } elseif ( 'term_meta' == $this->data_type ) {
+                    $data_type = 'term';
                 }
                 
                 $post_outlinks_count = IndexAsset::getOutgoingLinksCount( $item->{$this->fields['id']}, $data_type, $scope );
@@ -182,24 +236,24 @@ class IndexStrategy
             $content = $item->{$this->fields['content']};
             try {
                 /**
-                 * Loads Builder's Necessary Compatibility codes 
-                 * 
+                 * Loads Builder's Necessary Compatibility codes
+                 *
                  * @since  1.3.10
                  */
-                do_action( "builder_compat" );
+                do_action( 'builder_compat' );
                 $content = do_shortcode( $item->{$this->fields['content']} );
             } catch ( \Exception $e ) {
                 continue;
             }
-            if ( $this->data_type == 'post' ) {
+            if ( 'post' == $this->data_type ) {
                 $this->filterTheContentWithoutTexturize( $content );
             }
-            if ( $this->index_mode == IndexMode::AUTOMATIC ) {
+            if ( IndexMode::AUTOMATIC == $this->index_mode ) {
                 if ( isset( $linked_anchors ) && !is_null( $linked_anchors ) && !empty($linked_anchors) ) {
                     foreach ( $linked_anchors as $anchors ) {
                         $rule_id = 'ilj_' . uniqid( '', true );
                         $content = preg_replace(
-                            '/' . Encoding::maskPattern( $anchors ) . '/ui',
+                            '/' . Encoding::mask_pattern( $anchors ) . '/ui',
                             $rule_id,
                             $content,
                             ( $this->multi_keyword_mode ? -1 : 1 )
@@ -274,38 +328,38 @@ class IndexStrategy
             if ( !isset( $linked_urls[$link_rule->value] ) ) {
                 $linked_urls[$link_rule->value] = 0;
                 
-                if ( $this->index_mode == IndexMode::AUTOMATIC ) {
+                if ( IndexMode::AUTOMATIC == $this->index_mode ) {
                     
-                    if ( $this->data_type == "post_meta" || $this->data_type == "post" ) {
+                    if ( 'post_meta' == $this->data_type || 'post' == $this->data_type ) {
                         $linked_urls[$link_rule->value] = IndexAsset::getLinkedUrlsCount(
                             $link_rule->value,
                             $item->{$this->fields['id']},
-                            "post",
+                            'post',
                             $scope
                         );
-                    } elseif ( $this->data_type == "term_meta" || $this->data_type == "term" ) {
+                    } elseif ( 'term_meta' == $this->data_type || 'term' == $this->data_type ) {
                         $linked_urls[$link_rule->value] = IndexAsset::getLinkedUrlsCount(
                             $link_rule->value,
                             $item->{$this->fields['id']},
-                            "term",
+                            'term',
                             $scope
                         );
                     }
                 
                 } else {
                     
-                    if ( $this->data_type == "post_meta" ) {
+                    if ( 'post_meta' == $this->data_type ) {
                         $linked_urls[$link_rule->value] = IndexAsset::getLinkedUrlsCount(
                             $link_rule->value,
                             $item->{$this->fields['id']},
-                            "post",
+                            'post',
                             $scope
                         );
-                    } elseif ( $this->data_type == "term_meta" ) {
+                    } elseif ( 'term_meta' == $this->data_type ) {
                         $linked_urls[$link_rule->value] = IndexAsset::getLinkedUrlsCount(
                             $link_rule->value,
                             $item->{$this->fields['id']},
-                            "term",
+                            'term',
                             $scope
                         );
                     }
@@ -325,18 +379,26 @@ class IndexStrategy
                 if ( $link_rule->type == $this->data_type ) {
                     $this->link_rules->nextRule();
                     continue;
-                } elseif ( $link_rule->type . "_meta" == $this->data_type ) {
+                } elseif ( $link_rule->type . '_meta' == $this->data_type ) {
                     $this->link_rules->nextRule();
                     continue;
                 }
             
             }
-            preg_match( '/' . Encoding::maskPattern( $link_rule->pattern ) . '/ui', $content, $rule_match );
+            
+            if ( Options::getOption( Options\Case_Sensitive_Mode_Switch::getKey() ) ) {
+                // When case-sensitive switch enabled, the regex must not use /i flag.
+                preg_match( '/' . Encoding::mask_pattern( $link_rule->pattern ) . '/u', $content, $rule_match );
+            } else {
+                // Ignore case sensitivity, use /i flag
+                preg_match( '/' . Encoding::mask_pattern( $link_rule->pattern ) . '/ui', $content, $rule_match );
+            }
+            
             
             if ( isset( $rule_match['phrase'] ) ) {
                 $phrase = trim( $rule_match['phrase'] );
                 
-                if ( !$this->multi_keyword_mode && in_array( strtolower( $phrase ), array_map( "strtolower", $linked_anchors ) ) ) {
+                if ( !$this->multi_keyword_mode && in_array( strtolower( $phrase ), array_map( 'strtolower', $linked_anchors ) ) ) {
                     $this->link_rules->nextRule();
                     continue;
                 }
@@ -349,7 +411,7 @@ class IndexStrategy
                 }
                 
                 
-                if ( $scope == IndexAsset::ILJ_FULL_BUILD ) {
+                if ( IndexAsset::ILJ_FULL_BUILD == $scope ) {
                     LinkindexTemp::addRule(
                         $item->{$this->fields['id']},
                         $link_rule->value,
@@ -357,7 +419,7 @@ class IndexStrategy
                         $this->data_type,
                         $link_rule->type
                     );
-                } elseif ( $scope == IndexAsset::ILJ_INDIVIDUAL_BUILD ) {
+                } elseif ( IndexAsset::ILJ_INDIVIDUAL_BUILD == $scope ) {
                     LinkindexIndividualTemp::addRule(
                         $item->{$this->fields['id']},
                         $link_rule->value,
@@ -370,7 +432,7 @@ class IndexStrategy
                 
                 $rule_id = 'ilj_' . uniqid( '', true );
                 $content = preg_replace(
-                    '/' . Encoding::maskPattern( $link_rule->pattern ) . '/ui',
+                    '/' . Encoding::mask_pattern( $link_rule->pattern ) . '/ui',
                     $rule_id,
                     $content,
                     ( $this->multi_keyword_mode ? -1 : 1 )
@@ -385,9 +447,9 @@ class IndexStrategy
         }
         $this->link_rules->reset();
         $obj = array(
-            "linked_anchors"      => $linked_anchors,
-            "linked_urls"         => $linked_urls,
-            "post_outlinks_count" => $post_outlinks_count,
+            'linked_anchors'      => $linked_anchors,
+            'linked_urls'         => $linked_urls,
+            'post_outlinks_count' => $post_outlinks_count,
         );
         return $obj;
     }
@@ -397,7 +459,7 @@ class IndexStrategy
      * WordPress' texturize method (that escapes special chars like apostrophes)
      *
      * @since  1.2.9
-     * @param  $content The content that gets filtered
+     * @param  string $content The content that gets filtered
      * @return void
      */
     protected function filterTheContentWithoutTexturize( &$content )

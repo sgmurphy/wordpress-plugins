@@ -5,9 +5,9 @@ License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl.html
 Tags: seo, internal links, automatic linking, linkbuilding, onpage, auto linker, ux, link, links
 Requires at least: 5.9.0
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 7.1.0
-Stable tag: 2.23.4
+Stable tag: 2.23.5
 
 Improve your SEO and your user experience through internal linkbuilding. Automated links between your posts based on a smart keyword configuration.
 
@@ -128,6 +128,45 @@ The Pro version also provides a direct import of __post (and term) titles__ or, 
 7. Import and Export Section - Here you can easily import and export plugin settings or your configured keywords.
 
 == Changelog ==
+
+= 2.23.5 - 25/Jan/2024 =
+
+* FEATURE: Add a cancel all scheduled actions button.
+* FEATURE: Add delete cache button to delete transient cache. 
+* FEATURE: Add global option for limit incoming links. 
+* FEATURE: Allow keywords to be imported from tags. 
+* FEATURE: Case Sensitive Mode for keywords. 
+* FEATURE: Show the ILJ keyword setting box to add category screen. 
+* FEATURE: added a setting to select the action scheduler batch size 
+* FEATURE: added new columns to export: element sub-type (page/post/product/etc), incoming and outgoing link counts 
+* FIX: Implemented fix for term keywords to adhere to the "Order for configured keywords while linking" preference. This change ensures that keywords will be linked in the specified order. 
+* FIX: Fix bug on limit linking within their terms option that allows linking to other page that does not have the same term. 
+* FIX: Fix admin bar link vanishes when index mode is reset to automatic.
+* FIX: Fix links not generating when WPML plugin is activated. 
+* FIX: Fix namespace for cloudflare to avoid PHP errors. 
+* FIX: Fixed an issue with Limit outgoing links option value not saving in category or terms 
+* FIX: avoid cancelled requests caused by Cloudflare's hard execution time limit of 100 seconds 
+* FIX: Resolve issue with index build not continuing when a whitelist option is empty
+* FIX: When debug mode was on and the ILJ keywords were exported, a warning and a notice appeared in the exported CSV file. 
+* FIX: Fix browser console error in settings page for undefined variable when index generation mode is none
+* FIX: refactor table creation for MySQL 8 compatibility
+* FIX: add dynamic properties to remove E_DEPRECATED messages
+* TWEAK: show always the build index button so user can just click it instead of having to edit/add pages/terms/etc 
+* TWEAK: Avoid PHP deprecated warning on null strtolower function. 
+* TWEAK: Implemented a dismissable notice when site is running on a LiteSpeed Webserver. 
+* TWEAK: Remove duplicated time measuring code by creating a Stopwatch helper method
+* TWEAK: The blacklist field now displays the title beside id. 
+* PERFORMANCE: Fetch dashboard link statistics table by batch to avoid timeouts and memory exhaust. 
+* PERFORMANCE: Reduced mysql calls in rendering the ILJ dashboard. 
+* PERFORMANCE: Refactor regex for increased performance and reliability 
+* PERFORMANCE: refactor configured keywords count to be resource savvy and cache it in database for faster access
+* PERFORMANCE: Implemented WP Transient for faster frontend load time.
+* PERFORMANCE: Reduced data being fetched by IndexAsset::getTerms__premium_only() to term_id and description only to improve performance.
+* COMPATIBILITY: Fixed an issue related to get_class() method not compatible with 8.3 
+* COMPATIBILITY: add new filters for the WooCommerce and Elementor plugins 
+* COMPATIBILITY: add missing dynamic properties for PHP 8.2 compatibility
+* SECURITY: Fixed Stored Cross-Site Scripting Vulnerabilities in the admin dashboard setting page. 
+* SECURITY: Fixed Stored Cross-Site Scripting Vulnerabilities in the keywords metabox and customlinks page.
 
 = 2.23.4 - 16/Aug/2023 =
 

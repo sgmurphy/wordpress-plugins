@@ -74,7 +74,7 @@ class Wt_Import_Export_For_Woo_Basic_Import
 			),
 			'advanced'=>array(
 				'title'=>__('Advanced options/Batch import'),
-				'description'=>__('Use advanced options from below to decide on the delimiter options, updates to existing products, batch import count or schedule an import. You can also save the template file for future imports.'),
+				'description'=>__('Use options from below to decide on the delimiter options, updates to existing products, batch import count or schedule an import. You can also save the template file for future imports.'),
 			),
 		);
 

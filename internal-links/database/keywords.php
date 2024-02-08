@@ -3,6 +3,7 @@
 namespace ILJ\Database;
 
 use  ILJ\Backend\Editor ;
+use  ILJ\Helper\Statistic ;
 /**
  * Database wrapper for the keyword meta
  *
@@ -43,6 +44,7 @@ class Keywords
         global  $wpdb ;
         $table = $wpdb->prefix . $meta_table;
         $wpdb->query( "DELETE FROM {$table} WHERE meta_key IN ('" . implode( "','", $ilj_meta_keys ) . "')" );
+        Statistic::count_all_configured_keywords();
     }
 
 }

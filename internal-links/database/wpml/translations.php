@@ -9,29 +9,30 @@ use ILJ\Database\Postmeta;
  * @package ILJ\Database
  * @since   1.2.0
  */
-class Translations
-{
-    const ILJ_DATABASE_TABLE_WPML_TRANSLATIONS = "icl_translations";
+class Translations {
 
-    /**
-     * Retrieves all translation relations by type
-     *
-     * @since 1.2.0
-     * @param string $type_prefix The prefix of the type (post, tax)
-     *
-     * @return array
-     */
-    public static function getByElementType($type_prefix)
-    {
-        global $wpdb;
+	const ILJ_DATABASE_TABLE_WPML_TRANSLATIONS = 'icl_translations';
 
-        $query    = sprintf(
-            '
+	/**
+	 * Retrieves all translation relations by type
+	 *
+	 * @since 1.2.0
+	 * @param string $type_prefix The prefix of the type (post, tax)
+	 *
+	 * @return array
+	 */
+	public static function getByElementType($type_prefix) {
+		global $wpdb;
+
+		$query = sprintf(
+			'
             SELECT *
             FROM %s translations
-            WHERE element_type LIKE "%s%%"', $wpdb->prefix . self::ILJ_DATABASE_TABLE_WPML_TRANSLATIONS, $type_prefix . '_'
-        );
+            WHERE element_type LIKE "%s%%"',
+			$wpdb->prefix . self::ILJ_DATABASE_TABLE_WPML_TRANSLATIONS,
+			$type_prefix . '_'
+		);
 
-        return $wpdb->get_results($query);
-    }
+		return $wpdb->get_results($query);
+	}
 }

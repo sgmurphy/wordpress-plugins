@@ -6,7 +6,7 @@ use  ILJ\Core\Options ;
 /**
  * Toolset for Blacklisting
  *
- * Methods for Blacklisting 
+ * Methods for Blacklisting
  *
  * @package ILJ\Helper
  * @since   1.2.15
@@ -22,7 +22,7 @@ class Blacklist
     public static function getBlacklistedList( $type )
     {
         
-        if ( $type == "post" ) {
+        if ( 'post' == $type ) {
             $blacklistedList = Options::getOption( \ILJ\Core\Options\Blacklist::getKey() );
             return $blacklistedList;
         }
@@ -49,12 +49,12 @@ class Blacklist
      *
      * @param  string $type Checks if Post/Term
      * @param  int    $id   ID to check
-     * @return bool               Returns True if blacklisted  
+     * @return bool               Returns True if blacklisted
      */
     public static function checkIfBlacklisted( $type, $id )
     {
         $list = self::getBlacklistedList( $type );
-        if ( $type == "post" ) {
+        if ( 'post' == $type ) {
             if ( !empty($list) ) {
                 if ( in_array( $id, $list ) ) {
                     if ( !empty($list) ) {

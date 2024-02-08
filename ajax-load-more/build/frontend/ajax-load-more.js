@@ -8404,16 +8404,23 @@ function elementorLoaded(alm) {
  * @return {Object}     The modified object.
  */
 function setElementorClasses(alm, type = 'posts') {
-	// Container Class
-	alm.addons.elementor_container_class =
-		type === 'woocommerce' ? alm.addons.elementor_settings.woo_container_class : alm.addons.elementor_settings.posts_container_class;
+	// Get the items based on the Elementor type.
+	alm.addons.elementor_container_class = alm.addons.elementor_settings.container_class; // Container class
 
-	// Item Class
-	alm.addons.elementor_item_class = type === 'woocommerce' ? alm.addons.elementor_settings.woo_item_class : alm.addons.elementor_settings.posts_item_class;
-
-	// Pagination Class
-	alm.addons.elementor_pagination_class =
-		type === 'woocommerce' ? `.${alm.addons.elementor_settings.woo_pagination_class}` : `.${alm.addons.elementor_settings.posts_pagination_class}`;
+	switch (type) {
+		case 'woocommerce':
+			alm.addons.elementor_item_class = alm.addons.elementor_settings.woo_item_class; // item class.
+			alm.addons.elementor_pagination_class = `.${alm.addons.elementor_settings.woo_pagination_class}`; // Pagination class.
+			break;
+		case 'loop-grid':
+			alm.addons.elementor_item_class = alm.addons.elementor_settings.loop_grid_item_class; // item class.
+			alm.addons.elementor_pagination_class = `.${alm.addons.elementor_settings.loop_grid_pagination_class}`; // Pagination class.
+			break;
+		default:
+			alm.addons.elementor_item_class = alm.addons.elementor_settings.posts_item_class; // item class.
+			alm.addons.elementor_pagination_class = `.${alm.addons.elementor_settings.posts_pagination_class}`; // Pagination class.
+			break;
+	}
 
 	return alm;
 }
@@ -8425,23 +8432,27 @@ function setElementorClasses(alm, type = 'posts') {
  * @return {Object}    The modified object.
  */
 function parseMasonryConfig(alm) {
-	if (!alm.addons.elementor_element) {
+	const { addons } = alm;
+
+	if (!addons.elementor_element) {
 		return alm; // Exit if not found.
 	}
 
-	const target = alm.addons.elementor_element;
-
-	const settings = target.dataset.settings ? JSON.parse(target.dataset.settings) : '';
+	const target = addons.elementor_element;
+	const settings = target?.dataset?.settings ? JSON.parse(target.dataset.settings) : '';
 	if (!settings) {
 		return alm; // Exit if not found.
 	}
 
-	alm.addons.elementor_masonry = settings.hasOwnProperty('cards_masonry') || settings.hasOwnProperty('classic_masonry');
-	if (alm.addons.elementor_masonry) {
-		alm.addons.elementor_masonry_columns = parseInt(settings.cards_columns) || parseInt(settings.classic_columns);
-		alm.addons.elementor_masonry_columns_mobile = parseInt(settings.cards_columns_mobile) || parseInt(settings.classic_columns_mobile);
-		alm.addons.elementor_masonry_columns_tablet = parseInt(settings.cards_columns_tablet) || parseInt(settings.classic_columns_tablet);
-		alm.addons.elementor_masonry_gap = parseInt(settings.cards_row_gap.size);
+	addons.elementor_masonry = settings.hasOwnProperty('cards_masonry') || settings.hasOwnProperty('classic_masonry') || settings.hasOwnProperty('masonry');
+
+	if (addons.elementor_masonry) {
+		addons.elementor_masonry_columns = parseInt(settings?.cards_columns) || parseInt(settings?.classic_columns) || parseInt(settings?.columns);
+		addons.elementor_masonry_columns_mobile =
+			parseInt(settings?.cards_columns_mobile) || parseInt(settings?.classic_columns_mobile) || parseInt(settings?.columns_mobile);
+		addons.elementor_masonry_columns_tablet =
+			parseInt(settings?.cards_columns_tablet) || parseInt(settings?.classic_columns_tablet) || parseInt(settings?.columns_tablet);
+		addons.elementor_masonry_gap = parseInt(settings?.cards_row_gap?.size) || parseInt(settings?.row_gap?.size);
 	}
 
 	return alm;
@@ -8516,9 +8527,16 @@ function elementorGetWidgetType(target) {
 	if (!target) {
 		return false;
 	}
-	// If container contains the woocommerce elementor class
-	const type = target.classList.contains('elementor-wc-products') ? 'woocommerce' : 'posts';
-	return type;
+
+	// Get Elementor type based on container class.
+	if (target.classList.contains('elementor-wc-products')) {
+		// WooCommerce.
+		return 'woocommerce';
+	} else if (target.classList.contains('elementor-widget-loop-grid')) {
+		// Loop Grid.
+		return 'loop-grid';
+	}
+	return 'posts';
 }
 
 /**
@@ -12726,9 +12744,8 @@ let alm_is_filtering = false;
 			if (alm.addons.woocommerce) {
 				wooInit(alm);
 
-				// Trigger `Done` if `paged is less than `pages`.
 				if (alm.addons.woocommerce_settings.paged >= parseInt(alm.addons.woocommerce_settings.pages)) {
-					alm.AjaxLoadMore.triggerDone();
+					alm.AjaxLoadMore.triggerDone(); // Done if `paged is less than `pages`.
 				}
 			}
 
@@ -12736,9 +12753,8 @@ let alm_is_filtering = false;
 			if (alm.addons.elementor && alm.addons.elementor_type && alm.addons.elementor_type === 'posts') {
 				elementorInit(alm);
 
-				// Trigger `Done` if `elementor_next_page` is empty.
-				if (alm.addons.elementor_next_page === '') {
-					alm.AjaxLoadMore.triggerDone();
+				if (!alm.addons.elementor_next_page) {
+					alm.AjaxLoadMore.triggerDone(); // Done if `elementor_next_page` is false.
 				}
 			}
 

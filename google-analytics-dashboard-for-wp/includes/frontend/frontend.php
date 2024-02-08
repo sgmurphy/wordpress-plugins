@@ -159,19 +159,16 @@ function exactmetrics_frontend_admin_bar_scripts() {
 		return;
 	}
 
-	$version_path    = exactmetrics_is_pro_version() ? 'pro' : 'lite';
-	$rtl             = is_rtl() ? '.rtl' : '';
-	$frontend_js_url = defined( 'EXACTMETRICS_LOCAL_FRONTEND_JS_URL' ) && EXACTMETRICS_LOCAL_FRONTEND_JS_URL ? EXACTMETRICS_LOCAL_FRONTEND_JS_URL : plugins_url( $version_path . '/assets/vue/js/frontend.js', EXACTMETRICS_PLUGIN_FILE );
-
-	if ( ! defined( 'EXACTMETRICS_LOCAL_FRONTEND_JS_URL' ) ) {
-		wp_enqueue_style( 'exactmetrics-vue-frontend-style', plugins_url( $version_path . '/assets/vue/css/frontend' . $rtl . '.css', EXACTMETRICS_PLUGIN_FILE ), array(), exactmetrics_get_asset_version() );
-		wp_enqueue_script( 'exactmetrics-vue-vendors', plugins_url( $version_path . '/assets/vue/js/chunk-frontend-vendors.js', EXACTMETRICS_PLUGIN_FILE ), array(), exactmetrics_get_asset_version(), true );
-		wp_enqueue_script( 'exactmetrics-vue-common', plugins_url( $version_path . '/assets/vue/js/chunk-common.js', EXACTMETRICS_PLUGIN_FILE ), array(), exactmetrics_get_asset_version(), true );
-	} else {
-		wp_enqueue_script( 'exactmetrics-vue-vendors', EXACTMETRICS_LOCAL_VENDORS_JS_URL, array(), exactmetrics_get_asset_version(), true );
-		wp_enqueue_script( 'exactmetrics-vue-common', EXACTMETRICS_LOCAL_COMMON_JS_URL, array(), exactmetrics_get_asset_version(), true );
+	if ( ! class_exists( 'ExactMetrics_Admin_Assets' ) ) {
+		require_once EXACTMETRICS_PLUGIN_DIR . 'includes/admin/admin-assets.php';
 	}
 
+	if ( ! defined( 'EXACTMETRICS_LOCAL_JS_URL' ) ) {
+		ExactMetrics_Admin_Assets::enqueue_script_specific_css( 'src/modules/frontend/frontend.js' );
+	}
+
+	$version_path    = exactmetrics_is_pro_version() ? 'pro' : 'lite';
+	$frontend_js_url = defined('EXACTMETRICS_LOCAL_JS_URL') && EXACTMETRICS_LOCAL_JS_URL ? EXACTMETRICS_LOCAL_JS_URL . 'src/modules/frontend/frontend.js' : plugins_url($version_path . '/assets/vue/js/frontend.js', EXACTMETRICS_PLUGIN_FILE);
 	wp_register_script( 'exactmetrics-vue-frontend', $frontend_js_url, array(), exactmetrics_get_asset_version(), true );
 	wp_enqueue_script( 'exactmetrics-vue-frontend' );
 
@@ -420,15 +417,13 @@ add_action( 'init', 'exactmetrics_maybe_handle_legacy_shortcodes', 1000 );
 /**
  * Remove Query String from a Vue Settings before sending the data to GA.
  *
- * @param array  $options GA Options.
- *
- * @return array
+ * @return void
  */
-function exactmetrics_exclude_query_params_v4( $options ) {
+function exactmetrics_exclude_query_params_v4() {
 	global $wp;
 
 	if ( ! exactmetrics_get_option( 'exclude_query_params', false ) ) {
-		return $options;
+		return;
 	}
 
 	$current_page_url = add_query_arg( $_SERVER['QUERY_STRING'], '', trailingslashit( home_url( $wp->request ) ) );
@@ -436,21 +431,19 @@ function exactmetrics_exclude_query_params_v4( $options ) {
 	$pg_options       = $query_options ? explode( ',', $query_options ) : array();
 
 	if ( is_array( $pg_options ) && empty( $pg_options ) ) {
-		return $options;
+		return;
 	}
 
 	$filtered_options                  = array();
 	$filtered_url                      = remove_query_arg( $pg_options, $current_page_url );
-	$filtered_options['page_location'] = esc_url( $filtered_url );
+	$filtered_options['page_location'] = $filtered_url;
 
 	if ( wp_get_referer() ) {
 		$filtered_page_ref_url             = remove_query_arg( $pg_options, wp_get_referer() );
-		$filtered_options['page_referrer'] = esc_url( $filtered_page_ref_url );
+		$filtered_options['page_referrer'] = $filtered_page_ref_url;
 	}
 
-	$options = array_merge( $options, $filtered_options );
-
-	return $options;
+	printf( "var ExactMetricsExcludeQuery = %s;\n", wp_json_encode( $filtered_options ) );
 }
 
-add_filter( 'exactmetrics_frontend_tracking_options_gtag_before_pageview', 'exactmetrics_exclude_query_params_v4', 10, 1 );
+add_action( 'exactmetrics_tracking_gtag_frontend_output_after_em_track_user', 'exactmetrics_exclude_query_params_v4' );

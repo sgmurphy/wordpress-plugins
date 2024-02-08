@@ -26,23 +26,29 @@ use  ILJ\Type\Ruleset ;
 class DefaultStrategy implements  StrategyInterface 
 {
     /**
+     * Link Rules
+     *
      * @var   Ruleset
      * @since 1.0.0
      */
     public  $link_rules ;
     /**
+     * Link Options
+     *
      * @var   array
      * @since 1.0.1
      */
     public  $link_options = array() ;
     /**
-     * 
+     * List of blacklisted Posts
+     *
      * @var   array
      * @since 1.2.15
      */
     public  $blacklisted_posts = array() ;
     /**
-     * 
+     * List of blacklisted terms
+     *
      * @var   array
      * @since 1.2.15
      */
@@ -50,11 +56,13 @@ class DefaultStrategy implements  StrategyInterface
     public function __construct()
     {
         $this->link_rules = new Ruleset();
-        $this->blacklisted_posts = Blacklist::getBlacklistedList( "post" );
+        $this->blacklisted_posts = Blacklist::getBlacklistedList( 'post' );
     }
     
     /**
-     * @inheritdoc
+     * Responsible for building the index and writing possible internal links to it
+     *
+     * @return void
      */
     public function setIndices()
     {
@@ -65,10 +73,10 @@ class DefaultStrategy implements  StrategyInterface
             $this->writeToIndex(
                 $posts,
                 'post',
-                [
+                array(
                 'id'      => 'ID',
                 'content' => 'post_content',
-            ],
+            ),
                 $index_count,
                 IndexAsset::ILJ_FULL_BUILD,
                 IndexMode::NONE
@@ -78,7 +86,13 @@ class DefaultStrategy implements  StrategyInterface
     }
     
     /**
-     * @inheritdoc
+     * Set Batched Index Builds
+     *
+     * @param  mixed $data
+     * @param  mixed $data_type
+     * @param  mixed $keyword_offset
+     * @param  mixed $keyword_type
+     * @return void
      */
     public function setBatchedIndices(
         $data,
@@ -90,16 +104,16 @@ class DefaultStrategy implements  StrategyInterface
         $index_count = 0;
         $this->loadLinkConfigurationsBatched( $keyword_offset, $keyword_type );
         
-        if ( $data_type == "post" ) {
+        if ( 'post' == $data_type ) {
             $posts = $data;
             if ( is_array( $posts ) && !empty($posts) ) {
                 $this->writeToIndex(
                     $posts,
                     'post',
-                    [
+                    array(
                     'id'      => 'ID',
                     'content' => 'post_content',
-                ],
+                ),
                     $index_count,
                     IndexAsset::ILJ_FULL_BUILD,
                     IndexMode::AUTOMATIC
@@ -111,7 +125,7 @@ class DefaultStrategy implements  StrategyInterface
     }
     
     /**
-     * setIndividualIndices
+     * Set individual index builds for post/term/metas in automatic mode
      *
      * @param  mixed $id
      * @param  mixed $type
@@ -135,53 +149,52 @@ class DefaultStrategy implements  StrategyInterface
         $index_count = Statistic::getLinkIndexCount();
         $posts = array();
         
-        if ( $link_type == LinkType::OUTGOING ) {
+        if ( LinkType::OUTGOING == $link_type ) {
             $this->loadLinkConfigurationsBatched( $keyword_offset, $keyword_type );
-            if ( $batched_data_type == "post" ) {
+            if ( 'post' == $batched_data_type ) {
                 array_push( $posts, $id );
             }
-            if ( $batched_data_type == "post" ) {
+            if ( 'post' == $batched_data_type ) {
                 $this->writeToIndex(
                     $posts,
                     'post',
-                    [
+                    array(
                     'id'      => 'ID',
                     'content' => 'post_content',
-                ],
+                ),
                     $index_count,
                     IndexAsset::ILJ_INDIVIDUAL_BUILD,
                     IndexMode::AUTOMATIC,
                     $link_type
                 );
             }
-        } else {
-            
-            if ( $link_type == LinkType::INCOMING ) {
-                $this->loadLinkIndividualConfigurations( $id, $type );
-                $data = $batched_data;
-                if ( $batched_data_type == "post" ) {
-                    $this->writeToIndex(
-                        $data,
-                        'post',
-                        [
-                        'id'      => 'ID',
-                        'content' => 'post_content',
-                    ],
-                        $index_count,
-                        IndexAsset::ILJ_INDIVIDUAL_BUILD,
-                        IndexMode::AUTOMATIC,
-                        $link_type
-                    );
-                }
+        } elseif ( LinkType::INCOMING == $link_type ) {
+            $this->loadLinkIndividualConfigurations( $id, $type );
+            $data = $batched_data;
+            if ( 'post' == $batched_data_type ) {
+                $this->writeToIndex(
+                    $data,
+                    'post',
+                    array(
+                    'id'      => 'ID',
+                    'content' => 'post_content',
+                ),
+                    $index_count,
+                    IndexAsset::ILJ_INDIVIDUAL_BUILD,
+                    IndexMode::AUTOMATIC,
+                    $link_type
+                );
             }
-        
         }
         
         return $index_count;
     }
     
     /**
-     * @inheritdoc
+     * Set the Link options value
+     *
+     * @param  array $link_options
+     * @return void
      */
     public function setLinkOptions( array $link_options )
     {
@@ -205,12 +218,11 @@ class DefaultStrategy implements  StrategyInterface
                 continue;
             }
             $anchors = $this->applyKeywordOrder( $anchors );
-            $this->addAnchorsToLinkRules( $anchors, [
+            $this->addAnchorsToLinkRules( $anchors, array(
                 'id'   => $definition->post_id,
                 'type' => $type,
-            ] );
+            ) );
         }
-        return;
     }
     
     /**
@@ -218,12 +230,15 @@ class DefaultStrategy implements  StrategyInterface
      *
      * @since 1.0.0
      *
+     * @param  mixed $offset
+     * @param  mixed $keyword_type
+     *
      * @return void
      */
     public function loadLinkConfigurationsBatched( $offset, $keyword_type )
     {
         
-        if ( $keyword_type == "post" ) {
+        if ( 'post' == $keyword_type ) {
             $post_definitions = Postmeta::getAllLinkDefinitionsByBatch( $offset );
             foreach ( $post_definitions as $definition ) {
                 $post_type = 'post';
@@ -232,19 +247,18 @@ class DefaultStrategy implements  StrategyInterface
                     continue;
                 }
                 $anchors = $this->applyKeywordOrder( $anchors );
-                $this->addAnchorsToLinkRules( $anchors, [
+                $this->addAnchorsToLinkRules( $anchors, array(
                     'id'   => $definition->post_id,
                     'type' => $post_type,
-                ] );
+                ) );
             }
             return;
         }
-        
-        return;
+    
     }
     
     /**
-     * loadLinkIndividualConfigurations
+     * Picks up all meta definitions for configured keywords and adds them to internal ruleset for Individual index builds
      *
      * @param  int    $id
      * @param  string $type
@@ -253,7 +267,7 @@ class DefaultStrategy implements  StrategyInterface
     protected function loadLinkIndividualConfigurations( $id, $type )
     {
         
-        if ( $type == 'post' ) {
+        if ( 'post' == $type ) {
             $post_definitions = Postmeta::getLinkDefinitionsById( $id );
             foreach ( $post_definitions as $definition ) {
                 $post_type = 'post';
@@ -262,15 +276,14 @@ class DefaultStrategy implements  StrategyInterface
                     continue;
                 }
                 $anchors = $this->applyKeywordOrder( $anchors );
-                $this->addAnchorsToLinkRules( $anchors, [
+                $this->addAnchorsToLinkRules( $anchors, array(
                     'id'   => $definition->post_id,
                     'type' => $post_type,
-                ] );
+                ) );
             }
             return;
         }
-        
-        return;
+    
     }
     
     /**
@@ -292,7 +305,6 @@ class DefaultStrategy implements  StrategyInterface
             $pattern = Regex::escapeDot( $anchor );
             $this->link_rules->addRule( $pattern, $params['id'], $params['type'] );
         }
-        return;
     }
     
     /**
@@ -336,10 +348,10 @@ class DefaultStrategy implements  StrategyInterface
      *
      * @since 1.0.1
      *
-     * @param  array  $data      The data container
-     * @param  string $data_type Type of the data inside the container
-     * @param  array  $fields    Field settings for the container objects
-     * @param  int    &$counter  Counts the written operations
+     * @param  array  $data       The data container
+     * @param  string $data_type  Type of the data inside the container
+     * @param  array  $fields     Field settings for the container objects
+     * @param  int    $counter    Counts the written operations
      * @param  mixed  $scope
      * @param  mixed  $build_mode
      * @param  mixed  $link_type
@@ -358,10 +370,10 @@ class DefaultStrategy implements  StrategyInterface
         if ( !is_array( $data ) || !count( $data ) ) {
             return;
         }
-        $fields = wp_parse_args( $fields, [
+        $fields = wp_parse_args( $fields, array(
             'id'      => '',
             'content' => '',
-        ] );
+        ) );
         $IndexStrategy = new IndexStrategy(
             $data_type,
             $fields,

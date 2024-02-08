@@ -7,13 +7,15 @@ use  ILJ\Helper\Options as OptionsHelper ;
 /**
  * Option: Editor role
  *
- * @since   1.1.3
  * @package ILJ\Core\Options
+ * @since   1.1.3
  */
 class EditorRole extends AbstractOption
 {
     /**
-     * @inheritdoc
+     * Get the unique identifier for the option
+     *
+     * @return string
      */
     public static function getKey()
     {
@@ -21,7 +23,9 @@ class EditorRole extends AbstractOption
     }
     
     /**
-     * @inheritdoc
+     * Get the default value of the option
+     *
+     * @return mixed
      */
     public static function getDefault()
     {
@@ -29,7 +33,9 @@ class EditorRole extends AbstractOption
     }
     
     /**
-     * @inheritdoc
+     * Identifies if the current option is pro only
+     *
+     * @return bool
      */
     public static function isPro()
     {
@@ -37,7 +43,9 @@ class EditorRole extends AbstractOption
     }
     
     /**
-     * @inheritdoc
+     * Get the frontend label for the option
+     *
+     * @return string
      */
     public function getTitle()
     {
@@ -45,7 +53,9 @@ class EditorRole extends AbstractOption
     }
     
     /**
-     * @inheritdoc
+     * Get the frontend description for the option
+     *
+     * @return string
      */
     public function getDescription()
     {
@@ -53,20 +63,37 @@ class EditorRole extends AbstractOption
     }
     
     /**
-     * @inheritdoc
+     * Outputs the options form element for backend administration
+     *
+     * @param  mixed $value
+     * @return mixed
      */
     public function renderField( $value )
     {
         if ( !\ILJ\ilj_fs()->is__premium_only() || !\ILJ\ilj_fs()->can_use_premium_code() ) {
             $value = self::getDefault();
         }
-        echo  '<select name="' . self::getKey() . '" id="' . self::getKey() . '"' . OptionsHelper::getDisabler( $this ) . '>' ;
+        $key = self::getKey();
+        ?>
+		<select name="<?php 
+        echo  esc_attr( $key ) ;
+        ?>" id="<?php 
+        echo  esc_attr( $key ) ;
+        ?>" <?php 
+        OptionsHelper::getDisabler( $this );
+        ?>>
+			<?php 
         Capabilities::rolesDropdown( $value );
-        echo  '</select>' ;
+        ?>
+		</select>
+		<?php 
     }
     
     /**
-     * @inheritdoc
+     * Checks if a value is a valid value for option
+     *
+     * @param  mixed $value The value that gets validated
+     * @return bool
      */
     public function isValidValue( $value )
     {

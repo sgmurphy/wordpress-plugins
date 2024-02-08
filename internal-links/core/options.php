@@ -2,11 +2,14 @@
 
 namespace ILJ\Core;
 
+use  ILJ\Backend\Notices ;
 use  ILJ\Core\Options\AbstractOption ;
+use  ILJ\Core\Options\Case_Sensitive_Mode_Switch ;
 use  ILJ\Core\Options\IndexGeneration ;
 use  ILJ\Core\Options\LinkOutputCustom ;
 use  ILJ\Core\Options\LinkOutputInternal ;
 use  ILJ\Core\Options\OptionInterface ;
+use  ILJ\Core\Options\SchedulerBatchSize ;
 use  ILJ\Enumeration\IndexMode ;
 use  ILJ\Helper\Options as OptionsHelper ;
 /**
@@ -32,6 +35,7 @@ class Options
     const  ILJ_OPTION_SECTION_GENERAL = 'general' ;
     const  ILJ_OPTION_SECTION_CONTENT = 'content' ;
     const  ILJ_OPTION_SECTION_LINKS = 'links' ;
+    const  ILJ_OPTION_SECTION_ACTIONS = 'actions' ;
     /**
      * Other (internal) options
      */
@@ -40,18 +44,22 @@ class Options
     const  ILJ_OPTION_KEY_INDEX_NOTIFY = 'ilj_option_index_notify' ;
     private static  $instance ;
     /**
+     * Sections variable
+     *
      * @var   array
      * @since 1.1.3
      */
     private  $sections = array() ;
     /**
+     * Option keys
+     *
      * @var   array
      * @since 1.1.3
      */
     private  $keys = array() ;
     public static function getInstance()
     {
-        if ( static::$instance === null ) {
+        if ( null === static::$instance ) {
             static::$instance = new static();
         }
         return static::$instance;
@@ -59,17 +67,18 @@ class Options
     
     public function __construct()
     {
-        $this->sections = [
-            self::ILJ_OPTION_SECTION_GENERAL => [
-            'options' => [
+        $this->sections = array(
+            self::ILJ_OPTION_SECTION_GENERAL => array(
+            'options' => array(
             new Options\KeepSettings(),
             new Options\HideStatusBar(),
+            new Options\SchedulerBatchSize(),
             new Options\EditorRole(),
             new Options\IndexGeneration()
-        ],
-        ],
-            self::ILJ_OPTION_SECTION_CONTENT => [
-            'options' => [
+        ),
+        ),
+            self::ILJ_OPTION_SECTION_CONTENT => array(
+            'options' => array(
             new Options\Whitelist(),
             new Options\TaxonomyWhitelist(),
             new Options\Blacklist(),
@@ -80,32 +89,39 @@ class Options
             new Options\LinksPerParagraphSwitch(),
             new Options\LinksPerParagraph(),
             new Options\LinksPerTarget(),
+            new Options\Limit_Incoming_Links(),
+            new Options\Max_Incoming_Links(),
             new Options\MultipleKeywords(),
+            new Case_Sensitive_Mode_Switch(),
             new Options\NoLinkTags(),
             new Options\RespectExistingLinks(),
             new Options\LimitTaxonomyList(),
             new Options\CustomFieldsToLinkPost(),
             new Options\CustomFieldsToLinkTerm()
-        ],
-        ],
-            self::ILJ_OPTION_SECTION_LINKS   => [
-            'options' => [ new Options\LinkOutputInternal(), new Options\InternalNofollow(), new Options\LinkOutputCustom() ],
-        ],
-        ];
+        ),
+        ),
+            self::ILJ_OPTION_SECTION_LINKS   => array(
+            'options' => array( new Options\LinkOutputInternal(), new Options\InternalNofollow(), new Options\LinkOutputCustom() ),
+        ),
+            self::ILJ_OPTION_SECTION_ACTIONS => array(
+            'actions' => array( new Options\CancelAllILJSchedules() ),
+            'options' => array(),
+        ),
+        );
         return $this;
     }
     
     public static function init()
     {
         $options = self::getInstance();
-        $options->addSettingsSections()->addOptions();
+        $options->addSettingsSections()->addOptions()->addActions();
     }
     
     /**
      * Retrieves the internal option value with different defaults
      *
      * @since  1.0.0
-     * @param  string $option The option value which should be returned
+     * @param  string $key The option value which should be returned
      * @return mixed
      */
     public static function getOption( $key )
@@ -155,7 +171,12 @@ class Options
         if ( !in_array( $key, $available_keys ) ) {
             return false;
         }
-        if ( in_array( $key, [ self::ILJ_OPTION_KEY_ENVIRONMENT, self::ILJ_OPTION_KEY_INDEX_NOTIFY, self::ILJ_OPTION_KEY_BATCH ] ) ) {
+        if ( in_array( $key, array(
+            self::ILJ_OPTION_KEY_ENVIRONMENT,
+            self::ILJ_OPTION_KEY_INDEX_NOTIFY,
+            self::ILJ_OPTION_KEY_BATCH,
+            Notices::ILJ_DISMISS_ADMIN_WARNING_LITESPEED
+        ) ) ) {
             return update_option( $key, $value );
         }
         $option = $options->getOptionByKey( $key );
@@ -199,11 +220,11 @@ class Options
             if ( is_string( $default ) ) {
                 $default = esc_html( $default );
             }
-            $existant_option = get_option( $option, false );
-            if ( !$existant_option ) {
+            $existent_option = get_option( $option, false );
+            if ( !$existent_option ) {
                 add_option( $option, $default );
             }
-            if ( $option == IndexGeneration::getKey() && (get_option( $option, false ) != IndexMode::NONE && get_option( $option, false ) != IndexMode::AUTOMATIC) ) {
+            if ( IndexGeneration::getKey() == $option && (IndexMode::NONE != get_option( $option, false ) && IndexMode::AUTOMATIC != get_option( $option, false )) ) {
                 update_option( $option, $default );
             }
         }
@@ -234,13 +255,15 @@ class Options
      */
     protected function getDefaults()
     {
-        $defaults = [];
+        $defaults = array();
         foreach ( $this->sections as $section ) {
-            foreach ( $section['options'] as $option ) {
-                if ( $option->isPro() && (!\ILJ\ilj_fs()->is__premium_only() || !\ILJ\ilj_fs()->can_use_premium_code()) ) {
-                    continue;
+            if ( isset( $section['options'] ) ) {
+                foreach ( $section['options'] as $option ) {
+                    if ( $option->isPro() && (!\ILJ\ilj_fs()->is__premium_only() || !\ILJ\ilj_fs()->can_use_premium_code()) ) {
+                        continue;
+                    }
+                    $defaults[$option::getKey()] = $option::getDefault();
                 }
-                $defaults[$option::getKey()] = $option::getDefault();
             }
         }
         return $defaults;
@@ -257,11 +280,18 @@ class Options
         
         if ( !count( $this->keys ) ) {
             foreach ( $this->sections as $section ) {
-                foreach ( $section['options'] as $option ) {
-                    $this->keys[] = $option->getKey();
+                if ( isset( $section['options'] ) ) {
+                    foreach ( $section['options'] as $option ) {
+                        $this->keys[] = $option->getKey();
+                    }
                 }
             }
-            $this->keys = array_merge( $this->keys, [ self::ILJ_OPTION_KEY_ENVIRONMENT, self::ILJ_OPTION_KEY_INDEX_NOTIFY, self::ILJ_OPTION_KEY_BATCH ] );
+            $this->keys = array_merge( $this->keys, array(
+                self::ILJ_OPTION_KEY_ENVIRONMENT,
+                self::ILJ_OPTION_KEY_INDEX_NOTIFY,
+                self::ILJ_OPTION_KEY_BATCH,
+                Notices::ILJ_DISMISS_ADMIN_WARNING_LITESPEED
+            ) );
             $this->keys = array_unique( $this->keys );
         }
         
@@ -284,7 +314,7 @@ class Options
         }
         foreach ( $options as $key => $value ) {
             $key = AbstractOption::ILJ_OPTIONS_PREFIX . $key;
-            $to_sanitize = [ LinkOutputInternal::getKey() ];
+            $to_sanitize = array( LinkOutputInternal::getKey() );
             if ( in_array( $key, $to_sanitize ) ) {
                 $value = esc_html( $value );
             }
@@ -305,12 +335,12 @@ class Options
     public static function exportOptions()
     {
         $options = self::getInstance();
-        $export = [];
+        $export = array();
         foreach ( $options->sections as $section ) {
             foreach ( $section['options'] as $option ) {
                 $key = $option->getKey();
                 $key_output = substr( $key, strlen( AbstractOption::ILJ_OPTIONS_PREFIX ) );
-                $escaped_option_values = [ LinkOutputInternal::getKey() ];
+                $escaped_option_values = array( LinkOutputInternal::getKey() );
                 $option_output = self::getOption( $key );
                 if ( in_array( $key, $escaped_option_values ) ) {
                     $option_output = htmlspecialchars_decode( $option_output );
@@ -331,20 +361,24 @@ class Options
      */
     protected function addSettingsSections()
     {
-        $sections = array_merge( $this->sections, [
-            self::ILJ_OPTION_SECTION_GENERAL => [
+        $sections = array_merge( $this->sections, array(
+            self::ILJ_OPTION_SECTION_GENERAL => array(
             'title'       => __( 'General settings section', 'internal-links' ),
             'description' => __( 'All settings related to the use of the plugin.', 'internal-links' ),
-        ],
-            self::ILJ_OPTION_SECTION_CONTENT => [
+        ),
+            self::ILJ_OPTION_SECTION_CONTENT => array(
             'title'       => __( 'Content settings section', 'internal-links' ),
             'description' => __( 'Configure how the plugin should behave regarding the internal linking.', 'internal-links' ),
-        ],
-            self::ILJ_OPTION_SECTION_LINKS   => [
+        ),
+            self::ILJ_OPTION_SECTION_LINKS   => array(
             'title'       => __( 'Links settings section', 'internal-links' ),
             'description' => __( 'Setting options for the output of the generated links.', 'internal-links' ),
-        ],
-        ] );
+        ),
+            self::ILJ_OPTION_SECTION_ACTIONS => array(
+            'title'       => __( 'Actions section', 'internal-links' ),
+            'description' => __( 'Different action buttons related to the use of the plugin', 'internal-links' ),
+        ),
+        ) );
         foreach ( $sections as $section => $section_data ) {
             add_settings_section(
                 self::ILJ_OPTION_PREFIX_ID . $section,
@@ -367,20 +401,48 @@ class Options
     protected function addOptions()
     {
         foreach ( $this->sections as $section => $section_data ) {
-            foreach ( $section_data['options'] as $option ) {
-                if ( !$option instanceof Options\AbstractOption || $option::getKey() == "" ) {
-                    continue;
+            if ( isset( $section_data['options'] ) ) {
+                foreach ( $section_data['options'] as $option ) {
+                    if ( !$option instanceof Options\AbstractOption || $option::getKey() == '' ) {
+                        continue;
+                    }
+                    add_settings_field(
+                        $option::getKey(),
+                        OptionsHelper::getTitle( $option ),
+                        function () use( $option ) {
+                        OptionsHelper::renderFieldComplete( $option, self::getOption( $option::getKey() ) );
+                    },
+                        self::ILJ_OPTION_PREFIX_PAGE . $section,
+                        self::ILJ_OPTION_PREFIX_ID . $section
+                    );
+                    $option->register( self::ILJ_OPTION_PREFIX_PAGE . $section );
                 }
-                add_settings_field(
-                    $option::getKey(),
-                    OptionsHelper::getTitle( $option ),
-                    function () use( $option ) {
-                    OptionsHelper::renderFieldComplete( $option, self::getOption( $option::getKey() ) );
-                },
-                    self::ILJ_OPTION_PREFIX_PAGE . $section,
-                    self::ILJ_OPTION_PREFIX_ID . $section
-                );
-                $option->register( self::ILJ_OPTION_PREFIX_PAGE . $section );
+            }
+        }
+        return $this;
+    }
+    
+    /**
+     * Initiate the actions
+     *
+     * @return void
+     */
+    protected function addActions()
+    {
+        foreach ( $this->sections as $section => $section_data ) {
+            if ( isset( $section_data['actions'] ) ) {
+                foreach ( $section_data['actions'] as $action ) {
+                    add_settings_field(
+                        $action::get_key(),
+                        $action::get_title(),
+                        function () use( $action ) {
+                        $action::render_action();
+                    },
+                        self::ILJ_OPTION_PREFIX_PAGE . $section,
+                        self::ILJ_OPTION_PREFIX_ID . $section
+                    );
+                    $action->register( self::ILJ_OPTION_PREFIX_PAGE . $section );
+                }
             }
         }
         return $this;

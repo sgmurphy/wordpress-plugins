@@ -51,11 +51,11 @@ class IndexAsset
         if ( !isset( $asset_title ) || !isset( $asset_url ) ) {
             return null;
         }
-        $meta_data = (object) [
+        $meta_data = (object) array(
             'title'    => $asset_title,
             'url'      => $asset_url,
             'url_edit' => $asset_url_edit,
-        ];
+        );
         /**
          * Filters the index asset
          *
@@ -85,55 +85,58 @@ class IndexAsset
     {
         $whitelist = CoreOptions::getOption( \ILJ\Core\Options\Whitelist::getKey() );
         if ( !is_array( $whitelist ) || !count( $whitelist ) ) {
-            return [];
+            return array();
         }
         global  $wpdb ;
-        $addition_query = "";
+        $addition_query = '';
         $blacklisted_posts = Blacklist::getBlacklistedList( 'post' );
-        //If fetch_fields is null use default Fields
-        $default_fields = array( "ID", "post_content" );
+        // If fetch_fields is null use default Fields
+        $default_fields = array( 'ID', 'post_content' );
         
-        if ( $fetch_fields != null ) {
+        if ( null != $fetch_fields ) {
             $fields = $fetch_fields;
         } else {
             $fields = $default_fields;
         }
         
         if ( !empty($blacklisted_posts) ) {
-            $addition_query = " ID NOT IN (" . self::escape_array( $blacklisted_posts ) . ") AND ";
+            $addition_query = ' ID NOT IN (' . self::escape_array( $blacklisted_posts ) . ') AND ';
         }
-        //this separates the $fields with comma
+        // this separates the $fields with comma
         $fields_placeholder = implode( ', ', $fields );
-        $post_query = $wpdb->prepare( "SELECT {$fields_placeholder} FROM {$wpdb->posts} WHERE" . $addition_query . " post_type IN (" . self::escape_array( $whitelist ) . ") AND post_status = 'publish' ORDER BY ID DESC " );
+        $post_query = "SELECT {$fields_placeholder} FROM {$wpdb->posts} WHERE" . $addition_query . " post_type IN (" . self::escape_array( $whitelist ) . ") AND post_status = 'publish' ORDER BY ID DESC ";
         $posts = $wpdb->get_results( $post_query, OBJECT );
         return $posts;
     }
     
     /**
-     * Returns relevant posts for linking
+     * Returns relevant post ids for linking
      *
      * @since  2.0.3
+     * @param  mixed $building_batch_size
+     * @param  mixed $offset
+     *
      * @return array
      */
     public static function getPostsBatched( $building_batch_size, $offset )
     {
         $whitelist = CoreOptions::getOption( \ILJ\Core\Options\Whitelist::getKey() );
         if ( !is_array( $whitelist ) || !count( $whitelist ) ) {
-            return [];
+            return array();
         }
-        $args = [
+        $args = array(
             'posts_per_page'   => $building_batch_size,
-            'post__not_in'     => Blacklist::getBlacklistedList( "post" ),
+            'post__not_in'     => Blacklist::getBlacklistedList( 'post' ),
             'post_type'        => $whitelist,
-            'post_status'      => [ 'publish' ],
+            'post_status'      => array( 'publish' ),
             'suppress_filters' => true,
             'offset'           => $offset,
             'orderby'          => 'ID',
             'order'            => 'DESC',
             'lang'             => 'all',
-        ];
+            'fields'           => 'ids',
+        );
         $query = new \WP_Query( $args );
-        $post_count = $query->post_count;
         return $query->posts;
     }
     
@@ -148,7 +151,7 @@ class IndexAsset
      */
     public static function getDetailedType( $id, $type )
     {
-        if ( $type == 'post' ) {
+        if ( 'post' == $type ) {
             $detailed_type = get_post_type( $id );
         }
         return $detailed_type;
@@ -157,10 +160,10 @@ class IndexAsset
     /**
      * Get Incoming Links Count
      *
-     * @param  int $id - Post/term ID to count incoming links
-     * @param  string $type 
-     * @param  string $scope 
-     * @param  int $exclude_id - Exclude this Post/term ID to count incoming links
+     * @param  int    $id           Post/term ID to count incoming links
+     * @param  string $type
+     * @param  string $scope
+     * @param  int    $exclude_id   Exclude this Post/term ID to count incoming links
      * @param  string $exclude_type
      * @return int
      */
@@ -174,57 +177,56 @@ class IndexAsset
     {
         global  $wpdb ;
         
-        if ( $scope == IndexAsset::ILJ_FULL_BUILD ) {
+        if ( self::ILJ_FULL_BUILD == $scope ) {
             $ilj_linkindex_table = $wpdb->prefix . LinkindexTemp::ILJ_DATABASE_TABLE_LINKINDEX_TEMP;
-        } elseif ( $scope == IndexAsset::ILJ_INDIVIDUAL_BUILD ) {
+        } elseif ( self::ILJ_INDIVIDUAL_BUILD == $scope ) {
             $ilj_linkindex_table = $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP;
         }
         
-        $query = "";
+        $query = '';
         
-        if ( $exclude_id != null ) {
+        if ( null != $exclude_id ) {
             $ilj_linkindex_table = $wpdb->prefix . Linkindex::ILJ_DATABASE_TABLE_LINKINDEX;
             $query = " AND (link_from != '" . $exclude_id . "' AND type_from != '" . $exclude_type . "')";
             $incoming_links_old = $wpdb->get_var( "SELECT count(link_to) FROM {$ilj_linkindex_table} WHERE (link_to = '" . $id . "' AND type_to = '" . $type . "') " . $query );
             $ilj_linkindex_table_new = $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP;
-            $incoming_links_new = $wpdb->get_var( "SELECT count(link_to) FROM {$ilj_linkindex_table_new} WHERE (link_from != 0 AND type_from != '') AND ( (link_to = '" . $id . "' AND type_to = '" . $type . "') )" );
+            $incoming_links_new = $wpdb->get_var( "SELECT count(link_to) FROM {$ilj_linkindex_table_new} WHERE (link_from != 0 AND type_from != '') AND ((link_to = '" . $id . "' AND type_to = '" . $type . "'))" );
             $incoming_links = (int) $incoming_links_old + (int) $incoming_links_new;
             return (int) $incoming_links;
         }
         
-        $incoming_links = $wpdb->get_var( "SELECT count(link_to) FROM {$ilj_linkindex_table} WHERE (link_from != 0 AND type_from != '') AND ( (link_to = '" . $id . "' AND type_to = '" . $type . "') " . $query . " )" );
+        $incoming_links = $wpdb->get_var( "SELECT count(link_to) FROM {$ilj_linkindex_table} WHERE (link_from != 0 AND type_from != '') AND ((link_to = '" . $id . "' AND type_to = '" . $type . "') " . $query . ')' );
         return (int) $incoming_links;
     }
     
     /**
      * Get Outgoing Links Count
      *
-     * @param  int    $id   Post/Tax ID
-     * @param  string $type Type
+     * @param  int    $id    Post/Tax ID
+     * @param  string $type  Type
      * @param  string $scope
      * @return int
      */
     public static function getOutgoingLinksCount( $id, $type, $scope )
     {
         global  $wpdb ;
-        $sql = "";
         
-        if ( $scope == IndexAsset::ILJ_FULL_BUILD ) {
+        if ( self::ILJ_FULL_BUILD == $scope ) {
             $ilj_linkindex_table = $wpdb->prefix . LinkindexTemp::ILJ_DATABASE_TABLE_LINKINDEX_TEMP;
-        } elseif ( $scope == IndexAsset::ILJ_INDIVIDUAL_BUILD ) {
+        } elseif ( self::ILJ_INDIVIDUAL_BUILD == $scope ) {
             $ilj_linkindex_table = $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP;
         }
         
-        $additional_query = "";
-        $outgoing = $wpdb->get_var( "SELECT count(link_from) FROM {$ilj_linkindex_table} WHERE (link_to != 0 AND type_to != '') AND (link_from = '" . $id . "' AND ( type_from = '" . $type . "' " . $additional_query . " ))" );
+        $additional_query = '';
+        $outgoing = $wpdb->get_var( "SELECT count(link_from) FROM {$ilj_linkindex_table} WHERE (link_to != 0 AND type_to != '') AND (link_from = '" . $id . "' AND (type_from = '" . $type . "' " . $additional_query . '))' );
         return (int) $outgoing;
     }
     
     /**
-     * getLinkedUrlsCount
+     * Get the already linked url count
      *
-     * @param  int $link_to_id
-     * @param  int $id
+     * @param  int    $link_to_id
+     * @param  int    $id
      * @param  string $type
      * @param  string $scope
      * @return int
@@ -238,14 +240,15 @@ class IndexAsset
     {
         global  $wpdb ;
         
-        if ( $scope == IndexAsset::ILJ_FULL_BUILD ) {
+        if ( self::ILJ_FULL_BUILD == $scope ) {
             $ilj_linkindex_table = $wpdb->prefix . LinkindexTemp::ILJ_DATABASE_TABLE_LINKINDEX_TEMP;
-        } elseif ( $scope == IndexAsset::ILJ_INDIVIDUAL_BUILD ) {
+        } elseif ( self::ILJ_INDIVIDUAL_BUILD == $scope ) {
             $ilj_linkindex_table = $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP;
         }
         
-        $additional_query = "";
-        $linked_urls = $wpdb->get_var( "SELECT count(link_to) FROM {$ilj_linkindex_table} WHERE (link_from = '" . $id . "' AND link_to = '" . $link_to_id . "' AND (type_from = '" . $type . "' " . $additional_query . " ))" );
+        $additional_query = '';
+        $linked_url_value = array();
+        $linked_urls = $wpdb->get_var( "SELECT count(link_to) FROM {$ilj_linkindex_table} WHERE (link_from = '" . $id . "' AND link_to = '" . $link_to_id . "' AND (type_from = '" . $type . "' " . $additional_query . '))' );
         $linked_url_value[$link_to_id] = (int) $linked_urls;
         return $linked_urls;
     }
@@ -253,8 +256,8 @@ class IndexAsset
     /**
      * Get Linked Anchors
      *
-     * @param  int    $id   Post/Tax ID
-     * @param  string $type Type
+     * @param  int    $id    Post/Tax ID
+     * @param  string $type  Type
      * @param  string $scope
      * @return mixed
      */
@@ -262,17 +265,17 @@ class IndexAsset
     {
         global  $wpdb ;
         
-        if ( $scope == IndexAsset::ILJ_FULL_BUILD ) {
+        if ( self::ILJ_FULL_BUILD == $scope ) {
             $ilj_linkindex_table = $wpdb->prefix . LinkindexTemp::ILJ_DATABASE_TABLE_LINKINDEX_TEMP;
-        } elseif ( $scope == IndexAsset::ILJ_INDIVIDUAL_BUILD ) {
+        } elseif ( self::ILJ_INDIVIDUAL_BUILD == $scope ) {
             $ilj_linkindex_table = $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP;
         }
         
-        $additional_query = "";
-        $linked_anchors = $wpdb->get_results( "SELECT anchor FROM {$ilj_linkindex_table} WHERE (link_to != 0 AND type_to != '' AND anchor != '') AND (link_from = '" . $id . "' AND ( type_from = '" . $type . "' " . $additional_query . " ))", ARRAY_A );
-        $anchors = [];
-        foreach ( $linked_anchors as $key => $value ) {
-            $anchors[] = $value["anchor"];
+        $additional_query = '';
+        $linked_anchors = $wpdb->get_results( "SELECT anchor FROM {$ilj_linkindex_table} WHERE (link_to != 0 AND type_to != '' AND anchor != '') AND (link_from = '" . $id . "' AND (type_from = '" . $type . "' " . $additional_query . '))', ARRAY_A );
+        $anchors = array();
+        foreach ( $linked_anchors as $value ) {
+            $anchors[] = $value['anchor'];
         }
         return $anchors;
     }
@@ -281,20 +284,20 @@ class IndexAsset
      * Checks if the phrase is included in the blacklist of keywords
      *
      * @param  int    $link_from post/term ID
-     * @param  string $phrase    string to check for 
+     * @param  string $phrase    string to check for
      * @param  string $type      could be term/post
      * @return bool
      */
     public static function checkIfBlacklistedKeyword( $link_from, $phrase, $type )
     {
-        if ( $type == 'post' || $type == 'post_meta' ) {
+        if ( 'post' == $type || 'post_meta' == $type ) {
             $keyword_blacklist = get_post_meta( $link_from, Editor::ILJ_META_KEY_BLACKLISTDEFINITION, true );
         }
-        if ( $type == 'term' || $type == 'term_meta' ) {
+        if ( 'term' == $type || 'term_meta' == $type ) {
             $keyword_blacklist = get_term_meta( $link_from, Editor::ILJ_META_KEY_BLACKLISTDEFINITION, true );
         }
         
-        if ( !empty($keyword_blacklist) || $keyword_blacklist != false ) {
+        if ( !empty($keyword_blacklist) || false != $keyword_blacklist ) {
             $keyword_blacklist = array_slice( $keyword_blacklist, 0, 2 );
             foreach ( $keyword_blacklist as $keyword ) {
                 if ( strtolower( $phrase ) == strtolower( $keyword ) ) {
@@ -309,16 +312,16 @@ class IndexAsset
     /**
      * This function removes post/term metas that starts with _ or ilj_
      *
-     * @param  array $allmeta           Array of all meta fields
-     * @return array $custom_fields     Array of custom metas
+     * @param  array $allmeta Array of all meta fields
+     * @return array $custom_fields Array of custom metas
      */
     public static function filter_custom_fields( $allmeta )
     {
         $custom_fields = array();
         if ( $allmeta ) {
-            foreach ( $allmeta as $key => $value ) {
-                if ( substr( $value["meta_key"], 0, 1 ) != "_" && substr( $value["meta_key"], 0, 4 ) != "ilj_" ) {
-                    $custom_fields[$value["meta_key"]] = $value["meta_value"];
+            foreach ( $allmeta as $value ) {
+                if ( substr( $value['meta_key'], 0, 1 ) != '_' && substr( $value['meta_key'], 0, 4 ) != 'ilj_' ) {
+                    $custom_fields[$value['meta_key']] = $value['meta_value'];
                 }
             }
         }
@@ -327,12 +330,12 @@ class IndexAsset
     }
     
     /**
-     * getMetaData
+     * Get the metadata from database
      *
-     * @param  int $id
+     * @param  int    $id
      * @param  string $type
-     * @param  mixed $key
-     * @param  bool $single
+     * @param  mixed  $key
+     * @param  bool   $single
      * @return mixed
      */
     public static function getMetaData(
@@ -346,23 +349,23 @@ class IndexAsset
         if ( !is_numeric( $id ) ) {
             return;
         }
-        $type_key = "post_id";
+        $type_key = 'post_id';
         $table = $wpdb->postmeta;
         
-        if ( $type == "term" ) {
-            $type_key = "term_id";
+        if ( 'term' == $type ) {
+            $type_key = 'term_id';
             $table = $wpdb->termmeta;
         }
         
         $query = " AND meta_key = '{$key}' ";
-        if ( $key == null ) {
-            $query = "";
+        if ( null == $key ) {
+            $query = '';
         }
-        $data = "meta_value";
+        $data = 'meta_value';
         if ( !$single ) {
-            $data = "*";
+            $data = '*';
         }
-        $select = "SELECT " . $data . " FROM " . $table;
+        $select = 'SELECT ' . $data . ' FROM ' . $table;
         $query = $wpdb->prepare( $select . " WHERE {$type_key} = %d " . $query, $id );
         
         if ( $single ) {
@@ -383,19 +386,24 @@ class IndexAsset
     public static function escape_array( $arr )
     {
         global  $wpdb ;
-        $escaped = array();
-        foreach ( $arr as $k => $v ) {
-            $v = stripslashes( $v );
-            // Remove extra slashes
-            
-            if ( is_numeric( $v ) ) {
-                $escaped[] = $wpdb->prepare( '%d', $v );
-            } else {
-                $escaped[] = $wpdb->prepare( '%s', $v );
-            }
         
+        if ( is_array( $arr ) && !empty($arr) ) {
+            $escaped = array();
+            foreach ( $arr as $v ) {
+                $v = stripslashes( $v );
+                // Remove extra slashes
+                
+                if ( is_numeric( $v ) ) {
+                    $escaped[] = $wpdb->prepare( '%d', $v );
+                } else {
+                    $escaped[] = $wpdb->prepare( '%s', $v );
+                }
+            
+            }
+            return implode( ',', $escaped );
         }
-        return implode( ',', $escaped );
+        
+        return $arr;
     }
 
 }

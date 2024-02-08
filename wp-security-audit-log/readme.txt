@@ -5,8 +5,8 @@ License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl.html
 Tags:  activity log, security audit log, user tracking, security event log, audit trail, user activity, changelog, history, log, website changes
 Requires at least: 5.0
-Tested up to: 6.4.2
-Stable tag: 4.6.2
+Tested up to: 6.4.3
+Stable tag: 4.6.3
 Requires PHP: 7.2
 
 Keep a comprehensive log of user and system changes that take place on your WordPress website with the the #1 user-rated activity log plugin.
@@ -207,19 +207,21 @@ Please refer to our [support pages](https://melapress.com/support/?utm_source=wp
 
 == Changelog ==
 
- 4.6.2 (2024-01-09) =
+= 4.6.3 (2024-02-07) =
 
-* **Plugin & features improvements**
-	* Fixed a number of broken links in the UI and Enable/Disable events section.
+* **Improvements**
+	* Added support to the new plans and prices (February 2024 change).
+	* Upgraded the Freemius SDK to 2.6.2.
+	* Updated a number of links in the plugin (links used in help text etc).
+	* Removed hardcoding of post types and post statuses in search filters.
+	* Continued code refactoring - code removed from main plugin file, created new classes etc.
 
-* **Security issue**
-	* Fixed an XSS in the activity log viewer identified by NamGyu Kang. 
-
-* **Bug fixes**
-	* Extension update notice introduced in 4.6.0 cannot be dismissed in certain situations.
-	* Fixed: Fatal error in WP_Content_sensor triggered in some edge cases.
-	* Fixed: Error in MirrorLogger.php triggered by a bad / broken migration of activity log events.
-	* Fixed: Fatal error on multisite network when upgrading from 4.5.2 to >4.6.0.
-	* Addressed a Composer error triggered when installing Premium over Free edition of the plugin in certain versions.
+ * **Bug fixes**
+	 * Option for event ID 5709 was not showing when filtering the list of event IDs in the Enable/Disable events section.
+	 * Fixed error generated when duplicating forms on Gravity Forms.
+	 * Fixed: plugin keeping a log of forms submission even when the option to keep a log by website visitors was disabled.
+	 * Added event ID check when extracting the last occurrence from the database.
+	 * Addressed a number of PHP errors generated when running the plugin on PHP 8.2
+	 * Fixed a server error generated when exporting search results.
 
 Refer to the complete [plugin changelog](https://melapress.com/support/kb/wp-activity-log-plugin-changelog/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=wsal) for more detailed information about what was new, improved and fixed in previous version updates of WP Activity Log.

@@ -161,21 +161,13 @@ class ExactMetrics_Dashboard_Widget {
 	 */
 	public function widget_scripts() {
 		$version_path = 'lite';
-		$rtl          = is_rtl() ? '.rtl' : '';
+		$screen       = get_current_screen();
 
-		$screen = get_current_screen();
 		if ( isset( $screen->id ) && 'dashboard' === $screen->id ) {
-			global $wp_version;
-			if ( ! defined( 'EXACTMETRICS_LOCAL_WIDGET_JS_URL' ) ) {
-				wp_enqueue_style( 'exactmetrics-vue-style-vendors', plugins_url( $version_path . '/assets/vue/css/chunk-vendors' . $rtl . '.css', EXACTMETRICS_PLUGIN_FILE ), array(), exactmetrics_get_asset_version() );
-				wp_enqueue_style( 'exactmetrics-vue-widget-style', plugins_url( $version_path . '/assets/vue/css/widget' . $rtl . '.css', EXACTMETRICS_PLUGIN_FILE ), array(), exactmetrics_get_asset_version() );
-				wp_enqueue_script( 'exactmetrics-vue-vendors', plugins_url( $version_path . '/assets/vue/js/chunk-vendors.js', EXACTMETRICS_PLUGIN_FILE ), array(), exactmetrics_get_asset_version(), true );
-				wp_enqueue_script( 'exactmetrics-vue-common', plugins_url( $version_path . '/assets/vue/js/chunk-common.js', EXACTMETRICS_PLUGIN_FILE ), array(), exactmetrics_get_asset_version(), true );
-			} else {
-				wp_enqueue_script( 'exactmetrics-vue-vendors', EXACTMETRICS_LOCAL_VENDORS_JS_URL, array(), exactmetrics_get_asset_version(), true );
-				wp_enqueue_script( 'exactmetrics-vue-common', EXACTMETRICS_LOCAL_COMMON_JS_URL, array(), exactmetrics_get_asset_version(), true );
+			if ( ! defined( 'EXACTMETRICS_LOCAL_JS_URL' ) ) {
+				ExactMetrics_Admin_Assets::enqueue_script_specific_css( 'src/modules/widget/widget.js' );
 			}
-			$widget_js_url = defined( 'EXACTMETRICS_LOCAL_WIDGET_JS_URL' ) && EXACTMETRICS_LOCAL_WIDGET_JS_URL ? EXACTMETRICS_LOCAL_WIDGET_JS_URL : plugins_url( $version_path . '/assets/vue/js/widget.js', EXACTMETRICS_PLUGIN_FILE );
+			$widget_js_url = defined('EXACTMETRICS_LOCAL_JS_URL') && EXACTMETRICS_LOCAL_JS_URL ? EXACTMETRICS_LOCAL_JS_URL . 'src/modules/widget/widget.js' : plugins_url($version_path . '/assets/vue/js/widget.js', EXACTMETRICS_PLUGIN_FILE);
 			wp_register_script( 'exactmetrics-vue-widget', $widget_js_url, array(), exactmetrics_get_asset_version(), true );
 			wp_enqueue_script( 'exactmetrics-vue-widget' );
 

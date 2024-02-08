@@ -116,8 +116,7 @@
               waitForHover = setTimeout(function(){
                 obj.hide();
               }, 200);
-            })
-        ;
+            });
         });
       } else {
         $e.on('mouseover' + '.' + pluginName, function() {
@@ -374,9 +373,9 @@
   var supportsTransitions = (function() {
     var s = document.createElement('p').style,
         v = ['ms','O','Moz','Webkit'];
-    if( s['transition'] === '' ) return true;
-    while( v.length )
-        if( v.pop() + 'Transition' in s )
+    if(s['transition'] === '') return true;
+    while(v.length)
+        if(v.pop() + 'Transition' in s)
             return true;
     return false;
   })();

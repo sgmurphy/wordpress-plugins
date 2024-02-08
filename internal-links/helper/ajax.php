@@ -27,6 +27,7 @@ class Ajax
 {
     const  ILJ_FILTER_AJAX_SEARCH_POSTS = 'ilj_ajax_search_posts' ;
     const  ILJ_FILTER_AJAX_SEARCH_TERMS = 'ilj_ajax_search_terms' ;
+    private static  $cached_html = null ;
     /**
      * Searches the posts for a given phrase
      *
@@ -42,18 +43,18 @@ class Ajax
         $search = sanitize_text_field( $_POST['search'] );
         $per_page = (int) $_POST['per_page'];
         $page = (int) $_POST['page'];
-        $args = [
-            "s"              => $search,
-            "posts_per_page" => $per_page,
-            "paged"          => $page,
-        ];
+        $args = array(
+            's'              => $search,
+            'posts_per_page' => $per_page,
+            'paged'          => $page,
+        );
         $query = new \WP_Query( $args );
-        $data = [];
+        $data = array();
         foreach ( $query->posts as $post ) {
-            $data[] = [
-                "id"   => $post->ID,
-                "text" => $post->post_title,
-            ];
+            $data[] = array(
+                'id'   => $post->ID,
+                'text' => $post->post_title,
+            );
         }
         /**
          * Filters the output of ajax post search
@@ -79,15 +80,15 @@ class Ajax
     {
         try {
             do_action( IndexBuilder::ILJ_INITIATE_BATCH_REBUILD );
-            $response = [
+            $response = array(
                 'status'  => 'success',
                 'message' => sprintf( '<p class="message">' . __( 'Index rebuild successfully scheduled.', 'internal-links' ) . '</p>' ),
-            ];
+            );
         } catch ( \Exception $e ) {
-            $response = [
+            $response = array(
                 'status'  => 'error',
                 'message' => sprintf( '<p class="message">' . __( 'There has been an error in initiating the index rebuild.', 'internal-links' ) . '</p>' ),
-            ];
+            );
         }
         wp_send_json( $response );
         wp_die();
@@ -98,21 +99,22 @@ class Ajax
      *
      * @since 1.2.5
      *
-     * @return void
+     * @param int $start_count Determine what index to start counting
+     * @param int $chunk_size  The size of the batch to loop into
+     * @return String
      */
-    public static function renderLinksStatisticAction()
+    public static function render_links_statistic_action( $start_count, $chunk_size )
     {
         $statistics = Statistic::getLinkStatistics();
         
-        if ( !count( $statistics ) ) {
-            echo  '<span>' . __( 'There are no statistics to display', 'internal-links' ) . '</span>' ;
-            wp_die();
+        if ( !count( $statistics ) && 0 == $start_count ) {
+            return;
+        } elseif ( !count( $statistics ) && 0 < $start_count ) {
+            return null;
         }
         
-        echo  '<table class="ilj-statistic-table-links display">' ;
-        echo  '<thead><tr><th>' . __( 'Title', 'internal-links' ) . '</th><th>' . __( 'Configured keywords', 'internal-links' ) . '</th><th class="type">' . __( 'Type', 'internal-links' ) . '</th><th>' . __( 'Incoming links', 'internal-links' ) . '</th><th>' . __( 'Outgoing links', 'internal-links' ) . '</th><th>' . __( 'Action', 'internal-links' ) . '</th></tr></thead>' ;
-        echo  '<tbody>' ;
-        foreach ( $statistics as $statistic ) {
+        for ( $i = $start_count ;  $i < min( $start_count + $chunk_size, count( $statistics ) ) ;  $i++ ) {
+            $statistic = $statistics[$i];
             $asset_data = IndexAsset::getMeta( $statistic->asset_id, $statistic->asset_type );
             if ( !$asset_data ) {
                 continue;
@@ -122,17 +124,16 @@ class Ajax
             $elements_to = ( $statistic->elements_to ? '<a title="' . __( 'Show incoming links', 'internal-links' ) . '" class="tip ilj-statistic-detail" data-id="' . $statistic->asset_id . '" data-type="' . $statistic->asset_type . '" data-direction="to">' . $statistic->elements_to . '</a>' : '-' );
             $elements_from = ( $statistic->elements_from ? '<a title="' . __( 'Show outgoing links', 'internal-links' ) . '" class="tip ilj-statistic-detail" data-id="' . $statistic->asset_id . '" data-type="' . $statistic->asset_type . '" data-direction="from">' . $statistic->elements_from . '</a>' : '-' );
             $type = IndexAsset::getDetailedType( $statistic->asset_id, $statistic->asset_type );
-            echo  '<tr>' ;
-            echo  '<td class="asset-title">' . $asset_data->title . '</td>' ;
-            echo  '<td>' . Statistic::getConfiguredKeywordsCountForAsset( $statistic->asset_id, $statistic->asset_type ) . '</td>' ;
-            echo  '<td class="type" data-search="' . $statistic->asset_type . ';' . $type . '"><span data-type="' . $statistic->asset_type . '">' . $type . '</span></td>' ;
-            echo  '<td>' . $elements_to . '</td>' ;
-            echo  '<td>' . $elements_from . '</td>' ;
-            echo  '<td>' . $edit_link . ' ' . $asset_link . '</td>' ;
-            echo  '</tr>' ;
+            self::$cached_html .= '<tr>';
+            self::$cached_html .= '<td class="asset-title">' . $asset_data->title . '</td>';
+            self::$cached_html .= '<td>' . Statistic::getConfiguredKeywordsCountForAsset( $statistic->asset_id, $statistic->asset_type ) . '</td>';
+            self::$cached_html .= '<td class="type" data-search="' . $statistic->asset_type . ';' . $type . '"><span data-type="' . $statistic->asset_type . '">' . $type . '</span></td>';
+            self::$cached_html .= '<td>' . $elements_to . '</td>';
+            self::$cached_html .= '<td>' . $elements_from . '</td>';
+            self::$cached_html .= '<td>' . $edit_link . ' ' . $asset_link . '</td>';
+            self::$cached_html .= '</tr>';
         }
-        echo  '</tbody>' ;
-        echo  '</table>' ;
+        echo  self::$cached_html ;
     }
     
     /**
@@ -140,23 +141,23 @@ class Ajax
      *
      * @since 1.2.5
      *
-     * @return void
+     * @param int $start_count Determine what index to start counting
+     * @param int $chunk_size  The size of the batch to loop into
+     * @return String
      */
-    public static function renderAnchorsStatistic()
+    public static function render_anchors_statistic( $start_count, $chunk_size )
     {
-        echo  '<table class="ilj-statistic-table-anchors display">' ;
-        echo  '<thead><tr><th>' . __( 'Anchor text', 'internal-links' ) . '</th><th>' . __( 'Character count', 'internal-links' ) . '</th><th>' . __( 'Word count', 'internal-links' ) . '</th><th>' . __( 'Frequency', 'internal-links' ) . '</th></tr></thead>' ;
-        echo  '<tbody>' ;
-        foreach ( Statistic::getAnchorStatistics() as $statistic ) {
-            echo  '<tr>' ;
-            echo  '<td>' . $statistic->anchor . '</td>' ;
-            echo  '<td>' . strlen( $statistic->anchor ) . '</td>' ;
-            echo  '<td>' . count( explode( ' ', $statistic->anchor ) ) . '</td>' ;
-            echo  '<td><a title="' . __( 'Show usage', 'internal-links' ) . '" class="tip ilj-statistic-detail" data-anchor="' . $statistic->anchor . '">' . $statistic->frequency . '</a></td>' ;
-            echo  '</tr>' ;
+        $statistics = Statistic::getAnchorStatistics();
+        for ( $i = $start_count ;  $i < min( $start_count + $chunk_size, count( $statistics ) ) ;  $i++ ) {
+            $statistic = $statistics[$i];
+            self::$cached_html .= '<tr>';
+            self::$cached_html .= '<td>' . $statistic->anchor . '</td>';
+            self::$cached_html .= '<td>' . strlen( $statistic->anchor ) . '</td>';
+            self::$cached_html .= '<td>' . count( explode( ' ', $statistic->anchor ) ) . '</td>';
+            self::$cached_html .= '<td><a title="' . __( 'Show usage', 'internal-links' ) . '" class="tip ilj-statistic-detail" data-anchor="' . $statistic->anchor . '">' . $statistic->frequency . '</a></td>';
+            self::$cached_html .= '</tr>';
         }
-        echo  '</tbody>' ;
-        echo  '</table>' ;
+        echo  self::$cached_html ;
     }
     
     /**
@@ -180,9 +181,9 @@ class Ajax
         }
         $direction_header = '';
         
-        if ( $direction == 'from' ) {
+        if ( 'from' == $direction ) {
             $direction_header = __( 'Target', 'internal-links' );
-        } elseif ( $direction == 'to' ) {
+        } elseif ( 'to' == $direction ) {
             $direction_header = __( 'Source', 'internal-links' );
         }
         
@@ -198,9 +199,9 @@ class Ajax
                 continue;
             }
             
-            if ( $direction == 'from' ) {
+            if ( 'from' == $direction ) {
                 $reverse_direction = 'to';
-            } elseif ( $direction == 'to' ) {
+            } elseif ( 'to' == $direction ) {
                 $reverse_direction = 'from';
             }
             
@@ -209,7 +210,7 @@ class Ajax
             if ( !$asset_data ) {
                 continue;
             }
-            $data .= '<tr class="' . (( $row_counter % 2 === 0 ? 'even' : 'odd' )) . '"><td><a href="' . $asset_data->url . '" rel="noopener" target="_blank">' . $asset_data->title . '</a></td><td class="type"><span data-type="' . $directive_link->{'type_' . $reverse_direction} . '">' . $type . '</span></td><td>' . $directive_link->anchor . '</td></tr>';
+            $data .= '<tr class="' . (( 0 === $row_counter % 2 ? 'even' : 'odd' )) . '"><td><a href="' . $asset_data->url . '" rel="noopener" target="_blank">' . $asset_data->title . '</a></td><td class="type"><span data-type="' . $directive_link->{'type_' . $reverse_direction} . '">' . $type . '</span></td><td>' . $directive_link->anchor . '</td></tr>';
             $row_counter++;
         }
         $data .= '</tbody>';
@@ -268,7 +269,7 @@ class Ajax
         }
         $days = (int) $_POST['days'];
         
-        if ( $days === -1 ) {
+        if ( -1 === $days ) {
             User::unsetRatingNotification();
             wp_die();
         }
@@ -305,18 +306,18 @@ class Ajax
         }
         $nonce = $_POST['nonce'];
         $file_type = $_POST['file_type'];
-        if ( !in_array( $file_type, [ 'settings', 'keywords' ] ) ) {
+        if ( !in_array( $file_type, array( 'settings', 'keywords' ) ) ) {
             wp_send_json_error( null, 400 );
         }
         if ( !wp_verify_nonce( $nonce, 'ilj-tools' ) || !current_user_can( 'manage_options' ) ) {
             wp_send_json_error( null, 400 );
         }
         $uploaded_file = $_FILES['file_data'];
-        $upload_overrides = [
+        $upload_overrides = array(
             'test_form' => false,
             'test_type' => false,
-        ];
-        if ( $file_type == 'keywords' ) {
+        );
+        if ( 'keywords' == $file_type ) {
             $uploaded_file['name'] = uniqid( rand(), true ) . '.csv';
         }
         $file_upload = wp_handle_upload( $uploaded_file, $upload_overrides );
@@ -328,7 +329,7 @@ class Ajax
                 $file_content = file_get_contents( $file_upload['file'] );
                 unlink( $file_upload['file'] );
                 $file_json = Encoding::jsonToArray( $file_content );
-                if ( $file_json === false ) {
+                if ( false === $file_json ) {
                     wp_send_json_error( null, 400 );
                 }
                 set_transient( 'ilj_upload_settings', $file_json, HOUR_IN_SECONDS * 12 );
@@ -353,7 +354,7 @@ class Ajax
         }
         $nonce = $_POST['nonce'];
         $file_type = $_POST['file_type'];
-        if ( !in_array( $file_type, [ 'settings', 'keywords' ] ) ) {
+        if ( !in_array( $file_type, array( 'settings', 'keywords' ) ) ) {
             wp_send_json_error( null, 400 );
         }
         if ( !wp_verify_nonce( $nonce, 'ilj-tools' ) || !current_user_can( 'manage_options' ) ) {
@@ -375,7 +376,7 @@ class Ajax
                 unlink( $upload_transient['file'] );
                 break;
         }
-        if ( $import_count === 0 ) {
+        if ( 0 === $import_count ) {
             wp_send_json_error( __( 'Nothing to import or no data for import found.', 'internal-links' ), 400 );
         }
         do_action( IndexBuilder::ILJ_INITIATE_BATCH_REBUILD );
@@ -395,6 +396,108 @@ class Ajax
         $batch_build_info = new HelperBatchInfo();
         $info = $batch_build_info->getBatchInfo();
         wp_send_json( $info );
+        wp_die();
+    }
+    
+    /**
+     * Handles clear all transient ajax action
+     *
+     * @return void
+     */
+    public static function clear_all_transient()
+    {
+        if ( !check_admin_referer( 'ilj_clear_all_transient' ) || !current_user_can( 'manage_options' ) ) {
+            return;
+        }
+        ContentTransient::delete_all_ilj_transient();
+        \ILJ\ilj_fs()->add_sticky_admin_message( __( 'The Caches were cleared.', 'internal-links' ), 'ilj_clear_all_transient_notice' );
+        wp_safe_redirect( wp_get_referer() );
+        die;
+    }
+    
+    /**
+     * Loads chunks of links statistics data to table
+     *
+     * @since 2.23.4
+     *
+     * @return void
+     */
+    public static function load_statistics_chunk_callback()
+    {
+        if ( !isset( $_POST['nonce'] ) || !wp_verify_nonce( $_POST['nonce'], 'ilj-dashboard' ) ) {
+            die;
+        }
+        if ( !current_user_can( 'manage_options' ) ) {
+            return;
+        }
+        $start_count = intval( $_POST['start_count'] );
+        $chunk_size = intval( $_POST['chunk_size'] );
+        $html_chunk = Ajax::render_links_statistic_action( $start_count, $chunk_size );
+        echo  json_encode( $html_chunk ) ;
+        die;
+    }
+    
+    /**
+     * Handles clear single transient ajax action
+     *
+     * @return void
+     */
+    public static function clear_single_transient()
+    {
+        if ( !check_admin_referer( 'ilj_clear_single_transient' ) || !current_user_can( 'manage_options' ) ) {
+            return;
+        }
+        $id = ( isset( $_REQUEST['ilj_transient_id'] ) ? sanitize_text_field( $_REQUEST['ilj_transient_id'] ) : '' );
+        $type = ( isset( $_REQUEST['ilj_transient_type'] ) ? sanitize_text_field( $_REQUEST['ilj_transient_type'] ) : '' );
+        if ( !$id || !in_array( $type, array( 'post', 'term' ), true ) ) {
+            return;
+        }
+        ContentTransient::delete_transient( intval( $id ), $type );
+        /* Dont print notice because the ui using this flag will have inbuilt feedback instead of printing the notice */
+        
+        if ( !isset( $_REQUEST['ilj_skip_notice'] ) ) {
+            $message = ( 'post' === $type ? sprintf( __( 'The cache for the %s has been cleared.', 'internal-links' ), get_post_type( $id ) ) : __( 'The cache for the term has been cleared.', 'internal-links' ) );
+            \ILJ\ilj_fs()->add_sticky_admin_message( $message, 'ilj_clear_single_transient_notice' );
+            wp_safe_redirect( wp_get_referer() );
+        }
+        
+        die;
+    }
+    
+    /**
+     * Loads chunks of anchor statistics data to table
+     *
+     * @since 2.23.4
+     *
+     * @return void
+     */
+    public static function load_anchor_statistics_chunk_callback()
+    {
+        if ( !isset( $_POST['nonce'] ) || !wp_verify_nonce( $_POST['nonce'], 'ilj-dashboard' ) ) {
+            die;
+        }
+        if ( !current_user_can( 'manage_options' ) ) {
+            return;
+        }
+        $start_count = intval( $_POST['start_count'] );
+        $chunk_size = intval( $_POST['chunk_size'] );
+        $html_chunk = Ajax::render_anchors_statistic( $start_count, $chunk_size );
+        echo  json_encode( $html_chunk ) ;
+        die;
+    }
+    
+    /**
+     * Cancels the index rebuild schedules
+     *
+     * @since 2.23.5
+     *
+     * @return void
+     */
+    public static function cancel_all_schedules()
+    {
+        Cleanup::clean_scheduled_actions();
+        HelperBatchInfo::reset_batch_info();
+        wp_send_json_success( null, 200 );
         wp_die();
     }
 

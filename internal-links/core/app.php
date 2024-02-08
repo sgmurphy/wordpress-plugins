@@ -9,8 +9,12 @@ use  ILJ\Backend\Editor ;
 use  ILJ\Backend\MenuPage\Tools ;
 use  ILJ\Backend\RatingNotifier ;
 use  ILJ\Backend\Environment ;
+use  ILJ\Core\Options\Limit_Incoming_Links ;
+use  ILJ\Core\Options\Max_Incoming_Links ;
+use  ILJ\Core\Options\MultipleKeywords ;
 use  ILJ\Helper\Capabilities ;
 use  ILJ\Backend\Menupage\Settings ;
+use  ILJ\Backend\Notices ;
 use  ILJ\Core\Options\CustomFieldsToLinkPost ;
 use  ILJ\Core\Options\TaxonomyWhitelist ;
 use  ILJ\Core\Options\Whitelist ;
@@ -18,9 +22,11 @@ use  ILJ\Database\Keywords ;
 use  ILJ\Database\Linkindex ;
 use  ILJ\Enumeration\LinkType ;
 use  ILJ\Enumeration\TagExclusion ;
+use  ILJ\Helper\Ajax ;
 use  ILJ\Helper\BatchBuilding ;
 use  ILJ\Helper\BatchInfo as HelperBatchInfo ;
 use  ILJ\Helper\Blacklist ;
+use  ILJ\Helper\ContentTransient ;
 use  ILJ\Helper\CustomMetaData ;
 use  ILJ\Helper\IndexAsset ;
 use  ILJ\Helper\LinkBuilding ;
@@ -28,6 +34,7 @@ use  ILJ\Helper\Options as OptionHelper ;
 use  ILJ\Helper\Replacement ;
 use  ILJ\Helper\Statistic ;
 use  ILJ\Posttypes\CustomLinks ;
+use  ILJ\Helper\Cloudflare ;
 /**
  * The main app
  *
@@ -57,7 +64,7 @@ class App
         self::$instance = new self();
         $last_version = Environment::get( 'last_version' );
         
-        if ( $last_version != ILJ_VERSION ) {
+        if ( ILJ_VERSION != $last_version ) {
             ilj_install_db();
             Options::setOptionsDefault();
         }
@@ -68,66 +75,66 @@ class App
     {
         $this->initSettings();
         $this->loadIncludes();
-        add_action( 'admin_init', [ '\\ILJ\\Core\\Options', 'init' ] );
-        add_action( 'admin_init', [ '\\ILJ\\Backend\\Editor', 'addAssets' ] );
-        add_action( 'future_to_publish', [ $this, 'publishFuturePost' ], 99 );
-        add_action( 'plugins_loaded', [ $this, 'afterPluginsLoad' ] );
-        add_action( 'after_setup_theme', [ $this, 'afterThemesLoad' ] );
+        add_action( 'admin_init', array( '\\ILJ\\Core\\Options', 'init' ) );
+        add_action( 'admin_init', array( '\\ILJ\\Backend\\Editor', 'addAssets' ) );
+        add_action( 'future_to_publish', array( $this, 'publishFuturePost' ), 99 );
+        add_action( 'plugins_loaded', array( $this, 'afterPluginsLoad' ) );
+        add_action( 'after_setup_theme', array( $this, 'afterThemesLoad' ) );
         add_action(
             IndexBuilder::ILJ_SET_INDIVIDUAL_INDEX_REBUILD,
-            [ new BatchBuilding(), "ilj_set_individual_index_rebuild" ],
+            array( new BatchBuilding(), "ilj_set_individual_index_rebuild" ),
             10,
             1
         );
         add_action(
             IndexBuilder::ILJ_INDIVIDUAL_INDEX_REBUILD_OUTGOING,
-            [ new BatchBuilding(), "ilj_individual_index_rebuild_outgoing" ],
+            array( new BatchBuilding(), "ilj_individual_index_rebuild_outgoing" ),
             10,
             1
         );
         add_action(
             IndexBuilder::ILJ_INDIVIDUAL_INDEX_REBUILD_INCOMING,
-            [ new BatchBuilding(), "ilj_individual_index_rebuild_incoming" ],
+            array( new BatchBuilding(), "ilj_individual_index_rebuild_incoming" ),
             10,
             1
         );
         add_action(
             IndexBuilder::ILJ_SET_INDIVIDUAL_INDEX_REBUILD_INCOMING,
-            [ new BatchBuilding(), "ilj_set_individual_index_rebuild_incoming" ],
+            array( new BatchBuilding(), "ilj_set_individual_index_rebuild_incoming" ),
             10,
             1
         );
-        add_action( IndexBuilder::ILJ_INITIATE_BATCH_REBUILD, [ new BatchBuilding(), "initiate_ilj_batch_rebuild" ], 10 );
-        add_action( IndexBuilder::ILJ_RUN_SETTING_BATCHED_INDEX_REBUILD, [ new BatchBuilding(), "ilj_run_setting_batched_index_rebuild" ], 10 );
+        add_action( IndexBuilder::ILJ_INITIATE_BATCH_REBUILD, array( new BatchBuilding(), "initiate_ilj_batch_rebuild" ), 10 );
+        add_action( IndexBuilder::ILJ_RUN_SETTING_BATCHED_INDEX_REBUILD, array( new BatchBuilding(), "ilj_run_setting_batched_index_rebuild" ), 10 );
         add_action(
             IndexBuilder::ILJ_SET_BATCHED_INDEX_REBUILD,
-            [ new BatchBuilding(), "ilj_set_batched_index_rebuild" ],
+            array( new BatchBuilding(), "ilj_set_batched_index_rebuild" ),
             10,
             1
         );
         add_action(
             IndexBuilder::ILJ_BUILD_BATCHED_INDEX,
-            [ new BatchBuilding(), "ilj_build_batched_index" ],
+            array( new BatchBuilding(), "ilj_build_batched_index" ),
             10,
             1
         );
         add_action(
             IndexBuilder::ILJ_UPDATE_STATISTICS_INFO,
-            [ new BatchBuilding(), "ilj_update_statistics_info" ],
+            array( new BatchBuilding(), "ilj_update_statistics_info" ),
             10,
             1
         );
-        //Used by blacklist options
+        // Used by blacklist options
         add_action(
             IndexBuilder::ILJ_DELETE_INDEX_BY_ID,
-            [ $this, "ilj_delete_index_by_id" ],
+            array( $this, "ilj_delete_index_by_id" ),
             10,
             1
         );
-        //Used by post/terms in individual index rebuilds
+        // Used by post/terms in individual index rebuilds
         add_action(
             IndexBuilder::ILJ_INDIVIDUAL_DELETE_INDEX,
-            [ $this, "ilj_individual_delete_index" ],
+            array( $this, "ilj_individual_delete_index" ),
             10,
             1
         );
@@ -148,8 +155,8 @@ class App
      */
     protected function initSettings()
     {
-        add_action( 'admin_menu', [ '\\ILJ\\Backend\\AdminMenu', 'init' ] );
-        add_filter( 'plugin_action_links_' . ILJ_NAME, [ $this, 'addSettingsLink' ] );
+        add_action( 'admin_menu', array( '\\ILJ\\Backend\\AdminMenu', 'init' ) );
+        add_filter( 'plugin_action_links_' . ILJ_NAME, array( $this, 'addSettingsLink' ) );
     }
     
     /**
@@ -162,7 +169,7 @@ class App
     public function loadIncludes()
     {
         require_once ILJ_PATH . 'vendor/woocommerce/action-scheduler/action-scheduler.php';
-        $include_files = [ 'install', 'uninstall' ];
+        $include_files = array( 'install', 'uninstall' );
         foreach ( $include_files as $file ) {
             include_once ILJ_PATH . 'includes/' . $file . '.php';
         }
@@ -262,46 +269,64 @@ class App
         if ( !$capability ) {
             return;
         }
-        add_action( 'wp_enqueue_scripts', [ $this, 'enqueueAdminBarScripts' ] );
-        add_action( 'admin_enqueue_scripts', [ $this, 'enqueueAdminBarScripts' ] );
-        add_action( 'admin_enqueue_scripts', [ $this, 'enqueueRebuildIndexAssets' ] );
-        add_action( 'load-post.php', [ '\\ILJ\\Backend\\Editor', 'addKeywordMetaBox' ] );
-        add_action( 'load-post-new.php', [ '\\ILJ\\Backend\\Editor', 'addKeywordMetaBox' ] );
+        // LiteSpeed has a generic problem with terminating cron jobs, this shows the admin notice
+        if ( false == Options::getOption( Notices::ILJ_DISMISS_ADMIN_WARNING_LITESPEED ) && isset( $_SERVER['SERVER_SOFTWARE'] ) && false !== strpos( $_SERVER['SERVER_SOFTWARE'], 'LiteSpeed' ) ) {
+            if ( !is_file( ABSPATH . '.htaccess' ) || !preg_match( '/noabort/i', file_get_contents( ABSPATH . '.htaccess' ) ) ) {
+                add_action( 'all_admin_notices', array( '\\ILJ\\Backend\\Notices', 'show_admin_warning_litespeed' ) );
+            }
+        }
+        add_action( 'wp_enqueue_scripts', array( $this, 'enqueueAdminBarScripts' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueueAdminBarScripts' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueueRebuildIndexAssets' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_ilj_admin_scripts' ) );
+        add_action( 'load-post.php', array( '\\ILJ\\Backend\\Editor', 'addKeywordMetaBox' ) );
+        add_action( Editor::ILJ_KEYWORD_METABOX_FOOTER_HOOK, array( '\\ILJ\\Backend\\Editor', 'render_keyword_metabox_footer' ) );
+        add_action( 'load-post-new.php', array( '\\ILJ\\Backend\\Editor', 'addKeywordMetaBox' ) );
         add_action(
             'save_post',
-            [ '\\ILJ\\Backend\\Editor', 'saveKeywordMeta' ],
+            array( '\\ILJ\\Backend\\Editor', 'saveKeywordMeta' ),
             10,
             2
         );
-        add_action( 'wp_ajax_ilj_search_posts', [ '\\ILJ\\Helper\\Ajax', 'searchPostsAction' ] );
-        add_action( 'wp_ajax_ilj_hide_promo', [ '\\ILJ\\Helper\\Ajax', 'hidePromo' ] );
-        add_action( 'wp_loaded', [ '\\ILJ\\Backend\\Column', 'addConfiguredLinksColumn' ] );
-        add_action( 'wp_ajax_ilj_rating_notification_add', [ '\\ILJ\\Helper\\Ajax', 'ratingNotificationAdd' ] );
-        add_action( 'wp_ajax_ilj_upload_import', [ '\\ILJ\\Helper\\Ajax', 'uploadImport' ] );
-        add_action( 'wp_ajax_ilj_start_import', [ '\\ILJ\\Helper\\Ajax', 'startImport' ] );
-        add_action( 'wp_ajax_ilj_export_settings', [ '\\ILJ\\Helper\\Ajax', 'exportSettings' ] );
-        add_action( 'wp_ajax_ilj_render_link_detail_statistic', [ '\\ILJ\\Helper\\Ajax', 'renderLinkDetailStatisticAction' ] );
-        add_action( 'wp_ajax_ilj_render_links_statistic', [ '\\ILJ\\Helper\\Ajax', 'renderLinksStatisticAction' ] );
-        add_action( 'wp_ajax_ilj_render_anchor_detail_statistic', [ '\\ILJ\\Helper\\Ajax', 'renderAnchorDetailStatisticAction' ] );
-        add_action( 'wp_ajax_ilj_render_anchors_statistic', [ '\\ILJ\\Helper\\Ajax', 'renderAnchorsStatistic' ] );
-        add_action( 'wp_ajax_ilj_rebuild_index', [ '\\ILJ\\Helper\\Ajax', 'indexRebuildAction' ] );
+        add_action( 'wp_ajax_ilj_search_posts', array( '\\ILJ\\Helper\\Ajax', 'searchPostsAction' ) );
+        add_action( 'wp_ajax_ilj_hide_promo', array( '\\ILJ\\Helper\\Ajax', 'hidePromo' ) );
+        add_action( 'wp_loaded', array( '\\ILJ\\Backend\\Column', 'addConfiguredLinksColumn' ) );
+        add_action( 'wp_ajax_ilj_rating_notification_add', array( '\\ILJ\\Helper\\Ajax', 'ratingNotificationAdd' ) );
+        add_action( 'wp_ajax_ilj_upload_import', array( '\\ILJ\\Helper\\Ajax', 'uploadImport' ) );
+        add_action( 'wp_ajax_ilj_start_import', array( '\\ILJ\\Helper\\Ajax', 'startImport' ) );
+        add_action( 'wp_ajax_ilj_export_settings', array( '\\ILJ\\Helper\\Ajax', 'exportSettings' ) );
+        add_action( 'wp_ajax_ilj_render_link_detail_statistic', array( '\\ILJ\\Helper\\Ajax', 'renderLinkDetailStatisticAction' ) );
+        add_action( 'wp_ajax_ilj_render_links_statistic', array( '\\ILJ\\Helper\\Ajax', 'renderLinksStatisticAction' ) );
+        add_action( 'wp_ajax_ilj_render_anchor_detail_statistic', array( '\\ILJ\\Helper\\Ajax', 'renderAnchorDetailStatisticAction' ) );
+        add_action( 'wp_ajax_ilj_render_anchors_statistic', array( '\\ILJ\\Helper\\Ajax', 'renderAnchorsStatistic' ) );
+        add_action( 'wp_ajax_ilj_rebuild_index', array( '\\ILJ\\Helper\\Ajax', 'indexRebuildAction' ) );
+        add_action( 'wp_ajax_ilj_cancel_schedules', array( '\\ILJ\\Helper\\Ajax', 'cancel_all_schedules' ) );
+        add_action( 'wp_ajax_ilj_clear_all_transient', array( '\\ILJ\\Helper\\Ajax', 'clear_all_transient' ) );
+        add_action( 'wp_ajax_ilj_clear_single_transient', array( '\\ILJ\\Helper\\Ajax', 'clear_single_transient' ) );
+        add_action( 'wp_ajax_load_statistics_chunk', array( '\\ILJ\\Helper\\Ajax', 'load_statistics_chunk_callback' ) );
+        add_action( 'wp_ajax_load_anchor_statistics_chunk', array( '\\ILJ\\Helper\\Ajax', 'load_anchor_statistics_chunk_callback' ) );
         add_action(
             'updated_option',
-            [ 'ILJ\\Helper\\Options', 'updateOptionIndexRebuild' ],
+            array( 'ILJ\\Helper\\Options', 'updateOptionIndexRebuild' ),
             10,
             3
         );
+        add_action( 'wp_ajax_ilj_dismiss_admin_warning_litespeed', array( '\\ILJ\\Backend\\Notices', 'dismiss_admin_warning_litespeed' ) );
         $hide_status_bar = Options::getOption( \ILJ\Core\Options\HideStatusBar::getKey() );
         
         if ( !$hide_status_bar ) {
-            add_action( 'admin_bar_menu', [ '\\ILJ\\Backend\\AdminBar', 'addLink' ], 999 );
-            add_action( 'wp_ajax_ilj_render_batch_info', [ '\\ILJ\\Helper\\Ajax', 'renderBatchInfo' ] );
+            add_action( 'admin_bar_menu', array( '\\ILJ\\Backend\\AdminBar', 'addLink' ), 999 );
+            add_action( 'wp_ajax_ilj_render_batch_info', array( '\\ILJ\\Helper\\Ajax', 'renderBatchInfo' ) );
         }
         
         $this->addPostIndexTrigger();
         add_action( CustomFieldsToLinkPost::ILJ_ACTION_ADD_PRO_FEATURES, function () {
             echo  '<li><span>' . __( 'Activate custom fields', 'internal-links' ) . '</span>: ' . __( 'Maximize compatibility with builders, themes and plugins enabling linking from <strong>custom fields</strong>.', 'internal-links' ) . '</li>' ;
         }, 10 );
+        add_filter( 'action_scheduler_queue_runner_time_limit', array( '\\ILJ\\Helper\\Cloudflare', 'check_header_for_timelimit_adjust' ) );
+        add_action( 'action_scheduler_before_process_queue', function () {
+            BatchBuilding::add_scheduler_batch_size_setting();
+        } );
     }
     
     /**
@@ -309,7 +334,7 @@ class App
      *
      * @return void
      */
-    function enqueueAdminBarScripts()
+    public function enqueueAdminBarScripts()
     {
         $hide_status_bar = Options::getOption( \ILJ\Core\Options\HideStatusBar::getKey() );
         
@@ -317,7 +342,7 @@ class App
             wp_enqueue_style(
                 'ilj_admin_menu_bar_style',
                 ILJ_URL . 'admin/css/ilj_admin_menu_bar.css',
-                [],
+                array(),
                 ILJ_VERSION
             );
             wp_register_script(
@@ -340,19 +365,35 @@ class App
      * @return void
      * @since  2.0.0
      */
-    function enqueueRebuildIndexAssets()
+    public function enqueueRebuildIndexAssets()
     {
         $current_screen = get_current_screen();
-        if ( $current_screen->base != "toplevel_page_internal_link_juicer" ) {
+        if ( 'toplevel_page_internal_link_juicer' != $current_screen->base ) {
             return;
         }
         wp_register_script(
             'ilj_index_rebuild_button',
             ILJ_URL . 'admin/js/ilj_ajax_index_rebuild.js',
-            [],
+            array(),
             ILJ_VERSION
         );
         wp_enqueue_script( 'ilj_index_rebuild_button' );
+    }
+    
+    /**
+     * Enqueue the admin scripts and styles
+     *
+     * @return void
+     */
+    public function enqueue_ilj_admin_scripts()
+    {
+        wp_register_script(
+            'ilj_admin_script',
+            ILJ_URL . 'admin/js/ilj_admin_script.js',
+            array( 'jquery' ),
+            ILJ_VERSION
+        );
+        wp_enqueue_script( 'ilj_admin_script' );
     }
     
     /**
@@ -361,7 +402,7 @@ class App
      * @param  array $data
      * @return void
      */
-    function ilj_delete_index_by_id( $data )
+    public function ilj_delete_index_by_id( $data )
     {
         Linkindex::delete_link_by_id( $data['id'], $data['type'] );
         $batch_build_info = new HelperBatchInfo();
@@ -374,7 +415,7 @@ class App
      * @param  array $data
      * @return void
      */
-    function ilj_individual_delete_index( $data )
+    public function ilj_individual_delete_index( $data )
     {
         Linkindex::delete_link_from( $data['id'], $data['type'] );
     }
@@ -388,10 +429,27 @@ class App
     protected function addPostIndexTrigger()
     {
         add_action(
+            'post_updated',
+            function ( $post_id ) {
+            ContentTransient::delete_transient( $post_id, 'post' );
+        },
+            20,
+            1
+        );
+        add_action(
+            'delete_post',
+            function ( $post_id ) {
+            ContentTransient::delete_transient( $post_id, 'post' );
+        },
+            10,
+            1
+        );
+        add_action(
             Editor::ILJ_ACTION_AFTER_KEYWORDS_UPDATE,
             function ( $id, $type, $status ) {
+            Statistic::count_all_configured_keywords();
             
-            if ( $status == 'publish' ) {
+            if ( 'publish' == $status ) {
                 $batch_build_info = new HelperBatchInfo();
                 
                 if ( false === as_has_scheduled_action( IndexBuilder::ILJ_SET_INDIVIDUAL_INDEX_REBUILD, array( array(
@@ -452,19 +510,13 @@ class App
             20,
             3
         );
-        //rebuild index after keyword meta got updated on gutenberg editor:
+        // rebuild index after keyword meta got updated on gutenberg editor:
         add_action(
             'updated_post_meta',
-            function (
-            $meta_id,
-            $post_id,
-            $meta_key,
-            $meta_value
-        ) {
+            function ( $meta_id, $post_id, $meta_key ) {
             if ( !is_admin() || !function_exists( 'get_current_screen' ) ) {
                 return;
             }
-            $current_screen = get_current_screen();
             $batch_build_info = new HelperBatchInfo();
             $incoming_metas = array( Editor::ILJ_META_KEY_LIMITINCOMINGLINKS, Editor::ILJ_META_KEY_MAXINCOMINGLINKS );
             $outgoing_metas = array(
@@ -534,7 +586,7 @@ class App
         
         },
             30,
-            4
+            3
         );
         add_action( Linkindex::ILJ_ACTION_AFTER_DELETE_LINKINDEX, function () {
             Statistic::updateStatisticsInfo();
@@ -542,7 +594,7 @@ class App
         add_action(
             'transition_post_status',
             function ( $new_status, $old_status, $post ) {
-            if ( $old_status == 'publish' && $new_status == 'publish' || $old_status == 'new' && $new_status == 'auto-draft' || $old_status == 'draft' && $new_status == 'draft' ) {
+            if ( 'publish' == $old_status && 'publish' == $new_status || 'new' == $old_status && 'publish' == $new_status || 'draft' == $old_status && 'draft' == $new_status ) {
                 return;
             }
             $whitelisted_post_types = \ILJ\Core\Options::getOption( Whitelist::getKey() );
@@ -554,7 +606,7 @@ class App
                 }
                 $type = "post";
                 
-                if ( $new_status == 'trash' ) {
+                if ( 'trash' == $new_status ) {
                     $batch_build_info->incrementBatchCounter();
                     $updated = $batch_build_info->updateBatchBuildInfo();
                     if ( $updated ) {
@@ -572,12 +624,12 @@ class App
                 }
                 
                 
-                if ( $old_status == 'publish' && $new_status == 'draft' || $old_status == 'trash' && $new_status == 'draft' ) {
+                if ( 'publish' == $old_status && 'draft' == $new_status || 'trash' == $old_status && 'draft' == $new_status ) {
                     if ( Blacklist::checkIfBlacklisted( "post", $post->ID ) ) {
                         return;
                     }
                     
-                    if ( $type == "post" ) {
+                    if ( 'post' == $type ) {
                         
                         if ( false === as_has_scheduled_action( IndexBuilder::ILJ_SET_INDIVIDUAL_INDEX_REBUILD, array( array(
                             "id"        => $post->ID,
@@ -599,12 +651,12 @@ class App
                 }
                 
                 
-                if ( $old_status == 'trash' && $new_status == 'publish' ) {
+                if ( 'trash' == $old_status && 'publish' == $new_status ) {
                     if ( Blacklist::checkIfBlacklisted( "post", $post->ID ) ) {
                         return;
                     }
                     
-                    if ( $type == "post" ) {
+                    if ( 'post' == $type ) {
                         
                         if ( false === as_has_scheduled_action( IndexBuilder::ILJ_SET_INDIVIDUAL_INDEX_REBUILD, array( array(
                             "id"        => $post->ID,
@@ -624,7 +676,7 @@ class App
                 
                 }
                 
-                if ( $new_status == 'draft' ) {
+                if ( 'draft' == $new_status ) {
                     return;
                 }
                 
@@ -654,17 +706,22 @@ class App
      * Registers plugin relevant filters
      *
      * @since 1.0.0
-     *
      * @return void
      */
     public function registerFilter()
     {
-        add_filter( 'the_content', [ new LinkBuilding(), 'linkContent' ], 99 );
+        add_filter( 'the_content', array( new LinkBuilding(), 'linkContent' ), 99 );
         add_filter(
             'ilj_get_the_content',
-            [ new LinkBuilding(), 'linkContent' ],
+            array( new LinkBuilding(), 'linkContent' ),
             99,
             1
+        );
+        add_filter(
+            'ilj_get_the_content_term',
+            array( new LinkBuilding(), 'link_term' ),
+            99,
+            2
         );
         $tag_exclusions = Options::getOption( \ILJ\Core\Options\NoLinkTags::getKey() );
         if ( is_array( $tag_exclusions ) && count( $tag_exclusions ) ) {
@@ -678,11 +735,11 @@ class App
                 return $search_parts;
             } );
         }
-        \ILJ\ilj_fs()->add_filter( 'reshow_trial_after_every_n_sec', function ( $thirty_days_in_sec ) {
+        \ILJ\ilj_fs()->add_filter( 'reshow_trial_after_every_n_sec', function () {
             // 40 days in sec.
             return 60 * 24 * 60 * 60;
         } );
-        \ILJ\ilj_fs()->add_filter( 'show_first_trial_after_n_sec', function ( $day_in_sec ) {
+        \ILJ\ilj_fs()->add_filter( 'show_first_trial_after_n_sec', function () {
             // 3 days in sec.
             return 3 * 24 * 60 * 60;
         } );
@@ -716,42 +773,10 @@ class App
     protected function postAffectsIndex( $post_id )
     {
         $post = get_post( $post_id );
-        if ( !$post || !in_array( $post->post_status, [ 'publish', 'trash' ] ) ) {
+        if ( !$post || !in_array( $post->post_status, array( 'publish', 'trash' ) ) ) {
             return false;
         }
         return true;
-    }
-    
-    /**
-     * Applies the linkbuilder to a piece of content
-     *
-     * @since 1.2.19
-     * @param  mixed $content The content of an post or page
-     * @return string
-     */
-    public function linkContent( $content )
-    {
-        if ( is_admin() ) {
-            return $content;
-        }
-        if ( $this->excludeLinkBuilderFilter() ) {
-            return $content;
-        }
-        $link_builder = new LinkBuilder( get_the_ID(), 'post' );
-        return $link_builder->linkContent( $content );
-    }
-    
-    /**
-     * Excludes sitemap urls from applying the link builder filter
-     *
-     * @return bool
-     */
-    public function excludeLinkBuilderFilter()
-    {
-        global  $wp ;
-        $link = home_url( $wp->request );
-        $match = preg_match( '/[a-zA-Z0-9_]*-sitemap(?:[0-9]*|_index).xml/', strtolower( $link ) );
-        return $match;
     }
 
 }

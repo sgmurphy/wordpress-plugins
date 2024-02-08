@@ -113,8 +113,8 @@ function exactmetrics_ajax_install_addon() {
 	wp_die();
 
 }
-
 add_action( 'wp_ajax_exactmetrics_activate_addon', 'exactmetrics_ajax_activate_addon' );
+
 /**
  * Activates a ExactMetrics addon.
  *
@@ -134,26 +134,35 @@ function exactmetrics_ajax_activate_addon() {
 
 	// Activate the addon.
 	if ( isset( $_POST['plugin'] ) ) {
+		$plugin = esc_attr( $_POST['plugin'] );
+
 		if ( isset( $_POST['isnetwork'] ) && $_POST['isnetwork'] ) {
-			$activate = activate_plugin( $_POST['plugin'], null, true );
+			$activate = activate_plugin( $plugin, null, true );
 		} else {
-			$activate = activate_plugin( $_POST['plugin'] );
+			$activate = activate_plugin( $plugin  );
 		}
+
 		/* Restrict thirt-party redirections on activation */
-		delete_transient( '_userfeedback_activation_redirect' );
+		if ( "userfeedback-lite/userfeedback.php" === $plugin ) {
+			delete_transient( '_userfeedback_activation_redirect' );
+		}
+
 		if ( is_wp_error( $activate ) ) {
 			echo json_encode( array( 'error' => $activate->get_error_message() ) );
 			wp_die();
 		}
 
 		do_action( 'exactmetrics_after_ajax_activate_addon', sanitize_text_field( $_POST['plugin'] ) );
+
+		// FunnelKit Stripe Woo Payment Gateway activation.
+		if ( 'funnelkit-stripe-woo-payment-gateway/funnelkit-stripe-woo-payment-gateway.php' === $plugin ) {
+			exactmetrics_activate_plugin_funnelkit_stripe_woo_gateway();
+		}
 	}
 
 	echo json_encode( true );
 	wp_die();
-
 }
-
 add_action( 'wp_ajax_exactmetrics_deactivate_addon', 'exactmetrics_ajax_deactivate_addon' );
 /**
  * Deactivates a ExactMetrics addon.
@@ -379,3 +388,36 @@ if ( ! ( $license_type === 'master' || $license_type === 'pro' ) ) {
 	add_action( 'wp_ajax_exactmetrics_user_journey_report', 'exactmetrics_user_journey_demo_report_ajax' );
 	add_action( 'wp_ajax_exactmetrics_user_journey_report_filter_params', '__return_false' );
 }
+
+/**
+ * Plugin FunnelKit Stripe Woo Payment Gateway activation.
+ *
+ * @return void
+ */
+function exactmetrics_activate_plugin_funnelkit_stripe_woo_gateway() {
+	// Add FunnelKit partner ID. For ExactMetrics is 3f6c515da4bdcb59afc860b305a0cc3e .
+	update_option( 'fkwcs_wp_stripe', '3f6c515da4bdcb59afc860b305a0cc3e', false );
+}
+
+/**
+ * Plugin FunnelKit Stripe Woo Payment Gateway, check if Stripe is connected.
+ *
+ * @access public
+ * @since 6.0.0
+ */
+function exactmetrics_check_plugin_funnelkit_funnelkit_stripe_woo_gateway_configured() {
+	// Run a security check first.
+	check_ajax_referer( 'exactmetrics-funnelkit-stripe-woo-nonce', 'nonce' );
+
+	$fkwcs_con_status = get_option('fkwcs_con_status'); 
+
+	if ( 'success' === $fkwcs_con_status ) {
+		echo json_encode( true );
+		wp_die();
+	}
+
+	echo json_encode( false );
+	wp_die();
+
+}
+add_action( 'wp_ajax_exactmetrics_funnelkit_stripe_woo_gateway_configured', 'exactmetrics_check_plugin_funnelkit_funnelkit_stripe_woo_gateway_configured' );

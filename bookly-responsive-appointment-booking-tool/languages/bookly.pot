@@ -7441,6 +7441,9 @@ msgstr ""
 msgid "Select city"
 msgstr ""
 
+msgid "Amount to pay"
+msgstr ""
+
 msgid "Please select a category"
 msgstr ""
 
@@ -7513,6 +7516,9 @@ msgid "Customer notes for gift card"
 msgstr ""
 
 msgid "Time zone of staff"
+msgstr ""
+
+msgid "Image of gift card"
 msgstr ""
 
 msgid "Email logs"
@@ -8071,9 +8077,6 @@ msgid ""
 "If you enable \"Deposit only\", customers will be requested to pay only a "
 "deposit amount. If you enable \"Deposit or full price\", customers will be "
 "requested to pay a deposit amount or a full amount."
-msgstr ""
-
-msgid "Amount to pay"
 msgstr ""
 
 msgid "Total deposit amount to be paid"
