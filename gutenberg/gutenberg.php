@@ -5,7 +5,7 @@
  * Description: Printing since 1440. This is the development plugin for the block editor, site editor, and other future WordPress core functionality.
  * Requires at least: 6.3
  * Requires PHP: 7.0
- * Version: 17.6.4
+ * Version: 17.6.5
  * Author: Gutenberg Team
  * Text Domain: gutenberg
  *
@@ -13,8 +13,8 @@
  */
 
 ### BEGIN AUTO-GENERATED DEFINES
-define( 'GUTENBERG_VERSION', '17.6.4' );
-define( 'GUTENBERG_GIT_COMMIT', '8597624dcb5402e3c951b42b7bd62fbce3e93d6e' );
+define( 'GUTENBERG_VERSION', '17.6.5' );
+define( 'GUTENBERG_GIT_COMMIT', '24b5fb318f83d616bf6cca2f1cd64a861b99b7f2' );
 ### END AUTO-GENERATED DEFINES
 
 gutenberg_pre_init();

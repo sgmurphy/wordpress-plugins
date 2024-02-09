@@ -45,7 +45,9 @@ class Price extends AbstractCondition {
 		$min = (float) ( isset( $condition_settings[ self::MIN ] ) && 0 !== strlen( $condition_settings[ self::MIN ] ) ? $condition_settings[ self::MIN ] : 0 );
 		$max = (float) ( isset( $condition_settings[ self::MAX ] ) && 0 !== strlen( $condition_settings[ self::MAX ] ) ? $condition_settings[ self::MAX ] : INF );
 		$min = (float) apply_filters( 'flexible_shipping_value_in_currency', $min, $min );
-		$max = (float) apply_filters( 'flexible_shipping_value_in_currency', $max, $max );
+		if ( $max !== INF ) {
+			$max = (float) apply_filters( 'flexible_shipping_value_in_currency', $max, $max );
+		}
 
 		$contents_cost = $this->get_contents_cost( $contents );
 

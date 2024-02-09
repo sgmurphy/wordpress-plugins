@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Give - Donation Plugin plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Give - Donation Plugin 3.3.1\n"
+"Project-Id-Version: Give - Donation Plugin 3.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/givewp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-01-23T22:57:30+00:00\n"
+"POT-Creation-Date: 2024-02-08T23:38:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: give\n"
@@ -63,8 +63,8 @@ msgstr ""
 
 #: blocks/donation-form/class-give-donation-form-block.php:137
 #: src/DonationForms/Blocks/DonationFormBlock/DataTransferObjects/BlockAttributes.php:39
-#: src/DonationForms/Properties/FormSettings.php:198
-#: src/DonationForms/Properties/FormSettings.php:248
+#: src/DonationForms/Properties/FormSettings.php:238
+#: src/DonationForms/Properties/FormSettings.php:288
 msgid "Donate now"
 msgstr ""
 
@@ -379,7 +379,7 @@ msgstr ""
 #: includes/admin/admin-actions.php:957
 #: includes/class-give-scripts.php:521
 #: includes/process-donation.php:596
-#: includes/shortcodes.php:466
+#: includes/shortcodes.php:488
 msgid "Please enter your first name."
 msgstr ""
 
@@ -393,7 +393,7 @@ msgstr ""
 #: includes/admin/reports/class-donor-reports-table.php:67
 #: src/Email/Notifications/DonationProcessingReceipt.php:27
 #: templates/history-donations.php:70
-#: templates/shortcode-receipt.php:41
+#: templates/shortcode-receipt.php:47
 msgid "Donor"
 msgstr ""
 
@@ -431,7 +431,7 @@ msgstr ""
 
 #: includes/admin/admin-actions.php:1194
 #: includes/admin/payments/view-payment-details.php:738
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:178
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:179
 #: src/Receipt/DonationReceipt.php:86
 #: build/formBuilderRegistrars.js:1
 msgid "Billing Address"
@@ -491,7 +491,7 @@ msgstr ""
 #: includes/admin/admin-pages.php:54
 #: includes/admin/donors/class-donor-table.php:66
 #: includes/admin/reports/class-donor-reports-table.php:68
-#: includes/admin/tools/import/class-give-import-donations.php:600
+#: includes/admin/tools/import/class-give-import-donations.php:604
 #: src/API/Endpoints/Reports/Income.php:98
 #: src/API/Endpoints/Reports/IncomeBreakdown.php:83
 #: src/DonationForms/ViewModels/DonationFormViewModel.php:151
@@ -531,7 +531,7 @@ msgstr ""
 
 #: includes/admin/admin-pages.php:395
 #: includes/admin/settings/class-settings-general.php:375
-#: includes/admin/tools/views/html-admin-page-system-info.php:657
+#: includes/admin/tools/views/html-admin-page-system-info.php:653
 msgid "Donation History Page"
 msgstr ""
 
@@ -846,7 +846,7 @@ msgstr ""
 #: includes/admin/import-functions.php:439
 #: includes/admin/reports/class-donor-reports-table.php:218
 #: includes/admin/tools/export/export-functions.php:152
-#: includes/admin/tools/views/html-admin-page-system-info.php:1005
+#: includes/admin/tools/views/html-admin-page-system-info.php:1001
 #: src/DonationForms/V2/ListTable/Columns/TitleColumn.php:37
 #: src/Exports/DonorsExport.php:165
 msgid "Name"
@@ -873,7 +873,7 @@ msgstr ""
 #: includes/admin/reports/graphing.php:429
 #: includes/admin/tools/export/class-export-earnings.php:69
 #: includes/admin/tools/export/pdf-reports.php:311
-#: includes/admin/tools/import/class-give-import-donations.php:594
+#: includes/admin/tools/import/class-give-import-donations.php:598
 #: includes/admin/upgrades/class-give-updates.php:225
 #: includes/deprecated/deprecated-functions.php:68
 #: includes/post-types.php:68
@@ -960,7 +960,7 @@ msgstr ""
 #: includes/class-give-scripts.php:252
 #: includes/class-give-scripts.php:303
 #: includes/forms/template.php:1666
-#: assets/dist/js/admin.js:6134
+#: assets/dist/js/admin.js:6142
 #: assets/dist/js/give-admin-donation-forms.js:5870
 #: assets/dist/js/give-admin-donations.js:4630
 #: assets/dist/js/give-admin-donors.js:4449
@@ -1039,8 +1039,8 @@ msgstr ""
 #: includes/class-notices.php:629
 #: includes/formatting.php:809
 #: includes/gateways/stripe/includes/admin/admin-actions.php:183
-#: src/LegacyPaymentGateways/Adapters/LegacyPaymentGatewayAdapter.php:239
-#: src/LegacyPaymentGateways/Adapters/LegacyPaymentGatewayAdapter.php:260
+#: src/LegacyPaymentGateways/Adapters/LegacyPaymentGatewayAdapter.php:280
+#: src/LegacyPaymentGateways/Adapters/LegacyPaymentGatewayAdapter.php:301
 #: src/Log/ValueObjects/LogType.php:48
 msgid "Error"
 msgstr ""
@@ -1100,7 +1100,7 @@ msgstr ""
 #: includes/formatting.php:847
 #: includes/gateways/actions.php:48
 #: includes/process-donation.php:880
-#: src/LegacyPaymentGateways/Adapters/LegacyPaymentGatewayAdapter.php:235
+#: src/LegacyPaymentGateways/Adapters/LegacyPaymentGatewayAdapter.php:276
 msgid "We're unable to recognize your session. Please refresh the screen to try again; otherwise contact your website administrator for assistance."
 msgstr ""
 
@@ -1327,7 +1327,7 @@ msgid "Zip / Postal Code:"
 msgstr ""
 
 #: includes/admin/donors/donors.php:748
-#: assets/dist/js/admin.js:6134
+#: assets/dist/js/admin.js:6142
 msgid "Save"
 msgstr ""
 
@@ -1361,7 +1361,7 @@ msgstr ""
 #: includes/forms/template.php:961
 #: includes/forms/template.php:976
 #: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:127
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:171
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:172
 #: src/Receipt/DonationReceipt.php:78
 #: templates/email-login-form.php:108
 #: templates/shortcode-profile-editor.php:118
@@ -1414,7 +1414,7 @@ msgstr ""
 #: src/API/Endpoints/Reports/IncomeBreakdown.php:82
 #: src/DonationForms/V2/ListTable/Columns/DateCreatedColumn.php:37
 #: templates/history-donations.php:69
-#: templates/shortcode-receipt.php:63
+#: templates/shortcode-receipt.php:69
 msgid "Date"
 msgstr ""
 
@@ -1523,7 +1523,7 @@ msgstr ""
 #: src/Views/Form/defaultFormReceiptTemplate.php:13
 #: src/Views/Form/Templates/Classic/resources/views/receipt.php:153
 #: src/Views/Form/Templates/Sequoia/views/receipt.php:129
-#: templates/shortcode-receipt.php:251
+#: templates/shortcode-receipt.php:257
 msgid "Donation Receipt"
 msgstr ""
 
@@ -1765,13 +1765,13 @@ msgstr ""
 #: includes/admin/settings/class-settings-general.php:117
 #: includes/admin/settings/class-settings-general.php:131
 #: includes/admin/settings/class-settings-general.php:462
-#: includes/admin/tools/import/class-give-import-donations.php:952
-#: includes/admin/tools/import/class-give-import-donations.php:963
-#: includes/admin/tools/import/class-give-import-donations.php:974
-#: includes/admin/tools/views/html-admin-page-system-info.php:483
-#: includes/admin/tools/views/html-admin-page-system-info.php:587
-#: includes/admin/tools/views/html-admin-page-system-info.php:624
-#: includes/admin/tools/views/html-admin-page-system-info.php:734
+#: includes/admin/tools/import/class-give-import-donations.php:967
+#: includes/admin/tools/import/class-give-import-donations.php:978
+#: includes/admin/tools/import/class-give-import-donations.php:989
+#: includes/admin/tools/views/html-admin-page-system-info.php:479
+#: includes/admin/tools/views/html-admin-page-system-info.php:583
+#: includes/admin/tools/views/html-admin-page-system-info.php:620
+#: includes/admin/tools/views/html-admin-page-system-info.php:730
 #: includes/forms/widget.php:246
 #: includes/gateways/offline-donations.php:63
 #: includes/gateways/stripe/includes/admin/class-give-stripe-admin-settings.php:378
@@ -1829,13 +1829,13 @@ msgstr ""
 #: includes/admin/settings/class-settings-general.php:118
 #: includes/admin/settings/class-settings-general.php:132
 #: includes/admin/settings/class-settings-general.php:463
-#: includes/admin/tools/import/class-give-import-donations.php:953
-#: includes/admin/tools/import/class-give-import-donations.php:964
-#: includes/admin/tools/import/class-give-import-donations.php:975
-#: includes/admin/tools/views/html-admin-page-system-info.php:483
-#: includes/admin/tools/views/html-admin-page-system-info.php:587
-#: includes/admin/tools/views/html-admin-page-system-info.php:624
-#: includes/admin/tools/views/html-admin-page-system-info.php:734
+#: includes/admin/tools/import/class-give-import-donations.php:968
+#: includes/admin/tools/import/class-give-import-donations.php:979
+#: includes/admin/tools/import/class-give-import-donations.php:990
+#: includes/admin/tools/views/html-admin-page-system-info.php:479
+#: includes/admin/tools/views/html-admin-page-system-info.php:583
+#: includes/admin/tools/views/html-admin-page-system-info.php:620
+#: includes/admin/tools/views/html-admin-page-system-info.php:730
 #: includes/forms/widget.php:247
 #: includes/gateways/offline-donations.php:64
 #: includes/gateways/stripe/includes/admin/class-give-stripe-admin-settings.php:379
@@ -2418,7 +2418,7 @@ msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:539
 #: src/DonationForms/Factories/DonationFormFactory.php:39
-#: src/DonationForms/Properties/FormSettings.php:211
+#: src/DonationForms/Properties/FormSettings.php:251
 #: src/Onboarding/DefaultFormFactory.php:67
 msgid "Thank you to all our donors, we have met our fundraising goal."
 msgstr ""
@@ -2456,7 +2456,7 @@ msgstr ""
 #: includes/admin/settings/class-settings-display.php:295
 #: includes/forms/template.php:1850
 #: includes/forms/template.php:1855
-#: includes/install.php:355
+#: includes/install.php:357
 #: src/FormMigration/FormMetaDecorator.php:150
 msgid "Agree to Terms?"
 msgstr ""
@@ -2650,7 +2650,7 @@ msgstr ""
 #: includes/admin/import-functions.php:410
 #: includes/admin/tools/export/give-export-donations-exporter.php:174
 #: includes/admin/tools/export/give-export-donations-functions.php:256
-#: templates/shortcode-receipt.php:94
+#: templates/shortcode-receipt.php:100
 msgid "Donation ID"
 msgstr ""
 
@@ -2658,7 +2658,7 @@ msgstr ""
 #: includes/admin/shortcodes/shortcode-give-donor-wall.php:56
 #: includes/admin/tools/import/class-give-import-donations.php:511
 #: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:68
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:135
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:136
 #: src/Receipt/DonationReceipt.php:131
 #: build/adminBlocks.js:1
 #: build/formBuilderRegistrars.js:1
@@ -2669,7 +2669,7 @@ msgstr ""
 #: includes/admin/tools/export/give-export-donations-exporter.php:206
 #: includes/admin/tools/export/give-export-donations-functions.php:278
 #: src/DonationSummary/resources/views/summary.php:109
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:152
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:153
 #: src/Receipt/DonationReceipt.php:144
 #: build/donationFormRegistrars.js:1
 #: build/formBuilderRegistrars.js:1
@@ -2695,7 +2695,7 @@ msgstr ""
 #: includes/admin/import-functions.php:421
 #: includes/admin/tools/export/give-export-donations-exporter.php:209
 #: includes/admin/tools/export/give-export-donations-functions.php:286
-#: includes/admin/tools/views/html-admin-page-system-info.php:627
+#: includes/admin/tools/views/html-admin-page-system-info.php:623
 msgid "Currency Code"
 msgstr ""
 
@@ -2752,9 +2752,9 @@ msgstr ""
 #: includes/forms/template.php:924
 #: includes/forms/template.php:939
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:39
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:198
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:199
 #: templates/shortcode-profile-editor.php:67
-#: templates/shortcode-receipt.php:56
+#: templates/shortcode-receipt.php:62
 #: build/formBuilderRegistrars.js:1
 msgid "Company Name"
 msgstr ""
@@ -2892,15 +2892,15 @@ msgstr ""
 #: includes/admin/import-functions.php:479
 #: includes/admin/tools/export/give-export-donations-exporter.php:215
 #: includes/admin/tools/export/give-export-donations-functions.php:302
-#: templates/shortcode-receipt.php:88
+#: templates/shortcode-receipt.php:94
 msgid "Donation Status"
 msgstr ""
 
 #: includes/admin/import-functions.php:483
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:131
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:132
 #: src/Receipt/DonationReceipt.php:125
 #: templates/history-donations.php:73
-#: templates/shortcode-receipt.php:100
+#: templates/shortcode-receipt.php:106
 msgid "Payment Method"
 msgstr ""
 
@@ -2933,7 +2933,7 @@ msgstr ""
 
 #: includes/admin/import-functions.php:492
 #: includes/admin/settings/class-settings-gateways.php:115
-#: includes/admin/tools/views/html-admin-page-system-info.php:622
+#: includes/admin/tools/views/html-admin-page-system-info.php:618
 msgid "Test Mode"
 msgstr ""
 
@@ -2944,7 +2944,7 @@ msgid "Donor IP Address"
 msgstr ""
 
 #: includes/admin/import-functions.php:495
-#: includes/admin/tools/import/class-give-import-donations.php:568
+#: includes/admin/tools/import/class-give-import-donations.php:571
 msgid "Import as Meta"
 msgstr ""
 
@@ -2973,7 +2973,7 @@ msgstr ""
 #: includes/admin/shortcodes/shortcode-give-form.php:27
 #: includes/admin/shortcodes/shortcode-give-form.php:28
 #: includes/post-types.php:69
-#: src/DonationForms/Properties/FormSettings.php:197
+#: src/DonationForms/Properties/FormSettings.php:237
 #: src/Donations/ListTable/Columns/FormColumn.php:37
 #: build/adminBlocks.js:1
 #: build/formBuilderApp.js:13
@@ -3141,7 +3141,7 @@ msgstr ""
 #: src/API/Endpoints/Reports/TopDonors.php:46
 #: src/PaymentGateways/Gateways/PayPalStandard/PayPalStandard.php:225
 #: src/PaymentGateways/PayPalCommerce/PayPalCommerce.php:206
-#: templates/shortcode-receipt.php:82
+#: templates/shortcode-receipt.php:88
 msgid "Donation"
 msgid_plural "Donations"
 msgstr[0] ""
@@ -3211,7 +3211,7 @@ msgstr ""
 #: includes/admin/tools/class-settings-import.php:48
 #: includes/admin/tools/class-settings-import.php:97
 #: includes/admin/tools/import/class-give-import-core-settings.php:297
-#: includes/admin/tools/import/class-give-import-donations.php:774
+#: includes/admin/tools/import/class-give-import-donations.php:789
 msgid "Import"
 msgstr ""
 
@@ -3301,7 +3301,7 @@ msgid "Donation %s"
 msgstr ""
 
 #: includes/admin/payments/view-payment-details.php:79
-#: includes/admin/tools/views/html-admin-page-system-info.php:677
+#: includes/admin/tools/views/html-admin-page-system-info.php:673
 #: src/PaymentGateways/Gateways/TestGateway/TestGateway.php:44
 #: src/PaymentGateways/Gateways/TestGateway/TestGateway.php:71
 msgid "Test Donation"
@@ -3394,14 +3394,14 @@ msgid "Anonymous Donation:"
 msgstr ""
 
 #: includes/admin/payments/view-payment-details.php:493
-#: includes/admin/tools/views/html-admin-page-system-info.php:1024
+#: includes/admin/tools/views/html-admin-page-system-info.php:1020
 #: includes/class-give-cli-commands.php:138
 #: includes/forms/template.php:914
 msgid "Yes"
 msgstr ""
 
 #: includes/admin/payments/view-payment-details.php:503
-#: includes/admin/tools/views/html-admin-page-system-info.php:1024
+#: includes/admin/tools/views/html-admin-page-system-info.php:1020
 #: includes/class-give-cli-commands.php:138
 #: includes/forms/template.php:897
 msgid "No"
@@ -3591,7 +3591,7 @@ msgstr ""
 #: includes/admin/reports/class-forms-report.php:37
 #: includes/admin/reports/class-forms-report.php:75
 #: includes/admin/reports/reports.php:123
-#: includes/admin/tools/import/class-give-import-donations.php:606
+#: includes/admin/tools/import/class-give-import-donations.php:610
 #: includes/post-types.php:273
 msgid "Forms"
 msgstr ""
@@ -3779,6 +3779,7 @@ msgid "Revenue Report"
 msgstr ""
 
 #: includes/admin/settings/class-settings-advanced.php:32
+#: build/formBuilderApp.js:13
 msgid "Advanced"
 msgstr ""
 
@@ -4413,7 +4414,7 @@ msgid "If enabled, amounts are automatically formatted based on the selected cur
 msgstr ""
 
 #: includes/admin/settings/class-settings-general.php:225
-#: includes/admin/tools/views/html-admin-page-system-info.php:632
+#: includes/admin/tools/views/html-admin-page-system-info.php:628
 msgid "Currency Position"
 msgstr ""
 
@@ -4422,7 +4423,7 @@ msgid "The position of the currency symbol."
 msgstr ""
 
 #: includes/admin/settings/class-settings-general.php:245
-#: includes/admin/tools/views/html-admin-page-system-info.php:642
+#: includes/admin/tools/views/html-admin-page-system-info.php:638
 msgid "Thousands Separator"
 msgstr ""
 
@@ -4431,7 +4432,7 @@ msgid "The symbol (typically , or .) to separate thousands."
 msgstr ""
 
 #: includes/admin/settings/class-settings-general.php:253
-#: includes/admin/tools/views/html-admin-page-system-info.php:637
+#: includes/admin/tools/views/html-admin-page-system-info.php:633
 msgid "Decimal Separator"
 msgstr ""
 
@@ -4465,7 +4466,7 @@ msgid "General Settings"
 msgstr ""
 
 #: includes/admin/settings/class-settings-general.php:331
-#: includes/admin/tools/views/html-admin-page-system-info.php:647
+#: includes/admin/tools/views/html-admin-page-system-info.php:643
 msgid "Success Page"
 msgstr ""
 
@@ -5301,7 +5302,7 @@ msgid "Enter a message to display encouraging donors to support the goal."
 msgstr ""
 
 #: includes/admin/shortcodes/shortcode-give-totals.php:105
-#: includes/shortcodes.php:602
+#: includes/shortcodes.php:624
 msgid "Hey! We've raised {total} of the {total_goal} we are trying to raise for this campaign!"
 msgstr ""
 
@@ -5751,7 +5752,7 @@ msgid "Upload JSON file"
 msgstr ""
 
 #: includes/admin/tools/import/class-give-import-core-settings.php:300
-#: includes/admin/tools/import/class-give-import-donations.php:777
+#: includes/admin/tools/import/class-give-import-donations.php:792
 msgid "Done!"
 msgstr ""
 
@@ -5952,100 +5953,100 @@ msgstr ""
 msgid "Map to field"
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:768
+#: includes/admin/tools/import/class-give-import-donations.php:783
 msgid "Upload CSV file"
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:771
+#: includes/admin/tools/import/class-give-import-donations.php:786
 msgid "Column mapping"
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:829
+#: includes/admin/tools/import/class-give-import-donations.php:844
 msgid "Dry Run"
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:833
+#: includes/admin/tools/import/class-give-import-donations.php:848
 msgid "Preview what the import would look like without making any default changes to your site or your database."
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:850
+#: includes/admin/tools/import/class-give-import-donations.php:865
 msgid "Begin Import"
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:879
+#: includes/admin/tools/import/class-give-import-donations.php:894
 msgid "Import donations from a CSV file"
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:880
+#: includes/admin/tools/import/class-give-import-donations.php:895
 msgid "This tool allows you to import or add donation data to your give form(s) via a CSV file."
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:905
+#: includes/admin/tools/import/class-give-import-donations.php:920
 msgid "Download the sample file"
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:907
+#: includes/admin/tools/import/class-give-import-donations.php:922
 msgid "here"
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:912
+#: includes/admin/tools/import/class-give-import-donations.php:927
 msgid "The file must be a Comma Seperated Version (CSV) file type only."
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:919
+#: includes/admin/tools/import/class-give-import-donations.php:934
 msgid "Choose a CSV file:"
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:936
+#: includes/admin/tools/import/class-give-import-donations.php:951
 msgid "CSV Delimiter:"
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:937
+#: includes/admin/tools/import/class-give-import-donations.php:952
 msgid "In case your CSV file supports a different type of separator (or delimiter) -- like a tab or space -- you can set that here."
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:941
+#: includes/admin/tools/import/class-give-import-donations.php:956
 msgid "Comma"
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:942
+#: includes/admin/tools/import/class-give-import-donations.php:957
 msgid "Tab"
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:947
+#: includes/admin/tools/import/class-give-import-donations.php:962
 msgid "Test Mode:"
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:948
+#: includes/admin/tools/import/class-give-import-donations.php:963
 msgid "Select whether you would like these donations to be marked as \"test\" donations within the database. By default, they will be marked as live donations."
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:958
+#: includes/admin/tools/import/class-give-import-donations.php:973
 msgid "Create WP users for new donors:"
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:959
+#: includes/admin/tools/import/class-give-import-donations.php:974
 msgid "The importer can create WordPress user accounts based on the names and email addresses of the donations in your CSV file. Enable this option if you'd like the importer to do that."
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:969
+#: includes/admin/tools/import/class-give-import-donations.php:984
 msgid "Delete CSV after import:"
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:970
+#: includes/admin/tools/import/class-give-import-donations.php:985
 msgid "Your CSV file will be uploaded via the WordPress Media Library. It's a good idea to delete it after the import is finished so that your sensitive data is not accessible on the web. Disable this only if you plan to delete the file manually later."
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:980
+#: includes/admin/tools/import/class-give-import-donations.php:995
 msgid "Process Rows Per Batch:"
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:982
+#: includes/admin/tools/import/class-give-import-donations.php:997
 msgid "Determine how many rows you would like to import per cycle."
 msgstr ""
 
-#: includes/admin/tools/import/class-give-import-donations.php:1071
-#: includes/admin/tools/import/class-give-import-donations.php:1075
+#: includes/admin/tools/import/class-give-import-donations.php:1086
+#: includes/admin/tools/import/class-give-import-donations.php:1090
 msgid "Please upload or provide a valid CSV file."
 msgstr ""
 
@@ -6437,500 +6438,500 @@ msgid "Most payment gateway APIs only support connections using the TLS 1.2 secu
 msgstr ""
 
 #. translators: %s: SSL connection response
-#: includes/admin/tools/views/html-admin-page-system-info.php:214
+#: includes/admin/tools/views/html-admin-page-system-info.php:210
 msgid "Connection uses %s"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:220
+#: includes/admin/tools/views/html-admin-page-system-info.php:216
 msgid "TLS Rating"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:221
+#: includes/admin/tools/views/html-admin-page-system-info.php:217
 msgid "The server's connection as rated by https://www.howsmyssl.com/"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:231
+#: includes/admin/tools/views/html-admin-page-system-info.php:227
 msgid "Server Info"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:232
+#: includes/admin/tools/views/html-admin-page-system-info.php:228
 msgid "Information about the web server that is currently hosting your site."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:236
+#: includes/admin/tools/views/html-admin-page-system-info.php:232
 msgid "PHP Version"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:237
+#: includes/admin/tools/views/html-admin-page-system-info.php:233
 msgid "The version of PHP installed on your hosting server."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:245
+#: includes/admin/tools/views/html-admin-page-system-info.php:241
 msgid "%1$s - We recommend a minimum PHP version of 5.6. See: %2$s"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:245
+#: includes/admin/tools/views/html-admin-page-system-info.php:241
 msgid "PHP Requirements in Give"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:250
+#: includes/admin/tools/views/html-admin-page-system-info.php:246
 msgid "Couldn't determine PHP version because phpversion() doesn't exist."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:257
+#: includes/admin/tools/views/html-admin-page-system-info.php:253
 msgid "PHP Post Max Size"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:258
+#: includes/admin/tools/views/html-admin-page-system-info.php:254
 msgid "The largest filesize that can be contained in one post."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:262
+#: includes/admin/tools/views/html-admin-page-system-info.php:258
 msgid "PHP Time Limit"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:263
+#: includes/admin/tools/views/html-admin-page-system-info.php:259
 msgid "The amount of time (in seconds) that your site will spend on a single operation before timing out (to avoid server lockups)."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:267
+#: includes/admin/tools/views/html-admin-page-system-info.php:263
 msgid "PHP Max Input Vars"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:268
+#: includes/admin/tools/views/html-admin-page-system-info.php:264
 msgid "The maximum number of variables your server can use for a single function to avoid overloads."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:272
+#: includes/admin/tools/views/html-admin-page-system-info.php:268
 msgid "PHP Max Upload Size"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:273
+#: includes/admin/tools/views/html-admin-page-system-info.php:269
 msgid "The largest filesize that can be uploaded to your WordPress installation."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:277
+#: includes/admin/tools/views/html-admin-page-system-info.php:273
 msgid "cURL Version"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:278
+#: includes/admin/tools/views/html-admin-page-system-info.php:274
 msgid "The version of cURL installed on your server."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:285
+#: includes/admin/tools/views/html-admin-page-system-info.php:281
 msgid "%s - We recommend a minimum cURL version of 7.40."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:296
+#: includes/admin/tools/views/html-admin-page-system-info.php:292
 msgid "SUHOSIN Installed"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:297
+#: includes/admin/tools/views/html-admin-page-system-info.php:293
 msgid "Suhosin is an advanced protection system for PHP installations. It was designed to protect your servers on the one hand against a number of well known problems in PHP applications and on the other hand against potential unknown vulnerabilities within these applications or the PHP core itself. If enabled on your server, Suhosin may need to be configured to increase its data submission limits."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:308
+#: includes/admin/tools/views/html-admin-page-system-info.php:304
 msgid "MySQL Version"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:309
+#: includes/admin/tools/views/html-admin-page-system-info.php:305
 msgid "The version of MySQL installed on your hosting server."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:315
+#: includes/admin/tools/views/html-admin-page-system-info.php:311
 msgid "%1$s - We recommend a minimum MySQL version of 5.6. See: %2$s"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:315
+#: includes/admin/tools/views/html-admin-page-system-info.php:311
 msgid "WordPress Requirements"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:324
+#: includes/admin/tools/views/html-admin-page-system-info.php:320
 msgid "Default Timezone is UTC"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:325
+#: includes/admin/tools/views/html-admin-page-system-info.php:321
 msgid "The default timezone for your server."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:330
+#: includes/admin/tools/views/html-admin-page-system-info.php:326
 msgid "Default timezone is %s - it should be UTC"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:342
+#: includes/admin/tools/views/html-admin-page-system-info.php:338
 msgid "Payment gateways can use cURL to communicate with remote servers to authorize payments, other plugins may also use it when communicating with remote services."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:348
+#: includes/admin/tools/views/html-admin-page-system-info.php:344
 msgid "Your server does not have fsockopen or cURL enabled - PayPal IPN and other scripts which communicate with other servers will not work. Contact your hosting provider."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:353
+#: includes/admin/tools/views/html-admin-page-system-info.php:349
 msgid "Some webservices like shipping use SOAP to get information from remote servers, for example, live shipping quotes from FedEx require SOAP to be installed."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:359
+#: includes/admin/tools/views/html-admin-page-system-info.php:355
 msgid "Your server does not have the %s class enabled - some gateway plugins which use SOAP may not work as expected."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:364
+#: includes/admin/tools/views/html-admin-page-system-info.php:360
 msgid "HTML/Multipart emails use DOMDocument to generate inline CSS in templates."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:370
+#: includes/admin/tools/views/html-admin-page-system-info.php:366
 msgid "Your server does not have the %s class enabled - HTML/Multipart emails, and also some extensions, will not work without DOMDocument."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:375
+#: includes/admin/tools/views/html-admin-page-system-info.php:371
 msgid "gzip is used for file compression and decompression."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:381
+#: includes/admin/tools/views/html-admin-page-system-info.php:377
 msgid "Your server does not support the %s function - this is used for file compression and decompression."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:387
+#: includes/admin/tools/views/html-admin-page-system-info.php:383
 msgid "GD Graphics Library is used for dynamically manipulating images."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:392
+#: includes/admin/tools/views/html-admin-page-system-info.php:388
 msgid "Multibyte String (mbstring) is used to convert character encoding, like for emails or converting characters to lowercase."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:398
+#: includes/admin/tools/views/html-admin-page-system-info.php:394
 msgid "Your server does not support the %s functions - this is required for better character encoding. Some fallbacks will be used instead for it."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:402
+#: includes/admin/tools/views/html-admin-page-system-info.php:398
 msgid "Remote Post"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:403
+#: includes/admin/tools/views/html-admin-page-system-info.php:399
 msgid "PayPal uses this method of communicating when sending back transaction information."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:420
+#: includes/admin/tools/views/html-admin-page-system-info.php:416
 msgid "wp_remote_post() failed. PayPal IPN won't work with your server. Contact your hosting provider."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:422
-#: includes/admin/tools/views/html-admin-page-system-info.php:440
+#: includes/admin/tools/views/html-admin-page-system-info.php:418
+#: includes/admin/tools/views/html-admin-page-system-info.php:436
 msgid "Error: %s"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:424
-#: includes/admin/tools/views/html-admin-page-system-info.php:442
+#: includes/admin/tools/views/html-admin-page-system-info.php:420
+#: includes/admin/tools/views/html-admin-page-system-info.php:438
 msgid "Status code: %s"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:430
+#: includes/admin/tools/views/html-admin-page-system-info.php:426
 msgid "Remote Get"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:431
+#: includes/admin/tools/views/html-admin-page-system-info.php:427
 msgid "GiveWP plugins may use this method of communication when checking for plugin updates."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:438
+#: includes/admin/tools/views/html-admin-page-system-info.php:434
 msgid "wp_remote_get() failed. The GiveWP plugin updater won't work with your server. Contact your hosting provider."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:470
+#: includes/admin/tools/views/html-admin-page-system-info.php:466
 msgid "GiveWP Configuration"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:476
+#: includes/admin/tools/views/html-admin-page-system-info.php:472
 msgid "GiveWP Version"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:477
+#: includes/admin/tools/views/html-admin-page-system-info.php:473
 msgid "The version of GiveWP installed on your site."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:481
-#: includes/admin/tools/views/html-admin-page-system-info.php:585
+#: includes/admin/tools/views/html-admin-page-system-info.php:477
+#: includes/admin/tools/views/html-admin-page-system-info.php:581
 msgid "GiveWP Cache"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:482
-#: includes/admin/tools/views/html-admin-page-system-info.php:586
+#: includes/admin/tools/views/html-admin-page-system-info.php:478
+#: includes/admin/tools/views/html-admin-page-system-info.php:582
 msgid "Whether cache is enabled in GiveWP settings."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:486
+#: includes/admin/tools/views/html-admin-page-system-info.php:482
 #: includes/admin/upgrades/views/db-upgrades-complete-metabox.php:4
 #: includes/admin/upgrades/views/upgrades.php:53
 msgid "Database Updates"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:487
+#: includes/admin/tools/views/html-admin-page-system-info.php:483
 msgid "This will show the number of pending database updates."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:490
+#: includes/admin/tools/views/html-admin-page-system-info.php:486
 msgid "All DB Updates Completed."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:497
+#: includes/admin/tools/views/html-admin-page-system-info.php:493
 msgid "%1$s updates still need to run. (Paused) "
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:504
+#: includes/admin/tools/views/html-admin-page-system-info.php:500
 msgid "%1$s updates still need to run."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:511
+#: includes/admin/tools/views/html-admin-page-system-info.php:507
 msgid "%1$s of %2$s updates still need to run."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:522
+#: includes/admin/tools/views/html-admin-page-system-info.php:518
 msgid "Database Migrations"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:523
+#: includes/admin/tools/views/html-admin-page-system-info.php:519
 msgid "This will inform you whether database migration completed or not."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:530
+#: includes/admin/tools/views/html-admin-page-system-info.php:526
 msgid "Few Database Migrations still need to run."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:531
+#: includes/admin/tools/views/html-admin-page-system-info.php:527
 msgid "All Database Migrations Completed."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:536
+#: includes/admin/tools/views/html-admin-page-system-info.php:532
 msgid "Database Tables"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:537
+#: includes/admin/tools/views/html-admin-page-system-info.php:533
 msgid "This will show list of installed database tables."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:590
+#: includes/admin/tools/views/html-admin-page-system-info.php:586
 msgid "GiveWP Emails"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:591
+#: includes/admin/tools/views/html-admin-page-system-info.php:587
 msgid "Whether emails is enabled in GiveWP settings."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:617
+#: includes/admin/tools/views/html-admin-page-system-info.php:613
 msgid "Upgraded From"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:618
+#: includes/admin/tools/views/html-admin-page-system-info.php:614
 msgid "The version of GiveWP installed prior to the last update."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:623
+#: includes/admin/tools/views/html-admin-page-system-info.php:619
 msgid "Whether Test Mode is enabled in GiveWP settings."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:628
+#: includes/admin/tools/views/html-admin-page-system-info.php:624
 msgid "The currency code selected in GiveWP settings."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:633
+#: includes/admin/tools/views/html-admin-page-system-info.php:629
 msgid "The currency position selected in GiveWP settings."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:634
+#: includes/admin/tools/views/html-admin-page-system-info.php:630
 msgid "Before"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:634
+#: includes/admin/tools/views/html-admin-page-system-info.php:630
 msgid "After"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:638
+#: includes/admin/tools/views/html-admin-page-system-info.php:634
 msgid "The decimal separator defined in GiveWP settings."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:643
+#: includes/admin/tools/views/html-admin-page-system-info.php:639
 msgid "The thousands separator defined in GiveWP settings."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:648
+#: includes/admin/tools/views/html-admin-page-system-info.php:644
 msgid "The page where donors land following a successful transaction."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:652
+#: includes/admin/tools/views/html-admin-page-system-info.php:648
 msgid "Failure Page"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:653
+#: includes/admin/tools/views/html-admin-page-system-info.php:649
 msgid "The page where donors land following a failed transaction."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:658
+#: includes/admin/tools/views/html-admin-page-system-info.php:654
 msgid "The page where past donations are listed."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:662
+#: includes/admin/tools/views/html-admin-page-system-info.php:658
 msgid "GiveWP Forms Slug"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:663
+#: includes/admin/tools/views/html-admin-page-system-info.php:659
 msgid "The slug used for GiveWP donation forms."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:690
+#: includes/admin/tools/views/html-admin-page-system-info.php:686
 msgid "Enabled Payment Gateways"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:691
+#: includes/admin/tools/views/html-admin-page-system-info.php:687
 msgid "All payment gateways enabled in GiveWP settings."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:695
+#: includes/admin/tools/views/html-admin-page-system-info.php:691
 msgid "Default Payment Gateway"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:696
+#: includes/admin/tools/views/html-admin-page-system-info.php:692
 msgid "The default payment gateway selected in GiveWP settings."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:700
+#: includes/admin/tools/views/html-admin-page-system-info.php:696
 msgid "PayPal IPN Notifications"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:701
+#: includes/admin/tools/views/html-admin-page-system-info.php:697
 msgid "Displays whether when last PayPal IPN is received with which donation or transaction."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:716
+#: includes/admin/tools/views/html-admin-page-system-info.php:712
 msgid "IPN received for <a href=\"%1$s\">#%2$s</a> ( <a href=\"%3$s\" target=\"_blank\">%4$s</a> ) on %5$s at %6$s. Status %7$s"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:732
+#: includes/admin/tools/views/html-admin-page-system-info.php:728
 msgid "Donor Email Access"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:733
+#: includes/admin/tools/views/html-admin-page-system-info.php:729
 msgid "Whether donors can access their donation history using only email."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:737
+#: includes/admin/tools/views/html-admin-page-system-info.php:733
 msgid "Stripe Webhook Notifications"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:738
+#: includes/admin/tools/views/html-admin-page-system-info.php:734
 msgid "Displays whether when last Stripe Webhook is received with which donation or transaction."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:769
+#: includes/admin/tools/views/html-admin-page-system-info.php:765
 msgid "Active GiveWP Add-ons"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:791
-#: includes/admin/tools/views/html-admin-page-system-info.php:868
-#: includes/admin/tools/views/html-admin-page-system-info.php:915
-#: includes/admin/tools/views/html-admin-page-system-info.php:964
+#: includes/admin/tools/views/html-admin-page-system-info.php:787
+#: includes/admin/tools/views/html-admin-page-system-info.php:864
+#: includes/admin/tools/views/html-admin-page-system-info.php:911
+#: includes/admin/tools/views/html-admin-page-system-info.php:960
 #: includes/admin/upgrades/views/plugins-update-section.php:18
 msgid "Visit plugin homepage"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:801
-#: includes/admin/tools/views/html-admin-page-system-info.php:878
-#: includes/admin/tools/views/html-admin-page-system-info.php:925
+#: includes/admin/tools/views/html-admin-page-system-info.php:797
+#: includes/admin/tools/views/html-admin-page-system-info.php:874
+#: includes/admin/tools/views/html-admin-page-system-info.php:921
 #: includes/admin/upgrades/views/plugins-update-section.php:29
 msgid "Visit author homepage"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:812
+#: includes/admin/tools/views/html-admin-page-system-info.php:808
 msgid "Free addon"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:817
+#: includes/admin/tools/views/html-admin-page-system-info.php:813
 #: includes/admin/upgrades/views/plugins-update-section.php:41
 msgid "Licensed"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:822
+#: includes/admin/tools/views/html-admin-page-system-info.php:818
 #: includes/admin/upgrades/views/plugins-update-section.php:46
 msgid "Unlicensed"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:829
-#: includes/admin/tools/views/html-admin-page-system-info.php:886
-#: includes/admin/tools/views/html-admin-page-system-info.php:933
-#: includes/admin/tools/views/html-admin-page-system-info.php:983
+#: includes/admin/tools/views/html-admin-page-system-info.php:825
+#: includes/admin/tools/views/html-admin-page-system-info.php:882
+#: includes/admin/tools/views/html-admin-page-system-info.php:929
+#: includes/admin/tools/views/html-admin-page-system-info.php:979
 #: includes/admin/upgrades/views/plugins-update-section.php:51
 msgctxt "by author"
 msgid "by %s"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:844
+#: includes/admin/tools/views/html-admin-page-system-info.php:840
 msgid "Other Active Plugins"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:897
+#: includes/admin/tools/views/html-admin-page-system-info.php:893
 msgid "Inactive Plugins"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:948
+#: includes/admin/tools/views/html-admin-page-system-info.php:944
 msgid "Active MU Plugins"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:996
+#: includes/admin/tools/views/html-admin-page-system-info.php:992
 msgid "Theme"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:1006
+#: includes/admin/tools/views/html-admin-page-system-info.php:1002
 msgid "The name of the current active theme."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:1010
+#: includes/admin/tools/views/html-admin-page-system-info.php:1006
 #: includes/class-give-license-handler.php:912
 msgid "Version"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:1011
+#: includes/admin/tools/views/html-admin-page-system-info.php:1007
 msgid "The installed version of the current active theme."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:1015
+#: includes/admin/tools/views/html-admin-page-system-info.php:1011
 msgid "Author URL"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:1016
+#: includes/admin/tools/views/html-admin-page-system-info.php:1012
 msgid "The theme developer's URL."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:1020
+#: includes/admin/tools/views/html-admin-page-system-info.php:1016
 msgid "Child Theme"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:1021
+#: includes/admin/tools/views/html-admin-page-system-info.php:1017
 msgid "Whether the current theme is a child theme."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:1024
+#: includes/admin/tools/views/html-admin-page-system-info.php:1020
 msgid "If you're modifying GiveWP on a parent theme you didn't build personally, then we recommend using a child theme. See: <a href=\"%s\" target=\"_blank\">How to Create a Child Theme</a>"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:1033
+#: includes/admin/tools/views/html-admin-page-system-info.php:1029
 msgid "Parent Theme Name"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:1034
+#: includes/admin/tools/views/html-admin-page-system-info.php:1030
 msgid "The name of the parent theme."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:1038
+#: includes/admin/tools/views/html-admin-page-system-info.php:1034
 msgid "Parent Theme Version"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:1039
+#: includes/admin/tools/views/html-admin-page-system-info.php:1035
 msgid "The installed version of the parent theme."
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:1043
+#: includes/admin/tools/views/html-admin-page-system-info.php:1039
 msgid "Parent Theme Author URL"
 msgstr ""
 
-#: includes/admin/tools/views/html-admin-page-system-info.php:1044
+#: includes/admin/tools/views/html-admin-page-system-info.php:1040
 msgid "The parent theme developers URL."
 msgstr ""
 
@@ -7714,7 +7715,7 @@ msgid "Do you want to delete this item?"
 msgstr ""
 
 #: includes/class-give-scripts.php:332
-#: assets/dist/js/admin.js:8321
+#: assets/dist/js/admin.js:8329
 #: assets/dist/js/give.js:3933
 msgid "Dismiss this notice."
 msgstr ""
@@ -12933,7 +12934,7 @@ msgstr ""
 #: includes/forms/template.php:2029
 #: includes/forms/widget.php:172
 #: includes/gateways/stripe/includes/give-stripe-scripts.php:54
-#: includes/shortcodes.php:612
+#: includes/shortcodes.php:634
 #: src/Form/Template.php:239
 #: src/Form/Template.php:250
 #: src/Form/Template/Options.php:60
@@ -13000,7 +13001,7 @@ msgstr ""
 #: includes/forms/template.php:1033
 #: src/FormBuilder/Actions/ConvertGlobalDefaultOptionsToDefaultBlocks.php:34
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:109
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:207
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:208
 #: build/formBuilderRegistrars.js:1
 msgid "Comment"
 msgstr ""
@@ -13242,7 +13243,7 @@ msgstr ""
 
 #: includes/forms/widget.php:170
 #: includes/forms/widget.php:177
-#: src/DonationForms/Properties/FormSettings.php:250
+#: src/DonationForms/Properties/FormSettings.php:290
 #: src/Onboarding/DefaultFormFactory.php:140
 #: src/Views/Form/Templates/Sequoia/Actions.php:321
 #: src/Views/Form/Templates/Sequoia/optionConfig.php:178
@@ -14218,18 +14219,18 @@ msgstr ""
 msgid "The Stripe Gateway returned an error while creating a pending donation."
 msgstr ""
 
-#: includes/install.php:444
+#: includes/install.php:446
 #: build/formBuilderApp.js:13
 msgid "Donation Confirmation"
 msgstr ""
 
-#: includes/install.php:462
+#: includes/install.php:464
 #: src/Views/Form/Templates/Classic/resources/views/receipt.php:39
 #: src/Views/Form/Templates/Sequoia/views/receipt.php:34
 msgid "Donation Failed"
 msgstr ""
 
-#: includes/install.php:463
+#: includes/install.php:465
 #: src/Form/Template.php:211
 #: src/Views/Form/Templates/Classic/resources/views/receipt.php:40
 #: src/Views/Form/Templates/Sequoia/views/receipt.php:37
@@ -14711,43 +14712,49 @@ msgstr ""
 msgid "You must be logged in to view your donation history. Please login using your account or create an account using the same email you used to donate with."
 msgstr ""
 
-#: includes/shortcodes.php:221
-msgid "The shortcode is missing Donation Form ID attribute."
+#: includes/shortcodes.php:161
+#: includes/shortcodes.php:241
+msgid "The shortcode is missing a valid Donation Form ID attribute."
 msgstr ""
 
-#: includes/shortcodes.php:227
+#: includes/shortcodes.php:169
+#: includes/shortcodes.php:245
+msgid "The form is not published."
+msgstr ""
+
+#: includes/shortcodes.php:249
 msgid "The form does not have Goals enabled."
 msgstr ""
 
-#: includes/shortcodes.php:320
+#: includes/shortcodes.php:342
 msgid "You are missing the donation id to view this donation receipt."
 msgstr ""
 
-#: includes/shortcodes.php:394
+#: includes/shortcodes.php:416
 msgid "Your Donor and User profile are no longer connected. Please contact the site administrator."
 msgstr ""
 
-#: includes/shortcodes.php:474
+#: includes/shortcodes.php:496
 msgid "The email you entered is empty."
 msgstr ""
 
-#: includes/shortcodes.php:478
+#: includes/shortcodes.php:500
 msgid "The email you entered is not valid. Please use another"
 msgstr ""
 
-#: includes/shortcodes.php:483
+#: includes/shortcodes.php:505
 msgid "The email you entered belongs to another user. Please use another."
 msgstr ""
 
-#: includes/shortcodes.php:486
+#: includes/shortcodes.php:508
 msgid "The email you entered belongs to another donor. Please use another."
 msgstr ""
 
-#: includes/shortcodes.php:1060
+#: includes/shortcodes.php:1082
 msgid "&laquo; Previous"
 msgstr ""
 
-#: includes/shortcodes.php:1061
+#: includes/shortcodes.php:1083
 msgid "Next &raquo;"
 msgstr ""
 
@@ -14917,7 +14924,7 @@ msgstr ""
 msgid "Choose your donation frequency"
 msgstr ""
 
-#: src/DonationForms/Controllers/DonateController.php:127
+#: src/DonationForms/Controllers/DonateController.php:218
 msgid "[%s] This payment gateway does not support recurring payments, please try selecting another payment gateway."
 msgstr ""
 
@@ -14935,7 +14942,7 @@ msgid "GiveWP Donation Form"
 msgstr ""
 
 #: src/DonationForms/Factories/DonationFormFactory.php:34
-#: src/DonationForms/Properties/FormSettings.php:191
+#: src/DonationForms/Properties/FormSettings.php:231
 #: src/Onboarding/DefaultFormFactory.php:122
 #: src/Views/Form/Templates/Classic/optionConfig.php:70
 #: src/Views/Form/Templates/Sequoia/optionConfig.php:10
@@ -14948,21 +14955,20 @@ msgid "Classic"
 msgstr ""
 
 #: src/DonationForms/FormDesigns/MultiStepFormDesign/MultiStepFormDesign.php:27
-#: build/formBuilderApp.js:13
 msgid "Multi-Step"
 msgstr ""
 
-#: src/DonationForms/Properties/FormSettings.php:193
+#: src/DonationForms/Properties/FormSettings.php:233
 msgid "Help our organization by donating today! Donations go to making a difference for our cause."
 msgstr ""
 
-#: src/DonationForms/Properties/FormSettings.php:215
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:320
+#: src/DonationForms/Properties/FormSettings.php:255
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:321
 msgid "Hey {first_name}, thanks for your donation!"
 msgstr ""
 
-#: src/DonationForms/Properties/FormSettings.php:219
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:337
+#: src/DonationForms/Properties/FormSettings.php:259
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:338
 msgid "{first_name}, your contribution means a lot and will be put to good use in making a difference. We’ve sent your donation receipt to {email}."
 msgstr ""
 
@@ -15135,7 +15141,7 @@ msgid "Created At"
 msgstr ""
 
 #: src/Donations/ListTable/Columns/DonorColumn.php:37
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:167
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:168
 #: src/Receipt/DonationReceipt.php:71
 #: build/formBuilderRegistrars.js:1
 msgid "Donor Name"
@@ -15479,6 +15485,7 @@ msgid "Set how the donations levels will display on the form."
 msgstr ""
 
 #: src/Form/Template/Options.php:84
+#: build/formBuilderApp.js:13
 msgid "Buttons"
 msgstr ""
 
@@ -15560,7 +15567,8 @@ msgid "How much would you like to donate today?"
 msgstr ""
 
 #: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:20
-msgid "All donations directly impact our organization and help us further our mission.?"
+#: src/Views/Form/Templates/Classic/optionConfig.php:149
+msgid "All donations directly impact our organization and help us further our mission."
 msgstr ""
 
 #: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:25
@@ -15568,7 +15576,7 @@ msgid "Who's Giving Today?"
 msgstr ""
 
 #: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:26
-msgid "We'll never share this information with anyone"
+msgid "We'll never share this information with anyone."
 msgstr ""
 
 #: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:32
@@ -15733,11 +15741,11 @@ msgstr ""
 msgid "Form migrated from v2 to v3."
 msgstr ""
 
-#: src/FormMigration/ServiceProvider.php:83
+#: src/FormMigration/ServiceProvider.php:84
 msgid "The ID of the form (v2) to migrate to v3."
 msgstr ""
 
-#: src/FormMigration/ServiceProvider.php:107
+#: src/FormMigration/ServiceProvider.php:108
 msgid "The ID of the form (v3) to transfer donations (from v2)."
 msgstr ""
 
@@ -15770,37 +15778,37 @@ msgstr ""
 msgid "An unexpected error occurred while processing your donation.  Please try again or contact us to help resolve."
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:127
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:128
 #: src/Receipt/DonationReceipt.php:108
 msgid "Payment Status"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:144
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:145
 msgid "Processing Fee"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:216
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:217
 #: build/formBuilderRegistrars.js:1
 msgid "Anonymous Donation"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:243
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:244
 msgid "Subscription"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:254
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:255
 msgid "Subscription Status"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:258
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:259
 msgid "Renewal Date"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:262
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:263
 msgid "Progress"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:266
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:267
 #: src/LegacySubscriptions/includes/give-subscription.php:967
 #: build/formBuilderRegistrars.js:1
 msgid "Ongoing"
@@ -15849,15 +15857,15 @@ msgstr ""
 msgid "using Manual API Keys."
 msgstr ""
 
-#: src/LegacyPaymentGateways/Adapters/LegacyPaymentGatewayAdapter.php:139
+#: src/LegacyPaymentGateways/Adapters/LegacyPaymentGatewayAdapter.php:170
 msgid "An unexpected error occurred while processing the subscription.  Please try again or contact the site administrator."
 msgstr ""
 
-#: src/LegacyPaymentGateways/Adapters/LegacyPaymentGatewayAdapter.php:178
+#: src/LegacyPaymentGateways/Adapters/LegacyPaymentGatewayAdapter.php:219
 msgid "An unexpected error occurred while processing the donation.  Please try again or contact the site administrator."
 msgstr ""
 
-#: src/LegacyPaymentGateways/Adapters/LegacyPaymentGatewayAdapter.php:256
+#: src/LegacyPaymentGateways/Adapters/LegacyPaymentGatewayAdapter.php:297
 msgid "This donation form is not accepting donations."
 msgstr ""
 
@@ -16553,7 +16561,7 @@ msgid "The country the PayPal account is based from. Make sure to select before 
 msgstr ""
 
 #: src/PaymentGateways/PayPalCommerce/AdminSettingFields.php:120
-#: assets/dist/js/admin.js:5574
+#: assets/dist/js/admin.js:5582
 msgid "PayPal Connection"
 msgstr ""
 
@@ -17939,13 +17947,13 @@ msgstr ""
 msgid "Donations are processed through a Stripe account custom to this donation form. The default account is overridden for this form."
 msgstr ""
 
-#: src/PaymentGateways/Stripe/Controllers/NewStripeAccountOnBoardingController.php:61
-#: src/PaymentGateways/Stripe/Controllers/NewStripeAccountOnBoardingController.php:138
+#: src/PaymentGateways/Stripe/Controllers/NewStripeAccountOnBoardingController.php:67
+#: src/PaymentGateways/Stripe/Controllers/NewStripeAccountOnBoardingController.php:144
 msgid "Stripe Error:"
 msgstr ""
 
-#: src/PaymentGateways/Stripe/Controllers/NewStripeAccountOnBoardingController.php:62
-#: src/PaymentGateways/Stripe/Controllers/NewStripeAccountOnBoardingController.php:139
+#: src/PaymentGateways/Stripe/Controllers/NewStripeAccountOnBoardingController.php:68
+#: src/PaymentGateways/Stripe/Controllers/NewStripeAccountOnBoardingController.php:145
 msgid "We are unable to connect your Stripe account. Please contact the support team for assistance."
 msgstr ""
 
@@ -18489,10 +18497,6 @@ msgstr ""
 msgid "The description displays below the headline and is designed to remove obstacles from donating. Best practice: use this section to reassure donors that they are making a wise decision. Leave blank to remove."
 msgstr ""
 
-#: src/Views/Form/Templates/Classic/optionConfig.php:149
-msgid "All donations directly impact our organization and help us further our mission."
-msgstr ""
-
 #: src/Views/Form/Templates/Classic/optionConfig.php:158
 msgid "%1$sSection 2:%2$s Donor Information"
 msgstr ""
@@ -18955,47 +18959,47 @@ msgstr ""
 msgid "You need to log in to edit your profile."
 msgstr ""
 
-#: templates/shortcode-receipt.php:15
+#: templates/shortcode-receipt.php:21
 msgid "The specified receipt ID appears to be invalid."
 msgstr ""
 
-#: templates/shortcode-receipt.php:69
+#: templates/shortcode-receipt.php:75
 msgid "Total Donation"
 msgstr ""
 
-#: templates/shortcode-receipt.php:131
+#: templates/shortcode-receipt.php:137
 msgid "Your Donation is Almost Complete!"
 msgstr ""
 
-#: templates/shortcode-receipt.php:170
+#: templates/shortcode-receipt.php:176
 msgid "Payment Complete: Thank you for your donation."
 msgstr ""
 
-#: templates/shortcode-receipt.php:174
+#: templates/shortcode-receipt.php:180
 msgid "Payment Pending: Your donation is currently processing."
 msgstr ""
 
-#: templates/shortcode-receipt.php:178
+#: templates/shortcode-receipt.php:184
 msgid "Payment Refunded: Your donation has been refunded."
 msgstr ""
 
-#: templates/shortcode-receipt.php:182
+#: templates/shortcode-receipt.php:188
 msgid "Payment Preapproved: Thank you for your donation."
 msgstr ""
 
-#: templates/shortcode-receipt.php:186
+#: templates/shortcode-receipt.php:192
 msgid "Payment Failed: Please contact the site owner for assistance."
 msgstr ""
 
-#: templates/shortcode-receipt.php:190
+#: templates/shortcode-receipt.php:196
 msgid "Payment Cancelled: Your donation has been cancelled."
 msgstr ""
 
-#: templates/shortcode-receipt.php:194
+#: templates/shortcode-receipt.php:200
 msgid "Payment Abandoned: This donation has not been completed."
 msgstr ""
 
-#: templates/shortcode-receipt.php:198
+#: templates/shortcode-receipt.php:204
 msgid "Payment Revoked: Please contact the site owner for assistance."
 msgstr ""
 
@@ -19343,124 +19347,124 @@ msgstr ""
 msgid "Get a Free Add-on!"
 msgstr ""
 
-#: assets/dist/js/admin.js:5517
+#: assets/dist/js/admin.js:5525
 msgid "Connect With PayPal"
 msgstr ""
 
-#: assets/dist/js/admin.js:5518
+#: assets/dist/js/admin.js:5526
 msgid "There was an issue retrieving a link to connect to PayPal. Please try again. If the issue continues please contact an administrator."
 msgstr ""
 
-#: assets/dist/js/admin.js:5568
+#: assets/dist/js/admin.js:5576
 msgid "Standard Card Processing"
 msgstr ""
 
-#: assets/dist/js/admin.js:5568
+#: assets/dist/js/admin.js:5576
 msgid "Accept Credit & Debit Cards"
 msgstr ""
 
-#: assets/dist/js/admin.js:5568
+#: assets/dist/js/admin.js:5576
 msgid "Seller Protection"
 msgstr ""
 
-#: assets/dist/js/admin.js:5568
+#: assets/dist/js/admin.js:5576
 msgid "Advanced Card Processing"
 msgstr ""
 
-#: assets/dist/js/admin.js:5568
+#: assets/dist/js/admin.js:5576
 msgid "Requires Application Approval"
 msgstr ""
 
-#: assets/dist/js/admin.js:5568
+#: assets/dist/js/admin.js:5576
 msgid "Fraud Protection"
 msgstr ""
 
-#: assets/dist/js/admin.js:5568
+#: assets/dist/js/admin.js:5576
 msgid "Chargeback Protection"
 msgstr ""
 
-#: assets/dist/js/admin.js:5568
+#: assets/dist/js/admin.js:5576
 msgid "Read more about the connection types"
 msgstr ""
 
-#: assets/dist/js/admin.js:6189
+#: assets/dist/js/admin.js:6197
 msgid "Invalid Statement Descriptor Text"
 msgstr ""
 
-#: assets/dist/js/admin.js:6190
+#: assets/dist/js/admin.js:6198
 msgid "Please enter a valid Stripe statement descriptor."
 msgstr ""
 
-#: assets/dist/js/admin.js:6190
+#: assets/dist/js/admin.js:6198
 msgid "List of important Stripe statement descriptor text requirements:"
 msgstr ""
 
-#: assets/dist/js/admin.js:6190
+#: assets/dist/js/admin.js:6198
 msgid "Contains only Latin characters."
 msgstr ""
 
-#: assets/dist/js/admin.js:6190
+#: assets/dist/js/admin.js:6198
 msgid "Contains between 5 and 22 characters, inclusive."
 msgstr ""
 
-#: assets/dist/js/admin.js:6190
+#: assets/dist/js/admin.js:6198
 msgid "Contains at least one letter."
 msgstr ""
 
-#: assets/dist/js/admin.js:6190
+#: assets/dist/js/admin.js:6198
 msgid "Does not contain any of the special characters < > \\ ' \" *."
 msgstr ""
 
-#: assets/dist/js/admin.js:6190
-#: assets/dist/js/admin.js:6202
+#: assets/dist/js/admin.js:6198
+#: assets/dist/js/admin.js:6210
 msgid "Read more about stripe statement descriptor text requirements."
 msgstr ""
 
-#: assets/dist/js/admin.js:6201
+#: assets/dist/js/admin.js:6209
 msgid "Invalid Stripe Statement Descriptor Text"
 msgstr ""
 
-#: assets/dist/js/admin.js:6202
+#: assets/dist/js/admin.js:6210
 msgid "We are unable to update Stripe statement descriptor."
 msgstr ""
 
-#: assets/dist/js/admin.js:9305
+#: assets/dist/js/admin.js:9313
 msgid "Select a Stripe Account"
 msgstr ""
 
-#: assets/dist/js/admin.js:9306
+#: assets/dist/js/admin.js:9314
 msgid "You've selected to customize the Stripe account for this form, but not selected a different account. Please set an account as default for this form on the Stripe settings tab."
 msgstr ""
 
-#: assets/dist/js/admin.js:9346
+#: assets/dist/js/admin.js:9354
 msgid "Disconnect Stripe Account"
 msgstr ""
 
-#: assets/dist/js/admin.js:9347
+#: assets/dist/js/admin.js:9355
 msgid "Are you sure you want to disconnect this Stripe account?"
 msgstr ""
 
-#: assets/dist/js/admin.js:9405
+#: assets/dist/js/admin.js:9413
 msgid "Account Name"
 msgstr ""
 
-#: assets/dist/js/admin.js:9407
+#: assets/dist/js/admin.js:9415
 msgid "Account Email"
 msgstr ""
 
-#: assets/dist/js/admin.js:9409
+#: assets/dist/js/admin.js:9417
 msgid "View Documentation >"
 msgstr ""
 
-#: assets/dist/js/admin.js:9410
+#: assets/dist/js/admin.js:9418
 msgid "Please confirm you’d like to set the account below as the new default Stripe account. All donation forms set to inherit the Global Settings will use this new default account. %1$s<br>%2$s%3$s"
 msgstr ""
 
-#: assets/dist/js/admin.js:9410
+#: assets/dist/js/admin.js:9418
 msgid "Please confirm you’d like to set the account below as the new default Stripe account for this donation form. All donations will process through this Stripe account rather than the Global default Stripe account. %1$s<br>%2$s%3$s"
 msgstr ""
 
-#: assets/dist/js/admin.js:9416
+#: assets/dist/js/admin.js:9424
 msgid "Confirm New Default Account"
 msgstr ""
 
@@ -20438,6 +20442,7 @@ msgid "Load More Text"
 msgstr ""
 
 #: build/adminBlocks.js:1
+#: build/formBuilderApp.js:13
 msgid "Color"
 msgstr ""
 
@@ -20793,6 +20798,10 @@ msgstr ""
 msgid "Upgrade to unlock additional fields"
 msgstr ""
 
+#: build/formBuilderApp.js:1
+msgid "Add or upload file"
+msgstr ""
+
 #. translators: accessibility text for the footer landmark region.
 #: build/formBuilderApp.js:13
 #: build/formBuilderRegistrars.js:1
@@ -21087,14 +21096,6 @@ msgid "Copy Tag"
 msgstr ""
 
 #: build/formBuilderApp.js:13
-msgid "Logo URL"
-msgstr ""
-
-#: build/formBuilderApp.js:13
-msgid "Add or upload file"
-msgstr ""
-
-#: build/formBuilderApp.js:13
 msgid "Generating preview..."
 msgstr ""
 
@@ -21200,6 +21201,10 @@ msgid "Uses global settings when disabled."
 msgstr ""
 
 #: build/formBuilderApp.js:13
+msgid "Logo URL"
+msgstr ""
+
+#: build/formBuilderApp.js:13
 msgid "Duplicate path found in FormSettings routes:"
 msgstr ""
 
@@ -21216,30 +21221,6 @@ msgid "Goal Type"
 msgstr ""
 
 #: build/formBuilderApp.js:13
-msgid "Form layout"
-msgstr ""
-
-#: build/formBuilderApp.js:13
-msgid "Change the appearance of your donation form on your site. Each option has a different layout."
-msgstr ""
-
-#: build/formBuilderApp.js:13
-msgid "Colors"
-msgstr ""
-
-#: build/formBuilderApp.js:13
-msgid "Secondary Color"
-msgstr ""
-
-#: build/formBuilderApp.js:13
-msgid "Button caption"
-msgstr ""
-
-#: build/formBuilderApp.js:13
-msgid "Enter the text you want to display on the donation button."
-msgstr ""
-
-#: build/formBuilderApp.js:13
 msgid "Show Header"
 msgstr ""
 
@@ -21249,6 +21230,22 @@ msgstr ""
 
 #: build/formBuilderApp.js:13
 msgid "Show Description"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Form layout"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Change the appearance of your donation form on your site. Each option has a different layout."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Button caption"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Enter the text you want to display on the donation button."
 msgstr ""
 
 #: build/formBuilderApp.js:13
@@ -21264,11 +21261,27 @@ msgid "Next Step Button Text"
 msgstr ""
 
 #: build/formBuilderApp.js:13
+msgid "These settings affect the basic appearance of the form"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Secondary Color"
+msgstr ""
+
+#: build/formBuilderApp.js:13
 msgid "Custom Styles"
 msgstr ""
 
 #: build/formBuilderApp.js:13
 msgid "Edit in Modal"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "These settings gives you the ability to change the overall appearance of your form to suit your brand"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Styles"
 msgstr ""
 
 #: build/formBuilderApp.js:13

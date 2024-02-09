@@ -38,11 +38,15 @@ class WPRM_Changelog_Track {
 	 *
 	 * @since	9.2.0
 	 */
-	public static function trashed_post( $id, $previous_status ) {
+	public static function trashed_post( $id, $previous_status = false ) {
 		if ( WPRM_POST_TYPE === get_post_type( $id ) ) {
-			WPRM_Changelog::log( 'recipe_trashed', $id, array(
-				'previous_status' => $previous_status,
-			) );
+			$data = array();
+
+			if ( $previous_status ) {
+				$data['previous_status'] = $previous_status;
+			}
+
+			WPRM_Changelog::log( 'recipe_trashed', $id, $data );
 		}
 	}
 

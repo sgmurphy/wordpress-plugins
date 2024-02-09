@@ -185,6 +185,9 @@ class Wt_Import_Export_For_Woo_basic_User {
         if(isset($data_row['total']) && !empty($data_row['total'])){
             $export_data['total'] = $data_row['total'];
         }
+        if(isset($data_row['no_post'])){
+            $export_data['no_post'] = $data_row['no_post'];
+        }
 
         return $export_data;
     }
@@ -567,6 +570,16 @@ class Wt_Import_Export_For_Woo_basic_User {
                 'target'=>'wt_iew_found_action'
             )
         );  
+         
+        $out['skip_guest_user'] = array(
+            'label' => __("Skip Guest User"),
+            'type' => 'checkbox',
+			'merge_right' => true,
+			'checkbox_fields' => array( 1 => __( 'Enable' ) ),
+            'value' => 1,
+            'field_name' => 'skip_guest_user',
+            'help_text' => __('Exclude guest users from being imported as registered customers.'),
+        );
         foreach ($fields as $fieldk => $fieldv) {
             $out[$fieldk] = $fieldv;
         }

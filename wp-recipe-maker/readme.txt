@@ -136,6 +136,10 @@ Yes! We pride ourselves on offering awesome support and almost always answer sup
 6. Fully compatible with the Classic Editor.
 
 == Changelog ==
+= 9.2.1 =
+* Fix: Make sure modal color settings work in all environments
+* Fix: Error when saving Customizer
+
 = 9.2.0 =
 * Feature: Changelog for tracking backend recipe changes with optional email notification
 * Improvement: Include rating summary in REST API get recipe call
@@ -1618,6 +1622,9 @@ Yes! We pride ourselves on offering awesome support and almost always answer sup
 * Feature: Fallback recipe when the plugin is disabled
 
 == Upgrade notice ==
+= 9.2.1 =
+Fixes a few small issues
+
 = 9.2.0 =
 Some great new features and improvements
 

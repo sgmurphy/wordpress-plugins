@@ -1,15 +1,15 @@
-# Copyright (C) 2023 Gambit Technologies, Inc
+# Copyright (C) 2024 Gambit Technologies, Inc
 # This file is distributed under the same license as the Stackable - Gutenberg Blocks plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Stackable - Gutenberg Blocks 3.12.8\n"
+"Project-Id-Version: Stackable - Gutenberg Blocks 3.12.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/stackable-ultimate-gutenberg-blocks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-12T13:00:31+00:00\n"
+"POT-Creation-Date: 2024-02-09T04:20:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 
@@ -42,7 +42,7 @@ msgid "\"Stackable\" requires PHP version 5.3.0 or higher, but PHP version %s is
 msgstr ""
 
 #: plugin.php:130
-msgid "%sStackable Notice%s: We noticed that the Gutenberg plugin is active! Just a heads up, you don't need the Gutenberg plugin anymore to use the Block Editor. The Gutenberg plugin may contain non-final features which may not be compatible with some block plugins. %sPlease deactivate the Gutenberg plugin%s unless you really need it. Click the close button on the side to dismiss this notice."
+msgid "%sStackable Notice%s: We noticed that the Gutenberg plugin is active! Please be aware the Gutenberg plugin is used to try out the new Block Editor features, and Stackable might not be compatible with it. Click the close button on the side to dismiss this notice."
 msgstr ""
 
 #: pro__premium_only/src/block/load-more/index.php:49
@@ -138,7 +138,7 @@ msgstr ""
 #: pro__premium_only/src/dynamic-content/sources/metabox.php:486
 #: pro__premium_only/src/dynamic-content/sources/metabox.php:533
 #: pro__premium_only/src/dynamic-content/sources/other-posts.php:353
-#: pro__premium_only/src/dynamic-content/sources/other-posts.php:617
+#: pro__premium_only/src/dynamic-content/sources/other-posts.php:635
 #: pro__premium_only/src/dynamic-content/sources/site.php:134
 msgid "Text input is empty"
 msgstr ""
@@ -228,6 +228,8 @@ msgstr ""
 #: pro__premium_only/src/dynamic-content/sources/other-posts.php:245
 #: pro__premium_only/src/dynamic-content/sources/other-posts.php:249
 #: pro__premium_only/src/dynamic-content/sources/other-posts.php:253
+#: pro__premium_only/src/dynamic-content/sources/other-posts.php:810
+#: pro__premium_only/src/dynamic-content/sources/other-posts.php:844
 msgid "Post"
 msgstr ""
 
@@ -447,7 +449,7 @@ msgstr ""
 msgid "Media"
 msgstr ""
 
-#: pro__premium_only/src/dynamic-content/sources/other-posts.php:462
+#: pro__premium_only/src/dynamic-content/sources/other-posts.php:480
 msgid "Post not found."
 msgstr ""
 
@@ -687,7 +689,7 @@ msgid "(Untitled)"
 msgstr ""
 
 #: src/block/posts/index.php:103
-#: src/block/posts/index.php:555
+#: src/block/posts/index.php:561
 #: src/deprecated/v2/block/blog-posts/index.php:285
 #: src/deprecated/v2/block/blog-posts/index.php:539
 msgid "%d comment"
@@ -695,38 +697,38 @@ msgid_plural "%d comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/block/posts/index.php:229
+#: src/block/posts/index.php:235
 #: src/deprecated/v2/block/blog-posts/index.php:414
 msgid "Different sized featured images"
 msgstr ""
 
-#: src/block/posts/index.php:241
+#: src/block/posts/index.php:247
 #: src/deprecated/v2/block/blog-posts/index.php:426
 msgid "Post excerpt for Stackable"
 msgstr ""
 
-#: src/block/posts/index.php:253
+#: src/block/posts/index.php:259
 #: src/deprecated/v2/block/blog-posts/index.php:438
 msgid "Category list links"
 msgstr ""
 
-#: src/block/posts/index.php:265
+#: src/block/posts/index.php:271
 #: src/deprecated/v2/block/blog-posts/index.php:450
 msgid "Author information"
 msgstr ""
 
-#: src/block/posts/index.php:278
+#: src/block/posts/index.php:284
 #: src/deprecated/v2/block/blog-posts/index.php:462
 msgid "Number of comments"
 msgstr ""
 
-#: src/block/posts/index.php:324
+#: src/block/posts/index.php:330
 #: src/block/posts/schema.js:281
 #: src/block/posts/util.js:223
 msgid "Continue Reading"
 msgstr ""
 
-#: src/block/posts/index.php:511
+#: src/block/posts/index.php:517
 #: src/deprecated/v2/block/blog-posts/index.php:261
 #: src/deprecated/v2/block/blog-posts/index.php:550
 msgid ", "
@@ -1165,6 +1167,7 @@ msgstr ""
 #: src/block-components/image/edit.js:331
 #: src/block-components/typography/edit.js:203
 #: src/block/countdown/edit.js:62
+#: src/block/icon-list/edit.js:112
 #: src/block/table-of-contents/edit.js:73
 #: src/components/blend-mode-control/index.js:17
 #: src/components/border-controls/index.js:26
@@ -1540,7 +1543,7 @@ msgstr ""
 #: pro__premium_only/src/block-components/icon/multicolor-controls.js:48
 #: pro__premium_only/src/features/icon-controls/index.js:145
 #: src/block-components/icon/edit.js:143
-#: src/block/icon-list/edit.js:301
+#: src/block/icon-list/edit.js:336
 #: src/deprecated/v2/block/icon-list/edit.js:167
 #: src/deprecated/v2/components/icon-controls/index.js:256
 msgid "Icon Opacity"
@@ -1558,7 +1561,7 @@ msgstr ""
 #: src/block-components/separator/edit.js:63
 #: src/block/countdown/divider.js:114
 #: src/block/divider/edit.js:69
-#: src/block/icon-list/edit.js:284
+#: src/block/icon-list/edit.js:319
 #: src/components/blend-mode-control/index.js:32
 #: src/deprecated/v2/block/accordion/edit.js:335
 #: src/deprecated/v2/block/accordion/edit.js:364
@@ -2159,7 +2162,7 @@ msgstr ""
 #: src/block/accordion/edit.js:134
 #: src/block/countdown/edit.js:169
 #: src/block/icon-label/edit.js:85
-#: src/block/icon-list/edit.js:199
+#: src/block/icon-list/edit.js:193
 #: src/block/map/edit.js:270
 #: src/block/notification/edit.js:100
 #: src/block/separator/edit.js:79
@@ -3039,10 +3042,10 @@ msgstr ""
 
 #: pro__premium_only/src/deprecated/v2/block/columns/index.js:121
 #: pro__premium_only/src/deprecated/v2/modules/advanced-column-spacing/index.js:68
-#: src/block-components/alignment/edit.js:294
+#: src/block-components/alignment/edit.js:295
 #: src/block-components/columns/edit.js:173
 #: src/block-components/helpers/flex-gap/edit.js:16
-#: src/block/icon-list/edit.js:222
+#: src/block/icon-list/edit.js:237
 #: src/block/tab-labels/edit.js:419
 #: src/block/table-of-contents/edit.js:382
 #: src/block/text/edit.js:147
@@ -3050,10 +3053,10 @@ msgid "Column Gap"
 msgstr ""
 
 #: pro__premium_only/src/deprecated/v2/block/columns/index.js:137
-#: src/block-components/alignment/edit.js:338
+#: src/block-components/alignment/edit.js:339
 #: src/block-components/columns/edit.js:190
 #: src/block-components/helpers/flex-gap/edit.js:24
-#: src/block/icon-list/edit.js:230
+#: src/block/icon-list/edit.js:247
 #: src/block/tab-labels/edit.js:429
 #: src/block/table-of-contents/edit.js:391
 msgid "Row Gap"
@@ -3130,9 +3133,9 @@ msgstr ""
 #: pro__premium_only/src/deprecated/v2/block/pricing-box/index.js:71
 #: pro__premium_only/src/deprecated/v2/block/team-member/index.js:100
 #: pro__premium_only/src/deprecated/v2/block/testimonial/index.js:73
-#: src/block-components/alignment/edit.js:163
-#: src/block-components/alignment/edit.js:182
-#: src/block-components/alignment/edit.js:201
+#: src/block-components/alignment/edit.js:164
+#: src/block-components/alignment/edit.js:183
+#: src/block-components/alignment/edit.js:202
 #: src/components/resizable-column/index.js:555
 msgid "Column"
 msgstr ""
@@ -3171,7 +3174,8 @@ msgstr ""
 #: src/block-components/icon/edit.js:279
 #: src/block/carousel/edit.js:428
 #: src/block/carousel/edit.js:458
-#: src/block/icon-list/edit.js:268
+#: src/block/icon-list/edit.js:291
+#: src/block/icon-list/edit.js:325
 #: src/block/tab-labels/edit.js:544
 #: src/components/icon-control/index.js:67
 #: src/deprecated/v2/block/blockquote/edit.js:236
@@ -3648,7 +3652,7 @@ msgid "Text Field"
 msgstr ""
 
 #: pro__premium_only/src/dynamic-content/components/new-tab-control.js:17
-#: src/block-components/helpers/link/edit.js:44
+#: src/block-components/helpers/link/edit.js:45
 msgid "Open in new tab"
 msgstr ""
 
@@ -3902,7 +3906,9 @@ msgid "Text"
 msgstr ""
 
 #: pro__premium_only/src/welcome/custom-fields/admin.js:302
-#: src/block/icon-list/edit.js:66
+#: src/block/icon-list/edit.js:84
+#: src/block/icon-list/edit.js:325
+#: src/block/icon-list/util.js:39
 #: src/block/table-of-contents/edit.js:77
 #: src/deprecated/v2/block/count-up/edit.js:275
 #: src/deprecated/v2/block/count-up/edit.js:399
@@ -4233,14 +4239,15 @@ msgid "Justified"
 msgstr ""
 
 #: src/block-components/alignment/edit.js:86
-#: src/block-components/alignment/edit.js:182
-#: src/block-components/alignment/edit.js:201
-#: src/block-components/alignment/edit.js:259
+#: src/block-components/alignment/edit.js:183
+#: src/block-components/alignment/edit.js:202
+#: src/block-components/alignment/edit.js:260
 #: src/block/button-group/edit.js:169
 #: src/block/button-group/edit.js:175
 #: src/block/carousel/edit.js:387
 #: src/block/heading/edit.js:144
-#: src/block/icon-list/edit.js:254
+#: src/block/icon-list/edit.js:198
+#: src/block/icon-list/edit.js:210
 #: src/block/subtitle/edit.js:96
 #: src/block/text/edit.js:130
 msgid "%s Alignment"
@@ -4252,15 +4259,15 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: src/block-components/alignment/edit.js:93
+#: src/block-components/alignment/edit.js:94
 msgid "Content Min. Height"
 msgstr ""
 
-#: src/block-components/alignment/edit.js:106
+#: src/block-components/alignment/edit.js:107
 msgid "Content Max Width"
 msgstr ""
 
-#: src/block-components/alignment/edit.js:125
+#: src/block-components/alignment/edit.js:126
 #: src/block-components/helpers/size/edit.js:28
 #: src/deprecated/v2/block/column/edit.js:184
 #: src/deprecated/v2/block/column/edit.js:194
@@ -4274,49 +4281,49 @@ msgstr ""
 msgid "Content Horizontal Align"
 msgstr ""
 
-#: src/block-components/alignment/edit.js:131
+#: src/block-components/alignment/edit.js:132
 msgid "Sets the placement of the column container to left, center or right. Not available when block width is set to full width."
 msgstr ""
 
-#: src/block-components/alignment/edit.js:158
+#: src/block-components/alignment/edit.js:159
 msgid "Adjusts the placement of all content in the block to align left, center or right"
 msgstr ""
 
-#: src/block-components/alignment/edit.js:163
-#: src/block-components/alignment/edit.js:243
+#: src/block-components/alignment/edit.js:164
+#: src/block-components/alignment/edit.js:244
 #: src/block/carousel/edit.js:380
 #: src/block/carousel/edit.js:496
 msgid "%s Justify"
 msgstr ""
 
-#: src/block-components/alignment/edit.js:171
+#: src/block-components/alignment/edit.js:172
 msgid "Sets the horizontal position and spacing of the inner columns."
 msgstr ""
 
-#: src/block-components/alignment/edit.js:177
+#: src/block-components/alignment/edit.js:178
 msgid "Column contents need to be narrow for effect to show."
 msgstr ""
 
-#: src/block-components/alignment/edit.js:188
-#: src/block-components/alignment/edit.js:207
+#: src/block-components/alignment/edit.js:189
+#: src/block-components/alignment/edit.js:208
 msgid "Sets the vertical position of the inner columns relative to the columns block."
 msgstr ""
 
-#: src/block-components/alignment/edit.js:216
+#: src/block-components/alignment/edit.js:217
 msgid "%s Direction"
 msgstr ""
 
-#: src/block-components/alignment/edit.js:216
-#: src/block-components/alignment/edit.js:243
-#: src/block-components/alignment/edit.js:259
-#: src/block-components/alignment/edit.js:294
+#: src/block-components/alignment/edit.js:217
+#: src/block-components/alignment/edit.js:244
+#: src/block-components/alignment/edit.js:260
 #: src/block-components/alignment/edit.js:295
-#: src/block-components/alignment/edit.js:319
-#: src/block-components/alignment/edit.js:338
+#: src/block-components/alignment/edit.js:296
+#: src/block-components/alignment/edit.js:320
+#: src/block-components/alignment/edit.js:339
 msgid "Inner Block"
 msgstr ""
 
-#: src/block-components/alignment/edit.js:220
+#: src/block-components/alignment/edit.js:221
 #: src/block/button-group/edit.js:77
 #: src/block/button-group/edit.js:88
 #: src/block/call-to-action/variations.js:53
@@ -4345,7 +4352,7 @@ msgstr ""
 msgid "Horizontal"
 msgstr ""
 
-#: src/block-components/alignment/edit.js:224
+#: src/block-components/alignment/edit.js:225
 #: src/block/button-group/edit.js:81
 #: src/block/button-group/edit.js:92
 #: src/block/tabs/edit.js:194
@@ -4355,54 +4362,54 @@ msgstr ""
 msgid "Vertical"
 msgstr ""
 
-#: src/block-components/alignment/edit.js:253
+#: src/block-components/alignment/edit.js:254
 msgid "Sets the horizontal/vertical position and spacing of the inner blocks."
 msgstr ""
 
-#: src/block-components/alignment/edit.js:270
+#: src/block-components/alignment/edit.js:271
 msgid "Aligns the horizontal/vertical position of the inner blocks."
 msgstr ""
 
-#: src/block-components/alignment/edit.js:272
+#: src/block-components/alignment/edit.js:273
 msgid "Set Content Min. Height for alignment to display properly"
 msgstr ""
 
-#: src/block-components/alignment/edit.js:277
+#: src/block-components/alignment/edit.js:278
 msgid "Inner Block Wrapping"
 msgstr ""
 
-#: src/block-components/alignment/edit.js:281
+#: src/block-components/alignment/edit.js:282
 #: src/block/button-group/edit.js:191
 msgid "No Wrap"
 msgstr ""
 
-#: src/block-components/alignment/edit.js:285
+#: src/block-components/alignment/edit.js:286
 #: src/block/button-group/edit.js:195
 msgid "Wrap"
 msgstr ""
 
-#: src/block-components/alignment/edit.js:294
 #: src/block-components/alignment/edit.js:295
-#: src/block-components/alignment/edit.js:319
-#: src/block-components/alignment/edit.js:338
+#: src/block-components/alignment/edit.js:296
+#: src/block-components/alignment/edit.js:320
+#: src/block-components/alignment/edit.js:339
 msgid "%s %s"
 msgstr ""
 
-#: src/block-components/alignment/edit.js:295
-#: src/block-components/alignment/edit.js:319
+#: src/block-components/alignment/edit.js:296
+#: src/block-components/alignment/edit.js:320
 #: src/block/horizontal-scroller/edit.js:142
 msgid "Gap"
 msgstr ""
 
-#: src/block-components/alignment/edit.js:304
+#: src/block-components/alignment/edit.js:305
 msgid "Sets the gap between the columns of inner blocks."
 msgstr ""
 
-#: src/block-components/alignment/edit.js:327
+#: src/block-components/alignment/edit.js:328
 msgid "Sets the gap between inner blocks."
 msgstr ""
 
-#: src/block-components/alignment/edit.js:346
+#: src/block-components/alignment/edit.js:347
 msgid "Sets the gap between the rows of inner blocks."
 msgstr ""
 
@@ -4543,6 +4550,7 @@ msgid "Button Colors"
 msgstr ""
 
 #: src/block-components/button/edit.js:191
+#: src/block/icon-list/edit.js:203
 #: src/block/tab-labels/edit.js:345
 #: src/deprecated/v2/block/button/edit.js:57
 msgid "Full Width"
@@ -4581,7 +4589,7 @@ msgid "When enabled, the last column will be cloned instead of adding a blank co
 msgstr ""
 
 #: src/block-components/columns/column-settings-button.js:115
-#: src/block/icon-list/edit.js:212
+#: src/block/icon-list/edit.js:218
 #: src/block/posts/edit.js:175
 #: src/block/table-of-contents/edit.js:372
 #: src/block/text/edit.js:136
@@ -4848,32 +4856,38 @@ msgstr ""
 
 #: src/block-components/helpers/borders/edit.js:27
 #: src/block/carousel/edit.js:514
+#: src/block/icon-list/edit.js:116
 #: src/components/border-controls/index.js:30
 msgid "Solid"
 msgstr ""
 
 #: src/block-components/helpers/borders/edit.js:31
+#: src/block/icon-list/edit.js:120
 #: src/components/border-controls/index.js:34
 msgid "Dashed"
 msgstr ""
 
 #: src/block-components/helpers/borders/edit.js:35
+#: src/block/icon-list/edit.js:124
 #: src/components/border-controls/index.js:38
 msgid "Dotted"
 msgstr ""
 
 #: src/block-components/helpers/borders/edit.js:54
+#: src/block/icon-list/edit.js:385
 #: src/components/border-controls/index.js:22
 msgid "Borders"
 msgstr ""
 
 #: src/block-components/helpers/borders/edit.js:65
+#: src/block/icon-list/edit.js:395
 #: src/components/border-controls/index.js:50
 #: src/deprecated/v2/components/button-controls/index.js:383
 msgid "Border Width"
 msgstr ""
 
 #: src/block-components/helpers/borders/edit.js:79
+#: src/block/icon-list/edit.js:409
 #: src/components/border-controls/index.js:133
 #: src/deprecated/v2/block/notification/edit.js:186
 msgid "Border Color"
@@ -4883,42 +4897,46 @@ msgstr ""
 msgid "Adjusts the radius of block corners to make them more rounded"
 msgstr ""
 
-#: src/block-components/helpers/link/edit.js:38
+#: src/block-components/helpers/link/edit.js:39
 #: src/deprecated/v2/components/button-controls/index.js:49
 #: src/deprecated/v2/modules/container-link/index.js:132
 msgid "Link / URL"
 msgstr ""
 
-#: src/block-components/helpers/link/edit.js:51
+#: src/block-components/helpers/link/edit.js:52
 msgid "Open Link in Lightbox"
 msgstr ""
 
-#: src/block-components/helpers/link/edit.js:59
+#: src/block-components/helpers/link/edit.js:60
 msgid "Displaying a Google Map in a Lightbox? Use the embed iframe URL instead. Need help finding it?"
 msgstr ""
 
-#: src/block-components/helpers/link/edit.js:62
+#: src/block-components/helpers/link/edit.js:63
 msgid " Check out our docs."
 msgstr ""
 
-#: src/block-components/helpers/link/edit.js:70
+#: src/block-components/helpers/link/edit.js:71
 msgid "Link rel"
 msgstr ""
 
-#: src/block-components/helpers/link/edit.js:71
+#: src/block-components/helpers/link/edit.js:72
 msgid "Link relationship keywords, e.g. nofollow noreferrer prefetch"
 msgstr ""
 
-#: src/block-components/helpers/link/edit.js:77
+#: src/block-components/helpers/link/edit.js:78
 #: src/deprecated/v2/modules/container-link/index.js:140
 msgid "Link Title"
 msgstr ""
 
-#: src/block-components/helpers/link/edit.js:82
+#: src/block-components/helpers/link/edit.js:83
 msgid "Also used for lightbox caption"
 msgstr ""
 
-#: src/block-components/helpers/link/edit.js:94
+#: src/block-components/helpers/link/edit.js:87
+msgid "Anchor ID"
+msgstr ""
+
+#: src/block-components/helpers/link/edit.js:99
 msgid "Supports links to images, videos, YouTube, Vimeo, and web pages that allow embedding"
 msgstr ""
 
@@ -4994,7 +5012,7 @@ msgid "Icon Size"
 msgstr ""
 
 #: src/block-components/icon/edit.js:154
-#: src/block/icon-list/edit.js:312
+#: src/block/icon-list/edit.js:347
 #: src/deprecated/v2/block/icon-list/edit.js:177
 #: src/deprecated/v2/components/icon-controls/index.js:269
 msgid "Icon Rotation"
@@ -5009,7 +5027,7 @@ msgstr ""
 
 #: src/block-components/icon/edit.js:176
 #: src/block/icon-label/edit.js:90
-#: src/block/icon-list/edit.js:238
+#: src/block/icon-list/edit.js:255
 #: src/block/tab-labels/edit.js:439
 #: src/block/table-of-contents/edit.js:399
 msgid "Icon Gap"
@@ -5941,7 +5959,7 @@ msgstr ""
 msgid "Ghost"
 msgstr ""
 
-#: src/block/button/edit.js:144
+#: src/block/button/edit.js:143
 #: src/deprecated/v2/block/button/deprecated.js:37
 #: src/deprecated/v2/block/button/deprecated.js:82
 #: src/deprecated/v2/block/button/deprecated.js:120
@@ -6097,6 +6115,7 @@ msgstr ""
 
 #: src/block/carousel/edit.js:458
 #: src/block/carousel/edit.js:529
+#: src/block/icon-list/edit.js:325
 #: src/block/timeline/edit.js:362
 #: src/components/resizer-tooltip/index.js:227
 msgid "%s Size"
@@ -6684,63 +6703,102 @@ msgstr ""
 msgid "Icon Label"
 msgstr ""
 
-#: src/block/icon-list/edit.js:55
+#: src/block/icon-list/edit.js:62
 msgid "Unordered List"
 msgstr ""
 
-#: src/block/icon-list/edit.js:59
+#: src/block/icon-list/edit.js:66
 msgid "Ordered List"
 msgstr ""
 
-#: src/block/icon-list/edit.js:70
-#: src/block/table-of-contents/edit.js:81
-msgid "Padded Number"
-msgstr ""
-
-#: src/block/icon-list/edit.js:74
-#: src/block/table-of-contents/edit.js:85
-msgid "Lowercase Roman"
-msgstr ""
-
-#: src/block/icon-list/edit.js:78
-#: src/block/table-of-contents/edit.js:89
-msgid "Uppercase Roman"
-msgstr ""
-
-#: src/block/icon-list/edit.js:82
-#: src/block/table-of-contents/edit.js:93
-msgid "Lowercase Letters"
-msgstr ""
-
-#: src/block/icon-list/edit.js:86
-#: src/block/table-of-contents/edit.js:97
-msgid "Uppercase Letters"
-msgstr ""
-
-#: src/block/icon-list/edit.js:204
-#: src/block/icon-list/edit.js:278
-#: src/block/table-of-contents/edit.js:366
-msgid "List Type"
-msgstr ""
-
-#: src/block/icon-list/edit.js:246
-#: src/block/table-of-contents/edit.js:407
-msgid "Indentation"
-msgstr ""
-
-#: src/block/icon-list/edit.js:254
+#: src/block/icon-list/edit.js:73
+#: src/block/icon-list/edit.js:210
 #: src/block/posts/variations.js:60
 #: src/block/posts/variations.js:77
 #: src/deprecated/v2/block/blog-posts/edit.js:99
 msgid "List"
 msgstr ""
 
-#: src/block/icon-list/edit.js:263
+#: src/block/icon-list/edit.js:77
+#: src/deprecated/v2/block/columns/edit.js:104
+msgid "Grid"
+msgstr ""
+
+#: src/block/icon-list/edit.js:88
+#: src/block/icon-list/util.js:43
+#: src/block/table-of-contents/edit.js:81
+msgid "Padded Number"
+msgstr ""
+
+#: src/block/icon-list/edit.js:92
+#: src/block/icon-list/util.js:47
+#: src/block/table-of-contents/edit.js:85
+msgid "Lowercase Roman"
+msgstr ""
+
+#: src/block/icon-list/edit.js:96
+#: src/block/icon-list/util.js:51
+#: src/block/table-of-contents/edit.js:89
+msgid "Uppercase Roman"
+msgstr ""
+
+#: src/block/icon-list/edit.js:100
+#: src/block/icon-list/util.js:55
+#: src/block/table-of-contents/edit.js:93
+msgid "Lowercase Letters"
+msgstr ""
+
+#: src/block/icon-list/edit.js:104
+#: src/block/icon-list/util.js:59
+#: src/block/table-of-contents/edit.js:97
+msgid "Uppercase Letters"
+msgstr ""
+
+#: src/block/icon-list/edit.js:198
+msgid "List Item"
+msgstr ""
+
+#: src/block/icon-list/edit.js:206
+msgid "More noticeable when using wide layouts or list item borders"
+msgstr ""
+
+#: src/block/icon-list/edit.js:229
+msgid "List Display Style"
+msgstr ""
+
+#: src/block/icon-list/edit.js:264
+#: src/block/table-of-contents/edit.js:407
+msgid "Indentation"
+msgstr ""
+
+#: src/block/icon-list/edit.js:277
 msgid "Icons & Numbers"
 msgstr ""
 
-#: src/block/icon-list/edit.js:290
-msgid "Icon / Number Size"
+#: src/block/icon-list/edit.js:282
+#: src/block/icon-list/edit.js:304
+#: src/block/table-of-contents/edit.js:366
+msgid "List Type"
+msgstr ""
+
+#: src/block/icon-list/edit.js:312
+msgid "With Period"
+msgstr ""
+
+#: src/block/icon-list/edit.js:356
+msgid "Icon Vertical Alignment"
+msgstr ""
+
+#: src/block/icon-list/edit.js:362
+msgid "This is more visible if you have long text in your list."
+msgstr ""
+
+#: src/block/icon-list/edit.js:367
+msgid "Icon Vertical Offset"
+msgstr ""
+
+#: src/block/icon-list/edit.js:380
+msgid "Icon List Item Borders"
 msgstr ""
 
 #: src/block/icon-list/example.js:13
@@ -8573,10 +8631,6 @@ msgstr ""
 msgid "The colors above might not apply to some nested blocks."
 msgstr ""
 
-#: src/deprecated/v2/block/columns/edit.js:104
-msgid "Grid"
-msgstr ""
-
 #: src/deprecated/v2/block/columns/edit.js:110
 #: src/deprecated/v2/block/columns/edit.js:113
 msgid "Uneven"
@@ -10150,6 +10204,16 @@ msgstr ""
 #: src/deprecated/v2/block/icon/block.json
 msgctxt "block keyword"
 msgid "SVG"
+msgstr ""
+
+#: src/block/icon-list-item/block.json
+msgctxt "block title"
+msgid "Icon List Item"
+msgstr ""
+
+#: src/block/icon-list-item/block.json
+msgctxt "block description"
+msgid "A single list entry in the Icon List block"
 msgstr ""
 
 #: src/block/icon-list/block.json

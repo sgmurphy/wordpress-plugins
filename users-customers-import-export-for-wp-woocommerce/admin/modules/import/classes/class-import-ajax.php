@@ -121,20 +121,11 @@ class Wt_Import_Export_For_Woo_Basic_Import_Ajax
 		{
 
 			$is_file_type_allowed=false;
-			$upload_file_details = wp_check_filetype($_FILES['wt_iew_import_file']['name']);
-
-			
-			if(!in_array($_FILES['wt_iew_import_file']['type'], $this->import_obj->allowed_import_file_type_mime)) /* Not allowed file type. [Bug fix for Windows OS]Then verify it again with file extension */
+			$ext=pathinfo($_FILES['wt_iew_import_file']['name'], PATHINFO_EXTENSION);
+			if(isset($this->import_obj->allowed_import_file_type_mime[$ext])) /* extension exists. */
 			{
-				$ext=pathinfo($_FILES['wt_iew_import_file']['name'], PATHINFO_EXTENSION);
-				if(isset($this->import_obj->allowed_import_file_type_mime[$ext])) /* extension exists. */
-				{
-					$is_file_type_allowed=true;
-				}
-			}elseif( $upload_file_details['ext'] == 'csv')			{
 				$is_file_type_allowed=true;
 			}
-
 			if($is_file_type_allowed) /* Allowed file type */
 			{
 

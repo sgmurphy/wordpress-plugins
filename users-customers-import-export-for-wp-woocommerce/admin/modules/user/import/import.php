@@ -15,6 +15,7 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
     public $user_base_fields = array();
     public $user_meta_fields = array();
     public $current_user = array();
+    public $skip_guest_user = false;
          
     
     var $merge;
@@ -52,7 +53,8 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
     public function prepare_data_to_import($import_data,$form_data, $batch_offset, $is_last_batch){
 
         $this->merge_with = !empty($form_data['advanced_form_data']['wt_iew_merge_with']) ? $form_data['advanced_form_data']['wt_iew_merge_with'] : 'email'; 
-        $this->found_action = !empty($form_data['advanced_form_data']['wt_iew_found_action']) ? $form_data['advanced_form_data']['wt_iew_found_action'] : 'skip';         
+        $this->found_action = !empty($form_data['advanced_form_data']['wt_iew_found_action']) ? $form_data['advanced_form_data']['wt_iew_found_action'] : 'skip'; 
+        $this->skip_guest_user = !empty($form_data['advanced_form_data']['wt_iew_skip_guest_user']) ? $form_data['advanced_form_data']['wt_iew_skip_guest_user'] : false;
         wp_defer_term_counting(true);
         wp_defer_comment_counting(true);
         wp_suspend_cache_invalidation(true);
@@ -131,6 +133,15 @@ class Wt_Import_Export_For_Woo_basic_User_Import {
        
         try{
             $data = apply_filters('wt_user_importer_pre_parse_data', $data); 
+            if( $this->skip_guest_user &&  !empty($data['mapping_fields']['is_geuest_user'])){
+                $email = '';
+                if(isset($data['mapping_fields']['user_email']) &&!empty($data['mapping_fields']['user_email'])){
+                    $email =  'Email : ' . $data['mapping_fields']['user_email'];
+                }elseif(isset($data['mapping_fields']['billing_email']) &&!empty($data['mapping_fields']['billing_email'])){
+                    $email =  'Email : ' . $data['mapping_fields']['billing_email'];
+                }
+                throw new Exception(sprintf('Guest user skipped %s', $email));
+            }
             $item = $data['mapping_fields'];
             foreach ($data['meta_mapping_fields'] as $value) {
                 $item = array_merge($item,$value);            

@@ -107,6 +107,9 @@ You can use more parameters like below.
 
 == Changelog ==
 
+= Version 6.4 =
+* Removed the Custom CSS option from widget settings, since WordPress now has a Custom CSS option.
+
 = Version 6.3 =
 * Major code updates.
 * Removed application id from code and configuration.

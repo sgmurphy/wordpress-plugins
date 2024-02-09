@@ -71,7 +71,7 @@ class FreeShippingCalculator {
 		if ( isset( $free_shipping ) && '' !== $free_shipping ) {
 			$free_shipping = (float) trim( $free_shipping );
 			if ( is_numeric( $free_shipping ) ) {
-				if ( (float) apply_filters( 'flexible_shipping_value_in_currency', $free_shipping, $shipping_method ) <= (float) $cart_contents_cost ) {
+				if ( (float) apply_filters( 'flexible_shipping_value_in_currency', $free_shipping ) <= (float) $cart_contents_cost ) {
 					$is_free_shipping = true;
 				}
 			}
