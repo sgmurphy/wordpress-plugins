@@ -306,6 +306,31 @@
 		}
     };
 
+	function copyToClipboard(_field, _form, _html){
+		_html = _html || false;
+		if ( ! ( 'ClipboardItem' in window ) ) return;
+        var f = _getField(_field, _form), h;
+		if(f) {
+			h = f.jQueryRef()[_html ? 'html' : 'text']();
+		} else {
+			try {
+				f = $( _field );
+				if ( f.length ) h = f[_html ? 'html' : 'text']();
+			} catch ( err ) {}
+		}
+
+		if(h) {
+			const clipboardItem = new ClipboardItem({'text/html':  new Blob([h],{type: 'text/html'}), 'text/plain': new Blob([h], {type: 'text/plain'})});
+    		navigator.clipboard.write([clipboardItem]).then(
+				_ => { if( 'console' in window ) console.log("clipboard.write() Ok") },
+				error => { if( 'console' in window ) console.log(error) }
+			);
+		}
+	};
+
+    lib.COPYTEXT = lib.copytext = function(_field, _form){ copyToClipboard(_field, _form, false); };
+    lib.COPYHTML = lib.copyhtml = function(_field, _form){ copyToClipboard(_field, _form, true); };
+
     lib.gotopage = lib.GOTOPAGE = lib.goToPage = function(p, f)
     {
         try

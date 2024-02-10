@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '1.2.53';
+	$.fbuilder['version'] = '1.2.54';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 
@@ -732,12 +732,6 @@
 						.attr( 'data-animate_form', this.animate_form )
 						.attr( 'data-animation_effect', this.animation_effect )
 						.attr( 'autocomplete', ( ( this.autocomplete ) ? 'on' : 'off' ) )
-						.one ( 'formReady', ( function( evalequations ){
-							return function(){
-								$(this).attr( 'data-evalequations', evalequations );
-								if(evalequations) fbuilderjQuery.fbuilder.calculator.defaultCalc(this, false, false);
-							};
-						} )(this.evalequations) )
 						.find( 'input,select' )
 						.on( 'blur',  function(){ try{ if(!$(this).is(':file')) $(this).valid(); }catch(e){};} );
 
@@ -806,8 +800,11 @@
 
 							$(document).on('formReady', 'form#'+this.formId, ( function( opt, fid ){
 								return function(evt,fid2){
-									if ( fid == fid2 )
+									if ( fid == fid2 ){
 										$.fbuilder.cpcffLoadDefaults( opt );
+										$(this).attr( 'data-evalequations', opt.evalequations );
+										if(opt.evalequations) fbuilderjQuery.fbuilder.calculator.defaultCalc(this, false, false);
+									}
 								};
 							} )( opt, this.formId ) );
 						}

@@ -47,6 +47,11 @@
 							if($('#sContent').length) {
 								editor = wp.codeEditor.initialize($('#sContent'), htmlEditorSettings);
 								editor.codemirror.on('change', function(cm){ $('#sContent').val(cm.getValue()).change();});
+								editor.codemirror.on('keydown', function(cm, evt){
+									if ( 'Escape' == evt.key && $('.CodeMirror-hint').length ) {
+										evt.stopPropagation();
+									}
+								});
 							}
 
 							$('.cff-editor-extend-shrink').on('click', function(){

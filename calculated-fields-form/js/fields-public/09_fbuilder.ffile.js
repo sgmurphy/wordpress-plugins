@@ -95,7 +95,7 @@
 				var e = $("[id='"+this.name+"']:not(.ignore)"), result = '', separator = '';
 				if(e.length)
                 {
-                    if(raw) result = e[0].files;
+                    if(raw) result = Array.prototype.slice.call(e[0].files);
                     else
                     {
                         for(var i = 0, h = e[0].files.length; i<h; i++)

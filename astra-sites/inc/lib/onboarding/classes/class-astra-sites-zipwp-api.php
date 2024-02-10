@@ -39,7 +39,6 @@ class Astra_Sites_ZipWP_Api {
 	 */
 	public function get_api_domain() {
 		return (defined('ZIPWP_API') ? ZIPWP_API : 'https://api.zipwp.com/api/');
-		// return (defined('ZIPWP_API') ? ZIPWP_API : 'https://staging-api.zipwp.com/api/');
 	}
 
     /**

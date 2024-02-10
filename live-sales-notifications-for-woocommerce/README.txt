@@ -132,6 +132,9 @@ Yes, you can show the visitor's actual country in fake sales popups to create a 
 
 == Changelog ==
 
+= 2.2.62 =
+* Tested for WC 8.5.2
+
 = 2.2.49 =
 * Tested for WC 8.4.0
 

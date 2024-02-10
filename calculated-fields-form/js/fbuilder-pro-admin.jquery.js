@@ -409,6 +409,11 @@
 					);
 					editor = wp.codeEditor.initialize( $('#fCustomStyles'), cssEditorSettings );
 					editor.codemirror.on('change', function(cm){ $('#fCustomStyles').val(cm.getValue()).change();});
+					editor.codemirror.on('keydown', function(cm, evt){
+						if ( 'Escape' == evt.key && $('.CodeMirror-hint').length ) {
+							evt.stopPropagation();
+						}
+					});
 
 					$('.cff-editor-extend-shrink').on('click', function(){
 						let e = $(this).closest('.cff-editor-container'),
@@ -528,7 +533,7 @@
 					$('#metabox_form_structure').removeClass('fullscreen');
 				});
 
-				$(document).on('keyup', function(evt){
+				$(document).on('keydown', function(evt){
 					if ( 'Escape' == evt.key ) {
 						if ( $('#cff-advanced-equation-editor:visible').length ) {
 							return;

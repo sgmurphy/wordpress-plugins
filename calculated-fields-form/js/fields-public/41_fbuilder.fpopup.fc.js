@@ -11,6 +11,7 @@
 			open_onclick:'',
 			close_button:true,
 			modal:true,
+			dragging:false,
 			position:'center', // center, top-left, top-right, bottom-left, bottom-right
 			width:'360px',
 			height:'360px',
@@ -54,7 +55,45 @@
 				},
 			after_show: function()
 				{
-					let me = this;
+					let me = this,
+						pos1 = 0,
+						pos2 = 0,
+						pos3 = 0,
+						pos4 = 0,
+						e = $( '.' + me.name + ' .cff-popup-container' );
+
+					function dragMouseDown(evt) {
+						evt.preventDefault();
+						pos3 = evt.clientX;
+						pos4 = evt.clientY;
+						$( document ).on( 'mouseup', closeDragElement );
+						$( document ).on( 'mousemove', elementDrag );
+					}
+
+					function elementDrag(evt) {
+						evt.preventDefault();
+						// calculate the new cursor position:
+						pos1 = pos3 - evt.clientX;
+						pos2 = pos4 - evt.clientY;
+						pos3 = evt.clientX;
+						pos4 = evt.clientY;
+						// set the element's new position:
+						let o = e.offset(),
+							sV = document.documentElement.scrollTop || document.body.scrollTop,
+							sH = document.documentElement.scrollLeft || document.body.scrollLeft;
+
+						e.offset({
+							top: Math.min( Math.max( o.top-pos2, sV ), (document.documentElement.clientHeight || document.body.clientHeight)+sV - e.height() ),
+							left: Math.min( Math.max( o.left-pos1, sH ), (document.documentElement.clientWidth || document.body.clientWidth)+sH - e.width() )
+						});
+					}
+
+					function closeDragElement() {
+						/* stop moving when mouse button is released:*/
+						$( document ).off( 'mouseup' );
+						$( document ).off( 'mousemove' );
+					}
+
 					$.fbuilder.controls['fcontainer'].prototype.after_show.call(this);
 					$(document).on('click', '.cff-popup-close', function() {
 						$(this).closest('.cff-popup-field').addClass('hide-strong');
@@ -73,6 +112,10 @@
 						$(document).on('keyup', function(evt){
 							if ( 'Escape' == evt.key ) HIDEFIELD(me.name);
 						});
+					}
+
+					if ( me.dragging ) {
+						e.find( '.cff-popup-header' ).css( 'cursor', 'move' ).on( 'mousedown', dragMouseDown );
 					}
 				},
 			showHideDep:function(toShow, toHide, hiddenByContainer)

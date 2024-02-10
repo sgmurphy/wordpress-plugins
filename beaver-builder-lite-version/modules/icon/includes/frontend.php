@@ -14,6 +14,7 @@ $text_link_class = 'fl-icon-text-link';
 if ( ! empty( $settings->link ) ) {
 	$text_link_class .= ' fl-icon-text-wrap';
 }
+
 ?>
 <?php if ( ! isset( $settings->exclude_wrapper ) || ( isset( $settings->exclude_wrapper ) && ! $settings->exclude_wrapper ) ) : ?>
 <div class="fl-icon-wrap">
@@ -21,9 +22,9 @@ if ( ! empty( $settings->link ) ) {
 	<span class="fl-icon">
 		<?php if ( ! empty( $settings->link ) ) : ?>
 			<?php if ( ! empty( $settings->text ) ) : ?>
-			<a href="<?php echo esc_url( $settings->link ); ?>" target="<?php echo $settings->link_target; ?>" tabindex="-1" aria-hidden="true" aria-labelledby="fl-icon-text-<?php echo ( isset( $module->node ) ? $module->node : $settings->id ); ?>"<?php echo $module->get_rel(); ?>>
+			<a href="<?php echo esc_url( do_shortcode( $settings->link ) ); ?>" target="<?php echo $settings->link_target; ?>" tabindex="-1" aria-hidden="true" aria-labelledby="fl-icon-text-<?php echo ( isset( $module->node ) ? $module->node : $settings->id ); ?>"<?php echo $module->get_rel(); ?>>
 			<?php else : ?>
-			<a href="<?php echo esc_url( $settings->link ); ?>" target="<?php echo $settings->link_target; ?>"<?php echo $module->get_rel(); ?>>
+			<a href="<?php echo esc_url( do_shortcode( $settings->link ) ); ?>" target="<?php echo $settings->link_target; ?>"<?php echo $module->get_rel(); ?>>
 			<?php endif; ?>
 		<?php endif; ?>
 		<i class="<?php echo $settings->icon; ?>" aria-hidden="true"></i>

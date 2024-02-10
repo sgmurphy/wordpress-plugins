@@ -91,7 +91,17 @@ fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'processing' ] = {
                             {
 								"value" : "COPYFIELDVALUE",
 								"code" : "COPYFIELDVALUE(",
-								"tip" : "<p>Copies the field value to the clipboard. Supports input and textarea tags. <strong>COPYFIELDVALUE( # or fieldname#, form or form selector )</strong></p><p>The first parameter is required, it would be the numeric part of the field name or the field name. The second parameter would be a form object, or a selector with the form reference. If the second parameter is not passed, the plugin will copy the value of the field in the first form of the page. For example: COPYFIELDVALUE(1); or COPYFIELDVALUE(&quot;fieldname1&quot;);</p>"
+								"tip" : "<p>Copies the field value to the clipboard. Supports input and textarea tags. <strong>COPYFIELDVALUE( # or fieldname#, form or form selector )</strong></p><p>The first parameter is required, it would be the numeric part of the field name or the field name. The second parameter would be a form object, or a selector with the form reference. If the second parameter is not passed, the plugin will copy the value of the field in the first form on the page. For example: COPYFIELDVALUE(1); or COPYFIELDVALUE(&quot;fieldname1&quot;);</p>"
+							},
+                            {
+								"value" : "COPYHTML",
+								"code" : "COPYHTML(",
+								"tip" : "<p>Copies the field (or any other tag) HTML structure to the clipboard. <strong>COPYHTML( to_copy, form or form selector )</strong></p><p>The first parameter (to_copy) is required. It would be the numeric part of the field name, the field name, a DOM object, or a tag selector. The second parameter is optional. It would be a form object or a selector with the form reference and applies only when the first parameter is a field. If you omit the second parameter, the plugin will copy the HTML structure of the field in the first form on the page. For example: COPYHTML(1); or COPYHTML(&quot;fieldname1&quot;);</p>"
+							},
+                            {
+								"value" : "COPYTEXT",
+								"code" : "COPYTEXT(",
+								"tip" : "<p>Copies the field (or any other tag) contained texts to the clipboard. <strong>COPYTEXT( to_copy, form or form selector )</strong></p><p>The first parameter (to_copy) is required, it would be the numeric part of the field name, the field name, a DOM object, or tag selector. The second parameter is optional. It would be a form object or a selector with the form reference and applies only when the first parameter is a field. If you omit the second parameter, the plugin will copy the texts of the field in the first form on the page. For example: COPYTEXT(1); or COPYTEXT(&quot;fieldname1&quot;);</p>"
 							},
                             {
 								"value" : "PRINTFORM",
