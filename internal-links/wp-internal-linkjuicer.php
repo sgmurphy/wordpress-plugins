@@ -4,13 +4,13 @@
 /**
  * Internal Link Juicer
  *
- * @version 2.23.5
+ * @version 2.23.6
  * @package ILJ
  *
  * @wordpress-plugin
  * Plugin Name: Internal Link Juicer
  * Plugin URI: https://www.internallinkjuicer.com
- * Version: 2.23.5
+ * Version: 2.23.6
  * Description: A performant solution for high class internal linkbuilding automation.
  * Author: Internal Link Juicer
  * Author URI: https://www.internallinkjuicer.com
@@ -47,7 +47,7 @@ if ( !function_exists( 'add_filter' ) ) {
 }
 
 if ( !defined( 'ILJ_VERSION' ) ) {
-    define( 'ILJ_VERSION', '2.23.5' );
+    define( 'ILJ_VERSION', '2.23.6' );
 }
 if ( !defined( 'ILJ_FILE' ) ) {
     define( 'ILJ_FILE', __FILE__ );

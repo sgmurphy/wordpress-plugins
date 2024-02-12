@@ -356,6 +356,15 @@ if ( ! class_exists( 'AWS_Admin_Options' ) ) :
             );
 
             $options['performance'][] = array(
+                "name"  => __( "Search words number", "advanced-woo-search" ),
+                "desc"  => __( "The maximum number of words allowed for the search. All extra words will be removed from the search query.", "advanced-woo-search" ),
+                "id"    => "search_words_num",
+                "value" => 6,
+                'min'   => 1,
+                "type"  => "number"
+            );
+
+            $options['performance'][] = array(
                 "name"    => __( "Cache options", "advanced-woo-search" ),
                 "type"    => "heading"
             );

@@ -17,6 +17,8 @@ use RebelCode\Spotlight\Instagram\Wp\PostType;
  */
 class AuthCallbackListener
 {
+    public const NONCE_ACTION = 'sli_connect_account';
+
     /**
      * @since 0.1
      *
@@ -61,6 +63,15 @@ class AuthCallbackListener
     {
         if (!isset($_GET['sli_connect'])) {
             return;
+        }
+
+        if (!current_user_can('manage_options')) {
+            exit(1);
+        }
+
+        $nonce = filter_input(INPUT_GET, 'nonce', FILTER_DEFAULT);
+        if (!wp_verify_nonce($nonce, self::NONCE_ACTION)) {
+            exit(1);
         }
 
         try {

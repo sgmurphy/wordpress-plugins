@@ -2,7 +2,7 @@
 /*
 Plugin Name:Automatic Translate Addon For Loco Translate
 Description:Loco Translate plugin addon to automatic translate plugins and themes translatable string with one click in any language.
-Version:2.4
+Version:2.4.1
 License:GPL2
 Text Domain:loco-auto-translate
 Domain Path:languages
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'ATLT_FILE', __FILE__ );
 define( 'ATLT_URL', plugin_dir_url( ATLT_FILE ) );
 define( 'ATLT_PATH', plugin_dir_path( ATLT_FILE ) );
-define( 'ATLT_VERSION', '2.4' );
+define( 'ATLT_VERSION', '2.4.1' );
 
 /**
  * @package Loco Automatic Translate Addon
@@ -369,15 +369,8 @@ if ( ! class_exists( 'LocoAutoTranslateAddon' ) ) {
 		*/
 		function atlt_enqueue_scripts( $hook ) {
 			// load assets only on editor page
-			if ( in_array(
-				$hook,
-				array(
-					'loco-translate_page_loco-plugin',
-					'loco-translate_page_loco-theme',
-				)
-			)
-			&& strpos( $hook, 'page_loco-' ) !== false
-			&& ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'file-edit' ) ) {
+			if (
+			( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'file-edit' ) ) {
 					wp_register_script( 'loco-addon-custom', ATLT_URL . 'assets/js/custom.min.js', array( 'loco-translate-admin' ), ATLT_VERSION, true );
 					wp_register_style(
 						'loco-addon-custom-css',
@@ -515,12 +508,12 @@ if ( ! class_exists( 'LocoAutoTranslateAddon' ) ) {
 						<tr>
 						<td>Unlimited Translations</td>
 						<td><span style="color:green;font-size:1.4em;">✔</span> Available<br/><span style="font-size:11px;font-weight:bold;">(Via Yandex Only)</span></td>
-						<td><span style="color:green;font-size:1.4em;">✔</span> Available<br/><span style="font-size:11px;font-weight:bold;">(Via Yandex & Google)</td>
+						<td><span style="color:green;font-size:1.4em;">✔</span> Available<br/><span style="font-size:11px;font-weight:bold;">(Via Yandex, Google & AI)</td>
 						</tr>
 						<tr>
 						<td>No API Key Required</td>
 						<td><span style="color:green;font-size:1.4em;">✔</span> API Not Required<br/><span style="font-size:11px;font-weight:bold;">(Support's Only Yandex)</span></td>
-						<td><span style="color:green;font-size:1.4em;">✔</span> API Not Required<br/><span style="font-size:11px;font-weight:bold;">(Support's Yandex, Google & DeepL)</span></td>
+						<td><span style="color:green;font-size:1.4em;">✔</span> API Not Required<br/><span style="font-size:11px;font-weight:bold;">(Support's Yandex, Google, DeepL & AI)</span></td>
 						</tr>
 						<tr style="background:#fffb7a;font-weight: bold;">
 						<td>Google Translate Widget Support<br/><img style="border: 1px solid;" src="<?php echo ATLT_URL . '/assets/images/powered-by-google.png'; ?>"/></td>

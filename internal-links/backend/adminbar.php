@@ -48,7 +48,8 @@ class AdminBar
         ),
         );
         $admin_bar->add_node( $args );
-        self::add_cache_menu_items( $admin_bar );
+        // Disable in version 2.23.5 due to conflicts with other plugins
+        // self::add_cache_menu_items($admin_bar);
         $args = array(
             'parent' => 'ilj',
             'id'     => 'ilj-status',

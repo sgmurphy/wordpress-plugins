@@ -4,7 +4,7 @@ Tags: woocommerce, google analytics, google ads, facebook, conversion tracking, 
 Requires at least: 3.7
 Tested up to: 6.4
 Requires PHP: 7.3
-Stable tag: 1.37.1
+Stable tag: 1.38.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -24,27 +24,27 @@ Boost your sales and cut advertising costs with the Pixel Manager, a plugin that
 
 [says @caesarsandiego](https://wordpress.org/support/topic/world-class-quality-solution/)
 
-This plugin tracks WooCommerce shop visitors and collects valuable data for conversion optimization of your shop and paid ads, dynamic remarketing and reporting. It's designed to boost your sales and cut advertising costs through precise e-commerce tracking.
+This plugin tracks WooCommerce shop visitors and collects valuable data for conversion optimization of your shop and paid ads, dynamic remarketing, and reporting. It's designed to boost sales and cut advertising costs through precise e-commerce tracking.
 
 The Pixel Manager integrates smoothly with platforms like Google Analytics, Google Ads, Meta (Facebook, Instagram), Hotjar, Microsoft (Pro), and TikTok (Pro).
 
 <strong>Key features</strong>
 
 &#9989; User-friendly and intuitive.
-&#9989; Customizable filters for even preciser tracking.
+&#9989; Customizable filters for even more precise tracking.
 &#9989; GDPR-aligned with advanced data privacy features.
 &#9989; Standardized data output across platforms.
 &#9989; In-depth payment gateway reports – goodbye conversion drops.
 &#9989; Lightweight JavaScript library for a speedy site.
 &#9989; Auto Conversion Recovery (ACR) – catch those lost conversions (Pro).
 
-This plugin goes beyond basic setup, offering comprehensive tracking of all e-commerce activities. Advanced features like Google Analytics Enhanced E-Commerce and dynamic remarketing events are included, with the pro version adding Meta CAPI, TikTok Events API and much more.
+This plugin goes beyond basic setup, offering comprehensive tracking of all e-commerce activities. Advanced features like Google Analytics Enhanced E-Commerce and dynamic remarketing events are included, with the pro version adding Meta CAPI, TikTok Events API, and much more.
 
 <strong>Why the Pixel Manager?</strong>
 
 Accuracy, simplicity, innovation.
 
-Extensive feature range in the free and especially the pro version.
+There is an extensive feature range in the free and especially the pro version.
 
 Unique tools like the [Payment Gateway Accuracy Report](https://sweetcode.com/docs/wpm/diagnostics?utm_source=wordpress.org&utm_medium=wpm-plugin-page&utm_campaign=pixel-manager-for-woocommerce-docs&utm_content=payment-gateway-accuracy-report#payment-gateway-tracking-accuracy-report) and [ACR](https://sweetcode.com/docs/wpm/features/acr?utm_source=wordpress.org&utm_medium=wpm-plugin-page&utm_campaign=pixel-manager-for-woocommerce-docs&utm_content=acr) (Pro).
 
@@ -95,10 +95,11 @@ Have a look at the full feature list over [here](https://sweetcode.com/docs/wpm/
 
 <strong>Premium Pixels</strong>
 
-* Microsoft Advertising
+* Microsoft Ads
 * Pinterest Ads
 * Reddit Ads
 * Snapchat Ads
+* Taboola Ads
 * TikTok Ads
 * Twitter Ads
 
@@ -123,7 +124,7 @@ Link to the full documentation of the plugin: [Open the documentation](https://s
 
 <strong>Consent Management</strong>
 
-The plugin uses data from several Consent Management plugins to manage approvals and disapproval for the injection of marketing pixels.
+The plugin uses data from several Consent Management plugins to manage approvals and disapproval for injecting of marketing pixels.
 
 It works with the following Consent Management plugins out of the box:
 
@@ -150,7 +151,7 @@ Please read the following for additional [setup information](https://sweetcode.c
 
 <strong>Security Review</strong>
 
-Although we follow security best practices, we wanted to make sure that we didn't miss anything. So we had the plugin reviewed by [Patchstack](https://patchstack.com/), a security company that specializes in WordPress security.
+Although we follow security best practices, we wanted to ensure that we didn't miss anything. So, we had the plugin reviewed by [Patchstack](https://patchstack.com/), a cybersecurity company specializing in WordPress security.
 
 The summary of their report was: "We were unable to detect any vulnerabilities that would impact the security status of the plugin in a serious way."
 
@@ -284,13 +285,23 @@ We are committed to ensuring the security of our customers and their data. If yo
 
 == Changelog ==
 
+= 1.38.0  =
+*Release date - 12.02.2024*
+
+
+* Tweak: Added LTV calculation opportunity to the opportunities tab.
+* Tweak: Added console logging for pixel events across platforms.
+* Tweak: Improved sanitization of settings strings.
+* Tweak: Improved Google Ads conversion ID and conversion label string extraction when saving the settings.
+* Tweak: Added exclusion rule for inline HTML scripts in case the Iubenda CMP is active.
+
 = 1.37.1  =
 *Release date - 01.02.2024*
 
 * Tweak: Disabled the automatic LTV recalculation.
 * Tweak: Added a button to stop an active LTV recalculation.
 * Tweak: Added an option to enable or disable the order level LTV calculation.
-* Tweak: Added more debug log output for Feta CAPI subscription events.
+* Tweak: Added more debug log output for Meta CAPI subscription events.
 
 = 1.37.0  =
 *Release date - 30.01.2024*

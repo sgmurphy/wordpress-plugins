@@ -463,6 +463,11 @@ body:not(.bt_bb_fe_preview_toggle) .bt_bb_image.bt_bb_fe_editing_box > .bt_bb_fe
 	border-radius: inherit;
 }
 
+/* fix: bt_bb_headline as child of bt_bb_image */
+body:not(.bt_bb_fe_preview_toggle) .bt_bb_image .bt_bb_headline {
+	z-index: 1;
+}
+
 body:not(.bt_bb_fe_preview_toggle) .bt_bb_image.bt_bb_fe_edit {
     min-width: 2em;
     min-height: 2em;
@@ -551,8 +556,8 @@ body:not(.bt_bb_fe_preview_toggle) .bt_bb_text.bt_bb_fe_editing_box > .bt_bb_fe_
 				transition: background 300ms ease,box-shadow 300ms ease;
 			}
 			&:hover:after {
-				background: #065da1;
-				box-shadow: 0 0 0.8em 0.01em rgba(0,0,0,0.25);
+				background: #ff7f00;
+				/*box-shadow: 0 0 0.8em 0.01em rgba(0,0,0,0.25);*/
 			}
 		}
 		#bt_bb_fe_dialog_switch {
@@ -1305,6 +1310,8 @@ body.bt_bb_fe_add_section {
 		background: #fff url(data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%206l5%205%205-5%202%201-7%207-7-7%202-1z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E) no-repeat right 5px top 55%;
 		background-size: 16px 16px;
 		cursor: pointer;
+		-webkit-appearance: none;
+		width: 20em;
 	}
 	.attachment-info * {
 		line-height: 1.5;
@@ -1319,11 +1326,20 @@ body.bt_bb_fe_add_section {
 		outline: 2px solid transparent !important;
 		border-width: 1px !important;
 	}
+	.media-menu-item.active:hover, .media-menu-item.active:focus {
+		background: #fff !important;
+	}	
+	.media-menu-item:hover, .media-menu-item:focus {
+		background: none !important;
+	}
 }
 
 .media-modal  {
 	button.media-modal-close {
 		text-decoration: initial;
+	}
+	button.media-modal-close:hover, button.media-modal-close:focus {
+		background: none !important;
 	}
 }
 

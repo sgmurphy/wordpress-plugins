@@ -114,10 +114,9 @@ class LinkBuilder
     /**
      * Constructor of ILJ_LinkBuilder
      *
-     * @since  1.0.1
-     * @param  int    $id         The ID of the current subject
-     * @param  string $type       The type of the current subject
-     * @param  string $build_type
+     * @param int    $id         The ID of the current subject
+     * @param string $type       The type of the current subject
+     * @param string $build_type
      * @return void
      */
     public function __construct( $id, $type, $build_type = null )
@@ -167,9 +166,10 @@ class LinkBuilder
      */
     public function linkContent( $content )
     {
-        if ( false != ($filtered_content = ContentTransient::get_transient( $this->id, $this->type )) ) {
-            return $filtered_content;
-        }
+        // Disable in version 2.23.5 due to conflicts with other plugins
+        // if (false != ($filtered_content = ContentTransient::get_transient($this->id, $this->type))) {
+        // return $filtered_content;
+        // }
         $this->content = $content;
         $this->replace_ruleset = Replacement::mask( $this->content );
         
@@ -178,9 +178,10 @@ class LinkBuilder
             $this->applyReplaceRules();
         }
         
-        if ( false === ($filtered_content = ContentTransient::get_transient( $this->id, $this->type )) ) {
-            ContentTransient::set_transient( $this->id, $this->type, $this->content );
-        }
+        // Disable in version 2.23.5 due to conflicts with other plugins
+        // if (false === ($filtered_content = ContentTransient::get_transient($this->id, $this->type))) {
+        // ContentTransient::set_transient($this->id, $this->type, $this->content);
+        // }
         return $this->content;
     }
     

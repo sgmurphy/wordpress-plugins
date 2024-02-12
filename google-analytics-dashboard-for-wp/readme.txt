@@ -4,7 +4,7 @@ Donate link: http://www.wpbeginner.com/wpbeginner-needs-your-help/
 Tags: analytics,google analytics,google analytics dashboard,google analytics plugin,google analytics widget,gtag
 Requires at least: 5.6.0
 Tested up to: 6.4.3
-Stable tag: 7.24.0
+Stable tag: 7.24.1
 Requires PHP: 7.2
 License: GPL v3
 
@@ -187,6 +187,9 @@ You can translate Google Analytics Dashboard for WP by ExactMetrics on [translat
 4. Want more features? <a href="https://www.exactmetrics.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">Purchase ExactMetrics Pro</a>!
 
 == Changelog ==
+= 7.24.1: February 12, 2024 =
+- Fix: We solved an issue occurring with WPBakery.
+
 = 7.24.0: February 08, 2024 =
 - New: Site Insights Gutenberg block. Easily share website stats with your visitors.
 - New: PrivacyGuard Feature - Proactively block PII (Personally Identifiable Information) from ever making it to Google Analytics

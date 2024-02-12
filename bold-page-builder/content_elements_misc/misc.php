@@ -54,6 +54,8 @@ if ( ! function_exists( 'bt_bb_get_permalink_by_slug' ) ) {
 			$page = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type= %s", $link, $post_type ) );
 			if ( $page ) {
 				return get_permalink( $page );
+			} else {
+				return '#';
 			}
 		}
 		return $link;

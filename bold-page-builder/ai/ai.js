@@ -44,35 +44,54 @@
 		
 	}	
 	
-	var ai_request = function( that ) {
+	var ai_request = function( that, modify = false ) {
 		
 		$( that ).closest( '.bt_bb_dialog_item' ).find( '.bt_bb_dialog_item_inner_ai_error' ).removeClass( 'bt_bb_ai_error_show' );
-		
-		$( that ).closest( '.bt_bb_dialog_item' ).addClass( 'bt_bb_ai_loading' );
 		
 		var target = $( that ).closest( '.bt_bb_dialog_item' ).data( 'target' );
 		
 		len_arr = [];
+		
+		var content_obj = {};
+		var item_content;
 
 		var i = 0;
 		$( that ).closest( '.bt_bb_dialog_item' ).find( '.bt_bb_ai_length_container input' ).each(function() {
 			var item_len = $( this ).val();
 			var this_target = $( this ).data( 'target' );
-			if ( item_len == '' ) {
+			if ( item_len == '' || modify ) {
 				if ( target != '_content' ) {
-					item_len = $( that ).closest( '.bt_bb_dialog_item' ).siblings( '[data-param_name="' + this_target + '"]' ).find( 'input[type="text"], textarea' ).val().length;
+					item_content = $( that ).closest( '.bt_bb_dialog_item' ).siblings( '[data-param_name="' + this_target + '"]' ).find( 'input[type="text"], textarea' ).val();
 				} else {
 					if ( window.bt_bb.editing_element ) { // FE
-						item_len = window.bt_bb.tinymce.getContent().length;
+						item_content = window.bt_bb.tinymce.getContent();
 					} else { // BE
-						item_len = tinyMCE.get( 'bt_bb_tinymce' ).getContent().length;
+						item_content = tinyMCE.get( 'bt_bb_tinymce' ).getContent()
 					}
+					
 				}
-				item_len = item_len + 'c'; // characters, not words
+				item_len = item_content.length + 'c'; // characters, not words
+				content_obj[ this_target ] = item_content;
 			}
 			len_arr.push( item_len );
 			i++;	
 		});
+		
+		if ( modify ) {
+			var no_content = true;
+			for ( const[ k, v ] of Object.entries( content_obj ) ) {
+				if ( v != '' ) {
+					no_content = false;
+					break;
+				}
+			}
+			if ( no_content ) {
+				alert( window.bt_bb_text.no_content );
+				return;
+			}
+		}
+		
+		$( that ).closest( '.bt_bb_dialog_item' ).addClass( 'bt_bb_ai_loading' );
 		
 		var data = {
 			'action': 'bt_bb_ai',
@@ -81,9 +100,17 @@
 			'system_prompt': $( that ).closest( '.bt_bb_dialog_item' ).data( 'system_prompt' ),
 			'target': JSON.stringify( target ),
 			'tone': $( that ).closest( '.bt_bb_dialog_item' ).find( '.bt_bb_ai_tone' ).val(),
+			'mode': $( that ).closest( '.bt_bb_dialog_item' ).find( '.bt_bb_ai_mode' ).val(),
 			'language': $( that ).closest( '.bt_bb_dialog_item' ).find( '.bt_bb_ai_language' ).val(),
-			'length': JSON.stringify( len_arr )
+			'length': JSON.stringify( len_arr ),
+			'content': JSON.stringify( {} ),
+			'modify': false
 		};
+		
+		if ( modify ) {
+			data.content = JSON.stringify( content_obj );
+			data.modify = true;
+		}
 		
 		$.ajax({
 			method: 'POST',
@@ -113,6 +140,7 @@
 				update_target( that );
 				
 				localStorage.setItem( 'bt_bb_ai_tone', $( that ).closest( '.bt_bb_dialog_item' ).find( '.bt_bb_ai_tone' ).val() );
+				localStorage.setItem( 'bt_bb_ai_mode', $( that ).closest( '.bt_bb_dialog_item' ).find( '.bt_bb_ai_mode' ).val() );
 				localStorage.setItem( 'bt_bb_ai_language', $( that ).closest( '.bt_bb_dialog_item' ).find( '.bt_bb_ai_language' ).val() );
 				localStorage.setItem( 'bt_bb_ai_length_' + window.bt_bb.editing_base, len_arr );
 				
@@ -179,7 +207,12 @@
 		//// BE
 		
 		$( 'body' ).on( 'click', '.bt_bb_ai_regenerate_button', function( e ) {
-			ai_request( this );
+			var mode = $( this ).closest( '.bt_bb_dialog_item' ).find( '.bt_bb_ai_mode' ).val();
+			if ( mode == 'generate' ) {
+				ai_request( this );
+			} else {
+				ai_request( this, true );
+			}
 		});
 		
 		$( 'body' ).on( 'click', '.bt_bb_ai_prev_button', function( e ) {
@@ -201,6 +234,7 @@
 		// Switch
 		
 		$( 'body' ).on( 'click', '.bt_bb_ai_switch', function( e ) {
+			if ( $( e.target )[0].tagName == 'A' ) return;
 			if ( $( this ).hasClass( 'bt_bb_ai_open' ) ) {
 				$( this ).removeClass( 'bt_bb_ai_open' );
 				$( this ).next().removeClass( 'bt_bb_ai_open' );
@@ -223,7 +257,12 @@
 		
 		document.addEventListener( 'click', function( e ) {
 			if ( typeof( bt_bb_fe_dialog_content ) !== 'undefined' && e.composedPath()[0].className.includes( 'bt_bb_ai_regenerate_button' ) ) {
-				ai_request( e.composedPath()[0] );
+				var mode = $( e.composedPath()[0] ).closest( '.bt_bb_dialog_item' ).find( '.bt_bb_ai_mode' ).val();
+				if ( mode == 'generate' ) {
+					ai_request( e.composedPath()[0] );
+				} else {
+					ai_request( e.composedPath()[0], true );
+				}
 			}
 		});
 		
@@ -262,6 +301,24 @@
 				}
 			}
 		});
+		
+		//// BE/FE
+		
+		window.bt_bb_ai_mode_callback = function( e ) {
+			if ( e.val == 'generate' ) {
+				$( e.el ).closest( '.bt_bb_dialog_item' ).find( 'input, select' ).not( '.bt_bb_ai_prev_button, .bt_bb_ai_next_button' ).attr( 'disabled', false );
+			} else {
+				$( e.el ).closest( '.bt_bb_dialog_item' ).find( '.bt_bb_ai_keywords' ).attr( 'disabled', true );
+				$( e.el ).closest( '.bt_bb_dialog_item' ).find( '.bt_bb_ai_length_container input' ).attr( 'disabled', true );
+				$( e.el ).closest( '.bt_bb_dialog_item' ).find( '.bt_bb_ai_tone' ).attr( 'disabled', true );
+				$( e.el ).closest( '.bt_bb_dialog_item' ).find( '.bt_bb_ai_language' ).attr( 'disabled', true );
+				if ( e.val == 'translate' ) {
+					$( e.el ).closest( '.bt_bb_dialog_item' ).find( '.bt_bb_ai_language' ).attr( 'disabled', false );
+				} else if ( e.val == 'rephrase' ) {
+					$( e.el ).closest( '.bt_bb_dialog_item' ).find( '.bt_bb_ai_tone' ).attr( 'disabled', false );
+				}
+			}
+		}
 		
 	});
 	

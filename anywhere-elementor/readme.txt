@@ -2,7 +2,7 @@
 Contributors: wpvibes, webtechstreet, tejwanihemant
 Tags: page-builder, elementor, elementor addon
 Requires at least: 5.0
-Tested up to: 6.3
+Tested up to: 6.4.3
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -58,6 +58,9 @@ Note: This plugin is an addon of [Elementor Page Builder](https://wordpress.org/
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/anywhere-elementor)
 
 == Changelog ==
+
+= 1.2.10 =
+* Tested with latest WordPress and Elementor Release for compatibility issue.
 
 = 1.2.9 =
 * Tested with latest WordPress and Elementor Release.

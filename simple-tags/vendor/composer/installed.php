@@ -3,7 +3,7 @@
         'name' => 'taxopress/simple-tags',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '4e08cd24292f2497b0e768df9d79b9668ead73a2',
+        'reference' => '0253fbdad47ca123491e056ba0acfa1d3b58cf4a',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -58,7 +58,7 @@
         'taxopress/simple-tags' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '4e08cd24292f2497b0e768df9d79b9668ead73a2',
+            'reference' => '0253fbdad47ca123491e056ba0acfa1d3b58cf4a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -11,9 +11,7 @@ if ( ! function_exists( 'cleverfox_evita_lite_slider' ) ) :
 	=================================-->
 	<section class="slider-section slider-one">
 		<div class="bg-elements">
-			<div class="element1"><img src="<?php echo esc_url(EVITA_PARENT_URI.'/assets/images/element/emoji.png'); ?>" alt="<?php echo esc_attr__('Image','clever-fox'); ?>"></div>
-			<div class="element2"><img src="<?php echo esc_url(EVITA_PARENT_URI.'/assets/images/element/star.png'); ?>"  alt="<?php echo esc_attr__('Image','clever-fox'); ?>"></div>
-			<div class="element3"><img src="<?php echo esc_url(EVITA_PARENT_URI.'/assets/images/element/heart.png'); ?>" alt="<?php echo esc_attr__('Image','clever-fox'); ?>"></div>
+			<div class="element1"></div>			
 			<div class="element4"></div>
 			<div class="element5"></div>
 		</div>

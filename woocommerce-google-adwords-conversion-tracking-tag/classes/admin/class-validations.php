@@ -174,6 +174,12 @@ class Validations {
 			// Trim space, newlines and quotes
 			$input['google']['ads']['conversion_id'] = Helpers::trim_string($input['google']['ads']['conversion_id']);
 
+			// Remove "AW-" prefix
+			$input['google']['ads']['conversion_id'] = preg_replace('/^AW-/', '', $input['google']['ads']['conversion_id']);
+
+			// If there is a slash, remove it and everything after it
+			$input['google']['ads']['conversion_id'] = preg_replace('/\/.*$/', '', $input['google']['ads']['conversion_id']);
+
 			if (!self::is_gads_conversion_id($input['google']['ads']['conversion_id'])) {
 				$input['google']['ads']['conversion_id']
 					= Options::get_options_obj()->google->ads->conversion_id
@@ -188,6 +194,9 @@ class Validations {
 
 			// Trim space, newlines and quotes
 			$input['google']['ads']['conversion_label'] = Helpers::trim_string($input['google']['ads']['conversion_label']);
+
+			// If there is a slash, remove it and everything before it
+			$input['google']['ads']['conversion_label'] = preg_replace('/^.*\//', '', $input['google']['ads']['conversion_label']);
 
 			if (!self::is_gads_conversion_label($input['google']['ads']['conversion_label'])) {
 				$input['google']['ads']['conversion_label']

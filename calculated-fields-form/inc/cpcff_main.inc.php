@@ -614,8 +614,10 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					foreach ( $atts as $i => $v ) {
 						if ( 'id' != $i && 'class' != $i && ! is_numeric( $i ) ) {
 							$nV       = ( is_numeric( $v ) ) ? $v : json_encode( $v ); // Sanitizing the attribute's value
-							$i = esc_js( $i );
-							$content .= 'try{ if( ! ( "cff_var" in window ) )	window["cff_var"] = {}; window["cff_var"]["' . $i . '"]=' . $nV . '; if(typeof ' . $i . '_arr == "undefined") ' . $i . '_arr={}; ' . $i . '_arr["_' . self::$form_counter . '"]=' . $nV . '; }catch( err ){}';
+							if( is_scalar( $i ) ) {
+								$i = preg_replace( '/[^a-z0-9_\-]/i', '', $i );
+								$content .= 'try{ if( ! ( "cff_var" in window ) )	window["cff_var"] = {}; window["cff_var"]["' . $i . '"]=' . $nV . '; if(typeof ' . $i . '_arr == "undefined") ' . $i . '_arr={}; ' . $i . '_arr["_' . self::$form_counter . '"]=' . $nV . '; }catch( err ){}';
+							}
 						}
 					}
 					$content .= '</script>';
@@ -682,14 +684,17 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					}
 				}
 				if ( isset( $value ) ) {
-					return '
-					<script>
-						try{
-						if( ! ( "cff_var" in window ) )	window["cff_var"] = {};
-						window["cff_var"]["'.esc_js($var).'"]='.$value.';
-						}catch( err ){}
-					</script>
-					';
+					if ( is_scalar( $var ) ) {
+						$var = preg_replace( '/[^a-z0-9_\-]/i', '', $var );
+						return '
+						<script>
+							try{
+							if( ! ( "cff_var" in window ) )	window["cff_var"] = {};
+							window["cff_var"]["'.$var.'"]='.$value.';
+							}catch( err ){}
+						</script>
+						';
+					}
 				}
 			}
 			return '';

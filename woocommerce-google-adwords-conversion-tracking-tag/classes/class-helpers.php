@@ -205,6 +205,8 @@ class Helpers
         $string = str_replace( '"', '', $string );
         // Remove html quote entities
         $string = str_replace( '&quot;', '', $string );
+        // Remove anything from the front and back of the string that looks like &#039; or similar
+        $string = preg_replace( '/&[^;]+;/', '', $string );
         // Remove a ; at the end of the string
         return rtrim( $string, ';' );
     }
@@ -820,6 +822,51 @@ class Helpers
     public static function can_order_modal_be_shown()
     {
         return Options::is_ga4_data_api_active() || Options::is_order_level_ltv_calculation_active();
+    }
+    
+    public static function get_script_string_allowed_html()
+    {
+        return [
+            'class' => [],
+        ];
+    }
+    
+    public static function get_script_string()
+    {
+        $script_string = '';
+        $attributes = [];
+        // if the Iubenda plugin is active, add the Iubenda attributes
+        if ( Environment::is_iubenda_active() ) {
+            // add an attribute class and add a class name _iub_cs_skip to it
+            $attributes['class'][] = '_iub_cs_skip';
+        }
+        // Build the attribute string
+        foreach ( $attributes as $attribute => $values ) {
+            $script_string .= ' ' . $attribute . '="' . implode( ' ', $values ) . '"';
+        }
+        return $script_string;
+    }
+    
+    public static function iubenda_script_exception_start()
+    {
+        if ( !Environment::is_iubenda_active() ) {
+            return;
+        }
+        ?>
+
+		<!--IUB-COOKIE-BLOCK-SKIP-START-->
+		<?php 
+    }
+    
+    public static function iubenda_script_exception_end()
+    {
+        if ( !Environment::is_iubenda_active() ) {
+            return;
+        }
+        ?>
+
+		<!--IUB-COOKIE-BLOCK-SKIP-END-->
+		<?php 
     }
 
 }

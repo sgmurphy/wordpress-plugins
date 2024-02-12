@@ -136,6 +136,13 @@ It is not possible to test Bold Builder with all themes - it should work fine wi
 
 == Changelog ==
 
+= 4.8.2 =
+* Fixed Image Slider.
+
+= 4.8.1 =
+* Added new AI options.
+* Improved security.
+
 = 4.8.0 =
 * Added Shortcode content element.
 

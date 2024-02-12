@@ -3,7 +3,7 @@
         'name' => 'updraftplus/internal-link-juicer',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '3658b7d46111916c3167ca306dee6f83a9f02177',
+        'reference' => '18821b15e44849c618e0c34207d21bb02fdf077f',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -154,7 +154,7 @@
         'updraftplus/internal-link-juicer' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '3658b7d46111916c3167ca306dee6f83a9f02177',
+            'reference' => '18821b15e44849c618e0c34207d21bb02fdf077f',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -315,25 +315,43 @@ if (!function_exists('slInstaDepsSatisfied')) {
         }
 
         // Check for extensions
-        foreach (['json', 'curl', 'gd'] as $ext) {
-            if (!extension_loaded($ext)) {
-                add_action('admin_notices', function () use ($ext) {
-                    printf(
-                        '<div class="notice notice-error"><p>%s</p></div>',
-                        sprintf(
-                            _x(
-                                '%1$s requires the %2$s PHP extension. Kindly install and enable this extension or contact your hosting provider for assistance.',
-                                '%1$s is the name of the plugin, %2$s is the name of the extension',
-                                'sli'
-                            ),
-                            '<strong>' . SL_INSTA_PLUGIN_NAME . '</strong>',
-                            '<code>' . $ext . '</code>'
-                        )
-                    );
-                });
+        foreach (['json', 'curl', 'gd|imagick'] as $extStr) {
+            $exts = explode('|', $extStr);
 
-                return false;
+            $ok = false;
+            foreach ($exts as $ext) {
+                if (extension_loaded($ext)) {
+                    $ok = true;
+                    break;
+                }
             }
+
+            if ($ok) {
+                continue;
+            }
+
+            add_action('admin_notices', function () use ($exts) {
+                $names = array_map(function ($ext) {
+                    return "<code>$ext</code>";
+                }, $exts);
+
+                $names = implode(__(' or ', 'sli'), $names);
+
+                printf(
+                    '<div class="notice notice-error"><p>%s</p></div>',
+                    sprintf(
+                        _x(
+                            '%1$s requires the %2$s PHP extension. Kindly install and enable this extension or contact your hosting provider for assistance.',
+                            '%1$s is the name of the plugin, %2$s is the name of the extension',
+                            'sli'
+                        ),
+                        '<strong>' . SL_INSTA_PLUGIN_NAME . '</strong>',
+                        $names
+                    )
+                );
+            });
+
+            return false;
         }
 
         return true;

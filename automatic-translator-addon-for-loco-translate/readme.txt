@@ -3,10 +3,10 @@ Contributors: narinder-singh, satindersingh
 Donate link: https://paypal.me/CoolPlugins/10USD/
 Tags: translate, translation, translator, localization, loco, loco translate, loco addon, google translate, deepl
 Requires at least:5.0
-Tested up to:6.4.1
+Tested up to:6.4.3
 Requires PHP: 5.6
-Loco Translate:2.6.6
-Stable tag: trunk
+Loco Translate Tested Up to: 2.6.6
+Stable tag: 2.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,15 +14,12 @@ Automatic language translator add-on for Loco Translate official plugin to trans
 
 == Description ==
 
-### Automatic Machine Translator Addon For Loco
+### Automatic Translate Addon For Loco Translate
 
 The Automatic Translate Addon for Loco Translate is a powerful tool for website owners and developers looking to quickly **translate** their WordPress **plugins and themes**. 
 The plugin integrates with the **Loco Translate** plugin to provide a seamless experience for users. The addon uses **machine translation** to **automatically translate** the plugin and theme strings into the desired language, **saving time and effort** for website owners who need to quickly translate their content into multiple languages.
 
 [How It Works ⇗](https://locoaddon.com/how-it-works/?utm_source=atlt_plugin&utm_medium=readme&utm_campaign=get_pro&utm_content=how_it_works) | [Buy Pro ⇗](https://locoaddon.com/plugin/automatic-translate-addon-for-loco-translate-pro/?utm_source=atlt_plugin&utm_medium=readme&utm_campaign=get_pro&utm_content=buy_now)
-
-
-https://www.youtube.com/watch?v=yBYugUHzwbQ
 
 Install this plugin along with the famous **[Loco Translate](https://wordpress.org/plugins/loco-translate/)** plugin (**1,000,000+ Active Installations**) and automatically machine translates any WordPress plugin or theme translation files into any language.
 The Automatic Translate Addon for Loco Translate is a must-have tool for anyone looking for a seamless, efficient, and high-quality solution to translate their WordPress plugins and themes.
@@ -30,8 +27,8 @@ The Automatic Translate Addon for Loco Translate is a must-have tool for anyone 
 ### 🤖 No Translate API Required! + Unlimited Translations!
 
 * Yes, it's true, there is no requirement to use any translate API key to use this addon for automatic translations, just install it and translate unlimited characters with one click.
-* Free version of this addon supports **[Yandex Page Translate Widget](https://translate.yandex.com/developers/website-widget)**. By using this translate widget you can unlimitedly translate any plugin or theme translatable plain text strings.
-* Pro version provides support for the Google Translate widget and DeepL Doc Translator. You can also use them without any API key unlimited times. DeepL Translate provides a limited number of free doc translations daily. It is better than Google, Yandex, or any other machine translation service provider - **[read a review by TechCrunch](https://techcrunch.com/2017/08/29/deepl-schools-other-online-translators-with-clever-machine-learning/)**
+* Free version of this addon supports **[Yandex Page Translate Widget]**. By using this translate widget you can unlimitedly translate any plugin or theme translatable plain text strings.
+* Pro version provides support for the Google Translate widget, DeepL Doc Translator and ChatGPT. You can also use them without any API key unlimited times. DeepL Translate provides a limited number of free doc translations daily. It is better than Google, Yandex, or any other machine translation service provider - **[read a review by TechCrunch](https://techcrunch.com/2017/08/29/deepl-schools-other-online-translators-with-clever-machine-learning/)**
 
 ### ⚡ Loco Addon Features
 
@@ -52,6 +49,7 @@ The Automatic Translate Addon for Loco Translate is a must-have tool for anyone 
 * ❌ **DeepL Doc Translator Support:** Not Available
 * ❌ **Premium Support:** Not Available
 * ❌ **ChatGPT Translation Support:** Not Available
+
 **Premium License**
 
 * ✅ **Yandex Translate Widget Support:** Available
@@ -109,7 +107,7 @@ All automatic translations will be machine translations, powered by third-party 
 * [Yandex Privacy Policy](https://yandex.com/legal/confidential/)
 * [Google Translate Data Usage Policy](https://cloud.google.com/translate/data-usage)
 * [DeepL Privacy Policy](https://www.deepl.com/en/privacy/)
-* **DeepL Translate Supports 12 languages**:- English, German, French, Spanish, Portuguese, Portuguese (Brazilian), Italian, Dutch, Polish, Russian, Japanese & Chinese (simplified)
+* **DeepL Translate Supports 24 languages**:- English, German, French, Spanish, Portuguese, Portuguese (Brazilian), Italian, Dutch, Polish, Russian, Japanese, Chinese (simplified), Italian, bulgarian, Czech, Danish, Greek, hungarian, Slovak, Swedish, Norwegian Bokmål, Korean, Turkish & Ukrainian
 [](http://coderisk.com/wp/plugin/automatic-translator-addon-for-loco-translate/RIPS-FN0AdXlllg)
 
 == Installation ==
@@ -120,7 +118,7 @@ All automatic translations will be machine translations, powered by third-party 
 
 4. Now edit any plugin or theme language file using the Loco build-in editor, you will find an auto translator button at the top to quickly translate all translatable strings with one click using Yandex Translate Widget.
 
-5. If you want to use Google Translate Widget or DeepL Doc Translator then you need to purchase [premium license key](https://locoaddon.com/addon/loco-automatic-translate-premium-license-key/). The pro version also provides better translations using DeepL and Google's advanced machine translation technology.
+5. If you want to use Google Translate Widget, DeepL Doc Translator or ChatGPT for translation then you need to purchase [premium license key](https://locoaddon.com/addon/loco-automatic-translate-premium-license-key/). The pro version also provides better translations using DeepL, Google and AI's advanced machine translation technology.
 
 == Frequently Asked Questions ==
 
@@ -130,14 +128,14 @@ This plugin works as an add-on for **Loco Translate** official plugin. First, yo
 = Are you using any language translation API❔ =
 No, there is no requirement for any translate API key to use this plugin free or pro version. It uses free page translation widgets and services for unlimited automatic translations.
 
-Free license users can use **[Yandex Translate Widget](https://translate.yandex.com/developers/website-widget)** but if you are using a premium license then you can also use **Google Translate Widget** and **DeepL Doc Translator**.
+Free license users can use **[Yandex Translate Widget]** but if you are using a premium license then you can also use **Google Translate Widget**, **DeepL Doc Translator** and **ChatGPT**.
 
 = Is there any translation limit❔ =
 There is no limit. Yes, you can translate unlimited characters without any API key.
 
 **Free license** users:- can translate unlimited characters only via Yandex Page Translate Widget.
 
-**Premium license** users:- can also use Google Page Translate Widget & DeepL Doc Translator for unlimited translations. DeepL Doc Translator provides a limited number of free docs translations per day, you can purchase their pro license to increase this limit.
+**Premium license** users:- can also use Google Page Translate Widget, DeepL Doc Translator & ChatGPT for unlimited translations. DeepL Doc Translator provides a limited number of free docs translations per day, you can purchase their pro license to increase this limit.
 
 > This addon only provides an interface to use third-party translation widgets and services, it does not provide any translation service. Any auto-translate provider can stop providing free translation widgets or services anytime in the future, in that case, the plugin will not support that auto-translate provider.
 
@@ -149,6 +147,10 @@ There is no limit. Yes, you can translate unlimited characters without any API k
 4. DeepL Doc Translator (Premium)
 
 == Changelog ==
+<strong>Version 2.4.1 |07/02/2024 </strong>
+<pre>
+Fix: Minor bug fixes
+</pre>
 <strong>Version 2.4 |28/11/2023 </strong>
 <pre>
 Improved:Rewrite overall JS code.

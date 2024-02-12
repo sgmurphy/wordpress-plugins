@@ -82,15 +82,17 @@ class InstagramModule extends Module
             //==========================================================================
 
             // The auth state, which is passed back by IG/FB APIs
-            // We use the site URL so our auth server can redirect back to the user's site
-            'api/state' => new Value(
-                urlencode(
+            'api/state' => new Factory([], function () {
+                $nonce = wp_create_nonce(AuthCallbackListener::NONCE_ACTION);
+                return urlencode(
                     json_encode([
-                        'site' => admin_url(),
+                        // For the auth server to redirect back to this site
+                        'site' => admin_url() . 'admin.php?nonce=' . urlencode($nonce),
+                        // The version of the auth server to use
                         'version' => 2,
                     ])
-                )
-            ),
+                );
+            }),
 
             // The driver for clients, responsible for dispatching requests and receiving responses
             'api/driver' => new Alias('ig/client'),

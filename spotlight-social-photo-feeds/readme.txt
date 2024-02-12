@@ -6,7 +6,7 @@ Tags: Instagram, Instagram feed, Instagram feeds, Instagram block, Instagram emb
 Requires at least: 5.7
 Requires PHP: 7.1
 Tested up to: 6.3
-Stable tag: 1.6.10
+Stable tag: 1.6.11
 License: GPLv3
 
 Instagram feeds made easy. Responsive, customizable, accessible, and SEO-friendly out of the box. Includes Instagram blocks & oEmbed support.
@@ -266,6 +266,12 @@ Yes, aside from the customisation options provided by Spotlight itself, the plug
 7. [Premium] Create shoppable Instagram Feeds and Instagram bio link pages in seconds. Link Instagram posts to articles, products, recipes, and much more.
 
 == Changelog ==
+
+= 1.6.11 (2024-02-12) =
+
+**Fixed**
+- CSRF vulnerability when connecting accounts.
+- The plugin now allows either the imagick or gd extension to be used for image processing, not just the gd extension.
 
 = 1.6.10 (2024-02-01) =
 

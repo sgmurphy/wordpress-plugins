@@ -5,7 +5,7 @@
 	overflow: hidden;
 	flex: 0 0 100%;
 	padding: 1em;
-	font-size: 1.1em;
+	font-size: 13px;
 	transition: opacity 300ms ease;
 	#bt_bb_fe_dialog_content_wrapper & {
 		font-size: 1em;
@@ -762,7 +762,7 @@ ul.menu {
 	font-size: 12px;
 	border-radius: 5px;
 	background-color: #ff7f00;
-	box-shadow: 0 0 0.8em 0.01em rgba(0,0,0,.05);
+	/*box-shadow: 0 0 0.8em 0.01em rgba(0,0,0,.05);*/
 	transition: background 300ms ease, box-shadow 300ms ease;
 	display: flex;
 	gap: 10px;
@@ -806,7 +806,7 @@ ul.menu {
 		}
 	}
 	&:hover {
-		box-shadow: 0 0 0.8em 0.01em rgba(0,0,0,.25);
+		background: #e57607;
 	}	
 }
 .bt_bb_dialog_item[data-type="ai_prompt"] {
@@ -880,9 +880,9 @@ ul.menu {
 	}
 	.bt_bb_dialog_item_inner.bt_bb_dialog_item_inner_ai_buttons {
 		display: flex;
-		justify-content: center;
+		justify-content: flex-end;
 		align-items: center;
-		gap: 10px;
+		/*gap: 10px;*/
 		margin-top: 10px;
 		flex-basis: calc(50% - 5px);
 		.bt_bb_ai_prev_button, .bt_bb_ai_next_button, .bt_bb_ai_regenerate_button {
@@ -891,26 +891,55 @@ ul.menu {
 		}
 		.bt_bb_ai_prev_button {
 			order: 0;
+			margin-right: 5px;
 		}
 		.bt_bb_ai_counter {
 			order: 1;
+			margin-right: 5px;
 		}
 		.bt_bb_ai_next_button  {
 			order: 2;
+			margin-right: 10px;
+		}
+		.bt_bb_ai_mode {
+			order: 3;
+			color: $(darkFontColor);
+			background: #449df4;
+			margin-top: 0;
+			max-width: 98px;
+			border: none;
+			transition: all 270ms ease;
+			background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgd2lkdGg9IjIwMCIKICAgaGVpZ2h0PSIxMDAiCiAgIHZpZXdCb3g9Ii05OS41IDAuNSAyMDAgMTAwIgogICB2ZXJzaW9uPSIxLjEiCiAgIGlkPSJzdmcxMDY0IgogICBzb2RpcG9kaTpkb2NuYW1lPSJzZWxlY3QtYXJyb3cuc3ZnIgogICBpbmtzY2FwZTp2ZXJzaW9uPSIxLjIgKGRjMmFlZGFmMDMsIDIwMjItMDUtMTUpIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzCiAgICAgaWQ9ImRlZnMxMDY4IiAvPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBpZD0ibmFtZWR2aWV3MTA2NiIKICAgICBwYWdlY29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9IiMwMDAwMDAiCiAgICAgYm9yZGVyb3BhY2l0eT0iMC4yNSIKICAgICBpbmtzY2FwZTpzaG93cGFnZXNoYWRvdz0iMiIKICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMC4wIgogICAgIGlua3NjYXBlOnBhZ2VjaGVja2VyYm9hcmQ9IjAiCiAgICAgaW5rc2NhcGU6ZGVza2NvbG9yPSIjZDFkMWQxIgogICAgIHNob3dncmlkPSJmYWxzZSIKICAgICBpbmtzY2FwZTp6b29tPSIyLjU2MjUiCiAgICAgaW5rc2NhcGU6Y3g9IjEyNS44NTM2NiIKICAgICBpbmtzY2FwZTpjeT0iOTkuOTAyNDM5IgogICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iMTQ0MCIKICAgICBpbmtzY2FwZTp3aW5kb3ctaGVpZ2h0PSI4MzciCiAgICAgaW5rc2NhcGU6d2luZG93LXg9Ii04IgogICAgIGlua3NjYXBlOndpbmRvdy15PSItOCIKICAgICBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIxIgogICAgIGlua3NjYXBlOmN1cnJlbnQtbGF5ZXI9InN2ZzEwNjQiIC8+CiAgPHBhdGgKICAgICBmaWxsPSIjNDQ0IgogICAgIGQ9Im0gMjYuMjk4NzgsMjYuMDkwMjQ0IGMgMCwxLjYgLTAuNjEyLDMuMiAtMS44MjUsNC40MjUgbCAtNTQuNDI1LDU0LjQyNDk5NSAtNTQuNDI1LC01NC40MjQ5OTUgYyAtMi40MzgsLTIuNDM4IC0yLjQzOCwtNi40IDAsLTguODM3IDIuNDM4LC0yLjQzNyA2LjQsLTIuNDM4IDguODM3LDAgbCA0NS41ODgsNDUuNTczOTk1IDQ1LjU3NSwtNDUuNTc0OTk1IGEgNi4yNTMsNi4yNTMgMCAwIDEgOC44MzcsMCA2LjIzLDYuMjMgMCAwIDEgMS44MzgsNC40MTMgeiIKICAgICBpZD0icGF0aDEwNjIiCiAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MSIgLz4KPC9zdmc+Cg==);
+			display: block;
+			float: right;
+			cursor: pointer;
+			background-repeat: no-repeat;
+			background-position: 80px;
+			background-size: 16px;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+			border: none !important;
+			box-shadow: none !important;
+			option {
+				background: white;
+				color: #2c3338;
+			}
 		}
 		.bt_bb_ai_regenerate_button  {
-			order: 3;
 			font-size: 13px;
-			flex-basis: 100%;
-			background: $(accentColor);
-			color: $(darkFontColor);
-			box-shadow: 0 0 0.75em 0 rgba(0,0,0,.2);
-			transition: all 270ms ease;
-			text-transform: uppercase;
 			font-family: inherit;
+			text-transform: uppercase;
+			flex-basis: 100%;
+			order: 4;
+			max-width: 40px;
+			border: none;
+			color: $(darkFontColor);
+			background: $(accentColor);
+			transition: all 270ms ease;
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
 			&:hover {
-				background-color: $(accentDark);
-				box-shadow: 0 0 1em 0 rgba(0,0,0,.2);
+				background: #ff7f00;
 			}
 			&.bt_bb_ai_regenerate_button_loading {
 				opacity: 0.5;

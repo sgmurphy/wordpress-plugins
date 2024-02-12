@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Bold Builder
  * Description: WordPress page builder.
- * Version: 4.8.0
+ * Version: 4.8.2
  * Author: BoldThemes
  * Author URI: https://www.bold-themes.com
  * Text Domain: bold-builder
@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // VERSION --------------------------------------------------------- \\
-define( 'BT_BB_VERSION', '4.8.0' );
+define( 'BT_BB_VERSION', '4.8.2' );
 // VERSION --------------------------------------------------------- \\
  
 /**
@@ -606,8 +606,9 @@ function bt_bb_settings() {
 						<th scope="row"><?php _e( 'Color schemes', 'bold-builder' ); ?></th>
 						<td><fieldset><legend class="screen-reader-text"><span><?php _e( 'Color Schemes', 'bold-builder' ); ?></span></legend>
 						<p>
-						<textarea name="bt_bb_settings[color_schemes]" rows="10" cols="50"><?php echo sanitize_textarea_field( $color_schemes ); ?></textarea>
+						<textarea name="bt_bb_settings[color_schemes]" rows="10" cols="50" placeholder="Black/White;#000;#fff"><?php echo sanitize_textarea_field( $color_schemes ); ?></textarea>
 						</p>
+						<small>Add each Color Scheme separated by new line. E.g. Black/White;#000;#fff</small>
 						</fieldset></td>
 					</tr>
 					<tr>
@@ -848,6 +849,10 @@ function bt_bb_translate() {
 	echo 'window.bt_bb_text.ai = "' . esc_html__( 'AI', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text.ai_content_generator = "' . esc_html__( 'AI Content Generator', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text.generate = "' . esc_html__( 'Generate', 'bold-builder' ) . '";';
+	echo 'window.bt_bb_text.translate = "' . esc_html__( 'Translate', 'bold-builder' ) . '";';
+	echo 'window.bt_bb_text.rephrase = "' . esc_html__( 'Rephrase', 'bold-builder' ) . '";';
+	echo 'window.bt_bb_text.correct = "' . esc_html__( 'Correct', 'bold-builder' ) . '";';
+	echo 'window.bt_bb_text.go = "' . esc_html__( 'Go', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text.keywords = "' . esc_html__( 'Keywords', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text.system_prompt = "' . esc_html__( 'System prompt', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text.temperature = "' . esc_html__( 'Randomness (temperature)', 'bold-builder' ) . '";';
@@ -856,11 +861,11 @@ function bt_bb_translate() {
 	echo 'window.bt_bb_text.english = "' . esc_html__( 'English', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text.tone = "' . esc_html__( 'Tone', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text._tone = {};';
-	echo 'window.bt_bb_text._tone.default = "' . esc_html__( 'Default', 'bold-builder' ) . '";';
+	echo 'window.bt_bb_text._tone.default = "' . esc_html__( 'Default / Same', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text._tone.bold = "' . esc_html__( 'Bold', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text._tone.conversational = "' . esc_html__( 'Conversational', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text._tone.passionate = "' . esc_html__( 'Passionate', 'bold-builder' ) . '";';
-	echo 'window.bt_bb_text._tone.proffesional = "' . esc_html__( 'Proffesional', 'bold-builder' ) . '";';
+	echo 'window.bt_bb_text._tone.professional = "' . esc_html__( 'Professional', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text._tone.witty = "' . esc_html__( 'Witty', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text.help = "' . esc_html__( 'Help', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text.leave_empty = "' . esc_html__( '(leave empty to use length of current content)', 'bold-builder' ) . '";';
@@ -869,6 +874,7 @@ function bt_bb_translate() {
 		'<a href=\"' . esc_url_raw( get_admin_url( null, 'options-general.php?page=bt_bb_settings' ) ) . '\" target=\"_blank\">',
 		'</a>' 
 	) . '";';
+	echo 'window.bt_bb_text.no_content = "' . esc_html__( 'No content!', 'bold-builder' ) . '";';
 	
 	echo '</script>';
 }

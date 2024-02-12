@@ -2,8 +2,8 @@
 Contributors: ShortPixel, resmushit
 Tags: image, optimizer, image optimization, resmush.it, smush, jpg, png, gif, optimization, compression, Compress, Images, Pictures, Reduce Image Size, Smush, Smush.it, free image optimization
 Requires at least: 4.0.0
-Tested up to: 6.3.2
-Stable tag: 0.4.13
+Tested up to: 6.4.3
+Stable tag: 0.4.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,7 @@ Yes, by excluding/reverting this asset, you will have your original image availa
 = Is it possible to exclude some images from the optimizer? =
 
 Yes, since version 0.1.2, you can easily exclude an asset from the optimizer.
+
 = Am I at risk of losing my existing images? =
 
 No! reSmush.it Image Optimizer creates a copy of the original images and performs optimizations only on the copies.
@@ -83,6 +84,10 @@ Yes ! Absolutely free, the only restriction is that the images must not be large
 == Screenshots ==
 
 1. The simple interface
+
+== Changelog ==
+= 0.4.14 =
+* Fix Optimize button in listing
 
 == Changelog ==
 = 0.4.13 =

@@ -34,7 +34,12 @@ class Facebook_Pixel_Manager
              * https://github.com/wp-premium/woocommerce-subscriptions/blob/master/includes/class-wc-subscription.php
              * https://developers.facebook.com/docs/marketing-api/conversions-api/subscription-lifecycle-events/
              * */
-            add_action( 'woocommerce_subscription_payment_complete', [ $this, 'facebook_capi_report_subscription_payment_complete__premium_only' ] );
+            add_action(
+                'woocommerce_subscription_payment_complete',
+                [ $this, 'facebook_capi_report_subscription_payment_complete__premium_only' ],
+                10,
+                1
+            );
             if ( $this->track_facebook_capi_subscription_renewal() ) {
                 add_action(
                     'woocommerce_subscription_renewal_payment_complete',
@@ -43,7 +48,12 @@ class Facebook_Pixel_Manager
                     2
                 );
             }
-            add_action( 'woocommerce_subscription_status_cancelled', [ $this, 'facebook_capi_report_subscription_cancellation__premium_only' ] );
+            add_action(
+                'woocommerce_subscription_status_cancelled',
+                [ $this, 'facebook_capi_report_subscription_cancellation__premium_only' ],
+                10,
+                1
+            );
             add_action(
                 'woocommerce_subscription_status_updated',
                 [ $this, 'facebook_capi_report_subscription_update__premium_only' ],

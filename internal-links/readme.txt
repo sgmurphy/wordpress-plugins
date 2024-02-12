@@ -7,7 +7,7 @@ Tags: seo, internal links, automatic linking, linkbuilding, onpage, auto linker,
 Requires at least: 5.9.0
 Tested up to: 6.4
 Requires PHP: 7.1.0
-Stable tag: 2.23.5
+Stable tag: 2.23.6
 
 Improve your SEO and your user experience through internal linkbuilding. Automated links between your posts based on a smart keyword configuration.
 
@@ -128,6 +128,9 @@ The Pro version also provides a direct import of __post (and term) titles__ or, 
 7. Import and Export Section - Here you can easily import and export plugin settings or your configured keywords.
 
 == Changelog ==
+
+= 2.23.6 - 13/Feb/2024 =
+* FIX: Fixed issue with contents not properly rendering.
 
 = 2.23.5 - 25/Jan/2024 =
 

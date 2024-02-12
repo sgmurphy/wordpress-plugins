@@ -433,16 +433,14 @@ class Admin
                 'wpm_plugin_options_page',
                 $section_ids['settings_name']
             );
-            if ( Helpers::is_experiment() ) {
-                // add the field for the Taboola pixel
-                add_settings_field(
-                    'pmw_plugin_taboola_account_id',
-                    esc_html__( 'Taboola account ID', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
-                    [ $this, 'option_html_taboola_account_id' ],
-                    'wpm_plugin_options_page',
-                    $section_ids['settings_name']
-                );
-            }
+            // Add the field for the Taboola pixel
+            add_settings_field(
+                'pmw_plugin_taboola_account_id',
+                esc_html__( 'Taboola account ID', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
+                [ $this, 'option_html_taboola_account_id' ],
+                'wpm_plugin_options_page',
+                $section_ids['settings_name']
+            );
             // add the field for the TikTok pixel
             add_settings_field(
                 'wpm_plugin_tiktok_pixel_id',

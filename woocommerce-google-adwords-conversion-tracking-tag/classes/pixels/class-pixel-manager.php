@@ -747,9 +747,15 @@ class Pixel_Manager
         $json_encode_options = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
         // add JSON_PRETTY_PRINT
         //		$json_encode_options = $json_encode_options | JSON_PRETTY_PRINT;
+        // We add a script string with additional attributes to the script tag.
+        // Those attributes are primarily to exclude the script from being processed
+        // by various script loaders and script blockers.
+        // Some exclusion techniques use HTML comments, but those comments may be stripped by HTML minifiers.
         ?>
 
-		<script>
+		<script <?php 
+        echo  wp_kses( Helpers::get_script_string(), Helpers::get_script_string_allowed_html() ) ;
+        ?>>
 
 			window.wpmDataLayer = window.wpmDataLayer || {}
 			window.wpmDataLayer = Object.assign(window.wpmDataLayer, <?php 

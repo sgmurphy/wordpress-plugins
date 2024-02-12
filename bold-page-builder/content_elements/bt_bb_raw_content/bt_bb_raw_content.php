@@ -21,8 +21,8 @@ class bt_bb_raw_content extends BT_BB_Element {
 				) )
 			);
 		}
-		
-		$output = '<div class="' . esc_attr( implode( ' ', $class ) ) . '">' . base64_decode( $raw_content ) . '</div>';
+
+		$output = '<div class="' . esc_attr( implode( ' ', $class ) ) . '">' . wp_kses_post( base64_decode( $raw_content ) ) . '</div>';
 		
 		$output = apply_filters( 'bt_bb_general_output', $output, $atts );
 		$output = apply_filters( $this->shortcode . '_output', $output, $atts );

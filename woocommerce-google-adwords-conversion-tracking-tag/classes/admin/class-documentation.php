@@ -350,6 +350,10 @@ class Documentation {
 				'default' => '/docs/wpm/developers/logs#accessing-log-files',
 				'wcm'     => '',
 			],
+			'ltv_order_calculation'                                      => [
+				'default' => '/docs/wpm/plugin-configuration/shop-settings#active-lifetime-value-calculation',
+				'wcm'     => '',
+			],
 			'ltv_recalculation'                                      => [
 				'default' => '/docs/wpm/plugin-configuration/shop-settings#lifetime-value-recalculation',
 				'wcm'     => '',

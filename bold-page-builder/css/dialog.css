@@ -115,7 +115,8 @@
 					width: 30%;
 				}
 				&:after {
-					height: calc(1em + 1px);
+					height: 5px;
+					bottom: -5px;
 				}
 			}
 			/* Line */

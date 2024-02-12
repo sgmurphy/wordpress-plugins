@@ -15,13 +15,16 @@ function bt_bb_ai() {
 	
 	$keywords = wp_kses_post( $_POST['keywords'] );
 	$tone = wp_kses_post( $_POST['tone'] );
+	$mode = wp_kses_post( $_POST['mode'] );
 	$language = wp_kses_post( $_POST['language'] );
 	$target = json_decode( stripslashes( wp_kses_post( $_POST['target'] ) ), true );
-	
+	$modify = boolval( $_POST['modify'] === 'true' );
+	$content = wp_kses_post( $_POST['content'] );
+
 	if ( $target == '_content' ) {
-		$system_prompt = BT_BB_AI::$_content_system_prompt;
+		$system_prompt_base = BT_BB_AI::$_content_system_prompt;
 	} else {
-		$system_prompt = wp_kses_post( $_POST['system_prompt'] );
+		$system_prompt_base = wp_kses_post( $_POST['system_prompt'] );
 	}
 
 	$length = json_decode( stripslashes( wp_kses_post( $_POST['length'] ) ), true );
@@ -42,8 +45,11 @@ function bt_bb_ai() {
 		}
 
 		$schema = array(
-			'type' => 'object',
-			'properties' => $properties
+			'name' => 'get_content',
+			'parameters' => [
+				'type' => 'object',
+				'properties' => $properties
+			]
 		);
 	}
 	
@@ -53,12 +59,11 @@ function bt_bb_ai() {
 	}
 	
 	$language_prompt = '';
-	if ( $language != '' ) {
-		$language_prompt = ' Content must be in ' . $language . '.';
-	} else {
-		$language_prompt = ' Content must be in English.';
+	if ( $language == '' ) {
+		$language = 'English';
 	}
-	
+	$language_prompt = ' Content must be in ' . $language . '.';
+		
 	$length_prompt = '';
 	
 	if ( is_array( $target ) ) {
@@ -82,32 +87,74 @@ function bt_bb_ai() {
 			$length_prompt .= ' Content must have' . ' ' . abs( intval( $length[ 0 ] ) ) . ' ' . $w_or_c;
 		}
 	}
+	
+	$user_prompt = $keywords;
+	
+	if ( $modify ) {
+		
+		$_content = false;
+		$content_obj = json_decode( stripslashes( $content ) );
+		if ( property_exists( $content_obj, '_content' ) ) {
+			$content = '"""' . $content_obj->_content . '"""';
+			$_content = true;
+		}
+
+		$user_prompt = $content;
+		
+		if ( $mode == 'translate' ) {
+			$system_prompt = 'Translate content to ' . $language . '. If you are unable to do that, return given content.';
+		} else if ( $mode == 'rephrase' ) {
+			$system_prompt = 'Rephrase content.';
+			if ( $tone != '' ) {
+				$system_prompt .= ' The tone of the content must be ' . $tone . '.';
+			}
+		} else if ( $mode == 'correct' ) {
+			$system_prompt = 'Correct content grammar. If content is already grammatically correct, return given content.';
+		}
+		
+		if ( is_array( $target ) ) {
+			$system_prompt .= ' Preserve JSON structure.';
+		}
+		
+	} else {
+		$system_prompt = $system_prompt_base;
+		$system_prompt .= $tone_prompt;
+		$system_prompt .= $length_prompt;
+		$system_prompt .= $language_prompt;
+	}
 
 	if ( is_array( $target ) ) {
 		$data = array(
 			'model' => $api_model,
 			'messages' => [array(
 				'role' => 'user',
-				'content' => $keywords
+				'content' => $user_prompt
 			),array(
 				'role' => 'system',
-				'content' => $system_prompt . $tone_prompt . $length_prompt . $language_prompt
-			)],
-			'functions' => [array(
-				'name' => 'get_content',
-				'parameters' => $schema
-			)],
-			'function_call' => array( 'name' => 'get_content' )
+				'content' => $system_prompt
+			)]
 		);
+		if ( ! $modify ) {
+			$data['tools'] = [array(
+				'type' => 'function',
+				'function' => $schema
+			)];
+			$data['tool_choice'] = [
+				'type' => 'function',
+				'function' => [
+					'name' => 'get_content'
+				]
+			];
+		}
 	} else { // _content
 		$data = array(
 			'model' => $api_model,
 			'messages' => [array(
 				'role' => 'user',
-				'content' => $keywords
+				'content' => $user_prompt
 			),array(
 				'role' => 'system',
-				'content' => $system_prompt . $tone_prompt . $length_prompt . $language_prompt
+				'content' => $system_prompt
 			)]
 		);
 	}
@@ -125,14 +172,18 @@ function bt_bb_ai() {
 	curl_close( $ch );
 
 	$result = json_decode( $response, true );
-	
+
 	if ( $result ) {
 		if ( is_array( $result ) ) {
 			if ( isset( $result['error'] ) ) {
 				echo $result['error']['message'];
 			} else {
 				if ( is_array( $target ) ) {
-					echo json_encode( json_decode( $result['choices'][0]['message']['function_call']['arguments']) );
+					if ( $modify ) {
+						echo str_ireplace( '\\\\', '\\', $result['choices'][0]['message']['content'] );
+					} else {
+						echo $result['choices'][0]['message']['tool_calls'][0]['function']['arguments'];
+					}
 				} else { // _content
 					echo json_encode( array( '_content' => trim( $result['choices'][0]['message']['content'], '"' ) ) );
 				}

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator,calculated,quote calculator,forms,form editor,advanced forms,payment calculator,payment,recurring payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf,language
 Requires at least: 3.0.5
 Tested up to: 6.4
-Stable tag: 1.2.54
+Stable tag: 1.2.55
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -999,6 +999,10 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 1.2.55 =
+
+* Improves the plugin security. Special thanks to security researcher Rafie Muhammad (Patchstack)
+
 = 1.2.54 =
 
 * Improves the HTML and CSS editors in the "HTML Content" fields and the "Customize Form Design" attribute, respectively.
@@ -1043,10 +1047,3 @@ The previous code example must be overwritten as cff_var['custom_attr']*fieldnam
 * Modifies the settings of DropDown, Checkbox, and Radio Button fields.
 * Modifies the search form builder.
 * Remove invalid characters from the file name in the PDF Generator add-on (Platinum plugin version).
-
-= 1.2.47 =
-
-* Improves the search forms module.
-* Fixes an issue with WEEKNUM operation.
-* Modifies the Managing Fields Operations module to fix an issue with websites that load multiple instances of jQuery.
-* Modifies the submissions' shortcode in the Users Permissions add-on (Developer and Platinum plugin versions).
