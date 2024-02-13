@@ -212,7 +212,11 @@ jQuery(document).ready(function ($) {
     function clearDropdownSelection(dropdown) {
         const contentContainer = $("[data-selected-dropdown-item-id]", dropdown);
         contentContainer.text(irEventsJS.dropdown_default_message);
+                    $(".custom-dropdown__li", dropdown).removeClass("custom-dropdown__li--selected");
+                    $(".custom-dropdown__li", dropdown).removeClass("custom-dropdown__li--selected");
+                    /* updating custom dropdown hidden input value */
         $(".custom-dropdown__li", dropdown).removeClass("custom-dropdown__li--selected");
+                    /* updating custom dropdown hidden input value */
         $(".ir-custom-dropdown-value", dropdown).val("").trigger("change");
     }
 
@@ -251,6 +255,7 @@ jQuery(document).ready(function ($) {
         const customDropdownInputValue = customDropdownInput.val();
         const dropDown = customDropdownInput.parents(".custom-dropdown");
         const rowContainer = dropDown.parents(".header__flex");
+        let ieDisabled = ["are-404s"];
 
         if (rowContainer.length) {
             if (dropDown.attr("data-name") === "criteria") {
@@ -261,12 +266,8 @@ jQuery(document).ready(function ($) {
                 } else {
                     $(".ir-criteria-value", rowContainer).removeAttr("readOnly");
                 }
-                if (customDropdownInputValue == "are-404s" || customDropdownInputValue == "all-urls") {
-                    disableAdvancedOptions();
-                }
-                if (customDropdownInputValue === "contain" || customDropdownInputValue === "start-with" || customDropdownInputValue === "have-permalink-structure" || customDropdownInputValue === "regex-match" ) {
-                    enableAdvancedOptions();
-                }
+                if (ieDisabled.includes(customDropdownInputValue)) disableAdvancedOptions();
+                else enableAdvancedOptions();
             } else if (dropDown.attr("data-name") === "action") {
                 if (customDropdownInputValue === "random-similar-post") {
                     $(".ir-action-value", rowContainer).val("random-similar-post").attr("readOnly", true);
@@ -325,6 +326,41 @@ jQuery(document).ready(function ($) {
         if (!$(".ir-redirect-settings-container").hasClass("ir-hidden")) {
             $(".ir-redirect-settings-container").addClass("ir-hidden");
         }
+    }
+
+
+    window.getSettingsData = function (form) {
+        const obj = {};
+
+        $.each(form.serializeArray(), function (i, v) {
+            let name = $.trim(v['name']);
+            const matches = name.match(/([^\[\]]+)\[([^\[\]]+)\]/);
+            if (matches != null) {
+                if (matches[1] && matches[2]) {
+                    let nestedObj = null;
+
+                    if (!(matches[1] in obj)) {
+                        nestedObj = {};
+                        obj[matches[1]] = nestedObj;
+                    } else {
+                        nestedObj = obj[matches[1]];
+                    }
+
+                    if (!(matches[2] in nestedObj)) {
+                        nestedObj[matches[2]] = $.trim(v['value']);
+                    }
+
+                }
+            } else {
+                if (obj[name] === 'redirect_code' && $.trim(v['value']) === '') {
+                    obj[name] = '301';
+                } else {
+                    obj[name] = $.trim(v['value']);
+                }
+            }
+        });
+
+        return obj;
     }
 
     /* handle the click on custom dropdown items and initiate custom dropdown selected item value */
@@ -592,7 +628,7 @@ jQuery(document).ready(function ($) {
             const criteriaValueDropdown = clickedItem[0].closest(".header__flex").querySelectorAll(".custom-dropdown")[1];
             $(".header__2nd-dropdown-container.ir-criteria-value-dd", rowContainer).removeClass("header__2nd-dropdown-container--active");
             $("input[name=criteria_value_dd]", rowContainer).attr("disabled", true).val("");
-            if (dataValue !== "are-404s" && dataValue !== "all-urls") {
+            if (dataValue !== "are-404s") {
                 $("input[name=criteria_value]", rowContainer).removeAttr("disabled");
             }
         }
@@ -697,8 +733,6 @@ jQuery(document).ready(function ($) {
             if (criteriaDDValue.val() === "are-404s") {
                 disableAdvancedOptions();
                 notify({autoCloseAfter: 3000, type: 'error', heading: 'Error', text: irEventsJS.notify_3000_05});
-            } else if (criteriaDDValue.val() === "all-urls") {
-                notify({autoCloseAfter: 3000, type: 'error', heading: 'Error', text: irEventsJS.notify_3000_06});
             }
 
         }

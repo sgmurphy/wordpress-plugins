@@ -1,13 +1,13 @@
 <?php
 /*
 Plugin Name: Social Media and Share Icons (Ultimate Social Media)
-Plugin URI: http://ultimatelysocial.com
 Description: Easy to use and 100% FREE social media plugin which adds social media icons to your website with tons of customization features!.
-Author: UltimatelySocial
-Author URI: http://ultimatelysocial.com
+Author: Inisev
+Author URI: https://inisev.com
+Plugin URI: https://ultimatelysocial.com
 Text Domain: ultimate-social-media-icons
 Domain Path: /languages
-Version: 2.8.7
+Version: 2.8.8
 License: GPLv2 or later
 */
 require_once 'analyst/main.php';
@@ -54,7 +54,7 @@ sfsi_error_reporting();
 
 global $wpdb;
 /* define the Root for URL and Document */
-define( 'SFSI_PLUGIN_VERSION', '2.8.7' );
+define( 'SFSI_PLUGIN_VERSION', '2.8.8' );
 define( 'SFSI_DOCROOT', dirname( __FILE__ ) );
 
 define( 'SFSI_PLUGURL', plugin_dir_url( __FILE__ ) );

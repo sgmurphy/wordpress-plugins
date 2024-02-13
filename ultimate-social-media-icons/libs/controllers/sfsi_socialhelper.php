@@ -433,7 +433,7 @@ class sfsi_SocialHelper
 	{
 		$send = 'false';
 		$width = 180;
-		$permalink = esc_url($permalink); /*Vulnerability*/
+		$permalink = rawurlencode(esc_url(rawurldecode($permalink))); /*Vulnerability*/
 
 		/*$fb_like_html = '<fb:like href="'.$permalink.'" width="'.$width.'" send="'.$send.'" showfaces="false" ';
 		if($show_count) {
@@ -524,8 +524,8 @@ class sfsi_SocialHelper
 
 	/* create on page twitter share icon */
 	public function sfsi_twitterShare( $permalink, $tweettext, $icon ) {
-		$permalink = esc_url($permalink); /*Vulnerability*/
-
+		$permalink = rawurlencode(esc_url(rawurldecode($permalink))); /*Vulnerability*/
+ 
 		$twitter_html = "<div class='sf_twiter' style='display: inline-block;vertical-align: middle;width: auto;'>
 						<a " . sfsi_checkNewWindow() . " href='https://twitter.com/intent/tweet?text=" . urlencode($tweettext).'+'.$permalink. "' style='display:inline-block' >
 							<img data-pin-nopin= true class='sfsi_wicon' src='" . $icon . "' alt='Post on X' title='Post on X' >
@@ -536,7 +536,7 @@ class sfsi_SocialHelper
 
 	/* create on page twitter share icon with count */
 	public function sfsi_twitterSharewithcount( $permalink, $tweettext, $show_count, $rectangular_icon=false ) {
-		$permalink = esc_url($permalink); /*Vulnerability*/
+		$permalink = rawurlencode(esc_url(rawurldecode($permalink))); /*Vulnerability*/
 
 		$sfsi_section4	= maybe_unserialize(get_option('sfsi_section4_options', false));
 		$socialObj = new sfsi_SocialHelper();

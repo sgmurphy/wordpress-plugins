@@ -119,6 +119,7 @@ class WIO_Image_Processor_Premium extends WIO_Image_Processor_Abstract {
 
 		if ( is_wp_error( $response ) ) {
 			WRIO_Plugin::app()->logger->error( sprintf( '%s returned error (%s).', $error_message, $response->get_error_message() ) );
+			WRIO_Plugin::app()->logger->debug( var_export( $response, true ) );
 
 			return $response;
 		}

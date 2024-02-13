@@ -27,6 +27,13 @@ defined( 'ABSPATH' ) || exit;
 class Groups implements Screen_Interface {
 
 	/**
+	 * Hold table object.
+	 *
+	 * @var Groups_List_Table
+	 */
+	private $list_table = null;
+
+	/**
 	 * Register screen into WordPress admin area.
 	 *
 	 * @return void
@@ -40,6 +47,8 @@ class Groups implements Screen_Interface {
 			ADVADS_SLUG . '-groups',
 			[ $this, 'display' ]
 		);
+
+		add_action( 'in_admin_header', [ $this, 'get_list_table' ] );
 	}
 
 	/**
@@ -48,21 +57,29 @@ class Groups implements Screen_Interface {
 	 * @return void
 	 */
 	public function display(): void {
-		$screen   = get_current_screen();
-		$taxonomy = get_taxonomy( Entities::TAXONOMY_AD_GROUP );
-
 		$this->handle_action();
 
-		if ( ! $screen ) {
-			return;
-		}
-
-		$screen->taxonomy  = Entities::TAXONOMY_AD_GROUP;
-		$screen->post_type = Entities::POST_TYPE_AD;
-		$wp_list_table     = new Groups_List_Table();
-		$is_search         = Params::get( 's' );
+		$taxonomy      = get_taxonomy( Entities::TAXONOMY_AD_GROUP );
+		$wp_list_table = $this->get_list_table();
+		$is_search     = Params::get( 's' );
 
 		include ADVADS_ABSPATH . 'views/admin/screens/groups.php';
+	}
+
+	/**
+	 * Get list table object
+	 *
+	 * @return null|Groups_List_Table
+	 */
+	public function get_list_table() {
+		$screen = get_current_screen();
+		if ( 'advanced-ads_page_advanced-ads-groups' === $screen->id && null === $this->list_table ) {
+			$screen->taxonomy  = Entities::TAXONOMY_AD_GROUP;
+			$screen->post_type = Entities::POST_TYPE_AD;
+			$this->list_table  = new Groups_List_Table();
+		}
+
+		return $this->list_table;
 	}
 
 	/**

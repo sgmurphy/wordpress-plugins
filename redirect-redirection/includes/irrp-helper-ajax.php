@@ -64,14 +64,40 @@ class IRRPHelperAjax implements IRRPConstants {
         $timestamp = current_time("timestamp");
         $redirectionType = self::TYPE_REDIRECTION;
         $selected = empty($_POST["selected"]) ? [] : array_map("intval", (json_decode(stripslashes(trim($_POST["selected"])))));
+        $data = empty($_POST["data"]) ? [] : IRRPHelper::sanitizeData(json_decode(stripslashes($_POST["data"]), ARRAY_A));
+        $settings = array_replace_recursive($this->settings->getDefaultSettings(), $data);
 
         if (!is_array($selected)) {
             $selected = [];
         }
 
         if ($from && $to) {
+            $urlPattern = '#^(https:\/\/|http:\/\/)[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})([a-zA-Z0-9-_?\/.=]{2,})$#isu';
+            $urlPatternWithoutProtocol = '#^[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})([a-zA-Z0-9-_?\/.=]{2,})$#isu';
+            $pathOnlyPattern = '#^\/[a-zA-Z0-9-_?\/.=]{2,}$#isu';
+            if (preg_match($urlPatternWithoutProtocol, $from)){
+                if (is_ssl()){
+                    $from = "https://".$from;
+                } else {
+                    $from = "http://".$from;
+                }
+            }elseif (preg_match($pathOnlyPattern, $from)){
+                $from = home_url().$from;
+            }elseif (!preg_match($urlPattern, $from)){
+                $response["status"] = "error";
+                $response["message"] = __("Please ensure your entry is valid!", "redirect-redirection");
+                wp_send_json_error($response);
+            }
 
-            if (!preg_match("#^https?:\/\/[^\'\"\s]+$#isu", $from) || !preg_match("#^https?:\/\/[^\'\"\s]+$#isu", $to)) {
+            if (preg_match($urlPatternWithoutProtocol, $to)){
+                if (is_ssl()){
+                    $to = "https://".$to;
+                } else {
+                    $to = "http://".$to;
+                }
+            }elseif (preg_match($pathOnlyPattern, $to)){
+                $to = home_url().$to;
+            }elseif (!preg_match($urlPattern, $to)){
                 $response["status"] = "error";
                 $response["message"] = __("Please ensure your entry is valid!", "redirect-redirection");
                 wp_send_json_error($response);
@@ -122,7 +148,7 @@ class IRRPHelperAjax implements IRRPConstants {
                     $response["message"] = __("Redirection added successfully", "redirect-redirection");
 
                     // adding redirect metadata
-                    foreach ($this->settings->getData() as $key => $value) {
+                    foreach ($settings as $key => $value) {
                         $metaKey = esc_sql($key);
                         if (is_array($value)) {
                             $metaValue = maybe_serialize(array_map("esc_sql", $value));
@@ -766,6 +792,8 @@ class IRRPHelperAjax implements IRRPConstants {
         $timestamp = current_time("timestamp");
         $redirectionType = self::TYPE_REDIRECTION_RULE;
         $selected = empty($_POST["selected"]) ? [] : array_map("intval", (json_decode(stripslashes(trim($_POST["selected"])))));
+        $data = empty($_POST["data"]) ? [] : IRRPHelper::sanitizeData(json_decode(stripslashes($_POST["data"]), ARRAY_A));
+        $settings = array_replace_recursive($this->settings->getDefaultSettings(), $data);
 
         if (!is_array($selected)) {
             $selected = [];
@@ -858,7 +886,6 @@ class IRRPHelperAjax implements IRRPConstants {
                 if ($insertId) {
                     // adding redirect metadata >> settings
                     //foreach ($this->settings->getData() as $key => $value) {
-                    $settings = $isAre404s || $isAllUrls ? $this->settings->getDataWithoutAdvancedOptions() : $this->settings->getData();
                     foreach ($settings as $key => $value) {
                         $metaKey = esc_sql($key);
                         if (is_array($value)) {
@@ -1043,20 +1070,12 @@ class IRRPHelperAjax implements IRRPConstants {
     public function logStatusChange() {
         check_ajax_referer( 'ir_ajax_nonce', 'nonce' );
 
-        do_action("hanafy_logger",[
-            "caller" => "logStatusChange",
-        ]);
-
         if (!current_user_can("manage_options") && !current_user_can("redirect_redirection_admin")) {
             die(__("Stop doing this!", "redirect-redirection"));
         }
 
         $response = ["status" => "", "message" => ""];
         $logStatus = (bool) filter_input(INPUT_POST, "log_status", FILTER_SANITIZE_NUMBER_INT);
-        do_action("hanafy_logger",[
-            "logStatus" => json_encode($logStatus)
-        ]);
-
         
         if (!is_bool($logStatus)) {
             $response["status"] = "error";

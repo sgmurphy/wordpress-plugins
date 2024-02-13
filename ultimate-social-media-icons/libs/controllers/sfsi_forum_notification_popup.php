@@ -128,7 +128,6 @@ function sfsi_forum_notification_popup() {
 <?php
 }
 
-add_action( 'wp_ajax_nopriv_sfsi_hide_admin_forum_notification', 'sfsi_hide_admin_forum_notification_callback' );
 add_action( 'wp_ajax_sfsi_hide_admin_forum_notification', 'sfsi_hide_admin_forum_notification_callback' );
 
 function sfsi_hide_admin_forum_notification_callback() {

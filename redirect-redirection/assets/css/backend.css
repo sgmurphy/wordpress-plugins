@@ -217,7 +217,7 @@ jdiv {
 }
 
 .settings-box__link {
-    color: var(--primary) !important;
+    /* color: var(--primary) !important; */
     text-decoration: underline;
 }
 

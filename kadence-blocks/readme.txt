@@ -2,10 +2,10 @@
 Contributors: britner, oakesjosh, woodardmc
 Tags: gutenberg, blocks, page builder, google fonts, dual buttons, svg icons, editor width,
 Donate link: https://www.kadencewp.com/about-us/
-Requires at least: 6.1
+Requires at least: 6.2
 Tested up to: 6.4
-Stable tag: 3.2.21
-Requires PHP: 7.2
+Stable tag: 3.2.22
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,14 @@ assist you with verification, CVE assignment, and notify the
 developers of this plugin.
 
 == Changelog ==
+
+= 3.2.22 =
+Release Date: February 12th, 2024
+* Add: Option to set image size for backgrounds.
+* Fix: Accordion block inside Advanced Query Loops.
+* Fix: Issue with custom column widths and default gutter.
+* Fix: Issue with flex wrap inheriting to tablet and mobile.
+* Fix: Issue with some html rendered in the success/failed message of forms.
 
 = 3.2.21 =
 Release Date: February 3nd, 2024

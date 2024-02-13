@@ -1825,7 +1825,7 @@ function sfsi_admin_menu() {
     add_menu_page(
         __( 'Ultimate Social Media Icons', 'ultimate-social-media-icons' ),
         __( 'Ultimate Social Media Icons', 'ultimate-social-media-icons' ),
-        'administrator',
+        'manage_options',
         'sfsi-options',
         'sfsi_options_page',
         plugins_url( 'images/logo.png', dirname(__FILE__) )

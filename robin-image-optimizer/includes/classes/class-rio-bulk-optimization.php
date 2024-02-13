@@ -620,8 +620,8 @@ class WRIO_Bulk_Optimization {
 		}
 
 		global $wpdb;
-		$db_table         = RIO_Process_Queue::table_name();
-		$sql              = $wpdb->prepare( "SELECT *	FROM {$db_table}					
+		$db_table = RIO_Process_Queue::table_name();
+		$sql = $wpdb->prepare( "SELECT *	FROM {$db_table}					
 					WHERE item_type = 'attachment' AND result_status IN (%s, %s)
 					ORDER BY id DESC;", RIO_Process_Queue::STATUS_SUCCESS, RIO_Process_Queue::STATUS_ERROR );
 		$optimized_images = $wpdb->get_results( $sql, ARRAY_A );
@@ -635,8 +635,24 @@ class WRIO_Bulk_Optimization {
 		}
 
 		$allowed_formats_sql = wrio_get_allowed_formats( true );
-		$sql                 = "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'attachment' AND post_status = 'inherit' AND post_mime_type IN ( {$allowed_formats_sql} );";
-		$attachments         = $wpdb->get_results( $sql );
+
+		$sql  = "SELECT posts.ID
+					FROM {$wpdb->posts} as posts
+				 WHERE post_type = 'attachment' 
+					AND post_status = 'inherit'
+					AND post_mime_type IN ( {$allowed_formats_sql} )";
+
+		// If you use a WPML plugin, you need to exclude duplicate images
+		if(defined( 'WPML_PLUGIN_FILE' )) {
+			$sql .= " AND NOT EXISTS 
+					(SELECT trnsl.element_id FROM {$wpdb->prefix}icl_translations as trnsl 
+					  WHERE trnsl.element_id=posts.ID 
+					    AND trnsl.element_type='post_attachment' 
+					    AND source_language_code IS NOT NULL
+				  )";
+		}
+
+		$attachments = $wpdb->get_results( $sql );
 
 		$allowed_sizes = explode( ',', WRIO_Plugin::app()->getPopulateOption( 'allowed_sizes_thumbnail', '' ) );
 		$total_images  = 0;
@@ -656,7 +672,9 @@ class WRIO_Bulk_Optimization {
 				}
 			}
 		}
+
 		$result_total = $total_images - $count;
+
 		wp_send_json_success( [
 			'total' => $result_total >= 0 ? $result_total : 0,
 		] );

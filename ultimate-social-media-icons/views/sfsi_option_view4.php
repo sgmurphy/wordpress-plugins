@@ -192,7 +192,7 @@ $hide = "display:none;";
             <span><?php _e('12k','ultimate-social-media-icons') ?></span>
         </li>
         <li class="twitter_section">
-            <a href="#" title="Twitter">
+            <a href="#" title="X/Twitter">
                 <img src="<?php echo SFSI_PLUGURL ?>images/twitter.png" alt="Twitter" />
             </a>
             <span><?php _e('12k','ultimate-social-media-icons') ?></span>
@@ -476,7 +476,7 @@ $hide = "display:none;";
             <div class="social_icon_like">
                 <ul class="like_icon">
                     <li>
-                        <a title="Twitter">
+                        <a title="X/Twitter">
                             <img src="<?php echo SFSI_PLUGURL ?>images/twitter.png" alt="Twitter" />
                             <span><?php echo $counts['twitter_count']; ?></span>
                         </a>

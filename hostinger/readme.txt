@@ -3,7 +3,7 @@ Tags: onboarding, hostinger
 Requires at least: 5.9
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 2.0.6
+Stable tag: 2.0.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -259,3 +259,6 @@ Watching for Changes: During development, you can use "npm run watch" to continu
 2.0.6 (2024-02-09)
 - Added affiliate surveys
 - Internal services improvements
+
+2.0.7 (2024-02-13)
+- Survey adjustments

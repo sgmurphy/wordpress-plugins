@@ -509,7 +509,17 @@ class IRRPHelper implements IRRPConstants {
                             }
                             //
                             else if ($criteria === "end-with") {
-                                $response["do_redirect"] = preg_match("#" . preg_quote(untrailingslashit($from)) . "$#s", $request);
+                                $absoluteUrl = $from[0] == '/';
+                                $regexPattern = "#%s1%s2$#s";
+                                $regexPattern = str_replace(
+                                    ["%s1", "%s2"],
+                                    [
+                                        $absoluteUrl ? '^' . get_home_url() : '',
+                                        untrailingslashit($from),
+                                    ],
+                                    $regexPattern
+                                );
+                                $response["do_redirect"] = preg_match( $regexPattern, $request);
                                 //
                                 if ($action["name"] === "specific-url") {
                                     $response["to"] = $action["value"];
@@ -973,7 +983,8 @@ class IRRPHelper implements IRRPConstants {
                     $languageMatch = $metas["rules_group8"]["language"];
                     $languageValues = array_map("strtolower", explode(",", trim($metas["rules_group8"]["language_value"])));
                     $browserLanguage = empty($_SERVER["HTTP_ACCEPT_LANGUAGE"]) ? "*" : strtolower(trim($_SERVER["HTTP_ACCEPT_LANGUAGE"]));
-                    $browserLanguageSubstr = strlen($browserLanguage) > 1 ? substr($browserLanguage, 0, strpos($browserLanguage, ",")) : "";
+                    $commaPosition = strpos($browserLanguage, ",");
+                    $browserLanguageSubstr = ($commaPosition !== false) ? substr($browserLanguage, 0, $commaPosition) : $browserLanguage;
 
                     if ($languageMatch === "matches") {
                         // check browser language and user filled language in settings w/o making any changes on them

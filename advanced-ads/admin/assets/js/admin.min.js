@@ -109,9 +109,9 @@ jQuery( document ).ready( function ( $ ) {
 		}
 	} )
 	// show edit icon in the last head column
-	$( '.post-type-advanced_ads .wp-list-table thead th:last-of-type' ).append( '<span class="dashicons dashicons-edit"></span>' ).on( 'click', function() {
+	$( '.post-type-advanced_ads .wp-list-table thead th:last-of-type' ).append( $( '<span class="dashicons dashicons-edit"></span>' ).on( 'click', function () {
 		$( '#show-settings-link' ).trigger( 'click' );
-	} );
+	} ) );
 
 	/**
 	 * Logic for placement list

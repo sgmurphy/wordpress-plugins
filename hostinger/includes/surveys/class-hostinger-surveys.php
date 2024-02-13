@@ -109,7 +109,6 @@ class Hostinger_Surveys {
 
 		$not_submitted                 = ! get_transient( self::SUBMITTED_SURVEY_TRANSIENT );
 		$not_completed                 = ! $this->settings->get_setting( 'woocommerce_survey_completed' );
-		$survey_website_type           = $this->settings->get_setting( 'survey.website.type' );
 		$is_woocommerce_page           = $this->is_woocommerce_admin_page();
 		$default_woocommerce_completed = $this->default_woocommerce_survey_completed();
 		$is_client_eligible            = $this->is_client_eligible();
@@ -118,7 +117,7 @@ class Hostinger_Surveys {
 			return false;
 		}
 
-		return $not_submitted && $not_completed && $survey_website_type && $is_woocommerce_page && $default_woocommerce_completed && $is_client_eligible;
+		return $not_submitted && $not_completed && $is_woocommerce_page && $default_woocommerce_completed && $is_client_eligible;
 	}
 
 	public function is_ai_onboarding_survey_enabled(): bool {

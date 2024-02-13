@@ -173,9 +173,10 @@ jQuery(document).ready(function ($) {
             return;
         }
 
-        const urlPattern = /(^|\s)https?:\/\/[^\'\"\s]+(?:\s|$)/g;
+        const urlPattern = /^(https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})([a-zA-Z0-9-_?\/.=]{2,})$/g;
+        const pathPattern = /^\/[a-zA-Z0-9-_?\/.=]{2,}$/g;
         const notAllowedSymbols = /[\<\>"'%\{\}\[\]\|\\,~\^`;@\$\!\*\(\)]+/g;
-        if (!fromValue.match(urlPattern) || fromValue.match(notAllowedSymbols)) {
+        if ((!fromValue.match(urlPattern) && !fromValue.match(pathPattern)) || fromValue.match(notAllowedSymbols)) {
             notify({
                 autoCloseAfter: 5000,
                 type: 'error',
@@ -195,7 +196,7 @@ jQuery(document).ready(function ($) {
             return;
         }
 
-        if (!toValue.match(urlPattern) || fromValue.match(notAllowedSymbols)) {
+        if ((!toValue.match(urlPattern) && !toValue.match(pathPattern)) || toValue.match(notAllowedSymbols)) {
             notify({
                 autoCloseAfter: 5000,
                 type: 'error',
@@ -231,6 +232,8 @@ jQuery(document).ready(function ($) {
             $(".ir-default-settings-form").trigger('submit')
 
             el.addClass("ir-processed");
+            const settingsForm = $(".ir-default-settings-form");
+            const settingsJson = JSON.stringify(getSettingsData(settingsForm));
 
             const data = new FormData();
             data.append("action", "irAddRedirect");
@@ -238,6 +241,7 @@ jQuery(document).ready(function ($) {
             data.append("from", fromValue);
             data.append("to", toValue);
             data.append("selected", selectedVal);
+            data.append("data", settingsJson);
 
 
             const ajax = irGetAjax(data);
@@ -325,8 +329,12 @@ jQuery(document).ready(function ($) {
                 $(".ir-instant-edit-status-" + dbId).removeAttr("checked");
                 dataArr.push({column: 'status', value: 0});
             } else {
-                const urlPattern = /(^|\s)https?:\/\/[^\'\"\s]+(?:\s|$)/g;
-                if (!elValue.match(urlPattern)) {
+                const urlPattern = /^(https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})([a-zA-Z0-9-_?\/.=]{2,})$/g;
+                const pathPattern = /^\/[a-zA-Z0-9-_?\/.=]{2,}$/g;
+                const notAllowedSymbols = /[\<\>"'%\{\}\[\]\|\\,~\^`;@\$\!\*\(\)]+/g;
+        
+                if (!elValue.match(urlPattern) && !elValue.match(pathPattern) || elValue.match(notAllowedSymbols)) {
+
                     if (el.hasClass("ir-instant-edit-from-" + dbId)) {
                         notify({
                             autoCloseAfter: 5000,
@@ -411,7 +419,7 @@ jQuery(document).ready(function ($) {
 
             const criteriaDD = $("#ir_hedaer_flex .ir-criterias .custom-dropdown")[0];
             const criteriaDDValue = $(".ir-custom-dropdown-value", criteriaDD);
-            if (criteriaDDValue && (criteriaDDValue.val() === "are-404s" || criteriaDDValue.val() === "all-urls")) {
+            if (criteriaDDValue && (criteriaDDValue.val() === "are-404s")) {
                 // set inclusion exclusion rules switcher > off
                 $(".ir-rules-switcher").prop("checked", false).trigger("change");
                 $(".ir-rules-switcher").attr("onclick", "event.preventDefault();event.stopPropagation();");
@@ -563,7 +571,7 @@ jQuery(document).ready(function ($) {
                     if (r.data.countPages < 2) {
                         $(".table-select-all").addClass("ir-hidden");
                     }
-
+                    reloadCurrentTab();
                     irSetVisibilities(r);
 
                     $(".ir-reload-clear").val("");
@@ -869,35 +877,7 @@ jQuery(document).ready(function ($) {
     $(document).on("submit", ".ir-default-settings-form", function (e) {
         const form = $(this);
         // const settings = $(".ir-default-settings");
-        const obj = {};
-
-        $.each(form.serializeArray(), function (i, v) {
-            let name = $.trim(v['name']);
-            const matches = name.match(/([^\[\]]+)\[([^\[\]]+)\]/);
-            if (matches != null) {
-                if (matches[1] && matches[2]) {
-                    let nestedObj = null;
-
-                    if (!(matches[1] in obj)) {
-                        nestedObj = {};
-                        obj[matches[1]] = nestedObj;
-                    } else {
-                        nestedObj = obj[matches[1]];
-                    }
-
-                    if (!(matches[2] in nestedObj)) {
-                        nestedObj[matches[2]] = $.trim(v['value']);
-                    }
-
-                }
-            } else {
-                if (obj[name] === 'redirect_code' && $.trim(v['value']) === '') {
-                    obj[name] = '301';
-                } else {
-                    obj[name] = $.trim(v['value']);
-                }
-            }
-        });
+        const obj = getSettingsData(form);
 
         const settingsJson = JSON.stringify(obj);
         const data = new FormData();
@@ -1050,10 +1030,14 @@ jQuery(document).ready(function ($) {
 
             $(".ir-default-settings-form").trigger('submit')
 
+            const settingsForm = $(".ir-default-settings-form");
+            const settingsJson = JSON.stringify(getSettingsData(settingsForm));
+
             const data = new FormData();
             data.append("action", "irAddRedirectRule");
             data.append("id", id);
             data.append("rules", JSON.stringify(rules));
+            data.append("data", settingsJson);
 
             el.addClass("ir-processed");
 

@@ -75,6 +75,8 @@
 .post-type-advanced_ads #adv-settings .submit button { margin-left: 10px; }
 .post-type-advanced_ads #advads-show-filters span { line-height: 30px; }
 .post-type-advanced_ads .button:not(.button-primary):not(.advads-button-primary):not(:hover) { border-color: #0474a2; color: #0474a2; }
+.post-type-advanced_ads .wp-list-table th.sortable:last-of-type a,.post-type-advanced_ads .wp-list-table th.sorted:last-of-type a { display: inline-block; vertical-align: middle }
+.post-type-advanced_ads .wp-list-table th.sortable:last-of-type .dashicons-edit,.post-type-advanced_ads .wp-list-table th.sorted:last-of-type .dashicons-edit { display: inline; line-height: 1.6em; }
 .post-type-advanced_ads .wp-list-table thead tr .dashicons-edit { float: right; visibility: hidden; cursor: pointer; }
 .post-type-advanced_ads .wp-list-table thead tr:hover .dashicons-edit { visibility: visible; }
 .post-type-advanced_ads .column-ad_type { width: 50px; }

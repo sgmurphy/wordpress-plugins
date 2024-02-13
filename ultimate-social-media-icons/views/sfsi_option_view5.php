@@ -210,7 +210,7 @@
                 </li>
           <?php break; ?><?php case 'twitter' :?>
           		<li class="twitter_section " data-index="<?php echo $index; ?>" id="sfsi_twitterIcon_order">
-                	<a href="#" title="Twitter" ><img src="<?php echo SFSI_PLUGURL; ?>images/twitter.png" alt="Twitter" /></a>
+                	<a href="#" title="X/Twitter" ><img src="<?php echo SFSI_PLUGURL; ?>images/twitter.png" alt="Twitter" /></a>
                 </li>
           <?php break; ?><?php case 'youtube' :?>
           		<li class="youtube_section " data-index="<?php echo $index; ?>" id="sfsi_youtubeIcon_order">

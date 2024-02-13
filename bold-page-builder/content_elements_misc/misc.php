@@ -42,7 +42,9 @@ if ( ! function_exists( 'bt_bb_get_url' ) ) {
 
 if ( ! function_exists( 'bt_bb_get_permalink_by_slug' ) ) {
 	function bt_bb_get_permalink_by_slug( $link, $post_type = 'page' ) {
-		if ( 
+		if ( str_contains( $link, 'javascript:' ) ) {
+			return '#';
+		} else if (
 			$link != '' && 
 			$link != '#' && 
 			substr( $link, 0, 5 ) != 'http:' && 
@@ -54,8 +56,6 @@ if ( ! function_exists( 'bt_bb_get_permalink_by_slug' ) ) {
 			$page = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type= %s", $link, $post_type ) );
 			if ( $page ) {
 				return get_permalink( $page );
-			} else {
-				return '#';
 			}
 		}
 		return $link;

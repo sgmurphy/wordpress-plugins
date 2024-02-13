@@ -4,7 +4,7 @@ Tags: ads, adsense, amp, ads.txt, ad rotations, ad blocker, amazon, banner, clic
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.49.0
+Stable tag: 1.50.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -338,10 +338,7 @@ Yes. You can use plenty of [hooks](https://wpadvancedads.com/codex/) to customiz
 
 == Changelog ==
 
-= 1.49.0 (January 31, 2024) =
+= 1.50.0 (February 13, 2024) =
 
-- Improvement: enhance ad blocker detection to identify more ad blockers reliably
-- Improvement: remove universal analytics description
-- Fix: allow content age display condition to work with AJAX cache busting
-- Fix: show search bar for author if max terms reach the limit
-- Fix: prevent a fatal error on the ad edit page related to Display Conditions
+- Improvement: add text flow option to the Gutenberg block
+- Improvement: add size option to the Gutenberg block

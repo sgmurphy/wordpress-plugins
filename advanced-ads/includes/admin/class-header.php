@@ -66,14 +66,15 @@ class Header implements Integration_Interface {
 				$show_screen_options = true;
 				break;
 			case 'advanced-ads_page_advanced-ads-groups':
-				$title              = __( 'Your Groups', 'advanced-ads' );
-				$new_button_label   = __( 'New Ad Group', 'advanced-ads' );
-				$new_button_href    = '#modal-group-new';
-				$new_button_id      = 'advads-new-ad-group-link';
-				$manual_url         = 'https://wpadvancedads.com/manual/ad-groups/';
-				$show_filter_button = ! Conditional::has_filter_or_search();
-				$reset_href         = ! $show_filter_button ? esc_url( admin_url( 'admin.php?page=advanced-ads-groups' ) ) : '';
-				$tooltip            = Entities::get_group_description();
+				$title               = __( 'Your Groups', 'advanced-ads' );
+				$new_button_label    = __( 'New Ad Group', 'advanced-ads' );
+				$new_button_href     = '#modal-group-new';
+				$new_button_id       = 'advads-new-ad-group-link';
+				$manual_url          = 'https://wpadvancedads.com/manual/ad-groups/';
+				$show_filter_button  = ! Conditional::has_filter_or_search();
+				$reset_href          = ! $show_filter_button ? esc_url( admin_url( 'admin.php?page=advanced-ads-groups' ) ) : '';
+				$tooltip             = Entities::get_group_description();
+				$show_screen_options = true;
 				break;
 			case 'advanced-ads_page_advanced-ads-placements':
 				$title              = __( 'Your Placements', 'advanced-ads' );

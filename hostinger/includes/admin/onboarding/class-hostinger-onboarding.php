@@ -32,7 +32,7 @@ class Hostinger_Onboarding {
 			$steps[] = new Hostinger_Onboarding_Description();
 		}
 
-		if ( $website_type === Hostinger_Settings::WEBSITE_TYPE_STORE && class_exists( 'WooCommerce' ) ) {
+		if ( class_exists( 'WooCommerce' ) ) {
 			require_once $path . 'class-hostinger-onboarding-add-product-step.php';
 			$steps[] = new Hostinger_Onboarding_Add_Product_Step();
 		}

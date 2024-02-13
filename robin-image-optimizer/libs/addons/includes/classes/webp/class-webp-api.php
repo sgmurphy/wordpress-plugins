@@ -163,10 +163,10 @@ class WRIO_WebP_Api {
 	 */
 	public function can_save( $response ) {
 		\WRIO_Plugin::app()->logger->info( 'WebP convertation: Checks to save a webp by response.' );
-		//\WRIO_Plugin::app()->logger->debug( var_export( $response, true ) );
 
 		if ( is_wp_error( $response ) ) {
 			WRIO_Plugin::app()->logger->error( sprintf( 'Error response from API. Code: %s, error: %s', $response->get_error_code(), $response->get_error_message() ) );
+			WRIO_Plugin::app()->logger->debug( var_export( $response, true ) );
 
 			return false;
 		}
