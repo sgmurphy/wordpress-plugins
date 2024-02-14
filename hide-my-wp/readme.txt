@@ -4,7 +4,7 @@ Tags: security,firewall,hide,antivirus,wp-login,wp-admin,hide wordpress,hide wp,
 Requires at least: 4.6
 Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 5.0.27
+Stable tag: 5.0.28
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -281,6 +281,21 @@ Enjoy!
 9. Customize the wp-admin path while logged in as an administrator
 
 == Changelog ==
+= 5.0.28 (14 Deb 2024) =
+Compatibility with PHP 8.3 and WP 6.4.3
+Update - Compatibility with Hostinger
+Update - Compatibility with InstaWP
+Update - Compatibility with Solid Security Plugin (ex iThemes Security)
+Update - Added the option to block the API call by rest_route param
+Update - Added new detectors in the option to block the Theme Detectors
+Update - Security Check for valid WP paths
+Fixed - Don't load shortcode recapcha for logged users
+Fixed - Rewrite rules for the custom  wp-login path on Cloud Panel and Nginx servers
+Fixed - Issue on change paths when WP Multisite with Subcategories
+Fixed - Hide rest_route param when Rest API directory is changed
+Fixed - Multilanguage support plugins
+Fixed - Small bugs & typos
+
 = 5.0.27 (18 Oct 2023) =
 * Update - Compatibility with WP 6.4.1 & PHP 8.3
 * Update - Option to create a random suffix number instead of the version number to prevent caching on static files in admin

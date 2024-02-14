@@ -227,7 +227,7 @@ class bt_bb_content_slider extends BT_BB_Element {
 						esc_html__( 'No', 'bold-builder' ) 				=> 'no'
 					)
 				),
-				array( 'param_name' => 'slides_to_show', 'type' => 'dropdown', 'preview' => true, 'default' => 1, 'heading' => esc_html__( 'Number of slides to show', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 1', 'bold-builder' ), 'description' => esc_html__( 'If fade animation is selected, number will  be 1 anyway', 'bold-builder' ), 'responsive_override' => true,
+				array( 'param_name' => 'slides_to_show', 'type' => 'dropdown', 'preview' => true, 'heading' => esc_html__( 'Number of slides to show', 'bold-builder' ), 'description' => esc_html__( 'If fade animation is selected, number will be 1 anyway', 'bold-builder' ), 'responsive_override' => true,
 					'value' => array(
 						esc_html__( '1', 'bold-builder' ) 		=> '1',
 						esc_html__( '2', 'bold-builder' ) 		=> '2',

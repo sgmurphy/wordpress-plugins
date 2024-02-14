@@ -1574,7 +1574,7 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 			if ( isset( $countries ) ) {
 				unset( $countries );
 			}
-			return implode( '<br />', $shipping_addr_vals );
+			return !empty( $shipping_addr_vals ) ? implode( '<br />', $shipping_addr_vals ) : '';
 		} else {
 			return '';
 		}
@@ -1592,9 +1592,26 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 	}
 	public static function set_shipping_address( $find_replace, $template_type, $order = null ) {
 		if ( ! is_null( $order ) ) {
-			$shipping_address                        = self::get_shipping_address( $template_type, $order );
-			$shipping_address                        = ( '' === trim( $shipping_address ) ) ? self::get_billing_address( $template_type, $order ) : $shipping_address;
-			$find_replace['[wfte_shipping_address]'] = $shipping_address;
+			/**
+			 * To hide the shipping address if the order has local pickup shipping method alone.
+			 * @since 4.4.1
+			 */
+			$show_shipping_address_for_local_pickup = Wt_Pklist_Common::has_order_local_pickup_only( $order );
+			if ( true === apply_filters('wt_pklist_hide_shipping_address_for_local_pickup', $show_shipping_address_for_local_pickup, $template_type, $order ) ) {
+				$find_replace['wfte_shipping_address_label'] = 'wfte_shipping_address_label wfte_hidden';
+				$find_replace['[wfte_shipping_address]'] = '';
+			} else {
+				$shipping_address	= self::get_shipping_address( $template_type, $order );
+				if( '' === trim( $shipping_address ) && true === apply_filters( 'wt_pklist_use_billing_address_as_shipping_address', false, $template_type, $order ) ) {
+					$shipping_address = self::get_billing_address( $template_type, $order );
+				}
+
+				if( empty( $shipping_address ) ) {
+					$find_replace['wfte_shipping_address_label'] = 'wfte_shipping_address_label wfte_hidden';
+				}
+				
+				$find_replace['[wfte_shipping_address]'] = $shipping_address;
+			}
 		} else {
 			$find_replace['[wfte_shipping_address]'] = '';
 		}
@@ -1646,7 +1663,7 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 			if ( isset( $countries ) ) {
 				unset( $countries );
 			}
-			return implode( '<br />', $billing_addr_vals );
+			return !empty( $billing_addr_vals ) ? implode( '<br />', $billing_addr_vals ) : '';
 		} else {
 			return '';
 		}
@@ -1654,6 +1671,9 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 	public static function set_billing_address( $find_replace, $template_type, $order = null ) {
 		if ( ! is_null( $order ) ) {
 			$billing_address                        = self::get_billing_address( $template_type, $order );
+			if( empty( $billing_address ) ) {
+				$find_replace['wfte_billing_address_label'] = 'wfte_billing_address_label wfte_hidden';
+			}
 			$find_replace['[wfte_billing_address]'] = $billing_address;
 		} else {
 			$find_replace['[wfte_billing_address]'] = '';
@@ -1694,7 +1714,7 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 		$find_replace['[wfte_from_address]']   = implode( '<br />', $from_addr_vals );
 		$find_replace['[wfte_return_address]'] = implode( '<br />', $return_addr_vals );	
 		
-		if(!has_filter('wf_pklist_alter_shipping_from_address')){
+		if(!has_filter('wf_pklist_alter_shipping_from_address')){ 
 			$from_address_params = array(
 				'first_name' => $the_options['woocommerce_wf_packinglist_sender_name'],
 				'last_name'  => '',

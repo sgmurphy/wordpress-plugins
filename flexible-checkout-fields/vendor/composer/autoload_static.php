@@ -4,29 +4,17 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitfc545f833f2d644161382955095c8145
+class ComposerStaticInit994dc7512d2bbb9c68d56277f54b6562
 {
-    public static $files = array (
-        '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
-        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
         'W' => 
         array (
             'WPDesk\\FCF\\Free\\' => 16,
             'WPDesk\\Dashboard\\' => 17,
         ),
-        'S' => 
-        array (
-            'SzepeViktor\\PHPStan\\WordPress\\' => 30,
-            'Symfony\\Polyfill\\Php73\\' => 23,
-        ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
-            'PHPStan\\ExtensionInstaller\\' => 27,
-            'PHPStan\\' => 8,
         ),
         'D' => 
         array (
@@ -44,26 +32,9 @@ class ComposerStaticInitfc545f833f2d644161382955095c8145
         array (
             0 => __DIR__ . '/..' . '/wpdesk/ltv-dashboard-widget/src',
         ),
-        'SzepeViktor\\PHPStan\\WordPress\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src',
-        ),
-        'Symfony\\Polyfill\\Php73\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
-        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
-        ),
-        'PHPStan\\ExtensionInstaller\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpstan/extension-installer/src',
-        ),
-        'PHPStan\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src',
-            1 => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src',
         ),
         'Doctrine\\Deprecations\\' => 
         array (
@@ -248,6 +219,21 @@ class ComposerStaticInitfc545f833f2d644161382955095c8145
         'FcfVendor\\WPDesk\\DeactivationModal\\Service\\RequestSenderService' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-deactivation-modal/src/Service/RequestSenderService.php',
         'FcfVendor\\WPDesk\\DeactivationModal\\Service\\TemplateGeneratorService' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-deactivation-modal/src/Service/TemplateGeneratorService.php',
         'FcfVendor\\WPDesk\\Helper\\HelperAsLibrary' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-helper-override/src/Helper/HelperAsLibrary.php',
+        'FcfVendor\\WPDesk\\Library\\Marketing\\Boxes\\Abstracts\\BoxInterface' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-marketing/src/Boxes/Abstracts/BoxInterface.php',
+        'FcfVendor\\WPDesk\\Library\\Marketing\\Boxes\\Api\\Client' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-marketing/src/Boxes/Api/Client.php',
+        'FcfVendor\\WPDesk\\Library\\Marketing\\Boxes\\Assets' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-marketing/src/Boxes/Assets.php',
+        'FcfVendor\\WPDesk\\Library\\Marketing\\Boxes\\BoxRenderer' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-marketing/src/Boxes/BoxRenderer.php',
+        'FcfVendor\\WPDesk\\Library\\Marketing\\Boxes\\BoxType\\Box' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-marketing/src/Boxes/BoxType/Box.php',
+        'FcfVendor\\WPDesk\\Library\\Marketing\\Boxes\\BoxType\\ImageBox' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-marketing/src/Boxes/BoxType/ImageBox.php',
+        'FcfVendor\\WPDesk\\Library\\Marketing\\Boxes\\BoxType\\SimpleBox' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-marketing/src/Boxes/BoxType/SimpleBox.php',
+        'FcfVendor\\WPDesk\\Library\\Marketing\\Boxes\\BoxType\\SliderBox' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-marketing/src/Boxes/BoxType/SliderBox.php',
+        'FcfVendor\\WPDesk\\Library\\Marketing\\Boxes\\BoxType\\UnknownBox' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-marketing/src/Boxes/BoxType/UnknownBox.php',
+        'FcfVendor\\WPDesk\\Library\\Marketing\\Boxes\\BoxType\\VideoBox' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-marketing/src/Boxes/BoxType/VideoBox.php',
+        'FcfVendor\\WPDesk\\Library\\Marketing\\Boxes\\Helpers\\BBCodes' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-marketing/src/Boxes/Helpers/BBCodes.php',
+        'FcfVendor\\WPDesk\\Library\\Marketing\\Boxes\\Helpers\\Cache' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-marketing/src/Boxes/Helpers/Cache.php',
+        'FcfVendor\\WPDesk\\Library\\Marketing\\Boxes\\Helpers\\Markers' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-marketing/src/Boxes/Helpers/Markers.php',
+        'FcfVendor\\WPDesk\\Library\\Marketing\\Boxes\\MarketingBoxes' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-marketing/src/Boxes/MarketingBoxes.php',
+        'FcfVendor\\WPDesk\\Library\\Marketing\\RatePlugin\\RateBox' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-marketing/src/RatePlugin/RateBox.php',
         'FcfVendor\\WPDesk\\Logger\\BasicLoggerFactory' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-logs/src/BasicLoggerFactory.php',
         'FcfVendor\\WPDesk\\Logger\\LoggerFacade' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-logs/src/LoggerFacade.php',
         'FcfVendor\\WPDesk\\Logger\\LoggerFactory' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-logs/src/LoggerFactory.php',
@@ -366,71 +352,6 @@ class ComposerStaticInitfc545f833f2d644161382955095c8145
         'Flexible_Checkout_Fields_User_Meta' => __DIR__ . '/../..' . '/classes/user-meta.php',
         'Flexible_Checkout_Fields_User_Meta_Checkout' => __DIR__ . '/../..' . '/classes/user-meta-checkout.php',
         'Flexible_Checkout_Fields_User_Profile' => __DIR__ . '/../..' . '/classes/user-profile.php',
-        'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
-        'PHPStan\\DependencyInjection\\LazyDeprecatedScopeResolverProvider' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/DependencyInjection/LazyDeprecatedScopeResolverProvider.php',
-        'PHPStan\\ExtensionInstaller\\GeneratedConfig' => __DIR__ . '/..' . '/phpstan/extension-installer/src/GeneratedConfig.php',
-        'PHPStan\\ExtensionInstaller\\Plugin' => __DIR__ . '/..' . '/phpstan/extension-installer/src/Plugin.php',
-        'PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanAndRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php',
-        'PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanNotRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/BooleansInConditions/BooleanInBooleanNotRule.php',
-        'PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanOrRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php',
-        'PHPStan\\Rules\\BooleansInConditions\\BooleanInElseIfConditionRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/BooleansInConditions/BooleanInElseIfConditionRule.php',
-        'PHPStan\\Rules\\BooleansInConditions\\BooleanInIfConditionRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/BooleansInConditions/BooleanInIfConditionRule.php',
-        'PHPStan\\Rules\\BooleansInConditions\\BooleanInTernaryOperatorRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/BooleansInConditions/BooleanInTernaryOperatorRule.php',
-        'PHPStan\\Rules\\BooleansInConditions\\BooleanRuleHelper' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/BooleansInConditions/BooleanRuleHelper.php',
-        'PHPStan\\Rules\\Cast\\UselessCastRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/Cast/UselessCastRule.php',
-        'PHPStan\\Rules\\Classes\\RequireParentConstructCallRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/Classes/RequireParentConstructCallRule.php',
-        'PHPStan\\Rules\\Deprecations\\AccessDeprecatedPropertyRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/AccessDeprecatedPropertyRule.php',
-        'PHPStan\\Rules\\Deprecations\\AccessDeprecatedStaticPropertyRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/AccessDeprecatedStaticPropertyRule.php',
-        'PHPStan\\Rules\\Deprecations\\CallToDeprecatedFunctionRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/CallToDeprecatedFunctionRule.php',
-        'PHPStan\\Rules\\Deprecations\\CallToDeprecatedMethodRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/CallToDeprecatedMethodRule.php',
-        'PHPStan\\Rules\\Deprecations\\CallToDeprecatedStaticMethodRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php',
-        'PHPStan\\Rules\\Deprecations\\DefaultDeprecatedScopeResolver' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/DefaultDeprecatedScopeResolver.php',
-        'PHPStan\\Rules\\Deprecations\\DeprecatedClassHelper' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/DeprecatedClassHelper.php',
-        'PHPStan\\Rules\\Deprecations\\DeprecatedScopeHelper' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/DeprecatedScopeHelper.php',
-        'PHPStan\\Rules\\Deprecations\\DeprecatedScopeResolver' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/DeprecatedScopeResolver.php',
-        'PHPStan\\Rules\\Deprecations\\FetchingClassConstOfDeprecatedClassRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php',
-        'PHPStan\\Rules\\Deprecations\\FetchingDeprecatedConstRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/FetchingDeprecatedConstRule.php',
-        'PHPStan\\Rules\\Deprecations\\ImplementationOfDeprecatedInterfaceRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/ImplementationOfDeprecatedInterfaceRule.php',
-        'PHPStan\\Rules\\Deprecations\\InheritanceOfDeprecatedClassRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/InheritanceOfDeprecatedClassRule.php',
-        'PHPStan\\Rules\\Deprecations\\InheritanceOfDeprecatedInterfaceRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/InheritanceOfDeprecatedInterfaceRule.php',
-        'PHPStan\\Rules\\Deprecations\\InstantiationOfDeprecatedClassRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/InstantiationOfDeprecatedClassRule.php',
-        'PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php',
-        'PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php',
-        'PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php',
-        'PHPStan\\Rules\\Deprecations\\UsageOfDeprecatedCastRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/UsageOfDeprecatedCastRule.php',
-        'PHPStan\\Rules\\Deprecations\\UsageOfDeprecatedTraitRule' => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src/Rules/Deprecations/UsageOfDeprecatedTraitRule.php',
-        'PHPStan\\Rules\\DisallowedConstructs\\DisallowedBacktickRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/DisallowedConstructs/DisallowedBacktickRule.php',
-        'PHPStan\\Rules\\DisallowedConstructs\\DisallowedEmptyRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/DisallowedConstructs/DisallowedEmptyRule.php',
-        'PHPStan\\Rules\\DisallowedConstructs\\DisallowedImplicitArrayCreationRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/DisallowedConstructs/DisallowedImplicitArrayCreationRule.php',
-        'PHPStan\\Rules\\DisallowedConstructs\\DisallowedLooseComparisonRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/DisallowedConstructs/DisallowedLooseComparisonRule.php',
-        'PHPStan\\Rules\\DisallowedConstructs\\DisallowedShortTernaryRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/DisallowedConstructs/DisallowedShortTernaryRule.php',
-        'PHPStan\\Rules\\ForLoop\\OverwriteVariablesWithForLoopInitRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/ForLoop/OverwriteVariablesWithForLoopInitRule.php',
-        'PHPStan\\Rules\\ForeachLoop\\OverwriteVariablesWithForeachRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/ForeachLoop/OverwriteVariablesWithForeachRule.php',
-        'PHPStan\\Rules\\Functions\\ClosureUsesThisRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/Functions/ClosureUsesThisRule.php',
-        'PHPStan\\Rules\\Methods\\WrongCaseOfInheritedMethodRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/Methods/WrongCaseOfInheritedMethodRule.php',
-        'PHPStan\\Rules\\Operators\\OperandInArithmeticIncrementOrDecrementRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php',
-        'PHPStan\\Rules\\Operators\\OperandInArithmeticPostDecrementRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/Operators/OperandInArithmeticPostDecrementRule.php',
-        'PHPStan\\Rules\\Operators\\OperandInArithmeticPostIncrementRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/Operators/OperandInArithmeticPostIncrementRule.php',
-        'PHPStan\\Rules\\Operators\\OperandInArithmeticPreDecrementRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/Operators/OperandInArithmeticPreDecrementRule.php',
-        'PHPStan\\Rules\\Operators\\OperandInArithmeticPreIncrementRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/Operators/OperandInArithmeticPreIncrementRule.php',
-        'PHPStan\\Rules\\Operators\\OperandsInArithmeticAdditionRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/Operators/OperandsInArithmeticAdditionRule.php',
-        'PHPStan\\Rules\\Operators\\OperandsInArithmeticDivisionRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/Operators/OperandsInArithmeticDivisionRule.php',
-        'PHPStan\\Rules\\Operators\\OperandsInArithmeticExponentiationRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/Operators/OperandsInArithmeticExponentiationRule.php',
-        'PHPStan\\Rules\\Operators\\OperandsInArithmeticModuloRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/Operators/OperandsInArithmeticModuloRule.php',
-        'PHPStan\\Rules\\Operators\\OperandsInArithmeticMultiplicationRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/Operators/OperandsInArithmeticMultiplicationRule.php',
-        'PHPStan\\Rules\\Operators\\OperandsInArithmeticSubtractionRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/Operators/OperandsInArithmeticSubtractionRule.php',
-        'PHPStan\\Rules\\Operators\\OperatorRuleHelper' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/Operators/OperatorRuleHelper.php',
-        'PHPStan\\Rules\\StrictCalls\\DynamicCallOnStaticMethodsCallableRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/StrictCalls/DynamicCallOnStaticMethodsCallableRule.php',
-        'PHPStan\\Rules\\StrictCalls\\DynamicCallOnStaticMethodsRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/StrictCalls/DynamicCallOnStaticMethodsRule.php',
-        'PHPStan\\Rules\\StrictCalls\\StrictFunctionCallsRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/StrictCalls/StrictFunctionCallsRule.php',
-        'PHPStan\\Rules\\SwitchConditions\\MatchingTypeInSwitchCaseConditionRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/SwitchConditions/MatchingTypeInSwitchCaseConditionRule.php',
-        'PHPStan\\Rules\\VariableVariables\\VariableMethodCallRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/VariableVariables/VariableMethodCallRule.php',
-        'PHPStan\\Rules\\VariableVariables\\VariableMethodCallableRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/VariableVariables/VariableMethodCallableRule.php',
-        'PHPStan\\Rules\\VariableVariables\\VariablePropertyFetchRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/VariableVariables/VariablePropertyFetchRule.php',
-        'PHPStan\\Rules\\VariableVariables\\VariableStaticMethodCallRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/VariableVariables/VariableStaticMethodCallRule.php',
-        'PHPStan\\Rules\\VariableVariables\\VariableStaticMethodCallableRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/VariableVariables/VariableStaticMethodCallableRule.php',
-        'PHPStan\\Rules\\VariableVariables\\VariableStaticPropertyFetchRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/VariableVariables/VariableStaticPropertyFetchRule.php',
-        'PHPStan\\Rules\\VariableVariables\\VariableVariablesRule' => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src/Rules/VariableVariables/VariableVariablesRule.php',
         'Psr\\Log\\AbstractLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/AbstractLogger.php',
         'Psr\\Log\\InvalidArgumentException' => __DIR__ . '/..' . '/psr/log/Psr/Log/InvalidArgumentException.php',
         'Psr\\Log\\LogLevel' => __DIR__ . '/..' . '/psr/log/Psr/Log/LogLevel.php',
@@ -442,41 +363,6 @@ class ComposerStaticInitfc545f833f2d644161382955095c8145
         'Psr\\Log\\Test\\DummyTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/DummyTest.php',
         'Psr\\Log\\Test\\LoggerInterfaceTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
         'Psr\\Log\\Test\\TestLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/TestLogger.php',
-        'Symfony\\Polyfill\\Php73\\Php73' => __DIR__ . '/..' . '/symfony/polyfill-php73/Php73.php',
-        'SzepeViktor\\PHPStan\\WordPress\\ApplyFiltersDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/ApplyFiltersDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\AssertNotWpErrorTypeSpecifyingExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/AssertNotWpErrorTypeSpecifyingExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\AssertWpErrorTypeSpecifyingExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/AssertWpErrorTypeSpecifyingExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\CurrentTimeDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/CurrentTimeDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\EchoKeyDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/EchoKeyDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\EchoParameterDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/EchoParameterDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\GetCommentDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/GetCommentDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\GetListTableDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/GetListTableDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\GetObjectTaxonomiesDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/GetObjectTaxonomiesDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\GetPermalinkDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/GetPermalinkDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\GetPostDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/GetPostDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\GetPostsDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/GetPostsDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\GetSitesDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/GetSitesDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\GetTaxonomiesDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/GetTaxonomiesDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\GetTermsDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/GetTermsDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\HasFilterDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/HasFilterDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\HookCallbackException' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/HookCallbackException.php',
-        'SzepeViktor\\PHPStan\\WordPress\\HookCallbackRule' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/HookCallbackRule.php',
-        'SzepeViktor\\PHPStan\\WordPress\\HookDocBlock' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/HookDocBlock.php',
-        'SzepeViktor\\PHPStan\\WordPress\\HookDocsParamException' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/HookDocsParamException.php',
-        'SzepeViktor\\PHPStan\\WordPress\\HookDocsRule' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/HookDocsRule.php',
-        'SzepeViktor\\PHPStan\\WordPress\\HookDocsVisitor' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/HookDocsVisitor.php',
-        'SzepeViktor\\PHPStan\\WordPress\\IsWpErrorFunctionTypeSpecifyingExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/IsWpErrorFunctionTypeSpecifyingExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\IsWpErrorRule' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/IsWpErrorRule.php',
-        'SzepeViktor\\PHPStan\\WordPress\\MySQL2DateDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/MySQL2DateDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\RedirectCanonicalDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/RedirectCanonicalDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\ShortcodeAttsDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/ShortcodeAttsDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\StringOrArrayDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/StringOrArrayDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\TermExistsDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/TermExistsDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\WpDieDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/WpDieDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\WpErrorParameterDynamicFunctionReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/WpErrorParameterDynamicFunctionReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\WpParseUrlFunctionDynamicReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/WpParseUrlFunctionDynamicReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\WpThemeGetDynamicMethodReturnTypeExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/WpThemeGetDynamicMethodReturnTypeExtension.php',
-        'SzepeViktor\\PHPStan\\WordPress\\WpThemeMagicPropertiesClassReflectionExtension' => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src/WpThemeMagicPropertiesClassReflectionExtension.php',
         'WPDesk\\Dashboard\\DashboardWidget' => __DIR__ . '/..' . '/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php',
         'WPDesk\\FCF\\Free\\Collections\\RouteParamBag' => __DIR__ . '/../..' . '/src/Collections/RouteParamBag.php',
         'WPDesk\\FCF\\Free\\Exception\\TemplateLoadingFailed' => __DIR__ . '/../..' . '/src/Exception/TemplateLoadingFailed.php',
@@ -534,6 +420,7 @@ class ComposerStaticInitfc545f833f2d644161382955095c8145
         'WPDesk\\FCF\\Free\\Integration\\SectionsInterface' => __DIR__ . '/../..' . '/src/Integration/SectionsInterface.php',
         'WPDesk\\FCF\\Free\\Integration\\Value' => __DIR__ . '/../..' . '/src/Integration/Value.php',
         'WPDesk\\FCF\\Free\\Integration\\ValueInterface' => __DIR__ . '/../..' . '/src/Integration/ValueInterface.php',
+        'WPDesk\\FCF\\Free\\Marketing\\SupportPage' => __DIR__ . '/../..' . '/src/Marketing/SupportPage.php',
         'WPDesk\\FCF\\Free\\Notice\\FlexibleWishlistReview' => __DIR__ . '/../..' . '/src/Notice/FlexibleWishlistReview.php',
         'WPDesk\\FCF\\Free\\Notice\\Notice' => __DIR__ . '/../..' . '/src/Notice/Notice.php',
         'WPDesk\\FCF\\Free\\Notice\\NoticeIntegration' => __DIR__ . '/../..' . '/src/Notice/NoticeIntegration.php',
@@ -651,9 +538,9 @@ class ComposerStaticInitfc545f833f2d644161382955095c8145
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitfc545f833f2d644161382955095c8145::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitfc545f833f2d644161382955095c8145::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitfc545f833f2d644161382955095c8145::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit994dc7512d2bbb9c68d56277f54b6562::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit994dc7512d2bbb9c68d56277f54b6562::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit994dc7512d2bbb9c68d56277f54b6562::$classMap;
 
         }, null, ClassLoader::class);
     }

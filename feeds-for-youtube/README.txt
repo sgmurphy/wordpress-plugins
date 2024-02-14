@@ -5,7 +5,7 @@ Support Website: http://smashballoon/youtube-feed/
 Tags: YouTube, YouTube feed, YouTube widget, YouTube channel, YouTube gallery
 Requires at least: 4.1
 Tested up to: 6.4
-Stable tag: 2.1.3
+Stable tag: 2.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -162,6 +162,9 @@ By default, the plugin retrieves new videos for your YouTube gallery once every 
 6. Embed your feed using a shortcode you can copy and paste after you are done creating
 
 == Changelog ==
+= 2.1.4 =
+* Fix: Plugin hardening.
+
 = 2.1.3 =
 * Fix: Fixed an issue causing the next update schedule time found on the settings page to be inaccurate.
 

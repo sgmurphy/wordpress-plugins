@@ -55,20 +55,16 @@ class Tt4b_Pixel_Class {
 			$content_type = 'product_group';
 		}
 		$event_id = self::get_event_id( $content_id );
-		$content  = [
-			'price'        => (float) $product->get_price(),
-			'quantity'     => 1,
-			'content_id'   => $content_id,
-			'content_name' => $product->get_name(),
-		];
+		$content = self::get_properties_from_product( $product, 1, 0, Method::VIEWCONTENT );
 
 		$properties = [
-			'contents'     => [
+			'contents'             => [
 				$content,
 			],
-			'content_type' => $content_type,
-			'currency'     => get_woocommerce_currency(),
-			'value'        => (float) $product->get_price(),
+			'content_type'         => $content_type,
+			'currency'             => get_woocommerce_currency(),
+			'value'                => (float) $product->get_price(),
+			'event_trigger_source' => 'WooCommerce',
 		];
 
 		$user         = self::get_user();
@@ -105,15 +101,7 @@ class Tt4b_Pixel_Class {
 		$mapi->mapi_post( 'event/track/', $fields['access_token'], $params, 'v1.3' );
 
 		// js pixel track
-		$event_data = [
-			'price'        => (float) $product->get_price(),
-			'currency'     => get_woocommerce_currency(),
-			'content_name' => $product->get_name(),
-			'content_id'   => $content_id,
-			'content_type' => $content_type,
-			'value'        => (float) $product->get_price(),
-		];
-		self::add_event( $event, $fields['pixel_code'], $event_data, $hashed_email, $hashed_phone, $event_id );
+		self::add_event( $event, $fields['pixel_code'], $properties, $hashed_email, $hashed_phone, $event_id );
 
 	}
 
@@ -149,32 +137,17 @@ class Tt4b_Pixel_Class {
 			$content_id = (string) $product->get_id();
 		}
 		$content_type = 'product';
-		$price        = $product->get_price();
-		// variation_id will be > 0 if product variation is added, variation_id is post ID
-		if ( $variation_id > 0 ) {
-			$variation = wc_get_product( $variation_id );
-			// if variation sku is same as parent product id, update content_id to match synced SKU_ID synced during catalog sync
-			// otherwise use variation sku
-			$content_id = variation_content_id_helper( Method::ADDTOCART, $content_id, $variation->get_sku(), $variation_id );
-			// use variation price
-			$price = $variation->get_price();
-		}
+		$content = self::get_properties_from_product( $product, 1, $variation_id, Method::ADDTOCART );
 
 		$event_id = self::get_event_id( $content_id );
-		$content  = [
-			'price'        => (float) $price,
-			'quantity'     => (int) $quantity,
-			'content_id'   => $content_id,
-			'content_name' => $product->get_name(),
-		];
-
 		$properties = [
 			'contents'     => [
 				$content,
 			],
-			'content_type' => $content_type,
-			'currency'     => get_woocommerce_currency(),
-			'value'        => ( (float) $price * (float) $quantity ),
+			'content_type'         => $content_type,
+			'currency'             => get_woocommerce_currency(),
+			'value'                => ( $content['price'] * (float) $quantity ),
+			'event_trigger_source' => 'WooCommerce',
 		];
 
 		$user         = self::get_user();
@@ -209,16 +182,7 @@ class Tt4b_Pixel_Class {
 		$mapi->mapi_post( 'event/track/', $fields['access_token'], $params, 'v1.3' );
 
 		// js pixel track
-		$event_data = [
-			'price'        => (float) $price,
-			'currency'     => get_woocommerce_currency(),
-			'content_name' => $product->get_name(),
-			'quantity'     => (int) $quantity,
-			'content_type' => $content_type,
-			'content_id'   => $content_id,
-			'value'        => (float) $price * (float) $quantity,
-		];
-		self::add_event( $event, $fields['pixel_code'], $event_data, $hashed_email, $hashed_phone, $event_id );
+		self::add_event( $event, $fields['pixel_code'], $properties, $hashed_email, $hashed_phone, $event_id );
 
 	}
 
@@ -227,7 +191,7 @@ class Tt4b_Pixel_Class {
 	 *
 	 * @return void
 	 */
-	public static function inject_start_checkout() {
+	public static function inject_initiate_checkout_event() {
 		// do not fire without woocommerce
 		if ( ! did_action( 'woocommerce_loaded' ) > 0 ) {
 			return;
@@ -249,9 +213,7 @@ class Tt4b_Pixel_Class {
 			return;
 		}
 
-		// format of js and s2s payloads differ
-		$js_event_data      = [];
-		$s2s_event_contents = [];
+		$event_contents = [];
 		$value              = 0;
 		$event_id           = self::get_event_id( '' );
 		$content_type       = 'product';
@@ -259,35 +221,9 @@ class Tt4b_Pixel_Class {
 			$product      = $cart_item['data'];
 			$quantity     = (int) $cart_item['quantity'];
 			$variation_id = isset( $cart_item['variation_id'] ) ? $cart_item['variation_id'] : 0;
-			$price        = self::get_product_subtotal_as_float( $product );
-			$content_id   = (string) $product->get_sku();
-			if ( '' === $content_id ) {
-				$content_id = (string) $product->get_id();
-			}
-			if ( $variation_id > 0 ) {
-				$variation  = wc_get_product( $variation_id );
-				$content_id = variation_content_id_helper( Method::STARTCHECKOUT, $content_id, $variation->get_sku(), $variation_id );
-				// calculate subtotal based on variation pricing
-				WC()->cart->get_subtotal();
-				$price = self::get_product_subtotal_as_float( $variation );
-			}
-			$js_content = [
-				'price'        => $price,
-				'content_name' => $product->get_name(),
-				'content_id'   => $content_id,
-				'content_type' => $content_type,
-				'quantity'     => $quantity,
-			];
-
-			$s2s_content = [
-				'price'        => $price,
-				'quantity'     => $quantity,
-				'content_name' => $product->get_name(),
-				'content_id'   => $content_id,
-			];
-			$value      += $price * $quantity;
-			array_push( $js_event_data, $js_content );
-			array_push( $s2s_event_contents, $s2s_content );
+			$content      = self::get_properties_from_product( $product, $quantity, $variation_id, Method::STARTCHECKOUT );
+			$value      += $content['price'] * $content['quantity'];
+			array_push( $event_contents, $content );
 		}
 
 		$user         = self::get_user();
@@ -303,10 +239,11 @@ class Tt4b_Pixel_Class {
 		];
 
 		$properties = [
-			'contents'     => $s2s_event_contents,
-			'content_type' => $content_type,
-			'currency'     => get_woocommerce_currency(),
-			'value'        => $value,
+			'contents'             => $event_contents,
+			'content_type'         => $content_type,
+			'currency'             => get_woocommerce_currency(),
+			'value'                => $value,
+			'event_trigger_source' => 'WooCommerce',
 		];
 
 		$data   = [
@@ -330,12 +267,7 @@ class Tt4b_Pixel_Class {
 		$mapi->mapi_post( 'event/track/', $fields['access_token'], $params, 'v1.3' );
 
 		// js pixel track
-		$js_payload = [
-			'contents' => $js_event_data,
-			'currency' => get_woocommerce_currency(),
-			'value'    => $value,
-		];
-		self::add_event( $event, $fields['pixel_code'], $js_payload, $hashed_email, $hashed_phone, $event_id );
+		self::add_event( $event, $fields['pixel_code'], $properties, $hashed_email, $hashed_phone, $event_id );
 
 	}
 
@@ -367,47 +299,17 @@ class Tt4b_Pixel_Class {
 		}
 
 		// format of js and s2s payloads differ
-		$js_event_data      = [];
-		$s2s_event_contents = [];
+		$event_contents = [];
 		$value              = 0;
 		$event_id           = self::get_event_id( '' );
 		$content_type       = 'product';
 		foreach ( $order->get_items() as $item ) {
 			$product    = $item->get_product();
-			$price      = (float) $product->get_price();
 			$quantity   = $item->get_quantity();
-			$content_id = (string) $product->get_sku();
-			if ( '' === $content_id ) {
-				$content_id = (string) $product->get_id();
-			}
-			// check if order item is variation with parent
 			$parent_product_id = $product->get_parent_id();
-			if ( $parent_product_id > 0 ) {
-				$parent_product = wc_get_product( $parent_product_id );
-				// check if parent_id matches variation id, update content_id according to method used in catalog sync
-				$parent_id = $parent_product->get_sku();
-				if ( '' === $parent_id ) {
-					$parent_id = $parent_product->get_id();
-				}
-				$content_id = variation_content_id_helper( Method::PURCHASE, $parent_id, $content_id, $product->get_id() );
-			}
-			$js_content = [
-				'price'        => $price,
-				'content_name' => $product->get_name(),
-				'content_id'   => $content_id,
-				'content_type' => $content_type,
-				'quantity'     => $quantity,
-			];
-
-			$s2s_content = [
-				'price'        => $price,
-				'quantity'     => $quantity,
-				'content_name' => $product->get_name(),
-				'content_id'   => $content_id,
-			];
-			$value      += $price * (float) $quantity;
-			array_push( $js_event_data, $js_content );
-			array_push( $s2s_event_contents, $s2s_content );
+			$content = self::get_properties_from_product( $product, $quantity, $parent_product_id, Method::PURCHASE );
+			$value      += $content['price'] * $content['quantity'];
+			array_push( $event_contents, $content );
 		}
 
 		$user         = self::get_user();
@@ -423,10 +325,11 @@ class Tt4b_Pixel_Class {
 		];
 
 		$properties = [
-			'contents'     => $s2s_event_contents,
-			'content_type' => $content_type,
-			'currency'     => get_woocommerce_currency(),
-			'value'        => $value,
+			'contents'             => $event_contents,
+			'content_type'         => $content_type,
+			'currency'             => get_woocommerce_currency(),
+			'value'                => $value,
+			'event_trigger_source' => 'WooCommerce',
 		];
 
 		$data   = [
@@ -450,12 +353,90 @@ class Tt4b_Pixel_Class {
 		$mapi->mapi_post( 'event/track/', $fields['access_token'], $params, 'v1.3' );
 
 		// js pixel track
-		$js_payload = [
-			'contents' => $js_event_data,
-			'currency' => get_woocommerce_currency(),
-			'value'    => $value,
+		self::add_event( $event, $fields['pixel_code'], $properties, $hashed_email, $hashed_phone, $event_id );
+	}
+
+	/**
+	 *  Gets product property meta data.
+	 *
+	 * @param object $product      the product.
+	 * @param int    $quantity     the quantity.
+	 * @param int    $variation_id the variation_id.
+	 * @param string $method       the method.
+	 */
+	public static function get_properties_from_product( $product, $quantity, $variation_id, $method ) {
+		$content_id = (string) $product->get_sku();
+		if ( '' === $content_id ) {
+			$content_id = (string) $product->get_id();
+		}
+
+		if ( Method::PURCHASE === $method && $variation_id > 0 ) {
+			$parent_product = wc_get_product( $variation_id );
+			// check if parent_id matches variation id, update content_id according to method used in catalog sync.
+			$parent_id = $parent_product->get_sku();
+			if ( '' === $parent_id ) {
+				$parent_id = $parent_product->get_id();
+			}
+			$content_id = variation_content_id_helper( $method, $parent_id, $content_id, $product->get_id() );
+		}
+
+		$price = $product->get_price();
+		if ( Method::STARTCHECKOUT === $method ) {
+			$price = self::get_product_subtotal_as_float( $product );
+		}
+		$sale_price = $product->get_sale_price();
+		if ( '0' === $sale_price || '' === $sale_price ) {
+			$sale_price = $price;
+		}
+		$availability = 'IN_STOCK';
+		$stock_status = $product->is_in_stock();
+		if ( false === $stock_status ) {
+			$availability = 'OUT_OF_STOCK';
+		}
+
+		// variation_id will be > 0 if product variation is added, variation_id is post ID.
+		if ( Method::PURCHASE !== $method && Method::VIEWCONTENT !== $method && $variation_id > 0 ) {
+			$variation = wc_get_product( $variation_id );
+			// if variation sku is same as parent product id, update content_id to match synced SKU_ID synced during catalog sync.
+			$content_id = variation_content_id_helper( $method, $content_id, $variation->get_sku(), $variation_id );
+
+			// use variation price.
+			$price = $variation->get_price();
+			$sale_price = $variation->get_sale_price();
+
+			if ( Method::STARTCHECKOUT === $method ) {
+				WC()->cart->get_subtotal();
+				$price = self::get_product_subtotal_as_float( $variation );
+			}
+
+			if ( '0' === $sale_price || '' === $sale_price ) {
+				$sale_price = $price;
+			}
+		}
+
+		$content  = [
+			'price'          => (float) $price,
+			'quantity'       => $quantity,
+			'content_id'     => $content_id,
+			'content_name'   => $product->get_name(),
+			'description'    => $product->get_short_description(),
+			'availability'   => $availability,
+			'sale_price'     => (float) $sale_price,
+			'on_sale'        => $product->is_on_sale(),
 		];
-		self::add_event( $event, $fields['pixel_code'], $js_payload, $hashed_email, $hashed_phone, $event_id );
+
+		$review_count = $product->get_review_count();
+		if ( $review_count > 0 ) {
+			$content['review_count'] = $review_count;
+			$content['average_rating'] = (float) $product->get_average_rating();
+		}
+
+		$weight = $product->get_weight();
+		if ( '' !== $weight ) {
+			$content['weight'] = (float) $weight;
+			$content['weight_unit'] = 'KG';
+		}
+		return $content;
 	}
 
 	/**
@@ -465,6 +446,7 @@ class Tt4b_Pixel_Class {
 		$pixel_obj    = new Tt4b_Pixel_Class();
 		$current_user = wp_get_current_user();
 		$email        = $current_user->user_email;
+		$external_id  = (string) $current_user->ID;
 		$customer     = new WC_Customer();
 		$phone_number = $customer->get_billing_phone();
 		$hashed_email = $pixel_obj->get_advanced_matching_hashed_info( $email );
@@ -485,11 +467,12 @@ class Tt4b_Pixel_Class {
 		}
 
 		$user = [
-			'phone'      => $hashed_phone,
-			'email'      => $hashed_email,
-			'ip'         => $ipaddress,
-			'user_agent' => $user_agent,
-			'locale'     => strtok( get_locale(), '_' ),
+			'phone'       => $hashed_phone,
+			'email'       => $hashed_email,
+			'ip'          => $ipaddress,
+			'user_agent'  => $user_agent,
+			'locale'      => strtok( get_locale(), '_' ),
+			'external_id' => $external_id,
 		];
 
 		if ( isset( $_COOKIE[ self::TTCLID_COOKIE ] ) ) {
@@ -713,15 +696,15 @@ class Tt4b_Pixel_Class {
 	 *
 	 * @param string $event The event's type.
 	 * @param string $pixel_code The pixel code.
-	 * @param array  $data The data to be passed to the JS function.
+	 * @param array  $properties The data to be passed to the JS function.
 	 * @param string $hashed_email The hashed email.
 	 * @param string $hashed_phone The hashed phone.
 	 * @param string $event_id The unique id for the event.
 	 *
 	 * @return void
 	 */
-	public static function add_event( $event, $pixel_code, $data, $hashed_email, $hashed_phone, $event_id ) {
-		self::enqueue_event( $event, $pixel_code, $data, $hashed_email, $hashed_phone, $event_id );
+	public static function add_event( $event, $pixel_code, $properties, $hashed_email, $hashed_phone, $event_id ) {
+		self::enqueue_event( $event, $pixel_code, $properties, $hashed_email, $hashed_phone, $event_id );
 	}
 
 

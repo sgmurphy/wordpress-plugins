@@ -277,33 +277,45 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.4.12", "essential-blocks")}
+                                    {__("Version: 4.5.0", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("31/01/2024", "essential-blocks")}
+                                        {__("14/02/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Added: New preset for Table of Contents Block",
+                                            "Added: New feature Responsive Breakpoint",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Added: Slider Block H tags change option",
+                                            "Added: Load more feature in Image Gallery block",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Attempt block recovery issue in Team Member and Testimonial blocks",
+                                            "Added: Block Default option for Form block",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Buttons hover color not working when sweep animation effect use",
+                                            "Fixed: Advanced Tabs block hash url issue",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Image Gallery block loading issue in Firefox browsere",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Team Member block preset broken",
                                             "essential-blocks"
                                         )}
                                     </li>

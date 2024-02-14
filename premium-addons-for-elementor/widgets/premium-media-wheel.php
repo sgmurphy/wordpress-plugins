@@ -1149,7 +1149,7 @@ class Premium_Media_Wheel extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'media_wheel_fading_color',
 			array(
 				'label'     => __( 'Fading Color', 'premium-addons-for-elementor' ),
@@ -2583,7 +2583,7 @@ class Premium_Media_Wheel extends Widget_Base {
 		foreach ( $items as $index => $item ) {
 
 			$media_type = $item['pa_media_type'];
-			
+
 			if($item['media_wheel_img']) {
 
 			$image_id = apply_filters( 'wpml_object_id', $item['media_wheel_img']['id'], 'elementor_library', true );

@@ -152,7 +152,7 @@ class Wf_Woocommerce_Packing_List_Public {
 	{ 
 		$wt_pklist_common_modules=get_option('wt_pklist_common_modules');
 		$common_modules_set = true;
-		if(false === $wt_pklist_common_modules)
+		if(false === $wt_pklist_common_modules || !is_array( $wt_pklist_common_modules ))
 		{	
 			$common_modules_set = false;
 			$wt_pklist_common_modules=self::$modules_default_state;

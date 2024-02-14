@@ -1263,8 +1263,10 @@ class HMWP_Classes_Tools
         global $is_nginx;
 
 	    //If custom defined
-	    if (HMWP_Classes_Tools::getOption('hmwp_server_type') <> 'auto' ) {
-            return (HMWP_Classes_Tools::getOption('hmwp_server_type') == 'nginx');
+        if (HMWP_Classes_Tools::getOption('hmwp_server_type') <> 'auto' ) {
+            if (HMWP_Classes_Tools::getOption('hmwp_server_type') == 'nginx'){
+                return true;
+            }
         }
 
         //If custom defined
@@ -1421,12 +1423,17 @@ class HMWP_Classes_Tools
 	public static function isCloudPanel()
 	{
 
-		//If custom defined
-		if (HMWP_Classes_Tools::getOption('hmwp_server_type') <> 'auto' ) {
-			return (HMWP_Classes_Tools::getOption('hmwp_server_type') == 'cloudpanel');
-		}
+        global $is_nginx;
 
-		return false;
+        //If custom defined
+        if (HMWP_Classes_Tools::getOption('hmwp_server_type') <> 'auto' ) {
+            if (HMWP_Classes_Tools::getOption('hmwp_server_type') == 'cloudpanel'){
+                $is_nginx = true;
+                return true;
+            }
+        }
+
+        return false;
 	}
 
     /**

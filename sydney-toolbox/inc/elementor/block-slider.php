@@ -132,7 +132,7 @@ class aThemes_Hero_Slider extends Widget_Base {
 		$repeater->add_control(
 			'button_url',
 			[
-				'label' => __( 'Button text', 'sydney-toolbox' ),
+				'label' => __( 'Button URL', 'sydney-toolbox' ),
 				'type' => Controls_Manager::URL,
 				'default' => [
 					'url' => '#',
@@ -679,7 +679,7 @@ class aThemes_Hero_Slider extends Widget_Base {
 											if ( ! empty( $item['button_url']['url'] ) ) {
 												$link_key = 'button_url_' . $index;
 
-												$this->add_render_attribute( $link_key, 'href', $item['button_url']['url'] );
+												$this->add_render_attribute( $link_key, 'href', esc_url( $item['button_url']['url'] ) );
 
 												if ( $item['button_url']['is_external'] ) {
 													$this->add_render_attribute( $link_key, 'target', '_blank' );

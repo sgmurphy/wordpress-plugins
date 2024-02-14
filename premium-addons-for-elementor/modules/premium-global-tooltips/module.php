@@ -289,6 +289,9 @@ class Module {
 				'render_type' => 'template',
 				'default'     => __( 'Hi, I\'m a global tooltip.', 'premium-addons-for-elementor' ),
 				'placeholder' => __( 'Hi, I\'m a global tooltip', 'premium-addons-for-elementor' ),
+                'dynamic'   => array(
+					'active' => true,
+				),
 				'condition'   => array(
 					'premium_tooltip_switcher' => 'yes',
 					'premium_tooltip_type'     => 'text',
@@ -975,7 +978,7 @@ class Module {
 			if ( isEnabled ) {
 
 				var type = settings.premium_tooltip_type,
-                    tooltipContent = {};
+					tooltipContent = {};
 
 					view.addRenderAttribute( 'gTooltipshtml', {
 						id: 'tooltip_content-' + view.getID(),
@@ -1120,7 +1123,9 @@ class Module {
 
 		$element_type = $element->get_type();
 
-		$id = $element->get_id();
+		$elem_id = $element->get_id();
+
+        $id = apply_filters('pa_tooltips_dynamic', false) ? rand(0,1000) : $elem_id;
 
 		$settings = $element->get_settings_for_display();
 
@@ -1226,6 +1231,7 @@ class Module {
 				'delay'        => ! empty( $settings['premium_tooltip_anime_delay'] ) ? $settings['premium_tooltip_anime_delay'] : 10,
 				'hideOn'       => $settings['hide_tooltip_on'],
 				'uniqueClass'  => $settings['pa_tooltip_class'],
+				'elemID'	=> $elem_id
 			);
 
 			$tooltip_settings['interactive'] = $tooltip_settings['follow_mouse'] ? false : 'yes' === $settings['premium_tooltip_interactive'];
@@ -1233,6 +1239,8 @@ class Module {
 			if ( ! empty( $settings['pa_tooltip_class'] ) ) {
 				$tooltip_settings['isTourStarter'] = 'yes' === $settings['is_tour_starter'];
 			}
+
+            $element->add_render_attribute( '_wrapper', 'data-tooltip-id', $id );
 
 			$element->add_render_attribute( '_wrapper', 'data-tooltip_settings', wp_json_encode( $tooltip_settings ) );
 

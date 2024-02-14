@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Bold Builder
  * Description: WordPress page builder.
- * Version: 4.8.3
+ * Version: 4.8.4
  * Author: BoldThemes
  * Author URI: https://www.bold-themes.com
  * Text Domain: bold-builder
@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // VERSION --------------------------------------------------------- \\
-define( 'BT_BB_VERSION', '4.8.3' );
+define( 'BT_BB_VERSION', '4.8.4' );
 // VERSION --------------------------------------------------------- \\
  
 /**
@@ -1867,6 +1867,16 @@ function bt_bb_honor_ssl_for_attachments( $url ) {
 	$http = site_url( FALSE, 'http' );
 	$https = site_url( FALSE, 'https' );
 	return ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] == 'on' ) ? str_replace( $http, $https, $url ) : $url;
+}
+
+add_action( 'content_save_pre', 'bt_bb_save_pre' );
+function bt_bb_save_pre( $content ) {
+	if ( ! current_user_can( 'unfiltered_html' ) ) {
+		if ( str_contains( $content, '[bt_bb_raw_content' ) ) {
+			wp_die( esc_html__( 'Sorry, you are not allowed to save Raw Content element.', 'bold-builder' ) );
+		}
+	}
+	return $content;
 }
 
 /* Widgets */

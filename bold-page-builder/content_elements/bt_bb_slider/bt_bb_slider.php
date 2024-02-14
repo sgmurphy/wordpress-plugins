@@ -243,14 +243,17 @@ class bt_bb_slider extends BT_BB_Element {
 						esc_html__( '12', 'bold-builder' ) 		=> '12'
 					) 
 				),
-				array( 'param_name' => 'additional_settings', 'type' => 'textfield', 'heading' => esc_html__( 'Additional settings', 'bold-builder' ), 'description' => esc_html__( 'E.g. "slidesToScroll": 3, "infinite": false (check https://kenwheeler.github.io/slick/ for more)', 'bold-builder' ) ),
-				array( 'param_name' => 'auto_play', 'type' => 'textfield', 'heading' => esc_html__( 'Autoplay interval (ms)', 'bold-builder' ), 'description' => esc_html__( 'e.g. 2000', 'bold-builder' ),
+				
+				array( 'param_name' => 'additional_settings', 'type' => 'textfield', 'heading' => esc_html__( 'Additional settings', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. "slidesToScroll": 3, "infinite": false, "centerMode": true', 'bold-builder' ), 'description' => __( 'E.g. "slidesToScroll": 3, "infinite": false, "centerMode": true, "centerPadding": "60px" (<a href="https://kenwheeler.github.io/slick/" target="_blank">view here for more</a>)', 'bold-builder' ) ),
+
+				array( 'param_name' => 'auto_play', 'type' => 'textfield', 'heading' => esc_html__( 'Autoplay interval (ms)', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 2000', 'bold-builder' ) ), 
+					
 				array( 'param_name' => 'pause_on_hover', 'default' => 'yes', 'type' => 'dropdown', 'heading' => esc_html__( 'Pause slideshow on hover', 'bold-builder' ),
 					'value' => array(
-						esc_html__( 'Yes', 'bold-builder' ) => 'yes',
-						esc_html__( 'No', 'bold-builder' ) => 'no'
+						esc_html__( 'Yes', 'bold-builder' ) 	=> 'yes',
+						esc_html__( 'No', 'bold-builder' ) 		=> 'no'
 					)
-				) ),
+				),
 				array( 'param_name' => 'use_lightbox', 'type' => 'checkbox', 'value' => array( esc_html__( 'Yes', 'bold-builder' ) => 'use_lightbox', esc_html__( 'No', 'bold-builder' ) => 'dont_use_lightbox' ), 'heading' => esc_html__( 'Use lightbox (opens image in full size on click)', 'bold-builder' ) )
 			)
 		) );

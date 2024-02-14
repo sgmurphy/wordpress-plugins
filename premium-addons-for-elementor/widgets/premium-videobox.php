@@ -2681,11 +2681,12 @@ class Premium_Videobox extends Widget_Base {
 				$options .= '&autoplay=1';
 			}
 
-			if ( $loop && 'dailymotion' !== $video_type ) {
-				// $options .= '&playlist=' . $params['id'];
-			}
-
 			if ( 'vimeo' === $video_type ) {
+
+                //Filter any paramters after link to be added later.
+                $queryString = parse_url( $link, PHP_URL_QUERY );
+                $link = strstr( $link, '?', true );
+
 				$options .= '&color=' . str_replace( '#', '', $settings['vimeo_controls_color'] );
 
 				if ( 'yes' === $settings['vimeo_title'] ) {
@@ -2697,10 +2698,12 @@ class Premium_Videobox extends Widget_Base {
 				}
 
 				if ( 'yes' === $settings['vimeo_byline'] ) {
-					$options .= '&byline=1#t=';
+					$options .= '&byline=1';
 				}
 
 				$options .= '&autopause=0';
+
+                $options .= '&' . $queryString . '#t=';
 
 			} elseif ( 'dailymotion' === $video_type ) {
 				// dailymotion options.
@@ -2809,10 +2812,6 @@ class Premium_Videobox extends Widget_Base {
 			);
 
 			if ( 'elementor' === $settings['video_lightbox_style'] && 'dailymotion' !== $video_type ) {
-
-				if ( 'vimeo' === $video_type ) {
-					$options .= '#t=';
-				}
 
 				$lightbox_options = array(
 					'type'         => 'video',
@@ -3112,25 +3111,11 @@ class Premium_Videobox extends Widget_Base {
 		}
 
 		if ( ! empty( $link ) ) {
-			if ( in_array( $type, array( 'youtube', 'dailymotion' ), true ) ) {
-				$video_props = Embed::get_video_properties( $link );
-				$link        = Embed::get_embed_url( $link );
-				$video_id    = $video_props['video_id'];
 
-			} elseif ( 'vimeo' === $type ) {
-				$mask     = '/^.*vimeo\.com\/(?:[a-z]*\/)*([‌​0-9]{6,11})[?]?.*/';
-				$video_id = substr( $link, strpos( $link, '.com/' ) + 5 );
-				$matches  = '';
-				preg_match( $mask, $link, $matches );
-				if ( is_array( $matches ) ) {
-					$video_id = $matches[1];
-				} else {
-					$video_id = substr( $link, strpos( $link, '.com/' ) + 5 );
-				}
-				$link = sprintf( 'https://player.vimeo.com/video/%s', $video_id );
-			}
+                $video_props = Embed::get_video_properties( $link );
+                $link        = Embed::get_embed_url( $link );
+                $id    = $video_props['video_id'];
 
-			$id = $video_id;
 		} elseif ( ! empty( $id ) || ! empty( $embed ) ) {
 
 			if ( 'id' === $identifier ) {

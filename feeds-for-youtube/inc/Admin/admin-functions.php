@@ -421,6 +421,10 @@ function sby_attempt_connection() {
 	if ( ! current_user_can( 'manage_youtube_feed_options' ) ) {
 		return false;
 	}
+	$nonce = !empty($_GET['nonce']) ? sanitize_key($_GET['nonce']) : '';
+	if (!wp_verify_nonce($nonce, 'sby_con')) {
+		return false;
+	}
 	if ( isset( $_GET['sby_access_token'] ) ) {
 		$access_token = sanitize_text_field( urldecode( $_GET['sby_access_token'] ) );
 		$refresh_token = '';

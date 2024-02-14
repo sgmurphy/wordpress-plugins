@@ -183,11 +183,17 @@ class THWCFD_Public_Checkout {
 				$value = get_user_meta(get_current_user_id(), $key , true);
 				if(isset($value) && !empty($value)){
 					$field['value'] = $value;
+					if(isset($field['type']) && ($field['type'] == 'checkbox')){
+						$field['checked'] = $value;
+					}
 				}else{
 					if(isset($field['default'])){
 						$field['value'] = $field['default'];
 					}else{
 						$field['value'] = '';
+					}
+					if(isset($field['type']) && ($field['type'] == 'checkbox')){
+						$field['checked'] = $value;
 					}
 				}
 				$fields[$key] = $field;
@@ -231,11 +237,17 @@ class THWCFD_Public_Checkout {
 				$value = get_user_meta(get_current_user_id(), $key , true);
 				if(isset($value) && !empty($value)){
 					$field['value'] = $value;
+					if(isset($field['type']) && ($field['type'] == 'checkbox')){
+						$field['checked'] = $value;
+					}
 				}else{
 					if(isset($field['default'])){
 						$field['value'] = $field['default'];
 					}else{
 						$field['value'] = '';
+					}
+					if(isset($field['type']) && ($field['type'] == 'checkbox')){
+						$field['checked'] = $value;
 					}
 				}
 				$fields[$key] = $field;
@@ -821,7 +833,7 @@ class THWCFD_Public_Checkout {
 		$args['class'][] = 'thwcfd-field-wrapper thwcfd-field-paragraph';
 		
 		if(isset($args['label']) && !empty($args['label'])){
-			$field  = '<p class="form-row '.esc_attr(implode(' ', $args['class'])).'" id="'.esc_attr($key).'_field" >'. esc_html__($args['label'], 'woo-checkout-field-editor-pro') .'</ p >';
+			$field  = '<p class="form-row '.esc_attr(implode(' ', $args['class'])).'" id="'.esc_attr($key).'_field" name="'.esc_attr($key).'" >'. esc_html__($args['label'], 'woo-checkout-field-editor-pro') .'</ p >';
 		}
 
 		return $field;

@@ -124,8 +124,33 @@ class HMWP_Models_Files
         //show the file content
         if (is_404() ) {
             $this->showFile($this->getCurrentURL());
+        }else{
+            $this->maybeShowLogin($this->getCurrentURL());
         }
 
+    }
+
+    /**
+     * Check if the current path is the login path
+     * @param $url
+     *
+     * @return void
+     */
+    public function maybeShowLogin($url)
+    {
+        if (strpos(trailingslashit($url), '/' . HMWP_Classes_Tools::getOption('hmwp_login_url') . '/') ||
+            strpos(trailingslashit($url), '/' . HMWP_Classes_Tools::getDefault('hmwp_login_url') ) ||
+            (HMWP_Classes_Tools::getOption('hmwp_lostpassword_url') <> '' && strpos(trailingslashit($url), '/' . HMWP_Classes_Tools::getOption('hmwp_lostpassword_url') . '/'))||
+            (HMWP_Classes_Tools::getOption('hmwp_logout_url') <> '' && strpos(trailingslashit($url), '/' . HMWP_Classes_Tools::getOption('hmwp_logout_url') . '/'))||
+            (HMWP_Classes_Tools::getOption('hmwp_register_url') <> '' && strpos(trailingslashit($url), '/' . HMWP_Classes_Tools::getOption('hmwp_register_url') . '/'))) {
+
+            add_filter('hmwp_option_hmwp_remove_third_hooks', '__return_true');
+
+            header("HTTP/1.1 200 OK");
+
+            $this->handleLogin($url);
+
+        }
     }
 
     /**

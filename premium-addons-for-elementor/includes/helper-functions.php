@@ -546,7 +546,7 @@ class Helper_Functions {
 
 			$vimeo = self::get_vimeo_video_data( $video_id );
 
-			$thumbnail_src = $vimeo['src'];
+			$thumbnail_src = is_array( $vimeo ) ? $vimeo['src'] : '';
 
 		} elseif ( 'dailymotion' === $type ) {
 			$video_data = rplg_urlopen( 'https://api.dailymotion.com/video/' . $video_id . '?fields=thumbnail_url' );

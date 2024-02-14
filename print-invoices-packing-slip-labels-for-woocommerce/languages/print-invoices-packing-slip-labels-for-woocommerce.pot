@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce PDF Invoices, Packing Slips, Delivery Notes "
 "and Shipping Labels\n"
-"POT-Creation-Date: 2024-01-17 15:47+0530\n"
+"POT-Creation-Date: 2024-02-13 11:17+0530\n"
 "PO-Revision-Date: 2022-05-29 17:43+0530\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -53,15 +53,15 @@ msgstr ""
 #: admin/class-wf-woocommerce-packing-list-admin.php:131
 #: admin/class-wf-woocommerce-packing-list-admin.php:1523
 #: admin/class-wf-woocommerce-packing-list-admin.php:2185
-#: admin/class-wf-woocommerce-packing-list-admin.php:4422
-#: admin/class-wf-woocommerce-packing-list-admin.php:4532
-#: admin/class-wf-woocommerce-packing-list-admin.php:4723
+#: admin/class-wf-woocommerce-packing-list-admin.php:4411
+#: admin/class-wf-woocommerce-packing-list-admin.php:4521
+#: admin/class-wf-woocommerce-packing-list-admin.php:4712
 #: admin/modules/customizer/customizer.php:60
 #: admin/modules/customizer/customizer.php:264
 #: includes/class-wf-woocommerce-packing-list-basic-func.php:65
 #: includes/class-wf-woocommerce-packing-list-basic-func.php:85
 #: public/modules/invoice/invoice.php:162
-#: public/modules/shippinglabel/shippinglabel.php:258
+#: public/modules/shippinglabel/shippinglabel.php:261
 msgid "Error"
 msgstr ""
 
@@ -76,7 +76,7 @@ msgid "is required"
 msgstr ""
 
 #: admin/class-wf-woocommerce-packing-list-admin.php:134
-#: admin/class-wf-woocommerce-packing-list-admin.php:4358
+#: admin/class-wf-woocommerce-packing-list-admin.php:4347
 #: admin/views/documents.php:18 admin/views/freevspro.php:6
 #: includes/class-wf-woocommerce-packing-list-basic-func.php:68
 #: public/class-wf-woocommerce-packing-list-public.php:140
@@ -308,7 +308,7 @@ msgid "It seems this order is not yours."
 msgstr ""
 
 #: admin/class-wf-woocommerce-packing-list-admin.php:1638
-#: admin/class-wf-woocommerce-packing-list-admin.php:4772
+#: admin/class-wf-woocommerce-packing-list-admin.php:4761
 msgid "Settings Updated"
 msgstr ""
 
@@ -388,44 +388,44 @@ msgstr ""
 msgid "Cannot close this banner"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4192
+#: admin/class-wf-woocommerce-packing-list-admin.php:4181
 msgid "Settings are empty"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4232
+#: admin/class-wf-woocommerce-packing-list-admin.php:4221
 msgid "Imported successfully"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4236
+#: admin/class-wf-woocommerce-packing-list-admin.php:4225
 msgid "Incorrect file"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4240
+#: admin/class-wf-woocommerce-packing-list-admin.php:4229
 msgid "Error: Empty JSON file"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4244
+#: admin/class-wf-woocommerce-packing-list-admin.php:4233
 msgid "Error: Invalid JSON data"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4248
+#: admin/class-wf-woocommerce-packing-list-admin.php:4237
 msgid "Error uploading the file"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4304
+#: admin/class-wf-woocommerce-packing-list-admin.php:4293
 msgid "Error:"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4304
+#: admin/class-wf-woocommerce-packing-list-admin.php:4293
 msgid "Truncation did not complete as expected."
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4357
+#: admin/class-wf-woocommerce-packing-list-admin.php:4346
 #: admin/views/general.php:283
 msgid "Total files"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4359
+#: admin/class-wf-woocommerce-packing-list-admin.php:4348
 #: admin/views/documents.php:22 admin/views/freevspro.php:7
 #: public/modules/packinglist/packinglist.php:26
 #: public/modules/packinglist/packinglist.php:79
@@ -436,17 +436,17 @@ msgstr ""
 msgid "Packing slip"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4360
+#: admin/class-wf-woocommerce-packing-list-admin.php:4349
 #: admin/views/documents.php:39 admin/views/freevspro.php:9
 #: public/modules/shippinglabel/shippinglabel.php:25
-#: public/modules/shippinglabel/shippinglabel.php:229
-#: public/modules/shippinglabel/shippinglabel.php:230
-#: public/modules/shippinglabel/shippinglabel.php:528
+#: public/modules/shippinglabel/shippinglabel.php:232
+#: public/modules/shippinglabel/shippinglabel.php:233
+#: public/modules/shippinglabel/shippinglabel.php:531
 #: public/modules/shippinglabel/views/admin-settings.php:30
 msgid "Shipping label"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4361
+#: admin/class-wf-woocommerce-packing-list-admin.php:4350
 #: admin/views/documents.php:47 admin/views/freevspro.php:11
 #: public/modules/deliverynote/deliverynote.php:24
 #: public/modules/deliverynote/deliverynote.php:76
@@ -457,7 +457,7 @@ msgstr ""
 msgid "Delivery note"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4362
+#: admin/class-wf-woocommerce-packing-list-admin.php:4351
 #: admin/views/documents.php:43 admin/views/freevspro.php:10
 #: public/modules/dispatchlabel/dispatchlabel.php:25
 #: public/modules/dispatchlabel/dispatchlabel.php:74
@@ -467,31 +467,31 @@ msgstr ""
 msgid "Dispatch label"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4363
+#: admin/class-wf-woocommerce-packing-list-admin.php:4352
 #: admin/views/documents.php:61
 msgid "Picklist"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4364
+#: admin/class-wf-woocommerce-packing-list-admin.php:4353
 #: admin/views/documents.php:85 admin/views/freevspro.php:12
 msgid "Proforma invoice"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4365
+#: admin/class-wf-woocommerce-packing-list-admin.php:4354
 #: admin/views/documents.php:26 admin/views/freevspro.php:8
 msgid "Credit note"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4553
+#: admin/class-wf-woocommerce-packing-list-admin.php:4542
 #: admin/views/_form_field_generator_new.php:564
 msgid "No temporary file found"
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4558
+#: admin/class-wf-woocommerce-packing-list-admin.php:4547
 msgid "Successfully cleared all temp files."
 msgstr ""
 
-#: admin/class-wf-woocommerce-packing-list-admin.php:4559
+#: admin/class-wf-woocommerce-packing-list-admin.php:4548
 msgid "No files found."
 msgstr ""
 
@@ -820,13 +820,13 @@ msgstr ""
 msgid "Phone:"
 msgstr ""
 
-#: admin/modules/customizer/classes/class-customizer.php:1964
+#: admin/modules/customizer/classes/class-customizer.php:1984
 msgid ""
 "Mauris dignissim neque ut sapien vulputate, eu semper tellus porttitor. Cras "
 "porta lectus id augue interdum egestas."
 msgstr ""
 
-#: admin/modules/customizer/classes/class-customizer.php:1982
+#: admin/modules/customizer/classes/class-customizer.php:2002
 msgid ""
 "Mauris dignissim neque ut sapien vulputate, eu semper tellus porttitor. Cras "
 "porta lectus id augue interdum egestas. Suspendisse potenti. Phasellus "
@@ -834,7 +834,7 @@ msgid ""
 "lectus vel"
 msgstr ""
 
-#: admin/modules/customizer/classes/class-customizer.php:1987
+#: admin/modules/customizer/classes/class-customizer.php:2007
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nec vehicula "
 "purus. Mauris tempor nec ipsum ac tempus. Aenean vehicula porttitor tortor, "
@@ -895,13 +895,13 @@ msgstr ""
 
 #: admin/modules/customizer/customizer.php:275
 #: public/modules/invoice/invoice.php:160
-#: public/modules/shippinglabel/shippinglabel.php:256
+#: public/modules/shippinglabel/shippinglabel.php:259
 msgid "Please enter order number"
 msgstr ""
 
 #: admin/modules/customizer/customizer.php:276
 #: public/modules/invoice/invoice.php:161
-#: public/modules/shippinglabel/shippinglabel.php:257
+#: public/modules/shippinglabel/shippinglabel.php:260
 msgid "Generating"
 msgstr ""
 
@@ -916,112 +916,112 @@ msgid ""
 msgstr ""
 
 #: admin/modules/customizer/customizer.php:324
-#: admin/modules/customizer/customizer.php:725
+#: admin/modules/customizer/customizer.php:747
 msgid "Active"
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:697
+#: admin/modules/customizer/customizer.php:719
 msgid "Error."
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:728
+#: admin/modules/customizer/customizer.php:750
 #: admin/modules/customizer/views/customize.php:208
 msgid "Activate"
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:755
+#: admin/modules/customizer/customizer.php:777
 msgid "No template found."
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:772
+#: admin/modules/customizer/customizer.php:794
 msgid "Unable to save theme."
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:791
+#: admin/modules/customizer/customizer.php:813
 msgid "Template with same name already exists."
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:829
+#: admin/modules/customizer/customizer.php:851
 msgid "Template created."
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:835
+#: admin/modules/customizer/customizer.php:857
 msgid "Template created and activated."
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:872
+#: admin/modules/customizer/customizer.php:894
 msgid "Template updated."
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:875
+#: admin/modules/customizer/customizer.php:897
 msgid "Template updated and activated."
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:921
+#: admin/modules/customizer/customizer.php:943
 msgid "Unable to switch view."
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:1316
+#: admin/modules/customizer/customizer.php:1338
 msgid "Unable to load template."
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:1368
+#: admin/modules/customizer/customizer.php:1390
 msgid "Untitled template"
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:1512
+#: admin/modules/customizer/customizer.php:1534
 msgid "Lighter"
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:1513
+#: admin/modules/customizer/customizer.php:1535
 msgid "Normal"
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:1514
+#: admin/modules/customizer/customizer.php:1536
 msgid "Bold"
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:1515
+#: admin/modules/customizer/customizer.php:1537
 msgid "Bolder"
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:1529
+#: admin/modules/customizer/customizer.php:1551
 msgid "Select One"
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:1547
+#: admin/modules/customizer/customizer.php:1569
 msgid "Left"
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:1548
+#: admin/modules/customizer/customizer.php:1570
 msgid "Right"
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:1549
+#: admin/modules/customizer/customizer.php:1571
 msgid "Center"
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:1550
+#: admin/modules/customizer/customizer.php:1572
 msgid "Start"
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:1551
+#: admin/modules/customizer/customizer.php:1573
 msgid "End"
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:1559
+#: admin/modules/customizer/customizer.php:1581
 msgid "None"
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:1572
+#: admin/modules/customizer/customizer.php:1594
 msgid "Solid"
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:1573
+#: admin/modules/customizer/customizer.php:1595
 msgid "Dotted"
 msgstr ""
 
-#: admin/modules/customizer/customizer.php:1574
+#: admin/modules/customizer/customizer.php:1596
 msgid "Dashed"
 msgstr ""
 
@@ -1304,8 +1304,32 @@ msgstr ""
 
 #: admin/modules/customizer/data/data.translation_strings.php:61
 #: public/modules/invoice/invoice.php:1171
-#: public/modules/shippinglabel/shippinglabel.php:168
+#: public/modules/shippinglabel/shippinglabel.php:171
 msgid "Customer note"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:62
+msgid "Unit Price"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:63
+msgid "Unit price"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:64
+msgid "Total price"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:65
+msgid "S.no"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:66
+msgid "S.No"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:67
+msgid "Phone no:"
 msgstr ""
 
 #: admin/modules/customizer/views/_customize_properties.php:119
@@ -1313,8 +1337,8 @@ msgstr ""
 #: admin/modules/customizer/views/_customize_properties.php:317
 #: admin/modules/customizer/views/_customize_properties.php:581
 #: admin/views/wt_ipc_free_pro.php:478 admin/views/wt_ipc_free_pro.php:492
-#: public/modules/shippinglabel/shippinglabel.php:106
-#: public/modules/shippinglabel/shippinglabel.php:131
+#: public/modules/shippinglabel/shippinglabel.php:109
+#: public/modules/shippinglabel/shippinglabel.php:134
 msgid "Title"
 msgstr ""
 
@@ -1341,7 +1365,7 @@ msgid "Display"
 msgstr ""
 
 #: admin/modules/customizer/views/_customize_properties.php:158
-#: public/modules/shippinglabel/shippinglabel.php:158
+#: public/modules/shippinglabel/shippinglabel.php:161
 msgid "Company Logo"
 msgstr ""
 
@@ -1633,7 +1657,7 @@ msgstr ""
 
 #: admin/modules/customizer/views/customize.php:277
 #: public/modules/invoice/invoice.php:1153
-#: public/modules/shippinglabel/shippinglabel.php:155
+#: public/modules/shippinglabel/shippinglabel.php:158
 msgid "Pro version"
 msgstr ""
 
@@ -2389,7 +2413,7 @@ msgstr ""
 
 #: admin/views/general.php:75 public/modules/invoice/invoice.php:1182
 #: public/modules/invoice/invoice.php:1186
-#: public/modules/shippinglabel/shippinglabel.php:169
+#: public/modules/shippinglabel/shippinglabel.php:172
 msgid "Footer"
 msgstr ""
 
@@ -4136,8 +4160,8 @@ msgstr ""
 #: public/modules/invoice/invoice.php:1951
 #: public/modules/packinglist/packinglist.php:260
 #: public/modules/packinglist/packinglist.php:411
-#: public/modules/shippinglabel/shippinglabel.php:371
-#: public/modules/shippinglabel/shippinglabel.php:559
+#: public/modules/shippinglabel/shippinglabel.php:374
+#: public/modules/shippinglabel/shippinglabel.php:562
 msgid "Print"
 msgstr ""
 
@@ -4363,7 +4387,7 @@ msgid "Invoice Number"
 msgstr ""
 
 #: public/modules/invoice/invoice.php:1162
-#: public/modules/shippinglabel/shippinglabel.php:161
+#: public/modules/shippinglabel/shippinglabel.php:164
 msgid "Order Number"
 msgstr ""
 
@@ -4376,7 +4400,7 @@ msgid "Order Date"
 msgstr ""
 
 #: public/modules/invoice/invoice.php:1166
-#: public/modules/shippinglabel/shippinglabel.php:159
+#: public/modules/shippinglabel/shippinglabel.php:162
 msgid "From Address"
 msgstr ""
 
@@ -4389,22 +4413,22 @@ msgid "Shipping Address"
 msgstr ""
 
 #: public/modules/invoice/invoice.php:1169
-#: public/modules/shippinglabel/shippinglabel.php:164
+#: public/modules/shippinglabel/shippinglabel.php:167
 msgid "Email Field"
 msgstr ""
 
 #: public/modules/invoice/invoice.php:1170
-#: public/modules/shippinglabel/shippinglabel.php:165
+#: public/modules/shippinglabel/shippinglabel.php:168
 msgid "Tel Field"
 msgstr ""
 
 #: public/modules/invoice/invoice.php:1172
-#: public/modules/shippinglabel/shippinglabel.php:167
+#: public/modules/shippinglabel/shippinglabel.php:170
 msgid "SSN number"
 msgstr ""
 
 #: public/modules/invoice/invoice.php:1173
-#: public/modules/shippinglabel/shippinglabel.php:166
+#: public/modules/shippinglabel/shippinglabel.php:169
 msgid "VAT number"
 msgstr ""
 
@@ -4413,7 +4437,7 @@ msgid "Payment received stamp"
 msgstr ""
 
 #: public/modules/invoice/invoice.php:1180
-#: public/modules/shippinglabel/shippinglabel.php:170
+#: public/modules/shippinglabel/shippinglabel.php:173
 msgid "Barcode"
 msgstr ""
 
@@ -4426,7 +4450,7 @@ msgid "QR Code"
 msgstr ""
 
 #: public/modules/invoice/invoice.php:1191
-#: public/modules/shippinglabel/shippinglabel.php:171
+#: public/modules/shippinglabel/shippinglabel.php:174
 msgid "Tracking Number"
 msgstr ""
 
@@ -4724,7 +4748,7 @@ msgid "Download Packing slip"
 msgstr ""
 
 #: public/modules/packinglist/packinglist.php:360
-#: public/modules/shippinglabel/shippinglabel.php:500
+#: public/modules/shippinglabel/shippinglabel.php:503
 msgid "Unable to print Packing slip. Please check the items in the order."
 msgstr ""
 
@@ -4768,64 +4792,64 @@ msgstr ""
 msgid "Adds footer to the  Shipping label"
 msgstr ""
 
-#: public/modules/shippinglabel/shippinglabel.php:111
-#: public/modules/shippinglabel/shippinglabel.php:136
+#: public/modules/shippinglabel/shippinglabel.php:114
+#: public/modules/shippinglabel/shippinglabel.php:139
 msgid "Title font size"
 msgstr ""
 
-#: public/modules/shippinglabel/shippinglabel.php:118
+#: public/modules/shippinglabel/shippinglabel.php:121
 msgid "Address font size"
 msgstr ""
 
-#: public/modules/shippinglabel/shippinglabel.php:160
+#: public/modules/shippinglabel/shippinglabel.php:163
 msgid "To Address"
 msgstr ""
 
-#: public/modules/shippinglabel/shippinglabel.php:162
+#: public/modules/shippinglabel/shippinglabel.php:165
 msgid "Weight"
 msgstr ""
 
-#: public/modules/shippinglabel/shippinglabel.php:163
+#: public/modules/shippinglabel/shippinglabel.php:166
 msgid "Shipping Method"
 msgstr ""
 
-#: public/modules/shippinglabel/shippinglabel.php:172
+#: public/modules/shippinglabel/shippinglabel.php:175
 msgid "Package Number"
 msgstr ""
 
-#: public/modules/shippinglabel/shippinglabel.php:173
+#: public/modules/shippinglabel/shippinglabel.php:176
 msgid "Box name"
 msgstr ""
 
-#: public/modules/shippinglabel/shippinglabel.php:174
+#: public/modules/shippinglabel/shippinglabel.php:177
 msgid "No of Items"
 msgstr ""
 
-#: public/modules/shippinglabel/shippinglabel.php:175
+#: public/modules/shippinglabel/shippinglabel.php:178
 msgid "Fragile"
 msgstr ""
 
-#: public/modules/shippinglabel/shippinglabel.php:176
+#: public/modules/shippinglabel/shippinglabel.php:179
 msgid "This way up"
 msgstr ""
 
-#: public/modules/shippinglabel/shippinglabel.php:177
+#: public/modules/shippinglabel/shippinglabel.php:180
 msgid "Keep dry"
 msgstr ""
 
-#: public/modules/shippinglabel/shippinglabel.php:179
+#: public/modules/shippinglabel/shippinglabel.php:182
 msgid "Return Policy"
 msgstr ""
 
-#: public/modules/shippinglabel/shippinglabel.php:346
-#: public/modules/shippinglabel/shippinglabel.php:364
-#: public/modules/shippinglabel/shippinglabel.php:372
-#: public/modules/shippinglabel/shippinglabel.php:382
-#: public/modules/shippinglabel/shippinglabel.php:383
+#: public/modules/shippinglabel/shippinglabel.php:349
+#: public/modules/shippinglabel/shippinglabel.php:367
+#: public/modules/shippinglabel/shippinglabel.php:375
+#: public/modules/shippinglabel/shippinglabel.php:385
+#: public/modules/shippinglabel/shippinglabel.php:386
 msgid "Print Shipping Label"
 msgstr ""
 
-#: public/modules/shippinglabel/shippinglabel.php:363
+#: public/modules/shippinglabel/shippinglabel.php:366
 msgid "Shipping Label"
 msgstr ""
 

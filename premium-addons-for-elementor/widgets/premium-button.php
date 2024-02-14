@@ -1067,25 +1067,29 @@ class Premium_Button extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'premium_button_event_switcher',
-			array(
-				'label'     => __( 'onclick Event', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::SWITCHER,
-			)
-		);
+        //Allow admins only to add JS.
+        if( current_user_can( 'administrator' ) ) {
+            $this->add_control(
+                'premium_button_event_switcher',
+                array(
+                    'label'     => __( 'onclick Event', 'premium-addons-for-elementor' ),
+                    'type'      => Controls_Manager::SWITCHER,
+                )
+            );
 
-		$this->add_control(
-			'premium_button_event_function',
-			array(
-				'label'     => __( 'Example: myFunction();', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::CODE,
-				'dynamic'   => array( 'active' => true ),
-				'condition' => array(
-					'premium_button_event_switcher' => 'yes',
-				),
-			)
-		);
+            $this->add_control(
+                'premium_button_event_function',
+                array(
+                    'label'     => __( 'Example: myFunction();', 'premium-addons-for-elementor' ),
+                    'type'      => Controls_Manager::CODE,
+                    'dynamic'   => array( 'active' => true ),
+                    'condition' => array(
+                        'premium_button_event_switcher' => 'yes',
+                    ),
+                )
+            );
+
+        }
 
 		$this->end_controls_section();
 
@@ -1813,9 +1817,11 @@ class Premium_Button extends Widget_Base {
 			}
 		}
 
-		if ( 'yes' === $settings['premium_button_event_switcher'] && ! empty( $button_event ) ) {
-			$this->add_render_attribute( 'button', 'onclick', $button_event );
-		}
+        if( isset( $settings['premium_button_event_switcher'] ) ) {
+            if ( 'yes' === $settings['premium_button_event_switcher'] && ! empty( $button_event ) ) {
+                $this->add_render_attribute( 'button', 'onclick', esc_js( $button_event ) );
+            }
+        }
 
 		?>
 
@@ -2065,7 +2071,7 @@ class Premium_Button extends Widget_Base {
 
 		#>
 
-		<a class="premium-button {{ buttonSize }} {{ styleDir }} {{ changeToScope }} premium-button-{{hoverEffect}}" href="{{ buttonUrl }}" onclick="{{ buttonEvent }}" data-text="{{ buttonText }}">
+		<a class="premium-button {{ buttonSize }} {{ styleDir }} {{ changeToScope }} premium-button-{{hoverEffect}}" href="{{ buttonUrl }}" data-text="{{ buttonText }}">
 			<div class="premium-button-text-icon-wrapper">
 				<# if ('yes' === settings.premium_button_icon_switcher ) {
 					if( 'before' === settings.premium_button_icon_position &&  'style4' !== hoverEffect ) {

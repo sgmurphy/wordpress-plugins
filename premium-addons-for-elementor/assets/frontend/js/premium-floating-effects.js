@@ -29,14 +29,12 @@
         }
 
     }
-    
+
     $(window).on('elementor/frontend/init', function () {
         var paFloatingEffects =  elementorModules.frontend.handlers.Base.extend({
-            
-            settings: {},
-    
+
             onInit: function() {
-    
+
                 elementorModules.frontend.handlers.Base.prototype.onInit.apply(this, arguments);
 
                 if (this.$element.hasClass('premium-floating-effects-yes')) {
@@ -45,43 +43,42 @@
                         if (window.paCheckSafari)
                             return;
                     }
-        
+
                     this.run();
                 }
             },
 
             run: function() {
-                var _this = this;
+                var _this = this,
+                    eleSettings = this.getEffectSettings();
 
-                this.getEffectSEttings();
-    
                 // make sure that at least 1 setting exists
-                var settingVals = Object.values(this.settings.effectSettings);
-    
+                var settingVals = Object.values(eleSettings.effectSettings);
+
                 var safe = settingVals.findIndex(function (element) {
                     return (element !== undefined);
                 });
-    
+
                 if (-1 === safe) {
                     return false;
                 }
-    
+
                 // test this.
                 // if (!this.settings) {
                 //     return false;
                 // }
-    
+
                 elementorFrontend.waypoint(
                     _this.$element,
                     function () {
-                        _this.applyEffects();
+                        _this.applyEffects(eleSettings);
                     }
                 );
             },
-        
-            getEffectSEttings: function() {
+
+            getEffectSettings: function() {
                 var settings = this.getElementSettings();
-    
+
                 var easing = 'steps' === settings.premium_fe_easing ? 'steps(' + settings.premium_fe_ease_step + ')' : settings.premium_fe_easing,
                     translateEnabled = 'yes' === settings.premium_fe_translate_switcher,
                     rotateEnabled = 'yes' === settings.premium_fe_rotate_switcher,
@@ -101,23 +98,25 @@
                         easing: easing,
                         target: '' !== settings.premium_fe_target ? settings.premium_fe_target : '',
                     };
-                    
-                this.settings.general= generalSettings;
-                this.settings.effectSettings = {};
-                
+
+                var eleSettings = {
+                    general: generalSettings,
+                    effectSettings: {}
+                };
+
                 if (translateEnabled) {
-                    this.settings.effectSettings.translate = {
+                    eleSettings.effectSettings.translate = {
                         'x_param_from': settings.premium_fe_Xtranslate.sizes.from,
                         'x_param_to'  : settings.premium_fe_Xtranslate.sizes.to,
                         'y_param_from': settings.premium_fe_Ytranslate.sizes.from,
                         'y_param_to'  : settings.premium_fe_Ytranslate.sizes.to,
                         'duration'    : settings.premium_fe_trans_duration.size,
-                        'delay'       : settings.premium_fe_trans_delay.size,    
+                        'delay'       : settings.premium_fe_trans_delay.size,
                     }
                 }
-    
+
                 if (rotateEnabled) {
-                    this.settings.effectSettings.rotate = {
+                    eleSettings.effectSettings.rotate = {
                         'x_param_from': settings.premium_fe_Xrotate.sizes.from,
                         'x_param_to'  : settings.premium_fe_Xrotate.sizes.to,
                         'y_param_from': settings.premium_fe_Yrotate.sizes.from,
@@ -128,9 +127,9 @@
                         'delay'       : settings.premium_fe_rotate_delay.size,
                     }
                 }
-    
+
                 if (scaleEnabled) {
-                    this.settings.effectSettings.scale = {
+                    eleSettings.effectSettings.scale = {
                         'x_param_from': settings.premium_fe_Xscale.sizes.from,
                         'x_param_to'  : settings.premium_fe_Xscale.sizes.to,
                         'y_param_from': settings.premium_fe_Yscale.sizes.from,
@@ -139,9 +138,9 @@
                         'delay'       : settings.premium_fe_scale_delay.size,
                     }
                 }
-    
+
                 if (skewEnabled) {
-                    this.settings.effectSettings.skew = {
+                    eleSettings.effectSettings.skew = {
                         'x_param_from': settings.premium_fe_Xskew.sizes.from,
                         'x_param_to'  : settings.premium_fe_Xskew.sizes.to,
                         'y_param_from': settings.premium_fe_Yskew.sizes.from,
@@ -150,19 +149,19 @@
                         'delay'       : settings.premium_fe_skew_delay.size,
                     }
                 }
-    
+
                 if (PremiumFESettings.papro_installed) {
                     if (opacityEnabled) {
-                        this.settings.effectSettings.opacity = {
+                        eleSettings.effectSettings.opacity = {
                             'from'    : settings.premium_fe_opacity.sizes.from / 100,
                             'to'      : settings.premium_fe_opacity.sizes.to / 100,
                             'duration': settings.premium_fe_opacity_duration.size,
                             'delay'   : settings.premium_fe_opacity_delay.size
                         };
-                    }  
-                    
+                    }
+
                     if (bgColorEnabled) {
-                        this.settings.effectSettings.bgColor = {
+                        eleSettings.effectSettings.bgColor = {
                             'from'    : settings.premium_fe_bg_color_from,
                             'to'      : settings.premium_fe_bg_color_to,
                             'duration': settings.premium_fe_bg_color_duration.size,
@@ -171,16 +170,16 @@
                     }
 
                     if (blurEnabled) {
-                        this.settings.effectSettings.blur = {
+                        eleSettings.effectSettings.blur = {
                             'from'    : 'blur(' + settings.premium_fe_blur_val.sizes.from + 'px)',
                             'to'      : 'blur(' + settings.premium_fe_blur_val.sizes.to + 'px)',
                             'duration': settings.premium_fe_blur_duration.size,
                             'delay'   : settings.premium_fe_blur_delay.size,
                         }
                     }
-                    
+
                     if (contrastEnabled) {
-                        this.settings.effectSettings.contrast = {
+                        eleSettings.effectSettings.contrast = {
                             'from'    : 'contrast(' + settings.premium_fe_contrast_val.sizes.from + '%)',
                             'to'      : 'contrast(' + settings.premium_fe_contrast_val.sizes.to + '%)',
                             'duration': settings.premium_fe_contrast_duration.size,
@@ -189,7 +188,7 @@
                     }
 
                     if (gScaleEnabled) {
-                        this.settings.effectSettings.gScale = {
+                        eleSettings.effectSettings.gScale = {
                             'from'    : 'grayscale(' + settings.premium_fe_gScale_val.sizes.from + '%)',
                             'to'      : 'grayscale(' + settings.premium_fe_gScale_val.sizes.to + '%)',
                             'duration': settings.premium_fe_gScale_duration.size,
@@ -198,7 +197,7 @@
                     }
 
                     if (hueEnabled) {
-                        this.settings.effectSettings.hue = {
+                        eleSettings.effectSettings.hue = {
                             'from'    : 'hue-rotate(' + settings.premium_fe_hue_val.sizes.from + 'deg)',
                             'to'      : 'hue-rotate(' + settings.premium_fe_hue_val.sizes.to + 'deg)',
                             'duration': settings.premium_fe_hue_duration.size,
@@ -207,7 +206,7 @@
                     }
 
                     if (brightEnabled) {
-                        this.settings.effectSettings.bright = {
+                        eleSettings.effectSettings.bright = {
                             'from'    : 'brightness(' + settings.premium_fe_brightness_val.sizes.from + '%)',
                             'to'      : 'brightness(' + settings.premium_fe_brightness_val.sizes.to + '%)',
                             'duration': settings.premium_fe_brightness_duration.size,
@@ -216,19 +215,21 @@
                     }
 
                     if (satEnabled) {
-                        this.settings.effectSettings.sat = {
+                        eleSettings.effectSettings.sat = {
                             'from'    : 'saturate(' + settings.premium_fe_saturate_val.sizes.from + '%)',
                             'to'      : 'saturate(' + settings.premium_fe_saturate_val.sizes.to + '%)',
                             'duration': settings.premium_fe_saturate_duration.size,
                             'delay'   : settings.premium_fe_saturate_delay.size,
                         }
                     }
+
                 }
+
+                return eleSettings;
             },
-    
-            applyEffects: function() {
-                // If the selector does not exists in the current widget, then search in the whole page.
-                var settings = this.settings,
+
+            applyEffects: function(eleSettings) {
+                var settings = eleSettings,
                     effectSettings = settings.effectSettings,
                     $widgetContainer = this.$element.find('.elementor-widget-container')[0],
                     filterArr = [];
@@ -236,6 +237,7 @@
                 if (settings.general.target) {
                     var targetSelector = settings.general.target;
 
+                    // If the selector does not exists in the current widget, then search in the whole page.
                     $widgetContainer = this.$element.find(targetSelector).length > 0 ? '.elementor-element-' + this.$element.data('id') + ' ' + targetSelector : targetSelector;
                 }
 

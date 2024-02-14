@@ -350,7 +350,7 @@ $elements = array(
 			array(
 				'key'        => 'premium-magic-section',
 				'name'       => 'premium-addon-magic-section',
-				'title'      => __( 'Magic Section', 'premium-addons-for-elementor' ),
+				'title'      => __( 'Off Canvas', 'premium-addons-for-elementor' ),
 				'demo'       => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/magic-section-widget-for-elementor-page-builder/', 'settings-page', 'wp-dash', 'dashboard' ),
 				'doc'        => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/magic-section-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
 				'is_pro'     => true,
@@ -1003,7 +1003,7 @@ $elements = array(
 			array(
 				'key'      => 'premium-magic-section',
 				'name'     => 'premium-addon-magic-section',
-				'title'    => __( 'Magic Section', 'premium-addons-for-elementor' ),
+				'title'    => __( 'Off Canvas', 'premium-addons-for-elementor' ),
 				'demo'     => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/magic-section-widget-for-elementor-page-builder/', 'settings-page', 'wp-dash', 'dashboard' ),
 				'doc'      => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/magic-section-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
 				'is_pro'   => true,

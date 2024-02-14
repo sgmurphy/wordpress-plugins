@@ -10,6 +10,7 @@ class Menu {
 	const OPTION_NAME_ENABLED = 'inspire_checkout_fields_%s';
 	const MENU_TAB_SETTINGS   = 'settings';
 	const MENU_TAB_SECTIONS   = 'sections';
+	const MENU_TAB_MARKETING  = 'marketing';
 
 	/**
 	 * List of default checkout sections.
@@ -30,6 +31,7 @@ class Menu {
 	public function get_menu_tabs(): array {
 		$current_tab = $_GET['tab'] ?? self::MENU_TAB_SECTIONS; // phpcs:ignore
 		$page_tabs   = [
+			self::MENU_TAB_MARKETING => __( 'Start Here!', 'flexible-checkout-fields' ),
 			self::MENU_TAB_SETTINGS => __( 'Settings', 'flexible-checkout-fields' ),
 			self::MENU_TAB_SECTIONS => __( 'Checkout Sections', 'flexible-checkout-fields' ),
 		];

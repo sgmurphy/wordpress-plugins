@@ -5,7 +5,7 @@ Plugin Name: WP Armour - Honeypot Anti Spam
 Plugin URI: http://wordpress.org/plugins/honeypot/
 Description: Add honeypot anti spam protection.
 Author: Dnesscarkey
-Version: 2.1.14
+Version: 2.1.15
 Author URI: https://dineshkarki.com.np/wp-armour-anti-spam
 */
 

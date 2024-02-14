@@ -8,11 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'WPDesk\\FCF\\Free\\' => array($baseDir . '/src'),
     'WPDesk\\Dashboard\\' => array($vendorDir . '/wpdesk/ltv-dashboard-widget/src'),
-    'SzepeViktor\\PHPStan\\WordPress\\' => array($vendorDir . '/szepeviktor/phpstan-wordpress/src'),
-    'Symfony\\Polyfill\\Php73\\' => array($vendorDir . '/symfony/polyfill-php73'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
-    'PHPStan\\ExtensionInstaller\\' => array($vendorDir . '/phpstan/extension-installer/src'),
-    'PHPStan\\' => array($vendorDir . '/phpstan/phpstan-deprecation-rules/src', $vendorDir . '/phpstan/phpstan-strict-rules/src'),
     'Doctrine\\Deprecations\\' => array($vendorDir . '/doctrine/deprecations/lib/Doctrine/Deprecations'),
     'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib/Doctrine/Common/Collections'),
 );

@@ -86,6 +86,7 @@ class Plugin extends AbstractPlugin implements HookableCollection {
 		( new Settings\Routes() )->init();
 		( new Settings\Tabs() )->init();
 		$this->add_hookable( new Settings\MigrationsManager( $this->plugin_info->get_version() ) );
+		$this->add_hookable( new Marketing\SupportPage( $this->template_loader ) );
 	}
 
 	/**

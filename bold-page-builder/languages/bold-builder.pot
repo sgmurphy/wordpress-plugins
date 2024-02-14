@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-13 14:59+0100\n"
+"POT-Creation-Date: 2024-02-14 14:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -183,8 +183,8 @@ msgstr ""
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_masonry_post_grid/bt_bb_masonry_post_grid.php:336
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:380
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:396
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:251
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:254
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:257
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_video/bt_bb_video.php:76
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_video/bt_bb_video.php:82
 msgid "No"
@@ -224,8 +224,8 @@ msgstr ""
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:381
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:397
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:426
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:250
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:254
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:253
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:257
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_video/bt_bb_video.php:77
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_video/bt_bb_video.php:83
 msgid "Yes"
@@ -709,6 +709,10 @@ msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/bold-builder.php:1654
 msgid "Fade In / Zoom Out"
+msgstr ""
+
+#: D:/WP/BoldBuilder/trunk/bold-builder.php:1876
+msgid "Sorry, you are not allowed to save Raw Content element."
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_accordion/bt_bb_accordion.php:94
@@ -1960,7 +1964,7 @@ msgid "Hide"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:224
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:248
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:251
 msgid "Pause slideshow on hover"
 msgstr ""
 
@@ -1970,13 +1974,7 @@ msgid "Number of slides to show"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:230
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:413
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:417
-msgid "E.g. 1"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:230
-msgid "If fade animation is selected, number will  be 1 anyway"
+msgid "If fade animation is selected, number will be 1 anyway"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:232
@@ -2069,15 +2067,17 @@ msgid "12"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:246
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:246
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:247
 msgid "Additional settings"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:246
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:247
 msgid "E.g. \"slidesToScroll\": 3, \"infinite\": false, \"centerMode\": true"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:246
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:247
 msgid ""
 "E.g. \"slidesToScroll\": 3, \"infinite\": false, \"centerMode\": true, "
 "\"centerPadding\": \"60px\" (<a href=\"https://kenwheeler.github.io/slick/\" "
@@ -2103,11 +2103,12 @@ msgid "No gap"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:255
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:247
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:249
 msgid "Autoplay interval (ms)"
 msgstr ""
 
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_content_slider/bt_bb_content_slider.php:255
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:249
 msgid "E.g. 2000"
 msgstr ""
 
@@ -3366,6 +3367,11 @@ msgstr ""
 msgid "Background parallax zoom start"
 msgstr ""
 
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:413
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:417
+msgid "E.g. 1"
+msgstr ""
+
 #: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_section/bt_bb_section.php:414
 msgid "Background parallax zoom end"
 msgstr ""
@@ -3621,17 +3627,7 @@ msgstr ""
 msgid "E.g. 1. If fade animation is selected, number will  be 1 anyway"
 msgstr ""
 
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:246
-msgid ""
-"E.g. \"slidesToScroll\": 3, \"infinite\": false (check https://kenwheeler."
-"github.io/slick/ for more)"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:247
-msgid "e.g. 2000"
-msgstr ""
-
-#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:254
+#: D:/WP/BoldBuilder/trunk/content_elements/bt_bb_slider/bt_bb_slider.php:257
 msgid "Use lightbox (opens image in full size on click)"
 msgstr ""
 

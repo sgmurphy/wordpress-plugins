@@ -39,7 +39,7 @@ class ValidationInfoOption extends OptionAbstract {
 		$url = esc_url( apply_filters( 'flexible_checkout_fields/short_url', '#', 'fcf-settings-field-tab-validation-docs' ) );
 		return sprintf(
 		/* translators: %1$s: anchor opening tag, %2$s: anchor closing tag */
-			__( 'You can add custom validation in the functions.php file. %1$sRead more%2$s', 'flexible-checkout-fields' ),
+			__( 'You can add custom validation in the functions.php file. Read more in the %1$splugin documentation%2$s', 'flexible-checkout-fields' ),
 			'<a href="' . $url . '" target="_blank" class="fcfArrowLink">',
 			'</a>'
 		);

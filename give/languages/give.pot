@@ -2,37 +2,42 @@
 # This file is distributed under the same license as the Give - Donation Plugin plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Give - Donation Plugin 3.4.0\n"
+"Project-Id-Version: Give - Donation Plugin 3.4.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/givewp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-08T23:38:38+00:00\n"
+"POT-Creation-Date: 2024-02-13T20:28:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.9.0\n"
+"X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: give\n"
 
 #. Plugin Name of the plugin
+#: give.php
 msgid "Give - Donation Plugin"
 msgstr ""
 
 #. Plugin URI of the plugin
+#: give.php
 msgid "https://givewp.com"
 msgstr ""
 
 #. Description of the plugin
+#: give.php
 msgid "The most robust, flexible, and intuitive way to accept donations on WordPress."
 msgstr ""
 
 #. Author of the plugin
+#: give.php
 #: assets/dist/js/admin-onboarding-wizard.js:4706
 #: assets/dist/js/admin-upsell-addons-page.js:244
 msgid "GiveWP"
 msgstr ""
 
 #. Author URI of the plugin
+#: give.php
 msgid "https://givewp.com/"
 msgstr ""
 

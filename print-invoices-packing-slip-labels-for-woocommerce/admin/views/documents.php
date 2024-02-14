@@ -3,7 +3,7 @@ if ( ! defined( 'WPINC' ) ) {
     die;
 }
 $wt_pklist_common_modules=get_option('wt_pklist_common_modules');
-if($wt_pklist_common_modules===false)
+if($wt_pklist_common_modules===false || !is_array( $wt_pklist_common_modules ))
 {
     $wt_pklist_common_modules=array();
 }

@@ -314,7 +314,7 @@ class Activity_Log_Unknown extends Activity_Log_Helper {
 			'code'         => http_response_code(),
 			'object_id'    => 0,
 			'type'         => 'unknown',
-			'hostname'     => gethostbyaddr( $ip ), // phpcs:ignore
+			'hostname'     => $ip,
 			'action'       => 'visit',
 			'visitor_type' => $this->get_visitor_type(),
 		);

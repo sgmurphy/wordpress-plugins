@@ -408,7 +408,7 @@ class Sg_2fa {
 		update_user_meta( $user_id, 'sgs_2fa_dnc_token', $token );
 
 		// Set the 2FA auth cookie.
-		setcookie( 'sg_security_2fa_dnc_cookie', $user_id . '|' . $token, time() + 2592000 ); // phpcs:ignore
+		setcookie( 'sg_security_2fa_dnc_cookie', $user_id . '|' . $token, time() + 2592000, '/wp-login.php', COOKIE_DOMAIN, true, true ); // phpcs:ignore
 	}
 
 	/**
@@ -531,7 +531,7 @@ class Sg_2fa {
 
 		$user_cookie_part = bin2hex( random_bytes( 18 ) );
 
-		setcookie( 'sgs_2fa_login_nonce', $user->ID . '|' . $user_cookie_part, time() + DAY_IN_SECONDS, SITECOOKIEPATH, COOKIE_DOMAIN );
+		setcookie( 'sgs_2fa_login_nonce', $user->ID . '|' . $user_cookie_part, time() + DAY_IN_SECONDS, '/wp-login.php', COOKIE_DOMAIN, true, true );
 
 		update_user_meta( $user->ID, 'sgs_2fa_login_nonce', wp_hash( $user_cookie_part ) );
 
@@ -653,11 +653,14 @@ class Sg_2fa {
 
 			if ( 0 == get_user_meta( $cookie_data[0], 'sg_security_2fa_configured', true ) ) { // phpcs:ignore
 				// Arguments for initial 2fa setup.
-				$args = array_merge( $args, array(
-					'template' => '2fa-initial-setup-form.php',
-					'qr'       => $this->generate_qr_code( $cookie_data[0] ),
-					'secret'   => $this->get_user_secret( $cookie_data[0] ),
-				) );
+				$args = array_merge(
+					$args,
+					array(
+						'template' => '2fa-initial-setup-form.php',
+						'qr'       => $this->generate_qr_code( $cookie_data[0] ),
+						'secret'   => $this->get_user_secret( $cookie_data[0] ),
+					)
+				);
 			}
 
 			$this->load_form( $args ); // phpcs:ignore

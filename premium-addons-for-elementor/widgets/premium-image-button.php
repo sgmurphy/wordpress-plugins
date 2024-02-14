@@ -1015,26 +1015,29 @@ class Premium_Image_Button extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'premium_image_button_event_switcher',
-			array(
-				'label'     => __( 'onclick Event', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'separator' => 'before',
-			)
-		);
+        //Allow admins only to add JS.
+        if( current_user_can( 'administrator' ) ) {
+            $this->add_control(
+                'premium_image_button_event_switcher',
+                array(
+                    'label'     => __( 'onclick Event', 'premium-addons-for-elementor' ),
+                    'type'      => Controls_Manager::SWITCHER,
+                    'separator' => 'before',
+                )
+            );
 
-		$this->add_control(
-			'premium_image_button_event_function',
-			array(
-				'label'     => __( 'Example: myFunction();', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::CODE,
-				'dynamic'   => array( 'active' => true ),
-				'condition' => array(
-					'premium_image_button_event_switcher' => 'yes',
-				),
-			)
-		);
+            $this->add_control(
+                'premium_image_button_event_function',
+                array(
+                    'label'     => __( 'Example: myFunction();', 'premium-addons-for-elementor' ),
+                    'type'      => Controls_Manager::CODE,
+                    'dynamic'   => array( 'active' => true ),
+                    'condition' => array(
+                        'premium_image_button_event_switcher' => 'yes',
+                    ),
+                )
+            );
+        }
 
 		$this->end_controls_section();
 
@@ -1797,9 +1800,11 @@ class Premium_Image_Button extends Widget_Base {
 			}
 		}
 
-		if ( 'yes' === $settings['premium_image_button_event_switcher'] && ! empty( $image_event ) ) {
-			$this->add_render_attribute( 'button', 'onclick', $image_event );
-		}
+        if( isset( $settings['premium_image_button_event_switcher'] ) ) {
+            if ( 'yes' === $settings['premium_image_button_event_switcher'] && ! empty( $image_event ) ) {
+                $this->add_render_attribute( 'button', 'onclick', $image_event );
+            }
+        }
 
 		?>
 
@@ -2036,7 +2041,7 @@ class Premium_Image_Button extends Widget_Base {
 
 		#>
 
-		<a class="premium-image-button {{ buttonSize }} {{ styleDir }} {{ changeToScope }} {{ hoverEffectClass }}" href="{{ buttonUrl }}" onclick="{{ buttonEvent }}" data-text="{{ buttonText }}">
+		<a class="premium-image-button {{ buttonSize }} {{ styleDir }} {{ changeToScope }} {{ hoverEffectClass }}" href="{{ buttonUrl }}" data-text="{{ buttonText }}">
 
 			<div class="premium-image-button-text-icon-wrapper">
 

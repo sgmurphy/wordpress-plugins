@@ -923,7 +923,7 @@ class HMWP_Models_Rewrite
                 HMWP_Classes_ObjController::getClass('HMWP_Models_Rules')->writeInHtaccess('', 'HMWP_RULES');
             }
 
-        } elseif (HMWP_Classes_Tools::isNginx() ) {
+        } elseif ( HMWP_Classes_Tools::isNginx() ) {
             $cachecode = '';
             //if there are no rewrites, return true
             if (!empty($this->_rewrites) ) {
@@ -945,11 +945,11 @@ class HMWP_Models_Rewrite
 	            //Add the New Paths rules
 	            foreach ( $this->_rewrites as $rewrite ) {
 
-					if(HMWP_Classes_Tools::isCloudPanel()){
-						if (strpos($rewrite['to'], 'wp-login.php') !== false ) {
-							continue;
-						}
-					}
+                    //most servers have issue when redirecting the login path
+                    //let HMWP handle the login path
+                    if (strpos($rewrite['to'], 'wp-login.php') !== false ) {
+                        continue;
+                    }
 
                     if (strpos($rewrite['to'], 'index.php') === false ) {
                         if (strpos($rewrite['from'], '$') ) {
@@ -1899,6 +1899,13 @@ class HMWP_Models_Rewrite
                 }
             } else {
 
+
+                //Hide the param rest route
+                if (HMWP_Classes_Tools::getOption('hmwp_disable_rest_api_param') ) {
+                    $this->hideRestRouteParam();
+                }
+
+
                 //Check the whitelist IPs for accessing the hide paths
                 if (HMWP_Classes_Tools::getOption('hmwp_detectors_block') ) {
                     HMWP_Classes_ObjController::getClass('HMWP_Models_Compatibility')->checkBlacklistIPs();
@@ -1974,7 +1981,7 @@ class HMWP_Models_Rewrite
 		                        site_url('wp-login', 'relative'),
 	                        );
 
-	                        if (!HMWP_Classes_Tools::isWpengine() && HMWP_Classes_Tools::getOption('hmwp_hide_login')) {
+	                        if (!HMWP_Classes_Tools::isCloudPanel() && !HMWP_Classes_Tools::isWpengine() && HMWP_Classes_Tools::getOption('hmwp_hide_login')) {
 
 		                        $paths[] = home_url('login', 'relative');
 		                        $paths[] = site_url('login', 'relative');

@@ -352,7 +352,7 @@ class THWCFD_Admin {
 		// $render_time = apply_filters('thwcfd_show_discount_popup_render_time' , 3 * MONTH_IN_SECONDS);
 		$render_time  = apply_filters('thwcfd_show_discount_popup_render_time', 6 * MONTH_IN_SECONDS);
 		$render_time = $thwcfd_since + $render_time;
-		
+
 		if (isset($_GET['thwcfd_discount_popup_dismiss'])) {
 			$this->thwcfd_discount_popup_actions();
 		}
@@ -389,7 +389,7 @@ class THWCFD_Admin {
 							<p class="thwcfd-discount-desc-first">Exclusive offer for you.</p>
 							<p class="thwcfd-discount-desc-middle">Flat 50% off</p>
 							<p class="thwcfd-discount-desc-last">on your plan upgrade.</p>
-							<p class="thwcfd-discount-exp-date">Offer valid till <b>30th June.</b></p>
+							<p class="thwcfd-discount-exp-date">Grab it before the offer Ends.</b></p>
 						</div>
 					</div>
 					<div class="thwcd-pro-claim-offer">

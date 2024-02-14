@@ -8,6 +8,8 @@
  * @package Flexible Checkout Fields
  */
 
+use WPDesk\FCF\Free\Settings\Menu;
+
 ?>
 
 <div class="wrap">
@@ -30,7 +32,7 @@
 									<li class="fcfTabs__item">
 										<a href="<?php echo esc_url( $menu_tab['url'] ); ?>"
 											class="fcfTabs__itemLink <?php echo ( $menu_tab['is_active'] ) ? 'fcfTabs__itemLink--active' : ''; ?>">
-											<?php echo esc_html( $menu_tab['label'] ); ?>
+											<?php echo $menu_tab['id'] === Menu::MENU_TAB_MARKETING ? '<span style="color:#007050;font-weight: bold">' . esc_html( $menu_tab['label'] ) . '</span>' : esc_html( $menu_tab['label'] ); ?>
 										</a>
 									</li>
 								<?php endforeach; ?>
@@ -55,6 +57,9 @@
 			</li>
 		</ul>
 		<div id="fcf-settings"></div>
+
+		<?php do_action( 'flexible_checkout_fields/after_settings' ); ?>
+
 		<ul class="fcfSettings__columns fcfSettings__columns--margin">
 			<li class="fcfSettings__column">
 				<div class="fcfSettings__footer">

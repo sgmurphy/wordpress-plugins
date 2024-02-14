@@ -5,7 +5,7 @@ Tags: checkout field editor, woocommerce checkout field editor, checkout manager
 Requires at least: 4.9
 Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -285,6 +285,11 @@ Yes. There is a button 'reset to default fields' to go back to the WooCommerce d
 9. Locale override settings
 
 == Changelog ==
+= 2.0.1 =
+* Fixed the issue of the state of the checkbox field type not getting updated on My Account page.
+* Added WooCommerce 8.5 compatibility.
+* Added PHP 8.2 compatibility
+
 = 2.0.0 =
 * Fixed the issue of advanced settings not saving on initial installation.
 * Added compatibility with Kadence WooCommerce Email Designer plugin

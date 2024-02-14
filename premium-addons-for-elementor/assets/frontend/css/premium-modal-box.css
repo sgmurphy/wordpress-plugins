@@ -211,8 +211,6 @@ button.premium-modal-box-modal-close {
 
 .premium-modal-trigger-container .premium-modal-trigger-animation {
   display: inline-block;
-  width: 200px;
-  height: 200px;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }

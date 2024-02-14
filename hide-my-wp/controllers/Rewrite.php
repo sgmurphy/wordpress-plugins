@@ -234,11 +234,6 @@ class HMWP_Controllers_Rewrite extends HMWP_Classes_FrontController
                 $this->model->hideRestApi();
             }
 
-            //Hide the param rest route
-            if (HMWP_Classes_Tools::getOption('hmwp_disable_rest_api_param') ) {
-                $this->model->hideRestRouteParam();
-            }
-
             //Hide Really Simple Discovery
             if (HMWP_Classes_Tools::getOption('hmwp_hide_rsd') ) {
                 $this->model->disableRsd();

@@ -136,6 +136,9 @@ It is not possible to test Bold Builder with all themes - it should work fine wi
 
 == Changelog ==
 
+= 4.8.4 =
+* Fixed Raw Content.
+
 = 4.8.3 =
 * Fixed URLs.
 

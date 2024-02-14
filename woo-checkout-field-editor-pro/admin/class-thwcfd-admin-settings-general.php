@@ -250,16 +250,8 @@ class THWCFD_Admin_Settings_General extends THWCFD_Admin_Settings{
 			}
 			
 			$result = THWCFD_Utils::update_fields($section, $fields);
-			$settings = THWCFD_Utils::get_advanced_settings();
-			if(!$settings){
-				$instance = new THWCFD_Admin_Settings_Advanced();
-				$setting_fields = $instance->get_advanced_settings_fields();
-				foreach ($setting_fields as $name => $field) {
-					$value = $field['value'];
-					$settings[$name] = $value;
-				}
-				$instance->save_advanced_settings($settings);
-			}
+			THWCFD_Utils::setup_advanced_settings();
+
 			if($result == true) {
 				$this->print_notices(__('Your changes were saved.', 'woo-checkout-field-editor-pro' ), 'updated');
 			}else {
@@ -320,17 +312,8 @@ class THWCFD_Admin_Settings_General extends THWCFD_Admin_Settings{
 			$fields = THWCFD_Utils::sort_fields($fields);
 			$result = THWCFD_Utils::update_fields($section, $fields);
 
-			$settings = THWCFD_Utils::get_advanced_settings();
-			if(!$settings){
-				$instance = new THWCFD_Admin_Settings_Advanced();
-				$setting_fields = $instance->get_advanced_settings_fields();
-				foreach ($setting_fields as $name => $field) {
-					$value = $field['value'];
-					$settings[$name] = $value;
-				}
-				$instance->save_advanced_settings($settings);
-			}
-
+			THWCFD_Utils::setup_advanced_settings();
+			
 			if($result == true) {
 				$this->print_notices(__('Your changes were saved.', 'woo-checkout-field-editor-pro'), 'updated');
 			}else {

@@ -425,7 +425,7 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 						esc_html__( 'Hard Rounded', 'bold-builder' ) 	=> 'round'
 					)
 				),
-			array( 'param_name' => 'format', 'type' => 'textfield', 'preview' => true, 'heading' => esc_html__( 'Tiles format', 'bold-builder' ), 'placeholder' => esc_html__( '21, 11, 11', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. 21, 11, 11', 'bold-builder' ) ),
+			array( 'param_name' => 'format', 'type' => 'textfield', 'preview' => true, 'heading' => esc_html__( 'Tiles format', 'bold-builder' ), 'placeholder' => esc_html__( '21, 11, 11', 'bold-builder' ), 'description' => esc_html__( 'E.g. 21, 11, 11', 'bold-builder' ) ),
 			array( 'param_name' => 'category', 'type' => 'textfield', 'heading' => esc_html__( 'Category', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. music', 'bold-builder' ), 'description' => esc_html__( 'Enter category slug or leave empty to show all', 'bold-builder' ), 'preview' => true ),
 			array( 'param_name' => 'category_filter', 'type' => 'dropdown', 'heading' => esc_html__( 'Category filter', 'bold-builder' ),
 				'value' => array(

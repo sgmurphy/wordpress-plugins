@@ -4705,6 +4705,17 @@ class Premium_Nav_Menu extends Widget_Base {
 		return $is_valid;
 	}
 
+	/**
+	 * Filters mobile menus.
+	 * Changes the menu id to prevent duplicated ids in the DOM.
+	 *
+	 * @access private.
+	 *
+	 * @param string     $menu_html desktop menu html.
+	 * @param stirng|int $menu_id menu id.
+	 *
+	 * @return string
+	 */
 	private function mobile_menu_filter( $menu_html, $menu_id ) {
 
 		// Increment the mobile menu id & change its classes to mobile menu classes.
@@ -4712,8 +4723,38 @@ class Premium_Nav_Menu extends Widget_Base {
 		$search  = array( 'id="' . $slug . '"', 'class="premium-nav-menu premium-main-nav-menu"' );
 		$replace = array( 'id="' . $slug . '-1"', 'class="premium-mobile-menu premium-main-mobile-menu premium-main-nav-menu"' );
 
+		$menu_html = $this->fix_duplicated_ids( $menu_html, 'premium-nav-menu-item-' ); // fixes's the items duplicated ids.
+		$menu_html = $this->fix_duplicated_ids( $menu_html, 'premium-mega-content-' ); // fixes's the items duplicated ids.
 		return str_replace( $search, $replace, $menu_html );
 	}
+
+	/**
+	 * Filters mobile menus.
+	 * Changes the menu id to prevent duplicated ids in the DOM.
+	 *
+	 * @access private.
+	 *
+	 * @param string $menu_html desktop menu html.
+	 *
+	 * @return string
+	 */
+	private function fix_duplicated_ids( $html, $pattern ) {
+
+		$pattern    = '/id="' . $pattern . '(\d+)"/';
+		$id_counter = 1;
+
+		// Replace duplicated IDs
+		return preg_replace_callback(
+			$pattern,
+			function( $matches ) use ( &$id_counter ) {
+				$id    = $matches[1];
+				$new_id = $pattern . $id . $id_counter++;
+				return 'id="' . $new_id . '"';
+			},
+			$html
+		);
+	}
+
 
 	/**
 	 * Get Custom Menu.

@@ -57,6 +57,9 @@ class Wf_Woocommerce_Packing_List_Shippinglabel
 		add_filter('wt_admin_menu', array($this,'add_admin_pages'),10,1);
 		add_filter('wt_pklist_individual_print_button_for_document_types',array($this,'add_individual_print_button_in_admin_order_listing_page'),10,1);
 		add_filter( 'woocommerce_admin_order_actions_end', array( $this, 'document_print_btn_on_wc_order_listing_action_column' ), 10, 1 );
+
+		add_filter( 'wt_pklist_hide_shipping_address_for_local_pickup', array( $this, 'hide_shipping_address_for_local_pickup' ),10,3);
+        add_filter( 'wt_pklist_use_billing_address_as_shipping_address', array($this, 'use_billing_address_as_shipping_address'), 10, 3);
 	}
 
 	/**
@@ -564,5 +567,13 @@ class Wf_Woocommerce_Packing_List_Shippinglabel
 			}
 		}
 	}
+
+	public function hide_shipping_address_for_local_pickup( $show_shipping_address_for_local_pickup, $template_type, $order ) {
+        return $this->module_base === $template_type ? false : $show_shipping_address_for_local_pickup;
+    }
+
+    public function use_billing_address_as_shipping_address( $show_shipping_address_for_local_pickup, $template_type, $order ) {
+        return $this->module_base === $template_type ? true : $show_shipping_address_for_local_pickup;
+    }
 }
 new Wf_Woocommerce_Packing_List_Shippinglabel();

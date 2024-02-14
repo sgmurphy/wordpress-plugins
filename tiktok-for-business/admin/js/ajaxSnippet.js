@@ -62,7 +62,7 @@ jQuery(
 					let phone_number = input.value;
 					result.phone_number = libphonenumber.parsePhoneNumber(phone_number, window.tt4b_script_vars.country).number
 				} catch (error) {
-					console.error("Error occurred while parsing phone number: ", error);
+					console.warn("Error occurred while parsing phone number: ", error);
 				}
 			}
 		}
@@ -86,10 +86,16 @@ jQuery(
 			}
 		}
 		let eventType = hasAMData ? 'Contact' : 'SubmitForm'
+		let event_id = ""
+		try {
+			event_id = uuidv4()
+		} catch (error) {
+			console.warn("Error occurred while generating uuidv4: ", error);
+		}
 		ttq.instance(pixelCode).track(eventType, {
 			'source' : source,
 			'wp_plugin' : source,
-			"event_id" : uuidv4()
+			"event_id" : event_id
 		})
 	}
 
@@ -119,9 +125,15 @@ jQuery(
 		var pixel_code = window.tt4b_script_vars.pixel_code;
 		// AM based on form inputs when submit clicked
 		getEmailAndPhone(event.target, pixel_code);
+		let event_id = ""
+		try {
+			event_id = uuidv4()
+		} catch (error) {
+			console.warn("Error occurred while generating uuidv4: ", error);
+		}
 		ttq.instance(pixel_code).track('ClickButton', {
 			'content': 'SubmitClick',
-			"event_id": uuidv4()
+			"event_id": event_id
 		});
 	});
 

@@ -216,7 +216,7 @@ class Tt4b_Menu_Class {
 
 		// enqueue js.
 		echo '<div class="tt4b_wrap" id="tiktok-for-business-root"></div>';
-		wp_register_script( 'tt4b_cdn', 'https://sf16-scmcdn-va.ibytedtos.com/obj/static-us/tiktok-business-plugin/tbp_external_platform-v2.3.11.js', '', 'v1', false );
+		wp_register_script( 'tt4b_cdn', 'https://sf-ttmp.ttcdn-row.com/obj/static-us/tiktok-business-plugin/tbp_external_platform-v2.3.11.js', '', 'v1', false );
 		wp_register_script( 'tt4b_script', plugins_url( '/admin/js/localJs.js', dirname( __DIR__ ) . '/Tiktokforbusiness.php' ), [ 'tt4b_cdn' ], 'v1', false );
 		wp_enqueue_script( 'tt4b_script' );
 		wp_localize_script(
@@ -282,7 +282,7 @@ class Tt4b_Menu_Class {
 		$external_data['is_verified']       = true;
 		$external_data['net_gmv']           = $net_gmv;
 		$external_data['net_order_count']   = $net_order_count;
-		$external_data['tenure ']           = $tenure;
+		$external_data['tenure']            = $tenure;
 
 		return $external_data;
 	}

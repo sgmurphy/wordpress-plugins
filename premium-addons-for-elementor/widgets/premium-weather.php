@@ -3739,7 +3739,7 @@ class Premium_Weather extends Widget_Base {
 
 		$id = $this->get_id();
 
-		$api_key = $settings['api_key'];
+		$api_key = apply_filters( 'pa_weather_api', $settings['api_key'] );
 
 		if ( empty( $api_key ) ) {
 			$notice = __( 'Please enter a valid API key.', 'premium-addons-for-elementor' );

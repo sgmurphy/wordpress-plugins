@@ -131,7 +131,7 @@ class Rest_Helper_Login extends Rest_Helper {
 		if ( 1 === intval( $value ) ) {
 			// Bail if encryption file can not be created.
 			if ( false === $this->encryption->generate_encryption_file() ) {
-				self::send_json(
+				self::send_response(
 					__( 'Unable to create encryption file! Check the wp-content folder permissions or contact your host.', 'sg-security' ),
 					0
 				);

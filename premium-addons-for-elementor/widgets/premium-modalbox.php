@@ -1085,7 +1085,7 @@ class Premium_Modalbox extends Widget_Base {
 					),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-modal-trigger-img, {{WRAPPER}} .premium-modal-trigger-animation'    => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .premium-modal-trigger-img, {{WRAPPER}} .premium-modal-trigger-animation svg'    => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}} !important',
 				),
 				'condition'  => array(
 					'premium_modal_box_display_on' => array( 'image', 'animation' ),

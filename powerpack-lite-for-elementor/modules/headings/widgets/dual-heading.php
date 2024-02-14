@@ -9,6 +9,7 @@ use PowerpackElementsLite\Classes\PP_Config;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Box_Shadow;
+use Elementor\Group_Control_Text_Stroke;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
@@ -145,7 +146,6 @@ class Dual_Heading extends Powerpack_Widget {
 					],
 				],
 				'label_block'           => true,
-				'placeholder'           => 'https://www.your-link.com',
 			]
 		);
 
@@ -345,6 +345,14 @@ class Dual_Heading extends Powerpack_Widget {
 		);
 
 		$this->add_group_control(
+			Group_Control_Text_Stroke::get_type(),
+			[
+				'name'                  => 'first_text_stroke',
+				'selector'              => '{{WRAPPER}} .pp-first-text',
+			]
+		);
+
+		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
 			[
 				'name'                  => 'first_text_shadow',
@@ -480,6 +488,14 @@ class Dual_Heading extends Powerpack_Widget {
 		);
 
 		$this->add_group_control(
+			Group_Control_Text_Stroke::get_type(),
+			[
+				'name'                  => 'second_text_stroke',
+				'selector'              => '{{WRAPPER}} .pp-second-text',
+			]
+		);
+
+		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
 			[
 				'name'                  => 'second_text_shadow',
@@ -561,7 +577,7 @@ class Dual_Heading extends Powerpack_Widget {
 	 *
 	 * @access protected
 	 */
-	protected function content_template() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function content_template() {
 		?>
 		<{{{settings.heading_html_tag}}} class="pp-dual-heading">
 			<# if ( settings.link.url ) { #><a href="{{ _.escape( settings.link.url ) }}"><# } #>

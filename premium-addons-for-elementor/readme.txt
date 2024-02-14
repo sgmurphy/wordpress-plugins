@@ -3,9 +3,9 @@ Contributors: Leap13, Rimoun
 Tags: elementor, elementor addons, widgets, elementor elements, templates
 Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme
 Requires at least: 5.0
-Tested Up To: 6.4.2
+Tested Up To: 6.4.3
 Requires PHP: 7.0
-Stable Tag: 4.10.18
+Stable Tag: 4.10.19
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -249,6 +249,13 @@ Premium Addonsis 100% Ads Free, Ads can only be detected from Youtube videos, th
 14. Premium Progress Bar Widget
 
 == Changelog ==
+
+= 4.10.19 =
+
+- Tweak: Code refactored for better performance and security.
+- Fixed: Vimeo videos not working in some cases in Video Box widget.
+- Fixed: Global Tooltips not working in Elementor loop.
+- Fixed: On Side skin not working on responsive devices in Blog widget.
 
 = 4.10.18 =
 

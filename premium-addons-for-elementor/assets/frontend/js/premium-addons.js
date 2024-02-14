@@ -4113,7 +4113,7 @@
                     start = 'transform: translateX(' + 0 + 'px)',
                     end = 'transform: translateX(-50%)',
                     scrollDir = settings.reverse,
-                    horAlignWidth = 10,
+                    horAlignWidth = 0,
                     verAlignWidth = 10,
                     duration = settings.speed * 1000 + 'ms',
                     animeName = 'pa-scroll-' + $scope.data('id'),
@@ -4143,8 +4143,7 @@
                         factor = 'normal' === scrollDir ? -1 : 1,
                         accumlativeWidth = 0;
 
-
-                    gsap.set($scope.find('.premium-adv-carousel__item-outer-wrapper'), {
+                    gsap.set($scope.find('.premium-adv-carousel__item-outer-wrapper'), { // animates the carousel.
                         x: function (i) {
 
                             transformVal = accumlativeWidth;
@@ -4155,7 +4154,8 @@
                         }
                     });
 
-                    var fullWidth = (horAlignWidth + (($mediaItem.length - 2) * parseFloat(slidesSpacing)));
+                    // var fullWidth = (horAlignWidth + (($mediaItem.length - 2) * parseFloat(slidesSpacing)));
+                    var fullWidth = (horAlignWidth + (($mediaItem.length ) * parseFloat(slidesSpacing)));
 
                     var animation = gsap.to($scope.find('.premium-adv-carousel__item-outer-wrapper'), {
                         duration: settings.speed,

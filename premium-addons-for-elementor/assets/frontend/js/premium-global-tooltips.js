@@ -15,7 +15,7 @@
             }
 
             var elemType = $scope.data('element_type'),
-                id = $scope.data("id"),
+                id = $scope.data(elementorFrontend.isEditMode() ? "id" : "tooltip-id"),
                 settings = {};
 
             generateSettings(elemType, id);
@@ -116,6 +116,8 @@
 
                             $('.tooltipster-box').addClass('tooltipster-box-' + id);
                             $('.tooltipster-arrow').addClass('tooltipster-arrow-' + id);
+
+                            $('.tooltipster-box').addClass('tooltipster-box-' + settings.elemID);
 
                             var type = settings.type;
 
@@ -300,6 +302,7 @@
                         $('.tooltipster-box').addClass('tooltipster-box-' + id);
                         $('.tooltipster-arrow').addClass('tooltipster-arrow-' + id);
 
+                        $('.tooltipster-box').addClass('tooltipster-box-' + settings.elemID);
                         var type = settings.type;
 
                         //prevent class overlapping

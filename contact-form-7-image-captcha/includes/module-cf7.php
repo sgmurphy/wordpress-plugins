@@ -99,7 +99,7 @@ function cf7ic_toggle()
 
         function cf7ic_display(event){
             if(event.target.form && event.target.form.querySelector(".cf7ic-toggle")) {
-                event.target.form.querySelector(".captcha-image").style.display = "block";
+                event.target.form.querySelector(".captcha-image").removeAttribute("style");
             }
         }
 

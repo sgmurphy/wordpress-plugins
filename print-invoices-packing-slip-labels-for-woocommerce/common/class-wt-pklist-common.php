@@ -536,5 +536,36 @@ class Wt_Pklist_Common
         }
         return $codes;
     }
+
+    /**
+     * To check if the order has local pickup shipping method alone
+     * 
+     * @since 4.4.1
+     * @param object $order
+     * @return boolean
+     */
+    public static function has_order_local_pickup_only($order) {
+        $order = self::get_order($order);
+        if( !empty( $order ) ) {
+            $shipping_methods = $order->get_shipping_methods();
+            $shipping_method_id_arr = array();
+            if ( !empty($shipping_methods) ) {
+                foreach ( $shipping_methods as $shipping_method ) {
+                    $shipping_method_id_arr[] = $shipping_method->get_method_id();
+                }
+            }
+
+            /**
+             * Conditions
+             * shipping method should not be empty
+             * shipping method count is 1 and method id is local pickup
+             * or all shipping method are local pickup
+             */
+            if( !empty( $shipping_method_id_arr ) && ( ( 1 === count( $shipping_method_id_arr ) && "local_pickup" === $shipping_method_id_arr[0] ) || ( 1 < count( $shipping_method_id_arr ) && 1 === count( array_unique( $shipping_method_id_arr ) ) && "local_pickup" === array_unique( $shipping_method_id_arr )[0] ) ) ) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 }

@@ -229,8 +229,8 @@ ul.progress-bar li.stop_active::after{
                                         $checked = in_array($or_st, $attach_invoice) ? 'checked' : '';
                                 ?>
                                     <div class="wt_pklist_checkbox_div">
-                                        <input type="checkbox" name="woocommerce_wf_add_invoice_in_customer_mail[]" value="<?php esc_attr_e($or_st); ?>" id="<?php esc_attr_e('woocommerce_wf_add_invoice_in_customer_mail_label_'.$or_st); ?>" <?php echo $checked; ?>>
-                                        <span class="woocommerce_wf_add_invoice_in_customer_mail_label" for="<?php esc_attr_e('woocommerce_wf_add_invoice_in_customer_mail_label_'.$or_st); ?>"> <?php esc_html_e($or_st_label); ?></span>
+                                        <input type="checkbox" name="woocommerce_wf_add_invoice_in_customer_mail[]" value="<?php esc_attr_e($or_st); ?>" id="<?php echo esc_attr('woocommerce_wf_add_invoice_in_customer_mail_label_'.$or_st); ?>" <?php echo $checked; ?>>
+                                        <span class="woocommerce_wf_add_invoice_in_customer_mail_label" for="<?php echo esc_attr('woocommerce_wf_add_invoice_in_customer_mail_label_'.$or_st); ?>"> <?php esc_html_e($or_st_label); ?></span>
                                     </div>
                                 <?php } ?>
                             </div>

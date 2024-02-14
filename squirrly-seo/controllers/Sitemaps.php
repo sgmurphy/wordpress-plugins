@@ -40,7 +40,6 @@ class SQ_Controllers_Sitemaps extends SQ_Classes_FrontController
         add_action('sq_processPing', array($this, 'processCron'));
     }
 
-
 	/**
 	 * Load the sitemap
 	 *
@@ -65,6 +64,7 @@ class SQ_Controllers_Sitemaps extends SQ_Classes_FrontController
 
 	        if (strpos($request_uri, 'locations.kml') !== false) {
 		        if (SQ_Classes_Helpers_Tools::getOption('sq_jsonld_type') == 'Organization') {
+
 			        $wp_query->is_404 = false;
 			        $wp_query->is_feed = true;
 

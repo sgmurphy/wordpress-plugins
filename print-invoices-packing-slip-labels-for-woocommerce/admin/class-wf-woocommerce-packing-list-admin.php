@@ -1460,7 +1460,7 @@ class Wf_Woocommerce_Packing_List_Admin {
 	{ 	
 		$admin_module_save = 0;
 		$wt_pklist_admin_modules=get_option('wt_pklist_admin_modules');
-		if(false === $wt_pklist_admin_modules)
+		if(false === $wt_pklist_admin_modules || !is_array( $wt_pklist_admin_modules) )
 		{
 			$wt_pklist_admin_modules=array();
 			$admin_module_save = 1;
@@ -4026,32 +4026,21 @@ class Wf_Woocommerce_Packing_List_Admin {
 	 * To add the meta box for debugging in order details page
 	 * 
 	 * @since 4.1.3
+	 * @since 4.4.1 - [Fix] - Security fixes
 	 * @return void
 	 */
 	public function wt_pklist_debug_metabox_content($post_or_order_object){
 		$order = ( $post_or_order_object instanceof WP_Post ) ? wc_get_order( $post_or_order_object->ID ) : $post_or_order_object;
 		$debug_result_final = array();
 		$result = '';
-		if(!empty($order) && isset($_GET['wt-pklist-debug'])){	
+		if ( ! empty( $order ) && isset( $_GET['wt-pklist-debug'] ) && 1 === (int)$_GET['wt-pklist-debug'] ) {	
 			$debug_result_final['order_details'] = $order;
-			if(isset($_GET['pid'])){
-				$pid = explode(',',$_GET['pid']);
-				if(!empty($pid)){
-					foreach($pid as $pid_key){
-						$debug_product 	= wc_get_product($pid_key);
-						$debug_result_final[$pid_key]['product'] = $debug_product;
-						if(isset($_GET['pmeta']) && '1' === $_GET['pmeta']){
-							$debug_result_final[$pid_key]['pmeta']=$debug_product->get_data();
-						}
-					}
-				}
-			}
-			$debug_result_final = apply_filters('wt_pklist_do_debugging',$debug_result_final,$order);
-			$result	= '<div style="overflow-x:auto;">';
-			$result .= '<pre>' . print_r($debug_result_final,true) . '</pre>';
-			$result	.= '</div>';
+			$result = '<div style="overflow-x:auto;">';
+			$result .= '<pre>' . wp_kses_post( print_r( $debug_result_final, true ) ) . '</pre>';
+			$result .= '</div>';
 		}
-		echo $result;
+
+		echo wp_kses_post( $result );
 	}
 
 	/**

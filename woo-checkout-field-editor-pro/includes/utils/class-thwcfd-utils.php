@@ -362,6 +362,20 @@ class THWCFD_Utils {
 		}
 		return 'undefined';
 	}
+
+	public static function setup_advanced_settings(){
+		$settings = self::get_advanced_settings();
+		if(!$settings){
+			$settings = array();
+			$instance = new THWCFD_Admin_Settings_Advanced();
+			$setting_fields = $instance->get_advanced_settings_fields();
+			foreach ($setting_fields as $name => $field) {
+				$value = $field['value'];
+				$settings[$name] = $value;
+			}
+			$instance->save_advanced_settings($settings);
+		}
+	}
 	/**************************************
 	 ----- ADVANCED SETTINGS - END --------
 	 **************************************/

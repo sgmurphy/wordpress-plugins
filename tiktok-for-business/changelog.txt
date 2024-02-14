@@ -1,4 +1,7 @@
 *** Changelog ***
+2024-01-16 - version 1.2.4
+* Update - event tracking payload and parameters
+
 2023-11-29 - version 1.2.3
 * Update - wordpress version bump update
 * Fix - check woocommerce install on TikTok shop order list functionality

@@ -772,12 +772,16 @@
 */
 @media (max-width: 768px) {
     .premium-blog-content-wrapper {
-        top: 0;
-        margin: 0;
-        padding: 15px;
+      top: 0;
+      margin: 0;
+      padding: 15px;
     }
-
-}
+    .premium-blog-skin-side {
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+    }
+  }
 
 [dir="rtl"] .premium-blog-wrap.slick-slider .slick-list,
 [dir="rtl"] .premium-blog-wrap.slick-slider .slick-track {

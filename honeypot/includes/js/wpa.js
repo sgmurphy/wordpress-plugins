@@ -44,6 +44,7 @@ function wpa_add_honeypot_field(){
 	jQuery('.frm_forms form').append(wpa_hidden_field); // Formidible forms
 	jQuery('.caldera-grid form').append(wpa_hidden_field); // Caldera forms	
 	jQuery('.wp-block-toolset-cred-form form').append(wpa_hidden_field); // Toolset Forms
+	jQuery('form.cred-user-form').append(wpa_hidden_field); // Toolset Forms	
 	jQuery('form.et_pb_contact_form').append(wpa_hidden_field); // Divi Form	
 	jQuery('form.fb_form').append(wpa_hidden_field); // Divi Form builder - Divi Engine           
 	jQuery('form.elementor-form').append(wpa_hidden_field); // FOR Elementor

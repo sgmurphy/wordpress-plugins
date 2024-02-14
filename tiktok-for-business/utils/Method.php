@@ -10,4 +10,5 @@ abstract class Method {
 	const ADDTOCART     = 2;
 	const PURCHASE      = 3;
 	const STARTCHECKOUT = 4;
+	const VIEWCONTENT   = 5;
 }
