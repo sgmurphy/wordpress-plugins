@@ -29,6 +29,19 @@ export default function ({ state, updateState, className }) {
           checked={state.auto_hide}
         />
       </BaseControl>
+      <BaseControl>
+        <ToggleControl
+          label={__("Show Time Elapsed", "presto-player")}
+          help={__(
+            "Show the time elapsed or the time remaining for the video on the player. By default, the time remaining is shown.",
+            "presto-player"
+          )}
+          onChange={(show_time_elapsed) => {
+            updateState({ show_time_elapsed });
+          }}
+          checked={state.show_time_elapsed}
+        />
+      </BaseControl>
       {/* <BaseControl>
         <ToggleControl
           label={__("Reset On End", "presto-player")}

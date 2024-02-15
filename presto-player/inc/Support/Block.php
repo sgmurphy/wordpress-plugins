@@ -348,7 +348,7 @@ class Block
         // sanitize with sensible defaults
         $branding['color'] = !empty($branding['color']) ? sanitize_hex_color($branding['color']) : 'rgba(43,51,63,.7)';
         $branding['logo_width'] = !empty($branding['logo_width']) ? $branding['logo_width'] : 150;
-        $branding['logo'] = !empty($branding['logo'] && !$preset->hide_logo) ? $branding['logo'] : '';
+        $branding['logo'] = !empty($branding['logo']) && !$preset->hide_logo ? $branding['logo'] : '';
 
         return $branding;
     }
@@ -404,8 +404,9 @@ class Block
     public function getPlayerStyles($preset, $branding)
     {
 
-        // set brand color.
-        $styles = '--plyr-color-main: ' . sanitize_hex_color(!empty($preset->background_color) ? $preset->background_color : $branding['color']) . '; ';
+        // Set brand color.
+        $background_color = ( !empty($preset->background_color) ? sanitize_hex_color($preset->background_color) : "var(--presto-player-highlight-color, " . sanitize_hex_color($branding['color']) . ")" );
+        $styles = '--plyr-color-main: ' . $background_color . '; ';
 
         // video
         if ($preset->caption_background) {

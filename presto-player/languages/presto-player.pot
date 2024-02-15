@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-06T18:30:56+00:00\n"
+"POT-Creation-Date: 2024-02-15T17:41:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -36,7 +36,7 @@ msgstr ""
 #: admin/blocks/shared/overlays/Edit.js:205
 #: admin/blocks/shared/placeholder.js:151
 #: admin/blocks/shared/placeholder.js:155
-#: admin/blocks/shared/presets/Edit.js:368
+#: admin/blocks/shared/presets/Edit.js:369
 #: admin/blocks/shared/presets/parts/YoutubeChannelId.js:99
 #: admin/blocks/shared/presets/Preset.js:241
 #: admin/settings/components/Integration.js:117
@@ -228,9 +228,9 @@ msgid "Select poster image"
 msgstr ""
 
 #: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:128
-#: admin/blocks/shared/audioPresets/Behavior.js:67
+#: admin/blocks/shared/audioPresets/Behavior.js:80
 #: admin/blocks/shared/branding/index.js:91
-#: admin/blocks/shared/presets/Behavior.js:122
+#: admin/blocks/shared/presets/Behavior.js:135
 #: admin/blocks/shared/settings/index.js:246
 #: admin/blocks/shared/settings/MutedPreviewOptions.js:64
 #: admin/settings/components/Media.js:48
@@ -740,7 +740,7 @@ msgid "Private video self-hosted block."
 msgstr ""
 
 #: admin/blocks/blocks/playlist-list-item/edit.js:67
-#: admin/blocks/blocks/playlist/edit.js:185
+#: admin/blocks/blocks/playlist/edit.js:206
 #: admin/settings/app.js:94
 #: admin/settings/pages/General.js:117
 msgid "General"
@@ -808,31 +808,39 @@ msgstr ""
 msgid "Presto Playlist Preview Block - Shows the preview of the playlist item."
 msgstr ""
 
-#: admin/blocks/blocks/playlist/edit.js:134
+#: admin/blocks/blocks/playlist/edit.js:137
 msgid "Add a Playlist Item to get started."
 msgstr ""
 
-#: admin/blocks/blocks/playlist/edit.js:138
+#: admin/blocks/blocks/playlist/edit.js:141
 msgid "Presto Player Playlist"
 msgstr ""
 
-#: admin/blocks/blocks/playlist/edit.js:165
+#: admin/blocks/blocks/playlist/edit.js:168
 msgid "Highlight Color"
 msgstr ""
 
 #: admin/blocks/blocks/playlist/edit.js:187
+msgid "Pass highlight color to player"
+msgstr ""
+
+#: admin/blocks/blocks/playlist/edit.js:188
+msgid "Use the playlist highlight color as player color in case your playlist color is different from your brand."
+msgstr ""
+
+#: admin/blocks/blocks/playlist/edit.js:208
 msgid "Playlist Title"
 msgstr ""
 
-#: admin/blocks/blocks/playlist/edit.js:193
+#: admin/blocks/blocks/playlist/edit.js:214
 msgid "Playlist Items Text - Singular"
 msgstr ""
 
-#: admin/blocks/blocks/playlist/edit.js:199
+#: admin/blocks/blocks/playlist/edit.js:220
 msgid "Playlist Items Text - Plural"
 msgstr ""
 
-#: admin/blocks/blocks/playlist/edit.js:205
+#: admin/blocks/blocks/playlist/edit.js:226
 msgid "Transition Duration (Seconds)"
 msgstr ""
 
@@ -859,7 +867,7 @@ msgstr ""
 
 #: admin/blocks/blocks/reusable-display/edit.js:169
 #: admin/blocks/blocks/reusable-edit/edit.js:85
-#: admin/blocks/shared/presets/Behavior.js:142
+#: admin/blocks/shared/presets/Behavior.js:155
 msgid "Youtube"
 msgstr ""
 
@@ -997,12 +1005,12 @@ msgstr ""
 #: admin/blocks/shared/audioPresets/Behavior.js:17
 #: admin/blocks/shared/audioPresets/Edit.js:204
 #: admin/blocks/shared/presets/Behavior.js:17
-#: admin/blocks/shared/presets/Edit.js:216
+#: admin/blocks/shared/presets/Edit.js:217
 msgid "Behavior"
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Behavior.js:21
-#: admin/blocks/shared/presets/Behavior.js:47
+#: admin/blocks/shared/presets/Behavior.js:60
 msgid "Save Play Position"
 msgstr ""
 
@@ -1011,42 +1019,51 @@ msgid "Saves the user's play position so when they come back to the page they ca
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Behavior.js:34
-#: admin/blocks/shared/presets/Behavior.js:73
-msgid "Focus Mode"
+#: admin/blocks/shared/presets/Behavior.js:34
+msgid "Show Time Elapsed"
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Behavior.js:35
-msgid "Play only when tab is visible and audio is in viewport."
+msgid "Show the time elapsed or the time remaining for the audio on the player. By default, the time remaining is shown."
+msgstr ""
+
+#: admin/blocks/shared/audioPresets/Behavior.js:47
+#: admin/blocks/shared/presets/Behavior.js:86
+msgid "Focus Mode"
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Behavior.js:48
-#: admin/blocks/shared/presets/Behavior.js:87
+msgid "Play only when tab is visible and audio is in viewport."
+msgstr ""
+
+#: admin/blocks/shared/audioPresets/Behavior.js:61
+#: admin/blocks/shared/presets/Behavior.js:100
 msgid "Sticky On Scroll"
 msgstr ""
 
-#: admin/blocks/shared/audioPresets/Behavior.js:49
+#: admin/blocks/shared/audioPresets/Behavior.js:62
 msgid "Stick audios to the side of the screen when the page is scrolled and the audio is playing."
 msgstr ""
 
-#: admin/blocks/shared/audioPresets/Behavior.js:62
+#: admin/blocks/shared/audioPresets/Behavior.js:75
 msgid "On Audio End"
 msgstr ""
 
-#: admin/blocks/shared/audioPresets/Behavior.js:71
-#: admin/blocks/shared/presets/Behavior.js:126
+#: admin/blocks/shared/audioPresets/Behavior.js:84
+#: admin/blocks/shared/presets/Behavior.js:139
 #: Services/Translation.php:104
 msgid "Loop"
 msgstr ""
 
-#: admin/blocks/shared/audioPresets/Behavior.js:75
-#: admin/blocks/shared/presets/Behavior.js:130
+#: admin/blocks/shared/audioPresets/Behavior.js:88
+#: admin/blocks/shared/presets/Behavior.js:143
 msgid "Go to start"
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Controls.js:11
 #: admin/blocks/shared/audioPresets/Edit.js:198
 #: admin/blocks/shared/presets/Controls.js:11
-#: admin/blocks/shared/presets/Edit.js:210
+#: admin/blocks/shared/presets/Edit.js:211
 msgid "Controls"
 msgstr ""
 
@@ -1129,38 +1146,38 @@ msgid "Shows playback speed controls."
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:80
-#: admin/blocks/shared/presets/Edit.js:93
+#: admin/blocks/shared/presets/Edit.js:94
 msgid "The preset could not be saved. Please reload the page and try again."
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:124
-#: admin/blocks/shared/presets/Edit.js:137
+#: admin/blocks/shared/presets/Edit.js:138
 msgid "Preset updated!"
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:178
-#: admin/blocks/shared/presets/Edit.js:190
+#: admin/blocks/shared/presets/Edit.js:191
 msgid "Preset created!"
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:189
-#: admin/blocks/shared/presets/Edit.js:201
-#: Models/AudioPreset.php:164
-#: Models/Preset.php:198
+#: admin/blocks/shared/presets/Edit.js:202
+#: Models/AudioPreset.php:168
+#: Models/Preset.php:202
 msgid "You must enter a name for the preset."
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:210
 #: admin/blocks/shared/audioPresets/Style.js:17
 #: admin/blocks/shared/presets/CTA.js:257
-#: admin/blocks/shared/presets/Edit.js:222
+#: admin/blocks/shared/presets/Edit.js:223
 #: admin/blocks/shared/presets/Email.js:214
 #: admin/blocks/shared/presets/Style.js:17
 msgid "Style"
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:216
-#: admin/blocks/shared/presets/Edit.js:228
+#: admin/blocks/shared/presets/Edit.js:229
 #: admin/blocks/shared/presets/Email.js:53
 #: admin/settings/pages/Integrations.js:241
 msgid "Email Capture"
@@ -1168,13 +1185,13 @@ msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:222
 #: admin/blocks/shared/presets/CTA.js:77
-#: admin/blocks/shared/presets/Edit.js:234
+#: admin/blocks/shared/presets/Edit.js:235
 msgid "Call To Action"
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:228
 #: admin/blocks/shared/presets/ActionBar.js:97
-#: admin/blocks/shared/presets/Edit.js:240
+#: admin/blocks/shared/presets/Edit.js:241
 msgid "Action Bar"
 msgstr ""
 
@@ -1187,42 +1204,42 @@ msgid "Create A New Audio Preset"
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:256
-#: admin/blocks/shared/presets/Edit.js:285
+#: admin/blocks/shared/presets/Edit.js:286
 msgid "Preset Name"
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:258
-#: admin/blocks/shared/presets/Edit.js:287
+#: admin/blocks/shared/presets/Edit.js:288
 msgid "Enter a preset name..."
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:268
-#: admin/blocks/shared/presets/Edit.js:297
+#: admin/blocks/shared/presets/Edit.js:298
 msgid "Customize"
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:280
-#: admin/blocks/shared/presets/Edit.js:309
+#: admin/blocks/shared/presets/Edit.js:310
 msgid "Skin"
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:285
-#: admin/blocks/shared/presets/Edit.js:316
+#: admin/blocks/shared/presets/Edit.js:317
 msgid "Basic"
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:286
-#: admin/blocks/shared/presets/Edit.js:315
+#: admin/blocks/shared/presets/Edit.js:316
 msgid "Stacked"
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:350
-#: admin/blocks/shared/presets/Edit.js:378
+#: admin/blocks/shared/presets/Edit.js:379
 msgid "Update Preset"
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:351
-#: admin/blocks/shared/presets/Edit.js:379
+#: admin/blocks/shared/presets/Edit.js:380
 msgid "Create Preset"
 msgstr ""
 
@@ -1646,47 +1663,51 @@ msgstr ""
 msgid "Hide video controls automatically after 2 seconds of no mouse movement."
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:48
-msgid "Saves the user's play position so when they come back to the page they can continue the video from where they left off."
-msgstr ""
-
-#: admin/blocks/shared/presets/Behavior.js:60
-msgid "Captions On By Default"
+#: admin/blocks/shared/presets/Behavior.js:35
+msgid "Show the time elapsed or the time remaining for the video on the player. By default, the time remaining is shown."
 msgstr ""
 
 #: admin/blocks/shared/presets/Behavior.js:61
-msgid "Toggles if captions should be active by default."
+msgid "Saves the user's play position so when they come back to the page they can continue the video from where they left off."
+msgstr ""
+
+#: admin/blocks/shared/presets/Behavior.js:73
+msgid "Captions On By Default"
 msgstr ""
 
 #: admin/blocks/shared/presets/Behavior.js:74
+msgid "Toggles if captions should be active by default."
+msgstr ""
+
+#: admin/blocks/shared/presets/Behavior.js:87
 msgid "Play only when tab is visible and video is in viewport."
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:88
+#: admin/blocks/shared/presets/Behavior.js:101
 msgid "Stick videos to the side of the screen when the page is scrolled and the video is playing."
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:101
+#: admin/blocks/shared/presets/Behavior.js:114
 msgid "Choose a position for your sticky player."
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:117
+#: admin/blocks/shared/presets/Behavior.js:130
 msgid "On Video End"
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:146
+#: admin/blocks/shared/presets/Behavior.js:159
 msgid "Hide Youtube UI (Experimental)"
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:147
+#: admin/blocks/shared/presets/Behavior.js:160
 msgid "Hides the Youtube logo and related videos."
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:159
+#: admin/blocks/shared/presets/Behavior.js:172
 msgid "Lazy Load Videos"
 msgstr ""
 
-#: admin/blocks/shared/presets/Behavior.js:160
+#: admin/blocks/shared/presets/Behavior.js:173
 msgid "Improves page loading performance by only loading the video when clicked."
 msgstr ""
 
@@ -1805,28 +1826,28 @@ msgstr ""
 msgid "Opacity percentage of the cover background."
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:253
+#: admin/blocks/shared/presets/Edit.js:254
 msgid "Dynamic Watermark"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:259
+#: admin/blocks/shared/presets/Edit.js:260
 #: admin/blocks/shared/presets/Search.js:48
 msgid "Searchable Captions"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:274
+#: admin/blocks/shared/presets/Edit.js:275
 msgid "Edit A Video Preset"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:275
+#: admin/blocks/shared/presets/Edit.js:276
 msgid "Create A New Video Preset"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:313
+#: admin/blocks/shared/presets/Edit.js:314
 msgid "Modern"
 msgstr ""
 
-#: admin/blocks/shared/presets/Edit.js:314
+#: admin/blocks/shared/presets/Edit.js:315
 msgid "Business"
 msgstr ""
 
@@ -3021,59 +3042,59 @@ msgstr ""
 msgid "I already did"
 msgstr ""
 
-#: Services/API/RestAudioPresetsController.php:90
-#: Services/API/RestPresetsController.php:90
+#: Services/API/RestAudioPresetsController.php:94
+#: Services/API/RestPresetsController.php:94
 #: Services/API/RestVideosController.php:129
 msgid "Unique identifier for the object."
 msgstr ""
 
-#: Services/API/RestAudioPresetsController.php:96
-#: Services/API/RestPresetsController.php:96
+#: Services/API/RestAudioPresetsController.php:100
+#: Services/API/RestPresetsController.php:100
 msgid "Name for the preset."
 msgstr ""
 
-#: Services/API/RestAudioPresetsController.php:103
-#: Services/API/RestPresetsController.php:103
+#: Services/API/RestAudioPresetsController.php:107
+#: Services/API/RestPresetsController.php:107
 msgid "Preset url slug"
 msgstr ""
 
-#: Services/API/RestAudioPresetsController.php:108
-#: Services/API/RestPresetsController.php:108
+#: Services/API/RestAudioPresetsController.php:112
+#: Services/API/RestPresetsController.php:112
 msgid "Icon for the preset."
 msgstr ""
 
-#: Services/API/RestAudioPresetsController.php:115
-#: Services/API/RestPresetsController.php:115
+#: Services/API/RestAudioPresetsController.php:119
+#: Services/API/RestPresetsController.php:119
 msgid "Skin for the preset."
 msgstr ""
 
-#: Services/API/RestAudioPresetsController.php:121
-#: Services/API/RestAudioPresetsController.php:127
-#: Services/API/RestPresetsController.php:127
+#: Services/API/RestAudioPresetsController.php:125
+#: Services/API/RestAudioPresetsController.php:131
+#: Services/API/RestPresetsController.php:131
 msgid "Caption backgrounds."
 msgstr ""
 
-#: Services/API/RestAudioPresetsController.php:133
-#: Services/API/RestPresetsController.php:133
+#: Services/API/RestAudioPresetsController.php:137
+#: Services/API/RestPresetsController.php:137
 msgid "The id of the user object, if author was a user."
 msgstr ""
 
-#: Services/API/RestAudioPresetsController.php:400
-#: Services/API/RestPresetsController.php:461
+#: Services/API/RestAudioPresetsController.php:409
+#: Services/API/RestPresetsController.php:470
 msgid "Cannot create preset."
 msgstr ""
 
-#: Services/API/RestAudioPresetsController.php:426
-#: Services/API/RestPresetsController.php:488
+#: Services/API/RestAudioPresetsController.php:435
+#: Services/API/RestPresetsController.php:497
 msgid "Cannot update preset."
 msgstr ""
 
-#: Services/API/RestAudioPresetsController.php:448
-#: Services/API/RestPresetsController.php:510
+#: Services/API/RestAudioPresetsController.php:457
+#: Services/API/RestPresetsController.php:519
 msgid "This preset could not be trashed."
 msgstr ""
 
-#: Services/API/RestPresetsController.php:121
+#: Services/API/RestPresetsController.php:125
 msgid "Style for the caption."
 msgstr ""
 

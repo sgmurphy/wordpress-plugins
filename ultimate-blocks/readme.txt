@@ -3,7 +3,7 @@ Contributors: dotcamp, ultimateblocks, imtiazrayhan, istiakrayhan, erdembircan, 
 Tags: block, blocks, gutenberg blocks, gutenberg, block editor
 Requires at least: 5.8
 Tested up to: 6.4
-Stable tag: 3.1.2
+Stable tag: 3.1.3
 Requires PHP: 5.6
 License: GPL3+
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
@@ -143,6 +143,20 @@ That's it. You're done!
 3. Tabbed Content Block.
 
 == Changelog ==
+
+= 3.1.3 =
+
+* IMPROVE: Separated Styled list and list item alignment.
+* IMPROVE: Make default width for the uploaded video.
+* IMPROVE: Separated normal and hover colors in icon block.
+* IMPROVE: Advanced heading initially without bold.
+* IMPROVE: Shorts support in the advanced video block.
+* IMPROVE: Color Controls in the styled list block.
+* FIX: Shadow in the advanced video block.
+* FIX: Image alignment inside the tabbed content block.
+* FIX: Autoplay in the advanced video block youtube.
+* PRO: FIX: German umlauts (ä,ö,ü) not showing correctly on frontend.
+* PRO: NEW: Ajax functionality for the post grid pagination.
 
 = 3.1.2 =
 

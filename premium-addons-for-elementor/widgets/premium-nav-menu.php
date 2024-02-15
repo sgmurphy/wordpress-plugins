@@ -4739,14 +4739,13 @@ class Premium_Nav_Menu extends Widget_Base {
 	 * @return string
 	 */
 	private function fix_duplicated_ids( $html, $pattern ) {
-
 		$pattern    = '/id="' . $pattern . '(\d+)"/';
 		$id_counter = 1;
 
 		// Replace duplicated IDs
 		return preg_replace_callback(
 			$pattern,
-			function( $matches ) use ( &$id_counter ) {
+			function( $matches ) use ( &$id_counter, $pattern ) {
 				$id    = $matches[1];
 				$new_id = $pattern . $id . $id_counter++;
 				return 'id="' . $new_id . '"';

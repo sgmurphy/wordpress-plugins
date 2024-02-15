@@ -1801,7 +1801,13 @@
     window.PremiumSvgDrawerHandler = function ($scope, $, addonSpeed) {
 
         var isContainer = "widget" !== $scope.data("element_type"),
-            isParallax = $scope.hasClass("premium-parallax-yes");
+            isParallax = $scope.hasClass("premium-parallax-yes"),
+            isInsideTemplate = $scope.closest('.draw-triggered').length > 0;
+
+        //If the $scope is inside a parent template, then we don't want to trigger things again. Why? because the draw has already been triggered for the parent element.
+        // For example, off canvas widget, the function already is triggered for the $scope of the widget itself. So, no need to trigger it again for child elements inside the template.
+        if (isInsideTemplate)
+            return;
 
         if (isContainer && !isParallax)
             return;
@@ -1839,6 +1845,8 @@
                 repeat: $scope.hasClass("pa-svg-draw-loop-yes") ? -1 : 0,
             });
         }
+
+        $scope.addClass('draw-triggered');
 
         $svgIcons.each(function (index, item) {
 
@@ -1940,7 +1948,11 @@
             if ($scope.hasClass("pa-svg-draw-seq-yes") && !drawSettings.svgHover)
                 totalPaths = totalPaths + (drawSettings.svgSync ? 1 : $paths.length);
 
-            if (drawSettings.svgHover) {
+            if ($scope.hasClass('elementor-widget-premium-addon-magic-section')) {
+
+                targettimeLine.play();
+
+            } else if (drawSettings.svgHover) {
 
                 if (!isParallax) {
                     if ($scope.hasClass("elementor-widget-premium-addon-icon-box") || $scope.find(".premium-drawer-hover").length) {

@@ -40,6 +40,9 @@ class Scripts
         add_action( 'enqueue_block_editor_assets', [ $this, 'block_editor_assets' ] );
         add_action( 'enqueue_block_editor_assets', [ $this, 'frontend_backend_assets' ] );
         add_action( 'wp_enqueue_scripts', [ $this, 'frontend_backend_assets' ] );
+        add_filter( 'eb_generated_css_frontend_deps', function ( $deps ) {
+            return array_merge( $deps, [ 'essential-blocks-frontend-style' ] );
+        } );
         add_action( 'init', [ $this, 'localize_enqueue_scripts' ] );
     }
 
@@ -145,7 +148,7 @@ class Scripts
 
         wpdev_essential_blocks()->assets->register( 'vendor-bundle', '../vendor-bundle/index.js' );
 
-        //Register block styles
+        //Register block combined styles
         $css_file                        = 'eb-style' . DIRECTORY_SEPARATOR . 'frontend' . DIRECTORY_SEPARATOR . 'style.css';
         $css_with_custom_breakpoint_path = wp_upload_dir()[ 'basedir' ] . DIRECTORY_SEPARATOR . $css_file;
         $frontend_css_file               = '../dist/style.css';

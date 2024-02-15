@@ -55,6 +55,7 @@ function EditPlayerPreset({
     save_player_position: false,
     reset_on_end: false,
     auto_hide: true,
+    show_time_elapsed: false,
     sticky_scroll: false,
     // style
     hide_logo: false,

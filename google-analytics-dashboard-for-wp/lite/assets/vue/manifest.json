@@ -1,8 +1,4 @@
 {
-  "@caohenghu/vue-colorpicker.css": {
-    "file": "css/vue-colorpicker.css",
-    "src": "@caohenghu/vue-colorpicker.css"
-  },
   "AboutTestimonialsSlider.css": {
     "file": "css/AboutTestimonialsSlider.css",
     "src": "AboutTestimonialsSlider.css"
@@ -17,14 +13,9 @@
     ],
     "file": "js/chunks/AboutTestimonialsSlider.js",
     "imports": [
-      "_vue-colorpicker.js",
-      "_vuex.js",
+      "_vendor.js",
       "_SettingsInfoTooltip.js",
-      "_ContentIconList.js",
-      "_i18n.js",
-      "_tannin.js",
-      "_vue.js",
-      "_vue-multiselect.js"
+      "_ContentIconList.js"
     ]
   },
   "_ContentIconList.js": {
@@ -33,114 +24,39 @@
     ],
     "file": "js/chunks/ContentIconList.js",
     "imports": [
-      "_vue-colorpicker.js"
+      "_vendor.js"
     ]
   },
   "_SettingsInfoTooltip.js": {
     "file": "js/chunks/SettingsInfoTooltip.js",
     "imports": [
-      "_vue-colorpicker.js"
+      "_vendor.js"
     ]
   },
   "_WidgetReportError.js": {
     "file": "js/chunks/WidgetReportError.js",
     "imports": [
-      "_i18n.js",
-      "_tannin.js",
-      "_vuex.js",
-      "_vue-colorpicker.js"
+      "_vendor.js"
     ]
-  },
-  "_apexcharts.js": {
-    "file": "js/chunks/apexcharts.js"
-  },
-  "_axios.js": {
-    "file": "js/chunks/axios.js"
-  },
-  "_chart.js.js": {
-    "file": "js/chunks/chart.js.js",
-    "imports": [
-      "_apexcharts.js",
-      "_moment.js"
-    ]
-  },
-  "_compile.js": {
-    "file": "js/chunks/@tannin/compile.js",
-    "imports": [
-      "_postfix.js",
-      "_evaluate.js"
-    ]
-  },
-  "_core-js.js": {
-    "file": "js/chunks/core-js.js",
-    "imports": [
-      "_apexcharts.js"
-    ]
-  },
-  "_date-format-parse.js": {
-    "file": "js/chunks/date-format-parse.js"
-  },
-  "_evaluate.js": {
-    "file": "js/chunks/@tannin/evaluate.js"
   },
   "_exactmetrics-reports-helper-plugin.js": {
     "file": "js/chunks/exactmetrics-reports-helper-plugin.js",
     "imports": [
-      "_i18n.js",
-      "_tannin.js",
-      "_SettingsInfoTooltip.js",
-      "_vue-colorpicker.js",
-      "_moment.js"
+      "_vendor.js",
+      "_SettingsInfoTooltip.js"
     ]
-  },
-  "_fflate.js": {
-    "file": "js/chunks/fflate.js"
-  },
-  "_flatpickr.js": {
-    "css": [
-      "css/flatpickr.css"
-    ],
-    "file": "js/chunks/flatpickr.js",
-    "imports": [
-      "_apexcharts.js"
-    ]
-  },
-  "_hooks.js": {
-    "file": "js/chunks/@wordpress/hooks.js"
   },
   "_html2canvas.js": {
     "file": "js/chunks/html2canvas.js",
     "imports": [
-      "_apexcharts.js"
+      "_vendor.js"
     ],
     "isDynamicEntry": true
-  },
-  "_html2pdf.js.js": {
-    "file": "js/chunks/html2pdf.js.js",
-    "imports": [
-      "_apexcharts.js",
-      "_jspdf.js",
-      "_html2canvas.js"
-    ]
-  },
-  "_i18n.js": {
-    "file": "js/chunks/@wordpress/i18n.js",
-    "imports": [
-      "_memize.js",
-      "_sprintf-js.js",
-      "_tannin.js",
-      "_hooks.js"
-    ]
   },
   "_index.js": {
     "file": "js/chunks/index.js",
     "imports": [
-      "_vue.js",
-      "_vuex.js",
-      "_axios.js",
-      "_i18n.js",
-      "_tannin.js",
-      "_lodash.debounce.js"
+      "_vendor.js"
     ]
   },
   "_index2.js": {
@@ -168,234 +84,29 @@
     ],
     "file": "js/chunks/index2.js",
     "imports": [
-      "_i18n.js",
-      "_tannin.js",
-      "_vue-colorpicker.js",
-      "_vuex.js",
-      "_ContentIconList.js",
-      "_axios.js",
-      "_vue.js",
-      "_vue2-datepicker.js",
-      "_moment.js",
-      "_vue-scrollto.js",
-      "_vue-multiselect.js",
-      "_vue-frag.js"
+      "_vendor.js",
+      "_ContentIconList.js"
     ]
   },
   "_index3.js": {
     "file": "js/chunks/index3.js",
     "imports": [
-      "_axios.js",
-      "_vue.js",
-      "_i18n.js",
-      "_tannin.js"
+      "_vendor.js"
     ]
   },
-  "_jspdf.js": {
+  "_vendor.js": {
+    "assets": [
+      "img/sucker.png"
+    ],
+    "css": [
+      "css/vendor.css"
+    ],
     "dynamicImports": [
       "_html2canvas.js",
       "node_modules/dompurify/dist/purify.es.js",
       "node_modules/canvg/lib/index.es.js"
     ],
-    "file": "js/chunks/jspdf.js",
-    "imports": [
-      "_apexcharts.js",
-      "_runtime.js",
-      "_fflate.js"
-    ]
-  },
-  "_lodash.clonedeep.js": {
-    "file": "js/chunks/lodash.clonedeep.js",
-    "imports": [
-      "_apexcharts.js"
-    ]
-  },
-  "_lodash.debounce.js": {
-    "file": "js/chunks/lodash.debounce.js",
-    "imports": [
-      "_apexcharts.js"
-    ]
-  },
-  "_lodash.js": {
-    "file": "js/chunks/lodash.js",
-    "imports": [
-      "_apexcharts.js"
-    ]
-  },
-  "_memize.js": {
-    "file": "js/chunks/memize.js"
-  },
-  "_moment-timezone.js": {
-    "file": "js/chunks/moment-timezone.js",
-    "imports": [
-      "_apexcharts.js",
-      "_moment.js"
-    ]
-  },
-  "_moment.js": {
-    "file": "js/chunks/moment.js",
-    "imports": [
-      "_apexcharts.js"
-    ]
-  },
-  "_performance-now.js": {
-    "file": "js/chunks/performance-now.js",
-    "imports": [
-      "_apexcharts.js"
-    ]
-  },
-  "_plural-forms.js": {
-    "file": "js/chunks/@tannin/plural-forms.js",
-    "imports": [
-      "_compile.js"
-    ]
-  },
-  "_popper.js.js": {
-    "file": "js/chunks/popper.js.js"
-  },
-  "_postfix.js": {
-    "file": "js/chunks/@tannin/postfix.js"
-  },
-  "_raf.js": {
-    "file": "js/chunks/raf.js",
-    "imports": [
-      "_apexcharts.js",
-      "_performance-now.js"
-    ]
-  },
-  "_rgbcolor.js": {
-    "file": "js/chunks/rgbcolor.js",
-    "imports": [
-      "_apexcharts.js"
-    ]
-  },
-  "_runtime.js": {
-    "file": "js/chunks/@babel/runtime.js"
-  },
-  "_sprintf-js.js": {
-    "file": "js/chunks/sprintf-js.js",
-    "imports": [
-      "_apexcharts.js"
-    ]
-  },
-  "_stackblur-canvas.js": {
-    "file": "js/chunks/stackblur-canvas.js"
-  },
-  "_svg-pathdata.js": {
-    "file": "js/chunks/svg-pathdata.js"
-  },
-  "_sweetalert2.js": {
-    "css": [
-      "css/sweetalert2.css"
-    ],
-    "file": "js/chunks/sweetalert2.js",
-    "imports": [
-      "_apexcharts.js"
-    ]
-  },
-  "_tannin.js": {
-    "file": "js/chunks/tannin.js",
-    "imports": [
-      "_plural-forms.js"
-    ]
-  },
-  "_v-tooltip.js": {
-    "file": "js/chunks/v-tooltip.js",
-    "imports": [
-      "_runtime.js",
-      "_popper.js.js",
-      "_lodash.js",
-      "_vue-resize.js"
-    ]
-  },
-  "_vue-apexcharts.js": {
-    "file": "js/chunks/vue-apexcharts.js",
-    "imports": [
-      "_apexcharts.js"
-    ]
-  },
-  "_vue-chartjs.js": {
-    "file": "js/chunks/vue-chartjs.js",
-    "imports": [
-      "_chart.js.js"
-    ]
-  },
-  "_vue-clickaway.js": {
-    "file": "js/chunks/vue-clickaway.js",
-    "imports": [
-      "_vue.js"
-    ]
-  },
-  "_vue-clicky.js": {
-    "file": "js/chunks/vue-clicky.js",
-    "imports": [
-      "_lodash.clonedeep.js"
-    ]
-  },
-  "_vue-colorpicker.js": {
-    "assets": [
-      "img/sucker.png"
-    ],
-    "css": [
-      "css/vue-colorpicker.css"
-    ],
-    "file": "js/chunks/@caohenghu/vue-colorpicker.js"
-  },
-  "_vue-flatpickr-component.js": {
-    "file": "js/chunks/vue-flatpickr-component.js",
-    "imports": [
-      "_apexcharts.js",
-      "_flatpickr.js"
-    ]
-  },
-  "_vue-frag.js": {
-    "file": "js/chunks/vue-frag.js"
-  },
-  "_vue-multiselect.js": {
-    "file": "js/chunks/vue-multiselect.js",
-    "imports": [
-      "_apexcharts.js"
-    ]
-  },
-  "_vue-resize.js": {
-    "file": "js/chunks/vue-resize.js"
-  },
-  "_vue-router.js": {
-    "file": "js/chunks/vue-router.js"
-  },
-  "_vue-scrollto.js": {
-    "file": "js/chunks/vue-scrollto.js",
-    "imports": [
-      "_apexcharts.js"
-    ]
-  },
-  "_vue-sweetalert2.js": {
-    "file": "js/chunks/vue-sweetalert2.js",
-    "imports": [
-      "_sweetalert2.js"
-    ]
-  },
-  "_vue.js": {
-    "file": "js/chunks/vue.js",
-    "imports": [
-      "_apexcharts.js"
-    ]
-  },
-  "_vue2-datepicker.js": {
-    "css": [
-      "css/vue2-datepicker.css"
-    ],
-    "file": "js/chunks/vue2-datepicker.js",
-    "imports": [
-      "_date-format-parse.js"
-    ]
-  },
-  "_vuex.js": {
-    "file": "js/chunks/vuex.js"
-  },
-  "flatpickr.css": {
-    "file": "css/flatpickr.css",
-    "src": "flatpickr.css"
+    "file": "js/chunks/vendor.js"
   },
   "index.css": {
     "file": "css/index.css",
@@ -406,22 +117,15 @@
     "src": "node_modules/@caohenghu/vue-colorpicker/src/img/sucker.png"
   },
   "node_modules/canvg/lib/index.es.js": {
-    "file": "js/chunks/canvg.js",
+    "file": "js/chunks/index.es.js",
     "imports": [
-      "_core-js.js",
-      "_runtime.js",
-      "_raf.js",
-      "_rgbcolor.js",
-      "_svg-pathdata.js",
-      "_stackblur-canvas.js",
-      "_apexcharts.js",
-      "_performance-now.js"
+      "_vendor.js"
     ],
     "isDynamicEntry": true,
     "src": "node_modules/canvg/lib/index.es.js"
   },
   "node_modules/dompurify/dist/purify.es.js": {
-    "file": "js/chunks/dompurify.js",
+    "file": "js/chunks/purify.es.js",
     "isDynamicEntry": true,
     "src": "node_modules/dompurify/dist/purify.es.js"
   },
@@ -1253,26 +957,10 @@
     ],
     "file": "js/frontend.js",
     "imports": [
-      "_axios.js",
-      "_vue.js",
-      "_vuex.js",
-      "_vue-colorpicker.js",
-      "_i18n.js",
-      "_tannin.js",
+      "_vendor.js",
       "_index3.js",
       "_WidgetReportError.js",
-      "_index.js",
-      "_vue-clicky.js",
-      "_apexcharts.js",
-      "_memize.js",
-      "_sprintf-js.js",
-      "_hooks.js",
-      "_plural-forms.js",
-      "_compile.js",
-      "_postfix.js",
-      "_evaluate.js",
-      "_lodash.debounce.js",
-      "_lodash.clonedeep.js"
+      "_index.js"
     ],
     "isEntry": true,
     "src": "src/modules/frontend/frontend.js"
@@ -1360,54 +1048,13 @@
     ],
     "file": "js/reports.js",
     "imports": [
-      "_vuex.js",
+      "_vendor.js",
       "_index3.js",
-      "_vue-router.js",
-      "_i18n.js",
-      "_tannin.js",
       "_exactmetrics-reports-helper-plugin.js",
-      "_vue-apexcharts.js",
-      "_vue-colorpicker.js",
       "_SettingsInfoTooltip.js",
-      "_vue.js",
       "_index2.js",
-      "_moment.js",
-      "_vue-frag.js",
-      "_vue2-datepicker.js",
       "_ContentIconList.js",
-      "_vue-chartjs.js",
-      "_html2pdf.js.js",
-      "_axios.js",
-      "_vue-multiselect.js",
-      "_vue-flatpickr-component.js",
-      "_flatpickr.js",
-      "_moment-timezone.js",
-      "_vue-clickaway.js",
-      "_vue-sweetalert2.js",
-      "_index.js",
-      "_v-tooltip.js",
-      "_vue-clicky.js",
-      "_memize.js",
-      "_sprintf-js.js",
-      "_apexcharts.js",
-      "_hooks.js",
-      "_plural-forms.js",
-      "_compile.js",
-      "_postfix.js",
-      "_evaluate.js",
-      "_vue-scrollto.js",
-      "_date-format-parse.js",
-      "_chart.js.js",
-      "_jspdf.js",
-      "_runtime.js",
-      "_fflate.js",
-      "_html2canvas.js",
-      "_sweetalert2.js",
-      "_lodash.debounce.js",
-      "_popper.js.js",
-      "_lodash.js",
-      "_vue-resize.js",
-      "_lodash.clonedeep.js"
+      "_index.js"
     ],
     "isEntry": true,
     "src": "src/modules/reports/reports.js"
@@ -1579,42 +1226,12 @@
     ],
     "file": "js/settings.js",
     "imports": [
-      "_vue.js",
-      "_vue-router.js",
-      "_vuex.js",
-      "_i18n.js",
-      "_tannin.js",
+      "_vendor.js",
       "_index.js",
       "_ContentIconList.js",
-      "_vue-colorpicker.js",
       "_AboutTestimonialsSlider.js",
       "_index2.js",
-      "_SettingsInfoTooltip.js",
-      "_axios.js",
-      "_lodash.debounce.js",
-      "_vue-multiselect.js",
-      "_vue2-datepicker.js",
-      "_vue-sweetalert2.js",
-      "_v-tooltip.js",
-      "_vue-clicky.js",
-      "_apexcharts.js",
-      "_memize.js",
-      "_sprintf-js.js",
-      "_hooks.js",
-      "_plural-forms.js",
-      "_compile.js",
-      "_postfix.js",
-      "_evaluate.js",
-      "_moment.js",
-      "_vue-scrollto.js",
-      "_vue-frag.js",
-      "_date-format-parse.js",
-      "_sweetalert2.js",
-      "_runtime.js",
-      "_popper.js.js",
-      "_lodash.js",
-      "_vue-resize.js",
-      "_lodash.clonedeep.js"
+      "_SettingsInfoTooltip.js"
     ],
     "isEntry": true,
     "src": "src/modules/settings/settings.js"
@@ -1706,40 +1323,12 @@
     ],
     "file": "js/widget.js",
     "imports": [
-      "_i18n.js",
-      "_tannin.js",
-      "_vuex.js",
+      "_vendor.js",
       "_index3.js",
-      "_vue.js",
-      "_axios.js",
-      "_moment.js",
       "_exactmetrics-reports-helper-plugin.js",
-      "_chart.js.js",
-      "_vue-chartjs.js",
-      "_vue-colorpicker.js",
       "_SettingsInfoTooltip.js",
       "_WidgetReportError.js",
-      "_moment-timezone.js",
-      "_index.js",
-      "_vue-router.js",
-      "_vue-sweetalert2.js",
-      "_v-tooltip.js",
-      "_vue-clicky.js",
-      "_memize.js",
-      "_sprintf-js.js",
-      "_apexcharts.js",
-      "_hooks.js",
-      "_plural-forms.js",
-      "_compile.js",
-      "_postfix.js",
-      "_evaluate.js",
-      "_lodash.debounce.js",
-      "_sweetalert2.js",
-      "_runtime.js",
-      "_popper.js.js",
-      "_lodash.js",
-      "_vue-resize.js",
-      "_lodash.clonedeep.js"
+      "_index.js"
     ],
     "isEntry": true,
     "src": "src/modules/widget/widget.js"
@@ -1810,46 +1399,17 @@
     ],
     "file": "js/wizard.js",
     "imports": [
-      "_vue-router.js",
-      "_i18n.js",
-      "_tannin.js",
-      "_vue-colorpicker.js",
+      "_vendor.js",
       "_AboutTestimonialsSlider.js",
-      "_vuex.js",
       "_SettingsInfoTooltip.js",
-      "_lodash.debounce.js",
       "_index.js",
-      "_axios.js",
-      "_vue.js",
-      "_ContentIconList.js",
-      "_vue-sweetalert2.js",
-      "_v-tooltip.js",
-      "_vue-clicky.js",
-      "_memize.js",
-      "_sprintf-js.js",
-      "_apexcharts.js",
-      "_hooks.js",
-      "_plural-forms.js",
-      "_compile.js",
-      "_postfix.js",
-      "_evaluate.js",
-      "_vue-multiselect.js",
-      "_sweetalert2.js",
-      "_runtime.js",
-      "_popper.js.js",
-      "_lodash.js",
-      "_vue-resize.js",
-      "_lodash.clonedeep.js"
+      "_ContentIconList.js"
     ],
     "isEntry": true,
     "src": "src/modules/wizard-onboarding/wizard.js"
   },
-  "sweetalert2.css": {
-    "file": "css/sweetalert2.css",
-    "src": "sweetalert2.css"
-  },
-  "vue2-datepicker.css": {
-    "file": "css/vue2-datepicker.css",
-    "src": "vue2-datepicker.css"
+  "vendor.css": {
+    "file": "css/vendor.css",
+    "src": "vendor.css"
   }
 }

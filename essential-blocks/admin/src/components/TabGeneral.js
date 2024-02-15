@@ -277,45 +277,21 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.5.0", "essential-blocks")}
+                                    {__("Version: 4.5.1", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("14/02/2024", "essential-blocks")}
+                                        {__("15/02/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Added: New feature Responsive Breakpoint",
+                                            "Fixed: ORG issues after release 4.5.0",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Added: Load more feature in Image Gallery block",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Added: Block Default option for Form block",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Advanced Tabs block hash url issue",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Image Gallery block loading issue in Firefox browsere",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Team Member block preset broken",
+                                            "Featured List icon not loading in frontend",
                                             "essential-blocks"
                                         )}
                                     </li>

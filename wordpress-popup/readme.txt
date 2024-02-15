@@ -175,6 +175,9 @@ Nope! All your pop-ups will seamlessly be added to the custom content module in 
 = Are there any feature limitations with Hustle? =
 No! Hustle gives you all the same settings and options as Hustle Pro. The only difference is Hustle Pro offers unlimited Opt-ins, Custom Content, and Social Sharing.
 
+= How can I report security issues or bugs? =
+We take plugin security incredibly seriously; if you have a bug or vulnerability to report, you can do so through the Patchstack Vulnerability Disclosure Program. It’s fast, easy, and you will be notified when the issue is fixed. [Report a vulnerability](https://patchstack.com/database/vdp/wordpress-popup).
+
 == Screenshots ==
 
 1. Easily customize the look of your campaigns using the in-built appearance settings.

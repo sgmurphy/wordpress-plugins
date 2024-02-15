@@ -8,7 +8,7 @@ class Presets
 {
     protected $table;
 
-    protected $version = 20;
+    protected $version = 22;
 
     protected $name = 'presto_player_presets';
 
@@ -31,7 +31,8 @@ class Presets
      */
     public function install()
     {
-        return $this->table->create($this->name, "
+        return $this->table->create(
+            $this->name, "
             id bigint(20) unsigned NOT NULL auto_increment,
             name varchar(155) NULL,
             slug varchar(155) NULL,
@@ -51,6 +52,7 @@ class Presets
             captions boolean DEFAULT 0 NOT NULL,
             reset_on_end boolean DEFAULT 0 NOT NULL,
             auto_hide boolean DEFAULT 0 NOT NULL,
+            show_time_elapsed boolean DEFAULT 0 NOT NULL,
             captions_enabled boolean DEFAULT 0 NOT NULL,
             save_player_position boolean DEFAULT 0 NOT NULL,
             sticky_scroll boolean DEFAULT 0 NOT NULL,
@@ -75,7 +77,8 @@ class Presets
             deleted_at TIMESTAMP NULL,
             PRIMARY KEY  (id),
             KEY name (name)
-        ", $this->version);
+        ", $this->version
+        );
     }
 
     /**
@@ -88,7 +91,8 @@ class Presets
         $this->table->drop($this->getName());
     }
 
-    public function exists(){
+    public function exists()
+    {
         return $this->table->exists($this->name);
     }
 }

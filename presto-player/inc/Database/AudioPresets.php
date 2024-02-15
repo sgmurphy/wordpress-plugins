@@ -8,7 +8,7 @@ class AudioPresets
 {
     protected $table;
 
-    protected $version = 19;
+    protected $version = 20;
 
     protected $name = 'presto_player_audio_presets';
 
@@ -31,7 +31,8 @@ class AudioPresets
      */
     public function install()
     {
-        return $this->table->create($this->name, "
+        return $this->table->create(
+            $this->name, "
             id bigint(20) unsigned NOT NULL auto_increment,
             name varchar(155) NULL,
             slug varchar(155) NULL,
@@ -53,6 +54,7 @@ class AudioPresets
             sticky_scroll_position varchar(16) DEFAULT NULL,
             on_video_end varchar(16) DEFAULT NULL,
             play_video_viewport boolean DEFAULT 0 NOT NULL,
+            show_time_elapsed boolean DEFAULT 0 NOT NULL,
             hide_logo boolean DEFAULT 0 NOT NULL,
             border_radius bigint(20) unsigned NULL,
             background_color varchar(155) NULL,
@@ -67,7 +69,8 @@ class AudioPresets
             deleted_at TIMESTAMP NULL,
             PRIMARY KEY  (id),
             KEY name (name)
-        ", $this->version);
+        ", $this->version
+        );
     }
 
     /**
@@ -80,7 +83,8 @@ class AudioPresets
         $this->table->drop($this->getName());
     }
 
-    public function exists(){
+    public function exists()
+    {
         return $this->table->exists($this->name);
     }
 }

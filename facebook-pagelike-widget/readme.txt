@@ -18,11 +18,17 @@ Formerly "Facebook Page Like Widget". This plugin adds a Simple Facebook page Li
 
 > Did this plugin made your life easy? Please consider [donating](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=neetap179@gmail.com&lc=US&item_name=Providing+Excellent+WordPress+plugin+support&no_note=0&no_shipping=2&curency_code=USD&bn=PP-DonationsBF:btn_donateCC_LG.gif:NonHosted).
 
-One of the most popular & lightweight plugin for Facebook page feeds widget with over 1.3 Million downloads and 1,00,000+ active installs.
+One of the most popular & lightweight plugin for Facebook page feeds widget with over 1.5 Million downloads and 80,000+ active installs.
 
 An inside look:
 
 http://www.youtube.com/watch?v=8gulPNAd264
+
+
+Update:
+
+https://www.youtube.com/watch?v=qayeaqlmofA
+
 
 Please subscribe to my [YouTube channel](https://www.youtube.com/c/CodeCanvas/) for more technical videos.
 
@@ -92,6 +98,9 @@ You can use more parameters like below.
 = I am not sure how to get Facebook application ID ? =
 * If you are not able to create Facebook application or you do not know how to do that, do not worry, you can use my default application id `1590918427791514` . I have created it for plugin users and it should work like a charm for you.
 
+= Do I need a Facebook application ID to get this plugin to work? ? =
+* Starting from plugin version 6.4, you no longer need a Facebook application ID to make this plugin work.
+
 = It is working in some system, not working in other system ? =
 * If it is working in some system & not working with other system, there are 2 possibilties :
 	1) Anti virus of your computer can stop my widget loading. Some of my widget users had same problem in past. You can check with disable your anti virus temporarily.
@@ -108,7 +117,7 @@ You can use more parameters like below.
 == Changelog ==
 
 = Version 6.4 =
-* Removed the Custom CSS option from widget settings, since WordPress now has a Custom CSS option.
+* Removed the Custom CSS option from widget settings, as WordPress now includes its own Custom CSS option.
 
 = Version 6.3 =
 * Major code updates.

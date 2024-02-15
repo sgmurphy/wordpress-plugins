@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: woocommerce, funnel builder, sales funnels, elementor, beaver builder
 Requires at least: 5.8
 Tested up to: 6.4
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -321,6 +321,10 @@ This includes, but is not limited to:
 5. Easily edit anything with your page builder.
 
 == Changelog ==
+
+= Version 2.0.4 - Thursday, 15th February 2024 =
+* Fix: Flows exported via bulk-export functionality were not getting imported properly properly.
+* Fix: Fixed the clone, delete ajax calls were returning 400 error in some cases.
 
 = Version 2.0.3 - Thursday, 25th January 2024 =
 * Improvement: Modified the location of Change Template button for store checkout steps. It is now available in the funnel's setting.

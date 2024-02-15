@@ -155,7 +155,18 @@ add_action( 'admin_bar_menu', 'exactmetrics_add_admin_bar_menu', 999 );
  */
 function exactmetrics_frontend_admin_bar_scripts() {
 	global $current_user;
+	global $pagenow;
 	if ( exactmetrics_prevent_loading_frontend_reports() ) {
+		return;
+	}
+
+	// Avoid loading scripts on pages that don't have admin bar such as WPBakery Page Builder.
+	if (isset($_GET['vc_editable']) && isset($_GET['vc_post_id']) && $_GET['vc_editable'] === 'true') {
+		return;
+	}
+
+	// Avoid adding admin bar scripts in Elementor's preview which is done via admin-ajax(where $pagenow = 'index.php')
+	if ($pagenow === 'index.php' && isset($_GET['elementor-preview'])) {
 		return;
 	}
 

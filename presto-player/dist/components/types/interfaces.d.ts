@@ -151,6 +151,7 @@ export interface presetAttributes extends Object {
   hide_logo?: boolean;
   reset_on_end?: boolean;
   auto_hide?: boolean;
+  show_time_elapsed?: boolean;
   speed?: boolean;
   background_color?: string;
   caption_style?: string;

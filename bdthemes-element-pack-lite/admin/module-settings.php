@@ -2335,6 +2335,20 @@ class ModuleService {
 		];
 
         $settings_fields['element_pack_third_party_widget'][] = [
+			'name'        => 'acf-slider',
+			'label'       => esc_html__('ACF Slider', 'bdthemes-element-pack'),
+			'type'        => 'checkbox',
+			'default'     => 'off',
+			'plugin_name' => 'advanced-custom-fields-pro',
+			'plugin_path' => 'advanced-custom-fields-pro/acf.php',
+			'paid'        => 'https://www.advancedcustomfields.com/pro/',
+			'widget_type' => 'pro',
+			'content_type' => 'acf new',
+			'demo_url'    => 'https://www.elementpack.pro/demo/element/acf-slider',
+			'video_url'   => '',
+		];
+
+        $settings_fields['element_pack_third_party_widget'][] = [
             'name'        => 'bbpress-forum-form',
             'label'       => esc_html__('bbPress Forum Form', 'bdthemes-element-pack'),
             'type'        => 'checkbox',

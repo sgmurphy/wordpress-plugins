@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5692b314091314e8927c2b732dca9d1a
+class ComposerStaticInit45b2641900e136c3cee66f4a472703d1
 {
     public static $prefixLengthsPsr4 = array (
         'V' => 
@@ -102,6 +102,7 @@ class ComposerStaticInit5692b314091314e8927c2b732dca9d1a
         'VisualComposer\\Helpers\\Views' => __DIR__ . '/../..' . '/visualcomposer/Helpers/Views.php',
         'VisualComposer\\Helpers\\Wp' => __DIR__ . '/../..' . '/visualcomposer/Helpers/Wp.php',
         'VisualComposer\\Helpers\\WpMedia' => __DIR__ . '/../..' . '/visualcomposer/Helpers/WpMedia.php',
+        'VisualComposer\\Helpers\\WpMenu' => __DIR__ . '/../..' . '/visualcomposer/Helpers/WpMenu.php',
         'VisualComposer\\Helpers\\WpWidgets' => __DIR__ . '/../..' . '/visualcomposer/Helpers/WpWidgets.php',
         'VisualComposer\\Modules\\Api\\ApiRegisterTrait' => __DIR__ . '/../..' . '/visualcomposer/Modules/Api/ApiRegisterTrait.php',
         'VisualComposer\\Modules\\Api\\Factory' => __DIR__ . '/../..' . '/visualcomposer/Modules/Api/Factory.php',
@@ -312,9 +313,9 @@ class ComposerStaticInit5692b314091314e8927c2b732dca9d1a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5692b314091314e8927c2b732dca9d1a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5692b314091314e8927c2b732dca9d1a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5692b314091314e8927c2b732dca9d1a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit45b2641900e136c3cee66f4a472703d1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit45b2641900e136c3cee66f4a472703d1::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit45b2641900e136c3cee66f4a472703d1::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -36,6 +36,8 @@ class ConnectPlugins {
 		add_filter( 'pre_do_shortcode_tag', array( $this, 'shortcode_template_translate' ), 10, 3 );
 		// Widget Template translate 'template_id'.
 		add_action( 'elementor/frontend/widget/before_render', array( $this, 'widget_template_translate' ) );
+		// WordPress Widget "Elementor Library" translate 'template_id'.
+		add_filter( 'widget_display_callback', array( $this, 'wp_widget_template_translate' ), 10, 2 );
 
 		// Elementor Kit template loading.
 		add_filter( 'option_elementor_active_kit', array( $this, 'elementor_kit_translation' ) );
@@ -152,6 +154,7 @@ class ConnectPlugins {
 
 		$is_global_widget = isset( $query->query_vars['post_type'], $query->query_vars['meta_query'] )
 			&& 'elementor_library' === $query->query_vars['post_type']
+			&& is_array( $query->query_vars['meta_query'] )
 			&& in_array( $global_widget_meta_query, $query->query_vars['meta_query'], true );
 
 		if ( $is_elementor_conditions || $is_global_widget ) {
@@ -249,6 +252,25 @@ class ConnectPlugins {
 		$template_id = pll_get_post( $element->get_settings( 'template_id' ) ) ?: $element->get_settings( 'template_id' ); //phpcs:ignore WordPress.PHP.DisallowShortTernary
 
 		$element->set_settings( 'template_id', $template_id );
+
+	}
+
+	/**
+	 * WordPress Widget "Elementor Library" translate 'template_id'
+	 *
+	 * @since  2.4.4
+	 *
+	 * @param  array     $instance
+	 * @param  WP_Widget $widget
+	 * @return array
+	 */
+	public function wp_widget_template_translate( $instance, $widget ) {
+
+		if ( is_a( $widget, 'ElementorPro\Modules\Library\WP_Widgets\Elementor_Library' ) ) {
+			$instance['template_id'] = pll_get_post( absint( $instance['template_id'] ) ) ?: $instance['template_id']; //phpcs:ignore WordPress.PHP.DisallowShortTernary
+		}
+
+		return $instance;
 
 	}
 
@@ -479,12 +501,12 @@ class ConnectPlugins {
 	 *
 	 * @since 2.4.3
 	 *
-	 * @param  int $post_id
-	 * @param  int $tr_id
+	 * @param  int    $post_id
+	 * @param  int    $tr_id
 	 * @param  string $lang
 	 * @return void
 	 */
-	public function bulk_delete_elementor_css_meta( $post_id, $tr_id, $lang ){
+	public function bulk_delete_elementor_css_meta( $post_id, $tr_id, $lang ) {
 
 		delete_post_meta( $tr_id, '_elementor_css' );
 

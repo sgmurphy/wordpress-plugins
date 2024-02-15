@@ -38,6 +38,8 @@ if ( ! class_exists( 'EbStyleHandler' ) ) {
 
             $this->load_style_handler_dependencies();
 
+            // add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_frontend_assets' ], 99 );
+
             add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_frontend_assets' ], 99 );
             add_action( 'save_post', [ $this, 'stylehandler_get_post_content' ], 10, 3 );
             add_action( 'wp', [ $this, 'stylehandler_generate_post_content' ] );
@@ -165,6 +167,8 @@ if ( ! class_exists( 'EbStyleHandler' ) ) {
         {
             global $post;
 
+            $deps = apply_filters( 'eb_generated_css_frontend_deps', [  ] );
+
             // generatepress elements
             if ( in_array( 'gp-premium/gp-premium.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
                 $gp_elements = get_posts( [ 'post_type' => 'gp_elements' ] );
@@ -174,7 +178,7 @@ if ( ! class_exists( 'EbStyleHandler' ) ) {
                             wp_enqueue_style(
                                 'eb-block-style-' . $element->ID,
                                 $this->eb_style_url . $this->prefix . '-' . $element->ID . '.min.css',
-                                [  ],
+                                $deps,
                                 substr( md5( microtime( true ) ), 0, 10 )
                             );
                         }
@@ -185,7 +189,12 @@ if ( ! class_exists( 'EbStyleHandler' ) ) {
             if ( ! empty( $post ) && ! empty( $post->ID ) ) {
                 //Page/Post Style Enqueue
                 if ( file_exists( $this->eb_style_dir . $this->prefix . '-' . $post->ID . '.min.css' ) ) {
-                    wp_enqueue_style( 'eb-block-style-' . $post->ID, $this->eb_style_url . $this->prefix . '-' . $post->ID . '.min.css', [  ], substr( md5( microtime( true ) ), 0, 10 ) );
+                    wp_enqueue_style(
+                        'eb-block-style-' . $post->ID,
+                        $this->eb_style_url . $this->prefix . '-' . $post->ID . '.min.css',
+                        $deps,
+                        substr( md5( microtime( true ) ), 0, 10 )
+                    );
                 }
 
                 // Reusable block Style Enqueues
@@ -196,7 +205,7 @@ if ( ! class_exists( 'EbStyleHandler' ) ) {
                 if ( ! empty( $reusableIds ) && is_array( $reusableIds ) ) {
                     foreach ( $reusableIds as $reusableId ) {
                         if ( file_exists( $this->eb_style_dir . 'reusable-blocks/eb-reusable-' . $reusableId . '.min.css' ) ) {
-                            wp_enqueue_style( 'eb-reusable-block-style-' . $reusableId, $this->eb_style_url . 'reusable-blocks/eb-reusable-' . $reusableId . '.min.css', [  ], substr( md5( microtime( true ) ), 0, 10 ) );
+                            wp_enqueue_style( 'eb-reusable-block-style-' . $reusableId, $this->eb_style_url . 'reusable-blocks/eb-reusable-' . $reusableId . '.min.css', $deps, substr( md5( microtime( true ) ), 0, 10 ) );
                         }
                     }
                 }
@@ -204,12 +213,12 @@ if ( ! class_exists( 'EbStyleHandler' ) ) {
 
             //Widget Style Enqueue
             if ( file_exists( $this->eb_style_dir . $this->prefix . '-widget.min.css' ) ) {
-                wp_enqueue_style( 'eb-widget-style', $this->eb_style_url . $this->prefix . '-widget.min.css', [  ], substr( md5( microtime( true ) ), 0, 10 ) );
+                wp_enqueue_style( 'eb-widget-style', $this->eb_style_url . $this->prefix . '-widget.min.css', $deps, substr( md5( microtime( true ) ), 0, 10 ) );
             }
 
             //FSE Style Enqueue
             if ( function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() && file_exists( $this->eb_style_dir . $this->prefix . '-edit-site.min.css' ) ) {
-                wp_enqueue_style( 'eb-fullsite-style', $this->eb_style_url . $this->prefix . '-edit-site.min.css', [  ], substr( md5( microtime( true ) ), 0, 10 ) );
+                wp_enqueue_style( 'eb-fullsite-style', $this->eb_style_url . $this->prefix . '-edit-site.min.css', $deps, substr( md5( microtime( true ) ), 0, 10 ) );
             }
 
             /**

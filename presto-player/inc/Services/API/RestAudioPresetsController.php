@@ -27,7 +27,8 @@ class RestAudioPresetsController extends \WP_REST_Controller
      */
     public function register_routes()
     {
-        register_rest_route("{$this->namespace}/{$this->version}", '/' . $this->base, [
+        register_rest_route(
+            "{$this->namespace}/{$this->version}", '/' . $this->base, [
             [
                 'methods'             => \WP_REST_Server::READABLE,
                 'callback'            => [$this, 'get_items'],
@@ -41,9 +42,11 @@ class RestAudioPresetsController extends \WP_REST_Controller
                 'args'                => $this->get_endpoint_args_for_item_schema(true),
             ],
             'schema' => [$this, 'get_preset_schema']
-        ]);
+            ]
+        );
 
-        register_rest_route("{$this->namespace}/{$this->version}", '/' . $this->base . '/(?P<id>\d+)', [
+        register_rest_route(
+            "{$this->namespace}/{$this->version}", '/' . $this->base . '/(?P<id>\d+)', [
             [
                 'methods' => \WP_REST_Server::READABLE,
                 'callback' => [$this, 'get_item'],
@@ -76,7 +79,8 @@ class RestAudioPresetsController extends \WP_REST_Controller
                 ],
             ],
             'schema' => [$this, 'get_preset_schema']
-        ]);
+            ]
+        );
     }
 
     public function get_preset_schema()
@@ -177,6 +181,9 @@ class RestAudioPresetsController extends \WP_REST_Controller
                     'type' => 'string',
                 ],
                 'play_video_viewport' => [
+                    'type' => 'boolean',
+                ],
+                'show_time_elapsed' => [
                     'type' => 'boolean',
                 ],
                 'save_player_position' => [
@@ -330,19 +337,21 @@ class RestAudioPresetsController extends \WP_REST_Controller
     /**
      * Get a collection of items
      *
-     * @param WP_REST_Request $request Full data about the request.
+     * @param  WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Response
      */
     public function get_items($request)
     {
         $preset = new AudioPreset();
-        $items = $preset->fetch([
+        $items = $preset->fetch(
+            [
             'per_page' => 10000,
             'order_by' => [
                 'is_locked' => 'DESC',
                 'created_at' => 'ASC',
             ]
-        ]);
+            ]
+        );
 
         if (is_wp_error($items)) {
             return $items;
@@ -363,7 +372,7 @@ class RestAudioPresetsController extends \WP_REST_Controller
     /**
      * Get one item from the collection
      *
-     * @param \WP_REST_Request $request Full data about the request.
+     * @param  \WP_REST_Request $request Full data about the request.
      * @return \WP_Error|\WP_REST_Response
      */
     public function get_item($request)
@@ -376,7 +385,7 @@ class RestAudioPresetsController extends \WP_REST_Controller
     /**
      * Create one item from the collection
      *
-     * @param WP_REST_Request $request Full data about the request.
+     * @param  WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Response
      */
     public function create_item($request)
@@ -403,7 +412,7 @@ class RestAudioPresetsController extends \WP_REST_Controller
     /**
      * Update one item from the collection
      *
-     * @param WP_REST_Request $request Full data about the request.
+     * @param  WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Response
      */
     public function update_item($request)
@@ -429,7 +438,7 @@ class RestAudioPresetsController extends \WP_REST_Controller
     /**
      * Delete one item from the collection
      *
-     * @param WP_REST_Request $request Full data about the request.
+     * @param  WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Response
      */
     public function delete_item($request)
@@ -451,7 +460,7 @@ class RestAudioPresetsController extends \WP_REST_Controller
     /**
      * Check if a given request has access to get items
      *
-     * @param WP_REST_Request $request Full data about the request.
+     * @param  WP_REST_Request $request Full data about the request.
      * @return WP_Error|bool
      */
     public function get_items_permissions_check($request)
@@ -462,7 +471,7 @@ class RestAudioPresetsController extends \WP_REST_Controller
     /**
      * Check if a given request has access to get items
      *
-     * @param WP_REST_Request $request Full data about the request.
+     * @param  WP_REST_Request $request Full data about the request.
      * @return WP_Error|bool
      */
     public function get_item_permissions_check($request)
@@ -473,7 +482,7 @@ class RestAudioPresetsController extends \WP_REST_Controller
     /**
      * Check if a given request has access to create items
      *
-     * @param WP_REST_Request $request Full data about the request.
+     * @param  WP_REST_Request $request Full data about the request.
      * @return WP_Error|bool
      */
     public function create_item_permissions_check($request)
@@ -484,7 +493,7 @@ class RestAudioPresetsController extends \WP_REST_Controller
     /**
      * Check if a given request has access to update a specific item
      *
-     * @param WP_REST_Request $request Full data about the request.
+     * @param  WP_REST_Request $request Full data about the request.
      * @return WP_Error|bool
      */
     public function update_item_permissions_check($request)
@@ -495,7 +504,7 @@ class RestAudioPresetsController extends \WP_REST_Controller
     /**
      * Check if a given request has access to delete a specific item
      *
-     * @param WP_REST_Request $request Full data about the request.
+     * @param  WP_REST_Request $request Full data about the request.
      * @return WP_Error|bool
      */
     public function delete_item_permissions_check($request)
@@ -507,7 +516,7 @@ class RestAudioPresetsController extends \WP_REST_Controller
     /**
      * Prepare the item for create or update operation
      *
-     * @param WP_REST_Request $request Request object
+     * @param  WP_REST_Request $request Request object
      * @return WP_Error|object $prepared_item
      */
     protected function prepare_item_for_database($request)
@@ -609,6 +618,7 @@ class RestAudioPresetsController extends \WP_REST_Controller
             'sticky_scroll_position' =>  sanitize_text_field($request['sticky_scroll_position']),
             'on_video_end' =>  sanitize_text_field($request['on_video_end']),
             'play_video_viewport' =>  (bool) $request['play_video_viewport'],
+            'show_time_elapsed' =>  (bool) $request['show_time_elapsed'],
             // style
             'background_color' => sanitize_hex_color($request['background_color']),
             'control_color' => sanitize_hex_color($request['control_color']),
@@ -675,8 +685,8 @@ class RestAudioPresetsController extends \WP_REST_Controller
     /**
      * Prepare the item for the REST response
      *
-     * @param mixed $item WordPress representation of the item.
-     * @param WP_REST_Request $request Request object.
+     * @param  mixed           $item    WordPress representation of the item.
+     * @param  WP_REST_Request $request Request object.
      * @return mixed
      */
     public function prepare_item_for_response($item, $request)

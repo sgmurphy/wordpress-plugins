@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: page scrolling, page animation, smooth scroll, navigation, single-page navigation
 Requires at least: 3.3
 Tested up to: 6.4
-Stable tag: 1.7.8
+Stable tag: 1.7.9
 License: The MIT License (MIT)
 License URI: http://opensource.org/licenses/MIT
 
@@ -99,6 +99,11 @@ Because it works and it already has a ton of features. The plugin has little dep
 7. Gutenberg block editor "Page scoll to id target" custom block
 
 == Changelog ==
+
+= 1.7.9 =
+
+* Fixed various PHP 8 warnings. 
+* Changed plugin shortcodes files to adhere to wp coding standards. 
 
 = 1.7.8 =
 
@@ -317,6 +322,10 @@ Because it works and it already has a ton of features. The plugin has little dep
 * Launch!
 
 == Upgrade Notice ==
+
+= 1.7.9 =
+
+Fixed various PHP 8 warnings, changed plugin shortcodes files to adhere to wp coding standards. 
 
 = 1.7.8 =
 

@@ -3,9 +3,9 @@ Contributors: daveshine, p4fbradjohnson, deckerweb, wpautobahn, pacotole, creapu
 Donate link: https://www.paypal.me/pacotole
 Tags: elementor, polylang, multilingual, language switcher, languages, templates, widget, finder, dynamic tags
 Requires at least: 5.4
-Tested up to: 6.2
+Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 2.4.3
+Stable tag: 2.4.4
 License: GPL-2.0-or-later
 License URI: https://opensource.org/licenses/GPL-2.0
 
@@ -199,6 +199,11 @@ There are quite a few:
 
 
 == Changelog ==
+
+= 2.4.4 =
+* NEW WordPress Widget "Elementor Library" translation (suggested by [@lennertdaniels](https://github.com/creame/connect-polylang-elementor/issues/14#issue-1970978478)).
+* Fix PHP errors (thanks to [ChristianSchaffner](https://github.com/creame/connect-polylang-elementor/issues/16#issue-2044749726) and [brandon-hatch](https://github.com/creame/connect-polylang-elementor/issues/17#issue-2102975661)).
+* Fix remove deprecated Elementor's classes.
 
 = 2.4.3 =
 * Automatically generate CSS file on bulk translation (thanks to @Elisa3232).

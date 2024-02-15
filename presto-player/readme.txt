@@ -4,7 +4,7 @@ Donate link: https://prestoplayer.com
 Tags: video, audio, youtube, vimeo, lms, elementor, learndash, beaver builder, lifterlms
 Requires at least: 5.6
 Tested up to: 6.4
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -150,8 +150,19 @@ It is also important to point out that BunnyNet has a $1 per month minimum.
 
 == Changelog ==
 
+= 2.2.0 =
+* New: Timestamp behavior on presets (pro required).
+* New: Setting to pass playlist highlight color to players (pro required).
+
 = 2.1.0 = 
 * New: Add automatic video SEO schema (poster image required).
+
+= 2.0.16 =
+* Fix: Captions getting stuck off when muted preview captions are turned on and the video is played.
+* Fix: LifterLMS video progression tracking not working in latest version of Lifter Advanced Videos.
+
+= 2.0.15 = 
+* Fix: Issue with Learndash video progression not working if media hub is added to lesson instead of a video.
 
 = 2.0.14 = 
 * Improvement: Change default mobile behavior to play inline.

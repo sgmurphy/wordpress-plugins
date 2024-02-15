@@ -100,6 +100,7 @@ class Pa_Weather_Handler {
 		$weather_data = json_decode( wp_remote_retrieve_body( $weather_data ), true );
 
 		$weather_data['city_name'] = $city_data['city_name'];
+		$weather_data['timezone'] = $city_data['timezone'];
 
 		if ( $forecast_tabs ) {
 			$weather_data['tabs_data'] = self::get_available_days( $city_data['tabs_data'] );
@@ -161,6 +162,7 @@ class Pa_Weather_Handler {
 			'lat'       => $city_data['city']['coord']['lat'],
 			'long'      => $city_data['city']['coord']['lon'],
 			'tabs_data' => $city_data['list'],
+			'timezone'  => $city_data['city']['timezone']
 		);
 	}
 

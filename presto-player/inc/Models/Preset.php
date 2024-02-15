@@ -102,6 +102,10 @@ class Preset extends Model
                 'type' => 'boolean',
                 'default' => false
             ],
+            'show_time_elapsed' => [
+                'type' => 'boolean',
+                'default' => false
+            ],
             'captions_enabled' => [
                 'type' => 'boolean',
                 'default' => false
@@ -188,7 +192,7 @@ class Preset extends Model
     /**
      * Create a preset in the db
      *
-     * @param array $args
+     * @param  array $args
      * @return integer
      */
     public function create($args = [])

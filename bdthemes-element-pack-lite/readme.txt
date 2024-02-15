@@ -3,13 +3,13 @@ Contributors: bdthemes, selimmw, mohammaadfarid, bdkoder, maudud, abutalib, soha
 Donate link: http://bdthemes.com/
 Tags:  elementor addons, elementor widget, elementor extensions, elementor addon, addons, elementor, addons for elementor, addons pack, live copy, template library, bdthemes
 Requires at least: 5.0.0
-Tested up to: 6.4.2
+Tested up to: 6.4.3
 Requires PHP: 7.4.0
-Stable tag: 5.5.0
+Stable tag: 5.5.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Elementor requires at least: 3.0.0
-Elementor tested up to: 3.18.3
+Elementor tested up to: 3.19.2
 
 Best Addon for Elementor WordPress Plugin with 70+ Most Popular Elements that need your everyday website page building.
 
@@ -246,6 +246,7 @@ More features & extensions are coming soon...
 
 0. **[ACF Accordion](https://elementpack.pro/demo/element/acf-accordion/)** - Customize your accordions made with Advanced Custom Fields with features by Element Pack.
 0. **[ACF Gallery](https://elementpack.pro/demo/element/acf-gallery/)** - Display customizable gallery with the popular Advanced Custom Fields code.
+0. **[ACF Slider](https://elementpack.pro/demo/element/acf-slider/)** - Showcase your custom content with ACF and the ACF Slider widget and enjoy much more style customizations in Elementor.
 0. **[bbPress](https://elementpack.pro/demo/element/bbpress/)** - Element Pack pro now integrates bbPress to let you create and maintain forums in WordPress. Watch all of the demos in this page to see it in action
 0. **[bbPress Forum Form](https://elementpack.pro/demo/element/bbpress-forum-form/)** - Let's your users access a form setup to create their forum topic inside your forum site with the help of bbPress integration.
 0. **[bbPress Forum Index](https://elementpack.pro/demo/element/bbpress-forum-index/)** - Helps you display a list of available forums created within your website and lets your users navigate them from one place.
@@ -420,6 +421,15 @@ https://youtu.be/u9JRd824Mjc
 
 
 == Changelog ==
+
+= 5.5.2 [15th February 2024] =
+
+* Fixed: Ajax issue fixed in search widget (Thanks to Skyler Nelson)
+
+= 5.5.1 [15th February 2024] =
+
+* Fixed: Simple Contact form issue fixed
+* Fixed: Lightbox autoplay issue fixed
 
 = 5.5.0 [29th January 2024] =
 

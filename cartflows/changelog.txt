@@ -1,3 +1,7 @@
+Version 2.0.4 - Thursday, 15th February 2024
+- Fix: Flows exported via bulk functionality was not getting importing properly
+- Fix: Fixed the clone, delete ajax calls were returning 400 error in some case.
+
 Version 2.0.3 - Thursday, 25th January 2024
 - Improvement: Modified the location of Change Template button for store checkout steps. It is now available in the individual step's setting panel.
 - Fix: Fixed province field issue not showing selected value with certain countries for Google address autocomplete.

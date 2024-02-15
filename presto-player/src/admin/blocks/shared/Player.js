@@ -143,7 +143,7 @@ export default (props) => {
                 ? { "--plyr-captions-background": preset.caption_background }
                 : {}),
               ...(branding?.color
-                ? { "--plyr-color-main": branding.color }
+                ? { "--plyr-color-main": `var(--presto-player-highlight-color, ${branding.color})` }
                 : {}),
               "--presto-player-email-border-radius": `${
                 preset?.email_collection?.border_radius || 0

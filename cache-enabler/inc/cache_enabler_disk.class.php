@@ -235,7 +235,7 @@ final class Cache_Enabler_Disk {
         }
 
         // Sort the cache index by forward slashes from the lowest to highest.
-        uksort( $cache['index'], 'self::sort_dir_objects' );
+        uksort( $cache['index'], self::class . '::sort_dir_objects' );
 
         if ( $args['clear'] ) {
             self::fire_cache_cleared_hooks( $cache['index'], $args['hooks'] );
@@ -293,8 +293,8 @@ final class Cache_Enabler_Disk {
         $advanced_cache_file          = WP_CONTENT_DIR . '/advanced-cache.php';
         $advanced_cache_file_contents = file_get_contents( $advanced_cache_sample_file );
 
-        $search  = '/your/path/to/wp-content/plugins/cache-enabler/constants.php';
-        $replace = CACHE_ENABLER_CONSTANTS_FILE;
+        $search  = "realpath(__DIR__) . '/constants.php'";
+        $replace = "'" . CACHE_ENABLER_CONSTANTS_FILE . "'";
 
         $advanced_cache_file_contents = str_replace( $search, $replace, $advanced_cache_file_contents );
         $advanced_cache_file_created  = file_put_contents( $advanced_cache_file, $advanced_cache_file_contents, LOCK_EX );
@@ -1509,7 +1509,7 @@ final class Cache_Enabler_Disk {
          *
          * @param  string  $page_contents  Page contents from the cache engine as raw HTML.
          */
-        $converted_page_contents = (string) apply_filters( 'cache_enabler_page_contents_after_webp_conversion', preg_replace_callback( $image_urls_regex, 'self::convert_webp', $page_contents ) );
+        $converted_page_contents = (string) apply_filters( 'cache_enabler_page_contents_after_webp_conversion', preg_replace_callback( $image_urls_regex, self::class . '::convert_webp', $page_contents ) );
         $converted_page_contents = (string) apply_filters_deprecated( 'cache_enabler_disk_webp_converted_data', array( $converted_page_contents ), '1.6.0', 'cache_enabler_page_contents_after_webp_conversion' );
 
         return $converted_page_contents;

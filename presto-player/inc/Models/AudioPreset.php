@@ -106,6 +106,10 @@ class AudioPreset extends Model
                 'type' => 'boolean',
                 'default' => false
             ],
+            'show_time_elapsed' => [
+                'type' => 'boolean',
+                'default' => false
+            ],
             'save_player_position' => [
                 'type' => 'boolean',
                 'default' => false
@@ -154,7 +158,7 @@ class AudioPreset extends Model
     /**
      * Create a preset in the db
      *
-     * @param array $args
+     * @param  array $args
      * @return integer
      */
     public function create($args = [])

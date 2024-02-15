@@ -32,7 +32,7 @@ if ( ! class_exists( 'EbStyleHandlerParseCss' ) ) {
 
             if ( array_key_exists( 'responsiveBreakpoints', $settings ) ) {
                 $settingsData = $settings[ 'responsiveBreakpoints' ];
-                if ( strlen( $settingsData ) > 0 ) {
+                if ( gettype( $settingsData ) === 'string' && strlen( $settingsData ) > 0 ) {
                     $settingsData = (array) json_decode( html_entity_decode( stripslashes( $settingsData ) ) );
                 }
             } else {

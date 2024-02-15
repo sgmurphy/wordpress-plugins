@@ -1653,8 +1653,6 @@ class Premium_Image_Button extends Widget_Base {
 
 		$button_size = 'premium-btn-' . $settings['premium_image_button_size'];
 
-		$image_event = $settings['premium_image_button_event_function'];
-
 		if ( 'yes' === $settings['premium_image_button_icon_switcher'] ) {
 
 			$icon_type = $settings['icon_type'];
@@ -1801,6 +1799,7 @@ class Premium_Image_Button extends Widget_Base {
 		}
 
         if( isset( $settings['premium_image_button_event_switcher'] ) ) {
+            $image_event = $settings['premium_image_button_event_function'];
             if ( 'yes' === $settings['premium_image_button_event_switcher'] && ! empty( $image_event ) ) {
                 $this->add_render_attribute( 'button', 'onclick', $image_event );
             }
@@ -1914,7 +1913,6 @@ class Premium_Image_Button extends Widget_Base {
 			slideIcon,
 			mouseDetect,
 			buttonSize = 'premium-btn-' + settings.premium_image_button_size,
-			buttonEvent = settings.premium_image_button_event_function,
 			buttonIcon = settings.premium_image_button_icon_selection,
 			hoverEffect = settings.premium_image_button_hover_effect,
 			changeToScope = '';

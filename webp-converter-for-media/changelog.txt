@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.12.1 (2024-02-15) =
+* `[Fixed]` Verification of rewrites_not_executed server configuration error when there is also a problem with the Gd or Imagick libraries
+* `[Changed]` Error message for bypassing_apache error in server configuration
+* `[Added]` Possibility to add directory paths in the Excluded directories field in Advanced Settings
+
 = 5.12.0 (2024-01-18) =
 * `[Changed]` Statistics about bulk optimization process
 * `[Added]` Expert settings to overwrite paths for rewrite rules

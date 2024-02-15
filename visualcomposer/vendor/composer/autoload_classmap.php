@@ -87,6 +87,7 @@ return array(
     'VisualComposer\\Helpers\\Views' => $baseDir . '/visualcomposer/Helpers/Views.php',
     'VisualComposer\\Helpers\\Wp' => $baseDir . '/visualcomposer/Helpers/Wp.php',
     'VisualComposer\\Helpers\\WpMedia' => $baseDir . '/visualcomposer/Helpers/WpMedia.php',
+    'VisualComposer\\Helpers\\WpMenu' => $baseDir . '/visualcomposer/Helpers/WpMenu.php',
     'VisualComposer\\Helpers\\WpWidgets' => $baseDir . '/visualcomposer/Helpers/WpWidgets.php',
     'VisualComposer\\Modules\\Api\\ApiRegisterTrait' => $baseDir . '/visualcomposer/Modules/Api/ApiRegisterTrait.php',
     'VisualComposer\\Modules\\Api\\Factory' => $baseDir . '/visualcomposer/Modules/Api/Factory.php',

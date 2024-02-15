@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { PrestoPlaylistUi } from "@presto-player/components-react";
+const semverCompare = require("semver/functions/compare");
 import {
   store as blockEditorStore,
   InspectorControls,
@@ -23,6 +24,7 @@ import PlayListPlaceholder from "../playlist-list-item/Placeholder";
 import { useDispatch, useSelect } from "@wordpress/data";
 import { useEffect } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
+import { ToggleControl } from "@wordpress/components";
 
 const ALLOWED_BLOCKS = [
   "presto-player/playlist-preview",
@@ -37,6 +39,7 @@ export default ({ attributes, setAttributes, clientId }) => {
     highlightColor,
     transitionDuration,
     selectedItem,
+    matchPlaylistToPlayerColor,
   } = attributes;
 
   const { replaceInnerBlocks } = useDispatch(blockEditorStore);
@@ -174,11 +177,29 @@ export default ({ attributes, setAttributes, clientId }) => {
           gradients={[]}
           disableCustomGradients={true}
         />
-
         <ContrastChecker
           backgroundColor={highlightColor}
           textColor={"#ffffff"}
         />
+        {semverCompare(prestoPlayer?.proVersion, "2.0.4") >= 0 &&
+          !!highlightColor && (
+            <ToggleControl
+              label={__("Pass highlight color to player", "presto-player")}
+              help={__(
+                "Use the playlist highlight color as player color in case your playlist color is different from your brand.",
+                "presto-player"
+              )}
+              checked={matchPlaylistToPlayerColor}
+              onChange={(matchPlaylistToPlayerColor) =>
+                setAttributes({
+                  matchPlaylistToPlayerColor,
+                })
+              }
+              css={css`
+                min-width: 250px;
+              `}
+            />
+          )}
       </InspectorControls>
 
       <InspectorControls>
@@ -217,6 +238,9 @@ export default ({ attributes, setAttributes, clientId }) => {
       <div
         style={{
           "--presto-playlist-highlight-color": highlightColor,
+          "--presto-player-highlight-color": matchPlaylistToPlayerColor
+            ? highlightColor
+            : "",
           "--presto-playlist-background-color":
             colorProps?.style?.backgroundColor,
           "--presto-playlist-text-color": colorProps?.style?.color,

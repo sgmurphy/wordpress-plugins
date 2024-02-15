@@ -31,6 +31,19 @@ export default function ({ state, updateState, className }) {
       </BaseControl>
       <BaseControl>
         <ToggleControl
+          label={__("Show Time Elapsed", "presto-player")}
+          help={__(
+            "Show the time elapsed or the time remaining for the audio on the player. By default, the time remaining is shown.",
+            "presto-player"
+          )}
+          onChange={(show_time_elapsed) => {
+            updateState({ show_time_elapsed });
+          }}
+          checked={state.show_time_elapsed}
+        />
+      </BaseControl>
+      <BaseControl>
+        <ToggleControl
           label={__("Focus Mode", "presto-player")}
           help={__(
             "Play only when tab is visible and audio is in viewport.",

@@ -331,6 +331,11 @@ class Element_Pack_Loader {
             'mailchimp'     => [
                 'subscribing' => esc_html_x('Subscribing you please wait...', 'Mailchimp String', 'bdthemes-element-pack'),
             ],
+            'search'        => [ 
+                'more_result'   => esc_html_x( 'More Results', 'Search Widget String', 'bdthemes-element-pack' ),
+                'search_result' => esc_html_x( 'SEARCH RESULT', 'Search Widget String', 'bdthemes-element-pack' ),
+                'not_found'     => esc_html_x( 'not found', 'Search Widget String', 'bdthemes-element-pack' ),
+            ],
             'elements_data' => $this->elements_data,
         ];
 

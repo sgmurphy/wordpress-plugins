@@ -64,6 +64,9 @@
     "transitionDuration": {
       "type": "number",
       "default": 5
+    },
+    "matchPlaylistToPlayerColor": {
+      "type": "boolean"
     }
   },
   "providesContext": {

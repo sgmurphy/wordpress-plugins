@@ -2029,7 +2029,6 @@ function apbct_form__contactForm7__testSpam($spam, $_submission = null)
         ($spam === true && defined('WPCF7_VERSION') && WPCF7_VERSION >= '3.0.0' && ! Post::get('apbct_visible_fields')) ||
         ($apbct->settings['data__protect_logged_in'] != 1 && apbct_is_user_logged_in()) || // Skip processing for logged in users.
         apbct_exclusions_check__url() ||
-        apbct_exclusions_check__ip() ||
         isset($apbct->cf7_checked)
     ) {
         do_action('apbct_skipped_request', __FILE__ . ' -> ' . __FUNCTION__ . '():' . __LINE__, $_POST);
@@ -2552,7 +2551,11 @@ function apbct_from__WPForms__gatherData($entry, $form)
     foreach ( $form_fields_info as $form_field ) {
         $field_id    = $form_field['id'];
         $field_type  = $form_field['type'];
-        $field_label = $form_field['label'] ?: '';
+        if (array_key_exists('label', $form_field)) {
+            $field_label = $form_field['label'] ?: '';
+        } else {
+            $field_label = '';
+        }
         if ( ! isset($entry_fields_data[$field_id]) ) {
             continue;
         }
@@ -3022,7 +3025,6 @@ function apbct_form__gravityForms__testSpam($is_spam, $form, $entry)
         $apbct->settings['forms__contact_forms_test'] == 0 ||
         ($apbct->settings['data__protect_logged_in'] != 1 && apbct_is_user_logged_in()) || // Skip processing for logged in users.
         apbct_exclusions_check__url() ||
-        apbct_exclusions_check__ip() ||
         $cleantalk_executed // Return unchanged result if the submission was already tested.
     ) {
         do_action('apbct_skipped_request', __FILE__ . ' -> ' . __FUNCTION__ . '():' . __LINE__, $_POST);
@@ -3662,6 +3664,11 @@ function apbct_form_happyforms_test_spam($is_valid, $request, $_form)
         /**
          * Filter for request
          */
+        if (isset($request['data'])) {
+            apbct_form__get_no_cookie_data($request['data']);
+            unset($request['data']);
+        }
+
         $input_array = apply_filters('apbct__filter_post', $request);
 
         $data = ct_get_fields_any($input_array);

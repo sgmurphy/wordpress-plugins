@@ -6,7 +6,7 @@ License URI: https://www.gnu.org/licenses/gpl.html
 Tags: 2FA, two-factor authentication, multi step authentication, 2-factor authentication, WordPress authentication, two step authentication
 Requires at least: 5.0
 Tested up to: 6.4.3
-Stable tag: 2.6.2
+Stable tag: 2.6.3
 Requires PHP: 7.2.0
 
 Harden your website's authentication; add two-factor authentication (2FA) for all your users with this easy-to-use plugin.
@@ -115,14 +115,14 @@ You can find more detailed information about 2FA and its benefits in the links b
 
 == Changelog ==
 
-= 2.6.2 (2024-02-07) =
+= 2.6.3 (2024-02-15) =
 
  * **Improvements**
-	 * Added support for the new plans & pricing (February 2024 update).
-	 * Added support for wp-config.php file in non-default location.
+	 * Added new notices and a few "missing" strings to the POT (translation) file.
+	 * Improved and added sanitization to more user inputs in the plugin.
 	
 * **Bug fixes**
-	* Fixed a number of PHP warnings generated when switching to custom "From" email address in the plugin settings.
-	* User still not forced to configure 2FA after removed from the exclusion list.
+	* Fixed: Added missing ' div' HTML element in the front-end 2FA form.
+	* Fixed: Updated the legacy Enterprise plan -  added the missing feastures - the plan is now called Ent.
 	
 Refer to the complete [plugin changelog](https://melapress.com/support/kb/wp-2fa-plugin-changelog/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=WP2FA&utm_content=plugin+repos+description) for more detailed information about what was new, improved and fixed in previous version updates of WP 2FA.

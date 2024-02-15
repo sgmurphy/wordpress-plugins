@@ -3896,6 +3896,7 @@ class Premium_Weather extends Widget_Base {
 		$height                 = false !== $forecast && 'layout-2' === $settings['layout'] && ! empty( $settings['height']['size'] ) ? $settings['height']['size'] . 'px' : false;
 		$tabs_mode              = ! in_array( $settings['forecast_days'], array( '1', '6', '7', '8' ), true ) && 'yes' === $settings['forecast_tabs'] ? true : false;
 		$show_curr_weather_desc = 'yes' === $settings['show_curr_weather_desc'] ? true : false;
+		$timezone               = $weather_data['timezone'];
 
 		if ( $hourly_forecast ) {
 			$slick_settings = array(
@@ -3981,7 +3982,7 @@ class Premium_Weather extends Widget_Base {
 
 				<?php if ( false !== $hourly_forecast && $hourly_data ) { ?>
 					<div class="premium-weather__hourly-forecast-wrapper">
-						<?php $this->render_hourly_forecast( $hourly_forecast ); ?>
+						<?php $this->render_hourly_forecast( $hourly_forecast, $timezone ); ?>
 					</div>
 				<?php } ?>
 				<?php
@@ -4034,7 +4035,7 @@ class Premium_Weather extends Widget_Base {
 						}
 
 						if ( false !== $hourly_forecast ) {
-							$this->render_hourly_forecast( $hourly_forecast );
+							$this->render_hourly_forecast( $hourly_forecast, $timezone );
 						}
 						?>
 					</div>
@@ -4090,7 +4091,7 @@ class Premium_Weather extends Widget_Base {
 
 			<?php if ( false !== $hourly_forecast && $hourly_data ) { ?>
 				<div class="premium-weather__hourly-forecast-wrapper">
-					<?php $this->render_hourly_forecast( $hourly_forecast ); ?>
+					<?php $this->render_hourly_forecast( $hourly_forecast, $timezone ); ?>
 				</div>
 
 			<?php } ?>
@@ -4254,7 +4255,8 @@ class Premium_Weather extends Widget_Base {
 	 *
 	 * @param array $data  hourly forecast data.
 	 */
-	private function render_hourly_forecast( $data ) {
+	private function render_hourly_forecast( $data, $timezone ) {
+
 		$settings        = $this->settings;
 		$limit           = $settings['hourly_max'];
 		$show_temp_icon  = 'yes' === $settings['show_temp_icon'] ? true : false;
@@ -4269,12 +4271,13 @@ class Premium_Weather extends Widget_Base {
 		}
 
 		for ( $i = 0; $i < $limit; $i++ ) {
+			$current_time = time();
 			$item         = $data[ $i ];
 			$weather_desc = $item['weather'][0]['description'];
 
 			?>
 			<div class="premium-weather__hourly-item">
-				<span class="premium-weather__hourly-item-date"><?php echo esc_html( date( 'g A', $item['dt'] ) ); ?></span>
+				<span class="premium-weather__hourly-item-date"><?php echo esc_html( date( 'g A', $item['dt'] + $timezone ) ); ?></span>
 				<?php if ( ! $vertical_layout ) : ?>
 					<div class="premium-weather__icon-wrapper" title="<?php echo esc_attr( $weather_desc ); ?>">
 						<?php $this->render_weather_icon( $item['weather'][0]['icon'] ); ?>
@@ -4776,7 +4779,7 @@ class Premium_Weather extends Widget_Base {
 
 				?>
 				<div class="premium-weather__hourly-item">
-					<span class="premium-weather__hourly-item-date"><?php echo esc_html( date( 'h:i A', $item['dt'] ) ); ?></span>
+					<span class="premium-weather__hourly-item-date"><?php echo esc_html( date( 'd-h:i A', $item['dt'] ) ); ?></span>
 
 					<?php if ( $conditions_arr['desc_icon'] ) : ?>
 						<div class="premium-weather__icon-wrapper" title="<?php echo esc_attr( $weather_desc ); ?>">
