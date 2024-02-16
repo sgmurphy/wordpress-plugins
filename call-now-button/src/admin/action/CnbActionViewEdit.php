@@ -9,6 +9,7 @@ use cnb\admin\api\CnbAppRemote;
 use cnb\admin\button\CnbButton;
 use cnb\admin\domain\CnbDomain;
 use cnb\admin\models\ValidationMessage;
+use cnb\admin\partials\Preview;
 use cnb\utils\CnbAdminFunctions;
 use cnb\CnbHeaderNotices;
 use cnb\notices\CnbAdminNotices;
@@ -139,6 +140,7 @@ class CnbActionViewEdit {
         $adminFunctions = new CnbAdminFunctions();
 
         wp_enqueue_style( CNB_SLUG . '-jquery-ui' );
+        wp_enqueue_style( CNB_SLUG . '-client' );
         wp_enqueue_script( CNB_SLUG . '-timezone-picker-fix' );
 
         wp_enqueue_script( 'jquery' );
@@ -150,6 +152,7 @@ class CnbActionViewEdit {
         // For the image selector
         wp_enqueue_media();
 
+	    (new Preview())->register_preview_data();
         // Uses domain timezone if no timezone can be found
         $timezone                        = ( isset( $action->schedule ) && ! empty( $action->schedule->timezone ) ) ? $action->schedule->timezone : ( isset( $domain ) ? $domain->timezone : null );
         $action_tz_different_from_domain = isset( $domain ) && ! empty( $domain->timezone ) && $domain->timezone !== $timezone;
@@ -424,6 +427,7 @@ class CnbActionViewEdit {
 	    (new ActionSettingsViber())->render($action);
 	    (new ActionSettingsLine())->render($action);
 	    (new ActionSettingsWeChat())->render($action);
+	    (new ActionSettingsChat())->render( $action );
     }
     /**
      * previously cnb_admin_page_action_edit_render_main
@@ -513,7 +517,8 @@ class CnbActionViewEdit {
         wp_enqueue_script( CNB_SLUG . '-client' );
         wp_enqueue_script( CNB_SLUG . '-action-edit' );
 
-        do_action( 'cnb_header' );
+
+	    do_action( 'cnb_header' );
 
         if ( is_wp_error( $action ) ) {
             return;
@@ -543,8 +548,6 @@ class CnbActionViewEdit {
                             let cnb_button = <?php echo wp_json_encode( $button ); ?>;
                             let cnb_actions = <?php echo wp_json_encode( $button->actions ); ?>;
                             let cnb_domain = <?php echo wp_json_encode( $button->domain ) ?>;
-                            let cnb_css_root = '<?php echo esc_js( CnbAppRemote::cnb_get_static_base() ) ?>';
-                            let cnb_options = <?php echo wp_json_encode( new stdClass() ) ?>;
                             // disable scheduler for the action-edit screen
                             let cnb_ignore_schedule = true
                         </script>

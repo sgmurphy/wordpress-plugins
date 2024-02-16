@@ -61,8 +61,19 @@ class CnbUser implements JsonSerializable {
      * @var CnbUserMarketingData
      */
     public $marketingData;
+	/**
+	 * @var array of roles
+	 */
+	public $roles;
 
-    /**
+	public function __construct() {
+	}
+
+	public function has_role( $role ) {
+		return in_array( $role, $this->roles );
+	}
+
+	/**
      * If a stdClass is passed, it is transformed into a CnbButton.
      * a WP_Error is ignored and returned immediately
      * a null if converted into an (empty) CnbButton
@@ -91,14 +102,17 @@ class CnbUser implements JsonSerializable {
         $stripeDetails       = CnbUserStripeDetails::fromObject( CnbUtils::getPropertyOrNull( $object, 'stripeDetails' ) );
         $user->stripeDetails = $stripeDetails;
         $marketing_data      = CnbUserMarketingData::fromObject( CnbUtils::getPropertyOrNull( $object, 'marketingData' ) );
-        $user->marketingData = $marketing_data;
+	    $user->marketingData = $marketing_data;
+	    $user->roles         = CnbUtils::getPropertyOrNull( $object, 'roles' );
 
         return $user;
     }
 
     public function toArray() {
-        // Note, we do not export "euvatbusiness", since that is only used internally
-        // We also do not export "marketingData", since that is handled via CnbAppRemote::enable_email_opt_in/disable_email_opt_in
+        // Note:
+	    // Do not export "euvatbusiness", since that is only used internally
+	    // Do not export "roles", this is only used internally
+        // Do not export "marketingData", since that is handled via CnbAppRemote::enable_email_opt_in/disable_email_opt_in
         return array(
             'id'          => $this->id,
             'name'        => $this->name,

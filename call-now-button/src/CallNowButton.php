@@ -8,6 +8,7 @@ defined( 'ABSPATH' ) || die( '-1' );
 use cnb\admin\action\CnbActionController;
 use cnb\admin\action\CnbActionRouter;
 use cnb\admin\api\CnbAppRemote;
+use cnb\admin\api\CnbUserController;
 use cnb\admin\apikey\CnbApiKeyController;
 use cnb\admin\apikey\CnbApiKeyRouter;
 use cnb\admin\apikey\OttController;
@@ -304,7 +305,7 @@ class CallNowButton {
             '1.13.0' );
         wp_register_style(
             CNB_SLUG . '-client',
-            CnbAppRemote::cnb_get_static_base() . '/css/main.css',
+            CnbAppRemote::get_client_css(),
             array(),
             CNB_VERSION );
 
@@ -469,7 +470,7 @@ class CallNowButton {
         // and the source is always changing - we include it as external script
         wp_register_script(
             CNB_SLUG . '-client',
-            CnbAppRemote::cnb_get_static_base() . '/js/client.js',
+            CnbAppRemote::get_client_js(),
             array(),
             CNB_VERSION,
             true );
@@ -506,7 +507,6 @@ class CallNowButton {
     }
 
     public function register_global_actions() {
-	    $cnb_options       = get_option( 'cnb' );
         add_action( 'admin_menu', array( $this, 'register_admin_pages' ) );
         add_action( 'admin_menu', array( $this, 'register_welcome_page' ) );
         add_action( 'admin_head', array( $this, 'hide_welcome_page' ) );
@@ -537,6 +537,9 @@ class CallNowButton {
 		    $cnb_validation = new ValidationHooks();
 		    add_action( 'cnb_validation_notices', array( $cnb_validation, 'create_notice' ), 10, 2 );
 	    }
+
+		$action_controller = new CnbActionController();
+		add_filter( 'cnb_get_action_types', array( $action_controller, 'filter_action_types' ) );
     }
 
     public function register_header_and_footer() {
@@ -630,6 +633,8 @@ class CallNowButton {
 	    $button_controller = new CnbButtonController();
 	    add_action( 'wp_ajax_cnb_create_button', array( $button_controller, 'create_ajax' ) );
 
+		$user_controller = new CnbUserController();
+	    add_action( 'wp_ajax_cnb_set_user_storage_solution', array( $user_controller, 'set_storage_solution' ) );
     }
 
 	/**

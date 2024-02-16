@@ -2,10 +2,10 @@
 /**
  * Plugin Name: Kadence AI Starter Templates
  * Description: Launch a beautiful website with the power of AI.
- * Version: 2.0.7
+ * Version: 2.0.8
  * Author: Kadence WP
  * Author URI: https://kadencewp.com/
- * Requires PHP: 7.2
+ * Requires PHP: 7.4
  * License: GPLv2 or later
  * Text Domain: kadence-starter-templates
  *
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'KADENCE_STARTER_TEMPLATES_PATH', plugin_dir_path( __FILE__ ) );
 define( 'KADENCE_STARTER_TEMPLATES_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
-define( 'KADENCE_STARTER_TEMPLATES_VERSION', '2.0.7' );
+define( 'KADENCE_STARTER_TEMPLATES_VERSION', '2.0.8' );
 
 require_once plugin_dir_path( __FILE__ ) . 'vendor/vendor-prefixed/autoload.php';
 require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
@@ -80,7 +80,7 @@ function kadence_starter_templates_lang() {
 add_action( 'init', 'kadence_starter_templates_lang' );
 
 /**
- * The Kadence Blocks Application Container.
+ * The Kadence Starter Templates Application Container.
  *
  * @see kadence_starter_templates_init()
  *

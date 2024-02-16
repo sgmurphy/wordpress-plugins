@@ -15,6 +15,7 @@ use cnb\admin\models\CnbPlan;
 use cnb\admin\models\CnbUser;
 use cnb\admin\models\ValidationMessageWithId;
 use cnb\admin\settings\StripeBillingPortal;
+use cnb\admin\settings\UrlSettings;
 use cnb\coupons\CnbPromotionCode;
 use cnb\cron\Cron;
 use cnb\utils\CnbUtils;
@@ -89,6 +90,15 @@ class CnbAppRemote {
 	 * @return string usually "https://user.callnowbutton.com"
 	 */
 	public static function cnb_get_user_base() {
+		UrlSettings::restoreFromOptions();
+		/** @type UrlSettings $cnb_settings */
+		global $cnb_settings;
+
+		if ($cnb_settings && $cnb_settings->get_user_root()) {
+			return $cnb_settings->get_user_root();
+		}
+
+		// This needs to /only/ be the fallback
 		return str_replace( 'api', 'user', CnbAppRemote::cnb_get_api_base() );
 	}
 
@@ -96,11 +106,52 @@ class CnbAppRemote {
 	 * @return string usually "https://static.callnowbutton.com"
 	 */
 	public static function cnb_get_static_base() {
+		UrlSettings::restoreFromOptions();
+		/** @type UrlSettings $cnb_settings */
+		global $cnb_settings;
+
+		if ($cnb_settings && $cnb_settings->get_static_root()) {
+			return $cnb_settings->get_static_root();
+		}
+
+		// This needs to /only/ be the fallback
 		return str_replace( 'api', 'static', CnbAppRemote::cnb_get_api_base() );
 	}
 
 	/**
-	 * @return int 0 if not found, otherwise the current cache key
+	 * @return string usually "https://static.callnowbutton.com/js/client.js
+	 */
+	public static function get_client_js() {
+		UrlSettings::restoreFromOptions();
+		/** @type UrlSettings $cnb_settings */
+		global $cnb_settings;
+
+		if ($cnb_settings && $cnb_settings->get_js_location()) {
+			return $cnb_settings->get_js_location();
+		}
+
+		// This needs to /only/ be the fallback
+		return CnbAppRemote::cnb_get_static_base() . '/js/client.js';
+	}
+
+	/**
+	 * @return string usually "https://static.callnowbutton.com/css/main.css"
+	 */
+	public static function get_client_css() {
+		UrlSettings::restoreFromOptions();
+		/** @type UrlSettings $cnb_settings */
+		global $cnb_settings;
+
+		if ($cnb_settings && $cnb_settings->get_css_location()) {
+			return $cnb_settings->get_css_location();
+		}
+
+		// This needs to /only/ be the fallback
+		return CnbAppRemote::cnb_get_static_base() . '/css/main.css';
+	}
+
+	/**
+	 * @return int|false false if not found, otherwise the current cache key
 	 */
 	public static function cnb__get_transient_base() {
 		$val = get_transient( self::cnb_get_api_base() );
@@ -108,7 +159,7 @@ class CnbAppRemote {
 			return (int) $val;
 		}
 
-		return 0;
+		return false;
 	}
 
 	/**
@@ -364,7 +415,8 @@ class CnbAppRemote {
 		$cnb_coupon,
 		$cnb_plans,
 		$cnb_validation_messages,
-		$cnb_subscription_data;
+		$cnb_subscription_data,
+		$cnb_settings;
 
 		$rest_endpoint = '/v1/wp/all/' . $this->cnb_clean_site_url();
 
@@ -381,10 +433,16 @@ class CnbAppRemote {
 		$cnb_coupon              = CnbPromotionCode::fromObject( $data->coupon );
 		$cnb_plans               = CnbPlan::fromObjects( $data->plans );
 		$cnb_validation_messages = ValidationMessageWithId::fromObjects( $data->validationMessages );
+		$cnb_settings            = UrlSettings::fromObject($data->settings);
 		// This might not be available in each API call, depending on environment settings
 		if ( isset( $data->subscriptionStatusData ) ) {
 			$cnb_subscription_data = SubscriptionStatus::from_object( $data->subscriptionStatusData );
 			$this->save_subscription_data($cnb_subscription_data);
+		}
+
+		// This updates the internal options, so that the new settings (if any) can be rendered on the front-end
+		if ( $cnb_settings ) {
+			$cnb_settings->register_settings();
 		}
 	}
 
@@ -939,5 +997,16 @@ class CnbAppRemote {
 		$rest_endpoint = '/v1/user/wp';
 
 		return self::cnb_remote_post( $rest_endpoint, $body, false );
+	}
+
+	/**
+	 * @param $storage_type string GCS or R2
+	 *
+	 * @return mixed|WP_Error
+	 */
+	public function set_user_storage_type ( $storage_type ) {
+		$rest_endpoint = '/v1/user/settings/storage/' . $storage_type;
+		$body = '';
+		return self::cnb_remote_post( $rest_endpoint, $body );
 	}
 }

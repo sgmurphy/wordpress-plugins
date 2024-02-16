@@ -2,18 +2,7 @@
 var widgetId=elementorCommon.helpers.getUniqueId();
 var slideToShow=settings.twae_slides_to_show;
 var slideHeight=settings.twae_slides_height;
-
-if(settings.twae_icon_position.size >= 1 && settings.twae_icon_position.size < 40){
-	twae_icon_position='twae-position-40-minus';
-}else if(settings.twae_icon_position.size > 50 && settings.twae_icon_position.size <= 60){
-	twae_icon_position='twae-position-50-60';
-}else if(settings.twae_icon_position.size > 60){
-	twae_icon_position='twae-position-60-plus';
-}else{
-	twae_icon_position='twae-position-40-50';
-}
-
-
+var autoplay = settings.twae_autoplay;
 #>
 <div id="twae-wrapper-{{widgetId}}" class="twae-wrapper twae-horizontal-timeline">
 <div class="twae-wrapper-inside">
@@ -40,7 +29,7 @@ if(settings.twae_icon_position.size >= 1 && settings.twae_icon_position.size < 4
 			var iconType = item.twae_icon_type!=="undefined"?item.twae_icon_type:'icon';
 			#>
 			
-			<div class="swiper-slide twae-repeater-item twae-story {{twae_icon_position}}">	
+			<div class="swiper-slide twae-repeater-item twae-story">	
 			<div class="twae-story-line"></div>
 			<#
 			 if(item.twae_show_year_label == 'yes'){

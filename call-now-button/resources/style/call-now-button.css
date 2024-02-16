@@ -2343,3 +2343,10 @@ span.cnb-pro-badge {
     color: #666;
     font-weight: normal;
 }
+
+table.cnb-chat-legal-values th.cnb-legal-tokens {
+    max-width: 80px;
+}
+table.cnb-chat-legal-values tbody td {
+    padding-left: 0;
+}

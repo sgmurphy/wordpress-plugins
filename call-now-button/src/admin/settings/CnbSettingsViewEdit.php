@@ -192,11 +192,16 @@ class CnbSettingsViewEdit {
     private function render_advanced_options( $cnb_domain, $cnb_user ) {
         $cnb_options = get_option( 'cnb' );
         global $cnb_domains;
+        /** @var $cnb_settings UrlSettings */
+	    global $cnb_settings;
 
         $adminFunctions     = new CnbAdminFunctions();
         $cnbAppRemote       = new CnbAppRemote();
         $cnb_clean_site_url = $cnbAppRemote->cnb_clean_site_url();
         $status             = CnbSettingsController::getStatus( $cnb_options );
+
+        $user_nonce = wp_create_nonce( 'cnb-user' );
+        $switch = $cnb_settings->get_storage_type() === 'R2' ? 'GCS' : 'R2';
         ?>
         <table data-tab-name="advanced_options"
                class="form-table <?php echo esc_attr( $adminFunctions->is_active_tab( 'advanced_options' ) ) ?>">
@@ -337,6 +342,35 @@ class CnbSettingsViewEdit {
                         <span data-cnb_toggle_state_label="cnb-api-caching"
                               class="cnb_toggle_state cnb_toggle_true">Enabled</span>
                         <p class="description">Cache API requests (using WordPress transients)</p>
+                    </td>
+                </tr>
+                <tr class="cnb_advanced_view">
+                    <th><label for="cnb-storage_type">Storage type</label></th>
+                    <td>
+                        <p>Storage type: <code><?php echo esc_html($cnb_settings->get_storage_type())?></code></p>
+                        <p class="description">What storage backend is NowButtons using?</p>
+
+                        <p>
+                            JS Location: <code><?php echo esc_html($cnb_settings->get_js_location())?></code><br />
+                            CSS Location: <code><?php echo esc_html($cnb_settings->get_css_location())?></code><br />
+                            Static Root: <code><?php echo esc_html($cnb_settings->get_static_root())?></code>
+                        </p>
+                        <p class="description">Snippet locations</p>
+
+                        <p>
+                            User Root: <code><?php echo esc_html($cnb_settings->get_user_root())?></code>
+                        </p>
+                        <p class="description">Root for the User files</p>
+                        <div>
+                            <input
+                                    class="cnb-switch-storage-type button button-secondary"
+                                    type="button"
+                                    data-storage-type="<?php echo esc_attr($switch) ?>"
+                                    data-wpnonce="<? echo esc_attr($user_nonce) ?>"
+                                    value="Switch to <?php echo esc_attr($switch) ?>"
+                            />
+                            <div class="notice inline hidden cnb-switch-storage-type-result"></div>
+                        </div>
                     </td>
                 </tr>
             <?php } // end of cloud check ?>

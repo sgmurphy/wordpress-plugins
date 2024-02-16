@@ -5,7 +5,7 @@ Tags:timeline,elementor,elementor timeline,elementor addon,elementor widgets,add
 Requires at least:5.0
 Tested up to:6.4
 Requires PHP:5.6
-Stable tag:1.5.4
+Stable tag:1.5.5
 License:GPLv2 or later
 License URI:http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -114,16 +114,20 @@ No. You cannot use it without Elementor since it’s an addon for Elementor.
 Yes, it will work with the Elementor Pro version.
 
 == Changelog ==
-<strong>Version 1.5.4 | 01 February 2024</strong>
+<strong>Version 1.5.5 | 16 February 2024</strong>
+<pre>
+Added: Code Improvement.
+Fixed: Minor bug fixes
+</pre>
+<strong>Version 1.5.4 | 31 January 2024</strong>
 <pre>
 Fixed: Minor vulnerability fixes.
 Added: Added escaping function on attributes.
 Fixed: Fixed Horizontal slides hidden issue.
 Fixed: PHP error if slideshow option selected in media.
 Fixed: Fixed PHP deprecated function issue.
-Tested up: Elementor v3.19.10 and WordPress 6.4.3.
+Tested up: Elementor v3.19.1 and WordPress 6.4.3.
 </pre>
-== Changelog ==
 <strong>Version 1.5.3 | 08 January 2024</strong>
 <pre>
 Fixed: Assets loading issue on frontend

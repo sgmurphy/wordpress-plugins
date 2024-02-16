@@ -8,8 +8,8 @@ defined( 'ABSPATH' ) || die( '-1' );
 use cnb\admin\api\CnbAppRemote;
 use cnb\admin\domain\CnbDomain;
 use cnb\admin\models\ValidationMessage;
+use cnb\admin\partials\Preview;
 use cnb\utils\CnbAdminFunctions;
-use stdClass;
 use WP_Error;
 
 class CnbButtonViewEdit {
@@ -92,11 +92,8 @@ class CnbButtonViewEdit {
         wp_enqueue_script( CNB_SLUG . '-action-edit' );
         wp_enqueue_script( CNB_SLUG . '-condition-edit' );
         wp_enqueue_style( CNB_SLUG . '-client' );
+	    (new Preview())->register_preview_data();
         ?>
-        <script>
-            let cnb_css_root = '<?php echo esc_js( CnbAppRemote::cnb_get_static_base() ) ?>';
-            let cnb_options = <?php echo wp_json_encode( new stdClass() ) ?>;
-        </script>
         <form class="cnb-container <?php if ( ! $hide_on_modal ) { ?>cnb-validation<?php } ?>"
               action="<?php echo esc_url( admin_url( 'admin-post.php' ) ) ?>" method="post">
             <input type="hidden" name="page" value="call-now-button"/>

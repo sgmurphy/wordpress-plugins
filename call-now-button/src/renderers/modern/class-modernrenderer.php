@@ -106,6 +106,9 @@ class ModernRenderer extends Renderer {
             return null;
         }
 
+        $cnb_is_full_width = $cnb_options['appearance'] == 'full' || $cnb_options['appearance'] == 'tfull';
+        $cnb_has_text = isset( $cnb_options['text'] ) && $cnb_options['text'] !== '';
+
         $cnb_tracking_id         = isset($cnb_options['tracking']) ? (int) $cnb_options['tracking'] : 0;
         $cnb_conversion_id       = isset($cnb_options['conversions']) ? (int) $cnb_options['conversions'] : 0;
         $cnb_tracking_id         = ( $cnb_tracking_id >= 0 && $cnb_tracking_id <= 3 ) ? $cnb_tracking_id : 0;
@@ -122,7 +125,9 @@ class ModernRenderer extends Renderer {
         $conversion_code       = $this->get_google_conversion_code( $cnb_conversion_tracking, $cnb_conversion_id );
         $cnb_button_text       = $this->create_button_text();
 
-	    $cnb_call_link = '<a aria-label="' . esc_attr( $this->get_aria_label_attr() ) . '"';
+        $cnb_aria_label = $cnb_has_text ? '' : 'aria-label="Call Now Button"';
+
+	    $cnb_call_link = '<a ' . $cnb_aria_label;
         $cnb_call_link .= ' href="tel:' . esc_attr( $cnb_number ) . '"';
         $cnb_call_link .= ' id="callnowbutton"';
         $cnb_call_link .= ' class="' . esc_attr( implode(' ', $cnb_classnames ) ) . '"';
@@ -138,23 +143,6 @@ class ModernRenderer extends Renderer {
 
         return $cnb_call_link;
     }
-
-	/**
-	 * Get the "aria-label" value for this Button.
-	 *
-	 * @return string Will never be empty or null (provides a default value "Call Now Button" if no text is available)
-	 */
-	private function get_aria_label_attr() {
-		$cnb_options = get_option( 'cnb' );
-
-		$cnb_has_text = isset( $cnb_options['text'] ) && $cnb_options['text'] !== '';
-
-		if ( ! $cnb_has_text ) {
-			return 'Call Now Button';
-		}
-
-		return $cnb_options['text'];
-	}
 
     public function cnb_head() {
         $cnb_options = get_option( 'cnb' );
@@ -277,13 +265,13 @@ class ModernRenderer extends Renderer {
             $svg = $this->svg( $cnb_options['iconcolor'] );
 
             $result = '';
-            // Without text, return just the icon via img tag
+
             if ( ! $cnb_hide_icon ) {
-                $result .= sprintf( '<img alt="Call Now Button" src="data:image/svg+xml;base64,%1$s" width="40">',
+                $altAttr = $cnb_has_text ? 'alt=""' : 'alt="Call Now Button"';
+                $result .= sprintf( '<img ' . $altAttr . ' src="data:image/svg+xml;base64,%1$s" width="40">',
                     esc_attr( $svg ) );
             }
-
-            // Without icon, return just the text without icon
+            
             if ( $cnb_has_text ) {
                 $result .= sprintf( '<span style="color:%1$s">%2$s</span>',
                     esc_attr( $cnb_options['iconcolor'] ),

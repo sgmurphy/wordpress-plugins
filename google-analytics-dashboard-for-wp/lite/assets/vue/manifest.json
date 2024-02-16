@@ -7,59 +7,59 @@
     "file": "css/ContentIconList.css",
     "src": "ContentIconList.css"
   },
-  "_AboutTestimonialsSlider.js": {
+  "_AboutTestimonialsSlider-b3b648c6.js": {
     "css": [
       "css/AboutTestimonialsSlider.css"
     ],
-    "file": "js/chunks/AboutTestimonialsSlider.js",
+    "file": "js/chunks/AboutTestimonialsSlider-b3b648c6.js",
     "imports": [
-      "_vendor.js",
-      "_SettingsInfoTooltip.js",
-      "_ContentIconList.js"
+      "_vendor-809248d8.js",
+      "_SettingsInfoTooltip-631179db.js",
+      "_ContentIconList-4530fbab.js"
     ]
   },
-  "_ContentIconList.js": {
+  "_ContentIconList-4530fbab.js": {
     "css": [
       "css/ContentIconList.css"
     ],
-    "file": "js/chunks/ContentIconList.js",
+    "file": "js/chunks/ContentIconList-4530fbab.js",
     "imports": [
-      "_vendor.js"
+      "_vendor-809248d8.js"
     ]
   },
-  "_SettingsInfoTooltip.js": {
-    "file": "js/chunks/SettingsInfoTooltip.js",
+  "_SettingsInfoTooltip-631179db.js": {
+    "file": "js/chunks/SettingsInfoTooltip-631179db.js",
     "imports": [
-      "_vendor.js"
+      "_vendor-809248d8.js"
     ]
   },
-  "_WidgetReportError.js": {
-    "file": "js/chunks/WidgetReportError.js",
+  "_WidgetReportError-34599f3d.js": {
+    "file": "js/chunks/WidgetReportError-34599f3d.js",
     "imports": [
-      "_vendor.js"
+      "_vendor-809248d8.js"
     ]
   },
-  "_exactmetrics-reports-helper-plugin.js": {
-    "file": "js/chunks/exactmetrics-reports-helper-plugin.js",
+  "_exactmetrics-reports-helper-plugin-f786df3d.js": {
+    "file": "js/chunks/exactmetrics-reports-helper-plugin-f786df3d.js",
     "imports": [
-      "_vendor.js",
-      "_SettingsInfoTooltip.js"
+      "_vendor-809248d8.js",
+      "_SettingsInfoTooltip-631179db.js"
     ]
   },
-  "_html2canvas.js": {
-    "file": "js/chunks/html2canvas.js",
+  "_html2canvas-2f5ba308.js": {
+    "file": "js/chunks/html2canvas-2f5ba308.js",
     "imports": [
-      "_vendor.js"
+      "_vendor-809248d8.js"
     ],
     "isDynamicEntry": true
   },
-  "_index.js": {
-    "file": "js/chunks/index.js",
+  "_index-28669258.js": {
+    "file": "js/chunks/index-28669258.js",
     "imports": [
-      "_vendor.js"
+      "_vendor-809248d8.js"
     ]
   },
-  "_index2.js": {
+  "_index-a539e7d3.js": {
     "assets": [
       "img/icon-info.svg",
       "img/logo-ExactMetrics@2x.png",
@@ -82,19 +82,19 @@
     "css": [
       "css/index.css"
     ],
-    "file": "js/chunks/index2.js",
+    "file": "js/chunks/index-a539e7d3.js",
     "imports": [
-      "_vendor.js",
-      "_ContentIconList.js"
+      "_vendor-809248d8.js",
+      "_ContentIconList-4530fbab.js"
     ]
   },
-  "_index3.js": {
-    "file": "js/chunks/index3.js",
+  "_index-e09d2d2c.js": {
+    "file": "js/chunks/index-e09d2d2c.js",
     "imports": [
-      "_vendor.js"
+      "_vendor-809248d8.js"
     ]
   },
-  "_vendor.js": {
+  "_vendor-809248d8.js": {
     "assets": [
       "img/sucker.png"
     ],
@@ -102,11 +102,11 @@
       "css/vendor.css"
     ],
     "dynamicImports": [
-      "_html2canvas.js",
+      "_html2canvas-2f5ba308.js",
       "node_modules/dompurify/dist/purify.es.js",
       "node_modules/canvg/lib/index.es.js"
     ],
-    "file": "js/chunks/vendor.js"
+    "file": "js/chunks/vendor-809248d8.js"
   },
   "index.css": {
     "file": "css/index.css",
@@ -117,15 +117,15 @@
     "src": "node_modules/@caohenghu/vue-colorpicker/src/img/sucker.png"
   },
   "node_modules/canvg/lib/index.es.js": {
-    "file": "js/chunks/index.es.js",
+    "file": "js/chunks/index.es-c63d626c.js",
     "imports": [
-      "_vendor.js"
+      "_vendor-809248d8.js"
     ],
     "isDynamicEntry": true,
     "src": "node_modules/canvg/lib/index.es.js"
   },
   "node_modules/dompurify/dist/purify.es.js": {
-    "file": "js/chunks/purify.es.js",
+    "file": "js/chunks/purify.es-2ba3e0d8.js",
     "isDynamicEntry": true,
     "src": "node_modules/dompurify/dist/purify.es.js"
   },
@@ -957,10 +957,10 @@
     ],
     "file": "js/frontend.js",
     "imports": [
-      "_vendor.js",
-      "_index3.js",
-      "_WidgetReportError.js",
-      "_index.js"
+      "_vendor-809248d8.js",
+      "_index-e09d2d2c.js",
+      "_WidgetReportError-34599f3d.js",
+      "_index-28669258.js"
     ],
     "isEntry": true,
     "src": "src/modules/frontend/frontend.js"
@@ -1048,13 +1048,13 @@
     ],
     "file": "js/reports.js",
     "imports": [
-      "_vendor.js",
-      "_index3.js",
-      "_exactmetrics-reports-helper-plugin.js",
-      "_SettingsInfoTooltip.js",
-      "_index2.js",
-      "_ContentIconList.js",
-      "_index.js"
+      "_vendor-809248d8.js",
+      "_index-e09d2d2c.js",
+      "_exactmetrics-reports-helper-plugin-f786df3d.js",
+      "_SettingsInfoTooltip-631179db.js",
+      "_index-a539e7d3.js",
+      "_ContentIconList-4530fbab.js",
+      "_index-28669258.js"
     ],
     "isEntry": true,
     "src": "src/modules/reports/reports.js"
@@ -1226,12 +1226,12 @@
     ],
     "file": "js/settings.js",
     "imports": [
-      "_vendor.js",
-      "_index.js",
-      "_ContentIconList.js",
-      "_AboutTestimonialsSlider.js",
-      "_index2.js",
-      "_SettingsInfoTooltip.js"
+      "_vendor-809248d8.js",
+      "_index-28669258.js",
+      "_ContentIconList-4530fbab.js",
+      "_AboutTestimonialsSlider-b3b648c6.js",
+      "_index-a539e7d3.js",
+      "_SettingsInfoTooltip-631179db.js"
     ],
     "isEntry": true,
     "src": "src/modules/settings/settings.js"
@@ -1323,12 +1323,12 @@
     ],
     "file": "js/widget.js",
     "imports": [
-      "_vendor.js",
-      "_index3.js",
-      "_exactmetrics-reports-helper-plugin.js",
-      "_SettingsInfoTooltip.js",
-      "_WidgetReportError.js",
-      "_index.js"
+      "_vendor-809248d8.js",
+      "_index-e09d2d2c.js",
+      "_exactmetrics-reports-helper-plugin-f786df3d.js",
+      "_SettingsInfoTooltip-631179db.js",
+      "_WidgetReportError-34599f3d.js",
+      "_index-28669258.js"
     ],
     "isEntry": true,
     "src": "src/modules/widget/widget.js"
@@ -1399,11 +1399,11 @@
     ],
     "file": "js/wizard.js",
     "imports": [
-      "_vendor.js",
-      "_AboutTestimonialsSlider.js",
-      "_SettingsInfoTooltip.js",
-      "_index.js",
-      "_ContentIconList.js"
+      "_vendor-809248d8.js",
+      "_AboutTestimonialsSlider-b3b648c6.js",
+      "_SettingsInfoTooltip-631179db.js",
+      "_index-28669258.js",
+      "_ContentIconList-4530fbab.js"
     ],
     "isEntry": true,
     "src": "src/modules/wizard-onboarding/wizard.js"

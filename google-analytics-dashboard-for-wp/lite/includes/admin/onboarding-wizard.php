@@ -165,7 +165,7 @@ class ExactMetrics_Onboarding_Wizard {
 			<?php do_action( 'admin_print_scripts' ); ?>
 			<?php do_action( 'admin_head' ); ?>
 		</head>
-		<body class="exactmetrics-onboarding">
+		<body class="exactmetrics-onboarding exactmetrics_page">
 		<?php
 	}
 

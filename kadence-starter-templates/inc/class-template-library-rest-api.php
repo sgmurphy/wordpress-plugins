@@ -678,6 +678,18 @@ class Library_REST_Controller extends WP_REST_Controller {
 				),
 			)
 		);
+		register_rest_route(
+			$this->namespace,
+			'/process_images',
+			array(
+				array(
+					'methods'             => WP_REST_Server::CREATABLE,
+					'callback'            => array( $this, 'process_images' ),
+					'permission_callback' => array( $this, 'get_items_permission_check' ),
+					'args'                => $this->get_collection_params(),
+				),
+			)
+		);
 	}
 	/**
 	 * Retrieves a collection of objects.
@@ -1189,6 +1201,7 @@ class Library_REST_Controller extends WP_REST_Controller {
 		$body['mission'] = ! empty( $prophecy_data['missionStatement'] ) ? $prophecy_data['missionStatement'] : '';
 		$body['tone'] = ! empty( $prophecy_data['tone'] ) ? $prophecy_data['tone'] : '';
 		$body['keywords'] = ! empty( $prophecy_data['keywords'] ) ? $prophecy_data['keywords'] : '';
+		$body['lang'] = ! empty( $prophecy_data['lang'] ) ? $prophecy_data['lang'] : '';
 
 		switch ( $context ) {
 			case 'about':
@@ -1976,6 +1989,7 @@ class Library_REST_Controller extends WP_REST_Controller {
 			'industry' => $parameters['industry'],
 			'location' => $parameters['location'],
 			'description' => $parameters['description'],
+			'lang' => ! empty( $parameters['lang'] ) ? $parameters['lang'] : '',
 			'count' => $parameters['count'],
 		);
 		$response = wp_remote_post(
@@ -2801,7 +2815,6 @@ class Library_REST_Controller extends WP_REST_Controller {
 	 */
 	private function process_options_images( $mods ) {
 		foreach ( $mods as $key => $val ) {
-
 			if ( $this->is_image_url( $val ) ) {
 				$image = array(
 					'id'  => 0,
@@ -3543,19 +3556,31 @@ class Library_REST_Controller extends WP_REST_Controller {
 	 */
 	public function check_for_local_image( $image_data ) {
 		global $wpdb;
-
-		// Thanks BrainstormForce for this idea.
-		// Check if image is already local based on meta key and custom hex value.
-		$image_id = $wpdb->get_var(
-			$wpdb->prepare(
-				'SELECT `post_id` FROM `' . $wpdb->postmeta . '`
-					WHERE `meta_key` = \'_kadence_blocks_image_hash\'
-						AND `meta_value` = %s
-				;',
-				sha1( $image_data['url'] )
-			)
-		);
-		if ( $image_id ) {
+		$image_id = '';
+		if ( ! empty( $image_data['url'] ) && strpos( $image_data['url'], get_site_url() ) !== false ) {
+			$image_id = attachment_url_to_postid( $image_data['url'] );
+			if ( empty( $image_id ) ) {
+				// Get unsized version use Regular expression to find the pattern -numberxnumber
+				$pattern = "/-\d+x\d+/";
+				// Replace the pattern with an empty string.
+				$cleaned_url = preg_replace( $pattern, '', $image_data['url'] );
+				$image_id = attachment_url_to_postid( $cleaned_url );
+			}
+		}
+		if ( empty( $image_id ) ) {
+			// Thanks BrainstormForce for this idea.
+			// Check if image is already local based on meta key and custom hex value.
+			$image_id = $wpdb->get_var(
+				$wpdb->prepare(
+					'SELECT `post_id` FROM `' . $wpdb->postmeta . '`
+						WHERE `meta_key` = \'_kadence_blocks_image_hash\'
+							AND `meta_value` = %s
+					;',
+					sha1( $image_data['url'] )
+				)
+			);
+		}
+		if ( ! empty( $image_id ) ) {
 			$local_image = array(
 				'id'  => $image_id,
 				'url' => wp_get_attachment_url( $image_id ),
@@ -3672,7 +3697,7 @@ class Library_REST_Controller extends WP_REST_Controller {
 		if ( empty( $link ) ) {
 			return false;
 		}
-		if ( strpos( $link, 'images.pexels.com' ) !== false ) {
+		if ( strpos( $link, 'https://images.pexels.com' ) !== false ) {
 			return true;
 		}
 		return preg_match( '/^((https?:\/\/)|(www\.))([a-z0-9-].?)+(:[0-9]+)?\/[\w\-]+\.(jpg|png|gif|webp|jpeg)\/?$/i', $link );
@@ -3798,6 +3823,20 @@ class Library_REST_Controller extends WP_REST_Controller {
 			return $new_industries;
 		}
 		return array();
+	}
+	/**
+	 * Imports a collection of images.
+	 *
+	 * @param WP_REST_Request $request Full details about the request.
+	 *
+	 * @return array<array{id: int, url: string}> A list of local or pexels images, where the ID is an attachment_id or pexels_id.
+	 * @throws InvalidArgumentException
+	 * @throws Throwable
+	 * @throws ImageDownloadException
+	 */
+	public function process_images( WP_REST_Request $request ): array {
+		$parameters = (array) $request->get_json_params();
+		return kadence_starter_templates()->get( Image_Downloader::class )->download( $parameters );
 	}
 	/**
 	 * Retrieves a collection of objects.

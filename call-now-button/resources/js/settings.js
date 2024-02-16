@@ -79,9 +79,32 @@ function cnb_show_tips_when_deactivating() {
   }
 }
 
+function add_onclick_cnb_user_storage_type() {
+    jQuery('.cnb-switch-storage-type').on('click', cnb_user_storage_type)
+}
+function cnb_user_storage_type() {
+    const switchingTo = jQuery(this).data('storage-type')
+    const data = {
+        'action': 'cnb_set_user_storage_solution',
+        'storage_type': switchingTo,
+        '_ajax_nonce': jQuery(this).data('wpnonce'),
+    }
+
+    jQuery(this).prop('disabled', true)
+    jQuery('.cnb-switch-storage-type-result').text("Switching to " + switchingTo + ".").removeClass('hidden').removeClass('notice-success').addClass('notice-info')
+    jQuery.post(ajaxurl, data)
+        .done((result) => {
+            const switchedTo = result.settings.fileStorageImplementation
+            jQuery('.cnb-switch-storage-type-result').text("Successfully switched to " + switchedTo + '. Refresh the page to see the new data.').removeClass('notice-info').addClass('notice-success')
+        })
+
+    return false
+}
+
 jQuery(() => {
     init_settings();
     cnb_disable_api_key_when_cloud_hosting_is_disabled()
     cnb_ask_for_feedback_disable_cloud()
     cnb_show_tips_when_deactivating()
+    add_onclick_cnb_user_storage_type()
 })

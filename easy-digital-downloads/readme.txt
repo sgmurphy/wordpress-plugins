@@ -6,7 +6,7 @@ Tags: ecommerce, payments, sell, digital store, stripe
 Requires at least: 5.8
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable Tag: 3.2.7.1
+Stable Tag: 3.2.8
 License: GNU Version 2 or Any Later Version
 
 The #1 eCommerce plugin to sell digital products. Manage eCommerce orders, increase store revenue & accept credit card payments with Stripe + PayPal.
@@ -226,8 +226,23 @@ Yes, with an Extended Pass you get access to [Recurring Payments](https://easydi
 8. Checkout - Default Theme
 
 == Changelog ==
-= 3.2.7.1 =
-* Reports: Fixed issue with loading downloads reports.
+
+= 3.2.8 =
+* Stripe: Resolved an issue that could cause card payments to fail when providing a Bank statement description with the `statement_descriptor` parameter.
+* Stripe: IMPORTANT! The Statement Description settings in the Stripe gateway settings are no longer editable. The description is now automatically pulled from the Stripe account settings.
+* Stripe: Buy Now buttons could throw a PHP deprecation notice.
+* API: Added an option to enable logging public API queries (API Requests without a key & token) for the EDD API.
+* Downloads: Improved the reliability of the download file access checks.
+* Downloads: Searching downloads via the dropdown could return incorrect results.
+* PayPal: Improved the reliability of the PayPal Merchant Account Connection process.
+* Taxes: Improved the reliability of the tax calculations for orders with multiple items.
+* Checkout: The Legend for checkout form elements could display incorrectly in Safari.
+* HTML: Introduced a new Toggle Checkbox Class.
+* Reports: A fatal error could occur if you supplied an invalid Download ID to the reports URL.
+* System: Prevent a fatal error and improve the gathering of site system information.
+* Compatibility: Improved checkout compatibility with Wordfence.
+
+View the full changelog at [https://easydigitaldownloads.com/changelogs/plugin/easy-digital-downloads/](https://easydigitaldownloads.com/changelogs/plugin/easy-digital-downloads/?utm_medium=readme&utm_source=wporg&utm_campaign=edd-plugin&utm_term=description)
 
 = 3.2.7 =
 * Admin: Improved validation of saving some settings.
@@ -241,8 +256,6 @@ Yes, with an Extended Pass you get access to [Recurring Payments](https://easydi
 * Reports: Download Taxonomy reports have been improved for large data sets.
 * Reports: Some timezones and date calculations were getting incorrect date ranges.
 * Stripe: Improved mixed cart messaging.
-
-View the full changelog at [https://easydigitaldownloads.com/changelogs/plugin/easy-digital-downloads/](https://easydigitaldownloads.com/changelogs/plugin/easy-digital-downloads/?utm_medium=readme&utm_source=wporg&utm_campaign=edd-plugin&utm_term=description)
 
 = 3.2.6 =
 * Checkout: Improved checkout block field handling for guest customers.

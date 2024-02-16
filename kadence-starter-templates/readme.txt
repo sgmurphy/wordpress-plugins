@@ -3,8 +3,8 @@ Contributors: britner
 Tags: templates, gutenberg
 Requires at least: 6.1
 Tested up to: 6.4
-Stable tag: 2.0.7
-Requires PHP: 7.0
+Stable tag: 2.0.8
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -124,6 +124,10 @@ assist you with verification, CVE assignment, and notify the
 developers of this plugin.
 
 == Changelog ==
+
+= 2.0.8 =
+* Add: New language selection for AI wizard.
+* Fix: Issue with using custom images.
 
 = 2.0.7 =
 * Fix: Possible stuck in generate mode issue.

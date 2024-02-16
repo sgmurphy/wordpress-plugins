@@ -175,6 +175,12 @@ function cnb_action_update_appearance(value) {
             valueLabelEle.text('WeChat username')
             valueTextEle.attr("required", "required")
             break
+        case 'CHAT':
+            const valueEle = jQuery('.cnb-action-value')
+            valueLabelEle.text('Action value')
+            valueTextEle.removeAttr("required", "required")
+            valueEle.hide()
+            break
         default:
             valueLabelEle.text('Action value')
             valueTextEle.attr("required", "required")

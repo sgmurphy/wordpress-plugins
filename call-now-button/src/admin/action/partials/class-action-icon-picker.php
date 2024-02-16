@@ -142,6 +142,10 @@ class ActionIconPicker {
 	        new ActionIcon('WECHAT', array(
 		        array('type' => 'FONT', 'text' => 'wechat'),
 	        )),
+	        new ActionIcon('CHAT', array(
+                array('type' => 'FONT', 'text' => 'conversation'),
+		        array('type' => 'FONT', 'text' => 'chat'),
+	        )),
         );
     }
 

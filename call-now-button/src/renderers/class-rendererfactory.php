@@ -41,23 +41,24 @@ class RendererFactory {
     public static function register() {
         $factory = new RendererFactory();
 
-        if ( $factory->shouldRender() ) {
-            switch ( $factory->getRenderer() ) {
-                case 'cloud':
-                    $cloud_rendere = new CloudRenderer();
-                    $cloud_rendere->register();
-                    break;
-                case 'modern':
-                    $modernRendere = new ModernRenderer();
-                    $modernRendere->register();
-                    break;
-                default:
-                    $noop_renderer = new NoopRenderer();
-                    $noop_renderer->register();
-            }
-        } else {
-            $noop_renderer = new NoopRenderer();
-            $noop_renderer->register();
+        if ( ! $factory->shouldRender() ) {
+	        $noop_renderer = new NoopRenderer();
+	        $noop_renderer->register();
+			return;
+        }
+
+        switch ( $factory->getRenderer() ) {
+            case 'cloud':
+                $cloud_renderer = new CloudRenderer();
+                $cloud_renderer->register();
+                break;
+            case 'modern':
+                $modern_renderer = new ModernRenderer();
+                $modern_renderer->register();
+                break;
+            default:
+                $noop_renderer = new NoopRenderer();
+                $noop_renderer->register();
         }
     }
 }

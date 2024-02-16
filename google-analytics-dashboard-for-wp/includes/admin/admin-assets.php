@@ -312,24 +312,42 @@ class ExactMetrics_Admin_Assets {
 		}
 
 		$js_imports    = $file_contents[ $js_file_path ]['imports'];
-		$css_file_path = $plugin_path . $version_path . '/assets/vue/css/';
+		$css_file_path = $plugin_path . $version_path . '/assets/vue/';
 
 		// Add JS own CSS file.
 		if ( isset( $file_contents[ $js_file_path ]['css'] ) ) {
 			self::add_js_own_css_files( $file_contents[ $js_file_path ]['css'], $version_path );
 		}
 
+		// Loop through all imported js file of entry file.
 		foreach( $js_imports as $js_filename ) {
-			// $js_filename example is _vendor.js, get only the name.
-			$css_filename = substr( $js_filename, 1, -3 );
+			// Check imported file available in manifest.json
+			if ( ! isset( $file_contents[ $js_filename ] ) ) {
+				continue;
+			}
 
-			if ( file_exists( $css_file_path . $css_filename . '.css' ) ) {
-				wp_enqueue_style(
-					'exactmetrics-style-' . $css_filename ,
-					plugins_url( $version_path . '/assets/vue/css/' . $css_filename . '.css', EXACTMETRICS_PLUGIN_FILE ),
-					array(),
-					exactmetrics_get_asset_version()
-				);
+			// Check imported js file has it's own css.
+			if ( ! isset( $file_contents[ $js_filename ]['css'] ) ) {
+				continue;
+			}
+
+			$js_file_css = $file_contents[ $js_filename ]['css'];
+
+			// css must be array.
+			if ( ! is_array( $js_file_css ) ) {
+				continue;
+			}
+
+			// Loop to css files of a imported js file.
+			foreach ( $js_file_css as $css_hash_name ) {
+				if ( file_exists( $css_file_path . $css_hash_name ) ) {
+					wp_enqueue_style(
+						'exactmetrics-style-' . basename( $css_hash_name ),
+						plugins_url( $version_path . '/assets/vue/' . $css_hash_name, EXACTMETRICS_PLUGIN_FILE ),
+						array(),
+						exactmetrics_get_asset_version()
+					);
+				}
 			}
 		}
 	}

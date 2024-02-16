@@ -9,11 +9,11 @@ function createButtonFromData(formData) {
     }
 
     return {
-        "userId": "local",
+        "userId": cnb_preview_data.user.id,
         "domains": [
             {
                 "id": "domain",
-                "user": "local",
+                "user": cnb_preview_data.user.id,
                 "type": domainType,
                 "name": getCleanDomain()
             }
@@ -36,7 +36,8 @@ function createButtonFromData(formData) {
         "conditions": [],
         "options": {
             "debugMode": false,
-            "cssLocation": formData.cnb_css_root + "/css/main.css",
+            "cssLocation": cnb_preview_data.cssLocation + "/css/main.css",
+            "apiRoot": cnb_preview_data.apiRoot,
             ...formData.options
         }
     }
@@ -75,13 +76,7 @@ async function livePreview() {
         }
     }
     if (typeof cnb_options !== 'undefined') {
-        parsedData.options = cnb_options
-    }
-
-    // Find the correct static base URL for the Client CSS file
-    parsedData.cnb_css_root = 'https://static.callnowbutton.com'
-    if (typeof cnb_css_root !== 'undefined') {
-        parsedData.cnb_css_root = cnb_css_root
+        parsedData.options = cnb_preview_data.options
     }
 
     // Ensure it is always visible

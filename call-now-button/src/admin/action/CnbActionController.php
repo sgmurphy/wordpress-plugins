@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || die( '-1' );
 
 use cnb\admin\api\CnbAdminCloud;
 use cnb\admin\api\CnbAppRemote;
-use cnb\notices\CnbAdminNotices;
+use cnb\admin\models\CnbUser;
 use cnb\notices\CnbNotice;
 use cnb\utils\CnbUtils;
 use WP_Error;
@@ -319,4 +319,22 @@ class CnbActionController {
             );
         }
     }
+
+	/**
+	 * Only users with the CHAT_USER role can create CHAT actions
+	 *
+	 * @param string[] $action_types
+	 *
+	 * @return string[]
+	 */
+	function filter_action_types( $action_types ) {
+		/** @type CnbUser $cnb_user */
+		global $cnb_user;
+		// remove CHAT key if $cnb_user->roles does not include ROLE_CHAT_USER
+		if ( $cnb_user && ! $cnb_user->has_role( 'ROLE_CHAT_USER' ) ) {
+			unset( $action_types['CHAT'] );
+		}
+
+		return $action_types;
+	}
 }

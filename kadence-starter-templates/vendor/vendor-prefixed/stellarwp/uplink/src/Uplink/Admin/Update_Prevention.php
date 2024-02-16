@@ -63,7 +63,7 @@ class Update_Prevention {
 	 *
 	 * @return string|WP_Error
 	 */
-	public function filter_upgrader_source_selection( string $source, $remote_source, WP_Upgrader $upgrader, array $extras ) {
+	public function filter_upgrader_source_selection( $source, $remote_source, WP_Upgrader $upgrader, array $extras ) {
 		if ( ! isset( $extras['plugin'] ) ) {
 			return $source;
 		}

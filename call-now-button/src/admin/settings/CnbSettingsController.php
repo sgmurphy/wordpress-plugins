@@ -27,7 +27,7 @@ class CnbSettingsController {
             'active'                      => 0,
             'number'                      => '',
             'text'                        => '',
-            'color'                       => '#00bb00',
+            'color'                       => '#008A00',
             'iconcolor'                   => '#ffffff',
             'appearance'                  => 'right',
             'hideIcon'                    => 0,

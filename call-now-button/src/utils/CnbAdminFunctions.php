@@ -51,13 +51,12 @@ class CnbAdminFunctions {
      *
      * Note(s):
      * - This is NOT in alphabetical order, but rather in order of
-     *   what feels more likely to be choosen
-     * - HOURS is missing, since that is not implemented yet
+     *   what feels more likely to be chosen
      *
      * @return CnbActionType[] array of ActionType to their nice names
      */
     function cnb_get_action_types() {
-        return array(
+        $all_types = array(
             'PHONE'    => new CnbActionType('PHONE', '💬 Phone', ['STARTER', 'PRO', 'FREE']),
             'EMAIL'    => new CnbActionType('EMAIL', '💬 Email', ['STARTER', 'PRO', 'FREE']),
             'SMS'      => new CnbActionType('SMS', '💬 SMS/Text', ['STARTER', 'PRO', 'FREE']),
@@ -75,8 +74,11 @@ class CnbAdminFunctions {
             'ZALO'     => new CnbActionType('ZALO', '💬 Zalo', ['STARTER', 'PRO', 'FREE']),
             'VIBER'    => new CnbActionType('VIBER', '💬 Viber', ['STARTER', 'PRO', 'FREE']),
             'LINE'     => new CnbActionType('LINE', '💬 Line', ['STARTER', 'PRO', 'FREE']),
-            'WECHAT'   => new CnbActionType('WECHAT', '💬 WeChat', ['STARTER', 'PRO', 'FREE'])
+            'WECHAT'   => new CnbActionType('WECHAT', '💬 WeChat', ['STARTER', 'PRO', 'FREE']),
+            'CHAT'     => new CnbActionType('CHAT', '💬 Live chat', ['PRO']),
         );
+
+		return apply_filters('cnb_get_action_types', $all_types);
     }
 
 	function get_display_modes() {

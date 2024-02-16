@@ -19,22 +19,11 @@ class ActionSettingsIframe {
     }
 
     /**
-     * @param CnbAction $action
-     *
-     * @return void
-     */
-    function render_modal_options( $action ) {
-        $this->render_modal_height( $action );
-        $this->render_modal_width( $action );
-        $this->render_modal_colors( $action );
-    }
-
-    /**
      * NOTE: This function does NOT close its opened tags - that is done via "render_close_header"
      * @return void
      */
     function render_header() { ?>
-        <tr class="cnb-action-properties cnb-action-properties-IFRAME cnb-action-properties-TALLY cnb-settings-section cnb-settings-section-iframe">
+        <tr class="cnb-action-properties cnb-action-properties-IFRAME cnb-action-properties-TALLY cnb-action-properties-CHAT cnb-settings-section cnb-settings-section-iframe">
         <td colspan="2">
         <h3 class="cnb-settings-section-title" data-cnb-settings-block="iframe"><span
                     class="dashicons dashicons-arrow-right"></span> Window settings</h3>
@@ -52,6 +41,7 @@ class ActionSettingsIframe {
         <?php
     }
 
+    // region iframe
     /**
      * @param CnbAction $action
      *
@@ -61,7 +51,7 @@ class ActionSettingsIframe {
         ?>
 
         <table class="cnb-settings-section-table">
-        <tr class="cnb-action-properties cnb-action-properties-IFRAME cnb-action-properties-TALLY">
+        <tr class="cnb-action-properties cnb-action-properties-IFRAME cnb-action-properties-TALLY cnb-action-properties-CHAT">
             <th scope="row"><label for="cnb-action-properties-iframe-title">Title</label></th>
             <td><input placeholder="Optional" id="cnb-action-properties-iframe-title"
                        name="actions[<?php echo esc_attr( $action->id ) ?>][properties][iframe-title]" type="text"
@@ -72,6 +62,19 @@ class ActionSettingsIframe {
             </td>
         </tr>
     <?php }
+    // endregion
+
+    // region modal
+    /**
+     * @param CnbAction $action
+     *
+     * @return void
+     */
+    function render_modal_options( $action ) {
+        $this->render_modal_height( $action );
+        $this->render_modal_width( $action );
+        $this->render_modal_colors( $action );
+    }
 
     /**
      * @param CnbAction $action
@@ -136,7 +139,6 @@ class ActionSettingsIframe {
      * @return void
      */
     function render_modal_width( $action ) {
-
         // Default
         $action_properties_modal_width = '';
         if ( isset( $action->properties ) && isset( $action->properties->{'modal-width'} ) ) {
@@ -172,7 +174,7 @@ class ActionSettingsIframe {
             $modal_header_text_color = $action->properties->{'modal-header-text-color'};
         }
         ?>
-        <tr class="cnb-action-properties cnb-action-properties-IFRAME cnb-action-properties-TALLY cnb_advanced_view">
+        <tr class="cnb-action-properties cnb-action-properties-IFRAME cnb-action-properties-TALLY cnb-action-properties-CHAT cnb_advanced_view">
             <th scope="row"><label for="cnb-action-properties-modal-background-color">Modal Background Color</label>
             </th>
             <td>
@@ -184,7 +186,7 @@ class ActionSettingsIframe {
                         class="cnb-color-field" data-default-color="#ffffff"/>
             </td>
         </tr>
-        <tr class="cnb-action-properties cnb-action-properties-IFRAME cnb-action-properties-TALLY">
+        <tr class="cnb-action-properties cnb-action-properties-IFRAME cnb-action-properties-TALLY cnb-action-properties-CHAT">
             <th scope="row"><label for="cnb-action-properties-modal-header-background-color">Header color</label></th>
             <td>
                 <input
@@ -195,7 +197,7 @@ class ActionSettingsIframe {
                         class="cnb-color-field" data-default-color="#009900"/>
             </td>
         </tr>
-        <tr class="cnb-action-properties cnb-action-properties-IFRAME cnb-action-properties-TALLY">
+        <tr class="cnb-action-properties cnb-action-properties-IFRAME cnb-action-properties-TALLY cnb-action-properties-CHAT">
             <th scope="row"><label for="cnb-action-properties-modal-header-text-color">Header text color</label>
             </th>
             <td>
@@ -211,4 +213,5 @@ class ActionSettingsIframe {
         </table>
         <?php
     }
+    // endregion
 }
