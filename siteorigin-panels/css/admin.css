@@ -2731,7 +2731,7 @@
 .so-panels-dialog .so-visual-styles .style-section-fields .style-field-wrapper .style-field .wp-color-result,
 .block-editor-page .so-visual-styles .style-section-fields .style-field-wrapper .style-field .wp-color-result,
 .wp-customizer .so-visual-styles .style-section-fields .style-field-wrapper .style-field .wp-color-result {
-  border-color: #ccc;
+  border-color: #8c8f94;
 }
 .so-panels-dialog .so-visual-styles .style-section-fields .style-field-wrapper .style-field .wp-color-result,
 .block-editor-page .so-visual-styles .style-section-fields .style-field-wrapper .style-field .wp-color-result,
@@ -2909,6 +2909,7 @@
 .so-panels-dialog .so-visual-styles .style-input-wrapper .wp-picker-container .wp-color-result .wp-color-result-text,
 .block-editor-page .so-visual-styles .style-input-wrapper .wp-picker-container .wp-color-result .wp-color-result-text,
 .wp-customizer .so-visual-styles .style-input-wrapper .wp-picker-container .wp-color-result .wp-color-result-text {
+  border-left: 1px solid #8c8f94;
   height: 28px;
 }
 .so-panels-dialog .so-visual-styles .style-field-measurement .measurement-inputs,
@@ -2995,7 +2996,7 @@
 .wp-customizer .so-visual-styles .style-field-image .so-image-selector {
   display: inline-block;
   background-color: #f7f7f7;
-  border: 1px solid #ccc;
+  border: 1px solid #8c8f94;
   height: 28px;
   float: left;
   -webkit-border-radius: 3px;
@@ -3019,7 +3020,7 @@
   width: 28px;
   float: left;
   background: #fff;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #8c8f94;
   background-size: cover;
   -webkit-border-top-right-radius: 0;
   -webkit-border-bottom-right-radius: 0;

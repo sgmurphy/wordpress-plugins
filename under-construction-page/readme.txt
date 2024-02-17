@@ -4,7 +4,7 @@ Tags: coming soon page, under construction mode, under construction, under const
 Requires at least: 4.0
 Requires PHP: 5.2
 Tested up to: 6.4
-Stable tag: 3.98
+Stable tag: 3.99
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -140,6 +140,10 @@ Or if needed, upload manually;
 
 
 == Changelog ==
+
+= 3.99 =
+* 2024/02/17
+* fixed some template tags getting stripped by wp_kses
 
 = 3.98 =
 * 2024/01/29

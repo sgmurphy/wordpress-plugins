@@ -4,7 +4,7 @@ Tags: paypal, paylater, venmo, credit cards
 Requires at least: 4.7
 Tested up to: 6.4
 Requires PHP: 7.1
-Stable tag: 1.0.43
+Stable tag: 1.0.44
 Copyright: Payment Plugins
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -45,6 +45,8 @@ Our documentation has a step-by-step guide on how to connect the plugin to your 
 Payment Plugins is the team behind several of the highest reviewed and installed Payment integrations for WooCommerce.
 
 == Changelog ==
+= 1.0.44 - 02/16/24 -
+* Updated - In WebhookReceiver, for event PAYMENT.CAPTURE.COMPLETED, don't rely on WC_Order::is_paid() function. Instead, check for existence of transaction ID.
 = 1.0.43 - 02/05/24 =
 * Updated - On checkout block, don't override email address if it's already populated and express checkout isn't being used
 * Fixed - If PayPal button was configured to render in payment method section, and PayLater messaging enabled with "Above PayPal button" set, button was not rendering

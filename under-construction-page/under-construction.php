@@ -4,7 +4,7 @@
   Plugin URI: https://underconstructionpage.com/
   Description: Put your site behind a great looking under construction, coming soon, maintenance mode or landing page.
   Author: WebFactory Ltd
-  Version: 3.98
+  Version: 3.99
   Requires at least: 4.0
   Requires PHP: 5.2
   Tested up to: 6.4
@@ -2581,6 +2581,27 @@ class UCP
         });
 
         $allowed_tags = wp_kses_allowed_html('post');
+
+        $allowed_tags['head'] = array(
+        );
+
+        $allowed_tags['body'] = array(
+            'style' => true,
+            'class' => true,
+            'id' => true,
+        );
+
+        $allowed_tags['html'] = array(
+            'lang' => true
+        );
+
+        $allowed_tags['meta'] = array(
+            'charset' => true,
+            'http-equiv' => true,
+            'content' => true,
+            'name' => true,
+        );
+
         $allowed_tags['input'] = array(
             'type' => true,
             'style' => true,

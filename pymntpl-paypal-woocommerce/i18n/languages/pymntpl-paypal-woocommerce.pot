@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Payment Plugins for PayPal WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Payment Plugins for PayPal WooCommerce 1.0.42\n"
+"Project-Id-Version: Payment Plugins for PayPal WooCommerce 1.0.44\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pymntpl-paypal-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-05T19:07:19+00:00\n"
+"POT-Creation-Date: 2024-02-16T18:29:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pymntpl-paypal-woocommerce\n"
@@ -1110,7 +1110,7 @@ msgid "Error processing refund. Reason: %s"
 msgstr ""
 
 #: src/Payments/Gateways/AbstractGateway.php:248
-#: src/WebhookEventReceiver.php:121
+#: src/WebhookEventReceiver.php:120
 msgid "Order refunded in PayPal. Amount: %1$s. Refund ID: %2$s"
 msgstr ""
 
@@ -1671,19 +1671,19 @@ msgstr ""
 msgid "Marketplace"
 msgstr ""
 
-#: src/WebhookEventReceiver.php:90
+#: src/WebhookEventReceiver.php:89
 msgid "PayPal transaction %s has been cancelled."
 msgstr ""
 
-#: src/WebhookEventReceiver.php:110
+#: src/WebhookEventReceiver.php:109
 msgid "Refund created within PayPal."
 msgstr ""
 
-#: src/WebhookEventReceiver.php:136
+#: src/WebhookEventReceiver.php:135
 msgid "Dispute %1$s created. Dispute reason: %2$s."
 msgstr ""
 
-#: src/WebhookEventReceiver.php:148
+#: src/WebhookEventReceiver.php:147
 msgid "Dispute %1$s resolved."
 msgstr ""
 

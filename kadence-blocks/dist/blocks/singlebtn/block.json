@@ -469,6 +469,13 @@
         ""
       ]
     },
+    "onlyText": {
+      "type": "array",
+      "default": [
+        false,
+        ""
+      ]
+    },
     "label": {
       "type": "string",
       "default": ""

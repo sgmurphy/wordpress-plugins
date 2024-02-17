@@ -36,25 +36,24 @@ class WebhookEventReceiver {
 	 * @param \PaymentPlugins\PayPalSDK\WebhookEvent $event
 	 */
 	public function do_capture_completed( $capture, $event ) {
-		$orders = wc_get_orders( [
-			'type'           => 'shop_order',
-			'limit'          => 1,
-			'return'         => 'objects',
-			'transaction_id' => $capture->getId()
-		] );
-		if ( $orders ) {
-			$order = $orders[0];
-			if ( ! OrderLock::has_order_lock( $order ) ) {
-				if ( ! $order->is_paid() ) {
-					$paypal_order_id = $order->get_meta( Constants::ORDER_ID );
-					if ( $paypal_order_id ) {
-						$paypal_order = $this->client->orderMode( $order )->orders->retrieve( $paypal_order_id );
-						if ( ! is_wp_error( $paypal_order ) ) {
-							PayPalFee::add_fee_to_order( $order, $capture->seller_receivable_breakdown, false );
-							$order->payment_complete( $capture->getId() );
-							$this->payment_handler->save_order_meta_data( $order, $paypal_order );
-						} else {
-							throw new \Exception( $paypal_order->get_error_message(), 400 );
+		if ( $capture && $capture->getCustomId() ) {
+			$order = wc_get_order( $capture->getCustomId() );
+			if ( $order ) {
+				if ( ! OrderLock::has_order_lock( $order ) ) {
+					/**
+					 * Only orders that don't have a transaction ID should be completed.
+					 */
+					if ( ! $order->get_transaction_id() ) {
+						$paypal_order_id = $order->get_meta( Constants::ORDER_ID );
+						if ( $paypal_order_id ) {
+							$paypal_order = $this->client->orderMode( $order )->orders->retrieve( $paypal_order_id );
+							if ( ! is_wp_error( $paypal_order ) ) {
+								PayPalFee::add_fee_to_order( $order, $capture->seller_receivable_breakdown, false );
+								$order->payment_complete( $capture->getId() );
+								$this->payment_handler->save_order_meta_data( $order, $paypal_order );
+							} else {
+								throw new \Exception( $paypal_order->get_error_message(), 400 );
+							}
 						}
 					}
 				}
