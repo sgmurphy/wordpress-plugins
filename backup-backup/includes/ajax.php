@@ -24,6 +24,7 @@
   use BMI\Plugin\External\BMI_External_Storage as ExternalStorage;
   use BMI\Plugin\Staging\BMI_Staging_TasteWP as StagingTasteWP;
   use BMI\Plugin\Staging\BMI_StagingLocal as StagingLocal;
+  use BMI\Plugin\Heart\BMI_Backup_Heart as Bypasser;
   use BMI\Plugin\Staging\BMI_Staging as Staging;
 
   /**
@@ -153,6 +154,8 @@
         BMP::res($this->getLatestBackupFile());
       } elseif ($this->post['f'] == 'front-end-ajax-error') {
         BMP::res($this->frontEndAjaxError());
+      } elseif ($this->post['f'] == 'backup-browser-method') {
+        BMP::res($this->backupBrowserMethodHandler());
       } elseif ($this->post['f'] == 'debugging') {
         BMP::res($this->debugging());
       } elseif (has_action('bmi_premium_ajax')) {
@@ -586,10 +589,24 @@
       }
       return ['status' => 'success'];
     }
+    
+    public function isFunctionEnabled($func) {
+      $disabled = explode(',', ini_get('disable_functions'));
+      $isDisabled = in_array($func, $disabled);
+      if (!$isDisabled && function_exists($func)) return true;
+      else return false;
+    }
 
     public function prepareAndMakeBackup($cron = false) {
 
       global $wp_version;
+      
+      if ($this->isFunctionEnabled('ini_set')) {
+        ini_set('display_errors', 1);
+        ini_set('error_reporting', E_ALL);
+        ini_set('log_errors', 1);
+        ini_set('error_log', BMI_CONFIG_DIR . DIRECTORY_SEPARATOR . 'complete_logs.log');
+      }
 
       // Require File Scanner
       require_once BMI_INCLUDES . '/progress/zip.php';
@@ -710,7 +727,12 @@
       $zip_progress->log(__("PHP Version: ", 'backup-backup') . PHP_VERSION, 'info');
       $zip_progress->log(__("WP Version: ", 'backup-backup') . $wp_version, 'info');
       $zip_progress->log(__("MySQL Version: ", 'backup-backup') . $GLOBALS['wpdb']->db_version(), 'info');
-      $zip_progress->log(__("MySQL Max Length: ", 'backup-backup') . $GLOBALS['wpdb']->get_results("SHOW VARIABLES LIKE 'max_allowed_packet';")[0]->Value, 'info');
+      $maxAllowedPackets = $GLOBALS['wpdb']->get_results("SHOW VARIABLES LIKE 'max_allowed_packet';");
+      if (sizeof($maxAllowedPackets) > 0) {
+        $zip_progress->log(__("MySQL Max Length: ", 'backup-backup') . $maxAllowedPackets[0]->Value, 'info');
+      } else {
+        $zip_progress->log(__("MySQL Max Length: ", 'backup-backup') . 'Unknown', 'info');
+      }
       if (isset($_SERVER['SERVER_SOFTWARE']) && !empty($_SERVER['SERVER_SOFTWARE'])) {
         $zip_progress->log(__("Web server: ", 'backup-backup') . $_SERVER['SERVER_SOFTWARE'], 'info');
       } else {
@@ -735,6 +757,7 @@
       if (defined('BMI_DOING_SCHEDULED_BACKUP')) {
         $zip_progress->log(__("This process was initialized due to scheduled backup configuration...", 'backup-backup'), 'info');
         $zip_progress->log(__("Backup will be unlocked by default as it is not manual backup...", 'backup-backup'), 'info');
+        $zip_progress->log('This log is triggered by SCHEDULED BACKUP and its part of automatic backup creation', 'verbose');
       }
 
       if (defined('BMI_BACKUP_PRO')) {
@@ -1080,6 +1103,13 @@
     public function restoreBackup() {
 
       global $wp_version;
+      
+      if ($this->isFunctionEnabled('ini_set')) {
+        ini_set('display_errors', 1);
+        ini_set('error_reporting', E_ALL);
+        ini_set('log_errors', 1);
+        ini_set('error_log', BMI_CONFIG_DIR . DIRECTORY_SEPARATOR . 'complete_logs.log');
+      }
 
       // Require File Scanner
       require_once BMI_INCLUDES . '/zipper/zipping.php';
@@ -1141,7 +1171,7 @@
         if ($cli_result !== false) {
 
           $cliHandler = trailingslashit(sanitize_text_field(BMI_INCLUDES)) . 'cli-handler.php';
-          $backupName = sanitize_text_field($this->post['file']);
+          $backupName = esc_attr($this->post['file']);
           $remoteType = 'false';
           if ($this->post['remote'] == 'true' || $this->post['remote'] === true) $remoteType = 'true';
           if (file_exists($lock_cli_end)) @unlink($lock_cli_end);
@@ -1238,7 +1268,12 @@
       $migration->log(__("PHP Version: ", 'backup-backup') . PHP_VERSION, 'info');
       $migration->log(__("WP Version: ", 'backup-backup') . $wp_version, 'info');
       $migration->log(__("MySQL Version: ", 'backup-backup') . $GLOBALS['wpdb']->db_version(), 'info');
-      $migration->log(__("MySQL Max Length: ", 'backup-backup') . $GLOBALS['wpdb']->get_results("SHOW VARIABLES LIKE 'max_allowed_packet';")[0]->Value, 'info');
+      $maxAllowedPackets = $GLOBALS['wpdb']->get_results("SHOW VARIABLES LIKE 'max_allowed_packet';");
+      if (sizeof($maxAllowedPackets) > 0) {
+        $migration->log(__("MySQL Max Length: ", 'backup-backup') . $maxAllowedPackets[0]->Value, 'info');
+      } else {
+        $migration->log(__("MySQL Max Length: ", 'backup-backup') . 'Unknown', 'info');
+      }
       if (isset($_SERVER['SERVER_SOFTWARE']) && !defined('BMI_USING_CLI_FUNCTIONALITY')) {
         $migration->log(__("Web server: ", 'backup-backup') . $_SERVER['SERVER_SOFTWARE'], 'info');
       } else {
@@ -1439,7 +1474,7 @@
       $progressfile = $progress;
       $lockfile = $lock;
 
-      $ch = curl_init(str_replace(' ', '%20', rawurldecode($url)));
+      $ch = curl_init(rawurldecode($url));
       curl_setopt($ch, CURLOPT_TIMEOUT, 0);
 
       curl_setopt($ch, CURLOPT_FILE, $fp);
@@ -1503,20 +1538,25 @@
       }
 
       if (defined('BMI_USING_CLI_FUNCTIONALITY') && BMI_USING_CLI_FUNCTIONALITY === true && defined('BMI_CLI_ARGUMENT')) {
+        
         $url = BMI_CLI_ARGUMENT;
-      } else {
-        $url = $this->post['url'];
-      }
-
-      $url = rawurlencode(sanitize_text_field($url)); // or esc_attr but rawurlencode should be fine
       
-      // Just why not {
-      $url = str_replace('$', '%24', $url);
-      $url = str_replace('`', '%60', $url);
-      $url = str_replace('"', '%22', $url);
-      $url = str_replace('\\', '%5C', $url);
-      $url = str_replace('&amp;', '&', $url);
-      // }
+      } else {
+        
+        $url = $this->post['url'];
+        
+        $url = trim(rawurlencode(sanitize_url($url, ['http', 'https']))); // or esc_attr but rawurlencode should be fine
+      
+        // Just why not {
+        $url = str_replace(' ', '', $url);
+        $url = str_replace('$', '%24', $url);
+        $url = str_replace('`', '%60', $url);
+        $url = str_replace('"', '%22', $url);
+        $url = str_replace('\\', '%5C', $url);
+        $url = str_replace('&amp;', '&', $url);
+        // }
+        
+      }
 
       $dest = BMI_BACKUPS . '/' . $tmp_name;
       $progress = BMI_BACKUPS . '/latest_migration_progress.log';
@@ -1558,7 +1598,7 @@
       $downstart = microtime(true);
       $migration->log(__('Downloading initialized', 'backup-backup'), 'SUCCESS');
       $migration->log(__('Downloading remote file...', 'backup-backup'), 'STEP');
-      $migration->log(__('Used URL: ', 'backup-backup') . sanitize_text_field($url), 'INFO');
+      $migration->log(__('Used URL: ', 'backup-backup') . rawurldecode($url), 'INFO');
       $fileError = $this->downloadFile($url, $dest, $progress, $lock, $migration);
       $migration->log(__('Unlocking migration', 'backup-backup'), 'INFO');
       if (file_exists($lock)) @unlink($lock);
@@ -2311,9 +2351,9 @@
       $ignored_paths_default[] = "***ABSPATH***/wp-content/uploads/jetbackup";
       
       // Exclude cache directory permanently as it's just cache
-      $ignored_paths_default[] = "***ABSPATH***/wp-content/cache";
-      $ignored_paths_default[] = "***ABSPATH***/wp-content/cache_bak";
-      $ignored_paths_default[] = "***ABSPATH***/wp-content/uploads/cache";
+      // $ignored_paths_default[] = "***ABSPATH***/wp-content/cache";
+      // $ignored_paths_default[] = "***ABSPATH***/wp-content/cache_bak";
+      // $ignored_paths_default[] = "***ABSPATH***/wp-content/uploads/cache";
       
       // Add staging sites to permanent exclusion rules
       for ($i = 0; $i < sizeof($stagingSites); ++$i) {
@@ -2889,6 +2929,7 @@
       $filesToBeRemoved[] = BMI_TMP . DIRECTORY_SEPARATOR . 'db_tables';
       $filesToBeRemoved[] = BMI_TMP . DIRECTORY_SEPARATOR . 'bmi_backup_manifest.json';
       $filesToBeRemoved[] = BMI_TMP . DIRECTORY_SEPARATOR . 'files_latest.list';
+      $filesToBeRemoved[] = BMI_TMP . DIRECTORY_SEPARATOR . 'currentBackupConfig.php';
 
       if (is_array($filesToBeRemoved) || is_object($filesToBeRemoved)) {
         foreach ((array) $filesToBeRemoved as $file) {
@@ -3073,6 +3114,14 @@
       if (isset($this->post['source']) && in_array($this->post['source'], ['backup', 'migration', 'staging'])) {
         $logsSourceFrontEnd = $this->post['source'];
       }
+      
+      $latestBackupLogs = preg_replace('/\:\ ((.*)\.zip)/', ': *****.zip', $latestBackupLogs);
+      $latestRestorationLogs = preg_replace('/backup\-id\=(.*)\.zip/', 'backup-id=[***redacted***].zip', $latestRestorationLogs);
+      $latestStagingLogs = preg_replace('/\:\ ((.*)\.zip)/', ': *****.zip', $latestStagingLogs);
+            
+      $currentPluginConfig = json_decode($currentPluginConfig);
+      unset($currentPluginConfig->{"OTHER:EMAIL"});
+      $currentPluginConfig = json_encode($currentPluginConfig);
 
       $url = 'https://' . BMI_API_BACKUPBLISS_PUSH . '/v1' . '/push';
       $data = array(
@@ -3177,6 +3226,8 @@
         if (file_exists($afterMigrationLock)) @unlink($afterMigrationLock);
 
       }
+      
+      Logger::log("Process (" . $triggeredBy . ") finished successfully via ajax.php");
       
       BMP::handle_after_cron();
 
@@ -3424,6 +3475,39 @@
       $staging = new Staging('..ajax..');
       return $staging->prepareLogin($name);
 
+    }
+    
+    /**
+     * Handles secure backup via browser method 
+     */
+    public function backupBrowserMethodHandler() {
+      
+       try {
+
+        // Load bypasser
+        require_once BMI_INCLUDES . '/bypasser.php';
+        $request = new Bypasser(false, BMI_CONFIG_DIR, trailingslashit(WP_CONTENT_DIR), BMI_BACKUPS, trailingslashit(ABSPATH), plugin_dir_path(BMI_ROOT_FILE));
+        
+        // Handle request
+        $request->handle_batch();
+        exit;
+
+      } catch (\Exception $e) {
+
+        error_log('There was an error with Backup Migration plugin: ' . $e->getMessage());
+        Logger::error(__('Error handler: ', 'backup-backup') . 'ajax#01' . '|' . $e->getMessage());
+        error_log(strval($e));
+
+      } catch (\Throwable $t) {
+        
+        error_log('There was an error with Backup Migration plugin: ' . $t->getMessage());
+        Logger::error(__('Error handler: ', 'backup-backup') . 'ajax#01' . '|' . $t->getMessage());
+        error_log(strval($t));
+
+      }
+      
+      return BMP::res([ 'status' => 'error' ]);
+      
     }
     
     /**

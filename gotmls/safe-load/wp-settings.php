@@ -129,7 +129,9 @@ if (is_file("../../../../wp-includes/wp-db.php"))
 	require_once("../../../../wp-includes/wp-db.php");
 
 $wpdb = new wpdb( DB_USER, DB_PASSWORD, DB_NAME, DB_HOST );
-
+$wpdb->prefix = $table_prefix;
+$wpdb->options = $table_prefix."options";
+$wpdb->posts = $table_prefix."posts";
 if (!function_exists("delete_option")) {
 function delete_option($index) {
 	global $wpdb, $table_prefix;

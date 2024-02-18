@@ -5,7 +5,7 @@ Tags: Elementor, template, templates, Gutenberg, template kits, elementor templa
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,6 +139,14 @@ Every month we are adding new Elementor templates, along with Gutenberg template
 
 
 == Changelog ==
+= 3.0.2 – 18-02-2024 =
+Fixed: Gutenberg image import to media library.
+Fixed: Shows error modal if account isn't verified before importing.
+Fixed: Changing the image of a block breaks its design.
+Improved: Templately dashboard network/timeout issue.
+Improved: Template import execution time.
+Few minor bug fixes & improvements
+
 = 3.0.1 – 30-01-2024 =
 Fixed: Full site import issue when WordPress is installed in a subdirectory.
 Few minor bug fixes & improvements

@@ -6,6 +6,21 @@
   // Exit on direct access
   if (!defined('ABSPATH')) exit;
 
+  $chooseBackupInterval = __("If you prefer a different interval, you can set it %s1here%s2.", 'backup-backup');
+  $closeMessage = __("Or %s1don't switch on automatic backups and close%s2.", 'backup-backup');
+
+  $chooseBackupInterval = str_replace(
+    ['%s1', '%s2'],
+    ['<a href="#!" class="site-reloader" id="choose-auto-backup-interval">', '</a>'],
+    $chooseBackupInterval
+  );
+
+  $closeMessage = str_replace(
+    ['%s1', '%s2'],
+    ['<a href="#" class="site-reloader">', '</a>'],
+    $closeMessage
+  );
+
 ?>
 
 <div class="bmi-modal bmi-modal-no-close" id="restore-success-modal">
@@ -13,8 +28,8 @@
   <div class="bmi-modal-wrapper no-hpad" style="max-width: 900px; max-width: min(900px, 80vw)">
     <div class="bmi-modal-content center">
 
-      <div class="mm60 f35 bold black mbl mtl"><?php _e('Restore successful!', 'backup-backup') ?></div>
-      <img class="mb mtl" src="<?php echo $this->get_asset('images', 'happy-smile.png'); ?>" alt="success">
+      <img class="mtl" src="<?php echo $this->get_asset('images', 'happy-smile.png'); ?>" alt="success">
+      <div class="mm60 f35 bold black mbl mtll"><?php _e('Restore successful!', 'backup-backup') ?></div>
 
       <div class="mbl f20 lh30">
         <?php _e("Liked how easy it was? Then PLEASE support the further", 'backup-backup'); ?><br>
@@ -88,6 +103,8 @@
         <?php _e("Thank you!!", 'backup-backup'); ?>
       </div>
 
+      <?php if(bmi_get_config('CRON:ENABLED')) :?>
+
       <div class="center mbl">
         <a href="#" class="btn width50 f22 inline grey bold nodec site-reloader">
           <?php _e("Ok, close", 'backup-backup'); ?>
@@ -98,6 +115,47 @@
         <a href="#!" class="download-restore-log-url" download="restoration_logs.txt">
           <?php _e("Download the log", 'backup-backup'); ?></a> <?php _e("of the restoration process", 'backup-backup'); ?>
       </div>
+
+      <?php else : ?>
+
+      <div class="mm30">
+        <section class="auto-backup-reminder" >
+
+          <div class="pt30">
+
+            <article class="box">
+
+              <div class="f20 lh30 text">
+                <?php _e("Next, <b>keep your files</b> safe by enabling automatic backups:", 'backup-backup'); ?>
+              </div>
+
+              <div class="auto-backup-switch site-reloader" id="weekly-auto-backup-switch">
+
+                <span class="text bold">
+                  <?php _e("Switch on weekly automatic backups", 'backup-backup'); ?>
+                </span>
+
+                <div class="circle-box" >
+                  <span class="right-arrow"></span>
+                </div>
+
+              </div>
+
+            </article>
+
+            <div class="text f16">
+              <?php echo $chooseBackupInterval ?>
+            </div>
+
+            <div class="small-text f15">
+              <?php echo $closeMessage ?>
+            </div>
+
+          </div>
+
+        </section>
+      </div>
+      <?php endif; ?>
 
     </div>
   </div>

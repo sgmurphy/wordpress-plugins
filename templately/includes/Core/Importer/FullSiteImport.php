@@ -104,6 +104,10 @@ class FullSiteImport extends Base {
 
 		register_shutdown_function( [ $this, 'register_shutdown' ] );
 
+		// Ignore user aborts and allow the script
+		// to run forever
+		ignore_user_abort(true);
+
 		// Time to run the import!
 		set_time_limit( 0 );
 
@@ -213,6 +217,7 @@ class FullSiteImport extends Base {
 	private function download_zip( $id ) {
 		// $this->sse_log( 'download', __( 'Downloading Template Pack', 'templately' ), 1 );
 		$response = wp_remote_get( $this->get_api_url( $id ), [
+			'timeout' => 30,
 			'headers' => [
 				'Authorization'    => 'Bearer ' . $this->api_key,
 				'x-templately-ip'  => Helper::get_ip(),
@@ -220,8 +225,23 @@ class FullSiteImport extends Base {
 			]
 		] );
 
+		$response_code = wp_remote_retrieve_response_code( $response );
+		$content_type  = wp_remote_retrieve_header( $response, 'content-type' );
+
 		if ( is_wp_error( $response ) ) {
 			$this->throw( __( 'Template pack download failed', 'templately' ) . $response->get_error_message() );
+		}
+		else if ($response_code != 200) {
+			if (strpos($content_type, 'application/json') !== false) {
+				// Retrieve Data from Response Body.
+				$response_body = json_decode( wp_remote_retrieve_body( $response ), true );
+
+				// If the response body is JSON and it contains an error, throw an exception with the error message
+				if (isset($response_body['status']) && $response_body['status'] === 'error') {
+					$this->throw( $response_body['message'] );
+				}
+			}
+			$this->throw( __( 'Template pack download failed with response code: ', 'templately' ) . $response_code );
 		}
 
 		$this->sse_log( 'download', __( 'Template is getting ready', 'templately' ), 57 );
@@ -250,7 +270,12 @@ class FullSiteImport extends Base {
 			$this->throw( __( 'WP_Filesystem cannot be initialized', 'templately' ) );
 		}
 
-		$unzip = unzip_file( $this->filePath, $this->dir_path );
+		if(defined('TEMPLATELY_ZIP_ARCHIVE') && TEMPLATELY_ZIP_ARCHIVE){
+			$unzip = $this->unzip_file( $this->filePath, $this->dir_path );
+		}
+		else{
+			$unzip = unzip_file( $this->filePath, $this->dir_path );
+		}
 
 		if ( is_wp_error( $unzip ) ) {
 			$this->throw( sprintf( __( 'Unzipping failed: %s', 'templately' ), $unzip->get_error_message() ) );
@@ -258,6 +283,27 @@ class FullSiteImport extends Base {
 
 		if ( $unzip ) {
 			unlink( $this->filePath );
+		}
+	}
+
+	/**
+	 * Unzip a specified ZIP file to a location on the Filesystem.
+	 *
+	 * @param string $file Full path and filename of ZIP archive.
+	 * @param string $to Full path on the filesystem to extract archive to.
+	 * @return true|WP_Error True on success, WP_Error on failure.
+	 */
+	function unzip_file($file, $to) {
+		$zip = new \ZipArchive;
+
+		$res = $zip->open($file);
+		if ($res === TRUE) {
+			$zip->extractTo($to);
+			$zip->close();
+
+			return true;
+		} else {
+			return new \WP_Error('Could not unzip file: ' . $zip->getStatusString());
 		}
 	}
 
@@ -360,6 +406,12 @@ class FullSiteImport extends Base {
 						'type'     => "plugin_{$dependency['plugin_original_slug']}",
 						'progress' => 0
 					] );
+
+					if(isset($dependency['mustHave']) && $dependency['mustHave']){
+						$this->removeLog( 'plugin' );
+						$this->throw( 'Installation Failed: ' . $dependency['name'] . ' (' . ( $plugin_status['message'] ?? '' ) . ')' );
+					}
+
 					$this->dependency_data['plugins']['failed'][] = [
 						'name'    => $dependency['name'],
 						'slug'    => $dependency['slug'],
@@ -446,6 +498,8 @@ class FullSiteImport extends Base {
 				}
 			}
 		}
+
+		Helper::log( $data );
 
 		return [
 			'templates'         => $templates,
@@ -572,8 +626,9 @@ class FullSiteImport extends Base {
 	}
 
 	public function register_shutdown(){
+		$status     = connection_status();
 		$last_error = error_get_last();
-		if ($last_error && $last_error['type'] === E_ERROR) {
+		if ($status != CONNECTION_NORMAL && $last_error && $last_error['type'] === E_ERROR) {
 			if (defined('WP_DEBUG') && WP_DEBUG && !empty($last_error['message'])) {
 				$full_message = $last_error['message'];
 

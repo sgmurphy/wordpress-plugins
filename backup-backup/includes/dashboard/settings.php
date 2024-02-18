@@ -42,8 +42,7 @@
 
   <!-- Plugin Title -->
   <div class="heading f30 semibold">
-    <?php _e('Welcome to', 'backup-backup'); ?>
-    <span><?php echo str_replace('%s1%', '<a href="https://backupbliss.com" class="secondary" target="_blank">', str_replace('%s2%', '</a>', __('%s1%BackupBliss%s2%', 'backup-backup'))); ?></span>
+    Backup Migration <small class="regular f20">by <a href="https://backupbliss.com" class="secondary" target="_blank">BackupBliss</a></small>
   </div>
 
   <!-- TABS -->

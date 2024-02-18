@@ -2240,7 +2240,7 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
         $settings   = $this->get_settings_for_display();
         $category_name =  get_object_taxonomies($settings['carousel_post_type']);
         ?>
-            <div class="content <?php echo $settings['border_type']; ?>">
+            <div class="content <?php echo esc_attr( $settings['border_type'] ); ?>">
                 <div class="post-inner">
                     <?php 
                     if( $settings['show_category'] == 'yes' ): 

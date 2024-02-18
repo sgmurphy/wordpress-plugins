@@ -40,6 +40,13 @@ class Installer extends Base {
 		$_plugins     = Helper::get_plugins();
 		$is_installed = isset( $_plugins[ $plugin['plugin_file'] ] );
 
+		// Check if the plugin is already active
+		if (is_plugin_active($plugin['plugin_file'])) {
+			$response['success'] = true;
+			$response['slug']    = $plugin['slug'];
+			return $response;
+		}
+
 		if ( isset( $plugin['is_pro'] ) && $plugin['is_pro'] ) {
 			if ( ! $is_installed ) {
 				$response['code']    = 'pro_plugin';
@@ -47,23 +54,28 @@ class Installer extends Base {
 			}
 		}
 
+		/**
+		 * @var array|object $api
+		 */
+		$api = plugins_api( 'plugin_information', [
+			'slug'   => sanitize_key( wp_unslash( $plugin['slug'] ) ),
+			'fields' => [
+				'sections' => false,
+			],
+		] );
+
+		if ( is_wp_error( $api ) ) {
+			$response['message'] = $api->get_error_message();
+
+			return $response;
+		}
+
+		$compatibility = $this->check_compatibility($api);
+		if (!$compatibility['success']) {
+			return $compatibility;
+		}
+
 		if ( ! $is_installed ) {
-			/**
-			 * @var array|object $api
-			 */
-			$api = plugins_api( 'plugin_information', [
-					'slug'   => sanitize_key( wp_unslash( $plugin['slug'] ) ),
-					'fields' => [
-						'sections' => false,
-					],
-				] );
-
-			if ( is_wp_error( $api ) ) {
-				$response['message'] = $api->get_error_message();
-
-				return $response;
-			}
-
 			$response['name'] = $api->name;
 
 			$skin     = new WP_Ajax_Upgrader_Skin();
@@ -95,6 +107,10 @@ class Installer extends Base {
 
 				return $response;
 			}
+			else if($result !== true){
+				$response['message'] = __('Failed to install plugin', 'templately');
+				return $response;
+			}
 
 			$install_status        = install_plugin_install_status( $api );
 			$plugin['plugin_file'] = $install_status['file'];
@@ -122,8 +138,15 @@ class Installer extends Base {
 
 		$response = ['success' => false];
 
+		// Check if the theme is already active
+		if ($theme_slug == get_option('stylesheet')) {
+			$response['success'] = true;
+			$response['message'] = __('Theme is already active', 'templately');
+			return $response;
+		}
+
 		if (!function_exists('themes_api')) {
-			$response['message'] = 'Function themes_api does not exist';
+			$response['message'] = __('Function themes_api does not exist', 'templately');
 			return $response;
 		}
 
@@ -139,6 +162,11 @@ class Installer extends Base {
 			return $response;
 		}
 
+		$compatibility = $this->check_compatibility($api);
+		if (!$compatibility['success']) {
+			return $compatibility;
+		}
+
 		if (!wp_get_theme($theme_slug)->exists()) {
 			$upgrader = new Theme_Upgrader(new Automatic_Upgrader_Skin());
 			$result = $upgrader->install($api->download_link);
@@ -147,19 +175,47 @@ class Installer extends Base {
 				$response['message'] = $result->get_error_message();
 				return $response;
 			}
+			else if($result !== true){
+				$response['message'] = __('Failed to install theme', 'templately');
+				return $response;
+			}
 
 			$response['install'] = 'success';
 		}
 
-		switch_theme($theme_slug);
+		$activate_status = $this->activate_theme($theme_slug);
 
-		if ($theme_slug == get_option('stylesheet')) {
+		if ( is_wp_error( $activate_status ) ) {
+			$response['message'] = $activate_status->get_error_message();
+		}
+		else if ($activate_status) {
 			$response['success'] = true;
 		} else {
-			$response['message'] = 'Failed to activate theme';
+			$response['message'] = __('Failed to activate theme', 'templately');
 		}
 
 		return $response;
+	}
+
+	public function check_compatibility($api) {
+		// Check compatibility with current PHP version
+		if (version_compare(PHP_VERSION, $api->requires_php, '<')) {
+			return [
+				'success' => false,
+				'message' => sprintf(__('The plugin requires PHP version %s or higher. You are running version %s.', 'templately'), $api->requires_php, PHP_MAJOR_VERSION . "." . PHP_MINOR_VERSION)
+			];
+		}
+
+		// Check compatibility with current WP version
+		global $wp_version;
+		if (version_compare($wp_version, $api->requires, '<')) {
+			return [
+				'success' => false,
+				'message' => sprintf(__('The plugin requires WordPress version %s or higher. You are running version %s.', 'templately'), $api->requires, $wp_version)
+			];
+		}
+
+		return ['success' => true];
 	}
 
 	private function activate_plugin( $file ) {
@@ -173,6 +229,27 @@ class Installer extends Base {
 				return $result;
 			} else {
 				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private function activate_theme($theme_slug) {
+		if (get_option('stylesheet') == $theme_slug) {
+			// The theme is already active
+			return true;
+		}
+
+		if (current_user_can('switch_themes')) {
+			// Activate the theme
+			switch_theme($theme_slug);
+
+			// Check if the theme was successfully activated
+			if (get_option('stylesheet') == $theme_slug) {
+				return true;
+			} else {
+				return new \WP_Error('theme_activation_failed', __('Failed to activate theme', 'templately'));
 			}
 		}
 

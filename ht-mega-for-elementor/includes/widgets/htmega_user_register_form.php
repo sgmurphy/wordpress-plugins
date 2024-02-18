@@ -3358,7 +3358,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                     var form_id = 'form#htmega_register_form_<?php echo esc_attr( $id ); ?>';
                     var button_id = '#reg_submit<?php echo esc_attr( $id ); ?>';
                     var nonce = '<?php echo wp_create_nonce( 'htmega_register_nonce' ); ?>';
-                    var redirect = '<?php echo $reddirectstatus; ?>';
+                    var redirect = '<?php echo esc_attr( $reddirectstatus ); ?>';
 
                     $( button_id ).on('click', function(){
 

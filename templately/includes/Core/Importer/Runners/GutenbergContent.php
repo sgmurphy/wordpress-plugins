@@ -4,8 +4,12 @@ namespace Templately\Core\Importer\Runners;
 
 use Templately\Builder\PageTemplates;
 use Templately\Core\Importer\Utils\Utils;
+use Templately\Core\Importer\WPImport;
 use WP_Error;
 
+/**
+ * @property GutenbergHelper $json
+ */
 class GutenbergContent extends BaseRunner {
 
 	public function get_name(): string {
@@ -98,10 +102,21 @@ class GutenbergContent extends BaseRunner {
 					return false;
 				}
 
+				$attachments = $this->json->parse_images($json_content['content']);
+
+				if (!empty($attachments)) {
+					$manifest_content = &$this->manifest['content'][$type][$id];
+					if(!isset($manifest_content['__attachments'])){
+						$manifest_content['__attachments'] = [];
+					}
+					$manifest_content['__attachments'] = $attachments;
+				}
+
 				return $inserted;
 			}
 		} catch ( \Exception $e ) {
 			return false;
 		}
 	}
+
 }

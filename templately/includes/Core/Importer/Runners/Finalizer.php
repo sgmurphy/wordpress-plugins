@@ -62,7 +62,7 @@ class Finalizer extends BaseRunner {
 			return;
 		}
 		foreach ( $templates as $id => $template ) {
-			if ( ! isset( $template['data'] ) ) {
+			if ( ! isset( $template['data'] ) && !isset( $template['__attachments']) ) {
 				continue;
 			}
 
@@ -89,6 +89,9 @@ class Finalizer extends BaseRunner {
 		if ( ! empty( $imported_data['extra-content'] ) ) {
 			$this->extra_content = $imported_data['extra-content'];
 		}
+
+		$this->log( 0 );
+		add_action('templately_import.finalize_gutenberg_attachment', [$this, 'post_log'], 10, 2);
 
 		foreach ( $this->options as $type => $contents ) {
 			$this->type = $type;
@@ -136,5 +139,9 @@ class Finalizer extends BaseRunner {
 				continue;
 			}
 		}
+	}
+
+	public function post_log($id, $size_dimension = null){
+		$this->log(-1, "Imported attachment: $id" . ( $size_dimension ? " - $size_dimension" : ''), 'eventLog');
 	}
 }

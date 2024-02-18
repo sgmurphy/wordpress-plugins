@@ -441,7 +441,7 @@
       $this->siteConfig['password'] = $this->getRandomPassword();
       $this->saveConfigSite();
 
-      $pathToScript = BMI_TMP . DIRECTORY_SEPARATOR . '.autologin.php';
+      $pathToScript = BMI_INCLUDES . DIRECTORY_SEPARATOR . 'htaccess' . DIRECTORY_SEPARATOR . '.autologin.php';
 
       $mudirPath = WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'mu-plugins';
       if (defined('WPMU_PLUGIN_DIR')) $mudirPath = WPMU_PLUGIN_DIR;

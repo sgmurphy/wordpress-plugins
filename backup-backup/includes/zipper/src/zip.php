@@ -74,9 +74,8 @@ class Zip {
   }
 
   public function zip_failed($error) {
-    error_log(print_r($error, true));
     Logger::error(__("There was an error during backup (packing)...", 'backup-backup'));
-    Logger::error($error);
+    Logger::error(print_r($error, true));
 
     if ($this->zip_progress != null) {
       $this->zip_progress->log(__("Issues during backup (packing)...", 'backup-backup'), 'ERROR');
@@ -180,6 +179,14 @@ class Zip {
 
     }
 
+  }
+  
+  public function saveRemoteSettings($settings) {
+    $settings_name = 'currentBackupConfig.php';
+    $settings_path = BMP::fixSlashes(BMI_TMP . DIRECTORY_SEPARATOR . $settings_name);
+    
+    if (file_exists($settings_path)) @unlink($settings_path);
+    file_put_contents($settings_path, '<?php //' . json_encode($settings));
   }
 
   public function zip_end($force_lib = false, $cron = false) {
@@ -350,7 +357,8 @@ class Zip {
       // Run the backup in background
       if ((!defined('BMI_USING_CLI_FUNCTIONALITY') || BMI_USING_CLI_FUNCTIONALITY === false) && ($legacy === false || BMI_CLI_ENABLED === true) && sizeof($this->org_files) > 10 && !defined('BMI_CLI_FAILED')) {
         file_put_contents($database_file_dir . 'bmi_backup_manifest.json', $this->zip_progress->createManifest($dbBackupEngine));
-        $url = plugins_url('') . '/backup-backup/includes/middleware-backup-proxy.php';
+        // $url = plugins_url('') . '/backup-backup/includes/middleware-backup-proxy.php';
+        $url = admin_url('admin-ajax.php');
         $identy = 'BMI-' . rand(10000000, 99999999);
         $remote_settings = [
           'identy' => $identy,
@@ -369,11 +377,17 @@ class Zip {
           'browser' => false,
           'shareallowed' => BMP::canShareLogsOrShouldAsk(),
           'dbiteratio' => 0,
+          'it' => 0,
+          'dbit' => 0,
           'dblast' => 0,
           'bmitmp' => BMI_TMP,
-          'url' => $url
+          'url' => $url,
+          'db_v2_engine' => false,
+          'final_made' => false,
+          'final_batch' => false,
+          'dbitJustFinished' => false,
+          'useragent' => $_SERVER['HTTP_USER_AGENT']
         ];
-
         $fix = true;
         $Xfiles = glob(BMI_TMP . DIRECTORY_SEPARATOR . '.BMI-*');
         foreach ($Xfiles as $xfile) if (is_file($xfile)) unlink($xfile);
@@ -382,13 +396,17 @@ class Zip {
         if ($fix === true) {
           if (BMI_LEGACY_HARD_VERSION === false && $cron === false) {
             $remote_settings['browser'] = true;
-            $this->zip_progress->log(__("Sending backup settings and identy to the browser", 'backup-backup'), 'INFO');
-            BMP::res(['status' => 'background_hard', 'filename' => $this->backupname, 'settings' => $remote_settings, 'url' => $url]);
+            $this->zip_progress->log(__("Saving backup configuration for current session...", 'backup-backup'), 'INFO');
+            $this->saveRemoteSettings($remote_settings);
+            $this->zip_progress->log(__("Sending confirmation to user browser to keep pinging the process.", 'backup-backup'), 'INFO');
+            BMP::res(['status' => 'background_hard', 'filename' => $this->backupname, 'url' => $url]);
             exit;
           } else {
+            $this->zip_progress->log(__("Saving backup configuration for current session...", 'backup-backup'), 'INFO');
+            $this->saveRemoteSettings($remote_settings);
             $this->zip_progress->log(__('Starting background process on server-side...', 'backup-backup'), 'INFO');
             require_once BMI_INCLUDES . '/bypasser.php';
-            $request = new Bypasser(false, BMI_CONFIG_DIR, trailingslashit(WP_CONTENT_DIR), BMI_BACKUPS, trailingslashit(ABSPATH), plugin_dir_path(BMI_ROOT_FILE), $url, $remote_settings);
+            $request = new Bypasser($identy, BMI_CONFIG_DIR, trailingslashit(WP_CONTENT_DIR), BMI_BACKUPS, trailingslashit(ABSPATH), plugin_dir_path(BMI_ROOT_FILE));
             $request->send_beat(true, $this->zip_progress);
           }
         }

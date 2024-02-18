@@ -3,11 +3,11 @@
   /**
    * Plugin Name: Backup Migration
    * Description: Most sophisticated backup & migration plugin for WordPress
-   *      Author: Migrate
-   *  Author URI: https://backupbliss.com/
+   *      Author: Inisev
+   *  Author URI: https://inisev.com
    *  Plugin URI: https://backupbliss.com
    * Text Domain: backup-backup
-   *     Version: 1.4.2
+   *     Version: 1.4.3
    * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
   // Exit on direct access
@@ -21,7 +21,7 @@
     define('BMI_DEBUG', false);
   }
   if (!defined('BMI_VERSION')) {
-    define('BMI_VERSION', '1.4.2');
+    define('BMI_VERSION', '1.4.3');
   }
   if (!defined('BMI_ROOT_DIR')) {
     define('BMI_ROOT_DIR', __DIR__);

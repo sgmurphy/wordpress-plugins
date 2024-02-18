@@ -232,7 +232,7 @@ class BMI_Database {
     }
 
     $SQL_CONTENT = $file;
-    $mysqli = new \mysqli($this->host, $this->user, $this->pass, $this->name, $siteurl, $home);
+    $mysqli = new \mysqli($this->host, $this->user, $this->pass, $this->name);
 
     if (mysqli_connect_errno()) {
       Logger::error(__("Failed to connect to MySQL: ", 'backup-backup') . mysqli_connect_error());

@@ -6,6 +6,8 @@ use Exception;
 use Templately\Builder\PageTemplates;
 use Templately\Builder\Types\BaseTemplate;
 use Templately\Core\Importer\Utils\Utils;
+use Templately\Core\Importer\WPImport;
+use Templately\Utils\Helper;
 
 class Templates extends BaseRunner {
 	protected $imported_types = [];
@@ -96,6 +98,17 @@ class Templates extends BaseRunner {
 
 		if ( is_wp_error( $template ) ) {
 			return false;
+		}
+		if (!$template->is_elementor_template()) {
+			$attachments = $this->json->parse_images($template_content['content']);
+
+			if (!empty($attachments)) {
+				$manifest_content = &$this->manifest['templates'][$id];
+				if(!isset($manifest_content['__attachments'])){
+					$manifest_content['__attachments'] = [];
+				}
+				$manifest_content['__attachments'] = $attachments;
+			}
 		}
 
 		$template_content['id']              = $id;

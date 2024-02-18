@@ -16,6 +16,7 @@
   use BMI\Plugin\CRON\BMI_Crons as Crons;
   use BMI\Plugin\Dashboard as Dashboard;
   use BMI\Plugin\Scanner\BMI_BackupsScanner as Backups;
+  use BMI\Plugin\Heart\BMI_Backup_Heart as Bypasser;
   use BMI\Plugin\Zipper\BMI_Zipper as Zipper;
 
   // Uninstallator
@@ -121,7 +122,8 @@
       add_action('bmi_handle_cron_check', [&$this, 'handle_cron_check']);
       add_action('init', [&$this, 'handle_crons']);
       add_action('init', [&$this, 'include_offline']);
-
+      add_action('admin_notices', [&$this, 'incompatibility_notices']);
+      
       // Return if CRON time
       if (function_exists('wp_doing_cron') && wp_doing_cron()) return;
 
@@ -181,6 +183,27 @@
       add_action('admin_enqueue_scripts', [&$this, 'enqueue_styles']);
       add_action('admin_enqueue_scripts', [&$this, 'enqueue_scripts']);
 
+    }
+    
+    public function incompatibility_notices() {
+      
+      if (strpos(home_url(), 'instawp') === false && strpos(home_url(), 'playground.wordpress') === false) return;
+      
+      $environment = 'sandbox';
+      if (strpos(home_url(), 'instawp') !== false) $environment = 'InstaWP';
+      if (strpos(home_url(), 'playground.wordpress') !== false) $environment = 'WordPress Playground';
+      
+      $class = 'notice notice-warning';
+      $message = __('We noticed that you are using %s, our plugin may not work in this environment, please use %s environment instead.', 'backup-backup');
+      
+      printf('<div class="%s"><p><b>Backup Migration:</b> %s</p></div>', 
+        esc_attr($class), 
+        sprintf(
+          esc_html($message), 
+          '<i>' . $environment . '</i>', 
+          '<a href="https://tastewp.com" target="_blank">TasteWP</a>'
+        )
+      );
     }
 
     public static function randomString($max = 16) {
@@ -775,7 +798,7 @@
       $line = preg_replace('/\"\d{10}\"/', '"***secret_login***"', $line);
       $line = str_replace(ABSPATH, '***ABSPATH***/', $line);
       $line = str_replace($dir_name, '***backup_path***', $line);
-      $line = str_replace($table_prefix, '***prefix***', $line);
+      $line = str_replace($table_prefix, '***_', $line);
 
       for ($i = 0; $i < sizeof($scanned_directory); ++$i) {
 
@@ -951,7 +974,7 @@
     public function getMaxUploadSize() {
       $ten = (10 * 1024 * 1024);
       $max = min($this->phpSizeToB(ini_get('post_max_size')), $this->phpSizeToB(ini_get('upload_max_filesize')), $ten);
-      return ($max / 1024 / 1024);
+      return intval($max / 1024 / 1024);
     }
 
     public function enqueue_styles() {
@@ -1005,10 +1028,11 @@
           if (isset($_SERVER['REMOTE_ADDR'])) $ip = $_SERVER['REMOTE_ADDR'];
         }
       }
-      $allowed = ['BMI_BACKUP', 'BMI_BACKUP_LOGS', 'PROGRESS_LOGS', 'AFTER_RESTORE'];
+      $allowed = ['BMI_BACKUP', 'BMI_BACKUP_LOGS', 'PROGRESS_LOGS', 'AFTER_RESTORE', 'CURL_BACKUP'];
       $get_bmi = !empty($_GET['backup-migration']) ? sanitize_text_field($_GET['backup-migration']) : false;
       $get_bid = !empty($_GET['backup-id']) ? sanitize_text_field($_GET['backup-id']) : false;
       $get_pid = !empty($_GET['progress-id']) ? sanitize_text_field($_GET['progress-id']) : false;
+      $crons_enabled = !empty($_GET['crons']) ? sanitize_text_field($_GET['crons']) : false;
 
       if (isset($get_bmi) && in_array($get_bmi, $allowed)) {
         if (isset($get_bid) && strlen($get_bid) > 0) {
@@ -1057,8 +1081,9 @@
                   update_user_caches($user);
 
                 }
+                $cronsEnabledParam = $crons_enabled ? "&crons=true" : ""; 
 
-                $url = admin_url('admin.php?page=backup-migration');
+                $url = admin_url('admin.php?page=backup-migration' . $cronsEnabledParam);
                 header('Location: ' . $url);
 
                 @unlink($autologin_file);
@@ -1143,7 +1168,7 @@
               echo __("Backup download is restricted (allowed for admins only).", 'backup-backup');
               exit;
             }
-          } elseif ($type == 'BMI_BACKUP_LOGS') {
+          } else if ($type == 'BMI_BACKUP_LOGS') {
 
             // Only Admin can download backup logs
             if (!(current_user_can('administrator') || current_user_can('do_backups'))) return;
@@ -1187,7 +1212,7 @@
               }
             }
 
-          } elseif ($type == 'PROGRESS_LOGS') {
+          } else if ($type == 'PROGRESS_LOGS') {
             $allowed_progress = [
               'latest_full.log',
               'latest.log',
@@ -1314,6 +1339,41 @@
               }
               exit;
             }
+          } else if ($type == 'CURL_BACKUP') {
+            
+            // We tried to use nonces here, but turns out that WordPress does not work well with generating nonces for cURL session.
+            // We also tries to use cookiejar etc. but for researchers, this function is "verified" by process identy.
+            // It's similarly safe as nonce, but it works in case we need, nonces gets rejected after second request.
+            // 
+            // At the end, user who indeed would like to abuse this functionality, he can't do anything than helping the site owner.
+            // Free browser will keep the process ongoing, user won't receive any details other than "success" - as long as the user know the process identy.
+            
+            try {
+
+              // Load bypasser
+              require_once BMI_INCLUDES . '/bypasser.php';
+              $request = new Bypasser($get_bid, BMI_CONFIG_DIR, trailingslashit(WP_CONTENT_DIR), BMI_BACKUPS, trailingslashit(ABSPATH), plugin_dir_path(BMI_ROOT_FILE));
+              
+              if (sizeof($request->remote_settings) === 0) return;
+
+              // Handle request
+              $request->handle_batch();
+              exit;
+
+            } catch (\Exception $e) {
+
+              error_log('There was an error with Backup Migration plugin: ' . $e->getMessage());
+              Logger::error(__('Error handler: ', 'backup-backup') . 'ajax#01' . '|' . $e->getMessage());
+              error_log(strval($e));
+
+            } catch (\Throwable $t) {
+              
+              error_log('There was an error with Backup Migration plugin: ' . $t->getMessage());
+              Logger::error(__('Error handler: ', 'backup-backup') . 'ajax#01' . '|' . $t->getMessage());
+              error_log(strval($t));
+
+            }
+            
           }
         }
       }

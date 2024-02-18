@@ -2,8 +2,8 @@
 Contributors: Migrate
 Tags: Migration, Backup, Staging, Migrate, Backups, Restore, All In One, Duplicate, Clone, Import, Export, Transfer
 Requires at least: 4.6
-Tested up to: 6.4.2
-Stable tag: 1.4.2
+Tested up to: 6.5
+Stable tag: 1.4.3
 License: GPLv3
 Requires PHP: 5.6
 
@@ -162,6 +162,35 @@ Vietnamese: [Tạo sao lưu, khôi phục các bản sao lưu và di chuyển c�
 5. The plugin should be shown below the settings menu.
 
 == Changelog ==
+
+= 1.4.3 =
+* [REMOVED] Backup middleware PHP file has been removed
+* [CHANGE] We lowered requirements for our upload area, now it requires max_upload_size minimum at 1 MB.
+* [CHANGE] Default configuration for scheduled backups changed to weekly (previously: monthly)
+* [CHANGE] Bypass backup methods no longer rely on headers, these are no longer in use
+* [CHANGE] Cache directories will be now included in backups again (default behavior)
+* [CHANGE] Censor for table prefix simplified to ***_ (previously: ***prefix***)
+* [CHANGE] Scheduled backups are now forced to use new CURL backup method
+* [CHANGE] Updated plugin welcome title to something more fancy
+* [CHANGE] New users will now have PHP CLI disabled by default
+* [FIX] Fixed issues caused by managed MySQL databases, that prevented backup/restoration from starting
+* [FIX] Table prefix replacement has been improved and should cause much less issues
+* [FIX] Fixed database restoration process with backups created before v1.2.2
+* [FIX] Fixed autologin script after creation of staging site
+* [NEW] Since this version backup process as well as restoration will have WP_DEBUG force enabled (only during the process)
+* [NEW] We added couple of new debug and more detailed error messages in browser console (on error)
+* [NEW] Restore search & replace process will now ignore tables that starts with unknown prefix
+* [NEW] Our plugin will display notice in unsupported environments such as WP Playground
+* [NEW] After restoration user will now see option to turn on scheduled weekly backups
+* [NEW] Alternative method for databases with replication enabled (staging sites)
+* [NEW] Decreased amount of details shared with BackupBliss team via debug codes
+* [NEW] Sites with more than 150k files will now use optimized batching settings 
+* [NEW] Improved hard-blacklist of known backup directories and SQL tables
+* [NEW] CURL backup method got refactored accordingly to browser method
+* [NEW] Added proper URL sanitization to Super-Quick Migration URL
+* [NEW] Browser backup method got refactored, improves security
+* [NOTE] Table prefix detector is no longer in use for this release
+* [NOTE] Tested with WordPress 6.5-beta1
 
 = 1.4.2 =
 * [PRO] Added failure prevention when third party plugin(s) removes one of our files
@@ -712,13 +741,32 @@ Vietnamese: [Tạo sao lưu, khôi phục các bản sao lưu và di chuyển c�
 
 == Upgrade Notice ==
 
-= 1.4.2 =
-What's new in 1.4.2?
-* [PRO] Added failure prevention when third party plugin(s) removes one of our files
-* [FIX] Adjusted the code to support and fit PHP 8.3 standards based on user reports (also PHP 5.6)
-* [FIX] Errors caused by removal of file that does not exist should be resolved (during database backup)
-* [FIX] Infinite number will be now converted to max allowed value, allowing upload of tables with INF values
-* [FIX] Attempt of minimizing PCL temporary file issues caused most likely by insufficent storage space
-* [NOTE] Added new default exclusion rules in terms of files (optional usage)
-* [NOTE] Extended hard directory blacklist
-* [NOTE] Upgraded analyst module to latest version
+= 1.4.3 =
+What's new in 1.4.3?
+* [REMOVED] Backup middleware PHP file has been removed
+* [CHANGE] We lowered requirements for our upload area, now it requires max_upload_size minimum at 1 MB.
+* [CHANGE] Default configuration for scheduled backups changed to weekly (previously: monthly)
+* [CHANGE] Bypass backup methods no longer rely on headers, these are no longer in use
+* [CHANGE] Cache directories will be now included in backups again (default behavior)
+* [CHANGE] Censor for table prefix simplified to ***_ (previously: ***prefix***)
+* [CHANGE] Scheduled backups are now forced to use new CURL backup method
+* [CHANGE] Updated plugin welcome title to something more fancy
+* [CHANGE] New users will now have PHP CLI disabled by default
+* [FIX] Fixed issues caused by managed MySQL databases, that prevented backup/restoration from starting
+* [FIX] Table prefix replacement has been improved and should cause much less issues
+* [FIX] Fixed database restoration process with backups created before v1.2.2
+* [FIX] Fixed autologin script after creation of staging site
+* [NEW] Since this version backup process as well as restoration will have WP_DEBUG force enabled (only during the process)
+* [NEW] We added couple of new debug and more detailed error messages in browser console (on error)
+* [NEW] Restore search & replace process will now ignore tables that starts with unknown prefix
+* [NEW] Our plugin will display notice in unsupported environments such as WP Playground
+* [NEW] After restoration user will now see option to turn on scheduled weekly backups
+* [NEW] Alternative method for databases with replication enabled (staging sites)
+* [NEW] Decreased amount of details shared with BackupBliss team via debug codes
+* [NEW] Sites with more than 150k files will now use optimized batching settings 
+* [NEW] Improved hard-blacklist of known backup directories and SQL tables
+* [NEW] CURL backup method got refactored accordingly to browser method
+* [NEW] Added proper URL sanitization to Super-Quick Migration URL
+* [NEW] Browser backup method got refactored, improves security
+* [NOTE] Table prefix detector is no longer in use for this release
+* [NOTE] Tested with WordPress 6.5-beta1

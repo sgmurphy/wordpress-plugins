@@ -1102,12 +1102,12 @@ form#htmega-module-setting-form {
 
 
 .htmega-opt-field-color-btn {
-  height: 45px;
+  height: 43px;
   width: 43px;
   position: absolute;
   right: -47px;
   top: 0;
-  border: 2px solid #ddd;
+  border: 6px solid #ddd;
 }
 .htmega-module-setting-popup .htmega-form-wrapper {
   height: 100%;

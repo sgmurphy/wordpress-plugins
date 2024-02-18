@@ -35,11 +35,11 @@ trait LogHelper {
 	}
 
 	public function sse_message( $data ) {
-		echo "event: message\n";
-		echo 'data: ' . wp_json_encode( $data ) . "\n\n";
-
 		// Log the data into debug log file
 		Helper::log( $data );
+
+		echo "event: message\n";
+		echo 'data: ' . wp_json_encode( $data ) . "\n\n";
 
 		// Extra padding.
 		echo esc_html( ':' . str_repeat( ' ', 2048 ) . "\n\n" );

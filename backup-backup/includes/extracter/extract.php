@@ -848,9 +848,9 @@
       if (!$this->isCLI || $this->v3Importer == null) {
         $storage = $this->tmp . DIRECTORY_SEPARATOR . 'db_tables';
         $importer = new EvenBetterDatabaseImport($storage, false, $manifest, $this->migration, $this->splitting, $this->isCLI);
-        $res = $importer->searchReplace($this->replaceStep, $this->tableIndex, $this->currentReplacePage, $this->totalReplacePage, $this->fieldAdjustments);
+        $res = $importer->searchReplace($this->replaceStep, $this->tableIndex, $this->currentReplacePage, $this->totalReplacePage, $this->fieldAdjustments, $manifest->config->table_prefix);
       } else {
-        $res = $this->v3Importer->searchReplace($this->replaceStep, $this->tableIndex, $this->currentReplacePage, $this->totalReplacePage, $this->fieldAdjustments);
+        $res = $this->v3Importer->searchReplace($this->replaceStep, $this->tableIndex, $this->currentReplacePage, $this->totalReplacePage, $this->fieldAdjustments, $manifest->config->table_prefix);
       }
 
       if ($res && is_array($res) && $res['finished'] == true) {
@@ -1169,17 +1169,19 @@
       $this->migration->log('Forwarded table prefix: ' . $curr_prefix, 'VERBOSE');
       $this->migration->log('Manifest table prefix: ' . $manifest->config->table_prefix, 'VERBOSE');
       
-      if (strtolower($manifest->config->table_prefix) == strtolower($new_prefix)) {
-        $new_prefix = $manifest->config->table_prefix;
-      }
+      // if (strtolower($manifest->config->table_prefix) == strtolower($new_prefix)) {
+      //   $new_prefix = $manifest->config->table_prefix;
+      // }
       
-      if (strlen(trim($manifest->config->table_prefix)) == 0) {
-        return;
-      }
+      // if (strlen(trim($manifest->config->table_prefix)) == 0) {
+      //   return;
+      // }
       
-      if (strlen(trim($new_prefix)) == 0) {
-        return;
-      }
+      // if (strlen(trim($new_prefix)) == 0) {
+      //   return;
+      // }
+      
+      $new_prefix = $manifest->config->table_prefix;
       
       $this->migration->log(__('Restoring wp-config file...', 'backup-backup'), 'STEP');
       $wpconfigDir = $abs . DIRECTORY_SEPARATOR . 'wp-config.' . $this->tmptime . '.php';

@@ -221,7 +221,19 @@ final class HTMega_Addons_Elementor {
      * @return [void]
      */
     public function plugin_activate_hook() {
+
+
+        // save plugin activation time
+        if ( false === get_option( 'htmega_elementor_addons_activation_time' ) ) {
+            add_option( 'htmega_elementor_addons_activation_time', absint( intval( strtotime('now') ) ) );
+        }
+        // save plugin version
+        if ( false === get_option( 'htmega_elementor_addons_version' ) ) {
+            update_option('htmega_elementor_addons_version', HTMEGA_VERSION );
+        }
+
         add_option('htmega_do_activation_redirect', true);
+
     }
 
     /**
@@ -229,6 +241,15 @@ final class HTMega_Addons_Elementor {
      * @return [void]
      */
     public function plugin_redirect_option_page() {
+
+        // save data for old user before version 1.4.5
+        if ( false === get_option( 'htmega_elementor_addons_activation_time' ) ) {
+            add_option( 'htmega_elementor_addons_activation_time', absint( intval( strtotime('now') ) ) );
+        }
+        // save plugin version
+        if ( false === get_option( 'htmega_elementor_addons_version' ) ) {
+            update_option('htmega_elementor_addons_version', HTMEGA_VERSION );
+        } 
         if ( get_option( 'htmega_do_activation_redirect', false ) ) {
             delete_option('htmega_do_activation_redirect');
             if( !isset( $_GET['activate-multi'] ) ){

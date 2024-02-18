@@ -362,33 +362,64 @@
       }
 
     }
-
-    private function duplicateTable($source, $destination) {
-
+    
+    private function duplicateTableAlternative($source, $destination) {
+      
       global $wpdb;
+      
+      // Remove failed table if created
+      $sql = "DROP TABLE IF EXISTS %i;";
+      $sql = $wpdb->prepare($sql, [$destination]);
+      $wpdb->query($sql);
 
+      if ($wpdb->last_error !== '') {
+        $translated = __('There was an error during previous destination table removal:', 'backup-backup') . ' ' . $wpdb->last_error;
+        $english = 'There was an error during previous destination table removal:' . ' ' . $wpdb->last_error;
+        return $this->returnError($translated, $english); 
+      }
+      
       // Create new table
-      // $sql = "CREATE TABLE %i LIKE %i;";
-      $sql = "CREATE TABLE %i AS SELECT * FROM %i;";
+      $sql = "CREATE TABLE %i LIKE %i;";
       $sql = $wpdb->prepare($sql, [$destination, $source]);
       $wpdb->query($sql);
 
       if ($wpdb->last_error !== '') {
         $translated = __('There was an error during database table creation:', 'backup-backup') . ' ' . $wpdb->last_error;
         $english = 'There was an error during database table creation:' . ' ' . $wpdb->last_error;
-        $this->returnError($translated, $english);
+        return $this->returnError($translated, $english); 
       }
 
       // Duplicate data
-      // $sql = "INSERT INTO %i SELECT * from %i;";
-      // $sql = $wpdb->prepare($sql, [$destination, $source]);
-      // $wpdb->query($sql);
+      $sql = "INSERT INTO %i SELECT * from %i;";
+      $sql = $wpdb->prepare($sql, [$destination, $source]);
+      $wpdb->query($sql);
 
-      // if ($wpdb->last_error !== '') {
-      //   $translated = __('There was an error during database table data duplication:', 'backup-backup') . ' ' . $wpdb->last_error;
-      //   $english = 'There was an error during database table data duplication:' . ' ' . $wpdb->last_error;
-      //   $this->returnError($translated, $english);
-      // }
+      if ($wpdb->last_error !== '') {
+        $translated = __('There was an error during database table data duplication:', 'backup-backup') . ' ' . $wpdb->last_error;
+        $english = 'There was an error during database table data duplication:' . ' ' . $wpdb->last_error;
+        return $this->returnError($translated, $english);
+      }
+
+    }
+
+    private function duplicateTable($source, $destination) {
+
+      global $wpdb;
+
+      // Create new table
+      $sql = "CREATE TABLE %i AS SELECT * FROM %i;";
+      $sql = $wpdb->prepare($sql, [$destination, $source]);
+      $wpdb->query($sql);
+
+      if ($wpdb->last_error !== '') {
+        $this->duplicateTableAlternative($source, $destination);
+      }
+      
+      if ($wpdb->last_error !== '') {
+        $translated = __('There was an error during database table creation:', 'backup-backup') . ' ' . $wpdb->last_error;
+        $english = 'There was an error during database table creation:' . ' ' . $wpdb->last_error;
+        return $this->returnError($translated, $english); 
+      }
 
     }
 

@@ -1846,7 +1846,7 @@ class HTMega_Elementor_Widget_User_Login_Form extends Widget_Base {
                 var loadingmessage = '<?php echo esc_html__('Please wait...','htmega-addons'); ?>';
                 var login_form_id = 'form#htmega_login_form_<?php echo esc_attr( $id ); ?>';
                 var login_button_id = '#login_form_submit_<?php echo esc_attr( $id ); ?>';
-                var redirect = '<?php echo $reddirectstatus; ?>';
+                var redirect = '<?php echo esc_attr( $reddirectstatus ); ?>';
 
                 $( login_button_id ).on('click', function(){
 

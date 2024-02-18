@@ -627,7 +627,7 @@ class HTMega_Elementor_Widget_Image_Masonry extends Widget_Base {
        
         ?>
             <div <?php echo $this->get_render_attribute_string( 'imagemasonry_attr' ); ?> style="display:none;">
-                <div class="htb-row masonry-wrap" id="<?php echo $sectionid; ?>">
+                <div class="htb-row masonry-wrap" id="<?php echo esc_attr( $sectionid ); ?>">
                     <div class='masonary-sizer <?php echo esc_attr( $collumval_sizer );?>'></div>
                     <?php
                         foreach ( $settings['masonrygrid_list'] as $key=> $imagegrid ):

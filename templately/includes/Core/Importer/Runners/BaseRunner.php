@@ -39,7 +39,7 @@ abstract class BaseRunner {
 	public function __construct( FullSiteImport $full_site_import ) {
 		$this->origin   = $full_site_import;
 		$this->dir_path = $full_site_import->dir_path;
-		$this->manifest = $full_site_import->manifest;
+		$this->manifest = &$full_site_import->manifest;
 		$this->platform = $this->manifest['platform'] ?? '';
 		$this->session_id = $full_site_import->session_id;
 

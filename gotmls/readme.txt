@@ -5,10 +5,10 @@ Author URI: http://wordpress.ieonly.com/category/my-plugins/anti-malware/
 Contributors: gotmls, scheeeli
 Donate link: https://gotmls.net/donate/
 Tags: security, firewall, anti-malware, scanner, automatic, repair, remove, malware, virus, threat, hacked, malicious, infection, timthumb, exploit, block, brute-force, wp-login, patch, antimalware, revslider, Revolution Slider
-Version: 4.21.96
-Stable tag: 4.21.96
+Version: 4.23.56
+Stable tag: 4.23.56
 Requires at least: 3.3
-Tested up to: 6.3.1
+Tested up to: 6.4.3
 
 This Anti-Malware scanner searches for Malware, Viruses, and other security threats and vulnerabilities on your server and it helps you fix them.
 
@@ -84,6 +84,10 @@ There is no sure way to protect your site from every kind of hack attempt. That 
 
 sucuri.net caches their scan results and will not refresh the scan until you click the small link near the bottom of the page that says "Force a Re-scan" to clear the cache. Google also caches your infected pages and usually takes some time before crawling your site again, but you can speed up that process by Requesting a Review in the Malware or Security section of [Google Webmaster Tools](https://www.google.com/webmasters/tools/). It is a good idea to have a Webmaster Tools account for your site anyway as it can provide lots of other helpful information about your site.
 
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/gotmls)
+
 == Screenshots ==
 
 1. The menu showing Anti-Malware options.
@@ -93,6 +97,16 @@ sucuri.net caches their scan results and will not refresh the scan until you cli
 5. The Quarantine showing threats that have been fix already.
 
 == Changelog ==
+
+= 4.23.56 =
+* Upgraded Brute-Force Login Protection to integrate the JS check on the login form with the session check.
+* Fixed definition update to only allow admin users to post the update, even if a valid nonce token is used.
+* Improved the Nonce tokens to incorperate user_id and context for better security.
+* Limited the Nonce token check to once single token per request for better security, instead of allowing multi-check capabilities with an array.
+* Redesigned Scan History to retain more of the detailed scan results.
+* Fixed usage of incorrect value for REMOTE_ADDR when the server is using a reverse proxy.
+* Added an option to manually recheck the donation status.
+* Checked code for compatibility with WordPress 6.4.3 and ClassicPress 1.7.2.
 
 = 4.21.96 =
 * Fixed another Undefined Index Warning in new installs when no definition updates have been downloaded.
@@ -448,6 +462,9 @@ sucuri.net caches their scan results and will not refresh the scan until you cli
 * First versions available for WordPress (code removed, no longer compatible).
 
 == Upgrade Notice ==
+
+= 4.23.56 =
+Upgraded Brute-Force Login Protection, restricted definition updates to admin users, improved the Nonce tokens for better security (thanks to Patchstack), and a few other minor code changes for servers using reverse proxy and code compatibility for WordPress 6.4.3 and ClassicPress 1.7.2.
 
 = 4.21.96 =
 Fixed another Undefined Index Warning, improved timing of registration check, and added an option to manually recheck the registration status.

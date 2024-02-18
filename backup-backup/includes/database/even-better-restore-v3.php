@@ -320,7 +320,7 @@ class BMI_Even_Better_Database_Restore {
 
   }
 
-  private function performReplace($step = 0, $tableIndex = 0, $currentPage = 0, $totalPages = 0, $fieldAdjustments = 0) {
+  private function performReplace($step = 0, $tableIndex = 0, $currentPage = 0, $totalPages = 0, $fieldAdjustments = 0, $newPrefix = "wp_") {
 
     $status = [
       'step' => $step,
@@ -352,6 +352,15 @@ class BMI_Even_Better_Database_Restore {
       }
 
       $status['finished'] = true;
+      return $status;
+    }
+    
+    if (strpos($currentTable, $newPrefix) === false) {
+      $this->logger->log(__('Adjustments are not required for this table.', 'backup-backup') . "(" . sanitize_text_field(strval($currentTable)) .  ")", 'INFO');
+
+      $status['step'] = 1;
+      $status['fieldAdjustments'] = 0;
+      $status['tableIndex'] = $tableIndex + 1;
       return $status;
     }
 
@@ -750,10 +759,10 @@ class BMI_Even_Better_Database_Restore {
 
   }
 
-  public function searchReplace($step = 0, $tableIndex = 0, $currentPage = 0, $totalPages = 0, $fieldAdjustments = 0) {
+  public function searchReplace($step = 0, $tableIndex = 0, $currentPage = 0, $totalPages = 0, $fieldAdjustments = 0, $newPrefix = 'wp_') {
 
     $this->logger->progress(90);
-    return $this->performReplace($step, $tableIndex, $currentPage, $totalPages, $fieldAdjustments);
+    return $this->performReplace($step, $tableIndex, $currentPage, $totalPages, $fieldAdjustments, $newPrefix);
 
   }
 
