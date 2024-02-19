@@ -49,10 +49,16 @@ if (is_file(dirname(__FILE__)."/session.php")) {
 			}
 		}
 	}
-	if (isset($_POST["GOTMLS_sess_id"]) && strlen($GOT_sess = preg_replace('/[^0-9\-,a-z]/i', "", $_POST["GOTMLS_sess_id"])))
+
+	if (isset($_GET["GOTMLS_sess"]) && strlen($_GET["GOTMLS_sess"]) && isset($_GET["GOTMLS_time"]) && is_numeric($_GET["GOTMLS_time"])) {
+		define("GOTMLS_SESS", preg_replace('/[^0-9\-,a-z]/i', "", $_GET["GOTMLS_sess"]));
+		define("GOTMLS_TIME", preg_replace('/[^0-9]/', "", $_GET["GOTMLS_time"]));
+		GOTMLS_session_start(GOTMLS_SESS);
+	} elseif (isset($_POST["GOTMLS_sess_id"]) && strlen($GOT_sess = preg_replace('/[^0-9\-,a-z]/i', "", $_POST["GOTMLS_sess_id"]))) {
+		define("GOTMLS_SESS", "$GOT_sess");
 		GOTMLS_session_start("$GOT_sess");
-	else
-		GOTMLS_session_start();
+	} else
+		define("GOTMLS_SESS", GOTMLS_session_start(true));
 	if ((GOTMLS_REQUEST_METHOD == "POST") && isset($_POST["log"]) && isset($_POST["pwd"]) && !(isset($GOTMLS_LOGIN_KEY) && isset($GOTMLS_logins[$GOTMLS_LOGIN_KEY]["whitelist"]))) {
 		if (!(isset($_SESSION["GOTMLS_detected_attacks"]) && $_SESSION["GOTMLS_SESSION_LAST"]))
 			$GLOBALS["GOTMLS"]["detected_attacks"] = '&attack[]=NO_SESSION';
@@ -107,7 +113,7 @@ if (is_file(dirname(__FILE__)."/session.php")) {
 		$_SESSION["GOTMLS_detected_attacks"] = '';
 		$_SESSION["GOTMLS_login_attempts"] = 0;
 	}
-	GOTMLS_session_close();
+	//GOTMLS_session_close();
 } else {
 	$GLOBALS["GOTMLS"]["detected_attacks"] .= '&attack[]=NO_session.php_FILE';
 	require(dirname(__FILE__)."/index.php");

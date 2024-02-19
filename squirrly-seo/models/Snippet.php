@@ -89,9 +89,38 @@ class SQ_Models_Snippet
 	        }
 
 			//if there is a search in posts
-	        if (!$search_all && $search <> '' && strpos($search, '/') === false) {
+	        if(strpos($search, '/') !== false){
+
+				//add data in where
+		        add_filter( 'posts_where', function ( $where ) use ($search) {
+			        global $wpdb;
+
+					//remove the domain
+			        if(strpos($search, '//') !== false && parse_url($search, PHP_URL_PATH)){
+				        $search = parse_url($search, PHP_URL_PATH);
+			        }
+
+					//remove the trail slash
+			        $search = untrailingslashit($search);
+
+			        //get only the name of the post
+					if(strrpos($search, '/') !== false){
+						$search = substr($search, strrpos($search, '/') + 1);
+					}
+
+					//if search is valid
+					if($search <> ''){
+						$where .= ' AND ' . $wpdb->posts . '.post_name LIKE \'%' . $wpdb->esc_like( $search ) . '%\'';
+					}
+
+			        return $where;
+		        }, 10, 1);
+
+	        }elseif (!$search_all && $search <> '') {
 		        $query['s'] = $search;
 	        }
+
+
 
             //If post id is set in URL
             if ($post_id) {
@@ -164,6 +193,39 @@ class SQ_Models_Snippet
             if ($post_id) {
                 $query['include'] = explode(',', $post_id);
             }
+
+	        //if there is a search in posts
+	        if(strpos($search, '/') !== false){
+				add_filter( 'terms_clauses', function( $clauses ) use ($search) {
+			        global $wpdb;
+
+			        //remove the domain
+			        if(strpos($search, '//') !== false && parse_url($search, PHP_URL_PATH)){
+				        $search = parse_url($search, PHP_URL_PATH);
+			        }
+
+			        //remove the trail slash
+			        $search = untrailingslashit($search);
+
+			        //get only the name of the post
+			        if(strrpos($search, '/') !== false){
+				        $search = substr($search, strrpos($search, '/') + 1);
+			        }
+
+			        //if search is valid
+			        if($search <> ''){
+				        $search = $wpdb->esc_like( $$search );
+
+				        if ( ! isset( $clauses['where'] ) )
+					        $clauses['where'] = '1=1';
+
+				        $clauses['where'] .= $wpdb->prepare( " AND t.name LIKE %s", "%$search%" );
+			        }
+
+			        return $clauses;
+		        }, 10, 1 );
+	        }
+
             $categories = get_terms($query);
             if (!is_wp_error($categories) && !empty($categories)) {
                 foreach ($categories as $category) {

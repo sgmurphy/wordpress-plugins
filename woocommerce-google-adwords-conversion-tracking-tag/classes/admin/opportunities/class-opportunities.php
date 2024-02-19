@@ -265,27 +265,6 @@ class Opportunities {
 		return false;
 	}
 
-	/**
-	 * Dismisses the dashboard notification.
-	 *
-	 * @return void
-	 * @since 1.28.0
-	 */
-	public static function dismiss_dashboard_notification() {
-
-		$option = get_option(self::$pmw_opportunities_option);
-
-		if (empty($option)) {
-			$option = [];
-		}
-
-		$option['dashboard_notification_dismissed'] = time();
-
-		update_option(self::$pmw_opportunities_option, $option);
-
-		wp_send_json_success();
-	}
-
 	public static function dismiss_opportunity( $opportunity_id ) {
 
 		$option = get_option(self::$pmw_opportunities_option);

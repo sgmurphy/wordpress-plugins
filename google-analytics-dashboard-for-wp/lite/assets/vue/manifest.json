@@ -7,59 +7,65 @@
     "file": "css/ContentIconList.css",
     "src": "ContentIconList.css"
   },
-  "_AboutTestimonialsSlider-b3b648c6.js": {
+  "_AboutTestimonialsSlider-c2111399.min.js": {
     "css": [
       "css/AboutTestimonialsSlider.css"
     ],
-    "file": "js/chunks/AboutTestimonialsSlider-b3b648c6.js",
+    "file": "js/chunks/AboutTestimonialsSlider-c2111399.min.js",
     "imports": [
-      "_vendor-809248d8.js",
-      "_SettingsInfoTooltip-631179db.js",
-      "_ContentIconList-4530fbab.js"
+      "_vendor-0467ed35.min.js",
+      "_SettingsInfoTooltip-dfd57bc3.min.js",
+      "_ContentIconList-b87b4e15.min.js"
     ]
   },
-  "_ContentIconList-4530fbab.js": {
+  "_ContentIconList-b87b4e15.min.js": {
     "css": [
       "css/ContentIconList.css"
     ],
-    "file": "js/chunks/ContentIconList-4530fbab.js",
+    "file": "js/chunks/ContentIconList-b87b4e15.min.js",
     "imports": [
-      "_vendor-809248d8.js"
+      "_vendor-0467ed35.min.js"
     ]
   },
-  "_SettingsInfoTooltip-631179db.js": {
-    "file": "js/chunks/SettingsInfoTooltip-631179db.js",
+  "_SettingsInfoTooltip-dfd57bc3.min.js": {
+    "file": "js/chunks/SettingsInfoTooltip-dfd57bc3.min.js",
     "imports": [
-      "_vendor-809248d8.js"
+      "_vendor-0467ed35.min.js"
     ]
   },
-  "_WidgetReportError-34599f3d.js": {
-    "file": "js/chunks/WidgetReportError-34599f3d.js",
+  "_WidgetReportError-285b8845.min.js": {
+    "file": "js/chunks/WidgetReportError-285b8845.min.js",
     "imports": [
-      "_vendor-809248d8.js"
+      "_vendor-0467ed35.min.js"
     ]
   },
-  "_exactmetrics-reports-helper-plugin-f786df3d.js": {
-    "file": "js/chunks/exactmetrics-reports-helper-plugin-f786df3d.js",
+  "_exactmetrics-reports-helper-plugin-84f9f2bc.min.js": {
+    "file": "js/chunks/exactmetrics-reports-helper-plugin-84f9f2bc.min.js",
     "imports": [
-      "_vendor-809248d8.js",
-      "_SettingsInfoTooltip-631179db.js"
+      "_vendor-0467ed35.min.js",
+      "_SettingsInfoTooltip-dfd57bc3.min.js"
     ]
   },
-  "_html2canvas-2f5ba308.js": {
-    "file": "js/chunks/html2canvas-2f5ba308.js",
+  "_html2canvas-6582f457.min.js": {
+    "file": "js/chunks/html2canvas-6582f457.min.js",
     "imports": [
-      "_vendor-809248d8.js"
+      "_vendor-0467ed35.min.js"
     ],
     "isDynamicEntry": true
   },
-  "_index-28669258.js": {
-    "file": "js/chunks/index-28669258.js",
+  "_index-2dedb3bb.min.js": {
+    "file": "js/chunks/index-2dedb3bb.min.js",
     "imports": [
-      "_vendor-809248d8.js"
+      "_vendor-0467ed35.min.js"
     ]
   },
-  "_index-a539e7d3.js": {
+  "_index-3b2cd545.min.js": {
+    "file": "js/chunks/index-3b2cd545.min.js",
+    "imports": [
+      "_vendor-0467ed35.min.js"
+    ]
+  },
+  "_index-f09a78b5.min.js": {
     "assets": [
       "img/icon-info.svg",
       "img/logo-ExactMetrics@2x.png",
@@ -82,19 +88,13 @@
     "css": [
       "css/index.css"
     ],
-    "file": "js/chunks/index-a539e7d3.js",
+    "file": "js/chunks/index-f09a78b5.min.js",
     "imports": [
-      "_vendor-809248d8.js",
-      "_ContentIconList-4530fbab.js"
+      "_vendor-0467ed35.min.js",
+      "_ContentIconList-b87b4e15.min.js"
     ]
   },
-  "_index-e09d2d2c.js": {
-    "file": "js/chunks/index-e09d2d2c.js",
-    "imports": [
-      "_vendor-809248d8.js"
-    ]
-  },
-  "_vendor-809248d8.js": {
+  "_vendor-0467ed35.min.js": {
     "assets": [
       "img/sucker.png"
     ],
@@ -102,11 +102,11 @@
       "css/vendor.css"
     ],
     "dynamicImports": [
-      "_html2canvas-2f5ba308.js",
+      "_html2canvas-6582f457.min.js",
       "node_modules/dompurify/dist/purify.es.js",
       "node_modules/canvg/lib/index.es.js"
     ],
-    "file": "js/chunks/vendor-809248d8.js"
+    "file": "js/chunks/vendor-0467ed35.min.js"
   },
   "index.css": {
     "file": "css/index.css",
@@ -117,15 +117,15 @@
     "src": "node_modules/@caohenghu/vue-colorpicker/src/img/sucker.png"
   },
   "node_modules/canvg/lib/index.es.js": {
-    "file": "js/chunks/index.es-c63d626c.js",
+    "file": "js/chunks/index.es-1dd2572c.min.js",
     "imports": [
-      "_vendor-809248d8.js"
+      "_vendor-0467ed35.min.js"
     ],
     "isDynamicEntry": true,
     "src": "node_modules/canvg/lib/index.es.js"
   },
   "node_modules/dompurify/dist/purify.es.js": {
-    "file": "js/chunks/purify.es-2ba3e0d8.js",
+    "file": "js/chunks/purify.es-2ba3e0d8.min.js",
     "isDynamicEntry": true,
     "src": "node_modules/dompurify/dist/purify.es.js"
   },
@@ -955,12 +955,12 @@
     "css": [
       "css/frontend.css"
     ],
-    "file": "js/frontend.js",
+    "file": "js/frontend.min.js",
     "imports": [
-      "_vendor-809248d8.js",
-      "_index-e09d2d2c.js",
-      "_WidgetReportError-34599f3d.js",
-      "_index-28669258.js"
+      "_vendor-0467ed35.min.js",
+      "_index-2dedb3bb.min.js",
+      "_WidgetReportError-285b8845.min.js",
+      "_index-3b2cd545.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/frontend/frontend.js"
@@ -1046,15 +1046,15 @@
     "css": [
       "css/reports.css"
     ],
-    "file": "js/reports.js",
+    "file": "js/reports.min.js",
     "imports": [
-      "_vendor-809248d8.js",
-      "_index-e09d2d2c.js",
-      "_exactmetrics-reports-helper-plugin-f786df3d.js",
-      "_SettingsInfoTooltip-631179db.js",
-      "_index-a539e7d3.js",
-      "_ContentIconList-4530fbab.js",
-      "_index-28669258.js"
+      "_vendor-0467ed35.min.js",
+      "_index-2dedb3bb.min.js",
+      "_exactmetrics-reports-helper-plugin-84f9f2bc.min.js",
+      "_SettingsInfoTooltip-dfd57bc3.min.js",
+      "_index-f09a78b5.min.js",
+      "_ContentIconList-b87b4e15.min.js",
+      "_index-3b2cd545.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/reports/reports.js"
@@ -1224,14 +1224,14 @@
     "css": [
       "css/settings.css"
     ],
-    "file": "js/settings.js",
+    "file": "js/settings.min.js",
     "imports": [
-      "_vendor-809248d8.js",
-      "_index-28669258.js",
-      "_ContentIconList-4530fbab.js",
-      "_AboutTestimonialsSlider-b3b648c6.js",
-      "_index-a539e7d3.js",
-      "_SettingsInfoTooltip-631179db.js"
+      "_vendor-0467ed35.min.js",
+      "_index-3b2cd545.min.js",
+      "_ContentIconList-b87b4e15.min.js",
+      "_AboutTestimonialsSlider-c2111399.min.js",
+      "_index-f09a78b5.min.js",
+      "_SettingsInfoTooltip-dfd57bc3.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/settings/settings.js"
@@ -1321,14 +1321,14 @@
     "css": [
       "css/widget.css"
     ],
-    "file": "js/widget.js",
+    "file": "js/widget.min.js",
     "imports": [
-      "_vendor-809248d8.js",
-      "_index-e09d2d2c.js",
-      "_exactmetrics-reports-helper-plugin-f786df3d.js",
-      "_SettingsInfoTooltip-631179db.js",
-      "_WidgetReportError-34599f3d.js",
-      "_index-28669258.js"
+      "_vendor-0467ed35.min.js",
+      "_index-2dedb3bb.min.js",
+      "_exactmetrics-reports-helper-plugin-84f9f2bc.min.js",
+      "_SettingsInfoTooltip-dfd57bc3.min.js",
+      "_WidgetReportError-285b8845.min.js",
+      "_index-3b2cd545.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/widget/widget.js"
@@ -1397,13 +1397,13 @@
     "css": [
       "css/wizard.css"
     ],
-    "file": "js/wizard.js",
+    "file": "js/wizard.min.js",
     "imports": [
-      "_vendor-809248d8.js",
-      "_AboutTestimonialsSlider-b3b648c6.js",
-      "_SettingsInfoTooltip-631179db.js",
-      "_index-28669258.js",
-      "_ContentIconList-4530fbab.js"
+      "_vendor-0467ed35.min.js",
+      "_AboutTestimonialsSlider-c2111399.min.js",
+      "_SettingsInfoTooltip-dfd57bc3.min.js",
+      "_index-3b2cd545.min.js",
+      "_ContentIconList-b87b4e15.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/wizard-onboarding/wizard.js"

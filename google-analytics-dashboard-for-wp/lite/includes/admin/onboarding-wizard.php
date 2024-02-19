@@ -107,7 +107,7 @@ class ExactMetrics_Onboarding_Wizard {
 			ExactMetrics_Admin_Assets::enqueue_script_specific_css( 'src/modules/wizard-onboarding/wizard.js' );
 		}
 
-		$app_js_url = defined('EXACTMETRICS_LOCAL_JS_URL') && EXACTMETRICS_LOCAL_JS_URL ? EXACTMETRICS_LOCAL_JS_URL . 'src/modules/wizard-onboarding/wizard.js' : plugins_url($version_path . '/assets/vue/js/wizard.js', EXACTMETRICS_PLUGIN_FILE);
+		$app_js_url = ExactMetrics_Admin_Assets::get_js_url( 'src/modules/wizard-onboarding/wizard.js' );
 		wp_register_script( 'exactmetrics-vue-script', $app_js_url, array(), exactmetrics_get_asset_version(), true );
 		wp_enqueue_script( 'exactmetrics-vue-script' );
 

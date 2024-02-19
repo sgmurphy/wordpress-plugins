@@ -572,10 +572,15 @@ function wdtWpDataChartShortcodeHandler($atts, $content = null) {
     }
 
     try {
-        $wpDataChart = new WPDataChart();
-        $wpDataChart->setId($id);
-        $wpDataChart->loadFromDB();
-
+        $dbChartData = WPDataChart::getChartDataById($id);
+        if (!$dbChartData) {
+            return esc_html__('wpDataChart with provided ID not found!', 'wpdatatables');
+        }
+        $chartData = [
+            'id' => $id,
+            'engine' => $dbChartData->engine
+        ];
+        $wpDataChart = WPDataChart::build($chartData, true);
         $chartExists = $wpDataChart->getwpDataTableId();
         if (empty($chartExists)) {
             return esc_html__('wpDataChart with provided ID not found!', 'wpdatatables');
@@ -583,9 +588,9 @@ function wdtWpDataChartShortcodeHandler($atts, $content = null) {
 
         do_action('wpdatatables_before_render_chart', $wpDataChart->getId());
 
-        return $wpDataChart->renderChart();
+        return $wpDataChart->render();
     } catch (Exception $e) {
-        return esc_html__('wpDataTables encountered an issue trying to display chart. Please edit the chart in the admin area for more details.');
+        return esc_html__('There was an issue displaying the chart. Please edit the chart in the admin area for more details.');
     }
 }
 

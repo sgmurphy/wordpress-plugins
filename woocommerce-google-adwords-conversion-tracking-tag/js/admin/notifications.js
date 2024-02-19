@@ -1,14 +1,11 @@
-jQuery(document).on("click", ".pmw-notification-dismiss-button, .incompatible-plugin-error-dismissal-button", e => {
-
-	// console.log("clicked")
-	// console.log("jQuery(e.target).attr(\"data-plugin-slug\")", jQuery(e.target).attr("data-notification-id"))
-
-	sendPmwNotificationDetails({
-		element: jQuery(e.target),
-		type   : "generic-notification",
-	})
-})
-
+/**
+ * Sends the notification details to the server
+ *
+ * @param input
+ * @param input.element
+ * @param input.type
+ * @param input.id
+ */
 const sendPmwNotificationDetails = input => {
 
 	fetch(pmwNotificationsApi.root + "pmw/v1/notifications/", {
@@ -21,7 +18,7 @@ const sendPmwNotificationDetails = input => {
 		body   : JSON.stringify({
 			// notification: jQuery(e.target).attr("id"),
 			type: input.type,
-			id  : input.element.attr("data-notification-id"),
+			id  : input.id,
 		}),
 	})
 		.then(response => {
@@ -31,38 +28,40 @@ const sendPmwNotificationDetails = input => {
 		})
 		.then(data => {
 			if (data.success) {
-				input.element.closest(".notice").fadeOut(300, () => {
-					input.element.remove()
-				})
+
+				if (input.type === "generic-notification") {
+					input.element.closest(".notice").fadeOut(300, () => {
+						input.element.remove()
+					})
+				}
+
+				if (input.type === "dismiss_opportunity") {
+					input.element.appendTo(".pmw-opportunity-dismissed")
+				}
 			}
 		})
 }
 
+/**
+ * Dismisses a generic notification
+ */
+jQuery(document).on("click", ".pmw-notification-dismiss-button, .incompatible-plugin-error-dismissal-button", e => {
+
+	sendPmwNotificationDetails({
+		type   : "generic-notification",
+		element: jQuery(e.target),
+		id     : jQuery(e.target).attr("data-notification-id"),
+	})
+})
+
+/**
+ * Dismisses an opportunity
+ */
 jQuery(document).on("click", ".pmw.opportunity-dismiss", (e) => {
 
-	const opportunityId = jQuery(e.target).attr("data-opportunity-id")
-	const htmlElement   = jQuery(e.target)
-
-	fetch(pmwNotificationsApi.root + "pmw/v1/notifications/", {
-		method : "POST",
-		cache  : "no-cache",
-		headers: {
-			"Content-Type": "application/json",
-			"X-WP-Nonce"  : pmwNotificationsApi.nonce,
-		},
-		body   : JSON.stringify({
-			notification : "dismiss_opportunity",
-			opportunityId: opportunityId,
-		}),
+	sendPmwNotificationDetails({
+		type   : "dismiss_opportunity",
+		element: jQuery(e.target),
+		id     : jQuery(e.target).attr("data-opportunity-id"),
 	})
-		.then(response => {
-			if (response.ok) {
-				return response.json()
-			}
-		})
-		.then(data => {
-			if (data.success) {
-				htmlElement.appendTo(".pmw-opportunity-dismissed")
-			}
-		})
 })

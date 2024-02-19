@@ -252,7 +252,7 @@ class Module {
 		<script type="text/javascript">
 			jQuery(document).ready(function () {
 				jQuery(".elementor-element-<?php echo $element->get_id(); ?>").prepend('<div class="eae-section-bs"><div class="eae-section-bs-inner"></div></div>');
-				if ('<?php echo $settings['eae_custom_overlay_switcher']; ?>' === 'yes') {
+				if ('<?php echo esc_attr($settings['eae_custom_overlay_switcher']); ?>' === 'yes') {
 
 					var bgoverlay = '<?php echo EAE_URL . '/assets/lib/vegas/overlays/00.png'; ?>';
 				} else {
@@ -273,7 +273,7 @@ class Module {
 					delay: <?php echo $settings['eae_slider_delay']; ?>,
 					timer: <?php echo $settings['eae_slider_timer_bar']; ?>
 				});
-				if ('<?php echo $settings['eae_custom_overlay_switcher']; ?>' === 'yes') {
+				if ('<?php echo esc_attr($settings['eae_custom_overlay_switcher']); ?>' === 'yes') {
 					jQuery(".elementor-element-<?php echo $element->get_id(); ?>").children('.eae-section-bs').children('.eae-section-bs-inner').children('.vegas-overlay').css('background-image', '');
 				}
 			});

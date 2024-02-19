@@ -4,7 +4,7 @@ Tags: woocommerce, google analytics, google ads, facebook, conversion tracking, 
 Requires at least: 3.7
 Tested up to: 6.4
 Requires PHP: 7.3
-Stable tag: 1.38.0
+Stable tag: 1.39.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -54,6 +54,7 @@ Unique tools like the [Payment Gateway Accuracy Report](https://sweetcode.com/do
 * Google Analytics Pixel (GA4)
 * HotJar Pixel
 * Meta Ads Pixel
+* LinkedIn Ads Pixel (Pro)
 * Microsoft Ads Pixel (Pro)
 * Outbrain Ads Pixel (Pro)
 * Pinterest Ads Pixel (Pro)
@@ -95,6 +96,7 @@ Have a look at the full feature list over [here](https://sweetcode.com/docs/wpm/
 
 <strong>Premium Pixels</strong>
 
+* LinkedIn Ads
 * Microsoft Ads
 * Pinterest Ads
 * Reddit Ads
@@ -284,6 +286,17 @@ We are committed to ensuring the security of our customers and their data. If yo
 1. Settings page
 
 == Changelog ==
+
+= 1.39.0  =
+*Release date - 19.02.2024*
+
+* New: LinkedIn Ads pixel released
+* Tweak: Added dashboard message for available opportunities.
+* Tweak: Bumped up WooCommerce version compatibility to 8.6
+* Tweak: Updated vendor libraries.
+* Tweak: Removed a few unnecessary parameters.
+
+
 
 = 1.38.0  =
 *Release date - 12.02.2024*

@@ -45,11 +45,10 @@
 
                     <div class="card-header wdt-admin-card-header">
                         <h5><?php esc_html_e('Lite vs Premium comparison', 'wpdatatables'); ?></h5>
-                        <p><?php esc_html_e('Get the most out of wpDataTables by upgrading to Premium and unlocking all of the powerful features.', 'wpdatatables'); ?></p>
-                        <a target="_blank" href="https://wpdatatables.com/pricing/?utm_source=wpdt-lite&utm_medium=lite-upgrade&utm_content=wpdt&utm_campaign=wpdt"
-                           class="btn btn-primary f-500">
-                            <i class="wpdt-icon-star-full m-r-5"></i>
-                            <?php esc_html_e('Go Premium Now', 'wpdatatables'); ?></a>
+                        <p><?php esc_html_e('Get the most out of wpDataTables Premium by using all of the powerful features.', 'wpdatatables'); ?></p>
+                        <p class="m-b-0">
+                            <i class="wpdt-icon-star-full"></i><?php esc_html_e('Thanks for choosing wpDataTables Premium', 'wpdatatables'); ?>
+                        </p>
                     </div>
                     <div class="wpdt-comparison-div">
                         <!--  Live vs Premium Table -->
@@ -128,6 +127,632 @@
                                 </td>
                                 <td data-title="Premium" class="text-center bg-blue">
                                     <?php esc_html_e('Premium', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Creating charts with Highstock', 'wpdatatables'); ?>
+                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Folders/Categories for tables', 'wpdatatables'); ?>
+                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic" ><i
+                                            class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Folders/Categories for charts', 'wpdatatables'); ?>
+                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Templates for Simple tables', 'wpdatatables'); ?>
+                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Standard columns for manual tables', 'wpdatatables'); ?>
+                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic" ><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('New global time format with seconds', 'wpdatatables'); ?>
+                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Fixed headers', 'wpdatatables'); ?>
+                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Fixed columns', 'wpdatatables'); ?>
+                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Set the type in database for each column', 'wpdatatables'); ?>
+                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Transform value', 'wpdatatables'); ?>
+                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Table Customization', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full" ></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Create a data table manually', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Update manual tables from source file', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Creating data tables from Google Spreadsheet', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Creating tables via Google Sheet API', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Creating tables from Private Google Spreadsheet', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Creating MySQL-based data tables from database', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Creating MySQL-based data tables from Wordpress post types', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Server-side processing', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Multiple databases support (MySQL, MS SQL and PostgreSQL)', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Advanced filtering', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Front-end table editing', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Excel-like editing', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Creating charts with Highcharts', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Creating charts with ApexCharts', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Responsive', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Conditional formatting', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Calculating Tools', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Placeholders', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Rotate column headers', 'wpdatatables'); ?>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-times-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-title="Features"><?php esc_html_e('Full WCAG Compatibility', 'wpdatatables'); ?>
+                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
+                                    <hr>
+                                </td>
+                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-basic"><i class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue-pro"><i
+                                            class="wpdt-icon-check-full"></i>
+                                    <hr>
+                                </td>
+                                <td data-title="Premium" class="text-center bg-blue"><i
+                                            class="wpdt-icon-check-full"></i>
                                     <hr>
                                 </td>
                             </tr>
@@ -213,7 +838,6 @@
                             </tr>
                             <tr>
                                 <td data-title="Features"><?php esc_html_e('JSON Authentication', 'wpdatatables'); ?>
-                                    <span style="color: #ef8137;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
                                     <hr>
                                 </td>
                                 <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-check-full"></i>
@@ -314,7 +938,6 @@
                             </tr>
                             <tr>
                                 <td data-title="Features"><?php esc_html_e('Caching data', 'wpdatatables'); ?>
-                                    <span style="color: #ef8137;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
                                     <hr>
                                 </td>
                                 <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-check-full"></i>
@@ -335,7 +958,6 @@
                             </tr>
                             <tr>
                                 <td data-title="Features"><?php esc_html_e('Auto update caching data', 'wpdatatables'); ?>
-                                    <span style="color: #ef8137;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
                                     <hr>
                                 </td>
                                 <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-check-full"></i>
@@ -514,544 +1136,10 @@
                                     <hr>
                                 </td>
                             </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Fixed headers', 'wpdatatables'); ?>
-                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Fixed columns', 'wpdatatables'); ?>
-                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Transform cell value', 'wpdatatables'); ?>
-                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Google GeoCharts', 'wpdatatables'); ?>
-                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Table Customization', 'wpdatatables'); ?>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Create a data table manually', 'wpdatatables'); ?>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Update manual tables from source file', 'wpdatatables'); ?>
-                                    <span style="color: #ef8137;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Creating data tables from Google Spreadsheet', 'wpdatatables'); ?>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Creating tables via Google Sheet API', 'wpdatatables'); ?>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Creating tables from Private Google Spreadsheet', 'wpdatatables'); ?>
-                                    <span style="color: #ef8137;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Creating MySQL-based data tables from database', 'wpdatatables'); ?>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Creating MySQL-based data tables from Wordpress post types', 'wpdatatables'); ?>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Server-side processing', 'wpdatatables'); ?>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Multiple databases support (MySQL, MS SQL and PostgreSQL)', 'wpdatatables'); ?>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Set the type in database for each column', 'wpdatatables'); ?>
-                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Advanced filtering', 'wpdatatables'); ?>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Front-end table editing', 'wpdatatables'); ?>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Excel-like editing', 'wpdatatables'); ?>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Creating charts with Highcharts', 'wpdatatables'); ?>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Creating charts with ApexCharts', 'wpdatatables'); ?>
-                                    <span style="color: #ef8137;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Creating charts with Highcharts Stock', 'wpdatatables'); ?>
-                                    <span style="color: #ea0b0b;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Responsive', 'wpdatatables'); ?>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Conditional formatting', 'wpdatatables'); ?>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Calculating Tools', 'wpdatatables'); ?>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Placeholders', 'wpdatatables'); ?>
-                                    <span style="color: #ef8137;font-weight: bold;float: right;"><?php esc_html_e('NEW!', 'wpdatatables'); ?></span>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-title="Features"><?php esc_html_e('Rotate column headers', 'wpdatatables'); ?>
-                                    <hr>
-                                </td>
-                                <td data-title="Lite" class="text-center bg-grey"><i class="wpdt-icon-minus"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-basic"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue-pro"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                                <td data-title="Premium" class="text-center bg-blue"><i
-                                            class="wpdt-icon-check-full"></i>
-                                    <hr>
-                                </td>
-                            </tr>
                             </tbody>
                         </table>
                         <!--  /Live vs Premium Table -->
                         <p style="padding-left: 28px;padding-top: 10px;font-size: 10px"><?php esc_html_e('* Please note that wpDataTables add-ons are not included in premium version of plugin.', 'wpdatatables'); ?></p>
-                    </div>
-                    <div class="wdt-lite-vs-premium-footer text-center">
-                        <a target="_blank" href="https://wpdatatables.com/pricing/?utm_source=wpdt-lite&utm_medium=lite-upgrade&utm_content=wpdt&utm_campaign=wpdt"
-                           class="btn btn-primary m-t-24 p-r-48 p-l-48 f-500">
-                            <i class="wpdt-icon-star-full m-r-5"></i>
-                            <?php esc_html_e('Go Premium Now', 'wpdatatables'); ?></a>
                     </div>
                 </div>
             </div>

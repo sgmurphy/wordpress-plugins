@@ -164,7 +164,7 @@ class WDTBrowseChartsTable extends WP_List_Table
                                          data-table_id="' . esc_attr($item['id']) . '" 
                                          data-table_name="' . esc_attr($item['title']) . '" 
                                          data-toggle="tooltip" title="' . __('Configure', 'wpdatatables') . '" 
-                                         href="admin.php?page=wpdatatables-chart-wizard&chart_id=' . (int)$item['id'] . '"><i class="wpdt-icon-cog"></i></a>';
+                                         href="admin.php?page=wpdatatables-chart-wizard&chart_id=' . (int)$item['id'] . '&engine=' . esc_attr($item['engine']) . '"><i class="wpdt-icon-cog"></i></a>';
                 $return_string .= ' <a type="button" 
                                          class="wdt-submit-delete" 
                                          data-table_id="' . esc_attr($item['id']) . '" 
@@ -186,7 +186,7 @@ class WDTBrowseChartsTable extends WP_List_Table
 //            'trash' => '<a class="wdt-submit-delete" title="' . __('Delete', 'wpdatatables') . '" href="' . wp_nonce_url('admin.php?page=wpdatatables-charts&action=delete&chart_id=' . $item['id'] . '', 'wdtDeleteChartNonce', 'wdtNonce') . '" rel="' . $item['id'] . '">' . __('Delete', 'wpdatatables') . '</a>'
 //        );
 
-        return '<a href="admin.php?page=wpdatatables-chart-wizard&chart_id=' . (int)$item['id'] . '">' . esc_html($item['title']) . '</a> ';
+        return '<a href="admin.php?page=wpdatatables-chart-wizard&chart_id=' . (int)$item['id'] . '&engine=' . esc_attr($item['engine']) . '">' . esc_html($item['title']) . '</a> ';
     }
 
     /**

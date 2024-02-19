@@ -95,7 +95,7 @@ function monsterinsights_admin_menu()
 		$submenu_base . '#/userfeedback'
 	);
 
-	// Add About us page.
+	// then About Us page.
 	add_submenu_page($hook, __('About Us:', 'google-analytics-for-wordpress'), __('About Us', 'google-analytics-for-wordpress'), 'manage_options', $submenu_base . '#/about');
 
 	if (!monsterinsights_is_pro_version() && !strstr(plugin_basename(__FILE__), 'dashboard-for')) {
@@ -105,10 +105,19 @@ function monsterinsights_admin_menu()
 
 	add_submenu_page($hook, __('Growth Tools:', 'google-analytics-for-wordpress'), __('Growth Tools', 'google-analytics-for-wordpress'), 'manage_options', $submenu_base . '#/growth-tools');
 
-
+	// then Upgrade To Pro.
 	if (!monsterinsights_is_pro_version()) {
 		add_submenu_page($hook, __('Upgrade to Pro:', 'google-analytics-for-wordpress'), '<span class="monsterinsights-upgrade-submenu"> ' . __('Upgrade to Pro', 'google-analytics-for-wordpress') . '</span>', 'monsterinsights_save_settings', monsterinsights_get_upgrade_link('admin-menu', 'submenu', "https://www.monsterinsights.com/lite/"));
 	}
+
+	// then Payments.
+	add_submenu_page(
+		$hook,
+		__('Payments:', 'google-analytics-for-wordpress'),
+		__('Payments', 'google-analytics-for-wordpress'),
+		'manage_options',
+		$submenu_base . '#/payments'
+	);
 }
 
 add_action('admin_menu', 'monsterinsights_admin_menu');
@@ -175,10 +184,6 @@ function monsterinsights_automated_menu($hook){
 			break;
 		}
 	}
-	
-
-
-	
 }
 
 /**
@@ -186,17 +191,16 @@ function monsterinsights_automated_menu($hook){
  */
 function monsterinsights_woocommerce_menu_item()
 {
-	// Add "Insights" sub menu item for WooCommerce Analytics menu
 	if (class_exists('WooCommerce')) {
+		// Add "Insights" sub menu item for WooCommerce Analytics menu
 		if (class_exists('MonsterInsights_eCommerce')) {
 			add_submenu_page('wc-admin&path=/analytics/overview', __('Insights', 'google-analytics-for-wordpress'), __('Insights', 'google-analytics-for-wordpress'), 'monsterinsights_view_dashboard', admin_url('admin.php?page=monsterinsights_reports#/ecommerce'), '', 2);
 		} else {
 			$submenu_base = add_query_arg('page', 'monsterinsights_settings', admin_url('admin.php'));
 			add_submenu_page('wc-admin&path=/analytics/overview', __('Insights', 'google-analytics-for-wordpress'), __('Insights', 'google-analytics-for-wordpress'), 'manage_options', $submenu_base . '#/woocommerce-insights', '', 1);
-		}
+		}		
 	}
 }
-
 add_action('admin_menu', 'monsterinsights_woocommerce_menu_item', 11);
 
 function monsterinsights_get_menu_hook()
@@ -811,3 +815,8 @@ add_action( 'network_admin_notices', 'monsterinsights_admin_setup_notices' );
 function check_is_it_monsterinsights_lite() {
     return 'googleanalytics.php' == basename( MONSTERINSIGHTS_PLUGIN_FILE );
 }
+
+/**
+ * Add EEA Compliance file.
+ */
+require_once __DIR__ . '/eea-compliance.php';

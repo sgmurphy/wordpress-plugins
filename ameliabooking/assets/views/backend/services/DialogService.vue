@@ -78,7 +78,7 @@
                   {{ $root.labels.translate }}
                 </div>
               </label>
-              <el-input v-model="service.name" auto-complete="off" @input="clearValidation()" @change="trimProperty(service, 'name')"></el-input>
+              <el-input id="am-service-name" v-model="service.name" auto-complete="off" @input="clearValidation()" @change="trimProperty(service, 'name')"></el-input>
             </el-form-item>
 
             <!-- Category -->

@@ -34,7 +34,7 @@ class Skin_4 extends Skin_Base {
 		<div class="eae-content-switcher-wrapper eae-cs-layout-<?php echo $settings['_skin']; ?>" data-style="<?php echo $settings['_skin']; ?>">
 			<div class="eae-cs-switch-container">
 				<div class="eae-cs-switch-wrapper">
-					<div class="eae-content-switch-label primary-label eae-cs-icon-align-<?php echo $settings['content_list'][0]['icon_align']; ?> <?php
+					<div class="eae-content-switch-label primary-label eae-cs-icon-align-<?php echo esc_attr($settings['content_list'][0]['icon_align']); ?> <?php
 					if ( $active_sec['index_no'] === 0 ) {
 						echo 'active';}
 					?>
@@ -57,7 +57,7 @@ class Skin_4 extends Skin_Base {
 							<span class="eae-content-toggle-switcher"></span>
 						</label>
 					</div>
-					<div class="eae-content-switch-label secondary-label eae-cs-icon-align-<?php echo $settings['content_list'][1]['icon_align']; ?> <?php
+					<div class="eae-content-switch-label secondary-label eae-cs-icon-align-<?php echo esc_attr($settings['content_list'][1]['icon_align']); ?> <?php
 					if ( $active_sec['index_no'] === 1 ) {
 						echo 'active';}
 					?>

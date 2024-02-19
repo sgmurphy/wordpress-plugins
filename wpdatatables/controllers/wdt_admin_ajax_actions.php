@@ -460,7 +460,7 @@ function wdtShowChartFromData()
     }
 
     $chartData = stripslashes_deep($_POST['chart_data']);
-    $wpDataChart = WPDataChart::factory($chartData, false);
+    $wpDataChart = WPDataChart::build($chartData);
 
     echo json_encode($wpDataChart->returnData());
     exit();
@@ -475,7 +475,7 @@ function wdtSaveChart()
     }
 
     $chartData = stripslashes_deep($_POST['chart_data']);
-    $wpDataChart = WPDataChart::factory($chartData, false);
+    $wpDataChart = WPDataChart::build($chartData);
     $wpDataChart->save();
 
     echo json_encode(array('id' => $wpDataChart->getId(), 'shortcode' => $wpDataChart->getShortCode()));

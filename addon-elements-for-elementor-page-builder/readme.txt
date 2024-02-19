@@ -46,6 +46,7 @@ We have built 40+ useful widgets and extensions to enhance your Elementor Page B
 24. Chart - Create amazing graphical data charts in Elementor and customize them accordingly.
 25. Advanced Button - Design modern buttons more efficiently with advanced features.
 26. Content Ticker - Display your content using a slider and ticker effect.
+27. Coupon Code - Display a coupon code with various customization options.
 ## Why should you choose Elementor Addon Elements?
 
 ### Fully Customizable
@@ -132,6 +133,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 8. Elementor addon widgets section
 
 == Changelog ==
+* 1.13
+* New Widget : Coupon code widget.
+* Enhancement: Added option to hide a plan in comparison table widget.
+* Enhancement: Improved code for enhanced sanitisation.
+
 * 1.11.12
 * Fixed : Restructured code of some widgets for better output escaping.
 

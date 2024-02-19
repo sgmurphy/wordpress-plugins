@@ -22,10 +22,22 @@ function monsterinsights_gutenberg_editor_assets() {
 		}
 	}
 
+	$suffix = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
 	wp_enqueue_script( 'lodash', includes_url('js') . '/underscore.min.js' );
-	$plugins_js_path    = '/assets/gutenberg/js/editor.min.js';
-	$plugins_style_path = '/assets/gutenberg/css/editor.css';
+	// @TODO Robo minification is breaking the editor. We will use the main version for now.
+	$plugins_js_path    = '/assets/gutenberg/js/editor.js';
+	$plugins_style_path = '/assets/gutenberg/css/editor' . $suffix . '.css';
 	$version_path       = monsterinsights_is_pro_version() ? 'pro' : 'lite';
+
+	$plugins_js_url = apply_filters(
+		'monsterinsights_editor_scripts_url',
+		plugins_url( $plugins_js_path, MONSTERINSIGHTS_PLUGIN_FILE )
+	);
+
+	$plugins_css_url = apply_filters(
+		'monsterinsights_editor_style_url',
+		plugins_url( $plugins_style_path, MONSTERINSIGHTS_PLUGIN_FILE )
+	);
 
 	$js_dependencies = array(
 		'wp-plugins',
@@ -52,7 +64,7 @@ function monsterinsights_gutenberg_editor_assets() {
 	// Enqueue our plugin JavaScript.
 	wp_enqueue_script(
 		'monsterinsights-gutenberg-editor-js',
-		plugins_url( $plugins_js_path, MONSTERINSIGHTS_PLUGIN_FILE ),
+		$plugins_js_url,
 		$js_dependencies,
 		monsterinsights_get_asset_version(),
 		true
@@ -61,7 +73,7 @@ function monsterinsights_gutenberg_editor_assets() {
 	// Enqueue our plugin JavaScript.
 	wp_enqueue_style(
 		'monsterinsights-gutenberg-editor-css',
-		plugins_url( $plugins_style_path, MONSTERINSIGHTS_PLUGIN_FILE ),
+		$plugins_css_url,
 		array(),
 		monsterinsights_get_asset_version()
 	);

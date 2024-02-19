@@ -205,6 +205,20 @@ class ComparisonTable extends EAE_Widget_Base {
 					],
 				]
 			);
+
+			$this->add_control(
+				'hide_table_' . $i,
+				[
+					'label'        => esc_html__( 'Hide Plan', 'wts-eae' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'label_on'     => esc_html__( 'Hide', 'wts-eae' ),
+					'label_off'    => esc_html__( 'Show', 'wts-eae' ),
+					'return_value' => 'yes',
+					'default'      => 'no',
+					'description'  => esc_html__( 'Hide this plan from the comparison table.', 'wts-eae' ),
+				]
+			);
+
 			$this->add_control(
 				'table_title_' . $i,
 				[
@@ -2056,33 +2070,36 @@ class ComparisonTable extends EAE_Widget_Base {
 			<ul>
 				<?php
 				for ( $i = 1; $i <= $settings['table_count']; $i++ ) {
-					if ( $settings[ 'table_ribbon_' . $i ] === 'yes' ) {
-						echo '<li class="eae-ct-heading eae-table-' . $i . ' eae-ct-ribbons-yes eae-ct-ribbons-h-' . $settings[ 'ribbons_position_' . $i ] . '">';
-						if ( $settings[ 'ribbons_position_' . $i ] === 'top' ) {
-							?>
-							<div class="eae-ct-ribbons-wrapper-top">
-								<span class="eae-ct-ribbons-inner-top">
-									<?php echo $settings[ 'table_ribbon_text_' . $i ]; ?>
-								</span>
-							</div>
-							<?php
-						} else {
-							?>
-							<div class="eae-ct-ribbons-wrapper">
-								<span class="eae-ct-ribbons-inner">
-									<?php echo $settings[ 'table_ribbon_text_' . $i ]; ?>
-								</span>
-							</div>
+					if($settings['hide_table_'.$i] != 'yes') {
+						
+						if ( $settings[ 'table_ribbon_' . $i ] === 'yes') {
+							echo '<li class="eae-ct-heading eae-table-' . $i . ' eae-ct-ribbons-yes eae-ct-ribbons-h-' . $settings[ 'ribbons_position_' . $i ] . '">';
+							if ( $settings[ 'ribbons_position_' . $i ] === 'top' ) {
+								?>
+								<div class="eae-ct-ribbons-wrapper-top">
+									<span class="eae-ct-ribbons-inner-top">
+										<?php echo $settings[ 'table_ribbon_text_' . $i ]; ?>
+									</span>
+								</div>
+								<?php
+							} else {
+								?>
+								<div class="eae-ct-ribbons-wrapper">
+									<span class="eae-ct-ribbons-inner">
+										<?php echo $settings[ 'table_ribbon_text_' . $i ]; ?>
+									</span>
+								</div>
 
-							<?php
+								<?php
+							}
+						} else {
+							echo '<li class="eae-ct-heading eae-table-' . $i . '">';
 						}
-					} else {
-						echo '<li class="eae-ct-heading eae-table-' . $i . '">';
-					}
-					echo '<div class="eae-ct-heading-inner">';
-					echo $settings[ 'table_title_' . $i ];
-					echo '</div>';
-					echo '</li>';
+						echo '<div class="eae-ct-heading-inner">';
+						echo $settings[ 'table_title_' . $i ];
+						echo '</div>';
+						echo '</li>';
+					}	
 				}
 				?>
 			</ul>
@@ -2105,31 +2122,33 @@ class ComparisonTable extends EAE_Widget_Base {
 						<?php
 
 						for ( $i = 1; $i <= $settings['table_count']; $i++ ) {
-							if ( $settings[ 'table_ribbon_' . $i ] === 'yes' ) {
-								echo '<td class="eae-ct-heading eae-ct-ribbons-yes eae-ct-ribbons-h-' . $settings[ 'ribbons_position_' . $i ] . ' eae-table-' . $i . '">';
-								if ( $settings[ 'ribbons_position_' . $i ] === 'top' ) {
-									?>
-									<div class="eae-ct-ribbons-wrapper-top">
-										<span class="eae-ct-ribbons-inner-top">
-											<?php echo $settings[ 'table_ribbon_text_' . $i ]; ?>
-										</span>
-									</div>
-									<?php
-								} else {
-									?>
-									<div class="eae-ct-ribbons-wrapper">
-										<span class="eae-ct-ribbons-inner">
-											<?php echo $settings[ 'table_ribbon_text_' . $i ]; ?>
-										</span>
-									</div>
+							if($settings['hide_table_'.$i] != 'yes') {
+								if ( $settings[ 'table_ribbon_' . $i ] === 'yes' ) {
+									echo '<td class="eae-ct-heading eae-ct-ribbons-yes eae-ct-ribbons-h-' . $settings[ 'ribbons_position_' . $i ] . ' eae-table-' . $i . '">';
+									if ( $settings[ 'ribbons_position_' . $i ] === 'top' ) {
+										?>
+										<div class="eae-ct-ribbons-wrapper-top">
+											<span class="eae-ct-ribbons-inner-top">
+												<?php echo $settings[ 'table_ribbon_text_' . $i ]; ?>
+											</span>
+										</div>
+										<?php
+									} else {
+										?>
+										<div class="eae-ct-ribbons-wrapper">
+											<span class="eae-ct-ribbons-inner">
+												<?php echo $settings[ 'table_ribbon_text_' . $i ]; ?>
+											</span>
+										</div>
 
-									<?php
+										<?php
+									}
+								} else {
+									echo '<td class="eae-ct-heading eae-table-' . $i . '">';
 								}
-							} else {
-								echo '<td class="eae-ct-heading eae-table-' . $i . '">';
-							}
-							echo $settings[ 'table_title_' . $i ];
-							echo '</td>';
+								echo $settings[ 'table_title_' . $i ];
+								echo '</td>';
+							}	
 						}
 						?>
 					</tr>
@@ -2143,25 +2162,27 @@ class ComparisonTable extends EAE_Widget_Base {
 					<td class="<?php echo $cls; ?>"><?php echo $settings['feature_box_heading']; ?></td>
 					<?php
 					for ( $j = 1; $j <= $settings['table_count']; $j++ ) {
-						echo '<td class="eae-ct-plan eae-table-' . $j . '"><div class="eae-ct-price-wrapper">';
+						if($settings['hide_table_'.$j] != 'yes') {
+							echo '<td class="eae-ct-plan eae-table-' . $j . '"><div class="eae-ct-price-wrapper">';
 
-						if ( $settings[ 'table_offer_discount_' . $j ] === 'yes' ) {
-							echo '<span class="eae-ct-original-price">';
-							echo $settings[ 'table_currency_symbol_' . $j ] . $settings[ 'table_original_price_' . $j ];
-							echo '</span>';
-						}
+							if ( $settings[ 'table_offer_discount_' . $j ] === 'yes' ) {
+								echo '<span class="eae-ct-original-price">';
+								echo $settings[ 'table_currency_symbol_' . $j ] . $settings[ 'table_original_price_' . $j ];
+								echo '</span>';
+							}
 
-						$price            = explode( '.', $settings[ 'table_price_' . $j ] );
-						$fractional_price = '';
-						if ( count( $price ) > 1 ) {
-							$fractional_price = '<span class="eae-ct-fractional-price">' . $price[1] . '</span>';
+							$price            = explode( '.', $settings[ 'table_price_' . $j ] );
+							$fractional_price = '';
+							if ( count( $price ) > 1 ) {
+								$fractional_price = '<span class="eae-ct-fractional-price">' . $price[1] . '</span>';
+							}
+							echo '<span class="eae-ct-currency">' . $settings[ 'table_currency_symbol_' . $j ] . '</span>';
+							echo '<span class="eae-ct-price">' . $price[0] . '</span>';
+							echo $fractional_price;
+							echo '</div>';
+							echo '<span class="eae-ct-duration">' . $settings[ 'table_duration_' . $j ] . '</span>';
+							echo '</td>';
 						}
-						echo '<span class="eae-ct-currency">' . $settings[ 'table_currency_symbol_' . $j ] . '</span>';
-						echo '<span class="eae-ct-price">' . $price[0] . '</span>';
-						echo $fractional_price;
-						echo '</div>';
-						echo '<span class="eae-ct-duration">' . $settings[ 'table_duration_' . $j ] . '</span>';
-						echo '</td>';
 					}
 					echo '</tr>';
 
@@ -2169,65 +2190,67 @@ class ComparisonTable extends EAE_Widget_Base {
 
 					for ( $x = 1; $x <= $count; $x++ ) {
 						echo '<tr>';
-						echo '<td  class="eae-ct-feature">';
+							echo '<td  class="eae-ct-feature">';
+							if ( $settings['features_text'][ $x - 1 ]['legend_feature_tooltip_text'] !== '' && $settings['show_tooltip'] === 'yes' ) {
 
-						if ( $settings['features_text'][ $x - 1 ]['legend_feature_tooltip_text'] !== '' && $settings['show_tooltip'] === 'yes' ) {
-
-							if ( $settings['tooltip_type'] !== 'icon' ) {
-								echo '<div class="tooltip">';
-								echo '<span class="eae-ct-heading-tooltip">';
-							} else {
-								echo '<span>';
-							}
-							echo $settings['features_text'][ $x - 1 ]['legend_feature_text'];
-							echo '</span>';
-							if ( $settings['tooltip_type'] === 'icon' ) {
-								?>
-								<div class="tooltip">
-									<div class="eae-icon eae-icon-view-stacked eae-icon-shape-circle eae-icon-type-icon">
-										<div class="eae-icon-wrap">
-											<i class="fa fa-info"></i>
+								if ( $settings['tooltip_type'] !== 'icon' ) {
+									echo '<div class="tooltip">';
+									echo '<span class="eae-ct-heading-tooltip">';
+								} else {
+									echo '<span>';
+								}
+								echo $settings['features_text'][ $x - 1 ]['legend_feature_text'];
+								echo '</span>';
+								if ( $settings['tooltip_type'] === 'icon' ) {
+									?>
+									<div class="tooltip">
+										<div class="eae-icon eae-icon-view-stacked eae-icon-shape-circle eae-icon-type-icon">
+											<div class="eae-icon-wrap">
+												<i class="fa fa-info"></i>
+											</div>
 										</div>
+									<?php
+								}
+								?>
+									<span class="tooltiptext">
+										<?php
+										echo $settings['features_text'][ $x - 1 ]['legend_feature_tooltip_text'];
+										?>
+									</span>
 									</div>
 								<?php
-							}
-							?>
-								<span class="tooltiptext">
-									<?php
-									echo $settings['features_text'][ $x - 1 ]['legend_feature_tooltip_text'];
-									?>
-								</span>
-								</div>
-							<?php
-						} else {
-							echo $settings['features_text'][ $x - 1 ]['legend_feature_text'];
-						}
-						echo '</td>';
-
-						for ( $j = 1; $j <= $settings['table_count']; $j++ ) {
-							echo '<td class="eae-ct-txt eae-table-' . $j . '">';
-							if ( count( $settings[ 'feature_items_' . $j ] ) >= $x ) {
-								if ( $settings[ 'feature_items_' . $j ][ $x - 1 ]['table_content_type'] !== 'text' ) {
-									if ( $settings[ 'feature_items_' . $j ][ $x - 1 ]['table_content_type'] === 'fa fa-close' ) {
-										$icon = [
-											'value'   => 'fas fa-times',
-											'library' => 'solid',
-										];
-									} else {
-										$icon = [
-											'value'   => 'fas fa-check',
-											'library' => 'solid',
-										];
-									}
-									Icons_Manager::render_icon( $icon );
-
-								} else {
-									echo $settings[ 'feature_items_' . $j ][ $x - 1 ]['feature_text'];
-								}
 							} else {
-								echo '';
+								echo $settings['features_text'][ $x - 1 ]['legend_feature_text'];
 							}
 							echo '</td>';
+
+						for ( $j = 1; $j <= $settings['table_count']; $j++ ) {
+							if($settings['hide_table_'.$j]  != 'yes'){
+								echo '<td class="eae-ct-txt eae-table-' . $j . '">';
+								if ( count( $settings[ 'feature_items_' . $j ] ) >= $x ) {
+									if ( $settings[ 'feature_items_' . $j ][ $x - 1 ]['table_content_type'] !== 'text' ) {
+										if ( $settings[ 'feature_items_' . $j ][ $x - 1 ]['table_content_type'] === 'fa fa-close' ) {
+											$icon = [
+												'value'   => 'fas fa-times',
+												'library' => 'solid',
+											];
+										} else {
+											$icon = [
+												'value'   => 'fas fa-check',
+												'library' => 'solid',
+											];
+										}
+										Icons_Manager::render_icon( $icon );
+
+									} else {
+										echo $settings[ 'feature_items_' . $j ][ $x - 1 ]['feature_text'];
+									}
+								} else {
+									echo '';
+								}
+								echo '</td>';
+							}
+							
 						}
 						echo '</tr>';
 					}
@@ -2236,17 +2259,19 @@ class ComparisonTable extends EAE_Widget_Base {
 					}
 					echo '<td ' . $this->get_render_attribute_string( 'button_heading' ) . '>' . $settings['button_heading_text'] . '</td>';
 					for ( $j = 1; $j <= $settings['table_count']; $j++ ) {
-
-						if ( ! empty( $settings[ 'item_link_' . $j ]['url'] ) ) {
-							$this->add_link_attributes( 'button_' . $j . '-link-attributes', $settings[ 'item_link_' . $j ] );
+						if($settings['hide_table_'.$j] != 'yes'){
+							if ( ! empty( $settings[ 'item_link_' . $j ]['url'] ) ) {
+								$this->add_link_attributes( 'button_' . $j . '-link-attributes', $settings[ 'item_link_' . $j ] );
+							}
+							$this->add_render_attribute( 'button_' . $j . '-link-attributes', 'class', 'eae-ct-btn' );
+	
+							echo '<td class="eae-table-' . $j . '">';
+							if ( $settings[ 'button_text_' . $j ] !== '' ) {
+								echo '<a ' . $this->get_render_attribute_string( 'button_' . $j . '-link-attributes' ) . '>' . $settings[ 'button_text_' . $j ] . '</a>';
+							}
+							echo '</td>';
 						}
-						$this->add_render_attribute( 'button_' . $j . '-link-attributes', 'class', 'eae-ct-btn' );
-
-						echo '<td class="eae-table-' . $j . '">';
-						if ( $settings[ 'button_text_' . $j ] !== '' ) {
-							echo '<a ' . $this->get_render_attribute_string( 'button_' . $j . '-link-attributes' ) . '>' . $settings[ 'button_text_' . $j ] . '</a>';
-						}
-						echo '</td>';
+						
 					}
 					?>
 				</tbody>
@@ -2260,30 +2285,38 @@ class ComparisonTable extends EAE_Widget_Base {
 		<# view.addRenderAttribute( 'eae-ct-wrapper' , 'class' , 'eae-ct-wrapper' ); if(settings['feature_box_heading']=='' ){ view.addRenderAttribute( 'eae-ct-wrapper' , 'class' , 'feature-heading-blank' ); } if(settings['button_heading_text']=='' ){ view.addRenderAttribute( 'eae-ct-wrapper' , 'class' , 'button-heading-blank' ); } #>
 			<article {{{ view.getRenderAttributeString('eae-ct-wrapper') }}}>
 				<ul>
-					<# for ( var i=1; i <=settings.table_count; i++ ) { if ( settings['table_ribbon_' + i ]=='yes' ) { view.addRenderAttribute( 'heading_' + i, 'class' , 'eae-ct-heading' ); view.addRenderAttribute( 'heading_' + i, 'class' , 'eae-table-' + i ); view.addRenderAttribute( 'heading_' + i, 'class' , 'eae-ct-ribbons-yes' ); view.addRenderAttribute( 'heading_' + i, 'class' , 'eae-ct-ribbons-h-' + settings['ribbons_position_' + i ] ); } if ( settings['table_ribbon_' + i ]=='yes' ) { #>
-						<li {{{ view.getRenderAttributeString(
-				'heading_' + i ) }}}>
-							<# if ( settings['ribbons_position_' + i ]=='top' ) { #>
-								<div class="eae-ct-ribbons-wrapper-top">
-									<span class="eae-ct-ribbons-inner-top">
-										{{{ settings['table_ribbon_text_'  + i ] }}}
-									</span>
-								</div>
-								<# } else { #>
-									<div class="eae-ct-ribbons-wrapper">
-										<span class="eae-ct-ribbons-inner">
-											{{{ settings['table_ribbon_text_'  + i ] }}}
-										</span>
-									</div>
+					<# for ( var i=1; i <=settings.table_count; i++ ) { 
+						if(settings['hide_table_' + i ] != 'yes') {
+							if ( settings['table_ribbon_' + i ]=='yes' ) { 
+								view.addRenderAttribute( 'heading_' + i, 'class' , 'eae-ct-heading' ); 
+								view.addRenderAttribute( 'heading_' + i, 'class' , 'eae-table-' + i ); 
+								view.addRenderAttribute( 'heading_' + i, 'class' , 'eae-ct-ribbons-yes' ); 
+								view.addRenderAttribute( 'heading_' + i, 'class' , 'eae-ct-ribbons-h-' + settings['ribbons_position_' + i ] ); 
+							} 
+							if ( settings['table_ribbon_' + i ]=='yes' ) { #>
+								<li {{{ view.getRenderAttributeString(
+						'heading_' + i ) }}}>
+									<# if ( settings['ribbons_position_' + i ]=='top' ) { #>
+										<div class="eae-ct-ribbons-wrapper-top">
+											<span class="eae-ct-ribbons-inner-top">
+												{{{ settings['table_ribbon_text_'  + i ] }}}
+											</span>
+										</div>
+										<# } else { #>
+											<div class="eae-ct-ribbons-wrapper">
+												<span class="eae-ct-ribbons-inner">
+													{{{ settings['table_ribbon_text_'  + i ] }}}
+												</span>
+											</div>
 
-									<# } } else{ #>
-						<li class="eae-ct-heading eae-table-" {{{i}}}>
-							<# } #>
-								<div class="eae-ct-heading-inner">
-									{{{ settings['table_title_' + i ] }}}
-								</div>
-						</li>
-						<# } #>
+											<# } } else{ #>
+								<li class="eae-ct-heading eae-table-" {{{i}}}>
+									<# } #>
+										<div class="eae-ct-heading-inner">
+											{{{ settings['table_title_' + i ] }}}
+										</div>
+								</li>
+						<# } } #>
 				</ul>
 				<table>
 					<tbody>
@@ -2301,27 +2334,34 @@ class ComparisonTable extends EAE_Widget_Base {
 							} 
 							#>
 								<td {{{ view.getRenderAttributeString('feature_heading') }}}> {{{cont}}}</td>
-								<# for ( var i=1; i <=settings.table_count; i++ ) { if ( settings[ 'table_ribbon_' + i ]=='yes' ) { view.addRenderAttribute( 'heading_inn_' + i, 'class' , 'eae-ct-heading' ); view.addRenderAttribute( 'heading_inn_' + i, 'class' , 'eae-ct-ribbons-yes' ); view.addRenderAttribute( 'heading_inn_' + i, 'class' , 'eae-ct-ribbons-h-' + settings['ribbons_position_' + i ] ); view.addRenderAttribute( 'heading_inn_' + i, 'class' , 'eae-table-' + i ); #>
-									<td {{{ view.getRenderAttributeString('heading_inn_' + i ) }}}>
-										<# if ( settings[ 'ribbons_position_' + i ]=='top' ) { #>
-											<div class="eae-ct-ribbons-wrapper-top">
-												<span class="eae-ct-ribbons-inner-top">
-													{{{ settings[ 'table_ribbon_text_' + i ] }}}
-												</span>
-											</div>
-											<# } else { #>
-												<div class="eae-ct-ribbons-wrapper">
-													<span class="eae-ct-ribbons-inner">
-														{{{ settings[ 'table_ribbon_text_' + i ] }}}
-													</span>
-												</div>
-
+								<# for ( var i=1; i <=settings.table_count; i++ ) {
+									if(settings['hide_table_' + i] != 'yes') { 
+										if ( settings[ 'table_ribbon_' + i ]=='yes' ) { 
+											view.addRenderAttribute( 'heading_inn_' + i, 'class' , 'eae-ct-heading' ); 
+											view.addRenderAttribute( 'heading_inn_' + i, 'class' , 'eae-ct-ribbons-yes' ); 
+											view.addRenderAttribute( 'heading_inn_' + i, 'class' , 'eae-ct-ribbons-h-' + settings['ribbons_position_' + i ] ); 
+											view.addRenderAttribute( 'heading_inn_' + i, 'class' , 'eae-table-' + i ); #>
+											<td {{{ view.getRenderAttributeString('heading_inn_' + i ) }}}>
+												<# if ( settings[ 'ribbons_position_' + i ]=='top' ) { #>
+													<div class="eae-ct-ribbons-wrapper-top">
+														<span class="eae-ct-ribbons-inner-top">
+															{{{ settings[ 'table_ribbon_text_' + i ] }}}
+														</span>
+													</div>
+												<# } else { #>
+													<div class="eae-ct-ribbons-wrapper">
+														<span class="eae-ct-ribbons-inner">
+															{{{ settings[ 'table_ribbon_text_' + i ] }}}
+														</span>
+													</div>
 												<# } #>
-													<# } else { #>
-									<td class="eae-ct-heading eae-table-{{{ i }}}">
-										<# } #>
-											{{{ settings[ 'table_title_' + i ] }}}
-									</td>
+											</td>	
+										<# } else { #>
+											<td class="eae-ct-heading eae-table-{{{ i }}}">
+												<# } #>
+													{{{ settings[ 'table_title_' + i ] }}}
+											</td>
+										<# }  #>
 									<# } #>
 						</tr>
 						<tr>
@@ -2336,28 +2376,30 @@ class ComparisonTable extends EAE_Widget_Base {
 
 								<td {{{view.getRenderAttributeString('fet_heading') }}}> {{{settings['feature_box_heading']}}}</td>
 								<# for ( var j=1; j <=settings.table_count; j++ ) { #>
-									<td class="eae-ct-plan eae-table-{{{ j }}}">
-										<div class="eae-ct-price-wrapper">
+									<# if(settings['hide_table_' + j] != 'yes'){ #>
+										<td class="eae-ct-plan eae-table-{{{ j }}}">
+											<div class="eae-ct-price-wrapper">
 
-											<# if ( settings[ 'table_offer_discount_' + j ]=='yes' ) { #>
-												<span class="eae-ct-original-price">
-													{{{ settings[ 'table_currency_symbol_' + j ] + settings[ 'table_original_price_' + j ] }}}
-												</span>
-												<# } var price=settings[ 'table_price_' + j].split("."); var fractional_price='' ; if ( price.length> 1 ) {
+												<# if ( settings[ 'table_offer_discount_' + j ]=='yes' ) { #>
+													<span class="eae-ct-original-price">
+														{{{ settings[ 'table_currency_symbol_' + j ] + settings[ 'table_original_price_' + j ] }}}
+													</span>
+													<# } var price=settings[ 'table_price_' + j].split("."); var fractional_price='' ; if ( price.length> 1 ) {
 
-													fractional_price = '<span class="eae-ct-fractional-price">' + price[1] + '</span>';
-													}
-													#>
-													<span class="eae-ct-currency"> {{{ settings[ 'table_currency_symbol_' + j ] }}} </span>
-													<span class="eae-ct-price"> {{{ price[0] }}} </span>
-													{{{ fractional_price }}}
-										</div>
-										<span class="eae-ct-duration"> {{{ settings[ 'table_duration_' + j ] }}} </span>
-									</td>
+														fractional_price = '<span class="eae-ct-fractional-price">' + price[1] + '</span>';
+														}
+														#>
+														<span class="eae-ct-currency"> {{{ settings[ 'table_currency_symbol_' + j ] }}} </span>
+														<span class="eae-ct-price"> {{{ price[0] }}} </span>
+														{{{ fractional_price }}}
+											</div>
+											<span class="eae-ct-duration"> {{{ settings[ 'table_duration_' + j ] }}} </span>
+										</td>
 									<# } #>
+								<# } #>
 						</tr>
 
-						<# for ( var x=1; x <=settings['features_text'].length; x++ ) { #>
+						<# for ( var x=1; x <= settings['features_text'].length; x++ ) { #>
 							<tr>
 								<td class="eae-ct-feature">
 									<# if ( settings['features_text'][ x - 1 ]['legend_feature_tooltip_text'] !=='' && settings['show_tooltip']=='yes' ) { if ( settings['tooltip_type'] !=='icon' ) { #>
@@ -2368,50 +2410,63 @@ class ComparisonTable extends EAE_Widget_Base {
 														<# }#>
 															{{{ settings['features_text'][ x - 1 ]['legend_feature_text'] }}}
 													</span>
-													<# if ( settings['tooltip_type']=='icon' ) { #>
+													<# if ( settings['tooltip_type'] == 'icon' ) { #>
 														<div class="tooltip">
 															<div class="eae-icon eae-icon-view-stacked eae-icon-shape-circle eae-icon-type-icon">
 																<div class="eae-icon-wrap">
 																	<i class="fa fa-info"></i>
 																</div>
 															</div>
-															<# } #>
+													<# } #>
 																<span class="tooltiptext">
 																	{{{ settings['features_text'][ x - 1 ]['legend_feature_tooltip_text'] }}}
 																</span>
 														</div>
 														<# } else { #>
 															{{{ settings['features_text'][ x - 1 ]['legend_feature_text'] }}}
-															<# } #>
+														<# } #>
 											</span>
-											<# for ( var j=1; j <=settings['table_count']; j++ ) { #>
-								<td class="eae-ct-txt eae-table-{{{ j }}}">
-									<# if ( settings[ 'feature_items_' + j ].length>= x ) {
-										if ( settings[ 'feature_items_' + j ][ x - 1 ]['table_content_type'] !== 'text' ) {
-										if ( settings[ 'feature_items_' + j ][ x - 1 ]['table_content_type'] == 'fa fa-close' ){
-										var icon = 'fas fa-times';
-										}else{
-										var icon = 'fas fa-check';
-										}
-										#>
-										<i class=" {{{ icon }}}"></i>
-										<# } else { #>
-											{{{ settings[ 'feature_items_' + j ][ x - 1 ]['feature_text'] }}}
-											<# } } else { #>
-												<# } #>
-								</td>
-								<# } #>
-							</tr>
-							<# } #>
-								<# var button_heading='' ; if(settings['button_heading_text'] !='' ){ view.addRenderAttribute( 'button_heading' , 'class' , 'eae-ct-button-heading' ); button_heading=settings['button_heading_text'] } #>
-									<td {{{ view.getRenderAttributeString( 'button_heading' ) }}}> {{{ button_heading }}} </td>
-									<# for ( j=1; j <=settings['table_count']; j++ ) { view.addRenderAttribute( 'button_' + j + '-link-attributes' , 'href' , settings[ 'item_link_' + j ]['url'] ); view.addRenderAttribute( 'button_' + j + '-link-attributes' , 'class' , 'eae-ct-btn' ); if ( settings[ 'item_link_' + j ]['is_external']=='on' ) { view.addRenderAttribute( 'button_' + j + '-link-attributes' , 'target' , '_blank' ); } if ( settings[ 'item_link_' + j ]['nofollow'] ) { view.addRenderAttribute( 'button_' + j + '-link-attributes' , 'rel' , 'nofollow' ); } #>
-										<td class="eae-table-{{{ j }}}">
-											<# if ( settings[ 'button_text_' . j ] !=='' ) { #>
-												<a {{{ view.getRenderAttributeString( 'button_' + j + '-link-attributes' ) }}}> {{{ settings[ 'button_text_' + j ] }}} </a>
-												<# } #>
-										</td>
+										</td>	
+										<# for ( var j=1; j <=settings['table_count']; j++ ) { #>
+											<# if(settings['hide_table_' + j] != 'yes'){#>
+												<td class="eae-ct-txt eae-table-{{{ j }}}">
+													<# if ( settings[ 'feature_items_' + j ].length>= x ) {
+														if ( settings[ 'feature_items_' + j ][ x - 1 ]['table_content_type'] !== 'text' ) {
+														if ( settings[ 'feature_items_' + j ][ x - 1 ]['table_content_type'] == 'fa fa-close' ){
+														var icon = 'fas fa-times';
+														}else{
+														var icon = 'fas fa-check';
+														}
+														#>
+														<i class=" {{{ icon }}}"></i>
+														<# } else { #>
+															{{{ settings[ 'feature_items_' + j ][ x - 1 ]['feature_text'] }}}
+															<# } } else { #>
+																<# } #>
+												</td>
+											<# } #>	
 										<# } #>
+							</tr>
+						<# } #>
+						<# var button_heading='' ; if(settings['button_heading_text'] !='' ){ view.addRenderAttribute( 'button_heading' , 'class' , 'eae-ct-button-heading' ); button_heading=settings['button_heading_text'] } #>
+							<td {{{ view.getRenderAttributeString( 'button_heading' ) }}}> {{{ button_heading }}} </td>
+							<# for ( j=1; j <=settings['table_count']; j++ ) { 
+								if(settings['hide_table_' + j] != 'yes'){
+									view.addRenderAttribute( 'button_' + j + '-link-attributes' , 'href' , settings[ 'item_link_' + j ]['url'] ); 
+									view.addRenderAttribute( 'button_' + j + '-link-attributes' , 'class' , 'eae-ct-btn' ); 
+									if ( settings[ 'item_link_' + j ]['is_external']=='on' ) { 
+										view.addRenderAttribute( 'button_' + j + '-link-attributes' , 'target' , '_blank' ); 
+									} 
+									if ( settings[ 'item_link_' + j ]['nofollow'] ) { 
+										view.addRenderAttribute( 'button_' + j + '-link-attributes' , 'rel' , 'nofollow' ); 
+									} #>
+									<td class="eae-table-{{{ j }}}">
+										<# if ( settings[ 'button_text_' . j ] !=='' ) { #>
+											<a {{{ view.getRenderAttributeString( 'button_' + j + '-link-attributes' ) }}}> {{{ settings[ 'button_text_' + j ] }}} </a>
+											<# } #>
+									</td>
+								<# } #>	
+							<# } #>
 					</tbody>
 				</table>
 			</article>

@@ -86,6 +86,19 @@ class ShapeSeparator extends EAE_Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings();
-		include EAE_PATH . 'modules/shape-separator/shapes/' . $settings['separator_shape'] . '.php';
+		switch ( $settings['separator_shape'] ) {
+			case 'triangle-upper-left':
+				include EAE_PATH . 'modules/shape-separator/shapes/triangle-upper-left.php';
+				break;
+			case 'triangle-upper-right':
+				include EAE_PATH . 'modules/shape-separator/shapes/triangle-upper-right.php';
+				break;
+			case 'triangle-bottom-left':
+				include EAE_PATH . 'modules/shape-separator/shapes/triangle-bottom-left.php';
+				break;
+			case 'triangle-bottom-right':
+				include EAE_PATH . 'modules/shape-separator/shapes/triangle-bottom-right.php';
+				break;
+		}
 	}
 }

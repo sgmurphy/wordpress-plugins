@@ -16,6 +16,8 @@
       </div>
       <!-- /Dialog Header -->
 
+      <LicenceLiteGuide v-if="$root.licence.isLite"></LicenceLiteGuide>
+
       <!-- Form -->
       <el-form
           v-if="notInLicence('starter') ? licenceVisible() : true"
@@ -360,8 +362,10 @@
   import imageMixin from '../../../js/common/mixins/imageMixin'
   import helperMixin from '../../../js/backend/mixins/helperMixin'
   import notifyMixin from '../../../js/backend/mixins/notifyMixin'
+  import LicenceLiteGuide from '../parts/LicenceLiteGuide.vue'
 
   export default {
+    components: {LicenceLiteGuide},
 
     mixins: [
       licenceMixin,

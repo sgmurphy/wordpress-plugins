@@ -3,8 +3,8 @@ Contributors: chriscct7, smub
 Donate link: http://www.wpbeginner.com/wpbeginner-needs-your-help/
 Tags: WordPress analytics, google analytics, google analytics dashboard, google analytics widget, WooCommerce stats, analytics dashboard, universal google analytics, statistics, tracking, stats, google, google analytics by yoast, ga, monster insights, monsterinsights, universal analytics, web stats, ecommerce, ecommerce tracking
 Requires at least: 5.6.0
-Tested up to: 6.4.2
-Stable tag: 8.23.1
+Tested up to: 6.4.3
+Stable tag: 8.24.0
 Requires PHP: 7.2
 License: GPL v3
 
@@ -310,6 +310,14 @@ You can also learn about other <a href="http://www.wpbeginner.com/category/plugi
 4. Want more features? <a href="https://www.monsterinsights.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">Purchase MonsterInsights Pro</a>!
 
 == Changelog ==
+= 8.24.0: February 19, 2024 =
+- New: Site Insights Gutenberg block. Easily share website stats with your visitors.
+- New: PrivacyGuard Feature - Proactively block PII (Personally Identifiable Information) from ever making it to Google Analytics
+- New: EEA Checker tool for Google Ads / Analytics Requirements
+- Fix: We solved an issue occurring in the Weekly/Monthly Email reports.
+- Fix: We solved an issue occurring with Popular Posts.
+- Fix: We solved an issue occurring with Tracking Video Title in Divi theme.
+
 = 8.23.1: December 18, 2023 =
 - Fix: We fixed an issue related to All in One SEO plugin.
 

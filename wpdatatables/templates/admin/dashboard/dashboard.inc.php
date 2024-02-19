@@ -211,7 +211,7 @@ $tableChartsCount = (int)WDTTools::getTablesCount('chart');
                                 <p><?php esc_html_e('Created', 'wpdatatables'); ?></p>
                             </div>
                             <div class="wdt-chart-last-created">
-                                <a href="admin.php?page=wpdatatables-chart-wizard&chart_id=<?php echo (int)$lastChartData->id; ?>"
+                                <a href="admin.php?page=wpdatatables-chart-wizard&chart_id=<?php echo (int)$lastChartData->id; ?>&engine=<?php esc_attr_e($lastChartData->engine); ?>"
                                    class="wdt-chart-link">
                                     <?php echo esc_html($lastChartData->title) ?>
                                 </a>
@@ -342,7 +342,7 @@ $tableChartsCount = (int)WDTTools::getTablesCount('chart');
                         <div class="alert alert-info m-b-0" role="alert">
                             <i class="wpdt-icon-info-circle-full"></i>
                             <ul>
-                                <li> Compatibility with WordPress 6.4.3 approved. </li>
+                                <li>Improvement: Refactor chart logic. </li>
                                 <li>Other small bug fixes and stability improvements</li>
                             </ul>
                         </div>
@@ -383,6 +383,12 @@ $tableChartsCount = (int)WDTTools::getTablesCount('chart');
                             </p>
                             <p class="wpdt-font">
                                 <i class="wpdt-icon-check m-r-8"></i><span style="color: red;font-weight: bold;">NEW! </span><?php esc_html_e('Highcharts Stock', 'wpdatatables'); ?>
+                            </p>
+                            <p class="wpdt-font">
+                                <i class="wpdt-icon-check m-r-8"></i><span style="color: red;font-weight: bold;">NEW! </span><?php esc_html_e('Folders/Categories for tables', 'wpdatatables'); ?>
+                            </p>
+                            <p class="wpdt-font">
+                                <i class="wpdt-icon-check m-r-8"></i><span style="color: red;font-weight: bold;">NEW! </span><?php esc_html_e('Folders/Categories for charts', 'wpdatatables'); ?>
                             </p>
                             <p class="wpdt-font">
                                 <i class="wpdt-icon-check m-r-8"></i><span style="color: red;font-weight: bold;">NEW! </span><?php esc_html_e('GeoCharts', 'wpdatatables'); ?>

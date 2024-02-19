@@ -550,7 +550,7 @@ class FeedHelper {
 				DAY_IN_SECONDS         => esc_html__( '24 Hours', 'woo-feed' ),
 				12 * HOUR_IN_SECONDS   => esc_html__( '12 Hours', 'woo-feed' ),
 				6 * HOUR_IN_SECONDS    => esc_html__( '6 Hours', 'woo-feed' ),
-				HOUR_IN_SECONDS        => esc_html__( '1 Hours', 'woo-feed' ),
+				HOUR_IN_SECONDS        => esc_html__( '1 Hour', 'woo-feed' ),
 				30 * MINUTE_IN_SECONDS => esc_html__( '30 Minutes', 'woo-feed' ),
 				15 * MINUTE_IN_SECONDS => esc_html__( '15 Minutes', 'woo-feed' ),
 				5 * MINUTE_IN_SECONDS  => esc_html__( '5 Minutes', 'woo-feed' )
@@ -561,7 +561,7 @@ class FeedHelper {
 				DAY_IN_SECONDS       => esc_html__( '24 Hours', 'woo-feed' ),
 				12 * HOUR_IN_SECONDS => esc_html__( '12 Hours', 'woo-feed' ),
 				6 * HOUR_IN_SECONDS  => esc_html__( '6 Hours', 'woo-feed' ),
-				HOUR_IN_SECONDS      => esc_html__( '1 Hours', 'woo-feed' ),
+				HOUR_IN_SECONDS      => esc_html__( '1 Hour', 'woo-feed' ),
 			);
 		}
 

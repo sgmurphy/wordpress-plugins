@@ -3,7 +3,7 @@
  * Plugin Name: Burst Statistics - Privacy-Friendly Analytics for WordPress
  * Plugin URI: https://www.wordpress.org/plugins/burst-statistics
  * Description: Get detailed insights into visitors’ behavior with Burst Statistics, the privacy-friendly analytics dashboard.
- * Version: 1.5.5.1
+ * Version: 1.5.6
  * Requires at least: 5.8
  * Requires PHP: 7.2
  * Text Domain: burst-statistics
@@ -35,7 +35,6 @@ if ( ! class_exists( 'BURST' ) ) {
 	class BURST {
 		private static $instance;
 		public $endpoint;
-		public $anonymize_IP;
 		public $statistics;
 		public $sessions;
 		public $goals;
@@ -60,7 +59,6 @@ if ( ! class_exists( 'BURST' ) ) {
 				self::$instance->includes();
 
 				self::$instance->endpoint        = new burst_endpoint();
-				self::$instance->anonymize_IP    = new burst_ip_anonymizer();
 				self::$instance->statistics      = new burst_statistics();
 				self::$instance->goal_statistics = new burst_goal_statistics();
 				self::$instance->sessions        = new burst_sessions();
@@ -98,7 +96,7 @@ if ( ! class_exists( 'BURST' ) ) {
 			$burst_plugin = implode( '/', $burst_plugin );
 			define( 'burst_plugin_folder', $burst_plugin );
 			$debug = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '#'.time() : '';
-			define( 'burst_version', '1.5.5.1' . $debug );
+			define( 'burst_version', '1.5.6' . $debug );
 			define( 'burst_plugin_file', __FILE__ );
 			define( 'burst_main_menu_position', 100 );
 			define( 'burst_pro_url', 'https://burst-statistics.com/pricing/?src=burst-plugin' );
@@ -129,7 +127,6 @@ if ( ! class_exists( 'BURST' ) ) {
 			require_once( burst_path . 'integrations/integrations.php' );
 			require_once( burst_path . 'tracking/tracking.php' );
 			require_once( burst_path . 'class-frontend.php' );
-			require_once( burst_path . 'helpers/anonymize-ip.php' );
 			require_once( burst_path . 'helpers/php-user-agent/UserAgentParser.php' );
 			require_once( burst_path . 'statistics/class-statistics.php' );
 			require_once( burst_path . 'statistics/class-goal-statistics.php' );

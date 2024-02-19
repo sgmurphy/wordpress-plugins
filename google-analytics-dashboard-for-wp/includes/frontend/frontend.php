@@ -179,7 +179,7 @@ function exactmetrics_frontend_admin_bar_scripts() {
 	}
 
 	$version_path    = exactmetrics_is_pro_version() ? 'pro' : 'lite';
-	$frontend_js_url = defined('EXACTMETRICS_LOCAL_JS_URL') && EXACTMETRICS_LOCAL_JS_URL ? EXACTMETRICS_LOCAL_JS_URL . 'src/modules/frontend/frontend.js' : plugins_url($version_path . '/assets/vue/js/frontend.js', EXACTMETRICS_PLUGIN_FILE);
+	$frontend_js_url = ExactMetrics_Admin_Assets::get_js_url( 'src/modules/frontend/frontend.js' );
 	wp_register_script( 'exactmetrics-vue-frontend', $frontend_js_url, array(), exactmetrics_get_asset_version(), true );
 	wp_enqueue_script( 'exactmetrics-vue-frontend' );
 

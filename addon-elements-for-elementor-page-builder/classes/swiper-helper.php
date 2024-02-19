@@ -20,6 +20,7 @@ class Swiper_helper {
 				'label_on'     => __( 'Yes', 'wts-eae' ),
 				'label_off'    => __( 'No', 'wts-eae' ),
 				'return_value' => 'yes',
+				'frontend_available' => true
 			]
 		);
 
@@ -36,6 +37,7 @@ class Swiper_helper {
 					'flip'      => __( 'Flip', 'wts-eae' ),
 				],
 				'default' => 'slide',
+				'frontend_available' => true
 			]
 		);
 		
@@ -51,6 +53,7 @@ class Swiper_helper {
 				'condition'          => [
 					'loop!' => 'yes',
 				],
+				'frontend_available' => true
 			]
 		);
 
@@ -131,6 +134,7 @@ class Swiper_helper {
 						'step' => 300,
 					],
 				],
+				'frontend_available' => true
 
 			]
 		);
@@ -144,6 +148,7 @@ class Swiper_helper {
 				'label_on'     => __( 'On', 'wts-eae' ),
 				'label_off'    => __( 'Off', 'wts-eae' ),
 				'return_value' => 'yes',
+				'frontend_available' => true
 			]
 		);
 
@@ -166,6 +171,7 @@ class Swiper_helper {
 				'condition'   => [
 					'autoplay' => 'yes',
 				],
+				'frontend_available' => true
 			]
 		);
 
@@ -206,6 +212,7 @@ class Swiper_helper {
 				'label_on'     => __( 'Yes', 'wts-eae' ),
 				'label_off'    => __( 'No', 'wts-eae' ),
 				'return_value' => 'yes',
+				'frontend_available' => true
 			]
 		);
 
@@ -221,6 +228,7 @@ class Swiper_helper {
 				'condition'   => [
 					'autoplay' => 'yes',
 				],
+				'frontend_available' => true
 			]
 		);
 
@@ -246,6 +254,7 @@ class Swiper_helper {
 						'progressbar' => __( 'Progress Bar', 'wts-eae' ),
 					],
 				'default' => 'bullets',
+				'frontend_available' => true
 			]
 		);
 
@@ -284,6 +293,7 @@ class Swiper_helper {
 				'label_on'     => __( 'Yes', 'wts-eae' ),
 				'label_off'    => __( 'No', 'wts-eae' ),
 				'return_value' => 'yes',
+				'frontend_available' => true
 			]
 		);
 

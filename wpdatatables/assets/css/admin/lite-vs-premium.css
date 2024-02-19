@@ -198,6 +198,9 @@
     margin-left: 10px;
     vertical-align: bottom;
 }
+.wdt-datatables-admin-wrap .wdt-lite-vs-premium-card table#wpdt-comparison i.wpdt-icon-times-full {
+    color: red;
+}
 @media (max-width: 768px) {
     .wpdt-c .card .card-header .actions {
         top: 12px !important;

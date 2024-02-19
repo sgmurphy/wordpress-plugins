@@ -90,6 +90,7 @@
             </div>
           </label>
           <el-input
+            id="am-category-name"
             v-model="category.name"
             auto-complete="off"
             @input="clearValidation()"

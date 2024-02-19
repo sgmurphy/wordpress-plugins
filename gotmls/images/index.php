@@ -16,7 +16,7 @@ function GOTMLS_safe_ip($ip) {
 $file = basename(__FILE__);
 GOTMLS_define("GOTMLS_local_images_path", substr(__FILE__, 0, strlen(__FILE__) - strlen($file)));
 GOTMLS_define("GOTMLS_plugin_path", substr(dirname(__FILE__), 0, strlen(dirname(__FILE__)) - strlen(basename(dirname(__FILE__)))));
-GOTMLS_define("GOTMLS_Version", '4.23.56');
+GOTMLS_define("GOTMLS_Version", '4.23.57');
 GOTMLS_define("GOTMLS_require_version", "3.3");
 GOTMLS_define("GOTMLS_REMOTEADDR", substr(GOTMLS_safe_ip(isset($_SERVER["HTTP_X_FORWARDED_FOR"])?$_SERVER["HTTP_X_FORWARDED_FOR"]:(isset($_SERVER["REMOTE_ADDR"])?$_SERVER["REMOTE_ADDR"]:microtime(true))), 0, 40));
 

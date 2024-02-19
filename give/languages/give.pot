@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Give - Donation Plugin plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Give - Donation Plugin 3.4.1\n"
+"Project-Id-Version: Give - Donation Plugin 3.4.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/givewp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-13T20:28:34+00:00\n"
+"POT-Creation-Date: 2024-02-19T15:57:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: give\n"
@@ -16704,19 +16704,19 @@ msgstr ""
 msgid "You are not allowed to perform this action."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:318
+#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:348
 msgid "Make sure to complete the entire PayPal process. Do not close the window until you have finished the process."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:322
+#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:352
 msgid "The last screen of the PayPal connect process includes a button to be sent back to your site. It is important you click this and do not close the window yourself."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:326
+#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:356
 msgid "If you’re still having problems connecting: "
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:334
+#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:364
 msgid "Having trouble connecting to PayPal?"
 msgstr ""
 
@@ -17692,7 +17692,7 @@ msgstr ""
 msgid "Unable to generate client token."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/Repositories/PayPalOrder.php:243
+#: src/PaymentGateways/PayPalCommerce/Repositories/PayPalOrder.php:306
 msgid "To create a paypal order, please provide formId, donationAmount and payer"
 msgstr ""
 
@@ -20059,7 +20059,7 @@ msgstr ""
 msgid "Loading updates activity"
 msgstr ""
 
-#: assets/dist/js/paypal-commerce.js:3992
+#: assets/dist/js/paypal-commerce.js:4019
 msgid "A problem has occurred with the connection between this site and PayPal, preventing donations. Please contact site administrators if reloading the page does not fix the issue. This is usually the result of some JavaScript conflict on the page."
 msgstr ""
 
@@ -21786,6 +21786,10 @@ msgstr ""
 
 #: build/offlineGatewayFormBuilder.js:1
 msgid "Enter the instructions you want to display to the donor during the donation process. Most likely this would include important information like mailing address and who to make the check out to"
+msgstr ""
+
+#: build/payPalCommerceGateway.js:1
+msgid "Waiting for PayPal..."
 msgstr ""
 
 #: build/payPalCommerceGateway.js:1

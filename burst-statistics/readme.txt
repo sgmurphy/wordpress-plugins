@@ -6,7 +6,7 @@ Requires at least: 5.8
 License: GPL2
 Requires PHP: 7.2
 Tested up to: 6.4
-Stable tag: 1.5.5.1
+Stable tag: 1.5.6
 
 Self-hosted and privacy-friendly analytics for Wordpress.
 
@@ -87,6 +87,12 @@ Performance is almost not affected. We have built Burst to be very performant fo
 We value your feedback. You can [submit a support request on the WordPress forums](https://wordpress.org/support/plugin/burst-statistics/), and we will respond promptly.
 
 == Change log ==
+= 1.5.6 =
+* Improvement: Removed unused anonymize IP function. We don't save any IP addresses, so this has been removed.
+* Improvement: In the database boolean values will now be saved as tinyint(1) instead of int(1). This will save space in the database.
+* New: Gutenberg block to display amount of pageviews on a page.
+* Fix: Issue where adding a goal would cause a console.error. This has been resolved.
+
 = 1.5.5.1 =
 * Fix: Issue where the plugin could not be deleted due to a fatal error. This has been resolved.
 
@@ -95,11 +101,12 @@ We value your feedback. You can [submit a support request on the WordPress forum
 * Fix: Don't delete data on uninstall. Only delete when the 'Delete all data and deactivate' prompt is selected.
 
 = 1.5.4 =
+* Security: fixed an authenticated SQL injection vulnerability.
 * Improvement: We have added summary tables, which will speed up the dashboard tremendously on large websites. The summary tables are updated every hour.
 * Improvement: We have added some indexes and removed some unused data which speeds up the dashboard and it will reduce the database size quite a bit.
 * Improvement: Save the last used date range in local storage, so when you return the date is the same.
-* Fix: Added more data to delete on uninstall. This will prevent data from being left behind when uninstalling the plugin.
 * Improvement: Updated referrer spam list.
+* Fix: Added more data to delete on uninstall. This will prevent data from being left behind when uninstalling the plugin.
 * Fix: Referer spam would not be filtered out. This has been resolved.
 * Fix: Click goals where an ID was on a parent class, would not be tracked. Now this is checked recursively.
 
@@ -145,6 +152,7 @@ We value your feedback. You can [submit a support request on the WordPress forum
 * Fix missing file causing a fatal error, props @bb15
 
 = 1.5.0 =
+* Security: fixed an SQL injection issue, props German Ritter
 * Improvement: Updated outdated readme information.
 * Improvement: Updated outdated links in the plugin.
 * Improvement: Some minor styling changes.

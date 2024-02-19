@@ -167,7 +167,7 @@ class ExactMetrics_Dashboard_Widget {
 			if ( ! defined( 'EXACTMETRICS_LOCAL_JS_URL' ) ) {
 				ExactMetrics_Admin_Assets::enqueue_script_specific_css( 'src/modules/widget/widget.js' );
 			}
-			$widget_js_url = defined('EXACTMETRICS_LOCAL_JS_URL') && EXACTMETRICS_LOCAL_JS_URL ? EXACTMETRICS_LOCAL_JS_URL . 'src/modules/widget/widget.js' : plugins_url($version_path . '/assets/vue/js/widget.js', EXACTMETRICS_PLUGIN_FILE);
+			$widget_js_url = ExactMetrics_Admin_Assets::get_js_url( 'src/modules/widget/widget.js' );
 			wp_register_script( 'exactmetrics-vue-widget', $widget_js_url, array(), exactmetrics_get_asset_version(), true );
 			wp_enqueue_script( 'exactmetrics-vue-widget' );
 

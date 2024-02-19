@@ -6,7 +6,7 @@ Tags: table, table builder, data table, table plugin, charts, tables, datatables
 Requires at least: 4.0
 Tested up to: 6.4.3
 Requires PHP: 7.4
-Stable tag: 3.4.2.4
+Stable tag: 3.4.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -188,9 +188,11 @@ Please note some limitations compared to the Premium version of the wpDataTables
 5. Table filters are not included.
 6. Front-end table editing is not included.
 7. Excel-like editing is not included.
-8. Advanced HighCharts and ApexCharts are not included.
+8. Advanced HighCharts,HighStock and ApexCharts are not included.
 9. Table Constructor Wizard (step-by-step table generator) is not included.
 10. Customize options for each table are not included.
+11. Transform value is not included
+12. Fixed headers and columns are not included.
 11. Access to our premium support system is not included.
 
 You can get all of these features by purchasing the Premium version on [the plugin's site](https://wpdatatables.com).
@@ -252,11 +254,11 @@ Additional useful features include:
 * [NEW! Customize Options For Each Table](https://wpdatatables.com/documentation/table-features/customize-table/) – Now you can customize each table with different skin, font, background, colors and lot more.
 * [NEW! Create Tables via Google Spreadsheet API](https://wpdatatables.com/documentation/connect-wordpress-tables-with-google-sheets-api/) – Instant synchronization in wpDataTables after changes in Google sheets. Create tables from Private Google Spreadsheets.
 * [Multiple databases support](https://wpdatatables.com/documentation/general/configuration/#separate-connection) - wpDataTables is the only WordPress table plugin that can display the data from MySQL, MS SQL or PostgreSQL databases.
-* [Huge Amount of Data](https://wpdatatables.com/documentation/creating-wpdatatables/creating-mysql-based-wpdatatables-with-server-side-processing/) – wpDataTables Premium can create huge tables (millions of rows) in a matter of minutes. All the operations will be handled by the MySQL server.
+* [Handle large tables with millions of rows](https://wpdatatables.com/documentation/creating-wpdatatables/creating-mysql-based-wpdatatables-with-server-side-processing/) – wpDataTables Premium can create huge tables (millions of rows) in a matter of minutes. All the operations will be handled by the MySQL server.
 * [Editable Tables](https://wpdatatables.com/documentation/front-end-editing/creating-editable-tables/) – you or any other WordPress user with access will be able to edit and/or adjust the published tables at any point
 * [Advanced Filters and Search](https://wpdatatables.com/documentation/table-features/advanced-filtering/)– you will be able to create individual filters that will help you narrow the search results in the table quickly and easily. You can also configure a cascade filter with the [Powerful Filters addon](https://wpdatatables.com/powerful-filtering/).
 * [Highlighting](https://wpdatatables.com/documentation/table-features/conditional-formatting/) – highlighting the rows, columns, cells of your WordPress tables etc. has never been easier with this plugin’s conditional formatting feature
-* [Charts](https://wpdatatables.com/documentation/wpdatacharts/creating-charts-wordpress-wpdatachart-wizard/) – you can easily turn every WordPress table into a beautiful chart. Charts are rendered by 4 powerful engines ([Google](https://wpdatatables.com/documentation/wpdatacharts/google-charts/), [Highcharts](https://wpdatatables.com/documentation/wpdatacharts/highcharts/), [Chart.js](https://wpdatatables.com/documentation/wpdatacharts/chartjs/) and **NEW** [ApexCharts](https://wpdatatables.com/documentation/wpdatacharts/apexcharts/)) and can change in real-time.
+* [Charts](https://wpdatatables.com/documentation/wpdatacharts/creating-charts-wordpress-wpdatachart-wizard/) – you can easily turn every WordPress table into a beautiful chart. Charts are rendered by 5 powerful engines ([Google](https://wpdatatables.com/documentation/wpdatacharts/google-charts/), [Highcharts](https://wpdatatables.com/documentation/wpdatacharts/highcharts/), [Chart.js](https://wpdatatables.com/documentation/wpdatacharts/chartjs/), [ApexCharts](https://wpdatatables.com/documentation/wpdatacharts/apexcharts/) and **NEW** [HighCharts Stock](https://wpdatatables.com/documentation/wpdatacharts/highcharts-stock/) and can change in real-time.
 * [Calculating Tools](https://wpdatatables.com/documentation/table-features/calculation-functions/) – calculating a sum, average, minimum and maximum of all the values for a given column is easier than ever with the wpDataTables advanced calculating tools
 * [Placeholders](https://wpdatatables.com/documentation/table-features/using-placeholders/) - make dynamic tables from SQL Queries and use it through the shortcodes and as predefined values in filters and editing.
 
@@ -370,6 +372,11 @@ This can be changed from the “Number format” drop-down menu in the wpDataTab
 12. Google chart settings
 
 == Changelog ==
+
+= 3.4.2.5 =
+* Refactoring chart logic.
+* Fixed vulnerability issue by third party library
+Other small bug fixes and stability improvements.
 
 = 3.4.2.4 =
 * Compatibility with WordPress 6.4.3 approved.

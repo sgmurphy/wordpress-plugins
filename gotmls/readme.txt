@@ -5,8 +5,8 @@ Author URI: http://wordpress.ieonly.com/category/my-plugins/anti-malware/
 Contributors: gotmls, scheeeli
 Donate link: https://gotmls.net/donate/
 Tags: security, firewall, anti-malware, scanner, automatic, repair, remove, malware, virus, threat, hacked, malicious, infection, timthumb, exploit, block, brute-force, wp-login, patch, antimalware, revslider, Revolution Slider
-Version: 4.23.56
-Stable tag: 4.23.56
+Version: 4.23.57
+Stable tag: 4.23.57
 Requires at least: 3.3
 Tested up to: 6.4.3
 
@@ -97,6 +97,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 5. The Quarantine showing threats that have been fix already.
 
 == Changelog ==
+
+= 4.23.57 =
+* Removed session incompatibilities within the Brute-Force Login Protection that failed when other plugins had already output page headers.
 
 = 4.23.56 =
 * Upgraded Brute-Force Login Protection to integrate the JS check on the login form with the session check.
@@ -462,6 +465,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * First versions available for WordPress (code removed, no longer compatible).
 
 == Upgrade Notice ==
+
+= 4.23.57 =
+Removed session incompatibilities within the Brute-Force Login Protection that failed when other plugins had already output page headers.
 
 = 4.23.56 =
 Upgraded Brute-Force Login Protection, restricted definition updates to admin users, improved the Nonce tokens for better security (thanks to Patchstack), and a few other minor code changes for servers using reverse proxy and code compatibility for WordPress 6.4.3 and ClassicPress 1.7.2.

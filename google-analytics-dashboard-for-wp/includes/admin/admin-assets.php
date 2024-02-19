@@ -16,11 +16,16 @@ class ExactMetrics_Admin_Assets {
 	private $own_handles = array(
 		'exactmetrics-vue-script',
 		'exactmetrics-vue-frontend',
-		'exactmetrics-local-dev-client',
 		'exactmetrics-vue-reports',
 		'exactmetrics-vue-widget',
-		'exactmetrics-vue-welcome-script',
 	);
+
+	/**
+	 * Store manifest.json file content.
+	 *
+	 * @var array
+	 */
+	private static $manifest_data;
 
 	/**
 	 * Class constructor.
@@ -31,6 +36,8 @@ class ExactMetrics_Admin_Assets {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ) );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+
+		$this->get_manifest_data();
 	}
 
 	/**
@@ -128,7 +135,7 @@ class ExactMetrics_Admin_Assets {
 
 		// For the settings page, load the Vue app.
 		if (exactmetrics_is_settings_page()) {
-			$app_js_url = defined('EXACTMETRICS_LOCAL_JS_URL') && EXACTMETRICS_LOCAL_JS_URL ? EXACTMETRICS_LOCAL_JS_URL . 'src/modules/settings/settings.js' : plugins_url($version_path . '/assets/vue/js/settings.js', EXACTMETRICS_PLUGIN_FILE);
+			$app_js_url = self::get_js_url( 'src/modules/settings/settings.js' );
 			wp_register_script('exactmetrics-vue-script', $app_js_url, array(), exactmetrics_get_asset_version(), true);
 			wp_enqueue_script('exactmetrics-vue-script');
 
@@ -221,7 +228,7 @@ class ExactMetrics_Admin_Assets {
 
 		if (exactmetrics_is_reports_page()) {
 
-			$app_js_url = defined('EXACTMETRICS_LOCAL_JS_URL') && EXACTMETRICS_LOCAL_JS_URL ? EXACTMETRICS_LOCAL_JS_URL . 'src/modules/reports/reports.js' : plugins_url($version_path . '/assets/vue/js/reports.js', EXACTMETRICS_PLUGIN_FILE);
+			$app_js_url = self::get_js_url( 'src/modules/reports/reports.js' );
 			wp_register_script('exactmetrics-vue-reports', $app_js_url, array(), exactmetrics_get_asset_version(), true);
 			wp_enqueue_script('exactmetrics-vue-reports');
 
@@ -296,42 +303,34 @@ class ExactMetrics_Admin_Assets {
 			return;
 		}
 
-		$version_path  = exactmetrics_is_pro_version() ? 'pro' : 'lite';
-		$plugin_path   = plugin_dir_path( EXACTMETRICS_PLUGIN_FILE );
-		$manifest_path = $plugin_path . $version_path . '/assets/vue/manifest.json';
+		$version_path = exactmetrics_is_pro_version() ? 'pro' : 'lite';
+		$plugin_path  = plugin_dir_path( EXACTMETRICS_PLUGIN_FILE );
 
-		// Return if manifest.json not exists.
-		if ( ! file_exists( $manifest_path ) ) {
+		if ( ! isset( self::$manifest_data[ $js_file_path ] ) ) {
 			return;
 		}
 
-		$file_contents = json_decode( file_get_contents( $manifest_path ), true );
-
-		if ( ! isset( $file_contents[ $js_file_path ] ) ) {
-			return;
-		}
-
-		$js_imports    = $file_contents[ $js_file_path ]['imports'];
+		$js_imports    = self::$manifest_data[ $js_file_path ]['imports'];
 		$css_file_path = $plugin_path . $version_path . '/assets/vue/';
 
 		// Add JS own CSS file.
-		if ( isset( $file_contents[ $js_file_path ]['css'] ) ) {
-			self::add_js_own_css_files( $file_contents[ $js_file_path ]['css'], $version_path );
+		if ( isset( self::$manifest_data[ $js_file_path ]['css'] ) ) {
+			self::add_js_own_css_files( self::$manifest_data[ $js_file_path ]['css'], $version_path );
 		}
 
 		// Loop through all imported js file of entry file.
 		foreach( $js_imports as $js_filename ) {
 			// Check imported file available in manifest.json
-			if ( ! isset( $file_contents[ $js_filename ] ) ) {
+			if ( ! isset( self::$manifest_data[ $js_filename ] ) ) {
 				continue;
 			}
 
 			// Check imported js file has it's own css.
-			if ( ! isset( $file_contents[ $js_filename ]['css'] ) ) {
+			if ( ! isset( self::$manifest_data[ $js_filename ]['css'] ) ) {
 				continue;
 			}
 
-			$js_file_css = $file_contents[ $js_filename ]['css'];
+			$js_file_css = self::$manifest_data[ $js_filename ]['css'];
 
 			// css must be array.
 			if ( ! is_array( $js_file_css ) ) {
@@ -364,6 +363,49 @@ class ExactMetrics_Admin_Assets {
 				exactmetrics_get_asset_version()
 			);
 		}
+	}
+
+	/**
+	 * Get JS build file URL of a entry file.
+	 *
+	 * @return string
+	 */
+	public static function get_js_url( $path ) {
+		if ( ! $path ) {
+			return;
+		}
+
+		if ( defined( 'EXACTMETRICS_LOCAL_JS_URL' ) && EXACTMETRICS_LOCAL_JS_URL ) {
+			return EXACTMETRICS_LOCAL_JS_URL . $path;
+		}
+
+		// If the file is not available on manifest.
+		if ( ! isset( self::$manifest_data[ $path ] ) ) {
+			return;
+		}
+
+		$js_file      = self::$manifest_data[ $path ]['file'];
+		$version_path = exactmetrics_is_pro_version() ? 'pro' : 'lite';
+
+		return plugins_url( $version_path . '/assets/vue/' . $js_file, EXACTMETRICS_PLUGIN_FILE );
+	}
+
+	/**
+	 * Fetch manifest.json data and store it to array for future use.
+	 *
+	 * @return void
+	 */
+	private function get_manifest_data() {
+		$version_path  = exactmetrics_is_pro_version() ? 'pro' : 'lite';
+		$plugin_path   = plugin_dir_path( EXACTMETRICS_PLUGIN_FILE );
+		$manifest_path = $plugin_path . $version_path . '/assets/vue/manifest.json';
+
+		// Return if manifest.json not exists.
+		if ( ! file_exists( $manifest_path ) ) {
+			return;
+		}
+
+		self::$manifest_data = json_decode( file_get_contents( $manifest_path ), true );
 	}
 }
 

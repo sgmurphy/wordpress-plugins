@@ -20,6 +20,31 @@ class Helper {
 		
 		add_action( 'wp_ajax_eae_refresh_insta_cache', [ $this, 'ajax_refresh_insta_cache' ] );
 		add_action( 'wp_ajax_nopriv_eae_refresh_insta_cache', [ $this, 'ajax_refresh_insta_cache' ] );
+		add_action( 'wp_ajax_eae_add_to_cart', [ $this, 'ajax_wp_add_to_cart' ] );
+		add_action( 'wp_ajax_nopriv_eae_add_to_cart', [ $this, 'ajax_wp_add_to_cart' ] );
+
+	}
+
+	
+	public function ajax_wp_add_to_cart(){
+
+		$nonce = $_POST['eae_nonce'];
+		if (!wp_verify_nonce($nonce, 'eae_forntend_ajax_nonce')) {
+			wp_send_json_error('Nonce is invalid');
+		}
+		$product_id = absint($_POST['product_id']);
+
+		$product_qty = absint($_POST['quantity']);
+		// echo "prd_id" . $product_id;
+		// echo "<br/>";
+		// echo "prd_qty" . $product_qty;
+		// die('dfafd');
+		$cart_item_key = WC()->cart->add_to_cart($product_id, $product_qty);
+		// echo '<pre>';  print_r($cart_item_key); echo '</pre>';
+		// die('dfadf');
+		wp_send_json($cart_item_key);
+
+		wp_die();
 	}
 
 	public function ajax_refresh_insta_cache() {
@@ -33,6 +58,7 @@ class Helper {
 		return wp_send_json_success( $result );
 	}
 
+	
 	public function eae_get_post_data( $args ) {
 		$defaults = [
 			'posts_per_page'   => 5,
@@ -73,6 +99,11 @@ class Helper {
 		return $post_types;
 	}
 
+	/**
+	 * @param mixed $settings
+	 * 
+	 * @return [type]
+	 */
 	public function eae_get_post_settings( $settings ) {
 		$post_args['post_type'] = $settings['post_type'];
 
@@ -88,6 +119,13 @@ class Helper {
 		return $post_args;
 	}
 
+	
+	/**
+	 * @param mixed $post_id
+	 * @param mixed $excerpt_length
+	 * 
+	 * @return [type]
+	 */
 	public function eae_get_excerpt_by_id( $post_id, $excerpt_length ) {
 		$the_post = get_post( $post_id ); //Gets post ID
 
@@ -1600,19 +1638,42 @@ class Helper {
 				'type' => 'widget',
 				'pro' => true,
 			],
-			// 'coupon-code' => [
-			// 	'name' => 'Coupon Code',
-			// 	'enabled' => true,
-			// 	'type' => 'widget',
-			// 	'pro' => true,
-			// ],
+			'coupon-code' => [
+				'name' => 'Coupon Code',
+				'enabled' => true,
+				'type' => 'widget',
+				// 'pro' => true,
+			],
 			'elementor-form-action' => [
 				'name'    => 'Elementor Form Action',
 				'enabled' => true,
 				'type'    => 'feature',
 				'pro' => true,
 			],
+			
+
+			'reviews' => [
+				'name' => 'Reviews',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true,
+			],
+			'google-reviews' => [
+				'name' => 'Google Reviews',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true,
+			]
 		];
+
+		if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+			$modules['woo-products'] = [
+				'name' => 'Woo Products',
+				'enabled' => true,
+				'type' => 'widget',
+				'pro' => true,
+			];
+		}
 
 		// check php verison 8.0
 		// if ( version_compare( PHP_VERSION, '8.0.0', '>=' ) ) {
@@ -2853,6 +2914,35 @@ class Helper {
 				]
 			);
 		}
+	}
+
+
+	/**
+	 * Check if a value is present in an array, if not apply default value.
+	 *
+	 * @param mixed $value       The value to check.
+	 * @param array $value_array The array of values to check against.
+	 * @param mixed $default     The default value to apply if the value is not found in the array.
+	 * @param bool  $is_assocative_array     If the array is associative or not.
+	 * @return mixed The value found in the array or the default value.
+	*/
+	public static function validate_option_value($value, $value_array, $default, $is_assocative_array = true) {
+		// Check if the value is in the array
+		if($is_assocative_array){
+			if (in_array($value, array_keys($value_array))) {
+				return $value;
+			} else {
+				// If value is not found, return default value
+				return $default;
+			}
+		}else{
+			if (in_array($value, $value_array)) {
+				return $value;
+			} else {
+				// If value is not found, return default value
+				return $default;
+			}
+		}	
 	}
 	
 

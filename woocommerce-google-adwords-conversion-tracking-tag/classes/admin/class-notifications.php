@@ -27,9 +27,7 @@ class Notifications
         add_action( 'admin_enqueue_scripts', [ __CLASS__, 'wpm_admin_css' ] );
         add_action( 'admin_notices', function () {
             if ( Environment::is_allowed_notification_page() ) {
-                if ( defined( 'EXPERIMENTAL_PMW_OPPORTUNITIES_TAB' ) && EXPERIMENTAL_PMW_OPPORTUNITIES_TAB ) {
-                    self::opportunities_notification();
-                }
+                self::opportunities_notification();
             }
         } );
     }
@@ -214,9 +212,26 @@ class Notifications
 		<?php 
     }
     
+    private static function can_show_dashboard_opportunities_message()
+    {
+        $saved_notifications = get_option( PMW_DB_NOTIFICATIONS_NAME );
+        if ( isset( $saved_notifications['dashboard-opportunities-message-dismissed'] ) && $saved_notifications['dashboard-opportunities-message-dismissed'] > time() - MONTH_IN_SECONDS * 3 ) {
+            return false;
+        }
+        if ( !Opportunities::active_opportunities_available() ) {
+            return false;
+        }
+        return true;
+    }
+    
+    private static function cannot_show_dashboard_opportunities_message()
+    {
+        return !self::can_show_dashboard_opportunities_message();
+    }
+    
     public static function opportunities_notification()
     {
-        if ( !Opportunities::active_opportunities_available() ) {
+        if ( self::cannot_show_dashboard_opportunities_message() ) {
             return;
         }
         ?>
@@ -248,7 +263,7 @@ class Notifications
 				<div id="pmw-dismiss-opportunities-message-button"
 					 class="button pmw-notification-dismiss-button"
 					 style="white-space:normal;margin-bottom: 6px;text-align: center;"
-					 data-notification-id="opportunity-message"
+					 data-notification-id="dashboard-opportunities-message-dismissed"
 				><?php 
         esc_html_e( 'Click here to dismiss this notification', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>

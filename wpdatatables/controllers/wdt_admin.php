@@ -421,7 +421,7 @@ function wdtBrowseChartsEnqueue() {
  */
 function wdtChartWizardEnqueue() {
 
-    $googleLibSource = get_option('wdtGoogleStableVersion') ? WDT_JS_PATH . 'wpdatatables/googlecharts.js' : '//www.gstatic.com/charts/loader.js';
+    $googleLibSource = get_option('wdtGoogleStableVersion') ? WDT_JS_PATH . 'wdtcharts/googlecharts/googlecharts.js' : '//www.gstatic.com/charts/loader.js';
 
     WDTTools::wdtUIKitEnqueue();
 
@@ -433,14 +433,14 @@ function wdtChartWizardEnqueue() {
 
     wp_enqueue_script('wdt-google-charts', $googleLibSource, array(), WDT_CURRENT_VERSION, true);
 
-    wp_enqueue_script('wdt-chart-js', WDT_JS_PATH . 'chartjs/Chart.js', array(), WDT_CURRENT_VERSION, true);
-    wp_enqueue_script('wdt-wp-chart-js', WDT_JS_PATH . 'wpdatatables/wdt.chartJS.js', array(), WDT_CURRENT_VERSION, true);
+    wp_enqueue_script('wdt-chart-js', WDT_JS_PATH . 'wdtcharts/chartjs/Chart.js', array(), WDT_CURRENT_VERSION, true);
+    wp_enqueue_script('wdt-wp-chart-js', WDT_JS_PATH . 'wdtcharts/chartjs/wdt.chartJS.js', array(), WDT_CURRENT_VERSION, true);
 
     wp_enqueue_script('wdt-common');
     wp_enqueue_script('wdt-color-pickr');
     wp_enqueue_script('wdt-color-pickr-init');
-    wp_enqueue_script('wdt-chart-wizard', WDT_JS_PATH . 'wpdatatables/wdt.chartWizard.js', array(), false, true);
-    wp_enqueue_script('wdt-wp-google-chart', WDT_JS_PATH . 'wpdatatables/wdt.googleCharts.js', array(), WDT_CURRENT_VERSION, true);
+    wp_enqueue_script('wdt-chart-wizard', WDT_JS_PATH . 'wdtcharts/wdt.chartWizard.js', array(), false, true);
+    wp_enqueue_script('wdt-wp-google-chart', WDT_JS_PATH . 'wdtcharts/googlecharts/wdt.googleCharts.js', array(), WDT_CURRENT_VERSION, true);
     wp_enqueue_script('wdt-doc-js');
 
     wp_localize_script('wdt-chart-wizard', 'wpdatatablesEditStrings', WDTTools::getTranslationStrings());
@@ -700,10 +700,10 @@ function wdtBrowseCharts() {
         $chartId = $_REQUEST['chart_id'];
 
         if (!is_array($chartId)) {
-            WPDataChart::deleteChart((int)$chartId);
+            WPDataChart::delete((int)$chartId);
         } else {
             foreach ($chartId as $singleChartId) {
-                WPDataChart::deleteChart((int)$singleChartId);
+                WPDataChart::delete((int)$singleChartId);
             }
         }
     }
@@ -736,25 +736,20 @@ function wdtChartWizard() {
     }
 
     $chartId = isset($_GET['chart_id']) ? (int)$_GET['chart_id'] : false;
+    $chartEngine = isset($_GET['engine']) ? sanitize_text_field($_GET['engine']) : '';
     if (!empty($chartId)) {
         try {
-            $chartObj = new WPDataChart();
-            $chartObj->setId($chartId);
-            $chartObj->loadFromDB();
+            $chartData = [
+                'id' => $chartId,
+                'engine' => $chartEngine
+            ];
+            $chartObj = WPDataChart::build($chartData, true);
             $chartObj->prepareData();
-            $chartObj->shiftStringColumnUp();
-            switch ($chartObj->getEngine()){
-                case 'google':
-                    $chartObj->prepareGoogleChartsRender();
-                    break;
-                case 'chartjs':
-                    $chartObj->prepareChartJSRender();
-                    break;
-            }
+            $chartObj->shiftXAxisColumnUp();
+            $chartObj->prepareRender();
         } catch (Exception $e) {
             echo $e->getMessage();
             exit;
-
         }
     }
 

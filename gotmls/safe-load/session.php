@@ -8,6 +8,9 @@ if (!defined("GOTMLS_SESSION_TIME")) {
 	define("GOTMLS_SESSION_TIME", microtime(true));
 
 	function GOTMLS_session_start($ID_sess = false) {
+		if (!session_id())
+			session_start();
+	if (!session_id()) {
 		if ($ID_sess === true)
 			$ID_sess = session_create_id();
 		$GLOBALS["GOTMLS"]["tmp"]["previous_session_id"] = session_id();
@@ -24,6 +27,7 @@ if (!defined("GOTMLS_SESSION_TIME")) {
 				session_id($ID_sess);
 			session_start();
 		}
+	}
 		if (isset($_SESSION["GOTMLS_SESSION_TIME"]))
 			$_SESSION["GOTMLS_SESSION_LAST"] = $_SESSION["GOTMLS_SESSION_TIME"];
 		else
@@ -47,5 +51,4 @@ if (!defined("GOTMLS_SESSION_TIME")) {
 		GOTMLS_session_close();
 		die($output);
 	}
-
 }

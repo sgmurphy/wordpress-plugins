@@ -381,16 +381,16 @@ class Admin
                     'wpm_plugin_options_page',
                     $section_ids['settings_name']
                 );
-                // Add the field for the LinkedIn partner ID
-                add_settings_field(
-                    'pmw_linkedin_partner_id',
-                    esc_html__( 'LinkedIn partner ID', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
-                    [ $this, 'option_html_linkedin_partner_id' ],
-                    'wpm_plugin_options_page',
-                    $section_ids['settings_name']
-                );
             }
             
+            // Add the field for the LinkedIn partner ID
+            add_settings_field(
+                'pmw_linkedin_partner_id',
+                esc_html__( 'LinkedIn partner ID', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
+                [ $this, 'option_html_linkedin_partner_id' ],
+                'wpm_plugin_options_page',
+                $section_ids['settings_name']
+            );
             // add the field for the Bing Ads UET tag ID
             add_settings_field(
                 'wpm_plugin_bing_uet_tag_id',
@@ -532,10 +532,8 @@ class Admin
         
         if ( wpm_fs()->can_use_premium_code__premium_only() || Options::pro_version_demo_active() ) {
             $this->add_section_advanced_subsection_facebook( $section_ids );
-            if ( Helpers::is_experiment() ) {
-                if ( Environment::is_woocommerce_active() ) {
-                    $this->add_section_advanced_subsection_linkedin( $section_ids );
-                }
+            if ( Environment::is_woocommerce_active() ) {
+                $this->add_section_advanced_subsection_linkedin( $section_ids );
             }
             $this->add_section_advanced_subsection_pinterest( $section_ids );
             $this->add_section_advanced_subsection_reddit( $section_ids );

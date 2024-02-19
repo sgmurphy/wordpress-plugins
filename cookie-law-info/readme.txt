@@ -5,7 +5,7 @@ Tags: GDPR, CCPA, CPRA, cookie notice, DSGVO, RGPD, LGPD, CNIL, PIPEDA, POPIA, V
 Requires at least: 5.0.0
 Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 3.1.8
+Stable tag: 3.2.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,7 +48,7 @@ Our cookie plugin ranks among the top WordPress GDPR cookie compliance plugins o
 
 == Additional Features == 
 
-- **Opt-In and Opt-Out banner**: Opt-in consent banner for GDPR & opt-out banner for CCPA/CPRA
+- **Opt-In and Opt-Out banner**: Opt-in consent banner for GDPR & opt-out banner for CCPA/CPRA.
 - **Footer link**: Add the "Do Not Sell or Share My Personal Information" link to your website footer using an HTML code.
 - **Placement options**: Choose to display the cookie banner in either the header or footer of your website, based on your preference.
 - **Integration compatibility**: Compatible with major caching servers and plugins.
@@ -97,17 +97,16 @@ Please report a bug on the support forum. Make sure to include the following inf
 * Browser where the issue is observed (e.g. Firefox, Chrome, IE)
 * Describe the problem. The more information you provide, the faster we can respond.
 
-The more information you give, the quicker we can respond.
 
 = What does this plugin do? =
 This WordPress cookie plugin will:
 
-* Add a cookie banner to the top/bottom of all pages on your website, notifying the visitor that you have a clearly defined privacy and cookie policy.
+* Add a cookie banner to the top/bottom of all pages on your website, notifying visitors that you have a clearly defined privacy and cookie policy.
 * Allow you to record which cookies your site uses and neatly display a list of these cookies. You can add this list to your Privacy Policy page or Cookie Policy page using a shortcode.
 Note: If you connect your site to the CookieYes web app, you have to replace the shortcode with an HTML code.
 
 = Do visitors now have to accept/refuse cookies in order to use websites? =
-No. Only the ‘Necessary’ cookies will be loaded until the user gives consent. 
+No, Only the ‘Necessary’ cookies will be loaded until the user gives consent. 
 
 = Does this plugin stop cookies from being stored? =
 Visitors can reject the category of cookies they don't want to be installed. In such cases, all cookies in that category will be blocked for the user.
@@ -153,6 +152,13 @@ For every update of the plugin, you will be notified of the installed plugins pa
 9. Privacy policy generator and cookie policy generator
 
 == Changelog ==
+
+= 3.2.0 =
+
+[Enhancement] - UI/UX improvements.
+[Add] - Chart to display pageviews data for connected users from past 7 days.
+[Tweak] - Limited consent log chart data to past 7 days.
+[Fix] - Minor bug fixes.
 
 = 3.1.8 =
 
@@ -628,8 +634,9 @@ Tested OK with WordPress version 6.2
 
 == Upgrade Notice ==
 
-= 3.1.8 = 
+= 3.2.0 =
 
-[Add] - Option to choose sidebar for preference center layout.
-[Add] - Option to show categories on first layer.
+[Enhancement] - UI/UX improvements.
+[Add] - Chart to display pageviews data for connected users from past 7 days.
+[Tweak] - Limited consent log chart data to past 7 days.
 [Fix] - Minor bug fixes.

@@ -8,7 +8,7 @@ Author URI: https://supersecurehosting.com/
 Contributors: scheeeli, gotmls
 Donate link: https://gotmls.net/donate/
 Description: This Anti-Virus/Anti-Malware plugin searches for Malware and other Virus like threats and vulnerabilities on your server and helps you remove them. It's always growing and changing to adapt to new threats so let me know if it's not working for you.
-Version: 4.23.56
+Version: 4.23.57
 Requires PHP: 5.6
 Requires CP: 1.1.1
 */
@@ -1202,10 +1202,10 @@ var startTime = 0;
 	echo "\n$lt/div$gt$lt/div$gt$lt/div$gt";
 }
 
-if (defined("GOTMLS_LOGIN_PROTECTION") && is_numeric(GOTMLS_LOGIN_PROTECTION) && defined("GOTMLS_SESSION_TIME") && is_numeric(GOTMLS_SESSION_TIME)) {
+if (defined("GOTMLS_LOGIN_PROTECTIONS") && is_numeric(GOTMLS_LOGIN_PROTECTION) && defined("GOTMLS_SESSION_TIME") && is_numeric(GOTMLS_SESSION_TIME)) {
 	function GOTMLS_login_form($form_id = "loginform") {
 		$time = GOTMLS_LOGIN_PROTECTION;
-		$sess = GOTMLS_session_start(true);
+		$sess = GOTMLS_SESS;
 		$_SESSION["GOTMLS_server_time"]["sess_$sess"] = array("START_time" => $time);
 		$ajaxURL = admin_url("admin-ajax.php?action=GOTMLS_logintime&GOTMLS_sess=$sess&GOTMLS_time=");
 		echo '<input type="hidden" name="GOTMLS_sess_id" value="'.$sess.'"><input type="hidden" id="offset_id" value=\''.json_encode($_SESSION["GOTMLS_server_time"]).'\' name="GOTMLS_sess_'.$sess.'"><script type="text/javascript">'."\nvar GOTMLS_login_offset = new Date();\nvar GOTMLS_login_script = document.createElement('script');\nGOTMLS_login_script.src = '$ajaxURL'+GOTMLS_login_offset.getTime();\n\ndocument.head.appendChild(GOTMLS_login_script);\n</script>\n";
@@ -1215,22 +1215,19 @@ if (defined("GOTMLS_LOGIN_PROTECTION") && is_numeric(GOTMLS_LOGIN_PROTECTION) &&
 }
 
 function GOTMLS_ajax_logintime() {
-	if (defined("GOTMLS_LOGIN_PROTECTION") && is_numeric(GOTMLS_LOGIN_PROTECTION) && defined("GOTMLS_SESSION_TIME") && is_numeric(GOTMLS_SESSION_TIME)) {
+	if (defined("GOTMLS_LOGIN_PROTECTIONS") && is_numeric(GOTMLS_LOGIN_PROTECTION) && defined("GOTMLS_SESSION_TIME") && is_numeric(GOTMLS_SESSION_TIME)) {
 		$time = time();
 		$error_txt =  __("Please refresh the page before attempting to login again.", 'gotmls');
-		if (isset($_GET["GOTMLS_sess"]) && strlen($_GET["GOTMLS_sess"]) && isset($_GET["GOTMLS_time"]) && is_numeric($_GET["GOTMLS_time"])) {
-			$GOT_sess = preg_replace('/[^0-9\-,a-z]/i', "", $_GET["GOTMLS_sess"]);
-			$GOT_time = preg_replace('/[^0-9]/', "", $_GET["GOTMLS_time"]);
-			GOTMLS_session_start("$GOT_sess");
-			if (isset($_SESSION["GOTMLS_server_time"]["sess_$GOT_sess"]["START_time"]) && is_numeric($_SESSION["GOTMLS_server_time"]["sess_$GOT_sess"]["START_time"]) && $_SESSION["GOTMLS_server_time"]["sess_$GOT_sess"]["START_time"] <= $time) {
+		if (defined("GOTMLS_SESS") && defined("GOTMLS_TIME")) {
+			if (isset($_SESSION["GOTMLS_server_time"]["sess_".GOTMLS_SESS]["START_time"]) && is_numeric($_SESSION["GOTMLS_server_time"]["sess_".GOTMLS_SESS]["START_time"]) && $_SESSION["GOTMLS_server_time"]["sess_".GOTMLS_SESS]["START_time"] <= $time) {
 				$sess = substr(preg_replace('/[^1-9]/', "", md5($time)).'111111111111', 0 , 12);
-				$_SESSION["GOTMLS_server_time"]["sess_$GOT_sess"]["JS_time"] = $GOT_time;
-				$_SESSION["GOTMLS_server_time"]["sess_$GOT_sess"]["PHP_time"] = $time;
+				$_SESSION["GOTMLS_server_time"]["sess_".GOTMLS_SESS]["JS_time"] = GOTMLS_TIME;
+				$_SESSION["GOTMLS_server_time"]["sess_".GOTMLS_SESS]["PHP_time"] = $time;
 				GOTMLS_session_die(((isset($GLOBALS["GOTMLS"]["tmp"]["HeadersError"]) && $GLOBALS["GOTMLS"]["tmp"]["HeadersError"])?"\n//Header Error: ".GOTMLS_strip4java(GOTMLS_htmlspecialchars($GLOBALS["GOTMLS"]["tmp"]["HeadersError"])):"")."\nvar GOTMLS_login_offset = new Date();\nvar GOTMLS_login_offset_start = GOTMLS_login_offset.getTime() - $sess;\nfunction set_offset_id() {\n\tGOTMLS_login_offset = new Date();\n\tif (form_login = document.getElementById('offset_id'))\n\t\tform_login.value = GOTMLS_login_offset.getTime() - GOTMLS_login_offset_start;\n\tform_login.alt = $sess;\n\tsetTimeout(function() {set_offset_id();}, 15673);\n}\nset_offset_id();");
 			} else
-				GOTMLS_session_die("alert('Session Not Found! ".GOTMLS_strip4java($GLOBALS["GOTMLS"]["tmp"]["previous_session_id"]." CLOSED, $GOT_sess IN SESSION ".session_id().json_encode($_SESSION["GOTMLS_server_time"])).$GLOBALS["GOTMLS"]["tmp"]["previous_session_id"]/**/." $error_txt');");
+				GOTMLS_session_die("alert('Session Not Found! SESSION ".GOTMLS_strip4java($GLOBALS["GOTMLS"]["tmp"]["previous_session_id"]." CLOSED, SESSION ".GOTMLS_SESS." FAILED $error_txt")."');");
 		} else
-			die("alert('Session Lost! $error_txt');");
+			die("alert('Session Lost! ".GOTMLS_strip4java($error_txt)."');");
 	}
 }
 
@@ -1451,15 +1448,24 @@ function GOTMLS_init() {
 add_action("init", "GOTMLS_init");
 
 function GOTMLS_ajax_log_session() {
-	header("Content-type: text/javascript");
+	$fail_msg = "/* GOTMLS SESSION FAIL */\nif('undefined' != typeof stopCheckingSession && stopCheckingSession)\n\tclearTimeout(stopCheckingSession);\ndocument.getElementById('GOTMLS_patch_searching').innerHTML = '<div class=\"error\">".GOTMLS_strip4java(__("Your Server could not start a Session!",'gotmls'));
+	if (headers_sent($filename, $linenum)) {
+		if (!$filename)
+			$filename = __("an unknown file",'gotmls');
+		if (!is_numeric($linenum))
+			$linenum = __("unknown",'gotmls');
+		$fail_msg .= sprintf(__('<b>Headers already sent</b> in %1$s on line %2$s.','gotmls'), $filename, $linenum);
+		die($fail_msg."</div>';");
+	}
 	if (is_file(GOTMLS_plugin_path."safe-load/session.php"))
 		require_once(GOTMLS_plugin_path."safe-load/session.php");
+	header("Content-type: text/javascript");
 	if (isset($_SESSION["GOTMLS_SESSION_TEST"])) 
 		die("/* GOTMLS SESSION PASS */\nif('undefined' != typeof stopCheckingSession && stopCheckingSession)\n\tclearTimeout(stopCheckingSession);\nshowhide('GOTMLS_patch_searching', true);\nif (autoUpdateDownloadGIF = document.getElementById('autoUpdateDownload'))\n\tdonationAmount = autoUpdateDownloadGIF.src.replace(/^.+\?/,'');\nif ((autoUpdateDownloadGIF.src == donationAmount) || donationAmount=='0') {\n\tif (patch_searching_div = document.getElementById('GOTMLS_patch_searching')) {\n\t\tif (autoUpdateDownloadGIF.src == donationAmount)\n\t\t\tpatch_searching_div.innerHTML = '<span style=\"color: #F00;\">".GOTMLS_strip4java(__("You must register and donate to use this feature!",'gotmls'))."</span>';\n\t\telse\n\t\t\tpatch_searching_div.innerHTML = '<span style=\"color: #F00;\">".GOTMLS_strip4java(__("This feature is available to those who have donated!",'gotmls'))."</span>';\n\t}\n} else {\n\tshowhide('GOTMLS_patch_searching');\n\tshowhide('GOTMLS_patch_button', true);\n}\n");
 	else {
 		$_SESSION["GOTMLS_SESSION_TEST"] = 1;
 		if (isset($_GET["SESSION"]) && is_numeric($_GET["SESSION"]) && $_GET["SESSION"] > 0)
-			die("/* GOTMLS SESSION FAIL */\nif('undefined' != typeof stopCheckingSession && stopCheckingSession)\n\tclearTimeout(stopCheckingSession);\ndocument.getElementById('GOTMLS_patch_searching').innerHTML = '<div class=\"error\">".GOTMLS_strip4java(__("Your Server could not start a Session!",'gotmls'))."</div>';");
+			die($fail_msg."</div>';");
 		else
 			die("/* GOTMLS SESSION TEST */\nif('undefined' != typeof stopCheckingSession && stopCheckingSession)\n\tclearTimeout(stopCheckingSession);\nstopCheckingSession = checkupdateserver('".GOTMLS_script_URI."&SESSION=1');");
 	}

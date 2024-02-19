@@ -502,6 +502,18 @@ class MonsterInsights_Rest_Routes {
 			'settings'  => admin_url( 'admin.php?page=aioseo' ),
 		);
 
+		// FunnelKit Stripe Woo Payment Gateway.
+		$parsed_addons['funnelkit-stripe-woo-payment-gateway'] = array(
+			'active'    => class_exists( 'FKWCS_Gateway_Stripe' ),
+			'icon'      => plugin_dir_url( MONSTERINSIGHTS_PLUGIN_FILE ) . 'assets/images/plugins/plugin-funnelkit-stripe-woo-payment-gateway.png',
+			'title'     => 'Stripe Payment Gateway for WooCommerce',
+			'excerpt'   => __( 'Stripe Payment Gateway for WooCommerce is an integrated solution that lets you accept payments on your online store for web and mobile.', 'google-analytics-for-wordpress' ),
+			'installed' => array_key_exists( 'funnelkit-stripe-woo-payment-gateway/funnelkit-stripe-woo-payment-gateway.php', $installed_plugins ),
+			'basename'  => 'funnelkit-stripe-woo-payment-gateway/funnelkit-stripe-woo-payment-gateway.php',
+			'slug'      => 'funnelkit-stripe-woo-payment-gateway',
+			'settings'  => admin_url( 'admin.php?page=wc-settings&tab=fkwcs_api_settings' ),
+		);
+
 		// Use the plugin dir name as the array key since AJAX activation in add-ons page won't work.
 		$parsed_addons['all-in-one-seo-pack'] = $parsed_addons['aioseo'];
 

@@ -882,7 +882,7 @@ class DualButton extends EAE_Widget_Base {
 										Icons_Manager::render_icon( $settings['button1_icon_new'], [ 'aria-hidden' => 'true' ] );
 									else :
 										?>
-										<i class="<?php echo $settings['button1_icon']; ?>"></i>
+										<i class="<?php echo esc_attr($settings['button1_icon']); ?>"></i>
 									<?php endif; ?>
 								</div>
 							<?php } ?>
@@ -900,12 +900,12 @@ class DualButton extends EAE_Widget_Base {
 											Icons_Manager::render_icon( $settings['separator_icon_new'], [ 'aria-hidden' => 'true' ] );
 										else :
 											?>
-											<i class="<?php echo $settings['separator_icon']; ?>"></i>
+											<i class="<?php echo esc_attr($settings['separator_icon']); ?>"></i>
 											<?php
 									endif;
 									}
 									if ( $settings['separator_text'] !== '' ) {
-										echo $settings['separator_text'];
+										echo esc_html($settings['separator_text']);
 									}
 									?>
 								</span>
@@ -924,7 +924,7 @@ class DualButton extends EAE_Widget_Base {
 											Icons_Manager::render_icon( $settings['separator_icon_new'], [ 'aria-hidden' => 'true' ] );
 										else :
 											?>
-											<i class="<?php echo $settings['separator_icon']; ?>"></i>
+											<i class="<?php echo esc_attr($settings['separator_icon']); ?>"></i>
 											<?php
 									endif;
 									}

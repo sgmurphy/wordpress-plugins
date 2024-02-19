@@ -10,7 +10,8 @@ defined('ABSPATH') or die("Cannot access pages directly.");
  *
  * @since May 2012
  */
-class DateWDTColumn extends WDTColumn {
+class DateWDTColumn extends WDTColumn
+{
 
     protected $_jsDataType = 'date-custom';
     protected $_dataType = 'date';
@@ -19,7 +20,8 @@ class DateWDTColumn extends WDTColumn {
      * DateWDTColumn constructor.
      * @param array $properties
      */
-    public function __construct($properties = array()) {
+    public function __construct($properties = array())
+    {
         parent::__construct($properties);
         $this->_dataType = 'date';
     }
@@ -28,7 +30,8 @@ class DateWDTColumn extends WDTColumn {
      * @param $content
      * @return false|mixed|string
      */
-    public function prepareCellOutput($content) {
+    public function prepareCellOutput($content)
+    {
 
         $content = apply_filters('wpdatatables_filter_date_cell_before_formatting', $content, $this->getParentTable()->getWpId());
 
@@ -53,7 +56,8 @@ class DateWDTColumn extends WDTColumn {
     /**
      * @return string
      */
-    public function getGoogleChartColumnType() {
+    public function getGoogleChartColumnType()
+    {
         return 'date';
     }
 

@@ -56,7 +56,7 @@ final class PYS extends Settings implements Plugin {
 	    add_action( 'admin_init', 'PixelYourSite\manageAdminPermissions' );
 
 	    // Priority 9 used to keep things same as on PRO version
-        add_action( 'wp', array( $this, 'set_pbid'), -1);
+        add_action( 'wp', array( $this, 'controllSessionStart'), -1);
         add_action( 'init', array( $this, 'init' ), 9 );
         add_action( 'init', array( $this, 'afterInit' ), 11 );
 
@@ -97,7 +97,6 @@ final class PYS extends Settings implements Plugin {
         add_action( 'deactivate_pixel-cost-of-goods/pixel-cost-of-goods.php',array($this,"restoreSettingsAfterCog"));
         add_action( 'woocommerce_checkout_create_order', array( $this,'add_order_external_meta_data'), 10, 2 );
 
-        add_filter("woocommerce_is_order_received_page",array($this,'woo_is_order_received_page'));
         $this->logger = new PYS_Logger();
 
     }
@@ -168,9 +167,61 @@ final class PYS extends Settings implements Plugin {
             PYS()->updateOptions($options);
         }
 
+        if (isRealCookieBannerPluginActivated()) {
+
+            add_action('RCB/Templates/TechnicalHandlingIntegration', function ( $integration ) {
+
+                $this->handle_rcb_integration($integration, Facebook()->configured(), 'facebook-pixel', PYS_FREE_PLUGIN_FILE);
+                $this->handle_rcb_integration($integration, GA()->configured(), 'google-analytics-analytics-4', PYS_FREE_PLUGIN_FILE);
+                if(isPinterestActive()){
+                    $this->handle_rcb_integration($integration, Pinterest()->configured(), 'pinterest-tag', PYS_PINTEREST_PLUGIN_FILE);
+                }
+                if(isBingActive()){
+                    $this->handle_rcb_integration($integration, Bing()->configured(), 'bing-ads', PYS_BING_PLUGIN_FILE);
+                }
+
+
+
+            });
+        }
+
         EnrichOrder()->init();
 
         AjaxHookEventManager::instance()->addHooks();
+    }
+
+    private static function handle_rcb_integration( $integration, $is_active, $type, $plugin_dir) {
+
+        if (
+            $is_active
+            && $integration->integrate($plugin_dir, $type)
+        ) {
+            $integration->setCodeOptIn('');
+            $integration->setCodeOptOut('');
+        }
+    }
+    function controllSessionStart(){
+        if (!is_admin() && php_sapi_name() !== 'cli' && session_status() != PHP_SESSION_DISABLED) {
+            if (!headers_sent() && session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            if (empty($_SESSION['TrafficSource'])) {
+                $_SESSION['TrafficSource'] = getTrafficSource();
+            }
+            if (empty($_SESSION['LandingPage'])) {
+                $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+                $currentUrl = $protocol . ($_SERVER['HTTP_HOST'] ?? '') . ($_SERVER['REQUEST_URI'] ?? '');
+                $landing = explode('?', $currentUrl)[0];
+                $_SESSION['LandingPage'] = $landing;
+            }
+            if (empty($_SESSION['TrafficUtms'])) {
+                $_SESSION['TrafficUtms'] = getUtms();
+            }
+            if (empty($_SESSION['TrafficUtmsId'])) {
+                $_SESSION['TrafficUtmsId'] = getUtmsId();
+            }
+            session_write_close();
+        }
     }
 
     function get_pbid(){
@@ -184,6 +235,7 @@ final class PYS extends Settings implements Plugin {
     public function set_pbid()
     {
         $pbidCookieName = 'pbid';
+        $encryptedUniqueId = false;
         $externalIdExpire = PYS()->getOption("external_id_expire");
         $isTrackExternalId = EventsManager::isTrackExternalId();
 
@@ -192,15 +244,35 @@ final class PYS extends Settings implements Plugin {
                 setcookie($pbidCookieName, '', time() - 3600, '/');
             }
         }
-
-        if (!isset($_COOKIE[$pbidCookieName]) && $isTrackExternalId) {
+        if ((!isset($_COOKIE[$pbidCookieName]) || empty($_COOKIE[$pbidCookieName])) && $isTrackExternalId) {
             $uniqueId = bin2hex(random_bytes(16));
             $encryptedUniqueId = hash('sha256', $uniqueId);
-            setcookie($pbidCookieName, $encryptedUniqueId, time() + ($externalIdExpire * 24 * 60 * 60), '/');
-            return $encryptedUniqueId;
+
         }
 
-        return null;
+        ob_start();
+        ?>
+        <script id="set-pbid-for-pys">
+            function pys_get_pbid(name) {
+                var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+                return v ? v[2] : null;
+            }
+            function pys_set_pbid(name, value, days) {
+                var d = new Date;
+                d.setTime(d.getTime() + 24*60*60*1000*days);
+                document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString();
+            }
+            var name = 'pbid';
+            var pbidHash = "<?=$encryptedUniqueId?>";
+
+            if(pys_get_pbid(name) != pbidHash || pys_get_pbid(name) == '') { // prevent re send event if user update page
+                pys_set_pbid(name,pbidHash,<?=$externalIdExpire?>)
+            }
+        </script>
+        <?php
+
+
+        ob_end_flush();
     }
     public function get_pbid_ajax(){
         if(defined('DOING_AJAX') && wp_doing_ajax()){
@@ -271,7 +343,33 @@ final class PYS extends Settings implements Plugin {
 	 * @param Pixel|Settings $pixel
 	 */
     public function registerPixel( &$pixel ) {
-	    $this->registeredPixels[ $pixel->getSlug() ] = $pixel;
+        switch ($pixel->getSlug()) {
+            case 'pinterest':
+                if(!isPinterestVersionIncompatible()){
+                    $this->registeredPixels[ $pixel->getSlug() ] = $pixel;
+                }
+                else{
+                    $minVersion = PYS_FREE_PINTEREST_MIN_VERSION;
+                    add_action( 'wp_head', function() use ($minVersion) {
+                        echo "<script type='application/javascript' id='pys-pinterest-version-incompatible'>console.warn('You are using incompatible version of PixelYourSite Pinterest Add-On. PixelYourSite PRO requires at least PixelYourSite Pinterest Add-On $minVersion. Please, update to latest version.');</script>\r\n";
+                    } );
+                }
+                break;
+            case 'bing' :
+                if(!isBingVersionIncompatible()){
+                    $this->registeredPixels[ $pixel->getSlug() ] = $pixel;
+                }
+                else{
+                    $minVersion = PYS_FREE_BING_MIN_VERSION;
+                    add_action( 'wp_head', function() use ($minVersion) {
+                        echo "<script type='application/javascript' id='pys-bing-version-incompatible'>console.warn('You are using incompatible version of PixelYourSite Bing Add-On. PixelYourSite PRO requires at least PixelYourSite Bing Add-On $minVersion. Please, update to latest version.');</script>\r\n";
+                    } );
+                }
+                break;
+            default :
+                $this->registeredPixels[ $pixel->getSlug() ] = $pixel;
+                break;
+        }
     }
 
     /**
@@ -361,7 +459,7 @@ final class PYS extends Settings implements Plugin {
     	// output debug info
         if(!PYS()->getOption( 'hide_version_plugin_in_console')) {
             add_action('wp_head', function () {
-                echo "<script type='application/javascript'>console.log('PixelYourSite Free version " . PYS_FREE_VERSION . "');</script>\r\n";
+                echo "<script type='application/javascript'  id='pys-version-script'>console.log('PixelYourSite Free version " . PYS_FREE_VERSION . "');</script>\r\n";
             }, 1);
         }
 	    if ( isDisabledForCurrentRole() ) {
@@ -373,7 +471,7 @@ final class PYS extends Settings implements Plugin {
 	    if ( ! Facebook()->configured() && ! GA()->configured() && ! Pinterest()->configured() && ! Bing()->configured() ) {
             if(!PYS()->getOption( 'hide_version_plugin_in_console')) {
                 add_action('wp_head', function () {
-                    echo "<script type='application/javascript'>console.warn('PixelYourSite: no pixel configured.');</script>\r\n";
+                    echo "<script type='application/javascript' id='pys-config-warning-script'>console.warn('PixelYourSite: no pixel configured.');</script>\r\n";
                 });
             }
 	    	return;
@@ -444,6 +542,7 @@ final class PYS extends Settings implements Plugin {
                 'bing_disabled_by_api' => apply_filters( 'pys_disable_bing_by_gdpr', false ),
                 'externalID_disabled_by_api' => apply_filters( 'pys_disable_externalID_by_gdpr', false ),
                 'disabled_all_cookie'       => apply_filters( 'pys_disable_all_cookie', false ),
+                'disabled_start_session_cookie' => apply_filters( 'pys_disabled_start_session_cookie', false ),
                 'disabled_advanced_form_data_cookie' => apply_filters( 'pys_disable_advanced_form_data_cookie', false ),
                 'disabled_landing_page_cookie'  => apply_filters( 'pys_disable_landing_page_cookie', false ),
                 'disabled_first_visit_cookie'  => apply_filters( 'pys_disable_first_visit_cookie', false ),
@@ -857,29 +956,27 @@ final class PYS extends Settings implements Plugin {
         return $this->logger;
     }
 
-    function woo_is_order_received_page($flag) {
-        if(!$flag && !function_exists('woocommerce_gateway_stripe') && !function_exists( 'KCO_WC' )) {
-            global $post;
-            if ($post) {
-                if ( did_action( 'elementor/loaded' )) {
-                    $elementor_page_id = get_option('elementor_woocommerce_purchase_summary_page_id');
-                    if ($elementor_page_id == $post->ID) return true;
-                }
-                if(is_wc_endpoint_url( 'order-received')){
-                    return true;
-                }
+    function woo_is_order_received_page() {
+        if(is_order_received_page()) return true;
+        global $post;
+        $ids = PYS()->getOption("woo_checkout_page_ids");
+        if(!empty($ids)) {
+            if($post && in_array($post->ID,$ids)) {
+                return true;
             }
-
-            $ids = PYS()->getOption("woo_checkout_page_ids");
-            if(!empty($ids)) {
-
-                if($post && in_array($post->ID,$ids)) {
-                    return true;
-                }
+        }
+        if (did_action( 'elementor/loaded' )) {
+            if ($post) {
+                $elementor_page_id = get_option('elementor_woocommerce_purchase_summary_page_id');
+                if ($elementor_page_id == $post->ID) return true;
             }
         }
 
-        return $flag;
+        if(is_wc_endpoint_url( 'order-received')){
+            return true;
+        }
+
+        return false;
     }
 }
 

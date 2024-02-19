@@ -477,6 +477,15 @@ if (!class_exists('PostGrid')) {
       $disable_blocks = isset($post_grid_settings['disable_blocks']) ? $post_grid_settings['disable_blocks'] : [];
 
 
+      $post_grid_block_editor = get_option('post_grid_block_editor');
+      $blocks = isset($post_grid_block_editor['blocks']) ? $post_grid_block_editor['blocks'] : [];
+      $disabled = isset($blocks['disabled']) ? $blocks['disabled'] : [];
+
+      $disable_blocks = array_merge($disable_blocks, $disabled);
+
+
+
+
       wp_localize_script('post-grid-blocks', 'postGridDisabledBlocks', $disable_blocks);
     }
   }

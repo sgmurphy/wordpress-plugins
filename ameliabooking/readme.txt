@@ -4,9 +4,9 @@ Author URI: https://tmsproducts.io/
 Tags: booking, booking calendar, appointment booking, appointments, booking system, reservations, scheduling, event booking, calendar, event booking system, wordpress booking plugin, event management, event booking Wordpress
 Donate link: https://wpamelia.com/
 Requires at least: 4.5
-Tested up to: 6.4.2
+Tested up to: 6.4.3
 Requires PHP: 5.6
-Stable tag: 1.0.97
+Stable tag: 1.0.98
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -118,6 +118,10 @@ Here is how:
 - **🗓️ Show busy time slots** - display the availability of time slots, indicating how many slots are already booked
 - **💸 Refund option** - initiate a refund that will be processed through the online payment provider used to pay for the appointment/event
 - **👾 REST APIs management** - empowering developers to extend integrations and customize the booking process
+- **🛒 Cart Feature** - streamline your booking process with seamless multiple appointments in a single transaction.
+- **🔄 Multiple Selections in Shortcode** - enhance flexibility by choosing from various options on a single webpage.
+- **🏷️ No-show Customers Tag** - efficiently manage no-show customers on the backend with this tagging feature.
+- **🎖️ Employee Badges** - elevate your booking experience by customizing badges for your employees.
 
 
 ##📢 IMPORTANT NEWS!
@@ -278,6 +282,10 @@ Installing Amelia Lite WordPress Booking Plugin is as easy as 1-2-3!
 
 
 == Changelog =
+V1.0.98
+* BugFix: Fixed vulnerability issue
+* Small bug fixes and stability improvements
+
 V1.0.97
 * Improvement: Added option to delete date filter on backend pages
 * BugFix: Fixed issue with the scroll on the new event list form on iPhone Safari

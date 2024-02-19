@@ -303,6 +303,7 @@ class Plugin {
 
 			$modules = self::$helper->get_eae_modules();
 
+			
 			wp_localize_script(
 				'eae-admin',
 				'eaeGlobalVar',
@@ -314,6 +315,7 @@ class Plugin {
 					'eae_elements' => $modules,
 					'eae_version'  => EAE_VERSION,
 					'nonce'        => wp_create_nonce( 'eae_ajax_nonce' ),
+					
 				]
 			);
 		}
@@ -345,12 +347,12 @@ class Plugin {
 		wp_register_script( 'eae-lottie', EAE_URL . 'assets/lib/lottie/lottie' . EAE_SCRIPT_SUFFIX . '.js', [], '5.6.8', true );
 		/* animated text css and js file*/
 		wp_register_script( 'animated-main', EAE_URL . 'assets/js/animated-main' . EAE_SCRIPT_SUFFIX . '.js', [ 'jquery' ], '1.0', true );
-		
+		//  peel js 
+		wp_register_script( 'eae-peel', EAE_URL . 'assets/lib/peel/peel.js', [], '1.0.0', true );
+		wp_enqueue_style( 'eae-peel-css', EAE_URL . 'assets/lib/peel/peel.css', [], EAE_VERSION );
 		if(self::$is_pro){
 
-			//  peel js 
-			wp_register_script( 'eae-peel', EAE_URL . 'pro/assets/lib/peel/peel.js', [], '1.0.0', true );
-			wp_enqueue_style( 'eae-peel-css', EAE_URL . 'pro/assets/lib/peel/peel.css', [], EAE_VERSION );
+			
 			
 			// Floating Images
 			wp_register_script( 'eae-keyframes', EAE_URL . 'pro/assets/lib/keyframes/jquery.keyframes' . EAE_SCRIPT_SUFFIX . '.js', [ 'jquery' ], '1.0.8', true );
@@ -398,6 +400,15 @@ class Plugin {
 			true
 		);
 
+		if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+			$checkout_url = wc_get_checkout_url();
+			$cart_url = wc_get_cart_url();
+		}
+		else{
+			$checkout_url = '';
+			$cart_url = '';
+		}
+
 		if ( is_plugin_active( 'elementor/elementor.php' ) ) {
 			wp_localize_script(
 				'eae-main',
@@ -405,6 +416,10 @@ class Plugin {
 				[
 					'ajaxurl'     => admin_url( 'admin-ajax.php' ),
 					'current_url' => base64_encode( self::$helper->get_current_url_non_paged() ),
+					'checkout_url' 	=> $checkout_url ,
+					'cart_url'		=> $cart_url,
+					'nonce'       => wp_create_nonce( 'eae_forntend_ajax_nonce' ),
+					'plugin_url' => EAE_URL,
 				]
 			);
 		}
@@ -448,6 +463,8 @@ class Plugin {
 		$localize_data = [
 			'plugin_url' => EAE_URL,
 		];
+
+
 		wp_localize_script( 'eae-main', 'eae_editor', $localize_data );
 	}
 

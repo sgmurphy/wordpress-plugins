@@ -670,17 +670,23 @@ function _ckySetCategoryToggle(element, category = {}, revisit = false) {
     } else if (element.parentElement.getAttribute('data-cky-tag') === 'detail-category-preview-toggle') {
         _ckySetCategoryPreview(element, category);
     }
-
+    if(!category.isNecessary){
+        const categoryName = category.name;
+        const categoryTitle = document.querySelector(`[data-cky-tag="detail-category-title"][aria-label="${categoryName}"]`);
+        if(categoryTitle){
+            const toggleContainer = categoryTitle.closest('.cky-accordion-item');
+            const necessaryText = toggleContainer.querySelector('.cky-always-active');
+            necessaryText && necessaryText.remove();
+        }
+    }
 }
 function _ckySetCategoryPreferenceToggle(element, category) {
     let toggleContainer = element.closest('.cky-accordion-item');
     if (!toggleContainer) return;
     const toggleSwitch = toggleContainer.querySelector('.cky-switch');
-    const necessaryText = toggleContainer.querySelector('.cky-always-active');
     if (category.isNecessary) {
         toggleSwitch && toggleSwitch.remove();
     } else {
-        necessaryText && necessaryText.remove();
         if (_ckyGetType() === 'classic' && _ckyStore._bannerConfig.config.categoryPreview.status || (category.cookies && category.cookies.length === 0)) {
             toggleSwitch && toggleSwitch.remove();
         }

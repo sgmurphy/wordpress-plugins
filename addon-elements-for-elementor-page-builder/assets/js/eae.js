@@ -3802,6 +3802,406 @@ const EAERadialChart = function($scope){
     })
 }
 
+const EAECouponCode = function($scope){
+    const eId = $scope.data('id');
+    console.log('eID', eId);
+    const element = document.querySelector('.elementor-element-' + eId);
+    console.log('element', element);
+    const wrapper = element.querySelector('.wts-eae-coupon-code-wrapper');
+    console.log('wrapper', wrapper);
+}
+
+var ModuleHandler = elementorModules.frontend.handlers.Base,
+            CouponCodeHandler;
+
+            CouponCodeHandler = ModuleHandler.extend({
+                getDefaultSettings: function getDefaultSettings() {
+                    return {
+                        settings: this.getElementSettings(),
+                    };
+                },
+                getDefaultElements: function getDefaultElements(){
+                    
+                    const eId = this.$element.data('id');
+                    const element = document.querySelector('.elementor-element-' + eId);
+                    const wrapper = element.querySelector('.wts-eae-coupon-code-wrapper');
+                    return {
+                        eid: eId,
+                        element: element,
+                        wrapper: wrapper,
+                    }
+                },
+                onInit: function onInit(){
+                    const { settings } = this.getDefaultSettings();
+                    const { wrapper } = this.getDefaultElements();
+                    const { element } = this.getDefaultElements();
+
+                    var couponWrapper = element.querySelector('.eae-cc-button');
+                    var textWrapper = element.querySelector('.eae-code');
+                     
+
+                    let lottieWrapper  =  element.querySelectorAll('.wts-eae-coupon-code-wrapper');
+                    lottieWrapper.forEach(data => {
+                        let isLottiePanle = data.querySelector('.eae-lottie');
+                        if (isLottiePanle != null) {
+                            let lottie_data = JSON.parse(isLottiePanle.getAttribute('data-lottie-settings'));
+                            let eae_animation = lottie.loadAnimation({
+                                container: isLottiePanle,
+                                path: lottie_data.url,
+                                renderer: "svg",
+                                loop: lottie_data.loop,
+                            });
+
+                            if (lottie_data.reverse == true) {
+                                eae_animation.setDirection(-1);
+                            }
+                        }
+                    })
+
+                    if(couponWrapper != null){            
+                    couponWrapper.addEventListener('click', function() {
+                        const textToCopy = textWrapper.getAttribute('data-code-value');
+                        const tempElement = document.createElement('textarea');
+                        tempElement.value = textToCopy;
+                        document.body.appendChild(tempElement);
+                        tempElement.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(tempElement);
+                        const text = couponWrapper.innerHTML;
+                        if(settings.coupon_type == 'scratch' || settings.coupon_type == 'peel' || settings.coupon_type == 'slide' ){
+                            couponWrapper.innerText = settings.peel_after_copy_button;
+                        }else{
+                            couponWrapper.innerText = settings.after_copy_button;
+                        }
+                        let time
+                        if(settings.coupon_type == 'standard'){
+                          time = settings.sta_speed
+                        }else{
+                          time = settings.peel_speed
+                        }
+
+                        setTimeout(function() {
+                            couponWrapper.innerHTML = text;
+                        }, time);
+
+                    });
+
+                  }
+
+                    if(settings.coupon_type == 'peel' && settings.dynamic_coupon != ''){
+                        var eaePeel = new Peel('#fade-out', {
+                            corner: Peel.Corners.TOP_RIGHT
+                        });
+                        eaePeel.setFadeThreshold(.9);
+                        
+                        eaePeel.handleDrag(function(evt, x, y) {
+                            this.setPeelPosition(x, y);
+                            if (eaePeel.getAmountClipped() === 1) {
+                                eaePeel.removeEvents();
+                            }
+                        });
+                        eaePeel.setPeelPosition(440, 100);
+                    }
+
+                if(settings.sta_layout == 'pop' && settings.dynamic_coupon != ''){
+                    const popWrapper = wrapper.querySelector(".eae-coupon-popup-link");
+                    
+                    const wId = element.getAttribute('data-id');
+                   
+                    if (settings.pop_icon.library == "svg") {
+
+                      $close_btn_html = '';
+
+                        $close_btn_html =
+                        '<svg class="eae-close" style="-webkit-mask-image: url(' +
+                        settings.pop_icon.value.url +
+                        "); mask-image: url(" +
+                        settings.pop_icon.value.url +
+                        '); "></svg>';
+                        } else {
+                            $close_btn_html = '<i class="eae-close ' + settings.pop_icon.value + '"> </i>';
+                        }
+                    $(popWrapper).eaePopup({
+                        type:'inline',
+                        midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+                        mainClass:"eae-coupon-popup eae-popup  eae-cc-"+wId,
+                        closeMarkup: $close_btn_html,
+                        closeBtnInside: settings.btn_in_out == 'yes' ? true : false ,
+                        callbacks : {
+                            beforeOpen: function() {
+                              if(settings.effect != ''){
+                                  this.st.mainClass = " eae-coupon-popup eae-popup  eae-cc-"+wId+ " mfp-"+settings.effect;
+                              }
+                            },
+                            open : function(){
+                                var id = popWrapper.getAttribute('data-id');
+                                const popUp = document.querySelector(".eae-coupon-popup-"+ id)
+                                var couponWrapper = popUp.querySelector('.eae-cc-button');
+                                var textWrapper = popUp.querySelector('.eae-code');  
+                                const text = couponWrapper.innerText;
+                                
+                                
+                                couponWrapper.addEventListener('click', function() {
+                                  
+                                    // const textToCopy = textWrapper.innerText;
+                                    const textToCopy = textWrapper.getAttribute('data-code-value');
+                                    console.log('',textToCopy);
+                                    const tempElement = document.createElement('textarea');
+                                    tempElement.value = textToCopy;
+                                    popUp.appendChild(tempElement);
+                                    tempElement.select();
+                                    document.execCommand('copy');
+                                    popUp.removeChild(tempElement);
+                                   
+                                    couponWrapper.innerText = settings.after_copy_button;
+                                    setTimeout(function() {
+                                        couponWrapper.innerText = text;
+                                    }, settings.sta_speed);
+                                });
+                            }
+                        }
+                    });
+
+                    if (settings.preview_modal == "yes" && elementorFrontend.isEditMode()) {
+                      popWrapper.click()
+                    }
+
+                  }
+                    if(settings.coupon_type == 'slide' && settings.dynamic_coupon != '' ){
+                      var draggable = wrapper.querySelector(".eae-slide-fr");
+                      if(settings.preview_modal == 'yes' && elementorFrontend.isEditMode()){
+                        draggable.style.display = 'none';
+                      }else{
+                        var posX = 0,
+                              posY = 0,
+                              mouseX = 0,
+                              mouseY = 0;
+
+                              draggable.addEventListener('mousedown', mouseDown, false);
+                          
+                          window.addEventListener('mouseup', mouseUp, false);
+
+                          function mouseDown(e) {
+                          e.preventDefault();
+                          posX = e.clientX - draggable.offsetLeft;
+                          posY = e.clientY - draggable.offsetTop;
+                          window.addEventListener('mousemove', moveElement, false);
+                          }
+
+                          function mouseUp() {
+                          window.removeEventListener('mousemove', moveElement, false);
+                          }
+
+                          function moveElement(e) {
+                            mouseX = e.clientX - posX;
+                            mouseY = e.clientY - posY;
+                            if(!(mouseX > 2) && !(mouseX < settings.Peel_scratch_width )  ){
+                                
+                                draggable.style.left = mouseX + 'px';
+                            }
+                          }
+
+                            const draggableElement = draggable;
+                            let offsetX;
+                            draggableElement.addEventListener('touchstart', (e) => {
+                            const touch = e.touches[0];
+                            offsetX = touch.clientX - draggableElement.getBoundingClientRect().left;
+                            // offsetY = touch.clientY - draggableElement.getBoundingClientRect().top;
+                            draggableElement.style.cursor = 'grabbing';
+                            });
+                            draggableElement.addEventListener('touchmove', (e) => {
+                            if (offsetX === undefined) return;
+                            const touch = e.touches[0];
+                            const x = touch.clientX - offsetX;
+                            if(!(x > 4) && !(x < settings.Peel_scratch_width )  ){
+                              draggableElement.style.left = x + 'px';
+                            }
+                          
+                            });
+                            draggableElement.addEventListener('touchend', () => {
+                            offsetX = undefined;
+                          
+                            draggableElement.style.cursor = 'grab';
+                            });
+
+                      }
+                  }
+                    
+                    if(settings.coupon_type === 'scratch' && settings.dynamic_coupon != ''){
+                      if(settings.preview_modal == 'yes' && elementorFrontend.isEditMode()){
+                        wrapper.querySelector('#eae-scratch-canvas').style.display = 'none';
+                      }
+                        
+                      else{
+                        var isDrawing, lastPoint;
+                          
+                            canvas    = wrapper.querySelector('#eae-scratch-canvas')
+                             var canvasWidth  = canvas.width,
+                              canvasHeight = canvas.height,
+                              ctx          = canvas.getContext('2d'),
+                              image        = new Image(),
+                              brush        = new Image();
+
+                            if(settings.item_bg_image == null  && settings.item_bg_color == null && settings.item_bg_color_b == null){
+                              image.src = eae.plugin_url + 'assets/img/coupon/scratch_img.png';
+                              image.onload = function() {
+                                ctx.drawImage(image, 0, 0,canvasWidth,canvasHeight); 
+                              };
+                            }
+                             
+                            if(settings.item_bg_image != null){
+                              image.src = settings.item_bg_image.url;
+                              image.onload = function() {
+                                ctx.drawImage(image, 0, 0,canvasWidth,canvasHeight); 
+                              };
+                            } else if(settings.item_bg_color_b == null && settings.item_bg_background == 'classic' && settings.item_bg_image == null ){
+                              if(settings.item_bg_color != null){
+                                let gradientColor = ctx.createLinearGradient(0, 0, 135, 135);
+                                gradientColor.addColorStop(0, settings.item_bg_color );
+                                ctx.fillStyle = gradientColor;
+                                ctx.fillRect(0, 0, canvasWidth,canvasHeight);
+                              }
+                            } else if(settings.item_bg_color_b != null && settings.item_bg_color != null && settings.item_bg_background == 'gradient' && settings.item_bg_image == null){
+                              let gradientColor = ctx.createLinearGradient(0, 0, settings.item_bg_color_stop.size , settings.item_bg_color_b_stop.size);
+                              gradientColor.addColorStop(0,   settings.item_bg_color);
+                              gradientColor.addColorStop(1, settings.item_bg_color_b)
+                              ctx.fillStyle = gradientColor;
+                              ctx.fillRect(0, 0, canvasWidth,canvasHeight);
+                            }
+                            
+                            brush.src = eae.plugin_url + 'assets/img/coupon/brush.png'
+                            canvas.addEventListener('mousedown', handleMouseDown, false);
+                            canvas.addEventListener('touchstart', handleMouseDown, false);
+                            canvas.addEventListener('mousemove', handleMouseMove, false);
+                            canvas.addEventListener('touchmove', handleMouseMove, false);
+                            canvas.addEventListener('mouseup', handleMouseUp, false);
+                            canvas.addEventListener('touchend', handleMouseUp, false);
+                            
+                            function distanceBetween(point1, point2) {
+                              return Math.sqrt(Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));
+                            }
+                            
+                            function angleBetween(point1, point2) {
+                              return Math.atan2( point2.x - point1.x, point2.y - point1.y );
+                            }
+                            
+                            // Only test every `stride` pixel. `stride`x faster,
+                            // but might lead to inaccuracy
+                            function getFilledInPixels(stride) {
+                              if (!stride || stride < 1) { stride = 1; }
+
+                            
+                              
+                              var pixels   = ctx.getImageData(0, 0, canvasWidth, canvasHeight),
+                                  pdata    = pixels.data,
+                                  l        = pdata.length,
+                                  total    = (l / stride),
+                                  count    = 0;
+
+                              // Iterate over all pixels
+                              for(var i = count = 0; i < l; i += stride) {
+                                if (parseInt(pdata[i]) === 0) {
+                                  count++;
+                                }
+                              }
+                              
+                              return Math.round((count / total) * 100);
+                            }
+                            
+                            function getMouse(e, canvas) {
+                              var offsetX = 0, offsetY = 0, mx, my;
+                          
+                              if (canvas.offsetParent !== undefined) {
+                                do {
+                                  offsetX += canvas.offsetLeft;
+                                  offsetY += canvas.offsetTop;
+                                } while ((canvas = canvas.offsetParent));
+                              }
+                          
+                              mx = (e.pageX || e.touches[0].clientX) - offsetX;
+                              my = (e.pageY || e.touches[0].clientY) - offsetY;
+                          
+                              return {x: mx, y: my};
+                            }
+                            
+                            function handlePercentage(filledInPixels) {
+                              filledInPixels = filledInPixels || 0;
+                              if (filledInPixels > 40) {
+                                const textWrapper = wrapper.querySelector('.eae-back-wrapper');
+                                textWrapper.style.zIndex = '1';
+                                const canvasWrap = wrapper.querySelector('.eae-coupon-canvas');
+                                canvasWrap.remove();
+
+                              }
+                            }
+                            
+                            function handleMouseDown(e) {
+                              isDrawing = true;
+                              lastPoint = getMouse(e, canvas);
+                            }
+                          
+                            function handleMouseMove(e) {
+                              if (!isDrawing) { return; }
+                              
+                              e.preventDefault();
+                          
+                              var currentPoint = getMouse(e, canvas),
+                                  dist = distanceBetween(lastPoint, currentPoint),
+                                  angle = angleBetween(lastPoint, currentPoint),
+                                  x, y;
+                              
+                              for (var i = 0; i < dist; i++) {
+                                x = lastPoint.x + (Math.sin(angle) * i) - 25;
+                                y = lastPoint.y + (Math.cos(angle) * i) - 25;
+                                ctx.globalCompositeOperation = 'destination-out';
+                                ctx.drawImage(brush, x, y);
+                              }
+                              
+                              lastPoint = currentPoint;
+                              handlePercentage(getFilledInPixels(32));
+                            }
+                          
+                            function handleMouseUp(e) {
+                              isDrawing = false;
+                            }     
+                      }
+                                                   
+                    }                    
+                },
+                onElementChange: function onElementChange(propertyName) {                  
+                  const { wrapper } = this.getDefaultElements();
+                  const { settings } = this.getDefaultSettings();
+                  if(settings.dynamic_coupon != '' && settings.source == 'dynamic' || settings.source == 'static')  {
+                    if(settings.coupon_type === 'scratch'){
+                      var  canvas    = wrapper.querySelector('#eae-scratch-canvas')
+                    }
+                  }
+                   
+                  if ( propertyName == 'item_bg_background' || propertyName == 'item_bg_color' ||
+                       propertyName == 'item_bg_color_b' || propertyName == 'item_bg_color_stop' || propertyName == 'item_bg_color_b_stop' ){
+                      var   canvasWidth  = canvas.width,
+                      canvasHeight = canvas.height,
+                      ctx = canvas.getContext('2d')
+                    if(settings.item_bg_color_b == null && settings.item_bg_background == 'classic'){
+                      // let gradientColor = ctx.createLinearGradient(0, 0, 135, 135);
+                      // gradientColor.addColorStop(0, settings.item_bg_color );
+                      // gradientColor.addColorStop(1, "#6414E9")
+                      ctx.fillStyle = settings.item_bg_color;
+                      ctx.fillRect(0, 0, canvasWidth,canvasHeight);
+                    }
+                    if(settings.item_bg_color_b != null && settings.item_bg_background == 'gradient'){
+                      let gradientColor = ctx.createLinearGradient(0, 0, settings.item_bg_color_stop.size , settings.item_bg_color_b_stop.size);
+                      gradientColor.addColorStop(0, settings.item_bg_color );
+                      gradientColor.addColorStop(1, settings.item_bg_color_b)
+                      ctx.fillStyle = gradientColor;
+                      ctx.fillRect(0, 0, canvasWidth,canvasHeight);
+                    }
+                  }   
+                        
+                },
+
+            });
+
     elementorFrontend.hooks.addAction(
       "frontend/element_ready/wts-ab-image.default",
       ab_image
@@ -3959,6 +4359,17 @@ const EAERadialChart = function($scope){
       "frontend/element_ready/eae-radial-charts.default",
       EAERadialChart
     );
+
+    // elementorFrontend.hooks.addAction(
+    //   "frontend/element_ready/eae-coupon-code.default",
+    //   EAECouponCode
+    // );
+
+    elementorFrontend.hooks.addAction('frontend/element_ready/eae-coupon-code.default', function ($scope) {	
+      elementorFrontend.elementsHandler.addHandler(CouponCodeHandler, {
+          $element: $scope
+        });
+  });
     
   });
 })(jQuery);
