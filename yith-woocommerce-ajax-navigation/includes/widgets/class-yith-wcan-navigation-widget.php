@@ -649,8 +649,11 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
 
 						// Exclude query arg for current term archive term.
 						while ( $in_array_function( $term->slug, $data['terms'] ) ) {
-							$key = array_search( $current_term, $data ); // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
-							unset( $data['terms'][ $key ] );
+							$key = array_search( $current_term,
+								$data ); // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+							if ( $key ) {
+								unset( $data['terms'][ $key ] );
+							}
 						}
 
 						// Remove pa_ and sanitize.

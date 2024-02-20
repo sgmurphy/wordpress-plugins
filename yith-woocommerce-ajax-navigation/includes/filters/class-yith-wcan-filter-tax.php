@@ -54,6 +54,15 @@ if ( ! class_exists( 'YITH_WCAN_Filter_Tax' ) ) {
 		 */
 		public function render_start( $level = 0 ) {
 			$atts = array(
+				/**
+				 * APPLY_FILTERS: yith_wcan_all_filters_label
+				 *
+				 * Filters label shown when no term is selected for current filter.
+				 *
+				 * @param string $label "All" terms label.
+				 *
+				 * @return string
+				 */
 				'all_label' => apply_filters( 'yith_wcan_all_filters_label', _x( 'All', '[FRONTEND] "All" label shown when no term is selected', 'yith-woocommerce-ajax-navigation' ), $this ),
 				'filter'    => $this,
 				'preset'    => $this->get_preset(),
@@ -126,7 +135,7 @@ if ( ! class_exists( 'YITH_WCAN_Filter_Tax' ) ) {
 				}
 			}
 
-			if ( ! $term_options['count'] && 'or' === $this->get_adoptive() ) {
+			if ( ! $term_options['count'] && 'or' === $this->get_adoptive() && apply_filters( 'yith_wcan_process_filters_intersection', true ) ) {
 				$term_options['additional_classes'][] = 'disabled';
 			}
 
@@ -136,15 +145,46 @@ if ( ! class_exists( 'YITH_WCAN_Filter_Tax' ) ) {
 				$term_options['tooltip'] = '';
 				$term_options['color_1'] = '';
 				$term_options['color_2'] = '';
+				/**
+				 * APPLY_FILTERS: yith_wcan_tax_filter_default_image_meta
+				 *
+				 * Filters term meta key where plugins searches for term image (attachment id).
+				 *
+				 * @param string $meta_key Image meta key.
+				 *
+				 * @return string
+				 */
 				$term_options['image']   = get_term_meta( $term->term_id, apply_filters( 'yith_wcan_tax_filter_default_image_meta', 'thumbnail_id', $taxonomy ), true );
 				$term_options['mode']    = ! ! $term_options['image'] ? 'image' : 'color';
 			}
 
 			// allow third party dev change attributes for the item.
+			/**
+			 * APPLY_FILTERS: yith_wcan_tax_filter_item_args
+			 *
+			 * Filters array with options set for a specific term in the filter.
+			 *
+			 * @param array            $term_options Array of term options.
+			 * @param int              $term_id      Id of current term.
+			 * @param YITH_WCAN_Filter $this         Current filter.
+			 *
+			 * @return array
+			 */
 			$term_options = apply_filters( 'yith_wcan_tax_filter_item_args', $term_options, $term->term_id, $this );
 
 			// specific filtering for attributes.
 			if ( 0 === strpos( $taxonomy, 'pa_' ) && ( $use_all_terms || ! $customize_terms ) ) {
+				/**
+				 * APPLY_FILTERS: yith_wcan_attribute_filter_item_args
+				 *
+				 * Filters array with options set for a specific attribute in the filter.
+				 *
+				 * @param array            $term_options Array of term options.
+				 * @param int              $term_id      Id of current term.
+				 * @param YITH_WCAN_Filter $this         Current filter.
+				 *
+				 * @return array
+				 */
 				$term_options = apply_filters( 'yith_wcan_attribute_filter_item_args', $term_options, $term->term_id, $this );
 			}
 
@@ -157,11 +197,33 @@ if ( ! class_exists( 'YITH_WCAN_Filter_Tax' ) ) {
 			}
 
 			// implode additional classes.
+			/**
+			 * APPLY_FILTERS: yith_wcan_filter_tax_additional_item_classes
+			 *
+			 * Filters classes added to each term in the filter
+			 *
+			 * @param array            $classes Array of additional classes.
+			 * @param YITH_WCAN_Filter $this    Current filter.
+			 *
+			 * @return array
+			 */
 			$term_options['additional_classes'] = implode( ' ', apply_filters( 'yith_wcan_filter_tax_additional_item_classes', $term_options['additional_classes'], $this ) );
 
 			if ( method_exists( $this, $default_callback ) ) {
 				$item = $this->{$default_callback}( $term, $term_options );
 			} else {
+				/**
+				 * APPLY_FILTERS: yith_wcan_filter_tax_render_item_$design
+				 *
+				 * Used to allow third party code to provide template for a custom design.
+				 * <code>$design</code> will be replaced with the design name.
+				 *
+				 * @param string      $template     Item template.
+				 * @param int|WP_Term $term_object  Term object or id.
+				 * @param array       $term_options Term params.
+				 *
+				 * @return string
+				 */
 				$item = apply_filters( 'yith_wcan_filter_tax_render_item_' . $design, '', $term, $term_options );
 			}
 

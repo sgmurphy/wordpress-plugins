@@ -708,7 +708,6 @@ class WP_Mobile_Menu_Core
     
     }
     
-   
     
     /**
      * Register the Mobile Menus.
@@ -735,6 +734,10 @@ class WP_Mobile_Menu_Core
     {
         global  $mm_fs ;
         $logo = $plugin_settings->getOption( 'logo_img' );
+        $alternative_logo_img = $plugin_settings->getOption( 'alternative_logo_img', $post_id );
+        if ( $alternative_logo_img != null ) {
+            $logo = $alternative_logo_img;
+        }
         // Translate Logo with WPML.
         
         if ( class_exists( 'SitePress' ) ) {
@@ -761,17 +764,21 @@ class WP_Mobile_Menu_Core
         $logo_url = '';
         $logo_url_end = '';
         $logo_alt = get_post_meta( intval( $plugin_settings->getOption( 'logo_img' ) ), '_wp_attachment_image_alt', true );
+        $logo_img_retina = $plugin_settings->getOption( 'logo_img_retina' );
         // Retina Logo.
         
-        if ( $plugin_settings->getOption( 'logo_img_retina' ) ) {
-            $logo_img_retina = wp_get_attachment_image_src( $plugin_settings->getOption( 'logo_img_retina' ), 'full' );
+        if ( $logo_img_retina ) {
+            if ( $alternative_logo_img != null ) {
+                $logo_img_retina = $alternative_logo_img;
+            }
+            $logo_img_retina = wp_get_attachment_image_src( $logo_img_retina, 'full' );
             
             if ( $logo_img_retina == null || !$logo_img_retina ) {
                 $logo_img_retina = $logo_img;
             } else {
                 $logo_img_retina = $logo_img_retina[0];
                 // Double-check line below
-                $logo_img_retina_metadata = wp_get_attachment_metadata( $plugin_settings->getOption( 'logo_img_retina' ) );
+                $logo_img_retina_metadata = wp_get_attachment_metadata( $logo_img_retina );
                 if ( $logo_img == "" ) {
                     $logo_img = $logo_img_retina;
                 }
@@ -817,9 +824,7 @@ class WP_Mobile_Menu_Core
         
         if ( ('logo' === $header_branding || 'logo-text' === $header_branding || 'text-logo' === $header_branding) && '' !== $logo_img ) {
             
-            
-            $logo_output .= '<img class="mob-standard-logo" src="' . $logo_img . '"  alt="' . $logo_alt . '">';
-            
+            $logo_output .= '<img class="mob-standard-logo"   src="' . $logo_img . '"  alt="' . $logo_alt . '">';
             // If there is a retina logo.
             if ( isset( $logo_img_retina ) ) {
                 $logo_output .= '<img class="mob-retina-logo" src="' . $logo_img_retina . '"  alt="' . __( 'Logo Header Menu', 'mobile-menu' ) . '">';

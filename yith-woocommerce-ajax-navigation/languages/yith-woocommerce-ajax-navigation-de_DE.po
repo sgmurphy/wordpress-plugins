@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Ajax Product Filter\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "ajax-product-filter\n"
-"POT-Creation-Date: 2024-01-17 10:31:25+00:00\n"
+"POT-Creation-Date: 2024-02-20 13:21:51+00:00\n"
 "PO-Revision-Date: 2021-03-02 11:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -599,7 +599,7 @@ msgid "New filter"
 msgstr "Neuer Filter"
 
 #: includes/class-yith-wcan-frontend.php:622
-#: includes/filters/class-yith-wcan-filter-tax.php:57
+#: includes/filters/class-yith-wcan-filter-tax.php:66
 msgctxt "[FRONTEND] \"All\" label shown when no term is selected"
 msgid "All"
 msgstr "Alle"

@@ -153,6 +153,10 @@ class Premium_Template_Tags {
 	 */
 	public function get_id_by_title( $title ) {
 
+        if( empty( $title ) ) {
+            return;
+        }
+
 		$args = array(
 			'post_type'      => 'elementor_library',
 			'post_status'    => 'publish',

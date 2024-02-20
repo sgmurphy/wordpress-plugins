@@ -217,18 +217,6 @@ echo  $header_height ;
 	}
 }
 
-@media screen and ( min-width: 782px ) {
-	#mobmenu-footer li:hover {
-		background-color: <?php 
-echo  $plugin_settings->getOption( 'footer_bg_color_hover' ) ;
-?>;
-	}
-	#mobmenu-footer li:hover i {
-		color: <?php 
-echo  $plugin_settings->getOption( 'footer_icon_color_hover' ) ;
-?>;
-	}
-}
 
 @media only screen and (min-width:<?php 
 echo  $trigger_res + 1 ;

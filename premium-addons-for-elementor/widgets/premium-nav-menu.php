@@ -4735,19 +4735,20 @@ class Premium_Nav_Menu extends Widget_Base {
 	 * @access private.
 	 *
 	 * @param string $menu_html desktop menu html.
+	 * @param string $slug menu item id.
 	 *
 	 * @return string
 	 */
-	private function fix_duplicated_ids( $html, $pattern ) {
-		$pattern    = '/id="' . $pattern . '(\d+)"/';
+	private function fix_duplicated_ids( $html, $slug ) {
+		$pattern    = '/id="' . $slug . '(\d+)"/';
 		$id_counter = 1;
 
 		// Replace duplicated IDs
 		return preg_replace_callback(
 			$pattern,
-			function( $matches ) use ( &$id_counter, $pattern ) {
+			function( $matches ) use ( &$id_counter, &$slug ) {
 				$id    = $matches[1];
-				$new_id = $pattern . $id . $id_counter++;
+				$new_id = $slug . $id . $id_counter++;
 				return 'id="' . $new_id . '"';
 			},
 			$html

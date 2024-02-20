@@ -88,6 +88,9 @@ class RuleNameDiscount extends Base {
 
     protected function load_raw_data( $params, $rule_id = 0 ) {
         $data = DBTable::get_rule_rows_summary( $params, $rule_id );
+        if (empty($data)) {
+            $data = []; // to avoid false to array conversion warnings
+        }
         if ( empty( $data['stats'] ) ) {
             $data['stats'] = array();
         }

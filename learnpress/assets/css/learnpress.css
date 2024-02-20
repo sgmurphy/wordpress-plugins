@@ -1648,6 +1648,9 @@ body .entry-content.has-global-padding {
   box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.05);
   list-style: none;
 }
+.lp-user-profile #profile-nav .lp-profile-nav-tabs li > ul li {
+  white-space: nowrap;
+}
 .lp-user-profile #profile-nav .lp-profile-nav-tabs li.active > a, .lp-user-profile #profile-nav .lp-profile-nav-tabs li:hover > a {
   color: #fff;
 }

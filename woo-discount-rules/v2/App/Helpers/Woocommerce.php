@@ -605,7 +605,7 @@ class Woocommerce
      */
     static function get_shipping_packages()
     {
-        if (function_exists('WC')) {
+        if (apply_filters('advanced_woo_discount_rules_recalculate_shipping_package',true) && function_exists('WC')) {
             if(isset(WC()->cart) && WC()->cart != null) {
                 if (is_object(WC()->cart) && method_exists(WC()->cart, 'get_shipping_packages')) {
                     return WC()->cart->get_shipping_packages();

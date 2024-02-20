@@ -5,7 +5,7 @@ Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_c
 Requires at least: 5.0
 Tested Up To: 6.4.3
 Requires PHP: 7.0
-Stable Tag: 4.10.20
+Stable Tag: 4.10.21
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -143,7 +143,7 @@ Each widget and addon has been tested on different screen sizes, mobile devices,
 ### Off-Grid Widgets
  * [**Modal Box Widget**](https://premiumaddons.com/modal-box-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: All purpose modal box widget with the ability to use Elementor Templates and many other options.
  * [**Alert Box Widget**](https://premiumaddons.com/alert-box-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Show a popups, GDPR alerts and much more with this handy widget from Premium Addons.
- * [**Magic Section (off-canvas) Widget**](https://premiumaddons.com/magic-section-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Another off-canvas widget allows you to slide in a section from any direction with a trigger.
+ * [**Off-canvas Widget**](https://premiumaddons.com/elementor-off-canvas-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Another off-canvas widget allows you to slide in a section from any direction with a trigger.
  * [**Preview Window Widget**](https://premiumaddons.com/preview-window-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Very clever way to show more data in less content area.
 
 ### Social Reviews & Testimonials Widgets
@@ -249,6 +249,11 @@ Premium Addonsis 100% Ads Free, Ads can only be detected from Youtube videos, th
 14. Premium Progress Bar Widget
 
 == Changelog ==
+
+= 4.10.21 =
+
+- Tweak: Rotation options added to first/second heading separately in Dual Heading widget.
+- Fixed: Vimeo videos not working in Video Box widget.
 
 = 4.10.20 =
 

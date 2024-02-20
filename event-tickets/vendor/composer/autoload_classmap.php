@@ -210,6 +210,7 @@ return array(
     'TEC\\Tickets\\Flexible_Tickets\\Repositories\\Event_Repository' => $baseDir . '/src/Tickets/Flexible_Tickets/Repositories/Event_Repository.php',
     'TEC\\Tickets\\Flexible_Tickets\\Repositories\\Posts_And_Ticket_Groups' => $baseDir . '/src/Tickets/Flexible_Tickets/Repositories/Posts_And_Ticket_Groups.php',
     'TEC\\Tickets\\Flexible_Tickets\\Repositories\\Ticket_Groups' => $baseDir . '/src/Tickets/Flexible_Tickets/Repositories/Ticket_Groups.php',
+    'TEC\\Tickets\\Flexible_Tickets\\Series_Passes\\Attendees' => $baseDir . '/src/Tickets/Flexible_Tickets/Series_Passes/Attendees.php',
     'TEC\\Tickets\\Flexible_Tickets\\Series_Passes\\Base' => $baseDir . '/src/Tickets/Flexible_Tickets/Series_Passes/Base.php',
     'TEC\\Tickets\\Flexible_Tickets\\Series_Passes\\CT1_Integration' => $baseDir . '/src/Tickets/Flexible_Tickets/Series_Passes/CT1_Integration.php',
     'TEC\\Tickets\\Flexible_Tickets\\Series_Passes\\CT1_Migration' => $baseDir . '/src/Tickets/Flexible_Tickets/Series_Passes/CT1_Migration.php',

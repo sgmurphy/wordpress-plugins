@@ -6,8 +6,10 @@
     </div>
     <div class="col-md-5">
         [download_link_extended]
+        <?php if(function_exists('WPDMPP')) { ?>
         <hr/>
         [free_download_btn]
+        <?php } ?>
     </div>
 
 <div class="col-md-12">

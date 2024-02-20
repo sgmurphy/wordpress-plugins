@@ -69,7 +69,16 @@ export default function ({ state, updateState, className }) {
       </BaseControl>
       {!!email_collection?.enabled && (
         <>
-          <BaseControl className="presto-player__control--percentage-watched">
+          <BaseControl
+            className="presto-player__control--percentage-watched"
+            css={css`
+              padding-left: 8px;
+              margin-bottom: 34px !important;
+              .components-range-control__root {
+                align-items: flex-start;
+              }
+            `}
+          >
             <RangeControl
               label={__("Display At (Percentage)", "presto-player")}
               labelPosition="top"
@@ -94,6 +103,11 @@ export default function ({ state, updateState, className }) {
               ]}
               shiftStep={5}
               value={email_collection?.percentage || 0}
+              css={css`
+                .components-range-control__slider {
+                  position: relative !important;
+                }
+              `}
             />
           </BaseControl>
 
@@ -221,6 +235,12 @@ export default function ({ state, updateState, className }) {
               onChange={(border_radius) => updateEmailState({ border_radius })}
               min={0}
               max={25}
+              css={css`
+                padding-left: 4px;
+                .components-range-control__root {
+                  align-items: flex-start;
+                }
+              `}
             />
           </BaseControl>
         </>

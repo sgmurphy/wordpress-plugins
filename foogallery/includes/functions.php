@@ -154,6 +154,7 @@ function foogallery_get_default( $key, $default = false )
         'thumb_jpeg_quality'         => '90',
         'gallery_sorting'            => '',
         'datasource'                 => 'media_library',
+        'advanced_attachment_modal'  => 'on',
     );
     // A handy filter to override the defaults.
     $defaults = apply_filters( 'foogallery_defaults', $defaults );
@@ -1601,7 +1602,7 @@ function foogallery_sanitize_html( $text )
 }
 
 /**
- * Filter out JavaScript-related keywords from an input string
+ * Filter out JavaScript-related keywords and inline scripts from an input string
  *
  * @param string $input
  * @return string
@@ -1623,6 +1624,7 @@ function foogallery_sanitize_javascript( $input )
         'onload',
         'onchange',
         '<script>',
+        '<\\/script>',
         'encodeURIComponent',
         'decodeURIComponent',
         'JSON\\.parse',

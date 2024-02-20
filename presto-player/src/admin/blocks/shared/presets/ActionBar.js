@@ -19,6 +19,7 @@ const { useSelect } = wp.data;
 import ColorPopup from "../components/ColorPopup";
 import UrlSelect from "../components/UrlSelect";
 import YoutubeChannelId from "./parts/YoutubeChannelId";
+import { css, jsx } from "@emotion/core";
 
 export default function ({ state, updateState, className, value, setValue }) {
   const { action_bar } = state;
@@ -113,7 +114,16 @@ export default function ({ state, updateState, className, value, setValue }) {
       </BaseControl>
       {!!action_bar?.enabled && (
         <>
-          <BaseControl className="presto-player__control--percentage-watched">
+          <BaseControl
+            className="presto-player__control--percentage-watched"
+            css={css`
+              padding-left: 8px;
+              margin-bottom: 34px !important;
+              .components-range-control__root {
+                align-items: flex-start;
+              }
+            `}
+          >
             <RangeControl
               label={__("Display At (Percentage)", "presto-player")}
               labelPosition="top"
@@ -138,6 +148,11 @@ export default function ({ state, updateState, className, value, setValue }) {
               ]}
               shiftStep={5}
               value={action_bar?.percentage_start || 0}
+              css={css`
+                .components-range-control__slider {
+                  position: relative !important;
+                }
+              `}
             />
           </BaseControl>
 

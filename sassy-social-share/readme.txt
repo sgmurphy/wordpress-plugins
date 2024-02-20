@@ -1,10 +1,10 @@
 === Social Sharing Plugin - Sassy Social Share ===
 Contributors: Heateor, kamirkhan, mohammadfarhankhan, the_champ
 Donate link: https://www.heateor.com/donate/?action=Sassy+Social+Share
-Tags: social share, social sharing, social media share, share facebook, facebook social share, wordpress social share, share buttons, social share buttons, facebook like, twitter tweet, whatsapp share, line share, gab share, gab social share, gab, parler share, parler social share, gettr, gettr share, gettr social share, mewe share, mewe social share, mewe, mastodon share, mastodon social share, mastodon, rutube share, rutube social share, rutube, google news, google news share, google news icon, RSS, RSS Feed, x, x share, yelp, google translate, Google maps, tiktok, Teams, flickr, threads, Gab, Gab share
+Tags: social share, social sharing, social media share, share facebook, facebook social share, wordpress social share, share buttons, social share buttons, facebook like, twitter tweet, whatsapp share, line share, gab share, gab social share, gab, parler share, parler social share, gettr, gettr share, gettr social share, mewe share, mewe social share, mewe, mastodon share, mastodon social share, mastodon, rutube share, rutube social share, rutube, google news, google news share, google news icon, RSS, RSS Feed, x, x share, yelp, google translate, Google maps, tiktok, Teams, flickr, threads, Gab, Gab share, Line
 Requires at least: 2.5.0
-Tested up to: 6.4
-Stable tag: 3.3.56
+Tested up to: 6.4.3
+Stable tag: 3.3.57
 License: GPLv2 or later
 
 Slickest, Simplest and Optimized Share buttons. Facebook, X (Twitter), Reddit, Pinterest, Whatsapp, Gab, Gettr and over 100 more.
@@ -18,10 +18,10 @@ This is the Simplest and Slickest Social Share plugin with optimized and great l
 
 **Note:** Plugin will not work on local server. You should have an online website for the plugin to function properly.
 
-**This plugin does not save any cookies in the browser of the user visiting the website having this plugin installed**
+**This plugin does not save any cookies in the browsers of your website-visitors**
 
 = Feature list =
-* EU-GDPR Compliant
+* <a href="https://support.heateor.com/gdpr-and-our-plugins/">EU-GDPR Compliant</a>
 * Compatible with Gutenberg editor
 * Compatible with WPML and multilingual website
 * Compatible with myCRED (append myCRED referral ID at the end of the url being shared)
@@ -125,6 +125,20 @@ Yes, we can help you with it. Just drop an email at support[at]heateor[dot]com
 4. **Universal Sharing Popup**: Universal Sharing popup having all the supported sharing and bookmarking services
 
 == Changelog ==
+= 3.3.57 [20 February 2024] =
+* [New] Fixed Cross-Site Scripting vulnerability in the [Sassy_Follow_Icons] shortcode
+* [New] Added Line in the Follow Icons widget and shortcode
+* [New] Added Mastodon in the Follow Icons widget and shortcode
+* [Bugfix] Floating follow icons were not looking good in the mobile screen
+* [Bugfix] Options to show Floating share bar at the WooCommerce product pages were not present in the Placement option in the Floating Interface section at the General Options configuration page
+* [Improvement] Using wp_add_inline_style instead of directly inserting CSS in the Head tag
+* [Improvement] Improved the look of the icons in the layover popup that appears after clicking the More icon
+* [Improvement] Improved Facebook social share and social follow icons
+* [Improvement] Improved Vkontakte icon in the Follow Icons shortcode and widget
+* [Improvement] Improved Parler icon in the Follow Icons shortcode and widget
+* [Improvement] Updated the official Facebook SDK being used throughout the plugin to the latest version 19.0
+* [Improvement] Minor improvements
+
 = 3.3.56 [15 November 2023] =
 * [Bugfix] Fixed the alignment of email logo in the Email share icon
 * [Improvement] Improved PrintFriendly share icon in AMP
@@ -1357,3 +1371,17 @@ Yes, we can help you with it. Just drop an email at support[at]heateor[dot]com
 = 3.3.56 [15 November 2023] =
 * [Bugfix] Fixed the alignment of email logo in the Email share icon
 * [Improvement] Improved PrintFriendly share icon in AMP
+
+= 3.3.57 [20 February 2024] =
+* [New] Fixed Cross-Site Scripting vulnerability in the [Sassy_Follow_Icons] shortcode
+* [New] Added Line in the Follow Icons widget and shortcode
+* [New] Added Mastodon in the Follow Icons widget and shortcode
+* [Bugfix] Floating follow icons were not looking good in the mobile screen
+* [Bugfix] Options to show Floating share bar at the WooCommerce product pages were not present in the Placement option in the Floating Interface section at the General Options configuration page
+* [Improvement] Using wp_add_inline_style instead of directly inserting CSS in the Head tag
+* [Improvement] Improved the look of the icons in the layover popup that appears after clicking the More icon
+* [Improvement] Improved Facebook social share and social follow icons
+* [Improvement] Improved Vkontakte icon in the Follow Icons shortcode and widget
+* [Improvement] Improved Parler icon in the Follow Icons shortcode and widget
+* [Improvement] Updated the official Facebook SDK being used throughout the plugin to the latest version 19.0
+* [Improvement] Minor improvements

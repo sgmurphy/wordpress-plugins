@@ -3,7 +3,7 @@
 Plugin Name: WPC Smart Quick View for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Smart Quick View allows users to get a quick look of products without opening the product page.
-Version: 3.5.6
+Version: 3.5.7
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-quick-view
@@ -11,12 +11,12 @@ Domain Path: /languages/
 Requires at least: 4.0
 Tested up to: 6.4
 WC requires at least: 3.0
-WC tested up to: 8.5
+WC tested up to: 8.6
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSQ_VERSION' ) && define( 'WOOSQ_VERSION', '3.5.6' );
+! defined( 'WOOSQ_VERSION' ) && define( 'WOOSQ_VERSION', '3.5.7' );
 ! defined( 'WOOSQ_LITE' ) && define( 'WOOSQ_LITE', __FILE__ );
 ! defined( 'WOOSQ_FILE' ) && define( 'WOOSQ_FILE', __FILE__ );
 ! defined( 'WOOSQ_URI' ) && define( 'WOOSQ_URI', plugin_dir_url( __FILE__ ) );
@@ -140,7 +140,14 @@ if ( ! function_exists( 'woosq_init' ) ) {
 					add_action( 'woocommerce_after_mini_cart', function () {
 						unset( $GLOBALS['woosq_mini_cart'] );
 					} );
+
+					// cart
 					add_filter( 'woocommerce_cart_item_permalink', [ $this, 'cart_item_link' ], 99, 2 );
+
+					// loop product link
+					if ( self::get_setting( 'loop', 'no' ) === 'yes' ) {
+						add_filter( 'woocommerce_loop_product_link', [ $this, 'loop_product_link' ], 99, 2 );
+					}
 
 					// multiple cats
 					add_filter( 'wp_dropdown_cats', [ $this, 'dropdown_cats_multiple' ], 10, 2 );
@@ -247,11 +254,19 @@ if ( ! function_exists( 'woosq_init' ) ) {
 				}
 
 				function cart_item_link( $link, $cart_item ) {
-					if ( ! empty( $link ) ) {
+					if ( ! empty( $link ) && ( strpos( $link, '#woosq-' ) === false ) ) {
 						if ( ( isset( $GLOBALS['woosq_mini_cart'] ) && ( self::get_setting( 'mini_cart', 'yes' ) === 'yes' ) ) || ( ! isset( $GLOBALS['woosq_mini_cart'] ) && ( self::get_setting( 'cart', 'yes' ) === 'yes' ) ) ) {
 							// mini-cart & cart
 							return $link . '#woosq-' . ( ! empty( $cart_item['variation_id'] ) ? $cart_item['variation_id'] : $cart_item['product_id'] );
 						}
+					}
+
+					return $link;
+				}
+
+				function loop_product_link( $link, $product ) {
+					if ( ! empty( $link ) && ( strpos( $link, '#woosq-' ) === false ) ) {
+						return $link . '#woosq-' . $product->get_id();
 					}
 
 					return $link;
@@ -562,6 +577,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
 								$sidebar_heading        = self::get_setting( 'sidebar_heading', 'no' );
 								$auto_close             = self::get_setting( 'auto_close', 'yes' );
 								$perfect_scrollbar      = self::get_setting( 'perfect_scrollbar', 'yes' );
+								$loop                   = self::get_setting( 'loop', 'no' );
 								$mini_cart              = self::get_setting( 'mini_cart', 'yes' );
 								$cart                   = self::get_setting( 'cart', 'yes' );
 								$content_image          = self::get_setting( 'content_image', 'all' );
@@ -752,6 +768,16 @@ if ( ! function_exists( 'woosq_init' ) ) {
 													] );
 												?>
                                                 <span class="description"><?php esc_html_e( 'Only show the Quick View button for products in selected categories.', 'woo-smart-quick-view' ); ?></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><?php esc_html_e( 'Enable for archive', 'woo-smart-quick-view' ); ?></th>
+                                            <td>
+                                                <select name="woosq_settings[loop]">
+                                                    <option value="yes" <?php selected( $loop, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
+                                                    <option value="no" <?php selected( $loop, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
+                                                </select>
+                                                <span class="description"><?php esc_html_e( 'Enable quick view for products on shop/archive page.', 'woo-smart-quick-view' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -999,7 +1025,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
 				}
 
 				function admin_enqueue_scripts( $hook ) {
-					if ( strpos( $hook, 'woosq' ) ) {
+					if ( strpos( $hook, 'woosq' ) !== false ) {
 						wp_enqueue_style( 'woosq-backend', WOOSQ_URI . 'assets/css/backend.css', [ 'woocommerce_admin_styles' ], WOOSQ_VERSION );
 
 						add_thickbox();

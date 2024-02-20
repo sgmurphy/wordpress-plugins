@@ -407,8 +407,26 @@ class Sg_2fa {
 		// Assign the token to the user.
 		update_user_meta( $user_id, 'sgs_2fa_dnc_token', $token );
 
+		$difference            = '';
+		$domain                = $_SERVER['SERVER_NAME'];
+		$domain_with_subfolder = get_home_url();
+		$protocol              = isset( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['HTTPS'] ) ? 'https://' : 'http://';
+		$escaped_domain        = preg_quote( $protocol . $domain, '/' );
+
+		if ( get_site_url() !== get_home_url() ) {
+			$domain                = get_home_url();
+			$domain_with_subfolder = get_site_url();
+			$escaped_domain        = preg_quote( $domain, '/' );
+		}
+
+		if ( preg_match( '/^' . $escaped_domain . '(.*)$/', $domain_with_subfolder, $matches ) ) {
+			$difference = $matches[1];
+		}
+
+		$domain = empty( COOKIE_DOMAIN ) ? $_SERVER['SERVER_NAME'] : COOKIE_DOMAIN;
+
 		// Set the 2FA auth cookie.
-		setcookie( 'sg_security_2fa_dnc_cookie', $user_id . '|' . $token, time() + 2592000, '/wp-login.php', COOKIE_DOMAIN, true, true ); // phpcs:ignore
+		setcookie( 'sg_security_2fa_dnc_cookie', $user_id . '|' . $token, time() + 2592000, $difference . '/wp-login.php', $domain, true, true ); // phpcs:ignore
 	}
 
 	/**
@@ -531,7 +549,25 @@ class Sg_2fa {
 
 		$user_cookie_part = bin2hex( random_bytes( 18 ) );
 
-		setcookie( 'sgs_2fa_login_nonce', $user->ID . '|' . $user_cookie_part, time() + DAY_IN_SECONDS, '/wp-login.php', COOKIE_DOMAIN, true, true );
+		$difference            = '';
+		$domain                = $_SERVER['SERVER_NAME'];
+		$domain_with_subfolder = get_home_url();
+		$protocol              = isset( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['HTTPS'] ) ? 'https://' : 'http://';
+		$escaped_domain        = preg_quote( $protocol . $domain, '/' );
+
+		if ( get_site_url() !== get_home_url() ) {
+			$domain                = get_home_url();
+			$domain_with_subfolder = get_site_url();
+			$escaped_domain        = preg_quote( $domain, '/' );
+		}
+
+		if ( preg_match( '/^' . $escaped_domain . '(.*)$/', $domain_with_subfolder, $matches ) ) {
+			$difference = $matches[1];
+		}
+
+		$domain = empty( COOKIE_DOMAIN ) ? $_SERVER['SERVER_NAME'] : COOKIE_DOMAIN;
+
+		setcookie( 'sgs_2fa_login_nonce', $user->ID . '|' . $user_cookie_part, time() + DAY_IN_SECONDS, $difference . '/wp-login.php', $domain, true, true );
 
 		update_user_meta( $user->ID, 'sgs_2fa_login_nonce', wp_hash( $user_cookie_part ) );
 
@@ -697,9 +733,26 @@ class Sg_2fa {
 
 		// Delete the nonce meta.
 		delete_user_meta( $user_id, 'sgs_2fa_login_nonce' );
+		$difference            = '';
+		$domain                = $_SERVER['SERVER_NAME'];
+		$domain_with_subfolder = get_home_url();
+		$protocol              = isset( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['HTTPS'] ) ? 'https://' : 'http://';
+		$escaped_domain        = preg_quote( $protocol . $domain, '/' );
+
+		if ( get_site_url() !== get_home_url() ) {
+			$domain                = get_home_url();
+			$domain_with_subfolder = get_site_url();
+			$escaped_domain        = preg_quote( $domain, '/' );
+		}
+
+		if ( preg_match( '/^' . $escaped_domain . '(.*)$/', $domain_with_subfolder, $matches ) ) {
+			$difference = $matches[1];
+		}
+
+		$domain = empty( COOKIE_DOMAIN ) ? $_SERVER['SERVER_NAME'] : COOKIE_DOMAIN;
 
 		// Delete the nonce cookie.
-		setcookie( 'sgs_2fa_login_nonce', '', -1, SITECOOKIEPATH, COOKIE_DOMAIN ); // phpcs:ignore
+		setcookie( 'sgs_2fa_login_nonce', '', -1, $difference . '/wp-login.php', $domain, true, true );
 
 		// Set 30 days 2FA auth cookie.
 		if ( isset( $_POST['do_not_challenge'] ) ) { // phpcs:ignore

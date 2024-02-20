@@ -9,7 +9,7 @@ $afile = wpdm_valueof($afiles, 0);
 
     <input type="hidden" name="file[files][]" value="<?php  echo esc_attr($afile); ?>" id="wpdmfile" />
 
-    <div class="cfile" id="cfl" style="padding: 10px;border:2px solid #ddd;background: #ffffff;margin-bottom: 10px">
+    <div class="cfile" id="cfl" style="cursor: auto;padding: 15px;border-radius: 6px !important;background: linear-gradient(#ffffff 90%,rgba(17,141,60,0.08));margin: 10px 0 20px;box-shadow: 0 5px 15px 0 #00000026">
 		<?php
 
 		$filesize = "<em style='color: darkred'>( ".__("attached file is missing/deleted",'download-manager')." )</em>";
@@ -41,7 +41,7 @@ $afile = wpdm_valueof($afiles, 0);
                 <div class="media-body"><strong><?php echo  esc_html(basename(urldecode($afile))); ?></strong><br><span class="text-success"><?php echo $filesize; ?></span></div>
             </div>
 
-		<?php } else echo "<span style='font-weight:bold;color:#ddd'>". __('No file uploaded yet!', 'download-manager')."</span>"; ?>
+		<?php } else echo "<div style='letter-spacing: 1px;color:#c81a1a;text-align: center;text-transform: uppercase;font-size: 11px'>&mdash; ". __('No file uploaded yet!', 'download-manager')." &mdash;</div>"; ?>
         <div style="clear: both;"></div>
     </div>
 

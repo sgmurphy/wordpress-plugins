@@ -70,31 +70,25 @@ class Post
     public function getVideoIdFromBlock()
     {
         $blocks = parse_blocks($this->post->post_content);
-
         foreach ($blocks as $block) {
             // inside wrapper block
             if ('presto-player/reusable-edit' === $block['blockName'] && !empty($block['innerBlocks'])) {
                 $block = $block['innerBlocks'][0];
             }
 
-            // we have a reusable display block.
+            // we have a reusable display block
             if ('presto-player/reusable-display' === $block['blockName']) {
-                // find the media hub post.
+                // find the media hub post
                 if (!empty($block['attrs']['id'])) {
-                    // get the media hub post.
-                    $block_post = get_post($block['attrs']['id']);
-                    // if it has content, get the first block.
-                    if (!empty($block_post->post_content)) {
-                        $inner_blocks = parse_blocks($block_post->post_content);
-                        if (!empty($inner_blocks[0]['innerBlocks'][0])) {
-                            $block = $inner_blocks[0]['innerBlocks'][0];
-                        }
-                    }
+                    $block = $this->getMediaHubBlockFromPost($block['attrs']['id']);
                 }
             }
 
-            // find the id attribute in the block
-            if (in_array($block['blockName'], Block::getBlockTypes())) {
+            // in case block needs to be filtered
+            $block = apply_filters('presto_player_get_block_from_content', $block);
+
+            // find the id attribute
+            if (!empty($block) && in_array($block['blockName'], Block::getBlockTypes())) {
                 if (!empty($block['attrs']['id'])) {
                     return $block['attrs']['id'];
                 }
@@ -114,6 +108,32 @@ class Post
         preg_match_all("/(?<=<!--presto-player:video_id=)(.*)(?=-->)/", $content, $matches);
         if (!empty($matches[0][0])) {
             return (int) $matches[0][0];
+        }
+
+        return false;
+    }
+
+    /**
+     * Retrieve the inner block from media hub post.
+     *
+     * @param  int $id id of the post.
+     * @return array|false
+     */
+    public function getMediaHubBlockFromPost($id)
+    {
+        if (!$id) {
+            return false;
+        }
+
+        // get the media hub post.
+        $block_post = get_post($id);
+
+        // if it has content, get the first block.
+        if (!empty($block_post->post_content)) {
+            $inner_blocks = parse_blocks($block_post->post_content);
+            if (!empty($inner_blocks[0]['innerBlocks'][0])) {
+                return $inner_blocks[0]['innerBlocks'][0] ?? false;
+            }
         }
 
         return false;

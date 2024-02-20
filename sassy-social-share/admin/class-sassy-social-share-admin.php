@@ -551,23 +551,6 @@ class Sassy_Social_Share_Admin {
 		die;
 	
 	}
-	
-	/**
-	 * Save Twitter share count notification flag in DB
-	 *
-	 * @since    3.2.5
-	 */
-	public function twitter_share_notification_read() {
-
-		if ( current_user_can( 'manage_options' ) ) {
-			if ( check_ajax_referer( 'heateor_sss_admin_ajax_nonce', 'nonce' ) === false ) {
-				die;
-			}
-			update_option( 'heateor_sss_twitter_share_notification_read', '1' );
-		}
-		die;
-	
-	}
 
 	/**
 	 * Save Twitcount notification flag in DB
@@ -668,30 +651,6 @@ class Sassy_Social_Share_Admin {
 
 			if ( version_compare( '3.2.5', $this->version ) <= 0 ) {
 				if ( ( isset( $this->options['hor_enable'] ) && isset( $this->options['horizontal_re_providers'] ) && in_array( 'twitter', $this->options['horizontal_re_providers'] ) && ( isset( $this->options['horizontal_counts'] ) || isset( $this->options['horizontal_total_shares'] ) ) ) || ( isset( $this->options['vertical_enable'] ) && isset( $this->options['vertical_re_providers'] ) && in_array( 'twitter', $this->options['vertical_re_providers'] ) && ( isset($this->options['vertical_counts'] ) || isset( $this->options['vertical_total_shares'] ) ) ) ) {
-					if ( ! get_option( 'heateor_sss_twitter_share_notification_read' ) ) {
-						?>
-						<script type="text/javascript">
-						function heateorSssTwitterShareNotificationRead(){
-							jQuery.ajax({
-								type: 'GET',
-								url: '<?php echo get_admin_url() ?>admin-ajax.php',
-								data: {
-									nonce: '<?php echo wp_create_nonce( 'heateor_sss_admin_ajax_nonce' ) ?>',
-									action: 'heateor_sss_twitter_share_notification_read'
-								},
-								success: function(data, textStatus, XMLHttpRequest){
-									jQuery('#heateor_sss_twitter_share_notification').fadeOut();
-								}
-							});
-						}
-						</script>
-						<div id="heateor_sss_twitter_share_notification" class="notice notice-warning">
-							<h3>Sassy Social Share</h3>
-							<p><?php echo sprintf( __( 'Twitter share counts are no longer working as newsharecounts.com is down. To continue showing the Twitter shares, just sign up <a href="%s" target="_blank">here</a> with this domain. No other steps needed.', 'sassy-social-share' ), 'https://opensharecount.com' ); ?><input type="button" onclick="heateorSssTwitterShareNotificationRead()" style="margin-left: 5px;" class="button button-primary" value="<?php _e( 'Okay', 'sassy-social-share' ) ?>" /></p>
-						</div>
-						<?php
-					}
-
 					if ( ! get_option( 'heateor_sss_twitcount_notification_read' ) ) {
 						?>
 						<script type="text/javascript">

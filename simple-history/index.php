@@ -4,7 +4,7 @@
  * Plugin URI: https://simple-history.com
  * Text Domain: simple-history
  * Description: Plugin that logs various things that occur in WordPress and then presents those events in a very nice GUI.
- * Version: 4.10.0
+ * Version: 4.11.0
  * Requires at least: 6.1
  * Requires PHP: 7.4
  * Author: Pär Thernström
@@ -49,7 +49,7 @@ if (
  * @TODO: make activation multi site aware, as in https://github.com/scribu/wp-proper-network-activation
  * register_activation_hook( trailingslashit(WP_PLUGIN_DIR) . trailingslashit( plugin_basename(__DIR__) ) . "index.php" , array("SimpleHistory", "on_plugin_activate" ) );
  */
-define( 'SIMPLE_HISTORY_VERSION', '4.10.0' );
+define( 'SIMPLE_HISTORY_VERSION', '4.11.0' );
 
 /**
  * Filesystem path to plugin directory.
@@ -71,8 +71,6 @@ define( 'SIMPLE_HISTORY_FILE', __FILE__ );
  * The API URL to check for updates.
  * This should be unique to this plugin and point to a remote server
  * running the Lemon Squeezy plugin.
- *
- * @var string
  */
 define( 'SIMPLE_HISTORY_LICENCES_API_URL', 'https://simple-history.com/wp-json/lsq/v1' );
 

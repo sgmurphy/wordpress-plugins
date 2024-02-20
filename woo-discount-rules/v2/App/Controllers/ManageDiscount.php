@@ -2779,19 +2779,34 @@ class ManageDiscount extends Base
      */
     function removeWrongCallbacks($hook_obj, $allowed_hooks)
     {
-        $new_callbacks = array();
-        foreach ($hook_obj->callbacks as $priority => $callbacks) {
-            $priority_callbacks = array();
-            foreach ($callbacks as $idx => $callback_details) {
-                if ($this->isCallbackMatch($callback_details, $allowed_hooks)) {
-                    $priority_callbacks[$idx] = $callback_details;
+        if (method_exists($hook_obj, 'offsetSet') && method_exists($hook_obj, 'offsetUnset')) {
+            foreach ($hook_obj->callbacks as $priority => $callbacks) {
+                $priority_callbacks = array();
+                foreach ($callbacks as $idx => $callback_details) {
+                    if ($this->isCallbackMatch($callback_details, $allowed_hooks)) {
+                        $priority_callbacks[$idx] = $callback_details;
+                    }
+                }
+                $hook_obj->offsetUnset($priority);
+                if ($priority_callbacks) {
+                    $hook_obj->offsetSet($priority, $priority_callbacks);
                 }
             }
-            if ($priority_callbacks) {
-                $new_callbacks[$priority] = $priority_callbacks;
+        } else {
+            $new_callbacks = array();
+            foreach ($hook_obj->callbacks as $priority => $callbacks) {
+                $priority_callbacks = array();
+                foreach ($callbacks as $idx => $callback_details) {
+                    if ($this->isCallbackMatch($callback_details, $allowed_hooks)) {
+                        $priority_callbacks[$idx] = $callback_details;
+                    }
+                }
+                if ($priority_callbacks) {
+                    $new_callbacks[$priority] = $priority_callbacks;
+                }
             }
+            $hook_obj->callbacks = $new_callbacks;
         }
-        $hook_obj->callbacks = $new_callbacks;
         return $hook_obj;
     }
 

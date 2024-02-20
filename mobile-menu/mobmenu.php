@@ -3,11 +3,11 @@
 /**
  * Plugin Name: Mobile Menu
  * Description: An easy to use WordPress responsive mobile menu. Keep your mobile visitors engaged.
- * Version: 2.8.4
+ * Version: 2.8.4.1
  * Plugin URI: https://www.wpmobilemenu.com/
  * Author: Freshlight Lab
  * Author URI: https://www.freshlightlab.com/
- * Tested up to: 6.2
+ * Tested up to: 6.4
  * Text Domain: mobile-menu
  * Domain Path: /languages/
  * License: GPLv2
@@ -16,7 +16,7 @@
 if ( !defined( 'ABSPATH' ) ) {
     die;
 }
-define( 'WP_MOBILE_MENU_VERSION', '2.8.4' );
+define( 'WP_MOBILE_MENU_VERSION', '2.8.4.1' );
 define( 'WP_MOBILE_MENU_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WP_MOBILE_MENU_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 if ( !class_exists( 'WP_Mobile_Menu' ) ) {
@@ -74,7 +74,7 @@ if ( !class_exists( 'WP_Mobile_Menu' ) ) {
                 10,
                 2
             );
-          
+            
             // Load frontend assets.
             if ( !is_admin() ) {
                 add_action( 'init', array( $this, 'load_frontend_assets' ) );

@@ -61,10 +61,10 @@ class Admin_Notices {
 
 		self::$notices = array(
 			'pa-review',
-			'buttons_hovers',
+			'offcanvas',
 		);
 
-		delete_option( 'textual_showcase' );
+		delete_option( 'buttons_hovers' );
 
 	}
 
@@ -106,7 +106,7 @@ class Admin_Notices {
 			return;
 		}
 
-		$this->get_buttons_hover_notice();
+		$this->get_offcanvas_notice();
 
 	}
 
@@ -235,22 +235,22 @@ class Admin_Notices {
 
 	/**
 	 *
-	 * Shows admin notice for Textual Showcase.
+	 * Shows admin notice for Off Canvas widget.
 	 *
-	 * @since 4.10.16
+	 * @since 4.10.21
 	 * @access public
 	 *
 	 * @return void
 	 */
-	public function get_buttons_hover_notice() {
+	public function get_offcanvas_notice() {
 
-		$buttons_notice = get_option( 'buttons_hovers' );
+		$option = get_option( 'offcanvas' );
 
-		if ( '1' === $buttons_notice ) {
+		if ( '1' === $option ) {
 			return;
 		}
 
-		$buttons = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/button-widget-for-elementor-page-builder/', 'buttons-hover-notification', 'wp-dash', 'buttons-hover' );
+		$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-off-canvas-widget/', 'offcanvas-notification', 'wp-dash', 'offcanvas' );
 
 		?>
 
@@ -260,11 +260,11 @@ class Admin_Notices {
 			</div>
 			<div class="pa-text-wrap">
 				<p>
-					<strong><?php echo __( 'New Hover Effects', 'premium-addons-for-elemetor' ); ?></strong>
-					<?php echo sprintf( __( 'added to all the buttons all over the plugin. <a href="%s" target="_blank">Check it out now!</a>', 'premium-addons-for-elementor' ), $buttons ); ?>
+					<strong><?php echo __( 'Premium Off Canvas widget', 'premium-addons-for-elemetor' ); ?></strong>
+					<?php echo sprintf( __( 'is now available in Premium Addons Pro. <a href="%s" target="_blank">Check it out now!</a>', 'premium-addons-for-elementor' ), $link ); ?>
 				</p>
 			</div>
-			<div class="pa-notice-close" data-notice="buttons">
+			<div class="pa-notice-close" data-notice="offcanvas">
 				<span class="dashicons dashicons-dismiss"></span>
 			</div>
 		</div>

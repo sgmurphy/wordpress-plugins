@@ -9,6 +9,7 @@ import {
   Flex,
 } from "@wordpress/components";
 import ColorPopup from "../components/ColorPopup";
+import { css, jsx } from "@emotion/core";
 
 export default function ({ state, updateState, className }) {
   return (
@@ -24,6 +25,12 @@ export default function ({ state, updateState, className }) {
           onChange={(border_radius) => updateState({ border_radius })}
           min={0}
           max={25}
+          css={css`
+            padding-left: 4px;
+            .components-range-control__root {
+              align-items: flex-start;
+            }
+          `}
         />
       </BaseControl>
 

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit81bc4f6b0c00b245243b234c40db2567
+class ComposerStaticInit0b0a21e3e6757a33c9245370aef9a1ac
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -12,10 +12,6 @@ class ComposerStaticInit81bc4f6b0c00b245243b234c40db2567
     );
 
     public static $prefixLengthsPsr4 = array (
-        'j' => 
-        array (
-            'jlawrence\\eos\\' => 14,
-        ),
         'Z' => 
         array (
             'ZipStream\\' => 10,
@@ -47,10 +43,6 @@ class ComposerStaticInit81bc4f6b0c00b245243b234c40db2567
     );
 
     public static $prefixDirsPsr4 = array (
-        'jlawrence\\eos\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/jlawrence/eos/src',
-        ),
         'ZipStream\\' => 
         array (
             0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
@@ -65,8 +57,8 @@ class ComposerStaticInit81bc4f6b0c00b245243b234c40db2567
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -95,13 +87,6 @@ class ComposerStaticInit81bc4f6b0c00b245243b234c40db2567
     );
 
     public static $prefixesPsr0 = array (
-        'P' => 
-        array (
-            'PHPSQLParser\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/greenlion/php-sql-parser/src',
-            ),
-        ),
         'H' => 
         array (
             'HTMLPurifier' => 
@@ -112,17 +97,16 @@ class ComposerStaticInit81bc4f6b0c00b245243b234c40db2567
     );
 
     public static $classMap = array (
-        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Stringable' => __DIR__ . '/..' . '/myclabs/php-enum/stubs/Stringable.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit81bc4f6b0c00b245243b234c40db2567::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit81bc4f6b0c00b245243b234c40db2567::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit81bc4f6b0c00b245243b234c40db2567::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit81bc4f6b0c00b245243b234c40db2567::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0b0a21e3e6757a33c9245370aef9a1ac::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0b0a21e3e6757a33c9245370aef9a1ac::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit0b0a21e3e6757a33c9245370aef9a1ac::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit0b0a21e3e6757a33c9245370aef9a1ac::$classMap;
 
         }, null, ClassLoader::class);
     }

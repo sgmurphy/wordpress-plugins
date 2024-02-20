@@ -2,6 +2,7 @@
 
 namespace Wdr\App\Conditions;
 
+use Wdr\App\Controllers\Configuration;
 use Wdr\App\Helpers\Filter;
 use Wdr\App\Helpers\Helper;
 use Wdr\App\Helpers\Input;
@@ -12,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 abstract class Base
 {
     public static $woocommerce_helper, $filter;
-    public $name = NULL, $rule = null, $label = NULL, $group = NULL, $template = NULL, $input, $extra_params = array('render_saved_condition' => false);
+    public $config, $name = NULL, $rule = null, $label = NULL, $group = NULL, $template = NULL, $input, $extra_params = array('render_saved_condition' => false);
 
     function __construct()
     {

@@ -4,7 +4,7 @@ Donate link: https://prestoplayer.com
 Tags: video, audio, youtube, vimeo, lms, elementor, learndash, beaver builder, lifterlms
 Requires at least: 5.6
 Tested up to: 6.4
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -149,6 +149,11 @@ It is also important to point out that BunnyNet has a $1 per month minimum.
 
 
 == Changelog ==
+
+= 2.2.1 =
+* Fix: Issue with learndash video progression not working if video is inside DIVI builder lesson page layout.
+* Fix: Style issue on presets where sliders text was getting cut off.
+* Fix: LifterLMS null check causing video progress not to show.
 
 = 2.2.0 =
 * New: Timestamp behavior on presets (pro required).

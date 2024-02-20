@@ -551,10 +551,13 @@
         });
 
         // Import Demos.
-        $( document ).on( 'click', '.mobile-menu-import-demo' , function () {
-            var demo = $( this ).attr( 'data-demo-id' );
-            location.href += '&mobmenu-action=import-settings&demo=' + demo;
-            return false;
+        $( document ).on( 'click keypress', '.mobile-menu-import-demo' , function (e) {
+            e.preventDefault();
+            if (e.which != 13) {
+                var demo = $( this ).attr( 'data-demo-id' );
+                location.href += '&mobmenu-action=import-settings&demo=' + demo;
+                return false;
+            }
         });
 
         $( document ).on( 'click', '.mobmenu-icons-remove-selected' , function () {

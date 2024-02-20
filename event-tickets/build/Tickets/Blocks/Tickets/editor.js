@@ -8420,7 +8420,7 @@ const getCurrentPostStatus = () => {
 };
 const mapStateToProps = (state, ownProps) => {
   let mappedProps = {
-    content: Object(external_wp_i18n_["__"])('Single tickets are not yet supported on recurring events. ', 'event-tickets'),
+    content: Object(external_wp_i18n_["__"])('Standard tickets are not yet supported on recurring events. ', 'event-tickets'),
     ctaLink: wp.element.createElement("a", {
       className: "helper-link",
       href: "https://evnt.is/1b7a",
@@ -9302,7 +9302,7 @@ const getCreateSingleTicketMessage = postTypeLabel => wp.element.createElement("
   className: "tickets-row-line"
 }, Object(external_wp_i18n_["sprintf"])(
 // Translators: %s is the post type name in human readable form.
-Object(external_wp_i18n_["_x"])('Create single tickets for this %s. ', 'The message displayed when there are no tickets.', 'event-tickets'), postTypeLabel ? postTypeLabel : ''), wp.element.createElement("a", {
+Object(external_wp_i18n_["_x"])('Create standard tickets for this %s. ', 'The message displayed when there are no tickets.', 'event-tickets'), postTypeLabel ? postTypeLabel : ''), wp.element.createElement("a", {
   className: "helper-link",
   href: "https://evnt.is/manage-tickets",
   target: "_blank",

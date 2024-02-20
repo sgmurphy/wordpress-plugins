@@ -771,6 +771,8 @@ class PackageController extends PackageTemplate {
 			}
 		}
 
+		$size = apply_filters("wpdm_before_update_package_size", $size, $ID);
+
 		update_post_meta( $ID, '__wpdm_package_size_b', $size );
 		$size = $size / 1024;
 		if ( $size > 1024 ) {
@@ -1725,11 +1727,11 @@ class PackageController extends PackageTemplate {
 		if ( strpos( $template, 'pdf_thumb' ) ) {
 			if ( $ext == 'pdf' ) {
 				$pdf_preview           = FileSystem::pdfThumbnail( $pdf, $vars['ID'] );
-				$vars['pdf_thumb']     = "<img alt='{$vars['title']}' src='" . $pdf_preview . "' />";
+				$vars['pdf_thumb']     = "<img alt='".esc_attr($vars['title'])."' src='" . $pdf_preview . "' />";
 				$vars['pdf_thumb_url'] = $pdf_preview;
 				$vars['pdf_name']      = str_replace( [ "pdf", "PDF" ], "", wp_basename( $pdf ) );
 			} else {
-				$vars['pdf_thumb'] = $vars['preview'] != '' ? "<img alt='{$vars['title']}' src='{$vars['preview']}' />" : "";
+				$vars['pdf_thumb'] = $vars['preview'] != '' ? "<img alt='".esc_attr($vars['title'])."' src='{$vars['preview']}' />" : "";
 			}
 		}
 
@@ -1740,7 +1742,7 @@ class PackageController extends PackageTemplate {
 				$pmatches[2][ $nd ]
 			) );
 			$scode          = str_replace( array( "[", "]" ), "", $scode );
-			$vars[ $scode ] = $imsrc != '' ? "<img src='" . $imsrc . "' alt='{$vars['title']}' />" : '';
+			$vars[ $scode ] = $imsrc != '' ? "<img src='" . $imsrc . "' alt='".esc_attr($vars['title'])."' />" : '';
 		}
 
 		// Parse [file_type] tag in link/page template
@@ -1761,7 +1763,7 @@ class PackageController extends PackageTemplate {
 				$matches[2][ $nd ]
 			), $crop );
 			$scode          = str_replace( array( "[", "]" ), "", $scode );
-			$vars[ $scode ] = $vars['preview'] != '' ? "<img class='wpdm-thumb wpdm-thumb-{$matches[1][$nd]}x{$matches[2][$nd]} wpdm-thumb-{$vars['ID']}' src='" . $imsrc . "' alt='{$vars['title']}' />" : '';
+			$vars[ $scode ] = $vars['preview'] != '' ? "<img class='wpdm-thumb wpdm-thumb-{$matches[1][$nd]}x{$matches[2][$nd]} wpdm-thumb-{$vars['ID']}' src='" . $imsrc . "' alt='".esc_attr($vars['title'])."' />" : '';
 		}
 
 		// [thumb_url...]

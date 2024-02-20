@@ -3,7 +3,7 @@
 /*
 Plugin Name: FooGallery
 Description: FooGallery is the most intuitive and extensible gallery management tool ever created for WordPress
-Version:     2.4.9
+Version:     2.4.13
 Author:      FooPlugins
 Plugin URI:  https://fooplugins.com/foogallery-wordpress-gallery-plugin/
 Author URI:  https://fooplugins.com
@@ -25,7 +25,7 @@ if ( function_exists( 'foogallery_fs' ) ) {
         define( 'FOOGALLERY_PATH', plugin_dir_path( __FILE__ ) );
         define( 'FOOGALLERY_URL', plugin_dir_url( __FILE__ ) );
         define( 'FOOGALLERY_FILE', __FILE__ );
-        define( 'FOOGALLERY_VERSION', '2.4.9' );
+        define( 'FOOGALLERY_VERSION', '2.4.13' );
         define( 'FOOGALLERY_SETTINGS_VERSION', '2' );
         require_once FOOGALLERY_PATH . 'includes/constants.php';
         require_once FOOGALLERY_PATH . 'includes/functions.php';
@@ -372,10 +372,14 @@ if ( function_exists( 'foogallery_fs' ) ) {
                 }
                 
                 if ( false === $multisite ) {
-                    //Make sure we redirect to the welcome page
+                    // Make sure we redirect to the welcome page
                     set_transient( FOOGALLERY_ACTIVATION_REDIRECT_TRANSIENT_KEY, true, 30 );
                 }
-                //force a version check on activation to make sure housekeeping is performed
+                // Set the 'advanced_attachment_modal' setting to 'on'
+                if ( !foogallery_get_setting( 'advanced_attachment_modal' ) ) {
+                    foogallery_set_setting( 'advanced_attachment_modal', 'on' );
+                }
+                // Force a version check on activation to make sure housekeeping is performed
                 foogallery_perform_version_check();
             }
             

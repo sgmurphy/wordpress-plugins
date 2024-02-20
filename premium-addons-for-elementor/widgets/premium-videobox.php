@@ -2685,7 +2685,14 @@ class Premium_Videobox extends Widget_Base {
 
                 //Filter any paramters after link to be added later.
                 $queryString = parse_url( $link, PHP_URL_QUERY );
-                $link = strstr( $link, '?', true );
+
+                //If video link contains paramters.
+                if( false !== strpos( $link, '?' ) ) {
+                    $link = strstr( $link, '?', true );
+                } else {
+                    $link = str_replace( '#t=', '', $link );
+                }
+
 
 				$options .= '&color=' . str_replace( '#', '', $settings['vimeo_controls_color'] );
 
@@ -3112,9 +3119,9 @@ class Premium_Videobox extends Widget_Base {
 
 		if ( ! empty( $link ) ) {
 
-                $video_props = Embed::get_video_properties( $link );
-                $link        = Embed::get_embed_url( $link );
-                $id    = $video_props['video_id'];
+            $video_props = Embed::get_video_properties( $link );
+            $link        = Embed::get_embed_url( $link );
+            $id    = $video_props['video_id'];
 
 		} elseif ( ! empty( $id ) || ! empty( $embed ) ) {
 

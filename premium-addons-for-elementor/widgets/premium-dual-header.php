@@ -215,7 +215,7 @@ class Premium_Dual_Header extends Widget_Base {
 				'default'      => 'inline',
 				'prefix_class' => 'premium-header-',
 				'selectors'    => array(
-					'{{WRAPPER}} .premium-dual-header-first-header  span' => 'display: {{VALUE}}',
+					'{{WRAPPER}} .premium-dual-header-first-header span' => 'display: {{VALUE}}',
 				),
 				'label_block'  => true,
 			)
@@ -309,14 +309,29 @@ class Premium_Dual_Header extends Widget_Base {
 		);
 
 		$this->add_responsive_control(
-			'rotate',
+			'first_rotate',
 			array(
-				'label'     => __( 'Rotation (degrees)', 'premium-addons-for-elementor' ),
+				'label'     => __( 'First Heading Rotation (degrees)', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::NUMBER,
 				'min'       => -180,
 				'max'       => 180,
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-widget-container' => 'transform: rotate({{VALUE}}deg);',
+					'{{WRAPPER}}.premium-header-inline .premium-dual-header-first-span' => 'display:inline-block !important; transform: rotate({{VALUE}}deg);',
+					'{{WRAPPER}}.premium-header-block .premium-dual-header-first-span' => 'transform: rotate({{VALUE}}deg);',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'second_rotate',
+			array(
+				'label'     => __( 'Second Heading Rotation (degrees)', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::NUMBER,
+				'min'       => -180,
+				'max'       => 180,
+				'selectors' => array(
+					'{{WRAPPER}}.premium-header-inline .premium-dual-header-second-header' => 'display:inline-block !important; transform: rotate({{VALUE}}deg);',
+					'{{WRAPPER}}.premium-header-block .premium-dual-header-second-header' => 'transform: rotate({{VALUE}}deg);',
 				),
 			)
 		);

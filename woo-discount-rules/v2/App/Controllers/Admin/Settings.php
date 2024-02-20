@@ -43,8 +43,8 @@ class Settings extends Base
         if (isset($submenu['woocommerce'])) {
             add_submenu_page(
                 'woocommerce',
-                __('Woo Discount Rules', 'woo-discount-rules'),
-                __('Woo Discount Rules', 'woo-discount-rules'),
+                __('Discount Rules', 'woo-discount-rules'),
+                __('Discount Rules', 'woo-discount-rules'),
                 'manage_woocommerce', WDR_SLUG,
                 array($this, 'adminTabs')
             );

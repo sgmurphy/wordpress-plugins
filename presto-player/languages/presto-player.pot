@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-15T17:41:38+00:00\n"
+"POT-Creation-Date: 2024-02-19T19:23:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -1168,11 +1168,11 @@ msgid "You must enter a name for the preset."
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:210
-#: admin/blocks/shared/audioPresets/Style.js:17
-#: admin/blocks/shared/presets/CTA.js:257
+#: admin/blocks/shared/audioPresets/Style.js:18
+#: admin/blocks/shared/presets/CTA.js:271
 #: admin/blocks/shared/presets/Edit.js:223
-#: admin/blocks/shared/presets/Email.js:214
-#: admin/blocks/shared/presets/Style.js:17
+#: admin/blocks/shared/presets/Email.js:228
+#: admin/blocks/shared/presets/Style.js:13
 msgid "Style"
 msgstr ""
 
@@ -1190,7 +1190,7 @@ msgid "Call To Action"
 msgstr ""
 
 #: admin/blocks/shared/audioPresets/Edit.js:228
-#: admin/blocks/shared/presets/ActionBar.js:97
+#: admin/blocks/shared/presets/ActionBar.js:98
 #: admin/blocks/shared/presets/Edit.js:241
 msgid "Action Bar"
 msgstr ""
@@ -1300,26 +1300,26 @@ msgstr ""
 msgid "Email address"
 msgstr ""
 
-#: admin/blocks/shared/audioPresets/Style.js:21
-#: admin/blocks/shared/presets/ActionBar.js:243
-#: admin/blocks/shared/presets/CTA.js:261
-#: admin/blocks/shared/presets/Email.js:218
-#: admin/blocks/shared/presets/Style.js:31
+#: admin/blocks/shared/audioPresets/Style.js:22
+#: admin/blocks/shared/presets/ActionBar.js:258
+#: admin/blocks/shared/presets/CTA.js:275
+#: admin/blocks/shared/presets/Email.js:232
+#: admin/blocks/shared/presets/Style.js:27
 msgid "Round Corners"
 msgstr ""
 
-#: admin/blocks/shared/audioPresets/Style.js:22
-#: admin/blocks/shared/presets/Style.js:32
+#: admin/blocks/shared/audioPresets/Style.js:23
+#: admin/blocks/shared/presets/Style.js:28
 msgid "Player border radius size."
 msgstr ""
 
-#: admin/blocks/shared/audioPresets/Style.js:33
+#: admin/blocks/shared/audioPresets/Style.js:40
 #: admin/blocks/shared/overlays/components/Overlay.js:159
 #: admin/blocks/shared/presets/Watermark.js:121
 msgid "Background Color"
 msgstr ""
 
-#: admin/blocks/shared/audioPresets/Style.js:47
+#: admin/blocks/shared/audioPresets/Style.js:54
 msgid "Control Color"
 msgstr ""
 
@@ -1448,7 +1448,7 @@ msgid "End Time"
 msgstr ""
 
 #: admin/blocks/shared/overlays/components/Overlay.js:107
-#: admin/blocks/shared/presets/CTA.js:185
+#: admin/blocks/shared/presets/CTA.js:199
 #: Integrations/Elementor/VideoWidget.php:169
 #: Integrations/Elementor/VideoWidget.php:190
 msgid "Link"
@@ -1536,15 +1536,15 @@ msgstr ""
 msgid "Add/Select Video"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:84
+#: admin/blocks/shared/presets/ActionBar.js:85
 msgid "Update Youtube Channel Id"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:85
+#: admin/blocks/shared/presets/ActionBar.js:86
 msgid "Add Youtube Channel Id"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:101
+#: admin/blocks/shared/presets/ActionBar.js:102
 #: admin/blocks/shared/presets/CTA.js:81
 #: admin/blocks/shared/presets/Email.js:57
 #: admin/blocks/shared/presets/Search.js:52
@@ -1554,104 +1554,104 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:102
+#: admin/blocks/shared/presets/ActionBar.js:103
 msgid "Show an action bar below your player while it's playing."
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:118
-#: admin/blocks/shared/presets/CTA.js:98
-#: admin/blocks/shared/presets/Email.js:74
+#: admin/blocks/shared/presets/ActionBar.js:128
+#: admin/blocks/shared/presets/CTA.js:107
+#: admin/blocks/shared/presets/Email.js:83
 msgid "Display At (Percentage)"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:128
-#: admin/blocks/shared/presets/CTA.js:108
-#: admin/blocks/shared/presets/Email.js:84
+#: admin/blocks/shared/presets/ActionBar.js:138
+#: admin/blocks/shared/presets/CTA.js:117
+#: admin/blocks/shared/presets/Email.js:93
 #: Services/Translation.php:105
 msgid "Start"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:132
-#: admin/blocks/shared/presets/CTA.js:112
-#: admin/blocks/shared/presets/Email.js:88
+#: admin/blocks/shared/presets/ActionBar.js:142
+#: admin/blocks/shared/presets/CTA.js:121
+#: admin/blocks/shared/presets/Email.js:97
 msgid "50% Watched"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:136
-#: admin/blocks/shared/presets/CTA.js:116
-#: admin/blocks/shared/presets/Email.js:92
+#: admin/blocks/shared/presets/ActionBar.js:146
+#: admin/blocks/shared/presets/CTA.js:125
+#: admin/blocks/shared/presets/Email.js:101
 #: Services/Translation.php:106
 msgid "End"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:146
+#: admin/blocks/shared/presets/ActionBar.js:161
 msgid "Text"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:147
+#: admin/blocks/shared/presets/ActionBar.js:162
 msgid "Action bar text."
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:160
+#: admin/blocks/shared/presets/ActionBar.js:175
 msgid "Action Bar Background"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:174
+#: admin/blocks/shared/presets/ActionBar.js:189
 msgid "Button"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:179
+#: admin/blocks/shared/presets/ActionBar.js:194
 msgid "Button Type"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:184
+#: admin/blocks/shared/presets/ActionBar.js:199
 msgid "Custom"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:188
+#: admin/blocks/shared/presets/ActionBar.js:203
 msgid "YouTube Subscribe"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:192
+#: admin/blocks/shared/presets/ActionBar.js:207
 #: admin/blocks/shared/presets/parts/ChooseProvider.js:18
 msgid "None"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:205
+#: admin/blocks/shared/presets/ActionBar.js:220
 msgid "Show Count"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:206
+#: admin/blocks/shared/presets/ActionBar.js:221
 msgid "Show your follower count."
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:222
-#: admin/blocks/shared/presets/CTA.js:243
+#: admin/blocks/shared/presets/ActionBar.js:237
+#: admin/blocks/shared/presets/CTA.js:257
 msgid "Button Text"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:223
-#: admin/blocks/shared/presets/Email.js:169
+#: admin/blocks/shared/presets/ActionBar.js:238
+#: admin/blocks/shared/presets/Email.js:183
 msgid "Submit button text"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:230
+#: admin/blocks/shared/presets/ActionBar.js:245
 msgid "Button Link"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:244
+#: admin/blocks/shared/presets/ActionBar.js:259
 msgid "Border radius of the button"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:256
-#: admin/blocks/shared/presets/CTA.js:275
-#: admin/blocks/shared/presets/Email.js:178
+#: admin/blocks/shared/presets/ActionBar.js:271
+#: admin/blocks/shared/presets/CTA.js:295
+#: admin/blocks/shared/presets/Email.js:192
 msgid "Button Color"
 msgstr ""
 
-#: admin/blocks/shared/presets/ActionBar.js:271
-#: admin/blocks/shared/presets/CTA.js:290
-#: admin/blocks/shared/presets/Email.js:193
+#: admin/blocks/shared/presets/ActionBar.js:286
+#: admin/blocks/shared/presets/CTA.js:310
+#: admin/blocks/shared/presets/Email.js:207
 msgid "Button Text Color"
 msgstr ""
 
@@ -1756,73 +1756,73 @@ msgstr ""
 msgid "Show an email collection form and message over your player."
 msgstr ""
 
-#: admin/blocks/shared/presets/CTA.js:133
+#: admin/blocks/shared/presets/CTA.js:147
 msgid "You already have an email capture set display at the same time."
 msgstr ""
 
-#: admin/blocks/shared/presets/CTA.js:144
+#: admin/blocks/shared/presets/CTA.js:158
 msgid "Disable Email Capture"
 msgstr ""
 
-#: admin/blocks/shared/presets/CTA.js:152
+#: admin/blocks/shared/presets/CTA.js:166
 msgid "Show Rewatch Button"
 msgstr ""
 
-#: admin/blocks/shared/presets/CTA.js:153
+#: admin/blocks/shared/presets/CTA.js:167
 msgid "Show a rewatch button at the end of the player."
 msgstr ""
 
-#: admin/blocks/shared/presets/CTA.js:168
-#: admin/blocks/shared/presets/Email.js:126
+#: admin/blocks/shared/presets/CTA.js:182
+#: admin/blocks/shared/presets/Email.js:140
 msgid "Allow Skipping"
 msgstr ""
 
-#: admin/blocks/shared/presets/CTA.js:169
+#: admin/blocks/shared/presets/CTA.js:183
 msgid "Let the user continue watching the player."
-msgstr ""
-
-#: admin/blocks/shared/presets/CTA.js:199
-#: admin/blocks/shared/presets/Email.js:139
-msgid "Headline"
-msgstr ""
-
-#: admin/blocks/shared/presets/CTA.js:200
-#: admin/blocks/shared/presets/Email.js:140
-msgid "The headline for your form."
-msgstr ""
-
-#: admin/blocks/shared/presets/CTA.js:212
-#: admin/blocks/shared/presets/Email.js:152
-msgid "Bottom Text"
 msgstr ""
 
 #: admin/blocks/shared/presets/CTA.js:213
 #: admin/blocks/shared/presets/Email.js:153
+msgid "Headline"
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:214
+#: admin/blocks/shared/presets/Email.js:154
+msgid "The headline for your form."
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:226
+#: admin/blocks/shared/presets/Email.js:166
+msgid "Bottom Text"
+msgstr ""
+
+#: admin/blocks/shared/presets/CTA.js:227
+#: admin/blocks/shared/presets/Email.js:167
 msgid "Text displayed below the form. HTML allowed."
 msgstr ""
 
-#: admin/blocks/shared/presets/CTA.js:228
+#: admin/blocks/shared/presets/CTA.js:242
 msgid "Show Button"
 msgstr ""
 
-#: admin/blocks/shared/presets/CTA.js:229
+#: admin/blocks/shared/presets/CTA.js:243
 msgid "Show a call to action button."
 msgstr ""
 
-#: admin/blocks/shared/presets/CTA.js:246
+#: admin/blocks/shared/presets/CTA.js:260
 msgid "Button text for the Call To Action"
 msgstr ""
 
-#: admin/blocks/shared/presets/CTA.js:262
-#: admin/blocks/shared/presets/Email.js:219
+#: admin/blocks/shared/presets/CTA.js:276
+#: admin/blocks/shared/presets/Email.js:233
 msgid "Border radius of form elements."
 msgstr ""
 
-#: admin/blocks/shared/presets/CTA.js:306
+#: admin/blocks/shared/presets/CTA.js:326
 msgid "Background Opacity"
 msgstr ""
 
-#: admin/blocks/shared/presets/CTA.js:307
+#: admin/blocks/shared/presets/CTA.js:327
 msgid "Opacity percentage of the cover background."
 msgstr ""
 
@@ -1851,23 +1851,23 @@ msgstr ""
 msgid "Business"
 msgstr ""
 
-#: admin/blocks/shared/presets/Email.js:108
+#: admin/blocks/shared/presets/Email.js:122
 msgid "You already have a Call To Action set display at the same time."
 msgstr ""
 
-#: admin/blocks/shared/presets/Email.js:119
+#: admin/blocks/shared/presets/Email.js:133
 msgid "Disable Call To Action"
 msgstr ""
 
-#: admin/blocks/shared/presets/Email.js:127
+#: admin/blocks/shared/presets/Email.js:141
 msgid "Let the viewer skip"
 msgstr ""
 
-#: admin/blocks/shared/presets/Email.js:168
+#: admin/blocks/shared/presets/Email.js:182
 msgid "Play Button Text"
 msgstr ""
 
-#: admin/blocks/shared/presets/Email.js:206
+#: admin/blocks/shared/presets/Email.js:220
 msgid "Integrate"
 msgstr ""
 
@@ -1975,30 +1975,30 @@ msgstr ""
 msgid "At what point does the match algorithm give up. A threshold of 0.0 requires a perfect match (of both letters and location), a threshold of 1.0 would match anything."
 msgstr ""
 
-#: admin/blocks/shared/presets/Style.js:21
+#: admin/blocks/shared/presets/Style.js:17
 msgid "Hide Logo"
 msgstr ""
 
-#: admin/blocks/shared/presets/Style.js:22
+#: admin/blocks/shared/presets/Style.js:18
 msgid "Hides the logo on this video."
 msgstr ""
 
-#: admin/blocks/shared/presets/Style.js:42
+#: admin/blocks/shared/presets/Style.js:44
 msgid "Caption Style"
 msgstr ""
 
-#: admin/blocks/shared/presets/Style.js:46
+#: admin/blocks/shared/presets/Style.js:48
 #: Seeds/AudioPresetSeeder.php:37
 #: Seeds/PresetSeeder.php:38
 #: Services/Translation.php:15
 msgid "Default"
 msgstr ""
 
-#: admin/blocks/shared/presets/Style.js:47
+#: admin/blocks/shared/presets/Style.js:49
 msgid "Full"
 msgstr ""
 
-#: admin/blocks/shared/presets/Style.js:56
+#: admin/blocks/shared/presets/Style.js:58
 msgid "Caption Background"
 msgstr ""
 

@@ -1601,7 +1601,6 @@ class NewsletterSubscription extends NewsletterModule {
         $class = $attrs['class'] ?? '';
 
         $buffer .= '<div class="tnp tnp-subscription ' . esc_attr($class) . '">' . "\n";
-        $buffer .= '<div class="tnp tnp-subscription">' . "\n";
 
         $buffer .= '<form method="post" action="' . esc_attr($action) . '"';
 

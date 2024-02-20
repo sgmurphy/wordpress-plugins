@@ -76,6 +76,9 @@ class RuleAmount extends Base {
 
 	protected function load_raw_data( $params ) {
 		$data = DBTable::get_rules_rows_summary( $params );
+        if (empty($data)) {
+            $data = []; // to avoid false to array conversion warnings
+        }
 		if ( empty( $data['stats'] ) ) {
             $data['stats'] = array();
 		}

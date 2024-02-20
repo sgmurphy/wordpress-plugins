@@ -1,7 +1,6 @@
 <?php
 
 use WCML\Multicurrency\Transient\Hooks as TransientHooks;
-use WPML\FP\Fns;
 
 /**
  * Class WCML_Currencies_Payment_Gateways
@@ -35,9 +34,15 @@ class WCML_Currencies_Payment_Gateways {
 	}
 
 	public function add_hooks() {
-		add_filter( 'woocommerce_payment_gateways', Fns::tap( function() {
-			add_action( 'wp_loaded', [ $this, 'init_gateways' ] );
-		} ) );
+		/**
+		 * Since WC 8.5 we have `wc_payment_gateways_initialized` to load our code only when
+		 * needed. Before that, we have to use `wp_loaded` and get the instance ourselves,
+		 * which causes gateways to be loaded on every request.
+		 */
+		$hook = version_compare( WC_VERSION, '8.5', '>=' )
+			? 'wc_payment_gateways_initialized'
+			: 'wp_loaded';
+		add_action( $hook, [ $this, 'init_gateways' ] );
 
 		add_filter( 'woocommerce_gateway_description', [ $this, 'filter_gateway_description' ], 10, 2 );
 		add_filter( 'option_woocommerce_stripe_settings', [ 'WCML_Payment_Gateway_Stripe', 'filter_stripe_settings' ] );
@@ -86,9 +91,16 @@ class WCML_Currencies_Payment_Gateways {
 		return get_option( self::OPTION_KEY, [] );
 	}
 
-	public function init_gateways() {
+	/**
+	 * @param WC_Payment_Gateways|null $wc_payment_gateways
+	 */
+	public function init_gateways( $wc_payment_gateways = null ) {
 		if ( null !== $this->payment_gateways ) {
 			return;
+		}
+
+		if ( ! $wc_payment_gateways ) {
+			$wc_payment_gateways = WC()->payment_gateways();
 		}
 
 		$this->payment_gateways   = [];
@@ -97,7 +109,7 @@ class WCML_Currencies_Payment_Gateways {
 
 		do_action( 'wcml_before_init_currency_payment_gateways' );
 
-		$this->available_gateways = $this->get_available_payment_gateways();
+		$this->available_gateways = $wc_payment_gateways->get_available_payment_gateways();
 
 		$this->supported_gateways = [
 			'bacs'         => 'WCML_Payment_Gateway_Bacs',
@@ -206,12 +218,5 @@ class WCML_Currencies_Payment_Gateways {
 		foreach ( $non_supported_gateways as $non_supported_gateway ) {
 			$this->payment_gateways[ $non_supported_gateway ] = new WCML_Not_Supported_Payment_Gateway( $this->available_gateways[ $non_supported_gateway ], $this->woocommerce_wpml );
 		}
-	}
-
-	/**
-	 * @return array
-	 */
-	private function get_available_payment_gateways() {
-		return WC()->payment_gateways()->get_available_payment_gateways();
 	}
 }

@@ -1896,10 +1896,10 @@ var external_wp_hooks_ = __webpack_require__("g56x");
 const type_container_mapStateToProps = (state, ownProps) => {
   const postTypeLabel = ticket["f" /* selectors */].getCurrentPostTypeLabel('singular_name').toLowerCase();
   const ticketDetails = ticket["f" /* selectors */].getTicketDetails(state, ownProps);
-  const typeName = Object(external_wp_i18n_["_x"])('Single Ticket', 'Default ticket type label.', 'event-tickets');
+  const typeName = Object(external_wp_i18n_["_x"])('Standard Ticket', 'Default ticket type label.', 'event-tickets');
   const typeDescription = Object(external_wp_i18n_["sprintf"])(
   // translators: %s is the post type name in human readable form.
-  Object(external_wp_i18n_["_x"])('A single ticket is specific to this %s.', 'Default ticket type description.', 'event-tickets'), postTypeLabel);
+  Object(external_wp_i18n_["_x"])('A standard ticket is specific to this %s.', 'Default ticket type description.', 'event-tickets'), postTypeLabel);
   const hasEventsPro = external_tribe_common_data_["plugins"].selectors.hasPlugin(state)(external_tribe_common_data_["plugins"].constants.EVENTS_PRO_PLUGIN);
   const currentPostIsEvent = ticket["f" /* selectors */].currentPostIsEvent();
 

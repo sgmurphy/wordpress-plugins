@@ -639,7 +639,7 @@ class Rule
         );
 
         $discounts = apply_filters('advanced_woo_discount_rules_discounts_of_each_rule', $discounts, $rule, $product_price, $quantity, $product, $ajax_price, $cart_item, $price_display_condition, $is_cart, $manual_request);
-
+        $discounts = array_filter($discounts, 'is_numeric');
         $total_discount = array_sum($discounts);
         if ($total_discount <= 0) {
             return false;

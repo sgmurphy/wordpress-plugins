@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Contains functions responsible for the functionality at the front-end
  *
@@ -80,8 +79,6 @@ class Sassy_Social_Share_Public {
 
 		// Javascript for front-end of website
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
-		// inline style for front-end of website
-		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_inline_style' ) );
 		// stylesheet files for front-end of website
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_css' ) );
 
@@ -120,7 +117,7 @@ class Sassy_Social_Share_Public {
 						$inline_script .= 'var heateorSssUrlCountFetched = [], heateorSssSharesText = \''. htmlspecialchars(__('Shares', 'sassy-social-share'), ENT_QUOTES) .'\', heateorSssShareText = \''. htmlspecialchars(__('Share', 'sassy-social-share'), ENT_QUOTES) .'\';';
 						$inline_script .= 'function heateorSssPopup(e) {window.open(e,"popUpWindow","height=400,width=600,left=400,top=100,resizable,scrollbars,toolbar=0,personalbar=0,menubar=no,location=no,directories=no,status")}';
 						if ( $this->facebook_like_recommend_enabled() || $this->facebook_share_enabled() ) {
-							$inline_script .= 'function heateorSssInitiateFB() {FB.init({appId:"",channelUrl:"",status:!0,cookie:!0,xfbml:!0,version:"v18.0"})}window.fbAsyncInit=function() {heateorSssInitiateFB(),' . ( defined( 'HEATEOR_SOCIAL_SHARE_MYCRED_INTEGRATION_VERSION' ) && $this->facebook_like_recommend_enabled() ? 1 : 0 ) . '&&(FB.Event.subscribe("edge.create",function(e) {heateorSsmiMycredPoints("Facebook_like_recommend","",e?e:"")}),FB.Event.subscribe("edge.remove",function(e) {heateorSsmiMycredPoints("Facebook_like_recommend","",e?e:"","Minus point(s) for undoing Facebook like-recommend")}) ),'. ( defined( 'HEATEOR_SHARING_GOOGLE_ANALYTICS_VERSION' ) ? 1 : 0 ) .'&&(FB.Event.subscribe("edge.create",function(e) {heateorSsgaSocialPluginsTracking("Facebook","Like",e?e:"")}),FB.Event.subscribe("edge.remove",function(e) {heateorSsgaSocialPluginsTracking("Facebook","Unlike",e?e:"")}) )},function(e) {var n,i="facebook-jssdk",o=e.getElementsByTagName("script")[0];e.getElementById(i)||(n=e.createElement("script"),n.id=i,n.async=!0,n.src="//connect.facebook.net/'. ( $this->options['language'] ? $this->options['language'] : 'en_GB' ) .'/sdk.js",o.parentNode.insertBefore(n,o) )}(document);';
+							$inline_script .= 'function heateorSssInitiateFB() {FB.init({appId:"",channelUrl:"",status:!0,cookie:!0,xfbml:!0,version:"v19.0"})}window.fbAsyncInit=function() {heateorSssInitiateFB(),' . ( defined( 'HEATEOR_SOCIAL_SHARE_MYCRED_INTEGRATION_VERSION' ) && $this->facebook_like_recommend_enabled() ? 1 : 0 ) . '&&(FB.Event.subscribe("edge.create",function(e) {heateorSsmiMycredPoints("Facebook_like_recommend","",e?e:"")}),FB.Event.subscribe("edge.remove",function(e) {heateorSsmiMycredPoints("Facebook_like_recommend","",e?e:"","Minus point(s) for undoing Facebook like-recommend")}) ),'. ( defined( 'HEATEOR_SHARING_GOOGLE_ANALYTICS_VERSION' ) ? 1 : 0 ) .'&&(FB.Event.subscribe("edge.create",function(e) {heateorSsgaSocialPluginsTracking("Facebook","Like",e?e:"")}),FB.Event.subscribe("edge.remove",function(e) {heateorSsgaSocialPluginsTracking("Facebook","Unlike",e?e:"")}) )},function(e) {var n,i="facebook-jssdk",o=e.getElementsByTagName("script")[0];e.getElementById(i)||(n=e.createElement("script"),n.id=i,n.async=!0,n.src="//connect.facebook.net/'. ( $this->options['language'] ? $this->options['language'] : 'en_GB' ) .'/sdk.js",o.parentNode.insertBefore(n,o) )}(document);';
 						}
 						wp_enqueue_script( 'heateor_sss_sharing_js', plugins_url( 'js/sassy-social-share-public.js', __FILE__ ), array( 'jquery' ), $this->version, $in_footer );
 						wp_add_inline_script( 'heateor_sss_sharing_js', $inline_script, $position = 'before' );
@@ -831,7 +828,7 @@ class Sassy_Social_Share_Public {
 			$offset = ( $this->options['alignment'] != '' && $this->options[$this->options['alignment'].'_offset'] != '' ? esc_html( $this->options['alignment'] ) . ': ' . intval( $this->options[$this->options['alignment'] . '_offset'] ) . 'px;' : '' ) . ( $this->options['top_offset'] != '' ? 'top: ' . intval( $this->options['top_offset'] ) . 'px;' : '' );
 			$vertical_div = "<div class='heateor_sss_sharing_container heateor_sss_vertical_sharing" . ( isset( $this->options['bottom_mobile_sharing'] ) ? ' heateor_sss_bottom_sharing' : '' ) . "' style='width:" . intval( $vertical_sharing_width + 4 ) . "px;" . $offset . ( $this->options['vertical_bg'] != '' ? 'background-color: ' . esc_html( $this->options['vertical_bg'] ) : '-webkit-box-shadow:none;box-shadow:none;' ) . "' " . ( $this->is_amp_page() ? "" : "data-heateor-sss-href='" . esc_url( isset( $share_count_url ) && $share_count_url ? $share_count_url : $post_url ) . "'" ) . ( ( $this->get_cached_share_count( $this->share_count_transient_id ) === false || $this->is_amp_page() ) ? "" : ' data-heateor-sss-no-counts="1"' ) . ">" . $sharing_div . "</div>";
 			// show vertical sharing
-			if ( ( isset( $this->options['vertical_home'] ) && is_front_page() ) || ( isset( $this->options['vertical_category'] ) && is_category() ) || ( isset( $this->options['vertical_archive'] ) && is_archive() ) || ( isset( $this->options['vertical_post'] ) && is_single() && isset( $post->post_type ) && $post->post_type == 'post' ) || ( isset( $this->options['vertical_page'] ) && is_page() && isset( $post->post_type ) && $post->post_type == 'page' ) || ( isset( $this->options['vertical_excerpt'] ) && (is_home() || current_filter() == 'the_excerpt' ) ) || ( isset( $this->options['vertical_bb_forum'] ) && current_filter() == 'bbp_template_before_single_forum' ) || ( isset( $this->options['vertical_bb_topic'] ) && in_array( current_filter(), array( 'bbp_template_before_single_topic', 'bbp_template_before_lead_topic' ) ) ) || (current_filter() == 'bp_before_group_header' && isset( $this->options['vertical_bp_group'] ) ) ) {
+			if ( ( isset( $this->options['vertical_home'] ) && is_front_page() ) || ( isset( $this->options['vertical_category'] ) && is_category() ) || ( isset( $this->options['vertical_archive'] ) && is_archive() ) || ( isset( $this->options['vertical_post'] ) && is_single() && isset( $post->post_type ) && $post->post_type == 'post' ) || ( isset( $this->options['vertical_page'] ) && is_page() && isset( $post->post_type ) && $post->post_type == 'page' ) || ( isset( $this->options['vertical_excerpt'] ) && (is_home() || current_filter() == 'the_excerpt' ) ) || ( isset( $this->options['vertical_bb_forum'] ) && current_filter() == 'bbp_template_before_single_forum' ) || ( isset( $this->options['vertical_bb_topic'] ) && in_array( current_filter(), array( 'bbp_template_before_single_topic', 'bbp_template_before_lead_topic' ) ) ) || (current_filter() == 'bp_before_group_header' && isset( $this->options['vertical_bp_group'] ) ) || ( isset( $this->options['vertical_woocom_shop'] ) && current_filter() == 'woocommerce_after_shop_loop_item' ) || ( isset( $this->options['vertical_woocom_product'] ) && current_filter() == 'woocommerce_share' ) || ( isset( $this->options['vertical_woocom_thankyou'] ) && current_filter() == 'vertical_woocommerce_thankyou' ) ) {
 				if ( in_array( current_filter(), array( 'bbp_template_before_single_topic', 'bbp_template_before_lead_topic', 'bbp_template_before_single_forum', 'bp_before_group_header' ) ) ) {
 					global $heateor_sss_allowed_tags;
 					echo wp_kses( $vertical_div, $heateor_sss_allowed_tags );
@@ -1247,131 +1244,98 @@ class Sassy_Social_Share_Public {
 	 */
 	public function frontend_inline_style() {
 		
-		?>
-		<style type="text/css">
-		<?php
+		$inline_css = '';
 		if ( isset( $this->options['plain_instagram_bg'] ) ) {
-			?>
-			.heateor_sss_button_instagram span.heateor_sss_svg{background-color:#527fa4}
-			<?php
+			$inline_css .= '.heateor_sss_button_instagram span.heateor_sss_svg{background-color:#527fa4}';
 		} else {
-			?>
-			.heateor_sss_button_instagram span.heateor_sss_svg,a.heateor_sss_instagram span.heateor_sss_svg{background:radial-gradient(circle at 30% 107%,#fdf497 0,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%)}
-			<?php
+			$inline_css .= '.heateor_sss_button_instagram span.heateor_sss_svg,a.heateor_sss_instagram span.heateor_sss_svg{background:radial-gradient(circle at 30% 107%,#fdf497 0,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%)}';
 		}
-		if ( $this->options['horizontal_bg_color_default'] != '' ) { ?>
-			div.heateor_sss_horizontal_sharing a.heateor_sss_button_instagram span{background:<?php echo esc_html( $this->options['horizontal_bg_color_default'] ) ?>!important;}div.heateor_sss_standard_follow_icons_container a.heateor_sss_button_instagram span{background:<?php echo esc_html( $this->options['horizontal_bg_color_default'] ) ?>;}
-		<?php } ?>
-		<?php if ( $this->options['horizontal_bg_color_hover'] != '' ) { ?>
-			div.heateor_sss_horizontal_sharing a.heateor_sss_button_instagram span:hover{background:<?php echo esc_html( $this->options['horizontal_bg_color_hover'] ) ?>!important;}div.heateor_sss_standard_follow_icons_container a.heateor_sss_button_instagram span:hover{background:<?php echo esc_html( $this->options['horizontal_bg_color_hover'] ) ?>;}
-		<?php } ?>
-		<?php if ( $this->options['vertical_bg_color_default'] != '' ) { ?>
-			div.heateor_sss_vertical_sharing  a.heateor_sss_button_instagram span{background:<?php echo esc_html( $this->options['vertical_bg_color_default'] ) ?>!important;}div.heateor_sss_floating_follow_icons_container a.heateor_sss_button_instagram span{background:<?php echo esc_html( $this->options['vertical_bg_color_default'] ) ?>;}
-		<?php } ?>
-		<?php if ( $this->options['vertical_bg_color_hover'] != '' ) { ?>
-			div.heateor_sss_vertical_sharing a.heateor_sss_button_instagram span:hover{background:<?php echo esc_html( $this->options['vertical_bg_color_hover'] ) ?>!important;}div.heateor_sss_floating_follow_icons_container a.heateor_sss_button_instagram span:hover{background:<?php echo esc_html( $this->options['vertical_bg_color_hover'] ) ?>;}
-		<?php } ?>
-		.heateor_sss_horizontal_sharing .heateor_sss_svg,.heateor_sss_standard_follow_icons_container .heateor_sss_svg{
-			<?php if ( $this->options['horizontal_bg_color_default'] != '' ) { ?>
-				background-color: <?php echo esc_html( $this->options['horizontal_bg_color_default'] ) ?>!important;
-				background: <?php echo esc_html( $this->options['horizontal_bg_color_default'] ) ?>!important;
-			<?php  } ?>
-				color: <?php echo $this->options['horizontal_font_color_default'] ? esc_html( $this->options['horizontal_font_color_default'] ) : '#fff' ?>;
-			<?php
-			$border_width = 0;
-			if ( $this->options['horizontal_border_width_default'] != '' ) {
-				$border_width = $this->options['horizontal_border_width_default'];
-			} elseif ( $this->options['horizontal_border_width_hover'] != '' ) {
-				$border_width = $this->options['horizontal_border_width_hover'];
-			}
-			?>
-			border-width: <?php echo esc_html( $border_width ) . 'px' ?>;
-			border-style: solid;
-			border-color: <?php echo $this->options['horizontal_border_color_default'] != '' ? esc_html( $this->options['horizontal_border_color_default'] ) : 'transparent'; ?>;
+		if ( $this->options['horizontal_bg_color_default'] != '' ) {
+			$inline_css .= 'div.heateor_sss_horizontal_sharing a.heateor_sss_button_instagram span{background:' . esc_html( $this->options['horizontal_bg_color_default'] ) . '!important;}div.heateor_sss_standard_follow_icons_container a.heateor_sss_button_instagram span{background:' . esc_html( $this->options['horizontal_bg_color_default'] ) . '}';
 		}
-		<?php if ( $this->options['horizontal_font_color_default'] == '' ) {
-			?>
-			.heateor_sss_horizontal_sharing .heateorSssTCBackground{
-				color:#666;
-			}
-			<?php
+		if ( $this->options['horizontal_bg_color_hover'] != '' ) {
+			$inline_css .= 'div.heateor_sss_horizontal_sharing a.heateor_sss_button_instagram span:hover{background:' . esc_html( $this->options['horizontal_bg_color_hover'] ) . '!important;}div.heateor_sss_standard_follow_icons_container a.heateor_sss_button_instagram span:hover{background:' . esc_html( $this->options['horizontal_bg_color_hover'] ) . '}';
 		}
-		if ( $this->options['horizontal_font_color_hover'] != '' ) { ?>
-			div.heateor_sss_horizontal_sharing span.heateor_sss_svg svg:hover path:not(.heateor_sss_no_fill),div.heateor_sss_horizontal_sharing span.heateor_sss_svg svg:hover ellipse, div.heateor_sss_horizontal_sharing span.heateor_sss_svg svg:hover circle, div.heateor_sss_horizontal_sharing span.heateor_sss_svg svg:hover polygon, div.heateor_sss_horizontal_sharing span.heateor_sss_svg svg:hover rect:not(.heateor_sss_no_fill){
-		        fill: <?php echo esc_html( $this->options['horizontal_font_color_hover'] ) ?>;
-		    }
-		    div.heateor_sss_horizontal_sharing span.heateor_sss_svg svg:hover path.heateor_sss_svg_stroke, div.heateor_sss_horizontal_sharing span.heateor_sss_svg svg:hover rect.heateor_sss_svg_stroke{
-		    	stroke: <?php echo esc_html( $this->options['horizontal_font_color_hover'] ) ?>;
-		    }
-		<?php } ?>
-		.heateor_sss_horizontal_sharing span.heateor_sss_svg:hover,.heateor_sss_standard_follow_icons_container span.heateor_sss_svg:hover{
-			<?php if ( $this->options['horizontal_bg_color_hover'] != '' ) { ?>
-				background-color: <?php echo esc_html( $this->options['horizontal_bg_color_hover'] ) ?>!important;
-				background: <?php echo esc_html( $this->options['horizontal_bg_color_hover'] ) ?>!important;
-			<?php }
-			if ( $this->options['horizontal_font_color_hover'] != '' ) { ?>
-				color: <?php echo esc_html( $this->options['horizontal_font_color_hover'] ) ?>;
-			<?php  } ?>
-			border-color: <?php echo $this->options['horizontal_border_color_hover'] != '' ? esc_html( $this->options['horizontal_border_color_hover'] ) : 'transparent'; ?>;
+		if ( $this->options['vertical_bg_color_default'] != '' ) {
+			$inline_css .= 'div.heateor_sss_vertical_sharing  a.heateor_sss_button_instagram span{background:' . esc_html( $this->options['vertical_bg_color_default'] ) . '!important;}div.heateor_sss_floating_follow_icons_container a.heateor_sss_button_instagram span{background:' . esc_html( $this->options['vertical_bg_color_default'] ) . '}';
 		}
-		.heateor_sss_vertical_sharing span.heateor_sss_svg,.heateor_sss_floating_follow_icons_container span.heateor_sss_svg{
-			<?php if ( $this->options['vertical_bg_color_default'] != '' ) { ?>
-				background-color: <?php echo esc_html( $this->options['vertical_bg_color_default'] ) ?>!important;
-				background: <?php echo esc_html( $this->options['vertical_bg_color_default'] ) ?>!important;
-			<?php } ?>
-				color: <?php echo $this->options['vertical_font_color_default'] ? esc_html( $this->options['vertical_font_color_default'] ) : '#fff' ?>;
-			<?php
-			$vertical_border_width = 0;
-			if ( $this->options['vertical_border_width_default'] != '' ) {
-				$vertical_border_width = $this->options['vertical_border_width_default'];
-			} elseif ( $this->options['vertical_border_width_hover'] != '' ) {
-				$vertical_border_width = $this->options['vertical_border_width_hover'];
-			}
-			?>
-			border-width: <?php echo esc_html( $vertical_border_width ) ?>px;
-			border-style: solid;
-			border-color: <?php echo $this->options['vertical_border_color_default'] != '' ? esc_html( $this->options['vertical_border_color_default'] ) : 'transparent'; ?>;
+		if ( $this->options['vertical_bg_color_hover'] != '' ) {
+			$inline_css .= 'div.heateor_sss_vertical_sharing a.heateor_sss_button_instagram span:hover{background:' . esc_html( $this->options['vertical_bg_color_hover'] ) . '!important;}div.heateor_sss_floating_follow_icons_container a.heateor_sss_button_instagram span:hover{background:' . esc_html( $this->options['vertical_bg_color_hover'] ) . '}';
 		}
-		<?php if ( $this->options['horizontal_font_color_default'] == '' ) { ?>
-		.heateor_sss_vertical_sharing .heateorSssTCBackground{
-			color:#666;
+		$inline_css .= '.heateor_sss_horizontal_sharing .heateor_sss_svg,.heateor_sss_standard_follow_icons_container .heateor_sss_svg{';
+		if ( $this->options['horizontal_bg_color_default'] != '' ) {
+			$inline_css .= 'background-color:' . esc_html( $this->options['horizontal_bg_color_default'] ) . '!important;background:' . esc_html( $this->options['horizontal_bg_color_default'] ) . '!important;';
 		}
-		<?php } ?>
-		<?php if ( $this->options['vertical_font_color_hover'] != '' ) { ?>
-		    div.heateor_sss_vertical_sharing span.heateor_sss_svg svg:hover path:not(.heateor_sss_no_fill),div.heateor_sss_vertical_sharing span.heateor_sss_svg svg:hover ellipse, div.heateor_sss_vertical_sharing span.heateor_sss_svg svg:hover circle, div.heateor_sss_vertical_sharing span.heateor_sss_svg svg:hover polygon{
-		        fill:<?php echo esc_html( $this->options['vertical_font_color_hover'] ) ?>;
-		    }
-		    div.heateor_sss_vertical_sharing span.heateor_sss_svg svg:hover path.heateor_sss_svg_stroke{
-		    	stroke:<?php echo esc_html( $this->options['vertical_font_color_hover'] ) ?>;
-		    }
-		<?php } ?>
-		.heateor_sss_vertical_sharing span.heateor_sss_svg:hover,.heateor_sss_floating_follow_icons_container span.heateor_sss_svg:hover{
-			<?php if ( $this->options['vertical_bg_color_hover'] != '' ) { ?>
-				background-color: <?php echo esc_html( $this->options['vertical_bg_color_hover'] ) ?>!important;
-				background: <?php echo esc_html( $this->options['vertical_bg_color_hover'] ) ?>!important;
-			<?php }
-			if ( $this->options['vertical_font_color_hover'] != '' ) { ?>
-				color: <?php echo esc_html( $this->options['vertical_font_color_hover'] ) ?>;
-			<?php  } ?>
-			border-color: <?php echo $this->options['vertical_border_color_hover'] != '' ? esc_html( $this->options['vertical_border_color_hover'] ) : 'transparent'; ?>;
+		$inline_css .= 'color:' . ( $this->options['horizontal_font_color_default'] ? esc_html( $this->options['horizontal_font_color_default'] ) : '#fff' ) . ';';
+			
+		$border_width = 0;
+		if ( $this->options['horizontal_border_width_default'] != '' ) {
+			$border_width = $this->options['horizontal_border_width_default'];
+		} elseif ( $this->options['horizontal_border_width_hover'] != '' ) {
+			$border_width = $this->options['horizontal_border_width_hover'];
 		}
-		<?php
+		$inline_css .= 'border-width:' . esc_html( $border_width ) . 'px;border-style:solid;border-color:' . ( $this->options['horizontal_border_color_default'] != '' ? esc_html( $this->options['horizontal_border_color_default'] ) : 'transparent' ) . '}';
+		if ( $this->options['horizontal_font_color_default'] == '' ) {
+			$inline_css .= '.heateor_sss_horizontal_sharing .heateorSssTCBackground{color:#666}';
+		}
+		if ( $this->options['horizontal_font_color_hover'] != '' ) {
+			$inline_css .= 'div.heateor_sss_horizontal_sharing span.heateor_sss_svg svg:hover path:not(.heateor_sss_no_fill),div.heateor_sss_horizontal_sharing span.heateor_sss_svg svg:hover ellipse, div.heateor_sss_horizontal_sharing span.heateor_sss_svg svg:hover circle, div.heateor_sss_horizontal_sharing span.heateor_sss_svg svg:hover polygon, div.heateor_sss_horizontal_sharing span.heateor_sss_svg svg:hover rect:not(.heateor_sss_no_fill){fill:' . esc_html( $this->options['horizontal_font_color_hover'] ) . '}';
+		    $inline_css .= 'div.heateor_sss_horizontal_sharing span.heateor_sss_svg svg:hover path.heateor_sss_svg_stroke, div.heateor_sss_horizontal_sharing span.heateor_sss_svg svg:hover rect.heateor_sss_svg_stroke{stroke:' . esc_html( $this->options['horizontal_font_color_hover'] ) . '}';
+		}
+		$inline_css .= '.heateor_sss_horizontal_sharing span.heateor_sss_svg:hover,.heateor_sss_standard_follow_icons_container span.heateor_sss_svg:hover{';
+		if ( $this->options['horizontal_bg_color_hover'] != '' ) {
+			$inline_css .= 'background-color:' . esc_html( $this->options['horizontal_bg_color_hover'] ) . '!important;background:' . esc_html( $this->options['horizontal_bg_color_hover'] ) . '!important';
+		}
+		if ( $this->options['horizontal_font_color_hover'] != '' ) {
+			$inline_css .= 'color:' . esc_html( $this->options['horizontal_font_color_hover'] ) . ';'; 
+		}
+		$inline_css .= 'border-color:' . ( $this->options['horizontal_border_color_hover'] != '' ? esc_html( $this->options['horizontal_border_color_hover'] ) : 'transparent' ) . ';';
+		$inline_css .= '}';
+		$inline_css .= '.heateor_sss_vertical_sharing span.heateor_sss_svg,.heateor_sss_floating_follow_icons_container span.heateor_sss_svg{';
+		if ( $this->options['vertical_bg_color_default'] != '' ) {
+			$inline_css .= 'background-color:' . esc_html( $this->options['vertical_bg_color_default'] ) . '!important;';
+			$inline_css .= 'background:' . esc_html( $this->options['vertical_bg_color_default'] ) . '!important;';
+		}
+		$inline_css .= 'color:' . ( $this->options['vertical_font_color_default'] ? esc_html( $this->options['vertical_font_color_default'] ) : '#fff' ) . ';';
+		$vertical_border_width = 0;
+		if ( $this->options['vertical_border_width_default'] != '' ) {
+			$vertical_border_width = $this->options['vertical_border_width_default'];
+		} elseif ( $this->options['vertical_border_width_hover'] != '' ) {
+			$vertical_border_width = $this->options['vertical_border_width_hover'];
+		}
+		$inline_css .= 'border-width:' . esc_html( $vertical_border_width ) . 'px;';
+		$inline_css .= 'border-style:solid;';
+		$inline_css .= 'border-color:' . ( $this->options['vertical_border_color_default'] != '' ? esc_html( $this->options['vertical_border_color_default'] ) : 'transparent' ) . ';';
+		$inline_css .= '}';
+		if ( $this->options['horizontal_font_color_default'] == '' ) {
+			$inline_css .= '.heateor_sss_vertical_sharing .heateorSssTCBackground{color:#666;}';
+		}
+		if ( $this->options['vertical_font_color_hover'] != '' ) {
+		    $inline_css .= 'div.heateor_sss_vertical_sharing span.heateor_sss_svg svg:hover path:not(.heateor_sss_no_fill),div.heateor_sss_vertical_sharing span.heateor_sss_svg svg:hover ellipse, div.heateor_sss_vertical_sharing span.heateor_sss_svg svg:hover circle, div.heateor_sss_vertical_sharing span.heateor_sss_svg svg:hover polygon{fill:' . esc_html( $this->options['vertical_font_color_hover'] ) . '}';
+		    $inline_css .= 'div.heateor_sss_vertical_sharing span.heateor_sss_svg svg:hover path.heateor_sss_svg_stroke{stroke:' . esc_html( $this->options['vertical_font_color_hover'] ) . '}';
+		}
+		$inline_css .= '.heateor_sss_vertical_sharing span.heateor_sss_svg:hover,.heateor_sss_floating_follow_icons_container span.heateor_sss_svg:hover{';
+		if ( $this->options['vertical_bg_color_hover'] != '' ) {
+			$inline_css .= 'background-color:' . esc_html( $this->options['vertical_bg_color_hover'] ) . '!important;';
+			$inline_css .= 'background:' . esc_html( $this->options['vertical_bg_color_hover'] ) . '!important;';
+		}
+		if ( $this->options['vertical_font_color_hover'] != '' ) {
+			$inline_css .= 'color:' . esc_html( $this->options['vertical_font_color_hover'] ) . ';';
+		}
+		$inline_css .= 'border-color:' . ( $this->options['vertical_border_color_hover'] != '' ? esc_html( $this->options['vertical_border_color_hover'] ) : 'transparent' ) . ';';
+		$inline_css .= '}';
+		
 		if ( isset( $this->options['horizontal_counts'] ) ) {
 			$svg_height = $this->options['horizontal_sharing_shape'] == 'rectangle' ? $this->options['horizontal_sharing_height'] : $this->options['horizontal_sharing_size'];
 			if ( isset( $this->options['horizontal_counter_position'] ) && in_array( $this->options['horizontal_counter_position'], array( 'inner_top', 'inner_bottom' ) ) ) {
 				$line_height_percent = $this->options['horizontal_counter_position'] == 'inner_top' ? 38 : 19;
-				?>
-				div.heateor_sss_horizontal_sharing svg{height:70%;margin-top:<?php echo esc_html( $svg_height )*15/100 ?>px}div.heateor_sss_horizontal_sharing .heateor_sss_square_count{line-height:<?php echo esc_html( $svg_height*$line_height_percent )/100 ?>px;}
-				<?php
-			} elseif ( isset( $this->options['horizontal_counter_position'] ) && in_array( $this->options['horizontal_counter_position'], array( 'inner_left', 'inner_right' ) ) ) { ?>
-				div.heateor_sss_horizontal_sharing svg{width:50%;margin:auto;}div.heateor_sss_horizontal_sharing .heateor_sss_square_count{float:left;width:50%;line-height:<?php echo esc_html( $svg_height - 2 * $border_width ); ?>px;}
-				<?php
-			} elseif ( isset( $this->options['horizontal_counter_position'] ) && in_array( $this->options['horizontal_counter_position'], array( 'left', 'right' ) ) ) { ?>
-				div.heateor_sss_horizontal_sharing .heateor_sss_square_count{float:<?php echo esc_html( $this->options['horizontal_counter_position'] ) ?>;margin:0 8px;line-height:<?php echo esc_html( $svg_height ); ?>px;}
-				<?php
-			} elseif ( ! isset( $this->options['horizontal_counter_position'] ) || $this->options['horizontal_counter_position'] == 'top' ) { ?>
-				div.heateor_sss_horizontal_sharing .heateor_sss_square_count{display: block}
-				<?php
+				$inline_css .= 'div.heateor_sss_horizontal_sharing svg{height:70%;margin-top:' . esc_html( $svg_height )*15/100 . 'px}div.heateor_sss_horizontal_sharing .heateor_sss_square_count{line-height:' . esc_html( $svg_height*$line_height_percent )/100 . 'px;}';
+			} elseif ( isset( $this->options['horizontal_counter_position'] ) && in_array( $this->options['horizontal_counter_position'], array( 'inner_left', 'inner_right' ) ) ) {
+				$inline_css .= 'div.heateor_sss_horizontal_sharing svg{width:50%;margin:auto;}div.heateor_sss_horizontal_sharing .heateor_sss_square_count{float:left;width:50%;line-height:' . esc_html( $svg_height - 2 * $border_width ) . 'px;}';
+			} elseif ( isset( $this->options['horizontal_counter_position'] ) && in_array( $this->options['horizontal_counter_position'], array( 'left', 'right' ) ) ) {
+				$inline_css .= 'div.heateor_sss_horizontal_sharing .heateor_sss_square_count{float:' . esc_html( $this->options['horizontal_counter_position'] ) . ';margin:0 8px;line-height:' . esc_html( $svg_height ) . 'px;}';
+			} elseif ( ! isset( $this->options['horizontal_counter_position'] ) || $this->options['horizontal_counter_position'] == 'top' ) {
+				$inline_css .= 'div.heateor_sss_horizontal_sharing .heateor_sss_square_count{display: block}';
 			}
 		}
 		if ( isset( $this->options['vertical_counts'] ) ) {
@@ -1379,21 +1343,16 @@ class Sassy_Social_Share_Public {
 			$vertical_svg_width = $this->options['vertical_sharing_shape'] == 'rectangle' ? $this->options['vertical_sharing_width'] : $this->options['vertical_sharing_size'];
 			if ( ( isset( $this->options['vertical_counter_position'] ) && in_array( $this->options['vertical_counter_position'], array( 'inner_top', 'inner_bottom' ) ) ) || ! isset( $this->options['vertical_counter_position'] ) ) {
 				$vertical_line_height_percent = ! isset( $this->options['vertical_counter_position'] ) || $this->options['vertical_counter_position'] == 'inner_top' ? 38 : 19;
-				?>
-				div.heateor_sss_vertical_sharing svg{height:70%;margin-top:<?php echo esc_html( $vertical_svg_height )*15/100 ?>px}div.heateor_sss_vertical_sharing .heateor_sss_square_count{line-height:<?php echo esc_html( $vertical_svg_height*$vertical_line_height_percent )/100; ?>px;}
-				<?php
-			} elseif ( isset( $this->options['vertical_counter_position'] ) && in_array( $this->options['vertical_counter_position'], array( 'inner_left', 'inner_right' ) ) ) { ?>
-				div.heateor_sss_vertical_sharing svg{width:50%;margin:auto;}div.heateor_sss_vertical_sharing .heateor_sss_square_count{float:left;width:50%;line-height:<?php echo esc_html( $vertical_svg_height ); ?>px;}
-				<?php
-			}  elseif ( isset( $this->options['vertical_counter_position'] ) && in_array( $this->options['vertical_counter_position'], array( 'left', 'right' ) ) ) { ?>
-				div.heateor_sss_vertical_sharing .heateor_sss_square_count{float:<?php echo esc_html( $this->options['vertical_counter_position'] ) ?>;margin:0 8px;line-height:<?php echo esc_html( $vertical_svg_height ); ?>px; <?php echo $this->options['vertical_counter_position'] == 'left' ? 'min-width:' . esc_html( $vertical_svg_width )*30/100 . 'px;display: block' : '';?>}
-				<?php
-			} elseif ( isset( $this->options['vertical_counter_position'] ) && $this->options['vertical_counter_position'] == 'top' ) { ?>
-				div.heateor_sss_vertical_sharing .heateor_sss_square_count{display:block}
-				<?php
+				$inline_css .= 'div.heateor_sss_vertical_sharing svg{height:70%;margin-top:' . esc_html( $vertical_svg_height )*15/100 . 'px}div.heateor_sss_vertical_sharing .heateor_sss_square_count{line-height:' . esc_html( $vertical_svg_height*$vertical_line_height_percent )/100 . 'px;}';
+			} elseif ( isset( $this->options['vertical_counter_position'] ) && in_array( $this->options['vertical_counter_position'], array( 'inner_left', 'inner_right' ) ) ) {
+				$inline_css .= 'div.heateor_sss_vertical_sharing svg{width:50%;margin:auto;}div.heateor_sss_vertical_sharing .heateor_sss_square_count{float:left;width:50%;line-height:' . esc_html( $vertical_svg_height ) . 'px;}';
+			}  elseif ( isset( $this->options['vertical_counter_position'] ) && in_array( $this->options['vertical_counter_position'], array( 'left', 'right' ) ) ) {
+				$inline_css .= 'div.heateor_sss_vertical_sharing .heateor_sss_square_count{float:' . esc_html( $this->options['vertical_counter_position'] ) . ';margin:0 8px;line-height:' . esc_html( $vertical_svg_height ) . 'px;' . ( $this->options['vertical_counter_position'] == 'left' ? 'min-width:' . esc_html( $vertical_svg_width )*30/100 . 'px;display: block' : '' ) . '}';
+			} elseif ( isset( $this->options['vertical_counter_position'] ) && $this->options['vertical_counter_position'] == 'top' ) {
+				$inline_css .= 'div.heateor_sss_vertical_sharing .heateor_sss_square_count{display:block}';
 			}
 		}
-		echo isset( $this->options['hide_mobile_sharing'] ) && $this->options['vertical_screen_width'] != '' ? '@media screen and (max-width:' . intval( $this->options['vertical_screen_width'] ) . 'px) {.heateor_sss_vertical_sharing{display:none!important}}' : '';
+		$inline_css .= isset( $this->options['hide_mobile_sharing'] ) && $this->options['vertical_screen_width'] != '' ? '@media screen and (max-width:' . intval( $this->options['vertical_screen_width'] ) . 'px) {.heateor_sss_vertical_sharing{display:none!important}}' : '';
 		
 		$bottom_sharing_postion_inverse = $this->options['bottom_sharing_alignment'] == 'left' ? 'right' : 'left';
 		$bottom_sharing_responsive_css = '';
@@ -1404,15 +1363,13 @@ class Sassy_Social_Share_Public {
 			$more_icon_enabled = isset($this->options['vertical_more']) ? 1 : 0;
 			$bottom_sharing_responsive_css = 'div.heateor_sss_bottom_sharing{width:100%!important;left:0!important;}div.heateor_sss_bottom_sharing a{width:'.(100/($num_sharing_icons+$total_share_count_enabled+$more_icon_enabled)).'% !important;}div.heateor_sss_bottom_sharing .heateor_sss_svg{width: 100% !important;}div.heateor_sss_bottom_sharing div.heateorSssTotalShareCount{font-size:1em!important;line-height:' . ( $vertical_sharing_icon_height*70/100 ) . 'px!important}div.heateor_sss_bottom_sharing div.heateorSssTotalShareText{font-size:.7em!important;line-height:0px!important}';
 		}
-		echo isset( $this->options['vertical_enable'] ) && isset( $this->options['bottom_mobile_sharing'] ) && $this->options['horizontal_screen_width'] != '' ? 'div.heateor_sss_mobile_footer{display:none;}@media screen and (max-width:' . intval( $this->options['horizontal_screen_width'] ) . 'px){div.heateor_sss_bottom_sharing .heateorSssTCBackground{background-color:white}' . $bottom_sharing_responsive_css . 'div.heateor_sss_mobile_footer{display:block;height:' . esc_html( $this->options['vertical_sharing_shape'] == 'rectangle' ? $this->options['vertical_sharing_height'] : $this->options['vertical_sharing_size'] ) . 'px;}.heateor_sss_bottom_sharing{padding:0!important;' . esc_html( $this->options['bottom_sharing_position_radio'] == 'nonresponsive' && $this->options['bottom_sharing_position'] != '' ? esc_html( $this->options['bottom_sharing_alignment'] ) . ':' . esc_html( $this->options['bottom_sharing_position'] ) . 'px!important;' . esc_html( $bottom_sharing_postion_inverse ) . ':auto!important;' : '' ) . 'display:block!important;width:auto!important;bottom:' . ( isset( $this->options['vertical_total_shares'] ) && ! $this->is_amp_page() ? '-5' : '-2' ) . 'px!important;top: auto!important;}.heateor_sss_bottom_sharing .heateor_sss_square_count{line-height:inherit;}.heateor_sss_bottom_sharing .heateorSssSharingArrow{display:none;}.heateor_sss_bottom_sharing .heateorSssTCBackground{margin-right:1.1em!important}}' : '';
-		echo esc_html( $this->options['custom_css'] );
-		echo isset( $this->options['hide_slider'] ) ? 'div.heateorSssSharingArrow{display:none}' : '';
+		$inline_css .= isset( $this->options['vertical_enable'] ) && isset( $this->options['bottom_mobile_sharing'] ) && $this->options['horizontal_screen_width'] != '' ? 'div.heateor_sss_mobile_footer{display:none;}@media screen and (max-width:' . intval( $this->options['horizontal_screen_width'] ) . 'px){div.heateor_sss_bottom_sharing .heateorSssTCBackground{background-color:white}' . $bottom_sharing_responsive_css . 'div.heateor_sss_mobile_footer{display:block;height:' . esc_html( $this->options['vertical_sharing_shape'] == 'rectangle' ? $this->options['vertical_sharing_height'] : $this->options['vertical_sharing_size'] ) . 'px;}.heateor_sss_bottom_sharing{padding:0!important;' . esc_html( $this->options['bottom_sharing_position_radio'] == 'nonresponsive' && $this->options['bottom_sharing_position'] != '' ? esc_html( $this->options['bottom_sharing_alignment'] ) . ':' . esc_html( $this->options['bottom_sharing_position'] ) . 'px!important;' . esc_html( $bottom_sharing_postion_inverse ) . ':auto!important;' : '' ) . 'display:block!important;width:auto!important;bottom:' . ( isset( $this->options['vertical_total_shares'] ) && ! $this->is_amp_page() ? '-5' : '-2' ) . 'px!important;top: auto!important;}.heateor_sss_bottom_sharing .heateor_sss_square_count{line-height:inherit;}.heateor_sss_bottom_sharing .heateorSssSharingArrow{display:none;}.heateor_sss_bottom_sharing .heateorSssTCBackground{margin-right:1.1em!important}}' : '';
+		$inline_css .= esc_html( $this->options['custom_css'] );
+		$inline_css .= isset( $this->options['hide_slider'] ) ? 'div.heateorSssSharingArrow{display:none}' : '';
 		if ( isset( $this->options['hor_enable'] ) && $this->options['hor_sharing_alignment'] == "center" ) {
-			echo 'div.heateor_sss_sharing_title{text-align:center}div.heateor_sss_sharing_ul{width:100%;text-align:center;}div.heateor_sss_horizontal_sharing div.heateor_sss_sharing_ul a{float:none!important;display:inline-block;}';
+			$inline_css .= 'div.heateor_sss_sharing_title{text-align:center}div.heateor_sss_sharing_ul{width:100%;text-align:center;}div.heateor_sss_horizontal_sharing div.heateor_sss_sharing_ul a{float:none!important;display:inline-block;}';
 		}
-		?>
-		</style>
-		<?php
+		return $inline_css;
 
 	}
 
@@ -1423,7 +1380,9 @@ class Sassy_Social_Share_Public {
 	 */
 	public function frontend_css() {
 		
+		$inline_css = $this->frontend_inline_style();
 		wp_enqueue_style( 'heateor_sss_frontend_css', plugins_url( 'css/sassy-social-share-public.css', __FILE__ ), false, $this->version );
+		wp_add_inline_style( 'heateor_sss_frontend_css', $inline_css );
 	
 	}
 
@@ -1444,7 +1403,7 @@ class Sassy_Social_Share_Public {
 			echo '<style type="text/css">';
 		}
 		// background color of amp icons
-		$css .= 'a.heateor_sss_amp{padding:0 4px;}div.heateor_sss_horizontal_sharing a amp-img{display:inline-block;}.heateor_sss_amp_gab img{background-color:#25CC80}.heateor_sss_amp_parler img{background-color:#892E5E}.heateor_sss_amp_gettr img{background-color:#E50000}.heateor_sss_amp_instagram img{background-color:#624E47}.heateor_sss_amp_yummly img{background-color:#E16120}.heateor_sss_amp_youtube img{background-color:#ff0000}.heateor_sss_amp_teams img{background-color:#5059c9}.heateor_sss_amp_google_translate img{background-color:#528ff5}.heateor_sss_amp_x img{background-color:#2a2a2a}.heateor_sss_amp_rutube img{background-color:#14191f}.heateor_sss_amp_buffer img{background-color:#000}.heateor_sss_amp_delicious img{background-color:#53BEEE}.heateor_sss_amp_rss img{background-color:#e3702d}.heateor_sss_amp_facebook img{background-color:#3C589A}.heateor_sss_amp_digg img{background-color:#006094}.heateor_sss_amp_email img{background-color:#649A3F}.heateor_sss_amp_float_it img{background-color:#53BEEE}.heateor_sss_amp_linkedin img{background-color:#0077B5}.heateor_sss_amp_pinterest img{background-color:#CC2329}.heateor_sss_amp_print img{background-color:#FD6500}.heateor_sss_amp_reddit img{background-color:#FF5700}.heateor_sss_amp_mastodon img{background-color:#2b90d9}.heateor_sss_amp_stocktwits img{background-color: #40576F}.heateor_sss_amp_mewe img{background-color:#007da1}.heateor_sss_amp_mix img{background-color:#ff8226}.heateor_sss_amp_tumblr img{background-color:#29435D}.heateor_sss_amp_twitter img{background-color:#55acee}.heateor_sss_amp_vkontakte img{background-color:#0077FF}.heateor_sss_amp_yahoo img{background-color:#8F03CC}.heateor_sss_amp_xing img{background-color:#00797D}.heateor_sss_amp_instagram img{background-color:#527FA4}.heateor_sss_amp_whatsapp img{background-color:#55EB4C}.heateor_sss_amp_aim img{background-color: #10ff00}.heateor_sss_amp_amazon_wish_list img{background-color: #ffe000}.heateor_sss_amp_aol_mail img{background-color: #2A2A2A}.heateor_sss_amp_app_net img{background-color: #5D5D5D}.heateor_sss_amp_balatarin img{background-color: #fff}.heateor_sss_amp_bibsonomy img{background-color: #000}.heateor_sss_amp_bitty_browser img{background-color: #EFEFEF}.heateor_sss_amp_blinklist img{background-color: #3D3C3B}.heateor_sss_amp_blogger_post img{background-color: #FDA352}.heateor_sss_amp_blogmarks img{background-color: #535353}.heateor_sss_amp_bookmarks_fr img{background-color: #E8EAD4}.heateor_sss_amp_box_net img{background-color: #1A74B0}.heateor_sss_amp_buddymarks img{background-color: #ffd400}.heateor_sss_amp_care2_news img{background-color: #6EB43F}.heateor_sss_amp_comment img{background-color: #444}.heateor_sss_amp_diary_ru img{background-color: #E8D8C6}.heateor_sss_amp_diaspora img{background-color: #2E3436}.heateor_sss_amp_dihitt img{background-color: #FF6300}.heateor_sss_amp_diigo img{background-color: #4A8BCA}.heateor_sss_amp_douban img{background-color: #497700}.heateor_sss_amp_draugiem img{background-color: #ffad66}.heateor_sss_amp_evernote img{background-color: #8BE056}.heateor_sss_amp_facebook_messenger img{background-color: #0084FF}.heateor_sss_amp_fark img{background-color: #555}.heateor_sss_amp_fintel img{background-color: #087515}.heateor_sss_amp_flipboard img{background-color: #CC0000}.heateor_sss_amp_folkd img{background-color: #0F70B2}.heateor_sss_amp_google_news img{background-color: #4285F4}.heateor_sss_amp_google_classroom img{background-color: #FFC112}.heateor_sss_amp_google_gmail img{background-color: #E5E5E5}.heateor_sss_amp_hacker_news img{background-color: #F60}.heateor_sss_amp_hatena img{background-color: #00A6DB}.heateor_sss_amp_instapaper img{background-color: #EDEDED}.heateor_sss_amp_jamespot img{background-color: #FF9E2C}.heateor_sss_amp_kakao img{background-color: #FCB700}.heateor_sss_amp_kik img{background-color: #2A2A2A}.heateor_sss_amp_kindle_it img{background-color: #2A2A2A}.heateor_sss_amp_known img{background-color: #fff101}.heateor_sss_amp_line img{background-color: #00C300}.heateor_sss_amp_livejournal img{background-color: #EDEDED}.heateor_sss_amp_mail_ru img{background-color: #356FAC}.heateor_sss_amp_mendeley img{background-color: #A70805}.heateor_sss_amp_meneame img{background-color: #FF7D12}.heateor_sss_amp_mixi img{background-color: #EDEDED}.heateor_sss_amp_myspace img{background-color: #2A2A2A}.heateor_sss_amp_netlog img{background-color: #2A2A2A}.heateor_sss_amp_netvouz img{background-color: #c0ff00}.heateor_sss_amp_newsvine img{background-color: #055D00}.heateor_sss_amp_nujij img{background-color: #D40000}.heateor_sss_amp_odnoklassniki img{background-color: #F2720C}.heateor_sss_amp_oknotizie img{background-color: #fdff88}.heateor_sss_amp_outlook_com img{background-color: #0072C6}.heateor_sss_amp_papaly img{background-color: #3AC0F6}.heateor_sss_amp_pinboard img{background-color: #1341DE}.heateor_sss_amp_plurk img{background-color: #CF682F}.heateor_sss_amp_pocket img{background-color: #ee4056}.heateor_sss_amp_polyvore img{background-color: #2A2A2A}.heateor_sss_amp_printfriendly img{background-color: #61D1D5}.heateor_sss_amp_protopage_bookmarks img{background-color: #413FFF}.heateor_sss_amp_pusha img{background-color: #0072B8}.heateor_sss_amp_qzone img{background-color: #2B82D9}.heateor_sss_amp_refind img{background-color: #1492ef}.heateor_sss_amp_rediff_mypage img{background-color: #D20000}.heateor_sss_amp_renren img{background-color: #005EAC}.heateor_sss_amp_segnalo img{background-color: #fdff88}.heateor_sss_amp_sina_weibo img{background-color: #ff0}.heateor_sss_amp_sitejot img{background-color: #ffc800}.heateor_sss_amp_skype img{background-color: #00AFF0}.heateor_sss_amp_sms img{background-color: #6ebe45}.heateor_sss_amp_slashdot img{background-color: #004242}.heateor_sss_amp_stumpedia img{background-color: #EDEDED}.heateor_sss_amp_svejo img{background-color: #fa7aa3}.heateor_sss_amp_symbaloo_feeds img{background-color: #6DA8F7}.heateor_sss_amp_telegram img{background-color: #3DA5f1}.heateor_sss_amp_trello img{background-color: #1189CE}.heateor_sss_amp_tuenti img{background-color: #0075C9}.heateor_sss_amp_twiddla img{background-color: #EDEDED}.heateor_sss_amp_typepad_post img{background-color: #2A2A2A}.heateor_sss_amp_viadeo img{background-color: #2A2A2A}.heateor_sss_amp_viber img{background-color: #8B628F}.heateor_sss_amp_webnews img{background-color: #CC2512}.heateor_sss_amp_wordpress img{background-color: #464646}.heateor_sss_amp_wykop img{background-color: #367DA9}.heateor_sss_amp_yahoo_mail img{background-color: #400090}.heateor_sss_amp_yahoo_messenger img{background-color: #400090}.heateor_sss_amp_yoolink img{background-color: #A2C538}.heateor_sss_amp_youmob img{background-color: #3B599D}.heateor_sss_amp_gentlereader img{background-color: #46aecf}.heateor_sss_amp_threema img{background-color: #2A2A2A}';
+		$css .= 'a.heateor_sss_amp{padding:0 4px;}div.heateor_sss_horizontal_sharing a amp-img{display:inline-block;}.heateor_sss_amp_gab img{background-color:#25CC80}.heateor_sss_amp_parler img{background-color:#892E5E}.heateor_sss_amp_gettr img{background-color:#E50000}.heateor_sss_amp_instagram img{background-color:#624E47}.heateor_sss_amp_yummly img{background-color:#E16120}.heateor_sss_amp_youtube img{background-color:#ff0000}.heateor_sss_amp_teams img{background-color:#5059c9}.heateor_sss_amp_google_translate img{background-color:#528ff5}.heateor_sss_amp_x img{background-color:#2a2a2a}.heateor_sss_amp_rutube img{background-color:#14191f}.heateor_sss_amp_buffer img{background-color:#000}.heateor_sss_amp_delicious img{background-color:#53BEEE}.heateor_sss_amp_rss img{background-color:#e3702d}.heateor_sss_amp_facebook img{background-color:#0765FE}.heateor_sss_amp_digg img{background-color:#006094}.heateor_sss_amp_email img{background-color:#649A3F}.heateor_sss_amp_float_it img{background-color:#53BEEE}.heateor_sss_amp_linkedin img{background-color:#0077B5}.heateor_sss_amp_pinterest img{background-color:#CC2329}.heateor_sss_amp_print img{background-color:#FD6500}.heateor_sss_amp_reddit img{background-color:#FF5700}.heateor_sss_amp_mastodon img{background-color:#6364FF}.heateor_sss_amp_stocktwits img{background-color: #40576F}.heateor_sss_amp_mewe img{background-color:#007da1}.heateor_sss_amp_mix img{background-color:#ff8226}.heateor_sss_amp_tumblr img{background-color:#29435D}.heateor_sss_amp_twitter img{background-color:#55acee}.heateor_sss_amp_vkontakte img{background-color:#0077FF}.heateor_sss_amp_yahoo img{background-color:#8F03CC}.heateor_sss_amp_xing img{background-color:#00797D}.heateor_sss_amp_instagram img{background-color:#527FA4}.heateor_sss_amp_whatsapp img{background-color:#55EB4C}.heateor_sss_amp_aim img{background-color: #10ff00}.heateor_sss_amp_amazon_wish_list img{background-color: #ffe000}.heateor_sss_amp_aol_mail img{background-color: #2A2A2A}.heateor_sss_amp_app_net img{background-color: #5D5D5D}.heateor_sss_amp_balatarin img{background-color: #fff}.heateor_sss_amp_bibsonomy img{background-color: #000}.heateor_sss_amp_bitty_browser img{background-color: #EFEFEF}.heateor_sss_amp_blinklist img{background-color: #3D3C3B}.heateor_sss_amp_blogger_post img{background-color: #FDA352}.heateor_sss_amp_blogmarks img{background-color: #535353}.heateor_sss_amp_bookmarks_fr img{background-color: #E8EAD4}.heateor_sss_amp_box_net img{background-color: #1A74B0}.heateor_sss_amp_buddymarks img{background-color: #ffd400}.heateor_sss_amp_care2_news img{background-color: #6EB43F}.heateor_sss_amp_comment img{background-color: #444}.heateor_sss_amp_diary_ru img{background-color: #E8D8C6}.heateor_sss_amp_diaspora img{background-color: #2E3436}.heateor_sss_amp_dihitt img{background-color: #FF6300}.heateor_sss_amp_diigo img{background-color: #4A8BCA}.heateor_sss_amp_douban img{background-color: #497700}.heateor_sss_amp_draugiem img{background-color: #ffad66}.heateor_sss_amp_evernote img{background-color: #8BE056}.heateor_sss_amp_facebook_messenger img{background-color: #0084FF}.heateor_sss_amp_fark img{background-color: #555}.heateor_sss_amp_fintel img{background-color: #087515}.heateor_sss_amp_flipboard img{background-color: #CC0000}.heateor_sss_amp_folkd img{background-color: #0F70B2}.heateor_sss_amp_google_news img{background-color: #4285F4}.heateor_sss_amp_google_classroom img{background-color: #FFC112}.heateor_sss_amp_google_gmail img{background-color: #E5E5E5}.heateor_sss_amp_hacker_news img{background-color: #F60}.heateor_sss_amp_hatena img{background-color: #00A6DB}.heateor_sss_amp_instapaper img{background-color: #EDEDED}.heateor_sss_amp_jamespot img{background-color: #FF9E2C}.heateor_sss_amp_kakao img{background-color: #FCB700}.heateor_sss_amp_kik img{background-color: #2A2A2A}.heateor_sss_amp_kindle_it img{background-color: #2A2A2A}.heateor_sss_amp_known img{background-color: #fff101}.heateor_sss_amp_line img{background-color: #00C300}.heateor_sss_amp_livejournal img{background-color: #EDEDED}.heateor_sss_amp_mail_ru img{background-color: #356FAC}.heateor_sss_amp_mendeley img{background-color: #A70805}.heateor_sss_amp_meneame img{background-color: #FF7D12}.heateor_sss_amp_mixi img{background-color: #EDEDED}.heateor_sss_amp_myspace img{background-color: #2A2A2A}.heateor_sss_amp_netlog img{background-color: #2A2A2A}.heateor_sss_amp_netvouz img{background-color: #c0ff00}.heateor_sss_amp_newsvine img{background-color: #055D00}.heateor_sss_amp_nujij img{background-color: #D40000}.heateor_sss_amp_odnoklassniki img{background-color: #F2720C}.heateor_sss_amp_oknotizie img{background-color: #fdff88}.heateor_sss_amp_outlook_com img{background-color: #0072C6}.heateor_sss_amp_papaly img{background-color: #3AC0F6}.heateor_sss_amp_pinboard img{background-color: #1341DE}.heateor_sss_amp_plurk img{background-color: #CF682F}.heateor_sss_amp_pocket img{background-color: #ee4056}.heateor_sss_amp_polyvore img{background-color: #2A2A2A}.heateor_sss_amp_printfriendly img{background-color: #61D1D5}.heateor_sss_amp_protopage_bookmarks img{background-color: #413FFF}.heateor_sss_amp_pusha img{background-color: #0072B8}.heateor_sss_amp_qzone img{background-color: #2B82D9}.heateor_sss_amp_refind img{background-color: #1492ef}.heateor_sss_amp_rediff_mypage img{background-color: #D20000}.heateor_sss_amp_renren img{background-color: #005EAC}.heateor_sss_amp_segnalo img{background-color: #fdff88}.heateor_sss_amp_sina_weibo img{background-color: #ff0}.heateor_sss_amp_sitejot img{background-color: #ffc800}.heateor_sss_amp_skype img{background-color: #00AFF0}.heateor_sss_amp_sms img{background-color: #6ebe45}.heateor_sss_amp_slashdot img{background-color: #004242}.heateor_sss_amp_stumpedia img{background-color: #EDEDED}.heateor_sss_amp_svejo img{background-color: #fa7aa3}.heateor_sss_amp_symbaloo_feeds img{background-color: #6DA8F7}.heateor_sss_amp_telegram img{background-color: #3DA5f1}.heateor_sss_amp_trello img{background-color: #1189CE}.heateor_sss_amp_tuenti img{background-color: #0075C9}.heateor_sss_amp_twiddla img{background-color: #EDEDED}.heateor_sss_amp_typepad_post img{background-color: #2A2A2A}.heateor_sss_amp_viadeo img{background-color: #2A2A2A}.heateor_sss_amp_viber img{background-color: #8B628F}.heateor_sss_amp_webnews img{background-color: #CC2512}.heateor_sss_amp_wordpress img{background-color: #464646}.heateor_sss_amp_wykop img{background-color: #367DA9}.heateor_sss_amp_yahoo_mail img{background-color: #400090}.heateor_sss_amp_yahoo_messenger img{background-color: #400090}.heateor_sss_amp_yoolink img{background-color: #A2C538}.heateor_sss_amp_youmob img{background-color: #3B599D}.heateor_sss_amp_gentlereader img{background-color: #46aecf}.heateor_sss_amp_threema img{background-color: #2A2A2A}';
 
 		// css for horizontal sharing bar
 		if ( $this->options['horizontal_sharing_shape'] == 'round' ) {

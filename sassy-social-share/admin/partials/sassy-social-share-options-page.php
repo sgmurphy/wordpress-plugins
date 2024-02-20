@@ -888,7 +888,7 @@ defined( 'ABSPATH' ) or die( "Cheating........Uh!!" );
 						</tbody>
 						<?php
 						$like_buttons = array( 'facebook_share', 'facebook_like', 'facebook_recommend', 'twitter_tweet', 'linkedin_share', 'pinterest_pin', 'buffer_share', 'xing_share', 'yummly_share', 'reddit_badge' );
-						$sharing_networks = array( 'facebook','gettr', 'gab', 'twitter', 'linkedin', 'mastodon', 'print', 'email', 'reddit', 'digg', 'float_it', 'tumblr', 'vkontakte', 'pinterest', 'xing', 'whatsapp', 'instagram', 'yummly', 'buffer', 'parler', 'AIM', 'Amazon_Wish_List', 'AOL_Mail', 'App.net', 'Balatarin', 'BibSonomy', 'Bitty_Browser', 'Blinklist', 'Blogger_Post', 'BlogMarks', 'Bookmarks.fr', 'Box.net', 'BuddyMarks', 'Care2_News', 'Comment', 'Copy_Link', 'Diary.Ru', 'Diaspora', 'Diigo', 'Douban', 'Draugiem', 'Evernote', 'Facebook_Messenger', 'Fark', 'Fintel', 'Flipboard', 'Folkd', 'GentleReader', 'Google_Classroom', 'Google_Gmail', 'Hacker_News', 'Hatena', 'Instapaper', 'Jamespot', 'Kakao', 'Kik', 'Kindle_It', 'Known', 'Line', 'LiveJournal', 'Mail.Ru', 'Mendeley', 'Meneame', 'MeWe', 'mix', 'Mixi', 'MySpace', 'Netvouz', 'Odnoklassniki', 'Outlook.com', 'Papaly', 'Pinboard', 'Plurk', 'Pocket', 'PrintFriendly', 'Protopage_Bookmarks', 'Pusha', 'Qzone', 'Rediff MyPage', 'Refind', 'Renren', 'Sina Weibo', 'SiteJot', 'Skype', 'Slashdot', 'SMS', 'StockTwits', 'Svejo', 'Symbaloo_Feeds', 'Telegram', 'Threema', 'Trello', 'Tuenti', 'Twiddla', 'TypePad_Post', 'Viadeo', 'Viber', 'Webnews', 'WordPress', 'Wykop', 'Yahoo_Mail', 'Yoolink', 'youtube', 'rutube', 'Google_News', 'rss', 'truth_social', 'snapchat', 'Goodreads', 'Google_Translate', 'X', 'teams', 'minds' );
+						$sharing_networks = array( 'facebook','gettr', 'gab', 'twitter', 'linkedin', 'mastodon', 'print', 'email', 'reddit', 'digg', 'float_it', 'tumblr', 'vkontakte', 'pinterest', 'xing', 'whatsapp', 'instagram', 'yummly', 'buffer', 'parler', 'AIM', 'Amazon_Wish_List', 'AOL_Mail', 'App.net', 'Balatarin', 'BibSonomy', 'Bitty_Browser', 'Blinklist', 'Blogger_Post', 'BlogMarks', 'Bookmarks.fr', 'Box.net', 'BuddyMarks', 'Care2_News', 'Comment', 'Copy_Link', 'Diary.Ru', 'Diaspora', 'Diigo', 'Douban', 'Draugiem', 'Evernote', 'Facebook_Messenger', 'Fark', 'Fintel', 'Flipboard', 'Folkd', 'GentleReader', 'Google_Classroom', 'Google_Gmail', 'Hacker_News', 'Hatena', 'Instapaper', 'Jamespot', 'Kakao', 'Kik', 'Kindle_It', 'Known', 'Line', 'LiveJournal', 'Mail.Ru', 'Mendeley', 'Meneame', 'MeWe', 'mix', 'Mixi', 'MySpace', 'Netvouz', 'Odnoklassniki', 'Outlook.com', 'Papaly', 'Pinboard', 'Plurk', 'Pocket', 'PrintFriendly', 'Protopage_Bookmarks', 'Pusha', 'Qzone', 'Rediff MyPage', 'Refind', 'Renren', 'Sina Weibo', 'SiteJot', 'Skype', 'Slashdot', 'SMS', 'StockTwits', 'Svejo', 'Symbaloo_Feeds', 'Telegram', 'Threema', 'Trello', 'Tuenti', 'Twiddla', 'TypePad_Post', 'Viadeo', 'Viber', 'Webnews', 'WordPress', 'Wykop', 'Yahoo_Mail', 'Yoolink', 'youtube', 'rutube', 'Google_News', 'rss', 'truth_social', 'snapchat', 'Goodreads', 'Google_Translate', 'X', 'teams', 'minds', 'naver', 'band' );
 						?>
 
 						<th colspan="2">
@@ -1208,9 +1208,9 @@ defined( 'ABSPATH' ) or die( "Cheating........Uh!!" );
 							foreach( $sharing_networks as $sharing_network ) {
 								?>
 								<div class="heateorSssHorizontalSharingProviderContainer">
-								<input id="heateor_sss_<?php echo esc_attr( $sharing_network ) ?>" type="checkbox" <?php echo isset( $options['horizontal_re_providers'] ) && in_array( $sharing_network, $options['horizontal_re_providers'] ) ? 'checked = "checked"' : '';?> <?php echo in_array( $sharing_network, array( 'truth_social', 'snapchat', 'Goodreads', 'minds' ) ) ? 'disabled' : ''; ?> value="<?php echo esc_attr( $sharing_network ) ?>" />
+								<input id="heateor_sss_<?php echo esc_attr( $sharing_network ) ?>" type="checkbox" <?php echo isset( $options['horizontal_re_providers'] ) && in_array( $sharing_network, $options['horizontal_re_providers'] ) ? 'checked = "checked"' : '';?> <?php echo in_array( $sharing_network, array( 'truth_social', 'snapchat', 'Goodreads', 'minds', 'naver', 'band' ) ) ? 'disabled' : ''; ?> value="<?php echo esc_attr( $sharing_network ) ?>" />
 								<label for="heateor_sss_<?php echo esc_attr( $sharing_network ) ?>"><i style="display:block;width:18px;height:18px;" class="heateorSssSharing heateorSss<?php echo esc_attr( str_replace( array( '_', '.', ' ' ), '', ucfirst( $sharing_network ) ) ) ?>Background"><ss style="display:block;" class="heateorSssSharingSvg heateorSss<?php echo esc_attr( str_replace( array( '_', '.', ' ' ), '', ucfirst( $sharing_network) ) ) ?>Svg"></ss></i></label>
-								<label class="lblSocialNetwork" for="heateor_sss_<?php echo $sharing_network ?>"><?php echo ( in_array( $sharing_network, array( 'truth_social', 'snapchat', 'Goodreads', 'minds' ) ) ? '<a href="https://www.heateor.com/comparison-between-sassy-social-share-pro-and-premium/" target="_blank">' : '' ) . esc_html( str_replace( '_', ' ', ucfirst( $sharing_network ) ) ) . ( in_array( $sharing_network, array( 'truth_social', 'snapchat', 'Goodreads', 'minds' ) ) ? '</a>' : '' ) ?></label>
+								<label class="lblSocialNetwork" for="heateor_sss_<?php echo $sharing_network ?>"><?php echo ( in_array( $sharing_network, array( 'truth_social', 'snapchat', 'Goodreads', 'minds', 'naver', 'band' ) ) ? '<a href="https://www.heateor.com/comparison-between-sassy-social-share-pro-and-premium/" target="_blank">' : '' ) . esc_html( str_replace( '_', ' ', ucfirst( $sharing_network ) ) ) . ( in_array( $sharing_network, array( 'truth_social', 'snapchat', 'Goodreads', 'minds', 'naver', 'band' ) ) ? '</a>' : '' ) ?></label>
 								</div>
 								<?php
 							}
@@ -1763,9 +1763,9 @@ defined( 'ABSPATH' ) or die( "Cheating........Uh!!" );
 							foreach( $sharing_networks as $sharing_network ) {
 								?>
 								<div class="heateorSssVerticalSharingProviderContainer">
-								<input id="heateor_sss_vertical_sharing_<?php echo esc_attr( $sharing_network ) ?>" type="checkbox" <?php echo isset( $options['vertical_re_providers'] ) && in_array( $sharing_network, $options['vertical_re_providers'] ) ? 'checked = "checked"' : ''; ?> <?php echo in_array( $sharing_network, array( 'truth_social', 'snapchat', 'Goodreads', 'minds' ) ) ? 'disabled' : ''; ?> value="<?php echo esc_attr( $sharing_network ) ?>" />
+								<input id="heateor_sss_vertical_sharing_<?php echo esc_attr( $sharing_network ) ?>" type="checkbox" <?php echo isset( $options['vertical_re_providers'] ) && in_array( $sharing_network, $options['vertical_re_providers'] ) ? 'checked = "checked"' : ''; ?> <?php echo in_array( $sharing_network, array( 'truth_social', 'snapchat', 'Goodreads', 'minds', 'naver', 'band' ) ) ? 'disabled' : ''; ?> value="<?php echo esc_attr( $sharing_network ) ?>" />
 								<label for="heateor_sss_vertical_sharing_<?php echo esc_attr( $sharing_network ) ?>"><i style="display:block;width:18px;height:18px;" class="heateorSssSharing heateorSss<?php echo esc_attr( str_replace( array( '_', '.', ' ' ), '', ucfirst( $sharing_network ) ) ) ?>Background"><ss style="display:block;" class="heateorSssSharingSvg heateorSss<?php echo esc_attr( str_replace( array( '_', '.', ' ' ), '', ucfirst( $sharing_network ) ) ) ?>Svg"></ss></i></label>
-								<label class="lblSocialNetwork" for="heateor_sss_vertical_sharing_<?php echo $sharing_network ?>"><?php echo ( in_array( $sharing_network, array( 'truth_social', 'snapchat', 'Goodreads', 'minds' ) ) ? '<a href="https://www.heateor.com/comparison-between-sassy-social-share-pro-and-premium/" target="_blank">' : '' ) . esc_html( str_replace( '_', ' ', ucfirst( $sharing_network ) ) ) . ( in_array( $sharing_network, array( 'truth_social', 'snapchat', 'Goodreads', 'minds' ) ) ? '</a>' : '' ) ?></label>
+								<label class="lblSocialNetwork" for="heateor_sss_vertical_sharing_<?php echo $sharing_network ?>"><?php echo ( in_array( $sharing_network, array( 'truth_social', 'snapchat', 'Goodreads', 'minds', 'naver', 'band' ) ) ? '<a href="https://www.heateor.com/comparison-between-sassy-social-share-pro-and-premium/" target="_blank">' : '' ) . esc_html( str_replace( '_', ' ', ucfirst( $sharing_network ) ) ) . ( in_array( $sharing_network, array( 'truth_social', 'snapchat', 'Goodreads', 'minds', 'naver', 'band' ) ) ? '</a>' : '' ) ?></label>
 								</div>
 								<?php
 							}
@@ -1907,12 +1907,26 @@ defined( 'ABSPATH' ) or die( "Cheating........Uh!!" );
 
 							if (function_exists( 'is_bbpress' ) ) {
 								?>
-								<br/>
 								<input id="heateor_sss_vertical_bb_forum" name="heateor_sss[vertical_bb_forum]" type="checkbox" <?php echo isset( $options['vertical_bb_forum'] ) ? 'checked = "checked"' : '';?> value="1" />
 								<label for="heateor_sss_vertical_bb_forum"><?php _e( 'BBPress forum', 'sassy-social-share' ) ?></label>
 								<br/>
 								<input id="heateor_sss_vertical_bb_topic" name="heateor_sss[vertical_bb_topic]" type="checkbox" <?php echo isset( $options['vertical_bb_topic'] ) ? 'checked = "checked"' : '';?> value="1" />
 								<label for="heateor_sss_vertical_bb_topic"><?php _e( 'BBPress topic', 'sassy-social-share' ) ?></label>
+								<br/>
+								<?php
+							}
+
+							if ( $this->is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+								?>
+								<input id="heateor_sss_vertical_woocom_shop" name="heateor_sss[vertical_woocom_shop]" type="checkbox" <?php echo isset( $options['vertical_woocom_shop'] ) ? 'checked = "checked"' : '';?> value="1" />
+								<label for="heateor_sss_vertical_woocom_shop"><?php _e( 'After individual product at WooCommerce Shop page', 'sassy-social-share' ) ?></label>
+								<br/>
+								<input id="heateor_sss_vertical_woocom_product" name="heateor_sss[vertical_woocom_product]" type="checkbox" <?php echo isset( $options['vertical_woocom_product'] ) ? 'checked = "checked"' : '';?> value="1" />
+								<label for="heateor_sss_vertical_woocom_product"><?php _e( 'WooCommerce Product Page', 'sassy-social-share' ) ?></label>
+								<br/>
+								<input id="heateor_sss_vertical_woocom_thankyou" name="heateor_sss[vertical_woocom_thankyou]" type="checkbox" <?php echo isset( $options['vertical_woocom_thankyou'] ) ? 'checked = "checked"' : '';?> value="1" />
+								<label for="heateor_sss_vertical_woocom_thankyou"><?php _e( 'WooCommerce Thankyou Page', 'sassy-social-share' ) ?></label>
+								<br/>
 								<?php
 							}
 							?>

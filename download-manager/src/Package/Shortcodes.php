@@ -83,15 +83,15 @@ class Shortcodes
             $linkURL = home_url("/?wpdmdl=" . $ID);
 
         $extras = isset($params['extras']) ? wpdm_sanitize_var($params['extras'], 'txt') : "";
-        $target = isset($params['target']) ? "target='" . wpdm_sanitize_var($params['target'], 'txt') . "'" : "";
-        $class = isset($params['class']) ? "class='" . wpdm_sanitize_var($params['class'], 'txt') . "'" : "";
-        $style = isset($params['style']) ? "style='" . wpdm_sanitize_var($params['style'], 'txt') . "'" : "";
-        $rel = isset($params['rel']) ? "rel='" . wpdm_sanitize_var($params['rel'], 'txt') . "'" : "";
-        $eid = isset($params['eid']) ? "id='" . wpdm_sanitize_var($params['eid'], 'txt') . "'" : "";
+        $target = isset($params['target']) ? "target='" . wpdm_sanitize_var($params['target'], 'esc_attr') . "'" : "";
+        $class = isset($params['class']) ? "class='" . wpdm_sanitize_var($params['class'], 'esc_attr') . "'" : "";
+        $style = isset($params['style']) ? "style='" . wpdm_sanitize_var($params['style'], 'esc_attr') . "'" : "";
+        $rel = isset($params['rel']) ? "rel='" . wpdm_sanitize_var($params['rel'], 'esc_attr') . "'" : "";
+        $eid = isset($params['eid']) ? "id='" . wpdm_sanitize_var($params['eid'], 'esc_attr') . "'" : "";
         $linkLabel = isset($params['label']) && !empty($params['label']) ? $params['label'] : get_post_meta($ID, '__wpdm_link_label', true);
         $linkLabel = empty($linkLabel) ? get_the_title($ID) : $linkLabel;
         $linkLabel = wpdm_sanitize_var($linkLabel, 'kses');
-        return "<a {$target} {$class} {$eid} {$style} {$rel} {$extras} href='$linkURL'>$linkLabel</a>";
+        return "<a {$target} {$class} {$eid} {$style} {$rel} {$extras} href='$linkURL'>".esc_attr($linkLabel)."</a>";
 
     }
 
@@ -126,12 +126,12 @@ class Shortcodes
         $async = __::valueof($params, 'async', ['default' => 0, 'validate' => 'int']);
         $items_per_page = __::valueof($params, 'items_per_page', 10);
         if($items_per_page < 1) $items_per_page = 10;
-        $scid = __::valueof($params, 'scid', ['default' => 'wpdm_package_'.$wpdm_packages, 'validate' => 'txt']);
+        $scid = __::valueof($params, 'scid', ['default' => 'wpdm_package_'.$wpdm_packages, 'validate' => 'esc_attr']);
         $cwd_class = "col-lg-" . (int)(12 / __::valueof($params, 'cols', ['default' => 3, 'validate' => 'int']));
         $cwdsm_class = "col-md-" . (int)(12 /  __::valueof($params, 'colspad', ['default' => 2, 'validate' => 'int']));
         $cwdxs_class = "col-" . (int)(12 /  __::valueof($params, 'colsphone', ['default' => 1, 'validate' => 'int']));
 
-        $title = __::valueof($params, 'title', ['validate' => 'txt']);
+        $title = __::valueof($params, 'title', ['validate' => 'esc_attr']);
         $desc = __::valueof($params, 'desc', ['validate' => 'txt']);
         $toolbar = __::valueof($params, 'toolbar', ['default' => 1, 'validate' => 'int']);
         $paging = __::valueof($params, 'paging', ['default' => 1, 'validate' => 'int']);

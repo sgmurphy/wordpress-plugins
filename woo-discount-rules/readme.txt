@@ -3,8 +3,8 @@ Contributors: flycart
 Donate link: https://flycart.org/
 Tags: woocommerce, coupons, discounts, dynamic pricing, woocommerce coupon, Buy One Get One Free, pricing deals, bulk discount, discount rules, auto-apply coupons, category discounts, url coupons
 Requires at least: 4.4.1
-Tested up to: 6.3
-Stable tag: 2.6.2
+Tested up to: 6.4
+Stable tag: 2.6.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -335,6 +335,12 @@ Note : Enable recursive checkbox if the discounts should be applied in sequentia
 * Dutch Translation - [@mvdburg1971](https://profiles.wordpress.org/mvdburg1971) - Michael van der Burg
 
 == Changelog ==
+
+= 2.6.3 - 20/02/24 =
+* Add: Compatibility for WordPress 6.4
+* Add: Compatibility for WooCommerce 8.6
+* Improved: Plugin name changed
+* Fix: Warnings when enabled "Suppress third party discount plugins" option in settings
 
 = 2.6.2 - 27/09/23 =
 * Add: Compatibility for WooCommerce 8.1

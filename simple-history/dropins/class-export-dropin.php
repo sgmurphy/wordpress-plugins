@@ -108,16 +108,26 @@ class Export_Dropin extends Dropin {
 						$user_email = empty( $one_row->context['_user_email'] ) ? null : $one_row->context['_user_email'];
 						$user_login = empty( $one_row->context['_user_login'] ) ? null : $one_row->context['_user_login'];
 
+						// User roles, at time of export.
+						$user = get_user_by( 'email', $user_email );
+						$user_roles = $user->roles ?? array();
+						$user_roles_comma_separated = implode( ', ', $user_roles );
+
+						// Date local time.
+						$date_local = wp_date( 'Y-m-d H:i:s', strtotime( $one_row->date ) );
+
 						fputcsv(
 							$fp,
 							array(
 								$this->esc_csv_field( $one_row->date ),
+								$this->esc_csv_field( $date_local ),
 								$this->esc_csv_field( $one_row->logger ),
 								$this->esc_csv_field( $one_row->level ),
 								$this->esc_csv_field( $one_row->initiator ),
 								$this->esc_csv_field( $one_row->context_message_key ),
 								$this->esc_csv_field( $user_email ),
 								$this->esc_csv_field( $user_login ),
+								$this->esc_csv_field( $user_roles_comma_separated ),
 								$this->esc_csv_field( $header_output ),
 								$this->esc_csv_field( $message_output ),
 								// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
@@ -248,6 +258,11 @@ class Export_Dropin extends Dropin {
 	 * @return string
 	 */
 	public function esc_csv_field( $field ) {
+		// Bail if not string.
+		if ( ! is_string( $field ) ) {
+			return '';
+		}
+
 		$active_content_triggers = array( '=', '+', '-', '@' );
 
 		if ( in_array( substr( $field, 0, 1 ), $active_content_triggers, true ) ) {

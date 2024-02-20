@@ -188,7 +188,7 @@ jQuery(function ($) {
 
 	function init_draggable(widget) {
 
-		if( typeof draggable === 'undefined' ) return;
+		if( typeof widget.draggable === 'undefined' ) return;
 
 		widget.draggable({
 			connectToSortable: "#sortable2",

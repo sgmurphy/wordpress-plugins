@@ -21,9 +21,18 @@ class WCML_Synchronize_Variations_Data {
 		add_action( 'woocommerce_bulk_edit_variations', [ $this, 'sync_product_variations_on_bulk_edit' ], 10, 3 );
 		add_action( 'wp_ajax_woocommerce_remove_variations', [ $this, 'remove_translations_for_variations' ], 9 );
 
-		// save taxonomy in WPML interface.
+		/**
+		 * @deprecated This AJAX call was removed in WPML 3.2 on 2015.
+		 * @todo Remove this action and its public callback.
+	 	 * @see https://git.onthegosystems.com/wpml/sitepress-multilingual-cms/-/commit/f4b9a84211ee789b7f9a0c028a807188f8334e5c
+		 */
 		add_action( 'wp_ajax_wpml_tt_save_term_translation', [ $this, 'update_taxonomy_in_variations' ], 7 );
 
+		/**
+		 * @deprecated This AJAX call was removed in WooCommerce 2.3.0 on 2014.
+		 * @todo Remove this action and its public callback.
+	 	 * @see https://github.com/woocommerce/woocommerce/commit/2c1c9896c5e5cdc8223c2ef253c188520b3e074c
+		 */
 		add_action( 'wp_ajax_woocommerce_remove_variation', [ $this, 'remove_variation_ajax' ], 9 );
 
 	}
@@ -422,8 +431,20 @@ class WCML_Synchronize_Variations_Data {
 		}
 	}
 
-	// update taxonomy in variations.
+	/**
+	 * Update taxonomy in variations.
+	 *
+	 * @deprecated This AJAX call was removed in WPML 3.2 on 2015.
+	 * @see https://git.onthegosystems.com/wpml/sitepress-multilingual-cms/-/commit/f4b9a84211ee789b7f9a0c028a807188f8334e5c
+	 *
+	 * We can not add a nonce validation since we have none;
+	 * let's add at least user capability checks.
+	 */
 	public function update_taxonomy_in_variations() {
+		if ( ! current_user_can( 'edit_products' ) ) {
+			die( -1 );
+		}
+
 		$original_element = filter_input( INPUT_POST, 'translation_of', FILTER_SANITIZE_NUMBER_INT );
 		$taxonomy         = filter_input( INPUT_POST, 'taxonomy', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 		$language         = filter_input( INPUT_POST, 'language', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
@@ -458,7 +479,21 @@ class WCML_Synchronize_Variations_Data {
 		}
 	}
 
+	/**
+	 * Remove single variation.
+	 *
+	 * @deprecated This AJAX call was removed in WooCommerce 2.3.0 on 2014.
+	 * @see https://github.com/woocommerce/woocommerce/commit/2c1c9896c5e5cdc8223c2ef253c188520b3e074c
+	 *
+	 * We can add the original nonce validation.
+	 */
 	public function remove_variation_ajax() {
+		check_ajax_referer( 'delete-variation', 'security' );
+
+		if ( ! current_user_can( 'edit_products' ) ) {
+			die( -1 );
+		}
+
 		if ( isset( $_POST['variation_id'] ) ) {
 			$trid = $this->sitepress->get_element_trid( filter_input( INPUT_POST, 'variation_id', FILTER_SANITIZE_NUMBER_INT ), 'post_product_variation' );
 			if ( $trid ) {

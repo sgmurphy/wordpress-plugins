@@ -200,7 +200,7 @@ class Lifter
     }
 
     // get the lesson id.
-    $lesson_id = $lesson->post->ID ?? false;
+    $lesson_id = $lesson->post->ID;
 
     if (empty($lesson_id)) {
       return $value;

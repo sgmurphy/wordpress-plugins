@@ -6,7 +6,7 @@ Tags: table, table builder, data table, table plugin, charts, tables, datatables
 Requires at least: 4.0
 Tested up to: 6.4.3
 Requires PHP: 7.4
-Stable tag: 3.4.2.5
+Stable tag: 3.4.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -372,6 +372,10 @@ This can be changed from the “Number format” drop-down menu in the wpDataTab
 12. Google chart settings
 
 == Changelog ==
+
+= 3.4.2.6 =
+* Optimize plugins size by removing unnecessary files.
+Other small bug fixes and stability improvements.
 
 = 3.4.2.5 =
 * Refactoring chart logic.

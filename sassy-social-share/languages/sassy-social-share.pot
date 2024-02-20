@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sassy Social Share\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-06 14:43+0530\n"
+"POT-Creation-Date: 2024-02-20 09:28+0530\n"
 "PO-Revision-Date: 2021-02-03 13:11+0530\n"
 "Last-Translator: Heateor <hello@heateor.com>\n"
 "Language-Team: Heateor <hello@heateor.com>\n"
@@ -50,51 +50,47 @@ msgid "Disable Floating Sharing interface on this "
 msgstr ""
 
 #: admin/class-sassy-social-share-admin.php:223
-#, fuzzy
 msgid "Standard sharing"
-msgstr "\"Controle Mestre para habilitar o compartilhamento padrão"
+msgstr ""
 
 #: admin/class-sassy-social-share-admin.php:229
 #: admin/class-sassy-social-share-admin.php:248
-#, fuzzy
 msgid "Starting share count for "
-msgstr "Iniciando contagem compartilhada para "
+msgstr ""
 
 #: admin/class-sassy-social-share-admin.php:242
-#, fuzzy
 msgid "Floating sharing"
-msgstr "Interface de Compartilhamento Flutuante"
+msgstr ""
 
 #: admin/class-sassy-social-share-admin.php:396
 msgid "Click to toggle help"
 msgstr ""
 
 #: admin/class-sassy-social-share-admin.php:492
-#, fuzzy
 msgid "Settings saved"
-msgstr "Configurações salvas"
+msgstr ""
 
-#: admin/class-sassy-social-share-admin.php:616
+#: admin/class-sassy-social-share-admin.php:599
 msgid "Thanks for installing Sassy Social Share plugin"
 msgstr ""
 
-#: admin/class-sassy-social-share-admin.php:618
+#: admin/class-sassy-social-share-admin.php:601
 msgid "Configure the Plugin"
 msgstr ""
 
-#: admin/class-sassy-social-share-admin.php:629
+#: admin/class-sassy-social-share-admin.php:612
 msgid ""
 "Update \"Social Share myCRED Integration\" add-on for compatibility with the "
 "current version of Sassy Social Share"
 msgstr ""
 
-#: admin/class-sassy-social-share-admin.php:638
+#: admin/class-sassy-social-share-admin.php:621
 msgid ""
 "Update \"Social Sharing Analytics\" add-on for compatibility with the "
 "current version of Sassy Social Share"
 msgstr ""
 
-#: admin/class-sassy-social-share-admin.php:663
+#: admin/class-sassy-social-share-admin.php:646
 #, php-format
 msgid ""
 "This plugin is GDPR compliant. You need to update the privacy policy of your "
@@ -102,21 +98,12 @@ msgid ""
 "\"%s\" target=\"_blank\">here</a>"
 msgstr ""
 
-#: admin/class-sassy-social-share-admin.php:663
-#: admin/class-sassy-social-share-admin.php:690
-#: admin/class-sassy-social-share-admin.php:714
+#: admin/class-sassy-social-share-admin.php:646
+#: admin/class-sassy-social-share-admin.php:673
 msgid "Okay"
 msgstr ""
 
-#: admin/class-sassy-social-share-admin.php:690
-#, php-format
-msgid ""
-"Twitter share counts are no longer working as newsharecounts.com is down. To "
-"continue showing the Twitter shares, just sign up <a href=\"%s\" target="
-"\"_blank\">here</a> with this domain. No other steps needed."
-msgstr ""
-
-#: admin/class-sassy-social-share-admin.php:714
+#: admin/class-sassy-social-share-admin.php:673
 #, php-format
 msgid ""
 "Now plugin supports a new service Twitcount.com to show Twitter shares. To "
@@ -125,28 +112,25 @@ msgid ""
 "your website %s with them. No need to copy-paste any code from their website."
 msgstr ""
 
-#: admin/class-sassy-social-share-admin.php:732
+#: admin/class-sassy-social-share-admin.php:691
 msgid "Add-Ons"
 msgstr ""
 
-#: admin/class-sassy-social-share-admin.php:733
+#: admin/class-sassy-social-share-admin.php:692
 msgid "Support Documentation"
 msgstr ""
 
-#: admin/class-sassy-social-share-admin.php:734
-#, fuzzy
+#: admin/class-sassy-social-share-admin.php:693
 msgid "Settings"
-msgstr "Configurações"
+msgstr ""
 
 #: admin/partials/sassy-social-share-about.php:4
-#, fuzzy
 msgid "About"
-msgstr "Sobre"
+msgstr ""
 
 #: admin/partials/sassy-social-share-about.php:4
-#, fuzzy
 msgid "Version"
-msgstr "Versão"
+msgstr ""
 
 #: admin/partials/sassy-social-share-about.php:6
 msgid "by"
@@ -157,9 +141,8 @@ msgid "Donate"
 msgstr ""
 
 #: admin/partials/sassy-social-share-about.php:23
-#, fuzzy
 msgid "Plugin Demo"
-msgstr "Plugin Demo"
+msgstr ""
 
 #: admin/partials/sassy-social-share-about.php:29
 msgid "Translate Plugin"
@@ -182,23 +165,16 @@ msgid "Need Quick Help?"
 msgstr ""
 
 #: admin/partials/sassy-social-share-about.php:54
-#, fuzzy
 msgid ""
 "If you <strong>have any query</strong>, need help regarding <strong>plugin "
 "setup</strong>, want <strong>custom features</strong> in the plugin or "
 "<strong>have any suggestion</strong> to improve the plugin, just drop an "
 "email at <a href=\"mailto:support@heateor.com\">support@heateor.com</a>"
 msgstr ""
-"Se você <strong>tem alguma questão</strong>, necessita de ajuda com relação "
-"a <strong>configuração do plugin</strong>, deseja <strong>características "
-"particulares</strong> no plugin ou <strong>tem qualquer sugestão</strong> "
-"para melhorar o plugin, apenas mande um email para <a href=\\\"mailto:"
-"support@heateor.com\\\">support@heateor.com</a>"
 
 #: admin/partials/sassy-social-share-about.php:59
-#, fuzzy
 msgid "Support Us"
-msgstr "Ajude-nos"
+msgstr ""
 
 #: admin/partials/sassy-social-share-about.php:62
 #: admin/partials/sassy-social-share-about.php:65
@@ -206,17 +182,15 @@ msgstr "Ajude-nos"
 #: admin/partials/sassy-social-share-about.php:67
 #: admin/partials/sassy-social-share-about.php:68
 #: admin/partials/sassy-social-share-about.php:69
-#, fuzzy
 msgid "Rate 5-star"
-msgstr "Pontue como 5-strelas"
+msgstr ""
 
 #: admin/partials/sassy-social-share-my-cred-plugin-options.php:8
 #: admin/partials/sassy-social-share-rssc-plugin-options.php:8
 #: admin/partials/sassy-social-share-ssb-options.php:8
 #: admin/partials/sassy-social-share-ssga-plugin-options.php:8
-#, fuzzy
 msgid "Master Control"
-msgstr "Controle Mestre"
+msgstr ""
 
 #: admin/partials/sassy-social-share-my-cred-plugin-options.php:13
 msgid "Reward myCRED points for social share"
@@ -229,9 +203,8 @@ msgstr ""
 #: admin/partials/sassy-social-share-my-cred-plugin-options.php:33
 #: admin/partials/sassy-social-share-rssc-plugin-options.php:33
 #: admin/partials/sassy-social-share-ssga-plugin-options.php:33
-#, fuzzy
 msgid "Configuration"
-msgstr "Configuração Básica"
+msgstr ""
 
 #: admin/partials/sassy-social-share-my-cred-plugin-options.php:36
 #, php-format
@@ -242,158 +215,130 @@ msgid ""
 msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:19
-#, fuzzy
 msgid "Theme Selection"
-msgstr "Escolha de Temas"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:20
-#, fuzzy
 msgid "Standard Interface"
-msgstr "Interface Padrão"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:21
-#, fuzzy
 msgid "Floating Interface"
-msgstr "Interface Flutuante"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:22
-#: admin/partials/sassy-social-share-options-page.php:2235
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2249
 msgid "Miscellaneous"
-msgstr "Miscelânia"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:26
 msgid "3rd Party Integration"
 msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:30
-#: admin/partials/sassy-social-share-options-page.php:2724
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2738
 msgid "Shortcode & Widget"
-msgstr "Shortcode & Widget"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:31
-#: admin/partials/sassy-social-share-options-page.php:2739
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2753
 msgid "Troubleshooter"
-msgstr "Resolução de Problemas"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:32
-#: admin/partials/sassy-social-share-options-page.php:2765
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2779
 msgid "FAQ"
-msgstr "P&R"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:40
-#, fuzzy
 msgid "Standard interface theme"
-msgstr "Tema padrão da interface"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:45
 #: admin/partials/sassy-social-share-options-page.php:380
-#, fuzzy
 msgid "Icon Preview"
-msgstr "Visualização do Ícone"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:128
 #: admin/partials/sassy-social-share-options-page.php:453
-#, fuzzy
 msgid ""
 "Do not forget to save the configuration after making changes by clicking the "
 "save button below"
 msgstr ""
-"Não esqueça de salvar as configurações após realizar as mudanças clicando no "
-"botão de salvar abaixo"
 
 #: admin/partials/sassy-social-share-options-page.php:134
 #: admin/partials/sassy-social-share-options-page.php:459
-#, fuzzy
 msgid "Shape"
-msgstr "Forma"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:139
 #: admin/partials/sassy-social-share-options-page.php:464
-#: includes/class-sassy-social-share-widgets.php:1008
-#, fuzzy
+#: includes/class-sassy-social-share-widgets.php:1048
 msgid "Round"
-msgstr "Arredondada"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:141
 #: admin/partials/sassy-social-share-options-page.php:466
-#: includes/class-sassy-social-share-widgets.php:1009
-#, fuzzy
+#: includes/class-sassy-social-share-widgets.php:1049
 msgid "Square"
-msgstr "Quadrada"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:143
 #: admin/partials/sassy-social-share-options-page.php:468
-#, fuzzy
 msgid "Rectangle"
-msgstr "Retangular"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:150
 #: admin/partials/sassy-social-share-options-page.php:475
-#, fuzzy
 msgid "Shape of the sharing icons"
-msgstr "Forma dos ícones de compartilhameto"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:158
 #: admin/partials/sassy-social-share-options-page.php:483
-#, fuzzy
 msgid "Size (in pixels)"
-msgstr "Tamanho (em pixels)"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:175
 #: admin/partials/sassy-social-share-options-page.php:500
-#, fuzzy
 msgid "Size of the sharing icons"
-msgstr "Tamanho dos ícones de compartilhameto"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:184
 #: admin/partials/sassy-social-share-options-page.php:509
-#, fuzzy
 msgid "Width (in pixels)"
-msgstr "Largura (em pixels)"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:201
 #: admin/partials/sassy-social-share-options-page.php:526
-#, fuzzy
 msgid "Width of the sharing icons"
-msgstr "Largura dos ícones de compartilhameto"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:208
 #: admin/partials/sassy-social-share-options-page.php:533
-#, fuzzy
 msgid "Height (in pixels)"
-msgstr "Altura (em pixels)"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:225
 #: admin/partials/sassy-social-share-options-page.php:550
-#, fuzzy
 msgid "Height of the sharing icons"
-msgstr "Altura dos ícones de compartilhameto"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:234
 #: admin/partials/sassy-social-share-options-page.php:559
-#, fuzzy
 msgid "Border radius (in pixels)"
-msgstr "Raio da borda (em pixels)"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:245
 #: admin/partials/sassy-social-share-options-page.php:570
-#, fuzzy
 msgid ""
 "Specify a value for rounded corners. More the value, more rounded will the "
 "corners be. Leave empty for sharp corners."
 msgstr ""
-"Especifique um valor para os cantos arredondados. Quanto maior o valor, mas "
-"arredondados serão os cantos. Deixe em branco para cantos precisos."
 
 #: admin/partials/sassy-social-share-options-page.php:253
 #: admin/partials/sassy-social-share-options-page.php:578
-#, fuzzy
 msgid "Logo Color"
-msgstr "Cor do logo"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:258
 #: admin/partials/sassy-social-share-options-page.php:279
@@ -401,9 +346,8 @@ msgstr "Cor do logo"
 #: admin/partials/sassy-social-share-options-page.php:583
 #: admin/partials/sassy-social-share-options-page.php:604
 #: admin/partials/sassy-social-share-options-page.php:623
-#, fuzzy
 msgid "Default"
-msgstr "Padrão"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:260
 #: admin/partials/sassy-social-share-options-page.php:280
@@ -411,149 +355,121 @@ msgstr "Padrão"
 #: admin/partials/sassy-social-share-options-page.php:585
 #: admin/partials/sassy-social-share-options-page.php:605
 #: admin/partials/sassy-social-share-options-page.php:628
-#, fuzzy
 msgid "On Hover"
-msgstr "Em foco"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:268
 #: admin/partials/sassy-social-share-options-page.php:593
-#, fuzzy
 msgid ""
 "Specify the color or hex code (example #cc78e0) for the logo of icon. Leave "
 "empty for default. You can get the hex code of the required color from <a "
 "href=\"http://www.colorpicker.com/\" target=\"_blank\">this link</a>"
 msgstr ""
-"Especifique a cor por meio do código hexadecimal (examplo #cc78e0) para o "
-"logo do ícone. Deixe em branco para o padrão. Você pode obter o código "
-"hexadecimal que você requer por meio deste link <a href=\\\"http://www."
-"colorpicker.com/\\\" target=\\\"_blank\\\"> </a>"
 
 #: admin/partials/sassy-social-share-options-page.php:275
 #: admin/partials/sassy-social-share-options-page.php:600
 #: admin/partials/sassy-social-share-options-page.php:1778
 #: includes/class-sassy-social-share-widgets.php:497
-#, fuzzy
 msgid "Background Color"
-msgstr "Cor de Fundo"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:287
 #: admin/partials/sassy-social-share-options-page.php:612
-#, fuzzy
 msgid ""
 "Specify the color or hex code (example #cc78e0) for icon background. Save "
 "\"transparent\" for transparent background. Leave empty for default. You can "
 "get the hex code of the required color from <a href=\"http://www.colorpicker."
 "com/\" target=\"_blank\">this link</a>"
 msgstr ""
-"Especifique a cor por meio do código hexadecimal (examplo #cc78e0) para a "
-"cor de fundo do ícone. Salve \\\"transparente\\\" para um fundo "
-"transparente. Deixe vazio para o padrão. Você pode obter o código "
-"hexadecimal que você requer por meio deste link <a href=\\\"http://www."
-"colorpicker.com/\\\" target=\\\"_blank\\\"> </a>"
 
 #: admin/partials/sassy-social-share-options-page.php:294
 #: admin/partials/sassy-social-share-options-page.php:619
-#, fuzzy
 msgid "Border"
-msgstr "Borda"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:301
 #: admin/partials/sassy-social-share-options-page.php:306
 #: admin/partials/sassy-social-share-options-page.php:625
 #: admin/partials/sassy-social-share-options-page.php:630
-#, fuzzy
 msgid "Border Width"
-msgstr "Largura da Borda"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:302
 #: admin/partials/sassy-social-share-options-page.php:307
 #: admin/partials/sassy-social-share-options-page.php:626
 #: admin/partials/sassy-social-share-options-page.php:631
-#, fuzzy
 msgid "Border Color"
-msgstr "Cor da Borda"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:314
 #: admin/partials/sassy-social-share-options-page.php:638
-#, fuzzy
 msgid "Icon border"
-msgstr "Ícone da borda"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:321
 #: admin/partials/sassy-social-share-options-page.php:645
-#, fuzzy
 msgid "Counter Position"
-msgstr "Posição do Contador"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:321
 #: admin/partials/sassy-social-share-options-page.php:645
-#, fuzzy
 msgid "(applies, if counter enabled)"
-msgstr "(aplica-se, caso o contador esteja habilitado)"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:326
 #: admin/partials/sassy-social-share-options-page.php:650
 #: admin/partials/sassy-social-share-options-page.php:1228
 #: admin/partials/sassy-social-share-options-page.php:1801
 #: includes/class-sassy-social-share-widgets.php:484
-#: includes/class-sassy-social-share-widgets.php:945
-#: includes/class-sassy-social-share-widgets.php:971
-#, fuzzy
+#: includes/class-sassy-social-share-widgets.php:985
+#: includes/class-sassy-social-share-widgets.php:1011
 msgid "Left"
-msgstr "Esquerda"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:328
 #: admin/partials/sassy-social-share-options-page.php:652
-#, fuzzy
 msgid "Top"
-msgstr "Acima"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:330
 #: admin/partials/sassy-social-share-options-page.php:654
 #: admin/partials/sassy-social-share-options-page.php:1230
 #: admin/partials/sassy-social-share-options-page.php:1802
 #: includes/class-sassy-social-share-widgets.php:485
-#: includes/class-sassy-social-share-widgets.php:947
-#: includes/class-sassy-social-share-widgets.php:978
-#, fuzzy
+#: includes/class-sassy-social-share-widgets.php:987
+#: includes/class-sassy-social-share-widgets.php:1018
 msgid "Right"
-msgstr "Direita"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:332
 #: admin/partials/sassy-social-share-options-page.php:656
-#, fuzzy
 msgid "Bottom"
-msgstr "Abaixo"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:334
 #: admin/partials/sassy-social-share-options-page.php:658
-#, fuzzy
 msgid "Inner Left"
-msgstr "Inner a Esquerda"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:336
 #: admin/partials/sassy-social-share-options-page.php:660
-#, fuzzy
 msgid "Inner Top"
-msgstr "Inner Acima"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:338
 #: admin/partials/sassy-social-share-options-page.php:662
-#, fuzzy
 msgid "Inner Right"
-msgstr "Inner a Direita"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:340
 #: admin/partials/sassy-social-share-options-page.php:664
-#, fuzzy
 msgid "Inner Bottom"
-msgstr "Inner a Baixo"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:348
 #: admin/partials/sassy-social-share-options-page.php:672
-#, fuzzy
 msgid "Position of share counter"
-msgstr "Posição do contador de compartilhamento"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:355
 msgid "Responsiveness"
@@ -568,69 +484,58 @@ msgid "Icons will adjust their width according to the width of device screen"
 msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:375
-#, fuzzy
 msgid "Floating interface theme"
-msgstr "Tema da inteface flutuante"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:688
-#, fuzzy
 msgid "Standard Sharing Interface Options"
-msgstr "Opções de Interface de Compartilhamento Padrão"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:693
-#, fuzzy
 msgid "Enable Standard sharing interface"
-msgstr "Habilita interface de Compartilhamento padrão"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:704
-#, fuzzy
 msgid "Master control to enable standard sharing"
-msgstr "\"Controle Mestre para habilitar o compartilhamento padrão"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:714
 #: admin/partials/sassy-social-share-options-page.php:1541
-#, fuzzy
 msgid "Target Url"
-msgstr "Url Destino"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:719
 #: admin/partials/sassy-social-share-options-page.php:1546
 #: includes/class-sassy-social-share-widgets.php:239
 #: includes/class-sassy-social-share-widgets.php:477
-#, fuzzy
 msgid "Url of the webpage where icons are located (default)"
-msgstr "Url das webpages onde os ícones estão localizados (padrão)"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:721
 #: admin/partials/sassy-social-share-options-page.php:1548
 #: includes/class-sassy-social-share-widgets.php:240
 #: includes/class-sassy-social-share-widgets.php:478
-#, fuzzy
 msgid "Url of the homepage of your website"
-msgstr "Url da homepage do seu website"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:723
 #: admin/partials/sassy-social-share-options-page.php:1550
-#, fuzzy
 msgid "Custom url"
-msgstr "Url personalizada"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:730
 #: admin/partials/sassy-social-share-options-page.php:1557
-#, fuzzy
 msgid "Url to share"
-msgstr "Url para compartilhar"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:737
-#: includes/class-sassy-social-share-widgets.php:941
-#, fuzzy
+#: includes/class-sassy-social-share-widgets.php:981
 msgid "Title"
-msgstr "Título"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:748
-#, fuzzy
 msgid "The text to display above the sharing interface"
-msgstr "Texto a ser exibido acima da interface de compartilhamento"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:794
 #: admin/partials/sassy-social-share-options-page.php:1565
@@ -715,9 +620,8 @@ msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1102
 #: admin/partials/sassy-social-share-options-page.php:1659
-#, fuzzy
 msgid "Rearrange icons"
-msgstr "Rearranjar ícones"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1109
 #: admin/partials/sassy-social-share-options-page.php:1666
@@ -730,23 +634,18 @@ msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1172
 #: admin/partials/sassy-social-share-options-page.php:1727
-#, fuzzy
 msgid "Drag the icons to rearrange in desired order"
-msgstr "Arraste os ícones para rearanjar na ordem desejada"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1179
 #: admin/partials/sassy-social-share-options-page.php:1734
-#, fuzzy
 msgid "Select Sharing Services"
-msgstr "Selecione os Serviços Compartilhados"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1187
 #: admin/partials/sassy-social-share-options-page.php:1742
-#, fuzzy
 msgid "Select sharing services to show in social share bar"
 msgstr ""
-"Selecione os serviços compartilhados para exibir na barra de "
-"compartilhamento social"
 
 #: admin/partials/sassy-social-share-options-page.php:1205
 #: admin/partials/sassy-social-share-options-page.php:1760
@@ -755,42 +654,34 @@ msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1223
 #: admin/partials/sassy-social-share-options-page.php:1796
-#, fuzzy
 msgid "Horizontal alignment"
-msgstr "Alinhamento horizonal"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1229
-#: includes/class-sassy-social-share-widgets.php:946
-#, fuzzy
+#: includes/class-sassy-social-share-widgets.php:986
 msgid "Center"
-msgstr "Centro"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1238
 #: admin/partials/sassy-social-share-options-page.php:1810
-#, fuzzy
 msgid "Horizontal alignment of the sharing interface"
-msgstr "Alinhamento horizontal da interface de compartilhamento"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1245
-#, fuzzy
 msgid "Position with respect to content"
-msgstr "Posição em relação ao conteúdo"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1250
-#, fuzzy
 msgid "Top of the content"
-msgstr "Acima do conteúdo"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1252
-#, fuzzy
 msgid "Bottom of the content"
-msgstr "Abaixo do conteúdo"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1259
-#, fuzzy
 msgid "Specify position of the sharing interface with respect to the content"
 msgstr ""
-"Especifique a posição da interface de compartilhamento em relação ao conteúdo"
 
 #: admin/partials/sassy-social-share-options-page.php:1266
 msgid "Enable Social Share PopUp"
@@ -826,9 +717,8 @@ msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1318
 #: admin/partials/sassy-social-share-options-page.php:1857
-#, fuzzy
 msgid "Top offset"
-msgstr "Ajuste acima"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1328
 msgid ""
@@ -838,27 +728,23 @@ msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1336
 #: admin/partials/sassy-social-share-options-page.php:1875
-#, fuzzy
 msgid "Placement"
-msgstr "Localização"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1341
 #: admin/partials/sassy-social-share-options-page.php:1880
-#, fuzzy
 msgid "Homepage"
-msgstr "Homepage"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1343
 #: admin/partials/sassy-social-share-options-page.php:1882
-#, fuzzy
 msgid "Posts"
-msgstr "Posts"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1345
 #: admin/partials/sassy-social-share-options-page.php:1884
-#, fuzzy
 msgid "Pages"
-msgstr "Páginas"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1347
 #: admin/partials/sassy-social-share-options-page.php:1886
@@ -867,80 +753,69 @@ msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1349
 #: admin/partials/sassy-social-share-options-page.php:1888
-#, fuzzy
 msgid "Category Archives"
-msgstr "Arquivos de Categorias"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1351
 #: admin/partials/sassy-social-share-options-page.php:1890
-#, fuzzy
 msgid "Archive Pages (Category, Tag, Author or Date based pages)"
-msgstr "Página de arquivo (Páginas baseadas em Categoria, Tag, Autor ou Data)"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1367
-#, fuzzy
 msgid "BuddyPress activity"
-msgstr "Atividade BuddyPress"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1369
-#, fuzzy
 msgid "BuddyPress group (only at top of content)"
-msgstr "Grupo BuddyPress (apenas acima do conteúdo)"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1375
-#: admin/partials/sassy-social-share-options-page.php:1912
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:1911
 msgid "BBPress forum"
-msgstr "Forum BBPress"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1378
-#: admin/partials/sassy-social-share-options-page.php:1915
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:1914
 msgid "BBPress topic"
-msgstr "Tópico BBPress"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1381
-#, fuzzy
 msgid "BBPress reply"
-msgstr "Responder BBPress"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1388
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:1922
 msgid "After individual product at WooCommerce Shop page"
-msgstr "Depois de produtos individuais na página WooCommerce Shop"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1391
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:1925
 msgid "WooCommerce Product Page"
-msgstr "Página de Produtos WooCommerce"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1394
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:1928
 msgid "WooCommerce Thankyou Page"
-msgstr "Página de Agradecimento WooCommerce"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1405
-#, fuzzy
 msgid "Specify the pages where you want to enable Sharing interface"
 msgstr ""
-"Especifique as páginas onde você deseja habilitar a interface de "
-"compartilhamento"
 
 #: admin/partials/sassy-social-share-options-page.php:1412
-#: admin/partials/sassy-social-share-options-page.php:1932
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:1946
 msgid "Show share counts"
-msgstr "Exibir contadores de compartilhamento"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1418
-#: admin/partials/sassy-social-share-options-page.php:1938
+#: admin/partials/sassy-social-share-options-page.php:1952
 msgid ""
 "Share counts are supported for X(Twitter), Buffer, Reddit, Pinterest, "
 "Odnoklassniki, Fintel and Vkontakte"
 msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1419
-#: admin/partials/sassy-social-share-options-page.php:1939
+#: admin/partials/sassy-social-share-options-page.php:1953
 #, php-format
 msgid ""
 "To show Twitter share count, you have to click \"Give me my Twitter counts "
@@ -950,43 +825,31 @@ msgid ""
 msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1426
-#: admin/partials/sassy-social-share-options-page.php:1946
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:1960
 msgid "If enabled, share counts are displayed above sharing icons."
 msgstr ""
-"Se habilitado, os contadores de compartilhamento são exibidos acima dos "
-"ícones de compartilhamento."
 
 #: admin/partials/sassy-social-share-options-page.php:1434
-#: admin/partials/sassy-social-share-options-page.php:1954
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:1968
 msgid "Show total shares"
-msgstr "Exibe total de compartilhamentos"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1445
-#: admin/partials/sassy-social-share-options-page.php:1965
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:1979
 msgid "If enabled, total shares will be displayed with sharing icons"
 msgstr ""
-"Se habilitado, os totais de compartilhamentos serão exibidos com os ícones "
-"de compartilhamento"
 
 #: admin/partials/sassy-social-share-options-page.php:1453
-#: admin/partials/sassy-social-share-options-page.php:1973
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:1987
 msgid "Enable 'More' icon"
-msgstr "Habilitar 'Mais' ícones"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1464
-#: admin/partials/sassy-social-share-options-page.php:1984
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:1998
 msgid ""
 "If enabled, \"More\" icon will be displayed after selected sharing icons "
 "which shows additional sharing networks in popup"
 msgstr ""
-"Se habilitado, o ícone de \\\"Mais\\\" será exibido após selecionado o ícone "
-"de compartilhamento com a exibição adicional das redes sociais "
-"compartilhadas em um popup"
 
 #: admin/partials/sassy-social-share-options-page.php:1471
 msgid "Hide Standard Share bar"
@@ -1013,117 +876,89 @@ msgid ""
 msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1516
-#, fuzzy
 msgid "Floating Sharing Interface Options"
-msgstr "Opções da Interface de Compartilhamento Flutuante"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1521
-#, fuzzy
 msgid "Enable Floating sharing interface"
-msgstr "Habilita interface de compartilhamento flutuante"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1532
-#, fuzzy
 msgid "Master control to enable floating sharing widget"
-msgstr "Controle Mestre para habilitar o widget de compartilhamento flutuante"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1789
-#, fuzzy
 msgid ""
 "Specify the color or hex code (example #cc78e0) for the background of "
 "vertical sharing bar. Leave empty for transparent. You can get the hex code "
 "of the required color from <a href=\"http://www.colorpicker.com/\" target="
 "\"_blank\">this link</a>"
 msgstr ""
-"Especifique a cor ou código hexadecimal (examplo #cc78e0) para o fundo ou "
-"para a barra vertical de compartilhamento. Deixe vazio para transparente. "
-"Você pode obter o código hexadecimal que você requer por meio deste link <a "
-"href=\\\"http://www.colorpicker.com/\\\" target=\\\"_blank\\\"> </a>"
 
 #: admin/partials/sassy-social-share-options-page.php:1818
-#: includes/class-sassy-social-share-widgets.php:1021
-#: includes/class-sassy-social-share-widgets.php:1023
-#, fuzzy
+#: includes/class-sassy-social-share-widgets.php:1061
+#: includes/class-sassy-social-share-widgets.php:1063
 msgid "Left offset"
-msgstr "Ajuste à esquerda"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1829
-#, fuzzy
 msgid ""
 "Specify a number. Increase in number will shift sharing interface towards "
 "right and decrease will shift it towards left. Number can be negative too."
 msgstr ""
-"Especifique um número. Incrementos no número irão deslocar a interface de "
-"compartilhamento para a direita e decrementos no número irão deslocar a "
-"interface de compartilhamento para a esquerda. Os números podem também ser "
-"negativos."
 
 #: admin/partials/sassy-social-share-options-page.php:1838
-#: includes/class-sassy-social-share-widgets.php:1021
-#: includes/class-sassy-social-share-widgets.php:1023
-#, fuzzy
+#: includes/class-sassy-social-share-widgets.php:1061
+#: includes/class-sassy-social-share-widgets.php:1063
 msgid "Right offset"
-msgstr "Ajuste à direita"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:1849
-#, fuzzy
 msgid ""
 "Specify a number. Increase in number will shift sharing interface towards "
 "left and decrease will shift it towards right. Number can be negative too."
 msgstr ""
-"Especifique um número. Incrementos no número irão deslocar a interface de "
-"compartilhamento para a esquerda e decrementos no número irão deslocar a "
-"interface de compartilhamento para a direita. Os números podem também ser "
-"negativos."
 
 #: admin/partials/sassy-social-share-options-page.php:1868
-#, fuzzy
 msgid ""
 "Specify a number. Increase in number will shift sharing interface towards "
 "bottom and decrease will shift it towards top."
 msgstr ""
-"Especifique um número. Incrementos no número irão deslocar a interface de "
-"compartilhamento para baixo e decrementos no número irão deslocar a "
-"interface de compartilhamento para cima."
 
 #: admin/partials/sassy-social-share-options-page.php:1904
-#, fuzzy
 msgid "BuddyPress group"
-msgstr "Grupo BuddyPress"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:1925
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:1939
 msgid "Specify the pages where you want to enable vertical Sharing interface"
 msgstr ""
-"Especifique as páginas onde você deseja habilitar a interface de "
-"compartilhamento vertical"
 
-#: admin/partials/sassy-social-share-options-page.php:1991
+#: admin/partials/sassy-social-share-options-page.php:2005
 msgid "Hide floating slider"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2002
+#: admin/partials/sassy-social-share-options-page.php:2016
 msgid "Hides the slider arrow present below the floating share bar"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2010
+#: admin/partials/sassy-social-share-options-page.php:2024
 msgid "Show floating bar after scrolling "
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2010
+#: admin/partials/sassy-social-share-options-page.php:2024
 msgid " pixels from the top and hide "
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2010
+#: admin/partials/sassy-social-share-options-page.php:2024
 msgid " pixels before reaching the footer"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2010
-#: admin/partials/sassy-social-share-options-page.php:2086
-#: admin/partials/sassy-social-share-options-page.php:2135
-#: admin/partials/sassy-social-share-options-page.php:2188
-#: admin/partials/sassy-social-share-options-page.php:2601
-#: admin/partials/sassy-social-share-options-page.php:2728
+#: admin/partials/sassy-social-share-options-page.php:2024
+#: admin/partials/sassy-social-share-options-page.php:2100
+#: admin/partials/sassy-social-share-options-page.php:2149
+#: admin/partials/sassy-social-share-options-page.php:2202
+#: admin/partials/sassy-social-share-options-page.php:2615
+#: admin/partials/sassy-social-share-options-page.php:2742
 #: admin/partials/sassy-social-share-rssc-plugin-options.php:13
 #: admin/partials/sassy-social-share-ssb-options.php:13
 #: admin/partials/sassy-social-share-ssb-options.php:32
@@ -1136,112 +971,96 @@ msgstr ""
 msgid "Unlock"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2017
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2031
 msgid "Vertical floating bar responsiveness"
-msgstr "Sensibilidade da barra flutuante vertical"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2020
-#: includes/class-sassy-social-share-widgets.php:986
-#, fuzzy, php-format
+#: admin/partials/sassy-social-share-options-page.php:2034
+#: includes/class-sassy-social-share-widgets.php:1026
+#, php-format
 msgid "Display vertical interface only when screen is wider than %s pixels"
 msgstr ""
-"Exibe interface vertical apenas quando a tela é mais larga que %s pixels"
 
-#: admin/partials/sassy-social-share-options-page.php:2027
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2041
 msgid ""
 "Display vertical interface only when screen is wider than the width "
 "specified."
 msgstr ""
-"Exibe interface vertical apenas quando a tela é mais larga que a largura "
-"especificada."
 
-#: admin/partials/sassy-social-share-options-page.php:2034
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2048
 msgid "Horizontal floating bar responsiveness"
-msgstr "Sensibilidade da barra flutuante horizontal"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2038
-#: includes/class-sassy-social-share-widgets.php:990
-#, fuzzy, php-format
+#: admin/partials/sassy-social-share-options-page.php:2052
+#: includes/class-sassy-social-share-widgets.php:1030
+#, php-format
 msgid ""
 "Stick vertical floating interface horizontally at bottom only when screen is "
 "narrower than %s pixels"
 msgstr ""
-"Manter a vertical em baixo na interface de flutuação horizontal apenas "
-"quando a tela é mais estreita do que %s pixels"
 
-#: admin/partials/sassy-social-share-options-page.php:2045
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2059
 msgid ""
 "Stick vertical floating interface horizontally at bottom only when screen is "
 "narrower than the width specified"
 msgstr ""
-"Manter a vertical em baixo na interface de flutuação horizontal apenas "
-"quando a tela é mais estreita do que a largura especificada"
 
-#: admin/partials/sassy-social-share-options-page.php:2054
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2068
 msgid "Horizontal floating bar position"
-msgstr "Posição da barra de flutuação horizontal"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2058
-#: includes/class-sassy-social-share-widgets.php:996
-#, fuzzy, php-format
+#: admin/partials/sassy-social-share-options-page.php:2072
+#: includes/class-sassy-social-share-widgets.php:1036
+#, php-format
 msgid "%s pixels from %s"
-msgstr "%s pixels de %s"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2059
+#: admin/partials/sassy-social-share-options-page.php:2073
 msgid "Auto-adjust according to screen width (responsive)"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2066
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2080
 msgid "Alignment of horizontal floating interface. Number can be negative too."
 msgstr ""
-"Alinhamneto da interface de flutuação horizontal. O número pode ser negativo "
-"também."
 
-#: admin/partials/sassy-social-share-options-page.php:2086
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2100
 msgid "Share Counts"
-msgstr "Sucesso na limpeza do Cache dos Contadores de Compartilhamento."
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2091
+#: admin/partials/sassy-social-share-options-page.php:2105
 msgid "Save Share Counts locally"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2102
+#: admin/partials/sassy-social-share-options-page.php:2116
 msgid ""
 "Save share counts in the database of this website instead of fetching it "
 "from the social networks."
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2109
+#: admin/partials/sassy-social-share-options-page.php:2123
 msgid "Use Starting share counts saved in the free version if any"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2120
+#: admin/partials/sassy-social-share-options-page.php:2134
 msgid ""
 "Use starting share counts saved in the free version of the plugin if any "
 "while displaying the share counts with the social share icons"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2127
+#: admin/partials/sassy-social-share-options-page.php:2141
 msgid "Don't show shares before the total share count reaches "
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2135
+#: admin/partials/sassy-social-share-options-page.php:2149
 msgid "Custom Text to Share"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2141
+#: admin/partials/sassy-social-share-options-page.php:2155
 msgid "Custom text to share"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2147
-#: admin/partials/sassy-social-share-options-page.php:2217
+#: admin/partials/sassy-social-share-options-page.php:2161
+#: admin/partials/sassy-social-share-options-page.php:2231
 msgid ""
 "Use placeholders <b>post_title</b>, <b>site_title</b>, <b>site_url</b> and "
 "<b>post_url</b> for the title of the article being shared, title of the "
@@ -1249,8 +1068,8 @@ msgid ""
 "respectively."
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2149
-#: admin/partials/sassy-social-share-options-page.php:2219
+#: admin/partials/sassy-social-share-options-page.php:2163
+#: admin/partials/sassy-social-share-options-page.php:2233
 msgid ""
 "Use placeholder <b>{field_name}</b> to use the value of any of the custom "
 "fields created by the Advanced Custom Fields PRO plugin, of the post being "
@@ -1259,133 +1078,123 @@ msgid ""
 "<b>{parent_field_name{child_field_name}}</b>"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2156
+#: admin/partials/sassy-social-share-options-page.php:2170
 msgid ""
 "Custom text you want to be shared along with the url. Applies to Twitter, "
 "Whatsapp, Reddit, Digg, Float It, Email, Tumblr, Yummly and Buffer share"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2163
+#: admin/partials/sassy-social-share-options-page.php:2177
 msgid "Placement of the custom text to share"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2168
+#: admin/partials/sassy-social-share-options-page.php:2182
 msgid "Replace default text (other than the url)"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2170
+#: admin/partials/sassy-social-share-options-page.php:2184
 msgid "Before the text (other than the url)"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2172
+#: admin/partials/sassy-social-share-options-page.php:2186
 msgid "After the text (other than the url)"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2178
+#: admin/partials/sassy-social-share-options-page.php:2192
 msgid "Decide where you want to place the custom text to share"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2188
+#: admin/partials/sassy-social-share-options-page.php:2202
 msgid "Email Share Customization"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2193
+#: admin/partials/sassy-social-share-options-page.php:2207
 msgid "Email subject"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2198
+#: admin/partials/sassy-social-share-options-page.php:2212
 msgid ""
 "Use placeholders <b>post_title</b> and <b>site_title</b> for the title of "
 "the article being shared and the title of the website, respectively"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2205
+#: admin/partials/sassy-social-share-options-page.php:2219
 msgid "Subject of the email share"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2212
+#: admin/partials/sassy-social-share-options-page.php:2226
 msgid "Email body"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2226
+#: admin/partials/sassy-social-share-options-page.php:2240
 msgid "Body of the email share"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2240
+#: admin/partials/sassy-social-share-options-page.php:2254
 msgid "Use plain background for Instagram icon"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2251
+#: admin/partials/sassy-social-share-options-page.php:2265
 msgid ""
 "Uses plain background for Instagram icon instead of multicolored background"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2258
+#: admin/partials/sassy-social-share-options-page.php:2272
 msgid "Load Javascript files in footer"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2269
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2283
 msgid ""
 "If enabled (recommended), Javascript files will be included in the footer of "
 "your website"
 msgstr ""
-"Se habilitado (recomendado), o arquivo do Javascript será incluído no rodapé "
-"do seu website."
 
-#: admin/partials/sassy-social-share-options-page.php:2276
+#: admin/partials/sassy-social-share-options-page.php:2290
 msgid "Load Javascript only when needed"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2287
+#: admin/partials/sassy-social-share-options-page.php:2301
 msgid ""
 "Javascript file will be loaded only at the webpages where share icons have "
 "been integrated"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2294
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2308
 msgid "Delete all the options on plugin deletion"
-msgstr "Remove todas as opções na remoção do pluguin"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2305
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2319
 msgid ""
 "If enabled, plugin options will get deleted when plugin is deleted/"
 "uninstalled and you will need to reconfigure the options when you install "
 "the plugin next time."
 msgstr ""
-"Se havilitado, as opções do plugin serão removidas quando o plugin é "
-"removido/desistalado e você necessitará reconfigurar as opções quando você "
-"instalar o plugin da próxima vez."
 
-#: admin/partials/sassy-social-share-options-page.php:2314
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2328
 msgid "Share Count Cache"
-msgstr "Cache de Contador de Compartilhamento"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2319
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2333
 msgid "Refresh Share Count cache every"
-msgstr "Atualizar o contador de compartilhamento a cada"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2325
+#: admin/partials/sassy-social-share-options-page.php:2339
 msgid "Second(s)"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2326
+#: admin/partials/sassy-social-share-options-page.php:2340
 msgid "Minute(s)"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2327
+#: admin/partials/sassy-social-share-options-page.php:2341
 msgid "Hour(s)"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2328
+#: admin/partials/sassy-social-share-options-page.php:2342
 msgid "Day(s)"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2336
+#: admin/partials/sassy-social-share-options-page.php:2350
 #, php-format
 msgid ""
 "Frequent cache refreshing results in slower loading of pages with share "
@@ -1393,52 +1202,44 @@ msgid ""
 "target=\"_blank\">here</a>"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2343
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2357
 msgid "Clear Share Counts Cache"
-msgstr "Limpeza do Cache dos Contadores de Compartilhamento"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2348
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2362
 msgid "Share Counts cache cleared successfully."
-msgstr "Sucesso na limpeza do Cache dos Contadores de Compartilhamento."
-
-#: admin/partials/sassy-social-share-options-page.php:2355
-#, fuzzy
-msgid "Use this to clear cached share counts"
-msgstr "Use isso para limpeza do Cache dos Contadores de Compartilhamento"
-
-#: admin/partials/sassy-social-share-options-page.php:2364
-#, fuzzy
-msgid "Url shortener"
-msgstr "Encurtador de Url"
+msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:2369
-#, fuzzy
-msgid "Use shortlinks already installed"
-msgstr "Use shortlinks já instalados"
+msgid "Use this to clear cached share counts"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2380
+#: admin/partials/sassy-social-share-options-page.php:2378
+msgid "Url shortener"
+msgstr ""
+
+#: admin/partials/sassy-social-share-options-page.php:2383
+msgid "Use shortlinks already installed"
+msgstr ""
+
+#: admin/partials/sassy-social-share-options-page.php:2394
 msgid ""
 "Use default short url permalinks without the need for any additional plugin"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2387
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2401
 msgid "Enable bit.ly url shortener for sharing"
-msgstr "Habilitar encurtador de url bit.ly para compartilhamento"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2399
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2413
 msgid "Master control to enable bit.ly url shortening for sharing"
 msgstr ""
-"Controle Mestre para habilitar encurtador de url bit.ly para compartilhamento"
 
-#: admin/partials/sassy-social-share-options-page.php:2406
+#: admin/partials/sassy-social-share-options-page.php:2420
 msgid "Bit.ly Generic Access Token"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2417
+#: admin/partials/sassy-social-share-options-page.php:2431
 #, php-format
 msgid ""
 "Login to your bit.ly account and navigate to <strong>Profile Settings > "
@@ -1447,161 +1248,141 @@ msgid ""
 "\">link</a>"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2424
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2438
 msgid "Clear Bitly Cache"
-msgstr "Limpar o Cache Bitly"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2429
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2443
 msgid "ShortUrl cache cleared successfully."
-msgstr "Cache ShortUrl limpo com sucesso."
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2436
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2450
 msgid ""
 "Use this to delete short urls saved in database. Handy, if urls of your "
 "website have been changed but short urls are still being generated for old "
 "urls."
 msgstr ""
-"Use isso para remover os short urls salvos na base de dados. Convém, se as "
-"urls do seu website foram trocadas mas as short urls ainda estão sendo "
-"geradas para suas urls antigas."
 
-#: admin/partials/sassy-social-share-options-page.php:2445
-#: admin/partials/sassy-social-share-options-page.php:2450
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2459
+#: admin/partials/sassy-social-share-options-page.php:2464
 msgid "Language"
-msgstr "Languagem"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2461
-#, fuzzy, php-format
+#: admin/partials/sassy-social-share-options-page.php:2475
+#, php-format
 msgid ""
 "Enter the code of the language you want to use for like buttons. You can "
 "find the language codes at <a href=\"%s\" target=\"_blank\">this link</a>. "
 "Leave it empty for default language(English)"
 msgstr ""
-"Entre o código da linguagem que você deseja para esses botões. Você pode "
-"achar o código da linguagem <a href=\\\"%s\\\" target=\\\"_blank\\\">neste "
-"link</a>. Deixe-o em branco para a linguagem padrão (inglês)"
 
-#: admin/partials/sassy-social-share-options-page.php:2470
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2484
 msgid "Username in sharing"
-msgstr "Username no compartilhamento"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2475
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2489
 msgid "Twitter username (without @)"
-msgstr "Username do Twitter (sem @)"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2486
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2500
 msgid ""
 "Provided username will be appended after the content being shared as \"via "
 "@USERNAME\". Leave empty if you do not want any username in the content "
 "being shared."
 msgstr ""
-"Forneça o username que será acrescentado após o conteúdo compartilhado como "
-"\\\"via @USERNAME\\\". Deixe em branco se você não desejar nenhum username "
-"no conteúdo sendo compartilhado."
 
-#: admin/partials/sassy-social-share-options-page.php:2496
+#: admin/partials/sassy-social-share-options-page.php:2510
 msgid "Export/Import configuration"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2501
+#: admin/partials/sassy-social-share-options-page.php:2515
 msgid "Export Configuration"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2510
+#: admin/partials/sassy-social-share-options-page.php:2524
 msgid ""
 "Click this button to get the configuration of plugin at this website in the "
 "textbox below to export to some other website"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2522
-#: admin/partials/sassy-social-share-options-page.php:2539
+#: admin/partials/sassy-social-share-options-page.php:2536
+#: admin/partials/sassy-social-share-options-page.php:2553
 msgid "Import Configuration"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2530
+#: admin/partials/sassy-social-share-options-page.php:2544
 msgid ""
 "Paste the plugin-configuration you want to import to this website in the "
 "textbox given below and click Import Configuration button"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2551
+#: admin/partials/sassy-social-share-options-page.php:2565
 msgid "AMP"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2556
+#: admin/partials/sassy-social-share-options-page.php:2570
 msgid "Enable sharing on AMP pages"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2567
+#: admin/partials/sassy-social-share-options-page.php:2581
 msgid "Enable this option to render sharing icons on AMP pages"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2576
-#: admin/partials/sassy-social-share-options-page.php:2581
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2590
+#: admin/partials/sassy-social-share-options-page.php:2595
 msgid "Custom CSS"
-msgstr "CSS Personalizado"
-
-#: admin/partials/sassy-social-share-options-page.php:2592
-#, fuzzy
-msgid "You can specify any additional CSS rules (without &lt;style&gt; tag)"
-msgstr ""
-"Você poderá especificar qualquer regra adicional de CSS (sem a tag &lt;"
-"style&gt; )"
-
-#: admin/partials/sassy-social-share-options-page.php:2601
-msgid "Custom Icon Url"
 msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:2606
+msgid "You can specify any additional CSS rules (without &lt;style&gt; tag)"
+msgstr ""
+
+#: admin/partials/sassy-social-share-options-page.php:2615
+msgid "Custom Icon Url"
+msgstr ""
+
+#: admin/partials/sassy-social-share-options-page.php:2620
 msgid "Use custom icons from the URL"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2617
+#: admin/partials/sassy-social-share-options-page.php:2631
 msgid ""
 "Save full url of the folder where custom share icons are located. Dimensions "
 "of these icons must be same as specified in Theme Selection section. Name of "
 "custom icons should be in small letters."
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2624
+#: admin/partials/sassy-social-share-options-page.php:2638
 msgid "Custom icon extension"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2635
+#: admin/partials/sassy-social-share-options-page.php:2649
 msgid ""
 "Extension (png, jpg etc.) of custom share icons located at the custom path "
 "specified in previous option"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2642
+#: admin/partials/sassy-social-share-options-page.php:2656
 msgid "Show Pinterest button on hover of images"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2652
+#: admin/partials/sassy-social-share-options-page.php:2666
 msgid "Show Pinterest share on hover of images"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2661
+#: admin/partials/sassy-social-share-options-page.php:2675
 msgid "Round button"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2663
+#: admin/partials/sassy-social-share-options-page.php:2677
 msgid "Large button"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2669
+#: admin/partials/sassy-social-share-options-page.php:2683
 msgid "Don't add Reaction Count and Comment Count in the Facebook shares"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2679
+#: admin/partials/sassy-social-share-options-page.php:2693
 msgid ""
 "Facebook shares displayed with the Facebook share icon is sum of Share "
 "Count, Reaction Count and Comment Count tracked by Facebook for that "
@@ -1609,34 +1390,34 @@ msgid ""
 "Count in the Facebook shares."
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2698
+#: admin/partials/sassy-social-share-options-page.php:2712
 msgid "myCRED"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2703
+#: admin/partials/sassy-social-share-options-page.php:2717
 msgid "Append myCRED referral ID to the urls being shared"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2726
+#: admin/partials/sassy-social-share-options-page.php:2740
 msgid "Social Share Shortcode & Widget"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2727
+#: admin/partials/sassy-social-share-options-page.php:2741
 msgid "Follow Icons Shortcode & Widget"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2728
+#: admin/partials/sassy-social-share-options-page.php:2742
 msgid "Shortcode for Click to Tweet snippet"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2745
+#: admin/partials/sassy-social-share-options-page.php:2759
 msgid ""
 "If Facebook sharing is not working fine, click at the following link and "
 "enter the problematic URL (where Facebook sharing is not working properly) "
 "of your website in the text field. Click \"Debug\" button."
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2749
+#: admin/partials/sassy-social-share-options-page.php:2763
 msgid ""
 "If Linkedin share is not showing correct title, image and description, click "
 "at the following link and enter the problematic URL (where Linkedin share is "
@@ -1644,23 +1425,23 @@ msgid ""
 "button."
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2767
+#: admin/partials/sassy-social-share-options-page.php:2781
 msgid ""
 "<strong>Note:</strong> Plugin will not work on local server. You should have "
 "an online website for the plugin to function properly."
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2768
+#: admin/partials/sassy-social-share-options-page.php:2782
 msgid ""
 "Why is sharer not showing the correct image, title and other content when "
 "sharing a webpage?"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2769
+#: admin/partials/sassy-social-share-options-page.php:2783
 msgid "Why is Facebook share count not working?"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2770
+#: admin/partials/sassy-social-share-options-page.php:2784
 #, php-format
 msgid ""
 "After the recent changes introduced in the Facebook graph API, it's not "
@@ -1670,15 +1451,15 @@ msgid ""
 "Premium versions can be found at the <a href='%s' target='_blank'>link</a>"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2771
+#: admin/partials/sassy-social-share-options-page.php:2785
 msgid "How to Customize the Url being Shared?"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2772
+#: admin/partials/sassy-social-share-options-page.php:2786
 msgid "Why is Instagram icon redirecting to Instagram website?"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2773
+#: admin/partials/sassy-social-share-options-page.php:2787
 msgid ""
 "Instagram icon is there to send website visitors to the Instagram page of "
 "your choice. You can save the desired Instagram handle in \"Instagram "
@@ -1686,117 +1467,100 @@ msgid ""
 "sections."
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2775
+#: admin/partials/sassy-social-share-options-page.php:2789
 msgid ""
 "Why are Twitter shares not appearing even after registering at Twitcount.com?"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2776
+#: admin/partials/sassy-social-share-options-page.php:2790
 msgid ""
 "It takes some time for their service to track the shares made on Twitter "
 "from your website. If you still feel it's taking too long you can contact "
 "their support directly from their website."
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2778
+#: admin/partials/sassy-social-share-options-page.php:2792
 msgid ""
 "How to restore Social Share counts lost after moving my website to SSL/Https?"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2779
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2793
 msgid "How to integrate Google Analytics with sharing?"
-msgstr "Como integrar o Google Analytics com compartilhamento?"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2780
+#: admin/partials/sassy-social-share-options-page.php:2794
 msgid ""
 "How to show recent Facebook Comments from all over the website in a widget?"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2781
+#: admin/partials/sassy-social-share-options-page.php:2795
 msgid ""
 "How to recover the Facebook Comments lost after moving my website to SSL/"
 "Https?"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2782
+#: admin/partials/sassy-social-share-options-page.php:2796
 msgid "How to Place Title and Social Share Icons in the Same Row?"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2783
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2797
 msgid ""
 "How can I show share counts of my website rather than of individual pages/"
 "posts?"
 msgstr ""
-"Como posso exibir os contadores de compartilhamento do meu website ao invés "
-"das páginas/posts individuais?"
 
-#: admin/partials/sassy-social-share-options-page.php:2784
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2798
 msgid "How can I disable sharing on particular page/post?"
 msgstr ""
-"Como posso desabilitar o compartilhamento em uma página/post em particular?"
 
-#: admin/partials/sassy-social-share-options-page.php:2785
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2799
 msgid "How can I specify minimum sharing count for sharing networks?"
 msgstr ""
-"Como posso especificar um contador mínimo de compartilhamento das redes "
-"sociais?"
 
-#: admin/partials/sassy-social-share-options-page.php:2786
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2800
 msgid "How to share specific page?"
-msgstr "Como compartilhar página específica?"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2787
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2801
 msgid "How to customize the look of total share counts?"
 msgstr ""
-"Como personalizar a aparência dos contatores de compartilhamentos totais?"
 
-#: admin/partials/sassy-social-share-options-page.php:2788
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2802
 msgid "How to customize the look of individual share counts?"
 msgstr ""
-"Como personalizar a aparência dos contadores de compartilhamento individuais?"
 
-#: admin/partials/sassy-social-share-options-page.php:2789
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2803
 msgid "How to show Whatsapp icon only on mobile devices?"
-msgstr "Como exibir o ícone do Whatsapp apenas em dispositivos móveis?"
-
-#: admin/partials/sassy-social-share-options-page.php:2790
-#, fuzzy
-msgid "How to hide arrow after floating sharing bar?"
-msgstr "Como esconder a seta após a barra de compartilahmento flutuante?"
-
-#: admin/partials/sassy-social-share-options-page.php:2791
-msgid "Why is share count not getting updated?"
-msgstr ""
-
-#: admin/partials/sassy-social-share-options-page.php:2792
-msgid "Why is there so much space between like buttons?"
-msgstr ""
-
-#: admin/partials/sassy-social-share-options-page.php:2793
-msgid "Why are floating sharing/like buttons not appearing at homepage?"
 msgstr ""
 
 #: admin/partials/sassy-social-share-options-page.php:2804
+msgid "How to hide arrow after floating sharing bar?"
+msgstr ""
+
+#: admin/partials/sassy-social-share-options-page.php:2805
+msgid "Why is share count not getting updated?"
+msgstr ""
+
+#: admin/partials/sassy-social-share-options-page.php:2806
+msgid "Why is there so much space between like buttons?"
+msgstr ""
+
+#: admin/partials/sassy-social-share-options-page.php:2807
+msgid "Why are floating sharing/like buttons not appearing at homepage?"
+msgstr ""
+
+#: admin/partials/sassy-social-share-options-page.php:2818
 #, php-format
 msgid ""
 "You can appreciate the effort put in this free plugin by rating it <a href="
 "\"%s\" target=\"_blank\">here</a>"
 msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2808
-#, fuzzy
+#: admin/partials/sassy-social-share-options-page.php:2822
 msgid "Save Changes"
-msgstr "Salvar Alterações"
+msgstr ""
 
-#: admin/partials/sassy-social-share-options-page.php:2814
+#: admin/partials/sassy-social-share-options-page.php:2828
 msgid ""
 "If you can send (to hello@heateor.com) how this plugin is helping your "
 "business, we would be glad to shoutout on Instagram. You can also send any "
@@ -2032,7 +1796,7 @@ msgid "Yes, I am using other plugin/functionality"
 msgstr ""
 
 #: admin/partials/sassy-social-share-ssga-plugin-options.php:48
-#: includes/class-sassy-social-share-widgets.php:1033
+#: includes/class-sassy-social-share-widgets.php:1073
 msgid "No"
 msgstr ""
 
@@ -2061,32 +1825,28 @@ msgid ""
 "Google Analytics dashboard."
 msgstr ""
 
-#: includes/class-sassy-social-share-shortcodes.php:260
+#: includes/class-sassy-social-share-shortcodes.php:272
 #: includes/class-sassy-social-share-widgets.php:74
 #: includes/class-sassy-social-share-widgets.php:326
-#: public/class-sassy-social-share-public.php:111
+#: public/class-sassy-social-share-public.php:108
 msgid "Link copied."
 msgstr ""
 
-#: includes/class-sassy-social-share-shortcodes.php:269
+#: includes/class-sassy-social-share-shortcodes.php:281
 #: includes/class-sassy-social-share-widgets.php:83
 #: includes/class-sassy-social-share-widgets.php:335
-#: public/class-sassy-social-share-public.php:120
-#: public/class-sassy-social-share-public.php:566
-#, fuzzy
+#: public/class-sassy-social-share-public.php:117
+#: public/class-sassy-social-share-public.php:563
 msgid "Shares"
 msgstr ""
-"Se habilitado, os totais de compartilhamentos serão exibidos com os ícones "
-"de compartilhamento"
 
-#: includes/class-sassy-social-share-shortcodes.php:269
+#: includes/class-sassy-social-share-shortcodes.php:281
 #: includes/class-sassy-social-share-widgets.php:83
 #: includes/class-sassy-social-share-widgets.php:335
-#: public/class-sassy-social-share-public.php:120
-#: public/class-sassy-social-share-public.php:566
-#, fuzzy
+#: public/class-sassy-social-share-public.php:117
+#: public/class-sassy-social-share-public.php:563
 msgid "Share"
-msgstr "Posição do contador de compartilhamento"
+msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:50
 msgid "Sassy Social Share - Standard Widget"
@@ -2105,58 +1865,49 @@ msgid ""
 msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:230
-#, fuzzy
 msgid "Title:"
-msgstr "Título:"
+msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:232
 #: includes/class-sassy-social-share-widgets.php:470
-#, fuzzy
 msgid "Show individual share counts:"
-msgstr "Exibir contadores individuais de compartilhamento:"
+msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:234
 #: includes/class-sassy-social-share-widgets.php:472
-#, fuzzy
 msgid "Show total shares:"
-msgstr "Exibir compartilhamentos totais:"
+msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:236
 #: includes/class-sassy-social-share-widgets.php:474
-#, fuzzy
 msgid "Target Url:"
-msgstr "Url de destino:"
+msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:238
 #: includes/class-sassy-social-share-widgets.php:476
-#, fuzzy
 msgid "Select"
-msgstr "Selecione"
+msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:241
 #: includes/class-sassy-social-share-widgets.php:243
 #: includes/class-sassy-social-share-widgets.php:479
-#, fuzzy
 msgid "Custom Url"
-msgstr "Url Personalizada"
+msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:244
-#: includes/class-sassy-social-share-widgets.php:939
-#, fuzzy
+#: includes/class-sassy-social-share-widgets.php:979
 msgid "Before widget content:"
-msgstr "Antes do conteúdo do widget:"
+msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:246
-#: includes/class-sassy-social-share-widgets.php:1125
-#, fuzzy
+#: includes/class-sassy-social-share-widgets.php:1184
 msgid "After widget content:"
-msgstr "Depois do conteúdo do widget:"
+msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:248
 #: includes/class-sassy-social-share-widgets.php:499
-#, fuzzy
 msgid "Hide for logged in users:"
-msgstr "Escondido para usuários autenticados:"
+msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:297
 msgid ""
@@ -2171,25 +1922,21 @@ msgid ""
 msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:482
-#: includes/class-sassy-social-share-widgets.php:943
-#, fuzzy
+#: includes/class-sassy-social-share-widgets.php:983
 msgid "Alignment"
-msgstr "Alinhamento"
+msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:488
-#, fuzzy
 msgid "Left Offset"
-msgstr "Ajuste à esquerda"
+msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:492
-#, fuzzy
 msgid "Right Offset"
-msgstr "Ajuste à direita"
+msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:495
-#, fuzzy
 msgid "Top Offset"
-msgstr "Ajuste à cima"
+msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:540
 msgid "Sassy Social Share - Follow Icons"
@@ -2199,218 +1946,237 @@ msgstr ""
 msgid "These icons link to your Social Media accounts"
 msgstr ""
 
-#: includes/class-sassy-social-share-widgets.php:949
+#: includes/class-sassy-social-share-widgets.php:989
 msgid "Type:"
 msgstr ""
 
-#: includes/class-sassy-social-share-widgets.php:952
-#, fuzzy
+#: includes/class-sassy-social-share-widgets.php:992
 msgid "Standard"
-msgstr "Opções de Interface Padrão"
-
-#: includes/class-sassy-social-share-widgets.php:955
-#, fuzzy
-msgid "Floating"
-msgstr "Habilitar botões like flutuantes"
-
-#: includes/class-sassy-social-share-widgets.php:960
-#, fuzzy
-msgid "Top offset:"
-msgstr "Ajuste acima"
-
-#: includes/class-sassy-social-share-widgets.php:964
-#, fuzzy
-msgid "Alignment:"
-msgstr "Alinhamento"
-
-#: includes/class-sassy-social-share-widgets.php:982
-msgid "Offset"
 msgstr ""
 
-#: includes/class-sassy-social-share-widgets.php:996
-#, fuzzy
-msgid "right"
-msgstr "Direita"
+#: includes/class-sassy-social-share-widgets.php:995
+msgid "Floating"
+msgstr ""
 
-#: includes/class-sassy-social-share-widgets.php:996
-#, fuzzy
-msgid "left"
-msgstr "Esquerda"
-
-#: includes/class-sassy-social-share-widgets.php:999
-msgid "Auto-adjust according to the screen-width (responsive)"
+#: includes/class-sassy-social-share-widgets.php:1000
+msgid "Top offset:"
 msgstr ""
 
 #: includes/class-sassy-social-share-widgets.php:1004
+msgid "Alignment:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1022
+msgid "Offset"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1036
+msgid "right"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1036
+msgid "left"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1039
+msgid "Auto-adjust according to the screen-width (responsive)"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1044
 msgid "Size of icons"
 msgstr ""
 
-#: includes/class-sassy-social-share-widgets.php:1006
+#: includes/class-sassy-social-share-widgets.php:1046
 msgid "Icon Shape"
 msgstr ""
 
-#: includes/class-sassy-social-share-widgets.php:1031
+#: includes/class-sassy-social-share-widgets.php:1071
 msgid "Apply icon color and background color from Theme Selection section:"
 msgstr ""
 
-#: includes/class-sassy-social-share-widgets.php:1034
+#: includes/class-sassy-social-share-widgets.php:1074
 msgid "Yes, Standard Interface Theme"
 msgstr ""
 
-#: includes/class-sassy-social-share-widgets.php:1035
+#: includes/class-sassy-social-share-widgets.php:1075
 msgid "Yes, Floating Interface Theme"
 msgstr ""
 
-#: includes/class-sassy-social-share-widgets.php:1037
-msgid "Facebook URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1040
-msgid "Twitter URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1043
-msgid "Instagram URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1046
-msgid "Parler URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1049
-msgid "Pinterest URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1052
+#: includes/class-sassy-social-share-widgets.php:1077
 msgid "Behance URL:"
 msgstr ""
 
-#: includes/class-sassy-social-share-widgets.php:1055
+#: includes/class-sassy-social-share-widgets.php:1080
+msgid "Facebook URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1083
 msgid "Flickr URL:"
 msgstr ""
 
-#: includes/class-sassy-social-share-widgets.php:1058
+#: includes/class-sassy-social-share-widgets.php:1086
 msgid "Foursquare URL:"
 msgstr ""
 
-#: includes/class-sassy-social-share-widgets.php:1061
-msgid "Github URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1064
-msgid "Linkedin URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1067
-msgid "Linkedin Company URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1070
-msgid "Medium URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1073
-msgid "MeWe URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1076
-msgid "Odnoklassniki URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1079
-msgid "Telegram URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1082
-msgid "Threads URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1085
-msgid "TikTok URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1088
-msgid "Tumblr URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1091
-msgid "Vimeo URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1094
-msgid "Vkontakte URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1097
-msgid "Whatsapp URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1100
-msgid "X URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1103
-msgid "Xing URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1106
-msgid "Youtube URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1109
-msgid "Youtube Channel URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1112
-msgid "RSS Feed URL:"
-msgstr ""
-
-#: includes/class-sassy-social-share-widgets.php:1115
+#: includes/class-sassy-social-share-widgets.php:1089
 msgid "Gab.com URL:"
 msgstr ""
 
-#: includes/class-sassy-social-share-widgets.php:1118
+#: includes/class-sassy-social-share-widgets.php:1092
+msgid "Gettr.com URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1095
+msgid "Github URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1098
 msgid "Google Maps URL:"
 msgstr ""
 
-#: includes/class-sassy-social-share-widgets.php:1120
+#: includes/class-sassy-social-share-widgets.php:1100
 msgid "Google News URL:"
 msgstr ""
 
-#: includes/class-sassy-social-share-widgets.php:1122
+#: includes/class-sassy-social-share-widgets.php:1102
+msgid "Instagram URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1105
+msgid "Koo URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1108
+msgid "Line URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1110
+msgid "LinkedIn URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1113
+msgid "LinkedIn Company URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1116
+msgid "Mastodon URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1118
+msgid "Medium URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1121
+msgid "MeWe URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1124
+msgid "Minds URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1127
+msgid "Odnoklassniki URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1130
+msgid "Parler URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1133
+msgid "Pinterest URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1136
+msgid "RSS Feed URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1139
+msgid "Snapchat URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1142
+msgid "Telegram URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1145
+msgid "TikTok URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1148
+msgid "Threads URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1151
+msgid "Truth Social URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1154
+msgid "Tumblr URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1157
+msgid "Twitter URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1160
+msgid "Vimeo URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1163
+msgid "Vkontakte URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1166
+msgid "Whatsapp URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1169
+msgid "X URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1172
+msgid "Xing URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1175
 msgid "Yelp URL:"
 msgstr ""
 
-#: public/class-sassy-social-share-public.php:328
+#: includes/class-sassy-social-share-widgets.php:1178
+msgid "Youtube URL:"
+msgstr ""
+
+#: includes/class-sassy-social-share-widgets.php:1181
+msgid "Youtube Channel URL:"
+msgstr ""
+
+#: public/class-sassy-social-share-public.php:325
 msgid "Search for"
 msgstr ""
 
-#: public/class-sassy-social-share-public.php:333
-#: public/class-sassy-social-share-public.php:335
-#: public/class-sassy-social-share-public.php:337
+#: public/class-sassy-social-share-public.php:330
+#: public/class-sassy-social-share-public.php:332
+#: public/class-sassy-social-share-public.php:334
 msgid "Archives"
 msgstr ""
 
-#: public/class-sassy-social-share-public.php:566
-#, fuzzy
+#: public/class-sassy-social-share-public.php:563
 msgid "Total Shares"
-msgstr "Exibe total de compartilhamentos"
+msgstr ""
 
-#: public/class-sassy-social-share-public.php:932
-#: public/class-sassy-social-share-public.php:1170
-#, fuzzy
+#: public/class-sassy-social-share-public.php:929
+#: public/class-sassy-social-share-public.php:1167
 msgid "Invalid request"
-msgstr "Requisição inválida"
+msgstr ""
 
-#: public/class-sassy-social-share-public.php:938
-#, fuzzy
+#: public/class-sassy-social-share-public.php:935
 msgid "Providers not selected"
-msgstr "Provedor não selecionado"
+msgstr ""
 
-#: public/class-sassy-social-share-public.php:1515
+#: public/class-sassy-social-share-public.php:1474
 msgid "Your Mastodon Instance"
 msgstr ""
 
-#: public/class-sassy-social-share-public.php:1515
+#: public/class-sassy-social-share-public.php:1474
 msgid "Submit"
 msgstr ""

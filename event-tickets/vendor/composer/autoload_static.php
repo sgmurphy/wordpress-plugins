@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitaf0f8af7856431fb1db699019128e7b5
+class ComposerStaticInit29a3d14fd7dd78b0ce5a09f2d1708510
 {
     public static $prefixLengthsPsr4 = array (
         'T' => 
@@ -230,6 +230,7 @@ class ComposerStaticInitaf0f8af7856431fb1db699019128e7b5
         'TEC\\Tickets\\Flexible_Tickets\\Repositories\\Event_Repository' => __DIR__ . '/../..' . '/src/Tickets/Flexible_Tickets/Repositories/Event_Repository.php',
         'TEC\\Tickets\\Flexible_Tickets\\Repositories\\Posts_And_Ticket_Groups' => __DIR__ . '/../..' . '/src/Tickets/Flexible_Tickets/Repositories/Posts_And_Ticket_Groups.php',
         'TEC\\Tickets\\Flexible_Tickets\\Repositories\\Ticket_Groups' => __DIR__ . '/../..' . '/src/Tickets/Flexible_Tickets/Repositories/Ticket_Groups.php',
+        'TEC\\Tickets\\Flexible_Tickets\\Series_Passes\\Attendees' => __DIR__ . '/../..' . '/src/Tickets/Flexible_Tickets/Series_Passes/Attendees.php',
         'TEC\\Tickets\\Flexible_Tickets\\Series_Passes\\Base' => __DIR__ . '/../..' . '/src/Tickets/Flexible_Tickets/Series_Passes/Base.php',
         'TEC\\Tickets\\Flexible_Tickets\\Series_Passes\\CT1_Integration' => __DIR__ . '/../..' . '/src/Tickets/Flexible_Tickets/Series_Passes/CT1_Integration.php',
         'TEC\\Tickets\\Flexible_Tickets\\Series_Passes\\CT1_Migration' => __DIR__ . '/../..' . '/src/Tickets/Flexible_Tickets/Series_Passes/CT1_Migration.php',
@@ -309,9 +310,9 @@ class ComposerStaticInitaf0f8af7856431fb1db699019128e7b5
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitaf0f8af7856431fb1db699019128e7b5::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitaf0f8af7856431fb1db699019128e7b5::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitaf0f8af7856431fb1db699019128e7b5::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit29a3d14fd7dd78b0ce5a09f2d1708510::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit29a3d14fd7dd78b0ce5a09f2d1708510::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit29a3d14fd7dd78b0ce5a09f2d1708510::$classMap;
 
         }, null, ClassLoader::class);
     }

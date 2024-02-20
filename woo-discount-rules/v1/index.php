@@ -24,8 +24,8 @@ Class WDRV1Deprecated {
         if (isset($submenu['woocommerce'])) {
             add_submenu_page(
                 'woocommerce',
-                __('Woo Discount Rules', 'woo-discount-rules'),
-                __('Woo Discount Rules', 'woo-discount-rules'),
+                __('Discount Rules', 'woo-discount-rules'),
+                __('Discount Rules', 'woo-discount-rules'),
                 'manage_woocommerce', 'woo_discount_rules',
                 array(__CLASS__, 'loadWDRV1DeprecatedHTML')
             );
