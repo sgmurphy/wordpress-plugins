@@ -41,23 +41,21 @@ class Iubenda_Forms {
 		add_action( 'init', array( $this, 'register_post_status' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 		// Save cons for non ajax forms.
-		add_action( 'wpforms_process_complete', array( $this, 'process_entry_for_wp_forms' ), 10, 4 );
-		add_filter( 'mc4wp_integration_woocommerce_checkbox_attributes', array( $this, 'mc4wp_integration_woocommerce_checkbox_attributes' ), 10, 2 );
+		add_action( 'wpforms_process_complete', array( $this, 'process_entry_for_wp_forms' ), 10, 2 );
+		add_filter( 'mc4wp_integration_woocommerce_checkbox_attributes', array( $this, 'mc4wp_integration_woocommerce_checkbox_attributes' ) );
 	}
 
 	/**
 	 * Process entry for WP forms
 	 *
-	 * @param   array $fields     Sanitized entry field values/properties.
-	 * @param   array $entry      Original $_POST global.
-	 * @param   array $form_data  Processed form settings/data, prepared to be used later.
-	 * @param   int   $entry_id   Entry ID. Will return 0 if entry storage is disabled or using WPForms Lite.
+	 * @param   array $fields  Sanitized entry field values/properties.
+	 * @param   array $entry   Original $_POST global.
 	 */
-	public function process_entry_for_wp_forms( $fields, $entry, $form_data, $entry_id ) {
+	public function process_entry_for_wp_forms( $fields, $entry ) {
 		global $wp_version;
 		$public_api_key = iubenda()->options['cons']['public_api_key'];
 
-		// Escape on ajax request because it will be handle by injected JS "frontend.js".
+		// Escape on ajax request because it will be handled by injected JS "frontend.js".
 		// Or escape if the public api key is not defined.
 		// Check current WP version is newer than 4.7 to use the wp_doing_ajax function.
 		if ( ( version_compare( $wp_version, '4.7', '>=' ) && wp_doing_ajax() ) || ! $public_api_key ) {
@@ -207,7 +205,6 @@ class Iubenda_Forms {
 				)
 			);
 		}
-
 	}
 
 	/**
@@ -287,7 +284,7 @@ class Iubenda_Forms {
 	/**
 	 * Get form function.
 	 *
-	 * @param int $id id.
+	 * @param   int $id  id.
 	 *
 	 * @return object
 	 */
@@ -328,7 +325,7 @@ class Iubenda_Forms {
 	/**
 	 * Delete form function.
 	 *
-	 * @param int $id id.
+	 * @param   int $id  id.
 	 *
 	 * @return int
 	 */
@@ -353,7 +350,7 @@ class Iubenda_Forms {
 	/**
 	 * Insert form function.
 	 *
-	 * @param   array $args args.
+	 * @param   array $args  args.
 	 *
 	 * @return int
 	 */
@@ -743,6 +740,10 @@ class Iubenda_Forms {
 			case 'woocommerce':
 				$checkout_form = '';
 
+				if ( ! function_exists( 'WC' ) || ! class_exists( 'WC_Session_Handler' ) || ! class_exists( 'WC_Customer' ) || ! class_exists( 'WC_Cart' ) || ! class_exists( 'WC_Order' ) || ! defined( 'WC_ABSPATH' ) || ! function_exists( 'wc_get_template' ) ) {
+					break;
+				}
+
 				ob_start();
 
 				// Ensure gateways and shipping methods are loaded early.
@@ -807,7 +808,7 @@ class Iubenda_Forms {
 				);
 
 				// Germanized for WooCommerce.
-				if ( class_exists( 'WooCommerce_Germanized' ) ) {
+				if ( function_exists( 'woocommerce_gzd_template_render_checkout_checkboxes' ) && class_exists( 'WooCommerce_Germanized' ) ) {
 					woocommerce_gzd_template_render_checkout_checkboxes();
 				}
 
@@ -877,28 +878,27 @@ class Iubenda_Forms {
 							require_once IUBENDA_PLUGIN_PATH . 'iubenda-cookie-class/simple_html_dom.php';
 						}
 
-						$html = str_get_html( $checkout_form, $lowercase = true, $force_tags_closed = true, $strip = false );
+						if ( function_exists( 'str_get_html' ) ) {
+							$html = str_get_html( $checkout_form, $lowercase = true, $force_tags_closed = true, $strip = false );
+							if ( is_object( $html ) ) {
+								// search for nodes.
+								foreach ( $input_fields as $input_field ) {
+									$fields_raw = $html->find( $input_field );
 
-						if ( is_object( $html ) ) {
-							// search for nodes.
-							foreach ( $input_fields as $input_field ) {
-								$fields_raw = $html->find( $input_field );
+									if ( is_array( $fields_raw ) ) {
+										foreach ( $fields_raw as $field ) {
+											$field_type = $field->type;
 
-								if ( is_array( $fields_raw ) ) {
-									foreach ( $fields_raw as $field ) {
-										$field_name = $field->name;
-										$field_type = $field->type;
-
-										// exclude submit.
-										if ( ! empty( $field_type ) && ! in_array( (string) $field_type, array( 'submit', 'hidden' ), true ) ) {
-											$formdata['form_fields'][] = $field->getAttribute( 'name' );
+											// exclude submit.
+											if ( ! empty( $field_type ) && ! in_array( (string) $field_type, array( 'submit', 'hidden' ), true ) ) {
+												$formdata['form_fields'][] = $field->getAttribute( 'name' );
+											}
 										}
 									}
 								}
+
+								$forms[] = $formdata;
 							}
-
-							$forms[] = $formdata;
-
 						}
 					}
 				}
@@ -994,28 +994,29 @@ class Iubenda_Forms {
 							require_once IUBENDA_PLUGIN_PATH . 'iubenda-cookie-class/simple_html_dom.php';
 						}
 
-						$html = str_get_html( $comment_form, $lowercase = true, $force_tags_closed = true, $strip = false );
+						if ( function_exists( 'str_get_html' ) ) {
+							$html = str_get_html( $comment_form, $lowercase = true, $force_tags_closed = true, $strip = false );
+							if ( is_object( $html ) ) {
+								// search for nodes.
+								foreach ( $input_fields as $input_field ) {
+									$fields_raw = $html->find( $input_field );
 
-						if ( is_object( $html ) ) {
-							// search for nodes.
-							foreach ( $input_fields as $input_field ) {
-								$fields_raw = $html->find( $input_field );
+									if ( is_array( $fields_raw ) ) {
+										foreach ( $fields_raw as $field ) {
+											$field_name = $field->name;
+											$field_type = $field->type;
 
-								if ( is_array( $fields_raw ) ) {
-									foreach ( $fields_raw as $field ) {
-										$field_name = $field->name;
-										$field_type = $field->type;
-
-										// exclude submit.
-										if ( ! empty( $field_type ) && ! in_array( (string) $field_type, array( 'submit' ), true ) ) {
-											$formdata['form_fields'][] = $field->getAttribute( 'name' );
+											// exclude submit.
+											if ( ! empty( $field_type ) && ! in_array( (string) $field_type, array( 'submit' ), true ) ) {
+												$formdata['form_fields'][] = $field->getAttribute( 'name' );
+											}
 										}
 									}
 								}
+
+								$forms[] = $formdata;
+
 							}
-
-							$forms[] = $formdata;
-
 						}
 					}
 				}
@@ -1110,7 +1111,7 @@ class Iubenda_Forms {
 	 *
 	 * @param   array $args  args.
 	 *
-	 * @return array
+	 * @return false|object
 	 */
 	public function get_form_by_object_id( $args = array() ) {
 		// parse incoming $args into an array and merge it with $defaults.
@@ -1129,7 +1130,7 @@ class Iubenda_Forms {
 				),
 			),
 			'post_type'      => 'iubenda_form',
-			'post_status'    => isset( $args['post_status'] ) ? $args['post_status'] : 'any',
+			'post_status'    => $args['post_status'] ?? 'any',
 			'posts_per_page' => '1',
 			'fields'         => 'ids',
 		);
@@ -1138,28 +1139,26 @@ class Iubenda_Forms {
 		$posts = get_posts( $args );
 
 		// check result.
-		if ( ! $posts || is_wp_error( $posts ) ) {
+		if ( empty( $posts ) ) {
 			return false;
 		}
 
-		$form = $this->get_form( $posts[0] );
-
 		// kick back results.
-		return $form;
+		return $this->get_form( $posts[0] );
 	}
 
 	/**
 	 * Convert nested array into one level
 	 *
-	 * @param   array  $array array.
-	 * @param   string $prepend prepend.
+	 * @param   array  $target_array  array.
+	 * @param   string $prepend       prepend.
 	 *
 	 * @return array
 	 */
-	public function iub_array_dot( $array, $prepend = '' ) {
+	public function iub_array_dot( $target_array, $prepend = '' ) {
 		$results = array();
 
-		foreach ( $array as $key => $value ) {
+		foreach ( $target_array as $key => $value ) {
 			if ( is_array( $value ) && ! empty( $value ) ) {
 				$results = array_merge( $results, $this->iub_array_dot( $value, $prepend . $key . '.' ) );
 			} else {
@@ -1173,8 +1172,8 @@ class Iubenda_Forms {
 	/**
 	 * Prepare mapped forms
 	 *
-	 * @param   array $forms forms.
-	 * @param   array $args args.
+	 * @param   array $forms  forms.
+	 * @param   array $args   args.
 	 *
 	 * @return array
 	 */
@@ -1271,7 +1270,7 @@ class Iubenda_Forms {
 			$data[ $key ][ $map_key ] = iub_array_get( $entry, $array_key );
 
 			// Special handling for preferences to cast into boolean if the field type is checkbox.
-			if ( 'preferences' === (string) $key && 'checkbox' === $form->form_fields[ $index ]['type'] ) {
+			if ( 'preferences' === (string) $key && 'checkbox' === $form->form_fields[ $index ]['type'] && function_exists( 'wpforms' ) ) {
 				$wpform_content = wpforms()->form->get( $form->object_id )->post_content;
 				$wpform_content = json_decode( $wpform_content, true );
 				$choices        = iub_array_get( $wpform_content, substr( $array_key, 0, - 2 ) . '.choices' );
@@ -1304,14 +1303,13 @@ class Iubenda_Forms {
 
 	/**
 	 * Integrate with mailchimp
-	 * Add Id attribute to add event on it from frontend
+	 * Add id attribute to add event on it from frontend
 	 *
-	 * @param array $attributes attributes.
-	 * @param mixed $integration integration.
+	 * @param   array $attributes  attributes.
 	 *
 	 * @return string[]
 	 */
-	public function mc4wp_integration_woocommerce_checkbox_attributes( $attributes, $integration ) {
+	public function mc4wp_integration_woocommerce_checkbox_attributes( $attributes ) {
 		$attributes['id'] = '_mc4wp_subscribe_woocommerce';
 
 		return $attributes;
@@ -1320,8 +1318,8 @@ class Iubenda_Forms {
 	/**
 	 * Finding elementor form id.
 	 *
-	 * @param mixed $data Data.
-	 * @param mixed $form_ids Form_ids.
+	 * @param   mixed $data      Data.
+	 * @param   mixed $form_ids  Form_ids.
 	 */
 	private function find_elementor_form_id( $data, &$form_ids ) {
 		if ( is_array( $data ) ) {

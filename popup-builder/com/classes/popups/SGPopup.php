@@ -1296,16 +1296,20 @@ abstract class SGPopup
 			if ($args['wrap'] == $wrap) {
 				$args['href'] = 'javascript:void(0)';
 			}
-			$wrap = $args['wrap'];
+			$wrap = esc_attr( $args['wrap'] );
 		}
 		unset($args['wrap']);
 		unset($args['event']);
 		unset($args['id']);
 		$attr = AdminHelper::createAttrs($args);
 		$allowed_html = AdminHelper::allowed_html_tags();
-
+		$allowed_wrap_html_tags = AdminHelper::allowed_wrap_html_tags();	
+		if( !in_array( $wrap, $allowed_wrap_html_tags ) )
+		{			
+			$wrap = 'a';
+		}		
 		?>
-		<<?php echo esc_attr($wrap); ?>
+		<<?php echo $wrap; ?>
 		<?php if ($wrap == 'a') : ?>
 		href="javascript:void(0)"
 		<?php endif ?>

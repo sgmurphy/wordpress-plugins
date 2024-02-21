@@ -8,7 +8,7 @@ Tags: popup, pop up, wordpress popup, popup maker, exit popup, popup builder, wo
 Requires at least: 4.2
 Tested up to: 6.4
 Requires PHP: 5.3.3
-Stable tag: 4.2.6
+Stable tag: 4.2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -145,6 +145,9 @@ Go to the Popup Builder settings and set your desired options.
 14. Registration popup
 
 == Changelog ==
+
+= Version 4.2.7 =
+* Fix vulnerabilities issue of Authenticated (Contributor+) Stored Cross-Site Scripting via Shortcode.
 
 = Version 4.2.6 =
 * Fix vulnerabilities on import file feature.

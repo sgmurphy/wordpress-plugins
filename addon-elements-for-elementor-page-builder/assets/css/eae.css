@@ -12761,6 +12761,14 @@ width: 100%;
     text-align: left;
 }
 
+[data-elementor-device-mode="mobile"] .eae-wp-modal-box .eae-wp-popup-container{
+  display: flex;
+  flex-direction: column;
+}
+[data-elementor-device-mode="mobile"] .eae-wp-modal-box .wp-popup-content{
+  width: 100%;
+}
+
 /* Reviews Widget */
 
 .eae-rw-icon{

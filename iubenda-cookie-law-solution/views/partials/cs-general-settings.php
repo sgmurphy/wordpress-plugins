@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Is the current configuration type is simplified.
 $is_cs_simplified = ( new Iubenda_CS_Product_Service() )->is_cs_simplified();
-$site_id = iub_array_get( iubenda()->options['global_options'], 'site_id' );
+$site_id          = iub_array_get( iubenda()->options['global_options'], 'site_id' );
 ?>
 <div class="tabs">
 	<h3 class="text-bold text-gray text-md mb-0"><?php esc_html_e( 'Configuration', 'iubenda' ); ?></h3>
@@ -321,7 +321,7 @@ if ( ! can_use_dom_document_class() ) {
 		</div>
 	</fieldset>
 </section>
-<div id="both-blocking-methods-disabled-warning-message" class="mxx-4 mb-4 notice notice--warning mt-2 p-3 align-items-center text-warning text-xs d-flex <?php echo iubenda()->options['cs']['parse'] ? 'd-flex' : '' ?>">
+<div id="both-blocking-methods-disabled-warning-message" class="mxx-4 mb-4 notice notice--warning mt-2 p-3 align-items-center text-warning text-xs d-flex <?php echo iubenda()->options['cs']['parse'] ? 'd-flex' : ''; ?>">
 	<img class="mr-2" src="<?php echo esc_url( IUBENDA_PLUGIN_URL ); ?>/assets/images/warning-icon.svg">
 	<p>
 		<?php esc_html_e( 'Most legislation explicitly require prior consent in order to process user’s data. By disabling these blocking options you may be in breach of such requirements', 'iubenda' ); ?>

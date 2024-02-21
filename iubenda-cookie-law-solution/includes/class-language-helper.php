@@ -49,7 +49,7 @@ class Language_Helper {
 	 * @return string
 	 */
 	public function get_default_website_language_code( $lower_case = false ): string {
-		if ( iub_is_polylang_active() ) {
+		if ( iub_is_polylang_active() && function_exists( 'pll_default_language' ) ) {
 			$default_language_local_code = pll_default_language( 'locale' );
 			$website_language_code       = (string) iub_array_get( iubenda()->lang_mapping, $default_language_local_code );
 		} elseif ( iub_is_wpml_active() ) {
@@ -107,5 +107,4 @@ class Language_Helper {
 
 		return $iub_languages;
 	}
-
 }

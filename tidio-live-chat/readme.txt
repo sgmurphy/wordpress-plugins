@@ -3,7 +3,7 @@ Contributors: tytus-tytus, lucastidio, marcingwizdala, kkopaczyktidio, ksladek, 
 Tags: free live chat, live chat, chat, chatbot, livechat, tidio, widget, zendesk, mailchimp, messenger
 Requires at least: 4.7
 Tested up to: 6.4
-Stable tag: 6.0.14
+Stable tag: 6.0.16
 Requires PHP: 7.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -201,6 +201,14 @@ Tidio offers four language versions; English, French, Spanish, Italian, and Port
 8. Engage your visitors. Add Tidio to your WordPress website in less than 5 minutes.
 
 == Changelog ==
+
+= 6.0.16 =
+
+- Remove info page from plugins submenu
+
+= 6.0.15 =
+
+- Update company name on listing
 
 = 6.0.14 =
 

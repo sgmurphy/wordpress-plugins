@@ -5,7 +5,7 @@ Tags: cookie consent, gdpr, cookie banner, rgpd, privacy policy, dsgvo, gdpr com
 Requires at least: 5.0
 Requires PHP: 7.0.0
 Tested up to: 6.4
-Stable tag: 3.10.0
+Stable tag: 3.10.1
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 The solution for GDPR compliance + more. Get your cookie banner, privacy policy, terms and conditions and handle cookie consent in just one plugin.
@@ -266,6 +266,9 @@ The Brazilian General Data Protection Law, the ***Lei Geral de Proteção de Dad
 * * *
 
 == Changelog ==
+
+= 3.10.1 =
+* Prioritize the iubenda script over other scripts.
 
 = 3.10.0 =
 * Introduced iubenda automatic blocking feature.
@@ -850,5 +853,5 @@ The Brazilian General Data Protection Law, the ***Lei Geral de Proteção de Dad
 
 == Upgrade Notice ==
 
-= 3.10.0 =
-* Introduced iubenda automatic blocking feature.
+= 3.10.1 =
+* Prioritize the iubenda script over other scripts.

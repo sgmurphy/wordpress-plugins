@@ -208,5 +208,4 @@ class Service_Rating {
 
 		return false;
 	}
-
 }

@@ -5,7 +5,7 @@ Contributors: premmerce, freemius
 Tags: woocommerce url, remove product, remove product_category, woocommerce permalink, woocommerce, woocommerce seo
 Requires at least: 4.8
 Tested up to: 6.4.1
-Stable tag: 2.3.10
+Stable tag: 2.3.11
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -88,6 +88,10 @@ You can also install this plugin manually:
 == Changelog ==
 
 
+
+= 2.3.11 (21st February 2024) =
+
+* Security: Local file inclusion vulnerability fix (Thanks to Rafie Muhammad - Patchstack)
 
 = 2.3.10 (26th November 2023) =
 

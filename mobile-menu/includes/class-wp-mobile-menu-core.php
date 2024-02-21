@@ -732,7 +732,9 @@ class WP_Mobile_Menu_Core
      */
     public function format_header_branding( $plugin_settings, $header_text )
     {
-        global  $mm_fs ;
+        global $mm_fs ;
+        global $post_id;
+
         $logo = $plugin_settings->getOption( 'logo_img' );
         $alternative_logo_img = $plugin_settings->getOption( 'alternative_logo_img', $post_id );
         if ( $alternative_logo_img != null ) {

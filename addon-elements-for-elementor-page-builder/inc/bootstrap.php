@@ -400,14 +400,7 @@ class Plugin {
 			true
 		);
 
-		if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
-			$checkout_url = wc_get_checkout_url();
-			$cart_url = wc_get_cart_url();
-		}
-		else{
-			$checkout_url = '';
-			$cart_url = '';
-		}
+		
 
 		if ( is_plugin_active( 'elementor/elementor.php' ) ) {
 			wp_localize_script(
@@ -416,8 +409,6 @@ class Plugin {
 				[
 					'ajaxurl'     => admin_url( 'admin-ajax.php' ),
 					'current_url' => base64_encode( self::$helper->get_current_url_non_paged() ),
-					'checkout_url' 	=> $checkout_url ,
-					'cart_url'		=> $cart_url,
 					'nonce'       => wp_create_nonce( 'eae_forntend_ajax_nonce' ),
 					'plugin_url' => EAE_URL,
 				]

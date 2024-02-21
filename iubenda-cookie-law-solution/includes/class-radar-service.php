@@ -10,13 +10,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 /**
  * Iubenda radar service.
  *
  * @Class Radar_Service
  */
 class Radar_Service {
+	/**
+	 * The source for scheduled scans refresh.
+	 */
+	const SOURCE_SCHEDULED_REFRESH = 'iub_wp_plugin_scheduled_refresh';
+
+	/**
+	 * The source for automatic scans at first time plugin installations.
+	 */
+	const SOURCE_INSTALL_TRIGGERED = 'iub_wp_plugin_install_triggered';
 
 	/**
 	 * Authorization data
@@ -33,7 +41,7 @@ class Radar_Service {
 	 *
 	 * @var Service_Rating
 	 */
-	private $service_rating = '';
+	private $service_rating;
 
 	/**
 	 * Radar urls.
@@ -61,6 +69,8 @@ class Radar_Service {
 
 	/**
 	 * Maximum allowable delay in seconds.
+	 *
+	 * @var int The maximum delay time in seconds.
 	 */
 	private $max_delay_in_sec = MINUTE_IN_SECONDS * 15;
 
@@ -81,14 +91,18 @@ class Radar_Service {
 		add_action( 'init', array( $this, 'check_schedule_reload_radar_config' ) );
 		add_action( 'wp_ajax_force_reload_radar_config', array( $this, 'force_reload_radar_config' ) );
 
-		// Hook the scheduled event
-		add_action('iubenda_schedule_reload_radar_config', array($this, 'force_reload_radar_config'));
+		/**
+		 * Adds action to schedule the reload of radar configuration.
+		 *
+		 * @action iubenda_schedule_reload_radar_config
+		 */
+		add_action( 'iubenda_schedule_reload_radar_config', array( $this, 'schedule_reload_radar_config' ) );
 	}
 
 	/**
 	 * Ask radar to send request.
 	 *
-	 * @return bool
+	 * @return void
 	 */
 	public function ask_radar_to_send_request() {
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
@@ -96,19 +110,12 @@ class Radar_Service {
 		}
 
 		if ( ! empty( $this->api_configuration ) ) {
-			return $this->send_radar_progress_request();
+			$this->send_radar_progress_request();
+
+			return;
 		}
 
-		return $this->send_radar_sync_request();
-	}
-
-	/**
-	 * Force delete radar configuration.
-	 *
-	 * @return bool
-	 */
-	public function force_delete_radar_configuration() {
-		return delete_option( 'iubenda_radar_api_configuration' );
+		$this->send_radar_sync_request();
 	}
 
 	/**
@@ -119,7 +126,7 @@ class Radar_Service {
 	public function calculate_radar_percentage() {
 		$services['pp']   = $this->service_rating->is_privacy_policy_activated();
 		$services['cs']   = $this->service_rating->is_cookie_solution_activated();
-		$services['cons'] = boolval( $this->service_rating->is_cookie_solution_activated() && $this->service_rating->is_cookie_solution_automatically_parse_enabled() );
+		$services['cons'] = $this->service_rating->is_cookie_solution_activated() && $this->service_rating->is_cookie_solution_automatically_parse_enabled();
 		$services['tc']   = $this->service_rating->is_terms_conditions_activated();
 
 		return array(
@@ -129,38 +136,31 @@ class Radar_Service {
 	}
 
 	/**
-	 * Send radar sync request for the first time
+	 * Sends radar sync request for the first time.
+	 *
+	 * @param   bool $is_scheduled_scan  If true, it indicates that the reload is scheduled.
 	 *
 	 * @return bool
 	 */
-	private function send_radar_sync_request() {
-		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
-		$encoded_authorization = base64_encode( $this->authorization['username'] . ':' . $this->authorization['password'] );
-		$website               = get_site_url();
-
-		$data = array(
-			'timeout'     => 30,
-			'redirection' => 5,
-			'httpversion' => '1.0',
-			'headers'     => array( 'Authorization' => "Basic {$encoded_authorization}" ),
-			'body'        => array(
-				'url'                  => $website,
-				'detectLegalDocuments' => 'true',
-			),
+	private function send_radar_sync_request( bool $is_scheduled_scan = false ) {
+		$payload_body  = array(
+			'url'                  => get_site_url(),
+			'detectLegalDocuments' => 'true',
+			'source'               => $is_scheduled_scan ? self::SOURCE_SCHEDULED_REFRESH : self::SOURCE_INSTALL_TRIGGERED,
 		);
-
-		$response      = wp_remote_get( iub_array_get( $this->url, 'match-async' ), $data );
+		$payload       = $this->prepare_payload( $payload_body );
+		$response      = wp_remote_get( iub_array_get( $this->url, 'match-async' ), $payload );
 		$response_code = wp_remote_retrieve_response_code( $response );
 
 		// check response code.
 		$this->check_response( $response, $response_code );
 
-		$body = json_decode( iub_array_get( $response, 'body' ), true );
+		$response_body = json_decode( iub_array_get( $response, 'body' ), true );
 
-		$body['trial_num']  = 1;
-		$body['next_trial'] = time();
+		$response_body['trial_num']  = 1;
+		$response_body['next_trial'] = time();
 
-		iubenda()->iub_update_options( 'iubenda_radar_api_configuration', $body );
+		iubenda()->iub_update_options( 'iubenda_radar_api_configuration', $response_body );
 
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			wp_send_json(
@@ -200,10 +200,10 @@ class Radar_Service {
 		$next_trial = (int) iub_array_get( $iubenda_radar_api_configuration, 'next_trial' );
 		if ( $next_trial > time() ) {
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-				// Calculate the remaining time until the next trial
+				// Calculate the remaining time until the next trial.
 				$next_request_in_sec = $next_trial - time();
 
-				// Fallback to the maximum allowable value if $next_request_in_sec exceeds $max_delay_in_sec
+				// Fallback to the maximum allowable value if $next_request_in_sec exceeds $max_delay_in_sec.
 				$next_request_in_sec = min( $next_request_in_sec, $this->max_delay_in_sec );
 
 				wp_send_json(
@@ -219,40 +219,36 @@ class Radar_Service {
 		}
 
 		$next_trial = time();
-		$trial_num  = intval( iub_array_get( $iubenda_radar_api_configuration, 'trial_num', 1 ) ?? 1 );
+		$trial_num  = (int) ( iub_array_get( $iubenda_radar_api_configuration, 'trial_num', 1 ) ?? 1 );
 
 		// Check if 3 trials were made in this round.
 		if ( is_int( $trial_num / 3 ) ) {
 			$rounds     = $trial_num / 3;
 			$next_trial = time() + ( pow( 30, $rounds ) );
 		}
-		$trial_num++;
+		++$trial_num;
 
-		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
-		$encoded_authorization = base64_encode( $this->authorization['username'] . ':' . $this->authorization['password'] );
-
-		$id = iub_array_get( $iubenda_radar_api_configuration, 'id' );
-
-		$data = array(
-			'timeout'     => 30,
-			'redirection' => 5,
-			'httpversion' => '1.0',
-			'headers'     => array( 'Authorization' => "Basic {$encoded_authorization}" ),
-			'body'        => array( 'id' => $id ),
+		// Prepare payload.
+		$scan_id      = iub_array_get( $iubenda_radar_api_configuration, 'id' );
+		$payload_body = array(
+			'id' => $scan_id,
 		);
+		$payload      = $this->prepare_payload( $payload_body );
 
-		$response      = wp_remote_get( iub_array_get( $this->url, 'match-progress' ), $data );
+		// Send request.
+		$response      = wp_remote_get( iub_array_get( $this->url, 'match-progress' ), $payload );
 		$response_code = wp_remote_retrieve_response_code( $response );
 
 		// check response code.
 		$this->check_response( $response, $response_code );
 
-		$body               = json_decode( iub_array_get( $response, 'body' ), true );
-		$body['trial_num']  = $trial_num;
-		$body['next_trial'] = $next_trial;
+		// Update options.
+		$response_body               = json_decode( iub_array_get( $response, 'body' ), true );
+		$response_body['trial_num']  = $trial_num;
+		$response_body['next_trial'] = $next_trial;
+		iubenda()->iub_update_options( 'iubenda_radar_api_configuration', $response_body );
 
-		iubenda()->iub_update_options( 'iubenda_radar_api_configuration', $body );
-
+		// Send JSON response if doing AJAX.
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			wp_send_json(
 				array(
@@ -271,10 +267,10 @@ class Radar_Service {
 	 * @param   array|WP_Error $response       The response or WP_Error on failure.
 	 * @param   int|string     $response_code  The response code as an integer. Empty string if incorrect parameter given.
 	 *
-	 * @return bool
+	 * @return void
 	 */
 	private function check_response( $response, $response_code ) {
-		if ( is_wp_error( $response ) || 200 !== (int) $response_code ) {
+		if ( 200 !== (int) $response_code || is_wp_error( $response ) ) {
 			if ( ! is_numeric( $response_code ) ) {
 				$message = $this->update_message;
 			} elseif ( 408 === (int) $response_code ) {
@@ -296,7 +292,6 @@ class Radar_Service {
 					)
 				);
 			}
-			return true;
 		}
 	}
 
@@ -308,23 +303,63 @@ class Radar_Service {
 	 * to reload the radar data after a specific interval.
 	 */
 	public function check_schedule_reload_radar_config() {
-		// Check if the scheduled event already exists
+		// Check if the scheduled event already exists.
 		if ( ! wp_next_scheduled( 'iubenda_schedule_reload_radar_config' ) ) {
-			// Schedule the event with the specified dynamic interval
+			// Schedule the event with the specified dynamic interval.
 			wp_schedule_single_event( time() + self::RELOAD_INTERVAL, 'iubenda_schedule_reload_radar_config' );
 		}
 	}
 
 	/**
-	 * Callback function for the reload_radar_config.
+	 * Callback function for the scheduled reload of radar configuration.
 	 *
 	 * This function is triggered when the scheduled event is executed.
 	 * It forces the deletion of radar configuration and asks radar to send a request.
 	 *
 	 * @return void
 	 */
-	public function force_reload_radar_config() {
-		$this->force_delete_radar_configuration();
-		$this->send_radar_sync_request();
+	public function schedule_reload_radar_config() {
+		$this->force_reload_radar_config( true );
+	}
+
+	/**
+	 * Forces the reload of radar configuration.
+	 *
+	 * This function is responsible for forcing the deletion of radar configuration
+	 * and triggering a radar sync request.
+	 *
+	 * @param   bool $is_scheduled_scan  If true, it indicates that the reload is scheduled.
+	 *
+	 * @return void
+	 */
+	public function force_reload_radar_config( bool $is_scheduled_scan = false ) {
+		$this->send_radar_sync_request( $is_scheduled_scan );
+	}
+
+	/**
+	 * Encode credentials to base64.
+	 *
+	 * @return string The base64 encoded string.
+	 */
+	private function encode_credentials_to_base64() {
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+		return base64_encode( $this->authorization['username'] . ':' . $this->authorization['password'] );
+	}
+
+	/**
+	 * Prepare the payload array.
+	 *
+	 * @param   array $body  The body of the request.
+	 *
+	 * @return array The prepared payload ar ray.
+	 */
+	private function prepare_payload( $body ) {
+		return array(
+			'body'        => $body,
+			'headers'     => array( 'Authorization' => "Basic {$this->encode_credentials_to_base64()}" ),
+			'httpversion' => '1.0',
+			'redirection' => 5,
+			'timeout'     => 30,
+		);
 	}
 }

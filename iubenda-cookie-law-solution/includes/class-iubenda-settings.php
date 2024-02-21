@@ -74,7 +74,7 @@ class Iubenda_Settings {
 	 *
 	 * @var string[]
 	 */
-	private $legal_notices;
+	public $legal_notices;
 
 	/**
 	 * Tag types
@@ -166,221 +166,221 @@ class Iubenda_Settings {
 
 		$links = array(
 			'en'    => array(
-				'iab'                                => 'https://www.iubenda.com/en/help/7440-enable-preference-management-iab-framework',
-				'enable_iab'                         => 'https://www.iubenda.com/en/help/7440-iab-framework-cmp#why-publishers-should-enable-the-transparency-and-consent-framework',
-				'guide'                              => 'https://www.iubenda.com/en/cookie-solution',
-				'plugin_page'                        => 'https://www.iubenda.com/en/help/posts/1215',
-				'support_forum'                      => 'https://support.iubenda.com/support/home',
-				'documentation'                      => 'https://www.iubenda.com/en/help/posts/1215',
-				'how_generate_tc'                    => 'https://www.iubenda.com/en/help/19461',
-				'how_generate_cs'                    => 'https://www.iubenda.com/en/help/1177',
-				'how_generate_pp'                    => 'https://www.iubenda.com/en/help/463-generate-privacy-policy',
-				'how_generate_cons'                  => 'https://www.iubenda.com/en/help/6473-consent-solution-js-documentation#generate-embed',
-				'about_pp'                           => 'https://www.iubenda.com/en/privacy-and-cookie-policy-generator',
-				'about_cs'                           => 'https://www.iubenda.com/en/cookie-solution',
-				'about_tc'                           => 'https://www.iubenda.com/en/terms-and-conditions-generator',
-				'flow_page'                          => "https://www.iubenda.com/en/flow/{$site_id}",
-				'about_cons'                         => 'https://www.iubenda.com/en/consent-solution',
-				'amp_support'                        => 'https://www.iubenda.com/en/help/22135-cookie-solution-amp-wordpress#folder-permissions',
-				'enable_amp_support'                 => 'https://www.iubenda.com/en/help/22135-cookie-solution-amp-wordpress#step-2-enable-the-google-amp-support',
-				'wordpress_support'                  => 'https://www.iubenda.com/en/help/370-how-to-use-iubenda-privacy-and-cookie-policy-on-a-wordpress-website',
-				'privacy_policy_generator_edit'      => iub_array_get( $qg_response, 'privacy_policies.en.edit_url', '' ) ?? '',
-				'privacy_policy_generator_setup'     => iub_array_get( $qg_response, 'privacy_policies.en.setup_url', '' ) ?? '',
-				'automatic_block_scripts'            => 'https://www.iubenda.com/en/help/1215-cookie-solution-wordpress-plugin-installation-guide#functionality',
-				'how_cs_rate'                        => 'https://www.iubenda.com/en/help/21985-cookie-banner-do-you-really-need-one-and-how-can-you-get-a-cookie-notice-for-your-website',
-				'how_cons_rate'                      => 'https://www.iubenda.com/en/help/3081-prior-blocking-of-cookie-scripts#wordpress',
-				'how_pp_rate'                        => 'https://www.iubenda.com/en/help/6187-what-should-be-in-a-privacy-policy',
-				'how_tc_rate'                        => 'https://www.iubenda.com/en/help/19482-what-should-basic-terms-and-conditions-include',
-				'user_account'                       => 'https://www.iubenda.com/en/account',
-				'amp_permission_support'             => 'https://www.iubenda.com/en/help/22135-cookie-solution-amp-wordpress#folder-permissions',
-				'google_tag_manager_blocking'        => 'https://www.iubenda.com/en/help/1235-google-tag-manager-blocking-cookies',
-                'frontend_auto_blocking' => 'https://www.iubenda.com/en/help/133036-prior-blocking-of-cookies-automatic-blocking-auto-blocking',
+				'iab'                            => 'https://www.iubenda.com/en/help/7440-enable-preference-management-iab-framework',
+				'enable_iab'                     => 'https://www.iubenda.com/en/help/7440-iab-framework-cmp#why-publishers-should-enable-the-transparency-and-consent-framework',
+				'guide'                          => 'https://www.iubenda.com/en/cookie-solution',
+				'plugin_page'                    => 'https://www.iubenda.com/en/help/posts/1215',
+				'support_forum'                  => 'https://support.iubenda.com/support/home',
+				'documentation'                  => 'https://www.iubenda.com/en/help/posts/1215',
+				'how_generate_tc'                => 'https://www.iubenda.com/en/help/19461',
+				'how_generate_cs'                => 'https://www.iubenda.com/en/help/1177',
+				'how_generate_pp'                => 'https://www.iubenda.com/en/help/463-generate-privacy-policy',
+				'how_generate_cons'              => 'https://www.iubenda.com/en/help/6473-consent-solution-js-documentation#generate-embed',
+				'about_pp'                       => 'https://www.iubenda.com/en/privacy-and-cookie-policy-generator',
+				'about_cs'                       => 'https://www.iubenda.com/en/cookie-solution',
+				'about_tc'                       => 'https://www.iubenda.com/en/terms-and-conditions-generator',
+				'flow_page'                      => "https://www.iubenda.com/en/flow/{$site_id}",
+				'about_cons'                     => 'https://www.iubenda.com/en/consent-solution',
+				'amp_support'                    => 'https://www.iubenda.com/en/help/22135-cookie-solution-amp-wordpress#folder-permissions',
+				'enable_amp_support'             => 'https://www.iubenda.com/en/help/22135-cookie-solution-amp-wordpress#step-2-enable-the-google-amp-support',
+				'wordpress_support'              => 'https://www.iubenda.com/en/help/370-how-to-use-iubenda-privacy-and-cookie-policy-on-a-wordpress-website',
+				'privacy_policy_generator_edit'  => iub_array_get( $qg_response, 'privacy_policies.en.edit_url', '' ) ?? '',
+				'privacy_policy_generator_setup' => iub_array_get( $qg_response, 'privacy_policies.en.setup_url', '' ) ?? '',
+				'automatic_block_scripts'        => 'https://www.iubenda.com/en/help/1215-cookie-solution-wordpress-plugin-installation-guide#functionality',
+				'how_cs_rate'                    => 'https://www.iubenda.com/en/help/21985-cookie-banner-do-you-really-need-one-and-how-can-you-get-a-cookie-notice-for-your-website',
+				'how_cons_rate'                  => 'https://www.iubenda.com/en/help/3081-prior-blocking-of-cookie-scripts#wordpress',
+				'how_pp_rate'                    => 'https://www.iubenda.com/en/help/6187-what-should-be-in-a-privacy-policy',
+				'how_tc_rate'                    => 'https://www.iubenda.com/en/help/19482-what-should-basic-terms-and-conditions-include',
+				'user_account'                   => 'https://www.iubenda.com/en/account',
+				'amp_permission_support'         => 'https://www.iubenda.com/en/help/22135-cookie-solution-amp-wordpress#folder-permissions',
+				'google_tag_manager_blocking'    => 'https://www.iubenda.com/en/help/1235-google-tag-manager-blocking-cookies',
+				'frontend_auto_blocking'         => 'https://www.iubenda.com/en/help/133036-prior-blocking-of-cookies-automatic-blocking-auto-blocking',
 			),
 			'it'    => array(
-				'iab'                                => 'https://www.iubenda.com/it/help/7440-enable-preference-management-iab-framework',
-				'enable_iab'                         => 'https://www.iubenda.com/it/help/7440-iab-framework-cmp#why-publishers-should-enable-the-transparency-and-consent-framework',
-				'guide'                              => 'https://www.iubenda.com/it/cookie-solution',
-				'plugin_page'                        => 'https://www.iubenda.com/it/help/posts/810',
-				'support_forum'                      => 'https://support.iubenda.com/support/home',
-				'documentation'                      => 'https://www.iubenda.com/it/help/posts/810',
-				'how_generate_tc'                    => 'https://www.iubenda.com/it/help/19394',
-				'how_generate_cs'                    => 'https://www.iubenda.com/it/help/680',
-				'how_generate_pp'                    => 'https://www.iubenda.com/it/help/463-generate-privacy-policy',
-				'how_generate_cons'                  => 'https://www.iubenda.com/it/help/6473-consent-solution-js-documentation#generate-embed',
-				'about_pp'                           => 'https://www.iubenda.com/it/privacy-and-cookie-policy-generator',
-				'about_cs'                           => 'https://www.iubenda.com/it/cookie-solution',
-				'about_tc'                           => 'https://www.iubenda.com/it/terms-and-conditions-generator',
-				'flow_page'                          => "https://www.iubenda.com/it/flow/{$site_id}",
-				'about_cons'                         => 'https://www.iubenda.com/it/consent-solution',
-				'amp_support'                        => 'https://www.iubenda.com/it/help/22135-cookie-solution-amp-wordpress#folder-permissions',
-				'enable_amp_support'                 => 'https://www.iubenda.com/it/help/22135-cookie-solution-amp-wordpress#step-2-enable-the-google-amp-support',
-				'wordpress_support'                  => 'https://www.iubenda.com/it/help/370-how-to-use-iubenda-privacy-and-cookie-policy-on-a-wordpress-website',
-				'privacy_policy_generator_edit'      => iub_array_get( $qg_response, 'privacy_policies.it.edit_url', '' ) ?? '',
-				'privacy_policy_generator_setup'     => iub_array_get( $qg_response, 'privacy_policies.it.setup_url', '' ) ?? '',
-				'automatic_block_scripts'            => 'https://www.iubenda.com/it/help/1215-cookie-solution-wordpress-plugin-installation-guide#functionality',
-				'how_cs_rate'                        => 'https://www.iubenda.com/it/help/21985-cookie-banner-do-you-really-need-one-and-how-can-you-get-a-cookie-notice-for-your-website',
-				'how_cons_rate'                      => 'https://www.iubenda.com/it/help/3081-prior-blocking-of-cookie-scripts#wordpress',
-				'how_pp_rate'                        => 'https://www.iubenda.com/it/help/6187-what-should-be-in-a-privacy-policy',
-				'how_tc_rate'                        => 'https://www.iubenda.com/it/help/19482-what-should-basic-terms-and-conditions-include',
-				'user_account'                       => 'https://www.iubenda.com/it/account',
-				'amp_permission_support'             => 'https://www.iubenda.com/it/help/22135-cookie-solution-amp-wordpress#folder-permissions',
-				'google_tag_manager_blocking'        => 'https://www.iubenda.com/it/help/1235-google-tag-manager-blocking-cookies',
-                'frontend_auto_blocking' => 'https://www.iubenda.com/it/help/133036-prior-blocking-of-cookies-automatic-blocking-auto-blocking',
+				'iab'                            => 'https://www.iubenda.com/it/help/7440-enable-preference-management-iab-framework',
+				'enable_iab'                     => 'https://www.iubenda.com/it/help/7440-iab-framework-cmp#why-publishers-should-enable-the-transparency-and-consent-framework',
+				'guide'                          => 'https://www.iubenda.com/it/cookie-solution',
+				'plugin_page'                    => 'https://www.iubenda.com/it/help/posts/810',
+				'support_forum'                  => 'https://support.iubenda.com/support/home',
+				'documentation'                  => 'https://www.iubenda.com/it/help/posts/810',
+				'how_generate_tc'                => 'https://www.iubenda.com/it/help/19394',
+				'how_generate_cs'                => 'https://www.iubenda.com/it/help/680',
+				'how_generate_pp'                => 'https://www.iubenda.com/it/help/463-generate-privacy-policy',
+				'how_generate_cons'              => 'https://www.iubenda.com/it/help/6473-consent-solution-js-documentation#generate-embed',
+				'about_pp'                       => 'https://www.iubenda.com/it/privacy-and-cookie-policy-generator',
+				'about_cs'                       => 'https://www.iubenda.com/it/cookie-solution',
+				'about_tc'                       => 'https://www.iubenda.com/it/terms-and-conditions-generator',
+				'flow_page'                      => "https://www.iubenda.com/it/flow/{$site_id}",
+				'about_cons'                     => 'https://www.iubenda.com/it/consent-solution',
+				'amp_support'                    => 'https://www.iubenda.com/it/help/22135-cookie-solution-amp-wordpress#folder-permissions',
+				'enable_amp_support'             => 'https://www.iubenda.com/it/help/22135-cookie-solution-amp-wordpress#step-2-enable-the-google-amp-support',
+				'wordpress_support'              => 'https://www.iubenda.com/it/help/370-how-to-use-iubenda-privacy-and-cookie-policy-on-a-wordpress-website',
+				'privacy_policy_generator_edit'  => iub_array_get( $qg_response, 'privacy_policies.it.edit_url', '' ) ?? '',
+				'privacy_policy_generator_setup' => iub_array_get( $qg_response, 'privacy_policies.it.setup_url', '' ) ?? '',
+				'automatic_block_scripts'        => 'https://www.iubenda.com/it/help/1215-cookie-solution-wordpress-plugin-installation-guide#functionality',
+				'how_cs_rate'                    => 'https://www.iubenda.com/it/help/21985-cookie-banner-do-you-really-need-one-and-how-can-you-get-a-cookie-notice-for-your-website',
+				'how_cons_rate'                  => 'https://www.iubenda.com/it/help/3081-prior-blocking-of-cookie-scripts#wordpress',
+				'how_pp_rate'                    => 'https://www.iubenda.com/it/help/6187-what-should-be-in-a-privacy-policy',
+				'how_tc_rate'                    => 'https://www.iubenda.com/it/help/19482-what-should-basic-terms-and-conditions-include',
+				'user_account'                   => 'https://www.iubenda.com/it/account',
+				'amp_permission_support'         => 'https://www.iubenda.com/it/help/22135-cookie-solution-amp-wordpress#folder-permissions',
+				'google_tag_manager_blocking'    => 'https://www.iubenda.com/it/help/1235-google-tag-manager-blocking-cookies',
+				'frontend_auto_blocking'         => 'https://www.iubenda.com/it/help/133036-prior-blocking-of-cookies-automatic-blocking-auto-blocking',
 			),
 			'de'    => array(
-				'iab'                                => 'https://www.iubenda.com/de/help/7440-enable-preference-management-iab-framework',
-				'enable_iab'                         => 'https://www.iubenda.com/de/help/7440-iab-framework-cmp#why-publishers-should-enable-the-transparency-and-consent-framework',
-				'guide'                              => 'https://www.iubenda.com/de/cookie-solution',
-				'plugin_page'                        => 'https://www.iubenda.com/de/help/posts/810',
-				'support_forum'                      => 'https://support.iubenda.com/support/home',
-				'documentation'                      => 'https://www.iubenda.com/de/help/posts/810',
-				'how_generate_tc'                    => 'https://www.iubenda.com/de/help/19394',
-				'how_generate_cs'                    => 'https://www.iubenda.com/de/help/680',
-				'how_generate_pp'                    => 'https://www.iubenda.com/de/help/463-generate-privacy-policy',
-				'how_generate_cons'                  => 'https://www.iubenda.com/de/help/6473-consent-solution-js-documentation#generate-embed',
-				'about_pp'                           => 'https://www.iubenda.com/de/privacy-and-cookie-policy-generator',
-				'about_cs'                           => 'https://www.iubenda.com/de/cookie-solution',
-				'about_tc'                           => 'https://www.iubenda.com/de/terms-and-conditions-generator',
-				'flow_page'                          => "https://www.iubenda.com/de/flow/{$site_id}",
-				'about_cons'                         => 'https://www.iubenda.com/de/consent-solution',
-				'amp_support'                        => 'https://www.iubenda.com/de/help/22135-cookie-solution-amp-wordpress#folder-permissions',
-				'enable_amp_support'                 => 'https://www.iubenda.com/de/help/22135-cookie-solution-amp-wordpress#step-2-enable-the-google-amp-support',
-				'wordpress_support'                  => 'https://www.iubenda.com/de/help/370-how-to-use-iubenda-privacy-and-cookie-policy-on-a-wordpress-website',
-				'privacy_policy_generator_edit'      => iub_array_get( $qg_response, 'privacy_policies.de.edit_url', '' ) ?? '',
-				'privacy_policy_generator_setup'     => iub_array_get( $qg_response, 'privacy_policies.de.setup_url', '' ) ?? '',
-				'automatic_block_scripts'            => 'https://www.iubenda.com/de/help/1215-cookie-solution-wordpress-plugin-installation-guide#functionality',
-				'how_cs_rate'                        => 'https://www.iubenda.com/de/help/21985-cookie-banner-do-you-really-need-one-and-how-can-you-get-a-cookie-notice-for-your-website',
-				'how_cons_rate'                      => 'https://www.iubenda.com/de/help/3081-prior-blocking-of-cookie-scripts#wordpress',
-				'how_pp_rate'                        => 'https://www.iubenda.com/de/help/6187-what-should-be-in-a-privacy-policy',
-				'how_tc_rate'                        => 'https://www.iubenda.com/de/help/19482-what-should-basic-terms-and-conditions-include',
-				'user_account'                       => 'https://www.iubenda.com/de/account',
-				'amp_permission_support'             => 'https://www.iubenda.com/de/help/22135-cookie-solution-amp-wordpress#folder-permissions',
-				'google_tag_manager_blocking'        => 'https://www.iubenda.com/de/help/1235-google-tag-manager-blocking-cookies',
-                'frontend_auto_blocking' => 'https://www.iubenda.com/de/help/133036-prior-blocking-of-cookies-automatic-blocking-auto-blocking',
+				'iab'                            => 'https://www.iubenda.com/de/help/7440-enable-preference-management-iab-framework',
+				'enable_iab'                     => 'https://www.iubenda.com/de/help/7440-iab-framework-cmp#why-publishers-should-enable-the-transparency-and-consent-framework',
+				'guide'                          => 'https://www.iubenda.com/de/cookie-solution',
+				'plugin_page'                    => 'https://www.iubenda.com/de/help/posts/810',
+				'support_forum'                  => 'https://support.iubenda.com/support/home',
+				'documentation'                  => 'https://www.iubenda.com/de/help/posts/810',
+				'how_generate_tc'                => 'https://www.iubenda.com/de/help/19394',
+				'how_generate_cs'                => 'https://www.iubenda.com/de/help/680',
+				'how_generate_pp'                => 'https://www.iubenda.com/de/help/463-generate-privacy-policy',
+				'how_generate_cons'              => 'https://www.iubenda.com/de/help/6473-consent-solution-js-documentation#generate-embed',
+				'about_pp'                       => 'https://www.iubenda.com/de/privacy-and-cookie-policy-generator',
+				'about_cs'                       => 'https://www.iubenda.com/de/cookie-solution',
+				'about_tc'                       => 'https://www.iubenda.com/de/terms-and-conditions-generator',
+				'flow_page'                      => "https://www.iubenda.com/de/flow/{$site_id}",
+				'about_cons'                     => 'https://www.iubenda.com/de/consent-solution',
+				'amp_support'                    => 'https://www.iubenda.com/de/help/22135-cookie-solution-amp-wordpress#folder-permissions',
+				'enable_amp_support'             => 'https://www.iubenda.com/de/help/22135-cookie-solution-amp-wordpress#step-2-enable-the-google-amp-support',
+				'wordpress_support'              => 'https://www.iubenda.com/de/help/370-how-to-use-iubenda-privacy-and-cookie-policy-on-a-wordpress-website',
+				'privacy_policy_generator_edit'  => iub_array_get( $qg_response, 'privacy_policies.de.edit_url', '' ) ?? '',
+				'privacy_policy_generator_setup' => iub_array_get( $qg_response, 'privacy_policies.de.setup_url', '' ) ?? '',
+				'automatic_block_scripts'        => 'https://www.iubenda.com/de/help/1215-cookie-solution-wordpress-plugin-installation-guide#functionality',
+				'how_cs_rate'                    => 'https://www.iubenda.com/de/help/21985-cookie-banner-do-you-really-need-one-and-how-can-you-get-a-cookie-notice-for-your-website',
+				'how_cons_rate'                  => 'https://www.iubenda.com/de/help/3081-prior-blocking-of-cookie-scripts#wordpress',
+				'how_pp_rate'                    => 'https://www.iubenda.com/de/help/6187-what-should-be-in-a-privacy-policy',
+				'how_tc_rate'                    => 'https://www.iubenda.com/de/help/19482-what-should-basic-terms-and-conditions-include',
+				'user_account'                   => 'https://www.iubenda.com/de/account',
+				'amp_permission_support'         => 'https://www.iubenda.com/de/help/22135-cookie-solution-amp-wordpress#folder-permissions',
+				'google_tag_manager_blocking'    => 'https://www.iubenda.com/de/help/1235-google-tag-manager-blocking-cookies',
+				'frontend_auto_blocking'         => 'https://www.iubenda.com/de/help/133036-prior-blocking-of-cookies-automatic-blocking-auto-blocking',
 			),
 			'es'    => array(
-				'iab'                                => 'https://www.iubenda.com/es/help/7440-enable-preference-management-iab-framework',
-				'enable_iab'                         => 'https://www.iubenda.com/es/help/7440-iab-framework-cmp#why-publishers-should-enable-the-transparency-and-consent-framework',
-				'guide'                              => 'https://www.iubenda.com/es/cookie-solution',
-				'plugin_page'                        => 'https://www.iubenda.com/es/help/posts/810',
-				'support_forum'                      => 'https://support.iubenda.com/support/home',
-				'documentation'                      => 'https://www.iubenda.com/es/help/posts/810',
-				'how_generate_tc'                    => 'https://www.iubenda.com/es/help/19394',
-				'how_generate_cs'                    => 'https://www.iubenda.com/es/help/680',
-				'how_generate_pp'                    => 'https://www.iubenda.com/es/help/463-generate-privacy-policy',
-				'how_generate_cons'                  => 'https://www.iubenda.com/es/help/6473-consent-solution-js-documentation#generate-embed',
-				'about_pp'                           => 'https://www.iubenda.com/es/privacy-and-cookie-policy-generator',
-				'about_cs'                           => 'https://www.iubenda.com/es/cookie-solution',
-				'about_tc'                           => 'https://www.iubenda.com/es/terms-and-conditions-generator',
-				'flow_page'                          => "https://www.iubenda.com/es/flow/{$site_id}",
-				'about_cons'                         => 'https://www.iubenda.com/es/consent-solution',
-				'amp_support'                        => 'https://www.iubenda.com/es/help/22135-cookie-solution-amp-wordpress#folder-permissions',
-				'enable_amp_support'                 => 'https://www.iubenda.com/es/help/22135-cookie-solution-amp-wordpress#step-2-enable-the-google-amp-support',
-				'wordpress_support'                  => 'https://www.iubenda.com/es/help/370-how-to-use-iubenda-privacy-and-cookie-policy-on-a-wordpress-website',
-				'privacy_policy_generator_edit'      => iub_array_get( $qg_response, 'privacy_policies.es.edit_url', '' ) ?? '',
-				'privacy_policy_generator_setup'     => iub_array_get( $qg_response, 'privacy_policies.es.setup_url', '' ) ?? '',
-				'automatic_block_scripts'            => 'https://www.iubenda.com/es/help/1215-cookie-solution-wordpress-plugin-installation-guide#functionality',
-				'how_cs_rate'                        => 'https://www.iubenda.com/es/help/21985-cookie-banner-do-you-really-need-one-and-how-can-you-get-a-cookie-notice-for-your-website',
-				'how_cons_rate'                      => 'https://www.iubenda.com/es/help/3081-prior-blocking-of-cookie-scripts#wordpress',
-				'how_pp_rate'                        => 'https://www.iubenda.com/es/help/6187-what-should-be-in-a-privacy-policy',
-				'how_tc_rate'                        => 'https://www.iubenda.com/es/help/19482-what-should-basic-terms-and-conditions-include',
-				'user_account'                       => 'https://www.iubenda.com/es/account',
-				'amp_permission_support'             => 'https://www.iubenda.com/es/help/22135-cookie-solution-amp-wordpress#folder-permissions',
-				'google_tag_manager_blocking'        => 'https://www.iubenda.com/es/help/1235-google-tag-manager-blocking-cookies',
-                'frontend_auto_blocking' => 'https://www.iubenda.com/es/help/133036-prior-blocking-of-cookies-automatic-blocking-auto-blocking',
+				'iab'                            => 'https://www.iubenda.com/es/help/7440-enable-preference-management-iab-framework',
+				'enable_iab'                     => 'https://www.iubenda.com/es/help/7440-iab-framework-cmp#why-publishers-should-enable-the-transparency-and-consent-framework',
+				'guide'                          => 'https://www.iubenda.com/es/cookie-solution',
+				'plugin_page'                    => 'https://www.iubenda.com/es/help/posts/810',
+				'support_forum'                  => 'https://support.iubenda.com/support/home',
+				'documentation'                  => 'https://www.iubenda.com/es/help/posts/810',
+				'how_generate_tc'                => 'https://www.iubenda.com/es/help/19394',
+				'how_generate_cs'                => 'https://www.iubenda.com/es/help/680',
+				'how_generate_pp'                => 'https://www.iubenda.com/es/help/463-generate-privacy-policy',
+				'how_generate_cons'              => 'https://www.iubenda.com/es/help/6473-consent-solution-js-documentation#generate-embed',
+				'about_pp'                       => 'https://www.iubenda.com/es/privacy-and-cookie-policy-generator',
+				'about_cs'                       => 'https://www.iubenda.com/es/cookie-solution',
+				'about_tc'                       => 'https://www.iubenda.com/es/terms-and-conditions-generator',
+				'flow_page'                      => "https://www.iubenda.com/es/flow/{$site_id}",
+				'about_cons'                     => 'https://www.iubenda.com/es/consent-solution',
+				'amp_support'                    => 'https://www.iubenda.com/es/help/22135-cookie-solution-amp-wordpress#folder-permissions',
+				'enable_amp_support'             => 'https://www.iubenda.com/es/help/22135-cookie-solution-amp-wordpress#step-2-enable-the-google-amp-support',
+				'wordpress_support'              => 'https://www.iubenda.com/es/help/370-how-to-use-iubenda-privacy-and-cookie-policy-on-a-wordpress-website',
+				'privacy_policy_generator_edit'  => iub_array_get( $qg_response, 'privacy_policies.es.edit_url', '' ) ?? '',
+				'privacy_policy_generator_setup' => iub_array_get( $qg_response, 'privacy_policies.es.setup_url', '' ) ?? '',
+				'automatic_block_scripts'        => 'https://www.iubenda.com/es/help/1215-cookie-solution-wordpress-plugin-installation-guide#functionality',
+				'how_cs_rate'                    => 'https://www.iubenda.com/es/help/21985-cookie-banner-do-you-really-need-one-and-how-can-you-get-a-cookie-notice-for-your-website',
+				'how_cons_rate'                  => 'https://www.iubenda.com/es/help/3081-prior-blocking-of-cookie-scripts#wordpress',
+				'how_pp_rate'                    => 'https://www.iubenda.com/es/help/6187-what-should-be-in-a-privacy-policy',
+				'how_tc_rate'                    => 'https://www.iubenda.com/es/help/19482-what-should-basic-terms-and-conditions-include',
+				'user_account'                   => 'https://www.iubenda.com/es/account',
+				'amp_permission_support'         => 'https://www.iubenda.com/es/help/22135-cookie-solution-amp-wordpress#folder-permissions',
+				'google_tag_manager_blocking'    => 'https://www.iubenda.com/es/help/1235-google-tag-manager-blocking-cookies',
+				'frontend_auto_blocking'         => 'https://www.iubenda.com/es/help/133036-prior-blocking-of-cookies-automatic-blocking-auto-blocking',
 			),
 			'fr'    => array(
-				'iab'                                => 'https://www.iubenda.com/fr/help/7440-enable-preference-management-iab-framework',
-				'enable_iab'                         => 'https://www.iubenda.com/fr/help/7440-iab-framework-cmp#why-publishers-should-enable-the-transparency-and-consent-framework',
-				'guide'                              => 'https://www.iubenda.com/fr/cookie-solution',
-				'plugin_page'                        => 'https://www.iubenda.com/fr/help/posts/810',
-				'support_forum'                      => 'https://support.iubenda.com/support/home',
-				'documentation'                      => 'https://www.iubenda.com/fr/help/posts/810',
-				'how_generate_tc'                    => 'https://www.iubenda.com/fr/help/19394',
-				'how_generate_cs'                    => 'https://www.iubenda.com/fr/help/680',
-				'how_generate_pp'                    => 'https://www.iubenda.com/fr/help/463-generate-privacy-policy',
-				'how_generate_cons'                  => 'https://www.iubenda.com/fr/help/6473-consent-solution-js-documentation#generate-embed',
-				'about_pp'                           => 'https://www.iubenda.com/fr/privacy-and-cookie-policy-generator',
-				'about_cs'                           => 'https://www.iubenda.com/fr/cookie-solution',
-				'about_tc'                           => 'https://www.iubenda.com/fr/terms-and-conditions-generator',
-				'flow_page'                          => "https://www.iubenda.com/fr/flow/{$site_id}",
-				'about_cons'                         => 'https://www.iubenda.com/fr/consent-solution',
-				'amp_support'                        => 'https://www.iubenda.com/fr/help/22135-cookie-solution-amp-wordpress#folder-permissions',
-				'enable_amp_support'                 => 'https://www.iubenda.com/fr/help/22135-cookie-solution-amp-wordpress#step-2-enable-the-google-amp-support',
-				'wordpress_support'                  => 'https://www.iubenda.com/fr/help/370-how-to-use-iubenda-privacy-and-cookie-policy-on-a-wordpress-website',
-				'privacy_policy_generator_edit'      => iub_array_get( $qg_response, 'privacy_policies.fr.edit_url', '' ) ?? '',
-				'privacy_policy_generator_setup'     => iub_array_get( $qg_response, 'privacy_policies.fr.setup_url', '' ) ?? '',
-				'automatic_block_scripts'            => 'https://www.iubenda.com/fr/help/1215-cookie-solution-wordpress-plugin-installation-guide#functionality',
-				'how_cs_rate'                        => 'https://www.iubenda.com/fr/help/21985-cookie-banner-do-you-really-need-one-and-how-can-you-get-a-cookie-notice-for-your-website',
-				'how_cons_rate'                      => 'https://www.iubenda.com/fr/help/3081-prior-blocking-of-cookie-scripts#wordpress',
-				'how_pp_rate'                        => 'https://www.iubenda.com/fr/help/6187-what-should-be-in-a-privacy-policy',
-				'how_tc_rate'                        => 'https://www.iubenda.com/fr/help/19482-what-should-basic-terms-and-conditions-include',
-				'user_account'                       => 'https://www.iubenda.com/fr/account',
-				'amp_permission_support'             => 'https://www.iubenda.com/fr/help/22135-cookie-solution-amp-wordpress#folder-permissions',
-				'google_tag_manager_blocking'        => 'https://www.iubenda.com/fr/help/1235-google-tag-manager-blocking-cookies',
-                'frontend_auto_blocking' => 'https://www.iubenda.com/fr/help/133036-prior-blocking-of-cookies-automatic-blocking-auto-blocking',
+				'iab'                            => 'https://www.iubenda.com/fr/help/7440-enable-preference-management-iab-framework',
+				'enable_iab'                     => 'https://www.iubenda.com/fr/help/7440-iab-framework-cmp#why-publishers-should-enable-the-transparency-and-consent-framework',
+				'guide'                          => 'https://www.iubenda.com/fr/cookie-solution',
+				'plugin_page'                    => 'https://www.iubenda.com/fr/help/posts/810',
+				'support_forum'                  => 'https://support.iubenda.com/support/home',
+				'documentation'                  => 'https://www.iubenda.com/fr/help/posts/810',
+				'how_generate_tc'                => 'https://www.iubenda.com/fr/help/19394',
+				'how_generate_cs'                => 'https://www.iubenda.com/fr/help/680',
+				'how_generate_pp'                => 'https://www.iubenda.com/fr/help/463-generate-privacy-policy',
+				'how_generate_cons'              => 'https://www.iubenda.com/fr/help/6473-consent-solution-js-documentation#generate-embed',
+				'about_pp'                       => 'https://www.iubenda.com/fr/privacy-and-cookie-policy-generator',
+				'about_cs'                       => 'https://www.iubenda.com/fr/cookie-solution',
+				'about_tc'                       => 'https://www.iubenda.com/fr/terms-and-conditions-generator',
+				'flow_page'                      => "https://www.iubenda.com/fr/flow/{$site_id}",
+				'about_cons'                     => 'https://www.iubenda.com/fr/consent-solution',
+				'amp_support'                    => 'https://www.iubenda.com/fr/help/22135-cookie-solution-amp-wordpress#folder-permissions',
+				'enable_amp_support'             => 'https://www.iubenda.com/fr/help/22135-cookie-solution-amp-wordpress#step-2-enable-the-google-amp-support',
+				'wordpress_support'              => 'https://www.iubenda.com/fr/help/370-how-to-use-iubenda-privacy-and-cookie-policy-on-a-wordpress-website',
+				'privacy_policy_generator_edit'  => iub_array_get( $qg_response, 'privacy_policies.fr.edit_url', '' ) ?? '',
+				'privacy_policy_generator_setup' => iub_array_get( $qg_response, 'privacy_policies.fr.setup_url', '' ) ?? '',
+				'automatic_block_scripts'        => 'https://www.iubenda.com/fr/help/1215-cookie-solution-wordpress-plugin-installation-guide#functionality',
+				'how_cs_rate'                    => 'https://www.iubenda.com/fr/help/21985-cookie-banner-do-you-really-need-one-and-how-can-you-get-a-cookie-notice-for-your-website',
+				'how_cons_rate'                  => 'https://www.iubenda.com/fr/help/3081-prior-blocking-of-cookie-scripts#wordpress',
+				'how_pp_rate'                    => 'https://www.iubenda.com/fr/help/6187-what-should-be-in-a-privacy-policy',
+				'how_tc_rate'                    => 'https://www.iubenda.com/fr/help/19482-what-should-basic-terms-and-conditions-include',
+				'user_account'                   => 'https://www.iubenda.com/fr/account',
+				'amp_permission_support'         => 'https://www.iubenda.com/fr/help/22135-cookie-solution-amp-wordpress#folder-permissions',
+				'google_tag_manager_blocking'    => 'https://www.iubenda.com/fr/help/1235-google-tag-manager-blocking-cookies',
+				'frontend_auto_blocking'         => 'https://www.iubenda.com/fr/help/133036-prior-blocking-of-cookies-automatic-blocking-auto-blocking',
 			),
 			'pt-br' => array(
-				'iab'                                => 'https://www.iubenda.com/pt-br/help/7440-enable-preference-management-iab-framework',
-				'enable_iab'                         => 'https://www.iubenda.com/pt-br/help/7440-iab-framework-cmp#why-publishers-should-enable-the-transparency-and-consent-framework',
-				'guide'                              => 'https://www.iubenda.com/pt-br/cookie-solution',
-				'plugin_page'                        => 'https://www.iubenda.com/pt-br/help/45342-cookie-solution-manual-de-instalacao-do-plugin-do-wordpress',
-				'support_forum'                      => 'https://support.iubenda.com/support/home',
-				'documentation'                      => 'https://www.iubenda.com/pt-br/help/45342-cookie-solution-manual-de-instalacao-do-plugin-do-wordpress',
-				'how_generate_tc'                    => 'https://www.iubenda.com/pt-br/help/19394',
-				'how_generate_cs'                    => 'https://www.iubenda.com/pt-br/help/680',
-				'how_generate_pp'                    => 'https://www.iubenda.com/pt-br/help/463-generate-privacy-policy',
-				'how_generate_cons'                  => 'https://www.iubenda.com/pt-br/help/6473-consent-solution-js-documentation#generate-embed',
-				'about_pp'                           => 'https://www.iubenda.com/pt-br/privacy-and-cookie-policy-generator',
-				'about_cs'                           => 'https://www.iubenda.com/pt-br/cookie-solution',
-				'about_tc'                           => 'https://www.iubenda.com/pt-br/terms-and-conditions-generator',
-				'flow_page'                          => "https://www.iubenda.com/pt-br/flow/{$site_id}",
-				'about_cons'                         => 'https://www.iubenda.com/pt-br/consent-solution',
-				'amp_support'                        => 'https://www.iubenda.com/pt-br/help/22135-cookie-solution-amp-wordpress#folder-permissions',
-				'enable_amp_support'                 => 'https://www.iubenda.com/pt-br/help/22135-cookie-solution-amp-wordpress#step-2-enable-the-google-amp-support',
-				'wordpress_support'                  => 'https://www.iubenda.com/pt-br/help/370-how-to-use-iubenda-privacy-and-cookie-policy-on-a-wordpress-website',
-				'privacy_policy_generator_edit'      => iub_array_get( $qg_response, 'privacy_policies.pt-br.edit_url', '' ) ?? '',
-				'privacy_policy_generator_setup'     => iub_array_get( $qg_response, 'privacy_policies.pt-br.setup_url', '' ) ?? '',
-				'automatic_block_scripts'            => 'https://www.iubenda.com/pt-br/help/1215-cookie-solution-wordpress-plugin-installation-guide#functionality',
-				'how_cs_rate'                        => 'https://www.iubenda.com/pt-br/help/21985-cookie-banner-do-you-really-need-one-and-how-can-you-get-a-cookie-notice-for-your-website',
-				'how_cons_rate'                      => 'https://www.iubenda.com/pt-br/help/3081-prior-blocking-of-cookie-scripts#wordpress',
-				'how_pp_rate'                        => 'https://www.iubenda.com/pt-br/help/6187-what-should-be-in-a-privacy-policy',
-				'how_tc_rate'                        => 'https://www.iubenda.com/pt-br/help/19482-what-should-basic-terms-and-conditions-include',
-				'user_account'                       => 'https://www.iubenda.com/pt-br/account',
-				'amp_permission_support'             => 'https://www.iubenda.com/pt-br/help/22135-cookie-solution-amp-wordpress#folder-permissions',
-				'google_tag_manager_blocking'        => 'https://www.iubenda.com/pt-br/help/1235-google-tag-manager-blocking-cookies',
-                'frontend_auto_blocking' => 'https://www.iubenda.com/pt-br/help/133036-prior-blocking-of-cookies-automatic-blocking-auto-blocking',
+				'iab'                            => 'https://www.iubenda.com/pt-br/help/7440-enable-preference-management-iab-framework',
+				'enable_iab'                     => 'https://www.iubenda.com/pt-br/help/7440-iab-framework-cmp#why-publishers-should-enable-the-transparency-and-consent-framework',
+				'guide'                          => 'https://www.iubenda.com/pt-br/cookie-solution',
+				'plugin_page'                    => 'https://www.iubenda.com/pt-br/help/45342-cookie-solution-manual-de-instalacao-do-plugin-do-wordpress',
+				'support_forum'                  => 'https://support.iubenda.com/support/home',
+				'documentation'                  => 'https://www.iubenda.com/pt-br/help/45342-cookie-solution-manual-de-instalacao-do-plugin-do-wordpress',
+				'how_generate_tc'                => 'https://www.iubenda.com/pt-br/help/19394',
+				'how_generate_cs'                => 'https://www.iubenda.com/pt-br/help/680',
+				'how_generate_pp'                => 'https://www.iubenda.com/pt-br/help/463-generate-privacy-policy',
+				'how_generate_cons'              => 'https://www.iubenda.com/pt-br/help/6473-consent-solution-js-documentation#generate-embed',
+				'about_pp'                       => 'https://www.iubenda.com/pt-br/privacy-and-cookie-policy-generator',
+				'about_cs'                       => 'https://www.iubenda.com/pt-br/cookie-solution',
+				'about_tc'                       => 'https://www.iubenda.com/pt-br/terms-and-conditions-generator',
+				'flow_page'                      => "https://www.iubenda.com/pt-br/flow/{$site_id}",
+				'about_cons'                     => 'https://www.iubenda.com/pt-br/consent-solution',
+				'amp_support'                    => 'https://www.iubenda.com/pt-br/help/22135-cookie-solution-amp-wordpress#folder-permissions',
+				'enable_amp_support'             => 'https://www.iubenda.com/pt-br/help/22135-cookie-solution-amp-wordpress#step-2-enable-the-google-amp-support',
+				'wordpress_support'              => 'https://www.iubenda.com/pt-br/help/370-how-to-use-iubenda-privacy-and-cookie-policy-on-a-wordpress-website',
+				'privacy_policy_generator_edit'  => iub_array_get( $qg_response, 'privacy_policies.pt-br.edit_url', '' ) ?? '',
+				'privacy_policy_generator_setup' => iub_array_get( $qg_response, 'privacy_policies.pt-br.setup_url', '' ) ?? '',
+				'automatic_block_scripts'        => 'https://www.iubenda.com/pt-br/help/1215-cookie-solution-wordpress-plugin-installation-guide#functionality',
+				'how_cs_rate'                    => 'https://www.iubenda.com/pt-br/help/21985-cookie-banner-do-you-really-need-one-and-how-can-you-get-a-cookie-notice-for-your-website',
+				'how_cons_rate'                  => 'https://www.iubenda.com/pt-br/help/3081-prior-blocking-of-cookie-scripts#wordpress',
+				'how_pp_rate'                    => 'https://www.iubenda.com/pt-br/help/6187-what-should-be-in-a-privacy-policy',
+				'how_tc_rate'                    => 'https://www.iubenda.com/pt-br/help/19482-what-should-basic-terms-and-conditions-include',
+				'user_account'                   => 'https://www.iubenda.com/pt-br/account',
+				'amp_permission_support'         => 'https://www.iubenda.com/pt-br/help/22135-cookie-solution-amp-wordpress#folder-permissions',
+				'google_tag_manager_blocking'    => 'https://www.iubenda.com/pt-br/help/1235-google-tag-manager-blocking-cookies',
+				'frontend_auto_blocking'         => 'https://www.iubenda.com/pt-br/help/133036-prior-blocking-of-cookies-automatic-blocking-auto-blocking',
 			),
 			'nl'    => array(
-				'iab'                                => 'https://www.iubenda.com/nl/help/7440-enable-preference-management-iab-framework',
-				'enable_iab'                         => 'https://www.iubenda.com/nl/help/7440-iab-framework-cmp#why-publishers-should-enable-the-transparency-and-consent-framework',
-				'guide'                              => 'https://www.iubenda.com/nl/cookie-solution',
-				'plugin_page'                        => 'https://www.iubenda.com/nl/help/posts/810',
-				'support_forum'                      => 'https://support.iubenda.com/support/home',
-				'documentation'                      => 'https://www.iubenda.com/nl/help/posts/810',
-				'how_generate_tc'                    => 'https://www.iubenda.com/nl/help/19394',
-				'how_generate_cs'                    => 'https://www.iubenda.com/nl/help/680',
-				'how_generate_pp'                    => 'https://www.iubenda.com/nl/help/463-generate-privacy-policy',
-				'how_generate_cons'                  => 'https://www.iubenda.com/nl/help/6473-consent-solution-js-documentation#generate-embed',
-				'about_pp'                           => 'https://www.iubenda.com/nl/privacy-and-cookie-policy-generator',
-				'about_cs'                           => 'https://www.iubenda.com/nl/cookie-solution',
-				'about_tc'                           => 'https://www.iubenda.com/nl/terms-and-conditions-generator',
-				'flow_page'                          => "https://www.iubenda.com/nl/flow/{$site_id}",
-				'about_cons'                         => 'https://www.iubenda.com/nl/consent-solution',
-				'amp_support'                        => 'https://www.iubenda.com/nl/help/22135-cookie-solution-amp-wordpress#folder-permissions',
-				'enable_amp_support'                 => 'https://www.iubenda.com/nl/help/22135-cookie-solution-amp-wordpress#step-2-enable-the-google-amp-support',
-				'wordpress_support'                  => 'https://www.iubenda.com/nl/help/370-how-to-use-iubenda-privacy-and-cookie-policy-on-a-wordpress-website',
-				'privacy_policy_generator_edit'      => iub_array_get( $qg_response, 'privacy_policies.nl.edit_url', '' ) ?? '',
-				'privacy_policy_generator_setup'     => iub_array_get( $qg_response, 'privacy_policies.nl.setup_url', '' ) ?? '',
-				'automatic_block_scripts'            => 'https://www.iubenda.com/nl/help/1215-cookie-solution-wordpress-plugin-installation-guide#functionality',
-				'how_cs_rate'                        => 'https://www.iubenda.com/nl/help/21985-cookie-banner-do-you-really-need-one-and-how-can-you-get-a-cookie-notice-for-your-website',
-				'how_cons_rate'                      => 'https://www.iubenda.com/nl/help/3081-prior-blocking-of-cookie-scripts#wordpress',
-				'how_pp_rate'                        => 'https://www.iubenda.com/nl/help/6187-what-should-be-in-a-privacy-policy',
-				'how_tc_rate'                        => 'https://www.iubenda.com/nl/help/19482-what-should-basic-terms-and-conditions-include',
-				'user_account'                       => 'https://www.iubenda.com/nl/account',
-				'amp_permission_support'             => 'https://www.iubenda.com/nl/help/22135-cookie-solution-amp-wordpress#folder-permissions',
-				'google_tag_manager_blocking'        => 'https://www.iubenda.com/nl/help/1235-google-tag-manager-blocking-cookies',
-                'frontend_auto_blocking' => 'https://www.iubenda.com/nl/help/133036-prior-blocking-of-cookies-automatic-blocking-auto-blocking',
+				'iab'                            => 'https://www.iubenda.com/nl/help/7440-enable-preference-management-iab-framework',
+				'enable_iab'                     => 'https://www.iubenda.com/nl/help/7440-iab-framework-cmp#why-publishers-should-enable-the-transparency-and-consent-framework',
+				'guide'                          => 'https://www.iubenda.com/nl/cookie-solution',
+				'plugin_page'                    => 'https://www.iubenda.com/nl/help/posts/810',
+				'support_forum'                  => 'https://support.iubenda.com/support/home',
+				'documentation'                  => 'https://www.iubenda.com/nl/help/posts/810',
+				'how_generate_tc'                => 'https://www.iubenda.com/nl/help/19394',
+				'how_generate_cs'                => 'https://www.iubenda.com/nl/help/680',
+				'how_generate_pp'                => 'https://www.iubenda.com/nl/help/463-generate-privacy-policy',
+				'how_generate_cons'              => 'https://www.iubenda.com/nl/help/6473-consent-solution-js-documentation#generate-embed',
+				'about_pp'                       => 'https://www.iubenda.com/nl/privacy-and-cookie-policy-generator',
+				'about_cs'                       => 'https://www.iubenda.com/nl/cookie-solution',
+				'about_tc'                       => 'https://www.iubenda.com/nl/terms-and-conditions-generator',
+				'flow_page'                      => "https://www.iubenda.com/nl/flow/{$site_id}",
+				'about_cons'                     => 'https://www.iubenda.com/nl/consent-solution',
+				'amp_support'                    => 'https://www.iubenda.com/nl/help/22135-cookie-solution-amp-wordpress#folder-permissions',
+				'enable_amp_support'             => 'https://www.iubenda.com/nl/help/22135-cookie-solution-amp-wordpress#step-2-enable-the-google-amp-support',
+				'wordpress_support'              => 'https://www.iubenda.com/nl/help/370-how-to-use-iubenda-privacy-and-cookie-policy-on-a-wordpress-website',
+				'privacy_policy_generator_edit'  => iub_array_get( $qg_response, 'privacy_policies.nl.edit_url', '' ) ?? '',
+				'privacy_policy_generator_setup' => iub_array_get( $qg_response, 'privacy_policies.nl.setup_url', '' ) ?? '',
+				'automatic_block_scripts'        => 'https://www.iubenda.com/nl/help/1215-cookie-solution-wordpress-plugin-installation-guide#functionality',
+				'how_cs_rate'                    => 'https://www.iubenda.com/nl/help/21985-cookie-banner-do-you-really-need-one-and-how-can-you-get-a-cookie-notice-for-your-website',
+				'how_cons_rate'                  => 'https://www.iubenda.com/nl/help/3081-prior-blocking-of-cookie-scripts#wordpress',
+				'how_pp_rate'                    => 'https://www.iubenda.com/nl/help/6187-what-should-be-in-a-privacy-policy',
+				'how_tc_rate'                    => 'https://www.iubenda.com/nl/help/19482-what-should-basic-terms-and-conditions-include',
+				'user_account'                   => 'https://www.iubenda.com/nl/account',
+				'amp_permission_support'         => 'https://www.iubenda.com/nl/help/22135-cookie-solution-amp-wordpress#folder-permissions',
+				'google_tag_manager_blocking'    => 'https://www.iubenda.com/nl/help/1235-google-tag-manager-blocking-cookies',
+				'frontend_auto_blocking'         => 'https://www.iubenda.com/nl/help/133036-prior-blocking-of-cookies-automatic-blocking-auto-blocking',
 			),
 		);
 
@@ -441,7 +441,7 @@ class Iubenda_Settings {
 	/**
 	 * Check if at least one service is activated.
 	 *
-	 * @param   array  $services  Array of services with 'status' key.
+	 * @param   array $services  Array of services with 'status' key.
 	 *
 	 * @return bool True if at least one service has a true status, false otherwise.
 	 */
@@ -449,7 +449,7 @@ class Iubenda_Settings {
 		$result = array_filter(
 			array_column( $services, 'status' ),
 			function ( $service ) {
-				return ( (string) $service === 'true' || $service === true );
+				return ( 'true' === (string) $service || true === $service );
 			}
 		);
 
@@ -459,7 +459,7 @@ class Iubenda_Settings {
 	/**
 	 * Check if at least one service is configured.
 	 *
-	 * @param   array  $services  Array of services with 'configured' key.
+	 * @param   array $services  Array of services with 'configured' key.
 	 *
 	 * @return bool True if at least one service is configured as true, false otherwise.
 	 */
@@ -467,7 +467,7 @@ class Iubenda_Settings {
 		$result = array_filter(
 			array_column( $services, 'configured' ),
 			function ( $service ) {
-				return ( (string) $service === 'true' || $service === true );
+				return ( 'true' === (string) $service || true === $service );
 			}
 		);
 
@@ -566,7 +566,7 @@ class Iubenda_Settings {
 				require_once IUBENDA_PLUGIN_PATH . 'views/cons-single-form.php';
 				break;
 			default:
-                require_once IUBENDA_PLUGIN_PATH . "views/{$default}.php";
+				require_once IUBENDA_PLUGIN_PATH . "views/{$default}.php";
 		}
 	}
 
@@ -941,15 +941,16 @@ class Iubenda_Settings {
 	/**
 	 * Sanitize array helper function.
 	 *
-	 * @param array $array array.
+	 * @param array $target_array  array.
+	 *
 	 * @return array
 	 */
-	public function array_map_callback( $array ) {
-		if ( ! is_array( $array ) ) {
+	public function array_map_callback( $target_array ) {
+		if ( ! is_array( $target_array ) ) {
 			return array();
 		}
 
-		return array_map( 'sanitize_text_field', $array );
+		return array_map( 'sanitize_text_field', $target_array );
 	}
 
 	/**
@@ -969,7 +970,7 @@ class Iubenda_Settings {
 	/**
 	 * Load admin style inline, for menu icon only.
 	 *
-	 * @return mixed
+	 * @return void
 	 */
 	public function admin_print_styles() {
 		?>
@@ -1102,7 +1103,6 @@ class Iubenda_Settings {
 				'key'        => 'iubenda_consent_solution',
 			),
 		);
-
 	}
 
 	/**
@@ -1292,13 +1292,13 @@ class Iubenda_Settings {
 
 		// Check if the API key is set in the $_ENV variable.
 		if ( isset( $_ENV['iubenda_api_key'] ) && ! empty( $_ENV['iubenda_api_key'] ) ) {
-            return trim( sanitize_text_field( wp_unslash( $_ENV['iubenda_api_key'] ) ));
+			return trim( sanitize_text_field( wp_unslash( $_ENV['iubenda_api_key'] ) ) );
 		}
 
-        $iub_api_key = get_option('iubenda_api_key');
-        if ( $iub_api_key ) {
-            return trim( sanitize_text_field( wp_unslash( $iub_api_key ) ) );
-        }
+		$iub_api_key = get_option( 'iubenda_api_key' );
+		if ( $iub_api_key ) {
+			return trim( sanitize_text_field( wp_unslash( $iub_api_key ) ) );
+		}
 
 		// If the API key is not set in $_SERVER or $_ENV or in DB, use the predefined constant.
 		return self::IUB_QG_API_KEY;

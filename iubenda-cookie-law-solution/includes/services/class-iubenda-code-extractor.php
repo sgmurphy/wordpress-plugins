@@ -65,81 +65,91 @@ class Iubenda_Code_Extractor {
 	 */
 	private $code;
 
-    /**
-     * Auto Blocking Enabled.
-     *
-     * @var bool
-     */
-	private $is_auto_blocking_enabled  = false;
+	/**
+	 * Auto Blocking Enabled.
+	 *
+	 * @var bool
+	 */
+	private $is_auto_blocking_enabled = false;
 
-    /**
-     * Site ID.
-     *
-     * @var string
-     */
-    private $site_id;
+	/**
+	 * Site ID.
+	 *
+	 * @var string
+	 */
+	private $site_id;
 
-    /**
-     * List of scripts that will be ignored from appending to body
-     *
-     * @var string[]
-     */
-    private $escaped_scripts_from_body = array(
-        'iubenda.com/sync/',
-        'iubenda.com/autoblocking/',
-    );
+	/**
+	 * Cookie Policy ID.
+	 *
+	 * @var string
+	 */
+	private $cookie_policy_id;
 
+	/**
+	 * List of scripts that will be ignored from appending to body
+	 *
+	 * @var string[]
+	 */
+	private $escaped_scripts_from_body = array(
+		'iubenda.com/sync/',
+		'iubenda.com/autoblocking/',
+	);
 
-    private $required_scripts_in_head = array(
-        Auto_Blocking_Script_Appender::class,
-        Sync_Script_Appender::class,
-    );
+	/**
+	 * Array of classes required for appending scripts in the head section.
+	 *
+	 * @var string[] Class names of the script appenders.
+	 */
+	private $required_scripts_in_head = array(
+		Auto_Blocking_Script_Appender::class,
+		Sync_Script_Appender::class,
+	);
 
 	/**
 	 * Extract scripts and styles from embed code and enqueue it
 	 *
-	 * @param   string  $code  embed code.
+	 * @param   string $code  embed code.
 	 *
 	 * @return void
 	 */
 	public function enqueue_embed_code( $code ) {
 		$this->code = $code;
 
-        $this->set_auto_blocking_state($code);
+		$this->set_auto_blocking_state( $code );
 		$this->extract_html_tags();
 		$this->handle_scripts();
-        $this->dispatch_scripts_in_head();
+		$this->dispatch_scripts_in_head();
 		$this->handle_styles();
 
-		add_filter( 'script_loader_tag', array( $this, 'iub_add_attribute_to_scripts' ), 10, 3 );
+		add_filter( 'script_loader_tag', array( $this, 'iub_add_attribute_to_scripts' ), 10, 2 );
 	}
 
-    /**
-     * Dispatch the required scripts in head based on conditions
-     *
-     * @return void
-     */
-    private function dispatch_scripts_in_head()
-    {
-        foreach ( $this->required_scripts_in_head as $class ) {
-            $instance = new $class( $this );
-            $instance->handle();
-        }
-    }
+	/**
+	 * Dispatch the required scripts in head based on conditions
+	 *
+	 * @return void
+	 */
+	private function dispatch_scripts_in_head() {
+		foreach ( $this->required_scripts_in_head as $class ) {
+			$instance = new $class( $this );
+			$instance->handle();
+		}
+	}
 
-    /**
-     * Declare auto blocking feature state
-     *
-     * @param $code
-     */
-    private function set_auto_blocking_state($code)
-    {
-        $instance = new Auto_Blocking();
-        $this->site_id = $instance->get_site_id_from_cs_code($code);
-        if ( $this->site_id ) {
-            $this->is_auto_blocking_enabled = (bool)iub_array_get(iubenda()->options, "cs.frontend_auto_blocking.{$this->site_id}");
-        }
-    }
+	/**
+	 * Declare auto blocking feature state
+	 *
+	 * @param   string $code  embed code.
+	 */
+	private function set_auto_blocking_state( $code ) {
+		$instance      = new Auto_Blocking();
+		$this->site_id = $instance->get_site_id_from_cs_code( $code );
+		if ( $this->site_id ) {
+			$this->is_auto_blocking_enabled = (bool) iub_array_get( iubenda()->options, "cs.frontend_auto_blocking.{$this->site_id}" );
+		}
+		$this->cookie_policy_id = $instance->get_cookie_policy_id_from_cs_code( $code );
+	}
 
 	/**
 	 * Extract tampered scripts from embed code and return it
@@ -183,25 +193,25 @@ class Iubenda_Code_Extractor {
 				'after'
 			);
 
-			$this->script_attributes["iubenda-head-inline-scripts-$key"] = $script['attributes'];
+			$this->script_attributes[ "iubenda-head-inline-scripts-$key" ] = $script['attributes'];
 		}
 
 		// Extract scripts with src to enqueue it.
 		foreach ( $this->scripts as $key => $script ) {
-            if ( $this->may_escape_script_from_body( $script ) ) {
-                continue;
-            }
+			if ( $this->may_escape_script_from_body( $script ) ) {
+				continue;
+			}
 
-            wp_enqueue_script(
-                "iubenda-head-scripts-{$key}",
-                $script['src'],
-                array(),
-                iubenda()->version,
-                false
-            );
+			wp_enqueue_script(
+				"iubenda-head-scripts-{$key}",
+				$script['src'],
+				array(),
+				iubenda()->version,
+				false
+			);
 
-            // Store script attributes for reference.
-            $this->script_attributes["iubenda-head-scripts-{$key}"] = $script['attributes'];
+			// Store script attributes for reference.
+			$this->script_attributes[ "iubenda-head-scripts-{$key}" ] = $script['attributes'];
 		}
 	}
 
@@ -271,11 +281,10 @@ class Iubenda_Code_Extractor {
 	 *
 	 * @param   string $tag     HTML for the script tag.
 	 * @param   string $handle  Handle of script.
-	 * @param   string $src     Src of script.
 	 *
 	 * @return string
 	 */
-	public function iub_add_attribute_to_scripts( $tag, $handle, $src ) {
+	public function iub_add_attribute_to_scripts( $tag, $handle ) {
 		$key = array_search( $handle, array_keys( $this->script_attributes ), true );
 
 		if ( false !== $key ) {
@@ -373,7 +382,7 @@ class Iubenda_Code_Extractor {
 	private function extract_html_tags_with_dom() {
 		$previous_value = libxml_use_internal_errors( true );
 		if ( function_exists( 'mb_encode_numericentity' ) ) {
-			$this->code = mb_encode_numericentity($this->code, [0x80, 0x10FFFF, 0, ~0], 'UTF-8');
+			$this->code = mb_encode_numericentity( $this->code, array( 0x80, 0x10FFFF, 0, ~0 ), 'UTF-8' );
 		}
 
 		$document = new DOMDocument();
@@ -390,17 +399,14 @@ class Iubenda_Code_Extractor {
 						'src'        => $script->getAttribute( 'src' ),
 						'attributes' => $this->fetch_attributes_and_add_skip_class( $script ),
 					);
+				} elseif ( $this->check_tampered_script( $script->nodeValue ) ) {
+					$this->tampered_scripts[] = $script->nodeValue;
+					$script->nodeValue        = '';
 				} else {
-					// Inline scripts.
-					if ( $this->check_tampered_script( $script->nodeValue ) ) {
-						$this->tampered_scripts[] = $script->nodeValue;
-						$script->nodeValue        = '';
-					} else {
-						$this->scripts_inline[] = array(
-							'content'    => $script->nodeValue,
-							'attributes' => $this->fetch_attributes_and_add_skip_class( $script ),
-						);
-					}
+					$this->scripts_inline[] = array(
+						'content'    => $script->nodeValue,
+						'attributes' => $this->fetch_attributes_and_add_skip_class( $script ),
+					);
 				}
 			}
 		}
@@ -424,6 +430,10 @@ class Iubenda_Code_Extractor {
 	 * Extract html tags with dom document using helper class.
 	 */
 	private function extract_html_tags_with_simple_html_dom() {
+		if ( ! function_exists( 'str_get_html' ) ) {
+			return;
+		}
+
 		$html = str_get_html( $this->code, true, true, false );
 
 		if ( is_object( $html ) ) {
@@ -509,13 +519,17 @@ class Iubenda_Code_Extractor {
 	}
 
 	/**
-	 * Check if script matches any observer.
+	 * Determines whether a given script should be excluded from the body based on predefined criteria.
 	 *
-	 * @param   array  $script
+	 * This method iterates over a list of specific script URLs (or patterns) that are meant to be escaped
+	 * from being placed in the body. It checks if the source URL of the provided script matches any of
+	 * these predefined URLs or patterns. If a match is found, the script is considered for exclusion.
 	 *
-	 * @return bool
+	 * @param array $script An associative array containing script attributes, with 'src' being one of the keys representing the script's source URL.
+	 *
+	 * @return bool Returns true if the script matches any of the predefined URLs or patterns and should be excluded from the body; otherwise, false.
 	 */
-	private function may_escape_script_from_body($script ): bool {
+	private function may_escape_script_from_body( $script ): bool {
 		foreach ( $this->escaped_scripts_from_body as $url ) {
 			if ( strpos( $script['src'], $url ) !== false ) {
 				return true;
@@ -525,34 +539,40 @@ class Iubenda_Code_Extractor {
 		return false;
 	}
 
-    /**
-     * Get List of scripts
-     *
-     * @return array
-     */
-    public function get_scripts()
-    {
-        return $this->scripts;
-    }
+	/**
+	 * Get List of scripts
+	 *
+	 * @return array
+	 */
+	public function get_scripts() {
+		return $this->scripts;
+	}
 
-    /**
-     * Get Site ID
-     *
-     * @return string
-     */
-    public function get_site_id()
-    {
-        return $this->site_id;
-    }
+	/**
+	 * Get Site ID
+	 *
+	 * @return string
+	 */
+	public function get_site_id() {
+		return $this->site_id;
+	}
 
-    /**
-     * Get Auto Blocking State
-     *
-     * @return bool
-     */
-    public function is_auto_blocking_enabled()
-    {
-        return $this->is_auto_blocking_enabled;
-    }
+	/**
+	 * Get Cookie Policy ID
+	 *
+	 * @return string
+	 */
+	public function get_cookie_policy_id() {
+		return $this->cookie_policy_id;
+	}
+
+	/**
+	 * Get Auto Blocking State
+	 *
+	 * @return bool
+	 */
+	public function is_auto_blocking_enabled() {
+		return $this->is_auto_blocking_enabled;
+	}
 	// phpcs:enable
 }

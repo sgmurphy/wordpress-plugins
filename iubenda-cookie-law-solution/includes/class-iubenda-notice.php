@@ -141,7 +141,7 @@ class Iubenda_Notice {
 
 		if ( ! empty( iub_get_request_parameter( 'iub_nonce' ) ) ) {
 			$delay      = ! empty( iub_get_request_parameter( 'delay' ) ) ? absint( iub_get_request_parameter( 'delay' ) ) : 0;
-			$activation = (array) get_option( 'iubenda_activation_data', iubenda()->activation, array() );
+			$activation = (array) get_option( 'iubenda_activation_data', iubenda()->activation );
 
 			// delay notice.
 			if ( $delay > 0 ) {
@@ -166,10 +166,8 @@ class Iubenda_Notice {
 
 	/**
 	 * Checking for iubenda notice.
-	 *
-	 * @param   string $notice_key Notice key.
 	 */
-	public function maybe_show_notice( string $notice_key ) {
+	public function maybe_show_notice() {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
@@ -345,7 +343,7 @@ class Iubenda_Notice {
 	 */
 	private function check_for_showing_rating_notice() {
 		$current_update = 10;
-		$activation     = (array) get_option( 'iubenda_activation_data', iubenda()->activation, array() );
+		$activation     = (array) get_option( 'iubenda_activation_data', iubenda()->activation );
 
 		// get current time.
 		$current_time = time();

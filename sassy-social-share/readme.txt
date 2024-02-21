@@ -4,7 +4,7 @@ Donate link: https://www.heateor.com/donate/?action=Sassy+Social+Share
 Tags: social share, social sharing, social media share, share facebook, facebook social share, wordpress social share, share buttons, social share buttons, facebook like, twitter tweet, whatsapp share, line share, gab share, gab social share, gab, parler share, parler social share, gettr, gettr share, gettr social share, mewe share, mewe social share, mewe, mastodon share, mastodon social share, mastodon, rutube share, rutube social share, rutube, google news, google news share, google news icon, RSS, RSS Feed, x, x share, yelp, google translate, Google maps, tiktok, Teams, flickr, threads, Gab, Gab share, Line
 Requires at least: 2.5.0
 Tested up to: 6.4.3
-Stable tag: 3.3.57
+Stable tag: 3.3.58
 License: GPLv2 or later
 
 Slickest, Simplest and Optimized Share buttons. Facebook, X (Twitter), Reddit, Pinterest, Whatsapp, Gab, Gettr and over 100 more.
@@ -125,6 +125,9 @@ Yes, we can help you with it. Just drop an email at support[at]heateor[dot]com
 4. **Universal Sharing Popup**: Universal Sharing popup having all the supported sharing and bookmarking services
 
 == Changelog ==
+= 3.3.58 [21 February 2024] =
+* [Bugfix] Previous update was breaking the layout of the website
+
 = 3.3.57 [20 February 2024] =
 * [New] Fixed Cross-Site Scripting vulnerability in the [Sassy_Follow_Icons] shortcode
 * [New] Added Line in the Follow Icons widget and shortcode
@@ -1385,3 +1388,6 @@ Yes, we can help you with it. Just drop an email at support[at]heateor[dot]com
 * [Improvement] Improved Parler icon in the Follow Icons shortcode and widget
 * [Improvement] Updated the official Facebook SDK being used throughout the plugin to the latest version 19.0
 * [Improvement] Minor improvements
+
+= 3.3.58 [21 February 2024] =
+* [Bugfix] Previous update was breaking the layout of the website

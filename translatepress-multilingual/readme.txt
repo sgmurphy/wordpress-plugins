@@ -5,7 +5,7 @@ Tags: translate, translation, multilingual, automatic translation, bilingual, fr
 Requires at least: 3.1.0
 Tested up to: 6.4.3
 Requires PHP: 5.6.20
-Stable tag: 2.7.1
+Stable tag: 2.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,7 +109,7 @@ TranslatePress - Multilingual plugin works out of the box with WooCommerce, cust
 
 = How is it different from other multilingual & translation plugins like WPML or Polylang? =
 
-TranslatePress is easier to use and more intuitive altogether. No more switching between the editor, string translation interfaces or badly translated plugins. You can now translate the full page content directly from the front-end. This makes TranslatePress a great alternative to plugins like Polylang and WPML.
+TranslatePress is easier to use and more intuitive altogether. No more switching between the editor, string translation interfaces or badly translated plugins. You can now translate the full page content directly from the front-end. This makes TranslatePress a great alternative to plugins like Polylang and WPML. For more details check out this [WordPress Translation Plugin Comparison: TranslatePress vs WPML vs Polylang vs Gtranslate](https://translatepress.com/wordpress-translation-plugin-comparison-translatepress-vs-free-and-paid-alternatives/translate-woocommerce-products-translatepress/?utm_source=wp.org&utm_medium=tp-description-page&utm_campaign=TPFree).
 
 = How do I start to translate my WordPress site? =
 
@@ -140,6 +140,11 @@ For more information please check out our [documentation](https://translatepress
 
 
 == Changelog ==
+= 2.7.2 =
+ * Fixed translation saved confirmation message in the Translation Editor
+ * Fixed CSS issue in Advanced settings
+ * Fixed notice in TranslatePress settings
+
 = 2.7.1 =
 * Fixed potential security issue in the language switcher
 * Fixed floating language switcher appearance when displaying only flags on sites with many languages

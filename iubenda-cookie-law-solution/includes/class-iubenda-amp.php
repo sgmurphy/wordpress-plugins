@@ -85,7 +85,7 @@ class Iubenda_AMP {
 	/**
 	 * Add scripts and CSS to WP AMP plugin in Transitional mode.
 	 *
-	 * @return mixed
+	 * @return void
 	 */
 	public function wp_head_amp() {
 		if ( false === iubenda()->options['cs']['amp_support'] ) {
@@ -134,7 +134,7 @@ class Iubenda_AMP {
 	/**
 	 * Add AMP consent HTML to WP AMP plugin in Transitional mode.
 	 *
-	 * @return mixed
+	 * @return void
 	 */
 	public function wp_footer_amp() {
 		if ( false === (bool) iubenda()->options['cs']['amp_support'] ) {
@@ -158,20 +158,17 @@ class Iubenda_AMP {
 
 			// local file.
 			if ( 'local' === (string) iubenda()->options['cs']['amp_source'] ) {
-				// multi language support.
+				// multi-language support.
 				if ( iubenda()->multilang && ! empty( iubenda()->lang_current ) ) {
 					$template_url = $this->get_amp_template_url( iubenda()->lang_current );
 				} else {
 					$template_url = $this->get_amp_template_url();
 				}
 				// remote file.
+			} elseif ( iubenda()->multilang && ! empty( iubenda()->lang_current ) ) {
+				$template_url = esc_url( isset( iubenda()->options['cs']['amp_template'][ iubenda()->lang_current ] ) ? iubenda()->options['cs']['amp_template'][ iubenda()->lang_current ] : '' );
 			} else {
-				// multi language support.
-				if ( iubenda()->multilang && ! empty( iubenda()->lang_current ) ) {
-					$template_url = esc_url( isset( iubenda()->options['cs']['amp_template'][ iubenda()->lang_current ] ) ? iubenda()->options['cs']['amp_template'][ iubenda()->lang_current ] : '' );
-				} else {
-					$template_url = esc_url( iubenda()->options['cs']['amp_template'] );
-				}
+				$template_url = esc_url( iubenda()->options['cs']['amp_template'] );
 			}
 
 			if ( empty( $template_url ) ) {
@@ -233,6 +230,10 @@ class Iubenda_AMP {
 			return $data;
 		}
 
+		if ( ! class_exists( 'iubendaParser' ) ) {
+			return $data;
+		}
+
 		global $redux_builder_amp;
 
 		if ( null === $redux_builder_amp ) {
@@ -259,8 +260,12 @@ class Iubenda_AMP {
 			return $analytics_entries;
 		}
 
+		if ( ! class_exists( 'iubendaParser' ) ) {
+			return $analytics_entries;
+		}
+
 		// block the analytics using the entries filter hook.
-		if ( ! iubendaParser::consent_given() && ! empty( $analytics_entries ) && is_array( $analytics_entries ) ) {
+		if ( is_array( $analytics_entries ) && ! empty( $analytics_entries ) && ! iubendaParser::consent_given() ) {
 			foreach ( $analytics_entries as $id => $entry ) {
 				$entry['attributes'] = ! empty( $entry['attributes'] ) ? $entry['attributes'] : array();
 
@@ -385,8 +390,7 @@ class Iubenda_AMP {
 
 		// get basic site host and template file data.
 		$file_url = ! empty( $template_lang ) ? IUBENDA_PLUGIN_URL . '/templates/amp-' . $template_lang . '.html' : IUBENDA_PLUGIN_URL . '/templates/amp.html';
-		// phpcs:ignore Squiz.PHP.CommentedOutCode.Found
-		// $file_url = 'https://cdn.iubenda.com/cs/test/cs-for-amp.html'; // debug only.
+
 		$parsed_site  = wp_parse_url( home_url() );
 		$parsed_file  = wp_parse_url( $file_url );
 		$site_host    = 'localhost' !== (string) $parsed_site['host'] ? iubenda()->domain( $parsed_site['host'] ) : 'localhost';
@@ -397,36 +401,35 @@ class Iubenda_AMP {
 		// check if file host and server host match.
 		// if not, we're good to go.
 		if ( $site_host !== $file_host ) {
+			return $file_url;
+		}
+
+		// all ok if we're on different subdomains.
+		if ( $parsed_site['host'] !== $parsed_file['host'] ) {
 			$template_url = $file_url;
-			// if are located on same host do additional tweaks.
 		} else {
-			// all ok if we're on different subdomains.
-			if ( $parsed_site['host'] !== $parsed_file['host'] ) {
-				$template_url = $file_url;
+			// same hosts, let's tweak the http/https.
+			$has_www = strpos( $parsed_file['host'], 'www.' ) === 0;
+
+			// add or remove www from url string to make iframe url pass AMP validation.
+			// 1 Check if not localhost and not subdomain or doesn't have www.
+			if ( ! $is_localhost && ! $has_www ) {
+				// 2 Append www if not exist.
+				$tweaked_host = 'www.' . $parsed_file['host'];
+			} elseif ( ! $is_localhost && $has_www ) {
+				// 3 Remove www if exist.
+				$tweaked_host = preg_replace( '/^www\./i', '', $parsed_file['host'] );
 			} else {
-				// same hosts, let's tweak the http/https.
-				$has_www = strpos( $parsed_file['host'], 'www.' ) === 0;
+				// 4 else Get the current host normally.
+				$tweaked_host = $parsed_file['host'];
+			}
 
-				// add or remove www from url string to make iframe url pass AMP validation.
-				// 1 Check if not localhost and not subdomain or doesn't have www.
-				if ( ! $is_localhost && ! $has_www ) {
-					// 2 Append www if not exist.
-					$tweaked_host = 'www.' . $parsed_file['host'];
-				} elseif ( ! $is_localhost && $has_www ) {
-					// 3 Remove www if exist.
-					$tweaked_host = preg_replace( '/^www\./i', '', $parsed_file['host'] );
-				} else {
-					// 4 else Get the current host normally.
-					$tweaked_host = $parsed_file['host'];
-				}
+			// generate new url.
+			$tweaked_url = $parsed_file['scheme'] . '://' . $tweaked_host . ( isset( $parsed_file['port'] ) ? ':' . $parsed_file['port'] : '' ) . $parsed_file['path'] . ( ! empty( $parsed_file['query'] ) ? '?' . $parsed_file['query'] : '' );
 
-				// generate new url.
-				$tweaked_url = $parsed_file['scheme'] . '://' . $tweaked_host . ( isset( $parsed_file['port'] ) ? ':' . $parsed_file['port'] : '' ) . $parsed_file['path'] . ( ! empty( $parsed_file['query'] ) ? '?' . $parsed_file['query'] : '' );
-
-				// check if file url is valid.
-				if ( $tweaked_url ) {
-					$template_url = $tweaked_url;
-				}
+			// check if file url is valid.
+			if ( $tweaked_url ) {
+				$template_url = $tweaked_url;
 			}
 		}
 
@@ -446,13 +449,19 @@ class Iubenda_AMP {
 			return false;
 		}
 
-		$template_dir  = IUBENDA_PLUGIN_PATH . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
+		global $wp_filesystem;
+		if ( empty( $wp_filesystem ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			WP_Filesystem();
+		}
+
+		$template_dir = IUBENDA_PLUGIN_PATH . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
 		if ( ! empty( $lang ) && array_key_exists( (string) $lang, iubenda()->languages ) ) {
 			$template_file = $template_dir . ( 'amp-' . $lang . '.html' );
 		} else {
 			$template_file = $template_dir . ( 'amp.html' );
 		}
-		$html          = $this->prepare_amp_template( $code );
+		$html = $this->prepare_amp_template( $code );
 
 		// bail if the template was not created properly.
 		if ( empty( $html ) ) {
@@ -461,16 +470,16 @@ class Iubenda_AMP {
 
 		if ( ! is_dir( $template_dir ) ) {
 			// dir doesn't exist, make it.
-			mkdir( $template_dir );
+			$wp_filesystem->mkdir( $template_dir );
 		}
 
-		if ( ! is_writable( $template_dir ) ) {
+		if ( ! $wp_filesystem->is_writable( $template_dir ) ) {
 			( new Quick_Generator_Service() )->add_amp_permission_error();
 			return false;
 		}
 
-		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_file_put_contents
-		$result = file_put_contents( $template_file, $html );
+		// Use WP_Filesystem for file operations.
+		$result = $wp_filesystem->put_contents( $template_file, $html );
 
 		return (bool) $result;
 	}

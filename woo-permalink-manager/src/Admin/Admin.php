@@ -229,7 +229,7 @@ class Admin
     {
         $this->triggerFlush();
 
-        $current = isset($_GET['tab']) ? wc_clean(wp_unslash($_GET['tab'])) : 'settings';
+        $current = isset($_GET['tab']) ? sanitize_file_name(wp_unslash($_GET['tab'])) : 'settings';
 
         $tabs['settings'] = __('Settings', 'premmerce-url-manager');
         $tabs['bundle_and_save'] = __('Bundle and Save', 'premmerce-url-manager');
@@ -241,6 +241,9 @@ class Admin
             $tabs['contact'] = __('Contact Us', 'premmerce-url-manager');
         }
 
+        if (! in_array($current, array_keys($tabs))) {
+            $current = 'settings';
+        }
 
         $this->fileManager->includeTemplate('admin/main.php', array(
             'settings'  => $this->settings,

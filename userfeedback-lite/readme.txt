@@ -4,7 +4,7 @@ Donate link: http://www.wpbeginner.com/wpbeginner-needs-your-help/
 Tags: analytics,feedback,surveys,user feedback, website feedback,insights
 Requires at least: 5.9.0
 Tested Up To: 6.4.2
-Stable tag: 1.0.13
+Stable tag: 1.0.14
 Requires PHP: 5.6
 License: GPL v3
 
@@ -114,6 +114,10 @@ For documentation, tutorials, FAQ and videos check out: [UserFeedback Documentat
 4. Want more features? <a href=href="https://www.userFeedback.com/?utm_source=wprepo&utm_medium=link&utm_campaign=lite" rel="friend" title="UserFeedback">Purchase UserFeedback Pro</a>!
 
 == Changelog ==
+= 1.0.14: February 20, 2023 =
+- Enhancement: We improved the plugin security.
+- Fix: We solved an issue occurring with MonsterInsights.
+
 = 1.0.13: December 21, 2023 =
 - Fix: We fixed an issue with checkbox questions
 - Fix: We fixed a layout issue in the Survey/Notifications screen.

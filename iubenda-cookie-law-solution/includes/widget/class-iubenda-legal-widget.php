@@ -142,7 +142,7 @@ class Iubenda_Legal_Widget extends WP_Widget {
 	 * @param   array $args args.
 	 * @param   array $instance instance.
 	 *
-	 * @return false
+	 * @return false|void
 	 */
 	public function widget( $args, $instance ) {
 		$pp_status   = (string) iub_array_get( iubenda()->settings->services, 'pp.status' ) === 'true';
@@ -239,7 +239,7 @@ class Iubenda_Legal_Widget extends WP_Widget {
 	/**
 	 * Assign iubenda widget to registered sidebar if exists and not registered before
 	 *
-	 * @return bool
+	 * @return void
 	 */
 	public function assign_iubenda_widget() {
 		global $wp_registered_sidebars;
@@ -254,7 +254,7 @@ class Iubenda_Legal_Widget extends WP_Widget {
 			return;
 		}
 
-		// Check if wp_assign_widget_to_sidebar is exist.
+		// Check if wp_assign_widget_to_sidebar is existing.
 		if ( ! function_exists( 'wp_assign_widget_to_sidebar' ) ) {
 			return;
 		}
@@ -295,7 +295,6 @@ class Iubenda_Legal_Widget extends WP_Widget {
 			}
 		}
 	}
-
 }
 
 

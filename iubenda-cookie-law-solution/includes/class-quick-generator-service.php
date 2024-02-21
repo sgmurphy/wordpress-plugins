@@ -200,7 +200,6 @@ class Quick_Generator_Service {
 
 		require_once IUBENDA_PLUGIN_PATH . 'views/partials/auto-detect-forms.php';
 		wp_die();
-
 	}
 
 	/**

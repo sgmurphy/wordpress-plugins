@@ -134,10 +134,6 @@ The following properties are available only in paid version;
 - Join our [Facebook Group](https://www.facebook.com/groups/YellowPencils/).
 - Rate us on [WordPress](https://wordpress.org/support/plugin/yellow-pencil-visual-theme-customizer/reviews/#new-post).
 
-
-=== Looking for a modern WordPress site builder? ===
-Explore our new plugin, [Kraft WordPress Site Builder](https://kraftbuilder.com/): the modern way to build websites.
-
 == Installation ==
 1. Upload 'yellow-pencil-visual-theme-customizer' folder to the '/wp-content/plugins/' directory
 2. Activate the plugin through the 'Plugins' menu in WordPress.

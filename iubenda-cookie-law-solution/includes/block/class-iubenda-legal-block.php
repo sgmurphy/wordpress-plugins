@@ -384,23 +384,23 @@ class Iubenda_Legal_Block {
 	/**
 	 * Remove specific string between $beginning and $end.
 	 *
-	 * @param   string $beginning  beginning.
-	 * @param   string $end        end.
-	 * @param   string $string     string.
+	 * @param   string $beginning      beginning.
+	 * @param   string $end            end.
+	 * @param   string $target_string  string.
 	 *
 	 * @return mixed
 	 */
-	private function iub_delete_in_between( $beginning, $end, $string ) {
-		$beginning_pos = strpos( $string, $beginning );
-		$end_pos       = strpos( $string, $end );
+	private function iub_delete_in_between( $beginning, $end, $target_string ) {
+		$beginning_pos = strpos( $target_string, $beginning );
+		$end_pos       = strpos( $target_string, $end );
 		if ( false === $beginning_pos || false === $end_pos ) {
-			return $string;
+			return $target_string;
 		}
 
-		$text_to_delete = substr( $string, $beginning_pos, ( $end_pos + strlen( $end ) ) - $beginning_pos );
+		$text_to_delete = substr( $target_string, $beginning_pos, ( $end_pos + strlen( $end ) ) - $beginning_pos );
 
 		// recursion to ensure occurrences are removed.
-		return $this->iub_delete_in_between( $beginning, $end, str_replace( $text_to_delete, '', $string ) );
+		return $this->iub_delete_in_between( $beginning, $end, str_replace( $text_to_delete, '', $target_string ) );
 	}
 
 	/**
@@ -425,7 +425,7 @@ class Iubenda_Legal_Block {
 		$dom            = new DOMDocument();
 		$previous_value = libxml_use_internal_errors( true );
 		if ( function_exists( 'mb_encode_numericentity' ) ) {
-			$footer_content = (string) mb_encode_numericentity($footer_content, [0x80, 0x10FFFF, 0, ~0], 'UTF-8');
+			$footer_content = (string) mb_encode_numericentity( $footer_content, array( 0x80, 0x10FFFF, 0, ~0 ), 'UTF-8' );
 		}
 
 		$dom->loadHTML(
@@ -479,6 +479,10 @@ class Iubenda_Legal_Block {
 	 * @return false|string
 	 */
 	private function insert_iub_block_shortcode_into_footer_by_simple_html_dom( string $footer_content ) {
+		if ( ! function_exists( 'str_get_html' ) ) {
+			return false;
+		}
+
 		$html = str_get_html( $footer_content, true, true, false );
 
 		if ( is_object( $html ) ) {
@@ -504,5 +508,4 @@ class Iubenda_Legal_Block {
 
 		return $footer_content;
 	}
-
 }

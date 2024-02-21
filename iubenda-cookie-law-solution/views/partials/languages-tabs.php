@@ -9,6 +9,17 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+// Check if $key is defined before using it.
+if ( ! isset( $key ) ) {
+	return;
+}
+
+// Check if $service is defined before using it.
+if ( empty( $service ) ) {
+	return;
+}
+
 ?>
 <div class="mb-3 p-0">
 

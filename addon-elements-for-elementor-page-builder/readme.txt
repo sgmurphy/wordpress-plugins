@@ -133,7 +133,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 8. Elementor addon widgets section
 
 == Changelog ==
-* 1.13
+= 1.13.1 =
+* Fixed : Fixed fatal error coming in few cases after the latest update. 
+
+= 1.13 =
 * New Widget : Coupon code widget.
 * Enhancement: Added option to hide a plan in comparison table widget.
 * Enhancement: Improved code for enhanced sanitisation.

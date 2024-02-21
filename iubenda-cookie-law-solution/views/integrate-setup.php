@@ -45,7 +45,7 @@ require_once IUBENDA_PLUGIN_PATH . '/views/partials/header.php';
 
 				<div class="my-5">
 					<?php
-					$site_id = iub_array_get( iubenda()->options['global_options'], 'site_id' );
+					$site_id                            = iub_array_get( iubenda()->options['global_options'], 'site_id' );
 					$predefined_auto_block_section_data = array(
 						'frontend-auto-blocking-checkbox-status' => iubenda()->iub_auto_blocking->is_autoblocking_feature_available( $site_id ),
 					);
@@ -112,7 +112,7 @@ require_once IUBENDA_PLUGIN_PATH . '/views/partials/header.php';
 						<input type="checkbox" name="iubenda_cookie_law_solution[parse]" value="1" class="mr-2 section-checkbox-control blocking-method native-blocking-method" data-section-name="#iub_parser_engine_container" checked>
 						<span><?php esc_html_e( 'Native Blocking', 'iubenda' ); ?> <a target="_blank" href="<?php echo esc_url( iubenda()->settings->links['automatic_block_scripts'] ); ?>" class="ml-1 tooltip-icon">?</a></span>
 					</label>
-					<div id="both-blocking-methods-disabled-warning-message" class="mxx-4 mb-4 notice notice--warning mt-2 p-3 align-items-center text-warning text-xs <?php echo iubenda()->options['cs']['parse'] ? 'd-flex' : '' ?>">
+					<div id="both-blocking-methods-disabled-warning-message" class="mxx-4 mb-4 notice notice--warning mt-2 p-3 align-items-center text-warning text-xs <?php echo iubenda()->options['cs']['parse'] ? 'd-flex' : ''; ?>">
 						<img class="mr-2" src="<?php echo esc_url( IUBENDA_PLUGIN_URL ); ?>/assets/images/warning-icon.svg">
 						<p>
 							<?php esc_html_e( 'Most legislation explicitly require prior consent in order to process user’s data. By disabling these blocking options you may be in breach of such requirements', 'iubenda' ); ?>

@@ -1651,13 +1651,6 @@ class Helper {
 				'pro' => true,
 			],
 			
-
-			'reviews' => [
-				'name' => 'Reviews',
-				'enabled' => true,
-				'type' => 'widget',
-				'pro' => true,
-			],
 			'google-reviews' => [
 				'name' => 'Google Reviews',
 				'enabled' => true,

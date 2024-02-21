@@ -11,6 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+if ( ! class_exists( '\Elementor\Widget_Base' ) ) {
+	return;
+}
+
 /**
  * Iubenda elementor legal widget.
  */
@@ -52,6 +56,7 @@ class Iubenda_Elementor_Legal_Widget extends \Elementor\Widget_Base {
 	 */
 	public function get_icon() {
 		wp_enqueue_style( 'iubenda-elementor-css', IUBENDA_PLUGIN_URL . '/includes/widget/elementor/style.css', array(), iubenda()->version );
+
 		return 'iub-legal-elementor-widget-icon-class';
 	}
 
@@ -79,31 +84,46 @@ class Iubenda_Elementor_Legal_Widget extends \Elementor\Widget_Base {
 	 * Add input fields to allow the user to customize the widget settings.
 	 */
 	protected function register_controls() {
-		$tab_content = property_exists( '\Elementor\Controls_Manager', 'TAB_CONTENT' ) ? \Elementor\Controls_Manager::TAB_CONTENT : 'content';
-		$text        = property_exists( '\Elementor\Controls_Manager', 'TEXT' ) ? \Elementor\Controls_Manager::TEXT : 'text';
+		if ( class_exists( '\Elementor\Controls_Manager' ) && property_exists( '\Elementor\Controls_Manager', 'TAB_CONTENT' ) ) {
+			$tab_content = \Elementor\Controls_Manager::TAB_CONTENT;
+		} else {
+			$tab_content = 'content';
+		}
 
-		$this->start_controls_section(
-			'title_section',
-			array(
-				'label' => esc_html__( 'Title:', 'iubenda' ),
-				'tab'   => $tab_content,
-			)
-		);
+		if ( class_exists( '\Elementor\Controls_Manager' ) && property_exists( '\Elementor\Controls_Manager', 'TEXT' ) ) {
+			$text = \Elementor\Controls_Manager::TEXT;
+		} else {
+			$text = 'text';
+		}
 
-		$this->add_control(
-			'title',
-			array(
-				'label'       => esc_html__( 'Title:', 'iubenda' ),
-				'type'        => $text,
-				'input_type'  => 'title',
-				// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-				'placeholder' => esc_html__( $this->default_widget_title, 'iubenda' ),
-				// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-				'default'     => esc_html__( $this->default_widget_title, 'iubenda' ),
-			)
-		);
+		if ( method_exists( $this, 'start_controls_section' ) ) {
+			$this->start_controls_section(
+				'title_section',
+				array(
+					'label' => esc_html__( 'Title:', 'iubenda' ),
+					'tab'   => $tab_content,
+				)
+			);
+		}
 
-		$this->end_controls_section();
+		if ( method_exists( $this, 'add_control' ) ) {
+			$this->add_control(
+				'title',
+				array(
+					'label'       => esc_html__( 'Title:', 'iubenda' ),
+					'type'        => $text,
+					'input_type'  => 'title',
+					// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
+					'placeholder' => esc_html__( $this->default_widget_title, 'iubenda' ),
+					// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
+					'default'     => esc_html__( $this->default_widget_title, 'iubenda' ),
+				)
+			);
+		}
+
+		if ( method_exists( $this, 'end_controls_section' ) ) {
+			$this->end_controls_section();
+		}
 	}
 
 	/**
@@ -112,13 +132,18 @@ class Iubenda_Elementor_Legal_Widget extends \Elementor\Widget_Base {
 	 * Written in PHP and used to generate the final HTML.
 	 */
 	protected function render() {
-		$settings = $this->get_settings_for_display();
-		$html     = '';
-		$html     = apply_filters( 'before_iub_legal_elementor_widget_section', $html );
-		$html    .= iub_array_get( $settings, 'title' ) . '<section>' . ( new Iubenda_Legal_Block() )->iub_legal_block_html( $html ) . '</section>';
-		$html     = apply_filters( 'after_iub_legal_elementor_widget_section', $html );
+		if ( method_exists( $this, 'get_settings_for_display' ) ) {
+			$settings = $this->get_settings_for_display();
+			$title    = iub_array_get( $settings, 'title' );
+		} else {
+			$title = 'Legal';
+		}
+
+		$html  = '';
+		$html  = apply_filters( 'before_iub_legal_elementor_widget_section', $html );
+		$html .= $title . '<section>' . ( new Iubenda_Legal_Block() )->iub_legal_block_html( $html ) . '</section>';
+		$html  = apply_filters( 'after_iub_legal_elementor_widget_section', $html );
 
 		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
-
 }

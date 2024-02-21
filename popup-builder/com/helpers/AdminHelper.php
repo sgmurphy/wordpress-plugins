@@ -2363,4 +2363,9 @@ class AdminHelper
 
 		return $allowedPostTags;
 	}
+	public static function allowed_wrap_html_tags($allowScript = true)
+	{
+		$allowedPostTags = array('span','div','h1','h2' ,'h3' ,'h4' ,'h5' ,'h6','ol' ,'ul' ,'li' ,'em' , 'p', 'a','b' ,'i' , 'button');	
+		return $allowedPostTags;
+	}
 }

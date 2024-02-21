@@ -14,38 +14,38 @@ if ( ! function_exists( 'iub_array_get' ) ) {
 	/**
 	 * Iubenda array get
 	 *
-	 * @param   array  $array    An array from which we want to retrieve some information.
-	 * @param   string $key      A string separated by . of keys describing the path with which to retrieve information.
-	 * @param   mixed  $default  Optional. The return value if the path does not exist within the array.
+	 * @param   array  $target_array   An array from which we want to retrieve some information.
+	 * @param   string $key            A string separated by . of keys describing the path with which to retrieve information.
+	 * @param   mixed  $default_value  Optional. The return value if the path does not exist within the array.
 	 *
 	 * @return array|ArrayAccess|mixed|null
 	 */
-	function iub_array_get( $array, $key, $default = null ) {
-		if ( ! ( is_array( $array ) || $array instanceof ArrayAccess ) ) {
-			return $default instanceof Closure ? $default() : $default;
+	function iub_array_get( $target_array, $key, $default_value = null ) {
+		if ( ! ( is_array( $target_array ) || $target_array instanceof ArrayAccess ) ) {
+			return $default_value instanceof Closure ? $default_value() : $default_value;
 		}
 
 		if ( is_null( $key ) ) {
-			return $array;
+			return $target_array;
 		}
 
-		if ( array_key_exists( $key, $array ) ) {
-			return $array[ $key ];
+		if ( array_key_exists( $key, $target_array ) ) {
+			return $target_array[ $key ];
 		}
 
 		if ( strpos( $key, '.' ) === false ) {
-			return $array[ $key ] ?? ( $default instanceof Closure ? $default() : $default );
+			return $target_array[ $key ] ?? ( $default_value instanceof Closure ? $default_value() : $default_value );
 		}
 
 		foreach ( explode( '.', $key ) as $segment ) {
-			if ( ( is_array( $array ) || $array instanceof ArrayAccess ) && ( array_key_exists( $segment, $array ) ) ) {
-				$array = $array[ $segment ];
+			if ( ( is_array( $target_array ) || $target_array instanceof ArrayAccess ) && ( array_key_exists( $segment, $target_array ) ) ) {
+				$target_array = $target_array[ $segment ];
 			} else {
-				return $default instanceof Closure ? $default() : $default;
+				return $default_value instanceof Closure ? $default_value() : $default_value;
 			}
 		}
 
-		return $array;
+		return $target_array;
 	}
 }
 
@@ -53,13 +53,13 @@ if ( ! function_exists( 'iub_array_only' ) ) {
 	/**
 	 * Return only intersects keys with the array
 	 *
-	 * @param   array        $array Array.
-	 * @param   array|string $keys Keys.
+	 * @param   array        $target_array  Array.
+	 * @param   array|string $keys          Keys.
 	 *
 	 * @return array
 	 */
-	function iub_array_only( array $array, $keys ) {
-		return array_intersect_key( $array, array_flip( (array) $keys ) );
+	function iub_array_only( array $target_array, $keys ) {
+		return array_intersect_key( $target_array, array_flip( (array) $keys ) );
 	}
 }
 
@@ -67,24 +67,24 @@ if ( ! function_exists( '__iub_trans' ) ) {
 	/**
 	 * Translate a specific string into a specific language.
 	 *
-	 * @param string $string       specific string.
-	 * @param string $locale       specific language.
-	 * @param string $text_domain  Optional. as default iubenda.
+	 * @param string $target_string  specific string.
+	 * @param string $locale         specific language.
+	 * @param string $text_domain    Optional. as default iubenda.
 	 *
 	 * @return string|void
 	 */
-	function __iub_trans( $string, $locale, $text_domain = 'iubenda' ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionDoubleUnderscore,PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.FunctionDoubleUnderscore
+	function __iub_trans( $target_string, $locale, $text_domain = 'iubenda' ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionDoubleUnderscore,PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.FunctionDoubleUnderscore
 
 		$mo     = new MO();
 		$mofile = IUBENDA_PLUGIN_PATH . 'languages/' . $text_domain . '-' . $locale . '.mo';
 		if ( file_exists( $mofile ) ) {
 			$mo->import_from_file( $mofile );
 			// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText, WordPress.WP.I18n.NonSingularStringLiteralDomain
-			$string = esc_html__( $mo->translate( $string ) );
+			$target_string = esc_html__( $mo->translate( $target_string ) );
 		}
 
 		// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText, WordPress.WP.I18n.NonSingularStringLiteralDomain
-		return $string;
+		return $target_string;
 	}
 }
 
@@ -94,17 +94,17 @@ if ( ! function_exists( 'iub_verify_ajax_request' ) ) {
 	 *
 	 * @param   int|string   $action      Action nonce.
 	 * @param   false|string $query_arg   Optional. Key to check for the nonce in `$_REQUEST` (since 2.5). If false,
-	 *                                    `$_REQUEST` values will be evaluated for '_ajax_nonce', and '_wpnonce'
-	 *                                    (in that order). Default false.
+	 *                                   `$_REQUEST` values will be evaluated for '_ajax_nonce', and '_wpnonce'
+	 *                                   (in that order). Default false.
 	 * @param   string       $capability  Capability name.
-	 * @param   bool         $die         Optional. Whether to die early when the nonce cannot be verified.
-	 *                                    Default true.
+	 * @param   bool         $should_die  Optional. Whether to die early when the nonce cannot be verified.
+	 *                                   Default true.
 	 *
 	 * @return void
 	 */
-	function iub_verify_ajax_request( $action, $query_arg = false, $capability = 'manage_options', $die = false ) {
+	function iub_verify_ajax_request( $action, $query_arg = false, $capability = 'manage_options', $should_die = false ) {
 		if (
-			! check_ajax_referer( $action, $query_arg, $die ) ||
+			! check_ajax_referer( $action, $query_arg, $should_die ) ||
 			! current_user_can( apply_filters( 'iubenda_cookie_law_cap', $capability ) )
 		) {
 			wp_die( esc_html__( 'Sorry, you are not authorized to perform this action.' ), 403 );
@@ -167,17 +167,17 @@ if ( ! function_exists( 'iub_get_request_parameter' ) ) {
 	/**
 	 * Gets the request parameter.
 	 *
-	 * @param   string $key             The query parameter.
-	 * @param   string $default         The default value to return if not found.
-	 * @param   string $with_sanitize   With sanitize. Default true.
+	 * @param   string $key            The query parameter.
+	 * @param   string $default_value  The default value to return if not found.
+	 * @param   string $with_sanitize  With sanitize. Default true.
 	 *
 	 * @return     string  The request parameter.
 	 */
-	function iub_get_request_parameter( string $key, $default = '', $with_sanitize = true ) {
+	function iub_get_request_parameter( string $key, $default_value = '', $with_sanitize = true ) {
 		// If key not exist or empty return default.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! isset( $_REQUEST[ $key ] ) || empty( $_REQUEST[ $key ] ) ) {
-			return $default;
+			return $default_value;
 		}
 
 		if ( $with_sanitize ) {

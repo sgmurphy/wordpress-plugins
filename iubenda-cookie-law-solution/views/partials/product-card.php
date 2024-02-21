@@ -9,6 +9,16 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+// Check if $service_key is defined before using it.
+if ( ! isset( $service_key ) ) {
+	return;
+}
+
+// Check if $service_options is defined before using it.
+if ( empty( $service_options ) ) {
+	return;
+}
 ?>
 <div class="service-card">
 

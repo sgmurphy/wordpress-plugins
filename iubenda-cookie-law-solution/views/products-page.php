@@ -20,7 +20,7 @@ require_once IUBENDA_PLUGIN_PATH . '/views/partials/header.php';
 	<div class="p-3 m-3">
 		<?php
 			$result = array_filter(
-				array_column( $this->services, 'status' ),
+				array_column( iubenda()->settings->services, 'status' ),
 				function ( $service ) {
 					return ( stripos( $service, 'false' ) === false );
 				}

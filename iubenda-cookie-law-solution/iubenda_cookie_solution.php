@@ -3,7 +3,7 @@
  * Plugin Name: iubenda | All-in-one Compliance for GDPR / CCPA Cookie Consent + more
  * Plugin URI: https://www.iubenda.com
  * Description: The iubenda plugin is an <strong>all-in-one</strong>, extremely easy to use 360° compliance solution, with text crafted by actual lawyers, that quickly <strong>scans your site and auto-configures to match your specific setup</strong>.  It supports the GDPR (DSGVO, RGPD), UK-GDPR, ePrivacy, LGPD, USPR, CalOPPA, PECR and more.
- * Version: 3.10.0
+ * Version: 3.10.1
  * Author: iubenda
  * Author URI: https://www.iubenda.com
  * License: MIT License
@@ -45,7 +45,7 @@ define( 'IUB_DEBUG', false );
  * @property Iubenda_Legal_Widget       $widget
  *
  * @class   iubenda
- * @version 3.10.0
+ * @version 3.10.1
  */
 class iubenda {
 // phpcs:enable
@@ -92,20 +92,20 @@ class iubenda {
 			'us_legislation_handled'     => false,
 			'stop_showing_cs_for_admins' => false,
 			'simplified'                 => array(
-				'position'           => 'float-top-center',
-				'background_overlay' => false,
-				'banner_style'       => 'dark',
-				'legislation'        => array(
+				'position'               => 'float-top-center',
+				'background_overlay'     => false,
+				'banner_style'           => 'dark',
+				'legislation'            => array(
 					'gdpr' => true,
 					'uspr' => false,
 					'lgpd' => false,
 					'all'  => false,
 				),
-				'require_consent'    => 'worldwide',
-				'explicit_accept'    => true,
-				'explicit_reject'    => true,
-				'tcf'                => true,
-                'frontend_auto_blocking'     => array(),
+				'require_consent'        => 'worldwide',
+				'explicit_accept'        => true,
+				'explicit_reject'        => true,
+				'tcf'                    => true,
+				'frontend_auto_blocking' => array(),
 			),
 		),
 		'pp'   => array(
@@ -138,7 +138,7 @@ class iubenda {
 	 *
 	 * @var string
 	 */
-	public $version = '3.10.0';
+	public $version = '3.10.1';
 
 	/**
 	 * Plugin activation info.
@@ -237,7 +237,7 @@ class iubenda {
 	 *
 	 * @var Iubenda_AMP
 	 */
-	public $AMP;
+	public $amp;
 
 	/**
 	 * Iubenda forms class.
@@ -289,11 +289,15 @@ class iubenda {
 	public $widget;
 
 	/**
+	 * Iubenda radar dashboard class.
+	 *
 	 * @var Radar_Dashboard_Widget
 	 */
 	private $radar_dashboard_widget;
 
 	/**
+	 * Iubenda Auto Blocking class.
+	 *
 	 * @var Auto_Blocking
 	 */
 	public $iub_auto_blocking;
@@ -335,7 +339,7 @@ class iubenda {
 
 			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			self::$instance->service_rating            = new Service_Rating();
-			self::$instance->AMP                       = new Iubenda_AMP();
+			self::$instance->amp                       = new Iubenda_AMP();
 			self::$instance->forms                     = new Iubenda_Forms();
 			self::$instance->settings                  = new Iubenda_Settings();
 			self::$instance->widget                    = new Iubenda_Legal_Widget();
@@ -387,10 +391,10 @@ class iubenda {
 		add_action( 'admin_init', array( $this, 'maybe_do_upgrade' ) );
 		add_action( 'admin_init', array( $this, 'check_iubenda_version' ) );
 		add_action( 'upgrader_process_complete', array( $this, 'upgrade' ), 10, 2 );
-		add_filter( 'plugin_action_links', array( $this, 'plugin_action_links' ), 10, 5 );
+		add_filter( 'plugin_action_links', array( $this, 'plugin_action_links' ), 10, 2 );
 		add_action( 'upgrader_overwrote_package', array( $this, 'do_upgrade_processes' ) );
 		add_action( 'after_switch_theme', array( $this, 'assign_legal_block_or_widget' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ), - PHP_INT_MAX );
 	}
 
 	/**
@@ -449,7 +453,7 @@ class iubenda {
 		// initial head output.
 		$iubenda_code = '';
 
-		// Check if there is multi language plugin installed and activated.
+		// Check if there is multi-language plugin installed and activated.
 		if ( true === $this->multilang && defined( 'ICL_LANGUAGE_CODE' ) && isset( $this->options['cs'][ 'code_' . ICL_LANGUAGE_CODE ] ) ) {
 			$iubenda_code .= $this->options['cs'][ 'code_' . ICL_LANGUAGE_CODE ];
 
@@ -555,7 +559,7 @@ class iubenda {
 		include_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 		// Polylang support.
-		if ( iub_is_polylang_active() ) {
+		if ( function_exists( 'pll_default_language' ) && function_exists( 'PLL' ) && function_exists( 'pll_current_language' ) && iub_is_polylang_active() ) {
 			$this->multilang = true;
 
 			// get registered languages.
@@ -574,7 +578,7 @@ class iubenda {
 			$this->lang_current = pll_current_language();
 
 			// WPML support.
-		} elseif ( iub_is_wpml_active() ) {
+		} elseif ( function_exists( 'icl_get_languages' ) && iub_is_wpml_active() ) {
 			$this->multilang = true;
 
 			global $sitepress;
@@ -600,7 +604,7 @@ class iubenda {
 		}
 
 		// load iubenda parser.
-		include_once dirname( __FILE__ ) . '/iubenda-cookie-class/iubenda.class.php';
+		include_once __DIR__ . '/iubenda-cookie-class/iubenda.class.php';
 	}
 
 	/**
@@ -747,7 +751,7 @@ class iubenda {
 	/**
 	 * Add wp_head Consent Database content.
 	 *
-	 * @return mixed
+	 * @return void
 	 */
 	public function wp_head_cons() {
 		if ( ! empty( $this->options['cons']['public_api_key'] ) && ( new Product_Helper() )->is_cons_service_enabled() ) {
@@ -850,6 +854,10 @@ class iubenda {
 			return $output;
 		}
 
+		if ( ! class_exists( 'iubendaParser' ) ) {
+			return $output;
+		}
+
 		// bail if consent given and skip parsing enabled.
 		if ( iubendaParser::consent_given() && $this->options['cs']['skip_parsing'] ) {
 			return $output;
@@ -863,8 +871,8 @@ class iubenda {
 			return $output;
 		}
 
-		// bail if bot detectd, no html in output or it's a post request.
-		if ( iubendaParser::bot_detected() || $this->no_html ) {
+		// bail if bot detected, no html in output, or it's a post request.
+		if ( $this->no_html || iubendaParser::bot_detected() ) {
 			return $output;
 		}
 
@@ -879,7 +887,7 @@ class iubenda {
 		}
 
 		// bail if the current page is page builder for any theme.
-		if ( is_customize_preview() ) {
+		if ( function_exists( 'is_customize_preview' ) && is_customize_preview() ) {
 			return $output;
 		}
 
@@ -893,8 +901,8 @@ class iubenda {
 			$this->options['cs']['custom_scripts']['stats.wp.com'] = 5;
 		}
 
-		$startime = microtime( true );
-		$output   = apply_filters( 'iubenda_initial_output', $output );
+		$star_time = microtime( true );
+		$output    = apply_filters( 'iubenda_initial_output', $output );
 
 		// prepare scripts and iframes.
 		$scripts = $this->prepare_custom_data( $this->options['cs']['custom_scripts'] );
@@ -914,7 +922,7 @@ class iubenda {
 		// experimental class.
 		if ( 'new' === (string) $this->options['cs']['parser_engine'] && can_use_dom_document_class() ) {
 			if ( function_exists( 'mb_encode_numericentity' ) ) {
-				$output = (string) mb_encode_numericentity($output, [0x80, 0x10FFFF, 0, ~0], 'UTF-8');
+				$output = (string) mb_encode_numericentity( $output, array( 0x80, 0x10FFFF, 0, ~0 ), 'UTF-8' );
 			}
 			$iubenda = new iubendaParser(
 				$output,
@@ -930,7 +938,7 @@ class iubenda {
 			$output = $iubenda->parse();
 
 			// append signature.
-			$output .= '<!-- Parsed with iubenda experimental class in ' . round( microtime( true ) - $startime, 4 ) . ' sec. -->';
+			$output .= '<!-- Parsed with iubenda experimental class in ' . round( microtime( true ) - $star_time, 4 ) . ' sec. -->';
 		} else {
 			// default.
 			$iubenda = new iubendaParser(
@@ -947,7 +955,7 @@ class iubenda {
 			$output = $iubenda->parse();
 
 			// append signature.
-			$output .= '<!-- Parsed with iubenda default class in ' . round( microtime( true ) - $startime, 4 ) . ' sec. -->';
+			$output .= '<!-- Parsed with iubenda default class in ' . round( microtime( true ) - $star_time, 4 ) . ' sec. -->';
 		}
 
 		return apply_filters( 'iubenda_final_output', $output );
@@ -1034,8 +1042,12 @@ class iubenda {
 			return;
 		}
 
+		if ( ! class_exists( 'iubendaParser' ) ) {
+			return;
+		}
+
 		// bail if consent given and skip parsing enabled.
-		if ( iubendaParser::consent_given() && $this->options['cs']['skip_parsing'] ) {
+		if ( $this->options['cs']['skip_parsing'] && iubendaParser::consent_given() ) {
 			return;
 		}
 
@@ -1147,7 +1159,6 @@ class iubenda {
 				$this->settings->load_defaults();
 			}
 		}
-
 	}
 
 	/**
@@ -1390,7 +1401,7 @@ class iubenda {
 
 				if ( ! empty( $code ) ) {
 					// Generate code if it was set for the selected language.
-					iubenda()->AMP->generate_amp_template( $code, $lang_id );
+					iubenda()->amp->generate_amp_template( $code, $lang_id );
 				}
 			}
 
@@ -1399,7 +1410,7 @@ class iubenda {
 
 		// For one language.
 		$code = iubenda()->options['cs']['code_default'];
-		iubenda()->AMP->generate_amp_template( $code );
+		iubenda()->amp->generate_amp_template( $code );
 	}
 
 	/**
@@ -1448,26 +1459,26 @@ class iubenda {
 	/**
 	 * Find closing bracket.
 	 *
-	 * @param string $string String.
-	 * @param string $open_position Open Position.
+	 * @param string $target_string  String.
+	 * @param string $open_position  Open Position.
 	 *
 	 * @return mixed
 	 */
-	private function find_closing_bracket( $string, $open_position ) {
+	private function find_closing_bracket( $target_string, $open_position ) {
 		$close_pos = $open_position;
 		$counter   = 1;
 		while ( $counter > 0 ) {
 
 			// To Avoid the infinity loop.
-			if ( ! isset( $string[ $close_pos + 1 ] ) ) {
+			if ( ! isset( $target_string[ $close_pos + 1 ] ) ) {
 				break;
 			}
 
-			$c = $string[ ++ $close_pos ];
+			$c = $target_string[ ++$close_pos ];
 			if ( '{' === (string) $c ) {
-				$counter ++;
+				++$counter;
 			} elseif ( '}' === (string) $c ) {
-				$counter --;
+				--$counter;
 			}
 		}
 
@@ -1663,7 +1674,7 @@ class iubenda {
 	 * @return bool True if running in WP-CLI context, false otherwise.
 	 */
 	public static function is_wp_cli() {
-		return defined('WP_CLI') && WP_CLI;
+		return defined( 'WP_CLI' ) && WP_CLI;
 	}
 }
 
@@ -1685,20 +1696,6 @@ add_filter(
 	10,
 	2
 );
-/**
- * Initialise iubenda Privacy Controls and Cookie Solution
- *
- * @return iubenda
- */
-function iubenda() {
-	static $instance;
 
-	// first call to instance() initializes the plugin.
-	if ( null === $instance || ! ( $instance instanceof iubenda ) ) {
-		$instance = iubenda::instance();
-	}
-
-	return $instance;
-}
-
-$iubenda = iubenda();
+// iubenda Plugin instance Initialization.
+require 'iubenda-init.php';

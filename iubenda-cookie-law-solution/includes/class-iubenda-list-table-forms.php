@@ -200,7 +200,7 @@ class Iubenda_List_Table_Forms extends WP_List_Table {
 		$i       = 0;
 		$output .= '<div class="row-actions">';
 		foreach ( $actions as $action => $link ) {
-			++ $i;
+			++$i;
 			$sep     = ( 1 === $i ) ? $sep = '' : $sep = ' | ';
 			$output .= '<span class="' . ( 'delete' === $action ? 'delete delete-form' : $action ) . '">' . $sep . $link . '</span>';
 		}
@@ -308,7 +308,7 @@ class Iubenda_List_Table_Forms extends WP_List_Table {
 			$output = ob_get_clean();
 
 			if ( ! empty( $output ) ) {
-				echo wp_kses( $output );
+				echo wp_kses_post( $output );
 				submit_button( __( 'Filter', 'iubenda' ), '', 'filter_action', false, array( 'id' => 'post-query-submit' ) );
 			}
 		}
@@ -431,24 +431,24 @@ class Iubenda_List_Table_Forms extends WP_List_Table {
 			static $cb_counter = 1;
 			$columns['cb']     = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All', 'iubenda' ) . '</label>'
 				. '<input id="cb-select-all-' . $cb_counter . '" type="checkbox" />';
-			$cb_counter++;
+			++$cb_counter;
 		}
 
 		foreach ( $columns as $column_key => $column_display_name ) {
-			$class = array( 'manage-column', "column-$column_key" );
+			$classes = array( 'manage-column', "column-$column_key" );
 
 			if ( in_array( $column_key, $hidden, true ) ) {
-				$class[] = 'hidden';
+				$classes[] = 'hidden';
 			}
 
 			if ( 'cb' === $column_key ) {
-				$class[] = 'check-column';
+				$classes[] = 'check-column';
 			} elseif ( in_array( $column_key, array( 'posts', 'comments', 'links' ), true ) ) {
-				$class[] = 'num';
+				$classes[] = 'num';
 			}
 
 			if ( $column_key === $primary ) {
-				$class[] = 'column-primary';
+				$classes[] = 'column-primary';
 			}
 
 			if ( isset( $sortable[ $column_key ] ) ) {
@@ -457,8 +457,8 @@ class Iubenda_List_Table_Forms extends WP_List_Table {
 				if ( $current_orderby === $orderby ) {
 					$order = 'asc' === $current_order ? 'desc' : 'asc';
 
-					$class[] = 'sorted';
-					$class[] = $current_order;
+					$classes[] = 'sorted';
+					$classes[] = $current_order;
 				} else {
 					$order = strtolower( $desc_first );
 
@@ -466,8 +466,8 @@ class Iubenda_List_Table_Forms extends WP_List_Table {
 						$order = $desc_first ? 'desc' : 'asc';
 					}
 
-					$class[] = 'sortable';
-					$class[] = 'desc' === $order ? 'asc' : 'desc';
+					$classes[] = 'sortable';
+					$classes[] = 'desc' === $order ? 'asc' : 'desc';
 				}
 
 				$column_display_name = sprintf(
@@ -480,10 +480,7 @@ class Iubenda_List_Table_Forms extends WP_List_Table {
 			$tag   = ( 'cb' === $column_key ) ? 'td' : 'th';
 			$scope = ( 'th' === $tag ) ? 'scope="col"' : '';
 			$id    = $with_id ? "id='$column_key'" : '';
-
-			if ( ! empty( $class ) ) {
-				$class = "class='" . implode( ' ', $class ) . "'";
-			}
+			$class = "class='" . implode( ' ', $classes ) . "'";
 
 			echo wp_kses_post( "<{$tag} {$scope} {$id} {$class}>{$column_display_name}</{$tag}>" );
 		}

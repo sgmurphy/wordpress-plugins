@@ -153,9 +153,6 @@ class CouponCode extends EAE_Widget_Base {
 			]
 		);
         
-
-       
-
         $this->add_control(
 			'sta_title',
 			[
@@ -171,7 +168,6 @@ class CouponCode extends EAE_Widget_Base {
                 'frontend_available' => true
 			]
 		);
-
 
         $this->add_control(
             'after_copy_button',
@@ -228,8 +224,6 @@ class CouponCode extends EAE_Widget_Base {
 			]
 		);
 
-
-
         $this->add_control(
 			'preview_modal',
 			[
@@ -240,7 +234,7 @@ class CouponCode extends EAE_Widget_Base {
 				'label_off'    => __( 'No', 'wts-eae' ),
 				'return_value' => 'yes',
                 'frontend_available' => true,
-                'description'  => __('While woriking with "Popup, Slide, Stratch" it will enable back side preview which helps you to stlye your content easily','wts-eae'),
+                'description'  => __('While woriking with "Popup, Slide, Scratch" it will enable back side preview which helps you to stlye your content easily','wts-eae'),
                 'conditions'=>[
                     'relation' => 'or',
                     'terms' => [
@@ -1377,13 +1371,11 @@ class CouponCode extends EAE_Widget_Base {
             ]
         );
 
-
         $this->add_control(
             'coupon_code_heading',
             [
                 'label'     => __( 'Coupon', 'wts-eae' ),
                 'type'      => Controls_Manager::HEADING,
-                'separator' => 'before',
             ]
         );
 
@@ -2081,9 +2073,11 @@ class CouponCode extends EAE_Widget_Base {
         $this->add_responsive_control(
             'wrap_border_radius',
             [
+
                 'label' => esc_html__( 'Border Radius', 'wts-eae' ),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+                'separator' => 'after',
                 'selectors' => [
                     '{{WRAPPER}} .eae-coupon-back' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     '{{WRAPPER}} .eae-back-wrapper' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -2110,7 +2104,7 @@ class CouponCode extends EAE_Widget_Base {
             [
                 'label'     => __( 'Title', 'wts-eae' ),
                 'type'      => Controls_Manager::HEADING,
-                'separator' => 'before',
+                
                 
             ]
         );
@@ -2193,9 +2187,7 @@ class CouponCode extends EAE_Widget_Base {
                 'selectors' => [
                     '{{WRAPPER}} .eae-back-des:hover' => 'fill: {{VALUE}}; color: {{VALUE}};',
                     '.eae-cc-{{ID}} .eae-back-des:hover' => 'fill: {{VALUE}}; color: {{VALUE}};',
-                ],
-             
-                'separator' => 'after'
+                ], 
             ]
         );
 
@@ -2204,7 +2196,7 @@ class CouponCode extends EAE_Widget_Base {
             [
                 'label'     => __( 'Redirect Button', 'wts-eae' ),
                 'type'      => Controls_Manager::HEADING,
-                'separator' => 'before', 
+                 'separator' => 'before', 
             ]
         );
 
@@ -2362,7 +2354,6 @@ class CouponCode extends EAE_Widget_Base {
             [
                 'label'     => __( 'Expire Date', 'wts-eae' ),
                 'type'      => Controls_Manager::HEADING,
-                'separator' => 'before',
             ]
         );
 

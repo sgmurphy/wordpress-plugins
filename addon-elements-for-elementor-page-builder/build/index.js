@@ -390,13 +390,15 @@ class SwiperBase{
 			const mswiper = newSwiperInstance;
 			const pause_on_hover = data.pause_on_hover;
 			if(data.loop == 'yes'){
-				this.after_swiper_load_func(mswiper);
+				this.after_swiper_load_func(mswiper , wid);
 			}
 			if (pause_on_hover == 'yes') {
 				
 					this.pause_on_hover_func(mswiper, pause_on_hover, wid , data);
-				
 			}
+			mswiper.on('slideChangeTransitionStart', function (mswiper) {
+				console.log('slideChangeTransitionStart', mswiper);
+			});
 		});
 	
         jQuery('.elementor-element-' + wid + ' .ae-swiper-container').css('visibility', 'visible');
@@ -414,9 +416,10 @@ class SwiperBase{
         });
     }
 
-	after_swiper_load_func(mswiper) {		
+	after_swiper_load_func(mswiper , wid = '') {		
         if (mswiper.length > 0) {
             mswiper.forEach(function (slider) {
+				console.log('slider');
                 // slider.on('slideChangeTransitionStart', function () {
                 //  slider.$wrapperEl.find('.swiper-slide-duplicate').each(function (element) {
                 //      let videoWrapper = element.querySelector('.eae-vg-element');
@@ -442,6 +445,7 @@ class SwiperBase{
         } else {
             mswiper.on('slideChangeTransitionStart', function () {
                 mswiper.$wrapperEl.find('.swiper-slide-duplicate').each(function (element) {
+					console.log('element', element);
                     const parentDiv = element.closest('.eae-vg-video-container');
                     if(parentDiv !== null){
                         let videoWrapper = element.querySelector('.eae-vg-element');
@@ -459,7 +463,24 @@ class SwiperBase{
                             videoWrapper.append(iframe);
                         });
                     }
-                });
+
+
+					// woo products quick view
+					const popTriggerButtons = element.querySelectorAll(".open-popup-link");
+					console.log('popTriggerButtons', popTriggerButtons);
+					popTriggerButtons.forEach(wrapper => jQuery(wrapper).eaePopup({
+                        type:'inline',
+                        midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+                        mainClass:"eae-wp-modal-box eae-wp-"+wid,
+                        callbacks:{
+                            open: function(){
+                                jQuery(window).trigger("resize"); 
+                            },
+                            
+                          }
+                    }));
+					mswiper.init();
+				});					
             });
             mswiper.init();
         }

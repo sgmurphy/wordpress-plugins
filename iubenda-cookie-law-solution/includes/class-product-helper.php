@@ -100,7 +100,7 @@ class Product_Helper {
 	 * @return bool
 	 */
 	private function check_iub_code_exists_current_lang( $service_key ) {
-		// Check if there is multi language plugin installed and activated.
+		// Check if there is multi-language plugin installed and activated.
 		if ( iubenda()->multilang === true && defined( 'ICL_LANGUAGE_CODE' ) && isset( iubenda()->options['cs'][ 'code_' . ICL_LANGUAGE_CODE ] ) ) {
 			$iubenda_code = iubenda()->options[ $service_key ][ 'code_' . ICL_LANGUAGE_CODE ];
 
@@ -177,10 +177,10 @@ class Product_Helper {
 	 */
 	public function is_cs_service_simplified() {
 		// Get the configuration type from the 'cs' option in the iubenda options.
-		$configurationType = iub_array_get(iubenda()->options['cs'], 'configuration_type');
+		$configuration_type = iub_array_get( iubenda()->options['cs'], 'configuration_type' );
 
 		// Check if the configuration type is equal to 'simplified' and return the result.
-		return 'simplified' === (string) $configurationType;
+		return 'simplified' === (string) $configuration_type;
 	}
 
 	/**

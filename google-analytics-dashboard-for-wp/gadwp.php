@@ -46,7 +46,7 @@ final class ExactMetrics_Lite {
 	 * @access public
 	 * @var string $version Plugin version.
 	 */
-	public $version = '7.24.3';
+	public $version = '7.24.4';
 
 	/**
 	 * Plugin file.

@@ -3,7 +3,7 @@
         'name' => 'premmerce/woo-permalink-manager',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '9c7b9f3ee3b6769488ed7fb60887fb98ad5aca62',
+        'reference' => '707d925fa1ad92b69118cb8e629fc98b0016f8e2',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'premmerce/woo-permalink-manager' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '9c7b9f3ee3b6769488ed7fb60887fb98ad5aca62',
+            'reference' => '707d925fa1ad92b69118cb8e629fc98b0016f8e2',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
