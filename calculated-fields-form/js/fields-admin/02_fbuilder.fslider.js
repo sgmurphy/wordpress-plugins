@@ -48,7 +48,7 @@
 							var v = el.is(':checked');
 							$( 'div.range'    )[ ( v ) ? 'show' : 'hide' ]();
 							$( 'div.no-range' )[ ( v ) ? 'hide' : 'show' ]();
-							if(v) $('#sLogarithmic').prop('checked', false).change();
+							if(v) $('#sLogarithmic').prop('checked', false).trigger('change');
 							return v;
 						}},
 						{s:"#sMarks",e:"change", l:"marks", f:function(el){return el.is(':checked');}},
@@ -56,8 +56,8 @@
 							var v = el.is(':checked');
 							$( 'div.marks' )[ ( v ) ? 'hide' : 'show' ]();
 							if(v) {
-								$('#sMarks').prop('checked', false).change();
-								$('#sRange').prop('checked', false).change();
+								$('#sMarks').prop('checked', false).trigger('change');
+								$('#sRange').prop('checked', false).trigger('change');
 							}
 							return v;
 						}},

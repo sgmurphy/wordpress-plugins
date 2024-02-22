@@ -48,20 +48,20 @@
                     if(0 < m.max)
                     {
                         var d = true;
-                        if($('[id*="'+m.name+'"]:checked').length < m.max) d = false;
-                        $('[id*="'+m.name+'"]:not(:checked)').prop('disabled', d);
+                        if($('[id*="'+m.name+'_"]:checked').length < m.max) d = false;
+                        $('[id*="'+m.name+'_"]:not(:checked)').prop('disabled', d);
                     }
                 },
             after_show:function()
                 {
                     var m = this, tmp;
 
-                    $(document).off('click','[id*="'+m.name+'"]')
-					.on('click','[id*="'+m.name+'"]', function(){m.enable_disable();});
+                    $(document).off('click','[id*="'+m.name+'_"]')
+					.on('click','[id*="'+m.name+'_"]', function(){m.enable_disable();});
                     m.enable_disable();
 
 					if( m.readonly ) {
-						$('[id*="'+m.name+'"][_onclick]').each(function(){$(this).attr('onclick', $(this).attr('_onclick'));});
+						$('[id*="'+m.name+'_"][_onclick]').each(function(){$(this).attr('onclick', $(this).attr('_onclick'));});
 					}
 
 					if(0 < m.max && 0 < m.min && m.max < m.min){
@@ -71,15 +71,16 @@
 					}
 
                     if(0 < m.max)
-                        $('[id*="'+m.name+'"]').rules('add',{maxlength:m.max, messages:{maxlength:m.maxError}});
+                        $('[id*="'+m.name+'_"]').rules('add',{maxlength:m.max, messages:{maxlength:m.maxError}});
                     if(0 < m.min)
-                        $('[id*="'+m.name+'"]').rules('add',{minlength:m.min, messages:{minlength:m.minError}});
+                        $('[id*="'+m.name+'_"]').rules('add',{minlength:m.min, messages:{minlength:m.minError}});
                 },
 			showHideDep:function(toShow, toHide, hiddenByContainer, interval)
 				{
                     if(typeof hiddenByContainer == 'undefined') hiddenByContainer = {};
 					var me		= this,
-						item 	= $('input[id*="'+me.name+'"]'),
+						item 	= $('input[id*="'+me.name+'_"]'),
+						formObj	= item.closest('form'),
 						form_identifier = me.form_identifier,
 						isHidden = (typeof toHide[me.name] != 'undefined' || typeof hiddenByContainer[me.name] != 'undefined'),
 						result 	= [];
@@ -105,8 +106,8 @@
 
 										if(typeof toShow[dep] == 'undefined')
 										{
-											$('[id*="'+dep+'"],.'+dep).closest('.fields').hide();
-											$('[id*="'+dep+'"]:not(.ignore)').addClass('ignore');
+											$('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').hide();
+											$('[id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore');
 											toHide[dep] = {};
 										}
 									}
@@ -118,8 +119,8 @@
 										toShow[dep]['ref'][me.name+'_'+i]  = 1;
 										if(!(dep in hiddenByContainer))
 										{
-											$('[id*="'+dep+'"],.'+dep).closest('.fields').fadeIn(interval || 0);
-											$('[id*="'+dep+'"].ignore').removeClass('ignore');
+											$('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').fadeIn(interval || 0);
+											$('[id*="'+dep+'"].ignore', formObj).removeClass('ignore');
 										}
 									}
 									if($.inArray(dep,result) == -1) result.push(dep);
@@ -135,7 +136,7 @@
 					raw = raw || false;
                     no_quotes = no_quotes || false;
 					var v, me = this, m = me.merge && !raw,
-						e = $('[id*="'+me.name+'"]:checked:not(.ignore)');
+						e = $('[id*="'+me.name+'_"]:checked:not(.ignore)');
 
 					if(!m) v = [];
 					if(e.length)
@@ -156,17 +157,17 @@
 
 					var t, n = this.name, c = 0, e;
 					if(!$.isArray(v)) v = [v];
-					$('[id*="'+n+'"]').prop('checked', false);
+					$('[id*="'+n+'_"]').prop('checked', false);
 					for(var i in v)
 					{
 						t = (new String(v[i])).replace(/(['"])/g, "\\$1");
                         if(0 < this.max && this.max < c+1) break;
-                        if(_default) e = $('[id*="'+n+'"][vt="'+t+'"]');
-                        if(!_default || !e.length) e = $('[id*="'+n+'"][value="'+t+'"]');
+                        if(_default) e = $('[id*="'+n+'_"][vt="'+t+'"]');
+                        if(!_default || !e.length) e = $('[id*="'+n+'_"][value="'+t+'"]');
                         if(e.length){ e.prop('checked', true);c++;}
 					}
                     this.enable_disable();
-					if(!nochange) $('[id*="'+n+'"]').change();
+					if(!nochange) $('[id*="'+n+'_"]').trigger('change');
 				},
 			setChoices:function(choices)
 				{

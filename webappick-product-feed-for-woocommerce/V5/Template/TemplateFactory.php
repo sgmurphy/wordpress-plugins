@@ -10,6 +10,7 @@
 namespace CTXFeed\V5\Template;
 
 use CTXFeed\V5\Override\Heureka_skTemplate;
+use CTXFeed\V5\Override\Zbozi_czTemplate;
 use CTXFeed\V5\Structure\CustomStructure;
 
 /**
@@ -30,6 +31,10 @@ class TemplateFactory {
 		// TODO: Remove this condition when class "OverrideFactory" initialized.
 		if( 'heureka.sk' === $config->get_feed_template() ) {
 			new Heureka_skTemplate();
+		}
+
+		if( 'zbozi.cz' === $config->get_feed_template() ) {
+			new Zbozi_czTemplate();
 		}
 
 		$group_class = self::get_grouped_templates( $config->provider );

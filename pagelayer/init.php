@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) exit;
 
 define('PAGELAYER_BASE', plugin_basename(PAGELAYER_FILE));
 define('PAGELAYER_PRO_BASE', 'pagelayer-pro/pagelayer-pro.php');
-define('PAGELAYER_VERSION', '1.8.2');
+define('PAGELAYER_VERSION', '1.8.3');
 define('PAGELAYER_DIR', dirname(PAGELAYER_FILE));
 define('PAGELAYER_SLUG', 'pagelayer');
 define('PAGELAYER_URL', plugins_url('', PAGELAYER_FILE));
@@ -491,7 +491,34 @@ function pagelayer_sanitize_postmeta( $meta_value, $meta_key ) {
 	return $meta_value;
 }
 
-// On post Save handler
+// Pre post save handler
+add_filter( 'content_save_pre', 'pagelayer_content_save_pre' );
+function pagelayer_content_save_pre($content){
+	
+	if(pagelayer_user_can_add_js_content() || !pagelayer_has_blocks($content)){
+		return $content;
+	}
+	
+	$blocks = parse_blocks( wp_unslash($content) );
+	$output = '';
+	
+	foreach ( $blocks as $block ) {
+		$block_name = $block['blockName'];
+		
+		// Is pagelayer block
+		if ( is_string( $block_name ) && 0 === strpos( $block_name, 'pagelayer/' ) ) {
+			$_block = pagelayer_sanitize_blocks_save_pre($block);
+			$output .= serialize_block($_block);
+			continue;
+		}
+		
+		$output .= serialize_block($block);
+	}
+	
+	return wp_slash($output);
+}
+
+// On post save handler
 add_action('save_post', 'pagelayer_save_post', 10, 3);
 function pagelayer_save_post( $post_id, $post, $update ) {
 	

@@ -17,7 +17,7 @@ use SiteGround_Optimizer\Minifier\Minifier;
 
 /**
  * @package     Gravity PDF
- * @copyright   Copyright (c) 2023, Blue Liquid Designs
+ * @copyright   Copyright (c) 2024, Blue Liquid Designs
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  */
 
@@ -126,6 +126,7 @@ class Controller_PDF extends Helper_Abstract_Controller implements Helper_Interf
 
 		/* Display PDF links in Gravity Forms Admin Area */
 		add_action( 'gform_entries_first_column_actions', [ $this->model, 'view_pdf_entry_list' ], 10, 4 );
+		add_action( 'gravityflow_workflow_detail_sidebar', [ $this->model, 'view_pdf_gravityflow_inbox' ], 10, 4 );
 
 		/* Add save PDF actions */
 		add_action( 'gform_after_submission', [ $this->model, 'maybe_save_pdf' ], 10, 2 );

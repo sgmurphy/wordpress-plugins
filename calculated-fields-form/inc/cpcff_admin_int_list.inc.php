@@ -397,7 +397,7 @@ endif;
 								'&nbsp;' . esc_html__( 'in the', 'calculated-fields-form' ) .
 								'&nbsp;<b><u>' . $cff_current_form_category . '</u></b>&nbsp;' . esc_html__( 'category', 'calculated-fields-form' )
 								:  ''
-							) . '&nbsp;(<a href="javascript:jQuery(\'#cff-reset-forms-filter\').click();">' . esc_html__( 'reset', 'calculated-fields-form' ) . '</a>)' :
+							) . '&nbsp;(<a href="javascript:jQuery(\'#cff-reset-forms-filter\').trigger(\'click\');">' . esc_html__( 'reset', 'calculated-fields-form' ) . '</a>)' :
 							''
 						) . '</td></tr>';
 					}

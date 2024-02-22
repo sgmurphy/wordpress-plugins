@@ -37,11 +37,11 @@
                             if(!/^\s*$/.test(p[i]))
                             {
 								p[i] = String(p[i]).trim()+me.form_identifier;
-								if ( $( '[class*="'+p[i]+'"]' ).length ) {
+								if ( $( '.'+p[i] ).length ) {
 									str += '<div ref="'+p[i]+'" class="cff-summary-item"><span class="'+cff_esc_attr(me.titleClassname)+' cff-summary-title"></span><span class="'+cff_esc_attr(me.valueClassname)+' cff-summary-value"></span></div>';
 
 									me.fieldsArray.push(p[i]);
-									$(document).on('change', '[id*="'+p[i]+'"]', function(){ me.update(); });
+									$(document).on('change', '.'+p[i]+' [id*="'+p[i]+'"]', function(){ me.update(); });
 								}
 
                             }

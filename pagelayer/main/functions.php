@@ -1218,6 +1218,48 @@ function pagelayer_xss_content($data){
 
 }
 
+// Check for XSS codes in our blocks array
+function pagelayer_sanitize_blocks_save_pre($block){
+	
+	foreach($block as $k => $v){
+				
+		// Recurse on  arrays
+		if(is_array($v)){
+			$block[$k] = pagelayer_sanitize_blocks_save_pre($v);
+			
+		// We dont support objects !
+		}elseif(is_object($v)){
+			$block[$k] = null;
+		// Strings
+		}else{
+			
+			if(is_string($v)){
+				
+				$v = wp_filter_post_kses($v);
+				
+				while(true){
+					$str = '"'.($v);
+					$found = pagelayer_xss_content($str);
+					//echo (string)$v.'--'.$found."\n";
+				
+					if(strlen($found) > 0){
+						$v = str_replace($found, '', $v);
+					}else{
+						break;
+					}
+
+				}
+				
+			}
+			
+			$block[$k] = $v;
+		}
+		
+	}
+
+	return $block;
+}
+
 function pagelayer_getting_started_notice(){
 	
 	// Is Sitepad setup done?

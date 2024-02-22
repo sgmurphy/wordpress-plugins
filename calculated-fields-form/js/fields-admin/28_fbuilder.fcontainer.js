@@ -110,7 +110,7 @@
 
 											me.fields.splice(index,0,field);
 											$.fbuilder.reloadItems();
-                                            $('.'+/((fieldname)|(separator))\d+/.exec(ui.item.attr('class'))[0]).click();
+                                            $('.'+/((fieldname)|(separator))\d+/.exec(ui.item.attr('class'))[0]).trigger('click');
 										}
 										else
 										{

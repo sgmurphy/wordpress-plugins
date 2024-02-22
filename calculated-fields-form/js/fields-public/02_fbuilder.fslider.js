@@ -112,7 +112,7 @@
 								me.caption.replace(/\{\s*0\s*\}/g, vf)
 							);
 						}
-						if(!nochange) $('#'+me.name).change();
+						if(!nochange) $('#'+me.name).trigger('change');
 					},
 				_toNumber:function(n){return (new String(n)).replace(/[^\-\d\.]/g,'')*1;},
 				init:function()

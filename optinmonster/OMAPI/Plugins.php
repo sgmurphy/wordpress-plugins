@@ -181,6 +181,24 @@ class OMAPI_Plugins {
 					'desc'  => __( 'Plugin to push notifications for Chrome, Firefox, Opera, Microsoft Edge, Safari, UC Browser and Samsung Internet browsers.', 'optin-monster-api' ),
 					'url'   => 'https://downloads.wordpress.org/plugin/pushengage.zip',
 				),
+				'uncanny-automator/uncanny-automator.php' => array(
+					'slug'  => 'uncanny-automator',
+					'icon'  => $this->base->url . 'assets/images/about/plugin-uncanny-automator.png',
+					'class' => 'uncanny-automatoruncanny-automatorphp',
+					'check' => array( 'constant' => 'AUTOMATOR_PLUGIN_VERSION' ),
+					'name'  => 'Uncanny Automator',
+					'desc'  => __( 'Connect your WordPress plugins, sites and apps together with powerful automations. Save time and money with the #1 automation plugin for WordPress!', 'optin-monster-api' ),
+					'url'   => 'https://downloads.wordpress.org/plugin/uncanny-automator.zip',
+					'data'  => array(
+						'dashboard_url' => add_query_arg(
+							array(
+								'post_type' => 'uo-recipe',
+								'page'      => 'uncanny-automator-dashboard',
+							),
+							admin_url( 'edit.php' )
+						),
+					),
+				),
 			);
 			foreach ( self::$plugins as $plugin_id => $plugin ) {
 				self::$plugins[ $plugin_id ]['id'] = $plugin_id;
@@ -303,7 +321,8 @@ class OMAPI_Plugins {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param string $plugin_id
+	 * @param string $plugin_id ID of the plugin.
+	 *
 	 * @return array On success.
 	 * @throws Exception On error.
 	 */

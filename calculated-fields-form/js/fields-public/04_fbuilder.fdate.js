@@ -248,27 +248,27 @@
 						if($('#'+me.name+'_ampm').length) str += $('#'+me.name+'_ampm').val();
 					}
                     e.val(str);
-					if(!nochange) e.change();
+					if(!nochange) e.trigger('change');
 				},
 			set_minDate:function(v, ignore)
 				{
-					var e = $('[id*="'+this.name+'"].hasDatepicker'), f;
+					var e = $('[id*="'+this.name+'_"].hasDatepicker'), f;
 					if(e.length)
 					{
 						e.datepicker('option', 'minDate', (ignore) ? null : v);
 						if( e.has('.datepicker-container') ) { f = e; e = e.siblings('.date-component'); }
-						if(e.val() != '') e.change();
+						if(e.val() != '') e.trigger('change');
 						else if( f ) f.find('.ui-state-active').removeClass('ui-state-active');
 					}
 				},
 			set_maxDate:function(v, ignore)
 				{
-					var e = $('[id*="'+this.name+'"].hasDatepicker'), f;
+					var e = $('[id*="'+this.name+'_"].hasDatepicker'), f;
 					if(e.length)
 					{
 						e.datepicker('option', 'maxDate', (ignore) ? null : v);
 						if( e.has('.datepicker-container') ) { f = e; e = e.siblings('.date-component'); }
-						if(e.val() != '') e.change();
+						if(e.val() != '') e.trigger('change');
 						else if( f ) f.find('.ui-state-active').removeClass('ui-state-active');
 					}
 				},
@@ -291,11 +291,11 @@
 						p['altField'] = $("#"+me.name+"_date");
 						p['altFormat'] = p['dateFormat'];
 						p['onSelect'] = function( dateText, inst ){
-							$("#"+me.name+"_date").change();
+							$("#"+me.name+"_date").trigger('change');
 						};
 					}
 
-					dp.on( 'click', function(){ $(document).click(); $(this).focus(); });
+					dp.on( 'click', function(){ $(document).trigger('click'); $(this).trigger('focus'); });
 					if(me.showDropdown) p = $.extend(p,{changeMonth: true,changeYear: true,yearRange: me.dropdownRange});
 					p = $.extend(p, {beforeShowDay:function(d){return [me._validateDate(d), ""];}});
 					if(me.defaultDate != "") p.defaultDate = me.defaultDate;

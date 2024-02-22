@@ -36,7 +36,7 @@
             after_show:function()
                 {
 					var me = this;
-					$('#'+this.name).mousedown(function(){eval(me.sOnmousedown);});
+					$('#'+this.name).on( 'mousedown', function(){eval(me.sOnmousedown);});
 					$('#'+this.name).on( 'click',
                         function()
                             {

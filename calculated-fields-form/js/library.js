@@ -48,7 +48,7 @@ jQuery(function () {
 
 	form_name_library_field;
 
-    $.expr[":"].contains = $.expr.createPseudo(function (arg) {
+    $.expr.pseudos.contains = $.expr.createPseudo(function (arg) {
         return function (elem) {
             return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
         };
@@ -125,7 +125,7 @@ jQuery(function () {
         // Initialize
         showNoFormMessage();
         $('.cff-form-library-search-box input').val('');
-        $('.cff-form-library-categories ul>li:first-child a').click();
+        $('.cff-form-library-categories ul>li:first-child a').trigger('click');
         $('.cff-form-library-cover').show();
 
 		form_name_library_field = $('[id="cp_itemname_library"]');

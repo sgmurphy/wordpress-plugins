@@ -3,7 +3,7 @@ fbuilderjQuery[ 'fbuilder' ] = fbuilderjQuery[ 'fbuilder' ] || {};
 fbuilderjQuery[ 'fbuilder' ][ 'modules' ] = fbuilderjQuery[ 'fbuilder' ][ 'modules' ] || {};
 
 fbuilderjQuery[ 'fbuilder' ][ 'modules' ][ 'cookies' ] = {
-	'tutorial' : 'https://cff.dwbooster.com/documentation#cookies-module',
+	'tutorial' : 'https://cff.dwbooster.com/documentation#cookies-operations-module',
 	'toolbars'		: {
 		'cookies' : {
 			'label' : 'Cookies Operations',

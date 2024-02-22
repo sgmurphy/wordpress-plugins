@@ -62,21 +62,22 @@
 								e = $(m);
 
 							$('[id*="'+n+'_"]').each(function(){if(m !== this) $(this).data('previous-status', false);});
-							if(e.data('previous-status')){ m.checked = false; e.change();}
+							if(e.data('previous-status')){ m.checked = false; e.trigger('change');}
 							e.data('previous-status', m.checked);
 						});
 					}
 
 					if( me.readonly ) {
-						$('[id*="'+me.name+'"][_onclick]').each(function(){$(this).attr('onclick', $(this).attr('_onclick'));});
+						$('[id*="'+n+'_"][_onclick]').each(function(){$(this).attr('onclick', $(this).attr('_onclick'));});
 					}
 				},
 			showHideDep:function(toShow, toHide, hiddenByContainer, interval)
 				{
                     if(typeof hiddenByContainer == 'undefined') hiddenByContainer = {};
 					var me		= this,
-						item 	= $('input[id*="'+me.name+'"]'),
+						item 	= $('input[id*="'+me.name+'_"]'),
 						form_identifier = me.form_identifier,
+						formObj	= item.closest('form'),
 						isHidden = (typeof toHide[me.name] != 'undefined' || typeof hiddenByContainer[me.name] != 'undefined'),
 						result 	= [];
 
@@ -101,8 +102,8 @@
 
 										if(typeof toShow[dep] == 'undefined')
 										{
-											$('[id*="'+dep+'"],.'+dep).closest('.fields').hide();
-											$('[id*="'+dep+'"]:not(.ignore)').addClass('ignore');
+											$('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').hide();
+											$('[id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore');
 											toHide[dep] = {};
 										}
 									}
@@ -114,8 +115,8 @@
 										toShow[dep]['ref'][me.name+'_'+i]  = 1;
 										if(!(dep in hiddenByContainer))
 										{
-											$('[id*="'+dep+'"],.'+dep).closest('.fields').fadeIn(interval || 0);
-											$('[id*="'+dep+'"].ignore').removeClass('ignore');
+											$('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').fadeIn(interval || 0);
+											$('[id*="'+dep+'"].ignore', formObj).removeClass('ignore');
 										}
 									}
 									if($.inArray(dep,result) == -1) result.push(dep);
@@ -130,7 +131,7 @@
 				{
 					raw = raw || false;
                     no_quotes = no_quotes || false;
-					var e = $('[id*="' + this.name + '"]:not(.ignore):checked');
+					var e = $('[id*="' + this.name + '_"]:not(.ignore):checked');
 					if(e.length) return $.fbuilder.parseValStr((raw == 'vt') ? e.attr('vt') : e.val(), raw, no_quotes);
 					else if( raw == 'vt') return $.fbuilder.parseValStr('', raw, no_quotes);
 					return 0;
@@ -141,12 +142,12 @@
                     nochange = nochange || false;
 
 					var t = (new String(v)).replace(/(['"])/g, "\\$1"), n = this.name, e;
-					$('[id*="'+n+'"]').prop('checked', false);
-                    if(_default) e = $('[id*="'+n+'"][vt="'+t+'"]');
-                    if(!_default || !e.length) e = $('[id*="'+n+'"][value="'+t+'"]');
+					$('[id*="'+n+'_"]').prop('checked', false);
+                    if(_default) e = $('[id*="'+n+'_"][vt="'+t+'"]');
+                    if(!_default || !e.length) e = $('[id*="'+n+'_"][value="'+t+'"]');
                     if(e.length) e.prop('checked', true);
 					this.initStatus();
-					if(!nochange) $('[id*="'+n+'"]').change();
+					if(!nochange) $('[id*="'+n+'_"]').trigger('change');
 				},
 			setChoices:function(choices)
 				{

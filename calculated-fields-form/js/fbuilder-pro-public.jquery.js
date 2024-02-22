@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '1.2.55';
+	$.fbuilder['version'] = '1.2.56';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 
@@ -437,7 +437,7 @@
 											a[0].pause();
 											a[0].currentTime = 0;
 										} else {
-											$('.cff-audio-stop-icon').click();
+											$('.cff-audio-stop-icon').trigger('click');
 											e.addClass('cff-audio-stop-icon');
 											a[0].play();
 										}
@@ -494,7 +494,7 @@
 					}
 
 					fieldlist_tag.find(".pbPrevious,.pbNext").on("keyup", function(evt){
-						if(evt.which == 13 || evt.which == 32) $(this).click();
+						if(evt.which == 13 || evt.which == 32) $(this).trigger('click');
 					}).on("click", {'identifier' : opt.identifier}, function(evt){
 						var _from = ($.fbuilder.forms[evt.data.identifier]['currentPage'] || 0),
 							_inc  = ($(this).hasClass("pbPrevious")) ? -1 : 1,
@@ -508,8 +508,8 @@
                                         setTimeout(function(){
                                             if(_from != _p) $.fbuilder.setBrowserHistory();
                                             if(_pDom.find('.fields:visible').length == 0)
-                                                if(_inc == -1 && 0 < _p) _pDom.find('.pbPrevious').click();
-                                                else if(!_pDom.hasClass('pbEnd')) _pDom.find('.pbNext').click();
+                                                if(_inc == -1 && 0 < _p) _pDom.find('.pbPrevious').trigger('click');
+                                                else if(!_pDom.hasClass('pbEnd')) _pDom.find('.pbNext').trigger('click');
                                         }, 10);
                                     }
                                 }),
@@ -550,10 +550,10 @@
 						e.attr('src', src.replace(/&\d+$/, '') + '&' + Math.floor(Math.random()*1000));
 					} catch (err) { if('console' in window) console.log(err); }
                 });
-				$( form_tag ).find( '.captcha img' ).click();
+				$( form_tag ).find( '.captcha img' ).trigger('click');
 
 				$( '#fieldlist'+opt.identifier).find(".pbSubmit").off('click').on("keyup", function(evt){
-					if(evt.which == 13 || evt.which == 32) $(this).click();
+					if(evt.which == 13 || evt.which == 32) $(this).trigger('click');
 				}).on("click", { 'identifier' : opt.identifier }, function(evt){
 					$(this).closest("form").submit();
 				});
@@ -847,7 +847,7 @@
 					{
 						var me = this, v = String(me[attr]).trim();
 						if($.fbuilder.isNumeric(v)) return;
-						var s = (/^fieldname\d+$/i.test(v)) ? '[id*="'+v+me.form_identifier+'"]' : v,
+						var s = (/^fieldname\d+$/i.test(v)) ? '.'+v+me.form_identifier+' [id*="'+v+me.form_identifier+'"]' : v,
 							i = (one) ? 'one' : 'on';
 						if('string' == typeof s && !/^\s*$/.test(s))
 						{
@@ -897,7 +897,7 @@
 				{
 					var e = $( "[id='" + this.name + "']" );
 					e.val( v );
-					if(!nochange) e.change();
+					if(!nochange) e.trigger('change');
 				},
 				setPlaceholder:function( v )
 				{
@@ -978,7 +978,7 @@
 			l = v.length,
 			m = e.attr( 'maxlength' );
 		if ( m*1 <= l ) {
-			setTimeout( function(){ e.val( v.substring( 0, m ) ).change(); }, 5);
+			setTimeout( function(){ e.val( v.substring( 0, m ) ).trigger('change'); }, 5);
 		}
 	});
 

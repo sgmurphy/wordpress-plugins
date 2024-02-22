@@ -396,23 +396,23 @@ function pagelayer_render_shortcode($atts, $content = '', $tag = '', $inner_bloc
 						
 						$M_prop = $prop.$mv;
 						
-						// Any value ?
-						if(empty($el['atts'][$M_prop]) && empty($global_typo)){
-							continue;
+						$prop_val = isset($el['atts'][$M_prop]) ? $el['atts'][$M_prop] : '';
+						
+						// If is global font
+						if( $param['type'] == 'typography' && (!empty($prop_val) || !empty($global_typo)) ){
+							$prop_val = pagelayer_parse_typo($prop_val, $global_typo, $mk);
 						}
 						
-						$prop_val = $el['atts'][$M_prop];
+						// Any value ?
+						if(empty($prop_val)){
+							continue;
+						}
 						
 						// Global color handler
 						if($param['type'] == 'color'){
 							$prop_val = pagelayer_parse_color($prop_val);
 						}
 						
-						// If is global font
-						if($param['type'] == 'typography'){
-							$prop_val = pagelayer_parse_typo($prop_val, $global_typo, $mk);
-						}
-												
 						// If there is global gradient color
 						if($param['type'] == 'gradient'){
 							

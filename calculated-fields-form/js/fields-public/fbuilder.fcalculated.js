@@ -144,8 +144,8 @@
 								}
 							},
 							hideField = function(id){
-								$('[id*="'+id+'"],.'+id).closest('.fields').hide();
-								$('[id*="'+id+'"]:not(.ignore)').addClass('ignore');
+								$('.'+id+' [id*="'+id+'"],.'+id).closest('.fields').hide();
+								$('.'+id+' [id*="'+id+'"]:not(.ignore)').addClass('ignore');
 								toHide[id] = {};
 							};
 
@@ -175,8 +175,8 @@
 								toShow[dep]['ref'][me.name]  = 1;
 								if(!(dep in hiddenByContainer))
 								{
-									$('[id*="'+dep+'"],.'+dep).closest('.fields').fadeIn(interval || 0);
-									$('[id*="'+dep+'"].ignore').removeClass('ignore');
+									$('.'+dep+' [id*="'+dep+'"],.'+dep).closest('.fields').fadeIn(interval || 0);
+									$('.'+dep+' [id*="'+dep+'"].ignore').removeClass('ignore');
 								}
 								if($.inArray(dep,result) == -1) result.push(dep);
 							}
@@ -222,7 +222,7 @@
 					e.val( v );
 					if(bk != v){
 						e.trigger('calcualtedfield_changed');
-						if(!nochange) e.change();
+						if(!nochange) e.trigger('change');
 					}
 				}
 		}
@@ -580,7 +580,7 @@
 									{
 										field.data('bk',field.val());
 										field.trigger('calcualtedfield_changed');
-										field.change();
+										field.trigger('change');
 									}
 								}
 							}

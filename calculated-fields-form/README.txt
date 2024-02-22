@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator,calculated,quote calculator,forms,form editor,advanced forms,payment calculator,payment,recurring payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf,language
 Requires at least: 3.0.5
 Tested up to: 6.4
-Stable tag: 1.2.55
+Stable tag: 1.2.56
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -999,6 +999,13 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 1.2.56 =
+
+* Removes deprecated JS code.
+* Resolved a dependency issue that occurs when there are more than ten forms inserted on a single page.
+* Fixes a warning in the notification emails module (Professional, Developer, and Platinum versions)
+* Modifies the MailPoet add-on (Platinum version)
+
 = 1.2.55 =
 
 * Improves the plugin security. Special thanks to security researcher Rafie Muhammad (Patchstack)
@@ -1040,10 +1047,3 @@ The previous code example must be overwritten as cff_var['custom_attr']*fieldnam
 * Modifies deprecated jQuery methods.
 * Fixes an issue in the SERVER SIDE Equations add-on (Developer and Platinum plugin versions).
 * Increase the size of the attribute to enter the file content (Platinum plugin version).
-
-= 1.2.48 =
-
-* Fixes a minor issue with equations configured to be evaluated manually.
-* Modifies the settings of DropDown, Checkbox, and Radio Button fields.
-* Modifies the search form builder.
-* Remove invalid characters from the file name in the PDF Generator add-on (Platinum plugin version).

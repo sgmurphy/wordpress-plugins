@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to the OptinMonster plugin will be documented in this file.
 
+### 2.16.0 - 2024-02-22
+* Added integration with Uncanny Automator.
+* Improved University page.
+* Improved security check for dismiss pointer.
+* Update dependencies for security and performance improvements.
+
 ### 2.15.3 - 2024-01-03
 * Updates to onboarding.
 

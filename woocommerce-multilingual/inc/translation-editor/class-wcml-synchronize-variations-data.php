@@ -436,47 +436,13 @@ class WCML_Synchronize_Variations_Data {
 	 *
 	 * @deprecated This AJAX call was removed in WPML 3.2 on 2015.
 	 * @see https://git.onthegosystems.com/wpml/sitepress-multilingual-cms/-/commit/f4b9a84211ee789b7f9a0c028a807188f8334e5c
-	 *
-	 * We can not add a nonce validation since we have none;
-	 * let's add at least user capability checks.
 	 */
 	public function update_taxonomy_in_variations() {
-		if ( ! current_user_can( 'edit_products' ) ) {
-			die( -1 );
-		}
-
-		$original_element = filter_input( INPUT_POST, 'translation_of', FILTER_SANITIZE_NUMBER_INT );
-		$taxonomy         = filter_input( INPUT_POST, 'taxonomy', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-		$language         = filter_input( INPUT_POST, 'language', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-		$slug             = filter_input( INPUT_POST, 'slug', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-		$name             = filter_input( INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-		$term_id          = $this->wpdb->get_var(
-			$this->wpdb->prepare(
-				"SELECT term_id FROM {$this->wpdb->term_taxonomy} WHERE term_taxonomy_id = %d",
-				$original_element
-			)
+		_doing_it_wrong(
+			'WCML_Synchronize_Variations_Data::update_taxonomy_in_variations',
+			__( 'This method is no longer executed by WPML.' ),
+			'5.3.5'
 		);
-		$original_term    = $this->woocommerce_wpml->terms->wcml_get_term_by_id( $term_id, $taxonomy );
-		$original_slug    = $original_term->slug;
-		// get variations with original slug.
-		$variations = $this->wpdb->get_results(
-			$this->wpdb->prepare(
-				"SELECT post_id FROM {$this->wpdb->postmeta} WHERE meta_key=%s AND meta_value = %s",
-				'attribute_' . $taxonomy,
-				$original_slug
-			)
-		);
-
-		foreach ( $variations as $variation ) {
-			// update taxonomy in translation of variation
-			$trnsl_variation_id = apply_filters( 'translate_object_id', $variation->post_id, 'product_variation', false, $language );
-			if ( ! is_null( $trnsl_variation_id ) ) {
-				if ( ! $slug ) {
-					$slug = sanitize_title( $name );
-				}
-				update_post_meta( $trnsl_variation_id, 'attribute_' . $taxonomy, $slug );
-			}
-		}
 	}
 
 	/**

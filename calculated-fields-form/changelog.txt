@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 1.2.56 =
+
+* Removes deprecated JS code.
+* Resolved a dependency issue that occurs when there are more than ten forms inserted on a single page.
+* Fixes a warning in the notification emails module (Professional, Developer, and Platinum versions)
+* Modifies the MailPoet add-on (Platinum version)
+
 = 1.2.55 =
 
 * Improves the plugin security. Special thanks to security researcher Rafie Muhammad (Patchstack)

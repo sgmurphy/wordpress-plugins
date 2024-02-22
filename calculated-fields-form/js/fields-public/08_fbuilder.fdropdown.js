@@ -68,7 +68,7 @@
 							return !state.id ? state.text : $('<span style="display:inline-flex;align-items:center">'+state.text+'</span>');
                         };
 
-                        $('#'+me.name).after('<span class="cff-select2-container"></span>');
+                        $('#'+me.name).after('<span class="cff-select2-container '+me.size+'"></span>');
                         $('#'+me.name).on('change', function(){$(this).valid();});
                         if('select2' in $.fn)
                             $('#'+me.name).select2({
@@ -86,6 +86,7 @@
 					var me = this,
 						item = $('#'+me.name+'.depItemSel'),
 						form_identifier = me.form_identifier,
+						formObj	= item.closest('form'),
 						isHidden = (typeof toHide[me.name] != 'undefined' || typeof hiddenByContainer[me.name] != 'undefined'),
 						result = [];
 
@@ -115,8 +116,8 @@
 
 											if(typeof toShow[dep] == 'undefined')
 											{
-												$('[id*="'+dep+'"],.'+dep).closest('.fields').hide();
-												$('[id*="'+dep+'"]:not(.ignore)').addClass('ignore');
+												$('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').hide();
+												$('[id*="'+dep+'"]:not(.ignore)', formObj).addClass('ignore');
 												toHide[dep] = {};
 											}
 										}
@@ -128,8 +129,8 @@
 											toShow[dep]['ref'][me.name+'_'+i]  = 1;
 											if(!(dep in hiddenByContainer))
 											{
-												$('[id*="'+dep+'"],.'+dep).closest('.fields').fadeIn(interval || 0);
-												$('[id*="'+dep+'"].ignore').removeClass('ignore');
+												$('[id*="'+dep+'"],.'+dep, formObj).closest('.fields').fadeIn(interval || 0);
+												$('[id*="'+dep+'"].ignore', formObj).removeClass('ignore');
 											}
 										}
 										if($.inArray(dep,result) == -1) result.push(dep);
@@ -175,7 +176,7 @@
                         if(!_default || !e.length) e = $('[id="'+n+'"] OPTION[value="'+t+'"]');
                         if(e.length) e.prop('selected', true);
 					}
-					if(!nochange) $('[id="'+n+'"]').change();
+					if(!nochange) $('[id="'+n+'"]').trigger('change');
 				},
 			setChoices:function(choices)
 				{

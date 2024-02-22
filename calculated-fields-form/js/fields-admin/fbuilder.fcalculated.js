@@ -72,11 +72,11 @@
                             }
 						});
 					$(document).on('click', '.cff-light-modal-close-icon', function(){$('[id="cff-advanced-equation-editor"]').remove();$(this).remove();});
-					$(document).on('keyup', function(e){if(e.key === 'Escape') $('.cff-light-modal-close-icon').click();});
+					$(document).on('keyup', function(e){if(e.key === 'Escape') $('.cff-light-modal-close-icon').trigger('click');});
 					$("#sAdvancedEditor").on("click", {obj: this}, function(e)
 						{
 							$(window).off('message');
-							$(window).on('message', function(event){$('#sEq').val(event.originalEvent.data).change();});
+							$(window).on('message', function(event){$('#sEq').val(event.originalEvent.data).trigger('change');});
                             var advEditor = '<div class="cff-light-modal" id="cff-advanced-equation-editor" role="dialog" aria-hidden="false">'+
 							'<div class="cff-light-modal-content">'+
 							'<div class="cff-light-modal-body">'+

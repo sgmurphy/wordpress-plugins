@@ -85,6 +85,8 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 */
 		private $_iframe_nonces;
 
+		private $mail_obj;
+
 		/**
 		 * Constructs a CPCFF_MAIN object, and define the hooks to the filters and actions.
 		 * The constructor is private because this class is a singleton

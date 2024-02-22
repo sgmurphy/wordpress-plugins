@@ -50,7 +50,7 @@
                         {s:"#sDefaultCountry",e:"change", l:"defaultCountry"},
                     ];
 					$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this,evt);
-                    $('#sSelectAll').on( 'click', function(){var e = $("#sCountries"); e.find('option').prop('selected', true); e.change();});
+                    $('#sSelectAll').on( 'click', function(){var e = $("#sCountries"); e.find('option').prop('selected', true); e.trigger('change');});
 				},
 			showFormatIntance: function()
 				{

@@ -86,7 +86,7 @@
 					}
 				});
 
-                $('#'+me.name+'_clearer').on( 'click', function(){$('#'+me.name).val('').change().valid();});
+                $('#'+me.name+'_clearer').on( 'click', function(){$('#'+me.name).val('').trigger('change').valid();});
 			},
 			val : function(raw, no_quotes)
 			{

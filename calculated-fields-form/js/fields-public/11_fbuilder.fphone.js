@@ -92,7 +92,7 @@
 						$('#'+me.name+'_'+i).on('change', function(){
 							var v = '';
                             $('[id*="'+me.name+'_"]').each(function(){v+=$(this).val();});
-							$('#'+me.name).val(v).change();
+							$('#'+me.name).val(v).trigger('change');
 						});
 						if(i+1 < h)
 						{
@@ -100,13 +100,13 @@
 								var e = $(this);
 								if(e.val().length == e.attr('maxlength'))
 								{
-									e.change();
-									$('#'+me.name+'_'+evt.data.next).focus();
+									e.trigger('change');
+									$('#'+me.name+'_'+evt.data.next).trigger('focus');
 								}
 							});
 						}
 					}
-                    $('#'+me.name+'_0').change();
+                    $('#'+me.name+'_0').trigger('change');
 				},
 			val:function(raw, no_quotes)
 				{

@@ -178,7 +178,7 @@
                 j.add(j.find('.fields')).show();
 				if(f.name in $.fbuilder.forms[o].toHide) delete $.fbuilder.forms[o].toHide[f.name];
 				if(!(f.name in $.fbuilder.forms[o].toShow)) $.fbuilder.forms[o].toShow[f.name] = {'ref': {}};
-				j.find('[id*="'+f.name+'"]').removeClass('ignore').change();
+				j.find('[id*="'+f.name+'"]').removeClass('ignore').trigger('change');
 				$.fbuilder.showHideDep({'formIdentifier':o,'fieldIdentifier':f.name});
 			}
 		}
@@ -196,7 +196,7 @@
 				j.add(j.find('.fields')).hide();
 				if(!(f.name in $.fbuilder.forms[o].toHide)) $.fbuilder.forms[o].toHide[f.name] = {};
 				if(f.name in $.fbuilder.forms[o].toShow) delete $.fbuilder.forms[o].toShow[f.name];
-				j.find('[id*="'+f.name+'"]').addClass('ignore').change();
+				j.find('[id*="'+f.name+'"]').addClass('ignore').trigger('change');
 				$.fbuilder.showHideDep({'formIdentifier':o,'fieldIdentifier':f.name});
 			}
 		}
@@ -411,7 +411,7 @@
 								{
 									var id = f.attr('id');
 									if( 'validate' in f ) f.validate().resetForm();
-									f.find('.select2-hidden-accessible').change();
+									f.find('.select2-hidden-accessible').trigger('change');
 									f.find(':data(manually)').removeData('manually');
 									$.fbuilder['showHideDep']({ 'formIdentifier' : fid });
 									$.fbuilder.forms[fid]['currentPage'] = 0;

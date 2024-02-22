@@ -274,7 +274,7 @@
 				$('#tabs-3').html(theForm.showAllSettings());
 				selected = -1;
 
-				$("#fTitle").keyup(function()
+				$("#fTitle").on( 'keyup', function()
 				{
 					theForm.title = $(this).val();
 					$.fbuilder.reloadItems({'form':1});
@@ -352,7 +352,7 @@
 					$.fbuilder.reloadItems({'form':1});
 				});
 
-				$("#fDescription").keyup(function()
+				$("#fDescription").on( 'keyup', function()
 				{
 					theForm.description = $(this).val();
 					$.fbuilder.reloadItems({'form':1});
@@ -408,7 +408,7 @@
 						}
 					);
 					editor = wp.codeEditor.initialize( $('#fCustomStyles'), cssEditorSettings );
-					editor.codemirror.on('change', function(cm){ $('#fCustomStyles').val(cm.getValue()).change();});
+					editor.codemirror.on('change', function(cm){ $('#fCustomStyles').val(cm.getValue()).trigger('change');});
 					editor.codemirror.on('keydown', function(cm, evt){
 						if ( 'Escape' == evt.key && $('.CodeMirror-hint').length ) {
 							evt.stopPropagation();
@@ -449,7 +449,7 @@
 					'.fields'
 				);
 
-				$(document).on('focus', '.field', function(){$(this).blur();});
+				$(document).on('focus', '.field', function(){$(this).trigger('blur');});
 
 				// Handle events
 				$(document).on('click', '.fields .remove', function(evt){
@@ -538,9 +538,9 @@
 						if ( $('#cff-advanced-equation-editor:visible').length ) {
 							return;
 						} else if ( $('.cff-editor-container.fullscreen').length ) {
-							$('.cff-editor-extend-shrink').click();
+							$('.cff-editor-extend-shrink').trigger('click');
 						} else if ( $('#metabox_form_structure.fullscreen').length ) {
-							$('.cff-form-builder-extend-shrink [name="cff_shrink_btn"]').click();
+							$('.cff-form-builder-extend-shrink [name="cff_shrink_btn"]').trigger('click');
 						}
 					}
 				});
@@ -829,7 +829,7 @@
 
                         items.splice( index, 0,  items.splice( i, 1 )[ 0 ] );
                         $.fbuilder.reloadItems();
-                        $('.'+/((fieldname)|(separator))\d+/.exec(ui.item.attr('class'))[0]).click();
+                        $('.'+/((fieldname)|(separator))\d+/.exec(ui.item.attr('class'))[0]).trigger('click');
                     }
                     else
                     {
@@ -1272,7 +1272,7 @@
 										alert( 'Invalid mime type' );
 										return;
 									}
-									$( '#sAudioSrc' ).val( attachment.url ).change();
+									$( '#sAudioSrc' ).val( attachment.url ).trigger('change');
 								}
 							).open();
 						return false;

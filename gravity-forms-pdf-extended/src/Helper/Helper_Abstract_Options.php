@@ -10,7 +10,7 @@ use WP_Error;
 
 /**
  * @package     Gravity PDF
- * @copyright   Copyright (c) 2023, Blue Liquid Designs
+ * @copyright   Copyright (c) 2024, Blue Liquid Designs
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  */
 
@@ -1843,9 +1843,7 @@ abstract class Helper_Abstract_Options implements Helper_Interface_Filters {
 				<?php foreach ( $input_data as $data_id => $data_value ): ?>
 					<?php echo esc_html( 'data-' . $data_id ); ?>="<?php echo esc_attr( $data_value ); ?>"
 				<?php endforeach; ?>
-		>
-			<?php echo esc_textarea( $value ); ?>
-		</textarea>
+		><?php echo esc_textarea( $value ); ?></textarea>
 
 		<?php if ( $toggle !== false ): ?>
 			<?php $this->end_toggle_input(); ?>

@@ -171,7 +171,7 @@
                                     alert( 'Invalid mime type' );
                                     return;
                                 }
-                                field.val( attachment.url ).change();
+                                field.val( attachment.url ).trigger('change');
                             };
                         })( src_field, type )
                     ).open();

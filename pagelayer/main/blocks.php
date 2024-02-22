@@ -199,9 +199,9 @@ function pagelayer_enqueue_block_assets(){
 	
 	wp_localize_script( 'pagelayer-blocks', 'pagelayer_config',
 		array( 
-			'pagelayer_shortcodes' => json_encode($shortcodes),
-			'pagelayer_styles' => json_encode($pagelayer->styles),
-			'pagelayer_groups' => json_encode($pagelayer->groups),
+			'pagelayer_shortcodes' => $shortcodes,
+			'pagelayer_styles' => $pagelayer->styles,
+			'pagelayer_groups' => $pagelayer->groups,
 			'internal_linking_nonce' => wp_create_nonce('internal-linking'),
 			'pagelayer_fonts' =>  $pagelayer->fonts,
 		)
@@ -334,8 +334,8 @@ function pagelayer_register_metadata() {
 	);
 }
 
-add_filter( 'the_post', 'pagelayer_blocks_the_post', 10, 2 );
-function pagelayer_blocks_the_post( $post, $_this ) {
+add_filter( 'the_post', 'pagelayer_blocks_the_post' );
+function pagelayer_blocks_the_post( $post ) {
 	
 	if(!pagelayer_is_gutenberg_editor() || !has_blocks( $post ) ){
 		return;

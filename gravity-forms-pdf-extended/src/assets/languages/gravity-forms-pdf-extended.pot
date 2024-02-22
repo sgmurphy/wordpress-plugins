@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Gravity PDF
+# Copyright (C) 2024 Gravity PDF
 # This file is distributed under the same license as the Gravity PDF package.
 msgid ""
 msgstr ""
@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-20 05:06+0000\n"
+"POT-Creation-Date: 2024-02-20 23:01+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -186,7 +186,7 @@ msgstr ""
 msgid "PDF: %s"
 msgstr ""
 
-#: ../../Controller/Controller_PDF.php:395, ../../View/View_PDF.php:244
+#: ../../Controller/Controller_PDF.php:396, ../../View/View_PDF.php:244
 msgid "There was a problem generating your PDF"
 msgstr ""
 
@@ -494,31 +494,31 @@ msgstr ""
 msgid "Deactivate License"
 msgstr ""
 
-#: ../../Helper/Helper_Abstract_Options.php:2114, ../../Helper/Helper_Abstract_Options.php:2115
+#: ../../Helper/Helper_Abstract_Options.php:2112, ../../Helper/Helper_Abstract_Options.php:2113
 msgid "Select Media"
 msgstr ""
 
-#: ../../Helper/Helper_Abstract_Options.php:2116
+#: ../../Helper/Helper_Abstract_Options.php:2114
 msgid "Upload File"
 msgstr ""
 
-#: ../../Helper/Helper_Abstract_Options.php:2360
+#: ../../Helper/Helper_Abstract_Options.php:2358
 msgid "Width"
 msgstr ""
 
-#: ../../Helper/Helper_Abstract_Options.php:2372
+#: ../../Helper/Helper_Abstract_Options.php:2370
 msgid "Height"
 msgstr ""
 
-#: ../../Helper/Helper_Abstract_Options.php:2389
+#: ../../Helper/Helper_Abstract_Options.php:2387
 msgid "mm"
 msgstr ""
 
-#: ../../Helper/Helper_Abstract_Options.php:2390
+#: ../../Helper/Helper_Abstract_Options.php:2388
 msgid "inches"
 msgstr ""
 
-#: ../../Helper/Helper_Abstract_Options.php:2458
+#: ../../Helper/Helper_Abstract_Options.php:2456
 msgid "The callback used for the %s setting is missing."
 msgstr ""
 
@@ -534,7 +534,7 @@ msgstr ""
 msgid "PDF"
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:144
+#: ../../Helper/Helper_Data.php:144, ../../Model/Model_PDF.php:973
 msgid "Gravity PDF"
 msgstr ""
 
@@ -1430,11 +1430,11 @@ msgstr ""
 msgid "This form doesn't have any PDFs. Let's go %1$screate one%2$s."
 msgstr ""
 
-#: ../../Helper/Helper_Templates.php:212
+#: ../../Helper/Helper_Templates.php:230
 msgid "Requires Gravity PDF"
 msgstr ""
 
-#: ../../Helper/Helper_Templates.php:323, ../../Helper/Helper_Templates.php:403
+#: ../../Helper/Helper_Templates.php:341, ../../Helper/Helper_Templates.php:421
 msgid "Legacy"
 msgstr ""
 
@@ -1502,19 +1502,19 @@ msgstr ""
 msgid "Your PDF is no longer accessible."
 msgstr ""
 
-#: ../../Model/Model_PDF.php:615, ../../Model/Model_PDF.php:664
+#: ../../Model/Model_PDF.php:615, ../../Model/Model_PDF.php:645
 msgid "You do not have access to view this PDF."
 msgstr ""
 
-#: ../../Model/Model_PDF.php:926
+#: ../../Model/Model_PDF.php:1010
 msgid "PDFs"
 msgstr ""
 
-#: ../../Model/Model_PDF.php:1063
+#: ../../Model/Model_PDF.php:1153
 msgid "The PDF could not be saved."
 msgstr ""
 
-#: ../../Model/Model_PDF.php:2072
+#: ../../Model/Model_PDF.php:2162
 msgid "Could not find PDF configuration requested"
 msgstr ""
 
@@ -1875,16 +1875,12 @@ msgstr ""
 msgid "Support hours are 9:00am-5:00pm Monday to Friday, %1$sSydney Australia time%2$s (public holidays excluded)."
 msgstr ""
 
-#: ../../View/html/Settings/licence-info.php:20
-msgid "To take advantage of automatic updates for your Gravity PDF add-ons, enter your license key(s) below."
+#: ../../View/html/Settings/licence-info.php:22
+msgid "To take advantage of automatic updates for your Gravity PDF extension(s), enter and save your license key(s) below. %1$sYou can find your purchased licenses in your GravityPDF.com account%2$s."
 msgstr ""
 
-#: ../../View/html/Settings/licence-info.php:21
-msgid "Your license key is located in your Purchase Confirmation email you received after you bought the add-on."
-msgstr ""
-
-#: ../../View/html/Settings/licence-info.php:25
-msgid "By installing a Gravity PDF extension you are automatically giving permission for us to periodically poll GravityPDF.com via HTTPS for your current license status and any new plugin updates. The only personal data sent is your website domain name and license key. To opt-out you will need to deactivate all Gravity PDF extensions."
+#: ../../View/html/Settings/licence-info.php:30
+msgid "When a Gravity PDF extension is enabled, the plugin periodically polls GravityPDF.com over HTTPS for your license status and plugin updates. The only data sent is your website domain name and license key (if provided). To opt-out you need to deactivate all Gravity PDF extensions."
 msgstr ""
 
 #: ../../View/html/Shortcodes/conditional_logic_not_met.php:20
