@@ -331,6 +331,7 @@ if ( !class_exists( 'PT_CV_BlockToView' ) ) {
 		static function action_add_global_variables() {
 			if ( isset( $GLOBALS[ 'cv_block_atts' ] ) ) {
 				PT_CV_Functions::set_global_variable( 'blockAtts', $GLOBALS[ 'cv_block_atts' ] );
+				unset( $GLOBALS[ 'cv_block_atts' ] );
 			}
 		}
 

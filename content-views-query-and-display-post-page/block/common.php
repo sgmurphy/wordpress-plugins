@@ -753,7 +753,7 @@ class ContentViews_Block_Common {
 
 			// margin, line height, etc.
 			if ( $value && $append ) {
-				if ( strpos( $key, 'Margin' ) !== false || strpos( $key, 'Padding' ) !== false || strpos( $key, 'BoxShadow' ) !== false || strpos( $key, 'BorderWidth' ) !== false ) {
+				if ( strpos( $key, 'Margin' ) !== false || strpos( $key, 'Padding' ) !== false || strpos( $key, 'BoxShadow' ) !== false || strpos( $key, 'BorderWidth' ) !== false || strpos( $key, 'BorderRadius' ) !== false ) {
 					$default_val	 = [ 'top' => 0, 'right' => 0, 'bottom' => 0, 'left' => 0, ];
 					$remove_blank	 = array_filter( $value );
 					$value			 = array_merge( $default_val, $remove_blank );

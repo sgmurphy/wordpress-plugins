@@ -1,20 +1,22 @@
-=== Content Views - Post Grid, Slider, Accordion (Gutenberg Blocks and Shortcode) ===
+=== Content Views - Post Grid & Filter, Recent Posts, Category Posts, & More (Gutenberg Blocks and Shortcode) ===
 Contributors: pt-guy
 Tags: post grid, post blocks, recent posts, gutenberg blocks, grid, display posts, post list, post slider, post accordion, gutenberg, blocks, category post, news, magazine, portfolio, latest posts, related posts
 Requires at least: 3.3
 Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 3.6.3
+Stable tag: 3.6.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Query, sort, and show posts in grid, list, slider, accordion... layouts. Blocks & patterns for Gutenberg. Shortcode for Classic Editor, page builders.
+Filter & show posts, pages, custom posts in grid, list, slider, accordion. Blocks & patterns for Gutenberg. Shortcode for Classic Editor, page builder
 
 == Description ==
 
-Content Views is the most popular grid shortcode & block plugin to create stunning Blogs, News, Personal, Portfolio, and Business sites.
+Content Views is the most popular grid shortcode & block plugin to create stunning Blogs, News, Personal, Portfolio, Business, and Shop sites.
 
-Easy to display posts, pages, custom post types, taxonomy terms in attractive grid, list, slider, accordion, pinterest, timeline, and more.
+Easy to display posts, pages, custom post types, images, and taxonomy terms in attractive grid, list, slider, accordion, pinterest, timeline, overlay, and more.
+
+Show recent posts, category posts, tag posts, author posts, posts by keyword, posts by custom field, posts by date, etc. effortlessly.
 
 Classic editor friendly & Gutenberg block editor ready!
 
@@ -24,7 +26,7 @@ Classic editor friendly & Gutenberg block editor ready!
 
 Content Views provides a powerful shortcode feature to work with the Classic editor and page builders in 2 simple steps:
 
-https://www.youtube.com/watch?v=2vVqoBJA9K8&controls=1&modestbranding=1&rel=0&cc_load_policy=1
+https://www.youtube.com/watch?v=QgQLjB0DQ8s&controls=1&modestbranding=1&rel=0&cc_load_policy=1
 
 * **Step 1: Create a View**
 Start by creating a View where you can query and sort any posts, pages, custom post types by category, tag, taxonomy, custom field, post ID, post title, date, author, etc. Select a layout that fits your needs, customize and style it with a lot of options.
@@ -46,7 +48,7 @@ Content Views adds 15 amazing and feature-rich blocks to help you display WordPr
 * Advanced typography settings
 * Google fonts supported in blocks
 
-https://www.youtube.com/watch?v=bptDnUq9DI0&controls=1&modestbranding=1&rel=0&cc_load_policy=1&start=15
+https://www.youtube.com/watch?v=4Mj55xrPtV8&controls=1&modestbranding=1&rel=0&cc_load_policy=1&start=17
 
 ### 💎 75+ READY GUTENBERG BLOCK PATTERNS & TEMPLATES
 
@@ -155,15 +157,8 @@ All blocks support posts, pages, custom post types and come with a lot of option
 - **[Scrollable Post Block](https://contentviewspro.com/demo/blocks/scrollable/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This post block displays your posts in a carousel/slider layout with navigation, indicator and autoplay to explore more posts easily
 - **[Timeline Block](https://contentviewspro.com/demo/blocks/timeline/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This post block displays your posts in a classic Timeline layout like Facebook
 - **[Big Post 1 Block](https://contentviewspro.com/demo/blocks/big-post-1/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This post block displays one big post above other small posts. Big post and small posts can be customized separately
-- **[Big Post 2 Block](https://contentviewspro.com/demo/blocks/big-post-2/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This post block displays one big post beside other small posts. Big post and small posts can be customized separately
-- **[Post Overlay 1 Block](https://contentviewspro.com/demo/blocks/overlay-1/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This advanced post grid block displays a beautiful grid layout with overlay over post image
-- **[Post Overlay 2 Block](https://contentviewspro.com/demo/blocks/overlay-2/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This advanced post grid block displays one post beside other stacked posts, with overlay over post image
-- **[Post Overlay 3 Block](https://contentviewspro.com/demo/blocks/overlay-3/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This advanced post grid block displays one post beside 3 other posts (that showed in 2 rows), with overlay over post image
-- **[Post Overlay 4 Block](https://contentviewspro.com/demo/blocks/overlay-4/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This advanced post grid block displays one post beside 3 other posts (that showed in 2 columns), with overlay over post image
-- **[Post Overlay 5 Block](https://contentviewspro.com/demo/blocks/overlay-5/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This advanced post grid block displays one post beside 4 other posts (that showed in a 2x2 grid), with overlay over post image
-- **[Post Overlay 6 Block](https://contentviewspro.com/demo/blocks/overlay-6/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This advanced post grid block displays one post above other posts (that showed in columns), with overlay over post image
-- **[Post Overlay 7 Block](https://contentviewspro.com/demo/blocks/overlay-7/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This advanced post grid block displays one post beside & above other posts, with overlay over post image
-- **[Post Overlay 8 Block](https://contentviewspro.com/demo/blocks/overlay-8/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This advanced post grid block displays 2 posts and 4 other posts in an advanced grid, with overlay over post image
+- **[Big Post 2 Block](https://contentviewspro.com/demo/blocks/big-post-2/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This post block displays one big post beside other small posts.
+- **[Post Overlay 1-8 Blocks](https://contentviewspro.com/demo/blocks/overlay-1/?utm_source=wordpress&utm_medium=link)** - These post blocks show posts in advanced grid layouts with overlay over the post image.
 
 
 == Installation ==
@@ -231,6 +226,13 @@ If you encounter any difficulties or if you have questions about Content Views, 
 
 
 == Changelog ==
+
+= 3.6.4 =
+* Fix: [Shortcode] fix CSS output in some edge cases
+* Fix: [Block] fix issue when click & move cursor in the ColorPicker area
+* Fix: [Block] fix issue when set empty value for "Border Radius"
+* Update: [Block] disable click on links in the Block Editor
+* Other tweaks and improvements
 
 = 3.6.3 =
 * Update: Revert to the Green background color for Readmore button in View shortcode (for Free version only. The selected blue/custom color in Pro version is unaffected)

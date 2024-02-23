@@ -1,7 +1,7 @@
 === YITH WooCommerce Wishlist ===
 
 Contributors: yithemes
-Tags: woocommerce wishlist, yith woocommerce wishlist, yith wishlist, woocommerce add to wishlist, wishlist for woocommerce
+Tags: woocommerce wishlist, yith woocommerce wishlist, wishlist for woocommerce, wishlist, plugin wishlist for woocommerce
 Requires at least: 6.2
 Tested up to: 6.4
 Stable tag: 3.30.0

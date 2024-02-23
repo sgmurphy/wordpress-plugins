@@ -104,7 +104,7 @@ if ( !class_exists( 'ContentViews_Block' ) ) {
 
 			if ( $is_gb_editor ) {
 				// prevent click link
-				$output = str_replace( '<a href=', '<a onclick="event.preventDefault()" href=', $output );
+				$output = str_replace( 'href=', 'onclick="event.preventDefault()" href=', $output );
 
 				// modify output for editor only
 				$output = apply_filters( PT_CV_PREFIX_ . 'block_editor_output', $output, $block_attributes );

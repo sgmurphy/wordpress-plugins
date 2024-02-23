@@ -441,6 +441,15 @@ p.cvgopro {color: #888; /*background: #fffdf0;*/}
 	/*opacity: 0.8;*/
 }
 
+@media screen and (min-resolution:1.25dppx) {
+	#pt-cv-display-settings > .form-group:first-child .radio {
+		width: calc(12.5% - 8px);
+	}
+	[name="pt-cv-view-type"] ~ div span {
+		zoom: 0.9;
+	}
+}
+
 .pt-cv-size-group .pt-params * {
 	width: auto;
 	display: inline-block;
