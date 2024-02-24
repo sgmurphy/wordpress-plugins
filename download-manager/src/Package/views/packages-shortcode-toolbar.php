@@ -14,7 +14,11 @@
 if(!defined("ABSPATH")) die();
 list($sr, $ob, $od, $bt) = [6,2,2,2];
 if(isset($tbgrid)){
-    list($sr, $ob, $od, $bt) = explode(",", $tbgrid);
+    list($sr, $ob, $od, $bt) = explode(",", esc_attr($tbgrid));
+    $sr = (int)$sr;
+	$ob = (int)$ob;
+    $od = (int)$od;
+    $bt = (int)$bt;
 }
 //Show  toolbar on post type archive
 if(is_post_type_archive()) $toolbar = 1;

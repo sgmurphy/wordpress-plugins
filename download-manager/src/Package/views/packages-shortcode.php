@@ -19,6 +19,10 @@ $bt - Button area width
 list($sr, $ob, $od, $bt) = [6,2,2,2];
 if(isset($scparams['tbgrid'])){
     list($sr, $ob, $od, $bt) = explode(",", $scparams['tbgrid']);
+	$sr = (int)$sr;
+	$ob = (int)$ob;
+	$od = (int)$od;
+	$bt = (int)$bt;
 }
 
 ?>

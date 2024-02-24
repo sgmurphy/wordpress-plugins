@@ -17,6 +17,7 @@ class Shortcodes
 
     function listPackages($params = array('id' => '', 'operator' => 'IN', 'items_per_page' => 10, 'title' => false, 'desc' => false, 'orderby' => 'create_date', 'order' => 'desc', 'paging' => false, 'toolbar' => 1, 'template' => '', 'cols' => 3, 'colspad' => 2, 'colsphone' => 1, 'morelink' => 1))
     {
+		if(!isset($params['id'])) return __('No category selected!', 'download-manager');
         $params['categories'] = $params['id'];
         $params['catsc'] = 1;
         unset($params['id']);

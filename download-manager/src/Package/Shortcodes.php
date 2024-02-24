@@ -82,7 +82,6 @@ class Shortcodes
         else
             $linkURL = home_url("/?wpdmdl=" . $ID);
 
-        $extras = isset($params['extras']) ? wpdm_sanitize_var($params['extras'], 'txt') : "";
         $target = isset($params['target']) ? "target='" . wpdm_sanitize_var($params['target'], 'esc_attr') . "'" : "";
         $class = isset($params['class']) ? "class='" . wpdm_sanitize_var($params['class'], 'esc_attr') . "'" : "";
         $style = isset($params['style']) ? "style='" . wpdm_sanitize_var($params['style'], 'esc_attr') . "'" : "";
@@ -91,7 +90,7 @@ class Shortcodes
         $linkLabel = isset($params['label']) && !empty($params['label']) ? $params['label'] : get_post_meta($ID, '__wpdm_link_label', true);
         $linkLabel = empty($linkLabel) ? get_the_title($ID) : $linkLabel;
         $linkLabel = wpdm_sanitize_var($linkLabel, 'kses');
-        return "<a {$target} {$class} {$eid} {$style} {$rel} {$extras} href='$linkURL'>".esc_attr($linkLabel)."</a>";
+        return "<a {$target} {$class} {$eid} {$style} {$rel} href='$linkURL'>".esc_attr($linkLabel)."</a>";
 
     }
 

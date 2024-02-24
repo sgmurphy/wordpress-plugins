@@ -231,7 +231,7 @@ if ( ! class_exists( 'RC_Reviews_Collector' ) ) {
 							<h3>
 								<?php printf( $plugin_title ); ?>
 							</h3>
-							<?php printf( $plugin_msg ); ?>
+							<?php printf( $plugin_msg); ?>
 							<input type="hidden" name="rc_name" value="<?php echo esc_html( $this->rc_name ); ?>">
 							<input type="hidden" name="nonce" value="<?php echo esc_html( wp_create_nonce( 'rc_sdk' ) ); ?>">
 							<div class="bdt-notice-rc-buttons">

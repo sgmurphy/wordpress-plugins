@@ -4,7 +4,7 @@ Contributors: eskapism
 Donate link: https://www.paypal.me/eskapism
 Tags: history, log, changes, changelog, audit, audit log, event log, user tracking, trail, pages, attachments, users, dashboard, admin, syslog, feed, activity, stream, audit trail, brute-force
 Tested up to: 6.4
-Stable tag: 4.11.0
+Stable tag: 4.12.0
 
 View changes made by users within WordPress. See who created a page, uploaded an attachment or approved an comment, and more.
 
@@ -212,6 +212,17 @@ This can be modified using the filter [`simple_history/db_purge_days_interval`](
    A simple way to see any uncommon activity, for example an increased number of logins or similar.
 
 ## Changelog
+
+### 4.12.0 (februari 2024)
+
+**Added**
+
+- Theme activation/switch done via WP CLI (e.g. `wp theme activate twentytwentyone`) is now logged.
+
+**Fixed**
+
+- Message type search/filter not working. [#428](https://github.com/bonny/WordPress-Simple-History/issues/428)
+- PHP notice when user has no roles. [#429](https://github.com/bonny/WordPress-Simple-History/issues/429).
 
 ### 4.11.0 (february 2024)
 
