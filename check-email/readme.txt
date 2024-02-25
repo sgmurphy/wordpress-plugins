@@ -1,5 +1,5 @@
 === Check & Log Email ===
-Contributors: jack-kitterhing
+Contributors: checkemail
 Tags: check, test, email, smtp, pop, send, delivery
 Requires at least: 5.0
 Tested up to: 6.3

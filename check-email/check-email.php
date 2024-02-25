@@ -2,7 +2,7 @@
 /*
 * Plugin Name: 				Check & Log Email
 * Description: 				Check & Log email allows you to test if your WordPress installation is sending emails correctly and logs every email.
-* Author: 					WPOmnia
+* Author: 					checkemail
 * Version: 					1.0.8
 * Author URI: 				https://wpomnia.com/
 * License: 					GPLv3 or later
