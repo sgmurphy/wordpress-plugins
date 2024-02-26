@@ -1275,6 +1275,30 @@ class Admin_Interface
     }
     
     /**
+     * Modify footer text
+     *
+     * @since 6.9.0
+     */
+    public function custom_admin_footer_text_left()
+    {
+        $options = get_option( ASENHA_SLUG_U, array() );
+        $custom_admin_footer_left = ( isset( $options['custom_admin_footer_left'] ) ? $options['custom_admin_footer_left'] : '' );
+        echo  wp_kses_post( $custom_admin_footer_left ) ;
+    }
+    
+    /**
+     * Change WP version number text in footer
+     * 
+     * @since 6.9.0
+     */
+    public function custom_admin_footer_text_right()
+    {
+        $options = get_option( ASENHA_SLUG_U, array() );
+        $custom_admin_footer_right = ( isset( $options['custom_admin_footer_right'] ) ? $options['custom_admin_footer_right'] : '' );
+        echo  wp_kses_post( $custom_admin_footer_right ) ;
+    }
+    
+    /**
      * Reorder plugins list to show active ones first
      * 
      * @link https://plugins.trac.wordpress.org/browser/display-active-plugins-first/tags/1.1/display-active-plugins-first.php

@@ -3,7 +3,7 @@
 Plugin Name: WPC Smart Compare for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: Smart products compare for WooCommerce.
-Version: 6.2.0
+Version: 6.2.1
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-compare
@@ -11,12 +11,12 @@ Domain Path: /languages/
 Requires at least: 4.0
 Tested up to: 6.4
 WC requires at least: 3.0
-WC tested up to: 8.5
+WC tested up to: 8.6
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSC_VERSION' ) && define( 'WOOSC_VERSION', '6.2.0' );
+! defined( 'WOOSC_VERSION' ) && define( 'WOOSC_VERSION', '6.2.1' );
 ! defined( 'WOOSC_LITE' ) && define( 'WOOSC_LITE', __FILE__ );
 ! defined( 'WOOSC_FILE' ) && define( 'WOOSC_FILE', __FILE__ );
 ! defined( 'WOOSC_URI' ) && define( 'WOOSC_URI', plugin_dir_url( __FILE__ ) );
@@ -779,16 +779,7 @@ if ( ! function_exists( 'woosc_init' ) ) {
 																	break;
 															}
 
-															echo '<div class="woosc-field woosc-field-' . $key . ' woosc-field-type-' . $field['type'] . '">';
-															echo '<span class="move">' . esc_html__( 'move', 'woo-smart-compare' ) . '</span>';
-															echo '<span class="info">';
-															echo '<span class="title">' . esc_html( $title ) . '</span>';
-															echo '<input class="woosc-field-type" type="hidden" name="woosc_settings[fields6][' . $key . '][type]" value="' . esc_attr( $field['type'] ) . '"/>';
-															echo '<input class="woosc-field-name" type="text" name="woosc_settings[fields6][' . $key . '][name]" value="' . esc_attr( $field['name'] ) . '" placeholder="' . esc_attr__( 'name', 'woo-smart-compare' ) . '"/>';
-															echo '<input class="woosc-field-label" type="text" name="woosc_settings[fields6][' . $key . '][label]" value="' . esc_attr( isset( $field['label'] ) ? $field['label'] : '' ) . '" placeholder="' . esc_attr__( 'label', 'woo-smart-compare' ) . '"/>';
-															echo '</span>';
-															echo '<span class="remove">&times;</span>';
-															echo '</div>';
+															self::field_html( $key, 'fields6', $field['type'], $field['name'], $title, $field['label'] );
 														}
 														?>
                                                     </div>
@@ -1136,16 +1127,7 @@ if ( ! function_exists( 'woosc_init' ) ) {
 																	break;
 															}
 
-															echo '<div class="woosc-field woosc-field-' . $key . ' woosc-field-type-' . $field['type'] . '">';
-															echo '<span class="move">' . esc_html__( 'move', 'woo-smart-compare' ) . '</span>';
-															echo '<span class="info">';
-															echo '<span class="title">' . esc_html( $title ) . '</span>';
-															echo '<input class="woosc-field-type" type="hidden" name="woosc_settings[quick_fields6][' . $key . '][type]" value="' . esc_attr( $field['type'] ) . '"/>';
-															echo '<input class="woosc-field-name" type="text" name="woosc_settings[quick_fields6][' . $key . '][name]" value="' . esc_attr( $field['name'] ) . '" placeholder="' . esc_attr__( 'name', 'woo-smart-compare' ) . '"/>';
-															echo '<input class="woosc-field-label" type="text" name="woosc_settings[quick_fields6][' . $key . '][label]" value="' . esc_attr( isset( $field['label'] ) ? $field['label'] : '' ) . '" placeholder="' . esc_attr__( 'label', 'woo-smart-compare' ) . '"/>';
-															echo '</span>';
-															echo '<span class="remove">&times;</span>';
-															echo '</div>';
+															self::field_html( $key, 'quick_fields6', $field['type'], $field['name'], $title, $field['label'] );
 														}
 														?>
                                                     </div>
@@ -2604,7 +2586,7 @@ if ( ! function_exists( 'woosc_init' ) ) {
 								foreach ( $taxonomies as $taxonomy ) {
 									if ( substr( $taxonomy->name, 0, 3 ) === 'pa_' ) {
 										$key = self::generate_key( 4, true );
-										self::add_field_html( $key, $setting, $type, $taxonomy->name, wc_attribute_label( $taxonomy->name ) );
+										self::field_html( $key, $setting, $type, $taxonomy->name, wc_attribute_label( $taxonomy->name ) );
 									}
 								}
 							}
@@ -2637,21 +2619,33 @@ if ( ! function_exists( 'woosc_init' ) ) {
 									break;
 							}
 
-							self::add_field_html( $key, $setting, $type, $field, $title );
+							self::field_html( $key, $setting, $type, $field, $title );
 						}
 					}
 
 					wp_die();
 				}
 
-				function add_field_html( $key, $setting, $type, $field, $title ) {
+				function field_html( $key, $setting, $type, $field, $title, $label = '' ) {
 					echo '<div class="woosc-field woosc-field-' . $key . ' woosc-field-type-' . $type . '">';
 					echo '<span class="move">' . esc_html__( 'move', 'woo-smart-compare' ) . '</span>';
 					echo '<span class="info">';
 					echo '<span class="title">' . esc_html( $title ) . '</span>';
 					echo '<input class="woosc-field-type" type="hidden" name="woosc_settings[' . $setting . '][' . $key . '][type]" value="' . esc_attr( $type ) . '"/>';
-					echo '<input class="woosc-field-name" type="text" name="woosc_settings[' . $setting . '][' . $key . '][name]" value="' . esc_attr( $field ) . '" placeholder="' . esc_attr__( 'name', 'woo-smart-compare' ) . '"/>';
-					echo '<input class="woosc-field-label" type="text" name="woosc_settings[' . $setting . '][' . $key . '][label]" value="" placeholder="' . esc_attr__( 'label', 'woo-smart-compare' ) . '"/>';
+
+					if ( ( $type === 'custom_field' ) && ( $meta_keys = self::get_meta_keys() ) ) {
+						echo '<select class="woosc-field-name" name="woosc_settings[' . $setting . '][' . $key . '][name]">';
+
+						foreach ( $meta_keys as $meta_key ) {
+							echo '<option value="' . esc_attr( $meta_key ) . '" ' . selected( $field, $meta_key, false ) . '>' . esc_html( $meta_key ) . '</option>';
+						}
+
+						echo '</select>';
+					} else {
+						echo '<input class="woosc-field-name" type="text" name="woosc_settings[' . $setting . '][' . $key . '][name]" value="' . esc_attr( $field ) . '" placeholder="' . esc_attr__( 'name', 'woo-smart-compare' ) . '"/>';
+					}
+
+					echo '<input class="woosc-field-label" type="text" name="woosc_settings[' . $setting . '][' . $key . '][label]" value="' . esc_attr( $label ) . '" placeholder="' . esc_attr__( 'label', 'woo-smart-compare' ) . '"/>';
 					echo '</span>';
 					echo '<span class="remove">&times;</span>';
 					echo '</div>';
@@ -2905,6 +2899,30 @@ if ( ! function_exists( 'woosc_init' ) ) {
 					}
 
 					return apply_filters( 'woosc_get_fields', $saved_fields6, $context );
+				}
+
+				function get_meta_keys() {
+					global $wpdb;
+					$transient_key = 'woosc_get_product_meta_keys';
+					$get_meta_keys = get_transient( $transient_key );
+
+					if ( true === (bool) $get_meta_keys ) {
+						return $get_meta_keys;
+					}
+
+					global $wp_post_types;
+
+					if ( ! isset( $wp_post_types['product'] ) ) {
+						return false;
+					}
+
+					$get_meta_keys = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT pm.meta_key FROM {$wpdb->postmeta} pm 
+        LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id 
+        WHERE p.post_type = %s", 'product' ) );
+
+					set_transient( $transient_key, $get_meta_keys, DAY_IN_SECONDS );
+
+					return $get_meta_keys;
 				}
 
 				public static function get_setting( $name, $default = false ) {

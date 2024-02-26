@@ -1,10 +1,10 @@
 === WPC Smart Quick View for WooCommerce ===
 Contributors: wpclever
 Donate link: https://wpclever.net
-Tags: woocommerce, woo, wpc, smart, quickview, quick-view
+Tags: woocommerce, wpc, quickview, quick-view
 Requires at least: 4.0
 Tested up to: 6.4
-Stable tag: 3.5.7
+Stable tag: 4.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,9 @@ Example:
 });`
 
 == Changelog ==
+
+= 4.0.0 =
+* Updated: Optimized the code
 
 = 3.5.7 =
 * Added: Enable quick view for product link on shop/archive

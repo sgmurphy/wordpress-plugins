@@ -97,6 +97,7 @@ class Login_Logout
         $custom_login_slug = $options['custom_login_slug'];
         // e.g. manage
         $url_input = sanitize_text_field( $_SERVER['REQUEST_URI'] );
+        $redirect_slug = 'not_found';
         // When logging in
         
         if ( isset( $_POST['log'] ) && isset( $_POST['pwd'] ) || isset( $_POST['post_password'] ) ) {
@@ -129,7 +130,7 @@ class Login_Logout
                         
                         if ( false === strpos( $url_input, $custom_login_slug ) ) {
                             // Redirect to /not_found/
-                            wp_safe_redirect( home_url( 'not_found/' ), 302 );
+                            wp_safe_redirect( home_url( $redirect_slug . '/' ), 302 );
                             exit;
                         }
                         
@@ -145,7 +146,7 @@ class Login_Logout
                     
                     if ( false === strpos( $url_input, $custom_login_slug ) ) {
                         // Redirect to /not_found/
-                        wp_safe_redirect( home_url( 'not_found/' ), 302 );
+                        wp_safe_redirect( home_url( $redirect_slug . '/' ), 302 );
                         exit;
                     }
                     

@@ -21,6 +21,8 @@ The plugin integrates with the **Loco Translate** plugin to provide a seamless e
 
 [How It Works ⇗](https://locoaddon.com/how-it-works/?utm_source=atlt_plugin&utm_medium=readme&utm_campaign=get_pro&utm_content=how_it_works) | [Buy Pro ⇗](https://locoaddon.com/plugin/automatic-translate-addon-for-loco-translate-pro/?utm_source=atlt_plugin&utm_medium=readme&utm_campaign=get_pro&utm_content=buy_now)
 
+https://www.youtube.com/watch?v=X_1RbSVgnOc
+
 Install this plugin along with the famous **[Loco Translate](https://wordpress.org/plugins/loco-translate/)** plugin (**1,000,000+ Active Installations**) and automatically machine translates any WordPress plugin or theme translation files into any language.
 The Automatic Translate Addon for Loco Translate is a must-have tool for anyone looking for a seamless, efficient, and high-quality solution to translate their WordPress plugins and themes.
 

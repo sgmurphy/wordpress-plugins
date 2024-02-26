@@ -1125,7 +1125,7 @@ class WPvivid_Restore_2
 
                     $ret['main_task_progress_total']=$total;
                     $ret['main_task_progress_finished']=$finished;
-                    $ret['main_progress']='<span class="wpvivid-span-processed-progress wpvivid-span-processed-restore-percent-progress" style="width: '.$main_progress.'%;">'.$main_progress.'% completed</span>';
+                    $ret['main_progress']='<span class="action-progress-bar-percent wpvivid-span-processed-restore-percent-progress" style="width: '.$main_progress.'%; display:block; height:1.5em; border-radius:0; padding-left:0.5em;">'.$main_progress.'% completed</span>';
 
                     $buffer = '';
                     if(file_exists($restore_task['log']))

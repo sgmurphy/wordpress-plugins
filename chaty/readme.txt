@@ -1,6 +1,6 @@
 ﻿=== Floating Chat Widget: Contact Chat Icons, WhatsApp, Telegram Chat, Line Messenger, WeChat, Email, SMS, Call Button – Chaty ===
 Contributors: galdub, tomeraharon, premio
-Tags: whatsapp, whatsapp chat, facebook messenger, click to chat, chat, chat button, call now button, messenger, whatsapp button, chat icon, contact button, click to call
+Tags: whatsapp, whatsapp chat, facebook messenger, chat, chat button, call now button, messenger, whatsapp button, chat icon, contact button, click to call, click to chat
 Requires at least: 3.1
 Tested up to: 6.4
 Stable tag: 3.1.8
@@ -17,7 +17,7 @@ Display a chat button and communicate with your customers.</strong>
 <a href="https://premio.io/?utm_source=wordpressorg" target="_blank" title="WordPress plugins">Recommended Plugins</a> | <a href="https://premio.io/downloads/chaty/?utm_source=wordpressorg" target="_blank" title="Chaty Pro"><strong>Upgrade to Pro ⭐</strong></a>
 
 * Get WhatsApp, Facebook Messenger, and 20+ chat channels leads and calls
-* Chat with you via their favorite channels like Facebook Messenger, WhatsApp, WhatsApp Business, Viber, Slack, Telegram, TikTok, and many other chat channels
+* Chat with you via their favorite channels like Facebook Messenger, WhatsApp, WhatsApp Business, Viber, Slack, Telegram, TikTok, Line Messenger, and many other chat channels
 * Improve your customer support
 * Direct customers to your store's location
 

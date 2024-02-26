@@ -1,1 +1,1 @@
-<?php return array('dependencies' => array('kadence-helpers', 'kadence-icons', 'react', 'react-dom', 'wp-api-fetch', 'wp-components', 'wp-data', 'wp-dom', 'wp-element', 'wp-i18n', 'wp-notices', 'wp-primitives', 'wp-url'), 'version' => '0dea5b2a088598bf1af6');
+<?php return array('dependencies' => array('kadence-helpers', 'kadence-icons', 'react', 'react-dom', 'wp-api-fetch', 'wp-components', 'wp-data', 'wp-dom', 'wp-element', 'wp-i18n', 'wp-notices', 'wp-primitives', 'wp-url'), 'version' => '2fafc78f50aae4acc373');

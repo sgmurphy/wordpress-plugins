@@ -5,7 +5,7 @@ Plugin URI: https://www.migrateguru.com
 Description: Migrating your site(s) to any WordPress Hosting platform has never been so easy.
 Author: Migrate Guru
 Author URI: http://www.migrateguru.com
-Version: 5.25
+Version: 5.48
 Network: True
  */
 
@@ -60,12 +60,17 @@ add_action('clear_bv_services_config', array($wp_action, 'clear_bv_services_conf
 
 ##DISABLE_OTHER_OPTIMIZATION_PLUGINS##
 
-##WPCLIMODULE##
+if (defined('WP_CLI') && WP_CLI) {
+		require_once dirname( __FILE__ ) . '/wp_cli.php';
+		$wp_cli = new MGWPCli($bvsettings, $bvinfo, $bvsiteinfo, $bvapi);
+		WP_CLI::add_command("migrateguru", $wp_cli);
+}
+
 if (is_admin()) {
 	require_once dirname( __FILE__ ) . '/wp_admin.php';
 	$wpadmin = new MGWPAdmin($bvsettings, $bvsiteinfo);
 	add_action('admin_init', array($wpadmin, 'initHandler'));
-	add_filter('all_plugins', array($wpadmin, 'initBranding'));
+	add_filter('all_plugins', array($wpadmin, 'initWhitelabel'));
 	add_filter('plugin_row_meta', array($wpadmin, 'hidePluginDetails'), 10, 2);
 	##HEALTH_INFO_HOOK##
 	if ($bvsiteinfo->isMultisite()) {
@@ -87,6 +92,7 @@ if ((array_key_exists('bvreqmerge', $_POST)) || (array_key_exists('bvreqmerge', 
 
 if ($bvinfo->hasValidDBVersion()) {
 	##ACTLOGMODULE##
+	##MAINTENANCEMODULE##
 }
 
 if ((array_key_exists('bvplugname', $_REQUEST)) && ($_REQUEST['bvplugname'] == "migrateguru")) {
@@ -107,23 +113,27 @@ if ((array_key_exists('bvplugname', $_REQUEST)) && ($_REQUEST['bvplugname'] == "
 	$response = new BVCallbackResponse($request->bvb64cksize);
 
 	if ($request->authenticate() === 1) {
-		##BVBASEPATH##
-
-		require_once dirname( __FILE__ ) . '/callback/handler.php';
-
-		$params = $request->processParams($_REQUEST);
-		if ($params === false) {
-			$response->terminate($request->corruptedParamsResp());
-		}
-		$request->params = $params;
-		$callback_handler = new BVCallbackHandler($bvdb, $bvsettings, $bvsiteinfo, $request, $account, $response);
-		if ($request->is_afterload) {
-			add_action('wp_loaded', array($callback_handler, 'execute'));
-		} else if ($request->is_admin_ajax) {
-			add_action('wp_ajax_bvadm', array($callback_handler, 'bvAdmExecuteWithUser'));
-			add_action('wp_ajax_nopriv_bvadm', array($callback_handler, 'bvAdmExecuteWithoutUser'));
+		if (array_key_exists('bv_ignr_frm_cptch', $_REQUEST)) {
+			##DISABLE_CAPTCHA_IN_FORM_PLUGINS##
 		} else {
-			$callback_handler->execute();
+			##BVBASEPATH##
+
+			require_once dirname( __FILE__ ) . '/callback/handler.php';
+
+			$params = $request->processParams($_REQUEST);
+			if ($params === false) {
+				$response->terminate($request->corruptedParamsResp());
+			}
+			$request->params = $params;
+			$callback_handler = new BVCallbackHandler($bvdb, $bvsettings, $bvsiteinfo, $request, $account, $response);
+			if ($request->is_afterload) {
+				add_action('wp_loaded', array($callback_handler, 'execute'));
+			} else if ($request->is_admin_ajax) {
+				add_action('wp_ajax_bvadm', array($callback_handler, 'bvAdmExecuteWithUser'));
+				add_action('wp_ajax_nopriv_bvadm', array($callback_handler, 'bvAdmExecuteWithoutUser'));
+			} else {
+				$callback_handler->execute();
+			}
 		}
 	} else {
 		$response->terminate($request->authFailedResp());
@@ -135,4 +145,5 @@ if ((array_key_exists('bvplugname', $_REQUEST)) && ($_REQUEST['bvplugname'] == "
 	}
 	##WPAUTOUPDATEBLOCKMODULE##
 	##HIDEPLUGINUPDATEMODULE##
+	##THIRDPARTYCACHINGMODULE##
 }

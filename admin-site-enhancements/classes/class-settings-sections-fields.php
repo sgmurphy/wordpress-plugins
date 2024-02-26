@@ -50,6 +50,7 @@ class Settings_Sections_Fields
         // Call WordPress globals and set new globals required for the fields
         // =================================================================
         global 
+            $wp_version,
             $wp_roles,
             $wpdb,
             $asenha_public_post_types,
@@ -1080,6 +1081,83 @@ class Settings_Sections_Fields
                 'class'             => 'asenha-toggle content-management ' . $field_slug,
             )
         );
+        // Custom Admin Footer Text
+        $field_id = 'custom_admin_footer_text';
+        $field_slug = 'custom-admin-footer-text';
+        add_settings_field(
+            $field_id,
+            // Field ID
+            'Custom Admin Footer Text',
+            // Field title
+            [ $render_field, 'render_checkbox_toggle' ],
+            // Callback to render field with custom arguments in the array below
+            ASENHA_SLUG,
+            // Settings page slug
+            'main-section',
+            // Section ID
+            array(
+                'option_name'            => ASENHA_SLUG_U,
+                'field_id'               => $field_id,
+                'field_slug'             => $field_slug,
+                'field_name'             => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_description'      => 'Customize the text you see on the footer of wp-admin pages other than this ASE settings page.',
+                'field_options_wrapper'  => true,
+                'field_options_moreless' => true,
+                'class'                  => 'asenha-toggle utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'custom_admin_footer_left';
+        $field_slug = 'custom-admin-footer-left';
+        add_settings_field(
+            $field_id,
+            // Field ID
+            'Left Side',
+            // Field title
+            [ $render_field, 'render_wpeditor_subfield' ],
+            // Callback to render field with custom arguments in the array below
+            ASENHA_SLUG,
+            // Settings page slug
+            'main-section',
+            // Section ID
+            array(
+                'option_name'       => ASENHA_SLUG_U,
+                'field_id'          => $field_id,
+                'field_slug'        => $field_slug,
+                'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_type'        => 'textarea',
+                'field_rows'        => 3,
+                'field_intro'       => '',
+                'field_description' => 'Default text is: <em>Thank you for creating with <a href="https://wordpress.org/">WordPress</a></em>.',
+                'field_placeholder' => '',
+                'class'             => 'asenha-textarea utilities ' . $field_slug,
+            )
+        );
+        $field_id = 'custom_admin_footer_right';
+        $field_slug = 'custom-admin-footer-right';
+        add_settings_field(
+            $field_id,
+            // Field ID
+            'Right Side',
+            // Field title
+            [ $render_field, 'render_wpeditor_subfield' ],
+            // Callback to render field with custom arguments in the array below
+            ASENHA_SLUG,
+            // Settings page slug
+            'main-section',
+            // Section ID
+            array(
+                'option_name'       => ASENHA_SLUG_U,
+                'field_id'          => $field_id,
+                'field_slug'        => $field_slug,
+                'field_name'        => ASENHA_SLUG_U . '[' . $field_id . ']',
+                'field_type'        => 'textarea',
+                'field_rows'        => 1,
+                'field_intro'       => '',
+                'field_description' => 'Default text is: <em>Version ' . $wp_version . '</em>',
+                'field_placeholder' => '',
+                'class'             => 'asenha-textarea utilities ' . $field_slug,
+            )
+        );
         // =================================================================
         // LOG IN | LOG OUT
         // =================================================================
@@ -1113,7 +1191,7 @@ class Settings_Sections_Fields
         add_settings_field(
             $field_id,
             // Field ID
-            'New URL:',
+            'New login URL:',
             // Field title
             [ $render_field, 'render_text_subfield' ],
             // Callback to render field with custom arguments in the array below

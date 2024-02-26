@@ -10,7 +10,7 @@ class BVInfoCallback extends BVCallbackBase {
 	public $bvinfo;
 	public $bvapi;
 	
-	const INFO_WING_VERSION = 1.8;
+	const INFO_WING_VERSION = 2.0;
 
 	public function __construct($callback_handler) {
 		$this->db = $callback_handler->db;
@@ -45,29 +45,19 @@ class BVInfoCallback extends BVCallbackBase {
 		);
 	}
 
-	public function getLatestWooCommerceDB() {
-		$version = false;
-
-		if (defined('WC_ABSPATH') && file_exists(WC_ABSPATH . 'includes/class-wc-install.php')) {
-			include_once WC_ABSPATH . 'includes/class-wc-install.php';
-		}
-
-		if (class_exists('WC_Install')) {
-			$update_versions = array_keys(WC_Install::get_db_update_callbacks());
-			usort($update_versions, 'version_compare');
-			if (!empty($update_versions)) {
-				$version = end($update_versions);
-			}
-		}
-
-		return $version;
-	}
-
 	public function addDBInfoToPlugin($pdata, $plugin_file) {
 		switch ($plugin_file) {
 		case "woocommerce/woocommerce.php":
 			$pdata['current_db_version'] = $this->settings->getOption('woocommerce_db_version');
-			$pdata['latest_db_version'] = $this->getLatestWooCommerceDB();
+			$pdata['latest_db_version'] = $this->bvinfo->getLatestWooCommerceDBVersion();
+			break;
+		case "elementor/elementor.php":
+			$pdata['current_db_version'] = $this->settings->getOption('elementor_version');
+			$pdata['latest_db_version'] = $this->bvinfo->getLatestElementorDBVersion($plugin_file);
+			break;
+		case "elementor-pro/elementor-pro.php":
+			$pdata['current_db_version'] = $this->settings->getOption('elementor_pro_version');
+			$pdata['latest_db_version'] = $this->bvinfo->getLatestElementorDBVersion($plugin_file);
 			break;
 		}
 
@@ -287,6 +277,10 @@ class BVInfoCallback extends BVCallbackBase {
 			$host_info['WPE_APIKEY'] = WPE_APIKEY;
 		}
 
+		if (defined('IS_ATOMIC')) {
+			$host_info['IS_ATOMIC'] = IS_ATOMIC;
+		}
+
 		return $host_info;
 	}
 
@@ -393,11 +387,12 @@ class BVInfoCallback extends BVCallbackBase {
 	}
 
 	function getCoreHandler() {
-		global $wp_db_version;
+		global $wp_db_version, $wp_version;
 
 		$result = $this->getTransient('update_core');
 		$result['current_db_version'] = $this->settings->getOption('db_version');
 		$result['latest_db_version'] = $wp_db_version;
+		$result['wp_version'] = $wp_version;
 		
 		return $result;
 	}
@@ -506,7 +501,7 @@ class BVInfoCallback extends BVCallbackBase {
 			$resp = $this->getStats();
 			break;
 		case "gtdbvariables":
-			$variable = (array_key_exists('variable', $params)) ? $variable : "";
+			$variable = (array_key_exists('variable', $params)) ? $params['variable'] : "";
 			$resp = $this->db->showDbVariables($variable);
 			break;
 		case "gtplgs":

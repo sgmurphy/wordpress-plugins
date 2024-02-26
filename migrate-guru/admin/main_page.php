@@ -1,155 +1,83 @@
-<div class="wrapper">
-	<div class="horizontal-header" style="background: #25bea0; width: 99%; padding: 0px;">
-		<div class="header-left">
-			<div class="mg-branding" style="width: 100%; justify-content: left;">
-			<img class="mg-logo" src="<?php echo esc_url(plugins_url('./../img/migrateguru.png', __FILE__)); ?>" style="width:91px"/>
-				<div class="mg-heading" style="color: #FFF; margin-top: 10px;	margin-left: 10px;">
-					Migrate Guru
+<header class="header-container">
+	<img class="migrateguru-logo" src="<?php echo esc_url(plugins_url("/../img/migrate-guru.png", __FILE__)); ?>">
+	<img class="blogvault-logo" src="<?php echo esc_url(plugins_url("/../img/powered-by-blogvault.png", __FILE__)); ?>">
+</header>
+<main>
+	<div class="card">
+		<div class="card-header-links">
+			<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://migrateguru.freshdesk.com/support/home">
+				FAQs
+			</a>
+			<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://migrateguru.freshdesk.com/support/home">
+				Help Docs
+			</a>
+			<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://www.migrateguru.com/contact-us/">
+				Support
+			</a>
+			<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://wordpress.org/support/plugin/migrate-guru/reviews">
+				Rate us 5 stars
+			</a>
+		</div>
+		<form action="<?php echo esc_url($this->bvinfo->appUrl()); ?>/migration/migrate" method="post" name="signup">
+			<h1 class="card-title">Easy WordPress Migrations</h1>
+			<div class="iframe-container">
+				<iframe width="80%" height="265" src="https://www.youtube.com/embed/HBGcUdOhMcI" frameborder="0" allowfullscreen></iframe>
+			</div>
+			<hr class="my-3">
+			<div class="form-content">
+				<label class="email-label" required>Email</label>
+				<br>
+				<input type="email" name="email" placeholder="Email address" class="email-input">
+				<div class="tnc-check mt-2">
+					<label class="normal-text horizontal">
+						<input type="hidden" name="bvsrc" value="wpplugin" />
+						<input type="hidden" name="migrate" value="migrateguru" />
+						<input type="checkbox" name="consent" onchange="document.getElementById('migratesubmit').disabled = !this.checked;" value="1">
+						<span class="checkmark"></span>&nbsp;
+						I agree to BlogVault's <a href="https://blogvault.net/tos/">Terms &amp; Conditions</a> and <a href="https://blogvault.net/privacy/">Privacy&nbsp;Policy</a>
+					</label>
 				</div>
 			</div>
-				<div style="width: 400px; text-align: center; color: #FFF;">
-					Powered By <a href="https://blogvault.net/" style="color: #17252a;">BlogVault</a>
-				</div>
-		</div>
-		<div class="header-right">
-			<div class="bv-branding">
-				<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://migrateguru.freshdesk.com/support/home">
-					FAQs
-				</a>
-				<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://migrateguru.freshdesk.com/support/home">
-					Help Docs
-				</a>
-				<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://www.migrateguru.com/contact-us/">
-					Support
-				</a>
-				<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://wordpress.org/support/plugin/migrate-guru/reviews">
-					Rate us 5 stars
-				</a>
+			<?php echo $this->siteInfoTags(); ?>
+			<input type="submit" name="submit" id="migratesubmit" class="button button-primary" value="Migrate" disabled>
+		</form>
+	</div>
+
+	<div class="card migration-key-card">
+		<h2><span>Migration Key</span></h2>
+		<div>
+			<div>
+				Install Migrate Guru Plugin on destination and copy this key.
+			</div><br/>
+			<div style="display: flex; gap: 8px; align-items: center;">
+				<input type="password" id="destination-migration-key" name="destination_migration_key" value="<?php echo esc_attr( $this->bvinfo->getConnectionKey() ); ?>" class="widefat" style="flex: 1;" readonly>
+				<button type="button" id="view-key" class="button">View Key</button>
+				<button type="button" id="copy-key" class="button" onclick="copyToClipboard()">Copy Key</button>
 			</div>
 		</div>
 	</div>
-	<div class="main-content" style="padding-right: 0px; padding-top: 0px;">
-		<div class="migrations">
-			<div class="mig-left">
-				<div class="reg-form">
-					<div class="form-heading">
-						Easy WordPress Migrations
-					</div>
-					<a href="https://www.youtube.com/watch?v=HBGcUdOhMcI&t=15s" target="blank" class="video-link horizontal video-first">
-						<img class="video-icon" src="<?php echo esc_url(plugins_url('./../img/play-video.svg', __FILE__)); ?>">
-						<div class="video-text normal-text link">
-							Watch our platform in action
-						</div>
-					</a>
-					<div class="form-fields">
-						<form id="mgform" dummy=">" action="<?php echo esc_url($this->bvinfo->appUrl()); ?>/migration/migrate" onsubmit="document.getElementById('migratesubmit').disabled = true;" method="post" name="signup">
-							<input type="text" id="email" name="email" placeholder="Enter your email here" style="float:left;">
-							<input type="submit" name="submit" disabled id='migratesubmit' value="Migrate Site" class="primary-button" style="padding-left:24px"/>
-							<div class="tnc-check">
-								<label class="normal-text horizontal">
-									<input type="checkbox" name="consent" onchange="document.getElementById('migratesubmit').disabled = !this.checked;" value="1" autocomplete="off"/>
-									<span class="checkmark"></span>&nbsp;
-									I agree to Blogvault &nbsp;
-									<a href="https://blogvault.net/tos/" class="link">
-										Terms & Conditions &nbsp;
-									</a> and &nbsp;
-									<a href="https://blogvault.net/privacy/" class="link">
-										Privacy Policy
-									</a>
-								</label>
-								<input type="hidden" name="bvsrc" value="wpplugin" />
-								<input type="hidden" name="origin" value="migrateguru" />
-							</div>
-							<?php echo $this->siteInfoTags(); ?>
-						</form>
-					</div>
-				</div>
-				<a href="https://www.youtube.com/watch?v=HBGcUdOhMcI&t=15s" target="blank" class="video-link horizontal video-second">
-					<img class="video-icon" src="<?php echo esc_url(plugins_url('./../img/play-video.svg', __FILE__)); ?>">
-					<div href="https://www.youtube.com/watch?v=HBGcUdOhMcI&t=15s" target="blank" class="video-text normal-text link">
-						Watch our platform in action
-					</div>
-				</a>
-				<div id="show-migration-key-text">
-					Migration key?
-				</div>
-				<div class="migration-key-generator">
-					<div class="action">
-						<span class="key-title">Your Migration Key</span>
-					</div>
-					<div class="key-wrapper">
-						<input type="text" name="migration-key" id="key-text" value=<?php echo esc_html($this->getApiKey()) ?> disabled=true>
-						<button id="migration-key-copy-button" onclick="handleCopyButtonClicked()">
-							Copy
-						</button>
-					</div>
-				</div>
-				<div class="supp-hosts" style="margin-top: 3%">
-					<div class="supp-heading normal-text">
-						Supported Hosts:
-					</div>
-					<div class="logos">
-						<img class="ind-logo" src="<?php echo esc_url(plugins_url('./../img/GoDaddy.png', __FILE__)); ?>" />
-						<img class="ind-logo" src="<?php echo esc_url(plugins_url('./../img/bluehost-logo.png', __FILE__)); ?>" />
-						<img class="ind-logo" src="<?php echo esc_url(plugins_url('./../img/HostGator-logo.png', __FILE__)); ?>" />
-						<img class="ind-logo" src="<?php echo esc_url(plugins_url('./../img/flywheel.png', __FILE__)); ?>" />
-						<img class="ind-logo" src="<?php echo esc_url(plugins_url('./../img/CPanel_logo.png', __FILE__)); ?>" />
-						<img class="ind-logo" src="<?php echo esc_url(plugins_url('./../img/DreamHost.png', __FILE__)); ?>" />
-						<img class="ind-logo" src="<?php echo esc_url(plugins_url('./../img/a2_hosting.png', __FILE__)); ?>" />
-						<img class="ind-logo" src="<?php echo esc_url(plugins_url('./../img/inMotion_Logo.png', __FILE__)); ?>" />
-						<img class="ind-logo" src="<?php echo esc_url(plugins_url('./../img/wp_engine_logo_bb.png', __FILE__)); ?>" />
-						<img class="ind-logo" src="<?php echo esc_url(plugins_url('./../img/ftp.png', __FILE__)); ?>" />
-					</div>
-				</div>
-				<div class="info-row-second">
-					<a class="link info" href="#">FAQs </a>
-					<a class="link info" href="#">Help Docs </a>
-					<a class="link info" href="#">Support </a>
-					<a class="link info no-border" href="#">Rate us 5 stars </a>
-				</div>
-			</div>
-			<div class="mig-right" style="overflow: hidden; margin-left: -2px;">
-				<div style="width:280px; float: right;">
-					<div class="side-box" >
-						<div class="side-header">Why MigrateGuru ?</div>
-						<ul style="font-size: 15px; font-weight: bold;">
-							<li><span class="bv-tick">&#x2713;</span> FREE Lifetime Migrations</li>
-							<li><span class="bv-tick">&#x2713;</span> 1-Click Easy Migrations</li>
-							<li><span class="bv-tick">&#x2713;</span> No Technical Knowledge Needed</li>
-							<li><span class="bv-tick">&#x2713;</span> Works with 10,000+ webhosts</li>
-							<li><span class="bv-tick">&#x2713;</span> No Site Size Limit</li>
-						</ul>
-					</div>
-					<div class="side-box">
-						<div class="side-header">Our other Popular Plugins</div>
-						<div style="padding: 8px; overflow: hidden; background: #e6e3e3; margin: 10px; border-radius: 10px;">
-							<div class="brand-name"><img class="mg-logo" src="<?php echo esc_url(plugins_url('./../img/bv-logo.png', __FILE__)); ?>" style="width:200px;"/></div>
-							<div class="bv-quote">Did you get insurance for your Website? Backup your website now. Try for Free.</div>
-							<a href='https://blogvault.net/?utm_source=mg_plugin_checkout&utm_medium=checkout_button_link&utm_campaign=mg_plugin_checkout&utm_term=checkout_button&utm_content=button' class="bv-button checkout-button" target="_blank" rel="noopener noreferrer">Checkout BlogVault Now</a>
-						</div>
-						<div style="padding: 8px; overflow: hidden; background: #e6e3e3; margin: 10px; border-radius: 10px;">
-							<div class="brand-name"><img class="mg-logo" src="<?php echo esc_url(plugins_url('./../img/mc-logo.png', __FILE__)); ?>" style="width:200px"/></div>
-							<div class="bv-quote">Is your website hacked? Don't leave it on chance.</div>
-							<div class="bv-quote">Scan your website For Free Now.</div>
-							<a href='https://www.malcare.com/?utm_source=mg_plugin_checkout&utm_medium=checkout_button_link&utm_campaign=mg_plugin_checkout&utm_term=checkout_button&utm_content=button' class="bv-button checkout-button" target="_blank" rel="noopener noreferrer">Checkout MalCare Now</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<script>
-	document.getElementById("show-migration-key-text").onclick = e => {
-		document.getElementsByClassName("migration-key-generator")[0].style.display = 'flex'
-		e.target.style.display = 'none'
-	}
-	function handleCopyButtonClicked() {
-		navigator.clipboard.writeText(document.getElementById('key-text').value);
-		const copyButton = document.getElementById("migration-key-copy-button");
-		copyButton.innerText = "Copied!";
-		setTimeout(function() {
-			copyButton.innerText = "Copy";
-		}, 750);
-	}
-</script>
+
+	<script>
+		function copyToClipboard() {
+			var copyText = document.getElementById("destination-migration-key");
+			copyText.type = 'text';
+
+			copyText.select();
+			document.execCommand("copy");
+			copyText.type = 'password'; // Revert back to password type
+			var copyButton = document.getElementById("copy-key");
+			copyButton.textContent = 'Copied!';
+			setTimeout(() => copyButton.textContent = 'Copy Key', 2000);
+		}
+		document.getElementById('view-key').addEventListener('click', function() {
+			var keyField = document.getElementById("destination-migration-key");
+			if (keyField.type === "password") {
+				keyField.type = "text";
+				this.textContent = 'Hide Key';
+			} else {
+				keyField.type = "password";
+				this.textContent = 'View Key';
+			}
+		});
+	</script>
+</main>

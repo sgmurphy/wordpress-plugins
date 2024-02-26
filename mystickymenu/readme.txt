@@ -1,12 +1,12 @@
 ===Floating Notification Bar, Sticky Menu on Scroll, Announcement Banner, and Sticky Header for Any Theme - My Sticky Bar (formerly myStickymenu)===
 Contributors: tomeraharon, galdub, premio
-Tags:floating bar, notification bar, menu, header, countdown, sticky menu, sticky header, floating menu, navigation menu, navigation, welcome bar, hello bar, top bar, sticky bar
+Tags:notification bar, floating bar, menu, header, countdown, sticky menu, sticky header, floating menu, navigation menu, navigation, welcome bar, hello bar, top bar, sticky bar
 Requires at least: 3.5.1
 Tested up to: 6.4
 Stable tag: 2.6.7
 License: GPLv2 or later
 
-🔔 Create a beautiful welcome notification bar. Also, My Sticky Bar plugin can make your menu or header sticky to the top when scrolled 📌
+🔔 Create a beautiful welcome notification bar for your website. Also, My Sticky Bar plugin can make your menu or header sticky to the top when scrolled 📌
 
 == Description ==
 
@@ -21,7 +21,7 @@ By default, My Sticky Bar should make your menu sticky without any adjustments o
 [youtube  https://www.youtube.com/watch?v=l9aRnPVuCVY]
 
 
-<strong>📢 Welcome Bar:</strong> Use this powerful feature to create a beautiful floating sticky notification bar. No coding skill required, just turn it on, set up your announcement text and button, and voilà - your top notification bar is good to go! 
+<strong>📢 Welcome Notification Bar:</strong> Use this powerful feature to create a beautiful floating sticky notification bar. No coding skill required, just turn it on, set up your announcement text and button, and voilà - your top notification bar is good to go! 
 
 = 💪 BENEFITS =
 * Improve user experience by letting your visitors access the navigation menu and navigate to the pages they want when they want to.

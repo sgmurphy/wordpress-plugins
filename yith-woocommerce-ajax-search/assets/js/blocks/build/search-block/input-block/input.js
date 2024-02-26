@@ -510,7 +510,6 @@ var SearchField = function SearchField(_ref) {
         color: "".concat(placeholderTextColor || '#000'),
         opacity: 1 /* Firefox */
       },
-
       '& .ywcas-submit-button': {
         color: "".concat(submitContentColor || '#fff', " !important"),
         backgroundColor: "".concat(submitBgColor || '#a7ab06', " !important"),

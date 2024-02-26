@@ -38,7 +38,6 @@ if (!class_exists('MGWPAction')) :
 
 		public static function uninstall() {
 			##CLEARPTCONFIG##
-			##CLEARIPSTORE##
 			##CLEARDYNSYNCCONFIG##
 			##CLEARCACHECONFIG##
 			do_action('clear_bv_services_config');

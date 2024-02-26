@@ -866,6 +866,7 @@ p.nudge-description.nudge-closing {
 .form-table .asenha-subfields tr.asenha-number.with-prefix-suffix,
 .form-table .asenha-subfields tr.asenha-html {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
 }
 
@@ -886,7 +887,7 @@ p.nudge-description.nudge-closing {
     width: auto;
     padding: 0;
     margin-right: 6px;
-    font-weight: normal;
+    font-weight: 600;
     color: #3c434a;
 }
 
@@ -920,10 +921,15 @@ p.nudge-description.nudge-closing {
 /* Text area input subfield */
 
 .asenha-subfield-textarea-wrapper,
+.asenha-subfield-wpeditor-wrapper,
 .asenha-subfield-number-wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.asenha-subfield-wpeditor-wrapper .wp-editor-wrap {
+    margin-bottom: 4px;
 }
 
 .asenha-subfield-textarea {

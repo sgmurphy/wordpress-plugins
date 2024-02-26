@@ -56,14 +56,6 @@ class Admin_Site_Enhancements
         add_action( 'admin_head', 'asenha_admin_bar_item_js_css' );
         add_action( 'wp_head', 'asenha_admin_bar_item_js_css' );
         add_filter( 'plugin_action_links_' . ASENHA_SLUG . '/' . ASENHA_SLUG . '.php', 'asenha_plugin_action_links' );
-        // Update footer text
-        if ( is_asenha() ) {
-            add_filter( 'admin_footer_text', 'asenha_footer_text', 20 );
-        }
-        // Update footer version text
-        if ( is_asenha() ) {
-            add_filter( 'update_footer', 'asenha_footer_version_text', 20 );
-        }
         // Mark that a user have sponsored ASE (via AJAX)
         add_action( 'wp_ajax_have_sponsored', 'asenha_have_sponsored' );
         // Dismiss upgrade nudge (via AJAX)
@@ -362,9 +354,40 @@ class Admin_Site_Enhancements
             }
         }
         
+        // Display Active Plugins First
         if ( array_key_exists( 'display_active_plugins_first', $options ) && $options['display_active_plugins_first'] ) {
             add_action( 'admin_head-plugins.php', [ $admin_interface, 'show_active_plugins_first' ] );
         }
+        // Custom Admin Footer Text
+        
+        if ( array_key_exists( 'custom_admin_footer_text', $options ) && $options['custom_admin_footer_text'] ) {
+            // Update footer text
+            
+            if ( is_asenha() ) {
+                add_filter( 'admin_footer_text', 'asenha_footer_text', 20 );
+            } else {
+                add_filter( 'admin_footer_text', [ $admin_interface, 'custom_admin_footer_text_left' ], 20 );
+            }
+            
+            // Update footer version text
+            
+            if ( is_asenha() ) {
+                add_filter( 'update_footer', 'asenha_footer_version_text', 20 );
+            } else {
+                add_filter( 'update_footer', [ $admin_interface, 'custom_admin_footer_text_right' ], 20 );
+            }
+        
+        } else {
+            // Update footer text
+            if ( is_asenha() ) {
+                add_filter( 'admin_footer_text', 'asenha_footer_text', 20 );
+            }
+            // Update footer version text
+            if ( is_asenha() ) {
+                add_filter( 'update_footer', 'asenha_footer_version_text', 20 );
+            }
+        }
+        
         // =================================================================
         // LOG IN | LOG OUT
         // =================================================================

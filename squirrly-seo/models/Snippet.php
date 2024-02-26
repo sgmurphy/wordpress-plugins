@@ -91,6 +91,13 @@ class SQ_Models_Snippet
 			//if there is a search in posts
 	        if(strpos($search, '/') !== false){
 
+				//set the order to the exact match
+		        add_filter( 'posts_orderby',  function ( $orderby ) use ($search) {
+			        global $wpdb;
+
+			        return "({$wpdb->posts}.post_name = '$search') desc, length({$wpdb->posts}.post_name)" . ($orderby ? ','.$orderby : '');
+		        }, 10, 1 );
+
 				//add data in where
 		        add_filter( 'posts_where', function ( $where ) use ($search) {
 			        global $wpdb;
@@ -119,7 +126,6 @@ class SQ_Models_Snippet
 	        }elseif (!$search_all && $search <> '') {
 		        $query['s'] = $search;
 	        }
-
 
 
             //If post id is set in URL
@@ -450,15 +456,18 @@ class SQ_Models_Snippet
                     ),
                     maybe_serialize($sq->toArray()),
                     gmdate('Y-m-d H:i:s')
-                )
-                ) {
+                )) {
 
 					//trigger action after SEO is saved in Squirrly DB
 	                do_action('sq_save_seo_after');
 
 	                return true;
                 } else {
-                    SQ_Classes_ObjController::getClass('SQ_Models_Qss')->checkTableExists();
+	                /** @var SQ_Models_Qss $qssModel Create Qss table if not exists */
+	                if($qssModel = SQ_Classes_ObjController::getClass('SQ_Models_Qss')){
+		                $qssModel->checkTableExists();
+		                $qssModel->alterTable();
+	                }
                 }
 
             } catch (Exception $e) {

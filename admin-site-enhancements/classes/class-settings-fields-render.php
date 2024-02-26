@@ -96,7 +96,16 @@ class Settings_Fields_Render
         
         $field_name = $args['field_name'];
         $field_label = $args['field_label'];
-        $field_option_value = ( isset( $options[$args['parent_field_id']][$args['field_id']] ) ? $options[$args['parent_field_id']][$args['field_id']] : false );
+        
+        if ( 'enable_duplication_for' == $args['parent_field_id'] ) {
+            // Default is true/enabled. Usually for options introduced at a later date where the previous default is true/enabled.
+            $default_value = true;
+        } else {
+            // Default is false / checked
+            $default_value = false;
+        }
+        
+        $field_option_value = ( isset( $options[$args['parent_field_id']][$args['field_id']] ) ? $options[$args['parent_field_id']][$args['field_id']] : $default_value );
         echo  '<input type="checkbox" id="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox" name="' . esc_attr( $field_name ) . '" ' . checked( $field_option_value, true, false ) . '>' ;
         echo  '<label for="' . esc_attr( $field_name ) . '" class="asenha-subfield-checkbox-label">' . wp_kses_post( $field_label ) . '</label>' ;
     }
@@ -171,6 +180,8 @@ class Settings_Fields_Render
         
         if ( $field_id == 'custom_login_slug' ) {
             $field_placeholder = 'e.g. backend';
+        } elseif ( $field_id == 'default_login_redirect_slug' ) {
+            $field_placeholder = 'e.g. my-account';
         } elseif ( $field_id == 'redirect_after_login_to_slug' ) {
             $field_placeholder = 'e.g. my-account';
         } elseif ( $field_id == 'redirect_after_logout_to_slug' ) {
@@ -438,6 +449,57 @@ class Settings_Fields_Render
         echo  '<textarea rows="' . $field_rows . '" class="asenha-subfield-textarea" id="' . esc_attr( $field_name ) . '" name="' . esc_attr( $field_name ) . '" placeholder="' . esc_attr( $field_placeholder ) . '">' . esc_textarea( $field_option_value ) . '</textarea>' ;
         if ( !empty($field_description) ) {
             echo  '<div class="asenha-subfield-textarea-description">' . wp_kses_post( $field_description ) . '</div>' ;
+        }
+        echo  '</div>' ;
+    }
+    
+    /**
+     * Render textarea field as sub-field of a toggle/switcher checkbox
+     *
+     * @since 2.3.0
+     */
+    function render_wpeditor_subfield( $args )
+    {
+        $option_name = $args['option_name'];
+        
+        if ( !empty($option_name) ) {
+            $options = get_option( $option_name, array() );
+        } else {
+            $options = get_option( ASENHA_SLUG_U, array() );
+        }
+        
+        $field_id = $args['field_id'];
+        $field_slug = $args['field_slug'];
+        $field_name = $args['field_name'];
+        $field_type = $args['field_type'];
+        $field_rows = $args['field_rows'];
+        $field_intro = $args['field_intro'];
+        $field_description = $args['field_description'];
+        $field_placeholder = ( isset( $args['field_placeholder'] ) ? $args['field_placeholder'] : '' );
+        $field_option_value = ( isset( $options[$args['field_id']] ) ? $options[$args['field_id']] : '' );
+        echo  '<div class="asenha-subfield-wpeditor-wrapper">' ;
+        if ( !empty($field_intro) ) {
+            echo  '<div class="asenha-subfield-wpeditor-intro">' . wp_kses_post( $field_intro ) . '</div>' ;
+        }
+        $content = $field_option_value;
+        $textarea_name = $field_name;
+        $editor_id = str_replace( array( '[', ']' ), array( '--', '' ), $field_name );
+        // https://developer.wordpress.org/reference/classes/_wp_editors/parse_settings/
+        $settings = array(
+            'media_buttons' => false,
+            'textarea_name' => $textarea_name,
+            'textarea_rows' => $field_rows,
+            'tiny_mce'      => true,
+            'tinymce'       => array(
+            'toolbar1'    => 'bold,italic,underline,separator,link,unlink,undo,redo',
+            'content_css' => ASENHA_URL . 'assets/css/settings-wpeditor.css',
+        ),
+            'editor_css'    => '',
+            'quicktags'     => false,
+        );
+        echo  wp_editor( $content, $editor_id, $settings ) ;
+        if ( !empty($field_description) ) {
+            echo  '<div class="asenha-subfield-wpeditor-description">' . wp_kses_post( $field_description ) . '</div>' ;
         }
         echo  '</div>' ;
     }

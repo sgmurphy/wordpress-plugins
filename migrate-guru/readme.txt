@@ -5,8 +5,8 @@ Plugin URI: https://www.migrateguru.com/
 Donate link: https://www.migrateguru.com/
 Requires at least: 4.0
 Tested up to: 6.4
-Requires PHP: 5.4.0
-Stable tag: 5.25
+Requires PHP: 5.6.0
+Stable tag: 5.48
 License: GPLv2 or later
 License URI: [http://www.gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -135,6 +135,9 @@ Yes, we do. You can access it here: https://migrateguru.freshdesk.com/support/ho
 6. Click ‘Migrate’.
 
 == Changelog =
+= 5.48 =
+* Upgrading to New UI
+
 = 5.25 =
 * Bug fix get_admin_url
 

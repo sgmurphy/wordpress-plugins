@@ -102,11 +102,6 @@ class MGWPAdmin {
 		return $this->bvinfo->webpage;
 	}
 
-	public function getApiKey() {
-		require_once dirname( __FILE__ ) . '/recover.php';
-		return base64_encode(MGRecover::defaultSecret($this->settings).":".$this->siteinfo->siteurl());
-	}
-
 	public function siteInfoTags() {
 		require_once dirname( __FILE__ ) . '/recover.php';
 		$secret = MGRecover::defaultSecret($this->settings);
@@ -141,7 +136,7 @@ class MGWPAdmin {
 		require_once dirname( __FILE__ ) . '/admin/main_page.php';
 	}
 
-	public function initBranding($plugins) {
+	public function initWhitelabel($plugins) {
 		$slug = $this->bvinfo->slug;
 
 		if (!is_array($plugins) || !isset($slug, $plugins)) {

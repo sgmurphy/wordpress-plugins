@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by kadencewp on 13-February-2024 using Strauss.
- * @see https://github.com/BrianHenryIE/strauss
+ * Modified by kadencewp on 23-February-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace KadenceWP\KadenceBlocks\Symfony\Component\String\Slugger;

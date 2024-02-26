@@ -96,19 +96,19 @@ function _defineProperty(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey(arg) {
-  var key = _toPrimitive(arg, "string");
-  return _typeof(key) === "symbol" ? key : String(key);
+function _toPropertyKey(t) {
+  var i = _toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : String(i);
 }
-function _toPrimitive(input, hint) {
-  if (_typeof(input) !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (_typeof(res) !== "object") return res;
+function _toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return (hint === "string" ? String : Number)(input);
+  return ("string" === r ? String : Number)(t);
 }
 function _objectWithoutProperties(source, excluded) {
   if (source == null) return {};
@@ -521,19 +521,19 @@ function _defineProperty(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey(arg) {
-  var key = _toPrimitive(arg, "string");
-  return _typeof(key) === "symbol" ? key : String(key);
+function _toPropertyKey(t) {
+  var i = _toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : String(i);
 }
-function _toPrimitive(input, hint) {
-  if (_typeof(input) !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (_typeof(res) !== "object") return res;
+function _toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return (hint === "string" ? String : Number)(input);
+  return ("string" === r ? String : Number)(t);
 }
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -751,19 +751,19 @@ function _defineProperty(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey(arg) {
-  var key = _toPrimitive(arg, "string");
-  return _typeof(key) === "symbol" ? key : String(key);
+function _toPropertyKey(t) {
+  var i = _toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : String(i);
 }
-function _toPrimitive(input, hint) {
-  if (_typeof(input) !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (_typeof(res) !== "object") return res;
+function _toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return (hint === "string" ? String : Number)(input);
+  return ("string" === r ? String : Number)(t);
 }
 function _typeof(o) {
   "@babel/helpers - typeof";
@@ -869,19 +869,19 @@ function _defineProperty(obj, key, value) {
   }
   return obj;
 }
-function _toPropertyKey(arg) {
-  var key = _toPrimitive(arg, "string");
-  return _typeof(key) === "symbol" ? key : String(key);
+function _toPropertyKey(t) {
+  var i = _toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : String(i);
 }
-function _toPrimitive(input, hint) {
-  if (_typeof(input) !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (_typeof(res) !== "object") return res;
+function _toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return (hint === "string" ? String : Number)(input);
+  return ("string" === r ? String : Number)(t);
 }
 function _typeof(o) {
   "@babel/helpers - typeof";
@@ -1042,7 +1042,6 @@ var blockAttributes = {
     "default": 'yith/input-block',
     source: 'readonly' // custom source to prevent saving to post content
   },
-
   editorViews: {
     type: 'object',
     "default": [{
@@ -1871,75 +1870,6 @@ var createSlotFill = function createSlotFill(slotName) {
     Slot: Slot
   };
 };
-
-/***/ }),
-
-/***/ "./node_modules/classnames/index.js":
-/*!******************************************!*\
-  !*** ./node_modules/classnames/index.js ***!
-  \******************************************/
-/***/ ((module, exports) => {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	Copyright (c) 2018 Jed Watson.
-	Licensed under the MIT License (MIT), see
-	http://jedwatson.github.io/classnames
-*/
-/* global define */
-
-(function () {
-	'use strict';
-
-	var hasOwn = {}.hasOwnProperty;
-	var nativeCodeString = '[native code]';
-
-	function classNames() {
-		var classes = [];
-
-		for (var i = 0; i < arguments.length; i++) {
-			var arg = arguments[i];
-			if (!arg) continue;
-
-			var argType = typeof arg;
-
-			if (argType === 'string' || argType === 'number') {
-				classes.push(arg);
-			} else if (Array.isArray(arg)) {
-				if (arg.length) {
-					var inner = classNames.apply(null, arg);
-					if (inner) {
-						classes.push(inner);
-					}
-				}
-			} else if (argType === 'object') {
-				if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
-					classes.push(arg.toString());
-					continue;
-				}
-
-				for (var key in arg) {
-					if (hasOwn.call(arg, key) && arg[key]) {
-						classes.push(key);
-					}
-				}
-			}
-		}
-
-		return classes.join(' ');
-	}
-
-	if ( true && module.exports) {
-		classNames.default = classNames;
-		module.exports = classNames;
-	} else if (true) {
-		// register as 'classnames', consistent with npm package name
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
-			return classNames;
-		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else {}
-}());
-
 
 /***/ }),
 
@@ -4860,6 +4790,92 @@ module.exports = window["wp"]["i18n"];
 
 /***/ }),
 
+/***/ "./node_modules/classnames/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/classnames/index.js ***!
+  \******************************************/
+/***/ ((module, exports) => {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = '';
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (arg) {
+				classes = appendClass(classes, parseValue(arg));
+			}
+		}
+
+		return classes;
+	}
+
+	function parseValue (arg) {
+		if (typeof arg === 'string' || typeof arg === 'number') {
+			return arg;
+		}
+
+		if (typeof arg !== 'object') {
+			return '';
+		}
+
+		if (Array.isArray(arg)) {
+			return classNames.apply(null, arg);
+		}
+
+		if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
+			return arg.toString();
+		}
+
+		var classes = '';
+
+		for (var key in arg) {
+			if (hasOwn.call(arg, key) && arg[key]) {
+				classes = appendClass(classes, key);
+			}
+		}
+
+		return classes;
+	}
+
+	function appendClass (value, newClass) {
+		if (!newClass) {
+			return value;
+		}
+	
+		if (value) {
+			return value + ' ' + newClass;
+		}
+	
+		return value + newClass;
+	}
+
+	if ( true && module.exports) {
+		classNames.default = classNames;
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+			return classNames;
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+}());
+
+
+/***/ }),
+
 /***/ "./node_modules/html-react-parser/index.mjs":
 /*!**************************************************!*\
   !*** ./node_modules/html-react-parser/index.mjs ***!
@@ -4903,7 +4919,7 @@ var Text = _index_js__WEBPACK_IMPORTED_MODULE_0__.Text;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"yith/filled-block","version":"1.0.0","title":"Filled State Block","description":"Contains the blocks that will be shown after results are found.","category":"yith-blocks","supports":{"align":["wide"],"html":false,"multiple":false,"reusable":false,"inserter":false,"lock":false},"attributes":{"lock":{"type":"object","default":{"remove":true,"move":true}}},"parent":["yith/search-block"],"textdomain":"yith-woocommerce-ajax-search","$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2}');
+module.exports = /*#__PURE__*/JSON.parse('{"name":"yith/filled-block","version":"1.0.0","title":"Filled State Block","description":"Contains the blocks that will be shown after results are found.","category":"yith-blocks","supports":{"align":["wide"],"html":false,"multiple":false,"reusable":false,"inserter":false,"lock":false},"attributes":{"lock":{"type":"object","default":{"remove":true,"move":true}}},"parent":["yith/search-block"],"textdomain":"yith-woocommerce-ajax-search","$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2}');
 
 /***/ }),
 
@@ -4914,7 +4930,7 @@ module.exports = JSON.parse('{"name":"yith/filled-block","version":"1.0.0","titl
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"yith/input-block","version":"1.0.0","title":"Input Block","description":"Contains the block that manages the search field.","category":"yith-blocks","supports":{"align":["wide"],"html":false,"multiple":false,"reusable":false,"inserter":false,"lock":false},"attributes":{"lock":{"type":"object","default":{"remove":true,"move":true}},"placeholder":{"type":"string","default":"Search products..."},"placeholderTextColor":{"type":"string","default":"#000"},"inputTextColor":{"type":"string","default":"#000"},"inputBgColor":{"type":"string","default":"#fff"},"inputBgFocusColor":{"type":"string","default":"#fff"},"inputBorderColor":{"type":"string","default":"#7C7C7C"},"inputBorderFocusColor":{"type":"string","default":"#5B5B5B"},"inputBorderSize":{"type":"object","default":{"topLeft":"1px","topRight":"1px","bottomLeft":"1px","bottomRight":"1px"}},"inputBorderRadius":{"type":"object","default":{"topLeft":"20px","topRight":"20px","bottomLeft":"20px","bottomRight":"20px"}},"submitStyle":{"type":"string","default":"icon"},"submitContentColor":{"type":"string","default":"#000"},"submitContentHoverColor":{"type":"string","default":"#000"},"submitBgColor":{"type":"string","default":"#fff"},"submitBgHoverColor":{"type":"string","default":"#fff"},"submitBorderColor":{"type":"string","default":"#fff"},"submitBorderHoverColor":{"type":"string","default":"#fff"},"iconType":{"type":"string","default":"icon-right"},"buttonLabel":{"type":"string","default":"Search"},"buttonBorderRadius":{"type":"object","default":{"topLeft":"10px","topRight":"10px","bottomLeft":"10px","bottomRight":"10px"}},"className":{"type":"string","default":"ywcas-input-block"}},"parent":["yith/search-block"],"textdomain":"yith-woocommerce-ajax-search","$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2}');
+module.exports = /*#__PURE__*/JSON.parse('{"name":"yith/input-block","version":"1.0.0","title":"Input Block","description":"Contains the block that manages the search field.","category":"yith-blocks","supports":{"align":["wide"],"html":false,"multiple":false,"reusable":false,"inserter":false,"lock":false},"attributes":{"lock":{"type":"object","default":{"remove":true,"move":true}},"placeholder":{"type":"string","default":"Search products..."},"placeholderTextColor":{"type":"string","default":"#000"},"inputTextColor":{"type":"string","default":"#000"},"inputBgColor":{"type":"string","default":"#fff"},"inputBgFocusColor":{"type":"string","default":"#fff"},"inputBorderColor":{"type":"string","default":"#7C7C7C"},"inputBorderFocusColor":{"type":"string","default":"#5B5B5B"},"inputBorderSize":{"type":"object","default":{"topLeft":"1px","topRight":"1px","bottomLeft":"1px","bottomRight":"1px"}},"inputBorderRadius":{"type":"object","default":{"topLeft":"20px","topRight":"20px","bottomLeft":"20px","bottomRight":"20px"}},"submitStyle":{"type":"string","default":"icon"},"submitContentColor":{"type":"string","default":"#000"},"submitContentHoverColor":{"type":"string","default":"#000"},"submitBgColor":{"type":"string","default":"#fff"},"submitBgHoverColor":{"type":"string","default":"#fff"},"submitBorderColor":{"type":"string","default":"#fff"},"submitBorderHoverColor":{"type":"string","default":"#fff"},"iconType":{"type":"string","default":"icon-right"},"buttonLabel":{"type":"string","default":"Search"},"buttonBorderRadius":{"type":"object","default":{"topLeft":"10px","topRight":"10px","bottomLeft":"10px","bottomRight":"10px"}},"className":{"type":"string","default":"ywcas-input-block"}},"parent":["yith/search-block"],"textdomain":"yith-woocommerce-ajax-search","$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2}');
 
 /***/ }),
 
@@ -4925,7 +4941,7 @@ module.exports = JSON.parse('{"name":"yith/input-block","version":"1.0.0","title
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"yith/product-results-block","version":"1.0.0","title":"Product Results Block","description":"Shows the found products.","category":"yith-blocks","supports":{"align":["wide"],"html":false,"multiple":false,"reusable":false,"inserter":false,"lock":false},"parent":["yith/filled-block"],"textdomain":"yith-woocommerce-ajax-search","$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2}');
+module.exports = /*#__PURE__*/JSON.parse('{"name":"yith/product-results-block","version":"1.0.0","title":"Product Results Block","description":"Shows the found products.","category":"yith-blocks","supports":{"align":["wide"],"html":false,"multiple":false,"reusable":false,"inserter":false,"lock":false},"parent":["yith/filled-block"],"textdomain":"yith-woocommerce-ajax-search","$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2}');
 
 /***/ })
 
@@ -5100,7 +5116,7 @@ module.exports = JSON.parse('{"name":"yith/product-results-block","version":"1.0
 /******/ 				var scripts = document.getElementsByTagName("script");
 /******/ 				if(scripts.length) {
 /******/ 					var i = scripts.length - 1;
-/******/ 					while (i > -1 && !scriptUrl) scriptUrl = scripts[i--].src;
+/******/ 					while (i > -1 && (!scriptUrl || !/^http(s?):/.test(scriptUrl))) scriptUrl = scripts[i--].src;
 /******/ 				}
 /******/ 			}
 /******/ 		}

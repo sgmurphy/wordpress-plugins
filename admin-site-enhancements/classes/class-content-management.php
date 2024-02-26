@@ -21,10 +21,14 @@ class Content_Management
      */
     public function duplicate_content()
     {
+        $allow_duplication = false;
+        if ( current_user_can( 'edit_posts' ) ) {
+            $allow_duplication = true;
+        }
         $original_post_id = intval( sanitize_text_field( $_REQUEST['post'] ) );
         $nonce = sanitize_text_field( $_REQUEST['nonce'] );
         
-        if ( wp_verify_nonce( $nonce, 'asenha-duplicate-' . $original_post_id ) && current_user_can( 'edit_posts' ) ) {
+        if ( wp_verify_nonce( $nonce, 'asenha-duplicate-' . $original_post_id ) && $allow_duplication ) {
             $original_post = get_post( $original_post_id );
             $post_type = $original_post->post_type;
             // Not WooCommerce product
@@ -109,8 +113,12 @@ class Content_Management
      */
     public function add_duplication_action_link( $actions, $post )
     {
-        $post_type = $post->post_type;
+        $allow_duplication = false;
         if ( current_user_can( 'edit_posts' ) ) {
+            $allow_duplication = true;
+        }
+        $post_type = $post->post_type;
+        if ( $allow_duplication ) {
             // Not WooCommerce product
             if ( 'product' != $post_type ) {
                 $actions['asenha-duplicate'] = '<a href="admin.php?action=duplicate_content&amp;post=' . $post->ID . '&amp;nonce=' . wp_create_nonce( 'asenha-duplicate-' . $post->ID ) . '" title="Duplicate this as draft">Duplicate</a>';
@@ -126,9 +134,13 @@ class Content_Management
      */
     public function add_admin_bar_duplication_link( WP_Admin_Bar $wp_admin_bar )
     {
+        $allow_duplication = false;
+        if ( current_user_can( 'edit_posts' ) ) {
+            $allow_duplication = true;
+        }
         global  $pagenow, $typenow, $post ;
         $inapplicable_post_types = array( 'attachment' );
-        if ( current_user_can( 'edit_posts' ) ) {
+        if ( $allow_duplication ) {
             if ( 'post.php' == $pagenow && !in_array( $typenow, $inapplicable_post_types ) || is_singular() ) {
                 
                 if ( is_object( $post ) ) {

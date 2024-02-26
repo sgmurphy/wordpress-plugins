@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit661c5e02d7fa160de952624932f3b78d
+class ComposerStaticInitbb0253e169852781202f8d6ca51ba70b
 {
     public static $files = array (
         '16e4325dd9bdbbd2ce8c9530b088e50b' => __DIR__ . '/..' . '/codeinwp/themeisle-sdk/load.php',
@@ -14,6 +14,10 @@ class ComposerStaticInit661c5e02d7fa160de952624932f3b78d
         't' => 
         array (
             'tubalmartin\\CssMin\\' => 19,
+        ),
+        'e' => 
+        array (
+            'enshrined\\svgSanitize\\' => 22,
         ),
         'S' => 
         array (
@@ -30,6 +34,10 @@ class ComposerStaticInit661c5e02d7fa160de952624932f3b78d
         'tubalmartin\\CssMin\\' => 
         array (
             0 => __DIR__ . '/..' . '/tubalmartin/cssmin/src',
+        ),
+        'enshrined\\svgSanitize\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/enshrined/svg-sanitize/src',
         ),
         'Stripe\\' => 
         array (
@@ -486,6 +494,17 @@ class ComposerStaticInit661c5e02d7fa160de952624932f3b78d
         'ThemeIsle\\GutenbergBlocks\\Server\\Prompt_Server' => __DIR__ . '/../..' . '/inc/server/class-prompt-server.php',
         'ThemeIsle\\GutenbergBlocks\\Server\\Stripe_Server' => __DIR__ . '/../..' . '/inc/server/class-stripe-server.php',
         'ThemeIsle\\GutenbergBlocks\\Tracker' => __DIR__ . '/../..' . '/inc/Tracker.php',
+        'enshrined\\svgSanitize\\ElementReference\\Resolver' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/ElementReference/Resolver.php',
+        'enshrined\\svgSanitize\\ElementReference\\Subject' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/ElementReference/Subject.php',
+        'enshrined\\svgSanitize\\ElementReference\\Usage' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/ElementReference/Usage.php',
+        'enshrined\\svgSanitize\\Exceptions\\NestingException' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/Exceptions/NestingException.php',
+        'enshrined\\svgSanitize\\Helper' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/Helper.php',
+        'enshrined\\svgSanitize\\Sanitizer' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/Sanitizer.php',
+        'enshrined\\svgSanitize\\data\\AllowedAttributes' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/data/AllowedAttributes.php',
+        'enshrined\\svgSanitize\\data\\AllowedTags' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/data/AllowedTags.php',
+        'enshrined\\svgSanitize\\data\\AttributeInterface' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/data/AttributeInterface.php',
+        'enshrined\\svgSanitize\\data\\TagInterface' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/data/TagInterface.php',
+        'enshrined\\svgSanitize\\data\\XPath' => __DIR__ . '/..' . '/enshrined/svg-sanitize/src/data/XPath.php',
         'tubalmartin\\CssMin\\Colors' => __DIR__ . '/..' . '/tubalmartin/cssmin/src/Colors.php',
         'tubalmartin\\CssMin\\Command' => __DIR__ . '/..' . '/tubalmartin/cssmin/src/Command.php',
         'tubalmartin\\CssMin\\Minifier' => __DIR__ . '/..' . '/tubalmartin/cssmin/src/Minifier.php',
@@ -495,9 +514,9 @@ class ComposerStaticInit661c5e02d7fa160de952624932f3b78d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit661c5e02d7fa160de952624932f3b78d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit661c5e02d7fa160de952624932f3b78d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit661c5e02d7fa160de952624932f3b78d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbb0253e169852781202f8d6ca51ba70b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbb0253e169852781202f8d6ca51ba70b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitbb0253e169852781202f8d6ca51ba70b::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -10,10 +10,7 @@
 
     $('.woosc-fields').sortable({
       handle: '.move',
-    });
-
-    $('.woosc-attributes').sortable({
-      handle: '.move',
+      placeholder: 'woosc-field',
     });
 
     $('#woosc_settings_cats').selectWoo();

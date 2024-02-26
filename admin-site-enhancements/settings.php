@@ -210,7 +210,7 @@ function asenha_add_settings_page()
 								<a href="#" id="have-sponsored" class="asenha-have-sponsored">I've sponsored ASE</a>
 							</div>
 							<div class="nudge-stats">
-								<p class="nudge-description">This free version of ASE has consumed more than <a href="https://wordpress.org/plugins/admin-site-enhancements/#developers" target="_blank">250 hours of dev time</a>. At v6.8.3 (released on February 20, 2024) and 40,000+ active installs, there have been <a href="https://bowo.io/asenha-sp-gth-ndg" target="_blank">6 monthly sponsors</a> and <a href="https://bowo.io/asenha-sp-ppl-ndg" target="_blank">57 one-time sponsors</a>. You can be one today!</p>
+								<p class="nudge-description">This free version of ASE has consumed more than <a href="https://wordpress.org/plugins/admin-site-enhancements/#developers" target="_blank">250 hours of dev time</a>. At v6.9.0 (released on February 26, 2024) and 50,000+ active installs, there have been <a href="https://bowo.io/asenha-sp-gth-ndg" target="_blank">6 monthly sponsors</a> and <a href="https://bowo.io/asenha-sp-ppl-ndg" target="_blank">59 one-time sponsors</a>. You can be one today!</p>
 							</div>
 						</div>
 						<div class="nudge-secondary">

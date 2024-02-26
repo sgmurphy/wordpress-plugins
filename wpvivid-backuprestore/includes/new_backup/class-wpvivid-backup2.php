@@ -947,7 +947,24 @@ class WPvivid_Backup_2
                     $ret['task_no_response']=true;
                 }
 
-                $ret['progress_html'] = '<div class="wpvivid-one-coloum wpvivid-workflow wpvivid-clear-float"><p><span class="wpvivid-span-progress"><span class="wpvivid-span-processed-progress wpvivid-span-processed-percent-progress" style="width:'.$info['task_info']['backup_percent'].'">'.$info['task_info']['backup_percent'].' completed</span></span></p><p><span class="dashicons dashicons-admin-page wpvivid-dashicons-green"></span><span>Total Size:</span><span>'.$info['task_info']['total'].'</span><span class="dashicons dashicons-upload wpvivid-dashicons-blue"></span><span>Uploaded:</span><span>'.$info['task_info']['upload'].'</span><span class="dashicons dashicons-plugins-checked wpvivid-dashicons-green"></span><span>Speed:</span><span>'.$info['task_info']['speed'].'</span><span class="dashicons dashicons-networking wpvivid-dashicons-green"></span><span>Network Connection:</span><span>'.$info['task_info']['network_connection'].'</span></p><p><span class="dashicons dashicons-welcome-write-blog wpvivid-dashicons-grey"></span><span>Action:</span><span id="wpvivid_current_doing">'.$info['task_info']['descript'].'</span></p><div><input class="button-primary" id="wpvivid_backup_cancel_btn" type="submit" value="Cancel" style="'.$info['task_info']['css_btn_cancel'].'"></div></div>';
+                $ret['progress_html'] = '<div class="action-progress-bar" id="wpvivid_action_progress_bar">
+                                                <div class="action-progress-bar-percent" id="wpvivid_action_progress_bar_percent" style="height:24px;width:'.$info['task_info']['backup_percent'].'"></div>
+                                             </div>
+                                             <div id="wpvivid_estimate_upload_info" style="float: left;"> 
+                                                <div class="backup-basic-info"><span class="wpvivid-element-space-right">' . __('Total Size:', 'wpvivid-backuprestore') . '</span><span>'.$info['task_info']['total'].'</span></div>
+                                                <div class="backup-basic-info"><span class="wpvivid-element-space-right">' . __('Uploaded:', 'wpvivid-backuprestore') . '</span><span>'.$info['task_info']['upload'].'</span></div>
+                                                <div class="backup-basic-info"><span class="wpvivid-element-space-right">' . __('Speed:', 'wpvivid-backuprestore') . '</span><span>'.$info['task_info']['speed'].'</span></div>
+                                             </div>
+                                             <div style="float: left;">
+                                                <div class="backup-basic-info"><span class="wpvivid-element-space-right">' . __('Network Connection:', 'wpvivid-backuprestore') . '</span><span>'.$info['task_info']['network_connection'].'</span></div>
+                                             </div>
+                                             <div style="clear:both;"></div>
+                                             <div style="margin-left:10px; float: left; width:100%;"><p id="wpvivid_current_doing">'.$info['task_info']['descript'].'</p></div>
+                                             <div style="clear: both;"></div>
+                                             <div>
+                                                <div id="wpvivid_backup_cancel" class="backup-log-btn"><input class="button-primary" id="wpvivid_backup_cancel_btn" type="submit" value="' . esc_attr('Cancel', 'wpvivid-backuprestore') . '" style="'.$info['task_info']['css_btn_cancel'].'" /></div>
+                                             </div>
+                                             <div style="clear: both;"></div>';
             }
         }
 
@@ -1024,17 +1041,24 @@ class WPvivid_Backup_2
                     $ret['task_no_response']=true;
                 }
 
-                $ret['progress_html'] = '<div class="wpvivid-one-coloum wpvivid-workflow wpvivid-clear-float">
-                                            <p><span class="wpvivid-span-progress"><span class="wpvivid-span-processed-progress wpvivid-span-processed-percent-progress" style="width:'.$info['task_info']['backup_percent'].'">'.$info['task_info']['backup_percent'].' completed</span></span></p>
-                                            <p>
-                                                <span class="dashicons dashicons-admin-page wpvivid-dashicons-green"></span><span>Total Size:</span><span>'.$info['task_info']['total'].'</span>
-                                                <span class="dashicons dashicons-upload wpvivid-dashicons-blue"></span><span>Uploaded:</span><span>'.$info['task_info']['upload'].'</span>
-                                                <span class="dashicons dashicons-plugins-checked wpvivid-dashicons-green"></span><span>Speed:</span><span>'.$info['task_info']['speed'].'</span>
-                                                <span class="dashicons dashicons-networking wpvivid-dashicons-green"></span><span>Network Connection:</span><span>'.$info['task_info']['network_connection'].'</span>
-                                            </p>
-                                            <p><span class="dashicons dashicons-welcome-write-blog wpvivid-dashicons-grey"></span><span>Action:</span><span id="wpvivid_current_doing">'.$info['task_info']['descript'].'</span></p>
-                                            <div><input class="button-primary" id="wpvivid_backup_cancel_btn" type="submit" value="Cancel" style="'.$info['task_info']['css_btn_cancel'].'"></div>
-                                        </div>';
+                $ret['progress_html'] = '<div class="action-progress-bar" id="wpvivid_action_progress_bar">
+                                                <div class="action-progress-bar-percent" id="wpvivid_action_progress_bar_percent" style="height:24px;width:'.$info['task_info']['backup_percent'].'"></div>
+                                             </div>
+                                             <div id="wpvivid_estimate_upload_info" style="float: left;"> 
+                                                <div class="backup-basic-info"><span class="wpvivid-element-space-right">' . __('Total Size:', 'wpvivid-backuprestore') . '</span><span>'.$info['task_info']['total'].'</span></div>
+                                                <div class="backup-basic-info"><span class="wpvivid-element-space-right">' . __('Uploaded:', 'wpvivid-backuprestore') . '</span><span>'.$info['task_info']['upload'].'</span></div>
+                                                <div class="backup-basic-info"><span class="wpvivid-element-space-right">' . __('Speed:', 'wpvivid-backuprestore') . '</span><span>'.$info['task_info']['speed'].'</span></div>
+                                             </div>
+                                             <div style="float: left;">
+                                                <div class="backup-basic-info"><span class="wpvivid-element-space-right">' . __('Network Connection:', 'wpvivid-backuprestore') . '</span><span>'.$info['task_info']['network_connection'].'</span></div>
+                                             </div>
+                                             <div style="clear:both;"></div>
+                                             <div style="margin-left:10px; float: left; width:100%;"><p id="wpvivid_current_doing">'.$info['task_info']['descript'].'</p></div>
+                                             <div style="clear: both;"></div>
+                                             <div>
+                                                <div id="wpvivid_backup_cancel" class="backup-log-btn"><input class="button-primary" id="wpvivid_backup_cancel_btn" type="submit" value="' . esc_attr('Cancel', 'wpvivid-backuprestore') . '" style="'.$info['task_info']['css_btn_cancel'].'" /></div>
+                                             </div>
+                                             <div style="clear: both;"></div>';
             }
 
             if($info['status']['str']=='completed')

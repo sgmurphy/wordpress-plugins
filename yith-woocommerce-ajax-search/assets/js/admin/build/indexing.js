@@ -43,7 +43,6 @@ var YITH_WCAS_Indexing = function YITH_WCAS_Indexing() {
     });
     //clearInterval(myTimer);
   };
-
   var updateInfo = function updateInfo(response) {
     if (response.data.content) {
       infoWrapper.innerHTML = response.data.content;

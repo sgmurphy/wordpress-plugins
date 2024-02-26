@@ -132,7 +132,7 @@ class WPvivid_Snapshot_Ex
 
     public function get_dashboard_menu($submenus,$parent_slug)
     {
-        $display = apply_filters('wpvivid_get_menu_capability_addon', 'menu_backup');
+        $display = apply_filters('wpvivid_get_menu_capability_addon', 'menu_database_snapshot');
         if($display)
         {
             $submenu['menu_slug'] = strtolower(sprintf('%s-snapshot', apply_filters('wpvivid_white_label_slug', 'wpvivid')));
@@ -1540,46 +1540,49 @@ class WPvivid_Snapshot_Ex
 
     public function add_sidebar()
     {
-        ?>
-        <div id="postbox-container-1" class="postbox-container">
-            <div class="meta-box-sortables ui-sortable">
-                <div class="postbox  wpvivid-sidebar">
-                    <h2 style="margin-top:0.5em;">
-                        <span class="dashicons dashicons-book-alt wpvivid-dashicons-orange" ></span>
-                        <span><?php esc_attr_e(
-                                'Documentation', 'WpAdminStyle'
-                            ); ?></span></h2>
-                    <div class="inside" style="padding-top:0;">
-                        <ul class="" >
-                            <li>
-                                <span class="dashicons dashicons-camera-alt wpvivid-dashicons-grey"></span>
-                                <a href="https://docs.wpvivid.com/wpvivid-database-snapshots-create-database-snapshots-wordpress.html"><b><?php _e('Create Database Snapshots', 'wpvivid'); ?></b></a>
-                                <small><span style="float: right;"><a href="#" style="text-decoration: none;"><span class="dashicons dashicons-migrate wpvivid-dashicons-grey"></span></a></span></small><br>
-                            </li>
-                            <li>
-                                <span class="dashicons dashicons-camera-alt wpvivid-dashicons-grey"></span>
-                                <a href="https://docs.wpvivid.com/wpvivid-database-snapshots-restore-database-snapshots-wordpress.html"><b><?php _e('Restore Database Snapshots', 'wpvivid'); ?></b></a>
-                                <small><span style="float: right;"><a href="#" style="text-decoration: none;"><span class="dashicons dashicons-migrate wpvivid-dashicons-grey"></span></a></span></small><br>
-                            </li>
-                        </ul>
-                    </div>
-                    <h2><span class="dashicons dashicons-businesswoman wpvivid-dashicons-green"></span>
-                        <span><?php esc_attr_e(
-                                'Support', 'WpAdminStyle'
-                            ); ?></span></h2>
-                    <div class="inside">
-                        <ul class="">
-                            <li><span class="dashicons dashicons-admin-comments wpvivid-dashicons-green"></span>
-                                <a href="https://wordpress.org/support/plugin/snapshot-database/"><b><?php _e('Get Support on Forum', 'wpvivid'); ?></b></a>
-                                <br>
-                                <?php _e('If you need any help with our plugin, start a thread on the plugin support forum and we will respond shortly.', 'wpvivid'); ?>
-                            </li>
-                        </ul>
+        if(apply_filters('wpvivid_show_sidebar',true))
+        {
+            ?>
+            <div id="postbox-container-1" class="postbox-container">
+                <div class="meta-box-sortables ui-sortable">
+                    <div class="postbox  wpvivid-sidebar">
+                        <h2 style="margin-top:0.5em;">
+                            <span class="dashicons dashicons-book-alt wpvivid-dashicons-orange" ></span>
+                            <span><?php esc_attr_e(
+                                    'Documentation', 'WpAdminStyle'
+                                ); ?></span></h2>
+                        <div class="inside" style="padding-top:0;">
+                            <ul class="" >
+                                <li>
+                                    <span class="dashicons dashicons-camera-alt wpvivid-dashicons-grey"></span>
+                                    <a href="https://docs.wpvivid.com/wpvivid-database-snapshots-create-database-snapshots-wordpress.html"><b><?php _e('Create Database Snapshots', 'wpvivid'); ?></b></a>
+                                    <small><span style="float: right;"><a href="#" style="text-decoration: none;"><span class="dashicons dashicons-migrate wpvivid-dashicons-grey"></span></a></span></small><br>
+                                </li>
+                                <li>
+                                    <span class="dashicons dashicons-camera-alt wpvivid-dashicons-grey"></span>
+                                    <a href="https://docs.wpvivid.com/wpvivid-database-snapshots-restore-database-snapshots-wordpress.html"><b><?php _e('Restore Database Snapshots', 'wpvivid'); ?></b></a>
+                                    <small><span style="float: right;"><a href="#" style="text-decoration: none;"><span class="dashicons dashicons-migrate wpvivid-dashicons-grey"></span></a></span></small><br>
+                                </li>
+                            </ul>
+                        </div>
+                        <h2><span class="dashicons dashicons-businesswoman wpvivid-dashicons-green"></span>
+                            <span><?php esc_attr_e(
+                                    'Support', 'WpAdminStyle'
+                                ); ?></span></h2>
+                        <div class="inside">
+                            <ul class="">
+                                <li><span class="dashicons dashicons-admin-comments wpvivid-dashicons-green"></span>
+                                    <a href="https://wordpress.org/support/plugin/snapshot-database/"><b><?php _e('Get Support on Forum', 'wpvivid'); ?></b></a>
+                                    <br>
+                                    <?php _e('If you need any help with our plugin, start a thread on the plugin support forum and we will respond shortly.', 'wpvivid'); ?>
+                                </li>
+                            </ul>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <?php
+            <?php
+        }
     }
 }

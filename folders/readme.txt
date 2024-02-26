@@ -38,7 +38,7 @@ A live demo for the Folders plugin is available at <a href="https://folders-demo
 = 👬Join the Premio community =
 Have any questions or feature suggestions? We'd love to hear from you. <strong><a href="https://www.facebook.com/groups/premioplugins/" target="_blank" title="Premio Facebook group">Join our Facebook group</a></strong> to share ideas and get updates about new features.
 
-= 🛠️ So How Does it Work? =
+= 🛠️ So How Does the Folders plugin Work? =
 
 It’s rather simple really – once you install the plugin, you can begin using it. If you’re a content creator, you can upload text, images, videos, and audio at the click of a button. Then you can organize everything you upload into neat folders. For instance, you can create a media folder, content folder, and image folder, then have them all organized by date. It has a drag and drop interface, making it user-friendly for everyone. It’s like having your own media library at your own disposal. You can create this media library for yourself or others – it’s perfect for website owners and content professionals!
 

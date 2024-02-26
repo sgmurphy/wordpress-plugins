@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'codeinwp/otter-blocks',
-        'pretty_version' => '2.6.3',
-        'version' => '2.6.3.0',
+        'pretty_version' => '2.6.4',
+        'version' => '2.6.4.0',
         'reference' => null,
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
@@ -11,8 +11,8 @@
     ),
     'versions' => array(
         'codeinwp/otter-blocks' => array(
-            'pretty_version' => '2.6.3',
-            'version' => '2.6.3.0',
+            'pretty_version' => '2.6.4',
+            'version' => '2.6.4.0',
             'reference' => null,
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
@@ -25,6 +25,15 @@
             'reference' => '2209cdf402e8f97def8d699bb8447dc67585cc95',
             'type' => 'library',
             'install_path' => __DIR__ . '/../codeinwp/themeisle-sdk',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'enshrined/svg-sanitize' => array(
+            'pretty_version' => '0.18.0',
+            'version' => '0.18.0.0',
+            'reference' => '6a2c069dab3843ca4d887ff09c972fc7033888d0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../enshrined/svg-sanitize',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

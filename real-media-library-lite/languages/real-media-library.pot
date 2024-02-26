@@ -11,25 +11,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: n/a\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.9.0\n"
+"X-Generator: WP-CLI 2.10.0\n"
 
 #. Plugin Name of the plugin
+#: index.php
 msgid "Real Media Library"
 msgstr ""
 
 #. Plugin URI of the plugin
+#: index.php
 msgid "https://devowl.io/wordpress-real-media-library/"
 msgstr ""
 
 #. Description of the plugin
+#: index.php
 msgid "Organize uploaded media in folders, collections and galleries: A file manager for WordPress. Media management made easy!"
 msgstr ""
 
 #. Author of the plugin
+#: index.php
 msgid "devowl.io"
 msgstr ""
 
 #. Author URI of the plugin
+#: index.php
 msgid "https://devowl.io"
 msgstr ""
 

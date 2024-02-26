@@ -2,8 +2,7 @@
 /**
  * @license GPL-2.0-or-later
  *
- * Modified by kadencewp on 13-February-2024 using Strauss.
- * @see https://github.com/BrianHenryIE/strauss
+ * Modified by kadencewp on 23-February-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */ declare( strict_types=1 );
 
 namespace KadenceWP\KadenceBlocks\StellarWP\Uplink\API\V3\Auth;
@@ -13,7 +12,7 @@ use KadenceWP\KadenceBlocks\StellarWP\Uplink\Traits\With_Debugging;
 use WP_Error;
 use WP_Http;
 
-use function StellarWP\Uplink\is_authorized;
+use function KadenceWP\KadenceBlocks\StellarWP\Uplink\is_authorized;
 
 /**
  * Manages authorization.

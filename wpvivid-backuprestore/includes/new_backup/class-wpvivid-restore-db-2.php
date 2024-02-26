@@ -379,7 +379,7 @@ class WPvivid_Restore_DB_2
             return $ret;
         }
 
-        $this->db_method->check_max_allow_packet();
+        $this->db_method->check_max_allow_packet($this->log);
 
         $this->log->WriteLog($this->db_method->get_last_log(),'notice');
 

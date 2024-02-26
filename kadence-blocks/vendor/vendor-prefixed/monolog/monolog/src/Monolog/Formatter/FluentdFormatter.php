@@ -2,8 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by kadencewp on 13-February-2024 using Strauss.
- * @see https://github.com/BrianHenryIE/strauss
+ * Modified by kadencewp on 23-February-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */ declare(strict_types=1);
 
 /*
@@ -33,9 +32,9 @@ use KadenceWP\KadenceBlocks\Monolog\Utils;
  *
  * Monolog setup:
  *
- * $logger = new KadenceWP\KadenceBlocks\Monolog\Logger('fluent.tag');
- * $fluentHandler = new KadenceWP\KadenceBlocks\Monolog\Handler\SocketHandler('unix:///var/run/td-agent/td-agent.sock');
- * $fluentHandler->setFormatter(new KadenceWP\KadenceBlocks\Monolog\Formatter\FluentdFormatter());
+ * $logger = new \KadenceWP\KadenceBlocks\Monolog\Logger('fluent.tag');
+ * $fluentHandler = new \KadenceWP\KadenceBlocks\Monolog\Handler\SocketHandler('unix:///var/run/td-agent/td-agent.sock');
+ * $fluentHandler->setFormatter(new \KadenceWP\KadenceBlocks\Monolog\Formatter\FluentdFormatter());
  * $logger->pushHandler($fluentHandler);
  *
  * @author Andrius Putna <fordnox@gmail.com>

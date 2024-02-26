@@ -69,7 +69,7 @@ class WPvivid_Restore_DB_WPDB_Method_2
         }
     }
 
-    public function check_max_allow_packet()
+    public function check_max_allow_packet($log)
     {
         $restore_task=get_option('wpvivid_restore_task',array());
         $restore_detail_options=$restore_task['restore_detail_options'];
@@ -323,42 +323,48 @@ class WPvivid_Restore_DB_PDO_Mysql_Method_2
         }
     }
 
-    public function check_max_allow_packet()
+    public function check_max_allow_packet($log)
     {
         $restore_task=get_option('wpvivid_restore_task',array());
         $restore_detail_options=$restore_task['restore_detail_options'];
         $max_allowed_packet=$restore_detail_options['max_allowed_packet'];
         $set_max_allowed_packet=$max_allowed_packet*1024*1024;
 
-
-        $max_allowed_packet = $this->db->query("SELECT @@session.max_allowed_packet;");
-        if($max_allowed_packet)
-        {
-            $max_allowed_packet = $max_allowed_packet -> fetchAll();
-
-            if(is_array($max_allowed_packet)&&isset($max_allowed_packet[0])&&isset($max_allowed_packet[0][0]))
+        try{
+            $max_allowed_packet = $this->db->query("SELECT @@session.max_allowed_packet;");
+            if($max_allowed_packet)
             {
-                if($max_allowed_packet[0][0]<$set_max_allowed_packet)
+                $max_allowed_packet = $max_allowed_packet -> fetchAll();
+
+                if(is_array($max_allowed_packet)&&isset($max_allowed_packet[0])&&isset($max_allowed_packet[0][0]))
                 {
-                    $query='set global max_allowed_packet='.$set_max_allowed_packet;
-                    $this->db->exec($query);
-                    $this->connect_db();
-                    $max_allowed_packet = $this->db->query("SELECT @@session.max_allowed_packet;");
-                    $max_allowed_packet = $max_allowed_packet -> fetchAll();
-                    if(is_array($max_allowed_packet)&&isset($max_allowed_packet[0])&&isset($max_allowed_packet[0][0]))
+                    if($max_allowed_packet[0][0]<$set_max_allowed_packet)
                     {
-                        $this->max_allow_packet=$max_allowed_packet[0][0];
+                        $query='set global max_allowed_packet='.$set_max_allowed_packet;
+                        $this->db->exec($query);
+                        $this->connect_db();
+                        $max_allowed_packet = $this->db->query("SELECT @@session.max_allowed_packet;");
+                        $max_allowed_packet = $max_allowed_packet -> fetchAll();
+                        if(is_array($max_allowed_packet)&&isset($max_allowed_packet[0])&&isset($max_allowed_packet[0][0]))
+                        {
+                            $this->max_allow_packet=$max_allowed_packet[0][0];
+                        }
+                        else
+                        {
+                            $this->max_allow_packet=1048576;
+                        }
                     }
                     else
                     {
-                        $this->max_allow_packet=1048576;
+                        $this->max_allow_packet=$max_allowed_packet[0][0];
                     }
+
                 }
                 else
                 {
-                    $this->max_allow_packet=$max_allowed_packet[0][0];
+                    $this->last_log='get max_allowed_packet failed.';
+                    $this->max_allow_packet=1048576;
                 }
-
             }
             else
             {
@@ -366,10 +372,10 @@ class WPvivid_Restore_DB_PDO_Mysql_Method_2
                 $this->max_allow_packet=1048576;
             }
         }
-        else
+        catch (Exception $error)
         {
-            $this->last_log='get max_allowed_packet failed.';
-            $this->max_allow_packet=1048576;
+            $message = 'An exception has occurred. class: '.get_class($error).';msg: '.$error->getMessage().';code: '.$error->getCode().';line: '.$error->getLine().';in_file: '.$error->getFile().';';
+            $log->WriteLog($message, 'warning');
         }
     }
 
@@ -564,9 +570,9 @@ class WPvivid_Restore_DB_Method_2
         return $this->db->test_db();
     }
 
-    public function check_max_allow_packet()
+    public function check_max_allow_packet($log)
     {
-        $this->db->check_max_allow_packet();
+        $this->db->check_max_allow_packet($log);
     }
 
     public function get_max_allow_packet()

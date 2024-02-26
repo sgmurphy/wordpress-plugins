@@ -3,6 +3,103 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.22.8 (2024-02-26)
+
+
+### Bug Fixes
+
+* multiple folder deletion lead to too early reload in list view (CU-8693tyuxm)
+
+
+<details><summary>Dependency updates @devowl-wp/real-product-manager-wp-client 1.19.13</summary>
+
+
+**_Purpose of dependency:_** _A WordPress client for Real Product Manager_
+##### Bug Fixes
+
+* client property value is empty error message when using serialized siteurl option (CU-8693uhwd7)
+
+
+##### Refactoring
+
+* move all util functions to @devowl-wp/react-utils (CU-8693cqz75)</details>
+
+<details><summary>Dependency updates @devowl-wp/utils 1.18.1</summary>
+
+
+**_Purpose of dependency:_** _Utility functionality for all your WordPress plugins._
+##### Continuous Integration
+
+* readme-to-json parser did no longer work due to missing taxonomy_exists function (CU-8693wju7t)
+
+
+##### Performance
+
+* allow to parse big objects localized via wp_localize_script lazily (CU-8693n1cc5)
+* do no longer use webpackMode eager in favor of inline-require (CU-8693n1cc5)
+* use code splitting for the cookie banner and content blocker to reduce initial download time (CU-8693ubj9a)
+
+
+##### Refactoring
+
+* move all util functions to @devowl-wp/react-utils (CU-8693cqz75)</details>
+
+<details><summary>Development dependency update @devowl-wp/continuous-integration 0.6.2</summary>
+
+
+**_Purpose of dependency:_** _DevOps macros, job templates and jobs for Gitlab CI and @devowl-wp/node-gitlab-ci._
+##### Performance
+
+* improve performance by not removing cookie banner from DOM after accepting for better INP in Google PageSpeed (CU-8693n1cc5)
+
+
+##### Refactoring
+
+* move all consent relevant structures and procedures to @devowl-wp/cookie-consent-management (CU-8693n1cc5)</details>
+
+<details><summary>Development dependency update @devowl-wp/eslint-config 0.2.7</summary>
+
+
+**_Purpose of dependency:_** _Provide eslint configuration for our complete monorepo._
+##### Performance
+
+* improve Total Blocking Time in Page Speed Insights by yielding the main thread for TCF cookie banner (CU-8693n1cc5)</details>
+
+<details><summary>Development dependency update @devowl-wp/react-utils 0.1.2</summary>
+
+
+**_Purpose of dependency:_** _Provide various React utils, side effect free and tree shakeable._
+##### Bug Fixes
+
+* cookie banner cannot be accepted on old Safari browsers (CU-8693u1wzm)
+
+
+##### Performance
+
+* do no longer use webpackMode eager in favor of inline-require (CU-8693n1cc5)
+* improve performance by not removing cookie banner from DOM after accepting for better INP in Google PageSpeed (CU-8693n1cc5)
+* improve performance of applying consent and unblocking consent for better INP in Google PageSpeed (CU-8693n1cc5)
+* improve Total Blocking Time in Page Speed Insights by yielding the main thread for TCF cookie banner (CU-8693n1cc5)
+* lazy load data for the second layer / view of the cookie banner (CU-8693n1cc5)
+* render shortcodes async and add lazy-require() webpack plugin (CU-8693cqz75)
+
+
+##### Refactoring
+
+* move all util functions to @devowl-wp/react-utils (CU-8693cqz75)</details>
+
+<details><summary>Development dependency update @devowl-wp/webpack-config 0.2.28</summary>
+
+
+**_Purpose of dependency:_** _Webpack config builder for multiple ecosystems like standalone React frontends, Antd, Preact and WordPress._
+##### Performance
+
+* improve Total Blocking Time in Page Speed Insights by inlining require statements (CU-8693n1cc5)</details>
+
+
+
+
+
 ## 4.22.7 (2024-02-05)
 
 **Note:** This package (@devowl-wp/real-media-library) has been updated because a dependency, which is also shipped with this package, has changed.

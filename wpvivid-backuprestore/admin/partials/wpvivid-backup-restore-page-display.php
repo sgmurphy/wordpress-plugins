@@ -1311,12 +1311,12 @@ function wpvivid_backuppage_add_page_restore()
         <div style="clear:both;"></div>
         <div id="wpvivid_restore_progress" style="margin-bottom:1em;margin-top:1em;display: none">
             <div style="padding-top:1em;border-top:1px solid #cccccc;">
-                <span class="dashicons dashicons-update wpvivid-dashicons-green"></span>
+                <span class="dashicons dashicons-update wpvivid-dashicons-blue"></span>
                 <span>Restoring: overall progress</span>
             </div>
             <div style="padding: 1em 0;">
                     <span class="wpvivid-span-progress" id="wpvivid_main_progress">
-                        <span class="wpvivid-span-processed-progress wpvivid-span-processed-percent-progress" style="width: 0%;">0% completed</span>
+                        <span class="action-progress-bar-percent wpvivid-span-processed-percent-progress" style="width: 0%; display:block; height:1.5em; border-radius:0; padding-left:0.5em;">0% completed</span>
                     </span>
             </div>
         </div>
@@ -1597,7 +1597,7 @@ function wpvivid_backuppage_add_page_restore()
                 jQuery('#wpvivid_restore_' + restore_method + 'btn').css({'pointer-events': 'none', 'opacity': '0.4'});
                 jQuery('#wpvivid_restore_' + restore_method + 'part').show();
                 jQuery('#wpvivid_restore_progress').show();
-                jQuery('#wpvivid_main_progress').html('<span class="wpvivid-span-processed-progress wpvivid-span-processed-percent-progress" style="width: 0%;">0%</span>');
+                jQuery('#wpvivid_main_progress').html('<span class="action-progress-bar-percent wpvivid-span-processed-percent-progress" style="width: 0%; display:block; height:1.5em; border-radius:0; padding-left:0.5em;">0%</span>');
                 wpvivid_restore_lock();
                 wpvivid_restoring = true;
                 if (wpvivid_restore_need_download)
@@ -2819,17 +2819,25 @@ function wpvivid_backup_module_add_exec(){
             wpvivid_control_backup_lock();
             jQuery('#wpvivid_backup_cancel_btn').css({'pointer-events': 'none', 'opacity': '0.4'});
             jQuery('#wpvivid_backup_log_btn').css({'pointer-events': 'none', 'opacity': '0.4'});
-            jQuery('#wpvivid_postbox_backup_percent').html('<div class="wpvivid-one-coloum wpvivid-workflow wpvivid-clear-float">\n' +
-                '                                            <p><span class="wpvivid-span-progress"><span class="wpvivid-span-processed-progress wpvivid-span-processed-percent-progress" style="width:0%">0% completed</span></span></p>\n' +
-                '                                            <p>\n' +
-                '                                                <span class="dashicons dashicons-admin-page wpvivid-dashicons-green"></span><span>Total Size:</span><span>N/A</span>\n' +
-                '                                                <span class="dashicons dashicons-upload wpvivid-dashicons-blue"></span><span>Uploaded:</span><span>N/A</span>\n' +
-                '                                                <span class="dashicons dashicons-plugins-checked wpvivid-dashicons-green"></span><span>Speed:</span><span>N/A</span>\n' +
-                '                                                <span class="dashicons dashicons-networking wpvivid-dashicons-green"></span><span>Network Connection:</span><span>N/A</span>\n' +
-                '                                            </p>\n' +
-                '                                            <p><span class="dashicons dashicons-welcome-write-blog wpvivid-dashicons-grey"></span><span>Action:</span><span id="wpvivid_current_doing">Ready to backup. Progress: 0%, running time: 0second.</span></p>\n' +
-                '                                            <div><input class="button-primary" id="wpvivid_backup_cancel_btn" type="submit" value="Cancel" style="pointer-events: none; opacity: 0.4;"></div>\n' +
-                '                                        </div>');
+
+            jQuery('#wpvivid_postbox_backup_percent').html('<div class="action-progress-bar" id="wpvivid_action_progress_bar">\n' +
+                '                                                <div class="action-progress-bar-percent" id="wpvivid_action_progress_bar_percent" style="height:24px;width:0%"></div>\n' +
+                '                                             </div>\n' +
+                '                                             <div id="wpvivid_estimate_upload_info" style="float: left;"> \n' +
+                '                                                <div class="backup-basic-info"><span class="wpvivid-element-space-right">Total Size:</span><span>N/A</span></div>\n' +
+                '                                                <div class="backup-basic-info"><span class="wpvivid-element-space-right">Uploaded:</span><span>N/A</span></div>\n' +
+                '                                                <div class="backup-basic-info"><span class="wpvivid-element-space-right">Speed:</span><span>N/A</span></div>\n' +
+                '                                             </div>\n' +
+                '                                             <div style="float: left;">\n' +
+                '                                                <div class="backup-basic-info"><span class="wpvivid-element-space-right">Network Connection:</span><span>N/A</span></div>\n' +
+                '                                             </div>\n' +
+                '                                             <div style="clear:both;"></div>\n' +
+                '                                             <div style="margin-left:10px; float: left; width:100%;"><p id="wpvivid_current_doing">Ready to backup. Progress: 0%, running time: 0second.</p></div>\n' +
+                '                                             <div style="clear: both;"></div>\n' +
+                '                                             <div>\n' +
+                '                                                <div id="wpvivid_backup_cancel" class="backup-log-btn"><input class="button-primary" id="wpvivid_backup_cancel_btn" type="submit" value="Cancel" style="pointer-events: none; opacity: 0.4;" /></div>\n' +
+                '                                             </div>\n' +
+                '                                             <div style="clear: both;"></div>');
             jQuery('#wpvivid_postbox_backup_percent').show();
 
             wpvivid_completed_backup = 1;
