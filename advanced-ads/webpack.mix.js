@@ -5,6 +5,7 @@ const mix = require('laravel-mix');
 const { join } = require('path');
 const packageData = require('./package.json');
 require('./tools/laravel-mix/wp-pot');
+require('mix-tailwindcss');
 
 // Local config.
 let localConfig = {};
@@ -56,8 +57,14 @@ mix.wpPot({
 });
 
 /**
+ * CSS Files
+ */
+mix.sass('assets/scss/app.scss', 'assets/css/app.css').tailwind();
+
+/**
  * JavaScript Files
  */
+mix.js('assets/src/app.js', 'assets/js/app.js');
 mix.js('public/assets/js/advanced.js', 'public/assets/js/advanced.min.js');
 mix.js('public/assets/js/ready.js', 'public/assets/js/ready.min.js');
 mix.js(

@@ -1835,9 +1835,11 @@ class Premium_Image_Button extends Widget_Base {
                     <?php endif; ?>
                 <?php endif; ?>
 
-                <span <?php echo wp_kses_post( $this->get_render_attribute_string( 'premium_image_button_text' ) ); ?>>
-                    <?php echo wp_kses_post( $button_text ); ?>
-                </span>
+                <?php if( ! empty( $button_text ) ) : ?>
+                    <span <?php echo wp_kses_post( $this->get_render_attribute_string( 'premium_image_button_text' ) ); ?>>
+                        <?php echo wp_kses_post( $button_text ); ?>
+                    </span>
+                <?php endif; ?>
 
                 <?php if ( 'yes' === $settings['premium_image_button_icon_switcher'] ) : ?>
                     <?php if ( 'style4' !== $settings['premium_image_button_hover_effect'] && 'after' === $settings['premium_image_button_icon_position'] ) : ?>

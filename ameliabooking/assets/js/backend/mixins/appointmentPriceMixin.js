@@ -14,7 +14,7 @@ export default {
     },
 
     getBookingServicePrice (service, booking) {
-      return service.customPricing.enabled &&
+      return service.customPricing && service.customPricing.enabled &&
         booking.duration &&
         service.customPricing.durations.filter(i => i.duration === booking.duration).length
         ? service.customPricing.durations.find(i => i.duration === booking.duration).price : service.price

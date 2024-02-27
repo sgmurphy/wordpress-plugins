@@ -758,7 +758,7 @@ class Module {
 				'label'     => __( 'Z-Index', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::NUMBER,
 				'selectors' => array(
-					'{{WRAPPER}} #premium-shape-divider-{{ID}} svg' => 'z-index: {{VALUE}};',
+					'{{WRAPPER}} #premium-shape-divider-{{ID}}, {{WRAPPER}} #premium-shape-divider-{{ID}} svg' => 'z-index: {{VALUE}};',
 				),
 				'condition' => array(
 					'premium_global_divider_sw' => 'yes',

@@ -228,7 +228,7 @@ function su_shortcode_tooltip( $atts = null, $content = null ) {
 		'{{MAX_WIDTH}}'     => esc_attr( su_maybe_add_css_units( $atts['max_width'], 'px' ) ),
 		'{{ALIGN}}'         => sanitize_key( $atts['text_align'] ),
 		'{{OUTLINE}}'       => sanitize_key( $atts['outline'] ),
-		'{{REFERENCE_TAG}}' => $atts['reference_tag'],
+		'{{REFERENCE_TAG}}' => sanitize_key( $atts['reference_tag'] ),
 		'{{TABINDEX}}'      => $atts['tabindex'],
 		'{{LINE_HEIGHT}}'   => esc_attr( $atts['line_height'] ),
 		'{{Z_INDEX}}'       => intval( $atts['z_index'] ),

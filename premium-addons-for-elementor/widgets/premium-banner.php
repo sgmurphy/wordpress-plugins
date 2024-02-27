@@ -1424,7 +1424,7 @@ class Premium_Banner extends Widget_Base {
 			$this->add_render_attribute(
 				'image',
 				array(
-					'src'   => $settings['premium_banner_image']['url'],
+					'src'   => esc_url( $settings['premium_banner_image']['url'] ),
 					'alt'   => Control_Media::get_image_alt( $settings['premium_banner_image'] ),
 					'title' => Control_Media::get_image_title( $settings['premium_banner_image'] ),
 				)
@@ -1573,8 +1573,6 @@ class Premium_Banner extends Widget_Base {
 
 				var image_url = elementor.imagesManager.getImageUrl( image );
 
-				imageHtml = '<img src="' + image_url + '"/>';
-
 			}
 
 		#>
@@ -1589,7 +1587,7 @@ class Premium_Banner extends Widget_Base {
 					</div>
 				<# } #>
 				<# if( '' !== settings.premium_banner_image.url ) { #>
-                    {{{imageHtml}}}
+                    <img src="{{ image_url }}"/>
 				<# } #>
 				<# if( 'animation11' === settings.premium_banner_image_animation ) { #>
 					<div class="premium-banner-gradient"></div>

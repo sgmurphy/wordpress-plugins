@@ -1323,7 +1323,7 @@
       },
 
       depositAvailable () {
-        return parseFloat(this.service.price) > 0 || (this.service.customPricing.enabled ? this.service.customPricing.durations.filter(i => i.price) : false)
+        return parseFloat(this.service.price) > 0 || (this.service.customPricing && this.service.customPricing.enabled ? this.service.customPricing.durations.filter(i => i.price) : false)
       },
 
       depositEnabledChanged () {
@@ -1337,7 +1337,7 @@
       getMaxPrice () {
         let maxPrice = this.service.price
 
-        if (this.service.customPricing.enabled) {
+        if (this.service.customPricing && this.service.customPricing.enabled) {
           this.service.customPricing.durations.forEach((item) => {
             if (item.price > maxPrice) {
               maxPrice = item.price

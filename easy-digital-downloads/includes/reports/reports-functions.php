@@ -733,8 +733,8 @@ function parse_dates_for_range( $range = null, $date = 'now', $convert_to_utc = 
 			}
 
 			$dates = array(
-				'start' => EDD()->utils->date( $start, edd_get_timezone_id(), false )->startOfDay(),
-				'end'   => EDD()->utils->date( $end, edd_get_timezone_id(), false )->endOfDay(),
+				'start' => EDD()->utils->date( $start )->startOfDay(),
+				'end'   => EDD()->utils->date( $end )->endOfDay(),
 			);
 			break;
 	}

@@ -1014,7 +1014,7 @@ class Advanced_Ads_Ad {
 		if ( ! defined( 'AAT_VERSION' ) ) {
 			global $pagenow;
 			// If this is not the ad edit page.
-			if ( 'post.php' !== $pagenow && 'post-new.php' !== $pagenow ) {
+			if ( 'post.php' !== $pagenow && 'post-new.php' !== $pagenow && ! empty( $this->url ) ) {
 				// Remove placeholders.
 				$this->url = str_replace(
 					[

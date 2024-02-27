@@ -596,10 +596,7 @@ function sbi_debug_report( $instagram_feed, $feed_id ) {
 	global $sb_instagram_posts_manager;
 
 	$feed = $instagram_feed->get_feed_id();
-	$atts = array();
-	if ( ! empty( $feed ) ) {
-		$atts = array( 'feed' => 1 );
-	}
+	$atts = array('feed' => ! empty( $feed ) ? $feed : 1);
 
 	$settings_obj = new SB_Instagram_Settings( $atts, sbi_get_database_settings() );
 

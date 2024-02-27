@@ -31,7 +31,7 @@ export default function Save({ attributes }) {
             <div
                 className={`eb-parent-wrapper eb-parent-${blockId} ${classHook}`}
             >
-                <div className={`${blockId} eb-team-wrapper ${preset} ${preset === 'new-preset3' ? hoverPreset : ''} ${preset === 'preset3' && isContentOverlay ? 'content-overlay' : ''}  `}>
+                <div className={`${blockId} eb-team-wrapper ${preset} ${preset === 'new-preset3' ? hoverPreset : ''} ${preset === 'preset3' && isContentOverlay ? 'content-overlay' : ''}`}>
                     <div className="eb-team-inner">
                         <div className="eb-team-member-image">
                             {avatarURL && (

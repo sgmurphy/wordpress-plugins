@@ -49,12 +49,14 @@ window.addEventListener("DOMContentLoaded", (event) => {
         settings.nextArrow = <SampleNextArrow arrowNextIcon={arrowNextIcon} />;
         settings.prevArrow = <SamplePrevArrow arrowPrevIcon={arrowPrevIcon} />;
 
+        const sliderTypeClass = sliderType === 'content' ? 'eb-slider-type-content' : 'eb-slider-type-image';
+
         render(
             <Slider
                 ref={slider}
                 {...settings}
                 key={`${settings.autoplay}-${settings.adaptiveHeight}`}
-                className={sliderType}
+                className={sliderTypeClass}
             >
                 {images.map((image) => (
                     <div className={`eb-slider-item ${sliderContentType}`}>

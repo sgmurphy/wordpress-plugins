@@ -227,6 +227,7 @@ class Premium_Tcloud extends Widget_Base {
 				'default'   => 'yes',
 				'condition' => array(
 					'words_order' => array( 'default', 'ribbon' ),
+                    'get_from_current!' => 'yes',
 				),
 			)
 		);
@@ -395,6 +396,16 @@ class Premium_Tcloud extends Widget_Base {
 				'classes'         => 'premium-live-temp-title control-hidden',
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 				'condition'       => $options['source_condition'],
+			)
+		);
+
+        $this->add_control(
+			'get_from_current',
+			array(
+				'label'     => __( 'Get from Current Page', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SWITCHER,
+                'description'=> __('Use this to get the terms of the current page. Useful when building a Single Post/Product template.', 'premium-addons-for-elementor'),
+				'condition'   => $options['source_condition'],
 			)
 		);
 
@@ -838,6 +849,10 @@ class Premium_Tcloud extends Widget_Base {
 				}
 			}
 
+            if( 'yes' === $settings['get_from_current'] ) {
+                $term->count = 1;
+            }
+
 			array_push(
 				$words_array,
 				array(
@@ -947,7 +962,12 @@ class Premium_Tcloud extends Widget_Base {
 		);
 
 		// Get the terms based on filter source.
-		$taxs = get_terms( $term, $args );
+        if(  'yes' === $settings['get_from_current'] ) {
+            $taxs = wp_get_post_terms( get_the_ID(), $term, $args );
+        } else {
+            $taxs = get_terms( $term, $args );
+        }
+
 
 		if ( is_wp_error( $taxs ) ) {
 			return array();

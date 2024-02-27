@@ -541,9 +541,9 @@ class Admin
             if ( Environment::is_woocommerce_active() ) {
                 $this->add_section_advanced_subsection_twitter( $section_ids );
             }
-            $this->add_section_advanced_subsection_consent_management( $section_ids );
         }
-    
+        
+        $this->add_section_advanced_subsection_consent_management( $section_ids );
     }
     
     public function add_section_advanced_subsection_general( $section_ids )
@@ -853,19 +853,21 @@ class Admin
         // add fields for the Google Consent beta
         add_settings_field(
             'wpm_setting_google_consent_mode_active',
-            esc_html__( 'Google Consent Mode', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+            esc_html__( 'Google Consent Mode v2', 'woocommerce-google-adwords-conversion-tracking-tag' ),
             [ $this, 'setting_html_google_consent_mode_active' ],
             'wpm_plugin_options_page',
             $section_ids['settings_name']
         );
-        // add fields for the Google TCF support
-        add_settings_field(
-            'setting_google_tcf_support',
-            esc_html__( 'Google TCF Support', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
-            [ $this, 'setting_html_google_tcf_support' ],
-            'wpm_plugin_options_page',
-            $section_ids['settings_name']
-        );
+        if ( wpm_fs()->can_use_premium_code__premium_only() || Options::pro_version_demo_active() ) {
+            // add fields for the Google TCF support
+            add_settings_field(
+                'setting_google_tcf_support',
+                esc_html__( 'Google TCF Support', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
+                [ $this, 'setting_html_google_tcf_support' ],
+                'wpm_plugin_options_page',
+                $section_ids['settings_name']
+            );
+        }
         // add fields for the Google consent regions
         add_settings_field(
             'wpm_setting_google_consent_regions',
@@ -3132,19 +3134,17 @@ class Admin
 				   name='wgact_plugin_options[google][consent_mode][active]'
 				   value='1' <?php 
         checked( Options::is_google_consent_mode_active() );
-        ?> <?php 
-        esc_html_e( self::disable_if_demo() );
         ?> />
 			<?php 
-        esc_html_e( 'Enable Google consent mode with standard settings', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        esc_html_e( 'Enable Google Consent Mode v2 with standard settings', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
+
 		</label>
 		<?php 
         self::display_status_icon( Options::is_google_consent_mode_active(), true, true );
         ?>
 		<?php 
         self::get_documentation_html_by_key( 'google_consent_mode' );
-        self::html_pro_feature();
     }
     
     public function setting_html_google_tcf_support()
@@ -3188,9 +3188,6 @@ class Admin
         ?>&hellip;"
 				aria-label="Country"
 				class="wc-enhanced-select"
-			<?php 
-        esc_html_e( self::disable_if_demo() );
-        ?>
 		>
 			<?php 
         foreach ( Consent_Mode_Regions::get_consent_mode_regions() as $region_code => $region_name ) {
@@ -3223,7 +3220,6 @@ class Admin
 		</script>
 		<?php 
         self::get_documentation_html_by_key( 'google_consent_regions' );
-        self::html_pro_feature();
         ?>
 		<p>
 			<span class="dashicons dashicons-info"></span>
@@ -3843,9 +3839,6 @@ class Admin
 				<?php 
         checked( Options::is_cookie_consent_explicit_consent_active() );
         ?>
-				<?php 
-        esc_html_e( self::disable_if_demo() );
-        ?>
 			/>
 			<?php 
         esc_html_e( 'Enable Explicit Consent Mode', 'woocommerce-google-adwords-conversion-tracking-tag' );
@@ -3854,7 +3847,6 @@ class Admin
 		<?php 
         self::display_status_icon( Options::is_cookie_consent_explicit_consent_active(), true, true );
         self::get_documentation_html_by_key( 'explicit_consent_mode' );
-        self::html_pro_feature();
         echo  '<p style="margin-top:10px">' ;
         esc_html_e( 'Only activate the Explicit Consent Mode if you are also using a Cookie Management Platform (a cookie banner) that is compatible with this plugin. Find a list of compatible plugins in the documentation.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         echo  '</p>' ;

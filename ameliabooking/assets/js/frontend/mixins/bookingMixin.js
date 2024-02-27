@@ -24,7 +24,7 @@ export default {
     },
 
     setDurationsPrices (service, durations) {
-      if (service.customPricing.enabled) {
+      if (service.customPricing && service.customPricing.enabled) {
         if (!(parseInt(service.duration) in durations)) {
           durations[parseInt(service.duration)] = []
 

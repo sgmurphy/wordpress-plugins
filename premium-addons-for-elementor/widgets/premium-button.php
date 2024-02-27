@@ -1855,9 +1855,11 @@ class Premium_Button extends Widget_Base {
 					<?php endif; ?>
 				<?php endif; ?>
 
-				<span <?php echo wp_kses_post( $this->get_render_attribute_string( 'premium_button_text' ) ); ?>>
-					<?php echo wp_kses_post( $button_text ); ?>
-				</span>
+                <?php if( ! empty( $button_text ) ) : ?>
+                    <span <?php echo wp_kses_post( $this->get_render_attribute_string( 'premium_button_text' ) ); ?>>
+                        <?php echo wp_kses_post( $button_text ); ?>
+                    </span>
+                <?php endif; ?>
 
                 <!-- After Icon -->
 				<?php if ( 'yes' === $settings['premium_button_icon_switcher'] ) : ?>

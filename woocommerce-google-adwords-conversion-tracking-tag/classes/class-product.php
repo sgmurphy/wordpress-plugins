@@ -117,14 +117,14 @@ class Product {
 		$price = self::get_product_price_for_datalayer($product);
 
 		$product_details = [
-			'id'         => (string) $product->get_id(),
-			'sku'        => (string) $product->get_sku(),
-			'price'      => (float) Helpers::format_decimal($price, 2),
-			'brand'      => self::get_brand_name($product->get_id()),
-			'quantity'   => 1,
-			'dyn_r_ids'  => $dyn_r_ids,
-			'isVariable' => $product->get_type() === 'variable',
-			'type'       => $product->get_type(),
+			'id'          => (string) $product->get_id(),
+			'sku'         => (string) $product->get_sku(),
+			'price'       => (float) Helpers::format_decimal($price, 2),
+			'brand'       => self::get_brand_name($product->get_id()),
+			'quantity'    => 1,
+			'dyn_r_ids'   => $dyn_r_ids,
+			'is_variable' => $product->get_type() === 'variable',
+			'type'        => $product->get_type(),
 		];
 
 		if ($product->get_type() === 'variation') { // In case the product is a variation
@@ -133,22 +133,22 @@ class Product {
 
 			if ($parent_product) {
 
-				$product_details['name']               = Helpers::clean_product_name_for_output($parent_product->get_name());
-				$product_details['parentId_dyn_r_ids'] = self::get_dyn_r_ids($parent_product);
-				$product_details['parentId']           = $parent_product->get_id();
-				$product_details['brand']              = self::get_brand_name($parent_product->get_id());
+				$product_details['name']                = Helpers::clean_product_name_for_output($parent_product->get_name());
+				$product_details['parent_id_dyn_r_ids'] = self::get_dyn_r_ids($parent_product);
+				$product_details['parent_id']           = $parent_product->get_id();
+				$product_details['brand']               = self::get_brand_name($parent_product->get_id());
 			} else {
 				Logger::debug('Variation ' . $product->get_id() . ' doesn\'t link to a valid parent product.');
 			}
 
 			$product_details['variant']     = self::get_formatted_variant_text($product);
 			$product_details['category']    = self::get_product_category($product->get_parent_id());
-			$product_details['isVariation'] = true;
+			$product_details['is_variation'] = true;
 		} else { // It's not a variation, so get the fields for a regular product
 
 			$product_details['name']        = Helpers::clean_product_name_for_output((string) $product->get_name());
 			$product_details['category']    = self::get_product_category($product->get_id());
-			$product_details['isVariation'] = false;
+			$product_details['is_variation'] = false;
 		}
 
 		return $product_details;
@@ -358,7 +358,8 @@ class Product {
 
 	public static function get_product_data_layer_script_html_part_2( $product ) {
 		?>
-		window.wpmDataLayer.products[<?php esc_html_e($product->get_id()); ?>]['position'] = window.wpmDataLayer.position++
+		window.pmw_product_position = window.pmw_product_position || 1;
+		window.wpmDataLayer.products[<?php esc_html_e($product->get_id()); ?>]['position'] = window.pmw_product_position++;
 		<?php
 	}
 

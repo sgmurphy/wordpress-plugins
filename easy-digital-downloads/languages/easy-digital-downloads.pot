@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Easy Digital Downloads plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Easy Digital Downloads 3.2.8\n"
+"Project-Id-Version: Easy Digital Downloads 3.2.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/easy-digital-downloads\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-16T16:53:47+00:00\n"
+"POT-Creation-Date: 2024-02-26T21:12:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -5722,7 +5722,7 @@ msgstr ""
 #: includes/admin/payments/actions.php:77
 #: includes/admin/payments/actions.php:276
 #: includes/admin/payments/actions.php:306
-#: src/Emails/Triggers.php:121
+#: src/Emails/Triggers.php:126
 msgid "You do not have permission to edit this payment record"
 msgstr ""
 
@@ -5821,7 +5821,7 @@ msgstr ""
 #: includes/user-functions.php:958
 #: includes/user-functions.php:1007
 #: includes/users/lost-password.php:264
-#: src/Emails/Triggers.php:121
+#: src/Emails/Triggers.php:126
 #: src/Extensions/Updater.php:481
 msgid "Error"
 msgstr ""
@@ -15479,6 +15479,11 @@ msgstr ""
 
 #: includes/gateways/stripe/includes/gateway-actions.php:13
 msgid "Outputs a line stating what charges will appear as on customer's credit card statements."
+msgstr ""
+
+#. translators: %s is the statement descriptor
+#: includes/gateways/stripe/includes/gateway-actions.php:52
+msgid "Charges will appear on your card statement as %s"
 msgstr ""
 
 #: includes/gateways/stripe/includes/gateway-filters.php:60

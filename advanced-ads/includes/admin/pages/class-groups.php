@@ -49,6 +49,73 @@ class Groups implements Screen_Interface {
 		);
 
 		add_action( 'in_admin_header', [ $this, 'get_list_table' ] );
+		add_action( 'admin_init', [ $this, 'admin_init' ] );
+	}
+
+	/**
+	 * Intercept group form submission on dashboard init.
+	 *
+	 * @return void
+	 */
+	public function admin_init() {
+		if ( ! Params::post( 'advads-group-update-nonce' ) && ! Params::post( 'advads-group-add-nonce' ) && 'delete' !== Params::get( 'action' ) ) {
+			// Just skip if no group created, deleted, or edited.
+			return;
+		}
+
+		// Update groups.
+		$result = $this->handle_action();
+		$url    = admin_url( 'admin.php?page=advanced-ads-groups' );
+
+		switch ( $result['code'] ) {
+			case 1:
+				wp_redirect( "$url&message={$result['code']}&group={$result['group']}" );
+				exit;
+			case 2:
+				wp_redirect( "$url&message={$result['code']}" );
+				exit;
+			case 3:
+				wp_redirect( "$url&message=" . rawurlencode( $result['message'] ) );
+				exit;
+			default:
+		}
+	}
+
+	/**
+	 * Display notices if any
+	 *
+	 * @return void
+	 */
+	public function handle_messages() {
+		$message = Params::get( 'message' );
+
+		if ( false === $message ) {
+			return;
+		}
+
+		$message = sanitize_text_field( wp_unslash( $message ) );
+
+		echo '<div class="wrap">';
+
+		switch ( $message ) {
+			case '1':
+				echo '<div class="notice inline"><p>' . esc_html__( 'Ad Group successfully created', 'advanced-ads' ) . '</p></div>';
+				?>
+				<script>
+					window.addEventListener( 'DOMContentLoaded', () => {
+						window.location.hash = '#modal-group-edit-<?php echo esc_html( sanitize_text_field( wp_unslash( Params::get( 'group' ) ) ) ); ?>';
+					} );
+				</script>
+				<?php
+				break;
+			case '2':
+				echo '<div id="message" class="updated inline"><p>' . esc_html__( 'Ad Groups successfully updated', 'advanced-ads' ) . '</p></div>';
+				break;
+			default:
+				echo '<div id="message" class="notice error inline"><p>' . esc_html( rawurldecode( $message ) ) . '</p></div>';
+		}
+
+		echo '</div>';
 	}
 
 	/**
@@ -57,8 +124,7 @@ class Groups implements Screen_Interface {
 	 * @return void
 	 */
 	public function display(): void {
-		$this->handle_action();
-
+		$this->handle_messages();
 		$taxonomy      = get_taxonomy( Entities::TAXONOMY_AD_GROUP );
 		$wp_list_table = $this->get_list_table();
 		$is_search     = Params::get( 's' );
@@ -85,9 +151,9 @@ class Groups implements Screen_Interface {
 	/**
 	 * Handle actions
 	 *
-	 * @return void
+	 * @return array
 	 */
-	private function handle_action(): void {
+	private function handle_action(): array {
 		$result   = false;
 		$taxonomy = get_taxonomy( Entities::TAXONOMY_AD_GROUP );
 		$action   = WordPress::current_action();
@@ -109,30 +175,21 @@ class Groups implements Screen_Interface {
 			}
 		}
 
-		?>
-		<div class="wrap">
-			<?php
-			if ( is_wp_error( $result ) ) {
-				echo '<div id="message" class="notice error inline"><p>' . esc_html( $result->get_error_message() ) . '</p></div>';
-			}
-
-			if ( 'create' === $action ) {
-				echo '<div class="notice inline"><p>' . esc_html__( 'Ad Group successfully created', 'advanced-ads' ) . '</p></div>';
-				?>
-				<script>
-					window.addEventListener( 'DOMContentLoaded', () => {
-						window.location.hash = '#modal-group-edit-<?php echo esc_html( $result->id ); ?>';
-					} );
-				</script>
-				<?php
-			}
-
-			if ( 'update' === $action ) {
-				echo '<div id="message" class="updated inline"><p>' . esc_html__( 'Ad Groups successfully updated', 'advanced-ads' ) . '</p></div>';
-			}
-			?>
-		</div>
-		<?php
+		if ( is_wp_error( $result ) ) {
+			return [
+				'code'    => 3,
+				'message' => $result->get_error_message(),
+			];
+		} elseif ( 'create' === $action ) {
+			return [
+				'code'  => 1,
+				'group' => $result->id,
+			];
+		} elseif ( 'update' === $action ) {
+			return [ 'code' => 2 ];
+		} else {
+			return [ 'code' => 0 ];
+		}
 	}
 
 	/**

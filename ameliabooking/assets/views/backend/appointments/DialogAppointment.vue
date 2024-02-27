@@ -173,7 +173,7 @@
                       </div>
                       <!-- Selected Customer Duration -->
                       <div
-                          v-if="!packageServices && appointment.serviceId && getServiceById(appointment.serviceId).customPricing.enabled"
+                          v-if="!packageServices && appointment.serviceId && getServiceById(appointment.serviceId).customPricing && getServiceById(appointment.serviceId).customPricing.enabled"
                           class="am-appointment-duration small"
                       >
                         <img

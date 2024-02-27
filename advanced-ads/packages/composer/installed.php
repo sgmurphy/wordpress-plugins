@@ -3,7 +3,7 @@
         'name' => 'webgilde/advanced-ads',
         'pretty_version' => '1.42.1',
         'version' => '1.42.1.0',
-        'reference' => NULL,
+        'reference' => null,
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'advanced-ads/framework' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '8e94f89f0638d9b49d5320fbfcf27a7415eb70ba',
+            'reference' => '95e385daf3e3f11125711f43c5f7c437e00b075d',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../advanced-ads/framework',
             'aliases' => array(
@@ -33,18 +33,9 @@
         'webgilde/advanced-ads' => array(
             'pretty_version' => '1.42.1',
             'version' => '1.42.1.0',
-            'reference' => NULL,
+            'reference' => null,
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'yoast/i18n-module' => array(
-            'pretty_version' => '3.1.1',
-            'version' => '3.1.1.0',
-            'reference' => '9d0a2f6daea6fb42376b023e7778294d19edd85d',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../yoast/i18n-module',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

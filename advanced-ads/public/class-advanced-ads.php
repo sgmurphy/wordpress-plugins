@@ -70,6 +70,13 @@ class Advanced_Ads {
 	protected $options = false;
 
 	/**
+	 * Adsense options
+	 *
+	 * @var array (if loaded)
+	 */
+	protected $adsense_options = null;
+
+	/**
 	 * Interal plugin options – set by the plugin
 	 *
 	 * @var     array (if loaded)
@@ -333,7 +340,7 @@ class Advanced_Ads {
 				$this->disable_ads( 'page', $post->ID );
 				return;
 			}
-		};
+		}
 
 		// "Posts page" set on the WordPress Reading settings page.
 		if ( $wp_the_query->is_posts_page ) {
@@ -343,7 +350,7 @@ class Advanced_Ads {
 				$this->disable_ads( 'page', $wp_the_query->queried_object_id );
 				return;
 			}
-		};
+		}
 
 		/**
 		 * Check if ads are disabled on WooCommerce shop page (and currently on shop page).
@@ -371,8 +378,8 @@ class Advanced_Ads {
 		}
 
 		// check bots if option is enabled.
-		if ( ( isset( $options['block-bots'] ) && $options['block-bots']
-			&& ! $this->is_cache_bot() && $this->is_bot() ) ) {
+		if ( isset( $options['block-bots'] ) && $options['block-bots']
+			&& ! $this->is_cache_bot() && $this->is_bot() ) {
 			$this->disable_ads();
 			return;
 		}
@@ -440,6 +447,19 @@ class Advanced_Ads {
 	 */
 	public function options() {
 		return $this->plugin->options();
+	}
+
+	/**
+	 * Compat method
+	 *
+	 * @return array with adsense options
+	 */
+	public function get_adsense_options() {
+		// we can’t store options if WPML String Translations is enabled, or it would not translate the "Ad Label" option.
+		if ( ! isset( $this->adsense_options ) || class_exists( 'WPML_ST_String' ) ) {
+			$this->adsense_options = get_option( 'advanced-ads-adsense', [] );
+		}
+		return $this->adsense_options;
 	}
 
 	/**

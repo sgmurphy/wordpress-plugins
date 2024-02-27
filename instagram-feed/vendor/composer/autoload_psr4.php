@@ -7,5 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Smashballoon\\Stubs\\' => array($vendorDir . '/smashballoon/stubs/src'),
+    'Seld\\CliPrompt\\' => array($vendorDir . '/seld/cli-prompt/src'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
+    'PhpcsDiff\\' => array($vendorDir . '/alex-plop/phpcs-diff/src'),
+    'League\\CLImate\\' => array($vendorDir . '/league/climate/src'),
     'InstagramFeed\\' => array($baseDir . '/inc'),
 );

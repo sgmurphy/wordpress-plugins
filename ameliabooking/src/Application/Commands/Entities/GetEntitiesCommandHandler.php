@@ -175,17 +175,11 @@ class GetEntitiesCommandHandler extends CommandHandler
             /** @var Collection $allServices */
             $allServices = $serviceRepository->getAllArrayIndexedById();
 
-            $showHiddenServices = $currentUser &&
-                (
-                    $currentUser->getType() === AbstractUser::USER_ROLE_CUSTOMER ||
-                    $currentUser->getType() === AbstractUser::USER_ROLE_ADMIN ||
-                    $currentUser->getType() === AbstractUser::USER_ROLE_PROVIDER ||
-                    $currentUser->getType() === AbstractUser::USER_ROLE_MANAGER
-                );
-
             /** @var Service $service */
             foreach ($allServices->getItems() as $service) {
-                if ($service->getStatus()->getValue() === Status::VISIBLE || $showHiddenServices) {
+                if ($service->getStatus()->getValue() === Status::VISIBLE ||
+                    $currentUser->getType() === AbstractUser::USER_ROLE_ADMIN
+                ) {
                     $services->addItem($service, $service->getId()->getValue());
                 }
             }

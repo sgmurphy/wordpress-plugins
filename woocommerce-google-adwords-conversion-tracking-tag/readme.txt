@@ -4,7 +4,7 @@ Tags: woocommerce, google analytics, google ads, facebook, conversion tracking, 
 Requires at least: 3.7
 Tested up to: 6.4
 Requires PHP: 7.3
-Stable tag: 1.39.0
+Stable tag: 1.40.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -27,6 +27,8 @@ Boost your sales and cut advertising costs with the Pixel Manager, a plugin that
 This plugin tracks WooCommerce shop visitors and collects valuable data for conversion optimization of your shop and paid ads, dynamic remarketing, and reporting. It's designed to boost sales and cut advertising costs through precise e-commerce tracking.
 
 The Pixel Manager integrates smoothly with platforms like Google Analytics, Google Ads, Meta (Facebook, Instagram), Hotjar, Microsoft (Pro), and TikTok (Pro).
+
+[youtube https://www.youtube.com/watch?v=BW0Tzyu2HaU]
 
 <strong>Key features</strong>
 
@@ -66,6 +68,7 @@ Unique tools like the [Payment Gateway Accuracy Report](https://sweetcode.com/do
 
 <strong>Highlights</strong>
 
+* Google Consent Mode v2
 * Effective order duplication prevention.
 * Dynamic remarketing audience collection.
 * Google Ads Cart Data tracking.
@@ -79,6 +82,7 @@ Unique tools like the [Payment Gateway Accuracy Report](https://sweetcode.com/do
 
 <strong>Free Features</strong>
 
+* Google Consent Mode v2
 * Google Ads Conversion Value Tracking
 * Google Ads Dynamic Remarketing
 * Google Ads Cart Item Tracking
@@ -111,7 +115,6 @@ Have a look at the full feature list over [here](https://sweetcode.com/docs/wpm/
 * Advanced Order Duplication Prevention
 * Google Ads Enhanced Conversions
 * Google Ads Conversion Adjustments
-* Google Consent Mode v2
 * Meta CAPI (Facebook CAPI)
 * Scroll Tracking
 * Automatic Phone and Link Click Tracking
@@ -287,10 +290,16 @@ We are committed to ensuring the security of our customers and their data. If yo
 
 == Changelog ==
 
+= 1.40.0  =
+*Release date - 27.02.2024*
+
+* New: Added support for the Google Consent Mode v2 in the free version of the Pixel Manager.
+* Tweak: Refactored a few internal functions.
+
 = 1.39.0  =
 *Release date - 19.02.2024*
 
-* New: LinkedIn Ads pixel released
+
 * Tweak: Added dashboard message for available opportunities.
 * Tweak: Bumped up WooCommerce version compatibility to 8.6
 * Tweak: Updated vendor libraries.

@@ -90,8 +90,14 @@ class Assets_Registry implements Integration_Interface {
 	 * @return void
 	 */
 	public function register_styles(): void {
+		if ( ! is_admin() ) {
+			return;
+		}
 		$this->register_style( 'ui', 'admin/assets/css/ui.css' );
 		$this->register_style( 'admin', 'admin/assets/css/admin.css' );
+		if ( 'toplevel_page_advanced-ads' === ( get_current_screen() )->id ) {
+			$this->register_style( 'app', 'assets/css/app.css' );
+		}
 		$this->register_style( 'ad-positioning', 'modules/ad-positioning/assets/css/ad-positioning.css', [ self::prefix_it( 'admin' ) ] );
 	}
 
@@ -109,6 +115,8 @@ class Assets_Registry implements Integration_Interface {
 		$this->register_script( 'inline-edit-group-ads', 'admin/assets/js/inline-edit-group-ads.js', [ 'jquery' ], false, false );
 		$this->register_script( 'ad-positioning', '/modules/ad-positioning/assets/js/ad-positioning.js', [], false, true );
 		$this->register_script( 'admin', 'admin/assets/js/admin.min.js', [ 'jquery', self::prefix_it( 'ui' ), 'jquery-ui-autocomplete', 'wp-util' ], false, false );
+		$this->register_script( 'wp-widget-adsense', 'modules/gadsense/admin/assets/js/wp-widget.js', [ 'jquery' ], false, true );
+		$this->register_script( 'app', 'assets/js/app.js', [ 'jquery' ], false, true );
 	}
 
 	/**

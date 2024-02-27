@@ -626,6 +626,20 @@ export default {
       }
     },
 
+    setMissingServices (appointments) {
+      let servicesIds = this.options.entities.services.map(i => parseInt(i.id))
+
+      Object.keys(appointments).forEach((dateKey) => {
+        appointments[dateKey].appointments.forEach((appointment) => {
+          if (appointment.service && servicesIds.indexOf(parseInt(appointment.serviceId)) === -1) {
+            this.options.entities.services.push(appointment.service)
+
+            servicesIds.push(parseInt(appointment.serviceId))
+          }
+        })
+      })
+    },
+
     getFilteredEntities (filteredEntitiesIds, type, parameter) {
       let savedEntityId = this.appointment && this.appointment.id && this.appointment[parameter] ? this.appointment[parameter] : null
 

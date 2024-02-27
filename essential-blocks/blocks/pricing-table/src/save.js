@@ -130,6 +130,7 @@ const Save = ({ attributes }) => {
                                                                             <EBDisplayIcon
                                                                                 className={`eb-pricebox-icon`}
                                                                                 icon={icon}
+                                                                                style={{ color: color }}
                                                                             />
                                                                             <span className="eb-pricebox-feature-text">
                                                                                 {text}
@@ -140,6 +141,7 @@ const Save = ({ attributes }) => {
                                                                             <EBDisplayIcon
                                                                                 className={`eb-pricebox-icon`}
                                                                                 icon={icon}
+                                                                                style={{ color: color }}
                                                                             />
                                                                             <span className="eb-pricebox-feature-text">
                                                                                 {text}
@@ -249,6 +251,7 @@ const Save = ({ attributes }) => {
                                                                     <EBDisplayIcon
                                                                         className={`eb-pricebox-icon`}
                                                                         icon={icon}
+                                                                        style={{ color: color }}
                                                                     />
                                                                     <span className="eb-pricebox-feature-text">
                                                                         {text}
@@ -259,6 +262,7 @@ const Save = ({ attributes }) => {
                                                                     <EBDisplayIcon
                                                                         className={`eb-pricebox-icon`}
                                                                         icon={icon}
+                                                                        style={{ color: color }}
                                                                     />
                                                                     <span className="eb-pricebox-feature-text">
                                                                         {text}

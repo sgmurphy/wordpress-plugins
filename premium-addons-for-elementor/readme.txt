@@ -5,11 +5,11 @@ Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_c
 Requires at least: 5.0
 Tested Up To: 6.4.3
 Requires PHP: 7.0
-Stable Tag: 4.10.21
+Stable Tag: 4.10.22
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
-Premium Addons for Elementor plugin includes essential widgets and addons like Blog Post Listing, Megamenu, WooCommerce Products Listing, Carousel, Modal Popup, Lottie Animations, Google Maps, Pricing Tables, Evergreen Countdown, Testimonials and much more.
+Premium Addons comes with tens of Elementor widgets and pre-made section and full-page templates. It includes Mega Menu, Carousel, Blog and many more useful Elementor widgets!
 
 == Description ==
 
@@ -249,6 +249,11 @@ Premium Addonsis 100% Ads Free, Ads can only be detected from Youtube videos, th
 14. Premium Progress Bar Widget
 
 == Changelog ==
+
+= 4.10.22 =
+
+- Fixed: Elementor widgets not showing after Elementor v3.19.3.
+- Fixed: Hover effects reversed in Advanced Carousal widget.
 
 = 4.10.21 =
 

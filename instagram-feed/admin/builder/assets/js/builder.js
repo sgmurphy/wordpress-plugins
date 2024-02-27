@@ -325,7 +325,7 @@ sbiBuilder = new Vue({
 		var self = this;
 		this.$parent = self;
 		if (self.customizerFeedData) {
-			self.template = String("<div>" + self.template + "</div>");
+			self.template = String("<div>" + this.decodeVueHTML(self.template) + "</div>");
 			self.setShortcodeGlobalSettings(true);
 
 			self.feedSettingsDomOptions = self.jsonParse(jQuery("html").find("#sb_instagram").attr('data-options'));
@@ -2082,6 +2082,11 @@ sbiBuilder = new Vue({
 			return '';
 		},
 
+		getHeaderUserNameTitle: function () {
+			let username = this.getHeaderUserName();
+			return username !== '' ? '@' + username : '';
+		},
+
 		//Header Media Count
 		getHeaderMediaCount: function () {
 			var self = this,
@@ -2445,6 +2450,35 @@ sbiBuilder = new Vue({
 				.replace(/'/g, "&#039;");
 		},
 
+		decodeVueHTML: function (text) {
+			const regex = /v-if="(.*?)"/g;
+			let match;
+			let decodedText = text;
+
+			const map = {
+				'&amp;': '&',
+				'&lt;': '<',
+				'&gt;': '>',
+				'&quot;': '"',
+				'&#039;': "'",
+			};
+
+			while ((match = regex.exec(text)) !== null) {
+				// This is necessary to avoid infinite loops with zero-width matches
+				if (match.index === regex.lastIndex) {
+					regex.lastIndex++;
+				}
+
+				match.forEach((match, groupIndex) => {
+					if (groupIndex == 1) {
+						decodedText = decodedText.replace(match, match.replace(/&amp;|&lt;|&gt;|&quot;|&#039;/g, m => map[m]));
+					}
+				});
+			}
+
+			return decodedText;
+		},
+
 		/**
 		 * Get Feed Preview Global CSS Class
 		 *
@@ -2529,7 +2563,7 @@ sbiBuilder = new Vue({
 						var data = _ref.data;
 						if (data !== false) {
 							self.updatedTimeStamp = new Date().getTime();
-							self.template = String("<div>" + data + "</div>");
+							self.template = String("<div>" + this.decodeVueHTML(data) + "</div>");
 							self.moderationShoppableModeAjaxDone = self.getModerationShoppableMode ? true : false;
 							self.processNotification("previewUpdated");
 						} else {

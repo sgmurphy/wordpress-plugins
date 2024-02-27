@@ -283,6 +283,7 @@ class TableOfContents extends Block
         }
 
         $attributes         = wp_parse_args( $attributes, $this->default_attributes );
+        $blockId            = esc_attr($attributes['blockId']);
         $scrollToTop        = $attributes[ 'scrollToTop' ] ? 'true' : 'false';
         $scrollToTopIcon    = $attributes[ 'scrollToTopIcon' ];
         $listStyle          = $attributes[ 'listStyle' ];
@@ -310,7 +311,7 @@ class TableOfContents extends Block
         $classHook          = isset( $attributes[ 'classHook' ] ) ? $attributes[ 'classHook' ] : '';
 
         $container_class     = [  ];
-        $container_class[  ] = 'eb-toc-container ' . $attributes[ 'blockId' ];
+        $container_class[  ] = 'eb-toc-container ' . $blockId;
         $container_class[  ] = $isSticky == 'true' ? 'eb-toc-sticky-' . $stickyPosition : '';
         $container_class[  ] = $isSticky == 'true' ? 'eb-toc-is-sticky' : 'eb-toc-is-not-sticky';
         $container_class[  ] = $collapsible == 'true' ? 'eb-toc-collapsible' : 'eb-toc-not-collapsible';
@@ -324,7 +325,7 @@ class TableOfContents extends Block
 
         $output = "";
         $output .= '<div ' . wp_kses_data( get_block_wrapper_attributes() ) . '>';
-        $output .= '<div class="eb-parent-wrapper eb-parent-' . $attributes[ 'blockId' ] . ' ' . $classHook . '">';
+        $output .= '<div class="eb-parent-wrapper eb-parent-' . $blockId . ' ' . $classHook . '">';
         $output .= '<div class="' . implode( " ", $container_class ) . '"
                 data-scroll-top="' . $scrollToTop . '"
                 data-scroll-top-icon="' . $scrollToTopIcon . '"

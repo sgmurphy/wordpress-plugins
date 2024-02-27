@@ -1,4 +1,4 @@
-<?php // phpcs:ignoreFile
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 
 use AdvancedAds\Entities;
 
@@ -32,7 +32,7 @@ class Advanced_Ads_Overview_Widgets_Callbacks {
 	public static function setup_overview_widgets() {
 
 		// initiate i18n notice.
-		new Translation_Promo(
+		$promo = new Translation_Promo(
 			[
 				'textdomain'     => 'advanced-ads',
 				'plugin_name'    => 'Advanced Ads',
@@ -101,9 +101,7 @@ class Advanced_Ads_Overview_Widgets_Callbacks {
 		Advanced_Ads_Ad_Health_Notices::get_instance()->render_widget();
 		?><script>jQuery( document ).ready( function(){ advads_ad_health_maybe_remove_list(); });</script>
 		<?php
-
 	}
-
 
 	/**
 	 * Render next steps widget
@@ -116,7 +114,8 @@ class Advanced_Ads_Overview_Widgets_Callbacks {
 		if ( count( $recent_ads ) === 0 ) :
 			echo '<p><a class="button button-primary" href="' . esc_url( admin_url( 'post-new.php?post_type=' . Entities::POST_TYPE_AD ) ) .
 			'">' . esc_html( __( 'Create your first ad', 'advanced-ads' ) ) . '</a></p>';
-			// Connect to AdSense
+
+			// Connect to AdSense.
 			echo '<p><a class="button button-primary" href="' . esc_url( admin_url( 'admin.php?page=advanced-ads-settings#top#adsense' ) ) .
 			'">' . esc_attr__( 'Connect to AdSense', 'advanced-ads' ) . '</a></p>';
 			$primary_taken = true;
@@ -238,6 +237,7 @@ class Advanced_Ads_Overview_Widgets_Callbacks {
 		}
 		$report_type   = 'domain';
 		$report_filter = $filter_value;
+		$pub_id = Advanced_Ads_AdSense_Data::get_instance()->get_adsense_id();
 		include ADVADS_ABSPATH . 'admin/views/gadsense-dashboard.php';
 	}
 
@@ -308,12 +308,10 @@ class Advanced_Ads_Overview_Widgets_Callbacks {
 		$report        = new Advanced_Ads_AdSense_Report( $report_type, $report_filter );
 
 		if ( $report->get_data()->is_valid() ) {
-			// There is valid data
 			wp_send_json_success( [ 'html' => $report->get_markup() ] );
 		}
 
 		if ( $report->refresh_report() ) {
-			// we got new data from Google;
 			wp_send_json_success( [ 'html' => $report->get_markup() ] );
 		}
 
@@ -334,14 +332,14 @@ class Advanced_Ads_Overview_Widgets_Callbacks {
 	final public static function render_stats_box( $title, $main, $footer ) {
 		?>
 		<div class="advanced-ads-stats-box flex1">
-			<?php echo $title; ?>
+			<?php echo $title; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			<div class="advanced-ads-stats-box-main">
 				<?php
 				// phpcs:ignore
 				echo $main;
 				?>
 			</div>
-			<?php echo $footer; ?>
+			<?php echo $footer; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		</div>
 		<?php
 	}
@@ -393,7 +391,7 @@ endif;
 			?>
 				</li><?php endif; /* bbPress */ ?>
 		<?php
-		if ( class_exists( 'BuddyPress', false ) ) : // BuddyPress or BuddyBoss
+		if ( class_exists( 'BuddyPress', false ) ) : // BuddyPress or BuddyBoss.
 			?>
 			<li>
 			<?php
@@ -512,13 +510,13 @@ endif;
 		if ( isset( $installed_plugins['advanced-ads-pro/advanced-ads-pro.php'] ) && ! class_exists( 'Advanced_Ads_Pro' ) ) { // is installed, but not active.
 			$add_ons['pro']['link']       = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=advanced-ads-pro/advanced-ads-pro.php&amp', 'activate-plugin_advanced-ads-pro/advanced-ads-pro.php' );
 			$add_ons['pro']['link_title'] = __( 'Activate now', 'advanced-ads' );
-			$installed_pro_plugins++;
+			++$installed_pro_plugins;
 		} elseif ( class_exists( 'Advanced_Ads_Pro' ) ) {
 			$add_ons['pro']['link']      = 'https://wpadvancedads.com/manual/?utm_source=advanced-ads&utm_medium=link&utm_campaign=overview-add-ons-manual';
 			$add_ons['pro']['desc']      = '';
 			$add_ons['pro']['installed'] = true;
 			$add_ons['pro']['order']     = 20;
-			$installed_pro_plugins++;
+			++$installed_pro_plugins;
 
 			// remove the add-on.
 			if ( $hide_activated ) {
@@ -530,7 +528,7 @@ endif;
 		if ( isset( $installed_plugins['advanced-ads-tracking/tracking.php'] ) && ! class_exists( 'Advanced_Ads_Tracking_Plugin' ) ) { // is installed, but not active.
 			$add_ons['tracking']['link']       = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=advanced-ads-tracking/tracking.php&amp', 'activate-plugin_advanced-ads-tracking/tracking.php' );
 			$add_ons['tracking']['link_title'] = __( 'Activate now', 'advanced-ads' );
-			$installed_pro_plugins++;
+			++$installed_pro_plugins;
 		} elseif ( class_exists( 'Advanced_Ads_Tracking_Plugin', false ) &&
 			method_exists( Advanced_Ads_Tracking_Plugin::get_instance(), 'get_tracking_method' ) ) {
 			$add_ons['tracking']['link'] = 'https://wpadvancedads.com/manual/tracking-documentation/?utm_source=advanced-ads&utm_medium=link&utm_campaign=overview-add-ons-manual';
@@ -543,7 +541,7 @@ endif;
 			}
 			$add_ons['tracking']['installed'] = true;
 			$add_ons['tracking']['order']     = 20;
-			$installed_pro_plugins++;
+			++$installed_pro_plugins;
 
 			// remove the add-on.
 			if ( $hide_activated ) {
@@ -555,13 +553,13 @@ endif;
 		if ( isset( $installed_plugins['advanced-ads-responsive/responsive-ads.php'] ) && ! class_exists( 'Advanced_Ads_Responsive_Plugin' ) ) { // is installed, but not active.
 			$add_ons['responsive']['link']       = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=advanced-ads-responsive/responsive-ads.php&amp', 'activate-plugin_advanced-ads-responsive/responsive-ads.php' );
 			$add_ons['responsive']['link_title'] = __( 'Activate now', 'advanced-ads' );
-			$installed_pro_plugins++;
+			++$installed_pro_plugins;
 		} elseif ( class_exists( 'Advanced_Ads_Responsive_Plugin' ) ) {
 			$add_ons['responsive']['link']      = 'https://wpadvancedads.com/manual/ads-on-amp-pages/?utm_source=advanced-ads&utm_medium=link&utm_campaign=overview-add-ons-manual';
 			$add_ons['responsive']['desc']      = '';
 			$add_ons['responsive']['installed'] = true;
 			$add_ons['responsive']['order']     = 20;
-			$installed_pro_plugins++;
+			++$installed_pro_plugins;
 
 			// remove the add-on.
 			if ( $hide_activated ) {
@@ -573,13 +571,13 @@ endif;
 		if ( isset( $installed_plugins['advanced-ads-gam/advanced-ads-gam.php'] ) && ! class_exists( 'Advanced_Ads_Network_Gam' ) ) { // is installed, but not active.
 			$add_ons['gam']['link']       = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=advanced-ads-gam/advanced-ads-gam.php&amp', 'activate-plugin_advanced-ads-gam/advanced-ads-gam.php' );
 			$add_ons['gam']['link_title'] = __( 'Activate now', 'advanced-ads' );
-			$installed_pro_plugins++;
+			++$installed_pro_plugins;
 		} elseif ( class_exists( 'Advanced_Ads_Network_Gam' ) ) {
 			$add_ons['gam']['link']      = 'https://wpadvancedads.com/manual/google-ad-manager-integration-manual/?utm_source=advanced-ads&utm_medium=link&utm_campaign=overview-add-ons-manual';
 			$add_ons['gam']['desc']      = '';
 			$add_ons['gam']['installed'] = true;
 			$add_ons['gam']['order']     = 20;
-			$installed_pro_plugins++;
+			++$installed_pro_plugins;
 
 			// remove the add-on.
 			if ( $hide_activated ) {
@@ -591,13 +589,13 @@ endif;
 		if ( isset( $installed_plugins['advanced-ads-sticky-ads/sticky-ads.php'] ) && ! class_exists( 'Advanced_Ads_Sticky_Plugin' ) ) { // is installed, but not active.
 			$add_ons['sticky']['link']       = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=advanced-ads-sticky-ads/sticky-ads.php&amp', 'activate-plugin_advanced-ads-sticky-ads/sticky-ads.php' );
 			$add_ons['sticky']['link_title'] = __( 'Activate now', 'advanced-ads' );
-			$installed_pro_plugins++;
+			++$installed_pro_plugins;
 		} elseif ( class_exists( 'Advanced_Ads_Sticky_Plugin' ) ) {
 			$add_ons['sticky']['link']      = 'https://wpadvancedads.com/manual/sticky-ads-documentation/?utm_source=advanced-ads&utm_medium=link&utm_campaign=overview-add-ons-manual';
 			$add_ons['sticky']['desc']      = '';
 			$add_ons['sticky']['installed'] = true;
 			$add_ons['sticky']['order']     = 20;
-			$installed_pro_plugins++;
+			++$installed_pro_plugins;
 
 			// remove the add-on.
 			if ( $hide_activated ) {
@@ -609,13 +607,13 @@ endif;
 		if ( isset( $installed_plugins['advanced-ads-layer/layer-ads.php'] ) && ! class_exists( 'Advanced_Ads_Layer_Plugin' ) ) { // is installed, but not active.
 			$add_ons['layer']['link']       = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=advanced-ads-layer/layer-ads.php&amp', 'activate-plugin_advanced-ads-layer/layer-ads.php' );
 			$add_ons['layer']['link_title'] = __( 'Activate now', 'advanced-ads' );
-			$installed_pro_plugins++;
+			++$installed_pro_plugins;
 		} elseif ( class_exists( 'Advanced_Ads_Layer_Plugin' ) ) {
 			$add_ons['layer']['link']      = 'https://wpadvancedads.com/manual/popup-and-layer-ads-documentation/?utm_source=advanced-ads&utm_medium=link&utm_campaign=overview-add-ons-manual';
 			$add_ons['layer']['desc']      = '';
 			$add_ons['layer']['installed'] = true;
 			$add_ons['layer']['order']     = 20;
-			$installed_pro_plugins++;
+			++$installed_pro_plugins;
 
 			// remove the add-on.
 			if ( $hide_activated ) {
@@ -627,15 +625,15 @@ endif;
 		if ( isset( $installed_plugins['advanced-ads-selling/advanced-ads-selling.php'] ) && ! class_exists( 'Advanced_Ads_Selling_Plugin' ) ) { // is installed, but not active.
 			$add_ons['selling']['link']       = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=advanced-ads-selling/advanced-ads-selling.php&amp', 'activate-plugin_advanced-ads-selling/advanced-ads-selling.php' );
 			$add_ons['selling']['link_title'] = __( 'Activate now', 'advanced-ads' );
-			$installed_pro_plugins++;
+			++$installed_pro_plugins;
 		} elseif ( class_exists( 'Advanced_Ads_Selling_Plugin' ) ) {
 			$add_ons['selling']['link']      = 'https://wpadvancedads.com/manual/selling-ads/?utm_source=advanced-ads&utm_medium=link&utm_campaign=overview-add-ons-manual';
 			$add_ons['selling']['desc']      = '';
 			$add_ons['selling']['installed'] = true;
 			$add_ons['selling']['order']     = 20;
-			$installed_pro_plugins++;
+			++$installed_pro_plugins;
 
-			// remove the add-on.
+			// Remove the add-on.
 			if ( $hide_activated ) {
 				unset( $add_ons['selling'] );
 			}
@@ -702,7 +700,10 @@ endif;
 		}
 
 		$all_access_expiry = Advanced_Ads_Admin_Licenses::get_instance()->get_probably_all_access_expiry();
-		// show All Access long-term pitch if less than 2 add-ons exist or All Access license is expiring within next 12 month or already expired
+
+		// show All Access long-term pitch if less than 2 add-ons exist or
+		// All Access license is expiring within next 12 month or already expired.
+
 		if (
 			$installed_pro_plugins < 2
 			|| ( $all_access_expiry && ( time() + YEAR_IN_SECONDS ) > strtotime( $all_access_expiry ) )
@@ -750,5 +751,4 @@ endif;
 	protected static function sort_by_order( $a, $b ) {
 		return $a['order'] - $b['order'];
 	}
-
 }

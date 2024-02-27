@@ -11,14 +11,14 @@ wp_enqueue_style('social-media-widget-admin-style',plugin_dir_url( __FILE__ ).'s
                 <div class="social-media-widget-plugin-box-logo-container">
                         <img src="<?php echo plugin_dir_url(__FILE__) . 'images/products/appsumo-logo.png'; ?>">
                 </div>
-                <a href="https://appsumo.com/tools/wordpress/?utm_source=sumo&utm_medium=wp-widget&utm_campaign=social-media-widget" target="_blank">AppSumo</a> Promotes great products to help you in your career and life.
+                <a href="https://appsumo.com/collections/wordpress-plugins/?utm_source=sumo&utm_medium=wp-widget&utm_campaign=social-media-widget" target="_blank">AppSumo</a> Promotes great products to help you in your career and life.
         </div>
 
         <div class="social-media-widget-plugin-box">
                 <div class="social-media-widget-plugin-box-logo-container">
                         <img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/products/sendfox-logo.svg'; ?>">
                 </div>
-                <a href="http://sendfox.com" target="_blank">SendFox</a> Email marketing for content creators.
+                <a href="https://sendfox.com" target="_blank">SendFox</a> Email marketing for content creators.
         </div>
 
         <div class="social-media-widget-plugin-box">

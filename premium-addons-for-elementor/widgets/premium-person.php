@@ -2115,8 +2115,6 @@ class Premium_Person extends Widget_Base {
 
 			var image_url = elementor.imagesManager.getImageUrl( image );
 
-			imageHtml = '<img src="' + image_url + '"/>';
-
 		}
 
 		if ( settings.multiple ) {
@@ -2251,7 +2249,7 @@ class Premium_Person extends Widget_Base {
 			<# if( 'yes' !== settings.multiple ) { #>
 			<div {{{ view.getRenderAttributeString('person_container') }}}>
 				<div class="premium-person-image-container">
-					{{{imageHtml}}}
+                    <img src="{{ image_url }}"/>
 					<# if ( 'style2' === settings.premium_person_style && 'yes' === settings.premium_person_social_enable ) { #>
 						<div class="premium-person-social">
 							<# getSocialIcons(); #>
@@ -2330,13 +2328,11 @@ class Premium_Person extends Widget_Base {
 
 						var personImageUrl = elementor.imagesManager.getImageUrl( personImage );
 
-						personImageHtml = '<img src="' + personImageUrl + '"/>';
-
 					}
 				#>
 					<div {{{ view.getRenderAttributeString('person_container') }}}>
 						<div class="premium-person-image-container">
-								{{{personImageHtml}}}
+                            <img src="{{ personImageUrl }}"/>
 							<# if ( 'style2' === settings.premium_person_style && 'yes' === person.multiple_social_enable ) { #>
 							<div class="premium-person-social">
 								<# getSocialIcons( person ); #>

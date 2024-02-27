@@ -222,7 +222,7 @@ class Options {
 				'order_list_info'               => true,
 				'subscription_value_multiplier' => 1.00,
 				'ltv'                           => [
-					'order_calculation' => [
+					'order_calculation'       => [
 						'is_active' => false,
 					],
 					'automatic_recalculation' => [
@@ -702,5 +702,21 @@ class Options {
 		return
 			self::get_options_obj()->google->analytics->ga4->data_api->property_id
 			&& !empty(self::get_options_obj()->google->analytics->ga4->data_api->credentials);
+	}
+
+	public static function is_order_duplication_prevention_option_active() {
+		return (bool) self::get_options_obj()->shop->order_deduplication;
+	}
+
+	public static function is_order_duplication_prevention_option_disabled() {
+		return !self::is_order_duplication_prevention_option_active();
+	}
+
+	public static function is_shop_variations_output_active() {
+		return (bool) self::get_options_obj()->general->variations_output;
+	}
+
+	public static function get_scroll_tracking_thresholds() {
+		return (array) self::get_options_obj()->general->scroll_tracker_thresholds;
 	}
 }

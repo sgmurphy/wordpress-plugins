@@ -30,18 +30,27 @@ add_action( 'edd_add_email_tags', 'edd_stripe_register_email_tags' );
 function edd_stripe_statement_descriptor_template_tag( $order_id ) {
 	$transaction = edd_get_order_transaction_by( 'object_id', $order_id );
 
-	if ( empty( $transaction ) || 'stripe' !== $transaction->gateway ) {
+	if ( empty( $transaction ) || empty( $transaction->transaction_id ) || 'stripe' !== $transaction->gateway ) {
 		return '';
 	}
 
 	// Now get the transaction from Stripe so we can look for the statement descriptor.
-	$stripe_transaction = edds_api_request( 'charge', 'retrieve', $transaction->transaction_id );
+	try {
+		$stripe_transaction = edds_api_request( 'charge', 'retrieve', $transaction->transaction_id );
+	} catch ( Exception $e ) {
+		return '';
+	}
+
 	if ( is_wp_error( $stripe_transaction ) || empty( $stripe_transaction->calculated_statement_descriptor ) ) {
 		return '';
 	}
 
 	// If you want to filter this, use the %s to define where you want the actual statement descriptor to show in your message.
-	$email_tag_output = __( apply_filters( 'edd_stripe_statement_descriptor_email_tag', 'Charges will appear on your card statement as %s' ), 'easy-digital-downloads' );
+	$email_tag_output = apply_filters(
+		'edd_stripe_statement_descriptor_email_tag',
+		/* translators: %s is the statement descriptor */
+		__( 'Charges will appear on your card statement as %s', 'easy-digital-downloads' )
+	);
 
 	return sprintf( $email_tag_output, $stripe_transaction->calculated_statement_descriptor );
 }

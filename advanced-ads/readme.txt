@@ -4,7 +4,7 @@ Tags: ads, adsense, amp, ads.txt, ad rotations, ad blocker, amazon, banner, clic
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.50.0
+Stable tag: 1.51.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -338,7 +338,9 @@ Yes. You can use plenty of [hooks](https://wpadvancedads.com/codex/) to customiz
 
 == Changelog ==
 
-= 1.50.0 (February 13, 2024) =
+= 1.51.0 (February 27, 2024) =
 
-- Improvement: add text flow option to the Gutenberg block
-- Improvement: add size option to the Gutenberg block
+- Feature: add an integration for PubGuru®
+- Improvement: add AdSense widget on WordPress dashboard
+- Fix: rename Advanced Ads widget on WordPress dashboard
+- Fix: refresh group page after deleting or creating a group

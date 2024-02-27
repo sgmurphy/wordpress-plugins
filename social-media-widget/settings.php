@@ -6,6 +6,8 @@ if (array_key_exists('socialwidget_global_notification', $_GET) && $_GET['social
 }
 ?>
 <div class="wrap">
+<div class="notice" style="padding: 11px 15px; border-width:1px;"><a style="text-decoration:none;" href="https://appsumo.com/search/?tags=wordpress&utm_source=sumo&utm_medium=wp-widget&utm_campaign=social-media-widget" target="_blank"><b>Turn your WordPress site into a marketing machine 🚀</b></a></div>
+
         <div class="social-media-widget-content-left">
                 <?php settings_errors(); ?>
                 <style type="text/css">
@@ -24,7 +26,7 @@ if (array_key_exists('socialwidget_global_notification', $_GET) && $_GET['social
                        <li>&#8226; Shop with confidence; 60-day money-back guarantee</li>
                     </ul>
                     <div align="center">
-                        <button onclick="window.open('https://appsumo.com/tools/wordpress/?utm_source=sumo&utm_medium=wp-widget&utm_campaign=social-media-widget')" class="social-media-widget-appsumo-capture-container-button" type="submit">Show Me The Deals</button>
+                        <button onclick="window.open('https://appsumo.com/search/?tags=wordpress&utm_source=sumo&utm_medium=wp-widget&utm_campaign=social-media-widget')" class="social-media-widget-appsumo-capture-container-button" type="submit">Show Me The Deals</button>
                     </div>
                 </div>
 

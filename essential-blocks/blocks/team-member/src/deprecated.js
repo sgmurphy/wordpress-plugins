@@ -16,17 +16,6 @@ const deprecated = [
         supports: {
             align: ["wide", "full"],
         },
-        migrate(attributes) {
-            const { imageUrl } = attributes;
-            console.log('deprecated', imageUrl)
-            const newAttributes = { ...attributes };
-            // delete newAttributes.selectedIcon;
-
-            return {
-                ...newAttributes,
-                // infoboxIcon: selectedIcon,
-            };
-        },
         save: (props) => {
             const {
                 blockId,
@@ -51,13 +40,14 @@ const deprecated = [
                 hoverPreset,
                 isContentOverlay,
             } = props.attributes;
+            console.log('deprecated', imageUrl)
 
             return (
                 <div {...useBlockProps.save()}>
                     <div
                         className={`eb-parent-wrapper eb-parent-${blockId} ${classHook}`}
                     >
-                        <div className={`${blockId} eb-team-wrapper ${preset} ${preset === 'new-preset3' ? hoverPreset : ''} ${preset === 'preset3' && isContentOverlay ? 'content-overlay' : ''}  `}>
+                        <div className={`${blockId} eb-team-wrapper ${preset} ${preset === 'new-preset3' ? hoverPreset : ''} ${preset === 'preset3' && isContentOverlay ? 'content-overlay' : ''}`}>
                             <div className="eb-team-inner">
                                 <div className="image">
                                     {avatarURL && (

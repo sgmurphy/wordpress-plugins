@@ -8,6 +8,7 @@ namespace InstagramFeed\Builder;
 
 use InstagramFeed\Builder\Tabs\SBI_Styling_Tab;
 use InstagramFeed\Builder\SBI_Feed_Saver;
+use InstagramFeed\Helpers\Util;
 
 
 class SBI_Feed_Builder {
@@ -2119,6 +2120,50 @@ class SBI_Feed_Builder {
 			'cancelBtn'       => __( 'No, maybe later', 'instagram-feed' ),
 			'uploadBtn'       => __( 'Upload Profile Picture', 'instagram-feed' )
 		);
+	}
+
+	/**
+	 * Get Smahballoon Plugins Info
+	 *
+	 * @since 6.2.9
+	 */
+	public static function get_smashballoon_plugins_info() {
+		$active_sb_plugins = Util::get_sb_active_plugins_info();
+
+        return [
+            'facebook' => [
+                'installed' => $active_sb_plugins['is_facebook_installed'],
+                'class' => 'CFF_Elementor_Widget',
+				'link' => 'https://smashballoon.com/custom-facebook-feed/',
+                'icon' => '<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.198 4.4374C10.615 4.88722 3.95971 12.2621 4.41198 20.8919C4.82091 28.6946 10.8719 34.8716 18.3927 35.651L17.8202 24.7272L13.8564 24.935L13.6192 20.4094L17.583 20.2017L17.4022 16.7528C17.197 12.8359 19.4093 10.5605 22.983 10.3732C24.684 10.284 26.4785 10.4873 26.4785 10.4873L26.6805 14.3418L24.7142 14.4449C22.7792 14.5463 22.2335 15.7798 22.2981 17.0127L22.4519 19.9465L26.7902 19.7191L26.3251 24.2815L22.6891 24.4721L23.2616 35.3959C26.9085 34.6224 30.1587 32.5706 32.4255 29.6109C34.6923 26.6513 35.8264 22.9787 35.6229 19.2562C35.1706 10.6264 27.781 3.98759 19.198 4.4374Z" fill="#006BFA"/></svg>',
+                'description' => __('Custom Facebook Feeds is a highly customizable way to display tweets from your Facebook account. Promote your latest content and update your site content automatically.', 'instagram-feed'),
+				'download_plugin' => 'https://downloads.wordpress.org/plugin/custom-facebook-feed.zip',
+            ],
+            'instagram' => [
+                'installed' => $active_sb_plugins['is_instagram_installed'],
+                'class' => 'SBI_Elementor_Widget',
+				'link' => 'https://smashballoon.com/instagram-feed/',
+                'icon' => '<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 9.91406C13.5 9.91406 9.91406 13.5703 9.91406 18C9.91406 22.5 13.5 26.0859 18 26.0859C22.4297 26.0859 26.0859 22.5 26.0859 18C26.0859 13.5703 22.4297 9.91406 18 9.91406ZM18 23.2734C15.1172 23.2734 12.7266 20.9531 12.7266 18C12.7266 15.1172 15.0469 12.7969 18 12.7969C20.8828 12.7969 23.2031 15.1172 23.2031 18C23.2031 20.9531 20.8828 23.2734 18 23.2734ZM28.2656 9.63281C28.2656 8.57812 27.4219 7.73438 26.3672 7.73438C25.3125 7.73438 24.4688 8.57812 24.4688 9.63281C24.4688 10.6875 25.3125 11.5312 26.3672 11.5312C27.4219 11.5312 28.2656 10.6875 28.2656 9.63281ZM33.6094 11.5312C33.4688 9 32.9062 6.75 31.0781 4.92188C29.25 3.09375 27 2.53125 24.4688 2.39062C21.8672 2.25 14.0625 2.25 11.4609 2.39062C8.92969 2.53125 6.75 3.09375 4.85156 4.92188C3.02344 6.75 2.46094 9 2.32031 11.5312C2.17969 14.1328 2.17969 21.9375 2.32031 24.5391C2.46094 27.0703 3.02344 29.25 4.85156 31.1484C6.75 32.9766 8.92969 33.5391 11.4609 33.6797C14.0625 33.8203 21.8672 33.8203 24.4688 33.6797C27 33.5391 29.25 32.9766 31.0781 31.1484C32.9062 29.25 33.4688 27.0703 33.6094 24.5391C33.75 21.9375 33.75 14.1328 33.6094 11.5312ZM30.2344 27.2812C29.7422 28.6875 28.6172 29.7422 27.2812 30.3047C25.1719 31.1484 20.25 30.9375 18 30.9375C15.6797 30.9375 10.7578 31.1484 8.71875 30.3047C7.3125 29.7422 6.25781 28.6875 5.69531 27.2812C4.85156 25.2422 5.0625 20.3203 5.0625 18C5.0625 15.75 4.85156 10.8281 5.69531 8.71875C6.25781 7.38281 7.3125 6.32812 8.71875 5.76562C10.7578 4.92188 15.6797 5.13281 18 5.13281C20.25 5.13281 25.1719 4.92188 27.2812 5.76562C28.6172 6.25781 29.6719 7.38281 30.2344 8.71875C31.0781 10.8281 30.8672 15.75 30.8672 18C30.8672 20.3203 31.0781 25.2422 30.2344 27.2812Z" fill="url(#paint0_linear)"></path><defs><linearGradient id="paint0_linear" x1="13.4367" y1="62.5289" x2="79.7836" y2="-5.19609" gradientUnits="userSpaceOnUse"><stop stop-color="white"></stop><stop offset="0.147864" stop-color="#F6640E"></stop><stop offset="0.443974" stop-color="#BA03A7"></stop><stop offset="0.733337" stop-color="#6A01B9"></stop><stop offset="1" stop-color="#6B01B9"></stop></linearGradient></defs></svg>',
+                'description' => __('Instagram Feeds is a highly customizable way to display tweets from your Instagram account. Promote your latest content and update your site content automatically.', 'instagram-feed'),
+				'download_plugin' => 'https://downloads.wordpress.org/plugin/instagram-feed.zip',
+            ],
+            'twitter' => [
+                'installed' => $active_sb_plugins['is_twitter_installed'],
+                'class' => 'CTF_Elementor_Widget',
+				'link' => 'https://smashballoon.com/custom-twitter-feeds/',
+                'icon' => '<svg width="31" height="27" viewBox="0 0 31 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M30.2343 3.19694C29.1196 3.77582 27.9066 4.18141 26.6398 4.41138C27.9036 3.55701 28.8468 2.25846 29.2428 0.735778C28.0508 1.54178 26.7137 2.13232 25.2907 2.5043C24.0523 1.29034 22.3674 0.63512 20.4988 0.733046C17.0138 0.915688 14.3157 3.91223 14.4999 7.42689C14.5263 7.9311 14.6113 8.41738 14.7392 8.87166C9.4458 8.88141 4.61186 6.59188 1.28148 2.91496C0.781741 3.87799 0.527828 4.99171 0.588449 6.14844C0.704251 8.35808 1.91908 10.2573 3.69762 11.2794C2.64471 11.3346 1.6504 11.0893 0.766952 10.6895L0.769284 10.734C0.930941 13.8185 3.26098 16.2839 6.19793 16.7099C5.27812 17.0142 4.30028 17.1011 3.34122 16.9637C3.81026 18.2068 4.65708 19.2717 5.76263 20.0086C6.86818 20.7455 8.17687 21.1175 9.50474 21.0721C7.3493 22.9702 4.61227 24.0786 1.74347 24.2151C1.23926 24.2415 0.733488 24.2383 0.226167 24.2054C3.13864 25.8669 6.54536 26.7442 10.1342 26.5561C21.82 25.9437 27.7331 15.9085 27.2924 7.49999C27.2776 7.21822 27.2636 6.95129 27.234 6.6703C28.4331 5.71523 29.4418 4.5322 30.2343 3.19694Z" fill="#1B90EF"/></svg>',
+                'description' => __('Custom Twitter Feeds is a highly customizable way to display tweets from your Twitter account. Promote your latest content and update your site content automatically.', 'instagram-feed'),
+				'download_plugin' => 'https://downloads.wordpress.org/plugin/custom-twitter-feeds.zip',
+            ],
+            'youtube' => [
+                'installed' => $active_sb_plugins['is_youtube_installed'],
+                'class' => 'SBY_Elementor_Widget',
+				'link' => 'https://smashballoon.com/youtube-feed/',
+                'icon' => '<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 22.5L22.785 18L15 13.5V22.5ZM32.34 10.755C32.535 11.46 32.67 12.405 32.76 13.605C32.865 14.805 32.91 15.84 32.91 16.74L33 18C33 21.285 32.76 23.7 32.34 25.245C31.965 26.595 31.095 27.465 29.745 27.84C29.04 28.035 27.75 28.17 25.77 28.26C23.82 28.365 22.035 28.41 20.385 28.41L18 28.5C11.715 28.5 7.8 28.26 6.255 27.84C4.905 27.465 6.035 26.595 3.66 25.245C3.465 24.54 3.33 23.595 3.24 22.395C3.135 21.195 3.09 20.16 3.09 19.26L3 18C3 14.715 3.24 12.3 3.66 10.755C6.035 9.405 4.905 8.535 6.255 8.16C6.96 7.965 8.25 7.83 10.23 7.74C12.18 7.635 13.965 7.59 15.615 7.59L18 7.5C24.285 7.5 28.2 7.74 29.745 8.16C31.095 8.535 31.965 9.405 32.34 10.755Z" fill="#EB2121"></path></svg>',
+                'description' => __('YouTube Feeds is a highly customizable way to display tweets from your YouTube account. Promote your latest content and update your site content automatically.', 'instagram-feed'),
+				'download_plugin' => 'https://downloads.wordpress.org/plugin/feeds-for-youtube.zip',
+            ]
+        ];
 	}
 
 }

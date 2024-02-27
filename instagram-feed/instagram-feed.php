@@ -3,7 +3,7 @@
 Plugin Name: Smash Balloon Instagram Feed
 Plugin URI: https://smashballoon.com/instagram-feed
 Description: Display beautifully clean, customizable, and responsive Instagram feeds.
-Version: 6.2.8
+Version: 6.2.9
 Author: Smash Balloon
 Author URI: https://smashballoon.com/
 License: GPLv2 or later
@@ -32,7 +32,7 @@ if ( ! defined( 'SBI_PLUGIN_NAME' ) ) {
 	define( 'SBI_PLUGIN_NAME', 'Instagram Feed Free' );
 }
 if ( ! defined( 'SBIVER' ) ) {
-	define( 'SBIVER', '6.2.8' );
+	define( 'SBIVER', '6.2.9' );
 }
 // Db version.
 if ( ! defined( 'SBI_DBVERSION' ) ) {
@@ -65,9 +65,8 @@ if ( ! defined( 'SBI_CONNECT_URL' ) ) {
 }
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-if ( function_exists( 'sb_instagram_feed_init' ) ) {
-	wp_die( "Please deactivate Custom Feeds for Instagram Pro before activating this version.<br /><br />Back to the WordPress <a href='".get_admin_url(null, 'plugins.php')."'>Plugins page</a>." );
-} else {
+if ( ! function_exists( 'sb_instagram_feed_init' ) ) 
+{
 	/**
 	 * Define constants and load plugin files
 	 *
@@ -212,7 +211,9 @@ if ( function_exists( 'sb_instagram_feed_init' ) ) {
 		$sbi_onboarding_wizard	= new InstagramFeed\admin\SBI_Onboarding_wizard();
 
 		$sbi_support_tool = new InstagramFeed\Admin\SBI_Support_Tool();
-
+		
+		InstagramFeed\Integrations\Elementor\SBI_Elementor_Base::instance();
+		$sbi_divi_handler = new InstagramFeed\Integrations\Divi\SBI_Divi_Handler();
 
 	}
 

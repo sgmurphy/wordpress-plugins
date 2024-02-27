@@ -110,6 +110,15 @@ class Advanced_Ads_Network_Adsense extends Advanced_Ads_Ad_Network {
 			$section_id
 		);
 
+		// Show AdSense widget on WP Dashboard.
+		add_settings_field(
+			'adsense_wp_dashboard',
+			__( 'Show AdSense Earnings', 'advanced-ads' ),
+			[ $this, 'render_settings_adsense_wp_dashboard' ],
+			$hook,
+			$section_id
+		);
+
 		add_settings_field(
 			'adsense-background',
 			__( 'Transparent background', 'advanced-ads' ),
@@ -173,6 +182,20 @@ class Advanced_Ads_Network_Adsense extends Advanced_Ads_Ad_Network {
 		<label>
 			<input type="checkbox" name="<?php echo esc_attr( GADSENSE_OPT_NAME ); ?>[hide-stats]" value="1" <?php checked( $hide_stats ); ?> />
 			<?php esc_html_e( 'Enable this option to stop loading stats from AdSense into your WordPress backend.', 'advanced-ads' ); ?>
+		</label>
+		<?php
+	}
+
+	/**
+	 * Render setting to hide AdSense stats showing in the backend
+	 */
+	public function render_settings_adsense_wp_dashboard() {
+		$options     = $this->data->get_options();
+		$show_widget = isset( $options['adsense-wp-widget'] );
+		?>
+		<label>
+			<input type="checkbox" name="<?php echo esc_attr( GADSENSE_OPT_NAME ); ?>[adsense-wp-widget]" value="1" <?php checked( $show_widget ); ?> />
+			<?php esc_html_e( 'Show Earnings widget on the WordPress dashboard.', 'advanced-ads' ); ?>
 		</label>
 		<?php
 	}

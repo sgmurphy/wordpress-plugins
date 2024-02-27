@@ -126,6 +126,8 @@ class Premium_Template_Tags {
 		);
 
 		$is_mbinstalled = extension_loaded( 'mbstring' );
+		$options = array();
+		
 		if ( ! empty( $all_posts ) && ! is_wp_error( $all_posts ) ) {
 			foreach ( $all_posts as $post ) {
 

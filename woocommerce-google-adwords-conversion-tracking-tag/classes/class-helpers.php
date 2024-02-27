@@ -560,18 +560,18 @@ class Helpers
      * @return array The version information.
      *  - 'number' : string : The current version number.
      *  - 'pro' : bool : Whether the software is a premium version or not.
-     *  - 'eligibleForUpdates' : bool : Whether the software can receive updates or not.
+     *  - 'eligible_for_updates' : bool : Whether the software can receive updates or not.
      *  - 'distro' : string : The distribution identifier of the software.
      *  - 'beta' : bool : Whether the software is a beta version or not.
      */
     public static function get_version_info()
     {
         return [
-            'number'             => PMW_CURRENT_VERSION,
-            'pro'                => wpm_fs()->is__premium_only(),
-            'eligibleForUpdates' => wpm_fs()->can_use_premium_code__premium_only(),
-            'distro'             => PMW_DISTRO,
-            'beta'               => self::is_beta(),
+            'number'               => PMW_CURRENT_VERSION,
+            'pro'                  => wpm_fs()->is__premium_only(),
+            'eligible_for_updates' => wpm_fs()->can_use_premium_code__premium_only(),
+            'distro'               => PMW_DISTRO,
+            'beta'                 => self::is_beta(),
         ];
     }
     

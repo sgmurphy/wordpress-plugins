@@ -70,4 +70,22 @@ class WordPress {
 
 		return apply_filters( 'advanced-ads-capability', $capability );
 	}
+
+	/**
+	 * Get site domain
+	 *
+	 * @param string $part Part of domain.
+	 *
+	 * @return string
+	 */
+	public static function get_site_domain( $part = 'host' ): string {
+		$domain = wp_parse_url( home_url( '/' ), PHP_URL_HOST );
+
+		if ( 'name' === $part ) {
+			$domain = explode( '.', $domain );
+			$domain = count( $domain ) > 2 ? $domain[1] : $domain[0];
+		}
+
+		return $domain;
+	}
 }

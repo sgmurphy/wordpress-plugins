@@ -405,28 +405,28 @@ export default function Style(props) {
 		.eb-slider-wrapper.${blockId} .slick-slide > * {
 			${slidesGapDesktop}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item {
 			text-align: ${textAlign};
 			align-items: ${verticalAlign};
 		}
 		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
 			${isCustomHeight ? sliderHeightDesktop : ""}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item.content-1 .eb-slider-content {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item.content-1 .eb-slider-content {
 			background-color: ${overlayColor};
 			justify-content: ${verticalAlign};
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-title {
 			color: ${titleColor};
 			${titleMarginDesktop}
 			${titleTypographyDesktop}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
 			color: ${subtitleColor};
 			${subtitleMarginDesktop}
 			${subtitleTypographyDesktop}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-button {
 			color: ${buttonColor};
 			background-color: ${buttonBGColor};
 			${buttonMarginDesktop}
@@ -435,14 +435,14 @@ export default function Style(props) {
 			${buttonBDShadowDesktop}
 			transition: ${buttonBDShadowTransitionStyle};
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
 			color: ${buttonHoverColor};
 			background-color: ${buttonHoverBGColor};
 			${buttonTypographyDesktop}
 			${buttonBDShadowHoverDesktop}
 		}
 
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-second-button {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-second-button {
 			color: ${secondButtonColor};
 			background-color: ${secondButtonBGColor};
 			${button2MarginDesktop}
@@ -451,7 +451,7 @@ export default function Style(props) {
 			${button2BDShadowDesktop}
 			transition: ${button2BDShadowTransitionStyle};
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-second-button:hover {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-second-button:hover {
 			color: ${secondButtonHoverColor};
 			background-color: ${secondButtonHoverBGColor};
 			${button2TypographyDesktop}
@@ -471,32 +471,32 @@ export default function Style(props) {
             : ""
         }
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-title {
 			${titleMarginTab}
 			${titleTypographyTab}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
 			${subtitleMarginTab}
 			${subtitleTypographyTab}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-button {
 			${buttonMarginTab}
 			${buttonPaddingTab}
 			${buttonTypographyTab}
 			${buttonBDShadowTab}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
 			${buttonTypographyTab}
 			${buttonBDShadowHoverTab}
 		}
 
-        .eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-second-button {
+        .eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-second-button {
 			${button2MarginTab}
 			${button2PaddingTab}
 			${button2TypographyTab}
 			${button2BDShadowTab}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-second-button:hover {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-second-button:hover {
 			${button2TypographyTab}
 			${button2BDShadowHoverTab}
 		}
@@ -514,31 +514,31 @@ export default function Style(props) {
             : ""
         }
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-title {
 			${titleMarginMobile}
 			${titleTypographyMobile}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
 			${subtitleMarginMobile}
 			${subtitleTypographyMobile}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-button {
 			${buttonMarginMobile}
 			${buttonPaddingMobile}
 			${buttonTypographyMobile}
 			${buttonBDShadowMobile}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
 			${buttonTypographyMobile}
 			${buttonBDShadowHoverMobile}
 		}
-        .eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-second-button {
+        .eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-second-button {
 			${button2MarginMobile}
 			${button2PaddingMobile}
 			${button2TypographyMobile}
 			${button2BDShadowMobile}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-second-button:hover {
+		.eb-slider-wrapper.${blockId} .eb-slider-type-content .eb-slider-item .eb-slider-content .eb-slider-second-button:hover {
 			${button2TypographyMobile}
 			${button2BDShadowHoverMobile}
 		}

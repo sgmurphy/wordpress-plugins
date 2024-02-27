@@ -36,7 +36,6 @@ class Pixel_Manager
     protected  $google ;
     protected  $microdata_product_id ;
     protected  $order ;
-    protected  $position = 1 ;
     protected  $rest_namespace = 'pmw/v1' ;
     protected  $gads_conversion_adjustments_route = '/google-ads/conversion-adjustments.csv' ;
     protected  $user_data = array() ;
@@ -373,15 +372,15 @@ class Pixel_Manager
         // Check if a data layer products transient for this page exists
         // If it does, add the products from the transient to $products
         
-        if ( get_transient( 'pmw_products_for_datalayer_' . $data['pageId'] ) ) {
-            $products_in_transient = get_transient( 'pmw_products_for_datalayer_' . $data['pageId'] );
+        if ( get_transient( 'pmw_products_for_datalayer_' . $data['page_id'] ) ) {
+            $products_in_transient = get_transient( 'pmw_products_for_datalayer_' . $data['page_id'] );
             // Merge the associative arrays with nested arrays $products and $products_in_transient preserving the keys
             $products = array_replace_recursive( $products, $products_in_transient );
         }
         
-        // Set transient with products for $data['pageId']
+        // Set transient with products for $data['page_id']
         if ( 'cart' !== $data['pageType'] && 'checkout' !== $data['pageType'] && 'order_received_page' !== $data['pageType'] ) {
-            set_transient( 'pmw_products_for_datalayer_' . $data['pageId'], $products, MONTH_IN_SECONDS );
+            set_transient( 'pmw_products_for_datalayer_' . $data['page_id'], $products, MONTH_IN_SECONDS );
         }
         wp_send_json_success( $products );
     }
@@ -608,8 +607,8 @@ class Pixel_Manager
         //		$json_encode_options = $json_encode_options | JSON_PRETTY_PRINT;
         ?>
 		<script>
-			window.wpmDataLayer.cartItemKeys                                          = window.wpmDataLayer.cartItemKeys || {}
-			window.wpmDataLayer.cartItemKeys['<?php 
+			window.wpmDataLayer.cart_item_keys                                          = window.wpmDataLayer.cart_item_keys || {}
+			window.wpmDataLayer.cart_item_keys['<?php 
         echo  esc_js( $cart_item_key ) ;
         ?>'] = <?php 
         echo  wp_json_encode( $data, $json_encode_options ) ;
@@ -778,12 +777,9 @@ class Pixel_Manager
          * Load and set some defaults.
          */
         $data = [
-            'cart'                => (object) [],
-            'cart_item_keys'      => (object) [],
-            'orderDeduplication'  => $this->options['shop']['order_deduplication'] && !Shop::is_nodedupe_parameter_set(),
-            'position'            => 1,
-            'viewItemListTrigger' => $this->view_item_list_trigger_settings(),
-            'version'             => Helpers::get_version_info(),
+            'cart'           => (object) [],
+            'cart_item_keys' => (object) [],
+            'version'        => Helpers::get_version_info(),
         ];
         /**
          * Load the pixels
@@ -1248,31 +1244,6 @@ class Pixel_Manager
         return $data;
     }
     
-    public function view_item_list_trigger_settings()
-    {
-        $settings = [
-            'testMode'        => false,
-            'backgroundColor' => 'green',
-            'opacity'         => 0.5,
-            'repeat'          => true,
-            'timeout'         => 1000,
-            'threshold'       => 0.8,
-        ];
-        $settings = apply_filters_deprecated(
-            'wooptpm_view_item_list_trigger_settings',
-            [ $settings ],
-            '1.13.0',
-            'pmw_view_item_list_trigger_settings'
-        );
-        $settings = apply_filters_deprecated(
-            'wpm_view_item_list_trigger_settings',
-            [ $settings ],
-            '1.31.2',
-            'pmw_view_item_list_trigger_settings'
-        );
-        return apply_filters( 'pmw_view_item_list_trigger_settings', $settings );
-    }
-    
     public function inject_pmw_opening()
     {
         echo  PHP_EOL . '<!-- START Pixel Manager for WooCommerce -->' . PHP_EOL ;
@@ -1317,17 +1288,17 @@ class Pixel_Manager
             }
             
             $data['cart_item_keys'][$cart_item] = [
-                'id'          => (string) $product->get_id(),
-                'isVariation' => false,
+                'id'           => (string) $product->get_id(),
+                'is_variation' => false,
             ];
             $data['cart'][$product->get_id()] = [
-                'id'          => (string) $product->get_id(),
-                'dyn_r_ids'   => Product::get_dyn_r_ids( $product ),
-                'name'        => $product->get_name(),
-                'brand'       => Product::get_brand_name( $product->get_id() ),
-                'quantity'    => (int) $value['quantity'],
-                'price'       => (double) $product->get_price(),
-                'isVariation' => false,
+                'id'           => (string) $product->get_id(),
+                'dyn_r_ids'    => Product::get_dyn_r_ids( $product ),
+                'name'         => $product->get_name(),
+                'brand'        => Product::get_brand_name( $product->get_id() ),
+                'quantity'     => (int) $value['quantity'],
+                'price'        => (double) $product->get_price(),
+                'is_variation' => false,
             ];
             
             if ( 'variation' === $product->get_type() ) {
@@ -1335,14 +1306,14 @@ class Pixel_Manager
                 
                 if ( $parent_product ) {
                     $data['cart'][$product->get_id()]['name'] = $parent_product->get_name();
-                    $data['cart'][$product->get_id()]['parentId'] = (string) $parent_product->get_id();
-                    $data['cart'][$product->get_id()]['parentId_dyn_r_ids'] = Product::get_dyn_r_ids( $parent_product );
+                    $data['cart'][$product->get_id()]['parent_id'] = (string) $parent_product->get_id();
+                    $data['cart'][$product->get_id()]['parent_id_dyn_r_ids'] = Product::get_dyn_r_ids( $parent_product );
                     $data['cart'][$product->get_id()]['brand'] = Product::get_brand_name( $parent_product->get_id() );
                 } else {
                     Logger::debug( 'Variation ' . $product->get_id() . ' doesn\'t link to a valid parent product.' );
                 }
                 
-                $data['cart'][$product->get_id()]['isVariation'] = true;
+                $data['cart'][$product->get_id()]['is_variation'] = true;
                 $data['cart'][$product->get_id()]['category'] = Product::get_product_category( $product->get_parent_id() );
                 $variant_text_array = [];
                 $attributes = $product->get_attributes();
@@ -1353,8 +1324,8 @@ class Pixel_Manager
                     }
                 }
                 $data['cart'][$product->get_id()]['variant'] = (string) implode( ' | ', $variant_text_array );
-                $data['cart_item_keys'][$cart_item]['parentId'] = (string) $product->get_parent_id();
-                $data['cart_item_keys'][$cart_item]['isVariation'] = true;
+                $data['cart_item_keys'][$cart_item]['parent_id'] = (string) $product->get_parent_id();
+                $data['cart_item_keys'][$cart_item]['is_variation'] = true;
             } else {
                 $data['cart'][$product->get_id()]['category'] = Product::get_product_category( $product->get_id() );
             }
@@ -1580,6 +1551,9 @@ class Pixel_Manager
             'addToCart'     => (array) apply_filters( 'pmw_add_selectors_add_to_cart', [] ),
             'beginCheckout' => (array) apply_filters( 'pmw_add_selectors_begin_checkout', [] ),
         ];
+        $data['order_duplication_prevention'] = Shop::is_order_duplication_prevention_active();
+        $data['view_item_list_trigger'] = Shop::view_item_list_trigger_settings();
+        $data['variations_output'] = Options::is_shop_variations_output_active();
         return $data;
     }
     
@@ -1591,16 +1565,15 @@ class Pixel_Manager
     private function get_general_data()
     {
         return [
-            'variationsOutput'         => (bool) $this->options_obj->general->variations_output,
-            'userLoggedIn'             => is_user_logged_in(),
-            'scrollTrackingThresholds' => $this->options_obj->general->scroll_tracker_thresholds,
-            'pageId'                   => get_the_ID(),
-            'excludeDomains'           => apply_filters( 'pmw_exclude_domains_from_tracking', [] ),
-            'server2server'            => [
-            'active'        => Options::server_2_server_enabled(),
-            'ipExcludeList' => apply_filters( 'pmw_exclude_ips_from_server2server_events', [] ),
+            'user_logged_in'             => is_user_logged_in(),
+            'scroll_tracking_thresholds' => Options::get_scroll_tracking_thresholds(),
+            'page_id'                    => get_the_ID(),
+            'exclude_domains'            => apply_filters( 'pmw_exclude_domains_from_tracking', [] ),
+            'server_2_server'            => [
+            'active'          => Options::server_2_server_enabled(),
+            'ip_exclude_list' => apply_filters( 'pmw_exclude_ips_from_server_2_server_events', [] ),
         ],
-            'cookie_consent_mgmt'      => [
+            'cookie_consent_mgmt'        => [
             'explicit_consent' => Options::is_cookie_consent_explicit_consent_active(),
         ],
         ];

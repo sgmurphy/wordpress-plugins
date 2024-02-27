@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/advanced-ads/framework.git",
-                "reference": "8e94f89f0638d9b49d5320fbfcf27a7415eb70ba"
+                "reference": "95e385daf3e3f11125711f43c5f7c437e00b075d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/advanced-ads/framework/zipball/8e94f89f0638d9b49d5320fbfcf27a7415eb70ba",
-                "reference": "8e94f89f0638d9b49d5320fbfcf27a7415eb70ba",
+                "url": "https://api.github.com/repos/advanced-ads/framework/zipball/95e385daf3e3f11125711f43c5f7c437e00b075d",
+                "reference": "95e385daf3e3f11125711f43c5f7c437e00b075d",
                 "shasum": ""
             },
             "require": {
@@ -22,7 +22,7 @@
                 "phpcompatibility/phpcompatibility-wp": "*",
                 "wp-coding-standards/wpcs": "^3.0.0"
             },
-            "time": "2023-12-15T07:09:11+00:00",
+            "time": "2023-12-18T07:33:42+00:00",
             "default-branch": true,
             "type": "wordpress-plugin",
             "installation-source": "dist",
@@ -117,59 +117,6 @@
                 }
             ],
             "install-path": "../mobiledetect/mobiledetectlib"
-        },
-        {
-            "name": "yoast/i18n-module",
-            "version": "3.1.1",
-            "version_normalized": "3.1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Yoast/i18n-module.git",
-                "reference": "9d0a2f6daea6fb42376b023e7778294d19edd85d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/i18n-module/zipball/9d0a2f6daea6fb42376b023e7778294d19edd85d",
-                "reference": "9d0a2f6daea6fb42376b023e7778294d19edd85d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2"
-            },
-            "require-dev": {
-                "roave/security-advisories": "dev-master",
-                "yoast/yoastcs": "^1.2.2"
-            },
-            "time": "2019-05-07T06:45:05+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Team Yoast",
-                    "email": "support@yoast.com",
-                    "homepage": "https://yoast.com"
-                }
-            ],
-            "description": "Handle i18n for WordPress plugins.",
-            "homepage": "https://github.com/Yoast/i18n-module",
-            "keywords": [
-                "wordpress"
-            ],
-            "support": {
-                "issues": "https://github.com/Yoast/i18n-module/issues",
-                "source": "https://github.com/Yoast/i18n-module"
-            },
-            "abandoned": true,
-            "install-path": "../yoast/i18n-module"
         }
     ],
     "dev": false,

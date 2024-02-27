@@ -62,6 +62,8 @@ const Save = ({ attributes }) => {
         ],
     };
 
+    const sliderTypeClass = sliderType === 'content' ? 'eb-slider-type-content' : 'eb-slider-type-image';
+
     return (
         <div {...useBlockProps.save()}>
             <div
@@ -79,7 +81,7 @@ const Save = ({ attributes }) => {
                     data-titleTag={titleTag}
                     data-contentTag={contentTag}
                 >
-                    <div className={sliderType}>
+                    <div className={sliderTypeClass}>
                         {images.map((image, index) => (
                             <div
                                 className={`eb-slider-item ${sliderContentType}`}

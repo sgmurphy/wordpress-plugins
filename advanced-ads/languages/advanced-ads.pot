@@ -2,19 +2,20 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Advanced Ads 1.49.0\n"
+"Project-Id-Version: Advanced Ads 1.50.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/advanced-ads/\n"
 "Last-Translator: Thomas Maier <post@webzunft.de>\n"
 "Language-Team: webgilde <support@wpadvancedads.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-13T10:44:21+00:00\n"
+"POT-Creation-Date: 2024-02-27T09:52:03+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: advanced-ads\n"
 
 #. Plugin Name of the plugin
+#: admin/includes/class-meta-box.php:564
 #: modules/gutenberg/includes/class-gutenberg.php:136
 msgid "Advanced Ads"
 msgstr ""
@@ -331,7 +332,7 @@ msgid "Pro Feature"
 msgstr ""
 
 #: admin/includes/class-admin-upgrades.php:112
-#: admin/includes/class-overview-widgets.php:463
+#: admin/includes/class-overview-widgets.php:461
 msgid "A quick and error-free way of implementing ad units from your Google Ad Manager account."
 msgstr ""
 
@@ -433,45 +434,50 @@ msgstr ""
 msgid "Showing search results for"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:66
+#: admin/includes/class-meta-box.php:50
+#: admin/includes/class-overview-widgets.php:68
+msgid "AdSense Earnings"
+msgstr ""
+
+#: admin/includes/class-meta-box.php:101
 msgid "Ad Type"
 msgstr ""
 
 #. translators: 1: Name of ad unit
-#: admin/includes/class-meta-box.php:84
+#: admin/includes/class-meta-box.php:119
 msgid "Earnings of  %1$s"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:102
+#: admin/includes/class-meta-box.php:137
 #: includes/admin/class-groups-list-table.php:442
 #: views/admin/screens/placements.php:351
 msgid "Usage"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:111
+#: admin/includes/class-meta-box.php:146
 msgid "Ad Parameters"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:119
+#: admin/includes/class-meta-box.php:154
 #: admin/includes/class-settings.php:73
 msgid "Layout / Output"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:127
+#: admin/includes/class-meta-box.php:162
 msgid "Targeting"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:136
+#: admin/includes/class-meta-box.php:171
 msgid "Increase your ad revenue"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:146
+#: admin/includes/class-meta-box.php:181
 msgid "Statistics"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:217
-#: admin/includes/class-meta-box.php:231
-#: admin/includes/class-overview-widgets.php:182
+#: admin/includes/class-meta-box.php:252
+#: admin/includes/class-meta-box.php:266
+#: admin/includes/class-overview-widgets.php:181
 #: admin/views/ad-main-metabox.php:29
 #: admin/views/ad-output-metabox.php:43
 #: admin/views/conditions/condition-device.php:31
@@ -491,11 +497,11 @@ msgstr ""
 msgid "Manual"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:235
+#: admin/includes/class-meta-box.php:270
 msgid "Video"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:236
+#: admin/includes/class-meta-box.php:271
 #: admin/views/conditions/ad-targeting-metabox.php:18
 #: classes/ad-debug.php:152
 #: views/admin/screens/placements.php:230
@@ -503,7 +509,7 @@ msgstr ""
 msgid "Display Conditions"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:237
+#: admin/includes/class-meta-box.php:272
 #: admin/views/conditions/ad-targeting-metabox.php:37
 #: classes/ad-debug.php:239
 #: views/admin/screens/placements.php:239
@@ -511,41 +517,34 @@ msgstr ""
 msgid "Visitor Conditions"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:268
+#: admin/includes/class-meta-box.php:303
 #: admin/includes/class-overview-widgets.php:64
 msgid "Disable"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:430
+#: admin/includes/class-meta-box.php:465
 msgid "Ad Settings"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:529
-#: includes/admin/pages/class-dashboard.php:33
-#: includes/admin/pages/class-dashboard.php:44
-#: includes/admin/pages/class-dashboard.php:45
-msgid "Dashboard"
-msgstr ""
-
 #. translators: %1$d is the number of ads, %2$s and %3$s are URLs.
-#: admin/includes/class-meta-box.php:545
+#: admin/includes/class-meta-box.php:580
 msgid "%1$d ads – <a href=\"%2$s\">manage</a> - <a href=\"%3$s\">new</a>"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:558
+#: admin/includes/class-meta-box.php:593
 msgid "Get the tutorial via email"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:567
+#: admin/includes/class-meta-box.php:602
 msgid "Get AdSense tips via email"
 msgstr ""
 
-#: admin/includes/class-meta-box.php:576
+#: admin/includes/class-meta-box.php:611
 msgid "Visit our blog for more articles about ad optimization"
 msgstr ""
 
 #. translators: %s is our URL.
-#: admin/includes/class-meta-box.php:631
+#: admin/includes/class-meta-box.php:666
 msgid "Latest posts on wpadvancedads.com"
 msgstr ""
 
@@ -571,16 +570,12 @@ msgstr ""
 msgid "Manual and Support"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:68
-msgid "AdSense Earnings"
-msgstr ""
-
 #: admin/includes/class-overview-widgets.php:75
 #: includes/admin/class-action-links.php:59
 msgid "Add-Ons"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:118
+#: admin/includes/class-overview-widgets.php:116
 #: admin/views/notices/welcome-panel.php:15
 #: admin/views/placements-item.php:68
 #: includes/admin/class-assets.php:71
@@ -589,193 +584,193 @@ msgstr ""
 msgid "Create your first ad"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:121
+#: admin/includes/class-overview-widgets.php:120
 #: modules/gadsense/admin/views/adsense-account.php:115
 #: modules/gadsense/admin/views/adsense-account.php:135
 msgid "Connect to AdSense"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:132
+#: admin/includes/class-overview-widgets.php:131
 msgid "Join the newsletter for more benefits"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:134
+#: admin/includes/class-overview-widgets.php:133
 msgid "Get 2 free add-ons"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:135
+#: admin/includes/class-overview-widgets.php:134
 msgid "Get the first steps and more tutorials to your inbox"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:136
+#: admin/includes/class-overview-widgets.php:135
 msgid "How to earn more with AdSense"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:141
+#: admin/includes/class-overview-widgets.php:140
 msgid "Join now"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:153
+#: admin/includes/class-overview-widgets.php:152
 msgid "Do you find Advanced Ads useful and would like to keep us motivated? Please help us with a review."
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:155
+#: admin/includes/class-overview-widgets.php:154
 msgid "Sure, I’ll rate the plugin"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:157
+#: admin/includes/class-overview-widgets.php:156
 msgid "I already did"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:164
+#: admin/includes/class-overview-widgets.php:163
 msgid "Manage your ads"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:170
+#: admin/includes/class-overview-widgets.php:169
 msgid "Get the All Access pass"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:186
+#: admin/includes/class-overview-widgets.php:185
 msgid "FAQ and Support"
 msgstr ""
 
 #. translators: %s is a URL.
-#: admin/includes/class-overview-widgets.php:194
+#: admin/includes/class-overview-widgets.php:193
 msgid "Thank the developer with a &#9733;&#9733;&#9733;&#9733;&#9733; review on <a href=\"%s\" target=\"_blank\">wordpress.org</a>"
 msgstr ""
 
 #. translators: %s is the number of hidden notices.
-#: admin/includes/class-overview-widgets.php:217
+#: admin/includes/class-overview-widgets.php:216
 #: admin/views/overview-notices.php:33
 msgid "Show %s hidden notices"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:357
+#: admin/includes/class-overview-widgets.php:355
 msgid "How to download, install and activate an add-on."
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:365
+#: admin/includes/class-overview-widgets.php:363
 msgid "The solution for professional websites."
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:374
+#: admin/includes/class-overview-widgets.php:372
 #: admin/views/upgrades/pro-tab.php:7
 msgid "support for cached sites"
 msgstr ""
 
 #. translators: %s is the name of another plugin.
-#: admin/includes/class-overview-widgets.php:390
-#: admin/includes/class-overview-widgets.php:402
-#: admin/includes/class-overview-widgets.php:414
-#: admin/includes/class-overview-widgets.php:426
+#: admin/includes/class-overview-widgets.php:388
+#: admin/includes/class-overview-widgets.php:400
+#: admin/includes/class-overview-widgets.php:412
+#: admin/includes/class-overview-widgets.php:424
 msgid "integrates with <strong>%s</strong>"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:431
+#: admin/includes/class-overview-widgets.php:429
 msgid "click fraud protection, lazy load, ad-block ads"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:432
+#: admin/includes/class-overview-widgets.php:430
 #: admin/views/upgrades/pro-tab.php:9
 msgid "11 more display and visitor conditions"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:433
+#: admin/includes/class-overview-widgets.php:431
 #: admin/views/upgrades/pro-tab.php:10
 msgid "6 more placements"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:434
+#: admin/includes/class-overview-widgets.php:432
 #: admin/views/upgrades/pro-tab.php:11
 msgid "placement tests for ad optimization"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:435
+#: admin/includes/class-overview-widgets.php:433
 #: admin/views/upgrades/pro-tab.php:8
 msgid "Geo Targeting"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:436
+#: admin/includes/class-overview-widgets.php:434
 #: admin/views/upgrades/pro-tab.php:12
 msgid "ad grids and many more advanced features"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:451
+#: admin/includes/class-overview-widgets.php:449
 msgid "Analyze clicks and impressions of your ads locally or in Google Analytics, share reports, and limit ads to a specific number of impressions or clicks."
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:457
+#: admin/includes/class-overview-widgets.php:455
 msgid "Effortlessly integrate your ads on AMP (Accelerated Mobile Pages) and auto-convert your Google AdSense ad units."
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:469
+#: admin/includes/class-overview-widgets.php:467
 msgid "Increase click rates on your ads by placing them in sticky positions above, next or below your site."
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:475
+#: admin/includes/class-overview-widgets.php:473
 msgid "Users will never miss an ad or other information in a PopUp. Choose when it shows up and for how long a user can close it."
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:481
+#: admin/includes/class-overview-widgets.php:479
 msgid "Earn more money and let advertisers pay for ad space directly on the frontend of your site."
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:487
+#: admin/includes/class-overview-widgets.php:485
 msgid "Create a beautiful and simple slider from your ads to show more information on less space."
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:493
+#: admin/includes/class-overview-widgets.php:491
 msgid "Place AdSense In-feed ads between posts on homepage, category, and archive pages."
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:496
-#: admin/includes/class-overview-widgets.php:668
-#: admin/includes/class-overview-widgets.php:684
+#: admin/includes/class-overview-widgets.php:494
+#: admin/includes/class-overview-widgets.php:666
+#: admin/includes/class-overview-widgets.php:682
 msgid "Install now"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:514
-#: admin/includes/class-overview-widgets.php:532
-#: admin/includes/class-overview-widgets.php:557
-#: admin/includes/class-overview-widgets.php:575
-#: admin/includes/class-overview-widgets.php:593
-#: admin/includes/class-overview-widgets.php:611
-#: admin/includes/class-overview-widgets.php:629
-#: admin/includes/class-overview-widgets.php:647
+#: admin/includes/class-overview-widgets.php:512
+#: admin/includes/class-overview-widgets.php:530
+#: admin/includes/class-overview-widgets.php:555
+#: admin/includes/class-overview-widgets.php:573
+#: admin/includes/class-overview-widgets.php:591
+#: admin/includes/class-overview-widgets.php:609
+#: admin/includes/class-overview-widgets.php:627
+#: admin/includes/class-overview-widgets.php:645
 #: classes/ad_group.php:650
 msgid "Activate now"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:540
+#: admin/includes/class-overview-widgets.php:538
 msgid "Visit your ad statistics"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:664
+#: admin/includes/class-overview-widgets.php:662
 msgid "Use Genesis specific ad positions."
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:680
+#: admin/includes/class-overview-widgets.php:678
 msgid "Manage ad positions with WPBakery Page Builder (formerly Visual Composer)."
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:696
+#: admin/includes/class-overview-widgets.php:694
 msgid "Our best deal with all add-ons included."
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:698
-#: admin/includes/class-overview-widgets.php:714
+#: admin/includes/class-overview-widgets.php:696
+#: admin/includes/class-overview-widgets.php:715
 msgid "Get full access"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:712
+#: admin/includes/class-overview-widgets.php:713
 msgid "A one-time payment for four years of support and updates. The package saves you up to 70% compared to individually purchasing our add-ons."
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:729
+#: admin/includes/class-overview-widgets.php:730
 msgid "Visit the manual"
 msgstr ""
 
-#: admin/includes/class-overview-widgets.php:732
+#: admin/includes/class-overview-widgets.php:733
 #: classes/ad_group.php:653
 msgid "Get this add-on"
 msgstr ""
@@ -1323,7 +1318,7 @@ msgctxt "Error message shown when no display condition term is selected"
 msgid "Please select some items."
 msgstr ""
 
-#: admin/views/gadsense-dashboard.php:16
+#: admin/views/gadsense-dashboard.php:23
 msgid "There is an error in your AdSense setup."
 msgstr ""
 
@@ -1557,7 +1552,7 @@ msgstr ""
 #: admin/views/placements-ad-label-position.php:12
 #: admin/views/placements-ad-label.php:11
 #: admin/views/placements-ad-label.php:13
-#: modules/gadsense/includes/class-network-adsense.php:291
+#: modules/gadsense/includes/class-network-adsense.php:314
 #: views/admin/screens/placements.php:301
 msgid "default"
 msgstr ""
@@ -2924,6 +2919,12 @@ msgstr ""
 msgid "Advanced Ads Settings"
 msgstr ""
 
+#: includes/admin/pages/class-dashboard.php:33
+#: includes/admin/pages/class-dashboard.php:44
+#: includes/admin/pages/class-dashboard.php:45
+msgid "Dashboard"
+msgstr ""
+
 #: includes/admin/pages/class-groups.php:44
 msgid "Ad Groups & Rotations"
 msgstr ""
@@ -2932,34 +2933,34 @@ msgstr ""
 msgid "Groups & Rotation"
 msgstr ""
 
-#: includes/admin/pages/class-groups.php:120
+#: includes/admin/pages/class-groups.php:102
 msgid "Ad Group successfully created"
 msgstr ""
 
-#: includes/admin/pages/class-groups.php:131
+#: includes/admin/pages/class-groups.php:112
 msgid "Ad Groups successfully updated"
 msgstr ""
 
-#: includes/admin/pages/class-groups.php:150
-#: includes/admin/pages/class-groups.php:179
+#: includes/admin/pages/class-groups.php:207
+#: includes/admin/pages/class-groups.php:236
 msgid "Sorry, you are not allowed to access this feature."
 msgstr ""
 
-#: includes/admin/pages/class-groups.php:161
+#: includes/admin/pages/class-groups.php:218
 msgid "You attempted to edit an ad group that doesn&#8217;t exist. Perhaps it was deleted?"
 msgstr ""
 
-#: includes/admin/pages/class-groups.php:191
-#: includes/admin/pages/class-groups.php:219
+#: includes/admin/pages/class-groups.php:248
+#: includes/admin/pages/class-groups.php:276
 msgid "Invalid Ad Group"
 msgstr ""
 
-#: includes/admin/pages/class-groups.php:195
-#: includes/admin/pages/class-groups.php:223
+#: includes/admin/pages/class-groups.php:252
+#: includes/admin/pages/class-groups.php:280
 msgid "You don’t have permission to change the ad groups"
 msgstr ""
 
-#: includes/admin/pages/class-groups.php:228
+#: includes/admin/pages/class-groups.php:285
 msgid "No ad group created"
 msgstr ""
 
@@ -3789,33 +3790,33 @@ msgstr ""
 
 #: modules/gadsense/includes/class-mapi.php:1336
 #: modules/gadsense/includes/class-mapi.php:1354
-#: modules/gadsense/includes/class-network-adsense.php:484
+#: modules/gadsense/includes/class-network-adsense.php:507
 msgctxt "AdSense ad type"
 msgid "Multiplex"
 msgstr ""
 
 #: modules/gadsense/includes/class-mapi.php:1339
 #: modules/gadsense/includes/class-mapi.php:1357
-#: modules/gadsense/includes/class-network-adsense.php:485
+#: modules/gadsense/includes/class-network-adsense.php:508
 msgctxt "AdSense ad type"
 msgid "In-article"
 msgstr ""
 
 #: modules/gadsense/includes/class-mapi.php:1341
 #: modules/gadsense/includes/class-mapi.php:1360
-#: modules/gadsense/includes/class-network-adsense.php:486
+#: modules/gadsense/includes/class-network-adsense.php:509
 msgctxt "AdSense ad type"
 msgid "In-feed"
 msgstr ""
 
 #: modules/gadsense/includes/class-mapi.php:1348
-#: modules/gadsense/includes/class-network-adsense.php:487
+#: modules/gadsense/includes/class-network-adsense.php:510
 msgctxt "AdSense ad type"
 msgid "Display"
 msgstr ""
 
 #: modules/gadsense/includes/class-mapi.php:1351
-#: modules/gadsense/includes/class-network-adsense.php:488
+#: modules/gadsense/includes/class-network-adsense.php:511
 msgctxt "AdSense ad type"
 msgid "Link"
 msgstr ""
@@ -3851,62 +3852,70 @@ msgstr ""
 msgid "Disable violation warnings"
 msgstr ""
 
-#: modules/gadsense/includes/class-network-adsense.php:115
+#: modules/gadsense/includes/class-network-adsense.php:116
+msgid "Show AdSense Earnings"
+msgstr ""
+
+#: modules/gadsense/includes/class-network-adsense.php:124
 msgid "Transparent background"
 msgstr ""
 
-#: modules/gadsense/includes/class-network-adsense.php:123
+#: modules/gadsense/includes/class-network-adsense.php:132
 msgid "Full width responsive ads on mobile"
 msgstr ""
 
-#: modules/gadsense/includes/class-network-adsense.php:160
+#: modules/gadsense/includes/class-network-adsense.php:169
 msgid "Enable this box if you don’t want Google Auto ads to place anchor ads at the top of your page."
 msgstr ""
 
-#: modules/gadsense/includes/class-network-adsense.php:175
+#: modules/gadsense/includes/class-network-adsense.php:184
 msgid "Enable this option to stop loading stats from AdSense into your WordPress backend."
 msgstr ""
 
-#: modules/gadsense/includes/class-network-adsense.php:191
+#: modules/gadsense/includes/class-network-adsense.php:198
+msgid "Show Earnings widget on the WordPress dashboard."
+msgstr ""
+
+#: modules/gadsense/includes/class-network-adsense.php:214
 msgid "Insert the AdSense header code to enable Auto ads and verify your website."
 msgstr ""
 
-#: modules/gadsense/includes/class-network-adsense.php:194
+#: modules/gadsense/includes/class-network-adsense.php:217
 msgid "Display Auto ads only on specific pages"
 msgstr ""
 
-#: modules/gadsense/includes/class-network-adsense.php:195
+#: modules/gadsense/includes/class-network-adsense.php:218
 msgid "Why are ads appearing in random positions?"
 msgstr ""
 
 #. translators: this is the text for a link to a sub-page in an AdSense account
-#: modules/gadsense/includes/class-network-adsense.php:202
+#: modules/gadsense/includes/class-network-adsense.php:225
 msgid "Adjust Auto ads options"
 msgstr ""
 
-#: modules/gadsense/includes/class-network-adsense.php:247
+#: modules/gadsense/includes/class-network-adsense.php:270
 msgid "Disable warnings about potential violations of the AdSense terms."
 msgstr ""
 
 #. translators: %s is a URL.
-#: modules/gadsense/includes/class-network-adsense.php:253
+#: modules/gadsense/includes/class-network-adsense.php:276
 msgid "Our <a href=\"%s\" target=\"_blank\">Ad Health</a> feature monitors if AdSense is implemented correctly on your site. It also considers ads not managed with Advanced Ads. Enable this option to remove these checks"
 msgstr ""
 
-#: modules/gadsense/includes/class-network-adsense.php:278
+#: modules/gadsense/includes/class-network-adsense.php:301
 msgid "Enable this option in case your theme adds an unfortunate background color to AdSense ads."
 msgstr ""
 
-#: modules/gadsense/includes/class-network-adsense.php:292
+#: modules/gadsense/includes/class-network-adsense.php:315
 msgid "enable"
 msgstr ""
 
-#: modules/gadsense/includes/class-network-adsense.php:293
+#: modules/gadsense/includes/class-network-adsense.php:316
 msgid "disable"
 msgstr ""
 
 #. translators: %s is a URL.
-#: modules/gadsense/includes/class-network-adsense.php:300
+#: modules/gadsense/includes/class-network-adsense.php:323
 msgid "Whether your responsive ad unit may expand to <a href='%s' target='blank'>use the full width</a> of your visitor's mobile device screen"
 msgstr ""
 
@@ -4115,6 +4124,67 @@ msgstr ""
 msgid "Start import"
 msgstr ""
 
+#: modules/one-click/admin/class-admin.php:61
+msgid "MonetizeMore & PubGuru Integration"
+msgstr ""
+
+#: modules/one-click/admin/class-admin.php:62
+msgid "Enables MonetizeMore users to link their settings with the PubGuru insights & analytics dashboard."
+msgstr ""
+
+#: modules/one-click/admin/class-admin.php:69
+msgid "Connect now"
+msgstr ""
+
+#: modules/one-click/admin/class-admin.php:74
+msgid "Disconnect now"
+msgstr ""
+
+#: modules/one-click/admin/class-admin.php:100
+msgid "PubGuru OneClick Consent & Privacy Policy"
+msgstr ""
+
+#: modules/one-click/admin/class-admin.php:102
+msgid "Connecting Your With Your PubGuru Account Settings"
+msgstr ""
+
+#: modules/one-click/admin/class-ajax.php:52
+msgid "Refreshing PubGuru Ads"
+msgstr ""
+
+#: modules/one-click/admin/class-ajax.php:78
+msgid "Pubguru successfully connected."
+msgstr ""
+
+#: modules/one-click/admin/class-ajax.php:96
+msgid "Pubguru successfully disconnected."
+msgstr ""
+
+#: modules/one-click/admin/class-ajax.php:167
+msgid "An error has occurred please try again."
+msgstr ""
+
+#: modules/one-click/modules/adstxt/class-detector.php:88
+msgid "File alert!"
+msgstr ""
+
+#: modules/one-click/modules/adstxt/class-detector.php:88
+msgid "Physical ads.txt found. In order to use PubGuru service you need to delete it."
+msgstr ""
+
+#: modules/one-click/modules/adstxt/class-detector.php:90
+#: modules/one-click/modules/adstxt/class-detector.php:91
+msgid "Backup the File"
+msgstr ""
+
+#: modules/one-click/modules/adstxt/class-detector.php:90
+msgid "Backing Up"
+msgstr ""
+
+#: modules/one-click/modules/adstxt/class-detector.php:90
+msgid "Backed Up"
+msgstr ""
+
 #: modules/privacy/admin/admin.php:51
 msgid "Privacy"
 msgstr ""
@@ -4190,16 +4260,16 @@ msgstr ""
 msgid "Install %1$sAdvanced Ads Pro%2$s to reload the ads instantly without an additional page request."
 msgstr ""
 
-#: public/class-advanced-ads.php:426
+#: public/class-advanced-ads.php:433
 msgid "Advanced Ads Error following:"
 msgstr ""
 
 #. translators: %s is an error message generated by the plugin.
-#: public/class-advanced-ads.php:430
+#: public/class-advanced-ads.php:437
 msgid "Advanced Ads Error: %s"
 msgstr ""
 
-#: public/class-advanced-ads.php:864
+#: public/class-advanced-ads.php:884
 msgctxt "label above ads"
 msgid "Advertisements"
 msgstr ""
@@ -4282,6 +4352,39 @@ msgstr ""
 
 #: views/admin/header.php:54
 msgid "See all Add-ons"
+msgstr ""
+
+#. translators: %s link to privacy policy
+#: views/admin/metabox-pubguru-connect.php:21
+msgid "This form is designed exclusively for MonetizeMore customers who wish to integrate Advanced Ads with the PubGuru Dashboard. By selecting \"Connect PGHB,\" you agree to share your domain name to facilitate the connection with your PubGuru account, in alignment with our <a href=\"%s\">Privacy Policy</a>. Rest assured, no additional information is exchanged, and Advanced Ads does not engage in any tracking activities."
+msgstr ""
+
+#: views/admin/metabox-pubguru-connect.php:30
+msgid "Connect PGHB"
+msgstr ""
+
+#: views/admin/metabox-pubguru-connect.php:42
+msgid "To activate any of the settings with your PubGuru account, please select from the options below. Should you have any inquiries, feel free to <a href=\"https://www.monetizemore.com/contact/\">click here<a/> to reach out to us or send an email to <a href=\"mailto:support@monetizemore.com\">support@monetizemore.com</a>"
+msgstr ""
+
+#: views/admin/metabox-pubguru-connect.php:52
+msgid "Install PubGuru Header Bidding"
+msgstr ""
+
+#: views/admin/metabox-pubguru-connect.php:62
+msgid "Activate Tag Conversion"
+msgstr ""
+
+#: views/admin/metabox-pubguru-connect.php:74
+msgid "Enable ads.txt settings from the <a href=\"https://app.pubguru.com/ads-txt\" target=\"_blank\">PubGuru platform</a>"
+msgstr ""
+
+#: views/admin/metabox-pubguru-connect.php:93
+msgid "Install Traffic Cop. 7 days free trial"
+msgstr ""
+
+#: views/admin/metabox-pubguru-connect.php:96
+msgid "Install Traffic Cop."
 msgstr ""
 
 #: views/admin/screens/group-form.php:13

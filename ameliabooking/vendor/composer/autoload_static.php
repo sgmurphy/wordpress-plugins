@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit0b7d3d0c912167946fb0f68fc20abc72
+class ComposerStaticInitb90cf85946e50147db50d3b42618b3dd
 {
     public static $files = array (
         '9c67151ae59aff4788964ce8eb2a0f43' => __DIR__ . '/..' . '/clue/stream-filter/src/functions_include.php',
@@ -373,10 +373,10 @@ class ComposerStaticInit0b7d3d0c912167946fb0f68fc20abc72
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit0b7d3d0c912167946fb0f68fc20abc72::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit0b7d3d0c912167946fb0f68fc20abc72::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit0b7d3d0c912167946fb0f68fc20abc72::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit0b7d3d0c912167946fb0f68fc20abc72::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb90cf85946e50147db50d3b42618b3dd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb90cf85946e50147db50d3b42618b3dd::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitb90cf85946e50147db50d3b42618b3dd::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitb90cf85946e50147db50d3b42618b3dd::$classMap;
 
         }, null, ClassLoader::class);
     }

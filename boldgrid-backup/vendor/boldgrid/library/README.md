@@ -11,6 +11,16 @@ composer require boldgrid/library
 
 ## Changelog ##
 
+### 2.13.12 ###
+
+Release date: Feb 7th, 2024
+* Bug Fix: Incorrect Usage of ABSPATH which breaks sites using custom WordPress install paths [#114](https://github.com/BoldGrid/library/issues/114)
+
+### 2.13.11 ###
+
+Release date: May 23rd, 2023
+* Update: Fix PHP 8.2 Deprecation notices.
+
 ### 2.13.10 ###
 
 Release date: November 1st, 2022

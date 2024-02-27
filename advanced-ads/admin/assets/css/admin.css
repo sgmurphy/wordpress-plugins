@@ -1100,10 +1100,6 @@ a.advads-manual-icon, .advads-manual-link, .advads-external-link { text-decorati
 
 div.advads-flex{
 	display: flex;
-	align-items: top;
-	justify-content: top;
-	flex-direction: row;
-	flex-wrap: wrap;
 	flex-flow: row wrap;
 	align-content: flex-end;
 }
@@ -1116,6 +1112,13 @@ div.advads-flex{
 .advads-flex3{
 	flex: 3;
 }
+/* WP Dashboard */
+.index-php #advads_overview_adsense_stats { border: none; box-shadow: none; margin-bottom: 0; }
+.index-php #advads_overview_adsense_stats .inside { padding-bottom: 0; }
+.index-php div.advads-stats-box { flex: 0 0 calc(33.33% - 8pt); margin:0; }
+.index-php div.advads-stats-dd-container { float: left; text-align: left; }
+.index-php div.advads-stats-box .advads-stats-age { clear: left; float: left; text-align: left; }
+/* END WP Dashboard */
 div.advads-stats-box{
 	margin:4pt;
 	padding:4pt;

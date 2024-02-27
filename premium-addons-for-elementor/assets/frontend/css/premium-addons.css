@@ -572,10 +572,10 @@
   width: calc(100% + 50px) !important;
   max-width: -webkit-calc(100% + 50px) !important;
   max-width: calc(100% + 50px) !important;
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
   -webkit-transform: translate3d(-40px, 0, 0);
   transform: translate3d(-40px, 0, 0);
 }
@@ -586,10 +586,10 @@
   top: 50%;
   left: 0;
   width: 100%;
-  -webkit-transition: color 0.35s, -webkit-transform 0.35s;
-  transition: color 0.35s, -webkit-transform 0.35s;
-  transition: transform 0.35s, color 0.35s;
-  transition: transform 0.35s, color 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: color 0.35s, -webkit-transform 0.35s;
+  transition: color 0.35s, -webkit-transform 0.35s;
+  transition: transform 0.35s, color 0.35s;
+  transition: transform 0.35s, color 0.35s, -webkit-transform 0.35s;
   -webkit-transform: translate3d(0, -50%, 0);
   transform: translate3d(0, -50%, 0);
 }
@@ -625,10 +625,10 @@
 .premium-banner-animation1 .premium-banner-read-more {
   margin-top: 10px;
   opacity: 0;
-  -webkit-transition: opacity 0.2s, -webkit-transform 0.35s;
-  transition: opacity 0.2s, -webkit-transform 0.35s;
-  transition: opacity 0.2s, transform 0.35s;
-  transition: opacity 0.2s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.2s, -webkit-transform 0.35s;
+  transition: opacity 0.2s, -webkit-transform 0.35s;
+  transition: opacity 0.2s, transform 0.35s;
+  transition: opacity 0.2s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation1:hover .premium-banner-ib-content,
@@ -712,10 +712,10 @@
 .premium-banner-animation2 .premium-banner-ib-content,
 .premium-banner-animation2 .premium-banner-read-more,
 .premium-banner-animation2 .premium-banner-ib-desc::before {
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation2 .premium-banner-ib-content,
@@ -792,10 +792,10 @@
   width: calc(100% + 40px) !important;
   max-width: -webkit-calc(100% + 40px) !important;
   max-width: calc(100% + 40px) !important;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation4 .premium-banner-ib-desc {
@@ -853,10 +853,10 @@
   overflow: hidden;
   -webkit-transform: translate3d(0, -10px, 0);
   transform: translate3d(0, -10px, 0);
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation4 .premium-banner-ib-title,
@@ -873,10 +873,10 @@
 
 .premium-banner-animation4 .premium-banner-ib-desc::after,
 .premium-banner-animation4 .premium-banner-ib-desc::before {
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation4:hover .premium-banner-ib-desc::after,
@@ -977,19 +977,19 @@
 }
 
 .premium-banner-animation5 img {
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation2 img,
 .premium-banner-animation4 img,
 .premium-banner-animation6 img {
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation5.zoomout img,
@@ -1083,10 +1083,10 @@
 .premium-banner-animation6 .premium-banner-read-more,
 .premium-banner-animation6 .premium-banner-ib-desc::before {
   opacity: 0;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
   -webkit-transform: scale(0);
   -ms-transform: scale(0);
   transform: scale(0);
@@ -1148,10 +1148,10 @@
   bottom: 60px;
   left: 60px;
   opacity: 0;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
   -webkit-transform: translate3d(0, -100px, 0);
   transform: translate3d(0, -100px, 0);
 }
@@ -1168,10 +1168,10 @@
   width: calc(100% + 20px) !important;
   max-width: -webkit-calc(100% + 20px) !important;
   max-width: calc(100% + 20px) !important;
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
   -webkit-transform: translate3d(-10px, 0, 0);
   transform: translate3d(-10px, 0, 0);
   -webkit-backface-visibility: hidden;
@@ -1295,10 +1295,10 @@
 .premium-banner-animation13 .premium-banner-read-more {
   padding: 15px 0;
   opacity: 0;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
   -webkit-transform: translate3d(100%, 0, 0);
   transform: translate3d(100%, 0, 0);
 }
@@ -1327,10 +1327,10 @@
   width: calc(100% + 40px) !important;
   max-width: -webkit-calc(100% + 40px) !important;
   max-width: calc(100% + 40px) !important;
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation7 .premium-banner-brlr {
@@ -1412,20 +1412,20 @@
 
 .premium-banner-animation7 .premium-banner-ib-desc::after,
 .premium-banner-animation7 .premium-banner-ib-desc::before {
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation7 .premium-banner-ib-title,
 .premium-banner-animation7 .premium-banner-ib-content,
 .premium-banner-animation7 .premium-banner-read-more {
   opacity: 0;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation7:hover .premium-banner-ib-content,
@@ -1476,10 +1476,10 @@
   width: calc(100% + 40px) !important;
   max-width: -webkit-calc(100% + 40px) !important;
   max-width: calc(100% + 40px) !important;
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation8 .premium-banner-brlr {
@@ -1569,19 +1569,19 @@
 
 .premium-banner-animation8 .premium-banner-ib-desc::after,
 .premium-banner-animation8 .premium-banner-ib-desc::before {
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation8 .premium-banner-ib-title,
 .premium-banner-animation8 .premium-banner-ib-content,
 .premium-banner-animation8 .premium-banner-read-more {
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
   opacity: 0;
 }
 
@@ -1633,10 +1633,10 @@
   width: calc(100% + 20px) !important;
   max-width: -webkit-calc(100% + 20px) !important;
   max-width: calc(100% + 20px) !important;
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
   -webkit-transform: scale(1.2);
   -ms-transform: scale(1.2);
   transform: scale(1.2);
@@ -1655,10 +1655,10 @@
   height: 1px;
   background: #fff;
   content: "";
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
   -webkit-transform: translate3d(-50%, -50%, 0);
   transform: translate3d(-50%, -50%, 0);
 }
@@ -1671,10 +1671,10 @@
   height: 1px;
   background: #fff;
   content: "";
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
   -webkit-transform: translate3d(-50%, -50%, 0);
   transform: translate3d(-50%, -50%, 0);
 }
@@ -1752,10 +1752,10 @@
   width: calc(100% + 20px) !important;
   max-width: -webkit-calc(100% + 20px) !important;
   max-width: calc(100% + 20px) !important;
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation10 .premium-banner-ib-title {
@@ -1782,10 +1782,10 @@
   opacity: 0;
   -webkit-transform: translate3d(0, 100%, 0);
   transform: translate3d(0, 100%, 0);
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation10:hover .premium-banner-ib-title,
@@ -1811,10 +1811,10 @@
 .premium-banner-animation10 .premium-banner-read-more {
   padding-top: 15px;
   opacity: 0;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
   -webkit-transform: translate3d(0, 100%, 0);
   transform: translate3d(0, 100%, 0);
 }
@@ -1860,10 +1860,10 @@
 
 .premium-banner-animation11 img {
   width: 100%;
-  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
-  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  -webkit-transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s;
+  transition: opacity 0.35s, filter 0.35s, transform 0.35s, -webkit-filter 0.35s, -webkit-transform 0.35s;
 }
 
 .premium-banner-animation11 .premium-banner-ib-title {
@@ -12508,35 +12508,35 @@ ul.premium-person-social-list {
 
 @-webkit-keyframes pa-noise-anim-1 {
   0% {
-    clip: rect(52px, 9999px, 6px, 0);
+    clip: rect(52px, 9999px, 250px, 0);
   }
 
   5% {
-    clip: rect(88px, 9999px, 166px, 0);
+    clip: rect(88px, 9999px, 204px, 0);
   }
 
   10% {
-    clip: rect(81px, 9999px, 79px, 0);
+    clip: rect(81px, 9999px, 87px, 0);
   }
 
   15% {
-    clip: rect(38px, 9999px, 24px, 0);
+    clip: rect(38px, 9999px, 124px, 0);
   }
 
   20% {
-    clip: rect(62px, 9999px, 73px, 0);
+    clip: rect(62px, 9999px, 16px, 0);
   }
 
   25% {
-    clip: rect(5px, 9999px, 258px, 0);
+    clip: rect(5px, 9999px, 176px, 0);
   }
 
   30% {
-    clip: rect(9px, 9999px, 288px, 0);
+    clip: rect(9px, 9999px, 130px, 0);
   }
 
   35% {
-    clip: rect(17px, 9999px, 113px, 0);
+    clip: rect(17px, 9999px, 44px, 0);
   }
 
   40% {
@@ -12544,85 +12544,85 @@ ul.premium-person-social-list {
   }
 
   45% {
-    clip: rect(9px, 9999px, 106px, 0);
+    clip: rect(9px, 9999px, 115px, 0);
   }
 
   50% {
-    clip: rect(94px, 9999px, 149px, 0);
+    clip: rect(94px, 9999px, 55px, 0);
   }
 
   55% {
-    clip: rect(53px, 9999px, 101px, 0);
+    clip: rect(53px, 9999px, 246px, 0);
   }
 
   60% {
-    clip: rect(2px, 9999px, 76px, 0);
+    clip: rect(2px, 9999px, 255px, 0);
   }
 
   65% {
-    clip: rect(24px, 9999px, 152px, 0);
+    clip: rect(24px, 9999px, 294px, 0);
   }
 
   70% {
-    clip: rect(45px, 9999px, 126px, 0);
+    clip: rect(45px, 9999px, 240px, 0);
   }
 
   75% {
-    clip: rect(75px, 9999px, 138px, 0);
+    clip: rect(75px, 9999px, 296px, 0);
   }
 
   80% {
-    clip: rect(9px, 9999px, 1px, 0);
+    clip: rect(9px, 9999px, 235px, 0);
   }
 
   85% {
-    clip: rect(56px, 9999px, 127px, 0);
+    clip: rect(56px, 9999px, 63px, 0);
   }
 
   90% {
-    clip: rect(53px, 9999px, 133px, 0);
+    clip: rect(53px, 9999px, 165px, 0);
   }
 
   95% {
-    clip: rect(86px, 9999px, 124px, 0);
+    clip: rect(86px, 9999px, 179px, 0);
   }
 
   100% {
-    clip: rect(63px, 9999px, 209px, 0);
+    clip: rect(63px, 9999px, 112px, 0);
   }
 }
 
 @keyframes pa-noise-anim-1 {
   0% {
-    clip: rect(52px, 9999px, 6px, 0);
+    clip: rect(52px, 9999px, 250px, 0);
   }
 
   5% {
-    clip: rect(88px, 9999px, 166px, 0);
+    clip: rect(88px, 9999px, 204px, 0);
   }
 
   10% {
-    clip: rect(81px, 9999px, 79px, 0);
+    clip: rect(81px, 9999px, 87px, 0);
   }
 
   15% {
-    clip: rect(38px, 9999px, 24px, 0);
+    clip: rect(38px, 9999px, 124px, 0);
   }
 
   20% {
-    clip: rect(62px, 9999px, 73px, 0);
+    clip: rect(62px, 9999px, 16px, 0);
   }
 
   25% {
-    clip: rect(5px, 9999px, 258px, 0);
+    clip: rect(5px, 9999px, 176px, 0);
   }
 
   30% {
-    clip: rect(9px, 9999px, 288px, 0);
+    clip: rect(9px, 9999px, 130px, 0);
   }
 
   35% {
-    clip: rect(17px, 9999px, 113px, 0);
+    clip: rect(17px, 9999px, 44px, 0);
   }
 
   40% {
@@ -12630,223 +12630,223 @@ ul.premium-person-social-list {
   }
 
   45% {
-    clip: rect(9px, 9999px, 106px, 0);
+    clip: rect(9px, 9999px, 115px, 0);
   }
 
   50% {
-    clip: rect(94px, 9999px, 149px, 0);
+    clip: rect(94px, 9999px, 55px, 0);
   }
 
   55% {
-    clip: rect(53px, 9999px, 101px, 0);
+    clip: rect(53px, 9999px, 246px, 0);
   }
 
   60% {
-    clip: rect(2px, 9999px, 76px, 0);
+    clip: rect(2px, 9999px, 255px, 0);
   }
 
   65% {
-    clip: rect(24px, 9999px, 152px, 0);
+    clip: rect(24px, 9999px, 294px, 0);
   }
 
   70% {
-    clip: rect(45px, 9999px, 126px, 0);
+    clip: rect(45px, 9999px, 240px, 0);
   }
 
   75% {
-    clip: rect(75px, 9999px, 138px, 0);
+    clip: rect(75px, 9999px, 296px, 0);
   }
 
   80% {
-    clip: rect(9px, 9999px, 1px, 0);
+    clip: rect(9px, 9999px, 235px, 0);
   }
 
   85% {
-    clip: rect(56px, 9999px, 127px, 0);
+    clip: rect(56px, 9999px, 63px, 0);
   }
 
   90% {
-    clip: rect(53px, 9999px, 133px, 0);
+    clip: rect(53px, 9999px, 165px, 0);
   }
 
   95% {
-    clip: rect(86px, 9999px, 124px, 0);
+    clip: rect(86px, 9999px, 179px, 0);
   }
 
   100% {
-    clip: rect(63px, 9999px, 209px, 0);
+    clip: rect(63px, 9999px, 112px, 0);
   }
 }
 
 @-webkit-keyframes pa-noise-anim-2 {
   0% {
-    clip: rect(14px, 9999px, 295px, 0);
+    clip: rect(14px, 9999px, 224px, 0);
   }
 
   5% {
-    clip: rect(19px, 9999px, 298px, 0);
+    clip: rect(19px, 9999px, 278px, 0);
   }
 
   10% {
-    clip: rect(17px, 9999px, 117px, 0);
+    clip: rect(17px, 9999px, 188px, 0);
   }
 
   15% {
-    clip: rect(46px, 9999px, 71px, 0);
+    clip: rect(46px, 9999px, 252px, 0);
   }
 
   20% {
-    clip: rect(28px, 9999px, 31px, 0);
+    clip: rect(28px, 9999px, 178px, 0);
   }
 
   25% {
-    clip: rect(64px, 9999px, 74px, 0);
+    clip: rect(64px, 9999px, 250px, 0);
   }
 
   30% {
-    clip: rect(58px, 9999px, 17px, 0);
+    clip: rect(58px, 9999px, 223px, 0);
   }
 
   35% {
-    clip: rect(18px, 9999px, 26px, 0);
+    clip: rect(18px, 9999px, 166px, 0);
   }
 
   40% {
-    clip: rect(61px, 9999px, 22px, 0);
+    clip: rect(61px, 9999px, 119px, 0);
   }
 
   45% {
-    clip: rect(63px, 9999px, 109px, 0);
+    clip: rect(63px, 9999px, 221px, 0);
   }
 
   50% {
-    clip: rect(59px, 9999px, 145px, 0);
+    clip: rect(59px, 9999px, 231px, 0);
   }
 
   55% {
-    clip: rect(20px, 9999px, 32px, 0);
+    clip: rect(20px, 9999px, 249px, 0);
   }
 
   60% {
-    clip: rect(49px, 9999px, 241px, 0);
+    clip: rect(49px, 9999px, 152px, 0);
   }
 
   65% {
-    clip: rect(70px, 9999px, 89px, 0);
+    clip: rect(70px, 9999px, 236px, 0);
   }
 
   70% {
-    clip: rect(70px, 9999px, 286px, 0);
+    clip: rect(70px, 9999px, 132px, 0);
   }
 
   75% {
-    clip: rect(82px, 9999px, 223px, 0);
+    clip: rect(82px, 9999px, 158px, 0);
   }
 
   80% {
-    clip: rect(25px, 9999px, 156px, 0);
+    clip: rect(25px, 9999px, 195px, 0);
   }
 
   85% {
-    clip: rect(76px, 9999px, 278px, 0);
+    clip: rect(76px, 9999px, 94px, 0);
   }
 
   90% {
-    clip: rect(2px, 9999px, 145px, 0);
+    clip: rect(2px, 9999px, 38px, 0);
   }
 
   95% {
-    clip: rect(9px, 9999px, 108px, 0);
+    clip: rect(9px, 9999px, 277px, 0);
   }
 
   100% {
-    clip: rect(41px, 9999px, 189px, 0);
+    clip: rect(41px, 9999px, 28px, 0);
   }
 }
 
 @keyframes pa-noise-anim-2 {
   0% {
-    clip: rect(14px, 9999px, 295px, 0);
+    clip: rect(14px, 9999px, 224px, 0);
   }
 
   5% {
-    clip: rect(19px, 9999px, 298px, 0);
+    clip: rect(19px, 9999px, 278px, 0);
   }
 
   10% {
-    clip: rect(17px, 9999px, 117px, 0);
+    clip: rect(17px, 9999px, 188px, 0);
   }
 
   15% {
-    clip: rect(46px, 9999px, 71px, 0);
+    clip: rect(46px, 9999px, 252px, 0);
   }
 
   20% {
-    clip: rect(28px, 9999px, 31px, 0);
+    clip: rect(28px, 9999px, 178px, 0);
   }
 
   25% {
-    clip: rect(64px, 9999px, 74px, 0);
+    clip: rect(64px, 9999px, 250px, 0);
   }
 
   30% {
-    clip: rect(58px, 9999px, 17px, 0);
+    clip: rect(58px, 9999px, 223px, 0);
   }
 
   35% {
-    clip: rect(18px, 9999px, 26px, 0);
+    clip: rect(18px, 9999px, 166px, 0);
   }
 
   40% {
-    clip: rect(61px, 9999px, 22px, 0);
+    clip: rect(61px, 9999px, 119px, 0);
   }
 
   45% {
-    clip: rect(63px, 9999px, 109px, 0);
+    clip: rect(63px, 9999px, 221px, 0);
   }
 
   50% {
-    clip: rect(59px, 9999px, 145px, 0);
+    clip: rect(59px, 9999px, 231px, 0);
   }
 
   55% {
-    clip: rect(20px, 9999px, 32px, 0);
+    clip: rect(20px, 9999px, 249px, 0);
   }
 
   60% {
-    clip: rect(49px, 9999px, 241px, 0);
+    clip: rect(49px, 9999px, 152px, 0);
   }
 
   65% {
-    clip: rect(70px, 9999px, 89px, 0);
+    clip: rect(70px, 9999px, 236px, 0);
   }
 
   70% {
-    clip: rect(70px, 9999px, 286px, 0);
+    clip: rect(70px, 9999px, 132px, 0);
   }
 
   75% {
-    clip: rect(82px, 9999px, 223px, 0);
+    clip: rect(82px, 9999px, 158px, 0);
   }
 
   80% {
-    clip: rect(25px, 9999px, 156px, 0);
+    clip: rect(25px, 9999px, 195px, 0);
   }
 
   85% {
-    clip: rect(76px, 9999px, 278px, 0);
+    clip: rect(76px, 9999px, 94px, 0);
   }
 
   90% {
-    clip: rect(2px, 9999px, 145px, 0);
+    clip: rect(2px, 9999px, 38px, 0);
   }
 
   95% {
-    clip: rect(9px, 9999px, 108px, 0);
+    clip: rect(9px, 9999px, 277px, 0);
   }
 
   100% {
-    clip: rect(41px, 9999px, 189px, 0);
+    clip: rect(41px, 9999px, 28px, 0);
   }
 }
 
@@ -16428,8 +16428,8 @@ div[class*="elementor-widget-premium"] .premium-btn-block.premium-button-line6::
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  -webkit-transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
-  transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+  -webkit-transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
 }
 
 .premium-mouse-detect-yes .premium-button-style6:hover .premium-button-style6-bg {
@@ -17163,7 +17163,7 @@ because it's rendered as div with custom SVG code.
 .premium-pinterest-feed__board-wrapper:hover .premium-hover-effects__zoomin,
 .premium-pinterest-feed__pin-wrapper:hover .premium-hover-effects__zoomin,
 .premium-tiktok-feed__video-wrapper:hover .premium-hover-effects__zoomin,
-.premium-media-wheel__item:hover .premium-hover-effects__zoomin {
+.premium-adv-carousel__item:hover .premium-hover-effects__zoomin {
   -webkit-transform: scale(1.2);
   -ms-transform: scale(1.2);
   transform: scale(1.2);
@@ -17172,7 +17172,7 @@ because it's rendered as div with custom SVG code.
 .premium-pinterest-feed__board-wrapper:hover .premium-hover-effects__zoomout,
 .premium-pinterest-feed__pin-wrapper:hover .premium-hover-effects__zoomout,
 .premium-tiktok-feed__video-wrapper:hover .premium-hover-effects__zoomout,
-.premium-media-wheel__item:hover .premium-hover-effects__zoomout {
+.premium-adv-carousel__item:hover .premium-hover-effects__zoomout {
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
   transform: scale(1.1);
@@ -17181,7 +17181,7 @@ because it's rendered as div with custom SVG code.
 .premium-pinterest-feed__board-wrapper:hover .premium-hover-effects__scale,
 .premium-pinterest-feed__pin-wrapper:hover .premium-hover-effects__scale,
 .premium-tiktok-feed__video-wrapper:hover .premium-hover-effects__scale,
-.premium-media-wheel__item:hover .premium-hover-effects__scale {
+.premium-adv-carousel__item:hover .premium-hover-effects__scale {
   -webkit-transform: scale(1.3) rotate(5deg);
   -ms-transform: scale(1.3) rotate(5deg);
   transform: scale(1.3) rotate(5deg);
@@ -17190,7 +17190,7 @@ because it's rendered as div with custom SVG code.
 .premium-pinterest-feed__board-wrapper:hover .premium-hover-effects__gray,
 .premium-pinterest-feed__pin-wrapper:hover .premium-hover-effects__gray,
 .premium-tiktok-feed__video-wrapper:hover .premium-hover-effects__gray,
-.premium-media-wheel__item:hover .premium-hover-effects__gray {
+.premium-adv-carousel__item:hover .premium-hover-effects__gray {
   -webkit-filter: grayscale(0);
   filter: grayscale(0);
 }
@@ -17198,7 +17198,7 @@ because it's rendered as div with custom SVG code.
 .premium-pinterest-feed__board-wrapper:hover .premium-hover-effects__blur,
 .premium-pinterest-feed__pin-wrapper:hover .premium-hover-effects__blur,
 .premium-tiktok-feed__video-wrapper:hover .premium-hover-effects__blur,
-.premium-media-wheel__item:hover .premium-hover-effects__blur {
+.premium-adv-carousel__item:hover .premium-hover-effects__blur {
   -webkit-filter: blur(0px);
   filter: blur(0px);
 }
@@ -17206,7 +17206,7 @@ because it's rendered as div with custom SVG code.
 .premium-pinterest-feed__board-wrapper:hover .premium-hover-effects__sepia,
 .premium-pinterest-feed__pin-wrapper:hover .premium-hover-effects__sepia,
 .premium-tiktok-feed__video-wrapper:hover .premium-hover-effects__sepia,
-.premium-media-wheel__item:hover .premium-hover-effects__sepia {
+.premium-adv-carousel__item:hover .premium-hover-effects__sepia {
   -webkit-filter: sepia(0%);
   filter: sepia(0%);
 }
@@ -17214,7 +17214,7 @@ because it's rendered as div with custom SVG code.
 .premium-pinterest-feed__board-wrapper:hover .premium-hover-effects__bright,
 .premium-pinterest-feed__pin-wrapper:hover .premium-hover-effects__bright,
 .premium-tiktok-feed__video-wrapper:hover .premium-hover-effects__bright,
-.premium-media-wheel__item:hover .premium-hover-effects__bright {
+.premium-adv-carousel__item:hover .premium-hover-effects__bright {
   -webkit-filter: brightness(1.2);
   filter: brightness(1.2);
 }
@@ -17222,7 +17222,7 @@ because it's rendered as div with custom SVG code.
 .premium-pinterest-feed__board-wrapper:hover .premium-hover-effects__trans,
 .premium-pinterest-feed__pin-wrapper:hover .premium-hover-effects__trans,
 .premium-tiktok-feed__video-wrapper:hover .premium-hover-effects__trans,
-.premium-media-wheel__item:hover .premium-hover-effects__trans {
+.premium-adv-carousel__item:hover .premium-hover-effects__trans {
   -webkit-transform: translateX(0px) scale(1.1);
   -ms-transform: translateX(0px) scale(1.1);
   transform: translateX(0px) scale(1.1);

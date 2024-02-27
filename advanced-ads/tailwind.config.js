@@ -2,7 +2,11 @@
 module.exports = {
 	content: ['./includes/**/*.php', './views/**/*.php'],
 	theme: {
-		extend: {},
+		extend: {
+			colors: {
+				primary: '#0474A2',
+			},
+		},
 	},
 	plugins: [],
 };

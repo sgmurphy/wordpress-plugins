@@ -1106,8 +1106,10 @@
 
         params.page = this.paginationParams.page
 
-        params.skipServices = 1
-        params.skipProviders = 1
+        if (this.$root.settings.role === 'admin') {
+          params.skipServices = 1
+          params.skipProviders = 1
+        }
 
         Object.keys(params).forEach((key) => (!params[key] && params[key] !== 0) && delete params[key])
 
@@ -1126,6 +1128,10 @@
             this.toaster = false
 
             let appointmentDays = {}
+
+            if (this.$root.settings.role !== 'admin') {
+              this.setMissingServices(response.data.data.appointments)
+            }
 
             if (this.$root.settings.role === 'customer') {
               this.useSortedDateStrings(Object.keys(response.data.data.appointments)).forEach(function (dateKey) {

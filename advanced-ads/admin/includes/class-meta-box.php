@@ -1,6 +1,7 @@
 <?php
 // phpcs:ignoreFile
 
+use AdvancedAds\Assets_Registry;
 use AdvancedAds\Entities;
 use AdvancedAds\Utilities\WordPress;
 
@@ -34,8 +35,42 @@ class Advanced_Ads_Admin_Meta_Boxes {
 		add_action( 'save_post', [ $this, 'save_post_meta_box' ] );
 		// register dashboard widget.
 		add_action( 'wp_dashboard_setup', [ $this, 'add_dashboard_widget' ] );
+		add_action( 'wp_dashboard_setup', [ $this, 'add_adsense_widget' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'adsense_widget_js' ] );
 		// fixes compatibility issue with WP QUADS PRO.
 		add_action( 'quads_meta_box_post_types', [ $this, 'fix_wpquadspro_issue' ], 11 );
+	}
+
+	public function add_adsense_widget() {
+		if ( Advanced_Ads_AdSense_Data::get_instance()->is_setup()
+			&& ! Advanced_Ads_AdSense_Data::get_instance()->is_hide_stats()
+			&& isset ( Advanced_Ads::get_instance()->get_adsense_options()['adsense-wp-widget'] ) ) {
+			wp_add_dashboard_widget(
+				'custom_dashboard_widget',
+				__( 'AdSense Earnings', 'advanced-ads' ),
+				[ $this, 'adsense_widget_content' ],
+				null,
+				null,
+				'side'
+			);
+		}
+	}
+
+	public function adsense_widget_content() {
+       Advanced_Ads_Overview_Widgets_Callbacks::add_meta_box(
+				'advads_overview_adsense_stats',
+				'',
+				'full',
+				'render_adsense_stats'
+			);
+    }
+
+	public function adsense_widget_js() {
+		global $pagenow;
+
+		if ( 'index.php' === $pagenow ) {
+			Assets_Registry::enqueue_script( 'wp-widget-adsense' );
+		}
 	}
 
 	/**
@@ -526,7 +561,7 @@ class Advanced_Ads_Admin_Meta_Boxes {
 		if ( ! WordPress::user_can( 'advanced_ads_see_interface' ) ) {
 				return;
 		}
-		add_meta_box( 'advads_dashboard_widget', __( 'Dashboard', 'advanced-ads' ), [ $this, 'dashboard_widget_function' ], 'dashboard', 'side', 'high' );
+		add_meta_box( 'advads_dashboard_widget', __( 'Advanced Ads', 'advanced-ads' ), [ $this, 'dashboard_widget_function' ], 'dashboard', 'side', 'high' );
 	}
 
 	/**

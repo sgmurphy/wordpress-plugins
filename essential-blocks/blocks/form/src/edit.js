@@ -26,6 +26,7 @@ const {
     duplicateBlockIdFix,
     fetchFormBlockData,
     saveFormBlockData,
+    getAllBlockClientIds,
     EBDisplayIcon
 } = EBControls;
 
@@ -345,19 +346,18 @@ export default function Edit(props) {
     const formSettingsSave = useCallback(() => {
         const isSavingPost = select("core/editor").isSavingPost();
         const isAutosavingPost = select("core/editor").isAutosavingPost();
+        const isSavingTemplate = select("core/editor").isSavingNonPostEntityChanges();
 
         /**
          * Action
-         */
-        if (isSavingPost && !isAutosavingPost) {
-            if (typeof formSettings === "object" && Object.keys(formSettings).length > 0) {
-                const rules = getValidationRules(
-                    select("core/block-editor").getBlock(clientId)
-                );
+        */
+        if ((isSavingPost && !isAutosavingPost) || isSavingTemplate) {
+            const allBlocks = getAllBlockClientIds()
+            if (allBlocks.includes(clientId) && typeof formSettings === "object" && Object.keys(formSettings).length > 0) {
+                const blockObj = select("core/block-editor").getBlock(clientId)
+                const rules = getValidationRules(blockObj);
+                const fields = getFormFields(blockObj);
 
-                const fields = getFormFields(
-                    select("core/block-editor").getBlock(clientId)
-                );
                 const otherSettings = {
                     validationRules: { ...rules },
                     messages: {

@@ -3,9 +3,9 @@
  * Plugin Name: Social Media Widget
  * Plugin URI: http://wordpress.org/extend/plugins/social-media-widget/
  * Description: Adds links to all of your social media and sharing site profiles. Tons of icons come in 3 sizes, 4 icon styles, and 4 animations.
- * Version: 4.0.6
+ * Version: 4.0.7
  * Author: Noah Kagan
- * Author URI: https://appsumo.com/tools/wordpress/?utm_source=sumo&utm_medium=wp-widget&utm_campaign=social-media-widget
+ * Author URI: https://appsumo.com/search/?tags=wordpress&utm_source=sumo&utm_medium=wp-widget&utm_campaign=social-media-widget
  **/
 
 /* Check to see if locations are changed in wp-config */
@@ -297,7 +297,7 @@ class Social_Widget extends WP_Widget {
 		}
 
 		if ( 'smw_go_appsumo_pro' === $_GET['page'] ) {
-			wp_redirect( ( 'https://appsumo.com/tools/wordpress/?utm_source=sumo&utm_medium=wp-widget&utm_campaign=social-media-widget' ) );
+			wp_redirect( ( 'https://appsumo.com/search/?tags=wordpress&utm_source=sumo&utm_medium=wp-widget&utm_campaign=social-media-widget' ) );
 			die;
 		}
 	}
@@ -640,27 +640,27 @@ class Social_Widget extends WP_Widget {
 		<!-- Widget Title: Text Input -->
                     
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'smw'); ?></label>
-			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" class="widefat" type="text" />
+			<label for="<?php echo esc_attr($this->get_field_id( 'title' )); ?>"><?php esc_html_e('Title:', 'smw'); ?></label>
+			<input id="<?php echo esc_attr($this->get_field_id( 'title' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'title' )); ?>" value="<?php echo esc_attr($instance['title']); ?>" class="widefat" type="text" />
 		</p>
 
 		<!-- Widget Text: Textarea -->
 		<p>
-			<label for"<?php echo $this->get_field_id( 'text' ); ?>"><?php _e('Widget Text:', 'smw'); ?></label>
-			<textarea id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>" rows="8" cols="20" class="widefat"><?php echo $instance['text']; ?></textarea>
+			<label for="<?php echo esc_attr($this->get_field_id( 'text' )); ?>"><?php esc_html_e('Widget Text:', 'smw'); ?></label>
+			<textarea id="<?php echo esc_attr($this->get_field_id('text')); ?>" name="<?php echo esc_attr($this->get_field_name('text')); ?>" rows="8" cols="20" class="widefat"><?php echo esc_textarea($instance['text']); ?></textarea>
 		</p>
 
 		<!-- Image Caption: Text Input -->
 		<p>
-			<label for="<?php echo $this->get_field_id( 'imgcaption' ); ?>"><?php _e('Icon Alt and Title Tag:', 'smw'); ?></label>
-			<input id="<?php echo $this->get_field_id( 'imgcaption' ); ?>" name="<?php echo $this->get_field_name( 'imgcaption' ); ?>" value="<?php echo $instance['imgcaption']; ?>" class="widefat" type="text" />
+			<label for="<?php echo esc_attr($this->get_field_id( 'imgcaption' )); ?>"><?php esc_html_e('Icon Alt and Title Tag:', 'smw'); ?></label>
+			<input id="<?php echo esc_attr($this->get_field_id( 'imgcaption' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'imgcaption' )); ?>" value="<?php echo esc_attr($instance['imgcaption']); ?>" class="widefat" type="text" />
 		</p>
 		
 		<!-- Choose Icon Size: Dropdown -->
 		<p>
-			<label for="<?php echo $this->get_field_id( 'icon_size' ); ?>"><?php _e('Icon Size', 'smw'); ?></label>
+			<label for="<?php echo esc_attr($this->get_field_id( 'icon_size' )); ?>"><?php esc_html_e('Icon Size', 'smw'); ?></label>
 			<span style="float: right;<?php if(in_array($instance['icon_size'], array('16', '24', '32', '64', 'default'))) : ?> display: none;<?php endif; ?>">
-				<input type="text" class="small-text" style="width: 30px;" name="" value="<?php echo $instance['icon_size']; ?>" onkeyup="jQuery(this).parent().siblings('input:hidden').val(jQuery(this).val());">px
+				<input type="text" class="small-text" style="width: 30px;" name="" value="<?php echo esc_attr($instance['icon_size']); ?>" onkeyup="jQuery(this).parent().siblings('input:hidden').val(jQuery(this).val());">px
 			</span>
 			<select style="float:right;" onchange="if (jQuery(this).find('option:selected').val() == '') { jQuery(this).prev('span').show(); } else { jQuery(this).prev('span').hide(); jQuery(this).next('input:hidden').val(jQuery(this).find('option:selected').val()); }">
 			<option value="16" <?php if($instance['icon_size'] == '16') { echo 'selected'; } ?>>16px</option>
@@ -669,14 +669,14 @@ class Social_Widget extends WP_Widget {
 			<option value="64" <?php if($instance['icon_size'] == '64') { echo 'selected'; } ?>>64px</option>
 			<option value="" <?php if(!in_array($instance['icon_size'], array('16', '24', '32', '64', 'default'))) { echo 'selected'; } ?>>Custom</option>
 			</select>
-			<input type="hidden" name="<?php echo $this->get_field_name( 'icon_size' ); ?>" value="<?php echo $instance['icon_size']; ?>">
+			<input type="hidden" name="<?php echo esc_attr($this->get_field_name( 'icon_size' )); ?>" value="<?php echo esc_attr($instance['icon_size']); ?>">
 		</p>
 		<div class="clear"></div>
 		
 		<!-- Choose Icon Pack: Dropdown -->
 		<p>
-			<label for="<?php echo $this->get_field_id( 'icon_pack' ); ?>"><?php _e('Icon Pack', 'smw'); ?></label>
-			<select id="<?php echo $this->get_field_id( 'icon_pack' ); ?>" name="<?php echo $this->get_field_name( 'icon_pack' ); ?>" style="float:right;">
+			<label for="<?php echo esc_attr($this->get_field_id( 'icon_pack' )); ?>"><?php esc_html_e('Icon Pack', 'smw'); ?></label>
+			<select id="<?php echo esc_attr($this->get_field_id( 'icon_pack' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'icon_pack' )); ?>" style="float:right;">
 			<option value="cutout" <?php if($instance['icon_pack'] == 'cutout') { echo 'selected'; } ?>>Cutout Icons</option>
 			<option value="heart" <?php if($instance['icon_pack'] == 'heart') { echo 'selected'; } ?>>Heart Icons</option>
 			<option value="default" <?php if($instance['icon_pack'] == 'default') { echo 'selected'; } ?>>Default Icons (Web2.0)</option>
@@ -688,8 +688,8 @@ class Social_Widget extends WP_Widget {
 		
 		<!-- Type of Animation: Dropdown -->
 		<p>
-			<label for="<?php echo $this->get_field_id( 'animation' ); ?>"><?php _e('Type of Animation', 'smw'); ?></label>
-			<select id="<?php echo $this->get_field_id( 'animation' ); ?>" name="<?php echo $this->get_field_name( 'animation' ); ?>" style="float:right;">
+			<label for="<?php echo esc_attr($this->get_field_id( 'animation' )); ?>"><?php esc_html_e('Type of Animation', 'smw'); ?></label>
+			<select id="<?php echo esc_attr($this->get_field_id( 'animation' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'animation' )); ?>" style="float:right;">
 			<option value="fade" <?php if($instance['animation'] == 'fade') { echo 'selected'; } ?>>Fade In</option>
 			<option value="scale" <?php if($instance['animation'] == 'scale') { echo 'selected'; } ?>>Scale</option>
 			<option value="bounce" <?php if($instance['animation'] == 'bounce') { echo 'selected'; } ?>>Bounce</option>
@@ -700,8 +700,8 @@ class Social_Widget extends WP_Widget {
 		
 		<!--Starting Icon Opacity: Dropdown -->
 		<p>
-			<label for="<?php echo $this->get_field_id( 'icon_opacity' ); ?>"><?php _e('Default Icon Opacity', 'smw'); ?></label>
-			<select id="<?php echo $this->get_field_id( 'icon_opacity' ); ?>" name="<?php echo $this->get_field_name( 'icon_opacity' ); ?>" style="float:right;">
+			<label for="<?php echo esc_attr($this->get_field_id( 'icon_opacity' )); ?>"><?php esc_html_e('Default Icon Opacity', 'smw'); ?></label>
+			<select id="<?php echo esc_attr($this->get_field_id( 'icon_opacity' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'icon_opacity' )); ?>" style="float:right;">
 			<option value="0.5" <?php if($instance['icon_opacity'] == '0.5') { echo 'selected'; } ?>>50%</option>
 			<option value="0.6" <?php if($instance['icon_opacity'] == '0.6') { echo 'selected'; } ?>>60%</option>
 			<option value="0.7" <?php if($instance['icon_opacity'] == '0.7') { echo 'selected'; } ?>>70%</option>
@@ -715,8 +715,8 @@ class Social_Widget extends WP_Widget {
 	
 		<!-- No Follow On or Off: Dropdown -->
 		<p>
-			<label for="<?php echo $this->get_field_id( 'nofollow' ); ?>"><?php _e('Use rel="nofollow" for links', 'smw'); ?></label>
-			<select id="<?php echo $this->get_field_id( 'nofollow' ); ?>" name="<?php echo $this->get_field_name( 'nofollow' ); ?>" style="float:right;">
+			<label for="<?php echo esc_attr($this->get_field_id( 'nofollow' )); ?>"><?php esc_html_e('Use rel="nofollow" for links', 'smw'); ?></label>
+			<select id="<?php echo esc_attr($this->get_field_id( 'nofollow' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'nofollow' )); ?>" style="float:right;">
 			<option value="on" <?php if($instance['nofollow'] == 'on') { echo 'selected'; } ?>>On</option>
 			<option value="off" <?php if($instance['nofollow'] == 'off') { echo 'selected'; } ?>>Off</option>
 			</select>
@@ -725,8 +725,8 @@ class Social_Widget extends WP_Widget {
 		
 		<!-- Open in new tab: Dropdown -->
 		<p>
-			<label for="<?php echo $this->get_field_id( 'newtab' ); ?>"><?php _e('Open in new tab?', 'smw'); ?></label>
-			<select id="<?php echo $this->get_field_id( 'newtab' ); ?>" name="<?php echo $this->get_field_name( 'newtab' ); ?>" style="float:right;">
+			<label for="<?php echo esc_attr($this->get_field_id( 'newtab' )); ?>"><?php esc_html_e('Open in new tab?', 'smw'); ?></label>
+			<select id="<?php echo esc_attr($this->get_field_id( 'newtab' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'newtab' )); ?>" style="float:right;">
 			<option value="yes" <?php if($instance['newtab'] == 'yes') { echo 'selected'; } ?>>Yes</option>
 			<option value="no" <?php if($instance['newtab'] == 'no') { echo 'selected'; } ?>>No</option>
 			</select>
@@ -735,8 +735,8 @@ class Social_Widget extends WP_Widget {
 		
 		<!-- Alignment: Dropdown -->
 		<p>
-			<label for="<?php echo $this->get_field_id( 'alignment' ); ?>"><?php _e('Icon Alignment', 'smw'); ?></label>
-			<select id="<?php echo $this->get_field_id( 'alignment' ); ?>" name="<?php echo $this->get_field_name( 'alignment' ); ?>" style="float:right;">
+			<label for="<?php echo esc_attr($this->get_field_id( 'alignment' )); ?>"><?php esc_html_e('Icon Alignment', 'smw'); ?></label>
+			<select id="<?php echo esc_attr($this->get_field_id( 'alignment' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'alignment' )); ?>" style="float:right;">
 			<option value="left" <?php if($instance['alignment'] == 'left') { echo 'selected'; } ?>>Left</option>
 			<option value="centered" <?php if($instance['alignment'] == 'centered') { echo 'selected'; } ?>>Centered</option>
 			<option value="right" <?php if($instance['alignment'] == 'right') { echo 'selected'; } ?>>Right</option>
@@ -761,8 +761,8 @@ class Social_Widget extends WP_Widget {
 		
 		<!-- Icons per row: Dropdown -->
 		<p>
-			<label for="<?php echo $this->get_field_id( 'icons_per_row' ); ?>"><?php _e('Icons per row', 'smw'); ?></label>
-			<select id="<?php echo $this->get_field_id( 'icons_per_row' ); ?>" name="<?php echo $this->get_field_name( 'icons_per_row' ); ?>" style="float:right;">
+			<label for="<?php echo esc_attr($this->get_field_id( 'icons_per_row' )); ?>"><?php esc_html_e('Icons per row', 'smw'); ?></label>
+			<select id="<?php echo esc_attr($this->get_field_id( 'icons_per_row' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'icons_per_row' )); ?>" style="float:right;">
 			<option value="auto" <?php if($instance['icons_per_row'] == 'auto') { echo 'selected'; } ?>>Auto</option>
 			<option value="one" <?php if($instance['icons_per_row'] == 'one') { echo 'selected'; } ?>>1</option>
 			</select>
@@ -785,21 +785,21 @@ class Social_Widget extends WP_Widget {
                                 ob_start(); 
                                 ?>
                                 <li class="sort-item" style="clear: both; border-top: 1px solid #dfdfdf; height: 100px; background: #f1f1f1; margin:0; padding:0;"> 
-                                    <img width="24" height="24" style="float: left; padding: 25px 0px; cursor: move;" src="<?php echo $this->smw_path . '/' . $ndata['image']; ?>" />
-                                    <input name="<?php echo "{$oname}[]"; ?>" value="<?php echo esc_attr($slug); ?>" type="hidden" />
+                                    <img width="24" height="24" style="float: left; padding: 25px 0px; cursor: move;" src="<?php echo esc_attr($this->smw_path . '/' . $ndata['image']); ?>" />
+                                    <input name="<?php echo esc_attr("{$oname}[]"); ?>" value="<?php echo esc_attr($slug); ?>" type="hidden" />
                                     <table style="float: right">
                                         <tr>
                                             <td>Title</td>
-                                            <td><input name="<?php echo "{$tname}[$slug]"; ?>" value="<?php echo esc_attr($instance['slugtitles'][$slug]); ?>" type="text" /></td>
+                                            <td><input name="<?php echo esc_attr("{$tname}[$slug]"); ?>" value="<?php echo esc_attr($instance['slugtitles'][$slug]); ?>" type="text" /></td>
                                         </tr>
                                         <tr>
                                             <td>Alt</td>
-                                            <td><input name="<?php echo "{$aname}[$slug]"; ?>" value="<?php echo esc_attr($instance['slugalts'][$slug]); ?>" type="text" /></td>
+                                            <td><input name="<?php echo esc_attr("{$aname}[$slug]"); ?>" value="<?php echo esc_attr($instance['slugalts'][$slug]); ?>" type="text" /></td>
                                         </tr>
                                         <tr>
                                             <td>Target</td>
                                             <?php $targ = @$instance['slugtargets'][$slug]; ?>
-                                            <td><select name="<?php echo "{$fname}[$slug]"; ?>">
+                                            <td><select name="<?php echo esc_attr("{$fname}[$slug]"); ?>">
                                                 <option value="" <?php selected("", $targ); ?>>Default</option>
                                                 <option value="_blank" <?php selected("_blank", $targ); ?>>New Tab/Window</option>
                                                 <option value="_self" <?php selected("_self", $targ); ?>>Same Tab/Window</option>
@@ -824,12 +824,12 @@ class Social_Widget extends WP_Widget {
 		<div style="display: none;">
 		<?php foreach (array('facebook', 'googleplus', 'twitter', 'myspace', 'orkut', 'hyves', 'linkedin', 'asmallworld', 'foursquare', 'meetup', 'aboutme', 'skyrock', 'goodreads', 'github', 'vk') as $slug) : ?>
 		<p>
-			<label><strong><?php _e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
+			<label><strong><?php esc_html_e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug); ?>"><?php _e('URL:', 'smw'); ?></label>
 			*/ ?>
-			<input id="<?php echo $this->get_field_id( $slug ); ?>" name="<?php echo $this->get_field_name( $slug ); ?>" value="<?php echo !empty($instance[$slug]) ? $instance[$slug] : 'http://'; ?>" class="widefat" type="text" />
+			<input id="<?php echo esc_attr($this->get_field_id( $slug )); ?>" name="<?php echo esc_attr($this->get_field_name( $slug )); ?>" value="<?php echo !empty($instance[$slug]) ? esc_attr($instance[$slug]) : 'http://'; ?>" class="widefat" type="text" />
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug.'_title' ); ?>"><?php _e('Title:', 'smw'); ?></label>
@@ -846,12 +846,12 @@ class Social_Widget extends WP_Widget {
 		<div style="display: none;">
 		<?php foreach (array('flickr', 'picasa', 'instagram', 'pinterest', 'deviantart', 'youtube', 'hulu', 'ustream', 'vimeo', 'flixster', 'imdb') as $slug) : ?>
 		<p>
-			<label><strong><?php _e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
+			<label><strong><?php esc_html_e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug); ?>"><?php _e('URL:', 'smw'); ?></label>
 			*/ ?>
-			<input id="<?php echo $this->get_field_id( $slug ); ?>" name="<?php echo $this->get_field_name( $slug ); ?>" value="<?php echo !empty($instance[$slug]) ? $instance[$slug] : 'http://'; ?>" class="widefat" type="text" />
+			<input id="<?php echo esc_attr($this->get_field_id( $slug )); ?>" name="<?php echo esc_attr($this->get_field_name( $slug )); ?>" value="<?php echo !empty($instance[$slug]) ? esc_attr($instance[$slug]) : 'http://'; ?>" class="widefat" type="text" />
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug.'_title' ); ?>"><?php _e('Title:', 'smw'); ?></label>
@@ -868,12 +868,12 @@ class Social_Widget extends WP_Widget {
 		<div style="display: none;">
 		<?php foreach (array('steam') as $slug) : ?>
 		<p>
-			<label><strong><?php _e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
+			<label><strong><?php esc_html_e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug); ?>"><?php _e('URL:', 'smw'); ?></label>
 			*/ ?>
-			<input id="<?php echo $this->get_field_id( $slug ); ?>" name="<?php echo $this->get_field_name( $slug ); ?>" value="<?php echo !empty($instance[$slug]) ? $instance[$slug] : 'http://'; ?>" class="widefat" type="text" />
+			<input id="<?php echo esc_attr($this->get_field_id( $slug )); ?>" name="<?php echo esc_attr($this->get_field_name( $slug )); ?>" value="<?php echo !empty($instance[$slug]) ? esc_attr($instance[$slug]) : 'http://'; ?>" class="widefat" type="text" />
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug.'_title' ); ?>"><?php _e('Title:', 'smw'); ?></label>
@@ -890,12 +890,12 @@ class Social_Widget extends WP_Widget {
 		<div style="display: none;">
 		<?php foreach (array('skype', 'talk') as $slug) : ?>
 		<p>
-			<label><strong><?php _e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
+			<label><strong><?php esc_html_e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug); ?>"><?php _e('URL:', 'smw'); ?></label>
 			*/ ?>
-			<input id="<?php echo $this->get_field_id( $slug ); ?>" name="<?php echo $this->get_field_name( $slug ); ?>" value="<?php echo !empty($instance[$slug]) ? $instance[$slug] : 'http://'; ?>" class="widefat" type="text" />
+			<input id="<?php echo esc_attr($this->get_field_id( $slug )); ?>" name="<?php echo esc_attr($this->get_field_name( $slug )); ?>" value="<?php echo !empty($instance[$slug]) ? esc_attr($instance[$slug]) : 'http://'; ?>" class="widefat" type="text" />
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug.'_title' ); ?>"><?php _e('Title:', 'smw'); ?></label>
@@ -912,12 +912,12 @@ class Social_Widget extends WP_Widget {
 		<div style="display: none;">
 		<?php foreach (array('digg', 'reddit', 'delicious', 'stumble', 'buzz', 'friendfeed', 'rss_url', 'slashdot', 'subscribe') as $slug) : ?>
 		<p>
-			<label><strong><?php _e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
+			<label><strong><?php esc_html_e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug); ?>"><?php _e('URL:', 'smw'); ?></label>
 			*/ ?>
-			<input id="<?php echo $this->get_field_id( $slug ); ?>" name="<?php echo $this->get_field_name( $slug ); ?>" value="<?php echo !empty($instance[$slug]) ? $instance[$slug] : 'http://'; ?>" class="widefat" type="text" />
+			<input id="<?php echo esc_attr($this->get_field_id( $slug )); ?>" name="<?php echo esc_attr($this->get_field_name( $slug )); ?>" value="<?php echo !empty($instance[$slug]) ? esc_attr($instance[$slug]) : 'http://'; ?>" class="widefat" type="text" />
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug.'_title' ); ?>"><?php _e('Title:', 'smw'); ?></label>
@@ -934,12 +934,12 @@ class Social_Widget extends WP_Widget {
 		<div style="display: none;">
 		<?php foreach (array('tumblr', 'blogger', 'wordpress') as $slug) : ?>
 		<p>
-			<label><strong><?php _e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
+			<label><strong><?php esc_html_e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug); ?>"><?php _e('URL:', 'smw'); ?></label>
 			*/ ?>
-			<input id="<?php echo $this->get_field_id( $slug ); ?>" name="<?php echo $this->get_field_name( $slug ); ?>" value="<?php echo !empty($instance[$slug]) ? $instance[$slug] : 'http://'; ?>" class="widefat" type="text" />
+			<input id="<?php echo esc_attr($this->get_field_id( $slug )); ?>" name="<?php echo esc_attr($this->get_field_name( $slug )); ?>" value="<?php echo !empty($instance[$slug]) ? esc_attr($instance[$slug]) : 'http://'; ?>" class="widefat" type="text" />
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug.'_title' ); ?>"><?php _e('Title:', 'smw'); ?></label>
@@ -956,12 +956,12 @@ class Social_Widget extends WP_Widget {
 		<div style="display: none;">
 		<?php foreach (array('yelp', 'slideshare', 'bbb', 'merchantcircle', 'etsy', 'ebay') as $slug) : ?>
 		<p>
-			<label><strong><?php _e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
+			<label><strong><?php esc_html_e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug); ?>"><?php _e('URL:', 'smw'); ?></label>
 			*/ ?>
-			<input id="<?php echo $this->get_field_id( $slug ); ?>" name="<?php echo $this->get_field_name( $slug ); ?>" value="<?php echo !empty($instance[$slug]) ? $instance[$slug] : 'http://'; ?>" class="widefat" type="text" />
+			<input id="<?php echo esc_attr($this->get_field_id( $slug )); ?>" name="<?php echo esc_attr($this->get_field_name( $slug )); ?>" value="<?php echo !empty($instance[$slug]) ? esc_attr($instance[$slug]) : 'http://'; ?>" class="widefat" type="text" />
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug.'_title' ); ?>"><?php _e('Title:', 'smw'); ?></label>
@@ -978,12 +978,12 @@ class Social_Widget extends WP_Widget {
 		<div style="display: none;">
 		<?php foreach (array('lastfm', 'pandora', 'itunes', 'live365', 'digitaltunes', 'soundcloud', 'bandcamp') as $slug) : ?>
 		<p>
-			<label><strong><?php _e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
+			<label><strong><?php esc_html_e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug); ?>"><?php _e('URL:', 'smw'); ?></label>
 			*/ ?>
-			<input id="<?php echo $this->get_field_id( $slug ); ?>" name="<?php echo $this->get_field_name( $slug ); ?>" value="<?php echo !empty($instance[$slug]) ? $instance[$slug] : 'http://'; ?>" class="widefat" type="text" />
+			<input id="<?php echo esc_attr($this->get_field_id( $slug )); ?>" name="<?php echo esc_attr($this->get_field_name( $slug )); ?>" value="<?php echo !empty($instance[$slug]) ? esc_attr($instance[$slug]) : 'http://'; ?>" class="widefat" type="text" />
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug.'_title' ); ?>"><?php _e('Title:', 'smw'); ?></label>
@@ -1000,12 +1000,12 @@ class Social_Widget extends WP_Widget {
 		<div style="display: none;">
 		<?php foreach (array('plancast') as $slug) : ?>
 		<p>
-			<label><strong><?php _e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
+			<label><strong><?php esc_html_e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug); ?>"><?php _e('URL:', 'smw'); ?></label>
 			*/ ?>
-			<input id="<?php echo $this->get_field_id( $slug ); ?>" name="<?php echo $this->get_field_name( $slug ); ?>" value="<?php echo !empty($instance[$slug]) ? $instance[$slug] : 'http://'; ?>" class="widefat" type="text" />
+			<input id="<?php echo esc_attr($this->get_field_id( $slug )); ?>" name="<?php echo esc_attr($this->get_field_name( $slug )); ?>" value="<?php echo !empty($instance[$slug]) ? esc_attr($instance[$slug]) : 'http://'; ?>" class="widefat" type="text" />
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug.'_title' ); ?>"><?php _e('Title:', 'smw'); ?></label>
@@ -1022,12 +1022,12 @@ class Social_Widget extends WP_Widget {
 		<div style="display: none;">
 		<?php foreach (array('cuttingsme') as $slug) : ?>
 		<p>
-			<label><strong><?php _e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
+			<label><strong><?php esc_html_e((isset($this->networks[$slug]) ? $this->networks[$slug]['title'] : $this->networks_end[$slug]['title']).' URL:', 'smw'); ?></strong></label>
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug); ?>"><?php _e('URL:', 'smw'); ?></label>
 			*/ ?>
-			<input id="<?php echo $this->get_field_id( $slug ); ?>" name="<?php echo $this->get_field_name( $slug ); ?>" value="<?php echo !empty($instance[$slug]) ? $instance[$slug] : 'http://'; ?>" class="widefat" type="text" />
+			<input id="<?php echo esc_attr($this->get_field_id( $slug )); ?>" name="<?php echo esc_attr($this->get_field_name( $slug )); ?>" value="<?php echo !empty($instance[$slug]) ? esc_attr($instance[$slug]) : 'http://'; ?>" class="widefat" type="text" />
 			<?php /*
 			<div class="clear"></div>
 			<label for="<?php echo $this->get_field_id( $slug.'_title' ); ?>"><?php _e('Title:', 'smw'); ?></label>
@@ -1042,20 +1042,20 @@ class Social_Widget extends WP_Widget {
 		<p><a href="javascript:;" onclick="jQuery(this).parent().next('div').slideToggle();" style="background: url('images/arrows.png') no-repeat; padding-left: 15px;"><strong>Custom Services</strong></a></p>
 
 		<div style="display: none;">
-		<p><em>Here you can input <?php echo $this->custom_count; ?> custom icons. Make sure you input FULL urls to the icon (including http://). The images will resize both width and height to the icon size chosen.</em><br />	
+		<p><em>Here you can input <?php echo esc_html($this->custom_count); ?> custom icons. Make sure you input FULL urls to the icon (including http://). The images will resize both width and height to the icon size chosen.</em><br />	
 		</p>
 		<!-- Custom Service 1: Text Input -->
 		
 		<?php for ($i = 1; $i <= $this->custom_count; $i++) : ?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'custom'.$i.'name' ); ?>"><?php _e('Custom Service '.$i.' Name:', 'smw'); ?></label>
-			<input id="<?php echo $this->get_field_id( 'custom'.$i.'name' ); ?>" name="<?php echo $this->get_field_name( 'custom'.$i.'name' ); ?>" value="<?php echo $instance['custom'.$i.'name']; ?>" class="widefat" type="text" />
+			<label for="<?php echo esc_attr($this->get_field_id( 'custom'.$i.'name' )); ?>"><?php esc_html_e('Custom Service '.$i.' Name:', 'smw'); ?></label>
+			<input id="<?php echo esc_attr($this->get_field_id( 'custom'.$i.'name' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'custom'.$i.'name' )); ?>" value="<?php echo esc_attr($instance['custom'.$i.'name']); ?>" class="widefat" type="text" />
 			<br>
-			<label for="<?php echo $this->get_field_id( 'custom'.$i.'icon' ); ?>"><?php _e('Custom Service '.$i.' Icon URL:', 'smw'); ?></label>
-			<input id="<?php echo $this->get_field_id( 'custom'.$i.'icon' ); ?>" name="<?php echo $this->get_field_name( 'custom'.$i.'icon' ); ?>" value="<?php echo $instance['custom'.$i.'icon']; ?>" class="widefat" type="text" />
+			<label for="<?php echo esc_attr($this->get_field_id( 'custom'.$i.'icon' )); ?>"><?php esc_html_e('Custom Service '.$i.' Icon URL:', 'smw'); ?></label>
+			<input id="<?php echo esc_attr($this->get_field_id( 'custom'.$i.'icon' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'custom'.$i.'icon' )); ?>" value="<?php echo esc_attr($instance['custom'.$i.'icon']); ?>" class="widefat" type="text" />
 			<br>
-			<label for="<?php echo $this->get_field_id( 'custom'.$i.'url' ); ?>"><?php _e('Custom Service '.$i.' Profile URL:', 'smw'); ?></label>
-			<input id="<?php echo $this->get_field_id( 'custom'.$i.'url' ); ?>" name="<?php echo $this->get_field_name( 'custom'.$i.'url' ); ?>" value="<?php echo $instance['custom'.$i.'url']; ?>" class="widefat" type="text" />
+			<label for="<?php echo esc_attr($this->get_field_id( 'custom'.$i.'url' )); ?>"><?php esc_html_e('Custom Service '.$i.' Profile URL:', 'smw'); ?></label>
+			<input id="<?php echo esc_attr($this->get_field_id( 'custom'.$i.'url' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'custom'.$i.'url' )); ?>" value="<?php echo esc_attr($instance['custom'.$i.'url']); ?>" class="widefat" type="text" />
 		</p>
 		<?php endfor; ?>
 		
@@ -1066,14 +1066,14 @@ class Social_Widget extends WP_Widget {
 	
 	<!-- Custom Icon Pack URL: Text Input -->
 		<p>
-			<label for="<?php echo $this->get_field_id( 'customiconsurl' ); ?>"><?php _e('Custom Icons URL:', 'smw'); ?></label>
-			<input id="<?php echo $this->get_field_id( 'customiconsurl' ); ?>" name="<?php echo $this->get_field_name( 'customiconsurl' ); ?>" value="<?php echo $instance['customiconsurl']; ?>" class="widefat" type="text" />
+			<label for="<?php echo esc_attr($this->get_field_id( 'customiconsurl' )); ?>"><?php esc_html_e('Custom Icons URL:', 'smw'); ?></label>
+			<input id="<?php echo esc_attr($this->get_field_id( 'customiconsurl' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'customiconsurl' )); ?>" value="<?php echo esc_attr($instance['customiconsurl']); ?>" class="widefat" type="text" />
 		</p>
 		
 	<!-- Custom Icon Pack Path: Text Input -->
 		<p>
-			<label for="<?php echo $this->get_field_id( 'customiconspath' ); ?>"><?php _e('Custom Icons Path:', 'smw'); ?></label>
-			<input id="<?php echo $this->get_field_id( 'customiconspath' ); ?>" name="<?php echo $this->get_field_name( 'customiconspath' ); ?>" value="<?php echo $instance['customiconspath']; ?>" class="widefat" type="text" />
+			<label for="<?php echo esc_attr($this->get_field_id( 'customiconspath' )); ?>"><?php esc_html_e('Custom Icons Path:', 'smw'); ?></label>
+			<input id="<?php echo esc_attr($this->get_field_id( 'customiconspath' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'customiconspath' )); ?>" value="<?php echo esc_attr($instance['customiconspath']); ?>" class="widefat" type="text" />
 		</p>
 		</div>
 		<script type="text/javascript">
@@ -1092,7 +1092,7 @@ class Social_Widget extends WP_Widget {
 		<?php add_thickbox(); ?>
 		<p style="font-weight:bold;">
 			Looking for more sharing tools?<br />
-			<a href="<?php echo admin_url('plugin-install.php?tab=plugin-information&plugin=sumome&TB_iframe=true&width=743&height=500'); ?>" class="thickbox">Checkout our SumoMe plugin!</a>
+			<a href="<?php echo esc_attr(admin_url('plugin-install.php?tab=plugin-information&plugin=sumome&TB_iframe=true&width=743&height=500')); ?>" class="thickbox">Checkout our SumoMe plugin!</a>
 		</p>
 		
 	<?php
@@ -1156,10 +1156,10 @@ function socialwidget_global_notice() {
 				#socialwidget_global_notification a.button:active {vertical-align:baseline;}
 			</style>
 			<div class="updated" id="socialwidget_global_notification" style="border:3px solid #317A96;position:relative;background:##3c9cc2;background-color:#3c9cc2;color:#ffffff;height:70px;">
-				<a class="notice-dismiss" href="<?php echo admin_url('admin.php?page=social-media-widget&socialwidget_global_notification=0'); ?>" style="right:165px;top:0;"></a>
-				<a href="<?php echo admin_url('admin.php?page=social-media-widget&socialwidget_global_notification=0'); ?>" style="position:absolute;top:9px;right:15px;color:#ffffff;">Dismiss and go to settings</a>
+				<a class="notice-dismiss" href="<?php echo esc_attr(admin_url('admin.php?page=social-media-widget&socialwidget_global_notification=0')); ?>" style="right:165px;top:0;"></a>
+				<a href="<?php echo esc_attr(admin_url('admin.php?page=social-media-widget&socialwidget_global_notification=0')); ?>" style="position:absolute;top:9px;right:15px;color:#ffffff;">Dismiss and go to settings</a>
 				<p style="font-size:16px;line-height:50px;">
-					<?php _e('Looking for more sharing tools?'); ?> &nbsp;<a style="background-color: #6267BE;border-color: #3C3F76;" href="<?php echo admin_url('plugin-install.php?tab=plugin-information&plugin=sumome&TB_iframe=true&width=743&height=500'); ?>" class="thickbox button button-primary">Get SumoMe WordPress Plugin</a>
+					<?php esc_html_e('Looking for more sharing tools?'); ?> &nbsp;<a style="background-color: #6267BE;border-color: #3C3F76;" href="<?php echo esc_attr(admin_url('plugin-install.php?tab=plugin-information&plugin=sumome&TB_iframe=true&width=743&height=500')); ?>" class="thickbox button button-primary">Get SumoMe WordPress Plugin</a>
 				</p>
 	        </div>
 		<?php

@@ -315,6 +315,8 @@ export default function Edit(props) {
         });
     }
 
+    const sliderTypeClass = sliderType === 'content' ? 'eb-slider-type-content' : 'eb-slider-type-image';
+
     return (
         <>
             {isSelected && (
@@ -363,7 +365,7 @@ export default function Edit(props) {
                             ref={slider}
                             {...settings}
                             key={`${autoplay}-${adaptiveHeight}`}
-                            className={sliderType}
+                            className={sliderTypeClass}
                         >
                             {images.map((image, index) => (
                                 <div

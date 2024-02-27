@@ -4,6 +4,7 @@ namespace WCPM\Classes;
 
 use  WCPM\Classes\Admin\Documentation ;
 use  WCPM\Classes\Admin\Environment ;
+use  WCPM\Classes\Options ;
 
 if ( !defined( 'ABSPATH' ) ) {
     exit;
@@ -196,7 +197,7 @@ class Shop
         // If the conversion prevention filter is set to true, the order confirmation will not be processed
         $conversion_prevention = apply_filters( 'pmw_conversion_prevention', $conversion_prevention, $order );
         // If the order deduplication is deactivated, we can process the order confirmation
-        if ( self::is_order_deduplication_deactivated() ) {
+        if ( self::is_order_duplication_prevention_disabled() ) {
             return true;
         }
         // If order is in failed, cancelled or refunded status, skip the order confirmation
@@ -218,9 +219,9 @@ class Shop
         return false;
     }
     
-    public static function is_order_deduplication_deactivated()
+    public static function is_order_duplication_prevention_disabled()
     {
-        if ( !Options::get_options_obj()->shop->order_deduplication ) {
+        if ( Options::is_order_duplication_prevention_option_disabled() ) {
             return true;
         }
         if ( self::is_nodedupe_parameter_set() ) {
@@ -230,9 +231,9 @@ class Shop
         return false;
     }
     
-    public static function is_order_deduplication_enabled()
+    public static function is_order_duplication_prevention_active()
     {
-        return !self::is_order_deduplication_deactivated();
+        return !self::is_order_duplication_prevention_disabled();
     }
     
     public static function is_browser_on_shop()
@@ -809,6 +810,31 @@ class Shop
             return true;
         }
         return false;
+    }
+    
+    public static function view_item_list_trigger_settings()
+    {
+        $settings = [
+            'test_mode'        => false,
+            'background_color' => 'green',
+            'opacity'          => 0.5,
+            'repeat'           => true,
+            'timeout'          => 1000,
+            'threshold'        => 0.8,
+        ];
+        $settings = apply_filters_deprecated(
+            'wooptpm_view_item_list_trigger_settings',
+            [ $settings ],
+            '1.13.0',
+            'pmw_view_item_list_trigger_settings'
+        );
+        $settings = apply_filters_deprecated(
+            'wpm_view_item_list_trigger_settings',
+            [ $settings ],
+            '1.31.2',
+            'pmw_view_item_list_trigger_settings'
+        );
+        return apply_filters( 'pmw_view_item_list_trigger_settings', $settings );
     }
 
 }

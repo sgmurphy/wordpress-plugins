@@ -319,118 +319,118 @@
 
     elementor.addControlView("premium-acf-selector", acfOptions);
 
-    elementor.hooks.addFilter("panel/elements/regionViews", function (panel) {
+    // elementor.hooks.addFilter("panel/elements/regionViews", function (panel) {
 
-        if (PremiumPanelSettings.papro_installed || PremiumPanelSettings.papro_widgets.length <= 0)
-            return panel;
-
-
-        var paWidgetsPromoHandler, proCategoryIndex,
-            elementsView = panel.elements.view,
-            categoriesView = panel.categories.view,
-            widgets = panel.elements.options.collection,
-            categories = panel.categories.options.collection,
-            premiumProCategory = [];
-
-        _.each(PremiumPanelSettings.papro_widgets, function (widget, index) {
-            widgets.add({
-                name: widget.key,
-                title: wp.i18n.__('Premium ', 'premium-addons-for-elementor') + widget.title,
-                icon: widget.icon,
-                categories: ["premium-elements-pro"],
-                editable: false
-            })
-        });
-
-        widgets.each(function (widget) {
-            "premium-elements-pro" === widget.get("categories")[0] && premiumProCategory.push(widget)
-        });
-
-        proCategoryIndex = categories.findIndex({
-            name: "premium-elements"
-        });
-
-        proCategoryIndex && categories.add({
-            name: "premium-elements-pro",
-            title: "Premium Addons Pro",
-            defaultActive: !1,
-            items: premiumProCategory
-        }, {
-            at: proCategoryIndex + 1
-        });
+    //     if (PremiumPanelSettings.papro_installed || PremiumPanelSettings.papro_widgets.length <= 0)
+    //         return panel;
 
 
-        paWidgetsPromoHandler = {
-            className: function () {
+    //     var paWidgetsPromoHandler, proCategoryIndex,
+    //         elementsView = panel.elements.view,
+    //         categoriesView = panel.categories.view,
+    //         widgets = panel.elements.options.collection,
+    //         categories = panel.categories.options.collection,
+    //         premiumProCategory = [];
 
-                var className = 'elementor-element-wrapper';
+    //     _.each(PremiumPanelSettings.papro_widgets, function (widget, index) {
+    //         widgets.add({
+    //             name: widget.key,
+    //             title: wp.i18n.__('Premium ', 'premium-addons-for-elementor') + widget.title,
+    //             icon: widget.icon,
+    //             categories: ["premium-elements-pro"],
+    //             editable: false
+    //         })
+    //     });
 
-                if (!this.isEditable()) {
-                    className += ' elementor-element--promotion';
-                }
+    //     widgets.each(function (widget) {
+    //         "premium-elements-pro" === widget.get("categories")[0] && premiumProCategory.push(widget)
+    //     });
 
-                if (this.model.get("name")) {
-                    if (0 === this.model.get("name").indexOf("premium-"))
-                        className += ' premium-promotion-element';
-                }
+    //     proCategoryIndex = categories.findIndex({
+    //         name: "premium-elements"
+    //     });
 
-                return className;
-
-            },
-
-            isPremiumWidget: function () {
-                return 0 === this.model.get("name").indexOf("premium-");
-            },
-
-            getElementObj: function (key) {
-
-                var widgetObj = PremiumPanelSettings.papro_widgets.find(function (widget, index) {
-                    if (widget.key == key)
-                        return true;
-                });
-
-                return widgetObj;
-
-            },
-
-            onMouseDown: function () {
-
-                if (!this.isPremiumWidget())
-                    return;
-
-                void this.constructor.__super__.onMouseDown.call(this);
-
-                var widgetObject = this.getElementObj(this.model.get("name")),
-                    actionURL = widgetObject.action_url;
-
-                elementor.promotion.showDialog({
-                    title: sprintf(wp.i18n.__('%s', 'elementor'), this.model.get("title")),
-                    content: sprintf(wp.i18n.__('Use %s widget and dozens more pro features to extend your toolbox and build sites faster and better.', 'elementor'), this.model.get("title")),
-                    top: "-7",
-                    targetElement: this.$el,
-                    actionButton: {
-                        url: actionURL,
-                        text: wp.i18n.__('See Demo', 'elementor')
-                    }
-                })
-            }
-        }
+    //     proCategoryIndex && categories.add({
+    //         name: "premium-elements-pro",
+    //         title: "Premium Addons Pro",
+    //         defaultActive: !1,
+    //         items: premiumProCategory
+    //     }, {
+    //         at: proCategoryIndex + 1
+    //     });
 
 
-        panel.elements.view = elementsView.extend({
-            childView: elementsView.prototype.childView.extend(paWidgetsPromoHandler)
-        });
+    //     paWidgetsPromoHandler = {
+    //         className: function () {
 
-        panel.categories.view = categoriesView.extend({
-            childView: categoriesView.prototype.childView.extend({
-                childView: categoriesView.prototype.childView.prototype.childView.extend(paWidgetsPromoHandler)
-            })
-        });
+    //             var className = 'elementor-element-wrapper';
 
-        return panel;
+    //             if (!this.isEditable()) {
+    //                 className += ' elementor-element--promotion';
+    //             }
+
+    //             if (this.model.get("name")) {
+    //                 if (0 === this.model.get("name").indexOf("premium-"))
+    //                     className += ' premium-promotion-element';
+    //             }
+
+    //             return className;
+
+    //         },
+
+    //         isPremiumWidget: function () {
+    //             return 0 === this.model.get("name").indexOf("premium-");
+    //         },
+
+    //         getElementObj: function (key) {
+
+    //             var widgetObj = PremiumPanelSettings.papro_widgets.find(function (widget, index) {
+    //                 if (widget.key == key)
+    //                     return true;
+    //             });
+
+    //             return widgetObj;
+
+    //         },
+
+    //         onMouseDown: function () {
+
+    //             if (!this.isPremiumWidget())
+    //                 return;
+
+    //             void this.constructor.__super__.onMouseDown.call(this);
+
+    //             var widgetObject = this.getElementObj(this.model.get("name")),
+    //                 actionURL = widgetObject.action_url;
+
+    //             elementor.promotion.showDialog({
+    //                 title: sprintf(wp.i18n.__('%s', 'elementor'), this.model.get("title")),
+    //                 content: sprintf(wp.i18n.__('Use %s widget and dozens more pro features to extend your toolbox and build sites faster and better.', 'elementor'), this.model.get("title")),
+    //                 top: "-7",
+    //                 targetElement: this.$el,
+    //                 actionButton: {
+    //                     url: actionURL,
+    //                     text: wp.i18n.__('See Demo', 'elementor')
+    //                 }
+    //             })
+    //         }
+    //     }
 
 
-    });
+    //     panel.elements.view = elementsView.extend({
+    //         childView: elementsView.prototype.childView.extend(paWidgetsPromoHandler)
+    //     });
+
+    //     panel.categories.view = categoriesView.extend({
+    //         childView: categoriesView.prototype.childView.extend({
+    //             childView: categoriesView.prototype.childView.prototype.childView.extend(paWidgetsPromoHandler)
+    //         })
+    //     });
+
+    //     return panel;
+
+
+    // });
 
     var onNavigatorInit = function () {
 
@@ -479,10 +479,10 @@
                 var t = this.getControlValue();
                 t && (this.ui.inputs.filter('[value="' + t + '"]').prop("checked", !0), this.ui.inputs.filter('[value="' + t + '"]').addClass("checked"))
             },
-            onReady: function() {
-                if ( 'premium_gdivider_defaults' === this.model.attributes.name) {
+            onReady: function () {
+                if ('premium_gdivider_defaults' === this.model.attributes.name) {
                     const choicesContainer = $(this.el).find('.elementor-image-choices')[0];
-                    new PerfectScrollbar (  choicesContainer, {
+                    new PerfectScrollbar(choicesContainer, {
                         suppressScrollX: true,
                     });
 

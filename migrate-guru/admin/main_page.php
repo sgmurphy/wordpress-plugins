@@ -21,7 +21,7 @@
 		<form action="<?php echo esc_url($this->bvinfo->appUrl()); ?>/migration/migrate" method="post" name="signup">
 			<h1 class="card-title">Easy WordPress Migrations</h1>
 			<div class="iframe-container">
-				<iframe width="80%" height="265" src="https://www.youtube.com/embed/HBGcUdOhMcI" frameborder="0" allowfullscreen></iframe>
+				<iframe width="80%" height="265" src="https://www.youtube.com/embed/ENIHodsYklU" frameborder="0" allowfullscreen></iframe>
 			</div>
 			<hr class="my-3">
 			<div class="form-content">
@@ -47,7 +47,7 @@
 		<h2><span>Migration Key</span></h2>
 		<div>
 			<div>
-				Install Migrate Guru Plugin on destination and copy this key.
+				Install Migrate Guru Plugin on destination and copy the key.
 			</div><br/>
 			<div style="display: flex; gap: 8px; align-items: center;">
 				<input type="password" id="destination-migration-key" name="destination_migration_key" value="<?php echo esc_attr( $this->bvinfo->getConnectionKey() ); ?>" class="widefat" style="flex: 1;" readonly>

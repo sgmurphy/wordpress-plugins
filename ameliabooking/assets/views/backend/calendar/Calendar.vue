@@ -621,6 +621,10 @@
             }
             this.currentUser = response.data.data.currentUser
 
+            if (this.$root.settings.role !== 'admin') {
+              this.setMissingServices(response.data.data.appointments)
+            }
+
             let that = this
             let appointmentDays = {}
 

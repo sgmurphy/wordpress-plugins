@@ -65,7 +65,6 @@ class Form extends Block {
             'confirmationType' => 'message',
             'successMessage'   => 'Your form has been submitted Successfully!',
             'errorMessage'     => 'Your form couldn\'t been submitted! Please try again'
-
         ];
 
         foreach ( $_essential_attributes as $key => $value ) {

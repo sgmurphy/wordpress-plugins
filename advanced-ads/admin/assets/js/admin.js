@@ -1,4 +1,6 @@
+// phpcs:ignoreFile
 jQuery( document ).ready( function ( $ ) {
+
 	function advads_load_ad_type_parameter_metabox ( ad_type ) {
 		jQuery( '#advanced-ad-type input' ).prop( 'disabled', true )
 		$( '#advanced-ads-tinymce-wrapper' ).hide()

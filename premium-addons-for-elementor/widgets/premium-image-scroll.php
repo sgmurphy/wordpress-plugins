@@ -1039,8 +1039,6 @@ class Premium_Image_Scroll extends Widget_Base {
 
 			var image_url = elementor.imagesManager.getImageUrl( image );
 
-			imageHtml = '<img src="' + image_url + '"/>';
-
 		}
 		if( 'yes' === settings.mask_image_scroll_switcher && settings.mask_shape_image_scroll.url !== '' && 'yes' === settings.image_scroll_shadow ) {
 			view.addRenderAttribute( 'shadow', 'style', 'filter: drop-shadow('+settings.image_scroll_shadow_color +' '+ settings.image_scroll_shadow_h.size +'px '+ settings.image_scroll_shadow_v.size +'px '+ settings.image_scroll_shadow_blur.size+'px '+')' );
@@ -1065,7 +1063,7 @@ class Premium_Image_Scroll extends Widget_Base {
 						</div>
 					<# } #>
 
-					{{{ imageHtml }}}
+					<img src="{{ image_url }}"/>
 
 				</div>
 			</div>
