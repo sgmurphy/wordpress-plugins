@@ -553,9 +553,18 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
             $data_from_post_table = $wpdb->get_row($wpdb->prepare("SELECT ID,post_status,post_type,post_date_gmt,post_parent,post_excerpt FROM {$wpdb->posts} WHERE ID = %d;", $id));
             if(isset( $data_from_order_table) && $data_from_order_table){
                 $order_table_id = $data_from_order_table->id;
-                $order_table_status = $data_from_order_table->status;
+                $order_table_status = 'wc-' . preg_replace('/^wc-/', '', $data_from_order_table->status);
                 $order_table_type = $data_from_order_table->type;
                 $order_table_date_created_gmt = $data_from_order_table->date_created_gmt;
+                if ( wp_timezone() ) {
+                    $gmt_timezone =new DateTimeZone('GMT'); 
+                    $gmt_time = new DateTime($order_table_date_created_gmt, $gmt_timezone);
+                    $local_timezone = wp_timezone(); 
+                    $gmt_time->setTimezone($local_timezone);
+                    $order_table_date_created_local = $gmt_time->format('Y-m-d H:i:s');
+                } else {
+                    $order_table_date_created_local =  $order_table_date_created_gmt ;
+                }
                 $order_table_parent_order_id  = $data_from_order_table->parent_order_id;
                 $order_table_customer_note = $data_from_order_table->customer_note;
             }
@@ -605,7 +614,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                 }else if(isset( $data_from_order_table) && $data_from_order_table && $order_table_type == $this->post_type && in_array( $order_table_status, $statuses) && !$data_from_post_table){
                     $postdata = array( // if not specifiying id (id is empty) or if not found by given id  
                         'import_id'     => $order_table_id,
-                        'post_date'     => $order_table_date_created_gmt,
+                        'post_date'     => $order_table_date_created_local,
                         'post_date_gmt' => $order_table_date_created_gmt,
                         'post_type'     => $this->post_type,
                         'post_status'   => $order_table_status,
@@ -639,9 +648,6 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                     }
     
                 }else if($this->table_name == $wpdb->prefix . 'wc_orders'){
-
-                   
-
                     if($data_from_post_table && isset( $data_from_order_table) && $data_from_order_table){
                         if($this->post_type == $order_table_type){
                             if(in_array( $order_table_status, $statuses)){
@@ -669,7 +675,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                             $order_key = 'wc_' . apply_filters( 'woocommerce_generate_order_key', 'order_' . wp_generate_password( 13, false ) );
                             $postdata = array( // if not specifiying id (id is empty) or if not found by given id  
                                 'import_id'     => $order_table_id,
-                                'post_date'     => $order_table_date_created_gmt,
+                                'post_date'     => $order_table_date_created_local,
                                 'post_date_gmt' => $order_table_date_created_gmt,
                                 'post_type'     => 'shop_order_placehold',
                                 'post_status'   => 'draft',
@@ -688,8 +694,8 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                             }
                         }
                       
-                    }else if($data_from_post_table && isset( $data_from_order_table) && !$data_from_order_table){
-                        if('shope_order_placehold' == $post_table_type){
+                    }else if($data_from_post_table && isset( $data_from_order_table) && !$data_from_order_table || $data_from_post_table && !isset( $data_from_order_table) ){
+                        if('shope_order_placehold' !== $post_table_type && $order_table_type !== $this->post_type){
                             $conflict_with_existing_post = true;
                         }else{
                             $order_data =array(
@@ -1494,7 +1500,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
      * @return int
      */
     public function wt_parse_id_field($data, $parsed_data) {
-         
+        global $wpdb;
 		if(!isset($data['order_id'])){
 			return 0;
 		}
@@ -1509,13 +1515,21 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
             remove_all_actions('save_post');
         }
         $order_key = 'wc_' . apply_filters( 'woocommerce_generate_order_key', 'order_' . wp_generate_password( 13, false ) );
-    
-        global $wpdb;
+
+        $date = !empty($parsed_data['date_created']) ? $parsed_data['date_created'] : date('Y-m-d H:i:s', time());
+        if ( wp_timezone() ) {
+            $local_timezone = wp_timezone(); 
+            $local_time = new DateTime($parsed_data['date_created'], $local_timezone);
+            $gmt_timezone = new DateTimeZone('GMT');
+            $local_time->setTimezone($gmt_timezone);
+            $gmt_date = $local_time->format('Y-m-d H:i:s');
+        } else {
+            $gmt_date =  $date ;
+        }
         if($this->is_sync == 1)   {
-            $date = !empty($parsed_data['date_created']) ? $parsed_data['date_created'] : date('Y-m-d H:i:s', time());
             $postdata = array( // if not specifiying id (id is empty) or if not found by given id  
                 'post_date'     => $date,
-                'post_date_gmt' => $date,
+                'post_date_gmt' => $gmt_date,
                 'post_type'     => $this->post_type,
                 'post_status'   => 'importing',
                 'ping_status'   => 'closed',
@@ -1532,7 +1546,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
             if($post_id){
                 $order_data =array(
                     'id'               => $post_id,
-                    'date_created_gmt' => $date,
+                    'date_created_gmt' => $gmt_date,
                     'type'             => $this->post_type,
                     'status'           => 'importing',
                     'parent_order_id'  => !empty($parsed_data['parent_id']) ? $parsed_data['parent_id'] : 0,
@@ -1546,10 +1560,9 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                
         }else{
             if($this->table_name == $wpdb->prefix . 'posts'){
-                $date = !empty($parsed_data['date_created']) ? $parsed_data['date_created'] : date('Y-m-d H:i:s', time());
                 $postdata = array( // if not specifiying id (id is empty) or if not found by given id  
                     'post_date'     => $date,
-                    'post_date_gmt' => $date,
+                    'post_date_gmt' => $gmt_date,
                     'post_type'     => $this->post_type,
                     'post_status'   => 'importing',
                     'ping_status'   => 'closed',
@@ -1567,7 +1580,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                 $date = !empty($parsed_data['date_created']) ? $parsed_data['date_created'] : date('Y-m-d H:i:s', time());
                 $postdata = array( // if not specifiying id (id is empty) or if not found by given id  
                     'post_date'     => $date,
-                    'post_date_gmt' => $date,
+                    'post_date_gmt' => $gmt_date,
                     'post_type'     => 'shop_order_placehold',
                     'post_status'   => 'draft',
                     'ping_status'   => 'closed',
@@ -1581,7 +1594,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                 if($post_id){
                     $order_data =array(
                         'id'               => $post_id,
-                        'date_created_gmt' => $date,
+                        'date_created_gmt' => $gmt_date,
                         'type'             => $this->post_type,
                         'status'           => 'importing',
                         'parent_order_id'  => !empty($parsed_data['parent_id']) ? $parsed_data['parent_id'] : 0,

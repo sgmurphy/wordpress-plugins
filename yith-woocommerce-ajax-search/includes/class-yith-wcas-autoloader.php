@@ -50,6 +50,7 @@ if ( ! class_exists( 'YITH_WCAS_Autoloader' ) ) {
 			 */
 			$mapped_class = array(
 				'class-yith-wcas-tokenizer' => 'utils/class-yith-wcas-tokenizer',
+				'yith-wcas-admin-statistic-list-table' => 'admin/class-yith-wcas-admin-statistic-list-table',
 			);
 
 			return apply_filters( 'yith_wcas_autoload_mapped_files', $mapped_class );
@@ -89,7 +90,10 @@ if ( ! class_exists( 'YITH_WCAS_Autoloader' ) ) {
 					$file = $base_path . 'data-index/class-' . $class . '.php';
 				} elseif ( false !== strpos( $class, 'data-search' ) ) {
 					$file = $base_path . 'data-search/class-' . $class . '.php';
-				} elseif ( false !== strpos( $class, 'gutenberg' ) ) {
+				}elseif ( false !== strpos( $class, 'data-store' ) ) {
+					$file = $base_path . 'data-stores/class-' . $class . '.php';
+				}
+				elseif ( false !== strpos( $class, 'gutenberg' ) ) {
 					$file = $base_path . 'builders/gutenberg/class-' . $class . '.php';
 				} elseif ( false !== strpos( $class, 'gb' ) ) {
 					$file = $base_path . 'builders/gutenberg/blocks/class-' . $class . '.php';

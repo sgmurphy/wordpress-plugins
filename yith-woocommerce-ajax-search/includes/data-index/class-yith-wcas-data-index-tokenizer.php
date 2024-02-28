@@ -39,7 +39,6 @@ class YITH_WCAS_Data_Index_Tokenizer {
 		if ( is_array( $tokens ) ) {
 			foreach ( $tokens as $token_list ) {
 				$saved_tokens = YITH_WCAS_Data_Index_Token::get_instance()->get_tokens( $token_list, $lang );
-
 				foreach ( $token_list as $current_token ) {
 					if ( in_array( $current_token, $occurrences, true ) ) {
 						continue;

@@ -29,8 +29,8 @@ if ( ! class_exists( 'YITH_WCAS_Settings' ) ) {
 		/**
 		 * Return the option
 		 *
-		 * @param   string  $key      Option to retrieve.
-		 * @param   string  $default  Default value.
+		 * @param string $key Option to retrieve.
+		 * @param string $default Default value.
 		 *
 		 * @return mixed
 		 */
@@ -43,8 +43,8 @@ if ( ! class_exists( 'YITH_WCAS_Settings' ) ) {
 		/**
 		 * Update the option
 		 *
-		 * @param   string  $key    Option to retrieve.
-		 * @param   string  $value  Value of the option to update.
+		 * @param string $key Option to retrieve.
+		 * @param string $value Value of the option to update.
 		 *
 		 * @return bool
 		 */
@@ -112,9 +112,16 @@ if ( ! class_exists( 'YITH_WCAS_Settings' ) ) {
 						'type'     => 'name',
 						'priority' => 1,
 					),
+					array(
+						'type'     => 'description',
+						'priority' => 2,
+					),
 				)
 			);
-			$search_fields = array_filter( $search_fields, array( $this, 'filter_right_search_fields' ), ARRAY_FILTER_USE_BOTH );
+			$search_fields = array_filter( $search_fields, array(
+				$this,
+				'filter_right_search_fields'
+			), ARRAY_FILTER_USE_BOTH );
 
 			return apply_filters( 'ywcas_search_fields', $search_fields );
 		}
@@ -122,8 +129,8 @@ if ( ! class_exists( 'YITH_WCAS_Settings' ) ) {
 		/**
 		 * Remove the unsupported fields
 		 *
-		 * @param   array  $field  The field.
-		 * @param   int    $key    The key.
+		 * @param array $field The field.
+		 * @param int   $key The key.
 		 *
 		 * @return bool
 		 */
@@ -144,7 +151,7 @@ if ( ! class_exists( 'YITH_WCAS_Settings' ) ) {
 		/**
 		 * Get the search field by type
 		 *
-		 * @param   string  $type  Type of search field to retrieve.
+		 * @param string $type Type of search field to retrieve.
 		 *
 		 * @return array|bool
 		 */
@@ -169,7 +176,6 @@ if ( ! class_exists( 'YITH_WCAS_Settings' ) ) {
 		public function get_enable_search_fuzzy() {
 			return $this->get( 'enable_search_fuzzy', 'no' );
 		}
-
 
 		/**
 		 * Get if the indexing is scheduled
@@ -198,13 +204,12 @@ if ( ! class_exists( 'YITH_WCAS_Settings' ) ) {
 			return $this->get( 'schedule_indexing_time', 1 );
 		}
 
-
 		/**
 		 * Check if it is necessary do something when an option is updated.
 		 *
-		 * @param   mixed   $value      The new, unserialized option value.
-		 * @param   string  $option     Name of the option.
-		 * @param   mixed   $old_value  The old option value.
+		 * @param mixed  $value The new, unserialized option value.
+		 * @param string $option Name of the option.
+		 * @param mixed  $old_value The old option value.
 		 */
 		public function update_options( $value, $option, $old_value ) {
 			if ( $value !== $old_value ) {
@@ -221,6 +226,15 @@ if ( ! class_exists( 'YITH_WCAS_Settings' ) ) {
 		}
 
 		/**
+		 * Get if the variations must be showed on search results.
+		 *
+		 * @return string
+		 */
+		public function get_include_variations() {
+			return 'no';
+		}
+
+		/**
 		 * Retrieve the default settings for the classic search form widget
 		 *
 		 * @return array
@@ -229,6 +243,7 @@ if ( ! class_exists( 'YITH_WCAS_Settings' ) ) {
 			$default_args    = $this->get_default_shortcode_args();
 			$args            = $default_args['default']['options'];
 			$details_to_show = $args['search-results']['info-to-show'];
+			$related_color   = $this->get( 'related_bg_color', array( 'bgcolor' => '#f1f1f1' ) );
 			$settings        = array(
 				'placeholder'            => $args['search-input']['placeholder'],
 				'submitLabel'            => $args['submit-button']['button-label'],
@@ -299,27 +314,16 @@ if ( ! class_exists( 'YITH_WCAS_Settings' ) ) {
 				'relatedLabel'           => $args['search-results']['related-label'],
 				'relatedPostType'        => $args['search-results']['related-to-show'],
 				'maxRelatedResults'      => $args['search-results']['related-limit'],
-				'relateBgColor'          => $this->get( 'related_bg_color' ),
+				'relateBgColor'          => ! empty( $related_color['bgcolor'] ) ? $related_color['bgcolor']  : 'f1f1f1',
 			);
 
 			return $settings;
 		}
 
 		/**
-		 * Check if store the query string searched by customer
-		 *
-		 * For default is true, but this can be avoided with a filter.
-		 *
-		 * @return bool
-		 */
-		public function is_search_query_log_enabled() {
-			return apply_filters( 'ywcas_enable_query_log', true );
-		}
-
-		/**
 		 * Add the old setting name to the list of checked options
 		 *
-		 * @param   string  $key  Option name.
+		 * @param string $key Option name.
 		 *
 		 * @return void
 		 */
@@ -332,7 +336,7 @@ if ( ! class_exists( 'YITH_WCAS_Settings' ) ) {
 		/**
 		 * Check if the old option should be checked.
 		 *
-		 * @param   string  $key  Option name.
+		 * @param string $key Option name.
 		 *
 		 * @return bool
 		 */
@@ -352,6 +356,7 @@ if ( ! class_exists( 'YITH_WCAS_Settings' ) ) {
 				'general'        => array(
 					'name'         => __( 'Default', 'yith-woocommerce-ajax-search' ),
 					'style'        => 'sm',
+					'type'         => 'classic',
 					'custom_class' => '',
 				),
 				'search-input'   => array(
@@ -388,6 +393,14 @@ if ( ! class_exists( 'YITH_WCAS_Settings' ) ) {
 						'image',
 						'price',
 					),
+					'info-to-show-overlay'          => array(
+						'name',
+						'image',
+						'price',
+						'add-to-cart',
+					),
+					'columns'                       => 4,
+					'rows'                          => 3,
 					'name-color'                    => 'rgb(29, 29, 29)',
 					'results-layout'                => 'list',
 					'image-size'                    => 170,
@@ -405,6 +418,10 @@ if ( ! class_exists( 'YITH_WCAS_Settings' ) ) {
 					'related-label'                 => __( 'Related content', 'yith-woocommerce-ajax-search' ),
 				),
 				'extra-options'  => array(
+					'icon-colors' => array(
+						'color'       => '#000',
+						'color-hover' => '#000',
+					),
 					'show-related-categories'        => 'yes',
 					'max-related-categories-results' => 3,
 					'related-categories-label'       => '',
@@ -436,8 +453,8 @@ if ( ! class_exists( 'YITH_WCAS_Settings' ) ) {
 		/**
 		 * Return the fields for the shortcode by the tab
 		 *
-		 * @param   string  $key   The tab key.
-		 * @param   string  $slug  The shortcode slug.
+		 * @param string $key The tab key.
+		 * @param string $slug The shortcode slug.
 		 *
 		 * @return array
 		 */
@@ -458,7 +475,7 @@ if ( ! class_exists( 'YITH_WCAS_Settings' ) ) {
 					'style'        => array(
 						'id'      => 'ywcas-style-' . $key . '_' . $slug,
 						'type'    => 'select',
-						'label'   => __( 'Layout', 'yith-woocommerce-ajax-search' ),
+						'label'   => __( 'Size', 'yith-woocommerce-ajax-search' ),
 						'options' => array(
 							'sm' => __( 'Small', 'yith-woocommerce-ajax-search' ),
 							'lg' => __( 'Large', 'yith-woocommerce-ajax-search' ),
@@ -502,19 +519,10 @@ Separate multiple classes with spaces.',
 		}
 
 		/**
-		 * Get if the variations must be showed on search results.
-		 *
-		 * @return string
-		 */
-		public function get_include_variations() {
-			return 'no';
-		}
-
-		/**
 		 * Get the options for search input tab
 		 *
-		 * @param   string  $key   The key.
-		 * @param   string  $slug  The slug.
+		 * @param string $key The key.
+		 * @param string $slug The slug.
 		 *
 		 * @return array[]
 		 */
@@ -532,12 +540,12 @@ Separate multiple classes with spaces.',
 				),
 				'colors'      => array(
 					'id'           => 'ywcas-input-colors-' . $key . '_' . $slug,
-					'name'         => __( 'Text', 'yith-woocommerce-ajax-search' ),
+					'label'        => __( 'Colors', 'yith-woocommerce-ajax-search' ),
 					'type'         => 'multi-colorpicker',
 					'colorpickers' => array(
 						array(
 							'id'      => 'textcolor',
-							'name'    => __( 'Color', 'yith-woocommerce-ajax-search' ),
+							'name'    => __( 'Text', 'yith-woocommerce-ajax-search' ),
 							'default' => 'rgb(136, 136, 136)',
 						),
 						array(
@@ -573,8 +581,8 @@ Separate multiple classes with spaces.',
 		/**
 		 * Get the options for the submit button field
 		 *
-		 * @param   string  $key   The key.
-		 * @param   string  $slug  The slug.
+		 * @param string $key The key.
+		 * @param string $slug The slug.
 		 *
 		 * @return array
 		 */
@@ -602,6 +610,7 @@ Separate multiple classes with spaces.',
 						'value' => 'icon',
 						'type'  => 'show',
 					),
+
 				),
 				'icon-colors'   => array(
 					'id'           => 'ywcas-submit-colors-' . $key . '_' . $slug,
@@ -648,8 +657,8 @@ Separate multiple classes with spaces.',
 		/**
 		 * Get the options for the search results tab
 		 *
-		 * @param   string  $key   The key.
-		 * @param   string  $slug  The slug.
+		 * @param string $key The key.
+		 * @param string $slug The slug.
 		 *
 		 * @return array[]
 		 */
@@ -742,9 +751,9 @@ Separate multiple classes with spaces.',
 				),
 				'show-view-all'    => array(
 					'id'    => 'ywcas-show-view-all-' . $key . '_' . $slug,
-					'label' => __( 'Show “View all results" link.', 'yith-woocommerce-ajax-search' ),
+					'label' => __( 'Show “View all results" link', 'yith-woocommerce-ajax-search' ),
 					'type'  => 'onoff',
-					'desc'  => __( 'Show “View all results" link.', 'yith-woocommerce-ajax-search' ),
+					'desc'  => __( 'Show “View all results" link', 'yith-woocommerce-ajax-search' ),
 				),
 				'view-all-label'   => array(
 					'id'    => 'ywcas-view-all-label-' . $key . '_' . $slug,
@@ -773,13 +782,14 @@ Separate multiple classes with spaces.',
 		/**
 		 * Return the shortcode list
 		 *
-		 * @param   array  $shortcode_list  Shortcode list to update.
+		 * @param array $shortcode_list Shortcode list to update.
 		 *
 		 * @return bool
 		 */
 		public function update_shortcodes_list( $shortcode_list ) {
 			return $this->update( 'shortcodes_list', $shortcode_list );
 		}
+
 		/**
 		 * Get the source of popular searches
 		 *
@@ -811,6 +821,4 @@ Separate multiple classes with spaces.',
 			);
 		}
 	}
-
-
 }

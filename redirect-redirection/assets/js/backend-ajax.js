@@ -173,10 +173,8 @@ jQuery(document).ready(function ($) {
             return;
         }
 
-        const urlPattern = /^(https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})([a-zA-Z0-9-_?\/.=]{2,})$/g;
-        const pathPattern = /^\/[a-zA-Z0-9-_?\/.=]{2,}$/g;
-        const notAllowedSymbols = /[\<\>"'%\{\}\[\]\|\\,~\^`;@\$\!\*\(\)]+/g;
-        if ((!fromValue.match(urlPattern) && !fromValue.match(pathPattern)) || fromValue.match(notAllowedSymbols)) {
+        const notAllowedSymbols = /[\<\>\"\'\{\}\[\]\|\\,~\^`;@\$\!\*\(\)]+/g;
+        if (fromValue.match(notAllowedSymbols)) {
             notify({
                 autoCloseAfter: 5000,
                 type: 'error',
@@ -196,7 +194,7 @@ jQuery(document).ready(function ($) {
             return;
         }
 
-        if ((!toValue.match(urlPattern) && !toValue.match(pathPattern)) || toValue.match(notAllowedSymbols)) {
+        if (toValue.match(notAllowedSymbols)) {
             notify({
                 autoCloseAfter: 5000,
                 type: 'error',
@@ -329,11 +327,9 @@ jQuery(document).ready(function ($) {
                 $(".ir-instant-edit-status-" + dbId).removeAttr("checked");
                 dataArr.push({column: 'status', value: 0});
             } else {
-                const urlPattern = /^(https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})([a-zA-Z0-9-_?\/.=]{2,})$/g;
-                const pathPattern = /^\/[a-zA-Z0-9-_?\/.=]{2,}$/g;
-                const notAllowedSymbols = /[\<\>"'%\{\}\[\]\|\\,~\^`;@\$\!\*\(\)]+/g;
+                const notAllowedSymbols = /[\<\>\"\'\{\}\[\]\|\\,~\^`;@\$\!\*\(\)]+/g;
         
-                if (!elValue.match(urlPattern) && !elValue.match(pathPattern) || elValue.match(notAllowedSymbols)) {
+                if (elValue.match(notAllowedSymbols)) {
 
                     if (el.hasClass("ir-instant-edit-from-" + dbId)) {
                         notify({

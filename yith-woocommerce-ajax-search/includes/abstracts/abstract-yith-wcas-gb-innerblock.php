@@ -24,12 +24,12 @@ abstract class Abstract_YITH_WCAS_Gb_InnerBlock extends Abstract_YITH_WCAS_Gb_Bl
 	 * The registration using metadata is now recommended. And it's required for "Inner Blocks" to
 	 * fix the issue of missing translations in the inspector (in the Editor mode)
 	 */
-	protected function register_block() {
-		$block_settings = array(
-			'render_callback' => $this->get_block_render_callback(),
-			'editor_style'    => $this->get_block_editor_style(),
-			'style'           => $this->get_block_style(),
-		);
+	protected function register_block_type() {
+		$block_settings = [
+			'render_callback' => $this->get_block_type_render_callback(),
+			'editor_style'    => $this->get_block_type_editor_style(),
+			'style'           => $this->get_block_type_style(),
+		];
 
 		if ( isset( $this->api_version ) && '2' === $this->api_version ) {
 			$block_settings['api_version'] = 2;
@@ -45,39 +45,19 @@ abstract class Abstract_YITH_WCAS_Gb_InnerBlock extends Abstract_YITH_WCAS_Gb_Bl
 	}
 
 	/**
-	 * Get the path to a block's metadata
-	 *
-	 * @param string $block_name The block to get metadata for.
-	 * @param string $path Optional. The path to the metadata file inside the 'build' folder.
-	 *
-	 * @return string|boolean False if metadata file is not found for the block.
-	 */
-	public function get_block_metadata_path( $block_name, $path = '' ) {
-		$path_to_metadata_from_plugin_root = YITH_WCAS_BUILD_BLOCK_PATH . 'search-block/' . $path . $block_name . '/block.json';
-
-		if ( ! file_exists( $path_to_metadata_from_plugin_root ) ) {
-
-			return false;
-		}
-
-		return $path_to_metadata_from_plugin_root;
-	}
-
-	/**
 	 * For lazy loaded inner blocks, we don't want to enqueue the script but rather leave it for webpack to do that.
 	 *
-	 * @param string $key Data to get, or default to everything.
-	 *
-	 * @return array|string|null
 	 * @see $this->register_block_type()
+	 * @param string $key Data to get, or default to everything.
+	 * @return array|string|null
 	 */
-	protected function get_block_script( $key = null ) {
+	protected function get_block_type_script( $key = null ) {
 
 		if ( $this->is_lazy_loaded ) {
 			return null;
 		}
 
-		return parent::get_block_script( $key );
+		return parent::get_block_type_script( $key );
 	}
 
 	/**
@@ -85,7 +65,7 @@ abstract class Abstract_YITH_WCAS_Gb_InnerBlock extends Abstract_YITH_WCAS_Gb_Bl
 	 *
 	 * @return null
 	 */
-	protected function get_block_style() {
+	protected function get_block_type_style() {
 		return null;
 	}
 }

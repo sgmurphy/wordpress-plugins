@@ -86,6 +86,8 @@ class YITH_WCAS_Data_Index_Lookup {
 			'%s', // custom_fields.
 			'%s', // lang.
 			'%d', // featured.
+			'%s', // custom taxonomies.
+			'%d', // boost.
 		);
 	}
 
@@ -164,4 +166,42 @@ class YITH_WCAS_Data_Index_Lookup {
 		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->yith_wcas_data_index_lookup  WHERE post_id = %d", $id ), ARRAY_A );
 	}
 
+	/**
+	 * Return id of document of lookup by id
+	 *
+	 * @param array $ids Products to update.
+	 * @param float $boost_value Boost value.
+	 *
+	 * @return int
+	 * @since 2.1.0
+	 */
+	public function set_boost_to_products( $ids, $boost_value ) {
+		global $wpdb;
+		return $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->yith_wcas_data_index_lookup SET boost = %f WHERE post_id IN ( ".implode( ',', $ids )." )", floatval($boost_value)) );
+	}
+
+	/**
+	 * Return id of document of lookup by id
+	 *
+	 * @param string|bool $s Search key.
+	 * @param string $order Order of results.
+	 * @param int $limit Limit of value.
+	 * @param int $offset Offset.
+	 *
+	 * @return array
+	 * @since 2.1.0
+	 */
+	public function get_boosted_products( $s = false , $order = 'DESC', $limit = false, $offset = 0 ) {
+		global $wpdb;
+		$limit_string = $limit ? ' LIMIT '. $limit : '';
+		$offset_string = 0 === $offset ? '' : ' OFFSET ' . $offset;
+		if( $s ){
+			$result = $wpdb->get_results( "Select post_id, name, boost from $wpdb->yith_wcas_data_index_lookup WHERE boost > 0 and name LIKE '%".$s."%' ORDER BY boost $order  $limit_string $offset_string", ARRAY_A );
+		}else{
+			$result = $wpdb->get_results( "Select post_id, name, boost from $wpdb->yith_wcas_data_index_lookup WHERE boost > 0 ORDER BY boost $order  $limit_string $offset_string", ARRAY_A );
+		}
+
+
+		return $result;
+	}
 }

@@ -88,7 +88,6 @@ $general_tab = array(
 			'name'        => _x( 'Fuzzy strings & synonyms', 'Admin section label', 'yith-woocommerce-ajax-search' ),
 			'type'        => 'title',
 			'id'          => 'ywcas_search_fuzzy_settings',
-			'class_title' => ywcas_get_disabled_class(),
 		),
 		'enable_search_fuzzy'                => array(
 			'id'        => 'yith_wcas_enable_search_fuzzy',

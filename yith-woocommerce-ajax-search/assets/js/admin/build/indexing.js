@@ -18,7 +18,7 @@ var YITH_WCAS_Indexing = function YITH_WCAS_Indexing() {
       data: {
         security: ywcas_admin_params.indexNonce,
         action: 'yith_wcas_start_index',
-        form: jQuery("#plugin-fw-wc").serialize()
+        form: jQuery('#plugin-fw-wc').serialize()
       },
       type: 'POST',
       dataType: 'json',

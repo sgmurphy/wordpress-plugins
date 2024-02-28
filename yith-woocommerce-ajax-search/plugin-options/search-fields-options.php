@@ -42,7 +42,6 @@ $search_fields_tab = array(
 			'type'        => 'title',
 			'desc'        => __( 'A search index helps your users quickly find information and products on your shop. It is designed to map search queries to documents or URLs that might appear in the results.', 'yith-woocommerce-ajax-search' ),
 			'id'          => 'ywcas_search_index_settings',
-			'class_title' => ywcas_get_disabled_class(),
 		),
 		'schedule-index'                    => array(
 			'name'      => _x( 'Schedule indexing', 'Admin label option', 'yith-woocommerce-ajax-search' ),
@@ -95,11 +94,6 @@ $search_fields_tab = array(
 			'id'        => 'yith_wcas_index',
 			'type'      => 'yith-field',
 			'yith-type' => 'ywcas-index',
-		),
-		'disable_index_message'             => array(
-			'type'      => 'yith-field',
-			'yith-type' => 'html',
-			'html'      => ywcas_get_disable_field(),
 		),
 		'section_end_search_index_settings' => array(
 			'type' => 'sectionend',

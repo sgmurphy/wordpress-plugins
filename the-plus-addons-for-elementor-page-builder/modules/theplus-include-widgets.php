@@ -86,6 +86,7 @@ if ( ! class_exists( 'L_Theplus_Widgets_Include' ) ) {
 		*/
 		public function required_fiels()
 		{	
+			require_once L_THEPLUS_PATH.'modules/enqueue/plus-widgets-manager.php';
 			require_once L_THEPLUS_PATH.'modules/enqueue/plus-library.php';
 			require_once L_THEPLUS_PATH.'modules/enqueue/plus-generator.php';
 			if(!defined('THEPLUS_VERSION')){

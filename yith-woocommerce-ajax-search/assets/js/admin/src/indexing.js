@@ -5,6 +5,7 @@ const YITH_WCAS_Indexing = () => {
   const successMessage = document.querySelector('.yith-wcas-success-message');
   const waitingMessage = document.querySelector('.yith-wcas-waiting-message');
   let checkForUpdate = false;
+
   const handleRebuild = (e) => {
     e.preventDefault();
     successMessage.classList.add('hide');
@@ -14,7 +15,7 @@ const YITH_WCAS_Indexing = () => {
       data: {
         security: ywcas_admin_params.indexNonce,
         action: 'yith_wcas_start_index',
-        form: jQuery("#plugin-fw-wc").serialize()
+        form: jQuery('#plugin-fw-wc').serialize(),
       },
       type: 'POST',
       dataType: 'json',

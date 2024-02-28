@@ -1,9 +1,9 @@
 === Redirection ===
 Contributors: Socialdude
-Tags: Redirect, Redirection, 301, 307, 404, Redirects
+Tags: Redirect, Redirection, 301, 404, Redirects
 Requires at least: 4.6
-Tested up to: 6.4.3
-Stable tag: 1.2.1
+Tested up to: 6.5
+Stable tag: 1.2.2
 License: GPLv3
 Requires PHP: 5.6
 
@@ -94,6 +94,11 @@ Vietnamese: [Đặt 301, 307, 404, một chuyển hướng khác.](https://vi.wo
 5. HTTP codes explanation
 
 == Changelog ==
+
+= 1.2.2 =
+* [IMPROVED] Added support to non-latin characters and special characters in URL input
+* [FIX] Reverted sanitization process from v1.2.0
+* [NOTE] Tested up with WordPress v6.5 (beta)
 
 = 1.2.1 =
 * [IMPROVED] Redirections based on user language should be more accurate and even more sophisticated
@@ -232,13 +237,7 @@ Vietnamese: [Đặt 301, 307, 404, một chuyển hướng khác.](https://vi.wo
 
 == Upgrade Notice ==
 
-= 1.2.1 =
-* [IMPROVED] Redirections based on user language should be more accurate and even more sophisticated
-* [IMPROVED] URL verification - now it's not required to use http/https
-* [NEW] Absolute and relative path is now supported in simple rediretion text areas (/from -> /to)
-* [NEW] Added support for websites without 'www.' and destination URL with ".pdf, .png, etc."
-* [NEW] Inclusion & Exclusion rules are now available for all-urls rule
-* [FIX] Fixed issue when rule 404-s redirections got removed after page reload
-* [FIX] Fixed corner case issues with URL sanitization when non alphanumeric URLs were used
-* [REMOVED/DEPRECATED] Automatic redirect for post and pages, it has no effect for existing users
-* [NOTE] Tested up with WordPress v6.4.3
+= 1.2.2 =
+* [IMPROVED] Added support to non-latin characters and special characters in URL input
+* [FIX] Reverted sanitization process from v1.2.0
+* [NOTE] Tested up with WordPress v6.5 (beta)

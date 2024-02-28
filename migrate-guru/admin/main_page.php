@@ -5,16 +5,16 @@
 <main>
 	<div class="card">
 		<div class="card-header-links">
-			<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://migrateguru.freshdesk.com/support/home">
+			<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://migrateguru.freshdesk.com/support/solutions/33000046011">
 				FAQs
 			</a>
-			<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://migrateguru.freshdesk.com/support/home">
+			<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://migrateguru.freshdesk.com/support/solutions/33000052052">
 				Help Docs
 			</a>
-			<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://www.migrateguru.com/contact-us/">
+			<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://migrateguru.freshdesk.com/support/tickets/new">
 				Support
 			</a>
-			<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://wordpress.org/support/plugin/migrate-guru/reviews">
+			<a class="bv-button" target="_blank" rel="noopener noreferrer" href="https://wordpress.org/support/plugin/migrate-guru/reviews/#new-post">
 				Rate us 5 stars
 			</a>
 		</div>

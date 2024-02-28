@@ -73,6 +73,21 @@ class WPCode_Admin_Page_Snippet_Manager extends WPCode_Admin_Page {
 	}
 
 	/**
+	 * Load the snippet if we're editing one.
+	 *
+	 * @return void
+	 */
+	public function load_snippet() {
+		if ( isset( $_GET['snippet_id'] ) ) {
+			$snippet_post = get_post( absint( $_GET['snippet_id'] ) );
+			if ( ! is_null( $snippet_post ) && $this->get_post_type() === $snippet_post->post_type ) {
+				$this->snippet_id = $snippet_post->ID;
+				$this->snippet    = wpcode_get_snippet( $snippet_post );
+			}
+		}
+	}
+
+	/**
 	 * Page-specific hooks.
 	 *
 	 * @return void
@@ -81,11 +96,7 @@ class WPCode_Admin_Page_Snippet_Manager extends WPCode_Admin_Page {
 		$this->can_edit = current_user_can( 'wpcode_edit_snippets' );
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['snippet_id'] ) ) {
-			$snippet_post = get_post( absint( $_GET['snippet_id'] ) );
-			if ( ! is_null( $snippet_post ) && 'wpcode' === $snippet_post->post_type ) {
-				$this->snippet_id = $snippet_post->ID;
-				$this->snippet    = new WPCode_Snippet( $snippet_post );
-			}
+			$this->load_snippet();
 			// If the post type does not match the page will act as an add new snippet page, the id will be ignored.
 		} elseif ( ! isset( $_GET['custom'] ) ) {
 			$this->show_library = apply_filters( 'wpcode_add_snippet_show_library', true );
@@ -1013,8 +1024,7 @@ class WPCode_Admin_Page_Snippet_Manager extends WPCode_Admin_Page {
 			$attributes = array();
 		}
 
-
-		$snippet = new WPCode_Snippet(
+		$snippet = wpcode_get_snippet(
 			array(
 				'id'                   => empty( $_REQUEST['id'] ) ? 0 : absint( $_REQUEST['id'] ),
 				'title'                => isset( $_POST['wpcode_snippet_title'] ) ? sanitize_text_field( wp_unslash( $_POST['wpcode_snippet_title'] ) ) : '',

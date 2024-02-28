@@ -1,9 +1,9 @@
-=== PDF Flipbook, 3D Flipbook - DearFlip ===
-Plugin Name: PDF Flipbook, 3D Flipbook - DearFlip
+=== PDF Flipbook, 3D Flipbook, PDF embed, PDF viewer - DearFlip ===
+Plugin Name: PDF Flipbook, 3D Flipbook, PDF embed, PDF viewer - DearFlip
 Author: dearhive
 Author URI: https://dearflip.com/go/wp-lite-author
 Contributors: deip, dearhive
-Tags: flipbook, flip book, 3d flipbook, pdf flipbook, pdf viewer, pdf,  pdf embed
+Tags: flipbook, flip book, 3d flipbook, pdf flipbook, pdf viewer
 Requires at least: 4.6
 Tested up to: 6.4
 Stable tag: 2.2.32
@@ -11,13 +11,13 @@ Requires PHP: 5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-PDF Flipbook, 3D Flipbook for WordPress. Create realistic 3D flipbooks using PDFs or Images and engage your readers. Just add the link and flipbook is ready to flip.
+PDF Flipbook, 3D Flipbook for WordPress. Create realistic 3D flipbooks using PDFs or Images. Easy to use PDF embed and pdf viewer flipbook.
 
 == Description ==
 
 *When impression matters, don’t settle with Flat PDFs! DearFlip is an easy to use 3D flipbook WordPress plugin for every website and PDF. It's the simplest way to create a flipbook in WordPress - 3D flipbook, 2D flipbook, image flipbook, pdf flipbook, portfolio flipbook. All you need to add is the PDF link and your PDF will come alive as a realistic 3D Flipbook. BRING LIFE TO YOUR PDFs!*
 
-DearFlip is a stunning 3D flipbook alternative for your flat lifeless PDFs. DearFlip's easy post structure makes it easy to create a flipbook inside WordPress. Create a 3D flipbook, make your PDFs interactive and generate more customer attention.
+DearFlip is a stunning 3D flipbook alternative for your flat lifeless PDF viewer. DearFlip's easy post structure makes it easy to create a flipbook inside WordPress. Create a 3D flipbook, make your PDFs interactive and generate more customer attention.
 
 >Important Notice: DearFlip (also known as dFlip) is now sold on [dearflip.com](https://dearflip.com/go/wp-lite-full-version) instead of CodeCanyon.net
 
@@ -28,12 +28,11 @@ DearFlip is a stunning 3D flipbook alternative for your flat lifeless PDFs. Dear
 [WordPress Flipbook Pro Version](https://dearflip.com/go/wp-lite-full-version)
 
 ### DearFlip 3D Flipbook and it's variations ###
-- 3D Flipbook - Best look your PDFs and images can get. DearFlip converts your flat images and PDFs to interactive and real life books with the help of cutting edge WebGL technology. All high-tech complex work happens behind the scenes, while your customers enjoy your PDF content with delight. 3D Flipbook is our pride and soon will be yours.
-- 2D Flipbook - Old is gold! 2D flipbook uses CSS and HTMl5 tags to create a flippable and interactive flipbook. The famous variant before the 3D flipbook is still a worthy alternative. Use 2D flipbook for faster loading and in cases where 3D is not preferred, like low-end devices.
-- PDF Flipbook - What makes the easy-to-use PDFs better? It's a 3D PDF Flipbook! PDF flipbooks are very easy to create and use. They are rendered using PDF.js library and are very convenient to use and manage. Updating a PDF flipbook or creating it is just about the link to the PDF file, no further hassle. It's our official recommended file format for a 3D flipbook.
-- Image Flipbook - Got images that you want to display? Why not create a story book out of your images and share your experience with ALBUMS. Image Flipbook are your virtual Albums, flip, share and enjoy your photos, portfolios with the world.
-
-
+- **3D Flipbook**- Best look your PDFs and images can get. DearFlip converts your flat images and PDFs to interactive and real life books with the help of cutting edge WebGL technology. All high-tech complex work happens behind the scenes, while your customers enjoy your PDF content with delight. 3D Flipbook is our pride and soon will be yours.
+- **2D Flipbook** - Old is gold! 2D flipbook uses CSS and HTMl5 tags to create a flippable and interactive flipbook. The famous variant before the 3D flipbook is still a worthy alternative. Use 2D flipbook for faster loading and in cases where 3D is not preferred, like low-end devices.
+- **PDF Flipbook** - What makes the easy-to-use PDFs better? It's a 3D PDF Flipbook! PDF flipbooks are very easy to create and use. They are rendered using PDF.js library and are very convenient to use and manage. Updating a PDF flipbook or creating it is just about the link to the PDF file, no further hassle. It's our official recommended file format for a 3D flipbook.
+- **Image Flipbook** - Got images that you want to display? Why not create a story book out of your images and share your experience with ALBUMS. Image Flipbook are your virtual Albums, flip, share and enjoy your photos, portfolios with the world.
+- **PDF embed and PDF Viewer** - If you are still interested in old PDF viewers, Dearflip has that too. Create PDF embeds on your page that resemble browsers embed pdf viewer. These are best suited for irregular documents.
 
 
 ### Customer Engagement and Presentation ###
@@ -59,6 +58,7 @@ WordPress is famous for its easy to learn and use structure. DearFlip follows Wo
 - Embedded inline flipbook:  is the default structure to display flipbook
 - Basic Popup: Display flipbook on demand, best for [multiple flipbook in a single page](https://dearflip.com/go/wp-lite-flipbook-examples)
 - Table of contents for PDF
+- PDF viewer and PDF embed support
 - Custom table of contents creator
 - Page thumbnails preview
 - Deep linking to pages of a flipbook via share button
@@ -263,6 +263,11 @@ You can set the opening page of a flipbook with shortcode:
 **<code>[dflip id="123" data-page=5]</code>**
 This will create your PDF flipbook or image flipbook to open at page 5 when it starts.
 
+= What is better? PDF embed or lightbox PDF viewer? =
+
+
+We recommend to use lightbox for PDF viewer instead of PDF embed viewer. Using embed can result in extra bandwidth for the PDF documents even if the user maynot view the document.
+
 
 == Screenshots ==
 
@@ -271,7 +276,7 @@ This will create your PDF flipbook or image flipbook to open at page 5 when it s
 3. Realistic 3D Flipbook created with a PDF file. PDF files used is [MeatAtlas](https://www.boell.de/en/meat-atlas)
 4. 2D Flipbook as fallback; when the browser doesn't support 3D WebGL. As of 2020, 97% of the browsers support WebGL
 5. Image flipbook for artist, photographer to showcase their portfolio, collection and artwork
-6. PDF FlipBook with table of contents
+6. PDF FlipBook viewer with table of contents
 
 == Changelog ==
 

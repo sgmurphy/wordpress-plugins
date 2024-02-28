@@ -104,6 +104,29 @@ if ( ! class_exists( 'YITH_WCAS_Shortcode' ) ) {
 		 */
 		protected function get_block_code( $options ) {
 
+			$type = $options['general']['type'] ?? 'classic';
+
+			$method = "get_{$type}_block_code";
+
+			if( method_exists( $this, $method)){
+				$block = $this->$method( $options );
+			}else{
+				$block = $this->get_classic_block_code( $options );
+			}
+
+			return $block;
+		}
+
+		/**
+		 * Return the block classic code
+		 *
+		 * @param array $options Options
+		 *
+		 * @return string
+		 * @since 2.1.0
+		 */
+		public function get_classic_block_code( $options ) {
+
 			$block_options = array(
 				'size'      => $options['general']['style'],
 				'className' => $options['general']['custom_class'],

@@ -3,8 +3,8 @@ Contributors: mdempfle
 Donate link: http://www.tinywebgallery.com
 Tags: iframe, embed, resize, zoom, content, advanced, shortcode, modify css, widget 
 Requires at least: 3.3
-Tested up to: 6.4.2
-Stable tag: 2024.0
+Tested up to: 6.4.3
+Stable tag: 2024.2
 Requires PHP: 5.4
 License: Envato market standard or extended license
 License URI: https://themeforest.net/licenses/standard
@@ -169,8 +169,17 @@ Use the Wordpress installer to update or simply overwrite all files from your pr
 If you have some radio elements empty after the update simply select the one you like and save again.
 
 == Changelog ==
+= 2024.2 =
+- Security fix: The additional_js and additional_js_file_iframe attribute are now only allowed to be used if you have the permission "unfiltered_html", that you need in WordPress to use iframes. If you do not have this permission, during save the attributes are removed and an error message is shown.
+- Fix: Show iframe as layer was not working properly in Firefox. The link was opening in a new tab. Using a different way to hide the iframe solves the problem. 
+- Fix: Filtering all short code attributes failed because "The Plus Blocks for Block Editor" was adding their settings to the ai attributes. I will contact them, why they do such stupid things!
+- Fix: Switching a theme could cause an error message when no content pages where existing. Now this is only executed if content pages do exist. 
+
+= 2024.1 =
+- Fix: add_iframe_url_as_param thrown an error because of the additional security filter. Now it works fine again. 
+
 = 2024.0 =
-- Security fix: The include_html attribute are now only allowed to be used if you have the permission "unfiltered_html", that you need in WordPress to use iframes. If you do not have this permission, during save the attribute is removed and an error message is shown.
+- Security fix: The include_html attribute is now only allowed to be used if you have the permission "unfiltered_html", that you need in WordPress to use iframes. If you do not have this permission, during save the attribute is removed and an error message is shown.
 - Security fix: All shortcode attributes have now input sanitation to avoid Stored Cross-Site Scripting at save if you do not have the permission "unfiltered_html"! This happens in the normal editor and also in the Gutenberg block! Please get the unfiltered_html permission if you get an error message while you want to use '();= or a space in attributes. This sanitation is very general and does not allow all possible things you can do with advanced iframe. As 99.9% of the users who add an iframe are editors or above this should affect almost no one directly and it makes the plugin more secure. 
 - Security fix: " inside advanced iframe shortcode attributes is not allowed anymore to avoid XSS attacks.
 - Security fix: Additional output filtering of short code attributes directly used in HTML or Javascript to avoid XSS attacks.  This is done for ALL roles!
@@ -267,6 +276,7 @@ If you have some radio elements empty after the update simply select the one you
 - Fix: check_iframe_batch_size new default is now 20 as the 100 before was not reliable enough. 
 - Fix: The link in the registration message was linked to the wrong part of the options tab. Now it goes directly where you can enter the purchase code.
 - Fix: When saving a post the url was not checked even it was not enabled. Now ai_checkUrlStatus is called properly when the classic editor is used.  
+
 = 2022.5 =
 - New: Tested with Wordpress 6.0
 - New: fullscreen_button does now also support top_left and bottom_left to show the fullscreen button also on the left. Currently this can be only set in the shortcode.
@@ -284,12 +294,14 @@ If you have some radio elements empty after the update simply select the one you
 - New: All features that modifies the iframe content (hide, modify css, onload_show_element_only, change targets/links ...) can now also be delayed with onload_resize_delay on the same domain. For the external workaround this was already implemented.
 - New: If enable_lazy_load is enabled the HTML lazy loading is disabled as it does not make sense to have both.
 - Fix: When you enter the URL directly in the administration WordPress replaces & with &#038; This now replaced again by & internally again.
-- Fix: "Support WP multisite" was not working in all situations when the iframe communication solution was used. It is now only supported when using postMessage and removed for the iframe communication. As this feature is part of the pro version where postMessage is the recommended solution anyway, only users should be affected who forgot to switch to postMessage.
+- Fix: "Support WP multi site" was not working in all situations when the iframe communication solution was used. It is now only supported when using postMessage and removed for the iframe communication. As this feature is part of the pro version where postMessage is the recommended solution anyway, only users should be affected who forgot to switch to postMessage.
 - Fix: Resize on element resize was bound to one variable name for all iframes. Now every iframe on the page gets its own one. This prevents that 2 iframe overwrite the resize method of the other one.  
 - Fix: Resize on element resize and lazy load could lead to an error as a variable was not reinitialized when the iframe code is added to the page. 
 
+
 = 2022.2 =
 - Fix: The title was set to a space on all pages if use_iframe_title_for_parent was activated. And only on iframe pages it was set properly. This part of the feature was now removed again. 
+
 = 2022.1 =
 - Fix: use_iframe_title_for_parent was rending in the free version the Javascript variable where a backup of the title is stored into the title tag. This does actually work for normal users. Still this not very nice at all. 
 - Fix: use_iframe_title_for_parent was only partly working when SEO plugins where active which also modified the title. Now the hook pre_get_document_title is used to get the current title. 
@@ -299,7 +311,7 @@ If you have some radio elements empty after the update simply select the one you
 - New: iframe_height_ratio is now available in the free version! This enables you now to include responsive videos without the pro version. See the demo here: https://www.tinywebgallery.com/blog/advanced-iframe/advanced-iframe-pro-demo/responsive-videos 
 - New: iframe_height_ratio can now also be defined in a more common way: 16:9. The ratio with : as separator. The old way was the other way around 0.5625. Both settings are still supported. See the demo here: https://www.tinywebgallery.com/blog/advanced-iframe/advanced-iframe-pro-demo/responsive-videos   
 - New: You can use the title of the iframe for the parent. After the iframe is loaded the title will be updated in the browser. This feature works on the same and the remote domain with the external workaround. The attribute for the shortcode and the external workaround is: is use_iframe_title_for_parent. Working examples can be found as part of this demos 32 and 33 https://www.tinywebgallery.com/blog/advanced-iframe/advanced-iframe-pro-demo/add-iframe-url-to-parent
-- New: Minimizer is back. Now the new url is used and also a fall back was implemented which uses now the the not minimized file in case of a problem.
+- New: Minimizer is back. Now the new URL is used and also a fall back was implemented which uses now the the not minimized file in case of a problem.
 - New: Improved validation of change_iframe_links. if change_iframe_links is empty but other settings are done an error is reported
 - New: Improved validation of iframe_content_id and iframe_content_styles. Now also a error is shown when iframe_content_styles is set and iframe_content_id not.   
 - New: , is now trimmed at the beginning and the end of all attributes. , at the end of jquery selectors make them invalid otherwise. 
@@ -310,13 +322,14 @@ If you have some radio elements empty after the update simply select the one you
 
 = 2021.9 =
 - Fix: The minimizer for ai.js changed the url and therefore minimized files where broken. The minimizer is now disabled until I find a new more reliable one. Please update asap. You administration will not work anymore! Please uninstall and install the new version. Sorry for the inconvenience.
+
 = 2021.8 =
 - Fix: Setting hide_content_until_iframe_color was causing a problem in the Gutenberg editor as there some code was rendered into the json response. Now in editor mode this part is rendered later and in normal mode still where it needs to be to work properly. The div which hides the whole page needs to be rendered before the plugin itself because otherwise you first see the page for a small time and then the page is hidden. And this is exatly what the feature should prevent!
 - Fix: Version numbers where not updated in 2021.7. It was still showing 2021.6 in the header.
 
 = 2021.7 =
 - New: Tested with Wordpress 5.8
-- Fix: Updating failed: The response is not a valid JSON response. The detection for duplicated ids and the time debug was moved to be rendered later. This fixes the problem with e.g. the Oyxgen builder when included on the admin site and configuration errors are rendered to the Javascript console. Also some plugins together with the gutenberg block editor show a JSON error. They execute the shortcode because of ?? and where triggering this error. 
+- Fix: Updating failed: The response is not a valid JSON response. The detection for duplicated ids and the time debug was moved to be rendered later. This fixes the problem with e.g. the Oyxgen builder when included on the admin site and configuration errors are rendered to the Javascript console. Also some plugins together with the Gutenberg block editor show a JSON error. They execute the shortcode because of ?? and where triggering this error. 
 
 = 2021.6 =
 - New: "Iframe redirect url" does support now several urls. So you can allow more than one page to include it. The first url is used if someone does open the page in the iframe without parent.
@@ -412,7 +425,7 @@ If you have some radio elements empty after the update simply select the one you
 
 = 2020.8 =
 - New: WordPress 5.5 changed the behaviour of the parameter page in the url! You now get a 301 redirect on normal pages if you use ?page=XXX. Unfortunately this also kills url features of advanced iframe pro. You can now set "Fix WordPress 5.5 page parameter change" to true on the administration. Then you can again use ?page=abc for example again. Numeric values are still not allowed because removing this internally would kill the pagination where the page paremater is really used!
-
+ 
 = 2020.7 =
 - New: The iframe can now be reloaded when the browser is resized or the device is rotated. This can be done in the reload feature by adding r as prefix. 
 - New: The whole page can now be reloaded when the browser is resized or the device is rotated. This can be done in the reload feature by adding r as prefix AND a p at the end. 

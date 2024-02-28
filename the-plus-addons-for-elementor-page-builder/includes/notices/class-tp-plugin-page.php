@@ -78,9 +78,9 @@ if ( ! class_exists( 'Tp_Plugin_Page' ) ) {
 			/**Settings link.*/
 			$setting_link = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'admin.php?page=theplus_options' ) ), __( 'Settings', 'tpebl' ) );
 			$links[]      = $setting_link;
-
+			
 			/**Need Help.*/
-			$need_help = sprintf( '<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>', esc_url( 'https://theplusaddons.com/free-vs-pro/?utm_source=wpbackend&utm_medium=pluginpage&utm_campaign=links' ), __( 'Need Help?', 'tpebl' ) );
+			$need_help = sprintf( '<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>', esc_url( 'https://theplusaddons.com/help/getting-started/?utm_source=wpbackend&utm_medium=banner&utm_campaign=links' ), __( 'Need Help?', 'tpebl' ) );
 			$links     = (array) $links;
 			$links[]   = $need_help;
 

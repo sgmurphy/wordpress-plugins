@@ -1,11 +1,11 @@
-=== RSS Aggregator - RSS Import, News Feeds, Feed to Post, and Autoblogging ===
+=== WP RSS Aggregator - RSS Import, News Feeds, Feed to Post, and Autoblogging ===
 Contributors: RebelCode, jeangalea, markzahra, Mekku, gabygalea
 Plugin URI: https://www.wprssaggregator.com
 Tags: RSS, RSS feed, RSS aggregator, autoblogging, RSS import, autoblog, feed to post, news aggregator, news feeds, YouTube video feeds, rss to post, content curation
 Requires at least: 4.0 or higher
 Tested up to: 6.4
 Requires PHP: 5.4
-Stable tag: 4.23.6
+Stable tag: 4.23.7
 License: GPLv3
 
 The #1 WordPress RSS aggregator to quickly import RSS feeds, build a news aggregator, and for easy autoblogging.
@@ -287,9 +287,13 @@ Our complete Knowledge Base with FAQs can be found [here](https://kb.wprssaggreg
 
 == Changelog ==
 
+= 4.23.7 (2024-02-28) =
+**Fixed**
+- Media thumbnail images without a MIME type were not being properly detected.
+
 = 4.23.6 (2024-01-31) =
 **Changed**
-* Error information is suppressed for feeds with local address URLs. This improves the previous fix for CVE-2024-0628.
+- Error information is suppressed for feeds with local address URLs. This improves the previous fix for CVE-2024-0628.
 
 = 4.23.5 (2024-01-24) =
 **Fixed**

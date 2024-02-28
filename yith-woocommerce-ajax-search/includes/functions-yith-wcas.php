@@ -9,18 +9,6 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! function_exists( 'ywcas_premium_install_woocommerce_admin_notice' ) ) {
-	/**
-	 * Check if WooCommerce is installed.
-	 */
-	function ywcas_premium_install_woocommerce_admin_notice() {
-		?>
-        <div class="error">
-            <p><?php esc_html_e( 'YITH WooCommerce Ajax Search Premium is enabled but not effective. It requires WooCommerce in order to work.', 'yith-woocommerce-ajax-search' ); ?></p>
-        </div>
-		<?php
-	}
-}
 
 if ( ! function_exists( 'ywcas_strtolower' ) ) {
 	/**
@@ -45,15 +33,21 @@ if ( ! function_exists( 'ywcas_get_product_thumbnail_url' ) ) {
 	 */
 	function ywcas_get_product_thumbnail_url( $product ) {
 		$thumb_id  = $product->get_image_id();
-		$thumb_url = wc_placeholder_img_src();
+		$wc_thumb = array();
 		if ( ! empty( $thumb_id ) ) {
 			$thumb = wp_get_attachment_image_src( $thumb_id );
 			if ( is_array( $thumb ) ) {
-				$thumb_url = array_shift( $thumb );
+				$thumb_url         = array_shift( $thumb );
+				$wc_thumb['small'] = $thumb_url;
+			}
+			$thumb = wp_get_attachment_image_src( $thumb_id, 'woocommerce_thumbnail' );
+			if ( is_array( $thumb ) ) {
+				$thumb_url       = array_shift( $thumb );
+				$wc_thumb['big'] = $thumb_url;
 			}
 		}
 
-		return $thumb_url;
+		return maybe_serialize( $wc_thumb );
 	}
 }
 
@@ -78,9 +72,11 @@ if ( ! function_exists( 'ywcas_get_current_language' ) ) {
 	 * @return string
 	 */
 	function ywcas_get_current_language() {
+		global $sitepress;
+
 		$wpml = apply_filters( 'wpml_current_language', null );
 
-		return $wpml ? ywcas_wpml_get_locale_from_language_code( $wpml ) : get_locale();
+		return $wpml && ! is_null( $sitepress ) ? ywcas_wpml_get_locale_from_language_code( $wpml ) : get_locale();
 	}
 }
 
@@ -108,7 +104,7 @@ if ( ! function_exists( 'ywcas_get_view' ) ) {
 	 * Get the view
 	 *
 	 * @param string $file_name Name of the file to get in views.
-	 * @param array $args Arguments.
+	 * @param array  $args Arguments.
 	 */
 	function ywcas_get_view( $file_name, $args = array() ) {
 		$file_path = YITH_WCAS_INC . '/admin/views/' . $file_name;
@@ -139,9 +135,9 @@ if ( ! function_exists( 'ywcas_get_search_fields_type' ) ) {
 		return apply_filters(
 			'ywcas_search_fields_type',
 			array(
-				'name'               => _x( 'Product name', '[Admin]search field type', 'yith-woocommerce-ajax-search' ),
-				'description'        => _x( 'Description', '[Admin]search field type', 'yith-woocommerce-ajax-search' ),
-				'summary'            => _x( 'Short description', '[Admin]search field type', 'yith-woocommerce-ajax-search' ),
+				'name'        => _x( 'Product name', '[Admin]search field type', 'yith-woocommerce-ajax-search' ),
+				'description' => _x( 'Description', '[Admin]search field type', 'yith-woocommerce-ajax-search' ),
+				'summary'     => _x( 'Short description', '[Admin]search field type', 'yith-woocommerce-ajax-search' ),
 			)
 		);
 	}
@@ -261,7 +257,7 @@ if ( ! function_exists( 'ywcas_get_default_product_post_type' ) ) {
 	 * @return array
 	 */
 	function ywcas_get_default_product_post_type() {
-		$product_types =  array(
+		$product_types = array(
 			'product',
 			'product_variation'
 		);
@@ -282,19 +278,20 @@ if ( ! function_exists( 'ywcas_get_language' ) ) {
 		$locale = get_locale();
 		if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
 			$language_details = apply_filters( 'wpml_post_language_details', null, $post_id );
-			$locale           = $language_details['locale'];
+			if ( ! empty( $language_details['locale'] ) ) {
+				$locale = $language_details['locale'];
+			}
 		}
 
 		return $locale;
 	}
 }
 
-
 if ( ! function_exists( 'ywcas_get_taxonomy_language' ) ) {
 	/**
 	 * Return the language of a taxonomy
 	 *
-	 * @param int $term_id Term id.
+	 * @param int    $term_id Term id.
 	 * @param string $taxonomy Taxonomy.
 	 *
 	 * @return string
@@ -338,7 +335,6 @@ if ( ! function_exists( 'ywcas_wpml_get_locale_from_language_code' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'ywcas_disable_wpml_admin_lang_switcher' ) ) {
 	/**
 	 * Disable the wpml admin bar and set the default language
@@ -366,7 +362,7 @@ if ( ! function_exists( 'ywcas_wpml_add_multi_language_terms_list' ) ) {
 	/**
 	 * Disable the wpml admin bar and set the default language
 	 *
-	 * @param array $list List of taxonomy of default language.
+	 * @param array  $list List of taxonomy of default language.
 	 * @param string $taxonomy Taxonomy.
 	 *
 	 * @return array
@@ -403,7 +399,7 @@ if ( ! function_exists( 'ywcas_wpml_get_translated_terms_list' ) ) {
 	/**
 	 * Return the translated term list
 	 *
-	 * @param array $list List of terms of default language.
+	 * @param array  $list List of terms of default language.
 	 * @param string $taxonomy Taxonomy.
 	 * @param string $lang Language.
 	 *
@@ -441,7 +437,7 @@ if ( ! function_exists( 'ywcas_wpml_get_translated_terms_list_by_term_name' ) ) 
 	/**
 	 * Disable the wpml admin bar and set the default language
 	 *
-	 * @param array $list List of term names of default language.
+	 * @param array  $list List of term names of default language.
 	 * @param string $taxonomy Taxonomy.
 	 * @param string $lang Language.
 	 *
@@ -474,10 +470,6 @@ if ( ! function_exists( 'ywcas_wpml_get_translated_terms_list_by_term_name' ) ) 
 
 	add_filter( 'ywcas_wpml_get_translated_terms_list_by_term_name', 'ywcas_wpml_get_translated_terms_list_by_term_name', 10, 3 );
 }
-
-
-
-
 
 if ( ! function_exists( 'ywcas_is_variation_purchasable' ) ) {
 	/**
@@ -550,7 +542,27 @@ if ( ! function_exists( 'ywcas_get_shortcode_list' ) ) {
 	}
 }
 
-if( !function_exists('ywcas_show_elementor_preview')){
+if ( ! function_exists( 'ywcas_is_elementor_editor' ) ) {
+	/**
+	 * Check if is an elementor editor
+	 *
+	 * @return bool
+	 */
+	function ywcas_is_elementor_editor() {
+		if ( did_action( 'admin_action_elementor' ) ) {
+			return Plugin::$instance->editor->is_edit_mode();
+		}
+
+		return is_admin() && isset( $_REQUEST['action'] ) && in_array(
+				sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ),
+				array(
+					'elementor',
+					'elementor_ajax',
+				) ); //phpcs:ignore
+	}
+}
+
+if ( ! function_exists( 'ywcas_show_elementor_preview' ) ) {
 	/**
 	 * Return the ajax search preview for Elementor
 	 *
@@ -560,14 +572,76 @@ if( !function_exists('ywcas_show_elementor_preview')){
 		?>
         <div class="ywcas-elementor-input-field-wrapper" style="pointer-events: none;">
             <div class="ywcas-input-field">
-                <input autocomplete="off" placeholder="<?php echo esc_html__('Search products...', 'yith-woocommerce-ajax-search'); ?>" type="text" value="" />
+                <input autocomplete="off"
+                       placeholder="<?php echo esc_html__( 'Search products...', 'yith-woocommerce-ajax-search' ); ?>"
+                       type="text" value=""/>
                 <div class="endAdornment">
                     <div class="ywcas-submit-wrapper">
-                        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" class="ywcas-submit-icon" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path></svg>
+                        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24"
+                             class="ywcas-submit-icon" focusable="false">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
+                        </svg>
                     </div>
                 </div>
             </div>
         </div>
 		<?php
+	}
+}
+
+if ( ! function_exists( 'ywcas_get_sidebar_with_searches' ) ) {
+	/**
+	 * Returns an array of sidebars containing YITH_WCAS widgets
+	 *
+	 * @return array Array of sidebars.
+	 */
+	function ywcas_get_sidebar_with_searches() {
+		$sidebars_widgets = wp_get_sidebars_widgets();
+
+		if ( ! empty( $sidebars_widgets ) ) {
+			foreach ( $sidebars_widgets as $sidebar => $widgets ) {
+				$filtered_widgets = array_filter( $widgets, 'ywcas_is_search_widget' );
+
+				if ( ! $filtered_widgets ) {
+					unset( $sidebars_widgets[ $sidebar ] );
+				}
+			}
+		}
+
+		return $sidebars_widgets;
+	}
+}
+
+if ( ! function_exists( 'ywcas_is_search_widget' ) ) {
+	/**
+	 * Returns true iw widget name matches structure expected for a filter widget
+	 *
+	 * @param string $name Widget name.
+	 *
+	 * @return bool Whether name matches or not.
+	 */
+	function ywcas_is_search_widget( $name ) {
+		return preg_match( '/yith_woocommerce_ajax_search/', $name );
+	}
+}
+
+if ( ! function_exists( 'ywcas_remove_duplicated_results' ) ) {
+	/**
+	 * Remove duplicated results
+	 *
+	 * @param array $results Results to filter.
+	 *
+	 * @return array
+	 */
+	function ywcas_remove_duplicated_results( $results ) {
+		$ids     = array_column( $results, 'post_id' );
+		$ids     = array_unique( $ids );
+		$results = array_filter( $results, function ( $key, $value ) use ( $ids ) {
+			return in_array( $value, array_keys( $ids ) );
+		}, ARRAY_FILTER_USE_BOTH );
+
+		return $results;
 	}
 }

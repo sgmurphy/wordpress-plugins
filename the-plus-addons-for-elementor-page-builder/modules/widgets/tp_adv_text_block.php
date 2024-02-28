@@ -476,7 +476,7 @@ class L_ThePlus_Adv_Text_Block extends Widget_Base {
 
 			$text_block         .= '<div class="text_block_parallax">';
 				$text_block     .= '<div class="pt_plus_adv_text_block ' . esc_attr( $animated_class ) . '" ' . $animation_attr . '>';
-					$text_block .= '<div class="text-content-block">' . esc_html( $description ) . '</div>';
+					$text_block .= '<div class="text-content-block">' . wp_kses_post( $description ) . '</div>';
 				$text_block     .= '</div>';
 			$text_block         .= '</div>';
 		$text_block             .= '</div>';

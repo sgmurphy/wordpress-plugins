@@ -525,7 +525,7 @@ if ($onload_scroll_top === 'true' || $onload_scroll_top === 'iframe') {
     $onload_str .= ';aiScrollToTop("'.$id.'","'.$onload_scroll_top.'");';
 }
 // hide_page_until_loaded
-if ($hide_page_until_loaded  === 'true') {
+if ($hide_page_until_loaded  === 'true' && $show_iframe_as_layer === 'false') {
     $onload_str .= 'jQuery("#'.$id.'").css("visibility", "visible");';
     if (!empty($hide_part_of_iframe)) {
         $onload_str .= 'jQuery("#wrapper-div-'.$id.'").css("visibility", "visible");';

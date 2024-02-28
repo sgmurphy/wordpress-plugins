@@ -92,6 +92,11 @@
 	cursor: pointer;
 	height: 260px;
 }
+
+#ai .signup_account_container_freemius {
+	height: 320px;
+}
+
 #ai .signup_account_container#first {
 	margin-left: 50px;
 }
@@ -125,6 +130,11 @@
 	-webkit-border-radius: 3px;
 	height: 206px;
 }
+
+#ai .signup_inner_freemius {
+	height: 266px;
+}
+
 #ai .signup_inner_desc {
 	color: #484848;
 	font-size: 12px;
@@ -760,6 +770,12 @@ margin-bottom: 12px;
 
 #ai .ai-red {
 	color: red;
+}
+
+#ai .opt_in_done {
+	background: green;
+	cursor: default;
+	pointer-events: none;
 }
 
 

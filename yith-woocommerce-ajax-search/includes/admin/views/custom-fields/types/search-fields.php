@@ -11,19 +11,7 @@ $search_fields = ywcas()->settings->get_search_fields();
 ?>
 <div class="ywcas-search-field-wrapper yith-plugin-ui--boxed-wp-list-style">
 	<?php wp_nonce_field( 'ywcas_edit_search_field', '_ywcas_nonce' ); ?>
-	<?php
-	if ( defined('YITH_WCAS_PREMIUM') && ywcas_has_disabled_options() ) {
-		// translators: 'Placeholders are HTML tags'.
-		$text = sprintf( _x( 'Some options, like search on product attributes or priority, are available only in the new search form. %1$sUpdate the plugin now, it\'s easy >%2$s', 'Placeholders are HTML tags', 'yith-woocommerce-ajax-search' ), '<a href="#" class="ywcas-show-modal">', '</a>' );
-		$html = '<div class="ywcas-disable-field-description">';
 
-		$html .= ' <i class="yith-icon yith-icon-warning-triangle"></i>';
-		$html .= '<div class="ywcas-disable-field-text">' . $text . '</div>';
-		$html .= '</div>';
-
-		echo wp_kses_post( $html );
-	}
-	?>
 	<table id="search-fields" class="wp-list-table fixed table-view-list">
 		<thead>
 		<tr>
@@ -31,7 +19,7 @@ $search_fields = ywcas()->settings->get_search_fields();
 				class="colum-title"><?php echo esc_html_x( 'Field', 'Name of column field', 'yith-woocommerce-ajax-search' ); ?></th>
 
 			<th id="priority-zone"
-				class="colum-title <?php echo ywcas_has_disabled_options() ? esc_attr( 'ywcas-hide' ) : ''; ?>"><?php echo esc_html_x( 'Priority', 'priority of the field', 'yith-woocommerce-ajax-search' ); ?></th>
+                class="colum-title"><?php echo esc_html_x( 'Priority', 'priority of the field', 'yith-woocommerce-ajax-search' ); ?></th>
 			<th id="actions" class="colum-title"></th>
 		</tr>
 		</thead>

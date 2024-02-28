@@ -1,5 +1,5 @@
 /**
- *  Advanced iframe pro functions v2024.0
+ *  Advanced iframe pro functions v2024.2
 */
 /* jslint devel: true, unused: false */
 /* globals ai_show_id_only:false, aiIsIe8: false, aiChangeUrl: false, aiResizeIframeHeightId: false, aiShowIframeId: false, findAndReplaceDOMText: false, aiShowDebug: false */
@@ -1525,20 +1525,21 @@ function aiResetShowPartOfAnIframe(id) {
   jQuery('#ai-div-' + id).css('width','auto').css('height','auto').css('overflow','auto').css('position','static');
 }
 
-function aiShowLayerIframe(event, id, path, hideUntilLoaded, showLoadingIcon, keep, reload) {
+function aiShowLayerIframe(event, id, path, showLoadingIcon, keep, reload) {
   aiDebugExtended("aiShowLayerIframe");
   keep = (keep === undefined) ? false : keep;
   reload = (reload === undefined) ? true : reload;
 
   var layerId = '#' + id;
   jQuery('#ai-zoom-div-' + id).show();
-  if  (reload && hideUntilLoaded === 'true') {
-      jQuery(layerId).css('visibility', 'hidden');
-  }
+  jQuery('#ai-zoom-div-' + id).css('visibility', 'visible'); 
   jQuery(layerId).show();
+  jQuery(layerId).css('visibility', 'visible'); 
+  
   if ( jQuery( '#ai-layer-div-' + id ).length ) {
     layerId = '#ai-layer-div-' + id;
     jQuery(layerId).show();
+	jQuery(layerId).css('visibility', 'visible');
   }
 
   jQuery('body').css('overflow','hidden');
@@ -1566,13 +1567,13 @@ function aiShowLayerIframe(event, id, path, hideUntilLoaded, showLoadingIcon, ke
 
 function aiHideLayerIframe(id, keep) {
   aiDebugExtended("aiHideLayerIframe");
-  jQuery('#' + id).hide();
+  jQuery('#' + id).css('visibility', 'hidden');
   if (!keep) {
       jQuery('#' + id).attr('src', 'about:blank');
       aiLayerIframeHrefs[id] = 'about:blank';
   }
-  jQuery('#ai-zoom-div-' + id).hide();
-  jQuery('#ai-layer-div-' + id).hide();
+  jQuery('#ai-zoom-div-' + id).css('visibility', 'hidden');
+  jQuery('#ai-layer-div-' + id).css('visibility', 'hidden');
   jQuery('#ai_backlink').remove();
   jQuery('#ai_backlayer').remove();
   jQuery('#ai-div-loader-global').remove();

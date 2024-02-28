@@ -3117,18 +3117,21 @@ class ElementsKit_Widget_Blog_Posts extends Widget_Base {
 									<?php echo $meta_data_html; // phpcs:ignore WordPress.Security.EscapeOutput -- Buffering output line number 2972 ?>
 							<?php endif; ?>
                             <?php
-                            if($ekit_blog_posts_read_more == 'yes'):
-                                $btn_text = $settings['ekit_blog_posts_btn_text'];
-                                $btn_class = ($settings['ekit_blog_posts_btn_class'] != '') ? $settings['ekit_blog_posts_btn_class'] : '';
-                                $btn_id = ($settings['ekit_blog_posts_btn_id'] != '') ? 'id='.$settings['ekit_blog_posts_btn_id'] : '';
-                                $icon_align = $settings['ekit_blog_posts_btn_icon_align'];
-                                
-                                // Reset Whitespace for this specific widget
-                                $btn_class .= ' whitespace--normal';
+                            if($ekit_blog_posts_read_more == 'yes') :
+								$btn_text = $settings['ekit_blog_posts_btn_text'];
+								$icon_align = $settings['ekit_blog_posts_btn_icon_align'];
+
+								$this->add_render_attribute('read_more_link', 'class', 'elementskit-btn');
+								if(!empty($settings['ekit_blog_posts_btn_class'])) {
+									$this->add_render_attribute('read_more_link', 'class', $settings['ekit_blog_posts_btn_class']);
+								}
+								$this->add_render_attribute('read_more_link', 'class', 'whitespace--normal');
+								$this->add_render_attribute('read_more_link', 'id', $settings['ekit_blog_posts_btn_id']);
+								$this->add_render_attribute('read_more_link', 'href', get_the_permalink());
                                 ?>
                                 <div class="btn-wraper">
                                     <?php if($icon_align == 'right'): ?>
-                                        <a href="<?php the_permalink(); ?>" class="elementskit-btn <?php echo esc_attr( $btn_class ); ?>" <?php echo esc_attr($btn_id); ?>>
+                                        <a <?php $this->print_render_attribute_string( 'read_more_link' ); ?>>
                                             <?php echo esc_html( $btn_text ); ?>
                                             <?php if($settings['ekit_blog_posts_btn_icons__switch'] === 'yes'): 
 
@@ -3150,7 +3153,7 @@ class ElementsKit_Widget_Blog_Posts extends Widget_Base {
                                     <?php endif; ?>
 
                                     <?php if($icon_align == 'left'): ?>
-                                        <a href="<?php the_permalink(); ?>" class="elementskit-btn <?php echo esc_attr( $btn_class ); ?>" <?php echo esc_attr($btn_id); ?>>
+                                        <a <?php $this->print_render_attribute_string( 'read_more_link' ); ?>>
                                         <?php if($settings['ekit_blog_posts_btn_icons__switch'] === 'yes'): 
                                                 // new icon
                                                 $migrated = isset( $settings['__fa4_migrated']['ekit_blog_posts_btn_icons'] );

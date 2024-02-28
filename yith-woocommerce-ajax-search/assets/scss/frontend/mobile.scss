@@ -18,6 +18,7 @@ body.ywcas-disable-overflow {
 
   &.with-wp-admin-toolbar {
     padding: 60px 0;
+
     .mobile-search-content {
       height: calc(100vh - 180px);
     }
@@ -45,21 +46,29 @@ body.ywcas-disable-overflow {
     overflow-y: auto;
     height: calc(100vh - 150px);
     padding: 30px;
-    .wp-block-yith-filled-block{
-      display:flex;
+
+    .wp-block-yith-filled-block {
+      display: flex;
       flex-flow: column nowrap;
       height: 100%
     }
+
+    .ywcas-classic-related-content-wrapper {
+      margin-top: auto;
+    }
   }
-  .wp-block-separator{
+
+  .wp-block-separator {
     padding: 0;
   }
+
   .wp-block-yith-product-results-block .search-result-item.list .search-result-item__thumbnail,
   .ywcas-search-results .search-result-item.list .search-result-item__thumbnail {
     display: block;
     position: relative;
     max-width: 35%;
   }
+
   .wp-block-yith-product-results-block .search-result-item.grid .search-result-item__thumbnail,
   .ywcas-search-results .search-result-item.grid .search-result-item__thumbnail {
     display: block;

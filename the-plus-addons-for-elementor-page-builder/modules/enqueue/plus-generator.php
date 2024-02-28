@@ -3,8 +3,7 @@ if (!defined('ABSPATH')) {
     exit;
 } // Exit if accessed directly
 
-Class L_Plus_Generator
-{
+Class L_Plus_Generator {
 	/**
 	 * A reference to an instance of this class.
 	 *
@@ -16,134 +15,29 @@ Class L_Plus_Generator
 	public $transient_widgets;
 	public $l_registered_widgets;
     
+	public $tpae_cache = null;
 	public $plus_uid = null;
 	public $requires_update;
+
+	private static $tpae_post_type = '';
+	private static $tpae_post_id = '';
+	public $post_assets_object = [];
+	public $tp_first_load = true;
 	
 	public function get_caching_option(){
+		if($this->tpae_cache != null ){
+			return $this->tpae_cache;
+		}
 		$theplus_options=get_option( 'theplus_performance' );
 		$cacheOpt = (!empty($theplus_options['plus_cache_option'])) ? $theplus_options['plus_cache_option'] : '';
 		
 		if($cacheOpt=='separate'){
+			$this->tpae_cache = true;
 			return true;
 		}else{
+			$this->tpae_cache = false;
 			return false;
 		}
-	}
-	/**
-     * Find Widgets in a page or post
-     *
-     * @since 2.0
-     */
-    public function collect_transient_widgets($widget)
-    {
-        if($widget->get_name() === 'global') {
-            $global_widget = new \ReflectionClass(get_class($widget));
-			
-            $template_data = $global_widget->getProperty('template_data');
-			
-            $template_data->setAccessible(true);
-
-            if($data_global = $template_data->getValue($widget)) {
-				$widget_name=$this->get_global_widgets_use($data_global['content']);
-				$widget_options=in_array($widget_name[0],array_keys($this->l_registered_widgets));
-				if(!empty($widget_options) && $widget_options=='1'){
-					$options=$widget->get_settings();					
-					$this->plus_widgets_options($options,$widget_name[0]);
-				}
-                $this->transient_widgets = array_merge($this->transient_widgets, $widget_name);				
-            }
-        } else {
-            $this->transient_widgets[] = $widget->get_name();
-			$widget_options=in_array($widget->get_name(),array_keys($this->l_registered_widgets));
-								
-			$options=$widget->get_settings();
-			if(!empty($options["seh_switch"]) && $options["seh_switch"]=='yes'){					
-				$this->transient_widgets[] = 'plus-equal-height';
-			}
-			
-			if(tp_has_lazyload()){			
-				$this->transient_widgets[] = 'plus-lazyLoad';
-			}
-			
-			if(!empty($widget_options) && $widget_options=='1'){
-				$options=$widget->get_settings();
-				$this->plus_widgets_options($options,$widget->get_name());
-			}
-		}
-		
-		
-    }
-	
-	/**
-	* Check Widgets Options
-	* @since 2.0.2
-	*/
-	public function plus_widgets_options($options='',$widget_name=''){
-		if(!empty($options["animation_effects"]) && $options["animation_effects"]!='no-animation'){
-			$this->transient_widgets[] = 'plus-velocity';
-		}
-		
-		if(!empty($options["loop_display_button"]) && $options["loop_display_button"]=='yes'){
-			$this->transient_widgets[] = 'plus-button-extra';
-		}
-		
-		if(!empty($widget_name) && $widget_name=='tp-button' && !empty($options["btn_hover_effects"])){
-			$this->transient_widgets[] = 'plus-content-hover-effect';
-		}
-		if(!empty($widget_name) && $widget_name=='tp-blog-listout'){			
-			if(!empty($options["layout"]) && $options["layout"]=='grid' || $options["layout"]=='masonry' ){
-				$this->transient_widgets[] = 'plus-listing-masonry';
-			}
-			if(!empty($options["layout"]) && $options["layout"]=='metro'){
-				$this->transient_widgets[] = 'plus-listing-metro';
-			}
-		}
-		
-		if(!empty($widget_name) && $widget_name=='tp-clients-listout'){			
-			if(!empty($options["layout"]) && $options["layout"]=='grid' || $options["layout"]=='masonry' ){
-				$this->transient_widgets[] = 'plus-listing-masonry';
-			}
-		}
-			
-		if(!empty($widget_name) && $widget_name=='tp-gallery-listout'){			
-			if(!empty($options["layout"]) && $options["layout"]=='grid' || $options["layout"]=='masonry' ){
-				$this->transient_widgets[] = 'plus-listing-masonry';
-				}
-			if(!empty($options["layout"]) && $options["layout"]=='metro'){
-				$this->transient_widgets[] = 'plus-listing-metro';
-			}
-		}
-		if(!empty($widget_name) && $widget_name=='tp-team-member-listout'){			
-			if(!empty($options["layout"]) && $options["layout"]=='grid' || $options["layout"]=='masonry' ){
-				$this->transient_widgets[] = 'plus-listing-masonry';
-			}
-		}
-		if(!empty($widget_name) && $widget_name=='tp-testimonial-listout'){			
-			if(!empty($options["layout"]) && $options["layout"]=='grid' || $options["layout"]=='masonry' ){
-				$this->transient_widgets[] = 'plus-listing-masonry';
-			}
-		}
-		if((!empty($widget_name) && $widget_name=='tp-flip-box') || (!empty($widget_name) && $widget_name=='tp-info-box')){
-			if(!empty($options["display_button"]) && $options["display_button"]=='yes'){
-				$this->transient_widgets[] = 'plus-button-extra';
-			}			
-			if(!empty($options["box_hover_effects"])){
-				$this->transient_widgets[] = 'plus-content-hover-effect';
-			}			
-			if((!empty($options["image_icon"]) && $options["image_icon"]=='svg') || (!empty($options["loop_select_icon"]) && $options["loop_select_icon"]=='svg')){
-				$this->transient_widgets[] = 'tp-draw-svg';
-			}
-		}
-		
-		if(!empty($options["box_hover_effects"]) && !empty($widget_name) && $widget_name=='tp-number-counter'){
-			$this->transient_widgets[] = 'plus-content-hover-effect';
-		}		
-		
-		if(!empty($widget_name) && $widget_name=='tp-page-scroll'){
-			if(!empty($options["page_scroll_opt"]) && $options["page_scroll_opt"]=='tp_full_page'){
-				$this->transient_widgets[] = 'tp-fullpage';
-			}
-		}		
 	}
 	
     /**
@@ -151,8 +45,7 @@ Class L_Plus_Generator
      *
      * @since 2.0
      */
-    public function plus_merge_files($paths = array(), $file = 'theplus-style.min.css',$type='')
-    {
+    public function plus_merge_files($paths = array(), $file = 'theplus-style.min.css',$type='') {
         $output = '';
 
         if (!empty($paths)) {
@@ -178,15 +71,12 @@ Class L_Plus_Generator
         
     }
 
-    
-
     /**
      * Generate scripts and minify.
      *
      * @since 2.0
      */
-    public function plus_generate_scripts($elements, $file_name = null)
-    {
+    public function plus_generate_scripts($elements, $file_name = null, $extension = ['css', 'js'], $common = true) {
 		
         if (empty($elements)) {
             return;
@@ -203,20 +93,26 @@ Class L_Plus_Generator
 			$tp_path_get = THEPLUS_PATH;
 		}
 
-        $css_url = array(
-			$tp_path_get . DIRECTORY_SEPARATOR . "assets/css/main/plus-extra-adv/plus-extra-adv.min.css",
-        );
-		
-        // collect library scripts & styles
-        $js_url = array_merge($js_url, $this->plus_dependency_widgets($elements, 'js'));
-        $css_url = array_merge($css_url, $this->plus_dependency_widgets($elements, 'css'));
+		if($common === false){
+			$css_url = array();
+		}else{
+			$css_url = array(
+				$tp_path_get . DIRECTORY_SEPARATOR . "assets/css/main/plus-extra-adv/plus-extra-adv.min.css",
+			);
+		}
 
         // merge files widgets
-		if(!empty($js_url)){
-			$this->plus_merge_files($js_url, ($file_name ? $file_name : 'theplus') . '.min.js','js');
+		if( in_array('js', $extension) ){
+			$js_url = array_merge($js_url, $this->plus_dependency_widgets($elements, 'js'));
+			if(!empty($js_url)){
+				$this->plus_merge_files($js_url, ($file_name ? $file_name : 'theplus') . '.min.js','js');
+			}
 		}
-		if(!empty($css_url)){
-			$this->plus_merge_files($css_url, ($file_name ? $file_name : 'theplus') . '.min.css','css');
+		if( in_array('css', $extension) ){
+			$css_url = array_merge($css_url, $this->plus_dependency_widgets($elements, 'css'));
+			if(!empty($css_url)){
+				$this->plus_merge_files($css_url, ($file_name ? $file_name : 'theplus') . '.min.css','css');
+			}
 		}
     }
 
@@ -253,10 +149,9 @@ Class L_Plus_Generator
      *
      * @since 2.0
      */
-    public function check_cache_files($post_type = null, $post_id = null)
-    {
-        $css_url = L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . ($post_type ? 'theplus-' . $post_type : 'theplus') . ($post_id ? '-' . $post_id : '') . '.min.css';
-        $js_url = L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . ($post_type ? 'theplus-' . $post_type : 'theplus') . ($post_id ? '-' . $post_id : '') . '.min.js';
+    public function check_cache_files($post_type = null, $post_id = null) {
+        $css_url = L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . ($post_type ? 'theplus-' . $post_type : 'theplus') . (isset($post_id) ? '-' . $post_id : '') . '.min.css';
+        $js_url = L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . ($post_type ? 'theplus-' . $post_type : 'theplus') . (isset($post_id) ? '-' . $post_id : '') . '.min.js';
 
         if (is_readable(l_theplus_library()->secure_path_url($css_url)) && is_readable(l_theplus_library()->secure_path_url($js_url))) {
 			return true;
@@ -264,19 +159,22 @@ Class L_Plus_Generator
         return false;
     }
 
-	public function check_css_js_cache_files($post_type = null, $post_id = null, $type = 'css')
-    {
+	public function check_css_js_cache_files($post_type = null, $post_id = null, $type = 'css', $preload = false) {
 		if( empty( $type) ){
 			return false;
 		}
+		$filename = '';
+		if(!empty($preload)){
+			$filename = 'preload-';
+		}
 		if($type == 'css'){
-			$css_url = L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . ($post_type ? 'theplus-' . $post_type : 'theplus') . ($post_id ? '-' . $post_id : '') . '.min.css';
+			$css_url = L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . ($post_type ? 'theplus-'.$filename . $post_type : 'theplus') . (isset($post_id) ? '-' . $post_id : '') . '.min.css';
 			if ( is_readable(l_theplus_library()->secure_path_url($css_url)) ) {
 				return true;
 			}
 		}else if($type == 'js'){
-			$js_url = L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . ($post_type ? 'theplus-' . $post_type : 'theplus') . ($post_id ? '-' . $post_id : '') . '.min.js';
-			if ( is_readable(l_theplus_library()->secure_path_url($js_url)) || $this->requires_update) {
+			$js_url = L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . ($post_type ? 'theplus-'.$filename . $post_type : 'theplus') . (isset($post_id) ? '-' . $post_id : '') . '.min.js';
+			if ( is_readable(l_theplus_library()->secure_path_url($js_url)) ) {
 				return true;
 			}
 		}
@@ -288,8 +186,7 @@ Class L_Plus_Generator
      *
      * @since 2.0
      */
-    public function plus_dependency_widgets(array $elements, $type)
-    {
+    public function plus_dependency_widgets(array $elements, $type) {
         $paths = [];
 		if(has_filter('theplus_pro_registered_widgets')) {
 			$this->l_registered_widgets = apply_filters('theplus_pro_registered_widgets', $this->l_registered_widgets );
@@ -312,21 +209,113 @@ Class L_Plus_Generator
 
         return array_unique($paths);
     }
-	/**
-     * Find global widgets
-     * @since 2.0.2
-     */
-    public function get_global_widgets_use($widgets) {
-        $get_widget = [];
 
-        array_walk_recursive($widgets, function($val, $key) use (&$get_widget) {
-            if($key == 'widgetType') {
-                $get_widget[] = $val;
-            }
-        });
+	/*
+	 * Update PostMeta / TermMeta Value
+	 * @since 3.2.1
+	 ***/
+	public function update_posts_metadata($post_id = '', $meta_key = '', $update_key= '', $val = ''){
+		if( $post_id != '' ){
+			$old_value = [];
+			if(is_404() || is_search() || $post_id===0 || !is_numeric($post_id)){
+				$old_value = get_option( 'theplus-term-'.$post_id.'-widgets' );
+			}else if(self::$tpae_post_type === 'term' && is_numeric($post_id)){
+				$old_value = get_term_meta( $post_id, $meta_key, true );
+			}else if(is_numeric($post_id)){
+				$old_value = get_post_meta( $post_id, $meta_key, true );
+			}
+			
+			if( !empty($old_value) && is_array($old_value) ){
+				$old_value[ $update_key ] = $val;
+			}else if(!empty($old_value) && !is_array($old_value)){
+				$old_value = [];
+				$old_value[ $update_key ] = $val;
+			}else if(empty($old_value)){
+				$old_value = [];
+				$old_value[ $update_key ] = $val;
+			}
 
-        return $get_widget;
-    }
+			if(is_404() || is_search() || $post_id===0 || !is_numeric($post_id)){
+				update_option( 'theplus-term-'.$post_id.'-widgets', $old_value );
+			}else if(self::$tpae_post_type === 'term' && is_numeric($post_id)){
+				update_term_meta( $post_id, $meta_key, $old_value );
+			}else if(is_numeric($post_id)){
+				update_post_meta( $post_id, $meta_key, $old_value );
+			}
+
+		}
+	}
+
+	public function get_posts_metadata($post_id = '', $meta_key = '', $get_key_val= '', $old_key = ''){
+		$value = '';
+		if( $post_id != '' ){
+			$old_value = '';
+			if(is_404() || is_search() || $post_id===0 || !is_numeric($post_id)){
+				$old_value = get_option( 'theplus-term-'.$post_id.'-widgets' );
+			}else if(self::$tpae_post_type === 'term' && is_numeric($post_id)){
+				$old_value = get_term_meta( $post_id, $meta_key, true );
+			}else if(is_numeric($post_id)){
+				$old_value = get_post_meta( $post_id, $meta_key, true );
+			}
+
+			if( !empty($old_value) && is_array($old_value) && isset($old_value[ $get_key_val ]) ){
+				$value = $old_value[ $get_key_val ];
+			}else if(!empty($old_value) && !is_array($old_value)){
+				$value = $old_value;
+			}
+		}
+		
+		//old options key remove
+		if(empty($value) && !empty($old_key)){
+			$old_key_value = get_option( $old_key );
+			if(!empty($old_key_value) && !is_404() && !is_search()){
+				$this->update_posts_metadata($post_id, $meta_key, $get_key_val, $old_key_value );
+				delete_option( $old_key );
+			}
+		}
+
+		return $value;
+	}
+
+	public function get_post_version( $post_id = '' ){
+		$version = L_THEPLUS_VERSION;
+		if( $post_id != '' ){
+			$version = get_post_meta( $post_id, '_elementor_css', true );
+			if(!empty($version) && !empty($version['time'])){
+				return $version['time'];
+			}else{
+				$updated_at = $this->get_posts_metadata( $post_id, 'tp_widgets', 'update_at');
+				if(!empty($updated_at)){
+					return $updated_at;
+				}
+			}
+		}
+		
+		return $version;
+	}
+
+	public function remove_post_metadata($post_id = '', $meta_key = '', $get_key_val= '', $old_key = ''){
+		if(!empty($old_key)){
+			$value = get_option( $old_key );
+			if(!empty($value)){
+				delete_option( $old_key );
+			}
+		}
+		if( !empty($post_id) ){
+			$value = get_post_meta( $post_id, $meta_key, true );
+			if( !empty($value) && isset($value[ $get_key_val ]) ){
+				unset($value[ $get_key_val ]);
+				update_post_meta( $post_id, $meta_key, $value );
+			}
+		}else if( $post_id === 0 || !is_numeric($post_id)){
+			$value = get_option( 'theplus-term-'.$post_id.'-widgets' );
+			if( !empty($value) && isset($value[ $get_key_val ]) ){
+				unset($value[ $get_key_val ]);
+				update_option( 'theplus-term-'.$post_id.'-widgets', $value );
+			}
+		}
+	}
+
     /**
      * Generate single post scripts
      *
@@ -334,33 +323,14 @@ Class L_Plus_Generator
      */
     public function generate_scripts_frontend() {
 		
-		if ($this->is_background_running()) {
+		if ($this->check_generate_script() === false) {
             return;
         }
-		
-		if ($this->plus_uid === null) {
-            return;
-        }
-		
-        if (l_theplus_library()->is_preview_mode()) {
-            return;
-        }
-		
-		if (!$this->requires_update) {
-            return;
-        }
-		
-		if(get_option('tp_save_update_at') === false){
-			update_option('tp_save_update_at', strtotime('now'),false);
-		}
-		
-		if (get_option('tp_save_update_at') == get_option($this->plus_uid . '_update_at')) {
-            return;
-        }
-		
+
         $replace = [
             'plus-woocommerce' => 'product-plus',
         ];
+
 		if(has_filter('tp_pro_transient_widgets')) {
 			$this->transient_widgets = apply_filters('tp_pro_transient_widgets', $this->transient_widgets);
 		}
@@ -382,81 +352,40 @@ Class L_Plus_Generator
 		
 		sort($elements);
 		
-		global $wp_query;
-        if (is_home() || is_singular() || is_archive() || is_search() || (isset( $wp_query ) && (bool) $wp_query->is_posts_page) || is_404()) {
-			
-            $queried_object = get_queried_object_id();
-			if(isset($wp_query->is_post_type_archive) && !empty($wp_query->is_post_type_archive)){
-				$queried_obj = $wp_query->query['post_type'];
-			}
-			if(is_search()){
-				$queried_object = 'search';
-			}
-			if(is_404()){
-				$queried_object = '404';
-			}
-            $post_type = (is_singular() ? 'post' : 'term');
-            $old_elements = (array) get_metadata($post_type, $queried_object, 'theplus_transient_widgets', true);
+		if($this->get_post_type_post_id()){
 
-            // sort two arr for compare
-            sort($elements);
-            sort($old_elements);
-
-            if ($old_elements != $elements) {
-				
-                 update_metadata($post_type, $queried_object, 'theplus_transient_widgets', $elements);
-
-            }
+			$this->update_posts_metadata( self::$tpae_post_id, 'tp_widgets', 'widgets', $elements);
+			$this->update_posts_metadata( self::$tpae_post_id, 'tp_widgets', 'update_at', get_option('tp_save_update_at'));
+			if(!empty(self::$tpae_post_type) && self::$tpae_post_type == 'post'){
+				$this->update_posts_metadata( self::$tpae_post_id, '_elementor_css', 'time', time());
+			}
 			
-			update_option($this->plus_uid . 'tp_widgets', $elements, false);
-			update_option($this->plus_uid . '_update_at', get_option('tp_save_update_at'), false);
-			
-			l_theplus_library()->remove_files_unlink($post_type, $queried_object);
+			l_theplus_library()->remove_files_unlink(self::$tpae_post_type, self::$tpae_post_id);
 			
             // if no cache files, generate new
-            if (!$this->check_cache_files($post_type, $queried_object) && !$this->get_caching_option()) {			
-                $this->plus_generate_scripts($elements, 'theplus-' . $post_type . '-' . $queried_object);
+            if (!$this->check_cache_files(self::$tpae_post_type, self::$tpae_post_id) && !$this->get_caching_option()) {
+                $this->plus_generate_scripts($elements, 'theplus-' . self::$tpae_post_type . '-' . self::$tpae_post_id);
             }
-			
-			$tp_url = L_THEPLUS_URL;
-			$tp_path = L_THEPLUS_PATH . DIRECTORY_SEPARATOR;
-			$tp_version = L_THEPLUS_VERSION;
-			if(defined('THEPLUS_VERSION') && defined('THEPLUS_URL')){
-				$tp_url = THEPLUS_URL;
-				$tp_path = THEPLUS_PATH . DIRECTORY_SEPARATOR;
-				$tp_version = THEPLUS_VERSION;
-			}
-			if(!empty($elements) && $this->get_caching_option()){
-				$separate_path = $this->plus_load_separate_file($elements);
-						
-				if(!empty($separate_path) && isset($separate_path['css']) && !empty($separate_path['css'])){
 
-					foreach( $separate_path['css'] as $key => $path ){
-						if(is_readable(l_theplus_library()->secure_path_url($path))){
-							$css_sep_url = str_replace( $tp_path, $tp_url, $path);
-							$css_file_key = basename($css_sep_url, ".css");
-							$css_file_key = basename($css_file_key, ".min");
-							
-							wp_enqueue_style('theplus-'.$css_file_key,$this->pathurl_security($css_sep_url),false,$tp_version);
-						}
-					}
-				}
-				if(!empty($separate_path) && isset($separate_path['js']) && !empty($separate_path['js'])){
-
-					foreach( $separate_path['js'] as $key => $path ){
-						if(is_readable(l_theplus_library()->secure_path_url($path))){
-							$js_sep_url = str_replace( $tp_path, $tp_url, $path);
-							$js_file_key = basename($js_sep_url, ".js");
-							$js_file_key = basename($js_file_key, ".min");
-							wp_enqueue_script('theplus-'.$js_file_key,$this->pathurl_security($js_sep_url),['jquery'],$tp_version,true);
-						}
-					}
-				}
+			if( $this->requires_update && $this->get_caching_option() === false && $this->check_css_js_cache_files(self::$tpae_post_type, self::$tpae_post_id, 'js') ){
+				$plus_version = $this->get_post_version(self::$tpae_post_id);
 				
+				$js_file = L_THEPLUS_ASSET_URL . '/theplus-' . self::$tpae_post_type . '-' . self::$tpae_post_id . '.min.js';
+				if( $this->check_css_js_cache_files(self::$tpae_post_type, self::$tpae_post_id, 'js') ){
+					wp_enqueue_script('theplus-front-js', $this->pathurl_security($js_file), ['jquery'], $plus_version, true);
+				}
 			}
-        }		
+			
+        }
     }
 	
+	public function load_inline_script(){
+		$js_inline1 = 'var theplus_ajax_url = "'.admin_url("admin-ajax.php").'";
+		var theplus_ajax_post_url = "'.admin_url("admin-post.php").'";
+		var theplus_nonce = "'.wp_create_nonce("theplus-addons").'";';
+		echo wp_print_inline_script_tag($js_inline1);	
+	}
+
 	//Plus Addons Scripts
 	public function plus_enqueue_scripts() {
 	
@@ -468,10 +397,6 @@ Class L_Plus_Generator
 				L_THEPLUS_VERSION,
 				true
 			);
-			$js_inline1 = 'var theplus_ajax_url = "'.admin_url("admin-ajax.php").'";
-			var theplus_ajax_post_url = "'.admin_url("admin-post.php").'";
-            var theplus_nonce = "'.wp_create_nonce("theplus-addons").'";';
-			echo wp_print_inline_script_tag($js_inline1);			
 		}
 		
 		if (l_theplus_library()->is_preview_mode()) {
@@ -486,183 +411,166 @@ Class L_Plus_Generator
 			}
 
 			// enqueue scripts
-			
 			if ($this->check_cache_files()) {
 				$css_file = L_THEPLUS_ASSET_URL . '/theplus.min.css';
 				$js_file = L_THEPLUS_ASSET_URL . '/theplus.min.js';
 			} else {
+				$tp_url = L_THEPLUS_URL;
 				if(defined('THEPLUS_VERSION')){
-					$css_file = THEPLUS_URL . '/assets/css/main/general/theplus.min.css';
-					$js_file = THEPLUS_URL . '/assets/js/main/general/theplus.min.js';
-				}else{
-					$css_file = L_THEPLUS_URL . '/assets/css/main/general/theplus.min.css';
-					$js_file = L_THEPLUS_URL . '/assets/js/main/general/theplus.min.js';
-				}				
+					$tp_url = THEPLUS_URL;
+				}
+				$css_file = $tp_url . '/assets/css/main/general/theplus.min.css';
+				$js_file = $tp_url . '/assets/js/main/general/theplus.min.js';
+			}
+
+			$tpae_backend_cache = get_option( 'tpae_backend_cache');
+			if( FALSE === $tpae_backend_cache ){
+				update_option( 'tpae_backend_cache', time() );
 			}
 			wp_enqueue_style(
 				'plus-editor-css',
 				$this->pathurl_security($css_file),
 				false,
-				time()
+				$tpae_backend_cache
 			);
 
 			wp_enqueue_script(
 				'plus-editor-js',
 				$this->pathurl_security($js_file),
 				['jquery'],
-				'theplusback',
+				$tpae_backend_cache,
 				true
 			);
-
-			$js_inline2 = 'var theplus_ajax_url = "'.admin_url("admin-ajax.php").'";
-			var theplus_ajax_post_url = "'.admin_url("admin-post.php").'";
-            var theplus_nonce = "'.wp_create_nonce("theplus-addons").'";';
-			echo wp_print_inline_script_tag($js_inline2);
+			
+			$this->load_inline_script();
 			// hook extended assets
 			do_action('theplus/after_enqueue_scripts', $this->check_cache_files());
 
 		} else {
-			global $wp_query;
-			if (is_home() || is_singular() || is_archive() || is_search() || (isset( $wp_query ) && (bool) $wp_query->is_posts_page) || is_404()) {
-				
-				$queried_obj = get_queried_object_id();
-				if(isset($wp_query->is_post_type_archive) && !empty($wp_query->is_post_type_archive)){
-					$queried_obj = $wp_query->query['post_type'];
-				}
-				if(is_search()){
-					$queried_obj = 'search';
-				}
-				if(is_404()){
-					$queried_obj = '404';
-				}
-				$post_type = (is_singular() ? 'post' : 'term');
-				
-				$this->enqueue_frontend_load($post_type, $queried_obj);
+			if ( $this->get_post_type_post_id() ) {
+				$uid = 'theplus-' . self::$tpae_post_type . '-' . self::$tpae_post_id;
+				$this->enqueue_frontend_load(self::$tpae_post_type, self::$tpae_post_id);
 			}
 		}
 	}
+
 	// rules how css will be enqueued on front-end
 	protected function enqueue_frontend_load($post_type, $queried_obj){
-		$separate_path = [];
-		if ($this->requires_update) {
-			$elements = array_keys($this->l_registered_widgets);
-		} else {
-			$elements = get_option($this->plus_uid . 'tp_widgets');
-			if($this->get_caching_option()){				
-				$separate_path = $this->plus_load_separate_file($elements);				
-				l_theplus_library()->remove_files_unlink($post_type, $queried_obj);
-			}else{
-				if (!$this->check_css_js_cache_files($post_type, $queried_obj,'css') && !$this->check_css_js_cache_files($post_type, $queried_obj,'js') && !empty($elements)) {
-					$this->plus_generate_scripts($elements, 'theplus-' . $post_type . '-' . $queried_obj);
-				}				
-			}
-		}		
-		// if no widget in page, return
-		if (empty($elements)) {
-			return;
-		}
 		
+		if(!l_theplus_library()->is_preview_mode()){
+
+			if ( $this->get_post_type_post_id() ) {
+			
+				$elements = [];
+				if (!$this->requires_update) {
+					$elements = $this->get_posts_metadata($queried_obj, 'tp_widgets', 'widgets', $this->plus_uid . 'tp_widgets');
+					if($this->get_caching_option()){
+						l_theplus_library()->remove_files_unlink($post_type, $queried_obj);
+					}else{
+						if (!$this->check_css_js_cache_files($post_type, $queried_obj,'css') && !$this->check_css_js_cache_files($post_type, $queried_obj,'js') && !empty($elements)) {
+							$this->plus_generate_scripts($elements, 'theplus-' . $post_type . '-' . $queried_obj);
+						}
+					}
+					// if no widget in page, return
+					if (empty($elements)) {
+						return;
+					}else if(!empty($elements)){
+						$this->enqueue_css_js( $elements, false );
+					}
+				}
+
+			}
+
+		}
+	
+	}
+	
+	/*
+	 * Load enqueue Css and Js
+	 * @since new_version
+	 */
+	public function enqueue_css_js( $elements = [], $in_footer = false, $load_depend = ['jquery'] ) {
+
 		$tp_url = L_THEPLUS_URL;
 		$tp_path = L_THEPLUS_PATH . DIRECTORY_SEPARATOR;
-		$tp_version = L_THEPLUS_VERSION;
-		if(defined('THEPLUS_VERSION') && defined('THEPLUS_URL')){
-			$tp_url = THEPLUS_URL;
-			$tp_path = THEPLUS_PATH . DIRECTORY_SEPARATOR;
-			$tp_version = THEPLUS_VERSION;
-		}
 		
-		if ($this->requires_update){
-			
-			if (file_exists(L_THEPLUS_ASSET_PATH . '/theplus.min.css') && file_exists(L_THEPLUS_ASSET_PATH . '/theplus.min.js')) {
-				$css_file = L_THEPLUS_ASSET_URL . '/theplus.min.css';
-				$js_file = L_THEPLUS_ASSET_URL . '/theplus.min.js';
-			}else{
-				$css_file = $tp_url . '/assets/css/main/general/theplus.min.css';
-				$js_file = $tp_url . '/assets/js/main/general/theplus.min.js';
-			}
-		}else{			
-			if ($this->check_css_js_cache_files($post_type, $queried_obj,'css') || $this->check_css_js_cache_files($post_type, $queried_obj,'js')) {
-				$css_file = L_THEPLUS_ASSET_URL . '/theplus-' . $post_type . '-' . $queried_obj . '.min.css';
-				$js_file = L_THEPLUS_ASSET_URL . '/theplus-' . $post_type . '-' . $queried_obj . '.min.js';
-			} else {			
-				if (file_exists(L_THEPLUS_ASSET_PATH . '/theplus.min.css') && file_exists(L_THEPLUS_ASSET_PATH . '/theplus.min.js')) {
-					$css_file = L_THEPLUS_ASSET_URL . '/theplus.min.css';
-					$js_file = L_THEPLUS_ASSET_URL . '/theplus.min.js';
-				}else{
-					$css_file = $tp_url . '/assets/css/main/general/theplus.min.css';
-					$js_file = $tp_url . '/assets/js/main/general/theplus.min.js';
-				}
-			}
-		}
+		$plus_version = $this->get_post_version( self::$tpae_post_id );
 		
-		wp_enqueue_script( 'jquery-ui-slider' );//Audio Player
-		
-		
-		$plus_version=get_post_meta( $queried_obj, '_elementor_css', true );
-		
-		if(empty($plus_version)){		
-			$plus_version = $tp_version;
-		}
-		if(!empty($plus_version) && !empty($plus_version['time'])){
-			$plus_version=$plus_version['time'];
-		}
+		wp_enqueue_script( 'jquery-ui-slider' ); //Audio Player
 
-		
+		$load_localize ='jquery';
 
-		if($this->get_caching_option() && !empty($separate_path)){
+		//Separate File Caching
+		if($this->get_caching_option() && !empty($elements) && $in_footer == false ){
+			$separate_path = $this->plus_load_separate_file($elements);
 			if(isset($separate_path['css']) && !empty($separate_path['css'])){
-
+				$iji = 1;
 				foreach( $separate_path['css'] as $key => $path ){
 					if(is_readable(l_theplus_library()->secure_path_url($path))){
 						$css_sep_url = str_replace( $tp_path, $tp_url, $path);
+						if(defined('THEPLUS_VERSION') && defined('THEPLUS_URL')){
+							$css_sep_url = str_replace( THEPLUS_PATH . DIRECTORY_SEPARATOR, THEPLUS_URL, $css_sep_url);
+						}
 						$css_file_key = basename($css_sep_url, ".css");
 						$css_file_key = basename($css_file_key, ".min");
-						wp_enqueue_style('theplus-'.$css_file_key,$this->pathurl_security($css_sep_url),false,$tp_version);
+						$lastFolder = basename(dirname($css_sep_url));
+						$enq_name = 'theplus-'.$css_file_key.'-'.$lastFolder;
+						
+						wp_enqueue_style( $enq_name , $this->pathurl_security($css_sep_url), false, $plus_version);
+						$iji++;
 					}
 				}
 			}
 			if(isset($separate_path['js']) && !empty($separate_path['js'])){
-
+				$iji = 0;
 				foreach( $separate_path['js'] as $key => $path ){
 					if(is_readable(l_theplus_library()->secure_path_url($path))){
-						$js_sep_url = str_replace( $tp_path, $tp_url, $path);
+						$js_sep_url = str_replace( $tp_path, $tp_url, $path );
+						if(defined('THEPLUS_VERSION') && defined('THEPLUS_URL')){
+							$js_sep_url = str_replace( THEPLUS_PATH . DIRECTORY_SEPARATOR, THEPLUS_URL, $js_sep_url);
+						}
 						$js_file_key = basename($js_sep_url, ".js");
 						$js_file_key = basename($js_file_key, ".min");
-						wp_enqueue_script('theplus-'.$js_file_key,$this->pathurl_security($js_sep_url),['jquery'],$tp_version,true);
+						if($iji === 0){
+							$load_localize = 'theplus-'.$js_file_key;
+						}
+						wp_enqueue_script('theplus-'.$js_file_key,$this->pathurl_security($js_sep_url), $load_depend, $plus_version, true);
+						$iji++;
 					}
 				}
 			}
-			
-		}else if(!$this->get_caching_option()){
-			wp_enqueue_style('theplus-front-css',$this->pathurl_security($css_file),false,$plus_version);
-			
-			//@since 5.0.4
-			if ($this->check_css_js_cache_files($post_type, $queried_obj,'js')) {
-				wp_enqueue_script('theplus-front-js',$this->pathurl_security($js_file),['jquery'],$plus_version,true);
+		}else if($this->get_caching_option() == false){
+			if ( $this->check_css_js_cache_files( self::$tpae_post_type, self::$tpae_post_id, 'css' ) && $in_footer == false ) {
+				$css_file = L_THEPLUS_ASSET_URL . '/theplus-' . self::$tpae_post_type . '-' . self::$tpae_post_id . '.min.css';
+				wp_enqueue_style('theplus-front-css',$this->pathurl_security($css_file), false, $plus_version );
+			}
+
+			$load_localize = 'tpgb-purge-js';
+			if( $this->check_css_js_cache_files(self::$tpae_post_type, self::$tpae_post_id, 'js') ){
+				$js_file = L_THEPLUS_ASSET_URL . '/theplus-' . self::$tpae_post_type . '-' . self::$tpae_post_id . '.min.js';
+
+				wp_enqueue_script('theplus-front-js', $this->pathurl_security($js_file), ['jquery'], $plus_version, true);
+				$load_localize = 'theplus-front-js';
 			}
 		}
-		
-		$js_inline3 = 'var theplus_ajax_url = "'.admin_url("admin-ajax.php").'";
-		var theplus_ajax_post_url = "'.admin_url("admin-post.php").'";
-		var theplus_nonce = "'.wp_create_nonce("theplus-addons").'";';
-		echo wp_print_inline_script_tag($js_inline3);
+
+		$this->load_inline_script();
 		
 		// hook extended assets
-		do_action('theplus/after_enqueue_scripts', $this->check_cache_files($post_type, $queried_obj));
+		do_action('theplus/after_enqueue_scripts', $this->check_cache_files(self::$tpae_post_type, self::$tpae_post_id));
 	}
-	
+
     /**
      * Clear cache files
      *
      * @since 2.0
      */
-    public function theplus_smart_perf_clear_cache()
-    {
+    public function theplus_smart_perf_clear_cache() {
 		check_ajax_referer('theplus-addons', 'security');
 
         // clear cache files
 		l_theplus_library()->remove_dir_files(L_THEPLUS_ASSET_PATH);
-
+		update_option('tp_save_update_at', strtotime('now'), false);
 		wp_send_json(true);
     }
 	
@@ -671,8 +579,7 @@ Class L_Plus_Generator
      *
      * @since 2.0.2
      */
-    public function theplus_backend_clear_cache()
-    {
+    public function theplus_backend_clear_cache() {
 		check_ajax_referer('theplus-addons', 'security');
 
         // clear cache files
@@ -686,8 +593,7 @@ Class L_Plus_Generator
      *
      * @since 2.0.2
      */
-    public function theplus_current_page_clear_cache()
-    {
+    public function theplus_current_page_clear_cache() {
 		check_ajax_referer('theplus-addons', 'security');
 		
 		$plus_name='';
@@ -696,13 +602,82 @@ Class L_Plus_Generator
 		}
 		if($plus_name== 'theplus-all') {
 			// All clear cache files
-			l_theplus_library()->remove_dir_files(L_THEPLUS_ASSET_PATH);		
-		}else {
+			l_theplus_library()->remove_dir_files(L_THEPLUS_ASSET_PATH);
+			update_option('tp_save_update_at', strtotime('now'), false);
+		} else {
 			// Current Page cache files
 			l_theplus_library()->remove_current_page_dir_files( L_THEPLUS_ASSET_PATH, $plus_name );
-		}		
+		}
 		wp_send_json(true);
     }
+
+	/*
+	 * Version Vise Clear Cache
+	 * @since 5.4.0
+	 */
+	public function tp_version_clear_cache() {
+		$option_name = 'tpae_version_cache';
+		$get_version = get_option( $option_name );
+		$versions = [ L_THEPLUS_VERSION ];
+
+		if($get_version === false){
+			l_theplus_library()->remove_dir_files(L_THEPLUS_ASSET_PATH); //only remove files
+			update_option('tp_save_update_at', strtotime('now'), false); //all cache regenerate
+			add_option( $option_name, $versions );
+
+			// Clear Litespeed cache
+			if(method_exists('LiteSpeed_Cache_API', 'purge_all')){
+				LiteSpeed_Cache_API::purge_all();
+			}
+
+			// W3 Total Cache.
+			if ( function_exists( 'w3tc_flush_all' ) ) {
+				w3tc_flush_all();
+			}
+
+			// WP Fastest Cache.
+			if ( ! empty( $GLOBALS['wp_fastest_cache'] ) && method_exists( $GLOBALS['wp_fastest_cache'], 'deleteCache' ) ) {
+				$GLOBALS['wp_fastest_cache']->deleteCache(true);
+			}
+
+			// WP Super Cache
+			if ( function_exists( 'wp_cache_clean_cache' ) ) {
+				global $file_prefix;
+				wp_cache_clean_cache( $file_prefix, true );
+			}
+			
+			$all_clear_cache = array(
+				'W3 Total Cache' => 'w3tc_pgcache_flush',
+				'WP Fastest Cache' => 'wpfc_clear_all_cache',
+				'WP Rocket' => 'rocket_clean_domain',
+				'Cachify' => 'cachify_flush_cache',
+				'Comet Cache' => array('comet_cache', 'clear'),
+				'SG Optimizer' => 'sg_cachepress_purge_cache',
+				'Pantheon' => 'pantheon_wp_clear_edge_all',
+				'Zen Cache' => array('zencache', 'clear'),
+				'Breeze' => array('Breeze_PurgeCache', 'breeze_cache_flush'),
+				'Swift Performance' => array('Swift_Performance_Cache', 'clear_all_cache'),
+				'WP Optimize' => 'wpo_cache_flush',
+			);
+			
+			foreach ($all_clear_cache as $plugin => $method) {
+				if (is_callable($method)) {
+					call_user_func($method);
+				}
+			}
+
+			do_action( 'litespeed_purge_all' );
+
+		}else{
+			/* if( !in_array( '5.3.15', $get_version ) ){
+				l_theplus_library()->remove_dir_files(L_THEPLUS_ASSET_PATH); //only remove files
+				update_option('tp_save_update_at', strtotime('now'), false); //all cache regenerate
+				$versions = array_unique( array_merge( $get_version, $versions ) );
+				update_option( $option_name, $versions );
+			} */
+		}
+	}
+
 	/**
 	 * Generate secure path url
 	 *
@@ -732,20 +707,11 @@ Class L_Plus_Generator
 			return;
 		}
 
-		global $wp_query;
-		$queried_obj = get_queried_object_id();
-		if(isset($wp_query->is_post_type_archive) && !empty($wp_query->is_post_type_archive)){
-			$queried_obj = $wp_query->query['post_type'];
+		if( empty(self::$tpae_post_type) ){
+			$this->get_post_type_post_id();
 		}
-		if(is_search()){
-			$queried_obj = 'search';
-		}
-		if(is_404()){
-			$queried_obj = '404';
-		}
-		$post_type = (is_singular() ? 'post' : 'term');
-		
-		if (file_exists(L_THEPLUS_ASSET_PATH . '/theplus-' . $post_type . '-' . $queried_obj . '.min.css') || file_exists(L_THEPLUS_ASSET_PATH . '/theplus-' . $post_type . '-' . $queried_obj . '.min.js')) {
+
+		if (file_exists(L_THEPLUS_ASSET_PATH . '/theplus-' . self::$tpae_post_type . '-' . self::$tpae_post_id . '.min.css') || file_exists(L_THEPLUS_ASSET_PATH . '/theplus-' . self::$tpae_post_type . '-' . self::$tpae_post_id . '.min.js')) {
 		
 				//Parent
 				$wp_admin_bar->add_node( [
@@ -770,7 +736,7 @@ Class L_Plus_Generator
 				array_push($args,array(
 					'id'     	=>	'plus-purge-current-page',
 					'title'		=>	esc_html__( 'Purge Current Page', 'tpebl' ),
-					'href'		=>	'#clear-theplus-' . $post_type . '-' . $queried_obj,
+					'href'		=>	'#clear-theplus-' . self::$tpae_post_type . '-' . self::$tpae_post_id,
 					'parent' 	=>	'theplus-purge-clear',
 					'meta'   	=>	array( 'class' => 'plus-purge-current-page' ),
 				));
@@ -819,10 +785,48 @@ Class L_Plus_Generator
      *
      * @since 5.0.1
      */
-	public function tp_post_save_transient( $post_id, $post, $update ){
-		update_option('tp_save_update_at', strtotime('now'), false);
+	public function tp_post_save_transient( $post_id, $post_data ){
+		if (wp_doing_cron()) {
+            return;
+        }
+
+		if( !empty($post_id) ){
+			$current_post_type = get_post_type( $post_id );
+			if ( in_array($current_post_type, ['post', 'page', 'product']) ) {
+				$this->remove_post_metadata($post_id, 'tp_widgets', 'update_at','theplus-post-'. $post_id . '_update_at');
+			}else{
+				update_option('tp_save_update_at', strtotime('now'), false);
+			}
+		}else{
+			update_option('tp_save_update_at', strtotime('now'), false);
+		}
 	}
 	
+	/**
+     * Update transient Post Remove
+     */
+	public function tp_trashed_post_transient( $post_id ){
+		if (wp_doing_cron()) {
+            return;
+        }
+
+	    if ( ! defined( 'ELEMENTOR_VERSION' ) && ! class_exists( 'Elementor\Plugin' ) ) {
+		    return false;
+	    }
+
+		if( !empty($post_id) ){
+			$current_post_type = get_post_type( $post_id );
+			$this->remove_post_metadata($post_id, 'tp_widgets', 'update_at','theplus-post-'. $post_id . '_update_at');
+			if ( ! in_array($current_post_type, ['post', 'page', 'product']) ) {
+				update_option('tp_save_update_at', strtotime('now'), false);
+			}
+			if(function_exists('l_theplus_library')){
+				$plus_name = 'theplus-post-'. $post_id;
+				l_theplus_library()->remove_current_page_dir_files( L_THEPLUS_ASSET_PATH, $plus_name );
+			}
+		}
+	}
+
 	/**
 	* Get Loaded Template
 	*
@@ -837,7 +841,6 @@ Class L_Plus_Generator
 			$this->transient_widgets = array_merge( $this->transient_widgets, $this->find_widgets_from_templates( $content ) );
         }
 		
-
 		return $content;
 	}
 
@@ -866,6 +869,38 @@ Class L_Plus_Generator
 		return $getlists;
 	}
 
+	/*
+	 * Get Post ID and Post Type
+	 * @since new_version
+	 */
+	public function get_post_type_post_id(){
+		if(!empty(self::$tpae_post_type) && self::$tpae_post_id != '' ){
+			return true;
+		}
+
+		global $wp_query;
+		if( is_home() || is_singular() || is_archive() || is_search() || (isset( $wp_query ) && (bool) $wp_query->is_posts_page) || is_404() ){
+			$queried_obj = get_queried_object_id();
+			if(isset( $wp_query ) && isset($wp_query->is_post_type_archive) && !empty($wp_query->is_post_type_archive)){
+				$queried_obj = $wp_query->query['post_type'];
+			}
+			if(is_search()){
+				$queried_obj = 'search';
+			}
+			if(is_404()){
+				$queried_obj = '404';
+			}
+			$post_type = (is_singular() ? 'post' : 'term');
+			
+			self::$tpae_post_type = $post_type;
+			self::$tpae_post_id = $queried_obj;
+			
+			return true;
+		}
+
+		return false;
+	}
+
 	/**
      * Check Post Data
      *
@@ -884,20 +919,8 @@ Class L_Plus_Generator
 		$uid = null;
 		
 		if (!l_theplus_library()->is_preview_mode()) {
-			global $wp_query;
-			if (is_home() || is_singular() || is_archive() || is_search() || (isset( $wp_query ) && (bool) $wp_query->is_posts_page) || is_404()) {
-				$queried_obj = get_queried_object_id();				
-				if(isset($wp_query->is_post_type_archive) && !empty($wp_query->is_post_type_archive)){
-					$queried_obj = $wp_query->query['post_type'];
-				}
-				if(is_search()){
-					$queried_obj = 'search';
-				}
-				if(is_404()){
-					$queried_obj = '404';
-				}
-				$post_type = (is_singular() ? 'post' : 'term');
-				$uid = 'theplus-' . $post_type . '-' . $queried_obj;
+			if ( $this->get_post_type_post_id() ) {
+				$uid = 'theplus-' . self::$tpae_post_type . '-' . self::$tpae_post_id;
 			}
 		}else{
 			$uid = 'theplus';
@@ -916,9 +939,9 @@ Class L_Plus_Generator
      */
 	public function requires_update(){
 		
-		$widgets = get_option($this->plus_uid . 'tp_widgets');
+		$widgets = $this->get_posts_metadata( self::$tpae_post_id, 'tp_widgets', 'widgets', $this->plus_uid . 'tp_widgets');
         $save_updated_at = get_option('tp_save_update_at');
-        $post_updated_at = get_option($this->plus_uid . '_update_at');
+        $post_updated_at = $this->get_posts_metadata( self::$tpae_post_id, 'tp_widgets', 'update_at', $this->plus_uid . '_update_at');
 
         if ($widgets === false) {
             return true;
@@ -926,33 +949,203 @@ Class L_Plus_Generator
         if ($save_updated_at === false) {
             return true;
         }
-        if ($post_updated_at === false) {
-            return true;
-        }
-        if ($save_updated_at != $post_updated_at) {
-            return true;
-        }
+		if ($post_updated_at === false || empty($post_updated_at) || (!empty($post_updated_at) && $save_updated_at != $post_updated_at)) {
+			return true;
+		}
 
 		return false;
 	}
 	
+	public function tp_before_enqueue_styles(){
+		if ( $this->get_post_type_post_id() ) {
+			$this->header_init_load_data( self::$tpae_post_type, self::$tpae_post_id );
+		}
+	}
+
+	public function load_asset_per_location( $instance ) {
+
+		if ( is_admin() || ! ( class_exists( 'ElementorPro\Modules\ThemeBuilder\Module' ) ) ) {
+			return false;
+		}
+
+		$locations = $instance->get_locations();
+
+		foreach ( $locations as $location => $settings ) {
+			
+			$documents = \ElementorPro\Modules\ThemeBuilder\Module::instance()->get_conditions_manager()->get_documents_for_location( $location );
+			if( !empty($documents) ){
+				foreach ( $documents as $document ) {
+					$post_id = $document->get_post()->ID;
+					$this->header_init_load_data( 'post', $post_id );
+				}
+			}
+		}
+	}
+
+	public function load_asset_per_file( $file_name ) {
+
+		if( empty( $file_name ) ){
+			return $file_name;
+		}
+
+		$post_id  = preg_replace( '/[^0-9]/', '', $file_name );
+
+		if ( $post_id < 1 ) {
+			return $file_name;
+		}
+
+		$this->header_init_load_data( 'post', $post_id );
+		
+		return $file_name;
+	}
+
+	public function check_generate_script() {
+		if ($this->is_background_running()) {
+            return false;
+        }
+		
+        if ($this->plus_uid === null) {
+            return false;
+        }
+
+        if (l_theplus_library()->is_preview_mode()) {
+            return false;
+        }
+		
+        if (!$this->requires_update) {
+            return false;
+        }
+		
+		if(get_option('tp_save_update_at') === false){
+			update_option('tp_save_update_at', strtotime('now'),false);
+		}
+		
+		$update_at = $this->get_posts_metadata(self::$tpae_post_id, 'tp_widgets', 'update_at', $this->plus_uid . '_update_at' );
+		if (get_option('tpgb_save_updated_at') === $update_at) {
+            return false;
+        }
+		return true;
+	}
+
+	public function header_init_load_data($post_type = null, $post_id = null) {
+		
+		if($this->check_generate_script() === false ){
+			return;
+		}
+
+		if(empty($post_type) || $post_id==null){
+			return;
+		}
+
+		if( !empty($this->post_assets_object) && isset( $this->post_assets_object[ $post_id ] ) ){
+			return;
+		}
+		
+		if ( empty($this->post_assets_object) || (!empty($this->post_assets_object) && !isset( $this->post_assets_object[ $post_id ] ) && class_exists('Plus_Widgets_Manager') ) ) {
+			$load_enqueue = tpae_get_post_assets( $post_id, $post_type );
+			if(!empty($load_enqueue)){
+				if(isset($load_enqueue->transient_widgets) && !empty($load_enqueue->transient_widgets)){
+					
+					if(has_filter('theplus_pro_registered_widgets')) {
+						$this->l_registered_widgets = apply_filters('theplus_pro_registered_widgets', $this->l_registered_widgets );
+					}
+					$load_enqueue->transient_widgets = array_intersect(array_keys($this->l_registered_widgets), $load_enqueue->transient_widgets);
+
+					if(!empty($load_enqueue->transient_widgets)){
+						$this->enqueue_assets( $load_enqueue->transient_widgets, $post_type, $load_enqueue->preload_name, $load_enqueue->post_id );
+					}
+				}
+				$widget_lists = [];
+				if(!empty($load_enqueue->transient_widgets)){
+					$widget_lists = array_unique($load_enqueue->transient_widgets);
+					$this->transient_widgets = array_merge($this->transient_widgets, $widget_lists);
+				}
+				$this->post_assets_object[ $post_id ] = $widget_lists;
+			}
+		}
+		
+	}
+
+	public function enqueue_assets( $elements = [], $post_type = '', $preload = '', $post_id = '' ){
+		if(!empty($elements)){
+			if ( !$this->check_css_js_cache_files( $post_type, $preload, 'css', true ) && $this->get_caching_option() == false ) {
+				sort($elements);
+				$this->plus_generate_scripts( $elements, 'theplus-preload-' . $post_type . '-' . $preload, ['css'], false);
+			}
+			if(!empty($this->tp_first_load)){
+				$this->load_inline_script();
+			}
+			if($this->get_caching_option() == false){
+
+				$plus_version = $this->get_post_version( $post_id );
+				
+				if(!empty($this->tp_first_load)){
+					$tp_url_get = L_THEPLUS_URL;
+					if(defined('THEPLUS_VERSION') && defined('THEPLUS_URL')){
+						$tp_url_get = THEPLUS_URL;
+					}
+					wp_enqueue_style( 'theplus-general-preload',$this->pathurl_security($tp_url_get . "assets/css/main/plus-extra-adv/plus-extra-adv.min.css"), ['elementor-frontend'], $plus_version );
+					$this->tp_first_load = false;
+				}
+				if($this->check_css_js_cache_files( $post_type, $preload, 'css', true )){
+					$css_file = L_THEPLUS_ASSET_URL . '/theplus-preload-' . $post_type . '-' . $preload . '.min.css';
+					wp_enqueue_style( 'theplus-'.$preload.'-preload',$this->pathurl_security($css_file), ['elementor-frontend'], $plus_version );
+				}
+				
+			}else if(!empty($this->get_caching_option()) && !empty($elements)){
+				$tp_url = L_THEPLUS_URL;
+				$tp_path = L_THEPLUS_PATH . DIRECTORY_SEPARATOR;
+				$tp_version = L_THEPLUS_VERSION;
+				if(defined('THEPLUS_VERSION') && defined('THEPLUS_URL')){
+					$tp_url = THEPLUS_URL;
+					$tp_path = THEPLUS_PATH . DIRECTORY_SEPARATOR;
+					$tp_version = THEPLUS_VERSION;
+				}
+
+				if(!empty($this->tp_first_load)){
+					$this->tp_first_load = false;
+				}
+				$separate_path = $this->plus_load_separate_file($elements);
+				if(!empty($separate_path) && isset($separate_path['css']) && !empty($separate_path['css'])){
+					foreach( $separate_path['css'] as $key => $path ){
+						if(is_readable(l_theplus_library()->secure_path_url($path))){
+							$css_sep_url = str_replace( $tp_path, $tp_url, $path);
+							$css_file_key = basename($css_sep_url, ".css");
+							$css_file_key = basename($css_file_key, ".min");
+							
+							wp_enqueue_style('theplus-'.$css_file_key,$this->pathurl_security($css_sep_url),false,$tp_version);
+						}
+					}
+				}
+				if(!empty($separate_path) && isset($separate_path['js']) && !empty($separate_path['js'])){
+					foreach( $separate_path['js'] as $key => $path ){
+						if(is_readable(l_theplus_library()->secure_path_url($path))){
+							$js_sep_url = str_replace( $tp_path, $tp_url, $path);
+							$js_file_key = basename($js_sep_url, ".js");
+							$js_file_key = basename($js_file_key, ".min");
+							wp_enqueue_script('theplus-'.$js_file_key,$this->pathurl_security($js_sep_url),['jquery'],$tp_version,true);
+						}
+					}
+				}
+			}
+		}
+	}
+
 	public function init(){
 		$this->l_registered_widgets = l_registered_widgets();
 		
 		$this->transient_widgets = [];
 		$this->transient_extensions = [];
-		if(!defined('THEPLUS_VERSION')){
-			add_action('elementor/frontend/before_render', array($this, 'collect_transient_widgets'));
-		}
 		
-		if(!empty($this->get_caching_option())){
-			add_action('wp_footer', array($this, 'generate_scripts_frontend'));
-		}else{
-			add_action('wp_print_footer_scripts', array($this, 'generate_scripts_frontend'));
-		}
+		add_action( 'elementor/frontend/before_enqueue_styles', [ $this, 'tp_before_enqueue_styles' ] );
+		add_action( 'elementor/theme/register_locations', [ $this, 'load_asset_per_location' ], 20 );
+		add_filter( 'elementor/files/file_name', [ $this, 'load_asset_per_file' ] );
+
+		add_action('wp_footer', array($this, 'generate_scripts_frontend'));
 		
-		add_action( 'save_post', array($this,'tp_post_save_transient'), 10,3 );
-		
+		add_action( 'elementor/editor/after_save', array($this,'tp_post_save_transient'), 10, 2 );
+		add_action('trashed_post', array($this, 'tp_trashed_post_transient'), 10, 1);
+
 		add_action('wp', [$this, 'init_post_request_data']);
 
 		//@since 5.0.4
@@ -972,6 +1165,7 @@ Class L_Plus_Generator
 		add_action('wp_enqueue_scripts', array($this, 'plus_enqueue_scripts'));
 		
 		if (is_admin() && current_user_can("manage_options")) {
+			add_action('admin_init', array($this, 'tp_version_clear_cache'));
 			add_action('wp_ajax_smart_perf_clear_cache', array($this, 'theplus_smart_perf_clear_cache'));
 			add_action('wp_ajax_backend_clear_cache', array($this, 'theplus_backend_clear_cache'));
 		}
@@ -979,6 +1173,7 @@ Class L_Plus_Generator
 		//@since 5.0.4
 		remove_filter('elementor/frontend/builder_content_data', [$this, 'tp_get_lodded_template'], 10, 2);
 	}
+
 	/**
 	 * Returns the instance.
 	 * @since  1.0.0

@@ -475,9 +475,11 @@ class AdvancedIframeHelper {
 	
 	static function aiDelecteAiContentPages() {
 	    $pages = get_pages( array( 'post_type' => 'ai_content_page', 'post_status' => get_post_stati()));	
-        foreach( $pages as $page ) {	
-	        wp_delete_post( $page->ID, true);
-	    }
+        if ($pages != false) {
+		    foreach( $pages as $page ) {	
+	            wp_delete_post( $page->ID, true);
+	        }
+		}
 	}
 	
 	static $replaceArrayXSS = array('"',"'",' ', '(',')',';','=');

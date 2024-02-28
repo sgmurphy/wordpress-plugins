@@ -47,7 +47,7 @@ if ( ! class_exists( 'YITH_WCAS_Assets' ) ) {
 		/**
 		 * Enqueue admin scripts
 		 *
-		 * @param   string $hook  The current admin page.
+		 * @param string $hook The current admin page.
 		 */
 		public static function load_admin_scripts( $hook ) {
 			self::register_backend_styles();
@@ -66,6 +66,12 @@ if ( ! class_exists( 'YITH_WCAS_Assets' ) ) {
 					if ( 'shortcodes' === $tab ) {
 						self::enqueue_script( 'ywcas-shortcodes' );
 					}
+					if ( 'statistic' === $tab ) {
+						self::enqueue_script( 'ywcas-statistic' );
+					}
+
+				} else {
+					self::enqueue_script( 'ywcas-statistic' );
 				}
 			}
 
@@ -158,6 +164,11 @@ if ( ! class_exists( 'YITH_WCAS_Assets' ) ) {
 					'deps'    => array( 'jquery' ),
 					'version' => YITH_WCAS_VERSION,
 				),
+				'ywcas-statistic'     => array(
+					'src'     => yit_load_js_file( YITH_WCAS_ASSETS_URL . '/js/admin/build/statistic.js' ),
+					'deps'    => array( 'jquery', 'jquery-blockui' ),
+					'version' => YITH_WCAS_VERSION,
+				)
 			);
 			foreach ( $admin_scripts as $handle => $admin_script ) {
 				self::register_script( $handle, $admin_script['src'], $admin_script['deps'], $admin_script['version'] );
@@ -167,12 +178,12 @@ if ( ! class_exists( 'YITH_WCAS_Assets' ) ) {
 		/**
 		 * Register a style for use.
 		 *
-		 * @param   string   $handle   Name of the stylesheet. Should be unique.
-		 * @param   string   $path     Full URL of the stylesheet, or path of the stylesheet relative to the WordPress root directory.
-		 * @param   string[] $deps     An array of registered stylesheet handles this stylesheet depends on.
-		 * @param   string   $version  String specifying stylesheet version number, if it has one, which is added to the URL as a query string for cache busting purposes. If version is set to false, a version number is automatically added equal to current installed WordPress version. If set to null, no version is added.
-		 * @param   string   $media    The media for which this stylesheet has been defined. Accepts media types like 'all', 'print' and 'screen', or media queries like '(orientation: portrait)' and '(max-width: 640px)'.
-		 * @param   boolean  $has_rtl  If has RTL version to load too.
+		 * @param string   $handle Name of the stylesheet. Should be unique.
+		 * @param string   $path Full URL of the stylesheet, or path of the stylesheet relative to the WordPress root directory.
+		 * @param string[] $deps An array of registered stylesheet handles this stylesheet depends on.
+		 * @param string   $version String specifying stylesheet version number, if it has one, which is added to the URL as a query string for cache busting purposes. If version is set to false, a version number is automatically added equal to current installed WordPress version. If set to null, no version is added.
+		 * @param string   $media The media for which this stylesheet has been defined. Accepts media types like 'all', 'print' and 'screen', or media queries like '(orientation: portrait)' and '(max-width: 640px)'.
+		 * @param boolean  $has_rtl If has RTL version to load too.
 		 *
 		 * @author YITH
 		 * @since  2.0.0
@@ -190,11 +201,11 @@ if ( ! class_exists( 'YITH_WCAS_Assets' ) ) {
 		/**
 		 * Register a script for use.
 		 *
-		 * @param   string   $handle     Name of the script. Should be unique.
-		 * @param   string   $path       Full URL of the script, or path of the script relative to the WordPress root directory.
-		 * @param   string[] $deps       An array of registered script handles this script depends on.
-		 * @param   string   $version    String specifying script version number, if it has one, which is added to the URL as a query string for cache busting purposes. If version is set to false, a version number is automatically added equal to current installed WordPress version. If set to null, no version is added.
-		 * @param   boolean  $in_footer  Whether to enqueue the script before </body> instead of in the <head>. Default 'false'.
+		 * @param string   $handle Name of the script. Should be unique.
+		 * @param string   $path Full URL of the script, or path of the script relative to the WordPress root directory.
+		 * @param string[] $deps An array of registered script handles this script depends on.
+		 * @param string   $version String specifying script version number, if it has one, which is added to the URL as a query string for cache busting purposes. If version is set to false, a version number is automatically added equal to current installed WordPress version. If set to null, no version is added.
+		 * @param boolean  $in_footer Whether to enqueue the script before </body> instead of in the <head>. Default 'false'.
 		 *
 		 * @since  2.0.0
 		 * @author YITH
@@ -208,12 +219,12 @@ if ( ! class_exists( 'YITH_WCAS_Assets' ) ) {
 		/**
 		 * Register and enqueue a styles for use.
 		 *
-		 * @param   string   $handle   Name of the stylesheet. Should be unique.
-		 * @param   string   $path     Full URL of the stylesheet, or path of the stylesheet relative to the WordPress root directory.
-		 * @param   string[] $deps     An array of registered stylesheet handles this stylesheet depends on.
-		 * @param   string   $version  String specifying stylesheet version number, if it has one, which is added to the URL as a query string for cache busting purposes. If version is set to false, a version number is automatically added equal to current installed WordPress version. If set to null, no version is added.
-		 * @param   string   $media    The media for which this stylesheet has been defined. Accepts media types like 'all', 'print' and 'screen', or media queries like '(orientation: portrait)' and '(max-width: 640px)'.
-		 * @param   boolean  $has_rtl  If has RTL version to load too.
+		 * @param string   $handle Name of the stylesheet. Should be unique.
+		 * @param string   $path Full URL of the stylesheet, or path of the stylesheet relative to the WordPress root directory.
+		 * @param string[] $deps An array of registered stylesheet handles this stylesheet depends on.
+		 * @param string   $version String specifying stylesheet version number, if it has one, which is added to the URL as a query string for cache busting purposes. If version is set to false, a version number is automatically added equal to current installed WordPress version. If set to null, no version is added.
+		 * @param string   $media The media for which this stylesheet has been defined. Accepts media types like 'all', 'print' and 'screen', or media queries like '(orientation: portrait)' and '(max-width: 640px)'.
+		 * @param boolean  $has_rtl If has RTL version to load too.
 		 *
 		 * @uses   wp_enqueue_style()
 		 */
@@ -227,11 +238,11 @@ if ( ! class_exists( 'YITH_WCAS_Assets' ) ) {
 		/**
 		 * Register and enqueue a script for use.
 		 *
-		 * @param   string   $handle     Name of the script. Should be unique.
-		 * @param   string   $path       Full URL of the script, or path of the script relative to the WordPress root directory.
-		 * @param   string[] $deps       An array of registered script handles this script depends on.
-		 * @param   string   $version    String specifying script version number, if it has one, which is added to the URL as a query string for cache busting purposes. If version is set to false, a version number is automatically added equal to current installed WordPress version. If set to null, no version is added.
-		 * @param   boolean  $in_footer  Whether to enqueue the script before </body> instead of in the <head>. Default 'false'.
+		 * @param string   $handle Name of the script. Should be unique.
+		 * @param string   $path Full URL of the script, or path of the script relative to the WordPress root directory.
+		 * @param string[] $deps An array of registered script handles this script depends on.
+		 * @param string   $version String specifying script version number, if it has one, which is added to the URL as a query string for cache busting purposes. If version is set to false, a version number is automatically added equal to current installed WordPress version. If set to null, no version is added.
+		 * @param boolean  $in_footer Whether to enqueue the script before </body> instead of in the <head>. Default 'false'.
 		 *
 		 * @uses   wp_enqueue_script()
 		 */
@@ -245,7 +256,7 @@ if ( ! class_exists( 'YITH_WCAS_Assets' ) ) {
 		/**
 		 * Return data for script handles.
 		 *
-		 * @param   string $handle  Script handle the data will be attached to.
+		 * @param string $handle Script handle the data will be attached to.
 		 *
 		 * @return array|bool
 		 * @author YITH
@@ -259,6 +270,7 @@ if ( ! class_exists( 'YITH_WCAS_Assets' ) ) {
 						'emptyField'              => esc_html__( 'This field is required.', 'yith-woocommerce-ajax-search' ),
 						'indexNonce'              => wp_create_nonce( 'ywcas-search-index' ),
 						'shortcodeNonce'          => wp_create_nonce( 'ywcas-search-shortcode' ),
+						'statisticNonce'          => wp_create_nonce( 'ywcas-search-statistic' ),
 						'message_alert'           => array(
 							'title'         => __( 'Are you sure?', 'yith-woocommerce-ajax-search' ),
 							'desc'          => __( 'Do you want to remove this field from your search field list?', 'yith-woocommerce-ajax-search' ),
@@ -269,6 +281,7 @@ if ( ! class_exists( 'YITH_WCAS_Assets' ) ) {
 							'desc'          => __( 'Do you want to remove this shortcode preset?', 'yith-woocommerce-ajax-search' ),
 							'confirmButton' => __( 'Yes, proceed', 'yith-woocommerce-ajax-search' ),
 						),
+
 					);
 					break;
 				default:
@@ -280,8 +293,8 @@ if ( ! class_exists( 'YITH_WCAS_Assets' ) ) {
 			 *
 			 * This filter allow to add, remove or change the param of a specific script.
 			 *
-			 * @param   array   $params  The script params.
-			 * @param   string  $handle  The script handle.
+			 * @param array  $params The script params.
+			 * @param string $handle The script handle.
 			 *
 			 * @return array
 			 */
@@ -294,7 +307,7 @@ if ( ! class_exists( 'YITH_WCAS_Assets' ) ) {
 		 *
 		 * @since 2.3.0 this needs less wp_script_is() calls due to https://core.trac.wordpress.org/ticket/28404 being added in WP 4.0.
 		 *
-		 * @param   string $handle  Script handle the data will be attached to.
+		 * @param string $handle Script handle the data will be attached to.
 		 */
 		public static function localize_script( $handle ) {
 			if ( ! in_array( $handle, self::$ywcas_localize_scripts, true ) ) {
@@ -312,7 +325,7 @@ if ( ! class_exists( 'YITH_WCAS_Assets' ) ) {
 				 *
 				 * The filter allow to add ,remove the data in the script.
 				 *
-				 * @param   array  $data  The script data.
+				 * @param array $data The script data.
 				 *
 				 * @return array
 				 */

@@ -14,6 +14,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /**
  * List API on backend
+ *
+ * @since 4.2.6
+ * @version 1.0.0
  */
 
 const lplistAPI = {};
@@ -27,7 +30,8 @@ if ('undefined' !== typeof lpDataAdmin) {
     apiSearchCourses: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/search-course',
     apiSearchUsers: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/search-user',
     apiAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/assign-user-course',
-    apiUnAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/unassign-user-course'
+    apiUnAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/unassign-user-course',
+    apiAJAX: lpDataAdmin.lp_rest_url + 'lp/v1/load_content_via_ajax/'
   };
 }
 if ('undefined' !== typeof lpData) {
@@ -414,6 +418,7 @@ window.lpCourseFilter = {
     (0,_utils__WEBPACK_IMPORTED_MODULE_1__.lpFetchAPI)(url, paramsFetch, callBack);
   },
   submit: form => {
+    let urlFetch = _api__WEBPACK_IMPORTED_MODULE_0__["default"].frontend.apiAJAX;
     const formData = new FormData(form); // Create a FormData object from the form
     const elListCourse = document.querySelector('.learn-press-courses');
     const elOptionWidget = form.closest('div[data-widget]');
@@ -450,8 +455,14 @@ window.lpCourseFilter = {
     // Send lang to API if exist for multiple lang.
     if (lpData.urlParams.hasOwnProperty('lang')) {
       filterCourses.lang = lpData.urlParams.lang;
+      urlFetch = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.lpAddQueryArgs)(urlFetch, {
+        lang: lpData.urlParams.lang
+      });
     } else if (lpData.urlParams.hasOwnProperty('pll-current-lang')) {
       filterCourses['pll-current-lang'] = lpData.urlParams['pll-current-lang'];
+      urlFetch = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.lpAddQueryArgs)(urlFetch, {
+        lang: lpData.urlParams['pll-current-lang']
+      });
     }
     if ('undefined' !== typeof lpSettingCourses &&
     // Old version.
@@ -521,7 +532,7 @@ window.lpCourseFilter = {
           }
         }
       };
-      window.lpAJAXG.fetchAPI(_api__WEBPACK_IMPORTED_MODULE_0__["default"].frontend.apiAJAX, dataSend, callBack);
+      window.lpAJAXG.fetchAPI(urlFetch, dataSend, callBack);
     } else {
       const courseUrl = lpData.urlParams.page_term_url || lpData.courses_url || '';
       const url = new URL(courseUrl);

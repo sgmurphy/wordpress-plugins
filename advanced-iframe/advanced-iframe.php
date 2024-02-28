@@ -2,7 +2,7 @@
 /*
 Plugin Name: Advanced iFrame
 Plugin URI: https://1.envato.market/VDRDJ
-Version: 2024.0
+Version: 2024.2
 Text Domain: advanced-iframe
 Domain Path: /languages
 Author: Michael Dempfle
@@ -47,7 +47,7 @@ define('AIP_URL_CUSTOM', plugins_url() . '/advanced-iframe-custom/');
 include dirname(__FILE__) . '/includes/advanced-iframe-main-helper.php';
 include dirname(__FILE__) . '/includes/advanced-iframe-main-cookie.php';
 
-$aiVersion = '2024.0';
+$aiVersion = '2024.2';
 // check $aiJsSize
 
 if (!class_exists('advancediFrame')) {
@@ -677,8 +677,8 @@ if (!class_exists('advancediFrame')) {
         /**
          * renders the iframe script
          */
-        function do_iframe_script($atts, $content = null)
-        {			
+        function do_iframe_script($atts, $content = null) {
+            global $isFreemiusMigration;			
 			$start = microtime(true);
 			// Avoids that iframes are called before the body!
 			if ($this->renderIframe === false) {
@@ -918,10 +918,9 @@ if (!class_exists('advancediFrame')) {
 				
 		function createMinimizedAiJs($backend) {
 			global $aiVersion;
-			$aiJsSize = 89201;
+			$aiJsSize = 89306;
 			$newContent = file_get_contents(dirname(__FILE__) . '/js/ai.js');
 			$oldFileName = dirname(__FILE__) . '/js/ai.min.js';
-			$oldFile = file_get_contents($oldFileName);
 			if ((strlen($newContent) == $aiJsSize) && file_exists($oldFileName)) {		   
 			   return;
 			}
@@ -943,8 +942,7 @@ if (!class_exists('advancediFrame')) {
 					$minifiedContent = '/** Advanced iframe '.$type.' functions v' . $aiVersion . '. Created: '.date("Y-m-d H:i:s")." */\n" . $minifiedContent;	
 				} else {
 					$minifiedContent = $newContent;
-				}
-					
+				}				
 			}
 	
 			$script_name = 'ai.min.js';
@@ -1482,6 +1480,8 @@ if (!class_exists('advancediFrame')) {
 				   $content = $this->filterAttribute('onload', $attsArray, $content);
 				   $content = $this->filterAttribute('custom', $attsArray, $content);
 				   $content = $this->filterAttribute('include_html', $attsArray, $content);	
+				   $content = $this->filterAttribute('additional_js', $attsArray, $content);	
+				   $content = $this->filterAttribute('additional_js_file_iframe', $attsArray, $content);	
                    $content = $this->filterXSSAttributes($attsArray, $content);				   
 			  }		  
 		  }
@@ -1771,15 +1771,24 @@ function advanced_iframe_plugin_meta_free($links, $file)
 
 function advanced_iframe_plugin_meta_pro($links, $file)
 {
+	global $isFreemiusMigration; 
     if (strpos($file, '/advanced-iframe') !== false) {
         $iconstyle = 'style="-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;"';
         $links = array();
-        $links = array_merge($links,
-            array('Version ' . advanced_iframe_plugin_version(),
+		
+		if ($isFreemiusMigration) {
+			$aiLinks = array('Version ' . advanced_iframe_plugin_version(),
+                'By <a href="https://www.tinywebgallery.com">Michael Dempfle</a>',
+                '<a href="//www.tinywebgallery.com/blog/advanced-iframe/advanced-iframe-pro-demo">Demos</a>'
+            ); 
+		} else {
+			$aiLinks  = array('Version ' . advanced_iframe_plugin_version(),
                 'By <a href="https://www.tinywebgallery.com">Michael Dempfle</a>',
                 '<a target="_blank" href="https://1.envato.market/k2Q2x">Code canyon - Advanced iFrame Pro</a>',
                 '<a href="//www.tinywebgallery.com/blog/advanced-iframe/advanced-iframe-pro-demo">Demos</a>'
-            ));
+            );
+		}
+        $links = array_merge($links, $aiLinks);
     }
     return $links;
 }

@@ -41,7 +41,6 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 			add_action( 'init', array( $this, 'check_scheduled_index' ) );
 			add_action( 'yith_wcas_data_index_lookup', array( $this, 'add_scheduled_data' ), 10, 2 );
 
-
 			add_action( 'yith_wcas_index_schedule', array( $this, 'process_data' ) );
 		}
 
@@ -239,7 +238,11 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 				'custom_fields'   => $this->get_product_custom_fields( $product ),
 				'lang'            => ywcas_get_language( $data->ID ),
 				'featured'        => $product->is_featured(),
+				'custom_taxonomies' => maybe_serialize( apply_filters( 'ywcas_index_custom_taxonomies', array(), $product ) ),
+				'boost'             => $this->get_boost( $product ),
+
 			);
+
 
 			return apply_filters( 'yith_wcas_data_index_loockup_formatted_product', $formatted_product, $data );
 		}
@@ -291,15 +294,17 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		 */
 		private function get_tags( $product ) {
 			$parent     = $product->get_parent_id();
-			$product_id = $parent ?? $product->get_id();
+			$product_id = 0 === $parent ? $product->get_id() : $parent;
+
 			$tags       = wp_get_object_terms(
 				$product_id,
 				'product_tag',
 				array(
-					'fields'       => 'names',
+					'fields'       => 'ids',
 					'exclude_tree' => true,
 				)
 			);
+
 
 			return apply_filters( 'ywcas_wpml_get_translated_terms_list_by_term_name', $tags, 'product_tag', ywcas_get_language( $product->get_id( 'edit' ) ) );
 		}
@@ -326,6 +331,25 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 
 			return wp_list_pluck( (array) $terms, 'term_id' );
 		}
+
+
+		/**
+		 * Return the boost of product
+		 *
+		 * @param   WC_Product  $product  Product.
+		 *
+		 * @return string
+		 * @since 2.1
+		 */
+		private function get_boost( $product ) {
+			$parent  = $product->get_parent_id();
+			$product = $parent ? wc_get_product( $product->get_id() ) : $product;
+
+			$boost = $product->get_meta( 'ywcas_product_boost' );
+
+			return empty( $boost ) ? 0 : $boost;
+		}
+
 
 		/**
 		 * Return the name of transient.

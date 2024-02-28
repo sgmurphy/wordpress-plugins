@@ -15,7 +15,7 @@ if ( ! class_exists( 'YITH_WCAS_Install' ) ) {
 	 */
 	class YITH_WCAS_Install {
 
-		const YITH_WCAS_DB_VERSION = '1.12';
+		const YITH_WCAS_DB_VERSION = '1.21';
 
 		/**
 		 * The function that init the configuration
@@ -28,7 +28,7 @@ if ( ! class_exists( 'YITH_WCAS_Install' ) ) {
 			self::initialize_table_name();
 			self::install_tables();
 
-			add_action('init', array( __CLASS__, 'first_indexing' ));
+			add_action( 'init', array( __CLASS__, 'first_indexing' ) );
 		}
 
 		/**
@@ -44,6 +44,7 @@ if ( ! class_exists( 'YITH_WCAS_Install' ) ) {
 			$wpdb->yith_wcas_taxonomy_lookup    = $wpdb->prefix . 'yith_wcas_taxonomy_lookup';
 			$wpdb->yith_wcas_index_token        = $wpdb->prefix . 'yith_wcas_index_token';
 			$wpdb->yith_wcas_index_relationship = $wpdb->prefix . 'yith_wcas_index_relationship';
+			$wpdb->yith_wcas_query_log          = $wpdb->prefix . 'yith_wcas_query_log';
 		}
 
 		/**
@@ -92,9 +93,11 @@ if ( ! class_exists( 'YITH_WCAS_Install' ) ) {
 				product_type varchar(20) DEFAULT '',
 				parent_category varchar(255) DEFAULT '',
 				tags mediumtext DEFAULT '',
-				custom_fields mediumtext DEFAULT '',
 				lang varchar(10) NOT NULL DEFAULT '',
 				featured tinyint(1) NOT NULL DEFAULT 0,
+				custom_fields mediumtext DEFAULT '',
+				custom_taxonomies mediumtext DEFAULT '',
+				boost decimal(4,2) NOT NULL DEFAULT 0,
                 PRIMARY KEY (id)
                 )ENGINE=InnoDB $charset_collate;";
 
@@ -112,7 +115,7 @@ if ( ! class_exists( 'YITH_WCAS_Install' ) ) {
 
 			$sql = "CREATE TABLE $wpdb->yith_wcas_index_token (
 				token_id bigint(20) NOT NULL AUTO_INCREMENT,
-				token varchar(255) NOT NULL UNIQUE,
+				token varchar(255) NOT NULL ,
 				frequency int NOT NULL DEFAULT 0,
 				doc_frequency int NOT NULL DEFAULT 0,
 				lang varchar(10) NOT NULL DEFAULT '',
@@ -121,12 +124,31 @@ if ( ! class_exists( 'YITH_WCAS_Install' ) ) {
 
 			dbDelta( $sql );
 
-			$wpdb->query( "CREATE INDEX index_post_id ON $wpdb->yith_wcas_data_index_lookup (post_id)" ); //phpcs:ignore
-			$wpdb->query( "CREATE INDEX index_r_token_id ON $wpdb->yith_wcas_index_relationship (token_id)" ); //phpcs:ignore
-			$wpdb->query( "CREATE INDEX index_r_post_id ON $wpdb->yith_wcas_index_relationship (post_id)" ); //phpcs:ignore
-			$wpdb->query( "CREATE INDEX index_token_lang_freq_desc ON $wpdb->yith_wcas_index_token (token,lang,frequency DESC)" );  //phpcs:ignore
+			$sql = "CREATE TABLE $wpdb->yith_wcas_query_log (
+				id bigint(20) NOT NULL AUTO_INCREMENT,
+				user_id bigint(20) DEFAULT 0,
+				query varchar(200) NOT NULL,
+				search_date datetime NOT NULL,
+				num_results int(11) DEFAULT 0,
+				clicked_product bigint(20) DEFAULT 0,
+				lang varchar(10) NOT NULL DEFAULT '',
+                PRIMARY KEY (id)
+                )ENGINE=InnoDB $charset_collate;";
 
+			dbDelta( $sql );
 
+			$wpdb->query( "CREATE INDEX index_post_id ON $wpdb->yith_wcas_data_index_lookup (post_id)" );
+			$wpdb->query( "CREATE INDEX index_r_token_id ON $wpdb->yith_wcas_index_relationship (token_id)" );
+			$wpdb->query( "CREATE INDEX index_r_post_id ON $wpdb->yith_wcas_index_relationship (post_id)" );
+			$wpdb->query( "CREATE INDEX index_token_lang_freq_desc ON $wpdb->yith_wcas_index_token (token,lang,frequency DESC)" );
+			$wpdb->query( "CREATE INDEX index_query ON $wpdb->yith_wcas_query_log (query)" );
+			$wpdb->query( "CREATE INDEX index_query_lang_search_date ON $wpdb->yith_wcas_query_log (query,lang,search_date DESC)" );
+
+			$token_index = $wpdb->get_row( "SHOW INDEX FROM {$wpdb->yith_wcas_index_token} WHERE column_name = 'token' and Key_name = 'token'" );
+			if ( ! is_null( $token_index ) ) {
+				$wpdb->query( "ALTER TABLE {$wpdb->yith_wcas_index_token} DROP INDEX token;" );
+				update_option( 'ywcas_first_indexing', 'no' );
+			}
 			update_option( 'yith_wcas_db_version', self::YITH_WCAS_DB_VERSION );
 		}
 
@@ -138,11 +160,15 @@ if ( ! class_exists( 'YITH_WCAS_Install' ) ) {
 		protected static function check_version() {
 			$ywcas_option_version = get_option( 'yith_wcas_free_option_version', '2.0.0' );
 			$check_free_option    = get_option( 'yith_wcas_enable_transient' );
-			if ( $check_free_option !== false || version_compare( $ywcas_option_version, '2.0.0', '<' ) ) {
+			if ( false !== $check_free_option || version_compare( $ywcas_option_version, '2.0.0', '<' ) ) {
 				self::update_to_2_0_0_version();
 			}
 
-			update_option( 'yith_wcas_free_option_version', '2.0.0' );
+			if ( false !== $check_free_option || version_compare( $ywcas_option_version, '2.1.0', '<' ) ) {
+				self::update_to_2_1_0_version();
+			}
+
+			update_option( 'yith_wcas_free_option_version', '2.1.0' );
 		}
 
 		/**
@@ -155,12 +181,19 @@ if ( ! class_exists( 'YITH_WCAS_Install' ) ) {
 		}
 
 		/**
+		 * Update the options from the oldest version to 2.1.0
+		 */
+		private static function update_to_2_1_0_version() {
+			update_option( 'ywcas_user_switch_to_block', true );
+		}
+
+		/**
 		 * Start to make the first indexing
 		 */
-		public static function first_indexing(){
-			if( 'no' === get_option('ywcas_first_indexing', 'no')){
+		public static function first_indexing() {
+			if ( 'no' === get_option( 'ywcas_first_indexing', 'no' ) ) {
 				ywcas()->indexer->process_data();
-				update_option('ywcas_first_indexing', 'yes');
+				update_option( 'ywcas_first_indexing', 'yes' );
 			}
 		}
 	}

@@ -29,7 +29,7 @@ function wpcode_update_snippet_status() {
 	$snippet_id = absint( $_POST['snippet_id'] );
 	$active     = isset( $_POST['active'] ) && 'true' === $_POST['active'];
 
-	$snippet = new WPCode_Snippet( $snippet_id );
+	$snippet = wpcode_get_snippet( $snippet_id );
 
 	if ( ! current_user_can( 'wpcode_activate_snippets', $snippet ) ) {
 		wpcode()->error->add_error(

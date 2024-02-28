@@ -14,6 +14,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /**
  * List API on backend
+ *
+ * @since 4.2.6
+ * @version 1.0.0
  */
 
 const lplistAPI = {};
@@ -27,7 +30,8 @@ if ('undefined' !== typeof lpDataAdmin) {
     apiSearchCourses: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/search-course',
     apiSearchUsers: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/search-user',
     apiAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/assign-user-course',
-    apiUnAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/unassign-user-course'
+    apiUnAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/unassign-user-course',
+    apiAJAX: lpDataAdmin.lp_rest_url + 'lp/v1/load_content_via_ajax/'
   };
 }
 if ('undefined' !== typeof lpData) {
@@ -224,10 +228,25 @@ __webpack_require__.r(__webpack_exports__);
  * Load all you need via AJAX
  *
  * @since 4.2.5.7
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 
+
+
+// Handle general parameter in the Frontend and Backend
+let apiData = _api__WEBPACK_IMPORTED_MODULE_1__["default"].admin;
+if ('undefined' === typeof apiData) {
+  apiData = _api__WEBPACK_IMPORTED_MODULE_1__["default"].frontend;
+}
+const urlAPI = apiData.apiAJAX;
+let lpSettings = {};
+if ('undefined' !== typeof lpDataAdmin) {
+  lpSettings = lpDataAdmin;
+} else if ('undefined' !== typeof lpData) {
+  lpSettings = lpData;
+}
+// End Handle general parameter in the Frontend and Backend
 
 const lpAJAX = () => {
   return {
@@ -238,8 +257,8 @@ const lpAJAX = () => {
       const option = {
         headers: {}
       };
-      if (0 !== parseInt(lpData.user_id)) {
-        option.headers['X-WP-Nonce'] = lpData.nonce;
+      if (0 !== parseInt(lpSettings.user_id)) {
+        option.headers['X-WP-Nonce'] = lpSettings.nonce;
       }
       if ('undefined' !== typeof params.args.method_request) {
         option.method = params.args.method_request;
@@ -267,10 +286,10 @@ const lpAJAX = () => {
         elements.forEach(element => {
           //console.log( 'Element handing', element );
           element.classList.add('loaded');
-          let url = _api__WEBPACK_IMPORTED_MODULE_1__["default"].frontend.apiAJAX;
-          if (lpData.urlParams.hasOwnProperty('lang')) {
+          let url = urlAPI;
+          if (lpSettings.urlParams.hasOwnProperty('lang')) {
             url = (0,_utils__WEBPACK_IMPORTED_MODULE_0__.lpAddQueryArgs)(url, {
-              lang: lpData.urlParams.lang
+              lang: lpSettings.urlParams.lang
             });
           }
           const elTarget = element.querySelector('.lp-target');

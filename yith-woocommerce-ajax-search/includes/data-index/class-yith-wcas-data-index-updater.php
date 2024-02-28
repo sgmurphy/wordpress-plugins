@@ -70,13 +70,30 @@ class YITH_WCAS_Data_Index_Updater {
 		$post = get_post( $post_id );
 		if ( $post ) {
 			ywcas()->indexer->delete( $post );
-			if( 'publish' === $post->post_status ){
+			if(  $this->can_be_scheduled( $post ) ){
 				ywcas()->indexer->schedule( $post_id, 0, array( $post_id ) );
-
 				$this->post_processed[] = $post_id;
 			}
 		}
 
+	}
+
+	/**
+	 * Check if the product can be indexed
+	 *
+	 * @param WP_Post $post Current post
+	 *
+	 * @return bool
+	 */
+	public function can_be_scheduled( $post ) {
+
+		$can_be_scheduled = 'publish' === $post->post_status;
+
+		if( 'product' === $post->post_type ){
+			$can_be_scheduled = !has_term('exclude-from-search', 'product_visibility',  $post);
+		}
+
+		return apply_filters('ywcas_can_be_scheduled', $can_be_scheduled, $post);
 	}
 
 	/**

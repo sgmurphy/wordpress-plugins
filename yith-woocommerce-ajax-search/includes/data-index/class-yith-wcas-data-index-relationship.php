@@ -166,8 +166,8 @@ class YITH_WCAS_Data_Index_Relationship {
 		foreach ( $fields as $field ) {
 			$when .= sprintf( " WHEN position like '%s' THEN %d", '%' . $field['type'] . '%', 50 - intval( $field['priority'] ) );
 		};
-		$result = $wpdb->get_col(
-			"SELECT post_id FROM $wpdb->yith_wcas_index_relationship WHERE token_id IN (" . implode( ',', $tokens ) . ') ORDER BY  CASE  ' . $when . ' END DESC, frequency DESC' //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$result = $wpdb->get_results(
+			"SELECT post_id, CASE  " . $when . " END as score FROM $wpdb->yith_wcas_index_relationship WHERE token_id IN (" . implode( ',', $tokens ) . ') ORDER BY  CASE  ' . $when . ' END DESC, frequency DESC', ARRAY_A //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		);
 		return $result;
 	}

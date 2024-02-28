@@ -27,14 +27,13 @@ $html .= '}';
 
 if ($add_iframe_url_as_param === 'remote') {
     $html .= 'function aiChangeUrl(loc) {';
-    $html .= '  aiChangeUrlParam(loc,"'.$map_parameter_to_url.'","'.$src_orig.'","'.$this->filterXss($add_iframe_url_as_param_prefix).'",'.$add_iframe_url_as_param_direct.');';
+    $html .= '  aiChangeUrlParam(loc,"'.$map_parameter_to_url.'","'.$src_orig.'","'.$add_iframe_url_as_param_prefix.'",'.$add_iframe_url_as_param_direct.');';
     $html .= '}';
 }
  
 if ($store_height_in_cookie === 'true') {
    $html .= 'if (window.aiUseCookie) { aiUseCookie(); }';
 }
-
 
 if ($show_part_of_iframe === 'true' && (!empty ($show_part_of_iframe_new_window) ||
     !empty ($show_part_of_iframe_new_url) || !empty ($show_part_of_iframe_next_viewports) ||
@@ -255,8 +254,19 @@ $this->include_additional_files($additional_css, $additional_js, $version_counte
 
 $html .= $this->interceptAjaxResize($id, $onload_resize_width, $resize_on_ajax, $resize_on_ajax_jquery,
                                     $resize_on_click,  $resize_on_click_elements, $resize_min_height);
-if ($default_options > 100*100) {
-    $html .=  __('<p style="display:block !important; visibility:visible !important"><small style="display:block !important;visibility:visible !important">pow'.'ered by Advanced iFrame. Get the <a target="_blank" href="https://1.envato.market/Kd23v">Pro version on CodeCanyon</a>.</small></p>', 'advanced-iframe');
+									
+if ($isFreemiusMigration) {
+	$isRegistered = $ai_fs->is_registered() && $ai_fs->is_tracking_allowed();
+	if ($isRegistered && $default_options > 100*100 ) {
+		$html .=  __('<p style="display:block !important; visibility:visible !important"><small style="display:block !important;visibility:visible !important">pow'.'ered by Advanced iFrame.</small></p>', 'advanced-iframe');
+	} else if ($default_options > 50*50*2) {
+		$html .= '<style>'.$id.' { display: none !important; }</style>';
+		$html .= __('<p style="display:block !important; visibility:visible !important"><small style="display:block !important;visibility:visible !important">The maximum number of views is reached. Please contact the web master to enable unlimited views.</small></p>', 'advanced-iframe');
+	}
+} else {									
+	if ($default_options > 100*100) {
+		$html .=  __('<p style="display:block !important; visibility:visible !important"><small style="display:block !important;visibility:visible !important">pow'.'ered by Advanced iFrame. Get the <a target="_blank" href="https://1.envato.market/Kd23v">Pro version on CodeCanyon</a>.</small></p>', 'advanced-iframe');
+	}
 }
  if ($loginPreview) {
 	  $html .=  __('<p class="ai-info-bottom-iframe"><small><a target="_blank" href="https://1.envato.market/Kd23v">Advanced iframe PRO</a> is enabled in this preview.</small></p>', 'advanced-iframe');

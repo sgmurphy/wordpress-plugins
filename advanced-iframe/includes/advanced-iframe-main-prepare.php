@@ -574,9 +574,8 @@ $src = AdvancediFramePrepareJs::aiPreparePdfJs($src);
     $html_js .= '}';
     
     $aiReady = '';
-    $hide_page_sum = ($hide_page_until_loaded  === 'true' || $hide_page_until_loaded_external === 'true')? 'true':'false';
+	
     //  Change parent links target
-   
     if (!empty($change_parent_links_target) && $show_iframe_as_layer !== 'external') {
       $fulljQueryStringArray = array();
 	  $autoElement = '';
@@ -613,7 +612,7 @@ $src = AdvancediFramePrepareJs::aiPreparePdfJs($src);
 		$show_iframe_as_layer_autoclick_delay = preg_replace('/[^0-9]/', '', $show_iframe_as_layer_autoclick_delay);
 		$show_iframe_as_layer_autoclick_hide_time = preg_replace('/[^0-9]/', '', $show_iframe_as_layer_autoclick_hide_time);
 			
-		$aiLayerMethod = 'var reload=aiCheckReload(this, "' . $id . '"); aiShowLayerIframe(event,"' . $id . '","'.plugins_url() . $aiPath.'/img/","'.$hide_page_sum.'","'.$show_iframe_loader_layer.'", '.$show_iframe_as_layer_keep_content.', reload);'; 
+		$aiLayerMethod = 'var reload=aiCheckReload(this, "' . $id . '"); aiShowLayerIframe(event,"' . $id . '","'.plugins_url() . $aiPath.'/img/","'.$show_iframe_loader_layer.'", '.$show_iframe_as_layer_keep_content.', reload);'; 
 	    $aiReady .= 'jQuery("'. trim($el) .'").off( "click"); jQuery("'. trim($el) .'").on( "click", function(event) { '.$aiLayerMethod.' });';
         if (!empty($autoElement)) {  // auto click - click on the link!
             // get latest selector	
@@ -630,7 +629,7 @@ $src = AdvancediFramePrepareJs::aiPreparePdfJs($src);
          $aiReady .=  'jQuery("a").each(function () {
           if (this.host !== location.host) {
             jQuery(this).attr("target", "'.$id.'");
-            jQuery(this).on("click", function(event) { var reload=aiCheckReload(this, "' . $id . '"); aiShowLayerIframe(event,"' . $id . '","'.plugins_url() . $aiPath.'/img/","'.$hide_page_sum.'","'.$show_iframe_loader_layer.'", '.$show_iframe_as_layer_keep_content.', reload); });
+            jQuery(this).on("click", function(event) { var reload=aiCheckReload(this, "' . $id . '"); aiShowLayerIframe(event,"' . $id . '","'.plugins_url() . $aiPath.'/img/","'.$show_iframe_loader_layer.'", '.$show_iframe_as_layer_keep_content.', reload); });
           }
       });';
     }

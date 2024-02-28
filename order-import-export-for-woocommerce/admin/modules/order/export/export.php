@@ -556,10 +556,15 @@ class Wt_Import_Export_For_Woo_Basic_Order_Export {
             );
         } else {
             $paid_date = $order->get_date_paid();
+            if(self::$is_hpos_enabled){
+                $order_date = date('Y-m-d H:i:s', strtotime( $order->get_date_created()));
+            }else{
+                $order_date = date('Y-m-d H:i:s', strtotime(get_post($order->get_id())->post_date));
+            }
             $order_data = array(
                 'order_id' => $order->get_id(),
                 'order_number' => $order->get_order_number(),
-                'order_date' => date('Y-m-d H:i:s', strtotime(get_post($order->get_id())->post_date)),
+                'order_date' => $order_date,
                 'paid_date' => $paid_date, //isset($paid_date) ? date('Y-m-d H:i:s', strtotime($paid_date)) : '',
                 'status' => $order->get_status(),
                 'shipping_total' => $order->get_total_shipping(),

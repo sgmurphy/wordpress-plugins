@@ -367,6 +367,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /**
  * List API on backend
+ *
+ * @since 4.2.6
+ * @version 1.0.0
  */
 
 const lplistAPI = {};
@@ -380,7 +383,8 @@ if ('undefined' !== typeof lpDataAdmin) {
     apiSearchCourses: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/search-course',
     apiSearchUsers: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/search-user',
     apiAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/assign-user-course',
-    apiUnAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/unassign-user-course'
+    apiUnAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/unassign-user-course',
+    apiAJAX: lpDataAdmin.lp_rest_url + 'lp/v1/load_content_via_ajax/'
   };
 }
 if ('undefined' !== typeof lpData) {

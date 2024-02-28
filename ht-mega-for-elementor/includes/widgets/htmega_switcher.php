@@ -685,10 +685,10 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                     <!-- Switcher Menu area End  -->
 
                     <!-- Switcher Content area Start  -->
-                    <div class="ht-tab-content htb-tab-content">
+                    <div class="ht-tab-content htb-tab-content htb-sid-<?php echo esc_attr( $sectionid ); ?>">
 
                         <!-- Start Single Tab -->
-                        <div class="htmega-single-switch htb-tab-pane <?php echo ( 'active1' == $active_item ) ? ' htb-active htb-show' : ''; ?>" id="switcherone<?php echo $sectionid; ?>" role="tabpanel">
+                        <div class="htmega-single-switch htb-fade htb-tab-pane <?php echo ( 'active1' == $active_item ) ? ' htb-active htb-show' : ''; ?>" id="switcherone<?php echo $sectionid; ?>" role="tabpanel">
                             <?php
                                 if ( $settings['switcher_one_content_source'] == "elementor" && !empty( $settings['switcher_one_template_id'] ) ) {
                                     echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['switcher_one_template_id'] );
@@ -701,7 +701,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                         <!-- End Tab A Tab -->
 
                         <!-- Start tab B Single Tab -->
-                        <div class="htmega-single-switch htb-tab-pane <?php echo ( 'active2' == $active_item ) ? ' htb-active htb-show' : ''; ?>" id="switchertwo<?php echo $sectionid; ?>" role="tabpanel">
+                        <div class="htmega-single-switch htb-fade htb-tab-pane <?php echo ( 'active2' == $active_item ) ? ' htb-active htb-show' : ''; ?>" id="switchertwo<?php echo $sectionid; ?>" role="tabpanel">
                             <?php
                                 if ( $settings['switcher_two_content_source'] == "elementor" && !empty( $settings['switcher_two_template_id'] ) ) {
                                     echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['switcher_two_template_id'] );
@@ -746,9 +746,9 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                             ?> 
                         </span>             
                     </div>
-                    <div class="htmega-switcher-toggle-content">
+                    <div class="htmega-switcher-toggle-content htb-sid-<?php echo esc_attr( $sectionid ); ?>">
                         <!-- Start Single Tab -->
-                        <div class="htmega-single-toggle-switch toggle-tab-pane toggl-active" id="switchertglone-<?php echo $sectionid; ?>" role="tabpanel">
+                        <div class="htmega-single-toggle-switch htb-fade toggle-tab-pane toggl-active" id="switchertglone-<?php echo $sectionid; ?>" role="tabpanel">
                             <?php
                                 if ( $settings['switcher_one_content_source'] == "elementor" && !empty( $settings['switcher_one_template_id'] ) ) {
                                     echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['switcher_one_template_id'] );
@@ -761,7 +761,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                         <!-- End Tab A Tab -->
 
                         <!-- Start tab B Single Tab -->
-                        <div class="htmega-single-toggle-switch toggle-tab-pane" id="switchertgltwo-<?php echo $sectionid; ?>" role="tabpanel">
+                        <div class="htmega-single-toggle-switch htb-fade toggle-tab-pane" id="switchertgltwo-<?php echo $sectionid; ?>" role="tabpanel">
                             <?php
                                 if ( $settings['switcher_two_content_source'] == "elementor" && !empty( $settings['switcher_two_template_id'] ) ) {
                                     echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['switcher_two_template_id'] );
@@ -784,19 +784,25 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                             activeSwitcherContent(false);
                         <?php
                         } ?>
-                        $('.htmega-switch-toggle.sid-<?php echo $sectionid; ?> input').on( 'click', function() {
+                        $('.htmega-switch-toggle.sid-<?php echo esc_attr( $sectionid ); ?> input').on( 'click', function() {
                             activeSwitcherContent(this.checked);
+
+                            // this option for switcher option two slider refress style option refresh added in widget active js
+                            if ($('.htb-sid-<?php echo esc_attr( $sectionid ); ?> .slick-slider').length > 0) {
+                                $('.htb-sid-<?php echo esc_attr( $sectionid ); ?>').find('.slick-slider').slick('refresh');
+                            }
                         });
 
                         function activeSwitcherContent(status){
                             if(status){
-                                $(switcherTglOne).removeClass('toggl-active');
-                                $(switcherTglTwo).addClass('toggl-active');
+                                $(switcherTglOne).removeClass('toggl-active htb-show');
+                                $(switcherTglTwo).addClass('toggl-active htb-show');
                             }else{
-                                $(switcherTglTwo).removeClass('toggl-active');
-                                $(switcherTglOne).addClass('toggl-active');
+                                $(switcherTglTwo).removeClass('toggl-active htb-show');
+                                $(switcherTglOne).addClass('toggl-active htb-show');
                             } 
                         }
+
                     });
                 </script>
             <?php 

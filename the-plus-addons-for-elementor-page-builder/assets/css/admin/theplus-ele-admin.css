@@ -2693,3 +2693,10 @@ ul#adminmenu a[href*="page=theplus-upgrade"]{color:#FFF;background:#8072FC;margi
 
 /** Controller Notice */
 .tp-controller-notice{color:#515962;background:#8072fc3b;padding:10px;font-weight:400;border-inline-start:3px solid #8072FC;font-size:12px;line-height:15px}
+
+/** Caching plugin update Notice */
+.tp-update-notice {
+    display: flex;
+    gap: 20px;
+    padding: 15px 10px;
+}

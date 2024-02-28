@@ -509,17 +509,7 @@ class IRRPHelper implements IRRPConstants {
                             }
                             //
                             else if ($criteria === "end-with") {
-                                $absoluteUrl = $from[0] == '/';
-                                $regexPattern = "#%s1%s2$#s";
-                                $regexPattern = str_replace(
-                                    ["%s1", "%s2"],
-                                    [
-                                        $absoluteUrl ? '^' . get_home_url() : '',
-                                        untrailingslashit($from),
-                                    ],
-                                    $regexPattern
-                                );
-                                $response["do_redirect"] = preg_match( $regexPattern, $request);
+                                $response["do_redirect"] = preg_match("#" . preg_quote(untrailingslashit($from)) . "$#s", $request);
                                 //
                                 if ($action["name"] === "specific-url") {
                                     $response["to"] = $action["value"];

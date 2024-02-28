@@ -78,7 +78,7 @@ class WPCode_Conditional_Logic {
 			}
 		}
 
-		return array_merge( $available_options, $unavailable_options );
+		return apply_filters( 'wpcode_conditional_logic_admin_options', array_merge( $available_options, $unavailable_options ) );
 	}
 
 	/**

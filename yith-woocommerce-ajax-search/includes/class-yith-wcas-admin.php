@@ -77,6 +77,11 @@ if ( ! class_exists( 'YITH_WCAS_Admin' ) ) {
 			add_action( 'ywcas_show_shortcode_tab', array( $this, 'show_shortcode_tab' ) );
 			add_action( 'wp_ajax_yith_wcas_save_shortcode', array( $this, 'save_shortcode' ) );
 
+			// Add the statistic tab.
+			add_action( 'ywcas_show_statistic_tab', array( $this, 'show_statistic_tab' ) );
+			add_action( 'wp_ajax_yith_wcas_filter_statistic', array( $this, 'handle_filter_statistic' ) );
+
+
 		}
 
 		/**
@@ -175,12 +180,15 @@ if ( ! class_exists( 'YITH_WCAS_Admin' ) ) {
 					'ui_version'       => 2,
 					'is_premium'       => defined( 'YITH_WCAS_PREMIUM' ),
 					'plugin_slug'      => YITH_WCAS_SLUG,
+					'plugin_icon'      => YITH_WCAS_ASSETS_URL . '/images/plugin-icon.svg',
+
 				)
 			);
 
 			if ( file_exists( YITH_WCAS_DIR . '/plugin-options/premium-tab.php' ) && ! defined( 'YITH_WCAS_PREMIUM' ) ) {
 				$args['premium_tab'] = include_once YITH_WCAS_DIR . '/plugin-options/premium-tab.php';
 			}
+
 			if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 				require_once 'plugin-fw/lib/yit-plugin-panel-wc.php';
 			}
@@ -196,6 +204,12 @@ if ( ! class_exists( 'YITH_WCAS_Admin' ) ) {
 		 */
 		protected function get_admin_tabs() {
 			$admin_tabs = array(
+				'statistic'     => array(
+					'title' => _x( 'Search Stats', 'Admin tab name', 'yith-woocommerce-ajax-search' ),
+					'icon'  => '<svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+</svg>',
+				),
 				'general'       => array(
 					'title'       => __( 'General Options', 'yith-woocommerce-ajax-search' ),
 					'icon'        => 'settings',
@@ -239,7 +253,7 @@ if ( ! class_exists( 'YITH_WCAS_Admin' ) ) {
 		 * Add custom panel fields.
 		 *
 		 * @param string $template Template.
-		 * @param array $field Fields.
+		 * @param array  $field Fields.
 		 *
 		 * @return string
 		 * @author YITH
@@ -334,10 +348,10 @@ if ( ! class_exists( 'YITH_WCAS_Admin' ) ) {
 		/**
 		 * Add the action links to plugin admin page.
 		 *
-		 * @param array $new_row_meta_args Plugin Meta New args.
-		 * @param array $plugin_meta Plugin Meta.
+		 * @param array  $new_row_meta_args Plugin Meta New args.
+		 * @param array  $plugin_meta Plugin Meta.
 		 * @param string $plugin_file Plugin file.
-		 * @param array $plugin_data Plugin data.
+		 * @param array  $plugin_data Plugin data.
 		 * @param string $status Status.
 		 * @param string $init_file Init file.
 		 *
@@ -410,6 +424,7 @@ if ( ! class_exists( 'YITH_WCAS_Admin' ) ) {
 				}
 			}
 
+
 			if ( isset( $shortcodes[ $slug ] ) ) {
 				$shortcodes[ $slug ]['name']    = $name;
 				$shortcodes[ $slug ]['options'] = $shortcode;
@@ -424,6 +439,7 @@ if ( ! class_exists( 'YITH_WCAS_Admin' ) ) {
 						$new_slug = $suff . $i ++;
 					} while ( in_array( $new_slug, $slugs, true ) );
 				}
+
 				$shortcodes[ $new_slug ] = array(
 					'name'    => $name,
 					'code'    => "[yith_woocommerce_ajax_search preset='{$new_slug}']",
@@ -437,6 +453,62 @@ if ( ! class_exists( 'YITH_WCAS_Admin' ) ) {
 			include_once YITH_WCAS_INC . 'admin/views/panel/shortcodes.php';
 			$content = ob_get_clean();
 			wp_send_json_success( array( 'content' => $content ) );
+		}
+
+		/**
+		 * Show the statistic tab
+		 *
+		 * @return void
+		 * @since 2.1.0
+		 */
+		public function show_statistic_tab() {
+			if ( isset( $_GET['page'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$page = sanitize_text_field( wp_unslash( $_GET['page'] ) ); //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$tab  = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';  //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				if ( 'yith_wcas_panel' === $page && in_array( $tab, array( '', 'statistic' ) ) ) {
+					if ( isset( $_GET['view_all'] ) ) {
+						if ( isset( $_GET['from'], $_GET['to'] ) ) {
+							$from = sanitize_text_field( wp_unslash( $_GET['from'] ) );
+							$to   = sanitize_text_field( wp_unslash( $_GET['to'] ) );
+						}
+
+						$type = sanitize_text_field( wp_unslash( $_GET['view_all'] ) );  //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+						include_once YITH_WCAS_INC . 'admin/views/panel/statistic-detail.php';
+					} else {
+						include_once YITH_WCAS_INC . 'admin/views/panel/statistic.php';
+					}
+				}
+			}
+		}
+
+		/**
+		 * Filter the statistic by date
+		 *
+		 * @return void
+		 * @since 2.1.0
+		 */
+		public function handle_filter_statistic() {
+
+			check_ajax_referer( 'ywcas-search-statistic', 'security' );
+
+			$from     = sanitize_text_field( wp_unslash( $_POST['from'] ) );
+			$to       = sanitize_text_field( wp_unslash( $_POST['to'] ) );
+			$isDetail = sanitize_text_field( wp_unslash( $_POST['isDetail'] ) );
+
+			ob_start();
+			if ( isset( $_POST['view_all'] ) && $isDetail ) {
+				$type = sanitize_text_field( wp_unslash( $_POST['view_all'] ) );
+				include_once YITH_WCAS_INC . 'admin/views/panel/statistic-detail.php';
+			} else {
+				$from .= $from ? ' 00:00:01' : '';
+				$to   .= $to ? ' 23:59:59' : '';
+				include_once YITH_WCAS_INC . 'admin/views/panel/statistic.php';
+			}
+
+			$newstats = ob_get_clean();
+
+			wp_send_json_success( array( 'content' => $newstats ) );
+
 		}
 	}
 }

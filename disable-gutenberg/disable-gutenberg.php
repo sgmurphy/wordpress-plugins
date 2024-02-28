@@ -3,15 +3,15 @@
 	Plugin Name: Disable Gutenberg
 	Plugin URI: https://perishablepress.com/disable-gutenberg/
 	Description: Disables Gutenberg Block Editor and restores the Classic Editor and original Edit Post screen. Provides options to enable on specific post types, user roles, and more.
-	Tags: editor, classic editor, block editor, block-editor, gutenberg, disable, blocks, posts, post types
+	Tags: classic editor, block editor, block-editor, gutenberg, blocks
 	Author: Jeff Starr
 	Author URI: https://plugin-planet.com/
 	Donate link: https://monzillamedia.com/donate.html
 	Contributors: specialk
 	Requires at least: 4.9
-	Tested up to: 6.4
-	Stable tag: 3.1
-	Version: 3.1
+	Tested up to: 6.5
+	Stable tag: 3.1.1
+	Version:    3.1.1
 	Requires PHP: 5.6.20
 	Text Domain: disable-gutenberg
 	Domain Path: /languages
@@ -32,7 +32,7 @@
 	You should have received a copy of the GNU General Public License
 	with this program. If not, visit: https://www.gnu.org/licenses/
 	
-	Copyright 2023 Monzilla Media. All rights reserved.
+	Copyright 2024 Monzilla Media. All rights reserved.
 */
 
 if (!defined('ABSPATH')) die();
@@ -74,7 +74,7 @@ if (!class_exists('DisableGutenberg')) {
 		
 		function constants() {
 			
-			if (!defined('DISABLE_GUTENBERG_VERSION')) define('DISABLE_GUTENBERG_VERSION', '3.1');
+			if (!defined('DISABLE_GUTENBERG_VERSION')) define('DISABLE_GUTENBERG_VERSION', '3.1.1');
 			if (!defined('DISABLE_GUTENBERG_REQUIRE')) define('DISABLE_GUTENBERG_REQUIRE', '4.9');
 			if (!defined('DISABLE_GUTENBERG_AUTHOR'))  define('DISABLE_GUTENBERG_AUTHOR',  'Jeff Starr');
 			if (!defined('DISABLE_GUTENBERG_NAME'))    define('DISABLE_GUTENBERG_NAME',    __('Disable Gutenberg', 'disable-gutenberg'));

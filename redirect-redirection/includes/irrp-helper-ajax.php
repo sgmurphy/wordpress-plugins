@@ -58,13 +58,14 @@ class IRRPHelperAjax implements IRRPConstants {
 
         $response = ["status" => "", "message" => ""];
         $id = empty($_POST["id"]) ? 0 : (int) $_POST["id"];
-        $from = empty($_POST["from"]) ? "" : IRRPHelper::removeDoubleSlashes(trim(sanitize_text_field($_POST["from"])));
-        $to = empty($_POST["to"]) ? "" : IRRPHelper::removeDoubleSlashes(trim(sanitize_text_field($_POST["to"])));
+        $from = empty($_POST["from"]) ? "" : IRRPHelper::removeDoubleSlashes(trim(sanitize_text_field(urldecode($_POST["from"]))));
+        $to = empty($_POST["to"]) ? "" : IRRPHelper::removeDoubleSlashes(trim(sanitize_text_field(urldecode($_POST["to"]))));
         $status = empty($_POST["status"]) ? 1 : (int) $_POST["status"];
         $timestamp = current_time("timestamp");
         $redirectionType = self::TYPE_REDIRECTION;
         $selected = empty($_POST["selected"]) ? [] : array_map("intval", (json_decode(stripslashes(trim($_POST["selected"])))));
         $data = empty($_POST["data"]) ? [] : IRRPHelper::sanitizeData(json_decode(stripslashes($_POST["data"]), ARRAY_A));
+        $data = array_filter($data); // Filters empty strings
         $settings = array_replace_recursive($this->settings->getDefaultSettings(), $data);
 
         if (!is_array($selected)) {
@@ -72,35 +73,23 @@ class IRRPHelperAjax implements IRRPConstants {
         }
 
         if ($from && $to) {
-            $urlPattern = '#^(https:\/\/|http:\/\/)[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})([a-zA-Z0-9-_?\/.=]{2,})$#isu';
-            $urlPatternWithoutProtocol = '#^[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})([a-zA-Z0-9-_?\/.=]{2,})$#isu';
-            $pathOnlyPattern = '#^\/[a-zA-Z0-9-_?\/.=]{2,}$#isu';
-            if (preg_match($urlPatternWithoutProtocol, $from)){
-                if (is_ssl()){
-                    $from = "https://".$from;
-                } else {
-                    $from = "http://".$from;
-                }
-            }elseif (preg_match($pathOnlyPattern, $from)){
-                $from = home_url().$from;
-            }elseif (!preg_match($urlPattern, $from)){
+            $disallowedSymbols = '#[\<\>\"\'\{\}\[\]\|\\,~\^`;@\$\!\*\(\)]+#isu';
+            if (preg_match($disallowedSymbols, $from) || preg_match($disallowedSymbols, $to)) {
                 $response["status"] = "error";
                 $response["message"] = __("Please ensure your entry is valid!", "redirect-redirection");
                 wp_send_json_error($response);
             }
 
-            if (preg_match($urlPatternWithoutProtocol, $to)){
-                if (is_ssl()){
-                    $to = "https://".$to;
-                } else {
-                    $to = "http://".$to;
-                }
-            }elseif (preg_match($pathOnlyPattern, $to)){
-                $to = home_url().$to;
-            }elseif (!preg_match($urlPattern, $to)){
-                $response["status"] = "error";
-                $response["message"] = __("Please ensure your entry is valid!", "redirect-redirection");
-                wp_send_json_error($response);
+            $from = ($from[0] == '/') ? home_url() . $from : $from;
+            $to = ($to[0] == '/') ? home_url() . $to : $to;
+        
+            $from = $this->prependProtocolIfNeeded($from);
+            $to = $this->prependProtocolIfNeeded($to);
+        
+            // If 'to' is an external URL, ensure it uses HTTPS
+            $toHost = parse_url($to, PHP_URL_HOST);
+            if ($toHost && $toHost !== parse_url(home_url(), PHP_URL_HOST)) {
+                $to = preg_replace('#^http://#', 'https://', $to);
             }
 
             $redirect = $this->dbManager->get($id);
@@ -1088,6 +1077,17 @@ class IRRPHelperAjax implements IRRPConstants {
         $response["status"] = "success";
         $response["message"] = "Log status updated";
         wp_send_json_success($response);
+    }
+
+    /**
+     * Helper function to prepend protocol if missing
+     */
+    function prependProtocolIfNeeded($url) {
+        $protocol = is_ssl() ? 'https://' : 'http://';
+        if (!preg_match('#^(https?://)#', $url)) {
+            $url = $protocol . $url;
+        }
+        return $url;
     }
 
     //***************************************************************************/

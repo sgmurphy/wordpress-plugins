@@ -3,8 +3,7 @@ if (!defined('ABSPATH')) {
     exit;
 } // Exit if accessed directly
 
-Class L_Plus_Library
-{
+Class L_Plus_Library {
 	/**
 	 * A reference to an instance of this class.
 	 *
@@ -19,8 +18,7 @@ Class L_Plus_Library
      *
      * @todo filter output
      */	 
-    public function get_l_registered_widgets()
-    {
+    public function get_l_registered_widgets() {
         return array_keys($this->l_registered_widgets);
     }
 
@@ -29,8 +27,7 @@ Class L_Plus_Library
      *
      * @since 2.0
      */
-    public function get_plus_widget_settings($element = null)
-    {
+    public function get_plus_widget_settings($element = null) {
 		$replace = [
 			'tp_smooth_scroll' => 'tp-smooth-scroll',
 			'tp_accordion' => 'tp-accordion',
@@ -131,16 +128,19 @@ Class L_Plus_Library
      * Remove files
      * @since 2.0
      */
-    public function remove_files_unlink($post_type = null, $post_id = null)
-    {
-        $css_path_url = $this->secure_path_url(L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . ($post_type ? 'theplus-' . $post_type : 'tpebl') . ($post_id ? '-' . $post_id : '') . '.min.css');
-        $js_path_url = $this->secure_path_url(L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . ($post_type ? 'theplus-' . $post_type : 'tpebl') . ($post_id ? '-' . $post_id : '') . '.min.js');
+    public function remove_files_unlink($post_type = null, $post_id = null, $extension = ['css', 'js'], $preload = false) {
+		$filename = '';
+		if(!empty($preload)){
+			$filename = 'preload-';
+		}
+        $css_path_url = $this->secure_path_url(L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . ($post_type ? 'theplus-'.$filename . $post_type : 'tpebl') . (isset($post_id) ? '-' . $post_id : '') . '.min.css');
+        $js_path_url = $this->secure_path_url(L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . ($post_type ? 'theplus-'.$filename . $post_type : 'tpebl') . (isset($post_id) ? '-' . $post_id : '') . '.min.js');
 
-        if (file_exists($css_path_url)) {
+        if (file_exists($css_path_url) && in_array( 'css', $extension )) {
             unlink($css_path_url);
         }
 
-        if (file_exists($js_path_url)) {
+        if (file_exists($js_path_url) && in_array( 'js', $extension )) {
             unlink($js_path_url);
         }
     }
@@ -149,8 +149,7 @@ Class L_Plus_Library
      * Remove in directory files
      * @since 2.0
      */
-    public function remove_dir_files($path_url)
-    {
+    public function remove_dir_files($path_url) {
         if (!is_dir($path_url) || !file_exists($path_url)) {
             return;
         }
@@ -168,13 +167,19 @@ Class L_Plus_Library
      * Remove backend in directory files
      * @since 2.0.2
      */
-    public function remove_backend_dir_files()
-    {
+    public function remove_backend_dir_files() {
 		if (file_exists(L_THEPLUS_ASSET_PATH . '/theplus.min.css')) {
 			unlink($this->secure_path_url(L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . '/theplus.min.css'));
 		}
 		if(file_exists(L_THEPLUS_ASSET_PATH . '/theplus.min.js')){
 			unlink($this->secure_path_url(L_THEPLUS_ASSET_PATH . DIRECTORY_SEPARATOR . '/theplus.min.js'));
+		}
+		
+		$action_page = 'tpae_backend_cache';
+		if ( FALSE === get_option($action_page) ){
+			add_option( $action_page, time() );
+		}else{
+			update_option( $action_page, time() );
 		}
     }
 	
@@ -191,18 +196,22 @@ Class L_Plus_Library
 		if (file_exists($path_url . '/'. $plus_name. '.min.css')) {
 			unlink($this->secure_path_url($path_url . DIRECTORY_SEPARATOR . '/'. $plus_name . '.min.css'));
 		}
+		if (file_exists($path_url . '/'. str_replace("theplus","theplus-preload",$plus_name). '.min.css')) {
+			unlink($this->secure_path_url($path_url . DIRECTORY_SEPARATOR . '/'. str_replace("theplus","theplus-preload",$plus_name) .'.min.css'));
+			array_map('unlink', glob($this->secure_path_url($path_url . DIRECTORY_SEPARATOR . '/'. str_replace("theplus","theplus-preload",$plus_name.'-') .'*.*')));
+		}
 		if(file_exists($path_url . '/'. $plus_name. '.min.js')){
 			unlink($this->secure_path_url($path_url. DIRECTORY_SEPARATOR . '/'. $plus_name . '.min.js'));
 		}
-		
+
+		delete_option($plus_name. '_update_at');
     }
 
     /**
      * Check if elementor preview mode or not 
 	 * @since 2.0
      */
-    public function is_preview_mode()
-    {
+    public function is_preview_mode(){
         if (isset($_POST['doing_wp_cron'])) {
             return true;
         }
@@ -223,8 +232,7 @@ Class L_Plus_Library
      * Generate secure path url
      * @since 2.0
      */
-    public function secure_path_url($path_url)
-    {
+    public function secure_path_url($path_url) {
         $path_url = str_replace(['//', '\\\\'], ['/', '\\'], $path_url);
 
         return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path_url);

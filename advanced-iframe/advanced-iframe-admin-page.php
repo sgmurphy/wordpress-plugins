@@ -13,6 +13,7 @@ include_once dirname(__FILE__) . '/includes/advanced-iframe-admin-functions.php'
 include_once dirname(__FILE__) . '/includes/advanced-iframe-admin-quickstart.php';
 global $aiVersion;
 global $isFreemius;
+global $isFreemiusMigration;
 
 $updated = false;
 $evanto = (file_exists(dirname(__FILE__) . "/includes/class-cw-envato-api.php"));
@@ -371,7 +372,14 @@ $isDemo =  $devOptions['demo'] === 'true';
 	$showProMessage = !(isset($devOptions['closed_messages']) &&  isset($devOptions['closed_messages']['test-pro-admin']));
 	if (!$evanto && !$isDemo && $showProMessage) {  
 		echo '<div id="test-pro-admin" class="notice notice-success is-dismissible is-permanent-closable"><p><strong>';
-		echo  __('Curious about the pro features? Enable them on the <a href="#" class="enable-admin">options tab</a> and test them in the preview.', 'advanced-iframe');
+		if ($isFreemiusMigration) {
+		  $pricingUrl = get_admin_url() . 'admin.php?page=advanced-iframe-pricing&trial=true';
+		  echo __('Curious about the pro features? <a href="', 'advanced-iframe');
+		  echo $pricingUrl;
+		  echo __('">Start your 30-day free trial</a>.', 'advanced-iframe');
+		} else {
+		  echo  __('Curious about the pro features? Enable them on the <a href="#" class="enable-admin">options tab</a> and test them in the preview.', 'advanced-iframe');
+		}
 		echo '</strong></p></div>';
 	}    
 	

@@ -2,13 +2,13 @@ const YWCAS_Admin_Shortcodes = () => {
     const security = ywcas_admin_params.shortcodeNonce;
     let target_deps = [];
     let target_deps_id = [];
-
     const init = () => {
         jQuery(document).on('click', '.yith-plugin-fw__action-button--edit-action', editShortcode);
         jQuery(document).on('click', '.ywcas-save-shortcode', submitForm);
         jQuery(document).on('click', '.ywcas-add-shortcode', addNewShortcode);
         jQuery(document).on('click', '.yith-plugin-fw__action-button--trash-action', deleteShortcode);
         jQuery(document).on('click', '.yith-plugin-fw__action-button--duplicate-action', cloneShortcode);
+        jQuery(document).on('change', '.ywcas-shortcode-field', toggleTab);
 
         initFields();
         handleFieldsChange();
@@ -22,6 +22,17 @@ const YWCAS_Admin_Shortcodes = () => {
         });
     }
 
+    const toggleTab = (event)=>{
+        const field = jQuery(event.target),
+            value = event.target.value,
+            tabs = field.parents('.ywcas-shortcode__options__form').find('.yith-plugin-fw__tabs'),
+            tab =  tabs.find('li.submit-button');
+        if( 'classic' !== value) {
+            tab.hide();
+        }else{
+            tab.show();
+        }
+    }
     const handleField = (field) => {
         let parent = field.closest('.yith-plugin-fw__panel__option__content'),
             deps = field.data('ywcas-deps'),
@@ -172,6 +183,7 @@ const YWCAS_Admin_Shortcodes = () => {
             },
             ignoreIfBlocked: true
         };
+
         jQuery.each(form.serializeArray(), function (i, field) {
             formData.append(field.name, field.value);
         });
@@ -201,7 +213,6 @@ const YWCAS_Admin_Shortcodes = () => {
                     initFields();
                     handleFieldsChange();
                     window.onbeforeunload = null;
-
                 }
                 form.unblock();
             },
@@ -293,7 +304,6 @@ const YWCAS_Admin_Shortcodes = () => {
                     jQuery(document).trigger('yith-plugin-fw-panel-init-deps');
                     initFields();
                     handleFieldsChange();
-
                 }
 
             }

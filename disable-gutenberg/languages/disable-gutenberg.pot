@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Disable Gutenberg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 20:54+0000\n"
+"POT-Creation-Date: 2024-02-28 00:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -35,7 +35,7 @@ msgid "Apply code"
 msgstr ""
 
 #: inc/settings-reset.php:40
-msgid "at checkout. Sale ends 12/30/23."
+msgid "at checkout. Sale ends 5/25/24."
 msgstr ""
 
 #: inc/plugin-features.php:86
@@ -162,6 +162,10 @@ msgid ""
 "Editor). Or, disable this setting to display more options."
 msgstr ""
 
+#: inc/settings-reset.php:35
+msgid "Go Pro!"
+msgstr ""
+
 #: inc/settings-register.php:50
 msgid "Gutenberg Menu Item"
 msgstr ""
@@ -266,10 +270,6 @@ msgstr ""
 msgid "Restore default plugin options"
 msgstr ""
 
-#: inc/settings-reset.php:35
-msgid "Save BIG!"
-msgstr ""
-
 #: inc/settings-register.php:155
 msgid "Select the post IDs for which Gutenberg should be disabled."
 msgstr ""
@@ -323,7 +323,7 @@ msgid "Sorry, pal!"
 msgstr ""
 
 #: inc/settings-reset.php:36
-msgid "Take 25% OFF any of our"
+msgid "Take 30% OFF any of our"
 msgstr ""
 
 #: inc/settings-register.php:167

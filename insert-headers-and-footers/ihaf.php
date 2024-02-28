@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WPCode Lite
  * Plugin URI: https://www.wpcode.com/
- * Version: 2.1.8
+ * Version: 2.1.9
  * Requires at least: 4.6
  * Requires PHP: 5.5
  * Tested up to: 6.4
@@ -442,6 +442,9 @@ class WPCode {
 		new WPCode_Admin_Bar_Info_Lite();
 
 		do_action( 'wpcode_loaded' );
+
+		// Load the pluggable functions late to allow plugins to hook in.
+		require_once WPCODE_PLUGIN_PATH . 'includes/pluggable.php';
 	}
 }
 

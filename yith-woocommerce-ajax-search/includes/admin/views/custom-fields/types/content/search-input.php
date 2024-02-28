@@ -111,7 +111,7 @@ $disabled_options = apply_filters( 'ywcas_disable_search_input_options', array()
 		<?php do_action( 'ywcas_search_input_field_template_conditions', $curr_id, $field ); ?>
     </td>
     <td class="priority">
-		<span class="search-field-priority <?php echo ywcas_has_disabled_options() ? esc_attr( 'ywcas-hide' ) : ''; ?>">
+		<span class="search-field-priority">
 		<?php
 		yith_plugin_fw_get_field(
 			array(

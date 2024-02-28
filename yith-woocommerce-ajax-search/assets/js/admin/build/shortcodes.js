@@ -13,6 +13,7 @@ var YWCAS_Admin_Shortcodes = function YWCAS_Admin_Shortcodes() {
     jQuery(document).on('click', '.ywcas-add-shortcode', addNewShortcode);
     jQuery(document).on('click', '.yith-plugin-fw__action-button--trash-action', deleteShortcode);
     jQuery(document).on('click', '.yith-plugin-fw__action-button--duplicate-action', cloneShortcode);
+    jQuery(document).on('change', '.ywcas-shortcode-field', toggleTab);
     initFields();
     handleFieldsChange();
   };
@@ -22,6 +23,17 @@ var YWCAS_Admin_Shortcodes = function YWCAS_Admin_Shortcodes() {
       var t = jQuery(this);
       handleField(t);
     });
+  };
+  var toggleTab = function toggleTab(event) {
+    var field = jQuery(event.target),
+      value = event.target.value,
+      tabs = field.parents('.ywcas-shortcode__options__form').find('.yith-plugin-fw__tabs'),
+      tab = tabs.find('li.submit-button');
+    if ('classic' !== value) {
+      tab.hide();
+    } else {
+      tab.show();
+    }
   };
   var handleField = function handleField(field) {
     var parent = field.closest('.yith-plugin-fw__panel__option__content'),

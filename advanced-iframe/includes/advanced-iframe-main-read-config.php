@@ -40,8 +40,13 @@ if (isset($aip_standalone)) {
 // if they do it will be removed. Spaces and commas are trimmed
 $search = array("“","”","‘","’",'"');
 foreach($atts as $key => $value) {          
-    $fix_value = str_replace($search, '', $value);
-    $atts[$key] = trim($fix_value, " \n\r\t\v\0,");
+    if (is_string($value)) {
+		$fix_value = str_replace($search, '', $value);
+        $atts[$key] = trim($fix_value, " \n\r\t\v\0,");
+	} else {
+		// invalid values not supported by ai are removed.
+		$atts[$key] = '';
+	}
 } 
 
 $aiPath="/advanced-iframe";
@@ -603,7 +608,7 @@ if ($show_iframe_as_layer === 'true' || $show_iframe_as_layer === 'external') {
      }
    }
 
-   $layer_div_base .= ';background-color:#fff;display:none;position:fixed;z-index:100003;margin:0px !important;padding:0px !important;';
+   $layer_div_base .= ';background-color:#fff;visibility:hidden;position:fixed;z-index:100003;margin:0px !important;padding:0px !important;';
    if ($ios_scroll) {
      $width='100%';
      $height='100%';
@@ -622,7 +627,7 @@ if ($show_iframe_as_layer === 'true' || $show_iframe_as_layer === 'external') {
      $height = '';
      $adHeight = esc_html($this->addPx($show_iframe_as_layer_header_height));
      $width='100%';
-     $style .= ";display:none;margin:0px !important;padding:0px !important;height:calc(100% - ". $adHeight .")";
+     $style .= ";visibility:hidden;margin:0px !important;padding:0px !important;height:calc(100% - ". $adHeight .")";
    } else {
      $width=$layer_width;
      $height=$layer_height;

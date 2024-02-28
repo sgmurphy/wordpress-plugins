@@ -65,6 +65,10 @@ class WPCode_Conditional_Page extends WPCode_Conditional_Type {
 						'label' => __( 'Author page', 'insert-headers-and-footers' ),
 						'value' => 'is_author',
 					),
+					array(
+						'label' => __( 'Blog home', 'insert-headers-and-footers' ),
+						'value' => 'is_home',
+					),
 				),
 				'callback' => array( $this, 'get_type_of_page' ),
 			),
@@ -167,11 +171,17 @@ class WPCode_Conditional_Page extends WPCode_Conditional_Type {
 		if ( ! isset( $wp_query ) ) {
 			return '';
 		}
-		if ( is_front_page() || is_home() ) {
+		if ( is_front_page() ) {
 			return 'is_front_page';
+		}
+		if ( is_home() ) {
+			return 'is_home';
 		}
 		if ( is_singular() ) {
 			return 'is_single';
+		}
+		if ( is_author() ) {
+			return 'is_author';
 		}
 		if ( is_archive() ) {
 			return 'is_archive';
@@ -181,9 +191,6 @@ class WPCode_Conditional_Page extends WPCode_Conditional_Type {
 		}
 		if ( is_404() ) {
 			return 'is_404';
-		}
-		if ( is_author() ) {
-			return 'is_author';
 		}
 
 		return '';

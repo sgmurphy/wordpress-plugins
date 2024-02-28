@@ -898,7 +898,13 @@ template: '<div class="htmega-alert-wrap-'+notify_opt.wrapid+' '+notify_opt.widt
     var WidgetTabControll = function tabeCarouselController() {
         htmegaTabsCarouselRefress( $(".htmega-tab-nav") );
     }
+ 
+    /*=========== Switcher content  carousel load option =======*/
+      var WidgetSwithcerControll = function switcherCarouselController() {
+        htmegaTabsCarouselRefress( $(".htmega-switcher-nav") );
+    }
     
+
     /*
     * Tab carousel content refress
     */
@@ -939,6 +945,7 @@ template: '<div class="htmega-alert-wrap-'+notify_opt.wrapid+' '+notify_opt.widt
         elementorFrontend.hooks.addAction( 'frontend/element_ready/htmega-postgridtab-addons.default', WidgetPostGridHandler);
         elementorFrontend.hooks.addAction( 'frontend/element_ready/htmega-imagecomparison-addons.default', WidgetImageComparisonHandler);
         elementorFrontend.hooks.addAction( 'frontend/element_ready/htmega-panelslider-addons.default', WidgetHtmegaCarouselHandler);
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/htmega-switcher-addons.default', WidgetSwithcerControll);
     });
 
 

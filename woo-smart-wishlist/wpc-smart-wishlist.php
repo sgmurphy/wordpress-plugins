@@ -3,7 +3,7 @@
 Plugin Name: WPC Smart Wishlist for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Smart Wishlist is a simple but powerful tool that can help your customer save products for buy later.
-Version: 4.8.2
+Version: 4.8.3
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-wishlist
@@ -11,18 +11,17 @@ Domain Path: /languages/
 Requires at least: 4.0
 Tested up to: 6.4
 WC requires at least: 3.0
-WC tested up to: 8.5
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+WC tested up to: 8.6
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSW_VERSION' ) && define( 'WOOSW_VERSION', '4.8.2' );
+! defined( 'WOOSW_VERSION' ) && define( 'WOOSW_VERSION', '4.8.3' );
 ! defined( 'WOOSW_LITE' ) && define( 'WOOSW_LITE', __FILE__ );
 ! defined( 'WOOSW_FILE' ) && define( 'WOOSW_FILE', __FILE__ );
 ! defined( 'WOOSW_URI' ) && define( 'WOOSW_URI', plugin_dir_url( __FILE__ ) );
 ! defined( 'WOOSW_DIR' ) && define( 'WOOSW_DIR', plugin_dir_path( __FILE__ ) );
+! defined( 'WOOSW_SUPPORT' ) && define( 'WOOSW_SUPPORT', 'https://wpclever.net/support?utm_source=support&utm_medium=woosw&utm_campaign=wporg' );
 ! defined( 'WOOSW_REVIEWS' ) && define( 'WOOSW_REVIEWS', 'https://wordpress.org/support/plugin/woo-smart-wishlist/reviews/?filter=5' );
 ! defined( 'WOOSW_CHANGELOG' ) && define( 'WOOSW_CHANGELOG', 'https://wordpress.org/plugins/woo-smart-wishlist/#developers' );
 ! defined( 'WOOSW_DISCUSSION' ) && define( 'WOOSW_DISCUSSION', 'https://wordpress.org/support/plugin/woo-smart-wishlist' );
@@ -1915,7 +1914,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 							do_action( 'woosw_wishlist_item_actions_before', $product, $key );
 
 							echo '<div class="woosw-item--stock">' . apply_filters( 'woosw_item_stock', wc_get_stock_html( $product ), $product ) . '</div>';
-							echo '<div class="woosw-item--add">' . apply_filters( 'woosw_item_add_to_cart', do_shortcode( '[add_to_cart style="" show_price="false" id="' . esc_attr( $product_id ) . '"]' ), $product ) . '</div>';
+							echo '<div class="woosw-item--atc">' . apply_filters( 'woosw_item_add_to_cart', do_shortcode( '[add_to_cart style="" show_price="false" id="' . esc_attr( $product_id ) . '"]' ), $product ) . '</div>';
 
 							do_action( 'woosw_wishlist_item_actions', $product, $key );
 							do_action( 'woosw_wishlist_item_actions_after', $product, $key );
@@ -1991,10 +1990,15 @@ if ( ! function_exists( 'woosw_init' ) ) {
 									continue;
 								}
 
-								echo '<' . $tr_tag . ' class="' . esc_attr( 'woosw-item woosw-item-' . $product_id ) . '" data-id="' . esc_attr( $product_id ) . '">';
+								echo '<' . $tr_tag . ' class="' . esc_attr( 'woosw-item woosw-item-' . $product_id ) . '" data-id="' . esc_attr( $product_id ) . '" data-product_name="' . esc_attr( $product->get_name() ) . '">';
 
 								if ( $layout !== 'table' ) {
 									echo '<div class="woosw-item-inner">';
+								}
+
+								if ( self::can_edit( $key ) ) {
+									// add
+									echo '<' . $td_tag . ' class="woosw-item--add"><span></span></' . $td_tag . '>';
 								}
 
 								// image
@@ -2025,7 +2029,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 								// action
 								echo '<' . $td_tag . ' class="woosw-item--actions">';
 								echo '<div class="woosw-item--stock">' . apply_filters( 'woosw_item_stock', wc_get_stock_html( $product ), $product ) . '</div>';
-								echo '<div class="woosw-item--add">' . apply_filters( 'woosw_item_add_to_cart', do_shortcode( '[add_to_cart style="" show_price="false" id="' . esc_attr( $product_id ) . '"]' ), $product ) . '</div>';
+								echo '<div class="woosw-item--atc">' . apply_filters( 'woosw_item_add_to_cart', do_shortcode( '[add_to_cart style="" show_price="false" id="' . esc_attr( $product_id ) . '"]' ), $product ) . '</div>';
 								echo '</' . $td_tag . '>';
 
 								if ( $layout !== 'table' ) {
@@ -2617,12 +2621,14 @@ if ( ! function_exists( 'woosw_init' ) ) {
 				}
 
 				function wp_logout( $user_id ) {
-					if ( isset( $_COOKIE['woosw_key_ori'] ) && ! empty( $_COOKIE['woosw_key_ori'] ) ) {
-						$secure   = apply_filters( 'woosw_cookie_secure', wc_site_is_https() && is_ssl() );
-						$httponly = apply_filters( 'woosw_cookie_httponly', false );
+					$secure   = apply_filters( 'woosw_cookie_secure', wc_site_is_https() && is_ssl() );
+					$httponly = apply_filters( 'woosw_cookie_httponly', false );
 
+					if ( isset( $_COOKIE['woosw_key_ori'] ) && ! empty( $_COOKIE['woosw_key_ori'] ) ) {
 						wc_setcookie( 'woosw_key', trim( sanitize_text_field( $_COOKIE['woosw_key_ori'] ) ), time() + 604800, $secure, $httponly );
 					} else {
+						wc_setcookie( 'woosw_key_ori', '', time() + 604800, $secure, $httponly );
+						wc_setcookie( 'woosw_key', '', time() + 604800, $secure, $httponly );
 						unset( $_COOKIE['woosw_key_ori'] );
 						unset( $_COOKIE['woosw_key'] );
 					}

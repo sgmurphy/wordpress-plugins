@@ -1032,13 +1032,14 @@ __webpack_require__.r(__webpack_exports__);
 const $ = window.jQuery || jQuery;
 const QuestionList = function QuestionList(data) {
   const listQuestions = data.listQuestions;
-  var state = $.extend({
+  const state = $.extend({
     statusUpdateQuestions: {},
     statusUpdateQuestionItem: {},
     statusUpdateQuestionAnswer: {},
     questions: listQuestions.questions.map(function (question) {
-      var hiddenQuestions = listQuestions.hidden_questions;
-      var find = hiddenQuestions.find(function (questionId) {
+      const hiddenQuestions = listQuestions.hidden_questions;
+      const ArrQuestionIds = Object.keys(hiddenQuestions);
+      const find = ArrQuestionIds.find(function (questionId) {
         return parseInt(question.id) === parseInt(questionId);
       });
       question.open = !find;
@@ -1047,7 +1048,7 @@ const QuestionList = function QuestionList(data) {
   }, listQuestions);
   return {
     namespaced: true,
-    state: state,
+    state,
     getters: _getters_question_list__WEBPACK_IMPORTED_MODULE_0__["default"],
     mutations: _mutations_question_list__WEBPACK_IMPORTED_MODULE_1__["default"],
     actions: _actions_question_list__WEBPACK_IMPORTED_MODULE_2__["default"]

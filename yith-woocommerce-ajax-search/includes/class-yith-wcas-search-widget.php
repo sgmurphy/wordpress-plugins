@@ -5,6 +5,7 @@
  * @author YITH <plugins@yithemes.com>
  * @package YITH WooCommerce Ajax Search Premium
  * @version 1.2
+ * @deprecated 2.0.0
  */
 
 if ( ! defined( 'YITH_WCAS' ) ) {

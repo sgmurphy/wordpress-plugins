@@ -57,6 +57,15 @@
       text-decoration: none;
     }
   }
+
+  .yith-plugin-fw__action-button {
+     width: 28px!important;
+     height: 28px!important;
+    margin-top: 1px;
+    .yith-icon-trash {
+      font-size: 12px !important;
+    }
+  }
 }
 
 .yith-plugin-fw-media.yith_wcas_loader_url {

@@ -2,83 +2,64 @@
 # This file is distributed under the same license as the YITH WooCommerce Ajax Search plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: YITH WooCommerce Ajax Search 2.0.2\n"
+"Project-Id-Version: YITH WooCommerce Ajax Search 2.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-ajax-search\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-26T11:56:08+00:00\n"
+"POT-Creation-Date: 2024-02-28T09:57:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: yith-woocommerce-ajax-search\n"
 
 #. Plugin Name of the plugin
-#: init.php
-#: includes/class-yith-wcas-search-widget.php:32
+#: includes/class-yith-wcas-search-widget.php:33
 #: includes/legacy/elementor/class-yith-wcas-search-form-elementor.php:41
 #: includes/legacy/elementor/class-yith-wcas-search-form-elementor.php:78
 msgid "YITH WooCommerce Ajax Search"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: init.php
 msgid "https://yithemes.com/themes/plugins/yith-woocommerce-ajax-search/"
 msgstr ""
 
 #. Description of the plugin
-#: init.php
 msgid "<code><strong>YITH WooCommerce Ajax Search</strong></code> is the plugin that allows you to search for a specific product by inserting a few characters. Thanks to <strong>Ajax Search</strong>, users can quickly find the contents they are interested in without wasting time among site pages. <a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>."
 msgstr ""
 
-#. Author of the plugin
-#: init.php
-msgid "YITH"
+#: includes/admin/class-yith-wcas-admin-statistic-list-table.php:35
+msgid "Top searches"
 msgstr ""
 
-#. Author URI of the plugin
-#: init.php
-msgid "https://yithemes.com/"
+#: includes/admin/class-yith-wcas-admin-statistic-list-table.php:38
+msgid "Top clicked products"
 msgstr ""
 
-#: includes/abstracts/abstract-yith-wcas-gb-block.php:53
-msgid "Block name is required."
+#: includes/admin/class-yith-wcas-admin-statistic-list-table.php:41
+#: includes/admin/views/panel/statistic.php:113
+msgid "Searches with \"No Results\""
 msgstr ""
 
-#: includes/abstracts/abstract-yith-wcas-gb-block.php:186
-msgid "Add to cart"
+#: includes/admin/class-yith-wcas-admin-statistic-list-table.php:71
+msgid "Query"
 msgstr ""
 
-#: includes/abstracts/abstract-yith-wcas-gb-block.php:187
-msgctxt "add to cart label for not purchasable products"
-msgid "Read more"
+#: includes/admin/class-yith-wcas-admin-statistic-list-table.php:72
+msgid "N. Searches"
 msgstr ""
 
-#: includes/abstracts/abstract-yith-wcas-gb-block.php:188
-msgctxt "add to cart label for variable products"
-msgid "Select options"
+#: includes/admin/class-yith-wcas-admin-statistic-list-table.php:77
+msgid "Product"
 msgstr ""
 
-#: includes/abstracts/abstract-yith-wcas-gb-block.php:189
-msgid "In stock"
+#: includes/admin/class-yith-wcas-admin-statistic-list-table.php:78
+msgid "Clicks"
 msgstr ""
 
-#: includes/abstracts/abstract-yith-wcas-gb-block.php:190
-#: includes/class-yith-wcas-settings.php:262
-msgid "Out of stock"
-msgstr ""
-
-#: includes/abstracts/abstract-yith-wcas-gb-block.php:191
-msgid "SKU: "
-msgstr ""
-
-#: includes/abstracts/abstract-yith-wcas-gb-block.php:198
-msgid "0  results for "
-msgstr ""
-
-#: includes/abstracts/abstract-yith-wcas-gb-block.php:199
-msgid "Results for "
+#: includes/admin/class-yith-wcas-admin-statistic-list-table.php:222
+msgid "No items found"
 msgstr ""
 
 #: includes/admin/views/custom-fields/types/content/search-input.php:47
@@ -122,23 +103,17 @@ msgctxt "Tip to delete the sender info"
 msgid "Delete"
 msgstr ""
 
-#. translators: 'Placeholders are HTML tags'.
-#: includes/admin/views/custom-fields/types/search-fields.php:17
-msgctxt "Placeholders are HTML tags"
-msgid "Some options, like search on product attributes or priority, are available only in the new search form. %1$sUpdate the plugin now, it's easy >%2$s"
-msgstr ""
-
-#: includes/admin/views/custom-fields/types/search-fields.php:31
+#: includes/admin/views/custom-fields/types/search-fields.php:19
 msgctxt "Name of column field"
 msgid "Field"
 msgstr ""
 
-#: includes/admin/views/custom-fields/types/search-fields.php:34
+#: includes/admin/views/custom-fields/types/search-fields.php:22
 msgctxt "priority of the field"
 msgid "Priority"
 msgstr ""
 
-#: includes/admin/views/custom-fields/types/search-fields.php:56
+#: includes/admin/views/custom-fields/types/search-fields.php:44
 msgctxt "Add search field button label"
 msgid "+ Add field"
 msgstr ""
@@ -181,7 +156,7 @@ msgstr ""
 
 #: includes/admin/views/panel/shortcode-configuration.php:26
 #: includes/admin/views/panel/shortcodes.php:17
-#: includes/class-yith-wcas-settings.php:451
+#: includes/class-yith-wcas-settings.php:468
 msgid "Name"
 msgstr ""
 
@@ -235,6 +210,52 @@ msgstr ""
 msgid "Add new shortcode"
 msgstr ""
 
+#: includes/admin/views/panel/statistic-detail.php:22
+msgid "< Back to all stats"
+msgstr ""
+
+#: includes/admin/views/panel/statistic-filter.php:22
+msgid "Filter by date: "
+msgstr ""
+
+#: includes/admin/views/panel/statistic-filter.php:34
+msgid "From"
+msgstr ""
+
+#: includes/admin/views/panel/statistic-filter.php:51
+msgid "To"
+msgstr ""
+
+#: includes/admin/views/panel/statistic-filter.php:56
+msgid "Filter"
+msgstr ""
+
+#: includes/admin/views/panel/statistic-filter.php:57
+msgid "Reset"
+msgstr ""
+
+#: includes/admin/views/panel/statistic.php:38
+msgid "Top Searches"
+msgstr ""
+
+#: includes/admin/views/panel/statistic.php:54
+#: includes/admin/views/panel/statistic.php:94
+#: includes/admin/views/panel/statistic.php:129
+msgid "View all >"
+msgstr ""
+
+#. translators: %s is a html tag
+#: includes/admin/views/panel/statistic.php:60
+#: includes/admin/views/panel/statistic.php:100
+#: includes/admin/views/panel/statistic.php:135
+msgctxt "placeholder is an html tag"
+msgid "No statistics%sare reported for this period"
+msgstr ""
+
+#: includes/admin/views/panel/statistic.php:74
+msgid "Top Clicked Products"
+msgstr ""
+
 #. translators: Placeholders are HTML tags.
 #: includes/admin/views/upgrade-modal/upgrade-modal.php:29
 msgctxt "Placeholders are HTML tags"
@@ -265,83 +286,140 @@ msgctxt "Placeholders are HTML tags."
 msgid "%1$sPlease note:%2$s the old search form will be supported until January 15, 2024. After that date, it will be automatically updated to the new form."
 msgstr ""
 
-#: includes/class-yith-wcas-admin.php:107
-#: includes/class-yith-wcas-admin.php:134
-#: plugin-options/search-fields-options.php:93
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:277
+msgid "Add to cart"
+msgstr ""
+
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:278
+msgctxt "add to cart label for not purchasable products"
+msgid "Read more"
+msgstr ""
+
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:279
+msgctxt "add to cart label for variable products"
+msgid "Select options"
+msgstr ""
+
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:280
+msgid "In stock"
+msgstr ""
+
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:281
+#: includes/class-yith-wcas-settings.php:277
+#: includes/legacy/class-yith-wcas-legacy.php:584
+msgid "Out of stock"
+msgstr ""
+
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:282
+msgid "SKU: "
+msgstr ""
+
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:288
+msgctxt "1 result for \"shoes\""
+msgid "%1$s result for \"%2$s\""
+msgstr ""
+
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:289
+msgctxt "3 results for \"shoes\""
+msgid "%1$s results for \"%2$s\""
+msgstr ""
+
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:290
+msgctxt "Results for \"shoes\""
+msgid "Results for \"%s\""
+msgstr ""
+
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:291
+msgid "Delete all"
+msgstr ""
+
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:292
+msgctxt "T-shirts in Woman Clothes"
+msgid "in"
+msgstr ""
+
+#: includes/class-yith-wcas-admin.php:112
+#: includes/class-yith-wcas-admin.php:139
+#: plugin-options/search-fields-options.php:92
 msgctxt "Admin label option"
 msgid "Index status"
 msgstr ""
 
-#: includes/class-yith-wcas-admin.php:200
+#: includes/class-yith-wcas-admin.php:208
+msgctxt "Admin tab name"
+msgid "Search Stats"
+msgstr ""
+
+#: includes/class-yith-wcas-admin.php:214
 msgid "General Options"
 msgstr ""
 
-#: includes/class-yith-wcas-admin.php:202
+#: includes/class-yith-wcas-admin.php:216
 msgid "Set the general options for the plugin behavior."
 msgstr ""
 
-#: includes/class-yith-wcas-admin.php:205
+#: includes/class-yith-wcas-admin.php:219
 msgid "Search Fields"
 msgstr ""
 
-#: includes/class-yith-wcas-admin.php:209
+#: includes/class-yith-wcas-admin.php:223
 msgctxt "description of \"Search field\" section"
 msgid "Choose which fields will be used when a search is performed in your shop and set the priority for each enabled field."
 msgstr ""
 
-#: includes/class-yith-wcas-admin.php:216
+#: includes/class-yith-wcas-admin.php:230
 msgid "Search Shortcodes"
 msgstr ""
 
-#: includes/class-yith-wcas-admin.php:217
+#: includes/class-yith-wcas-admin.php:231
 msgctxt "description of \"Search shortcodes\" section"
 msgid "Create and customize your search shortcodes."
 msgstr ""
 
-#: includes/class-yith-wcas-assets.php:259
+#: includes/class-yith-wcas-assets.php:270
 msgid "This field is required."
 msgstr ""
 
-#: includes/class-yith-wcas-assets.php:263
-#: includes/class-yith-wcas-assets.php:268
+#: includes/class-yith-wcas-assets.php:275
+#: includes/class-yith-wcas-assets.php:280
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/class-yith-wcas-assets.php:264
+#: includes/class-yith-wcas-assets.php:276
 msgid "Do you want to remove this field from your search field list?"
 msgstr ""
 
-#: includes/class-yith-wcas-assets.php:265
-#: includes/class-yith-wcas-assets.php:270
+#: includes/class-yith-wcas-assets.php:277
+#: includes/class-yith-wcas-assets.php:282
 msgid "Yes, proceed"
 msgstr ""
 
-#: includes/class-yith-wcas-assets.php:269
+#: includes/class-yith-wcas-assets.php:281
 msgid "Do you want to remove this shortcode preset?"
 msgstr ""
 
-#: includes/class-yith-wcas-search-widget.php:30
+#: includes/class-yith-wcas-search-widget.php:31
 #: includes/legacy/class-yith-wcas-ajax-search.php:30
 msgid "An Ajax Search box for products only."
 msgstr ""
 
-#: includes/class-yith-wcas-search-widget.php:122
-#: includes/class-yith-wcas-search-widget.php:168
+#: includes/class-yith-wcas-search-widget.php:123
+#: includes/class-yith-wcas-search-widget.php:169
 msgctxt "[Widget] The widget title"
 msgid "Title:"
 msgstr ""
 
-#: includes/class-yith-wcas-search-widget.php:128
+#: includes/class-yith-wcas-search-widget.php:129
 msgctxt "[Widget] The widget arg"
 msgid "Template wide"
 msgstr ""
 
-#: includes/class-yith-wcas-search-widget.php:135
+#: includes/class-yith-wcas-search-widget.php:136
 msgctxt "[Widget] The widget arg"
 msgid "Filters above"
 msgstr ""
 
-#: includes/class-yith-wcas-search-widget.php:176
+#: includes/class-yith-wcas-search-widget.php:177
 msgctxt "[Widget] The widget arg"
 msgid "Search shortcode"
 msgstr ""
@@ -350,280 +428,277 @@ msgstr ""
 msgid "Unable to make a search with an empty query!"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:253
+#: includes/class-yith-wcas-settings.php:268
 msgid "On Sale"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:271
+#: includes/class-yith-wcas-settings.php:286
 msgid "Featured"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:353
+#: includes/class-yith-wcas-settings.php:357
 #: includes/legacy/elementor/class-yith-wcas-search-form-elementor.php:103
 msgid "Default"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:358
-#: includes/class-yith-wcas-settings.php:528
+#: includes/class-yith-wcas-settings.php:363
+#: includes/class-yith-wcas-settings.php:536
 msgid "Search for products..."
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:395
+#: includes/class-yith-wcas-settings.php:408
 msgid "Price:"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:398
+#: includes/class-yith-wcas-settings.php:411
 msgid "No results. Try with a different keyword!"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:400
+#: includes/class-yith-wcas-settings.php:413
 msgid "See all products ({total})"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:405
+#: includes/class-yith-wcas-settings.php:418
 msgid "Related content"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:413
+#: includes/class-yith-wcas-settings.php:430
 msgid "Latest searches"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:416
+#: includes/class-yith-wcas-settings.php:433
 msgid "Trending"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:454
+#: includes/class-yith-wcas-settings.php:471
 msgid "Enter a name..."
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:456
+#: includes/class-yith-wcas-settings.php:473
 msgid "Set a name for this shortcode."
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:461
-msgid "Layout"
+#: includes/class-yith-wcas-settings.php:478
+#: assets/js/blocks/src/blocks/search-block/edit.js:39
+msgid "Size"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:463
+#: includes/class-yith-wcas-settings.php:480
 #: assets/js/blocks/src/blocks/search-block/edit.js:43
 msgid "Small"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:464
+#: includes/class-yith-wcas-settings.php:481
 #: assets/js/blocks/src/blocks/search-block/edit.js:44
 msgid "Large"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:467
+#: includes/class-yith-wcas-settings.php:484
 msgid "Choose the search size."
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:472
+#: includes/class-yith-wcas-settings.php:489
 msgid "CSS class"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:474
+#: includes/class-yith-wcas-settings.php:491
 msgid ""
 "Enter additional CSS classes to customize this search. \n"
 "Separate multiple classes with spaces."
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:496
+#: includes/class-yith-wcas-settings.php:513
 msgctxt "Settings tab header"
 msgid "General"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:497
+#: includes/class-yith-wcas-settings.php:514
 msgctxt "Settings tab header"
 msgid "Search input"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:498
+#: includes/class-yith-wcas-settings.php:515
 msgctxt "Settings tab header"
 msgid "Submit button"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:499
+#: includes/class-yith-wcas-settings.php:516
 msgctxt "Settings tab header"
 msgid "Search results"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:525
-#: includes/class-yith-wcas-settings.php:545
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:114
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:131
+#: includes/class-yith-wcas-settings.php:533
+#: includes/class-yith-wcas-settings.php:553
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:94
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:111
 msgid "Placeholder"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:530
+#: includes/class-yith-wcas-settings.php:538
 msgid "Enter the placeholder text to show inside the search form."
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:535
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:49
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:136
+#: includes/class-yith-wcas-settings.php:543
+msgid "Colors"
+msgstr ""
+
+#: includes/class-yith-wcas-settings.php:548
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:43
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:116
 msgid "Text"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:540
-msgid "Color"
-msgstr ""
-
-#: includes/class-yith-wcas-settings.php:550
-#: includes/class-yith-wcas-settings.php:623
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:84
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:141
+#: includes/class-yith-wcas-settings.php:558
+#: includes/class-yith-wcas-settings.php:632
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:64
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:121
 msgid "Background"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:555
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:146
+#: includes/class-yith-wcas-settings.php:563
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:126
 msgid "Background focus"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:560
-#: includes/class-yith-wcas-settings.php:633
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:94
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:151
+#: includes/class-yith-wcas-settings.php:568
+#: includes/class-yith-wcas-settings.php:642
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:74
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:131
 msgid "Border"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:565
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:156
+#: includes/class-yith-wcas-settings.php:573
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:136
 msgid "Border focus"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:591
+#: includes/class-yith-wcas-settings.php:599
 msgid "Icon position"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:594
+#: includes/class-yith-wcas-settings.php:602
 msgid "Left"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:595
+#: includes/class-yith-wcas-settings.php:603
 msgid "Right"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:599
+#: includes/class-yith-wcas-settings.php:607
 msgid "Choose the icon alignment inside the search field."
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:608
+#: includes/class-yith-wcas-settings.php:617
 msgid "Button colors"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:613
+#: includes/class-yith-wcas-settings.php:622
 msgid "Label"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:618
+#: includes/class-yith-wcas-settings.php:627
 msgid "Label hover"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:628
+#: includes/class-yith-wcas-settings.php:637
 msgid "Background hover"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:638
+#: includes/class-yith-wcas-settings.php:647
 msgid "Border hover"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:642
+#: includes/class-yith-wcas-settings.php:651
 msgid "Customize the submit button colors."
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:661
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:51
+#: includes/class-yith-wcas-settings.php:670
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:48
 msgid "Max results to show"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:665
+#: includes/class-yith-wcas-settings.php:674
 msgid "Set how many results to show."
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:670
+#: includes/class-yith-wcas-settings.php:679
 msgid "Product info to show"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:672
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:59
+#: includes/class-yith-wcas-settings.php:681
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:56
 msgid "Title"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:673
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:78
+#: includes/class-yith-wcas-settings.php:682
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:75
 msgid "Image"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:679
+#: includes/class-yith-wcas-settings.php:688
 msgid "Title color"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:694
+#: includes/class-yith-wcas-settings.php:703
 msgid "Results layout"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:700
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:85
+#: includes/class-yith-wcas-settings.php:709
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:82
 msgid "Image size (px)"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:717
+#: includes/class-yith-wcas-settings.php:726
 msgid "Image position"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:719
+#: includes/class-yith-wcas-settings.php:728
 msgid "Show left"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:720
+#: includes/class-yith-wcas-settings.php:729
 msgid "Show right"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:739
+#: includes/class-yith-wcas-settings.php:748
 msgid "No results notice"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:745
-#: includes/class-yith-wcas-settings.php:747
-msgid "Show “View all results\" link."
+#: includes/class-yith-wcas-settings.php:754
+#: includes/class-yith-wcas-settings.php:756
+msgid "Show “View all results\" link"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:751
+#: includes/class-yith-wcas-settings.php:760
 msgid "“View all results\" text"
 msgstr ""
 
-#: includes/class-yith-wcas-settings.php:754
+#: includes/class-yith-wcas-settings.php:763
 msgid "Use {total} to show the total number of results."
 msgstr ""
 
-#: includes/functions-yith-wcas.php:19
-msgid "YITH WooCommerce Ajax Search Premium is enabled but not effective. It requires WooCommerce in order to work."
-msgstr ""
-
-#: includes/functions-yith-wcas.php:142
+#: includes/functions-yith-wcas.php:138
 msgctxt "[Admin]search field type"
 msgid "Product name"
 msgstr ""
 
-#: includes/functions-yith-wcas.php:143
+#: includes/functions-yith-wcas.php:139
 msgctxt "[Admin]search field type"
 msgid "Description"
 msgstr ""
 
-#: includes/functions-yith-wcas.php:144
+#: includes/functions-yith-wcas.php:140
 msgctxt "[Admin]search field type"
 msgid "Short description"
 msgstr ""
 
 #. translators: Placeholders are HTML tags.
-#: includes/functions-yith-wcas.php:530
+#: includes/functions-yith-wcas.php:522
 msgctxt "Placeholders are HTML tags"
 msgid "This option is available only in the new search form. %1$sUpdate the plugin now, it's easy >%2$s"
 msgstr ""
 
-#: includes/functions-yith-wcas.php:563
+#: includes/functions-yith-wcas.php:576
 #: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/attributes.js:9
 msgid "Search products..."
 msgstr ""
@@ -632,34 +707,64 @@ msgstr ""
 msgid "YITH WooCommerce Ajax Product Search[Deprecated]"
 msgstr ""
 
-#: includes/legacy/class-yith-wcas-legacy-manager.php:59
+#: includes/legacy/class-yith-wcas-legacy-manager.php:60
 msgctxt "[gutenberg]: block name"
 msgid "Ajax Search[Deprecated]"
 msgstr ""
 
-#: includes/legacy/class-yith-wcas-legacy-manager.php:60
+#: includes/legacy/class-yith-wcas-legacy-manager.php:61
 msgctxt "[gutenberg]: block description"
 msgid "Show Ajax Search Form"
 msgstr ""
 
-#: includes/legacy/class-yith-wcas-legacy-manager.php:64
+#: includes/legacy/class-yith-wcas-legacy-manager.php:65
 msgctxt "[gutenberg]: keywords"
 msgid "Ajax Search"
 msgstr ""
 
-#: includes/legacy/class-yith-wcas-legacy-manager.php:65
+#: includes/legacy/class-yith-wcas-legacy-manager.php:66
 msgctxt "[gutenberg]: keywords"
 msgid "Search"
 msgstr ""
 
-#. translators: Placeholders are HTML tags.
-#: includes/legacy/class-yith-wcas-legacy-manager.php:88
-msgctxt "Placeholders are HTML tags"
-msgid "Update your search form now to unlock new advanced features! %1$sPlease, note: the old search form will be supported until January 15, 2024. After that date, it will be automatically updated to the new form. %2$sClick here to learn more >%3$s"
+#: includes/legacy/class-yith-wcas-legacy-manager.php:71
+msgctxt "[gutenberg]: show or hide the thumbnail"
+msgid "Template"
 msgstr ""
 
-#: includes/legacy/class-yith-wcas-legacy.php:199
+#: includes/legacy/class-yith-wcas-legacy-manager.php:74
+msgctxt "[gutenberg]: Help to show thumbnail"
+msgid "Default"
+msgstr ""
+
+#: includes/legacy/class-yith-wcas-legacy-manager.php:75
+msgctxt "[gutenberg]: Help to hide thumbnail"
+msgid "Wide"
+msgstr ""
+
+#: includes/legacy/class-yith-wcas-legacy-manager.php:80
+msgctxt "[gutenberg]: class of widget"
+msgid "Class"
+msgstr ""
+
+#: includes/legacy/class-yith-wcas-legacy.php:580
+msgid "sale"
+msgstr ""
+
+#: includes/legacy/class-yith-wcas-legacy.php:588
+msgid "featured"
+msgstr ""
+
+#: includes/legacy/class-yith-wcas-legacy.php:652
 msgid "No results"
+msgstr ""
+
+#: includes/legacy/class-yith-wcas-legacy.php:1047
+msgid "Search in product brands"
+msgstr ""
+
+#: includes/legacy/class-yith-wcas-legacy.php:1098
+msgid "Search by vendor"
 msgstr ""
 
 #: includes/legacy/elementor/class-yith-wcas-search-form-elementor.php:88
@@ -769,42 +874,42 @@ msgctxt "Admin section label"
 msgid "Fuzzy strings & synonyms"
 msgstr ""
 
-#: plugin-options/general-options.php:95
+#: plugin-options/general-options.php:94
 msgctxt "Admin option label"
 msgid "Enable fuzzy strings matching"
 msgstr ""
 
 #. translators: placeholders are HTML tags.
-#: plugin-options/general-options.php:98
+#: plugin-options/general-options.php:97
 msgctxt "Admin option description.sprintf"
 msgid ""
 "Enable to help users find relevant results even when the search terms are misspelled.%s\n"
 "Example: “skrit” instead of “skirt”."
 msgstr ""
 
-#: plugin-options/general-options.php:112
+#: plugin-options/general-options.php:111
 msgctxt "Admin option label"
 msgid "Fuzzy matching level"
 msgstr ""
 
 #. translators: Admin option description. Placeholders are HTML tags.
-#: plugin-options/general-options.php:116
+#: plugin-options/general-options.php:115
 msgctxt "Admin option description. Placeholders are HTML tags"
 msgid "Choose the fuzzy matching level. %1$sNote: a 100%% level can produce a significant number of false positives.%1$sSuggested value: 50%%"
 msgstr ""
 
-#: plugin-options/general-options.php:133
+#: plugin-options/general-options.php:132
 msgctxt "Admin option label"
 msgid "Synonyms"
 msgstr ""
 
 #. translators: placeholders are HTML tags.
-#: plugin-options/general-options.php:136
+#: plugin-options/general-options.php:135
 msgctxt "Admin option description. Placeholders are HTML tags"
 msgid "Each field can include a list of synonymous words or concepts to help users easily find products with different name types. Use single words or phrases separated by commas."
 msgstr ""
 
-#: plugin-options/general-options.php:147
+#: plugin-options/general-options.php:146
 msgctxt "Admin option placeholder"
 msgid "E.g. Pregnancy, Maternity, Nursing, Motherhood, Postpartum"
 msgstr ""
@@ -873,29 +978,29 @@ msgstr ""
 msgid "A search index helps your users quickly find information and products on your shop. It is designed to map search queries to documents or URLs that might appear in the results."
 msgstr ""
 
-#: plugin-options/search-fields-options.php:48
+#: plugin-options/search-fields-options.php:47
 msgctxt "Admin label option"
 msgid "Schedule indexing"
 msgstr ""
 
-#: plugin-options/search-fields-options.php:49
+#: plugin-options/search-fields-options.php:48
 msgid "Enable a recurring indexing of fields."
 msgstr ""
 
-#: plugin-options/search-fields-options.php:56
+#: plugin-options/search-fields-options.php:55
 msgctxt "Admin label option"
 msgid "Indexing interval"
 msgstr ""
 
-#: plugin-options/search-fields-options.php:63
+#: plugin-options/search-fields-options.php:62
 msgid "Daily"
 msgstr ""
 
-#: plugin-options/search-fields-options.php:64
+#: plugin-options/search-fields-options.php:63
 msgid "Weekly"
 msgstr ""
 
-#: plugin-options/search-fields-options.php:76
+#: plugin-options/search-fields-options.php:75
 msgctxt "Admin label option"
 msgid "Schedule time"
 msgstr ""
@@ -916,10 +1021,6 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/edit.js:39
-msgid "Size"
-msgstr ""
-
 #: assets/js/blocks/src/blocks/search-block/index.js:10
 msgid "Classic Search"
 msgstr ""
@@ -928,75 +1029,83 @@ msgstr ""
 msgid "Add the classic search block"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:48
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:42
 msgid "Icon"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:50
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:44
 msgid "Text and Icon"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:51
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:45
 msgid "Icon Hover"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:52
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:46
 msgid "Text Hover"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:53
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:47
 msgid "Text and Icon Hover"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:89
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:69
 msgid "Background Hover"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:99
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:79
 msgid "Border Hover"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:110
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:90
 msgid "Search input settings"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:117
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:97
 msgid "Enter search placeholder text"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:164
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:107
+msgid "Color Settings"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:144
 msgid "Search icon"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:168
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:148
 msgid "Icon on the right"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:169
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:149
 msgid "Icon on the left"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:47
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/input-block/edit.js:154
+msgid "Submit Color Settings"
+msgstr ""
+
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:44
 msgid "Product results settings"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:57
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:54
 msgid "Info to show"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:69
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:66
 msgid "Product Title Color"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:95
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:92
 msgid "\"No results\" text"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:103
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:100
 msgid "Show \"View all results\" link"
 msgstr ""
 
-#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:111
+#: assets/js/blocks/src/blocks/search-block/inner-blocks/product-results-block/edit.js:108
 msgid "\"View all results\" text"
 msgstr ""
 

@@ -5,7 +5,7 @@ Tags: woocommerce search by sku, woocommerce search results, woocommerce search 
 Requires at least: 6.2
 Requires PHP: 7.4
 Tested up to: 6.4
-Stable tag: 2.0.2
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,8 @@ Go ahead, install the plugin and in just a few clicks you’ll have your custome
 
 * 100% mobile-friendly layout
 
+*  (NEW!) Statistics panel to analyze the most popular searches, the most-clicked products, and searches with no results.
+
 Want to see the plugin in action? [Check out the live demo of the free version >](https://plugins.yithemes.com/yith-woocommerce-ajax-search-free/)
 
 **Need an extra boost? Upgrade to premium!**
@@ -86,6 +88,13 @@ In the free version of YITH WooCommerce AJAX Search, you’ll find everything yo
 * Show links to categories related to the search keys
 
 * Show the user’s history with the latest searches
+
+* Advanced boost options to determine which products, categories, or tags to promote in search results
+
+* New layout to show the search in a full-screen overlay
+
+* Stats panel to monitor the most popular searches, most clicked products, and searches with no results
+
 
 [Check out the live demo of the premium version >](https://plugins.yithemes.com/yith-woocommerce-ajax-search/)
 
@@ -132,8 +141,13 @@ If you want to see a demonstration version of the premium plugin, you can see th
 4. Shortcode configuration - search input tab
 5. Shortcode configuration - submit button tab
 6. Shortcode configuration - search results tab
-
+7. Search Stats tab
 == Changelog ==
+= 2.1.0 - Released on 28 February 2024 =
+* New: Statistics panel to analyze the most popular searches, the most-clicked products, and searches with no results.
+* New: Support for WooCommerce 8.6
+* Update: YITH plugin framework
+
 = 2.0.2 - Released on 24 January 2024 =
 * Fix: Product price was not displayed with tax and in the correct format.
 * Fix: Shortcode option was not being saved.

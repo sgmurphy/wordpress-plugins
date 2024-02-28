@@ -32,12 +32,12 @@ function disable_gutenberg_admin_notice() {
 			
 			<div class="notice notice-success">
 				<p>
-					<strong><?php esc_html_e('Save BIG!', 'disable-gutenberg'); ?></strong> 
-					<?php esc_html_e('Take 25% OFF any of our', 'disable-gutenberg'); ?> 
+					<strong><?php esc_html_e('Go Pro!', 'disable-gutenberg'); ?></strong> 
+					<?php esc_html_e('Take 30% OFF any of our', 'disable-gutenberg'); ?> 
 					<a target="_blank" rel="noopener noreferrer" href="https://plugin-planet.com/"><?php esc_html_e('Pro WordPress plugins', 'disable-gutenberg'); ?></a> 
 					<?php esc_html_e('and', 'disable-gutenberg'); ?> 
 					<a target="_blank" rel="noopener noreferrer" href="https://books.perishablepress.com/"><?php esc_html_e('books', 'disable-gutenberg'); ?></a>. 
-					<?php esc_html_e('Apply code', 'disable-gutenberg'); ?> <code>SEASONS</code> <?php esc_html_e('at checkout. Sale ends 12/30/23.', 'disable-gutenberg'); ?> 
+					<?php esc_html_e('Apply code', 'disable-gutenberg'); ?> <code>PLANET24</code> <?php esc_html_e('at checkout. Sale ends 5/25/24.', 'disable-gutenberg'); ?> 
 					<?php echo disable_gutenberg_dismiss_notice_link(); ?>
 				</p>
 			</div>
@@ -116,7 +116,7 @@ function disable_gutenberg_dismiss_notice_link() {
 
 function disable_gutenberg_check_date_expired() {
 	
-	$expires = apply_filters('disable_gutenberg_check_date_expired', '2023-12-30');
+	$expires = apply_filters('disable_gutenberg_check_date_expired', '2024-05-25');
 	
 	return (new DateTime() > new DateTime($expires)) ? true : false;
 	
