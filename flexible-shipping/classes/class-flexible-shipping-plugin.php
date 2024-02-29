@@ -9,6 +9,7 @@ use FSVendor\Octolize\Blocks\IntegrationData;
 use FSVendor\Octolize\Blocks\Registrator;
 use FSVendor\Octolize\Blocks\StoreEndpoint;
 use FSVendor\Octolize\ShippingExtensions\ShippingExtensions;
+use FSVendor\Octolize\Tracker\DeactivationTracker\OctolizeReasonsFactory;
 use FSVendor\Octolize\Tracker\OptInNotice\ShouldDisplayAndConditions;
 use FSVendor\Octolize\Tracker\OptInNotice\ShouldDisplayGetParameterValue;
 use FSVendor\Octolize\Tracker\OptInNotice\ShouldDisplayOrConditions;
@@ -541,7 +542,16 @@ class Flexible_Shipping_Plugin extends AbstractPlugin implements HookableCollect
 	 */
 	private function init_tracker() {
 		$this->add_hookable(
-			TrackerInitializer::create_from_plugin_info( $this->plugin_info, $this->prepare_shoud_display_for_flexible_shipping() )
+			TrackerInitializer::create_from_plugin_info(
+				$this->plugin_info,
+				$this->prepare_shoud_display_for_flexible_shipping(),
+				new OctolizeReasonsFactory(
+					'https://octol.io/fs-docs-exit-pop-up',
+					'https://octol.io/fs-support-forum-exit-pop-up',
+					__( 'Flexible Shipping PRO', 'flexible-shipping' ),
+					'https://octol.io/fs-contact-exit-pop-up',
+				)
+			)
 		);
 		$this->add_hookable( new WPDesk_Flexible_Shipping_Tracker() );
 		$this->add_hookable( new TrackerData() );
@@ -842,13 +852,13 @@ class Flexible_Shipping_Plugin extends AbstractPlugin implements HookableCollect
 				'Settings',
 				'flexible-shipping'
 			) . '</a>',
-			'<a target="_blank" href="' . $docs_link . '">' . __( 'Docs', 'flexible-shipping' ) . '</a>',
-			'<a target="_blank" href="' . $support_link . '">' . __( 'Support', 'flexible-shipping' ) . '</a>',
+			'<a target="_blank" href="' . esc_url( $docs_link ) . '">' . __( 'Docs', 'flexible-shipping' ) . '</a>',
+			'<a target="_blank" href="' . esc_url( $support_link ) . '">' . __( 'Support', 'flexible-shipping' ) . '</a>',
 		];
 		$pro_link     = get_locale() === 'pl_PL' ? 'https://octol.io/fs-upgrade-pl' : 'https://octol.io/fs-upgrade';
 
 		if ( ! wpdesk_is_plugin_active( 'flexible-shipping-pro/flexible-shipping-pro.php' ) ) {
-			$plugin_links[] = '<a href="' . $pro_link . '" target="_blank" style="color:#d64e07;font-weight:bold;">' . __(
+			$plugin_links[] = '<a href="' . esc_url( $pro_link ) . '" target="_blank" style="color:#d64e07;font-weight:bold;">' . __(
 					'Buy PRO',
 					'flexible-shipping'
 				) . '</a>';

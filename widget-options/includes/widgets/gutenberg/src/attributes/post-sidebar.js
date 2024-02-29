@@ -337,6 +337,23 @@ const withSidebarTab = (BlockEdit) => {
 
     fetchData(props);
 
+    if (Object.keys(widgetopts_get_settings).length === 0) {
+      return <BlockEdit {...props} />;
+    } else {
+      if (
+        widgetopts_get_settings["hide_page_and_post_block"] != "activate" ||
+        (widgetopts_get_settings["hide_page_and_post_block"] == "activate" &&
+          widgetopts_get_settings["settings"] != undefined &&
+          widgetopts_get_settings["settings"]["hide_page_and_post_block"] !=
+            undefined &&
+          widgetopts_get_settings["settings"]["hide_page_and_post_block"][
+            "page_and_post_block"
+          ] == "1")
+      ) {
+        return <BlockEdit {...props} />;
+      }
+    }
+
     let _myprops = {};
     let id_base = -1;
     if (props.attributes.__internalWidgetId != undefined)

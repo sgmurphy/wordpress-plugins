@@ -53,11 +53,13 @@ function widgetopts_in_widget_form($widget, $return, $instance)
     /* if $opts is empty, try to get data from blocks */
     if (!wp_use_widgets_block_editor()) {
         if (empty($instance['extended_widget_opts-' . $widget->id])) {
-            $block = parse_blocks($instance['content']);
-            if (!empty($block[0]) && !empty($block[0]['attrs'])) {
-                if (!empty($block[0]['attrs']['extended_widget_opts'])) {
-                    $opts = $block[0]['attrs']['extended_widget_opts'];
-                    $instance['content'] = $block[0]['innerHTML'];
+            if (isset($instance['content']) && !empty($instance['content'])) {
+                $block = parse_blocks($instance['content']);
+                if (!empty($block[0]) && !empty($block[0]['attrs'])) {
+                    if (!empty($block[0]['attrs']['extended_widget_opts'])) {
+                        $opts = $block[0]['attrs']['extended_widget_opts'];
+                        $instance['content'] = $block[0]['innerHTML'];
+                    }
                 }
             }
         }

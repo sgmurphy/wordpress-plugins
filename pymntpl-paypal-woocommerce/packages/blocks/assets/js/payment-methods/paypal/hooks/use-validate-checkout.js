@@ -1,5 +1,5 @@
 import {useEffect} from '@wordpress/element';
-import {__} from '@wordpress/i18n';
+import {i18n} from '../../../utils';
 
 export const useValidateCheckout = (
     {
@@ -13,7 +13,7 @@ export const useValidateCheckout = (
                 // validate that the order has been created.
                 if (!paymentData?.orderId) {
                     return {
-                        errorMessage: __('Please click the PayPal button before placing your order.', 'pymntpl-paypal-woocommerce')
+                        errorMessage: i18n.order_button_click
                     }
                 }
                 return true;

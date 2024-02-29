@@ -92,7 +92,7 @@ function widgetopts_ajax_save_settings()
 
 			break;
 		case 'delete_widgetopts_update_transient':
-			delete_transient('widgetopts_free_updated');
+			update_option('widgetopts_upgrade', 0);
 			break;
 
 		default:

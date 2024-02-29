@@ -1,13 +1,14 @@
-import {useState, useCallback} from '@wordpress/element';
+import {useState, useCallback, useEffect} from '@wordpress/element';
 import {registerPaymentMethod, registerExpressPaymentMethod} from '@woocommerce/blocks-registry';
 import {getSetting} from '@woocommerce/settings';
-import {__} from '@wordpress/i18n';
+import {dispatch} from '@wordpress/data';
 import SimplePayPal from './simple-paypal';
 import {useBreakpointWidth, useLoadPayPalScript} from "../../hooks";
 import {usePayPalOptions, usePayPalFundingSources, useProcessPayment, useValidateCheckout} from "./hooks";
+import {PaymentMethodCard} from "../../components";
 import './styles.scss';
 import {useProcessPaymentFailure} from "../../hooks";
-import {isCartPage, isCheckoutPage} from "../../utils";
+import {isCartPage, isCheckoutPage, i18n} from "../../utils";
 
 const getData = (key) => {
     const data = getSetting(key);
@@ -58,10 +59,9 @@ const PayPalPaymentMethod = (
         paymentMethodId,
         ...props
     }) => {
-    const [error, setError] = useState(false);
     const queryParams = getSetting('paypalQueryParams');
     const vault = queryParams.vault === 'true';
-    const {billingData} = billing;
+    const {billingAddress} = billing;
     const {
         onPaymentSetup,
         onCheckoutFail,
@@ -69,12 +69,15 @@ const PayPalPaymentMethod = (
     } = eventRegistration;
     const {responseTypes, noticeContexts} = emitResponse;
     const [buttonsContainer, setButtonsContainer] = useState();
+    const {createErrorNotice} = dispatch('core/notices');
 
     useBreakpointWidth({width: 375, node: buttonsContainer});
 
     if (!isExpress) {
         onError = useCallback((error) => {
-            setError(error?.message ? error.message : error);
+            createErrorNotice(error?.message ? error.message : error, {
+                context: noticeContexts.PAYMENTS
+            });
         }, []);
     }
 
@@ -82,10 +85,14 @@ const PayPalPaymentMethod = (
         setButtonsContainer(el?.parentElement?.parentElement);
     }, []);
 
-    const {paymentData, setPaymentData} = useProcessPayment({
+    const {
+        paymentData,
+        setPaymentData,
+        clearPaymentData
+    } = useProcessPayment({
         isExpress,
         onSubmit,
-        billingData,
+        billingAddress,
         shippingData,
         onPaymentSetup,
         responseTypes,
@@ -96,7 +103,7 @@ const PayPalPaymentMethod = (
     useProcessPaymentFailure({
         event: onCheckoutFail,
         responseTypes,
-        messageContext: isExpress ? noticeContexts.EXPRESS_PAYMENTS : noticeContexts.PAYMENTS,
+        messageContext: noticeContexts.PAYMENTS,
         setPaymentData
     });
 
@@ -128,21 +135,31 @@ const PayPalPaymentMethod = (
         context,
         vault
     });
-    const cancelPayment = e => {
-        e.preventDefault();
-        setPaymentData(null);
-    }
+
+    useEffect(() => {
+        const paymentData = data('paymentData');
+        if (paymentData && paymentData.order) {
+            setPaymentData(paymentData, false);
+        }
+    }, []);
 
     if (!isExpress && paymentData) {
+        if (paymentData.billingTokenData) {
+            return (
+                <PaymentMethodCard
+                    description={paymentData.billingTokenData.payer_info.email}
+                    icon={data('icons').find(icon => icon.id === 'paypal_simple')}
+                    label={i18n.cancel}
+                    onCancel={clearPaymentData}/>
+            );
+        }
         return (
-            <>
-                <div className={'wc-ppcp-order-review__message'}>
-                    {__('Your PayPal payment method is ready to be processed. Please review your order details then click Place Order',
-                        'pymntpl-paypal-woocommerce')}
-                </div>
-                <a href={'#'} onClick={cancelPayment} className={'wc-ppcp-cancel__payment'}>{__('Cancel', 'pymntpl-paypal-woocommerce')}</a>
-            </>
-        );
+            <PaymentMethodCard
+                description={paymentData.order.payer.email_address}
+                icon={data('icons').find(icon => icon.id === 'paypal_simple')}
+                label={i18n.cancel}
+                onCancel={clearPaymentData}/>
+        )
     }
     if (paypal && sources) {
         const Button = paypal.Buttons.driver("react", {React, ReactDOM});
@@ -152,12 +169,9 @@ const PayPalPaymentMethod = (
             return button.isEligible() ? <Button key={source} {...options}/> : null;
         });
         return (
-            <>
-                {!isExpress && <ErrorMessage msg={error}/>}
-                <div className='wc-ppcp-paypal__buttons' ref={setButtonContainerRef}>
-                    {BUTTONS}
-                </div>
-            </>
+            <div className='wc-ppcp-paypal__buttons' ref={setButtonContainerRef}>
+                {BUTTONS}
+            </div>
         );
     }
     return null;
@@ -175,15 +189,6 @@ const PaymentMethodLabel = ({components, title, icons, id}) => {
         </div>
     )
 };
-
-const ErrorMessage = ({msg}) => {
-    if (msg) {
-        return (
-            <div className={'wc-ppcp-error__message'} dangerouslySetInnerHTML={{__html: msg}}/>
-        )
-    }
-    return null;
-}
 
 if ((isCartPage() && isCartEnabled()) || (isCheckoutPage() && isExpressEnabled())) {
     let context = 'express_checkout';
@@ -208,7 +213,7 @@ if (isCheckoutPage()) {
             label: <PaymentMethodLabel
                 id='ppcp'
                 title={data('title')}
-                icons={data('icons')}/>,
+                icons={data('icons').find(icon => icon.id === 'paypal')}/>,
             ariaLabel: 'PayPal',
             canMakePayment: () => true,
             content: <SimplePayPal data={data}/>,
@@ -226,7 +231,7 @@ if (isCheckoutPage()) {
             label: <PaymentMethodLabel
                 id='ppcp'
                 title={data('title')}
-                icons={data('icons')}/>,
+                icons={data('icons').find(icon => icon.id === 'paypal')}/>,
             ariaLabel: 'PayPal',
             canMakePayment: () => true,
             content: <PayPalPaymentMethod context={'checkout'} paymentMethodId={'ppcp'}/>,

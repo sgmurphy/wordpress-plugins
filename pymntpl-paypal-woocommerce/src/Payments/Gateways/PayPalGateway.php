@@ -433,7 +433,7 @@ class PayPalGateway extends AbstractGateway {
 					return true;
 				}
 
-				return wc_string_to_bool( $this->get_option( "${source}_enabled" ) );
+				return wc_string_to_bool( $this->get_option( "{$source}_enabled" ) );
 			} ) ),
 			'buttons_order'        => $this->get_option( 'buttons_order' ),
 			'buttonPlacement'      => $this->get_option( 'checkout_placement' ),

@@ -30,96 +30,6 @@ export const removeNumberPrecision = (value, unit) => {
 
 export const hasShippingOptions = (shippingRates) => shippingRates.map(rate => rate?.shipping_rates.length > 0).filter(Boolean).length > 0;
 
-export const createPatchRequest = ({billing, shippingData, selectedShippingOption = null}) => {
-    const {shippingRates} = shippingData;
-    const {currency, cartTotal, cartTotalItems} = billing;
-    return [
-        {
-            'op': 'replace',
-            'path': '/purchase_units/@reference_id==\'default\'/amount',
-            'value': {
-                currency_code: currency.code,
-                value: removeNumberPrecision(cartTotal.value, currency.minorUnit),
-                breakdown: getAmountBreakdown(cartTotalItems, currency)
-            }
-        },
-        {
-            'op': !selectedShippingOption ? 'add' : 'replace',
-            'path': '/purchase_units/@reference_id==\'default\'/shipping/options',
-            'value': getFormattedShippingOptions(shippingRates)
-        }
-    ];
-};
-
-export const getAmountBreakdown = (cartTotalItems, currency) => {
-    const breakdown = {
-        item_total: 0
-    };
-    for (const cartItem of cartTotalItems) {
-        switch (cartItem.key) {
-            case 'total_items':
-            case 'total_fees':
-                breakdown.item_total += cartItem.value;
-                break;
-            case 'total_discount':
-                breakdown.discount = getBreakdownItem(cartItem, currency);
-                break;
-            case 'total_shipping':
-                breakdown.shipping = getBreakdownItem(cartItem, currency)
-                break;
-            case 'total_tax':
-                breakdown.tax_total = getBreakdownItem(cartItem, currency)
-                break;
-        }
-    }
-    breakdown.item_total = {
-        value: removeNumberPrecision(breakdown.item_total, currency.minorUnit),
-        currency_code: currency.code
-    };
-    return breakdown;
-}
-
-export const getFormattedShippingOptions = (shippingRates) => {
-    let options = [];
-    shippingRates.forEach((shippingPackage, idx) => {
-        let rates = shippingPackage.shipping_rates.map(rate => {
-            let txt = document.createElement('textarea');
-            txt.innerHTML = rate.name;
-            return {
-                id: getShippingOptionId(idx, rate.rate_id),
-                label: txt.value,
-                type: 'SHIPPING',
-                selected: rate.selected,
-                amount: {
-                    value: removeNumberPrecision(rate.price, rate.currency_minor_unit),
-                    currency_code: rate.currency_code
-                }
-            }
-        });
-        options = [...options, ...rates];
-    });
-    return options;
-}
-
-export const getBreakdownItem = (cartItem, currency) => {
-    return {
-        value: removeNumberPrecision(cartItem.value, currency.minorUnit),
-        currency_code: currency.code
-    }
-}
-export const getFormattedCartItems = (cartTotalItems, currency) => {
-    return cartTotalItems.map(cartItem => getFormattedCartItem(cartItem, currency));
-}
-
-export const getFormattedCartItem = (cartItem, currency) => ({
-    name: cartItem.label,
-    unit_amount: {
-        value: removeNumberPrecision(cartItem.value, currency.minorUnit),
-        currency_code: currency.code
-    },
-    quantity: 1
-})
-
 /**
  * Returns a rest route in ajax form given a route path.
  * @param path
@@ -142,18 +52,6 @@ const getLocaleFields = (country) => {
         }, localeFields);
     }
     return localeFields;
-}
-
-export const isAddressValid = (address, exclude = []) => {
-    const fields = getLocaleFields(address.country);
-    for (const [key, value] of Object.entries(address)) {
-        if (!exclude.includes(key) && fields?.[key] && fields[key].required) {
-            if (isEmpty(value)) {
-                return false;
-            }
-        }
-    }
-    return true;
 }
 
 /**
@@ -202,3 +100,5 @@ export const DEFAULT_BILLING_ADDRESS = {
     ...DEFAULT_SHIPPING_ADDRESS,
     'email': ''
 }
+
+export const i18n = getSetting('ppcpGeneralData').i18n;

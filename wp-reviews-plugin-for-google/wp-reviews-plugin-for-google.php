@@ -9,7 +9,7 @@ Author: Trustindex.io <support@trustindex.io>
 Author URI: https://www.trustindex.io/
 Contributors: trustindex
 License: GPLv2 or later
-Version: 11.5
+Version: 11.6
 Text Domain: wp-reviews-plugin-for-google
 Domain Path: /languages
 Donate link: https://www.trustindex.io/prices/
@@ -19,7 +19,7 @@ Copyright 2019 Trustindex Kft (email: support@trustindex.io)
 */
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 require_once plugin_dir_path( __FILE__ ) . 'trustindex-plugin.class.php';
-$trustindex_pm_google = new TrustindexPlugin_google("google", __FILE__, "11.5", "Widgets for Google Reviews", "Google");
+$trustindex_pm_google = new TrustindexPlugin_google("google", __FILE__, "11.6", "Widgets for Google Reviews", "Google");
 register_activation_hook(__FILE__, [ $trustindex_pm_google, 'activate' ]);
 register_deactivation_hook(__FILE__, [ $trustindex_pm_google, 'deactivate' ]);
 add_action('plugins_loaded', [ $trustindex_pm_google, 'load' ]);
@@ -35,7 +35,7 @@ add_action('init', function() {
 global $trustindex_pm_google;
 if (!isset($trustindex_pm_google) || is_null($trustindex_pm_google)) {
 require_once plugin_dir_path( __FILE__ ) . 'trustindex-plugin.class.php';
-$trustindex_pm_google = new TrustindexPlugin_google("google", __FILE__, "11.5", "Widgets for Google Reviews", "Google");
+$trustindex_pm_google = new TrustindexPlugin_google("google", __FILE__, "11.6", "Widgets for Google Reviews", "Google");
 }
 $path = wp_upload_dir()['baseurl'] .'/'. $trustindex_pm_google->getCssFile(true);
 if (is_ssl()) {
@@ -117,13 +117,13 @@ echo '
 if ($type === 'rate-us') {
 echo '
 <a href="'. admin_url('admin.php?page=wp-reviews-plugin-for-google/settings.php&notification='. $type .'&action=open') .'" class="ti-close-notification" target="_blank">
-<button class="button ti-button-primary button-primary">'. __('Sure, you deserve it', 'trustindex-plugin') .'</button>
+<button class="button ti-button-primary button-primary">'. __('Write a review', 'trustindex-plugin') .'</button>
 </a>
 <a href="'. admin_url('admin.php?page=wp-reviews-plugin-for-google/settings.php&notification='. $type .'&action=later') .'" class="ti-remind-later">
-<button class="button ti-button-default button-secondary">'. __('Maybe later', 'trustindex-plugin') .'</button>
+'. __('Maybe later', 'trustindex-plugin') .'
 </a>
-<a href="'. admin_url('admin.php?page=wp-reviews-plugin-for-google/settings.php&notification='. $type .'&action=hide') .'" class="ti-hide-notification">
-<button class="button ti-button-default button-secondary" style="float: right">'. __('Do not remind me again', 'trustindex-plugin') .'</button>
+<a href="'. admin_url('admin.php?page=wp-reviews-plugin-for-google/settings.php&notification='. $type .'&action=hide') .'" class="ti-hide-notification" style="float: right; margin-top: 14px">
+'. __('Do not remind me again', 'trustindex-plugin') .'
 </a>
 ';
 }

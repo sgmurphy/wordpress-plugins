@@ -20,7 +20,7 @@ function trustindexNotificationOpenRedirect($type)
 {
 $tab = 'free-widget-configurator';
 if (in_array($type, [ 'review-download-available', 'review-download-finished' ])) {
-$tab = 'my_reviews';
+$tab = 'my-reviews';
 }
 header('Location: admin.php?page=' . sanitize_text_field($_GET['page']) .'&tab='. $tab);
 }

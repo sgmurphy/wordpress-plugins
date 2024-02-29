@@ -1,10 +1,10 @@
 === Widget Options – The #1 WordPress Widget & Block Control Plugin ===
 Contributors: marketingfire
-Tags: widgets, blocks, classic widgets, gutenberg, gutenberg blocks, gutenberg widgets, widget area manager, blocks control
+Tags: widgets, blocks, blocks control, gutenberg widgets, classic widgets
 Requires at least: 5.6
 Tested up to: 6.4.3
-Requires PHP: 7.4
-Stable tag: 4.0.0
+Requires PHP: 8
+Stable tag: 4.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -191,6 +191,12 @@ Widget Options is a featured pack fully lightweight plugin. Using Query Monitor 
 14. Elementor Pagebuilder Integration
 
 == Changelog ==
+
+= 4.0.1 =
+
+* Improved: Added UI to enable and disable Widget Options in posts, pages, and other custom post types gutenberg blocks.
+* Fixed: PHP Warning - Undefined array key "content"
+* Fixed: WP_Block_Type_Registry::register error
 
 = 4.0.0 =
 

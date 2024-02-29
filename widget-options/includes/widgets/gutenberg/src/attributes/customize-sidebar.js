@@ -336,8 +336,6 @@ const withSidebarTab = (BlockEdit) => {
     const { editEntityRecord, saveEditedEntityRecord, saveEntityRecord } =
       useDispatch("core");
 
-    console.log({ ...props });
-
     let _entity = useSelect(
       (select) => {
         try {
@@ -367,7 +365,6 @@ const withSidebarTab = (BlockEdit) => {
             );
           }
         } catch ($e) {
-          console.log($e);
           return;
         }
       },
@@ -380,10 +377,10 @@ const withSidebarTab = (BlockEdit) => {
     //     is_auto_save: select("core/editor").isAutosavingPost(),
     //   };
     // });
-    // console.log(is_saving, is_auto_save);
+    //
 
     // useEffect(() => {
-    //   console.log(is_saving, is_auto_save);
+    //
     //   if (is_saving || is_auto_save) {
     //     saveEditedEntityRecord(
     //       "root",
@@ -392,8 +389,6 @@ const withSidebarTab = (BlockEdit) => {
     //     );
     //   }
     // }, [is_saving, is_auto_save]);
-
-    console.log("Entity: ", _entity);
 
     fetchData(props);
 
@@ -554,7 +549,7 @@ const withSidebarTab = (BlockEdit) => {
 
     //this is for block
     if (
-      props.name != "core/legacy-widget" &&
+      props.name != "core/legacy-widget" ||
       props.attributes.extended_widget_opts != undefined
     ) {
       //use the cached if exist
@@ -580,8 +575,9 @@ const withSidebarTab = (BlockEdit) => {
             ? _entity.instance.raw[
                 "extended_widget_opts-" + props.attributes.__internalWidgetId
               ]
-            : props.attributes.extended_widget_opts.id_base ||
-                props.attributes.extended_widget_opts.id_base != undefined
+            : props.attributes.extended_widget_opts != undefined &&
+                (props.attributes.extended_widget_opts.id_base ||
+                  props.attributes.extended_widget_opts.id_base != undefined)
               ? props.attributes.extended_widget_opts
               : {
                   ...widget_opts,
@@ -642,7 +638,6 @@ const withSidebarTab = (BlockEdit) => {
             }
           );
         } catch ($e) {
-          console.log($e);
           saveEntityRecord("root", "widget", {
             ..._entity,
             instance: _instance,

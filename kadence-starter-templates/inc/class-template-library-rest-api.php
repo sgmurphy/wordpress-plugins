@@ -38,6 +38,10 @@ use function wp_remote_get;
 use function wp_remote_retrieve_body;
 use function wp_remote_retrieve_response_code;
 use function wp_get_attachment_url;
+use function wc_create_page;
+use function wc_get_product_object;
+use function wc_switch_to_site_locale;
+use function wc_get_page_id;
 use function KadenceWP\KadenceStarterTemplates\StellarWP\Uplink\get_license_domain;
 use function KadenceWP\KadenceStarterTemplates\StellarWP\Uplink\get_original_domain;
 use function KadenceWP\KadenceStarterTemplates\StellarWP\Uplink\get_license_key;
@@ -2138,6 +2142,12 @@ class Library_REST_Controller extends WP_REST_Controller {
 			$locations[ $location_key ] = $menu_id;
 			set_theme_mod( 'nav_menu_locations', $locations );
 		}
+		// Make sure woocommerce pages are built and set.
+		if ( class_exists( 'WooCommerce' ) ) {
+			if ( is_callable( 'WC_Install::create_pages' ) ) {
+				WC_Install::create_pages();
+			}
+		}
 
 		return rest_ensure_response( 'updated' );
 	}
@@ -2433,6 +2443,9 @@ class Library_REST_Controller extends WP_REST_Controller {
 		if ( isset( $settings['mods'] ) ) {
 			$data['mods'] = $this->process_options_images( $settings['mods'] );
 		}
+		if ( isset( $settings['wp_css'] ) ) {
+			$data['wp_css'] = $settings['wp_css'];
+		}
 		if ( isset( $settings['options'] ) ) {
 			$keys = array_keys( $settings['options'] );
 			$keys = array_map( 'sanitize_key', $keys );
@@ -2452,10 +2465,6 @@ class Library_REST_Controller extends WP_REST_Controller {
 			foreach ( $data['options'] as $option_key => $option_value ) {
 				update_option( $option_key, $option_value );
 			}
-		}
-		// If wp_css is set then import it.
-		if ( function_exists( 'wp_update_custom_css_post' ) && isset( $data['wp_css'] ) && '' !== $data['wp_css'] ) {
-			wp_update_custom_css_post( $data['wp_css'] );
 		}
 
 		// Loop through the mods.
@@ -2565,6 +2574,10 @@ class Library_REST_Controller extends WP_REST_Controller {
 					}
 				}
 			}
+		}
+		// If wp_css is set then import it.
+		if ( function_exists( 'wp_update_custom_css_post' ) && isset( $data['wp_css'] ) && '' !== $data['wp_css'] ) {
+			wp_update_custom_css_post( $data['wp_css'] );
 		}
 		if ( ! empty( $parameters['fonts'] ) ) {
 			$fonts = $parameters['fonts'];
@@ -3061,7 +3074,6 @@ class Library_REST_Controller extends WP_REST_Controller {
 			update_post_meta( $product_id, '_kadence_starter_templates_imported_post', true );
 			$new_products[] = $product_id;
 		}
-
 		if ( empty( $new_products ) ) {
 			return new WP_Error( 'install_failed', __( 'Install failed.' ), array( 'status' => 500 ) );
 		}

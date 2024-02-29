@@ -440,7 +440,7 @@ update_option($pluginManagerInstance->get_option_name('review-download-token'), 
 <input type="hidden" id="ti-noreg-connect-token" name="ti-noreg-connect-token" value="<?php echo $reviewDownloadToken; ?>" />
 <input type="hidden" id="ti-noreg-webhook-url" value="<?php echo $pluginManagerInstance->get_webhook_url(); ?>" />
 <input type="hidden" id="ti-noreg-email" value="<?php echo get_option('admin_email'); ?>" />
-<input type="hidden" id="ti-noreg-version" value="11.5" />
+<input type="hidden" id="ti-noreg-version" value="11.6" />
 <input type="hidden" id="ti-noreg-review-download" name="review_download" value="0" />
 <input type="hidden" id="ti-noreg-review-request-id" name="review_request_id" value="" />
 <input type="hidden" id="ti-noreg-manual-download" name="manual_download" value=0 />

@@ -113,6 +113,9 @@
   "editorScript": [
     "coblocks-1"
   ],
+  "viewScript": [
+    "coblocks-lightbox"
+  ],
   "script": [
     "coblocks-tiny-swiper",
     "coblocks-tinyswiper-initializer"

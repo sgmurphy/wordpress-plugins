@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-22 19:31+0000\n"
+"POT-Creation-Date: 2024-02-29 18:12+0000\n"
 "Project-Id-Version: undefined\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;"
@@ -161,19 +161,19 @@ msgstr ""
 msgid "Register For This Site"
 msgstr ""
 
-#: framework/features/conditions-manager.php:198,
+#: framework/features/conditions-manager.php:200,
 #: framework/premium/extensions/woocommerce-extra/features/shipping-progress/options.php:125
 #: static/js/options/ConditionsManager/SingleCondition.js:89
 msgid "Include"
 msgstr ""
 
-#: framework/features/conditions-manager.php:198,
+#: framework/features/conditions-manager.php:200,
 #: framework/premium/extensions/woocommerce-extra/features/shipping-progress/options.php:126
 #: static/js/options/ConditionsManager/SingleCondition.js:90
 msgid "Exclude"
 msgstr ""
 
-#: framework/features/conditions-manager.php:257
+#: framework/features/conditions-manager.php:259
 msgid "Language"
 msgstr ""
 
@@ -487,7 +487,7 @@ msgstr ""
 
 #: framework/helpers/exts.php:215
 msgid ""
-"Compare products with a clear and concise table system that givis your users "
+"Compare products with a clear and concise table system that gives your users "
 "a way to make a quick decision."
 msgstr ""
 
@@ -2885,7 +2885,7 @@ msgid "Link Hover/Active"
 msgstr ""
 
 #: framework/premium/extensions/mega-menu/options.php:629,
-#: framework/premium/extensions/post-types-extra/features/taxonomies-customization/feature.php:165
+#: framework/premium/extensions/post-types-extra/features/taxonomies-customization/feature.php:167
 msgid "Background Hover"
 msgstr ""
 
@@ -4517,7 +4517,7 @@ msgid "Dropdown Options"
 msgstr ""
 
 #: framework/features/header/items/account/options.php:1927,
-#: framework/premium/extensions/post-types-extra/features/taxonomies-customization/feature.php:150,
+#: framework/premium/extensions/post-types-extra/features/taxonomies-customization/feature.php:152,
 #: framework/premium/extensions/woocommerce-extra/features/offcanvas-filters/options.php:617,
 #: framework/premium/features/premium-header/items/contacts/options.php:567,
 #: framework/premium/features/premium-header/items/contacts/options.php:609,
@@ -5326,25 +5326,25 @@ msgid ""
 "cycling an item."
 msgstr ""
 
-#: framework/premium/extensions/post-types-extra/features/taxonomies-customization/feature.php:118
+#: framework/premium/extensions/post-types-extra/features/taxonomies-customization/feature.php:120
 msgid "Featured Image"
 msgstr ""
 
-#: framework/premium/extensions/post-types-extra/features/taxonomies-customization/feature.php:122,
+#: framework/premium/extensions/post-types-extra/features/taxonomies-customization/feature.php:124,
 #: framework/premium/extensions/woocommerce-extra/features/brands/feature.php:490,
 #: framework/premium/extensions/woocommerce-extra/features/swatches/includes/persist-attributes.php:328
 msgid "Select Image"
 msgstr ""
 
-#: framework/premium/extensions/post-types-extra/features/taxonomies-customization/feature.php:126
+#: framework/premium/extensions/post-types-extra/features/taxonomies-customization/feature.php:128
 msgid "Accent Color"
 msgstr ""
 
-#: framework/premium/extensions/post-types-extra/features/taxonomies-customization/feature.php:155
+#: framework/premium/extensions/post-types-extra/features/taxonomies-customization/feature.php:157
 msgid "Text Hover"
 msgstr ""
 
-#: framework/premium/extensions/post-types-extra/features/taxonomies-customization/feature.php:160
+#: framework/premium/extensions/post-types-extra/features/taxonomies-customization/feature.php:162
 msgid "Background Initial"
 msgstr ""
 

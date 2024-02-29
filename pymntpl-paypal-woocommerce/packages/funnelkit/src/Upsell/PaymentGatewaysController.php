@@ -3,7 +3,6 @@
 namespace PaymentPlugins\PPCP\FunnelKit\Upsell;
 
 use PaymentPlugins\PPCP\FunnelKit\Upsell\PaymentGateways\PayPal;
-use PaymentPlugins\WooCommerce\PPCP\Admin\Settings\APISettings;
 use PaymentPlugins\WooCommerce\PPCP\Constants;
 use PaymentPlugins\WooCommerce\PPCP\Main;
 use PaymentPlugins\WooCommerce\PPCP\Rest\RestController;

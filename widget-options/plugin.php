@@ -4,7 +4,7 @@
  * Plugin Name: Widget Options
  * Plugin URI: https://widget-options.com/
  * Description: Additional Widget and block options for better widget and block control. Turn Widget Options into an even more flexible widget and block area manager. Upgrade to <strong><a href="http://widget-options.com/" target="_blank" >Widget Options Extended</a></strong> today!
- * Version: 4.0.0
+ * Version: 4.0.1
  * Author: Widget Options Team
  * Author URI: https://widget-options.com/
  * Text Domain: widget-options
@@ -92,7 +92,7 @@ if (!class_exists('WP_Widget_Options')) :
 
 			// Plugin version.
 			if (!defined('WIDGETOPTS_VERSION')) {
-				define('WIDGETOPTS_VERSION', '4.0.0');
+				define('WIDGETOPTS_VERSION', '4.0.1');
 			}
 
 			// Plugin Folder Path.
@@ -181,6 +181,7 @@ if (!class_exists('WP_Widget_Options')) :
 					require_once WIDGETOPTS_PLUGIN_DIR . 'includes/admin/settings/modules/beaver_builder.php';
 					require_once WIDGETOPTS_PLUGIN_DIR . 'includes/admin/settings/modules/acf.php';
 					require_once WIDGETOPTS_PLUGIN_DIR . 'includes/admin/settings/modules/state.php';
+					require_once WIDGETOPTS_PLUGIN_DIR . 'includes/admin/settings/modules/page-and-post-block.php';
 				}
 
 				// if( in_array( $pagenow, array( 'widgets.php' ) ) ){

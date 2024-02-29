@@ -3,7 +3,7 @@ Contributors: britner
 Tags: templates, gutenberg
 Requires at least: 6.1
 Tested up to: 6.4
-Stable tag: 2.0.8
+Stable tag: 2.0.9
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -124,6 +124,12 @@ assist you with verification, CVE assignment, and notify the
 developers of this plugin.
 
 == Changelog ==
+
+= 2.0.9 =
+* Update: Tweak how css is applied.
+* Update: Add Swedish to language options in AI wizard.
+* Update: Flow with check before importing.
+* Fix: Possible issue with woocommerce pages.
 
 = 2.0.8 =
 * Add: New language selection for AI wizard.

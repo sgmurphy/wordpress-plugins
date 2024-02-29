@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Payment Plugins for PayPal WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Payment Plugins for PayPal WooCommerce 1.0.44\n"
+"Project-Id-Version: Payment Plugins for PayPal WooCommerce 1.0.45\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pymntpl-paypal-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-16T18:29:22+00:00\n"
+"POT-Creation-Date: 2024-02-29T16:21:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pymntpl-paypal-woocommerce\n"
@@ -30,11 +30,15 @@ msgstr ""
 msgid "Payment Plugins, support@paymentplugins.com"
 msgstr ""
 
-#: packages/blocks/src/Payments/Gateways/PayPalGateway.php:36
-msgid "After clicking \"Pay with PayPal\", you will be redirected to PayPal to complete your purchase securely."
+#: packages/blocks/src/Payments/Gateways/PayPalGateway.php:37
+msgid "After clicking \"%1$s\", you will be redirected to PayPal to complete your purchase securely."
 msgstr ""
 
-#: packages/blocks/src/Payments/Gateways/PayPalGateway.php:37
+#: packages/blocks/src/Payments/Gateways/PayPalGateway.php:68
+msgid "Some required fields are missing. Please review your details and then complete your order with PayPal."
+msgstr ""
+
+#: packages/blocks/src/Payments/Gateways/PayPalGateway.php:97
 #: src/Payments/Gateways/PayPalGateway.php:167
 msgid "Pay with PayPal"
 msgstr ""
@@ -1048,7 +1052,24 @@ msgstr ""
 msgid "PayPal does not support currency %. Please use a supported currency."
 msgstr ""
 
+#: src/Messages.php:23
+msgid "Please click the PayPal button before placing your order."
+msgstr ""
+
+#: src/Messages.php:24
+msgid "Please fill out all billing and shipping fields before clicking PayPal."
+msgstr ""
+
+#: src/Messages.php:25
+msgid "Please fill out all billing fields before clicking PayPal."
+msgstr ""
+
 #: src/Messages.php:26
+#: templates/checkout/paypal.php:29
+msgid "Cancel"
+msgstr ""
+
+#: src/Messages.php:30
 msgid "This merchant account is not permitted to create Merchant Initiated Billing Agreements. Please contact PayPal support and request reference transaction access."
 msgstr ""
 
@@ -1451,7 +1472,7 @@ msgstr ""
 msgid "Your API credentials have been saved and your PayPal account is connected."
 msgstr ""
 
-#: src/Rest/Routes/CartCheckout.php:74
+#: src/Rest/Routes/CartCheckout.php:76
 msgid "Please fill out all required fields then click Place Order."
 msgstr ""
 
@@ -1708,37 +1729,16 @@ msgstr ""
 msgid "Your PayPal payment method is ready to be processed. Please review your order details then click %s"
 msgstr ""
 
-#: templates/checkout/paypal.php:29
-#: packages/blocks/assets/js/payment-methods/paypal/index.js:143
-#: packages/blocks/build/blocks-commons.js:1
-#: packages/blocks/build/blocks-commons.js:716
-msgid "Cancel"
-msgstr ""
-
 #: templates/checkout/paypal.php:33
 msgid "Please connect your PayPal account before using PayPal."
 msgstr ""
 
-#: packages/blocks/assets/js/payment-methods/paypal/hooks/use-paypal-options.js:57
-#: packages/blocks/build/blocks-commons.js:1
-#: packages/blocks/build/blocks-commons.js:235
-msgid "Please fill out all billing and shipping fields before clicking PayPal."
+#: packages/blocks/assets/js/blocks/checkout/block.json
+msgctxt "block title"
+msgid "PayPal checkout block"
 msgstr ""
 
-#: packages/blocks/assets/js/payment-methods/paypal/hooks/use-paypal-options.js:59
-#: packages/blocks/build/blocks-commons.js:1
-#: packages/blocks/build/blocks-commons.js:237
-msgid "Please fill out all billing fields before clicking PayPal."
-msgstr ""
-
-#: packages/blocks/assets/js/payment-methods/paypal/hooks/use-validate-checkout.js:16
-#: packages/blocks/build/blocks-commons.js:1
-#: packages/blocks/build/blocks-commons.js:834
-msgid "Please click the PayPal button before placing your order."
-msgstr ""
-
-#: packages/blocks/assets/js/payment-methods/paypal/index.js:140
-#: packages/blocks/build/blocks-commons.js:1
-#: packages/blocks/build/blocks-commons.js:713
-msgid "Your PayPal payment method is ready to be processed. Please review your order details then click Place Order"
+#: packages/blocks/assets/js/blocks/checkout/block.json
+msgctxt "block description"
+msgid "Adds an invisible block to the checkout page."
 msgstr ""

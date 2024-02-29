@@ -71,7 +71,9 @@ function modify_widget_blocks()
 				'default' => ''
 			);
 
-			register_block_type($block_name, (array) $block_type); // Re-register the block with updated attributes
+			unregister_block_type($block_name);
+
+			register_block_type($block_type); // Re-register the block with updated attributes
 		}
 	}
 }
@@ -136,13 +138,15 @@ function blockopts_filter_before_display($block_content, $parsed_block, $obj)
 	if (is_null($parsed_block['blockName']) || empty($parsed_block['blockName'])) {
 		if (!isset($parsed_block['attrs']) || empty($parsed_block['attrs'])) {
 			$result = null;
-			$is_okay = preg_match("/<!--start_widgetopts[\s]+[{\":,}\w\W]*[\s]+end_widgetopts-->/", $parsed_block['innerContent'][0], $result);
-			if ($is_okay === 1) {
-				if (!is_null($result) && is_array($result)) {
-					$content = str_replace('<!--start_widgetopts', '', $result[0]);
-					$content = str_replace('end_widgetopts-->', '', $content);
-					$content = trim($content);
-					$parsed_block['attrs']['extended_widget_opts'] = json_decode($content, true);
+			if (isset($parsed_block['innerContent']) && !empty($parsed_block['innerContent'][0])) {
+				$is_okay = preg_match("/<!--start_widgetopts[\s]+[{\":,}\w\W]*[\s]+end_widgetopts-->/", $parsed_block['innerContent'][0], $result);
+				if ($is_okay === 1) {
+					if (!is_null($result) && is_array($result)) {
+						$content = str_replace('<!--start_widgetopts', '', $result[0]);
+						$content = str_replace('end_widgetopts-->', '', $content);
+						$content = trim($content);
+						$parsed_block['attrs']['extended_widget_opts'] = json_decode($content, true);
+					}
 				}
 			}
 		}
@@ -927,10 +931,12 @@ function widgetopts_ajax_roles_search_block()
 		'pagination' => ['more' => false]
 	];
 
+	$term = isset($_POST['term']) && !empty($_POST['term']) ? $_POST['term'] : '';
+
 	$roles = wp_roles()->roles;
 	if (!empty($roles)) {
 		foreach ($roles as $role_name => $role_info) {
-			if (stristr($role_name, $_POST['term']) !== false || stristr($role_name, $role_info['name']) !== false) {
+			if ((!empty($term) && stristr($role_name, $term) !== false) || stristr($role_name, $role_info['name']) !== false) {
 				$response['results'][] = [
 					'id' => $role_name,
 					'text' => $role_info['name']

@@ -232,6 +232,12 @@ class Kadence_Starter_Templates_AI_Events {
 					'starter_slug'       => $event_data['slug'] ?? '',
 					'starter_name'       => $event_data['name'] ?? '',
 					'starter_is_dark'    => $event_data['is_dark'] ?? false,
+					'is_pro'             => $event_data['is_pro'] ?? false,
+					'plugins'            => ( ! empty( $event_data['plugins'] ) && is_array( $event_data['plugins'] ) ? implode( ',', $event_data['plugins'] ) : '' ),
+					'pages'            => ( ! empty( $event_data['pages'] ) && is_array( $event_data['pages'] ) ? implode( ',', $event_data['pages'] ) : '' ),
+					'font_pair'          => $event_data['font_pair'] ?? '',
+					'custom_color'       => $event_data['custom_color'] ?? false,
+					'has_content'        => $event_data['has_content'] ?? false,
 					'starter_has_woo'    => $event_data['has_woo'] ?? false,
 					'starter_has_posts'  => $event_data['has_posts'] ?? false,
 				];

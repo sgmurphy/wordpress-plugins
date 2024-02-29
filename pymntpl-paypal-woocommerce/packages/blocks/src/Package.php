@@ -4,6 +4,7 @@
 namespace PaymentPlugins\PPCP\Blocks;
 
 use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
+use PaymentPlugins\PayPalSDK\PayPalClient;
 use PaymentPlugins\PPCP\Blocks\Payments\Gateways\PayPalGateway;
 use PaymentPlugins\WooCommerce\PPCP\Admin\Settings\APISettings;
 use PaymentPlugins\WooCommerce\PPCP\Admin\Settings\PayLaterMessageSettings;
@@ -45,7 +46,10 @@ class Package extends AbstractPackage {
 			);
 		} );
 		$this->container->register( PayPalGateway::class, function ( $container ) {
-			return new PayPalGateway( $container->get( self::ASSETS_API ) );
+			return new PayPalGateway(
+				$container->get( PayPalClient::class ),
+				$container->get( self::ASSETS_API )
+			);
 		} );
 		$this->container->register( PayLaterMessaging::class, function ( $container ) {
 			$instance = new PayLaterMessaging(

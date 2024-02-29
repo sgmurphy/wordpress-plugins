@@ -55,6 +55,8 @@ class CartCheckout extends AbstractCart {
 		// set the checkout nonce so no exceptions are thrown.
 		$_REQUEST['_wpnonce'] = $_POST['_wpnonce'] = wp_create_nonce( 'woocommerce-process_checkout' );
 
+		$this->add_checkout_block_filters();
+
 		WC()->checkout()->process_checkout();
 	}
 
@@ -113,6 +115,37 @@ class CartCheckout extends AbstractCart {
 		}
 		if ( wc_get_page_id( 'terms' ) > 0 ) {
 			$_POST['terms'] = 1;
+		}
+	}
+
+	/**
+	 * If the checkout page is a block, check to see if the billing phone is required. If not required, update the
+	 * WC checkout fields.
+	 *
+	 * @since 1.0.45
+	 * @return void
+	 */
+	private function add_checkout_block_filters() {
+		$checkout_page_id = wc_get_page_id( 'checkout' );
+		if ( function_exists( 'has_block' ) && $checkout_page_id && has_block( 'woocommerce/checkout', $checkout_page_id ) ) {
+			$post   = get_post( $checkout_page_id );
+			$result = parse_blocks( $post->post_content );
+			if ( $result ) {
+				foreach ( $result as $block ) {
+					if ( $block['blockName'] === 'woocommerce/checkout' ) {
+						if ( empty( $block['attrs']['requirePhoneField'] ) ) {
+							add_filter( 'woocommerce_checkout_fields', function ( $fields ) {
+								if ( isset( $fields['billing']['billing_phone'] ) ) {
+									$fields['billing']['billing_phone']['required'] = false;
+								}
+
+								return $fields;
+							} );
+						}
+						break;
+					}
+				}
+			}
 		}
 	}
 

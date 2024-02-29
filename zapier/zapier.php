@@ -3,12 +3,13 @@
 /**
  * Plugin Name:       Zapier for WordPress
  * Description:       Zapier enables you to automatically share your posts to social media, create WordPress posts from Mailchimp newsletters, and much more. Visit https://zapier.com/apps/wordpress/integrations for more details.
- * Version:           1.0.4
+ * Version:           1.0.6
  * Author:            Zapier
  * Author URI:        https://zapier.com
  * License:           Expat (MIT License)
  * License URI:       https://spdx.org/licenses/MIT.html
  */
+
 require_once dirname(__FILE__) . '/vendor/autoload.php';
 use \Firebase\JWT\JWT;
 

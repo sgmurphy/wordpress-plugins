@@ -8,13 +8,16 @@ export const useProcessPaymentFailure = ({event, responseTypes, messageContext =
                 const message = data.processingResponse.paymentDetails.ppcpErrorMessage;
                 return {
                     type: responseTypes.ERROR,
+                    retry: true,
                     message,
                     messageContext
                 }
             }
             return null;
         });
-        return () => unsubscribe();
+        return () => {
+            unsubscribe();
+        };
     }, [event]);
 }
 

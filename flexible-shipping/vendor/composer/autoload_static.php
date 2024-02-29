@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite45be097721ef7cab7e890d03754b216
+class ComposerStaticInitace2cb867378ffcd6341744dd3971a3c
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -162,6 +162,7 @@ class ComposerStaticInite45be097721ef7cab7e890d03754b216
         'FSVendor\\Octolize\\ShippingExtensions\\Tracker\\DataProvider\\ShippingExtensionsDataProvider' => __DIR__ . '/../..' . '/vendor_prefixed/octolize/wp-shipping-extensions/src/ShippingExtensions/Tracker/DataProvider/ShippingExtensionsDataProvider.php',
         'FSVendor\\Octolize\\ShippingExtensions\\Tracker\\Tracker' => __DIR__ . '/../..' . '/vendor_prefixed/octolize/wp-shipping-extensions/src/ShippingExtensions/Tracker/Tracker.php',
         'FSVendor\\Octolize\\ShippingExtensions\\Tracker\\ViewPageTracker' => __DIR__ . '/../..' . '/vendor_prefixed/octolize/wp-shipping-extensions/src/ShippingExtensions/Tracker/ViewPageTracker.php',
+        'FSVendor\\Octolize\\Tracker\\DeactivationTracker\\OctolizeReasonsFactory' => __DIR__ . '/../..' . '/vendor_prefixed/octolize/wp-octolize-tracker/src/DeactivationTracker/OctolizeReasonsFactory.php',
         'FSVendor\\Octolize\\Tracker\\OptInNotice\\OptInNotice' => __DIR__ . '/../..' . '/vendor_prefixed/octolize/wp-octolize-tracker/src/OptInNotice/OptInNotice.php',
         'FSVendor\\Octolize\\Tracker\\OptInNotice\\ShouldDisplay' => __DIR__ . '/../..' . '/vendor_prefixed/octolize/wp-octolize-tracker/src/OptInNotice/ShouldDisplay.php',
         'FSVendor\\Octolize\\Tracker\\OptInNotice\\ShouldDisplayAlways' => __DIR__ . '/../..' . '/vendor_prefixed/octolize/wp-octolize-tracker/src/OptInNotice/ShouldDisplayAlways.php',
@@ -363,7 +364,10 @@ class ComposerStaticInite45be097721ef7cab7e890d03754b216
         'FSVendor\\WPDesk\\Tracker\\Assets' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/Assets.php',
         'FSVendor\\WPDesk\\Tracker\\Deactivation\\AjaxDeactivationDataHandler' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-tracker-deactivation/src/WPDesk/Tracker/Deactivation/AjaxDeactivationDataHandler.php',
         'FSVendor\\WPDesk\\Tracker\\Deactivation\\DeactivationContent' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-tracker-deactivation/src/WPDesk/Tracker/Deactivation/DeactivationContent.php',
+        'FSVendor\\WPDesk\\Tracker\\Deactivation\\DefaultReasonsFactory' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-tracker-deactivation/src/WPDesk/Tracker/Deactivation/DefaultReasonsFactory.php',
         'FSVendor\\WPDesk\\Tracker\\Deactivation\\PluginData' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-tracker-deactivation/src/WPDesk/Tracker/Deactivation/PluginData.php',
+        'FSVendor\\WPDesk\\Tracker\\Deactivation\\Reason' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-tracker-deactivation/src/WPDesk/Tracker/Deactivation/Reason.php',
+        'FSVendor\\WPDesk\\Tracker\\Deactivation\\ReasonsFactory' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-tracker-deactivation/src/WPDesk/Tracker/Deactivation/ReasonsFactory.php',
         'FSVendor\\WPDesk\\Tracker\\Deactivation\\Scripts' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-tracker-deactivation/src/WPDesk/Tracker/Deactivation/Scripts.php',
         'FSVendor\\WPDesk\\Tracker\\Deactivation\\Thickbox' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-tracker-deactivation/src/WPDesk/Tracker/Deactivation/Thickbox.php',
         'FSVendor\\WPDesk\\Tracker\\Deactivation\\Tracker' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-tracker-deactivation/src/WPDesk/Tracker/Deactivation/Tracker.php',
@@ -643,9 +647,9 @@ class ComposerStaticInite45be097721ef7cab7e890d03754b216
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite45be097721ef7cab7e890d03754b216::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite45be097721ef7cab7e890d03754b216::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite45be097721ef7cab7e890d03754b216::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitace2cb867378ffcd6341744dd3971a3c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitace2cb867378ffcd6341744dd3971a3c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitace2cb867378ffcd6341744dd3971a3c::$classMap;
 
         }, null, ClassLoader::class);
     }

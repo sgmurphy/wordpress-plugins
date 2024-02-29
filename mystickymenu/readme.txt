@@ -3,7 +3,7 @@ Contributors: tomeraharon, galdub, premio
 Tags:notification bar, floating bar, menu, header, countdown, sticky menu, sticky header, floating menu, navigation menu, navigation, welcome bar, hello bar, top bar, sticky bar
 Requires at least: 3.5.1
 Tested up to: 6.4
-Stable tag: 2.6.7
+Stable tag: 2.6.8
 License: GPLv2 or later
 
 🔔 Create a beautiful welcome notification bar for your website. Also, My Sticky Bar plugin can make your menu or header sticky to the top when scrolled 📌
@@ -370,6 +370,9 @@ After installing the plugin, you’ll have the option to turn on the welcome bar
 
 
 == Changelog ==
+
+= 2.6.8 =
+Editor access bug fixed
 
 = 2.6.7 =
 Leads page export bug fixed

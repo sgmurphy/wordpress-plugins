@@ -83,31 +83,6 @@ if (!function_exists('widgetopts_admin_notices')) :
     add_action('admin_notices', 'widgetopts_admin_notices');
 endif;
 
-if (!function_exists('widgetopts_admin_notice_after_plugin_update')) {
-    /**
-     * This function runs when WordPress completes its upgrade process
-     * It iterates through each plugin updated to see if widgetopts is included
-     * @param $upgrader_object Array
-     * @param $options Array
-     */
-    function widgetopts_admin_notice_after_plugin_update($upgrader_object, $options)
-    {
-        // The path to our plugin's main file
-        $widgetopts_plugin = defined('WIDGETOPTS_PLUGIN_FILE') ? plugin_basename(WIDGETOPTS_PLUGIN_FILE) : "widget-options/plugin.php";
-        // If an update has taken place and the updated type is plugins and the plugins element exists
-        if ($options['action'] == 'update' && $options['type'] == 'plugin' && isset($options['plugins']) && isset($options['version']) && intval(str_pad(preg_replace('/\./i', '', $options['version']), 3, '0', STR_PAD_RIGHT)) >= 400) {
-            // Iterate through the plugins being updated and check if widgetopts is there
-            foreach ($options['plugins'] as $plugin) {
-                if ($plugin == $widgetopts_plugin) {
-                    // Set a transient to record that our plugin has just been updated
-                    set_transient('widgetopts_free_updated', 1);
-                }
-            }
-        }
-    }
-    add_action('upgrader_process_complete', 'widgetopts_admin_notice_after_plugin_update', 10, 2);
-}
-
 if (!function_exists('widgetopts_display_update_admin_notice')) {
     /**
      * Show a notice to anyone who has just updated this plugin
@@ -115,8 +90,26 @@ if (!function_exists('widgetopts_display_update_admin_notice')) {
      */
     function widgetopts_display_update_admin_notice()
     {
-        // Check the transient to see if we've just updated the plugin
-        if (get_transient('widgetopts_free_updated')) {
+        $current = defined('WIDGETOPTS_VERSION') ? intval(str_pad(preg_replace('/\./i', '', WIDGETOPTS_VERSION), 3, '0', STR_PAD_RIGHT)) : 400;
+
+        if ($current >= 400) {
+            if (!get_option('widgetopts_upgrade')) {
+                add_option('widgetopts_upgrade', 1);
+            }
+
+            if (!get_option('widgetopts_version')) {
+                add_option('widgetopts_version', $current);
+            } else {
+                if (intval(get_option('widgetopts_version')) < $current) {
+                    update_option('widgetopts_version', $current);
+                    update_option('widgetopts_upgrade', 1);
+                }
+            }
+        }
+
+        $v = get_option('widgetopts_upgrade');
+        // Check the option to see if we've just updated the plugin
+        if (intval($v) == 1) {
             echo '<div class="notice notice-success is-dismissible widgetopts-notice" style="border-left-color: #064466"><h3 style="margin-bottom: 0;">' . __('Exciting news! Widget Options is now a Gutenberg Block-Enabled plugin.', 'widget-options') . '</h3><p><strong>
             ' . __('Explore the Gutenberg Widget Options in the Block Widget Editor and Posts/Pages Block for an elevated experience!', 'widget-options') . '</strong></p>
             ' . wp_nonce_field('widgetopts-settings-nonce', 'widgetopts-settings-nonce') . '

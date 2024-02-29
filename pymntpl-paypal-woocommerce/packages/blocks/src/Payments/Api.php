@@ -11,6 +11,7 @@ use PaymentPlugins\PPCP\Blocks\Payments\Gateways\PayPalExpressGateway;
 use PaymentPlugins\PPCP\Blocks\Payments\Gateways\PayPalGateway;
 use PaymentPlugins\WooCommerce\PPCP\Admin\Settings\APISettings;
 use PaymentPlugins\WooCommerce\PPCP\Container\Container;
+use PaymentPlugins\WooCommerce\PPCP\Messages;
 use PaymentPlugins\WooCommerce\PPCP\Rest\RestController;
 
 class Api {
@@ -58,11 +59,12 @@ class Api {
 	public function add_payment_method_data( $context ) {
 		if ( ! $this->data_api->exists( 'ppcpGeneralData' ) ) {
 			$data = [
-				'clientId'       => $this->api_settings->get_client_id(),
-				'environment'    => $this->api_settings->get_environment(),
-				'context'        => $context,
-				'isAdmin'        => current_user_can( 'manage_woocommerce' ),
-				'blocksVersion'  => \Automattic\WooCommerce\Blocks\Package::get_version()
+				'clientId'      => $this->api_settings->get_client_id(),
+				'environment'   => $this->api_settings->get_environment(),
+				'context'       => $context,
+				'isAdmin'       => current_user_can( 'manage_woocommerce' ),
+				'blocksVersion' => \Automattic\WooCommerce\Blocks\Package::get_version(),
+				'i18n'          => wc_ppcp_get_container()->get( Messages::class )->get_messages()
 			];
 			$this->data_api->add( 'ppcpGeneralData', $this->rest_controller->add_asset_data( $data ) );
 		}

@@ -45,8 +45,8 @@ $manifestJson = '{
     "file": "css/App.CK7bzYV8.css",
     "src": "_App.!~{04c}~.js"
   },
-  "_App.FIlGmRuo.js": {
-    "file": "js/App.FIlGmRuo.js",
+  "_App.isxNg9ip.js": {
+    "file": "js/App.isxNg9ip.js",
     "imports": [
       "_links.BhxvVKuk.js",
       "_allowed.BqqivOa5.js",
@@ -87,7 +87,7 @@ $manifestJson = '{
       "_Blur.B433XVqJ.js",
       "_Index.Ck0NNxBQ.js",
       "_WpTable.CrrU5x2U.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_PostTypes.Cef6XkQ_.js",
       "_InternalOutbound.CfM4VZLz.js",
       "_RequiredPlans.cCaGWq6E.js",
@@ -97,7 +97,7 @@ $manifestJson = '{
       "_ImageUploader.DrSIpvuy.js",
       "_TwitterPreview.DzM2YR9o.js",
       "_Build.CQX7DDZt.js",
-      "_Redirects.DihlLQqG.js",
+      "_Redirects.Bf1f8S-e.js",
       "_Upsell._vCcWCLw.js"
     ],
     "css": [
@@ -823,11 +823,11 @@ $manifestJson = '{
     "file": "css/Modal.nD_BRSyM.css",
     "src": "_Modal.!~{04s}~.js"
   },
-  "_Modal.CdmaCasu.js": {
-    "file": "js/Modal.CdmaCasu.js",
+  "_Modal.CwADQShV.js": {
+    "file": "js/Modal.CwADQShV.js",
     "imports": [
       "_ScoreButton.Di04Mqf2.js",
-      "_App.FIlGmRuo.js",
+      "_App.isxNg9ip.js",
       "_Caret.Cuasz9Up.js",
       "_vue.esm-bundler.DzelZkHk.js",
       "__plugin-vue_export-helper.BN1snXvA.js"
@@ -922,15 +922,15 @@ $manifestJson = '{
     "file": "css/PostsTable.BbbHy9b4.css",
     "src": "_PostsTable.!~{04x}~.js"
   },
-  "_PostsTable.C8nRl01u.js": {
-    "file": "js/PostsTable.C8nRl01u.js",
+  "_PostsTable.167rEUDR.js": {
+    "file": "js/PostsTable.167rEUDR.js",
     "imports": [
       "_links.BhxvVKuk.js",
       "_license.B4xmRPjf.js",
       "_numbers.ursUutt1.js",
       "_WpTable.CrrU5x2U.js",
       "_ScoreButton.Di04Mqf2.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_Index.Ck0NNxBQ.js",
       "_LicenseConditions.p5Bq5TVC.js",
       "_vue.esm-bundler.DzelZkHk.js",
@@ -977,14 +977,14 @@ $manifestJson = '{
       "css/RadioToggle.B58EmTGK.css"
     ]
   },
-  "_Redirects.DihlLQqG.js": {
-    "file": "js/Redirects.DihlLQqG.js",
+  "_Redirects.Bf1f8S-e.js": {
+    "file": "js/Redirects.Bf1f8S-e.js",
     "imports": [
       "_links.BhxvVKuk.js",
       "_Index.aoj5xPSe.js",
       "_Blur.B433XVqJ.js",
       "_Card.DILuNRbD.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_vue.esm-bundler.DzelZkHk.js",
       "__plugin-vue_export-helper.BN1snXvA.js",
       "_Index.Ck0NNxBQ.js",
@@ -1335,11 +1335,11 @@ $manifestJson = '{
     ]
   },
   "_Table.!~{03t}~.js": {
-    "file": "css/Table.BYbl1DMU.css",
+    "file": "css/Table.CH7puFu1.css",
     "src": "_Table.!~{03t}~.js"
   },
-  "_Table.BOJJRD1q.js": {
-    "file": "js/Table.BOJJRD1q.js",
+  "_Table.Bz5gy8WC.js": {
+    "file": "js/Table.Bz5gy8WC.js",
     "imports": [
       "_numbers.ursUutt1.js",
       "_Caret.Cuasz9Up.js",
@@ -1350,7 +1350,7 @@ $manifestJson = '{
       "_default-i18n.BtxsUzQk.js"
     ],
     "css": [
-      "css/Table.BYbl1DMU.css"
+      "css/Table.CH7puFu1.css"
     ]
   },
   "_Tabs.!~{02C}~.js": {
@@ -2972,7 +2972,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/redirects/main.js": {
-    "file": "redirects.VbOfnzFR.js",
+    "file": "redirects.Dw9sTWAD.js",
     "src": "src/vue/pages/redirects/main.js",
     "isEntry": true,
     "imports": [
@@ -3004,7 +3004,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/redirects/views/Main.vue": {
-    "file": "js/Main.xZ2G6nT9.js",
+    "file": "js/Main.M8EpWru1.js",
     "src": "src/vue/pages/redirects/views/Main.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -3043,7 +3043,7 @@ $manifestJson = '{
       "_constants.DARe-ccJ.js",
       "_Exclamation.BU2oeqa4.js",
       "_Gear.CzHv0eD2.js",
-      "_Redirects.DihlLQqG.js",
+      "_Redirects.Bf1f8S-e.js",
       "_Index.aoj5xPSe.js",
       "_JsonValues.D25FTfEu.js",
       "_strings.BSdKmKF9.js",
@@ -3063,7 +3063,7 @@ $manifestJson = '{
       "_Plus.CShy191p.js",
       "_Blur.B433XVqJ.js",
       "_Card.DILuNRbD.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_Index.Ck0NNxBQ.js",
       "_Row.ou4tdPuA.js",
       "_RequiredPlans.cCaGWq6E.js",
@@ -3075,13 +3075,13 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/redirects/views/Redirects.vue": {
-    "file": "js/Redirects.DCAdwjjK.js",
+    "file": "js/Redirects.DRxG4w0N.js",
     "src": "src/vue/pages/redirects/views/Redirects.vue",
     "isDynamicEntry": true,
     "imports": [
       "_vue.esm-bundler.DzelZkHk.js",
       "__plugin-vue_export-helper.BN1snXvA.js",
-      "_Redirects.DihlLQqG.js",
+      "_Redirects.Bf1f8S-e.js",
       "_AddonConditions.BScDIuTJ.js",
       "_links.BhxvVKuk.js",
       "_default-i18n.BtxsUzQk.js",
@@ -3113,7 +3113,7 @@ $manifestJson = '{
       "_Plus.CShy191p.js",
       "_Blur.B433XVqJ.js",
       "_Card.DILuNRbD.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_numbers.ursUutt1.js",
       "_Index.Ck0NNxBQ.js",
       "_Row.ou4tdPuA.js",
@@ -3125,7 +3125,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/search-appearance/main.js": {
-    "file": "search-appearance.CMH7AMeD.js",
+    "file": "search-appearance.B_FE2Vqc.js",
     "src": "src/vue/pages/search-appearance/main.js",
     "isEntry": true,
     "imports": [
@@ -3248,7 +3248,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/search-appearance/views/AuthorSeo.vue": {
-    "file": "js/AuthorSeo.DHuKNGpC.js",
+    "file": "js/AuthorSeo.-4xIYjum.js",
     "src": "src/vue/pages/search-appearance/views/AuthorSeo.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -3341,7 +3341,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/search-appearance/views/EeatCta.vue": {
-    "file": "js/EeatCta.OFWVQsik.js",
+    "file": "js/EeatCta.DQjtI2Xg.js",
     "src": "src/vue/pages/search-appearance/views/EeatCta.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -3428,7 +3428,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/search-appearance/views/Main.vue": {
-    "file": "js/Main.C999yh-e.js",
+    "file": "js/Main.D36INnCl.js",
     "src": "src/vue/pages/search-appearance/views/Main.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -3635,7 +3635,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/search-statistics/main.js": {
-    "file": "search-statistics.CbsItnLP.js",
+    "file": "search-statistics.DEJb45Pd.js",
     "src": "src/vue/pages/search-statistics/main.js",
     "isEntry": true,
     "imports": [
@@ -3674,7 +3674,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/search-statistics/views/ContentRankings.vue": {
-    "file": "js/ContentRankings.wSWNCPg4.js",
+    "file": "js/ContentRankings._AIp-sOY.js",
     "src": "src/vue/pages/search-statistics/views/ContentRankings.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -3682,7 +3682,7 @@ $manifestJson = '{
       "_Caret.Cuasz9Up.js",
       "_Blur.B433XVqJ.js",
       "_Row.ou4tdPuA.js",
-      "_PostsTable.C8nRl01u.js",
+      "_PostsTable.167rEUDR.js",
       "_vue.esm-bundler.DzelZkHk.js",
       "__plugin-vue_export-helper.BN1snXvA.js",
       "_Index.Ck0NNxBQ.js",
@@ -3697,7 +3697,7 @@ $manifestJson = '{
       "_numbers.ursUutt1.js",
       "_WpTable.CrrU5x2U.js",
       "_ScoreButton.Di04Mqf2.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_Tooltip.DcUmvaHX.js",
       "_Slide.BfXXFx9A.js",
       "_IndexStatus.DWPPjohw.js",
@@ -3713,7 +3713,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/search-statistics/views/Dashboard.vue": {
-    "file": "js/Dashboard.D0cJHIsg.js",
+    "file": "js/Dashboard.CX2ydTaU.js",
     "src": "src/vue/pages/search-statistics/views/Dashboard.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -3733,7 +3733,7 @@ $manifestJson = '{
       "_Caret.Cuasz9Up.js",
       "_Tooltip.DcUmvaHX.js",
       "_LicenseConditions.p5Bq5TVC.js",
-      "_PostsTable.C8nRl01u.js",
+      "_PostsTable.167rEUDR.js",
       "_Index.Ck0NNxBQ.js",
       "_RequiredPlans.cCaGWq6E.js",
       "_default-i18n.BtxsUzQk.js",
@@ -3754,7 +3754,7 @@ $manifestJson = '{
       "_toString.EVG10Qqs.js",
       "_WpTable.CrrU5x2U.js",
       "_ScoreButton.Di04Mqf2.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_IndexStatus.DWPPjohw.js",
       "_PostTypes.Cef6XkQ_.js",
       "_constants.DARe-ccJ.js",
@@ -3765,7 +3765,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/search-statistics/views/KeywordRankings.vue": {
-    "file": "js/KeywordRankings.AMzVOnpB.js",
+    "file": "js/KeywordRankings.CvhqgTOQ.js",
     "src": "src/vue/pages/search-statistics/views/KeywordRankings.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -3783,7 +3783,7 @@ $manifestJson = '{
       "_PostTypes.Cef6XkQ_.js",
       "_LicenseConditions.p5Bq5TVC.js",
       "_Tooltip.DcUmvaHX.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_Index.Ck0NNxBQ.js",
       "_Caret.Cuasz9Up.js",
       "_RequiredPlans.cCaGWq6E.js",
@@ -3805,7 +3805,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/search-statistics/views/Main.vue": {
-    "file": "js/Main.mTXCJ45l.js",
+    "file": "js/Main.Drbzqpxx.js",
     "src": "src/vue/pages/search-statistics/views/Main.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -3855,10 +3855,10 @@ $manifestJson = '{
       "_Exclamation.BU2oeqa4.js",
       "_Gear.CzHv0eD2.js",
       "_Row.ou4tdPuA.js",
-      "_PostsTable.C8nRl01u.js",
+      "_PostsTable.167rEUDR.js",
       "_WpTable.CrrU5x2U.js",
       "_ScoreButton.Di04Mqf2.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_Tooltip.DcUmvaHX.js",
       "_LicenseConditions.p5Bq5TVC.js",
       "__arrayEach.Fgt6pfHj.js",
@@ -3880,7 +3880,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/search-statistics/views/SeoStatistics.vue": {
-    "file": "js/SeoStatistics.BRtjIEVv.js",
+    "file": "js/SeoStatistics.CJPl8QRo.js",
     "src": "src/vue/pages/search-statistics/views/SeoStatistics.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -3889,7 +3889,7 @@ $manifestJson = '{
       "_Card.DILuNRbD.js",
       "_SeoStatisticsOverview.CXk6kIFg.js",
       "_Row.ou4tdPuA.js",
-      "_PostsTable.C8nRl01u.js",
+      "_PostsTable.167rEUDR.js",
       "_vue.esm-bundler.DzelZkHk.js",
       "__plugin-vue_export-helper.BN1snXvA.js",
       "_Index.Ck0NNxBQ.js",
@@ -3908,7 +3908,7 @@ $manifestJson = '{
       "_toString.EVG10Qqs.js",
       "_WpTable.CrrU5x2U.js",
       "_ScoreButton.Di04Mqf2.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_IndexStatus.DWPPjohw.js",
       "_PostTypes.Cef6XkQ_.js",
       "_constants.DARe-ccJ.js",
@@ -4184,7 +4184,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/settings/main.js": {
-    "file": "settings.Bkos1FXn.js",
+    "file": "settings.CgU4nXTK.js",
     "src": "src/vue/pages/settings/main.js",
     "isEntry": true,
     "imports": [
@@ -4312,7 +4312,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/settings/views/GeneralSettings.vue": {
-    "file": "js/GeneralSettings.By0eFUEw.js",
+    "file": "js/GeneralSettings.DiTnrhEK.js",
     "src": "src/vue/pages/settings/views/GeneralSettings.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -4323,7 +4323,7 @@ $manifestJson = '{
       "_GettingStarted.D26ij_z5.js",
       "_SettingsRow.B0N4hwjp.js",
       "_Network.QT4NQYXq.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_Index.Ck0NNxBQ.js",
       "_CheckSolid.C5-uPd5a.js",
       "_vue.esm-bundler.DzelZkHk.js",
@@ -4350,7 +4350,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/settings/views/Main.vue": {
-    "file": "js/Main.BGx7BKqs.js",
+    "file": "js/Main.D3kUCCAo.js",
     "src": "src/vue/pages/settings/views/Main.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -4419,7 +4419,7 @@ $manifestJson = '{
       "_Book.iWCUYtMr.js",
       "_Rocket.DfBIByRc.js",
       "_Network.QT4NQYXq.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_popup.Dv7cb5WI.js",
       "_External.bx7ZSfw_.js",
       "_MetaTag.DqRyrWzk.js",
@@ -4501,7 +4501,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/sitemaps/main.js": {
-    "file": "sitemaps.Dr6K-_Rd.js",
+    "file": "sitemaps.ByuH58my.js",
     "src": "src/vue/pages/sitemaps/main.js",
     "isEntry": true,
     "imports": [
@@ -4533,7 +4533,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/sitemaps/views/AdditionalPages.vue": {
-    "file": "js/AdditionalPages.DzIf7CcJ.js",
+    "file": "js/AdditionalPages.VHk_ye6O.js",
     "src": "src/vue/pages/sitemaps/views/AdditionalPages.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -4548,7 +4548,7 @@ $manifestJson = '{
       "_Exclamation.BU2oeqa4.js",
       "_vue.esm-bundler.DzelZkHk.js",
       "__plugin-vue_export-helper.BN1snXvA.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_Card.DILuNRbD.js",
       "_Tooltip.DcUmvaHX.js",
       "_index.DX4OhBfI.js",
@@ -4571,7 +4571,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/sitemaps/views/GeneralSitemap.vue": {
-    "file": "js/GeneralSitemap.DmJMv8Yx.js",
+    "file": "js/GeneralSitemap.0R0H6Shr.js",
     "src": "src/vue/pages/sitemaps/views/GeneralSitemap.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -4605,7 +4605,7 @@ $manifestJson = '{
       "__baseTrim.BYZhh0MR.js",
       "_Index.DqmzQR7m.js",
       "_Exclamation.BU2oeqa4.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_numbers.ursUutt1.js",
       "_Tooltip.DcUmvaHX.js",
       "_Slide.BfXXFx9A.js",
@@ -4656,7 +4656,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/pages/sitemaps/views/Main.vue": {
-    "file": "js/Main.By_5g9e2.js",
+    "file": "js/Main.Bn8sxCXu.js",
     "src": "src/vue/pages/sitemaps/views/Main.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -4708,7 +4708,7 @@ $manifestJson = '{
       "_toNumber.DHWd7Z3r.js",
       "__baseTrim.BYZhh0MR.js",
       "_Index.DqmzQR7m.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_Tooltip.DcUmvaHX.js",
       "_Card.DILuNRbD.js",
       "_Checkbox.CfGJSeWE.js",
@@ -5706,7 +5706,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/standalone/page-builders/avada/main.js": {
-    "file": "avada.CXnfFUnE.js",
+    "file": "avada.DAMLnxU3.js",
     "src": "src/vue/standalone/page-builders/avada/main.js",
     "isEntry": true,
     "imports": [
@@ -5722,7 +5722,7 @@ $manifestJson = '{
       "_DatePicker.Fo6RG_Vt.js",
       "_ScoreButton.Di04Mqf2.js",
       "_LogoGear.oMlhtqmB.js",
-      "_App.FIlGmRuo.js",
+      "_App.isxNg9ip.js",
       "_translations.B4Iz5cbd.js",
       "_constants.DARe-ccJ.js",
       "__plugin-vue_export-helper.BN1snXvA.js",
@@ -5775,7 +5775,7 @@ $manifestJson = '{
       "_Blur.B433XVqJ.js",
       "_Index.Ck0NNxBQ.js",
       "_WpTable.CrrU5x2U.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_numbers.ursUutt1.js",
       "_PostTypes.Cef6XkQ_.js",
       "_InternalOutbound.CfM4VZLz.js",
@@ -5788,7 +5788,7 @@ $manifestJson = '{
       "_TwitterPreview.DzM2YR9o.js",
       "_Book.iWCUYtMr.js",
       "_Build.CQX7DDZt.js",
-      "_Redirects.DihlLQqG.js",
+      "_Redirects.Bf1f8S-e.js",
       "_Index.aoj5xPSe.js",
       "_External.bx7ZSfw_.js",
       "_Exclamation.BU2oeqa4.js",
@@ -5825,7 +5825,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/standalone/page-builders/divi/main.js": {
-    "file": "divi.CvNFnrXm.js",
+    "file": "divi.cIHeB8nu.js",
     "src": "src/vue/standalone/page-builders/divi/main.js",
     "isEntry": true,
     "imports": [
@@ -5841,7 +5841,7 @@ $manifestJson = '{
       "_DatePicker.Fo6RG_Vt.js",
       "_default-i18n.BtxsUzQk.js",
       "_index.3BJ3ZnWB.js",
-      "_Modal.CdmaCasu.js",
+      "_Modal.CwADQShV.js",
       "_translations.B4Iz5cbd.js",
       "_constants.DARe-ccJ.js",
       "__plugin-vue_export-helper.BN1snXvA.js",
@@ -5857,7 +5857,7 @@ $manifestJson = '{
       "_debounce.vOAperWf.js",
       "_toNumber.DHWd7Z3r.js",
       "_ScoreButton.Di04Mqf2.js",
-      "_App.FIlGmRuo.js",
+      "_App.isxNg9ip.js",
       "_allowed.BqqivOa5.js",
       "_params.B3T1WKlC.js",
       "_JsonValues.D25FTfEu.js",
@@ -5897,7 +5897,7 @@ $manifestJson = '{
       "_Blur.B433XVqJ.js",
       "_Index.Ck0NNxBQ.js",
       "_WpTable.CrrU5x2U.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_numbers.ursUutt1.js",
       "_PostTypes.Cef6XkQ_.js",
       "_InternalOutbound.CfM4VZLz.js",
@@ -5910,7 +5910,7 @@ $manifestJson = '{
       "_TwitterPreview.DzM2YR9o.js",
       "_Book.iWCUYtMr.js",
       "_Build.CQX7DDZt.js",
-      "_Redirects.DihlLQqG.js",
+      "_Redirects.Bf1f8S-e.js",
       "_Index.aoj5xPSe.js",
       "_External.bx7ZSfw_.js",
       "_Exclamation.BU2oeqa4.js",
@@ -5925,7 +5925,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/standalone/page-builders/elementor/main.js": {
-    "file": "elementor.1LMuS6Km.js",
+    "file": "elementor.DyTg6Iu2.js",
     "src": "src/vue/standalone/page-builders/elementor/main.js",
     "isEntry": true,
     "imports": [
@@ -5940,7 +5940,7 @@ $manifestJson = '{
       "_DatePicker.Fo6RG_Vt.js",
       "_isEmpty.BWu-tYPE.js",
       "_default-i18n.BtxsUzQk.js",
-      "_App.FIlGmRuo.js",
+      "_App.isxNg9ip.js",
       "_translations.B4Iz5cbd.js",
       "_constants.DARe-ccJ.js",
       "_Caret.Cuasz9Up.js",
@@ -5995,7 +5995,7 @@ $manifestJson = '{
       "_Blur.B433XVqJ.js",
       "_Index.Ck0NNxBQ.js",
       "_WpTable.CrrU5x2U.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_numbers.ursUutt1.js",
       "_PostTypes.Cef6XkQ_.js",
       "_InternalOutbound.CfM4VZLz.js",
@@ -6008,7 +6008,7 @@ $manifestJson = '{
       "_TwitterPreview.DzM2YR9o.js",
       "_Book.iWCUYtMr.js",
       "_Build.CQX7DDZt.js",
-      "_Redirects.DihlLQqG.js",
+      "_Redirects.Bf1f8S-e.js",
       "_Index.aoj5xPSe.js",
       "_External.bx7ZSfw_.js",
       "_Exclamation.BU2oeqa4.js",
@@ -6022,7 +6022,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/standalone/page-builders/seedprod/main.js": {
-    "file": "seedprod.D9Wxr13j.js",
+    "file": "seedprod.xx8qF1hg.js",
     "src": "src/vue/standalone/page-builders/seedprod/main.js",
     "isEntry": true,
     "imports": [
@@ -6037,7 +6037,7 @@ $manifestJson = '{
       "_isEmpty.BWu-tYPE.js",
       "_default-i18n.BtxsUzQk.js",
       "_elemLoaded.COgXIo-H.js",
-      "_App.FIlGmRuo.js",
+      "_App.isxNg9ip.js",
       "_translations.B4Iz5cbd.js",
       "_constants.DARe-ccJ.js",
       "_Caret.Cuasz9Up.js",
@@ -6091,7 +6091,7 @@ $manifestJson = '{
       "_Blur.B433XVqJ.js",
       "_Index.Ck0NNxBQ.js",
       "_WpTable.CrrU5x2U.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_numbers.ursUutt1.js",
       "_PostTypes.Cef6XkQ_.js",
       "_InternalOutbound.CfM4VZLz.js",
@@ -6104,7 +6104,7 @@ $manifestJson = '{
       "_TwitterPreview.DzM2YR9o.js",
       "_Book.iWCUYtMr.js",
       "_Build.CQX7DDZt.js",
-      "_Redirects.DihlLQqG.js",
+      "_Redirects.Bf1f8S-e.js",
       "_Index.aoj5xPSe.js",
       "_External.bx7ZSfw_.js",
       "_Exclamation.BU2oeqa4.js",
@@ -6120,7 +6120,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/standalone/page-builders/wpbakery/main.js": {
-    "file": "wpbakery.DSqGx4Op.js",
+    "file": "wpbakery.CgiIHKaR.js",
     "src": "src/vue/standalone/page-builders/wpbakery/main.js",
     "isEntry": true,
     "imports": [
@@ -6135,7 +6135,7 @@ $manifestJson = '{
       "_DatePicker.Fo6RG_Vt.js",
       "_default-i18n.BtxsUzQk.js",
       "_index.3BJ3ZnWB.js",
-      "_Modal.CdmaCasu.js",
+      "_Modal.CwADQShV.js",
       "_ScoreButton.Di04Mqf2.js",
       "_LogoGear.oMlhtqmB.js",
       "_translations.B4Iz5cbd.js",
@@ -6152,7 +6152,7 @@ $manifestJson = '{
       "__getTag.0B4_HiWU.js",
       "_debounce.vOAperWf.js",
       "_toNumber.DHWd7Z3r.js",
-      "_App.FIlGmRuo.js",
+      "_App.isxNg9ip.js",
       "_allowed.BqqivOa5.js",
       "_params.B3T1WKlC.js",
       "_JsonValues.D25FTfEu.js",
@@ -6191,7 +6191,7 @@ $manifestJson = '{
       "_Blur.B433XVqJ.js",
       "_Index.Ck0NNxBQ.js",
       "_WpTable.CrrU5x2U.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_numbers.ursUutt1.js",
       "_PostTypes.Cef6XkQ_.js",
       "_InternalOutbound.CfM4VZLz.js",
@@ -6204,7 +6204,7 @@ $manifestJson = '{
       "_TwitterPreview.DzM2YR9o.js",
       "_Book.iWCUYtMr.js",
       "_Build.CQX7DDZt.js",
-      "_Redirects.DihlLQqG.js",
+      "_Redirects.Bf1f8S-e.js",
       "_Index.aoj5xPSe.js",
       "_External.bx7ZSfw_.js",
       "_Exclamation.BU2oeqa4.js",
@@ -6219,7 +6219,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/standalone/post-settings/main.js": {
-    "file": "post-settings.C81OqwSL.js",
+    "file": "post-settings.DINvG_-N.js",
     "src": "src/vue/standalone/post-settings/main.js",
     "isEntry": true,
     "imports": [
@@ -6232,7 +6232,7 @@ $manifestJson = '{
       "_links.BhxvVKuk.js",
       "_postSlug.FF8bFoUR.js",
       "_debounce.vOAperWf.js",
-      "_App.FIlGmRuo.js",
+      "_App.isxNg9ip.js",
       "_metabox.fwOS5wS6.js",
       "_default-i18n.BtxsUzQk.js",
       "_elemLoaded.COgXIo-H.js",
@@ -6286,7 +6286,7 @@ $manifestJson = '{
       "_Blur.B433XVqJ.js",
       "_Index.Ck0NNxBQ.js",
       "_WpTable.CrrU5x2U.js",
-      "_Table.BOJJRD1q.js",
+      "_Table.Bz5gy8WC.js",
       "_numbers.ursUutt1.js",
       "_PostTypes.Cef6XkQ_.js",
       "_InternalOutbound.CfM4VZLz.js",
@@ -6299,7 +6299,7 @@ $manifestJson = '{
       "_TwitterPreview.DzM2YR9o.js",
       "_Book.iWCUYtMr.js",
       "_Build.CQX7DDZt.js",
-      "_Redirects.DihlLQqG.js",
+      "_Redirects.Bf1f8S-e.js",
       "_Index.aoj5xPSe.js",
       "_External.bx7ZSfw_.js",
       "_Exclamation.BU2oeqa4.js",
@@ -6514,7 +6514,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/standalone/setup-wizard/main.js": {
-    "file": "setup-wizard.lGpbYOkJ.js",
+    "file": "setup-wizard.CeWRX90c.js",
     "src": "src/vue/standalone/setup-wizard/main.js",
     "isEntry": true,
     "imports": [
@@ -6593,7 +6593,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/standalone/setup-wizard/views/Category.vue": {
-    "file": "js/Category.B3Tx9Tnz.js",
+    "file": "js/Category.CfRVBCjo.js",
     "src": "src/vue/standalone/setup-wizard/views/Category.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -6725,7 +6725,7 @@ $manifestJson = '{
     ]
   },
   "src/vue/standalone/setup-wizard/views/Main.vue": {
-    "file": "js/Main.POe8nZ_T.js",
+    "file": "js/Main.Bn80QReC.js",
     "src": "src/vue/standalone/setup-wizard/views/Main.vue",
     "isDynamicEntry": true,
     "imports": [

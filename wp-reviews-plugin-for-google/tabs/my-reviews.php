@@ -61,6 +61,9 @@ $oldPageDetails['address'] = $pageDetails['address'];
 if (isset($oldPageDetails['avatar_url'])) {
 $oldPageDetails['avatar_url'] = $pageDetails['avatar_url'];
 }
+if (isset($pageDetails['write_review_url'])) {
+$oldPageDetails['write_review_url'] = $pageDetails['write_review_url'];
+}
 $oldPageDetails['rating_number'] = $pageDetails['rating_number'];
 $oldPageDetails['rating_score'] = $pageDetails['rating_score'];
 update_option($pluginManagerInstance->get_option_name('page-details'), $oldPageDetails, false);
@@ -146,7 +149,7 @@ $pageDetails = $pluginManagerInstance->getPageDetails();
 <input type="hidden" id="ti-noreg-page-id" value="<?php echo esc_attr($pageDetails['id']); ?>" />
 <input type="hidden" id="ti-noreg-webhook-url" value="<?php echo $pluginManagerInstance->get_webhook_url(); ?>" />
 <input type="hidden" id="ti-noreg-email" value="<?php echo get_option('admin_email'); ?>" />
-<input type="hidden" id="ti-noreg-version" value="11.5" />
+<input type="hidden" id="ti-noreg-version" value="11.6" />
 
 <?php
 $reviewDownloadToken = get_option($pluginManagerInstance->get_option_name('review-download-token'));

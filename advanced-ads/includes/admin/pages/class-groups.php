@@ -58,7 +58,10 @@ class Groups implements Screen_Interface {
 	 * @return void
 	 */
 	public function admin_init() {
-		if ( ! Params::post( 'advads-group-update-nonce' ) && ! Params::post( 'advads-group-add-nonce' ) && 'delete' !== Params::get( 'action' ) ) {
+		if (
+			( ! Params::post( 'advads-group-update-nonce' ) && ! Params::post( 'advads-group-add-nonce' ) )
+			|| ( 'delete' === Params::get( 'action' ) && 'advanced-ads-groups' !== Params::get( 'page' ) )
+		) {
 			// Just skip if no group created, deleted, or edited.
 			return;
 		}

@@ -1,18 +1,18 @@
 === Zapier for WordPress ===
 Contributors: zapier
 Tags: zapier, automation, integration, workflow, dataflow
-Requires at least: 5.0
-Tested up to: 5.9
+Requires at least: 5.5
+Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 1.0.3
+Stable tag: 1.0.6
 License: Expat (MIT License)
 License URI: https://spdx.org/licenses/MIT.html
 
-Zapier automatically moves info between WordPress and the other apps you use every day, so you can save time, reduce tedious tasks, and focus on your most important work.
+Zapier saves you time on tedious tasks by moving info between WordPress and your other favorite apps, so you can focus on your most important work.
 
 == Description ==
 
-Zapier is an automation platform that supports thousands of the most popular apps, like Instagram, Facebook, and Pinterest. In just a few minutes, you can set up automated workflows (called _Zaps_) that connect WordPress with the other apps you use most. You can share your latest WordPress posts to Facebook or Instagram, create drafts from an RSS feed or Mailchimp newsletter, or be notified when you get new comments and much more–no manual work or coding required.
+Zapier is the #1 workflow automation platform for small and midsize businesses that supports 6,000+ of the most popular apps, like Instagram, Facebook, and Pinterest. In just a few minutes, you can set up automated workflows (called _Zaps_) that connect WordPress with the other apps you use most. You can share your latest WordPress posts to Facebook or Instagram, create drafts from an RSS feed or Mailchimp newsletter, or be notified when you get new comments and much more–no manual work or coding required.
 
 = Some things you can do with Zapier + WordPress =
 

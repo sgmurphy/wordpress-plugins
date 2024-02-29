@@ -5,17 +5,22 @@ namespace PaymentPlugins\PPCP\Blocks\Payments\Gateways;
 
 
 use Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType;
+use PaymentPlugins\PayPalSDK\PayPalClient;
 use PaymentPlugins\WooCommerce\PPCP\Assets\AssetsApi;
 
 /**
  * Class AbstractGateway
+ *
  * @package PaymentPlugins\PPCP\Blocks\Payments\Gateways
  */
 class AbstractGateway extends AbstractPaymentMethodType {
 
+	protected $client;
+
 	protected $assets_api;
 
-	public function __construct( AssetsApi $assets_api ) {
+	public function __construct( PayPalClient $client, AssetsApi $assets_api ) {
+		$this->client     = $client;
 		$this->assets_api = $assets_api;
 	}
 
@@ -58,4 +63,9 @@ class AbstractGateway extends AbstractPaymentMethodType {
 	public function get_payment_method_icons() {
 		return [];
 	}
+
+	protected function is_redirect_with_order() {
+		return isset( $_REQUEST['_ppcp_order_review'] );
+	}
+
 }

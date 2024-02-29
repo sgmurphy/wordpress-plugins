@@ -1,7 +1,6 @@
 import {useState, useEffect, useRef, useCallback} from '@wordpress/element';
 import {convertPayPalAddressToCart, extractFullName} from "@ppcp/utils";
 import {isEmpty} from 'lodash';
-import {getSetting} from '@woocommerce/settings';
 import {
     DEFAULT_BILLING_ADDRESS,
     DEFAULT_SHIPPING_ADDRESS
@@ -11,26 +10,38 @@ export const useProcessPayment = (
     {
         isExpress,
         onSubmit,
-        billingData,
+        billingAddress,
         shippingData,
         onPaymentSetup,
         responseTypes,
         activePaymentMethod,
         paymentMethodId
     }) => {
-    const [paymentData, setPaymentData] = useState(null);
+    const [paymentData, updatePaymentData] = useState(null);
     const currentPaymentData = useRef(null);
-    const currentBillingData = useRef(null);
+    const currentBillingAddress = useRef(null);
     const currentShippingData = useRef(null);
+
+    const setPaymentData = useCallback((value, submit = true) => {
+        if (value === null || value === '') {
+            updatePaymentData(null);
+        } else {
+            updatePaymentData({...value, submit});
+        }
+    }, []);
+
+    const clearPaymentData = useCallback(() => {
+        updatePaymentData(null);
+    }, []);
 
     useEffect(() => {
         currentPaymentData.current = paymentData;
-        currentBillingData.current = billingData;
+        currentBillingAddress.current = billingAddress;
         currentShippingData.current = shippingData;
     });
 
     useEffect(() => {
-        if (!isEmpty(paymentData)) {
+        if (!isEmpty(paymentData) && paymentData.submit) {
             onSubmit();
         }
     }, [paymentData, onSubmit]);
@@ -110,7 +121,7 @@ export const useProcessPayment = (
     useEffect(() => {
         if (activePaymentMethod === paymentMethodId) {
             const unsubscribe = onPaymentSetup(() => {
-                const billingData = currentBillingData.current;
+                const billingAddress = currentBillingAddress.current;
                 const shippingData = currentShippingData.current;
                 const {shippingAddress, needsShipping} = shippingData;
                 const {orderId, billingToken, billingTokenData = null, order = {}} = currentPaymentData.current;
@@ -120,15 +131,17 @@ export const useProcessPayment = (
                             ppcp_paypal_order_id: orderId,
                             ppcp_billing_token: billingToken
                         },
-                        billingAddress: {
-                            ...DEFAULT_BILLING_ADDRESS,
-                            ...billingData,
-                            ...convertOrderDataToAddress(order),
-                            ...(billingTokenData && convertBillingTokenToAddress(billingTokenData))
-                        }
+                        ...(isExpress && {
+                            billingAddress: {
+                                ...DEFAULT_BILLING_ADDRESS,
+                                ...billingAddress,
+                                ...convertOrderDataToAddress(order),
+                                ...(billingTokenData && convertBillingTokenToAddress(billingTokenData))
+                            }
+                        })
                     }
                 }
-                if (needsShipping) {
+                if (needsShipping && isExpress) {
                     response.meta.shippingAddress = {
                         ...DEFAULT_SHIPPING_ADDRESS,
                         ...shippingAddress,
@@ -141,7 +154,15 @@ export const useProcessPayment = (
 
             return () => unsubscribe();
         }
-    }, [onPaymentSetup, activePaymentMethod]);
+    }, [
+        isExpress,
+        onPaymentSetup,
+        activePaymentMethod
+    ]);
 
-    return {paymentData, setPaymentData};
+    return {
+        paymentData,
+        setPaymentData,
+        clearPaymentData
+    };
 }

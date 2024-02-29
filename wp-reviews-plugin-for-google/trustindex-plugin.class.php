@@ -516,9 +516,11 @@ return sprintf(__('You can update your %s reviews.', 'trustindex-plugin'), $plat
 case 'review-download-finished':
 return sprintf(__('Your new %s reviews have been downloaded.', 'trustindex-plugin'), $platformName);
 case 'rate-us':
-return sprintf(__("Hello, I am happy to see that you've been using our <strong>%s</strong> plugin for a while now!", 'trustindex-plugin'), $this->plugin_name) . '<br />' .
-__('Could you please help us and give it a 5-star rating on WordPress?', 'trustindex-plugin') . '<br /><br />' .
-__('-- Thanks, Gabor M.', 'trustindex-plugin');
+return
+'<div class="trustindex-star-row">&starf;&starf;&starf;&starf;&starf;</div>' .
+sprintf(__('We have worked a lot on the free "%s" plugin.', 'trustindex-plugin'), $this->plugin_name) . '<br />' .
+__('If you love our features, please write a review to help us make the plugin even better.', 'trustindex-plugin') . '<br />' .
+sprintf(__('Thank you. Gabor, %s', 'trustindex-plugin'), 'Trustindex CEO');
 }
 }
 public function getNotificationButtonText($type)
@@ -701,7 +703,7 @@ $filePath = __FILE__;
 if (isset($this->plugin_slugs[ $forcePlatform ])) {
 $filePath = preg_replace('/[^\/\\\\]+([\\\\\/]trustindex-plugin\.class\.php)/', $this->plugin_slugs[ $forcePlatform ] . '$1', $filePath);
 }
-$chosedPlatform = new self($forcePlatform, $filePath, "do-not-care-11.5", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
+$chosedPlatform = new self($forcePlatform, $filePath, "do-not-care-11.6", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
 $chosedPlatform->setNotificationParam('not-using-no-widget', 'active', false);
 if (!$chosedPlatform->is_noreg_linked()) {
 return $this->error_box_for_admins(sprintf(__('You have to connect your business (%s)!', 'trustindex-plugin'), $forcePlatform));
@@ -5507,6 +5509,9 @@ $pageDetails = $this->getPageDetails();
 if (!$pageDetails) {
 return "";
 }
+if (isset($pageDetails['write_review_url']) && $pageDetails['write_review_url']) {
+return $pageDetails['write_review_url'];
+}
 $pageId = $pageDetails['id'];
 if ($this->getGoogleType($pageId) === 'shop') {
 return 'https://customerreviews.google.com/v/merchant?q=' . $pageId;
@@ -5863,7 +5868,7 @@ if (!$array['show-header-button']) {
 $array['content'] = preg_replace('/<!-- HEADER-BUTTON-START.+HEADER-BUTTON-END -->/s', '', $array['content']);
 }
 $array['content'] = str_replace([ '<!-- HEADER-BUTTON-START', 'HEADER-BUTTON-END -->' ], '', $array['content']);
-$array['content'] = str_replace('%footer_link%', in_array($array['style-id'], [ 26, 59 ]) ? $this->getReviewWriteUrl() : $this->getReviewPageUrl(), $array['content']);
+$array['content'] = str_replace('%footer_link%', in_array($array['style-id'], [ 8, 13, 26 ]) ? $this->getReviewWriteUrl() : $this->getReviewPageUrl(), $array['content']);
 }
 else {
 $array['content'] = preg_replace('/<a href=[\'"]%footer_link%[\'"][^>]*>(.+)<\/a>/mU', '$1', $array['content']);
