@@ -12,6 +12,7 @@
 			close_button:true,
 			modal:true,
 			dragging:false,
+			resizing:false,
 			position:'center', // center, top-left, top-right, bottom-left, bottom-right
 			width:'360px',
 			height:'360px',
@@ -23,8 +24,9 @@
 					h = String(this.height).replace(/[^\d,p,x,\%,\.]/g, ''),
 					p = '';
 
-				w = 'width:'+(w.length ? w : '90%')+';';
-				h = (h.length ? 'height:'+h : 'max-height:90%')+';';
+				w = 'width:'+(w.length ? w : '90%')+';max-width:90%;'+
+					'min-width:'+(w.length ? w : '90%')+';';
+				h = (h.length ? 'min-height:'+h+';height:'+h+';' : '')+'max-height:90%;';
 
 				switch ( this.position ) {
 					case 'center':
@@ -45,7 +47,7 @@
 				}
 				return '<div class="fields '+cff_esc_attr(this.csslayout)+' '+this.name+(this.open_onload ? '' : ' hide-strong ')+' cff-popup-field cff-container-field '+'" id="field'+this.form_identifier+'-'+this.index+'">'+
 				( this.modal ? '<div class="cff-popup-modal">' : '' )+
-				'<div class="cff-popup-container" style="' + w + h + p + '">'+
+				'<div class="cff-popup-container" style="' + w + h + p + (this.resizing ? 'overflow:auto;resize:both;' : '')+'">'+
 					'<div class="cff-popup-header"><'+this.titletag+' class="cff-popup-title">'+this.title+(this.close_button ? '</'+this.titletag+'><div class="cff-popup-close ui-icon ui-icon-close" title="close"></div>' : '')+'</div>'+
 					'<div id="'+this.name+'" class="cff-popup-fields"></div>'+
 					'<div class="clearer"></div>'+

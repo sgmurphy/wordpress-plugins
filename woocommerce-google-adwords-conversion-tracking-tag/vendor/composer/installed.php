@@ -3,7 +3,7 @@
         'name' => 'sweetcode/pixel-manager-for-woocommerce',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '65893730dc68bbcbea404890c8aa5869110a2e50',
+        'reference' => '181ee891d7222f65ccc1eaaf2f997174f93141ce',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -49,7 +49,7 @@
         'sweetcode/pixel-manager-for-woocommerce' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '65893730dc68bbcbea404890c8aa5869110a2e50',
+            'reference' => '181ee891d7222f65ccc1eaaf2f997174f93141ce',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

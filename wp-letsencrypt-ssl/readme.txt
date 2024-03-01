@@ -5,7 +5,7 @@ Requires at least: 4.2
 License: GPL3
 Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 6.5.0
+Stable tag: 6.6.0
 
 Lifetime SSL solution - Install free SSL certificate & enable secure HTTPS padlock, HTTPS redirect, secure mail w/ HTTPS, fix SSL errors, SSL score, SSL monitoring,insecure content scanner, download SSL certificate, know your active SSL details.
 
@@ -166,6 +166,11 @@ Security is an important subject regarding SSL/TLS certificates, of course. It i
 6. Mixed Content Scanner to identify insecure contents on HTTPS site
 
 == Changelog ==
+
+= 6.6.0 =
+* Freemius sdk update
+* http file names correction
+* SSL labs scan improvements
 
 = 6.5.0 =
 * PRO - resolved php path issue in crontab

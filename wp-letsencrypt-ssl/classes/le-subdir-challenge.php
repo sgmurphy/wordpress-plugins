@@ -41,7 +41,7 @@ class WPLE_Subdir_Challenge_Helper
         $output .= WPLE_Trait::wple_progress_bar();
         $output .= '<div id="wple-letsdebug"></div>';
         if ( get_option( 'wple_order_refreshed' ) ) {
-            $output .= '<div class="wple-order-refresh">Order failed and re-created due to failed verification. Please complete the NEW challeng with different method than previous attempt.</div>';
+            $output .= '<div class="wple-order-refresh">Order failed and re-created due to failed verification. Please complete the NEW challenge with <b>alternate</b> method than previous attempt.</div>';
         }
         $output .= '<div class="subdir-challenges-block">    
     <div class="subdir-http-challenge manualchallenge">' . SELF::HTTP_challenges_block( $opts['challenge_files'], $opts ) . '</div>
@@ -225,13 +225,27 @@ class WPLE_Subdir_Challenge_Helper
     
     private static function compose_challenge_files( $name, $content )
     {
-        $file = sanitize_file_name( $name );
-        file_put_contents( $file, sanitize_text_field( $content ) );
+        $chfile = sanitize_file_name( $name );
+        $first_letter = substr( $name, 0, 1 );
+        
+        if ( $first_letter == '_' ) {
+            $chfile = '_' . $chfile;
+            //there was underscore at beginning
+        } else {
+            
+            if ( $first_letter == '-' ) {
+                $chfile = '-' . $chfile;
+                //there was a dash at beginning
+            }
+        
+        }
+        
+        file_put_contents( $chfile, sanitize_text_field( $content ) );
         header( 'Content-Description: File Transfer' );
         header( 'Content-Type: text/plain; charset=UTF-8' );
-        header( 'Content-Length: ' . filesize( $file ) );
-        header( 'Content-Disposition: attachment; filename=' . basename( $file ) );
-        readfile( $file );
+        header( 'Content-Length: ' . filesize( $chfile ) );
+        header( 'Content-Disposition: attachment; filename=' . basename( $chfile ) );
+        readfile( $chfile );
         exit;
     }
 

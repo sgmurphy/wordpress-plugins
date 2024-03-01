@@ -6,7 +6,6 @@
 require CLEVERFOX_PLUGIN_DIR . 'inc/avril/extras.php';
 require CLEVERFOX_PLUGIN_DIR . 'inc/avril/dynamic-style.php';
 require CLEVERFOX_PLUGIN_DIR . 'inc/avenza/sections/above-header.php';
-require CLEVERFOX_PLUGIN_DIR . 'inc/avenza/sections/section-service.php';
 require CLEVERFOX_PLUGIN_DIR . 'inc/avril/features/avril-header.php';
 require CLEVERFOX_PLUGIN_DIR . 'inc/avril/features/avril-cta.php';
 require CLEVERFOX_PLUGIN_DIR . 'inc/avril/features/avril-features.php';
@@ -14,18 +13,18 @@ require CLEVERFOX_PLUGIN_DIR . 'inc/avril/features/avril-info.php';
 require CLEVERFOX_PLUGIN_DIR . 'inc/avril/features/avril-service.php';
 require CLEVERFOX_PLUGIN_DIR . 'inc/avenza/features/avril-features.php';
 require CLEVERFOX_PLUGIN_DIR . 'inc/avril/features/avril-slider.php';
-require CLEVERFOX_PLUGIN_DIR . 'inc/avenza/features/avril-team.php';
-require CLEVERFOX_PLUGIN_DIR . 'inc/avenza/features/avril-funfact.php';
+require CLEVERFOX_PLUGIN_DIR . 'inc/axtria/features/avril-team.php';
+require CLEVERFOX_PLUGIN_DIR . 'inc/axtria/features/avril-funfact.php';
 require CLEVERFOX_PLUGIN_DIR . 'inc/avril/features/avril-typography.php';
 
 if ( ! function_exists( 'cleverfox_avril_frontpage_sections' ) ) :
 	function cleverfox_avril_frontpage_sections() {	
 		require CLEVERFOX_PLUGIN_DIR . 'inc/avril/sections/section-slider.php';
 		require CLEVERFOX_PLUGIN_DIR . 'inc/avenza/sections/section-info.php';
-		require CLEVERFOX_PLUGIN_DIR . 'inc/avril/sections/section-service.php';
+		require CLEVERFOX_PLUGIN_DIR . 'inc/avenza/sections/section-service.php';
 		require CLEVERFOX_PLUGIN_DIR . 'inc/avenza/sections/section-features.php';
-		require CLEVERFOX_PLUGIN_DIR . 'inc/avenza/sections/section-team.php';
-		require CLEVERFOX_PLUGIN_DIR . 'inc/avenza/sections/section-funfact.php';
+		require CLEVERFOX_PLUGIN_DIR . 'inc/axtria/sections/section-team.php';
+		require CLEVERFOX_PLUGIN_DIR . 'inc/axtria/sections/section-funfact.php';
 	    require CLEVERFOX_PLUGIN_DIR . 'inc/avril/sections/section-cta-2.php';
     }
 	add_action( 'avril_sections', 'cleverfox_avril_frontpage_sections' );

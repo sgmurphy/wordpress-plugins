@@ -58,6 +58,13 @@ class WPLE_Ajax
           $chfile = sanitize_file_name($ch['file']);
           $chval = esc_html($ch['value']);
 
+          $first_letter = substr($ch['file'], 0, 1);
+          if ($first_letter == '_') {
+            $chfile = '_' . $chfile; //there was underscore at beginning
+          } else if ($first_letter == '-') {
+            $chfile = '-' . $chfile; //there was underscore at beginning
+          }
+
           $fpath = trailingslashit(ABSPATH) . '.well-known/acme-challenge/';
 
           if (stripos(site_url(), '/', 10) !== false) { //its from sub-dir site

@@ -2,6 +2,8 @@
 
 use Cleantalk\ApbctWP\Escape;
 use Cleantalk\ApbctWP\Helper;
+use Cleantalk\ApbctWP\Localize\CtPublicFunctionsLocalize;
+use Cleantalk\ApbctWP\Localize\CtPublicLocalize;
 use Cleantalk\ApbctWP\Sanitize;
 use Cleantalk\ApbctWP\State;
 use Cleantalk\ApbctWP\Variables\Cookie;
@@ -23,6 +25,16 @@ function ct_add_mc4wp_error_message($messages)
 }
 
 add_filter('mc4wp_form_messages', 'ct_add_mc4wp_error_message');
+
+/*
+ * Fluent Booking shortcode localize CT script and vars.
+ */
+add_action('fluent_booking/before_calendar_event_landing_page', function () {
+    echo CtPublicFunctionsLocalize::getCode();
+    echo CtPublicLocalize::getCode();
+    $js_url = APBCT_URL_PATH . '/js/apbct-public-bundle.min.js?' . APBCT_VERSION;
+    echo "<script src='$js_url' type='application/javascript'></script>";
+}, 1);
 
 /**
  * Function to set validate function for CCF form
@@ -539,37 +551,20 @@ function apbct_woocommerce__add_request_id_to_order_meta($order_id)
  * Triggered when adding an item to the shopping cart
  * for un-logged users
  *
- * @param $cart_item_key
- * @param $product_id
+ * @param $bool
+ * @param $item
  * @param $quantity
- * @param $variation_id
- * @param $variation
- * @param $cart_item_data
  *
- * @return void
+ * @return bool
+ * @psalm-suppress UnusedParam
+ * @psalm-suppress UndefinedFunction
  */
 
-function apbct_wc__add_to_cart_unlogged_user(
-    $_cart_item_key,
-    $_product_id,
-    $_quantity,
-    $_variation_id,
-    $_variation,
-    $_cart_item_data
-) {
+function apbct_wc__add_to_cart_unlogged_user($b, $item, $q)
+{
     global $apbct;
 
     if ( ! apbct_is_user_logged_in() && $apbct->settings['forms__wc_add_to_cart'] ) {
-        /**
-         * Getting request params
-         * POST contains an array of product information
-         * Example: Array
-         *(
-         *    [product_sku] => woo-beanie
-         *    [product_id] => 15
-         *    [quantity] => 1
-         *)
-         */
         $message = apply_filters('apbct__filter_post', $_POST);
 
         $post_info['comment_type'] = 'order__add_to_cart';
@@ -582,21 +577,19 @@ function apbct_wc__add_to_cart_unlogged_user(
                 'post_info'   => $post_info,
                 'js_on'       => apbct_js_test(Sanitize::cleanTextField(Cookie::get('ct_checkjs')), true),
                 'sender_info' => array('sender_url' => null),
+                'exception_action' => false,
             )
         );
 
         $ct_result = $base_call_result['ct_result'];
 
         if ( $ct_result->allow == 0 ) {
-            wp_send_json(array(
-                'result'        => 'failure',
-                'messages'      => "<ul class=\"woocommerce-error\"><li>" . $ct_result->comment . "</li></ul>",
-                'refresh'       => 'false',
-                'reload'        => 'false',
-                'response_type' => 'wc_add_to_cart_block'
-            ));
+            wc_add_notice($ct_result->comment, 'error');
+            return false;
         }
     }
+
+    return true;
 }
 
 /**
@@ -3293,67 +3286,67 @@ function apbct_form__the7_contact_form()
     return false;
 }
 
-function apbct_form__elementor_pro__testSpam()
-{
-    global $apbct;
-
-    if (
-        $apbct->settings['forms__contact_forms_test'] == 0 ||
-        ($apbct->settings['data__protect_logged_in'] != 1 && is_user_logged_in()) || // Skip processing for logged in users.
-        Post::get('form_fields_password') ||
-        Post::get('form-field-password') || // Skip processing for login form.
-        apbct_exclusions_check__url()
-    ) {
-        do_action('apbct_skipped_request', __FILE__ . ' -> ' . __FUNCTION__ . '():' . __LINE__, $_POST);
-
-        return;
-    }
-
-    /**
-     * Filter for POST
-     */
-    $input_array = apply_filters('apbct__filter_post', $_POST);
-
-    $ct_temp_msg_data = ct_gfa($input_array);
-
-    $sender_email    = $ct_temp_msg_data['email'] ?: '';
-    $sender_nickname = $ct_temp_msg_data['nickname'] ?: '';
-    $subject         = $ct_temp_msg_data['subject'] ?: '';
-    $message         = $ct_temp_msg_data['message'] ?: array();
-    if ( $subject !== '' ) {
-        $message = array_merge(array('subject' => $subject), $message);
-    }
-
-    $form_data = Post::get('form_fields');
-    if ($form_data) {
-        if (!$sender_email) {
-            $sender_email = Post::get('form_fields')['email'] ?: '';
-        }
-        if (!$sender_nickname) {
-            $sender_nickname = Post::get('form_fields')['name'] ?: '';
-        }
-    }
-
-    $post_info['comment_type'] = 'contact_form_wordpress_elementor_pro';
-
-    $base_call_result = apbct_base_call(
-        array(
-            'message'         => $message,
-            'sender_email'    => $sender_email,
-            'sender_nickname' => $sender_nickname,
-            'post_info'       => $post_info,
-        )
-    );
-
-    $ct_result = $base_call_result['ct_result'];
-
-    if ( $ct_result->allow == 0 ) {
-        wp_send_json_error(array(
-            'message' => $ct_result->comment,
-            'data'    => array()
-        ));
-    }
-}
+//function apbct_form__elementor_pro__testSpam()
+//{
+//    global $apbct;
+//
+//    if (
+//        $apbct->settings['forms__contact_forms_test'] == 0 ||
+//        ($apbct->settings['data__protect_logged_in'] != 1 && is_user_logged_in()) || // Skip processing for logged in users.
+//        Post::get('form_fields_password') ||
+//        Post::get('form-field-password') || // Skip processing for login form.
+//        apbct_exclusions_check__url()
+//    ) {
+//        do_action('apbct_skipped_request', __FILE__ . ' -> ' . __FUNCTION__ . '():' . __LINE__, $_POST);
+//
+//        return;
+//    }
+//
+//    /**
+//     * Filter for POST
+//     */
+//    $input_array = apply_filters('apbct__filter_post', $_POST);
+//
+//    $ct_temp_msg_data = ct_gfa($input_array);
+//
+//    $sender_email    = $ct_temp_msg_data['email'] ?: '';
+//    $sender_nickname = $ct_temp_msg_data['nickname'] ?: '';
+//    $subject         = $ct_temp_msg_data['subject'] ?: '';
+//    $message         = $ct_temp_msg_data['message'] ?: array();
+//    if ( $subject !== '' ) {
+//        $message = array_merge(array('subject' => $subject), $message);
+//    }
+//
+//    $form_data = Post::get('form_fields');
+//    if ($form_data) {
+//        if (!$sender_email) {
+//            $sender_email = !empty($form_data['email']) ? $form_data['email'] : '';
+//        }
+//        if (!$sender_nickname) {
+//            $sender_nickname = !empty($form_data['name']) ? $form_data['name'] : '';
+//        }
+//    }
+//
+//    $post_info['comment_type'] = 'contact_form_wordpress_elementor_pro';
+//
+//    $base_call_result = apbct_base_call(
+//        array(
+//            'message'         => $message,
+//            'sender_email'    => $sender_email,
+//            'sender_nickname' => $sender_nickname,
+//            'post_info'       => $post_info,
+//        )
+//    );
+//
+//    $ct_result = $base_call_result['ct_result'];
+//
+//    if ( $ct_result->allow == 0 ) {
+//        wp_send_json_error(array(
+//            'message' => $ct_result->comment,
+//            'data'    => array()
+//        ));
+//    }
+//}
 
 /**
  * Places a hiding field to Gravity forms.
@@ -3603,12 +3596,13 @@ function apbct_form__uwp_validate($result, $_type, $data)
 
 /**
  * WS-Forms integration
+ * @psalm-suppress UnusedClosureParam
  */
 add_filter('wsf_submit_field_validate', function ($error_validation_action_field, $field_id, $_field_value, $section_repeatable_index, $_post_mode, $_form_submit_class) {
 
     global $cleantalk_executed;
 
-    if ( $cleantalk_executed ) {
+    if ( $cleantalk_executed || $_post_mode != 'submit' ) {
         return $error_validation_action_field;
     }
 
@@ -3633,10 +3627,8 @@ add_filter('wsf_submit_field_validate', function ($error_validation_action_field
     );
 
     if ( $base_call_result['ct_result']->allow == 0 ) {
-        return array(
-            'action'                   => 'field_invalid_feedback',
-            'field_id'                 => $field_id,
-            'section_repeatable_index' => $section_repeatable_index,
+        $error_validation_action_field[] = array(
+            'action'                   => 'message',
             'message'                  => $base_call_result['ct_result']->comment
         );
     }

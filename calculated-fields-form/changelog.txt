@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 1.2.57 =
+
+* Minor changes in the controls' appearance.
+* Implements the resize popup feature.
+* Fixes an issue in Select2 dropdown fields with long choices' texts.
+* Improves the plugin security by sanitizing and escaping the cp_ref_page parameter (Professional, Developer, and Platinum versions). Thanks to Adam Goodlin, Wordfence Customer Support Engineer.
+
 = 1.2.56 =
 
 * Removes deprecated JS code.

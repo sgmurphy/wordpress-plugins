@@ -180,7 +180,7 @@ class WPLE_Admin
             update_option( 'wple_version', WPLE_PLUGIN_VER );
         } else {
             
-            if ( version_compare( get_option( 'wple_version' ), '6.3.7', '<=' ) ) {
+            if ( version_compare( get_option( 'wple_version' ), '6.5.0', '<=' ) ) {
                 delete_option( 'wple_plan_choose' );
                 update_option( 'wple_version', WPLE_PLUGIN_VER );
             }

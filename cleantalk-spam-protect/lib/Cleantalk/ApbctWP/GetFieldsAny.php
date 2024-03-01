@@ -208,39 +208,45 @@ class GetFieldsAny
     private function process($arr)
     {
         foreach ($arr as $key => $value) {
+            /*
+            * PREPARING
+            */
             if (is_string($value)) {
                 $tmp = strpos($value, '\\') !== false ? stripslashes($value) : $value;
 
-                # Remove html tags from $value
+                // Remove html tags from $value
                 $tmp = preg_replace('@<.*?>@', '', $tmp);
 
-                $decoded_json_value = json_decode($tmp, true);       // Try parse JSON from the string
-                if (strpos($value, "\n") !== false || strpos($value, "\r") !== false) {
-                    // Parse an only single-lined string
-                    parse_str(urldecode($tmp), $decoded_url_value); // Try parse URL from the string
+                // Try parse URL from the string, only single line is applicable
+                if (strpos($value, "\n") === false && strpos($value, "\r") === false) {
+                    parse_str(urldecode($tmp), $decoded_url_value);
                 }
 
-                // If there is "JSON data" set is it as a value
+                // Try parse JSON from the string
+                $decoded_json_value = json_decode($tmp, true);
+
                 if ($decoded_json_value !== null) {
-                    if (isset($arr['action']) &&
+                    // If there is "JSON data" set is it as a value
+                    if (
+                        isset($arr['action']) &&
                         $arr['action'] === 'nf_ajax_submit' &&
-                        isset($decoded_json_value['settings'])) {
+                        isset($decoded_json_value['settings'])
+                    ) {
                             unset($decoded_json_value['settings']);
                     }
 
                     $value = $decoded_json_value;
-                    // If there is "URL data" set is it as a value
                 } elseif (
                     isset($decoded_url_value) &&
                     ! (count($decoded_url_value) === 1 &&
                     reset($decoded_url_value) === '')
                 ) {
+                    // If there is "URL data" set is it as a value
                     $value = $decoded_url_value;
-
+                } elseif (preg_match('/^\S+\s%%\s\S+.+$/', $value)) {
                     // Ajax Contact Forms. Get data from such strings:
                     // acfw30_name %% Blocked~acfw30_email %% s@cleantalk.org
                     // acfw30_textarea %% msg
-                } elseif (preg_match('/^\S+\s%%\s\S+.+$/', $value)) {
                     $value = explode('~', $value);
                     foreach ($value as &$val) {
                         $tmp = explode(' %% ', $val);
@@ -249,6 +255,10 @@ class GetFieldsAny
                     unset($val);
                 }
             }
+
+            /*
+             * STRING CHECK START
+             */
 
             if ( ! is_array($value) && ! is_object($value) ) {
                 if (
@@ -328,6 +338,9 @@ class GetFieldsAny
                     $this->processed_data['message'][$this->prev_name . $key] = $value;
                 }
             } elseif ( ! is_object($value)) {
+                /*
+                 * NOT A STRING - PROCEED RECURSIVE
+                 */
                 if (empty($value)) {
                     continue;
                 }
@@ -364,7 +377,8 @@ class GetFieldsAny
         // Visible fields processing
         $visible_fields = self::getVisibleFieldsData();
 
-        return isset($visible_fields['visible_fields']) ? explode(' ', $visible_fields['visible_fields']) : array();
+        return isset($visible_fields['visible_fields']) &&
+            is_string($visible_fields['visible_fields']) ? explode(' ', $visible_fields['visible_fields']) : array();
     }
 
     /**
@@ -405,7 +419,41 @@ class GetFieldsAny
                     : null;
 
                 // if necessary data is available
-                if (isset($fields_string, $count)) {
+                if ( isset($fields_string, $count) ) {
+                    //fluent forms chunk
+                    if (
+                        isset($post_fields_to_check['data'], $post_fields_to_check['action']) &&
+                        $post_fields_to_check['action'] === 'fluentform_submit'
+                    ) {
+                        $fluent_forms_out = array();
+                        $fluent_forms_fields = urldecode($post_fields_to_check['data']);
+                        parse_str($fluent_forms_fields, $fluent_forms_fields_array);
+                        $fields_array = explode(' ', $fields_string);
+                        foreach ( $fields_array as $visible_field_slug ) {
+                            if ( strpos($visible_field_slug, '[') ) {
+                                $vfs_array_like_string = str_replace(array('[', ']'), ' ', $visible_field_slug);
+                                $vfs_array = explode(' ', trim($vfs_array_like_string));
+                                if (
+                                    isset(
+                                        $vfs_array[0],
+                                        $vfs_array[1]
+                                    ) &&
+                                    isset(
+                                        $fluent_forms_fields_array[$vfs_array[0]],
+                                        $fluent_forms_fields_array[$vfs_array[0]][$vfs_array[1]]
+                                    )
+                                ) {
+                                    $fluent_forms_out['visible_fields'][] = $visible_field_slug;
+                                }
+                            } else {
+                                if ( isset($fluent_forms_fields_array[$visible_field_slug]) ) {
+                                    $fluent_forms_out['visible_fields'][] = $visible_field_slug;
+                                }
+                            }
+                        }
+                        return $fluent_forms_out;
+                    }
+
                     // asset to parse wp forms fields from post
                     if ( isset($post_fields_to_check['wpforms']['fields']) ) {
                         if ( is_array($post_fields_to_check['wpforms']['fields']) ) {

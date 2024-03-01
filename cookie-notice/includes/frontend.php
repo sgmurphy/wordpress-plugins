@@ -240,8 +240,8 @@ class Cookie_Notice_Frontend {
 		$locale_code = explode( '_', $locale );
 
 		// exceptions, norwegian
-		if ( in_array( $locale_code, [ 'nb', 'nn' ] ) )
-			$locale_code = 'no';
+		if ( is_array( $locale_code ) && in_array( $locale_code[0], [ 'nb', 'nn' ] ) )
+			$locale_code[0] = 'no';
 
 		$options = apply_filters(
 			'cn_cookie_compliance_args',
@@ -281,6 +281,19 @@ class Cookie_Notice_Frontend {
 
 			$options['customProviders'] = ! empty( $providers ) ? $providers : [];
 			$options['customPatterns'] = ! empty( $patterns ) ? $patterns : [];
+
+			// google consent mode default categories
+			$gcd = [];
+
+			if ( ! empty( $blocking['google_consent_default'] ) && is_array( $blocking['google_consent_default'] ) ) {
+				foreach ( $blocking['google_consent_default'] as $storage => $category ) {
+					if ( (int) $category === 1 )
+						$gcd[$storage] = 'granted';
+				}
+			}
+
+			if ( ! empty( $gcd ) )
+				$options['googleConsentDefault'] = $gcd;
 		}
 
 		return $options;
@@ -592,12 +605,8 @@ class Cookie_Notice_Frontend {
 		if ( $cn->cookies_accepted() || $status === 'active' ) {
 			$scripts = apply_filters( 'cn_refuse_code_scripts_html', $cn->options['general']['refuse_code'], 'body' );
 
-			if ( ! empty( $scripts ) ) {
-				if ( $status === 'active' && $cn->options['general']['app_blocking'] )
-					echo html_entity_decode( $this->add_block_class( 'body', $scripts ) );
-				else
-					echo html_entity_decode( wp_kses( $scripts, $cn->get_allowed_html( 'body' ) ) );
-			}
+			if ( ! empty( $scripts ) )
+				echo html_entity_decode( wp_kses( $scripts, $cn->get_allowed_html( 'body' ) ) );
 		}
 	}
 
@@ -616,12 +625,8 @@ class Cookie_Notice_Frontend {
 		if ( $cn->cookies_accepted() || $status === 'active' ) {
 			$scripts = apply_filters( 'cn_refuse_code_scripts_html', $cn->options['general']['refuse_code_head'], 'head' );
 
-			if ( ! empty( $scripts ) ) {
-				if ( $status === 'active' && $cn->options['general']['app_blocking'] )
-					echo html_entity_decode( $this->add_block_class( 'head', $scripts ) );
-				else
-					echo html_entity_decode( wp_kses( $scripts, $cn->get_allowed_html( 'head' ) ) );
-			}
+			if ( ! empty( $scripts ) )
+				echo html_entity_decode( wp_kses( $scripts, $cn->get_allowed_html( 'head' ) ) );
 		}
 	}
 

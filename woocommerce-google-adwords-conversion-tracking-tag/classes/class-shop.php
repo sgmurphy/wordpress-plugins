@@ -227,7 +227,6 @@ class Shop
         if ( self::is_nodedupe_parameter_set() ) {
             return true;
         }
-        return true;
         return false;
     }
     

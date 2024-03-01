@@ -23,11 +23,13 @@ Here's an overview of what you can do with PublishPress Future:
 * Modify expiry dates using "Quick Edit" and "Bulk Edit".
 * Receive email notifications when your content expires.
 * Show expiry dates in your content, automatically or with shortcodes.
+* Control post changes via integrations with Advanced Custom Fields and other plugins (available in the Pro version).
+* Import changes via plugin such as WP All Import (available in the Pro version).
 
 ## PublishPress Future Pro ##
 
 > <strong>Upgrade to PublishPress Future Pro</strong><br />
-> This plugin is the free version of the PublishPress Future plugin. The Pro version comes with all the features you need to schedule changes to your WordPresss content. <a href="https://publishpress.com/future"  title="PublishPress Future Pro">Click here to purchase the best plugin for scheduling WordPress content updates!</a>
+> This plugin is the free version of the PublishPress Future plugin. The Pro version comes with all the features you need to schedule changes to your WordPress content. <a href="https://publishpress.com/future"  title="PublishPress Future Pro">Click here to purchase the best plugin for scheduling WordPress content updates!</a>
 
 ## Options for Future Actions on Posts
 
@@ -67,6 +69,28 @@ PublishPress Future can support any post type in WordPress. Go to Settings > Pub
 The PublishPress Future plugin can send you email notifications when your content is changed. You can control the emails by going to Settings > PublishPress Future > General Settings.
 
 [Click here to see the notification options](https://publishpress.com/knowledge-base/email-notifications/).
+
+## Integrations With Other Plugins
+
+In PublishPress Future Pro it is possible to schedule changes to your posts based on metadata. This makes it possible to integrate PublishPress Future with other plugins.  For example, you can create a date field in the Advanced Custom Fields plugin and use that to control the date for Future Actions.
+
+When you are using an integration, there are five types of data that you can update in PublishPress Future:
+
+* Action Status: This field specifies if the action should be enabled. 
+* Action Date: This field stores the scheduled date for the action.
+* Action Type: This field stores the type of action that will be executed.
+* Taxonomy Name: The taxonomy name for being used when selecting terms.
+* Taxonomy Terms: A list of term's IDs for being used by the action. 
+
+[Click here to see how to integrate Future with other plugins](https://publishpress.com/knowledge-base/metadata-scheduling/).
+
+## Import the Future Actions
+
+PublishPress Future Pro supports imports from external data sources. You can import posts and automatically create Future Actions associated with those posts.
+
+The best approach is to use the Metadata Scheduling feature. If you're using a plugin such as WP All Import, you can match up the import tables with the fields you have selected in the Metadata Scheduling feature.
+
+[Click here to see how to import data for Future Actions](https://publishpress.com/knowledge-base/imports-and-metadata-scheduling/).
 
 ## Details on How Post Changes Works
 

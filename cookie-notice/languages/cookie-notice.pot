@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Cookie Notice\n"
-"POT-Creation-Date: 2024-02-20 18:08+0100\n"
+"POT-Creation-Date: 2024-02-29 19:45+0100\n"
 "PO-Revision-Date: 2015-03-24 11:30+0100\n"
 "Last-Translator: Bartosz Arendt <info@dfactory.eu>\n"
 "Language-Team: dFactory <info@dfactory.eu>\n"
@@ -16,95 +16,104 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../cookie-notice.php:717
+#: ../cookie-notice.php:721 ../cookie-notice.php:723
 msgid "Google Consent Mode required by March 2024"
 msgstr ""
 
-#: ../cookie-notice.php:717
+#: ../cookie-notice.php:721
 #, php-format
 msgid "<a href=\"%s\" target=\"_blank\">Google Consent Mode</a> is a tool that allows websites to more effectively communicate users' cookie consent choices to Google tags. With the introduction of Google Consent Mode V2, its implementation is mandatory by March 2024 for all sites using Google services. Make sure your site is compatible with Google Consent Mode V2 and integrate it with Cookie Compliance. Click \"Run Compliance Check\" to proceed and test other compliance features."
 msgstr ""
 
-#: ../cookie-notice.php:717 ../includes/dashboard.php:515
+#: ../cookie-notice.php:721 ../includes/dashboard.php:515
 msgid "Run Compliance Check"
 msgstr ""
 
-#: ../cookie-notice.php:717
+#: ../cookie-notice.php:721 ../cookie-notice.php:723
 msgid "Dismiss Notice"
 msgstr ""
 
-#: ../cookie-notice.php:752
+#: ../cookie-notice.php:723
+#, php-format
+msgid "<a href=\"%s\" target=\"_blank\">Google Consent Mode</a> is a tool that allows websites to more effectively communicate users' cookie consent choices to Google tags. With the introduction of Google Consent Mode V2, its implementation is mandatory by March 2024 for all sites using Google services. Cookie Compliance Professional plans include seamless integration with Google Consent Mode. Upgrade to Pro and make sure your site is compatible with it with."
+msgstr ""
+
+#: ../cookie-notice.php:723 ../includes/settings.php:509
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: ../cookie-notice.php:759
 msgid "Cookie Compliance Warning"
 msgstr ""
 
-#: ../cookie-notice.php:752
+#: ../cookie-notice.php:759
 #, php-format
 msgid "Your website has reached the <b>%1$s visits usage limit for the Cookie Compliance Free Plan</b>. Compliance services such as Consent Record Storage, Autoblocking, and Consent Analytics have been deactivated until current usage cycle ends on %2$s."
 msgstr ""
 
-#: ../cookie-notice.php:752
+#: ../cookie-notice.php:759
 #, php-format
 msgid "To reactivate compliance services now, <a href=\"%s\" target=\"_blank\">upgrade your domain to a Pro plan.</a>"
 msgstr ""
 
-#: ../cookie-notice.php:1066
+#: ../cookie-notice.php:1073
 msgid "Cookie Notice & Compliance - Deactivation survey"
 msgstr ""
 
-#: ../cookie-notice.php:1130 ../includes/settings.php:268
+#: ../cookie-notice.php:1137 ../includes/settings.php:268
 #: ../includes/settings.php:311
 msgid "Settings"
 msgstr ""
 
-#: ../cookie-notice.php:1145
+#: ../cookie-notice.php:1152
 msgid "Free Upgrade"
 msgstr ""
 
-#: ../cookie-notice.php:1171
+#: ../cookie-notice.php:1178
 msgid "We're sorry to see you go. Could you please tell us what happened?"
 msgstr ""
 
-#: ../cookie-notice.php:1175
+#: ../cookie-notice.php:1182
 msgid "I couldn't figure out how to make it work."
 msgstr ""
 
-#: ../cookie-notice.php:1176
+#: ../cookie-notice.php:1183
 msgid "I found another plugin to use for the same task."
 msgstr ""
 
-#: ../cookie-notice.php:1177
+#: ../cookie-notice.php:1184
 msgid "The Cookie Compliance banner is too big."
 msgstr ""
 
-#: ../cookie-notice.php:1178
+#: ../cookie-notice.php:1185
 msgid "The Cookie Compliance consent choices (Silver, Gold, Platinum) are confusing."
 msgstr ""
 
-#: ../cookie-notice.php:1179
+#: ../cookie-notice.php:1186
 msgid "The Cookie Compliance default settings are too strict."
 msgstr ""
 
-#: ../cookie-notice.php:1180
+#: ../cookie-notice.php:1187
 msgid "The web application user interface is not clear to me."
 msgstr ""
 
-#: ../cookie-notice.php:1181
+#: ../cookie-notice.php:1188
 msgid "Support isn't timely."
 msgstr ""
 
-#: ../cookie-notice.php:1182
+#: ../cookie-notice.php:1189
 msgid "Other"
 msgstr ""
 
-#: ../cookie-notice.php:1196
+#: ../cookie-notice.php:1203
 msgid "Cancel"
 msgstr ""
 
-#: ../cookie-notice.php:1197
+#: ../cookie-notice.php:1204
 msgid "Deactivate"
 msgstr ""
 
-#: ../cookie-notice.php:1198
+#: ../cookie-notice.php:1205
 msgid "Deactivate & Submit"
 msgstr ""
 
@@ -611,10 +620,6 @@ msgstr ""
 #: ../includes/settings.php:503 ../includes/welcome.php:352
 #, php-format
 msgid "%sPriority%s Support"
-msgstr ""
-
-#: ../includes/settings.php:509
-msgid "Upgrade to Pro"
 msgstr ""
 
 #: ../includes/settings.php:518

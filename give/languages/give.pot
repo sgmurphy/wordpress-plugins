@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Give - Donation Plugin plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Give - Donation Plugin 3.4.2\n"
+"Project-Id-Version: Give - Donation Plugin 3.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/givewp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-19T15:57:50+00:00\n"
+"POT-Creation-Date: 2024-03-01T00:59:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: give\n"
@@ -373,22 +373,22 @@ msgstr ""
 msgid "Switch to New View"
 msgstr ""
 
-#: includes/admin/admin-actions.php:768
+#: includes/admin/admin-actions.php:782
 msgid "All donation uploaded successfully!"
 msgstr ""
 
-#: includes/admin/admin-actions.php:956
+#: includes/admin/admin-actions.php:970
 msgid "ERROR"
 msgstr ""
 
-#: includes/admin/admin-actions.php:957
+#: includes/admin/admin-actions.php:971
 #: includes/class-give-scripts.php:521
-#: includes/process-donation.php:596
+#: includes/process-donation.php:643
 #: includes/shortcodes.php:488
 msgid "Please enter your first name."
 msgstr ""
 
-#: includes/admin/admin-actions.php:983
+#: includes/admin/admin-actions.php:997
 #: includes/admin/donors/class-donor-table.php:65
 #: includes/admin/emails/abstract-email-notification.php:153
 #: includes/admin/emails/class-donation-receipt-email.php:46
@@ -402,39 +402,39 @@ msgstr ""
 msgid "Donor"
 msgstr ""
 
-#: includes/admin/admin-actions.php:986
+#: includes/admin/admin-actions.php:1000
 msgid "View Donor Information"
 msgstr ""
 
-#: includes/admin/admin-actions.php:1056
+#: includes/admin/admin-actions.php:1070
 msgid "Error: Security issue."
 msgstr ""
 
-#: includes/admin/admin-actions.php:1090
+#: includes/admin/admin-actions.php:1104
 msgid "Error: Unable to save the address. Please check if address already exist."
 msgstr ""
 
-#: includes/admin/admin-actions.php:1119
+#: includes/admin/admin-actions.php:1133
 msgid "Successfully added a new address to the donor."
 msgstr ""
 
-#: includes/admin/admin-actions.php:1135
+#: includes/admin/admin-actions.php:1149
 msgid "Error: Unable to delete address."
 msgstr ""
 
-#: includes/admin/admin-actions.php:1143
+#: includes/admin/admin-actions.php:1157
 msgid "Successfully removed a address of donor."
 msgstr ""
 
-#: includes/admin/admin-actions.php:1155
+#: includes/admin/admin-actions.php:1169
 msgid "Error: Unable to update address. Please check if address already exist."
 msgstr ""
 
-#: includes/admin/admin-actions.php:1173
+#: includes/admin/admin-actions.php:1187
 msgid "Successfully updated a address of donor"
 msgstr ""
 
-#: includes/admin/admin-actions.php:1194
+#: includes/admin/admin-actions.php:1208
 #: includes/admin/payments/view-payment-details.php:738
 #: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:179
 #: src/Receipt/DonationReceipt.php:86
@@ -442,32 +442,32 @@ msgstr ""
 msgid "Billing Address"
 msgstr ""
 
-#: includes/admin/admin-actions.php:1211
+#: includes/admin/admin-actions.php:1225
 msgid "Personal Address"
 msgstr ""
 
-#: includes/admin/admin-actions.php:1344
+#: includes/admin/admin-actions.php:1358
 msgid "Cache flushed successfully."
 msgstr ""
 
-#: includes/admin/admin-actions.php:1350
+#: includes/admin/admin-actions.php:1364
 msgid "An error occurred while flushing the cache."
 msgstr ""
 
-#: includes/admin/admin-actions.php:1448
+#: includes/admin/admin-actions.php:1462
 msgid "Your GiveWP add-on is not receiving critical updates and new features because you have %1$s license key. Please <a href=\"%2$s\" title=\"%3$s\">activate your license</a> to receive updates and <a href=\"%4$s\" target=\"_blank\" title=\"%5$s\">priority support</a>"
 msgid_plural "Your GiveWP add-ons are not receiving critical updates and new features because you have %1$s license keys. Please <a href=\"%2$s\" title=\"%3$s\">activate your license</a> to receive updates and <a href=\"%4$s\" target=\"_blank\" title=\"%5$s\">priority support</a>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/admin-actions.php:1456
+#: includes/admin/admin-actions.php:1470
 #: includes/admin/settings/class-settings-license.php:114
 #: includes/admin/settings/class-settings-license.php:125
 #: includes/admin/settings/class-settings-license.php:127
 msgid "Activate License"
 msgstr ""
 
-#: includes/admin/admin-actions.php:1458
+#: includes/admin/admin-actions.php:1472
 msgid "Priority Support"
 msgstr ""
 
@@ -587,6 +587,7 @@ msgstr ""
 #: includes/admin/give-metabox-functions.php:1045
 #: src/Views/Form/Templates/Sequoia/optionConfig.php:111
 #: src/Views/Form/Templates/Sequoia/optionConfig.php:268
+#: build/formBuilderApp.js:13
 msgid "Image"
 msgstr ""
 
@@ -781,19 +782,19 @@ msgid_plural "%s GiveWP Forms"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/donors/class-donor-table.php:88
+#: includes/admin/donors/class-donor-table.php:90
 #: assets/dist/js/give-admin-donors.js:1035
 msgid "Name, Email, or Donor ID"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:91
+#: includes/admin/donors/class-donor-table.php:94
 #: includes/admin/forms/dashboard-columns.php:497
 #: includes/admin/payments/class-payments-table.php:164
 msgid "Search"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:103
-#: includes/admin/donors/class-donor-table.php:111
+#: includes/admin/donors/class-donor-table.php:106
+#: includes/admin/donors/class-donor-table.php:114
 #: includes/admin/forms/dashboard-columns.php:510
 #: includes/admin/forms/dashboard-columns.php:518
 #: includes/admin/payments/class-payments-table.php:168
@@ -803,8 +804,8 @@ msgstr ""
 msgid "Start Date"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:115
-#: includes/admin/donors/class-donor-table.php:123
+#: includes/admin/donors/class-donor-table.php:118
+#: includes/admin/donors/class-donor-table.php:126
 #: includes/admin/forms/dashboard-columns.php:522
 #: includes/admin/forms/dashboard-columns.php:530
 #: includes/admin/payments/class-payments-table.php:180
@@ -814,7 +815,7 @@ msgstr ""
 msgid "End Date"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:128
+#: includes/admin/donors/class-donor-table.php:131
 #: includes/admin/donors/donors.php:951
 #: includes/admin/payments/class-payments-table.php:194
 #: includes/admin/reports/class-form-reports-table.php:122
@@ -823,7 +824,7 @@ msgstr ""
 msgid "Form"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:162
+#: includes/admin/donors/class-donor-table.php:165
 #: includes/admin/forms/dashboard-columns.php:569
 #: includes/admin/payments/class-payments-table.php:228
 #: assets/dist/js/give-admin-donation-forms.js:4247
@@ -835,18 +836,18 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:168
+#: includes/admin/donors/class-donor-table.php:171
 #: includes/admin/forms/dashboard-columns.php:575
 #: includes/admin/payments/class-payments-table.php:234
 msgid "Clear Filters"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:269
+#: includes/admin/donors/class-donor-table.php:272
 #: includes/admin/reports/class-donor-reports-table.php:184
 msgid "Unnamed Donor"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:294
+#: includes/admin/donors/class-donor-table.php:297
 #: includes/admin/forms/dashboard-columns.php:35
 #: includes/admin/import-functions.php:439
 #: includes/admin/reports/class-donor-reports-table.php:218
@@ -857,7 +858,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:295
+#: includes/admin/donors/class-donor-table.php:298
 #: includes/admin/donors/donors.php:789
 #: includes/admin/emails/class-email-notification-table.php:68
 #: includes/admin/emails/class-email-setting-field.php:326
@@ -870,7 +871,7 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:296
+#: includes/admin/donors/class-donor-table.php:299
 #: includes/admin/forms/dashboard-columns.php:40
 #: includes/admin/reports/class-donor-reports-table.php:220
 #: includes/admin/reports/class-form-reports-table.php:123
@@ -895,7 +896,7 @@ msgstr ""
 msgid "Donations"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:297
+#: includes/admin/donors/class-donor-table.php:300
 #: includes/admin/reports/class-donor-reports-table.php:221
 #: includes/admin/reports/class-gateways-reports-table.php:147
 #: includes/admin/tools/export/export-functions.php:158
@@ -903,7 +904,7 @@ msgstr ""
 msgid "Total Donated"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:298
+#: includes/admin/donors/class-donor-table.php:301
 #: includes/admin/shortcodes/shortcode-give-donation-grid.php:72
 #: includes/admin/shortcodes/shortcode-give-donor-wall.php:58
 #: src/Donors/ListTable/Columns/DateCreatedColumn.php:37
@@ -911,21 +912,21 @@ msgstr ""
 msgid "Date Created"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:338
+#: includes/admin/donors/class-donor-table.php:341
 msgid "View \"%s\""
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:338
+#: includes/admin/donors/class-donor-table.php:341
 msgid "View Donor"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:339
+#: includes/admin/donors/class-donor-table.php:342
 msgid "Delete \"%s\""
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:339
-#: includes/admin/donors/class-donor-table.php:387
-#: includes/admin/donors/class-donor-table.php:608
+#: includes/admin/donors/class-donor-table.php:342
+#: includes/admin/donors/class-donor-table.php:391
+#: includes/admin/donors/class-donor-table.php:613
 #: includes/admin/payments/class-payments-table.php:643
 #: includes/admin/payments/class-payments-table.php:773
 #: includes/payments/functions.php:1452
@@ -944,20 +945,20 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:576
+#: includes/admin/donors/class-donor-table.php:581
 msgid "BULK DELETE"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:590
+#: includes/admin/donors/class-donor-table.php:595
 msgid "Are you sure you want to delete the selected donor(s)?"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:595
+#: includes/admin/donors/class-donor-table.php:600
 #: includes/admin/donors/donors.php:1142
 msgid "Delete all associated donations and records?"
 msgstr ""
 
-#: includes/admin/donors/class-donor-table.php:605
+#: includes/admin/donors/class-donor-table.php:610
 #: includes/admin/donors/donors.php:510
 #: includes/admin/donors/donors.php:749
 #: includes/admin/donors/donors.php:1167
@@ -1104,15 +1105,15 @@ msgstr ""
 #: includes/formatting.php:805
 #: includes/formatting.php:847
 #: includes/gateways/actions.php:48
-#: includes/process-donation.php:880
+#: includes/process-donation.php:927
 #: src/LegacyPaymentGateways/Adapters/LegacyPaymentGatewayAdapter.php:276
 msgid "We're unable to recognize your session. Please refresh the screen to try again; otherwise contact your website administrator for assistance."
 msgstr ""
 
 #: includes/admin/donors/donor-actions.php:426
 #: includes/login-register.php:267
-#: includes/process-donation.php:836
-#: includes/process-donation.php:1036
+#: includes/process-donation.php:883
+#: includes/process-donation.php:1083
 #: includes/user-functions.php:373
 msgid "Invalid email."
 msgstr ""
@@ -2462,7 +2463,7 @@ msgstr ""
 #: includes/forms/template.php:1850
 #: includes/forms/template.php:1855
 #: includes/install.php:357
-#: src/FormMigration/FormMetaDecorator.php:150
+#: src/FormMigration/FormMetaDecorator.php:152
 msgid "Agree to Terms?"
 msgstr ""
 
@@ -7914,12 +7915,12 @@ msgid "Please select payment mode."
 msgstr ""
 
 #: includes/class-give-scripts.php:522
-#: includes/process-donation.php:746
+#: includes/process-donation.php:793
 msgid "Please enter your last name."
 msgstr ""
 
 #: includes/class-give-scripts.php:523
-#: includes/process-donation.php:592
+#: includes/process-donation.php:639
 msgid "Please enter a valid email address."
 msgstr ""
 
@@ -7928,7 +7929,7 @@ msgid "Invalid email address or username."
 msgstr ""
 
 #: includes/class-give-scripts.php:525
-#: includes/process-donation.php:991
+#: includes/process-donation.php:1038
 #: includes/user-functions.php:419
 msgid "Enter a password."
 msgstr ""
@@ -7939,7 +7940,7 @@ msgid "Enter the password confirmation."
 msgstr ""
 
 #: includes/class-give-scripts.php:527
-#: includes/process-donation.php:570
+#: includes/process-donation.php:617
 msgid "You must agree to the terms and conditions."
 msgstr ""
 
@@ -13190,7 +13191,7 @@ msgid "Your password"
 msgstr ""
 
 #: includes/forms/template.php:1671
-#: includes/process-donation.php:973
+#: includes/process-donation.php:1020
 #: templates/shortcode-login.php:52
 #: build/donationFormRegistrars.js:1
 #: build/formBuilderRegistrars.js:1
@@ -13313,6 +13314,7 @@ msgstr ""
 #: includes/forms/widget.php:263
 #: build/adminBlocks.js:1
 #: build/donationFormBlock.js:1
+#: build/formBuilderApp.js:13
 msgid "Above"
 msgstr ""
 
@@ -14243,12 +14245,12 @@ msgid "We're sorry, your donation failed to process. Please try again or contact
 msgstr ""
 
 #: includes/login-register.php:122
-#: includes/process-donation.php:971
+#: includes/process-donation.php:1018
 msgid "The password you entered is incorrect."
 msgstr ""
 
 #: includes/login-register.php:125
-#: includes/process-donation.php:995
+#: includes/process-donation.php:1042
 msgid "The username you entered does not exist."
 msgstr ""
 
@@ -14609,103 +14611,107 @@ msgstr ""
 msgid "Welcome %s! You have successfully logged into your account."
 msgstr ""
 
-#: includes/process-donation.php:344
+#: includes/process-donation.php:345
 msgid "Honeypot field detected. Go away bad bot!"
 msgstr ""
 
-#: includes/process-donation.php:352
+#: includes/process-donation.php:350
+msgid "Serialized fields detected. Go away!"
+msgstr ""
+
+#: includes/process-donation.php:358
 msgid "The email you are using has been flagged as one used in SPAM comments or donations by our system. Please try using a different email address or contact the site administrator if you have any questions."
 msgstr ""
 
-#: includes/process-donation.php:449
+#: includes/process-donation.php:496
 msgid "The donation form will process with a valid payment gateway."
 msgstr ""
 
-#: includes/process-donation.php:453
+#: includes/process-donation.php:500
 msgid "The selected payment gateway is not enabled."
 msgstr ""
 
-#: includes/process-donation.php:457
+#: includes/process-donation.php:504
 msgid "Please insert a valid donation amount."
 msgstr ""
 
 #. translators: %s: minimum donation amount
-#: includes/process-donation.php:465
+#: includes/process-donation.php:512
 msgid "This form has a minimum donation amount of %s."
 msgstr ""
 
 #. translators: %s: Maximum donation amount
-#: includes/process-donation.php:482
+#: includes/process-donation.php:529
 msgid "This form has a maximum donation amount of %s."
 msgstr ""
 
-#: includes/process-donation.php:604
+#: includes/process-donation.php:651
 msgid "Please enter your title."
 msgstr ""
 
-#: includes/process-donation.php:621
+#: includes/process-donation.php:668
 msgid "Please enter a credit card number."
 msgstr ""
 
-#: includes/process-donation.php:632
+#: includes/process-donation.php:679
 msgid "Please enter a credit card CVC information."
 msgstr ""
 
-#: includes/process-donation.php:652
+#: includes/process-donation.php:699
 msgid "Please enter a name of your credit card account holder."
 msgstr ""
 
-#: includes/process-donation.php:663
+#: includes/process-donation.php:710
 msgid "Please enter a credit card expiry date."
 msgstr ""
 
-#: includes/process-donation.php:673
+#: includes/process-donation.php:720
 msgid "Please enter your primary billing address."
 msgstr ""
 
-#: includes/process-donation.php:677
+#: includes/process-donation.php:724
 msgid "Please enter your zip / postal code."
 msgstr ""
 
-#: includes/process-donation.php:681
+#: includes/process-donation.php:728
 msgid "Please enter your billing city."
 msgstr ""
 
-#: includes/process-donation.php:685
+#: includes/process-donation.php:732
 msgid "Please select your billing country."
 msgstr ""
 
-#: includes/process-donation.php:690
+#: includes/process-donation.php:737
 msgid "Please enter billing state / province / County."
 msgstr ""
 
-#: includes/process-donation.php:738
+#: includes/process-donation.php:785
 msgid "Please enter Company Name."
 msgstr ""
 
-#: includes/process-donation.php:841
+#: includes/process-donation.php:888
 msgid "The user information is invalid."
 msgstr ""
 
-#: includes/process-donation.php:938
+#: includes/process-donation.php:985
 msgid "Please enter your username or email to log in."
 msgstr ""
 
-#: includes/process-donation.php:1062
+#: includes/process-donation.php:1109
 #: includes/user-functions.php:363
 msgid "Enter an email."
 msgstr ""
 
-#: includes/process-donation.php:1244
+#: includes/process-donation.php:1291
 msgid "The zip / postal code you entered for your billing address is invalid."
 msgstr ""
 
 #. translators: %s: invalid donation amount
-#: includes/process-donation.php:1553
+#: includes/process-donation.php:1600
 msgid "Donation amount %s is invalid."
 msgstr ""
 
-#: includes/process-donation.php:1599
+#: includes/process-donation.php:1646
 msgid "The First Name and Last Name fields cannot contain an email address or numbers."
 msgstr ""
 
@@ -15746,11 +15752,11 @@ msgstr ""
 msgid "Form migrated from v2 to v3."
 msgstr ""
 
-#: src/FormMigration/ServiceProvider.php:84
+#: src/FormMigration/ServiceProvider.php:85
 msgid "The ID of the form (v2) to migrate to v3."
 msgstr ""
 
-#: src/FormMigration/ServiceProvider.php:108
+#: src/FormMigration/ServiceProvider.php:109
 msgid "The ID of the form (v3) to transfer donations (from v2)."
 msgstr ""
 
@@ -20059,7 +20065,7 @@ msgstr ""
 msgid "Loading updates activity"
 msgstr ""
 
-#: assets/dist/js/paypal-commerce.js:4019
+#: assets/dist/js/paypal-commerce.js:4074
 msgid "A problem has occurred with the connection between this site and PayPal, preventing donations. Please contact site administrators if reloading the page does not fix the issue. This is usually the result of some JavaScript conflict on the page."
 msgstr ""
 
@@ -21226,6 +21232,18 @@ msgid "Goal Type"
 msgstr ""
 
 #: build/formBuilderApp.js:13
+msgid "Upload Image"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "uploaded image"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Change Image"
+msgstr ""
+
+#: build/formBuilderApp.js:13
 msgid "Show Header"
 msgstr ""
 
@@ -21235,6 +21253,22 @@ msgstr ""
 
 #: build/formBuilderApp.js:13
 msgid "Show Description"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Image Style"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Determines how the image will be applied in the header for this form."
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Background"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Center"
 msgstr ""
 
 #: build/formBuilderApp.js:13

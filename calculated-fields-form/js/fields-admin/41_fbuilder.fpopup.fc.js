@@ -20,6 +20,7 @@
 			close_button:true,
 			modal:true,
 			dragging:false,
+			resizing:false,
 			position:'center', // center, top-left, top-right, bottom-left, bottom-right
 			width:'360px',
 			height:'360px',
@@ -45,6 +46,7 @@
 							{s:"#sTitleTag",e:"change", l:"titletag"},
 							{s:"#sModal",e:"click", l:"modal", f:function(el){return el.is(':checked');}},
 							{s:"#sDragging",e:"click", l:"dragging", f:function(el){return el.is(':checked');}},
+							{s:"#sResizing",e:"click", l:"resizing", f:function(el){return el.is(':checked');}},
 							{s:"#sCloseButton",e:"click", l:"close_button", f:function(el){return el.is(':checked');}},
 							{s:"#sPosition",e:"change", l:"position"},
 							{s:"#sWidth",e:"change keyup", l:"width"},
@@ -88,6 +90,7 @@
 					};
 					return '<label><input type="checkbox" name="sModal" id="sModal" '+( me.modal ? "checked" : "" )+'> Modal popup</label>'+
 					'<label><input type="checkbox" name="sDragging" id="sDragging" '+( me.dragging ? "checked" : "" )+'> Allow dragging</label>'+
+					'<label><input type="checkbox" name="sResizing" id="sResizing" '+( me.resizing ? "checked" : "" )+'> Allow resizing</label>'+
 					'<label><input type="checkbox" name="sOpenOnload" id="sOpenOnload" '+( me.open_onload ? "checked" : "" )+'> Open on form load</label>'+
 					'<label>Open on-click button</label>'+
 					'<select name="sOpenOnclick" id="sOpenOnclick" class="large">' + getButtons( me.open_onclick ) + '</select>'+

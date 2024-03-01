@@ -61,8 +61,15 @@ if($hs_feature == '1') {
 					<?php }}}?>
 				</div>
 				<div class="av-column-4 av-md-column-6 mb-6">
-					<div class="feature-image"><img src="<?php echo esc_url($features_image); ?>" alt="image">
-					</div>
+					<?php 
+					if(!$features_image) {
+						echo '<p class = "insert-image">Please Insert Feature Background Image</p>';
+					}else {	?>					
+						<div class="feature-image"><img src="<?php echo esc_url($features_image); ?>" alt="image">
+						</div>
+					<?Php }			 
+					?>
+					
 				</div>
 				<div class="av-column-4 av-md-column-6 mb-6">
 					<?php

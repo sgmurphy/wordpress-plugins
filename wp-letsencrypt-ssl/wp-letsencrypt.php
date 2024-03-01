@@ -7,7 +7,7 @@
  * Plugin Name:       WP Encryption - One Click SSL & Force HTTPS
  * Plugin URI:        https://wpencryption.com
  * Description:       Secure your WordPress site with free SSL certificate and force HTTPS. Enable HTTPS padlock. Just activating this plugin won't help! - Please run the SSL install form of WP Encryption found on left panel.
- * Version:           6.5.0
+ * Version:           6.6.0
  * Author:            WP Encryption SSL HTTPS
  * Author URI:        https://wpencryption.com
  * License:           GNU General Public License v3.0
@@ -34,7 +34,7 @@ if ( !defined( 'ABSPATH' ) ) {
  * Definitions
  */
 if ( !defined( 'WPLE_PLUGIN_VER' ) ) {
-    define( 'WPLE_PLUGIN_VER', '6.5.0' );
+    define( 'WPLE_PLUGIN_VER', '6.6.0' );
 }
 if ( !defined( 'WPLE_BASE' ) ) {
     define( 'WPLE_BASE', plugin_basename( __FILE__ ) );
@@ -86,21 +86,21 @@ if ( function_exists( 'wple_fs' ) ) {
                 // Include Freemius SDK.
                 require_once dirname( __FILE__ ) . '/freemius/start.php';
                 $wple_fs = fs_dynamic_init( array(
-                    'id'              => '5090',
-                    'slug'            => 'wp-letsencrypt-ssl',
-                    'premium_slug'    => 'wp-letsencrypt-ssl-pro',
-                    'type'            => 'plugin',
-                    'public_key'      => 'pk_f6a07c106bf4ef064d9ac4b989e02',
-                    'is_premium'      => false,
-                    'has_addons'      => false,
-                    'has_paid_plans'  => true,
-                    'has_affiliation' => 'all',
-                    'menu'            => array(
+                    'id'             => '5090',
+                    'slug'           => 'wp-letsencrypt-ssl',
+                    'premium_slug'   => 'wp-letsencrypt-ssl-pro',
+                    'type'           => 'plugin',
+                    'public_key'     => 'pk_f6a07c106bf4ef064d9ac4b989e02',
+                    'is_premium'     => false,
+                    'has_addons'     => false,
+                    'has_paid_plans' => true,
+                    'menu'           => array(
                     'slug'    => 'wp_encryption',
+                    'support' => false,
                     'contact' => false,
                     'pricing' => $showpricing,
                 ),
-                    'is_live'         => true,
+                    'is_live'        => true,
                 ) );
             }
             

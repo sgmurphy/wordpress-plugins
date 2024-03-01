@@ -124,13 +124,11 @@ class Helper extends \Cleantalk\Common\Helper
             }
         }
 
-        static::httpRequest(
+        return static::httpRequest(
             substr(get_option('home'), -1) === '/' ? get_option('home') : get_option('home') . '/',
             $request_params,
             $patterns
         );
-
-        return true;
     }
 
     /**
@@ -256,6 +254,10 @@ class Helper extends \Cleantalk\Common\Helper
         /** @psalm-suppress */
         if ( !is_object($object) && !is_array($object) ) {
             return $object;
+        }
+
+        if ( ( (is_array($object) || $object instanceof \Countable) ) && !@count($object) ) {
+            return array();
         }
 
         return array_map('static::arrayObjectToArray', (array)$object);

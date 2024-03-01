@@ -4,7 +4,7 @@ Tags: woocommerce, google analytics, google ads, facebook, conversion tracking, 
 Requires at least: 3.7
 Tested up to: 6.4
 Requires PHP: 7.3
-Stable tag: 1.40.0
+Stable tag: 1.40.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -289,6 +289,11 @@ We are committed to ensuring the security of our customers and their data. If yo
 1. Settings page
 
 == Changelog ==
+
+= 1.40.1  =
+*Release date - 01.03.2024*
+
+* Fix: Fixed a bug that could prevent detecting if the purchase conversions were fired.
 
 = 1.40.0  =
 *Release date - 27.02.2024*

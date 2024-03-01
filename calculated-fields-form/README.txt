@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator,calculated,quote calculator,forms,form editor,advanced forms,payment calculator,payment,recurring payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf,language
 Requires at least: 3.0.5
 Tested up to: 6.4
-Stable tag: 1.2.56
+Stable tag: 1.2.57
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -999,6 +999,13 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 1.2.57 =
+
+* Minor changes in the controls' appearance.
+* Implements the resize popup feature.
+* Fixes an issue in Select2 dropdown fields with long choices' texts.
+* Improves the plugin security by sanitizing and escaping the cp_ref_page parameter (Professional, Developer, and Platinum versions). Thanks to Adam Goodlin, Wordfence Customer Support Engineer.
+
 = 1.2.56 =
 
 * Removes deprecated JS code.
@@ -1039,11 +1046,3 @@ The previous code example must be overwritten as cff_var['custom_attr']*fieldnam
 = 1.2.50 =
 
 * Fixes an issue with the Readonly attribute in Checkbox, Radio Button, Checkbox DS, and Radion Button DS controls.
-
-= 1.2.49 =
-
-* Implements a Pop-up control.
-* Modifies the form templates.
-* Modifies deprecated jQuery methods.
-* Fixes an issue in the SERVER SIDE Equations add-on (Developer and Platinum plugin versions).
-* Increase the size of the attribute to enter the file content (Platinum plugin version).

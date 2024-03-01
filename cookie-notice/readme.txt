@@ -4,7 +4,7 @@ Tags: gdpr, ccpa, cookies, consent, compliance, privacy
 Requires at least: 4.9.6
 Requires PHP: 7.4
 Tested up to: 6.4.3
-Stable tag: 2.4.14
+Stable tag: 2.4.15
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -122,6 +122,10 @@ Yes! The plugin + web appliaction version includes technical compliance features
 4. Cookie Compliance settings
 
 == Changelog ==
+
+= 2.4.15 =
+* New: Passing Google Consent default parameters (Cookie Compliance only)
+* Fix: Invalid Norwegian language locale code
 
 = 2.4.14 =
 * New: Google Consent V2 support (Cookie Compliance only)
@@ -498,5 +502,5 @@ Initial release
 
 == Upgrade Notice ==
 
-= 2.4.14 =
-Google Consent V2 support (Cookie Compliance only)
+= 2.4.15 =
+* New: Passing Google Consent default parameters (Cookie Compliance only)

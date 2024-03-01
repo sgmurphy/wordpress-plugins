@@ -101,13 +101,13 @@ class Field_Shipping extends Field {
 				$field['type'] = 'text';
 			}
 
-			$shipping_fields[ $field['name'] ]          = $field;
-			$shipping_fields[ $field['name'] ]['id']    = sprintf( '_%s', (string) $field['key'] );
-			$shipping_fields[ $field['name'] ]['label'] = $field['label'];
-			$shipping_fields[ $field['name'] ]['name']  = $field['key'];
-			$shipping_fields[ $field['name'] ]['value'] = null;
-			$shipping_fields[ $field['name'] ]['class'] = join( ' ', $field['class'] );
-			// $shipping_fields[$field['name']]['wrapper_class'] = 'wooccm-premium-field';
+			$shipping_fields[ $field['name'] ]                  = $field;
+			$shipping_fields[ $field['name'] ]['id']            = sprintf( '_%s', (string) $field['key'] );
+			$shipping_fields[ $field['name'] ]['label']         = $field['label'];
+			$shipping_fields[ $field['name'] ]['name']          = $field['key'];
+			$shipping_fields[ $field['name'] ]['value']         = null;
+			$shipping_fields[ $field['name'] ]['class']         = join( ' ', $field['class'] );
+			$shipping_fields[ $field['name'] ]['wrapper_class'] = 'wooccm-premium-field';
 		}
 
 		return $shipping_fields;

@@ -2,7 +2,7 @@
 /*
 Plugin Name: Cookie Notice & Compliance for GDPR / CCPA
 Description: Cookie Notice allows you to you elegantly inform users that your site uses cookies and helps you comply with GDPR, CCPA and other data privacy laws.
-Version: 2.4.14
+Version: 2.4.15
 Author: Hu-manity.co
 Author URI: https://hu-manity.co/
 Plugin URI: https://cookie-compliance.co/
@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) )
  * Cookie Notice class.
  *
  * @class Cookie_Notice
- * @version	2.4.14
+ * @version	2.4.15
  */
 class Cookie_Notice {
 
@@ -128,7 +128,7 @@ class Cookie_Notice {
 			'subscription'			=> 'basic',
 			'threshold_exceeded'	=> false
 		],
-		'version'	=> '2.4.14'
+		'version'	=> '2.4.15'
 	];
 
 	/**
@@ -712,9 +712,16 @@ class Cookie_Notice {
 		// get cookie compliance status
 		$status = $this->get_status();
 
+		// get subscription
+		$subscription = $this->get_subscription();
+
 		// show notice, if no compliance only
-		if ( $this->options['general']['update_notice'] === true && empty( $status ) ) {
-			$this->add_notice( '<div class="cn-notice-text"><h2>' . esc_html__( 'Google Consent Mode required by March 2024', 'cookie-notice' ) . '</h2><p>' . sprintf( __( '<a href="%s" target="_blank">Google Consent Mode</a> is a tool that allows websites to more effectively communicate users\' cookie consent choices to Google tags. With the introduction of Google Consent Mode V2, its implementation is mandatory by March 2024 for all sites using Google services. Make sure your site is compatible with Google Consent Mode V2 and integrate it with Cookie Compliance. Click "Run Compliance Check" to proceed and test other compliance features.', 'cookie-notice' ), 'https://cookie-compliance.co/documentation/google-consent-mode/' ) . '</p><p class="cn-notice-actions"><a href="' . esc_url( $network ? network_admin_url( 'admin.php?page=cookie-notice&welcome=1' ) : admin_url( 'admin.php?page=cookie-notice&welcome=1' ) ) . '" class="button button-primary cn-button">' . esc_html__( 'Run Compliance Check', 'cookie-notice' ) . '</a> <a href="#" class="button-link cn-notice-dismiss">' . esc_html__( 'Dismiss Notice', 'cookie-notice' ) . '</a></p></div>', 'error', 'div' );
+		if ( $this->options['general']['update_notice'] === true ) {
+			if ( empty( $status ) ) {
+				$this->add_notice( '<div class="cn-notice-text"><h2>' . esc_html__( 'Google Consent Mode required by March 2024', 'cookie-notice' ) . '</h2><p>' . sprintf( __( '<a href="%s" target="_blank">Google Consent Mode</a> is a tool that allows websites to more effectively communicate users\' cookie consent choices to Google tags. With the introduction of Google Consent Mode V2, its implementation is mandatory by March 2024 for all sites using Google services. Make sure your site is compatible with Google Consent Mode V2 and integrate it with Cookie Compliance. Click "Run Compliance Check" to proceed and test other compliance features.', 'cookie-notice' ), 'https://cookie-compliance.co/documentation/google-consent-mode/' ) . '</p><p class="cn-notice-actions"><a href="' . esc_url( $network ? network_admin_url( 'admin.php?page=cookie-notice&welcome=1' ) : admin_url( 'admin.php?page=cookie-notice&welcome=1' ) ) . '" class="button button-primary cn-button">' . esc_html__( 'Run Compliance Check', 'cookie-notice' ) . '</a> <a href="#" class="button-link cn-notice-dismiss">' . esc_html__( 'Dismiss Notice', 'cookie-notice' ) . '</a></p></div>', 'error', 'div' );
+			} else if ( $subscription !== 'pro' ) {
+				$this->add_notice( '<div class="cn-notice-text"><h2>' . esc_html__( 'Google Consent Mode required by March 2024', 'cookie-notice' ) . '</h2><p>' . sprintf( __( '<a href="%s" target="_blank">Google Consent Mode</a> is a tool that allows websites to more effectively communicate users\' cookie consent choices to Google tags. With the introduction of Google Consent Mode V2, its implementation is mandatory by March 2024 for all sites using Google services. Cookie Compliance Professional plans include seamless integration with Google Consent Mode. Upgrade to Pro and make sure your site is compatible with it with.', 'cookie-notice' ), 'https://cookie-compliance.co/documentation/google-consent-mode/' ) . '</p><p class="cn-notice-actions"><a href="' . esc_url( $this->get_url( 'host', '?utm_campaign=upgrade+to+pro&utm_source=wordpress&utm_medium=link#/en/cc/dashboard?app-id=' . $this->options['general']['app_id'] . '&open-modal=payment' ) ) . '" class="button button-primary cn-button" target="_blank">' . esc_html__( 'Upgrade to Pro', 'cookie-notice' ) . '</a> <a href="#" class="button-link cn-notice-dismiss">' . esc_html__( 'Dismiss Notice', 'cookie-notice' ) . '</a></p></div>', 'error', 'div' );
+			}
 		}
 
 		// show threshold limit warning, compliance only

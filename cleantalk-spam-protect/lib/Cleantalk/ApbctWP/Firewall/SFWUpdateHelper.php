@@ -314,7 +314,14 @@ class SFWUpdateHelper
     {
         $queue = new \Cleantalk\ApbctWP\Queue();
 
-        return $queue->isQueueInProgress();
+        return ! $queue->isQueueFinished();
+    }
+
+    public static function updateIsFrozen()
+    {
+        $queue = new \Cleantalk\ApbctWP\Queue();
+
+        return ! $queue->isQueueFinished() && $queue->queue['started'] > time() - 86400;
     }
 
     public static function prepareUpdDir()
@@ -356,8 +363,10 @@ class SFWUpdateHelper
 
         if ( count($files) !== 0 ) {
             foreach ($files as $file) {
-                if ( is_file($file) && unlink($file) === false ) {
-                    return array('error' => 'Can not delete the FW file: ' . $file);
+                if ( @is_file($file) && @unlink($file) === false ) {
+                    if (strpos($file, 'index.php') === false) {
+                        return array('error' => 'Can not delete the FW file: ' . $file);
+                    }
                 }
             }
         }

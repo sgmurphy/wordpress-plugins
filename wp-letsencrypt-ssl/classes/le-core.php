@@ -152,6 +152,15 @@ class WPLE_Core
             $this->wple_log( "Domain covered:\n" . json_encode( $this->domains ) . "\n" );
         }
         
+        //since v6.6
+        if ( !function_exists( 'curl_init' ) ) {
+            $this->wple_log(
+                "PHP Curl is required & not enabled on your server. Please enable PHP Curl before proceeding.",
+                'error',
+                'a',
+                true
+            );
+        }
         update_option( 'wple_stage', 'starting_client' );
         $this->wple_create_client();
         update_option( 'wple_stage', 'generating_order' );

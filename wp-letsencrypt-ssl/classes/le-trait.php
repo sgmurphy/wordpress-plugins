@@ -323,9 +323,9 @@ class WPLE_Trait
             $ssllabs = SELF::wple_ssllabs_scan( false, true );
             sleep( 10 );
             
-            if ( $ssllabs['status'] == 'ready' ) {
+            if ( isset( $ssllabs['status'] ) && $ssllabs['status'] == 'ready' ) {
                 $grade = $ssllabs['info'];
-                if ( $grade != 'T' && $grade != 'M' ) {
+                if ( $grade != 'T' && $grade != 'M' && $grade != '' ) {
                     //not trusted & cert mismatch check
                     return true;
                 }
@@ -640,6 +640,28 @@ class WPLE_Trait
         
         //ready
         $myssl = $sslinfo['info'];
+        $grade = ( array_key_exists( 'grade', $myssl['endpoints'][0] ) ? $myssl['endpoints'][0]['grade'] : '' );
+        if ( $grade == '' && isset( $myssl['endpoints'][1] ) ) {
+            $grade = ( array_key_exists( 'grade', $myssl['endpoints'][1] ) ? $myssl['endpoints'][1]['grade'] : '' );
+        }
+        if ( $grade == '' ) {
+            //unable to test
+            $grade = 'T';
+        }
+        
+        if ( $grade == 'T' || $grade == 'M' ) {
+            $html = '<div class="wple-active-ssl">
+      <p>Details of <b>ACTIVE</b> SSL certificate installed & running on your site.</p>
+      <div class="wple-sslgrade">
+        <span class="wple-grade-' . esc_attr( $grade ) . '">' . esc_html( $grade ) . '<small>GRADE</small></span>
+      </div>
+      <p class="wple-ssl-invalid">Your site do not have a valid SSL certificate installed!.</p><br>';
+            $html .= '<a href="https://www.ssllabs.com/ssltest/analyze.html?d=' . esc_attr( SELF::get_root_domain() ) . '" target="_blank" class="ssllabslink" rel="nofollow noopener">Full details&gt;&gt;</a><br>';
+            $html .= '</div>';
+            $html .= '<a href="' . wp_nonce_url( admin_url( 'admin.php?page=wp_encryption_ssl_health' ), 'wple_ssl', 'wple_ssl_check' ) . '" class="wple-sslcheck"><span class="dashicons dashicons-image-rotate"></span> Start Fresh Scan</a>';
+            return $html;
+        }
+        
         $validTo = $myssl['certs'][0]['notAfter'];
         $to = date( 'd-m-Y', $validTo / 1000 );
         $tenDaysToExpiry = strtotime( '-10 day', strtotime( $to ) );
@@ -651,24 +673,8 @@ class WPLE_Trait
             wp_schedule_single_event( $tenDaysToExpiry, 'wple_ssl_reminder_notice' );
         }
         
-        $grade = ( array_key_exists( 'grade', $myssl['endpoints'][0] ) ? $myssl['endpoints'][0]['grade'] : '' );
-        if ( $grade == '' && isset( $myssl['endpoints'][1] ) ) {
-            $grade = ( array_key_exists( 'grade', $myssl['endpoints'][1] ) ? $myssl['endpoints'][1]['grade'] : '' );
-        }
         $revoked = $myssl['certs'][0]['revocationStatus'];
         //1 - revoked
-        
-        if ( $grade == 'T' || $grade == 'M' ) {
-            $html = '<div class="wple-active-ssl">
-      <p>Details of <b>ACTIVE</b> SSL certificate installed & running on your site.</p>
-      <div class="wple-sslgrade">
-        <span class="wple-grade-' . esc_attr( $grade ) . '">' . esc_html( $grade ) . '<small>GRADE</small></span>
-      </div>
-      <p class="wple-ssl-invalid">Your site do not have a valid SSL certificate installed!.</p>
-      </div>';
-            return $html;
-        }
-        
         $subjectCN = $myssl['certs'][0]['subject'];
         $issuer = $myssl['certs'][0]['issuerSubject'];
         $altnames = $myssl['certs'][0]['altNames'];
@@ -780,6 +786,8 @@ class WPLE_Trait
      */
     public static function wple_other_plugins( $sslhealthpage = false )
     {
+        //removed since 7.0.0
+        return '';
         $action = 'install-plugin';
         $cklsslug = 'cookieless-analytics';
         $cklspluginstallURL = wp_nonce_url( add_query_arg( array(
@@ -854,6 +862,9 @@ class WPLE_Trait
     
     public static function wple_ssllabs_scan( $force_new = false, $gradeonly = true, $host = '' )
     {
+        if ( function_exists( 'ignore_user_abort' ) ) {
+            ignore_user_abort( true );
+        }
         
         if ( !$force_new ) {
             $stored_result = get_transient( 'wple_ssllabs' );
@@ -862,7 +873,7 @@ class WPLE_Trait
                 if ( $gradeonly ) {
                     return [
                         'status' => 'ready',
-                        'info'   => $stored_result['endpoints'][0]['grade'],
+                        'info'   => ( isset( $stored_result['endpoints'][0]['grade'] ) ? $stored_result['endpoints'][0]['grade'] : '' ),
                     ];
                 } else {
                     return [
@@ -901,7 +912,7 @@ class WPLE_Trait
                 if ( $gradeonly ) {
                     return [
                         'status' => 'ready',
-                        'info'   => $res['endpoints'][0]['grade'],
+                        'info'   => ( array_key_exists( 'grade', $res['endpoints'][0] ) ? $res['endpoints'][0]['grade'] : '' ),
                     ];
                 } else {
                     return [

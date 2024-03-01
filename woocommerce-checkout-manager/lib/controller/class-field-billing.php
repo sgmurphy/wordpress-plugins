@@ -106,13 +106,13 @@ class Field_Billing extends Field {
 				$field['type'] = 'text';
 			}
 
-			$billing_fields[ $field['name'] ]          = $field;
-			$billing_fields[ $field['name'] ]['id']    = sprintf( '_%s', (string) $field['key'] );
-			$billing_fields[ $field['name'] ]['label'] = $field['label'];
-			$billing_fields[ $field['name'] ]['name']  = $field['key'];
-			$billing_fields[ $field['name'] ]['value'] = null;
-			$billing_fields[ $field['name'] ]['class'] = join( ' ', $field['class'] );
-			// $billing_fields[$field['name']]['wrapper_class'] = 'wooccm-premium-field';
+			$billing_fields[ $field['name'] ]                  = $field;
+			$billing_fields[ $field['name'] ]['id']            = sprintf( '_%s', (string) $field['key'] );
+			$billing_fields[ $field['name'] ]['label']         = $field['label'];
+			$billing_fields[ $field['name'] ]['name']          = $field['key'];
+			$billing_fields[ $field['name'] ]['value']         = null;
+			$billing_fields[ $field['name'] ]['class']         = join( ' ', $field['class'] );
+			$billing_fields[ $field['name'] ]['wrapper_class'] = 'wooccm-premium-field';
 		}
 
 		return $billing_fields;
