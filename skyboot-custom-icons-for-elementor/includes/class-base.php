@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 * -------------*/
 class Skb_Cife_Base{
     
-    const MINIMUM_ELEMENTOR_VERSION = '2.0.0';
+    const MINIMUM_ELEMENTOR_VERSION = '3.0.0';
     const MINIMUM_PHP_VERSION = '5.6';
 
     private static $_instance = null;
@@ -79,7 +79,7 @@ class Skb_Cife_Base{
         );
         printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
     }    
-
+  
     /*--------------------------------------------
     *   Notice For Elementor Install / Activation
     *--------------------------------------------*/       
@@ -121,7 +121,6 @@ class Skb_Cife_Base{
         );
         printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
     }
-
 
     /*---------------
     *   Include File

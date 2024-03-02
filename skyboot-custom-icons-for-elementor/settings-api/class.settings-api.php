@@ -87,7 +87,7 @@ if ( !class_exists( 'Skb_Cife_Settings_API' ) ):
         /**
          * Initialize and registers the settings sections and fileds to WordPress
          *
-         * Usually this should be called at `admin_init` hook.
+         * Usually this should be called at 'admin_init' hook.
          *
          * This function gets the initiated settings sections and fields. Then
          * registers them to WordPress and ready for use.

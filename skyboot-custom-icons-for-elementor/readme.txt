@@ -3,7 +3,7 @@ Contributors: skybootstrap
 Tags: elementor, custom icons, elementor icons, icons, elementor addons, icon fonts, elementor icons list, elementor custom icons, elementor icons library, free icons, social media icons, icons for website
 Requires at least: 5.9
 Requires PHP: 7.0
-Tested up to: 6.3
+Tested up to: 6.4
 Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

@@ -551,6 +551,16 @@ class Skb_Cife_Settings_API_Fields {
                     </div>  
                     <div class="skb_cife-two-column">
                         <div class="skb_cife_rate-us">
+                            <h3>Who We Are</h3>
+                            <p>We are <strong>Skybootstrap</strong>, which specializes in WordPress plugins, HTML Templates, and provides high-quality blog posts for our readers. We recently launched our SaaS product named TLinky, offering URL Shortener, QR Code Generator, and Link In Bio Page Builder functionalities.</p>
+                            <hr/>
+                            <h3>Our SaaS Product - TLinky</h3>
+                            <p>We're excited to offer all our plugin users a 50% discount on all plans. Simply use the coupon code <strong>WP50</strong> to get the discount.</p>
+                            <a href="<?php echo esc_url('https://tlinky.com/?utm_source=skb-icon-admin&utm_medium=skb-free-plugin'); ?>" target="_blank">
+                                <img src="<?php echo SKB_CIFE_ASSETS; ?>images/tlinky-link-management-tools.png" alt="<?php echo esc_attr('TLinky - Link Management Platform'); ?>">
+                         
+                            </a>                            
+                            <hr/>
                             <a href="<?php echo esc_url('https://wordpress.org/plugins/skyboot-custom-icons-for-elementor'); ?>" target="_blank">
                                 <img src="<?php echo SKB_CIFE_ASSETS; ?>images/skb-rate-us.png" alt="<?php echo esc_attr('Rate us on wordpress.org'); ?>">
                          
@@ -582,6 +592,15 @@ class Skb_Cife_Settings_API_Fields {
                         </div>
                         <div class="skb_cife-change-log-table-wrapper">
                             <table class="skb_cife-change-log-table">
+                            <tr>
+                                    <td>
+                                        <label><?php echo esc_html('1.0.8 (Date: 02-03-2024)', 'skb_cife'); ?></label>
+                                        <ul>
+                                            <li><i class="dashicons dashicons-yes"></i><?php echo esc_html('Compatible with WordPress 6.4', 'skb_cife'); ?></li>
+                                            <li><i class="dashicons dashicons-yes"></i><?php echo esc_html('Compatible with latest version of Elementor', 'skb_cife'); ?></li>
+                                        </ul>
+                                    </td>
+                                </tr>                                 
                                 <tr>
                                     <td>
                                         <label><?php echo esc_html('1.0.7 (Date: 25-08-2023)', 'skb_cife'); ?></label>

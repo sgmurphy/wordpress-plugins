@@ -279,7 +279,9 @@ Class L_Plus_Generator {
 
 	public function get_post_version( $post_id = '' ){
 		$version = L_THEPLUS_VERSION;
+		
 		if( $post_id != '' ){
+			
 			$version = get_post_meta( $post_id, '_elementor_css', true );
 			if(!empty($version) && !empty($version['time'])){
 				return $version['time'];
@@ -287,6 +289,12 @@ Class L_Plus_Generator {
 				$updated_at = $this->get_posts_metadata( $post_id, 'tp_widgets', 'update_at');
 				if(!empty($updated_at)){
 					return $updated_at;
+				}else if( empty($updated_at) ){
+					$vtime = get_option('tp_save_update_at');
+					if(!empty($vtime)){
+						$this->update_posts_metadata( self::$tpae_post_id, 'tp_widgets', 'update_at', $vtime);
+						return $vtime;
+					}
 				}
 			}
 		}
@@ -1076,7 +1084,6 @@ Class L_Plus_Generator {
 				$this->load_inline_script();
 			}
 			if($this->get_caching_option() == false){
-
 				$plus_version = $this->get_post_version( $post_id );
 				
 				if(!empty($this->tp_first_load)){

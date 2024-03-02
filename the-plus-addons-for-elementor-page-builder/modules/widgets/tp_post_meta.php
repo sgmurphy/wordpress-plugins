@@ -87,6 +87,20 @@ class L_ThePlus_Post_Meta extends Widget_Base {
 			]
 		);
 		$repeater->add_control(
+			'date_type',[
+				'label' => esc_html__( 'Type','tpebl' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'post_published',
+				'options' => [
+					'post_published' => esc_html__( 'Post Published','tpebl' ),
+					'post_modified' => esc_html__( 'Post Modified','tpebl' ),		
+				],
+				'condition' => [
+					'sortfield' => 'date',
+				],
+			]
+		);
+		$repeater->add_control(
 			'category_taxonomies',
 			[
 				'label' => esc_html__( 'Taxonomies', 'tpebl' ),
@@ -1506,12 +1520,22 @@ class L_ThePlus_Post_Meta extends Widget_Base {
 						 $index=0;
 					foreach($loop_content as $index => $item) {				
 					    	if(!empty($item['sortfield']) && $item['sortfield']=='date'){
+
 					           if($showDate){
 						         $dateIcon = '';
 								 if(!empty($settings['dateIcon']) && $settings['dateIcon'] !='none'){
 									 $dateIcon ='<i class="'.esc_attr($settings['dateIcon']).'"></i>';
 								 }
-						         $output .='<span class="tp-meta-date" ><span class="tp-meta-date-label tp-meta-label" >'.esc_html($settings["datePrefix"]).'</span><a class="tp-meta-value" href="'.esc_url(get_the_permalink()).'">'.$dateIcon.esc_html(get_the_date()).'</a></span>';
+
+								 $date_type =  !empty($item['date_type']) ? $item['date_type'] : 'post_published';
+
+								 $date_mtype = '';
+									if('post_modified' === $date_type){
+										$date_mtype = get_the_modified_date();
+									}else{
+										$date_mtype = get_the_date();
+									}
+						         $output .='<span class="tp-meta-date" ><span class="tp-meta-date-label tp-meta-label" >'.esc_html($settings["datePrefix"]).'</span><a class="tp-meta-value" href="'.esc_url(get_the_permalink()).'">'.$dateIcon.esc_html($date_mtype).'</a></span>';
 					            }
 				            }
 							

@@ -2743,7 +2743,7 @@ protected function register_controls() {
 							}
 							
 							if($settings["display_search_bar"]=='yes' && $select_icon_list=='search'){
-								$meta_content .='<li class="search-icon elementor-repeater-item-' . $item['_id'] . ' '.esc_attr($responsive_class_attr).'">';
+								$meta_content .='<li class="search-icon elementor-repeater-item-' . esc_attr($item['_id']) . ' '.esc_attr($responsive_class_attr).'">';
 									$meta_content .='<div class="content-icon-list">';
 										$meta_content .='<div class="plus-post-search-icon '.esc_attr($search_icon_style).'">';
 											if($search_icon_style=='style-1'){
@@ -2776,7 +2776,7 @@ protected function register_controls() {
 								if ($woocommerce) {
 									
 									$cart_icon_style=$settings["cart_icon_style"];
-									$meta_content .='<li class="mini-cart-icon '.$cart_icon_style.' elementor-repeater-item-' . $item['_id'] . ' '.esc_attr($responsive_class_attr).'">';
+									$meta_content .='<li class="mini-cart-icon '.$cart_icon_style.' elementor-repeater-item-' . esc_attr($item['_id']) . ' '.esc_attr($responsive_class_attr).'">';
 										$meta_content .='<div class="content-icon-list">';
 										
 											$meta_content .='<a href="'.wc_get_cart_url().'" class="plus-cart-icon '.esc_attr($cart_icon_style).' '.esc_attr($cart_icon).'">';

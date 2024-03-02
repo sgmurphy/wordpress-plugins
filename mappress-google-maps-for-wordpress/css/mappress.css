@@ -1273,6 +1273,11 @@ a.leaflet-control-zoom-in, .leaflet-control-zoom-out {
 	padding: 0;
 }
 
+/* Used to prevent scrolling on underlying body */
+.mapp-dialog-noscroll {
+	overflow: hidden;
+}    
+
 /* Must wait until open, otherwise flash of content */
 .mapp-dialog[open] {
 	display: flex;
@@ -1303,7 +1308,7 @@ a.leaflet-control-zoom-in, .leaflet-control-zoom-out {
 	flex-direction: column;
 	flex: 1;
 	overflow: hidden;
-	padding: 15px;
+	padding: 0 15px;
 }
 
 .mapp-dialog-toolbar {
@@ -1578,8 +1583,12 @@ div.mapp-control {
 	display: inline-flex;
 }
 
-.mapp-control > label > span {
-	margin: 0 5px;
+.mapp-label-left {
+	margin-right: 5px;
+}
+
+.mapp-label-right {
+	margin-left: 5px;
 }
 
 .mapp-label-top {

@@ -2,8 +2,8 @@
 Contributors: wp-buy	
 Tags: content, content copy protection, content protection, copy protection, prevent copy, protect blog, image protect, image protection, no right click, plagiarism, secure content, content theft
 Requires at least: 4.8
-Tested up to: 6.3
-Stable tag: 3.5.7
+Tested up to: 6.4.3
+Stable tag: 3.5.8
 
 This wp plugin protect the posts content from being copied by any other web site author (content copy protection) , you dont want your content to spread without your permission!!
 
@@ -64,6 +64,10 @@ your posts extremely simple without yelling at your readers</li>
 </ul>
 
 == Changelog ==
+= 3.5.8 =
+<ul>
+<li>Checking with wordpress version 6.4.3</li>
+</ul>
 = 3.5.7 =
 <ul>
 <li>Checking with wordpress version 6.3</li>

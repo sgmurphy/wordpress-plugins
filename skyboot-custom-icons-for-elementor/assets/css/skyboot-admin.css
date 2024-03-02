@@ -156,13 +156,15 @@ overflow-y: scroll;
 }
 .skb_cife-change-log-inner, .skb-genarel-tab-column-1 {
 	float: left;
-	width: 75%;
-
+	max-width: 75%;
+	min-width: 60%;
 }
 .skb_cife-two-column {
+	overflow: hidden;
+	min-width: 290px;
+	max-width: 320px;
 	float: right;
 }
-
 .skb_cife-change-log-table{
 	width: 100%;
 }
@@ -194,6 +196,12 @@ overflow-y: scroll;
 	.single_icon_wrapper th label{
 		font-size: 15px;
 	}
+	.skb_cife-two-column{
+		float:none;
+	}
+	.skb-genarel-tab-column-1 {
+		margin-bottom: 25px;
+	  }	
 }
 @media (min-width: 783px) and (max-width: 1200px) {
 	.skb_cife-change-log-inner {

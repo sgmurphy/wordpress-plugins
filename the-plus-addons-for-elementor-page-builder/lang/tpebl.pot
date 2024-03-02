@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-28 11:42+0530\n"
+"POT-Creation-Date: 2024-03-02 16:21+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -386,12 +386,12 @@ msgid "Post Meta"
 msgstr ""
 
 #: includes/theplus_options.php:755 modules/widgets/tp_post_author.php:34
-#: modules/widgets/tp_post_author.php:60 modules/widgets/tp_post_meta.php:887
+#: modules/widgets/tp_post_author.php:60 modules/widgets/tp_post_meta.php:901
 msgid "Post Author"
 msgstr ""
 
 #: includes/theplus_options.php:764 modules/widgets/tp_post_comment.php:31
-#: modules/widgets/tp_post_meta.php:1091 modules/widgets/tp_post_meta.php:1098
+#: modules/widgets/tp_post_meta.php:1105 modules/widgets/tp_post_meta.php:1112
 msgid "Post Comment"
 msgstr ""
 
@@ -677,7 +677,7 @@ msgstr ""
 
 #: includes/theplus_options.php:1774
 #: modules/widgets/tp_meeting_scheduler.php:96
-#: modules/widgets/tp_post_meta.php:107
+#: modules/widgets/tp_post_meta.php:121
 msgid "All"
 msgstr ""
 
@@ -812,8 +812,8 @@ msgstr ""
 #: modules/widgets/tp_post_author.php:451
 #: modules/widgets/tp_post_author.php:518
 #: modules/widgets/tp_post_comment.php:844
-#: modules/widgets/tp_post_meta.php:390 modules/widgets/tp_post_meta.php:546
-#: modules/widgets/tp_post_meta.php:897 modules/widgets/tp_post_meta.php:1101
+#: modules/widgets/tp_post_meta.php:404 modules/widgets/tp_post_meta.php:560
+#: modules/widgets/tp_post_meta.php:911 modules/widgets/tp_post_meta.php:1115
 #: modules/widgets/tp_post_title.php:158
 #: modules/widgets/tp_pricing_table.php:571
 #: modules/widgets/tp_scroll_navigation.php:173
@@ -1072,8 +1072,8 @@ msgstr ""
 #: modules/widgets/tp_post_author.php:450
 #: modules/widgets/tp_post_author.php:517
 #: modules/widgets/tp_post_comment.php:843
-#: modules/widgets/tp_post_meta.php:389 modules/widgets/tp_post_meta.php:545
-#: modules/widgets/tp_post_meta.php:896 modules/widgets/tp_post_meta.php:1100
+#: modules/widgets/tp_post_meta.php:403 modules/widgets/tp_post_meta.php:559
+#: modules/widgets/tp_post_meta.php:910 modules/widgets/tp_post_meta.php:1114
 #: modules/widgets/tp_post_title.php:157
 #: modules/widgets/tp_pricing_table.php:570
 #: modules/widgets/tp_scroll_navigation.php:172
@@ -1245,14 +1245,12 @@ msgstr ""
 msgid "Notable additions made to The Plus Addons for Elementor."
 msgstr ""
 
-#: includes/welcome-page.php:92 includes/welcome-page.php:103
-msgid ""
-"Improving Performance: Introducing a Smart Optimized Caching Method for Code "
-"Optimization and Refinement."
+#: includes/welcome-page.php:92
+msgid "Add : Post Meta : Option to select post modify date."
 msgstr ""
 
 #: includes/welcome-page.php:93
-msgid "Fix : Advance Text Block : Compatibility with html tags."
+msgid "Fix : Performance : Smart Optimized cache."
 msgstr ""
 
 #: includes/welcome-page.php:94
@@ -1265,6 +1263,12 @@ msgstr ""
 
 #: includes/welcome-page.php:97
 msgid "Lite Full Change log"
+msgstr ""
+
+#: includes/welcome-page.php:103
+msgid ""
+"Improving Performance: Introducing a Smart Optimized Caching Method for Code "
+"Optimization and Refinement."
 msgstr ""
 
 #: includes/welcome-page.php:104
@@ -2026,8 +2030,8 @@ msgstr ""
 #: modules/widgets/tp_navigation_menu_lite.php:1438
 #: modules/widgets/tp_number_counter.php:232
 #: modules/widgets/tp_number_counter.php:376
-#: modules/widgets/tp_post_meta.php:413 modules/widgets/tp_post_meta.php:919
-#: modules/widgets/tp_post_meta.php:1123
+#: modules/widgets/tp_post_meta.php:427 modules/widgets/tp_post_meta.php:933
+#: modules/widgets/tp_post_meta.php:1137
 #: modules/widgets/tp_post_search.php:139
 #: modules/widgets/tp_pricing_table.php:189
 #: modules/widgets/tp_pricing_table.php:646
@@ -3657,10 +3661,10 @@ msgstr ""
 #: modules/widgets/tp_post_comment.php:1014
 #: modules/widgets/tp_post_content.php:226
 #: modules/widgets/tp_post_featured_image.php:244
-#: modules/widgets/tp_post_meta.php:453 modules/widgets/tp_post_meta.php:640
-#: modules/widgets/tp_post_meta.php:761 modules/widgets/tp_post_meta.php:1009
-#: modules/widgets/tp_post_meta.php:1186 modules/widgets/tp_post_meta.php:1299
-#: modules/widgets/tp_post_meta.php:1405
+#: modules/widgets/tp_post_meta.php:467 modules/widgets/tp_post_meta.php:654
+#: modules/widgets/tp_post_meta.php:775 modules/widgets/tp_post_meta.php:1023
+#: modules/widgets/tp_post_meta.php:1200 modules/widgets/tp_post_meta.php:1313
+#: modules/widgets/tp_post_meta.php:1419
 #: modules/widgets/tp_post_search.php:329
 #: modules/widgets/tp_post_search.php:435
 #: modules/widgets/tp_post_search.php:522
@@ -3742,7 +3746,8 @@ msgstr ""
 #: modules/controls/group/plus-adv-shadow.php:248
 #: modules/widgets/tp_dark_mode.php:102
 #: modules/widgets/tp_post_featured_image.php:63
-#: modules/widgets/tp_post_meta.php:117 modules/widgets/tp_social_embed.php:55
+#: modules/widgets/tp_post_meta.php:91 modules/widgets/tp_post_meta.php:131
+#: modules/widgets/tp_social_embed.php:55
 #: modules/widgets/tp_social_embed.php:84
 #: modules/widgets/tp_social_embed.php:782
 msgid "Type"
@@ -3841,11 +3846,11 @@ msgstr ""
 #: modules/widgets/tp_post_comment.php:637
 #: modules/widgets/tp_post_content.php:232
 #: modules/widgets/tp_post_content.php:284
-#: modules/widgets/tp_post_meta.php:307 modules/widgets/tp_post_meta.php:462
-#: modules/widgets/tp_post_meta.php:501 modules/widgets/tp_post_meta.php:649
-#: modules/widgets/tp_post_meta.php:674 modules/widgets/tp_post_meta.php:1018
-#: modules/widgets/tp_post_meta.php:1057 modules/widgets/tp_post_meta.php:1195
-#: modules/widgets/tp_post_meta.php:1234 modules/widgets/tp_post_title.php:231
+#: modules/widgets/tp_post_meta.php:321 modules/widgets/tp_post_meta.php:476
+#: modules/widgets/tp_post_meta.php:515 modules/widgets/tp_post_meta.php:663
+#: modules/widgets/tp_post_meta.php:688 modules/widgets/tp_post_meta.php:1032
+#: modules/widgets/tp_post_meta.php:1071 modules/widgets/tp_post_meta.php:1209
+#: modules/widgets/tp_post_meta.php:1248 modules/widgets/tp_post_title.php:231
 #: modules/widgets/tp_post_title.php:283 modules/widgets/tp_post_title.php:413
 #: modules/widgets/tp_pricing_table.php:928
 #: modules/widgets/tp_pricing_table.php:1334
@@ -3995,10 +4000,10 @@ msgstr ""
 #: modules/widgets/tp_post_comment.php:1066
 #: modules/widgets/tp_post_content.php:278
 #: modules/widgets/tp_post_featured_image.php:285
-#: modules/widgets/tp_post_meta.php:492 modules/widgets/tp_post_meta.php:665
-#: modules/widgets/tp_post_meta.php:822 modules/widgets/tp_post_meta.php:1048
-#: modules/widgets/tp_post_meta.php:1225 modules/widgets/tp_post_meta.php:1340
-#: modules/widgets/tp_post_meta.php:1446
+#: modules/widgets/tp_post_meta.php:506 modules/widgets/tp_post_meta.php:679
+#: modules/widgets/tp_post_meta.php:836 modules/widgets/tp_post_meta.php:1062
+#: modules/widgets/tp_post_meta.php:1239 modules/widgets/tp_post_meta.php:1354
+#: modules/widgets/tp_post_meta.php:1460
 #: modules/widgets/tp_post_search.php:617
 #: modules/widgets/tp_post_search.php:737
 #: modules/widgets/tp_post_search.php:799
@@ -4121,15 +4126,15 @@ msgstr ""
 msgid "https://www.demo-link.com"
 msgstr ""
 
-#: modules/enqueue/plus-generator.php:722
+#: modules/enqueue/plus-generator.php:730
 msgid "The Plus Performance"
 msgstr ""
 
-#: modules/enqueue/plus-generator.php:730
+#: modules/enqueue/plus-generator.php:738
 msgid "Purge All Pages"
 msgstr ""
 
-#: modules/enqueue/plus-generator.php:738
+#: modules/enqueue/plus-generator.php:746
 msgid "Purge Current Page"
 msgstr ""
 
@@ -4799,7 +4804,7 @@ msgstr ""
 #: modules/widgets/tp_ninja_form.php:1502
 #: modules/widgets/tp_ninja_form.php:1755
 #: modules/widgets/tp_number_counter.php:1607
-#: modules/widgets/tp_post_meta.php:103 modules/widgets/tp_post_search.php:390
+#: modules/widgets/tp_post_meta.php:117 modules/widgets/tp_post_search.php:390
 #: modules/widgets/tp_post_search.php:653
 #: modules/widgets/tp_pricing_table.php:2405
 #: modules/widgets/tp_scroll_navigation.php:529
@@ -5037,7 +5042,7 @@ msgstr ""
 #: modules/widgets/tp_info_box.php:271 modules/widgets/tp_info_box.php:505
 #: modules/widgets/tp_number_counter.php:221
 #: modules/widgets/tp_number_counter.php:233
-#: modules/widgets/tp_post_meta.php:558 modules/widgets/tp_post_meta.php:580
+#: modules/widgets/tp_post_meta.php:572 modules/widgets/tp_post_meta.php:594
 #: modules/widgets/tp_pricing_table.php:190
 #: modules/widgets/tp_pricing_table.php:659
 #: modules/widgets/tp_progress_bar.php:264
@@ -5112,7 +5117,7 @@ msgstr ""
 #: modules/widgets/tp_info_box.php:1782 modules/widgets/tp_messagebox.php:452
 #: modules/widgets/tp_messagebox.php:697 modules/widgets/tp_ninja_form.php:820
 #: modules/widgets/tp_number_counter.php:389
-#: modules/widgets/tp_post_meta.php:959 modules/widgets/tp_post_meta.php:1163
+#: modules/widgets/tp_post_meta.php:973 modules/widgets/tp_post_meta.php:1177
 #: modules/widgets/tp_post_search.php:210
 #: modules/widgets/tp_post_search.php:242
 #: modules/widgets/tp_pricing_table.php:857
@@ -5159,7 +5164,7 @@ msgstr ""
 #: modules/widgets/tp_post_comment.php:475
 #: modules/widgets/tp_post_comment.php:602
 #: modules/widgets/tp_post_content.php:215
-#: modules/widgets/tp_post_meta.php:610 modules/widgets/tp_post_title.php:214
+#: modules/widgets/tp_post_meta.php:624 modules/widgets/tp_post_title.php:214
 #: modules/widgets/tp_post_title.php:402
 #: modules/widgets/tp_pricing_table.php:1301
 #: modules/widgets/tp_pricing_table.php:1624
@@ -5218,7 +5223,7 @@ msgstr ""
 #: modules/widgets/tp_post_comment.php:980
 #: modules/widgets/tp_post_content.php:171
 #: modules/widgets/tp_post_featured_image.php:136
-#: modules/widgets/tp_post_meta.php:163 modules/widgets/tp_post_meta.php:190
+#: modules/widgets/tp_post_meta.php:177 modules/widgets/tp_post_meta.php:204
 #: modules/widgets/tp_post_search.php:68
 #: modules/widgets/tp_post_search.php:177
 #: modules/widgets/tp_post_title.php:124
@@ -5258,7 +5263,7 @@ msgstr ""
 #: modules/widgets/tp_post_comment.php:984
 #: modules/widgets/tp_post_content.php:175
 #: modules/widgets/tp_post_featured_image.php:140
-#: modules/widgets/tp_post_meta.php:167 modules/widgets/tp_post_meta.php:194
+#: modules/widgets/tp_post_meta.php:181 modules/widgets/tp_post_meta.php:208
 #: modules/widgets/tp_post_search.php:72 modules/widgets/tp_post_title.php:128
 #: modules/widgets/tp_pricing_table.php:1950
 #: modules/widgets/tp_scroll_navigation.php:758
@@ -5300,7 +5305,7 @@ msgstr ""
 #: modules/widgets/tp_post_comment.php:988
 #: modules/widgets/tp_post_content.php:179
 #: modules/widgets/tp_post_featured_image.php:144
-#: modules/widgets/tp_post_meta.php:171 modules/widgets/tp_post_meta.php:198
+#: modules/widgets/tp_post_meta.php:185 modules/widgets/tp_post_meta.php:212
 #: modules/widgets/tp_post_search.php:76
 #: modules/widgets/tp_post_search.php:178
 #: modules/widgets/tp_post_title.php:132
@@ -6124,7 +6129,7 @@ msgstr ""
 
 #: modules/widgets/tp_age_gate.php:295 modules/widgets/tp_age_gate.php:361
 #: modules/widgets/tp_heading_title.php:173
-#: modules/widgets/tp_post_meta.php:553
+#: modules/widgets/tp_post_meta.php:567
 msgid "Prefix"
 msgstr ""
 
@@ -6394,9 +6399,9 @@ msgstr ""
 #: modules/widgets/tp_post_content.php:259
 #: modules/widgets/tp_post_content.php:311
 #: modules/widgets/tp_post_featured_image.php:180
-#: modules/widgets/tp_post_meta.php:795 modules/widgets/tp_post_meta.php:856
-#: modules/widgets/tp_post_meta.php:1321 modules/widgets/tp_post_meta.php:1362
-#: modules/widgets/tp_post_meta.php:1427 modules/widgets/tp_post_meta.php:1468
+#: modules/widgets/tp_post_meta.php:809 modules/widgets/tp_post_meta.php:870
+#: modules/widgets/tp_post_meta.php:1335 modules/widgets/tp_post_meta.php:1376
+#: modules/widgets/tp_post_meta.php:1441 modules/widgets/tp_post_meta.php:1482
 #: modules/widgets/tp_post_search.php:459
 #: modules/widgets/tp_post_search.php:497
 #: modules/widgets/tp_post_search.php:722
@@ -6487,8 +6492,8 @@ msgstr ""
 #: modules/widgets/tp_ninja_form.php:1317
 #: modules/widgets/tp_ninja_form.php:1448
 #: modules/widgets/tp_ninja_form.php:1689
-#: modules/widgets/tp_post_author.php:360 modules/widgets/tp_post_meta.php:730
-#: modules/widgets/tp_post_meta.php:1286
+#: modules/widgets/tp_post_author.php:360 modules/widgets/tp_post_meta.php:744
+#: modules/widgets/tp_post_meta.php:1300
 #: modules/widgets/tp_post_search.php:579 modules/widgets/tp_wp_forms.php:118
 #: modules/widgets/tp_wp_forms.php:194 modules/widgets/tp_wp_forms.php:326
 #: modules/widgets/tp_wp_forms.php:597 modules/widgets/tp_wp_forms.php:1521
@@ -6529,8 +6534,8 @@ msgstr ""
 #: modules/widgets/tp_post_comment.php:683
 #: modules/widgets/tp_post_comment.php:963
 #: modules/widgets/tp_post_content.php:202
-#: modules/widgets/tp_post_meta.php:744 modules/widgets/tp_post_meta.php:1275
-#: modules/widgets/tp_post_meta.php:1392 modules/widgets/tp_post_title.php:201
+#: modules/widgets/tp_post_meta.php:758 modules/widgets/tp_post_meta.php:1289
+#: modules/widgets/tp_post_meta.php:1406 modules/widgets/tp_post_title.php:201
 #: modules/widgets/tp_post_title.php:351
 #: modules/widgets/tp_pricing_table.php:2053
 #: modules/widgets/tp_team_member_listout.php:868
@@ -6610,9 +6615,9 @@ msgstr ""
 #: modules/widgets/tp_post_content.php:252
 #: modules/widgets/tp_post_content.php:304
 #: modules/widgets/tp_post_featured_image.php:173
-#: modules/widgets/tp_post_meta.php:784 modules/widgets/tp_post_meta.php:845
-#: modules/widgets/tp_post_meta.php:1314 modules/widgets/tp_post_meta.php:1355
-#: modules/widgets/tp_post_meta.php:1420 modules/widgets/tp_post_meta.php:1461
+#: modules/widgets/tp_post_meta.php:798 modules/widgets/tp_post_meta.php:859
+#: modules/widgets/tp_post_meta.php:1328 modules/widgets/tp_post_meta.php:1369
+#: modules/widgets/tp_post_meta.php:1434 modules/widgets/tp_post_meta.php:1475
 #: modules/widgets/tp_post_title.php:251 modules/widgets/tp_post_title.php:303
 #: modules/widgets/tp_post_title.php:433
 #: modules/widgets/tp_scroll_navigation.php:443
@@ -6685,9 +6690,9 @@ msgstr ""
 #: modules/widgets/tp_navigation_menu_lite.php:1197
 #: modules/widgets/tp_navigation_menu_lite.php:1348
 #: modules/widgets/tp_number_counter.php:441
-#: modules/widgets/tp_post_meta.php:476 modules/widgets/tp_post_meta.php:515
-#: modules/widgets/tp_post_meta.php:1032 modules/widgets/tp_post_meta.php:1071
-#: modules/widgets/tp_post_meta.php:1209 modules/widgets/tp_post_meta.php:1248
+#: modules/widgets/tp_post_meta.php:490 modules/widgets/tp_post_meta.php:529
+#: modules/widgets/tp_post_meta.php:1046 modules/widgets/tp_post_meta.php:1085
+#: modules/widgets/tp_post_meta.php:1223 modules/widgets/tp_post_meta.php:1262
 #: modules/widgets/tp_post_search.php:260
 #: modules/widgets/tp_pricing_table.php:909
 #: modules/widgets/tp_progress_bar.php:701
@@ -6822,7 +6827,7 @@ msgstr ""
 #: modules/widgets/tp_flip_box.php:416 modules/widgets/tp_hovercard.php:223
 #: modules/widgets/tp_meeting_scheduler.php:355
 #: modules/widgets/tp_post_comment.php:104
-#: modules/widgets/tp_post_meta.php:557 modules/widgets/tp_post_meta.php:568
+#: modules/widgets/tp_post_meta.php:571 modules/widgets/tp_post_meta.php:582
 msgid "Text"
 msgstr ""
 
@@ -6885,7 +6890,7 @@ msgid "Relative"
 msgstr ""
 
 #: modules/widgets/tp_blockquote.php:951
-#: modules/widgets/tp_blockquote.php:1034 modules/widgets/tp_post_meta.php:318
+#: modules/widgets/tp_blockquote.php:1034 modules/widgets/tp_post_meta.php:332
 #: modules/widgets/tp_social_embed.php:766
 msgid "Size"
 msgstr ""
@@ -7320,7 +7325,7 @@ msgstr ""
 #: modules/widgets/tp_navigation_menu_lite.php:392
 #: modules/widgets/tp_navigation_menu_lite.php:890
 #: modules/widgets/tp_navigation_menu_lite.php:1439
-#: modules/widgets/tp_post_author.php:71 modules/widgets/tp_post_meta.php:694
+#: modules/widgets/tp_post_author.php:71 modules/widgets/tp_post_meta.php:708
 #: modules/widgets/tp_pricing_table.php:105
 #: modules/widgets/tp_pricing_table.php:151
 #: modules/widgets/tp_pricing_table.php:284
@@ -7721,7 +7726,7 @@ msgstr ""
 #: modules/widgets/tp_navigation_menu_lite.php:130
 #: modules/widgets/tp_navigation_menu_lite.php:891
 #: modules/widgets/tp_navigation_menu_lite.php:1440
-#: modules/widgets/tp_post_author.php:72 modules/widgets/tp_post_meta.php:695
+#: modules/widgets/tp_post_author.php:72 modules/widgets/tp_post_meta.php:709
 #: modules/widgets/tp_pricing_table.php:435
 #: modules/widgets/tp_pricing_table.php:534
 #: modules/widgets/tp_pricing_table.php:582
@@ -7927,7 +7932,7 @@ msgid "Typography and Cosmetics"
 msgstr ""
 
 #: modules/widgets/tp_button.php:462 modules/widgets/tp_flip_box.php:1472
-#: modules/widgets/tp_post_meta.php:620
+#: modules/widgets/tp_post_meta.php:634
 #: modules/widgets/tp_scroll_navigation.php:790
 msgid "Svg Icon Size"
 msgstr ""
@@ -8733,7 +8738,7 @@ msgstr ""
 
 #: modules/widgets/tp_countdown.php:441
 #: modules/widgets/tp_post_comment.php:672
-#: modules/widgets/tp_post_meta.php:221 modules/widgets/tp_wp_forms.php:98
+#: modules/widgets/tp_post_meta.php:235 modules/widgets/tp_wp_forms.php:98
 msgid "Label Typography"
 msgstr ""
 
@@ -9350,7 +9355,7 @@ msgstr ""
 #: modules/widgets/tp_gravity_form.php:285
 #: modules/widgets/tp_ninja_form.php:158
 #: modules/widgets/tp_post_comment.php:660
-#: modules/widgets/tp_post_meta.php:231 modules/widgets/tp_wp_forms.php:137
+#: modules/widgets/tp_post_meta.php:245 modules/widgets/tp_wp_forms.php:137
 msgid "Label Color"
 msgstr ""
 
@@ -9932,8 +9937,8 @@ msgid "Animation Style"
 msgstr ""
 
 #: modules/widgets/tp_heading_animation.php:117
-#: modules/widgets/tp_post_meta.php:397 modules/widgets/tp_post_meta.php:904
-#: modules/widgets/tp_post_meta.php:1108 modules/widgets/tp_post_title.php:78
+#: modules/widgets/tp_post_meta.php:411 modules/widgets/tp_post_meta.php:918
+#: modules/widgets/tp_post_meta.php:1122 modules/widgets/tp_post_title.php:78
 #: modules/widgets/tp_pricing_table.php:307
 #: modules/widgets/tp_pricing_table.php:367
 msgid "Prefix Text"
@@ -10287,7 +10292,7 @@ msgstr ""
 msgid "PX"
 msgstr ""
 
-#: modules/widgets/tp_hovercard.php:503 modules/widgets/tp_post_meta.php:264
+#: modules/widgets/tp_hovercard.php:503 modules/widgets/tp_post_meta.php:278
 msgid "Top Offset"
 msgstr ""
 
@@ -11261,13 +11266,13 @@ msgstr ""
 msgid "Paginate Style"
 msgstr ""
 
-#: modules/widgets/tp_post_author.php:101 modules/widgets/tp_post_meta.php:185
+#: modules/widgets/tp_post_author.php:101 modules/widgets/tp_post_meta.php:199
 #: modules/widgets/tp_social_embed.php:2304
 #: modules/widgets/tp_team_member_listout.php:329
 msgid "Content Alignment"
 msgstr ""
 
-#: modules/widgets/tp_post_author.php:130 modules/widgets/tp_post_meta.php:158
+#: modules/widgets/tp_post_author.php:130 modules/widgets/tp_post_meta.php:172
 msgid "Box Alignment"
 msgstr ""
 
@@ -11330,7 +11335,7 @@ msgstr ""
 
 #: modules/widgets/tp_post_author.php:734
 #: modules/widgets/tp_post_author.php:743
-#: modules/widgets/tp_post_meta.php:1578
+#: modules/widgets/tp_post_meta.php:1602
 msgid "author"
 msgstr ""
 
@@ -11361,7 +11366,7 @@ msgstr ""
 #: modules/widgets/tp_post_comment.php:73
 #: modules/widgets/tp_post_comment.php:853
 #: modules/widgets/tp_post_comment.php:1134
-#: modules/widgets/tp_post_meta.php:1110
+#: modules/widgets/tp_post_meta.php:1124
 msgid "Comment"
 msgstr ""
 
@@ -11585,7 +11590,7 @@ msgstr ""
 msgid "Select Field"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:83 modules/widgets/tp_post_meta.php:92
+#: modules/widgets/tp_post_meta.php:83 modules/widgets/tp_post_meta.php:106
 msgid "Taxonomies"
 msgstr ""
 
@@ -11593,173 +11598,181 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:108
+#: modules/widgets/tp_post_meta.php:95
+msgid "Post Published"
+msgstr ""
+
+#: modules/widgets/tp_post_meta.php:96
+msgid "Post Modified"
+msgstr ""
+
+#: modules/widgets/tp_post_meta.php:122
 msgid "Current Post"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:121
+#: modules/widgets/tp_post_meta.php:135
 msgid "Category"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:122 modules/widgets/tp_post_title.php:100
+#: modules/widgets/tp_post_meta.php:136 modules/widgets/tp_post_title.php:100
 msgid "Tag"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:133
+#: modules/widgets/tp_post_meta.php:147
 msgid "Sortable"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:213
+#: modules/widgets/tp_post_meta.php:227
 msgid "Meta Info"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:243
+#: modules/widgets/tp_post_meta.php:257
 msgid "Value Typography"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:253
+#: modules/widgets/tp_post_meta.php:267
 msgid "Value Color"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:286 modules/widgets/tp_post_meta.php:296
+#: modules/widgets/tp_post_meta.php:300 modules/widgets/tp_post_meta.php:310
 msgid "Separator"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:298
+#: modules/widgets/tp_post_meta.php:312
 msgid ","
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:338
+#: modules/widgets/tp_post_meta.php:352
 msgid "Left Space"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:358
+#: modules/widgets/tp_post_meta.php:372
 msgid "Right Space"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:379
+#: modules/widgets/tp_post_meta.php:393
 msgid "Post Date"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:387
+#: modules/widgets/tp_post_meta.php:401
 msgid "Show Post Date"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:400
+#: modules/widgets/tp_post_meta.php:414
 msgid "Enter Prefix"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:409
+#: modules/widgets/tp_post_meta.php:423
 msgid "Select Date Icon"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:414
+#: modules/widgets/tp_post_meta.php:428
 msgid "Clock 1"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:415
+#: modules/widgets/tp_post_meta.php:429
 msgid "Clock 2"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:416
+#: modules/widgets/tp_post_meta.php:430
 msgid "Calendar 1"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:417
+#: modules/widgets/tp_post_meta.php:431
 msgid "Calendar 2"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:418
+#: modules/widgets/tp_post_meta.php:432
 msgid "Calendar 3"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:430 modules/widgets/tp_post_meta.php:936
-#: modules/widgets/tp_post_meta.php:1140
+#: modules/widgets/tp_post_meta.php:444 modules/widgets/tp_post_meta.php:950
+#: modules/widgets/tp_post_meta.php:1154
 msgid "Icon Space"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:535 modules/widgets/tp_post_meta.php:543
+#: modules/widgets/tp_post_meta.php:549 modules/widgets/tp_post_meta.php:557
 msgid "Post Taxonomies"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:570
+#: modules/widgets/tp_post_meta.php:584
 msgid "in"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:595
+#: modules/widgets/tp_post_meta.php:609
 msgid "Taxonomy Limit"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:690
+#: modules/widgets/tp_post_meta.php:704
 msgid "Category Style"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:708
+#: modules/widgets/tp_post_meta.php:722
 msgid "Category Space"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:894
+#: modules/widgets/tp_post_meta.php:908
 msgid "Show Post Author"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:906
+#: modules/widgets/tp_post_meta.php:920
 msgid "By"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:915
+#: modules/widgets/tp_post_meta.php:929
 msgid "Select Author Icon"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:920 modules/widgets/tp_post_meta.php:1124
+#: modules/widgets/tp_post_meta.php:934 modules/widgets/tp_post_meta.php:1138
 msgid "Icon 1"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:921 modules/widgets/tp_post_meta.php:1125
+#: modules/widgets/tp_post_meta.php:935 modules/widgets/tp_post_meta.php:1139
 msgid "Icon 2"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:922 modules/widgets/tp_post_meta.php:1126
+#: modules/widgets/tp_post_meta.php:936 modules/widgets/tp_post_meta.php:1140
 msgid "Icon 3"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:923 modules/widgets/tp_post_meta.php:1127
+#: modules/widgets/tp_post_meta.php:937 modules/widgets/tp_post_meta.php:1141
 msgid "Icon 4"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:924 modules/widgets/tp_post_meta.php:1128
+#: modules/widgets/tp_post_meta.php:938 modules/widgets/tp_post_meta.php:1142
 msgid "Icon 5"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:925
+#: modules/widgets/tp_post_meta.php:939
 msgid "Avatar"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:982
+#: modules/widgets/tp_post_meta.php:996
 msgid "Avatar Size"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:1119
+#: modules/widgets/tp_post_meta.php:1133
 msgid "Select Comment Icon"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:1129
+#: modules/widgets/tp_post_meta.php:1143
 msgid "Icon 6"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:1268
+#: modules/widgets/tp_post_meta.php:1282
 msgid "Inner Content Area"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:1385
+#: modules/widgets/tp_post_meta.php:1399
 msgid "Main Content Area"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:1559
+#: modules/widgets/tp_post_meta.php:1583
 #, php-format
 msgid "%s"
 msgstr ""
 
-#: modules/widgets/tp_post_meta.php:1599
+#: modules/widgets/tp_post_meta.php:1623
 msgid "comment"
 msgstr ""
 

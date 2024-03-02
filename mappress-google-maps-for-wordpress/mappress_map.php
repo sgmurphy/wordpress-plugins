@@ -69,10 +69,15 @@ class Mappress_Map extends Mappress_Obj {
 			'pois' => $json_pois,
 			'search' => $this->search,
 			'status' => $this->status,
-			'title' => sanitize_text_field($this->title),
+			'title' => $this->title,
 			'width' => $this->width,
 			'zoom' => $this->zoom
 		);
+	}
+
+	function sanitize() {
+		$this->name = sanitize_text_field($this->name);
+		$this->title = sanitize_text_field($this->title);
 	}
 
 	function __construct($atts = null) {
@@ -83,6 +88,7 @@ class Mappress_Map extends Mappress_Obj {
 			if (!$poi instanceof Mappress_Poi)
 				$this->pois[$index] = new Mappress_Poi($poi);
 		}
+		$this->sanitize();
 	}
 
 	static function register() {
@@ -275,9 +281,6 @@ class Mappress_Map extends Mappress_Obj {
 		if (empty($this->name)) {
 			$this->name = (defined('DOING_AJAX') && DOING_AJAX) ? "mapp" . uniqid() : "mapp$div";
 			$div++;
-		} else {
-			// Sanitize name, could be provided by user in iframe URL
-			$this->name = sanitize_text_field($this->name);
 		}
 
 		if (Mappress::$options->webComponent)
@@ -404,6 +407,25 @@ class Mappress_Map extends Mappress_Obj {
 		}
 		echo "</tbody></table>";
 	}
+
+	/**
+	* Delete a map and all of its post assignments
+	*
+	* @param mixed $mapid
+	*/
+	static function empty_trash() {
+		global $wpdb;
+		$maps_table = $wpdb->prefix . 'mapp_maps';
+																								  
+		$result = $wpdb->query($wpdb->prepare("DELETE FROM $maps_table WHERE status = 'trashed'"));
+		if ($result === false)
+			return false;
+
+		$wpdb->query("COMMIT");
+		do_action('mappress_empty_trash');     // Use for your own developments
+		return true;
+	}
+	
 
 	function get_dims() {
 		$parse = function($dim) {
@@ -585,19 +607,16 @@ class Mappress_Map extends Mappress_Obj {
 
 		$obj = json_encode($this->to_json());
 		
-		// Sanitize for db keys used in search, JSON object is done separately
-		$title = sanitize_text_field($this->title);
-
 		// Insert if no ID, else update
 		if (!$this->mapid) {
 			$sql = "INSERT INTO $maps_table (otype, oid, status, title, obj) VALUES(%s, %d, %s, %s, %s)";
-			$result = $wpdb->query($wpdb->prepare($sql, $this->otype, $this->oid, $this->status, $title, $obj));
+			$result = $wpdb->query($wpdb->prepare($sql, $this->otype, $this->oid, $this->status, $this->title, $obj));
 			$this->mapid = $wpdb->get_var("SELECT LAST_INSERT_ID()");
 		} else {
 			$sql = "INSERT INTO $maps_table (mapid, otype, oid, status, title, obj) VALUES(%d, %s, %d, %s, %s, %s) "
 				. " ON DUPLICATE KEY UPDATE mapid=%d, otype=%s, oid=%d, status=%s, title=%s, obj=%s ";
-			$result = $wpdb->query($wpdb->prepare($sql, $this->mapid, $this->otype, $this->oid, $this->status, $title, $obj,
-				$this->mapid, $this->otype, $this->oid, $this->status, $title, $obj));
+			$result = $wpdb->query($wpdb->prepare($sql, $this->mapid, $this->otype, $this->oid, $this->status, $this->title, $obj,
+				$this->mapid, $this->otype, $this->oid, $this->status, $this->title, $obj));
 		}
 
 		if ($result === false || !$this->mapid)

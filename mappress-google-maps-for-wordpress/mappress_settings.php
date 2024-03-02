@@ -96,11 +96,14 @@ class Mappress_Options extends Mappress_Obj {
 		$options = get_option('mappress_options');
 
 		// Force web component
-		if (isset($_REQUEST['mapp-wc']))
+		if (isset($_REQUEST['mp_wc']))
 			$options['webComponent'] = true;
 		// Force iframes
 		else if (Mappress_Settings::iframes_required())
 			$options['iframes'] = true;
+
+		if (isset($_REQUEST['mp_iframes']))
+			$options['iframes'] = ($_REQUEST['mp_iframes'] == 'true') ? true : false;
 
 		return new Mappress_Options($options);
 	}
