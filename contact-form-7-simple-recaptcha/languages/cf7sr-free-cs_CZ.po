@@ -1,0 +1,71 @@
+msgid "Settings"
+msgstr "Nastavení"
+
+msgid "This plugin adds <strong>I am not a robot</strong> checkbox to Contact Form 7, extending its functionality (not affiliated with the Contact Form 7 plugin)."
+msgstr "Tento plugin přidává zaškrtávací políčko <strong>Nejsem robot</strong> do Contact Form 7 a rozšiřuje jeho funkčnost (není spojen s pluginem Contact Form 7)."
+
+msgid "To add Captcha to Contact Form 7 form, add <strong>[cf7sr-simple-recaptcha]</strong> in your form ( preferable above submit button )"
+msgstr "Chcete-li přidat Captcha do formuláře Contact Form 7, přidejte do svého formuláře <strong>[cf7sr-simple-recaptcha]</strong> (ideálně nad tlačítko pro odeslání)"
+
+msgid "The plugin will not work unless you set up the configuration below"
+msgstr "Plugin nebude fungovat, dokud nenakonfigurujete níže uvedená nastavení"
+
+msgid "Invalid captcha error message"
+msgstr "Chybová zpráva neplatné Captcha"
+
+msgid "Save Settings"
+msgstr "Uložit nastavení"
+
+msgid "Get Captcha Pro and Unlock all the Powerful Features"
+msgstr "Získejte Captcha Pro a odemkněte všechny výkonné funkce"
+
+msgid "Trusted by more than 100,000 businesses worldwide. The Pro version is even better!"
+msgstr "Důvěryhodný pro více než 100 000 firem po celém světě. Verze Pro je ještě lepší!"
+
+msgid "Check out the cool new features."
+msgstr "Podívejte se na skvělé nové funkce."
+
+msgid "WPML and POLYLANG language integration"
+msgstr "Integrace jazyků WPML a POLYLANG"
+
+msgid "Render captcha widget in a specific language, choose from 70 languages."
+msgstr "Zobrazte widget Captcha v konkrétním jazyce, vyberte ze 70 jazyků."
+
+msgid "Switch between the color theme of the widget, light or dark."
+msgstr "Přepínejte mezi barevnými motivy widgetu, světlým nebo tmavým."
+
+msgid "Switch between the type of the widget, image or audio."
+msgstr "Přepínejte mezi typem widgetu, obrázkem nebo zvukem."
+
+msgid "Switch between the size of the widget, normal or compact."
+msgstr "Přepínejte mezi velikostmi widgetu, normální nebo kompaktní."
+
+msgid "Redirect users to any url after mail sent successfully."
+msgstr "Po úspěšném odeslání e-mailu přesměrujte uživatele na libovolnou adresu URL."
+
+msgid "Integrate powerful honeypot protection into your forms for stronger security."
+msgstr "Integrujte do svých formulářů účinnou ochranu pomocí honeypotu pro vyšší zabezpečení."
+
+msgid "Define a list of restricted words. Messages containing restricted words will not be sent."
+msgstr "Definujte seznam zakázaných slov. Zprávy obsahující zakázaná slova nebudou odeslány."
+
+msgid "Get IP Blocker access to block messages from malicious IP addresses."
+msgstr "Získejte přístup k IP Blockeru a blokujte zprávy ze škodlivých IP adres."
+
+msgid "Use rate limiting to manage how often forms can be submitted and prevent abuse."
+msgstr "Použijte omezení frekvence k řízení toho, jak často lze formuláře odesílat, a zamezte zneužití."
+
+msgid "Enable automatic saving of Contact Form 7 messages to your database."
+msgstr "Povolte automatické ukládání zpráv z Contact Form 7 do databáze."
+
+msgid "Use Twilio SMS to receive new form submission notifications directly to your phone."
+msgstr "Používejte Twilio SMS k přijímání oznámení o odeslání nového formuláře přímo do telefonu."
+
+msgid "Transfer data from contact form submissions directly into your Mailchimp list."
+msgstr "Přenášejte data z odeslání kontaktního formuláře přímo do svého seznamu Mailchimp."
+
+msgid "Use this link to generate"
+msgstr "K vygenerování použijte tento odkaz"
+
+msgid "Choose"
+msgstr "Zvolte"

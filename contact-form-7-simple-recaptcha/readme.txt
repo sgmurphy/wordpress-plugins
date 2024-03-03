@@ -1,31 +1,33 @@
 === Contact Form 7 Captcha ===
 Contributors: 247wd
 Donate link: https://www.paypal.me/cf7captcha
-Tags: captcha, recaptcha, new recaptcha, contact form 7, no captcha
+Tags: contact form 7, contact-form-7-captcha, captcha, recaptcha, recaptcha v2, spam
 Requires at least: 4.1.2
 Tested up to: 6.4.3
-Stable tag: 0.1.2
+Stable tag: 0.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Add CAPTCHA to Contact Form 7
+Add reCAPTCHA V2 to Contact Form 7
 
 == Description ==
 
-To use this plugin, you need to sign up for API keys for your site via google site: https://www.google.com/recaptcha/admin<br>
-This plugin implements "I'm not a robot" checkbox. When generating keys, choose reCAPTCHA v2 -> Checkbox<br>
-Add Google CAPTCHA to Contact Form 7.<br>
-Protect your Contact Form 7 forms from spam and abuse.<br>
-Can be used to protect multiple forms on same page.<br>
-Tested with Contact Form 7 version 5.8.7 and WordPress version 6.4.3<br>
-Configure plugin from Settings => CF7 Simple Recaptcha.<br>
-After configuration, add [cf7sr-simple-recaptcha] to any Contact Form 7 form.<br>
-Added CSRF check and escaped attributes in Settings page.
-Fixed potential Cross-Site Scripting in old web browsers.
+Protect your Contact Form 7 forms with Google CAPTCHA V2 robust spam protection.
+
+Easy integration and supports multiple forms on a single page.
+
+Use [https://www.google.com/recaptcha/admin](https://www.google.com/recaptcha/admin) to generate **Site key** and **Secret key**.
+
+When generating keys, choose **Challenge (v2) -> "I'm not a robot" Checkbox**
+
+Update Site key and Secret key from Settings => CF7 Simple Recaptcha.
+
+To add reCAPTCHA protection, insert **[cf7sr-simple-recaptcha]** shortcode above the submit button in your Contact Form 7 form.
 
 == Installation ==
 
 1. Upload the entire contents of the zip file to your plugin directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Configure plugin from Settings => CF7 Simple Recaptcha
+
 == Screenshots ==

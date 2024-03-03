@@ -1,0 +1,71 @@
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+msgid "This plugin adds <strong>I am not a robot</strong> checkbox to Contact Form 7, extending its functionality (not affiliated with the Contact Form 7 plugin)."
+msgstr "Αυτό το πρόσθετο προσθέτει το πλαίσιο ελέγχου <strong>Δεν είμαι ροομποτ</strong> στη Contact Form 7, επεκτείνοντας τη λειτουργικότητά του (δεν σχετίζεται με το πρόσθετο Contact Form 7)."
+
+msgid "To add Captcha to Contact Form 7 form, add <strong>[cf7sr-simple-recaptcha]</strong> in your form ( preferable above submitbutton )"
+msgstr "Για να προσθέσετε το Captcha στη φόρμα Contact Form 7, προσθέστε το <strong>[cf7sr-simple-recaptcha]</strong> στη φόρμα σας (κατά προτίμηση πάνω από το κουμπί υποβολής)"
+
+msgid "The plugin will not work unless you set up the configuration below"
+msgstr "Το πρόσθετο δενδε θα λειτουργήσει μέχρις να ρυθμίσετε τις παραμέτρους παρακάτω"
+
+msgid "Invalid captcha error message"
+msgstr "Μήνυμα σφάλματος μη έγκυρου Captcha"
+
+msgid "Save Settings"
+msgstr "Αποθήκευση Ρυθμίσεων"
+
+msgid "Get Captcha Pro and Unlock all the Powerful Features"
+msgstr "Αποκτήστε το Captcha Pro και ξεκλειδώστε όλες τις ισχυρές δυνατότητες"
+
+msgid "Trusted by more than 100,000 businesses worldwide. The Pro version is even better!"
+msgstr "Έμπιστο από περισσότερες από 100.000 επιχειρήσεις παγκοσμίως. Η έκδοση Pro είναι ακόμα καλύτερη!"
+
+msgid "Check out the cool new features."
+msgstr "Δείτε τα νέα cool χαρακτηριστικά."
+
+msgid "WPML and POLYLANG language integration"
+msgstr "Ενσωμάτωση γλώσσας WPML και POLYLANG"
+
+msgid "Render captcha widget in a specific language, choose from 70 languages."
+msgstr "Εμφάνιση του Captcha widget σε μια συγκεκριμένη γλώσσα, επιλέξτε από70 γλώσσες."
+
+msgid "Switch between the color theme of the widget, light or dark."
+msgstr "Εναλλαγή μεταξύ του θέματος χρώματος του widget, ανοιχτού ή σκούρου."
+
+msgid "Switch between the type of the widget, image or audio."
+msgstr "Εναλλαγή μεταξύ του τύπου του widget, εικόνας ή ήχου."
+
+msgid "Switch between the size of the widget, normal or compact."
+msgstr "Εναλλαγή μεταξύ του μεγέθους του widget, κανονικού ήσυμπαγούς."
+
+msgid "Redirect users to any url after mail sent successfully."
+msgstr "Ανακατευθύνετε τους χρήστες σε οποιοδήποτε URL μετά την επιτυχή αποστολή email."
+
+msgid "Integrate powerful honeypot protection into your forms for stronger security."
+msgstr "Ενσωματώστε ισχυρή προστασία honeypot στις φόρμες σας για ισχυρότερη ασφάλεια."
+
+msgid "Define a list of restricted words. Messages containing restricted words will not be sent."
+msgstr "Ορίστε μια λίστα απαγορευμένων λέξεων. Μηνύματα που περιέχουν περιορισμένες λέξεις δεν θα αποστέλλονται."
+
+msgid "Get IP Blocker access to block messages from malicious IP addresses."
+msgstr "Αποκτήστε πρόσβαση στο IP Blocker για να μπλοκάρετε μηνύματα από κακόβουλες διευθύνσεις IP."
+
+msgid "Use rate limiting to manage how often forms can be submitted and prevent abuse."
+msgstr "Χρησιμοποιήστε τον περιορισμό συχνότητας για να διαχειριστείτε πόσο συχνά μπορούν να υποβάλλονται φόρμες και να αποτρέψετε την κατάχρηση."
+
+msgid "Enable automatic saving of Contact Form 7 messages to your database."
+msgstr "Ενεργοποιήστε την αυτόματη αποθήκευση των μηνυμάτων Contact Form 7 στη βάση δεδομένων σας."
+
+msgid "Use Twilio SMS to receive new form submission notifications directly to your phone."
+msgstr "Χρησιμοποιήστε το Twilio SMS για να λαμβάνετε ειδοποιήσεις υποβολής νέας φόρμας απευθείας στο τηλέφωνό σας."
+
+msgid "Transfer data fromcontact form submissionsdirectly into your Mailchimp list."
+msgstr "Μεταφορά δεδομένων από υποβολές φορμας επικοινωνίας απευθείας στη λίστα Mailchimp σας."
+
+msgid "Use this link to generate"
+msgstr "Χρησιμοποιήστε αυτόν τον σύνδεσμο για δημιουργία"
+
+msgid "Choose"
+msgstr "Επιλέξτε"

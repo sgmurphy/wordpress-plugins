@@ -1,0 +1,71 @@
+msgid "Settings"
+msgstr "Setări"
+
+msgid "This plugin adds <strong>I am not a robot</strong> checkbox to Contact Form 7, extending its functionality (not affiliated with the Contact Form 7 plugin)."
+msgstr "Acest plugin adaugă checkbox-ul <strong>Nu sunt un robot</strong> la Contact Form 7, extinzându-i funcționalitatea (nu este afiliat cu pluginul Contact Form 7)."
+
+msgid "To add Captcha to Contact Form 7 form, add <strong>[cf7sr-simple-recaptcha]</strong> in your form ( preferable above submit button )"
+msgstr "Pentru a adăuga Captcha la formularul Contact Form 7, introduceți <strong>[cf7sr-simple-recaptcha]</strong> în formularul dvs. (de preferință deasupra butonului de trimitere)"
+
+msgid "The plugin will not work unless you set up the configuration below"
+msgstr "Pluginul nu va funcționa decât după ce configurați setările de mai jos"
+
+msgid "Invalid captcha error message"
+msgstr "Mesaj de eroare pentru Captcha invalid"
+
+msgid "Save Settings"
+msgstr "Salvează Setările"
+
+msgid "Get Captcha Pro and Unlock all the Powerful Features"
+msgstr "Obțineți Captcha Pro și deblocați toate funcțiile puternice"
+
+msgid "Trusted by more than 100,000 businesses worldwide. The Pro version is even better!"
+msgstr "De încredere pentru peste 100.000 de companii la nivel global. Versiunea Pro este și mai bună!"
+
+msgid "Check out the cool new features."
+msgstr "Verificați noile funcții interesante."
+
+msgid "WPML and POLYLANG language integration"
+msgstr "Integrare lingvistică cu WPML și POLYLANG"
+
+msgid "Render captcha widget in a specific language, choose from 70 languages."
+msgstr "Afișați widgetul Captcha într-o anumită limbă, alegeți din 70 de limbi."
+
+msgid "Switch between the color theme of the widget, light or dark."
+msgstr "Comutați între culorile temei pentru widget: deschisă sau închisă."
+
+msgid "Switch between the type of the widget, image or audio."
+msgstr "Comutați între tipurile de widget: imagine sau audio."
+
+msgid "Switch between the size of the widget, normal or compact."
+msgstr "Comutați între dimensiunile widget-ului: normal sau compact."
+
+msgid "Redirect users to any url after mail sent successfully."
+msgstr "Redirecționați utilizatorii către orice adresă URL după ce e-mailul a fost trimis cu succes."
+
+msgid "Integrate powerful honeypot protection into your forms for stronger security."
+msgstr "Integrați protecție puternică honeypot în formularele dvs. pentru o securitate mai robustă."
+
+msgid "Define a list of restricted words. Messages containing restricted words will not be sent."
+msgstr "Definiți o listă de cuvinte restricționate. Mesajele care conțin cuvinte restricționate nu vor fi trimise."
+
+msgid "Get IP Blocker access to block messages from malicious IP addresses."
+msgstr "Obțineți acces IP Blocker pentru a bloca mesajele de la adrese IP rău intenționate."
+
+msgid "Use rate limiting to manage how often forms can be submitted and prevent abuse."
+msgstr "Utilizați limitarea ratelor pentru a gestiona cât de des pot fi trimise formulare și pentru a preveni abuzul."
+
+msgid "Enable automatic saving of Contact Form 7 messages to your database."
+msgstr "Activați salvarea automată a mesajelor Contact Form 7 în baza dvs. de date."
+
+msgid "Use Twilio SMS to receive new form submission notifications directly to your phone."
+msgstr "Utilizați Twilio SMS pentru a primi notificări pentru noile trimiteri de formulare direct pe telefon."
+
+msgid "Transfer data from contact form submissions directly into your Mailchimp list."
+msgstr "Transferați datele din trimiterile de formulare de contact direct în lista Mailchimp."
+
+msgid "Use this link to generate"
+msgstr "Utilizați acest link pentru a genera"
+
+msgid "Choose"
+msgstr "Alegeți"

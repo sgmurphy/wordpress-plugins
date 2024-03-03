@@ -1,0 +1,71 @@
+msgid "Settings"
+msgstr "Nastavenia"
+
+msgid "This plugin adds <strong>I am not a robot</strong> checkbox to Contact Form 7, extending its functionality (not affiliated with the Contact Form 7 plugin)."
+msgstr "Tento plugin pridáva zaškrtávacie políčko <strong>Nie som robot</strong> do Contact Form 7, čím rozširuje jeho funkcionalitu (nie je spojený s pluginom Contact Form 7)."
+
+msgid "To add Captcha to Contact Form 7 form, add <strong>[cf7sr-simple-recaptcha]</strong> in your form ( preferable above submit button )"
+msgstr "Ak chcete pridať Captcha do formulára Contact Form 7, pridajte do svojho formulára <strong>[cf7sr-simple-recaptcha]</strong> (najlepšie nad tlačidlo odoslania)."
+
+msgid "The plugin will not work unless you set up the configuration below"
+msgstr "Plugin nebude fungovať, pokiaľ nenastavíte konfiguráciu nižšie"
+
+msgid "Invalid captcha error message"
+msgstr "Neplatná chybová správa Captcha"
+
+msgid "Save Settings"
+msgstr "Uložiť nastavenia"
+
+msgid "Get Captcha Pro and Unlock all the Powerful Features"
+msgstr "Získajte Captcha Pro a odomknite všetky výkonné funkcie"
+
+msgid "Trusted by more than 100,000 businesses worldwide. The Pro version is even better!"
+msgstr "Dôverujú mu viac ako 100 000 firiem po celom svete. Pro verzia je ešte lepšia!"
+
+msgid "Check out the cool new features."
+msgstr "Pozrite si skvelé nové funkcie."
+
+msgid "WPML and POLYLANG language integration"
+msgstr "Integrácia jazykov WPML a POLYLANG"
+
+msgid "Render captcha widget in a specific language, choose from 70 languages."
+msgstr "Zobrazte widget Captcha v konkrétnom jazyku, vyberte si zo 70 jazykov."
+
+msgid "Switch between the color theme of the widget, light or dark."
+msgstr "Prepínajte medzi svetlou alebo tmavou farebnou témou widgetu."
+
+msgid "Switch between the type of the widget, image or audio."
+msgstr "Prepínajte medzi typom widgetu, obrázkom alebo zvukom."
+
+msgid "Switch between the size of the widget, normal or compact."
+msgstr "Prepínajte medzi normálnou a kompaktnou veľkosťou widgetu."
+
+msgid "Redirect users to any url after mail sent successfully."
+msgstr "Presmerujte používateľov na ľubovoľnú adresu URL po úspešnom odoslaní e-mailu."
+
+msgid "Integrate powerful honeypot protection into your forms for stronger security."
+msgstr "Integrujte do svojich formulárov výkonnú ochranu honeypot pre zvýšenie bezpečnosti."
+
+msgid "Define a list of restricted words. Messages containing restricted words will not be sent."
+msgstr "Definujte zoznam zakázaných slov. Správy obsahujúce zakázané slová nebudú odoslané."
+
+msgid "Get IP Blocker access to block messages from malicious IP addresses."
+msgstr "Získajte prístup k IP Blocker, aby ste mohli blokovať správy zo škodlivých IP adries."
+
+msgid "Use rate limiting to manage how often forms can be submitted and prevent abuse."
+msgstr "Použite obmedzenie frekvencie na správu toho, ako často je možné formuláre odoslať, a zabráňte zneužitiu."
+
+msgid "Enable automatic saving of Contact Form 7 messages to your database."
+msgstr "Povoľte automatické ukladanie správ Contact Form 7 do vašej databázy."
+
+msgid "Use Twilio SMS to receive new form submission notifications directly to your phone."
+msgstr "Použite Twilio SMS na prijímanie upozornení na odoslanie nových formulárov priamo do telefónu."
+
+msgid "Transfer data from contact form submissions directly into your Mailchimp list."
+msgstr "Preneste údaje z odoslaných kontaktných formulárov priamo do svojho zoznamu Mailchimp."
+
+msgid "Use this link to generate"
+msgstr "Na vygenerovanie použite tento odkaz"
+
+msgid "Choose"
+msgstr "Vyberte"

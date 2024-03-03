@@ -121,21 +121,21 @@ function njt_wa_button_render($attributes)
 		$btnStyleClass .= empty($attributes['buttonTitle']) ? ' wa__button_text_only' : '';
         $btn_icon_or_image = '';
         if (empty($attributes['imageUrl'])) {
-            $btn_icon_or_image = '<div class="wa__btn_icon"><img src="' . NTA_WHATSAPP_PLUGIN_URL . 'assets/img/whatsapp_logo.svg' . '" alt=' . $attributes['imageAlt'] . '/></div>';
+            $btn_icon_or_image = '<div class="wa__btn_icon"><img src="' . NTA_WHATSAPP_PLUGIN_URL . 'assets/img/whatsapp_logo.svg' . '" alt=' . esc_attr($attributes['imageAlt']) . '/></div>';
         } else {
-            $btn_icon_or_image = '<div class="wa__cs_img"><div class="wa__cs_img_wrap" style="background: url(' . $attributes['imageUrl'] . ') center center no-repeat; background-size: cover;"></div></div>';
+            $btn_icon_or_image = '<div class="wa__cs_img"><div class="wa__cs_img_wrap" style="background: url(' . esc_url($attributes['imageUrl']) . ') center center no-repeat; background-size: cover;"></div></div>';
         }
         $html = '';
         $html .= '<div style="margin: 30px 0 30px;">';
-        $html .= '<a target="_blank" href="https://api.whatsapp.com/send?phone=' . $attributes['phoneNumber'] . '" class="wa__button ' . $btnStyleClass . ' wa__stt_online ' . $avatarClass . '" style="background-color: ' . $attributes['buttonColor'] . '; color: ' . $attributes['textColor'] . '">';
+        $html .= '<a target="_blank" href="https://api.whatsapp.com/send?phone=' . esc_attr($attributes['phoneNumber']) . '" class="wa__button ' . $btnStyleClass . ' wa__stt_online ' . $avatarClass . '" style="background-color: ' . esc_attr($attributes['buttonColor']) . '; color: ' . esc_attr($attributes['textColor']) . '">';
         $html .= $btn_icon_or_image;
         $html .= '<div class="wa__btn_txt">';
 		if (!empty($attributes['buttonTitle'])) {
 			$html .= '<div class="wa__cs_info">';
-			$html .= '<div class="wa__cs_name" style="color: ' . $attributes['textColor'] . '">' . $attributes['buttonTitle'] . '</div>';
+			$html .= '<div class="wa__cs_name" style="color: ' . esc_attr($attributes['textColor']) . '">' . esc_html($attributes['buttonTitle']) . '</div>';
 			$html .= '<div class="wa__cs_status">Online</div></div>';
 		}
-		$html .= '<div class="wa__btn_title">' . $attributes['buttonInfo'] . '</div></div></a></div>';
+		$html .= '<div class="wa__btn_title">' . esc_html($attributes['buttonInfo']) . '</div></div></a></div>';
         return $html;
     }
 }

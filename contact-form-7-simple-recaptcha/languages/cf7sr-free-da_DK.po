@@ -1,0 +1,71 @@
+msgid "Settings"
+msgstr "Indstillinger"
+
+msgid "This plugin adds <strong>I am not a robot</strong> checkbox to Contact Form 7, extending its functionality (not affiliated with the Contact Form 7 plugin)."
+msgstr "Dette plugin tilføjer checkboxen <strong>Jeg er ikke en robot</strong> til Contact Form 7, hvilket udvider dets funktionalitet (ikke tilknyttet Contact Form 7 plugin)."
+
+msgid "To add Captcha to Contact Form 7 form, add <strong>[cf7sr-simple-recaptcha]</strong> in your form ( preferable above submit button )"
+msgstr "For at tilføje Captcha til din Contact Form 7-formular, skal du tilføje <strong>[cf7sr-simple-recaptcha]</strong> i formularen (fortrækkes over indsendelsesknappen)"
+
+msgid "The plugin will not work unless you set up the configuration below"
+msgstr "Pluginet fungerer ikke, før du har konfigureret indstillingerne nedenfor"
+
+msgid "Invalid captcha error message"
+msgstr "Fejlmeddelelse for ugyldig captcha"
+
+msgid "Save Settings"
+msgstr "Gem indstillinger"
+
+msgid "Get Captcha Pro and Unlock all the Powerful Features"
+msgstr "Få Captcha Pro og lås alle de kraftfulde funktioner op"
+
+msgid "Trusted by more than 100,000 businesses worldwide. The Pro version is even better!"
+msgstr "Brugt af over 100.000 virksomheder verden over. Pro-versionen er endnu bedre!"
+
+msgid "Check out the cool new features."
+msgstr "Tjek de cool nye funktioner ud."
+
+msgid "WPML and POLYLANG language integration"
+msgstr "Integration med WPML og POLYLANG sprog"
+
+msgid "Render captcha widget in a specific language, choose from 70 languages."
+msgstr "Vis captcha-widget på et bestemt sprog, vælg mellem 70 sprog."
+
+msgid "Switch between the color theme of the widget, light or dark."
+msgstr "Skift mellem widgetens farvetema, lys eller mørk."
+
+msgid "Switch between the type of the widget, image or audio."
+msgstr "Skift mellem widgetens type, billede eller lyd."
+
+msgid "Switch between the size of the widget, normal or compact."
+msgstr "Skift mellem widgetens størrelse, normal eller kompakt."
+
+msgid "Redirect users to any url after mail sent successfully."
+msgstr "Omdirigér brugere til enhver URL efter vellykket afsendelse af mail."
+
+msgid "Integrate powerful honeypot protection into your forms for stronger security."
+msgstr "Integrer stærk honeypot-beskyttelse i dine formularer for øget sikkerhed."
+
+msgid "Define a list of restricted words. Messages containing restricted words will not be sent."
+msgstr "Definer en liste over begrænsede ord. Beskeder, der indeholder begrænsede ord, vil ikke blive sendt."
+
+msgid "Get IP Blocker access to block messages from malicious IP addresses."
+msgstr "Få adgang til IP Blocker for at blokere beskeder fra ondsindede IP-adresser."
+
+msgid "Use rate limiting to manage how often forms can be submitted and prevent abuse."
+msgstr "Brug begrænsning af frekvens til at styre, hvor ofte formularer kan indsendes, og forhindre misbrug."
+
+msgid "Enable automatic saving of Contact Form 7 messages to your database."
+msgstr "Aktivér automatisk lagring af Contact Form 7-beskeder i din database."
+
+msgid "Use Twilio SMS to receive new form submission notifications directly to your phone."
+msgstr "Brug Twilio SMS til at modtage notifikationer om nye formularindsendelser direkte til din telefon."
+
+msgid "Transfer data from contact form submissions directly into your Mailchimp list."
+msgstr "Overfør data fra indsendelser af kontaktformularer direkte til din Mailchimp-liste."
+
+msgid "Use this link to generate"
+msgstr "Brug dette link til at generere"
+
+msgid "Choose"
+msgstr "Vælg"

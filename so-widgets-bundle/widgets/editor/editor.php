@@ -61,6 +61,10 @@ class SiteOrigin_Widget_Editor_Widget extends SiteOrigin_Widget {
 			array( 'text' => '' )
 		);
 
+		if ( ! current_user_can( 'unfiltered_html' ) ) {
+			$instance['text'] = wp_kses_post( $instance['text'] );
+		}
+
 		if (
 			// Only run these parts if we're rendering for the frontend.
 			empty( $GLOBALS[ 'SITEORIGIN_PANELS_CACHE_RENDER' ] ) &&
@@ -152,7 +156,10 @@ class SiteOrigin_Widget_Editor_Widget extends SiteOrigin_Widget {
 	}
 
 	public function add_noreferrer_to_link_targets( $instance ) {
-		if ( function_exists( 'wp_targeted_link_rel' ) ) {
+		if (
+			function_exists( 'wp_targeted_link_rel' ) &&
+			! empty( $instance['text'] )
+		) {
 			$instance['text'] = wp_targeted_link_rel( $instance['text'] );
 		}
 

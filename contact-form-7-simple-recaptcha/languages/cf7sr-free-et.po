@@ -1,0 +1,71 @@
+msgid "Settings"
+msgstr "Seaded"
+
+msgid "This plugin adds <strong>I am not a robot</strong> checkbox to Contact Form 7, extending its functionality (not affiliated with the Contact Form 7 plugin)."
+msgstr "Plugin lisab Contact Form 7 vormile märkeruudu <strong>Ma ei ole robotv</strong>, laiendades selle funktsionaalsust (pole seotud Contact Form 7 pluginaga)."
+
+msgid "To add Captcha to Contact Form 7 form, add <strong>[cf7sr-simple-recaptcha]</strong> in your form ( preferable above submit button )"
+msgstr "Captcha lisamiseks Contact Form 7 vormile, lisa oma vormile  (eelistatavalt saatmisnupu kohale)  lühikood <strong>[cf7sr-simple-recaptcha]</strong>. "
+
+msgid "The plugin will not work unless you set up the configuration below"
+msgstr "Plugin ei tööta, kui Sa ei seadista allpool olevaid sätteid"
+
+msgid "Invalid captcha error message"
+msgstr "Vale Captcha veateade"
+
+msgid "Save Settings"
+msgstr "Salvesta seaded"
+
+msgid "Get Captcha Pro and Unlock all the Powerful Features"
+msgstr "Hangi Captcha Pro ja kasuta kõiki võimsaid funktsioone"
+
+msgid "Trusted by more than 100,000 businesses worldwide. The Pro version is even better!"
+msgstr "Seda usaldavad rohkem kui 100 000 ettevõtet üle maailma. Pro versioon on veelgi parem!"
+
+msgid "Check out the cool new features."
+msgstr "Tutvu lahedate uute funktsioonidega."
+
+msgid "WPML and POLYLANG language integration"
+msgstr "WPML-i ja POLYLANG-i keeleintegratsioon"
+
+msgid "Render captcha widget in a specific language, choose from 70 languages."
+msgstr "Kuva Captcha vidin konkreetses keeles, valikus on 70 keelt."
+
+msgid "Switch between the color theme of the widget, light or dark."
+msgstr "Lülitu vidina heleda ja tumeda värviteema vahel."
+
+msgid "Switch between the type of the widget, image or audio."
+msgstr "Lülitu vidina tüübi vahel, pilt või heli."
+
+msgid "Switch between the size of the widget, normal or compact."
+msgstr "Lülitu vidina suuruse vahel, tavaline või kompaktne."
+
+msgid "Redirect users to any url after mail sent successfully."
+msgstr "Suuna kasutajad pärast e-kirja edukat saatmist mis tahes URL-ile."
+
+msgid "Integrate powerful honeypot protection into your forms for stronger security."
+msgstr "Lõimige oma vormidesse võimas honeypot-kaitse, et tugevdada turvalisust."
+
+msgid "Define a list of restricted words. Messages containing restricted words will not be sent."
+msgstr "Määratle piiratud sõnade loend. Piiratud sõnu sisaldavaid sõnumeid ei saadeta."
+
+msgid "Get IP Blocker access to block messages from malicious IP addresses."
+msgstr "Hangi IP Blocker juurdepääs, et blokeerida sõnumid pahatahtlikelt IP-aadressidelt."
+
+msgid "Use rate limiting to manage how often forms can be submitted and prevent abuse."
+msgstr "Kasutage sageduse piiramist, et hallata, kui tihti vorme saab esitada, ja vältida kuritarvitamist."
+
+msgid "Enable automatic saving of Contact Form 7 messages to your database."
+msgstr "Luba Contact Form 7 sõnumite automaatne salvestamine andmebaasi."
+
+msgid "Use Twilio SMS to receive new form submission notifications directly to your phone."
+msgstr "Kasutage Twilio SMS-i, et saada telefoni otse uute vormide esitamise teateid."
+
+msgid "Transfer data from contact form submissions directly into your Mailchimp list."
+msgstr "Kanna andmed kontaktvormi esitustest otse oma Mailchimpi nimekirja."
+
+msgid "Use this link to generate"
+msgstr "Kasuta seda linki genereerimiseks"
+
+msgid "Choose"
+msgstr "Vali"
