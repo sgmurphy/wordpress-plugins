@@ -1,5 +1,11 @@
 
 
+version 1.5.97:
+
+* Fix: allow showing authors name translated
+* Change: updated font awesome version to 6
+* Fix: done some link attribute security fix
+
 
 version 1.5.96:
 

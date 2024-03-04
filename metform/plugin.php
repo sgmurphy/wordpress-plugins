@@ -25,7 +25,7 @@ final class Plugin {
 
     public function version()
     {
-        return '3.8.3';
+        return '3.8.4';
     }
 
     public function package_type()
@@ -224,7 +224,7 @@ final class Plugin {
          */
         \Wpmet\Libs\Apps::instance()->init('metform')
         ->set_parent_menu_slug('metform-menu')
-        ->set_submenu_name('Apps')
+        ->set_submenu_name('Our Plugins')
         ->set_section_title('Unleash the Full Potential of Elementor and WordPress!')
         ->set_section_description('Install other plugins from us and take your website to the next level for absolutely free!')
         ->set_items_per_row(4)
@@ -235,48 +235,56 @@ final class Plugin {
                 'url'  => 'https://wordpress.org/plugins/elementskit-lite/',
                 'icon' => $apps_img_path. 'elementskit.gif',
                 'desc' => esc_html__('ElementsKit Elementor addons is an ultimate and all-in-one addons for Elementor.', 'metform'),
+                'docs' => 'https://wpmet.com/doc/elementskit/',
             ],
             'getgenie/getgenie.php' => [
                 'name' => esc_html__('GetGenie', 'metform'),
                 'url'  => 'https://wordpress.org/plugins/getgenie/',
                 'icon' => $apps_img_path.'getgenie.gif',
                 'desc' => esc_html__('AI SEO content writer, OpenAI ChatGPT Chatbot, Ai Copilot, NLP keyword research, SERP analysis & SEO tool for WordPress.', 'metform'),
+                'docs' => 'https://getgenie.ai/docs/',
             ],
             'shopengine/shopengine.php' => [
                 'name' => esc_html__('ShopEngine', 'metform'),
                 'url'  => 'https://wordpress.org/plugins/shopengine/',
                 'icon' => $apps_img_path. 'shopengine.gif',
                 'desc' => esc_html__('WooCommerce builder for Elementor with 70+ widgets, product templates & sliders, shopping cart, quick view, wishlist, and more.', 'metform'),
+                'docs' => 'https://wpmet.com/doc/shopengine/',
             ],
             'blocks-for-shopengine/shopengine-gutenberg-addon.php' => [
                 'name' => esc_html__('Blocks for ShopEngine', 'metform'),
                 'url'  => 'https://wordpress.org/plugins/blocks-for-shopengine/',
                 'icon' => $apps_img_path . 'shopengine.gif',
                 'desc' => esc_html__('Want a Gutenberg addon for easily building and customizing WooCommerce pages with templates and blocks? Then your wait is over.', 'metform'),
+                'docs' => 'https://wpmet.com/doc/shopengine/',
             ],
             'wp-social/wp-social.php' => [
                 'name' => esc_html__('Wp Social', 'metform'),
                 'url'  => 'https://wordpress.org/plugins/wp-social/',
                 'icon' => $apps_img_path . 'wp-social.png',
                 'desc' => esc_html__('Wp social lets you add social login, social counter, and social share buttons of different styles to your WordPress website.', 'metform'),
+                'docs' => 'https://wpmet.com/doc/wp-social/',
             ],
             'genie-image-ai/genie-image-ai.php' => [
                 'name' => esc_html__('Genie Image', 'metform'),
                 'url'  => 'https://wordpress.org/plugins/genie-image-ai/',
                 'icon' => $apps_img_path . 'genie-image.png',
                 'desc' => esc_html__('Trying to simplify your image creation journey? The Genie Image is a powerful text-to-image WordPress plugin developed using OpenAI DALL-E 2.', 'metform'),
+                'docs' => 'https://getgenie.ai/docs/',
             ],
             'wp-ultimate-review/wp-ultimate-review.php' => [
                 'name' => esc_html__('WP Ultimate Review', 'metform'),
                 'url'  => 'https://wordpress.org/plugins/wp-ultimate-review/',
                 'icon' => $apps_img_path . 'ultimate-review.png',
                 'desc' => esc_html__('WP Ultimate Review is the compact review plugin that allows you to collect social proof for your WordPress website.', 'metform'),
+                'docs' => 'https://wpmet.com/doc/wp-ultimate-review/',
             ],
             'wp-fundraising-donation/wp-fundraising.php' => [
                 'name' => esc_html__('FundEngine', 'metform'),
                 'url'  => 'https://wordpress.org/plugins/wp-fundraising-donation/',
                 'icon' => $apps_img_path . 'fundengine.png',
                 'desc' => esc_html__('Fundraising Donation plugin and Crowdfunding Platform comes with Single donation and crowdfunding solution.', 'metform'),
+                'docs' => 'https://wpmet.com/doc/fundengine/',
             ],
         ]
         )
@@ -372,7 +380,7 @@ final class Plugin {
         // begins for mf-simple-repeater
         wp_register_style('asRange', $this->public_url() . 'assets/css/asRange.min.css', false, $this->version());
         wp_register_script('asRange', $this->public_url() . 'assets/js/jquery-asRange.min.js', [], $this->version(), true);
-
+        wp_enqueue_script('cute-alert', $this->public_url() . 'assets/lib/cute-alert/cute-alert.js', [], $this->version(), true);
         wp_register_style('mf-select2', $this->public_url() . 'assets/css/select2.min.css', false, $this->version());
         wp_register_script('mf-select2', $this->public_url() . 'assets/js/select2.min.js', [], $this->version(), true);
         // ends for mf-simple-repeater
@@ -390,6 +398,7 @@ final class Plugin {
         // for date, time, simple repeater
         wp_deregister_style('flatpickr'); // flatpickr stylesheet
         wp_register_style('flatpickr', $this->public_url() . 'assets/css/flatpickr.min.css', false, $this->version()); // flatpickr stylesheet
+        wp_enqueue_style('cute-alert', $this->public_url() . 'assets/lib/cute-alert/style.css', false, $this->version());
         // ends pro feature
 
 

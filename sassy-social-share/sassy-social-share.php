@@ -6,7 +6,7 @@
  * Plugin Name:       Sassy Social Share
  * Plugin URI:        https://www.heateor.com
  * Description:       Slickest, Simplest and Optimized Share buttons. Facebook, Twitter, Reddit, Pinterest, WhatsApp and over 100 more
- * Version:           3.3.58
+ * Version:           3.3.59
  * Author:            Team Heateor
  * Author URI:        https://www.heateor.com
  * Text Domain:       sassy-social-share
@@ -20,7 +20,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'HEATEOR_SSS_VERSION', '3.3.58' );
+define( 'HEATEOR_SSS_VERSION', '3.3.59' );
 define( 'HEATEOR_SSS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 // core plugin class object
@@ -106,6 +106,15 @@ $heateor_sss_allowed_tags = array(
         'fill' => array(),
         'd' => array()
     ) ),
+    'rect'          => array_merge( $heateor_sss_default_attribs, array(
+        'stroke-width' => array(),
+        'stroke'  => array(),
+        'fill' => array(),
+        'x' => array(),
+        'y' => array(),
+        'height' => array(),
+        'width' => array()
+    ) ),
     'circle'        => array_merge( $heateor_sss_default_attribs, array(
         'stroke-width' => array(),
         'stroke'  => array(),
@@ -120,7 +129,7 @@ $heateor_sss_allowed_tags = array(
         'fill' => array(),
         'points' => array()
     ) ),
-    'g'          => array_merge( $heateor_sss_default_attribs, array(
+    'g'         => array_merge( $heateor_sss_default_attribs, array(
         'stroke-width' => array(),
         'stroke'  => array(),
         'stroke-linecap' => array(),
@@ -129,6 +138,12 @@ $heateor_sss_allowed_tags = array(
         'fill' => array(),
         'fill' => array(),
         'fill' => array(),
+    ) ),
+    'ellipse'    => array_merge( $heateor_sss_default_attribs, array(
+        'cx' => array(),
+        'cy' => array(),
+        'rx' => array(),
+        'ry' => array(),
     ) ),
     'style'          => array_merge( $heateor_sss_default_attribs, array(
         'type' => array(),

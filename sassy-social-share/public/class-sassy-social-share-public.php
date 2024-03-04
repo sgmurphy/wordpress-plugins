@@ -50,6 +50,13 @@ class Sassy_Social_Share_Public {
 	private $short_urls = array();
 
 	/**
+	 * Logo color of the social share icons
+	 *
+	 * @since    3.3.59
+	 */
+	private $logo_color = '';
+
+	/**
 	 * Share Count Transient ID
 	 *
 	 * @since    1.7
@@ -894,7 +901,7 @@ class Sassy_Social_Share_Public {
 	 *
 	 * @since    3.3.40
 	 */
-	private function validate_url( $url ) {
+	public function validate_url( $url ) {
 
 		return filter_var( trim( $url ), FILTER_VALIDATE_URL );
 	

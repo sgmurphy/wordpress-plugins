@@ -72,7 +72,7 @@ class Moove_GDPR_Content {
 			if ( $cookie_cat_n ) :
 				ob_start();
 				?>
-				<!-- Google tag (gtag.js) - Google Analaytics 4 -->
+				<!-- Google tag (gtag.js) - Google Analytics 4 -->
 				<script src="https://www.googletagmanager.com/gtag/js?id=<?php echo $_gdin_module['tacking_id']; ?>" data-type="gdpr-integration"></script>
 				<script data-type="gdpr-integration">
 				  window.dataLayer = window.dataLayer || [];
@@ -139,6 +139,7 @@ class Moove_GDPR_Content {
 				    'personalization_storage': 'denied',
 						'security_storage': 'denied',
 						'functionality_storage': 'denied',
+						'wait_for_update': '<?php echo apply_filters( 'gdpr_cc_gtm2_wait_for_update', '2000' ) ?>'
 				  });
 				</script>
 
@@ -169,6 +170,10 @@ class Moove_GDPR_Content {
 						'security_storage': 'granted',
 						'functionality_storage': 'granted',
 			    });
+
+			    dataLayer.push({
+					 'event': 'cookie_consent_update'
+					});
 				</script>	
 				<?php
 				$cache_array[$cookie_cat_n]['header'] .= ob_get_clean();

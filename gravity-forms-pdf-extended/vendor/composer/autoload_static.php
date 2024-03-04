@@ -143,6 +143,7 @@ class ComposerStaticInitGravityPDFPlugin
         'GFPDF\\Helper\\Helper_Interface_Config' => __DIR__ . '/../..' . '/src/Helper/Helper_Interface_Config.php',
         'GFPDF\\Helper\\Helper_Interface_Config_Settings' => __DIR__ . '/../..' . '/src/Helper/Helper_Interface_Config_Settings.php',
         'GFPDF\\Helper\\Helper_Interface_Extension_Settings' => __DIR__ . '/../..' . '/src/Helper/Helper_Interface_Extension_Settings.php',
+        'GFPDF\\Helper\\Helper_Interface_Field_Pdf_Config' => __DIR__ . '/../..' . '/src/Helper/Helper_Interface_Field_Pdf_Config.php',
         'GFPDF\\Helper\\Helper_Interface_Filters' => __DIR__ . '/../..' . '/src/Helper/Helper_Interface_Filters.php',
         'GFPDF\\Helper\\Helper_Interface_Setup_TearDown' => __DIR__ . '/../..' . '/src/Helper/Helper_Interface_Setup_TearDown.php',
         'GFPDF\\Helper\\Helper_Interface_Url_Signer' => __DIR__ . '/../..' . '/src/Helper/Helper_Interface_Url_Signer.php',

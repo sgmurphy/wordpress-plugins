@@ -6,11 +6,14 @@ use QuadLayers\IGG\Models\Feed as Models_Feed;
 use QuadLayers\IGG\Models\Setting as Models_Setting;
 use QuadLayers\IGG\Helpers as Helpers;
 use QuadLayers\IGG\Models\Account as Models_Account;
-use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\User_Profile as API_Rest_User_Profile;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Accounts\Get as API_Rest_Accounts_Get;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Feeds\Get as API_Rest_Feeds_Get;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Feeds\Clear_Cache as API_Rest_Feeds_Clear_Cache;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Settings\Get as API_Rest_Setting_Get;
+
+use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\User_Profile as Api_Rest_User_Profile;
+use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\User_Media as Api_Rest_User_Media;
+use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\Hashtag_Media as Api_Rest_Hashtag_Media;
 
 
 /**
@@ -175,6 +178,25 @@ class Load {
 				),
 			)
 		);
+
+		$settings = $models_settings->get();
+		wp_localize_script(
+			'qligg-backend',
+			'qligg_frontend',
+			array(
+				'settings'       => $settings,
+				'restRoutePaths' => array(
+					'username'    => Api_Rest_User_Media::get_rest_url(),
+					'tag'         => Api_Rest_Hashtag_Media::get_rest_url(),
+					'userprofile' => Api_Rest_User_Profile::get_rest_url(),
+				),
+			)
+		);
+
+		//TODO: improve loading
+		wp_enqueue_script( 'masonry' );
+		wp_enqueue_style( 'qligg-swiper' );
+		wp_enqueue_style( 'qligg-frontend' );
 	}
 
 	public function enqueue_scripts() {

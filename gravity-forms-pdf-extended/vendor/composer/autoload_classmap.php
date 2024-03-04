@@ -115,6 +115,7 @@ return array(
     'GFPDF\\Helper\\Helper_Interface_Config' => $baseDir . '/src/Helper/Helper_Interface_Config.php',
     'GFPDF\\Helper\\Helper_Interface_Config_Settings' => $baseDir . '/src/Helper/Helper_Interface_Config_Settings.php',
     'GFPDF\\Helper\\Helper_Interface_Extension_Settings' => $baseDir . '/src/Helper/Helper_Interface_Extension_Settings.php',
+    'GFPDF\\Helper\\Helper_Interface_Field_Pdf_Config' => $baseDir . '/src/Helper/Helper_Interface_Field_Pdf_Config.php',
     'GFPDF\\Helper\\Helper_Interface_Filters' => $baseDir . '/src/Helper/Helper_Interface_Filters.php',
     'GFPDF\\Helper\\Helper_Interface_Setup_TearDown' => $baseDir . '/src/Helper/Helper_Interface_Setup_TearDown.php',
     'GFPDF\\Helper\\Helper_Interface_Url_Signer' => $baseDir . '/src/Helper/Helper_Interface_Url_Signer.php',

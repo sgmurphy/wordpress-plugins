@@ -8,7 +8,7 @@ Stable tag: 1.2.1
 License: GPL-3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
-Automatically compress and optimize images, resize larger files, convert to WebP. Do it in bulk or upon load and turbocharge your WordPress site performance.
+Automatically compress & optimize images, resize larger files, convert to WebP. Try in bulk or upon load and boost your WordPress site performance.
 
 == Description ==
 Image Optimizer is an easy-to-use WordPress plugin that reduces image size through various compression and resizing techniques - all of which preserve the highest possible image quality. Image Optimizer supports many popular formats, including  JPEG, PNG, WebP, and GIF.

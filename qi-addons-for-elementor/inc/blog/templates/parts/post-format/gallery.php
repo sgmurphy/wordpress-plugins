@@ -13,7 +13,7 @@ if ( ! empty( $gallery_meta ) ) { ?>
 					<?php if ( ! is_single() ) { ?>
 						<a itemprop="url" href="<?php the_permalink(); ?>">
 					<?php } ?>
-						<?php echo wp_get_attachment_image( $image_id, 'full' ); ?>
+						<?php echo qi_addons_for_elementor_get_attachment_image( $image_id, 'full' ); ?>
 					<?php if ( ! is_single() ) { ?>
 						</a>
 					<?php } ?>

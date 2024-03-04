@@ -243,7 +243,13 @@
           "isBorderComponentChanged": {
                "type": "boolean",
                "default": false
+          },
+          "isResponsiveSettingsRemoved": {
+               "type": "boolean",
+               "default": false
           }
      },
-     "supports": {}
+     "supports": {
+          "align": true
+     }
 }

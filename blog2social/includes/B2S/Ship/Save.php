@@ -296,6 +296,7 @@ class B2S_Ship_Save {
         global $wpdb;
         $content = array();
         $this->postData['action'] = 'sentToNetwork';
+        $this->postData['version'] = B2S_PLUGIN_VERSION;
         $postData = $this->postData['post'];
         $this->postData['post'] = serialize($this->postData['post']);
         $result = json_decode(B2S_Api_Post::post(B2S_PLUGIN_API_ENDPOINT, $this->postData, 90));
@@ -390,7 +391,7 @@ class B2S_Ship_Save {
             }
             //DEFAULT ERROR
             if ($found == false) {
-                $errorCode = (isset($result->data->error) && isset($errorText[$result->data->error])) ? sanitize_text_field(wp_unslash($result->data)) : 'DEFAULT';
+                $errorCode = (isset($result->data) && isset($errorText[$result->data])) ? sanitize_text_field(wp_unslash($result->data)) : 'DEFAULT';
                 if (!$quickShare) {
                     $content[] = array('networkAuthId' => $v['network_auth_id'], 'html' => $this->getItemHtml($networkId, $errorCode, '', '', true));
                 } else {

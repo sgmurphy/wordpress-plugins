@@ -637,3 +637,68 @@ if ( ! function_exists( 'qi_addons_for_elementor_get_elementor_icon' ) ) {
 		return $html;
 	}
 }
+
+if( ! function_exists( 'qi_addons_for_elementor_get_attachment_image' ) ) {
+	/**
+	 * Function that returns attachment image with applied wpml object id filter to enable WPML media translation
+	 *
+	 * @return string
+	 */
+	function qi_addons_for_elementor_get_attachment_image( $attachment_id, $size = 'thumbnail', $icon = false, $attr = '' ): string {
+		$attachment_id = apply_filters( 'wpml_object_id', $attachment_id, 'attachment', true );
+		
+		return wp_get_attachment_image( $attachment_id, $size, $icon, $attr );
+	}
+}
+
+if( ! function_exists( 'qi_addons_for_elementor_get_attachment_image_src' ) ) {
+	/**
+	 * Function that returns attachment image src with applied wpml object id filter to enable WPML media translation
+	 *
+	 * @return array|false
+	 */
+	function qi_addons_for_elementor_get_attachment_image_src( $attachment_id, $size = 'thumbnail', $icon = false ) {
+		$attachment_id = apply_filters( 'wpml_object_id', $attachment_id, 'attachment', true );
+		
+		return wp_get_attachment_image_src( $attachment_id, $size, $icon );
+	}
+}
+
+if( ! function_exists( 'qi_addons_for_elementor_get_attachment_image_url' ) ) {
+	/**
+	 * Function that returns attachment image url with applied wpml object id filter to enable WPML media translation
+	 *
+	 * @return string|false
+	 */
+	function qi_addons_for_elementor_get_attachment_image_url( $attachment_id, $size = 'thumbnail', $icon = false ) {
+		$attachment_id = apply_filters( 'wpml_object_id', $attachment_id, 'attachment', true );
+		
+		return wp_get_attachment_image_url( $attachment_id, $size, $icon );
+	}
+}
+
+if( ! function_exists( 'qi_addons_for_elementor_get_attachment_url' ) ) {
+	/**
+	 * Function that returns attachment url with applied wpml object id filter to enable WPML media translation
+	 *
+	 * @return string|false
+	 */
+	function qi_addons_for_elementor_get_attachment_url( $attachment_id ) {
+		$attachment_id = apply_filters( 'wpml_object_id', $attachment_id, 'attachment', true );
+		
+		return wp_get_attachment_url( $attachment_id );
+	}
+}
+
+if( ! function_exists( 'qi_addons_for_elementor_get_attachment_thumb_url' ) ) {
+	/**
+	 * Function that returns attachment thumb url with applied wpml object id filter to enable WPML media translation
+	 *
+	 * @return string|false
+	 */
+	function qi_addons_for_elementor_get_attachment_thumb_url( $attachment_id ) {
+		$attachment_id = apply_filters( 'wpml_object_id', $attachment_id, 'attachment', true );
+		
+		return wp_get_attachment_thumb_url( $attachment_id );
+	}
+}

@@ -43,7 +43,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_framework_get_attachment_thumb_
 		$attachment_id = qi_addons_for_elementor_framework_get_attachment_id_from_url( $attachment_url );
 
 		if ( ! empty( $attachment_id ) ) {
-			return wp_get_attachment_thumb_url( $attachment_id );
+			return qi_addons_for_elementor_get_attachment_thumb_url( $attachment_id );
 		} else {
 			return $attachment_url;
 		}
@@ -85,7 +85,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_framework_resize_image' ) ) {
 	 *
 	 * @see qi_addons_for_elementor_framework_get_attachment_id_from_url()
 	 * @see get_attached_file()
-	 * @see wp_get_attachment_url()
+	 * @see qi_addons_for_elementor_get_attachment_url()
 	 * @see wp_get_image_editor()
 	 */
 	function qi_addons_for_elementor_framework_resize_image( $attachment, $width = null, $height = null, $crop = true ) {
@@ -104,7 +104,7 @@ if ( ! function_exists( 'qi_addons_for_elementor_framework_resize_image' ) ) {
 				$img_path = get_attached_file( $attachment_id );
 
 				//get attachment url
-				$img_url = wp_get_attachment_url( $attachment_id );
+				$img_url = qi_addons_for_elementor_get_attachment_url( $attachment_id );
 
 				//break down img path to array so we can use it's components in building thumbnail path
 				$img_path_array = pathinfo( $img_path );

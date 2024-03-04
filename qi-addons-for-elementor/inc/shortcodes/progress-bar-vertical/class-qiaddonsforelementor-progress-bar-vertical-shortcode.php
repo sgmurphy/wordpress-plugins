@@ -398,7 +398,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 			$data['data-gradient-end']   = ! empty( $atts['gradient_color_end'] ) ? $atts['gradient_color_end'] : '#FCC4AF';
 
 			$data['data-text-color'] = ! empty( $atts['number_color'] ) ? $atts['number_color'] : '#1e1e1e';
-			$data['data-pattern']    = ! empty( $atts['pattern_image'] ) ? wp_get_attachment_url( $atts['pattern_image'] ) : '';
+			$data['data-pattern']    = ! empty( $atts['pattern_image'] ) ? qi_addons_for_elementor_get_attachment_url( $atts['pattern_image'] ) : '';
 
 			return $data;
 		}

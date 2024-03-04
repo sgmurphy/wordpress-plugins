@@ -460,7 +460,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 			foreach ( $items as $key => $value ) {
 				$temp['data-values'][]                  = ! empty( $value['item_data_value'] ) ? $value['item_data_value'] : 0;
 				$temp['data-labels'][]                  = ! empty( $value['item_data_label'] ) ? $value['item_data_label'] : 'label-' . ( $key + 1 );
-				$temp['data-pattern-images'][]          = ! empty( $value['item_pattern_image'] ) ? wp_get_attachment_image_src( $value['item_pattern_image'], 'full' )[0] : '';
+				$temp['data-pattern-images'][]          = ! empty( $value['item_pattern_image'] ) ? qi_addons_for_elementor_get_attachment_image_src( $value['item_pattern_image'], 'full' )[0] : '';
 				$temp['data-background-colors'][]       = ! empty( $value['item_background_color'] ) ? $value['item_background_color'] : '#1e1e1e';
 				$temp['data-hover-background-colors'][] = ! empty( $value['item_hover_background_color'] ) ? $value['item_hover_background_color'] : '#ececec';
 				$temp['data-border-colors'][]           = ! empty( $value['item_border_color'] ) ? $value['item_border_color'] : '#fff';

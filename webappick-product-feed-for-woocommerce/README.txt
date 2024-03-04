@@ -5,7 +5,7 @@ Tags: WooCommerce Product Feed, WooCommerce, Google Shopping, Google Merchant, F
 Requires at least: 4.4
 Tested Up To: 6.4
 Requires PHP: 5.6
-Stable tag: 6.4.13
+Stable tag: 6.4.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -590,6 +590,9 @@ Using pro version:
 4. Category Mapping
 
 == Changelog ==
+
+= 6.4.14 (2024-03-04) =
+* Fixed: Shipping price issue
 
 = 6.4.13 (2024-02-29) =
 * Tweak: WooCommerce 8.6.1 compatibility checked.

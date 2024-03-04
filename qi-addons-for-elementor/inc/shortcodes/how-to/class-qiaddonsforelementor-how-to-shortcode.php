@@ -451,7 +451,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 								'@type' => 'HowToStep',
 								'name'  => esc_html( $item['item_title'] ),
 								'text'  => esc_html( $item['item_content'] ),
-								'image' => wp_get_attachment_image_url( $item['item_image'], 'full' ),
+								'image' => qi_addons_for_elementor_get_attachment_image_url( $item['item_image'], 'full' ),
 								'url'   => esc_url( $link ),
 							);
 						}

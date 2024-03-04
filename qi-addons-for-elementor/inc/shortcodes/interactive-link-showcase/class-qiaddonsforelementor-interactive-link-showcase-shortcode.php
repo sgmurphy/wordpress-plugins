@@ -369,7 +369,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 			$styles = array();
 
 			if ( ! empty( $atts['item_image'] ) ) {
-				$styles[] = 'background-image: url(' . esc_url( wp_get_attachment_url( $atts['item_image'] ) ) . ')';
+				$styles[] = 'background-image: url(' . esc_url( qi_addons_for_elementor_get_attachment_url( $atts['item_image'] ) ) . ')';
 			}
 
 			return $styles;

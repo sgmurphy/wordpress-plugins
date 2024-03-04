@@ -166,17 +166,26 @@ class Helper_Data {
 		$this->addon[ $class->get_slug() ] = $class;
 	}
 
+	/**
+	 * Get the various responses for license key activations
+	 *
+	 * @param string $addon_name
+	 *
+	 * @return array
+	 */
 	public function addon_license_responses( $addon_name ) {
 		return [
-			'expired'             => __( 'Your license key expired on %s.', 'gravity-forms-pdf-extended' ),
-			'revoked'             => __( 'Your license key has been disabled', 'gravity-forms-pdf-extended' ),
-			'missing'             => __( 'Invalid license key provided', 'gravity-forms-pdf-extended' ),
-			'invalid'             => __( 'Your license is not active for this URL', 'gravity-forms-pdf-extended' ),
-			'site_inactive'       => __( 'Your license is not active for this URL', 'gravity-forms-pdf-extended' ),
-			'item_name_mismatch'  => sprintf( __( 'This appears to be an invalid license key for %s', 'gravity-forms-pdf-extended' ), $addon_name ),
-			'no_activations_left' => __( 'Your license key has reached its activation limit', 'gravity-forms-pdf-extended' ),
-			'default'             => __( 'An error occurred, please try again', 'gravity-forms-pdf-extended' ),
-			'generic'             => __( 'An error occurred during activation, please try again', 'gravity-forms-pdf-extended' ),
+			'expired'             => sprintf( __( 'This license key expired on %%s. %1$sPlease renew your license to continue receiving updates and support%2$s.', 'gravity-forms-pdf-extended' ), '<a href="%s">', '</a>' ),
+			'revoked'             => sprintf( __( 'This license key has been cancelled (most likely due to a refund request). %1$sPlease consider purchasing a new license%2$s.', 'gravity-forms-pdf-extended' ), '<a href="%s">', '</a>' ),
+			'disabled'            => sprintf( __( 'This license key has been cancelled (most likely due to a refund request). %1$sPlease consider purchasing a new license%2$s.', 'gravity-forms-pdf-extended' ), '<a href="%s">', '</a>' ),
+			'missing'             => __( 'This license key is invalid. Please check your key has been entered correctly.', 'gravity-forms-pdf-extended' ),
+			'invalid'             => __( 'The license key is invalid. Please check your key has been entered correctly.', 'gravity-forms-pdf-extended' ),
+			'site_inactive'       => __( 'Your license key is valid but does not match your current domain. This usually occurs if your domain URL changes. Please resave the settings to activate the license for this website.', 'gravity-forms-pdf-extended' ),
+			'item_name_mismatch'  => sprintf( __( 'This license key is not valid for %s. Please check your key is for this product.', 'gravity-forms-pdf-extended' ), $addon_name ),
+			'invalid_item_id'     => sprintf( __( 'This license key is not valid for %s. Please check your key is for this product.', 'gravity-forms-pdf-extended' ), $addon_name ),
+			'no_activations_left' => sprintf( __( 'This license key has reached its activation limit. %1$sPlease upgrade your license to increase the site limit (you only pay the difference)%2$s.', 'gravity-forms-pdf-extended' ), '<a href="%s">', '</a>' ),
+			'default'             => __( 'An error occurred, please try again.', 'gravity-forms-pdf-extended' ),
+			'generic'             => __( 'An error occurred, please try again.', 'gravity-forms-pdf-extended' ),
 		];
 	}
 
@@ -321,5 +330,219 @@ class Helper_Data {
 				'searchBoxResetTitle'                  => esc_html__( 'Clear your search query.', 'gravity-forms-pdf-extended' ),
 			]
 		);
+	}
+
+	/**
+	 * Get extra conditional logic options
+	 * Props: Gravity Wiz
+	 *
+	 * @param array $form
+	 *
+	 * @return array
+	 *
+	 * @since 6.9.0
+	 *
+	 * @link https://github.com/gravitywiz/snippet-library/blob/master/gravity-forms/gw-conditional-logic-entry-meta.php
+	 */
+	public function get_conditional_logic_options( $form ): array {
+
+		$options = [
+			'id'             => [
+				'label'     => esc_html__( 'Entry ID', 'gravityforms' ),
+				'value'     => 'id',
+				'operators' => [
+					'is'    => 'is',
+					'isnot' => 'isNot',
+					'>'     => 'greaterThan',
+					'<'     => 'lessThan',
+				],
+			],
+
+			'status'         => [
+				'label'     => esc_html__( 'Status', 'gravityforms' ),
+				'value'     => 'status',
+				'operators' => [
+					'is'    => 'is',
+					'isnot' => 'isNot',
+				],
+				'choices'   => [
+					[
+						'text'  => 'Active',
+						'value' => 'active',
+					],
+					[
+						'text'  => 'Spam',
+						'value' => 'spam',
+					],
+					[
+						'text'  => 'Trash',
+						'value' => 'trash',
+					],
+				],
+			],
+
+			'date_created'   => [
+				'label'       => esc_html__( 'Entry Date', 'gravityforms' ),
+				'value'       => 'date_created',
+				'operators'   => [
+					'is'          => 'is',
+					'isnot'       => 'isNot',
+					'>'           => 'greaterThan',
+					'<'           => 'lessThan',
+					'contains'    => 'contains',
+					'starts_with' => 'startsWith',
+					'ends_with'   => 'endsWith',
+				],
+				'placeholder' => __( 'yyyy-mm-dd', 'gravityforms' ),
+			],
+
+			'is_starred'     => [
+				'label'     => esc_html__( 'Starred', 'gravityforms' ),
+				'value'     => 'is_starred',
+				'operators' => [
+					'is'    => 'is',
+					'isnot' => 'isNot',
+				],
+				'choices'   => [
+					[
+						'text'  => 'Yes',
+						'value' => '1',
+					],
+					[
+						'text'  => 'No',
+						'value' => '0',
+					],
+				],
+			],
+
+			'ip'             => [
+				'label'     => esc_html__( 'IP Address', 'gravityforms' ),
+				'value'     => 'ip',
+				'operators' => [
+					'is'          => 'is',
+					'isnot'       => 'isNot',
+					'contains'    => 'contains',
+					'starts_with' => 'startsWith',
+					'ends_with'   => 'endsWith',
+				],
+			],
+
+			'source_url'     => [
+				'label'     => esc_html__( 'Source URL', 'gravityforms' ),
+				'value'     => 'source_url',
+				'operators' => [
+					'is'          => 'is',
+					'isnot'       => 'isNot',
+					'contains'    => 'contains',
+					'starts_with' => 'startsWith',
+					'ends_with'   => 'endsWith',
+				],
+			],
+
+			'payment_status' => [
+				'label'     => esc_html__( 'Payment Status', 'gravityforms' ),
+				'value'     => 'payment_status',
+				'operators' => [
+					'is'    => 'is',
+					'isnot' => 'isNot',
+				],
+				'choices'   => \GFCommon::get_entry_payment_statuses_as_choices(),
+			],
+
+			'payment_date'   => [
+				'label'       => esc_html__( 'Payment Date', 'gravityforms' ),
+				'value'       => 'payment_date',
+				'operators'   => [
+					'is'          => 'is',
+					'isnot'       => 'isNot',
+					'>'           => 'greaterThan',
+					'<'           => 'lessThan',
+					'contains'    => 'contains',
+					'starts_with' => 'startsWith',
+					'ends_with'   => 'endsWith',
+				],
+				'placeholder' => __( 'yyyy-mm-dd', 'gravityforms' ),
+			],
+
+			'payment_amount' => [
+				'label'       => esc_html__( 'Payment Amount', 'gravityforms' ),
+				'value'       => 'payment_amount',
+				'operators'   => [
+					'is'          => 'is',
+					'isnot'       => 'isNot',
+					'>'           => 'greaterThan',
+					'<'           => 'lessThan',
+					'contains'    => 'contains',
+					'starts_with' => 'startsWith',
+					'ends_with'   => 'endsWith',
+				],
+				'placeholder' => '0.00',
+			],
+		];
+
+		/* Handle Entry Meta */
+		$entry_meta = \GFFormsModel::get_entry_meta( $form['id'] );
+
+		$choices_by_key = [
+			'is_approved' => [
+				1 => esc_html__( 'Approved', 'gravity-forms-pdf-extended' ),
+				2 => esc_html__( 'Disapproved', 'gravity-forms-pdf-extended' ),
+				3 => esc_html__( 'Unapproved', 'gravity-forms-pdf-extended' ),
+			],
+		];
+
+		foreach ( $entry_meta as $key => $meta ) {
+			/* Skip entry meta already registered */
+			if ( isset( $options[ $key ] ) ) {
+				continue;
+			}
+
+			$options[ $key ] = [
+				'label'     => $meta['label'],
+				'value'     => $key,
+				'operators' => [
+					'is'    => 'is',
+					'isnot' => 'isNot',
+				],
+			];
+
+			$_choices = rgar( $choices_by_key, $key );
+
+			if ( ! empty( $_choices ) ) {
+				$choices = [];
+				foreach ( $_choices as $value => $text ) {
+					$choices[] = compact( 'text', 'value' );
+				}
+
+				$options[ $key ]['choices'] = $choices;
+			}
+		}
+
+		/* Gravity Wiz Unique ID perk */
+		$post_submission_conditional_logic_field_types = [
+			'uid' => [
+				'operators' => [
+					'is'          => 'is',
+					'isnot'       => 'isNot',
+					'>'           => 'greaterThan',
+					'<'           => 'lessThan',
+					'contains'    => 'contains',
+					'starts_with' => 'startsWith',
+					'ends_with'   => 'endsWith',
+				],
+			],
+		];
+
+		$fields = \GFAPI::get_fields_by_type( $form, array_keys( $post_submission_conditional_logic_field_types ) );
+
+		foreach ( $fields as $field ) {
+			$options[ $field->id ] = [
+				'label'     => $field->label,
+				'value'     => $field->id,
+				'operators' => rgars( $post_submission_conditional_logic_field_types, $field->type . '/operators', [] ),
+			];
+		}
+
+		return $options;
 	}
 }

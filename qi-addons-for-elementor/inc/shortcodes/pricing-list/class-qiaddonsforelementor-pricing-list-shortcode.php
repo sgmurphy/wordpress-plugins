@@ -561,7 +561,7 @@ if ( class_exists( 'QiAddonsForElementor_Shortcode' ) ) {
 			$border_style = '';
 
 			if ( ! empty( $atts['line_pattern'] ) ) {
-				$border_style = 'background-image: url(' . wp_get_attachment_image_url( $atts['line_pattern'], 'full' ) . ')';
+				$border_style = 'background-image: url(' . qi_addons_for_elementor_get_attachment_image_url( $atts['line_pattern'], 'full' ) . ')';
 			}
 
 			return $border_style;

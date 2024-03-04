@@ -64,5 +64,3 @@ if ( 'vertical' === $accordion_layout ) {
 		}
 	}
 }
-
-

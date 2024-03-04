@@ -334,50 +334,65 @@ class B2S_Loader {
                                     $delay = (isset($autoPostData['ship_state']) && (int) $autoPostData['ship_state'] == 0) ? 0 : (isset($autoPostData['ship_delay_time']) ? (int) $autoPostData['ship_delay_time'] : 0);
                                     $current_user_datetime = date('Y-m-d H:i:s', strtotime(B2S_Util::getUTCForDate($current_utc_datetime, $userTimeZoneOffset)));
 
-                                    //ShareNow
-                                    $sched_type = 3;
-                                    $time = ($delay == 0) ? "-30 seconds" : "+" . $delay . " minutes";
-                                    $sched_date = date('Y-m-d H:i:s', strtotime($time, strtotime($current_user_datetime)));
-                                    $sched_date_utc = date('Y-m-d H:i:s', strtotime($time, strtotime($current_utc_datetime)));
-
-                                    $defaultPostData = array('default_titel' => $title,
-                                        'image_url' => ($image_url !== false) ? trim(urldecode($image_url)) : '',
-                                        'lang' => trim(strtolower(substr(B2S_LANGUAGE, 0, 2))),
-                                        'no_cache' => 0, //default inactive , 1=active 0=not
-                                        'board' => '', 'group' => '', 'url' => $url, 'user_timezone' => $userTimeZoneOffset);
-
-                                    $defaultBlogPostData = array('post_id' => (int) $post->ID, 'blog_user_id' => (int) $post->post_author, 'user_timezone' => $userTimeZoneOffset, 'sched_type' => $sched_type, 'sched_date' => $sched_date, 'sched_date_utc' => $sched_date_utc);
-
-                                    $autoShare = new B2S_AutoPost((int) $post->ID, $defaultBlogPostData, $current_user_date, false, $title, $content, $excerpt, $url, $image_url, $keywords, trim(strtolower(substr(B2S_LANGUAGE, 0, 2))), $optionPostFormat, true, $userVersion);
-                                    //TOS Twitter 032018 - none multiple Accounts - User select once
-                                    $networkTos = true;
-
-                                    foreach ($autoPostData['network_auth_id'] as $k => $value) {
-                                        $networkDetails = $wpdb->get_results($wpdb->prepare("SELECT postNetworkDetails.network_id, postNetworkDetails.network_type, postNetworkDetails.network_display_name FROM {$wpdb->prefix}b2s_posts_network_details AS postNetworkDetails WHERE postNetworkDetails.network_auth_id = %s", $value));
-                                        if ((int) $networkDetails[0]->network_id == 1 || (int) $networkDetails[0]->network_id == 3 || (int) $networkDetails[0]->network_id == 19) {
-                                            $linkNoCache = B2S_Tools::getNoCacheData((int) $post->post_author);
-                                            if (is_array($linkNoCache) && isset($linkNoCache[$networkDetails[0]->network_id]) && (int) $linkNoCache[$networkDetails[0]->network_id] > 0) {
-                                                $defaultPostData['no_cache'] = $linkNoCache[$networkDetails[0]->network_id];
-                                            }
-                                        }
-                                        if (is_array($networkDetails) && isset($networkDetails[0]->network_id) && isset($networkDetails[0]->network_type) && isset($networkDetails[0]->network_display_name)) {
-                                            //TOS Twitter 032018 - none multiple Accounts - User select once
-                                            if ((int) $networkDetails[0]->network_id != 2 || ( (int) $networkDetails[0]->network_id == 2 && $networkTos)) {
-                                                //at first: set one profile
-                                                if ((int) $networkDetails[0]->network_id == 2) {
-                                                    $networkTos = false;
-                                                }
-                                                $res = $autoShare->prepareShareData($value, $networkDetails[0]->network_id, $networkDetails[0]->network_type);
-                                                if ($res !== false && is_array($res)) {
-                                                    $ship = true;
-                                                    $res = array_merge($res, $defaultPostData);
-                                                    $autoShare->saveShareData($res, $networkDetails[0]->network_id, $networkDetails[0]->network_type, $value, 0, strip_tags($networkDetails[0]->network_display_name));
-                                                }
+                                    //Licence Condition
+                                    $canScheduling = true;
+                                    if ($tokenInfo !== false && is_array($tokenInfo) && !empty($tokenInfo)) {
+                                        if (isset($tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']) && isset($tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']['open_sched_post_quota'])) {
+                                            if ((int) $tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']['open_sched_post_quota'] > 0) {
+                                                $tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']['open_sched_post_quota'] = ($tokenInfo['B2S_PLUGIN_LICENCE_CONDITION']['open_sched_post_quota']) - count($autoPostData['network_auth_id']);
+                                                update_option('B2S_PLUGIN_USER_VERSION_' . (int) $post->post_author, $tokenInfo, false);
+                                            } else {
+                                                $canScheduling = false;
                                             }
                                         }
                                     }
-                                    if ($ship) {
-                                        B2S_Heartbeat::getInstance()->postToServer();
+
+                                    if ($canScheduling) {
+                                        //ShareNow
+                                        $sched_type = 3;
+                                        $time = ($delay == 0) ? "-30 seconds" : "+" . $delay . " minutes";
+                                        $sched_date = date('Y-m-d H:i:s', strtotime($time, strtotime($current_user_datetime)));
+                                        $sched_date_utc = date('Y-m-d H:i:s', strtotime($time, strtotime($current_utc_datetime)));
+
+                                        $defaultPostData = array('default_titel' => $title,
+                                            'image_url' => ($image_url !== false) ? trim(urldecode($image_url)) : '',
+                                            'lang' => trim(strtolower(substr(B2S_LANGUAGE, 0, 2))),
+                                            'no_cache' => 0, //default inactive , 1=active 0=not
+                                            'board' => '', 'group' => '', 'url' => $url, 'user_timezone' => $userTimeZoneOffset);
+
+                                        $defaultBlogPostData = array('post_id' => (int) $post->ID, 'blog_user_id' => (int) $post->post_author, 'user_timezone' => $userTimeZoneOffset, 'sched_type' => $sched_type, 'sched_date' => $sched_date, 'sched_date_utc' => $sched_date_utc);
+
+                                        $autoShare = new B2S_AutoPost((int) $post->ID, $defaultBlogPostData, $current_user_date, false, $title, $content, $excerpt, $url, $image_url, $keywords, trim(strtolower(substr(B2S_LANGUAGE, 0, 2))), $optionPostFormat, true, $userVersion);
+                                        //TOS Twitter 032018 - none multiple Accounts - User select once
+                                        $networkTos = true;
+
+                                        foreach ($autoPostData['network_auth_id'] as $k => $value) {
+                                            $networkDetails = $wpdb->get_results($wpdb->prepare("SELECT postNetworkDetails.network_id, postNetworkDetails.network_type, postNetworkDetails.network_display_name FROM {$wpdb->prefix}b2s_posts_network_details AS postNetworkDetails WHERE postNetworkDetails.network_auth_id = %s", $value));
+                                            if ((int) $networkDetails[0]->network_id == 1 || (int) $networkDetails[0]->network_id == 3 || (int) $networkDetails[0]->network_id == 19) {
+                                                $linkNoCache = B2S_Tools::getNoCacheData((int) $post->post_author);
+                                                if (is_array($linkNoCache) && isset($linkNoCache[$networkDetails[0]->network_id]) && (int) $linkNoCache[$networkDetails[0]->network_id] > 0) {
+                                                    $defaultPostData['no_cache'] = $linkNoCache[$networkDetails[0]->network_id];
+                                                }
+                                            }
+                                            if (is_array($networkDetails) && isset($networkDetails[0]->network_id) && isset($networkDetails[0]->network_type) && isset($networkDetails[0]->network_display_name)) {
+                                                //TOS Twitter 032018 - none multiple Accounts - User select once
+                                                if ((int) $networkDetails[0]->network_id != 2 || ( (int) $networkDetails[0]->network_id == 2 && $networkTos)) {
+                                                    //at first: set one profile
+                                                    if ((int) $networkDetails[0]->network_id == 2) {
+                                                        $networkTos = false;
+                                                    }
+                                                    $res = $autoShare->prepareShareData($value, $networkDetails[0]->network_id, $networkDetails[0]->network_type);
+                                                    if ($res !== false && is_array($res)) {
+                                                        $ship = true;
+                                                        $res = array_merge($res, $defaultPostData);
+                                                        $autoShare->saveShareData($res, $networkDetails[0]->network_id, $networkDetails[0]->network_type, $value, 0, strip_tags($networkDetails[0]->network_display_name));
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if ($ship) {
+                                            B2S_Heartbeat::getInstance()->postToServer();
+                                        }
                                     }
                                 }
                             }
@@ -524,7 +539,8 @@ class B2S_Loader {
             ),
             'label' => array(
                 'for' => array(),
-            )
+            ),
+            'br' => array()
         ));
     }
 
@@ -718,205 +734,223 @@ class B2S_Loader {
                                             }
                                             $post_date = date('Y-m-d H:i:s', strtotime($wp_user_sched_post_date));
 
-                                            //ShareNow
-                                            $sched_type = 3;
-                                            $sched_date = $current_user_date;
-                                            $sched_date_utc = date('Y-m-d H:i:s', strtotime("-30 seconds", strtotime($current_utc_date)));
-                                            $myTimeSettings = false;
-
-                                            //allow for User Post Date (Schedule)
-                                            if (!empty($post_date) && $current_user_date <= $post_date) {
-                                                $sched_type = 2;
-                                                $sched_date = date('Y-m-d H:i:59', strtotime($post_date));
-                                                $sched_date_utc = date('Y-m-d H:i:s', strtotime(B2S_Util::getUTCForDate($sched_date, $user_timezone * (-1))));
+                                            //Licence Condition
+                                            $canScheduling = true;
+                                            $versionDetails = get_option('B2S_PLUGIN_USER_VERSION_' . B2S_PLUGIN_BLOG_USER_ID);
+                                            if ($versionDetails !== false && is_array($versionDetails) && !empty($versionDetails)) {
+                                                if (isset($versionDetails['B2S_PLUGIN_LICENCE_CONDITION']) && isset($versionDetails['B2S_PLUGIN_LICENCE_CONDITION']['open_sched_post_quota'])) {
+                                                    if ((int) $versionDetails['B2S_PLUGIN_LICENCE_CONDITION']['open_sched_post_quota'] > 0) {
+                                                        $versionDetails['B2S_PLUGIN_LICENCE_CONDITION']['open_sched_post_quota'] = ($versionDetails['B2S_PLUGIN_LICENCE_CONDITION']['open_sched_post_quota']) - count($networkData);
+                                                        update_option('B2S_PLUGIN_USER_VERSION_' . B2S_PLUGIN_BLOG_USER_ID, $versionDetails, false);
+                                                    } else {
+                                                        $canScheduling = false;
+                                                    }
+                                                }
                                             }
 
-                                            //Schedule post for best times
-                                            if (isset($_POST['b2s-post-meta-box-sched-select']) && (int) $_POST['b2s-post-meta-box-sched-select'] == 1) {
-                                                if (isset($_POST['b2s-post-meta-box-best-time-settings'])) {
+                                            if ($canScheduling) {
+                                                //ShareNow
+                                                $sched_type = 3;
+                                                $sched_date = $current_user_date;
+                                                $sched_date_utc = date('Y-m-d H:i:s', strtotime("-30 seconds", strtotime($current_utc_date)));
+                                                $myTimeSettings = false;
+
+                                                //allow for User Post Date (Schedule)
+                                                if (!empty($post_date) && $current_user_date <= $post_date) {
                                                     $sched_type = 2;
-                                                    $myTimeSettings = json_decode(stripslashes(sanitize_text_field(wp_unslash($_POST['b2s-post-meta-box-best-time-settings']))), true);
-                                                    if ($myTimeSettings !== false && is_array($myTimeSettings) && isset($myTimeSettings['times']) && isset($myTimeSettings['type'])) {
-                                                        $myTimeSettings = $myTimeSettings;
+                                                    $sched_date = date('Y-m-d H:i:59', strtotime($post_date));
+                                                    $sched_date_utc = date('Y-m-d H:i:s', strtotime(B2S_Util::getUTCForDate($sched_date, $user_timezone * (-1))));
+                                                }
+
+                                                //Schedule post for best times
+                                                if (isset($_POST['b2s-post-meta-box-sched-select']) && (int) $_POST['b2s-post-meta-box-sched-select'] == 1) {
+                                                    if (isset($_POST['b2s-post-meta-box-best-time-settings'])) {
+                                                        $sched_type = 2;
+                                                        $myTimeSettings = json_decode(stripslashes(sanitize_text_field(wp_unslash($_POST['b2s-post-meta-box-best-time-settings']))), true);
+                                                        if ($myTimeSettings !== false && is_array($myTimeSettings) && isset($myTimeSettings['times']) && isset($myTimeSettings['type'])) {
+                                                            $myTimeSettings = $myTimeSettings;
+                                                        }
                                                     }
                                                 }
-                                            }
 
-                                            delete_option('B2S_PLUGIN_POST_CONTENT_' . (int) $_POST['post_ID']);
-                                            $keywords = $hook_filter->get_wp_post_hashtag((int) $_POST['post_ID'], get_post_type((int) $_POST['post_ID']));
+                                                delete_option('B2S_PLUGIN_POST_CONTENT_' . (int) $_POST['post_ID']);
+                                                $keywords = $hook_filter->get_wp_post_hashtag((int) $_POST['post_ID'], get_post_type((int) $_POST['post_ID']));
 
-                                            $permalinkSetting = (get_option('B2S_PLUGIN_USER_USE_PERMALINKS_' . B2S_PLUGIN_BLOG_USER_ID) !== false) ? 1 : 0;
-                                            if ($permalinkSetting) {
-                                                $post = get_post((int) $_POST['post_ID']);
-                                                if (isset($post->post_status) && ('future' === $post->post_status)) {
-                                                    // set the post status to publish to get the 'publish' permalink
-                                                    $post->post_status = 'publish';
-                                                    $url = get_permalink($post);
+                                                $permalinkSetting = (get_option('B2S_PLUGIN_USER_USE_PERMALINKS_' . B2S_PLUGIN_BLOG_USER_ID) !== false) ? 1 : 0;
+                                                if ($permalinkSetting) {
+                                                    $post = get_post((int) $_POST['post_ID']);
+                                                    if (isset($post->post_status) && ('future' === $post->post_status)) {
+                                                        // set the post status to publish to get the 'publish' permalink
+                                                        $post->post_status = 'publish';
+                                                        $url = get_permalink($post);
+                                                    }
+                                                } else {
+                                                    $url = get_permalink((int) $_POST['post_ID']);
                                                 }
-                                            } else {
-                                                $url = get_permalink((int) $_POST['post_ID']);
-                                            }
 
 
-                                            $title = isset($_POST['post_title']) ? B2S_Util::getTitleByLanguage(strip_tags(sanitize_text_field(wp_unslash($_POST['post_title']))), strtolower($b2sPostLang)) : '';
-                                            $content = (isset($_POST['content']) && !empty($_POST['content'])) ? trim(html_entity_decode(sanitize_textarea_field(htmlentities(wp_unslash($_POST['content']))))) : '';
-                                            $excerpt = (isset($_POST['excerpt']) && !empty($_POST['excerpt'])) ? trim(html_entity_decode(sanitize_textarea_field(htmlentities(wp_unslash($_POST['excerpt']))))) : get_the_excerpt((int) $_POST['post_ID']);
-                                            $images_urls = $hook_filter->get_wp_post_image((int) $_POST['post_ID'], true, $content);
-                                            $image_url = ((!empty($images_urls) && isset(array_values($images_urls)[0][0])) ? array_values($images_urls)[0][0] : false);
+                                                $title = isset($_POST['post_title']) ? B2S_Util::getTitleByLanguage(strip_tags(sanitize_text_field(wp_unslash($_POST['post_title']))), strtolower($b2sPostLang)) : '';
+                                                $content = (isset($_POST['content']) && !empty($_POST['content'])) ? trim(html_entity_decode(sanitize_textarea_field(htmlentities(wp_unslash($_POST['content']))))) : '';
+                                                $excerpt = (isset($_POST['excerpt']) && !empty($_POST['excerpt'])) ? trim(html_entity_decode(sanitize_textarea_field(htmlentities(wp_unslash($_POST['excerpt']))))) : get_the_excerpt((int) $_POST['post_ID']);
+                                                $images_urls = $hook_filter->get_wp_post_image((int) $_POST['post_ID'], true, $content);
+                                                $image_url = ((!empty($images_urls) && isset(array_values($images_urls)[0][0])) ? array_values($images_urls)[0][0] : false);
 
-                                            $options = new B2S_Options(B2S_PLUGIN_BLOG_USER_ID);
-                                            $optionPostFormat = $options->_getOption('post_template');
-                                            $optionAutopost = $options->_getOption('auto_post');
-                                            $echo = 0;
-                                            if (isset($optionAutopost) && isset($optionAutopost["echo"])) {
-                                                $echo = (int) $optionAutopost["echo"];
-                                            }
-
-                                            $delay = 0;
-                                            if (isset($optionAutopost) && isset($optionAutopost["delay"])) {
-                                                $delay = (int) $optionAutopost["delay"];
-                                            }
-
-                                            $defaultPostData = array('default_titel' => $title,
-                                                'image_url' => ($image_url !== false) ? trim(urldecode($image_url)) : '',
-                                                'lang' => trim(strtolower(substr(B2S_LANGUAGE, 0, 2))),
-                                                'no_cache' => 0, //default inactive , 1=active 0=not
-                                                'board' => '', 'group' => '', 'url' => $url, 'user_timezone' => $user_timezone); // 'publish_date' => $sched_date, OLD FOR Share Now?
-
-                                            $defaultBlogPostData = array('post_id' => (int) $_POST['post_ID'], 'blog_user_id' => B2S_PLUGIN_BLOG_USER_ID, 'user_timezone' => $user_timezone, 'sched_type' => $sched_type, 'sched_date' => $sched_date, 'sched_date_utc' => $sched_date_utc);
-
-                                            $autoShare = new B2S_AutoPost((int) $_POST['post_ID'], $defaultBlogPostData, $current_user_date, $myTimeSettings, $title, $content, $excerpt, $url, $image_url, $keywords, $b2sPostLang, $optionPostFormat, true, 0, $echo, $delay);
-                                            define('B2S_SAVE_META_BOX_AUTO_SHARE', (int) $_POST['post_ID']);
-                                            if (isset($_POST['b2s-user-last-selected-profile-id']) && (int) $_POST['b2s-user-last-selected-profile-id'] != (int) $_POST['b2s-post-meta-box-profil-dropdown'] && (int) $_POST['b2s-post-meta-box-profil-dropdown'] != 0) {
-                                                update_option('B2S_PLUGIN_SAVE_META_BOX_AUTO_SHARE_PROFILE_USER_' . B2S_PLUGIN_BLOG_USER_ID, (int) $_POST['b2s-post-meta-box-profil-dropdown'], false);
-                                            }
-
-                                            $metaOg = false;
-                                            $metaCard = false;
-                                            $tosCrossPosting = unserialize(B2S_PLUGIN_NETWORK_CROSSPOSTING_LIMIT);
-
-                                            //Delete old sched posts (don't delete, if network group changed)
-                                            if (!isset($_POST['b2s-profile-selected']) || (int) $_POST['b2s-profile-selected'] < 0 || !isset($_POST['b2s-post-meta-box-profil-dropdown']) || (int) $_POST['b2s-post-meta-box-profil-dropdown'] == (int) $_POST['b2s-profile-selected']) {
-                                                global $wpdb;
-                                                $getSchedData = $wpdb->prepare("SELECT b.id as b2sPostId,d.network_id as networkId,d.network_type as networkType,d.network_auth_id as networkAuthId,d.network_display_name as networkUserName FROM {$wpdb->prefix}b2s_posts b LEFT JOIN {$wpdb->prefix}b2s_posts_network_details d ON (d.id = b.network_details_id) WHERE b.post_id = %d AND b.sched_type = %d AND b.publish_date = %s AND b.hide = %d", (int) $_POST['post_ID'], 3, "0000-00-00 00:00:00", 0);
-                                                $schedDataResult = $wpdb->get_results($getSchedData);
-                                                $delete_scheds = array();
-                                                foreach ($schedDataResult as $k => $value) {
-                                                    array_push($delete_scheds, $value->b2sPostId);
+                                                $options = new B2S_Options(B2S_PLUGIN_BLOG_USER_ID);
+                                                $optionPostFormat = $options->_getOption('post_template');
+                                                $optionAutopost = $options->_getOption('auto_post');
+                                                $echo = 0;
+                                                if (isset($optionAutopost) && isset($optionAutopost["echo"])) {
+                                                    $echo = (int) $optionAutopost["echo"];
                                                 }
-                                                if (!empty($delete_scheds)) {
-                                                    require_once (B2S_PLUGIN_DIR . '/includes/B2S/Post/Tools.php');
-                                                    $ship = true;
-                                                    B2S_Post_Tools::deleteUserSchedPost($delete_scheds);
-                                                }
-                                            }
 
-                                            //TOS Twitter 032018 - none multiple Accounts - User select once
-                                            $selectedTwitterProfile = (isset($_POST['b2s-post-meta-box-profil-dropdown-twitter']) && !empty($_POST['b2s-post-meta-box-profil-dropdown-twitter'])) ? (int) $_POST['b2s-post-meta-box-profil-dropdown-twitter'] : '';
-                                            $otherTwitterProfiles = array();
-                                            $initialTwitterPostId = 0;
-                                            foreach ($networkData as $k => $value) {
-                                                $initialTwitterPost = false;
-                                                if ((int) $value->networkId == 1 || (int) $value->networkId == 3 || (int) $value->networkId == 19) {
-                                                    $linkNoCache = B2S_Tools::getNoCacheData(B2S_PLUGIN_BLOG_USER_ID);
-                                                    if (is_array($linkNoCache) && isset($linkNoCache[$value->networkId]) && (int) $linkNoCache[$value->networkId] > 0) {
-                                                        $defaultPostData['no_cache'] = $linkNoCache[$value->networkId];
+                                                $delay = 0;
+                                                if (isset($optionAutopost) && isset($optionAutopost["delay"])) {
+                                                    $delay = (int) $optionAutopost["delay"];
+                                                }
+
+                                                $defaultPostData = array('default_titel' => $title,
+                                                    'image_url' => ($image_url !== false) ? trim(urldecode($image_url)) : '',
+                                                    'lang' => trim(strtolower(substr(B2S_LANGUAGE, 0, 2))),
+                                                    'no_cache' => 0, //default inactive , 1=active 0=not
+                                                    'board' => '', 'group' => '', 'url' => $url, 'user_timezone' => $user_timezone); // 'publish_date' => $sched_date, OLD FOR Share Now?
+
+                                                $defaultBlogPostData = array('post_id' => (int) $_POST['post_ID'], 'blog_user_id' => B2S_PLUGIN_BLOG_USER_ID, 'user_timezone' => $user_timezone, 'sched_type' => $sched_type, 'sched_date' => $sched_date, 'sched_date_utc' => $sched_date_utc);
+
+                                                $autoShare = new B2S_AutoPost((int) $_POST['post_ID'], $defaultBlogPostData, $current_user_date, $myTimeSettings, $title, $content, $excerpt, $url, $image_url, $keywords, $b2sPostLang, $optionPostFormat, true, 0, $echo, $delay);
+                                                define('B2S_SAVE_META_BOX_AUTO_SHARE', (int) $_POST['post_ID']);
+                                                if (isset($_POST['b2s-user-last-selected-profile-id']) && (int) $_POST['b2s-user-last-selected-profile-id'] != (int) $_POST['b2s-post-meta-box-profil-dropdown'] && (int) $_POST['b2s-post-meta-box-profil-dropdown'] != 0) {
+                                                    update_option('B2S_PLUGIN_SAVE_META_BOX_AUTO_SHARE_PROFILE_USER_' . B2S_PLUGIN_BLOG_USER_ID, (int) $_POST['b2s-post-meta-box-profil-dropdown'], false);
+                                                }
+
+                                                $metaOg = false;
+                                                $metaCard = false;
+                                                $tosCrossPosting = unserialize(B2S_PLUGIN_NETWORK_CROSSPOSTING_LIMIT);
+
+                                                //Delete old sched posts (don't delete, if network group changed)
+                                                if (!isset($_POST['b2s-profile-selected']) || (int) $_POST['b2s-profile-selected'] < 0 || !isset($_POST['b2s-post-meta-box-profil-dropdown']) || (int) $_POST['b2s-post-meta-box-profil-dropdown'] == (int) $_POST['b2s-profile-selected']) {
+                                                    global $wpdb;
+                                                    $getSchedData = $wpdb->prepare("SELECT b.id as b2sPostId,d.network_id as networkId,d.network_type as networkType,d.network_auth_id as networkAuthId,d.network_display_name as networkUserName FROM {$wpdb->prefix}b2s_posts b LEFT JOIN {$wpdb->prefix}b2s_posts_network_details d ON (d.id = b.network_details_id) WHERE b.post_id = %d AND b.sched_type = %d AND b.publish_date = %s AND b.hide = %d", (int) $_POST['post_ID'], 3, "0000-00-00 00:00:00", 0);
+                                                    $schedDataResult = $wpdb->get_results($getSchedData);
+                                                    $delete_scheds = array();
+                                                    foreach ($schedDataResult as $k => $value) {
+                                                        array_push($delete_scheds, $value->b2sPostId);
+                                                    }
+                                                    if (!empty($delete_scheds)) {
+                                                        require_once (B2S_PLUGIN_DIR . '/includes/B2S/Post/Tools.php');
+                                                        $ship = true;
+                                                        B2S_Post_Tools::deleteUserSchedPost($delete_scheds);
                                                     }
                                                 }
-                                                if (isset($value->networkAuthId) && (int) $value->networkAuthId > 0 && isset($value->networkId) && (int) $value->networkId > 0 && isset($value->networkType)) {
-                                                    //TOS Twitter 032018 - none multiple Accounts - User select once
-                                                    if ((int) $value->networkId == 2) {
-                                                        if ((int) $selectedTwitterProfile > 0 && (int) $selectedTwitterProfile == (int) $value->networkAuthId) {
-                                                            $initialTwitterPost = true;
-                                                        } else {
-                                                            array_push($otherTwitterProfiles, (int) $value->networkAuthId);
+
+                                                //TOS Twitter 032018 - none multiple Accounts - User select once
+                                                $selectedTwitterProfile = (isset($_POST['b2s-post-meta-box-profil-dropdown-twitter']) && !empty($_POST['b2s-post-meta-box-profil-dropdown-twitter'])) ? (int) $_POST['b2s-post-meta-box-profil-dropdown-twitter'] : '';
+                                                $otherTwitterProfiles = array();
+                                                $initialTwitterPostId = 0;
+
+                                                foreach ($networkData as $k => $value) {
+                                                    $initialTwitterPost = false;
+                                                    if ((int) $value->networkId == 1 || (int) $value->networkId == 3 || (int) $value->networkId == 19) {
+                                                        $linkNoCache = B2S_Tools::getNoCacheData(B2S_PLUGIN_BLOG_USER_ID);
+                                                        if (is_array($linkNoCache) && isset($linkNoCache[$value->networkId]) && (int) $linkNoCache[$value->networkId] > 0) {
+                                                            $defaultPostData['no_cache'] = $linkNoCache[$value->networkId];
+                                                        }
+                                                    }
+                                                    if (isset($value->networkAuthId) && (int) $value->networkAuthId > 0 && isset($value->networkId) && (int) $value->networkId > 0 && isset($value->networkType)) {
+                                                        //TOS Twitter 032018 - none multiple Accounts - User select once
+                                                        if ((int) $value->networkId == 2) {
+                                                            if ((int) $selectedTwitterProfile > 0 && (int) $selectedTwitterProfile == (int) $value->networkAuthId) {
+                                                                $initialTwitterPost = true;
+                                                            } else {
+                                                                array_push($otherTwitterProfiles, (int) $value->networkAuthId);
+                                                                continue;
+                                                            }
+                                                            //TOS Crossposting ignore
+                                                        }
+                                                        //Filter: TOS Crossposting ignore
+                                                        if (isset($tosCrossPosting[$value->networkId][$value->networkType])) {
                                                             continue;
                                                         }
-                                                        //TOS Crossposting ignore
-                                                    }
-                                                    //Filter: TOS Crossposting ignore
-                                                    if (isset($tosCrossPosting[$value->networkId][$value->networkType])) {
-                                                        continue;
-                                                    }
-                                                    $res = $autoShare->prepareShareData($value->networkAuthId, $value->networkId, $value->networkType, ((isset($value->networkKind) && (int) $value->networkKind >= 0) ? $value->networkKind : 0));
-                                                    if ($res !== false && is_array($res)) {
-                                                        $ship = true;
-                                                        $res = array_merge($res, $defaultPostData);
-                                                        if (((int) $value->networkId == 12) && isset($optionPostFormat[$value->networkId][$value->networkType]['addLink']) && $optionPostFormat[$value->networkId][$value->networkType]['addLink'] == false) {
-                                                            $res['url'] = '';
-                                                        } else if (((int) $value->networkId == 1 || (int) $value->networkId == 2 || (int) $value->networkId == 24) && isset($optionPostFormat[$value->networkId][$value->networkType]['format']) && (int) $optionPostFormat[$value->networkId][$value->networkType]['format'] == 1 && isset($optionPostFormat[$value->networkId][$value->networkType]['addLink']) && $optionPostFormat[$value->networkId][$value->networkType]['addLink'] == false) {
-                                                            $res['url'] = '';
-                                                        }
-                                                        $shareApprove = (isset($value->instant_sharing) && (int) $value->instant_sharing == 1) ? 1 : 0;
-                                                        $insert = $autoShare->saveShareData($res, $value->networkId, $value->networkType, $value->networkAuthId, $shareApprove, strip_tags($value->networkUserName));
-
-                                                        if ($initialTwitterPost && (int) $insert > 0) {
-                                                            $initialTwitterPostId = $insert;
-                                                        }
-
-                                                        //Start - Change/Set MetaTags
-                                                        //TODO Check Enable Feature
-                                                        if ((int) $value->networkId == 1 && $metaOg == false && (int) $_POST['post_ID'] > 0 && isset($res['post_format']) && (int) $res['post_format'] == 0) {  //LinkPost
-                                                            $metaOg = true;
-                                                            $meta = B2S_Meta::getInstance();
-                                                            $meta->getMeta((int) $_POST['post_ID']);
-                                                            if (isset($res['image_url']) && !empty($res['image_url'])) {
-                                                                $meta->setMeta('og_image', trim(esc_url($res['image_url'])));
-                                                                $meta->setMeta('og_image_alt', '');
-                                                                $meta->updateMeta((int) $_POST['post_ID']);
+                                                        $res = $autoShare->prepareShareData($value->networkAuthId, $value->networkId, $value->networkType, ((isset($value->networkKind) && (int) $value->networkKind >= 0) ? $value->networkKind : 0));
+                                                        if ($res !== false && is_array($res)) {
+                                                            $ship = true;
+                                                            $res = array_merge($res, $defaultPostData);
+                                                            if (((int) $value->networkId == 12) && isset($optionPostFormat[$value->networkId][$value->networkType]['addLink']) && $optionPostFormat[$value->networkId][$value->networkType]['addLink'] == false) {
+                                                                $res['url'] = '';
+                                                            } else if (((int) $value->networkId == 1 || (int) $value->networkId == 2 || (int) $value->networkId == 24) && isset($optionPostFormat[$value->networkId][$value->networkType]['format']) && (int) $optionPostFormat[$value->networkId][$value->networkType]['format'] == 1 && isset($optionPostFormat[$value->networkId][$value->networkType]['addLink']) && $optionPostFormat[$value->networkId][$value->networkType]['addLink'] == false) {
+                                                                $res['url'] = '';
                                                             }
-                                                        }
-                                                        if ((int) $value->networkId == 2 && $metaCard == false && (int) $_POST['post_ID'] > 0 && isset($res['post_format']) && (int) $res['post_format'] == 0) {  //LinkPost
-                                                            $metaCard = true;
-                                                            $meta = B2S_Meta::getInstance();
-                                                            $meta->getMeta((int) $_POST['post_ID']);
-                                                            if (isset($res['image_url']) && !empty($res['image_url'])) {
-                                                                $meta->setMeta('card_image', trim(esc_url($res['image_url'])));
-                                                                $meta->updateMeta((int) $_POST['post_ID']);
+                                                            $shareApprove = (isset($value->instant_sharing) && (int) $value->instant_sharing == 1) ? 1 : 0;
+                                                            $insert = $autoShare->saveShareData($res, $value->networkId, $value->networkType, $value->networkAuthId, $shareApprove, strip_tags($value->networkUserName));
+
+                                                            if ($initialTwitterPost && (int) $insert > 0) {
+                                                                $initialTwitterPostId = $insert;
                                                             }
+
+                                                            //Start - Change/Set MetaTags
+                                                            //TODO Check Enable Feature
+                                                            if ((int) $value->networkId == 1 && $metaOg == false && (int) $_POST['post_ID'] > 0 && isset($res['post_format']) && (int) $res['post_format'] == 0) {  //LinkPost
+                                                                $metaOg = true;
+                                                                $meta = B2S_Meta::getInstance();
+                                                                $meta->getMeta((int) $_POST['post_ID']);
+                                                                if (isset($res['image_url']) && !empty($res['image_url'])) {
+                                                                    $meta->setMeta('og_image', trim(esc_url($res['image_url'])));
+                                                                    $meta->setMeta('og_image_alt', '');
+                                                                    $meta->updateMeta((int) $_POST['post_ID']);
+                                                                }
+                                                            }
+                                                            if ((int) $value->networkId == 2 && $metaCard == false && (int) $_POST['post_ID'] > 0 && isset($res['post_format']) && (int) $res['post_format'] == 0) {  //LinkPost
+                                                                $metaCard = true;
+                                                                $meta = B2S_Meta::getInstance();
+                                                                $meta->getMeta((int) $_POST['post_ID']);
+                                                                if (isset($res['image_url']) && !empty($res['image_url'])) {
+                                                                    $meta->setMeta('card_image', trim(esc_url($res['image_url'])));
+                                                                    $meta->updateMeta((int) $_POST['post_ID']);
+                                                                }
+                                                            }
+                                                            //END MetaTags
                                                         }
-                                                        //END MetaTags
                                                     }
                                                 }
-                                            }
-                                            //Reweet Twitter
-                                            if (!empty($otherTwitterProfiles) && (int) $initialTwitterPostId > 0 && (int) $_POST['post_ID'] > 0) {
-                                                global $wpdb;
-                                                $updateIntTwitter = $wpdb->prepare("UPDATE {$wpdb->prefix}b2s_posts SET post_for_relay = 1 WHERE id = %d", (int) $initialTwitterPostId);
-                                                $wpdb->get_results($updateIntTwitter);
-                                                $tw_sched_date = date('Y-m-d H:i:s', strtotime("+15 minutes", strtotime($sched_date)));
-                                                $tw_sched_date_utc = date('Y-m-d H:i:s', strtotime("+15 minutes", strtotime($sched_date_utc)));
-                                                foreach ($otherTwitterProfiles as $key => $value) {
-                                                    $getNetworkDetails = $wpdb->prepare("SELECT id FROM {$wpdb->prefix}b2s_posts_network_details WHERE network_auth_id = %d", (int) $value);
-                                                    $networkDetails = $wpdb->get_results($getNetworkDetails);
-                                                    if (isset($networkDetails[0]->id) && $networkDetails[0]->id > 0) {
-                                                        $wpdb->insert($wpdb->prefix . 'b2s_posts', array(
-                                                            'post_id' => (int) $_POST['post_ID'],
-                                                            'blog_user_id' => B2S_PLUGIN_BLOG_USER_ID,
-                                                            'user_timezone' => $user_timezone,
-                                                            'sched_type' => 4, // replay, retweet
-                                                            'sched_date' => $tw_sched_date,
-                                                            'sched_date_utc' => $tw_sched_date_utc,
-                                                            'network_details_id' => (int) $networkDetails[0]->id,
-                                                            'relay_primary_post_id' => (int) $initialTwitterPostId,
-                                                            'relay_delay_min' => (int) 15,
-                                                            'hook_action' => 1), array('%d', '%d', '%s', '%d', '%s', '%s', '%d', '%d', '%d', '%d'));
+                                                //Reweet Twitter
+                                                if (!empty($otherTwitterProfiles) && (int) $initialTwitterPostId > 0 && (int) $_POST['post_ID'] > 0) {
+                                                    global $wpdb;
+                                                    $updateIntTwitter = $wpdb->prepare("UPDATE {$wpdb->prefix}b2s_posts SET post_for_relay = 1 WHERE id = %d", (int) $initialTwitterPostId);
+                                                    $wpdb->get_results($updateIntTwitter);
+                                                    $tw_sched_date = date('Y-m-d H:i:s', strtotime("+15 minutes", strtotime($sched_date)));
+                                                    $tw_sched_date_utc = date('Y-m-d H:i:s', strtotime("+15 minutes", strtotime($sched_date_utc)));
+                                                    foreach ($otherTwitterProfiles as $key => $value) {
+                                                        $getNetworkDetails = $wpdb->prepare("SELECT id FROM {$wpdb->prefix}b2s_posts_network_details WHERE network_auth_id = %d", (int) $value);
+                                                        $networkDetails = $wpdb->get_results($getNetworkDetails);
+                                                        if (isset($networkDetails[0]->id) && $networkDetails[0]->id > 0) {
+                                                            $wpdb->insert($wpdb->prefix . 'b2s_posts', array(
+                                                                'post_id' => (int) $_POST['post_ID'],
+                                                                'blog_user_id' => B2S_PLUGIN_BLOG_USER_ID,
+                                                                'user_timezone' => $user_timezone,
+                                                                'sched_type' => 4, // replay, retweet
+                                                                'sched_date' => $tw_sched_date,
+                                                                'sched_date_utc' => $tw_sched_date_utc,
+                                                                'network_details_id' => (int) $networkDetails[0]->id,
+                                                                'relay_primary_post_id' => (int) $initialTwitterPostId,
+                                                                'relay_delay_min' => (int) 15,
+                                                                'hook_action' => 1), array('%d', '%d', '%s', '%d', '%s', '%s', '%d', '%d', '%d', '%d'));
+                                                        }
                                                     }
                                                 }
-                                            }
-                                            if ($ship) {
-                                                B2S_Heartbeat::getInstance()->deleteSchedPost();
-                                                B2S_Heartbeat::getInstance()->postToServer();
-                                            }
-
-                                            if ($sched_type != 3) {
-                                                if (isset($_POST['b2s-user-lang']) && !empty($_POST['b2s-user-lang'])) {
-                                                    $dateFormat = (sanitize_text_field(wp_unslash($_POST['b2s-user-lang'])) == 'de') ? 'd.m.Y' : 'Y-m-d';
-                                                    $_POST['b2s_update_publish_date'] = date($dateFormat, strtotime($sched_date));
+                                                if ($ship) {
+                                                    B2S_Heartbeat::getInstance()->deleteSchedPost();
+                                                    B2S_Heartbeat::getInstance()->postToServer();
                                                 }
-                                            }
 
-                                            add_filter('redirect_post_location', array($this, 'b2s_add_param_auto_share_meta_box'));
+                                                if ($sched_type != 3) {
+                                                    if (isset($_POST['b2s-user-lang']) && !empty($_POST['b2s-user-lang'])) {
+                                                        $dateFormat = (sanitize_text_field(wp_unslash($_POST['b2s-user-lang'])) == 'de') ? 'd.m.Y' : 'Y-m-d';
+                                                        $_POST['b2s_update_publish_date'] = date($dateFormat, strtotime($sched_date));
+                                                    }
+                                                }
+                                                add_filter('redirect_post_location', array($this, 'b2s_add_param_auto_share_meta_box'));
+                                            } else {
+                                                add_filter('redirect_post_location', array($this, 'b2s_add_param_auto_share_error_limit_data_meta_box'));
+                                            }
                                         }
                                     } else {
                                         add_filter('redirect_post_location', array($this, 'b2s_add_param_auto_share_error_data_meta_box'));
@@ -990,6 +1024,11 @@ class B2S_Loader {
         return add_query_arg(array('b2s_action' => 3), $location);
     }
 
+    public function b2s_add_param_auto_share_error_limit_data_meta_box($location) {
+        remove_filter('redirect_post_location', array($this, 'b2s_add_param_auto_share_error_limit_data_meta_box'));
+        return add_query_arg(array('b2s_action' => 4), $location);
+    }
+
     public function b2s_save_post_alert_meta_box() {
         if (isset($_GET['b2s_action'])) {
             $b2sAction = sanitize_text_field(wp_unslash($_GET['b2s_action']));
@@ -1007,6 +1046,9 @@ class B2S_Loader {
             }
             if ((int) $b2sAction == 3) {
                 echo '<div class="error"><p>' . esc_html__('There are no social network accounts assigned to your selected network collection. Please assign at least one social network account or select another network collection.', 'blog2social') . '</p></div>';
+            }
+            if ((int) $b2sAction == 4) {
+                echo '<div class="error"><p>' . esc_html__("You've reached your posting limit!", "blog2social") . '<br>' . esc_html__('To increase your limit and enjoy more features, consider upgrading.', 'blog2social') . '<br><a target="_blank" class="b2s-text-bold" href="' . esc_url(B2S_Tools::getSupportLink('pricing')) . '">' . esc_html__('Upgrade', 'blog2social') . '</a></p></div>';
             }
         }
     }

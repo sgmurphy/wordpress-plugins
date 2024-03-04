@@ -494,6 +494,7 @@ class Action
             $url = $this->form_settings['mf_rest_api_url'];
             $method = $this->form_settings['mf_rest_api_method'];
             $rest_api = new \MetForm_Pro\Core\Integrations\Rest_Api();
+            $ref_url = isset($_SERVER['HTTP_REFERER']) ? sanitize_url($_SERVER['HTTP_REFERER']) : '';
             $response = $rest_api->call_api(
                 [
                     'entries' => json_encode($this->form_data),
@@ -501,6 +502,7 @@ class Action
                     'form_id' => $form_data['id'],
                     'version' => \MetForm\Plugin::instance()->version(),
                     'file_uploads' => json_encode($this->file_upload_info),
+                    'referrer_url' => $ref_url
                 ],
                 [
                     'url' => $url,

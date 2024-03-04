@@ -22,6 +22,9 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                     <span class="mf-setting-title"><?php echo esc_html__('Dashboard', 'metform'); ?></span>
                                     <span class="mf-setting-subtitle"><?php echo esc_html__('All dashboard info here', 'metform'); ?></span>
                                 </div>
+                                <div>
+                                    <span class="mf  mf-home mf-icon"></span>
+                                </div>
                             </a>
                         </li>
 
@@ -30,6 +33,9 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                 <div class="mf-setting-tab-content">
                                     <span class="mf-setting-title"><?php echo esc_html__('General', 'metform'); ?></span>
                                     <span class="mf-setting-subtitle"><?php echo esc_html__('All General info here', 'metform'); ?></span>
+                                </div>
+                                <div>
+                                    <span class="mf mf-settings mf-icon"></span>
                                 </div>
                             </a>
                         </li>
@@ -41,6 +47,9 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                         <span class="mf-setting-title"><?php echo esc_html__('Payment', 'metform'); ?></span>
                                         <span class="mf-setting-subtitle"><?php echo esc_html__('All payment info here', 'metform'); ?></span>
                                     </div>
+                                    <div>
+                                    <span class="mf mf-credit-card mf-icon"></span>
+                                </div>
                                 </a>
                             </li>
                         <?php endif; ?>
@@ -50,18 +59,24 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                     <span class="mf-setting-title"><?php echo esc_html__('Newsletter Integration', 'metform'); ?></span>
                                     <span class="mf-setting-subtitle"><?php echo esc_html__('All newsletter integration info here', 'metform'); ?></span>
                                 </div>
-                            </a>
-                        </li>
-                        <?php if (class_exists('\MetForm_Pro\Core\Integrations\Google_Sheet\WF_Google_Sheet')) :?>
-                        <li>
-                            <a href="#mf-google_sheet_integration" class="mf-setting-nav-link">
-                                <div class="mf-setting-tab-content">
-                                    <span class="mf-setting-title"><?php echo esc_html__('Google Sheet Integration', 'metform'); ?></span>
-                                    <span class="mf-setting-subtitle"><?php echo esc_html__('All sheets info here', 'metform'); ?></span>
+                                <div>
+                                    <span class="mf mf-newsletter mf-icon"></span>
                                 </div>
                             </a>
                         </li>
-                        <?php endif;?>
+                        <?php if (class_exists('\MetForm_Pro\Core\Integrations\Google_Sheet\WF_Google_Sheet')) : ?>
+                            <li>
+                                <a href="#mf-google_sheet_integration" class="mf-setting-nav-link">
+                                    <div class="mf-setting-tab-content">
+                                        <span class="mf-setting-title"><?php echo esc_html__('Google Sheet Integration', 'metform'); ?></span>
+                                        <span class="mf-setting-subtitle"><?php echo esc_html__('All sheets info here', 'metform'); ?></span>
+                                    </div>
+                                    <div>
+                                    <span class="mf mf-sticky-note mf-icon"></span>
+                                </div>
+                                </a>
+                            </li>
+                        <?php endif; ?>
                         <?php do_action('metform_settings_tab'); ?>
 
                         <li><a href="#" class="mf-setting-nav-link mf-setting-nav-hidden"></a></li>
@@ -91,7 +106,8 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                     <div class="mf-setting-dash-section-heading">
                                         <h2 class="mf-setting-dash-section-heading--title">
                                             <?php esc_html_e('Top Notch', 'metform'); ?>
-                                            <strong><?php esc_html_e('Features', 'metform'); ?></strong></h2>
+                                            <strong><?php esc_html_e('Features', 'metform'); ?></strong>
+                                        </h2>
                                         <span class="mf-setting-dash-section-heading--subtitle"><?php esc_html_e('features', 'metform'); ?></span>
                                         <div class="mf-setting-dash-section-heading--content">
                                             <p><?php esc_html_e('Get started by spending some time with the documentation to get familiar with ElementsKit.', 'metform') ?>
@@ -150,7 +166,8 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                     <div class="mf-setting-dash-section-heading">
                                         <h2 class="mf-setting-dash-section-heading--title">
                                             <?php esc_html_e('What included with Free &', 'metform'); ?>
-                                            <strong><?php esc_html_e('PRO', 'metform'); ?></strong></h2>
+                                            <strong><?php esc_html_e('PRO', 'metform'); ?></strong>
+                                        </h2>
                                         <span class="mf-setting-dash-section-heading--subtitle"><?php esc_html_e('features', 'metform'); ?></span>
                                         <div class="mf-setting-dash-section-heading--content">
                                             <p><?php esc_html_e('Get started by spending some time with the documentation to get familiar with ElementsKit.', 'metform') ?>
@@ -272,30 +289,85 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                 </div> <!-- Dashboard setting faq -->
 
                                 <!-- Dashboard setting rate now -->
-                                <div id="mf-set-dash-rate-now" class="mf-set-dash-section">
-                                    <div class="mf-admin-right-content">
+                                <div class="mf-dash-content">
+                                <div class="ekit-admin-section ekit-admin-dual-layout ekit-admin-documentation-section">
+                                    <div class="ekit-admin-left-thumb">
+                                        <img src="<?php echo esc_url(plugin_dir_url(__FILE__) . '../images/documentation-thumb.png'); ?>" alt="<?php esc_attr_e('Documentation Thumb', 'metform'); ?>">
+                                    </div>
+                                    <div class="ekit-admin-right-content">
+                                        <div class="ekit-admin-right-content--heading">
+                                            <h2>Easy Documentation</h2>
+                                            <span class="ekit-admin-right-content--heading__sub-title">Docs</span>
+                                        </div> 
+                                        <p>Get started by spending some time with the documentation to get familiar with MetForm. Build awesome forms for you or your clients with ease.</p>
+                                        <div class="ekit-admin-right-content--button">
+                                            <a target="_blank" href="https://wpmet.com/doc/metform/" class="attr-btn attr-btn-primary ekit-admin-right-content--link"><span class="mf mf-document"></span>Get started</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Support  -->
+                                <div class="ekit-admin-section ekit-admin-dual-layout ekit-admin-support-section">
+                <div class="ekit-admin-right-content">
+                        <div class="ekit-admin-right-content--heading">
+                            <h2>Top-notch &amp; Friendly Support</h2>
+                            <span class="ekit-admin-right-content--heading__sub-title">Support</span>
+                        </div> 
+                        <p>Stuck somewhere? Feel free to open a ticket for getting Pro support.</p>
+                        <div class="ekit-admin-right-content--button">
+                            <a target="_blank" href="https://wpmet.com/support-ticket-form/" class="attr-btn attr-btn-primary ekit-admin-right-content--link"><span class="mf mf-question"></span>Join support forum</a>
+                        </div>
+                    </div>
+                    
+                    <div class="ekit-admin-left-thumb">
+                        <img src="<?php echo esc_url(plugin_dir_url(__FILE__) . '../images/suport-thumb.png'); ?>" alt="<?php esc_attr_e('Support Thumb', 'metform'); ?>">
+                    </div>
+                    
+                </div>
+                                <!-- Support  -->
+                                <!-- Feature Request  -->
+                                <div class="ekit-admin-section ekit-admin-dual-layout ekit-admin-feature-request-section ekit-admin-except-title">
+	<div class="ekit-admin-left-thumb">
+        <img src="<?php echo esc_url(plugin_dir_url(__FILE__) . '../images/featured-request-thumb.png'); ?>" alt="<?php esc_attr_e('Feature Request Thumb', 'metform'); ?>">
+	</div>
+	<div class="ekit-admin-right-content">
 
-                                        <div class="mf-setting-dash-section-heading">
-                                            <h2 class="mf-setting-dash-section-heading--title">
-                                                <strong><?php esc_html_e('Satisfied!', 'metform'); ?></strong><br><?php esc_html_e('Don’t forget to rate our item.', 'metform'); ?>
-                                            </h2>
-                                            <span class="mf-setting-dash-section-heading--subtitle"><?php esc_html_e('review', 'metform'); ?></span>
-                                            <div class="mf-setting-dash-section-heading--content">
-                                                <p></p>
+		<p>Maybe we’re missing something you can’t live without.</p>
+		<div class="ekit-admin-right-content--button">
+			<a target="_blank" href="https://wpmet.com/plugin/metform/roadmaps/#ideas" class="attr-btn attr-btn-primary ekit-admin-right-content--link"><span class="mf mf-icon-checked-fillpng"></span>Request a Feature</a>
+		</div>
+	</div>
+</div>
+
+
+                                <!-- Feature Request  -->
+                                <div id="mf-set-dash-rate-now" class="mf-set-dash-section">
+                                        <div class="mf-admin-right-content">
+
+                                            <div class="mf-setting-dash-section-heading">
+                                                <h2 class="mf-setting-dash-section-heading--title">
+                                                    <strong><?php esc_html_e('Satisfied?', 'metform'); ?></strong><br><?php esc_html_e('Don\'t forget to rate MetForm!', 'metform'); ?>
+                                                </h2>
+                                                <span class="mf-setting-dash-section-heading--subtitle"><?php esc_html_e('review', 'metform'); ?></span>
+                                                <div class="mf-setting-dash-section-heading--content">
+                                                    <p></p>
+                                                </div>
+                                            </div> <!-- ./End Section heading -->
+                                            <div class="mf-admin-right-content--button">
+                                                <a target="_blank" href="https://wordpress.org/support/plugin/metform/reviews/?rate=5#new-post" class="mf-admin-setting-btn fatty"><span class="mf mf-star-1"></span><?php esc_html_e('Rate it now', 'metform'); ?></a>
                                             </div>
-                                        </div> <!-- ./End Section heading -->
-                                        <div class="mf-admin-right-content--button">
-                                            <a target="_blank" href="https://wordpress.org/support/plugin/metform/reviews/?rate=5#new-post" class="mf-admin-setting-btn fatty"><span class="mf mf-star-1"></span><?php esc_html_e('Rate it now', 'metform'); ?></a>
+
+                                        </div>
+
+                                        <div class="mf-admin-left-thumb">
+                                            <img src="<?php echo esc_url(plugin_dir_url(__FILE__) . '../images/rate-now-thumb.png'); ?>" alt="<?php esc_attr_e('Rate Now Thumb', 'metform'); ?>">
                                         </div>
                                     </div>
 
-                                    <div class="mf-admin-left-thumb">
-                                        <img src="<?php echo esc_url(plugin_dir_url(__FILE__) . '../images/rate-now-thumb.png'); ?>" alt="<?php esc_attr_e('Rate Now Thumb', 'metform'); ?>">
-                                    </div>
                                 </div>
 
                             </div>
                         </div>
+                        
 
                         <!-- General Tab -->
                         <div class="mf-settings-section" id="mf-general_options">
@@ -323,7 +395,7 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                                 </li>
                                             <?php endif; ?>
 
-                                            
+
                                         </ul>
                                     </div>
 
@@ -413,10 +485,10 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                                 <div class="attr-row">
                                                     <div class="attr-col-lg-4">
                                                         <div class="mf-setting-input-group">
-												 <label class="mf-setting-label mf-setting-switch">
-													<input type="checkbox" name="mf_save_progress" value="1" class="attr-form-control" <?php echo esc_attr((isset($settings['mf_save_progress'])) ? 'Checked' : ''); ?>   />
-													<span><?php esc_html_e('Save Form Progress ?', 'metform'); ?></span>
-												 </label>
+                                                            <label class="mf-setting-label mf-setting-switch">
+                                                                <input type="checkbox" name="mf_save_progress" value="1" class="attr-form-control" <?php echo esc_attr((isset($settings['mf_save_progress'])) ? 'Checked' : ''); ?> />
+                                                                <span><?php esc_html_e('Save Form Progress ?', 'metform'); ?></span>
+                                                            </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -427,11 +499,11 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                                 <div class="attr-row" style="margin-top:18px">
                                                     <div class="attr-col-lg-7">
                                                         <div class="mf-setting-input-group">
-												 <label class="mf-setting-label mf-setting-switch">
-													<input type="checkbox" name="mf_field_name_show" value="1" class="attr-form-control" <?php echo esc_attr((isset($settings['mf_field_name_show'])) ? 'Checked' : ''); ?>   />
-													<span><?php esc_html_e('Display Input Field Name Alongside Value ', 'metform'); ?></span>
-                                                    
-												 </label>
+                                                            <label class="mf-setting-label mf-setting-switch">
+                                                                <input type="checkbox" name="mf_field_name_show" value="1" class="attr-form-control" <?php echo esc_attr((isset($settings['mf_field_name_show'])) ? 'Checked' : ''); ?> />
+                                                                <span><?php esc_html_e('Display Input Field Name Alongside Value ', 'metform'); ?></span>
+
+                                                            </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -441,7 +513,7 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
 
                                             </div>
                                         <?php endif; ?>
-                                  
+
                                     </div>
                                 </div>
                             </div>
@@ -451,11 +523,11 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
 
                         <!-- Payment Tab -->
                         <?php if (class_exists('\MetForm_Pro\Core\Integrations\Payment\Paypal')) : ?>
-                        <div class="mf-settings-section" id="mf-payment_options">
-                            <div class="mf-settings-single-section">
-                                
+                            <div class="mf-settings-section" id="mf-payment_options">
+                                <div class="mf-settings-single-section">
+
                                     <div class="mf-setting-header">
-                                        <h3 class="mf-settings-single-section--title"><span class="mf mf-settings"></span><?php esc_html_e('Payment', 'metform'); ?></h3>
+                                        <h3 class="mf-settings-single-section--title"><span class="mf mf-credit-card"></span><?php esc_html_e('Payment', 'metform'); ?></h3>
                                         <button type="submit" name="submit" id="submit" class="mf-admin-setting-btn active"><span class="mf mf-icon-checked-fillpng"></span><?php esc_attr_e('Save Changes', 'metform'); ?></button>
                                     </div>
 
@@ -573,68 +645,68 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                                 </div>
                                             <?php endif; ?>
 
-                                                <!-- Thank you page section -->
-                                                <div class="attr-tab-pane attr-fade" id="mf-thankyou-tab" role="tabpanel" aria-labelledby="mf-thankyou-tab-label">
-                                                    <div class="attr-row">
-                                                        <div class="attr-col-lg-6">
-                                                            <div class="mf-setting-input-group">
+                                            <!-- Thank you page section -->
+                                            <div class="attr-tab-pane attr-fade" id="mf-thankyou-tab" role="tabpanel" aria-labelledby="mf-thankyou-tab-label">
+                                                <div class="attr-row">
+                                                    <div class="attr-col-lg-6">
+                                                        <div class="mf-setting-input-group">
                                                             <h3><?php esc_html_e('Select Thank You Page :', 'metform'); ?></h3>
-                                                                <?php $page_ids = get_all_page_ids(); ?>
-                                                                <select name="mf_thank_you_page" class="mf-setting-input attr-form-control">
-                                                                        <option value=""><?php esc_html_e('Select a page', 'metform'); ?></option>
-                                                                    <?php foreach ($page_ids as $page) : ?>
-                                                                        <option <?php 
-                                                                        if(isset($settings['mf_thank_you_page'])){
-                                                                            if ($settings['mf_thank_you_page'] == $page) {
-                                                                                echo 'selected';
-                                                                            } 
-                                                                        }
-                                                                        ?> value="<?php echo esc_attr($page); ?>"> <?php echo esc_html(get_the_title($page)); ?>
-                                                                        <?php endforeach; ?>
-                                                                </select>
-                                                                <br><br>
-                                                                <p><?php echo wp_kses_post(__('Handle successfull payment redirection page. Learn more about Thank you page', 'metform') . '<a href="https://help.wpmet.com/docs/thank-you-page/" target="_blank">'. __('Here', 'metform') .'</a>'); ?></p>
-                                                                <a class="mf-setting-btn-link" href="<?php echo esc_url(get_admin_url() . 'post-new.php?post_type=page'); ?>"><?php esc_html_e('Create Thank You Page', 'metform'); ?></a>
-                                                            </div>
+                                                            <?php $page_ids = get_all_page_ids(); ?>
+                                                            <select name="mf_thank_you_page" class="mf-setting-input attr-form-control">
+                                                                <option value=""><?php esc_html_e('Select a page', 'metform'); ?></option>
+                                                                <?php foreach ($page_ids as $page) : ?>
+                                                                    <option <?php
+                                                                            if (isset($settings['mf_thank_you_page'])) {
+                                                                                if ($settings['mf_thank_you_page'] == $page) {
+                                                                                    echo esc_attr('selected');
+                                                                                }
+                                                                            }
+                                                                            ?> value="<?php echo esc_attr($page); ?>"> <?php echo esc_html(get_the_title($page)); ?>
+                                                                    <?php endforeach; ?>
+                                                            </select>
+                                                            <br><br>
+                                                            <p><?php echo wp_kses_post(__('Handle successfull payment redirection page. Learn more about Thank you page', 'metform') . '<a href="https://help.wpmet.com/docs/thank-you-page/" target="_blank">' . __('Here', 'metform') . '</a>'); ?></p>
+                                                            <a class="mf-setting-btn-link" href="<?php echo esc_url(get_admin_url() . 'post-new.php?post_type=page'); ?>"><?php esc_html_e('Create Thank You Page', 'metform'); ?></a>
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <!-- Thank you page section -->
-                                                <div class="attr-tab-pane attr-fade" id="mf-cancel-tab" role="tabpanel" aria-labelledby="mf-cancel-tab-label">
-                                                    <div class="attr-row">
-                                                        <div class="attr-col-lg-6">
-                                                            <div class="mf-setting-input-group">
-                                                            <h3><?php esc_html_e('Select Cancel Page :', 'metform'); ?></h3>
-                                                                <?php $page_ids = get_all_page_ids(); ?>
-                                                                <select name="mf_cancel_page" class="mf-setting-input attr-form-control">
-                                                                    <option value=""><?php esc_html_e('Select a page', 'metform'); ?></option>
-                                                                    <?php foreach ($page_ids as $page) : 
-                                                                        ?>
-                                                                        <option <?php 
-                                                                        if(isset($settings['mf_cancel_page'])){
-                                                                            if ($settings['mf_cancel_page'] == $page) {
-                                                                                echo 'selected';
-                                                                            } 
-                                                                        }
-                                                                        ?> value="<?php echo esc_attr($page); ?>"> <?php echo esc_html(get_the_title($page)); ?>
-                                                                        <?php endforeach; ?>
-                                                                </select>
-                                                                <br><br>
-                                                                <p><?php esc_html_e('Handle canceled payment redirection page. Learn more about cancel page.', 'metform'); ?></p>
-                                                                <a class="mf-setting-btn-link" href="<?php echo esc_url(get_admin_url() . 'post-new.php?post_type=page'); ?>"><?php esc_html_e('Create Cancel Page', 'metform'); ?></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                             </div>
+
+                                            <!-- Thank you page section -->
+                                            <div class="attr-tab-pane attr-fade" id="mf-cancel-tab" role="tabpanel" aria-labelledby="mf-cancel-tab-label">
+                                                <div class="attr-row">
+                                                    <div class="attr-col-lg-6">
+                                                        <div class="mf-setting-input-group">
+                                                            <h3><?php esc_html_e('Select Cancel Page :', 'metform'); ?></h3>
+                                                            <?php $page_ids = get_all_page_ids(); ?>
+                                                            <select name="mf_cancel_page" class="mf-setting-input attr-form-control">
+                                                                <option value=""><?php esc_html_e('Select a page', 'metform'); ?></option>
+                                                                <?php foreach ($page_ids as $page) :
+                                                                ?>
+                                                                    <option <?php
+                                                                            if (isset($settings['mf_cancel_page'])) {
+                                                                                if ($settings['mf_cancel_page'] == $page) {
+                                                                                    echo esc_attr('selected');
+                                                                                }
+                                                                            }
+                                                                            ?> value="<?php echo esc_attr($page); ?>"> <?php echo esc_html(get_the_title($page)); ?>
+                                                                    <?php endforeach; ?>
+                                                            </select>
+                                                            <br><br>
+                                                            <p><?php esc_html_e('Handle canceled payment redirection page. Learn more about cancel page.', 'metform'); ?></p>
+                                                            <a class="mf-setting-btn-link" href="<?php echo esc_url(get_admin_url() . 'post-new.php?post_type=page'); ?>"><?php esc_html_e('Create Cancel Page', 'metform'); ?></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
-                                
+                                </div>
+
                             </div>
-                            <?php endif; ?>
-                       
+                        <?php endif; ?>
+
                         <!-- ./End Payment Tab -->
 
                         <!-- newsletter Integration Tab -->
@@ -642,7 +714,7 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                             <div class="mf-settings-single-section">
                                 <?php if (class_exists('\MetForm\Core\Integrations\Mail_Chimp')) : ?>
                                     <div class="mf-setting-header">
-                                        <h3 class="mf-settings-single-section--title"><span class="mf mf-settings"></span><?php esc_html_e('Newsletter Integration', 'metform'); ?>
+                                        <h3 class="mf-settings-single-section--title"><span class="mf mf-newsletter"></span><?php esc_html_e('Newsletter Integration', 'metform'); ?>
                                         </h3>
                                         <button type="submit" name="submit" id="submit" class="mf-admin-setting-btn active"><span class="mf mf-icon-checked-fillpng"></span><?php esc_attr_e('Save Changes', 'metform'); ?></button>
                                     </div>
@@ -671,7 +743,7 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                                     <a class="attr-nav-item attr-nav-link" data-toggle="tab" href="#attr-ckit-tab" role="tab" aria-controls="nav-profile" aria-selected="false"><?php esc_html_e('ConvertKit', 'metform'); ?></a>
                                                 </li>
 
-	                                            <?php   do_action( 'get_pro_settings_tab_for_newsletter_integration' ); ?>
+                                                <?php do_action('get_pro_settings_tab_for_newsletter_integration'); ?>
 
                                             <?php endif; ?>
                                         </ul>
@@ -716,12 +788,12 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                                     <div class="attr-row">
                                                         <div class="attr-col-lg-6">
 
-                                                           
+
 
                                                             <div class="mf-setting-input-group">
                                                                 <label for="attr-input-label" class="mf-setting-label mf-setting-label attr-input-label"><?php esc_html_e('Redirect url:', 'metform'); ?></label>
                                                                 <p class="description">
-			                                                        <?php echo esc_url(get_admin_url() . 'admin.php?page=metform-menu-settings'); ?>
+                                                                    <?php echo esc_url(get_admin_url() . 'admin.php?page=metform-menu-settings'); ?>
                                                                 </p>
                                                             </div>
 
@@ -737,7 +809,7 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                                                         <a href="https://api.wpmet.com/public/aweber-auth/auth.php?redirect_url=<?php echo esc_url(get_admin_url() . 'admin.php?page=metform-menu-settings' . "&state=" . wp_create_nonce() . "&section_id=mf-newsletter_integration"); ?>" class="button-primary mf-setting-btn"> <?php esc_html_e('Reonnect AWeber', 'metform'); ?> </a>
                                                                     </p>
                                                                 </div>
-                                                                   
+
                                                             <?php endif; ?>
 
                                                         </div>
@@ -802,7 +874,7 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                                     </div>
                                                 </div>
 
-	                                            <?php   do_action( 'get_pro_settings_tab_content_for_newsletter_integration', $settings ); ?>
+                                                <?php do_action('get_pro_settings_tab_content_for_newsletter_integration', $settings); ?>
 
                                             <?php endif; ?>
 
@@ -810,7 +882,7 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                                 <div class="attr-row">
                                                     <?php if (class_exists('\MetForm_Pro\Core\Integrations\Email\Activecampaign\Active_Campaign')) : ?>
                                                         <div class="attr-col-lg-6">
-                                                        <div class="mf-setting-input-group">
+                                                            <div class="mf-setting-input-group">
                                                                 <label for="attr-input-label" class="mf-setting-label mf-setting-label attr-input-label"><?php esc_html_e('API URL:', 'metform'); ?></label>
                                                                 <input type="text" name="mf_active_campaign_url" value="<?php echo esc_attr((isset($settings['mf_active_campaign_url'])) ? $settings['mf_active_campaign_url'] : ''); ?>" class="mf-setting-input mf-mailchimp-api-key attr-form-control" placeholder="<?php esc_html_e('ActiveCampaign API URL', 'metform'); ?>">
                                                                 <p class="description">
@@ -943,16 +1015,16 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                             </div>
                         </div>
                         <!-- ./End Mail Integration Tab -->
-                        <?php if (class_exists('\MetForm_Pro\Core\Integrations\Google_Sheet\WF_Google_Sheet')) :?>
-                        <!-- google sheet Integration Tab -->
-                        <div class="mf-settings-section" id="mf-google_sheet_integration">
-                            <div class="mf-settings-single-section">
-                                <div class="mf-setting-header">
-                                    <h3 class="mf-settings-single-section--title"><span class="mf mf-settings"></span><?php esc_html_e('Google Sheet Integration', 'metform'); ?>
-                                    </h3>
-                                    <button type="submit" name="submit" id="submit" class="mf-admin-setting-btn active"><span class="mf mf-icon-checked-fillpng"></span><?php esc_attr_e('Save Changes', 'metform'); ?></button>
-                                </div>
-                                <div class="mf-setting-tab-nav">
+                        <?php if (class_exists('\MetForm_Pro\Core\Integrations\Google_Sheet\WF_Google_Sheet')) : ?>
+                            <!-- google sheet Integration Tab -->
+                            <div class="mf-settings-section" id="mf-google_sheet_integration">
+                                <div class="mf-settings-single-section">
+                                    <div class="mf-setting-header">
+                                        <h3 class="mf-settings-single-section--title"><span class="mf mf-sticky-note"></span><?php esc_html_e('Google Sheet Integration', 'metform'); ?>
+                                        </h3>
+                                        <button type="submit" name="submit" id="submit" class="mf-admin-setting-btn active"><span class="mf mf-icon-checked-fillpng"></span><?php esc_attr_e('Save Changes', 'metform'); ?></button>
+                                    </div>
+                                    <div class="mf-setting-tab-nav">
                                         <ul class="attr-nav attr-nav-tabs" id="nav-tab" role="attr-tablist">
                                             <li class="attr-active attr-in">
                                                 <a class="attr-nav-item attr-nav-link" data-toggle="tab" href="#mf-google-sheet-tab" role="tab"><?php esc_attr_e('Google Sheet', 'metform'); ?></a>
@@ -962,43 +1034,43 @@ $settings = \MetForm\Core\Admin\Base::instance()->get_settings_option();
                                     <div class="attr-form-group">
                                         <div class="attr-tab-content" id="nav-tabContent">
                                             <div class="attr-tab-pane attr-fade attr-active attr-in" id="mf-google-sheet-tab" role="tabpanel" aria-labelledby="nav-home-tab">
-                                            <div class="attr-row">
+                                                <div class="attr-row">
 
-                                                <div class="attr-col-lg-6">
-                                                    <div class="mf-setting-input-group">
-                                                        <label for="attr-input-label" class="mf-setting-label mf-setting-label attr-input-label"><?php esc_html_e('Google Client Id:', 'metform'); ?></label>
-                                                        <input type="text" name="mf_google_sheet_client_id" value="<?php echo esc_attr(isset($settings['mf_google_sheet_client_id']) ? $settings['mf_google_sheet_client_id'] : ''); ?>" class="mf-setting-input mf-google-sheet-api-key attr-form-control" placeholder="<?php esc_html_e('Google OAuth Client Id', 'metform'); ?>">
-                                                        <p class="description">
-                                                            <?php esc_html_e('Enter here your google client id. ', 'metform'); ?><a class="mf-setting-btn-link" target="__blank" href="<?php echo esc_url('https://console.cloud.google.com'); ?>"><?php esc_html_e('Create from here', 'metform'); ?></a>
-                                                        </p>
-                                                    </div>
-                                                    <div class="mf-setting-input-group">
-                                                        <label for="attr-input-label" class="mf-setting-label mf-setting-label attr-input-label"><?php esc_html_e('Google Client Secret:', 'metform'); ?></label>
-                                                        <input type="text" name="mf_google_sheet_client_secret" value="<?php echo esc_attr(isset($settings['mf_google_sheet_client_secret']) ? $settings['mf_google_sheet_client_secret'] : ''); ?>" class="mf-setting-input mf-google-sheet-api-key attr-form-control" placeholder="<?php esc_html_e('Google OAuth Client Secret', 'metform'); ?>">
-                                                        <p class="description">
-                                                            <?php esc_html_e('Enter here your google secret id. ', 'metform'); ?><a class="mf-setting-btn-link" target="__blank" href="<?php echo esc_url('https://console.cloud.google.com'); ?>"><?php esc_html_e('Create from here', 'metform'); ?></a>
-                                                        </p>
+                                                    <div class="attr-col-lg-6">
+                                                        <div class="mf-setting-input-group">
+                                                            <label for="attr-input-label" class="mf-setting-label mf-setting-label attr-input-label"><?php esc_html_e('Google Client Id:', 'metform'); ?></label>
+                                                            <input type="text" name="mf_google_sheet_client_id" value="<?php echo esc_attr(isset($settings['mf_google_sheet_client_id']) ? $settings['mf_google_sheet_client_id'] : ''); ?>" class="mf-setting-input mf-google-sheet-api-key attr-form-control" placeholder="<?php esc_html_e('Google OAuth Client Id', 'metform'); ?>">
+                                                            <p class="description">
+                                                                <?php esc_html_e('Enter here your google client id. ', 'metform'); ?><a class="mf-setting-btn-link" target="__blank" href="<?php echo esc_url('https://console.cloud.google.com'); ?>"><?php esc_html_e('Create from here', 'metform'); ?></a>
+                                                            </p>
+                                                        </div>
+                                                        <div class="mf-setting-input-group">
+                                                            <label for="attr-input-label" class="mf-setting-label mf-setting-label attr-input-label"><?php esc_html_e('Google Client Secret:', 'metform'); ?></label>
+                                                            <input type="text" name="mf_google_sheet_client_secret" value="<?php echo esc_attr(isset($settings['mf_google_sheet_client_secret']) ? $settings['mf_google_sheet_client_secret'] : ''); ?>" class="mf-setting-input mf-google-sheet-api-key attr-form-control" placeholder="<?php esc_html_e('Google OAuth Client Secret', 'metform'); ?>">
+                                                            <p class="description">
+                                                                <?php esc_html_e('Enter here your google secret id. ', 'metform'); ?><a class="mf-setting-btn-link" target="__blank" href="<?php echo esc_url('https://console.cloud.google.com'); ?>"><?php esc_html_e('Create from here', 'metform'); ?></a>
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <?php $google = new \MetForm_Pro\Core\Integrations\Google_Sheet\Google_Access_Token; ?>
+                                                <ol class="xs_social_ol">
+                                                    <li><?php echo esc_html__('Check how to create App/Project On Google developer account', 'metform') ?> - <a href="https://help.wpmet.com/docs/google-sheet-integration" target="_blank">https://help.wpmet.com/docs/google-sheet-integration</a></li>
+                                                    <li><?php echo esc_html__('Must add the following URL to the "Valid OAuth redirect URIs" field:', 'metform') ?> <strong style="font-weight:700;"><?php echo esc_url(admin_url('admin.php?page=metform-menu-settings')) ?></strong></li>
+                                                    <li><?php echo esc_html__('After getting the App ID & App Secret, put those information', 'metform') ?></li>
+                                                    <li><?php echo esc_html__('Click on "Save Changes"', 'metform') ?></li>
+                                                    <li><?php echo esc_html__('Click on "Generate Access Token"', 'metform') ?></li>
+                                                </ol>
+                                                <a class="mf-setting-btn-link achor-style" href="<?php echo esc_url($google->get_code()); ?>"><?php esc_attr_e('Generate Access Token', 'metform'); ?></a>
                                             </div>
-                                            <?php $google = new \MetForm_Pro\Core\Integrations\Google_Sheet\Google_Access_Token;?>
-                                            <ol class="xs_social_ol">
-                                                <li><?php echo esc_html__('Check how to create App/Project On Google developer account', 'metform')?> - <a href="https://help.wpmet.com/docs/google-sheet-integration" target="_blank">https://help.wpmet.com/docs/google-sheet-integration</a></li>
-                                                <li><?php echo esc_html__('Must add the following URL to the "Valid OAuth redirect URIs" field:', 'metform')?> <strong style="font-weight:700;"><?php echo esc_url(admin_url('admin.php?page=metform-menu-settings'))?></strong></li>
-                                                <li><?php echo esc_html__('After getting the App ID & App Secret, put those information', 'metform')?></li>
-                                                <li><?php echo esc_html__('Click on "Save Changes"', 'metform')?></li>
-                                                <li><?php echo esc_html__('Click on "Generate Access Token"', 'metform')?></li>
-                                            </ol>
-                                            <a class="mf-setting-btn-link achor-style" href="<?php echo esc_url($google->get_code());?>"><?php esc_attr_e('Generate Access Token', 'metform'); ?></a>
+                                            <p class="mf-set-dash-top-notch--item__desc">
+                                                <?php esc_html_e("Note:- After 200 days your token will be expired, before the expiration of your token, generate a new token.", 'metform'); ?>
+                                            </p>
                                         </div>
-                                        <p class="mf-set-dash-top-notch--item__desc">
-                                            <?php esc_html_e("Note:- After 200 days your token will be expired, before the expiration of your token, generate a new token.", 'metform'); ?>
-                                        </p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <?php endif;?>
+                        <?php endif; ?>
                         <!-- Integrations settings action -->
 
                         <?php do_action('metform_settings_content'); ?>

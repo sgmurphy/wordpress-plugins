@@ -5,7 +5,7 @@ Donate link: https://gravitypdf.com/donate-to-plugin/
 Tags: gravityforms, gravity, forms, pdf, automation, attachment, email
 Requires at least: 5.3
 Tested up to: 6.4
-Stable tag: 6.8.0
+Stable tag: 6.9.0
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.txt
@@ -106,6 +106,20 @@ Gravity PDF can be run on most modern shared web hosting without any issues. It 
 16. A bunch of paid PDF designs are available, as well as additional functionality.
 
 == Changelog ==
+
+= 6.9.0 =
+* Feature: Add new conditional logic options to PDFs eg. Payment Status, Date Created, Starred (props: Gravity Wiz)
+* Feature: Add support for Show HTML Fields, Show Empty Fields, Show Section Break Description, and Enable Conditional Logic PDF settings when displaying Gravity Wiz Nested Forms field
+* Bug: Fix Form Editor saving problem for Gravity Forms v2.6.*
+* Bug: Fix Drag and Drop Column layout issue when the GF Styles Pro plugin is enabled
+* Bug: Fix issue sending PDF URLs with Gravity Wiz Google Sheets
+* Bug: Improve display of Rich Text Textarea fields by removing top margin on individual paragraphs
+* Bug: Resolve compatibility issue that corrupted PDFs when using Weglot
+* Housekeeping: Exclude popular WordPress staging environments from site count when activating Gravity PDF licenses
+* Housekeeping: Improve Gravity PDF license activation success and error messages
+* Security: Improve security of network requests to Gravity PDF licensing server
+* Developer: Add `set_pdf_config( $config )` and `get_pdf_config()` methods to PDF Field classes
+* Developer: In the PDF field blacklist, check using the original type and not with `$field->get_input_type()`
 
 = 6.8.0 =
 * Feature: Add PDF Download metabox to Gravity Flow Inbox for logged-in users with appropriate capability

@@ -4,7 +4,7 @@
 			<<?php echo qi_addons_for_elementor_framework_sanitize_tags( $title_tag ); ?> class="qodef-e-heading-title"><?php echo wp_kses_post( $item_title ); ?></<?php echo qi_addons_for_elementor_framework_sanitize_tags( $title_tag ); ?>>
 			<?php if ( ! empty( $item_image ) ) { ?>
 				<div class="qodef-e-image">
-					<?php echo wp_get_attachment_image( $item_image, 'full' ); ?>
+					<?php echo qi_addons_for_elementor_get_attachment_image( $item_image, 'full' ); ?>
 				</div>
 			<?php } ?>
 			<div class="qodef-e-heading-line" <?php qi_addons_for_elementor_framework_inline_style( $border_style ); ?>></div>

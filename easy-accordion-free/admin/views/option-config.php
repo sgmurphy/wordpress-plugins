@@ -55,6 +55,7 @@ SP_EAP::createSection(
 				'title'      => __( 'Clean-up Data on Deletion', 'easy-accordion-free' ),
 				'title_info' => __( 'Check this box if you would like Easy Accordion to completely remove all of its data when the plugin is deleted.', 'easy-accordion-free' ),
 				'default'    => false,
+				'sanitize'   => 'rest_sanitize_boolean',
 			),
 		),
 	)
@@ -93,6 +94,7 @@ SP_EAP::createSection(
 				'id'       => 'ea_custom_css',
 				'type'     => 'code_editor',
 				'title'    => __( 'Custom CSS', 'easy-accordion-free' ),
+				'sanitize' => 'wp_strip_all_tags',
 				'settings' => array(
 					'mode'  => 'css',
 					'theme' => 'monokai',
@@ -102,6 +104,7 @@ SP_EAP::createSection(
 				'id'       => 'custom_js',
 				'type'     => 'code_editor',
 				'title'    => __( 'Custom JS', 'easy-accordion-free' ),
+				'sanitize' => 'wp_strip_all_tags',
 				'settings' => array(
 					'theme' => 'monokai',
 					'mode'  => 'javascript',

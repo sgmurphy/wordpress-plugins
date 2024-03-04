@@ -1,38 +1,44 @@
 === Calculated Fields Form ===
 Contributors: codepeople
 Donate link: http://cff.dwbooster.com
-Tags: form,quote form,contact form,form builder,calculator,calculated,quote calculator,forms,form editor,advanced forms,payment calculator,payment,recurring payment,quote,fields,calculated field,price calculator,email,form design,paypal,equation editor,formula,equation,quote calculator,post,posts,plugin,widget,admin,sidebar,images,image,page,shortcode,products form,woocommerce,addons,layout,session,post,cookie,get,webhook,Dropbox,pdf,language
+Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.4
-Stable tag: 1.2.57
+Stable tag: 5.1.58
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Calculated Fields Form allows you to create both simple and rich forms, quickly like a professional. It includes a form builder with dynamic calculated fields and many other controls.
+The CFF plugin allows you to create both simple and professional forms. Its form builder includes dynamic calculated fields and many other controls.
 
 == Description ==
 
-The "Calculated Fields Form" plugin allows you to create web forms with calculated fields, whose values are dynamically calculated based on other fields' values in the web form.
+Absolutely! The "Calculated Fields Form" plugin opens up a world of possibilities. Here's a breakdown of what you can achieve:
 
-The possibilities are unlimited. For example, you can create forms with financial calculations, date operations to create reservation forms, and calculate the product prices. The plugin includes text operations for editing, translation, or advertising services. There are more advanced operations available such as determining the distance between addresses or generating graphs. The resulting forms are 100% mobile responsive.
+**Financial Calculations**: Design forms that automatically compute totals, taxes, discounts, and other financial metrics.
 
-The most impressive thing is that you don't need to hire a programmer to create the forms. With basic knowledge, you will have a professional form in just five minutes.
+**Booking Forms**: Seamlessly handle date operations, availability checks, and booking calculations.
 
-Creating a form is all visual. The "Calculated Fields Form" plugin includes a form editor with multiple controls. Such as text fields, numeric fields, currency fields, slider controls, email fields, radio buttons, checkboxes, container fields, page breaks to create multipage forms, QR code reader (thanks to the Html5-QRCode project), recording, and most importantly, calculated fields.
+**Product Pricing**: Dynamically calculate product prices based on user inputs or predefined rules.
 
-The form editor includes a list of controls, a property bar to easily edit field properties, a dashboard where you can design your forms, and the attributes for form configuration. Also, the plugin comes with multiple predefined layouts to change the forms' appearance. If there are not enough predefined layouts for your project, there is a style editor to customize the form's design.
+**Math Operations**: Perform basic arithmetic, percentages, and complex mathematical functions.
 
-The "Calculated Fields Form" plugin includes integration with popular page builders:
+**Text Processing**: Manipulate text fields, concatenate strings, and format data.
 
-* Classic WordPress Editor
-* Gutenberg Editor
-* Elementor
-* Page Builder by SiteOrigin
-* Beaver Builder
-* WPBakery Page Builder
-* DIVI Builder
+**Date Operations**: Handle date differences, age calculations, and time-related tasks.
 
-For other editors, it is possible to insert the form into the pages via its shortcode. Each web form has an associated shortcode that allows you to insert it wherever you want.
+Advanced Operations:
+
+**Distance Calculations**: Compute distances between locations.
+
+**Chart Generation**: Create charts dynamically based on form data.
+
+**Third-Party Service Integration**: Call external APIs or services for real-time data retrieval.
+
+And the best part? All resulting forms are **mobile responsive**, ensuring a seamless experience across devices.
+
+The most remarkable aspect is that you don’t need to hire a developer to create forms. With basic knowledge, you can have professional forms in minutes.
+
+The form builder is entirely visual, offering a wide selection of controls (Text fields, Numbers, Currency, Date/time, Slider control, Email, Radio buttons, Checkboxes, Container fields, Multi-page control, QR code reader, Recording, Calculated fields, and many others). This versatile toolkit empowers you to create customized forms effortlessly.
 
 == Features ==
 
@@ -49,6 +55,18 @@ Insert as many calculated fields in the form as you need.
 * Supports multi-pages forms by inserting page break controls between fields belonging to different pages.
 * Allows the grouping of fields inside container controls (Div and Fieldset).
 * Possible to define [dependency rules](https://cff.dwbooster.com/blog/2020/03/01/dependencies/) between fields in the form, which is very useful in the design of wizards.
+
+The "Calculated Fields Form" plugin includes integration with popular page builders:
+
+* Classic WordPress Editor
+* Gutenberg Editor
+* Elementor
+* Page Builder by SiteOrigin
+* Beaver Builder
+* WPBakery Page Builder
+* DIVI Builder
+
+For other editors, it is possible to insert the form into the pages via its shortcode. Each web form has an associated shortcode that allows you to insert it wherever you want.
 
 = Other features: =
 
@@ -633,7 +651,7 @@ The commercial versions of the plugin allow processing the forms' submissions, s
 
 = Q: Which calculation operations are available with the plugin? =
 
-A: The Free and Professional versions of the plugin include the Mathematical operations module, logical operations, the managing fields module, and the third-party connection module. Other interesting operations modules are distributed only with the Developer and Platinum versions of the plugin: the Date/Time operations module, Financial operations module, Distance module, and Server Side operations module. [Read more](https://cff.dwbooster.com/documentation#modules "Operations modules")
+A: The Free and Professional versions of the plugin include the Mathematical operations module, logical operations, Date/Time, managing fields module, and third-party connection module. Other operations modules are distributed with the Developer and Platinum distributions, such as Financial operations module, Distance module, and Server Side operations module. [Read more](https://cff.dwbooster.com/documentation#modules "Operations modules")
 
 = Q: How can I round the calculated result to 2 decimal digits? =
 
@@ -664,10 +682,6 @@ A: Please, read the answer in the FAQ entry: [Click Here](http://cff.dwbooster.c
 = Q: How to use a session variable in the equations? =
 
 A: Please, read the answer in the FAQ entry: [Click Here](http://cff.dwbooster.com/faq#q268 "FAQ Entry")
-
-= Q: How to use cookie variables in the equations? =
-
-A: Please, read the answer in the FAQ entry: [Click Here](http://cff.dwbooster.com/faq#q269 "FAQ Entry")
 
 = Q: How to use a parameter passed by POST in the equations? =
 
@@ -999,6 +1013,10 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 5.1.58 =
+
+* Prevent conflicts with other distributions of the plugin.
+
 = 1.2.57 =
 
 * Minor changes in the controls' appearance.
@@ -1035,14 +1053,3 @@ The previous code example must be overwritten as cff_var['custom_attr']*fieldnam
 * Implements the Developer Notes attribute in the forms controls to display notes in the forms builder only and help the development of complex forms.
 * Fixes an issue in the Popup control.
 * Modifies the processing of the parameters in the SERVER-SIDE equations (Developer and Platinum plugin versions).
-
-= 1.2.52 =
-= 1.2.51 =
-
-* Replaces jQuery deprecated functions and events.
-* Modifies the equations processing.
-* Fixes an issue with DS controls and SERVER-SIDE equations (Developer and Platinum plugin versions).
-
-= 1.2.50 =
-
-* Fixes an issue with the Readonly attribute in Checkbox, Radio Button, Checkbox DS, and Radion Button DS controls.

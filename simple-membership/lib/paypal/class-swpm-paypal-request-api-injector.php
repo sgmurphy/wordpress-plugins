@@ -175,6 +175,54 @@ class SWPM_PayPal_Request_API_Injector {
         }
 
         /*
+         * Creates a PayPal subscription for a user (for the given plan_id).
+         */
+        public function create_paypal_subscription_for_billing_plan( $plan_id, $data = array(), $additional_args = array()){
+            //https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_create
+
+            $endpoint = '/v1/billing/subscriptions';
+
+            $params = array(
+                'plan_id' => $plan_id,
+                'application_context' => array(
+                    'user_action' => 'SUBSCRIBE_NOW', //SUBSCRIBE_NOW will activate the subscription immediately.
+                    'payment_method' => array(
+                        'payer_selected' => 'PAYPAL',
+                        'payee_preferred' => 'IMMEDIATE_PAYMENT_REQUIRED',
+                    ),
+                ),
+            );
+
+            //Simple params (useulf for testing)
+            // $params = array(
+            //     'plan_id' => $plan_id
+            // );            
+
+            //Do the API call.
+            $response = $this->paypal_req_api->post($endpoint, $params, $additional_args);
+
+            //Check if we need to return the body or raw response instead of just the order ID.
+            if( isset($additional_args['return_raw_response']) ||  isset( $additional_args['return_response_body'] ) ){
+                //Instead of just the subscription ID; return the raw response or the response body (that came back from the post method) 
+                return $response;
+            }
+
+            //Return the standard response.
+            if ( $response !== false){
+                //Response is a success!
+                //JSON decode the response body to an object.
+                $json_response_body = json_decode( wp_remote_retrieve_body( $response ) );
+                $created_sub_id = $json_response_body->id;
+                SwpmLog::log_simple_debug('Create-subscription response. Subscription ID: '. $created_sub_id, true);
+                return $created_sub_id;
+            } else {
+                //There was a WP Error with the remote request. Enable debug logging to get more details from the log file.             
+                return false;
+            }
+
+        }
+
+        /*
          * Show the details of a paypal subscription.
          * https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_get
          */
@@ -193,6 +241,41 @@ class SWPM_PayPal_Request_API_Injector {
             }
         } 
         
+
+        /*
+         * Gets a list of all the transactions of a paypal subscription.
+         * @return - an array of transactions object on success.
+         */
+        public function get_paypal_subscription_transactions_list( $sub_id, $start_time, $end_time = '' ){
+            //https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_transactions
+
+            $endpoint = '/v1/billing/subscriptions/'.$sub_id.'/transactions';
+
+            //If end_time is not provided, then use the current time.
+            if( empty($end_time) ){
+                $end_time = date('c');//Current time in ISO 8601 format (Example: 2024-02-27T03:28:34+00:00)
+            }
+
+            $params = array(
+                'start_time' => $start_time,
+                'end_time' => $end_time,
+            );
+
+            //Do the API call.
+            $response = $this->paypal_req_api->get($endpoint, $params);
+
+            if ( $response !== false){
+                //Get the array of transactions.
+                $transactions = $response->transactions;
+                // foreach($transactions as $txn){
+                //    echo '<br />Txn ID: ' . $txn->id;
+                // }
+                return $transactions;
+            } else {
+                return false;
+            }
+        }
+
         /*
          * Show the details of a paypal order/transaction.
          * https://developer.paypal.com/docs/api/orders/v2/#orders_get

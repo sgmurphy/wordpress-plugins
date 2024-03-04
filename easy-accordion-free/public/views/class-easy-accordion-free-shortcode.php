@@ -73,7 +73,6 @@ class Easy_Accordion_Free_Shortcode {
 	public function __construct() {
 		add_shortcode( 'sp_easyaccordion', array( $this, 'sp_easy_accordion_shortcode' ) );
 		add_action( 'save_post', array( $this, 'delete_page_accordion_option_on_save' ) );
-
 	}
 
 
@@ -118,10 +117,11 @@ class Easy_Accordion_Free_Shortcode {
 		$accordion_height   = isset( $shortcode_data['accordion_height'] ) ? $shortcode_data['accordion_height'] : '';
 		$eap_animation_time = isset( $shortcode_data['eap_animation_time'] ) ? $shortcode_data['eap_animation_time'] : '';
 
-		$eap_border       = isset( $shortcode_data['eap_border_css'] ) ? $shortcode_data['eap_border_css'] : '';
-		$eap_border_width = isset( $eap_border['all'] ) ? $eap_border['all'] : $eap_border['width'];
-		$eap_border_style = isset( $eap_border['style'] ) ? $eap_border['style'] : '';
-		$eap_border_color = isset( $eap_border['color'] ) ? $eap_border['color'] : '';
+		$eap_border           = isset( $shortcode_data['eap_border_css'] ) ? $shortcode_data['eap_border_css'] : '';
+		$old_eap_border_width = isset( $eap_border['width'] ) ? $eap_border['width'] : '1';
+		$eap_border_width     = isset( $eap_border['all'] ) ? $eap_border['all'] : $old_eap_border_width;
+		$eap_border_style     = isset( $eap_border['style'] ) ? $eap_border['style'] : '';
+		$eap_border_color     = isset( $eap_border['color'] ) ? $eap_border['color'] : '';
 		// Section title.
 		$section_title_typho       = isset( $shortcode_data['eap_section_title_typography'] ) ? $shortcode_data['eap_section_title_typography'] : '';
 		$section_title_typho_color = isset( $section_title_typho['color'] ) ? $section_title_typho['color'] : '#444';
@@ -182,7 +182,7 @@ class Easy_Accordion_Free_Shortcode {
 			wp_enqueue_style( 'sp-ea-fontello-icons' );
 			wp_enqueue_style( 'sp-ea-style' );
 			$ea_dynamic_css = SP_EA_Front_Scripts::load_dynamic_style( $post_id, $shortcode_data );
-			echo '<style>' . $ea_dynamic_css['dynamic_css'] . '</style>';
+			echo '<style>' . wp_strip_all_tags( $ea_dynamic_css['dynamic_css'] ) . '</style>';
 		}
 		// Update options if the existing shortcode id option not found.
 		SP_EA_Front_Scripts::easy_accordion_update_options( $post_id, $get_page_data );
@@ -201,12 +201,9 @@ class Easy_Accordion_Free_Shortcode {
 			if ( get_site_option( $option_key ) ) {
 				delete_site_option( $option_key );
 			}
-		} else {
-			if ( get_option( 'easy_accordion_page_id' . $post_ID ) ) {
+		} elseif ( get_option( 'easy_accordion_page_id' . $post_ID ) ) {
 				delete_option( 'easy_accordion_page_id' . $post_ID );
-			}
 		}
-
 	}
 }
 new Easy_Accordion_Free_Shortcode();

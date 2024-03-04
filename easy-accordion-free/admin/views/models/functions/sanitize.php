@@ -79,6 +79,7 @@ if ( ! function_exists( 'eapro_allowed_description_tags' ) ) {
 			'title'           => array(),
 			'alt'             => array(),
 			'class'           => array(),
+			'id'              => array(),
 		);
 		$allowed_tags['style']  = array(
 			'type'  => array(),
@@ -131,22 +132,132 @@ if ( ! function_exists( 'eapro_sanitize_accordion_title_content' ) ) {
 		if ( empty( $value ) ) {
 			return $value;
 		}
+
+		$sanitized_data                 = array();
 		$eapro_allowed_title_tags       = eapro_allowed_title_tags();
 		$eapro_allowed_description_tags = eapro_allowed_description_tags();
 
 		if ( is_array( $value ) ) {
-			$count = count( $value );
-			for ( $i = 0; $i < $count; $i++ ) {
-				if ( ! empty( $value[ $i ]['accordion_content_title'] ) ) {
-					// Sanitize Accordion Item Title.
-					$value[ $i ]['accordion_content_title'] = wp_kses( $value[ $i ]['accordion_content_title'], $eapro_allowed_title_tags );
+			// $value is an multi-dimensional array of a group field.
+			foreach ( $value as $key => $fields_value ) {
+
+				if ( ! empty( $fields_value ) && is_array( $fields_value ) ) {
+
+					$data = array(); // This variable stores single accordion group data.
+					foreach ( $fields_value as $k => $field_value ) {
+
+						if ( ! empty( $field_value ) && 'accordion_content_title' === $k ) {
+							// Sanitize Accordion Item Title.
+							$field_value = wp_kses( $field_value, $eapro_allowed_title_tags );
+						} elseif ( ! empty( $field_value ) && 'accordion_content_description' === $k ) {
+							// Sanitize Accordion Item Content.
+							$field_value = wp_kses( $field_value, $eapro_allowed_description_tags );
+						} else {
+							$field_value = wp_kses_post( $field_value );
+						}
+
+						$data[ sanitize_key( $k ) ] = $field_value;
+					}
 				}
-				if ( ! empty( $value[ $i ]['accordion_content_description'] ) ) {
-					// Sanitize Accordion Item Content.
-					$value[ $i ]['accordion_content_description'] = wp_kses( $value[ $i ]['accordion_content_description'], $eapro_allowed_description_tags );
-				}
+				$sanitized_data[ sanitize_key( $key ) ] = $data;
 			}
 		}
-		return $value;
+		return $sanitized_data;
+	}
+}
+
+
+if ( ! function_exists( 'eapro_sanitize_number_array_field' ) ) {
+	/**
+	 *
+	 * Sanitize number array
+	 *
+	 * @param  mixed $array value.
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 */
+	function eapro_sanitize_number_array_field( $array ) {
+		if ( empty( $array ) || ! is_array( $array ) ) {
+			return array();
+		}
+
+		$new_array = array();
+		foreach ( $array as $key => $value ) {
+			$sanitize_key = sanitize_key( $key );
+			if ( 'unit' === $key || 'units' === $key ) {
+				$new_array[ $sanitize_key ] = wp_filter_nohtml_kses( $value );
+			} else {
+				$new_array[ $sanitize_key ] = intval( $value );
+			}
+		}
+		return $new_array;
+	}
+}
+
+if ( ! function_exists( 'eapro_sanitize_number_field' ) ) {
+	/**
+	 *
+	 * Sanitize number
+	 *
+	 * @param  mixed $value value.
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 */
+	function eapro_sanitize_number_field( $value ) {
+		if ( empty( $value ) ) {
+			return 0;
+		} else {
+			return intval( $value );
+		}
+	}
+}
+
+if ( ! function_exists( 'eapro_sanitize_border_field' ) ) {
+	/**
+	 *
+	 * Sanitize border field
+	 *
+	 * @param  mixed $array value.
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 */
+	function eapro_sanitize_border_field( $array ) {
+		if ( empty( $array ) || ! is_array( $array ) ) {
+			return array();
+		}
+
+		$new_array = array();
+		foreach ( $array as $key => $value ) {
+			$sanitize_key = sanitize_key( $key );
+			if ( 'style' == $key || strpos( $key, 'color' ) !== false ) {
+				$new_array[ $sanitize_key ] = sanitize_text_field( $value );
+			} elseif ( ! empty( $value ) ) {
+				$new_array[ $sanitize_key ] = intval( $value );
+			}
+		}
+		return $new_array;
+	}
+}
+
+if ( ! function_exists( 'eapro_sanitize_color_group_field' ) ) {
+	/**
+	 *
+	 * Sanitize color group field
+	 *
+	 * @param  mixed $array value.
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 */
+	function eapro_sanitize_color_group_field( $array ) {
+		if ( empty( $array ) || ! is_array( $array ) ) {
+			return array();
+		}
+
+		$new_array = array();
+		foreach ( $array as $key => $value ) {
+			$sanitize_key               = sanitize_key( $key );
+			$new_array[ $sanitize_key ] = sanitize_text_field( $value );
+		}
+		return $new_array;
 	}
 }

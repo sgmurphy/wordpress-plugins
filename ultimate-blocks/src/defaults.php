@@ -1404,6 +1404,14 @@ $defaultValues = array(
 	),
 	'ub/post-grid'                  => array(
 		'attributes' => array(
+			'rowGap'                      => array(
+				'type'    => 'string',
+				'default' => '32px'
+			),
+			'columnGap'                      => array(
+				'type'    => 'string',
+				'default' => '32px'
+			),
 			'blockID'                      => array(
 				'type'    => 'string',
 				'default' => ''
@@ -1440,11 +1448,111 @@ $defaultValues = array(
 				'type'    => 'string',
 				'default' => ''
 			),
+			'isEqualHeight' => array(
+				'type'    => 'boolean',
+				'default' => true
+			),
 			'pagination' => array(
 				'type'    => 'boolean',
 				'default' => false
 			),
 			'padding' => array(
+				'type' 	=> 'array',
+				'default' => array()
+			),
+			'contentPadding' => array(
+				'type' 	=> 'array',
+				'default' => array()
+			),
+			'postPadding' => array(
+				'type' 	=> 'array',
+				'default' => array()
+			),
+			'linkPadding' => array(
+				'type' 	=> 'array',
+				'default' => array()
+			),
+			'postTitleColorHover' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'authorColorHover' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'dateColorHover' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'excerptColorHover' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'linkColorHover' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'linkBackgroundColorHover' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'linkBackgroundGradientHover' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'postBackgroundColorHover' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'postBackgroundGradientHover' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'postTitleColor' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'authorColor' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'dateColor' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'excerptColor' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'linkColor' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'linkBackgroundColor' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'linkBackgroundGradient' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'postBackgroundColor' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'postBackgroundGradient' => array(
+				'type' => 'string',
+				'default' => null
+			),
+			'postBorderRadius' => array(
+				'type' 	=> 'array',
+				'default' => array()
+			),
+			'linkBorderRadius' => array(
+				'type' 	=> 'array',
+				'default' => array()
+			),
+			'imageBorderRadius' => array(
 				'type' 	=> 'array',
 				'default' => array()
 			),
@@ -1592,7 +1700,7 @@ $defaultValues = array(
 			),
 			'detailAlign'        => array(
 				'type'    => 'string',
-				'default' => 'left'
+				'default' => 'center'
 			),
 			'barColor'           => array(
 				'type'    => 'string',
@@ -1621,6 +1729,10 @@ $defaultValues = array(
 			'isStripe'         	 => array(
 				'type'    => 'boolean',
 				'default' => false
+			),
+			'isCircleRounded'    => array(
+				'type'    => 'boolean',
+				'default' => true
 			)
 		)
 	),
@@ -2351,6 +2463,14 @@ $defaultValues = array(
             'blockID' => array(
                 'type' => 'string',
                 'default' => ''
+            ),
+            'contentColor' => array(
+                'type' => 'string',
+                'default' => null
+            ),
+            'contentBackground' => array(
+                'type' => 'string',
+                'default' => null
             ),
 		  'padding' => array(
 				'type' 	=> 'array',

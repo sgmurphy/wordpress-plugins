@@ -1,7 +1,7 @@
 <div <?php qi_addons_for_elementor_framework_class_attribute( $classes ); ?>>
 	<?php if ( ! empty( $item_image ) ) { ?>
 		<div class="qodef-e-image">
-			<?php echo wp_get_attachment_image( $item_image, 'full' ); ?>
+			<?php echo qi_addons_for_elementor_get_attachment_image( $item_image, 'full' ); ?>
 		</div>
 	<?php } ?>
 	<div class="qodef-e-item-holder">

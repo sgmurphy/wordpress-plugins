@@ -96,6 +96,8 @@ $canUseVideoAddon = (defined('B2S_PLUGIN_ADDON_VIDEO') && !empty(B2S_PLUGIN_ADDO
                             <input type="hidden" id="b2sJsTextPublish" value="<?php esc_html_e('published', 'blog2social') ?>">
                             <input type="hidden" id="b2sEmojiTranslation" value='<?php echo esc_attr(json_encode(B2S_Tools::getEmojiTranslationList())); ?>'>
                             <input type="hidden" id="b2sDefaultNoImage" value="<?php echo esc_url(plugins_url('/assets/images/no-image.png', B2S_PLUGIN_FILE)); ?>">
+                            <input type="hidden" id="b2sMaxSchedDate" value="<?php echo esc_attr(date('Y-m-d', strtotime("+ 3 years"))); ?>">
+
                         </div>
                     </div>
                 </div>
@@ -162,7 +164,7 @@ $canUseVideoAddon = (defined('B2S_PLUGIN_ADDON_VIDEO') && !empty(B2S_PLUGIN_ADDO
                                                 <br>
                                                 <br>
                                                 <?php if (B2S_PLUGIN_USER_VERSION != 0) { ?>
-                                                    <a class="btn btn-success" href="<?php echo esc_url(B2S_Tools::getSupportLink('affiliate')); ?>" target="_blank"><?php esc_html_e('Get the Video-Addon now!', 'blog2social') ?></a>
+                                                    <a class="btn btn-success" href="<?php echo esc_url(B2S_Tools::getSupportLink('addon_video')); ?>" target="_blank"><?php esc_html_e('Get the Video-Addon now!', 'blog2social') ?></a>
                                                 <?php } else { ?>
                                                     <a class="btn btn-success" href="<?php echo esc_url(B2S_Tools::getSupportLink('affiliate')); ?>" target="_blank"><?php esc_html_e('Get your Premium license and Video-Addon now!', 'blog2social') ?></a>
                                                 <?php } ?>
@@ -190,7 +192,7 @@ $canUseVideoAddon = (defined('B2S_PLUGIN_ADDON_VIDEO') && !empty(B2S_PLUGIN_ADDO
                                                 <br>
                                                 <br>
                                                 <?php if (B2S_PLUGIN_USER_VERSION != 0) { ?>
-                                                    <a class="btn btn-success" href="<?php echo esc_url(B2S_Tools::getSupportLink('affiliate')); ?>" target="_blank"><?php esc_html_e('Top-up your current data volume now!', 'blog2social') ?></a>
+                                                    <a class="btn btn-success" href="<?php echo esc_url(B2S_Tools::getSupportLink('addon_video')); ?>" target="_blank"><?php esc_html_e('Top-up your current data volume now!', 'blog2social') ?></a>
                                                 <?php } else { ?>
                                                     <a class="btn btn-success" href="<?php echo esc_url(B2S_Tools::getSupportLink('affiliate')); ?>" target="_blank"><?php esc_html_e('Get your Premium license and Video-Addon now!', 'blog2social') ?></a>
                                                 <?php } ?>

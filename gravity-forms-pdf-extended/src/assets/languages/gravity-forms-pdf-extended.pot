@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-20 23:01+0000\n"
+"POT-Creation-Date: 2024-03-03 22:45+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -106,15 +106,15 @@ msgstr ""
 msgid "View Gravity PDF Documentation"
 msgstr ""
 
-#: ../../bootstrap.php:329, ../../Helper/Helper_Abstract_Addon.php:761
+#: ../../bootstrap.php:329, ../../Helper/Helper_Abstract_Addon.php:799
 msgid "Docs"
 msgstr ""
 
-#: ../../bootstrap.php:330, ../../Helper/Helper_Abstract_Addon.php:764
+#: ../../bootstrap.php:330, ../../Helper/Helper_Abstract_Addon.php:802
 msgid "Get Help and Support"
 msgstr ""
 
-#: ../../bootstrap.php:330, ../../Helper/Helper_Abstract_Addon.php:764
+#: ../../bootstrap.php:330, ../../Helper/Helper_Abstract_Addon.php:802
 msgid "Support"
 msgstr ""
 
@@ -138,7 +138,7 @@ msgstr ""
 msgid "Install Core Fonts"
 msgstr ""
 
-#: ../../Controller/Controller_Actions.php:207, ../../Model/Model_Form_Settings.php:171, ../../Model/Model_Form_Settings.php:208, ../../Model/Model_Form_Settings.php:328, ../../View/View_Settings.php:427
+#: ../../Controller/Controller_Actions.php:207, ../../Model/Model_Form_Settings.php:171, ../../Model/Model_Form_Settings.php:208, ../../Model/Model_Form_Settings.php:330, ../../View/View_Settings.php:427
 msgid "You do not have permission to access this page"
 msgstr ""
 
@@ -186,15 +186,15 @@ msgstr ""
 msgid "PDF: %s"
 msgstr ""
 
-#: ../../Controller/Controller_PDF.php:396, ../../View/View_PDF.php:244
+#: ../../Controller/Controller_PDF.php:402, ../../View/View_PDF.php:244
 msgid "There was a problem generating your PDF"
 msgstr ""
 
-#: ../../Helper/Helper_Abstract_Addon.php:726
+#: ../../Helper/Helper_Abstract_Addon.php:764
 msgid "%1$sRegister your copy of %2$s%3$s to receive access to automatic upgrades and support. Need a license key? %4$sPurchase one now%5$s."
 msgstr ""
 
-#: ../../Helper/Helper_Abstract_Addon.php:761
+#: ../../Helper/Helper_Abstract_Addon.php:799
 msgid "View plugin Documentation"
 msgstr ""
 
@@ -534,416 +534,428 @@ msgstr ""
 msgid "PDF"
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:144, ../../Model/Model_PDF.php:973
+#: ../../Helper/Helper_Data.php:144, ../../Model/Model_PDF.php:974
 msgid "Gravity PDF"
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:171
-msgid "Your license key expired on %s."
-msgstr ""
-
-#: ../../Helper/Helper_Data.php:172
-msgid "Your license key has been disabled"
-msgstr ""
-
-#: ../../Helper/Helper_Data.php:173
-msgid "Invalid license key provided"
-msgstr ""
-
-#: ../../Helper/Helper_Data.php:174, ../../Helper/Helper_Data.php:175
-msgid "Your license is not active for this URL"
-msgstr ""
-
-#: ../../Helper/Helper_Data.php:176
-msgid "This appears to be an invalid license key for %s"
-msgstr ""
-
-#: ../../Helper/Helper_Data.php:177
-msgid "Your license key has reached its activation limit"
-msgstr ""
-
 #: ../../Helper/Helper_Data.php:178
-msgid "An error occurred, please try again"
+msgid "This license key expired on %%s. %1$sPlease renew your license to continue receiving updates and support%2$s."
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:179
-msgid "An error occurred during activation, please try again"
+#: ../../Helper/Helper_Data.php:179, ../../Helper/Helper_Data.php:180
+msgid "This license key has been cancelled (most likely due to a refund request). %1$sPlease consider purchasing a new license%2$s."
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:217
-msgid "Loading..."
+#: ../../Helper/Helper_Data.php:181
+msgid "This license key is invalid. Please check your key has been entered correctly."
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:218
-msgid "Continue"
+#: ../../Helper/Helper_Data.php:182
+msgid "The license key is invalid. Please check your key has been entered correctly."
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:219
-msgid "Uninstall"
+#: ../../Helper/Helper_Data.php:183
+msgid "Your license key is valid but does not match your current domain. This usually occurs if your domain URL changes. Please resave the settings to activate the license for this website."
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:220
-msgid "Cancel"
+#: ../../Helper/Helper_Data.php:184, ../../Helper/Helper_Data.php:185
+msgid "This license key is not valid for %s. Please check your key is for this product."
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:221, ../../Helper/Helper_PDF_List_Table.php:361
-msgid "Delete"
+#: ../../Helper/Helper_Data.php:186
+msgid "This license key has reached its activation limit. %1$sPlease upgrade your license to increase the site limit (you only pay the difference)%2$s."
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:222, ../../Helper/Helper_PDF_List_Table.php:220, ../../Model/Model_Form_Settings.php:929
-msgid "Active"
-msgstr ""
-
-#: ../../Helper/Helper_Data.php:223, ../../Helper/Helper_PDF_List_Table.php:223, ../../Model/Model_Form_Settings.php:879, ../../Model/Model_Form_Settings.php:929
-msgid "Inactive"
-msgstr ""
-
-#: ../../Helper/Helper_Data.php:224
-msgid "this PDF if"
-msgstr ""
-
-#: ../../Helper/Helper_Data.php:225
-msgid "Enable"
+#: ../../Helper/Helper_Data.php:187, ../../Helper/Helper_Data.php:188
+msgid "An error occurred, please try again."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:226
-msgid "Disable"
+msgid "Loading..."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:227
-msgid "Successfully Updated"
+msgid "Continue"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:228
-msgid "Successfully Deleted"
+msgid "Uninstall"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:229
-msgid "No"
+msgid "Cancel"
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:230
-msgid "Yes"
+#: ../../Helper/Helper_Data.php:230, ../../Helper/Helper_PDF_List_Table.php:361
+msgid "Delete"
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:231
-msgid "Standard"
+#: ../../Helper/Helper_Data.php:231, ../../Helper/Helper_PDF_List_Table.php:220, ../../Model/Model_Form_Settings.php:931
+msgid "Active"
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:232, ../../View/View_Form_Settings.php:78
-msgid "Advanced"
+#: ../../Helper/Helper_Data.php:232, ../../Helper/Helper_PDF_List_Table.php:223, ../../Model/Model_Form_Settings.php:881, ../../Model/Model_Form_Settings.php:931
+msgid "Inactive"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:233
-msgid "Manage"
+msgid "this PDF if"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:234
-msgid "Details"
+msgid "Enable"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:235
-msgid "Select"
+msgid "Disable"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:236
-msgid "Version"
+msgid "Successfully Updated"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:237
-msgid "Group"
+msgid "Successfully Deleted"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:238
-msgid "Tags"
+msgid "No"
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:240, ../../Helper/Helper_Options_Fields.php:254, ../../Helper/Helper_PDF_List_Table.php:97, ../../View/View_Form_Settings.php:66
-msgid "Template"
+#: ../../Helper/Helper_Data.php:239
+msgid "Yes"
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:241
-msgid "Manage PDF Templates"
+#: ../../Helper/Helper_Data.php:240
+msgid "Standard"
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:241, ../../View/View_Form_Settings.php:78
+msgid "Advanced"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:242
-msgid "Add New Template"
+msgid "Manage"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:243
-msgid "This form doesn't have any PDFs."
+msgid "Details"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:244
-msgid "Let's go create one"
+msgid "Select"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:245
-msgid "Installed PDFs"
+msgid "Version"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:246
-msgid "Search Installed Templates"
+msgid "Group"
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:248
-msgid "Search the Gravity PDF Knowledgebase..."
+#: ../../Helper/Helper_Data.php:247
+msgid "Tags"
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:249
-msgid "Gravity PDF Documentation"
+#: ../../Helper/Helper_Data.php:249, ../../Helper/Helper_Options_Fields.php:254, ../../Helper/Helper_PDF_List_Table.php:97, ../../View/View_Form_Settings.php:66
+msgid "Template"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:250
-msgid "It doesn't look like there are any topics related to your issue."
+msgid "Manage PDF Templates"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:251
-msgid "An error occurred. Please try again"
+msgid "Add New Template"
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:252
+msgid "This form doesn't have any PDFs."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:253
-msgid "Requires Gravity PDF v%s"
+msgid "Let's go create one"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:254
-msgid "This PDF template is not compatible with your version of Gravity PDF. This template required Gravity PDF v%s."
+msgid "Installed PDFs"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:255
-msgid "Template Details"
-msgstr ""
-
-#: ../../Helper/Helper_Data.php:256
-msgid "Current Template"
+msgid "Search Installed Templates"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:257
-msgid "Show previous template"
+msgid "Search the Gravity PDF Knowledgebase..."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:258
-msgid "Show next template"
+msgid "Gravity PDF Documentation"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:259
-msgid "Upload is not a valid template. Upload a .zip file."
+msgid "It doesn't look like there are any topics related to your issue."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:260
-msgid "Upload exceeds the 10MB limit."
-msgstr ""
-
-#: ../../Helper/Helper_Data.php:261
-msgid "Template successfully installed"
+msgid "An error occurred. Please try again"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:262
-msgid "Template successfully updated"
+msgid "Requires Gravity PDF v%s"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:263
-msgid "PDF Template(s) Successfully Installed / Updated"
+msgid "This PDF template is not compatible with your version of Gravity PDF. This template required Gravity PDF v%s."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:264
-msgid "There was a problem with the upload. Reload the page and try again."
+msgid "Template Details"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:265
-msgid "Do you really want to delete this PDF template?%sClick 'Cancel' to go back, 'OK' to confirm the delete."
+msgid "Current Template"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:266
-msgid "Could not delete template."
+msgid "Show previous template"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:267
-msgid "If you have a PDF template in .zip format you may install it here. You can also update an existing PDF template (this will override any changes you have made)."
+msgid "Show next template"
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:268
+msgid "Upload is not a valid template. Upload a .zip file."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:269
-msgid "ALL CORE FONTS SUCCESSFULLY INSTALLED"
+msgid "Upload exceeds the 10MB limit."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:270
-msgid "%s CORE FONT(S) DID NOT INSTALL CORRECTLY"
+msgid "Template successfully installed"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:271
-msgid "Could not download Core Font list. Try again."
+msgid "Template successfully updated"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:272
-msgid "Downloading %s..."
+msgid "PDF Template(s) Successfully Installed / Updated"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:273
-msgid "Completed installation of %s"
+msgid "There was a problem with the upload. Reload the page and try again."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:274
-msgid "Failed installation of %s"
+msgid "Do you really want to delete this PDF template?%sClick 'Cancel' to go back, 'OK' to confirm the delete."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:275
-msgid "Fonts remaining:"
+msgid "Could not delete template."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:276
-msgid "Retry Failed Downloads?"
+msgid "If you have a PDF template in .zip format you may install it here. You can also update an existing PDF template (this will override any changes you have made)."
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:277
-msgid "Core font installation"
+#: ../../Helper/Helper_Data.php:278
+msgid "ALL CORE FONTS SUCCESSFULLY INSTALLED"
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:279
+msgid "%s CORE FONT(S) DID NOT INSTALL CORRECTLY"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:280
-msgid "Search installed fonts"
+msgid "Could not download Core Font list. Try again."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:281
-msgid "Installed Fonts"
+msgid "Downloading %s..."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:282
-msgid "Regular"
+msgid "Completed installation of %s"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:283
-msgid "Regular %1$s(required)%2$s"
+msgid "Failed installation of %s"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:284
-msgid "Italics"
+msgid "Fonts remaining:"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:285
-msgid "Bold"
+msgid "Retry Failed Downloads?"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:286
-msgid "Bold Italics"
-msgstr ""
-
-#: ../../Helper/Helper_Data.php:287
-msgid "Add Font"
-msgstr ""
-
-#: ../../Helper/Helper_Data.php:288
-msgid "Update Font"
+msgid "Core font installation"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:289
-msgid "Install new fonts for use in your PDF documents."
+msgid "Search installed fonts"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:290
-msgid "Once saved, PDFs configured to use this font will have your changes applied automatically for newly-generated documents."
+msgid "Installed Fonts"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:291
-msgid "Font Name %1$s(required)%2$s"
+msgid "Regular"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:292
-msgid "The font name can only contain letters, numbers and spaces."
+msgid "Regular %1$s(required)%2$s"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:293
-msgid "Please choose a name contains letters and/or numbers (and a space if you want it)."
+msgid "Italics"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:294
-msgid "Font Files"
+msgid "Bold"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:295
-msgid "Select or drag and drop your .ttf font file for the variants below. Only the Regular type is required."
+msgid "Bold Italics"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:296
-msgid "Add a .ttf font file."
+msgid "Add Font"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:297
-msgid "View template usage"
+msgid "Update Font"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:298
-msgid "← Cancel"
+msgid "Install new fonts for use in your PDF documents."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:299
-msgid "Are you sure you want to delete this font?"
+msgid "Once saved, PDFs configured to use this font will have your changes applied automatically for newly-generated documents."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:300
-msgid "Add this snippet %1$sin a custom template%3$s to selectively set the font on blocks of text. If you want to apply the font to the entire PDF, %2$suse the Font setting%3$s when configuring the PDF on the form."
+msgid "Font Name %1$s(required)%2$s"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:301
-msgid "Update font"
+msgid "The font name can only contain letters, numbers and spaces."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:302
-msgid "Select font"
+msgid "Please choose a name contains letters and/or numbers (and a space if you want it)."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:303
-msgid "Delete font"
+msgid "Font Files"
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:304
+msgid "Select or drag and drop your .ttf font file for the variants below. Only the Regular type is required."
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:305
+msgid "Add a .ttf font file."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:306
-msgid "Font list empty."
+msgid "View template usage"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:307
-msgid "No fonts matching your search found."
+msgid "← Cancel"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:308
-msgid "Clear Search."
+msgid "Are you sure you want to delete this font?"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:309
-msgid "Your font has been saved."
+msgid "Add this snippet %1$sin a custom template%3$s to selectively set the font on blocks of text. If you want to apply the font to the entire PDF, %2$suse the Font setting%3$s when configuring the PDF on the form."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:310
-msgid "%1$sThe action could not be completed.%2$s Resolve the highlighted issues above and then try again."
+msgid "Update font"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:311
-msgid "A problem occurred. Reload the page and try again."
+msgid "Select font"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:312
-msgid "%1$sFont file(s) missing from the server.%2$s Please upload the font(s) again and then save."
-msgstr ""
-
-#: ../../Helper/Helper_Data.php:313
-msgid "%1$sFont file(s) are malformed%2$s and cannot be used with Gravity PDF."
+msgid "Delete font"
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:315
-msgid "Warning! ALL Gravity PDF data, including templates, will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop."
+msgid "Font list empty."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:316
-msgid "WARNING: You are about to delete this PDF. 'Cancel' to stop, 'OK' to delete."
+msgid "No fonts matching your search found."
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:317
+msgid "Clear Search."
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:318
+msgid "Your font has been saved."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:319
-msgid "Search the Gravity PDF Documentation..."
+msgid "%1$sThe action could not be completed.%2$s Resolve the highlighted issues above and then try again."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:320
-msgid "Submit your search query."
+msgid "A problem occurred. Reload the page and try again."
 msgstr ""
 
 #: ../../Helper/Helper_Data.php:321
+msgid "%1$sFont file(s) missing from the server.%2$s Please upload the font(s) again and then save."
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:322
+msgid "%1$sFont file(s) are malformed%2$s and cannot be used with Gravity PDF."
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:324
+msgid "Warning! ALL Gravity PDF data, including templates, will be deleted. This cannot be undone. 'OK' to delete, 'Cancel' to stop."
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:325
+msgid "WARNING: You are about to delete this PDF. 'Cancel' to stop, 'OK' to delete."
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:328
+msgid "Search the Gravity PDF Documentation..."
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:329
+msgid "Submit your search query."
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:330
 msgid "Clear your search query."
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:488
+msgid "Approved"
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:489
+msgid "Disapproved"
+msgstr ""
+
+#: ../../Helper/Helper_Data.php:490
+msgid "Unapproved"
 msgstr ""
 
 #: ../../Helper/Helper_Options_Fields.php:65
@@ -1446,23 +1458,23 @@ msgstr ""
 msgid "Add PDF"
 msgstr ""
 
-#: ../../Model/Model_Form_Settings.php:334, ../../Model/Model_Form_Settings.php:356, ../../Model/Model_Form_Settings.php:405, ../../Model/Model_Form_Settings.php:513
+#: ../../Model/Model_Form_Settings.php:336, ../../Model/Model_Form_Settings.php:358, ../../Model/Model_Form_Settings.php:407, ../../Model/Model_Form_Settings.php:515
 msgid "There was a problem saving your PDF settings. Please try again."
 msgstr ""
 
-#: ../../Model/Model_Form_Settings.php:377
+#: ../../Model/Model_Form_Settings.php:379
 msgid "PDF could not be saved. Please enter all required information below."
 msgstr ""
 
-#: ../../Model/Model_Form_Settings.php:399
+#: ../../Model/Model_Form_Settings.php:401
 msgid "PDF saved successfully. %1$sBack to PDF list.%2$s"
 msgstr ""
 
-#: ../../Model/Model_Form_Settings.php:810
+#: ../../Model/Model_Form_Settings.php:812
 msgid "PDF successfully deleted."
 msgstr ""
 
-#: ../../Model/Model_Form_Settings.php:873
+#: ../../Model/Model_Form_Settings.php:875
 msgid "PDF successfully duplicated."
 msgstr ""
 
@@ -1490,39 +1502,43 @@ msgstr ""
 msgid "PDF URLs"
 msgstr ""
 
-#: ../../Model/Model_PDF.php:385
+#: ../../Model/Model_PDF.php:386
 msgid "The PDF configuration is not currently active."
 msgstr ""
 
-#: ../../Model/Model_PDF.php:407
+#: ../../Model/Model_PDF.php:408
 msgid "PDF conditional logic requirements have not been met."
 msgstr ""
 
-#: ../../Model/Model_PDF.php:496
+#: ../../Model/Model_PDF.php:497
 msgid "Your PDF is no longer accessible."
 msgstr ""
 
-#: ../../Model/Model_PDF.php:615, ../../Model/Model_PDF.php:645
+#: ../../Model/Model_PDF.php:616, ../../Model/Model_PDF.php:646
 msgid "You do not have access to view this PDF."
 msgstr ""
 
-#: ../../Model/Model_PDF.php:1010
+#: ../../Model/Model_PDF.php:1011
 msgid "PDFs"
 msgstr ""
 
-#: ../../Model/Model_PDF.php:1153
+#: ../../Model/Model_PDF.php:1154
 msgid "The PDF could not be saved."
 msgstr ""
 
-#: ../../Model/Model_PDF.php:2162
+#: ../../Model/Model_PDF.php:2168
 msgid "Could not find PDF configuration requested"
 msgstr ""
 
-#: ../../Model/Model_Settings.php:419
+#: ../../Model/Model_Settings.php:360
+msgid "Your support license key has been activated for this domain."
+msgstr ""
+
+#: ../../Model/Model_Settings.php:457
 msgid "License deactivated."
 msgstr ""
 
-#: ../../Model/Model_Settings.php:443
+#: ../../Model/Model_Settings.php:481
 msgid "An unknown error occurred, and your license key may not have been correctly deactivated. %1$sLogin to your GravityPDF.com account%2$s and check if your site has been unlinked from the key."
 msgstr ""
 
@@ -1823,7 +1839,7 @@ msgstr ""
 msgid "Before you can generate a PDF using Gravity Forms, the core fonts need to be saved to your server. This only needs to be done once."
 msgstr ""
 
-#: ../../View/html/FormSettings/add_edit.php:61, ../../View/html/Settings/general.php:50
+#: ../../View/html/FormSettings/add_edit.php:62, ../../View/html/Settings/general.php:50
 msgid "Want more features? Take a look at our addons."
 msgstr ""
 

@@ -14,7 +14,9 @@ class B2S_Tools {
         if (defined("B2S_PLUGIN_TOKEN")) {
             delete_option('B2S_PLUGIN_USER_VERSION_' . B2S_PLUGIN_BLOG_USER_ID);
             delete_option('B2S_PLUGIN_PRIVACY_POLICY_USER_ACCEPT_' . B2S_PLUGIN_BLOG_USER_ID);
-            $version = json_decode(B2S_Api_Post::post(B2S_PLUGIN_API_ENDPOINT, array('action' => 'getUserDetails', 'token' => B2S_PLUGIN_TOKEN, 'version' => B2S_PLUGIN_VERSION), 30));
+
+            $currentDate = new DateTime("now", wp_timezone());
+            $version = json_decode(B2S_Api_Post::post(B2S_PLUGIN_API_ENDPOINT, array('action' => 'getUserDetails', 'current_date' => $currentDate->format('Y-m-d'), 'token' => B2S_PLUGIN_TOKEN, 'version' => B2S_PLUGIN_VERSION), 30));
 
             $tokenInfo = array();
             $tokenInfo['B2S_PLUGIN_USER_VERSION'] = (isset($version->version) ? $version->version : 0);
@@ -66,6 +68,11 @@ class B2S_Tools {
                     $tokenInfo['B2S_PLUGIN_ALLOWED_USER_APPS'] = serialize($network_quantities);
                 }
             }
+
+            if (isset($version->licence_condition)) {
+                $tokenInfo['B2S_PLUGIN_LICENCE_CONDITION'] = (array) $version->licence_condition;
+            }
+
             if (!isset($version->version)) {
                 define('B2S_PLUGIN_NOTICE', 'CONNECTION');
             } else {
@@ -504,7 +511,13 @@ class B2S_Tools {
             return ($lang == 'de') ? 'https://www.blog2social.com/de/faq/content/4/150/de/wie-kann-ich-die-beitragsvorlagen-fuer-meine-social_media_posts-nutzen.html?highlight=beitragsvorlagen' : 'https://www.blog2social.com/en/faq/content/4/152/en/how-to-use-post-templates-for-social-media-posts.html';
         }
         if ($type == "addon_apps") {
-            return 'https://service.blog2social.com/login?redirectUrl=/checkout?mode=addon&type=network_app';
+            return 'https://service.blog2social.com/login?redirectUrl=/checkout?mode=addon&type=network_app&token='.B2S_PLUGIN_TOKEN;
+        }
+        if ($type == "addon_post_volume") {
+            return 'https://service.blog2social.com/login?redirectUrl=/checkout?mode=addon&type=post_limit_yearly&token='.B2S_PLUGIN_TOKEN;
+        }
+        if ($type == "addon_video") {
+            return 'https://service.blog2social.com/login?redirectUrl=/checkout?mode=addon&type=video&token='.B2S_PLUGIN_TOKEN;
         }
         if ($type == "twitter_threads") {
             return ($lang == "de") ? 'https://www.blog2social.com/de/faq/index.php?solution_id=1149' : 'https://www.blog2social.com/en/faq/index.php?solution_id=1152';

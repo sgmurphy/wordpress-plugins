@@ -21,14 +21,14 @@ if ( class_exists( 'QuadLayers\\WP_Notice_Plugin_Promote\\Load' ) ) {
 	 */
 	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_1_SLUG', 'insta-gallery' );
 	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_1_NAME', 'Instagram Feed Gallery' );
-	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_1_DESCRIPTION', esc_html__( 'Instagram Feed Gallery is the most user-friendly Instagram plugin for WordPress. It was built to simplify the integration, to reduce time to have sites updated and to be on track with social media that shows best growing indicators.', 'wp-whatsapp-chat' ) );
+	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_1_DESCRIPTION', esc_html__( 'Instagram Feed Gallery is a user-friendly WordPress plugin. It simplifies integration, speeds up site updates, and aligns with the rapidly evolving social media landscape.', 'wp-whatsapp-chat' ) );
 	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_1_URL', 'https://quadlayers.com/products/instagram-feed-gallery/?utm_source=qlwapp_admin' );
 	/**
 	 * Notice cross sell 2
 	 */
 	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_2_SLUG', 'wp-tiktok-feed' );
 	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_2_NAME', 'TikTok Feed' );
-	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_2_DESCRIPTION', esc_html__( 'TikTok Feed is the most user-friendly TikTok plugin for WordPress. It was built to simplify the integration, to reduce time to have sites updated and to be on track with social media that shows best growing indicators.', 'wp-whatsapp-chat' ) );
+	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_2_DESCRIPTION', esc_html__( 'TikTok Feed is a user-friendly WordPress plugin designed for easy integration. It ensures quick site updates and keeps pace with the fast-growing social media trends.', 'wp-whatsapp-chat' ) );
 	define( 'QLWAPP_PROMOTE_CROSS_INSTALL_2_URL', 'https://quadlayers.com/products/tiktok-feed/?utm_source=qlwapp_admin' );
 
 	new \QuadLayers\WP_Notice_Plugin_Promote\Load(
@@ -72,7 +72,7 @@ if ( class_exists( 'QuadLayers\\WP_Notice_Plugin_Promote\\Load' ) ) {
 				),
 				'notice_description' => sprintf(
 					esc_html__(
-						'Today we want to make you a special gift. Using the coupon code %1$s before the next 48 hours you can get a 20 percent discount on the premium version of the %2$s plugin.',
+						'Today we have a special gift for you. Use the coupon code %1$s within the next 48 hours to receive a 20% discount on the premium version of the %2$s plugin.',
 						'wp-whatsapp-chat'
 					),
 					'ADMINPANEL20%',

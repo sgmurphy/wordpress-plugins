@@ -1,4 +1,5 @@
 <?php
+
 class B2S_RePost_Save {
 
     private $title;
@@ -65,6 +66,7 @@ class B2S_RePost_Save {
     }
 
     public function generatePosts($startDate = '0000-00-00', $settings = array(), $networkData = array(), $twitter = '') {
+        $schedPostCount = 0;
         foreach ($networkData as $k => $value) {
             if (isset($value->networkAuthId) && (int) $value->networkAuthId > 0 && isset($value->networkId) && (int) $value->networkId > 0 && isset($value->networkType)) {
                 //Filter: Image network
@@ -105,10 +107,12 @@ class B2S_RePost_Save {
                         $schedData['url'] = '';
                     }
 
-                    $this->saveShareData($schedData, $value->networkId, $value->networkType, $value->networkAuthId, $shareApprove, strip_tags($value->networkUserName), $schedDate, $schedDateUtc);
+                    $count = $this->saveShareData($schedData, $value->networkId, $value->networkType, $value->networkAuthId, $shareApprove, strip_tags($value->networkUserName), $schedDate, $schedDateUtc);
+                    $schedPostCount = $schedPostCount + $count;
                 }
             }
         }
+        return $schedPostCount;
     }
 
     public function getPostDateTime($startDate = '0000-00-00', $settings = array(), $networkAuthId = 0) {
@@ -262,7 +266,7 @@ class B2S_RePost_Save {
                         $limit = 254;
                     }
                     if (!empty($this->url) && $networkId == 38) {
-                        $limit = 500-strlen($this->url);
+                        $limit = 500 - strlen($this->url);
                     }
                     $postData['content'] = B2S_Util::getExcerpt($postData['content'], 0, $limit);
                 }
@@ -360,7 +364,7 @@ class B2S_RePost_Save {
                     $postData['content'] = (isset($this->setPreFillText[$networkType][$networkId])) ? B2S_Util::getExcerpt($this->content, (int) $this->setPreFillText[$networkType][$networkId], (isset($this->setPreFillTextLimit[$networkType][$networkId]) ? (int) $this->setPreFillTextLimit[$networkType][$networkId] : false)) : $this->content;
                     $postData['custom_title'] = strip_tags($this->title);
                 }
-                if ($networkId == 39) { 
+                if ($networkId == 39) {
                     $postData['content'] = (isset($this->setPreFillText[$networkType][$networkId])) ? B2S_Util::getExcerpt($this->content, (int) $this->setPreFillText[$networkType][$networkId], (isset($this->setPreFillTextLimit[$networkType][$networkId]) ? (int) $this->setPreFillTextLimit[$networkType][$networkId] : false)) : $this->content;
                     $postData['custom_title'] = strip_tags($this->title);
                 }
@@ -403,6 +407,7 @@ class B2S_RePost_Save {
     public function saveShareData($shareData = array(), $network_id = 0, $network_type = 0, $network_auth_id = 0, $shareApprove = 0, $network_display_name = '', $sched_date = '0000-00-00 00:00:00', $sched_date_utc = '0000-00-00 00:00:00') {
 
         global $wpdb;
+        $schedPostCount = 0;
         if ($this->userVersion >= 3) {
             $sqlGetData = $wpdb->prepare("SELECT `data` FROM `{$wpdb->prefix}b2s_posts_network_details` WHERE `network_auth_id` = %d", (int) $network_auth_id);
             $dataString = $wpdb->get_var($sqlGetData);
@@ -433,8 +438,8 @@ class B2S_RePost_Save {
                 'network_type' => (int) $network_type,
                 'network_auth_id' => (int) $network_auth_id,
                 'network_display_name' => $network_display_name,
-                'owner_blog_user_id' => B2S_PLUGIN_BLOG_USER_ID), 
-                array('%d', '%d', '%d', '%s', '%s'));
+                'owner_blog_user_id' => B2S_PLUGIN_BLOG_USER_ID),
+                    array('%d', '%d', '%d', '%s', '%s'));
             $networkDetailsId = $wpdb->insert_id;
         }
 
@@ -466,8 +471,10 @@ class B2S_RePost_Save {
                     'post_format' => (($shareData['post_format'] !== '') ? (((int) $shareData['post_format'] > 0) ? 1 : 0) : null)
                         ), array('%d', '%d', '%s', '%s', '%d', '%d', '%s', '%s', '%d', '%d', '%d'));
                 B2S_Rating::trigger();
+                $schedPostCount++;
             }
         }
+        return $schedPostCount;
     }
 
     public function deletePostsByBlogPost($blogPostId = 0) {

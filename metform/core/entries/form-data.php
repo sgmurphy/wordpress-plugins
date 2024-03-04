@@ -49,7 +49,7 @@ class Form_Data
         $form_settings = \MetForm\Core\Forms\Action::instance()->get_all_data($form_id);
 
         ob_start();
-?>
+        ?>
         <div class="metform-entry-data container">
             <table class='mf-entry-data' style="word-break: break-all;" cellpadding="5" cellspacing="0">
                 <tbody>
@@ -84,6 +84,7 @@ class Form_Data
                         $entriy_row_correct_class = '';
                         
                         if(isset($form_settings['form_type']) && $form_settings['form_type'] === 'quiz-form' && isset($form_data['wrong-answer']) && isset($form_data['right-answer'])){
+                            
                             $wrong_answers = explode(",", $form_data['wrong-answer']);
                             $right_answers = explode(",", $form_data['right-answer']);
 
@@ -99,17 +100,30 @@ class Form_Data
                         echo sprintf("<tr class='mf-data-value %s'>", esc_attr($entriy_row_correct_class));
                         echo "<td class='mf-value-space'>&nbsp;</td>";
                         
-                        if (!in_array($value['widgetType'], ['mf-file-upload', 'mf-textarea', 'mf-simple-repeater', 'mf-signature', 'mf-like-dislike', 'mf-credit-card','mf-image-select','mf-checkbox'])) {                            
+                        if (!in_array($value['widgetType'], ['mf-file-upload', 'mf-textarea', 'mf-simple-repeater', 'mf-signature', 'mf-like-dislike', 'mf-credit-card','mf-image-select','mf-checkbox','mf-mobile'])) {                            
                           
                             $label = isset($map_data[$key]['mf_input_label']) ? $map_data[$key]['mf_input_label'] : '';                             
-                            if ($label && isset($map_data[$key]['mf_input_list']) && is_array($map_data[$key]['mf_input_list']) && isset($form_settings['mf_field_name_show'] ) &&  $form_settings['mf_field_name_show']  == 1) {
+                            
+                            if ($label && 
+                                isset($map_data[$key]['mf_input_list']) 
+                                && is_array($map_data[$key]['mf_input_list']) 
+                                && isset($form_settings['mf_field_name_show'] ) 
+                                &&  $form_settings['mf_field_name_show']  == 1) {
+                                
                                 $selected_values = isset($form_data[$key]) ? explode(',', $form_data[$key]) : array();                                
                                 $values = array();                                
+                               
                                 foreach ($map_data[$key]['mf_input_list'] as $item) {
-                                    if ( isset($item['label']) && in_array($item['value'], $selected_values) ) { // Check if 'label' key exists in the item
+                                    
+                                    
+                                    // Check if 'label' key exists in the item
+                                    if ( isset($item['label']) && in_array($item['value'], $selected_values) ) { 
                                         $values[$item['label']] = $item['label'] . ' - ' . $item['value'];
                                     }
-                                    if (isset($item['mf_input_option_text']) &&  isset($item['mf_input_option_value'])  ) {
+
+                                    if ( isset($item['mf_input_option_text']) 
+                                        &&  isset($item['mf_input_option_value']) 
+                                        && $item['mf_input_option_value'] == $form_data[$key]  ) {
 
                                         $option_text = $item['mf_input_option_text'] .' - '. $item['mf_input_option_value'] ;   
                                     }
@@ -130,6 +144,11 @@ class Form_Data
                             }
                         }
 
+                        if (isset($value['widgetType']) && $value['widgetType'] == 'mf-mobile') {
+                            $output = isset($form_data[$key]) && !empty($form_data[$key]) ? '+' . esc_html($form_data[$key]) : '';
+                            echo "<td>" . $output . "</td>";
+                        }
+                        
                         if (isset($value['widgetType']) && $value['widgetType'] == 'mf-checkbox') {
                             $label = isset($map_data[$key]['mf_input_label']) ? $map_data[$key]['mf_input_label'] : '';
                         
@@ -265,7 +284,7 @@ class Form_Data
                 </tbody>
             </table>
         </div>
-    <?php
+        <?php
         $data_html = ob_get_contents();
         ob_end_clean();
         return $data_html;
@@ -396,7 +415,7 @@ class Form_Data
                 </tbody>
             </table>
         </div>
-<?php
+    <?php
         $data_html = ob_get_contents();
         ob_end_clean();
         return $data_html;

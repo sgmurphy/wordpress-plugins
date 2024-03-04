@@ -417,6 +417,30 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 			$this->set_option(
 				array(
 					'field_type'    => 'select',
+					'name'          => 'columns_1680',
+					'title'         => esc_html__( 'Number of Columns 1441px - 1680px', 'qi-addons-for-elementor' ),
+					'options'       => qi_addons_for_elementor_get_select_type_options_pool( 'columns_number' ),
+					'default_value' => '3',
+					'dependency'    => array(
+						'relation' => 'and',
+						'show'     => array_merge_recursive(
+							array(
+								'show' => array(
+									'columns_responsive' => array(
+										'values'        => 'custom',
+										'default_value' => 'predefined',
+									),
+								),
+							),
+							$direction_horizontal_dependancy
+						)['show'],
+					),
+					'group'         => $group,
+				)
+			);
+			$this->set_option(
+				array(
+					'field_type'    => 'select',
 					'name'          => 'columns_1440',
 					'title'         => esc_html__( 'Number of Columns 1367px - 1440px', 'qi-addons-for-elementor' ),
 					'options'       => qi_addons_for_elementor_get_select_type_options_pool( 'columns_number' ),
@@ -428,7 +452,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 								'show' => array(
 									'columns_responsive' => array(
 										'values'        => 'custom',
-										'default_value' => '3',
+										'default_value' => 'predefined',
 									),
 								),
 							),
@@ -452,7 +476,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 								'show' => array(
 									'columns_responsive' => array(
 										'values'        => 'custom',
-										'default_value' => '3',
+										'default_value' => 'predefined',
 									),
 								),
 							),
@@ -476,7 +500,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 								'show' => array(
 									'columns_responsive' => array(
 										'values'        => 'custom',
-										'default_value' => '3',
+										'default_value' => 'predefined',
 									),
 								),
 							),
@@ -500,7 +524,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 								'show' => array(
 									'columns_responsive' => array(
 										'values'        => 'custom',
-										'default_value' => '3',
+										'default_value' => 'predefined',
 									),
 								),
 							),
@@ -524,7 +548,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 								'show' => array(
 									'columns_responsive' => array(
 										'values'        => 'custom',
-										'default_value' => '3',
+										'default_value' => 'predefined',
 									),
 								),
 							),
@@ -548,7 +572,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 								'show' => array(
 									'columns_responsive' => array(
 										'values'        => 'custom',
-										'default_value' => '3',
+										'default_value' => 'predefined',
 									),
 								),
 							),
@@ -1851,6 +1875,7 @@ abstract class QiAddonsForElementor_Slider_Shortcode extends QiAddonsForElemento
 
 		if ( ! empty( $atts['columns_responsive'] ) && 'custom' === $atts['columns_responsive'] ) {
 			$data['customStages']      = true;
+			$data['slidesPerView1680'] = ! empty( $atts['columns_1680'] ) ? $atts['columns_1680'] : $atts['columns'];
 			$data['slidesPerView1440'] = ! empty( $atts['columns_1440'] ) ? $atts['columns_1440'] : $atts['columns'];
 			$data['slidesPerView1366'] = ! empty( $atts['columns_1366'] ) ? $atts['columns_1366'] : $atts['columns'];
 			$data['slidesPerView1024'] = ! empty( $atts['columns_1024'] ) ? $atts['columns_1024'] : $atts['columns'];

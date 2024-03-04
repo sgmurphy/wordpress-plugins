@@ -1,9 +1,9 @@
 === Ultimate Blocks - WordPress Blocks Plugin ===
-Contributors: dotcamp, ultimateblocks, imtiazrayhan, istiakrayhan, erdembircan, alexius08, wpleaders1, wpcdplugin, wptb
-Tags: block, blocks, gutenberg blocks, gutenberg, block editor
+Contributors: dotcamp, ultimateblocks, imtiazrayhan, istiakrayhan, erdembircan, alexius08
+Tags: blocks, gutenberg blocks, gutenberg, block editor, free
 Requires at least: 5.8
 Tested up to: 6.4
-Stable tag: 3.1.3
+Stable tag: 3.1.4
 Requires PHP: 5.6
 License: GPL3+
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
@@ -14,7 +14,7 @@ Create Better Content With The Block Editor. Custom Blocks for Bloggers and Cont
 
 [Get Pro](https://ultimateblocks.com/pricing/) | [Documentation](https://ultimateblocks.com/docs/)
 
-Ultimate Blocks is a powerhouse for bloggers and content marketers using WordPress. It's not just a plugin, it's a toolkit to skyrocket user engagement and simplify content creation.
+Ultimate Blocks is a free powerhouse for bloggers and content marketers using WordPress. It's not just a plugin, it's a toolkit to skyrocket user engagement and simplify content creation.
 
 With Ultimate Blocks, you're not just adding functionalities; you're crafting experiences.
 
@@ -120,6 +120,12 @@ Button block with more customization options and controls.
 **Divider Block**
 Add custom divider between your blocks. Customize the color, size, everything.
 
+## Other tools from us
+
+[Tableberg](https://wordpress.org/plugins/tableberg/): The Best WordPress Block Table Plugin to create beautiful and responsive tables.
+
+[GroundWP](https://wordpress.org/themes/groundwp/): Lightweight and Minimal Block Theme for efficient Full-Site Editing.
+
 == Frequently Asked Questions ==
 
 = Installation Instructions =
@@ -143,6 +149,26 @@ That's it. You're done!
 3. Tabbed Content Block.
 
 == Changelog ==
+
+= 3.1.4 =
+
+* IMPROVE: Increase bar thickness progress bar.
+* IMPROVE: Make center default alignment of progress bar.
+* IMPROVE: Remove responsive settings from advanced video block.
+* IMPROVE: Add toggle color option on main content toggle block.
+* IMPROVE: Remove bottom white space when add a border in the advanced video block.
+* NEW: Content color and background color option in tabbed content.
+* NEW: Alignment option in advanced video.
+* NEW: Equal Height option in post grid.
+* NEW: Colors Option for (Title, Author, Date, Excerpt, Link, Post) in post grid.
+* NEW: Spacing Option for (Link, Content, Post) in post grid.
+* NEW: Row and Column gap in post grid.
+* NEW: Border Radius Option for (Link, Post, Image) in post grid.
+* FIX: Upload video height issue advanced video block.
+* FIX: Image alignment inside the toggle content.
+* PRO: FIX: Review block colors styling not working on frontend.
+* PRO: FIX: Show more button not working when fade is enable expand block.
+* PRO: NEW: Show taxonomy like badge in post grid.
 
 = 3.1.3 =
 

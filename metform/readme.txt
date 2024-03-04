@@ -3,7 +3,7 @@ Contributors: xpeedstudio, ataurr, emranio
 Tags: Form builder, contact form, Elementor contact form, contact form builder, Elementor forms builder, booking form builder, registration form builder, feedback form builder, drag and drop builder
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 3.8.3
+Stable tag: 3.8.4
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -343,13 +343,21 @@ Check out [Tutorials, Tips & Tricks](https://wpmet.com/blog)! 👌
 
 == Changelog == 
 
+Version: 3.8.4 // 2024-02-27
+Improved: Rest API integration feature (added referral url with request payload).
+Fixed: The CSV export functionality for form entries is not working when dealing with a large volume of entries.
+Fixed: Display input field name alongside value issue.
+Fixed: Shortcode vulnerability issue.
+Fixed: Admin notice dismissing issue.
+Fixed: Mobile widget '+' sign issue.
+
 Version: 3.8.3 // 2024-01-14
-Improved: User interface (UI)
-Fixed: Range Slider widget 0 range value is not working if minimum value is negative
-Fixed: GDPR Consent widget '&' character issue
+Improved: User interface (UI).
+Fixed: Range Slider widget 0 range value is not working if minimum value is negative.
+Fixed: GDPR Consent widget '&' character issue.
 
 Version: 3.8.2 // 2023-12-18
-Improved: Security
+Improved: Security.
 
 Version: 3.8.1 // 2023-12-11
 Added: New control for minimum fraction count of Calculation widget.
@@ -371,12 +379,12 @@ Fixed: Translation issue for form validation message.
 Fixed: Character and number range validation issue.
 
 Version: 3.6.0 // 2023-10-01
-Fixed: Switch widget control issue
-Fixed: Elementor deprecation issue
-Improved: Dashboard UI
+Fixed: Switch widget control issue.
+Fixed: Elementor deprecation issue.
+Improved: Dashboard UI.
 
 Version: 3.5.1 // 2023-09-19
-Improved: User experience
+Improved: User experience.
 
 Version: 3.5.0 // 2023-09-17
 Added: Checkbox to disable promotional notice.

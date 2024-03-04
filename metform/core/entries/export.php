@@ -45,7 +45,7 @@ class Export {
 
                 if ($value->widgetType == 'mf-file-upload' && isset($entry_data[$key])) {
                     $entry_modify[$header_key] = (isset($entry_data[$key]) ? ((isset($entry_data[$key]['url'])) ? $entry_data[$key]['url'] : ' ') : ' ');
-                    for ($index = 0; $index < count($entry_data[$key]); $index++) {
+                    for ($index = 0; $index < isset( $entry_data[$key] ) && is_array($entry_data[$key]) ? count($entry_data[$key]) : 0 ; $index++) {
                         $entry_modify[$header_key] .= (esc_url($entry_data[$key][$index]['url']) . " \n");
                     }
                 } else if ($value->widgetType == 'mf-simple-repeater') {

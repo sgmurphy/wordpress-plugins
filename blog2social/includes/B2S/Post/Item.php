@@ -468,7 +468,7 @@ class B2S_Post_Item {
         }
         foreach ($this->postData as $var) {
             $postType = 'post';
-            if(isset($var->post_type)){
+            if (isset($var->post_type)) {
                 if (strpos(strtolower($var->post_type), 'event') !== false) {
                     $postType = 'event';
                 }
@@ -509,12 +509,12 @@ class B2S_Post_Item {
                     $isPublished = false;
                 }
                 $url = get_permalink($var->ID);
-                if($permalinkSetting){
+                if ($permalinkSetting) {
                     $post = get_post((int) $var->ID);
-                    if ( isset( $post->post_status ) && ( 'future' === $post->post_status ) ) {
+                    if (isset($post->post_status) && ( 'future' === $post->post_status )) {
                         // set the post status to publish to get the 'publish' permalink
                         $post->post_status = 'publish';
-                        $url = get_permalink( $post);
+                        $url = get_permalink($post);
                     }
                 }
                 $this->postItem .= '<li class="list-group-item">
@@ -629,9 +629,9 @@ class B2S_Post_Item {
                                                 </div>
                                          </div>
                                     </li>';
-            } 
+            }
 
-            if($this->type == 'notice'){
+            if ($this->type == 'notice') {
                 $countPublish = $this->getPostCount($var->ID);
                 $lastPublish = $this->getLastPost($var->ID);
                 $userInfoName = get_the_author_meta('display_name', $lastPublish['user']);
@@ -673,12 +673,12 @@ class B2S_Post_Item {
                 $userInfoName = get_the_author_meta('display_name', $nextSched['user']);
 
                 $url = get_permalink($var->ID);
-                if($permalinkSetting){
+                if ($permalinkSetting) {
                     $post = get_post((int) $var->ID);
-                    if ( isset( $post->post_status ) && ( 'future' === $post->post_status ) ) {
+                    if (isset($post->post_status) && ( 'future' === $post->post_status )) {
                         // set the post status to publish to get the 'publish' permalink
                         $post->post_status = 'publish';
-                        $url = get_permalink( $post);
+                        $url = get_permalink($post);
                     }
                 }
                 $this->postItem .= '<li class="list-group-item">
@@ -753,12 +753,12 @@ class B2S_Post_Item {
             if ($this->type == 'draft-post') {
                 $userInfoName = get_the_author_meta('display_name', $var->post_author);
                 $url = get_permalink($var->ID);
-                if($permalinkSetting){
+                if ($permalinkSetting) {
                     $post = get_post((int) $var->ID);
-                    if ( isset( $post->post_status ) && ( 'future' === $post->post_status ) ) {
+                    if (isset($post->post_status) && ( 'future' === $post->post_status )) {
                         // set the post status to publish to get the 'publish' permalink
                         $post->post_status = 'publish';
-                        $url = get_permalink( $post);
+                        $url = get_permalink($post);
                     }
                 }
                 $this->postItem .= '<li class="list-group-item b2s-draft-list-entry" data-b2s-draft-id="' . esc_attr($var->draft_id) . '">
@@ -783,12 +783,12 @@ class B2S_Post_Item {
                 $lastPublish = $this->getLastPublish($var->ID);
                 $lastPublish = ($lastPublish != false) ? ' | ' . __('last shared on social media', 'blog2social') . ' ' . B2S_Util::getCustomDateFormat($lastPublish, substr(B2S_LANGUAGE, 0, 2)) : '';
                 $url = get_permalink($var->ID);
-                if($permalinkSetting){
+                if ($permalinkSetting) {
                     $post = get_post((int) $var->ID);
-                    if ( isset( $post->post_status ) && ( 'future' === $post->post_status ) ) {
+                    if (isset($post->post_status) && ( 'future' === $post->post_status )) {
                         // set the post status to publish to get the 'publish' permalink
                         $post->post_status = 'publish';
-                        $url = get_permalink( $post);
+                        $url = get_permalink($post);
                     }
                 }
                 $this->postItem .= '<li class="list-group-item b2s-favorite-list-entry" data-post-id="' . esc_attr($var->ID) . '">
@@ -815,12 +815,12 @@ class B2S_Post_Item {
                 $nextSched = $this->getLastPost($var->ID);
                 $userInfoName = get_the_author_meta('display_name', $nextSched['user']);
                 $url = get_permalink($var->ID);
-                if($permalinkSetting){
+                if ($permalinkSetting) {
                     $post = get_post((int) $var->ID);
-                    if ( isset( $post->post_status ) && ( 'future' === $post->post_status ) ) {
+                    if (isset($post->post_status) && ( 'future' === $post->post_status )) {
                         // set the post status to publish to get the 'publish' permalink
                         $post->post_status = 'publish';
-                        $url = get_permalink( $post);
+                        $url = get_permalink($post);
                     }
                 }
                 $this->postItem .= '<li class="list-group-item" data-type="post">
@@ -1303,7 +1303,6 @@ class B2S_Post_Item {
         return false;
     }
 
-    
     public function getAllPostsDataHtml($post_id = 0, $showByDate = '', $showByNetwork = 0, $userAuthId = 0, $sharedByUser = 0, $sharedOnNetwork = 0) {
         if ($post_id > 0) {
             global $wpdb;
@@ -1385,18 +1384,6 @@ class B2S_Post_Item {
                                                     <strong>' . esc_html($networkName[$var->network_id]) . $schedInProcess . '</strong>
                                                     <p class="info">' . esc_html($networkType[$var->network_type] . $name) . ' | ' . sprintf(esc_html__('scheduled by %s', 'blog2social'), ' <a href="' . esc_url(get_author_posts_url($var->blog_user_id)) . '">' . esc_html((!empty($userInfoName) ? $userInfoName : '-')) . '</a>') . ' <span class="b2s-post-sched-area-sched-time" data-post-id="' . esc_attr($var->id) . '">' . $lastEdit . esc_html(B2S_Util::getCustomDateFormat($var->sched_date, substr(B2S_LANGUAGE, 0, 2))) . '</span> ' . $specialPosting . '</p>
                                                     <p class="info">';
-
-                        if ((int) $var->v2_id == 0 && empty($schedInProcess)) {
-                            if ((B2S_PLUGIN_USER_VERSION > 0) && $var->post_format != 2) {
-                                $content .= ((B2S_PLUGIN_USER_VERSION > 0) ? ' <a href="#" class="b2s-post-edit-sched-btn" data-network-auth-id="' . esc_attr($var->network_auth_id) . '" data-network-type="' . esc_attr($var->network_type) . '" data-network-id="' . esc_attr($var->network_id) . '" data-post-id="' . esc_attr($var->post_id) . '" data-b2s-id="' . esc_attr($var->id) . '" data-relay-primary-post-id="' . esc_attr($var->relay_primary_post_id) . '" >' : ' <a href="#" class="b2sPreFeatureModalBtn" data-title="' . esc_attr__('You want to edit your scheduled post?', 'blog2social') . '">');
-                                $content .= esc_html__('edit', 'blog2social') . '</a> ';
-                                $content .= '|';
-                            } else if (B2S_PLUGIN_USER_VERSION == 0) {
-                                $content = ' <a href="#" class="b2sPreFeatureModalBtn" data-title="' . esc_attr__('You want to edit your scheduled post?', 'blog2social') . '">';
-                            }
-                        }
-                        $content .= '<a href="#" class="b2s-post-sched-area-drop-btn" data-post-id="' . esc_attr($var->id) . '"> ' . esc_html__('delete', 'blog2social') . '</a> ';
-
                         $content .= '</p>
                                                 </div>
                                         </div>

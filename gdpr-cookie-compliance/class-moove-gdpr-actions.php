@@ -649,7 +649,7 @@ class Moove_GDPR_Actions {
 	public function gdpr_remove_cached_scripts() {
 		$gdpr_default_content 			= new Moove_GDPR_Content();
 		$wp_lang 							= $gdpr_default_content->moove_gdpr_get_wpml_lang();
-		$transient_key 					= 'gdpr_cookie_cache' . $wp_lang;
+		$transient_key 					= 'gdpr_cookie_cache' . $wp_lang . MOOVE_GDPR_VERSION;
 		delete_transient( $transient_key );
 	}
 

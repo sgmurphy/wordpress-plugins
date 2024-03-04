@@ -61,18 +61,6 @@ endif;
 if ( ! function_exists('gdpr_get_integration_modules') ) :
 	function gdpr_get_integration_modules( $gdpr_options, $gdin_values ) {
 		$integration_modules = array(
-			'ga' => array(
-				'name'				=> 'Google Universal Analytics',
-				'desc'				=> '',
-				'cookie_cat'	=> isset( $gdin_values['ga'] ) ? intval( $gdin_values['ga'] ) : 2,
-				'tacking_id'	=> isset( $gdin_values['ga_id'] ) ? $gdin_values['ga_id'] : '',
-				'id_format'		=> 'UA-XXXXXXXX',
-				'atts'				=> array(
-					'toggle'		=> true,
-					'input'			=> ''
-				),
-				'status'			=> isset( $gdin_values['ga'] )
-			),
 			'ga4'	=> array(
 				'name'				=> 'Google Analytics 4',
 				'desc'				=> '',
@@ -84,10 +72,10 @@ if ( ! function_exists('gdpr_get_integration_modules') ) :
 					'input'			=> ''
 				),
 				'status'			=> isset( $gdin_values['ga4'] )
-			),
+			),		
 			'gtm'	=> array(
 				'name'			=> 'Google Tag Manager',
-				'desc'			=> '',
+				'desc'			=> 'Standard implementation',
 				'cookie_cat'	=> isset( $gdin_values['gtm'] ) ? intval( $gdin_values['gtm'] ) : 2,
 				'tacking_id'	=> isset( $gdin_values['gtm_id'] ) ? $gdin_values['gtm_id'] : '',
 				'id_format'	=> 'GTM-XXXXXX',
@@ -96,10 +84,10 @@ if ( ! function_exists('gdpr_get_integration_modules') ) :
 					'input'			=> ''
 				),
 				'status'		=> isset( $gdin_values['gtm'] )
-			),
+			),	
 			'gtmc2'	=> array(
 				'name'			=> 'Google Tag Manager',
-				'desc'			=> 'Consent Mode - V2',
+				'desc'			=> 'Consent Mode v2 [for advanced users only]',
 				'cookie_cat'	=> isset( $gdin_values['gtmc2'] ) ? intval( $gdin_values['gtmc2'] ) : 2,
 				'tacking_id'	=> isset( $gdin_values['gtmc2_id'] ) ? $gdin_values['gtmc2_id'] : '',
 				'id_format'	=> 'GTM-XXXXXX',
@@ -132,7 +120,7 @@ if ( ! function_exists('gdpr_get_integration_modules') ) :
 					'input'			=> ''
 				),
 				'status'		=> isset( $gdin_values['fbp'] )
-			)
+			)			
 		);
 		return apply_filters( 'gdpr_integration_modules', $integration_modules, $gdpr_options, $gdin_values );
 	}

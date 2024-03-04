@@ -371,7 +371,7 @@ class Notice{
     }
 
     public static function dismiss_ajax_call() {
-        if(empty( $_REQUEST['_wpnonce'] ) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_REQUEST['_wpnonce'])),'wpmet-notices')){
+        if( !current_user_can( 'manage_options' ) || empty( $_REQUEST['_wpnonce'] ) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_REQUEST['_wpnonce'])),'wpmet-notices')){
             wp_send_json_error();
         }
         

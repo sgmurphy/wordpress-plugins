@@ -35,6 +35,10 @@ class Shortcode
 	{
 		$this->enqueue_form_assets();
 
+		if( isset($atts['form_id']) ){
+			$atts['form_id'] = absint(sanitize_text_field($atts['form_id']));
+		}
+		
 		$attributes = shortcode_atts(array(
 			'form_id' => 'test',
 		), $atts);
