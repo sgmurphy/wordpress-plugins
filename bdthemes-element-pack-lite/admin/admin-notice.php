@@ -159,8 +159,7 @@ class Notices {
 		<div id="<?php echo esc_attr($notice['id']); ?>" class="<?php echo esc_attr($notice['classes']); ?>" <?php echo esc_attr($notice['data']); ?>>
 			<div class="bdt-notice-wrapper">
 				<div class="bdt-notice-icon-wrapper">
-					<!-- <i class="eicon-elementor" aria-hidden="true"></i> -->
-					<img height="25" width="25" src="<?php echo BDTEP_ASSETS_URL; ?>images/logo.svg">
+					<img height="25" width="25" src="<?php echo esc_url (BDTEP_ASSETS_URL ); ?>images/logo.svg">
 				</div>
 
 				<div class="bdt-notice-content">

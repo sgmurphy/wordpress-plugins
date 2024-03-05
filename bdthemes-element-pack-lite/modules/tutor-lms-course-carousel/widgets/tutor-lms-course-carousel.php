@@ -1553,9 +1553,9 @@ class TutorLms_Course_Carousel extends Module_Base {
 		$this->add_render_attribute('tutor-courses-wrapper', 'class', 'swiper-wrapper');
 
 ?>
-		<div <?php echo $this->get_render_attribute_string('carousel'); ?>>
-			<div <?php echo $this->get_render_attribute_string('swiper'); ?>>
-				<div <?php echo $this->get_render_attribute_string('tutor-courses-wrapper'); ?>>
+		<div <?php $this->print_render_attribute_string('carousel'); ?>>
+			<div <?php $this->print_render_attribute_string('swiper'); ?>>
+				<div <?php $this->print_render_attribute_string('tutor-courses-wrapper'); ?>>
 				<?php
 			}
 
@@ -1766,7 +1766,7 @@ class TutorLms_Course_Carousel extends Module_Base {
 				$this->add_render_attribute('tutor-course-item', 'class', 'bdt-tutor-course bdt-tutor-course-item swiper-slide', true);
 
 				?>
-					<div <?php echo $this->get_render_attribute_string('tutor-course-item'); ?>>
+					<div <?php $this->print_render_attribute_string('tutor-course-item'); ?>>
 						<?php $this->render_thumbnail(); ?>
 						<?php $this->render_desc(); ?>
 					</div>

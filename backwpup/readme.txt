@@ -2,7 +2,7 @@
 Contributors: wp_media, danielhuesken, Bueltge, nullbyte, wido, dinamiko, cocreation, krafit
 Tags: backup, database backup, cloud backup, restore, wordpress backup
 Requires at least: 3.9
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 7.2
 Stable tag: 4.0.3
 License: GPLv2+

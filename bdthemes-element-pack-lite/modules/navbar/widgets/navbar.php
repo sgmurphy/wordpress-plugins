@@ -957,8 +957,8 @@ class Navbar extends Module_Base {
 		$this->add_render_attribute('navbar-wrap', 'class', 'bdt-navbar-wrapper');
 
 		?>
-		<div <?php echo $this->get_render_attribute_string( 'navbar-wrap' ); ?>>
-			<nav <?php echo $this->get_render_attribute_string( 'navbar-attr' ); ?>>
+		<div <?php $this->print_render_attribute_string( 'navbar-wrap' ); ?>>
+			<nav <?php $this->print_render_attribute_string( 'navbar-attr' ); ?>>
 				<?php wp_nav_menu( apply_filters( 'widget_nav_menu_args', $nav_menu_args, $nav_menu, $settings ) ); ?>
 			</nav>
 		</div>

@@ -360,7 +360,7 @@ class Reading_Progress extends Module_Base {
 
 		?>
 
-		<div <?php echo $this->get_render_attribute_string( 'reading-progress' ); ?>></div>
+		<div <?php $this->print_render_attribute_string( 'reading-progress' ); ?>></div>
 
 		<?php
 	}

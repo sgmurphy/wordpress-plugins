@@ -550,7 +550,7 @@ class Fancy_Icons extends Module_Base {
         }
 
     ?>
-        <div <?php echo $this->get_render_attribute_string('advanced-icons'); ?>>
+        <div <?php $this->print_render_attribute_string('advanced-icons'); ?>>
 
             <div class="bdt-fancy-icons-background">
                 <?php if (($settings['background_type'] == 'youtube') && $settings['youtube_link']) : ?>
@@ -580,8 +580,8 @@ class Fancy_Icons extends Module_Base {
                     }
 
                 ?>
-                    <div <?php echo $this->get_render_attribute_string('share-item'); ?>>
-                        <a <?php echo $this->get_render_attribute_string($link_key); ?>>
+                    <div <?php $this->print_render_attribute_string('share-item'); ?>>
+                        <a <?php $this->print_render_attribute_string($link_key); ?>>
 
                             <?php if ($has_icon or $has_text) : ?>
                                 <span class="bdt-icon-wrapper">

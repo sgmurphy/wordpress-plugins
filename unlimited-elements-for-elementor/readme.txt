@@ -867,7 +867,11 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 
 == Changelog ==
 
-version 1.5.96: 2024-03-04
+version 1.5.98: 2024-03-05
+
+* Fix Some small gutenberg related bug fix
+
+version 1.5.97: 2024-03-04
 
 Plugin Updates: 
 

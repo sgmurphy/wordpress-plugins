@@ -117,7 +117,7 @@ class Module extends Module_Base {
 
 		wp_enqueue_style(
 			'image-optimization-core-style-admin',
-			$this->get_css_assets_url( 'style-admin', '/assets/build/' ),
+			$this->get_css_assets_url( 'style-admin', 'assets/build/' ),
 			[],
 			IMAGE_OPTIMIZATION_VERSION,
 		);
@@ -127,7 +127,7 @@ class Module extends Module_Base {
 	 * Enqueue styles and scripts
 	 */
 	private function enqueue_scripts() {
-		$asset_file = include IMAGE_OPTIMIZATION_ASSETS_PATH . 'build/admin.asset.php';
+		$asset_file = require IMAGE_OPTIMIZATION_ASSETS_PATH . 'build/admin.asset.php';
 
 		foreach ( $asset_file['dependencies'] as $style ) {
 			wp_enqueue_style( $style );
@@ -137,7 +137,7 @@ class Module extends Module_Base {
 			'image-optimization-admin',
 			$this->get_js_assets_url( 'admin' ),
 			array_merge( $asset_file['dependencies'], [ 'wp-util' ] ),
-			IMAGE_OPTIMIZATION_VERSION,
+			$asset_file['version'],
 			true
 		);
 

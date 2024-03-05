@@ -489,7 +489,7 @@ class Cookie_Consent extends Module_Base {
 
 		<?php else : ?>
 
-			<div <?php echo $this->get_render_attribute_string('cookie-consent'); ?>></div>
+			<div <?php $this->print_render_attribute_string('cookie-consent'); ?>></div>
 
 <?php endif;
 	}

@@ -2344,8 +2344,8 @@ position: fixed;
 padding: 50px;
 top: 0;
 left: 0;
+right: 0;
 height: 100%;
-width: 100%;
 overflow: auto;
 color: #000;
 opacity: 1;
@@ -2931,6 +2931,10 @@ margin-right: auto;
 .pagelayer-owl-carousel .pagelayer-owl-item > .pagelayer-ele-wrap,
 .pagelayer-owl-stage-outer{
 height: 100%;
+}
+
+.pagelayer-owl-carousel .pagelayer-owl-item{
+height: auto;
 }
 
 .pagelayer-owl-prev,

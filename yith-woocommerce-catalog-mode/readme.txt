@@ -4,7 +4,8 @@ Contributors: yithemes
 Tags: woocommerce catalog mode plugin, woocommerce catalog only, woocommerce, products, themes, yit, yith, yithemes, e-commerce, shop, catalog mode, catalogue mode, remove add to cart, ask for price, ask price, asking for price, asking price, button remove, call, call for price, call me, call us, contact, email, hide add to cart, hide price
 Requires at least: 6.2
 Tested up to: 6.4
-Stable tag: 2.30.0
+Stable tag: 2.32.0
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,7 +20,7 @@ YITH WooCommerce Catalog Mode is the easy and quick solution to turn your online
 
 A catalogue gives you the opportunity to leave your products online and to let your customers contact you anyway for whatever question they might have or to ask a custom quote. This increases customers’ loyalty and you do not lose visibility online.
 
-With **50,000+ active installations**, YITH WooCommerce Catalog mode is the **most popular free plugin** to convert a shop to an online catalog and the easiest solution: you can do that with just two clicks!
+With **60,000+ active installations**, YITH WooCommerce Catalog mode is the **most popular free plugin** to convert a shop to an online catalog and the easiest solution: you can do that with just two clicks!
 
 In our last update, we also improved the panel and the code to provide a better experience to all users that trust in our products.
 
@@ -29,6 +30,8 @@ In our last update, we also improved the panel and the code to provide a better 
 * Hide “Add to Cart” button on all product pages
 * Hide “Add to Cart” button on other pages (shop, categories, tags)
 * Hide WooCommerce “Cart” and “Checkout” pages and any reference to them.
+
+[Free version live demo >](https://plugins.yithemes.com/yith-woocommerce-catalog-mode-free/)
 
 = Official documentation of YITH WooCommerce Catalog Mode =
 
@@ -130,6 +133,12 @@ yith-woocommerce-catalog-mode-<WORDPRESS LOCALE >.mo
 3. This image shows WooCommerce product detail page as it appears when WooCommerce "Add to Cart" button is hidden and WooCommerce Cart and Checkout page are deactivated.
 
 == Changelog ==
+
+= Version 2.32.0 - Released: 5 March 2024 =
+
+* New: support for WooCommerce 8.6
+* New: panel UI
+* Update: YITH plugin framework
 
 = Version 2.30.0 - Released: 11 January 2024 =
 

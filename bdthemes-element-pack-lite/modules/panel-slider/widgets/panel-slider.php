@@ -1003,8 +1003,8 @@ class Panel_Slider extends Module_Base {
 
 
 		?>
-		<div <?php echo $this->get_render_attribute_string( 'panel-slider' ); ?>>
-			<div <?php echo $this->get_render_attribute_string( 'swiper' ); ?>>
+		<div <?php $this->print_render_attribute_string( 'panel-slider' ); ?>>
+			<div <?php $this->print_render_attribute_string( 'swiper' ); ?>>
 				<div class="swiper-wrapper">
 					<?php
 	}
@@ -1017,7 +1017,7 @@ class Panel_Slider extends Module_Base {
 		?>
 
 					<?php
-					foreach ( $settings['tabs'] as $index=> $item ) : 
+					foreach ( $settings['tabs'] as $index => $item ) :
 
 						$element_key = 'item_' . $index;
 
@@ -1027,7 +1027,7 @@ class Panel_Slider extends Module_Base {
 						$this->add_render_attribute(
 							[ 
 								$element_key => [ 
-									'class'  => [ 
+									'class' => [ 
 										'bdt-panel-slide-link',
 										'bdt-transition-slide-bottom',
 										$settings['button_hover_animation'] ? 'elementor-animation-' . $settings['button_hover_animation'] : ''
@@ -1060,7 +1060,7 @@ class Panel_Slider extends Module_Base {
 						$this->add_render_attribute( 'panel-slide-item-title', 'class', [ 'bdt-panel-slide-title bdt-transition-slide-bottom' ], true );
 
 						?>
-						<div <?php echo $this->get_render_attribute_string( 'panel-slide-item' ); ?>>
+						<div <?php $this->print_render_attribute_string( 'panel-slide-item' ); ?>>
 
 							<div class="bdt-panel-slide-thumb-wrapper">
 								<div class="bdt-panel-slide-thumb bdt-background-cover" data-depth="0.2"
@@ -1069,21 +1069,21 @@ class Panel_Slider extends Module_Base {
 							<div class="bdt-panel-slide-desc bdt-position-bottom-left bdt-position-z-index">
 
 								<?php if ( 'yes' == $settings['show_title'] ) : ?>
-									<<?php echo Utils::get_valid_html_tag( $settings['title_tags'] ); ?>
-										<?php echo $this->get_render_attribute_string( 'panel-slide-item-title' ); ?>>
+									<<?php echo esc_attr( Utils::get_valid_html_tag( $settings['title_tags'] ) ); ?>
+										<?php $this->print_render_attribute_string( 'panel-slide-item-title' ); ?>>
 										<?php echo esc_html( $item['tab_title'] ); ?>
-									</<?php echo Utils::get_valid_html_tag( $settings['title_tags'] ); ?>>
+									</<?php echo esc_attr( Utils::get_valid_html_tag( $settings['title_tags'] ) ); ?>>
 								<?php endif; ?>
 
 								<?php if ( '' !== $item['tab_content'] ) : ?>
 									<div class="bdt-panel-slide-text bdt-transition-slide-bottom">
-										<?php echo $this->parse_text_editor( $item['tab_content'] ); ?>
+										<?php echo wp_kses_post( $this->parse_text_editor( $item['tab_content'] ) ); ?>
 									</div>
 								<?php endif; ?>
 
 								<?php if ( ! empty( $item['tab_link']['url'] ) ) : ?>
 									<?php if ( $settings['button'] == 'yes' and 'bdt-middle' != $settings['_skin'] ) : ?>
-										<a <?php echo $this->get_render_attribute_string( $element_key ); ?>>
+										<a <?php $this->print_render_attribute_string( $element_key ); ?>>
 											<span>
 												<?php echo esc_html( $settings['button_text'] ); ?>
 											</span>

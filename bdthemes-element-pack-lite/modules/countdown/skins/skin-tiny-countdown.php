@@ -87,7 +87,7 @@ class Skin_Tiny_Countdown extends Elementor_Skin_Base {
 				<?php echo wp_kses_post($string); ?>
 			</div>
 			<?php if ($settings['end_action_type'] == 'message') : ?>
-			<div id="<?php echo $msg_id; ?>" class="bdt-countdown-end-message" style="display:none;">
+			<div id="<?php echo esc_attr( $msg_id ); ?>" class="bdt-countdown-end-message" style="display:none;">
 				<?php echo esc_html($settings['end_message']); ?>
 			</div>
 			<?php endif; ?>

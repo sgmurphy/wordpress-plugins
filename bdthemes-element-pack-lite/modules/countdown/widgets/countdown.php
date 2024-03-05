@@ -2516,13 +2516,13 @@ class Countdown extends Module_Base {
 		?>
 
 
-		<div <?php echo $this->get_render_attribute_string('countdown_wrapper'); ?>>
-			<div <?php echo $this->get_render_attribute_string( 'countdown' ); ?>>
+		<div <?php $this->print_render_attribute_string('countdown_wrapper'); ?>>
+			<div <?php $this->print_render_attribute_string( 'countdown' ); ?>>
 				<?php echo wp_kses_post($string); ?>
 			</div>
 
 			<?php if ($settings['end_action_type'] == 'message') : ?> 
-			<div id="<?php echo $msg_id; ?>" class="bdt-countdown-end-message" style="display:none;">
+			<div id="<?php echo esc_attr($msg_id); ?>" class="bdt-countdown-end-message" style="display:none;">
 				<?php echo wp_kses_post($settings['end_message']); ?>
 			</div>
 			<?php endif; ?>

@@ -1243,12 +1243,12 @@ class Review_Card_Carousel extends Module_Base {
         $image_mask = $settings['image_mask_popover'] == 'yes' ? ' bdt-image-mask' : '';
 		$this->add_render_attribute('image-wrap', 'class', 'bdt-ep-review-card-carousel-image' . $image_mask);
         ?>
-        <div <?php echo $this->get_render_attribute_string('image-wrap'); ?>>
+        <div <?php $this->print_render_attribute_string('image-wrap'); ?>>
 
             <?php 
             $thumb_url = Group_Control_Image_Size::get_attachment_image_src($item['image']['id'], 'thumbnail_size', $settings);
             if (!$thumb_url) {
-                printf('<img src="%1$s" alt="%2$s">', $item['image']['url'], esc_html($item['reviewer_name']));
+                printf('<img src="%1$s" alt="%2$s">', esc_url($item['image']['url']), esc_html($item['reviewer_name']));
             } else {
                 print(wp_get_attachment_image(
                     $item['image']['id'],
@@ -1276,9 +1276,9 @@ class Review_Card_Carousel extends Module_Base {
 
     ?>
         <?php if ($item['reviewer_name']) : ?>
-            <<?php echo Utils::get_valid_html_tag($settings['review_name_tag']); ?> <?php echo $this->get_render_attribute_string('review-name'); ?>>
+            <<?php echo esc_attr(Utils::get_valid_html_tag($settings['review_name_tag'])); ?> <?php $this->print_render_attribute_string('review-name'); ?>>
                 <?php echo wp_kses($item['reviewer_name'], element_pack_allow_tags('title')); ?>
-            </<?php echo Utils::get_valid_html_tag($settings['review_name_tag']); ?>>
+            </<?php echo esc_attr(Utils::get_valid_html_tag($settings['review_name_tag'])); ?>>
         <?php endif; ?>
     <?php
     }
@@ -1341,7 +1341,7 @@ class Review_Card_Carousel extends Module_Base {
                 <span><?php echo esc_html($item['rating_number']['size']); ?></span>
                 <i class="ep-icon-star-full" aria-hidden="true"></i>
             <?php else : ?>
-                <span class="epsc-rating epsc-rating-<?php echo $score; ?>">
+                <span class="epsc-rating epsc-rating-<?php echo esc_attr($score); ?>">
                     <span class="epsc-rating-item"><i class="ep-icon-star" aria-hidden="true"></i></span>
                     <span class="epsc-rating-item"><i class="ep-icon-star" aria-hidden="true"></i></span>
                     <span class="epsc-rating-item"><i class="ep-icon-star" aria-hidden="true"></i></span>
@@ -1371,7 +1371,7 @@ class Review_Card_Carousel extends Module_Base {
         ?>
 
         <?php foreach ($settings['review_items'] as $index => $item) : ?>
-            <div <?php echo $this->get_render_attribute_string('review-item'); ?>>
+            <div <?php $this->print_render_attribute_string('review-item'); ?>>
 
                 <?php if ('' == $settings['image_inline']) : ?>
                     <?php $this->render_reviewer_image($item); ?>
@@ -1380,7 +1380,7 @@ class Review_Card_Carousel extends Module_Base {
                 <div class="bdt-ep-review-card-carousel-content">
 
                     <?php if ('yes' == $settings['image_inline']) : ?>
-                        <div <?php echo $this->get_render_attribute_string('image-inline'); ?>>
+                        <div <?php $this->print_render_attribute_string('image-inline'); ?>>
                             
                             <?php $this->render_reviewer_image($item); ?>
                             
@@ -1424,8 +1424,8 @@ class Review_Card_Carousel extends Module_Base {
         $this->add_render_attribute('carousel', 'class', 'bdt-review-card-carousel');
 
         ?>
-        <div <?php echo $this->get_render_attribute_string('carousel'); ?>>
-            <div <?php echo $this->get_render_attribute_string('swiper'); ?>>
+        <div <?php $this->print_render_attribute_string('carousel'); ?>>
+            <div <?php $this->print_render_attribute_string('swiper'); ?>>
                 <div class="swiper-wrapper">
             <?php
         }

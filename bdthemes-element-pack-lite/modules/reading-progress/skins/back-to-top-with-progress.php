@@ -22,11 +22,11 @@ class Back_To_Top_With_Progress extends Elementor_Skin_Base {
 	}
 
 	public function render() {
-		$positionProgress = $this->parent->get_settings( 'progress_position' );
+		$position_progress = $this->parent->get_settings( 'progress_position' );
 		?>
 
 		<div class="bdt-progress-with-top">
-			<div class="bdt-progress-wrap <?php echo $positionProgress; ?>">
+			<div class="bdt-progress-wrap <?php echo esc_attr($position_progress); ?>">
 				<svg class="bdt-progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
 					<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
 				</svg>

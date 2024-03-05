@@ -276,23 +276,32 @@ function monsterinsights_remove_conflicting_asset_files()
 		'tooltipster',
 		'flag-icon',
 		'bootstrap',
+		'vue.js',
+		'vuejs',
+		'vue_js',
 	);
 
 	global $wp_styles;
+	// Loop through all registered styles.
 	foreach ($wp_styles->queue as $handle) {
+		// If the source file is is not from wp-content directory.
 		if (strpos($wp_styles->registered[$handle]->src, 'wp-content') === false) {
-			return;
+			continue;
 		}
 
+		// If the handle contains monsterinsights in his name.
 		if (strpos($wp_styles->registered[$handle]->handle, 'monsterinsights') !== false) {
-			return;
+			continue;
 		}
 
+		// Loop through our listed handles.
 		foreach ($third_party as $partial) {
+			// If the handle contains conflicted style.
 			if (strpos($wp_styles->registered[$handle]->handle, $partial) !== false) {
 				wp_dequeue_style($handle); // Remove css file from MI screen
 				wp_deregister_style($handle);
 				break;
+			// If the source file contains conflicted style.
 			} else if (strpos($wp_styles->registered[$handle]->src, $partial) !== false) {
 				wp_dequeue_style($handle); // Remove css file from MI screen
 				wp_deregister_style($handle);
@@ -302,20 +311,27 @@ function monsterinsights_remove_conflicting_asset_files()
 	}
 
 	global $wp_scripts;
+	// Loop through all registered scripts.
 	foreach ($wp_scripts->queue as $handle) {
+
+		// If the source file is is not from wp-content directory.
 		if (strpos($wp_scripts->registered[$handle]->src, 'wp-content') === false) {
-			return;
+			continue;
 		}
 
+		// If the handle contains monsterinsights in his name.
 		if (strpos($wp_scripts->registered[$handle]->handle, 'monsterinsights') !== false) {
-			return;
+			continue;
 		}
 
+		// Loop through our listed handles.
 		foreach ($third_party as $partial) {
+			// If the handle contains conflicted script handle.
 			if (strpos($wp_scripts->registered[$handle]->handle, $partial) !== false) {
 				wp_dequeue_script($handle); // Remove JS file from MI screen
 				wp_deregister_script($handle);
 				break;
+			// If the source file contains conflicted script handle.
 			} else if (strpos($wp_scripts->registered[$handle]->src, $partial) !== false) {
 				wp_dequeue_script($handle); // Remove JS file from MI screen
 				wp_deregister_script($handle);
@@ -737,7 +753,7 @@ function monsterinsights_yearinreview_dates()
 	$show_report_end_date = wp_date( 'Y-m-d', strtotime( "Jan 14, " . $current_year ) );
 	if (
 		$current_date >= $show_report_start_date
-		&& $current_date <= $show_report_end_date 
+		&& $current_date <= $show_report_end_date
 	) {
 		$show_report = true;
 	}

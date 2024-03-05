@@ -1,5 +1,9 @@
 
 
+version 1.5.98:
+
+* Fix Some small gutenberg related bug fix
+
 version 1.5.97:
 
 * Fix: allow showing authors name translated

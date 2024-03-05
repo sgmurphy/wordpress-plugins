@@ -1034,12 +1034,12 @@ class Static_Carousel extends Module_Base
         $image_mask = $settings['image_mask_popover'] == 'yes' ? ' bdt-image-mask' : '';
         $this->add_render_attribute('image-wrap', 'class', 'bdt-ep-static-carousel-image' . $image_mask);
         ?>
-        <div <?php echo $this->get_render_attribute_string('image-wrap'); ?>>
+        <div <?php $this->print_render_attribute_string('image-wrap'); ?>>
 
             <?php
             $thumb_url = Group_Control_Image_Size::get_attachment_image_src($item['image']['id'], 'thumbnail_size', $settings);
             if (!$thumb_url) {
-                printf('<img src="%1$s" alt="%2$s">', $item['image']['url'], esc_html($item['title']));
+                printf('<img src="%1$s" alt="%2$s">', esc_url($item['image']['url']), esc_html($item['title']));
             } else {
                 print(
                     wp_get_attachment_image(
@@ -1055,7 +1055,7 @@ class Static_Carousel extends Module_Base
             ?>
 
             <?php if ($settings['readmore_link_to'] == 'image'): ?>
-                <a <?php echo $this->get_render_attribute_string($image_key); ?>></a>
+                <a <?php $this->print_render_attribute_string($image_key); ?>></a>
             <?php endif; ?>
 
         </div>
@@ -1079,13 +1079,13 @@ class Static_Carousel extends Module_Base
 
         ?>
         <?php if ($item['title']): ?>
-            <<?php echo Utils::get_valid_html_tag($settings['title_tag']); ?>
-                <?php echo $this->get_render_attribute_string('title-wrap'); ?>>
+            <<?php echo esc_attr(Utils::get_valid_html_tag($settings['title_tag'])); ?>
+                <?php $this->print_render_attribute_string('title-wrap'); ?>>
                 <?php echo wp_kses($item['title'], element_pack_allow_tags('title')); ?>
                 <?php if ($settings['readmore_link_to'] == 'title'): ?>
-                    <a <?php echo $this->get_render_attribute_string($title_key); ?>></a>
+                    <a <?php $this->print_render_attribute_string($title_key); ?>></a>
                 <?php endif; ?>
-            </<?php echo Utils::get_valid_html_tag($settings['title_tag']); ?>>
+            </<?php echo esc_attr(Utils::get_valid_html_tag($settings['title_tag'])); ?>>
         <?php endif; ?>
     <?php
     }
@@ -1102,10 +1102,10 @@ class Static_Carousel extends Module_Base
 
         ?>
         <?php if ($item['sub_title']): ?>
-            <<?php echo Utils::get_valid_html_tag($settings['sub_title_tag']); ?>
-                <?php echo $this->get_render_attribute_string('sub-title-wrap'); ?>>
+            <<?php echo esc_attr(Utils::get_valid_html_tag($settings['sub_title_tag'])); ?>
+                <?php $this->print_render_attribute_string('sub-title-wrap'); ?>>
                 <?php echo wp_kses($item['sub_title'], element_pack_allow_tags('sub_title')); ?>
-            </<?php echo Utils::get_valid_html_tag($settings['sub_title_tag']); ?>>
+            </<?php echo esc_attr(Utils::get_valid_html_tag($settings['sub_title_tag'])); ?>>
         <?php endif; ?>
     <?php
     }
@@ -1151,7 +1151,7 @@ class Static_Carousel extends Module_Base
         ?>
         <?php if ((!empty($item['readmore_link']['url'])) && ($settings['readmore_link_to'] == 'button')): ?>
             <div class="bdt-ep-static-carousel-readmore-wrap">
-                <a <?php echo $this->get_render_attribute_string($readmore_key); ?>>
+                <a <?php $this->print_render_attribute_string($readmore_key); ?>>
                     <?php echo esc_html($settings['readmore_text']); ?>
                     <?php if ($settings['readmore_icon']['value']): ?>
                         <span class="bdt-button-icon-align-<?php echo esc_attr($settings['icon_align']); ?>">
@@ -1185,7 +1185,7 @@ class Static_Carousel extends Module_Base
             }
 
             ?>
-            <div <?php echo $this->get_render_attribute_string('carosuel-item'); ?>>
+            <div <?php $this->print_render_attribute_string('carosuel-item'); ?>>
                 <?php $this->render_image($item, 'image_' . $index); ?>
                 <div class="bdt-ep-static-carousel-content">
                     <?php $this->render_sub_title($item); ?>
@@ -1195,7 +1195,7 @@ class Static_Carousel extends Module_Base
                 </div>
 
                 <?php if ($settings['readmore_link_to'] == 'item'): ?>
-                    <a <?php echo $this->get_render_attribute_string($item_key); ?>></a>
+                    <a <?php $this->print_render_attribute_string($item_key); ?>></a>
                 <?php endif; ?>
             </div>
         <?php endforeach;
@@ -1211,8 +1211,8 @@ class Static_Carousel extends Module_Base
         $this->add_render_attribute('carousel', 'class', 'bdt-static-carousel');
 
         ?>
-        <div <?php echo $this->get_render_attribute_string('carousel'); ?>>
-            <div <?php echo $this->get_render_attribute_string('swiper'); ?>>
+        <div <?php $this->print_render_attribute_string('carousel'); ?>>
+            <div <?php $this->print_render_attribute_string('swiper'); ?>>
                 <div class="swiper-wrapper">
                     <?php
     }

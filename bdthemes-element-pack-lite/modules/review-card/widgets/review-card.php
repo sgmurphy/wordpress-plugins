@@ -1031,12 +1031,12 @@ class Review_Card extends Module_Base {
 		$this->add_render_attribute('image-wrap', 'class', 'bdt-ep-review-card-image' . $image_mask);
 
         ?>
-        <div <?php echo $this->get_render_attribute_string('image-wrap'); ?>>
+        <div <?php $this->print_render_attribute_string('image-wrap'); ?>>
 
             <?php 
             $thumb_url = Group_Control_Image_Size::get_attachment_image_src($settings['image']['id'], 'thumbnail_size', $settings);
             if (!$thumb_url) {
-                printf('<img src="%1$s" alt="%2$s">', $settings['image']['url'], esc_html($settings['reviewer_name']));
+                printf('<img src="%1$s" alt="%2$s">', esc_url($settings['image']['url']), esc_html($settings['reviewer_name']));
             } else {
                 print(wp_get_attachment_image(
                     $settings['image']['id'],
@@ -1064,9 +1064,9 @@ class Review_Card extends Module_Base {
 
         ?>
         <?php if ( $settings['reviewer_name'] ) : ?>
-            <<?php echo Utils::get_valid_html_tag($settings['review_name_tag']); ?> <?php echo $this->get_render_attribute_string('review-name'); ?>>
+            <<?php echo esc_attr(Utils::get_valid_html_tag($settings['review_name_tag'])); ?> <?php $this->print_render_attribute_string('review-name'); ?>>
                 <?php echo wp_kses($settings['reviewer_name'], element_pack_allow_tags('title')); ?>
-            </<?php echo Utils::get_valid_html_tag($settings['review_name_tag']); ?>>
+            </<?php echo esc_attr(Utils::get_valid_html_tag($settings['review_name_tag'])); ?>>
         <?php endif; ?>
         <?php
     }
@@ -1132,7 +1132,7 @@ class Review_Card extends Module_Base {
                     <span><?php echo esc_html( $settings['rating_number']['size'] ); ?></span>
                     <i class="ep-icon-star-full" aria-hidden="true"></i>
                 <?php else : ?>
-                    <span class="epsc-rating epsc-rating-<?php echo $score; ?>">
+                    <span class="epsc-rating epsc-rating-<?php echo esc_attr( $score ); ?>">
                         <span class="epsc-rating-item"><i class="ep-icon-star" aria-hidden="true"></i></span>
                         <span class="epsc-rating-item"><i class="ep-icon-star" aria-hidden="true"></i></span>
                         <span class="epsc-rating-item"><i class="ep-icon-star" aria-hidden="true"></i></span>
@@ -1157,7 +1157,7 @@ class Review_Card extends Module_Base {
         }
 
         ?>
-        <div <?php echo $this->get_render_attribute_string('review-item'); ?>>
+        <div <?php $this->print_render_attribute_string('review-item'); ?>>
             
             <?php if ('' == $settings['image_inline']) : ?>
                 <?php $this->render_reviewer_image(); ?>
@@ -1166,7 +1166,7 @@ class Review_Card extends Module_Base {
             <div class="bdt-ep-review-card-content">
 
                 <?php if ('yes' == $settings['image_inline']) : ?>
-                    <div <?php echo $this->get_render_attribute_string('image-inline'); ?>>
+                    <div <?php $this->print_render_attribute_string('image-inline'); ?>>
                         
                         <?php $this->render_reviewer_image(); ?>
                         
@@ -1206,7 +1206,7 @@ class Review_Card extends Module_Base {
         $this->add_render_attribute('review-card', 'class', 'bdt-review-card bdt-review-card-style-1');
 
         ?>
-        <div <?php echo $this->get_render_attribute_string('review-card'); ?>>
+        <div <?php $this->print_render_attribute_string('review-card'); ?>>
             <?php $this->render_review_item(); ?>
         </div>
         <?php

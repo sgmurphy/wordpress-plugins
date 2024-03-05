@@ -23,7 +23,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/accordion/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/accordion/',
                     'video_url'    => 'https://youtu.be/DP3XNV1FEk0',
                 ],
                 [
@@ -33,7 +33,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/advanced-button/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/advanced-button/',
                     'video_url'    => 'https://youtu.be/Lq_st2IWZiE',
                 ],
                 [
@@ -43,7 +43,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/advanced-calculator/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/advanced-calculator/',
                     'video_url'    => 'https://youtu.be/vw28HW6duXE',
                 ],
                 [
@@ -53,7 +53,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/advanced-counter/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/advanced-counter/',
                     'video_url'    => 'https://youtu.be/Ydok6ImEQvE',
                 ],
                 [
@@ -63,7 +63,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/advanced-divider/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/advanced-divider/',
                     'video_url'    => 'https://youtu.be/HbtNHQJm3m0',
                 ],
                 [
@@ -73,7 +73,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/advanced-google-map/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/advanced-google-map/',
                     'video_url'    => 'https://youtu.be/qaZ-hv6UPDY',
                 ],
                 [
@@ -83,7 +83,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/advanced-heading/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/advanced-heading/',
                     'video_url'    => 'https://youtu.be/E1jYInKYTR0',
                 ],
                 [
@@ -93,7 +93,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/advanced-icon-box/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/advanced-icon-box/',
                     'video_url'    => 'https://youtu.be/IU4s5Cc6CUA',
                 ],
                 [
@@ -103,7 +103,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom gallery',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/advanced-image-gallery/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/advanced-image-gallery/',
                     'video_url'    => 'https://youtu.be/se7BovYbDok',
                 ],
                 [
@@ -113,7 +113,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/advanced-progress-bar/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/advanced-progress-bar/',
                     'video_url'    => 'https://youtu.be/7hnmMdd2-Yo',
                 ],
                 [
@@ -123,7 +123,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/age-gate/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/age-gate/',
                     'video_url'    => 'https://youtu.be/I32wKLfNIes',
                 ],
                 [
@@ -133,7 +133,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/air-pollution/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/air-pollution/',
                     'video_url'    => 'https://youtu.be/m38ddVi52-Q',
                 ],
                 [
@@ -143,7 +143,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/animated-card/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/animated-card/',
                     'video_url'    => 'https://youtu.be/gfXpQ-dTr9g',
                 ],
                 [
@@ -153,7 +153,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/animated-heading/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/animated-heading/',
                     'video_url'    => 'https://youtu.be/xypAmQodUYA',
                 ],
                 [
@@ -163,7 +163,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/animated-link/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/animated-link/',
                     'video_url'    => 'https://youtu.be/qs0gEVh0x7w',
                 ],
                 [
@@ -173,7 +173,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/audio-player/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/audio-player/',
                     'video_url'    => 'https://youtu.be/VHAEO1xLVxU',
                 ],
                 [
@@ -183,7 +183,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/barcode',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/barcode',
                     'video_url'    => 'https://youtu.be/PWxNP2zLqDg',
                 ],
                 [
@@ -193,7 +193,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/brand-grid',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/brand-grid',
                     'video_url'    => 'https://youtu.be/a_wJL950Kz4',
                 ],
                 [
@@ -203,7 +203,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/brand-carousel',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/brand-carousel',
                     'video_url'    => 'https://youtu.be/LdCxFzpYuO0',
                 ],
                 [
@@ -213,7 +213,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/breadcrumbs',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/breadcrumbs',
                     'video_url'    => 'https://youtu.be/32yrjPHq-AA',
                 ],
                 [
@@ -223,7 +223,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/business-hours',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/business-hours',
                     'video_url'    => 'https://youtu.be/1QfZ-os75rQ',
                 ],
                 [
@@ -233,7 +233,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/dual-button/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/dual-button/',
                     'video_url'    => 'https://youtu.be/7hWWqHEr6s8',
                 ],
                 [
@@ -243,7 +243,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/charts',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/charts',
                     'video_url'    => 'https://youtu.be/-1WVTzTyti0',
 
                 ],
@@ -254,7 +254,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/calendly/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/calendly/',
                     'video_url'    => 'https://youtu.be/nl4zC46SrhY',
                 ],
                 [
@@ -264,7 +264,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/call-out/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/call-out/',
                     'video_url'    => 'https://youtu.be/1tNppRHvSvQ',
 
                 ],
@@ -275,7 +275,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'post carousel',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/carousel',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/carousel',
                     'video_url'    => 'https://youtu.be/biF3GtBf0qc',
 
                 ],
@@ -286,7 +286,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/changelog',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/changelog',
                     'video_url'    => 'https://youtu.be/835Fsi2jGRI',
 
                 ],
@@ -297,7 +297,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/circle-menu/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/circle-menu/',
                     'video_url'    => 'https://www.youtube.com/watch?v=rfW22T-U7Ag',
 
                 ],
@@ -308,7 +308,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/comparison-list/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/comparison-list/',
                     'video_url'    => 'https://youtu.be/7XvSgvbJM74',
                 ],
                 [
@@ -318,7 +318,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/circle-info/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/circle-info/',
                     'video_url'    => 'https://youtu.be/PIQ6BJtNpNU',
 
                 ],
@@ -329,7 +329,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/content-switcher/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/content-switcher/',
                     'video_url'    => 'https://youtu.be/4NjUGf9EY0U',
                 ],
                 [
@@ -339,7 +339,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/cookie-consent/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/cookie-consent/',
                     'video_url'    => 'https://youtu.be/BR4t5ngDzqM',
 
                 ],
@@ -350,7 +350,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/event-calendar-countdown',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/event-calendar-countdown',
                     'video_url'    => 'https://youtu.be/oxqHEDyzvIM',
 
                 ],
@@ -361,7 +361,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/simple-contact-form/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/simple-contact-form/',
                     'video_url'    => 'https://youtu.be/faIeyW7LOJ8',
 
                 ],
@@ -372,7 +372,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/comment/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/comment/',
                     'video_url'    => 'https://youtu.be/csvMTyUx7Hs',
                 ],
                 [
@@ -382,7 +382,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'custom gallery',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/custom-gallery/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/custom-gallery/',
                     'video_url'    => 'https://youtu.be/2fAF8Rt7FbQ',
 
                 ],
@@ -393,7 +393,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom carousel',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/custom-carousel/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/custom-carousel/',
                     'video_url'    => 'https://youtu.be/TMwdfYDmTQo',
 
                 ],
@@ -404,7 +404,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/creative-button/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/creative-button/',
                     'video_url'    => 'https://youtu.be/6f2t-79MfnU',
                 ],
                 [
@@ -414,7 +414,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/crypto-currency-card/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/crypto-currency-card/',
                     'video_url'    => 'https://youtu.be/F13YPkFkLso',
                 ],
                 [
@@ -424,7 +424,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/crypto-currency-table/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/crypto-currency-table/',
                     'video_url'    => 'https://youtu.be/F13YPkFkLso',
                 ],
                 [
@@ -434,7 +434,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/crypto-currency-grid/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/crypto-currency-grid/',
                     'video_url'    => '',
                 ],
                 [
@@ -444,7 +444,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/crypto-currency-carousel/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/crypto-currency-carousel/',
                     'video_url'    => '',
                 ],
                 [
@@ -454,7 +454,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/crypto-currency-ticker/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/crypto-currency-ticker/',
                     'video_url'    => '',
                 ],
                 [
@@ -464,7 +464,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/crypto-currency-chart/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/crypto-currency-chart/',
                     'video_url'    => '',
                 ],
                 [
@@ -474,7 +474,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/crypto-currency-chart/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/crypto-currency-chart/',
                     'video_url'    => '',
                 ],
                 [
@@ -484,7 +484,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/crypto-currency-list/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/crypto-currency-list/',
                     'video_url'    => '',
                 ],
                 [
@@ -494,7 +494,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/coupon-code/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/coupon-code/',
                     'video_url'    => 'https://youtu.be/xru1Xu3ISZ0',
 
                 ],
@@ -505,7 +505,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/dark-mode',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/dark-mode',
                     'video_url'    => 'https://youtu.be/nuYa-0sWFxU',
 
                 ],
@@ -517,7 +517,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/document-viewer',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/document-viewer',
                     'video_url'    => 'https://www.youtube.com/watch?v=8Ar9NQe93vg',
 
                 ],
@@ -529,7 +529,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom slider',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/device-slider/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/device-slider/',
                     'video_url'    => 'https://youtu.be/GACXtqun5Og',
 
                 ],
@@ -540,7 +540,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/dropbar/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/dropbar/',
                     'video_url'    => 'https://youtu.be/cXMq8nOCdqk',
 
                 ],
@@ -551,7 +551,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/dynamic-grid/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/dynamic-grid/',
                     'video_url'    => 'https://youtu.be/3H6eSrLkse4',
 
                 ],
@@ -562,7 +562,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/dynamic-carousel/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/dynamic-carousel/',
                     'video_url'    => 'https://youtu.be/0j1KGXujc78',
 
                 ],
@@ -573,7 +573,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/facebook-feed/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/facebook-feed/',
                     'video_url'    => 'https://youtu.be/iNUl6q2yRDU',
 
                 ],
@@ -584,7 +584,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/facebook-feed-carousel/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/facebook-feed-carousel/',
                     'video_url'    => 'https://youtu.be/wMumsINLfUA',
 
                 ],
@@ -595,7 +595,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/fancy-card/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/fancy-card/',
                     'video_url'    => 'https://youtu.be/BXdVB1pLfXE',
 
                 ],
@@ -606,7 +606,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/fancy-list/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/fancy-list/',
                     'video_url'    => 'https://youtu.be/t1_5uys8bto',
 
                 ],
@@ -617,7 +617,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/fancy-icons/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/fancy-icons/',
                     'video_url'    => 'https://youtu.be/Y4NoiuW2yBM',
 
                 ],
@@ -628,7 +628,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/fancy-slider/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/fancy-slider/',
                     'video_url'    => 'https://youtu.be/UGBnjbp90eA',
 
                 ],
@@ -639,7 +639,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/fancy-tabs/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/fancy-tabs/',
                     'video_url'    => 'https://youtu.be/wBTRSjofce4',
 
                 ],
@@ -650,7 +650,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/flip-box/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/flip-box/',
                     'video_url'    => 'https://youtu.be/FLmKzk9KbQg',
 
                 ],
@@ -661,7 +661,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'post',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/floating-knowledgebase/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/floating-knowledgebase/',
                     'video_url'    => 'https://youtu.be/02xNh5syhZ0',
 
                 ],
@@ -672,7 +672,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/featured-box/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/featured-box/',
                     'video_url'    => 'https://youtu.be/Qe4yYXajhQg',
 
                 ],
@@ -683,7 +683,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'slider',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/google-reviews/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/google-reviews/',
                     'video_url'    => 'https://youtu.be/pp0mQpyKqfs',
 
                 ],
@@ -694,7 +694,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/help-desk/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/help-desk/',
                     'video_url'    => 'https://youtu.be/bO__skhy4yk',
 
                 ],
@@ -705,7 +705,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/hover-box/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/hover-box/',
                     'video_url'    => 'https://youtu.be/lWdF9-SV-2I',
 
                 ],
@@ -716,7 +716,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/hover-video/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/hover-video/',
                     'video_url'    => 'https://youtu.be/RgoWlIm5KOo',
 
                 ],
@@ -727,7 +727,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/honeycombs/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/honeycombs/',
                     'video_url'    => 'https://youtu.be/iTWXzc329vQ',
 
                 ],
@@ -738,7 +738,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/horizontal-scroller/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/horizontal-scroller/',
                     'video_url'    => 'https://youtu.be/x6vpXQt6__k',
 
                 ],
@@ -749,7 +749,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'menu',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/icon-mobile-menu/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/icon-mobile-menu/',
                     'video_url'    => 'https://youtu.be/lJxkFDzrDeY',
                 ],
                 [
@@ -759,7 +759,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/icon-nav/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/icon-nav/',
                     'video_url'    => 'https://youtu.be/Q4YY8pf--ig',
                 ],
                 [
@@ -769,7 +769,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/iframe/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/iframe/',
                     'video_url'    => 'https://youtu.be/wQPgsmrxZHM',
                 ],
                 [
@@ -779,7 +779,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others carousel',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/instagram-feed/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/instagram-feed/',
                     'video_url'    => 'https://youtu.be/uj9WpuFIZb8',
                 ],
                 [
@@ -789,7 +789,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/image-accordion/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/image-accordion/',
                     'video_url'    => 'https://youtu.be/jQWU4kxXJpM',
                 ],
                 [
@@ -799,7 +799,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/image-compare/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/image-compare/',
                     'video_url'    => 'https://youtu.be/-Kwjlg0Fwk0',
                 ],
                 [
@@ -809,7 +809,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/image-expand/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/image-expand/',
                     'video_url'    => 'https://youtu.be/gNg7vpypycY',
                 ],
                 [
@@ -819,7 +819,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/image-stack/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/image-stack/',
                     'video_url'    => 'https://youtu.be/maLIlug2RwM',
                 ],
                 [
@@ -829,7 +829,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/image-magnifier/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/image-magnifier/',
                     'video_url'    => 'https://youtu.be/GSy3pLihNPY',
                 ],
                 [
@@ -839,7 +839,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/interactive-card/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/interactive-card/',
                     'video_url'    => 'https://youtu.be/r8IXJUD3PA4',
                 ],
                 [
@@ -849,7 +849,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/interactive-tabs/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/interactive-tabs/',
                     'video_url'    => 'https://youtu.be/O3VFyW0G6_Q',
                 ],
                 [
@@ -859,7 +859,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/lightbox/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/lightbox/',
                     'video_url'    => 'https://youtu.be/1iKQD4HfZG4',
                 ],
                 [
@@ -869,7 +869,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/lottie-image/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/lottie-image/',
                     'video_url'    => 'https://youtu.be/CbODBtLTxWc',
                 ],
                 [
@@ -879,7 +879,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/lottie-icon-box/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/lottie-icon-box/',
                     'video_url'    => 'https://youtu.be/1jKFSglW6qE',
                 ],
                 [
@@ -889,7 +889,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/logo-grid/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/logo-grid/',
                     'video_url'    => 'https://youtu.be/Go1YE3O23J4',
                 ],
                 [
@@ -899,7 +899,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/logo-carousel/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/logo-carousel/',
                     'video_url'    => 'https://youtu.be/xe_SA0ZgAvA',
                 ],
                 [
@@ -909,7 +909,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/mega-menu/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/mega-menu/',
                     'video_url'    => 'https://youtu.be/ZOBLWIZvGLs',
                 ],
                 [
@@ -919,7 +919,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/marquee/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/marquee/',
                     'video_url'    => 'https://youtu.be/3Dnxt9V0mzc',
                 ],
                 [
@@ -929,7 +929,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/modal/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/modal/',
                     'video_url'    => 'https://youtu.be/4qRa-eYDGZU',
                 ],
                 [
@@ -939,7 +939,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/mailchimp/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/mailchimp/',
                     'video_url'    => 'https://youtu.be/hClaXvxvkXM',
                 ],
                 [
@@ -949,7 +949,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/marker/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/marker/',
                     'video_url'    => 'https://youtu.be/1iKQD4HfZG4',
                 ],
                 [
@@ -959,7 +959,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/member/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/member/',
                     'video_url'    => 'https://youtu.be/m8_KOHzssPA',
                 ],
                 [
@@ -969,7 +969,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/navbar/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/navbar/',
                     'video_url'    => 'https://youtu.be/ZXdDAi9tCxE',
                 ],
                 [
@@ -979,7 +979,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'post',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/news-ticker',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/news-ticker',
                     'video_url'    => 'https://youtu.be/FmpFhNTR7uY',
                 ],
                 [
@@ -989,7 +989,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/notification',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/notification',
                     'video_url'    => 'https://youtu.be/eI4UG1NYAYk',
                 ],
                 [
@@ -999,7 +999,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/offcanvas/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/offcanvas/',
                     'video_url'    => 'https://youtu.be/CrrlirVfmQE',
                 ],
                 [
@@ -1009,7 +1009,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/open-street-map',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/open-street-map',
                     'video_url'    => 'https://youtu.be/DCQ5g7yleyk',
                 ],
                 [
@@ -1019,7 +1019,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/price-list/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/price-list/',
                     'video_url'    => 'https://youtu.be/QsXkIYwfXt4',
                 ],
                 [
@@ -1029,7 +1029,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/pricing-table',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/pricing-table',
                     'video_url'    => 'https://youtu.be/D8_inzgdvyg',
                 ],
                 [
@@ -1039,7 +1039,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/product-grid',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/product-grid',
                     'video_url'    => 'https://youtu.be/-UJhU-ak5_k',
                 ],
                 [
@@ -1049,7 +1049,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'carousel',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/product-carousel',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/product-carousel',
                     'video_url'    => 'https://youtu.be/ZFpkJIctXic',
                 ],
                 [
@@ -1059,7 +1059,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'custom slider',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/panel-slider/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/panel-slider/',
                     'video_url'    => 'https://youtu.be/_piVTeJd0g4',
                 ],
                 [
@@ -1069,7 +1069,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'post slider',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/post-slider',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/post-slider',
                     'video_url'    => 'https://youtu.be/oPYzWVLPF7A',
                 ],
                 [
@@ -1079,7 +1079,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'post',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/post-card/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/post-card/',
                     'video_url'    => 'https://youtu.be/VKtQCjnEJvE',
                 ],
                 [
@@ -1089,7 +1089,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'post',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/post-block/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/post-block/',
                     'video_url'    => 'https://youtu.be/bFEyizMaPmw',
                 ],
                 [
@@ -1099,7 +1099,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'post',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/post-block/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/post-block/',
                     'video_url'    => 'https://youtu.be/bFEyizMaPmw',
                 ],
                 [
@@ -1109,7 +1109,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/progress-pie/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/progress-pie/',
                     'video_url'    => 'https://youtu.be/c5ap86jbCeg',
                 ],
                 [
@@ -1119,7 +1119,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'post gallery',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/post-gallery',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/post-gallery',
                     'video_url'    => 'https://youtu.be/iScykjTKlNA',
                 ],
                 [
@@ -1129,7 +1129,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'post',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/post%20grid/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/post%20grid/',
                     'video_url'    => 'https://youtu.be/z3gWwPIsCkg',
                 ],
                 [
@@ -1139,7 +1139,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'post',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/post-grid-tab',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/post-grid-tab',
                     'video_url'    => 'https://youtu.be/kFEL4AGnIv4',
                 ],
                 [
@@ -1149,7 +1149,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'post',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/post-list/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/post-list/',
                     'video_url'    => 'https://youtu.be/5aQTAsLRF0o',
                 ],
                 [
@@ -1159,7 +1159,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'post',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/profile-card/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/profile-card/',
                     'video_url'    => 'https://youtu.be/Slnx_mxDBqo',
                 ],
                 [
@@ -1169,7 +1169,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/protected-content/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/protected-content/',
                     'video_url'    => 'https://youtu.be/jcLWace-JpE',
 
                 ],
@@ -1180,7 +1180,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/qr-code/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/qr-code/',
                     'video_url'    => 'https://youtu.be/3ofLAjpnmO8',
                 ],
                 [
@@ -1190,7 +1190,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/reading-progress/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/reading-progress/',
                     'video_url'    => 'https://youtu.be/cODL1E2f9FI',
                 ],
                 [
@@ -1200,7 +1200,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/reading-timer/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/reading-timer/',
                     'video_url'    => 'https://youtu.be/7lRyOmR6yqo?si=iuO-Ax-6wNmkmSuM',
                 ],
                 [
@@ -1210,7 +1210,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/remote-arrows/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/remote-arrows/',
                     'video_url'    => 'https://youtu.be/w0CEROpvjjA',
                 ],
                 [
@@ -1220,7 +1220,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/remote-fraction/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/remote-fraction/',
                     'video_url'    => 'https://youtu.be/UfmwcTjX7L8',
                 ],
                 [
@@ -1230,7 +1230,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/remote-pagination/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/remote-pagination/',
                     'video_url'    => 'https://youtu.be/eZWSkb7HeUA',
                 ],
                 [
@@ -1240,7 +1240,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/remote-thumbs/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/remote-thumbs/',
                     'video_url'    => 'https://youtu.be/PKKnqB0vhzE',
                 ],
                 [
@@ -1250,7 +1250,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/review-card/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/review-card/',
                     'video_url'    => 'https://youtu.be/xFtjeR1qgSE',
                 ],
                 [
@@ -1260,7 +1260,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/review-card-grid/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/review-card-grid/',
                     'video_url'    => 'https://youtu.be/hIKLXU9Rh-8',
                 ],
                 [
@@ -1270,7 +1270,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom carousel',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/review-card-carousel/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/review-card-carousel/',
                     'video_url'    => 'https://youtu.be/7kMyajVai6E',
                 ],
                 [
@@ -1280,7 +1280,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'custom slider',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/layer-slider/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/layer-slider/',
                     'video_url'    => 'https://youtu.be/SI4K4zuNOoE',
                 ],
                 [
@@ -1290,7 +1290,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/slideshow/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/slideshow/',
                     'video_url'    => 'https://youtu.be/BrrKmDfJ5ZI',
                 ],
                 [
@@ -1300,7 +1300,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/slinky-vertical-menu/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/slinky-vertical-menu/',
                     'video_url'    => 'https://youtu.be/5RE9w-JqKwk',
                 ],
                 [
@@ -1309,7 +1309,7 @@ class ModuleService {
                     'type'        => 'checkbox',
                     'default'     => 'off',
                     'widget_type' => 'pro',
-                    'demo_url'    => 'https://www.elementpack.pro/demo/element/scrollnav/',
+                    'demo_url'    => 'https://demo.elementpack.pro/element/scrollnav/',
                     'video_url'   => 'https://youtu.be/P3DfE53_w5I',
                 ],
                 [
@@ -1319,7 +1319,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/search/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/search/',
                     'video_url'    => 'https://youtu.be/H3F1LHc97Gk',
                 ],
                 [
@@ -1329,7 +1329,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/search/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/search/',
                     'video_url'    => 'https://youtu.be/y8LJCO3tQqk',
                 ],
                 [
@@ -1339,7 +1339,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/scroll-image',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/scroll-image',
                     'video_url'    => 'https://youtu.be/UpmtN1GsJkQ',
                 ],
                 [
@@ -1349,7 +1349,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/source-code',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/source-code',
                     'video_url'    => 'https://youtu.be/vnqpD9aAmzg',
                 ],
                 [
@@ -1359,7 +1359,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/stacker',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/stacker',
                     'video_url'    => 'https://youtu.be/fZSTyJc5W7E?si=GkkUhdv9aXPTlVxS',
                 ],
                 [
@@ -1369,7 +1369,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom carousel',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/static-carousel',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/static-carousel',
                     'video_url'    => 'https://youtu.be/8A2a8ws6364',
                 ],
                 [
@@ -1379,7 +1379,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/static-grid-tab',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/static-grid-tab',
                     'video_url'    => 'https://www.youtube.com/watch?v=HIvQX9eLWU8',
                 ],
                 [
@@ -1389,7 +1389,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'post',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/single-post',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/single-post',
                     'video_url'    => 'https://youtu.be/32g-F4_Avp4',
                 ],
                 [
@@ -1399,7 +1399,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/social-share/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/social-share/',
                     'video_url'    => 'https://youtu.be/3OPYfeVfcb8',
                 ],
                 [
@@ -1409,7 +1409,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/social-proof/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/social-proof/',
                     'video_url'    => 'https://youtu.be/jpIX4VHzSxA',
                 ],
                 [
@@ -1419,7 +1419,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/step-flow/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/step-flow/',
                     'video_url'    => 'https://youtu.be/YNjbt-5GO4k',
                 ],
                 [
@@ -1429,7 +1429,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/sub-menu/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/sub-menu/',
                     'video_url'    => 'https://youtu.be/YuwB964kQMw',
                 ],
                 [
@@ -1439,7 +1439,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/switcher/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/switcher/',
                     'video_url'    => 'https://youtu.be/BIEFRxDF1UE',
                 ],
                 [
@@ -1449,7 +1449,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/svg-blob/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/svg-blob/',
                     'video_url'    => 'https://youtu.be/sgyUOC7TXPA',
                 ],
                 [
@@ -1459,7 +1459,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/svg-image/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/svg-image/',
                     'video_url'    => 'https://youtu.be/XRbjpcp5dJ0',
 
                 ],
@@ -1470,7 +1470,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/svg-maps/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/svg-maps/',
                     'video_url'    => 'https://youtu.be/07WomY1e9-U',
                 ],
                 [
@@ -1480,7 +1480,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/tabs/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/tabs/',
                     'video_url'    => 'https://youtu.be/1BmS_8VpBF4',
                 ],
                 [
@@ -1490,7 +1490,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/table/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/table/',
                     'video_url'    => 'https://youtu.be/dviKkEPsg04',
                 ],
                 [
@@ -1500,7 +1500,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'post',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/table-of-content-test-post/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/table-of-content-test-post/',
                     'video_url'    => 'https://youtu.be/DbPrqUD8cOY',
                 ],
                 [
@@ -1510,7 +1510,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/tags-cloud/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/tags-cloud/',
                     'video_url'    => 'https://youtu.be/LW_WFs9gybU',
                 ],
                 [
@@ -1520,7 +1520,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'post',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/timeline/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/timeline/',
                     'video_url'    => 'https://youtu.be/lp4Zqn6niXU',
                 ],
                 [
@@ -1530,7 +1530,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/time-zone/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/time-zone/',
                     'video_url'    => 'https://youtu.be/WOMIk_FVRz4',
                 ],
                 [
@@ -1540,7 +1540,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/total-count/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/total-count/',
                     'video_url'    => 'https://youtu.be/1KgG9vTrY8I',
                 ],
                 [
@@ -1550,7 +1550,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/trailer-box/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/trailer-box/',
                     'video_url'    => 'https://youtu.be/3AR5RlBAAYg',
                 ],
                 [
@@ -1560,7 +1560,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'post gallery',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/thumb-gallery/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/thumb-gallery/',
                     'video_url'    => 'https://youtu.be/NJ5ZR-9ODus',
                 ],
                 [
@@ -1570,7 +1570,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'custom',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/toggle/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/toggle/',
                     'video_url'    => 'https://youtu.be/7_jk_NvbKls',
                 ],
                 [
@@ -1580,7 +1580,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others carousel',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/twitter-carousel/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/twitter-carousel/',
                     'video_url'    => 'https://youtu.be/eeyR1YtUFZw',
                 ],
                 [
@@ -1590,7 +1590,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/twitter-grid/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/twitter-grid/',
                     'video_url'    => 'https://youtu.be/cYqDPiDpsEY',
                 ],
                 [
@@ -1600,7 +1600,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others slider',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/twitter-slider',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/twitter-slider',
                     'video_url'    => 'https://youtu.be/Bd3I7ipqMms',
                 ],
                 [
@@ -1610,7 +1610,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/360-product-viewer/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/360-product-viewer/',
                     'video_url'    => 'https://youtu.be/60Q4sK-FzLI',
                 ],
                 [
@@ -1620,7 +1620,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/user-login/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/user-login/',
                     'video_url'    => 'https://youtu.be/JLdKfv_-R6c',
                 ],
                 [
@@ -1630,7 +1630,7 @@ class ModuleService {
                     'default'      => 'on',
                     'widget_type'  => 'free',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/user-register/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/user-register/',
                     'video_url'    => 'https://youtu.be/hTjZ1meIXSY',
                 ],
                 [
@@ -1640,7 +1640,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/vertical-menu/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/vertical-menu/',
                     'video_url'    => 'https://youtu.be/ezZBOistuF4',
                 ],
                 [
@@ -1650,7 +1650,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'custom gallery',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/video-gallery/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/video-gallery/',
                     'video_url'    => 'https://youtu.be/wbkou6p7l3s',
                 ],
                 [
@@ -1660,7 +1660,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/video-player/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/video-player/',
                     'video_url'    => 'https://youtu.be/ksy2uZ5Hg3M',
                 ],
                 [
@@ -1670,7 +1670,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/weather/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/weather/',
                     'video_url'    => 'https://youtu.be/Vjyl4AAAufg',
                 ],
                 [
@@ -1680,7 +1680,7 @@ class ModuleService {
                     'default'      => 'off',
                     'widget_type'  => 'pro',
                     'content_type' => 'others',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/webhook-form/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/webhook-form/',
                     'video_url'    => 'https://youtu.be/l6h9xFh723A?si=4RICL4bZap5i9fQo',
                 ],
             ],
@@ -1692,7 +1692,7 @@ class ModuleService {
                     'type'         => 'checkbox',
                     'default'      => 'off',
                     'widget_type'  => 'pro',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/adblock-detector',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/adblock-detector',
                     'video_url'    => 'https://youtu.be/DGmEHqIM4XA',
                 ],
                 [
@@ -1701,7 +1701,7 @@ class ModuleService {
                     'type'         => 'checkbox',
                     'default'      => 'off',
                     'widget_type'  => 'free',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/animated-gradient-background/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/animated-gradient-background/',
                     'video_url'    => 'https://youtu.be/Hdq06W-2KDw',
                 ],
                 [
@@ -1710,7 +1710,7 @@ class ModuleService {
                     'type'        => 'checkbox',
                     'default'     => 'off',
                     'widget_type' => 'free',
-                    'demo_url'    => 'https://www.elementpack.pro/demo/element/backdrop-filter',
+                    'demo_url'    => 'https://demo.elementpack.pro/element/backdrop-filter',
                     'video_url'   => 'https://youtu.be/XuS3D-czTJc',
                 ],
                 [
@@ -1719,7 +1719,7 @@ class ModuleService {
                     'type'        => 'checkbox',
                     'default'     => 'off',
                     'widget_type' => 'pro',
-                    'demo_url'    => 'https://www.elementpack.pro/demo/element/background-expand',
+                    'demo_url'    => 'https://demo.elementpack.pro/element/background-expand',
                     'video_url'   => 'https://youtu.be/VJ5ZnhLgLMs',
                 ],
                 [
@@ -1728,7 +1728,7 @@ class ModuleService {
                     'type'        => 'checkbox',
                     'default'     => 'off',
                     'widget_type' => 'free',
-                    'demo_url'    => 'https://www.elementpack.pro/demo/element/background-overlay/',
+                    'demo_url'    => 'https://demo.elementpack.pro/element/background-overlay/',
                     'video_url'   => 'https://youtu.be/Px7PMsFK3Jg',
                 ],
                 [
@@ -1737,7 +1737,7 @@ class ModuleService {
                     'type'        => 'checkbox',
                     'default'     => 'off',
                     'widget_type' => 'pro',
-                    'demo_url'    => 'https://www.elementpack.pro/demo/element/parallax-background/',
+                    'demo_url'    => 'https://demo.elementpack.pro/element/parallax-background/',
                     'video_url'   => 'https://youtu.be/UI3xKt2IlCQ',
                 ],
                 [
@@ -1746,7 +1746,7 @@ class ModuleService {
                     'type'         => 'checkbox',
                     'default'      => 'off',
                     'widget_type'  => 'pro',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/confetti-effects',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/confetti-effects',
                     'video_url'    => 'https://youtu.be/NcKHFeeUXqg',
                 ],
                 [
@@ -1755,7 +1755,7 @@ class ModuleService {
                     'type'         => 'checkbox',
                     'default'      => 'off',
                     'widget_type'  => 'pro',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/cursor-effects/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/cursor-effects/',
                     'video_url'    => 'https://youtu.be/Pnev5lPByEc',
                 ],
                 [
@@ -1764,7 +1764,7 @@ class ModuleService {
                     'type'        => 'checkbox',
                     'default'     => 'off',
                     'widget_type' => 'free',
-                    'demo_url'    => 'https://www.elementpack.pro/demo/element/custom-js/',
+                    'demo_url'    => 'https://demo.elementpack.pro/element/custom-js/',
                     'video_url'   => 'https://youtu.be/e-_qQl6dBbE?t=312',
                 ],
                 [
@@ -1773,7 +1773,7 @@ class ModuleService {
                     'type'        => 'checkbox',
                     'default'     => 'off',
                     'widget_type' => 'free',
-                    'demo_url'    => 'https://www.elementpack.pro/demo/element/widget-equal-height/',
+                    'demo_url'    => 'https://demo.elementpack.pro/element/widget-equal-height/',
                     'video_url'   => 'https://youtu.be/h19c3FOxYlc',
                 ],
                 [
@@ -1782,7 +1782,7 @@ class ModuleService {
                     'type'        => 'checkbox',
                     'default'     => 'off',
                     'widget_type' => 'free',
-                    'demo_url'    => 'https://www.elementpack.pro/demo/element/floating-effects',
+                    'demo_url'    => 'https://demo.elementpack.pro/element/floating-effects',
                     'video_url'   => 'https://youtu.be/hVFqjc9b3dE',
                 ],
                 [
@@ -1791,7 +1791,7 @@ class ModuleService {
                     'type'         => 'checkbox',
                     'default'      => 'off',
                     'widget_type'  => 'pro',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/hash-link/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/hash-link/',
                     'video_url'    => '',
                 ],
                 [
@@ -1800,7 +1800,7 @@ class ModuleService {
                     'type'         => 'checkbox',
                     'default'      => 'off',
                     'widget_type'  => 'free',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/grid-line',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/grid-line',
                     'video_url'    => 'https://youtu.be/SzC8En2Xl9c',
                 ],
                 [
@@ -1809,7 +1809,7 @@ class ModuleService {
                     'type'         => 'checkbox',
                     'default'      => 'off',
                     'widget_type'  => 'pro',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/content-protector',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/content-protector',
                     'video_url'    => 'https://youtu.be/ZN-8fnhWeI0?si=6WBFa6YYrXxYYLdF',
                 ],
                 [ 
@@ -1819,7 +1819,7 @@ class ModuleService {
 					'default'      => 'off',
 					'widget_type'  => 'pro',
 					'content_type' => 'new',
-					'demo_url'     => 'https://www.elementpack.pro/demo/element/image-hover-effects/',
+					'demo_url'     => 'https://demo.elementpack.pro/element/image-hover-effects/',
 					'video_url'    => '',
 				],
                 [
@@ -1828,7 +1828,7 @@ class ModuleService {
                     'type'        => 'checkbox',
                     'default'     => 'off',
                     'widget_type' => 'pro',
-                    'demo_url'    => 'https://www.elementpack.pro/demo/element/parallax-section/',
+                    'demo_url'    => 'https://demo.elementpack.pro/element/parallax-section/',
                     'video_url'   => 'https://youtu.be/nMzk55831MY',
                 ],
                 [
@@ -1837,7 +1837,7 @@ class ModuleService {
                     'type'         => 'checkbox',
                     'default'      => 'off',
                     'widget_type'  => 'pro',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/notation',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/notation',
                     'video_url'    => 'https://youtu.be/DTz91mthFGE',
                 ],
                 [
@@ -1846,7 +1846,7 @@ class ModuleService {
                     'type'        => 'checkbox',
                     'default'     => 'off',
                     'widget_type' => 'pro',
-                    'demo_url'    => 'https://www.elementpack.pro/demo/element/element-parallax',
+                    'demo_url'    => 'https://demo.elementpack.pro/element/element-parallax',
                     'video_url'   => 'https://youtu.be/Aw9TnT_L1g8',
                 ],
                 [
@@ -1855,7 +1855,7 @@ class ModuleService {
                     'type'        => 'checkbox',
                     'default'     => 'off',
                     'widget_type' => 'pro',
-                    'demo_url'    => 'https://www.elementpack.pro/demo/element/section-particles/',
+                    'demo_url'    => 'https://demo.elementpack.pro/element/section-particles/',
                     'video_url'   => 'https://youtu.be/8mylXgB2bYg',
                 ],
                 [
@@ -1864,7 +1864,7 @@ class ModuleService {
                     'type'         => 'checkbox',
                     'default'      => 'off',
                     'widget_type'  => 'pro',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/reveal-effects/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/reveal-effects/',
                     'video_url'    => 'https://youtu.be/mSnoY510IUE',
                 ],
                 [
@@ -1874,7 +1874,7 @@ class ModuleService {
 					'default'     => 'off',
 					'widget_type' => 'pro',
 					'content_type' => 'new',
-					'demo_url'    => 'https://www.elementpack.pro/demo/element/ripple-effects/',
+					'demo_url'    => 'https://demo.elementpack.pro/element/ripple-effects/',
 					'video_url'   => '',
 				],
                 [
@@ -1883,7 +1883,7 @@ class ModuleService {
                     'type'         => 'checkbox',
                     'default'      => 'off',
                     'widget_type'  => 'pro',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/scroll-box/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/scroll-box/',
                     'video_url'    => 'https://youtu.be/Wj_4NS0lSd8',
                 ],
                 [ 
@@ -1893,7 +1893,7 @@ class ModuleService {
 					'default'     => 'off',
 					'widget_type' => 'pro',
 					'content_type' => 'new',
-					'demo_url'    => 'https://www.elementpack.pro/demo/element/scroll-fill-effect/',
+					'demo_url'    => 'https://demo.elementpack.pro/element/scroll-fill-effect/',
 					'video_url'   => '',
 				],
                 [
@@ -1911,7 +1911,7 @@ class ModuleService {
                     'type'         => 'checkbox',
                     'default'      => 'off',
                     'widget_type'  => 'pro',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/sound-effects',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/sound-effects',
                     'video_url'    => 'https://youtu.be/L1Sy1ZDfp3A',
                 ],
                 [
@@ -1920,7 +1920,7 @@ class ModuleService {
                     'type'         => 'checkbox',
                     'default'      => 'off',
                     'widget_type'  => 'free',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/threed-text',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/threed-text',
                     'video_url'    => 'https://youtu.be/lhqgA4EyYKc',
                 ],
                 [
@@ -1929,7 +1929,7 @@ class ModuleService {
                     'type'         => 'checkbox',
                     'default'      => 'off',
                     'widget_type'  => 'pro',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/tile-scroll/',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/tile-scroll/',
                     'video_url'    => 'https://youtu.be/rH4h03C4FE0',
                 ],
                 [
@@ -1938,7 +1938,7 @@ class ModuleService {
                     'type'        => 'checkbox',
                     'default'     => 'off',
                     'widget_type' => 'pro',
-                    'demo_url'    => 'https://www.elementpack.pro/demo/element/widget-tooltip/',
+                    'demo_url'    => 'https://demo.elementpack.pro/element/widget-tooltip/',
                     'video_url'   => 'https://youtu.be/oVXwG-38g2Y',
                 ],
                 [
@@ -1947,7 +1947,7 @@ class ModuleService {
                     'type'        => 'checkbox',
                     'default'     => 'off',
                     'widget_type' => 'free',
-                    'demo_url'    => 'https://www.elementpack.pro/demo/element/widget-tooltip/',
+                    'demo_url'    => 'https://demo.elementpack.pro/element/widget-tooltip/',
                     'video_url'   => 'https://youtu.be/LJgF8wt7urw',
                 ],
                 [
@@ -1956,7 +1956,7 @@ class ModuleService {
                     'type'        => 'checkbox',
                     'default'     => 'off',
                     'widget_type' => 'free',
-                    'demo_url'    => 'https://www.elementpack.pro/demo/element/transform-example/',
+                    'demo_url'    => 'https://demo.elementpack.pro/element/transform-example/',
                     'video_url'   => 'https://youtu.be/Djc6bP7CF18',
                 ],
                 [
@@ -1966,7 +1966,7 @@ class ModuleService {
                     'default'     => 'off',
                     'widget_type' => 'pro',
                     'content_type' => 'update',
-                    'demo_url'    => 'https://www.elementpack.pro/demo/element/visibility-controls/',
+                    'demo_url'    => 'https://demo.elementpack.pro/element/visibility-controls/',
                     'video_url'   => 'https://youtu.be/E18TikPHBq4',
                 ],
                 [
@@ -1975,7 +1975,7 @@ class ModuleService {
                     'type'         => 'checkbox',
                     'default'      => 'off',
                     'widget_type'  => 'free',
-                    'demo_url'     => 'https://www.elementpack.pro/demo/element/wrapper-link',
+                    'demo_url'     => 'https://demo.elementpack.pro/element/wrapper-link',
                     'video_url'    => 'https://youtu.be/ZVgGDY_FM1U',
                 ],
             ],
@@ -2135,7 +2135,7 @@ class ModuleService {
                     'type'      => 'checkbox',
                     'default'   => 'off',
                     'widget_type' => 'free',
-                    'demo_url'  => 'https://www.elementpack.pro/knowledge-base/how-to-use-element-pack-asset-manager/',
+                    'demo_url'  => 'https://bdthemes.com/knowledge-base/asset-manager/',
                     'video_url' => 'https://youtu.be/nytQFZv_CSs',
 
                 ],
@@ -2158,7 +2158,7 @@ class ModuleService {
                     'type'      => 'checkbox',
                     'default'   => 'off',
                     'widget_type' => 'free',
-                    'demo_url'  => 'https://www.elementpack.pro/knowledge-base/how-to-use-live-copy-option/',
+                    'demo_url'  => 'https://bdthemes.com/knowledge-base/live-copy-paste/live-copy-alternative/',
                     'video_url' => 'https://youtu.be/jOdWVw2TCmo',
 
                 ],
@@ -2181,7 +2181,7 @@ class ModuleService {
                     'type'      => 'checkbox',
                     'default'   => 'off',
                     'widget_type' => 'pro',
-                    'demo_url'  => 'https://www.elementpack.pro/knowledge-base/how-to-use-element-pack-essential-shortcodes/',
+                    'demo_url'  => 'https://bdthemes.com/knowledge-base/element-pack-essential-shortcodes/',
                     'video_url' => 'https://youtu.be/fUMoYNa_WLY',
 
                 ],
@@ -2204,8 +2204,8 @@ class ModuleService {
                     'type'      => 'checkbox',
                     'default'   => 'off',
                     'widget_type' => 'free',
-                    'demo_url'  => 'https://www.elementpack.pro/knowledge-base/how-to-use-element-pack-template-library/',
-                    'video_url' => 'https://youtu.be/IZw_iRBWbC8',
+                    'demo_url'  => '',
+                    'video_url' => 'https://youtu.be/Z6XNSPSxtJw?si=XEuoQCotMQy2vJA2',
 
 
                 ],
@@ -2228,7 +2228,7 @@ class ModuleService {
                     'type'      => 'checkbox',
                     'default'   => 'off',
                     'widget_type' => 'pro',
-                    'demo_url'  => 'https://www.elementpack.pro/knowledge-base/how-to-use-element-pack-context-menu/',
+                    'demo_url'  => 'https://bdthemes.com/knowledge-base/context-menu/',
                     'video_url' => 'https://youtu.be/LptQctJ22S0',
                 ],
 
@@ -2250,8 +2250,8 @@ class ModuleService {
                     'type'        => 'checkbox',
                     'default'     => 'off',
                     'widget_type' => 'free',
-                    'demo_url'    => 'https://www.elementpack.pro/knowledge-base/how-to-use-element-pack-duplicator/',
-                    'video_url'   => '',
+                    'demo_url'    => 'https://bdthemes.com/knowledge-base/duplicator-feature/',
+                    'video_url'   => 'https://youtu.be/bCkCPzyPouE?si=S6zgjdrNDgGi-y7u',
                 ],
 
                 [
@@ -2272,7 +2272,7 @@ class ModuleService {
                     'type'        => 'checkbox',
                     'default'     => 'off',
                     'widget_type' => 'pro',
-                    //'demo_url'    => 'https://www.elementpack.pro/knowledge-base/how-to-use-element-pack-duplicator/',
+                    'demo_url'    => 'https://bdthemes.com/knowledge-base/mega-menu-widget/',
                     'video_url'   => 'https://youtu.be/CefTtwL4ZqU',
                 ],
 
@@ -2295,7 +2295,7 @@ class ModuleService {
 					'type'        => 'checkbox',
 					'default'     => 'off',
 					'widget_type' => 'pro',
-					'demo_url'    => 'https://www.elementpack.pro/knowledge-base/how-to-use-element-pack-smooth-scroller/',
+					'demo_url'    => '',
 					'video_url'   => '',
 				],
 
@@ -2316,7 +2316,7 @@ class ModuleService {
 			'paid'        => 'https://www.advancedcustomfields.com/pro/',
 			'widget_type' => 'pro',
 			'content_type' => 'acf new',
-			'demo_url'    => 'https://www.elementpack.pro/demo/element/acf-accordion',
+			'demo_url'    => 'https://demo.elementpack.pro/element/acf-accordion',
 			'video_url'   => '',
 		];
 		
@@ -2330,7 +2330,7 @@ class ModuleService {
 			'paid'        => 'https://www.advancedcustomfields.com/pro/',
 			'widget_type' => 'pro',
 			'content_type' => 'acf new',
-			'demo_url'    => 'https://www.elementpack.pro/demo/element/acf-gallery',
+			'demo_url'    => 'https://demo.elementpack.pro/element/acf-gallery',
 			'video_url'   => '',
 		];
 
@@ -2344,7 +2344,7 @@ class ModuleService {
 			'paid'        => 'https://www.advancedcustomfields.com/pro/',
 			'widget_type' => 'pro',
 			'content_type' => 'acf new',
-			'demo_url'    => 'https://www.elementpack.pro/demo/element/acf-slider',
+			'demo_url'    => 'https://demo.elementpack.pro/element/acf-slider',
 			'video_url'   => '',
 		];
 
@@ -2356,7 +2356,7 @@ class ModuleService {
             'plugin_name' => 'bbpress',
             'plugin_path' => 'bbpress/bbpress.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/bbpress-forum-form',
+            'demo_url'    => 'https://demo.elementpack.pro/element/bbpress-forum-form',
             'video_url'   => '',
         ];
         
@@ -2368,7 +2368,7 @@ class ModuleService {
             'plugin_name' => 'bbpress',
             'plugin_path' => 'bbpress/bbpress.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/bbpress-forum-index',
+            'demo_url'    => 'https://demo.elementpack.pro/element/bbpress-forum-index',
             'video_url'   => '',
         ];
         
@@ -2380,7 +2380,7 @@ class ModuleService {
             'plugin_name' => 'bbpress',
             'plugin_path' => 'bbpress/bbpress.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/bbpress-single-forum',
+            'demo_url'    => 'https://demo.elementpack.pro/element/bbpress-single-forum',
             'video_url'   => '',
         ];
         $settings_fields['element_pack_third_party_widget'][] = [
@@ -2391,7 +2391,7 @@ class ModuleService {
             'plugin_name' => 'bbpress',
             'plugin_path' => 'bbpress/bbpress.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/bbpress-topic-index',
+            'demo_url'    => 'https://demo.elementpack.pro/element/bbpress-topic-index',
             'video_url'   => '',
         ];
         $settings_fields['element_pack_third_party_widget'][] = [
@@ -2402,7 +2402,7 @@ class ModuleService {
             'plugin_name' => 'bbpress',
             'plugin_path' => 'bbpress/bbpress.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/bbpress-topic-form',
+            'demo_url'    => 'https://demo.elementpack.pro/element/bbpress-topic-form',
             'video_url'   => '',
         ];
         $settings_fields['element_pack_third_party_widget'][] = [
@@ -2413,7 +2413,7 @@ class ModuleService {
             'plugin_name' => 'bbpress',
             'plugin_path' => 'bbpress/bbpress.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/bbpress-single-topic',
+            'demo_url'    => 'https://demo.elementpack.pro/element/bbpress-single-topic',
             'video_url'   => '',
         ];
         $settings_fields['element_pack_third_party_widget'][] = [
@@ -2424,7 +2424,7 @@ class ModuleService {
             'plugin_name' => 'bbpress',
             'plugin_path' => 'bbpress/bbpress.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/bbpress-reply-form',
+            'demo_url'    => 'https://demo.elementpack.pro/element/bbpress-reply-form',
             'video_url'   => '',
         ];
         $settings_fields['element_pack_third_party_widget'][] = [
@@ -2435,7 +2435,7 @@ class ModuleService {
             'plugin_name' => 'bbpress',
             'plugin_path' => 'bbpress/bbpress.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/bbpress-single-reply',
+            'demo_url'    => 'https://demo.elementpack.pro/element/bbpress-single-reply',
             'video_url'   => '',
         ];
         $settings_fields['element_pack_third_party_widget'][] = [
@@ -2446,7 +2446,7 @@ class ModuleService {
             'plugin_name' => 'bbpress',
             'plugin_path' => 'bbpress/bbpress.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/bbpress-topic-tags',
+            'demo_url'    => 'https://demo.elementpack.pro/element/bbpress-topic-tags',
             'video_url'   => '',
         ];
         $settings_fields['element_pack_third_party_widget'][] = [
@@ -2457,7 +2457,7 @@ class ModuleService {
             'plugin_name' => 'bbpress',
             'plugin_path' => 'bbpress/bbpress.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/bbpress-single-tag',
+            'demo_url'    => 'https://demo.elementpack.pro/element/bbpress-single-tag',
             'video_url'   => '',
         ];
         $settings_fields['element_pack_third_party_widget'][] = [
@@ -2468,7 +2468,7 @@ class ModuleService {
             'plugin_name' => 'bbpress',
             'plugin_path' => 'bbpress/bbpress.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/bbpress-single-view',
+            'demo_url'    => 'https://demo.elementpack.pro/element/bbpress-single-view',
             'video_url'   => '',
         ];
         $settings_fields['element_pack_third_party_widget'][] = [
@@ -2479,7 +2479,7 @@ class ModuleService {
             'plugin_name' => 'bbpress',
             'plugin_path' => 'bbpress/bbpress.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/bbpress-stats',
+            'demo_url'    => 'https://demo.elementpack.pro/element/bbpress-stats',
             'video_url'   => '',
         ];
 
@@ -2491,7 +2491,7 @@ class ModuleService {
             'plugin_name' => 'buddypress',
             'plugin_path' => 'buddypress/bp-loader.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/buddypress-friends/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/buddypress-friends/',
             'video_url'   => 'https://youtu.be/t6t0M5kGEig',
 
         ];
@@ -2504,7 +2504,7 @@ class ModuleService {
             'plugin_name' => 'buddypress',
             'plugin_path' => 'buddypress/bp-loader.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/buddypress-group/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/buddypress-group/',
             'video_url'   => 'https://youtu.be/CccODcBw_9w',
 
         ];
@@ -2517,7 +2517,7 @@ class ModuleService {
             'plugin_name' => 'buddypress',
             'plugin_path' => 'buddypress/bp-loader.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/buddypress-member/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/buddypress-member/',
             'video_url'   => 'https://youtu.be/CLV9RCdq09k',
 
         ];
@@ -2531,7 +2531,7 @@ class ModuleService {
             'plugin_path' => 'booked/booked.php',
             'paid'        => 'https://codecanyon.net/item/booked-appointments-appointment-booking-for-wordpress/9466968',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/booked-calendar/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/booked-calendar/',
             'video_url'   => 'https://youtu.be/bodvi_5NkDU',
 
         ];
@@ -2545,7 +2545,7 @@ class ModuleService {
             'plugin_path'  => 'caldera-forms/caldera-core.php',
             'widget_type'  => 'free',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/caldera-form/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/caldera-form/',
             'video_url'    => 'https://youtu.be/2EiVSLows20',
 
         ];
@@ -2558,7 +2558,7 @@ class ModuleService {
             'plugin_name' => 'contact-form-7',
             'plugin_path' => 'contact-form-7/wp-contact-form-7.php',
             'widget_type' => 'free',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/contact-form-7/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/contact-form-7/',
             'video_url'   => 'https://youtu.be/oWepfrLrAN4',
 
         ];
@@ -2586,7 +2586,7 @@ class ModuleService {
             'plugin_path'  => 'charitable/charitable.php',
             'widget_type'  => 'pro',
             'content_type' => 'others',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/charitable-donations/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/charitable-donations/',
             'video_url'    => 'https://youtu.be/C38sbaKx9x0',
 
         ];
@@ -2600,7 +2600,7 @@ class ModuleService {
             'plugin_path'  => 'charitable/charitable.php',
             'widget_type'  => 'pro',
             'content_type' => 'others',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/charitable-donors/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/charitable-donors/',
             'video_url'    => 'https://youtu.be/ljnbE8JVg7w',
 
         ];
@@ -2614,7 +2614,7 @@ class ModuleService {
             'plugin_path'  => 'charitable/charitable.php',
             'widget_type'  => 'pro',
             'content_type' => 'others',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/charitable-donation-form/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/charitable-donation-form/',
             'video_url'    => 'https://youtu.be/aufVwEUZJhY',
 
         ];
@@ -2628,7 +2628,7 @@ class ModuleService {
             'plugin_path'  => 'charitable/charitable.php',
             'widget_type'  => 'pro',
             'content_type' => 'others',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/charitable-stat/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/charitable-stat/',
             'video_url'    => 'https://youtu.be/54cw85jmhtg',
 
         ];
@@ -2642,7 +2642,7 @@ class ModuleService {
             'plugin_path'  => 'charitable/charitable.php',
             'widget_type'  => 'pro',
             'content_type' => 'others',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/charitable-login/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/charitable-login/',
             'video_url'    => 'https://youtu.be/c0A90DdfGGM',
 
         ];
@@ -2656,7 +2656,7 @@ class ModuleService {
             'plugin_path'  => 'charitable/charitable.php',
             'widget_type'  => 'pro',
             'content_type' => 'others',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/charitable-registration/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/charitable-registration/',
             'video_url'    => 'https://youtu.be/N-IMBmjGJsA',
 
         ];
@@ -2670,7 +2670,7 @@ class ModuleService {
             'plugin_path'  => 'charitable/charitable.php',
             'widget_type'  => 'pro',
             'content_type' => 'others',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/charitable-profile/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/charitable-profile/',
             'video_url'    => 'https://youtu.be/DD7ZiMpxK-w',
 
         ];
@@ -2683,7 +2683,7 @@ class ModuleService {
             'plugin_name' => 'download-monitor',
             'plugin_path' => 'download-monitor/download-monitor.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/download-monitor',
+            'demo_url'    => 'https://demo.elementpack.pro/element/download-monitor',
             'video_url'   => 'https://youtu.be/7LaBSh3_G5A',
 
         ];
@@ -2696,7 +2696,7 @@ class ModuleService {
             'plugin_name' => 'easy-digital-downloads',
             'plugin_path' => 'easy-digital-downloads/easy-digital-downloads.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/edd-cart/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/edd-cart/',
             'video_url'   => '',
         ];
 
@@ -2708,7 +2708,7 @@ class ModuleService {
             'plugin_name' => 'easy-digital-downloads',
             'plugin_path' => 'easy-digital-downloads/easy-digital-downloads.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/edd-category-grid/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/edd-category-grid/',
             'video_url'   => '',
         ];
 
@@ -2720,7 +2720,7 @@ class ModuleService {
             'plugin_name' => 'easy-digital-downloads',
             'plugin_path' => 'easy-digital-downloads/easy-digital-downloads.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/edd-category-carousel/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/edd-category-carousel/',
             'video_url'   => '',
         ];
 
@@ -2732,7 +2732,7 @@ class ModuleService {
             'plugin_name' => 'easy-digital-downloads',
             'plugin_path' => 'easy-digital-downloads/easy-digital-downloads.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/edd-checkout/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/edd-checkout/',
             'video_url'   => '',
         ];
         $settings_fields['element_pack_third_party_widget'][] = [
@@ -2743,7 +2743,7 @@ class ModuleService {
             'plugin_name' => 'easy-digital-downloads',
             'plugin_path' => 'easy-digital-downloads/easy-digital-downloads.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/edd-login/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/edd-login/',
             'video_url'   => '',
         ];
         $settings_fields['element_pack_third_party_widget'][] = [
@@ -2754,7 +2754,7 @@ class ModuleService {
             'plugin_name' => 'easy-digital-downloads',
             'plugin_path' => 'easy-digital-downloads/easy-digital-downloads.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/edd-mini-cart/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/edd-mini-cart/',
             'video_url'   => '',
         ];
         $settings_fields['element_pack_third_party_widget'][] = [
@@ -2765,7 +2765,7 @@ class ModuleService {
             'plugin_name' => 'easy-digital-downloads',
             'plugin_path' => 'easy-digital-downloads/easy-digital-downloads.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/edd-product/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/edd-product/',
             'video_url'   => '',
         ];
 
@@ -2777,7 +2777,7 @@ class ModuleService {
             'plugin_name' => 'easy-digital-downloads',
             'plugin_path' => 'easy-digital-downloads/easy-digital-downloads.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/edd-product-carousel/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/edd-product-carousel/',
             'video_url'   => '',
         ];
 
@@ -2789,7 +2789,7 @@ class ModuleService {
             'plugin_name' => 'easy-digital-downloads',
             'plugin_path' => 'easy-digital-downloads/easy-digital-downloads.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/edd-product-reviews/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/edd-product-reviews/',
             'video_url'   => 'https://youtu.be/drn_yEGoC_E?si=Qh5D4urdf-biAinR',
         ];
 
@@ -2801,7 +2801,7 @@ class ModuleService {
             'plugin_name' => 'easy-digital-downloads',
             'plugin_path' => 'easy-digital-downloads/easy-digital-downloads.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/edd-product-review-carousel/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/edd-product-review-carousel/',
             'video_url'   => '',
         ];
 
@@ -2813,7 +2813,7 @@ class ModuleService {
             'plugin_name' => 'easy-digital-downloads',
             'plugin_path' => 'easy-digital-downloads/easy-digital-downloads.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/edd-profile-editor/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/edd-profile-editor/',
             'video_url'   => 'https://youtu.be/f2v7EFla94c',
         ];
 
@@ -2825,7 +2825,7 @@ class ModuleService {
             'plugin_name' => 'easy-digital-downloads',
             'plugin_path' => 'easy-digital-downloads/easy-digital-downloads.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/edd-purchase-history/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/edd-purchase-history/',
             'video_url'   => 'https://youtu.be/oUppcuQTB7M',
         ];
 
@@ -2837,7 +2837,7 @@ class ModuleService {
             'plugin_name' => 'easy-digital-downloads',
             'plugin_path' => 'easy-digital-downloads/easy-digital-downloads.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/edd-register/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/edd-register/',
             'video_url'   => '',
         ];
 
@@ -2849,7 +2849,7 @@ class ModuleService {
             'plugin_name' => 'easy-digital-downloads',
             'plugin_path' => 'easy-digital-downloads/easy-digital-downloads.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/edd-tabs/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/edd-tabs/',
             'video_url'   => '',
         ];
 
@@ -2861,7 +2861,7 @@ class ModuleService {
             'plugin_name' => 'easy-digital-downloads',
             'plugin_path' => 'easy-digital-downloads/easy-digital-downloads.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/easy-digital-downloads/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/easy-digital-downloads/',
             'video_url'   => 'https://youtu.be/f2v7EFla94c',
         ];
 
@@ -2873,7 +2873,7 @@ class ModuleService {
             'plugin_name' => 'easy-digital-downloads',
             'plugin_path' => 'easy-digital-downloads/easy-digital-downloads.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/edd-download-history/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/edd-download-history/',
             'video_url'   => 'https://youtu.be/taM7whXxmNY',
         ];
 
@@ -2886,7 +2886,7 @@ class ModuleService {
             'plugin_path'  => 'everest-forms/everest-forms.php',
             'widget_type'  => 'free',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/everest-forms/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/everest-forms/',
             'video_url'    => 'https://youtu.be/jfZhIFpdvcg',
         ];
 
@@ -2898,7 +2898,7 @@ class ModuleService {
             'plugin_name' => 'the-events-calendar',
             'plugin_path' => 'the-events-calendar/the-events-calendar.php',
             'widget_type' => 'free',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/events-calendar-grid/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/events-calendar-grid/',
             'video_url'   => 'https://youtu.be/QeqrcDx1Vus',
         ];
 
@@ -2910,7 +2910,7 @@ class ModuleService {
             'plugin_name' => 'the-events-calendar',
             'plugin_path' => 'the-events-calendar/the-events-calendar.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/events-calendar-carousel/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/events-calendar-carousel/',
             'video_url'   => 'https://youtu.be/_ZPPBmKmGGg',
         ];
 
@@ -2922,7 +2922,7 @@ class ModuleService {
             'plugin_name' => 'the-events-calendar',
             'plugin_path' => 'the-events-calendar/the-events-calendar.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/events-calendar-list/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/events-calendar-list/',
             'video_url'   => 'https://youtu.be/2J4XhOe8J0o',
         ];
 
@@ -2936,7 +2936,7 @@ class ModuleService {
             'paid'         => 'https://bdthemes.com/secure/plugins/bdthemes-faq.zip?key=40fb823b8016d31411a7fe281f41044g',
             'widget_type'  => 'pro',
             'content_type' => 'post',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/carousel/faq/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/carousel/faq/',
             'video_url'    => 'https://youtu.be/jGGdCuSjesY',
 
         ];
@@ -2950,7 +2950,7 @@ class ModuleService {
             'plugin_path'  => 'fluentform/fluentform.php',
             'widget_type'  => 'free',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/fluent-forms/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/fluent-forms/',
             'video_url'    => 'https://youtu.be/BWPuKe4PfQ4',
 
         ];
@@ -2964,7 +2964,7 @@ class ModuleService {
             'plugin_path'  => 'formidable/formidable.php',
             'widget_type'  => 'free',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/formidable-forms/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/formidable-forms/',
             'video_url'    => 'https://youtu.be/ZQzcED7S-XI',
         ];
 
@@ -2977,7 +2977,7 @@ class ModuleService {
             'plugin_path'  => 'forminator/forminator.php',
             'widget_type'  => 'pro',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/forminator-forms/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/forminator-forms/',
             'video_url'    => 'https://youtu.be/DdBvY0dnGsk',
         ];
 
@@ -2990,7 +2990,7 @@ class ModuleService {
             'plugin_path'  => 'give/give.php',
             'widget_type'  => 'pro',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/give-donation-history/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/give-donation-history/',
             'video_url'    => 'https://youtu.be/n2Cnlubi-E8',
         ];
 
@@ -3003,7 +3003,7 @@ class ModuleService {
             'plugin_path'  => 'give/give.php',
             'widget_type'  => 'pro',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/give-donor-wall/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/give-donor-wall/',
             'video_url'    => 'https://youtu.be/W_RRrE4cmEo',
 
         ];
@@ -3017,7 +3017,7 @@ class ModuleService {
             'plugin_path'  => 'give/give.php',
             'widget_type'  => 'pro',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/give-form-grid/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/give-form-grid/',
             'video_url'    => 'https://youtu.be/hq4ElaX0nrE',
 
         ];
@@ -3031,7 +3031,7 @@ class ModuleService {
             'plugin_path'  => 'give/give.php',
             'widget_type'  => 'pro',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/give-form/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/give-form/',
             'video_url'    => 'https://youtu.be/k18Mgivy9Mw',
 
         ];
@@ -3045,7 +3045,7 @@ class ModuleService {
             'plugin_path'  => 'give/give.php',
             'widget_type'  => 'pro',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/give-goal/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/give-goal/',
             'video_url'    => 'https://youtu.be/WdRBJL7fOvk',
 
         ];
@@ -3059,7 +3059,7 @@ class ModuleService {
             'plugin_path'  => 'give/give.php',
             'widget_type'  => 'pro',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/give-login/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/give-login/',
             'video_url'    => 'https://youtu.be/_mgg8ms12Gw',
 
         ];
@@ -3073,7 +3073,7 @@ class ModuleService {
             'plugin_path'  => 'give/give.php',
             'widget_type'  => 'pro',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/give-profile-editor/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/give-profile-editor/',
             'video_url'    => 'https://youtu.be/oaUUPA7eX2A',
 
         ];
@@ -3087,7 +3087,7 @@ class ModuleService {
             'plugin_path'  => 'give/give.php',
             'widget_type'  => 'pro',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/give-receipt/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/give-receipt/',
             'video_url'    => 'https://youtu.be/2xoXNi_Hx3k',
 
         ];
@@ -3101,7 +3101,7 @@ class ModuleService {
             'plugin_path'  => 'give/give.php',
             'widget_type'  => 'pro',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/give-register/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/give-register/',
             'video_url'    => 'https://youtu.be/4pO-fTXuW3Q',
         ];
 
@@ -3114,7 +3114,7 @@ class ModuleService {
             'plugin_path'  => 'give/give.php',
             'widget_type'  => 'pro',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/give-totals/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/give-totals/',
             'video_url'    => 'https://youtu.be/fZMljNFdvKs',
 
         ];
@@ -3129,7 +3129,7 @@ class ModuleService {
             'paid'         => 'https://www.gravityforms.com/',
             'widget_type'  => 'pro',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/gravity-forms/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/gravity-forms/',
             'video_url'    => 'https://youtu.be/452ZExESiBI',
 
         ];
@@ -3142,7 +3142,7 @@ class ModuleService {
             'plugin_name' => 'instagram-feed',
             'plugin_path' => 'instagram-feed/instagram-feed.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/instagram-feed/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/instagram-feed/',
             'video_url'   => 'https://youtu.be/Wf7naA7EL7s',
 
         ];
@@ -3157,7 +3157,7 @@ class ModuleService {
             'paid'         => 'https://codecanyon.net/item/layerslider-responsive-wordpress-slider-plugin/1362246',
             'widget_type'  => 'pro',
             'content_type' => 'slider',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/layer-slider/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/layer-slider/',
             'video_url'    => 'https://youtu.be/I2xpXLyCkkE',
 
         ];
@@ -3170,7 +3170,7 @@ class ModuleService {
             'plugin_name' => 'learnpress',
             'plugin_path' => 'learnpress/learnpress.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/learnpress-grid/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/learnpress-grid/',
             'video_url'   => '',
         ];
 
@@ -3183,7 +3183,7 @@ class ModuleService {
             'plugin_path' => 'learnpress/learnpress.php',
             'widget_type' => 'pro',
             'content_type' => 'carousel',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/learnpress-carousel/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/learnpress-carousel/',
             'video_url'   => '',
         ];
 
@@ -3195,7 +3195,7 @@ class ModuleService {
             'plugin_name' => 'mailchimp-for-wp',
             'plugin_path' => 'mailchimp-for-wp/mailchimp-for-wp.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/mailchimp-for-wordpress',
+            'demo_url'    => 'https://demo.elementpack.pro/element/mailchimp-for-wordpress',
             'video_url'   => 'https://youtu.be/AVqliwiyMLg',
 
         ];
@@ -3209,7 +3209,7 @@ class ModuleService {
             'plugin_path'  => 'ninja-forms/ninja-forms.php',
             'widget_type'  => 'free',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/ninja-forms/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/ninja-forms/',
             'video_url'    => 'https://youtu.be/rMKAUIy1fKc',
 
         ];
@@ -3224,7 +3224,7 @@ class ModuleService {
             'paid'         => 'https://bdthemes.com/secure/plugins/bdthemes-portfolio.zip?key=40fb823b8016d31411a7fe281f41044g',
             'widget_type'  => 'pro',
             'content_type' => 'post',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/portfolio-gallery/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/portfolio-gallery/',
             'video_url'    => 'https://youtu.be/dkKPuZwWFks',
 
         ];
@@ -3239,7 +3239,7 @@ class ModuleService {
             'paid'         => 'https://bdthemes.com/secure/plugins/bdthemes-portfolio.zip?key=40fb823b8016d31411a7fe281f41044g',
             'widget_type'  => 'pro',
             'content_type' => 'post',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/portfolio-carousel/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/portfolio-carousel/',
             'video_url'    => 'https://youtu.be/6fMQzv47HTU',
 
         ];
@@ -3254,7 +3254,7 @@ class ModuleService {
             'paid'         => 'https://bdthemes.com/secure/plugins/bdthemes-portfolio.zip?key=40fb823b8016d31411a7fe281f41044g',
             'widget_type'  => 'pro',
             'content_type' => 'post',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/portfolio-list/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/portfolio-list/',
             'video_url'    => 'https://youtu.be/WdXZMoEEn4I',
 
         ];
@@ -3269,7 +3269,7 @@ class ModuleService {
             'paid'         => 'https://codecanyon.net/item/quform-wordpress-form-builder/706149',
             'widget_type'  => 'pro',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/quform/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/quform/',
             'video_url'    => 'https://youtu.be/LM0JtQ58UJM',
 
         ];
@@ -3283,7 +3283,7 @@ class ModuleService {
             'plugin_path' => 'revslider/revslider.php',
             'paid'        => 'https://codecanyon.net/item/slider-revolution-responsive-wordpress-plugin/2751380',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/revolution-slider/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/revolution-slider/',
             'video_url'   => 'https://youtu.be/S3bs8FfTBsI',
 
         ];
@@ -3296,7 +3296,7 @@ class ModuleService {
             'plugin_name' => 'tablepress',
             'plugin_path' => 'tablepress/tablepress.php',
             'widget_type' => 'pro',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/tablepress/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/tablepress/',
             'video_url'   => 'https://youtu.be/TGnc0ap-cWs',
         ];
 
@@ -3310,7 +3310,7 @@ class ModuleService {
             'paid'         => 'https://bdthemes.com/secure/plugins/bdthemes-testimonials.zip?key=40fb823b8016d31411a7fe281f41044g',
             'widget_type'  => 'pro',
             'content_type' => 'post carousel',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/testimonial-carousel/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/testimonial-carousel/',
             'video_url'    => 'https://youtu.be/VbojVJzayvE',
         ];
 
@@ -3324,7 +3324,7 @@ class ModuleService {
             'paid'         => 'https://bdthemes.com/secure/plugins/bdthemes-testimonials.zip?key=40fb823b8016d31411a7fe281f41044g',
             'widget_type'  => 'free',
             'content_type' => 'post',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/testimonial-grid/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/testimonial-grid/',
             'video_url'    => 'https://youtu.be/pYMTXyDn8g4',
         ];
 
@@ -3338,7 +3338,7 @@ class ModuleService {
             'paid'         => 'https://bdthemes.com/secure/plugins/bdthemes-testimonials.zip?key=40fb823b8016d31411a7fe281f41044g',
             'widget_type'  => 'pro',
             'content_type' => 'post',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/testimonial-slider/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/testimonial-slider/',
             'video_url'    => 'https://youtu.be/pI-DLKNlTGg',
         ];
 
@@ -3351,7 +3351,7 @@ class ModuleService {
             'plugin_path'  => 'newsletter/plugin.php',
             'widget_type'  => 'pro',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/the-newsletter/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/the-newsletter/',
             'video_url'    => 'https://youtu.be/nFbzp1Pttf4',
         ];
 
@@ -3363,7 +3363,7 @@ class ModuleService {
             'plugin_name' => 'tutor',
             'plugin_path' => 'tutor/tutor.php',
             'widget_type' => 'free',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/tutor-lms-course-grid/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/tutor-lms-course-grid/',
             'video_url'   => 'https://youtu.be/WWCE-_Po1uo',
         ];
 
@@ -3375,7 +3375,7 @@ class ModuleService {
             'plugin_name' => 'tutor',
             'plugin_path' => 'tutor/tutor.php',
             'widget_type' => 'free',
-            'demo_url'    => 'https://www.elementpack.pro/demo/element/tutor-lms-course-carousel/',
+            'demo_url'    => 'https://demo.elementpack.pro/element/tutor-lms-course-carousel/',
             'video_url'   => 'https://youtu.be/VYrIYQESjXs',
         ];
 
@@ -3388,7 +3388,7 @@ class ModuleService {
             'plugin_path'  => 'woocommerce/woocommerce.php',
             'widget_type'  => 'pro',
             'content_type' => 'ecommerce grid gallery',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/woocommerce-products/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/woocommerce-products/',
             'video_url'    => 'https://youtu.be/3VkvEpVaNAM',
         ];
 
@@ -3401,7 +3401,7 @@ class ModuleService {
             'plugin_path'  => 'woocommerce/woocommerce.php',
             'widget_type'  => 'pro',
             'content_type' => 'ecommerce',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/woocommerce-add-to-cart/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/woocommerce-add-to-cart/',
             'video_url'    => 'https://youtu.be/1gZJm2-xMqY',
         ];
 
@@ -3427,7 +3427,7 @@ class ModuleService {
             'plugin_path'  => 'woocommerce/woocommerce.php',
             'widget_type'  => 'pro',
             'content_type' => 'ecommerce grid gallery',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/woocommerce-categories/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/woocommerce-categories/',
             'video_url'    => 'https://youtu.be/SJuArqtnC1U',
         ];
 
@@ -3440,7 +3440,7 @@ class ModuleService {
             'plugin_path'  => 'woocommerce/woocommerce.php',
             'widget_type'  => 'pro',
             'content_type' => 'ecommerce carousel',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/woocommerce-carousel/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/woocommerce-carousel/',
             'video_url'    => 'https://youtu.be/5lxli5E9pc4',
         ];
 
@@ -3453,7 +3453,7 @@ class ModuleService {
             'plugin_path'  => 'woocommerce/woocommerce.php',
             'widget_type'  => 'pro',
             'content_type' => 'ecommerce slider',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/woocommerce-slider',
+            'demo_url'     => 'https://demo.elementpack.pro/element/woocommerce-slider',
             'video_url'    => 'https://youtu.be/ic8p-3jO35U',
         ];
 
@@ -3466,7 +3466,7 @@ class ModuleService {
             'plugin_path'  => 'woocommerce/woocommerce.php',
             'widget_type'  => 'pro',
             'content_type' => 'ecommerce slider',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/woocommerce-slider',
+            'demo_url'     => 'https://demo.elementpack.pro/element/woocommerce-slider',
             'video_url'    => 'https://youtu.be/ic8p-3jO35U',
         ];
 
@@ -3479,7 +3479,7 @@ class ModuleService {
             'plugin_path'  => 'weforms/weforms.php',
             'widget_type'  => 'free',
             'content_type' => 'forms',
-            'demo_url'     => 'https://www.elementpack.pro/demo/element/we-forms/',
+            'demo_url'     => 'https://demo.elementpack.pro/element/we-forms/',
             'video_url'    => 'https://youtu.be/D-vUfbMclOk',
         ];
 
@@ -3494,7 +3494,7 @@ class ModuleService {
                 'paid'         => 'https://wpforms.com/pricing/',
                 'widget_type'  => 'pro',
                 'content_type' => 'forms',
-                'demo_url'     => 'https://www.elementpack.pro/demo/element/wp-forms/',
+                'demo_url'     => 'https://demo.elementpack.pro/element/wp-forms/',
                 'video_url'    => 'https://youtu.be/p_FRLsEVNjQ',
             ];
         } else {
@@ -3508,7 +3508,7 @@ class ModuleService {
                 'paid'         => 'https://wpforms.com/pricing/',
                 'widget_type'  => 'pro',
                 'content_type' => 'forms',
-                'demo_url'     => 'https://www.elementpack.pro/demo/element/wp-forms/',
+                'demo_url'     => 'https://demo.elementpack.pro/element/wp-forms/',
                 'video_url'    => 'https://youtu.be/p_FRLsEVNjQ',
             ];
         }

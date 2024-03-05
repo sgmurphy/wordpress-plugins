@@ -8,9 +8,7 @@ Stable tag: 3.6.5
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Advanced Shipment Tracking (AST) provides all you need to manage and automate the WooCommerce fulfillment workflow.
-
-Easily add tracking information and fulfill orders, keep your customers informed, reduce time spent on post-shipping inquiries and increase overall customer satisfaction.
+Advanced Shipment Tracking(AST) streamlines WooCommerce fulfillment, order fulfillment, reducing inquiries, and boosting customer satisfaction.
 
 ==Key Features==
 
@@ -24,7 +22,7 @@ Easily add tracking information and fulfill orders, keep your customers informed
 * **Import tracking info from CSV Files** - In case your warehouse or dropshipper provides tracking information in CSV files, AST provides a quick and easy interface to import multiple tracking numbers to orders in bulk from a CSV so you can avoid the repetitive work of copy & paste tracking numbers into orders.
 
 == AST PRO Fulfillment Manager==
-* **Integrations & Compatibility** - built-in integrations with ShipStation, WooCommerce Shipping, Ordoro, Royal Mail Click & Drop, Dear Inventory, Ali2Woo, Printify and more, to automate the fulfillment workflow
+* **Integrations & Compatibility** - built-in integrations with ShipStation, WooCommerce Shipping, Ordoro, Royal Mail Click & Drop, Dear Inventory, Ali2Woo, Printful and more, to automate the fulfillment workflow
 * **Fulfillment dashboard** - manage and fulfil your orders from a centralized fulfillment dashboard
 * **Tracking per item** - split order tracking and attach tracking numbers to order items
 * **Custom email templates with responsive tracking widget**

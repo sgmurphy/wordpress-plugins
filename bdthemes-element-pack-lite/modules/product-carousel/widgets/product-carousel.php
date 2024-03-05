@@ -1557,12 +1557,12 @@
 			$this->add_render_attribute('image-wrap', 'class', 'bdt-ep-product-carousel-image' . $image_mask);
 	
 			?>
-			<div <?php echo $this->get_render_attribute_string('image-wrap'); ?>>
+			<div <?php $this->print_render_attribute_string('image-wrap'); ?>>
 
 				<?php 
 				$thumb_url = Group_Control_Image_Size::get_attachment_image_src($item['image']['id'], 'thumbnail_size', $settings);
 				if (!$thumb_url) {
-					printf('<img src="%1$s" alt="%2$s">', $item['image']['url'], esc_html($item['title']));
+					printf('<img src="%1$s" alt="%2$s">', esc_url($item['image']['url']), esc_html($item['title']));
 				} else {
 					print(wp_get_attachment_image(
 						$item['image']['id'],
@@ -1576,7 +1576,7 @@
 				?>
 
 				<?php if($settings['readmore_link_to'] == 'image') : ?>
-				<a <?php echo $this->get_render_attribute_string( $image_key ); ?>></a>
+				<a <?php $this->print_render_attribute_string( $image_key ); ?>></a>
 				<?php endif; ?>
 			</div>
 			<?php
@@ -1598,12 +1598,12 @@
 	
 			?>
 			<?php if ( $item['title'] ) : ?>
-				<<?php echo Utils::get_valid_html_tag($settings['title_tag']); ?> <?php echo $this->get_render_attribute_string('title-wrap'); ?>>
+				<<?php echo esc_attr(Utils::get_valid_html_tag($settings['title_tag'])); ?> <?php $this->print_render_attribute_string('title-wrap'); ?>>
 					<?php echo wp_kses($item['title'], element_pack_allow_tags('title')); ?>
 					<?php if($settings['readmore_link_to'] == 'title') : ?>
-					<a <?php echo $this->get_render_attribute_string( $title_key ); ?>></a>
+					<a <?php $this->print_render_attribute_string( $title_key ); ?>></a>
 					<?php endif; ?>
-				</<?php echo Utils::get_valid_html_tag($settings['title_tag']); ?>>
+				</<?php echo esc_attr(Utils::get_valid_html_tag($settings['title_tag'])); ?>>
 			<?php endif; ?>
 			<?php
 		}
@@ -1619,7 +1619,7 @@
 	
 			?>
 			<?php if ( $item['price'] ) : ?>
-				<div <?php echo $this->get_render_attribute_string('price-wrap'); ?>>
+				<div <?php $this->print_render_attribute_string('price-wrap'); ?>>
 					<?php echo wp_kses($item['price'], element_pack_allow_tags('price')); ?>
 				</div>
 			<?php endif; ?>
@@ -1637,7 +1637,7 @@
 	
 			?>
 			<?php if ( $item['time'] ) : ?>
-				<div <?php echo $this->get_render_attribute_string('time-wrap'); ?>>
+				<div <?php $this->print_render_attribute_string('time-wrap'); ?>>
 					<i class="ep-icon-clock-o" aria-hidden="true"></i>
 					<?php echo wp_kses($item['time'], element_pack_allow_tags('time')); ?>
 				</div>
@@ -1681,7 +1681,7 @@
 			?>
 			<?php if (( ! empty( $item['readmore_link']['url'] )) && ( $settings['readmore_link_to'] == 'button' )): ?>
 				<div class="bdt-ep-product-carousel-readmore-wrap">
-					<a <?php echo $this->get_render_attribute_string( $readmore_key ); ?>>
+					<a <?php $this->print_render_attribute_string( $readmore_key ); ?>>
 						<?php echo esc_html($settings['readmore_text']); ?>
 						<?php if ($settings['readmore_icon']['value']) : ?>
 							<span class="bdt-button-icon-align-<?php echo esc_attr($settings['icon_align']); ?>">
@@ -1722,7 +1722,7 @@
 						<span><?php echo esc_html( $item['rating_number']['size'] ); ?></span>
 						<i class="ep-icon-star-full" aria-hidden="true"></i>
 					<?php else : ?>
-						<span class="epsc-rating epsc-rating-<?php echo $score; ?>">
+						<span class="epsc-rating epsc-rating-<?php echo esc_attr($score); ?>">
 							<span class="epsc-rating-item"><i class="ep-icon-star" aria-hidden="true"></i></span>
 							<span class="epsc-rating-item"><i class="ep-icon-star" aria-hidden="true"></i></span>
 							<span class="epsc-rating-item"><i class="ep-icon-star" aria-hidden="true"></i></span>
@@ -1769,7 +1769,7 @@
 				}
 				
 				?>
-				<div <?php echo $this->get_render_attribute_string('item-wrap'); ?>>
+				<div <?php $this->print_render_attribute_string('item-wrap'); ?>>
 					<?php $this->render_image($item, 'image_'.$index); ?>
 					<div class="bdt-ep-product-carousel-content">
 						<div class="bdt-ep-product-carousel-title-price bdt-flex bdt-flex-middle bdt-flex-between">
@@ -1786,7 +1786,7 @@
 					<?php $this->render_badge($item); ?>
 
 					<?php if($settings['readmore_link_to'] == 'item') : ?>
-					<a <?php echo $this->get_render_attribute_string( $item_key ); ?>></a>
+					<a <?php $this->print_render_attribute_string( $item_key ); ?>></a>
 					<?php endif; ?>
 
 				</div>
@@ -1802,8 +1802,8 @@
 			$this->add_render_attribute( 'carousel', 'class', 'bdt-ep-product-carousel' );
 	
 			?>
-			<div <?php echo $this->get_render_attribute_string( 'carousel' ); ?>>
-				<div <?php echo $this->get_render_attribute_string('swiper'); ?>>
+			<div <?php $this->print_render_attribute_string( 'carousel' ); ?>>
+				<div <?php $this->print_render_attribute_string('swiper'); ?>>
 					<div class="swiper-wrapper">
 			<?php
 		}

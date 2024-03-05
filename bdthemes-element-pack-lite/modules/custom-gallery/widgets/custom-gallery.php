@@ -1113,7 +1113,7 @@ class Custom_Gallery extends Module_Base {
 			<?php
 			$thumb_url = Group_Control_Image_Size::get_attachment_image_src($item['gallery_image']['id'], 'thumbnail_size', $settings);
 			if (!$thumb_url) {
-				printf('<img src="%1$s" alt="%2$s">', $item['gallery_image']['url'], esc_html($item['image_title']));
+				printf('<img src="%1$s" alt="%2$s">', esc_url($item['gallery_image']['url']), esc_html($item['image_title']));
 			} else {
 				print(wp_get_attachment_image(
 					$item['gallery_image']['id'],
@@ -1137,9 +1137,9 @@ class Custom_Gallery extends Module_Base {
 
 		$tag = $this->get_settings_for_display('title_tag');
 	?>
-		<<?php echo Utils::get_valid_html_tag($tag); ?> class="bdt-gallery-item-title bdt-transition-slide-top-small">
+		<<?php echo esc_attr(Utils::get_valid_html_tag($tag)); ?> class="bdt-gallery-item-title bdt-transition-slide-top-small">
 			<?php echo wp_kses($title['image_title'], element_pack_allow_tags('text')); ?>
-		</<?php echo Utils::get_valid_html_tag($tag); ?>>
+		</<?php echo esc_attr(Utils::get_valid_html_tag($tag)); ?>>
 	<?php
 	}
 
@@ -1199,7 +1199,7 @@ class Custom_Gallery extends Module_Base {
 		}
 
 	?>
-		<div <?php echo $this->get_render_attribute_string('overlay-settings'); ?>>
+		<div <?php $this->print_render_attribute_string('overlay-settings'); ?>>
 			<div class="bdt-custom-gallery-content">
 				<div class="bdt-custom-gallery-content-inner">
 
@@ -1218,7 +1218,7 @@ class Custom_Gallery extends Module_Base {
 
 					?>
 						<div class="bdt-flex-inline bdt-gallery-item-link-wrapper">
-							<a <?php echo $this->get_render_attribute_string($element_key); ?>>
+							<a <?php $this->print_render_attribute_string($element_key); ?>>
 								<?php if ('icon' == $settings['link_type']) : ?>
 									<i class="ep-icon-<?php echo esc_attr($icon); ?>" aria-hidden="true"></i>
 								<?php elseif ('text' == $settings['link_type']) : ?>
@@ -1283,7 +1283,7 @@ class Custom_Gallery extends Module_Base {
 		);
 
 	?>
-		<div <?php echo $this->get_render_attribute_string('custom-gallery'); ?>>
+		<div <?php $this->print_render_attribute_string('custom-gallery'); ?>>
 		<?php
 	}
 
@@ -1319,8 +1319,8 @@ class Custom_Gallery extends Module_Base {
 		foreach ($settings['gallery'] as $index => $item) :
 
 		?>
-			<div <?php echo $this->get_render_attribute_string('custom-gallery-item'); ?>>
-				<div <?php echo $this->get_render_attribute_string('custom-gallery-inner'); ?>>
+			<div <?php $this->print_render_attribute_string('custom-gallery-item'); ?>>
+				<div <?php $this->print_render_attribute_string('custom-gallery-inner'); ?>>
 
 					<?php $this->rendar_link($item, 'gallery-item-' . $index); ?>
 
@@ -1332,7 +1332,7 @@ class Custom_Gallery extends Module_Base {
 						}
 						?>
 
-						<a <?php echo $this->get_render_attribute_string('gallery-item-' . $index); ?>>
+						<a <?php $this->print_render_attribute_string('gallery-item-' . $index); ?>>
 						<?php endif; ?>
 
 						<?php

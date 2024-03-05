@@ -2707,8 +2707,8 @@ class Slider extends Module_Base {
 		$this->add_render_attribute('swiper', 'class', 'swiper-carousel ' . $swiper_class);
 
 ?>
-		<div <?php echo $this->get_render_attribute_string('slider'); ?>>
-			<div <?php echo $this->get_render_attribute_string('swiper'); ?>>
+		<div <?php $this->print_render_attribute_string('slider'); ?>>
+			<div <?php $this->print_render_attribute_string('swiper'); ?>>
 				<?php if ($settings['scroll_to_section'] && $settings['section_id']) : ?>
 					<div class="bdt-ep-scroll-to-section bdt-position-bottom-center">
 						<a href="<?php echo esc_url($settings['section_id']); ?>" bdt-scroll>
@@ -2913,7 +2913,7 @@ class Slider extends Module_Base {
 					$this->add_render_attribute('bdt-slide-title', 'class', ['bdt-slide-title bdt-clearfix'], true);
 
 				?>
-				<div <?php echo $this->get_render_attribute_string('slide-item'); ?>>
+				<div <?php $this->print_render_attribute_string('slide-item'); ?>>
 
 					<?php
 					if ('custom' == $item['source']) {
@@ -2936,12 +2936,12 @@ class Slider extends Module_Base {
 							</div>
 						<?php endif; ?>
 
-						<div class="bdt-slide-desc bdt-position-large bdt-position-<?php echo ($settings['origin']); ?> bdt-position-z-index">
+						<div class="bdt-slide-desc bdt-position-large bdt-position-<?php echo esc_attr($settings['origin']); ?> bdt-position-z-index">
 
 							<?php if (('' !== $item['tab_title']) && ($settings['show_title'])) : ?>
-								<<?php echo Utils::get_valid_html_tag($settings['title_tags']); ?> <?php echo $this->get_render_attribute_string('bdt-slide-title'); ?>>
+								<<?php echo esc_attr(Utils::get_valid_html_tag($settings['title_tags'])); ?> <?php $this->print_render_attribute_string('bdt-slide-title'); ?>>
 									<?php echo wp_kses_post($item['tab_title']); ?>
-								</<?php echo Utils::get_valid_html_tag($settings['title_tags']); ?>>
+								</<?php echo esc_attr(Utils::get_valid_html_tag($settings['title_tags'])); ?>>
 							<?php endif; ?>
 
 							<?php if ('' !== $item['tab_content']) : ?>
@@ -2950,7 +2950,7 @@ class Slider extends Module_Base {
 
 							<?php if ((!empty($item['tab_link']['url'])) && ($settings['show_button'])) : ?>
 								<div class="bdt-slide-link-wrapper">
-									<a <?php echo $this->get_render_attribute_string($link_key); ?>>
+									<a <?php $this->print_render_attribute_string($link_key); ?>>
 
 										<?php echo esc_html($settings['button_text']); ?>
 

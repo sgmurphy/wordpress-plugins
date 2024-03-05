@@ -988,7 +988,54 @@ function monsterinsights_get_api_url() {
 }
 
 function monsterinsights_get_licensing_url() {
-	return apply_filters( 'monsterinsights_get_licensing_url', 'https://www.monsterinsights.com' );
+	$licensing_website = apply_filters( 'monsterinsights_get_licensing_url', 'https://www.monsterinsights.com' );
+    return $licensing_website . '/license-api';
+}
+
+/**
+ * Queries the remote URL via wp_remote_post and returns a json decoded response.
+ *
+ * @param string $action The name of the $_POST action var.
+ * @param array  $body The content to retrieve from the remote URL.
+ * @param array  $headers The headers to send to the remote URL.
+ * @param string $return_format The format for returning content from the remote URL.
+ *
+ * @return string|bool          Json decoded response on success, false on failure.
+ * @since 6.0.0
+ */
+function monsterinsights_perform_remote_request( $action, $body = array(), $headers = array(), $return_format = 'json' ) {
+
+    $key = is_network_admin() ? MonsterInsights()->license->get_network_license_key() : MonsterInsights()->license->get_site_license_key();
+
+    // Build the body of the request.
+    $query_params = wp_parse_args(
+        $body,
+        array(
+            'tgm-updater-action'     => $action,
+            'tgm-updater-key'        => $key,
+            'tgm-updater-wp-version' => get_bloginfo( 'version' ),
+            'tgm-updater-referer'    => site_url(),
+            'tgm-updater-mi-version' => MONSTERINSIGHTS_VERSION,
+            'tgm-updater-is-pro'     => monsterinsights_is_pro_version(),
+        )
+    );
+
+    $args = [
+        'headers' => $headers,
+    ];
+
+    // Perform the query and retrieve the response.
+    $response      = wp_remote_get( add_query_arg( $query_params, monsterinsights_get_licensing_url() ), $args );
+    $response_code = wp_remote_retrieve_response_code( $response );
+    $response_body = wp_remote_retrieve_body( $response );
+
+    // Bail out early if there are any errors.
+    if ( 200 != $response_code || is_wp_error( $response_body ) ) {
+        return false;
+    }
+
+    // Return the json decoded content.
+    return json_decode( $response_body );
 }
 
 function monsterinsights_is_wp_seo_active() {

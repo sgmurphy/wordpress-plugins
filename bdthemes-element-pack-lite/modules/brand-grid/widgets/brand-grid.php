@@ -635,12 +635,12 @@ class Brand_Grid extends Module_Base {
 				$this->add_link_attributes($link_key, $item['link']);
 
 			?>
-				<div <?php echo $this->get_render_attribute_string('item-wrap'); ?>>
+				<div <?php $this->print_render_attribute_string('item-wrap'); ?>>
 					<div class="bdt-ep-brand-grid-image">
 						<?php
 						$thumb_url = Group_Control_Image_Size::get_attachment_image_src($item['image']['id'], 'thumbnail', $settings);
 						if (!$thumb_url) {
-							printf('<img src="%1$s" alt="%2$s">', $item['image']['url'], esc_html($item['brand_name']));
+							printf('<img src="%1$s" alt="%2$s">', esc_url($item['image']['url']), esc_html($item['brand_name']));
 						} else {
 							print(wp_get_attachment_image(
 								$item['image']['id'],
@@ -662,14 +662,14 @@ class Brand_Grid extends Module_Base {
 						</div>
 						<div class="bdt-ep-brand-grid-inner">
 							<?php if ($item['brand_name'] && $settings['show_brand_name']) : ?>
-								<<?php echo Utils::get_valid_html_tag($settings['brand_html_tag']); ?> <?php echo $this->get_render_attribute_string('name-wrap'); ?>>
+								<<?php echo esc_attr(Utils::get_valid_html_tag($settings['brand_html_tag'])); ?> <?php $this->print_render_attribute_string('name-wrap'); ?>>
 									<?php echo wp_kses($item['brand_name'], element_pack_allow_tags('brand_name')); ?>
-								</<?php echo Utils::get_valid_html_tag($settings['brand_html_tag']); ?>>
+								</<?php echo esc_attr(Utils::get_valid_html_tag($settings['brand_html_tag'])); ?>>
 							<?php endif; ?>
 
 							<?php if (!empty($item['link']['url']) && $settings['show_website_link']) : ?>
 								<div class="bdt-ep-brand-grid-text">
-									<a <?php echo $this->get_render_attribute_string($link_key); ?>>
+									<a <?php $this->print_render_attribute_string($link_key); ?>>
 										<?php echo esc_html($item['website_link_text']); ?>
 									</a>
 								</div>

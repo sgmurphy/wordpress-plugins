@@ -1175,7 +1175,7 @@ class Static_Grid_Tab extends Module_Base
 				<?php
 				$thumb_url = Group_Control_Image_Size::get_attachment_image_src($item['image']['id'], 'thumbnail_size', $settings);
 				if (!$thumb_url) {
-					printf('<img src="%1$s" alt="%2$s">', $item['image']['url'], esc_html($item['title']));
+					printf('<img src="%1$s" alt="%2$s">', esc_url($item['image']['url']), esc_html($item['title']));
 				} else {
 					print(
 						wp_get_attachment_image(
@@ -1222,10 +1222,10 @@ class Static_Grid_Tab extends Module_Base
 
 		?>
 		<?php if ($item['title']): ?>
-			<<?php echo Utils::get_valid_html_tag($settings['title_tag']); ?>
-				<?php echo $this->get_render_attribute_string('title-wrap'); ?>>
+			<<?php echo esc_attr(Utils::get_valid_html_tag($settings['title_tag'])); ?>
+				<?php $this->print_render_attribute_string('title-wrap'); ?>>
 				<?php echo wp_kses($item['title'], element_pack_allow_tags('title')); ?>
-			</<?php echo Utils::get_valid_html_tag($settings['title_tag']); ?>>
+			</<?php echo esc_attr(Utils::get_valid_html_tag($settings['title_tag'])); ?>>
 		<?php endif; ?>
 	<?php
 	}
@@ -1289,7 +1289,7 @@ class Static_Grid_Tab extends Module_Base
 		?>
 		<?php if ((!empty($item['readmore_link']['url'])) && ($settings['show_readmore'])): ?>
 			<div class="bdt-ep-static-grid-tab-readmore-wrap">
-				<a <?php echo $this->get_render_attribute_string($readmore_key); ?>>
+				<a <?php $this->print_render_attribute_string($readmore_key); ?>>
 					<?php echo esc_html($settings['readmore_text']); ?>
 					<?php if ($settings['readmore_icon']['value']): ?>
 						<span class="bdt-button-icon-align-<?php echo esc_attr($settings['icon_align']); ?>">
@@ -1373,7 +1373,7 @@ class Static_Grid_Tab extends Module_Base
 		}
 
 		?>
-		<div <?php echo $this->get_render_attribute_string('static-grid-tab'); ?>>
+		<div <?php $this->print_render_attribute_string('static-grid-tab'); ?>>
 			<?php
 	}
 
@@ -1400,7 +1400,7 @@ class Static_Grid_Tab extends Module_Base
 		$this->add_render_attribute('static-grid-tab-item', 'class', 'bdt-ep-static-grid-tab-item', true);
 
 		?>
-			<div <?php echo $this->get_render_attribute_string('static-grid-tab-item') ?>>
+			<div <?php $this->print_render_attribute_string('static-grid-tab-item') ?>>
 				<?php $this->render_content_image($item); ?>
 				<?php $this->render_static_content($item, $readmore_key); ?>
 			</div>

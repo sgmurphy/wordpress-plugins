@@ -27,7 +27,7 @@ class ExactMetrics_SiteInsights_Template_Scorecard_Pageviews extends ExactMetric
 			__('Avg. Session Duration', 'google-analytics-dashboard-for-wp'),
 			$duration,
 			$prev_duration,
-			__( 'vs. Previews 30 days', 'google-analytics-dashboard-for-wp' ),
+			__( 'vs. Previous 30 days', 'google-analytics-dashboard-for-wp' ),
 			$data['withComparison']
 		);
 
@@ -36,7 +36,7 @@ class ExactMetrics_SiteInsights_Template_Scorecard_Pageviews extends ExactMetric
 			__('Bounce Rate', 'google-analytics-dashboard-for-wp'),
 			$bounce_rate,
 			$prev_bounce_rate,
-			__( 'vs. Previews 30 days', 'google-analytics-dashboard-for-wp' ),
+			__( 'vs. Previous 30 days', 'google-analytics-dashboard-for-wp' ),
 			$data['withComparison']
 		);
 

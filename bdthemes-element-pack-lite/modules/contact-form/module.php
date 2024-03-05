@@ -161,7 +161,7 @@ class Module extends Element_Pack_Module_Base {
             $reset_status = (isset($form_data['reset-after-submit']) && ($form_data['reset-after-submit'] == 'yes')) ? 'yes' : 'no';
 
             if ($error == false) {
-                echo '<span class="bdt-text-success" data-resetstatus="' . esc_html($reset_status) . '"  data-redirect="' . $redirect_url . '" data-external="' . $is_external . '">' . esc_html($result) . '</span>';
+                echo '<span class="bdt-text-success" data-resetstatus="' . esc_html($reset_status) . '"  data-redirect="' . esc_url($redirect_url) . '" data-external="' . esc_attr($is_external) . '">' . esc_html($result) . '</span>';
                 // wp_redirect( $form_data['redirect_url'] );
             } else {
                 echo '<span class="bdt-text-warning">' . esc_html($result) . '</span>';

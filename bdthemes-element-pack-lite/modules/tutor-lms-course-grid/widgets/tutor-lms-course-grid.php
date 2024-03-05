@@ -1924,7 +1924,7 @@ class TutorLms_Course_Grid extends Module_Base {
 
 	?>
 
-		<div <?php echo $this->get_render_attribute_string('courses'); ?>>
+		<div <?php $this->print_render_attribute_string('courses'); ?>>
 
 		<?php
 	}
@@ -2089,8 +2089,8 @@ class TutorLms_Course_Grid extends Module_Base {
 		$this->add_render_attribute('tutor-course-item', 'class', 'bdt-tutor-course bdt-tutor-course-item', true);
 
 	?>
-		<div <?php echo $this->get_render_attribute_string($element_key); ?>>
-			<div <?php echo $this->get_render_attribute_string('tutor-course-item'); ?>>
+		<div <?php $this->print_render_attribute_string($element_key); ?>>
+			<div <?php $this->print_render_attribute_string('tutor-course-item'); ?>>
 				<?php $this->render_thumbnail(); ?>
 				<?php $this->render_desc(); ?>
 			</div>

@@ -313,7 +313,7 @@ function element_pack_post_pagination($wp_query) {
 	if (!in_array(1, $links)) {
 		$class = 1 == $paged ? ' class="current"' : '';
 
-		printf('<li%1$s><a href="%2$s">%3$s</a></li>' . "\n", $class, esc_url(get_pagenum_link(1)), '1');
+		printf('<li%1$s><a href="%2$s">%3$s</a></li>' . "\n", wp_kses_post($class), esc_url(get_pagenum_link(1)), '1');
 
 		if (!in_array(2, $links)) {
 			echo '<li class="bdt-pagination-dot-dot"><span>...</span></li>';
@@ -325,7 +325,7 @@ function element_pack_post_pagination($wp_query) {
 
 	foreach ((array) $links as $link) {
 		$class = $paged == $link ? ' class="bdt-active"' : '';
-		printf('<li%1$s><a href="%2$s">%3$s</a></li>' . "\n", $class, esc_url(get_pagenum_link($link)), $link);
+		printf('<li%1$s><a href="%2$s">%3$s</a></li>' . "\n", wp_kses_post($class), esc_url(get_pagenum_link($link)), esc_html($link));
 	}
 
 	/** Link to last page, plus ellipses if necessary */
@@ -335,7 +335,7 @@ function element_pack_post_pagination($wp_query) {
 		}
 
 		$class = $paged == $max ? ' class="bdt-active"' : '';
-		printf('<li%1$s><a href="%2$s">%3$s</a></li>' . "\n", $class, esc_url(get_pagenum_link($max)), $max);
+		printf('<li%1$s><a href="%2$s">%3$s</a></li>' . "\n", wp_kses_post($class), esc_url(get_pagenum_link($max)), wp_kses_post($max));
 	}
 
 	/** Next Post Link */
@@ -2175,7 +2175,7 @@ if (!function_exists('ep_crypto_data')) {
 			echo count($resultArray) > 0 ? json_encode($resultArray) : null;
 			wp_die();
 		} catch (Exception $e) {
-			echo $e->getMessage();
+			echo wp_kses_post($e->getMessage());
 			wp_die();
 		}
 	}
@@ -2236,7 +2236,7 @@ if (!function_exists('element_pack_render_mini_cart_item')) {
 				echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
 					'<a href="%s" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s"><svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" data-svg="close-icon"><line fill="none" stroke="#000" stroke-width="1.1" x1="1" y1="1" x2="13" y2="13"></line><line fill="none" stroke="#000" stroke-width="1.1" x1="13" y1="1" x2="1" y2="13"></line></svg></a>',
 					esc_url(wc_get_cart_remove_url($cart_item_key)),
-					__('Remove this item', 'bdthemes-element-pack'),
+					esc_html__('Remove this item', 'bdthemes-element-pack'),
 					esc_attr($product_id),
 					esc_attr($cart_item_key),
 					esc_attr($_product->get_sku())
@@ -2248,6 +2248,7 @@ if (!function_exists('element_pack_render_mini_cart_item')) {
 	}
 	function element_pack_ajax_load_query_args() {
 		$postSettings = $_POST['settings'];
+		$loadedPostIds = isset($postSettings['loadedPostsIds']) ? $postSettings['loadedPostsIds'] : [];
 
 
 		// setmeta args
@@ -2255,12 +2256,19 @@ if (!function_exists('element_pack_render_mini_cart_item')) {
 			'posts_per_page'   => isset($_POST['per_page']) ? $_POST['per_page'] : 3,
 			'post_status'      => 'publish',
 			'suppress_filters' => false,
-			'orderby'          => $postSettings['posts_orderby'],
+			// 'orderby'          => $postSettings['posts_orderby'],
 			'order'            => $postSettings['posts_order'],
 			'ignore_sticky_posts' => true,
 			'paged'            => isset($_POST['paged']) ? $_POST['paged'] : 1,
-			'offset'           => isset($_POST['offset']) ? $_POST['offset'] : 0
+			// 'offset'           => isset($_POST['offset']) ? $_POST['offset'] : 0
 		];
+
+		if (isset($postSettings['posts_orderby']) && $postSettings['posts_orderby'] === 'rand') {
+			$args['post__not_in'] = $loadedPostIds;
+		} else {
+			$args['orderby'] = $postSettings['posts_orderby'];
+			$args['offset']  = isset($_POST['offset']) ? $_POST['offset'] : 0;
+		}
 
 		/**
 		 * wc product args
@@ -2476,6 +2484,11 @@ if (!function_exists('element_pack_render_mini_cart_item')) {
 		}
 
 		$ajaxposts = new \WP_Query($args);
+		if ($postSettings['posts_orderby'] == 'rand') {
+			if ($ajaxposts->have_posts()) {
+				shuffle($ajaxposts->posts);
+			}
+		}
 		return $ajaxposts;
 	}
 

@@ -468,7 +468,7 @@ class Image_Compare extends Module_Base {
 		
 		?>
 		<div class="bdt-image-compare bdt-position-relative">
-			<div <?php echo $this->get_render_attribute_string( 'image-compare' ); ?>>
+			<div <?php $this->print_render_attribute_string( 'image-compare' ); ?>>
 				<?php echo Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail_size', 'before_image' ); ?>
 				<?php echo Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail_size', 'after_image' ); ?>
 			</div>

@@ -153,7 +153,8 @@ class ActivationForm {
                     form.addClass('disabled');
                     wp.ajax.send('colibriwp-page-builder-activate', {
                         data: {
-                            key: key
+                            key: key,
+                            '_wpnonce': '<?php echo wp_create_nonce('colibriwp-page-builder-activate-nonce');?>'
                         }
                     }).done(function (response) {
                         hideSpinner();
@@ -237,7 +238,8 @@ class ActivationForm {
                     form.addClass('disabled');
                     wp.ajax.send('colibriwp-page-builder-activate', {
                         data: {
-                            key: key
+                            key: key,
+                            '_wpnonce': '<?php echo wp_create_nonce('colibriwp-page-builder-activate-nonce');?>'
                         }
                     }).done(function (response) {
                         hideSpinner();
@@ -354,6 +356,7 @@ class ActivationForm {
 	}
 
 	public function callActivateLicenseEndpoint() {
+		check_ajax_referer('colibriwp-page-builder-activate-nonce');
 		$key = isset( $_REQUEST['key'] ) ? sanitize_text_field($_REQUEST['key']) : false;
 
 		if ( ! $key ) {

@@ -31,7 +31,7 @@ class MonsterInsights_Admin_Assets {
 	 * Class constructor.
 	 */
 	public function __construct() {
-		add_filter( 'script_loader_tag', array( $this, 'script_loader_tag' ), 10, 3 );
+		add_filter( 'script_loader_tag', array( $this, 'script_loader_tag' ), 99999, 3 );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ) );
 

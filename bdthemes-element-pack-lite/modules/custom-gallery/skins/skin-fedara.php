@@ -14,7 +14,7 @@ class Skin_Fedara extends Elementor_Skin_Base {
 	}
 
 	public function get_title() {
-		return __( 'Fedara', 'bdthemes-element-pack' );
+		return esc_html__( 'Fedara', 'bdthemes-element-pack' );
 	}
 
 	public function _register_controls_actions() {

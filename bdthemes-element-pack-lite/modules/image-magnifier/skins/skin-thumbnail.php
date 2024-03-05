@@ -90,7 +90,7 @@ class Skin_Thumbnail extends Elementor_Skin_Base {
 		$this->add_render_attribute('swiper', 'class', 'swiper-carousel gallery-top ' . $swiper_class);
 
 		?>
-		<div <?php echo $this->get_render_attribute_string('swiper'); ?>>
+		<div <?php $this->print_render_attribute_string('swiper'); ?>>
 			<div class="swiper-wrapper">
 				<?php foreach ( $settings['image_magnifier_gallery'] as $index => $item ) : ?>
 					<?php $this->render_image($settings, $item); ?>
@@ -106,7 +106,7 @@ class Skin_Thumbnail extends Elementor_Skin_Base {
 		$this->add_render_attribute('swiper', 'class', 'swiper-carousel gallery-thumbs ' . $swiper_class);
 
 		?>
-		<div <?php echo $this->get_render_attribute_string('swiper'); ?>>
+		<div <?php $this->print_render_attribute_string('swiper'); ?>>
 		    <div class="swiper-wrapper">
 				<?php foreach ( $settings['image_magnifier_gallery'] as $index => $item ) : ?>
 				      <?php $this->render_image($settings, $item); ?>

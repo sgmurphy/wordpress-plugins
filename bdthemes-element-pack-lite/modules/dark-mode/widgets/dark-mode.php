@@ -218,7 +218,7 @@ class Dark_Mode extends Module_Base {
         $this->start_controls_section(
             'section_style',
             [
-                'label' => esc_html__('Dark Mode', 'bdthemes-color-mode'),
+                'label' => esc_html__('Dark Mode', 'bdthemes-element-pack'),
                 'tab'   => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -296,7 +296,7 @@ class Dark_Mode extends Module_Base {
         $this->start_controls_section(
             'toggle_button_style',
             [
-                'label' => esc_html__('Toggle Button', 'bdthemes-color-mode'),
+                'label' => esc_html__('Toggle Button', 'bdthemes-element-pack'),
                 'tab'   => Controls_Manager::TAB_STYLE,
             ]
         );

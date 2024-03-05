@@ -4,7 +4,7 @@ Tags: page builder, editor, drag and drop, gutenberg, blocks, form builder, land
 Requires at least: 4.7
 Tested up to: 6.4
 Requires PHP: 5.5
-Stable tag: 1.8.3
+Stable tag: 1.8.4
 License: LGPL v2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -130,6 +130,11 @@ Do you have questions related to Pagelayer? Use the following links :
 9. **Content Slides** can be designed without the effort of installing extra plugins.
 
 == Changelog ==
+
+= 1.8.4 (March 05, 2024) =
+* [Security-Fix] An XSS vulnerability has been fixed. Please upgrade to this version as soon as possible!
+* [Bug-fix] In certain cases, the modal content was not aligned properly. This is fixed.
+* [Bug-fix] In certain cases, the slider height was not set correctly. This is fixed.
 
 = 1.8.3 (Feb 22, 2024) =
 * [Security-Fix] An XSS vulnerability has been fixed. Please upgrade to this version as soon as possible!

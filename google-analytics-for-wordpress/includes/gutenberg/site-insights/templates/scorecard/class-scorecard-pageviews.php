@@ -27,7 +27,7 @@ class MonsterInsights_SiteInsights_Template_Scorecard_Pageviews extends MonsterI
 			__('Avg. Session Duration', 'google-analytics-for-wordpress'),
 			$duration,
 			$prev_duration,
-			__( 'vs. Previews 30 days', 'google-analytics-for-wordpress' ),
+			__( 'vs. Previous 30 days', 'google-analytics-for-wordpress' ),
 			$data['withComparison']
 		);
 
@@ -36,7 +36,7 @@ class MonsterInsights_SiteInsights_Template_Scorecard_Pageviews extends MonsterI
 			__('Bounce Rate', 'google-analytics-for-wordpress'),
 			$bounce_rate,
 			$prev_bounce_rate,
-			__( 'vs. Previews 30 days', 'google-analytics-for-wordpress' ),
+			__( 'vs. Previous 30 days', 'google-analytics-for-wordpress' ),
 			$data['withComparison']
 		);
 

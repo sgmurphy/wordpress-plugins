@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the ExactMetrics Pro plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: ExactMetrics Pro 7.24.4\n"
+"Project-Id-Version: ExactMetrics Pro 7.25.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/monsterinsights-temp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-19T17:38:38+00:00\n"
+"POT-Creation-Date: 2024-03-05T16:32:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: google-analytics-for-wordpress\n"
@@ -170,7 +170,7 @@ msgid "Popular Posts:"
 msgstr ""
 
 #: includes/admin/admin.php:68
-#: languages/gutenberg.php:189
+#: languages/gutenberg.php:83
 #: languages/vue.php:3069
 msgid "Popular Posts"
 msgstr ""
@@ -349,9 +349,9 @@ msgid "Please Connect Your Website to MonsterInsights"
 msgstr ""
 
 #: includes/admin/admin.php:480
-#: includes/admin/common.php:633
-#: includes/admin/common.php:659
-#: includes/admin/common.php:692
+#: includes/admin/common.php:649
+#: includes/admin/common.php:675
+#: includes/admin/common.php:708
 #: includes/admin/notifications/notification-audience.php:55
 #: includes/admin/notifications/notification-bounce-rate.php:52
 #: includes/admin/notifications/notification-headline-analyzer.php:39
@@ -426,18 +426,42 @@ msgid "Click %1$shere%2$s to reauthenticate to be able to access reports. For mo
 msgstr ""
 
 #. Translators: Placeholders add a link to the MonsterInsights website.
-#: includes/admin/admin.php:680
-#: includes/admin/admin.php:713
+#: includes/admin/admin.php:676
+#: includes/admin/admin.php:726
 msgid "%1$sGet MonsterInsights Pro%2$s"
 msgstr ""
 
+#: includes/admin/admin.php:683
+msgid "Save <span>50%</span> Off MonsterInsights Pro"
+msgstr ""
+
+#: includes/admin/admin.php:693
+msgid "Add eCommerce Analytics to your WooCommerce Store"
+msgstr ""
+
+#: includes/admin/admin.php:694
+msgid "Unlock all of our advanced eCommerce features specifically designed to help your store make more money.."
+msgstr ""
+
+#: includes/admin/admin.php:695
+msgid "MonsterInsights Pro users instantly gain access to valuable insights such as average order value, conversion rates, as well as marketing performance with UTM tracking."
+msgstr ""
+
+#: includes/admin/admin.php:696
+msgid "And by upgrading, Pro users also get enhanced tracking for Forms, User Journeys, PPC Pixels, Custom UserID tracking, SEO Reports, and much more."
+msgstr ""
+
+#: includes/admin/admin.php:697
+msgid "Start making better data-driven decisions today!"
+msgstr ""
+
 #. Translators: Adds a link to the settings panel.
-#: includes/admin/admin.php:729
+#: includes/admin/admin.php:742
 msgid "Warning: MonsterInsights found cross-domain settings in the custom code field and converted them to the new settings structure.  %1$sPlease click here to review and remove the code no longer needed.%2$s"
 msgstr ""
 
 #. translators: Placeholders add a link to an article.
-#: includes/admin/admin.php:797
+#: includes/admin/admin.php:810
 msgid "Your Measurement Protocol API Secret is currently left blank. To see more advanced analytics please enter a Measurement API Secret. %1$sLearn how to find your API Secret%2$s."
 msgstr ""
 
@@ -524,55 +548,55 @@ msgid "Oops! There has been an error while trying to deauthenticate. Please try 
 msgstr ""
 
 #. Translators: Placeholders are for links to fix the issue.
-#: includes/admin/common.php:491
+#: includes/admin/common.php:507
 msgid "MonsterInsights has detected that it's files are being blocked. This is usually caused by a adblock browser plugin (particularly uBlock Origin), or a conflicting WordPress theme or plugin. This issue only affects the admin side of MonsterInsights. To solve this, ensure MonsterInsights is whitelisted for your website URL in any adblock browser plugin you use. For step by step directions on how to do this, %1$sclick here%2$s. If this doesn't solve the issue (rare), send us a ticket %3$shere%2$s and we'll be happy to help diagnose the issue."
 msgstr ""
 
-#: includes/admin/common.php:614
+#: includes/admin/common.php:630
 msgid "ACTION REQUIRED: Your PHP version is putting your site at risk!"
 msgstr ""
 
-#: includes/admin/common.php:616
+#: includes/admin/common.php:632
 msgid "ACTION REQUIRED: Speed your website up 400% with a single email!"
 msgstr ""
 
 #. Translators: Placeholder is for the current PHP version.
-#: includes/admin/common.php:623
+#: includes/admin/common.php:639
 msgid "In the next major release of MonsterInsights we are planning to remove support for the version of PHP you are using (%s). This insecure version is no longer supported by WordPress itself, so you are already missing out on the latest features of WordPress along with critical updates for security and performance (modern PHP versions make websites much faster)."
 msgstr ""
 
 #. Translators: Placeholders add a link to an article.
-#: includes/admin/common.php:626
+#: includes/admin/common.php:642
 msgid "To ensure MonsterInsights and other plugins on your site continue to function properly, and avoid putting your site at risk, please take a few minutes to ask your website hosting provider to upgrade the version of PHP to a modern PHP version (7.2 or newer). We provide helpful templates for how to ask them %1$shere%2$s."
 msgstr ""
 
-#: includes/admin/common.php:627
+#: includes/admin/common.php:643
 msgid "Upgrading your PHP version will make sure you are able to continue using WordPress without issues in the future, keep your site secure, and will also make your website up to 400% faster!"
 msgstr ""
 
-#: includes/admin/common.php:646
+#: includes/admin/common.php:662
 msgid "ACTION REQUIRED: Your WordPress version is putting your site at risk!"
 msgstr ""
 
 #. Translators: Placeholder is for the current WordPress version.
-#: includes/admin/common.php:649
+#: includes/admin/common.php:665
 msgid "In the next major release of MonsterInsights we are planning to remove support for the version of WordPress you are using (version %s). This version is several years out of date, and most plugins do not support this version anymore, so you could be missing out on critical updates for performance and security already!"
 msgstr ""
 
-#: includes/admin/common.php:651
+#: includes/admin/common.php:667
 msgid "The good news: updating WordPress has never been easier and only takes a few moments."
 msgstr ""
 
 #. Translators: Placeholders add links to articles.
-#: includes/admin/common.php:653
+#: includes/admin/common.php:669
 msgid "To update, we recommend following this %1$sstep by step guide for updating WordPress%2$s from IsItWP and afterwards check out %3$sWhy You Should Always Use the Latest Version of WordPress%4$s on WPBeginner."
 msgstr ""
 
-#: includes/admin/common.php:687
+#: includes/admin/common.php:703
 msgid "View 2023 Year in Review report!"
 msgstr ""
 
-#: includes/admin/common.php:688
+#: includes/admin/common.php:704
 msgid "See how your website performed this year and find tips along the way to help grow even more in 2024!"
 msgstr ""
 
@@ -593,22 +617,22 @@ msgid "Check Now"
 msgstr ""
 
 #: includes/admin/exclude-page-metabox.php:120
-#: languages/gutenberg.php:398
+#: languages/gutenberg.php:197
 msgid "Exclude page from Google Analytics Tracking"
 msgstr ""
 
 #: includes/admin/exclude-page-metabox.php:124
-#: languages/gutenberg.php:395
+#: languages/gutenberg.php:194
 msgid "Toggle to prevent Google Analytics from tracking this page."
 msgstr ""
 
 #: includes/admin/exclude-page-metabox.php:139
-#: languages/gutenberg.php:377
+#: languages/gutenberg.php:176
 msgid "This is a PRO feature."
 msgstr ""
 
 #: includes/admin/exclude-page-metabox.php:144
-#: languages/gutenberg.php:380
+#: languages/gutenberg.php:179
 #: languages/vue.php:4347
 msgid "Upgrade"
 msgstr ""
@@ -1274,7 +1298,7 @@ msgstr ""
 
 #: includes/admin/site-notes/Controller.php:428
 #: includes/admin/site-notes/Controller.php:683
-#: languages/gutenberg.php:389
+#: languages/gutenberg.php:188
 #: languages/vue.php:727
 msgid "Category"
 msgstr ""
@@ -1294,7 +1318,7 @@ msgid "NA"
 msgstr ""
 
 #: includes/admin/site-notes/Controller.php:672
-#: languages/gutenberg.php:386
+#: languages/gutenberg.php:185
 msgid "Add a Site Note"
 msgstr ""
 
@@ -3873,48 +3897,40 @@ msgid "something"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/graph/class-graph-age.php:36
-#: languages/gutenberg.php:258
 msgid "Age Breakdown"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/graph/class-graph-device.php:41
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-device.php:33
-#: languages/gutenberg.php:253
 #: languages/vue.php:1161
 msgid "Device Breakdown"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/graph/class-graph-gender.php:33
-#: languages/gutenberg.php:263
 msgid "Gender Breakdown"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/graph/class-graph-newvsreturning.php:36
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-newvsreturning.php:33
-#: languages/gutenberg.php:245
 msgid "New vs Returning"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/graph/class-graph-newvsreturning.php:58
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-newvsreturning.php:89
-#: languages/gutenberg.php:287
 msgid "New Visitors"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/graph/class-graph-newvsreturning.php:59
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-newvsreturning.php:90
-#: languages/gutenberg.php:283
 msgid "Returning Visitors"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/graph/class-graph-pageviews.php:36
-#: languages/gutenberg.php:241
 msgid "Page views"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/graph/class-graph-scrolldepth.php:35
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-scrolldepth.php:27
-#: languages/gutenberg.php:313
 msgid "Average Scroll Depth"
 msgstr ""
 
@@ -3923,7 +3939,6 @@ msgstr ""
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-gender.php:60
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-sessions.php:27
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-top10countries.php:56
-#: languages/gutenberg.php:236
 #: languages/vue.php:3562
 #: lite/includes/emails/templates/body-summaries-test.php:316
 #: lite/includes/emails/templates/body-summaries.php:129
@@ -3935,29 +3950,24 @@ msgid "Top 10 countries"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/graph/class-graph-topinterests.php:36
-#: languages/gutenberg.php:269
 msgid "Top Interests"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-age.php:59
-#: languages/gutenberg.php:335
 msgid "Age Range"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-age.php:61
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-gender.php:61
-#: languages/gutenberg.php:326
 msgid "Percent"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-gender.php:59
-#: languages/gutenberg.php:323
 #: languages/vue.php:1725
 msgid "Gender"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-pageviews.php:27
-#: languages/gutenberg.php:316
 #: languages/vue.php:561
 msgid "Avg. Session Duration"
 msgstr ""
@@ -3966,12 +3976,11 @@ msgstr ""
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-pageviews.php:39
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-sessions.php:30
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-sessions.php:39
-#: languages/gutenberg.php:296
-msgid "vs. Previews 30 days"
+msgid "vs. Previous 30 days"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-pageviews.php:36
-#: languages/gutenberg.php:320
+#: languages/gutenberg.php:152
 #: languages/vue.php:614
 msgid "Bounce Rate"
 msgstr ""
@@ -3984,19 +3993,16 @@ msgid "Pageviews"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-top10countries.php:55
-#: languages/gutenberg.php:276
 #: languages/vue.php:4118
 msgid "Top 10 Countries"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-topinterests.php:58
-#: languages/gutenberg.php:329
 #: languages/vue.php:721
 msgid "Categories"
 msgstr ""
 
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-topinterests.php:59
-#: languages/gutenberg.php:332
 msgid "% of Interest"
 msgstr ""
 
@@ -4005,12 +4011,12 @@ msgid "United States"
 msgstr ""
 
 #: includes/helpers.php:471
-#: includes/helpers.php:1946
+#: includes/helpers.php:1993
 msgid "Canada"
 msgstr ""
 
 #: includes/helpers.php:472
-#: includes/helpers.php:1991
+#: includes/helpers.php:2038
 msgid "United Kingdom"
 msgstr ""
 
@@ -4051,7 +4057,7 @@ msgid "Antarctica"
 msgstr ""
 
 #: includes/helpers.php:482
-#: includes/helpers.php:1939
+#: includes/helpers.php:1986
 msgid "Antigua and Barbuda"
 msgstr ""
 
@@ -4068,7 +4074,7 @@ msgid "Aruba"
 msgstr ""
 
 #: includes/helpers.php:486
-#: includes/helpers.php:1940
+#: includes/helpers.php:1987
 msgid "Australia"
 msgstr ""
 
@@ -4093,7 +4099,7 @@ msgid "Bangladesh"
 msgstr ""
 
 #: includes/helpers.php:492
-#: includes/helpers.php:1941
+#: includes/helpers.php:1988
 msgid "Barbados"
 msgstr ""
 
@@ -4106,7 +4112,7 @@ msgid "Belgium"
 msgstr ""
 
 #: includes/helpers.php:495
-#: includes/helpers.php:1942
+#: includes/helpers.php:1989
 msgid "Belize"
 msgstr ""
 
@@ -4135,7 +4141,7 @@ msgid "Bosnia and Herzegovina"
 msgstr ""
 
 #: includes/helpers.php:502
-#: includes/helpers.php:1943
+#: includes/helpers.php:1990
 msgid "Botswana"
 msgstr ""
 
@@ -4164,7 +4170,7 @@ msgid "Burkina Faso"
 msgstr ""
 
 #: includes/helpers.php:509
-#: includes/helpers.php:1944
+#: includes/helpers.php:1991
 msgid "Burundi"
 msgstr ""
 
@@ -4173,7 +4179,7 @@ msgid "Cambodia"
 msgstr ""
 
 #: includes/helpers.php:511
-#: includes/helpers.php:1945
+#: includes/helpers.php:1992
 msgid "Cameroon"
 msgstr ""
 
@@ -4266,7 +4272,7 @@ msgid "Djibouti"
 msgstr ""
 
 #: includes/helpers.php:534
-#: includes/helpers.php:1947
+#: includes/helpers.php:1994
 msgid "Dominica"
 msgstr ""
 
@@ -4315,7 +4321,7 @@ msgid "Faroe Islands"
 msgstr ""
 
 #: includes/helpers.php:546
-#: includes/helpers.php:1948
+#: includes/helpers.php:1995
 msgid "Fiji"
 msgstr ""
 
@@ -4344,7 +4350,7 @@ msgid "Gabon"
 msgstr ""
 
 #: includes/helpers.php:553
-#: includes/helpers.php:1951
+#: includes/helpers.php:1998
 msgid "Gambia"
 msgstr ""
 
@@ -4361,7 +4367,7 @@ msgid "Greece"
 msgstr ""
 
 #: includes/helpers.php:557
-#: includes/helpers.php:1952
+#: includes/helpers.php:1999
 msgid "Ghana"
 msgstr ""
 
@@ -4374,7 +4380,7 @@ msgid "Greenland"
 msgstr ""
 
 #: includes/helpers.php:560
-#: includes/helpers.php:1949
+#: includes/helpers.php:1996
 msgid "Grenada"
 msgstr ""
 
@@ -4403,7 +4409,7 @@ msgid "Guinea-Bissau"
 msgstr ""
 
 #: includes/helpers.php:567
-#: includes/helpers.php:1950
+#: includes/helpers.php:1997
 msgid "Guyana"
 msgstr ""
 
@@ -4436,7 +4442,7 @@ msgid "Iceland"
 msgstr ""
 
 #: includes/helpers.php:575
-#: includes/helpers.php:1954
+#: includes/helpers.php:2001
 msgid "India"
 msgstr ""
 
@@ -4453,7 +4459,7 @@ msgid "Iraq"
 msgstr ""
 
 #: includes/helpers.php:579
-#: includes/helpers.php:1953
+#: includes/helpers.php:2000
 msgid "Ireland"
 msgstr ""
 
@@ -4470,7 +4476,7 @@ msgid "Italy"
 msgstr ""
 
 #: includes/helpers.php:583
-#: includes/helpers.php:1955
+#: includes/helpers.php:2002
 msgid "Jamaica"
 msgstr ""
 
@@ -4491,12 +4497,12 @@ msgid "Kazakhstan"
 msgstr ""
 
 #: includes/helpers.php:588
-#: includes/helpers.php:1956
+#: includes/helpers.php:2003
 msgid "Kenya"
 msgstr ""
 
 #: includes/helpers.php:589
-#: includes/helpers.php:1957
+#: includes/helpers.php:2004
 msgid "Kiribati"
 msgstr ""
 
@@ -4521,12 +4527,12 @@ msgid "Lebanon"
 msgstr ""
 
 #: includes/helpers.php:595
-#: includes/helpers.php:1958
+#: includes/helpers.php:2005
 msgid "Lesotho"
 msgstr ""
 
 #: includes/helpers.php:596
-#: includes/helpers.php:1959
+#: includes/helpers.php:2006
 msgid "Liberia"
 msgstr ""
 
@@ -4559,7 +4565,7 @@ msgid "Madagascar"
 msgstr ""
 
 #: includes/helpers.php:604
-#: includes/helpers.php:1960
+#: includes/helpers.php:2007
 msgid "Malawi"
 msgstr ""
 
@@ -4576,12 +4582,12 @@ msgid "Mali"
 msgstr ""
 
 #: includes/helpers.php:608
-#: includes/helpers.php:1961
+#: includes/helpers.php:2008
 msgid "Malta"
 msgstr ""
 
 #: includes/helpers.php:609
-#: includes/helpers.php:1962
+#: includes/helpers.php:2009
 msgid "Marshall Islands"
 msgstr ""
 
@@ -4594,7 +4600,7 @@ msgid "Mauritania"
 msgstr ""
 
 #: includes/helpers.php:612
-#: includes/helpers.php:1963
+#: includes/helpers.php:2010
 msgid "Mauritius"
 msgstr ""
 
@@ -4607,7 +4613,7 @@ msgid "Mexico"
 msgstr ""
 
 #: includes/helpers.php:615
-#: includes/helpers.php:1964
+#: includes/helpers.php:2011
 msgid "Micronesia"
 msgstr ""
 
@@ -4644,12 +4650,12 @@ msgid "Myanmar"
 msgstr ""
 
 #: includes/helpers.php:624
-#: includes/helpers.php:1966
+#: includes/helpers.php:2013
 msgid "Namibia"
 msgstr ""
 
 #: includes/helpers.php:625
-#: includes/helpers.php:1967
+#: includes/helpers.php:2014
 msgid "Nauru"
 msgstr ""
 
@@ -4670,7 +4676,7 @@ msgid "New Caledonia"
 msgstr ""
 
 #: includes/helpers.php:630
-#: includes/helpers.php:1965
+#: includes/helpers.php:2012
 msgid "New Zealand"
 msgstr ""
 
@@ -4683,7 +4689,7 @@ msgid "Niger"
 msgstr ""
 
 #: includes/helpers.php:633
-#: includes/helpers.php:1968
+#: includes/helpers.php:2015
 msgid "Nigeria"
 msgstr ""
 
@@ -4712,12 +4718,12 @@ msgid "Oman"
 msgstr ""
 
 #: includes/helpers.php:640
-#: includes/helpers.php:1969
+#: includes/helpers.php:2016
 msgid "Pakistan"
 msgstr ""
 
 #: includes/helpers.php:641
-#: includes/helpers.php:1970
+#: includes/helpers.php:2017
 msgid "Palau"
 msgstr ""
 
@@ -4730,7 +4736,7 @@ msgid "Panama"
 msgstr ""
 
 #: includes/helpers.php:644
-#: includes/helpers.php:1971
+#: includes/helpers.php:2018
 msgid "Papua New Guinea"
 msgstr ""
 
@@ -4743,7 +4749,7 @@ msgid "Peru"
 msgstr ""
 
 #: includes/helpers.php:647
-#: includes/helpers.php:1972
+#: includes/helpers.php:2019
 msgid "Philippines"
 msgstr ""
 
@@ -4784,7 +4790,7 @@ msgid "Russian Federation"
 msgstr ""
 
 #: includes/helpers.php:657
-#: includes/helpers.php:1973
+#: includes/helpers.php:2020
 msgid "Rwanda"
 msgstr ""
 
@@ -4841,17 +4847,17 @@ msgid "Serbia"
 msgstr ""
 
 #: includes/helpers.php:671
-#: includes/helpers.php:1980
+#: includes/helpers.php:2027
 msgid "Seychelles"
 msgstr ""
 
 #: includes/helpers.php:672
-#: includes/helpers.php:1981
+#: includes/helpers.php:2028
 msgid "Sierra Leone"
 msgstr ""
 
 #: includes/helpers.php:673
-#: includes/helpers.php:1974
+#: includes/helpers.php:2021
 msgid "Singapore"
 msgstr ""
 
@@ -4864,7 +4870,7 @@ msgid "Slovenia"
 msgstr ""
 
 #: includes/helpers.php:676
-#: includes/helpers.php:1982
+#: includes/helpers.php:2029
 msgid "Solomon Islands"
 msgstr ""
 
@@ -4873,7 +4879,7 @@ msgid "Somalia"
 msgstr ""
 
 #: includes/helpers.php:678
-#: includes/helpers.php:1983
+#: includes/helpers.php:2030
 msgid "South Africa"
 msgstr ""
 
@@ -4886,7 +4892,7 @@ msgid "South Korea"
 msgstr ""
 
 #: includes/helpers.php:681
-#: includes/helpers.php:1984
+#: includes/helpers.php:2031
 msgid "South Sudan"
 msgstr ""
 
@@ -4899,7 +4905,7 @@ msgid "Sri Lanka"
 msgstr ""
 
 #: includes/helpers.php:684
-#: includes/helpers.php:1985
+#: includes/helpers.php:2032
 msgid "Sudan"
 msgstr ""
 
@@ -4912,7 +4918,7 @@ msgid "Svalbard and Jan Mayen Islands"
 msgstr ""
 
 #: includes/helpers.php:687
-#: includes/helpers.php:1978
+#: includes/helpers.php:2025
 msgid "Swaziland"
 msgstr ""
 
@@ -4937,7 +4943,7 @@ msgid "Tajikistan"
 msgstr ""
 
 #: includes/helpers.php:693
-#: includes/helpers.php:1988
+#: includes/helpers.php:2035
 msgid "Tanzania"
 msgstr ""
 
@@ -4958,12 +4964,12 @@ msgid "Tokelau"
 msgstr ""
 
 #: includes/helpers.php:698
-#: includes/helpers.php:1989
+#: includes/helpers.php:2036
 msgid "Tonga"
 msgstr ""
 
 #: includes/helpers.php:699
-#: includes/helpers.php:1986
+#: includes/helpers.php:2033
 msgid "Trinidad and Tobago"
 msgstr ""
 
@@ -4984,12 +4990,12 @@ msgid "Turks and Caicos Islands"
 msgstr ""
 
 #: includes/helpers.php:704
-#: includes/helpers.php:1990
+#: includes/helpers.php:2037
 msgid "Tuvalu"
 msgstr ""
 
 #: includes/helpers.php:705
-#: includes/helpers.php:1993
+#: includes/helpers.php:2040
 msgid "Uganda"
 msgstr ""
 
@@ -5014,7 +5020,7 @@ msgid "Uzbekistan"
 msgstr ""
 
 #: includes/helpers.php:711
-#: includes/helpers.php:1994
+#: includes/helpers.php:2041
 msgid "Vanuatu"
 msgstr ""
 
@@ -5051,12 +5057,12 @@ msgid "Yemen"
 msgstr ""
 
 #: includes/helpers.php:720
-#: includes/helpers.php:1995
+#: includes/helpers.php:2042
 msgid "Zambia"
 msgstr ""
 
 #: includes/helpers.php:721
-#: includes/helpers.php:1996
+#: includes/helpers.php:2043
 msgid "Zimbabwe"
 msgstr ""
 
@@ -5064,642 +5070,496 @@ msgstr ""
 msgid "Unknown Country"
 msgstr ""
 
-#: includes/helpers.php:1356
+#: includes/helpers.php:1403
 msgid "%1$sWe noticed you're using a caching plugin or caching from your hosting provider.%2$s Be sure to clear the cache to ensure the tracking appears on all pages and posts. %3$s(See this guide on how to clear cache)%4$s."
 msgstr ""
 
 #. Translators: The placeholders are for making the "We have detected multiple tracking codes" text bold & adding a link to support.
-#: includes/helpers.php:1419
+#: includes/helpers.php:1466
 msgid "%1$sWe have detected multiple tracking codes%2$s! You should remove non-MonsterInsights ones. If you need help finding them please %3$sread this article%4$s."
 msgstr ""
 
-#: includes/helpers.php:1975
+#: includes/helpers.php:2022
 msgid "St Kitts and Nevis"
 msgstr ""
 
-#: includes/helpers.php:1976
+#: includes/helpers.php:2023
 msgid "St Lucia"
 msgstr ""
 
-#: includes/helpers.php:1977
+#: includes/helpers.php:2024
 msgid "St Vincent and the Grenadines"
 msgstr ""
 
-#: includes/helpers.php:1979
+#: includes/helpers.php:2026
 msgid "Samoa"
 msgstr ""
 
-#: includes/helpers.php:1987
+#: includes/helpers.php:2034
 msgid "The Bahamas"
 msgstr ""
 
-#: includes/helpers.php:1992
+#: includes/helpers.php:2039
 msgid "United States of America"
 msgstr ""
 
-#: languages/gutenberg.php:7
+#: languages/gutenberg.php:6
 msgid "Popular"
 msgstr ""
 
-#: languages/gutenberg.php:11
+#: languages/gutenberg.php:10
 msgid "Posts"
 msgstr ""
 
-#: languages/gutenberg.php:14
+#: languages/gutenberg.php:13
 msgid "Inline"
 msgstr ""
 
-#: languages/gutenberg.php:19
+#: languages/gutenberg.php:17
 msgid "Title Font Size"
 msgstr ""
 
-#: languages/gutenberg.php:24
+#: languages/gutenberg.php:21
 msgid "Title Color"
 msgstr ""
 
-#: languages/gutenberg.php:29
+#: languages/gutenberg.php:25
 msgid "Title Settings"
 msgstr ""
 
-#: languages/gutenberg.php:33
+#: languages/gutenberg.php:29
 msgid "Label Text"
 msgstr ""
 
-#: languages/gutenberg.php:37
+#: languages/gutenberg.php:33
 msgid "Label Color"
 msgstr ""
 
-#: languages/gutenberg.php:41
+#: languages/gutenberg.php:37
 msgid "Label Background"
 msgstr ""
 
-#: languages/gutenberg.php:45
+#: languages/gutenberg.php:41
 msgid "Label Settings"
 msgstr ""
 
-#: languages/gutenberg.php:50
+#: languages/gutenberg.php:45
 msgid "Bottom Border Color"
 msgstr ""
 
-#: languages/gutenberg.php:55
+#: languages/gutenberg.php:49
 msgid "Border Color"
 msgstr ""
 
-#: languages/gutenberg.php:60
+#: languages/gutenberg.php:53
 msgid "Border Settings"
 msgstr ""
 
-#: languages/gutenberg.php:65
+#: languages/gutenberg.php:57
 msgid "Background Color"
 msgstr ""
 
-#: languages/gutenberg.php:70
+#: languages/gutenberg.php:61
 msgid "Background Settings"
 msgstr ""
 
-#: languages/gutenberg.php:73
+#: languages/gutenberg.php:64
 msgid "Icon Color"
 msgstr ""
 
-#: languages/gutenberg.php:76
+#: languages/gutenberg.php:67
 msgid "Icon Background Color"
 msgstr ""
 
-#: languages/gutenberg.php:79
+#: languages/gutenberg.php:70
 msgid "Icon Settings"
 msgstr ""
 
-#: languages/gutenberg.php:84
+#: languages/gutenberg.php:74
 msgid "Theme"
 msgstr ""
 
-#: languages/gutenberg.php:87
+#: languages/gutenberg.php:77
 #: languages/vue.php:2048
 msgid "Inline Popular Posts"
 msgstr ""
 
-#: languages/gutenberg.php:90
+#: languages/gutenberg.php:80
 msgid "Add inline popular posts from MonsterInsights"
 msgstr ""
 
-#: languages/gutenberg.php:93
-#: languages/vue.php:3086
-msgid "Popular Products"
+#: languages/gutenberg.php:86
+msgid "Add popular posts from MonsterInsights"
 msgstr ""
 
-#: languages/gutenberg.php:96
-msgid "Add popular products from MonsterInsights"
-msgstr ""
-
-#: languages/gutenberg.php:99
-#: languages/vue.php:3163
-msgid "Products"
-msgstr ""
-
-#: languages/gutenberg.php:103
+#: languages/gutenberg.php:89
 msgid "Widget"
 msgstr ""
 
-#: languages/gutenberg.php:106
-msgid "Price Font Size"
+#: languages/gutenberg.php:92
+msgid "Meta Font Size"
 msgstr ""
 
-#: languages/gutenberg.php:109
-msgid "Price Color"
+#: languages/gutenberg.php:95
+msgid "Meta Color"
 msgstr ""
 
-#: languages/gutenberg.php:112
-msgid "Price Settings"
+#: languages/gutenberg.php:98
+msgid "Meta Settings"
 msgstr ""
 
-#: languages/gutenberg.php:115
-msgid "Rating Settings"
+#: languages/gutenberg.php:101
+msgid "Comment Settings"
 msgstr ""
 
-#: languages/gutenberg.php:118
-msgid "Rating Color"
+#: languages/gutenberg.php:104
+msgid "Comment Color"
 msgstr ""
 
-#: languages/gutenberg.php:122
+#: languages/gutenberg.php:107
 #: languages/vue.php:4739
 msgid "Wide-Layout Options"
 msgstr ""
 
-#: languages/gutenberg.php:126
+#: languages/gutenberg.php:110
 msgid "Choose Layout"
 msgstr ""
 
-#: languages/gutenberg.php:130
+#: languages/gutenberg.php:113
 #: languages/vue.php:321
 msgid "Adjust the number of columns displayed when the widget is placed in a wide container."
 msgstr ""
 
-#: languages/gutenberg.php:133
-msgid "Products Count"
-msgstr ""
-
-#: languages/gutenberg.php:136
-msgid "Number of products displayed."
-msgstr ""
-
-#: languages/gutenberg.php:140
-#: languages/vue.php:1231
-msgid "Display Options"
-msgstr ""
-
-#: languages/gutenberg.php:144
-msgid "Behavior Settings"
-msgstr ""
-
-#: languages/gutenberg.php:148
-msgid "Display Widget Title"
-msgstr ""
-
-#: languages/gutenberg.php:152
-#: languages/vue.php:4746
-msgid "Widget Title"
-msgstr ""
-
-#: languages/gutenberg.php:156
-msgid "Only Show Posts From These Categories"
-msgstr ""
-
-#: languages/gutenberg.php:159
-msgid "Exclude These Product IDs"
-msgstr ""
-
-#: languages/gutenberg.php:162
-msgid "Display Price"
-msgstr ""
-
-#: languages/gutenberg.php:165
-msgid "Display Rating"
-msgstr ""
-
-#: languages/gutenberg.php:168
-msgid "Display Image"
-msgstr ""
-
-#: languages/gutenberg.php:171
-msgid "To use the Popular Products Block, you must have a MonsterInsights Pro license."
-msgstr ""
-
-#: languages/gutenberg.php:174
-#: languages/vue.php:4406
-msgid "Upgrade to Pro and Unlock Popular Products"
-msgstr ""
-
-#: languages/gutenberg.php:177
-msgid "To use the Popular Products Block, you must have WooCommerce installed and activated."
-msgstr ""
-
-#: languages/gutenberg.php:180
-msgid "Install WooCommerce"
-msgstr ""
-
-#: languages/gutenberg.php:183
-msgid "This Block requires MonsterInsights Pro."
-msgstr ""
-
-#: languages/gutenberg.php:186
-msgid "This Block requires WooCommerce."
-msgstr ""
-
-#: languages/gutenberg.php:192
-msgid "Add popular posts from MonsterInsights"
-msgstr ""
-
-#: languages/gutenberg.php:195
-msgid "Meta Font Size"
-msgstr ""
-
-#: languages/gutenberg.php:198
-msgid "Meta Color"
-msgstr ""
-
-#: languages/gutenberg.php:201
-msgid "Meta Settings"
-msgstr ""
-
-#: languages/gutenberg.php:204
-msgid "Comment Settings"
-msgstr ""
-
-#: languages/gutenberg.php:207
-msgid "Comment Color"
-msgstr ""
-
-#: languages/gutenberg.php:210
+#: languages/gutenberg.php:116
 #: languages/vue.php:3098
 msgid "Post Count"
 msgstr ""
 
-#: languages/gutenberg.php:213
+#: languages/gutenberg.php:119
 msgid "Number of posts displayed."
 msgstr ""
 
-#: languages/gutenberg.php:216
+#: languages/gutenberg.php:122
+#: languages/vue.php:1231
+msgid "Display Options"
+msgstr ""
+
+#: languages/gutenberg.php:125
+msgid "Behavior Settings"
+msgstr ""
+
+#: languages/gutenberg.php:128
+msgid "Display Widget Title"
+msgstr ""
+
+#: languages/gutenberg.php:131
+#: languages/vue.php:4746
+msgid "Widget Title"
+msgstr ""
+
+#: languages/gutenberg.php:134
+msgid "Only Show Posts From These Categories"
+msgstr ""
+
+#: languages/gutenberg.php:137
 #: languages/vue.php:1216
 msgid "Display Author"
 msgstr ""
 
-#: languages/gutenberg.php:219
+#: languages/gutenberg.php:140
 #: languages/vue.php:1222
 msgid "Display Date"
 msgstr ""
 
-#: languages/gutenberg.php:222
+#: languages/gutenberg.php:143
 #: languages/vue.php:1219
 msgid "Display Comments"
 msgstr ""
 
-#: languages/gutenberg.php:226
-msgid "Graph"
-msgstr ""
-
-#: languages/gutenberg.php:230
-msgid "Scorecard"
-msgstr ""
-
-#: languages/gutenberg.php:248
-#: languages/vue.php:4146
-msgid "Top Countries"
-msgstr ""
-
-#: languages/gutenberg.php:272
-#: languages/vue.php:3375
-msgid "Scroll Depth"
-msgstr ""
-
-#: languages/gutenberg.php:279
-#: languages/vue.php:2644
-msgid "New vs. Returning Visitors"
-msgstr ""
-
-#: languages/gutenberg.php:290
-msgid "Age"
-msgstr ""
-
-#: languages/gutenberg.php:293
-msgid "Select a Display Method"
-msgstr ""
-
-#: languages/gutenberg.php:299
-msgid "Oops!"
-msgstr ""
-
-#: languages/gutenberg.php:302
-msgid "We cannot get data for this metric. Please make sure the license is valid and properly connected."
-msgstr ""
-
-#: languages/gutenberg.php:305
-msgid "Go to Settings"
-msgstr ""
-
-#: languages/gutenberg.php:309
-msgid "No \"%s\" data. Please make sure you have \"Google Signals\" enabled on the property."
-msgstr ""
-
-#: languages/gutenberg.php:338
-msgid "Choose a Metric"
-msgstr ""
-
-#: languages/gutenberg.php:341
-msgid "Colors settings"
-msgstr ""
-
-#: languages/gutenberg.php:344
-msgid "Primary color"
-msgstr ""
-
-#: languages/gutenberg.php:347
-msgid "Secondary color"
-msgstr ""
-
-#: languages/gutenberg.php:350
+#: languages/gutenberg.php:146
 #: languages/vue.php:2238
 #: lite/includes/admin/metaboxes.php:46
 msgid "Last 30 days"
 msgstr ""
 
-#: languages/gutenberg.php:353
+#: languages/gutenberg.php:149
 #: languages/vue.php:4816
 #: lite/includes/admin/metaboxes.php:50
 msgid "Yesterday"
 msgstr ""
 
-#: languages/gutenberg.php:356
+#: languages/gutenberg.php:155
 msgid "Time On Page"
 msgstr ""
 
-#: languages/gutenberg.php:359
+#: languages/gutenberg.php:158
 msgid "Load Time"
 msgstr ""
 
-#: languages/gutenberg.php:362
+#: languages/gutenberg.php:161
 #: lite/includes/admin/metaboxes.php:72
 #: lite/includes/admin/metaboxes.php:112
 msgid "Entrances"
 msgstr ""
 
-#: languages/gutenberg.php:365
+#: languages/gutenberg.php:164
 #: lite/includes/admin/metaboxes.php:80
 #: lite/includes/admin/metaboxes.php:120
 #: lite/includes/emails/templates/body-summaries.php:189
 msgid "Page Views"
 msgstr ""
 
-#: languages/gutenberg.php:368
+#: languages/gutenberg.php:167
 #: languages/vue.php:1587
 #: lite/includes/admin/metaboxes.php:88
 #: lite/includes/admin/metaboxes.php:128
 msgid "Exits"
 msgstr ""
 
-#: languages/gutenberg.php:371
+#: languages/gutenberg.php:170
 #: lite/includes/admin/metaboxes.php:137
 msgid "Hide Page Insights"
 msgstr ""
 
-#: languages/gutenberg.php:374
+#: languages/gutenberg.php:173
 #: lite/includes/admin/metaboxes.php:39
 msgid "Show Page Insights"
 msgstr ""
 
-#: languages/gutenberg.php:383
+#: languages/gutenberg.php:182
 msgid "Add a Site Note when publishing this post"
 msgstr ""
 
-#: languages/gutenberg.php:392
+#: languages/gutenberg.php:191
 msgid "Published: %s"
 msgstr ""
 
-#: languages/gutenberg.php:401
+#: languages/gutenberg.php:200
 msgid "Character Count"
 msgstr ""
 
-#: languages/gutenberg.php:404
+#: languages/gutenberg.php:203
 msgid "Too Short"
 msgstr ""
 
-#: languages/gutenberg.php:407
+#: languages/gutenberg.php:206
 msgid "You have space to add more keywords and power words to boost your rankings and click-through rate."
 msgstr ""
 
-#: languages/gutenberg.php:411
+#: languages/gutenberg.php:210
 msgid "Good"
 msgstr ""
 
-#: languages/gutenberg.php:414
+#: languages/gutenberg.php:213
 msgid "Headlines that are about 55 characters long will display fully in search results and tend to get more clicks."
 msgstr ""
 
-#: languages/gutenberg.php:417
+#: languages/gutenberg.php:216
 msgid "Too Long"
 msgstr ""
 
-#: languages/gutenberg.php:420
+#: languages/gutenberg.php:219
 msgid "At this length, it will get cut off in search results. Try reducing it to about 55 characters."
 msgstr ""
 
-#: languages/gutenberg.php:423
+#: languages/gutenberg.php:222
 msgid "New Score"
 msgstr ""
 
-#: languages/gutenberg.php:427
+#: languages/gutenberg.php:226
 msgid "A good score is between 40 and 60. For best results, you should strive for 70 and above."
 msgstr ""
 
-#: languages/gutenberg.php:431
+#: languages/gutenberg.php:230
 msgid "Current Score"
 msgstr ""
 
-#: languages/gutenberg.php:434
+#: languages/gutenberg.php:233
 msgid "Previous Scores"
 msgstr ""
 
-#: languages/gutenberg.php:437
+#: languages/gutenberg.php:236
 msgid "Search Preview"
 msgstr ""
 
-#: languages/gutenberg.php:440
+#: languages/gutenberg.php:239
 msgid "Here is how your headline will look like in google search results page."
 msgstr ""
 
-#: languages/gutenberg.php:443
+#: languages/gutenberg.php:242
 msgid "Headlines that are strongly positive or negative tend to get more engagement then neutral ones."
 msgstr ""
 
-#: languages/gutenberg.php:446
+#: languages/gutenberg.php:245
 msgid "Your headline has a positive sentiment."
 msgstr ""
 
-#: languages/gutenberg.php:449
+#: languages/gutenberg.php:248
 msgid "Positive headlines tend to get better engagement than neutral or negative ones."
 msgstr ""
 
-#: languages/gutenberg.php:452
+#: languages/gutenberg.php:251
 msgid "Your headline has a negative sentiment."
 msgstr ""
 
-#: languages/gutenberg.php:455
+#: languages/gutenberg.php:254
 msgid "Negative headlines are attention-grabbing and tend to perform better than neutral ones."
 msgstr ""
 
-#: languages/gutenberg.php:458
+#: languages/gutenberg.php:257
 msgid "Sentiment"
 msgstr ""
 
-#: languages/gutenberg.php:461
+#: languages/gutenberg.php:260
 msgid "Neutral"
 msgstr ""
 
-#: languages/gutenberg.php:464
+#: languages/gutenberg.php:263
 msgid "Positive"
 msgstr ""
 
-#: languages/gutenberg.php:467
+#: languages/gutenberg.php:266
 msgid "Negative"
 msgstr ""
 
-#: languages/gutenberg.php:470
+#: languages/gutenberg.php:269
 msgid "Your headline has a neutral sentiment."
 msgstr ""
 
-#: languages/gutenberg.php:473
+#: languages/gutenberg.php:272
 msgid "Beginning & Ending Words"
 msgstr ""
 
-#: languages/gutenberg.php:476
+#: languages/gutenberg.php:275
 msgid "Most readers only look at the first and last 3 words of a headline before deciding whether to click."
 msgstr ""
 
-#: languages/gutenberg.php:479
+#: languages/gutenberg.php:278
 msgid "Headlines that are lists and how-to get more engagement on average than other types of headlines. %1sRead more about %2sdifferent types of headlines here.%3s"
 msgstr ""
 
-#: languages/gutenberg.php:482
+#: languages/gutenberg.php:281
 msgid "Headline Type"
 msgstr ""
 
-#: languages/gutenberg.php:485
+#: languages/gutenberg.php:284
 msgid "Word Balance"
 msgstr ""
 
-#: languages/gutenberg.php:488
+#: languages/gutenberg.php:287
 msgid "Compare the percentages of your results to the goal for each category and adjust as necessary."
 msgstr ""
 
-#: languages/gutenberg.php:491
+#: languages/gutenberg.php:290
 msgid "Your headline would be more likely to get clicks if it had more uncommon words."
 msgstr ""
 
-#: languages/gutenberg.php:494
+#: languages/gutenberg.php:293
 msgid "Headlines with 20-30% common words are more likely to get clicks."
 msgstr ""
 
-#: languages/gutenberg.php:497
+#: languages/gutenberg.php:296
 msgid "Headlines with uncommon words are more likely to get clicks."
 msgstr ""
 
-#: languages/gutenberg.php:500
+#: languages/gutenberg.php:299
 msgid "Emotionally triggered headlines are likely to drive more clicks."
 msgstr ""
 
-#: languages/gutenberg.php:503
+#: languages/gutenberg.php:302
 msgid "Headlines with Power Words are more likely to get clicks."
 msgstr ""
 
-#: languages/gutenberg.php:506
+#: languages/gutenberg.php:305
 msgid "Common Words"
 msgstr ""
 
-#: languages/gutenberg.php:509
+#: languages/gutenberg.php:308
 msgid "20-30%"
 msgstr ""
 
-#: languages/gutenberg.php:512
+#: languages/gutenberg.php:311
 msgid "Uncommon Words"
 msgstr ""
 
-#: languages/gutenberg.php:515
+#: languages/gutenberg.php:314
 msgid "10-20%"
 msgstr ""
 
-#: languages/gutenberg.php:518
+#: languages/gutenberg.php:317
 msgid "Emotional Words"
 msgstr ""
 
-#: languages/gutenberg.php:521
+#: languages/gutenberg.php:320
 msgid "10-15%"
 msgstr ""
 
-#: languages/gutenberg.php:524
+#: languages/gutenberg.php:323
 msgid "Power Words"
 msgstr ""
 
-#: languages/gutenberg.php:527
+#: languages/gutenberg.php:326
 msgid "At least one"
 msgstr ""
 
-#: languages/gutenberg.php:530
+#: languages/gutenberg.php:329
 msgid "Word Count"
 msgstr ""
 
-#: languages/gutenberg.php:533
+#: languages/gutenberg.php:332
 msgid "Not Enough Words"
 msgstr ""
 
-#: languages/gutenberg.php:536
+#: languages/gutenberg.php:335
 msgid "Your headline doesn’t use enough words. You have more space to add keywords and power words to improve your SEO and get more engagement."
 msgstr ""
 
-#: languages/gutenberg.php:539
+#: languages/gutenberg.php:338
 msgid "Your headline has the right amount of words. Headlines are more likely to be clicked on in search results if they have about 6 words."
 msgstr ""
 
-#: languages/gutenberg.php:542
+#: languages/gutenberg.php:341
 msgid "Reduce Word Count"
 msgstr ""
 
-#: languages/gutenberg.php:545
+#: languages/gutenberg.php:344
 msgid "Too Many Words"
 msgstr ""
 
-#: languages/gutenberg.php:548
+#: languages/gutenberg.php:347
 msgid "Your headline has too many words. Long headlines will get cut off in search results and won’t get as many clicks."
 msgstr ""
 
-#: languages/gutenberg.php:552
+#: languages/gutenberg.php:351
 msgid "Try New Headline"
 msgstr ""
 
-#: languages/gutenberg.php:555
+#: languages/gutenberg.php:354
 msgid "Score"
 msgstr ""
 
-#: languages/gutenberg.php:558
+#: languages/gutenberg.php:357
 msgid "Analyze"
 msgstr ""
 
-#: languages/gutenberg.php:561
+#: languages/gutenberg.php:360
 msgid "Enter a different headline than your post title to see how it compares."
 msgstr ""
 
-#: languages/gutenberg.php:564
+#: languages/gutenberg.php:363
 msgid "Goal: "
 msgstr ""
 
-#: languages/gutenberg.php:567
+#: languages/gutenberg.php:366
 #: languages/vue.php:1872
 msgid "Headline Analyzer"
 msgstr ""
 
-#: languages/gutenberg.php:570
+#: languages/gutenberg.php:369
 msgid "Write your post title to see the analyzer data. This Headline Analyzer tool enables you to write irresistible SEO headlines that drive traffic, shares, and rank better in search results."
 msgstr ""
 
-#: languages/gutenberg.php:573
+#: languages/gutenberg.php:372
 msgid "This headline analyzer is part of MonsterInsights to help you increase your traffic. See your %1swebsite traffic reports%2s."
 msgstr ""
 
@@ -8694,6 +8554,10 @@ msgstr ""
 msgid "New Users"
 msgstr ""
 
+#: languages/vue.php:2644
+msgid "New vs. Returning Visitors"
+msgstr ""
+
 #: languages/vue.php:2647
 msgid "Next"
 msgstr ""
@@ -9168,6 +9032,10 @@ msgstr ""
 msgid "Popular Posts Widget"
 msgstr ""
 
+#: languages/vue.php:3086
+msgid "Popular Products"
+msgstr ""
+
 #: languages/vue.php:3089
 msgid "Popular Products by MonsterInsights"
 msgstr ""
@@ -9258,6 +9126,10 @@ msgstr ""
 
 #: languages/vue.php:3160
 msgid "Product Sales Report"
+msgstr ""
+
+#: languages/vue.php:3163
+msgid "Products"
 msgstr ""
 
 #: languages/vue.php:3167
@@ -9495,6 +9367,10 @@ msgstr ""
 
 #: languages/vue.php:3368
 msgid "SCA & 3D Secure Payments ensures your customer’s payment information stays private and secure."
+msgstr ""
+
+#: languages/vue.php:3375
+msgid "Scroll Depth"
 msgstr ""
 
 #: languages/vue.php:3378
@@ -10372,6 +10248,10 @@ msgstr ""
 msgid "Top Conversion Sources"
 msgstr ""
 
+#: languages/vue.php:4146
+msgid "Top Countries"
+msgstr ""
+
 #: languages/vue.php:4154
 msgid "Top Download Links"
 msgstr ""
@@ -10610,6 +10490,10 @@ msgstr ""
 
 #: languages/vue.php:4403
 msgid "Upgrade to Pro and unlock addons and other great features. %1$sSave 50%% automatically!%2$s"
+msgstr ""
+
+#: languages/vue.php:4406
+msgid "Upgrade to Pro and Unlock Popular Products"
 msgstr ""
 
 #: languages/vue.php:4409

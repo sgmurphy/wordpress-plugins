@@ -54,28 +54,28 @@ class Installer extends Base {
 			}
 		}
 
-		/**
-		 * @var array|object $api
-		 */
-		$api = plugins_api( 'plugin_information', [
-			'slug'   => sanitize_key( wp_unslash( $plugin['slug'] ) ),
-			'fields' => [
-				'sections' => false,
-			],
-		] );
-
-		if ( is_wp_error( $api ) ) {
-			$response['message'] = $api->get_error_message();
-
-			return $response;
-		}
-
-		$compatibility = $this->check_compatibility($api);
-		if (!$compatibility['success']) {
-			return $compatibility;
-		}
-
 		if ( ! $is_installed ) {
+			/**
+			 * @var array|object $api
+			 */
+			$api = plugins_api( 'plugin_information', [
+				'slug'   => sanitize_key( wp_unslash( $plugin['slug'] ) ),
+				'fields' => [
+					'sections' => false,
+				],
+			] );
+
+			if ( is_wp_error( $api ) ) {
+				$response['message'] = $api->get_error_message();
+
+				return $response;
+			}
+
+			$compatibility = $this->check_compatibility($api);
+			if (!$compatibility['success']) {
+				return $compatibility;
+			}
+
 			$response['name'] = $api->name;
 
 			$skin     = new WP_Ajax_Upgrader_Skin();

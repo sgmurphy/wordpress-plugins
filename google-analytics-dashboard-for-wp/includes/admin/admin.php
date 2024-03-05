@@ -658,33 +658,46 @@ function exactmetrics_admin_setup_notices()
 	// 8. WooUpsell
 	if (!exactmetrics_is_pro_version() && class_exists('WooCommerce') && $is_plugins_page) {
 		if (!isset($notices['exactmetrics_woocommerce_tracking_available'])) {
-			echo '<div class="notice notice-success is-dismissible exactmetrics-notice exactmetrics-wooedd-upsell-row" data-notice="exactmetrics_woocommerce_tracking_available">';
-			echo '<div class="exactmetrics-wooedd-upsell-left">';
-			echo '<p><strong>';
-			echo esc_html('Enhanced Ecommerce Analytics for Your WooCommerce Store', 'google-analytics-dashboard-for-wp');
-			echo '</strong></p>';
-			echo '<img class="exactmetrics-wooedd-upsell-image exactmetrics-wooedd-upsell-image-small" src="' . esc_url(trailingslashit(EXACTMETRICS_PLUGIN_URL)) . 'assets/images/upsell/woo-edd-upsell.png">';
-			echo '<p>';
-			echo esc_html('ExactMetrics Pro gives you detailed stats and insights about your customers.', 'google-analytics-dashboard-for-wp');
-			echo '</p>';
-			echo '<p>';
-			echo esc_html('This helps you make data-driven decisions about your content, and marketing strategy so you can increase your website traffic, leads, and sales.', 'google-analytics-dashboard-for-wp');
-			echo '</p>';
-			echo '<p>';
-			echo esc_html('Pro customers also get Form Tracking, Custom Dimensions Tracking, UserID Tracking and much more.', 'google-analytics-dashboard-for-wp');
-			echo '</p>';
-			echo '<p>';
-			echo esc_html('Start making data-driven decisions to grow your business.', 'google-analytics-dashboard-for-wp');
-			echo '</p>';
-			// Translators: Placeholders add a link to the ExactMetrics website.
-			echo sprintf(esc_html__('%1$sGet ExactMetrics Pro%2$s', 'google-analytics-dashboard-for-wp'), '<a class="button button-primary button-hero" target="_blank" href="' . esc_url(exactmetrics_get_upgrade_link('admin-notices', 'woocommerce-upgrade')) . '">', ' &raquo;</a>');
-			echo '</p>';
-			echo '</div><div class="exactmetrics-wooedd-upsell-right">';
-			echo '<img class="exactmetrics-wooedd-upsell-image exactmetrics-wooedd-upsell-image-large" src="' . esc_url(trailingslashit(EXACTMETRICS_PLUGIN_URL)) . 'assets/images/upsell/woo-edd-upsell.png">';
-			echo '</div>';
-			echo '</div>';
-			echo '<style type="text/css">.exactmetrics-wooedd-upsell-left{width:50%;display:table-cell;float:left}.exactmetrics-wooedd-upsell-right{width:50%;display:table-cell;float:left}.exactmetrics-wooedd-upsell-image{width:100%;height:auto;padding:20px}.exactmetrics-wooedd-upsell-image-small{display:none}.exactmetrics-wooedd-upsell-row{display:table}.exactmetrics-wooedd-upsell-left p{margin:1em 0;font-size:16px}@media (max-width:900px){.exactmetrics-wooedd-upsell-left{width:100%}.exactmetrics-wooedd-upsell-right{display:none}.exactmetrics-wooedd-upsell-image-small{display:block}.exactmetrics-wooedd-upsell-image-large{display:none}}</style>';
+			$woo_notice_template = '<div class="notice notice-success is-dismissible exactmetrics-notice exactmetrics-wooedd-upsell-row" data-notice="exactmetrics_woocommerce_tracking_available">
+				%1$s
+				<div class="exactmetrics-wooedd-upsell-left">
+					<p><strong>%2$s</strong></p>
+					<p>%3$s</p>
+					<p>%4$s</p>
+					<p>%5$s</p>
+					<p>%6$s</p>
+					%7$s
+					%8$s
+				</div>
+			</div>';
 
+			$woo_notice_button = sprintf(
+				// Translators: Placeholders add a link to the ExactMetrics website.
+				esc_html__('%1$sGet ExactMetrics Pro%2$s', 'google-analytics-dashboard-for-wp'),
+				'<a class="button button-primary button-hero" target="_blank" href="' . esc_url(exactmetrics_get_upgrade_link('admin-notices', 'woocommerce-upgrade')) . '">',
+				' &raquo;</a>'
+			);
+
+			$woo_notice_offer = sprintf(
+				'<div class="exactmetrics-wooedd-upsell-offer">%1$s</div>',
+				__('Save <span>50%</span> Off ExactMetrics Pro', 'google-analytics-dashboard-for-wp')
+			);
+
+			$woo_notice_bg = esc_url(trailingslashit(EXACTMETRICS_PLUGIN_URL)) . 'assets/images/upsell/exactmetrics-woo-edd-upsell.svg';
+			$woo_notice_offer_icon = esc_url(trailingslashit(EXACTMETRICS_PLUGIN_URL)) . 'assets/images/upsell/woo-offer-icon.svg';
+			$woo_notice_style = "<style>.exactmetrics-wooedd-upsell-left .button-hero,.exactmetrics-wooedd-upsell-offer{width:270px;margin-bottom:20px;text-align:center}.exactmetrics-wooedd-upsell-row{display:flex;background-image:url($woo_notice_bg);background-repeat:no-repeat;background-position:96% bottom}.exactmetrics-wooedd-upsell-left{margin-left:20px}.exactmetrics-wooedd-upsell-offer{background:#fafeb0;padding:6px 0;position:relative;font-weight:700;font-size:15px;line-height:28px}.exactmetrics-wooedd-upsell-offer span{color:#338eef}.exactmetrics-wooedd-upsell-offer:before{content:url('$woo_notice_offer_icon');position:absolute;left:-23px;bottom:-30px}@media (max-width:1300px){.exactmetrics-wooedd-upsell-row{background-size:60%}}@media (max-width:900px){.exactmetrics-wooedd-upsell-row{background-image:none}.exactmetrics-wooedd-upsell-left,.exactmetrics-wooedd-upsell-left .button-hero,.exactmetrics-wooedd-upsell-offer{width:100%}}</style>";
+
+			echo sprintf(
+				$woo_notice_template,
+				$woo_notice_style,
+				__('Add eCommerce Analytics to your WooCommerce Store', 'google-analytics-dashboard-for-wp'),
+				__('Unlock all of our advanced eCommerce features specifically designed to help your store make more money..', 'google-analytics-dashboard-for-wp'),
+				__('ExactMetrics Pro users instantly gain access to valuable insights such as average order value, conversion rates, as well as marketing performance with UTM tracking.', 'google-analytics-dashboard-for-wp'),
+				__('And by upgrading, Pro users also get enhanced tracking for Forms, User Journeys, PPC Pixels, Custom UserID tracking, SEO Reports, and much more.', 'google-analytics-dashboard-for-wp'),
+				__('Start making better data-driven decisions today!', 'google-analytics-dashboard-for-wp'),
+				$woo_notice_offer,
+				$woo_notice_button
+			);
 			return;
 		}
 	}

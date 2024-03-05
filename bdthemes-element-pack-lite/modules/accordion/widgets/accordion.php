@@ -1133,7 +1133,7 @@ class Accordion extends Module_Base {
 
 ?>
         <div class="bdt-ep-accordion-container">
-            <div <?php echo $this->get_render_attribute_string('accordion'); ?> <?php echo $this->get_render_attribute_string('accordion_data'); ?>>
+            <div <?php $this->print_render_attribute_string('accordion'); ?> <?php $this->print_render_attribute_string('accordion_data'); ?>>
                 <?php foreach ($settings['tabs'] as $index => $item) :
                     $acc_count = $index + 1;
 
@@ -1174,8 +1174,11 @@ class Accordion extends Module_Base {
                     }
 
                 ?>
-                    <div <?php echo $this->get_render_attribute_string($item_key); ?>>
-                        <<?php echo Utils::get_valid_html_tag($settings['title_html_tag']); ?> <?php echo $this->get_render_attribute_string($tab_title_setting_key); ?> id="<?php echo strtolower(preg_replace('#[ -]+#', '-', trim(preg_replace("![^a-z0-9]+!i", " ", esc_attr($acc_id))))) ?>" data-accordion-index="<?php echo esc_attr($index); ?>"  data-title="<?php echo strtolower(preg_replace('#[ -]+#', '-', trim(preg_replace("![^a-z0-9]+!i", " ", esc_html($item['tab_title']))))) ?>">
+                    <div <?php $this->print_render_attribute_string($item_key); ?>>
+                        <<?php echo esc_attr(Utils::get_valid_html_tag($settings['title_html_tag'])); ?> <?php $this->print_render_attribute_string($tab_title_setting_key); ?> 
+                        id="<?php echo esc_attr(strtolower(preg_replace('#[ -]+#', '-', trim(preg_replace("![^a-z0-9]+!i", " ", esc_attr($acc_id)))))); ?>" 
+                        data-accordion-index="<?php echo esc_attr($index); ?>"  
+                        data-title="<?php echo esc_attr(strtolower(preg_replace('#[ -]+#', '-', trim(preg_replace("![^a-z0-9]+!i", " ", esc_html($item['tab_title'])))))); ?>">
 
                             <?php if ($settings['accordion_icon']['value']) : ?>
                                 <span class="bdt-ep-accordion-icon bdt-flex-align-<?php echo esc_attr($settings['icon_align']); ?>" aria-hidden="true">
@@ -1209,8 +1212,8 @@ class Accordion extends Module_Base {
                                 <?php echo esc_html($item['tab_title']); ?>
                             </span>
 
-                        </<?php echo Utils::get_valid_html_tag($settings['title_html_tag']); ?>>
-                        <div <?php echo $this->get_render_attribute_string($tab_content_setting_key); ?>>
+                        </<?php echo esc_attr(Utils::get_valid_html_tag($settings['title_html_tag'])); ?>>
+                        <div <?php $this->print_render_attribute_string($tab_content_setting_key); ?>>
                             <?php
                             if ('custom' == $item['source'] and !empty($item['tab_content'])) {
                                 echo $this->parse_text_editor($item['tab_content']);

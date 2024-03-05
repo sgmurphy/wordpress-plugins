@@ -27,7 +27,7 @@ class MonsterInsights_SiteInsights_Template_Scorecard_Sessions extends MonsterIn
 			__('Sessions', 'google-analytics-for-wordpress'),
 			$sessions,
 			$prev_sessions,
-			__( 'vs. Previews 30 days', 'google-analytics-for-wordpress' ),
+			__( 'vs. Previous 30 days', 'google-analytics-for-wordpress' ),
 			$data['withComparison']
 		);
 
@@ -36,7 +36,7 @@ class MonsterInsights_SiteInsights_Template_Scorecard_Sessions extends MonsterIn
 			__('Pageviews', 'google-analytics-for-wordpress'),
 			$pageviews,
 			$prev_pageviews,
-			__( 'vs. Previews 30 days', 'google-analytics-for-wordpress' ),
+			__( 'vs. Previous 30 days', 'google-analytics-for-wordpress' ),
 			$data['withComparison']
 		);
 

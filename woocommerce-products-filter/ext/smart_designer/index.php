@@ -2,7 +2,7 @@
 if (!defined('ABSPATH'))
     die('No direct access allowed');
 
-//18-01-2024
+//18-07-2023
 final class WOOF_SD extends WOOF_EXT {
 
     public $ext_version = '1.0.1';

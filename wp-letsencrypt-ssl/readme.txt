@@ -1,6 +1,6 @@
 === WP Encryption - One Click Free SSL Certificate & SSL / HTTPS Redirect to Force HTTPS, SSL Score ===
 Contributors: gowebsmarty, gwsharsha
-Tags: free ssl,ssl,https,https redirect,ssl certificate,force ssl,mixed content,insecure content,force https
+Tags: force ssl,ssl,https,https redirect,ssl certificate,mixed content,insecure content
 Requires at least: 4.2
 License: GPL3
 Tested up to: 6.4
@@ -60,7 +60,7 @@ https://youtu.be/jrkFwFH7r6o
 
 Navigate to SSL Health & Security page and run the vulnerability scanner to scan your WordPress, Plugins and Themes for known vulnerabilities. Keep everything updated to stay secure.
 
-== ADVANCED HTTPS SECURITY HEADERS ==
+== ADVANCED HTTP SECURITY HEADERS ==
 
 Safeguard your site from cross-site scripting attacks, clickjacking, MIME sniffing attacks.
 
@@ -148,6 +148,10 @@ Feel free to open a ticket in this plugin support form and we will try our best 
 
 = Should I configure anything for auto renewal of SSL certificates to work after upgrading to PRO version? =
 You don't need to configure anything. Once after you upgrade to PRO version and activate PRO plugin on your site, the auto renewal of SSL certificates will start working in background according to 60 days schedule i.e., 30 days prior to SSL certificate expiry date.
+
+= Site with Elementor is showing insecure https padlock even if SSL certificate is installed = 
+If your site built with Elementor is showing insecure https padlock even if SSL certificate is properly installed & valid, it could be due to insecure http:// assets being loaded in page builder blocks like image block. Please go to Elementor > Tools > Replace URL and replace http://yoursite.com with https://yoursite.com
+
 
 == Disclaimer ==
 

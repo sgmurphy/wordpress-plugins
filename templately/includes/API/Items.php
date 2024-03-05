@@ -82,6 +82,7 @@ class Items extends API {
 		$plan_type        = $this->get_plan( $plan );
 		$platform         = $this->get_param( 'platform', 'elementor' );
 		$search           = $this->get_param( 'search' );
+		$include_search   = $this->get_param( 'include_search' );
 		$page             = $this->get_param( 'page', 1, 'intval' );
 		$per_page         = $this->get_param( 'per_page', 40, 'intval' );
 		$template_type_id = $this->get_param( 'template_type_id', 0, 'intval' );
@@ -115,6 +116,10 @@ class Items extends API {
 
 		if ( ! empty( $search ) ) {
 			$funcArgs['search'] = $search;
+		}
+
+		if ( ! empty( $include_search ) ) {
+			$funcArgs['include_search'] = $include_search;
 		}
 
 		$query = 'total_page, current_page, data { id, fullsite_import, name, price, rating, downloads, type, template_type{ slug }, slug, favourite_count, thumbnail, thumbnail2, thumbnail3 }';

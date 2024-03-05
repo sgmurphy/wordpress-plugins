@@ -677,9 +677,9 @@ class Creative_Button extends Module_Base {
 
 		?>
 		<?php if ( $settings['button_style'] == 'hyperion' or $settings['button_style'] == 'telesto' or $settings['button_style'] == 'narvi' or $settings['button_style'] == 'helene' or $settings['button_style'] == 'greip' or $settings['button_style'] == 'skoll' ) : ?>
-			<a <?php echo $this->get_render_attribute_string( 'creative_button' ); ?>><span><span><?php echo esc_html($settings['text']); ?></span></span></a>
+			<a <?php $this->print_render_attribute_string( 'creative_button' ); ?>><span><span><?php echo esc_html($settings['text']); ?></span></span></a>
 		<?php elseif ( $settings['button_style'] == 'atlas' or $settings['button_style'] == 'kari' ) : ?>
-			<a <?php echo $this->get_render_attribute_string( 'creative_button' ); ?>>
+			<a <?php $this->print_render_attribute_string( 'creative_button' ); ?>>
 				<span><?php echo esc_html($settings['text']); ?></span>
 				<div class="bdt-ep-creative-button-marquee" aria-hidden="true">
 					<div class="bdt-ep-creative-button-marquee__inner">
@@ -691,13 +691,13 @@ class Creative_Button extends Module_Base {
 				</div>
 			</a>
 		<?php elseif ( $settings['button_style'] == 'pallene' ) : ?>
-			<a <?php echo $this->get_render_attribute_string( 'creative_button' ); ?>><?php echo esc_html($settings['text']); ?></a>
+			<a <?php $this->print_render_attribute_string( 'creative_button' ); ?>><?php echo esc_html($settings['text']); ?></a>
 		<?php elseif ( $settings['button_style'] == 'bestia' ) : ?>
-			<a <?php echo $this->get_render_attribute_string( 'creative_button' ); ?>>
+			<a <?php $this->print_render_attribute_string( 'creative_button' ); ?>>
 				<div class="bdt-ep-creative-button__bg"></div><span><?php echo esc_html($settings['text']); ?></span>
 			</a>
 		<?php elseif ( $settings['button_style'] == 'surtur' ) : ?>
-			<a <?php echo $this->get_render_attribute_string( 'creative_button' ); ?>>
+			<a <?php $this->print_render_attribute_string( 'creative_button' ); ?>>
 				<svg class="textcircle" viewBox="0 0 500 500">
 					<title><?php echo esc_html($settings['text']); ?></title>
 					<defs><path id="textcircle" d="M250,400 a150,150 0 0,1 0,-300a150,150 0 0,1 0,300Z"
@@ -713,7 +713,7 @@ class Creative_Button extends Module_Base {
 				</svg>
 			</a>
 		<?php elseif ( $settings['button_style'] == 'fenrir' ) : ?>
-			<a <?php echo $this->get_render_attribute_string( 'creative_button' ); ?>>
+			<a <?php $this->print_render_attribute_string( 'creative_button' ); ?>>
 				<svg aria-hidden="true" class="progress" width="70" height="70" viewbox="0 0 70 70">
 					<path class="progress__circle" d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z" />
 					<path class="progress__path" d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z" pathLength="1" />
@@ -721,12 +721,12 @@ class Creative_Button extends Module_Base {
 				<span><?php echo esc_html($settings['text']); ?></span>
 			</a>
 		<?php elseif ( $settings['button_style'] == 'reklo' ) : ?>
-			<a <?php echo $this->get_render_attribute_string( 'creative_button' ); ?>>
+			<a <?php $this->print_render_attribute_string( 'creative_button' ); ?>>
 				<span><?php echo esc_html($settings['text']); ?></span>
 				<i class="ep-icon-arrow-right-0 bdt-flex bdt-flex-middle bdt-flex-center"></i>
 			</a>
 		<?php else: ?>
-			<a <?php echo $this->get_render_attribute_string( 'creative_button' ); ?>><span><?php echo esc_html($settings['text']); ?></span></a>
+			<a <?php $this->print_render_attribute_string( 'creative_button' ); ?>><span><?php echo esc_html($settings['text']); ?></span></a>
 		<?php endif; ?>
 
 		<?php

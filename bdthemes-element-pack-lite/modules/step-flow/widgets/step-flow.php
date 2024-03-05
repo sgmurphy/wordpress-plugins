@@ -2182,7 +2182,7 @@ class Step_Flow extends Module_Base {
                     <?php } elseif ($has_image and 'image' == $settings['icon_type']) { 
                         $thumb_url = Group_Control_Image_Size::get_attachment_image_src($settings['image']['id'], 'thumbnail_size', $settings);
 						if (!$thumb_url) {
-						printf('<img src="%1$s" alt="%2$s">', $settings['image']['url'], esc_html($settings['title_text']));
+						printf('<img src="%1$s" alt="%2$s">', esc_url($settings['image']['url']), esc_html($settings['title_text']));
 						} else {
 							print(wp_get_attachment_image(
 								$settings['image']['id'],
@@ -2215,11 +2215,11 @@ class Step_Flow extends Module_Base {
     ?>
 
         <?php if ($settings['title_text']) : ?>
-            <<?php echo Utils::get_valid_html_tag($settings['title_size']) . ' '; ?><?php echo $this->get_render_attribute_string('step-flow-title'); ?>>
-                <span <?php echo $this->get_render_attribute_string('title_text'); ?>>
+            <<?php echo esc_attr(Utils::get_valid_html_tag($settings['title_size'])) . ' '; ?><?php $this->print_render_attribute_string('step-flow-title'); ?>>
+                <span <?php $this->print_render_attribute_string('title_text'); ?>>
                     <?php echo wp_kses($settings['title_text'], element_pack_allow_tags('title')); ?>
                 </span>
-            </<?php echo Utils::get_valid_html_tag($settings['title_size']); ?>>
+            </<?php echo esc_attr(Utils::get_valid_html_tag($settings['title_size'])); ?>>
         <?php endif; ?>
 
     <?php
@@ -2239,7 +2239,7 @@ class Step_Flow extends Module_Base {
 
     ?>
 
-        <img class="bdt-animation-stroke <?php echo $line_cap; ?>" src="<?php echo $svg_image; ?>" alt="advanced divider">
+        <img class="bdt-animation-stroke <?php echo esc_attr($line_cap); ?>" src="<?php echo esc_url($svg_image); ?>" alt="advanced divider">
 
     <?php
     }
@@ -2253,8 +2253,8 @@ class Step_Flow extends Module_Base {
 
     ?>
 
-        <div <?php echo $this->get_render_attribute_string('direction'); ?>>
-            <img class="bdt-animation-stroke" data-bdt-svg="stroke-animation: true" src="<?php echo $svg_image; ?>" alt="Direction Arrows">
+        <div <?php $this->print_render_attribute_string('direction'); ?>>
+            <img class="bdt-animation-stroke" data-bdt-svg="stroke-animation: true" src="<?php echo esc_url($svg_image); ?>" alt="Direction Arrows">
         </div>
 
     <?php
@@ -2302,7 +2302,7 @@ class Step_Flow extends Module_Base {
 
 
     ?>
-        <div <?php echo $this->get_render_attribute_string('step-flow'); ?>>
+        <div <?php $this->print_render_attribute_string('step-flow'); ?>>
 
             <?php $this->render_icon(); ?>
 
@@ -2323,18 +2323,18 @@ class Step_Flow extends Module_Base {
                 <?php endif; ?>
 
                 <?php if ($settings['description_text']) : ?>
-                    <div <?php echo $this->get_render_attribute_string('description_text'); ?>>
+                    <div <?php $this->print_render_attribute_string('description_text'); ?>>
                         <?php echo wp_kses($settings['description_text'], element_pack_allow_tags('text')); ?>
                     </div>
                 <?php endif; ?>
 
                 <?php if ($settings['readmore']) : ?>
-                    <a <?php echo $this->get_render_attribute_string('readmore'); ?>>
+                    <a <?php $this->print_render_attribute_string('readmore'); ?>>
                         <?php echo esc_html($settings['readmore_text']); ?>
 
                         <?php if ($settings['advanced_readmore_icon']['value']) : ?>
 
-                            <span class="bdt-button-icon-align-<?php echo $settings['readmore_icon_align'] ?>">
+                            <span class="bdt-button-icon-align-<?php echo esc_attr($settings['readmore_icon_align']); ?>">
 
                                 <?php Icons_Manager::render_icon($settings['advanced_readmore_icon'], ['aria-hidden' => 'true', 'class' => 'fa-fw']); ?>
 

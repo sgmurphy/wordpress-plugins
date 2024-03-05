@@ -1699,7 +1699,7 @@ class Price_List extends Module_Base {
 
 		$thumb_url = Group_Control_Image_Size::get_attachment_image_src($item['image']['id'], 'thumbnail_size', $settings);
 		if (!$thumb_url) {
-			printf('<img src="%1$s" alt="%2$s">', $settings['image']['url'], esc_html($item['title']));
+			printf('<img src="%1$s" alt="%2$s">', esc_url($settings['image']['url']), esc_html($item['title']));
 		} else {
 			print(wp_get_attachment_image(
 				$item['image']['id'],
@@ -1762,7 +1762,7 @@ class Price_List extends Module_Base {
 			echo $this->render_item_header( $item );
 
 			if ( ! empty( $item['image']['url'] ) ) : ?>
-				<div class="bdt-price-list-image bdt-width-auto <?php echo $image_hide_on_setup; ?>">
+				<div class="bdt-price-list-image bdt-width-auto <?php echo esc_attr($image_hide_on_setup); ?>">
 					<?php echo $this->render_image( $item, $settings ); ?>
 				</div>
 			<?php endif; ?>

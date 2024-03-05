@@ -510,7 +510,7 @@ class Open_Street_Map extends Module_Base {
 			
 
 			?>
-			<div class="bdt-open-street-map" style="width: auto; min-height: 400px;" <?php echo $this->get_render_attribute_string( 'open-street-map' ); ?>></div>
+			<div class="bdt-open-street-map" style="width: auto; min-height: 400px;" <?php $this->print_render_attribute_string( 'open-street-map' ); ?>></div>
 		    <?php
 	}
 } 

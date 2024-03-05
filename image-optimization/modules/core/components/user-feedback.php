@@ -10,7 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class User_Feedback {
-	public const FEEDBACK_LINK = 'https://wordpress.org/support/plugin/image-optimization/reviews/?filter=5#new-post';
+	public const NOTICE_FEEDBACK_LINK = 'https://go.elementor.com/io-wp-dash-notice-review';
+	public const FOOTER_FEEDBACK_LINK = 'https://go.elementor.com/io-wp-dash-footer-review';
 	private const FIRST_IMAGE_OPTIMIZED_FEEDBACK_SLUG = 'image-optimizer-first-image-optimized-feedback';
 	private const THIRD_OF_IMAGES_OPTIMIZED_FEEDBACK_SLUG = 'image-optimizer-third-images-optimized-feedback';
 
@@ -105,7 +106,7 @@ class User_Feedback {
 				rel="noopener noreferrer">★★★★★</a> review to spread the word.',
 							'image-optimization'
 						),
-						esc_url( self::FEEDBACK_LINK ),
+						esc_url( self::NOTICE_FEEDBACK_LINK ),
 						esc_attr__( 'Five stars', 'image-optimization' )
 					); ?>
 				</span>
@@ -177,7 +178,7 @@ class User_Feedback {
 				rel="noopener noreferrer">★★★★★</a> review to spread the word.',
 							'image-optimization'
 						),
-						esc_url( self::FEEDBACK_LINK ),
+						esc_url( self::NOTICE_FEEDBACK_LINK ),
 						esc_attr__( 'Five stars', 'image-optimization' )
 					); ?>
 				</span>
@@ -236,7 +237,7 @@ class User_Feedback {
 				rel="noopener noreferrer">★★★★★</a> rating!',
 				'image-optimization'
 			),
-			esc_url( self::FEEDBACK_LINK ),
+			esc_url( self::FOOTER_FEEDBACK_LINK ),
 			esc_attr__( 'Five stars', 'image-optimization' )
 		);
 	}

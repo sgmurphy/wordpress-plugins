@@ -1001,7 +1001,7 @@ class Twitter_Grid extends Module_Base {
         $this->add_render_attribute('twitter_grid', 'class', 'bdt-twitter-grid');
 
         ?>
-        <div id="bdt-twitter-grid-<?php echo esc_attr($id); ?>" <?php echo $this->get_render_attribute_string('twitter_grid'); ?>>
+        <div id="bdt-twitter-grid-<?php echo esc_attr($id); ?>" <?php $this->print_render_attribute_string('twitter_grid'); ?>>
         <div class="bdt-grid bdt-grid-<?php echo esc_attr($settings['column_gap']); ?> bdt-child-width-1-<?php echo esc_attr($mobile_cols); ?> bdt-child-width-1-<?php echo esc_attr($tablet_cols); ?>@s bdt-child-width-1-<?php echo esc_attr($desktop_cols); ?>@l" data-bdt-grid>
 
         <?php

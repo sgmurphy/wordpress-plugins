@@ -1196,17 +1196,17 @@ class Contact_Form extends Module_Base {
 
 	?>
 		<div class="bdt-contact-form-wrapper">
-			<form <?php echo $this->get_render_attribute_string('contact-form'); ?>>
+			<form <?php $this->print_render_attribute_string('contact-form'); ?>>
 
 				<?php if ($settings['two_columns']) : ?>
 					<div class="bdt-width-1-2">
 					<?php endif; ?>
 
-					<div <?php echo $this->get_render_attribute_string('name-email-field-group'); ?>>
+					<div <?php $this->print_render_attribute_string('name-email-field-group'); ?>>
 						<?php
 						if ($settings['show_labels']) {
 							if ('yes' == $settings['custom_text']) {
-								echo '<label ' . $this->get_render_attribute_string('user_name_label') . '>' . $settings['user_name_label'] . '</label>';
+								echo '<label ' . $this->get_render_attribute_string('user_name_label') . '>' . wp_kses_post($settings['user_name_label']) . '</label>';
 							} else {
 								echo '<label ' . $this->get_render_attribute_string('user_name_label') . '>' . esc_html__('Name*', 'bdthemes-element-pack') . '</label>';
 							}
@@ -1220,11 +1220,11 @@ class Contact_Form extends Module_Base {
 						?>
 					</div>
 
-					<div <?php echo $this->get_render_attribute_string('name-email-field-group'); ?>>
+					<div <?php $this->print_render_attribute_string('name-email-field-group'); ?>>
 						<?php
 						if ($settings['show_labels']) {
 							if ('yes' == $settings['custom_text']) {
-								echo '<label ' . $this->get_render_attribute_string('email_address_label') . '>' . $settings['email_address_label'] . '</label>';
+								echo '<label ' . $this->get_render_attribute_string('email_address_label') . '>' . wp_kses_post($settings['email_address_label']) . '</label>';
 							} else {
 								echo '<label ' . $this->get_render_attribute_string('email_address_label') . '>' . esc_html__('Email*', 'bdthemes-element-pack') . '</label>';
 							}
@@ -1237,12 +1237,12 @@ class Contact_Form extends Module_Base {
 					</div>
 
 					<?php if ($settings['contact_number']) : ?>
-						<div <?php echo $this->get_render_attribute_string('field-group'); ?>>
+						<div <?php $this->print_render_attribute_string('field-group'); ?>>
 							<?php
 
 							if ($settings['show_labels']) {
 								if ('yes' == $settings['custom_text']) {
-									echo '<label ' . $this->get_render_attribute_string('contact_label') . '>' . $settings['contact_label'] . '</label>';
+									echo '<label ' . $this->get_render_attribute_string('contact_label') . '>' . wp_kses_post($settings['contact_label']) . '</label>';
 								} else {
 									echo '<label ' . $this->get_render_attribute_string('contact_label') . '>' . esc_html__('Contact Number*', 'bdthemes-element-pack') . '</label>';
 								}
@@ -1256,11 +1256,11 @@ class Contact_Form extends Module_Base {
 					<?php endif; ?>
 
 					<?php if ($settings['show_subject']) : ?>
-						<div <?php echo $this->get_render_attribute_string('field-group'); ?>>
+						<div <?php $this->print_render_attribute_string('field-group'); ?>>
 							<?php
 							if ($settings['show_labels']) {
 								if ('yes' == $settings['custom_text']) {
-									echo '<label ' . $this->get_render_attribute_string('subject_label') . '>' . $settings['subject_label'] . '</label>';
+									echo '<label ' . $this->get_render_attribute_string('subject_label') . '>' . wp_kses_post($settings['subject_label']) . '</label>';
 								} else {
 									echo '<label ' . $this->get_render_attribute_string('subject_label') . '>' . esc_html__('Subject*', 'bdthemes-element-pack') . '</label>';
 								}
@@ -1279,11 +1279,11 @@ class Contact_Form extends Module_Base {
 					<?php endif; ?>
 
 					<?php if ($settings['show_message']) : ?>
-						<div <?php echo $this->get_render_attribute_string('field-group'); ?>>
+						<div <?php $this->print_render_attribute_string('field-group'); ?>>
 							<?php
 							if ($settings['show_labels']) {
 								if ('yes' == $settings['custom_text']) {
-									echo '<label ' . $this->get_render_attribute_string('message_label') . '>' . $settings['message_label'] . '</label>';
+									echo '<label ' . $this->get_render_attribute_string('message_label') . '>' . wp_kses_post($settings['message_label']) . '</label>';
 								} else {
 									echo '<label ' . $this->get_render_attribute_string('message_label') . '>' . esc_html__('Your Message*', 'bdthemes-element-pack') . '</label>';
 								}
@@ -1296,7 +1296,7 @@ class Contact_Form extends Module_Base {
 					<?php endif; ?>
 
 					<?php if ('yes' === $settings['show_additional_message']) : ?>
-						<div <?php echo $this->get_render_attribute_string('field-group'); ?>>
+						<div <?php $this->print_render_attribute_string('field-group'); ?>>
 							<span class="bdt-contact-form-additional-message"><?php echo wp_kses($settings['additional_message'], element_pack_allow_tags('title')); ?></span>
 						</div>
 					<?php endif; ?>
@@ -1315,24 +1315,24 @@ class Contact_Form extends Module_Base {
 					<?php endif; ?>
 
 					<?php if ($settings['reset_after_submit'] == 'yes') : ?>
-						<input type="hidden" name="reset-after-submit" value="<?php echo $settings['reset_after_submit'] ?>" />
+						<input type="hidden" name="reset-after-submit" value="<?php echo wp_kses_post($settings['reset_after_submit']); ?>" />
 					<?php endif; ?>
 
 					<input type="hidden" class="widget_id" name="widget_id" value="<?php
 																					echo esc_attr($id); ?>" />
 					<input type="hidden" name="<?php echo esc_attr($form_id); ?>" value="true" />
-					<input type="hidden" class="page_id" name="page_id" value="<?php
-																				echo get_the_ID() ?>" />
+					<input type="hidden" class="page_id" name="page_id" 
+					value="<?php echo esc_attr(get_the_ID()); ?>" />
 
-					<div <?php echo $this->get_render_attribute_string('submit-group'); ?>>
-						<button type="submit" <?php echo $this->get_render_attribute_string('button'); ?>>
+					<div <?php $this->print_render_attribute_string('submit-group'); ?>>
+						<button type="submit" <?php $this->print_render_attribute_string('button'); ?>>
 							<?php if (!empty($settings['button_text'])) : ?>
 								<span><?php echo esc_html($settings['button_text']); ?></span>
 							<?php endif; ?>
 						</button>
 					</div>
 
-					<input name="_wpnonce" value="<?php echo wp_create_nonce("simpleContactForm"); ?>" type="hidden">
+					<input name="_wpnonce" value="<?php echo esc_attr(wp_create_nonce("simpleContactForm")); ?>" type="hidden">
 
 					<input type="hidden" name="action" value="element_pack_contact_form" />
 

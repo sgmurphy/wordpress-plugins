@@ -85,9 +85,10 @@ class Search extends Module_Base {
 			[
 				'label'       => esc_html__('Specific Post Type', 'bdthemes-element-pack'),
 				'description' => esc_html__('Select post type if you need to search only this post type content.', 'bdthemes-element-pack'),
-				'type'        => Controls_Manager::SELECT,
-				'default'     => 0,
-				'options'     => element_pack_get_post_types(),
+				'type'    => Controls_Manager::SELECT,
+				'options' => $this->getGroupControlQueryPostTypes(),
+				'default' => 'post',
+
 			]
 		);
 
@@ -405,7 +406,7 @@ class Search extends Module_Base {
 		$this->start_controls_tab(
 			'tab_posts_include',
 			[
-				'label'     => esc_html__('Include', 'ultimate-post-kit-pro'),
+				'label'     => esc_html__('Include', 'bdthemes-element-pack'),
 				'condition' => [
 					'show_ajax_search' => 'yes'
 				]
@@ -415,13 +416,13 @@ class Search extends Module_Base {
 		$this->add_control(
 			'posts_include_by',
 			[
-				'label'       => esc_html__('Include By', 'ultimate-post-kit-pro'),
+				'label'       => esc_html__('Include By', 'bdthemes-element-pack'),
 				'type'        => Controls_Manager::SELECT2,
 				'multiple'    => true,
 				'label_block' => true,
 				'options'     => [
-					'authors' => esc_html__('Authors', 'ultimate-post-kit-pro'),
-					'terms'   => esc_html__('Terms', 'ultimate-post-kit-pro'),
+					'authors' => esc_html__('Authors', 'bdthemes-element-pack'),
+					'terms'   => esc_html__('Terms', 'bdthemes-element-pack'),
 				],
 				'condition' => [
 					'show_ajax_search' => 'yes'
@@ -432,7 +433,7 @@ class Search extends Module_Base {
 		$this->add_control(
 			'posts_include_author_ids',
 			[
-				'label'       => esc_html__('Authors', 'ultimate-post-kit-pro'),
+				'label'       => esc_html__('Authors', 'bdthemes-element-pack'),
 				'type'        => Dynamic_Select::TYPE,
 				'multiple'    => true,
 				'label_block' => true,
@@ -449,31 +450,30 @@ class Search extends Module_Base {
 		$this->add_control(
 			'posts_include_term_ids',
 			[
-				'label'       => esc_html__('Terms', 'ultimate-post-kit-pro'),
-				'description' => esc_html__('Terms are items in a taxonomy. The available taxonomies are: Categories, Tags, Formats and custom taxonomies.', 'ultimate-post-kit-pro'),
+				'label'       => __('Terms', 'bdthemes-element-pack'),
+				'description' => __('Terms are items in a taxonomy. The available taxonomies are: Categories, Tags, Formats and custom taxonomies.', 'bdthemes-element-pack'),
 				'type'        => Dynamic_Select::TYPE,
 				'multiple'    => true,
 				'label_block' => true,
-				'placeholder' => esc_html__('Type and select terms', 'ultimate-post-kit-pro'),
+				'placeholder' => __('Type and select terms', 'bdthemes-element-pack'),
 				'query_args'  => [
 					'query'        => 'terms',
 					'widget_props' => [
-						'post_type' => 'search_query'
-					]
+						'post_type' => 'search_query',
+					],
 				],
 				'condition'   => [
 					'posts_include_by' => 'terms',
 					'show_ajax_search' => 'yes',
-				]
+				],
 			]
 		);
-
 		$this->end_controls_tab();
 
 		$this->start_controls_tab(
 			'tab_posts_exclude',
 			[
-				'label'     => esc_html__('Exclude', 'ultimate-post-kit-pro'),
+				'label'     => esc_html__('Exclude', 'bdthemes-element-pack'),
 				'condition' => [
 					'show_ajax_search' => 'yes'
 				]
@@ -483,15 +483,15 @@ class Search extends Module_Base {
 		$this->add_control(
 			'posts_exclude_by',
 			[
-				'label'       => esc_html__('Exclude By', 'ultimate-post-kit-pro'),
+				'label'       => esc_html__('Exclude By', 'bdthemes-element-pack'),
 				'type'        => Controls_Manager::SELECT2,
 				'multiple'    => true,
 				'label_block' => true,
 				'options'     => [
-					'authors'          => esc_html__('Authors', 'ultimate-post-kit-pro'),
-					'current_post'     => esc_html__('Current Post', 'ultimate-post-kit-pro'),
-					'manual_selection' => esc_html__('Manual Selection', 'ultimate-post-kit-pro'),
-					'terms'            => esc_html__('Terms', 'ultimate-post-kit-pro'),
+					'authors'          => esc_html__('Authors', 'bdthemes-element-pack'),
+					'current_post'     => esc_html__('Current Post', 'bdthemes-element-pack'),
+					'manual_selection' => esc_html__('Manual Selection', 'bdthemes-element-pack'),
+					'terms'            => esc_html__('Terms', 'bdthemes-element-pack'),
 				],
 				'condition' => [
 					'show_ajax_search' => 'yes'
@@ -502,7 +502,7 @@ class Search extends Module_Base {
 		$this->add_control(
 			'posts_exclude_ids',
 			[
-				'label'       => esc_html__('Search & Select', 'ultimate-post-kit-pro'),
+				'label'       => esc_html__('Search & Select', 'bdthemes-element-pack'),
 				'type'        => Dynamic_Select::TYPE,
 				'multiple'    => true,
 				'label_block' => true,
@@ -522,7 +522,7 @@ class Search extends Module_Base {
 		$this->add_control(
 			'posts_exclude_author_ids',
 			[
-				'label'       => esc_html__('Authors', 'ultimate-post-kit-pro'),
+				'label'       => esc_html__('Authors', 'bdthemes-element-pack'),
 				'type'        => Dynamic_Select::TYPE,
 				'multiple'    => true,
 				'label_block' => true,
@@ -539,12 +539,12 @@ class Search extends Module_Base {
 		$this->add_control(
 			'posts_exclude_term_ids',
 			[
-				'label'       => esc_html__('Terms', 'ultimate-post-kit-pro'),
-				'description' => esc_html__('Terms are items in a taxonomy. The available taxonomies are: Categories, Tags, Formats and custom taxonomies.', 'ultimate-post-kit-pro'),
+				'label'       => esc_html__('Terms', 'bdthemes-element-pack'),
+				'description' => esc_html__('Terms are items in a taxonomy. The available taxonomies are: Categories, Tags, Formats and custom taxonomies.', 'bdthemes-element-pack'),
 				'type'        => Dynamic_Select::TYPE,
 				'multiple'    => true,
 				'label_block' => true,
-				'placeholder' => esc_html__('Type and select terms', 'ultimate-post-kit-pro'),
+				'placeholder' => esc_html__('Type and select terms', 'bdthemes-element-pack'),
 				'query_args'  => [
 					'query'        => 'terms',
 					'widget_props' => [
@@ -553,7 +553,7 @@ class Search extends Module_Base {
 				],
 				'condition'   => [
 					'posts_exclude_by' => 'terms',
-					'show_ajax_search!' => 'yes',
+					'show_ajax_search' => 'yes',
 				]
 			]
 		);
@@ -1086,7 +1086,7 @@ class Search extends Module_Base {
 		$this->start_controls_tab(
 			'tab_ajax_heading',
 			[
-				'label' => esc_html__('Heading', 'bdtheme-element-pack'),
+				'label' => esc_html__('Heading', 'bdthemes-element-pack'),
 			]
 		);
 		$this->add_control(
@@ -1111,7 +1111,7 @@ class Search extends Module_Base {
 		$this->start_controls_tab(
 			'tab_ajax_title',
 			[
-				'label' => esc_html__('Title', 'bdtheme-element-pack'),
+				'label' => esc_html__('Title', 'bdthemes-element-pack'),
 			]
 		);
 		$this->add_control(
@@ -1172,7 +1172,7 @@ class Search extends Module_Base {
 		$this->start_controls_tab(
 			'tab_ajax_desc',
 			[
-				'label' => esc_html__('Description', 'bdtheme-element-pack'),
+				'label' => esc_html__('Description', 'bdthemes-element-pack'),
 			]
 		);
 		$this->add_control(
@@ -1207,7 +1207,7 @@ class Search extends Module_Base {
 		$this->start_controls_tab(
 			'tab_ajax_no_posts',
 			[
-				'label' => esc_html__('Others', 'bdtheme-element-pack'),
+				'label' => esc_html__('Others', 'bdthemes-element-pack'),
 			]
 		);
 
@@ -1457,7 +1457,29 @@ class Search extends Module_Base {
 
 		$this->end_controls_section();
 	}
+	private function getGroupControlQueryPostTypes() {
+		$post_types = get_post_types(['public' => true], 'objects');
+		$post_types = array_column($post_types, 'label', 'name');
 
+		$ignorePostTypes = [
+			'elementor_library'    => '',
+			'attachment'           => '',
+			'bdt_template_manager' => '',
+			'bdt-custom-template'  => '',
+		];
+
+		$post_types = array_diff_key($post_types, $ignorePostTypes);
+
+		$extra_types = [
+			'manual_selection'   => __('Manual Selection', 'bdthemes-element-pack'),
+			'current_query'      => __('Current Query', 'bdthemes-element-pack'),
+			'_related_post_type' => __('Related', 'bdthemes-element-pack'),
+		];
+
+		$post_types = array_merge($post_types, $extra_types);
+
+		return $post_types;
+	}
 	public function render() {
 		$settings    = $this->get_settings_for_display();
 		$current_url = remove_query_arg('fake_arg');
@@ -1538,13 +1560,13 @@ class Search extends Module_Base {
 
 			<?php $this->add_render_attribute('search', 'class', 'bdt-search-default'); ?>
 
-			<form <?php echo $this->get_render_attribute_string('search'); ?>>
+			<form <?php $this->print_render_attribute_string('search'); ?>>
 				<div class="bdt-position-relative">
 					<?php $this->search_icon($settings); ?>
 					<?php if ($settings['search_query']) : ?>
 						<input name="post_type" id="post_type" type="hidden" value="<?php echo $settings['search_query']; ?>">
 					<?php endif; ?>
-					<input <?php echo $this->get_render_attribute_string('input'); ?>>
+					<input <?php $this->print_render_attribute_string('input'); ?>>
 					<?php $this->search_button(); ?>
 				</div>
 
@@ -1578,14 +1600,14 @@ class Search extends Module_Base {
 		?>
 
 			<?php $this->render_toggle_icon($settings); ?>
-			<div <?php echo $this->get_render_attribute_string('dropbar'); ?>>
-				<form <?php echo $this->get_render_attribute_string('search'); ?>>
+			<div <?php $this->print_render_attribute_string('dropbar'); ?>>
+				<form <?php $this->print_render_attribute_string('search'); ?>>
 					<div class="bdt-position-relative">
 						<?php $this->add_render_attribute('input', 'class', 'bdt-padding-small'); ?>
 						<?php if ($settings['search_query']) : ?>
 							<input name="post_type" id="post_type" type="hidden" value="<?php echo $settings['search_query']; ?>">
 						<?php endif; ?>
-						<input <?php echo $this->get_render_attribute_string('input'); ?> autofocus>
+						<input <?php $this->print_render_attribute_string('input'); ?> autofocus>
 					</div>
 
 				</form>
@@ -1613,17 +1635,17 @@ class Search extends Module_Base {
 		?>
 			<?php $this->render_toggle_icon($settings); ?>
 
-			<div <?php echo $this->get_render_attribute_string('dropdown'); ?>>
+			<div <?php $this->print_render_attribute_string('dropdown'); ?>>
 
 				<div class="bdt-grid-small bdt-flex-middle" data-bdt-grid>
 					<div class="bdt-width-expand">
-						<form <?php echo $this->get_render_attribute_string('search'); ?>>
+						<form <?php $this->print_render_attribute_string('search'); ?>>
 							<div class="bdt-position-relative">
 								<?php $this->add_render_attribute('input', 'class', 'bdt-padding-small'); ?>
 								<?php if ($settings['search_query']) : ?>
 									<input name="post_type" id="post_type" type="hidden" value="<?php echo $settings['search_query']; ?>">
 								<?php endif; ?>
-								<input <?php echo $this->get_render_attribute_string('input'); ?> autofocus>
+								<input <?php $this->print_render_attribute_string('input'); ?> autofocus>
 							</div>
 						</form>
 					</div>
@@ -1645,14 +1667,14 @@ class Search extends Module_Base {
 			<div id="modal-search-<?php echo esc_attr($id); ?>" class="bdt-modal-full bdt-modal" bdt-modal>
 				<div class="bdt-modal-dialog bdt-flex bdt-flex-center bdt-flex-middle" bdt-height-viewport>
 					<button class="bdt-modal-close-full" type="button" bdt-close></button>
-					<form <?php echo $this->get_render_attribute_string('search'); ?>>
+					<form <?php $this->print_render_attribute_string('search'); ?>>
 						<div class="bdt-position-relative">
 							<?php $this->add_render_attribute('input', ['class' => 'bdt-text-center']); ?>
 							<?php $this->search_icon($settings); ?>
 							<?php if ($settings['search_query']) : ?>
 								<input name="post_type" id="post_type" type="hidden" value="<?php echo $settings['search_query']; ?>">
 							<?php endif; ?>
-							<input <?php echo $this->get_render_attribute_string('input'); ?> autofocus>
+							<input <?php $this->print_render_attribute_string('input'); ?> autofocus>
 						</div>
 
 					</form>
@@ -1710,7 +1732,7 @@ class Search extends Module_Base {
 
 	?>
 
-		<a <?php echo $this->get_render_attribute_string('toggle-icon'); ?>>
+		<a <?php $this->print_render_attribute_string('toggle-icon'); ?>>
 
 			<?php if ($is_new || $migrated) :
 				Icons_Manager::render_icon($settings['search_toggle_icon'], ['aria-hidden' => 'true', 'class' => 'fa-fw']);

@@ -721,9 +721,9 @@ class Toggle extends Module_Base {
 ?>
 
         <div class="bdt-show-hide-container">
-            <div <?php echo $this->get_render_attribute_string('toggle_data'); ?>>
+            <div <?php $this->print_render_attribute_string('toggle_data'); ?>>
                 <div class="bdt-show-hide-item<?php echo ('yes' == $settings['toggle_initially_open']) ? ' bdt-open ' : ''; ?> ">
-                    <div <?php echo $this->get_render_attribute_string('toggle_content'); ?>>
+                    <div <?php $this->print_render_attribute_string('toggle_content'); ?>>
                         <?php
                         if ('custom' == $settings['source'] and !empty($settings['toggle_content'])) {
                             echo $this->parse_text_editor($settings['toggle_content']);
@@ -739,7 +739,7 @@ class Toggle extends Module_Base {
                         ?>
                     </div>
 
-                    <a <?php echo $this->get_render_attribute_string('tab_title'); ?> href='javascript:void(0)'>
+                    <a <?php $this->print_render_attribute_string('tab_title'); ?> href='javascript:void(0)'>
                         <!--  -->
                         <?php if ('yes' === $settings['toggle_icon_show']) : ?>
                             <?php if ($settings['toggle_icon_position'] == 'left') : ?>

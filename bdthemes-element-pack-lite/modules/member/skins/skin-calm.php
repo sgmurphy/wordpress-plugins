@@ -84,7 +84,7 @@ class Skin_Calm extends Elementor_Skin_Base {
 					<?php endif; ?>
 
 					<div class="bdt-member-photo">
-						<div class="<?php echo ($photo_hover_animation); ?>">
+						<div class="<?php echo esc_attr($photo_hover_animation); ?>">
 							<?php echo Group_Control_Image_Size::get_attachment_image_html( $settings, 'photo' ); ?>
 						</div>
 					</div>

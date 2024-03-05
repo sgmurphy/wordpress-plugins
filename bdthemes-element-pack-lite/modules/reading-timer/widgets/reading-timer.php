@@ -134,7 +134,7 @@ class Reading_Timer extends Module_Base {
         $this->start_controls_section(
             'section_style',
             [
-                'label' => __('Reading Time', 'bdthemes-element-pac'),
+                'label' => __('Reading Time', 'bdthemes-element-pack'),
                 'tab'   => Controls_Manager::TAB_STYLE,
             ]
         );
