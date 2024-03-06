@@ -37,7 +37,7 @@ class Feed
      * @param int $location_id
      * @return $this
      */
-    public function addEvent( $start_date, $end_date, $summary, $staff_name, $staff_email, $description, $location_id = null )
+    public function addEvent( $start_date, $end_date, $summary, $staff_name, $staff_email, $description, $location_id )
     {
         $event = new Event();
         $event

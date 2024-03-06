@@ -101,6 +101,7 @@ class WPDataTable
     private $_pdfPageOrientation = 'portrait';
     private $_table_wcag = 0;
     public $column_id;
+    private $_simple_template_id = 0;
     public static $allowedTableTypes = array('xls', 'csv', 'manual', 'mysql', 'json','nested_json', 'google_spreadsheet', 'xml', 'serialized', 'simple');
 
     /**
@@ -923,6 +924,16 @@ class WPDataTable
     public function setPdfPageOrientation($pdfPageOrientation)
     {
             $this->_pdfPageOrientation = $pdfPageOrientation;
+    }
+
+    public function getSimpleTemplateId()
+    {
+        return $this->_simple_template_id;
+    }
+
+    public function setSimpleTemplateId($simple_template_id)
+    {
+        $this->_simple_template_id = $simple_template_id;
     }
 
     public function __construct()
@@ -2411,6 +2422,7 @@ class WPDataTable
             isset($advancedSettings->show_table_description) ? $this->setShowDescription($advancedSettings->show_table_description) : $this->setShowDescription(false);
             isset($advancedSettings->table_description) ? $this->setDescription($advancedSettings->table_description) : $this->setDescription('');
             isset($advancedSettings->table_wcag) ? $this->setTableWCAG($advancedSettings->table_wcag) : $this->setTableWCAG(0);
+            isset($advancedSettings->simple_template_id) ? $this->setSimpleTemplateId($advancedSettings->simple_template_id) : $this->setSimpleTemplateId(0);
         } else {
             $this->setInfoBlock(true);
             $this->setGlobalSearch(true);
@@ -2573,9 +2585,11 @@ class WPDataTable
         $obj->paginationAlign = $this->getPaginationAlign();
         $obj->paginationLayout = $this->getPaginationLayout();
         $obj->file_location = $this->getFileLocation();
+        $obj->table_wcag = $this->isTableWCAG();
+        $obj->simple_template_id = $this->getSimpleTemplateId();
+        $obj->scrollable = $this->isScrollable();
         $obj->globalSearch = $this->isGlobalSearch();
         $obj->showRowsPerPage = $this->isShowRowsPerPage();
-        $obj->table_wcag = $this->isTableWCAG();
         $obj->hideBeforeLoad = $this->doHideBeforeLoad();
         $obj->number_format = (int)(get_option('wdtNumberFormat') ? get_option('wdtNumberFormat') : 1);
         $obj->decimalPlaces = (int)(get_option('wdtDecimalPlaces') ? get_option('wdtDecimalPlaces') : 2);

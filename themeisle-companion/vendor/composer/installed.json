@@ -87,19 +87,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeinwp/themeisle-content-forms.git",
-                "reference": "676d02dfc42cb64f9945cc56ace03a9a44c4d70b"
+                "reference": "5489008fb3354940e878cc4db5f0300a4853fa39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeinwp/themeisle-content-forms/zipball/676d02dfc42cb64f9945cc56ace03a9a44c4d70b",
-                "reference": "676d02dfc42cb64f9945cc56ace03a9a44c4d70b",
+                "url": "https://api.github.com/repos/Codeinwp/themeisle-content-forms/zipball/5489008fb3354940e878cc4db5f0300a4853fa39",
+                "reference": "5489008fb3354940e878cc4db5f0300a4853fa39",
                 "shasum": ""
             },
             "require-dev": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
                 "wptrt/wpthemereview": "*"
             },
-            "time": "2024-02-20T11:25:43+00:00",
+            "time": "2024-03-05T15:01:05+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",
@@ -129,23 +129,23 @@
         },
         {
             "name": "codeinwp/themeisle-sdk",
-            "version": "3.3.13",
-            "version_normalized": "3.3.13.0",
+            "version": "3.3.14",
+            "version_normalized": "3.3.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeinwp/themeisle-sdk.git",
-                "reference": "2209cdf402e8f97def8d699bb8447dc67585cc95"
+                "reference": "662952078c57b12e4d3af9bc98ef847ea3500206"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/2209cdf402e8f97def8d699bb8447dc67585cc95",
-                "reference": "2209cdf402e8f97def8d699bb8447dc67585cc95",
+                "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/662952078c57b12e4d3af9bc98ef847ea3500206",
+                "reference": "662952078c57b12e4d3af9bc98ef847ea3500206",
                 "shasum": ""
             },
             "require-dev": {
                 "codeinwp/phpcs-ruleset": "dev-main"
             },
-            "time": "2024-02-01T14:10:46+00:00",
+            "time": "2024-02-27T17:30:04+00:00",
             "type": "library",
             "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
@@ -166,7 +166,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeinwp/themeisle-sdk/issues",
-                "source": "https://github.com/Codeinwp/themeisle-sdk/tree/v3.3.13"
+                "source": "https://github.com/Codeinwp/themeisle-sdk/tree/v3.3.14"
             },
             "install-path": "../codeinwp/themeisle-sdk"
         }

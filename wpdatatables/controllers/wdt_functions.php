@@ -12,11 +12,26 @@ defined('ABSPATH') or die("Cannot access pages directly.");
 
 global $wp_version;
 
+
+function wdtActivationInsertTemplates() {
+    WPDataTablesTemplates::importStandardSimpleTemplates();
+}
 /**
  * The installation/activation method, installs the plugin table
  */
 function wdtActivationCreateTables() {
     global $wpdb;
+
+    $tablesTemplateTableName = $wpdb->prefix . 'wpdatatables_templates';
+    $tablesTemplateSql = "CREATE TABLE {$tablesTemplateTableName} (
+                        id bigint(20) NOT NULL AUTO_INCREMENT,
+						table_type varchar(55) NULL,
+						table_id bigint(20) NOT NULL,
+                        data text NOT NULL DEFAULT '',
+                        content text NOT NULL DEFAULT '',
+                        settings text NOT NULL DEFAULT '',
+                        UNIQUE KEY id (id)
+						) DEFAULT CHARSET=utf8 COLLATE utf8_general_ci";
     $tablesTableName = $wpdb->prefix . 'wpdatatables';
     $tablesSql = "CREATE TABLE {$tablesTableName} (
 						id bigint(20) NOT NULL AUTO_INCREMENT,
@@ -121,6 +136,7 @@ function wdtActivationCreateTables() {
     dbDelta($chartsSql);
     dbDelta($rowsSql);
 	dbDelta($cacheSql);
+    dbDelta($tablesTemplateSql);
     if (!get_option('wdtUseSeparateCon')) {
         update_option('wdtUseSeparateCon', false);
     }
@@ -445,6 +461,7 @@ function wdtUninstallDelete() {
         $wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}wpdatacharts");
         $wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}wpdatatables_rows");
 	    $wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}wpdatatables_cache");
+	    $wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}wpdatatables_templates");
     }
 }
 
@@ -466,6 +483,12 @@ function wdtActivation($networkWide) {
                 switch_to_blog($blogId);
                 //Create database table if not exists
                 wdtActivationCreateTables();
+                //Insert standard templates if not exists
+                $tableName = $wpdb->prefix . 'wpdatatables_templates';
+                $rowCount = $wpdb->get_var("SELECT COUNT(*) FROM {$tableName}");
+                if ($rowCount == 0) {
+                    wdtActivationInsertTemplates();
+                }
             }
             switch_to_blog($oldBlog);
 
@@ -474,6 +497,12 @@ function wdtActivation($networkWide) {
     }
     //Create database table if not exists
     wdtActivationCreateTables();
+    //Insert standard templates if not exists
+    $tableName = $wpdb->prefix . 'wpdatatables_templates';
+    $rowCount = $wpdb->get_var("SELECT COUNT(*) FROM {$tableName}");
+    if ($rowCount == 0) {
+        wdtActivationInsertTemplates();
+    }
 }
 
 /**
@@ -500,9 +529,16 @@ function wdtUninstall() {
  * @param $blogId
  */
 function wdtOnCreateSiteOnMultisiteNetwork($blogId) {
+    global $wpdb;
     if (is_plugin_active_for_network('wpdatatables/wpdatatables.php')) {
         switch_to_blog($blogId);
         wdtActivationCreateTables();
+        //Insert standard templates if not exists
+        $tableName = $wpdb->prefix . 'wpdatatables_templates';
+        $rowCount = $wpdb->get_var("SELECT COUNT(*) FROM {$tableName}");
+        if ($rowCount == 0) {
+            wdtActivationInsertTemplates();
+        }
         restore_current_blog();
     }
 }
@@ -519,6 +555,9 @@ function wdtOnDeleteSiteOnMultisiteNetwork($tables) {
     $tables[] = $wpdb->prefix . 'wpdatatables';
     $tables[] = $wpdb->prefix . 'wpdatatables_columns';
     $tables[] = $wpdb->prefix . 'wpdatacharts';
+    $tables[] = $wpdb->prefix . 'wpdatatables_rows';
+    $tables[] = $wpdb->prefix . 'wpdatatables_cache';
+    $tables[] = $wpdb->prefix . 'wpdatatables_templates';
 
     return $tables;
 }

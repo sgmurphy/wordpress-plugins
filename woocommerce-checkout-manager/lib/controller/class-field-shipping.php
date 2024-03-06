@@ -57,10 +57,10 @@ class Field_Shipping extends Field {
 
 			$product_types = wc_get_product_types();
 
-			// This type can not setted because it is not added to to cart
+			// This type cannot setted because it is not added to to cart
 			unset( $product_types['external'] );
 
-			// This type can not setted because it is not added to to cart. It add every child to cart as simple product
+			// This type cannot setted because it is not added to to cart. It add every child to cart as simple product
 			unset( $product_types['grouped'] );
 
 			$product_subtypes_options = array(

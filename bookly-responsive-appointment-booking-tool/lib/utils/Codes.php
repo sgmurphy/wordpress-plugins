@@ -421,7 +421,7 @@ abstract class Codes
         $appointment_start_date = $item->getAppointment()->getStartDate() === null ? __( 'N/A', 'bookly' ) : Lib\Utils\DateTime::formatDate( $item->getAppointment()->getStartDate() );
         $appointment_start_time = $item->getAppointment()->getStartDate() === null ? __( 'N/A', 'bookly' ) : Lib\Utils\DateTime::formatTime( $item->getAppointment()->getStartDate() );
 
-        return array(
+        $codes = array(
             'appointment_date' => $appointment_start_date,
             'appointment_time' => $item->getService()->getDuration() > DAY_IN_SECONDS && $item->getService()->getStartTimeInfo() !== null ? $item->getService()->getStartTimeInfo() : $appointment_start_time,
             'service_name' => $item->getService()->getTranslatedTitle(),
@@ -436,6 +436,10 @@ abstract class Codes
             'online_meeting_start_url' => Lib\Proxy\Shared::buildOnlineMeetingStartUrl( '', $item->getAppointment() ),
             'online_meeting_join_url' => Lib\Proxy\Shared::buildOnlineMeetingJoinUrl( '', $item->getAppointment(), $customer ),
         );
+
+        $ca = $item->getCA();
+        $ca->customer = $customer;
+        return Lib\Proxy\Shared::prepareCustomerAppointmentCodes( $codes, $ca, 'text' );
     }
 
     /**

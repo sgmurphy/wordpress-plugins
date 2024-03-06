@@ -177,6 +177,7 @@ class WDTConfigController {
             $table->borderSpacing = (isset($advancedSettings->borderSpacing)) ? $advancedSettings->borderSpacing : 0;
             $table->verticalScroll = (isset($advancedSettings->verticalScroll)) ? $advancedSettings->verticalScroll : 0;
             $table->verticalScrollHeight = (isset($advancedSettings->verticalScrollHeight)) ? $advancedSettings->verticalScrollHeight : 0;
+            $table->simple_template_id = isset($table->simple_template_id) || isset($advancedSettings->simple_template_id) ? $advancedSettings->simple_template_id : 0;
             $table->pdfPaperSize = isset($advancedSettings->pdfPaperSize) ? $advancedSettings->pdfPaperSize : 'A4';
             $table->pdfPageOrientation = isset($advancedSettings->pdfPageOrientation) ? $advancedSettings->pdfPageOrientation : 'portrait';
             $table->show_table_description = isset($advancedSettings->show_table_description) ? $advancedSettings->show_table_description : false;
@@ -192,7 +193,6 @@ class WDTConfigController {
 
         return self::$_tableConfigCache[$tableId];
     }
-
     /**
      * Helper method that load columns config data from DB
      * @param $tableId
@@ -283,7 +283,7 @@ class WDTConfigController {
             'editor_roles' => $table->editor_roles,
             'cache_source_data' => $table->cache_source_data,
             'auto_update_cache' => $table->auto_update_cache,
-            
+
 
             'userid_column_id' => (int)$table->userid_column_id,
             'var1' => $wdtVar1,
@@ -315,6 +315,7 @@ class WDTConfigController {
                     'table_description' => $table->table_description,
                     'show_table_description' => $table->show_table_description,
                     'table_wcag' =>  $table->table_wcag,
+                    'simple_template_id' =>  $table->simple_template_id,
                 )
             )
         );
@@ -400,6 +401,7 @@ class WDTConfigController {
         $table->pdfPaperSize = sanitize_text_field($table->pdfPaperSize);
         $table->pdfPageOrientation = sanitize_text_field($table->pdfPageOrientation);
         $table->table_wcag = (int)($table->table_wcag);
+        $table->simple_template_id = (int)$table->simple_template_id;
         $table->userid_column_id = $table->userid_column_id != null ?
             (int)$table->userid_column_id : null;
 
@@ -963,7 +965,7 @@ class WDTConfigController {
         $columnConfig['advanced_settings']['globalSearchColumn'] =
             $feColumn ? $feColumn->globalSearchColumn : 1;
 
-        
+
 
         // JSON-encoding all the 2.0+ settings
         $columnConfig['advanced_settings'] = json_encode($columnConfig['advanced_settings']);
@@ -1203,6 +1205,7 @@ class WDTConfigController {
         $table->table_description = '';
         $table->show_table_description = 0;
         $table->table_wcag = 0;
+        $table->simple_template_id = 0;
         return $table;
     }
     /**
@@ -1244,7 +1247,28 @@ class WDTConfigController {
 
         return $rows;
     }
+/**
+     *  Helper method that load rows config data from DB for simple templates (data, content and settings from wpdatatables_templates)
+     *
+     * @param int $tableID
+     */
+    public static function loadRowsDataFromDBTemplateAll($tableID)
+    {
+        global $wpdb;
 
+        $rowsQuery = $wpdb->prepare(
+            "SELECT data, content, settings FROM " . $wpdb->prefix . "wpdatatables_templates WHERE table_id = %d ORDER BY id ASC", $tableID);
+
+        $rows = $wpdb->get_results($rowsQuery);
+
+        foreach ($rows as $key => $row) {
+            $rows[$key]->data = json_decode($row->data);
+            $rows[$key]->content = json_decode($row->content);
+            $rows[$key]->settings = json_decode($row->settings);
+        }
+
+        return $rows;
+    }
     /**
      * Save row data from Simple table in database
      * @param stdClass $rowData

@@ -124,6 +124,48 @@ var constructedTableData = {
                 data: {
                     action: 'wpdatatables_create_simple_table',
                     tableData: JSON.stringify(constructedTableData),
+                    templateId : 0,
+                    wdtNonce: wdtNonce
+                },
+                success: function (link) {
+                    window.location = link;
+                },
+                error: function (data) {
+                    $('#wdt-error-modal .modal-body').html('There was an error while trying to generate the table! ' + data.statusText + ' ' + data.responseText);
+                    $('#wdt-error-modal').modal('show');
+                    $('.wdt-preload-layer').animateFadeOut();
+                }
+            })
+
+        }
+
+    });
+    $('.wdt-simple-table-template').hover(function (e) {
+        $('.wdt-simple-table-template').removeClass('selected')
+        $(this).addClass('selected')
+    });
+    $('.wdt-simple-table-template .wdt-simple-table-constructor').click(function (e) {
+        e.preventDefault();
+        $('.wdt-preload-layer').animateFadeIn();
+        if (constructedTableData.method == 'simple'){
+
+            $('#wdt-constructor-simple-table-name').change();
+            $('#wdt-constructor-simple-table-description').change();
+
+            constructedTableData.advanced_settings = {};
+            constructedTableData.advanced_settings.table_description = constructedTableData.table_description;
+            constructedTableData.content = {};
+            constructedTableData.title = constructedTableData.name;
+            constructedTableData.table_type = constructedTableData.method;
+            constructedTableData.templateId = $(this).parent().parent().data('template_id')
+
+            $.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                data: {
+                    action: 'wpdatatables_create_simple_table',
+                    tableData: JSON.stringify(constructedTableData),
+                    templateId: constructedTableData.templateId,
                     wdtNonce: wdtNonce
                 },
                 success: function (link) {

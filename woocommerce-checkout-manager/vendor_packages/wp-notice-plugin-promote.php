@@ -72,10 +72,11 @@ if ( class_exists( 'QuadLayers\\WP_Notice_Plugin_Promote\\Load' ) ) {
 				),
 				'notice_description' => sprintf(
 					esc_html__(
-						'Today we want to make you a special gift. Using the coupon code %1$s before the next 48 hours you can get a 20 percent discount on the premium version of the %2$s plugin.',
+						'Today we have a special gift for you. Use the coupon code %1$s within the next 48 hours to receive a %2$s discount on the premium version of the %3$s plugin.',
 						'woocommerce-checkout-manager'
 					),
 					'ADMINPANEL20%',
+					'20%',
 					WOOCCM_PROMOTE_PREMIUM_SELL_NAME
 				),
 				'notice_more_link'   => WOOCCM_PROMOTE_PREMIUM_SELL_URL,

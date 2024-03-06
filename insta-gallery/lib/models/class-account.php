@@ -233,6 +233,11 @@ class Account extends Models_Base {
 		isset( $account_data['expires_in'] ) &&
 		isset( $account_data['access_token_type'] )
 		) {
+			$account_data['access_token']                 = $this->clean_token( $account_data['access_token'] );
+			$account_data['access_token_renew_atemps']    = 0;
+			$account_data['access_token_expiration_date'] = $this->calculate_expiration_date( $account_data['expires_in'] );
+			$account_data['access_token_expires_in']      = $account_data['expires_in'];
+			$account_data['access_token_type']            = $this->get_token_type( $account_data );
 
 			return $this->save( $account_data );
 		}

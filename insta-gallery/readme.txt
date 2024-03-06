@@ -5,7 +5,7 @@ Tags: Instagram, Instagram feed, Instagram gallery, Instagram photos, Instagram 
 Requires at least: 4.7
 Requires PHP: 5.6
 Tested up to: 6.4
-Stable tag: 4.3.1
+Stable tag: 4.3.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -100,7 +100,7 @@ There may be other plugins (like fancybox, elementor) that also use image links 
 
 == Changelog ==
 
-= 4.3.1 =
+= 4.3.2 =
 * Instagram Feed modal preview
 
 = 4.2.7 =

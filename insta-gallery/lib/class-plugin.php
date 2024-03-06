@@ -56,15 +56,15 @@ final class Plugin {
 
 				$admin_email = $this->get_admin_email();
 
+				$message = esc_html__( 'Hi! We would like to inform you that the business account token you are using in Social Feed Gallery is about to expire.', 'insta-gallery' );
+				$subject = esc_html__( 'Your business account is going to expire', 'insta-gallery' );
+
 				if ( $old_expiration_date >= $new_expiration ) {
-					$message = esc_html__( 'Hi! We would like to inform you that the business account token that you are using in Quadlayers - Social Feed Gallery is going to expire.', 'insta-gallery' );
-					$subject = esc_html__( 'Your business account is going to expire', 'insta-gallery' );
 					wp_mail( $admin_email, $subject, $message );
 				}
 
 				if ( ! isset( $account_renewed['access_token'] ) ) {
-					$message = esc_html__( 'Hi! We would like to inform you that the business account token that you are using in Quadlayers - Social Feed Gallery is going to expire. Please sing in again to keep the plugin working. ', 'insta-gallery' );
-					$subject = esc_html__( 'Your business account is going to expire', 'insta-gallery' );
+					$message .= esc_html__( 'Please sign in again to keep the plugin functioning.', 'insta-gallery' );
 					wp_mail( $admin_email, $subject, $message );
 				}
 			},

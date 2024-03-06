@@ -238,7 +238,7 @@ class Ajax extends Lib\Base\Ajax
         }
 
         $custom_fields = array();
-        $fields_data = (array) Lib\Proxy\CustomFields::getWhichHaveData();
+        $fields_data = Lib\Proxy\CustomFields::getWhichHaveData() ?: array();
         foreach ( $fields_data as $field_data ) {
             $custom_fields[ $field_data->id ] = '';
         }
@@ -283,7 +283,7 @@ class Ajax extends Lib\Base\Ajax
             // Custom fields
             $customer_appointment = new Lib\Entities\CustomerAppointment();
             $customer_appointment->load( $row['ca_id'] );
-            foreach ( Lib\Proxy\CustomFields::getForCustomerAppointment( $customer_appointment, false, null, false ) ?: array() as $custom_field ) {
+            foreach ( Lib\Proxy\CustomFields::getForCustomerAppointment( $customer_appointment ) ?: array() as $custom_field ) {
                 $custom_fields[ $custom_field['id'] ] = $custom_field['value'];
             }
             if ( $row['ca_id'] !== null ) {

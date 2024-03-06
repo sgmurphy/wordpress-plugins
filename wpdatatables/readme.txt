@@ -6,7 +6,7 @@ Tags: table, table builder, data table, table plugin, charts, tables, datatables
 Requires at least: 4.0
 Tested up to: 6.4.3
 Requires PHP: 7.4
-Stable tag: 3.4.2.6
+Stable tag: 3.4.2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -150,6 +150,10 @@ All tables (except simple table)  will become sortable and will have pagination,
 
 Additionally, each table (except simple table) can have a search bar, display length, table info, pagination and can have the following export functions: “Copy to Clipboard”, “Export to CSV”, “Export to PDF”, “Export to XLS”, “Print“. Beside those export buttons, it is available column visibility button as well, with which you are able easily to control the visibility of columns in a WordPress table on back-end and front-end as well.
 All these functionalities are configurable, and it is your decision whether to toggle these on or off. More info in our docs about [Table tools in wpDataTables](https://wpdatatables.com/documentation/table-features/table-tools/) and [Table and column settings](https://wpdatatables.com/documentation/general/table-configuration-page-overview/) (simple table has own customization panel).
+
+== Full front-end WCAG compatibility ==
+
+wpDataTables includes full compatibility with Web Content Accessibility Guidelines (WCAG), ensuring that it is accessible to all users, including those with disabilities. This means improved navigation, readability, and usability for individuals using assistive technologies such as screen readers or keyboard navigation. By prioritizing WCAG compliance, we aim to create an inclusive and user-friendly experience for all our users, fostering greater accessibility and equal access to table wizardry.
 
 == Global, individual and multiple columns sorting ==
 
@@ -372,6 +376,14 @@ This can be changed from the “Number format” drop-down menu in the wpDataTab
 12. Google chart settings
 
 == Changelog ==
+
+= 3.4.2.8 =
+* Templates for Simple tables.
+Other small bug fixes and stability improvements.
+
+= 3.4.2.7 =
+* Improved table deletion from the database when the plugin is uninstalled.
+Other small bug fixes and stability improvements.
 
 = 3.4.2.6 =
 * Optimize plugins size by removing unnecessary files.

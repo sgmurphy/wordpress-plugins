@@ -9,7 +9,8 @@ Some other handy features included in the plugin:
 - View list of recent URL submissions from the plugin.
 - Retry any failed submissions from the recent submissions list.
 - Download recent URL submissions for analysis.
-- Status on recent successful and failed submissions
+- Status on recent successful and failed submissions.
+- View IndexNow insights and more in Bing Webmaster tools.
 
 This plugin was developed with love and coffee by the Bing Webmaster team.
 

@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'quadlayers/insta-gallery',
-        'pretty_version' => 'v4.3.1',
-        'version' => '4.3.1.0',
-        'reference' => 'e86e52fa7a1f90a9dea9e8c66eca38237deb5d8b',
+        'pretty_version' => 'v4.3.2',
+        'version' => '4.3.2.0',
+        'reference' => '8a6e2d6a2c43f19de6a3232382dcd7dc239e2c23',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'automattic/jetpack-assets' => array(
-            'pretty_version' => 'v2.1.1',
-            'version' => '2.1.1.0',
-            'reference' => 'fc98a9524b79c58891b01a1507e5abe021fd8a37',
+            'pretty_version' => 'v2.1.2',
+            'version' => '2.1.2.0',
+            'reference' => 'cbb1003bebdc105db57fec269db0fcdaf963ba14',
             'type' => 'jetpack-library',
             'install_path' => __DIR__ . '/../../jetpack_vendor/automattic/jetpack-assets',
             'aliases' => array(),
@@ -38,9 +38,9 @@
             'dev_requirement' => false,
         ),
         'quadlayers/insta-gallery' => array(
-            'pretty_version' => 'v4.3.1',
-            'version' => '4.3.1.0',
-            'reference' => 'e86e52fa7a1f90a9dea9e8c66eca38237deb5d8b',
+            'pretty_version' => 'v4.3.2',
+            'version' => '4.3.2.0',
+            'reference' => '8a6e2d6a2c43f19de6a3232382dcd7dc239e2c23',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

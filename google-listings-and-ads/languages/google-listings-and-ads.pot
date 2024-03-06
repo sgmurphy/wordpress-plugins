@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Google Listings and Ads plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Google Listings and Ads 2.6.0\n"
+"Project-Id-Version: Google Listings and Ads 2.6.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/google-listings-and-ads\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-27T03:49:26+00:00\n"
+"POT-Creation-Date: 2024-03-05T18:53:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: google-listings-and-ads\n"
@@ -505,27 +505,27 @@ msgid "Error linking account"
 msgstr ""
 
 #. translators: 1: current date in the format Y-m-d
-#: src/API/Google/Middleware.php:501
+#: src/API/Google/Middleware.php:503
 msgid "Account %1$s"
 msgstr ""
 
-#: src/API/Google/Middleware.php:549
+#: src/API/Google/Middleware.php:551
 msgid "Invalid response getting account review status"
 msgstr ""
 
-#: src/API/Google/Middleware.php:555
+#: src/API/Google/Middleware.php:557
 msgid "Error getting account review status"
 msgstr ""
 
-#: src/API/Google/Middleware.php:600
+#: src/API/Google/Middleware.php:602
 msgid "Invalid response getting requesting a new review."
 msgstr ""
 
-#: src/API/Google/Middleware.php:607
+#: src/API/Google/Middleware.php:609
 msgid "A new review has been successfully requested"
 msgstr ""
 
-#: src/API/Google/Middleware.php:614
+#: src/API/Google/Middleware.php:616
 msgid "Error requesting a new review."
 msgstr ""
 
@@ -545,7 +545,7 @@ msgstr ""
 
 #: src/API/Site/Controllers/Ads/AccountController.php:149
 #: src/API/Site/Controllers/Google/AccountController.php:151
-#: src/API/Site/Controllers/Jetpack/AccountController.php:160
+#: src/API/Site/Controllers/Jetpack/AccountController.php:169
 msgid "Successfully disconnected."
 msgstr ""
 
@@ -890,11 +890,11 @@ msgstr ""
 msgid "The URL for making a connection to Google."
 msgstr ""
 
-#: src/API/Site/Controllers/Jetpack/AccountController.php:138
+#: src/API/Site/Controllers/Jetpack/AccountController.php:147
 msgid "Indicates the next page name mapped to the redirect URL when back from Jetpack authorization."
 msgstr ""
 
-#: src/API/Site/Controllers/Jetpack/AccountController.php:249
+#: src/API/Site/Controllers/Jetpack/AccountController.php:268
 msgid "The URL for making a connection to Jetpack (wordpress.com)."
 msgstr ""
 

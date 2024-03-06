@@ -33,7 +33,7 @@ class Edit extends Base {
 		if ( ! $feeds ) {
 			$response = array(
 				'code'    => 412,
-				'message' => esc_html__( 'Feed can not be updated', 'insta-gallery' ),
+				'message' => esc_html__( 'Feed cannot be updated', 'insta-gallery' ),
 			);
 			return $this->handle_response( $response );
 		}

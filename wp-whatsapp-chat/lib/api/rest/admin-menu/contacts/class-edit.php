@@ -23,7 +23,7 @@ class Edit extends Base {
 				$contact = $models_contacts->update( $body['id'], $body );
 
 				if ( ! $contact ) {
-					throw new \Exception( esc_html__( 'Contact can not be updated', 'wp-whatsapp-chat' ), 412 );
+					throw new \Exception( esc_html__( 'Contact cannot be updated', 'wp-whatsapp-chat' ), 412 );
 				}
 
 				return $this->handle_response( $contact );
@@ -31,13 +31,13 @@ class Edit extends Base {
 			} else {
 
 				if ( ! isset( $body[0]['id'] ) ) {
-					throw new \Exception( esc_html__( 'Contacts can not be updated', 'wp-whatsapp-chat' ), 412 );
+					throw new \Exception( esc_html__( 'Contacts cannot be updated', 'wp-whatsapp-chat' ), 412 );
 				}
 
 				$contacts = $models_contacts->update_all( $body );
 
 				if ( ! $contacts ) {
-					throw new \Exception( esc_html__( 'Contacts can not be created', 'wp-whatsapp-chat' ), 412 );
+					throw new \Exception( esc_html__( 'Contacts cannot be created', 'wp-whatsapp-chat' ), 412 );
 				}
 
 				return $this->handle_response( $contacts );

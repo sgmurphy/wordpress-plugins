@@ -74,6 +74,7 @@ var wpdatatable_config = {
     currentPostIdPlaceholder: '',
     wpdbPlaceholder: jQuery('#wdt-wpdb-placeholder').val(),
     table_wcag: 0,
+    simple_template_id: 0,
     /**
      * Method to set the data source type - hides all dependent controls
      * @param type mysql, google_spreadsheet, xml, json, serialized, csv, excel
@@ -987,6 +988,9 @@ var wpdatatable_config = {
             jQuery('#wdt-wpdb-placeholder').val(wpdatatable_config.wpdbPlaceholder);
         }
     },
+    setSimpleTemplateId: function (simple_template_id) {
+        wpdatatable_config.simple_template_id = simple_template_id;
+    },
     /**
      * Add a column to the list
      * @param column
@@ -1107,6 +1111,7 @@ var wpdatatable_config = {
         wpdatatable_config.setPlaceholderVar2(tableJSON.var2);
         wpdatatable_config.setPlaceholderVar3(tableJSON.var3);
         wpdatatable_config.setWCAG(tableJSON.table_wcag);
+        wpdatatable_config.setSimpleTemplateId(tableJSON.simple_template_id);
     },
     /**
      * Method which draws the "column settings" and "delete formula" buttons in wpDataTable

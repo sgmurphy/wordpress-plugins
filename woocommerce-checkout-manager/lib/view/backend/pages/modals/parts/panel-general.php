@@ -150,8 +150,8 @@
 		<p class="form-field dimensions_field">
 		<label><?php esc_html_e( 'Number', 'woocommerce-checkout-manager' ); ?></label>
 		<span class="wrap">
-			<input style="width:48.1%" type="number" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" placeholder="<?php esc_attr_e( 'minimun', 'woocommerce-checkout-manager' ); ?>" class="short" name="min" value="{{data.min}}">
-			<input style="width:48.1%;margin: 0;" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" type="number" placeholder="<?php esc_attr_e( 'maximun', 'woocommerce-checkout-manager' ); ?>" class="short" name="max" value="{{data.max}}">
+			<input style="width:48.1%" type="number" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" placeholder="<?php esc_attr_e( 'minimum', 'woocommerce-checkout-manager' ); ?>" class="short" name="min" value="{{data.min}}">
+			<input style="width:48.1%;margin: 0;" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" type="number" placeholder="<?php esc_attr_e( 'maximum', 'woocommerce-checkout-manager' ); ?>" class="short" name="max" value="{{data.max}}">
 		</span>
 		</p>
 	<# } #>

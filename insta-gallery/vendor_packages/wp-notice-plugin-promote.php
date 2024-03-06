@@ -21,7 +21,7 @@ if ( class_exists( 'QuadLayers\\WP_Notice_Plugin_Promote\\Load' ) ) {
 	 */
 	define( 'QLIGG_PROMOTE_CROSS_INSTALL_1_SLUG', 'wp-tiktok-feed' );
 	define( 'QLIGG_PROMOTE_CROSS_INSTALL_1_NAME', 'TikTok Feed' );
-	define( 'QLIGG_PROMOTE_CROSS_INSTALL_1_DESCRIPTION', esc_html__( 'TikTok Feed is the most user-friendly TikTok plugin for WordPress. It was built to simplify the integration, to reduce time to have sites updated and to be on track with social media that shows best growing indicators.', 'insta-gallery' ) );
+	define( 'QLIGG_PROMOTE_CROSS_INSTALL_1_DESCRIPTION', esc_html__( 'TikTok Feed is a user-friendly WordPress plugin designed for easy integration. It ensures quick site updates and keeps pace with the fast-growing social media trends.', 'insta-gallery' ) );
 	define( 'QLIGG_PROMOTE_CROSS_INSTALL_1_URL', 'https://quadlayers.com/products/tiktok-feed/?utm_source=qligg_admin' );
 	/**
 	 * Notice cross sell 2
@@ -72,10 +72,11 @@ if ( class_exists( 'QuadLayers\\WP_Notice_Plugin_Promote\\Load' ) ) {
 				),
 				'notice_description'   => sprintf(
 					esc_html__(
-						'Today we want to make you a special gift. Using the coupon code %1$s before the next 48 hours you can get a 20 percent discount on the premium version of the %2$s plugin.',
+						'Today we have a special gift for you. Use the coupon code %1$s within the next 48 hours to receive a %2$s discount on the premium version of the %3$s plugin.',
 						'insta-gallery'
 					),
 					'ADMINPANEL20%',
+					'20%',
 					QLIGG_PROMOTE_PREMIUM_SELL_NAME
 				),
 				'notice_more_link'     => QLIGG_PROMOTE_PREMIUM_SELL_URL,
