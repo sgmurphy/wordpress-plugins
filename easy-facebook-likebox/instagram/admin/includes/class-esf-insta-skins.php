@@ -65,6 +65,30 @@ if ( !class_exists( 'ESF_Insta_Skins' ) ) {
             }
             
             
+            if ( !isset( $fta_settings['plugins']['instagram']['row_default_skin_id'] ) && empty($fta_settings['plugins']['instagram']['row_default_skin_id']) ) {
+                $efbl_new_skin_row = array(
+                    'post_title'   => __( 'Skin - Row', 'easy-facebook-likebox' ),
+                    'post_content' => __( 'This is the Row demo skin created by the plugin automatically with default values. You can edit it and change the look & feel of your Feeds.', 'easy-facebook-likebox' ),
+                    'post_type'    => 'mif_skins',
+                    'post_status'  => 'publish',
+                    'post_author'  => get_current_user_id(),
+                );
+                // Insert the new post
+                $efbl_new_skin_row_id = wp_insert_post( $efbl_new_skin_row );
+                
+                if ( isset( $efbl_new_skin_row_id ) ) {
+                    update_post_meta( $efbl_new_skin_row_id, 'layout', 'row' );
+                    
+                    if ( isset( $efbl_new_skin_row_id ) && !is_wp_error( $efbl_new_skin_row_id ) ) {
+                        $fta_settings['plugins']['instagram']['row_default_skin_id'] = $efbl_new_skin_row_id;
+                        update_option( 'fta_settings', $fta_settings );
+                    }
+                
+                }
+            
+            }
+            
+            
             if ( !isset( $fta_settings['plugins']['instagram']['default_page_id'] ) && empty($fta_settings['plugins']['instagram']['default_page_id']) ) {
                 $skin_id = $fta_settings['plugins']['instagram']['default_skin_id'];
                 $user_id = null;

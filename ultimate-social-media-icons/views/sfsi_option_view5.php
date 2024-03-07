@@ -35,6 +35,12 @@
 	if(!isset($option5['sfsi_fbmessengerIcon_order'])){
 		$option5['sfsi_fbmessengerIcon_order']    = '19';
 	}
+    if(!isset($option5['sfsi_riaIcon_order'])){
+        $option5['sfsi_riaIcon_order']    = '25';
+    }
+    if(!isset($option5['sfsi_inhaIcon_order'])){
+        $option5['sfsi_inhaIcon_order']    = '26';
+    }
 	if(!isset($option5['sfsi_tiktokIcon_order'])){
 		$option5['sfsi_tiktokIcon_order']    = '20';
     }
@@ -63,6 +69,8 @@
 		$option5['sfsi_snapchatIcon_order']=> 'snapchat',
 		$option5['sfsi_redditIcon_order']=> 'reddit',
 		$option5['sfsi_fbmessengerIcon_order']=> 'fbmessenger',
+		$option5['sfsi_riaIcon_order']=> 'ria',
+		$option5['sfsi_inhaIcon_order']=> 'inha',
 		$option5['sfsi_tiktokIcon_order']=> 'tiktok',
 		$option5['sfsi_copylinkIcon_order']=> 'copylink',
 		$option5['sfsi_mastodonIcon_order']=> 'mastodon',
@@ -149,6 +157,14 @@
 	$option5['sfsi_fbmessenger_MouseOverText']		= 	(isset($option5['sfsi_fbmessenger_MouseOverText']))
 														? sanitize_text_field($option5['sfsi_fbmessenger_MouseOverText'])
 														: '';
+
+    $option5['sfsi_ria_MouseOverText']		= 	(isset($option5['sfsi_ria_MouseOverText']))
+        ? sanitize_text_field($option5['sfsi_ria_MouseOverText'])
+        : '';
+
+    $option5['sfsi_inha_MouseOverText']		= 	(isset($option5['sfsi_inha_MouseOverText']))
+        ? sanitize_text_field($option5['sfsi_inha_MouseOverText'])
+        : '';
 
 	$option5['sfsi_tiktok_MouseOverText']		= 	(isset($option5['sfsi_tiktok_MouseOverText']))
 														? sanitize_text_field($option5['sfsi_tiktok_MouseOverText'])
@@ -264,6 +280,14 @@
 				<li class="fbmessenger_section " data-index="<?php echo $index; ?>" id="sfsi_fbmessengerIcon_order">
                 	<a href="#" title="fbmessenger" ><img src="<?php echo SFSI_PLUGURL; ?>images/icons_theme/default/default_fbmessenger.png" height="54px;" alt="fbmessenger" /></a>
 				</li>
+          <?php break; ?><?php case 'ria' :?>
+              <li class="ria_section " data-index="<?php echo $index; ?>" id="sfsi_riaIcon_order">
+                  <a href="#" title="RateItAll" ><img src="<?php echo SFSI_PLUGURL; ?>images/icons_theme/default/default_ria.png" height="54px;" alt="RateItAll" /></a>
+              </li>
+          <?php break; ?><?php case 'inha' :?>
+              <li class="inha_section " data-index="<?php echo $index; ?>" id="sfsi_inhaIcon_order">
+                  <a href="#" title="IncreasingHappiness" ><img src="<?php echo SFSI_PLUGURL; ?>images/icons_theme/default/default_inha.png" height="54px;" alt="IncreasingHappiness" /></a>
+              </li>
 		  <?php break; ?><?php case 'tiktok' :?>
           		<li class="tiktok_section " data-index="<?php echo $index; ?>" id="sfsi_tiktokIcon_order">
                 	<a href="#" title="tiktok" ><img src="<?php echo SFSI_PLUGURL; ?>images/icons_theme/default/default_tiktok.png" height="54px;" alt="tiktok" /></a>
@@ -1457,6 +1481,20 @@
 				<input name="sfsi_fbmessenger_MouseOverText" value="<?php echo ( $option5['sfsi_fbmessenger_MouseOverText']!='' ) ? esc_attr($option5['sfsi_fbmessenger_MouseOverText']) : '' ;?>" type="text" />
 			</div>
 		</div>
+
+        <div class="clear">
+            <div class="mouseover_field ria_section">
+                <label><?php _e("RateItAll:",'ultimate-social-media-icons' ) ?></label>
+                <input name="sfsi_ria_MouseOverText" value="<?php echo ( $option5['sfsi_ria_MouseOverText']!='' ) ? esc_attr($option5['sfsi_ria_MouseOverText']) : '' ;?>" type="text" />
+            </div>
+        </div>
+        <div class="clear">
+            <div class="mouseover_field inha_section">
+                <label><?php _e("IncreasingHappiness:",'ultimate-social-media-icons' ) ?></label>
+                <input name="sfsi_inha_MouseOverText" value="<?php echo ( $option5['sfsi_inha_MouseOverText']!='' ) ? esc_attr($option5['sfsi_inha_MouseOverText']) : '' ;?>" type="text" />
+            </div>
+        </div>
+
 
 		<div class="clear">
 			<div class="mouseover_field viber_section">

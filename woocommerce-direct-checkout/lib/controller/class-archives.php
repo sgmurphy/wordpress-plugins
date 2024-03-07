@@ -70,7 +70,7 @@ class Archives {
 			),
 			array(
 				'name'     => esc_html__( 'Replace Add to cart text in', 'woocommerce-direct-checkout' ),
-				'desc_tip' => esc_html__( 'Replace "Add to cart" text in product types.', 'woocommerce-direct-checkout' ),
+				'desc_tip' => esc_html__( 'Replace the "Add to cart" text for product types.', 'woocommerce-direct-checkout' ),
 				'id'       => 'qlwcdc_add_archive_text_in',
 				'type'     => 'multiselect',
 				'class'    => 'chosen_select',

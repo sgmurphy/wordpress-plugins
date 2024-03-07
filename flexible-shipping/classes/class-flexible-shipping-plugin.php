@@ -482,7 +482,9 @@ class Flexible_Shipping_Plugin extends AbstractPlugin implements HookableCollect
 		( new Registrator(
 			$integration_data,
 			$this->plugin_path,
-			$this->get_plugin_file_path()
+			$this->get_plugin_file_path(),
+			false,
+			false
 		) )->hooks();
 	}
 
@@ -541,7 +543,7 @@ class Flexible_Shipping_Plugin extends AbstractPlugin implements HookableCollect
 	 * Init tracker.
 	 */
 	private function init_tracker() {
-		$this->add_hookable(
+		add_action( 'woocommerce_init', function () {
 			TrackerInitializer::create_from_plugin_info(
 				$this->plugin_info,
 				$this->prepare_shoud_display_for_flexible_shipping(),
@@ -551,10 +553,10 @@ class Flexible_Shipping_Plugin extends AbstractPlugin implements HookableCollect
 					__( 'Flexible Shipping PRO', 'flexible-shipping' ),
 					'https://octol.io/fs-contact-exit-pop-up',
 				)
-			)
-		);
-		$this->add_hookable( new WPDesk_Flexible_Shipping_Tracker() );
-		$this->add_hookable( new TrackerData() );
+			)->hooks();
+			( new WPDesk_Flexible_Shipping_Tracker() )->hooks();
+			( new TrackerData() )->hooks();
+		} );
 	}
 
 	/**

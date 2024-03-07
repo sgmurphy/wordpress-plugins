@@ -5,7 +5,7 @@ Tags: woocommerce, woocommerce ajax, woocommerce ajax cart, add to cart, woocomm
 Requires at least: 4.7
 Requires PHP: 5.6
 Tested up to: 6.4
-Stable tag: 3.3.1
+Stable tag: 3.3.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 4.7.0
@@ -64,6 +64,9 @@ The premium version of WooCommerce Direct Checkot allows to include a quick purc
 4. Increase your sales!
 
 == Changelog ==
+
+= 3.3.2 =
+* Fix: i18n strings
 
 = 3.3.1 =
 * Fix: PHP errors

@@ -262,6 +262,9 @@ if ( !class_exists( 'Easy_Facebook_Likebox_Admin' ) ) {
         {
             
             if ( current_user_can( 'editor' ) || current_user_can( 'administrator' ) ) {
+                if ( !wp_verify_nonce( $_POST['efbl_nonce'], 'efbl-ajax-nonce' ) ) {
+                    wp_send_json_error( __( 'Nonce not verified! Please try again', 'easy-facebook-likebox' ) );
+                }
                 $access_token = sanitize_text_field( $_POST['access_token'] );
                 $type = sanitize_text_field( $_POST['type'] );
                 $approved_pages = [];
@@ -519,6 +522,9 @@ if ( !class_exists( 'Easy_Facebook_Likebox_Admin' ) ) {
                 $groups_id = $_POST['groups_id'];
                 if ( !isset( $groups_id ) && empty($groups_id) ) {
                     wp_send_json_error( __( 'Please select the group first', 'easy-facebook-likebox' ) );
+                }
+                if ( !wp_verify_nonce( $_POST['efbl_nonce'], 'efbl-ajax-nonce' ) ) {
+                    wp_send_json_error( __( 'Nonce not verified! Please try again', 'easy-facebook-likebox' ) );
                 }
                 
                 if ( is_array( $groups_id ) ) {

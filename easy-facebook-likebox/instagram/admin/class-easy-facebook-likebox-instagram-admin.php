@@ -272,6 +272,9 @@ if ( !class_exists( 'ESF_Instagram_Admin' ) ) {
         {
             
             if ( current_user_can( 'editor' ) || current_user_can( 'administrator' ) ) {
+                if ( !wp_verify_nonce( $_POST['mif_nonce'], 'mif-ajax-nonce' ) ) {
+                    wp_send_json_error( __( 'Nonce not verified! Please try again', 'easy-facebook-likebox' ) );
+                }
                 $access_token = sanitize_text_field( $_POST['access_token'] );
                 $mif_accounts_html = '';
                 $self_data = "https://graph.instagram.com/me?fields=id,username&access_token={$access_token}";

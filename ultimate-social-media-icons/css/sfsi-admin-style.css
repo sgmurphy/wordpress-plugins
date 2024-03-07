@@ -248,6 +248,8 @@ ul.icn_listing li .tb_4_ck {
 .tab1 ul.icn_listing li .sfsicls_email,
 .tab1 ul.icn_listing li .sfsicls_facebook,
 .tab1 ul.icn_listing li .sfsicls_instagram,
+.tab1 ul.icn_listing li .sfsicls_ria,
+.tab1 ul.icn_listing li .sfsicls_inha,
 .tab1 ul.icn_listing li .sfsicls_telegram,
 .tab1 ul.icn_listing li .sfsicls_vk,
 .tab1 ul.icn_listing li .sfsicls_ok,
@@ -317,7 +319,7 @@ ul.icn_listing li .tb_4_ck {
 }
 .tab1 ul.icn_listing li .sfsicls_twt {
     background-position: 0 -221px;
-    color: #00abe3;
+    color: #000000;
 }
 
 .tab1 ul.icn_listing li .sfsicls_share {
@@ -436,7 +438,9 @@ ul.icn_listing li .right_info a {
 .tab2 .row h2.sfsicls_fbmessenger,
 .tab2 .row h2.sfsicls_tiktok,
 .tab2 .row h2.sfsicls_copylink,
-.tab2 .row h2.sfsicls_mastodon
+.tab2 .row h2.sfsicls_mastodon,
+.tab2 .row h2.sfsicls_inha,
+.tab2 .row h2.sfsicls_ria
  {
     background: url(../images/tab_1_icn_list.png) no-repeat;
     padding: 0 0 0 70px;
@@ -485,7 +489,7 @@ ul.icn_listing li .right_info a {
 }
 .tab2 .row h2.sfsicls_twt {
     background-position: 0 -221px;
-    color: #00abe3;
+    color: #000000;
 }
 
 .tab2 .row h2.sfsicls_share {
@@ -562,6 +566,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_10_9,
 .icns_tab_3 .row_11_1,
 .icns_tab_3 .row_11_10,
+.icns_tab_3 .row_11_25,
+.icns_tab_3 .row_11_26,
 .icns_tab_3 .row_11_11,
 .icns_tab_3 .row_11_2,
 .icns_tab_3 .row_11_3,
@@ -573,6 +579,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_11_9,
 .icns_tab_3 .row_12_1,
 .icns_tab_3 .row_12_10,
+.icns_tab_3 .row_12_25,
+.icns_tab_3 .row_12_26,
 .icns_tab_3 .row_12_11,
 .icns_tab_3 .row_12_2,
 .icns_tab_3 .row_12_3,
@@ -584,6 +592,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_12_9,
 .icns_tab_3 .row_13_1,
 .icns_tab_3 .row_13_10,
+.icns_tab_3 .row_13_25,
+.icns_tab_3 .row_13_26,
 .icns_tab_3 .row_13_11,
 .icns_tab_3 .row_13_2,
 .icns_tab_3 .row_13_3,
@@ -595,6 +605,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_13_9,
 .icns_tab_3 .row_14_1,
 .icns_tab_3 .row_14_10,
+.icns_tab_3 .row_14_25,
+.icns_tab_3 .row_14_26,
 .icns_tab_3 .row_14_11,
 .icns_tab_3 .row_14_2,
 .icns_tab_3 .row_14_3,
@@ -606,6 +618,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_14_9,
 .icns_tab_3 .row_15_1,
 .icns_tab_3 .row_15_10,
+.icns_tab_3 .row_15_25,
+.icns_tab_3 .row_15_26,
 .icns_tab_3 .row_15_11,
 .icns_tab_3 .row_15_2,
 .icns_tab_3 .row_15_3,
@@ -617,6 +631,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_15_9,
 .icns_tab_3 .row_16_1,
 .icns_tab_3 .row_16_10,
+.icns_tab_3 .row_16_25,
+.icns_tab_3 .row_16_26,
 .icns_tab_3 .row_16_11,
 .icns_tab_3 .row_16_2,
 .icns_tab_3 .row_16_3,
@@ -628,6 +644,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_16_9,
 .icns_tab_3 .row_1_1,
 .icns_tab_3 .row_1_10,
+.icns_tab_3 .row_1_25,
+.icns_tab_3 .row_1_26,
 .icns_tab_3 .row_1_11,
 .icns_tab_3 .row_1_14,
 .icns_tab_3 .row_1_2,
@@ -640,6 +658,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_1_9,
 .icns_tab_3 .row_2_1,
 .icns_tab_3 .row_2_10,
+.icns_tab_3 .row_2_25,
+.icns_tab_3 .row_2_26,
 .icns_tab_3 .row_2_11,
 .icns_tab_3 .row_2_14,
 .icns_tab_3 .row_2_2,
@@ -652,6 +672,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_2_9,
 .icns_tab_3 .row_3_1,
 .icns_tab_3 .row_3_10,
+.icns_tab_3 .row_3_25,
+.icns_tab_3 .row_3_26,
 .icns_tab_3 .row_3_11,
 .icns_tab_3 .row_3_14,
 .icns_tab_3 .row_3_2,
@@ -664,6 +686,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_3_9,
 .icns_tab_3 .row_4_1,
 .icns_tab_3 .row_4_10,
+.icns_tab_3 .row_4_25,
+.icns_tab_3 .row_4_26,
 .icns_tab_3 .row_4_11,
 .icns_tab_3 .row_4_14,
 .icns_tab_3 .row_4_2,
@@ -676,6 +700,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_4_9,
 .icns_tab_3 .row_5_1,
 .icns_tab_3 .row_5_10,
+.icns_tab_3 .row_5_25,
+.icns_tab_3 .row_5_26,
 .icns_tab_3 .row_5_11,
 .icns_tab_3 .row_5_14,
 .icns_tab_3 .row_5_2,
@@ -688,6 +714,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_5_9,
 .icns_tab_3 .row_6_1,
 .icns_tab_3 .row_6_10,
+.icns_tab_3 .row_6_25,
+.icns_tab_3 .row_6_26,
 .icns_tab_3 .row_6_11,
 .icns_tab_3 .row_6_14,
 .icns_tab_3 .row_6_2,
@@ -700,6 +728,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_6_9,
 .icns_tab_3 .row_7_1,
 .icns_tab_3 .row_7_10,
+.icns_tab_3 .row_7_25,
+.icns_tab_3 .row_7_26,
 .icns_tab_3 .row_7_11,
 .icns_tab_3 .row_7_2,
 .icns_tab_3 .row_7_3,
@@ -711,6 +741,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_7_9,
 .icns_tab_3 .row_8_1,
 .icns_tab_3 .row_8_10,
+.icns_tab_3 .row_8_25,
+.icns_tab_3 .row_8_26,
 .icns_tab_3 .row_8_11,
 .icns_tab_3 .row_8_2,
 .icns_tab_3 .row_8_3,
@@ -722,6 +754,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_8_9,
 .icns_tab_3 .row_9_1,
 .icns_tab_3 .row_9_10,
+.icns_tab_3 .row_9_25,
+.icns_tab_3 .row_9_26,
 .icns_tab_3 .row_9_11,
 .icns_tab_3 .row_9_2,
 .icns_tab_3 .row_9_3,
@@ -741,6 +775,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_17_8,
 .icns_tab_3 .row_17_9,
 .icns_tab_3 .row_17_10,
+.icns_tab_3 .row_17_25,
+.icns_tab_3 .row_17_26,
 .icns_tab_3 .row_17_14,
 .icns_tab_3 .row_17_15,
 .icns_tab_3 .row_17_16,
@@ -771,6 +807,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_8_15,
 .icns_tab_3 .row_9_15,
 .icns_tab_3 .row_10_15,
+.icns_tab_3 .row_10_25,
+.icns_tab_3 .row_10_26,
 .icns_tab_3 .row_11_15,
 .icns_tab_3 .row_12_15,
 .icns_tab_3 .row_13_15,
@@ -788,6 +826,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_8_16,
 .icns_tab_3 .row_9_16,
 .icns_tab_3 .row_10_16,
+.icns_tab_3 .row_10_25,
+.icns_tab_3 .row_10_26,
 .icns_tab_3 .row_11_16,
 .icns_tab_3 .row_12_16,
 .icns_tab_3 .row_13_16,
@@ -840,6 +880,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_18_8,
 .icns_tab_3 .row_18_9,
 .icns_tab_3 .row_18_10,
+.icns_tab_3 .row_18_25,
+.icns_tab_3 .row_18_26,
 .icns_tab_3 .row_18_11,
 .icns_tab_3 .row_18_12,
 .icns_tab_3 .row_18_13,
@@ -864,6 +906,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_19_8,
 .icns_tab_3 .row_19_9,
 .icns_tab_3 .row_19_10,
+.icns_tab_3 .row_19_25,
+.icns_tab_3 .row_19_26,
 .icns_tab_3 .row_19_11,
 .icns_tab_3 .row_19_12,
 .icns_tab_3 .row_19_13,
@@ -888,6 +932,8 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_20_8,
 .icns_tab_3 .row_20_9,
 .icns_tab_3 .row_20_10,
+.icns_tab_3 .row_20_25,
+.icns_tab_3 .row_20_26,
 .icns_tab_3 .row_20_11,
 .icns_tab_3 .row_20_12,
 .icns_tab_3 .row_20_13,
@@ -1072,6 +1118,12 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_1_10 {
     background-position: -532px 0;
 }
+.icns_tab_3 .row_1_25 {
+    background-position: -1172px 0;
+}
+.icns_tab_3 .row_1_26 {
+    background-position: -1235px 0;
+}
 .icns_tab_3 .row_1_11 {
     background-position: -717px 0;
 }
@@ -1155,6 +1207,14 @@ ul.tab_2_email_sec li .radio {
     background: url(../images/icons_theme/flat/flat_wechat.png) no-repeat;
     background-size: contain;
 }
+.icns_tab_3 .row_2_25 {
+    background: url(../images/icons_theme/flat/flat_ria.png) no-repeat;
+    background-size: contain;
+}
+.icns_tab_3 .row_2_26 {
+    background: url(../images/icons_theme/flat/flat_inha.png) no-repeat;
+    background-size: contain;
+}
 .icns_tab_3 .row_2_11 {
     background: url(../images/icons_theme/flat/flat_wechat.png) no-repeat;
     background-size: contain;
@@ -1230,6 +1290,14 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_3_10 {
     background-position: -532px -146px;
 }
+.icns_tab_3 .row_3_25 {
+    background-position: -1172px -146px;
+}
+
+.icns_tab_3 .row_3_26 {
+     background-position: -1235px -146px;
+}
+
 .icns_tab_3 .row_3_11 {
     background-position: -717px -147px;
 }
@@ -1302,6 +1370,13 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_4_10 {
     background-position: -532px -222px;
 }
+.icns_tab_3 .row_4_25 {
+    background-position: -1172px -222px;
+}
+.icns_tab_3 .row_4_26 {
+    background-position: -1235px -222px;
+}
+
 .icns_tab_3 .row_4_11 {
     background-position: -717px -222px;
 }
@@ -1373,6 +1448,12 @@ ul.tab_2_email_sec li .radio {
 }
 .icns_tab_3 .row_5_10 {
     background-position: -532px -296px;
+}
+.icns_tab_3 .row_5_25 {
+    background-position: -1172px -296px;
+}
+.icns_tab_3 .row_5_26 {
+    background-position: -1235px -296px;
 }
 .icns_tab_3 .row_5_11 {
     background-position: -717px -296px;
@@ -1446,6 +1527,12 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_6_10 {
     background-position: -532px -370px;
 }
+.icns_tab_3 .row_6_25 {
+    background-position: -1172px -370px;
+}
+.icns_tab_3 .row_6_26 {
+    background-position: -1235px -370px;
+}
 .icns_tab_3 .row_6_11 {
     background-position: -717px -370px;
 }
@@ -1517,6 +1604,12 @@ ul.tab_2_email_sec li .radio {
 }
 .icns_tab_3 .row_7_10 {
     background-position: -532px -444px;
+}
+.icns_tab_3 .row_7_25 {
+    background-position: -1172px -444px;
+}
+.icns_tab_3 .row_7_26 {
+    background-position: -1235px -444px;
 }
 .icns_tab_3 .row_7_11 {
     background-position: -717px -444px;
@@ -1590,6 +1683,12 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_8_10 {
     background-position: -532px -518px;
 }
+.icns_tab_3 .row_8_25 {
+    background-position: -1172px -518px;
+}
+.icns_tab_3 .row_8_26 {
+    background-position: -1235px -518px;
+}
 .icns_tab_3 .row_8_11 {
     background-position: -717px -518px;
 }
@@ -1661,6 +1760,12 @@ ul.tab_2_email_sec li .radio {
 }
 .icns_tab_3 .row_9_10 {
     background-position: -532px -592px;
+}
+.icns_tab_3 .row_9_25 {
+    background-position: -1172px -592px;
+}
+.icns_tab_3 .row_9_26 {
+    background-position: -1235px -592px;
 }
 .icns_tab_3 .row_9_11 {
     background-position: -717px -592px;
@@ -1734,6 +1839,12 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_10_10 {
     background-position: -532px -666px;
 }
+.icns_tab_3 .row_10_25 {
+    background-position: -1172px -666px;
+}
+.icns_tab_3 .row_10_26 {
+    background-position: -1235px -666px;
+}
 .icns_tab_3 .row_10_11 {
     background-position: -717px -666px;
 }
@@ -1805,6 +1916,12 @@ ul.tab_2_email_sec li .radio {
 }
 .icns_tab_3 .row_11_10 {
     background-position: -532px -740px;
+}
+.icns_tab_3 .row_11_25 {
+    background-position: -1172px -740px;
+}
+.icns_tab_3 .row_11_26 {
+    background-position: -1235px -740px;
 }
 .icns_tab_3 .row_11_11 {
     background-position: -717px -740px;
@@ -1878,6 +1995,12 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_12_10 {
     background-position: -532px -814px;
 }
+.icns_tab_3 .row_12_25 {
+    background-position: -1172px -814px;
+}
+.icns_tab_3 .row_12_26 {
+    background-position: -1235px -814px;
+}
 .icns_tab_3 .row_12_11 {
     background-position: -717px -814px;
 }
@@ -1949,6 +2072,12 @@ ul.tab_2_email_sec li .radio {
 }
 .icns_tab_3 .row_13_10 {
     background-position: -532px -888px;
+}
+.icns_tab_3 .row_13_25 {
+    background-position: -1172px -888px;
+}
+.icns_tab_3 .row_13_26 {
+    background-position: -1235px -888px;
 }
 .icns_tab_3 .row_13_11 {
     background-position: -717px -888px;
@@ -2022,6 +2151,12 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_14_10 {
     background-position: -532px -962px;
 }
+.icns_tab_3 .row_14_25 {
+    background-position: -1172px -962px;
+}
+.icns_tab_3 .row_14_26 {
+    background-position: -1235px -962px;
+}
 .icns_tab_3 .row_14_11 {
     background-position: -717px -962px;
 }
@@ -2094,6 +2229,12 @@ ul.tab_2_email_sec li .radio {
 .icns_tab_3 .row_15_10 {
     background-position: -532px -1036px;
 }
+.icns_tab_3 .row_15_25 {
+    background-position: -1172px -1036px;
+}
+.icns_tab_3 .row_15_26 {
+    background-position: -1235px -1036px;
+}
 .icns_tab_3 .row_15_11 {
     background-position: -717px -1036px;
 }
@@ -2165,6 +2306,12 @@ ul.tab_2_email_sec li .radio {
 }
 .icns_tab_3 .row_16_10 {
     background-position: -532px -1109px;
+}
+.icns_tab_3 .row_16_25 {
+    background-position: -1172px -1109px;
+}
+.icns_tab_3 .row_16_26 {
+    background-position: -1235px -1109px;
 }
 .icns_tab_3 .row_16_11 {
     background-position: -717px -1109px;
@@ -2241,6 +2388,16 @@ ul.tab_2_email_sec li .radio {
 }
 .icns_tab_3 .row_20_10 {
     background: url(../images/icons_theme/animated_icons/animated_icons_instagram.gif) no-repeat;
+    background-size: contain;
+}
+
+.icns_tab_3 .row_20_25 {
+    background: url(../images/icons_theme/animated_icons/animated_icons_ria.gif) no-repeat;
+    background-size: contain;
+}
+
+.icns_tab_3 .row_20_26 {
+    background: url(../images/icons_theme/animated_icons/animated_icons_inha.gif) no-repeat;
     background-size: contain;
 }
 .icns_tab_3 .row_20_14 {
@@ -5677,6 +5834,16 @@ body .specify_counts .listing .sfsi_instagramInstruction p {
     background-size: contain;
 }
 
+.tab1 ul.icn_listing li .sfsicls_ria {
+    background: url(../images/icons_theme/default/default_ria.png) no-repeat;
+    background-size: contain;
+}
+
+.tab1 ul.icn_listing li .sfsicls_inha {
+    background: url(../images/icons_theme/default/default_inha.png) no-repeat;
+    background-size: contain;
+}
+
 .tab2 ul.sfsi_email_functions_container,
 .tab2 ul.sfsi_email_functions_container li {
     width: 100%;
@@ -5722,6 +5889,15 @@ body .specify_counts .listing .sfsi_instagramInstruction p {
     background-size: contain;
 }
 
+.tab2 .row h2.sfsicls_ria {
+    background: url(../images/icons_theme/default/default_ria.png) no-repeat;
+    background-size: contain;
+}
+
+.tab2 .row h2.sfsicls_inha {
+    background: url(../images/icons_theme/default/default_inha.png) no-repeat;
+    background-size: contain;
+}
 /* Tooltip start*/
 
 .sfsi-max-content {
@@ -5981,6 +6157,14 @@ ul.sfsiplus_icn_listing8 .sfsi_plus_float_icons_alignment {
     background: url(../images/icons_theme/flat_square/flat_square_instagram.png);
     background-size: contain;
 }
+.icns_tab_3 .row_17_25 {
+    background: url(../images/icons_theme/flat_square/flat_square_ria.png);
+    background-size: contain;
+}
+.icns_tab_3 .row_17_26 {
+    background: url(../images/icons_theme/flat_square/flat_square_inha.png);
+    background-size: contain;
+}
 .icns_tab_3 .row_17_14 {
     background: url(../images/icons_theme/flat_square/flat_square_telegram.png);
     background-size: contain;
@@ -6060,6 +6244,14 @@ ul.sfsiplus_icn_listing8 .sfsi_plus_float_icons_alignment {
     background: url(../images/icons_theme/flat_squared/flat_squared_instagram.png) no-repeat;
     background-size: contain;
 }
+.icns_tab_3 .row_18_25 {
+    background: url(../images/icons_theme/flat_squared/flat_squared_ria.png) no-repeat;
+    background-size: contain;
+}
+.icns_tab_3 .row_18_26 {
+    background: url(../images/icons_theme/flat_squared/flat_squared_inha.png) no-repeat;
+    background-size: contain;
+}
 .icns_tab_3 .row_18_14 {
     background: url(../images/icons_theme/flat_squared/flat_squared_telegram.png) no-repeat;
     background-size: contain;
@@ -6136,6 +6328,14 @@ ul.sfsiplus_icn_listing8 .sfsi_plus_float_icons_alignment {
 }
 .icns_tab_3 .row_19_10 {
     background: url(../images/icons_theme/icons_only/icons_only_instagram.png);
+    background-size: contain;
+}
+.icns_tab_3 .row_19_25 {
+    background: url(../images/icons_theme/icons_only/icons_only_ria.png);
+    background-size: contain;
+}
+.icns_tab_3 .row_19_26 {
+    background: url(../images/icons_theme/icons_only/icons_only_inha.png);
     background-size: contain;
 }
 .icns_tab_3 .row_19_14 {

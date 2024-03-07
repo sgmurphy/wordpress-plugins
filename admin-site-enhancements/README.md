@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.4.3  
-Stable tag: 6.9.0  
+Stable tag: 6.9.2  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,12 +42,12 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### FEATURES & MODULES
 
-**60 modules** in total:
-**39** free modules | **13** free modules with Pro features | **8** Pro modules
+**61 modules** in total:
+**39** free modules | **14** free modules with Pro features | **8** Pro modules
 
 ### Content Management
 
-* **[[Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Conveniently register and edit custom post types, custom taxonomies and custom field groups that integrates with Bricks, Breakdance, Oxygen and Elementor.
+* **[[Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Conveniently register and edit custom post types, custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor.
 * **Content Duplication**. Enable one-click duplication of pages, posts and custom posts.
 * **Content Order**. Enable custom ordering of various post types in wp-admin and on the frontend. [ASE Pro](https://www.wpase.com/rdme-to-web) enables toggling taxonomy terms and / or excerpt on the ordering page.
 * **[[Pro](https://www.wpase.com/rdme-to-web)] Terms Order**. Enable custom ordering of terms from various taxonomies in wp-admin and on the frontend.
@@ -172,11 +172,37 @@ You can skip step 1 and 2 if you still have access to your wp-admin dashboard.
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **78 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **80 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+
+### 6.9.2 (2024.03.07) - ASE Free and Pro
+
+* **[CHANGED in Pro] Content Management >> Custom Content Types**: custom field groups and options pages creation is now enabled by default when Custom Content Types module is enabled. Also updated module description and settings to reflect this.
+
+* **[FIXED in Free and Pro] Optimizations >> Image Upload Control**: added checks to prevent PHP fatal error and warnings when uploading non-image files and WebP conversion is enabled. Props to Peter J. and Gilang R. for reporting the fatal error issue.
+
+* **[FIXED in Free and Pro] Security >> Limit Login Attemtps**: fixed an issue where under certain conditions, the login page would endlessly reload making it impossible to login. Props to [eangulus](https://wordpress.org/support/users/eangulus/), [andreawriessnegger](https://wordpress.org/support/users/andreawriessnegger/), [eangulus](https://wordpress.org/support/users/eangulus/), Max F. and Eric for reporting this patiently and in great detail in the wp.org [support forum](https://wordpress.org/support/topic/something-not-right-with-limit-login-attempts/) and via email.
+
+### 6.9.1 (2024.03.07) - ASE Free and Pro
+
+* **[IMPROVED in Pro] Content Management >> Custom Content Types**: added the ability to create Options Pages, which for example, you can use to allow clients to easily edit parts of the website, e.g. office address, organization mission statement, etc. This has also been integrated with Oxygen, Bricks, Breakdance and Elementor, i.e. you can see fields from options pages showing up as dynamic data source.
+
+* **[IMPROVED in Pro] Optimizations >> Image Upload Control**: in previous version, BMP, PNG and JPG images will be converted first to WebP before being resized  to the specified. Now, uploads will be resized first before conversion to WebP. This will result in even smaller file size while maintaining image quality. Props to Adryan for the astute observation and detailed reporting of the issue.
+
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: the WYSIWYG field now has a 'code' button to show the HTML version of content being added / copy-pasted. Useful for cleaning up from unwanted code, e.g. CSS classes, weird formatting, etc. Props to Michael S. for suggesting something similar.
+
+* **[IMPROVED in Pro] Custom Code >> Code Snippets Manager**: snippet description editor now has the Visual-Text tabs. Useful for cleaning up description from unwanted code, e.g. CSS classes, weird formatting, etc, when the description is copy-pasted from elsewhere. Props to Michael S. for suggesting this.
+
+* **[IMPROVED in Free and Pro] Log In | Log Out >> Change Login URL**: will now correctly output an error message on failed login: "Error: Invalid username/email or incorrect password.". This is a custom message that does not give away valuable info to potential hackers. e.g. does not indicate that the username is correct but password is wrong. Props to Sven K. for reporting the issue.
+
+* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fixed missing "Snippet Categories" sub-menu item after the last release. Props to Herbert S. for reporting the issue.
+
+* **[FIXED in Free] Utilities >> Maintenance Mode**: properly hide the 'Image' and 'Color' background options in the free version. Props to Michael I. for reporting the issue.
+
+* **[FIXED in Pro] Content Management >> Custom Content Type**: custom taxonomy key / slug was limited to 20 characters despite the UI / description saying it's limited to 32 characters, per the hard limit set by [register_taxonomy()(https://developer.wordpress.org/reference/functions/register_taxonomy/). Props to Michael S. for reporting the issue.
 
 ### 6.9.0.1 (2024.02.26) - ASE Pro
 
@@ -223,28 +249,5 @@ Each **_point release_** usually corresponds with the addition of one new module
 * **[FIXED in Pro] Terms Order**: fixed PHP notice and warning on certain scenarios. Props to Brian N. for reporting the issue with a copy of the error log entry, which helped with troubleshooting.
 
 * **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fixed an issue where users are not able to logout in certain scenarios when Code Snippets Manager is active. Props to HMDIA for reporting the issue and assisting with troubleshooting.
-
-
-### 6.8.0 (2024.02.13) - ASE Free and Pro
-
-* **[NEW in Free and Pro] Log In Log Out >> Login ID Type**: Restrict login ID to username or email address only.
-
-* **[IMPROVED in Free and Pro] Custom Code >> Custom Admin CSS**: change the hook in use to print custom CSS on page from 'admin_enqueue_scripts' to 'admin_print_footer_scripts'. This increases the chance that the custom CSS will override previously declared CSS.
-
-* **[IMPROVED in Free and Pro] Utilities >> Display System Summary**: added server IP address. Props to Koen A. for the suggestion.
-
-* **[IMPROVED in Free and Pro] Security >> Limit Login Attempts**: improve detection of user's IP address, especially for cases where the user is behind a proxy server. Prevents locking out all users from that proxy server when one is being locked out. Props to Gunnar A. for detecting and reporting the issue and suggesting a solution to help fix that.
-
-* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fixed an issue where columns of certain post type listings are showing empty cells / values. This was originally reported in detail with GeoDirectory's Packages listing by Martin K., which also helped with the troubleshooting.
-
-* **[FIXED in Free and Pro] ASE settings page**: fixed plugin conflict between ASE and WordPress Mentions Légales plugin causing ASE settings page to be blank and dysfunctional. Props to Gilbert G. for reporting and helping with troubleshooting.
-
-* **[FIXED in Pro] Admin Interface >> Admin Columns Manager**: fixed PHP fatal error when there's a product that does not have an SKU and the Products column is shown in WooCommerce Orders page. Props to Jacob E. for reporting the issue and helping with troubleshooting.
-
-* **[FIXED in Free and Pro] Content Management >> Content Duplication**: fixed PHP warnings as reported by [@webvizionph](https://wordpress.org/support/users/webvizionph/) in details [here](https://wordpress.org/support/topic/warning-attempt-to-read-property-post_type-on-null-in-home/).
-
-* **[FIXED in Pro] Content Management >> Media Replacement**: fixed an issue where the "Select New Media File" button does not work in the grid view of the media library when viewing a media item and trying to perform media replacement. Props to Stefan P. for reporting the issue.
-
-* **[FIXED in Pro] Content Management >> Media Replacement**: fixed an issue where the new image (for replacement) is not being shown in the frontend view of the site and in the block editor's Featured Image section. Props to David H. for their investigative work detailing the issues and the scenarios under which they appear, and also for helping with the troubleshooting process.
 
 [**See the full changelog >>**](https://www.wpase.com/documentation/changelog/)

@@ -20,8 +20,9 @@
     width: 100%;
   }
 }
-.efbl_feed_wraper.is-other-page{
-  .efbl-post-footer .efbl-reacted-item{
+
+.efbl_feed_wraper.is-other-page {
+  .efbl-post-footer .efbl-reacted-item {
     cursor: auto !important;
   }
 }
@@ -65,7 +66,7 @@
 
         .efbl_cat,
         .efbl_followers,
-        .efbl-verified-status{
+        .efbl-verified-status {
           padding-right: 10px;
           font-size: 14px;
           @extend .efbl-d-flex;
@@ -76,10 +77,12 @@
             margin-right: 5px;
           }
         }
-        .efbl-verified-status{
+
+        .efbl-verified-status {
           margin-left: -10px;
           margin-top: -2px;
-          .icon-esf-check:before{
+
+          .icon-esf-check:before {
             background: #2e77f2;
             border-radius: 50%;
             padding: 3px;
@@ -120,13 +123,15 @@
   border-radius: 5px;
   font-size: 14px;
   margin: 20px auto;
-  &:focus{
+
+  &:focus {
     outline: none !important;
     background: none !important;
   }
 
 }
-#efblcf_holder .efbl_popup_left_container{
+
+#efblcf_holder .efbl_popup_left_container {
   background: #fff;
 }
 
@@ -1154,9 +1159,9 @@
 
 .efbl_feeds_carousel {
 
-    .efbl-feed-content {
-      margin-bottom: 15px;
-    }
+  .efbl-feed-content {
+    margin-bottom: 15px;
+  }
 
   .efbl-grid-wrapper {
     background: #fff;
@@ -1217,7 +1222,8 @@
         margin-bottom: 15px;
         display: block;
       }
-      .efbl-feed-content{
+
+      .efbl-feed-content {
         margin-bottom: 15px;
       }
     }
@@ -1453,6 +1459,7 @@
       background-position: center;
       background-size: cover;
       cursor: pointer;
+
       img {
         outline: $border-color solid 1px;
         width: 100%;
@@ -1489,13 +1496,15 @@
           font-size: 20px;
         }
       }
-      .efbl-content-holder{
+
+      .efbl-content-holder {
         color: #fff;
         padding: 0 10px;
         text-align: center;
         margin-top: 50%;
         transform: translate(0px, -50%);
-        p{
+
+        p {
           color: #fff;
         }
       }
@@ -1506,11 +1515,12 @@
     }
   }
 
- .efbl-moderate-selected{
-    .efbl-grid-wrapper{
+  .efbl-moderate-selected {
+    .efbl-grid-wrapper {
       border: #37a0e6 solid 5px;
       padding: 0;
-      .efbl-overlay{
+
+      .efbl-overlay {
         opacity: 1;
       }
     }
@@ -2037,10 +2047,10 @@ body {
   letter-spacing: 0;
 }
 
-.efbl-verified-status{
+.efbl-verified-status {
   display: inline-block;
 
-  .icon-esf-check:before{
+  .icon-esf-check:before {
     background: #2e77f2;
     border-radius: 50%;
     padding: 3px;
@@ -2293,8 +2303,8 @@ html {
         @extend .efbl_link_text_box;
       }
 
-      .efbl-profile-image{
-        a img{
+      .efbl-profile-image {
+        a img {
           width: 100%;
           height: 100%;
         }
@@ -2362,6 +2372,7 @@ html {
 
       .efbl-image {
         width: 100%;
+
         .efbl-media-item {
           img {
             max-height: calc(100vh - 180px);
@@ -2502,12 +2513,13 @@ html {
   }
 }
 
-@media screen and (max-width: 991px){
+@media screen and (max-width: 991px) {
 
-  html body .efbl-popup .efbl-image>img, html body .efbl-popup .efbl-image .efbl-media-item img {
+  html body .efbl-popup .efbl-image > img, html body .efbl-popup .efbl-image .efbl-media-item img {
     width: 100%;
     height: auto;
-    max-height: initial; }
+    max-height: initial;
+  }
 
   html body .efbl-popup .efbl-image .efbl-media-item,
   html body .efbl-post-detail .efbl-d-columns-wrapper .efbl-image {
@@ -2685,10 +2697,12 @@ html {
         padding: 10px;
         border: 1px solid transparent;
         border-radius: 5px;
-        ol{
+
+        ol {
           padding-left: 15px;
           margin-top: 5px;
-          li{
+
+          li {
             font-size: 15px;
           }
         }
@@ -3282,15 +3296,17 @@ html {
   }
 
 }
-.widget.widget_easy_facebook_feed{
+
+.widget.widget_easy_facebook_feed {
   overflow: hidden;
 
-  .efbl_feeds_holder.efbl_feeds_fullwidth{
-    .efbl-fullwidth-skin{
-      .efbl-post-footer{
-        .efbl-d-flex.efbl-justify-content-between{
+  .efbl_feeds_holder.efbl_feeds_fullwidth {
+    .efbl-fullwidth-skin {
+      .efbl-post-footer {
+        .efbl-d-flex.efbl-justify-content-between {
           flex-direction: column;
-          .efbl-view-share{
+
+          .efbl-view-share {
             margin-top: 10px !important;
             flex-direction: row;
           }
@@ -3299,6 +3315,98 @@ html {
     }
   }
 }
-.efbl_feed_popup_container.fancybox-container, .fancybox-container{
+
+.efbl_feed_popup_container.fancybox-container, .fancybox-container {
   z-index: 99999999;
+}
+
+.efbl-row-wrapper.efbl-story-wrapper {
+  height: 100%;
+  background: #fff;
+  border: #dee2e6 solid 1px;
+  padding: 2px;
+}
+
+
+.efbl_feeds_holder.efbl_feeds_row {
+  display: flex;
+  justify-content: flex-start;
+
+  .efbl-row-content {
+    width: 100%;
+    //height: 100%;
+    position: relative;
+    margin: 1px;
+
+
+    .efbl-row-wrapper.efbl-story-wrapper {
+
+      .efbl_feed_fancy_popup.efbl-row-box {
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+        position: relative;
+        cursor: pointer;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .efbl-overlay {
+          position: absolute;
+          height: 100%;
+          opacity: 0;
+          background: rgba(0, 0, 0, 0.459);
+          inset: 0;
+          color: #fff;
+          transition: all 500ms ease;
+          cursor: pointer;
+          height: 100%;
+
+          &:hover {
+            opacity: 1;
+          }
+
+          .icon.icon-esf-clone.icon-esf-video-camera {
+            position: absolute;
+            font-size: 15px;
+            top: 10px;
+            right: 7px;
+          }
+
+          .icon-esf-plus::before {
+            content: "\62";
+            position: absolute;
+            top: 50%;
+            right: 50%;
+            font-size: 11px;
+            transform: translate(50%, -50%);
+          }
+
+        }
+      }
+    }
+  }
+}
+
+.efbl-row-content {
+  .icon-esf-clone.efbl_multimedia{
+    content: "g";
+    font-size: 15px;
+    position: absolute;
+    right: 5px;
+    top: 6px;
+  }
+}
+
+  @media screen and (max-width: 600px) {
+  .efbl_feeds_holder.efbl_feeds_row {
+    flex-wrap: wrap;
+
+    .efbl-row-content {
+      max-width: 24%;
+    }
+  }
 }

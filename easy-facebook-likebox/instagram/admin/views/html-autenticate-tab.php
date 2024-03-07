@@ -65,6 +65,7 @@ if ( ( isset( $_GET['access_token'] ) && ! empty( $_GET['access_token'] ) ) || (
 			  'action': '<?php echo esc_html( $action ); ?>',
 			  'access_token': '<?php echo esc_html( $access_token ); ?>',
 			  'id': 'insta',
+              'mif_nonce' : '<?php echo wp_create_nonce( 'mif-ajax-nonce' ); ?>',
 			};
 
 			jQuery.ajax({

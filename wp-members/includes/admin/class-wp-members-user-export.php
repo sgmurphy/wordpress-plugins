@@ -299,8 +299,11 @@ class WP_Members_User_Export {
 		$export_fields['role']            = __( 'Role', 'wp-members' );
 		if ( wpmem_is_enabled( 'enable_products' ) ) {
 			$membership_products = wpmem_get_memberships();
-			foreach( $membership_products as $product_key => $product ) {
-				$export_fields[ self::$membership_product_stem . $product_key ] = $membership_products[ $product_key ]['title'];
+			// Don't bother if it's empty (i.e. memberships enabled, but none created).
+			if ( $membership_products && ! empty( $membership_products ) ) {
+				foreach( $membership_products as $product_key => $product ) {
+					$export_fields[ self::$membership_product_stem . $product_key ] = $membership_products[ $product_key ]['title'];
+				}
 			}
 		}
 	

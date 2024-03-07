@@ -117,10 +117,10 @@ function sfsi_social_buttons_below( $content ) {
 									$counts = $sfsi_section4['sfsi_facebook_manualCounts'];
 								} else if ($sfsi_section4['sfsi_facebook_countsFrom'] == "likes") {
 									$counts = $socialObj->sfsi_get_fb($permalink,true);
-                                    $counts = $counts->share_count;
+                                    $counts = isset($counts->share_count) ? $counts->share_count : 0 ;
 								} else if ($sfsi_section4['sfsi_facebook_countsFrom'] == "followers") {
 									$counts = $socialObj->sfsi_get_fb($permalink, true);
-                                    $counts = $counts->share_count;
+                                    $counts = isset($counts->share_count) ? $counts->share_count : 0;
 								} else if ($sfsi_section4['sfsi_facebook_countsFrom'] == "mypage") {
 									$current_url = $sfsi_section4['sfsi_facebook_mypageCounts'];
 									$counts      = $socialObj->sfsi_get_fb_pagelike(urlencode($current_url));

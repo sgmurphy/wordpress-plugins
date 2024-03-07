@@ -162,6 +162,8 @@ function sfsi_FrontPopupDiv()
         $sfsi_section5['sfsi_pinterestIcon_order'] => 'pinterest',
         $sfsi_section5['sfsi_linkedinIcon_order'] => 'linkedin',
         $sfsi_section5['sfsi_instagramIcon_order'] => 'instagram',
+        $sfsi_section5['sfsi_riaIcon_order'] => 'ria',
+        $sfsi_section5['sfsi_inhaIcon_order'] => 'inha',
         $sfsi_section5['sfsi_telegramIcon_order'] => 'telegram',
         $sfsi_section5['sfsi_vkIcon_order'] => 'vk',
         $sfsi_section5['sfsi_okIcon_order'] => 'ok',
@@ -242,6 +244,12 @@ function sfsi_FrontPopupDiv()
                 break;
             case 'instagram':
                 if ($sfsi_section1_options['sfsi_instagram_display'] == 'yes')    $icons .= "<li>" . sfsi_prepairIcons('instagram', 1) . "</li>";
+                break;
+            case 'ria':
+                if ($sfsi_section1_options['sfsi_ria_display'] == 'yes')    $icons .= "<li>" . sfsi_prepairIcons('ria', 1) . "</li>";
+                break;
+            case 'inha':
+                if ($sfsi_section1_options['sfsi_inha_display'] == 'yes')    $icons .= "<li>" . sfsi_prepairIcons('inha', 1) . "</li>";
                 break;
             case 'telegram':
                 if ($sfsi_section1_options['sfsi_telegram_display'] == 'yes')    $icons .= "<li>" . sfsi_prepairIcons('telegram', 1) . "</li>";

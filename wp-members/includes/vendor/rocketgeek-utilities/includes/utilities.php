@@ -175,14 +175,17 @@ function rktgk_get_user_ip() {
 	} else {
 		$ip = $_SERVER['REMOTE_ADDR'];
 	}
+
+	$sanitized_ip = sanitize_text_field( $ip );
+
 	/**
 	 * Filter the IP result.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $ip
+	 * @param string $sanitized_ip
 	 */
-	return apply_filters( 'rktgk_get_user_ip', $ip );
+	return apply_filters( 'rktgk_get_user_ip', $sanitized_ip );
 }
 endif;
 

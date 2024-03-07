@@ -5,7 +5,7 @@ Tags:  elementor addons, elementor widget, elementor extensions, elementor addon
 Requires at least: 5.0.0
 Tested up to: 6.4.3
 Requires PHP: 7.4.0
-Stable tag: 5.5.3
+Stable tag: 5.5.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Elementor requires at least: 3.0.0
@@ -129,6 +129,11 @@ https://youtu.be/u9JRd824Mjc
 
 
 == Changelog ==
+
+= 5.5.4 [7th March 2024] =
+
+* Fixed: Wrapper link security issue fixed
+* Fixed: Template library security issue fixed
 
 = 5.5.3 [5th March 2024] =
 

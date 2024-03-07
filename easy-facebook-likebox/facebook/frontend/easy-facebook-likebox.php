@@ -30,7 +30,7 @@ class Easy_Facebook_Likebox
      *
      * @var     string
      */
-    const  VERSION = '6.5.4' ;
+    const  VERSION = '6.5.5' ;
     /**
      *
      * Unique identifier for your plugin.
@@ -396,25 +396,25 @@ class Easy_Facebook_Likebox
         }
         $preLoader = plugins_url( 'assets/images/loader.gif', __FILE__ );
         $returner = '<div id="fb-root"></div>
-					<script>(function(d, s, id) {
-					  var js, fjs = d.getElementsByTagName(s)[0];
-					  if (d.getElementById(id)) return;
-					  js = d.createElement(s); js.id = id;
-					  js.async=true; 
-					  js.src = "//connect.facebook.net/' . esc_attr( $locale ) . '/all.js#xfbml=1&appId=' . esc_attr( $fb_appid ) . '";
-					  fjs.parentNode.insertBefore(js, fjs);
-					}(document, \'script\', \'facebook-jssdk\'));</script>';
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.async=true; 
+              js.src = "//connect.facebook.net/' . esc_attr( $locale ) . '/all.js#xfbml=1&appId=' . esc_attr( $fb_appid ) . '";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, \'script\', \'facebook-jssdk\'));</script>';
         $likebox_instance = $this->likebox_instance;
         $returner .= ' <div class="efbl-like-box ' . esc_attr( $likebox_instance ) . '">
-							<div class="fb-page" data-animclass="';
+                  <div class="fb-page" data-animclass="';
         if ( $animate_effect ) {
             $returner .= '' . $animate_effect . '';
         }
-        $returner .= '" data-href="https://www.facebook.com/' . $page_name_id . '" ' . $hide_cover . ' data-width="' . $box_width . '"  ' . $efbl_tabs . ' data-height="' . $box_height . '" ' . $show_faces . '  ' . $show_stream . ' ' . $responsive . ' ' . $hide_cta . ' ' . $small_header . '>
-							</div> 
-							
-						</div>
-					';
+        $returner .= '" data-href="https://www.facebook.com/' . esc_attr( $page_name_id ) . '" ' . $hide_cover . ' data-width="' . esc_attr( $box_width ) . '"  ' . $efbl_tabs . ' data-height="' . esc_attr( $box_height ) . '" ' . $show_faces . '  ' . $show_stream . ' ' . $responsive . ' ' . $hide_cta . ' ' . $small_header . '>
+                  </div> 
+                  
+               </div>
+            ';
         $this->likebox_instance++;
         return $returner;
     }

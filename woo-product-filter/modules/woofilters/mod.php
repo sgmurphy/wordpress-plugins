@@ -137,7 +137,7 @@ class WoofiltersWpf extends ModuleWpf {
 	public function addFilterAgrsToQuery( $args ) {
 		$data = ReqWpf::get( 'post' );
 		$params = array();
-		if ( is_array($data) && isset($data['action']) && ( $data['action'] == 'dipl_get_woo_products' ) && !empty($data['query_vars']) ) {
+		if ( is_array($data) && isset($data['action']) && ( 'dipl_get_woo_products' == $data['action'] ) && !empty($data['query_vars']) ) {
 			$params = $data['query_vars'];
 		}
 		foreach ($params as $k => $v) {
@@ -239,7 +239,7 @@ class WoofiltersWpf extends ModuleWpf {
 						foreach ($addParams as $k => $v) {
 							ReqWpf::setVar($k, urldecode($v), 'get');
 						}
-					 	$this->loadProductsFilter( $query );
+						$this->loadProductsFilter( $query );
 						return $query;
 					}
 				}
@@ -390,6 +390,10 @@ class WoofiltersWpf extends ModuleWpf {
 		}
 		$paged = empty($args['paged']) ? 0 : $args['paged'];
 		$flag = empty($args['post_cards_query']) ? false : $args['post_cards_query'];
+		
+		if ($flag && !empty($args['taxonomy'])) {
+			return $args;
+		}
 		if ( isset( $this->mainWCQueryFiltered ) && ! empty( $this->mainWCQueryFiltered ) ) {
 			$args = $this->mainWCQueryFiltered;
 		} elseif ( isset( $this->mainWCQuery ) && ! empty( $this->mainWCQuery ) ) {
@@ -1595,7 +1599,7 @@ class WoofiltersWpf extends ModuleWpf {
 
 							if ( $metaKeyId ) {
 								$isSlug = ( isset( $tax_item['field'] ) && 'slug' === $tax_item['field'] );
-								$values = $isSlug ? $tax_item['terms'] : get_terms( $taxonomy, array(
+								$values = $isSlug ? $tax_item['terms'] : get_terms( array(
 									'include'  => $tax_item['terms'],
 									'taxonomy' => $taxonomy,
 									'fields'   => 'id=>slug'
@@ -1635,7 +1639,7 @@ class WoofiltersWpf extends ModuleWpf {
 										$termIds = $tax_item['terms'];
 										if ( $isSlug ) {
 											$termIds  = array();
-											$allTerms = get_terms( $taxonomy, array( 'taxonomy' => $taxonomy, 'fields' => 'id=>slug' ) );
+											$allTerms = get_terms( array( 'taxonomy' => $taxonomy, 'fields' => 'id=>slug' ) );
 											if ( is_array( $allTerms ) ) {
 												foreach ( $allTerms as $id => $slug ) {
 													if ( in_array( $slug, $tax_item['terms'] ) ) {
@@ -2413,7 +2417,8 @@ class WoofiltersWpf extends ModuleWpf {
 		}
 		$args = array( 'hide_empty' => false );
 		if ( is_numeric( $slug ) ) {
-			$values = get_terms( wc_attribute_taxonomy_name_by_id( (int) $slug ), $args );
+			$args['taxonomy'] = wc_attribute_taxonomy_name_by_id( (int) $slug );
+			$values = get_terms( $args );
 		} else {
 			$values = DispatcherWpf::applyFilters( 'getCustomTerms', array(), $slug, $args );
 			$values = $this->addChildrenAttributeTerms( $values );
@@ -2867,11 +2872,15 @@ class WoofiltersWpf extends ModuleWpf {
 			$calcCategories    = array();
 			$this->isLightMode = ( 'light' === $mode ) || ( ! empty( $this->clausesLight ) && ! key_exists( 'light', $calc ) );
 			$args['orderby']   = 'ID';
+			$args['order']     = 'ASC';
 
 			if ( ! empty( $args['meta_key'] ) && empty( $args['meta_value'] ) && empty( $args['meta_value_num'] ) ) {
 				$args['meta_key'] = '';
 			}
 			$isModeStandart = in_array( $mode, array( 'full', 'light' ), true );
+			
+			$args = DispatcherWpf::applyFilters( 'addExistFilterArgs', $args );
+
 			if ( ! empty( $this->clauses ) && ( ( ! $multiLogicOr && ! $isModeStandart ) || ( $multiLogicOr && $isModeStandart ) ) ) {
 				$filterLoop = $this->getFilterLoopFromMode( $mode, $args );
 			} else {
@@ -3377,6 +3386,7 @@ class WoofiltersWpf extends ModuleWpf {
 		if ( FrameWpf::_()->proVersionCompare( WPF_PRO_REQUIRES, '>=' ) ) {
 			//$termProducts = DbWpf::get( $sql );
 			$termProducts = ! isset( $sql['main'] ) ? array() : DbWpf::get( $sql['main'] );
+
 			if ( false === $termProducts ) {
 				$termProducts = array();
 			}
@@ -3680,12 +3690,13 @@ class WoofiltersWpf extends ModuleWpf {
 
 	public function getCategoriesDisplay( $tax = 'product_cat' ) {
 		$catArgs = array(
+			'taxonomy'   => $tax,
 			'orderby'    => 'name',
 			'order'      => 'asc',
 			'hide_empty' => false,
 		);
 
-		$productCategories = get_terms( $tax, $catArgs );
+		$productCategories = get_terms( $catArgs );
 		$categoryDisplay   = array();
 		$parentCategories  = array();
 		if (is_array($productCategories)) {
@@ -3702,13 +3713,14 @@ class WoofiltersWpf extends ModuleWpf {
 
 	public function getTagsDisplay() {
 		$tagArgs = array(
+			'taxonomy'   => 'product_tag',
 			'orderby'    => 'name',
 			'order'      => 'asc',
 			'hide_empty' => false,
 			'parent'     => 0
 		);
 
-		$productTags = get_terms( 'product_tag', $tagArgs );
+		$productTags = get_terms( $tagArgs );
 		$tagsDisplay = array();
 		if ( is_array( $productTags ) ) {
 			foreach ( $productTags as $t ) {

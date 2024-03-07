@@ -2,8 +2,8 @@
 Contributors: socialdude, socialtech
 Tags: share, social, share icons, social media, widget, sharing icons, sharing buttons, social share, sharing
 Requires at least: 3.5
-Tested up to: 6.4.3
-Stable tag: 2.8.8
+Tested up to: 6.5
+Stable tag: 2.8.9
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -301,6 +301,12 @@ It depends on which language you speak :) however probably the answer is â€œyesâ
 
 
 == Changelog ==
+
+= 2.8.9 =
+* [NEW] Adding new RateItAll social network icon
+* [NEW] Adding new IncreasingHappiness social network icon
+* [NOTE] Tested with WordPress v6.5 
+* [NOTE] Patched reported issues (@Dmitrii Ignatyev) + 7823147
 
 = 2.8.8 =
 * [FIX] Fixed CRS Errors 
@@ -1151,10 +1157,8 @@ It depends on which language you speak :) however probably the answer is â€œyesâ
 
 == Upgrade Notice ==
 
-= 2.8.8 =
-* [FIX] Fixed CRS Errors 
-* [FIX] Fixed permissions for settings access, now users with "manage_options" can access the plugin
-* [FIX] Fixed issue with sfsi_plus_hide_admin_forum_notification action. 
-* [FIX] Issues with X/Twitter URL share encoding and URL sanitization.
-* [NOTE] Updated plugin's author name in readme
-* [NOTE] Tested with WordPress v6.4.3
+= 2.8.9 =
+* [NEW] Adding new RateItAll social network icon
+* [NEW] Adding new IncreasingHappiness social network icon
+* [NOTE] Tested with WordPress v6.5 
+* [NOTE] Patched reported issues (@Dmitrii Ignatyev) + 7823147

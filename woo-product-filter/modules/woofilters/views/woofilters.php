@@ -1415,7 +1415,8 @@ class WoofiltersViewWpf extends ViewWpf {
 		$html .= $this->generateDescriptionHtml($filter);
 		if ( 'list' === $type && $this->getFilterSetting($settings, 'f_show_search_input', false) ) {
 			$html .= '<div class="wpfSearchWrapper"><input class="wpfSearchFieldsFilter passiveFilter" type="text" placeholder="' . esc_html__($this->getFilterSetting($settings, 'f_search_label', $labels['search']), 'woo-product-filter') . '"' .
-				( $this->getFilterSetting($settings, 'f_unfolding_by_search', false) ? ' data-unfolding="1"' : '' ) . '></div>';
+				( $this->getFilterSetting($settings, 'f_unfolding_by_search', false) ? ' data-unfolding="1"' : '' ) .
+				( $this->getFilterSetting($settings, 'f_collapse_by_delete', false) ? ' data-collapse-search="1"' : '' ) . '></div>';
 		}
 		$html .= '<div class="wpfCheckboxHier">';
 		$html .= $htmlOpt;
@@ -2529,6 +2530,7 @@ class WoofiltersViewWpf extends ViewWpf {
 		$taxonomy = is_array( $taxonomy ) ? array_shift( $taxonomy ) : $taxonomy;
 		// get all direct decendants of the $parent
 		$args = array(
+			'taxonomy' => $taxonomy,
 			'hide_empty' => $argsIn['hide_empty'],
 		);
 		if (isset($argsIn['order'])) {
@@ -2563,7 +2565,7 @@ class WoofiltersViewWpf extends ViewWpf {
 			}
 		}
 
-		$terms = get_terms( $taxonomy, $args );
+		$terms = get_terms( $args );
 		// prepare a new array.  these are the children of $parent
 		// we'll ultimately copy all the $terms into this new array, but only after they
 		// find their own children

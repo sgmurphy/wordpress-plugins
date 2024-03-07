@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-27 18:47+0000\n"
+"POT-Creation-Date: 2024-03-06 21:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -27,7 +27,7 @@ msgid "Apply code"
 msgstr ""
 
 #: bbq-settings.php:362
-msgid "at checkout. Sale ends 12/30/23."
+msgid "at checkout. Sale ends 5/25/24."
 msgstr ""
 
 #: bbq-settings.php:120
@@ -101,10 +101,6 @@ msgstr ""
 msgid "Donate via PayPal, credit card, or cryptocurrency"
 msgstr ""
 
-#: bbq-settings.php:357
-msgid "Fall Sale!"
-msgstr ""
-
 #: bbq-settings.php:30
 msgid "Free and Pro versions of BBQ cannot be activated at the same time. "
 msgstr ""
@@ -115,6 +111,10 @@ msgstr ""
 
 #: bbq-settings.php:171
 msgid "Get BBQ Pro&nbsp;&raquo;"
+msgstr ""
+
+#: bbq-settings.php:357
+msgid "Go Pro!"
 msgstr ""
 
 #: bbq-settings.php:247
@@ -178,7 +178,7 @@ msgid "Rate this plugin&nbsp;&raquo;"
 msgstr ""
 
 #: bbq-settings.php:358
-msgid "Save 25% on our"
+msgid "Save 30% on our"
 msgstr ""
 
 #: bbq-settings.php:167

@@ -304,8 +304,8 @@ if (!function_exists('woofilterInstallBaseMsg')) {
 			} else if (FrameWpf::_()->getModule('options')->getModel()->get('start_indexing') == 2) {
 				$plugName = __('Product Filter by WBW', 'woo-product-filter');
 				$plugWpUrl = 'https://wordpress.org/plugins/woo-product-filter/';
-				/* translators: %s: plugin name */
 				echo '<div class="notice error is-dismissible"><p><strong>';
+				/* translators: %s: plugin name */
 				echo sprintf(esc_html__('The plugin %s started indexing the product database metadata. If you have a large database, this may take a while, but in the future it will significantly increase your filtering speed.', 'woo-product-filter'), esc_html($plugName)) .
 					'</strong></p></div>';
 			}

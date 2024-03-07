@@ -3,7 +3,7 @@ Contributors: briKou
 Donate link: https://www.paypal.me/BriceCapobianco
 Tags: editor, underline, justify, wysiwyg, gutenberg, ACF
 Requires at least: 4.7
-Tested up to: 6.0.3
+Tested up to: 6.4.3
 Requires PHP: 5.5.12
 Stable tag: 0.4
 License: GPLv2 or later
@@ -56,6 +56,9 @@ Just go to Settings -> Writing and select the option you want under "Editor styl
 
 
 == Changelog ==
+
+= 0.4.1 - 2024/03/07 =
+* Tested on WP 6.4.3 with success!
 
 = 0.4 - 2022/10/24 =
 * Tested on WP 6.0.3 with success!

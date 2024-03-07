@@ -3,7 +3,7 @@ Contributors: cbutlerjr
 Tags: access, authentication, content, login, member, membership, password, protect, register, registration, restriction, subscriber
 Requires at least: 4.0
 Tested up to: 6.4
-Stable tag: 3.4.9.1
+Stable tag: 3.4.9.2
 
 License: GPLv3
 
@@ -135,6 +135,13 @@ WP-Members 3.4.9 is a security update. Backup prior to upgrading is recommended,
 = 3.5.0 =
 
 * WP-Members pluggable deprecated for use in theme functions.php (wpmem will be initialized when plugins are loaded).  If you have any WP-Members pluggable functions that load in the theme functions.php, you'll need to move these to another location, such as a custom plugin file.  Keep in mind, pluggable functions are no longer the preferred way of customizing (and have not been for many years) as most customizations, if not all, can be handled by using the plugin's filter and action hooks.
+
+= 3.4.9.2 =
+
+* Early patch fix for export if memberships are enabled but there are no memberships defined (from 3.5.0 included fixes).
+* Early patch fix for fields data list in admin notification email if HTML formatted email is enabled (from 3.5.0 included fixes).
+* Security review and patches: Review shortcode object class for sanitizing all shortcode attributes and escaping all output.
+* Security review and patches: Review admin user profile class for sanitizing all input and escaping all output.
 
 = 3.4.9.1 =
 

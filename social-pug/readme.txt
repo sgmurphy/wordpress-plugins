@@ -1,5 +1,5 @@
-=== Hubbub Lite ===
-Contributors: eatingrules, cdevroe, Mediavine, iova.mihai
+=== Hubbub Lite - Fast, Reliable Social Network Sharing Buttons ===
+Contributors: eatingrules, cdevroe, nerdpressteam, iova.mihai
 Tags: social share, social sharing, social sharing buttons, social share buttons, social, social media, social share icon, social share counts, social sharing icon
 Requires at least: 5.3
 Tested up to: 6.4
@@ -8,7 +8,7 @@ Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The best social sharing plugin for your WordPress website and the only social sharing plugin you will ever need.
+Add Pinterest, Facebook, Twitter/X social network sharing buttons with a Floating Sidebar, Sticky Bar, Inline Buttons, Shortcodes, and more.
 
 == Description ==
 
@@ -106,6 +106,11 @@ You can place both the inline social share buttons and the floating sidebar soci
 
 == Changelog ==
 This changelog is for Hubbub Lite. Here is [the changelog for Hubbub Pro](https://morehubbub.com/changelog/).
+
+= 1.33.1 =
+* March 6, 2024
+* Fix: Fixed an issue where Open Graph tags would be included on password protected posts prior to viewer authentication as reported by WPScan.
+* Removed Google Fonts.
 
 = 1.33.0 =
 * January 31, 2024

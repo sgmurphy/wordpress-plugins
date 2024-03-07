@@ -72,7 +72,8 @@ if ( isset( $_GET['access_token'] ) && ! empty( $_GET['access_token'] ) ) {
 			var data = {
 			  'action': 'efbl_save_fb_access_token',
 			  'access_token': '<?php esc_html_e( $access_token ); ?>',
-			  'type' : '<?php esc_html_e( $type ); ?>'
+			  'type' : '<?php esc_html_e( $type ); ?>',
+              'efbl_nonce' : '<?php echo wp_create_nonce( 'efbl-ajax-nonce' ); ?>',
 			};
 
 			jQuery.ajax({

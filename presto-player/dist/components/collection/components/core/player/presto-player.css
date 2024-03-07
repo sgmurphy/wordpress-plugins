@@ -1122,6 +1122,11 @@ iframe {
   display: flex;
 }
 
+/** Ensure Accesisbility */
+*:focus-visible {
+  outline: 2px solid var(--presto-player-focus-outline, white) !important;
+}
+
 /*
 Fix the iOS fullscreen not centered issue.
 This issue is with underlying plyr.io

@@ -44,7 +44,7 @@ require_once 'parts/tabs.php';
 			<div class="feature-section" style="padding: 10px 0;">
 				<h3><?php esc_html_e( 'Remove checkout fields', 'woocommerce-direct-checkout' ); ?></h3>
 				<p>
-					<?php esc_html_e( 'Our checkout settings allow you to easily remove the unnecessary fields and reduce the user spend completing those fields like the order comments, shipping address, coupon form, policy text, and terms and conditions.', 'woocommerce-direct-checkout' ); ?>
+					<?php esc_html_e( 'Our checkout settings allow you to easily remove unnecessary fields, reducing the time users spend on completing fields such as order comments, shipping address, coupon form, policy text, and terms and conditions.', 'woocommerce-direct-checkout' ); ?>
 				</p>
 			</div>
 			<div class="feature-section" style="padding: 10px 0;">

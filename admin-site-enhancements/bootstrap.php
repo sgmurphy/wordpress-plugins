@@ -32,7 +32,7 @@ class Admin_Site_Enhancements
      */
     private function __construct()
     {
-        global  $pagenow ;
+        global  $pagenow, $typenow ;
         // Setup admin menu, admin page, settings, settings sections, sections fields, admin scripts, plugin action links, etc.
         // Register admin menu and add the settings page.
         add_action( 'admin_menu', 'asenha_register_admin_menu' );
@@ -403,6 +403,7 @@ class Admin_Site_Enhancements
                 add_filter( 'register_url', [ $login_logout, 'customize_register_url' ] );
                 add_action( 'wp_loaded', [ $login_logout, 'redirect_on_default_login_urls' ] );
                 add_action( 'wp_login_failed', [ $login_logout, 'redirect_to_custom_login_url_on_login_fail' ] );
+                add_filter( 'login_message', [ $login_logout, 'add_failed_login_message' ] );
                 add_action( 'wp_logout', [ $login_logout, 'redirect_to_custom_login_url_on_logout_success' ] );
             }
         

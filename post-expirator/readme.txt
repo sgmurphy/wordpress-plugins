@@ -9,11 +9,11 @@ Tested up to: 6.4
 License: GPLv2 or later
 Stable tag: 3.3.0
 
-PublishPress Future can make scheduled changes to your content. You can unpublish the post, move the post to a new status, update the post categories, and much more.
+PublishPress Future can make scheduled changes to your content. You can unpublish posts, move posts to a new status, update the categories, and more.
 
 == Description ==
 
-The PublishPress Future plugin allows you to make automatic changes to posts, pages and other content types. On a date you choose, PublishPress Future can delete your post, change the status, or update the post categories, or make other changes.
+The PublishPress Future plugin allows you to schedule changes to posts, pages and other content types. On a date you choose, PublishPress Future can delete your post, change the status, or update the post categories, or make other changes.
 
 Here's an overview of what you can do with PublishPress Future:
 
@@ -44,9 +44,9 @@ With PublishPress Future, you can configure actions that will happen automatical
 * Remove all existing categories, and add new categories.
 * Keep all existing categories, and add new categories.
 * Keep all existing categories, except for those specified in this change.
-* Move the post to a custom status (Pro version)
+* Move the post to a custom status (available in the Pro version)
 
-[Click here for more details on scheduling post changes](https://publishpress.com/knowledge-base/ways-to-expire-posts/).
+[Click here for details on scheduling post changes](https://publishpress.com/knowledge-base/ways-to-expire-posts/).
 
 ## Display the Action Date in Your Content
 

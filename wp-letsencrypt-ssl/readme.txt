@@ -1,13 +1,13 @@
 === WP Encryption - One Click Free SSL Certificate & SSL / HTTPS Redirect to Force HTTPS, SSL Score ===
 Contributors: gowebsmarty, gwsharsha
-Tags: force ssl,ssl,https,https redirect,ssl certificate,mixed content,insecure content
+Tags: force ssl,ssl,https,https redirect,ssl certificate
 Requires at least: 4.2
 License: GPL3
 Tested up to: 6.4
 Requires PHP: 5.6
 Stable tag: 6.6.0
 
-Lifetime SSL solution - Install free SSL certificate & enable secure HTTPS padlock, HTTPS redirect, secure mail w/ HTTPS, fix SSL errors, SSL score, SSL monitoring,insecure content scanner, download SSL certificate, know your active SSL details.
+Lifetime SSL solution - Install free SSL certificate & enable HTTPS redirect, HTTPS mail, fix SSL errors, SSL score, SSL details & SSL monitoring.
 
 == Description ==
 

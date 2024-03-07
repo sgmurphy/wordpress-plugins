@@ -119,6 +119,12 @@ $option4['sfsi_fbmessenger_manualCounts']         = (isset($option4['sfsi_fbmess
 $option4['sfsi_tiktok_countsDisplay']         = (isset($option4['sfsi_tiktok_countsDisplay'])) ? sanitize_text_field($option4['sfsi_tiktok_countsDisplay']) : '';
 $option4['sfsi_tiktok_manualCounts']         = (isset($option4['sfsi_tiktok_manualCounts'])) ? intval($option4['sfsi_tiktok_manualCounts']) : '20';
 
+$option4['sfsi_ria_countsDisplay']         = (isset($option4['sfsi_ria_countsDisplay'])) ? sanitize_text_field($option4['sfsi_ria_countsDisplay']) : '';
+$option4['sfsi_ria_manualCounts']         = (isset($option4['sfsi_ria_manualCounts'])) ? intval($option4['sfsi_ria_manualCounts']) : '20';
+
+$option4['sfsi_inha_countsDisplay']         = (isset($option4['sfsi_inha_countsDisplay'])) ? sanitize_text_field($option4['sfsi_inha_countsDisplay']) : '';
+$option4['sfsi_inha_manualCounts']         = (isset($option4['sfsi_inha_manualCounts'])) ? intval($option4['sfsi_inha_manualCounts']) : '20';
+
 $option4['sfsi_mastodon_countsDisplay']         = (isset($option4['sfsi_mastodon_countsDisplay'])) ? sanitize_text_field($option4['sfsi_mastodon_countsDisplay']) : '';
 $option4['sfsi_mastodon_manualCounts']         = (isset($option4['sfsi_mastodon_manualCounts'])) ? intval($option4['sfsi_mastodon_manualCounts']) : '20';
 
@@ -225,6 +231,18 @@ $hide = "display:none;";
         <li class="instagram_section">
             <a href="#" title="Instagram">
                 <img src="<?php echo SFSI_PLUGURL ?>images/instagram.png" alt="instagram" />
+            </a>
+            <span><?php _e('12k','ultimate-social-media-icons') ?></span>
+        </li>
+        <li class="ria_section">
+            <a href="#" title="RateItAll">
+                <img src="<?php echo SFSI_PLUGURL ?>images/ria.png" alt="RateItAll" />
+            </a>
+            <span><?php _e('12k','ultimate-social-media-icons') ?></span>
+        </li>
+        <li class="inha_section">
+            <a href="#" title="IncreasingHappiness">
+                <img src="<?php echo SFSI_PLUGURL ?>images/inha.png" alt="IncreasingHappiness" />
             </a>
             <span><?php _e('12k','ultimate-social-media-icons') ?></span>
         </li>
@@ -929,7 +947,7 @@ $hide = "display:none;";
         </div>
         <!-- END ICON COUNT SECTION-->
 
-        <!-- FB Messenger ICON COUNT SECTION-->
+        <!-- TIKTOK ICON COUNT SECTION-->
         <div class="specify_counts tiktok_section">
             <div class="radio_section">
                 <input name="sfsi_tiktok_countsDisplay" <?php echo (isset($option4['sfsi_tiktok_countsDisplay']) && $option4['sfsi_tiktok_countsDisplay'] == 'yes') ?  'checked="true"' : ''; ?> type="checkbox" value="yes" class="styled" />
@@ -951,6 +969,53 @@ $hide = "display:none;";
             </div>
         </div>
         <!-- END ICON COUNT SECTION-->
+
+        <!-- RIA ICON COUNT SECTION-->
+        <div class="specify_counts ria_section">
+            <div class="radio_section">
+                <input name="sfsi_ria_countsDisplay" <?php echo (isset($option4['sfsi_ria_countsDisplay']) && $option4['sfsi_ria_countsDisplay'] == 'yes') ?  'checked="true"' : ''; ?> type="checkbox" value="yes" class="styled" />
+            </div>
+            <div class="social_icon_like">
+                <ul class="like_icon">
+                    <li>
+                        <a title="RateItAll">
+                            <img src="<?php echo SFSI_PLUGURL ?>images/icons_theme/default/default_ria.png" height="50px" alt="RateitAll" />
+                            <span><?php echo ( isset( $counts['ria_count'] ) ) ? $counts['ria_count'] : '20'; ?></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="listing">
+                <ul>
+                    <li><?php _e( 'We cannot track this. So enter the figure here:', 'ultimate-social-media-icons' ); ?> <input name="sfsi_ria_manualCounts" type="text" class="input" value="<?php echo ($option4['sfsi_ria_manualCounts'] != '') ? esc_attr($option4['sfsi_ria_manualCounts']) : ''; ?>" /></li>
+                </ul>
+            </div>
+        </div>
+        <!-- END ICON COUNT SECTION-->
+
+        <!-- INHA ICON COUNT SECTION-->
+        <div class="specify_counts inha_section">
+            <div class="radio_section">
+                <input name="sfsi_inha_countsDisplay" <?php echo (isset($option4['sfsi_inha_countsDisplay']) && $option4['sfsi_inha_countsDisplay'] == 'yes') ?  'checked="true"' : ''; ?> type="checkbox" value="yes" class="styled" />
+            </div>
+            <div class="social_icon_like">
+                <ul class="like_icon">
+                    <li>
+                        <a title="inha">
+                            <img src="<?php echo SFSI_PLUGURL ?>images/icons_theme/default/default_inha.png" height="50px" alt="inha" />
+                            <span><?php echo ( isset( $counts['inha_count'] ) ) ? $counts['inha_count'] : '20'; ?></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="listing">
+                <ul>
+                    <li><?php _e( 'We cannot track this. So enter the figure here:', 'ultimate-social-media-icons' ); ?> <input name="sfsi_inha_manualCounts" type="text" class="input" value="<?php echo ($option4['sfsi_inha_manualCounts'] != '') ? esc_attr($option4['sfsi_inha_manualCounts']) : ''; ?>" /></li>
+                </ul>
+            </div>
+        </div>
+        <!-- END ICON COUNT SECTION-->
+
         <!-- FB Mastodon ICON COUNT SECTION-->
         <div class="specify_counts mastodon_section">
             <div class="radio_section">

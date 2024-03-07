@@ -9,12 +9,16 @@ class CheckoutIntegration implements \Automattic\WooCommerce\Blocks\Integrations
     private string $plugin_dir;
     private string $plugin_file;
     private \FSVendor\Octolize\Blocks\IntegrationData $integration_data;
-    public function __construct(\FSVendor\Octolize\Blocks\IntegrationData $integration_data, string $plugin_dir, string $plugin_file)
+    private bool $register_frontend_styles;
+    private bool $register_editor_styles;
+    public function __construct(\FSVendor\Octolize\Blocks\IntegrationData $integration_data, string $plugin_dir, string $plugin_file, bool $register_frontend_styles = \true, bool $register_editor_styles = \true)
     {
         $this->integration_data = $integration_data;
         $this->integration_name = $integration_data->get_integration_name();
         $this->plugin_dir = $plugin_dir;
         $this->plugin_file = $plugin_file;
+        $this->register_frontend_styles = $register_frontend_styles;
+        $this->register_editor_styles = $register_editor_styles;
     }
     public function get_name() : string
     {
@@ -23,9 +27,13 @@ class CheckoutIntegration implements \Automattic\WooCommerce\Blocks\Integrations
     public function initialize() : void
     {
         $this->register_block_frontend_scripts();
-        $this->register_block_frontend_styles();
+        if ($this->register_frontend_styles) {
+            $this->register_block_frontend_styles();
+        }
         $this->register_block_editor_scripts();
-        $this->register_block_editor_styles();
+        if ($this->register_editor_styles) {
+            $this->register_block_editor_styles();
+        }
         $this->register_main_integration();
     }
     private function register_main_integration() : void

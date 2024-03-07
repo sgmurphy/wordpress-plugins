@@ -99,6 +99,26 @@ function sfsi_validationStep2()
             return false;
         }    
   }
+
+    /* ria validation */
+    if(sfsi_validator(SFSI('input[name="sfsi_ria_display"]'),'checked'))
+    {
+        if(!sfsi_validator(SFSI('input[name="sfsi_ria_pageUrl"]'),'blank') )
+        {   showErrorSuc("error","Error : Invalid RateItAll url ",2);
+            SFSI('input[name="sfsi_ria_pageUrl"]').addClass('inputError');
+            return false;
+        }
+    }
+
+    /* inha validation */
+    if(sfsi_validator(SFSI('input[name="sfsi_inha_display"]'),'checked'))
+    {
+        if(!sfsi_validator(SFSI('input[name="sfsi_inha_pageUrl"]'),'blank') )
+        {   showErrorSuc("error","Error : Invalid IncreasingHappiness url ",2);
+            SFSI('input[name="sfsi_inha_pageUrl"]').addClass('inputError');
+            return false;
+        }
+    }
   
       /* LinkedIn validation */
   if(sfsi_validator(SFSI('input[name="sfsi_linkedin_page"]'),'activte') && sfsi_validator(SFSI('input[name="sfsi_linkedin_page"]'),'checked'))

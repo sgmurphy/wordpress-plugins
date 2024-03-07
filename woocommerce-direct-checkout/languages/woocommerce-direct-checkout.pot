@@ -2,36 +2,41 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Direct Checkout 3.3.1\n"
+"Project-Id-Version: WooCommerce Direct Checkout 3.3.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-direct-checkout\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-05T07:09:36+00:00\n"
+"POT-Creation-Date: 2024-03-06T18:36:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.9.0\n"
+"X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: woocommerce-direct-checkout\n"
 
 #. Plugin Name of the plugin
+#: woocommerce-direct-checkout.php
 msgid "WooCommerce Direct Checkout"
 msgstr ""
 
 #. Plugin URI of the plugin
+#: woocommerce-direct-checkout.php
 msgid "https://quadlayers.com/products/woocommerce-direct-checkout/"
 msgstr ""
 
 #. Description of the plugin
+#: woocommerce-direct-checkout.php
 msgid "Simplifies the checkout process to improve your sales rate."
 msgstr ""
 
 #. Author of the plugin
+#: woocommerce-direct-checkout.php
 #: lib/view/backend/pages/parts/header.php:37
 msgid "QuadLayers"
 msgstr ""
 
 #. Author URI of the plugin
+#: woocommerce-direct-checkout.php
 msgid "https://quadlayers.com"
 msgstr ""
 
@@ -108,7 +113,7 @@ msgid "Replace Add to cart text in"
 msgstr ""
 
 #: lib/controller/class-archives.php:73
-msgid "Replace \"Add to cart\" text in product types."
+msgid "Replace the \"Add to cart\" text for product types."
 msgstr ""
 
 #: lib/controller/class-archives.php:78
@@ -178,7 +183,7 @@ msgid "Add cart to checkout"
 msgstr ""
 
 #: lib/controller/class-checkout.php:72
-msgid "Simplifies the checkout process including the shopping cart page inside checkout."
+msgid "Simplifies the checkout process by including the shopping cart page in the checkout.\t"
 msgstr ""
 
 #: lib/controller/class-checkout.php:83
@@ -186,7 +191,7 @@ msgid "Add cart to checkout via ajax"
 msgstr ""
 
 #: lib/controller/class-checkout.php:84
-msgid "Prevent page reload when users change the products qty."
+msgid "Prevent page reload when users change the product quantities."
 msgstr ""
 
 #: lib/controller/class-checkout.php:95
@@ -194,7 +199,7 @@ msgid "Add cart to checkout fields"
 msgstr ""
 
 #: lib/controller/class-checkout.php:96
-msgid "Include this fields inside the checkout cart."
+msgid "Include these fields inside the checkout cart."
 msgstr ""
 
 #: lib/controller/class-checkout.php:101
@@ -246,7 +251,7 @@ msgid "Add custom class to cart table"
 msgstr ""
 
 #: lib/controller/class-checkout.php:130
-msgid "Add a custom class to the cart table form in the checkot."
+msgid "Add a custom class to the cart table form in the checkout."
 msgstr ""
 
 #: lib/controller/class-checkout.php:136
@@ -344,7 +349,7 @@ msgid "Remove checkout columns"
 msgstr ""
 
 #: lib/controller/class-checkout.php:221
-msgid "Try to remove the columns and display the checkout form and order review in one column."
+msgid "Attempt to display the checkout form and order review in a single column by removing the columns."
 msgstr ""
 
 #: lib/controller/class-checkout.php:232
@@ -352,7 +357,7 @@ msgid "Remove order details address"
 msgstr ""
 
 #: lib/controller/class-checkout.php:233
-msgid "Remove the billing address of the customer in the order received page."
+msgid "Remove the customer's billing address on the order received page."
 msgstr ""
 
 #: lib/controller/class-general.php:55
@@ -369,7 +374,7 @@ msgid "Added to cart alert"
 msgstr ""
 
 #: lib/controller/class-general.php:72
-msgid "Replace \"View Cart\" alert with direct checkout."
+msgid "Replace the \"View Cart\" alert with a direct checkout option."
 msgstr ""
 
 #: lib/controller/class-general.php:83
@@ -377,7 +382,7 @@ msgid "Added to cart link in shop"
 msgstr ""
 
 #: lib/controller/class-general.php:84
-msgid "Replace \"View Cart\" link with \"Checkout\" link in the shop page."
+msgid "Replace the \"View Cart\" link with a \"Checkout\" link on the shop page."
 msgstr ""
 
 #: lib/controller/class-general.php:95
@@ -385,7 +390,7 @@ msgid "Added to cart redirect"
 msgstr ""
 
 #: lib/controller/class-general.php:96
-msgid "Add to cart button behaviour."
+msgid "Add to cart button behavior."
 msgstr ""
 
 #: lib/controller/class-general.php:108
@@ -394,7 +399,7 @@ msgstr ""
 
 #: lib/controller/class-general.php:109
 #: lib/controller/class-general.php:122
-msgid "Redirect to the cart or checkout page after successful addition."
+msgid "Redirect to the cart or checkout page after successful addition of the product."
 msgstr ""
 
 #: lib/controller/class-general.php:114
@@ -419,7 +424,7 @@ msgstr ""
 
 #: lib/controller/class-general.php:141
 #: lib/controller/class-general.php:142
-msgid "Replace cart url with custom url"
+msgid "Replace the cart URL with a custom URL."
 msgstr ""
 
 #: lib/controller/class-premium.php:39
@@ -508,7 +513,7 @@ msgstr ""
 #: lib/controller/class-products.php:172
 #: lib/controller/class-products.php:388
 #: lib/view/backend/pages/premium.php:28
-#: vendor_packages/wp-notice-plugin-promote.php:74
+#: vendor_packages/wp-notice-plugin-promote.php:75
 msgid "Purchase Now"
 msgstr ""
 
@@ -575,7 +580,7 @@ msgid "%s allows you to include the cart form in the checkout page allowing your
 msgstr ""
 
 #: lib/view/backend/pages/premium.php:47
-msgid "Our checkout settings allow you to easily remove the unnecessary fields and reduce the user spend completing those fields like the order comments, shipping address, coupon form, policy text, and terms and conditions."
+msgid "Our checkout settings allow you to easily remove unnecessary fields, reducing the time users spend on completing fields such as order comments, shipping address, coupon form, policy text, and terms and conditions."
 msgstr ""
 
 #: lib/view/backend/pages/premium.php:53
@@ -619,45 +624,45 @@ msgid "The Quick purchase button allows you to include a direct button in the si
 msgstr ""
 
 #: vendor_packages/wp-notice-plugin-promote.php:20
-msgid "Today we want to make you a special gift. Using the coupon code %1$s before the next 48 hours you can get a 20 percent discount on the premium version of the %2$s plugin."
+msgid "Today we have a special gift for you. Use the coupon code %1$s within the next 48 hours to receive a %2$s discount on the premium version of the %3$s plugin."
 msgstr ""
 
-#: vendor_packages/wp-notice-plugin-promote.php:35
+#: vendor_packages/wp-notice-plugin-promote.php:36
 msgid "WooCommerce Checkout Manager allows you to add custom fields to the checkout page, related to billing, Shipping or Additional fields sections."
 msgstr ""
 
-#: vendor_packages/wp-notice-plugin-promote.php:42
+#: vendor_packages/wp-notice-plugin-promote.php:43
 msgid "Perfect WooCommerce Brands the perfect tool to improve customer experience on your site. It allows you to highlight product brands and organize them in lists, dropdowns, thumbnails, and as a widget."
 msgstr ""
 
-#: vendor_packages/wp-notice-plugin-promote.php:53
+#: vendor_packages/wp-notice-plugin-promote.php:54
 msgid "Hello! Thank you for choosing the %s plugin!"
 msgstr ""
 
-#: vendor_packages/wp-notice-plugin-promote.php:59
+#: vendor_packages/wp-notice-plugin-promote.php:60
 msgid "Could you please give it a 5-star rating on WordPress? Your feedback boosts our motivation, helps us promote, and continues to improve this product. Your support matters!"
 msgstr ""
 
-#: vendor_packages/wp-notice-plugin-promote.php:61
+#: vendor_packages/wp-notice-plugin-promote.php:62
 msgid "Yes, of course!"
 msgstr ""
 
-#: vendor_packages/wp-notice-plugin-promote.php:66
+#: vendor_packages/wp-notice-plugin-promote.php:67
 msgid "Report a bug"
 msgstr ""
 
-#: vendor_packages/wp-notice-plugin-promote.php:80
+#: vendor_packages/wp-notice-plugin-promote.php:81
 msgid "Hello! We have a special gift!"
 msgstr ""
 
-#: vendor_packages/wp-notice-plugin-promote.php:86
-#: vendor_packages/wp-notice-plugin-promote.php:104
-#: vendor_packages/wp-notice-plugin-promote.php:122
+#: vendor_packages/wp-notice-plugin-promote.php:87
+#: vendor_packages/wp-notice-plugin-promote.php:105
+#: vendor_packages/wp-notice-plugin-promote.php:123
 msgid "More info!"
 msgstr ""
 
-#: vendor_packages/wp-notice-plugin-promote.php:96
-#: vendor_packages/wp-notice-plugin-promote.php:114
+#: vendor_packages/wp-notice-plugin-promote.php:97
+#: vendor_packages/wp-notice-plugin-promote.php:115
 msgid "Hello! We want to invite you to try our %s plugin!"
 msgstr ""
 

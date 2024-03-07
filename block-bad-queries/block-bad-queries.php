@@ -3,15 +3,15 @@
 	Plugin Name: BBQ Firewall
 	Plugin URI: https://perishablepress.com/block-bad-queries/
 	Description: BBQ is a super fast firewall that protects WordPress against a wide range of threats.
-	Tags: firewall, secure, security, malware, web application firewall, waf
+	Tags: firewall, secure, security, web application firewall, bots
 	Author: Jeff Starr
 	Author URI: https://plugin-planet.com/
 	Contributors: specialk, aldolat, WpBlogHost, jameswilkes, juliobox, lernerconsult
 	Donate link: https://monzillamedia.com/donate.html
 	Requires at least: 4.6
-	Tested up to: 6.4
-	Stable tag: 20231026
-	Version:    20231026
+	Tested up to: 6.5
+	Stable tag: 20240306
+	Version:    20240306
 	Requires PHP: 5.6.20
 	Text Domain: block-bad-queries
 	Domain Path: /languages
@@ -32,12 +32,12 @@
 	You should have received a copy of the GNU General Public License
 	with this program. If not, visit: https://www.gnu.org/licenses/
 	
-	Copyright 2023 Monzilla Media. All rights reserved.
+	Copyright 2024 Monzilla Media. All rights reserved.
 */
 
 if (!defined('ABSPATH')) die();
 
-if (!defined('BBQ_VERSION'))   define('BBQ_VERSION', '20231026');
+if (!defined('BBQ_VERSION'))   define('BBQ_VERSION', '20240306');
 if (!defined('BBQ_FILE'))      define('BBQ_FILE', __FILE__);
 if (!defined('BBQ_BASE_FILE')) define('BBQ_BASE_FILE', plugin_basename(__FILE__));
 if (!defined('BBQ_DIR'))       define('BBQ_DIR', plugin_dir_path(__FILE__));

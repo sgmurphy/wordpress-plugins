@@ -308,7 +308,8 @@ class WoofiltersControllerWpf extends ControllerWpf {
 			if (count($categoryIn) > 0 && $use_category_filtration) {
 				ob_start();
 				$catIds = array_keys($categoryIn);
-				$cats = get_terms( 'product_cat', array(
+				$cats = get_terms( array(
+					'taxonomy' => 'product_cat',
 					'include' => $catIds
 				) );
 				foreach ($cats as $category) {

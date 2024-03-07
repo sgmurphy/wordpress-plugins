@@ -7,7 +7,7 @@ Author URI: https://inisev.com
 Plugin URI: https://ultimatelysocial.com
 Text Domain: ultimate-social-media-icons
 Domain Path: /languages
-Version: 2.8.8
+Version: 2.8.9
 License: GPLv2 or later
 */
 require_once 'analyst/main.php';
@@ -54,7 +54,7 @@ sfsi_error_reporting();
 
 global $wpdb;
 /* define the Root for URL and Document */
-define( 'SFSI_PLUGIN_VERSION', '2.8.8' );
+define( 'SFSI_PLUGIN_VERSION', '2.8.9' );
 define( 'SFSI_DOCROOT', dirname( __FILE__ ) );
 
 define( 'SFSI_PLUGURL', plugin_dir_url( __FILE__ ) );

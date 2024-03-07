@@ -21,6 +21,8 @@ $option1['sfsi_wechat_display'] = isset( $option1['sfsi_wechat_display'] ) ? san
 $option1['sfsi_weibo_display'] = isset( $option1['sfsi_weibo_display'] ) ? sanitize_text_field( $option1['sfsi_weibo_display'] ) : 'no';
 $option1['sfsi_linkedin_display'] = isset( $option1['sfsi_linkedin_display'] ) ? sanitize_text_field( $option1['sfsi_linkedin_display'] ) : 'no';
 $option1['sfsi_instagram_display'] = isset( $option1['sfsi_instagram_display'] ) ? sanitize_text_field( $option1['sfsi_instagram_display'] ) : 'no';
+$option1['sfsi_ria_display'] = isset( $option1['sfsi_ria_display'] ) ? sanitize_text_field( $option1['sfsi_ria_display'] ) : 'no';
+$option1['sfsi_inha_display'] = isset( $option1['sfsi_inha_display'] ) ? sanitize_text_field( $option1['sfsi_inha_display'] ) : 'no';
 $option1['sfsi_whatsapp_display'] = isset( $option1['sfsi_whatsapp_display'] ) ? sanitize_text_field( $option1['sfsi_whatsapp_display'] ) : 'no';
 $option1['sfsi_snapchat_display'] = isset( $option1['sfsi_snapchat_display'] ) ? sanitize_text_field( $option1['sfsi_snapchat_display'] ) : 'no';
 $option1['sfsi_reddit_display'] = isset( $option1['sfsi_reddit_display'] ) ? sanitize_text_field( $option1['sfsi_reddit_display'] ) : 'no';
@@ -213,6 +215,55 @@ $option1['sfsi_mastodon_display'] = isset( $option1['sfsi_mastodon_display'] ) ?
 
         </li>
         <!-- END INSTAGRAM ICON -->
+
+        <!-- RIA ICON -->
+        <li class="sfsi_vertically_center">
+            <div>
+                <div class="radio_section tb_4_ck"><input name="sfsi_ria_display" <?php echo ($option1['sfsi_ria_display'] == 'yes') ? 'checked="true"' : ''; ?> id="sfsi_ria_display" type="checkbox" value="yes" class="styled" /></div>
+
+                <span class="sfsicls_ria"><?php _e('RateItAll','ultimate-social-media-icons') ?></span>
+
+            </div>
+
+            <div class="right_info">
+
+                <p><span><?php _e('It depends: ', 'ultimate-social-media-plus'); ?></span>
+                    <?php
+                    _e('You want people to rate, discuss or comment on your website or products? ','ultimate-social-media-plus');
+                    echo '<a href="https://rateitall.com/">';
+                    _e('Create a topic page on RateItAll', 'ultimate-social-media-plus');
+                    echo '</a>';
+                    _e(' and link to it.', 'ultimate-social-media-plus'); ?>
+                </p>
+
+            </div>
+
+        </li>
+        <!-- END RIA ICON -->
+
+        <!-- INHA ICON -->
+        <li class="sfsi_vertically_center">
+            <div>
+                <div class="radio_section tb_4_ck"><input name="sfsi_inha_display" <?php echo ($option1['sfsi_inha_display'] == 'yes') ? 'checked="true"' : ''; ?> id="sfsi_inha_display" type="checkbox" value="yes" class="styled" /></div>
+
+                <span class="sfsicls_inha"><?php _e('IncreasingHappiness','ultimate-social-media-icons') ?></span>
+
+            </div>
+
+            <div class="right_info">
+
+                <p><span><?php _e("It depends:", 'ultimate-social-media-plus'); ?></span>
+                    <?php _e("If you're a charity or contributor for good causes, link here to your profile on " , 'ultimate-social-media-plus'); ?>
+                    <?php echo '<a href="https://increasinghappiness.org/">';
+                    _e(' IncreasingHappiness.org. ', 'ultimate-social-media-plus');
+                    echo '</a>';?>
+                </p>
+
+            </div>
+
+        </li>
+        <!-- END INHA ICON -->
+
          <!-- WHATSAPP ICON -->
          <li class="sfsi_vertically_center">
             <div>

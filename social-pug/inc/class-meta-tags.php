@@ -28,6 +28,12 @@ class Meta_Tags {
 			return;
 		}
 
+		// If a password is required, or, the user hasn't supplied the correct password
+		// https://github.com/nerdpressteam/grow-social/issues/1694
+		if ( post_password_required( $post ) ) {
+			return;
+		}
+
 		// Get all the tag data.
 		$tags = self::get_data( $post, $settings );
 

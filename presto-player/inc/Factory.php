@@ -14,7 +14,9 @@ use PrestoPlayer\Services\AdminNotices;
 class Factory
 {
     const SHARED = ['shared' => true];
-
+    
+    public $instance;
+    
     public function __construct($instance)
     {
         $this->instance = $instance;

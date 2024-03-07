@@ -69,7 +69,7 @@ class Checkout {
 			),
 			array(
 				'name'     => esc_html__( 'Add cart to checkout', 'woocommerce-direct-checkout' ),
-				'desc_tip' => esc_html__( 'Simplifies the checkout process including the shopping cart page inside checkout.', 'woocommerce-direct-checkout' ),
+				'desc_tip' => esc_html__( 'Simplifies the checkout process by including the shopping cart page in the checkout.	', 'woocommerce-direct-checkout' ),
 				'id'       => 'qlwcdc_add_checkout_cart',
 				'type'     => 'select',
 				'class'    => 'chosen_select',
@@ -81,7 +81,7 @@ class Checkout {
 			),
 			array(
 				'name'     => esc_html__( 'Add cart to checkout via ajax', 'woocommerce-direct-checkout' ),
-				'desc_tip' => esc_html__( 'Prevent page reload when users change the products qty.', 'woocommerce-direct-checkout' ),
+				'desc_tip' => esc_html__( 'Prevent page reload when users change the product quantities.', 'woocommerce-direct-checkout' ),
 				'id'       => 'qlwcdc_add_checkout_cart_ajax',
 				'type'     => 'select',
 				'class'    => 'chosen_select',
@@ -93,7 +93,7 @@ class Checkout {
 			),
 			array(
 				'name'     => esc_html__( 'Add cart to checkout fields', 'woocommerce-direct-checkout' ),
-				'desc_tip' => esc_html__( 'Include this fields inside the checkout cart.', 'woocommerce-direct-checkout' ),
+				'desc_tip' => esc_html__( 'Include these fields inside the checkout cart.', 'woocommerce-direct-checkout' ),
 				'id'       => 'qlwcdc_add_checkout_cart_fields',
 				'type'     => 'multiselect',
 				'class'    => 'chosen_select',
@@ -127,7 +127,7 @@ class Checkout {
 			),
 			array(
 				'name'     => esc_html__( 'Add custom class to cart table', 'woocommerce-direct-checkout' ),
-				'desc_tip' => esc_html__( 'Add a custom class to the cart table form in the checkot.', 'woocommerce-direct-checkout' ),
+				'desc_tip' => esc_html__( 'Add a custom class to the cart table form in the checkout.', 'woocommerce-direct-checkout' ),
 				'id'       => 'qlwcdc_add_checkout_cart_class',
 				'type'     => 'text',
 				'default'  => '',
@@ -218,7 +218,7 @@ class Checkout {
 			),
 			array(
 				'name'     => esc_html__( 'Remove checkout columns', 'woocommerce-direct-checkout' ),
-				'desc_tip' => esc_html__( 'Try to remove the columns and display the checkout form and order review in one column.', 'woocommerce-direct-checkout' ),
+				'desc_tip' => esc_html__( 'Attempt to display the checkout form and order review in a single column by removing the columns.', 'woocommerce-direct-checkout' ),
 				'id'       => 'qlwcdc_remove_checkout_columns',
 				'type'     => 'select',
 				'class'    => 'chosen_select',
@@ -230,7 +230,7 @@ class Checkout {
 			),
 			array(
 				'name'     => esc_html__( 'Remove order details address', 'woocommerce-direct-checkout' ),
-				'desc_tip' => esc_html__( 'Remove the billing address of the customer in the order received page.', 'woocommerce-direct-checkout' ),
+				'desc_tip' => esc_html__( 'Remove the customer\'s billing address on the order received page.', 'woocommerce-direct-checkout' ),
 				'id'       => 'qlwcdc_remove_order_details_address',
 				'type'     => 'select',
 				'class'    => 'chosen_select',

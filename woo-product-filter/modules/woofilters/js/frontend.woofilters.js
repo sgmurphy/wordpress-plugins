@@ -720,19 +720,21 @@
 			var _this = jQuery(this),
 				wrapper = _this.closest('.wpfFilterWrapper'),
 				searchVal = _this.val().toLowerCase(),
-				unfolding = (searchVal.length && _this.attr('data-unfolding') == '1' && typeof (_thisObj.getIcons) == 'function');
+				isIconFunc = typeof (_thisObj.getIcons) == 'function',
+				unfolding = (searchVal.length && _this.attr('data-unfolding') == '1' && isIconFunc),
+				collapse = (searchVal.length == 0 && _this.attr('data-collapse-search') == '1' && isIconFunc);
 			wrapper.find('.wpfFilterContent li:not(.wpfShowFewerWrapper)').filter(function() {
 				var $li = jQuery(this);
 				if ($li.find('.wpfValue').text().toLowerCase().indexOf(searchVal) > -1) {
 					$li.removeClass('wpfSearchHidden');
-					if (unfolding) {
+					if (unfolding || collapse) {
 						var $parentLi = $li.closest('li');
 						while ($parentLi.length && $parentLi.closest('.wpfFilterWrapper')) {
 							var $label = $parentLi.children('label'),
 							    $icon = $label.length ? $label.find('i.fa, svg') : '';
 							if ($icon.length) {
 								var $icons = _thisObj.getIcons($icon.eq(0));
-								if ($icons.collapsed) {
+								if ($icons.collapsed && unfolding || !$icons.collapsed && collapse) {
 									_thisObj.collapsibleToggle($icon.eq(0), $icons, $parentLi);
 								}
 							}

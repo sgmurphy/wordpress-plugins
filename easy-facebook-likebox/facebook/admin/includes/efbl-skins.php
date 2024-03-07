@@ -16,6 +16,7 @@ if ( !class_exists( 'EFBL_SKINS' ) ) {
         function __construct()
         {
             add_action( 'init', array( $this, 'efbl_skins_register' ), 20 );
+            //on plugin activation
             $this->efbl_default_skins();
             add_action( 'init', array( $this, 'efbl_skins' ), 30 );
         }
@@ -82,6 +83,30 @@ if ( !class_exists( 'EFBL_SKINS' ) ) {
                 }
                 $fta_settings['plugins']['facebook']['default_skin_id'] = $skin_id;
                 update_option( 'fta_settings', $fta_settings );
+            }
+            
+            
+            if ( !isset( $fta_settings['plugins']['facebook']['row_default_skin_id'] ) && empty($fta_settings['plugins']['facebook']['row_default_skin_id']) ) {
+                $efbl_new_skin_row = array(
+                    'post_title'   => __( 'Skin - Row', 'easy-facebook-likebox' ),
+                    'post_content' => __( 'This is the Row demo skin created by the plugin automatically with default values. You can edit it and change the look & feel of your Facebook Feeds.', 'easy-facebook-likebox' ),
+                    'post_type'    => 'efbl_skins',
+                    'post_status'  => 'publish',
+                    'post_author'  => get_current_user_id(),
+                );
+                // Insert the new post
+                $efbl_new_skin_row_id = wp_insert_post( $efbl_new_skin_row );
+                
+                if ( isset( $efbl_new_skin_row_id ) ) {
+                    update_post_meta( $efbl_new_skin_row_id, 'layout', 'row' );
+                    
+                    if ( isset( $efbl_new_skin_row_id ) && !is_wp_error( $efbl_new_skin_row_id ) ) {
+                        $fta_settings['plugins']['facebook']['row_default_skin_id'] = $efbl_new_skin_row_id;
+                        update_option( 'fta_settings', $fta_settings );
+                    }
+                
+                }
+            
             }
             
             

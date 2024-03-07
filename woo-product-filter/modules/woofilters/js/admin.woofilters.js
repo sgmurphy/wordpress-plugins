@@ -423,7 +423,7 @@
 		settingsValues.off('change wpf-change', 'select').on('change wpf-change', 'select', function () {
 			var elem = jQuery(this),
 				value = elem.val(),
-				hidden = elem.closest('.settings-value').hasClass('wpfHidden') || elem.closest('.wpfHidden', '.sub-tab-content').length,
+				hidden = elem.closest('.settings-value').hasClass('wpfHidden') || ( elem.closest('.wpfHidden', '.sub-tab-content').length && !elem.closest('.wpfHidden', '.sub-tab-content').is('.wpfOptions')),
 				name = elem.attr('name'),
 				filterBlock = elem.closest('.wpfFilter'),
 				block = filterBlock.length ? filterBlock : settingsValues,

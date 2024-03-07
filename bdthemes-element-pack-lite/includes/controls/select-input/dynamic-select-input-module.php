@@ -62,6 +62,7 @@ class Dynamic_Select_Input_Module {
 
             $query = isset($_POST['query']) ? sanitize_text_field($_POST['query']) : '';
             $post_type = isset($_POST['post_type']) ? sanitize_text_field($_POST['post_type']) : '';
+            $field_type = isset($_POST['field_type']) ? array_map('sanitize_text_field', $_POST['field_type']) : '';
 
             if (is_plugin_active('bdthemes-element-pack/bdthemes-element-pack.php')) {
                 $acf_global = new ACF_Global();
@@ -90,7 +91,7 @@ class Dynamic_Select_Input_Module {
             } elseif ($query == 'bbpress_single_topic_terms') {
                 $data = $this->getbbPressTerms();
             } elseif ($query == 'acf') {
-                $data = $acf_global->getAcfFields();
+                $data = $acf_global->getAcfFields($field_type);
             } else {
                 $data = $this->getPosts();
             }

@@ -53,6 +53,14 @@ $option2['sfsi_instagram_pageUrl']        = (isset($option2['sfsi_instagram_page
     ? esc_url($option2['sfsi_instagram_pageUrl'])
     : '';
 
+$option2['sfsi_ria_pageUrl']        = (isset($option2['sfsi_ria_pageUrl']))
+    ? esc_url($option2['sfsi_ria_pageUrl'])
+    : '';
+
+$option2['sfsi_inha_pageUrl']        = (isset($option2['sfsi_inha_pageUrl']))
+    ? esc_url($option2['sfsi_inha_pageUrl'])
+    : '';
+
 $option2['sfsi_linkedin_page']             = (isset($option2['sfsi_linkedin_page']))
     ? sanitize_text_field($option2['sfsi_linkedin_page'])
     : '';
@@ -266,7 +274,7 @@ if (isset($option2['sfsi_youtubeusernameorid']) && "id" == $option2['sfsi_youtub
             <p class="radio_section fb_url" style="display:flow-root">
                 <input name="sfsi_facebookPage_option" <?php echo ($option2['sfsi_facebookPage_option'] == 'yes') ? 'checked="true"' : ''; ?> type="checkbox" value="yes" class="styled" />
                 <label><?php _e( 'Visit my Facebook page at:', 'ultimate-social-media-icons' ); ?></label>
-                <input class="add" name="sfsi_facebookPage_url" type="url" value="<?php echo ($option2['sfsi_facebookPage_url'] != '') ?  $option2['sfsi_facebookPage_url'] : ''; ?>" placeholder="E.g https://www.facebook.com/your_page_name" />
+                <input class="add" name="sfsi_facebookPage_url" type="url" value="<?php echo ($option2['sfsi_facebookPage_url'] != '') ? $option2['sfsi_facebookPage_url'] : ''; ?>" placeholder="E.g https://www.facebook.com/your_page_name" />
             </p>
 
             <p class="radio_section fb_url extra_sp" style="display:flow-root;margin: 16px 0 23px;"><input name="sfsi_facebookLike_option" <?php echo ($option2['sfsi_facebookLike_option'] == 'yes') ? 'checked="true"' : ''; ?> type="checkbox" value="yes" class="styled" /><label><?php _e( 'Like my blog on Facebook (+1)', 'ultimate-social-media-icons' ); ?></label></p>
@@ -406,6 +414,30 @@ if (isset($option2['sfsi_youtubeusernameorid']) && "id" == $option2['sfsi_youtub
         </div>
     </div>
     <!-- END INSTAGRAM ICON -->
+
+    <!-- RIA ICON -->
+    <div class="row ria_section">
+        <h2 class="sfsicls_ria"><?php _e( 'RateItAll', 'ultimate-social-media-icons' ); ?></h2>
+        <div class="inr_cont">
+            <p><?php _e('When clicked on it, users will get directed to your page on ', 'ultimate-social-media-plus');
+                echo '<a href="https://rateitall.com/">RateItAll.</a>' ?>
+            </p>
+            <p class="radio_section fb_url  cus_link instagram_space"><label><?php _e( 'URL:', 'ultimate-social-media-icons' ); ?></label><input name="sfsi_ria_pageUrl" type="text" value="<?php echo (isset($option2['sfsi_ria_pageUrl']) && $option2['sfsi_ria_pageUrl'] != '') ?  esc_attr($option2['sfsi_ria_pageUrl']) : ''; ?>" placeholder="http://" class="add" /></p>
+        </div>
+    </div>
+    <!-- END RIA ICON -->
+
+    <!-- INHA ICON -->
+    <div class="row inha_section">
+        <h2 class="sfsicls_inha"><?php _e( 'IncreasingHappiness', 'ultimate-social-media-icons' ); ?></h2>
+        <div class="inr_cont">
+            <p><?php _e('When clicked on it, users get taken to your profile page on ', 'ultimate-social-media-plus');
+                echo '<a href="https://increasinghappiness.org/">IncreasingHappiness.org.</a>' ?>
+            </p>
+            <p class="radio_section fb_url  cus_link instagram_space"><label><?php _e( 'URL:', 'ultimate-social-media-icons' ); ?></label><input name="sfsi_inha_pageUrl" type="text" value="<?php echo (isset($option2['sfsi_inha_pageUrl']) && $option2['sfsi_inha_pageUrl'] != '') ?  esc_attr($option2['sfsi_inha_pageUrl']) : ''; ?>" placeholder="http://" class="add" /></p>
+        </div>
+    </div>
+    <!-- END INHA ICON -->
 
     <!-- LINKEDIN ICON -->
     <div class="row linkedin_section">

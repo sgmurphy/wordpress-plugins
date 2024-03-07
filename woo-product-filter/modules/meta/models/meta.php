@@ -757,15 +757,17 @@ class MetaModelWpf extends ModelWpf {
 						\WC_Price_Calculator_Product::variable_product_unsync( $product );
 
 						// all other product types
-					} elseif ( $measurement = \WC_Price_Calculator_Product::get_product_measurement( $product, $settings ) ) {
+					} else {
+						$measurement = \WC_Price_Calculator_Product::get_product_measurement( $product, $settings );
+						if ( $measurement ) {
+							$measurement->set_unit( $settings->get_pricing_unit() );
+							$measurementValue = $measurement ? $measurement->get_value() : null;
 
-						$measurement->set_unit( $settings->get_pricing_unit() );
-						$measurementValue = $measurement ? $measurement->get_value() : null;
-
-						if ( $measurement && $measurementValue ) {
-							// convert to price per unit
-							$price  = floatval($product->get_price( 'edit' )) / $measurementValue;
-							$salePrice  = floatval($product->get_sale_price( 'edit' )) / $measurementValue;
+							if ( $measurement && $measurementValue ) {
+								// convert to price per unit
+								$price  = floatval($product->get_price( 'edit' )) / $measurementValue;
+								$salePrice  = floatval($product->get_sale_price( 'edit' )) / $measurementValue;
+							}
 						}
 					}
 				}
@@ -792,6 +794,6 @@ class MetaModelWpf extends ModelWpf {
 	public function hasEmojis( $string ) {
 		$emojis_regex = '/[\x{1F600}-\x{1F64F}\x{2700}-\x{27BF}\x{1F680}-\x{1F6FF}\x{24C2}-\x{1F251}\x{1F30D}-\x{1F567}\x{1F900}-\x{1F9FF}\x{1F300}-\x{1F5FF}\x{1FA70}-\x{1FAF6}]/u';
 		preg_match($emojis_regex, $string, $matches);
-		return (empty($matches) ? false : true);
+		return ( empty($matches) ? false : true );
 	}
 }

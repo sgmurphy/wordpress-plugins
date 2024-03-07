@@ -3146,3 +3146,75 @@ html {
 .widget.widget_esf_instagram_feed{
   overflow: hidden;
 }
+
+.esf_insta_feeds_holder.esf_insta_feeds_row {
+  display: flex;
+  justify-content: flex-start;
+
+  .efbl-row-content {
+    width: 100%;
+    position: relative;
+    margin: 1px;
+    height: 100%;
+
+
+    .esf-insta-row-wrapper.esf-insta-story-wrapper {
+      height: 100%;
+      background: #fff;
+      border: #dee2e6 solid 1px;
+      padding: 2px;
+
+      .esf_insta_feed_fancy_popup.esf_insta_popup.esf_insta_row_box {
+        display: block;
+        position: relative;
+        width: 100%;
+        padding-bottom: 100%;
+        background-position: center;
+        background-size: cover;
+        cursor: pointer;
+
+
+        .esf-insta-overlay {
+          position: absolute;
+          opacity: 0;
+          background: rgba(0, 0, 0, 0.459);
+          inset: 3px;
+          color: #fff;
+          transition: all 500ms ease;
+          cursor: pointer;
+          margin: -3px;
+
+          &:hover {
+            opacity: 1;
+          }
+          .icon.icon-esf-clone.icon-esf-video-camera {
+            position: absolute;
+            font-size: 15px;
+            top: 10px;
+            right: 7px;
+          }
+
+          .esf-insta-plus::before {
+            content: "\62";
+            position: absolute;
+            top: 50%;
+            right: 50%;
+            font-size: 11px;
+            transform: translate(50%, -50%);
+          }
+
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .esf_insta_feeds_holder.esf_insta_feeds_row{
+    flex-wrap: wrap;
+
+    .efbl-row-content {
+      max-width: 24%;
+    }
+  }
+}

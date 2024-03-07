@@ -3546,6 +3546,11 @@ class Settings_Sections_Fields
         );
         $field_id = 'maintenance_page_background';
         $field_slug = 'maintenance-page-background';
+        $field_radios = array(
+            'Stripes' => 'stripes',
+            'Curves'  => 'curves',
+            'Lines'   => 'lines',
+        );
         add_settings_field(
             $field_id,
             // Field ID
@@ -3561,13 +3566,7 @@ class Settings_Sections_Fields
                 'option_name'   => ASENHA_SLUG_U,
                 'field_id'      => $field_id,
                 'field_name'    => ASENHA_SLUG_U . '[' . $field_id . ']',
-                'field_radios'  => array(
-                'Stripes' => 'stripes',
-                'Curves'  => 'curves',
-                'Lines'   => 'lines',
-                'Image'   => 'image',
-                'Color'   => 'solid_color',
-            ),
+                'field_radios'  => $field_radios,
                 'field_default' => 'default',
                 'class'         => 'asenha-radio-buttons utilities ' . $field_slug,
             )

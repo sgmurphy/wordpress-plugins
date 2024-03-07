@@ -177,7 +177,32 @@ $option7['sfsi_Shown_pop'] 				= (isset($option7['sfsi_Shown_pop'])) ? sanitize_
 
 			</li>
 
-			<li class="telegram_section">
+            <li class="ria_section">
+
+                <div>
+
+                    <img src="<?php echo SFSI_PLUGURL ?>images/ria.png" alt="RateItAll" />
+
+                    <span class="sfsi_Cdisplay" id="sfsi_ria_countsDisplay"><?php _e("12k",'ultimate-social-media-icons') ?></span>
+
+                </div>
+
+            </li>
+
+            <li class="inha_section">
+
+                <div>
+
+                    <img src="<?php echo SFSI_PLUGURL ?>images/inha.png" alt="IncreasingHappiness" />
+
+                    <span class="sfsi_Cdisplay" id="sfsi_inha_countsDisplay"><?php _e("12k",'ultimate-social-media-icons') ?></span>
+
+                </div>
+
+            </li>
+
+
+            <li class="telegram_section">
 
 				<div>
 

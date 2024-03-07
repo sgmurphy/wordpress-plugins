@@ -10,6 +10,7 @@ class Woofilters_WidgetWpf extends ModuleWpf {
 		add_action( 'elementor/editor/before_enqueue_scripts', array($this, 'woofiltersElementorEditorScripts') );
 	}
 	public function registerWidget() {
+		require_once __DIR__ . '/elementor/widget.php';
 		return register_widget('WpfWoofiltersWidget');
 	}
 	private function includeElementorWidgetsFiles() {
@@ -81,30 +82,4 @@ class Woofilters_WidgetWpf extends ModuleWpf {
 		return array( $filtersOpts, $filtersSettings );
 	}
 	
-}
-/**
- * Maps widget class
- */
-class WpfWoofiltersWidget extends WP_Widget {
-	public function __construct() {
-		$widgetOps = array(
-			'classname' => 'WpfWoofiltersWidget',
-			'description' => esc_html__('Displays Filters', 'woo-product-filter')
-		);
-		parent::__construct( 'WpfWoofiltersWidget', WPF_WP_PLUGIN_NAME, $widgetOps );
-	}
-	public function widget( $args, $instance ) {
-		if ( is_array( $args ) ) {
-			extract( $args );
-		}
-		extract($instance);
-		FrameWpf::_()->getModule('woofilters_widget')->getView()->displayWidget($instance, $args);
-	}
-	public function form( $instance ) {
-		extract($instance);
-		FrameWpf::_()->getModule('woofilters_widget')->getView()->displayForm($instance, $this);
-	}
-	public function update( $new_instance, $old_instance ) {
-		return $new_instance;
-	}
 }

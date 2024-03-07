@@ -4,7 +4,7 @@
  * Plugin URI: https://www.b-website.com/re-add-text-underline-and-justify
  * Description: Re-adds the Editor text underline & justify buttons in the WYSIWYG removed in WordPress 4.7. Works with Classic Editor, ACF and Gutenberg.
  * Author: Brice Capobianco
- * Version: 0.4
+ * Version: 0.4.1
  * Author URI: https://www.b-website.com/
  * Domain Path: /langs
  * Text Domain: re-add-underline-justify
@@ -27,19 +27,17 @@
 */
 
 
-/***************************************************************
+/*
  * SECURITY : Exit if accessed directly
- ***************************************************************/
+ */
 if ( ! defined( 'ABSPATH' ) ) {
-
 	die( 'Direct access not allowed!' );
-
 }
 
 
-/***************************************************************
+/*
  * Add custom meta link on plugin list page
- ***************************************************************/
+ */
 add_filter( 'plugin_row_meta', 'ratb_meta_links', 10, 2 );
 function ratb_meta_links( $links, $file ) {
 
@@ -53,9 +51,9 @@ function ratb_meta_links( $links, $file ) {
 }
 
 
-/***************************************************************
+/*
  * Load plugin textdomain
- ***************************************************************/
+ */
 add_action( 'init', 'ratb_load_textdomain' );
 function ratb_load_textdomain() {
 
@@ -65,9 +63,9 @@ function ratb_load_textdomain() {
 }
 
 
-/***************************************************************
+/*
  * Remove plugin settings from DB on plugin deletion
- ***************************************************************/
+ */
 function ratb_uninstall() {
 
 	// Remove option from DB
@@ -76,9 +74,9 @@ function ratb_uninstall() {
 }
 
 
-/***************************************************************
+/*
  * Hooks for install & uninstall
- ***************************************************************/
+ */
 register_activation_hook( __FILE__, 'ratb_activation' );
 function ratb_activation() {
 
@@ -87,9 +85,9 @@ function ratb_activation() {
 }
 
 
-/***************************************************************
+/*
  * Register the new setting on the Wrinting screen
- ***************************************************************/
+ */
 add_action( 'admin_init', 'ratb_admin_init' );
 function ratb_admin_init() {
 
@@ -108,9 +106,9 @@ function ratb_admin_init() {
 }
 
 
-/***************************************************************
+/*
  * Display the select on the Wrinting screen
- ***************************************************************/
+ */
 function ratb_setting_input() {
 
 	//Retrieve the option value
@@ -138,9 +136,9 @@ function ratb_setting_input() {
 }
 
 
-/***************************************************************
+/*
  * Update tinyMCE buttons lines
- ***************************************************************/
+ */
 add_action( 'admin_init', 'ratb_buttons_lines_tiny_mce' );
 function ratb_buttons_lines_tiny_mce() {
 
@@ -165,9 +163,9 @@ function ratb_buttons_lines_tiny_mce() {
 }
 
 
-/***************************************************************
+/*
  * First editor row buttons - Re-add underline
- ***************************************************************/
+ */
 function ratb_tiny_mce_buttons_underline( $buttons_array ) {
 
 	if ( ! in_array( 'underline', $buttons_array ) ) {
@@ -180,9 +178,9 @@ function ratb_tiny_mce_buttons_underline( $buttons_array ) {
 
 }
 
-/***************************************************************
+/*
  * First editor row buttons - Re-add justify
- ***************************************************************/
+ */
 function ratb_tiny_mce_buttons_justify( $buttons_array ) {
 
 	if ( ! in_array( 'alignjustify', $buttons_array ) && in_array( 'alignright', $buttons_array ) ) {

@@ -69,7 +69,7 @@ class General {
 			),
 			array(
 				'name'     => esc_html__( 'Added to cart alert', 'woocommerce-direct-checkout' ),
-				'desc_tip' => esc_html__( 'Replace "View Cart" alert with direct checkout.', 'woocommerce-direct-checkout' ),
+				'desc_tip' => esc_html__( 'Replace the "View Cart" alert with a direct checkout option.', 'woocommerce-direct-checkout' ),
 				'id'       => 'qlwcdc_add_to_cart_message',
 				'type'     => 'select',
 				'class'    => 'chosen_select',
@@ -81,7 +81,7 @@ class General {
 			),
 			array(
 				'name'     => esc_html__( 'Added to cart link in shop', 'woocommerce-direct-checkout' ),
-				'desc_tip' => esc_html__( 'Replace "View Cart" link with "Checkout" link in the shop page.', 'woocommerce-direct-checkout' ),
+				'desc_tip' => esc_html__( 'Replace the "View Cart" link with a "Checkout" link on the shop page.', 'woocommerce-direct-checkout' ),
 				'id'       => 'qlwcdc_add_to_cart_link',
 				'type'     => 'select',
 				'class'    => 'chosen_select',
@@ -93,7 +93,7 @@ class General {
 			),
 			array(
 				'name'     => esc_html__( 'Added to cart redirect', 'woocommerce-direct-checkout' ),
-				'desc_tip' => esc_html__( 'Add to cart button behaviour.', 'woocommerce-direct-checkout' ),
+				'desc_tip' => esc_html__( 'Add to cart button behavior.', 'woocommerce-direct-checkout' ),
 				'id'       => 'qlwcdc_add_to_cart',
 				'type'     => 'select',
 				'class'    => 'chosen_select',
@@ -106,7 +106,7 @@ class General {
 			),
 			array(
 				'name'     => esc_html__( 'Added to cart redirect to', 'woocommerce-direct-checkout' ),
-				'desc_tip' => esc_html__( 'Redirect to the cart or checkout page after successful addition.', 'woocommerce-direct-checkout' ),
+				'desc_tip' => esc_html__( 'Redirect to the cart or checkout page after successful addition of the product.', 'woocommerce-direct-checkout' ),
 				'id'       => 'qlwcdc_add_to_cart_redirect_page',
 				'type'     => 'select',
 				'class'    => 'chosen_select',
@@ -119,7 +119,7 @@ class General {
 			),
 			array(
 				'name'        => esc_html__( 'Added to cart redirect to custom url', 'woocommerce-direct-checkout' ),
-				'desc_tip'    => esc_html__( 'Redirect to the cart or checkout page after successful addition.', 'woocommerce-direct-checkout' ),
+				'desc_tip'    => esc_html__( 'Redirect to the cart or checkout page after successful addition of the product.', 'woocommerce-direct-checkout' ),
 				'id'          => 'qlwcdc_add_to_cart_redirect_url',
 				'type'        => 'text',
 				'placeholder' => home_url(),
@@ -138,8 +138,8 @@ class General {
 				'default'  => 'no',
 			),
 			array(
-				'name'        => esc_html__( 'Replace cart url with custom url', 'woocommerce-direct-checkout' ),
-				'desc_tip'    => esc_html__( 'Replace cart url with custom url', 'woocommerce-direct-checkout' ),
+				'name'        => esc_html__( 'Replace the cart URL with a custom URL.', 'woocommerce-direct-checkout' ),
+				'desc_tip'    => esc_html__( 'Replace the cart URL with a custom URL.', 'woocommerce-direct-checkout' ),
 				'id'          => 'qlwcdc_replace_cart_url_custom',
 				'type'        => 'text',
 				'placeholder' => wc_get_checkout_url(),

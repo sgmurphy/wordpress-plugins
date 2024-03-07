@@ -12,7 +12,7 @@ class Social_Pug {
 	public const API_NAMESPACE = 'mv-grow-social/v1';
 
 	/** @var string|null Build tool sets this. */
-	const VERSION = '1.33.0';
+	const VERSION = '1.33.1';
 
 	/** @var string|null Version number for this release. @deprecated Use MV_GROW_VERSION */
 	public static $VERSION;

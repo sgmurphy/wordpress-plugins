@@ -726,6 +726,10 @@ class Age_Gate extends Module_Base {
 						'max' => 200,
 					],
 				],
+				'default'    => [ 
+					'size' => 130,
+					'unit' => 'px',
+				],
 				'selectors'  => [ 
 					'.bdt-age-gate-{{ID}}.bdt-modal .bdt-input' => 'width: {{SIZE}}{{UNIT}};',
 				],

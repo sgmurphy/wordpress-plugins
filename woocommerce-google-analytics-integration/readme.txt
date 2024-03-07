@@ -1,9 +1,9 @@
 === Google Analytics for WooCommerce ===
-Contributors: woocommerce, automattic, claudiosanches, bor0, royho, laurendavissmith001, c-shultz
+Contributors: woocommerce, automattic, claudiosanches, bor0, royho, laurendavissmith001, cshultz88, mmjones, tomalec
 Tags: woocommerce, google analytics
-Requires at least: 3.9
+Requires at least: 6.2
 Tested up to: 6.4
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -11,9 +11,9 @@ Provides integration between Google Analytics and WooCommerce.
 
 == Description ==
 
-This plugin provides the integration between Google Analytics and the WooCommerce plugin. You can link a referral to a purchase and add transaction information to your Google Analytics data. It also supports Global Site Tag, Universal Analytics, eCommerce, and enhanced eCommerce event tracking.
+This plugin provides the integration between Google Analytics and the WooCommerce plugin. You can link a referral to a purchase and add transaction information to your Google Analytics data. It supports Global Site Tag (GA4) and eCommerce event tracking.
 
-Starting from WooCommerce 2.1, this integration is not packaged with WooCommerce and is only available by using this plugin.
+Please visit the [documentation page for additional information](https://woo.com/document/google-analytics-integration/).
 
 Contributions are welcome via the [GitHub repository](https://github.com/woocommerce/woocommerce-google-analytics-integration).
 
@@ -42,23 +42,17 @@ Also please make sure to enter your Google Analytics ID under WooCommerce → Se
 
 Duplicate Google Analytics code causes a conflict in tracking. Remove any other Google Analytics plugins or code from your site to avoid duplication and conflicts in tracking.
 
-= My settings are not saving! =
-
-Do you have SUHOSIN installed/active on your server? If so, the default index length is 64 and some settings on this plugin requires longer lengths. Try setting your SUHOSIN configuration's "max_array_index_length" to "100" and test again.
-
-= My national data privacy laws require that I offer an opt-out for users, how can I do this? =
-
-Include the following html code snippet within the page where you want to have the opt-out, e.g. the your Imprint our Data Privacy page:
-
-https://gist.github.com/claudiosanches/b12d15b245be21c92ebc
-
-Exact wording depends on the national data privacy laws and should be adjusted.
-
 == Screenshots ==
 
 1. Google Analytics Integration Settings.
 
 == Changelog ==
+
+= 2.0.1 - 2024-03-07 =
+* Fix - Adding variable product attributes.
+* Fix - Resolve Google Analytics not loading if gtag already exists on the window object.
+* Tweak - Update Contributors list.
+* Tweak - Update assets and readme for 2.0.
 
 = 2.0.0 - 2024-03-05 =
 * Add - Basic consent mode support.
@@ -76,10 +70,5 @@ Exact wording depends on the national data privacy laws and should be adjusted.
 = 1.8.14 - 2024-02-07 =
 * Tweak - Declare feature compatibility for the new product editor (also called product block editor).
 * Tweak - WC 8.6 compatibility.
-
-= 1.8.13 - 2024-01-09 =
-* Dev - Upgrade all NPM dev dependencies.
-* Dev - Upgrade to Node.js 18.
-* Tweak - WC 8.5 compatibility.
 
 [See changelog for all versions](https://raw.githubusercontent.com/woocommerce/woocommerce-google-analytics-integration/trunk/changelog.txt).

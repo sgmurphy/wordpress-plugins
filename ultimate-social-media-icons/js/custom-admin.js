@@ -190,6 +190,8 @@ function sfsi_depened_sections() {
         SFSI("input[name='sfsi_wechat_display']").prop("checked") ? sfsi_section_Display("wechat_section", "show") : sfsi_section_Display("wechat_section", "hide"),
         SFSI("input[name='sfsi_weibo_display']").prop("checked") ? sfsi_section_Display("weibo_section", "show") : sfsi_section_Display("weibo_section", "hide"),
         SFSI("input[name='sfsi_instagram_display']").prop("checked") ? sfsi_section_Display("instagram_section", "show") : sfsi_section_Display("instagram_section", "hide"),
+        SFSI("input[name='sfsi_ria_display']").prop("checked") ? sfsi_section_Display("ria_section", "show") : sfsi_section_Display("ria_section", "hide"),
+        SFSI("input[name='sfsi_inha_display']").prop("checked") ? sfsi_section_Display("inha_section", "show") : sfsi_section_Display("inha_section", "hide"),
         SFSI("input[name='sfsi_linkedin_display']").prop("checked") ? sfsi_section_Display("linkedin_section", "show") : sfsi_section_Display("linkedin_section", "hide"),
         SFSI("input[name='sfsi_whatsapp_display']").prop("checked") ? sfsi_section_Display("whatsapp_section", "show") : sfsi_section_Display("whatsapp_section", "hide"),
         SFSI("input[name='sfsi_snapchat_display']").prop("checked") ? sfsi_section_Display("snapchat_section", "show") : sfsi_section_Display("snapchat_section", "hide"),
@@ -277,7 +279,7 @@ function SFSI_done(nonce) {
 
 
                 jQuery("li.cstomskins_upload").children(".icns_tab_3").html(msg);
-                SFSI("input[name='sfsi_rss_display']").prop("checked") ? sfsi_section_Display("rss_section", "show") : sfsi_section_Display("rss_section", "hide"), SFSI("input[name='sfsi_email_display']").prop("checked") ? sfsi_section_Display("email_section", "show") : sfsi_section_Display("email_section", "hide"), SFSI("input[name='sfsi_facebook_display']").prop("checked") ? sfsi_section_Display("facebook_section", "show") : sfsi_section_Display("facebook_section", "hide"), SFSI("input[name='sfsi_twitter_display']").prop("checked") ? sfsi_section_Display("twitter_section", "show") : sfsi_section_Display("twitter_section", "hide"), SFSI("input[name='sfsi_youtube_display']").prop("checked") ? sfsi_section_Display("youtube_section", "show") : sfsi_section_Display("youtube_section", "hide"), SFSI("input[name='sfsi_pinterest_display']").prop("checked") ? sfsi_section_Display("pinterest_section", "show") : sfsi_section_Display("pinterest_section", "hide"), SFSI("input[name='sfsi_instagram_display']").prop("checked") ? sfsi_section_Display("instagram_section", "show") : sfsi_section_Display("instagram_section", "hide"), SFSI("input[name='sfsi_linkedin_display']").prop("checked") ? sfsi_section_Display("linkedin_section", "show") : sfsi_section_Display("linkedin_section", "hide"), SFSI("input[element-type='cusotm-icon']").prop("checked") ? sfsi_section_Display("custom_section", "show") : sfsi_section_Display("custom_section", "hide");
+                SFSI("input[name='sfsi_rss_display']").prop("checked") ? sfsi_section_Display("rss_section", "show") : sfsi_section_Display("rss_section", "hide"), SFSI("input[name='sfsi_email_display']").prop("checked") ? sfsi_section_Display("email_section", "show") : sfsi_section_Display("email_section", "hide"), SFSI("input[name='sfsi_facebook_display']").prop("checked") ? sfsi_section_Display("facebook_section", "show") : sfsi_section_Display("facebook_section", "hide"), SFSI("input[name='sfsi_twitter_display']").prop("checked") ? sfsi_section_Display("twitter_section", "show") : sfsi_section_Display("twitter_section", "hide"), SFSI("input[name='sfsi_youtube_display']").prop("checked") ? sfsi_section_Display("youtube_section", "show") : sfsi_section_Display("youtube_section", "hide"), SFSI("input[name='sfsi_pinterest_display']").prop("checked") ? sfsi_section_Display("pinterest_section", "show") : sfsi_section_Display("pinterest_section", "hide"), SFSI("input[name='sfsi_instagram_display']").prop("checked") ? sfsi_section_Display("instagram_section", "show") : sfsi_section_Display("instagram_section", "hide"), SFSI("input[name='sfsi_ria_display']").prop("checked") ? sfsi_section_Display("ria_section", "show") : sfsi_section_Display("ria_section", "hide"),SFSI("input[name='sfsi_inha_display']").prop("checked") ? sfsi_section_Display("inha_section", "show") : sfsi_section_Display("inha_section", "hide"), SFSI("input[name='sfsi_linkedin_display']").prop("checked") ? sfsi_section_Display("linkedin_section", "show") : sfsi_section_Display("linkedin_section", "hide"), SFSI("input[element-type='cusotm-icon']").prop("checked") ? sfsi_section_Display("custom_section", "show") : sfsi_section_Display("custom_section", "hide");
                 SFSI(".cstmskins-overlay").hide("slow");
                 sfsi_update_step3() && sfsicollapse(this);
             }
@@ -328,6 +330,8 @@ function sfsi_update_step1() {
         wc = SFSI("input[name='sfsi_wechat_display']:checked").val(),
         wb = SFSI("input[name='sfsi_weibo_display']:checked").val(),
         _ = SFSI("input[name='sfsi_instagram_display']:checked").val(),
+        ria = SFSI("input[name='sfsi_ria_display']:checked").val(),
+        inha = SFSI("input[name='sfsi_inha_display']:checked").val(),
         wa = SFSI("input[name='sfsi_whatsapp_display']:checked").val(),
         snap = SFSI("input[name='sfsi_snapchat_display']:checked").val(),
         messg = SFSI("input[name='sfsi_fbmessenger_display']:checked").val(),
@@ -356,6 +360,8 @@ function sfsi_update_step1() {
             sfsi_wechat_display: wc,
             sfsi_weibo_display: wb,
             sfsi_instagram_display: _,
+            sfsi_ria_display: ria,
+            sfsi_inha_display: inha,
             sfsi_whatsapp_display: wa,
             sfsi_snapchat_display: snap,
             sfsi_fbmessenger_display: messg,
@@ -419,6 +425,8 @@ function sfsi_update_step2() {
         k = 1 == SFSI("input[name='sfsi_pinterest_pageUrl']").prop("disabled") ? "" : SFSI("input[name='sfsi_pinterest_pageUrl']").val(),
         y = 1 == SFSI("input[name='sfsi_pinterest_pingBlog']").prop("disabled") ? "" : SFSI("input[name='sfsi_pinterest_pingBlog']:checked").val(),
         b = 1 == SFSI("input[name='sfsi_instagram_pageUrl']").prop("disabled") ? "" : SFSI("input[name='sfsi_instagram_pageUrl']").val(),
+        ria = 1 == SFSI("input[name='sfsi_ria_pageUrl']").prop("disabled") ? "" : SFSI("input[name='sfsi_ria_pageUrl']").val(),
+        inha = 1 == SFSI("input[name='sfsi_inha_pageUrl']").prop("disabled") ? "" : SFSI("input[name='sfsi_inha_pageUrl']").val(),
         w = 1 == SFSI("input[name='sfsi_linkedin_page']").prop("disabled") ? "" : SFSI("input[name='sfsi_linkedin_page']:checked").val(),
         x = 1 == SFSI("input[name='sfsi_linkedin_pageURL']").prop("disabled") ? "" : SFSI("input[name='sfsi_linkedin_pageURL']").val(),
         C = 1 == SFSI("input[name='sfsi_linkedin_follow']").prop("disabled") ? "" : SFSI("input[name='sfsi_linkedin_follow']:checked").val(),
@@ -481,6 +489,8 @@ function sfsi_update_step2() {
         sfsi_pinterest_page: g,
         sfsi_pinterest_pageUrl: k,
         sfsi_instagram_pageUrl: b,
+        sfsi_ria_pageUrl: ria,
+        sfsi_inha_pageUrl: inha,
         sfsi_pinterest_pingBlog: y,
         sfsi_linkedin_page: w,
         sfsi_linkedin_pageURL: x,
@@ -568,6 +578,8 @@ function sfsi_update_step3() {
         sfsi_pinterest_bgColor = SFSI("input[name='sfsi_pinterest_bgColor']").val(),
         sfsi_linkedin_bgColor = SFSI("input[name='sfsi_linkedin_bgColor']").val(),
         sfsi_instagram_bgColor = SFSI("input[name='sfsi_instagram_bgColor']").val(),
+        sfsi_ria_bgColor = SFSI("input[name='sfsi_ria_bgColor']").val(),
+        sfsi_inha_bgColor = SFSI("input[name='sfsi_inha_bgColor']").val(),
         sfsi_snapchat_bgColor = SFSI("input[name='sfsi_snapchat_bgColor']").val(),
         sfsi_whatsapp_bgColor = SFSI("input[name='sfsi_whatsapp_bgColor']").val(),
         sfsi_reddit_bgColor = SFSI("input[name='sfsi_reddit_bgColor']").val(),
@@ -610,6 +622,8 @@ function sfsi_update_step3() {
         sfsi_pinterest_bgColor: sfsi_pinterest_bgColor,
         sfsi_linkedin_bgColor: sfsi_linkedin_bgColor,
         sfsi_instagram_bgColor: sfsi_instagram_bgColor,
+        sfsi_ria_bgColor: sfsi_ria_bgColor,
+        sfsi_inha_bgColor: sfsi_inha_bgColor,
         sfsi_snapchat_bgColor: sfsi_snapchat_bgColor,
         sfsi_whatsapp_bgColor: sfsi_whatsapp_bgColor,
         sfsi_reddit_bgColor: sfsi_reddit_bgColor,
@@ -668,6 +682,8 @@ function sfsi_showPreviewCounts() {
         1 == SFSI("input[name='sfsi_wechat_countsDisplay']").prop("checked") ? (SFSI("#sfsi_wechat_countsDisplay").css("opacity", 0), s = 1) : SFSI("#sfsi_wechat_countsDisplay").css("opacity", 0),
         1 == SFSI("input[name='sfsi_whatsapp_countsDisplay']").prop("checked") ? (SFSI("#sfsi_whatsapp_countsDisplay").css("opacity", 0), s = 1) : SFSI("#sfsi_whatsapp_countsDisplay").css("opacity", 0),
         1 == SFSI("input[name='sfsi_tiktok_countsDisplay']").prop("checked") ? (SFSI("#sfsi_tiktok_countsDisplay").css("opacity", 0), s = 1) : SFSI("#sfsi_tiktok_countsDisplay").css("opacity", 0),
+        1 == SFSI("input[name='sfsi_ria_countsDisplay']").prop("checked") ? (SFSI("#sfsi_ria_countsDisplay").css("opacity", 0), s = 1) : SFSI("#sfsi_ria_countsDisplay").css("opacity", 0),
+        1 == SFSI("input[name='sfsi_inha_countsDisplay']").prop("checked") ? (SFSI("#sfsi_inha_countsDisplay").css("opacity", 0), s = 1) : SFSI("#sfsi_inha_countsDisplay").css("opacity", 0),
         1 == SFSI("input[name='sfsi_mastodon_countsDisplay']").prop("checked") ? (SFSI("#sfsi_mastodon_countsDisplay").css("opacity", 0), s = 1) : SFSI("#sfsi_mastodon_countsDisplay").css("opacity", 0),
         1 == SFSI("input[name='sfsi_reddit_countsDisplay']").prop("checked") ? (SFSI("#sfsi_reddit_countsDisplay").css("opacity", 0), s = 1) : SFSI("#sfsi_reddit_countsDisplay").css("opacity", 0),
         1 == SFSI("input[name='sfsi_fbmessenger_countsDisplay']").prop("checked") ? (SFSI("#sfsi_fbmessenger_countsDisplay").css("opacity", 0), s = 1) : SFSI("#sfsi_fbmessenger_countsDisplay").css("opacity", 0),
@@ -757,6 +773,12 @@ function sfsi_update_step4() {
         tiktokc = 1 == SFSI("input[name='sfsi_tiktok_countsDisplay']").prop("disabled") ? "" : SFSI("input[name='sfsi_tiktok_countsDisplay']:checked").val(),
         tiktokm = SFSI("input[name='sfsi_tiktok_manualCounts']").val(),
 
+        riac = 1 == SFSI("input[name='sfsi_ria_countsDisplay']").prop("disabled") ? "" : SFSI("input[name='sfsi_ria_countsDisplay']:checked").val(),
+        riam = SFSI("input[name='sfsi_ria_manualCounts']").val(),
+            
+        inhac = 1 == SFSI("input[name='sfsi_inha_countsDisplay']").prop("disabled") ? "" : SFSI("input[name='sfsi_inha_countsDisplay']:checked").val(),
+        inham = SFSI("input[name='sfsi_inha_manualCounts']").val(),
+
         mastodonc = 1 == SFSI("input[name='sfsi_mastodon_countsDisplay']").prop("disabled") ? "" : SFSI("input[name='sfsi_mastodon_countsDisplay']:checked").val(),
         mastodonm = SFSI("input[name='sfsi_mastodon_manualCounts']").val(),
 
@@ -825,6 +847,10 @@ function sfsi_update_step4() {
             sfsi_wechat_manualCounts: wcm,
             sfsi_tiktok_countsDisplay: tiktokc,
             sfsi_tiktok_manualCounts: tiktokm,
+            sfsi_ria_countsDisplay: riac,
+            sfsi_ria_manualCounts: riam,
+            sfsi_inha_countsDisplay: inhac,
+            sfsi_inha_manualCounts: inham,
             sfsi_mastodon_countsDisplay: mastodonc,
             sfsi_mastodon_manualCounts: mastodonm,
             sfsi_reddit_countsDisplay: redditc,
@@ -912,6 +938,8 @@ function sfsi_update_step5() {
         reddI = SFSI("#sfsi_redditIcon_order").attr("data-index"),
         fbMI = SFSI("#sfsi_fbmessengerIcon_order").attr("data-index"),
         tikI = SFSI("#sfsi_tiktokIcon_order").attr("data-index"),
+        riaI = SFSI("#sfsi_riaIcon_order").attr("data-index"),
+        inhaI = SFSI("#sfsi_inhaIcon_order").attr("data-index"),
         copylink = SFSI("#sfsi_copylinkIcon_order").attr("data-index"),
         mastI = SFSI("#sfsi_mastodonIcon_order").attr("data-index"),
 
@@ -941,6 +969,8 @@ function sfsi_update_step5() {
         redd = 1 == SFSI("input[name='sfsi_reddit_MouseOverText']").prop("disabled") ? "" : SFSI("input[name='sfsi_reddit_MouseOverText']").val(),
         snap = 1 == SFSI("input[name='sfsi_snapchat_MouseOverText']").prop("disabled") ? "" : SFSI("input[name='sfsi_snapchat_MouseOverText']").val(),
         fbM = 1 == SFSI("input[name='sfsi_fbmessenger_MouseOverText']").prop("disabled") ? "" : SFSI("input[name='sfsi_fbmessenger_MouseOverText']").val(),
+        ria = 1 == SFSI("input[name='sfsi_ria_MouseOverText']").prop("disabled") ? "" : SFSI("input[name='sfsi_ria_MouseOverText']").val(),
+        inha = 1 == SFSI("input[name='sfsi_inha_MouseOverText']").prop("disabled") ? "" : SFSI("input[name='sfsi_inha_MouseOverText']").val(),
         tik = 1 == SFSI("input[name='sfsi_tiktok_MouseOverText']").prop("disabled") ? "" : SFSI("input[name='sfsi_tiktok_MouseOverText']").val(),
         mast = 1 == SFSI("input[name='sfsi_mastodon_MouseOverText']").prop("disabled") ? "" : SFSI("input[name='sfsi_mastodon_MouseOverText']").val(),
         copy = 1 == SFSI("input[name='sfsi_copylink_MouseOverText']").prop("disabled") ? "" : SFSI("input[name='sfsi_copylink_MouseOverText']").val(),
@@ -989,6 +1019,8 @@ function sfsi_update_step5() {
         sfsi_reddit_MouseOverText: redd,
         sfsi_snapchat_MouseOverText: snap,
         sfsi_fbmessenger_MouseOverText: fbM,
+        sfsi_ria_MouseOverText: ria,
+        sfsi_inha_MouseOverText: inha,
         sfsi_tiktok_MouseOverText: tik,
         sfsi_mastodon_MouseOverText: mast,
         sfsi_copylink_MouseOverText: copy,
@@ -1011,6 +1043,8 @@ function sfsi_update_step5() {
         sfsi_redditIcon_order: reddI,
         sfsi_fbmessengerIcon_order: fbMI,
         sfsi_tiktokIcon_order: tikI,
+        sfsi_riaIcon_order: riaI,
+        sfsi_inhaIcon_order: inhaI,
         sfsi_copylinkIcon_order: copylink,
         sfsi_mastodonIcon_order: mastI,
         sfsi_whatsapp_MouseOverText: wa,
@@ -1495,6 +1529,24 @@ function sfsi_validationStep2() {
         if (!sfsi_validator(SFSI('input[name="sfsi_instagram_pageUrl"]'), 'blank')) {
             showErrorSuc("error", "Error : Invalid Instagram url ", 2);
             SFSI('input[name="sfsi_instagram_pageUrl"]').addClass('inputError');
+            return false;
+        }
+    }
+
+    /* ria validation */
+    if (sfsi_validator(SFSI('input[name="sfsi_ria_display"]'), 'checked')) {
+        if (!sfsi_validator(SFSI('input[name="sfsi_ria_pageUrl"]'), 'blank')) {
+            showErrorSuc("error", "Error : Invalid RateItAll url ", 2);
+            SFSI('input[name="sfsi_ria_pageUrl"]').addClass('inputError');
+            return false;
+        }
+    }
+
+    /* inha validation */
+    if (sfsi_validator(SFSI('input[name="sfsi_inha_display"]'), 'checked')) {
+        if (!sfsi_validator(SFSI('input[name="sfsi_inha_pageUrl"]'), 'blank')) {
+            showErrorSuc("error", "Error : Invalid IncreasingHappiness url ", 2);
+            SFSI('input[name="sfsi_inha_pageUrl"]').addClass('inputError');
             return false;
         }
     }
@@ -2387,7 +2439,7 @@ SFSI(document).ready(function(s) {
     });
 
     /* Flat icon BG color */
-    SFSI('#sfsi_rss_bgColor, #sfsi_email_bgColor, #sfsi_facebook_bgColor, #sfsi_twitter_bgColor, #sfsi_youtube_bgColor, #sfsi_pinterest_bgColor, #sfsi_linkedin_bgColor, #sfsi_snapchat_bgColor, #sfsi_whatsapp_bgColor, #sfsi_reddit_bgColor, #sfsi_fbmessenger_bgColor, #sfsi_ok_bgColor, #sfsi_telegram_bgColor, #sfsi_vk_bgColor, #sfsi_wechat_bgColor, #sfsi_weibo_bgColor, #sfsi_tiktok_bgColor, #sfsi_mastodon_bgColor').wpColorPicker({
+    SFSI('#sfsi_rss_bgColor, #sfsi_email_bgColor, #sfsi_facebook_bgColor, #sfsi_twitter_bgColor, #sfsi_youtube_bgColor, #sfsi_pinterest_bgColor, #sfsi_linkedin_bgColor, #sfsi_snapchat_bgColor, #sfsi_whatsapp_bgColor, #sfsi_reddit_bgColor, #sfsi_fbmessenger_bgColor, #sfsi_ok_bgColor, #sfsi_telegram_bgColor, #sfsi_vk_bgColor, #sfsi_wechat_bgColor, #sfsi_weibo_bgColor, #sfsi_tiktok_bgColor, #sfsi_mastodon_bgColor, #sfsi_ria_bgColor, #sfsi_inha_bgColor').wpColorPicker({
         defaultColor: true,
         hide: true,
         palettes: true,

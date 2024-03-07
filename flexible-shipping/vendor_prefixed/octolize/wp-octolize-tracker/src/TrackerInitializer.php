@@ -98,6 +98,7 @@ class TrackerInitializer implements \FSVendor\WPDesk\PluginBuilder\Plugin\Hookab
      *
      * @param \WPDesk_Plugin_Info $plugin_info .
      * @param ShouldDisplay       $should_display .
+     * @param ReasonsFactory|null $reasons_factory .
      *
      * @return TrackerInitializer
      */
@@ -112,10 +113,11 @@ class TrackerInitializer implements \FSVendor\WPDesk\PluginBuilder\Plugin\Hookab
      *
      * @param \WPDesk_Plugin_Info $plugin_info .
      * @param string              $shipping_method_id .
+     * @param ReasonsFactory|null $reasons_factory .
      *
      * @return TrackerInitializer
      */
-    public static function create_from_plugin_info_for_shipping_method(\FSVendor\WPDesk_Plugin_Info $plugin_info, string $shipping_method_id)
+    public static function create_from_plugin_info_for_shipping_method(\FSVendor\WPDesk_Plugin_Info $plugin_info, string $shipping_method_id, \FSVendor\WPDesk\Tracker\Deactivation\ReasonsFactory $reasons_factory = null)
     {
         $shops = $plugin_info->get_plugin_shops();
         $shop_url = $shops[\get_locale()] ?? $shops['default'] ?? 'https://octolize.com';
@@ -131,6 +133,6 @@ class TrackerInitializer implements \FSVendor\WPDesk\PluginBuilder\Plugin\Hookab
         $should_display_and_conditions->add_should_diaplay_condition(new \FSVendor\Octolize\Tracker\OptInNotice\ShouldDisplayGetParameterPresent('instance_id'));
         $should_display_and_conditions->add_should_diaplay_condition(new \FSVendor\Octolize\Tracker\OptInNotice\ShouldDisplayShippingMethodInstanceSettings($shipping_method_id));
         $should_display->add_should_diaplay_condition($should_display_and_conditions);
-        return new self($plugin_info->get_plugin_file_name(), $plugin_info->get_plugin_slug(), $plugin_info->get_plugin_name(), $shop_url, $should_display);
+        return new self($plugin_info->get_plugin_file_name(), $plugin_info->get_plugin_slug(), $plugin_info->get_plugin_name(), $shop_url, $should_display, $reasons_factory);
     }
 }

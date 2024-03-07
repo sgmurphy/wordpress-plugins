@@ -399,6 +399,12 @@ ViewWpf::display('woofiltersEditTabCustomTags');
 			</div>
 			<?php HtmlWpf::checkboxToggle('f_unfolding_by_search', array()); ?>
 		</div>
+		<div class="settings-value settings-w100" data-parent="f_show_search_input">
+			<div class="settings-value-label" >
+				<?php esc_html_e('Сollapse all when deleting', 'woo-product-filter'); ?>
+			</div>
+			<?php HtmlWpf::checkboxToggle('f_collapse_by_delete', array()); ?>
+		</div>
 	</div>
 </div>
 <div class="row-settings-block">

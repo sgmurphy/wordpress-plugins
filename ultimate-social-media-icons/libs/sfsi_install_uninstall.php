@@ -792,6 +792,12 @@ function sfsi_update_plugin()
         if (!isset($option5['sfsi_fbmessenger_MouseOverText']) || $option5['sfsi_fbmessenger_MouseOverText'] == 'FbMessenger') {
             $option5['sfsi_fbmessenger_MouseOverText']    = 'FbMessenger';
         }
+        if (!isset($option5['sfsi_ria_MouseOverText']) || $option5['sfsi_ria_MouseOverText'] == 'RateItAll') {
+            $option5['sfsi_ria_MouseOverText']    = 'RateItAll';
+        }
+        if (!isset($option5['sfsi_inha_MouseOverText']) || $option5['sfsi_inha_MouseOverText'] == 'IncreasingHappiness') {
+            $option5['sfsi_inha_MouseOverText']    = 'IncreasingHappiness';
+        }
         if (!isset($option5['sfsi_tiktok_MouseOverText']) || $option5['sfsi_tiktok_MouseOverText'] == 'Tiktok') {
             $option5['sfsi_tiktok_MouseOverText']    = 'Tiktok';
         }
@@ -1079,6 +1085,8 @@ function sfsi_activate_plugin()
             'sfsi_wechat_display' => 'no',
             'sfsi_weibo_display' => 'no',
             'sfsi_instagram_display' => 'no',
+            'sfsi_ria_display' => 'no',
+            'sfsi_inha_display' => 'no',
             'sfsi_linkedin_display' => 'no',
             'sfsi_youtube_display' => 'no',
             'sfsi_custom_display' => '',
@@ -1133,6 +1141,8 @@ function sfsi_activate_plugin()
             'sfsi_pinterest_pingBlog'    => '',
             'sfsi_instagram_page'        => 'no',
             'sfsi_instagram_pageUrl'     => '',
+            'sfsi_ria_pageUrl'     => '',
+            'sfsi_inha_pageUrl'     => '',
             'sfsi_linkedin_page'         => 'no',
             'sfsi_linkedin_pageURL'      => '',
             'sfsi_linkedin_follow'       => 'no',
@@ -1371,6 +1381,8 @@ function sfsi_activate_plugin()
             'sfsi_reddit_MouseOverText'  => 'Reddit',
             'sfsi_snapchat_MouseOverText'  => 'Snapchat',
             'sfsi_fbmessenger_MouseOverText'  => 'FbMessenger',
+            'sfsi_ria_MouseOverText'  => 'RateItAll',
+            'sfsi_inha_MouseOverText'  => 'IncreasingHappiness',
             'sfsi_tiktok_MouseOverText'  => 'Tiktok',
             'sfsi_mastodon_MouseOverText'  => 'Mastodon',
             'sfsi_custom_MouseOverTexts'  => '',

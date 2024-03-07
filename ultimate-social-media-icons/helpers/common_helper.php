@@ -300,6 +300,22 @@ function sfsi_flat_icon_color( $iconName, $option3 ) {
                 }
             break;
 
+            case "ria":
+                if ( isset( $option3['sfsi_ria_bgColor'] ) && $option3['sfsi_ria_bgColor'] != '' ) {
+                    $sfsi_icon_bgColor = $option3['sfsi_ria_bgColor'];
+                } else {
+                    $sfsi_icon_bgColor = '';
+                }
+                break;
+
+            case "inha":
+                if ( isset( $option3['sfsi_inha_bgColor'] ) && $option3['sfsi_inha_bgColor'] != '' ) {
+                    $sfsi_icon_bgColor = $option3['sfsi_inha_bgColor'];
+                } else {
+                    $sfsi_icon_bgColor = '';
+                }
+                break;
+
             case "snapchat":
                 if ( isset( $option3['sfsi_snapchat_bgColor'] ) && $option3['sfsi_snapchat_bgColor'] != '' ) {
                     $sfsi_icon_bgColor = $option3['sfsi_snapchat_bgColor'];

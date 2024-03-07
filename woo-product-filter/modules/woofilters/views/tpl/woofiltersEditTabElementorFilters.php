@@ -19,6 +19,7 @@ $wpfBrand = array(
 );
 
 $catArgs = array(
+	'taxonomy' => 'pwb-brand',
 	'orderby' => 'name',
 	'order' => 'asc',
 	'hide_empty' => false,
@@ -26,7 +27,7 @@ $catArgs = array(
 $brandDisplay = array();
 $parentBrands = array();
 if (taxonomy_exists('pwb-brand')) {
-	$productBrands = get_terms( 'pwb-brand', $catArgs );
+	$productBrands = get_terms( $catArgs );
 	foreach ($productBrands as $c) {
 		if (0 == $c->parent) {
 			array_push($parentBrands, $c->term_id);

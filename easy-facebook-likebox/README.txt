@@ -3,7 +3,7 @@ Contributors: DaNish Ali, maltathemes, sjaved
 Tags: Instagram feed, Instagram photos, Instagram gallery, Facebook feed, Facebook posts
 Requires at least: 3.3
 Tested up to: 6.4
-Stable tag: 6.5.4
+Stable tag: 6.5.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -174,6 +174,11 @@ http://wordpress.org/support/topic/need-feed-back-on-plugin-feature/
 23. Instagram skins/layouts panel
 
 == Changelog ==
+= 6.5.5 =
+* Added: New row layout for Facebook and Instagram
+* Fixed: Some minor issues
+* Fixed: Security issue
+
 = 6.5.4 =
 * Fixed: Security issues
 * Tested: With WordPress 6.4

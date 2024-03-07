@@ -860,6 +860,9 @@ class Soliloquy_Ajax {
 	 */
 	public function load_slider_data() {
 
+		// Run a security check first.
+		check_admin_referer( 'soliloquy-load-slider', 'nonce' );
+
 		// Prepare variables and grab the slider data.
 		$slider_id   = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : false;
 		$slider_data = get_post_meta( $slider_id, '_sol_slider_data', true );

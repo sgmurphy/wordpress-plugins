@@ -697,9 +697,11 @@ class Status {
 		// Feed Files
 		$feed_urls = $this->woo_feed_get_feed_file_list();
 //		$feed_urls = '';
-		if ( ! empty($feed_urls) ) {
-			$feed_urls = implode("\n",$feed_urls);
-		}
+        if ( ! empty($feed_urls) ) {
+            $feed_urls = implode("\n",$feed_urls);
+        }else{
+            $feed_urls = '';
+        }
 		$status_text .= "Feed Files\n";
 		$status_text .= $feed_urls;
 
