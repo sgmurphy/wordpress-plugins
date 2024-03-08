@@ -253,8 +253,6 @@ if(!isset($patterns[$view->post->post_type]) && isset($patterns['custom'])){
 
 					        <?php } ?>
 
-
-
                         </div>
 
                     </div>

@@ -2,14 +2,14 @@
 Contributors: Jeremy Massel
 Tags: construction, under construction, private, preview, security, coming soon
 Requires at least: 2.7
-Tested up to: 5.9
-Stable tag: 1.21
+Tested up to: 6.4
+Stable tag: 1.22
 
 Creates a 'Coming Soon' page that will show for all users who are not logged in
 
 == Description ==
 
-[Check out the latest WordPress deals for your site.](https://appsumo.com/search?tags=wordpress&utm_source=sumo&utm_medium=wp-widget&utm_campaign=underconstruction)  
+[Check out the latest WordPress deals for your site.](https://appsumo.com/search?tags=wordpress&utm_source=sumo&utm_medium=wp-widget&utm_campaign=social-media-widget)  
 
 Creates a 'Coming Soon' page that will show for all users who are not logged in. Useful for developing a site on a live server, without the world being able to see it
 
@@ -43,6 +43,9 @@ I've had a few people ask me this. If you like it, please go to WordPress.org an
 Sorry, I get a lot of questions. But visit the homepage for this plugin and leave me a comment. They go right to my inbox, and well I might not be able to for a few days, I promise I'll get back to you.
 
 == Changelog ==
+= 1.22 =
+* Address XSS vulnerability on admin inputs.
+
 = 1.21 =
 * Improve input sanitation.
 

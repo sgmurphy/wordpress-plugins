@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by kadencewp on 23-February-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by kadencewp on 07-March-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */ declare(strict_types=1);
 
 /*
@@ -22,7 +22,7 @@ use KadenceWP\KadenceBlocks\Monolog\Formatter\FormatterInterface;
 use KadenceWP\KadenceBlocks\Monolog\Formatter\LineFormatter;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mailer\Transport\TransportInterface;
-use Symfony\Component\Mime\Email;
+use KadenceWP\KadenceBlocks\Symfony\Component\Mime\Email;
 
 /**
  * SymfonyMailerHandler uses Symfony's Mailer component to send the emails

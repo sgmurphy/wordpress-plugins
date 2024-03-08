@@ -153,7 +153,7 @@ class Wpvivid_BackupUploader
         try {
             if(isset($_POST['incomplete_backup'])&&!empty($_POST['incomplete_backup']))
             {
-                $json = $_POST['incomplete_backup'];
+                $json = sanitize_text_field($_POST['incomplete_backup']);
                 $json = stripslashes($json);
                 $incomplete_backup = json_decode($json, true);
 
@@ -271,8 +271,8 @@ class Wpvivid_BackupUploader
 
         try
         {
-            $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
-            $chunks = isset($_REQUEST["chunks"]) ? intval($_REQUEST["chunks"]) : 0;
+            $chunk = isset($_REQUEST["chunk"]) ? intval(sanitize_key($_REQUEST["chunk"])) : 0;
+            $chunks = isset($_REQUEST["chunks"]) ? intval(sanitize_key($_REQUEST["chunks"])) : 0;
 
             $fileName = isset($_REQUEST["name"]) ? sanitize_text_field($_REQUEST["name"]) : $_FILES["file"]["name"];
 
@@ -344,7 +344,8 @@ class Wpvivid_BackupUploader
         $ret['html']=false;
         if(isset($_POST['files']))
         {
-            $files =stripslashes($_POST['files']);
+            $files=sanitize_text_field($_POST['files']);
+            $files =stripslashes($files);
             $files =json_decode($files,true);
             if(is_null($files))
             {

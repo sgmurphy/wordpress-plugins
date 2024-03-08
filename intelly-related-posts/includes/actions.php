@@ -8,7 +8,7 @@ function irp_do_action() {
     global $irp;
 
     load_plugin_textdomain(IRP_PLUGIN_SLUG, false, dirname( plugin_basename(__FILE__ ) ) . '/../languages');
-    
+
     $action = $irp->Utils->qs('irp_action');
     $irp->Log->info('[actions::irp_do_action] Action: %s', $action);
     switch($action) {
@@ -19,9 +19,15 @@ function irp_do_action() {
             call_irp_ui_box_preview($irp);
             break;
         case 'manager_trackingOn':
+            if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'manager_tracking' ) ) {
+                exit;
+            }
             call_irp_manager_trackingOn($irp);
             break;
         case 'manager_trackingOff':
+            if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'manager_tracking' ) ) {
+                exit;
+            }
             call_irp_manager_trackingOff($irp);
             break;
         case '':

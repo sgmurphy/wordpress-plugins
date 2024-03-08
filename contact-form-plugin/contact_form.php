@@ -6,7 +6,7 @@ Description: Simple contact form plugin any WordPress website must have.
 Author: BestWebSoft
 Text Domain: contact-form-plugin
 Domain Path: /languages
-Version: 4.2.8
+Version: 4.2.9
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
  */
@@ -417,7 +417,7 @@ if ( ! function_exists( 'cntctfrm_settings' ) ) {
 						$options_main = get_option( 'cntctfrmmltpr_options_main' );
 					}
 
-					if ( 1 === $id && 1 === count( $options_main['name_id_form'] ) ) {
+					if ( 1 === $id && ! empty( $options_main['name_id_form'] ) && 1 === count( $options_main['name_id_form'] ) ) {
 						add_option( 'cntctfrmmlt_options_1', get_option( 'cntctfrm_options' ) );
 						$cntctfrm_options = get_option( 'cntctfrmmlt_options_1' );
 					} else {
@@ -1097,7 +1097,7 @@ if ( ! function_exists( 'cntctfrm_display_form' ) ) {
 									$content .= '<div class="cntctfrm_error_text">' . $cntctfrm_error_message['error_name'] . '</div>';
 								}
 								$content .= '<div class="cntctfrm_input cntctfrm_input_name">
-									<input ' . apply_filters( 'cntctfrm_readonly', 'namecontact' ) . ' class="text" type="text" size="40" pattern="^[\p{L}\p{M}]{3,}(\s\p{M}*\p{L}+)*" title="' . __( 'Please enter only letters at least 3 characters, words seperated by spaces', 'contact-form-plugin' ) . '" value="' . $name . '" name="cntctfrm_contact_name" id="cntctfrm_contact_name' . $form_countid . '" />';
+									<input ' . apply_filters( 'cntctfrm_readonly', 'namecontact' ) . ' class="text" type="text" size="40" pattern="^[\p{L}\p{M}]{3,}(\s\p{M}*\p{L}+)*" title="' . __( 'Please enter only letters at least 3 characters, words seperated by spaces', 'contact-form-plugin' ) . '" value="' .esc_html( $name ) . '" name="cntctfrm_contact_name" id="cntctfrm_contact_name' . $form_countid . '" />';
 								$content .= '</div>';
 								$content .= '</div>';
 							}
@@ -1111,7 +1111,7 @@ if ( ! function_exists( 'cntctfrm_display_form' ) ) {
 									$content .= '<div class="cntctfrm_error_text">' . $cntctfrm_error_message['error_address'] . '</div>';
 								}
 								$content .= '<div class="cntctfrm_input cntctfrm_input_address">
-									<input class="text" type="text" size="40" pattern="([\p{L}\p{M}\s0-9]){1,120}" title="' . __( 'Please enter only letters and numbers at least 3 characters, words seperated by spaces', 'contact-form-plugin' ) . '" value="' . $address . '" name="cntctfrm_contact_address" id="cntctfrm_contact_address' . $form_countid . '" />';
+									<input class="text" type="text" size="40" pattern="([\p{L}\p{M}\s0-9]){1,120}" title="' . __( 'Please enter only letters and numbers at least 3 characters, words seperated by spaces', 'contact-form-plugin' ) . '" value="' . esc_html( $address ) . '" name="cntctfrm_contact_address" id="cntctfrm_contact_address' . $form_countid . '" />';
 								$content .= '</div>';
 								$content .= '</div>';
 							}
@@ -1125,7 +1125,7 @@ if ( ! function_exists( 'cntctfrm_display_form' ) ) {
 								$content .= '<div class="cntctfrm_error_text">' . $cntctfrm_error_message['error_email'] . '</div>';
 							}
 							$content .= '<div class="cntctfrm_input cntctfrm_input_email">
-									<input ' . apply_filters( 'cntctfrm_readonly', 'email' ) . ' class="text" type="email" size="40" value="' . $email . '" name="cntctfrm_contact_email" id="cntctfrm_contact_email' . $form_countid . '" />';
+									<input ' . apply_filters( 'cntctfrm_readonly', 'email' ) . ' class="text" type="email" size="40" value="' . esc_html( $email ) . '" name="cntctfrm_contact_email" id="cntctfrm_contact_email' . $form_countid . '" />';
 							$content .= '</div>';
 							$content .= '</div>';
 							break;
@@ -1139,7 +1139,7 @@ if ( ! function_exists( 'cntctfrm_display_form' ) ) {
 									$content .= '<div class="cntctfrm_error_text">' . $cntctfrm_error_message['error_phone'] . '</div>';
 								}
 								$content .= '<div class="cntctfrm_input cntctfrm_input_phone">
-									<input class="text" type="text" size="40" value="' . $phone . '" pattern="[0-9]{6,}" title="' . __( 'Please enter only numbers at least 6 characters', 'contact-form-plugin' ) . '" name="cntctfrm_contact_phone" id="cntctfrm_contact_phone' . $form_countid . '" />';
+									<input class="text" type="text" size="40" value="' . esc_html( $phone ) . '" pattern="[0-9]{6,}" title="' . __( 'Please enter only numbers at least 6 characters', 'contact-form-plugin' ) . '" name="cntctfrm_contact_phone" id="cntctfrm_contact_phone' . $form_countid . '" />';
 								$content .= '</div>';
 								$content .= '</div>';
 							}
@@ -1153,7 +1153,7 @@ if ( ! function_exists( 'cntctfrm_display_form' ) ) {
 								$content .= '<div class="cntctfrm_error_text">' . $cntctfrm_error_message['error_subject'] . '</div>';
 							}
 							$content .= '<div class="cntctfrm_input cntctfrm_input_subject">
-								<input ' . apply_filters( 'cntctfrm_readonly', 'subject' ) . ' pattern="^[\p{M}\p{L}]{3,}(\s\p{M}*\p{L}+)*" title="' . __( 'Please enter only letters at least 3 characters, words seperated by spaces', 'contact-form-plugin' ) . '" class="text" type="text" size="40" value="' . $subject . '" name="cntctfrm_contact_subject" id="cntctfrm_contact_subject' . $form_countid . '" />';
+								<input ' . apply_filters( 'cntctfrm_readonly', 'subject' ) . ' pattern="^[\p{M}\p{L}]{3,}(\s\p{M}*\p{L}+)*" title="' . __( 'Please enter only letters at least 3 characters, words seperated by spaces', 'contact-form-plugin' ) . '" class="text" type="text" size="40" value="' . esc_html( $subject ) . '" name="cntctfrm_contact_subject" id="cntctfrm_contact_subject' . $form_countid . '" />';
 							$content .= '</div>';
 							$content .= '</div>';
 							break;
@@ -1178,7 +1178,7 @@ if ( ! function_exists( 'cntctfrm_display_form' ) ) {
 								$message_limit_string = 'maxlength="' . $max_length . '"';
 							}
 							$content .= '<div class="cntctfrm_input cntctfrm_input_message">
-								<textarea ' . apply_filters( 'cntctfrm_readonly', 'message' ) . ' rows="5" cols="30"' . ( 1 === $cntctfrm_options['message_limit'] ? $message_limit_string : '' ) . 'name="cntctfrm_contact_message" id="cntctfrm_contact_message' . $form_countid . '">' . $message . '</textarea>';
+								<textarea ' . apply_filters( 'cntctfrm_readonly', 'message' ) . ' rows="5" cols="30"' . ( 1 === $cntctfrm_options['message_limit'] ? $message_limit_string : '' ) . 'name="cntctfrm_contact_message" id="cntctfrm_contact_message' . $form_countid . '">' . wp_kses_post( $message ) . '</textarea>';
 							$content .= '</div>';
 							$content .= '</div>';
 							break;
@@ -1583,7 +1583,7 @@ if ( ! function_exists( 'cntctfrm_check_form' ) ) {
 		/* If captcha plugin exists */
 		$result = true;
 		if ( has_filter( 'cntctfrm_check_form' ) ) {
-			$result = apply_filters( 'cntctfrm_check_form', true );
+			$result = apply_filters( 'cntctfrm_check_form', array( true, 'string', 'bws_contact' ) );
 		}
 
 		cntctfrm_handle_captcha_filters( 'add_filters', $removed_filters );

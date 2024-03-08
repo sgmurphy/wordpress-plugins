@@ -1,49 +1,22 @@
 msgid "Settings"
 msgstr ""
 
-msgid "This plugin adds <strong>I am not a robot</strong> checkbox to Contact Form 7, extending its functionality (not affiliated with the Contact Form 7 plugin)."
-msgstr ""
-
-msgid "To add Captcha to Contact Form 7 form, add <strong>[cf7sr-simple-recaptcha]</strong> in your form ( preferable above submit button )"
-msgstr ""
-
-msgid "The plugin will not work unless you set up the configuration below"
-msgstr ""
-
 msgid "Invalid captcha error message"
 msgstr ""
 
 msgid "Save Settings"
 msgstr ""
 
-msgid "Get Captcha Pro and Unlock all the Powerful Features"
+msgid "Get Captcha Pro and unlock premium features"
 msgstr ""
 
-msgid "Trusted by more than 100,000 businesses worldwide. The Pro version is even better!"
-msgstr ""
-
-msgid "Check out the cool new features."
-msgstr ""
-
-msgid "WPML and POLYLANG language integration"
-msgstr ""
-
-msgid "Render captcha widget in a specific language, choose from 70 languages."
-msgstr ""
-
-msgid "Switch between the color theme of the widget, light or dark."
-msgstr ""
-
-msgid "Switch between the type of the widget, image or audio."
-msgstr ""
-
-msgid "Switch between the size of the widget, normal or compact."
+msgid "Trusted by more than 100,000 businesses worldwide. PRO version is even better!"
 msgstr ""
 
 msgid "Redirect users to any url after mail sent successfully."
 msgstr ""
 
-msgid "Integrate powerful honeypot protection into your forms for stronger security."
+msgid "Integrate additional Honeypot protection into your forms for stronger security."
 msgstr ""
 
 msgid "Define a list of restricted words. Messages containing restricted words will not be sent."
@@ -68,5 +41,50 @@ msgid "Use this link to generate"
 msgstr ""
 
 msgid "Choose"
+msgstr ""
+
+msgid "Updated successfully!"
+msgstr ""
+
+msgid "PRO features:"
+msgstr ""
+
+msgid "Contact Form 7 Captcha plugin updated to support reCAPTCHA and hCAPTCHA."
+msgstr ""
+
+msgid "You can combine multiple attributes, sample shortcode:"
+msgstr ""
+
+msgid "reCaptcha will not work unless you set up the configuration below"
+msgstr ""
+
+msgid "To add reCaptcha to Contact Form 7 form, add <strong>[cf7sr-recaptcha]</strong> in your form ( preferable above submit button )"
+msgstr ""
+
+msgid "Force reCaptcha to render in a specific language. Google auto-detects if unspecified."
+msgstr ""
+
+msgid "Default size of reCaptcha is normal, for compact size use shortcode:"
+msgstr ""
+
+msgid "Default color theme of reCaptcha is light, for dark theme use shortcode:"
+msgstr ""
+
+msgid "Default type of reCaptcha is image, for audio type use shortcode:"
+msgstr ""
+
+msgid "hCaptcha will not work unless you set up the configuration below"
+msgstr ""
+
+msgid "To add hCaptcha to Contact Form 7 form, add <strong>[cf7sr-hcaptcha]</strong> in your form ( preferable above submit button )"
+msgstr ""
+
+msgid "Force hCaptcha to render in a specific language. Google auto-detects if unspecified."
+msgstr ""
+
+msgid "Default size of hCaptcha is normal, for compact size use shortcode:"
+msgstr ""
+
+msgid "Default color theme of hCaptcha is light, for dark theme use shortcode:"
 msgstr ""
 

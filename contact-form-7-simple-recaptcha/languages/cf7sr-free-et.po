@@ -1,71 +1,89 @@
 msgid "Settings"
 msgstr "Seaded"
 
-msgid "This plugin adds <strong>I am not a robot</strong> checkbox to Contact Form 7, extending its functionality (not affiliated with the Contact Form 7 plugin)."
-msgstr "Plugin lisab Contact Form 7 vormile märkeruudu <strong>Ma ei ole robotv</strong>, laiendades selle funktsionaalsust (pole seotud Contact Form 7 pluginaga)."
-
-msgid "To add Captcha to Contact Form 7 form, add <strong>[cf7sr-simple-recaptcha]</strong> in your form ( preferable above submit button )"
-msgstr "Captcha lisamiseks Contact Form 7 vormile, lisa oma vormile  (eelistatavalt saatmisnupu kohale)  lühikood <strong>[cf7sr-simple-recaptcha]</strong>. "
-
-msgid "The plugin will not work unless you set up the configuration below"
-msgstr "Plugin ei tööta, kui Sa ei seadista allpool olevaid sätteid"
-
 msgid "Invalid captcha error message"
-msgstr "Vale Captcha veateade"
+msgstr "Vale CAPTCHA veateade"
 
 msgid "Save Settings"
 msgstr "Salvesta seaded"
 
-msgid "Get Captcha Pro and Unlock all the Powerful Features"
-msgstr "Hangi Captcha Pro ja kasuta kõiki võimsaid funktsioone"
+msgid "Get Captcha Pro and unlock premium features"
+msgstr "Hangi Captcha Pro ja ava lisafunktsioonid"
 
-msgid "Trusted by more than 100,000 businesses worldwide. The Pro version is even better!"
-msgstr "Seda usaldavad rohkem kui 100 000 ettevõtet üle maailma. Pro versioon on veelgi parem!"
-
-msgid "Check out the cool new features."
-msgstr "Tutvu lahedate uute funktsioonidega."
-
-msgid "WPML and POLYLANG language integration"
-msgstr "WPML-i ja POLYLANG-i keeleintegratsioon"
-
-msgid "Render captcha widget in a specific language, choose from 70 languages."
-msgstr "Kuva Captcha vidin konkreetses keeles, valikus on 70 keelt."
-
-msgid "Switch between the color theme of the widget, light or dark."
-msgstr "Lülitu vidina heleda ja tumeda värviteema vahel."
-
-msgid "Switch between the type of the widget, image or audio."
-msgstr "Lülitu vidina tüübi vahel, pilt või heli."
-
-msgid "Switch between the size of the widget, normal or compact."
-msgstr "Lülitu vidina suuruse vahel, tavaline või kompaktne."
+msgid "Trusted by more than 100,000 businesses worldwide. PRO version is even better!"
+msgstr "Usaldavad seda rohkem kui 100 000 ettevõtet terves maailmas. PRO-versioon on isegi veelgi parem!"
 
 msgid "Redirect users to any url after mail sent successfully."
-msgstr "Suuna kasutajad pärast e-kirja edukat saatmist mis tahes URL-ile."
+msgstr "Suuna kasutajad pärast e-posti edukat saatmist ükskõik millisele URL-ile."
 
-msgid "Integrate powerful honeypot protection into your forms for stronger security."
-msgstr "Lõimige oma vormidesse võimas honeypot-kaitse, et tugevdada turvalisust."
+msgid "Integrate additional Honeypot protection into your forms for stronger security."
+msgstr "Tugevama turvalisuse tagamiseks integreerige oma vormidesse täiendav Honeypot-kaitse."
 
 msgid "Define a list of restricted words. Messages containing restricted words will not be sent."
-msgstr "Määratle piiratud sõnade loend. Piiratud sõnu sisaldavaid sõnumeid ei saadeta."
+msgstr "Määratlege piiratud sõnade loend. Sõnumeid, mis sisaldavad piiratud sõnu, ei saadeta."
 
 msgid "Get IP Blocker access to block messages from malicious IP addresses."
-msgstr "Hangi IP Blocker juurdepääs, et blokeerida sõnumid pahatahtlikelt IP-aadressidelt."
+msgstr "Hangi IP Blockeri juurdepääs, et blokeerida pahatahtlike IP-aadresside sõnumid."
 
 msgid "Use rate limiting to manage how often forms can be submitted and prevent abuse."
-msgstr "Kasutage sageduse piiramist, et hallata, kui tihti vorme saab esitada, ja vältida kuritarvitamist."
+msgstr "Kasuta kiiruse piiramist, et kontrollida, kui tihti vorme saab esitada, ja vältida kuritarvitamist."
 
 msgid "Enable automatic saving of Contact Form 7 messages to your database."
 msgstr "Luba Contact Form 7 sõnumite automaatne salvestamine andmebaasi."
 
 msgid "Use Twilio SMS to receive new form submission notifications directly to your phone."
-msgstr "Kasutage Twilio SMS-i, et saada telefoni otse uute vormide esitamise teateid."
+msgstr "Kasuta Twilio SMS-i, et saada uusi vormiesituse teateid otse oma telefoni."
 
 msgid "Transfer data from contact form submissions directly into your Mailchimp list."
-msgstr "Kanna andmed kontaktvormi esitustest otse oma Mailchimpi nimekirja."
+msgstr "Kandevormi esitamise andmed otse oma Mailchimpi nimekirja."
 
 msgid "Use this link to generate"
-msgstr "Kasuta seda linki genereerimiseks"
+msgstr "Selle lingi abil saate genereerida"
 
 msgid "Choose"
 msgstr "Vali"
+
+msgid "Updated successfully!"
+msgstr "Edukalt uuendatud!"
+
+msgid "PRO features:"
+msgstr "PRO funktsioonid:"
+
+msgid "Contact Form 7 Captcha plugin updated to support reCAPTCHA and hCaptcha."
+msgstr "Contact Form 7 Captcha pistikprogramm on uuendatud, et toetada reCAPTCHA-d ja hCaptcha-d."
+
+msgid "You can combine multiple attributes, sample shortcode:"
+msgstr "Saate kombineerida mitu atribuuti, näidis-lühikood:"
+
+msgid "reCaptcha will not work unless you set up the configuration below"
+msgstr "reCaptcha ei tööta, kui te ei seadista allpool toodud konfiguratsiooni"
+
+msgid "To add reCaptcha to Contact Form 7 form, add <strong>[cf7sr-recaptcha]</strong> in your form ( preferable above submit button )"
+msgstr "ReCaptcha lisamiseks Contact Form 7 vormile lisage oma vormile  <strong>[cf7sr-recaptcha]</strong> (eelistatavalt üle esitamise nupu)"
+
+msgid "Force reCaptcha to render in a specific language. Google auto-detects if unspecified."
+msgstr "Sundige reCaptcha-d renderdama kindlas keeles. Google tuvastab selle automaatselt, kui seda ei ole määratud."
+
+msgid "Default size of reCaptcha is normal, for compact size use shortcode:"
+msgstr "ReCaptcha vaike suurus on normaalne, kompaktse suuruse jaoks kasutage lühikoodi:"
+
+msgid "Default color theme of reCaptcha is light, for dark theme use shortcode:"
+msgstr "ReCaptcha vaikimisi värviteema on hele, tumeda teema jaoks kasuta lühikoodi:"
+
+msgid "Default type of reCaptcha is image, for audio type use shortcode:"
+msgstr "ReCaptcha vaike tüüp on pilt, audiotüübi jaoks kasutage lühikoodi:"
+
+msgid "hCaptcha will not work unless you set up the configuration below"
+msgstr "hCaptcha ei tööta, kui te ei seadista allpool toodud konfiguratsiooni"
+
+msgid "To add hCaptcha to Contact Form 7 form, add <strong>[cf7sr-hcaptcha]</strong> in your form ( preferable above submit button )"
+msgstr "HCaptcha lisamiseks Contact Form 7 vormile lisage oma vormile  <strong>[cf7sr-hcaptcha]</strong> (eelistatavalt üle esitamise nupu)"
+
+msgid "Force hCaptcha to render in a specific language. Google auto-detects if unspecified."
+msgstr "Sundige hCaptcha-d renderdama kindlas keeles. Google tuvastab selle automaatselt, kui seda ei ole määratud."
+
+msgid "Default size of hCaptcha is normal, for compact size use shortcode:"
+msgstr "HCaptcha vaike suurus on normaalne, kompaktse suuruse jaoks kasutage lühikoodi:"
+
+msgid "Default color theme of hCaptcha is light, for dark theme use shortcode:"
+msgstr "HCaptcha vaikimisi värviteema on hele, tumeda teema jaoks kasutage lühikoodi:"

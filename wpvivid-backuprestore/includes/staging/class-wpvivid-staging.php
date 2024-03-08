@@ -464,15 +464,15 @@ class WPvivid_Staging_Free
         $wpvivid_plugin->ajax_check_security();
         try {
             if (isset($_POST['is_staging'])) {
-                $is_staging = $_POST['is_staging'];
+                $is_staging = sanitize_key($_POST['is_staging']);
 
                 $node_array = array();
-
-                if ($_POST['tree_node']['node']['id'] == '#') {
+                $node_id=sanitize_text_field($_POST['tree_node']['node']['id']);
+                if ($node_id == '#') {
                     $path = ABSPATH;
 
                     if (!empty($_POST['tree_node']['path'])) {
-                        $path = $_POST['tree_node']['path'];
+                        $path = sanitize_text_field($_POST['tree_node']['path']);
                     }
 
                     if (isset($_POST['select_prev_dir']) && $_POST['select_prev_dir'] === '1') {
@@ -489,7 +489,7 @@ class WPvivid_Staging_Free
                         )
                     );
                 } else {
-                    $path = $_POST['tree_node']['node']['id'];
+                    $path = sanitize_text_field($_POST['tree_node']['node']['id']);
                 }
 
                 if (file_exists($path)) {
@@ -572,14 +572,14 @@ class WPvivid_Staging_Free
         $wpvivid_plugin->ajax_check_security();
         try{
             if (isset($_POST['is_staging'])) {
-                $is_staging = $_POST['is_staging'];
+                $is_staging = sanitize_key($_POST['is_staging']);
                 $node_array = array();
-
-                if ($_POST['tree_node']['node']['id'] == '#') {
+                $node_id=sanitize_text_field($_POST['tree_node']['node']['id']);
+                if ( $node_id== '#') {
                     $path = ABSPATH;
 
                     if (!empty($_POST['tree_node']['path'])) {
-                        $path = $_POST['tree_node']['path'];
+                        $path = sanitize_text_field($_POST['tree_node']['path']);
                     }
 
                     $node_array[] = array(
@@ -592,7 +592,7 @@ class WPvivid_Staging_Free
                         )
                     );
                 } else {
-                    $path = $_POST['tree_node']['node']['id'];
+                    $path = sanitize_text_field($_POST['tree_node']['node']['id']);
                 }
 
                 if (file_exists($path)) {
@@ -674,7 +674,7 @@ class WPvivid_Staging_Free
                 if ($_POST['is_staging'] == '1')
                 {
                     $is_staging_site = true;
-                    $staging_site_id = $_POST['id'];
+                    $staging_site_id = sanitize_key($_POST['id']);
 
                     $task = new WPvivid_Staging_Task($staging_site_id);
                     $ret = $this->get_staging_directory_info($task->get_site_path());
@@ -696,7 +696,7 @@ class WPvivid_Staging_Free
                 //}
             }
 
-            $themes_path = $is_staging_site == false ? get_theme_root() : $_POST['staging_path'] . DIRECTORY_SEPARATOR . 'wp-content' . DIRECTORY_SEPARATOR . 'themes';
+            $themes_path = $is_staging_site == false ? get_theme_root() : sanitize_text_field($_POST['staging_path']) . DIRECTORY_SEPARATOR . 'wp-content' . DIRECTORY_SEPARATOR . 'themes';
 
             $exclude_themes_list = '';
 
@@ -715,7 +715,7 @@ class WPvivid_Staging_Free
 
                 if(isset($_POST['subsite']))
                 {
-                    switch_to_blog($_POST['subsite']);
+                    switch_to_blog(sanitize_key($_POST['subsite']));
                     $ct = wp_get_theme();
                     if( $ct->get_stylesheet()==$file)
                     {
@@ -759,7 +759,7 @@ class WPvivid_Staging_Free
             }
 
             $exclude_plugin_list = '';
-            $path = $is_staging_site == false ? WP_PLUGIN_DIR : $_POST['staging_path'] . DIRECTORY_SEPARATOR . 'wp-content' . DIRECTORY_SEPARATOR . 'plugins';
+            $path = $is_staging_site == false ? WP_PLUGIN_DIR : sanitize_text_field($_POST['staging_path']) . DIRECTORY_SEPARATOR . 'wp-content' . DIRECTORY_SEPARATOR . 'plugins';
             $plugin_info = array();
 
             if (!function_exists('get_plugins'))
@@ -768,7 +768,7 @@ class WPvivid_Staging_Free
 
             if(isset($_POST['subsite']))
             {
-                switch_to_blog($_POST['subsite']);
+                switch_to_blog(sanitize_key($_POST['subsite']));
                 $current   = get_option( 'active_plugins', array() );
                 restore_current_blog();
             }
@@ -856,7 +856,7 @@ class WPvivid_Staging_Free
             global $wpdb;
             $db = array();
             $use_additional_db = false;
-            $staging_site_id = $_POST['id'];
+            $staging_site_id = sanitize_key($_POST['id']);
             if(empty($_POST['id']))
             {
                 $get_site_mu_single=false;
@@ -1523,10 +1523,15 @@ class WPvivid_Staging_Free
         }
         else
         {
-            $user_data = get_user_by( 'login', $_POST['log'] );
+            $user_data = get_user_by( 'login', sanitize_user($_POST['log']) );
 
             if( !$user_data ) {
-                $user_data = get_user_by( 'email', $_POST['log'] );
+                $user_data = get_user_by( 'email', sanitize_email($_POST['log']) );
+                $log=sanitize_email($_POST['log']);
+            }
+            else
+            {
+                $log=sanitize_user($_POST['log']);
             }
 
             if( $user_data )
@@ -1537,13 +1542,14 @@ class WPvivid_Staging_Free
                     $rememberme = isset( $_POST['rememberme'] ) ? true : false;
 
                     wp_set_auth_cookie( $user_data->ID, $rememberme );
-                    wp_set_current_user( $user_data->ID, $_POST['log'] );
-                    do_action( 'wp_login', $_POST['log'], get_userdata( $user_data->ID ) );
+                    wp_set_current_user( $user_data->ID, $log );
+                    do_action( 'wp_login', $log, get_userdata( $user_data->ID ) );
 
                     $redirect_to = get_site_url() . '/wp-admin/';
 
                     if( !empty( $_POST['redirect_to'] ) ) {
-                        $redirectTo = wp_safe_redirect($_POST['redirect_to']);
+                        $url=sanitize_url($_POST['redirect_to']);
+                        $redirectTo = wp_safe_redirect($url);
                     }
 
                     header( 'Location:' . $redirectTo );
@@ -1571,7 +1577,7 @@ class WPvivid_Staging_Free
         $wpvivid_plugin->ajax_check_security();
         try {
             if (isset($_POST['id'])) {
-                $id = $_POST['id'];
+                $id = sanitize_key($_POST['id']);
             } else {
                 die();
             }
@@ -1615,7 +1621,7 @@ class WPvivid_Staging_Free
         $wpvivid_plugin->ajax_check_security();
         try {
             if (isset($_POST['staging_site_info'])) {
-                $json = $_POST['staging_site_info'];
+                $json = sanitize_text_field($_POST['staging_site_info']);
                 $json = stripslashes($json);
                 $staging_site_info = json_decode($json, true);
                 $site_path = $staging_site_info['staging_path'];
@@ -1813,7 +1819,7 @@ class WPvivid_Staging_Free
 
             if(isset($_POST['additional_db']))
             {
-                $additional_db_json = $_POST['additional_db'];
+                $additional_db_json = sanitize_text_field($_POST['additional_db']);
                 $additional_db_json = stripslashes($additional_db_json);
                 $additional_db_options = json_decode($additional_db_json, true);
                 if($additional_db_options['additional_database_check'] === '1')
@@ -2195,7 +2201,7 @@ class WPvivid_Staging_Free
         $wpvivid_plugin->ajax_check_security();
         try {
             if (isset($_POST['database_info']) && !empty($_POST['database_info']) && is_string($_POST['database_info'])) {
-                $data = $_POST['database_info'];
+                $data = sanitize_text_field($_POST['database_info']);
                 $data = stripslashes($data);
                 $json = json_decode($data, true);
                 $db_user = sanitize_text_field($json['db_user']);
@@ -2353,11 +2359,11 @@ class WPvivid_Staging_Free
             {
                 if(isset($_POST['path']) && isset($_POST['table_prefix']) && isset($_POST['custom_dir']) && isset($_POST['additional_db']))
                 {
-                    $json = $_POST['custom_dir'];
+                    $json = sanitize_text_field($_POST['custom_dir']);
                     $json = stripslashes($json);
                     $staging_options = json_decode($json, true);
 
-                    $additional_db_json = $_POST['additional_db'];
+                    $additional_db_json = sanitize_text_field($_POST['additional_db']);
                     $additional_db_json = stripslashes($additional_db_json);
                     $additional_db_options = json_decode($additional_db_json, true);
 
@@ -2386,7 +2392,7 @@ class WPvivid_Staging_Free
                     $option['data']['path']['src_path'] = $src_path;
                     $option['data']['path']['des_path'] = $des_path;
 
-                    $table_prefix = $_POST['table_prefix'];
+                    $table_prefix = sanitize_text_field($_POST['table_prefix']);
 
                     $option['data']['restore'] = false;
                     $option['data']['copy']=false;
@@ -2449,7 +2455,7 @@ class WPvivid_Staging_Free
         try {
             if(isset($_POST['id']))
             {
-                $task_id = $_POST['id'];
+                $task_id = sanitize_key($_POST['id']);
                 update_option('wpvivid_current_running_staging_task', $task_id);
                 $ret['result'] = 'success';
                 echo json_encode($ret);

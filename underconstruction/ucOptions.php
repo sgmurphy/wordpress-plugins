@@ -320,11 +320,11 @@ if (array_key_exists('underconstruction_global_notification', $_GET) && $_GET['u
 				<table>
 					<tr valign="top">
 						<th scope="row"><label for="pageTitle"> <?php _e('Page Title', 'underconstruction');?> </label></th>
-						<td><input name="pageTitle" type="text" id="pageTitle" value="<?php echo $this->getCustomPageTitle(); ?>" class="regular-text" size="50"></td>
+						<td><input name="pageTitle" type="text" id="pageTitle" value="<?php echo esc_attr($this->getCustomPageTitle()); ?>" class="regular-text" size="50"></td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><label for="headerText"> <?php _e('Header Text', 'underconstruction');?> </label></th>
-						<td><input name="headerText" type="text" id="headerText" value="<?php echo $this->getCustomHeaderText(); ?>" class="regular-text" size="50"></td>
+						<td><input name="headerText" type="text" id="headerText" value="<?php echo esc_attr($this->getCustomHeaderText()); ?>" class="regular-text" size="50"></td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><label for="bodyText"> <?php _e('Body Text', 'underconstruction');?> </label></th>

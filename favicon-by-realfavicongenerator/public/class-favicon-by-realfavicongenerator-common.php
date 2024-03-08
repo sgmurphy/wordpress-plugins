@@ -355,20 +355,22 @@ class Favicon_By_RealFaviconGenerator_Common {
 		);
 	}
 
-	// See http://webcheatsheet.com/php/get_current_page_url.php
+	// See https://wordpress.stackexchange.com/questions/406097/why-is-wp-request-empty-in-wordpress-6-0#answer-406101
 	public function current_page_url() {
-		// See https://mekshq.com/get-current-page-url-wordpress/
-		global $wp;
-		$current_url = home_url( add_query_arg( array(), $wp->request ) );
-		return $current_url;
+		$url =  "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+		$path = parse_url( $url, PHP_URL_PATH );
+		return add_query_arg( $wp->query_vars, $path );
 	}
 
-	public function add_parameter_to_current_url( $param_and_value ) {
+	public function add_parameter_to_current_url( $param_and_value, $nonce_parameter, $nonce_action_name ) {
 		$url = $this->current_page_url();
+
+		$nonce_parameter = '&' . $nonce_parameter . '=' . wp_create_nonce( $nonce_action_name );
+
 		if ( strpos( $url, '?' ) !== false ) {
-			return $url . '&' . $param_and_value;
+			return $url . '&' . $param_and_value . $nonce_parameter;
 		} else {
-			return $url . '?' . $param_and_value;
+			return $url . '?' . $param_and_value . $nonce_parameter;
 		}
 	}
 

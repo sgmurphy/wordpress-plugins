@@ -2,7 +2,7 @@
 /**
  * @license GPL-2.0-only
  *
- * Modified by kadencewp on 23-February-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by kadencewp on 07-March-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */ declare(strict_types=1);
 
 namespace KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\ImageDownloader;
@@ -13,6 +13,7 @@ use KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\ImageDownloader\Models\Do
 use KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\ImageDownloader\Models\ResponseAdapter;
 use KadenceWP\KadenceBlocks\StellarWP\ProphecyMonorepo\ImageDownloader\Sanitization\FileNameSanitizer;
 use KadenceWP\KadenceBlocks\Symfony\Component\Filesystem\Filesystem;
+use KadenceWP\KadenceBlocks\Symfony\Component\HttpFoundation\File\File;
 use KadenceWP\KadenceBlocks\Symfony\Contracts\HttpClient\HttpClientInterface;
 use Throwable;
 
@@ -61,6 +62,25 @@ final class ImageDownloader
 	 */
 	private $seo_names = true;
 	/**
+	 * @var string[]
+	 *
+	 * @readonly
+	 */
+	private $allowed_mime_types = [
+		'image/jpeg',
+		'image/gif',
+		'image/webp',
+		'image/png',
+	];
+	/**
+	 * @var string[]
+	 *
+	 * @readonly
+	 */
+	private $allowed_hosts = [
+		'images.pexels.com',
+	];
+	/**
 	 * A collection of successfully downloaded images.
 	 *
 	 * @var array<int, array<string, DownloadedImage>>
@@ -74,14 +94,27 @@ final class ImageDownloader
 	 */
 	private $errors = [];
 
-	public function __construct(HttpClientInterface $client, Filesystem $filesystem, LoggerInterface $logger, FileNameProcessor $file, FileNameSanitizer $sanitizer, int $batch_size, bool $seo_names = true) {
-		$this->client     = $client;
-		$this->filesystem = $filesystem;
-		$this->logger     = $logger;
-		$this->file       = $file;
-		$this->sanitizer  = $sanitizer;
-		$this->batch_size = $batch_size;
-		$this->seo_names  = $seo_names;
+	/**
+	 * @param string[] $allowed_mime_types The image mime types we allow to download.
+	 * @param string[] $allowed_hosts      The host names that we are allowed to download images from.
+	 */
+	public function __construct(HttpClientInterface $client, Filesystem $filesystem, LoggerInterface $logger, FileNameProcessor $file, FileNameSanitizer $sanitizer, int $batch_size, bool $seo_names = true, array $allowed_mime_types = [
+		'image/jpeg',
+		'image/gif',
+		'image/webp',
+		'image/png',
+	], array $allowed_hosts = [
+		'images.pexels.com',
+	]) {
+		$this->client             = $client;
+		$this->filesystem         = $filesystem;
+		$this->logger             = $logger;
+		$this->file               = $file;
+		$this->sanitizer          = $sanitizer;
+		$this->batch_size         = $batch_size;
+		$this->seo_names          = $seo_names;
+		$this->allowed_mime_types = $allowed_mime_types;
+		$this->allowed_hosts      = $allowed_hosts;
 	}
 
 	/**
@@ -122,6 +155,16 @@ final class ImageDownloader
 					$filename = $this->sanitizer->sanitize($this->file->build_image_file_name($size['src'], $collection['image_type'], $name));
 
 					try {
+						if ($this->allowed_hosts) {
+							$host = parse_url($size['src'], PHP_URL_HOST);
+
+							if (! $host || ! in_array($host, $this->allowed_hosts, true)) {
+								throw new ImageDownloadException(
+									sprintf('Unable to download image, host "%s" is not on allowed list.', $host)
+								);
+							}
+						}
+
 						$responses[] = new ResponseAdapter(
 							$image['id'],
 							$image['width'],
@@ -184,6 +227,14 @@ final class ImageDownloader
 
 				// Save the file, so we can use getimagesize() to read the dimensions.
 				$this->filesystem->dumpFile($file_location, $data);
+
+				$file = new File($file_location);
+				$mime = $file->getMimeType();
+
+				if (! $mime || ! in_array($mime, $this->allowed_mime_types, true)) {
+					throw new ImageDownloadException(sprintf('Invalid mime type: %s', $mime));
+				}
+
 				$save_path = $this->file->format_file_path_for_wordpress($file_location, $response);
 
 				// Multiple thumbnail sizes can end up with the exact same file name.

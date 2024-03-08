@@ -62,6 +62,7 @@ class WPvivid_Backup_Task_2
         $this->task['status']['str']='ready';
         $this->task['status']['resume_count']=0;
 
+        $options['save_local']=isset($settings['save_local'])?$settings['save_local']:false;
         $this->set_backup_option($options);
 
         if(isset($options['remote']))
@@ -191,7 +192,7 @@ class WPvivid_Backup_Task_2
 
         $this->task['options']['include_plugins']=isset($options['include_plugins'])?$options['include_plugins']:array();
         $this->task['options']['include_themes']=isset($options['include_themes'])?$options['include_themes']:array();
-        //$this->task['options']['save_local'] =isset($options['save_local'])?$options['save_local']:false;
+
         if(isset($options['local']))
         {
             if($options['local']=='1')
@@ -200,7 +201,8 @@ class WPvivid_Backup_Task_2
             }
             else
             {
-                $this->task['options']['save_local']=0;
+                //$this->task['options']['save_local']=0;
+                $this->task['options']['save_local'] =isset($options['save_local'])?$options['save_local']:false;
             }
         }
         else

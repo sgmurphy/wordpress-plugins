@@ -51,8 +51,8 @@ class Helpers {
 	 * @return string
 	 */
 	public static function get_business_access_token_link() {
-		$state = admin_url( 'admin.php' );
-		$scope                 = 'pages_show_list,instagram_basic,instagram_manage_comments,instagram_manage_insights,pages_read_engagement';
+		$state                 = admin_url( 'admin.php' );
+		$scope                 = 'pages_show_list,instagram_basic,instagram_manage_comments,instagram_manage_insights,pages_read_engagement,business_management';
 		$business_client_id    = self::$business_client_id;
 		$business_redirect_uri = self::$business_redirect_uri;
 		return "https://www.facebook.com/dialog/oauth?client_id={$business_client_id}&redirect_uri={$business_redirect_uri}&response_type=code&scope={$scope}&state={$state}";

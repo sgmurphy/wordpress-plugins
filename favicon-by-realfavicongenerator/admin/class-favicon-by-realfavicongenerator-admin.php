@@ -7,11 +7,14 @@ require_once plugin_dir_path( __FILE__ ) . 'class-favicon-by-realfavicongenerato
 
 class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenerator_Common {
 
-	const DISMISS_UPDATE_NOTIICATION             = 'fbrfg_dismiss_update_notification';
-	const DISMISS_AUTOMATIC_UPDATE_NOTIICATION   = 'fbrfg_dismiss_autmatic_update_notification';
-	const DISMISS_UPDATE_ALL_UPDATE_NOTIICATIONS = 'fbrfg_dismiss_all_update_notifications';
-	const SETTINGS_FORM                          = 'fbrfg_settings_form';
-	const NONCE_ACTION_NAME                      = 'favicon_generation';
+	const DISMISS_UPDATE_NOTIICATION              = 'fbrfg_dismiss_update_notification';
+	const DISMISS_AUTOMATIC_UPDATE_NOTIFICATION   = 'fbrfg_dismiss_autmatic_update_notification';
+	const DISMISS_UPDATE_ALL_UPDATE_NOTIFICATIONS = 'fbrfg_dismiss_all_update_notifications';
+	const SETTINGS_FORM                           = 'fbrfg_settings_form';
+	const NONCE_SETTINGS_UPDATE                   = 'nonce_settings_update';
+
+	const NONCE_ACTION_NAME_FAVICON_GENERATION    = 'favicon_generation';
+	const NONCE_ACTION_NAME_SETTINGS_UPDATE       = 'settings_update';
 
 	protected static $instance = null;
 
@@ -146,7 +149,7 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 		}
 
 		// Nonce
-		$nonce = wp_create_nonce( self::NONCE_ACTION_NAME );
+		$nonce = wp_create_nonce( self::NONCE_ACTION_NAME_FAVICON_GENERATION );
 
 		// External files
 		wp_enqueue_script( 'jquery' );
@@ -194,7 +197,7 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 
 			$response = new Favicon_By_RealFaviconGenerator_Api_Response( $result );
 
-			if ( ! wp_verify_nonce( $response->getCustomParameter(), self::NONCE_ACTION_NAME ) ) {
+			if ( ! wp_verify_nonce( $response->getCustomParameter(), self::NONCE_ACTION_NAME_FAVICON_GENERATION ) ) {
 				// Attack in progress?
 				?>
 {
@@ -479,11 +482,11 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 	</p>
 
 	<p>
-		<a href="<?php echo esc_html( $this->add_parameter_to_current_url( self::DISMISS_UPDATE_NOTIICATION . '=0' ) ) ?>">
+		<a href="<?php echo esc_html( $this->add_parameter_to_current_url( self::DISMISS_UPDATE_NOTIICATION . '=0', self::NONCE_SETTINGS_UPDATE, self::NONCE_ACTION_NAME_SETTINGS_UPDATE ) ) ?>">
 			<?php esc_html_e( 'Hide this notice', FBRFG_PLUGIN_SLUG ); ?>
 		</a>
 		|
-		<a href="<?php echo esc_html( $this->add_parameter_to_current_url( self::DISMISS_UPDATE_ALL_UPDATE_NOTIICATIONS . '=0' ) ) ?>">
+		<a href="<?php echo esc_html( $this->add_parameter_to_current_url( self::DISMISS_UPDATE_ALL_UPDATE_NOTIFICATIONS . '=0', self::NONCE_SETTINGS_UPDATE, self::NONCE_ACTION_NAME_SETTINGS_UPDATE ) ) ?>">
 			<?php esc_html_e( 'Do not warn me again in case of update', FBRFG_PLUGIN_SLUG ); ?>
 		</a>
 	</p>
@@ -501,11 +504,11 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 			<?php echo esc_html( $description ) ?>
 
 	<p>
-		<a href="<?php echo esc_html( $this->add_parameter_to_current_url( self::DISMISS_AUTOMATIC_UPDATE_NOTIICATION . '=0' ) ) ?>">
+		<a href="<?php echo esc_html( $this->add_parameter_to_current_url( self::DISMISS_AUTOMATIC_UPDATE_NOTIFICATION . '=0', self::NONCE_SETTINGS_UPDATE, self::NONCE_ACTION_NAME_SETTINGS_UPDATE ) ) ?>">
 			<?php esc_html_e( 'Hide this notice', FBRFG_PLUGIN_SLUG ) ?>
 		</a>
 		|
-		<a href="<?php echo esc_html( $this->add_parameter_to_current_url( self::DISMISS_UPDATE_ALL_UPDATE_NOTIICATIONS . '=0' ) ) ?>">
+		<a href="<?php echo esc_html( $this->add_parameter_to_current_url( self::DISMISS_UPDATE_ALL_UPDATE_NOTIFICATIONS . '=0', self::NONCE_SETTINGS_UPDATE, self::NONCE_ACTION_NAME_SETTINGS_UPDATE ) ) ?>">
 			<?php esc_html_e( 'Do not warn me again in case of update', FBRFG_PLUGIN_SLUG ) ?>
 		</a>
 	</p>
@@ -518,14 +521,20 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 		global $current_user;
 		$user_id = $current_user->ID;
 
+		if ( !isset( $_REQUEST[ self::NONCE_SETTINGS_UPDATE ] ) || 
+		!wp_verify_nonce( $_REQUEST[ self::NONCE_SETTINGS_UPDATE ], self::NONCE_ACTION_NAME_SETTINGS_UPDATE ) ) {
+			$this->log_info( 'No nonce or invalid nonce on settings update' );
+			return;
+		}
+
 		if ( isset( $_REQUEST[ self::DISMISS_UPDATE_NOTIICATION ] ) &&
 				'0' == $_REQUEST[ self::DISMISS_UPDATE_NOTIICATION ] ) {
 			$this->log_info( 'Disable manual update notice for ' . $this->get_latest_manual_available_update() );
 			$this->set_boolean_user_option( Favicon_By_RealFaviconGenerator_Common::META_NO_UPDATE_NOTICE_FOR_VERSION . $this->get_latest_manual_available_update(), true );
 		}
 
-		if ( isset( $_REQUEST[ self::DISMISS_AUTOMATIC_UPDATE_NOTIICATION ] ) &&
-				'0' == $_REQUEST[ self::DISMISS_AUTOMATIC_UPDATE_NOTIICATION ] ) {
+		if ( isset( $_REQUEST[ self::DISMISS_AUTOMATIC_UPDATE_NOTIFICATION ] ) &&
+				'0' == $_REQUEST[ self::DISMISS_AUTOMATIC_UPDATE_NOTIFICATION ] ) {
 			$versions = $this->get_most_recent_automatic_update();
 			$this->log_info( 'Disable automatic update notice for ' . $versions[0] . '-' . $versions[1] );
 			$this->set_boolean_user_option(
@@ -536,16 +545,16 @@ class Favicon_By_RealFaviconGenerator_Admin extends Favicon_By_RealFaviconGenera
 		}
 
 		$no_notices = null;
-		if ( ( isset( $_REQUEST[ self::DISMISS_UPDATE_ALL_UPDATE_NOTIICATIONS ] ) &&
-				'0' == $_REQUEST[ self::DISMISS_UPDATE_ALL_UPDATE_NOTIICATIONS ] ) ) {
+		if ( ( isset( $_REQUEST[ self::DISMISS_UPDATE_ALL_UPDATE_NOTIFICATIONS ] ) &&
+				'0' == $_REQUEST[ self::DISMISS_UPDATE_ALL_UPDATE_NOTIFICATIONS ] ) ) {
 			// The "no more notifications" link was clicked in the notification itself
 			$no_notices = true;
 		}
 		if ( isset( $_REQUEST[ self::SETTINGS_FORM ] ) &&
 				'1' == $_REQUEST[ self::SETTINGS_FORM ] ) {
 			// The settings form was validated
-			$no_notices = ( ! isset( $_REQUEST[ self::DISMISS_UPDATE_ALL_UPDATE_NOTIICATIONS ] ) ||
-				( '0' == $_REQUEST[ self::DISMISS_UPDATE_ALL_UPDATE_NOTIICATIONS ] ) );
+			$no_notices = ( ! isset( $_REQUEST[ self::DISMISS_UPDATE_ALL_UPDATE_NOTIFICATIONS ] ) ||
+				( '0' == $_REQUEST[ self::DISMISS_UPDATE_ALL_UPDATE_NOTIFICATIONS ] ) );
 		}
 		if ( $no_notices !== null ) {
 			$this->set_boolean_user_option( Favicon_By_RealFaviconGenerator_Common::META_NO_UPDATE_NOTICE, $no_notices );

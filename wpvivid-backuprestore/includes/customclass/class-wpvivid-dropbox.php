@@ -826,7 +826,7 @@ class WPvivid_Dropbox extends WPvivid_Remote
                 die();
             }
 
-            $json = $_POST['remote'];
+            $json = sanitize_text_field($_POST['remote']);
             $json = stripslashes($json);
             $remote_options = json_decode($json, true);
             if (is_null($remote_options)) {

@@ -1,71 +1,89 @@
 msgid "Settings"
 msgstr "Einstellungen"
 
-msgid "This plugin adds <strong>I am not a robot</strong> checkbox to Contact Form 7, extending its functionality (not affiliated with the Contact Form 7 plugin)."
-msgstr "Dieses Plugin fügt Contact Form 7 eine <strong>Ich bin kein Roboter</strong>-Checkbox hinzu und erweitert damit die Funktionalität (nicht mit dem Contact Form 7-Plugin verbunden)."
-
-msgid "To add Captcha to Contact Form 7 form, add <strong>[cf7sr-simple-recaptcha]</strong> in your form ( preferable above submit button )"
-msgstr "Um ein Captcha zum Contact Form 7-Formular hinzuzufügen, fügen Sie <strong>[cf7sr-simple-recaptcha]</strong> in Ihr Formular ein (vorzugsweise über dem Senden-Button)."
-
-msgid "The plugin will not work unless you set up the configuration below"
-msgstr "Das Plugin funktioniert erst, wenn Sie die unten stehende Konfiguration vorgenommen haben"
-
 msgid "Invalid captcha error message"
-msgstr "Fehlermeldung für ungültiges Captcha"
+msgstr "Ungültige Captcha-Fehlermeldung"
 
 msgid "Save Settings"
 msgstr "Einstellungen speichern"
 
-msgid "Get Captcha Pro and Unlock all the Powerful Features"
-msgstr "Holen Sie sich Captcha Pro und schalten Sie alle leistungsstarken Funktionen frei"
+msgid "Get Captcha Pro and unlock premium features"
+msgstr "Holen Sie sich Captcha Pro und schalten Sie Premium-Funktionen frei"
 
-msgid "Trusted by more than 100,000 businesses worldwide. The Pro version is even better!"
-msgstr "Weltweit von über 100.000 Unternehmen genutzt. Die Pro-Version ist noch besser!"
-
-msgid "Check out the cool new features."
-msgstr "Entdecken Sie die coolen neuen Funktionen."
-
-msgid "WPML and POLYLANG language integration"
-msgstr "WPML- und POLYLANG-Sprachenintegration"
-
-msgid "Render captcha widget in a specific language, choose from 70 languages."
-msgstr "Stellen Sie das Captcha-Widget in einer bestimmten Sprache dar, wählen Sie aus 70 Sprachen."
-
-msgid "Switch between the color theme of the widget, light or dark."
-msgstr "Wechseln Sie zwischen dem hellen oder dunklen Farbschema des Widgets."
-
-msgid "Switch between the type of the widget, image or audio."
-msgstr "Wechseln Sie zwischen dem Typ des Widgets, Bild oder Audio."
-
-msgid "Switch between the size of the widget, normal or compact."
-msgstr "Wechseln Sie zwischen der normalen oder kompakten Größe des Widgets."
+msgid "Trusted by more than 100,000 businesses worldwide. PRO version is even better!"
+msgstr "Vertrauen von mehr als 100.000 Unternehmen weltweit. Die PRO-Version ist noch besser!"
 
 msgid "Redirect users to any url after mail sent successfully."
-msgstr "Leiten Sie Benutzer nach erfolgreicher E-Mail-Zustellung zu einer beliebigen URL weiter."
+msgstr "Benutzer nach erfolgreichem Versand der E-Mail zu einer beliebigen URL weiterleiten."
 
-msgid "Integrate powerful honeypot protection into your forms for stronger security. A honeypot is a form field that is invisible to humans but can be filled out by bots. By detecting form submissions where the honeypot field is filled, you can block spam messages."
-msgstr "Integrieren Sie einen leistungsstarken Honeypot-Schutz in Ihre Formulare für mehr Sicherheit. Ein Honeypot ist ein Formularfeld, das für Menschen unsichtbar ist, aber von Bots ausgefüllt werden kann. Indem Sie Formularübermittlungen erkennen, bei denen das Honeypot-Feld ausgefüllt ist, können Sie Spam-Nachrichten blocken."
+msgid "Integrate additional Honeypot protection into your forms for stronger security."
+msgstr "Integrieren Sie zusätzlichen Honeypot-Schutz in Ihre Formulare für mehr Sicherheit."
 
 msgid "Define a list of restricted words. Messages containing restricted words will not be sent."
-msgstr "Definieren Sie eine Liste von eingeschränkten Wörtern. Nachrichten, die eingeschränkte Wörter enthalten, werden nicht gesendet."
+msgstr "Definieren Sie eine Liste mit eingeschränkten Wörtern. Nachrichten, die eingeschränkte Wörter enthalten, werden nicht gesendet."
 
 msgid "Get IP Blocker access to block messages from malicious IP addresses."
-msgstr "Erhalten Sie Zugriff auf IP Blocker, um Nachrichten von bösartigen IP-Adressen zu blockieren."
+msgstr "Erhalten Sie Zugriff auf IP Blocker, um Nachrichten von schädlichen IP-Adressen zu blockieren."
 
 msgid "Use rate limiting to manage how often forms can be submitted and prevent abuse."
-msgstr "Nutzen Sie Ratenbegrenzung, um zu verwalten, wie oft Formulare abgeschickt werden können, und verhindern Sie Missbrauch."
+msgstr "Verwenden Sie Ratenbegrenzung, um zu steuern, wie oft Formulare gesendet werden können, und Missbrauch zu verhindern."
 
 msgid "Enable automatic saving of Contact Form 7 messages to your database."
-msgstr "Aktivieren Sie die automatische Speicherung von Contact Form 7-Nachrichten in Ihrer Datenbank."
+msgstr "Aktivieren Sie das automatische Speichern von Contact Form 7-Nachrichten in Ihrer Datenbank."
 
 msgid "Use Twilio SMS to receive new form submission notifications directly to your phone."
-msgstr "Verwenden Sie Twilio SMS, um Benachrichtigungen über neue Formulare direkt auf Ihrem Telefon zu erhalten."
+msgstr "Verwenden Sie Twilio SMS, um Benachrichtigungen über neue Formulareingaben direkt auf Ihrem Telefon zu erhalten."
 
 msgid "Transfer data from contact form submissions directly into your Mailchimp list."
-msgstr "Übertragen Sie Daten aus Kontaktformularen direkt in Ihre Mailchimp-Liste."
+msgstr "Übertragen Sie Daten aus Kontaktformular-Einsendungen direkt in Ihre Mailchimp-Liste."
 
 msgid "Use this link to generate"
-msgstr "Diesen Link verwenden, um... zu generieren"
+msgstr "Verwenden Sie diesen Link zum Generieren"
 
 msgid "Choose"
-msgstr "Wählen"
+msgstr "Auswählen"
+
+msgid "Updated successfully!"
+msgstr "Erfolgreich aktualisiert!"
+
+msgid "PRO features:"
+msgstr "PRO-Funktionen:"
+
+msgid "Contact Form 7 Captcha plugin updated to support reCAPTCHA and hCAPTCHA."
+msgstr "Das Contact Form 7 Captcha-Plugin wurde aktualisiert, um reCAPTCHA und hCaptcha zu unterstützen."
+
+msgid "You can combine multiple attributes, sample shortcode:"
+msgstr "Sie können mehrere Attribute kombinieren, Beispiel-Shortcode:"
+
+msgid "reCaptcha will not work unless you set up the configuration below"
+msgstr "reCaptcha funktioniert nicht, wenn Sie die folgende Konfiguration nicht einrichten"
+
+msgid "To add reCaptcha to Contact Form 7 form, add <strong>[cf7sr-recaptcha]</strong> in your form ( preferable above submit button )"
+msgstr "Um reCAPTCHA zu einem Contact Form 7-Formular hinzuzufügen, fügen Sie <strong>[cf7sr-recaptcha]</strong> in Ihr Formular ein (vorzugsweise über der Schaltfläche Senden)"
+
+msgid "Force reCaptcha to render in a specific language. Google auto-detects if unspecified."
+msgstr "Erzwingen Sie, dass reCAPTCHA in einer bestimmten Sprache gerendert wird. Google erkennt die Sprache automatisch, wenn keine Angabe gemacht wird."
+
+msgid "Default size of reCaptcha is normal, for compact size use shortcode:"
+msgstr "Die Standardgröße von reCAPTCHA ist normal, für die kompakte Größe verwenden Sie den Shortcode:"
+
+msgid "Default color theme of reCaptcha is light, for dark theme use shortcode:"
+msgstr "Das Standardfarbthema von reCAPTCHA ist hell, für ein dunkles Thema verwenden Sie den Shortcode:"
+
+msgid "Default type of reCaptcha is image, for audio type use shortcode:"
+msgstr "Der Standardtyp von reCAPTCHA ist Bild, für den Audiotyp verwenden Sie den Shortcode:"
+
+msgid "hCaptcha will not work unless you set up the configuration below"
+msgstr "hCaptcha funktioniert nicht, wenn Sie die folgende Konfiguration nicht einrichten"
+
+msgid "To add hCaptcha to Contact Form 7 form, add <strong>[cf7sr-hcaptcha]</strong> in your form ( preferable above submit button )"
+msgstr "Um hCaptcha zu einem Contact Form 7-Formular hinzuzufügen, fügen Sie <strong>[cf7sr-hcaptcha]</strong> in Ihr Formular ein (vorzugsweise über der Schaltfläche Senden)"
+
+msgid "Force hCaptcha to render in a specific language. Google auto-detects if unspecified."
+msgstr "Erzwingen Sie, dass hCaptcha in einer bestimmten Sprache gerendert wird. Google erkennt dies automatisch, wenn keine Angabe gemacht wird."
+
+msgid "Default size of hCaptcha is normal, for compact size use shortcode:"
+msgstr "Die Standardgröße von hCaptcha ist normal, für die kompakte Größe verwenden Sie den Shortcode:"
+
+msgid "Default color theme of hCaptcha is light, for dark theme use shortcode:"
+msgstr "Das Standardfarbthema von hCaptcha ist hell, für ein dunkles Thema verwenden Sie den Shortcode:"

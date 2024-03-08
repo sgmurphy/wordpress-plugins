@@ -175,8 +175,8 @@ class IRP_Tracking {
            )) {
             $irp->Options->setTrackingNotice(TRUE);
         } else {
-            $yes_url=add_query_arg('irp_action', 'manager_trackingOn');
-            $no_url=add_query_arg('irp_action', 'manager_trackingOff');
+            $yes_url=add_query_arg(array('irp_action' => 'manager_trackingOn', 'nonce' => wp_create_nonce('manager_tracking')));
+            $no_url=add_query_arg(array('irp_action' => 'manager_trackingOff', 'nonce' => wp_create_nonce('manager_tracking')));
 
             ?>
             <div class="updated">

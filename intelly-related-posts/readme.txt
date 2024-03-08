@@ -2,9 +2,9 @@
 Contributors: IntellyWP, Data443
 Tags: related post, related posts,inline related posts, inside related posts, suggestions, similar post, similar posts, related,contextual, relations, seo, bounce rate, internal links, similarity, related content, inline related post, Zemanta, inline, Related Links, Contextual Related Posts, YARPP recommendation engine, YARPP
 Requires at least: 3.6
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 3.3.1
+Stable tag: 3.4.0
 
 Inline Related Posts AUTOMATICALLY inserts related posts INSIDE your content, capturing immediately the reader's attention.
 
@@ -79,6 +79,12 @@ Yes! We have other cool styles and features in the PRO version. Check it out <a 
 
 Absolutely Not! Inline Related Posts is built with lightweight code so you wonâ€™t notice any difference in speed using it.
 
+= What Are the Shortcode options? =
+1. [irp] -- use this to place a box where ever you want.
+2. [irp posts="183,179,191,195"] -- this will display a box with a link to random post from the posts lists.
+3. [irp cats="3"] -- target only posts from the selected category(s) (use a comma separated list to add more categories)
+4. [irp tags="18"] -- target only posts with the selected tag(s) (use a comma separated list for more than one tag)
+
 == Screenshots ==
 
 1. Some example of famous websites with "Related post box"
@@ -94,6 +100,11 @@ Absolutely Not! Inline Related Posts is built with lightweight code so you wonâ€
 == Changelog ==
 
 For detailed release notes, see our documentation here: [https://intellywp.com/docs/](https://data443.atlassian.net/servicedesk/customer/portal/17/article/858652673).
+
+= 3.4.0 =
+*Release Date - 2024-3-8*
+
+* RDU-1122 Fix a potential vulnerability
 
 = 3.3.1 =
 *Release Date - 2023-10-17*

@@ -3,7 +3,7 @@
  Plugin Name: Under Construction
  Plugin URI: https://wordpress.org/plugins/underconstruction/
  Description: Makes it so your site can only be accessed by users who log in. Useful for developing a site on a live server, without the world being able to see it
- Version: 1.21
+ Version: 1.22
  Author: Noah Kagan
  Author URI: https://appsumo.com/tools/wordpress/?utm_source=sumo&utm_medium=wp-widget&utm_campaign=underconstruction
  */

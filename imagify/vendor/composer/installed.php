@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'wp-media/imagify-plugin',
-        'pretty_version' => 'v2.2',
-        'version' => '2.2.0.0',
-        'reference' => 'eff2bac781f6fdb778f149aed110df127630fa66',
+        'pretty_version' => 'v2.2.0.1',
+        'version' => '2.2.0.1',
+        'reference' => '910f12a51e611f67e7f68302f8ff1099c6ae3590',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -29,9 +29,9 @@
             'dev_requirement' => false,
         ),
         'wp-media/imagify-plugin' => array(
-            'pretty_version' => 'v2.2',
-            'version' => '2.2.0.0',
-            'reference' => 'eff2bac781f6fdb778f149aed110df127630fa66',
+            'pretty_version' => 'v2.2.0.1',
+            'version' => '2.2.0.1',
+            'reference' => '910f12a51e611f67e7f68302f8ff1099c6ae3590',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

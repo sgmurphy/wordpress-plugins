@@ -93,8 +93,13 @@ class Fields_Filter {
 
 					foreach ( $args['options'] as $option_key => $option_text ) {
 						$option_key = is_numeric( $option_key ) ? $option_text : $option_key;
-						$field     .= '<input type="radio" class="input-checkbox" value="' . esc_attr( $option_key ) . '" name="' . esc_attr( $key ) . '" id="' . esc_attr( $key ) . '_' . esc_attr( $option_key ) . '"' . checked( $value, $option_text, false ) . ' />';
-						$field     .= '<label for="' . esc_attr( $key ) . '_' . esc_attr( $option_key ) . '" class="checkbox ' . implode( ' ', $args['label_class'] ) . '">' . $option_text . '</label><br>';
+						$option_id  = sanitize_html_class( "{$key}_{$option_key}" );
+						// Remove double quotes from the value
+						$option_value = htmlspecialchars( $option_key, ENT_QUOTES );
+
+						// Sanitize $option_id to prevent quotes
+						$field .= '<input type="radio" class="input-checkbox" value="' . esc_attr( $option_value ) . '" name="' . esc_attr( $key ) . '" id="' . esc_attr( $option_id ) . '" ' . checked( $value, $option_text, false ) . ' />';
+						$field .= '<label for="' . esc_attr( $option_id ) . '" class="checkbox ' . implode( ' ', $args['label_class'] ) . '">' . $option_text . '</label><br>';
 					}
 
 					$field .= ' </span>';
@@ -304,4 +309,3 @@ class Fields_Filter {
 		add_filter( 'woocommerce_form_field_hidden', array( $this, 'hidden_field' ), 10, 4 );
 	}
 }
-

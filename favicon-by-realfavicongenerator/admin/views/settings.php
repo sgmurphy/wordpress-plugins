@@ -21,7 +21,7 @@
 				<tr>
 					<th scope="row"><?php esc_html_e( 'Display update notifications', FBRFG_PLUGIN_SLUG ); ?></th>
 					<td>
-						<input type="checkbox" name="<?php echo esc_html( Favicon_By_RealFaviconGenerator_Admin::DISMISS_UPDATE_ALL_UPDATE_NOTIICATIONS ) ?>" 
+						<input type="checkbox" name="<?php echo esc_html( Favicon_By_RealFaviconGenerator_Admin::DISMISS_UPDATE_ALL_UPDATE_NOTIFICATIONS ) ?>" 
 							value="1" <?php echo( $display_update_notifications ? 'checked="checked"' : '' ); ?>>
 						<p class="description">
 							<?php esc_html_e( 'Get notifications when RealFaviconGenerator is updated. For example, when Apple releases a new version of iOS or a new platform is supported.', FBRFG_PLUGIN_SLUG ); ?>
@@ -32,6 +32,12 @@
 		</table>
 
 		<input type="hidden" name="<?php echo esc_html( Favicon_By_RealFaviconGenerator_Admin::SETTINGS_FORM ) ?>" value="1">
+
+		<input
+			type="hidden"
+			name="<?php echo esc_html( Favicon_By_RealFaviconGenerator_Admin::NONCE_SETTINGS_UPDATE ) ?>"
+			value="<?php echo esc_html( wp_create_nonce( Favicon_By_RealFaviconGenerator_Admin::NONCE_ACTION_NAME_SETTINGS_UPDATE ) ) ?>"
+		>
 
 		<input name="Submit" type="submit" class="button-primary" value="<?php esc_html_e( 'Save changes', FBRFG_PLUGIN_SLUG ); ?>">
 	</form>

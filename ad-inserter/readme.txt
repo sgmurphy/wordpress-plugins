@@ -2,7 +2,7 @@
 
 Contributors: adinserter, spacetime
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LHGZEMRTR7WB4
-Tags: ads, adsense, amp, ad rotation, ad manager, ad blocking detection, header code, footer code, banners, sticky fixed widgets, hooks
+Tags: ads, adsense, amp, ad rotation, ad manager
 Requires at least: 4.9
 Tested up to: 6.4
 Requires PHP: 7.2

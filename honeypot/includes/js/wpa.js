@@ -34,9 +34,12 @@ function wpa_act_as_spam(){
 function wpa_add_honeypot_field(){
 	jQuery('.bbp-topic-form form').append(wpa_hidden_field); // BBPRESS TOPIC
 	jQuery('.bbp-reply-form form').append(wpa_hidden_field); // BBPRESS REPLY
+	
+	// FOR COMMENTS
 	jQuery('form#commentform').append(wpa_hidden_field); // WP COMMENT
 	jQuery('form#ast-commentform').append(wpa_hidden_field); // Astra Comment Form
 	jQuery('form#fl-comment-form').append(wpa_hidden_field); // Beaver Builder Theme Form
+	jQuery('form.comment-form').append(wpa_hidden_field);
 
 	jQuery('form.wpcf7-form').append(wpa_hidden_field); // CONTACT FORM 7
 	jQuery('form.wpforms-form').append(wpa_hidden_field); // WPFFORMS

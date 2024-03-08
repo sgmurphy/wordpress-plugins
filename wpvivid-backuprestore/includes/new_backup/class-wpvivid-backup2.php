@@ -62,7 +62,7 @@ class WPvivid_Backup_2
         {
             if(isset($_POST['backup'])&&!empty($_POST['backup']))
             {
-                $json = $_POST['backup'];
+                $json = sanitize_text_field($_POST['backup']);
                 $json = stripslashes($json);
                 $backup_options = json_decode($json, true);
                 if (is_null($backup_options))
@@ -231,6 +231,7 @@ class WPvivid_Backup_2
         $settings['max_resume_count']=isset($common_setting['max_resume_count'])?$common_setting['max_resume_count']:6;
         $settings['zip_method']=isset($common_setting['zip_method'])?$common_setting['zip_method']:6;
         $settings['is_merge']=isset($common_setting['ismerge'])?$common_setting['ismerge']:true;
+        $settings['save_local']=isset($common_setting['retain_local'])?$common_setting['retain_local']:false;
 
         if(isset($common_setting['zip_method']))
         {
@@ -329,6 +330,9 @@ class WPvivid_Backup_2
 
     public function backup_now_2()
     {
+        global $wpvivid_plugin;
+        $wpvivid_plugin->ajax_check_security();
+
         register_shutdown_function(array($this,'deal_backup_shutdown_error'));
         $this->end_shutdown_function=false;
 
@@ -1583,7 +1587,7 @@ class WPvivid_Backup_2
             $remote_option['type'] = WPVIVID_REMOTE_SEND_TO_SITE;
             $remote_options['temp'] = $remote_option;
 
-            $backup_options = stripslashes($_POST['backup_options']);
+            $backup_options = stripslashes(sanitize_text_field($_POST['backup_options']));
             $backup_options = json_decode($backup_options, true);
             $backup['backup_files'] = $backup_options['transfer_type'];
             $backup['local'] = 0;
@@ -1621,6 +1625,9 @@ class WPvivid_Backup_2
 
     public function migrate_now()
     {
+        global $wpvivid_plugin;
+        $wpvivid_plugin->ajax_check_security();
+
         register_shutdown_function(array($this,'deal_backup_shutdown_error'));
         $this->end_shutdown_function=false;
 

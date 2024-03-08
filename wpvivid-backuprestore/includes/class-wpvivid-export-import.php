@@ -837,7 +837,9 @@ class WPvivid_Export_Import
             $old_post_ids=array();
             if(isset($_POST['post_ids']))
             {
-                $old_post_ids=(int)$_POST['post_ids'];
+                $old_post_ids=$_POST['post_ids'];
+                $old_post_ids = array_map( 'sanitize_key', $old_post_ids );
+                $old_post_ids=(int)$old_post_ids;
             }
 
             $list_cache=get_option('wpvivid_list_cache',array());
@@ -919,7 +921,9 @@ class WPvivid_Export_Import
 
         if(isset($_POST['post_ids'])&&!empty($_POST['post_ids']))
         {
-            $select_post_id=(int)$_POST['post_ids'];
+            $select_post_id=$_POST['post_ids'];
+            $select_post_id = array_map( 'sanitize_key', $select_post_id );
+            $select_post_id=(int)$select_post_id;
         }
         else
         {
@@ -928,7 +932,7 @@ class WPvivid_Export_Import
 
         if(isset($_POST['post_title'])&&!empty($_POST['post_title']))
         {
-            $post_title=$_POST['post_title'];
+            $post_title=sanitize_text_field($_POST['post_title']);
         }
         else
         {
@@ -936,13 +940,13 @@ class WPvivid_Export_Import
         }
         //
 
-        $post_type=$_POST['post_type'];
+        $post_type=sanitize_text_field($_POST['post_type']);
         if(isset($_POST['cat'])) {
-            $cat = (int)$_POST['cat'];
+            $cat = (int)sanitize_key($_POST['cat']);
         }
-        $author=(int)$_POST['authors'];
-        $post_start_date=$_POST['post_start_date'];
-        $post_end_date=$_POST['post_end_date'];
+        $author=(int)sanitize_key($_POST['authors']);
+        $post_start_date=sanitize_text_field($_POST['post_start_date']);
+        $post_end_date=sanitize_text_field($_POST['post_end_date']);
 
 
         global $wpdb;
@@ -1037,9 +1041,9 @@ class WPvivid_Export_Import
 
         WPvivid_Setting::update_option('wpvivid_list_cache',$list_cache);
 
-        $page=$_POST['page'];
+        $page=sanitize_key($_POST['page']);
 
-        $post_type=$_POST['post_type'];
+        $post_type=sanitize_text_field($_POST['post_type']);
         $arg['screen']=$post_type;
 
         $myListTable = new WPvivid_Post_List($arg);
@@ -1440,7 +1444,7 @@ class WPvivid_Export_Import
             if(isset($_REQUEST['file_name']) && !empty($_REQUEST['file_name']) && is_string($_REQUEST['file_name']) &&
                 isset($_REQUEST['file_size']) && !empty($_REQUEST['file_size']) && is_string($_REQUEST['file_size'])){
                 $file_name = sanitize_text_field($_REQUEST['file_name']);
-                $file_size = intval($_REQUEST['file_size']);
+                $file_size = intval(sanitize_key($_REQUEST['file_size']));
 
                 $file_name = basename($file_name);
 
@@ -2165,19 +2169,21 @@ class WPvivid_Export_Import
             exit;
         }
 
-        $file_name=basename($_POST['name']);
+        $file_name=basename(sanitize_text_field($_POST['name']));
 
         if (isset($_POST['chunks']) && isset($_POST['chunk']))
         {
+            $chunks=sanitize_key($_POST['chunks']);
+            $chunk=sanitize_key($_POST['chunk']);
             $path=WP_CONTENT_DIR.DIRECTORY_SEPARATOR.WPvivid_Setting::get_backupdir().DIRECTORY_SEPARATOR.WPVIVID_IMPORT_EXPORT_DIR.DIRECTORY_SEPARATOR;
-            rename($status['file'],$path.$file_name.'_'.$_POST['chunk'].'.tmp');
-            $status['file'] = $path.$file_name.'_'.$_POST['chunk'].'.tmp';
-            if($_POST['chunk'] == $_POST['chunks']-1)
+            rename($status['file'],$path.$file_name.'_'.$chunk.'.tmp');
+            $status['file'] = $path.$file_name.'_'.$chunk.'.tmp';
+            if($chunk == $chunks-1)
             {
                 $file_handle = fopen($path.$file_name, 'wb');
                 if ($file_handle)
                 {
-                    for ($i=0; $i<$_POST['chunks']; $i++)
+                    for ($i=0; $i<$chunks; $i++)
                     {
                         $chunks_handle=fopen($path.$file_name.'_'.$i.'.tmp','rb');
                         if($chunks_handle)
@@ -2246,7 +2252,8 @@ class WPvivid_Export_Import
         $ret['html']=false;
         if(isset($_POST['files']))
         {
-            $files =stripslashes($_POST['files']);
+            $files =sanitize_text_field($_POST['files']);
+            $files =stripslashes($files);
             $files =json_decode($files,true);
             if(is_null($files))
             {
@@ -2560,7 +2567,7 @@ class WPvivid_Export_Import
         {
             die();
         }
-        $page=$_POST['page'];
+        $page=sanitize_key($_POST['page']);
 
         $backups = get_option('wpvivid_import_list_cache');
 
@@ -2651,12 +2658,12 @@ class WPvivid_Export_Import
                 $options['user']=0;
                 if(isset($_POST['user']))
                 {
-                    $options['user']=$_POST['user'];
+                    $options['user']=sanitize_text_field($_POST['user']);
                 }
                 $options['update_exist']=0;
                 if(isset($_POST['update_exist']))
                 {
-                    $options['update_exist']=$_POST['update_exist'];
+                    $options['update_exist']=sanitize_text_field($_POST['update_exist']);
                 }
 
                 $task_id=$this->get_file_id($file_name);

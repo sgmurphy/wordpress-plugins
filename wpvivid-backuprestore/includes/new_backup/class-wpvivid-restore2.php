@@ -50,7 +50,7 @@ class WPvivid_Restore_2
         {
             foreach ($_POST['restore_options'] as $key=>$option)
             {
-                $restore_options[$key]=$option;
+                $restore_options[$key]=sanitize_text_field($option);
             }
         }
 
@@ -73,7 +73,7 @@ class WPvivid_Restore_2
         if(!file_exists(WPMU_PLUGIN_DIR.'/a-wpvivid-restore-mu-plugin-check.php'))
         {
             if(file_exists(WPMU_PLUGIN_DIR))
-                copy(WPVIVID_PLUGIN_DIR . 'includes/mu-plugins/a-wpvivid-restore-mu-plugin-check.php',WPMU_PLUGIN_DIR.'/a-wpvivid-restore-mu-plugin-check.php');
+                copy(WPVIVID_PLUGIN_DIR . '/includes/mu-plugins/a-wpvivid-restore-mu-plugin-check.php',WPMU_PLUGIN_DIR.'/a-wpvivid-restore-mu-plugin-check.php');
         }
 
         echo json_encode($ret);
@@ -1400,6 +1400,7 @@ class WPvivid_Restore_2
 
     public function restore_failed()
     {
+        check_ajax_referer( 'wpvivid_ajax', 'nonce' );
         register_shutdown_function(array($this,'deal_restore_finish_shutdown_error'));
 
         //echo '<p style="font-size:1.5em;"><span>Please adjust the advanced settings before restoring and retry.</span></p>';

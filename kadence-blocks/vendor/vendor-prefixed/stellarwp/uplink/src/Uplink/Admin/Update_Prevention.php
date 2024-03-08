@@ -2,7 +2,7 @@
 /**
  * @license GPL-2.0-or-later
  *
- * Modified by kadencewp on 23-February-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by kadencewp on 07-March-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */ declare( strict_types=1 );
 
 namespace KadenceWP\KadenceBlocks\StellarWP\Uplink\Admin;
@@ -55,10 +55,10 @@ class Update_Prevention {
 	 *
 	 * @since  4.9.12
 	 *
-	 * @param string       $source        File source location.
-	 * @param mixed        $remote_source Remote file source location.
-	 * @param WP_Upgrader  $upgrader      WP_Upgrader instance.
-	 * @param array<mixed> $extras         Extra arguments passed to hooked filters.
+	 * @param string|WP_Error $source        File source location.
+	 * @param mixed           $remote_source Remote file source location.
+	 * @param WP_Upgrader     $upgrader      WP_Upgrader instance.
+	 * @param array<mixed>    $extras         Extra arguments passed to hooked filters.
 	 *
 	 * @return string|WP_Error
 	 */

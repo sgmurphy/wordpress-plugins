@@ -1279,7 +1279,7 @@ class WPvivid_Uploads_Cleaner_Setting
 
             if(isset($_POST['page']))
             {
-                $list->set_list($white_list,$_POST['page']);
+                $list->set_list($white_list,sanitize_text_field($_POST['page']));
             }
             else
             {
@@ -1311,7 +1311,7 @@ class WPvivid_Uploads_Cleaner_Setting
 
         try
         {
-            $json = $_POST['selected'];
+            $json = sanitize_text_field($_POST['selected']);
             $json = stripslashes($json);
             $json = json_decode($json, true);
 
@@ -1327,7 +1327,7 @@ class WPvivid_Uploads_Cleaner_Setting
 
             if(isset($_POST['page']))
             {
-                $list->set_list($white_list,$_POST['page']);
+                $list->set_list($white_list,sanitize_key($_POST['page']));
             }
             else
             {
@@ -1382,7 +1382,7 @@ class WPvivid_Uploads_Cleaner_Setting
 
             if(isset($_POST['page']))
             {
-                $list->set_list($post_types,$_POST['page']);
+                $list->set_list($post_types,sanitize_key($_POST['page']));
             }
             else
             {
@@ -1423,7 +1423,7 @@ class WPvivid_Uploads_Cleaner_Setting
             $default_post_types[]='shop_order_refund';
             $default_post_types[]='oembed_cache';
 
-            $json = $_POST['selected'];
+            $json = sanitize_text_field($_POST['selected']);
             $json = stripslashes($json);
             $json = json_decode($json, true);
 
@@ -1439,7 +1439,7 @@ class WPvivid_Uploads_Cleaner_Setting
 
             if(isset($_POST['page']))
             {
-                $list->set_list($post_types,$_POST['page']);
+                $list->set_list($post_types,sanitize_key($_POST['page']));
             }
             else
             {

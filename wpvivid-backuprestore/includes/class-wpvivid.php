@@ -449,7 +449,7 @@ class WPvivid {
         {
             if(isset($_POST['backup'])&&!empty($_POST['backup']))
             {
-                $json = $_POST['backup'];
+                $json = sanitize_text_field($_POST['backup']);
                 $json = stripslashes($json);
                 $backup_options = json_decode($json, true);
                 if (is_null($backup_options))
@@ -656,12 +656,6 @@ class WPvivid {
             $this->backup($task_id);
         }
         catch (Exception $error) {
-            $message = 'An exception has occurred. class: '.get_class($error).';msg: '.$error->getMessage().';code: '.$error->getCode().';line: '.$error->getLine().';in_file: '.$error->getFile().';';
-            error_log($message);
-            echo json_encode(array('result'=>'failed','error'=>$message));
-            die();
-        }
-        catch (Error $error) {
             $message = 'An exception has occurred. class: '.get_class($error).';msg: '.$error->getMessage().';code: '.$error->getCode().';line: '.$error->getLine().';in_file: '.$error->getFile().';';
             error_log($message);
             echo json_encode(array('result'=>'failed','error'=>$message));
@@ -2443,7 +2437,7 @@ class WPvivid {
         try {
             if (isset($_POST['backup_id']) && !empty($_POST['backup_id']) && is_string($_POST['backup_id'])) {
                 if (isset($_POST['page'])) {
-                    $page = $_POST['page'];
+                    $page = sanitize_key($_POST['page']);
                 } else {
                     $page = 1;
                 }
@@ -2776,7 +2770,7 @@ class WPvivid {
 
                 if (!empty($_REQUEST['file_name']) && is_string($_REQUEST['file_name'])) {
                     //$file_name=sanitize_file_name($_REQUEST['file_name']);
-                    $file_name = $_REQUEST['file_name'];
+                    $file_name = sanitize_text_field($_REQUEST['file_name']);
                 } else {
                     die();
                 }
@@ -2884,7 +2878,7 @@ class WPvivid {
             {
                 if ($_POST['force'] == 0 || $_POST['force'] == 1)
                 {
-                    $force_del = $_POST['force'];
+                    $force_del = sanitize_key($_POST['force']);
                 } else {
                     $force_del = 0;
                 }
@@ -3018,14 +3012,14 @@ class WPvivid {
             if (empty($_POST) || !isset($_POST['remote']) || !is_string($_POST['remote']) || !isset($_POST['type']) || !is_string($_POST['type'])) {
                 die();
             }
-            $json = $_POST['remote'];
+            $json = sanitize_text_field($_POST['remote']);
             $json = stripslashes($json);
             $remote_options = json_decode($json, true);
             if (is_null($remote_options)) {
                 die();
             }
 
-            $remote_options['type'] = $_POST['type'];
+            $remote_options['type'] = sanitize_text_field($_POST['type']);
             if ($remote_options['type'] == 'amazons3')
             {
                 if(isset($remote_options['s3Path']))
@@ -3169,27 +3163,28 @@ class WPvivid {
             if (empty($_POST) || !isset($_POST['remote']) || !is_string($_POST['remote']) || !isset($_POST['id']) || !is_string($_POST['id']) || !isset($_POST['type']) || !is_string($_POST['type'])) {
                 die();
             }
-            $json = $_POST['remote'];
+            $json = sanitize_text_field($_POST['remote']);
             $json = stripslashes($json);
             $remote_options = json_decode($json, true);
             if (is_null($remote_options)) {
                 die();
             }
-            $remote_options['type'] = $_POST['type'];
+            $remote_options['type'] = sanitize_text_field($_POST['type']);
             if ($remote_options['type'] == 'amazons3')
             {
                 if(isset($remote_options['s3Path']))
                     $remote_options['s3Path'] = rtrim($remote_options['s3Path'], "/");
             }
 
-            $old_remote=WPvivid_Setting::get_remote_option($_POST['id']);
+            $id=sanitize_key($_POST['id']);
+            $old_remote=WPvivid_Setting::get_remote_option($id);
             foreach ($old_remote as $key=>$value)
             {
                 if(isset($remote_options[$key]))
                     $old_remote[$key]=$remote_options[$key];
             }
 
-            $ret = $this->remote_collection->update_remote($_POST['id'], $old_remote);
+            $ret = $this->remote_collection->update_remote($id, $old_remote);
 
             if ($ret['result'] == 'success') {
                 $ret['result'] = WPVIVID_SUCCESS;
@@ -3277,14 +3272,14 @@ class WPvivid {
             if (empty($_POST) || !isset($_POST['remote']) || !is_string($_POST['remote']) || !isset($_POST['type']) || !is_string($_POST['type'])) {
                 die();
             }
-            $json = $_POST['remote'];
+            $json = sanitize_text_field($_POST['remote']);
             $json = stripslashes($json);
             $remote_options = json_decode($json, true);
             if (is_null($remote_options)) {
                 die();
             }
 
-            $remote_options['type'] = $_POST['type'];
+            $remote_options['type'] = sanitize_text_field($_POST['type']);
             $remote = $this->remote_collection->get_remote($remote_options);
             $ret = $remote->test_connect();
         }
@@ -3581,11 +3576,11 @@ class WPvivid {
 
             $backup_id = sanitize_key($_POST['backup_id']);
             //$file_name=sanitize_file_name($_POST['file_name']);
-            $file_name = $_POST['file_name'];
+            $file_name = sanitize_text_field($_POST['file_name']);
 
             $file['file_name'] = $file_name;
-            $file['size'] = $_POST['size'];
-            $file['md5'] = $_POST['md5'];
+            $file['size'] = sanitize_key($_POST['size']);
+            $file['md5'] = sanitize_key($_POST['md5']);
             $backup = WPvivid_Backuplist::get_backup_by_id($backup_id);
             if (!$backup) {
                 echo json_encode(array('result' => WPVIVID_FAILED, 'error' => 'backup not found'));
@@ -3606,7 +3601,7 @@ class WPvivid {
             $download_info = array();
             $download_info['backup_id'] = sanitize_key($_POST['backup_id']);
             //$download_info['file_name']=sanitize_file_name($_POST['file_name']);
-            $download_info['file_name'] = $_POST['file_name'];
+            $download_info['file_name'] = sanitize_text_field($_POST['file_name']);
             //set_time_limit(600);
             if (session_id())
                 session_write_close();
@@ -3628,6 +3623,7 @@ class WPvivid {
 
     public function download_restore_progress()
     {
+        $this->ajax_check_security();
         try
         {
             if (!isset($_POST['file_name'])) {
@@ -3685,6 +3681,7 @@ class WPvivid {
     {
         try
         {
+            $this->ajax_check_security();
             if (!isset($_POST['backup_id'])) {
                 die();
             }
@@ -3770,7 +3767,8 @@ class WPvivid {
         $restore_options=array();
         if(isset($_POST['restore_options']))
         {
-            $json = stripslashes($_POST['restore_options']);
+            $json=sanitize_text_field($_POST['restore_options']);
+            $json = stripslashes($json);
             $restore_options = json_decode($json, 1);
             if(is_null($restore_options))
             {
@@ -4354,7 +4352,7 @@ class WPvivid {
             if (isset($_POST['backup_id']) && !empty($_POST['backup_id']) && is_string($_POST['backup_id']) && isset($_POST['lock'])) {
                 $backup_id = sanitize_key($_POST['backup_id']);
                 if ($_POST['lock'] == 0 || $_POST['lock'] == 1) {
-                    $lock = $_POST['lock'];
+                    $lock = sanitize_key($_POST['lock']);
                 } else {
                     $lock = 0;
                 }
@@ -4756,7 +4754,7 @@ class WPvivid {
             {
                 die();
             }
-            $options=$_POST['options'];
+            $options=sanitize_text_field($_POST['options']);
             $options =stripslashes($options);
             $options=json_decode($options,true);
             if(is_null($options))
@@ -4958,11 +4956,16 @@ class WPvivid {
         $this->ajax_check_security('manage_options');
         try {
             if (isset($_POST['all']) && is_bool($_POST['all'])) {
-                $all = $_POST['all'];
+                $all = sanitize_key($_POST['all']);
                 if (!$all) {
                     if (isset($_POST['options_name']) && is_array($_POST['options_name'])) {
                         $options_name = $_POST['options_name'];
-                        $ret = WPvivid_Setting::get_setting($all, $options_name);
+                        $options_name_array=array();
+                        foreach ($options_name as $option_name)
+                        {
+                            $options_name_array[]=sanitize_text_field($option_name);
+                        }
+                        $ret = WPvivid_Setting::get_setting($all, $options_name_array);
                         echo json_encode($ret);
                     }
                 } else {
@@ -4986,7 +4989,7 @@ class WPvivid {
         $this->ajax_check_security('manage_options');
         try {
             if (isset($_POST['options']) && !empty($_POST['options']) && is_string($_POST['options'])) {
-                $json = $_POST['options'];
+                $json = sanitize_text_field($_POST['options']);
                 $json = stripslashes($json);
                 $options = json_decode($json, true);
                 if (is_null($options)) {
@@ -5016,6 +5019,7 @@ class WPvivid {
                 die();
             }
             $remote_storage = $_POST['remote_storage'];
+            $remote_storage = array_map( 'sanitize_text_field', $remote_storage );
             WPvivid_Setting::update_user_history('remote_selected', $remote_storage);
             $ret['result'] = 'success';
             $html = '';
@@ -5057,10 +5061,11 @@ class WPvivid {
         $this->ajax_check_security('manage_options');
         if (!isset($_POST['remote_alias']))
         {
+            $remote_alias=sanitize_text_field($_POST['remote_alias']);
             $remoteslist=WPvivid_Setting::get_all_remote_options();
             foreach ($remoteslist as $key=>$value)
             {
-                if(isset($value['name'])&&$value['name'] == $_POST['remote_alias'])
+                if(isset($value['name'])&&$value['name'] ==$remote_alias)
                 {
                     $ret['result']=WPVIVID_FAILED;
                     $ret['error']="Warning: The alias already exists in storage list.";
@@ -5103,11 +5108,16 @@ class WPvivid {
         $this->ajax_check_security('manage_options');
         try {
             if (isset($_POST['all']) && is_bool($_POST['all'])) {
-                $all = $_POST['all'];
+                $all = sanitize_key($_POST['all']);
                 if (!$all) {
                     if (isset($_POST['options_name']) && is_array($_POST['options_name'])) {
                         $options_name = $_POST['options_name'];
-                        $ret['data']['setting'] = WPvivid_Setting::get_setting($all, $options_name);
+                        $options_name_array=array();
+                        foreach ($options_name as $option_name)
+                        {
+                            $options_name_array[]=sanitize_text_field($option_name);
+                        }
+                        $ret['data']['setting'] = WPvivid_Setting::get_setting($all, $options_name_array);
 
                         $schedule = WPvivid_Schedule::get_schedule();
                         $schedule['next_start'] = date("l, F d, Y H:i", $schedule['next_start']);
@@ -5206,7 +5216,7 @@ class WPvivid {
         {
             if(isset($_POST['setting'])&&!empty($_POST['setting']))
             {
-                $json_setting = $_POST['setting'];
+                $json_setting = sanitize_text_field($_POST['setting']);
                 $json_setting = stripslashes($json_setting);
                 $setting = json_decode($json_setting, true);
                 if (is_null($setting)){
@@ -5243,7 +5253,7 @@ class WPvivid {
         try{
             if(isset($_POST['schedule'])&&!empty($_POST['schedule']))
             {
-                $json = $_POST['schedule'];
+                $json = sanitize_text_field($_POST['schedule']);
                 $json = stripslashes($json);
                 $schedule = json_decode($json, true);
                 if (is_null($schedule))
@@ -5629,7 +5639,7 @@ class WPvivid {
         $this->ajax_check_security('manage_options');
         try {
             if (isset($_POST['data']) && !empty($_POST['data']) && is_string($_POST['data'])) {
-                $data = $_POST['data'];
+                $data = sanitize_text_field($_POST['data']);
                 $data = stripslashes($data);
                 $json = json_decode($data, true);
                 if (is_null($json)) {
@@ -6605,7 +6615,7 @@ class WPvivid {
         $this->ajax_check_security();
         try {
             if (isset($_POST['review']) && !empty($_POST['review']) && is_string($_POST['review'])) {
-                $review = $_POST['review'];
+                $review = sanitize_text_field($_POST['review']);
                 if ($review == 'rate-now') {
                     $review_option = 'do_not_ask';
                     echo 'https://wordpress.org/support/plugin/wpvivid-backuprestore/reviews/?filter=5';
@@ -6647,8 +6657,11 @@ class WPvivid {
                     $ret['result'] = 'failed';
                     $ret['error'] = __('Please enter a valid email address.', 'wpvivid-backuprestore');
                 } else {
-                    $this->ajax_check_security();
-                    $ret = WPvivid_mail_report::wpvivid_send_debug_info($_POST['user_mail'],$_POST['server_type'],$_POST['host_provider'],$_POST['comment']);
+                    $user_mail=sanitize_email($_POST['user_mail']);
+                    $server_type=sanitize_text_field($_POST['server_type']);
+                    $host_provider=sanitize_text_field($_POST['host_provider']);
+                    $comment=sanitize_text_field($_POST['comment']);
+                    $ret = WPvivid_mail_report::wpvivid_send_debug_info($user_mail,$server_type,$host_provider,$comment);
                 }
             }
             echo json_encode($ret);
@@ -6736,6 +6749,7 @@ class WPvivid {
 
     public function download_backup_mainwp()
     {
+        $this->ajax_check_security();
         try {
             if (isset($_REQUEST['backup_id']) && isset($_REQUEST['file_name'])) {
                 if (!empty($_REQUEST['backup_id']) && is_string($_REQUEST['backup_id'])) {
@@ -6746,7 +6760,7 @@ class WPvivid {
 
                 if (!empty($_REQUEST['file_name']) && is_string($_REQUEST['file_name'])) {
                     //$file_name=sanitize_file_name($_REQUEST['file_name']);
-                    $file_name = $_REQUEST['file_name'];
+                    $file_name = sanitize_text_field($_REQUEST['file_name']);
                 } else {
                     die();
                 }

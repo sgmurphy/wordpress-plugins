@@ -838,8 +838,8 @@ class WPvivid_Staging_Log_Page_Free
         $wpvivid_plugin->ajax_check_security();
         try
         {
-            $page = $_POST['page'];
-            $type=$_POST['type'];
+            $page = sanitize_key($_POST['page']);
+            $type=sanitize_text_field($_POST['type']);
             $loglist = $this->get_log_list($type);
             $table = new WPvivid_Staging_Log_List_Free();
             $table->set_log_list($loglist['log_list']['file'], $page);

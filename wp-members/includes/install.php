@@ -813,7 +813,7 @@ function wpmem_onboarding_init( $action ) {
 			'notice_heading' => __( 'Thank you for updating WP-Members, the original WordPress membership plugin.', 'wp-members' ),
 			'notice_button'  => __( 'Complete the update', 'wp-members' ),
 			'show_release_notes' => true,
-			'release_notes_link' => "https://rocketgeek.com/release-announcements/wp-members-3-4-9-2/",
+			'release_notes_link' => "https://rocketgeek.com/release-announcements/wp-members-3-4-9-3/",
 		),
     );
     $wpmem_onboarding = new RocketGeek_Onboarding_Beta( $settings );
@@ -834,7 +834,7 @@ function wpmem_onboarding_opt_in() {
     // $onboarding_title = ( 'upgrade' == $args['param1'] ) ? __( 'WP-Members Upgrade', 'wp-members' ) : __( "WP-Members New Install", 'wp-members' );
 	$install_state = get_option( 'wpmembers_install_state' );
 	$onboarding_title = ( 'update_pending' == $install_state ) ? __( 'WP-Members Upgrade', 'wp-members' ) : __( "WP-Members New Install", 'wp-members' );
-    $onboarding_release_notes = "https://rocketgeek.com/release-announcements/wp-members-3-4-9-2/";
+    $onboarding_release_notes = "https://rocketgeek.com/release-announcements/wp-members-3-4-9-3/";
     $onboarding_version = $wpmem->version;
 
     $page = ( ! isset( $_POST['step'] ) ) ? 'step_1' : $_POST['step'];

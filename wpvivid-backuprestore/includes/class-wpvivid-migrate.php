@@ -482,7 +482,7 @@ class WPvivid_Migrate
             global $wpvivid_plugin;
             $wpvivid_plugin->ajax_check_security();
 
-            $url=strtok($_POST['url'],'?');
+            $url=strtok(sanitize_url($_POST['url']),'?');
 
             if (filter_var($url, FILTER_VALIDATE_URL) === FALSE)
             {
@@ -500,7 +500,7 @@ class WPvivid_Migrate
                 die();
             }
 
-            $query=parse_url ($_POST['url'],PHP_URL_QUERY);
+            $query=parse_url (sanitize_url($_POST['url']),PHP_URL_QUERY);
             if($query===null)
             {
                 $query=strtok('?');
@@ -715,7 +715,7 @@ class WPvivid_Migrate
             $remote_option['type'] = WPVIVID_REMOTE_SEND_TO_SITE;
             $remote_options['temp'] = $remote_option;
 
-            $backup_options = stripslashes($_POST['backup_options']);
+            $backup_options = stripslashes(sanitize_text_field($_POST['backup_options']));
             $backup_options = json_decode($backup_options, true);
             $backup['backup_files'] = $backup_options['transfer_type'];
             $backup['local'] = 0;
@@ -772,7 +772,7 @@ class WPvivid_Migrate
         {
             die();
         }
-        $backup_options = stripslashes($_POST['backup_options']);
+        $backup_options = stripslashes(sanitize_text_field($_POST['backup_options']));
         $backup_options = json_decode($backup_options, true);
         $backup['backup_files']= $backup_options['transfer_type'];
         $backup['local']=1;
@@ -833,36 +833,37 @@ class WPvivid_Migrate
 
     public function generate_url()
     {
-        include_once WPVIVID_PLUGIN_DIR . '/vendor/autoload.php';
-
         global $wpvivid_plugin;
         $wpvivid_plugin->ajax_check_security();
+
+        include_once WPVIVID_PLUGIN_DIR . '/vendor/autoload.php';
 
         $expires=time()+3600;
 
         if(isset($_POST['expires']))
         {
-            if($_POST['expires']=='1 month')
+            $expires_display=sanitize_text_field($_POST['expires']);
+            if($expires_display=='1 month')
             {
                 $expires=time()+2592000;
             }
-            else if($_POST['expires']=='1 day')
+            else if($expires_display=='1 day')
             {
                 $expires=time()+86400;
             }
-            else if($_POST['expires']=='2 hour')
+            else if($expires_display=='2 hour')
             {
                 $expires=time()+7200;
             }
-            else if($_POST['expires']=='8 hour')
+            else if($expires_display=='8 hour')
             {
                 $expires=time()+28800;
             }
-            else if($_POST['expires']=='24 hour')
+            else if($expires_display=='24 hour')
             {
                 $expires=time()+86400;
             }
-            else if($_POST['expires']=='Never')
+            else if($expires_display=='Never')
             {
                 $expires=0;
             }

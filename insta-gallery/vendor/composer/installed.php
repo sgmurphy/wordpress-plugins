@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'quadlayers/insta-gallery',
-        'pretty_version' => 'v4.3.2',
-        'version' => '4.3.2.0',
-        'reference' => '8a6e2d6a2c43f19de6a3232382dcd7dc239e2c23',
+        'pretty_version' => 'v4.3.3',
+        'version' => '4.3.3.0',
+        'reference' => '9ef9b3cd84f4c4b57c8f787b11fd88552322e6e3',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -38,9 +38,9 @@
             'dev_requirement' => false,
         ),
         'quadlayers/insta-gallery' => array(
-            'pretty_version' => 'v4.3.2',
-            'version' => '4.3.2.0',
-            'reference' => '8a6e2d6a2c43f19de6a3232382dcd7dc239e2c23',
+            'pretty_version' => 'v4.3.3',
+            'version' => '4.3.3.0',
+            'reference' => '9ef9b3cd84f4c4b57c8f787b11fd88552322e6e3',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

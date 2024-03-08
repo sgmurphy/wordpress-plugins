@@ -469,7 +469,7 @@ class WPvivid_Staging_Setting_Free
         {
             if(isset($_POST['setting'])&&!empty($_POST['setting']))
             {
-                $json_setting = $_POST['setting'];
+                $json_setting = sanitize_text_field($_POST['setting']);
                 $json_setting = stripslashes($json_setting);
                 $setting = json_decode($json_setting, true);
                 if (is_null($setting))

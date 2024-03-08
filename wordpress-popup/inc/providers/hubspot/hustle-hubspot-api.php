@@ -10,12 +10,10 @@ if ( ! class_exists( 'Hustle_HubSpot_Api' ) ) :
 	 * Class Hustle_HubSpot_Api
 	 */
 	class Hustle_HubSpot_Api extends Opt_In_WPMUDEV_API {
-		const CLIENT_ID     = '5253e533-2dd2-48fd-b102-b92b8f250d1b';
-		const CLIENT_SECRET = '2ed54e79-6ceb-4fc6-96d9-58b4f98e6bca';
-		const HAPIKEY       = 'db9600bf-648c-476c-be42-6621d7a1f96a';
-		const BASE_URL      = 'https://app.hubspot.com/';
-		const API_URL       = 'https://api.hubapi.com/';
-		const SCOPE         = 'oauth crm.objects.contacts.write crm.lists.read crm.objects.contacts.read crm.schemas.contacts.write crm.schemas.contacts.read crm.lists.write';
+		const CLIENT_ID = '5253e533-2dd2-48fd-b102-b92b8f250d1b';
+		const BASE_URL  = 'https://app.hubspot.com/';
+		const API_URL   = 'https://api.hubapi.com/';
+		const SCOPE     = 'oauth crm.objects.contacts.write crm.lists.read crm.objects.contacts.read crm.schemas.contacts.write crm.schemas.contacts.read crm.lists.write';
 
 		const REFERER     = 'hustle_hubspot_referer';
 		const CURRENTPAGE = 'hustle_hubspot_current_page';
@@ -107,10 +105,12 @@ if ( ! class_exists( 'Hustle_HubSpot_Api' ) ) :
 		 * Compose redirect_uri to use on request argument.
 		 * The redirect uri must be constant and should not be change per request.
 		 *
+		 * @param array $args Args.
 		 * @return string
 		 */
-		private function get_redirect_uri() {
+		private function get_redirect_uri( $args = array() ) {
 			$params = wp_parse_args(
+				$args,
 				array(
 					'action'    => 'authorize',
 					'provider'  => 'hubspot',
@@ -145,14 +145,19 @@ if ( ! class_exists( 'Hustle_HubSpot_Api' ) ) :
 			$args = wp_parse_args(
 				$args,
 				array(
-					'redirect_uri' => $this->get_redirect_uri(),
+					'redirect_uri' => rawurlencode( $this->get_redirect_uri() ),
 					'grant_type'   => 'authorization_code',
+					'state'        => 'state', // It's added just because state param is required on the final endpoint. It's unuseful here.
+					'action'       => 'get_access_token',
 				)
 			);
 
-			$response = $this->request( 'oauth/v1/token', 'POST', $args, false, true );
+			$url      = $this->get_redirect_uri( $args );
+			$res      = wp_remote_get( $url );
+			$body     = is_wp_error( $res ) || ! $res ? '' : wp_remote_retrieve_body( $res );
+			$response = $body ? json_decode( $body ) : '';
 
-			if ( ! is_wp_error( $response ) && ! empty( $response->refresh_token ) ) {
+			if ( ! empty( $response->refresh_token ) ) {
 				$token_data = get_object_vars( $response );
 
 				$token_data['expires_in'] += time();
@@ -187,9 +192,8 @@ if ( ! class_exists( 'Hustle_HubSpot_Api' ) ) :
 			$url           = self::API_URL . $endpoint;
 
 			$args = array(
-				'client_id'     => self::CLIENT_ID,
-				'client_secret' => self::CLIENT_SECRET,
-				'scope'         => self::SCOPE,
+				'client_id' => self::CLIENT_ID,
+				'scope'     => self::SCOPE,
 			);
 			$args = wp_parse_args( $args, $query_args );
 
@@ -199,14 +203,17 @@ if ( ! class_exists( 'Hustle_HubSpot_Api' ) ) :
 			$_args = array(
 				'method'  => $method,
 				'headers' => array(
-					'Authorization' => 'Bearer ' . ( ! empty( $access_token ) ? $access_token : self::HAPIKEY ),
-					'Content-Type'  => 'application/json;charset=utf-8',
+					'Content-Type' => 'application/json;charset=utf-8',
 				),
 				'body'    => $args,
 			);
 
+			if ( $access_token ) {
+				$_args['headers']['Authorization'] = 'Bearer ' . $access_token;
+			}
 			if ( 'POST' === $method && $x_www ) {
-				$_args['headers']['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8'; }
+				$_args['headers']['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+			}
 
 			$response = wp_remote_request( $url, $_args );
 

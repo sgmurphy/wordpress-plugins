@@ -1,71 +1,89 @@
 msgid "Settings"
 msgstr "Nastavenia"
 
-msgid "This plugin adds <strong>I am not a robot</strong> checkbox to Contact Form 7, extending its functionality (not affiliated with the Contact Form 7 plugin)."
-msgstr "Tento plugin pridáva zaškrtávacie políčko <strong>Nie som robot</strong> do Contact Form 7, čím rozširuje jeho funkcionalitu (nie je spojený s pluginom Contact Form 7)."
-
-msgid "To add Captcha to Contact Form 7 form, add <strong>[cf7sr-simple-recaptcha]</strong> in your form ( preferable above submit button )"
-msgstr "Ak chcete pridať Captcha do formulára Contact Form 7, pridajte do svojho formulára <strong>[cf7sr-simple-recaptcha]</strong> (najlepšie nad tlačidlo odoslania)."
-
-msgid "The plugin will not work unless you set up the configuration below"
-msgstr "Plugin nebude fungovať, pokiaľ nenastavíte konfiguráciu nižšie"
-
 msgid "Invalid captcha error message"
-msgstr "Neplatná chybová správa Captcha"
+msgstr "Neplatná chybová správa CAPTCHA"
 
 msgid "Save Settings"
 msgstr "Uložiť nastavenia"
 
-msgid "Get Captcha Pro and Unlock all the Powerful Features"
-msgstr "Získajte Captcha Pro a odomknite všetky výkonné funkcie"
+msgid "Get Captcha Pro and unlock premium features"
+msgstr "Získajte Captcha Pro a odomknite prémiové funkcie"
 
-msgid "Trusted by more than 100,000 businesses worldwide. The Pro version is even better!"
-msgstr "Dôverujú mu viac ako 100 000 firiem po celom svete. Pro verzia je ešte lepšia!"
-
-msgid "Check out the cool new features."
-msgstr "Pozrite si skvelé nové funkcie."
-
-msgid "WPML and POLYLANG language integration"
-msgstr "Integrácia jazykov WPML a POLYLANG"
-
-msgid "Render captcha widget in a specific language, choose from 70 languages."
-msgstr "Zobrazte widget Captcha v konkrétnom jazyku, vyberte si zo 70 jazykov."
-
-msgid "Switch between the color theme of the widget, light or dark."
-msgstr "Prepínajte medzi svetlou alebo tmavou farebnou témou widgetu."
-
-msgid "Switch between the type of the widget, image or audio."
-msgstr "Prepínajte medzi typom widgetu, obrázkom alebo zvukom."
-
-msgid "Switch between the size of the widget, normal or compact."
-msgstr "Prepínajte medzi normálnou a kompaktnou veľkosťou widgetu."
+msgid "Trusted by more than 100,000 businesses worldwide. PRO version is even better!"
+msgstr "Dôveruje mu viac ako 100 000 firiem po celom svete. PRO verzia je ešte lepšia!"
 
 msgid "Redirect users to any url after mail sent successfully."
-msgstr "Presmerujte používateľov na ľubovoľnú adresu URL po úspešnom odoslaní e-mailu."
+msgstr "Presmerovať používateľov na ľubovoľnú URL adresu po úspešnom odoslaní e-mailu."
 
-msgid "Integrate powerful honeypot protection into your forms for stronger security."
-msgstr "Integrujte do svojich formulárov výkonnú ochranu honeypot pre zvýšenie bezpečnosti."
+msgid "Integrate additional Honeypot protection into your forms for stronger security."
+msgstr "Integrujte do svojich formulárov dodatočnú ochranu Honeypot pre väčšiu bezpečnosť."
 
 msgid "Define a list of restricted words. Messages containing restricted words will not be sent."
 msgstr "Definujte zoznam zakázaných slov. Správy obsahujúce zakázané slová nebudú odoslané."
 
 msgid "Get IP Blocker access to block messages from malicious IP addresses."
-msgstr "Získajte prístup k IP Blocker, aby ste mohli blokovať správy zo škodlivých IP adries."
+msgstr "Získajte prístup k IP Blocker na blokovanie správ zo škodlivých IP adries."
 
 msgid "Use rate limiting to manage how often forms can be submitted and prevent abuse."
-msgstr "Použite obmedzenie frekvencie na správu toho, ako často je možné formuláre odoslať, a zabráňte zneužitiu."
+msgstr "Použite obmedzenie frekvencie, aby ste mohli spravovať ako často je možné odosielať formuláre a zabránili ste zneužitiu."
 
 msgid "Enable automatic saving of Contact Form 7 messages to your database."
-msgstr "Povoľte automatické ukladanie správ Contact Form 7 do vašej databázy."
+msgstr "Povoliť automatické ukladanie správ Contact Form 7 do vašej databázy."
 
 msgid "Use Twilio SMS to receive new form submission notifications directly to your phone."
-msgstr "Použite Twilio SMS na prijímanie upozornení na odoslanie nových formulárov priamo do telefónu."
+msgstr "Pomocou Twilio SMS prijímajte oznámenia o nových odoslaniach formulárov priamo do telefónu."
 
 msgid "Transfer data from contact form submissions directly into your Mailchimp list."
-msgstr "Preneste údaje z odoslaných kontaktných formulárov priamo do svojho zoznamu Mailchimp."
+msgstr "Preneste dáta z odoslaných kontaktných formulárov priamo do vášho zoznamu Mailchimp."
 
 msgid "Use this link to generate"
-msgstr "Na vygenerovanie použite tento odkaz"
+msgstr "Pomocou tohto odkazu vygenerujte"
 
 msgid "Choose"
 msgstr "Vyberte"
+
+msgid "Updated successfully!"
+msgstr "Úspešne aktualizované!"
+
+msgid "PRO features:"
+msgstr "PRO funkcie:"
+
+msgid "Contact Form 7 Captcha plugin updated to support reCAPTCHA and hCAPTCHA."
+msgstr "Plugin Contact Form 7 Captcha bol aktualizovaný tak, aby podporoval reCAPTCHA a hCAPTCHA."
+
+msgid "You can combine multiple attributes, sample shortcode:"
+msgstr "Môžete kombinovať viacero atribútov, príklad shortcodu:"
+
+msgid "reCaptcha will not work unless you set up the configuration below"
+msgstr "reCaptcha nebude fungovať, pokiaľ nenastavíte konfiguráciu uvedenú nižšie"
+
+msgid "To add reCaptcha to Contact Form 7 form, add <strong>[cf7sr-recaptcha]</strong> in your form ( preferable above submit button )"
+msgstr "Ak chcete pridať reCaptcha do formulára Contact Form 7, pridajte do svojho formulára <strong>[cf7sr-recaptcha]</strong> (najlepšie nad tlačidlo odoslania)"
+
+msgid "Force reCaptcha to render in a specific language. Google auto-detects if unspecified."
+msgstr "Vynútiť vykreslenie reCaptcha v konkrétnom jazyku. Google automaticky zistí jazyk, pokiaľ nie je zadaný."
+
+msgid "Default size of reCaptcha is normal, for compact size use shortcode:"
+msgstr "Predvolená veľkosť reCaptcha je normálna, pre kompaktnú veľkosť použite shortcode:"
+
+msgid "Default color theme of reCaptcha is light, for dark theme use shortcode:"
+msgstr "Predvolená farebná téma reCaptcha je svetlá, pre tmavú tému použite shortcode:"
+
+msgid "Default type of reCaptcha is image, for audio type use shortcode:"
+msgstr "Predvolený typ reCaptcha je obrázok, pre zvukový typ použite shortcode:"
+
+msgid "hCaptcha will not work unless you set up the configuration below"
+msgstr "hCaptcha nebude fungovať, pokiaľ nenastavíte konfiguráciu uvedenú nižšie"
+
+msgid "To add hCaptcha to Contact Form 7 form, add <strong>[cf7sr-hcaptcha]</strong> in your form ( preferable above submit button )"
+msgstr "Ak chcete pridať hCaptcha do formulára Contact Form 7, pridajte do svojho formulára <strong>[cf7sr-hcaptcha]</strong> (najlepšie nad tlačidlo odoslania)"
+
+msgid "Force hCaptcha to render in a specific language. Google auto-detects if unspecified."
+msgstr "Vynútiť vykreslenie hCaptcha v konkrétnom jazyku. Google automaticky zistí jazyk, pokiaľ nie je zadaný."
+
+msgid "Default size of hCaptcha is normal, for compact size use shortcode:"
+msgstr "Predvolená veľkosť hCaptcha je normálna, pre kompaktnú veľkosť použite shortcode:"
+
+msgid "Default color theme of hCaptcha is light, for dark theme use shortcode:"
+msgstr "Predvolená farebná téma hCaptcha je svetlá, pre tmavú tému použite shortcode:"
