@@ -120,13 +120,13 @@ class Duplicator {
 	 */
 	public function duplicate_post() {
 
-		if ( ! current_user_can( 'edit_posts' ) ) {
-			return;
-		}
-
 		$nonce   = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
 		$post_id = isset( $_GET['post_id'] ) ? absint( $_GET['post_id'] ) : 0;
 		$paged   = isset( $_GET['paged'] ) ? absint( $_GET['paged'] ) : 1;
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
 
 		if ( ! wp_verify_nonce( $nonce, self::DUPLICATE_ACTION ) ) {
 			return;

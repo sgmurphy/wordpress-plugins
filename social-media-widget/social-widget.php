@@ -3,7 +3,7 @@
  * Plugin Name: Social Media Widget
  * Plugin URI: http://wordpress.org/extend/plugins/social-media-widget/
  * Description: Adds links to all of your social media and sharing site profiles. Tons of icons come in 3 sizes, 4 icon styles, and 4 animations.
- * Version: 4.0.7
+ * Version: 4.0.8
  * Author: Noah Kagan
  * Author URI: https://appsumo.com/search/?tags=wordpress&utm_source=sumo&utm_medium=wp-widget&utm_campaign=social-media-widget
  **/
@@ -517,11 +517,11 @@ class Social_Widget extends WP_Widget {
 			}
 			*/
 			$target= empty( $this->slugtargets[$name] ) ? $this->newtab : 'target="'.$this->slugtargets[$name].'"';
-			$html .= '<a href="' . $slug . '" ' . ($name == 'googleplus' ? 'rel="publisher"' : $this->nofollow) . ' ' . $target.'>';
-			$html .= '<img width="' . $this->icon_size .'" height="' . $this->icon_size . '" src="' . $img . '" 
+			$html .= '<a href="' . esc_attr($slug) . '" ' . ($name == 'googleplus' ? 'rel="publisher"' : $this->nofollow) . ' ' . $target.'>';
+			$html .= '<img width="' . esc_attr($this->icon_size) .'" height="' . esc_attr($this->icon_size) . '" src="' . esc_attr($img) . '" 
 				alt="' . esc_attr(empty($this->slugalts[$name]) ? "$this->imgcaption $title": $this->slugalts[$name]).'" 
 				title="' . esc_attr(empty($this->slugtitles[$name]) ? "$this->imgcaption $title" : $this->slugtitles[$name]) . '" ' . 
-				($this->animation == 'fade' || $this->animation == 'combo' ? 'style="opacity: ' . $this->icon_opacity . '; -moz-opacity: ' . $this->icon_opacity . ';"' : '') . ' class="' . $this->animation . '" />';
+				($this->animation == 'fade' || $this->animation == 'combo' ? 'style="opacity: ' . esc_attr($this->icon_opacity) . '; -moz-opacity: ' . esc_attr($this->icon_opacity) . ';"' : '') . ' class="' . $this->animation . '" />';
 			$html .= '</a>';
 			/*
 			if ($this->display_titles == 'right') {

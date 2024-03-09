@@ -1070,6 +1070,7 @@ a.leaflet-control-zoom-in, .leaflet-control-zoom-out {
 	align-items: center;
 	border: none;
 	justify-content: center;
+	text-transform: uppercase;    
 }
 
 .mapp-view-list img, .mapp-view-map img {
@@ -1702,7 +1703,6 @@ img.mapp-icon, .mapp-icon img {
 	justify-content: center;
 	line-height: normal;
 	padding: 10px;
-	text-transform: uppercase;
 	white-space: nowrap;
 }
 
@@ -1713,6 +1713,7 @@ img.mapp-icon, .mapp-icon img {
 .mapp-button {
 	background-color: white;
 	border: 1px solid lightgray;
+	user-select: none;    
 }
 
 .mapp-button:hover {
@@ -1730,7 +1731,8 @@ img.mapp-icon, .mapp-icon img {
 }
 
 .mapp-button-disabled  {
-	color: #aaa
+	color: #aaa;
+	pointer-events: none;
 }
 
 .mapp-button-busy:after {

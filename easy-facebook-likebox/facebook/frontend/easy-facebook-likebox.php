@@ -30,7 +30,7 @@ class Easy_Facebook_Likebox
      *
      * @var     string
      */
-    const  VERSION = '6.5.5' ;
+    const  VERSION = '6.5.6' ;
     /**
      *
      * Unique identifier for your plugin.
@@ -408,7 +408,7 @@ class Easy_Facebook_Likebox
         $returner .= ' <div class="efbl-like-box ' . esc_attr( $likebox_instance ) . '">
                   <div class="fb-page" data-animclass="';
         if ( $animate_effect ) {
-            $returner .= '' . $animate_effect . '';
+            $returner .= '' . esc_attr( $animate_effect ) . '';
         }
         $returner .= '" data-href="https://www.facebook.com/' . esc_attr( $page_name_id ) . '" ' . $hide_cover . ' data-width="' . esc_attr( $box_width ) . '"  ' . $efbl_tabs . ' data-height="' . esc_attr( $box_height ) . '" ' . $show_faces . '  ' . $show_stream . ' ' . $responsive . ' ' . $hide_cta . ' ' . $small_header . '>
                   </div> 

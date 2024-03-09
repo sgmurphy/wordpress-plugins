@@ -771,7 +771,7 @@
 * Responsive Style
 */
 @media (max-width: 768px) {
-    .premium-blog-content-wrapper {
+    .premium-blog-post-container:not(.premium-blog-skin-banner) .premium-blog-content-wrapper {
       top: 0;
       margin: 0;
       padding: 15px;

@@ -5,7 +5,7 @@ Tags: auto, automatic, background, update, updates, updating, automatic updates,
 Requires at least: 5.3.0
 Tested up to: 6.4
 Requires PHP: 5.1
-Stable tag: 3.9.0
+Stable tag: 3.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,9 @@ So obviously, some of you wondered what the difference would be between the defa
 4. Keep track of updates with the update log
 
 == Changelog ==
+
+= 3.9.1 (March 8, 2024) =
+* Fixed: Undefined variable $totalNum
 
 = 3.9.0 (February 2, 2024) =
 * Fixed: Fatal error during Cron

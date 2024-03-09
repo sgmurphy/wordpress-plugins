@@ -122,15 +122,22 @@
                     this.filterTabs();
                 }
 
-                if (!this.settings.filterTabs || "*" === this.settings.activeCategory) {
-                    if ("masonry" === this.settings.layout && !this.settings.carousel) {
-                        $blogElement.imagesLoaded(function () {
+                if ("masonry" === this.settings.layout && !this.settings.carousel) {
+
+                    $blogElement.imagesLoaded(function () {
+
+                        if ("*" === _this.settings.activeCategory) {
                             $blogElement.isotope(_this.getIsoTopeSettings());
-                        });
-                    }
-                } else {
-                    //If `All` categories not exist, then we need to get posts through AJAX.
-                    // this.getPostsByAjax(false);
+                        } else {
+                            $blogElement.isotope({
+                                itemSelector: ".premium-blog-post-outer-container",
+                                animate: false,
+
+                            });
+                        }
+
+                    });
+                    //
                 }
 
                 if (this.settings.carousel) {

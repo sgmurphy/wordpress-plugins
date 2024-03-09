@@ -26,60 +26,105 @@ if ( $is_album_feed ) {
     if ( $feed_img ) {
         ?>
 
-    <div class="efbl-row-content">
-        <div class="efbl-row-wrapper efbl-story-wrapper">
+        <div class="efbl-row-content">
+            <div class="efbl-row-wrapper efbl-story-wrapper">
+				<?php 
+        
+        if ( efl_fs()->is_free_plan() || efl_fs()->is_plan( 'instagram_premium', true ) ) {
+            ?>
+                    <a class="efbl_feed_fancy_popup efbl-row-box" target="_blank"
+                       href="<?php 
+            echo  esc_url( $story->permalink_url ) ;
+            ?>">
+                        <img src="<?php 
+            echo  esc_url( $feed_img ) ;
+            ?>">
+                        <div class="efbl-overlay">
 
-            <span class="efbl_feed_fancy_popup efbl-row-box"
-               data-fancybox="efbl_feed_fancy_popup_<?php 
-        esc_attr_e( $popup_id );
-        ?>"
-               data-type="ajax"
-               data-src="<?php 
-        esc_attr_e( $efbl_feed_popup_url );
-        ?>"
-               href="javascript:;"
-               style="background-image: url(<?php 
-        echo  esc_url( $feed_img ) ;
-        ?>)">
+							<?php 
+            if ( $efbl_skin_values['design']['show_feed_open_popup_icon'] ) {
+                ?>
+
+                                <i class="icon icon-esf-plus efbl-plus"
+                                   aria-hidden="true"></i>
+
+								<?php 
+            }
+            ?>
+							<?php 
+            if ( $feed_type == 'added_video' || $feed_attachment_type == 'video_inline' ) {
+                ?>
+                                <i class="icon icon-esf-clone icon-esf-video-camera"
+                                   aria-hidden="true"></i>
+								<?php 
+            }
+            if ( isset( $story->attachments->data['0']->subattachments->data ) && !empty($story->attachments->data['0']->subattachments->data) ) {
+                ?>
+                                <i class="icon icon-esf-clone efbl_multimedia"
+                                   aria-hidden="true"></i>
+								<?php 
+            }
+            ?>
+                        </div>
+
+                    </a>
+				<?php 
+        } else {
+            ?>
+                    <span class="efbl_feed_fancy_popup efbl-row-box"
+                          data-fancybox="efbl_feed_fancy_popup_<?php 
+            esc_attr_e( $popup_id );
+            ?>"
+                          data-type="ajax"
+                          data-src="<?php 
+            esc_attr_e( $efbl_feed_popup_url );
+            ?>"
+                          href="javascript:;"
+                          style="background-image: url(<?php 
+            echo  esc_url( $feed_img ) ;
+            ?>)">
                 <img src="<?php 
-        echo  esc_url( $feed_img ) ;
-        ?>">
+            echo  esc_url( $feed_img ) ;
+            ?>">
                 <div class="efbl-overlay">
 
 
 					<?php 
-        if ( $efbl_skin_values['design']['show_feed_open_popup_icon'] ) {
-            ?>
+            if ( $efbl_skin_values['design']['show_feed_open_popup_icon'] ) {
+                ?>
 
                         <i class="icon icon-esf-plus efbl-plus"
                            aria-hidden="true"></i>
 
-					<?php 
-        }
-        ?>
-					<?php 
-        if ( $feed_type == 'added_video' || $feed_attachment_type == 'video_inline' ) {
+						<?php 
+            }
             ?>
+	                <?php 
+            if ( $feed_type == 'added_video' || $feed_attachment_type == 'video_inline' ) {
+                ?>
                         <i class="icon icon-esf-clone icon-esf-video-camera"
                            aria-hidden="true"></i>
-					<?php 
-        }
-        if ( isset( $story->attachments->data['0']->subattachments->data ) && !empty($story->attachments->data['0']->subattachments->data) ) {
-            ?>
+		                <?php 
+            }
+            if ( isset( $story->attachments->data['0']->subattachments->data ) && !empty($story->attachments->data['0']->subattachments->data) ) {
+                ?>
                         <i class="icon icon-esf-clone efbl_multimedia"
                            aria-hidden="true"></i>
-					<?php 
-        }
-        ?>
+		                <?php 
+            }
+            ?>
                 </div>
 
             </span>
+				<?php 
+        }
+        
+        ?>
 
-
+            </div>
         </div>
-    </div>
 
-<?php 
+		<?php 
     }
 
 }

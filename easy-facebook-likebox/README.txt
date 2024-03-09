@@ -3,11 +3,11 @@ Contributors: DaNish Ali, maltathemes, sjaved
 Tags: Instagram feed, Instagram photos, Instagram gallery, Facebook feed, Facebook posts
 Requires at least: 3.3
 Tested up to: 6.4
-Stable tag: 6.5.5
+Stable tag: 6.5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Custom Instagram Feed. Custom Facebook Feed. It's the easiest plugin to display custom Facebook feed (posts, photos, videos, events), custom Instagram Feed (photos, gallery, and videos) and page plugin (like box).
+It's the easiest plugin to display custom Facebook feed (posts, photos, videos, events), custom Instagram Feed (photos, gallery, and videos) and page plugin (like box).
 
 == Description ==
 The easiest and user-friendly plugin for **Custom Instagram Feed** (Display photos, gallery, and videos), **Custom Facebook Feed** (posts, links, status, photos, videos, events), **Facebook and Page Plugin** (previously Facebook Like Box).
@@ -174,6 +174,9 @@ http://wordpress.org/support/topic/need-feed-back-on-plugin-feature/
 23. Instagram skins/layouts panel
 
 == Changelog ==
+= 6.5.6 =
+* Fixed: Some important layout issues
+
 = 6.5.5 =
 * Added: New row layout for Facebook and Instagram
 * Fixed: Some minor issues

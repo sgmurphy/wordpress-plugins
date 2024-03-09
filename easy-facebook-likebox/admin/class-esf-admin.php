@@ -69,10 +69,10 @@ if ( ! class_exists( 'ESF_Admin' ) ) {
 			);
 
 			add_action(
-				'wp_ajax_esf_hide_cache_notice',
+				'wp_ajax_esf_hide_row_notice',
 				array(
 					$this,
-					'hide_cache_notice',
+					'hide_row_notice',
 				)
 			);
 
@@ -411,7 +411,51 @@ if ( ! class_exists( 'ESF_Admin' ) ) {
 						});
 				</script>
 				<?php
-			}
+			} 
+			
+			if ( get_site_option( 'fta_row_layout_notice' ) !== 'yes' ) { ?>
+
+							<div style="position:relative;padding-right:80px;background: #fff;" class="update-nag fta_row_notice">
+					<p>
+						<?php esc_html_e( 'We are excited to announce the release of a new layout for our ESF plugin called ', 'easy-facebook-likebox' ); ?> 
+						<b><?php esc_html_e( 'Row', 'easy-facebook-likebox' ); ?>!</b>
+						<?php esc_html_e( 'It will help you display the feed in a single row. Click ', 'easy-facebook-likebox' ); ?>
+						<a href="https://easysocialfeed.com/custom-facebook-feed/row/" target="_blank">
+							<?php esc_html_e( 'here ', 'easy-facebook-likebox' ); ?>
+						</a>
+						<?php esc_html_e( 'to preview of Facebook, and ', 'easy-facebook-likebox' ); ?>
+						<a href="https://easysocialfeed.com/my-instagram-feed-demo/row/" target="_blank">
+							<?php esc_html_e( 'here ', 'easy-facebook-likebox' ); ?>
+						</a>
+						<?php esc_html_e( 'for Instagram', 'easy-facebook-likebox' ); ?>.
+					</p>
+					<div class="fl_support_btns">
+						<div class="esf_hide_row_notice" style="position:absolute;right:10px;cursor:pointer;top:4px;color: #029be4;">
+							<div style="font-weight:bold;" class="dashicons dashicons-no-alt"></div>
+							<span style="margin-left: 2px;">
+								<?php esc_html_e( 'Dismiss', 'easy-facebook-likebox' ); ?>
+							</span>
+						</div>
+					</div>
+				</div>
+				<script>
+					jQuery('.esf_hide_row_notice').click(function() {
+					var data = {'action': 'esf_hide_row_notice'};
+						jQuery.ajax({
+							  url: "<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>",
+							  type: 'post',
+							  data: data,
+							  dataType: 'json',
+							  async: !0,
+							  success: function(e) {
+								if(e === 'success'){
+									jQuery('.fta_row_notice').slideUp('fast');
+								}
+							  },
+						});
+						});
+				</script>
+			<?php	}
 
 			return false;
 		}
@@ -428,15 +472,14 @@ if ( ! class_exists( 'ESF_Admin' ) ) {
 		}
 
 		/**
-		 * Hide rating notice permenately
-		 *
-		 * @since 1.0.0
+		 * Hide row layout notice permenately
 		 */
-		public function hide_cache_notice() {
-			update_site_option( 'fta_cache_cleared', 'yes' );
+		public function hide_row_notice() {
+			update_site_option( 'fta_row_layout_notice', 'yes' );
 			echo wp_json_encode( array( 'success' ) );
 			wp_die();
 		}
+
 
 		/**
 		 * Hide sidebar for free users

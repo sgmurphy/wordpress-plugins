@@ -1,6 +1,6 @@
 === Skyboot Custom Icons for Elementor - Elementor Icons library - 14000+ Icons  ===
 Contributors: skybootstrap
-Tags: elementor, custom icons, elementor icons, icons, elementor addons, icon fonts, elementor icons list, elementor custom icons, elementor icons library, free icons, social media icons, icons for website
+Tags: elementor, custom icons, elementor icons, icons, elementor addons
 Requires at least: 5.9
 Requires PHP: 7.0
 Tested up to: 6.4

@@ -179,10 +179,8 @@ function cau_run_custom_hooks_p() {
 // Run custom hooks on theme update
 function cau_run_custom_hooks_t() {
 
-	// Create array
 	$allDates 	= array();
-
-	// Where to look for plugins
+	$totalNum 	= 0;
 	$dirr    	= get_theme_root();
 	$listOfAll 	= wp_get_themes();
 
@@ -228,8 +226,6 @@ function cau_run_custom_hooks_t() {
 
 	}
 
-	$totalNum = 0;
-
 	// Count number of updated plugins
 	foreach ( $allDates as $key => $value ) $totalNum++;
 
@@ -243,10 +239,7 @@ function cau_run_custom_hooks_t() {
 // Run custom hooks on core update
 function cau_run_custom_hooks_c() {
 
-	// Create array
-	$totalNum 	= 0;
-
-	// Get data
+	$totalNum 		= 0;
 	$fullPath 		= ABSPATH.'wp-includes/version.php';
 	$fileDate 		= date ( 'YmdHi', filemtime( $fullPath ) );
 	$update_time 	= wp_next_scheduled( 'wp_version_check' );

@@ -5,7 +5,7 @@ Plugin URI: https://www.mappresspro.com
 Author URI: https://www.mappresspro.com
 Pro Update URI: https://www.mappresspro.com
 Description: MapPress makes it easy to add Google Maps and Leaflet Maps to WordPress
-Version: 2.89
+Version: 2.89.1
 Author: Chris Richardson
 Text Domain: mappress-google-maps-for-wordpress
 Thanks to all the translators and to Scott DeJonge for his wonderful icons
@@ -41,7 +41,7 @@ if (is_dir(dirname( __FILE__ ) . '/pro')) {
 }
 
 class Mappress {
-	const VERSION = '2.89';
+	const VERSION = '2.89.1';
 
 	static
 		$api,
@@ -687,6 +687,7 @@ class Mappress {
 			'baseurl' => self::$baseurl,
 			'blockCategory' => self::$block_category,
 			'debug' => self::$debug,
+			'dev' => self::is_dev(),
 			'editurl' => admin_url('post.php'),
 			'filterParams' => (class_exists('Mappress_Filter')) ? Mappress_Filter::get_url_params() : array(),
 			'iconsUrl' => (self::$pro) ? Mappress_Icons::$icons_url : null,    
@@ -800,11 +801,8 @@ class Mappress {
 
 	static function script_loader_tag($tag, $handle, $src) {
 		// Deregister
-		if (self::$options->engine == 'google' && self::$options->deregister && self::$loaded && ($handle != 'mappress-google' && (stripos($src, 'maps.googleapis.com') !== false || stripos($src, 'maps.google.com'))))
+		if (self::$options->engine == 'google' && self::$options->deregister && self::$loaded && (stripos($src, 'maps.googleapis.com') !== false || stripos($src, 'maps.google.com')))
 			return '';
-		// Re-register
-		else if ($handle == 'mappress-google' && empty($tag))
-			return sprintf("<script src='%s' id='mappress-google-js-fixed'></script>\n", self::scripts_google_tag());
 		else
 			return $tag;
 	}
@@ -858,8 +856,9 @@ class Mappress {
 		$deps = array('react', 'react-dom', 'wp-i18n');
 		if (self::$options->engine == 'leaflet')
 			$deps = array_merge(array('mappress-leaflet', 'mappress-leaflet-omnivore'), $deps);
-		if (self::$options->engine != 'leaflet' || self::$options->geocoder == 'google')
-			$deps[] = 'mappress-google';
+		// 2.89 
+		//        if (self::$options->engine != 'leaflet' || self::$options->geocoder == 'google')
+		//			$deps[] = 'mappress-google';
 		if (self::$options->clustering)
 			$deps[] = (self::$options->engine == 'leaflet') ? 'mappress-leaflet-markercluster' : 'mappress-markerclusterer';
 		$admin_deps = array('mappress', 'wp-blocks', 'wp-components', 'wp-compose', 'wp-core-data', 'wp-element', 'wp-media-utils', 'wp-i18n', 'wp-notices', 'wp-url');
@@ -868,7 +867,7 @@ class Mappress {
 		$register = array(
 			array("mappress-leaflet", $lib . '/leaflet/leaflet.js', null, null, $footer),
 			array("mappress-leaflet-omnivore", $lib . '/leaflet/leaflet-omnivore.min.js', null, null, $footer),
-			array("mappress-google", self::scripts_google_tag(), null, null, $footer),
+			// 2.89 array("mappress-google", self::scripts_google_tag(), null, null, $footer),
 			array('mappress-markerclusterer', self::unpkg('markerclusterer', 'index.min.js'), null, null, $footer),
 			array('mappress-leaflet-markercluster', $lib . '/leaflet/leaflet.markercluster.js', null, null, $footer),
 			array('mappress', $js . "/index_mappress.js", $deps, self::$version, $footer),
@@ -892,16 +891,6 @@ class Mappress {
 				wp_set_script_translations('mappress_admin', 'mappress-google-maps-for-wordpress', self::$basedir . '/languages');
 			}
 		}
-	}
-
-	static function scripts_google_tag() {
-		$dev = self::is_dev();
-		$language = self::get_language();
-		$language = ($language) ? "&language=$language" : '';
-		$apiversion = ($dev) ? '&v=beta' : '&v=3';
-		$apikey = "&key=" . self::get_api_keys()->browser;
-		$libs = '&libraries=places,drawing';
-		return "https://maps.googleapis.com/maps/api/js?callback=Function.prototype{$apiversion}{$language}{$libs}{$apikey}";
 	}
 
 	/**

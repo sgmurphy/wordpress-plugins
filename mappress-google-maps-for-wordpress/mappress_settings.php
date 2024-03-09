@@ -83,7 +83,7 @@ class Mappress_Options extends Mappress_Obj {
 		$tooltips = false,
 		$units = 'metric',
 		$userLocation = false,
-		$webComponent = null,
+		$webComponent = true,
 		$wpml = true
 		;
 
@@ -97,13 +97,13 @@ class Mappress_Options extends Mappress_Obj {
 
 		// Force web component
 		if (isset($_REQUEST['mp_wc']))
-			$options['webComponent'] = true;
+			$options['webComponent'] = ($_REQUEST['mp_wc']) ? true : false;
 		// Force iframes
 		else if (Mappress_Settings::iframes_required())
 			$options['iframes'] = true;
 
 		if (isset($_REQUEST['mp_iframes']))
-			$options['iframes'] = ($_REQUEST['mp_iframes'] == 'true') ? true : false;
+			$options['iframes'] = ($_REQUEST['mp_iframes']) ? true : false;
 
 		return new Mappress_Options($options);
 	}

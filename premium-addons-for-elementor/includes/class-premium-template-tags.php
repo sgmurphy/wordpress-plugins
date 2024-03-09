@@ -127,7 +127,7 @@ class Premium_Template_Tags {
 
 		$is_mbinstalled = extension_loaded( 'mbstring' );
 		$options = array();
-		
+
 		if ( ! empty( $all_posts ) && ! is_wp_error( $all_posts ) ) {
 			foreach ( $all_posts as $post ) {
 
@@ -1112,6 +1112,8 @@ class Premium_Template_Tags {
 							<div class="premium-blog-thumbnail-overlay">
 								<a class="elementor-icon" href="<?php the_permalink(); ?>" target="<?php echo esc_attr( $target ); ?>" aria-hidden="true"><span><?php esc_html( the_title() ); ?></span></a>
 							</div>
+
+                            <?php do_action( 'pa_blog_after_thumbnail' ); ?>
 						<?php endif; ?>
 					</div>
 				<?php endif; ?>

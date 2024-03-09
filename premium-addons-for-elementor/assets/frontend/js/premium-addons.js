@@ -1763,15 +1763,22 @@
                     this.filterTabs();
                 }
 
-                if (!this.settings.filterTabs || "*" === this.settings.activeCategory) {
-                    if ("masonry" === this.settings.layout && !this.settings.carousel) {
-                        $blogElement.imagesLoaded(function () {
+                if ("masonry" === this.settings.layout && !this.settings.carousel) {
+
+                    $blogElement.imagesLoaded(function () {
+
+                        if ("*" === _this.settings.activeCategory) {
                             $blogElement.isotope(_this.getIsoTopeSettings());
-                        });
-                    }
-                } else {
-                    //If `All` categories not exist, then we need to get posts through AJAX.
-                    //                     this.getPostsByAjax(false);
+                        } else {
+                            $blogElement.isotope({
+                                itemSelector: ".premium-blog-post-outer-container",
+                                animate: false,
+
+                            });
+                        }
+
+                    });
+                    //
                 }
 
                 if (this.settings.carousel) {
@@ -2506,7 +2513,7 @@
                 var target = '.premium-title-header';
                 $scope.find(target).find('.premium-title-icon, .premium-title-img').addClass('premium-mask-span');
 
-            } else if ('premium-textual-showcase.default' === $scope.data('widget_type') ) {
+            } else if ('premium-textual-showcase.default' === $scope.data('widget_type')) {
                 var target = '.pa-txt-sc__effect-min-mask';
 
             } else {
@@ -2526,7 +2533,7 @@
             });
 
             elementorFrontend.waypoint($scope, function () {
-                if ( txtShowcaseElem.length ) {
+                if (txtShowcaseElem.length) {
 
                     $(txtShowcaseElem).addClass('premium-mask-active');
 
@@ -4155,7 +4162,7 @@
                     });
 
                     // var fullWidth = (horAlignWidth + (($mediaItem.length - 2) * parseFloat(slidesSpacing)));
-                    var fullWidth = (horAlignWidth + (($mediaItem.length ) * parseFloat(slidesSpacing)));
+                    var fullWidth = (horAlignWidth + (($mediaItem.length) * parseFloat(slidesSpacing)));
 
                     var animation = gsap.to($scope.find('.premium-adv-carousel__item-outer-wrapper'), {
                         duration: settings.speed,
@@ -4403,7 +4410,7 @@
             var trigger = $scope.find('.pa-txt-sc__outer-container').hasClass('pa-trigger-on-viewport') ? 'viewport' : 'hover',
                 hasGrowEffect = $scope.find('.pa-txt-sc__effect-grow').length;
 
-            if ( hasGrowEffect ) { // grow always triggered on viewport.
+            if (hasGrowEffect) { // grow always triggered on viewport.
                 elementorFrontend.waypoint($scope, function () {
                     $scope.find('.pa-txt-sc__effect-grow').css('clip-path', 'inset(0 0 0 0)');
                 }, {
@@ -4413,7 +4420,7 @@
 
             $scope.off('.PaTextualHandler');
 
-            if ( 'viewport' === trigger ) {
+            if ('viewport' === trigger) {
 
                 elementorFrontend.waypoint($scope, function () {
                     triggerItemsEffects();
@@ -4423,21 +4430,21 @@
 
             } else {
 
-                $scope.on( "mouseenter.PaTextualHandler mouseleave.PaTextualHandler", function(){
+                $scope.on("mouseenter.PaTextualHandler mouseleave.PaTextualHandler", function () {
                     triggerItemsEffects();
                 });
             }
 
             function triggerItemsEffects() {
-                $scope.find('.pa-txt-sc__item-container:not(.pa-txt-sc__effect-none)').each(function() {
+                $scope.find('.pa-txt-sc__item-container:not(.pa-txt-sc__effect-none)').each(function () {
 
-                    var effectName = this.className.match(/pa-txt-sc__effect-\S+/)[0].replace('pa-txt-sc__effect-','');
+                    var effectName = this.className.match(/pa-txt-sc__effect-\S+/)[0].replace('pa-txt-sc__effect-', '');
 
-                    if ( 'grow' === effectName) {
+                    if ('grow' === effectName) {
                         return true;
                     }
 
-                    if ( ['outline', 'curly', 'circle', 'x', 'h-underline','underline-zigzag', 'double-underline', 'diagonal', 'strikethrough'].includes(effectName) ) {
+                    if (['outline', 'curly', 'circle', 'x', 'h-underline', 'underline-zigzag', 'double-underline', 'diagonal', 'strikethrough'].includes(effectName)) {
                         $(this).find('svg').toggleClass('outline');
                     } else {
                         $(this).toggleClass(effectName);
@@ -4465,7 +4472,7 @@
             'premium-pinterest-feed.default': PremiumPinterestHandler,
             'premium-tiktok-feed.default': PremiumTiktokHandler,
             'premium-media-wheel.default': PremiumAdvCarouselHandler,
-            'premium-textual-showcase.default': [PremiumTextualShowcaseHandler,PremiumMaskHandler]
+            'premium-textual-showcase.default': [PremiumTextualShowcaseHandler, PremiumMaskHandler]
         };
 
         var classHandlers = {

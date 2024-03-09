@@ -623,6 +623,7 @@ button.mapp-query-refresh {
 	display: flex;
 	flex: 1;
 	flex-direction: column;
+	overflow: hidden;
 }
 
 /* Custom tabs - flex all the way down */
@@ -1828,8 +1829,9 @@ button.mapp-option-geocode {
 */
 
 .mapp-dialog.mapp-icons-modal {
+	height: 600px;
 	max-width: 800px;
-		width: 90vw;
+	width: 90vw;
 }
 
 .mapp-icons-modal .mapp-dialog-title button {

@@ -2629,7 +2629,9 @@ class Premium_Nav_Menu extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'pa_ham_menu_shadow',
-				'selector' => '{{WRAPPER}}.premium-ham-dropdown .premium-mobile-menu, {{WRAPPER}}.premium-nav-dropdown .premium-mobile-menu, {{WRAPPER}} .premium-mobile-menu-outer-container',
+				'selector' => '{{WRAPPER}}.premium-ham-dropdown .premium-mobile-menu,
+				 {{WRAPPER}}.premium-nav-dropdown .premium-mobile-menu,
+				  {{WRAPPER}} .premium-mobile-menu-outer-container',
 			)
 		);
 
@@ -2641,7 +2643,7 @@ class Premium_Nav_Menu extends Widget_Base {
 				'selector' => '{{WRAPPER}}.premium-ham-dropdown .premium-mobile-menu,
 				 {{WRAPPER}}.premium-nav-dropdown .premium-mobile-menu,
 				  {{WRAPPER}} .premium-mobile-menu-outer-container,
-				  {{WRAPPER}} .premium-mobile-menu-container',
+				  {{WRAPPER}}:not(.premium-nav-slide):not(.premium-ham-slide) .premium-mobile-menu-container',
 
 			)
 		);
@@ -2650,7 +2652,9 @@ class Premium_Nav_Menu extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'pa_ham_menu_border',
-				'selector' => '{{WRAPPER}}.premium-ham-dropdown .premium-mobile-menu, {{WRAPPER}}.premium-nav-dropdown .premium-mobile-menu, {{WRAPPER}} .premium-mobile-menu-outer-container',
+				'selector' => '{{WRAPPER}}.premium-ham-dropdown .premium-mobile-menu,
+				 {{WRAPPER}}.premium-nav-dropdown .premium-mobile-menu,
+				  {{WRAPPER}} .premium-mobile-menu-outer-container',
 			)
 		);
 
@@ -2661,7 +2665,8 @@ class Premium_Nav_Menu extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}}.premium-ham-dropdown .premium-mobile-menu, {{WRAPPER}}.premium-nav-dropdown .premium-mobile-menu' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+					'{{WRAPPER}}.premium-ham-dropdown .premium-mobile-menu,
+					 {{WRAPPER}}.premium-nav-dropdown .premium-mobile-menu' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				),
 				'condition'  => array(
 					'pa_mobile_menu_layout' => 'dropdown',
@@ -2676,7 +2681,9 @@ class Premium_Nav_Menu extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}}.premium-ham-dropdown .premium-mobile-menu, {{WRAPPER}}.premium-nav-dropdown .premium-mobile-menu, {{WRAPPER}} .premium-mobile-menu-outer-container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}}.premium-ham-dropdown .premium-mobile-menu,
+					 {{WRAPPER}}.premium-nav-dropdown .premium-mobile-menu,
+					  {{WRAPPER}} .premium-mobile-menu-outer-container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);

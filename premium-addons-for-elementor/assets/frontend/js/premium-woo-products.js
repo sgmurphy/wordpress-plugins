@@ -396,7 +396,7 @@
                             var viewCartTxt = $this.siblings('.added_to_cart').text();
 
                             if ('' == viewCartTxt)
-                                viewCartTxt = $scope.data('woo-cart-text');
+                                viewCartTxt = $scope.data('woo-cart-text') || '';
 
                             if ('' == viewCartTxt)
                                 viewCartTxt = 'View Cart';
