@@ -155,7 +155,7 @@ if (!\class_exists('FSVendor\\WPDesk_Tracker')) {
         }
         public function wp_ajax_wpdesk_tracker_notice_handler()
         {
-            \wp_verify_nonce(\sanitize_text_field($_REQUEST['security'] ?? ''), self::WPDESK_TRACKER_NOTICE);
+            \check_ajax_referer(self::WPDESK_TRACKER_NOTICE, 'security');
             if (!\current_user_can('manage_woocommerce')) {
                 die;
             }

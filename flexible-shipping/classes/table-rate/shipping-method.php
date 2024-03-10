@@ -58,6 +58,8 @@ class WPDesk_Flexible_Shipping extends WC_Shipping_Method {
 	 */
 	private $section_name;
 
+	public string $type;
+
 	/**
 	 * Constructor for your shipment class
 	 *

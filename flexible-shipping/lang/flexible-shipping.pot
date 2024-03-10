@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Flexible Shipping plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Flexible Shipping 4.24.15\n"
+"Project-Id-Version: Flexible Shipping 4.24.16\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flexible-shipping\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-07T11:50:06+00:00\n"
+"POT-Creation-Date: 2024-03-10T11:01:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: flexible-shipping\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: classes/table-rate/class-wpdesk-flexible-shipping-multilingual.php:57
 #: classes/table-rate/settings/flexible-shipping.php:16
 #: classes/table-rate/settings/flexible-shipping.php:31
-#: classes/table-rate/shipping-method.php:95
+#: classes/table-rate/shipping-method.php:97
 #: src/WPDesk/FS/TableRate/ShippingMethod/CommonMethodSettings.php:168
 #: src/WPDesk/FS/TableRate/ShippingMethod/Duplicate/DuplicateAction.php:76
 #: src/WPDesk/FS/TableRate/ShippingMethod/Duplicate/DuplicateScript.php:67
@@ -153,7 +153,7 @@ msgid "See how to %1$sconfigure Flexible Shipping%2$s."
 msgstr ""
 
 #: classes/table-rate/settings/flexible-shipping.php:22
-#: classes/table-rate/shipping-method.php:86
+#: classes/table-rate/shipping-method.php:88
 #: src/WPDesk/FS/TableRate/ShippingMethod/CommonMethodSettings.php:54
 msgid "Enable/Disable"
 msgstr ""
@@ -199,62 +199,62 @@ msgstr ""
 msgid "Shipping Methods"
 msgstr ""
 
-#: classes/table-rate/shipping-method.php:73
+#: classes/table-rate/shipping-method.php:75
 msgid "Flexible Shipping Group"
 msgstr ""
 
-#: classes/table-rate/shipping-method.php:74
+#: classes/table-rate/shipping-method.php:76
 msgid "A group of Flexible Shipping methods - useful to organize numerous shipping methods."
 msgstr ""
 
-#: classes/table-rate/shipping-method.php:88
+#: classes/table-rate/shipping-method.php:90
 #: src/WPDesk/FS/TableRate/ShippingMethod/CommonMethodSettings.php:57
 msgid "Enable this shipment method"
 msgstr ""
 
-#: classes/table-rate/shipping-method.php:92
+#: classes/table-rate/shipping-method.php:94
 msgid "Shipping Title"
 msgstr ""
 
-#: classes/table-rate/shipping-method.php:94
+#: classes/table-rate/shipping-method.php:96
 #: src/WPDesk/FS/TableRate/ShippingMethod/CommonMethodSettings.php:63
 msgid "This controls the title which the user sees during checkout."
 msgstr ""
 
-#: classes/table-rate/shipping-method.php:196
+#: classes/table-rate/shipping-method.php:198
 msgid "Add New"
 msgstr ""
 
-#: classes/table-rate/shipping-method.php:356
+#: classes/table-rate/shipping-method.php:358
 msgid "Flexible Shipping: security check error. Shipping method order not saved!"
 msgstr ""
 
-#: classes/table-rate/shipping-method.php:424
+#: classes/table-rate/shipping-method.php:426
 msgid "New Shipping Method"
 msgstr ""
 
-#: classes/table-rate/shipping-method.php:427
+#: classes/table-rate/shipping-method.php:429
 msgid "Edit Shipping Method"
 msgstr ""
 
-#: classes/table-rate/shipping-method.php:437
-#: classes/table-rate/shipping-method.php:480
+#: classes/table-rate/shipping-method.php:439
+#: classes/table-rate/shipping-method.php:482
 msgid "Shipping method %s added."
 msgstr ""
 
-#: classes/table-rate/shipping-method.php:463
+#: classes/table-rate/shipping-method.php:465
 msgid "Shipping method %s deleted."
 msgstr ""
 
-#: classes/table-rate/shipping-method.php:466
+#: classes/table-rate/shipping-method.php:468
 msgid "Shipping method not found."
 msgstr ""
 
-#: classes/table-rate/shipping-method.php:492
+#: classes/table-rate/shipping-method.php:494
 msgid "Shipping method %s updated."
 msgstr ""
 
-#: classes/table-rate/shipping-method.php:562
+#: classes/table-rate/shipping-method.php:564
 #: src/WPDesk/FS/TableRate/ShippingMethodSingle.php:277
 msgid "Shipping cost added."
 msgstr ""

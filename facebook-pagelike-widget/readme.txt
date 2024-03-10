@@ -20,14 +20,13 @@ Formerly "Facebook Page Like Widget". This plugin adds a Simple Facebook page Li
 
 One of the most popular & lightweight plugin for Facebook page feeds widget with over 1.5 Million downloads and 80,000+ active installs.
 
-An inside look:
-
-http://www.youtube.com/watch?v=8gulPNAd264
-
-
-Update:
+How to use latest version 6.4:
 
 https://www.youtube.com/watch?v=qayeaqlmofA
+
+How to use older versions:
+
+http://www.youtube.com/watch?v=8gulPNAd264
 
 
 Please subscribe to my [YouTube channel](https://www.youtube.com/c/CodeCanvas/) for more technical videos.
