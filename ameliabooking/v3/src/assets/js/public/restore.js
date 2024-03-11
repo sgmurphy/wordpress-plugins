@@ -6,6 +6,8 @@ import {
   useBookingError,
   useNotify
 } from "./booking.js";
+import httpClient from "../../../plugins/axios";
+import {settings} from "../../../plugins/settings";
 
 function fixType (item, key) {
   item[key] = !item[key] ? null : parseInt(item[key])
@@ -107,48 +109,79 @@ function useRestore (store, shortcodeData) {
     store.state.booking = {...data.request.state }
   }
 
-  switch ((data.status !== null) ? data.status : 'paid') {
-    case ('canceled'):
-      return {
-        result: 'canceled',
-        steps: data.request.form.steps,
-        sidebar: data.request.form.sidebar,
-      }
+  if (settings.payments.mollie.cancelBooking && data.status === null) {
+    let bookings = []
+    if (data.response.type === 'package') {
+      bookings = data.response.package.map(p => p.booking)
+    } else {
+      bookings = [data.response.booking].concat(data.response.recurring.map(r => r.booking))
+    }
 
-    case ('failed'):
-      store.commit('booking/setError', useBookingError(data, store))
+    bookings.forEach(booking => {
+      httpClient.get(
+          '/bookings/cancel/' + booking.id + '&token=' + booking.token + '&type=' + data.response.type + '&fromForm=' + true,
+      ).catch(e => {
+        console.log(e.message)
+      })
+    })
 
-      return {
-        result: 'error',
-        steps: data.request.form.steps,
-        sidebar: data.request.form.sidebar,
-      }
+    return {
+      result: 'canceled',
+      steps: data.request.form.steps,
+      sidebar: data.request.form.sidebar,
+    }
+  } else {
+    switch ((data.status !== null) ? data.status : 'paid') {
+      case ('canceled'):
+        return {
+          result: 'canceled',
+          steps: data.request.form.steps,
+          sidebar: data.request.form.sidebar,
+        }
 
-    case ('paid'):
-      switch (data.response.type) {
-        case ('appointment'):
-          store.commit('booking/setBooked', useAppointmentCalendarData(store, data.response))
+      case ('failed'):
+        store.commit('booking/setError', useBookingError(data, store))
 
-          break
+        return {
+          result: 'error',
+          steps: data.request.form.steps,
+          sidebar: data.request.form.sidebar,
+        }
 
-        case ('package'):
-          store.commit('booking/setBooked', usePackageCalendarData(store, data.response))
+      case ('paid'):
+        switch (data.response.type) {
+          case ('appointment'):
+            store.commit('booking/setBooked', useAppointmentCalendarData(store, data.response))
 
-          break
+            break
 
-        case ('event'):
-          store.commit('eventBooking/setBooked', useEventCalendarData(store, data.response))
+          case ('package'):
+            store.commit('booking/setBooked', usePackageCalendarData(store, data.response))
 
-          break
-      }
+            break
 
-      useNotify(store, data.response, () => {}, () => {})
+          case ('event'):
+            store.commit('eventBooking/setBooked', useEventCalendarData(store, data.response))
 
-      return {
-        result: 'success',
-        steps: data.request.form.steps,
-        sidebar: data.request.form.sidebar,
-      }
+            break
+        }
+
+
+        if (!('request' in data &&
+          'form' in data.request &&
+          'shortcode' && data.request.form &&
+          'trigger' in data.request.form.shortcode &&
+          data.request.form.shortcode.trigger
+        )) {
+          useNotify(store, data.response, () => {}, () => {})
+        }
+
+        return {
+          result: 'success',
+          steps: data.request.form.steps,
+          sidebar: data.request.form.sidebar,
+        }
+    }
   }
 }
 

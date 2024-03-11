@@ -194,19 +194,19 @@ class HTMega_Elementor_Widget_Instragram_Feed extends Widget_Base {
         $settings   = $this->get_settings_for_display();
 
         $instagram_attributes = [
-            'num'              => $settings['feed_limit'],
-            'cols'             => $settings['feed_cols'],
-            'user'             => $settings['htmega_feed_id'],
-            'imageres'         => $settings['feed_imageres_size'],
-            'imagepadding'     => $settings['imagepadding']['size'],
+            'num'              => absint( $settings['feed_limit'] ),
+            'cols'             => absint( $settings['feed_cols'] ),
+            'user'             => esc_attr( $settings['htmega_feed_id'] ),
+            'imageres'         => esc_attr( $settings['feed_imageres_size'] ),
+            'imagepadding'     => absint( $settings['imagepadding']['size'] ),
             'imagepaddingunit' => 'px',
             'showheader'       => ($settings['show_feed_header'] =='yes') ? 'true' : 'false',
             'showbutton'       => 'false',
             'showfollow'       => ($settings['show_feed_follow'] =='yes') ? 'true' : 'false',
-            'headercolor'      => $settings['headercolor'],
-            'followcolor'      => $settings['followcolor'],
-            'followtextcolor'  => $settings['followtextcolor'],
-            'followtext'       => $settings['follow_text'],
+            'headercolor'      => esc_attr( $settings['headercolor'] ),
+            'followcolor'      => esc_attr( $settings['followcolor'] ),
+            'followtextcolor'  => esc_attr( $settings['followtextcolor'] ),
+            'followtext'       => esc_html( $settings['follow_text'] ),
         ];
 
         $this->add_render_attribute( 'shortcode', $instagram_attributes );

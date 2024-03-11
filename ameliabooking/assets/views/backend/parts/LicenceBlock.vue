@@ -14,7 +14,7 @@
     </el-col>
     <el-col :span="6">
       <a
-        class="el-button"
+        class="am-licence-button am-licence-button__upgrade"
         :style="{padding: !wholeDialog ? '4px 20px' : '', width: !wholeDialog ? '100%' : '', float: wholeDialog ? 'right' : ''}"
         :href="!$root.licence.isLite ? 'https://wpamelia.com/pricing/?utm_source=amelia-lite&utm_medium=lite-upgrade&utm_content=amelia&utm_campaign=amelia-lite' : '?page=wpamelia-lite-vs-premium'"
         target="_blank"

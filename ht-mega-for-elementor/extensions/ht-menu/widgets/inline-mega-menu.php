@@ -385,7 +385,7 @@ class HTMegaMenu_Inline_Menu extends Widget_Base {
             $this->add_control(
                 'menu_full_width_hidden',
                 [
-                    'label' => esc_html__( 'Full Width', 'textdomain' ),
+                    'label' => esc_html__( 'Full Width', 'htmega-addons' ),
                     'type' => \Elementor\Controls_Manager::HIDDEN,
                     'default' => 'traditional',
                     'condition' => [

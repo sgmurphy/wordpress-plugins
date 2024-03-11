@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for Plugin Name: BuddyPress
-    * Compatibility checked on Version: 
+    * Compatibility     : BuddyPress
+    * Introduced at     : 
     */
 
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

@@ -59,7 +59,7 @@
               <div v-if="item.text" class="am-whats-new-blog-subtitle-text">{{item.text.replace(':','')}}</div>
             </div>
 
-            <p class="am-whats-new-changelog-list-title" v-if="!$root.licence.isDeveloper">{{$root.labels.included_plan_higher}}</p>
+            <p class="am-whats-new-changelog-list-title" v-if="!$root.licence.isDeveloper && getLicencesItems(getHigherLicences()).length">{{$root.labels.included_plan_higher}}</p>
             <div v-if="!$root.licence.isDeveloper" class="am-whats-new-changelog-list-item" v-for="(item, index) in getLicencesItems(getHigherLicences())" :key="index">
               <div class="am-whats-new-changelog-list-item-img-holder">
                 <img v-if="item.type" :src="$root.getUrl+`public/img/am-${getIconType(item.type)}.svg`" />
@@ -202,53 +202,29 @@ export default {
        isValidEmail: true,
        blogPosts: [],
        changelog: {
-         version: '7.4',
+         version: '7.4.3',
          starter: {
            feature: [],
-           improvement: [
-             'Added option to delete date filter on backend pages',
-           ],
+           improvement: [],
            bugfix: [
-             'Fixed issue with the scroll on the new event list form on iPhone Safari',
-             'Fixed issue with X (close) button on Amelia popup',
-             'Fixed issue with BuddyBoss and customer/employee user roles',
-             'Fixed issue with the Order options on Customize',
-             'Fixed issue with appointment_price (extras\' price) when changing the number of people in a booking',
-             'Fixed issue with limit appointments per customer and rescheduling in the customer panel',
-             'Fixed issue with  employee availability info and timezones',
-             'Fixed issue with a label on Customize (catalog form)',
-             'Fixed issue with \'Organizer\' column on Event page',
-           ],
+             'Fixed issue on booking form when user is not logged in'
+           ]
          },
          basic: {
            feature: [],
-           improvement: [
-             'Improved post-booking actions after WooCommerce redirect',
-             'Added option for Google Meet to be enabled per event and per service',
-           ],
-           bugfix: [
-             'Fixed recaptcha with Stripe payments',
-             'Fixed issue with URLs with hashtags and Mollie',
-           ],
+           improvement: [],
+           bugfix: []
          },
          pro: {
            feature: [],
-           improvement: [
-             'Added option to send email notifications to specific employee once package with no appointments is purchased',
-           ],
-           bugfix: [
-             'Fixed issue with Cart feature and Google Analytics and Facebook pixel tracking',
-             'Fixed issue with WhatsApp returning first 32 templates',
-             'Fixed issue with employees info for packages on the Finance page',
-           ],
+           improvement: [],
+           bugfix: []
          },
          developer: {
            feature: [],
-           improvement: [
-             'Improved logic for API update appointment and API get package purchases'
-           ],
-           bugfix: [],
-         },
+           improvement: [],
+           bugfix: []
+         }
        },
        loading: false
      }

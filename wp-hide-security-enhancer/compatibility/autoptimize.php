@@ -1,11 +1,12 @@
 <?php
 
     /**
-    * Plugin Compatibility      :   Autoptimize
-    * Introduced at version     :   2.5.0
+    * Compatibility      :   Autoptimize
+    * Introduced         :   2.5.0
     */
 
-
+    if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+    
     class WPH_conflict_handle_autoptimize
         {
                         

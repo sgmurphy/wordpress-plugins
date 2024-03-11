@@ -12,14 +12,14 @@
 
 	ob_start();
 	?>
-		<div class="<?php esc_attr_e($ctaClasses); ?>">
+		<div class="<?php echo esc_attr($ctaClasses); ?>">
 		<?php
 			echo "<div class='htmega-cta-content'>";
 			if($settings['showSubTitle']) {
 				printf('<span class="htmega-cta-sub-title">%s</span>', wp_kses_post(html_entity_decode($settings['subTitle'])));
 			}
 			if($settings['showTitle']) {
-				printf('<%1$s class="htmega-cta-title">%2$s</%1$s>', esc_attr($settings['titleTag']), wp_kses_post(html_entity_decode($settings['title'])));
+				printf('<%1$s class="htmega-cta-title">%2$s</%1$s>', tag_escape($settings['titleTag']), wp_kses_post(html_entity_decode($settings['title'])));
 			}
 			if($settings['showDescription']) {
 				printf('<p class="htmega-cta-desc">%s</p>', wp_kses_post(html_entity_decode($settings['description'])));
@@ -30,18 +30,18 @@
 				if($settings['showPrimaryButton']) {
 					printf(
 						"<a class='htmega-cta-button htmega-cta-button-primary' href='%s' %s %s >%s</a>",
-						esc_html($settings['primaryButton']['link']),
-						esc_html($settings['primaryButton']['newTab'] ? 'target=_blank' : false),
-						esc_html($settings['primaryButton']['noFollow'] ? 'rel=nofollow' : false),
+						esc_url($settings['primaryButton']['link']),
+						esc_attr($settings['primaryButton']['newTab'] ? 'target=_blank' : false),
+						esc_attr($settings['primaryButton']['noFollow'] ? 'rel=nofollow' : false),
 						esc_html($settings['primaryButton']['label'])
 					);
 				}
 				if($settings['showSecondaryButton']) {
 					printf(
 						"<a class='htmega-cta-button htmega-cta-button-secondary' href='%s' %s %s >%s</a>",
-						esc_html($settings['secondaryButton']['link']),
-						esc_html($settings['secondaryButton']['newTab'] ? 'target=_blank' : false),
-						esc_html($settings['secondaryButton']['noFollow'] ? 'rel=nofollow' : false),
+						esc_url($settings['secondaryButton']['link']),
+						esc_attr($settings['secondaryButton']['newTab'] ? 'target=_blank' : false),
+						esc_attr($settings['secondaryButton']['noFollow'] ? 'rel=nofollow' : false),
 						esc_html($settings['secondaryButton']['label'])
 					);
 				}

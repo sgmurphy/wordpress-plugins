@@ -1483,7 +1483,7 @@ class HTMega_Elementor_Widget_Twitter_Feed extends Widget_Base {
     protected function render( $instance = [] ) {
 
         $settings   = $this->get_settings_for_display();
-        $this->add_render_attribute( 'htmega_twitter_attr', 'class', 'htmega-twitter-area htmega-twitter-style-'.$settings['twitter_style'] );
+        $this->add_render_attribute( 'htmega_twitter_attr', 'class', 'htmega-twitter-area htmega-twitter-style-'.esc_attr( $settings['twitter_style'] ) );
 
 
         if( $settings['slider_on'] == 'yes' ){
@@ -1505,14 +1505,14 @@ class HTMega_Elementor_Widget_Twitter_Feed extends Widget_Base {
             ];
 
             $slider_responsive_settings = [
-                'display_columns' => $settings['slitems'],
-                'scroll_columns' => $settings['slscroll_columns'],
-                'tablet_width' => $settings['sltablet_width'],
-                'tablet_display_columns' => $settings['sltablet_display_columns'],
-                'tablet_scroll_columns' => $settings['sltablet_scroll_columns'],
-                'mobile_width' => $settings['slmobile_width'],
-                'mobile_display_columns' => $settings['slmobile_display_columns'],
-                'mobile_scroll_columns' => $settings['slmobile_scroll_columns'],
+                'display_columns' => absint( $settings['slitems'] ),
+                'scroll_columns' => absint( $settings['slscroll_columns'] ),
+                'tablet_width' => absint( $settings['sltablet_width'] ),
+                'tablet_display_columns' => absint( $settings['sltablet_display_columns'] ),
+                'tablet_scroll_columns' => absint( $settings['sltablet_scroll_columns'] ),
+                'mobile_width' => absint( $settings['slmobile_width'] ),
+                'mobile_display_columns' => absint( $settings['slmobile_display_columns'] ),
+                'mobile_scroll_columns' => absint( $settings['slmobile_scroll_columns'] ),
 
             ];
 
@@ -1521,16 +1521,16 @@ class HTMega_Elementor_Widget_Twitter_Feed extends Widget_Base {
             $this->add_render_attribute( 'htmega_twitter_attr', 'data-settings', wp_json_encode( $slider_settings ) );
         }
 
-        $consumer_key = ( !empty( $settings['consumer_key'] ) ) ? $settings['consumer_key'] : 'f8rgdbh1TRxnyOmKZRzVooMEQ';
-        $consumer_secret = ( !empty( $settings['consumer_secret'] ) ) ? $settings['consumer_secret'] : 'KQTDmHzIMig6PGElowd4KXEjeU0MDAV189vKmyTT6kvumO0giK';
-        $access_token = ( !empty( $settings['access_token'] ) ) ? $settings['access_token'] : '1062990223171145729-fcehRzuBPGjD2dkQi44hqgS7ApMSX2';
-        $access_token_secret = ( !empty( $settings['access_token_secret'] ) ) ? $settings['access_token_secret'] : '7Ip9Z5uiWP8iYZOCd8EYtOY8Wti4MaWwbUkMFuZndevEo';
-        $username = ( !empty( $settings['username'] ) ) ? $settings['username'] : 'hastechit';
+        $consumer_key = ( !empty( $settings['consumer_key'] ) ) ? sanitize_text_field( $settings['consumer_key'] ) : 'f8rgdbh1TRxnyOmKZRzVooMEQ';
+        $consumer_secret = ( !empty( $settings['consumer_secret'] ) ) ? sanitize_text_field( $settings['consumer_secret'] ) : 'KQTDmHzIMig6PGElowd4KXEjeU0MDAV189vKmyTT6kvumO0giK';
+        $access_token = ( !empty( $settings['access_token'] ) ) ? sanitize_text_field( $settings['access_token'] ) : '1062990223171145729-fcehRzuBPGjD2dkQi44hqgS7ApMSX2';
+        $access_token_secret = ( !empty( $settings['access_token_secret'] ) ) ? sanitize_text_field( $settings['access_token_secret'] ) : '7Ip9Z5uiWP8iYZOCd8EYtOY8Wti4MaWwbUkMFuZndevEo';
+        $username = ( !empty( $settings['username'] ) ) ? sanitize_text_field( $settings['username'] ) : 'hastechit';
 
 
         $relative_time      = $settings['relative_time'];
         $show_time_icon      = $settings['show_time_icon'];
-        $limit              = ( !empty( $settings['limit'] ) ) ? $settings['limit'] : 5;
+        $limit              = ( !empty( $settings['limit'] ) ) ? absint( $settings['limit'] ) : 5;
         $exclude_replies    = 'false';
 
         $connection = new \TwitterOAuth( $consumer_key, $consumer_secret, $access_token, $access_token_secret );
@@ -1560,7 +1560,7 @@ class HTMega_Elementor_Widget_Twitter_Feed extends Widget_Base {
                                 <div class="htmega-content">
                                     <?php if($settings['author_name'] == 'yes' ): ?>
                                         <div class="htmega-author">
-                                            <h6><a href="<?php echo esc_url($user_link); ?>"><?php echo esc_html( $tweet->user->name ); ?> <span><?php echo esc_html( '@'.$username,'htmega-addons' ); ?></span></a></h6>
+                                            <h6><a href="<?php echo esc_url($user_link); ?>"><?php echo esc_html( $tweet->user->name ); ?> <span><?php echo esc_html( '@' . $username ); ?></span></a></h6>
                                         </div>
                                     <?php endif;?>
                                     <p>

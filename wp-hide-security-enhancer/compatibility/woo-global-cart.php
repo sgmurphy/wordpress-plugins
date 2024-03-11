@@ -1,10 +1,11 @@
 <?php
 
-/**
-* Compatibility for Plugin Name: WooGlobalCart
-* Compatibility checked on Version: 1.3.8
-*/
+    /**
+    * Compatibility: WooGlobalCart
+    * Introduced at: 1.3.8
+    */
 
+    if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
     class WPH_conflict_handle_wgc
         {

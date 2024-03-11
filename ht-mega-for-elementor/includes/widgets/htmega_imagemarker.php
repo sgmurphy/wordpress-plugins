@@ -1149,7 +1149,7 @@ class HTMega_Elementor_Widget_ImageMarker extends Widget_Base {
         $settings   = $this->get_settings_for_display();
 
         $this->add_render_attribute( 'htmega_image_marker_attr', 'class', 'htmega-marker-wrapper' );
-        $this->add_render_attribute( 'htmega_image_marker_attr', 'class', 'htmega-marker-style-'.$settings['marker_style'] );
+        $this->add_render_attribute( 'htmega_image_marker_attr', 'class', 'htmega-marker-style-' . esc_attr( $settings['marker_style'] ) );
        
         ?>
         

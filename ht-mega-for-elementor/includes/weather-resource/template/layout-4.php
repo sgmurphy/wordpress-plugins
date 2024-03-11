@@ -1,5 +1,5 @@
 <div class="htm-weather-wraper layout-4">
-    <h3 class="htm-weather-title"><?php echo $settings['overridetitle'] ? $settings['overridetitle'] : $weather['name'] ; ?></h3>
+    <h3 class="htm-weather-title"><?php echo $settings['overridetitle'] ? esc_html( $settings['overridetitle'] ) : esc_html( $weather['name'] ) ; ?></h3>
     <div class="htm-current-weather">
         <?php if($hide_current_stats):?>
         <div class="htm-current-1">
@@ -9,7 +9,7 @@
             <span class="humidity"><i class="wi wi-raindrop"></i><span class="humidity-percent"><?php echo esc_html( $weather['current']['humidity'] ); ?>%</span></span>
         </div>
         <div class="htm-current-2">
-            <?php echo $weather['current']['icon']; ?>
+            <?php echo wp_kses_post( $weather['current']['icon'] ); ?>
             <p class="temp-type"><?php echo esc_html( $weather['current']['description'] ); ?></p>
             <p class="temp-num"><?php echo esc_html( $weather['current']['temp'] ); ?><sup>&deg;</sup><?php echo esc_html($units); ?></p>
         </div>

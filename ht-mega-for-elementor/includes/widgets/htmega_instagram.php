@@ -1516,9 +1516,9 @@ class HTMega_Elementor_Widget_Instagram extends Widget_Base {
         $id         = $this->get_id();
 
         $this->add_render_attribute( 'htmega_instragram', 'class', 'htmega-instragram' );
-        $this->add_render_attribute( 'htmega_instragram', 'class', 'htmega-instragram-style-'.$settings['instagram_style'] );
+        $this->add_render_attribute( 'htmega_instragram', 'class', 'htmega-instragram-style-' . esc_attr( $settings['instagram_style'] ) );
 
-        $limit        = !empty( $settings['limit'] ) ? $settings['limit'] : 8;
+        $limit        = !empty( $settings['limit'] ) ? absint( $settings['limit'] ) : 8;
         $access_token = !empty( $settings['access_token'] ) ? $settings['access_token'] : '';
 
         $cache_duration = $this->get_cacheing_duration( $settings['cash_time_duration'] );
@@ -1536,7 +1536,7 @@ class HTMega_Elementor_Widget_Instagram extends Widget_Base {
 
         if ( false === ( $items = get_transient( $transient_var ) ) ) {
 
-            $url = 'https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url,timestamp,username&limit=200&access_token='.esc_html($access_token);
+            $url = 'https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url,timestamp,username&limit=200&access_token='. esc_attr( $access_token);
 
             $instagram_data = wp_remote_retrieve_body( wp_remote_get( $url ) );
 
@@ -1592,14 +1592,14 @@ class HTMega_Elementor_Widget_Instagram extends Widget_Base {
             ];
 
             $slider_responsive_settings = [
-                'display_columns' => $settings['slitems'],
-                'scroll_columns' => $settings['slscroll_columns'],
-                'tablet_width' => $settings['sltablet_width'],
-                'tablet_display_columns' => $settings['sltablet_display_columns'],
-                'tablet_scroll_columns' => $settings['sltablet_scroll_columns'],
-                'mobile_width' => $settings['slmobile_width'],
-                'mobile_display_columns' => $settings['slmobile_display_columns'],
-                'mobile_scroll_columns' => $settings['slmobile_scroll_columns'],
+                'display_columns' => absint( $settings['slitems'] ),
+                'scroll_columns' => absint( $settings['slscroll_columns'] ),
+                'tablet_width' => absint( $settings['sltablet_width'] ),
+                'tablet_display_columns' => absint( $settings['sltablet_display_columns'] ),
+                'tablet_scroll_columns' => absint( $settings['sltablet_scroll_columns'] ),
+                'mobile_width' => absint( $settings['slmobile_width'] ),
+                'mobile_display_columns' => absint( $settings['slmobile_display_columns'] ),
+                'mobile_scroll_columns' => absint( $settings['slmobile_scroll_columns'] ),
 
             ];
 
@@ -1620,7 +1620,7 @@ class HTMega_Elementor_Widget_Instagram extends Widget_Base {
                     ?>
                         <li>
                             <a href="<?php echo esc_url( $item['link'] ); ?>" <?php echo ('yes' == $settings['image_link_newtab']) ? 'target="_blank"' : '' ?>>
-                                <img src="<?php echo esc_url( $item['src'] ); ?>" alt="<?php echo esc_attr__( $item['username'],'htmega-addons');?>">
+                                <img src="<?php echo esc_url( $item['src'] ); ?>" alt="<?php echo esc_attr( $item['username'] ); ?>">
                             </a>
                             <?php if( $settings['show_caption'] == 'yes' || $settings['show_light_box'] == 'yes' ): ?>
                                 <div class="instagram-clip">

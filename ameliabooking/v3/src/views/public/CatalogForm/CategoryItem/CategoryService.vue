@@ -614,7 +614,7 @@ let serviceEmployees = computed(() => {
 
 function serviceEmployeePrice(employee) {
   let servicePrice = employee.serviceList.find(a => a.id === service.value.id).price
-  if (servicePrice - service.value.price !== 0) return `${servicePrice - service.value.price > 0 ? '+' : '-'} ${useFormattedPrice(servicePrice - service.value.price)}`
+  if (servicePrice - service.value.price !== 0) return `${servicePrice - service.value.price > 0 ? (service.value.price > 0 ? '+' : '') : '-'} ${useFormattedPrice(servicePrice - service.value.price)}`
   return ''
 }
 

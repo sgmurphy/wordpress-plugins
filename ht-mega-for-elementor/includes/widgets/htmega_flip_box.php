@@ -2244,16 +2244,16 @@ class HTMega_Elementor_Widget_Flip_Box extends Widget_Base {
         $settings   = $this->get_settings_for_display();
         $this->add_render_attribute( 'htmega_flipbox_attr', 'class', 'htmega-flip-box-area' );
         if( '4' == $settings['flipbox_layout'] ){
-            $this->add_render_attribute( 'htmega_flipbox_attr', 'class', 'htmega-flip-box-style-1  htmega-flip-box-style-3 htmega-flip-box-style-'.$settings['flipbox_layout'] );
+            $this->add_render_attribute( 'htmega_flipbox_attr', 'class', 'htmega-flip-box-style-1  htmega-flip-box-style-3 htmega-flip-box-style-'. esc_attr( $settings['flipbox_layout'] ) );
         } elseif( '3' == $settings['flipbox_layout'] ){
-            $this->add_render_attribute( 'htmega_flipbox_attr', 'class', 'htmega-flip-box-style-1 htmega-flip-box-style-'.$settings['flipbox_layout'] );
+            $this->add_render_attribute( 'htmega_flipbox_attr', 'class', 'htmega-flip-box-style-1 htmega-flip-box-style-'. esc_attr( $settings['flipbox_layout'] ) );
         } else {
-            $this->add_render_attribute( 'htmega_flipbox_attr', 'class', 'htmega-flip-box-style-'.$settings['flipbox_layout'] );
+            $this->add_render_attribute( 'htmega_flipbox_attr', 'class', 'htmega-flip-box-style-'. esc_attr( $settings['flipbox_layout'] ) );
         }
         if( in_array( $settings['flipbox_animation'], array( 'push_left', 'slide_bottom', 'slide_top', 'slide_right','slide_left', 'fade_in', 'push_right') ) ){
             $this->add_render_attribute( 'htmega_flipbox_attr', 'class', 'htmega-flip-box-animation-none' );
         } else {
-            $this->add_render_attribute( 'htmega_flipbox_attr', 'class', 'htmega-flip-box-animation-'.$settings['flipbox_animation'] );
+            $this->add_render_attribute( 'htmega_flipbox_attr', 'class', 'htmega-flip-box-animation-'. esc_attr( $settings['flipbox_animation'] ) );
         }
         if( 'yes' == $settings['htmega_3d_flip'] ) {
             $this->add_render_attribute( 'htmega_flipbox_attr', 'class', 'htmega-3d-wrap' );

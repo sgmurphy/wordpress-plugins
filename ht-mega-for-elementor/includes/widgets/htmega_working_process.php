@@ -1108,13 +1108,13 @@ class HTMega_Elementor_Widget_Working_Process extends Widget_Base {
         $settings   = $this->get_settings_for_display();
         $sectionid = "sid". $this-> get_id();
         if( '5'== $settings['process_style'] ){
-            $this->add_render_attribute( 'htmega_process_attr', 'class', 'htmega-process-area  htmega-process-style-2  htmega-process-style-'.$settings['process_style'] );
+            $this->add_render_attribute( 'htmega_process_attr', 'class', 'htmega-process-area  htmega-process-style-2  htmega-process-style-' . esc_attr( $settings['process_style'] ) );
         } else{
-            $this->add_render_attribute( 'htmega_process_attr', 'class', 'htmega-process-area htmega-process-style-'.$settings['process_style'] );
+            $this->add_render_attribute( 'htmega_process_attr', 'class', 'htmega-process-area htmega-process-style-' . esc_attr( $settings['process_style'] ) );
         }
 
         if( isset( $settings['process_column'] ) ){
-            $this->add_render_attribute( 'htmega_process_attr', 'class', 'htmega-column htmega-process-column-'.$settings['process_column'] );
+            $this->add_render_attribute( 'htmega_process_attr', 'class', 'htmega-column htmega-process-column-' . esc_attr( $settings['process_column'] ) );
         }
 
         $active_process_class = '';
@@ -1127,7 +1127,7 @@ class HTMega_Elementor_Widget_Working_Process extends Widget_Base {
                     $i++;
                     if( $settings['process_style'] == 4 && $i == 1 ){
                         $active_process_class = 'open';
-                    }else{
+                    }else {
                         $active_process_class = '';
                     }
             ?>

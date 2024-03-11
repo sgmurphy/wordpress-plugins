@@ -548,24 +548,24 @@ class HTMega_Elementor_Widget_GoogleMap extends Widget_Base {
         $marker_opts     = [];
         $all_markerslist = [];
         foreach ( $settings['htmega_map_marker_list'] as $marker_item ) {
-            $marker_opts['latitude'] = ( $marker_item['marker_lat'] ) ? $marker_item['marker_lat'] : '';
-            $marker_opts['longitude'] = ( $marker_item['marker_lng'] ) ? $marker_item['marker_lng'] : '';
-            $marker_opts['baloon_text'] = ( $marker_item['marker_title'] ) ? "<div class='htmega-baloon-text elementor-repeater-item-".$marker_item['_id']."'>".$marker_item['marker_title']."</div>" : '';
-            $marker_opts['icon'] = ( $marker_item['custom_marker']['url'] ) ? $marker_item['custom_marker']['url'] : '';
-            $marker_opts['baloon_text_fixed'] = ( $marker_item['marker_info_box'] ) ? $marker_item['marker_info_box'] : '';
+            $marker_opts['latitude'] = ( $marker_item['marker_lat'] ) ? sanitize_text_field( $marker_item['marker_lat'] ) : '';
+            $marker_opts['longitude'] = ( $marker_item['marker_lng'] ) ? sanitize_text_field( $marker_item['marker_lng'] ) : '';
+            $marker_opts['baloon_text'] = ( $marker_item['marker_title'] ) ? "<div class='htmega-baloon-text elementor-repeater-item-" . esc_attr( $marker_item['_id'] ) ."'>".wp_kses_post( $marker_item['marker_title'] ) . "</div>" : '';
+            $marker_opts['icon'] = ( $marker_item['custom_marker']['url'] ) ? esc_url( $marker_item['custom_marker']['url'] ) : '';
+            $marker_opts['baloon_text_fixed'] = ( $marker_item['marker_info_box'] ) ?  esc_attr( $marker_item['marker_info_box'] ) : '';
             $all_markerslist[] = $marker_opts;
         };
-        $map_options['zoom'] = !empty( $settings['htmega_map_default_zoom']['size'] ) ? $settings['htmega_map_default_zoom']['size'] : 5;
-        $map_options['center'] = !empty( $settings['htmega_center_address'] ) ? $settings['htmega_center_address'] : 'Bangladesh';
+        $map_options['zoom'] = !empty( $settings['htmega_map_default_zoom']['size'] ) ? absint( $settings['htmega_map_default_zoom']['size'] ): 5;
+        $map_options['center'] = !empty( $settings['htmega_center_address'] ) ? esc_html( $settings['htmega_center_address'] ) : 'Bangladesh';
 
         $this->add_render_attribute( 'googlemaps_inilasije', 'class', 'htmega-google-map-inilasije' );
-        $this->add_render_attribute( 'googlemaps_address_attr', 'class', 'htmega-google-map-address-'.$settings['google_map_fixed_address_control'] );
+        $this->add_render_attribute( 'googlemaps_address_attr', 'class', 'htmega-google-map-address-' . esc_attr( $settings['google_map_fixed_address_control'] ) );
 
         $this->add_render_attribute( 'googlemaps_attr', 'class', 'htmega-google-map' );
         $this->add_render_attribute( 'googlemaps_attr', 'id', 'htmega-google-map-'.$id );
         $this->add_render_attribute( 'googlemaps_attr', 'data-mapmarkers', wp_json_encode( $all_markerslist ) );
         $this->add_render_attribute( 'googlemaps_attr', 'data-mapoptions', wp_json_encode( $map_options ) );
-        $this->add_render_attribute( 'googlemaps_attr', 'data-mapstyle', $settings['htmega_style_address'] );
+        $this->add_render_attribute( 'googlemaps_attr', 'data-mapstyle', esc_attr( $settings['htmega_style_address'] ) );
 
         ?>
             <div <?php echo $this->get_render_attribute_string('googlemaps_inilasije'); ?> >    
@@ -576,7 +576,7 @@ class HTMega_Elementor_Widget_GoogleMap extends Widget_Base {
             </div>
 
             <?php if($settings['htmega_info_address_close_button'] == 'yes'): ?>
-                <style><?php echo esc_html( '#htmega-google-map-'.$id ) ?> .gm-style-iw .gm-ui-hover-effect{ display: none !important;}</style>
+                <style><?php echo '#htmega-google-map-' . sanitize_key( $id ) ?> .gm-style-iw .gm-ui-hover-effect{ display: none !important;}</style>
            <?php endif;
 
     }

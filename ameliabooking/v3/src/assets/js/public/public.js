@@ -127,6 +127,37 @@ if (window.ameliaShortcodeDataTriggered !== undefined) {
                   }, 1000
                 )
               }
+
+              if ('ameliaCache' in window && window.ameliaCache.length && window.ameliaCache[0]) {
+                let cacheData = JSON.parse(window.ameliaCache[0])
+
+                if (cacheData &&
+                  'request' in cacheData &&
+                  'form' in cacheData.request &&
+                  'shortcode' in cacheData.request.form &&
+                  'trigger' in cacheData.request.form.shortcode &&
+                  cacheData.request.form.shortcode.trigger
+                ) {
+                  if (!('trigger_type' in cacheData.request.form.shortcode) ||
+                    !cacheData.request.form.shortcode.trigger_type ||
+                    cacheData.request.form.shortcode.trigger_type === 'id'
+                  ) {
+                    let el = document.getElementById(cacheData.request.form.shortcode.trigger)
+
+                    if (typeof el !== 'undefined') {
+                      el.click()
+                    }
+                  } else if ('trigger_type' in cacheData.request.form.shortcode &&
+                    cacheData.request.form.shortcode.trigger_type === 'class'
+                  ) {
+                    let el = document.getElementsByClassName(cacheData.request.form.shortcode.trigger)
+
+                    if (typeof el !== 'undefined' && el.length) {
+                      el[0].click()
+                    }
+                  }
+                }
+              }
             })
 
           }

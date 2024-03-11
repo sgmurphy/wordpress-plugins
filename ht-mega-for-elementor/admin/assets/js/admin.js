@@ -1,5 +1,4 @@
 jQuery(document).ready(function($) {
-
     // Custom Tabs
     function htmega_admin_tabs( $tabmenus, $tabpane ){
         $tabmenus.on('click', 'a', function(e){
@@ -27,12 +26,12 @@ jQuery(document).ready(function($) {
     htmega_admin_toggle( $(".htmega-open-element-toggle"), $("#htmega_thirdparty_element_tabs") );
 
    // facebook access token clear function
-    $(".htmega-fb-clear-cache-btn").on('click', function(e) {
+    $("#htmegaopt-admin-panel").on('click','.htmega-fb-clear-cache-btn', function(e) {
         var siteURL = site_url_data.site_url; // localize data
         e.preventDefault();
         $.ajax({
             url: siteURL+"/wp-admin/admin-ajax.php",
-            data:{action:'my_delete_transient_action'},// form data
+            data:{action:'my_delete_transient_action',security: HTMEGAA.admin_ajax_nonce},// form data
             method : 'POST',
             success:function(data){
                 $(".htmega-admin-notify").html( "Cache has been cleared");
@@ -74,6 +73,7 @@ $( document ).on( 'click', '.htmega-admin-subscribe-form button[type="submit"]',
         data: {
             action: 'htmega_newsletter_subscribe',
             email: email,
+            security: HTMEGAA.admin_ajax_nonce,
         },
         beforeSend: function() {
             button.html( processingText );
@@ -89,7 +89,6 @@ $( document ).on( 'click', '.htmega-admin-subscribe-form button[type="submit"]',
                 response = JSON.parse( response );
             }
 
-            console.log( response );
 
             let resStatus = ( response.hasOwnProperty( 'status' ) ? response.status : 'error' ),
                 resMessage = ( response.hasOwnProperty( 'message' ) ? response.message : ajaxErrorText );

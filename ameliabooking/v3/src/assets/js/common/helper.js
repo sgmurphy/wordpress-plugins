@@ -74,6 +74,7 @@ function useUrlQueryParams (url) {
 
     return queryParams
   }
+  return null
 }
 
 function useDescriptionVisibility (text) {

@@ -35,15 +35,16 @@ class weatherResource{
 
         if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
             //check ip from share internet
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
+            $ip = sanitize_text_field( $_SERVER['HTTP_CLIENT_IP'] );
         } elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
             //to check ip is pass from proxy
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            $ip = sanitize_text_field( $_SERVER['HTTP_X_FORWARDED_FOR'] );
         } else {
-            $ip = $_SERVER['REMOTE_ADDR'];
+            $ip = sanitize_text_field( $_SERVER['REMOTE_ADDR'] );
         }
 
         $country_info = wp_remote_get('https://freegeoip.app/json/'.$ip);
+        
         if ( is_wp_error ( $country_info ) ) return " ";
 
         $country_info = json_decode( wp_remote_retrieve_body( $country_info ) );

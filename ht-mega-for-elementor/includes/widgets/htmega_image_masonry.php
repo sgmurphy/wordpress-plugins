@@ -610,10 +610,10 @@ class HTMega_Elementor_Widget_Image_Masonry extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
         $sectionid = "sid". $this-> get_id();
-        $this->add_render_attribute( 'imagemasonry_attr', 'class', 'htmega-masonry-activation htmega-gridimage-area htmega-image-gridstyle-'.$settings['imagemasonry_style'] );
-        $this->add_render_attribute( 'imagemasonry_item_attr', 'class', 'htmega-singleimage-grid htmega-singleimage-gridstyle-'.$settings['imagemasonry_style'] );
+        $this->add_render_attribute( 'imagemasonry_attr', 'class', 'htmega-masonry-activation htmega-gridimage-area htmega-image-gridstyle-' . esc_attr( $settings['imagemasonry_style'] ) );
+        $this->add_render_attribute( 'imagemasonry_item_attr', 'class', 'htmega-singleimage-grid htmega-singleimage-gridstyle-' . esc_attr( $settings['imagemasonry_style'] ) );
 
-        $columns = $settings['imagemasonrycolumn'];
+        $columns = absint( $settings['imagemasonrycolumn'] );
         $collumval = 'htb-col-md-4 htb-col-sm-6 htb-col-12 masonary-item';
         $collumval_sizer = 'htb-col-1';
         if( $columns != 5 ){

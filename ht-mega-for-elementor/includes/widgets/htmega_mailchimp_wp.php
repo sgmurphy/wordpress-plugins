@@ -498,12 +498,12 @@ class HTMega_Elementor_Widget_Mailchimp_Wp extends Widget_Base {
         $settings   = $this->get_settings_for_display();
 
         $this->add_render_attribute( 'mailchimp_area_attr', 'class', 'htmega-mailchimp' );
-        $this->add_render_attribute( 'mailchimp_area_attr', 'class', 'htmega-mailchimp-style-'.$settings['htmega_mailchimp_form_style'] );
+        $this->add_render_attribute( 'mailchimp_area_attr', 'class', 'htmega-mailchimp-style-' . esc_attr( $settings['htmega_mailchimp_form_style'] ) );
        
         ?>
             <div <?php echo $this->get_render_attribute_string( 'mailchimp_area_attr' ); ?> >
                 <div class="htmega-input-box">
-                    <?php echo do_shortcode( '[mc4wp_form  id="'.$settings['htmega_mailchimp_id'].'"]' ); ?>
+                    <?php echo do_shortcode( '[mc4wp_form  id="'. esc_attr( $settings['htmega_mailchimp_id'] ) . '"]' ); ?>
                 </div>
             </div>
         <?php

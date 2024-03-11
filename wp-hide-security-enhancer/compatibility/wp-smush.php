@@ -1,10 +1,12 @@
 <?php
 
-/**
-* Compatibility for Plugin Name: WP Smush  and WP Smush PRO
-* Compatibility checked on Version: 3.4.0
-*/
+    /**
+    * Compatibility: WP Smush  and WP Smush PRO
+    * Introduced at: 3.4.0
+    */
 
+    if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+    
     class WPH_conflict_handle_wp_smush
         {
                         

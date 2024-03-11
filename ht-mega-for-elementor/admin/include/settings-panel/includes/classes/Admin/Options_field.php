@@ -102,7 +102,7 @@ class Options_Field {
                 
                 array(
                     'id'   => 'htmega_pro_vs_free_html',
-                    'desc' => __( 'Enter Your ocupation' ),
+                    'desc' => __( 'Enter Your ocupation','htmega-addons' ),
                     'type' => 'html',
                     'html' => $this->pro_vs_free_html_tabs()
                 ),

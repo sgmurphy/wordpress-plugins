@@ -1125,7 +1125,7 @@ class Importer extends AjaxBase {
 			wp_send_json_error(
 				array(
 					'error_code' => $error_code,
-					'message'    => $error_msge->message,
+					'message'    => ! empty( $error_msge->message ) ? $error_msge->message : '',
 					'data'       => $response['data'],
 					'success'    => $response['success'],
 				)

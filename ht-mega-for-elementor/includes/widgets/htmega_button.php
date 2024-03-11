@@ -651,14 +651,14 @@ class HTMega_Elementor_Widget_Button extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
         $this->add_render_attribute( 'htmega_button', 'class', 'htmega-button' );
-        $this->add_render_attribute( 'htmega_button', 'class', 'htmega-btn-style-'. $settings['button_style'] );
-        $this->add_render_attribute( 'htmega_button', 'class', 'htmega-btn-shadow-'. $settings['button_shadow'] );
+        $this->add_render_attribute( 'htmega_button', 'class', 'htmega-btn-style-'. esc_attr( $settings['button_style'] ) );
+        $this->add_render_attribute( 'htmega_button', 'class', 'htmega-btn-shadow-'. esc_attr( $settings['button_shadow'] ) );
         
         if( !empty( $settings['button_icon']['value'] ) ){
-            $this->add_render_attribute( 'htmega_button', 'class', 'button-align-icon-'. $settings['button_icon_align'] );
+            $this->add_render_attribute( 'htmega_button', 'class', 'button-align-icon-'. esc_attr( $settings['button_icon_align'] ) );
         }
 
-        $button_text  = ! empty( $settings['button_text'] ) ? $settings['button_text'] : '';
+        $button_text  = ! empty( $settings['button_text'] ) ? wp_kses_post( $settings['button_text'] ) : '';
         $button_icon  = ! empty( $settings['button_icon']['value'] ) ? HTMega_Icon_manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] ) : '';
 
         // URL Generate
@@ -667,11 +667,11 @@ class HTMega_Elementor_Widget_Button extends Widget_Base {
             $this->add_link_attributes( 'url', $settings['button_link'] );
 
             $this->add_render_attribute( 'url', 'class', 'htb-btn' );
-            $this->add_render_attribute( 'url', 'class', 'htmega-btn-size-'. $settings['button_size'] );
-            $this->add_render_attribute( 'url', 'class', 'htmega-btn-effect-'. $settings['button_effect'] );
+            $this->add_render_attribute( 'url', 'class', 'htmega-btn-size-'. esc_attr( $settings['button_size'] ) );
+            $this->add_render_attribute( 'url', 'class', 'htmega-btn-effect-'. esc_attr( $settings['button_effect'] ) );
 
             if ( $settings['button_hover_animation'] ) {
-                $this->add_render_attribute( 'url', 'class', 'elementor-animation-' . $settings['button_hover_animation'] );
+                $this->add_render_attribute( 'url', 'class', 'elementor-animation-' . esc_attr( $settings['button_hover_animation'] ) );
             }
 
             $button_text = sprintf( '<a %1$s>%2$s</a>', $this->get_render_attribute_string( 'url' ), $button_text );

@@ -2,8 +2,8 @@
 
 
     /**
-    * Compatibility for Plugin Name: WP Speed of Light
-    * Compatibility checked on Version: 2.6.4
+    * Compatibility: WP Speed of Light
+    * Introduced at: 2.6.4
     */
 
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

@@ -895,14 +895,14 @@ class HTMega_Elementor_Widget_Progress_Bar extends Widget_Base {
             if( $progressbar_list_two ){
                 $this->add_render_attribute( 'htmega_progress_circle', 'class', 'radial-progress-single' );
                 foreach ( $progressbar_list_two as $item ) {
-                    $this->add_render_attribute( 'htmega_progress_circle', 'class', 'elementor-repeater-item-'. $item['_id'] );
+                    $this->add_render_attribute( 'htmega_progress_circle', 'class', 'elementor-repeater-item-'. esc_attr( $item['_id'] ) );
 
-                    $items_value_size = $item['htmega_progressbar_size']['size'] - ( $item['htmega_progressbar_lineweight']['size']+8 );
+                    $items_value_size = absint( $item['htmega_progressbar_size']['size'] ) - ( absint( $item['htmega_progressbar_lineweight']['size'] ) +8 );
                     ?>  
                     <div <?php echo $this->get_render_attribute_string( 'htmega_progress_circle' ); ?>>
                         <div class="radial-progressbg">
                             <div class="radial-progress" data-percent="<?php echo esc_attr( $item['htmega_progressbar_value']['size'] );?>" data-bar-color="<?php echo esc_attr($item['htmega_progressbar_two_color']);?>" data-track-color="<?php echo esc_attr($item['htmega_progressbar_track_color'] );?>" data-line-width="<?php echo esc_attr($item['htmega_progressbar_lineweight']['size'] );?>" data-size="<?php echo esc_attr($item['htmega_progressbar_size']['size'] );?>">
-                                <span style="<?php echo 'line-height:'.wp_kses_post( $items_value_size ).'px;';echo 'width:'.wp_kses_post( $items_value_size ).'px;';echo 'height:'.wp_kses_post( $items_value_size ).'px;';?>"><?php echo wp_kses_post( $item['htmega_progressbar_value']['size'] ).'%';?></span>
+                                <span style="<?php echo 'line-height:'. absint( $items_value_size ).'px;'; echo 'width:'. absint( $items_value_size ).'px;'; echo 'height:'. absint( $items_value_size ).'px;';?>"><?php echo esc_html( $item['htmega_progressbar_value']['size'] ).'%';?></span>
                             </div>
                         </div>
                         <h5 class="radial-htmega-"><?php echo wp_kses_post( $item['htmega_progressbar_title'] );?></h5>
@@ -917,7 +917,7 @@ class HTMega_Elementor_Widget_Progress_Bar extends Widget_Base {
 
                     $column_repeater_key = $this->get_repeater_setting_key( 'htmega_progressbar_title', 'htmega_progressbar_list', $key );
                     $this->add_render_attribute( $column_repeater_key, 'class', 'htmega-single-skill' );
-                    $this->add_render_attribute( $column_repeater_key, 'class', 'htmega-progress-bar-'.$settings['htmega_progress_bar_style'] );
+                    $this->add_render_attribute( $column_repeater_key, 'class', 'htmega-progress-bar-'. esc_attr( $settings['htmega_progress_bar_style'] ) );
 
                     if( $settings['progress_value_postion'] == 'yes' ){
                         $this->add_render_attribute( $column_repeater_key, 'class', 'htmega-progress-value-inner' );
@@ -926,7 +926,7 @@ class HTMega_Elementor_Widget_Progress_Bar extends Widget_Base {
                         $this->add_render_attribute( $column_repeater_key, 'class', 'htmega-progress-text-inner' );
                     }
 
-                    $this->add_render_attribute( $column_repeater_key, 'class', 'elementor-repeater-item-'. $item['_id'] );
+                    $this->add_render_attribute( $column_repeater_key, 'class', 'elementor-repeater-item-'. esc_attr( $item['_id'] ) );
                     if( $item['progressbar_before_after'] == 'yes' ){
                         $this->add_render_attribute( $column_repeater_key, 'class', 'htmega-progressbar-value-bottom' );
                     }

@@ -42,6 +42,9 @@ if ( ! class_exists( 'HTMega_Newsletter_Data' ) ) {
          * Process data.
          */
         public function process_data() {
+
+            check_ajax_referer('htmega-admin-ajax-request', 'security');
+
             $email = ( isset( $_POST['email'] ) ? sanitize_email( $_POST['email'] ) : '' );
 
             $response = array();

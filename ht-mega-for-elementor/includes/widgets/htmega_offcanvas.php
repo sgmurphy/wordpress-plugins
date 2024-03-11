@@ -533,13 +533,11 @@ class HTMega_Elementor_Widget_Offcanvas extends Widget_Base {
         $id = $this->get_id();
 
         // Button Text
-        $buttontxt = $settings['button_text'];
+        $buttontxt = wp_kses_post( $settings['button_text'] );
         if( !empty( $settings['button_icon']['value'] ) && $settings['button_icon_pos'] == 'left' ){
-            $buttontxt = HTMega_Icon_manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] ).$settings['button_text'];
+            $buttontxt = HTMega_Icon_manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] ) . wp_kses_post( $settings['button_text'] );
         }elseif( !empty( $settings['button_icon']['value'] ) && $settings['button_icon_pos'] == 'right' ){
-            $buttontxt = $settings['button_text'].HTMega_Icon_manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] );
-        }else{
-           $buttontxt = $buttontxt;
+            $buttontxt = wp_kses_post( $settings['button_text'] ) . HTMega_Icon_manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] );
         }
        
         ?>
@@ -566,28 +564,28 @@ class HTMega_Elementor_Widget_Offcanvas extends Widget_Base {
                 jQuery(document).ready(function($) {
                     "use strict";
 
-                    $('.canvas-btn.site-menu-<?php echo esc_attr( $id ); ?>').on('click' ,function(e) {
+                    $('.canvas-btn.site-menu-<?php echo esc_js( $id ); ?>').on('click' ,function(e) {
                         e.preventDefault();
                         var $this = $(this);
-                        if ($this.hasClass('active') && $('#site-menu-<?php echo esc_attr( $id ); ?>').hasClass('show-nav')) {
+                        if ($this.hasClass('active') && $('#site-menu-<?php echo esc_js( $id ); ?>').hasClass('show-nav')) {
                             $this.removeClass('active');
-                            $('#site-menu-<?php echo esc_attr( $id ); ?>').removeClass('show-nav');
+                            $('#site-menu-<?php echo esc_js( $id ); ?>').removeClass('show-nav');
                             $('body').removeClass('show-overlay');
                         }
                          else {
                             $('.canvas-btn').removeClass('active');
                             $this.addClass('active');
                             $('.site-menu').removeClass('show-nav');
-                            $('#site-menu-<?php echo esc_attr( $id ); ?>').addClass('show-nav');
+                            $('#site-menu-<?php echo esc_js( $id ); ?>').addClass('show-nav');
                             $('body').addClass('show-overlay');
                         }
                     });
                     
-                    $('.canvas-closebtn.site-menu-<?php echo esc_attr( $id ); ?>').on('click' ,function(e) {
+                    $('.canvas-closebtn.site-menu-<?php echo esc_js( $id ); ?>').on('click' ,function(e) {
                         e.preventDefault();
                         var $this = $(this);
                         $('.canvas-btn').removeClass('active');
-                        $('#site-menu-<?php echo esc_attr( $id ); ?>').removeClass('show-nav');
+                        $('#site-menu-<?php echo esc_js( $id ); ?>').removeClass('show-nav');
                         $('body').removeClass('show-overlay');
                     });
 

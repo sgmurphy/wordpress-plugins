@@ -126,7 +126,7 @@ table .wph_input tr .cell{}
 .wph_help {width: 50%; background-color: #f9f9f9; padding: 0 20px; box-sizing: border-box; overflow: hidden; position:relative; border-left: 1px solid #f1f1f1}
 .option_help::before {    color: #ececec;    content: "\f118";;     display: block;    font-family: dashicons;    font-size: 232px;    line-height: 1;    position: absolute;    right: 20px;    text-align: center;    top: 10%;    width: 1em; z-index: 1}
 .option_help .text { position: relative; z-index: 1;}
-.option_help .text p, .option_help .text li {font-size: 12px; color: #999;}
+.option_help .text p, .option_help .text li { color: #999;}
 .option_help .text p br {content: "";  margin: 3px;  display: block;  font-size: 24%;}
 .option_help .text p img {max-width: 100%; height: auto}
 .option_help .text p a {text-decoration: none}
@@ -153,7 +153,7 @@ table .select.multiple {height: 82px}
 .wph_input .row.cell h4 {margin: 0px; padding-bottom: 6px}
 .wph_input .row.cell h5 {font-size: 12px;    font-weight: normal;    margin: 0;    padding-bottom: 6px;    padding-top: 10px;}
 .wph_input .row.cell.label label{     font-size: 13px;    font-weight: bold;    padding: 0;    margin: 0;    color: #333;  cursor: default  }
-.wph_input .row.cell.label p, .wph_input .row.cell.label .description{    display: block;    font-size: 12px;    padding: 6px 0 !important;    margin: 0 !important;    font-style: normal;    line-height: 16px;    color: #999;}
+.wph_input .row.cell.label p, .wph_input .row.cell.label .description{    display: block;     padding: 6px 0 !important;    margin: 0 !important;    font-style: normal;    line-height: 16px;    color: #575555;}
 .wph_input .row.cell.label .description .important {color: #d54e21}
 .wph_input .row.cell.label .description .dashicons, .wph_input .row.cell.label .description span {display: inline-block}
 .wph_input .row.cell.label .description span {padding-left: 5px; line-height: 18px;}
@@ -176,14 +176,13 @@ table .select.multiple {height: 82px}
 
 
 
-.wph_help {background-color: #f9f9f9; padding: 0 20px; box-sizing: border-box; overflow: hidden; position:relative; border-left: 1px solid #f1f1f1; flex-grow: 1;}
+.wph_help {background-color: #fefefe; padding: 0 20px; box-sizing: border-box; overflow: hidden; position:relative; border-left: 1px solid #f1f1f1; flex-grow: 1;}
 .wph_help::before {    color: #ececec;    content: "\f118";;     display: block;    font-family: dashicons;    font-size: 232px;    line-height: 1;    position: absolute;    right: 20px;    text-align: center;    top: 10%;    width: 1em; z-index: 1}
 .wph_help .text {max-width: 670px; position: relative; z-index: 1;}
-.wph_help .text p {font-size: 12px; color: #999;}
+.wph_help .text p { color: #575555;}
 .wph_help .text p br {content: "";  margin: 3px;  display: block;  font-size: 24%;}
 .wph_help .text p a {text-decoration: none}
 .wph_help .text p .important {color: #d54e21;}
-.wph_help .text .button {background-color: #FFF; font-size: 12px}
 
 .inner_table tbody tr td {padding-bottom: 12px}
 .inner_table .description {margin-bottom: 3px; font-style: normal;}

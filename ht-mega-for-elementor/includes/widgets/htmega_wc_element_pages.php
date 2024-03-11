@@ -1897,7 +1897,7 @@ class HTMega_Elementor_Widget_WC_Element_Pages extends Widget_Base {
                     return __( 'Please set a valid product', 'htmega-addons' );
                 }
 
-                $this->add_render_attribute( 'shortcode', 'id', $settings['product_id'] );
+                $this->add_render_attribute( 'shortcode', 'id', absint( $settings['product_id'] ) );
                 break;
 
             case 'woocommerce_cart':
@@ -1906,7 +1906,7 @@ class HTMega_Elementor_Widget_WC_Element_Pages extends Widget_Base {
                 break;
         }
 
-        $shortcode = sprintf( '[%s %s]', $settings['element'], $this->get_render_attribute_string( 'shortcode' ) );
+        $shortcode = sprintf( '[%s %s]', esc_attr( $settings['element'] ), $this->get_render_attribute_string( 'shortcode' ) );
 
         return $shortcode;
     }

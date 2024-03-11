@@ -523,13 +523,13 @@ class HTMega_Elementor_Widget_Animated_Heading extends Widget_Base {
         $settings   = $this->get_settings_for_display();
         $rotateAmimationClass = ( $settings['animation_type'] == 'scale' || $settings['animation_type'] == 'rotate-2' || $settings['animation_type'] == 'rotate-3') ? 'letters':'';
         
-        $this->add_render_attribute( 'heading_area_attr', 'class', 'htmega-animated-heading htmega-style-'.$settings['layout_style'] );
+        $this->add_render_attribute( 'heading_area_attr', 'class', 'htmega-animated-heading htmega-style-'. esc_attr( $settings['layout_style'] ) );
 
         if ( isset( $settings['heading_align'] ) && ! empty( $settings['heading_align'] ) ) {
-            $this->add_render_attribute( 'heading_area_attr', 'class', 'htmega-animated-alignment-'.$settings['heading_align'] ); 
+            $this->add_render_attribute( 'heading_area_attr', 'class', 'htmega-animated-alignment-'. esc_attr( $settings['heading_align'] ) ); 
         }
 
-        $this->add_render_attribute( 'heading_attr', 'class', 'cd-headline '. $rotateAmimationClass .' headline-placeholder '.$settings['animation_type'] );
+        $this->add_render_attribute( 'heading_attr', 'class', 'cd-headline '. esc_attr( $rotateAmimationClass ) .' headline-placeholder '. esc_attr( $settings['animation_type'] ) );
         $animatedheading_text = explode(",", esc_html( $settings['animated_heading_text'] ) );
        
         ?>

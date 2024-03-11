@@ -1110,11 +1110,11 @@ class HTMega_Elementor_Widget_Section_Title extends Widget_Base {
         $sectionid = "htmega-". $this-> get_id();
 
         $this->add_render_attribute( 'section_area_attr', 'class', "$sectionid htmega-section-title" );
-        $this->add_render_attribute( 'section_area_attr', 'class', 'htmega-subtitle-position-'. $settings['subtitle_position'] );
+        $this->add_render_attribute( 'section_area_attr', 'class', 'htmega-subtitle-position-'. esc_attr( $settings['subtitle_position'] ) );
 
         $image_pasition_parent = ($settings['subtitle_position'] == 'bottom') ? 'htmega-section-title-order-parent' : ''; 
         
-        $this->add_render_attribute( 'section_area_attr', 'class', 'title-style-'. $settings['titlestyle'].' '. $image_pasition_parent .' image-' .$settings['image_position']);
+        $this->add_render_attribute( 'section_area_attr', 'class', 'title-style-'. esc_attr( $settings['titlestyle'] ) .' '. $image_pasition_parent .' image-' . esc_attr( $settings['image_position'] ));
 
         $this->add_render_attribute( 'section_title_text', 'class', 'section-title-txt' );
 
@@ -1122,19 +1122,19 @@ class HTMega_Elementor_Widget_Section_Title extends Widget_Base {
         if($settings['htmega_section_sublitle_border_both'] == 'yes'){
             $subTitleBoderBoth = ' htmega_sub_title_border_both';
         }
-        $this->add_render_attribute( 'section_subtitle_attr', 'class', 'section-subtitle-txt'.$subTitleBoderBoth );
+        $this->add_render_attribute( 'section_subtitle_attr', 'class', 'section-subtitle-txt'. esc_attr( $subTitleBoderBoth ) );
 
         $this->add_render_attribute( 'section_advancetitle_attr', 'class', 'section-advancetitle-txt' );
 
-        $title      = ! empty( $settings['section_title_text'] ) ? $settings['section_title_text'] : '';
-        $subtitle   = ! empty( $settings['section_subtitle_text'] ) ? $settings['section_subtitle_text'] : '';
+        $title      = ! empty( $settings['section_title_text'] ) ? wp_kses_post( $settings['section_title_text'] ) : '';
+        $subtitle   = ! empty( $settings['section_subtitle_text'] ) ? wp_kses_post( $settings['section_subtitle_text'] ) : '';
 
-        $this->add_render_attribute( 'title_image_pasition', 'class', 'htmaga-section-title-image-position-'. $settings['image_position'] );
+        $this->add_render_attribute( 'title_image_pasition', 'class', 'htmaga-section-title-image-position-'. esc_attr( $settings['image_position'] ) );
         $title_image_pasition = $this->get_render_attribute_string( 'title_image_pasition' );
 
         // URL Generate Title
         if ( ! empty( $settings['section_link']['url'] ) ) {
-            $this->add_render_attribute( 'url', 'href', $settings['section_link']['url'] );
+            $this->add_render_attribute( 'url', 'href', esc_url( $settings['section_link']['url'] ) );
 
             if ( $settings['section_link']['is_external'] ) {
                 $this->add_render_attribute( 'url', 'target', '_blank' );
@@ -1149,7 +1149,7 @@ class HTMega_Elementor_Widget_Section_Title extends Widget_Base {
 
         // URL Generate Sub Title
         if ( ! empty( $settings['sectionsubtitle_link']['url'] ) ) {
-            $this->add_render_attribute( 'suburl', 'href', $settings['sectionsubtitle_link']['url'] );
+            $this->add_render_attribute( 'suburl', 'href', esc_url( $settings['sectionsubtitle_link']['url'] ) );
 
             if ( $settings['sectionsubtitle_link']['is_external'] ) {
                 $this->add_render_attribute( 'suburl', 'target', '_blank' );
@@ -1191,7 +1191,7 @@ class HTMega_Elementor_Widget_Section_Title extends Widget_Base {
                             echo sprintf( '<%1$s %2$s>%3$s</%1$s>%4$s', $title_tag, $this->get_render_attribute_string( 'section_title_text' ), $title, '<div class=htmega-title-sperator-sec><span class="htmega-title-sperator">&nbsp;</span></div>' );
                         }
                         if( !empty($settings['section_advancetitle_text']) && $titlestyle == 'five' ){
-                            echo sprintf( '<div %1$s>%2$s</div>', $this->get_render_attribute_string( 'section_advancetitle_attr' ), $settings['section_advancetitle_text'] );
+                            echo sprintf( '<div %1$s>%2$s</div>', $this->get_render_attribute_string( 'section_advancetitle_attr' ), wp_kses_post( $settings['section_advancetitle_text'] ) );
                         }
                         if( !empty( $subtitle ) ){
                             echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $sub_title_tag, $this->get_render_attribute_string( 'section_subtitle_attr' ), $subtitle );
@@ -1219,9 +1219,9 @@ class HTMega_Elementor_Widget_Section_Title extends Widget_Base {
     
             }
 
-            $x_position = $settings['section_advancetitle_x_position']['size'] ? $settings['section_advancetitle_x_position']['size'] : 0;
-            $y_position = $settings['section_advancetitle_y_position']['size'] ? $settings['section_advancetitle_y_position']['size'] : 0;
-            $rotate = $settings['section_advancetitle_rotate']['size'] ? $settings['section_advancetitle_rotate']['size'] : 0;
+            $x_position = $settings['section_advancetitle_x_position']['size'] ? floatval( $settings['section_advancetitle_x_position']['size'] ) : 0;
+            $y_position = $settings['section_advancetitle_y_position']['size'] ? floatval( $settings['section_advancetitle_y_position']['size'] ) : 0;
+            $rotate = $settings['section_advancetitle_rotate']['size'] ? floatval( $settings['section_advancetitle_rotate']['size'] ) : 0;
             
             if(!empty($rotate) ||  !empty($x_position) || !empty($y_position)){
                 $css_print.= ".{$sectionid} .section-advancetitle-txt { transform: translate({$x_position}px, {$y_position}px) rotate({$rotate}deg);}";

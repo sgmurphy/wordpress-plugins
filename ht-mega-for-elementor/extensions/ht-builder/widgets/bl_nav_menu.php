@@ -580,7 +580,7 @@ class Bl_Nav_Menu_ELement extends Widget_Base {
 
         $menu_args = [
             'echo'          => false,
-            'menu'          => ( isset( $settings['nav_menu_id'] ) ? $settings['nav_menu_id'] : '' ),
+            'menu'          => ( isset( $settings['nav_menu_id'] ) ? sanitize_text_field( $settings['nav_menu_id'] ) : '' ),
             'menu_class'    => 'htbuilder-mainmenu',
             'menu_id'       => 'menu-'. $id,
             'fallback_cb'   => '__return_empty_string',

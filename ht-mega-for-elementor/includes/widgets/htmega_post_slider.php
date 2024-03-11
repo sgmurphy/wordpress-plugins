@@ -1990,15 +1990,19 @@ class HTMega_Elementor_Widget_Post_Slider extends Widget_Base {
         
         $dot_style = $settings['dot_style'];
         $htmega_st_4_class = $dot_style."-st-layout-4";
-        $post_type = $settings['slider_post_type'];
         
-        if( 'post'== $post_type ){
+        $post_type =  isset( $settings['slider_post_type'] ) ? $settings['slider_post_type'] : 'post';
+        $post_categorys = [];
+        if( 'post'== $post_type && ! empty( $settings['slider_categories'] ) && is_array( $settings['slider_categories'] ) ) {
             $post_categorys = $settings['slider_categories'];
-        } else if( 'product'== $post_type ){
+        } else if( 'product'== $post_type && ! empty( $settings['slider_prod_categories'] ) && is_array( $settings['slider_prod_categories'] ) ) {
             $post_categorys = $settings['slider_prod_categories'];
         }else {
-            $post_categorys = $settings[ $post_type.'_post_category'];
+            if( ! empty( $settings[ $post_type.'_post_category'] )  && is_array( $settings[ $post_type.'_post_category'] ) ) {
+                $post_categorys =  $settings[ $post_type.'_post_category'];
+            }
         }
+
         $post_author = $settings['post_author'];
         $exclude_posts = $settings['exclude_posts'];
         $orderby            = $this->get_settings_for_display('orderby');
@@ -2007,16 +2011,16 @@ class HTMega_Elementor_Widget_Post_Slider extends Widget_Base {
 
         $htmega_post_image  = 'htmega_size_1170x536';
         $htmega_post_image  =  $this->get_settings_for_display('htmega_post_image_size');
-        $this->add_render_attribute( 'htmega_post_slider_attr', 'class', 'htmega-postslider-area htmega-postslider-style-'.$settings['post_slider_layout'].' '.$htmega_st_4_class );
+        $this->add_render_attribute( 'htmega_post_slider_attr', 'class', 'htmega-postslider-area htmega-postslider-style-'. esc_attr( $settings['post_slider_layout'].' '.$htmega_st_4_class ) );
 
-        $this->add_render_attribute( 'htmega_post_slider_item_attr', 'class', 'htmega-data-title htmega-single-post-slide htmega-postslider-layout-'.$settings['post_slider_layout'].' '.$htmega_st_4_class );
+        $this->add_render_attribute( 'htmega_post_slider_item_attr', 'class', 'htmega-data-title htmega-single-post-slide htmega-postslider-layout-' . esc_attr( $settings['post_slider_layout'].' '.$htmega_st_4_class ) );
 
         // Slider options
         if( $settings['slider_on'] == 'yes' ){
 
             $direction = is_rtl() ? 'rtl' : 'ltr';
             $this->add_render_attribute( 'htmega_post_slider_attr', 'dir', $direction );
-            $this->add_render_attribute( 'htmega_post_slider_attr', 'class', 'htmega-carousel-activation htmega-arrow-'.$settings['post_slider_arrow_style'] );
+            $this->add_render_attribute( 'htmega_post_slider_attr', 'class', 'htmega-carousel-activation htmega-arrow-'. esc_attr( $settings['post_slider_arrow_style'] ) );
 
             $slider_settings = [
                 'arrows' => ('yes' === $settings['slarrows']),
@@ -2033,14 +2037,14 @@ class HTMega_Elementor_Widget_Post_Slider extends Widget_Base {
             ];
 
             $slider_responsive_settings = [
-                'display_columns' => $settings['slitems'],
-                'scroll_columns' => $settings['slscroll_columns'],
-                'tablet_width' => $settings['sltablet_width'],
-                'tablet_display_columns' => $settings['sltablet_display_columns'],
-                'tablet_scroll_columns' => $settings['sltablet_scroll_columns'],
-                'mobile_width' => $settings['slmobile_width'],
-                'mobile_display_columns' => $settings['slmobile_display_columns'],
-                'mobile_scroll_columns' => $settings['slmobile_scroll_columns'],
+                'display_columns' => absint( $settings['slitems'] ),
+                'scroll_columns' => absint( $settings['slscroll_columns'] ),
+                'tablet_width' => absint( $settings['sltablet_width'] ),
+                'tablet_display_columns' => absint( $settings['sltablet_display_columns'] ),
+                'tablet_scroll_columns' => absint( $settings['sltablet_scroll_columns'] ),
+                'mobile_width' => absint( $settings['slmobile_width'] ),
+                'mobile_display_columns' => absint( $settings['slmobile_display_columns'] ),
+                'mobile_scroll_columns' => absint( $settings['slmobile_scroll_columns'] ),
 
             ];
 
@@ -2078,7 +2082,7 @@ class HTMega_Elementor_Widget_Post_Slider extends Widget_Base {
             }
         }
         // author check
-        if (  !empty( $post_author ) ) {
+        if ( !empty( $post_author ) && is_array( $post_author ) ) {
             $args['author__in'] = $post_author;
         }
         // order by  check
@@ -2212,7 +2216,7 @@ class HTMega_Elementor_Widget_Post_Slider extends Widget_Base {
                             <h2><a href="<?php the_permalink();?>"><?php the_title(); ?></a></h2>
                         <?php
                         } else { ?>
-                            <h2><a href="<?php the_permalink();?>"><?php echo wp_trim_words( get_the_title(), $settings['title_length'], '' ); ?></a></h2>
+                            <h2><a href="<?php the_permalink();?>"><?php echo wp_trim_words( get_the_title(), floatval( $settings['title_length'] ), '' ); ?></a></h2>
                         <?php
                          }
                          
@@ -2230,7 +2234,7 @@ class HTMega_Elementor_Widget_Post_Slider extends Widget_Base {
                             if ( $settings['content_type'] == 'excerpt' ) {
                                 echo '<p>'. wp_trim_words( get_the_excerpt(), $settings['content_length'],'' ) .'</p>';
                             } else {
-                                echo '<p>'.wp_trim_words( strip_shortcodes( get_the_content() ), $settings['content_length'], '' ).'</p>'; 
+                                echo '<p>'.wp_trim_words( strip_shortcodes( get_the_content() ), floatval( $settings['content_length'] ), '' ).'</p>'; 
                             }
                         }
                         

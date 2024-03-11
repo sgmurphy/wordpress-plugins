@@ -32,6 +32,35 @@
                                                                         'processing_order'  =>  60
                                                                         
                                                                         );
+                    
+                    $this->module_settings[]                  =   array(
+                                                                        'id'            =>  'disable_admin_redirect_to_login',
+                                                                        'label'         =>  __('Disable Admin Url redirect to Login page',    'wp-hide-security-enhancer'),
+                                                                        'description'   =>  array(
+                                                                                                    __('Disable the customized Admin Url redirect to Login page',  'wp-hide-security-enhancer')
+                                                                                                    ),
+                                                                        
+                                                                        'help'          =>  array(
+                                                                                                        'title'                     =>  __( 'Help',    'wp-hide-security-enhancer') . ' - ' . __('Block default Admin Url',    'wp-hide-security-enhancer'),
+                                                                                                        'description'               =>  __( "The option provides the ability to control the redirection behavior of the customized URL to the login page.",    'wp-hide-security-enhancer') .
+                                                                                                                                        "<br />" . __( "By default, when a non-logged-in user attempts to access the WordPress admin area via the customized URL, they are automatically redirected to the login page for authentication.",    'wp-hide-security-enhancer') . 
+                                                                                                                                        "<br />" . __( "Instead it will be redirected to homepage.",    'wp-hide-security-enhancer') . 
+                                                                                                                                        "<br /><br /><span class='important'>" . __('The option might interfere with specific plugins that use redirects when calling the admin URL.',    'wp-hide-security-enhancer') . '</span>',
+                                                                                                        'option_documentation_url'  =>  'https://wp-hide.com/documentation/admin-change-wp-admin/'
+                                                                                                        ),
+                                                                                                                              
+                                                                        'input_type'    =>  'radio',
+                                                                        'options'       =>  array(
+                                                                                                    'no'        =>  __('No',     'wp-hide-security-enhancer'),
+                                                                                                    'yes'       =>  __('Yes',    'wp-hide-security-enhancer'),
+                                                                                                    ),
+                                                                        'default_value' =>  'no',
+                                                                        
+                                                                        'sanitize_type' =>  array('sanitize_title', 'strtolower'),
+                                                                        'processing_order'  =>  65
+                                                                        
+                                                                        );
+                    
                                                                     
                     $this->module_settings[]                  =   array(
                                                                         'id'            =>  'block_default_admin_url',

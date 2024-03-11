@@ -861,17 +861,17 @@ class HTMega_Elementor_Widget_Notify extends Widget_Base {
 
         $id = $this->get_id();
         $notify_options = array();
-        $notify_options['notify_btn_class'] = '.show-info-'.$id;
-        $notify_options['notify_class'] = '.htmega-notify-alert-'.$id;
-        $notify_options['type'] = $settings['notification_type'];
-        $notify_options['notifymessage'] = $settings['notification_content'];
+        $notify_options['notify_btn_class'] = '.show-info-'.esc_attr( $id );
+        $notify_options['notify_class'] = '.htmega-notify-alert-'.esc_attr( $id );
+        $notify_options['type'] = esc_attr( $settings['notification_type'] );
+        $notify_options['notifymessage'] = wp_kses_post( $settings['notification_content'] );
         $notify_options['offset'] = absint( $settings['notification_offset'] );
         $notify_options['delay'] = absint( $settings['notification_delay'] );
-        $notify_options['enter'] = $settings['notification_enter_animation'];
-        $notify_options['exit'] = $settings['notification_exit_animation'];
-        $notify_options['width'] = $settings['notification_width'];
+        $notify_options['enter'] = esc_attr( $settings['notification_enter_animation'] );
+        $notify_options['exit'] = esc_attr( $settings['notification_exit_animation'] );
+        $notify_options['width'] = esc_attr( $settings['notification_width'] );
         $notify_options['icon'] = HTMega_Icon_manager::render_icon( $settings['notification_icon'], [ 'aria-hidden' => 'true' ] );
-        $notify_options['wrapid'] = $id;
+        $notify_options['wrapid'] = esc_attr( $id );
 
         if( $settings['notification_element_container'] == 'body' ){
             $notify_options['notify_class'] = 'body';

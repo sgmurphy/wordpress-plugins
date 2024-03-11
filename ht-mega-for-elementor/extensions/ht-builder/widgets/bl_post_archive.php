@@ -969,6 +969,11 @@ class Bl_Post_Archive_ELement extends Widget_Base {
         $orderby            = $this->get_settings_for_display('orderby');
         $order              = $this->get_settings_for_display('order');
 
+
+        $search_query = [];
+        $search_query['orderby'] = $orderby;
+        $search_query['order'] = $order;
+
         // Search Page Arg
         if( is_search() ){
             global $query_string;
@@ -1063,7 +1068,7 @@ class Bl_Post_Archive_ELement extends Widget_Base {
 
                                         <?php if( $settings['show_title'] == 'yes' ): ?>
                                             <h3 class="htbuilder-post-title">
-                                                <a href="<?php the_permalink(); ?>"><?php echo wp_trim_words( get_the_title(), $settings['title_length'], '' ); ?></a>
+                                                <a href="<?php the_permalink(); ?>"><?php echo wp_trim_words( get_the_title(), floatval( $settings['title_length'] ), '' ); ?></a>
                                             </h3>
                                         <?php endif; ?>
 
@@ -1078,7 +1083,7 @@ class Bl_Post_Archive_ELement extends Widget_Base {
                                         <?php endif; ?>
 
                                         <div class="htbuilder-post-content">
-                                            <p><?php echo wp_trim_words( get_the_content(), $settings['content_length'], '' ); ?></p>
+                                            <p><?php echo wp_trim_words( get_the_content(), floatval( $settings['content_length'] ), '' ); ?></p>
                                         </div>
 
                                         <?php if( $settings['show_read_more'] == 'yes' ): ?>

@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for Plugin Name: ShortPixel Adaptive Images
-    * Compatibility checked on Version: 0.9.2
+    * Compatibility: ShortPixel Adaptive Images
+    * Introduced at: 0.9.2
     */
 
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

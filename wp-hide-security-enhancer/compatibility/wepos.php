@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for Plugin Name: wePOS
-    * Compatibility checked on Version: 1.1.1
+    * Compatibility: wePOS
+    * Introduced at: 1.1.1
     */
 
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

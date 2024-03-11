@@ -1108,22 +1108,22 @@ class HTMega_Elementor_Widget_TeamMember extends Widget_Base {
         $this->add_render_attribute( 'team_area_attr', 'class', 'htmega-team' );
         if( '8' == $settings['htmega_team_style'] ){
             if( 'two'== $settings['htmega_team_content_style2'] ){
-                $this->add_render_attribute( 'team_area_attr', 'class', 'htmega-st8-new htmega-team-style-7 htmega-team-style-'.$settings['htmega_team_style'].' '.$sectionid );
+                $this->add_render_attribute( 'team_area_attr', 'class', 'htmega-st8-new htmega-team-style-7 htmega-team-style-' . esc_attr( $settings['htmega_team_style'].' '.$sectionid ) );
             } elseif( 'three'== $settings['htmega_team_content_style2'] ){
-                $this->add_render_attribute( 'team_area_attr', 'class', 'htmega-st8-new3 htmega-st8-new htmega-team-style-7 htmega-team-style-'.$settings['htmega_team_style'].' '.$sectionid );
+                $this->add_render_attribute( 'team_area_attr', 'class', 'htmega-st8-new3 htmega-st8-new htmega-team-style-7 htmega-team-style-' . esc_attr( $settings['htmega_team_style'].' '.$sectionid ) );
             }
             else {
-                $this->add_render_attribute( 'team_area_attr', 'class', ' htmega-team-style-7 htmega-team-style-'.$settings['htmega_team_style'].' '.$sectionid );
+                $this->add_render_attribute( 'team_area_attr', 'class', ' htmega-team-style-7 htmega-team-style-' . esc_attr( $settings['htmega_team_style'].' '.$sectionid ) );
             }
 
-            $this->add_render_attribute( 'team_area_attr', 'class', ' htmega-team-style-7 htmega-team-style-'.$settings['htmega_team_style'].' '.$sectionid );
+            $this->add_render_attribute( 'team_area_attr', 'class', ' htmega-team-style-7 htmega-team-style-' . esc_attr( $settings['htmega_team_style'].' '.$sectionid ) );
 
         } else {
 
             if( 'two'== $settings['htmega_team_content_style'] ){
-                $this->add_render_attribute( 'team_area_attr', 'class', 'htmega-st2-new htmega-team-style-'.$settings['htmega_team_style'].' '.$sectionid ); 
+                $this->add_render_attribute( 'team_area_attr', 'class', 'htmega-st2-new htmega-team-style-' . esc_attr( $settings['htmega_team_style'].' '.$sectionid ) ); 
             } else {
-                $this->add_render_attribute( 'team_area_attr', 'class', 'htmega-team-style-'.$settings['htmega_team_style'].' '.$sectionid );
+                $this->add_render_attribute( 'team_area_attr', 'class', 'htmega-team-style-' . esc_attr( $settings['htmega_team_style'].' '.$sectionid ) );
             }
         }
        
@@ -1205,7 +1205,7 @@ class HTMega_Elementor_Widget_TeamMember extends Widget_Base {
                 <?php 
                     elseif( $settings['htmega_team_style'] == 4 ):
                     $this->add_render_attribute( 'team_thumb_attr', 'class', 'htmega-thumb' );
-                    $this->add_render_attribute( 'team_thumb_attr', 'class', 'htmega-team-image-hover-'.$settings['htmega_team_image_hover_style'] );
+                    $this->add_render_attribute( 'team_thumb_attr', 'class', 'htmega-team-image-hover-' . esc_attr( $settings['htmega_team_image_hover_style'] ) );
                 ?>
                     <div <?php echo $this->get_render_attribute_string( 'team_thumb_attr' ); ?>>
                         <?php echo Group_Control_Image_Size::get_attachment_image_html( $settings, 'htmega_member_imagesize', 'htmega_member_image' );?>

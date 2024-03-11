@@ -9,6 +9,7 @@
       v-model="formData.service"
       :options="categoryOptions"
       :props-data="advSelectProps"
+      :filterable="amCustomize[pageRenderKey].initStep.options.service.filterable"
       :placeholder="labelsDisplay('select_service')"
       :category-name="labelsDisplay('dropdown_category_heading')"
       :sub-category-name="labelsDisplay('dropdown_items_heading')"

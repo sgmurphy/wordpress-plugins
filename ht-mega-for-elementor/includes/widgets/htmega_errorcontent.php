@@ -843,7 +843,7 @@ class HTMega_Elementor_Widget_ErrorContent extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
         $this->add_render_attribute( 'htmega_error_attr', 'class', 'htmega-not-found' );
-        $this->add_render_attribute( 'htmega_error_attr', 'class', 'htmega-error-style-'.$settings['error_layout_style'] );
+        $this->add_render_attribute( 'htmega_error_attr', 'class', 'htmega-error-style-' . esc_attr( $settings['error_layout_style'] ) );
 
         // Back Button
         if ( ! empty( $settings['back_button_link']['url'] ) ) {

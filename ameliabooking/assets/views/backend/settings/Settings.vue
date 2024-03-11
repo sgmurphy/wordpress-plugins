@@ -902,8 +902,8 @@
 
             this.employeeInfo.employee = response.data.data.employees.length ? response.data.data.employees[0] : this.getInitEmployeeObject()
 
-            this.employeeInfo.employee.specialDayList = []
-            this.employeeInfo.employee.dayOffList = []
+            // this.employeeInfo.employee.specialDayList = []
+            // this.employeeInfo.employee.dayOffList = []
 
             this.employeeInfo.employee.weekDayList.forEach(function (weekDay) {
               weekDay.periodList = weekDay.periodList.sort((a, b) => $this.$moment('2000-01-01 ' + a.startTime + ':00', 'YYYY-MM-DD HH:mm:ss').diff($this.$moment('2000-01-01 ' + b.startTime + ':00', 'YYYY-MM-DD HH:mm:ss')))

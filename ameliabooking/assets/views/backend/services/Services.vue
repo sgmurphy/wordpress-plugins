@@ -20,8 +20,24 @@
       <div class="am-section" v-if="!showPurchasedPackages">
         <el-tabs v-model="typeTab" v-if="notInLicence('pro') ? licenceVisible() : true">
           <el-tab-pane :label="$root.labels.services" name="services" :key="0"></el-tab-pane>
-          <el-tab-pane :label="$root.labels.packages" name="packages" :key="1"></el-tab-pane>
-          <el-tab-pane :label="$root.labels.resources" name="resources" :key="2"></el-tab-pane>
+          <el-tab-pane name="packages" :key="1">
+            <span v-if="$root.licence.isLite" slot="label" class="am-premium-tag">
+              <img :src="`${$root.getUrl}public/img/am-star-gold.svg`"/>
+              {{ $root.labels.packages }}
+            </span>
+            <template v-else slot="label">
+              {{ $root.labels.packages }}
+            </template>
+          </el-tab-pane>
+          <el-tab-pane name="resources" :key="2">
+            <span v-if="$root.licence.isLite" slot="label" class="am-premium-tag">
+              <img :src="`${$root.getUrl}public/img/am-star-gold.svg`"/>
+              {{ $root.labels.resources }}
+            </span>
+            <template v-else slot="label">
+              {{ $root.labels.resources }}
+            </template>
+          </el-tab-pane>
         </el-tabs>
 
         <!-- Services & Categories -->

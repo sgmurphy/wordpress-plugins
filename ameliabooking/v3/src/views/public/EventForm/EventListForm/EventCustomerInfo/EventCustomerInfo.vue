@@ -212,6 +212,12 @@ let customFieldsCollectorRefs = ref([])
 // * All form fields refs
 let allFieldsRefs = ref([])
 
+// * InitInfoStep hook - custom fields placeholder
+let refCFPlaceholders = ref({})
+
+// * InitInfoStep hook - adding coupon
+let couponCode = ref('')
+
 // * Form data
 let infoFormData = ref({
   firstName: computed({
@@ -421,6 +427,35 @@ onMounted(() => {
       })
     }, 500)
   })
+
+  Object.keys(customFields.value).forEach((fieldKey) => {
+    // * Placeholder implementation for custom input and textarea
+    if (customFields.value[fieldKey].type === 'text' || customFields.value[fieldKey].type === 'text-area') {
+      refCFPlaceholders.value[fieldKey] = {placeholder: ''}
+    }
+  })
+
+  useAction(
+      store,
+      { customFields, customFieldsPlaceholders: refCFPlaceholders, couponCode },
+      'InitInfoStep',
+      'event',
+      null,
+      null
+  )
+
+  if (couponCode.value) {
+    store.commit('coupon/setCode', couponCode.value)
+  }
+
+  if (Object.values(refCFPlaceholders.value).filter(cf => cf.placeholder !== '').length) {
+    Object.keys(refCFPlaceholders.value).forEach((fieldKey) => {
+      infoFormConstruction.value[fieldKey].props = {
+        ...infoFormConstruction.value[fieldKey].props,
+        placeholder: refCFPlaceholders.value[fieldKey].placeholder
+      }
+    })
+  }
 })
 
 // * Submit Form

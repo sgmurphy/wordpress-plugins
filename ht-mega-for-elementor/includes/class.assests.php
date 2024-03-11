@@ -359,6 +359,7 @@ if ( !class_exists( 'HTMega_Elementor_Addons_Assests' ) ) {
             $styles  = $this->get_styles();
 
             $localize_data_frontend = [];
+            $localize_data_admin = [];
 
             if( is_plugin_active('elementor-pro/elementor-pro.php') ){
                 $localize_data_frontend['elementorpro'] = true;
@@ -387,6 +388,10 @@ if ( !class_exists( 'HTMega_Elementor_Addons_Assests' ) ) {
             if( is_plugin_active('htmega-pro/htmega_pro.php') ){
                 wp_localize_script( 'htmega-pro-slick-active', 'HTMEGAF', $localize_data_frontend );
             }
+            // admin js ajax request nonce
+            $localize_data_admin['admin_ajax_nonce'] = wp_create_nonce( "htmega-admin-ajax-request" );
+
+            wp_localize_script( 'htmega-admin', 'HTMEGAA', $localize_data_admin );
 
             // Localize Scripts for template manager
             $current_user  = wp_get_current_user();
@@ -498,6 +503,12 @@ if ( !class_exists( 'HTMega_Elementor_Addons_Assests' ) ) {
                     wp_localize_script( 'htmega-stt-script', 'stt', $stt_localize_data );
                 }
             }
+            // localize  woocommerce  add to card button action 
+            if ( is_plugin_active('woocommerce/woocommerce.php') && htmega_get_option( 'wcaddtocart', 'htmega_thirdparty_element_tabs', 'on' ) === 'on' && 'yes' === get_option('woocommerce_enable_ajax_add_to_cart') ) {
+                $localize_data_woocommerce = [];
+                $localize_data_woocommerce['woocommerce_ajax_nonce'] = wp_create_nonce( "htmega-woocommerce-ajax-request" );
+                wp_localize_script( 'htmega-single-product-ajax-cart', 'HTMEGAW', $localize_data_woocommerce );
+            }
         }
 
 
@@ -507,7 +518,7 @@ if ( !class_exists( 'HTMega_Elementor_Addons_Assests' ) ) {
          */
         public function editor_scripts() {
             wp_enqueue_style('htmega-element-editor', HTMEGA_ADDONS_PL_URL . 'assets/css/htmega-elementor-editor.css',['elementor-editor'], HTMEGA_VERSION );
-            wp_enqueue_script("htmega-widgets-editor", HTMEGA_ADDONS_PL_URL ."/assets/js/htmega-widgets-editor.js", array("jquery"),HTMEGA_VERSION,true);
+            wp_enqueue_script("htmega-widgets-editor", HTMEGA_ADDONS_PL_URL ."/assets/js/htmega-widgets-editor.js", array( "elementor-editor","jquery" ), HTMEGA_VERSION,true);
             
             //Localized  promotional widget for editor js
             wp_localize_script(

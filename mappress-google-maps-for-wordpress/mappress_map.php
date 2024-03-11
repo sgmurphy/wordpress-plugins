@@ -36,9 +36,10 @@ class Mappress_Map extends Mappress_Obj {
 		// Exclude a few fields that don't need to be in the web component (pois are determined later)
 		$vars = array_diff_key(get_object_vars($this), array('otitle' => '', 'pois' => '', 'status' => '', 'title' => ''));
 
-		// Convert center from object to string for display in attributes
-		$vars['center'] = (isset($this->center) && is_object($this->center)) ? $this->center->lat . ',' . $this->center->lng : '';
-
+		// Convert center from object or array to string, for display in attributes
+		$vars['center'] = (is_object($this->center)) ? $this->center->lat . ',' . $this->center->lng : $this->center;
+		$vars['center'] = (is_array($this->center)) ? $this->center['lat'] . ',' . $this->center['lng'] : $vars['center'];
+		
 		// Force left layout
 		$vars['layout'] = 'left';
 		

@@ -387,7 +387,7 @@ class HTMega_Elementor_Widget_Brand extends Widget_Base {
         $settings   = $this->get_settings_for_display();
 
         $this->add_render_attribute( 'brands_area_attr', 'class', 'htmega-brands-area' );
-        $this->add_render_attribute( 'brands_area_attr', 'class', 'htmega-brands-style-'.$settings['htmega_brand_style'] );
+        $this->add_render_attribute( 'brands_area_attr', 'class', 'htmega-brands-style-' . esc_attr( $settings['htmega_brand_style'] ) );
 
         ?>
             <div <?php echo $this->get_render_attribute_string( 'brands_area_attr' ); ?> >

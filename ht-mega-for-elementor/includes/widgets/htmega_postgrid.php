@@ -1012,13 +1012,16 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
 
-        $post_type = $settings['grid_post_type'];
-        if( 'post'== $post_type ){
+        $post_type =  isset( $settings['grid_post_type'] ) ? $settings['grid_post_type'] : 'post';
+        $post_categorys = [];
+        if( 'post'== $post_type && ! empty( $settings['grid_categories'] ) && is_array( $settings['grid_categories'] ) ) {
             $post_categorys = $settings['grid_categories'];
-        } else if( 'product'== $post_type ){
-            $post_categorys = isset( $settings['grid_prod_categories'] ) ? $settings['grid_prod_categories'] : $settings['grid_categories'];
+        } else if( 'product'== $post_type && ! empty( $settings['grid_prod_categories'] ) && is_array( $settings['grid_prod_categories'] ) ) {
+            $post_categorys = $settings['grid_prod_categories'];
         }else {
-            $post_categorys = $settings[ $post_type.'_post_category'];
+            if( ! empty( $settings[ $post_type.'_post_category'] )  && is_array( $settings[ $post_type.'_post_category'] ) ) {
+                $post_categorys =  $settings[ $post_type.'_post_category'];
+            }
         }
         $post_author = $settings['post_author'];
         $exclude_posts = $settings['exclude_posts'];
@@ -1055,7 +1058,7 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
             }
         }
         // author check
-        if (  !empty( $post_author ) ) {
+        if ( !empty( $post_author ) && is_array( $post_author ) ) {
             $args['author__in'] = $post_author;
         }
         // order by  check
@@ -1118,7 +1121,7 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                         if ( 0 > $settings['title_length'] ) {
                             $title_link_text = "<a href='".get_the_permalink()."'>".get_the_title()."</a>";
                         } else { 
-                            $title_link_text = "<a href='".get_the_permalink()."'>".wp_trim_words( get_the_title(), $settings['title_length'], '' )."</a>";
+                            $title_link_text = "<a href='".get_the_permalink()."'>".wp_trim_words( get_the_title(), floatval( $settings['title_length'] ), '' )."</a>";
                         }
                         ?>
 
@@ -1135,7 +1138,7 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                     if ( has_post_thumbnail() ){
                                                         the_post_thumbnail( $htmega_image_size ); 
                                                     }else{
-                                                        echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                                        echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
                                                     }
                                                 ?>
                                             </a>
@@ -1183,9 +1186,9 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                         <?php
                                                     if( $settings['show_content'] == 'yes' ):
                                                         if( $settings['content_type'] == 'excerpt' ){
-                                                            echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), $settings['content_length'],'' ) .'</p>';
+                                                            echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), floatval( $settings['content_length'] ),'' ) .'</p>';
                                                         } else {
-                                                            echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), $settings['content_length'], '' ).'</p>'; 
+                                                            echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), floatval( $settings['content_length'] ), '' ).'</p>'; 
                                                         }
                                                     endif;
                                                     if( $settings['show_read_more_btn'] == 'yes' && !empty( $settings['read_more_txt'] ) ): ?>
@@ -1213,7 +1216,8 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                     if ( has_post_thumbnail() ){
                                                         the_post_thumbnail( $htmega_image_size ); 
                                                     }else{
-                                                        echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                                        echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
+
                                                     }
                                                 ?>
                                             </a>
@@ -1259,9 +1263,9 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                     <?php
                                                     if( $settings['show_content'] == 'yes' ):
                                                         if( $settings['content_type'] == 'excerpt' ){
-                                                            echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), $settings['content_length'],'' ) .'</p>';
+                                                            echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), floatval( $settings['content_length'] ),'' ) .'</p>';
                                                         } else {
-                                                            echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), $settings['content_length'], '' ).'</p>'; 
+                                                            echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), floatval( $settings['content_length'] ), '' ).'</p>'; 
                                                         }
                                                     endif;
                                                     if( $settings['show_read_more_btn'] == 'yes' && !empty( $settings['read_more_txt'] ) ): ?>
@@ -1289,7 +1293,7 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                     if ( has_post_thumbnail() ){
                                                         the_post_thumbnail( $htmega_image_size ); 
                                                     }else{
-                                                        echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                                        echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
                                                     }
                                                 ?>
                                             </a>
@@ -1334,9 +1338,9 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                     <?php
                                                     if( $settings['show_content'] == 'yes' ):
                                                         if( $settings['content_type'] == 'excerpt' ){
-                                                            echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), $settings['content_length'],'' ) .'</p>';
+                                                            echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), floatval( $settings['content_length'] ),'' ) .'</p>';
                                                         } else {
-                                                            echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), $settings['content_length'], '' ).'</p>'; 
+                                                            echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), floatval( $settings['content_length'] ), '' ) .'</p>'; 
                                                         }
                                                     endif;
                                                     if( $settings['show_read_more_btn'] == 'yes' && !empty( $settings['read_more_txt'] ) ): ?>
@@ -1366,7 +1370,7 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                     if ( has_post_thumbnail() ){
                                                         the_post_thumbnail( $htmega_image_size ); 
                                                     }else{
-                                                        echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                                        echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
                                                     }
                                                 ?>
                                             </a>
@@ -1411,9 +1415,9 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                     <?php
                                                     if( $settings['show_content'] == 'yes' ):
                                                         if( $settings['content_type'] == 'excerpt' ){
-                                                            echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), $settings['content_length'],'' ) .'</p>';
+                                                            echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), floatval( $settings['content_length'] ),'' ) .'</p>';
                                                         } else {
-                                                            echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), $settings['content_length'], '' ).'</p>'; 
+                                                            echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), floatval( $settings['content_length'] ), '' ) .'</p>'; 
                                                         }
                                                     endif;
                                                     if( $settings['show_read_more_btn'] == 'yes' && !empty( $settings['read_more_txt'] ) ): ?>
@@ -1442,7 +1446,7 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                             if ( has_post_thumbnail() ){
                                                                 the_post_thumbnail('htmega_size_585x295'); 
                                                             }else{
-                                                                echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                                                echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
                                                             }
                                                         ?>
                                                     </a>
@@ -1492,9 +1496,9 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                                 <?php
                                                                 if ($settings['show_content'] == 'yes'):
                                                                     if ($settings['content_type'] == 'excerpt') {
-                                                                        echo '<p class="htmega-post-g-description">' . wp_trim_words( get_the_excerpt(), $settings['content_length'],'' ) . '</p>';
+                                                                        echo '<p class="htmega-post-g-description">' . wp_trim_words( get_the_excerpt(), floatval( $settings['content_length'] ),'' ) . '</p>';
                                                                     } else {
-                                                                        echo '<p class="htmega-post-g-description">' . wp_trim_words(strip_shortcodes(get_the_content()), $settings['content_length'], '') . '</p>';
+                                                                        echo '<p class="htmega-post-g-description">' . wp_trim_words(strip_shortcodes(get_the_content()), floatval($settings['content_length'] ), '') . '</p>';
                                                                     }
                                                                 endif;
                                                                 if ($settings['show_read_more_btn'] == 'yes' && !empty($settings['read_more_txt'])): ?>
@@ -1519,7 +1523,7 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                             if ( has_post_thumbnail() ){
                                                                 the_post_thumbnail( $htmega_image_size ); 
                                                             }else{
-                                                                echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                                                echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
                                                             }
                                                         ?>
                                                     </a>
@@ -1568,9 +1572,9 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                                 <?php
                                                                 if ($settings['show_content'] == 'yes'):
                                                                     if ($settings['content_type'] == 'excerpt') {
-                                                                        echo '<p class="htmega-post-g-description">' . wp_trim_words( get_the_excerpt(), $settings['content_length'],'' ) . '</p>';
+                                                                        echo '<p class="htmega-post-g-description">' . wp_trim_words( get_the_excerpt(), floatval( $settings['content_length'] ),'' ) . '</p>';
                                                                     } else {
-                                                                        echo '<p class="htmega-post-g-description">' . wp_trim_words(strip_shortcodes(get_the_content()), $settings['content_length'], '') . '</p>';
+                                                                        echo '<p class="htmega-post-g-description">' . wp_trim_words(strip_shortcodes(get_the_content()), floatval($settings['content_length'] ), '') . '</p>';
                                                                     }
                                                                 endif;
                                                                 if ($settings['show_read_more_btn'] == 'yes' && !empty($settings['read_more_txt'])): ?>
@@ -1645,9 +1649,9 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                 <?php
                                                 if( $settings['show_content'] == 'yes' ):
                                                     if( $settings['content_type'] == 'excerpt' ) {
-                                                        echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), $settings['content_length'],'' ) .'</p>';
+                                                        echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), floatval( $settings['content_length'] ),'' ) .'</p>';
                                                     } else {
-                                                        echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), $settings['content_length'], '' ).'</p>'; 
+                                                        echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), floatval( $settings['content_length'] ), '' ) .'</p>'; 
                                                     }
                                                 endif;
                                                 if( $settings['show_read_more_btn'] == 'yes' && !empty( $settings['read_more_txt'] ) ): ?>
@@ -1673,7 +1677,7 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                     if ( has_post_thumbnail() ){
                                                         the_post_thumbnail('htmega_size_585x295'); 
                                                     }else{
-                                                        echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                                        echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
                                                     }
                                                 ?>
                                             </a>
@@ -1717,9 +1721,9 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                     <?php
                                                     if( $settings['show_content'] == 'yes' ):
                                                         if( $settings['content_type'] == 'excerpt' ){
-                                                            echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), $settings['content_length'],'' ) .'</p>';
+                                                            echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), floatval( $settings['content_length'] ),'' ) .'</p>';
                                                         } else {
-                                                            echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), $settings['content_length'], '' ).'</p>'; 
+                                                            echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), floatval( $settings['content_length'] ), '' ) .'</p>'; 
                                                         }
                                                     endif;
                                                     if( $settings['show_read_more_btn'] == 'yes' && !empty( $settings['read_more_txt'] ) ): ?>
@@ -1743,7 +1747,7 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                     if ( has_post_thumbnail() ){
                                                         the_post_thumbnail( $htmega_image_size ); 
                                                     }else{
-                                                        echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                                        echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
                                                     }
                                                 ?>
                                             </a>
@@ -1787,9 +1791,9 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                     <?php
                                                     if( $settings['show_content'] == 'yes' ):
                                                         if( $settings['content_type'] == 'excerpt' ){
-                                                            echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), $settings['content_length'],'' ) .'</p>';
+                                                            echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), floatval( $settings['content_length'] ),'' ) .'</p>';
                                                         } else {
-                                                            echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), $settings['content_length'], '' ).'</p>'; 
+                                                            echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), floatval( $settings['content_length'] ), '' ) .'</p>'; 
                                                         }
                                                     endif;
                                                     if( $settings['show_read_more_btn'] == 'yes' && !empty( $settings['read_more_txt'] ) ): ?>
@@ -1814,7 +1818,7 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                     if ( has_post_thumbnail() ){
                                                         the_post_thumbnail( $htmega_image_size ); 
                                                     }else{
-                                                        echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                                        echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
                                                     }
                                                 ?>
                                             </a>
@@ -1858,9 +1862,9 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                     <?php
                                                     if( $settings['show_content'] == 'yes' ):
                                                         if( $settings['content_type'] == 'excerpt' ){
-                                                            echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), $settings['content_length'],'' ) .'</p>';
+                                                            echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), floatval( $settings['content_length'] ),'' ) .'</p>';
                                                         } else {
-                                                            echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), $settings['content_length'], '' ).'</p>'; 
+                                                            echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), floatval( $settings['content_length'] ), '' ) .'</p>'; 
                                                         }
                                                     endif;
                                                     if( $settings['show_read_more_btn'] == 'yes' && !empty( $settings['read_more_txt'] ) ): ?>
@@ -1887,7 +1891,7 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
                                                 if ( has_post_thumbnail() ){
                                                     the_post_thumbnail( $htmega_image_size ); 
                                                 }else{
-                                                    echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                                    echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
                                                 }
                                             ?>
                                         </a>
@@ -1931,9 +1935,9 @@ class HTMega_Elementor_Widget_PostGrid extends Widget_Base {
 
                                                         if( $settings['show_content'] == 'yes' ):
                                                             if( $settings['content_type'] == 'excerpt' ){
-                                                                echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), $settings['content_length'],'' ) .'</p>';
+                                                                echo '<p class="htmega-post-g-description">'. wp_trim_words( get_the_excerpt(), floatval( $settings['content_length'] ),'' ) .'</p>';
                                                             } else {
-                                                                echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), $settings['content_length'], '' ).'</p>'; 
+                                                                echo '<p class="htmega-post-g-description">'.wp_trim_words( strip_shortcodes( get_the_content() ), floatval( $settings['content_length'] ), '' ) .'</p>'; 
                                                             }
                                                         endif;
                                                 

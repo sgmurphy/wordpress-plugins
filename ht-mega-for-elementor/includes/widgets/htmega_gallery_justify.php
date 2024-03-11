@@ -205,8 +205,8 @@ class HTMega_Elementor_Widget_Gallery_Justify extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
         $id         = $this->get_id();
-        $this->add_render_attribute( 'justify_gallery_attr', 'id', 'npgallery'.$id );
-        $this->add_render_attribute( 'justify_gallery_attr', 'class', 'npgallery_active'.$id );
+        $this->add_render_attribute( 'justify_gallery_attr', 'id', 'npgallery' . esc_attr( $id ) );
+        $this->add_render_attribute( 'justify_gallery_attr', 'class', 'npgallery_active' . esc_attr( $id ) );
 
 
         // Remove Elementor Lightbox
@@ -237,7 +237,7 @@ class HTMega_Elementor_Widget_Gallery_Justify extends Widget_Base {
                         <div class="htmega-justify-single-image">
                             <div class="thumb">
                                 <a <?php echo $this->get_render_attribute_string( $image["id"] ); ?> rel="npgallery">
-                                    <img src="<?php echo esc_url( $image_src );?>" alt="<?php echo( esc_attr( get_post_meta( $image['id'], '_wp_attachment_image_alt', true) ) );?>">
+                                    <img src="<?php echo esc_url( $image_src );?>" alt="<?php echo esc_attr( get_post_meta( $image['id'], '_wp_attachment_image_alt', true) ) ;?>">
                                 </a>
                             </div>
                         </div>

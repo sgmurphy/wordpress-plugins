@@ -73,7 +73,6 @@
 }
 
 /* Post text content */
-
 .bt_bb_grid_item_post_content {
 	background: rgba(0,0,0,0.05);
 	padding: 1.5em 1em 0.5em;
@@ -159,64 +158,7 @@
 	}
 }
 
-/* Post image */
-.bt_bb_css_post_grid .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail {
-	background: rgba(0,0,0,0.3);
-	overflow: hidden;
-	a {
-		display: block;
-		height: 100%;
-		overflow: hidden;
-		position: relative;
-		&:after {
-			content: "";
-			inset: 0;
-			position: absolute;
-			pointer-events: none;
-			display: block;
-			z-index: 2;
-			opacity: 0;
-			background: #000000;
-			transition: 400ms ease all;
-		}
-		&:before {
-			content: "\f061";
-			font-family:  FontAwesome;
-			font-size: 2.5em;
-			display: flex;
-			inset: 0;
-			position: absolute;
-			align-items: center;
-			justify-content: center;
-			transform: translateY(-2em);
-			color: #ffffff;
-			opacity: 0;
-			z-index: 3;
-			transition: 400ms ease all;
-		}
-		img {
-			z-index: 1;
-			display: block;
-			transform-origin: bottom;
-			transition: 400ms ease all;
-			height: 100%;
-			object-fit: cover;
-		}
-		&:hover {
-			&:after {
-				opacity: .5;
-			}
-			&:before {
-				transform: translateY(0);
-				transition-delay: 100ms;
-				opacity: 1;
-			}
-			img {
-				transform: scale(1.05);
-			}
-		}
-	}
-}
+
 
 .bt_bb_masonry_image_grid {
 	.bt_bb_grid_item {
@@ -365,8 +307,7 @@
 	background: rgba(0,0,0,0.7);
 }
 
-/* image grid */
-
+/* Image grid */
 .bt_bb_masonry_image_grid {
 	.bt_bb_grid_item {
 		/*opacity: 0;*/

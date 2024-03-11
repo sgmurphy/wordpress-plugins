@@ -51,16 +51,16 @@ class Bl_Post_Meta_Info_ELement extends Widget_Base {
             $this->add_control(
                 'layout',
                 [
-                    'label' => esc_html__( 'Layout', 'htmega-pro' ),
+                    'label' => esc_html__( 'Layout', 'htmega-addons' ),
                     'type' => Controls_Manager::CHOOSE,
                     'default' => 'default',
                     'options' => [
                         'default' => [
-                            'title' => esc_html__( 'Default', 'htmega-pro' ),
+                            'title' => esc_html__( 'Default', 'htmega-addons' ),
                             'icon' => 'eicon-editor-list-ul',
                         ],
                         'inline' => [
-                            'title' => esc_html__( 'Inline', 'htmega-pro' ),
+                            'title' => esc_html__( 'Inline', 'htmega-addons' ),
                             'icon' => 'eicon-ellipsis-h',
                         ]
                     ],
@@ -695,7 +695,7 @@ class Bl_Post_Meta_Info_ELement extends Widget_Base {
                 if ( ! empty( $item_data['url']['url'] ) ) {
 
                     $url = $item_data['url'];
-                    $this->add_render_attribute( 'link_'.$repeater_item['_id'], 'href', $url['url'] );
+                    $this->add_render_attribute( 'link_'.$repeater_item['_id'], 'href', esc_url( $url['url'] ) );
 
                     if ( ! empty( $url['is_external'] ) ) {
                         $this->add_render_attribute( 'link_'.$repeater_item['_id'], 'target', '_blank' );

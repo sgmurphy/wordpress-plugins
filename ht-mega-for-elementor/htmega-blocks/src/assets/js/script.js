@@ -38,6 +38,7 @@
                     });
                     $accordionCard.addClass('htmega-accordion-card-active');
                     $accordionBody.slideDown();
+                    $accordionCard.find('.slick-slider').slick('refresh');
                 }
             })
         },
@@ -54,6 +55,7 @@
 
                 $($this).addClass('htmega-tab-nav-item-active').siblings().removeClass('htmega-tab-nav-item-active');
                 $($tab).find(`[data-tab-id="${$target}"]`).show().siblings().hide();
+                $($tab).find(`[data-tab-id="${$target}"]`).find('.slick-slider').slick('refresh');
             })
         },
 

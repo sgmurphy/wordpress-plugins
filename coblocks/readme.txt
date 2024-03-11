@@ -5,7 +5,7 @@ Tags: page builder, Gutenberg blocks, WordPress blocks, gutenberg, blocks
 Requires at least: 6.2
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 3.1.6
+Stable tag: 3.1.7
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -124,6 +124,11 @@ Developers can also apply minor style touch-ups to their themes if necessary. If
 CoBlocks is designed to support the last two major versions of WordPress that are currently released. If you're using one of these versions, you're all set to enjoy everything CoBlocks has to offer!
 
 == Changelog ==
+
+= 3.1.7 / 2024-03-11 =
+
+# Bug Fix
+* Security issue patched [#2594](https://github.com/godaddy-wordpress/coblocks/pull/2594)
 
 = 3.1.6 / 2024-02-28 =
 

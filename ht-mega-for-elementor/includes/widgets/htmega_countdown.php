@@ -1195,27 +1195,27 @@ class HTMega_Elementor_Widget_Countdown extends Widget_Base {
         $data_options = [];
 
         if( $settings['show_event_list'] == 'yes' && function_exists('tribe_get_start_date') ){
-            $data_options['htmegadate']  =  tribe_get_start_date ( $settings['event_id'], false,  'Y/m/d' );
+            $data_options['htmegadate']  =  tribe_get_start_date ( absint( $settings['event_id'] ), false,  'Y/m/d' );
         }else{ 
-            $data_options['htmegadate'] = isset( $settings['target_date'] ) ? $settings['target_date'] : date( 'Y/m/d', strtotime( '+1 month' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) );
+            $data_options['htmegadate'] = isset( $settings['target_date'] ) ? esc_attr( $settings['target_date'] ) : date( 'Y/m/d', strtotime( '+1 month' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) );
         }
 
         // Hide Countdownload item
-        $data_options['style']      = $settings['htmega_count_style'];
-        $data_options['lavelhide']      = $settings['count_down_labels'];
-        $data_options['htmegaday']      = $settings['count_down_days'];
-        $data_options['htmegahours']    = $settings['count_down_hours'];
-        $data_options['htmegaminiute']  = $settings['count_down_miniute'];
-        $data_options['htmegasecond']   = $settings['count_down_second'];
+        $data_options['style']      = esc_attr( $settings['htmega_count_style'] );
+        $data_options['lavelhide']      = esc_attr( $settings['count_down_labels'] );
+        $data_options['htmegaday']      = esc_attr( $settings['count_down_days'] );
+        $data_options['htmegahours']    = esc_attr( $settings['count_down_hours'] );
+        $data_options['htmegaminiute']  = esc_attr( $settings['count_down_miniute'] );
+        $data_options['htmegasecond']   = esc_attr( $settings['count_down_second'] );
 
         // Custom Label
-        $data_options['htmegadaytxt'] = ! empty( $settings['customlabel_days'] ) ? $settings['customlabel_days'] : 'Days';
-        $data_options['htmegahourtxt'] = ! empty( $settings['customlabel_hours'] ) ? $settings['customlabel_hours'] : 'Hours';
-        $data_options['htmegaminutestxt'] = ! empty( $settings['customlabel_minutes'] ) ? $settings['customlabel_minutes'] : 'Minutes';
-        $data_options['htmegasecondstxt'] = ! empty( $settings['customlabel_seconds'] ) ? $settings['customlabel_seconds'] : 'Seconds';
+        $data_options['htmegadaytxt'] = ! empty( $settings['customlabel_days'] ) ? esc_html( $settings['customlabel_days'] ) : 'Days';
+        $data_options['htmegahourtxt'] = ! empty( $settings['customlabel_hours'] ) ? esc_html( $settings['customlabel_hours'] ) : 'Hours';
+        $data_options['htmegaminutestxt'] = ! empty( $settings['customlabel_minutes'] ) ? esc_html( $settings['customlabel_minutes'] ) : 'Minutes';
+        $data_options['htmegasecondstxt'] = ! empty( $settings['customlabel_seconds'] ) ? esc_html( $settings['customlabel_seconds'] ) : 'Seconds';
         
-        $this->add_render_attribute( 'countdown_wrapper_attr', 'class', 'htmega-countdown-wrapper ' .$sectionid );
-        $this->add_render_attribute( 'countdown_wrapper_attr', 'class', 'htmega-countdown-style-'. $settings['htmega_count_style'] );
+        $this->add_render_attribute( 'countdown_wrapper_attr', 'class', 'htmega-countdown-wrapper ' . esc_attr( $sectionid ) );
+        $this->add_render_attribute( 'countdown_wrapper_attr', 'class', 'htmega-countdown-style-'. esc_attr( $settings['htmega_count_style'] ) );
 
         if( $settings['counter_timer_separator'] != 'yes' ){
             $this->add_render_attribute( 'countdown_wrapper_attr', 'class', 'htmega-timer-separate-no' );
@@ -1228,7 +1228,7 @@ class HTMega_Elementor_Widget_Countdown extends Widget_Base {
         }
 
         if(isset($settings['count_seperator_image']['url']) &&  $settings['count_seperator_image']['url'] != ''){
-            $count_area_seperator = "url('" . $settings['count_seperator_image']['url']. "')";
+            $count_area_seperator = "url('" . esc_url( $settings['count_seperator_image']['url'] ). "')";
         }else{
             $count_area_seperator =":";
         }
@@ -1259,7 +1259,7 @@ class HTMega_Elementor_Widget_Countdown extends Widget_Base {
                                             echo HTMega_Icon_manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] );
                                         } 
                                         if( !empty( $settings['button_text'] ) ){
-                                            echo esc_html( $settings['button_text'] );
+                                            echo wp_kses_post( $settings['button_text'] );
                                         }
                                     ?>
                                 </a>

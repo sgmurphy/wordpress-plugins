@@ -492,7 +492,7 @@ class HTMegaScrollToTop_Elementor {
                     Group_Control_Box_Shadow::get_type(),
                     [
                         'name' => 'stt_boxshadow',
-                        'label' => __( 'Box Shadow', 'htmega-pro' ),
+                        'label' => __( 'Box Shadow', 'htmega-addons' ),
                         'selector' => '{{WRAPPER}} .htmega-stt-wrap',
                         'condition' => [
                             'htmega_stt_enable' => 'yes',
@@ -565,7 +565,7 @@ class HTMegaScrollToTop_Elementor {
                 Group_Control_Box_Shadow::get_type(),
                 [
                     'name' => 'stt_boxshadow_hover',
-                    'label' => __( 'Box Shadow', 'htmega-pro' ),
+                    'label' => __( 'Box Shadow', 'htmega-addons' ),
                     'selector' => '{{WRAPPER}} .htmega-stt-wrap:hover',
                     'condition' => [
                         'htmega_stt_enable' => 'yes',

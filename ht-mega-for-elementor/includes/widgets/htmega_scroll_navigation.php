@@ -549,10 +549,10 @@ class HTMega_Elementor_Widget_Scroll_Navigation extends Widget_Base {
         $this->add_render_attribute( 'swiperslider_area_attr', 'class', 'swiper-container' );
 
         $slider_settings = [
-            'slideitem'         => $settings['slider_item'],
-            'direction'         => $settings['slider_direction'],
-            'tablet_direction'         => $settings['tablet_direction'],
-            'mobile_direction'         => $settings['mobile_direction'],
+            'slideitem'         => absint( $settings['slider_item'] ),
+            'direction'         => esc_attr( $settings['slider_direction'] ),
+            'tablet_direction'         => esc_attr( $settings['tablet_direction'] ),
+            'mobile_direction'         => esc_attr( $settings['mobile_direction'] ),
             'tablet_width'             => absint( $settings['tablet_width'] ),
             'mobile_width'             => absint( $settings['mobile_width'] ),
             'mousewheel'        => ('yes' === $settings['slider_mousewheel']),

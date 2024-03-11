@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for Plugin Name: TranslatePress - Multilingual
-    * Since: 1.9.5
+    * Compatibility: TranslatePress - Multilingual
+    * Introduced at: 1.9.5
     */
 
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

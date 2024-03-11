@@ -22,6 +22,7 @@ export default {
           {label: this.$root.labels.location, value: 'location', checked: true},
           {label: this.$root.labels.start_time, value: 'startTime', checked: true},
           {label: this.$root.labels.end_time, value: 'endTime', checked: true},
+          {label: this.$root.labels.duration, value: 'duration', checked: true},
           {label: this.$root.labels.payment_amount, value: 'paymentAmount', checked: true},
           {label: this.$root.labels.payment_status, value: 'paymentStatus', checked: true},
           {label: this.$root.labels.payment_method, value: 'paymentMethod', checked: true},

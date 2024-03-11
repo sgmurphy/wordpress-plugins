@@ -34,19 +34,34 @@ global $WOOCS;
 
 
             <?php if ($WOOCS->notes_for_free): ?>
-                <a href="https://codecanyon.pluginus.net/item/woocommerce-currency-switcher/8085217" style="position: absolute;
-                   right: 0;
-                   top: 19px;
-                   background-color: #2f55d4;
-                   border-color: #2f55d4;
-                   color: #fff !important;
-                   box-shadow: 0 3px 5px 0 rgb(47 85 212 / 30%);
-                   display: flex;
-                   justify-content: stretch;
-                   align-items: center;
-                   line-height: 29px;
-                   "target="_blank" class="woocs__button"><span class="dashicons dashicons-money"></span>&nbsp;Get PRO</a>
-               <?php endif; ?>
+
+
+                <?php if (time() > 1710684000): ?>
+
+                    <a href="https://codecanyon.pluginus.net/item/woocommerce-currency-switcher/8085217" style="position: absolute;
+                       right: 0;
+                       top: 19px;
+                       background-color: #2f55d4;
+                       border-color: #2f55d4;
+                       color: #fff !important;
+                       box-shadow: 0 3px 5px 0 rgb(47 85 212 / 30%);
+                       display: flex;
+                       justify-content: stretch;
+                       align-items: center;
+                       line-height: 29px;
+                       "target="_blank" class="woocs__button"><span class="dashicons dashicons-money"></span>&nbsp;Get PRO</a>
+
+                <?php else: ?>
+
+
+                    <a href="https://codecanyon.pluginus.net/item/woocommerce-currency-switcher/8085217" style="position: absolute;
+                       right: 0;
+                       top: -4px;
+                       "target="_blank"><img width="120" src="https://pluginus.net/wp-content/uploads/2024/03/spring-sale-2024-33.png" alt=""></a>
+
+                <?php endif; ?>
+
+            <?php endif; ?>
 
 
 

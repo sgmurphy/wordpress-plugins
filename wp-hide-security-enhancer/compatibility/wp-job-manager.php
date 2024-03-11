@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for Plugin Name: WP Job Manager
-    * Compatibility checked on Version: 1.34.2 
+    * Compatibility: WP Job Manager
+    * Introduced at: 1.34.2 
     */
     
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

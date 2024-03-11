@@ -1483,7 +1483,7 @@ class HTMega_Elementor_Widget_Data_Table extends Widget_Base {
         $settings   = $this->get_settings_for_display();
         $id = $this->get_id();
 
-        $this->add_render_attribute( 'datatable_attr', 'class', 'htmega-table-style htmega-table-style-'.$settings['datatable_style'] );
+        $this->add_render_attribute( 'datatable_attr', 'class', 'htmega-table-style htmega-table-style-' . esc_attr( $settings['datatable_style'] ) );
 
         if( $settings['show_datatable_sorting'] != 'yes' ){
             $this->add_render_attribute( 'datatable_attr', 'class', 'htb-table-responsive' );
@@ -1498,7 +1498,7 @@ class HTMega_Elementor_Widget_Data_Table extends Widget_Base {
             if( $content_row['field_type'] == 'row' ) {
                 $table_tr[] = [
                     'id' => $row_id,
-                    'type' => $content_row['field_type'],
+                    'type' => esc_attr( $content_row['field_type'] ),
                 ];
             }
             if( $content_row['field_type'] == 'col' ) {
@@ -1512,11 +1512,11 @@ class HTMega_Elementor_Widget_Data_Table extends Widget_Base {
                 
                 //Icon Control
                 }elseif( isset($content_row['cell_icon']) ){
-                    $table_cell_data = '<div class="elementor-repeater-item-'.$content_row['_id'].'">' . HTMega_Icon_manager::render_icon( $content_row['cell_icon'], [ 'aria-hidden' => 'false' ] ) . '</div>';
+                    $table_cell_data = '<div class="elementor-repeater-item-' . esc_attr( $content_row['_id'] ) .'">' . HTMega_Icon_manager::render_icon( $content_row['cell_icon'], [ 'aria-hidden' => 'false' ] ) . '</div>';
                 
                 //Text Control
                 }else{
-                    $table_cell_data = $content_row['cell_text'];
+                    $table_cell_data = wp_kses_post( $content_row['cell_text'] );
                 }
                 
                 $table_td[] = [

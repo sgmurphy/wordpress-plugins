@@ -637,21 +637,25 @@
 		mapElement_jQuery.data( 'init-finished', true );
 	}
 	
-	document.addEventListener("readystatechange", function() {  
-		if ( ( document.readyState === "interactive" || document.readyState === "complete" ) ) {  
-			if ( typeof( bt_bb_gmap_init_new ) !== typeof(Function) ) { 
+	document.addEventListener( 'readystatechange', function() {  
+		if ( ( document.readyState === 'complete' ) ) {  
+			if ( typeof( bt_bb_init_all_maps ) !== 'function' ) { 
 				return false;
 			}
-			$( ".bt_bb_google_maps_map" ).each(function( index ) {
-				if ( $( this ).data( 'map-type' ) != 'static' ) {
-					bt_bb_gmap_init_new( $( this ).attr( 'id' ) );
-				} else {
-					bt_bb_gmap_init_static_new( $( this ).attr( 'id' ) );
-				};
-			});
-			
+			window.bt_bb_init_all_maps();
 		};
 	}, false);
+	
+	// callback from gmaps api
+	window.bt_bb_init_all_maps = function () {
+		jQuery( '.bt_bb_google_maps_map' ).each(function( index ) {
+			if ( jQuery( this ).data( 'map-type' ) != 'static' ) {
+				bt_bb_gmap_init_new( jQuery( this ).attr( 'id' ) );
+			} else {
+				bt_bb_gmap_init_static_new( jQuery( this ).attr( 'id' ) );
+			};
+		});
+	};
 
 	window.bt_bb_gmap_init_static = function ( map_id, zoom, custom_style, height, api_key ) {
 		

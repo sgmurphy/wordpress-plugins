@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for Plugin Name: WP Rocket
-    * Compatibility checked on Version: 
+    * Compatibility: WP Rocket
+    * Introduced at: 
     */
     
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

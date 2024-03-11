@@ -1,8 +1,6 @@
 ;(function($){
-
     $(document).on( 'click', '.elementor-widget-htmega-wcaddtocart-addons .single_add_to_cart_button', function (e) {
         e.preventDefault();
-
         var $this = $(this),
             $form           = $this.closest('form.cart'),
             all_data        = $form.serialize(),
@@ -46,6 +44,7 @@
             variations: item,
             isgrouped: 'no',
             all_data: all_data,
+            security:HTMEGAW.woocommerce_ajax_nonce
         };
 
         //For grouped product
@@ -65,7 +64,7 @@
             data.groupedProductIds  = groupProductIds;
         }
 
-        var alldata = data.all_data + '&isgrouped='+ data.isgrouped + '&grouped_product_id='+ data.groupedProductIds +  '&product_id='+ data.product_id + '&product_sku='+ data.product_sku + '&quantity='+ data.quantity + '&variation_id='+ data.variation_id + '&variations='+ JSON.stringify( data.variations ) +'&action=woocommerce_grouped_product_ajax_add_to_cart';
+        var alldata = data.all_data + '&isgrouped='+ data.isgrouped + '&grouped_product_id='+ data.groupedProductIds +  '&product_id='+ data.product_id + '&product_sku='+ data.product_sku + '&quantity='+ data.quantity + '&variation_id='+ data.variation_id + '&variations='+ JSON.stringify( data.variations ) +'&action=woocommerce_grouped_product_ajax_add_to_cart&security='+HTMEGAW.woocommerce_ajax_nonce;
 
         $( document.body ).trigger('adding_to_cart', [$this, data]);
 

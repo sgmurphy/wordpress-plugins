@@ -299,15 +299,15 @@ class HTMega_Elementor_Widget_Scroll_Image extends Widget_Base {
         $this->add_control(
             'badge_position',
             [
-                'label' => __( 'Position', 'htmega-pro'),
+                'label' => __( 'Position', 'htmega-addons'),
                 'type' => Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
-                        'title' => __( 'Left', 'htmega-pro'),
+                        'title' => __( 'Left', 'htmega-addons'),
                         'icon' => 'eicon-h-align-left',
                     ],
                     'right' => [
-                        'title' => __( 'Right', 'htmega-pro'),
+                        'title' => __( 'Right', 'htmega-addons'),
                         'icon' => 'eicon-h-align-right',
                     ],
                 ],

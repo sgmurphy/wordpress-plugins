@@ -1144,7 +1144,7 @@ export default {
       return {
         phonePopulated: this.phonePopulated ? 1 : 0,
         containerId: this.containerId,
-        trigger: this.trigger ? this.trigger : '',
+        trigger: 'booking' in this.$root.shortcodeData && 'trigger' in this.$root.shortcodeData.booking ? this.$root.shortcodeData.booking.trigger : '',
         recurringString: this.recurringString,
         useGlobalCustomization: this.useGlobalCustomization ? 1 : 0,
         bookableType: this.bookableType,

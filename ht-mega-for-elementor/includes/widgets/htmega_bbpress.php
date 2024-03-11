@@ -90,13 +90,13 @@ class HTMega_Elementor_Widget_Bbpress extends Widget_Base {
         $bbpress_attributes = array();
 
         if ( isset( $settings['bbpress_id'] ) ) {
-            $bbpress_attributes = array( ' id' => $settings['bbpress_id'] );
-        } elseif ( $settings['bbpress_layout'] == 'topic-form' && isset( $settings['bbpress_id'] )) {
-            $bbpress_attributes = array( ' forum_id' => $settings['bbpress_id'] );
+            $bbpress_attributes = array( ' id' => esc_attr( $settings['bbpress_id'] ) );
+        } elseif ( $settings['bbpress_layout'] == 'topic-form' && isset( $settings['bbpress_id'] ) ) {
+            $bbpress_attributes = array( ' forum_id' =>  esc_attr( $settings['bbpress_id'] ) );
         }
         $this->add_render_attribute( 'shortcode', $bbpress_attributes );
 
-        echo do_shortcode( sprintf( '[bbp-'.$settings['bbpress_layout'].'%s]', $this->get_render_attribute_string( 'shortcode' ) ));
+        echo do_shortcode( sprintf( '[bbp-'. esc_attr( $settings['bbpress_layout'] ) .'%s]', $this->get_render_attribute_string( 'shortcode' ) ));
 
     }
 

@@ -59,6 +59,7 @@
             :is="customFieldsComponents[cf.type]"
             v-model="infoFormData['cf' + cf.id]"
             :type="cf.type === 'text-area' ? 'textarea' : (cf.type === 'text' ? 'text' : '')"
+            :placeholder="refCFPlaceholders[cf.id] && refCFPlaceholders[cf.id].placeholder"
           ></component>
           <!-- /types - [input, text-area] -->
 
@@ -396,6 +397,12 @@ let refOnSiteBooking = ref(null)
 
 let refWcBooking = ref(null)
 
+// * InitInfoStep hook - custom fields placeholder
+let refCFPlaceholders = ref({})
+
+// * InitInfoStep hook - adding coupon
+let couponCode = ref('')
+
 let loading = computed(() => store.getters['booking/getLoading'])
 
 let instantBooking = ref(usePrepaidPrice(store) === 0)
@@ -434,7 +441,8 @@ function onRemoveFile (a) {
 
 let phoneError = ref(false)
 
-let loggedInUser = computed(() => store.getters['booking/getCustomerId'] && store.getters['booking/getCustomerEmail'])
+let loggedInUser = computed(() => (store.getters['booking/getCustomerId'] && store.getters['booking/getCustomerEmail'])
+    || (!!window.ameliaUser && window.ameliaUser.type == 'admin'))
 /**
  * Submit Form Function
  */
@@ -506,6 +514,11 @@ onMounted(() => {
         store.state.booking.appointment.bookings[0].customFields[id].value = val
       }
     })
+
+    // * Placeholder implementation for custom input and textarea
+    if (availableCustomFields.value[id].type === 'text' || availableCustomFields.value[id].type === 'text-area') {
+      refCFPlaceholders.value[id] = {placeholder: ''}
+    }
   })
 
   addressCustomFields.value.forEach(el => {
@@ -537,6 +550,19 @@ onMounted(() => {
       providerId: statsData.providerId,
       serviceId: statsData.serviceId,
     })
+  }
+
+  useAction(
+      store,
+      { customFieldsPlaceholders: refCFPlaceholders, couponCode },
+      'InitInfoStep',
+      'appointment',
+      null,
+      null
+  )
+
+  if (couponCode.value) {
+    store.commit('booking/setCouponCode', couponCode.value)
   }
 })
 </script>

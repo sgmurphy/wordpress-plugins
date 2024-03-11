@@ -1064,7 +1064,7 @@ class HTMega_Elementor_Widget_QUforms extends Widget_Base {
             echo '<p>'.__('Please select Contact Form', 'htmega-addons').'</p>';
         }else{
             $form_attributes = [
-                'id' => $settings['contact_form_list'],
+                'id' => sanitize_text_field( $settings['contact_form_list'] ),
             ];
             $this->add_render_attribute( 'shortcode', $form_attributes );
             echo do_shortcode( sprintf( '[quform %s]', $this->get_render_attribute_string( 'shortcode' ) ) );

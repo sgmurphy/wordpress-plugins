@@ -322,10 +322,10 @@ class Bl_Post_Comments_ELement extends Widget_Base {
         if( Elementor::instance()->editor->is_edit_mode() ){ ?>
             <section id="comments" class="comments-area">
                 <div id="respond" class="comment-respond">
-                    <h2 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="#" style="display:none;">Cancel reply</a></small></h2>
+                    <h2 id="reply-title" class="comment-reply-title"><?php esc_html_e( 'Leave a Reply', 'htmega-addons' ); ?> <small><a rel="nofollow" id="cancel-comment-reply-link" href="#" style="display:none;"><?php esc_html_e( 'Cancel reply', 'htmega-addons' ); ?></a></small></h2>
                     <form action="#" method="post" id="commentform" class="comment-form" novalidate="" autocomplete="off">
-                        <p class="logged-in-as">Logged in as admin. <a href="#">Edit your profile</a>. <a href="#">Log out?</a> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p>
-                        <p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="" autocomplete="off" spellcheck="false" data-ms-editor="true"></textarea></p>
+                        <p class="logged-in-as"><?php esc_html_e( 'Logged in as admin.', 'htmega-addons' ); ?> <a href="#"><?php esc_html_e( 'Edit your profile.', 'htmega-addons' ); ?></a> <a href="#"><?php esc_html_e( 'Log out?', 'htmega-addons' ); ?></a> <span class="required-field-message"><?php esc_html_e( 'Required fields are marked', 'htmega-addons' ); ?> <span class="required"><?php esc_html_e( '*', 'htmega-addons' ); ?></span></span></p>
+                        <p class="comment-form-comment"><label for="comment"><?php esc_html_e( 'Comment', 'htmega-addons' ); ?> <span class="required"><?php esc_html_e( '*', 'htmega-addons' ); ?></span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="" autocomplete="off" spellcheck="false" data-ms-editor="true"></textarea></p>
                         <p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" autocomplete="off"> <input type="hidden" name="comment_post_ID" value="534" id="comment_post_ID" autocomplete="off">
                     </form>
                 </div>

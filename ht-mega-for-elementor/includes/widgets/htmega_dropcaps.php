@@ -298,26 +298,27 @@ class HTMega_Elementor_Widget_Dropcaps extends Widget_Base {
         $settings   = $this->get_settings_for_display();
         $sectionid = "htmega-". $this-> get_id();
 
-        $this->add_render_attribute( 'htmega_dropcaps_attr', 'class', 'htmega-dropcaps-area '. $sectionid );
-        $this->add_render_attribute( 'htmega_dropcaps_attr', 'class', 'htmega-dropcaps-style-'.$settings['dropcaps_style'] );
+        $this->add_render_attribute( 'htmega_dropcaps_attr', 'class', 'htmega-dropcaps-area ' . esc_attr( $sectionid ) );
+        $this->add_render_attribute( 'htmega_dropcaps_attr', 'class', 'htmega-dropcaps-style-' . esc_attr( $settings['dropcaps_style'] ) );
        
         ?>
             <div <?php echo $this->get_render_attribute_string( 'htmega_dropcaps_attr' ); ?>>
                 <?php
-                    if( !empty( $settings['dropcaps_text'] ) ){
-                        echo '<div class="htmega-dropcaps-inner">'.wpautop( $settings['dropcaps_text'] ).'</div>';
+                    $dropcap_text = esc_textarea( $settings['dropcaps_text'] );
+                    if( !empty( $dropcap_text ) ){
+                        echo '<div class="htmega-dropcaps-inner">'.wpautop( $dropcap_text ).'</div>';
                     }
                 ?>
             </div>
 
             <?php if($settings['htmega_dropcaps_letter_font_text_backround'] == 'yes'): ?>
                 <style>
-                    <?php echo esc_html( '.'.$sectionid ) ?> .htmega-dropcaps-inner p:first-of-type:first-letter{ 
+                    <?php echo '.'. sanitize_key( $sectionid ) ?> .htmega-dropcaps-inner p:first-of-type:first-letter{ 
                         color: #00FF4B00; 
                         -webkit-background-clip: text;
                         -webkit-text-fill-color: transparent;
                         }
-                    <?php echo esc_html( '.'.$sectionid ) ?> .htmega-dropcaps-inner:first-of-type:first-letter{
+                    <?php echo '.' . sanitize_key( $sectionid ) ?> .htmega-dropcaps-inner:first-of-type:first-letter{
                         color: #00FF4B00; 
                         -webkit-background-clip: text;
                         -webkit-text-fill-color: transparent;',

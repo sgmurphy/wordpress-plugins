@@ -15,6 +15,7 @@
 	--post-pf-soft-radius: 5px;
 	--post-pf-hard-radius: 20px;
 
+
 	/* Loader */
 	/* border: 10px solid red; */
 	.bt_bb_post_grid_loader {
@@ -76,7 +77,6 @@
 	}
 	
 	/* Columns */
-	
 	&.bt_bb_columns_1 {
 		.bt_bb_css_post_grid_content {
 			grid-template-columns: 1fr;
@@ -179,7 +179,6 @@
 	}
 	
 	/* Roundness */
-	
 	&.bt_bb_shape_square  .bt_bb_grid_item {
 		border-radius: 0;
 	}
@@ -194,7 +193,6 @@
 
 	
 	/* Gaps */
-	
 	&.bt_bb_gap_small {
 		.bt_bb_css_post_grid_content {
 			grid-gap: calc(var(--post-pf-grid-gap-small) * 2);
@@ -219,12 +217,126 @@
 			padding-top: calc(var(--post-pf-grid-gap-large) * 2);
 		}
 	}
-	
 }
 
+/* Hover style */
+.bt_bb_css_post_grid {
+	&.bt_bb_hover_style_zoom .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail {
+		background: rgba(0,0,0,0.3);
+		overflow: hidden;
+		a {
+			display: block;
+			height: 100%;
+			overflow: hidden;
+			position: relative;
+			&:after {
+				content: "";
+				inset: 0;
+				position: absolute;
+				pointer-events: none;
+				display: block;
+				z-index: 2;
+				opacity: 0;
+				background: #000000;
+				transition: 400ms ease all;
+			}
+			img {
+				z-index: 1;
+				display: block;
+				transform-origin: bottom;
+				transition: 400ms ease all;
+				height: 100%;
+				object-fit: cover;
+			}
+			&:hover {
+				&:after {
+					opacity: .5;
+				}
+				img {
+					transform: scale(1.05);
+				}
+			}
+		}
+	}
+	&.bt_bb_hover_style_arrow .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail {
+		background: rgba(0,0,0,0.3);
+		overflow: hidden;
+		a {
+			display: block;
+			height: 100%;
+			overflow: hidden;
+			position: relative;
+			&:after {
+				content: "";
+				inset: 0;
+				position: absolute;
+				pointer-events: none;
+				display: block;
+				z-index: 2;
+				opacity: 0;
+				background: #000000;
+				transition: 400ms ease all;
+			}
+			&:before {
+				content: "\f061";
+				font-family:  FontAwesome;
+				font-size: 2.5em;
+				display: flex;
+				inset: 0;
+				position: absolute;
+				align-items: center;
+				justify-content: center;
+				transform: translateY(-2em);
+				color: #ffffff;
+				opacity: 0;
+				z-index: 3;
+				transition: 400ms ease all;
+			}
+			img {
+				z-index: 1;
+				display: block;
+				transform-origin: bottom;
+				transition: 400ms ease all;
+				height: 100%;
+				object-fit: cover;
+			}
+			&:hover {
+				&:after {
+					opacity: .5;
+				}
+				&:before {
+					transform: translateY(0);
+					transition-delay: 100ms;
+					opacity: 1;
+				}
+				img {
+					transform: scale(1.05);
+				}
+			}
+		}
+	}
+}
+
+/* Excerpt lines */
+@for i in 1,2,3,4,5,6 {
+	.bt_bb_css_post_grid.bt_bb_excerpt_lines_#(i) .bt_bb_css_post_grid_content .bt_bb_grid_item .bt_bb_grid_item_inner .bt_bb_grid_item_post_content .bt_bb_grid_item_post_excerpt {
+		-webkit-line-clamp: #(i);
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		width: 100%;
+	}
+	.bt_bb_css_post_grid.bt_bb_title_lines_#(i) .bt_bb_css_post_grid_content .bt_bb_grid_item .bt_bb_grid_item_inner .bt_bb_grid_item_post_content .bt_bb_grid_item_post_title {
+		-webkit-line-clamp: #(i);
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		width: 100%;
+	}
+}
+
+
 /* Responsive */
-
-
 .bt_bb_css_post_grid {
 	.bt_bb_grid_item {
 		&.bt_bb_tile_format_21 {

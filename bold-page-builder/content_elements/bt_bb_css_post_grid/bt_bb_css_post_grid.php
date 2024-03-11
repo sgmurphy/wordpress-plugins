@@ -19,12 +19,13 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 				$_POST['show_subheadline'], 
 				$_POST['post-type'],
 				$_POST['format'],
-				$_POST['title_html_tag']
+				$_POST['title_html_tag'],
+				$_POST['img_base_size']
 			);
 		die();
 	}	
 
-	static function dump_grid( $number, $offset, $category, $show, $show_superheadline, $show_subheadline, $post_type, $format, $title_html_tag ) {
+	static function dump_grid( $number, $offset, $category, $show, $show_superheadline, $show_subheadline, $post_type, $format, $title_html_tag, $img_base_size ) {
 		
 		$show				= json_decode( urldecode( $show ), true );
 		$show_superheadline = json_decode( urldecode( $show_superheadline ), true );
@@ -42,7 +43,7 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 
 		foreach( $posts as $item ) { 
 			$post_thumbnail_id = get_post_thumbnail_id( $item['ID'] ); 
-			$img = wp_get_attachment_image_src( $post_thumbnail_id, 'large' );
+			$img = wp_get_attachment_image_src( $post_thumbnail_id, $img_base_size );
 			$img_src = isset( $img[0] ) ? $img[0] : '';
 			$hw = 0;
 			if ( $img_src != '' ) {
@@ -61,6 +62,7 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 					$tile_format .= '_11';
 				}
 			}
+			// $img_src = $img_base_size;
 
 			$output .= '<div class="bt_bb_grid_item ' . $tile_format . '" data-hw="' . esc_attr( $hw ) . '" data-src="' . esc_url_raw( $img_src ) . '" data-alt="' . esc_attr( $alt ) . '" data-post-format="' . esc_attr( $item['format'] ) . '"><div class="bt_bb_grid_item_inner">';
 				$output .= '<div class="bt_bb_grid_item_post_thumbnail"><a href="' . esc_url_raw( $item['permalink'] ) . '" title="' . esc_attr( $item['title'] ) . '"></a></div>';
@@ -213,13 +215,17 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 			'format'      				=> '',
 			'gap'         				=> '',
 			'shape'						=> 'inherit',
+			'img_base_size'				=> 'large',
 			'category'					=> '',
 			'category_filter'			=> '',
 			'title_html_tag'			=> '',
 			'show_in_superheadline'		=> '',
 			'show_in_subheadline'		=> '',
 			'show_excerpt'				=> '',
-			'show_share'				=> ''
+			'show_share'				=> '',
+			'title_lines'				=> '',
+			'excerpt_lines'				=> '',
+			'hover_style'				=> ''
 		) ), $atts, $this->shortcode ) );
 
 		wp_enqueue_script( 'jquery-masonry' );
@@ -263,6 +269,18 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 		
 		if ( $gap != '' ) {
 			$class[] = $this->prefix . 'gap' . '_' . $gap;
+		}
+
+		if ( $title_lines != '' ) {
+			$class[] = $this->prefix . 'title_lines' . '_' . $title_lines;
+		}
+
+		if ( $excerpt_lines != '' ) {
+			$class[] = $this->prefix . 'excerpt_lines' . '_' . $excerpt_lines;
+		}
+
+		if ( $hover_style != '' ) {
+			$class[] = $this->prefix . 'hover_style' . '_' . $hover_style;
 		}
 
 		if ( $shape != '' ) {
@@ -364,7 +382,8 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 		$bt_bb_css_post_grid_nonce = wp_create_nonce( 'bt-bb-css-post-grid-nonce' );
 		
 		$output .= '<div class="bt_bb_css_post_grid_content bt_bb_grid_hide" data-bt-bb-css-post-grid-nonce="' . esc_attr( $bt_bb_css_post_grid_nonce ) . '" data-number="' . esc_attr( $initial_items_number ) . '" data-category="' . esc_attr( $category ) . '" data-show="' . esc_attr( urlencode( json_encode( $show ) ) ) . '" data-show-superheadline="' . esc_attr( urlencode( json_encode( $show_superheadline ) ) ) . '" 
-		data-title-html-tag="' . esc_attr( $title_html_tag ) . '" data-show-subheadline="' . esc_attr( urlencode( json_encode( $show_subheadline ) ) ) . '" data-show-subheadline="' . esc_attr( urlencode( json_encode( $show_subheadline ) ) ) . '"  data-format="' . esc_attr( $format ) . '" data-post-type="' . esc_attr( $post_type ) . '" data-auto-loading="' . esc_attr( $auto_loading ) . '" data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">
+		data-title-html-tag="' . esc_attr( $title_html_tag ) . '" 
+		data-img-base-size="' . esc_attr( $img_base_size ) . '" data-show-subheadline="' . esc_attr( urlencode( json_encode( $show_subheadline ) ) ) . '" data-show-subheadline="' . esc_attr( urlencode( json_encode( $show_subheadline ) ) ) . '"  data-format="' . esc_attr( $format ) . '" data-post-type="' . esc_attr( $post_type ) . '" data-auto-loading="' . esc_attr( $auto_loading ) . '" data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">
 		</div>';
 
 		$output .= '<div class="bt_bb_post_grid_loader"></div>';
@@ -418,16 +437,19 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 				)
 			),
 			array( 'param_name' => 'shape', 'type' => 'dropdown', 'heading' => esc_html__( 'Shape', 'bold-builder' ), 
-					'value' => array(
-						esc_html__( 'Inherit', 'bold-builder' ) 		=> 'inherit',
-						esc_html__( 'Square', 'bold-builder' ) 			=> 'square',
-						esc_html__( 'Soft Rounded', 'bold-builder' ) 	=> 'rounded',
-						esc_html__( 'Hard Rounded', 'bold-builder' ) 	=> 'round'
-					)
-				),
+				'value' => array(
+					esc_html__( 'Inherit', 'bold-builder' ) 		=> 'inherit',
+					esc_html__( 'Square', 'bold-builder' ) 			=> 'square',
+					esc_html__( 'Soft Rounded', 'bold-builder' ) 	=> 'rounded',
+					esc_html__( 'Hard Rounded', 'bold-builder' ) 	=> 'round'
+				)
+			),
+			array( 'param_name' => 'img_base_size', 'type' => 'dropdown', 'default' => 'large', 'heading' => esc_html__( 'Base image size', 'bold-builder' ),
+				'value' => bt_bb_get_image_sizes()
+			),
 			array( 'param_name' => 'format', 'type' => 'textfield', 'preview' => true, 'heading' => esc_html__( 'Tiles format', 'bold-builder' ), 'placeholder' => esc_html__( '21, 11, 11', 'bold-builder' ), 'description' => esc_html__( 'E.g. 21, 11, 11', 'bold-builder' ) ),
 			array( 'param_name' => 'category', 'type' => 'textfield', 'heading' => esc_html__( 'Category', 'bold-builder' ), 'placeholder' => esc_html__( 'E.g. music', 'bold-builder' ), 'description' => esc_html__( 'Enter category slug or leave empty to show all', 'bold-builder' ), 'preview' => true ),
-			array( 'param_name' => 'category_filter', 'type' => 'dropdown', 'heading' => esc_html__( 'Category filter', 'bold-builder' ),
+			array( 'param_name' => 'category_filter', 'type' => 'dropdown', 'heading' => esc_html__( 'Show category filter', 'bold-builder' ),
 				'value' => array(
 					esc_html__( 'No', 'bold-builder' ) 			=> 'no',
 					esc_html__( 'Yes', 'bold-builder' ) 		=> 'yes'
@@ -461,6 +483,31 @@ class bt_bb_css_post_grid extends BT_BB_Element {
 			array( 'param_name' => 'show_excerpt', 'type' => 'checkbox', 'value' => array( esc_html__( 'Yes', 'bold-builder' ) => 'show_excerpt' ), 'heading' => esc_html__( 'Show excerpt', 'bold-builder' ), 'preview' => true
 			),
 			array( 'param_name' => 'show_share', 'type' => 'checkbox', 'value' => array( esc_html__( 'Yes', 'bold-builder' ) => 'show_share' ), 'heading' => esc_html__( 'Show share icons', 'bold-builder' ), 'preview' => true 
+			),
+			array( 'param_name' => 'title_lines', 'type' => 'dropdown', 'heading' => esc_html__( 'Title lines', 'bold-builder' ),  'preview' => true, 
+				'value' => array(
+					esc_html__( 'All', 'bold-builder' )		=> '',
+					esc_html__( '4', 'bold-builder' )		=> '4',
+					esc_html__( '3', 'bold-builder' )		=> '3',
+					esc_html__( '2', 'bold-builder' )		=> '2',
+					esc_html__( '1', 'bold-builder' )		=> '1'
+				)
+			),
+			array( 'param_name' => 'excerpt_lines', 'type' => 'dropdown', 'heading' => esc_html__( 'Excerpt lines', 'bold-builder' ),  'preview' => true, 
+				'value' => array(
+					esc_html__( 'All', 'bold-builder' )		=> '',
+					esc_html__( '4', 'bold-builder' )		=> '4',
+					esc_html__( '3', 'bold-builder' )		=> '3',
+					esc_html__( '2', 'bold-builder' )		=> '2',
+					esc_html__( '1', 'bold-builder' )		=> '1'
+				)
+			),
+			array( 'param_name' => 'hover_style', 'type' => 'dropdown', 'heading' => esc_html__( 'Hover style', 'bold-builder' ), 
+				'value' => array(
+					esc_html__( 'None', 'bold-builder' )						=> '',
+					esc_html__( 'Zoom image', 'bold-builder' )					=> 'zoom',
+					esc_html__( 'Zoom image & arrow icon', 'bold-builder' )		=> 'arrow'
+				)
 			)
 		) );
 

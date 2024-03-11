@@ -379,7 +379,7 @@ class Notice{
 		$dismissible = ( isset( $_POST['dismissible'] ) ) ? sanitize_text_field(wp_unslash($_POST['dismissible'])) : '';
 		$expired_time = ( isset( $_POST['expired_time'] ) ) ? sanitize_text_field(wp_unslash($_POST['expired_time'])) : '';
 
-		if ( ! empty( $notice_id ) ) {
+		if ( ! empty( $notice_id ) && ( strlen( $notice_id ) <= 100 ) ) {
 			if ( 'user' === $dismissible ) {
 				update_user_meta( get_current_user_id(), $notice_id, true );
 			} else {

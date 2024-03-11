@@ -35,7 +35,7 @@ class Preset_Select extends \Elementor\Base_Data_Control {
                     <div class="elementor-control-field">
                         <label class="elementor-control-title">{{{ data.label }}}</label>
                         <div class="elementor-control-input-wrapper elementor-control-unit-5">
-                            <select id="<?php echo $control_uid; ?>" class="preset-select" style="width:100%" data-setting="{{ data.name }}">
+                            <select id="<?php echo esc_attr( $control_uid ); ?>" class="preset-select" style="width:100%" data-setting="{{ data.name }}">
                                 <# _.each( data.options, function( val, key ) { 
                                     if(key === data.controlValue){
                                 #>

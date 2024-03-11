@@ -48,6 +48,7 @@ import {
   useAvailableServiceIdsInCategory,
   useAvailableCategories
 } from "../../../assets/js/public/catalog";
+import { useRenderAction } from "../../../assets/js/public/renderActions";
 
 const emits = defineEmits(['isRestored'])
 
@@ -59,6 +60,9 @@ let licence = inject('licence')
 
 // * Component reference
 let ameliaContainer = ref(null)
+
+// * Component offset scroll
+let offsetFromTop = ref(20)
 
 // * Root Urls
 const baseUrls = inject('baseUrls')
@@ -88,6 +92,13 @@ onMounted(() => {
 
   resize()
   isMounted.value = true
+
+  useRenderAction(
+    'scrollForm',
+    {
+      offsetFromTop
+    },
+  )
 })
 
 // * Empty State
@@ -166,7 +177,11 @@ function removeItemFromStepArray (arr, identifier) {
 
 function nextPage () {
   pageIndex.value = pageIndex.value + 1
-  ameliaContainer.value.scrollIntoView({ behavior: 'smooth', block: 'start'})
+  let scrollHeightElement = ameliaContainer.value.getBoundingClientRect().top + window.pageYOffset - offsetFromTop.value
+  window.scrollTo({
+    top: scrollHeightElement,
+    behavior: "smooth"
+  })
 }
 
 function previousPage () {
@@ -220,7 +235,7 @@ function setShortcodeParams () {
   if (preselected.service.length === 1) {
     store.commit('booking/setServiceId', parseInt(preselected.service[0]))
     let service = store.getters['entities/getService'](parseInt(preselected.service[0]))
-    categorySelected.value = parseInt(preselected.category[0])
+    categorySelected.value = service ? parseInt(service.categoryId) : null
     store.commit('booking/setCategoryId', service ? parseInt(service.categoryId) : null)
 
     nextTick(() => {

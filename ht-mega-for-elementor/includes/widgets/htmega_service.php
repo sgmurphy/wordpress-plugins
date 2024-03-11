@@ -1210,7 +1210,7 @@ class HTMega_Elementor_Widget_Service extends Widget_Base {
         $settings   = $this->get_settings_for_display();
         
         $this->add_render_attribute( 'htmega_service_attr', 'class', 'htmega-service' );
-        $this->add_render_attribute( 'htmega_service_attr', 'class', 'htmega-service-style-'. $settings['htmega_service_style'] );
+        $this->add_render_attribute( 'htmega_service_attr', 'class', 'htmega-service-style-'. esc_attr( $settings['htmega_service_style'] ) );
 
         $service_image = '';
 

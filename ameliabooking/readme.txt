@@ -6,7 +6,7 @@ Donate link: https://wpamelia.com/
 Requires at least: 4.5
 Tested up to: 6.4.3
 Requires PHP: 5.6
-Stable tag: 1.0.99
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -282,6 +282,22 @@ Installing Amelia Lite WordPress Booking Plugin is as easy as 1-2-3!
 
 
 == Changelog =
+V1.1
+*Improvement: Added option to pre-select parameters for Amelia shortcodes from URL query parameters
+*Improvement: Added option to enable/disable field search on Step-by-step form info step
+*Added new translations: Vietnamese and Taiwanese
+*BugFix: Fixed issue with the Catalog form when there is one service in one category and an empty category
+*BugFix: Fixed issue with the Catalog form when category is preselected
+*BugFix: Fixed issue where notifications were sending placeholder information in UTC time zone instead of the time zone set up in WordPress
+*BugFix: Fixed issue with "Check customer's name for existing email when booking" option
+*BugFix: Fixed issue with SBS form popup on Iphone 13
+*BugFix: Fixed issue with Default time slot and Calendar
+*BugFix: Fixed issue with event times in customer notifications
+*BugFix: Fixed service sorting not working when 'Load entities on page load' is enabled
+*BugFix: Fixed issue with hidden service and booking forms when the user is not logged in
+*BugFix: Fixed issue with setting Days off for provider
+*Other small bug fixes and stability improvements
+
 V1.0.99
 * BugFix: Fixed vulnerability issue
 * Small bug fixes and stability improvements

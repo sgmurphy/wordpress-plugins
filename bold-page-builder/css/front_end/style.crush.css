@@ -318,6 +318,12 @@ body:not(.bt_bb_fe_preview_toggle) .bt_bb_separator_v2.bt_bb_top_spacing_none.bt
     min-height: 20px;
     top: -10px;
     }
+body.logged-in.bt_bb_plugin_active:not(.bt_bb_fe_preview_toggle) {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    }
 body.logged-in.bt_bb_plugin_active:not(.bt_bb_fe_preview_toggle):not(.bt_bb_fe_preview_toggle) .bt_bb_separator_v2:before {
     position: absolute;
     top: -10px;
@@ -1474,6 +1480,16 @@ body.bt_bb_fe_add_section .bt_bb_fe_count {
     -moz-transform: scale(0);
     -ms-transform: scale(0);
     transform: scale(0);
+    }
+.bt_bb_dd_tip {
+    position: fixed;
+    background: white;
+    z-index: 100;
+    font-size: 12px;
+    line-height: 2.25;
+    border: 1px solid rgba(0,0,0,.25);
+    pointer-events: none;
+    padding: 0 .75em;
     }
 
 /*# sourceMappingURL=style.crush.css.map */

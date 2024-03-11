@@ -581,13 +581,13 @@ class HTMega_Elementor_Widget_InlineMenu extends Widget_Base {
         $id = $this->get_id();
 
         if ( isset( $settings['inline_menu_id'] ) ) {
-            $this->add_render_attribute( 'htmega_inlinemenu_attr', 'class', 'htmega-inlinemenu-area htmega-inlinemenu-style-'.$settings['inline_menu_style'] );
+            $this->add_render_attribute( 'htmega_inlinemenu_attr', 'class', 'htmega-inlinemenu-area htmega-inlinemenu-style-'.esc_attr( $settings['inline_menu_style'] ) );
 
             $menuargs = [
                 'echo' => false,
-                'menu' => $settings['inline_menu_id'],
+                'menu' => esc_attr( $settings['inline_menu_id'] ),
                 'menu_class' => 'htmega-mainmenu',
-                'menu_id' => 'menu-'. $id,
+                'menu_id' => 'menu-'. esc_attr( $id ),
                 'fallback_cb' => '__return_empty_string',
                 'container' => '',
             ];

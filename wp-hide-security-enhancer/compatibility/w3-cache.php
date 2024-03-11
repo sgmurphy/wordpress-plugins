@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for Plugin Name: WP Fastest Cache
-    * Compatibility checked on Version: 0.9.0.6 
+    * Compatibility: WP Fastest Cache
+    * Introduced at: 0.9.0.6 
     */
     
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

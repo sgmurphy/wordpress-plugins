@@ -588,7 +588,7 @@ class HTMega_Elementor_Widget_Business_Hours extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
 
-        $this->add_render_attribute( 'htmega_business_hours', 'class', 'htmega-business-hours htmega-business-horurs-'.$settings['business_hours_layout'] );
+        $this->add_render_attribute( 'htmega_business_hours', 'class', 'htmega-business-hours htmega-business-horurs-' . esc_attr( $settings['business_hours_layout'] ) );
        
         ?>
 

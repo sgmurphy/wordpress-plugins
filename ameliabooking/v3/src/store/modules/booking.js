@@ -326,6 +326,10 @@ export default {
       return state.coupon
     },
 
+    getCouponCode (state) {
+      return state.coupon.code
+    },
+
     getCouponValidated (state) {
       return !state.coupon.required || (state.coupon.code !== '')
     },
@@ -618,6 +622,10 @@ export default {
 
     setCoupon (state, payload) {
       state.coupon = payload
+    },
+
+    setCouponCode (state, payload) {
+      state.coupon.code = payload
     },
 
     setCouponRequired (state, payload) {

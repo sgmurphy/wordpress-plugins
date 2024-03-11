@@ -758,11 +758,11 @@ class HTMega_Elementor_Widget_Easy_Digital_Download extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
         $edd_attributes = [
-            'number'     => $settings['number'],
-            'columns'    => $settings['columns'],
+            'number'     => absint( $settings['number'] ),
+            'columns'    => absint( $settings['columns'] ),
             'hide_empty' => ( 'yes' === $settings['hide_empty'] ) ? 1 : 0,
-            'orderby'    => $settings['orderby'],
-            'order'      => $settings['order'],
+            'orderby'    => sanitize_text_field( $settings['orderby'] ),
+            'order'      => sanitize_text_field( $settings['order'] ),
             'thumbnails' => ('yes' === $settings['easydigitaldownload_thumbnail_show']) ? 'true' : 'false',
             'excerpt'    => ('yes' === $settings['easydigitaldownload_excerpt_show']) ? 'yes' : 'no',
             'price'      => ('yes' === $settings['easydigitaldownload_price_show']) ? 'yes' : 'no',
@@ -771,9 +771,10 @@ class HTMega_Elementor_Widget_Easy_Digital_Download extends Widget_Base {
         ];
 
         if ( 'by_id' === $settings['source'] ) {
-            $edd_attributes['category'] = implode( ',', $settings['categories'] );
+            $sanitized_categories = array_map('sanitize_text_field', $settings['categories']);
+            $edd_attributes['category'] = implode(',', $sanitized_categories);
         } elseif ( 'by_parent' === $settings['source'] ) {
-            $edd_attributes['parent'] = $settings['parent'];
+            $edd_attributes['parent'] = sanitize_text_field( $settings['parent'] );
         }
 
         $this->add_render_attribute( 'shortcode', $edd_attributes );

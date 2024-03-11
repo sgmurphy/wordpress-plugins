@@ -2,10 +2,13 @@
 
 
     /**
-    * Compatibility for Plugin Name: Fluent Forms - Best Form Plugin for WordPress 
-    * Compatibility checked on Version: 3.5.5
+    * Compatibility : Fluent Forms
+    * Introduced at : 3.5.5
+    * Last Checked  : 3.5.5
     */
 
+    if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+    
     class WPH_conflict_handle_fluentform
         {
                         

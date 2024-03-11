@@ -1060,19 +1060,17 @@ class HTMega_Elementor_Widget_Modal extends Widget_Base {
 
         $id = $this->get_id();
         $this->add_render_attribute( 'htmega_modal_attr', 'class', 'htmega-modal-area htb-modal htb-fade' );
-        $this->add_render_attribute( 'htmega_modal_attr', 'id', 'htmegamodal'.$id );
+        $this->add_render_attribute( 'htmega_modal_attr', 'id', 'htmegamodal' . esc_attr( $id ) );
        
         ?>
             
             <div class="htmega-modal-btn">
                 <?php
-                    $buttontxt = isset( $settings['button_text'] ) ? $settings['button_text'] : '';
+                    $buttontxt = isset( $settings['button_text'] ) ? wp_kses_post( $settings['button_text'] ) : '';
                     if( $settings['button_icon_type'] == 'img' && !empty( $settings['button_image']['url'] ) ){
                         $buttontxt = Group_Control_Image_Size::get_attachment_image_html( $settings, 'button_imagesize', 'button_image' ).$buttontxt;
                     }elseif( $settings['button_icon_type'] == 'icon' && !empty( $settings['button_icon']['value'] )){
                         $buttontxt = HTMega_Icon_manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] ).$buttontxt;
-                    }else{
-                        $buttontxt = $buttontxt;
                     }
 
                     echo sprintf('<button type="button" data-toggle="htbmodal" data-target="#htmegamodal%1$s">%2$s</button>', esc_attr( $id ), $buttontxt );
@@ -1095,11 +1093,12 @@ class HTMega_Elementor_Widget_Modal extends Widget_Base {
                         </div>
 
                         <?php
-
+                            $template_id  = absint( $settings['template_id'] );
                             if ( $settings['content_source'] == 'custom' && !empty( $settings['custom_content'] ) ) {
                                 echo '<div class="htb-modal-body">'.wp_kses_post( $settings['custom_content'] ).'</div>';
-                            } elseif ( $settings['content_source'] == "elementor" && !empty( $settings['template_id'] )) {
-                                echo '<div class="htb-modal-body">'.Plugin::instance()->frontend->get_builder_content_for_display( $settings['template_id'] ).'</div>';
+                            } elseif ( $settings['content_source'] == "elementor" && !empty( $template_id )) {
+                                
+                                echo '<div class="htb-modal-body">'.Plugin::instance()->frontend->get_builder_content_for_display( $template_id ).'</div>';
                             }
                         ?>
 

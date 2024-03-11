@@ -219,9 +219,9 @@ class HTMega_Elementor_Widget_Job_Manager extends Widget_Base {
         // Job List
         if( $settings['job_layout'] == 'list' ){
             $jobmanager_attributes = [
-                'per_page'          => $settings['item_number'],
-                'orderby'           => $settings['order_by'],
-                'order'             => $settings['order'],
+                'per_page'          => floatval( $settings['item_number'] ),
+                'orderby'           => sanitize_text_field( $settings['order_by'] ),
+                'order'             => sanitize_text_field( $settings['order'] ),
                 'featured'          => ( 'yes' === $settings['featured_jobs'] ) ? true : null,
                 'show_filters'      => ( 'yes' === $settings['show_filters'] ) ? true : false,
             ];
@@ -240,10 +240,10 @@ class HTMega_Elementor_Widget_Job_Manager extends Widget_Base {
         // Job summary
         if( $settings['job_layout'] == 'summary' ){
             $job_summary_atts = [
-                'limit'     => $settings['item_number'],
+                'limit'     => floatval( $settings['item_number'] ),
                 'featured'  => ( 'yes' === $settings['featured_jobs'] ) ? true : null,
-                'align'     => $settings['content_align'],
-                'width'     => $settings['content_width']['size'].$settings['content_width']['unit'],
+                'align'     => esc_attr( $settings['content_align'] ),
+                'width'     => absint( $settings['content_width']['size'] ) . esc_attr( $settings['content_width']['unit'] ),
             ];
             $this->add_render_attribute( 'shortcodesummary', $job_summary_atts );
             echo do_shortcode( sprintf( '[job_summary %s]', $this->get_render_attribute_string( 'shortcodesummary' ) ) );
@@ -251,8 +251,12 @@ class HTMega_Elementor_Widget_Job_Manager extends Widget_Base {
 
         // Job apply
         if( $settings['job_layout'] == 'applyjob' ){
+
+            $job_ids = isset( $settings['job_id'] ) ? (array) $settings['job_id'] : array();
+            $sanitized_job_ids = array_map( 'sanitize_text_field', $job_ids );
+
             $job_apply_attributes = [
-                'id' => $settings['job_id'],
+                'id' => implode( ',', $sanitized_job_ids ),
             ];
             $this->add_render_attribute( 'shortcodeapplyjob', $job_apply_attributes );
             echo do_shortcode( sprintf( '[job_apply %s]', $this->get_render_attribute_string( 'shortcodeapplyjob' ) ) );

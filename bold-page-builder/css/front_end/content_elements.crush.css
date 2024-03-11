@@ -43884,89 +43884,6 @@ button.slick-arrow:focus {
 .bt_bb_grid_item_post_content .bt_bb_grid_item_post_share .bt_bb_icon {
     float: none;
     }
-
-/* Post image */
-.bt_bb_css_post_grid .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail {
-    background: rgba(0,0,0,.3);
-    overflow: hidden;
-    }
-.bt_bb_css_post_grid .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a {
-    display: block;
-    height: 100%;
-    overflow: hidden;
-    position: relative;
-    }
-.bt_bb_css_post_grid .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a:after {
-    content: "";
-    inset: 0;
-    position: absolute;
-    pointer-events: none;
-    display: block;
-    z-index: 2;
-    opacity: 0;
-    background: #000;
-    -webkit-transition: 400ms ease all;
-    -moz-transition: 400ms ease all;
-    transition: 400ms ease all;
-    }
-.bt_bb_css_post_grid .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a:before {
-    content: "\f061";
-    font-family: FontAwesome;
-    font-size: 2.5em;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    inset: 0;
-    position: absolute;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-transform: translateY(-2em);
-    -moz-transform: translateY(-2em);
-    -ms-transform: translateY(-2em);
-    transform: translateY(-2em);
-    color: #fff;
-    opacity: 0;
-    z-index: 3;
-    -webkit-transition: 400ms ease all;
-    -moz-transition: 400ms ease all;
-    transition: 400ms ease all;
-    }
-.bt_bb_css_post_grid .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a img {
-    z-index: 1;
-    display: block;
-    -webkit-transform-origin: bottom;
-    -moz-transform-origin: bottom;
-    -ms-transform-origin: bottom;
-    transform-origin: bottom;
-    -webkit-transition: 400ms ease all;
-    -moz-transition: 400ms ease all;
-    transition: 400ms ease all;
-    height: 100%;
-    object-fit: cover;
-    }
-.bt_bb_css_post_grid .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a:hover:after {
-    opacity: .5;
-    }
-.bt_bb_css_post_grid .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a:hover:before {
-    -webkit-transform: translateY(0);
-    -moz-transform: translateY(0);
-    -ms-transform: translateY(0);
-    transform: translateY(0);
-    -webkit-transition-delay: 100ms;
-    -moz-transition-delay: 100ms;
-    transition-delay: 100ms;
-    opacity: 1;
-    }
-.bt_bb_css_post_grid .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a:hover img {
-    -webkit-transform: scale(1.05);
-    -moz-transform: scale(1.05);
-    -ms-transform: scale(1.05);
-    transform: scale(1.05);
-    }
 .bt_bb_masonry_image_grid .bt_bb_grid_item {
     overflow: hidden;
     }
@@ -44138,7 +44055,7 @@ button.slick-arrow:focus {
     background: rgba(0,0,0,.7);
     }
 
-/* image grid */
+/* Image grid */
 .bt_bb_masonry_image_grid.bt_bb_no_lightbox .bt_bb_grid_item_inner_image {
     cursor: auto;
     }
@@ -48210,6 +48127,220 @@ button.slick-arrow:focus {
     padding-top: -webkit-calc(var(--post-pf-grid-gap-large) * 2);
     padding-top: -moz-calc(var(--post-pf-grid-gap-large) * 2);
     padding-top: calc(var(--post-pf-grid-gap-large) * 2);
+    }
+
+/* Hover style */
+.bt_bb_css_post_grid.bt_bb_hover_style_zoom .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail {
+    background: rgba(0,0,0,.3);
+    overflow: hidden;
+    }
+.bt_bb_css_post_grid.bt_bb_hover_style_zoom .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a {
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    }
+.bt_bb_css_post_grid.bt_bb_hover_style_zoom .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a:after {
+    content: "";
+    inset: 0;
+    position: absolute;
+    pointer-events: none;
+    display: block;
+    z-index: 2;
+    opacity: 0;
+    background: #000;
+    -webkit-transition: 400ms ease all;
+    -moz-transition: 400ms ease all;
+    transition: 400ms ease all;
+    }
+.bt_bb_css_post_grid.bt_bb_hover_style_zoom .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a img {
+    z-index: 1;
+    display: block;
+    -webkit-transform-origin: bottom;
+    -moz-transform-origin: bottom;
+    -ms-transform-origin: bottom;
+    transform-origin: bottom;
+    -webkit-transition: 400ms ease all;
+    -moz-transition: 400ms ease all;
+    transition: 400ms ease all;
+    height: 100%;
+    object-fit: cover;
+    }
+.bt_bb_css_post_grid.bt_bb_hover_style_zoom .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a:hover:after {
+    opacity: .5;
+    }
+.bt_bb_css_post_grid.bt_bb_hover_style_zoom .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a:hover img {
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+    }
+.bt_bb_css_post_grid.bt_bb_hover_style_arrow .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail {
+    background: rgba(0,0,0,.3);
+    overflow: hidden;
+    }
+.bt_bb_css_post_grid.bt_bb_hover_style_arrow .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a {
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    }
+.bt_bb_css_post_grid.bt_bb_hover_style_arrow .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a:after {
+    content: "";
+    inset: 0;
+    position: absolute;
+    pointer-events: none;
+    display: block;
+    z-index: 2;
+    opacity: 0;
+    background: #000;
+    -webkit-transition: 400ms ease all;
+    -moz-transition: 400ms ease all;
+    transition: 400ms ease all;
+    }
+.bt_bb_css_post_grid.bt_bb_hover_style_arrow .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a:before {
+    content: "\f061";
+    font-family: FontAwesome;
+    font-size: 2.5em;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    inset: 0;
+    position: absolute;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-transform: translateY(-2em);
+    -moz-transform: translateY(-2em);
+    -ms-transform: translateY(-2em);
+    transform: translateY(-2em);
+    color: #fff;
+    opacity: 0;
+    z-index: 3;
+    -webkit-transition: 400ms ease all;
+    -moz-transition: 400ms ease all;
+    transition: 400ms ease all;
+    }
+.bt_bb_css_post_grid.bt_bb_hover_style_arrow .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a img {
+    z-index: 1;
+    display: block;
+    -webkit-transform-origin: bottom;
+    -moz-transform-origin: bottom;
+    -ms-transform-origin: bottom;
+    transform-origin: bottom;
+    -webkit-transition: 400ms ease all;
+    -moz-transition: 400ms ease all;
+    transition: 400ms ease all;
+    height: 100%;
+    object-fit: cover;
+    }
+.bt_bb_css_post_grid.bt_bb_hover_style_arrow .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a:hover:after {
+    opacity: .5;
+    }
+.bt_bb_css_post_grid.bt_bb_hover_style_arrow .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a:hover:before {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-transition-delay: 100ms;
+    -moz-transition-delay: 100ms;
+    transition-delay: 100ms;
+    opacity: 1;
+    }
+.bt_bb_css_post_grid.bt_bb_hover_style_arrow .bt_bb_css_post_grid_content .bt_bb_grid_item_post_thumbnail a:hover img {
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+    }
+
+/* Excerpt lines */
+.bt_bb_css_post_grid.bt_bb_excerpt_lines_1 .bt_bb_css_post_grid_content .bt_bb_grid_item .bt_bb_grid_item_inner .bt_bb_grid_item_post_content .bt_bb_grid_item_post_excerpt {
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
+    }
+.bt_bb_css_post_grid.bt_bb_title_lines_1 .bt_bb_css_post_grid_content .bt_bb_grid_item .bt_bb_grid_item_inner .bt_bb_grid_item_post_content .bt_bb_grid_item_post_title {
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
+    }
+.bt_bb_css_post_grid.bt_bb_excerpt_lines_2 .bt_bb_css_post_grid_content .bt_bb_grid_item .bt_bb_grid_item_inner .bt_bb_grid_item_post_content .bt_bb_grid_item_post_excerpt {
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
+    }
+.bt_bb_css_post_grid.bt_bb_title_lines_2 .bt_bb_css_post_grid_content .bt_bb_grid_item .bt_bb_grid_item_inner .bt_bb_grid_item_post_content .bt_bb_grid_item_post_title {
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
+    }
+.bt_bb_css_post_grid.bt_bb_excerpt_lines_3 .bt_bb_css_post_grid_content .bt_bb_grid_item .bt_bb_grid_item_inner .bt_bb_grid_item_post_content .bt_bb_grid_item_post_excerpt {
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
+    }
+.bt_bb_css_post_grid.bt_bb_title_lines_3 .bt_bb_css_post_grid_content .bt_bb_grid_item .bt_bb_grid_item_inner .bt_bb_grid_item_post_content .bt_bb_grid_item_post_title {
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
+    }
+.bt_bb_css_post_grid.bt_bb_excerpt_lines_4 .bt_bb_css_post_grid_content .bt_bb_grid_item .bt_bb_grid_item_inner .bt_bb_grid_item_post_content .bt_bb_grid_item_post_excerpt {
+    -webkit-line-clamp: 4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
+    }
+.bt_bb_css_post_grid.bt_bb_title_lines_4 .bt_bb_css_post_grid_content .bt_bb_grid_item .bt_bb_grid_item_inner .bt_bb_grid_item_post_content .bt_bb_grid_item_post_title {
+    -webkit-line-clamp: 4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
+    }
+.bt_bb_css_post_grid.bt_bb_excerpt_lines_5 .bt_bb_css_post_grid_content .bt_bb_grid_item .bt_bb_grid_item_inner .bt_bb_grid_item_post_content .bt_bb_grid_item_post_excerpt {
+    -webkit-line-clamp: 5;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
+    }
+.bt_bb_css_post_grid.bt_bb_title_lines_5 .bt_bb_css_post_grid_content .bt_bb_grid_item .bt_bb_grid_item_inner .bt_bb_grid_item_post_content .bt_bb_grid_item_post_title {
+    -webkit-line-clamp: 5;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
+    }
+.bt_bb_css_post_grid.bt_bb_excerpt_lines_6 .bt_bb_css_post_grid_content .bt_bb_grid_item .bt_bb_grid_item_inner .bt_bb_grid_item_post_content .bt_bb_grid_item_post_excerpt {
+    -webkit-line-clamp: 6;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
+    }
+.bt_bb_css_post_grid.bt_bb_title_lines_6 .bt_bb_css_post_grid_content .bt_bb_grid_item .bt_bb_grid_item_inner .bt_bb_grid_item_post_content .bt_bb_grid_item_post_title {
+    -webkit-line-clamp: 6;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;
     }
 
 /* Responsive */

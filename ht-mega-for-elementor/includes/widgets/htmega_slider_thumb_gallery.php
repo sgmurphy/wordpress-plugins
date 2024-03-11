@@ -1401,12 +1401,12 @@ class HTMega_Elementor_Widget_Slider_Thumb_Gallery extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
         $sectionid = "sid". $this-> get_id();
-        $this->add_render_attribute( 'htmega_thumbnail_sliderarea_attr', 'class', 'htmega-sliderarea htmega-thumbnails-style-'.$settings['sliderthumbnails_style'].' '.$sectionid );
+        $this->add_render_attribute( 'htmega_thumbnail_sliderarea_attr', 'class', 'htmega-sliderarea htmega-thumbnails-style-' . esc_attr( $settings['sliderthumbnails_style'].' '. $sectionid ) );
 
         // Slider options
         $direction = is_rtl() ? 'rtl' : 'ltr';
         $this->add_render_attribute( 'htmega_thumbnails_slider_attr', 'dir', $direction );
-        $this->add_render_attribute( 'htmega_thumbnails_slider_attr', 'class', 'htmega-thumbgallery-for htmega-arrow-'.$settings['sliderthumbnails_style'] );
+        $this->add_render_attribute( 'htmega_thumbnails_slider_attr', 'class', 'htmega-thumbgallery-for htmega-arrow-' . esc_attr( $settings['sliderthumbnails_style'] ) );
 
         $slider_settings = [
             'arrows' => ('yes' === $settings['slarrows']),
@@ -1422,14 +1422,14 @@ class HTMega_Elementor_Widget_Slider_Thumb_Gallery extends Widget_Base {
         ];
 
         $slider_responsive_settings = [
-            'display_columns' => $settings['slitems'],
-            'scroll_columns' => $settings['slscroll_columns'],
-            'tablet_width' => $settings['sltablet_width'],
-            'tablet_display_columns' => $settings['sltablet_display_columns'],
-            'tablet_scroll_columns' => $settings['sltablet_scroll_columns'],
-            'mobile_width' => $settings['slmobile_width'],
-            'mobile_display_columns' => $settings['slmobile_display_columns'],
-            'mobile_scroll_columns' => $settings['slmobile_scroll_columns'],
+            'display_columns' => absint( $settings['slitems'] ),
+            'scroll_columns' => absint( $settings['slscroll_columns'] ),
+            'tablet_width' => absint( $settings['sltablet_width'] ),
+            'tablet_display_columns' => absint( $settings['sltablet_display_columns'] ),
+            'tablet_scroll_columns' => absint( $settings['sltablet_scroll_columns'] ),
+            'mobile_width' => absint( $settings['slmobile_width'] ),
+            'mobile_display_columns' => absint( $settings['slmobile_display_columns'] ),
+            'mobile_scroll_columns' => absint( $settings['slmobile_scroll_columns'] ),
 
         ];
 
@@ -1455,14 +1455,14 @@ class HTMega_Elementor_Widget_Slider_Thumb_Gallery extends Widget_Base {
         ];
 
         $nav_slider_responsive_settings = [
-            'navdisplay_columns' => $settings['slnavitems'],
-            'navscroll_columns' => $settings['slnavscroll_columns'],
-            'navtablet_width' => $settings['sltablet_width'],
-            'navtablet_display_columns' => $settings['slnavtablet_display_columns'],
-            'navtablet_scroll_columns' => $settings['slnavtablet_scroll_columns'],
-            'navmobile_width' => $settings['slnavmobile_width'],
-            'navmobile_display_columns' => $settings['slnavmobile_display_columns'],
-            'navmobile_scroll_columns' => $settings['slnavmobile_scroll_columns'],
+            'navdisplay_columns' => absint( $settings['slnavitems'] ),
+            'navscroll_columns' => absint( $settings['slnavscroll_columns'] ),
+            'navtablet_width' => absint( $settings['sltablet_width'] ),
+            'navtablet_display_columns' => absint( $settings['slnavtablet_display_columns'] ),
+            'navtablet_scroll_columns' => absint( $settings['slnavtablet_scroll_columns'] ),
+            'navmobile_width' => absint( $settings['slnavmobile_width'] ),
+            'navmobile_display_columns' => absint( $settings['slnavmobile_display_columns'] ),
+            'navmobile_scroll_columns' => absint( $settings['slnavmobile_scroll_columns'] ),
 
         ];
 

@@ -10,7 +10,7 @@
     <template #header>
       <span class="am-fcil__filter-buttons">
         <Header
-          v-if="shortcodeData.category.length !== 1 && !shortcodeData.categories_hidden"
+          v-if="preselectedCategories !== 1 && !shortcodeData.categories_hidden"
           :btn-size="filterWidth < 481 ? 'medium' : 'mini'"
           :btn-string="amLabels.back_btn"
           :btn-type="customizedOptions.backBtn.buttonType"
@@ -86,7 +86,7 @@
         </Transition>
         <Transition name="slide-fade">
           <div
-            v-if="shortcodeData.category.length !== 1 && customizedOptions.sidebar.visibility && !sideMenuVisibility && filterMobileMenu"
+            v-if="preselectedCategories !== 1 && customizedOptions.sidebar.visibility && !sideMenuVisibility && filterMobileMenu"
             class="am-fcil__filter-item am-w100"
             :class="filterClassWidth.category"
           >
@@ -144,7 +144,7 @@
         </div>
       </div>
     </template>
-    <template v-if="shortcodeData.category.length !== 1 && customizedOptions.sidebar.visibility && sideMenuVisibility" #side>
+    <template v-if="preselectedCategories !== 1 && customizedOptions.sidebar.visibility && sideMenuVisibility" #side>
       <SideMenu
         :menu-items="availableCategories"
         :init-selection="categorySelected"
@@ -631,10 +631,15 @@ let customizedOptions = computed(() => {
   return customizedDataForm.value.categoryItemsList.options
 })
 
+let preselectedCategories = computed (() => {
+  let categoryArray = Array.isArray(shortcodeData.value.category) ? shortcodeData.value.category : shortcodeData.value.category.split(',')
+  return categoryArray.length
+})
+
 // * Sidebar Menu Visibility
 let sideMenuVisibility = computed(() => {
   let sidebarByContainer = contentRef.value && contentRef.value.catContainerWidth ? contentRef.value.catContainerWidth > 768 : true
-  return shortcodeData.value.category.length !== 1 && customizedOptions.value.sidebar.visibility && sidebarByContainer
+  return preselectedCategories.value !== 1 && customizedOptions.value.sidebar.visibility && sidebarByContainer
 })
 
 // * Root Settings
@@ -1005,7 +1010,7 @@ function employeePrice(employee) {
   let servicePrice = amEntities.value.services.find(a => a.id === dialogServiceId.value).price
   let employeeServicePrice = employee.serviceList.find(a => a.id === dialogServiceId.value).price
 
-  return employeeServicePrice !== servicePrice ? `${employeeServicePrice - servicePrice > 0 ? '+' : '-'} ${useFormattedPrice(employeeServicePrice - servicePrice)}` : 0
+  return employeeServicePrice !== servicePrice ? `${employeeServicePrice - servicePrice > 0 ? (servicePrice > 0 ? '+' : '') : '-'} ${useFormattedPrice(employeeServicePrice - servicePrice)}` : 0
 }
 
 function dialogBooking () {
@@ -1060,7 +1065,7 @@ let cssVars = computed(() => {
     '--am-c-fcil-primary-op20': useColorTransparency(amColors.value.colorPrimary, 0.20),
     '--am-c-fcil-success-op20': useColorTransparency(amColors.value.colorSuccess, 0.20),
     '--am-c-fcil-filter-text-op10': useColorTransparency(amColors.value.colorInpText, 0.1),
-    '--am-w-fcil-main': shortcodeData.value.category.length !== 1 && customizedOptions.value.sidebar.visibility && sideMenuVisibility.value ? 'calc(100% - 220px)' : '100%',
+    '--am-w-fcil-main': preselectedCategories.value !== 1 && customizedOptions.value.sidebar.visibility && sideMenuVisibility.value ? 'calc(100% - 220px)' : '100%',
     '--am-w-fcil-card': contentRef.value && contentRef.value.catFormWidth < 580 ? '100%' : '50%',
   }
 })

@@ -1,5 +1,9 @@
 <template>
-  <div v-if="loaded" class="am-fs__init" :class="props.globalClass">
+  <div
+    v-if="loaded"
+    class="am-fs__init"
+    :class="[props.globalClass, {'am-oxvisible': (bringingAnyoneVisibility || packagesVisibility)}]"
+  >
     <el-form
       ref="initFormRef"
       :model="initFormData"
@@ -11,6 +15,7 @@
         <component
           :is="amFields[field.id]"
           :visibility="amCustomize.initStep.options[field.id] ? amCustomize.initStep.options[field.id].visibility : true"
+          :filterable="isFieldFilterable(field.id)"
         ></component>
       </template>
     </el-form>
@@ -195,6 +200,12 @@ function noOneBringWith() {
   nextStep()
 }
 
+function isFieldFilterable(key) {
+  return  (amCustomize.initStep.options[key] &&
+  'filterable' in amCustomize.initStep.options[key]) ?
+      amCustomize.initStep.options[key].filterable : true
+}
+
 function bringPeopleWithYou() {
   nextStep()
 }
@@ -358,6 +369,10 @@ export default {
     &__main {
       &-content.am-fs__init {
         padding-top: 40px;
+
+        &.am-oxvisible {
+          overflow-x: visible;
+        }
       }
 
       &-inner {

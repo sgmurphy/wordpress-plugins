@@ -742,7 +742,7 @@ class HTMega_Elementor_Widget_Caldera_Form extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
         $calderaform_attributes = [
-            'id' => $settings['caldera_form_list'],
+            'id' => sanitize_text_field( $settings['caldera_form_list'] ),
         ];
         $this->add_render_attribute( 'shortcode', $calderaform_attributes );
 

@@ -750,7 +750,7 @@ class HTMega_Elementor_Widget_SocialShere extends Widget_Base {
 
         $this->add_render_attribute( 'htmega_socialshere', 'class', 'htmega-social-share htmega-social-style-1' );
         if( $settings['social_view'] == 'icon-title' || $settings['social_view'] == 'title' ){
-            $this->add_render_attribute( 'htmega_socialshere', 'class', 'htmega-social-view-'.$settings['social_view'] );
+            $this->add_render_attribute( 'htmega_socialshere', 'class', 'htmega-social-view-' . esc_attr( $settings['social_view'] ) );
         }
              
         ?>

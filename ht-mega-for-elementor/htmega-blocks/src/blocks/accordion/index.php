@@ -9,5 +9,4 @@
 		"htmega-accordion-indicator-{$settings['iconAlignment']}"
 	];
 	$classes = implode(' ', $classNames);
-	echo "<div class='{$classes}'>{$content}</div>";
-?>
+	echo "<div class='" . esc_attr($classes) . "'>" . wp_kses_post($content) ."</div>";

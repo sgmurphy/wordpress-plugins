@@ -178,13 +178,13 @@ class HTMega_Elementor_Widget_Image_Magnifier extends Widget_Base {
         $image_url = wp_get_attachment_image_src( $settings['magnifier_image']['id'], $settings['magnifier_image_size_size'] );
 
         $magnifierimg_attr = [
-            'id'                    => 'thumb-'.$id,
-            'src'                   => $image_url[0],
-            'alt'                   => $settings['magnifier_image_size_size'],
-            'data-large-img-url'    => $settings['magnifier_image']['url'],
+            'id'                    => 'thumb-'. esc_attr( $id ),
+            'src'                   => isset( $image_url[0] ) ? esc_url( $image_url[0] ) : '',
+            'alt'                   => esc_attr( $settings['magnifier_image_size_size'] ),
+            'data-large-img-url'    => esc_url( $settings['magnifier_image']['url'] ),
             'data-mode'             => 'inside',
             'data-zoomable'         => ( 'yes' === $settings['zoomable'] ) ? 'true' : 'false',
-            'data-zoom'             => $settings['zoomlabel']['size'],
+            'data-zoom'             => absint( $settings['zoomlabel']['size'] ),
         ];
         $this->add_render_attribute( 'zoomimgattr', $magnifierimg_attr );
        

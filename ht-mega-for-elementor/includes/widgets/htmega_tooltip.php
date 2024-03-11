@@ -585,7 +585,7 @@ class HTMega_Elementor_Widget_Tooltip extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
         $id = $this->get_id();
-        $this->add_render_attribute( 'htmega_tooltip_attr', 'class', 'htmega-tooltip htmega-tooltip-container-'.$id );
+        $this->add_render_attribute( 'htmega_tooltip_attr', 'class', 'htmega-tooltip htmega-tooltip-container-'.esc_attr( $id ) );
        
         ?>
             <div <?php echo $this->get_render_attribute_string( 'htmega_tooltip_attr' ); ?>>
@@ -604,7 +604,7 @@ class HTMega_Elementor_Widget_Tooltip extends Widget_Base {
 
                     // Button Generate
                     if ( isset(  $settings['button_link']['url'] ) && ! empty( $settings['button_link']['url'] ) ) {
-                        $this->add_render_attribute( 'url', 'href', $settings['button_link']['url'] );
+                        $this->add_render_attribute( 'url', 'href', esc_url( $settings['button_link']['url'] ) );
 
                         if ( $settings['button_link']['is_external'] ) {
                             $this->add_render_attribute( 'url', 'target', '_blank' );

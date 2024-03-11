@@ -433,21 +433,21 @@ class HTMega_Elementor_Widget_Buddy_Press extends Widget_Base {
             $groups_args = array(
                 'user_id'  => 0,
                 'type'     => esc_attr( $settings['content_type'] ),
-                'per_page' => esc_attr( $settings['max_items']['size'] ),
-                'max'      => esc_attr( $settings['max_items']['size'] ),
+                'per_page' => floatval( $settings['max_items']['size'] ),
+                'max'      => absint( $settings['max_items']['size'] ),
             );
         }else{
             $members_args = array(
                 'user_id'         => 0,
                 'type'            => esc_attr( $settings['content_type'] ),
-                'per_page'        => esc_attr( $settings['max_items']['size'] ),
-                'max'             => esc_attr( $settings['max_items']['size'] ),
+                'per_page'        => floatval( $settings['max_items']['size'] ),
+                'max'             => absint( $settings['max_items']['size'] ),
                 'populate_extras' => true,
                 'search_terms'    => false,
             );
             $avatar = array(
                 'type'   => 'full',
-                'width'  => esc_attr( $settings['avatar_size']['size'] ),
+                'width'  => absint( $settings['avatar_size']['size'] ),
             );
         }
 

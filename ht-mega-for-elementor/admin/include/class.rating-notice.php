@@ -69,7 +69,7 @@ class HTMEGA_Rating_Notice {
                             <h3>Thank you for choosing '. $this->plugin_name .' to design your website!</h3>
                             <p style="">Would you mind doing us a huge favor by providing your feedback on WordPress? Your support helps us spread the word and greatly boosts our motivation.</p>
                             <p>
-                                <a href="https://wordpress.org/support/plugin/'. $this->plugin_slug .'/reviews/?filter=5#new-post" target="_blank" class="htmega-you-deserve-it button button-primary">OK, you deserve it!</a>
+                                <a href="https://wordpress.org/support/plugin/'. $this->plugin_slug .'/reviews/?filter=5#new-post" target="_blank" class="htmega-you-deserve-it button button-primary"> OK, you deserve it!</a>
                                 <a class="htmega-maybe-later"><span class="dashicons dashicons-clock"></span> Maybe Later</a>
                                 <a class="htmega-already-rated"><span class="dashicons dashicons-yes"></span> I Already did</a>
                             </p>

@@ -634,9 +634,9 @@ class HTMega_Elementor_Widget_Verticle_Time_Line extends Widget_Base {
         $settings   = $this->get_settings_for_display();
 
         if( '4' == $settings['verticle_timeline_layout'] ){
-            $this->add_render_attribute( 'verticle_timeline_attr', 'class', 'htc-verctimeline-wrapper htmega-verticletimeline-style-1 htmega-verticletimeline-style-'.$settings['verticle_timeline_layout'] );
+            $this->add_render_attribute( 'verticle_timeline_attr', 'class', 'htc-verctimeline-wrapper htmega-verticletimeline-style-1 htmega-verticletimeline-style-' . esc_attr( $settings['verticle_timeline_layout'] ) );
         }else{
-            $this->add_render_attribute( 'verticle_timeline_attr', 'class', 'htc-verctimeline-wrapper htmega-verticletimeline-style-'.$settings['verticle_timeline_layout'] );
+            $this->add_render_attribute( 'verticle_timeline_attr', 'class', 'htc-verctimeline-wrapper htmega-verticletimeline-style-' . esc_attr( $settings['verticle_timeline_layout'] ) );
         }
 
         $item_class = 'ht-ver-timeline';
@@ -651,7 +651,7 @@ class HTMega_Elementor_Widget_Verticle_Time_Line extends Widget_Base {
 
             <?php
                 $i = 0;
-                if( isset( $settings['custom_content_list'] ) ):
+                if( isset( $settings['custom_content_list'] ) && is_array( $settings['custom_content_list'] ) ) :
                     foreach ( $settings['custom_content_list'] as $items ):
                         $i++;
             ?>

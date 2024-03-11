@@ -587,3 +587,20 @@ function htmegaBlocks_ratting( $ratting_num ){
         echo '</ul>';
     }
 }
+
+
+function htmegaBlocks_testimonial_ratting($ratting) {
+	return sprintf('<div class="htmega-testimonial-ratting">
+		<span class="fa fa-star%1$s"></span>
+		<span class="fa fa-star%2$s"></span>
+		<span class="fa fa-star%3$s"></span>
+		<span class="fa fa-star%4$s"></span>
+		<span class="fa fa-star%5$s"></span>
+	</div>',
+		$ratting < 1 && $ratting > 0 ? '-half-o' : ($ratting >= 1 ? '' : '-o'),
+		$ratting > 1 && $ratting < 2 ? '-half-o' : ($ratting >= 2 ? '' : '-o'),
+		$ratting > 2 && $ratting < 3 ? '-half-o' : ($ratting >= 3 ? '' : '-o'),
+		$ratting > 3 && $ratting < 4 ? '-half-o' : ($ratting >= 4 ? '' : '-o'),
+		$ratting > 4 && $ratting < 5 ? '-half-o' : ($ratting >= 5 ? '' : '-o'),
+	);
+};

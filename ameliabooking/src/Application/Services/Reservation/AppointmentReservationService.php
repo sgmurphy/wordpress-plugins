@@ -401,8 +401,12 @@ class AppointmentReservationService extends AbstractReservationService
                 $appointment->setLocationId(new Id($appointmentData['locationId']));
             }
 
+            $bookingArray = apply_filters('amelia_before_appointment_booking_saved_filter', $appointmentData['bookings'][0], $service->toArray(), $appointment->toArray());
+
+            do_action('amelia_before_appointment_booking_saved', $bookingArray, $service->toArray(), $appointment->toArray());
+
             /** @var CustomerBooking $booking */
-            $booking = CustomerBookingFactory::create($appointmentData['bookings'][0]);
+            $booking = CustomerBookingFactory::create($bookingArray);
             $booking->setAppointmentId($appointment->getId());
             $booking->setPrice(
                 new Price(
@@ -568,6 +572,8 @@ class AppointmentReservationService extends AbstractReservationService
         $reservation->setBooking($booking);
         $reservation->setReservation($appointment);
         $reservation->setIsStatusChanged(new BooleanValueObject($appointmentStatusChanged));
+
+        do_action('amelia_after_appointment_booking_saved', $booking->toArray(), $service->toArray(), $appointment->toArray());
     }
 
     /**
@@ -621,14 +627,15 @@ class AppointmentReservationService extends AbstractReservationService
         /** @var Collection $appointments */
         $bookedAppointments = $appointmentRepository->getFiltered(
             [
-                'dates'         => [
+                'dates'           => [
                     $appointment->getBookingStart()->getValue()->format('Y-m-d H:i'),
                     $appointment->getBookingStart()->getValue()->format('Y-m-d H:i')
                 ],
-                'providers'     => [$appointment->getProviderId()->getValue()],
-                'skipServices'  => true,
-                'skipProviders' => true,
-                'skipCustomers' => true,
+                'providers'       => [$appointment->getProviderId()->getValue()],
+                'skipServices'    => true,
+                'skipProviders'   => true,
+                'skipCustomers'   => true,
+                'bookingStatuses' => [BookingStatus::APPROVED, BookingStatus::PENDING],
             ]
         );
 

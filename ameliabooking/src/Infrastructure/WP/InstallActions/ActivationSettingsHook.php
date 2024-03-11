@@ -192,6 +192,7 @@ class ActivationSettingsHook
                 'verify_cert' => null,
             ],
             'wpTablesPrefix'     => '',
+            'port'               => 3306
         ];
 
         self::initSettings('db', $settings);
@@ -642,6 +643,8 @@ This message does not have an option for responding. If you need additional info
                     $savedSettings['wc']['skipCheckoutGetValueProcessing'] : true,
                 'skipGetItemDataProcessing'      => !isset($savedSettings['wc']),
                 'redirectPage' => 1,
+                'bookMultiple' => false,
+                'bookUnpaid'   => false,
                 'rules'        => [
                     'appointment' => [
                         [
@@ -725,6 +728,7 @@ This message does not have an option for responding. If you need additional info
                     'cart'        => '',
                 ],
                 'method'          => [],
+                'cancelBooking'   => false
             ],
             'razorpay'         => [
                 'enabled'         => false,
@@ -791,6 +795,8 @@ This message does not have an option for responding. If you need additional info
                 ['wc', 'skipGetItemDataProcessing'],
                 ['wc', 'rules'],
                 ['wc', 'redirectPage'],
+                ['wc', 'bookMultiple'],
+                ['wc', 'bookUnpaid'],
                 ['wc', 'checkoutData'],
                 ['wc', 'checkoutData', 'package'],
                 ['wc', 'checkoutData', 'cart'],
@@ -805,6 +811,7 @@ This message does not have an option for responding. If you need additional info
                 ['razorpay', 'name', 'cart'],
                 ['mollie', 'description', 'cart'],
                 ['mollie', 'metaData', 'cart'],
+                ['mollie', 'cancelBooking'],
             ],
             $settings
         );

@@ -512,10 +512,10 @@ class HTMega_Elementor_Widget_SinglePost extends Widget_Base {
 
         $post_content_position = isset( $settings['post_content_position'] ) ? $settings['post_content_position'] : 'bottom';
         $title_length = $settings['single_post_title_length'];
-        $this->add_render_attribute( 'htmega_single_post_attr', 'class', 'htmega-single-post htmega-single-post-style-'.$settings['post_style']." ". $sectionid );
+        $this->add_render_attribute( 'htmega_single_post_attr', 'class', 'htmega-single-post htmega-single-post-style-'. esc_attr( $settings['post_style'] ." ". $sectionid ) );
 
+        $select_post_type =  isset( $settings['select_post_type'] ) ? $settings['select_post_type'] : 'post';
 
-        $select_post_type = $settings['select_post_type'];
         if( 'post'== $select_post_type ){
             $get_post_name = $settings['post_name'];
         } else {
@@ -582,7 +582,7 @@ class HTMega_Elementor_Widget_SinglePost extends Widget_Base {
                                 <h2><a href="<?php the_permalink();?>"><?php the_title(); ?></a></h2>
                             <?php
                             } else { ?>
-                                <h2><a href="<?php the_permalink();?>"><?php echo wp_trim_words( get_the_title(), $title_length, '' ); ?></a></h2>
+                                <h2><a href="<?php the_permalink();?>"><?php echo wp_trim_words( get_the_title(), floatval( $title_length ), '' ); ?></a></h2>
                             <?php
                              }
                         ?>
@@ -613,14 +613,14 @@ class HTMega_Elementor_Widget_SinglePost extends Widget_Base {
                     <?php echo esc_html( $htmega_print_css ); ?>
                 </style>
                 <script>
-                    var marginLeft = jQuery(".<?php echo esc_attr( $sectionid ); ?>.htmega-single-post-style-1 .content").css("margin-left");
-                    var marginRight = jQuery(".<?php echo esc_attr( $sectionid ); ?>.htmega-single-post-style-1 .content").css("margin-right");
+                    var marginLeft = jQuery(".<?php echo esc_js( $sectionid ); ?>.htmega-single-post-style-1 .content").css("margin-left");
+                    var marginRight = jQuery(".<?php echo esc_js( $sectionid ); ?>.htmega-single-post-style-1 .content").css("margin-right");
                     var marginLeft2 = parseInt( marginLeft.slice(0, -2) );
                     var marginRight2 = parseInt( marginRight.slice(0, -2));
                     if( marginLeft2 || marginRight2 ){
                         var totalMargin = marginLeft2+marginRight2+'px';
                         var calcevalue = 'calc(100% - '+totalMargin+')';
-                        jQuery(".<?php echo esc_attr( $sectionid ); ?>.htmega-single-post-style-1 .content").css("width", calcevalue);
+                        jQuery(".<?php echo esc_js( $sectionid ); ?>.htmega-single-post-style-1 .content").css("width", calcevalue);
                     }
                 </script>
             <?php
@@ -661,7 +661,7 @@ class HTMega_Elementor_Widget_SinglePost extends Widget_Base {
                 $this->add_control(
                     "{$post_key}_post_name",
                     [
-                        'label' => esc_html__( 'Post Name', 'htmega-pro' ),
+                        'label' => esc_html__( 'Post Name', 'htmega-addons' ),
                         'type' => Controls_Manager::SELECT2,
                         'label_block' => true,
                         'options' => htmega_post_name($post_key, -1),

@@ -1252,7 +1252,7 @@ class HTMega_Elementor_Widget_Panel_Slider extends Widget_Base {
         
         $custom_width_class = ('yes' == $settings['slcentermode'] && 'yes' == $settings['variable_width']) ? 'htmega-custom-width' : '';
 
-        $this->add_render_attribute( 'htmega_panel_sliderarea_attr', 'class', 'panel_slider_area panel_slider_style-'.$settings['panel_slider_style'].' '.$custom_width_class );
+        $this->add_render_attribute( 'htmega_panel_sliderarea_attr', 'class', 'panel_slider_area panel_slider_style-'. esc_attr( $settings['panel_slider_style'] .' '.$custom_width_class ) );
 
 
         // Slider options
@@ -1278,14 +1278,14 @@ class HTMega_Elementor_Widget_Panel_Slider extends Widget_Base {
             ];
 
             $slider_responsive_settings = [
-                'display_columns' => $settings['slitems'],
-                'scroll_columns' => $settings['slscroll_columns'],
-                'tablet_width' => $settings['sltablet_width'],
-                'tablet_display_columns' => $settings['sltablet_display_columns'],
-                'tablet_scroll_columns' => $settings['sltablet_scroll_columns'],
-                'mobile_width' => $settings['slmobile_width'],
-                'mobile_display_columns' => $settings['slmobile_display_columns'],
-                'mobile_scroll_columns' => $settings['slmobile_scroll_columns'],
+                'display_columns' => absint( $settings['slitems'] ),
+                'scroll_columns' => absint( $settings['slscroll_columns'] ),
+                'tablet_width' => absint( $settings['sltablet_width'] ),
+                'tablet_display_columns' => absint( $settings['sltablet_display_columns'] ),
+                'tablet_scroll_columns' => absint( $settings['sltablet_scroll_columns'] ),
+                'mobile_width' => absint( $settings['slmobile_width'] ),
+                'mobile_display_columns' => absint( $settings['slmobile_display_columns'] ),
+                'mobile_scroll_columns' => absint( $settings['slmobile_scroll_columns'] ),
 
             ];
 
@@ -1299,7 +1299,7 @@ class HTMega_Elementor_Widget_Panel_Slider extends Widget_Base {
                 <div <?php echo $this->get_render_attribute_string( 'htmega_panel_slider_attr' ); ?> style="display:none">
 
                     <?php foreach ( $settings['panel_slider_list'] as $sliders ):
-                        $url = $sliders['_id'];
+                        $url = esc_attr( $sliders['_id'] );
                         if ( ! empty( $sliders['external_link']['url'] ) ) {
                             $this->add_link_attributes( $url, $sliders['external_link'] );
                         }

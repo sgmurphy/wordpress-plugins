@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for Plugin Name: Shield Security
-    * Compatibility checked on Version: 9.2.1
+    * Compatibility: Shield Security
+    * Introduced at: 9.2.1
     */
 
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

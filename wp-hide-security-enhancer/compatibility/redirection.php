@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for     : Redirection
-    * Introduced at Version : 5.3.10
+    * Compatibility     : Redirection
+    * Introduced at     : 5.3.10
     * Last Checked          : 5.3.10
     */
 

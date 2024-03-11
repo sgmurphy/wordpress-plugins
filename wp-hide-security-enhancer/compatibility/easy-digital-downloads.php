@@ -1,6 +1,14 @@
 <?php
 
 
+    /**
+    * Compatibility : 
+    * Introduced at : 
+    * Last Checked  : 
+    */
+
+    if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
     class WPH_conflict_handle_edd
         {
                         

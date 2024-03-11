@@ -260,6 +260,7 @@
                     <el-col :lg="2" v-if="$root.settings.capabilities.canDelete === true">
                       <p>
                         <el-checkbox
+                            :style="{display: 'none'}"
                             v-model="checkPaymentData.allChecked"
                             @change="checkPaymentData = handleCheckAll(payments, checkPaymentData)">
                         </el-checkbox>
@@ -336,6 +337,7 @@
                             <el-col :lg="2" :sm="1" v-if="$root.settings.capabilities.canDelete === true">
                               <span @click.stop>
                                   <el-checkbox
+                                      :style="{display: 'none'}"
                                       v-model="payment.checked"
                                       @change="checkPaymentData = handleCheckSingle(payments, checkPaymentData)">
                                   </el-checkbox>

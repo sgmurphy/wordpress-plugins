@@ -793,12 +793,12 @@ class HTMega_Elementor_Widget_Special_day_Banner extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
 
-        $this->add_render_attribute( 'htmega_banner', 'class', 'htmegaspcial-banner htmega-banner htmega-banner-content-pos-'.$settings['banner_content_pos'] );
+        $this->add_render_attribute( 'htmega_banner', 'class', 'htmegaspcial-banner htmega-banner htmega-banner-content-pos-' . esc_attr( $settings['banner_content_pos'] ) );
 
         // URL Generate
         if ( ! empty( $settings['banner_link']['url'] ) ) {
             
-            $this->add_render_attribute( 'url', 'href', $settings['banner_link']['url'] );
+            $this->add_render_attribute( 'url', 'href', esc_url( $settings['banner_link']['url'] ) );
             if ( $settings['banner_link']['is_external'] ) {
                 $this->add_render_attribute( 'url', 'target', '_blank' );
             }

@@ -1119,9 +1119,9 @@ class HTMega_Elementor_Widget_Counter extends Widget_Base {
     protected function render( $instance = [] ) {
 
         $settings   = $this->get_settings_for_display();
-        $this->add_render_attribute( 'htmega_counter_attr', 'class', 'htmega-counter-area htmega-counter-style-'.$settings['counter_layout_style'] );
+        $this->add_render_attribute( 'htmega_counter_attr', 'class', 'htmega-counter-area htmega-counter-style-'. esc_attr( $settings['counter_layout_style'] ) );
 
-        $this->add_render_attribute( 'htmega_counter_attr', 'class', 'htmega-countericon-align-'.$settings['counter_layout_align'] );
+        $this->add_render_attribute( 'htmega_counter_attr', 'class', 'htmega-countericon-align-'. esc_attr( $settings['counter_layout_align'] ) );
         $this->add_render_attribute( 'counter_active_attr', 'class', 'htmega-counter-number');
         $this->add_render_attribute( 'counter_active_attr', 'data-to-value', esc_attr( $settings['terget_number'] ));
         

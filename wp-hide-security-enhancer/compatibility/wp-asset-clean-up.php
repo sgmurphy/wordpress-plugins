@@ -2,8 +2,8 @@
 
 
     /**
-    * Compatibility for Plugin Name: Asset CleanUp Pro: Page Speed Booster
-    * Compatibility checked on Version:  1.1.7.6
+    * Compatibility: Asset CleanUp Pro: Page Speed Booster
+    * Introduced at:  1.1.7.6
     */
     
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

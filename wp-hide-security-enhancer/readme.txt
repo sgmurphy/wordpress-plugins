@@ -3,8 +3,8 @@ Contributors: nsp-code, tdgu
 Donate link: https://www.nsp-code.com/
 Tags: wordpress hide, security, security headers, custom login, login hide
 Requires at least: 2.8
-Tested up to: 6.4.2
-Stable tag: 2.3.1
+Tested up to: 6.5
+Stable tag: 2.3.5
 License: GPLv2 or later
 
 Hide WordPress, wp-content, wp-includes, wp-admin, login URL, plugins, themes etc. Block the default URLs. Security Headers etc.
@@ -252,6 +252,7 @@ Since version 1.2, WP-Hide change individual plugin URLs and made them unrecogni
 **Hide -> Admin > Admin URL**
 
 * New Admin URL – Creates a new admin URL instead of the default ”/wp-admin”. This also applies for admin-ajax.php calls
+* Disable customized Admin Url redirect to the Login page
 * Block default Admin Url – Blocks default admin URL and files from being accessible
 
 **Security -> Captcha**
@@ -405,6 +406,12 @@ Please get in touch with us and we’ll do our best to include it inthe next ver
 2. Sample front html code.
 
 == Changelog ==
+
+= 2.3.5 =
+* Update the plugin headers
+* New module - Disable Admin Url redirect to Login page
+* Remove deprecated admin-new-_wp-login_php file
+* WordPress 6.5 compatibility check and tag update
 
 = 2.3.1 =
 * New filter wp-hide/interface/process/minimum_slug_length for customizing the minimum length of the admin and login slug   https://wp-hide.com/documentation/wp-hide-interface-process-minimum_slug_length/

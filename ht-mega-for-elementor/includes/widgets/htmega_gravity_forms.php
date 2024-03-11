@@ -40,7 +40,7 @@ class HTMega_Elementor_Widget_Gravity_Forms extends Widget_Base {
             $contact_forms = \RGFormsModel::get_forms( null, 'title' );
             $form_options = ['0' => esc_html__( 'Select Form', 'htmega-addons' )];
             if ( ! empty( $contact_forms ) && ! is_wp_error( $contact_forms ) ) {
-                foreach ( $contact_forms as $form ) {   
+                foreach ( $contact_forms as $form ) {
                     $form_options[ $form->id ] = $form->title;
                 }
             }
@@ -905,7 +905,7 @@ class HTMega_Elementor_Widget_Gravity_Forms extends Widget_Base {
         $settings   = $this->get_settings_for_display();
 
        $form_attributes = [
-            'id' => $settings['gravity_form'],
+            'id' => sanitize_text_field( $settings['gravity_form'] ),
             'ajax' => ( $settings['form_ajax'] == 'yes' ) ? 'true' : 'false',
             'title' => ( $settings['show_title'] == 'yes' ) ? 'true' : 'false',
             'description' => ( $settings['show_description'] == 'yes' ) ? 'true' : 'false',

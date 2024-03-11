@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for Plugin Name: WP-Optimize - Clean, Compress, Cache
-    * Compatibility checked on Version: 3.0.11
+    * Compatibility: WP-Optimize - Clean, Compress, Cache
+    * Introduced at: 3.0.11
     */
 
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

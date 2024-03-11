@@ -452,7 +452,7 @@ class HTMega_Elementor_Widget_Tablepress extends Widget_Base {
                 $controller->init_shortcodes();
             }
             $attributes = [
-                'id'  => $settings['table_id'],
+                'id'  => sanitize_text_field( $settings['table_id'] ),
             ];
             $this->add_render_attribute( 'shortcode', $attributes );
 

@@ -382,12 +382,12 @@ class HTMega_Elementor_Widget_Weather extends Widget_Base {
         }
 
         $weather = HtMega\Weather\WeatherMap::get_wather_data(array(
-            'api_key' => $api_key,
+            'api_key' => sanitize_text_field( $api_key ),
             'language'=> 'en',
-            'units'   => $units,
+            'units'   => esc_attr( $units ),
             'forecast_days' => (int)$settings['forecast'], 
-            'custom_lat' => $custom_lat,
-            'custom_long' => $custom_long
+            'custom_lat' => sanitize_text_field( $custom_lat ),
+            'custom_long' => sanitize_text_field( $custom_long )
         ));
 
         if( !is_array($weather) && !isset($weather['current']) ){
@@ -397,8 +397,8 @@ class HTMega_Elementor_Widget_Weather extends Widget_Base {
 
         $current_temp_max = $weather['forecast'][0]['high'];
         $current_temp_min = $weather['forecast'][0]['low'];
-        if(file_exists(HTMEGA_ADDONS_PL_PATH . 'includes/weather-resource/template/'.$settings['layout'].'.php')){
-            require_once ( HTMEGA_ADDONS_PL_PATH . 'includes/weather-resource/template/'.$settings['layout'].'.php' );
+        if(file_exists(HTMEGA_ADDONS_PL_PATH . 'includes/weather-resource/template/'.$settings['layout'].'.php')) {
+            require_once( HTMEGA_ADDONS_PL_PATH . 'includes/weather-resource/template/' . sanitize_file_name( $settings['layout'] ) . '.php' );
         }
 
     }

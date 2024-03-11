@@ -1116,13 +1116,13 @@ class HTMega_Elementor_Widget_Tabs extends Widget_Base {
 
         $settings = $this->get_settings_for_display();;
         $this->add_render_attribute( 'htmega_tab_attr', 'class', 'htmega-tab-area' );
-        $this->add_render_attribute( 'htmega_tab_attr', 'class', 'htmega-tab-style-'.$settings['tab_style'] );
+        $this->add_render_attribute( 'htmega_tab_attr', 'class', 'htmega-tab-style-' . esc_attr( $settings['tab_style'] ) );
 
         $this->add_render_attribute( 'htmega_tab_menu_attr', 'class', 'htmega-tab-nav htb-nav');
         $this->add_render_attribute( 'htmega_tab_menu_attr', 'role', 'tablist');
-        $this->add_render_attribute( 'htmega_tab_menu_attr', 'class', 'htmega-tab-menu-style-'.$settings['tab_style'] );
+        $this->add_render_attribute( 'htmega_tab_menu_attr', 'class', 'htmega-tab-menu-style-' . esc_attr( $settings['tab_style'] ) );
         $id = $this->get_id();
-        $item_active_index = ( count( $settings['htmega_tabs_list'] ) < $settings['active_item_index']) ? 1 : $settings['active_item_index'];
+        $item_active_index = ( count( $settings['htmega_tabs_list'] ) < $settings['active_item_index']) ? 1 : esc_attr( $settings['active_item_index'] );
         ?>
             <div <?php echo $this->get_render_attribute_string( 'htmega_tab_attr' ); ?>>
 

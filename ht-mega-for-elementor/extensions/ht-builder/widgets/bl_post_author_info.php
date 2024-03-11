@@ -315,9 +315,9 @@ class Bl_Post_Author_Info_ELement extends Widget_Base {
 
         // Aavater image
         if ( $settings['show_avater_image'] == 'yes' ) {
-            $this->add_render_attribute( 'avatar_attr', 'src', $author_info['avatar'] );
+            $this->add_render_attribute( 'avatar_attr', 'src',  esc_url( $author_info['avatar'] ) );
             if ( ! empty( $author_info['display_name'] ) ) {
-                $this->add_render_attribute( 'avatar_attr', 'alt', $author_info['display_name'] );
+                $this->add_render_attribute( 'avatar_attr', 'alt', esc_attr( $author_info['display_name'] ) );
             }
         }
 
@@ -338,7 +338,7 @@ class Bl_Post_Author_Info_ELement extends Widget_Base {
                     <div class="htavatar">
                         <?php
                             if( !empty( $author_link ) ){
-                                echo sprintf( '<a href="%1$s" target="_blank"><img %2$s ></a>',$author_link, $this->get_render_attribute_string( 'avatar_attr' ) );
+                                echo sprintf( '<a href="%1$s" target="_blank"><img %2$s ></a>', esc_url( $author_link ), $this->get_render_attribute_string( 'avatar_attr' ) );
                             }else{
                                 echo sprintf( '<img %1$s >', $this->get_render_attribute_string( 'avatar_attr' ) );
                             }
@@ -349,9 +349,9 @@ class Bl_Post_Author_Info_ELement extends Widget_Base {
                     <?php
                         if( $settings['show_name'] == 'yes' ){
                             if( !empty( $author_link ) ){
-                                echo sprintf( '<a href="%1$s" target="_blank"><%2$s class="htauthor-name">%3$s</%2$s></a>', $author_link, $name_tag, $author_info['display_name'] );
+                                echo sprintf( '<a href="%1$s" target="_blank"><%2$s class="htauthor-name">%3$s</%2$s></a>', esc_url( $author_link ) , $name_tag, esc_html( $author_info['display_name'] ) );
                             }else{
-                                echo sprintf( '<%1$s class="htauthor-name">%2$s</%1$s>', $name_tag, $author_info['display_name'] );
+                                echo sprintf( '<%1$s class="htauthor-name">%2$s</%1$s>', $name_tag, esc_url( $author_info['display_name'] ) );
                             }
                         }
                         if( $settings['show_biography'] == 'yes' ){

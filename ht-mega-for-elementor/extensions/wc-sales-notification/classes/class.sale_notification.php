@@ -26,6 +26,8 @@ class HTMegaWC_Sales_Notification{
 
     public function purchased_products(){
 
+        check_ajax_referer('wcsales-ajax-request', 'security');
+        
         $cachekey = 'purchased-new-products';
         $products = get_transient( $cachekey );
 

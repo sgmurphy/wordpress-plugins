@@ -20,7 +20,7 @@ class Single_Product_Ajax_Add_To_Cart{
     }
 
     public function grouped_product_addto_cart(){
-        // phpcs:disable WordPress.Security.NonceVerification.Missing
+        check_ajax_referer( 'htmega-woocommerce-ajax-request', 'security' );
 
         if ( ! isset( $_POST['product_id'] ) ) {
             return;

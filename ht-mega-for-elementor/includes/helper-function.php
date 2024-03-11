@@ -435,7 +435,7 @@ function htmega_ajax_register() {
         'user_login'    => ! empty( $_POST['reg_name'] ) ? sanitize_text_field( $_POST['reg_name'] ) : "",
         'user_pass'     => ! empty( $_POST['reg_password'] ) ? sanitize_text_field( $_POST['reg_password'] ) : "",
         'user_email'    => ! empty( $_POST['reg_email'] ) ? sanitize_email( $_POST['reg_email'] ) : "",
-        'user_url'      => ! empty( $_POST['reg_website'] ) ? sanitize_url( $_POST['reg_website'] ) : "",
+        'user_url'      => ! empty( $_POST['reg_website'] ) ? esc_url( $_POST['reg_website'] ) : "",
         'first_name'    => ! empty( $_POST['reg_fname'] ) ? sanitize_text_field( $_POST['reg_fname'] ) : "",
         'last_name'     => ! empty( $_POST['reg_lname'] ) ? sanitize_text_field( $_POST['reg_lname'] ) : "",
         'nickname'      => ! empty( $_POST['reg_nickname'] ) ? sanitize_text_field( $_POST['reg_nickname'] ) : "",

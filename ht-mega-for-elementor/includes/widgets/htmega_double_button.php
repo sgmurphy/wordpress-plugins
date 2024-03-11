@@ -941,19 +941,19 @@ class HTMega_Elementor_Widget_Double_Button extends Widget_Base {
         // Button One
         if ( ! empty( $settings['button_one_link']['url'] ) ) {
 
-            $button_one_text  = !empty( $settings['button_one_text'] ) ? "<span class='button_one_text_progression'>".$settings['button_one_text']."</span>" : '';
+            $button_one_text  = !empty( $settings['button_one_text'] ) ? "<span class='button_one_text_progression'>" . wp_kses_post( $settings['button_one_text'] ) ."</span>" : '';
             $button_one_icon  = !empty( $settings['button_one_icon']['value'] ) ? "<span class='button_one_icon_progression' >".HTMega_Icon_manager::render_icon( $settings['button_one_icon'], [ 'aria-hidden' => 'true' ] ).'</span>' : '';
             
             $this->add_link_attributes( 'urlone', $settings['button_one_link'] );
 
             $this->add_render_attribute( 'urlone', 'class', 'htmega-doule-btn btn-one' );
-            $this->add_render_attribute( 'urlone', 'class', 'htmega-doule-btn-size-'. $settings['double_button_size'] );
+            $this->add_render_attribute( 'urlone', 'class', 'htmega-doule-btn-size-'. esc_attr( $settings['double_button_size'] ) );
 
             $button_one_text = sprintf( '<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'urlone' ), $button_one_text, $button_one_icon );
         }
 
         // Button Two
-        $button_two_text  = !empty( $settings['button_two_text'] ) ? "<span class='button_two_text_progression'>".$settings['button_two_text'].'</span>' : '';
+        $button_two_text  = !empty( $settings['button_two_text'] ) ? "<span class='button_two_text_progression'>" . wp_kses_post( $settings['button_two_text'] ) .'</span>' : '';
         $button_two_icon  = !empty( $settings['button_two_icon'] ) ? "<span class='button_two_icon_progression'>".HTMega_Icon_manager::render_icon( $settings['button_two_icon'], [ 'aria-hidden' => 'true' ] ).'</span>' : '';
 
         if ( ! empty( $settings['button_two_link']['url'] ) ) {
@@ -961,13 +961,13 @@ class HTMega_Elementor_Widget_Double_Button extends Widget_Base {
             $this->add_link_attributes( 'urltwo', $settings['button_two_link'] );
 
             $this->add_render_attribute( 'urltwo', 'class', 'htmega-doule-btn btn-two' );
-            $this->add_render_attribute( 'urltwo', 'class', 'htmega-doule-btn-size-'. $settings['double_button_size'] );
+            $this->add_render_attribute( 'urltwo', 'class', 'htmega-doule-btn-size-'. esc_attr( $settings['double_button_size'] ) );
 
             $button_two_text = sprintf( '<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'urltwo' ), $button_two_text, $button_two_icon );
         }
 
         if( $settings['show_button_middle_text'] == 'yes' && !empty( $settings['button_middle_text'] ) ){
-            $button_middle_text = '<span class="htmega-middle-text">'.$settings['button_middle_text'].'</span>';
+            $button_middle_text = '<span class="htmega-middle-text">'. wp_kses_post( $settings['button_middle_text'] ) .'</span>';
         }
 
         $button_double_text = $button_one_text.$button_two_text.$button_middle_text;

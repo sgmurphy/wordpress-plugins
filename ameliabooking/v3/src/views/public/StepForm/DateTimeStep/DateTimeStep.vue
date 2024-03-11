@@ -2,7 +2,7 @@
   <div
     ref="dateTimeRef"
     class="am-fs-dt__calendar"
-    :class="props.globalClass"
+    :class="[props.globalClass, {'am-oxvisible': (recurringPopupVisibility || packagesVisibility)}]"
   >
     <div v-if="limitPerEmployeeError" ref="limitError" class="am-fs__payments-error" >
       <AmAlert
@@ -366,6 +366,15 @@ onMounted(() => {
 
   useCurrentUser(store, shortcodeData.value.hasApiCall)
 
+  if ('serviceId' in cartItem.value &&
+    cartItem.value.serviceId in cartItem.value.services &&
+    cartItem.value.index in cartItem.value.services[cartItem.value.serviceId].list
+  ) {
+    cartItem.value.services[cartItem.value.serviceId].list[cartItem.value.index].providerId = null
+
+    cartItem.value.services[cartItem.value.serviceId].list[cartItem.value.index].locationId = null
+  }
+
   loadCounter.value++
 })
 </script>
@@ -391,6 +400,13 @@ export default {
 .amelia-v2-booking #amelia-container {
   // Amelia Form Steps
   .am-fs {
+    &__main {
+      &-content.am-fs-dt__calendar {
+        &.am-oxvisible {
+          overflow-x: visible;
+        }
+      }
+    }
 
     // Container Wrapper
     &__main {

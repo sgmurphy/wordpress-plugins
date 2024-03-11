@@ -3,7 +3,7 @@
 Plugin Name: WP Fastest Cache
 Plugin URI: http://wordpress.org/plugins/wp-fastest-cache/
 Description: The simplest and fastest WP Cache system
-Version: 1.2.3
+Version: 1.2.4
 Author: Emre Vona
 Author URI: https://www.wpfastestcache.com/
 Text Domain: wp-fastest-cache
@@ -2068,20 +2068,28 @@ GNU General Public License for more details.
 		}
 
 		public function getABSPATH(){
-			$path = ABSPATH;
-			$siteUrl = site_url();
-			$homeUrl = home_url();
-			$diff = str_replace($homeUrl, "", $siteUrl);
-			$diff = trim($diff,"/");
+			return get_home_path();
 
-		    $pos = strrpos($path, $diff);
+			// 10.02.2024
+			
+			// $path = ABSPATH;
+			// $siteUrl = site_url();
+			// $homeUrl = home_url();
+			// $diff = str_replace($homeUrl, "", $siteUrl);
+			// $diff = trim($diff,"/");
 
-		    if($pos !== false){
-		    	$path = substr_replace($path, "", $pos, strlen($diff));
-		    	$path = trim($path,"/");
-		    	$path = "/".$path."/";
-		    }
-		    return $path;
+		 //    $pos = strrpos($path, $diff);
+
+		 //    if($pos !== false){
+		 //    	$path = substr_replace($path, "", $pos, strlen($diff));
+		 //    	$path = trim($path,"/");
+		 //    	$path = "/".$path."/";
+		 //    }
+		 //    return $path;
+
+
+
+
 		}
 
 		public function rm_folder_recursively($dir, $i = 1) {

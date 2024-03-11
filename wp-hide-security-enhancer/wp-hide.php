@@ -1,16 +1,16 @@
 <?php
 /*
-Plugin Name: WP Hide & Security Enhancer
-Plugin URI: https://wp-hide.com/
-Description: Hide and increase Security for your WordPress website instance using smart techniques. No files are changed on your server.
-Author: Nsp Code
-Author URI: http://www.nsp-code.com 
-Version: 2.3.1
-Text Domain: wp-hide-security-enhancer
-Domain Path: /languages/
-Requires at least: 4.0
-Requires PHP: 5.4
-Tested PHP up to: 8.2.4
+* Plugin Name: WP Hide & Security Enhancer
+* Plugin URI: https://wp-hide.com/
+* Description: Hide and increase Security for your WordPress website instance using smart techniques. No files are changed on your server.
+* Author: Nsp Code
+* Author URI: http://www.nsp-code.com 
+* Version: 2.3.5
+* Text Domain: wp-hide-security-enhancer
+* Domain Path: /languages/
+* Requires at least: 4.0
+* Requires PHP: 5.4
+* Tested PHP up to: 8.2.4
 */
     
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

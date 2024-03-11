@@ -239,6 +239,7 @@
 
             <!-- Delete -->
             <el-button
+                :style="{display: 'none'}"
                 v-if="$root.settings.capabilities.canDelete === true"
                 class="am-button-icon"
                 @click="showDeleteModal(payments[0])">

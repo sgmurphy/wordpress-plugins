@@ -896,24 +896,27 @@ class HTMega_Elementor_Widget_Newsticker extends Widget_Base {
     protected function render( $instance = [] ) {
 
         $settings           = $this->get_settings_for_display();
-        $post_type = $settings['news_post_type'];
-        if( 'post'== $post_type ){
+        $post_type =  isset( $settings['news_post_type'] ) ? $settings['news_post_type'] : 'post';
+        $post_categorys = [];
+        if( 'post'== $post_type && ! empty( $settings['news_categories'] ) && is_array( $settings['news_categories'] ) ) {
             $post_categorys = $settings['news_categories'];
-        } else if( 'product'== $post_type ){
+        } else if( 'product'== $post_type && ! empty( $settings['news_prod_categories'] ) && is_array( $settings['news_prod_categories'] ) ) {
             $post_categorys = $settings['news_prod_categories'];
         }else {
-            $post_categorys = $settings[ $post_type.'_post_category'];
+            if( ! empty( $settings[ $post_type.'_post_category'] )  && is_array( $settings[ $post_type.'_post_category'] ) ) {
+                $post_categorys =  $settings[ $post_type.'_post_category'];
+            }
         }
         $post_author = $settings['post_author'];
-        $exclude_posts = $settings['exclude_posts'];
+        $exclude_posts = sanitize_text_field( $settings['exclude_posts'] );
         $orderby            = $this->get_settings_for_display('orderby');
         $postorder          = $this->get_settings_for_display('order');
-        $category_name =  get_object_taxonomies($post_type);
+        $category_name =  get_object_taxonomies( $post_type );
         $sectionid = "sid". $this-> get_id();
 
         // Section Attr
         $this->add_render_attribute( 'htmega_newsticker_section_attr', 'class', 'htmega-newsticker breaking-news-default' );
-        $this->add_render_attribute( 'htmega_newsticker_section_attr', 'class', 'htmega-newsticker-style-'.$settings['news_ticker_style'].' '.$sectionid );
+        $this->add_render_attribute( 'htmega_newsticker_section_attr', 'class', 'htmega-newsticker-style-'. esc_attr( $settings['news_ticker_style'].' '.$sectionid ) );
 
         $newsticker_slider_settings = [
             'rowheight'     => absint( $settings['rowheight'] ),
@@ -922,8 +925,8 @@ class HTMega_Elementor_Widget_Newsticker extends Widget_Base {
             'duration'      => absint( $settings['animateduration'] ),
             'autostart'     => ( $settings['autostart'] == 'yes' ? 1 : 0 ),
             'pauseonhover'  => ( $settings['pauseonhover'] == 'yes' ? 1 : 0 ),
-            'direction'     => $settings['direction'],
-            'navbutton'     => $settings['navigation_show'],
+            'direction'     => esc_attr( $settings['direction'] ),
+            'navbutton'     => esc_attr( $settings['navigation_show'] ),
         ];
 
         // List UL attr
@@ -938,27 +941,24 @@ class HTMega_Elementor_Widget_Newsticker extends Widget_Base {
             'posts_per_page'        => !empty( $settings['newslimit'] ) ? (int)$settings['newslimit'] : 3,
         );
 
-        if (  !empty( $post_categorys ) ) {
 
+        if( is_array($post_categorys) && count($post_categorys) > 0 ){
             if( $category_name['0'] == "product_type" ){
-                    $category_name['0'] = 'product_cat';
+                $category_name['0'] = 'product_cat';
             }
-
-            if( is_array($post_categorys) && count($post_categorys) > 0 ){
-
-                $field_name = is_numeric( $post_categorys[0] ) ? 'term_id' : 'slug';
-                $args['tax_query'] = array(
-                    array(
-                        'taxonomy' => $category_name[0],
-                        'terms' => $post_categorys,
-                        'field' => $field_name,
-                        'include_children' => false
-                    )
-                );
-            }
+            $field_name = is_numeric( $post_categorys[0] ) ? 'term_id' : 'slug';
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => $category_name[0],
+                    'terms' => $post_categorys,
+                    'field' => $field_name,
+                    'include_children' => false
+                )
+            );
         }
+        
         // author check
-        if (  !empty( $post_author ) ) {
+        if (  !empty( $post_author ) && is_array( $post_author ) ) {
             $args['author__in'] = $post_author;
         }
         // order by  check
@@ -983,19 +983,19 @@ class HTMega_Elementor_Widget_Newsticker extends Widget_Base {
                 );
 
             } else {
-                $args['orderby'] = $orderby;
+                $args['orderby'] = sanitize_text_field( $orderby );
             }
         }
 
         // Exclude posts check
-        if (  !empty( $exclude_posts ) ) {
-            $exclude_posts = explode(',',$exclude_posts);
+        if ( !empty( $exclude_posts ) ) {
+            $exclude_posts = explode( ',', $exclude_posts );
             $args['post__not_in'] =  $exclude_posts;
         }
 
         // Order check
-        if (  !empty( $postorder ) ) {
-            $args['order'] =  $postorder;
+        if ( !empty( $postorder ) ) {
+            $args['order'] =  sanitize_text_field( $postorder );
         }
         $news_ticker = new \WP_Query( $args );
        
@@ -1031,7 +1031,7 @@ class HTMega_Elementor_Widget_Newsticker extends Widget_Base {
                                                 if ( 0 > $settings['title_length'] ) { 
                                                     the_title();
                                                 } else { 
-                                                    echo wp_trim_words( get_the_title(),  $settings['title_length'], '' );
+                                                    echo wp_trim_words( get_the_title(),  absint( $settings['title_length'] ), '' );
                                                 }
                                                 if( $settings['news_ticker_date'] == 'yes' ){
                                                     echo '<span class="news_date" >'.get_the_time( 'd M' ).'</span>';

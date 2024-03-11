@@ -1910,7 +1910,7 @@ class HTMega_Elementor_Widget_Testimonial extends Widget_Base {
         $slarrows_style = $settings['slarrows_style'];
 
         $slider_settings = [
-            'sectionid'=> $sectionid,
+            'sectionid'=> esc_attr( $sectionid ),
             'arrows' => ('yes' === $settings['slarrows']),
             'arrow_prev_txt' => HTMega_Icon_manager::render_icon( $settings['slprevicon'], [ 'aria-hidden' => 'true' ] ),
             'arrow_next_txt' => HTMega_Icon_manager::render_icon( $settings['slnexticon'], [ 'aria-hidden' => 'true' ] ),
@@ -1925,33 +1925,33 @@ class HTMega_Elementor_Widget_Testimonial extends Widget_Base {
         ];
 
         $slider_responsive_settings = [
-            'display_columns' => $settings['slitems'],
-            'scroll_columns' => $settings['slscroll_columns'],
-            'tablet_width' => $settings['sltablet_width'],
-            'tablet_display_columns' => $settings['sltablet_display_columns'],
-            'tablet_scroll_columns' => $settings['sltablet_scroll_columns'],
-            'mobile_width' => $settings['slmobile_width'],
-            'mobile_display_columns' => $settings['slmobile_display_columns'],
-            'mobile_scroll_columns' => $settings['slmobile_scroll_columns'],
+            'display_columns' => absint( $settings['slitems'] ),
+            'scroll_columns' => absint( $settings['slscroll_columns'] ),
+            'tablet_width' => absint( $settings['sltablet_width'] ),
+            'tablet_display_columns' => absint( $settings['sltablet_display_columns'] ),
+            'tablet_scroll_columns' => absint( $settings['sltablet_scroll_columns'] ),
+            'mobile_width' => absint( $settings['slmobile_width'] ),
+            'mobile_display_columns' => absint( $settings['slmobile_display_columns'] ),
+            'mobile_scroll_columns' => absint( $settings['slmobile_scroll_columns'] ),
 
         ];
 
         $slider_settings = array_merge( $slider_settings, $slider_responsive_settings );
 
 
-        $this->add_render_attribute( 'testimonial_area_attr', 'class', 'htmega-testimonial-area htmega-sl-arraow-style-'.$slarrows_style );
+        $this->add_render_attribute( 'testimonial_area_attr', 'class', 'htmega-testimonial-area htmega-sl-arraow-style-' . esc_attr( $slarrows_style ) );
         if( 10 == $settings['htmega_testimonial_style'] ){
 
-            $this->add_render_attribute( 'testimonial_area_attr', 'class', 'htmega-testimonial-style-3  htmega-testimonial-style-'.$settings['htmega_testimonial_style'].' '.$sectionid );
+            $this->add_render_attribute( 'testimonial_area_attr', 'class', 'htmega-testimonial-style-3  htmega-testimonial-style-' . esc_attr( $settings['htmega_testimonial_style'].' '.$sectionid ) );
         }elseif( 11 == $settings['htmega_testimonial_style'] ){
 
-            $this->add_render_attribute( 'testimonial_area_attr', 'class', 'htmega-testimonial-style-5  htmega-testimonial-style-'.$settings['htmega_testimonial_style'].' '.$sectionid );
+            $this->add_render_attribute( 'testimonial_area_attr', 'class', 'htmega-testimonial-style-5  htmega-testimonial-style-' . esc_attr( $settings['htmega_testimonial_style'].' '.$sectionid ) );
         }elseif( 12 == $settings['htmega_testimonial_style'] ){
 
-            $this->add_render_attribute( 'testimonial_area_attr', 'class', 'htmega-testimonial-style-3  htmega-testimonial-style-'.$settings['htmega_testimonial_style'].' '.$sectionid );
+            $this->add_render_attribute( 'testimonial_area_attr', 'class', 'htmega-testimonial-style-3  htmega-testimonial-style-' . esc_attr( $settings['htmega_testimonial_style'].' '.$sectionid ) );
         }else{
 
-            $this->add_render_attribute( 'testimonial_area_attr', 'class', 'htmega-testimonial-style-'.$settings['htmega_testimonial_style'].' '.$sectionid );
+            $this->add_render_attribute( 'testimonial_area_attr', 'class', 'htmega-testimonial-style-' . esc_attr( $settings['htmega_testimonial_style'].' '.$sectionid ) );
         }
         if( $settings['slider_on'] == 'yes'){
             $this->add_render_attribute( 'testimonial_area_attr', 'class', 'htmega-testimonial-activation' );   
@@ -1980,7 +1980,7 @@ class HTMega_Elementor_Widget_Testimonial extends Widget_Base {
                                     echo '<div class="testimonial-desc"><p>'.wp_kses_post( $testimonial['client_say'] ).'</p>';
                                       // Rating
                                       if( !empty( $testimonial['client_rating'] ) ){
-                                        $rating = $testimonial['client_rating'];
+                                        $rating = floatval( $testimonial['client_rating'] );
                                         $rating_whole = floor( $testimonial['client_rating'] );
                                         $rating_fraction = $rating - $rating_whole;
                                         echo '<ul class="htmega-testimonial-rating">';
@@ -2064,7 +2064,7 @@ class HTMega_Elementor_Widget_Testimonial extends Widget_Base {
                                     echo '<div class="testimonial-desc"><p>'.wp_kses_post( $testimonial['client_say'] ).'</p>';
                                       // Rating
                                       if( !empty( $testimonial['client_rating'] ) ){
-                                        $rating = $testimonial['client_rating'];
+                                        $rating = floatval( $testimonial['client_rating'] );
                                         $rating_whole = floor( $testimonial['client_rating'] );
                                         $rating_fraction = $rating - $rating_whole;
                                         echo '<ul class="htmega-testimonial-rating">';
@@ -2127,7 +2127,7 @@ class HTMega_Elementor_Widget_Testimonial extends Widget_Base {
                                     }
                                         // Rating
                                         if( !empty( $testimonial['client_rating'] ) ){
-                                            $rating = $testimonial['client_rating'];
+                                            $rating = floatval( $testimonial['client_rating'] );
                                             $rating_whole = floor( $testimonial['client_rating'] );
                                             $rating_fraction = $rating - $rating_whole;
                                             echo '<ul class="htmega-testimonial-rating">';
@@ -2174,7 +2174,7 @@ class HTMega_Elementor_Widget_Testimonial extends Widget_Base {
 
                                  // Rating
                                  if( !empty( $testimonial['client_rating'] ) ){
-                                    $rating = $testimonial['client_rating'];
+                                    $rating = floatval( $testimonial['client_rating'] );
                                     $rating_whole = floor( $testimonial['client_rating'] );
                                     $rating_fraction = $rating - $rating_whole;
                                     echo '<ul class="htmega-testimonial-rating">';
@@ -2218,7 +2218,7 @@ class HTMega_Elementor_Widget_Testimonial extends Widget_Base {
                                     <?php
                                      // Rating
                                      if( !empty( $testimonial['client_rating'] ) ){
-                                        $rating = $testimonial['client_rating'];
+                                        $rating = floatval( $testimonial['client_rating'] );
                                         $rating_whole = floor( $testimonial['client_rating'] );
                                         $rating_fraction = $rating - $rating_whole;
                                         echo '<ul class="htmega-testimonial-rating">';
@@ -2269,7 +2269,7 @@ class HTMega_Elementor_Widget_Testimonial extends Widget_Base {
                                         <?php
                                          // Rating
                                        if( !empty( $testimonial['client_rating'] ) ){
-                                        $rating = $testimonial['client_rating'];
+                                        $rating = floatval( $testimonial['client_rating'] );
                                         $rating_whole = floor( $testimonial['client_rating'] );
                                         $rating_fraction = $rating - $rating_whole;
                                         echo '<ul class="htmega-testimonial-rating">';
@@ -2321,7 +2321,7 @@ class HTMega_Elementor_Widget_Testimonial extends Widget_Base {
                                     <?php
                                         // Rating
                                         if( !empty( $testimonial['client_rating'] ) ){
-                                            $rating = $testimonial['client_rating'];
+                                            $rating = floatval( $testimonial['client_rating'] );
                                             $rating_whole = floor( $testimonial['client_rating'] );
                                             $rating_fraction = $rating - $rating_whole;
                                             echo '<ul class="htmega-testimonial-rating">';
@@ -2360,7 +2360,7 @@ class HTMega_Elementor_Widget_Testimonial extends Widget_Base {
                                     
                                        // Rating
                                        if( !empty( $testimonial['client_rating'] ) && 10 == $settings['htmega_testimonial_style'] ){
-                                        $rating = $testimonial['client_rating'];
+                                        $rating = floatval( $testimonial['client_rating'] );
                                         $rating_whole = floor( $testimonial['client_rating'] );
                                         $rating_fraction = $rating - $rating_whole;
                                         echo '<ul class="htmega-testimonial-rating">';
@@ -2400,7 +2400,7 @@ class HTMega_Elementor_Widget_Testimonial extends Widget_Base {
 
                                         // Rating
                                         if( !empty( $testimonial['client_rating'] ) && 12 == $settings['htmega_testimonial_style'] ){
-                                            $rating = $testimonial['client_rating'];
+                                            $rating = floatval( $testimonial['client_rating'] );
                                             $rating_whole = floor( $testimonial['client_rating'] );
                                             $rating_fraction = $rating - $rating_whole;
                                             echo '<ul class="htmega-testimonial-rating">';
@@ -2425,7 +2425,7 @@ class HTMega_Elementor_Widget_Testimonial extends Widget_Base {
                                         <?php
                                          // Rating
                                        if( !empty( $testimonial['client_rating'] ) && 3 == $settings['htmega_testimonial_style'] ){
-                                        $rating = $testimonial['client_rating'];
+                                        $rating = floatval( $testimonial['client_rating'] );
                                         $rating_whole = floor( $testimonial['client_rating'] );
                                         $rating_fraction = $rating - $rating_whole;
                                         echo '<ul class="htmega-testimonial-rating">';
@@ -2460,7 +2460,7 @@ class HTMega_Elementor_Widget_Testimonial extends Widget_Base {
                                         }
                                          // Rating
                                        if( !empty( $testimonial['client_rating'] ) ){
-                                        $rating = $testimonial['client_rating'];
+                                        $rating = floatval( $testimonial['client_rating'] );
                                         $rating_whole = floor( $testimonial['client_rating'] );
                                         $rating_fraction = $rating - $rating_whole;
                                         echo '<ul class="htmega-testimonial-rating">';

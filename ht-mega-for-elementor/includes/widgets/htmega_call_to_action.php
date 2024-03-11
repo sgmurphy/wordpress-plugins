@@ -1205,19 +1205,19 @@ class HTMega_Elementor_Widget_Call_To_Action extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
 
-        $this->add_render_attribute( 'htmega_callto_action_attr', 'class', 'htmega-call-to-action callto-action-style-'.$settings['callto_action_style'] );
+        $this->add_render_attribute( 'htmega_callto_action_attr', 'class', 'htmega-call-to-action callto-action-style-'. esc_attr( $settings['callto_action_style'] ) );
 
         $this->add_render_attribute( 'callto_title_sub_attr', 'class', 'htmega-callto-action-sub-title' );
         $this->add_render_attribute( 'callto_title_attr', 'class', 'htmega-callto-action-title' );
         $this->add_render_attribute( 'callto_description_attr', 'class', 'htmega-callto-action-description' );
 
         // Call To Action Button One
-        $call_to_action_button_one_text  = !empty( $settings['callto_action_buttontxt'] ) ? "<span class='call_to_action_button_one_text_progression'>".$settings['callto_action_buttontxt'].'</span>' : '';
+        $call_to_action_button_one_text  = !empty( $settings['callto_action_buttontxt'] ) ? "<span class='call_to_action_button_one_text_progression'>" . wp_kses_post( $settings['callto_action_buttontxt'] ) . '</span>' : '';
         $call_to_action_button_one_icon  = !empty( $settings['call_to_action_button_one_icon']['value'] ) ? "<span class='call_to_action_button_one_icon_progression' >".HTMega_Icon_manager::render_icon( $settings['call_to_action_button_one_icon'], [ 'aria-hidden' => 'true' ] ).'</span>' : '';
 
 
         // Call To Action Button Two
-        $call_to_action_button_two_text  = !empty( $settings['callto_action_buttontxt_second'] ) ? "<span class='call_to_action_button_two_text_progression'>".$settings['callto_action_buttontxt_second'].'</span>' : '';
+        $call_to_action_button_two_text  = !empty( $settings['callto_action_buttontxt_second'] ) ? "<span class='call_to_action_button_two_text_progression'>" . wp_kses_post( $settings['callto_action_buttontxt_second'] ) . '</span>' : '';
         $call_to_action_button_two_icon  = !empty( $settings['call_to_action_button_two_icon']['value'] ) ? "<span class='call_to_action_button_two_icon_progression' >".HTMega_Icon_manager::render_icon( $settings['call_to_action_button_two_icon'], [ 'aria-hidden' => 'true' ] ).'</span>' : '';
 
         // URL Generate
@@ -1261,10 +1261,10 @@ class HTMega_Elementor_Widget_Call_To_Action extends Widget_Base {
                                     <div class="content">
                                         <?php
                                             if( !empty( $settings['callto_action_title'] ) ){
-                                                echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $title_tag, $this->get_render_attribute_string( 'callto_title_attr' ), wp_kses( $settings['callto_action_title'], $allow_html ) );
+                                                echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $title_tag, $this->get_render_attribute_string( 'callto_title_attr' ), wp_kses_post( $settings['callto_action_title'] ) );
                                             }
                                             if( !empty( $settings['callto_action_description'] ) ){
-                                                echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $description_tag, $this->get_render_attribute_string( 'callto_description_attr' ), wp_kses( $settings['callto_action_description'], $allow_html ) );
+                                                echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $description_tag, $this->get_render_attribute_string( 'callto_description_attr' ), wp_kses_post( $settings['callto_action_description'] ) );
                                             }
                                         ?>
                                     </div>
@@ -1274,9 +1274,9 @@ class HTMega_Elementor_Widget_Call_To_Action extends Widget_Base {
                                 <div class="text-right">
                                     <?php
                                         if( !empty( $settings['callto_action_buttontxt'] ) ){
-                                            echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'url' ), $call_to_action_button_one_icon, $call_to_action_button_one_text, wp_kses( $settings['callto_action_buttontxt'], $allow_html ) );
+                                            echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'url' ), $call_to_action_button_one_icon, $call_to_action_button_one_text, wp_kses_post( $settings['callto_action_buttontxt'] ) );
                                         }if( !empty( $settings['callto_action_buttontxt_second'] ) ){
-                                            echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'urlscnd' ), $call_to_action_button_two_icon, $call_to_action_button_two_text, wp_kses( $settings['callto_action_buttontxt_second'], $allow_html ) );
+                                            echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'urlscnd' ), $call_to_action_button_two_icon, $call_to_action_button_two_text, wp_kses_post( $settings['callto_action_buttontxt_second'] ) );
                                         }
                                     ?>
                                 </div>
@@ -1287,19 +1287,19 @@ class HTMega_Elementor_Widget_Call_To_Action extends Widget_Base {
                         <div class="content">
                             <?php
                                 if( !empty( $settings['callto_action_description'] ) ){
-                                    echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $description_tag, $this->get_render_attribute_string( 'callto_description_attr' ), wp_kses( $settings['callto_action_description'], $allow_html ) );
+                                    echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $description_tag, $this->get_render_attribute_string( 'callto_description_attr' ), wp_kses_post( $settings['callto_action_description'] ) );
                                 }
                                 if( !empty( $settings['callto_action_title'] ) ){
-                                    echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $title_tag, $this->get_render_attribute_string( 'callto_title_attr' ), wp_kses( $settings['callto_action_title'], $allow_html ) );
+                                    echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $title_tag, $this->get_render_attribute_string( 'callto_title_attr' ), wp_kses_post( $settings['callto_action_title'] ) );
                                 }
                             ?>
                         </div>
                         <div class="action-btn">
                             <?php
                                 if( !empty( $settings['callto_action_buttontxt'] ) ){
-                                    echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'url' ), $call_to_action_button_one_icon, $call_to_action_button_one_text, wp_kses( $settings['callto_action_buttontxt'], $allow_html ) );
+                                    echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'url' ), $call_to_action_button_one_icon, $call_to_action_button_one_text, wp_kses_post( $settings['callto_action_buttontxt'] ) );
                                 }if( !empty( $settings['callto_action_buttontxt_second'] ) ){
-                                    echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'urlscnd' ), $call_to_action_button_two_icon, $call_to_action_button_two_text, wp_kses( $settings['callto_action_buttontxt_second'], $allow_html ) );
+                                    echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'urlscnd' ), $call_to_action_button_two_icon, $call_to_action_button_two_text, wp_kses_post( $settings['callto_action_buttontxt_second'] ) );
                                 }
                             ?>
                         </div>
@@ -1308,22 +1308,22 @@ class HTMega_Elementor_Widget_Call_To_Action extends Widget_Base {
                         <div class="content">
                             <?php
                                 if( !empty( $settings['callto_action_sub_title'] ) ){
-                                    echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $sub_title_tag, $this->get_render_attribute_string( 'callto_title_sub_attr' ), wp_kses( $settings['callto_action_sub_title'], $allow_html ) );
+                                    echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $sub_title_tag, $this->get_render_attribute_string( 'callto_title_sub_attr' ), wp_kses_post( $settings['callto_action_sub_title'] ) );
                                 }
                                 if( !empty( $settings['callto_action_title'] ) ){
-                                    echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $title_tag, $this->get_render_attribute_string( 'callto_title_attr' ), wp_kses( $settings['callto_action_title'], $allow_html ) );
+                                    echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $title_tag, $this->get_render_attribute_string( 'callto_title_attr' ), wp_kses_post( $settings['callto_action_title'] ) );
                                 }
                                 if( !empty( $settings['callto_action_description'] ) ){
-                                    echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $description_tag, $this->get_render_attribute_string( 'callto_description_attr' ), wp_kses( $settings['callto_action_description'], $allow_html ) );
+                                    echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $description_tag, $this->get_render_attribute_string( 'callto_description_attr' ), wp_kses_post( $settings['callto_action_description'] ) );
                                 }
                             ?>
                         </div>
                         <div class="action-btn">
                             <?php
                                 if( !empty( $settings['callto_action_buttontxt'] ) ){
-                                    echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'url' ), $call_to_action_button_one_icon, $call_to_action_button_one_text, wp_kses( $settings['callto_action_buttontxt'], $allow_html ) );
+                                    echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'url' ), $call_to_action_button_one_icon, $call_to_action_button_one_text, wp_kses_post( $settings['callto_action_buttontxt'] ) );
                                 }if( !empty( $settings['callto_action_buttontxt_second'] ) ){
-                                    echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'urlscnd' ), $call_to_action_button_two_icon, $call_to_action_button_two_text, wp_kses( $settings['callto_action_buttontxt_second'], $allow_html ) );
+                                    echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'urlscnd' ), $call_to_action_button_two_icon, $call_to_action_button_two_text, wp_kses_post( $settings['callto_action_buttontxt_second'] ) );
                                 }
                             ?>
                         </div>
@@ -1333,19 +1333,19 @@ class HTMega_Elementor_Widget_Call_To_Action extends Widget_Base {
                             <div class="content">
                                 <?php
                                     if( !empty( $settings['callto_action_title'] ) ){
-                                        echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $title_tag, $this->get_render_attribute_string( 'callto_title_attr' ), wp_kses( $settings['callto_action_title'], $allow_html ) );
+                                        echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $title_tag, $this->get_render_attribute_string( 'callto_title_attr' ), wp_kses_post( $settings['callto_action_title'] ) );
                                     }
                                     if( !empty( $settings['callto_action_description'] ) ){
-                                        echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $description_tag, $this->get_render_attribute_string( 'callto_description_attr' ), wp_kses( $settings['callto_action_description'], $allow_html ) );
+                                        echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $description_tag, $this->get_render_attribute_string( 'callto_description_attr' ), wp_kses_post( $settings['callto_action_description'] ) );
                                     }
                                 ?>
                             </div>
                             <div class="action-btn">
                                 <?php
                                     if( !empty( $settings['callto_action_buttontxt'] ) ){
-                                        echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'url' ), $call_to_action_button_one_icon, $call_to_action_button_one_text, wp_kses( $settings['callto_action_buttontxt'], $allow_html ) );
+                                        echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'url' ), $call_to_action_button_one_icon, $call_to_action_button_one_text, wp_kses_post( $settings['callto_action_buttontxt'] ) );
                                     }if( !empty( $settings['callto_action_buttontxt_second'] ) ){
-                                        echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'urlscnd' ), $call_to_action_button_two_icon, $call_to_action_button_two_text, wp_kses( $settings['callto_action_buttontxt_second'], $allow_html ) );
+                                        echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'urlscnd' ), $call_to_action_button_two_icon, $call_to_action_button_two_text, wp_kses_post( $settings['callto_action_buttontxt_second'] ) );
                                     }
                                 ?>
                             </div>
@@ -1354,16 +1354,16 @@ class HTMega_Elementor_Widget_Call_To_Action extends Widget_Base {
                     <?php else:?>
                         <?php
                             if( !empty( $settings['callto_action_description'] ) ){
-                                echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $description_tag, $this->get_render_attribute_string( 'callto_description_attr' ), wp_kses( $settings['callto_action_description'], $allow_html ) );
+                                echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $description_tag, $this->get_render_attribute_string( 'callto_description_attr' ), wp_kses_post( $settings['callto_action_description'] ) );
                             }
                             if( !empty( $settings['callto_action_title'] ) ){
-                                echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $title_tag, $this->get_render_attribute_string( 'callto_title_attr' ), wp_kses( $settings['callto_action_title'], $allow_html ) );
+                                echo sprintf( '<%1$s %2$s>%3$s</%1$s>', $title_tag, $this->get_render_attribute_string( 'callto_title_attr' ), wp_kses_post( $settings['callto_action_title'] ) );
                             }
                             if( !empty( $settings['callto_action_buttontxt'] ) ){
-                                echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'url' ), $call_to_action_button_one_icon, $call_to_action_button_one_text, wp_kses( $settings['callto_action_buttontxt'], $allow_html ) );
+                                echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'url' ), $call_to_action_button_one_icon, $call_to_action_button_one_text, wp_kses_post( $settings['callto_action_buttontxt'] ) );
                             }
                             if( !empty( $settings['callto_action_buttontxt_second'] ) ){
-                                echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'urlscnd' ), $call_to_action_button_two_icon, $call_to_action_button_two_text, wp_kses( $settings['callto_action_buttontxt_second'], $allow_html ) );
+                                echo sprintf('<a %1$s>%2$s%3$s</a>', $this->get_render_attribute_string( 'urlscnd' ), $call_to_action_button_two_icon, $call_to_action_button_two_text, wp_kses_post( $settings['callto_action_buttontxt_second'] ) );
                             }
                         ?>
                     <?php endif;?>

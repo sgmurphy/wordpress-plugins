@@ -510,8 +510,8 @@ class HTMega_Elementor_Widget_VideoPlayer extends Widget_Base {
     protected function render( $instance = [] ) {
 
         $settings   = $this->get_settings_for_display();
-        $buttonicon_type =  isset( $settings['buttonicon_type'] ) ? $settings['buttonicon_type'] : 'icon';
-        $buttonicon_image =  isset( $settings['buttonicon_image']['url'] ) ? $settings['buttonicon_image']['url'] : '';
+        $buttonicon_type =  isset( $settings['buttonicon_type'] ) ? esc_attr( $settings['buttonicon_type'] ) : 'icon';
+        $buttonicon_image =  isset( $settings['buttonicon_image']['url'] ) ? esc_url( $settings['buttonicon_image']['url'] ) : '';
         $controleranimation =  !empty( $settings['controleranimation'] ) ? $settings['controleranimation'] : 'no';
 
         $this->add_render_attribute( 'htmega_button', 'class', 'htmega-button' );
@@ -519,13 +519,13 @@ class HTMega_Elementor_Widget_VideoPlayer extends Widget_Base {
         if( $settings['videocontainer'] == 'self' ){
             $player_options_settings = [
                 'videoURL'          => !empty( $settings['video_url'] ) ? $settings['video_url'] : 'https://www.youtube.com/watch?v=CDilI6jcpP4',
-                'coverImage'        => !empty( $settings['video_image']['url'] ) ? $settings['video_image']['url'] : '',
+                'coverImage'        => !empty( $settings['video_image']['url'] ) ? esc_url( $settings['video_image']['url'] ) : '',
                 'autoPlay'          => ( $settings['autoplay'] == 'yes' ) ? true : false,
                 'mute'              => ( $settings['soundmute'] == 'yes' ) ? true : false,
                 'loop'              => ( $settings['repeatvideo'] == 'yes' ) ? true : false,
                 'showControls'      => ( $settings['controlerbutton'] == 'yes' ) ? true : false,
                 'showYTLogo'        => ( $settings['videosourselogo'] == 'yes' ) ? true : false,
-                'startAt'           => $settings['videostarttime'],
+                'startAt'           => floatval( $settings['videostarttime'] ),
                 'containment'       => 'self',
                 'opacity'           => 1,
                 'optimizeDisplay'   => true,
@@ -533,7 +533,7 @@ class HTMega_Elementor_Widget_VideoPlayer extends Widget_Base {
             ];
         }
         $videocontainer = [
-            'videocontainer' => isset( $settings['videocontainer'] ) ? $settings['videocontainer'] : '',
+            'videocontainer' => isset( $settings['videocontainer'] ) ? esc_attr( $settings['videocontainer'] ) : '',
         ];
         
         $animation_markup = '';
@@ -551,13 +551,13 @@ class HTMega_Elementor_Widget_VideoPlayer extends Widget_Base {
                     <div class="htmega-video-player" data-property=<?php echo wp_json_encode( $player_options_settings );?> ></div>
                 <?php else:
                     if( 'icon' == $buttonicon_type && $settings['buttonicon']['value'] != '' ){
-                        echo sprintf('<a class="magnify-video-active" href="%1$s">%2$s %3$s %4$s</a>',esc_url( $settings['video_url'] ),HTMega_Icon_manager::render_icon( $settings['buttonicon'], [ 'aria-hidden' => 'true' ] ), htmega_kses_title($settings['buttontext'] ),$animation_markup );
+                        echo sprintf('<a class="magnify-video-active" href="%1$s">%2$s %3$s %4$s</a>',esc_url( $settings['video_url'] ),HTMega_Icon_manager::render_icon( $settings['buttonicon'], [ 'aria-hidden' => 'true' ] ), htmega_kses_title($settings['buttontext'] ), $animation_markup );
                     } elseif ('image' == $buttonicon_type && $buttonicon_image != '' ){
                         
-                        echo sprintf( '<a class="magnify-video-active" href="%1$s"><img src="%2$s" alt="htmega-addons"> %3$s %4$s </a>', esc_url($settings['video_url'] ),$buttonicon_image, htmega_kses_title( $settings['buttontext'] ),$animation_markup );
+                        echo sprintf( '<a class="magnify-video-active" href="%1$s"><img src="%2$s" alt="htmega-addons"> %3$s %4$s </a>', esc_url( $settings['video_url'] ), $buttonicon_image, htmega_kses_title( $settings['buttontext'] ), $animation_markup );
 
                     } else {
-                        echo sprintf('<a class="magnify-video-active" href="%1$s">%2$s %3$s</a>',esc_url( $settings['video_url'] ), htmega_kses_title( $settings['buttontext'] ), $animation_markup );
+                        echo sprintf('<a class="magnify-video-active" href="%1$s">%2$s %3$s</a>', esc_url( $settings['video_url'] ), htmega_kses_title( $settings['buttontext'] ), $animation_markup );
                     }
                 ?>
                 <?php endif;?>

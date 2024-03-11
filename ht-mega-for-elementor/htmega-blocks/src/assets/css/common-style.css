@@ -148,6 +148,9 @@
 }
 
 /* Slick Slider Style */
+.htmega-slick-slider {
+    width: 100%;
+}
 .htmega-slick-slider .slick-list {
     margin: -15px;
     padding: 15px 0;

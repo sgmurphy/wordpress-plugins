@@ -1550,17 +1550,18 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
                 echo '<ul class="accordion--4" id="accordion-4">';
                     foreach ( $accordion_list_three as $itemthree ) {
                         ?>
-                            <li <?php if( !empty($itemthree['accordion_image']['url']) ){ echo 'style="background-image:url('.$itemthree['accordion_image']['url'].')"'; } ?>>
-                                <div class="heading"><?php echo esc_attr__( $itemthree['accordion_title'] ); ?></div>
+                            <li <?php if( !empty($itemthree['accordion_image']['url']) ){ echo 'style="background-image:url('. esc_url( $itemthree['accordion_image']['url'] ).')"'; } ?>>
+                                <div class="heading"><?php echo htmega_kses_title( $itemthree['accordion_title'] ); ?></div>
                                 <div class="bgDescription" style="background: transparent url(<?php echo HTMEGA_ADDONS_PL_URL.'/assets/images/bg/bgDescription.png';?>) repeat-x top left;"></div>
                                 <div class="description">
-                                    <h2 class="heading-three"><?php echo esc_html__( $itemthree['accordion_title'], 'htmega-addons' ); ?></h2>
+                                    <h2 class="heading-three"><?php echo htmega_kses_title( $itemthree['accordion_title'] ); ?></h2>
                                     <div class="accordion-content">
                                        <?php 
                                             if ( $itemthree['content_source'] == 'custom' && !empty( $itemthree['accordion_content'] ) ) {
                                                 echo wp_kses_post( $itemthree['accordion_content'] );
-                                            } elseif ( $itemthree['content_source'] == "elementor" && !empty( $itemthree['template_id'] )) {
-                                                echo Plugin::instance()->frontend->get_builder_content_for_display( $itemthree['template_id'] );
+                                            } elseif ( $itemthree['content_source'] == "elementor" && !empty( $itemthree['template_id'] ) ) {
+                                                $template_id = absint( $itemthree['template_id'] );
+                                                echo Plugin::instance()->frontend->get_builder_content_for_display( $template_id );
                                             }
                                         ?>
                                     </div>
@@ -1573,9 +1574,9 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
         }elseif( $settings['accordiantstyle'] == 'four' ){
 
             $accordian_options = [];
-            $accordian_options['visibleitem'] = ( $settings['accordion_visible_items']['size'] ) ? $settings['accordion_visible_items']['size'] : 3;
-            $accordian_options['expandedheight'] = ( $settings['accordion_expand_items_height']['size'] ) ? $settings['accordion_expand_items_height']['size'] : 450;
-            $accordian_options['accordionheight'] = ( $settings['accordion_display_height']['size'] ) ? $settings['accordion_display_height']['size'] : 450;
+            $accordian_options['visibleitem'] = ( $settings['accordion_visible_items']['size'] ) ? floatval( $settings['accordion_visible_items']['size'] ) : 3;
+            $accordian_options['expandedheight'] = ( $settings['accordion_expand_items_height']['size'] ) ? floatval( $settings['accordion_expand_items_height']['size'] ) : 450;
+            $accordian_options['accordionheight'] = ( $settings['accordion_display_height']['size'] ) ? floatval( $settings['accordion_display_height']['size'] ) : 450;
             
             if( $accordion_list_three ){
                 echo '<div id="va-accordion" class="accordion--5" data-accordionoptions=\'' . wp_json_encode( $accordian_options ) . '\' ><div class="accor_wrapper" >';
@@ -1608,7 +1609,7 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
             if ( $accordion_list ) {
                 echo '<div class="accordion" id="accordionExample'. esc_attr( $accordion_id ).'">';
                     if( !empty( $settings['current_item'] ) && $count_items >= $settings['current_item'] ){
-                        $current_item = $settings['current_item'];
+                        $current_item = absint( $settings['current_item'] );
                     }else{
                         $current_item = 1;
                     }
@@ -1642,13 +1643,14 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
                                     ?>
                                 </div>
 
-                                <div id="htmega-collapse<?php echo esc_attr( $j );?>" class="htb-collapse <?php if( ( $current_item == $i ) && ( $settings['accordion_close_all'] != 'yes' ) ){ echo 'htb-show'; }?>" <?php if( $settings['accordion_multiple'] != 'yes' ){ echo 'data-parent="#accordionExample'.$accordion_id.'"'; } ?> >
+                                <div id="htmega-collapse<?php echo esc_attr( $j );?>" class="htb-collapse <?php if( ( $current_item == $i ) && ( $settings['accordion_close_all'] != 'yes' ) ){ echo 'htb-show'; }?>" <?php if( $settings['accordion_multiple'] != 'yes' ){ echo 'data-parent="#accordionExample'. esc_attr( $accordion_id ).'"'; } ?> >
                                     <div class="accordion-content">
                                         <?php 
                                             if ( $item['content_source'] == 'custom' && !empty( $item['accordion_content'] ) ) {
                                                 echo wp_kses_post( $item['accordion_content'] );
                                             } elseif ( $item['content_source'] == "elementor" && !empty( $item['template_id'] )) {
-                                                echo Plugin::instance()->frontend->get_builder_content_for_display( $item['template_id'] );
+                                                $template_id = absint( $item['template_id'] );
+                                                echo Plugin::instance()->frontend->get_builder_content_for_display( $template_id );
                                             }
                                         ?>
                                     </div>

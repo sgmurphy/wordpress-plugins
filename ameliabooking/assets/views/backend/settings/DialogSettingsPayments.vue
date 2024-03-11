@@ -475,6 +475,36 @@
               </el-col>
             </el-row>
 
+            <!-- WooCommerce Booking multiple -->
+            <el-row type="flex" align="middle" :gutter="24" v-show="settings.wc.enabled === true" style="display: none;">
+              <el-col :span="16">
+                <p>Allow multiple bookings in cart:</p>
+              </el-col>
+              <el-col :span="8" class="align-right">
+                <el-switch
+                  v-model="settings.wc.bookMultiple"
+                  active-text=""
+                  inactive-text=""
+                >
+                </el-switch>
+              </el-col>
+            </el-row>
+
+            <!-- WooCommerce Booking Moment -->
+            <el-row type="flex" align="middle" :gutter="24" v-show="settings.wc.enabled === true" style="display: none;">
+              <el-col :span="16">
+                <p>Create booking before payment process:</p>
+              </el-col>
+              <el-col :span="8" class="align-right">
+                <el-switch
+                  v-model="settings.wc.bookUnpaid"
+                  active-text=""
+                  inactive-text=""
+                >
+                </el-switch>
+              </el-col>
+            </el-row>
+
           </el-collapse-item>
 
           <LicenceBlock/>
@@ -540,6 +570,22 @@
             >
               <el-input v-model.trim="settings.mollie.testApiKey" auto-complete="off"></el-input>
             </el-form-item>
+
+
+            <!-- Mollie cancel booking -->
+            <el-row type="flex" align="middle" :gutter="24" v-show="settings.mollie.enabled === true" style="display: none;">
+              <el-col :span="16">
+                <p>Cancel booking when user goes back twice:</p>
+              </el-col>
+              <el-col :span="8" class="align-right">
+                <el-switch
+                    v-model="settings.mollie.cancelBooking"
+                    active-text=""
+                    inactive-text=""
+                >
+                </el-switch>
+              </el-col>
+            </el-row>
           </el-collapse-item>
 
           <LicenceBlock/>

@@ -431,8 +431,8 @@ class HTMega_Elementor_Widget_Toggle extends Widget_Base {
             <script>
                 jQuery(document).ready(function($) {
                     'use strict';
-                    $(".togglebutton-<?php echo $id;?>").on('click', function(){
-                        $(".htmega-toggle-content-<?php echo esc_attr( $id );?>").slideToggle('slow');
+                    $(".togglebutton-<?php echo esc_js( $id );?>").on('click', function(){
+                        $(".htmega-toggle-content-<?php echo esc_js( $id );?>").slideToggle('slow');
                         $(this).removeAttr("href");
                         $(this).parent().toggleClass("open");
                     });

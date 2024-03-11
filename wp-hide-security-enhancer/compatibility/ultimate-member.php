@@ -1,10 +1,12 @@
 <?php
 
-/**
-* Compatibility for Plugin Name: Ultimate Member
-* Compatibility checked on Version: 2.1.5
-*/
+    /**
+    * Compatibility: Ultimate Member
+    * Introduced at: 2.1.5
+    */
 
+    if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+    
     class WPH_conflict_handle_ultimate_member
         {
                         

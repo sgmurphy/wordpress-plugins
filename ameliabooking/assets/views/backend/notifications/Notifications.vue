@@ -51,7 +51,15 @@
           <!-- /SMS Notifications -->
 
           <!-- WhatsApp Notifications -->
-          <el-tab-pane :label="$root.labels.whatsapp_notifications" name="whatsapp" v-if="notInLicence('pro') ? licenceVisible() : true">
+          <el-tab-pane name="whatsapp" v-if="notInLicence('pro') ? licenceVisible() : true">
+            <span v-if="$root.licence.isLite" slot="label" class="am-premium-tag">
+              <img :src="`${$root.getUrl}public/img/am-star-gold.svg`"/>
+              {{ $root.labels.whatsapp_notifications }}
+            </span>
+            <template v-else slot="label">
+              {{ $root.labels.whatsapp_notifications }}
+            </template>
+
             <LicenceImage :licence="'pro'"/>
 
             <whats-app-notifications

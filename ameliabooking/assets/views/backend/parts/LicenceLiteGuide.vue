@@ -49,7 +49,15 @@ export default {
     a {
       font-size: 15px;
       font-weight: 600;
-      color: #1A84EE;
+      color: #1A84EE !important;
+
+      &:hover {
+        color: #1A84EE !important;
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
     }
   }
 }

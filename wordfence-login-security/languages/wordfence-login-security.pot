@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Wordfence Login Security plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Wordfence Login Security 1.1.9\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordfence-login-security-zip-zYfqhi7Al\n"
+"Project-Id-Version: Wordfence Login Security 1.1.10\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordfence-login-security-zip-Cjy0sfiYR\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-14T15:58:26+00:00\n"
+"POT-Creation-Date: 2024-03-11T15:20:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: wordfence-login-security\n"
@@ -25,7 +25,7 @@ msgid "Wordfence"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "http://www.wordfence.com/"
+msgid "https://www.wordfence.com/"
 msgstr ""
 
 #: classes/controller/ajax.php:60
@@ -264,64 +264,64 @@ msgstr ""
 msgid "An error was encountered while validating the reCAPTCHA site key: %s"
 msgstr ""
 
-#: classes/controller/users.php:518
+#: classes/controller/users.php:517
 #: classes/controller/wordfencels.php:486
 msgid "2FA Status"
 msgstr ""
 
-#: classes/controller/users.php:522
+#: classes/controller/users.php:521
 msgid "Last Login"
 msgstr ""
 
-#: classes/controller/users.php:524
+#: classes/controller/users.php:523
 msgid "Last CAPTCHA"
 msgstr ""
 
-#: classes/controller/users.php:534
+#: classes/controller/users.php:533
 msgid "Not Allowed"
 msgstr ""
 
-#: classes/controller/users.php:539
+#: classes/controller/users.php:538
 #: classes/controller/wordfencels.php:490
 msgid "Active"
 msgstr ""
 
-#: classes/controller/users.php:542
+#: classes/controller/users.php:541
 msgid "Inactive<small class=\"wfls-sub-status\">(Grace Period)</small>"
 msgstr ""
 
-#: classes/controller/users.php:545
+#: classes/controller/users.php:544
 msgid "Locked Out<small class=\"wfls-sub-status\">(Grace Period Disabled)</small>"
 msgstr ""
 
-#: classes/controller/users.php:545
+#: classes/controller/users.php:544
 msgid "Locked Out<small class=\"wfls-sub-status\">(Grace Period Exceeded)</small>"
 msgstr ""
 
-#: classes/controller/users.php:548
+#: classes/controller/users.php:547
 #: classes/controller/wordfencels.php:490
 msgid "Inactive"
 msgstr ""
 
-#: classes/controller/users.php:561
+#: classes/controller/users.php:560
 msgid "(not required)"
 msgstr ""
 
-#: classes/controller/users.php:655
+#: classes/controller/users.php:654
 msgid "Edit two-factor authentication for %s"
 msgstr ""
 
-#: classes/controller/users.php:655
+#: classes/controller/users.php:654
 #: views/settings/options.php:9
 msgid "2FA"
 msgstr ""
 
-#: classes/controller/users.php:666
+#: classes/controller/users.php:665
 #: views/settings/user-stats.php:25
 msgid "2FA Active"
 msgstr ""
 
-#: classes/controller/users.php:667
+#: classes/controller/users.php:666
 #: views/settings/user-stats.php:26
 msgid "2FA Inactive"
 msgstr ""
@@ -441,7 +441,7 @@ msgid "You have unsaved changes to your options. If you leave this page, those c
 msgstr ""
 
 #: classes/controller/wordfencels.php:490
-#: classes/controller/wordfencels.php:852
+#: classes/controller/wordfencels.php:855
 #: views/manage/grace-period.php:22
 msgid "Locked Out"
 msgstr ""
@@ -499,101 +499,101 @@ msgstr ""
 msgid "Manage 2FA Settings"
 msgstr ""
 
-#: classes/controller/wordfencels.php:669
+#: classes/controller/wordfencels.php:671
 msgid "Login Verification Required"
 msgstr ""
 
-#: classes/controller/wordfencels.php:671
-msgid "<strong>VERIFICATION REQUIRED</strong>: Additional verification is required for login. Please check the email address associated with the account for a verification link."
+#: classes/controller/wordfencels.php:676
+msgid "<strong>VERIFICATION REQUIRED</strong>: Additional verification is required for login. If there is a valid account for the provided login credentials, please check the email address associated with it for a verification link to continue logging in."
 msgstr ""
 
-#: classes/controller/wordfencels.php:689
+#: classes/controller/wordfencels.php:692
 msgid "<strong>CODE INVALID</strong>: The 2FA code provided is either expired or invalid. Please try again."
 msgstr ""
 
-#: classes/controller/wordfencels.php:698
+#: classes/controller/wordfencels.php:701
 msgid "<strong>CODE REQUIRED</strong>: Please enter your 2FA code immediately after your password in the same field."
 msgstr ""
 
-#: classes/controller/wordfencels.php:700
+#: classes/controller/wordfencels.php:703
 msgid "<strong>CODE REQUIRED</strong>: Please provide your 2FA code when prompted."
 msgstr ""
 
-#: classes/controller/wordfencels.php:703
+#: classes/controller/wordfencels.php:706
 msgid "<strong>LOGIN BLOCKED</strong>: 2FA is required to be active on your account. Please contact the site administrator."
 msgstr ""
 
-#: classes/controller/wordfencels.php:706
+#: classes/controller/wordfencels.php:709
 msgid "You do not currently have two-factor authentication active on your account, which will be required beginning %s. <a href=\"%s\">Configure 2FA</a>"
 msgstr ""
 
-#: classes/controller/wordfencels.php:756
+#: classes/controller/wordfencels.php:759
 msgid "Email verification succeeded. Please continue logging in."
 msgstr ""
 
-#: classes/controller/wordfencels.php:759
+#: classes/controller/wordfencels.php:762
 msgid "Email verification invalid or expired. Please try again."
 msgstr ""
 
-#: classes/controller/wordfencels.php:813
 #: classes/controller/wordfencels.php:816
+#: classes/controller/wordfencels.php:819
 msgid "Login Security"
 msgstr ""
 
-#: classes/controller/wordfencels.php:844
+#: classes/controller/wordfencels.php:847
 #: views/settings/options.php:23
 #: views/settings/user-stats.php:33
 msgid "Super Administrator"
 msgstr ""
 
-#: classes/controller/wordfencels.php:848
+#: classes/controller/wordfencels.php:851
 #: views/manage/grace-period.php:22
 #: views/options/option-roles.php:57
 msgid "Grace Period"
 msgstr ""
 
-#: classes/controller/wordfencels.php:867
+#: classes/controller/wordfencels.php:870
 msgid "Users without 2FA active (%s)"
 msgstr ""
 
-#: classes/controller/wordfencels.php:885
-#: classes/controller/wordfencels.php:886
+#: classes/controller/wordfencels.php:888
+#: classes/controller/wordfencels.php:889
 msgid "Two-Factor Authentication"
 msgstr ""
 
-#: classes/controller/wordfencels.php:886
+#: classes/controller/wordfencels.php:889
 msgid "Learn more<span class=\"wfls-hidden-xs\"> about Two-Factor Authentication</span>"
 msgstr ""
 
-#: classes/controller/wordfencels.php:895
+#: classes/controller/wordfencels.php:898
 msgid "Settings"
 msgstr ""
 
-#: classes/controller/wordfencels.php:896
+#: classes/controller/wordfencels.php:899
 msgid "Login Security Settings"
 msgstr ""
 
-#: classes/controller/wordfencels.php:896
+#: classes/controller/wordfencels.php:899
 msgid "Learn more<span class=\"wfls-hidden-xs\"> about Login Security</span>"
 msgstr ""
 
-#: classes/controller/wordfencels.php:922
+#: classes/controller/wordfencels.php:925
 msgid "<strong>REGISTRATION ATTEMPT BLOCKED</strong>: This site requires a security token created when the page loads for all registration attempts. Please ensure JavaScript is enabled and try again."
 msgstr ""
 
-#: classes/controller/wordfencels.php:929
+#: classes/controller/wordfencels.php:932
 msgid "<strong>REGISTRATION ATTEMPT BLOCKED</strong>: The security token for the login attempt was invalid or expired. Please reload the page and try again."
 msgstr ""
 
-#: classes/controller/wordfencels.php:942
+#: classes/controller/wordfencels.php:945
 msgid "<strong>REGISTRATION BLOCKED</strong>: The registration request was blocked because it was flagged as spam. Please try again or <a href=\"#\" class=\"wfls-registration-captcha-contact\" data-token=\"%s\">contact the site owner</a> for help."
 msgstr ""
 
-#: classes/controller/wordfencels.php:945
+#: classes/controller/wordfencels.php:948
 msgid "<strong>REGISTRATION BLOCKED</strong>: The registration request was blocked because it was flagged as spam. Please try again or contact the site owner for help."
 msgstr ""
 
-#: classes/controller/wordfencels.php:1015
+#: classes/controller/wordfencels.php:1018
 msgid "Wordfence 2FA"
 msgstr ""
 
@@ -646,28 +646,24 @@ msgstr ""
 msgid "An unexpected error occurred while attempting to revoke the grace period."
 msgstr ""
 
-#: views/email/login-verification.php:11
-msgid "Please verify a login attempt for your account on <a href=\"%s\"><strong>%s</strong></a>."
+#: views/email/login-verification.php:10
+msgid "Please verify a login attempt for your account on: %s"
 msgstr ""
 
-#: views/email/login-verification.php:13
+#: views/email/login-verification.php:12
 msgid "Request Time:"
 msgstr ""
 
-#: views/email/login-verification.php:14
+#: views/email/login-verification.php:13
 msgid "IP:"
 msgstr ""
 
-#: views/email/login-verification.php:16
+#: views/email/login-verification.php:15
 msgid "The request was flagged as suspicious, and we need verification that you attempted to log in to allow it to proceed. This verification link <b>will be valid for 15 minutes</b> from the time it was sent. If you did not attempt this login, please change your password immediately."
 msgstr ""
 
-#: views/email/login-verification.php:19
-msgid "You may bypass this verification step permanently by enabling two-factor authentication on your account."
-msgstr ""
-
-#: views/email/login-verification.php:22
-msgid "<a href=\"%s\"><b>Verify and Log In</b></a>"
+#: views/email/login-verification.php:17
+msgid "If you were attempting to log in to this site, <a href=\"%s\"><strong>Verify and Log In</strong></a>"
 msgstr ""
 
 #: views/manage/activate.php:13
@@ -871,34 +867,30 @@ msgid "0.2"
 msgstr ""
 
 #: views/options/option-captcha-threshold.php:16
-msgid "0.1"
+msgid "0.1 (probably a bot)"
 msgstr ""
 
-#: views/options/option-captcha-threshold.php:17
-msgid "0.0 (definitely a bot)"
-msgstr ""
-
-#: views/options/option-captcha-threshold.php:28
+#: views/options/option-captcha-threshold.php:27
 msgid "reCAPTCHA human/bot threshold score"
 msgstr ""
 
-#: views/options/option-captcha-threshold.php:29
+#: views/options/option-captcha-threshold.php:28
 msgid "A reCAPTCHA score equal to or higher than this value will be considered human. Anything lower will be treated as a bot and require additional verification for login and registration."
 msgstr ""
 
-#: views/options/option-captcha-threshold.php:51
+#: views/options/option-captcha-threshold.php:50
 msgid "Reset Score Statistics"
 msgstr ""
 
-#: views/options/option-captcha-threshold.php:88
+#: views/options/option-captcha-threshold.php:87
 msgid "Requests"
 msgstr ""
 
-#: views/options/option-captcha-threshold.php:106
+#: views/options/option-captcha-threshold.php:105
 msgid "reCAPTCHA Score History"
 msgstr ""
 
-#: views/options/option-captcha-threshold.php:113
+#: views/options/option-captcha-threshold.php:112
 msgid "Count"
 msgstr ""
 

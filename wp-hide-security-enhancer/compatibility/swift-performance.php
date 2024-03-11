@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for Plugin Name: Swift Performance
-    * Compatibility checked on Version: 
+    * Compatibility: Swift Performance
+    * Introduced at: 
     */
 
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

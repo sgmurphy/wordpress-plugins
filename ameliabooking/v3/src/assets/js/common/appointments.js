@@ -58,7 +58,7 @@ function useAppointmentDiscountAmount (service, appointment, coupon) {
     amount += useAppointmentExtraAmount(service, selectedExtra, appointment.persons)
   })
 
-  return parseFloat(parseFloat(amount / 100 * coupon.discount).toFixed(2) + coupon.deduction)
+  return parseFloat(parseFloat((amount / 100 * coupon.discount).toFixed(2)) + coupon.deduction)
 }
 
 function useAppointmentsDiscountAmount (store) {

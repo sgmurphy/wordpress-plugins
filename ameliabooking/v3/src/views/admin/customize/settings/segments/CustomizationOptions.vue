@@ -40,6 +40,19 @@
           ></AmSwitch>
         </div>
 
+        <!-- Filterable -->
+        <div
+          v-if="Object.keys(option).filter(item => item === 'filterable').length"
+          class="am-cs-options__item-content"
+        >
+          <span class="am-cs-options__item-content__heading">
+            {{ amLabels.filterable_field }}
+          </span>
+          <AmSwitch
+            v-model="option.filterable"
+          ></AmSwitch>
+        </div>
+
         <!-- Button Type -->
         <div
           v-if="Object.keys(option).filter(item => item === 'buttonType').length"

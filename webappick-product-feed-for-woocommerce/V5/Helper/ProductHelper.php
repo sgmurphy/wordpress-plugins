@@ -245,7 +245,12 @@ class ProductHelper {
 	 */
 	public static function get_custom_field( $field, $product, $config ) {
 		// Adjust the meta key for variation products.
-		$meta_key = $product->is_type( 'variation' ) ? $field . '_var' : $field;
+        $field = str_replace(AttributeValueByType::POST_META_PREFIX, "", $field );
+        if ( strpos( $field, '_var') !== false ) {
+            $meta_key = $product->is_type( 'variation' ) ? $field : str_replace("_var", "",$field );
+        }else{
+            $meta_key = $product->is_type( 'variation' ) ? $field . '_var' : $field;
+        }
 
 		// Allow filtering of the meta key.
 		$meta_key = apply_filters( 'woo_feed_custom_field_meta', $meta_key, $product, $config );

@@ -63,7 +63,8 @@
 			'show_subheadline': root.data( 'show-subheadline' ),
 			'format': root.data( 'format' ),
 			'grid_number': root.data( 'grid-number' ),
-			'title_html_tag': root.data( 'title-html-tag' )
+			'title_html_tag': root.data( 'title-html-tag' ),
+			'img_base_size': root.data( 'img-base-size' )
 		};
 
 		root.data( 'loading', 'loading' );

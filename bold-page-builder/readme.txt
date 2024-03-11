@@ -136,6 +136,11 @@ It is not possible to test Bold Builder with all themes - it should work fine wi
 
 == Changelog ==
 
+= 4.8.5 =
+* Fixed Text editing.
+* Fixed FE editor toggle button.
+* Improved Yoast compatibility.
+
 = 4.8.4 =
 * Fixed Raw Content.
 

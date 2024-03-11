@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for Plugin Name: Hyper Cache
-    * Compatibility checked on Version: 3.3.9
+    * Compatibility: Hyper Cache
+    * Introduced at: 3.3.9
     */
 
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

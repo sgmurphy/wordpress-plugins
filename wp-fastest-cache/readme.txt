@@ -4,7 +4,7 @@ Donate link: https://profiles.wordpress.org/emrevona/
 Tags: cache, Optimize, performance, PageSpeed, core web vitals
 Requires at least: 3.3
 Tested up to: 6.4
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -116,6 +116,12 @@ Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium)
 18. Database Cleanup
 
 == Changelog ==
+
+= 1.2.4 =
+* refactoring for getABSPATH()
+* to fix PHP Deprecated:  Creation of dynamic property CssUtilities::$url is deprecated in css-utilities.php on line 348
+* to fix PHP Deprecated:  Creation of dynamic property CssUtilities::$url_for_fix is deprecated in css-utilities.php on line 412
+* to remove duplicate extensions in the <FilesMatch> directive for the browser caching feature
 
 = 1.2.3 =
 * Farewell, StackPath, and a warm welcome to BunnyCDN
@@ -252,6 +258,7 @@ Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium)
 EARLIER VERSIONS
 For the changelog of earlier versions, please refer to [<a target="_blank" href="https://www.wpfastestcache.com/changelog/earlier-changelog-of-freemium-version/">the changelog on wpfastestcache.com</a>]
 
+
 == Frequently Asked Questions ==
 
 = How do I know my blog is being cached? =
@@ -289,6 +296,7 @@ Yes, it is compatible with WP-PostViews. The current post views appear on the ad
 
 = Is this plugin compatible with WooCommerce Themes? =
 Yes, it is compatible with WooCommerce Themes 100%.
+
 
 == Upgrade notice ==
 ....

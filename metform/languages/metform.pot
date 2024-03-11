@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: MetForm 3.8.4\n"
+"Project-Id-Version: MetForm 3.8.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/metform\n"
-"POT-Creation-Date: 2024-02-29 05:48:45+00:00\n"
+"POT-Creation-Date: 2024-03-11 09:07:47+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -808,116 +808,116 @@ msgstr ""
 msgid "Something went wrong."
 msgstr ""
 
-#: core/entries/action.php:67
+#: core/entries/action.php:73
 msgid "You are not permitted to access this form"
 msgstr ""
 
-#: core/entries/action.php:74 core/entries/action.php:79
-#: core/entries/action.php:135
+#: core/entries/action.php:80 core/entries/action.php:85
+#: core/entries/action.php:141
 msgid "Unauthorized submission."
 msgstr ""
 
-#: core/entries/action.php:90
+#: core/entries/action.php:96
 msgid "File size exceeded."
 msgstr ""
 
-#: core/entries/action.php:97
+#: core/entries/action.php:103
 msgid "You are trying to upload wrong file!"
 msgstr ""
 
-#: core/entries/action.php:121
+#: core/entries/action.php:127
 msgid "%1$s %2$s already exist."
 msgstr ""
 
-#: core/entries/action.php:145 core/entries/action.php:153
+#: core/entries/action.php:151 core/entries/action.php:159
 msgid "Form validation failed"
 msgstr ""
 
-#: core/entries/action.php:161 core/entries/action.php:191
+#: core/entries/action.php:167 core/entries/action.php:197
 msgid "Please solve the recaptcha."
 msgstr ""
 
-#: core/entries/action.php:167
+#: core/entries/action.php:173
 msgid "Google captcha token not found."
 msgstr ""
 
-#: core/entries/action.php:215
+#: core/entries/action.php:221
 msgid "Time out of this captcha. Please reload or choose another one."
 msgstr ""
 
-#: core/entries/action.php:224
+#: core/entries/action.php:230
 msgid "Enter correct captcha."
 msgstr ""
 
-#: core/entries/action.php:234
+#: core/entries/action.php:240
 msgid "You must be logged in to submit form."
 msgstr ""
 
-#: core/entries/action.php:244
+#: core/entries/action.php:250
 msgid "Form submission limit exceeded."
 msgstr ""
 
-#: core/entries/action.php:302
+#: core/entries/action.php:308
 msgid "Problem with your mailchimp integration."
 msgstr ""
 
-#: core/entries/action.php:318
+#: core/entries/action.php:324
 msgid "Problem with your activeCampaign integration."
 msgstr ""
 
-#: core/entries/action.php:333
+#: core/entries/action.php:339
 msgid "Problem with your GetResponse integration."
 msgstr ""
 
-#: core/entries/action.php:354
+#: core/entries/action.php:360
 msgid "Problem with your zapier integration."
 msgstr ""
 
-#: core/entries/action.php:377
+#: core/entries/action.php:383
 msgid "Problem with your slack integration."
 msgstr ""
 
-#: core/entries/action.php:393
+#: core/entries/action.php:399
 msgid "Problem with convertKit."
 msgstr ""
 
-#: core/entries/action.php:409
+#: core/entries/action.php:415
 msgid "Problem with your Aweber integration."
 msgstr ""
 
-#: core/entries/action.php:423
+#: core/entries/action.php:429
 msgid "Problem with your Mail Poet integration."
 msgstr ""
 
-#: core/entries/action.php:514
+#: core/entries/action.php:520
 msgid "Problem with your RestApi integration."
 msgstr ""
 
-#: core/entries/action.php:538
+#: core/entries/action.php:544
 msgid " Please wait... Redirecting to paypal."
 msgstr ""
 
-#: core/entries/action.php:581
+#: core/entries/action.php:587
 msgid " Please wait... Open a Stripe Popup Box."
 msgstr ""
 
-#: core/entries/action.php:723
+#: core/entries/action.php:729
 msgid "ssl certificate or google oauth credentials problem"
 msgstr ""
 
-#: core/entries/action.php:841
+#: core/entries/action.php:847
 msgid "Mail not found."
 msgstr ""
 
-#: core/entries/action.php:847 core/entries/action.php:900
+#: core/entries/action.php:853 core/entries/action.php:906
 msgid "Please setup your SMTP mail server."
 msgstr ""
 
-#: core/entries/action.php:890
+#: core/entries/action.php:896
 msgid "Admin mail not found to send email."
 msgstr ""
 
-#: core/entries/action.php:1039
+#: core/entries/action.php:1045
 msgid "There was an error uploading your file."
 msgstr ""
 

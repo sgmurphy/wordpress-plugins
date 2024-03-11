@@ -722,7 +722,7 @@ class HTMega_Elementor_Widget_Testimonial_Grid extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
         $sectionid = "sid". $this-> get_id();
-        $this->add_render_attribute( 'testimonial_grid_attr', 'class', 'htmega-testimonialgrid-area htmega-testimonialgrid-style-'.$settings['testimonial_style'].' '.$sectionid );
+        $this->add_render_attribute( 'testimonial_grid_attr', 'class', 'htmega-testimonialgrid-area htmega-testimonialgrid-style-' . esc_attr( $settings['testimonial_style'].' '.$sectionid ) );
 
         $columns = !empty( $settings['testimonial_column']) ? $settings['testimonial_column'] : 3 ;
 
@@ -771,7 +771,7 @@ class HTMega_Elementor_Widget_Testimonial_Grid extends Widget_Base {
 
                                             // Rating
                                             if( !empty( $testimonial['client_rating'] ) ){
-                                                $rating = $testimonial['client_rating'];
+                                                $rating = floatval( $testimonial['client_rating'] );
                                                 $rating_whole = floor( $testimonial['client_rating'] );
                                                 $rating_fraction = $rating - $rating_whole;
                                                 echo '<ul class="rating">';
@@ -816,7 +816,7 @@ class HTMega_Elementor_Widget_Testimonial_Grid extends Widget_Base {
 
                                         // Rating
                                         if( !empty( $testimonial['client_rating'] ) ){
-                                            $rating = $testimonial['client_rating'];
+                                            $rating = floatval( $testimonial['client_rating'] );
                                             $rating_whole = floor( $testimonial['client_rating'] );
                                             $rating_fraction = $rating - $rating_whole;
                                             echo '<ul class="rating">';
@@ -855,7 +855,7 @@ class HTMega_Elementor_Widget_Testimonial_Grid extends Widget_Base {
                                             
                                             // Rating
                                             if( !empty( $testimonial['client_rating'] ) ){
-                                                $rating = $testimonial['client_rating'];
+                                                $rating = floatval( $testimonial['client_rating'] );
                                                 $rating_whole = floor( $testimonial['client_rating'] );
                                                 $rating_fraction = $rating - $rating_whole;
                                                 echo '<ul class="rating">';
@@ -900,7 +900,7 @@ class HTMega_Elementor_Widget_Testimonial_Grid extends Widget_Base {
                                             
                                             // Rating
                                             if( !empty( $testimonial['client_rating'] ) ){
-                                                $rating = $testimonial['client_rating'];
+                                                $rating = floatval( $testimonial['client_rating'] );
                                                 $rating_whole = floor( $testimonial['client_rating'] );
                                                 $rating_fraction = $rating - $rating_whole;
                                                 echo '<ul class="rating">';

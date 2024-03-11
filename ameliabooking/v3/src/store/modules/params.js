@@ -1,4 +1,5 @@
 import moment from 'moment';
+import {useUrlQueryParams} from "../../assets/js/common/helper";
 
 function getDateString (date) {
   return moment(date).format('YYYY-MM-DD')
@@ -53,7 +54,6 @@ export default {
     },
 
     getShortcodeParams (state) {
-      console.log(state.shortcodeParams)
       return {
         ids: state.shortcodeParams.ids,
         tags: state.shortcodeParams.tags
@@ -89,12 +89,20 @@ export default {
     // * Params for Events
     // ! needs to change name of function
     setParams (state, payload) {
+      let urlParameters = useUrlQueryParams(window.location.href)
+
       if (payload.eventId) {
         state.shortcodeParams.ids = payload.eventId.split(',')
+      }
+      if (urlParameters && urlParameters.ameliaEventId) {
+        state.shortcodeParams.ids = urlParameters.ameliaEventId.split(',')
       }
 
       if (payload.eventTag) {
         state.shortcodeParams.tags = payload.eventTag.split("{").map(e => e.replace('},', '').replace('}', '')).filter(e => e !== '')
+      }
+      if (urlParameters && urlParameters.ameliaEventTag) {
+        state.shortcodeParams.tags = urlParameters.ameliaEventTag.split(',')
       }
 
       if (payload.eventRecurring) {

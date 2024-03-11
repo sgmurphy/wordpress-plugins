@@ -21,9 +21,9 @@
 	};
 	$placeholderClasses = implode(' ', $placeholderClasses);
 
-	$titleSeparatorImage = "<img src='{$defaultSeparator}' />";
+	$titleSeparatorImage = "<img src='" . esc_url($defaultSeparator) . "' />";
 	if(!empty($settings['titleSeparatorImage']) && $settings['titleSeparatorImage']['url'] && !empty($settings['titleSeparatorImage']['url'])) {
-		$titleSeparatorImage = "<img src={$settings['titleSeparatorImage']['url']} />";
+		$titleSeparatorImage = "<img src=" . esc_url($settings['titleSeparatorImage']['url']) . " />";
 	}
 	$titleSeparator = "<span class='htmega-section-heading-separator htmega-section-heading-title-separator'>
 		<span class='htmega-section-heading-separator-bar'>
@@ -31,9 +31,9 @@
 		</span>
 	</span>";
 
-	$subTitleSeparatorImage = "<img src='{$defaultSeparator}' />";
+	$subTitleSeparatorImage = "<img src='" . esc_url($defaultSeparator) . "' />";
 	if(!empty($settings['subTitleSeparatorImage']) && $settings['subTitleSeparatorImage']['url'] && !empty($settings['subTitleSeparatorImage']['url'])) {
-		$subTitleSeparatorImage = "<img src={$settings['subTitleSeparatorImage']['url']} />";
+		$subTitleSeparatorImage = "<img src=" . esc_url($settings['subTitleSeparatorImage']['url']) . " />";
 	}
 	$subTitleSeparator = "<span class='htmega-section-heading-separator htmega-section-heading-sub-title-separator'>
 		<span class='htmega-section-heading-separator-bar'>
@@ -41,9 +41,9 @@
 		</span>
 	</span>";
 
-	$descriptionSeparatorImage = "<img src='{$defaultSeparator}' />";
+	$descriptionSeparatorImage = "<img src='" . esc_url($defaultSeparator) . "' />";
 	if(!empty($settings['descriptionSeparatorImage']) && $settings['descriptionSeparatorImage']['url'] && !empty($settings['descriptionSeparatorImage']['url'])) {
-		$descriptionSeparatorImage = "<img src={$settings['descriptionSeparatorImage']['url']} />";
+		$descriptionSeparatorImage = "<img src=" . esc_url($settings['descriptionSeparatorImage']['url']) . " />";
 	}
 	$descriptionSeparator = "<span class='htmega-section-heading-separator htmega-section-heading-description-separator'>
 		<span class='htmega-section-heading-separator-bar'>
@@ -53,7 +53,7 @@
 	
 	ob_start();
 	?>
-		<div class="<?php esc_attr_e($headingClasses); ?>">
+		<div class="<?php echo esc_attr(trim($headingClasses)); ?>">
 			<?php
 				if($settings['showPlaceholder']) {
 					echo sprintf(
@@ -86,9 +86,9 @@
 						'<%s class="htmega-section-heading-title">
 							%s
 						</%s>',
-                        $settings['titleTag'],
+                        tag_escape($settings['titleTag']),
                         wp_kses_post($title),
-                        $settings['titleTag']
+                        tag_escape($settings['titleTag'])
 					);
 					if($settings['titleSeparator'] && ($settings['titleSeparatorPosition'] == 'after' || empty($settings['titleSeparatorPosition']))) {
 						echo $titleSeparator;

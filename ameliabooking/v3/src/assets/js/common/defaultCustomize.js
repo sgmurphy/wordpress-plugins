@@ -40,15 +40,21 @@ let defaultCustomizeSettings = {
     },
     initStep: {
       options: {
+        service: {
+          name: globalLabels.service_input_field,
+          filterable: true
+        },
         location: {
           name: globalLabels.location_input_field,
           required: false,
-          visibility: true
+          visibility: true,
+          filterable: true
         },
         employee: {
           name: globalLabels.employee_input_field,
           required: false,
-          visibility: true
+          visibility: true,
+          filterable: true
         },
         primaryFooterButton: {
           name: globalLabels.continue_button_type,

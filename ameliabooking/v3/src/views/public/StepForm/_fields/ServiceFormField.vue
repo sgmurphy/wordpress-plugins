@@ -14,6 +14,7 @@
     <AmAdvancedSelect
       v-if="store.state.entities.categories.length > 1"
       v-model="initFormData.service"
+      :filterable="props.filterable"
       :options="categoryOptions"
       :props-data="advSelectProps"
       :placeholder="amLabels.select_service"
@@ -26,7 +27,7 @@
       v-else
       v-model="initFormData.onlyService"
       clearable
-      filterable
+      :filterable="props.filterable"
       :popper-class="'am-service-dropdown'"
       :placeholder="amLabels.select_service"
       @change="changeOnlyService"
@@ -55,6 +56,13 @@ import AmOption from '../../../_components/select/AmOption'
 import AmAdvancedSelect from '../../../_components/advanced-select/AmAdvancedSelect'
 import useAction from "../../../../assets/js/public/actions";
 import { useFormattedPrice } from "../../../../assets/js/common/formatting"
+
+let props = defineProps({
+  filterable: {
+    type: Boolean,
+    default: true
+  }
+})
 
 // * Store
 let store = useStore();

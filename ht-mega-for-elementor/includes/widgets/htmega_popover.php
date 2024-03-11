@@ -862,7 +862,7 @@ class HTMega_Elementor_Widget_Popover extends Widget_Base {
 
                     $button_txt = $active_class = '';
                     if( isset( $settings['popover_button_txt'] ) ){
-                        $button_txt = $settings['popover_button_txt'];
+                        $button_txt = wp_kses_post( $settings['popover_button_txt'] );
                     }
                     if( isset( $settings['popover_button_icon']['value'] ) ){
                         $button_txt = HTMega_Icon_manager::render_icon( $settings['popover_button_icon'], [ 'aria-hidden' => 'true' ] );
@@ -876,7 +876,7 @@ class HTMega_Elementor_Widget_Popover extends Widget_Base {
 
                     // Button Generate
                     if ( isset(  $settings['button_link']['url'] ) && ! empty( $settings['button_link']['url'] ) ) {
-                        $this->add_render_attribute( 'url', 'href', $settings['button_link']['url'] );
+                        $this->add_render_attribute( 'url', 'href', esc_url( $settings['button_link']['url'] ) );
 
                         if ( $settings['button_link']['is_external'] ) {
                             $this->add_render_attribute( 'url', 'target', '_blank' );

@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Plugin Compatibility      :   Fast Velocity Minify
-    * Introduced at version     :   2.5.8
+    * Compatibility     :   Fast Velocity Minify
+    * Introduced at     :   2.5.8
     */
 
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

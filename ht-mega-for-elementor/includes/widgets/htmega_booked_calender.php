@@ -981,11 +981,11 @@ class HTMega_Elementor_Widget_Booked_Calender extends Widget_Base {
         $settings   = $this->get_settings_for_display();
 
         $calender_attributes = [
-            'style'        => $settings['calendar_style'],
-            'year'         => $settings['calendar_year'],
-            'month'        => $settings['calendar_month'],
-            'day'          => $settings['calendar_day'],
-            'size'         => $settings['calendar_size'],
+            'style'        => esc_attr( $settings['calendar_style'] ),
+            'year'         => esc_attr( $settings['calendar_year'] ),
+            'month'        => esc_attr( $settings['calendar_month'] ),
+            'day'          => esc_attr( $settings['calendar_day'] ),
+            'size'         => esc_attr( $settings['calendar_size'] ),
             'members-only' => ( 'yes' === $settings['calendar_members_only'] ) ? 'true' : '',
         ];
         $this->add_render_attribute( 'shortcode', $calender_attributes );

@@ -4,7 +4,7 @@ import {
   shortLocale,
   longLocale
 } from "../../plugins/settings.js";
-import { useUrlParams } from "../../assets/js/common/helper";
+import {useUrlParams, useUrlQueryParams} from "../../assets/js/common/helper";
 import { getBadgeTranslated, useTranslateEntities } from "../../assets/js/public/translation";
 
 function isEmployeeServiceLocation (relations, employeeId, serviceId, locationId = null) {
@@ -150,6 +150,9 @@ function setEntities ({ commit, rootState }, entities, types, licence) {
   types.forEach(ent => {
     if (ent === 'categories') {
       entities[ent].forEach((category, categoryIndex) => {
+        if (settings.activation.stash) {
+          category.serviceList.sort((a, b) => a.position - b.position)
+        }
         category.serviceList.forEach((service, serviceIndex) => {
           entities[ent][categoryIndex].serviceList[serviceIndex].customPricing = getParsedCustomPricing(service)
         })
@@ -210,6 +213,7 @@ function setEntities ({ commit, rootState }, entities, types, licence) {
     )
   })
 
+  commit('setPreselectedFromUrl')
   commit('setPreselectedValues')
   commit('setReady', true)
 }
@@ -571,7 +575,27 @@ export default {
       })
     },
 
+    setPreselectedFromUrl (state) {
+      let urlParameters = useUrlQueryParams(window.location.href)
+      if (urlParameters) {
+        if (urlParameters.ameliaServiceId) {
+          state.preselected.service = urlParameters.ameliaServiceId.split(',').map(a => parseInt(a))
+        }
+        if (urlParameters.ameliaEmployeeId) {
+          state.preselected.employee = urlParameters.ameliaEmployeeId.split(',').map(a => parseInt(a))
+        }
+        if (urlParameters.ameliaLocationId) {
+          state.preselected.location = urlParameters.ameliaLocationId.split(',').map(a => parseInt(a))
+        }
+        if (urlParameters.ameliaCategoryId) {
+          state.preselected.category = urlParameters.ameliaCategoryId.split(',').map(a => parseInt(a))
+        }
+      }
+    },
+
     setPreselectedValues (state) {
+      state.originalPreselected = JSON.parse(JSON.stringify(state.preselected))
+
       state.employees = state.employees.filter(e => e.status === 'visible')
       state.services = state.services.filter(s => s.status === 'visible' && s.show && state.employees.filter(e => e.serviceList.find(eS => eS.id === s.id)).length)
       state.locations = state.locations.filter(l => l.status === 'visible')
@@ -657,8 +681,6 @@ export default {
           s.price = services[0].price
         }
       })
-
-      state.originalPreselected = JSON.parse(JSON.stringify(state.preselected))
     },
   },
 

@@ -2,7 +2,12 @@ function useEventLocation (event, locations) {
     let locationAddress = ''
 
     if (event.locationId && locations.find(l => l.id === event.locationId)) {
-        locationAddress = locations.filter(location => location.id === event.locationId)[0].address
+        let location = locations.filter(location => location.id === event.locationId)[0]
+        locationAddress = location.address
+
+        if (!locationAddress) {
+            locationAddress = location.name
+        }
     }
 
     if (event.customLocation) {

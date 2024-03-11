@@ -60,24 +60,24 @@
 ?>
 	<div
 		class="<?php echo esc_attr($classNames); ?>"
-		<?php echo ($slider_direction); ?>
+		<?php echo esc_attr($slider_direction); ?>
 		<?php echo ($slider) ? "data-settings='" . wp_json_encode($slider_settings) . "'" : '';?>
 	>
 		<?php
 			if( is_array( $brandList ) ){
 				foreach ( $brandList as $key => $brand ) {
-					$default_img = sprintf('<img src="%s" alt="%s" width="300" height="300" />', esc_url($default_image_url), esc_url($brand['title']) );
+					$default_img = sprintf('<img src="%s" alt="%s" width="300" height="300" />', esc_url($default_image_url), esc_attr($brand['title']) );
 					$brand_image = !empty($brand['image']['id']) ? wp_get_attachment_image($brand['image']['id'], 'medium', false, [
 						"alt" => esc_attr($brand['title'])
 					]) : $default_img;
 
 					$brand_link = isset($brand['link']) && !empty($brand['link']) ? "href='" . esc_url($brand['link']) ."'" : '';
-					$newTab = isset($brand['newTab']) && $brand['newTab'] ? 'target="_blank"' : '';
-					$noFollow = isset($brand['noFollow']) && $brand['noFollow'] ? 'rel="nofollow"' : '';
+					$newTab = isset($brand['newTab']) && $brand['newTab'] ? 'target=_blank' : '';
+					$noFollow = isset($brand['noFollow']) && $brand['noFollow'] ? 'rel=nofollow' : '';
 					echo sprintf('<div class="htmega-brand-item"><a %s %s %s>%s</a></div>',
 						$brand_link,
-						$newTab,
-						$noFollow,
+						esc_attr($newTab),
+						esc_attr($noFollow),
 						$brand_image
 					);
 				}

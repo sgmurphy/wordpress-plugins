@@ -1042,12 +1042,12 @@ class HTMega_Elementor_Widget_Contact_Form_Seven extends Widget_Base {
         $settings   = $this->get_settings_for_display();
 
         $this->add_render_attribute( 'htmega_form_area_attr', 'class', 'htmega-form-wrapper' );
-        $this->add_render_attribute( 'htmega_form_area_attr', 'class', 'htmega-form-style-'.$settings['htmega_form_layout_style'] );
+        $this->add_render_attribute( 'htmega_form_area_attr', 'class', 'htmega-form-style-'. esc_attr( $settings['htmega_form_layout_style'] ) );
         ?>
             <div <?php echo $this->get_render_attribute_string( 'htmega_form_area_attr' ); ?> >
                 <?php
                     if( !empty($settings['htmega_contact_form_id']) ){
-                        echo do_shortcode( '[contact-form-7  id="'.$settings['htmega_contact_form_id'].'"]' ); 
+                        echo do_shortcode( '[contact-form-7  id="'. esc_attr( $settings['htmega_contact_form_id'] ) .'"]' ); 
                     }else{
                         echo '<div class="form_no_select">' .__('Please Select contact form.','htmega-addons'). '</div>';
                     }

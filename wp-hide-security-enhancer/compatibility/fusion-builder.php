@@ -1,10 +1,11 @@
 <?php
 
-/**
-* Compatibility for Plugin Name: Fusion Builder
-* Compatibility checked on Version: 1.4.2
-*/
-
+    /**
+    * Compatibility: Fusion Builder
+    * Introduced at: 1.4.2
+    */    
+    
+    if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
     class WPH_conflict_fusion_builder
         {

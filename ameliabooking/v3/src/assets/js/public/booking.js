@@ -202,7 +202,7 @@ function useBookingData (store, formData, mandatoryJson = false, paymentData = {
 
       let appointments = useAppointmentBookingData(store)
 
-      jsonData.isCart = useCart(store).length > 1
+      jsonData.isCart = useCart(store).length > 1 ? 1 : 0
 
       jsonData.bookings[0].utcOffset = appointments[0].utcOffset
 
@@ -244,6 +244,8 @@ function useBookingData (store, formData, mandatoryJson = false, paymentData = {
       })
 
       jsonData.bookings[0].persons = store.getters['persons/getPersons']
+
+      jsonData.bookings[0].utcOffset = settings.general.showClientTimeZone ? useUtcValueOffset(null) : null
 
       break
   }

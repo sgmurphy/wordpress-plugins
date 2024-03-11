@@ -155,6 +155,18 @@
                                 return $login_url;
                         }
                     
+                    //check for redirect fro admin to login url and the disable redirect option
+                    $new_admin_url          =   $this->wph->functions->get_module_item_setting('admin_url');
+                    $disable_redirect_url   =   $this->wph->functions->get_module_item_setting('disable_admin_redirect_to_login');
+                    if ( ! empty ( $new_admin_url ) &&  ! empty ( $disable_redirect_url )   &&  $disable_redirect_url   ==  'yes'   &&  is_user_logged_in() === FALSE )
+                        {
+                            $new_admin_uri      =   trailingslashit(    site_url()  )   . trim($new_admin_url,  "/");
+                            $new_admin_uri      =   str_replace ( array ( 'https://', 'http://' ), '', $new_admin_uri );
+                            
+                            if ( stripos( str_replace ( array ( 'https://', 'http://' ), '', $redirect ), $new_admin_uri )   !== FALSE   ||  stripos( str_replace ( array ( 'https://', 'http://' ), '', $redirect ), str_replace ( array ( 'https://', 'http://' ), '', trailingslashit(    site_url()  ) . 'wp-admin' ) )   !== FALSE )
+                                return home_url();
+                        }
+                    
                     $parse_login_url        =   parse_url ( $login_url );
                     $new_wp_login_php       =   $this->wph->functions->get_module_item_setting('new_wp_login_php');
                     

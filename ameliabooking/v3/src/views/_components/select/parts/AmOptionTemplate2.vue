@@ -22,7 +22,7 @@
         </span>
         <span style="display: flex;">
           <span v-if="prop.price" class="am-oit__price" :style="cssVarsPrice">
-            {{ `${(prop.price > 0 ? '+' : '-') + useFormattedPrice(prop.price)}`  }}
+            {{ prop.price }}
           </span>
           <span v-if="useDescriptionVisibility(description)" class="am-oit__info-trigger" @click="dialogInfoVisible">
             <span class="am-icon-circle-info"></span>
@@ -88,7 +88,6 @@ import {
 } from 'vue'
 
 // * Composables
-import { useFormattedPrice } from '../../../../assets/js/common/formatting'
 import { useColorTransparency } from "../../../../assets/js/common/colorManipulation";
 import { useDescriptionVisibility } from "../../../../assets/js/common/helper";
 

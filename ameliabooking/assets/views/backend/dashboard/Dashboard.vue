@@ -930,7 +930,7 @@
         </transition>
       </div>
 
-      <transition name="fade">
+<!--      <transition name="fade">
         <div class="am-amelia-banner">
           <div class="am-amelia-banner__content">
             <div class="am-amelia-banner__content-main">
@@ -955,14 +955,14 @@
                 <div class="am-amelia-banner__content-main-left-buttons">
                   <a
                       v-if="$root.licence.isLite"
-                      class="am-promo-btn el-button el-button--primary"
+                      class="am-promo-btn el-button el-button&#45;&#45;primary"
                       href="https://downloads.wordpress.org/plugin/wpdatatables.zip"
                   >
                     <span>Free Download</span>
                     <img :src="$root.getUrl + 'public/img/promo/download.svg'"/>
                   </a>
                   <a
-                      class="am-promo-btn el-button el-button--primary"
+                      class="am-promo-btn el-button el-button&#45;&#45;primary"
                       :href="$root.licence.isLite ? 'https://wordpress.org/plugins/wpdatatables/' : 'https://wpdatatables.com/'"
                       target="_blank"
                   >
@@ -978,7 +978,7 @@
             </div>
           </div>
         </div>
-      </transition>
+      </transition>-->
 
       <!-- Help Button -->
       <el-col :md="6" class="">

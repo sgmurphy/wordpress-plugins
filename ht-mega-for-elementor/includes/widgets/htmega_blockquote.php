@@ -792,8 +792,8 @@ class HTMega_Elementor_Widget_Blockquote extends Widget_Base {
         $settings   = $this->get_settings_for_display();
 
         $this->add_render_attribute( 'htmega_blockquote_attr', 'class', 'htmega-blockquote' );
-        $this->add_render_attribute( 'htmega_blockquote_attr', 'class', 'htmega-blockquote-position-'.$settings['blockquote_position'] );
-        $this->add_render_attribute( 'htmega_blockquote_attr', 'class', 'htmega-citeseparator-position-'.$settings['blockquoteby_before_position'] );
+        $this->add_render_attribute( 'htmega_blockquote_attr', 'class', 'htmega-blockquote-position-'. esc_attr( $settings['blockquote_position'] ) );
+        $this->add_render_attribute( 'htmega_blockquote_attr', 'class', 'htmega-citeseparator-position-'. esc_attr( $settings['blockquoteby_before_position'] ) );
        
         ?>
             <div <?php echo $this->get_render_attribute_string( 'htmega_blockquote_attr' ); ?>>
@@ -802,7 +802,8 @@ class HTMega_Elementor_Widget_Blockquote extends Widget_Base {
                         if ( $settings['content_source'] == 'custom' && !empty( $settings['custom_content'] ) ) {
                             echo '<div class="blockquote_content">'.wp_kses_post( $settings['custom_content'] ).'</div>';
                         } elseif ( $settings['content_source'] == "elementor" && !empty( $settings['template_id'] )) {
-                            echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['template_id'] );
+                            $template_id = absint( $settings['template_id'] );
+                            echo Plugin::instance()->frontend->get_builder_content_for_display( $template_id );
                         }
                         if( !empty( $settings['blockquote_by'] ) ){
                             echo '<cite class="quote-by"> '.esc_html( $settings['blockquote_by']).' </cite>';

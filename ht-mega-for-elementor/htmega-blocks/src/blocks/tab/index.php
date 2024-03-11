@@ -10,7 +10,7 @@
 	$classes = trim(implode(' ', $classNames));
 	ob_start();
 	?>
-		<div class="<?php echo $classes; ?>">
+		<div class="<?php echo esc_attr($classes); ?>">
 			<ul class='htmega-tab-nav'>
 				<?php 
 					foreach ($settings['tabs'] as $key => $tab) {
@@ -21,14 +21,14 @@
 							</li>',
 							esc_attr($key),
 							$settings['activeTab'] === $key ? esc_attr('htmega-tab-nav-item-active') : '',
-							$tab['icon'] && $tab['icon'] !== '' && !$settings['hideIcon'] ? "<span class='{$tab['icon']}'></span>" : null,
+							$tab['icon'] && $tab['icon'] !== '' && !$settings['hideIcon'] ? "<span class='" . esc_attr($tab['icon']) . "'></span>" : null,
 							esc_html($tab['label'])
 						);
 					}
 				?>
 			</ul>
 			<div class='htmega-tab-content'>
-				<?php echo $content; ?> 
+				<?php echo wp_kses_post($content); ?> 
 			</div>
 		</div>
 	<?php

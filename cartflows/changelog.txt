@@ -1,3 +1,12 @@
+Version 2.0.5 - Monday, 11th March 2024
+- Improvement: Added the product names on the hover of the product tag in the dynamic conditions dropdown option
+- Fix: DIVI flow was not getting imported via JSON file.
+- Fix: In permalink, the Default option was not getting displayed as selected.
+- Fix: The edit flow button's position in edit page for block editor was not aligned properly.
+- Fix: Flow's list was not getting displayed if all of the flows are moved to trashed.
+- Fix: Flow's bulk actions were not working in some cases.
+- Fix: Step's slug was not showing the updated slug value.
+
 Version 2.0.4 - Thursday, 15th February 2024
 - Fix: Flows exported via bulk functionality was not getting importing properly
 - Fix: Fixed the clone, delete ajax calls were returning 400 error in some case.

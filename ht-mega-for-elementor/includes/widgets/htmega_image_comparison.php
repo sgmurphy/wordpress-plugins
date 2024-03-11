@@ -566,19 +566,19 @@ class HTMega_Elementor_Widget_Image_Comparison extends Widget_Base {
     protected function render( $instance = [] ) {
         $settings   = $this->get_settings_for_display();
 
-        $this->add_render_attribute( 'htmega_image_comparison', 'class', 'htmega-imagecomparison htmega-label-pos-'.$settings['imagecomparison_laben_pos'] );
+        $this->add_render_attribute( 'htmega_image_comparison', 'class', 'htmega-imagecomparison htmega-label-pos-' . esc_attr( $settings['imagecomparison_laben_pos'] ) );
 
         // Before Image Attribute
         $this->add_render_attribute( 'image_comparison_before_attr', 'class', 'beer-slider' );
-        $this->add_render_attribute( 'image_comparison_before_attr', 'data-start', $settings['start_amount'] );
+        $this->add_render_attribute( 'image_comparison_before_attr', 'data-start', esc_attr( $settings['start_amount'] ) );
         if( !empty( $settings['before_title'] ) ){
-            $this->add_render_attribute( 'image_comparison_before_attr', 'data-beer-label', $settings['before_title'] );
+            $this->add_render_attribute( 'image_comparison_before_attr', 'data-beer-label', esc_attr( $settings['before_title'] ) );
         }
 
         // After Image Attribute
         $this->add_render_attribute( 'image_comparison_after_attr', 'class', 'beer-reveal' );
         if( !empty( $settings['after_title'] ) ){
-            $this->add_render_attribute( 'image_comparison_after_attr', 'data-beer-label', $settings['after_title'] );
+            $this->add_render_attribute( 'image_comparison_after_attr', 'data-beer-label', esc_attr( $settings['after_title'] ) );
         }
        
         ?>

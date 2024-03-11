@@ -883,6 +883,7 @@
   import RecurringSetup from '../../parts/RecurringSetup.vue'
   import windowMixin from '../../../js/backend/mixins/windowMixin'
   import customerMixin from '../../../js/backend/mixins/customerMixin'
+  import LicenceBlockHeader from '../parts/LicenceBlockHeader'
 
   export default {
 
@@ -2631,7 +2632,8 @@
       DialogCustomFields,
       RecurringSetup,
       RecurringDates,
-      DialogActions
+      DialogActions,
+      LicenceBlockHeader
     }
   }
 </script>

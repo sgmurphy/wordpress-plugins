@@ -2,8 +2,8 @@
 
     
     /**
-    * Compatibility for Plugin Name: LiteSpeed Cache
-    * Compatibility checked on Version: 3.2.3.2
+    * Compatibility: LiteSpeed Cache
+    * Introduced at: 3.2.3.2
     */
     
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

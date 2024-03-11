@@ -26,14 +26,14 @@
 	ob_start();
 ?>
 
-	<div class="<?php echo $classNames; ?>">
+	<div class="<?php echo esc_attr($classNames); ?>">
 	<?php
 		if( is_array( $infoBoxList ) ){
 			foreach ( $infoBoxList as $key => $item ) {
 
-				$link = isset($item['link']) && !empty($item['link']) ? "href='{$item['link']}'" : null;
-				$target = isset($item['newTab']) && $item['newTab'] ? 'target="_blank"' : null;
-				$rel = isset($item['noFollow']) && $item['noFollow'] ? 'rel="nofollow"' : null;
+				$link = isset($item['link']) && !empty($item['link']) ? "href='" . esc_url($item['link']) . "'" : null;
+				$target = isset($item['newTab']) && $item['newTab'] ? 'target=_blank' : null;
+				$rel = isset($item['noFollow']) && $item['noFollow'] ? 'rel=nofollow' : null;
 		
 				if(empty($item['image']) || empty($item['image']['url'])) {
 					$item['image'] = [
@@ -52,15 +52,15 @@
 					esc_attr($item['image']['height']),
 				);
 
-				$title = !empty($item['title']) ? "<{$titleTag} class='htmega-info-box-item-title'>
-					<a {$link} {$target} {$rel}>{$item['title']}</a>
+				$title = !empty($item['title']) ? "<" . tag_escape($titleTag) ." class='htmega-info-box-item-title'>
+					<a {$link} " . esc_attr($target) . " " . esc_attr($rel) . ">" . esc_html($item['title']) ."</a>
 					{$title_shape}
-				</{$titleTag}>" : "";
-				$desc = !empty($item['desc']) ? "<p class='htmega-info-box-item-desc'>{$item['desc']}</p>" : "";
-				$button = !$hideButton && isset($item['linkText']) && !empty($item['linkText']) ? "<div class='htmega-info-box-item-link'><a {$link} {$target} {$rel}>{$item['linkText']}</a></div>" : "";
+				</" . tag_escape($titleTag) .">" : "";
+				$desc = !empty($item['desc']) ? "<p class='htmega-info-box-item-desc'>" . esc_html($item['desc']) . "</p>" : "";
+				$button = !$hideButton && isset($item['linkText']) && !empty($item['linkText']) ? "<div class='htmega-info-box-item-link'><a {$link} " . esc_attr($target) . " " . esc_attr($rel) . ">" . esc_html($item['linkText']) . "</a></div>" : "";
 
 				$infoBoxItem = "<div class='htmega-info-box-item'>
-					<a class='htmega-info-box-item-thumbnail' {$link} {$target} {$rel}>{$image}</a>
+					<a class='htmega-info-box-item-thumbnail' {$link} " . esc_attr($target) . " " . esc_attr($rel) . ">{$image}</a>
 					<div class='htmega-info-box-item-content'>
 						{$title}
 						{$desc}

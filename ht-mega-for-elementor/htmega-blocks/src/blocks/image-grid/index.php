@@ -21,8 +21,8 @@
 			foreach ( $imageGridList as $key => $item ) {
 
 				$link = isset($item['link']) && !empty($item['link']) ? "href='" . esc_url($item['link']) ."'" : "";
-				$target = isset($item['newTab']) && $item['newTab'] ? 'target="_blank"' : '';
-				$rel = isset($item['noFollow']) && $item['noFollow'] ? 'rel="nofollow"' : '';
+				$target = isset($item['newTab']) && $item['newTab'] ? 'target=_blank' : '';
+				$rel = isset($item['noFollow']) && $item['noFollow'] ? 'rel=nofollow' : '';
 		
 				if(empty($item['image']) || empty($item['image']['url'])) {
 					$item['image'] = [
@@ -43,17 +43,17 @@
 
 				$linkShow = isset($linkText) && !empty($linkText) && isset($item['link']) && !empty($item['link']) ? sprintf('<a class="htmega-image-grid-item-link" %s alt="%s" %s %s>%s</a>',
 					$link,
-					$item['title'],
-					$target,
-					$rel,
-					$linkText
+					esc_attr($item['title']),
+					esc_attr($target),
+					esc_attr($rel),
+					esc_html($linkText)
 				) : '';
 
 				$imageGridItem = "<div class='htmega-image-grid-item'>
-					<a class='htmega-image-grid-item-thumbnail' {$link} {$target} {$rel}>{$image}</a>
+					<a class='htmega-image-grid-item-thumbnail' {$link}" . esc_attr($target) . " " . esc_attr($rel) .">{$image}</a>
 					<div class='htmega-image-grid-item-content'>
-						<h2 class='htmega-image-grid-item-title'>{$item['title']}</h2>
-						<p class='htmega-image-grid-item-desc'>{$item['desc']}</p>
+						<h2 class='htmega-image-grid-item-title'>" . esc_html($item['title']) . "</h2>
+						<p class='htmega-image-grid-item-desc'>" . esc_html($item['desc']) ."</p>
 						{$linkShow}
 					</div>
 				</div>";

@@ -321,7 +321,7 @@ class Bl_Post_Search_Form_ELement extends Widget_Base {
 
         $this->add_render_attribute(
             'inputattr', [
-                'placeholder' => $settings['placeholdertxt'],
+                'placeholder' => esc_attr( $settings['placeholdertxt'] ),
                 'class' => 'htbuilder-search-form-input',
                 'type' => 'search',
                 'name' => 's',
@@ -332,12 +332,12 @@ class Bl_Post_Search_Form_ELement extends Widget_Base {
 
         
         ?>
-            <form class="htbuilder-search-form" role="search" action="<?php echo home_url(); ?>" method="get">
+            <form class="htbuilder-search-form" role="search" action="<?php echo esc_url( home_url() ); ?>" method="get">
                 <input <?php echo $this->get_render_attribute_string( 'inputattr' ); ?>>
                 <button class="htbuilder-submit" type="submit">
                     <?php
                         if( $settings['button_type'] == 'text' ){
-                            echo esc_html( $settings['button_text']);
+                            echo wp_kses_post( $settings['button_text'] );
                         }else{
                             echo HTMega_Icon_manager::render_icon($settings['button_icon'], ['aria-hidden' => 'true']);
                         }

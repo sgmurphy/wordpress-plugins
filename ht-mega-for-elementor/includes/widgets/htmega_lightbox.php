@@ -505,12 +505,12 @@ class HTMega_Elementor_Widget_Lightbox extends Widget_Base {
         ];
 
         if ( 'image' == $settings['lightbox_type'] ) {
-            $this->add_render_attribute( 'popup_content_attr', 'href', $settings['lightbox_image']['url'] );
+            $this->add_render_attribute( 'popup_content_attr', 'href', esc_url( $settings['lightbox_image']['url'] ) );
         } elseif ('video' == $settings['lightbox_type'] and '' != $settings['lightbox_video_url']) {
-            $this->add_render_attribute( 'popup_content_attr', 'href', $settings['lightbox_video_url']['url'] );
+            $this->add_render_attribute( 'popup_content_attr', 'href', esc_url( $settings['lightbox_video_url']['url'] ) );
             $popup_settings['datatype'] = 'iframe';
         }else {
-            $this->add_render_attribute( 'popup_content_attr', 'href', $settings['lightbox_google_map']['url'] );
+            $this->add_render_attribute( 'popup_content_attr', 'href', esc_url( $settings['lightbox_google_map']['url'] ) );
             $popup_settings['datatype'] = 'iframe';
         }
 

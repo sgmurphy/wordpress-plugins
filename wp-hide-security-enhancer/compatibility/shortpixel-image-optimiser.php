@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for Plugin Name: ShortPixel Image Optimizer
-    * Compatibility checked on Version: 4.15.3
+    * Compatibility: ShortPixel Image Optimizer
+    * Introduced at: 4.15.3
     */
 
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

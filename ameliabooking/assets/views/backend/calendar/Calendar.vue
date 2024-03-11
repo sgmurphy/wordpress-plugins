@@ -1719,6 +1719,7 @@
           selectable: false,
           slotEventOverlap: false,
           slotDuration: this.secondsToTimeSelectStep(this.$root.settings.general.timeSlotLength),
+          slotLabelInterval: this.secondsToTimeSelectStep(this.$root.settings.general.timeSlotLength),
           slotLabelFormat: '',
           timeFormat: '',
           viewRender: this.callViewRender,

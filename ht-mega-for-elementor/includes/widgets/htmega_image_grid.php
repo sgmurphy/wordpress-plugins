@@ -606,10 +606,10 @@ class HTMega_Elementor_Widget_Image_Grid extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
 
-        $this->add_render_attribute( 'imagegrid_attr', 'class', 'htmega-gridimage-area htmega-image-gridstyle-'.$settings['imagegrid_style'] );
-        $this->add_render_attribute( 'imagegrid_item_attr', 'class', 'htmega-singleimage-grid htmega-singleimage-gridstyle-'.$settings['imagegrid_style'] );
+        $this->add_render_attribute( 'imagegrid_attr', 'class', 'htmega-gridimage-area htmega-image-gridstyle-' . esc_attr( $settings['imagegrid_style'] ) );
+        $this->add_render_attribute( 'imagegrid_item_attr', 'class', 'htmega-singleimage-grid htmega-singleimage-gridstyle-' . esc_attr( $settings['imagegrid_style'] ) );
 
-        $columns = $settings['imagegrid_column'];
+        $columns = absint( $settings['imagegrid_column'] );
         $collumval = 'htb-col-md-4 htb-col-sm-6 htb-col-12';
         if( $columns != 5 ){
             $colwidth = round(12/$columns);

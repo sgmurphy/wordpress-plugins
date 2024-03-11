@@ -150,9 +150,9 @@ class HTMega_Elementor_Widget_WC_Add_to_Cart extends Widget_Button {
         $settings = $this->get_settings();
 
         if ( ! empty( $settings['product_id'] ) ) {
-            $product_id = $settings['product_id'];
+            $product_id = absint( $settings['product_id'] );
         } elseif ( wp_doing_ajax() ) {
-            $product_id = $_POST['post_id'];
+            $product_id = absint( $_POST['post_id'] );
         } else {
             $product_id = get_queried_object_id();
         }
@@ -169,6 +169,7 @@ class HTMega_Elementor_Widget_WC_Add_to_Cart extends Widget_Button {
 
     
     private function render_ajax_button( $product ) {
+        $settings = $this->get_settings();
         if ( $product ) {
             if ( version_compare( WC()->version, '3.0.0', '>=' ) ) {
                 $product_type = $product->get_type();

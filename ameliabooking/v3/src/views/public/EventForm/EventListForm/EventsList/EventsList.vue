@@ -4,7 +4,7 @@
     :style="cssVars"
   >
     <div
-      v-if="customizedOptions.header.visibility"
+      v-if="customizedOptions.header.visibility && !onlyOneEvent"
       class="am-els__available"
     >
       {{`${total} ${total === 1 ? amLabels.event_available : amLabels.events_available }`}}
@@ -12,7 +12,7 @@
 
     <!-- Events Filters -->
     <div
-      v-if="customizedOptions.filters.visibility && shortcode.eventId.split(',').filter(e => e).length !== 1"
+      v-if="customizedOptions.filters.visibility && !onlyOneEvent"
       class="am-els__filters"
     >
       <div class="am-els__filters-top">
@@ -171,7 +171,7 @@ import {
   inject,
   computed,
   defineComponent,
-  reactive,
+  reactive, onMounted,
 } from "vue"
 
 // * Import from vuex
@@ -183,6 +183,7 @@ import {
 } from "../../../../../assets/js/common/colorManipulation";
 import useAction from "../../../../../assets/js/public/actions";
 import { useResponsiveClass } from "../../../../../assets/js/common/responsive";
+import {useUrlQueryParams} from "../../../../../assets/js/common/helper";
 
 // * Define store
 const store = useStore()
@@ -191,6 +192,20 @@ const store = useStore()
 const amSettings = inject('settings')
 
 let shortcode = computed(() => store.getters['shortcodeParams/getShortcodeParams'])
+
+let onlyOneEvent = computed (() => {
+  let shortcodeEvents = shortcode.value.eventId.split(',').filter(e => e)//.length === 1
+  let urlParams = useUrlQueryParams(window.location.href)
+  let urlEvents = urlParams && urlParams.ameliaEventId ? urlParams.ameliaEventId.split(',') : []
+  return shortcodeEvents.length === 1 || urlEvents.length === 1
+})
+
+onMounted(() => {
+  let urlParams = useUrlQueryParams(window.location.href)
+  if (urlParams && urlParams.ameliaEventPopup) {
+    selectEvent(parseInt(urlParams.ameliaEventPopup))
+  }
+})
 
 // * Load state
 let loading = computed(() => store.getters["getLoading"])

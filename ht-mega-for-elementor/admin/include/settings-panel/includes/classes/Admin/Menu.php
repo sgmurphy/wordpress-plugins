@@ -70,36 +70,36 @@ class Menu {
             'settings'      => Options_Field::instance()->get_registered_settings(),
             'options'       => htmegaopt_get_options( Options_Field::instance()->get_registered_settings() ),
             'labels'        => [
-                'pro' => __( 'Pro', 'htmegaopt' ),
+                'pro' => __( 'Pro', 'htmega-addons' ),
                 'modal' => [
-                    'title' => __( 'BUY PRO', 'htmegaopt' ),
-                    'buynow' => __( 'Buy Now', 'htmegaopt' ),
-                    'desc' => __( 'Our free version is great, but it doesn\'t have all our advanced features. The best way to unlock all of the features in our plugin is by purchasing the pro version.', 'htmegaopt' )
+                    'title' => __( 'BUY PRO', 'htmega-addons' ),
+                    'buynow' => __( 'Buy Now', 'htmega-addons' ),
+                    'desc' => __( 'Our free version is great, but it doesn\'t have all our advanced features. The best way to unlock all of the features in our plugin is by purchasing the pro version.', 'htmega-addons' )
                 ],
                 'saveButton' => [
-                    'text'   => __( 'Save Settings', 'htmegaopt' ),
-                    'saving' => __( 'Saving...', 'htmegaopt' ),
-                    'saved'  => __( 'Data Saved', 'htmegaopt' ),
+                    'text'   => __( 'Save Settings', 'htmega-addons' ),
+                    'saving' => __( 'Saving...', 'htmega-addons' ),
+                    'saved'  => __( 'Data Saved', 'htmega-addons' ),
                 ],
                 'enableAllButton' => [
-                    'enable'   => __( 'Enable All', 'htmegaopt' ),
-                    'disable'  => __( 'Disable All', 'htmegaopt' ),
+                    'enable'   => __( 'Enable All', 'htmega-addons' ),
+                    'disable'  => __( 'Disable All', 'htmega-addons' ),
                 ],
                 'resetButton' => [
-                    'text'   => __( 'Reset All Settings', 'htmegaopt' ),
-                    'reseting'  => __( 'Resetting...', 'htmegaopt' ),
-                    'reseted'  => __( 'All Data Restored', 'htmegaopt' ),
+                    'text'   => __( 'Reset All Settings', 'htmega-addons' ),
+                    'reseting'  => __( 'Resetting...', 'htmega-addons' ),
+                    'reseted'  => __( 'All Data Restored', 'htmega-addons' ),
                     'alert' => [
                         'one'=>[
-                            'title' => __( 'Are you sure?', 'htmegaopt' ),
-                            'text' => __( 'It will reset all the settings to default, and all the changes you made will be deleted.', 'htmegaopt' ),
-                            'confirm' => __( 'Yes', 'htmegaopt' ),
-                            'cancel' => __( 'No', 'htmegaopt' ),
+                            'title' => __( 'Are you sure?', 'htmega-addons' ),
+                            'text' => __( 'It will reset all the settings to default, and all the changes you made will be deleted.', 'htmega-addons' ),
+                            'confirm' => __( 'Yes', 'htmega-addons' ),
+                            'cancel' => __( 'No', 'htmega-addons' ),
                         ],
                         'two'=>[
-                            'title' => __( 'Reset!', 'htmegaopt' ),
-                            'text' => __( 'All settings has been reset successfully.', 'htmegaopt' ),
-                            'confirm' => __( 'OK', 'htmegaopt' ),
+                            'title' => __( 'Reset!', 'htmega-addons' ),
+                            'text' => __( 'All settings has been reset successfully.', 'htmega-addons' ),
+                            'confirm' => __( 'OK', 'htmega-addons' ),
                         ]
                     ],
                 ]

@@ -84,8 +84,8 @@ class HTMega_Elementor_Widget_Layer_Slider extends Widget_Base {
         $settings   = $this->get_settings_for_display();
 
         $slider_attributes = [
-            'id'         => $settings['slider_name'],
-            'firstslide' => $settings['first_slide'],
+            'id'         => sanitize_text_field( $settings['slider_name'] ),
+            'firstslide' => sanitize_text_field( $settings['first_slide'] ),
         ];
 
         $this->add_render_attribute( 'shortcode', $slider_attributes );

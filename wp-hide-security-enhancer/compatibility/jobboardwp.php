@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for Plugin Name: JobBoardWP
-    * Compatibility checked on Version: 1.0 
+    * Compatibility: JobBoardWP
+    * Introduced at: 1.0 
     */
     
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

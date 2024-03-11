@@ -1098,7 +1098,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                     'type' => Controls_Manager::DIMENSIONS,
                     'size_units' => [ 'px', '%', 'em' ],
                     'selectors' => [
-                        '{{WRAPPER}} .htmega-register-wrapper input:not(input[type="submit"])' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                        '{{WRAPPER}} .htmega-register-wrapper input:not(input[type="submit"] )' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     ],
                 ]
             );
@@ -2565,16 +2565,16 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
         $id = $this->get_id();
 
         if ( $settings['redirect_page'] == 'yes' && ! empty( $settings['redirect_page_url']['url'] ) ) {
-            $redirect_url = $settings['redirect_page_url']['url'];
+            $redirect_url =  esc_url( $settings['redirect_page_url']['url'] );
         } else {
             $redirect_url = $current_url;
         }
 
         $this->add_render_attribute( 'register_area_attr', 'class', 'htmega-register-wrapper' );
-        $this->add_render_attribute( 'register_area_attr', 'class', 'htmega-register-style-'.$settings['register_form_style'] );
+        $this->add_render_attribute( 'register_area_attr', 'class', 'htmega-register-style-' . esc_attr( $settings['register_form_style'] ) );
 
-        $terms_label = ( !empty( $settings['terms_label'] ) ? $settings['terms_label'] : esc_html__('Terms and conditions','htmega-addons') );
-        $terms_page = ( !empty( $settings['select_terms_page'] ) ? $settings['select_terms_page'] : '0');
+        $terms_label = ( !empty( $settings['terms_label'] ) ? esc_html( $settings['terms_label'] ) : esc_html__('Terms and conditions','htmega-addons') );
+        $terms_page = ( !empty( $settings['select_terms_page'] ) ? esc_attr( $settings['select_terms_page'] ) : '0');
 
         if($settings['select_terms_page'] == '0'){
             $page_id = "";
@@ -2600,87 +2600,87 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                 $this->add_render_attribute(
                     'username_input_attr', [
                         'name'  => 'reg_name',
-                        'id'    => 'reg_name'.$id,
+                        'id'    => 'reg_name'. esc_attr( $id ),
                         'type'  => 'text',
-                        'value' => isset( $_REQUEST['reg_name'] ) ? $_REQUEST['reg_name'] : null,
-                        'placeholder' => isset( $settings['username_placeholder_label'] ) ? $settings['username_placeholder_label'] : __('Username', 'htmega-addons'),
+                        'value' => isset( $_REQUEST['reg_name'] ) ? esc_attr( $_REQUEST['reg_name'] ) : null,
+                        'placeholder' => isset( $settings['username_placeholder_label'] ) ? esc_attr( $settings['username_placeholder_label'] ) : __('Username', 'htmega-addons'),
                     ]
                 );
 
                 $this->add_render_attribute(
                     'password_input_attr', [
                         'name'  => 'reg_password',
-                        'id'    => 'reg_password'.$id,
+                        'id'    => 'reg_password' . esc_attr( $id ),
                         'type'  => 'password',
-                        'value' => isset( $_REQUEST['reg_password'] ) ? $_REQUEST['reg_password'] : null,
-                        'placeholder' => isset( $settings['password_placeholder_label'] ) ? $settings['password_placeholder_label'] : __('Password', 'htmega-addons'),
+                        'value' => isset( $_REQUEST['reg_password'] ) ? esc_attr( $_REQUEST['reg_password'] ) : null,
+                        'placeholder' => isset( $settings['password_placeholder_label'] ) ? esc_attr( $settings['password_placeholder_label'] ) : __('Password', 'htmega-addons'),
                     ]
                 );
 
                 $this->add_render_attribute(
                     'email_input_attr', [
                         'name'  => 'reg_email',
-                        'id'    => 'reg_email'.$id,
+                        'id'    => 'reg_email' . esc_attr( $id ),
                         'type'  => 'email',
-                        'value' => isset( $_REQUEST['reg_email'] ) ? $_REQUEST['reg_email'] : null,
-                        'placeholder' => isset( $settings['email_placeholder_label'] ) ? $settings['email_placeholder_label'] : __('Email', 'htmega-addons'),
+                        'value' => isset( $_REQUEST['reg_email'] ) ? esc_attr( $_REQUEST['reg_email'] ) : null,
+                        'placeholder' => isset( $settings['email_placeholder_label'] ) ? esc_attr( $settings['email_placeholder_label'] ) : __('Email', 'htmega-addons'),
                     ]
                 );
 
                 $this->add_render_attribute(
                     'fname_input_attr', [
                         'name'  => 'reg_fname',
-                        'id'    => 'reg_fname'.$id,
+                        'id'    => 'reg_fname' . esc_attr( $id ),
                         'type'  => 'text',
-                        'value' => isset( $_REQUEST['reg_fname'] ) ? $_REQUEST['reg_fname'] : null,
-                        'placeholder' => isset( $settings['firstname_placeholder_label'] ) ? $settings['firstname_placeholder_label'] : __('First Name', 'htmega-addons'),
+                        'value' => isset( $_REQUEST['reg_fname'] ) ? esc_attr( $_REQUEST['reg_fname'] ) : null,
+                        'placeholder' => isset( $settings['firstname_placeholder_label'] ) ? esc_attr( $settings['firstname_placeholder_label'] ) : __('First Name', 'htmega-addons'),
                     ]
                 );
 
                 $this->add_render_attribute(
                     'lname_input_attr', [
                         'name'  => 'reg_lname',
-                        'id'    => 'reg_lname'.$id,
+                        'id'    => 'reg_lname' . esc_attr( $id ),
                         'type'  => 'text',
-                        'value' => isset( $_REQUEST['reg_lname'] ) ? $_REQUEST['reg_lname'] : null,
-                        'placeholder' => isset( $settings['lastname_placeholder_label'] ) ? $settings['lastname_placeholder_label'] : __('Last Name', 'htmega-addons'),
+                        'value' => isset( $_REQUEST['reg_lname'] ) ? esc_attr( $_REQUEST['reg_lname'] ) : null,
+                        'placeholder' => isset( $settings['lastname_placeholder_label'] ) ? esc_attr( $settings['lastname_placeholder_label'] ) : __('Last Name', 'htmega-addons'),
                     ]
                 );
 
                 $this->add_render_attribute(
                     'nickname_input_attr', [
                         'name'  => 'reg_nickname',
-                        'id'    => 'reg_nickname'.$id,
+                        'id'    => 'reg_nickname' . esc_attr( $id ),
                         'type'  => 'text',
-                        'value' => isset( $_REQUEST['reg_nickname'] ) ? $_REQUEST['reg_nickname'] : null,
-                        'placeholder' => isset( $settings['nickname_placeholder_label'] ) ? $settings['nickname_placeholder_label'] : __('Nick Name', 'htmega-addons'),
+                        'value' => isset( $_REQUEST['reg_nickname'] ) ? esc_attr( $_REQUEST['reg_nickname'] ) : null,
+                        'placeholder' => isset( $settings['nickname_placeholder_label'] ) ? esc_attr( $settings['nickname_placeholder_label'] ) : __('Nick Name', 'htmega-addons'),
                     ]
                 );
 
                 $this->add_render_attribute(
                     'website_input_attr', [
                         'name'  => 'reg_website',
-                        'id'    => 'reg_website'.$id,
+                        'id'    => 'reg_website' . esc_attr( $id ),
                         'type'  => 'text',
-                        'value' => isset( $_REQUEST['reg_website'] ) ? $_REQUEST['reg_website'] : null,
-                        'placeholder' => isset( $settings['website_placeholder_label'] ) ? $settings['website_placeholder_label'] : __('Website', 'htmega-addons'),
+                        'value' => isset( $_REQUEST['reg_website'] ) ? esc_attr( $_REQUEST['reg_website'] ) : null,
+                        'placeholder' => isset( $settings['website_placeholder_label'] ) ? esc_attr( $settings['website_placeholder_label'] ) : __('Website', 'htmega-addons'),
                     ]
                 );
 
                 $this->add_render_attribute(
                     'bio_textarea_attr', [
                         'name'  => 'reg_bio',
-                        'id'    => 'reg_bio'.$id,
-                        'placeholder' => isset( $settings['bio_placeholder_label'] ) ? $settings['bio_placeholder_label'] : __('Biographical Info', 'htmega-addons'),
+                        'id'    => 'reg_bio' . esc_attr( $id ),
+                        'placeholder' => isset( $settings['bio_placeholder_label'] ) ? esc_attr( $settings['bio_placeholder_label'] ) : __('Biographical Info', 'htmega-addons'),
                     ]
                 );
 
                 $this->add_render_attribute(
                     'submit_input_attr', [
-                        'name'  => 'reg_submit'.$id,
-                        'id'    => 'reg_submit'.$id,
+                        'name'  => 'reg_submit' . esc_attr( $id ),
+                        'id'    => 'reg_submit' . esc_attr( $id ),
                         'type'  => 'submit',
-                        'value' => isset( $settings['submit_button_label'] ) ? $settings['submit_button_label'] : __('REGISTER', 'htmega-addons'),
+                        'value' => isset( $settings['submit_button_label'] ) ? esc_attr( $settings['submit_button_label'] ) : __('REGISTER', 'htmega-addons'),
                     ]
                 );
             ?>
@@ -2688,14 +2688,14 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
             <div id="htmega_message_<?php echo esc_attr( $id ); ?>" class="htmega_message">&nbsp;</div>
             <div <?php echo $this->get_render_attribute_string( 'register_area_attr' ); ?>>
                 <div class="htmega-register-form">
-                    <?php if($settings['show_register_heading']): ?>
+                    <?php if($settings['show_register_heading'] ): ?>
                     <div class="user-register-header">
-                        <?php if($settings['register_heading_title']):
-                            echo '<h2>'. htmega_kses_title($settings['register_heading_title']) .'</h2>';
+                        <?php if($settings['register_heading_title'] ):
+                            echo '<h2>'. htmega_kses_title($settings['register_heading_title'] ) .'</h2>';
                         endif; ?>
-                        <?php if($settings['register_heading_content']):                            
+                        <?php if($settings['register_heading_content'] ):                            
                             echo '<p>' .
-                            sprintf( '%1$s <a href="%2$s">%3$s</a>', wp_kses_post($settings['register_heading_content']) , esc_url( wp_login_url()) , wp_kses_post($settings['register_heading_url_control']) ) .
+                            sprintf( '%1$s <a href="%2$s">%3$s</a>', wp_kses_post($settings['register_heading_content'] ) , esc_url( wp_login_url()) , wp_kses_post($settings['register_heading_url_control'] ) ) .
                             '</p>';
 
                         endif; ?>
@@ -2709,7 +2709,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                 <div class="htb-col-lg-6">
                                     <?php
                                         if( $settings['show_label'] == 'yes' ){
-                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_name'.$id ,(isset( $settings['username_label'] )) ? htmega_kses_title( $settings['username_label'] ) : esc_html__( 'Username', 'htmega-addons' ));
+                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_name' . esc_attr( $id ), (isset( $settings['username_label'] )) ? htmega_kses_title( $settings['username_label'] ) : esc_html__( 'Username', 'htmega-addons' ));
                                         }
                                         echo '<input '.$this->get_render_attribute_string( 'username_input_attr' ).' />';
                                     ?>
@@ -2718,7 +2718,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                 <div class="htb-col-lg-6">
                                     <?php
                                         if( $settings['show_label'] == 'yes' ){ 
-                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_password'.$id , (isset( $settings['password_label'] )) ? htmega_kses_title( $settings['password_label'] ) : esc_html__( 'Password', 'htmega-addons' ));
+                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_password' . esc_attr( $id ), (isset( $settings['password_label'] )) ? htmega_kses_title( $settings['password_label'] ) : esc_html__( 'Password', 'htmega-addons' ));
                                         }
                                         echo '<input '.$this->get_render_attribute_string( 'password_input_attr' ).' />';
                                     ?>
@@ -2727,7 +2727,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                 <div class="htb-col-lg-12">
                                     <?php
                                         if( $settings['show_label'] == 'yes' ){ 
-                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_email'.$id ,isset( $settings['email_label'] ) ?  htmega_kses_title( $settings['email_label'] ): esc_html__( 'Email', 'htmega-addons' ));
+                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_email' . esc_attr( $id ), isset( $settings['email_label'] ) ?  htmega_kses_title( $settings['email_label'] ): esc_html__( 'Email', 'htmega-addons' ));
                                         }
                                         echo '<input '.$this->get_render_attribute_string( 'email_input_attr' ).' />';
                                     ?>
@@ -2738,7 +2738,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     if( $settings['show_firstname'] == 'yes' ){
                                         echo '<div class="htb-col-lg-12">';
                                             if( $settings['show_label'] == 'yes' ){ 
-                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_fname'.$id , (isset( $settings['firstname_label'] )) ? htmega_kses_title( $settings['firstname_label']) : esc_html__( 'First Name', 'htmega-addons'));
+                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_fname' . esc_attr( $id ), (isset( $settings['firstname_label'] )) ? htmega_kses_title( $settings['firstname_label'] ) : esc_html__( 'First Name', 'htmega-addons'));
                                             }
                                             echo '<input '.$this->get_render_attribute_string( 'fname_input_attr' ).' />';
                                         echo '</div>';
@@ -2746,7 +2746,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     if( $settings['show_lastname'] == 'yes' ){
                                         echo '<div class="htb-col-lg-12">';
                                             if( $settings['show_label'] == 'yes' ){ 
-                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_lname'.$id , ( isset( $settings['lastname_label'] )) ? htmega_kses_title( $settings['lastname_label'] ) : esc_html__( 'Last Name', 'htmega-addons'));
+                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_lname' . esc_attr( $id ), ( isset( $settings['lastname_label'] )) ? htmega_kses_title( $settings['lastname_label'] ) : esc_html__( 'Last Name', 'htmega-addons'));
                                             }
                                             echo '<input '.$this->get_render_attribute_string( 'lname_input_attr' ).' />';
                                         echo '</div>';
@@ -2755,7 +2755,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     if( $settings['show_nickname'] == 'yes' ){
                                         echo '<div class="htb-col-lg-12">';
                                             if( $settings['show_label'] == 'yes' ){ 
-                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_nickname'.$id , ( isset( $settings['nickname_label'] )) ? htmega_kses_title( $settings['nickname_label'] ) : esc_html__( 'Nick Name', 'htmega-addons' ));
+                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_nickname' . esc_attr( $id ), ( isset( $settings['nickname_label'] )) ? htmega_kses_title( $settings['nickname_label'] ) : esc_html__( 'Nick Name', 'htmega-addons' ));
                                             }
                                             echo '<input '.$this->get_render_attribute_string( 'nickname_input_attr' ).' />';
                                         echo '</div>';
@@ -2764,7 +2764,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     if( $settings['show_website'] == 'yes' ){
                                         echo '<div class="htb-col-lg-12">';
                                             if( $settings['show_label'] == 'yes' ){ 
-                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_website'.$id , (isset( $settings['website_label'] )) ? htmega_kses_title( $settings['website_label'] ) : esc_html__( 'Website', 'htmega-addons' ));
+                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_website' . esc_attr( $id ), (isset( $settings['website_label'] )) ? htmega_kses_title( $settings['website_label'] ) : esc_html__( 'Website', 'htmega-addons' ));
                                             }
                                             echo '<input '.$this->get_render_attribute_string( 'website_input_attr' ).' />';
                                         echo '</div>';
@@ -2773,7 +2773,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     if( $settings['show_bio'] == 'yes' ){
                                         echo '<div class="htb-col-lg-12">';
                                             if( $settings['show_label'] == 'yes' ){ 
-                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_bio'.$id , ( isset( $settings['bio_label'] )) ? htmega_kses_title( $settings['bio_label'] ) : esc_html__( 'Biographical Info', 'htmega-addons' ));
+                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_bio' . esc_attr( $id ), ( isset( $settings['bio_label'] )) ? htmega_kses_title( $settings['bio_label'] ) : esc_html__( 'Biographical Info', 'htmega-addons' ));
                                             }
                                             echo sprintf( '<textarea %1$s>%2$s</textarea>', $this->get_render_attribute_string( 'bio_textarea_attr' ), ( isset( $_REQUEST['reg_bio'] ) ? esc_html( $_REQUEST['reg_bio'] ) : NULL ));
                                         echo '</div>';
@@ -2784,7 +2784,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                         <div class="htb-col-lg-12 termscondition">
                                             <input name="termscondition" type="checkbox" id="terms-<?php echo esc_attr( $id );?>">
                                             <?php 
-                                                echo sprintf('<label for="%1$s" class="htmega-form-label">%2$s <a class="terms-conditions" href="%3$s">%4$s</a>  </label>' ,'terms-'.$id , $terms_label , $page_id , $page_title  );
+                                                echo sprintf('<label for="%1$s" class="htmega-form-label">%2$s <a class="terms-conditions" href="%3$s">%4$s</a>  </label>' ,'terms-' . esc_attr( $id ) , $terms_label , $page_id , $page_title  );
                                             ?>
                                         </div>
                                     <?php }
@@ -2794,11 +2794,11 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <input <?php echo $this->get_render_attribute_string( 'submit_input_attr' ); ?> />
                                 </div>
 
-                                <?php if($settings['login_option_content']) : ?>
+                                <?php if($settings['login_option_content'] ) : ?>
                                     <div class="htb-col-lg-12 htmega-submit-button">
                                         <div class="separator">
-                                            <?php if($settings['or_login_content_text']):
-                                                echo '<span>'. wp_kses_post($settings['or_login_content_text']) .'</span>';
+                                            <?php if($settings['or_login_content_text'] ):
+                                                echo '<span>'. wp_kses_post($settings['or_login_content_text'] ) .'</span>';
                                             endif; ?>
                                         </div>
                                     </div>                                    
@@ -2877,7 +2877,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     if( $settings['show_website'] == 'yes' ){
                                         echo '<div class="htb-col-lg-12">';
                                             if( $settings['show_label'] == 'yes' ){ 
-                                                echo sprintf('<label>%1$s</label>', (isset( $settings['website_label'] )) ? ( $settings['website_label']) : esc_html__( 'Website', 'htmega-addons' ));
+                                                echo sprintf('<label>%1$s</label>', (isset( $settings['website_label'] )) ? htmega_kses_title( $settings['website_label'] ) : esc_html__( 'Website', 'htmega-addons' ));
                                             }
                                             echo '<input '.$this->get_render_attribute_string( 'website_input_attr' ).' />';
                                         echo '</div>';
@@ -2897,7 +2897,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                         <div class="htb-col-lg-12 termscondition">
                                             <input name="termscondition" type="checkbox" id="terms-<?php echo esc_attr( $id );?>">
                                             <?php 
-                                                echo sprintf('<label for="%1$s" class="htmega-form-label">%2$s <a class="terms-conditions" href="%3$s">%4$s</a>  </label>' ,'terms-'.$id , $terms_label , $page_id , $page_title  );
+                                                echo sprintf('<label for="%1$s" class="htmega-form-label">%2$s <a class="terms-conditions" href="%3$s">%4$s</a>  </label>' ,'terms-' . esc_attr( $id ), $terms_label , $page_id , $page_title  );
                                             ?>
                                         </div>
                                     <?php }
@@ -2907,11 +2907,11 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <input <?php echo $this->get_render_attribute_string( 'submit_input_attr' ); ?> />
                                 </div>
 
-                                <?php if($settings['login_option_content']) : ?>
+                                <?php if($settings['login_option_content'] ) : ?>
                                     <div class="htb-col-lg-12">
                                         <div class="separator">
-                                            <?php if($settings['or_login_content_text']):
-                                                echo '<span>'. wp_kses_post($settings['or_login_content_text']) .'</span>';
+                                            <?php if($settings['or_login_content_text'] ):
+                                                echo '<span>'. wp_kses_post($settings['or_login_content_text'] ) .'</span>';
                                             endif; ?>
                                         </div>
                                     </div>                                    
@@ -3006,7 +3006,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <div class="htb-col-lg-12 termscondition">
                                         <input name="termscondition" type="checkbox" id="terms-<?php echo esc_attr( $id );?>">
                                         <?php 
-                                            echo sprintf('<label for="%1$s" class="htmega-form-label">%2$s <a class="terms-conditions" href="%3$s">%4$s</a>  </label>' ,'terms-'.$id , $terms_label , $page_id , $page_title  );
+                                            echo sprintf('<label for="%1$s" class="htmega-form-label">%2$s <a class="terms-conditions" href="%3$s">%4$s</a>  </label>' ,'terms-' . esc_attr( $id ), $terms_label , $page_id , $page_title  );
                                         ?>
                                     </div>
                                 <?php } ?>
@@ -3015,11 +3015,11 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <input <?php echo $this->get_render_attribute_string( 'submit_input_attr' ); ?> />
                                 </div>
 
-                                <?php if($settings['login_option_content']) : ?>
+                                <?php if($settings['login_option_content'] ) : ?>
                                     <div class="htb-col-lg-12">
                                         <div class="separator">
-                                            <?php if($settings['or_login_content_text']):
-                                                echo '<span>'. wp_kses_post($settings['or_login_content_text']) .'</span>';
+                                            <?php if($settings['or_login_content_text'] ):
+                                                echo '<span>'. wp_kses_post($settings['or_login_content_text'] ) .'</span>';
                                             endif; ?>
                                         </div>
                                     </div>                                    
@@ -3039,7 +3039,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <div class="htb-col-lg-12">
                                         <?php
                                             if( $settings['show_label'] == 'yes' ){ 
-                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_fname'.$id ,isset( $settings['firstname_label'] ) ? htmega_kses_title( $settings['firstname_label']) :  esc_html__( 'First Name', 'htmega-addons' ));
+                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_fname' . esc_attr( $id ), isset( $settings['firstname_label'] ) ? htmega_kses_title( $settings['firstname_label'] ) :  esc_html__( 'First Name', 'htmega-addons' ));
                                             }
                                             echo '<input '.$this->get_render_attribute_string( 'fname_input_attr' ).' />';
                                         ?>
@@ -3049,7 +3049,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <div class="htb-col-lg-12">
                                         <?php
                                             if( $settings['show_label'] == 'yes' ){ 
-                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_lname'.$id ,isset( $settings['lastname_label'] ) ? htmega_kses_title( $settings['lastname_label']) :  esc_html__( 'First Name', 'htmega-addons' ));
+                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_lname' . esc_attr( $id ), isset( $settings['lastname_label'] ) ? htmega_kses_title( $settings['lastname_label'] ) :  esc_html__( 'First Name', 'htmega-addons' ));
                                             }
                                             echo '<input '.$this->get_render_attribute_string( 'lname_input_attr' ).' />';
                                         ?>
@@ -3059,7 +3059,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <div class="htb-col-lg-12">
                                         <?php
                                             if( $settings['show_label'] == 'yes' ){ 
-                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_nickname'.$id ,isset( $settings['nickname_label'] ) ? htmega_kses_title( $settings['nickname_label']) :  esc_html__( 'Nick Name', 'htmega-addons' ));
+                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_nickname' . esc_attr( $id ), isset( $settings['nickname_label'] ) ? htmega_kses_title( $settings['nickname_label'] ) :  esc_html__( 'Nick Name', 'htmega-addons' ));
                                             }
                                             echo '<input '.$this->get_render_attribute_string( 'nickname_input_attr' ).' />';
                                         ?>
@@ -3069,7 +3069,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                 <div class="htb-col-lg-12">
                                     <?php
                                         if( $settings['show_label'] == 'yes' ){
-                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_name'.$id ,isset( $settings['username_label'] ) ? htmega_kses_title( $settings['username_label']) :  esc_html__( 'Username', 'htmega-addons' ));
+                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_name' . esc_attr( $id ), isset( $settings['username_label'] ) ? htmega_kses_title( $settings['username_label'] ) :  esc_html__( 'Username', 'htmega-addons' ));
                                         }
                                         echo '<input '.$this->get_render_attribute_string( 'username_input_attr' ).' />';
                                     ?>
@@ -3077,7 +3077,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                 <div class="htb-col-lg-12">
                                     <?php
                                         if( $settings['show_label'] == 'yes' ){ 
-                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_password'.$id ,isset( $settings['password_label'] ) ? htmega_kses_title( $settings['password_label'] ):  esc_html__( 'Password', 'htmega-addons' ));
+                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_password' . esc_attr( $id ), isset( $settings['password_label'] ) ? htmega_kses_title( $settings['password_label'] ):  esc_html__( 'Password', 'htmega-addons' ));
                                         }
                                         echo '<input '.$this->get_render_attribute_string( 'password_input_attr' ).' />';
                                     ?>
@@ -3085,7 +3085,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                 <div class="htb-col-lg-12">
                                     <?php
                                         if( $settings['show_label'] == 'yes' ){ 
-                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_email'.$id ,isset( $settings['email_label'] ) ? htmega_kses_title( $settings['email_label']) :  esc_html__( 'Email', 'htmega-addons' ));
+                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_email' . esc_attr( $id ), isset( $settings['email_label'] ) ? htmega_kses_title( $settings['email_label'] ) :  esc_html__( 'Email', 'htmega-addons' ));
                                         }
                                         echo '<input '.$this->get_render_attribute_string( 'email_input_attr' ).' />';
                                     ?>
@@ -3094,7 +3094,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <div class="htb-col-lg-12">
                                         <?php
                                             if( $settings['show_label'] == 'yes' ){ 
-                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_website'.$id ,isset( $settings['website_label'] ) ? htmega_kses_title( $settings['website_label']) :  esc_html__( 'Nick Name', 'htmega-addons' ));
+                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_website' . esc_attr( $id ), isset( $settings['website_label'] ) ? htmega_kses_title( $settings['website_label'] ) :  esc_html__( 'Nick Name', 'htmega-addons' ));
                                             }
                                             echo '<input '.$this->get_render_attribute_string( 'website_input_attr' ).' />';
                                         ?>
@@ -3104,7 +3104,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <div class="htb-col-lg-12">
                                         <?php
                                             if( $settings['show_label'] == 'yes' ){ 
-                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_bio'.$id ,isset( $settings['bio_label'] ) ? htmega_kses_title( $settings['bio_label']) :  esc_html__( 'Nick Name', 'htmega-addons' ));
+                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_bio' . esc_attr( $id ), isset( $settings['bio_label'] ) ? htmega_kses_title( $settings['bio_label'] ) :  esc_html__( 'Nick Name', 'htmega-addons' ));
                                             }
                                             
                                             echo sprintf( '<textarea %1$s>%2$s</textarea>', $this->get_render_attribute_string( 'bio_textarea_attr' ), ( isset( $_REQUEST['reg_bio'] ) ? esc_html( $_REQUEST['reg_bio'] ) : NULL ) );
@@ -3116,7 +3116,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <div class="htb-col-lg-12 termscondition">
                                         <input name="termscondition" type="checkbox" id="terms-<?php echo esc_attr( $id );?>">
                                         <?php 
-                                            echo sprintf('<label for="%1$s" class="htmega-form-label">%2$s <a class="terms-conditions" href="%3$s">%4$s</a>  </label>' ,'terms-'.$id , $terms_label , $page_id , $page_title  );
+                                            echo sprintf('<label for="%1$s" class="htmega-form-label">%2$s <a class="terms-conditions" href="%3$s">%4$s</a>  </label>' ,'terms-' . esc_attr( $id ), $terms_label , $page_id , $page_title  );
                                         ?>
                                     </div>
                                 <?php } ?>                               
@@ -3125,11 +3125,11 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <input <?php echo $this->get_render_attribute_string( 'submit_input_attr' ); ?> />
                                 </div>
 
-                                <?php if($settings['login_option_content']) : ?>
+                                <?php if($settings['login_option_content'] ) : ?>
                                     <div class="htb-col-lg-12">
                                         <div class="separator">
-                                            <?php if($settings['or_login_content_text']):
-                                                echo '<span>'. wp_kses_post($settings['or_login_content_text']) .'</span>';
+                                            <?php if($settings['or_login_content_text'] ):
+                                                echo '<span>'. wp_kses_post($settings['or_login_content_text'] ) .'</span>';
                                             endif; ?>
                                         </div>
                                     </div>                                    
@@ -3149,7 +3149,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <div class="htb-col-lg-12">
                                         <?php
                                             if( $settings['show_label'] == 'yes' ){
-                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_fname'.$id ,isset( $settings['firstname_label'] ) ? htmega_kses_title(  $settings['firstname_label']) :  esc_html__( 'First Name', 'htmega-addons' ));
+                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_fname' . esc_attr( $id ), isset( $settings['firstname_label'] ) ? htmega_kses_title( $settings['firstname_label'] ) :  esc_html__( 'First Name', 'htmega-addons' ));
                                             }
                                             echo '<input '.$this->get_render_attribute_string( 'fname_input_attr' ).' />';
                                         ?>
@@ -3160,7 +3160,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <div class="htb-col-lg-12">
                                         <?php
                                             if( $settings['show_label'] == 'yes' ){
-                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_lname'.$id ,isset( $settings['lastname_label'] ) ? htmega_kses_title(  $settings['lastname_label']) :  esc_html__( 'Last Name', 'htmega-addons' ));
+                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_lname' . esc_attr( $id ), isset( $settings['lastname_label'] ) ? htmega_kses_title( $settings['lastname_label'] ) :  esc_html__( 'Last Name', 'htmega-addons' ));
                                             }
                                             echo '<input '.$this->get_render_attribute_string( 'lname_input_attr' ).' />';
                                         ?>
@@ -3171,7 +3171,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <div class="htb-col-lg-12">
                                         <?php
                                             if( $settings['show_label'] == 'yes' ){
-                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_nickname'.$id ,isset( $settings['nickname_label'] ) ? htmega_kses_title(  $settings['nickname_label']) :  esc_html__( 'Nick Name', 'htmega-addons' ));
+                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_nickname' . esc_attr( $id ), isset( $settings['nickname_label'] ) ? htmega_kses_title( $settings['nickname_label'] ) :  esc_html__( 'Nick Name', 'htmega-addons' ));
                                             }
                                             echo '<input '.$this->get_render_attribute_string( 'nickname_input_attr' ).' />';
                                         ?>
@@ -3181,7 +3181,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                 <div class="htb-col-lg-12">
                                     <?php
                                         if( $settings['show_label'] == 'yes' ){
-                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_name'.$id ,isset( $settings['username_label'] ) ? htmega_kses_title(  $settings['username_label']) :  esc_html__( 'Username', 'htmega-addons' ));
+                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_name' . esc_attr( $id ), isset( $settings['username_label'] ) ? htmega_kses_title( $settings['username_label'] ) :  esc_html__( 'Username', 'htmega-addons' ));
                                         }
                                         echo '<input '.$this->get_render_attribute_string( 'username_input_attr' ).' />';
                                     ?>
@@ -3190,7 +3190,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                 <div class="htb-col-lg-12">
                                     <?php
                                         if( $settings['show_label'] == 'yes' ){ 
-                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_password'.$id ,isset( $settings['password_label'] ) ? htmega_kses_title( $settings['password_label']) :  esc_html__( 'Password', 'htmega-addons' ));
+                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_password' . esc_attr( $id ), isset( $settings['password_label'] ) ? htmega_kses_title( $settings['password_label'] ) :  esc_html__( 'Password', 'htmega-addons' ));
                                         }
                                         echo '<input '.$this->get_render_attribute_string( 'password_input_attr' ).' />';
                                     ?>
@@ -3199,7 +3199,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                 <div class="htb-col-lg-12">
                                     <?php
                                         if( $settings['show_label'] == 'yes' ){ 
-                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_email'.$id ,isset( $settings['email_label'] ) ? htmega_kses_title( $settings['email_label']) :  esc_html__( 'Email', 'htmega-addons' ));
+                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_email' . esc_attr( $id ), isset( $settings['email_label'] ) ? htmega_kses_title( $settings['email_label'] ) :  esc_html__( 'Email', 'htmega-addons' ));
                                         }
                                         echo '<input '.$this->get_render_attribute_string( 'email_input_attr' ).' />';
                                     ?>
@@ -3209,7 +3209,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <div class="htb-col-lg-12">
                                         <?php
                                             if( $settings['show_label'] == 'yes' ){
-                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_website'.$id ,isset( $settings['website_label'] ) ? htmega_kses_title(  $settings['website_label']) :  esc_html__( 'Website', 'htmega-addons' ));
+                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_website' . esc_attr( $id ), isset( $settings['website_label'] ) ? htmega_kses_title( $settings['website_label'] ) :  esc_html__( 'Website', 'htmega-addons' ));
                                             }
                                             echo '<input '.$this->get_render_attribute_string( 'website_input_attr' ).' />';
                                         ?>
@@ -3220,7 +3220,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <div class="htb-col-lg-12">
                                         <?php
                                             if( $settings['show_label'] == 'yes' ){
-                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_bio'.$id ,isset( $settings['bio_label'] ) ? htmega_kses_title(  $settings['bio_label']) :  esc_html__( 'Biographical Info', 'htmega-addons' ));
+                                                echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_bio' . esc_attr( $id ), isset( $settings['bio_label'] ) ? htmega_kses_title( $settings['bio_label'] ) :  esc_html__( 'Biographical Info', 'htmega-addons' ));
                                             }
                                             
                                             echo sprintf( '<textarea %1$s>%2$s</textarea>', $this->get_render_attribute_string( 'bio_textarea_attr' ), ( isset( $_REQUEST['reg_bio'] ) ? esc_html( $_REQUEST['reg_bio'] ) : NULL ) );
@@ -3232,7 +3232,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <div class="htb-col-lg-12 termscondition">
                                         <input name="termscondition" type="checkbox" id="terms-<?php echo esc_attr( $id );?>">
                                         <?php 
-                                            echo sprintf('<label for="%1$s" class="htmega-form-label">%2$s <a class="terms-conditions" href="%3$s">%4$s</a>  </label>' ,'terms-'.$id , $terms_label , $page_id , $page_title  );
+                                            echo sprintf('<label for="%1$s" class="htmega-form-label">%2$s <a class="terms-conditions" href="%3$s">%4$s</a>  </label>' ,'terms-' . esc_attr( $id ), $terms_label , $page_id , $page_title  );
                                         ?>
                                     </div>
                                 <?php } ?>  
@@ -3241,11 +3241,11 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                     <input <?php echo $this->get_render_attribute_string( 'submit_input_attr' ); ?> />
                                 </div>
 
-                                <?php if($settings['login_option_content']) : ?>
+                                <?php if($settings['login_option_content'] ) : ?>
                                     <div class="htb-col-lg-12">
                                         <div class="separator">
-                                            <?php if($settings['or_login_content_text']):
-                                                echo '<span>'. wp_kses_post($settings['or_login_content_text']) .'</span>';
+                                            <?php if($settings['or_login_content_text'] ):
+                                                echo '<span>'. wp_kses_post($settings['or_login_content_text'] ) .'</span>';
                                             endif; ?>
                                         </div>
                                     </div>                                    
@@ -3263,48 +3263,48 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                 <?php
                                     // Default Field
                                     if( $settings['show_label'] == 'yes' ){
-                                        echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_name'.$id ,isset( $settings['username_label'] ) ? htmega_kses_title( $settings['username_label']) :  esc_html__( 'Username', 'htmega-addons' ));
+                                        echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_name' . esc_attr( $id ), isset( $settings['username_label'] ) ? htmega_kses_title( $settings['username_label'] ) :  esc_html__( 'Username', 'htmega-addons' ));
                                     }
                                     echo '<input '.$this->get_render_attribute_string( 'username_input_attr' ).' />';
 
                                     if( $settings['show_label'] == 'yes' ){ 
-                                        echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_password'.$id ,isset( $settings['password_label'] ) ? htmega_kses_title( $settings['password_label']) :  esc_html__( 'Password', 'htmega-addons' ));
+                                        echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_password' . esc_attr( $id ), isset( $settings['password_label'] ) ? htmega_kses_title( $settings['password_label'] ) :  esc_html__( 'Password', 'htmega-addons' ));
                                     }
                                     echo '<input '.$this->get_render_attribute_string( 'password_input_attr' ).' />';
 
                                     if( $settings['show_label'] == 'yes' ){ 
-                                        echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_email'.$id ,isset( $settings['email_label'] ) ? htmega_kses_title( $settings['email_label']) :  esc_html__( 'Email', 'htmega-addons' ));
+                                        echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_email' . esc_attr( $id ), isset( $settings['email_label'] ) ? htmega_kses_title( $settings['email_label'] ) :  esc_html__( 'Email', 'htmega-addons' ));
                                     }
                                     echo '<input '.$this->get_render_attribute_string( 'email_input_attr' ).' />';
 
                                     // Additionnal Field
                                     if( $settings['show_firstname'] == 'yes' ){
                                         if( $settings['show_label'] == 'yes' ){ 
-                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_fname'.$id ,isset( $settings['firstname_label'] ) ? htmega_kses_title( $settings['firstname_label']) :  esc_html__('First Name', 'htmega-addons' ));
+                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_fname' . esc_attr( $id ), isset( $settings['firstname_label'] ) ? htmega_kses_title( $settings['firstname_label'] ) :  esc_html__('First Name', 'htmega-addons' ));
                                         }
                                         echo '<input '.$this->get_render_attribute_string( 'fname_input_attr' ).' />';
                                     }
                                     if( $settings['show_lastname'] == 'yes' ){
                                         if( $settings['show_label'] == 'yes' ){ 
-                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_lname'.$id ,isset( $settings['lastname_label'] ) ? htmega_kses_title( $settings['lastname_label']) :  esc_html__( 'Last Name', 'htmega-addons' ));
+                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_lname' . esc_attr( $id ), isset( $settings['lastname_label'] ) ? htmega_kses_title( $settings['lastname_label'] ) :  esc_html__( 'Last Name', 'htmega-addons' ));
                                         }
                                         echo '<input '.$this->get_render_attribute_string( 'lname_input_attr' ).' />';
                                     }
                                     if( $settings['show_nickname'] == 'yes' ){
                                         if( $settings['show_label'] == 'yes' ){ 
-                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_nickname'.$id ,isset( $settings['nickname_label'] ) ? htmega_kses_title( $settings['nickname_label']) :  esc_html__( 'Nick Name', 'htmega-addons' ));
+                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_nickname' . esc_attr( $id ), isset( $settings['nickname_label'] ) ? htmega_kses_title( $settings['nickname_label'] ) :  esc_html__( 'Nick Name', 'htmega-addons' ));
                                         }
                                         echo '<input '.$this->get_render_attribute_string( 'nickname_input_attr' ).' />';
                                     }
                                     if( $settings['show_website'] == 'yes' ){
                                         if( $settings['show_label'] == 'yes' ){ 
-                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_website'.$id ,isset( $settings['website_label'] ) ? htmega_kses_title( $settings['website_label']) :  esc_html__( 'Website', 'htmega-addons' ));
+                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_website' . esc_attr( $id ), isset( $settings['website_label'] ) ? htmega_kses_title( $settings['website_label'] ) :  esc_html__( 'Website', 'htmega-addons' ));
                                         }
                                         echo '<input '.$this->get_render_attribute_string( 'website_input_attr' ).' />';
                                     }
                                     if( $settings['show_bio'] == 'yes' ){
                                         if( $settings['show_label'] == 'yes' ){ 
-                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_bio'.$id , isset( $settings['bio_label'] ) ? htmega_kses_title( $settings['bio_label']) :  esc_html__('Biographical Info', 'htmega-addons' ));
+                                            echo sprintf('<label for="%1$s">%2$s</label>' ,'reg_bio' . esc_attr( $id ), isset( $settings['bio_label'] ) ? htmega_kses_title( $settings['bio_label'] ) :  esc_html__('Biographical Info', 'htmega-addons' ));
                                         }
                                         
                                         echo sprintf( '<textarea %1$s>%2$s</textarea>', $this->get_render_attribute_string( 'bio_textarea_attr' ), ( isset( $_REQUEST['reg_bio'] ) ? esc_html( $_REQUEST['reg_bio'] ) : NULL ));
@@ -3314,7 +3314,7 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                         <div class="termscondition">
                                             <input name="termscondition" type="checkbox" id="terms-<?php echo esc_attr( $id );?>">
                                             <?php 
-                                                echo sprintf('<label for="%1$s" class="htmega-form-label">%2$s <a class="terms-conditions" href="%3$s">%4$s</a>  </label>' ,'terms-'.$id , $terms_label , $page_id , $page_title  );
+                                                echo sprintf('<label for="%1$s" class="htmega-form-label">%2$s <a class="terms-conditions" href="%3$s">%4$s</a>  </label>' ,'terms-' . esc_attr( $id ), $terms_label , $page_id , $page_title  );
                                             ?>
 
                                         </div>
@@ -3322,18 +3322,18 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                                 ?>
                                 <input <?php echo $this->get_render_attribute_string( 'submit_input_attr' ); ?> />
 
-                                <?php if($settings['login_option_content']) : ?>
+                                <?php if($settings['login_option_content'] ) : ?>
                                     <div class="htb-col-lg-12">
                                         <div class="separator">
-                                            <?php if($settings['or_login_content_text']):
-                                                echo '<span>'. wp_kses_post($settings['or_login_content_text']) .'</span>';
+                                            <?php if($settings['or_login_content_text'] ):
+                                                echo '<span>'. wp_kses_post($settings['or_login_content_text'] ) .'</span>';
                                             endif; ?>
                                         </div>
                                     </div>                                    
                                 <?php endif; ?>
                                 
                                 <?php if( $settings['login_option_button'] == 'yes' ){ ?>
-                                    <a href="<?php echo esc_url( wp_login_url()); ?>"><?php echo esc_html__( 'Login','htmega-addons' );?></a>
+                                    <a href="<?php echo esc_url( wp_login_url() ); ?>"><?php echo esc_html__( 'Login','htmega-addons' );?></a>
                                 <?php } ?>
                             </div>
                         <?php endif;?>
@@ -3367,14 +3367,14 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                         var data = {
                             action:         "htmega_ajax_register",
                             nonce:          nonce,
-                            reg_name:       $( form_id + ' #reg_name<?php echo esc_attr( $id ); ?>').val(),
-                            reg_password:   $( form_id + ' #reg_password<?php echo esc_attr( $id ); ?>').val(),
-                            reg_email:      $( form_id + ' #reg_email<?php echo esc_attr( $id ); ?>').val(),
-                            reg_website:    $( form_id + ' #reg_website<?php echo esc_attr( $id ); ?>').val(),
-                            reg_fname:      $( form_id + ' #reg_fname<?php echo esc_attr( $id ); ?>').val(),
-                            reg_lname:      $( form_id + ' #reg_lname<?php echo esc_attr( $id ); ?>').val(),
-                            reg_nickname:   $( form_id + ' #reg_nickname<?php echo esc_attr( $id ); ?>').val(),
-                            reg_bio:        $( form_id + ' #reg_bio<?php echo esc_attr( $id ); ?>').val(),
+                            reg_name:       $( form_id + ' #reg_name<?php echo esc_js( $id ); ?>').val(),
+                            reg_password:   $( form_id + ' #reg_password<?php echo esc_js( $id ); ?>').val(),
+                            reg_email:      $( form_id + ' #reg_email<?php echo esc_js( $id ); ?>').val(),
+                            reg_website:    $( form_id + ' #reg_website<?php echo esc_js( $id ); ?>').val(),
+                            reg_fname:      $( form_id + ' #reg_fname<?php echo esc_js( $id ); ?>').val(),
+                            reg_lname:      $( form_id + ' #reg_lname<?php echo esc_js( $id ); ?>').val(),
+                            reg_nickname:   $( form_id + ' #reg_nickname<?php echo esc_js( $id ); ?>').val(),
+                            reg_bio:        $( form_id + ' #reg_bio<?php echo esc_js( $id ); ?>').val(),
                         };
 
                         $.ajax({  

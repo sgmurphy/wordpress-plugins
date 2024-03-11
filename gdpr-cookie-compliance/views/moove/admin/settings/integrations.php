@@ -77,13 +77,17 @@
   ?>
   <form action="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>?page=moove-gdpr&amp;tab=integrations" method="post">
     <?php wp_nonce_field( 'moove_gdpr_nonce_field', 'moove_gdpr_nonce' ); ?>
-    <h2><?php esc_html_e('Integrations','gdpr-cookie-compliance'); ?></h2>
+    <h2><?php echo $wpml_lang ? esc_html__('Integrations for all languages','gdpr-cookie-compliance') : esc_html__('Integrations','gdpr-cookie-compliance'); ?></h2>
     <h4 class="description">
       <?php esc_html_e('Connect your GA/GTM or Meta Pixel tracking easily to the cookie categories used by this plugin.','gdpr-cookie-compliance'); ?> 
       <br>
       <?php esc_html_e('Using the settings below, you can ensure that the tracking scripts will be loaded only if your website visitors accept the selected cookie category.','gdpr-cookie-compliance'); ?>
       <br/> 
       <?php esc_html_e('Please ensure that you remove any hard-coded GA/GTM or Facebook/Meta Pixel scripts from your website theme or other plugins (including any other parts of this plugin) to prevent duplicate activation of the same scripts.','gdpr-cookie-compliance'); ?>
+      <?php if ( $wpml_lang ) : ?>
+        <br/>
+        <?php esc_html_e('If you enable these integrations, they will be applied to all your language variations.'); ?>
+      <?php endif; ?>
     </h4>
     <table class="form-table">
       <tbody>

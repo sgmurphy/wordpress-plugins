@@ -1953,14 +1953,14 @@ class HTMega_Elementor_Widget_Pricing_List_View extends Widget_Base {
                                     $column_repeater_key = $this->get_repeater_setting_key( 'column_span', 'header_column_list', $key );
 
                                     $this->add_render_attribute( $column_repeater_key, 'class', 'htmega-pricing-table__head-column-cell' );
-                                    $this->add_render_attribute( $column_repeater_key, 'class', 'elementor-repeater-item-' . $headeritem['_id'] );
+                                    $this->add_render_attribute( $column_repeater_key, 'class', 'elementor-repeater-item-' . esc_attr( $headeritem['_id'] ) );
 
                                     if ( $headeritem['column_span'] ) {
-                                        $this->add_render_attribute( $column_repeater_key, 'colspan', $headeritem['column_span'] );
+                                        $this->add_render_attribute( $column_repeater_key, 'colspan', esc_attr( $headeritem['column_span'] ) );
                                     }   
                                     
                                     if($headeritem['th_column_width']){
-                                        $this->add_render_attribute($column_repeater_key, 'width', $headeritem['th_column_width'].'%' );
+                                        $this->add_render_attribute($column_repeater_key, 'width', esc_attr( $headeritem['th_column_width'] ) .'%' );
                                     }
             
                                     if( $settings['datatable_style'] == 2 && !empty( $headeritem['column_name'] )){ ?>
@@ -2021,7 +2021,7 @@ class HTMega_Elementor_Widget_Pricing_List_View extends Widget_Base {
                                         if( $table_tr[$i]['id'] == $table_td[$j]['row_id'] ):
                                             $pricing_table_repeater_key = $this->get_repeater_setting_key( 'row_colspan', 'content_list', $table_td[$j]['row_id'].$i.$j );
                                             $this->add_render_attribute( $pricing_table_repeater_key, 'class', 'htmega-pricing-row-cell' );
-                                            $this->add_render_attribute( $pricing_table_repeater_key, 'class', 'elementor-repeater-item-' . $table_td[$j]['repeater_id'] );
+                                            $this->add_render_attribute( $pricing_table_repeater_key, 'class', 'elementor-repeater-item-' . esc_attr( $table_td[$j]['repeater_id'] ) );
                                 ?>
                                 <td <?php echo $this->get_render_attribute_string( $pricing_table_repeater_key ); ?> <?php echo $table_td[$j]['colspan'] > 1 ? ' colspan="'.esc_attr($table_td[$j]['colspan']).'"' : ''; ?>>
                                     <?php
@@ -2037,7 +2037,7 @@ class HTMega_Elementor_Widget_Pricing_List_View extends Widget_Base {
                                             <?php }elseif( $table_td[$j]['contenttype'] == 'text' ){ ?>
                                                 <div class="htmega-pricing-table__head-row-cell-area">
                                                     <?php if( !empty( $table_td[$j]['link_url'] ) ){
-                                                        echo '<a href="'.esc_url( $table_td[$j]['link_url'] ).'" '.$table_td[$j]['link_target'].$table_td[$j]['nofollow'].'>'.$table_td[$j]['title'].'</a>'; 
+                                                        echo '<a href="'.esc_url( $table_td[$j]['link_url'] ).'" '.$table_td[$j]['link_target'].$table_td[$j]['nofollow'].'>'. wp_kses_post( $table_td[$j]['title'] ) .'</a>'; 
                                                     }else{ ?>
                                                         <span class="table-row-title">
                                                             <?php echo htmega_kses_title($table_td[$j]['title']); ?>
@@ -2055,7 +2055,7 @@ class HTMega_Elementor_Widget_Pricing_List_View extends Widget_Base {
                                                     <div class="htmega-pricing-table__head-row-cell-text">
                                                         <?php
                                                             if( !empty( $table_td[$j]['link_url'] ) ){
-                                                                echo '<a href="'.esc_url( $table_td[$j]['link_url'] ).'" '.$table_td[$j]['link_target'].$table_td[$j]['nofollow'].'>'.$table_td[$j]['title'].'</a>';
+                                                                echo '<a href="'.esc_url( $table_td[$j]['link_url'] ).'" '.$table_td[$j]['link_target'].$table_td[$j]['nofollow'].'>'. wp_kses_post( $table_td[$j]['title'] ) .'</a>';
                                                             }else{
                                                                 echo htmega_kses_title( $table_td[$j]['title'] );
                                                             }
@@ -2090,7 +2090,7 @@ class HTMega_Elementor_Widget_Pricing_List_View extends Widget_Base {
                                             <?php }elseif( $table_td[$j]['contenttype'] == 'text' ){ ?>
                                                 <div class="htmega-pricing-table__head-row-cell-area">
                                                     <?php if( !empty( $table_td[$j]['link_url'] ) ){
-                                                        echo '<a href="'.esc_url( $table_td[$j]['link_url'] ).'" '.$table_td[$j]['link_target'].$table_td[$j]['nofollow'].'>'.$table_td[$j]['title'].'</a>'; 
+                                                        echo '<a href="'.esc_url( $table_td[$j]['link_url'] ).'" '.$table_td[$j]['link_target'].$table_td[$j]['nofollow'].'>'. wp_kses_post( $table_td[$j]['title'] ) .'</a>'; 
                                                     }else{ ?>
                                                         <span class="table-row-title">
                                                             <?php echo htmega_kses_title( $table_td[$j]['title'] ); ?>
@@ -2108,7 +2108,7 @@ class HTMega_Elementor_Widget_Pricing_List_View extends Widget_Base {
                                                     <div class="htmega-pricing-table__head-row-cell-text">
                                                         <?php
                                                             if( !empty( $table_td[$j]['link_url'] ) ){
-                                                                echo '<a href="'.esc_url( $table_td[$j]['link_url'] ).'" '.$table_td[$j]['link_target'].$table_td[$j]['nofollow'].'>'.$table_td[$j]['title'].'</a>';
+                                                                echo '<a href="'.esc_url( $table_td[$j]['link_url'] ).'" '.$table_td[$j]['link_target'].$table_td[$j]['nofollow'].'>'. wp_kses_post( $table_td[$j]['title'] ) .'</a>';
                                                             }else{
                                                                 echo htmega_kses_title( $table_td[$j]['title'] );
                                                             }

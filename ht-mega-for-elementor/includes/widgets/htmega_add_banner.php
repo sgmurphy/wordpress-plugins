@@ -769,8 +769,8 @@ class HTMega_Elementor_Widget_Add_Banner extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
 
-        $this->add_render_attribute( 'htmega_banner', 'class', 'htmega-banner htmega-banner-content-pos-'.$settings['banner_content_pos'] );
-        $this->add_render_attribute( 'htmega_banner', 'class', 'htmega-banner-style-'.$settings['banner_layout'] );
+        $this->add_render_attribute( 'htmega_banner', 'class', 'htmega-banner htmega-banner-content-pos-'. esc_attr( $settings['banner_content_pos'] ) );
+        $this->add_render_attribute( 'htmega_banner', 'class', 'htmega-banner-style-'. esc_attr( $settings['banner_layout'] ) );
 
         // URL Generate
         if ( ! empty( $settings['banner_link']['url'] ) ) {

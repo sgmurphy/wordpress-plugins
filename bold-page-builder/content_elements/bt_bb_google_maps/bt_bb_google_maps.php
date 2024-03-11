@@ -43,14 +43,16 @@ class bt_bb_google_maps extends BT_BB_Element {
 		if ( $api_key != '' ) {
 			wp_enqueue_script( 
 				'gmaps_api',
-				'https://maps.googleapis.com/maps/api/js?key=' . $api_key . '&callback=Function.prototype'
+				'https://maps.googleapis.com/maps/api/js?key=' . $api_key . '&loading=async&callback=window.bt_bb_init_all_maps'
 			);
 		} else {
 			wp_enqueue_script( 
 				'gmaps_api',
-				'https://maps.googleapis.com/maps/api/js?v=&sensor=false&callback=Function.prototype'
+				'https://maps.googleapis.com/maps/api/js?v=&sensor=false&loading=async&callback=window.bt_bb_init_all_maps'
 			);
 		}
+		wp_script_add_data( 'gmaps_api', 'strategy', 'async' );
+		
 		
 		if ( $zoom == '' ) {
 			$zoom = 14;

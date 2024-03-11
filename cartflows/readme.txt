@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: woocommerce, funnel builder, sales funnels, elementor, beaver builder
 Requires at least: 5.8
 Tested up to: 6.4
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -321,6 +321,15 @@ This includes, but is not limited to:
 5. Easily edit anything with your page builder.
 
 == Changelog ==
+
+= Version 2.0.5 - Monday, 11th March 2024 =
+* Improvement: Added the product names on the hover of the product tag in the dynamic conditions dropdown option
+* Fix: DIVI flow was not getting imported via JSON file.
+* Fix: In permalink, the Default option was not getting displayed as selected.
+* Fix: The edit flow button's position in edit page for block editor was not aligned properly.
+* Fix: Flow's list was not getting displayed if all of the flows are moved to trashed.
+* Fix: Flow's bulk actions were not working in some cases.
+* Fix: Step's slug was not showing the updated slug value in the step's setting.
 
 = Version 2.0.4 - Thursday, 15th February 2024 =
 * Fix: Flows exported via bulk-export functionality were not getting imported properly properly.

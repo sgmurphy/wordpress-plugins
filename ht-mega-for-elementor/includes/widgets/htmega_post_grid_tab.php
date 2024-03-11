@@ -1208,13 +1208,17 @@ class HTMega_Elementor_Widget_Post_Grid_Tab extends Widget_Base {
     protected function render( $instance = [] ) {
 
         $settings   = $this->get_settings_for_display();
-        $post_type = $settings['grid_post_type'];
-        if( 'post'== $post_type ){
+
+        $post_type =  isset( $settings['grid_post_type'] ) ? $settings['grid_post_type'] : 'post';
+        $post_categorys = [];
+        if( 'post'== $post_type && ! empty( $settings['grid_categories'] ) && is_array( $settings['grid_categories'] ) ) {
             $post_categorys = $settings['grid_categories'];
-        } else if( 'product'== $post_type ){
+        } else if( 'product'== $post_type && ! empty( $settings['grid_prod_categories'] ) && is_array( $settings['grid_prod_categories'] ) ) {
             $post_categorys = $settings['grid_prod_categories'];
         }else {
-            $post_categorys = $settings[ $post_type.'_post_category'];
+            if( ! empty( $settings[ $post_type.'_post_category'] )  && is_array( $settings[ $post_type.'_post_category'] ) ) {
+                $post_categorys =  $settings[ $post_type.'_post_category'];
+            }
         }
         $post_author = $settings['post_author'];
         $exclude_posts = $settings['exclude_posts'];
@@ -1253,7 +1257,7 @@ class HTMega_Elementor_Widget_Post_Grid_Tab extends Widget_Base {
             }
         }
         // author check
-        if (  !empty( $post_author ) ) {
+        if (  !empty( $post_author ) && is_array( $post_author ) ) {
             $args['author__in'] = $post_author;
         }
         // order by  check
@@ -1296,7 +1300,7 @@ class HTMega_Elementor_Widget_Post_Grid_Tab extends Widget_Base {
         $grid_post = new \WP_Query( $args );
 
         $tabs_options = [];
-        $tabs_options['wrapid'] = $id;
+        $tabs_options['wrapid'] = esc_attr( $id );
         $this->add_render_attribute( 'htmega_post_gridtab', 'data-postgridtab', wp_json_encode( $tabs_options ) );
        
         ?>

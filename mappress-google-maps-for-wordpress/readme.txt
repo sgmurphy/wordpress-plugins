@@ -5,7 +5,7 @@ Tags: maps, google maps, map, map markers, google map, leaflet maps, leaflet map
 Requires at least: 5.9.5
 Requires PHP: 7.0
 Tested up to: 6.4
-Stable tag: 2.89.2
+Stable tag: 2.89.4
 
 == Description ==
 MapPress is the easiest way to add beautiful interactive Google and Leaflet maps to WordPress.
@@ -90,7 +90,13 @@ Please see the plugin documentation pages:
 
 == Changelog ==
 
-= 2.8.2 = 
+= 2.89.4 =
+* Fixed: map center ignored when saved as string
+
+= 2.89.3 =
+* Fixed: map not recentering when first displayed in hidden tab
+
+= 2.89.2 = 
 * Fixed: CSS typo
 * Fixed: Error if using Leaflet with Google geocoder
 

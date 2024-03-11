@@ -391,7 +391,7 @@ class HTMega_Elementor_Widget_Download_Monitor extends Widget_Base {
 
         if ( isset( $download ) ):
             ?>
-                <a class="htmega-downloadbtn elementor-button" href="<?php echo $download->the_download_link(); ?>">
+                <a class="htmega-downloadbtn elementor-button" href="<?php echo esc_url( $download->the_download_link() ); ?>">
                     <?php
                         if( !empty( $settings['button_icon']['value'] ) ){
                             echo '<span class="download_icon">'.HTMega_Icon_manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] ).'</span>';

@@ -96,6 +96,10 @@ export default {
 
         employeePlaceholders: [
           {
+            value: '%employee_id%',
+            label: this.$root.labels.ph_employee_id
+          },
+          {
             value: '%employee_email%',
             label: this.$root.labels.ph_employee_email
           },
@@ -175,6 +179,10 @@ export default {
 
         categoryPlaceholders: [
           {
+            value: '%category_id%',
+            label: this.$root.labels.ph_category_id
+          },
+          {
             value: '%category_name%',
             label: this.$root.labels.ph_category_name
           },
@@ -185,6 +193,10 @@ export default {
           {
             value: '%service_duration%',
             label: this.$root.labels.ph_service_duration
+          },
+          {
+            value: '%service_id%',
+            label: this.$root.labels.ph_service_id
           },
           {
             value: '%service_name%',
@@ -204,6 +216,10 @@ export default {
           {
             value: '%location_description%',
             label: this.$root.labels.ph_location_description
+          },
+          {
+            value: '%location_id%',
+            label: this.$root.labels.ph_location_id
           },
           {
             value: '%location_name%',
@@ -374,6 +390,10 @@ export default {
           {
             value: '%event_tickets%',
             label: this.$root.labels.ph_event_tickets
+          },
+          {
+            value: '%event_id%',
+            label: this.$root.labels.ph_event_id
           },
           {
             value: '%event_name%',

@@ -80,7 +80,7 @@ class HTMega_Elementor_Widget_Revolution_Slider extends Widget_Base {
         $settings   = $this->get_settings_for_display();
 
         $revolution_attributes = [
-            'alias'  => $settings['slider_alias'],
+            'alias'  => sanitize_text_field( $settings['slider_alias'] ),
         ];
         $this->add_render_attribute( 'shortcode', $revolution_attributes );
         echo do_shortcode( sprintf( '[rev_slider %s]', $this->get_render_attribute_string( 'shortcode' ) ) );

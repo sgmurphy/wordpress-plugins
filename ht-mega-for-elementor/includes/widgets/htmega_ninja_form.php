@@ -1183,7 +1183,7 @@ class HTMega_Elementor_Widget_Ninja_Form extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
         $form_attributes = [
-            'id' => $settings['ninja_form'],
+            'id' => sanitize_text_field( $settings['ninja_form'] ),
         ];
 
         $this->add_render_attribute( 'shortcode', $form_attributes );

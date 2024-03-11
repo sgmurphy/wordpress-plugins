@@ -548,17 +548,17 @@ class HTMega_Elementor_Widget_WC_Categories extends Widget_Base {
         $settings   = $this->get_settings_for_display();
 
         $category_attributes = [
-            'number'     => $settings['show_number_of_item'],
-            'columns'    => $settings['category_columns'],
+            'number'     => absint($settings['show_number_of_item'] ),
+            'columns'    => absint( $settings['category_columns'] ),
             'hide_empty' => ( 'yes' === $settings['hide_empty'] ) ? true : false,
-            'orderby'    => $settings['orderby'],
-            'order'      => $settings['order'],
+            'orderby'    => sanitize_text_field( $settings['orderby'] ),
+            'order'      => sanitize_text_field( $settings['order'] ),
         ];
 
         if (  $settings['select_category_type'] === 'by_id' ) {
             $category_attributes['ids'] = implode( ',', $settings['categories_ids'] );
         } elseif ( 'by_parent' === $settings['select_category_type'] ) {
-            $category_attributes['parent'] = $settings['parent'];
+            $category_attributes['parent'] = sanitize_text_field(  $settings['parent'] );
         }
 
         $this->add_render_attribute( 'shortcode', $category_attributes );

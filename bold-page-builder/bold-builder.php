@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Bold Builder
  * Description: WordPress page builder.
- * Version: 4.8.4
+ * Version: 4.8.5
  * Author: BoldThemes
  * Author URI: https://www.bold-themes.com
  * Text Domain: bold-builder
@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // VERSION --------------------------------------------------------- \\
-define( 'BT_BB_VERSION', '4.8.4' );
+define( 'BT_BB_VERSION', '4.8.5' );
 // VERSION --------------------------------------------------------- \\
  
 /**
@@ -299,6 +299,12 @@ function bt_bb_enqueue() {
 	wp_enqueue_script( 'wp-color-picker-alpha', plugins_url( 'wp-color-picker-alpha.min.js', __FILE__ ), array( 'wp-color-picker' ), BT_BB_VERSION );
 	
 	wp_enqueue_script( 'bt_bb_ai', plugins_url( 'ai/ai.js', __FILE__ ), array( 'jquery' ), BT_BB_VERSION );
+	
+	wp_enqueue_script( 'bt_bb_yoast_compatibility', plugins_url( 'bt.bb.yoast.js', __FILE__ ), [], '1.', true );
+	wp_localize_script( 'bt_bb_yoast_compatibility', 'bt_bb_ajax', array(
+		'url' => admin_url( 'admin-ajax.php' ),
+		'nonce' => wp_create_nonce( 'bt_bb_yoast_compatibility' )
+	));
 
 }
 add_action( 'admin_enqueue_scripts', 'bt_bb_enqueue' );
@@ -540,6 +546,26 @@ function bt_bb_search_links() {
     die();
 }
 add_action( 'wp_ajax_bt_bb_search_links', 'bt_bb_search_links' );
+
+/**
+ * Get page HTML, used in Yoast compatibility plugin
+ */
+function bt_bb_get_html() {
+	check_ajax_referer( 'bt_bb_yoast_compatibility', 'nonce' );
+	$post_id = intval( $_POST['post_id'] );
+	$content = stripslashes( wp_kses_post( $_POST['content'] ) );
+	if ( current_user_can( 'edit_post', $post_id ) ) {
+		remove_filter( 'the_content', 'wpautop' );
+		$html = apply_filters( 'the_content', $content );
+		/**/
+		$html = str_ireplace( array( '``', '`{`', '`}`' ), array( '&quot;', '&#91;', '&#93;' ), $html );
+		$html = str_ireplace( array( '*`*`*', '*`*{*`*', '*`*}*`*' ), array( '``', '`{`', '`}`' ), $html );
+		
+		echo $html;
+	}
+	wp_die();
+}
+add_action( 'wp_ajax_bt_bb_get_html', 'bt_bb_get_html' );
 
 /**
  * Settings menu
@@ -875,6 +901,13 @@ function bt_bb_translate() {
 		'</a>' 
 	) . '";';
 	echo 'window.bt_bb_text.no_content = "' . esc_html__( 'No content!', 'bold-builder' ) . '";';
+	
+	echo 'window.bt_bb_text.dd = {};';
+	echo 'window.bt_bb_text.dd.move = "' . esc_html__( 'Move', 'bold-builder' ) . '";';
+	echo 'window.bt_bb_text.dd.copy = "' . esc_html__( 'Copy', 'bold-builder' ) . '";';
+	echo 'window.bt_bb_text.dd.after = "' . esc_html__( 'after', 'bold-builder' ) . '";';
+	echo 'window.bt_bb_text.dd.before = "' . esc_html__( 'before', 'bold-builder' ) . '";';
+	echo 'window.bt_bb_text.dd.to = "' . esc_html__( 'to', 'bold-builder' ) . '";';
 	
 	echo '</script>';
 }

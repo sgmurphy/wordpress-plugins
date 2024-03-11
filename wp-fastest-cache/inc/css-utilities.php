@@ -4,6 +4,8 @@
 		private $tags = array();
 		private $except = "";
 		private $wpfc;
+		private $url = "";
+		private $url_for_fix = "";
 
 		public function __construct($wpfc, $html){
 	

@@ -2034,14 +2034,16 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
         $sectionid = "sid". $this-> get_id();
         $post_slider_image_overlay_hover = $settings['post_slider_image_overlay_hover_background'];
         $htmega_post_image  =  $this->get_settings_for_display('htmega_post_image_size');
-        $post_type = $settings['carousel_post_type'];
-        
-        if( 'post'== $post_type ){
+        $post_type =  isset( $settings['carousel_post_type'] ) ? $settings['carousel_post_type'] : 'post';
+        $post_categorys = [];
+        if( 'post'== $post_type && ! empty( $settings['carousel_categories'] ) && is_array( $settings['carousel_categories'] ) ) {
             $post_categorys = $settings['carousel_categories'];
-        } else if( 'product'== $post_type ){
+        } else if( 'product'== $post_type && ! empty( $settings['carousel_prod_categories'] ) && is_array( $settings['carousel_prod_categories'] ) ) {
             $post_categorys = $settings['carousel_prod_categories'];
         }else {
-            $post_categorys = $settings[ $post_type.'_post_category'];
+            if( ! empty( $settings[ $post_type.'_post_category'] )  && is_array( $settings[ $post_type.'_post_category'] ) ) {
+                $post_categorys =  $settings[ $post_type.'_post_category'];
+            }
         }
 
         $post_author = $settings['post_author'];
@@ -2049,9 +2051,9 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
         $orderby            = $this->get_settings_for_display('orderby');
         $postorder          = $this->get_settings_for_display('postorder');
 
-        $this->add_render_attribute( 'htmega_post_carousel', 'class', 'post-carousel-wrapper htmega-postcarousel-layout-'.$settings['post_carousel_style'].' '. $settings['slider_arrow_postion_option'].' '.$sectionid);
+        $this->add_render_attribute( 'htmega_post_carousel', 'class', 'post-carousel-wrapper htmega-postcarousel-layout-'. esc_attr( $settings['post_carousel_style'].' '. $settings['slider_arrow_postion_option'].' '.$sectionid ) );
 
-        $this->add_render_attribute( 'htmega_post_slider_item_attr', 'class', 'htmega-single-post-slide htmega-postslider-layout-'.$settings['post_carousel_style'] );
+        $this->add_render_attribute( 'htmega_post_slider_item_attr', 'class', 'htmega-single-post-slide htmega-postslider-layout-'. esc_attr( $settings['post_carousel_style'] ) );
         // Slider options
         if( $settings['slider_on'] == 'yes' ){
 
@@ -2061,7 +2063,7 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
             $this->add_render_attribute( 'htmega_post_slider_attr', 'class', 'htmega-carousel-activation' );
 
             $slider_settings = [
-                'sectionid' => $sectionid,
+                'sectionid' => esc_attr( $sectionid ),
                 'arrows' => ('yes' === $settings['slarrows']),
                 'arrow_prev_txt' => HTMega_Icon_manager::render_icon( $settings['slprevicon'], [ 'aria-hidden' => 'true' ] ),
                 'arrow_next_txt' => HTMega_Icon_manager::render_icon( $settings['slnexticon'], [ 'aria-hidden' => 'true' ] ),
@@ -2078,14 +2080,14 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
             ];
 
             $slider_responsive_settings = [
-                'display_columns' => $settings['slitems'],
-                'scroll_columns' => $settings['slscroll_columns'],
-                'tablet_width' => $settings['sltablet_width'],
-                'tablet_display_columns' => $settings['sltablet_display_columns'],
-                'tablet_scroll_columns' => $settings['sltablet_scroll_columns'],
-                'mobile_width' => $settings['slmobile_width'],
-                'mobile_display_columns' => $settings['slmobile_display_columns'],
-                'mobile_scroll_columns' => $settings['slmobile_scroll_columns'],
+                'display_columns' => absint( $settings['slitems'] ),
+                'scroll_columns' => absint( $settings['slscroll_columns'] ),
+                'tablet_width' => absint( $settings['sltablet_width'] ),
+                'tablet_display_columns' => absint( $settings['sltablet_display_columns'] ),
+                'tablet_scroll_columns' => absint( $settings['sltablet_scroll_columns'] ),
+                'mobile_width' => absint( $settings['slmobile_width'] ),
+                'mobile_display_columns' => absint( $settings['slmobile_display_columns'] ),
+                'mobile_scroll_columns' => absint( $settings['slmobile_scroll_columns'] ),
 
             ];
 
@@ -2123,7 +2125,7 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
             }
         }
         // author check
-        if (  !empty( $post_author ) ) {
+        if (  !empty( $post_author ) && is_array( $post_author ) ) {
             $args['author__in'] = $post_author;
         }
         // order by  check
@@ -2286,7 +2288,7 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
                             <h2><a href="<?php the_permalink();?>"><?php the_title(); ?></a></h2>
                         <?php
                         } else { ?>
-                            <h2><a href="<?php the_permalink();?>"><?php echo wp_trim_words( get_the_title(), $settings['title_length'], '' ); ?></a></h2>
+                            <h2><a href="<?php the_permalink();?>"><?php echo wp_trim_words( get_the_title(), floatval( $settings['title_length'] ), '' ); ?></a></h2>
                         <?php
                          }
                         
@@ -2310,9 +2312,9 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
                     <?php
                         if( $settings['show_content'] == 'yes' ){
                             if( $settings['content_type'] == 'excerpt' ){
-                                echo '<p>'. wp_trim_words( get_the_excerpt(), $settings['content_length'],'' ) .'</p>';
+                                echo '<p>'. wp_trim_words( get_the_excerpt(), floatval( $settings['content_length'] ),'' ) .'</p>';
                             } else {
-                                echo '<p>'.wp_trim_words( strip_shortcodes( get_the_content() ), $settings['content_length'], '' ).'</p>'; 
+                                echo '<p>'.wp_trim_words( strip_shortcodes( get_the_content() ), floatval( $settings['content_length'] ), '' ).'</p>'; 
                             }
                         }
                     ?>

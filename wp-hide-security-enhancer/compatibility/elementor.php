@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for Plugin Name: Elementor
-    * Compatibility checked on Version: 2.5.16
+    * Compatibility: Elementor
+    * Introduced at: 2.5.16
     */
 
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

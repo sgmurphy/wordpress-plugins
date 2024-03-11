@@ -1025,7 +1025,7 @@ class HTMega_Elementor_Widget_Search extends Widget_Base {
 
         $this->add_render_attribute(
             'input_attr', [
-                'placeholder' => $settings['inpur_placeholder'],
+                'placeholder' => esc_html( $settings['inpur_placeholder'] ),
                 'type' => 'text',
                 'name' => 's',
                 'title' => esc_html__( 'Search', 'htmega-addons' ),

@@ -718,6 +718,10 @@
 	.bt_bb_icon_bt_bb_shortcode:before {
 		content: '\e96d';
 	}
+
+	.bt_bb_icon_bt_bb_bold_timeline:before {
+		content: '\e915';
+	}
 	
 } /* /bt_bb_dialog_item */
 

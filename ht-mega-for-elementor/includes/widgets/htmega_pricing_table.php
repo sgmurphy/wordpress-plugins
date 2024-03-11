@@ -952,7 +952,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
         $this->add_responsive_control(
             'htmega_header_top_icon_fontsize',
             [
-                'label' => __( 'Icon Size', 'htmega-pro' ),
+                'label' => __( 'Icon Size', 'htmega-addons' ),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => [ 'px', '%' ],
                 'range' => [
@@ -2325,7 +2325,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
                             }
                         } else {
                             if (!empty($settings['htmega_price'])) {
-                                echo '<h4><span class="pricing_new">' . $currencysymbol . htmega_kses_title( $settings['htmega_price'] ) . '</span>';
+                                echo '<h4><span class="pricing_new">' . htmega_kses_title( $currencysymbol . $settings['htmega_price'] ) . '</span>';
                             }
                             if(!empty($settings['htmega_period'])){
                                 echo '<span class="separator">/</span> <span class="period-txt">' . htmega_kses_title( $settings['htmega_period'] ) . '</span>';
@@ -2355,7 +2355,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
                 <?php endif; ?>
                 <?php
                 if (!empty($settings['htmega_button_text'])) {
-                    echo '<div class="htmega-pricing-footer">' . sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), $settings['htmega_button_text']) . '</div>';
+                    echo '<div class="htmega-pricing-footer">' . sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), wp_kses_post( $settings['htmega_button_text'] ) ) . '</div>';
                 }
                 ?>
 
@@ -2417,7 +2417,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
                 <?php endif; ?>
                 <?php
                 if (!empty($settings['htmega_button_text'])) {
-                    echo '<div class="htmega-pricing-footer">' . sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), $settings['htmega_button_text']) . '</div>';
+                    echo '<div class="htmega-pricing-footer">' . sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), wp_kses_post( $settings['htmega_button_text'] ) ) . '</div>';
                 }
                 ?>
 
@@ -2477,7 +2477,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
 
                 <?php
                 if (!empty($settings['htmega_button_text'])) {
-                    echo '<div class="htmega-pricing-footer">' . sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), $settings['htmega_button_text']) . '</div>';
+                    echo '<div class="htmega-pricing-footer">' . sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), wp_kses_post( $settings['htmega_button_text'] ) ) . '</div>';
                 }
                 ?>
 
@@ -2533,7 +2533,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
                         </ul>
                     <?php endif;
                     if (!empty($settings['htmega_button_text'])) {
-                        echo sprintf('<a %1$s><span>%2$s</span></a>', $this->get_render_attribute_string('url'), $settings['htmega_button_text']);
+                        echo sprintf('<a %1$s><span>%2$s</span></a>', $this->get_render_attribute_string('url'), wp_kses_post( $settings['htmega_button_text']) );
                     }
                     ?>
                 </div>
@@ -2594,7 +2594,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
                 <?php endif; ?>
                 <?php
                 if (!empty($settings['htmega_button_text'])) {
-                    echo '<div class="htmega-pricing-footer">' . sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), $settings['htmega_button_text']) . '</div>';
+                    echo '<div class="htmega-pricing-footer">' . sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), wp_kses_post( $settings['htmega_button_text'] ) ) . '</div>';
                 }
                 ?>
 
@@ -2649,7 +2649,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
                 <?php endif; ?>
                 <?php
                 if (!empty($settings['htmega_button_text'])) {
-                    echo '<div class="htmega-pricing-footer">' . sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), $settings['htmega_button_text']) . '</div>';
+                    echo '<div class="htmega-pricing-footer">' . sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), wp_kses_post( $settings['htmega_button_text'] ) ) . '</div>';
                 }
                 ?>
             <?php elseif ($settings['htmega_pricing_style'] == 8) : ?>
@@ -2710,7 +2710,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
                 <?php endif; ?>
                 <?php
                 if (!empty($settings['htmega_button_text'])) {
-                    echo '<div class="htmega-pricing-footer">' . sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), $settings['htmega_button_text']) . '</div>';
+                    echo '<div class="htmega-pricing-footer">' . sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), wp_kses_post( $settings['htmega_button_text'] ) ) . '</div>';
                 }
                 ?>          
             <?php elseif ($settings['htmega_pricing_style'] == 9) : ?>    
@@ -2782,7 +2782,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
                 <?php endif; ?>
                 <?php
                 if (!empty($settings['htmega_button_text'])) {
-                    echo '<div class="htmega-pricing-footer">' . sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), $settings['htmega_button_text']) . '</div>';
+                    echo '<div class="htmega-pricing-footer">' . sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), wp_kses_post( $settings['htmega_button_text'] ) ) . '</div>';
                 }
                 ?>
             <?php else : ?>
@@ -2838,7 +2838,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
 
                 <?php
                 if (!empty($settings['htmega_button_text'])) {
-                    echo '<div class="htmega-pricing-footer">' . sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), $settings['htmega_button_text']) . '</div>';
+                    echo '<div class="htmega-pricing-footer">' . sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), wp_kses_post( $settings['htmega_button_text'] ) ) . '</div>';
                 }
                 ?>
 

@@ -59,6 +59,12 @@ class Action
 
     public function submit($form_id, $form_data, $file_data, $page_id = '')
     {
+        
+        $hidden_fields = isset($form_data['hidden-fields']) ? json_decode($form_data['hidden-fields'], true) : [];
+
+        foreach ($hidden_fields as $key) {
+            unset($form_data[$key]);
+        }
 
         // if form is not published return
         $current_status = get_post_status ( $form_id );

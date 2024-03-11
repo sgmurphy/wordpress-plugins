@@ -98,11 +98,20 @@ export default {
         } else if (this.cacheData.status === 'paid' && notify) {
           this.cacheData.response.color = this.cacheData.request.bookable.color
 
+          let skipNotify = this.$root.settings.general.runInstantPostBookingActions
+
+          if ('request' in this.cacheData &&
+            'trigger' in this.cacheData.request &&
+            this.cacheData.request.trigger
+          ) {
+            skipNotify = true
+          }
+
           switch (this.cacheData.response.type) {
             case ('appointment'):
               this.getAppointmentAddToCalendarData(
                 this.cacheData.response,
-                this.$root.settings.general.runInstantPostBookingActions
+                skipNotify
               )
 
               break
@@ -111,7 +120,7 @@ export default {
               if (this.cacheData.response.package && this.cacheData.response.package.length > 0) {
                 this.getAppointmentAddToCalendarData(
                   this.cacheData.response,
-                  this.$root.settings.general.runInstantPostBookingActions
+                  skipNotify
                 )
               }
 
@@ -120,7 +129,7 @@ export default {
             case ('event'):
               this.getEventAddToCalendarData(
                 this.cacheData.response,
-                false
+                skipNotify
               )
 
               break

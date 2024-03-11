@@ -15,9 +15,9 @@ if (!$slider) {
 	$columns['mobile'] && $classes[] = "htmega-grid-col-mobile-" . $columns['mobile'];
 }
 ;
-$classs = implode(" ", $classes);
+$classes = implode(" ", $classes);
 
-$default_image_url = HTMEGA_BLOCK_URL . '/src/assets/images/testimonial.jpg';
+$default_image_url = HTMEGA_BLOCK_URL . 'src/assets/images/testimonial.jpg';
 $quote_icon = HTMEGA_BLOCK_PATH . '/src/assets/images/quote.svg';
 
 // Slider Options
@@ -59,25 +59,9 @@ $slider_direction = "dir='ltr'";
 $slider && $slider_direction = "dir='{$direction}'";
 $slider && $slider_settings = "data-settings='" . wp_json_encode($slider_settings) . "'";
 
-$testimonial_ratting = function ($ratting) {
-	return sprintf('<div class="htmega-testimonial-ratting">
-		<span class="fa fa-star%1$s"></span>
-		<span class="fa fa-star%2$s"></span>
-		<span class="fa fa-star%3$s"></span>
-		<span class="fa fa-star%4$s"></span>
-		<span class="fa fa-star%5$s"></span>
-	</div>',
-		$ratting < 1 && $ratting > 0 ? '-half-o' : ($ratting >= 1 ? '' : '-o'),
-		$ratting > 1 && $ratting < 2 ? '-half-o' : ($ratting >= 2 ? '' : '-o'),
-		$ratting > 2 && $ratting < 3 ? '-half-o' : ($ratting >= 3 ? '' : '-o'),
-		$ratting > 3 && $ratting < 4 ? '-half-o' : ($ratting >= 4 ? '' : '-o'),
-		$ratting > 4 && $ratting < 5 ? '-half-o' : ($ratting >= 5 ? '' : '-o'),
-	);
-};
-
 ob_start();
 ?>
-<div class="<?php echo esc_attr($classs); ?>" <?php echo ($slider_direction); ?> <?php echo ($slider ? $slider_settings : ''); ?>>
+<div class="<?php echo esc_attr($classes); ?>" <?php echo esc_attr($slider_direction); ?> <?php echo ($slider ? $slider_settings : ''); ?>>
 	<?php
 	if (is_array($testimonials)) {
 		foreach ($testimonials as $key => $testimonial):
@@ -87,7 +71,7 @@ ob_start();
 			]) : $default_img;
 			?>
 
-			<div class="htmega-testimonial htmega-testimonial-<?php echo $testimonialStyle; ?>">
+			<div class="htmega-testimonial htmega-testimonial-<?php echo esc_attr($testimonialStyle); ?>">
 				<div class="htmega-testimonial-inner">
 					<div class="htmega-testimonial-hover"></div>
 
@@ -98,14 +82,14 @@ ob_start();
 					<?php endif; ?>
 
 					<?php if ($showRatting && ($testimonialStyle === '1' || $testimonialStyle === '2' || $testimonialStyle === '5')): ?>
-						<?php echo ($testimonial_ratting($testimonial['ratting'])); ?>
+						<?php echo htmegaBlocks_testimonial_ratting($testimonial['ratting']); ?>
 					<?php endif; ?>
 
 					<div class='htmega-testimonial-content'>
 
 						<?php if ($showContent): ?>
 							<div class='htmega-testimonial-text'>
-								<?php esc_html_e($testimonial['content']); ?>
+								<?php echo esc_html($testimonial['content']); ?>
 								<?php if ($showIcon && $testimonialStyle === '1'): ?>
 									<div class='htmega-testimonial-quote-icon'>
 										<?php echo file_get_contents($quote_icon); ?>
@@ -115,20 +99,20 @@ ob_start();
 						<?php endif; ?>
 
 						<?php if ($showRatting && ($testimonialStyle === '3' || $testimonialStyle === '4')): ?>
-							<?php echo ($testimonial_ratting($testimonial['ratting'])); ?>
+							<?php echo htmegaBlocks_testimonial_ratting($testimonial['ratting']); ?>
 						<?php endif; ?>
 
 						<?php if ($showName) {
 							printf(
 								'<%1$s class="htmega-testimonial-name">%2$s</%1$s>',
-								esc_attr($titleTag),
+								tag_escape($titleTag),
 								esc_html($testimonial['name'])
 							);
 						} ?>
 
 						<?php if ($showDesignation): ?>
 							<span class='htmega-testimonial-designation<?php echo $showDesignationBorder ? ' htmega-testimonial-designation-shape' : '';?>'>
-								<?php echo $testimonial['designation']; ?>
+								<?php echo esc_html($testimonial['designation']); ?>
 							</span>
 						<?php endif; ?>
 

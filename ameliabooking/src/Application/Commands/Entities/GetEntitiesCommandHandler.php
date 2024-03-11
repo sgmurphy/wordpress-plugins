@@ -178,7 +178,7 @@ class GetEntitiesCommandHandler extends CommandHandler
             /** @var Service $service */
             foreach ($allServices->getItems() as $service) {
                 if ($service->getStatus()->getValue() === Status::VISIBLE ||
-                    $currentUser->getType() === AbstractUser::USER_ROLE_ADMIN
+                    ($currentUser && $currentUser->getType() === AbstractUser::USER_ROLE_ADMIN)
                 ) {
                     $services->addItem($service, $service->getId()->getValue());
                 }
@@ -477,11 +477,15 @@ class GetEntitiesCommandHandler extends CommandHandler
             }
         }
 
+
+        $resultData = apply_filters('amelia_get_entities_filter', $resultData);
+
+        do_action('amelia_get_entities', $resultData);
+
         $result->setResult(CommandResult::RESULT_SUCCESS);
         $result->setMessage('Successfully retrieved entities');
         $result->setData($resultData);
 
         return $result;
     }
-
 }

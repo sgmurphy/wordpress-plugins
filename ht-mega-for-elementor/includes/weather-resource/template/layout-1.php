@@ -20,7 +20,7 @@
         <div class="htm-weather-sun-wraper">
             <div class="sun-forcast sun-rise">
                 <span><i class="wi wi-sunrise"></i> Sunrise <?php echo esc_html($weather['current']['sunrise_time']); ?></span>
-                <span>Max: <?php echo esc_html( $current_temp_max ); ?><sup>&deg;</sup><?php echo $units; ?></span>
+                <span>Max: <?php echo esc_html( $current_temp_max ); ?><sup>&deg;</sup><?php echo esc_html( $units ); ?></span>
             </div>
             <div class="sun-forcast sun-set">
                 <span><i class="wi wi-sunset"></i> Sunset <?php echo esc_html($weather['current']['sunset_time']); ?></span>

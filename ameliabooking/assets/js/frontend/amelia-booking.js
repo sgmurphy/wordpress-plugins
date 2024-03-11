@@ -124,6 +124,22 @@ function ameliaLazyLoading () {
                 1000
               )
             }
+
+            if ('ameliaCache' in window && window.ameliaCache.length && window.ameliaCache[0]) {
+              let cacheData = JSON.parse(window.ameliaCache[0])
+
+              if (cacheData &&
+                'request' in cacheData &&
+                'trigger' in cacheData.request &&
+                cacheData.request.trigger
+              ) {
+                let el = document.getElementById(cacheData.request.trigger)
+
+                if (typeof el !== 'undefined' && el) {
+                  el.click()
+                }
+              }
+            }
           }
         },
         1000
@@ -253,6 +269,7 @@ function ameliaLoading (element, selector, ids, isAutoLoading) {
           shortcodeData: {
             enabled: false,
             booking: {
+              trigger: manuallyLoadedData !== null && 'trigger' in manuallyLoadedData ? manuallyLoadedData.trigger : '',
               show: manuallyLoadedData !== null && 'show' in manuallyLoadedData ? manuallyLoadedData.show : '',
               package: manuallyLoadedData !== null && 'package' in manuallyLoadedData ? manuallyLoadedData.package : '',
               category: manuallyLoadedData !== null && 'category' in manuallyLoadedData ? manuallyLoadedData.category : '',
@@ -300,6 +317,7 @@ function ameliaLoading (element, selector, ids, isAutoLoading) {
           }
 
           this.shortcodeData.booking = bookingData ? {
+            trigger: 'trigger' in bookingData && bookingData.trigger ? bookingData.trigger : null,
             show: 'show' in bookingData && bookingData.show ? bookingData.show : null,
             package: 'package' in bookingData && bookingData.package ? parseInt(bookingData.package) : null,
             category: 'category' in bookingData && bookingData.category ? parseInt(bookingData.category) : null,

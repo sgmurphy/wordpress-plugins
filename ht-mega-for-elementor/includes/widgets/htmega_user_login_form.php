@@ -370,7 +370,7 @@ class HTMega_Elementor_Widget_User_Login_Form extends Widget_Base {
                 $this->add_control(
                     'custom_register_url',
                     [
-                        'label' => __( 'Register Custom URL', 'htmega-pro' ).' <i class="eicon-pro-icon"></i>',
+                        'label' => __( 'Register Custom URL', 'htmega-addons' ).' <i class="eicon-pro-icon"></i>',
                         'type' => Controls_Manager::URL,
                         'placeholder' => __( 'https://your-link.com/register', 'htmega-addons' ),
                         'show_external' => true,
@@ -1700,7 +1700,7 @@ class HTMega_Elementor_Widget_User_Login_Form extends Widget_Base {
         $id = $this->get_id();
 
         if ( $settings['redirect_page'] == 'yes' && ! empty( $settings['redirect_page_url']['url'] ) ) {
-            $redirect_url = $settings['redirect_page_url']['url'];
+            $redirect_url = esc_url( $settings['redirect_page_url']['url'] );
         } else {
             $redirect_url = $current_url;
         }
@@ -1713,7 +1713,7 @@ class HTMega_Elementor_Widget_User_Login_Form extends Widget_Base {
 
 
         $this->add_render_attribute( 'loginform_area_attr', 'class', 'htmega-login-form-wrapper' );
-        $this->add_render_attribute( 'loginform_area_attr', 'class', 'htmega-login-form-style-'.$settings['htmega_loginform_style'].' '.$remember_lost_p_alignment );
+        $this->add_render_attribute( 'loginform_area_attr', 'class', 'htmega-login-form-style-' . esc_attr( $settings['htmega_loginform_style'].' '.$remember_lost_p_alignment ) );
 
         // Label Value
         $user_label = isset( $settings['htmega_user_label'] ) ? $settings['htmega_user_label'] : __('Username','htmega-addons');
@@ -1858,13 +1858,13 @@ class HTMega_Elementor_Widget_User_Login_Form extends Widget_Base {
                         url:  ajaxurl,  
                         data: { 
                             'action': 'htmega_ajax_login',
-                            'username': $( login_form_id + ' #login_username<?php echo esc_attr( $id ); ?>').val(), 
-                            'password': $( login_form_id + ' #login_password<?php echo esc_attr( $id ); ?>').val(), 
+                            'username': $( login_form_id + ' #login_username<?php echo esc_js( $id ); ?>').val(), 
+                            'password': $( login_form_id + ' #login_password<?php echo esc_js( $id ); ?>').val(), 
                             'security': $( login_form_id + ' #security').val()
                         },
                         success: function(msg){
                             if ( msg.loggeauth == true ){
-                                $('#htmega_message_<?php echo esc_attr( $id ); ?>').html('<div class="htmega_success_msg alert alert-success">'+ msg.message +'</div>').fadeIn();
+                                $('#htmega_message_<?php echo esc_js( $id ); ?>').html('<div class="htmega_success_msg alert alert-success">'+ msg.message +'</div>').fadeIn();
                                 if( redirect === 'yes' ){
                                     if(document.location.href == '<?php echo esc_url( $redirect_url ); ?>'){
                                         window.location.reload();
@@ -1874,7 +1874,7 @@ class HTMega_Elementor_Widget_User_Login_Form extends Widget_Base {
                                     }
                                 }
                             }else{
-                                $('#htmega_message_<?php echo esc_attr( $id ); ?>').html('<div class="htmega_invalid_msg alert alert-danger">'+ msg.message +'</div>').fadeIn();
+                                $('#htmega_message_<?php echo esc_js( $id ); ?>').html('<div class="htmega_invalid_msg alert alert-danger">'+ msg.message +'</div>').fadeIn();
                             }
                         }  
                     });

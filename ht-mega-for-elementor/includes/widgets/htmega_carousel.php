@@ -1471,9 +1471,9 @@ class HTMega_Elementor_Widget_Carousel extends Widget_Base {
             $direction = is_rtl() ? 'rtl' : 'ltr';
             $this->add_render_attribute( 'htmega_carosul_attr', 'dir', $direction );
             
-            $this->add_render_attribute( 'htmega_carosul_attr', 'class', 'htmega-carousel-activation htmega-carousel-style-'.$settings['image_carosul_style'] );
+            $this->add_render_attribute( 'htmega_carosul_attr', 'class', 'htmega-carousel-activation htmega-carousel-style-' . esc_attr( $settings['image_carosul_style'] ) );
 
-            $this->add_render_attribute( 'htmega_carosul_attr', 'class', 'htmega-carousel-animation-style-'.$settings['image_carosul_two_animation_style'] );
+            $this->add_render_attribute( 'htmega_carosul_attr', 'class', 'htmega-carousel-animation-style-'. esc_attr( $settings['image_carosul_two_animation_style'] ) );
 
             $slider_settings = [
                 'arrows' => ('yes' === $settings['slarrows']),
@@ -1486,7 +1486,7 @@ class HTMega_Elementor_Widget_Carousel extends Widget_Base {
                 'pause_on_hover' => ('yes' === $settings['slpause_on_hover']),
                 'center_mode' => ( 'yes' === $settings['slcentermode'] ),
                 'vertical_mode' => ( 'yes' === $settings['vertical_mode'] ),
-                'center_padding' => $settings['slcenterpadding'].'px',
+                'center_padding' => absint( $settings['slcenterpadding'] ).'px',
             ];
 
             if( $settings['image_carosul_style'] == 6 ){
@@ -1494,14 +1494,14 @@ class HTMega_Elementor_Widget_Carousel extends Widget_Base {
             }
 
             $slider_responsive_settings = [
-                'display_columns' => $settings['slitems'],
-                'scroll_columns' => $settings['slscroll_columns'],
-                'tablet_width' => $settings['sltablet_width'],
-                'tablet_display_columns' => $settings['sltablet_display_columns'],
-                'tablet_scroll_columns' => $settings['sltablet_scroll_columns'],
-                'mobile_width' => $settings['slmobile_width'],
-                'mobile_display_columns' => $settings['slmobile_display_columns'],
-                'mobile_scroll_columns' => $settings['slmobile_scroll_columns'],
+                'display_columns' => absint( $settings['slitems'] ),
+                'scroll_columns' => absint( $settings['slscroll_columns'] ),
+                'tablet_width' => absint( $settings['sltablet_width'] ),
+                'tablet_display_columns' => absint( $settings['sltablet_display_columns'] ),
+                'tablet_scroll_columns' => absint( $settings['sltablet_scroll_columns'] ),
+                'mobile_width' => absint( $settings['slmobile_width'] ),
+                'mobile_display_columns' => absint( $settings['slmobile_display_columns'] ),
+                'mobile_scroll_columns' => absint( $settings['slmobile_scroll_columns'] ),
 
             ];
 

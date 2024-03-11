@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for Plugin Name: Cache Enabler
-    * Compatibility checked on Version: 1.3.4
+    * Compatibility: Cache Enabler
+    * Introduced at: 1.3.4
     */
 
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly

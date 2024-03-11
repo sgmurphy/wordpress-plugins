@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * Compatibility for Plugin Name: Oxygen
-    * Since:            3.1
+    * Compatibility: Oxygen
+    * Introduced at:    3.1
     * Last checked:     4.1.1
     */
     
