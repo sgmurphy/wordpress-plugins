@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: woocommerce, cart abandonment, cart recovery
 Requires at least: 5.4
 Tested up to: 6.4
-Stable tag: 1.2.26
+Stable tag: 1.2.27
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -127,6 +127,9 @@ Here are few thoughts behind making it available for free:
 4. General settings for Email, Webhook (Coupon Code), GDPR
 
 == Changelog ==
+
+= Version 1.2.27 - Tuesday, 12th March 2024 =
+* Security Fix: Hardened the security of the plugin suggested by WPScan.
 
 = Version 1.2.26 - Wednesday, 29th November 2023 =
 * Fix: Product's custom data options were not displayed in the abandoned order data.

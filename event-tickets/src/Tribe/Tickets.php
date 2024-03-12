@@ -339,7 +339,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		/**
 		 * Meta key that stores if an attendee has checked in to a ticketed post.
 		 *
-		 * @since TBD
+		 * @since 5.8.2
 		 *
 		 * @var string
 		 */
@@ -1038,7 +1038,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		 * Mark an Attendee as checked in.
 		 *
 		 * @since 3.1.2
-		 * @since TBD Add the `tec_tickets_attendee_checkin` filter to override the checkin process. Update the method
+		 * @since 5.8.2 Add the `tec_tickets_attendee_checkin` filter to override the checkin process. Update the method
 		 *        signature to include the `$qr` and `$eveent_id` parameters.
 		 *
 		 * @param int       $attendee_id The ID of the attendee that's being checked in.
@@ -1052,7 +1052,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			 * Allows filtering the Attendee check-in action before the default logic does it.
 			 * Returning a non-null value from this filter will prevent the default logic from running.
 			 *
-			 * @since TBD
+			 * @since 5.8.2
 			 *
 			 * @param int      $attendee_id The post ID of the Attendee being checked-in.
 			 * @param int|null $event_id    The ID of the ticket-able post the Attendee is being checked into.
@@ -1075,7 +1075,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			 * Fires a checkin action
 			 *
 			 * @since 4.7
-			 * @since TBD Add the `$event_id` argument to the filter data.
+			 * @since 5.8.2 Add the `$event_id` argument to the filter data.
 			 *
 			 * @param int       $attendee_id he post ID of the attendee that's being checked-in.
 			 * @param bool|null $qr          Whether the check-in is from a QR code.
@@ -1134,6 +1134,24 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		 * @return mixed
 		 */
 		public function uncheckin( $attendee_id ) {
+			$context_id = tribe_get_request_var( 'event_ID', null );
+
+			/**
+			 * Allows filtering the Attendee uncheck-in action before the default logic does it.
+			 * Returning a non-null value from this filter will prevent the default logic from running.
+			 *
+			 * @since 5.8.3
+			 *
+			 * @param bool|null $uncheckin   Whether the Attendee uncheckin action was handled by the filter or not.
+			 * @param int       $attendee_id The post ID of the Attendee being unchecked-in.
+			 * @param int|null  $context_id  The post ID context of the Attendee uncheckin request.
+			 */
+			$uncheckin = apply_filters( 'tec_tickets_attendee_uncheckin', null, $attendee_id, $context_id );
+
+			if ( null !== $uncheckin ) {
+				return (bool) $uncheckin;
+			}
+
 			delete_post_meta( $attendee_id, $this->checkin_key );
 			delete_post_meta( $attendee_id, $this->checkin_key . '_details' );
 			delete_post_meta( $attendee_id, '_tribe_qr_status' );

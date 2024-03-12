@@ -40,10 +40,10 @@ $url_form = wp_nonce_url(
 				<h3><img src="<?php echo esc_url(WEGLOT_DIRURL.'app/images/logo-wg.svg' ); ?>"></h3>
 				<div>
 					<ul>
-						<li><a href="#main_configuration">Main configuration</a></li>
-						<li><a href="#language_button_position">Language button position</a></li>
-						<li><a href="#translation_exclusion">Translation Exclusion</a></li>
-						<li><a href="#other_options">Other options</a></li>
+						<li><a href="#main_configuration"><?php esc_html_e( 'Main configuration', 'weglot' ) ?></a></li>
+						<li><a href="#language_button_position"><?php esc_html_e( 'Language button position', 'weglot' ) ?></a></li>
+						<li><a href="#translation_exclusion"><?php esc_html_e( 'Translation Exclusion', 'weglot' ) ?></a></li>
+						<li><a href="#other_options"><?php esc_html_e( 'Other options', 'weglot' ) ?></a></li>
 					</ul>
 				</div>
 				<blockquote class="text-cen">Weglot - <?php echo esc_html(WEGLOT_VERSION); ?></blockquote>

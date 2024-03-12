@@ -1,3 +1,6 @@
+Version 1.2.27 - Tuesday, 12th March 2024
+- Security Fix: Hardened the security of the plugin suggested by WPScan.
+
 Version 1.2.26 - Wednesday, 29th November 2023
 - Fix: Product's custom data options were not displayed in the abandoned order data.
 - Fix: Fixed the error warning if null value passed while using the PHP 8.1 version.

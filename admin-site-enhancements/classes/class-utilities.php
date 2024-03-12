@@ -1107,21 +1107,25 @@ class Utilities
 						<style>
 							body {
 								<?php 
-                echo  $background_style ;
+                echo  wp_kses_post( $background_style ) ;
                 ?>;
 								background-size: cover;
 								background-position: center center;
 							}
+							<?php 
+                ?>
 						</style>
 					</head>
 					<body>
 						<div class="page-wrapper">
+							<div class="page-overlay">
+							</div>
 							<div class="message-box">
 								<h1><?php 
-                echo  $heading ;
+                echo  wp_kses_post( $heading ) ;
                 ?></h1>
 								<div class="description"><?php 
-                echo  $description ;
+                echo  wp_kses_post( $description ) ;
                 ?></div>
 							</div>
 						</div>

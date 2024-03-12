@@ -158,10 +158,11 @@ FLBuilder::register_module('FLHeadingModule', array(
 						'connections' => array( 'string' ),
 					),
 					'tag'     => array(
-						'type'    => 'select',
-						'label'   => __( 'HTML Tag', 'fl-builder' ),
-						'default' => 'h2',
-						'options' => array(
+						'type'     => 'select',
+						'label'    => __( 'HTML Tag', 'fl-builder' ),
+						'default'  => 'h2',
+						'sanitize' => array( 'FLBuilderUtils::esc_tags', 'h2' ),
+						'options'  => array(
 							'h1' => 'h1',
 							'h2' => 'h2',
 							'h3' => 'h3',
@@ -169,7 +170,7 @@ FLBuilder::register_module('FLHeadingModule', array(
 							'h5' => 'h5',
 							'h6' => 'h6',
 						),
-						'preview' => array(
+						'preview'  => array(
 							'type' => 'refresh',
 						),
 					),

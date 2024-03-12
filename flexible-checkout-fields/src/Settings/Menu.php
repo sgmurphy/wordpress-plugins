@@ -32,8 +32,8 @@ class Menu {
 		$current_tab = $_GET['tab'] ?? self::MENU_TAB_SECTIONS; // phpcs:ignore
 		$page_tabs   = [
 			self::MENU_TAB_MARKETING => __( 'Start Here!', 'flexible-checkout-fields' ),
-			self::MENU_TAB_SETTINGS => __( 'Settings', 'flexible-checkout-fields' ),
-			self::MENU_TAB_SECTIONS => __( 'Checkout Sections', 'flexible-checkout-fields' ),
+			self::MENU_TAB_SETTINGS  => __( 'Settings', 'flexible-checkout-fields' ),
+			self::MENU_TAB_SECTIONS  => __( 'Checkout Sections', 'flexible-checkout-fields' ),
 		];
 
 		$values = [];

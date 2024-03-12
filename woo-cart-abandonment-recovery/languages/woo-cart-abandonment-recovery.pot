@@ -1,15 +1,15 @@
-# Copyright (C) 2023 CartFlows Inc
+# Copyright (C) 2024 CartFlows Inc
 # This file is distributed under the same license as the WooCommerce Cart Abandonment Recovery plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Cart Abandonment Recovery 1.2.26\n"
+"Project-Id-Version: WooCommerce Cart Abandonment Recovery 1.2.27\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woo-cart-abandonment-recovery\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-28T14:10:44+00:00\n"
+"POT-Creation-Date: 2024-03-12T10:05:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: woo-cart-abandonment-recovery\n"
@@ -352,8 +352,8 @@ msgstr ""
 #: classes/class-cartflows-ca-settings.php:840
 #: modules/cart-abandonment/classes/class-cartflows-ca-email-templates-table.php:88
 #: modules/cart-abandonment/classes/class-cartflows-ca-email-templates-table.php:122
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:86
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:146
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:120
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:195
 msgid "Delete"
 msgstr ""
 
@@ -392,7 +392,7 @@ msgid "Settings"
 msgstr ""
 
 #: classes/class-cartflows-ca-tabs.php:457
-msgid "Product Addons: "
+msgid "Product Custom Data: "
 msgstr ""
 
 #: classes/class-cartflows-ca-tabs.php:473
@@ -402,7 +402,7 @@ msgstr ""
 
 #: classes/class-cartflows-ca-tabs.php:474
 #: modules/cart-abandonment/classes/class-cartflows-ca-email-schedule.php:333
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:249
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:298
 #: modules/cart-abandonment/includes/cartflows-ca-single-report-details.php:176
 msgid "Name"
 msgstr ""
@@ -435,7 +435,7 @@ msgid "Shipping"
 msgstr ""
 
 #: classes/class-cartflows-ca-tabs.php:496
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:251
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:300
 msgid "Cart Total"
 msgstr ""
 
@@ -704,33 +704,33 @@ msgstr ""
 msgid "Update Changes"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-email-templates.php:1100
+#: modules/cart-abandonment/classes/class-cartflows-ca-email-templates.php:1102
 msgid "Create New Template"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-email-templates.php:1103
+#: modules/cart-abandonment/classes/class-cartflows-ca-email-templates.php:1105
 msgid " Restore Default Templates"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:85
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:106
 msgid "View"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:90
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:150
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:138
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:199
 #: modules/weekly-email-report/templates/email-footer.php:70
 msgid "Unsubscribe"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:250
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:299
 msgid "Email"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:252
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:301
 msgid "Order Status"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:253
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:302
 msgid "Time"
 msgstr ""
 
@@ -929,7 +929,7 @@ msgid "Custom Filter"
 msgstr ""
 
 #: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:50
-#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:112
+#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:116
 msgid "Recoverable Orders"
 msgstr ""
 
@@ -938,7 +938,7 @@ msgid "Total Recoverable Orders."
 msgstr ""
 
 #: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:59
-#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:115
+#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:119
 msgid "Recovered Orders"
 msgstr ""
 
@@ -947,7 +947,7 @@ msgid "Total Recovered Orders."
 msgstr ""
 
 #: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:66
-#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:118
+#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:122
 msgid "Lost Orders"
 msgstr ""
 
@@ -959,36 +959,36 @@ msgstr ""
 msgid "Recoverable Revenue"
 msgstr ""
 
-#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:83
+#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:86
 msgid "Total Recoverable Revenue."
 msgstr ""
 
-#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:88
+#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:91
 msgid "Recovered Revenue"
 msgstr ""
 
-#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:94
+#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:98
 msgid "Total Recovered Revenue."
 msgstr ""
 
-#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:99
+#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:103
 #: modules/weekly-email-report/templates/email-recovery-stat.php:129
 msgid "Recovery Rate"
 msgstr ""
 
-#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:101
+#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:105
 msgid "Total Percentage Of Recovered Orders After Abandonment."
 msgstr ""
 
-#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:128
+#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:132
 msgid "Search by email"
 msgstr ""
 
-#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:129
+#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:133
 msgid "Search Orders"
 msgstr ""
 
-#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:156
+#: modules/cart-abandonment/includes/cartflows-cart-abandonment-reports.php:161
 msgid "No Orders Found."
 msgstr ""
 

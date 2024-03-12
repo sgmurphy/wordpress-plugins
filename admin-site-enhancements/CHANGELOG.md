@@ -1,16 +1,29 @@
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **80 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **81 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
+### 6.9.3 (2024.03.12) - ASE Free and Pro
+
+* **[IMPROVED in Pro] Utilities >> Maintenance Mode**: enable WYSIWYG editor for heading and description, which allows for links, some custom HTML and custom styling if you need it. Also added ability to add custom CSS along with addition of a page overlay div element, which you can style to overlay the background image, e.g. make it darker or brighter to increase contrast with the maintenance message.
+
+* **[IMPROVED in Pro] Content Management >> Content Duplication**: added duplication link in the publishing section of post edit screen, both in the classic editor and block editor. Also added an option to choose on which locations to show the duplication link: list view post action row / admin bar / edit screen publish section.
+
+* **[FIXED in Free and Pro] ASE Settings**: prevent JS error when iThemes Security Pro / Solid Security Pro plugin is active.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed an issue where returning the value of a custom field inside a GenerateBlocks Query Loop returns an empty value after update to v6.9.1. Props to Arne O. for reporting the issue in details and patiently facilitating the troubleshooting process. This also fixed a similar issue with showing custom field values in Breakdance Post Loop Builder. Props to Philipp Z. for reporting it.
+
+* **[CHANGED in Pro] Content Management >> AVIF Upload**: remove link to avif.io, which is no longer online. This module will likely be removed once WP v6.5 is released and is widely adopted, as built-in AVIF support will be [included in WP core](https://make.wordpress.org/core/2024/02/23/wordpress-6-5-adds-avif-support/).
+
+
 ### 6.9.2 (2024.03.07) - ASE Free and Pro
 
 * **[CHANGED in Pro] Content Management >> Custom Content Types**: custom field groups and options pages creation is now enabled by default when Custom Content Types module is enabled. Also updated module description and settings to reflect this.
 
-* **[FIXED in Free and Pro] Optimizations >> Image Upload Control**: added checks to prevent PHP fatal error and warnings when uploading non-image files and WebP conversion is enabled. Props to Peter J. for reporting the fatal error issue.
+* **[FIXED in Free and Pro] Optimizations >> Image Upload Control**: added checks to prevent PHP fatal error and warnings when uploading non-image files and WebP conversion is enabled. Props to Peter J. and Gilang R. for reporting the fatal error issue.
 
 * **[FIXED in Free and Pro] Security >> Limit Login Attemtps**: fixed an issue where under certain conditions, the login page would endlessly reload making it impossible to login. Props to [eangulus](https://wordpress.org/support/users/eangulus/), [andreawriessnegger](https://wordpress.org/support/users/andreawriessnegger/), [eangulus](https://wordpress.org/support/users/eangulus/), Max F. and Eric for reporting this patiently and in great detail in the wp.org [support forum](https://wordpress.org/support/topic/something-not-right-with-limit-login-attempts/) and via email.
 

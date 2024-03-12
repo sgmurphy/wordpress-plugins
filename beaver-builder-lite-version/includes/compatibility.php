@@ -23,9 +23,9 @@ if ( isset( $_GET['fl_builder_load_settings_config'] ) ) {
  * @return array
  */
 function fl_maybe_fix_unserialize( $data ) {
-	// @codingStandardsIgnoreStart
-	$unserialized = @unserialize( $data );
-	// @codingStandardsIgnoreEnd
+
+	$unserialized = maybe_unserialize( $data );
+
 	if ( ! $unserialized ) {
 		$unserialized = unserialize( preg_replace_callback( '!s:(\d+):"(.*?)";!', 'fl_maybe_fix_unserialize_callback', $data ) );
 	}

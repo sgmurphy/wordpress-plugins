@@ -171,29 +171,48 @@ abstract class OptionAbstract implements OptionInterface {
 			case self::FIELD_TYPE_RADIO:
 			case self::FIELD_TYPE_RADIO_LIST:
 			case self::FIELD_TYPE_SELECT:
-				$values = $this->get_values();
-				if ( $values ) {
-					return ( array_key_exists( $field_value, $values ) ) ? $field_value : $this->get_default_value();
-				}
-				break;
+				return $this->sanitize_select( $field_value );
 			case self::FIELD_TYPE_SELECT_MULTI:
 				if ( ! is_array( $field_value ) ) {
 					$field_value = [];
 				}
-
-				foreach ( $field_value as $value_index => $value ) {
-					$field_value[ $value_index ] = sanitize_text_field( wp_unslash( $value ) );
-				}
-				return $field_value;
+				return $this->sanitize_select_multi( $field_value );
 			case self::FIELD_TYPE_CHECKBOX_LIST:
 			case self::FIELD_TYPE_GROUP:
 			case self::FIELD_TYPE_REPEATER:
 			case self::FIELD_TYPE_REPEATER_GROUP:
 			case self::FIELD_TYPE_REPEATER_RULES:
 				return $field_value;
+			default:
+				return \sanitize_text_field( wp_unslash( $field_value ) );
 		}
+	}
 
-		return sanitize_text_field( wp_unslash( $field_value ) );
+	/**
+	 * Sanitizes the input value for select fields.
+	 *
+	 * @param string $field_value The value of the field to be sanitized.
+	 * @return string The sanitized field value.
+	 */
+	private function sanitize_select( string $field_value ): string {
+		$values = $this->get_values();
+		if ( $values ) {
+			return ( array_key_exists( $field_value, $values ) ) ? $field_value : $this->get_default_value();
+		}
+		return $field_value;
+	}
+
+	/**
+	 * Sanitizes the input value for multi select fields.
+	 *
+	 * @param array<int, string> $field_value The field value to be sanitized.
+	 * @return array<int, string> The sanitized field value.
+	 */
+	private function sanitize_select_multi( array $field_value ): array {
+		foreach ( $field_value as $value_index => $value ) {
+			$field_value[ $value_index ] = \sanitize_text_field( \wp_unslash( $value ) );
+		}
+		return $field_value;
 	}
 
 	/**

@@ -4,7 +4,7 @@ Donate link: https://www.wpdesk.net/flexible-checkout-fields-woocommerce/
 Tags: woocommerce checkout fields, woocommerce checkout manager, woocommerce checkout editor, woocommerce custom checkout fields, customize woocommerce checkout, woocommerce checkout, woocommerce custom fields checkout, woocommerce customize checkout, customize woocommerce checkout, woocommerce custom checkout page
 Requires at least: 5.2
 Tested up to: 6.4
-Stable tag: 4.1.1
+Stable tag: 4.1.3
 Requires PHP: 7.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -15,7 +15,7 @@ Manage, reorder, hide, show, or add custom checkout fields with the plugin to cu
 
 == Description ==
 
-We think WooCommerce is the best ecommerce plugin for WordPress. But it lacks some very basic features like customizing checkout fields with a checkout manager in an easy to use interface. You can do it by hooks and filters but why bother if you can do it by Flexible Checkout Fields for WooCommerce - WooCommerce Checkout Manager. With this single page checkout plugin you can edit the default fields (change labels, hide, delete) or add your own checkout fields. You can set your own fields order. There"s a lot of field types such as a checkbox field, a date field or a color picker field (some of them exclusively in the PRO version). Read on to see how easy it is to edit WooCommerce checkout fields with this plugin and how powerful it is.
+We think WooCommerce is the best ecommerce plugin for WordPress. But it lacks some very basic features like customizing checkout fields with a checkout manager in an easy to use interface. You can do it by hooks and filters but why bother if you can do it by Flexible Checkout Fields for WooCommerce - WooCommerce Checkout Manager. With this single page checkout plugin you can edit the default fields (change labels, hide, delete) or add your own checkout fields. You can set your own fields order. There are a lot of field types such as a checkbox field, a date field or a color picker field (some of them exclusively in the PRO version). Read on to see how easy it is to edit WooCommerce checkout fields with this plugin and how powerful it is.
 
 [youtube https://www.youtube.com/watch?v=VTRnSU0OLV4]
 
@@ -37,31 +37,31 @@ Add WooCommerce additional fields to your checkout page with your new WooCommerc
 
 * [Text](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Text)
 * [Textarea](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Textarea)
-* [Number](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Number) (New feature)
-* [E-mail](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Email) (New feature)
-* [Phone](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Phone) (New feature)
-* [URL](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#URL) (New feature)
+* [Number](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Number)
+* [E-mail](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Email)
+* [Phone](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Phone)
+* [URL](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#URL)
 * [Checkbox](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Checkbox)
 * [Color](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Color)
 * [Headline](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Headline)
-* [Paragraph](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Paragraph) (New feature)
-* [Image](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Image) (New feature)
+* [Paragraph](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Paragraph)
+* [Image](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Image)
 * [HTML](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#HTML)
 
 #### **PRO**
 
-* [Multi-checkbox](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Multi-checkbox) (New feature)
+* [Multi-checkbox](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Multi-checkbox)
 * [Select](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Select)
 * [Multi-select](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Multi-select)
 * [Radio](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Radio)
-* [Radio with images](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Radio_with_images) (New feature)
-* [Radio with colors](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Radio_with_colors) (New feature)
+* [Radio with images](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Radio_with_images)
+* [Radio with colors](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Radio_with_colors)
 * [Date](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Date)
 * [Time](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Time)
 * [File Upload](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#File_Upload)
 * [Hidden](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Hidden)
 
-Get all PRO features and priority e-mail support. [Upgrade Now →](https://www.wpdesk.net/products/flexible-checkout-fields-pro-woocommerce/?utm_source=wporg&utm_medium=link&utm_campaign=wporg-fcf)
+**Get all **PRO features** and priority e-mail support. ⭐[Upgrade to PRO →]**(https://www.wpdesk.net/products/flexible-checkout-fields-pro-woocommerce/?utm_source=wporg&utm_medium=link&utm_campaign=wporg-fcf)
 
 ### Well Documented
 
@@ -69,45 +69,45 @@ We are proud of our docs. We spend a great deal of time to polish them and make 
 
 ### Support Policy
 
-We provide a limited support for the free version in the [plugin Support Forum](https://wordpress.org/support/plugin/flexible-checkout-fields/). Please purchase a PRO version to get priority e-mail support as well as all e-commerce features. [Upgrade Now →](https://www.wpdesk.net/products/flexible-checkout-fields-pro-woocommerce/?utm_source=wporg&utm_medium=link&utm_campaign=wporg-fcf)
+We provide a limited support for the free version in the [plugin Support Forum](https://wordpress.org/support/plugin/flexible-checkout-fields/). Please purchase a **PRO version** to get priority e-mail support as well as all e-commerce features. ⭐[Upgrade to PRO →](https://www.wpdesk.net/products/flexible-checkout-fields-pro-woocommerce/?utm_source=wporg&utm_medium=link&utm_campaign=wporg-fcf)
 
 > **Get more WooCommerce plugins from WP Desk**<br />
 > We provide premium plugins for customizing checkout, shipping, invoicing and more. Check out our [premium WooCommerce plugins here →](https://www.wpdesk.net/products/)
 > [Free WooCommerce plugins &rarr;](https://profiles.wordpress.org/wpdesk/#content-plugins)
 
-### How can I customize the WooCommerce checkout page ⭐?
+### 🤔 How can I customize the WooCommerce checkout page?
 
 - **Step 1**: Install and activate Flexible Checkout Fields for WooCommerce.
 - **Step 2**: Go to your WordPress backend, open the WooCommerce menu, and click Checkout Fields.
 - **Step 3**: Choose the WooCommerce Checkout Section to customize.
 - **Step 4**: Manage, reorder, hide, show, or add custom fields to the WooCommerce checkout page.
-- **Step 5**: Use custom sections of the WooCommerce checkout page, more checkout fields, conditional logic, pricing per field, and additional options in PRO.
+- **Step 5**: Use custom sections of the WooCommerce checkout page, more checkout fields, conditional logic, pricing per field, and additional options in **PRO**.
 
 You can adjust the WooCommerce checkout page with custom checkout fields and this free customizer in a few moments 🚀!
 
 [**Read FAQ**](https://wordpress.org/plugins/flexible-checkout-fields/faq/) for detailed information about the plugin options.
 
-#### Fields Order
+#### 🔀 Fields Order
 
 Just drag&drop to reorder checkout fields on the checkout page. You can reorder WooCommerce built-in fields as well as custom fields that you add yourself. Mix them any way you like or need. Simply customize checkout yourself. If other plugins add their custom fields in many cases you will also be able to rearrange them (if added properly by the plugin author).
 
-#### Field validation
+#### ✅ Field validation
 
 WooCommerce has built-in validation of a phone number, an email address (validate email) and a postcode. We let you use this validation in the new fields you add to your store using this plugin.
 
 Standard WooCommerce validation is not enough? You can add your own validation to any field you create in this plugin. You can find a code example in [Flexible Checkout Fields docs →](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/)
 
-#### Required or Optional Fields
+#### ❌ Required or Optional Fields
 
 This WooCommerce Checkout Editor will let you easily manage which fields should be required and which optional. Just click a *required* checkbox in the field settings and make a field required or optional. Works both ways.
 
-#### Labels and Placeholders
+#### 🏷️ Labels and Placeholders
 
 Want to change *Company name* to just *Company* or *Your Awesome Company*? Just edit the label and it will instantly appear in the checkout page. **Pro tip**: You can also use HTML inside labels!
 
 Want to give your customers a tip on how to fill a checkout field? You can do it with an explanatory placeholder (it will show inside the field). For example *Enter your full company name*.
 
-#### Display Checkout Fields on Other Pages
+#### 📃 Display Checkout Fields on Other Pages
 
 You can display the fields not only in the checkout page. Just mark a specific checkbox under the "Display On" tab as checked. You have 4 different locations to use:
 
@@ -118,19 +118,19 @@ You can display the fields not only in the checkout page. Just mark a specific c
 
 For custom fields, you may also decide about field formatting on pages/emails.
 
-#### Custom CSS Class
+#### ➿ Custom CSS Class
 
 Add some style to your fields. By adding a custom class to each field you can then uniquely style it in your theme's stylesheet.
 
-#### Use your meta names
+#### 🖥️ Use your meta names
 
 Are you a developer? You can set any meta name you want. This is the name of the field in the database. You can easily integrate this WooCommerce plugin for one page checkout with your custom code due to this function.
 
-#### Multilanguage ready
+#### 🌎 Multilanguage ready
 
 Flexible Checkout Fields (checkout manager) is compatible with WPML and Polylang and lets you translate fields data to other languages.
 
-#### Custom Field Sections (PRO)
+#### ⭐ Custom Field Sections (PRO)
 
 Billing, Shipping or Order sections are not enough? Now you can add fields to 12 other checkout sections. Below you will find all sections and their corresponding hooks (hooks are just for developers' reference - if you do not know what hooks are, just ignore them and you'll be just fine - it will just work).
 
@@ -152,33 +152,62 @@ Billing, Shipping or Order sections are not enough? Now you can add fields to 12
 * Before Submit
 * After Submit
 
-#### Conditional Logic for Fields (PRO)
+#### ⭐ Conditional Logic for Fields (PRO)
 
-You can also use the PRO version of the plugin to show, hide, and set a field as required based on multiple conditions 🚀.
+**NEW:** You can also use the **PRO version** of the plugin to show, hide, and set a field as required based on multiple conditions 🚀. We also give you the option to perform no action at all if one or more of the conditions you set is not fulfilled.
 
-For example, set a VAT field to be required if the customer selects the company checkbox. **You can also**:
+For example, set a VAT field to be required if the customer selects the company checkbox or is from a specified country. **You can also**:
 
-Enable conditional logic (show or hide) for fields based on other fields values (checkbox, radio, select).
+Enable conditional logic (show, hide, set as required or perform no action) for fields based on:
 
-#### Conditional Logic for Shipping Methods (PRO)
+#### 🧩 Shipping Methods
 
-Enable conditional logic (show or hide) for fields based on selected shipping method.
+Enable conditional logic (show, hide, set as required or perform no action) for fields based on selected shipping method.
 
-#### Conditional Logic for Products and Categories (PRO)
+#### 🧩 Payment Methods
 
-Enable conditional logic (show or hide) for fields based on products and/or categories in the cart, i.e.:
+Enable conditional logic (show, hide, set as required or perform no action) for fields based on selected payment method.
+
+#### 🧩 Products and Categories in Cart
+
+Enable conditional logic (show, hide, set as required or perform no action) for fields based on products and/or categories in the cart, i.e.:
 
 * Show engraving field for jewelery category
 * Show delivery date option only for physical products
 * Show VAT Number for digital goods
 * Hide address fields for digital goods
 
+#### 🧩 Cart value
+
+Enable conditional logic (show, hide, set as required or perform no action) for fields based on product value in cart.
+
+#### 🧩 Flexible Checkout Fields plugin fields
+
+Enable conditional logic (show, hide, set as required or perform no action) for fields based on other fields added with Flexible Checkout Fields.
+
+#### 🧩 Flexible Product plugin fields
+
+Enable conditional logic (show, hide, set as required or perform no action) for fields based on other fields added with Flexible Product Fields.
+
+#### 🧩 Default WooCommerce plugin fields
+
+Enable conditional logic (show, hide, set as required or perform no action) for fields based on default Woo fields.
+
+#### 🧩 User role
+
+Enable conditional logic (show, hide, set as required or perform no action) for fields based on the user role.
+
+#### 🧩 Date
+
+Enable conditional logic (show, hide, set as required or perform no action) for fields based on the date you select.
+
+
 This plugin is compatible with variable products.
 
 You can set many conditions (OR) under one or more condition groups (AND) for each field. The conditional logic feature will help you in advanced WooCommerce checkout page customization 🎉!
 
-> **Upgrade to Flexible Checkout Fields PRO**<br />
-> Get all PRO features and priority e-mail support. [Upgrade Now →](https://www.wpdesk.net/products/flexible-checkout-fields-pro-woocommerce/?utm_source=wporg&utm_medium=link&utm_campaign=wporg-fcf)
+> ⭐ **Upgrade to Flexible Checkout Fields PRO**<br />
+> Get all PRO features and priority e-mail support. ⭐ [Upgrade to PRO →](https://www.wpdesk.net/products/flexible-checkout-fields-pro-woocommerce/?utm_source=wporg&utm_medium=link&utm_campaign=wporg-fcf)
 
 ### Flexible Checkout Fields in a nutshell
 
@@ -579,6 +608,15 @@ Yes 😊.
 If you are upgrading from the old WooCommerce Checkout Fields version (1.1, woocommerce-checkout-fields) make sure to completely delete the old version first. Your settings will be kept. If you install the new version without deleting the old one you may break your WordPress installation.
 
 == Changelog ==
+
+= 4.1.3 - 2024-03-12 =
+* Fixed uncaught TypeError
+* Fixed wp-notice library
+
+= 4.1.2 - 2024-03-12 =
+* Added support for WooCommerce 8.7
+* Fixed tracker
+* Fixed settings crash when some plugins are active (UNISEND for WooCommerce)
 
 = 4.1.1 - 2024-02-21 =
 * Added support for WooCommerce 8.6

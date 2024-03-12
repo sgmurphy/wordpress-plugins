@@ -897,14 +897,15 @@ $row_settings = array(
 					'title'  => __( 'HTML Element', 'fl-builder' ),
 					'fields' => array(
 						'container_element' => array(
-							'type'    => 'select',
-							'label'   => __( 'Container Element', 'fl-builder' ),
-							'default' => apply_filters( 'fl_builder_row_container_element_default', 'div' ),
+							'type'     => 'select',
+							'label'    => __( 'Container Element', 'fl-builder' ),
+							'default'  => apply_filters( 'fl_builder_row_container_element_default', 'div' ),
+							'sanitize' => array( 'FLBuilderUtils::esc_tags', apply_filters( 'fl_builder_row_container_element_default', 'div' ) ),
 							/**
 							 * Filter to add/remove container types.
 							 * @see fl_builder_node_container_element_options
 							 */
-							'options' => apply_filters( 'fl_builder_node_container_element_options', array(
+							'options'  => apply_filters( 'fl_builder_node_container_element_options', array(
 								'div'     => '&lt;div&gt;',
 								'section' => '&lt;section&gt;',
 								'article' => '&lt;article&gt;',
@@ -913,8 +914,8 @@ $row_settings = array(
 								'header'  => '&lt;header&gt;',
 								'footer'  => '&lt;footer&gt;',
 							)),
-							'help'    => __( 'Optional. Choose an appropriate HTML5 content sectioning element to use for this row to improve accessibility and machine-readability.', 'fl-builder' ),
-							'preview' => array(
+							'help'     => __( 'Optional. Choose an appropriate HTML5 content sectioning element to use for this row to improve accessibility and machine-readability.', 'fl-builder' ),
+							'preview'  => array(
 								'type' => 'none',
 							),
 						),

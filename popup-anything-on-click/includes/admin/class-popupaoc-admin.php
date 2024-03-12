@@ -342,7 +342,8 @@ class Popupaoc_Admin {
 	 */
 	function popupaoc_render_popup_preview() {
 
-		if( isset( $_GET['paoc-popup-preview'] ) && $_GET['paoc-popup-preview'] == 1 && ( isset( $_SERVER['HTTP_REFERER'] ) && (strpos($_SERVER['HTTP_REFERER'], 'post.php') !== false || strpos($_SERVER['HTTP_REFERER'], 'post-new.php') !== false) ) ) {
+		if( is_user_logged_in() && isset( $_GET['paoc_preview_nonce'] ) && wp_verify_nonce( $_GET['paoc_preview_nonce'], 'paoc-popup-preview-nonce' ) && isset( $_GET['paoc-popup-preview'] ) && $_GET['paoc-popup-preview'] == 1 && ( isset( $_SERVER['HTTP_REFERER'] ) && (strpos($_SERVER['HTTP_REFERER'], 'post.php') !== false || strpos($_SERVER['HTTP_REFERER'], 'post-new.php') !== false) ) ) {
+			
 			include_once( POPUPAOC_DIR . '/includes/admin/preview/preview.php' );
 			exit;
 		}

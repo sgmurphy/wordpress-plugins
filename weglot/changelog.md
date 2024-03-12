@@ -3,6 +3,11 @@
 
 # Change Log
 
+##4.2.4 (25/01/2024) =
+* Bug: Fixed slug translation update
+* Bug: Fixed issue using block menu or widget
+* Bug: Fixed bug deleting body tag
+
 ##4.2.3 (16/01/2024) =
 * Bug: Fixed WooCommerce cart translations
 * Bug: Fixed issue with custom flags when using the switcher template

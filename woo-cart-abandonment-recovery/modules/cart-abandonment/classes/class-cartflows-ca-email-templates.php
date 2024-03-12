@@ -1073,6 +1073,8 @@ class Cartflows_Ca_Email_Templates {
 				<input type="hidden" name="page" value="<?php echo esc_attr( $page ); ?>"/>
 				<input type="hidden" name="action" value="<?php echo esc_attr( WCF_ACTION_EMAIL_TEMPLATES ); ?>"/>
 				<input type="hidden" name="sub_action" value="<?php echo esc_attr( WCF_SUB_ACTION_DELETE_BULK_EMAIL_TEMPLATES ); ?>"/>
+				<input type="hidden" name="<?php echo esc_attr( WCF_SUB_ACTION_DELETE_BULK_EMAIL_TEMPLATES . '_nonce' ); ?>" value="<?php echo esc_attr( wp_create_nonce( WCF_SUB_ACTION_DELETE_BULK_EMAIL_TEMPLATES ) ); ?>"/>
+
 				<?php $wcf_template_list->display(); ?>
 			</form>
 		</div>

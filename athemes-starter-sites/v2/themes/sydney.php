@@ -25,8 +25,6 @@ if ( !function_exists( 'sydney_atss_demos_list') ) {
 			);
 		}
 
-
-
 		$demos = array(
 			'main-pro' => array(
 				'name'       => esc_html__( 'Agency', 'sydney' ),
@@ -741,24 +739,13 @@ if ( !function_exists( 'sydney_atss_demos_list') ) {
 				'builders'   => array(
 					'elementor',
 				),
-				'preview'    => 'https://demo.athemes.com/sp-coworking/',
-				'thumbnail'  => 'https://athemes.com/themes-demo-content/sydney/coworking/thumb.jpg',
-				'plugins'    => array_merge(
-					array(
-						array(
-							'name'     => 'WPForms',
-							'slug'     => 'wpforms-lite',
-							'path'     => 'wpforms-lite/wpforms.php',
-							'required' => false
-						)
-					),
-					$plugins
-				),
+				'preview'    => 'https://demo.athemes.com/sp--coworking/',
+				'thumbnail'  => 'https://athemes.com/themes-demo-content/sydney/coworking-new/thumb.jpg',
 				'import'     => array(
 					'elementor' => array(
-						'content'    => 'https://athemes.com/themes-demo-content/sydney/coworking/content.xml',
-						'widgets'    => 'https://athemes.com/themes-demo-content/sydney/coworking/widgets.wie',
-						'customizer' => 'https://athemes.com/themes-demo-content/sydney/coworking/customizer.dat',
+						'content'    => 'https://athemes.com/themes-demo-content/sydney/coworking-new/content.xml',
+						'widgets'    => 'https://athemes.com/themes-demo-content/sydney/coworking-new/widgets.wie',
+						'customizer' => 'https://athemes.com/themes-demo-content/sydney/coworking-new/customizer.dat',
 					),
 				),
 			),

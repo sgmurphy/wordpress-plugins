@@ -151,6 +151,7 @@ if ( count( $wcf_list_table->items ) ) {
 	?>
 <form id="wcf-cart-abandonment-table" method="GET">
 	<input type="hidden" name="page" value="<?php echo esc_attr( $wcar_page ); ?>"/>
+	<input type="hidden" name="<?php echo esc_attr( WCF_REPORTS_TABLE_ACTION . '_nonce' ); ?>" value="<?php echo esc_attr( wp_create_nonce( WCF_REPORTS_TABLE_ACTION ) ); ?>"/>
 	<?php $wcf_list_table->display(); ?>
 </form>
 

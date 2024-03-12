@@ -115,14 +115,15 @@ FLBuilder::register_settings_form('module_advanced', array(
 			'title'  => __( 'HTML Element', 'fl-builder' ),
 			'fields' => array(
 				'container_element' => array(
-					'type'    => 'select',
-					'label'   => __( 'Container Element', 'fl-builder' ),
-					'default' => 'div',
+					'type'     => 'select',
+					'label'    => __( 'Container Element', 'fl-builder' ),
+					'default'  => 'div',
+					'sanitize' => array( 'FLBuilderUtils::esc_tags', 'div' ),
 					/**
 					 * Filter to add/remove container types.
 					 * @see fl_builder_node_container_element_options
 					 */
-					'options' => apply_filters( 'fl_builder_node_container_element_options', array(
+					'options'  => apply_filters( 'fl_builder_node_container_element_options', array(
 						'div'     => '&lt;div&gt;',
 						'section' => '&lt;section&gt;',
 						'article' => '&lt;article&gt;',
@@ -131,8 +132,8 @@ FLBuilder::register_settings_form('module_advanced', array(
 						'header'  => '&lt;header&gt;',
 						'footer'  => '&lt;footer&gt;',
 					) ),
-					'help'    => __( 'Optional. Choose an appropriate HTML5 content sectioning element to use for this module to improve accessibility and machine-readability.', 'fl-builder' ),
-					'preview' => array(
+					'help'     => __( 'Optional. Choose an appropriate HTML5 content sectioning element to use for this module to improve accessibility and machine-readability.', 'fl-builder' ),
+					'preview'  => array(
 						'type' => 'none',
 					),
 				),

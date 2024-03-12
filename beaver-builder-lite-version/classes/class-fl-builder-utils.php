@@ -438,4 +438,40 @@ final class FLBuilderUtils {
 		return true === apply_filters( 'is_post_status_viewable', $is_viewable, $post_status );
 	}
 
+	public static function esc_attr( $url ) {
+		$link = esc_attr( $url );
+		return str_replace( array( '&quot;', '&#039;' ), "'", $link );
+	}
+
+	public static function allowed_tags() {
+		return array(
+			'h1',
+			'h2',
+			'h3',
+			'h4',
+			'h5',
+			'h6',
+			'div',
+			'li',
+			'ul',
+			'ol',
+			'article',
+			'section',
+			'aside',
+			'main',
+			'span',
+			'header',
+			'footer',
+		);
+	}
+
+	public static function esc_tags( $setting, $default = false ) {
+		$tags = self::allowed_tags();
+		foreach ( $tags as $tag ) {
+			if ( $tag === $setting ) {
+				return $setting;
+			}
+		}
+		return $default;
+	}
 }

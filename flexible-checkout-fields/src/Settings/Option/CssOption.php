@@ -57,7 +57,7 @@ class CssOption extends OptionAbstract {
 	 * {@inheritdoc}
 	 */
 	public function update_field_data( array $field_data, array $field_settings ): array {
-		$option_name = $this->get_option_name();
+		$option_name  = $this->get_option_name();
 		$option_value = $field_settings[ $option_name ] ?? $this->get_default_value();
 
 		$option_value = $field_settings[ $option_name ] ?? $this->get_default_value();

@@ -473,6 +473,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PREFIX", function() { return PREFIX; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SUFFIX", function() { return SUFFIX; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PRICE_POSITIONS", function() { return PRICE_POSITIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TICKET_LABELS", function() { return TICKET_LABELS; });
+var _tribe_editor_config, _tribe_editor_config$;
 const TC = 'tribe-commerce';
 const EDD = 'edd';
 const WOO = 'woo';
@@ -513,6 +515,7 @@ const TICKET_TYPES = {
 const PREFIX = 'prefix';
 const SUFFIX = 'postfix';
 const PRICE_POSITIONS = [PREFIX, SUFFIX];
+const TICKET_LABELS = (_tribe_editor_config = tribe_editor_config) === null || _tribe_editor_config === void 0 ? void 0 : (_tribe_editor_config$ = _tribe_editor_config.tickets) === null || _tribe_editor_config$ === void 0 ? void 0 : _tribe_editor_config$.ticketLabels;
 
 /***/ }),
 

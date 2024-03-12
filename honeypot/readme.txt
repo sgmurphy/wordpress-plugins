@@ -4,11 +4,11 @@ Donate link: https://www.patreon.com/wp_armour
 Tags: anti spam, spam checker, spam filter, gravity forms, contact form 7
 Requires at least: 3.0
 Tested up to: 6.4.3
-Stable tag: 2.1.16
+Stable tag: 2.1.17
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Anti spam filter that blocks spam bots including russian spam in Contact Form 7, Gravity Forms, Ninja Forms, Formidable Forms, Comments, Registration and more..
+Anti spam filter blocks spam bots including russian spam in Contact Form 7, Gravity Forms, Ninja Forms, Formidable Forms, Comments, Registration and..
 
 == Description ==
 This plugins block spam submissions using honeypot anti spam technic. No Captcha or extra verification field hassle to the users. Only lets spam bots to suffer using our anti spam filter.
@@ -141,6 +141,10 @@ With WP Armour - Honeypot Anti Spam plugin it is No. But if you want you can use
 1. Screenshot #11. Anti Spam for Fluent Forms
 
 == Changelog ==
+
+= = 2.1.17 =
+
+* Fixed Elementor Admin Form Submission issue.
 
 = = 2.1.16 =
 

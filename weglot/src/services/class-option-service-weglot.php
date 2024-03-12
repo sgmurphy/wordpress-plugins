@@ -279,16 +279,25 @@ class Option_Service_Weglot {
 		if ( empty( $settings ) ) {
 			$settings = $this->get_options();
 		}
-		$slug_translation_version = $settings['versions']['slugTranslation'];
+		$slug_translation_version = $settings['versions']['slugTranslation'] ?? null;
 		foreach ( $destinations_languages as $destinations_language ) {
 
-			$url = sprintf(
-				'%s/translations/slugs?api_key=%s&language_to=%s&v=%s',
-				Helper_API::get_api_url(),
-				$api_key,
-				$destinations_language,
-				$slug_translation_version
-			);
+			if($slug_translation_version != null){
+				$url = sprintf(
+					'%s/translations/slugs?api_key=%s&language_to=%s&v=%s',
+					Helper_API::get_api_url(),
+					$api_key,
+					$destinations_language,
+					$slug_translation_version
+				);
+			}else{
+				$url = sprintf(
+					'%s/translations/slugs?api_key=%s&language_to=%s',
+					Helper_API::get_api_url(),
+					$api_key,
+					$destinations_language
+				);
+			}
 
 			$response = wp_remote_get( $url, array( 'timeout' => $custom_timeout ) ); // phpcs:ignore
 

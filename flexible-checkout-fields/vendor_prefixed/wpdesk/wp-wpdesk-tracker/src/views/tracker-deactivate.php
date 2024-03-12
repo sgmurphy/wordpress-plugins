@@ -154,9 +154,12 @@ echo \admin_url('admin-ajax.php');
                     type: 'POST',
                     data: {
                         action: 'wpdesk_tracker_deactivation_handler',
-	                    reason: reason,
-	                    plugin: plugin,
-	                    plugin_name: plugin_name,
+                        security: '<?php 
+echo \esc_attr(\wp_create_nonce(\FcfVendor\WPDesk_Tracker::WPDESK_TRACKER_DEACTIVATION));
+?>',
+                        reason: reason,
+                        plugin: plugin,
+                        plugin_name: plugin_name,
                         additional_info: additional_info,
                     }
                 }

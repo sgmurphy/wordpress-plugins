@@ -256,20 +256,27 @@ class Cartflows_Ca_Email_Templates_Table extends WP_List_Table {
 	public function process_bulk_action() {
 
 		global $wpdb;
-		$table_name = $wpdb->prefix . CARTFLOWS_CA_EMAIL_TEMPLATE_TABLE;
-		$action     = Cartflows_Ca_Helper::get_instance()->sanitize_text_filter( 'sub_action', 'GET' );
+		$action_nonce = Cartflows_Ca_Helper::get_instance()->sanitize_text_filter( WCF_SUB_ACTION_DELETE_BULK_EMAIL_TEMPLATES . '_nonce', 'GET' );
 
-		if ( WCF_SUB_ACTION_DELETE_BULK_EMAIL_TEMPLATES === $action ) {
+		// Process the delete only if the nonce is verified and the current user has the capability to manage it.
+		if ( ! empty( $action_nonce ) && wp_verify_nonce( $action_nonce, WCF_SUB_ACTION_DELETE_BULK_EMAIL_TEMPLATES ) && current_user_can( 'manage_woocommerce' ) ) {
 
-			$request_id = isset( $_REQUEST['id'] ) && is_array( $_REQUEST['id'] ) ? array_map( 'intval', $_REQUEST['id'] ) : array(); //phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$ids        = implode( ',', $request_id );
+			$action = Cartflows_Ca_Helper::get_instance()->sanitize_text_filter( 'sub_action', 'GET' );
 
-			if ( ! empty( $ids ) ) {
-				// Can't use placeholders for table/column names, it will be wrapped by a single quote (') instead of a backquote (`).
-				$wpdb->query(
-					"DELETE FROM {$table_name} WHERE id IN($ids)" //phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-				); // db call ok; no-cache ok.
-			}
+			if ( WCF_SUB_ACTION_DELETE_BULK_EMAIL_TEMPLATES === $action ) {
+
+				$table_name = $wpdb->prefix . CARTFLOWS_CA_EMAIL_TEMPLATE_TABLE;
+
+				$request_id = isset( $_REQUEST['id'] ) && is_array( $_REQUEST['id'] ) ? array_map( 'intval', $_REQUEST['id'] ) : array(); //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$ids        = implode( ',', $request_id );
+
+				if ( ! empty( $ids ) ) {
+					// Can't use placeholders for table/column names, it will be wrapped by a single quote (') instead of a backquote (`).
+					$wpdb->query(
+						"DELETE FROM {$table_name} WHERE id IN($ids)" //phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					); // db call ok; no-cache ok.
+				}
+			}       
 		}
 
 	}

@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Bold Builder
  * Description: WordPress page builder.
- * Version: 4.8.5
+ * Version: 4.8.6
  * Author: BoldThemes
  * Author URI: https://www.bold-themes.com
  * Text Domain: bold-builder
@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // VERSION --------------------------------------------------------- \\
-define( 'BT_BB_VERSION', '4.8.5' );
+define( 'BT_BB_VERSION', '4.8.6' );
 // VERSION --------------------------------------------------------- \\
  
 /**
@@ -300,7 +300,7 @@ function bt_bb_enqueue() {
 	
 	wp_enqueue_script( 'bt_bb_ai', plugins_url( 'ai/ai.js', __FILE__ ), array( 'jquery' ), BT_BB_VERSION );
 	
-	wp_enqueue_script( 'bt_bb_yoast_compatibility', plugins_url( 'bt.bb.yoast.js', __FILE__ ), [], '1.', true );
+	wp_enqueue_script( 'bt_bb_yoast_compatibility', plugins_url( 'bt.bb.yoast.js', __FILE__ ), array(), BT_BB_VERSION, true );
 	wp_localize_script( 'bt_bb_yoast_compatibility', 'bt_bb_ajax', array(
 		'url' => admin_url( 'admin-ajax.php' ),
 		'nonce' => wp_create_nonce( 'bt_bb_yoast_compatibility' )

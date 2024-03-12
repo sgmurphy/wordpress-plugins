@@ -274,7 +274,7 @@ class FLPhotoModule extends FLBuilderModule {
 				}
 			}
 		}
-		return esc_url( $src );
+		return esc_url( do_shortcode( $src ) );
 	}
 
 	/**

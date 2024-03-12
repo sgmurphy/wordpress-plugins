@@ -580,6 +580,28 @@ p.nudge-description.nudge-closing {
     align-items: center;
 }
 
+.asenha-checkboxes .wrapper-for-checkboxes {
+    display: flex;
+    flex-direction: row;
+}
+
+.asenha-checkboxes .wrapper-for-checkboxes div {
+    margin-bottom: 9px;
+}
+
+.asenha-checkboxes .wrapper-for-checkboxes div:last-child {
+    margin-bottom: 4px;
+}
+
+.asenha-checkboxes .wrapper-for-checkboxes.horizontal div {
+    margin-right: 16px;
+    margin-bottom: 4px;
+}
+
+.asenha-checkboxes .wrapper-for-checkboxes.vertical {
+    flex-direction: column;
+}
+
 .asenha-field-checkbox {
   width: 0 !important;
   height: 0 !important;

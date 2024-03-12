@@ -1,3 +1,11 @@
+<h4>2.7.4.5 - 03/11/2024</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+	<li>Icon Module: Fix shortcode not working when displaying text with the icon (#3231)</li>
+	<li>Security: Fix Authenticated(Contributor+) Stored Cross-Site Scripting via module container element (#3240)</li>
+	<li>Fix PHP warning with PHP 8.3 if Themer is active(#3160)</li>
+</ul>
+
 <h4>2.7.4.4 - 02/09/2024</h4>
 <p><strong>Hotfix</strong></p>
 <ul>

@@ -7,6 +7,7 @@ class bt_bb_service extends BT_BB_Element {
 			'ai_prompt'    => '',
 			'icon'         => '',
 			'title'        => '',
+			'html_tag'     => 'div',
 			'text'         => '',
 			'url'          => '',
 			'target'       => '',
@@ -107,7 +108,7 @@ class bt_bb_service extends BT_BB_Element {
 		$output = $icon;
 
 		$output .= '<div class="' . esc_attr( $this->shortcode ) . '_content">';
-			if ( $title != '' ) $output .= '<div class="' . esc_attr( $this->shortcode ) . '_content_title">' . $title . '</div>';
+			if ( $title != '' ) $output .= '<'. $html_tag . ' class="' . esc_attr( $this->shortcode ) . '_content_title">' . $title . '</'. $html_tag . '>';
 			if ( $text != '' ) $output .= '<div class="' . esc_attr( $this->shortcode ) . '_content_text">' . nl2br( $text ) . '</div>';
 		$output .= '</div>';
 
@@ -139,6 +140,16 @@ class bt_bb_service extends BT_BB_Element {
 				),
 				array( 'param_name' => 'icon', 'type' => 'iconpicker', 'heading' => esc_html__( 'Icon', 'bold-builder' ), 'preview' => true ),
 				array( 'param_name' => 'title', 'type' => 'textfield', 'heading' => esc_html__( 'Title', 'bold-builder' ), 'placeholder' => esc_html__( 'Add Service title', 'bold-builder' ), 'preview' => true ),
+				array( 'param_name' => 'html_tag', 'type' => 'dropdown', 'heading' => esc_html__( 'Title HTML tag', 'bold-builder' ), 'preview' => true, 'default' => 'div',
+					'value' => array(
+						esc_html__( 'div', 'bold-builder' ) => 'div',
+						esc_html__( 'h1', 'bold-builder' ) 	=> 'h1',
+						esc_html__( 'h2', 'bold-builder' ) 	=> 'h2',
+						esc_html__( 'h3', 'bold-builder' ) 	=> 'h3',
+						esc_html__( 'h4', 'bold-builder' ) 	=> 'h4',
+						esc_html__( 'h5', 'bold-builder' ) 	=> 'h5',
+						esc_html__( 'h6', 'bold-builder' ) 	=> 'h6'
+				) ),
 				array( 'param_name' => 'text', 'type' => 'textarea', 'heading' => esc_html__( 'Text', 'bold-builder' ), 'placeholder' => esc_html__( 'Add Service text', 'bold-builder' ) ),
 				array( 'param_name' => 'align', 'type' => 'dropdown', 'heading' => esc_html__( 'Icon position', 'bold-builder' ), 'responsive_override' => true,
 					'value' => array(

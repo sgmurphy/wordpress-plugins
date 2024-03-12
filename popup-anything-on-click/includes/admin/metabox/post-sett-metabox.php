@@ -157,11 +157,10 @@ if( ! $enable ) { ?>
 <div class="paoc-meta-notify paoc-hide"><?php esc_html_e('Changing the Popup Bahaviour or Popup Type will enable some settings in Content and Designs tab.', 'popup-anything-on-click'); ?></div>
 
 <?php popupaoc_preview_popup( array(
-	'preview_link'	=> POPUPAOC_PREVIEW_LINK,
-	'title'			=> esc_html__('Popup Anything On Click - Preview', 'popup-anything-on-click'),
-	'info'			=> esc_html__("Some setting options will not work here like 'When Popup Appear?', 'Cookie Expiry Time', 'Advance Settings' and etc for better user experience and preview restriction.", 'popup-anything-on-click')
+	'preview_link'			=> add_query_arg( array( 'paoc_preview_nonce' => wp_create_nonce( 'paoc-popup-preview-nonce' ) ), POPUPAOC_PREVIEW_LINK ),
+	'title'					=> esc_html__('Popup Anything On Click - Preview', 'popup-anything-on-click'),
+	'info'					=> esc_html__("Some setting options will not work here like 'When Popup Appear?', 'Cookie Expiry Time', 'Advance Settings' and etc for better user experience and preview restriction.", 'popup-anything-on-click')
 ) );
-
 
 // Popup Tags File
 include( POPUPAOC_DIR . '/includes/admin/popup-tags/tags.php' );

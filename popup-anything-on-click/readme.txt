@@ -2,8 +2,8 @@
 Contributors: wponlinesupport, anoopranawat, pratik-jain, piyushpatel123, patelketan
 Tags:  popup, optin, modal popup, email marketing, modal, newsletter, newsletter popup, marketing popup, exit popup, HTML popup, image popup, page load popup, popup on click, modal popup on click, full screen popup on click, on click popup
 Requires at least: 5.2
-Tested up to: 6.4.1
-Stable tag: 2.8
+Tested up to: 6.4.3
+Stable tag: 2.8.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -170,6 +170,10 @@ You can use <code>.paoc-popup-btn</code> class to change the button design as pe
 7) General Settings
 
 == Changelog ==
+
+= 2.8.1 (12, March 2024) =
+* [*] Fixed preview screen security-related issue.
+* [*] Check compatibility with WordPress version 6.4.3
 
 = 2.8 (24, Nov 2023) =
 * [*] Updated analytics SDK.

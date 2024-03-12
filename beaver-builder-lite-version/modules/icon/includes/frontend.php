@@ -38,7 +38,7 @@ if ( ! empty( $settings->link ) ) {
 	<?php if ( ! empty( $settings->text ) ) : ?>
 		<div id="fl-icon-text-<?php echo ( isset( $module->node ) ? $module->node : $settings->id ); ?>" class="<?php echo $text_class; ?>">
 			<?php if ( ! empty( $settings->link ) ) : ?>
-			<a href="<?php echo esc_url( $settings->link ); ?>" target="<?php echo $settings->link_target; ?>" class="<?php echo $text_link_class; ?>"<?php echo $module->get_rel(); ?>>
+			<a href="<?php echo esc_url( do_shortcode( $settings->link ) ); ?>" target="<?php echo $settings->link_target; ?>" class="<?php echo $text_link_class; ?>"<?php echo $module->get_rel(); ?>>
 			<?php endif; ?>
 			<?php echo $settings->text; ?>
 			<?php if ( ! empty( $settings->link ) ) : ?>

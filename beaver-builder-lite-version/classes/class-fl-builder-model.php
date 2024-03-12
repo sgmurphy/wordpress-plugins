@@ -4391,8 +4391,34 @@ final class FLBuilderModel {
 		foreach ( $settings as $name => $value ) {
 			if ( ! isset( $fields[ $name ] ) ) {
 				continue;
-			} elseif ( isset( $fields[ $name ]['sanitize'] ) ) {
-				$settings->$name = call_user_func_array( $fields[ $name ]['sanitize'], array( $value ) );
+			}
+			if ( isset( $fields[ $name ]['sanitize'] ) ) {
+				if ( is_array( $fields[ $name ]['sanitize'] ) ) {
+					$settings->$name = call_user_func_array( $fields[ $name ]['sanitize'][0], array( $value, $fields[ $name ]['sanitize'][1] ) );
+				} else {
+					$settings->$name = call_user_func_array( $fields[ $name ]['sanitize'], array( $value ) );
+				}
+			} elseif ( 'link' === $fields[ $name ]['type'] ) {
+				$settings->$name = FLBuilderUtils::esc_attr( $value );
+			} elseif ( 'container_element' === $name ) {
+				$clean   = false;
+				$allowed = apply_filters( 'fl_builder_node_container_element_options', array(
+					'div'     => '&lt;div&gt;',
+					'section' => '&lt;section&gt;',
+					'article' => '&lt;article&gt;',
+					'aside'   => '&lt;aside&gt;',
+					'main'    => '&lt;main&gt;',
+					'header'  => '&lt;header&gt;',
+					'footer'  => '&lt;footer&gt;',
+				) );
+				foreach ( $allowed as $el => $txt ) {
+					if ( $value === $el ) {
+						$clean = true;
+					}
+				}
+				if ( ! $clean ) {
+					$settings->$name = 'div';
+				}
 			}
 		}
 

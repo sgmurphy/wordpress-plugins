@@ -254,7 +254,7 @@ class FLVideoModule extends FLBuilderModule {
 	 */
 	public function video_aspect_ratio() {
 		$data = $this->get_data();
-		if ( $data && function_exists( 'bcdiv' ) && isset( $data->width ) && isset( $data->height ) ) {
+		if ( $data && function_exists( 'bcdiv' ) && isset( $data->width ) && isset( $data->height ) && ( (int) $data->height > 0 ) && ( (int) $data->width > 0 ) ) {
 			$ratio = ( $data->height / $data->width ) * 100;
 			return bcdiv( $ratio, 1, 2 );
 		}

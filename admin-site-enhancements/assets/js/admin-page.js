@@ -364,6 +364,8 @@
       });
       footerCodeEditor.setSize("100%",300);
 
+      
+
       // Show and hide corresponding fields on tab clicks
 
       $('#tab-content-management + label').click( function() {
@@ -400,6 +402,7 @@
          bodyCodeEditor.refresh(); // Insert <head>, <body> and <footer> code >> CodeMirror
          footerCodeEditor.refresh(); // Insert <head>, <body> and <footer> code >> CodeMirror
          robotsTxtEditor.refresh(); // Manage robots.txt >> CodeMirror
+         
       });
 
       $('#tab-disable-components + label').click( function() {
@@ -610,6 +613,7 @@
       });
 
       subfieldsToggler( 'maintenance_mode', 'maintenance-mode' );
+      
 
       
 

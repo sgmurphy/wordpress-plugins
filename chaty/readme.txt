@@ -3,7 +3,7 @@ Contributors: galdub, tomeraharon, premio
 Tags: whatsapp, whatsapp chat, facebook messenger, chat, chat button, call now button, messenger, whatsapp button, chat icon, contact button, click to call, click to chat
 Requires at least: 3.1
 Tested up to: 6.4
-Stable tag: 3.1.8
+Stable tag: 3.1.9
 Plugin URI: https://premio.io/downloads/chaty/
 
 🔥 WhatsApp chat, Facebook Messenger, Telegram, TikTok, Viber, Email, Line, WeChat Phone call, SMS, + 20 chat icons, with a WhatsApp chat pop up 💬
@@ -308,6 +308,9 @@ Yes! You can even decide what chat buttons will show up on each device (desktop/
 
 
 == Changelog ==
+
+= 3.1.9 =
+User access fix
 
 = 3.1.8 =
 Accessibility improvements
