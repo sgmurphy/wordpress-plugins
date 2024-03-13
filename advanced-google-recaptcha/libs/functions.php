@@ -480,7 +480,7 @@ class WPCaptcha_Functions extends WPCaptcha
         } else if ($options['captcha'] == 'builtin') {
             echo '<p><label for="wpcaptcha_captcha">Are you human? Please solve: ';
             $captcha_id = rand(1000,9999);
-            echo '<img class="wpcaptcha-captcha-img" style="vertical-align: text-top;" src="' . esc_url(WPCAPTCHA_PLUGIN_URL) . '/libs/captcha.php?wpcaptcha-generate-image=true&color=' . esc_attr(urlencode('#FFFFFF')) . '&noise=1&id=' . intval($captcha_id) . '" alt="Captcha" />';
+            echo '<img class="wpcaptcha-captcha-img" style="vertical-align: text-top;" src="' . esc_url(WPCAPTCHA_PLUGIN_URL) . 'libs/captcha.php?wpcaptcha-generate-image=true&color=' . esc_attr(urlencode('#FFFFFF')) . '&noise=1&id=' . intval($captcha_id) . '" alt="Captcha" />';
             echo '<input class="input" type="text" size="3" name="wpcaptcha_captcha[' . intval($captcha_id) . ']" id="wpcaptcha_captcha" />';
             echo '</label></p><br />';
         }
@@ -636,7 +636,7 @@ class WPCaptcha_Functions extends WPCaptcha
             }
         }
 
-        echo '<img src="' . esc_url(WPCAPTCHA_PLUGIN_URL) . '/images/wp-captcha-logo.png" alt="WP Captcha" height="60" title="WP Captcha">';
+        echo '<img src="' . esc_url(WPCAPTCHA_PLUGIN_URL) . 'images/wp-captcha-logo.png" alt="WP Captcha" height="60" title="WP Captcha">';
 
         echo '<br />';
         echo '<br />';

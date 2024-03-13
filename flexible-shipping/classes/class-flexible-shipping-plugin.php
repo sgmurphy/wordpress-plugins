@@ -18,7 +18,7 @@ use FSVendor\Octolize\Tracker\TrackerInitializer;
 use FSVendor\WPDesk\FS\Compatibility\PluginCompatibility;
 use FSVendor\WPDesk\FS\Shipment\ShipmentFunctionality;
 use FSVendor\WPDesk\FS\TableRate\Logger\Assets;
-use FSVendor\WPDesk\Logger\WPDeskLoggerFactory;
+use FSVendor\WPDesk\Logger\SimpleLoggerFactory;
 use FSVendor\WPDesk\Mutex\WordpressPostMutex;
 use FSVendor\WPDesk\Notice\AjaxHandler;
 use FSVendor\WPDesk\PluginBuilder\Plugin\AbstractPlugin;
@@ -189,7 +189,7 @@ class Flexible_Shipping_Plugin extends AbstractPlugin implements HookableCollect
 		if ( $logger_settings->is_enabled() ) {
 			add_filter( 'wpdesk_is_wp_log_capture_permitted', '__return_false' );
 
-			return $this->logger = ( new WPDeskLoggerFactory() )->createWPDeskLogger( $logger_settings->get_logger_channel_name() );
+			return $this->logger = ( new SimpleLoggerFactory( $logger_settings->get_logger_channel_name() ) )->getLogger();
 		}
 
 		return $this->logger = new NullLogger();
@@ -243,8 +243,6 @@ class Flexible_Shipping_Plugin extends AbstractPlugin implements HookableCollect
 		$this->add_hookable( new AjaxHandler( trailingslashit( $this->get_plugin()->get_plugin_url() ) . 'vendor_prefixed/wpdesk/wp-notice/assets' ) );
 
 		$this->add_hookable( new WPDesk_Flexible_Shipping_Method_Created_Tracker_Deactivation_Data() );
-
-		$this->add_hookable( new WPDesk_Flexible_Shipping_Logger_Downloader( new WPDeskLoggerFactory() ) );
 
 		$this->add_hookable( new ShippingIntegrations( 'flexible_shipping' ) );
 

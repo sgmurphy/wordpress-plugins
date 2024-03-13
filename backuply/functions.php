@@ -1612,11 +1612,6 @@ function backuply_copy_log_file($is_restore = false, $file_name = ''){
 
 }
 
-function backuply_clean_file_name($file){
-	return str_replace(['..', '/'], '', $file);
-}
-
-
 function backuply_pattern_type_text($type) {
 		
 	if(empty($type)){
@@ -1803,7 +1798,7 @@ function backuply_delete_tmp(){
 
 	if(!empty($files)){
 		foreach($files as $file){
-			if(!file_exists($file)){
+			if(!file_exists($file) || is_dir($file)){
 				continue;
 			}
 

@@ -170,6 +170,7 @@
 			if ( k == '_content' ) {
 				if ( window.bt_bb.editing_element ) { // FE
 					window.switchEditors.go( 'bt_bb_fe_dialog_tinymce','tmce' );
+					window.bt_bb.tinymce_dirty = true;
 					window.bt_bb.tinymce.setContent( window.switchEditors.wpautop( v ) );
 				} else { // BE
 					window.switchEditors.go( 'bt_bb_tinymce', 'tmce' );

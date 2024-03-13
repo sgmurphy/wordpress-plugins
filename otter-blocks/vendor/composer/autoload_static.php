@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbb0253e169852781202f8d6ca51ba70b
+class ComposerStaticInit3a484c2a996766478dcb47035c56e873
 {
     public static $files = array (
         '16e4325dd9bdbbd2ce8c9530b088e50b' => __DIR__ . '/..' . '/codeinwp/themeisle-sdk/load.php',
@@ -131,6 +131,7 @@ class ComposerStaticInitbb0253e169852781202f8d6ca51ba70b
         'Stripe\\ApiResource' => __DIR__ . '/..' . '/stripe/stripe-php/lib/ApiResource.php',
         'Stripe\\ApiResponse' => __DIR__ . '/..' . '/stripe/stripe-php/lib/ApiResponse.php',
         'Stripe\\ApplePayDomain' => __DIR__ . '/..' . '/stripe/stripe-php/lib/ApplePayDomain.php',
+        'Stripe\\Application' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Application.php',
         'Stripe\\ApplicationFee' => __DIR__ . '/..' . '/stripe/stripe-php/lib/ApplicationFee.php',
         'Stripe\\ApplicationFeeRefund' => __DIR__ . '/..' . '/stripe/stripe-php/lib/ApplicationFeeRefund.php',
         'Stripe\\Apps\\Secret' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Apps/Secret.php',
@@ -150,6 +151,7 @@ class ComposerStaticInitbb0253e169852781202f8d6ca51ba70b
         'Stripe\\Climate\\Product' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Climate/Product.php',
         'Stripe\\Climate\\Supplier' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Climate/Supplier.php',
         'Stripe\\Collection' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Collection.php',
+        'Stripe\\ConnectCollectionTransfer' => __DIR__ . '/..' . '/stripe/stripe-php/lib/ConnectCollectionTransfer.php',
         'Stripe\\CountrySpec' => __DIR__ . '/..' . '/stripe/stripe-php/lib/CountrySpec.php',
         'Stripe\\Coupon' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Coupon.php',
         'Stripe\\CreditNote' => __DIR__ . '/..' . '/stripe/stripe-php/lib/CreditNote.php',
@@ -223,6 +225,7 @@ class ComposerStaticInitbb0253e169852781202f8d6ca51ba70b
         'Stripe\\Payout' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Payout.php',
         'Stripe\\Person' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Person.php',
         'Stripe\\Plan' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Plan.php',
+        'Stripe\\PlatformTaxFee' => __DIR__ . '/..' . '/stripe/stripe-php/lib/PlatformTaxFee.php',
         'Stripe\\Price' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Price.php',
         'Stripe\\Product' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Product.php',
         'Stripe\\PromotionCode' => __DIR__ . '/..' . '/stripe/stripe-php/lib/PromotionCode.php',
@@ -235,6 +238,7 @@ class ComposerStaticInitbb0253e169852781202f8d6ca51ba70b
         'Stripe\\Reporting\\ReportRun' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Reporting/ReportRun.php',
         'Stripe\\Reporting\\ReportType' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Reporting/ReportType.php',
         'Stripe\\RequestTelemetry' => __DIR__ . '/..' . '/stripe/stripe-php/lib/RequestTelemetry.php',
+        'Stripe\\ReserveTransaction' => __DIR__ . '/..' . '/stripe/stripe-php/lib/ReserveTransaction.php',
         'Stripe\\Review' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Review.php',
         'Stripe\\SearchResult' => __DIR__ . '/..' . '/stripe/stripe-php/lib/SearchResult.php',
         'Stripe\\Service\\AbstractService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/AbstractService.php',
@@ -318,6 +322,7 @@ class ComposerStaticInitbb0253e169852781202f8d6ca51ba70b
         'Stripe\\Service\\SubscriptionScheduleService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/SubscriptionScheduleService.php',
         'Stripe\\Service\\SubscriptionService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/SubscriptionService.php',
         'Stripe\\Service\\TaxCodeService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/TaxCodeService.php',
+        'Stripe\\Service\\TaxIdService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/TaxIdService.php',
         'Stripe\\Service\\TaxRateService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/TaxRateService.php',
         'Stripe\\Service\\Tax\\CalculationService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Tax/CalculationService.php',
         'Stripe\\Service\\Tax\\RegistrationService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Tax/RegistrationService.php',
@@ -366,6 +371,7 @@ class ComposerStaticInitbb0253e169852781202f8d6ca51ba70b
         'Stripe\\Sigma\\ScheduledQueryRun' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Sigma/ScheduledQueryRun.php',
         'Stripe\\SingletonApiResource' => __DIR__ . '/..' . '/stripe/stripe-php/lib/SingletonApiResource.php',
         'Stripe\\Source' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Source.php',
+        'Stripe\\SourceMandateNotification' => __DIR__ . '/..' . '/stripe/stripe-php/lib/SourceMandateNotification.php',
         'Stripe\\SourceTransaction' => __DIR__ . '/..' . '/stripe/stripe-php/lib/SourceTransaction.php',
         'Stripe\\Stripe' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Stripe.php',
         'Stripe\\StripeClient' => __DIR__ . '/..' . '/stripe/stripe-php/lib/StripeClient.php',
@@ -376,6 +382,7 @@ class ComposerStaticInitbb0253e169852781202f8d6ca51ba70b
         'Stripe\\SubscriptionItem' => __DIR__ . '/..' . '/stripe/stripe-php/lib/SubscriptionItem.php',
         'Stripe\\SubscriptionSchedule' => __DIR__ . '/..' . '/stripe/stripe-php/lib/SubscriptionSchedule.php',
         'Stripe\\TaxCode' => __DIR__ . '/..' . '/stripe/stripe-php/lib/TaxCode.php',
+        'Stripe\\TaxDeductedAtSource' => __DIR__ . '/..' . '/stripe/stripe-php/lib/TaxDeductedAtSource.php',
         'Stripe\\TaxId' => __DIR__ . '/..' . '/stripe/stripe-php/lib/TaxId.php',
         'Stripe\\TaxRate' => __DIR__ . '/..' . '/stripe/stripe-php/lib/TaxRate.php',
         'Stripe\\Tax\\Calculation' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Tax/Calculation.php',
@@ -514,9 +521,9 @@ class ComposerStaticInitbb0253e169852781202f8d6ca51ba70b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbb0253e169852781202f8d6ca51ba70b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbb0253e169852781202f8d6ca51ba70b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitbb0253e169852781202f8d6ca51ba70b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3a484c2a996766478dcb47035c56e873::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3a484c2a996766478dcb47035c56e873::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3a484c2a996766478dcb47035c56e873::$classMap;
 
         }, null, ClassLoader::class);
     }

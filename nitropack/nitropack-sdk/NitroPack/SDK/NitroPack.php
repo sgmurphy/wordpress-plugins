@@ -866,7 +866,25 @@ class NitroPack {
             }
         }
 
+        // Deactivate NitroPack for a desired % of journeys
+        if ($this->config->TestImpact->Status) {
+            $impactGroup = $this->getImpactGroupValue();
+            if ($impactGroup <= $this->config->TestImpact->ThresholdPercentage) {
+                return false;
+            }
+        }
+
         return true;
+    }
+
+    private function getImpactGroupValue() {
+        if (!empty($_COOKIE['nitroImpactGroup'])) {
+            return $_COOKIE['nitroImpactGroup'];
+        } else {
+            $impactGroup = mt_rand(1,100);
+            setcookie('nitroImpactGroup', $impactGroup, time() + 86400, '/', $_SERVER['HTTP_HOST']);
+            return $impactGroup;
+        }
     }
 
     public function isAllowedBrowser() {

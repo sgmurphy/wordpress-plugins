@@ -47,7 +47,7 @@ SP_EAP::createSection(
 	$prefix,
 	array(
 		'title'  => __( 'Advanced', 'easy-accordion-free' ),
-		'icon'   => 'fa fa-cogs',
+		'icon' => 'fa fa-wrench',
 		'fields' => array(
 			array(
 				'id'         => 'eap_data_remove',
@@ -56,6 +56,13 @@ SP_EAP::createSection(
 				'title_info' => __( 'Check this box if you would like Easy Accordion to completely remove all of its data when the plugin is deleted.', 'easy-accordion-free' ),
 				'default'    => false,
 				'sanitize'   => 'rest_sanitize_boolean',
+			),
+			array(
+				'id'         => 'eap_focus_style',
+				'type'       => 'checkbox',
+				'title'      => __( 'Focus Style for Accessibility', 'easy-accordion-free' ),
+				'title_info' => __( 'Check this to enable focus style to improve accessibility.', 'easy-accordion-free' ),
+				'default'    => false,
 			),
 		),
 	)

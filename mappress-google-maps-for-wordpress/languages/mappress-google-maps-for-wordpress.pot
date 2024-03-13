@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MapPress Google Maps and Leaflet Maps plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MapPress Google Maps and Leaflet Maps 2.89.4\n"
+"Project-Id-Version: MapPress Google Maps and Leaflet Maps 2.89.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mappress-google-maps-for-wordpress\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-11T03:48:23+00:00\n"
+"POT-Creation-Date: 2024-03-13T03:22:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 
@@ -31,7 +31,7 @@ msgid "Chris Richardson"
 msgstr ""
 
 #: mappress.php:195
-#: mappress.php:787
+#: mappress.php:789
 #: build/index_mappress_admin.js:1
 msgid "Settings"
 msgstr ""
@@ -118,54 +118,54 @@ msgstr ""
 msgid "MapPress templates and filters have changed.  Please update custom templates and filters. %s."
 msgstr ""
 
-#: mappress.php:679
+#: mappress.php:681
 msgid "Are you sure you want to delete?"
 msgstr ""
 
-#: mappress.php:728
-#: mappress.php:737
+#: mappress.php:730
+#: mappress.php:739
 msgid "Streets"
 msgstr ""
 
-#: mappress.php:729
+#: mappress.php:731
 msgid "Outdoors"
 msgstr ""
 
-#: mappress.php:730
+#: mappress.php:732
 msgid "Light"
 msgstr ""
 
-#: mappress.php:731
+#: mappress.php:733
 msgid "Dark"
 msgstr ""
 
-#: mappress.php:732
-#: mappress.php:745
+#: mappress.php:734
+#: mappress.php:747
 msgid "Satellite"
 msgstr ""
 
-#: mappress.php:733
+#: mappress.php:735
 msgid "Satellite Streets"
 msgstr ""
 
-#: mappress.php:743
+#: mappress.php:745
 msgid "Roadmap"
 msgstr ""
 
-#: mappress.php:744
+#: mappress.php:746
 msgid "Terrain"
 msgstr ""
 
-#: mappress.php:746
+#: mappress.php:748
 msgid "Hybrid"
 msgstr ""
 
-#: mappress.php:788
+#: mappress.php:790
 #: build/index_mappress_admin.js:1
 msgid "What's new"
 msgstr ""
 
-#: mappress.php:1190
+#: mappress.php:1192
 #: build/index_mappress_admin.js:1
 msgid "Version"
 msgstr ""
@@ -175,7 +175,7 @@ msgid "Copy of %s"
 msgstr ""
 
 #: mappress_api.php:66
-#: mappress_map.php:136
+#: mappress_map.php:138
 #: build/index_mappress_admin.js:1
 msgid "Untitled"
 msgstr ""
@@ -185,7 +185,7 @@ msgid "Success!  Upgrade complete."
 msgstr ""
 
 #: mappress_db.php:148
-#: mappress_map.php:533
+#: mappress_map.php:535
 #: build/index_mappress_admin.js:1
 msgid "MapPress"
 msgstr ""
@@ -206,32 +206,32 @@ msgstr ""
 msgid "Your map data is up to date."
 msgstr ""
 
-#: mappress_map.php:133
+#: mappress_map.php:135
 msgid "+%d more"
 msgstr ""
 
-#: mappress_map.php:137
+#: mappress_map.php:139
 #: build/index_mappress_admin.js:1
 msgid "Edit map"
 msgstr ""
 
-#: mappress_map.php:141
+#: mappress_map.php:143
 msgid "Attach"
 msgstr ""
 
-#: mappress_map.php:156
+#: mappress_map.php:158
 msgid "Post not found"
 msgstr ""
 
-#: mappress_map.php:169
+#: mappress_map.php:171
 msgid "Post not available"
 msgstr ""
 
-#: mappress_map.php:393
+#: mappress_map.php:395
 msgid "Geocoding error: %s"
 msgstr ""
 
-#: mappress_map.php:399
+#: mappress_map.php:401
 msgid "Location"
 msgstr ""
 

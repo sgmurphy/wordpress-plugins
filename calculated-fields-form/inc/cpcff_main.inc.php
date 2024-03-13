@@ -1024,7 +1024,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 						print '<script type="text/javascript" src="' . esc_attr( $includes_url ) . 'js/jquery/ui/' . esc_attr( $prefix_ui ) . 'slider.min.js"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources
 					}
 					?>
-					<script type='text/javascript'> if( typeof fbuilderjQuery == 'undefined' && typeof jQuery != 'undefined' ) fbuilderjQuery = jQuery.noConflict( );</script>
+					<script type='text/javascript'> if( typeof fbuilderjQuery == 'undefined' && typeof jQuery != 'undefined' ) fbuilderjQuery = jQuery;</script>
 					<script type='text/javascript' src='<?php echo esc_attr( plugins_url( 'vendors/jquery.validate.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>'></script>
 					<script type='text/javascript' src='<?php echo esc_attr( plugins_url( 'vendors/jQuery.stringify.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>'></script>
 					<script type='text/javascript' src='<?php echo esc_attr( $public_js_path . ( ( strpos( $public_js_path, '?' ) == false ) ? '?' : '&' ) . 'ver=' . CP_CALCULATEDFIELDSF_VERSION ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>'></script>

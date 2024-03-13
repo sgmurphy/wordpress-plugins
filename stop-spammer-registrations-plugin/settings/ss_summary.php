@@ -253,6 +253,7 @@ $nonce = wp_create_nonce( 'ss_stopspam_update' );
 	<?php
 	if ( !is_plugin_active( 'stop-spammers-premium/stop-spammers-premium.php' ) ) {
 		echo ' | ';
+		echo '<a href="https://stopspammers.io/downloads/stop-spammers-premium/" target="_blank">' . __( 'Upgrade to Premium', 'stop-spammer-registrations-plugin' ) . '</a>';
 	} 
 	?>
 	<?php
@@ -339,9 +340,9 @@ $nonce = wp_create_nonce( 'ss_stopspam_update' );
 		echo $summary;
 	?>
 	<form method="post" action="">
-		<input type="hidden" name="ss_stop_spammers_control" value="<?php echo $nonce; ?>" />
-		<input type="hidden" name="clear" value="clear summary" />
-		<p class="submit" style="clear:both"><input class="button-primary" value="<?php _e( 'Clear Summary', 'stop-spammer-registrations-plugin' ); ?>" type="submit" /></p>
+		<input type="hidden" name="ss_stop_spammers_control" value="<?php echo $nonce; ?>">
+		<input type="hidden" name="clear" value="clear summary">
+		<p class="submit" style="clear:both"><input class="button-primary" value="<?php _e( 'Clear Summary', 'stop-spammer-registrations-plugin' ); ?>" type="submit"></p>
 	</form>
 	<?php
 	function ss_control()  {
@@ -367,16 +368,11 @@ $nonce = wp_create_nonce( 'ss_stopspam_update' );
 		// clear the cache
 		delete_option( 'ss_cache' );
 	} ?>
-	<?php if ( !is_plugin_active( 'stop-spammers-premium/stop-spammers-premium.php' ) ) { ?>
-	<br>
-	<br>
-	<div id="donate" style="max-width:500px;margin:0 auto"><script src="https://donorbox.org/widget.js" paypalExpress="true"></script><iframe src="https://donorbox.org/embed/stop-spammers" name="donorbox" allowpaymentrequest="allowpaymentrequest" seamless="seamless" frameborder="0" scrolling="no" height="900px" width="100%" style="max-width: 500px; min-width: 250px; max-height:none!important"></iframe></div>
-	<?php } ?>
 	<h2><?php _e( 'Options', 'stop-spammer-registrations-plugin' ); ?></h2>
 	<div class="ss_admin_info_boxes_3row">
 		<div class="ss_admin_info_boxes_3col">
 			<h3><?php _e( 'PROTECTION OPTIONS', 'stop-spammer-registrations-plugin' ); ?></h3>
-			<img src="<?php echo plugin_dir_url( dirname( __FILE__ ) ) . 'images/protection.png'; ?>" class="center_thumb" /><?php _e( 'All options related to checking spam and logins. You can also block whole countries.', 'stop-spammer-registrations-plugin' ); ?>
+			<img src="<?php echo plugin_dir_url( dirname( __FILE__ ) ) . 'images/protection.png'; ?>" class="center_thumb"><?php _e( 'All options related to checking spam and logins. You can also block whole countries.', 'stop-spammer-registrations-plugin' ); ?>
 			<div>
 				<br>
 				<a class="button-primary" href="?page=ss_options"><?php _e( 'Protection', 'stop-spammer-registrations-plugin' ); ?></a>
@@ -451,7 +447,7 @@ $nonce = wp_create_nonce( 'ss_stopspam_update' );
 			</div>
 		</div>
 	</div>
-	<br style="clear:both" />
+	<br style="clear:both">
  	<div class="ss_admin_info_boxes_3row">	
 		<div class="ss_admin_info_boxes_3col">
 			<h3><?php _e( 'CLEANUP', 'stop-spammer-registrations-plugin' ); ?></h3>			
@@ -486,7 +482,7 @@ $nonce = wp_create_nonce( 'ss_stopspam_update' );
 			<div class="ss_admin_info_boxes_3row">
 				<div class="ss_admin_info_boxes_3col">
 					<h3>' . __( 'Restore Default Settings', 'stop-spammer-registrations-plugin' ) . '</h3>
-					<img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'images/restore-settings_stop-spammers_trumani.png" class="center_thumb" />
+					<img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'images/restore-settings_stop-spammers_trumani.png" class="center_thumb">
 					' . __( 'Too fargone? Revert to the out-of-the box configurations.', 'stop-spammer-registrations-plugin' ) . '
 					<div class="ss_admin_button">
 						<a href="admin.php?page=ssp_premium">' . __( 'RESTORE', 'stop-spammer-registrations-plugin' ) . '</a>
@@ -494,7 +490,7 @@ $nonce = wp_create_nonce( 'ss_stopspam_update' );
 				</div>
 				<div class="ss_admin_info_boxes_3col">
 					<h3>' . __( 'Import/Export Settings', 'stop-spammer-registrations-plugin' ) . '</h3>
-					<img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'images/import-export_stop-spammers_trumani.png" class="center_thumb" />
+					<img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'images/import-export_stop-spammers_trumani.png" class="center_thumb">
 					' . __( 'You can download your personalized configurations and upload them to all of your other sites.', 'stop-spammer-registrations-plugin' ) . '
 					<div class="ss_admin_button">
 						<a href="admin.php?page=ssp_premium">' . __( 'IMPORT/EXPORT', 'stop-spammer-registrations-plugin' ) . '</a>
@@ -502,7 +498,7 @@ $nonce = wp_create_nonce( 'ss_stopspam_update' );
 				</div>
 				<div class="ss_admin_info_boxes_3col">
 					<h3>' . __( 'Export Log to Excel', 'stop-spammer-registrations-plugin' ) . '</h3>
-					<img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'images/export-to-excel_stop-spammers_trumani.png" class="center_thumb" />
+					<img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'images/export-to-excel_stop-spammers_trumani.png" class="center_thumb">
 					' . __( 'Save the log report returns for future reference.', 'stop-spammer-registrations-plugin' ) . '
 					<div class="ss_admin_button">
 						<a href="admin.php?page=ssp_premium">' . __( 'EXPORT LOG', 'stop-spammer-registrations-plugin' ) . '</a>

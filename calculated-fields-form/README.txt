@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.4
-Stable tag: 5.1.58
+Stable tag: 5.1.59
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -1013,6 +1013,14 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 5.1.59 =
+
+* Modifies the PDFPAGESNUMBER to use PDF-JS API.
+* Improves JS modules.
+* Fixes a minor issue in the Captcha module.
+* Improves the WooCommerce add-on (Developer and Platinum plugin versions).
+* Modifies the SagePay integration (Platinum plugin version).
+
 = 5.1.58 =
 
 * Prevent conflicts with other distributions of the plugin.
@@ -1042,14 +1050,3 @@ A: Please, follow the steps below:
 * Modifies the Popup control to allow dragging the popup window to a different position.
 * Implements the COPYHTML and COPYTEXT operations.
 * Fixes an issue in the module that assigns the default fields' values when the form has active the delay evaluation of the equations.
-
-= 1.2.53 =
-
-* Improves the plugin security. Special thanks to Tiffany Tyson, Customer Support Engineer at WordFence. Pay attention to users who pass additional attributes through the form shortcode. In previous plugin versions, the attributes were converted as Javascript variables with global scope. For example, in shortcodes like [CP_CALCULATED_FIELDS id="1" custom_attr="234"], the plugin created the custom_attr variable with value 234, and you could use it directly in the equations as custom_attr*fieldname1. However, this feature hides a serious problem. You could overwrite global variables like window or document. The current plugin update generates the variable as a property of the cff_var object, and you should use it as cff_var['custom_attr'] or cff_var.custom_attr
-
-The previous code example must be overwritten as cff_var['custom_attr']*fieldname1
-* Modifies the RESETFORM operation.
-* The build button supports Ctrl+click to open forms builder on another tab or window.
-* Implements the Developer Notes attribute in the forms controls to display notes in the forms builder only and help the development of complex forms.
-* Fixes an issue in the Popup control.
-* Modifies the processing of the parameters in the SERVER-SIDE equations (Developer and Platinum plugin versions).

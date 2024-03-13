@@ -40,6 +40,18 @@
             if(field.multiple) result = [];
             files = field.val(true);
             counter = files.length;
+
+            function checkCounter(pages, multiple, eq){
+                if(multiple) result.push(pages || 0);
+                else result += pages || 0;
+                counter--;
+                if(counter <= 0)
+                {
+                    lib.records[index] = result;
+                    eval_equation(eq);
+                }
+            }
+
             if(counter)
             {
                 index = 'PDFPAGESNUMBER:'+field.val();
@@ -57,21 +69,23 @@
                             var reader = new FileReader();
                             reader.onloadend = (function(eq, index, multiple){
                                 return function(evt){
-                                    var reader = evt.target;
+                                    var reader = evt.target, tmp = 0;
                                     try{
-                                        var tmp = reader.result.match(/\/Type[\s]*\/Page[^s]/g);
-                                        if(multiple) result.push((tmp) ? tmp.length : 0);
-                                        else result += (tmp) ? tmp.length : 0;
+                                        try {
+                                            let _arr = new Uint8Array(reader.result);
+                                            const task = pdfjsLib.getDocument(_arr);
+                                            task.promise.then((pdf) => {
+                                                tmp = pdf.numPages;
+                                                checkCounter(tmp, multiple, eq);
+                                            });
+                                        } catch(err){
+                                            tmp = reader.result.match(/\/Type[\s]*\/Page[^s]/g);
+                                            checkCounter(tmp.length, multiple, eq);
+                                        }
                                     } catch (err) {}
-                                    counter--;
-                                    if(counter == 0)
-                                    {
-                                        lib.records[index] = result;
-                                        eval_equation(eq);
-                                    }
                                 };
                             })($.fbuilder['currentEq'], index, field.multiple)
-                            reader.readAsBinaryString(files[i]);
+                            reader.readAsArrayBuffer(files[i]);
                         }
                     }
                 }

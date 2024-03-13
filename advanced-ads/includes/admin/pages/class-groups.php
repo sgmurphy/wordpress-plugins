@@ -49,7 +49,9 @@ class Groups implements Screen_Interface {
 		);
 
 		add_action( 'in_admin_header', [ $this, 'get_list_table' ] );
-		add_action( 'admin_init', [ $this, 'admin_init' ] );
+		if ( 'advanced-ads-groups' === Params::get( 'page' ) ) {
+			add_action( 'admin_init', [ $this, 'admin_init' ] );
+		}
 	}
 
 	/**
@@ -59,8 +61,10 @@ class Groups implements Screen_Interface {
 	 */
 	public function admin_init() {
 		if (
-			( ! Params::post( 'advads-group-update-nonce' ) && ! Params::post( 'advads-group-add-nonce' ) )
-			|| ( 'delete' === Params::get( 'action' ) && 'advanced-ads-groups' !== Params::get( 'page' ) )
+			'advanced-ads-groups' !== Params::get( 'page' )
+			&& ! Params::post( 'advads-group-update-nonce' )
+			&& ! Params::post( 'advads-group-add-nonce' )
+			&& 'delete' === Params::get( 'action' )
 		) {
 			// Just skip if no group created, deleted, or edited.
 			return;

@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.1.58';
+	$.fbuilder['version'] = '5.1.59';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 
@@ -982,9 +982,9 @@
 		}
 	});
 
-	$(document).one('showHideDepEvent', function(){
+	$(document).on('formReady cff-loaded-defaults', 'form', function(evt){
 		try{
-			var form_obj = $('#'+arguments[1]);
+			var form_obj = $(evt.target);
 			form_obj.find( '[data-cff-field]' ).each(function(){
 				try {
 					var tag_obj 	= $(this),

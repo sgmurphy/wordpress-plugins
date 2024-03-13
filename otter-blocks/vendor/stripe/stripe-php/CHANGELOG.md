@@ -1,5 +1,28 @@
 # Changelog
 
+## 13.13.0 - 2024-02-29
+* [#1654](https://github.com/stripe/stripe-php/pull/1654) Update generated code
+  * Change type of `Identity.VerificationSession.type` from `nullable(enum('document'|'id_number'))` to `enum('document'|'id_number')`
+  * Add resources `Application`, `ConnectCollectionTransfer`, `PlatformTaxFee`, `ReserveTransaction`, `SourceMandateNotification`, and `TaxDeductedAtSource`. These classes have no methods on them, and are used to provide more complete types for PHPDocs.
+* [#1657](https://github.com/stripe/stripe-php/pull/1657) Update readme to use addBetaVersion
+
+## 13.12.0 - 2024-02-22
+* [#1651](https://github.com/stripe/stripe-php/pull/1651) Update generated code
+  * Add support for `client_reference_id` on `Identity.VerificationReport` and `Identity.VerificationSession`
+  * Remove support for value `service_tax` from enum `TaxRate.tax_type`
+* [#1650](https://github.com/stripe/stripe-php/pull/1650) Add TaxIds API
+  * Add support for `all`, `create`, `delete`, and `retrieve` methods on resource `TaxId`
+  * The `instanceUrl` function on `TaxId` now returns the top-level `/v1/tax_ids/{id}` path instead of the `/v1/customers/{customer}/tax_ids/{id}` path.
+
+## 13.11.0 - 2024-02-15
+* [#1639](https://github.com/stripe/stripe-php/pull/1639) Update generated code
+  * Add support for `networks` on `Card`
+  * Add support for new value `financial_connections.account.refreshed_ownership` on enum `Event.type`
+* [#1648](https://github.com/stripe/stripe-php/pull/1648) Remove broken methods on CustomerCashBalanceTransaction
+  * Bugfix: remove support for `CustomerCashBalanceTransaction::all` and `CustomerCashBalanceTransaction::retrieve`. These methods were included in the library unintentionally and never functioned.
+* [#1647](https://github.com/stripe/stripe-php/pull/1647) Fix \Stripe\Tax\Settings::update
+* [#1646](https://github.com/stripe/stripe-php/pull/1646) Add more specific PHPDoc and Psalm type for RequestOptions arrays on services
+
 ## 13.10.0 - 2024-02-01
 * [#1636](https://github.com/stripe/stripe-php/pull/1636) Update generated code
   * Add support for new value `swish` on enum `PaymentLink.payment_method_types[]`

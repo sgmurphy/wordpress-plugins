@@ -42,7 +42,7 @@ class Gutenberg
         $query = new WP_Query(['post_status' => 'inherit', 'post_type' => 'attachment', 'rml_folder' => $attributes['fid'], 'posts_per_page' => -1]);
         $posts = $query->get_posts();
         // Iterate all items
-        $html = '<ul data-count="' . \count($posts) . '" class="wp-block-gallery align' . $attributes['align'] . ' columns-' . $attributes['columns'] . ' ' . ($attributes['imageCrop'] ? 'is-cropped' : '') . '">';
+        $html = '<ul data-count="' . \count($posts) . '" class="wp-block-gallery align' . \esc_attr($attributes['align']) . ' columns-' . \esc_attr($attributes['columns']) . ' ' . ($attributes['imageCrop'] ? 'is-cropped' : '') . '">';
         foreach ($posts as $post) {
             if (!\wp_attachment_is_image($post)) {
                 continue;

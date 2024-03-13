@@ -75,7 +75,7 @@ function backuply_download_backup() {
 	}
 	
 	$filename = backuply_optget('backup_name');
-	$filename = backuply_clean_file_name($filename);
+	$filename = sanitize_file_name($filename);
 	$backups_dir = backuply_glob('backups');
 	
 	$file = $backups_dir . '/'. $filename;
@@ -592,7 +592,7 @@ function backuply_get_last_logs(){
 	$is_restore = backuply_optget('is_restore');
 	$backup_log_name = !empty($_GET['file_name']) ? backuply_optget('file_name') : 'backuply_backup_log.php';
 	$location_id = !empty($_GET['proto_id']) ? backuply_optget('proto_id') : '';	
-	$backup_log_name = backuply_clean_file_name($backup_log_name);
+	$backup_log_name = sanitize_file_name($backup_log_name);
 	
 	$log_fname = !empty($is_restore) ? 'backuply_restore_log.php' : $backup_log_name;
 	$log_file = BACKUPLY_BACKUP_DIR . $log_fname;
@@ -982,7 +982,7 @@ function backuply_download_bcloud(){
 		wp_send_json_error(esc_html__('File name was not given, so download can not proceed.', 'backuply'));
 	}
 	
-	$filename = sanitize_text_field($_POST['filename']);
+	$filename = sanitize_file_name($_POST['filename']);
 	$bcloud = backuply_load_remote_backup('bcloud');
 	
 	if(empty($bcloud)){

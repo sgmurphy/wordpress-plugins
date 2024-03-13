@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Flexible Shipping plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Flexible Shipping 4.24.16\n"
+"Project-Id-Version: Flexible Shipping 4.24.17\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flexible-shipping\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-10T11:01:53+00:00\n"
+"POT-Creation-Date: 2024-03-13T13:37:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: flexible-shipping\n"
@@ -51,33 +51,33 @@ msgstr ""
 msgid "https://octol.io/fs-author"
 msgstr ""
 
-#: classes/class-flexible-shipping-plugin.php:553
+#: classes/class-flexible-shipping-plugin.php:551
 #: vendor_prefixed/octolize/wp-shipping-extensions/src/ShippingExtensions/Plugin/PluginFactory.php:20
 #: vendor_prefixed/wpdesk/wp-wpdesk-fs-compatibility/src/PluginCompatibilityChecker.php:97
 msgid "Flexible Shipping PRO"
 msgstr ""
 
 #. Translators: link.
-#: classes/class-flexible-shipping-plugin.php:767
+#: classes/class-flexible-shipping-plugin.php:765
 msgid "How can We make Flexible Shipping better for you? %1$sJust write to us.%2$s"
 msgstr ""
 
-#: classes/class-flexible-shipping-plugin.php:853
+#: classes/class-flexible-shipping-plugin.php:851
 #: vendor_prefixed/wpdesk/wp-builder/src/Plugin/AbstractPlugin.php:198
 msgid "Settings"
 msgstr ""
 
-#: classes/class-flexible-shipping-plugin.php:857
+#: classes/class-flexible-shipping-plugin.php:855
 #: vendor_prefixed/wpdesk/wp-builder/src/Plugin/AbstractPlugin.php:194
 msgid "Docs"
 msgstr ""
 
-#: classes/class-flexible-shipping-plugin.php:858
+#: classes/class-flexible-shipping-plugin.php:856
 #: vendor_prefixed/wpdesk/wp-builder/src/Plugin/AbstractPlugin.php:191
 msgid "Support"
 msgstr ""
 
-#: classes/class-flexible-shipping-plugin.php:863
+#: classes/class-flexible-shipping-plugin.php:861
 msgid "Buy PRO"
 msgstr ""
 
@@ -126,14 +126,6 @@ msgstr ""
 msgid "Advanced settings"
 msgstr ""
 
-#: classes/table-rate/logger/class-logger-downloader.php:57
-msgid "File not exists!"
-msgstr ""
-
-#: classes/table-rate/logger/class-logger-downloader.php:60
-msgid "Insufficient privileges!"
-msgstr ""
-
 #: classes/table-rate/logger/class-logger-settings.php:84
 msgid "Enable Debug Mode"
 msgstr ""
@@ -143,7 +135,7 @@ msgid "Debug mode"
 msgstr ""
 
 #. Translators: URL.
-#: classes/table-rate/logger/class-logger-settings.php:92
+#: classes/table-rate/logger/class-logger-settings.php:90
 msgid "%1$sDownload debug.log file%2$s"
 msgstr ""
 
@@ -557,38 +549,6 @@ msgstr ""
 msgid "Skip &amp; Deactivate"
 msgstr ""
 
-#: classes/wp-wpdesk-fs-shipment/metabox/ajax.php:22
-#: vendor_prefixed/wpdesk/wp-wpdesk-fs-shipment/src/WPDesk/FS/Shipment/Metabox/Ajax.php:15
-msgid "Unknown error!"
-msgstr ""
-
-#: classes/wp-wpdesk-fs-shipment/metabox/ajax.php:25
-#: vendor_prefixed/wpdesk/wp-wpdesk-fs-shipment/src/WPDesk/FS/Shipment/Metabox/Ajax.php:18
-msgid "Nonce verification error! Invalid request."
-msgstr ""
-
-#: classes/wp-wpdesk-fs-shipment/metabox/ajax.php:29
-#: vendor_prefixed/wpdesk/wp-wpdesk-fs-shipment/src/WPDesk/FS/Shipment/Metabox/Ajax.php:22
-msgid "No shipment id!"
-msgstr ""
-
-#: classes/wp-wpdesk-fs-shipment/metabox/ajax.php:33
-#: vendor_prefixed/wpdesk/wp-wpdesk-fs-shipment/src/WPDesk/FS/Shipment/Metabox/Ajax.php:26
-msgid "No data!"
-msgstr ""
-
-#: classes/wp-wpdesk-fs-shipment/metabox/ajax.php:52
-#: vendor_prefixed/wpdesk/wp-wpdesk-fs-shipment/src/WPDesk/FS/Shipment/Metabox/Ajax.php:43
-msgid "Saved"
-msgstr ""
-
-#: classes/wp-wpdesk-fs-shipment/metabox/ajax.php:55
-#: src/WPDesk/FS/Shipment/ModifyOrderTable.php:164
-#: src/WPDesk/FS/Shipment/ModifyStatuses.php:31
-#: vendor_prefixed/wpdesk/wp-wpdesk-fs-shipment/src/WPDesk/FS/Shipment/Metabox/Ajax.php:46
-msgid "Created"
-msgstr ""
-
 #. Translators: redirect URL.
 #: inc/functions.php:77
 msgid "Redirecting. If page not redirects click %1$s here %2$s."
@@ -833,6 +793,12 @@ msgstr ""
 
 #: src/WPDesk/FS/Shipment/ModifyOrderTable.php:163
 msgid "New shipment"
+msgstr ""
+
+#: src/WPDesk/FS/Shipment/ModifyOrderTable.php:164
+#: src/WPDesk/FS/Shipment/ModifyStatuses.php:31
+#: vendor_prefixed/wpdesk/wp-wpdesk-fs-shipment/src/WPDesk/FS/Shipment/Metabox/Ajax.php:50
+msgid "Created"
 msgstr ""
 
 #: src/WPDesk/FS/Shipment/ModifyOrderTable.php:165
@@ -1822,6 +1788,10 @@ msgstr ""
 msgid "Your message has been sent successfully."
 msgstr ""
 
+#: vendor_prefixed/octolize/wp-octolize-tracker/src/DeactivationTracker/OctolizeProReasonsFactory.php:22
+msgid "Can you let us know, what functionality you're looking for?"
+msgstr ""
+
 #: vendor_prefixed/octolize/wp-octolize-tracker/src/OptInNotice/views/html-notice.php:12
 msgid "Help us improve Octolize plugins' experience"
 msgstr ""
@@ -2300,6 +2270,30 @@ msgstr ""
 #: vendor_prefixed/wpdesk/wp-wpdesk-fs-shipment/src/WPDesk/FS/Shipment/Manifest/views/manifest-metabox.php:20
 #: vendor_prefixed/wpdesk/wp-wpdesk-fs-shipment/src/WPDesk/FS/Shipment/Manifest/views/manifest-metabox.php:79
 msgid "Order"
+msgstr ""
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-fs-shipment/src/WPDesk/FS/Shipment/Metabox/Ajax.php:15
+msgid "Unknown error!"
+msgstr ""
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-fs-shipment/src/WPDesk/FS/Shipment/Metabox/Ajax.php:18
+msgid "Nonce verification error! Invalid request."
+msgstr ""
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-fs-shipment/src/WPDesk/FS/Shipment/Metabox/Ajax.php:22
+msgid "Insufficient user permissions!"
+msgstr ""
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-fs-shipment/src/WPDesk/FS/Shipment/Metabox/Ajax.php:26
+msgid "No shipment id!"
+msgstr ""
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-fs-shipment/src/WPDesk/FS/Shipment/Metabox/Ajax.php:30
+msgid "No data!"
+msgstr ""
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-fs-shipment/src/WPDesk/FS/Shipment/Metabox/Ajax.php:47
+msgid "Saved"
 msgstr ""
 
 #. Translators: order id and integration.

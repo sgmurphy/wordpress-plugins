@@ -88,4 +88,33 @@ class WordPress {
 
 		return $domain;
 	}
+
+	/**
+	 * Returns true if the current request is a REST request.
+	 *
+	 * @return bool
+	 */
+	public static function is_rest_request(): bool {
+		$request = Params::server( 'REQUEST_URI' );
+		if ( empty( $request ) ) {
+			return false;
+		}
+
+		return false !== strpos( $request, trailingslashit( rest_get_url_prefix() ) );
+	}
+
+	/**
+	 * Returns true if a REST request has an Advanced Ads endpoint.
+	 *
+	 * @return bool
+	 */
+	public static function is_gutenberg_writing_request(): bool {
+		global $wp;
+		$rest_route = $wp->query_vars['rest_route'] ?? '';
+
+		$is_writing   = in_array( Params::server( 'REQUEST_METHOD' ), [ 'POST', 'PUT' ], true );
+		$is_gutenberg = strpos( $rest_route, '/wp/v2/posts' ) !== false || strpos( $rest_route, '/wp/v2/pages' ) !== false;
+
+		return $is_gutenberg && $is_writing;
+	}
 }

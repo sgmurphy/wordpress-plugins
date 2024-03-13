@@ -39,6 +39,12 @@ if(strpos($form_data_serialized, 'fqrcode') && !wp_script_is('qrcode'))
     wp_enqueue_script( 'cpcff_qrcode_js', plugins_url('/vendors/qrcode/html5-qrcode.min.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH), array(), CP_CALCULATEDFIELDSF_VERSION, true );
 }
 
+if(preg_match('/PDFPAGESNUMBER/i', $form_data_serialized) && !wp_script_is('cpcff_pdf_js'))
+{
+	wp_enqueue_script( 'cpcff_pdf_js', plugins_url('/vendors/pdf-js/pdf.min.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH), array(), CP_CALCULATEDFIELDSF_VERSION, true );
+	wp_add_inline_script('cpcff_pdf_js', 'pdfjsLib.GlobalWorkerOptions.workerSrc="'.esc_js(plugins_url('/vendors/pdf-js/pdf.worker.min.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH)).'";', 'after');
+}
+
 if ( ! empty( $form_data ) ) {
 	if ( isset( $form_data[1] ) && is_object( $form_data[1] ) ) {
 		$form_data[1] = (array) $form_data[1];

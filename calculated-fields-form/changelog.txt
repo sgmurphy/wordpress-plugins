@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.1.59 =
+
+* Modifies the PDFPAGESNUMBER to use PDF-JS API.
+* Improves JS modules.
+* Fixes a minor issue in the Captcha module.
+* Improves the WooCommerce add-on (Developer and Platinum plugin versions).
+* Modifies the SagePay integration (Platinum plugin version).
+
 = 5.1.58 =
 
 * Prevent conflicts with other distributions of the plugin.

@@ -561,7 +561,12 @@ class Advanced_Ads {
 		}
 
 		// Do not inject on admin pages.
-		if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
+		if ( is_admin() && ! wp_doing_ajax() ) {
+			return $content;
+		}
+
+		// Do not inject in writing REST requests.
+		if (  WordPress::is_gutenberg_writing_request() && WordPress::is_rest_request() ) {
 			return $content;
 		}
 

@@ -3,7 +3,7 @@
         'name' => 'webgilde/advanced-ads',
         'pretty_version' => '1.42.1',
         'version' => '1.42.1.0',
-        'reference' => null,
+        'reference' => NULL,
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -33,7 +33,7 @@
         'webgilde/advanced-ads' => array(
             'pretty_version' => '1.42.1',
             'version' => '1.42.1.0',
-            'reference' => null,
+            'reference' => NULL,
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

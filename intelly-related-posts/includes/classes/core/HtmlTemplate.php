@@ -278,7 +278,7 @@ class IRP_HtmlTemplate {
             }
             $mt=$irp->Options->getMarginTop();
             $mb=$irp->Options->getMarginBottom();
-            $code='<div style="clear:both; margin-top:'.$mt.'; margin-bottom:'.$mb.';">'.$code.'</div>';
+            $code='<div style="clear:both; margin-top:'.esc_attr($mt).'; margin-bottom:'.esc_attr($mb).';">'.$code.'</div>';
         }
 
         $defaults=$irp->HtmlTemplate->getDefaults();

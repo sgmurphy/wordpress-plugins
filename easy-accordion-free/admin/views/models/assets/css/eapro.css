@@ -1383,7 +1383,7 @@
 }
 
 .eapro-field-image_select .disabled.eapro--image img {
-	opacity: 0.6;
+	opacity: 0.8;
 }
 
 .eapro-field-image_select .disabled.eapro--image {
@@ -1394,7 +1394,7 @@
 	position: absolute;
 	top: 1px;
 	right: 1px;
-	color: #6d7989;
+	color: #5E6E7D;
 	background-color: #cbd6df;
 	font-weight: 600;
 	padding: 0 4px;
@@ -3661,7 +3661,7 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	color: #6d7989;
+	color: #5E6E7D;
 	background-color: #cbd6df;
 	font-weight: 600;
 	padding: 0 4px;
@@ -3704,7 +3704,7 @@
 .eapro-field.eapro-field-select.only-for-pro .eapro-fieldset::after,
 .only-for-pro .eapro-fieldset .eapro--inputs::after {
 	content: "PRO";
-	color: #6d7989;
+	color: #5E6E7D;
 	background-color: #cbd6df;
 	padding: 2px 4px;
 	font-size: 8px;
@@ -4312,7 +4312,7 @@ span.eap-shortcode-selectable::after {
 
 #sp_eap_display_shortcode_sidebar .postbox-header {
 	display: flex;
-	padding: 2px 0; 
+	padding: 2px 0;
 	align-items: flex-start;
 	gap: 8px;
 	align-self: stretch;
@@ -4349,4 +4349,8 @@ span.eap-shortcode-selectable::after {
 	font-size: 14px;
 	font-weight: 500;
 	text-decoration: none;
+}
+
+[data-slug="eap_settings"] span.tooltip-icon {
+	position: absolute;
 }

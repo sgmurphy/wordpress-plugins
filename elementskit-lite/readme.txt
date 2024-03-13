@@ -4,7 +4,7 @@ Tags: Elementor addons, mega menu builder, widgets for Elementor, header footer 
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 3.0.5
+Stable tag: 3.0.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -650,6 +650,9 @@ Visit  [wpmet](https://wpmet.com/)  to learn more about how to get the best of W
 
 
 == Changelog ==
+ElementsKit Elementor Addons Version: 3.0.6 (2024-03-05)
+Improved: Testimonial and image accordion widget sanitization
+
 ElementsKit Elementor Addons Version: 3.0.5 (2024-02-27)
 Fixed: Dynamic tag isn't working for media in image comparison widget
 Fixed: Minor bug & improvements

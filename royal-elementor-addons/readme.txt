@@ -169,7 +169,6 @@ and other custom branding related settings)
 - [**Construction v1**](https://demosites.royal-elementor-addons.com/construction-v1/?ref=rea-wpo-pp-details-tab)
 - [**Construction v2**](https://demosites.royal-elementor-addons.com/construction-v2/?ref=rea-wpo-pp-details-tab)
 - [**Construction v3**](https://demosites.royal-elementor-addons.com/construction-v3/?ref=rea-wpo-pp-details-tab)
-- [**Children School v1**](https://demosites.royal-elementor-addons.com/school-v1/?ref=rea-wpo-pp-details-tab)
 - [**Architecture**](https://demosites.royal-elementor-addons.com/architecture-v1/?ref=rea-wpo-pp-details-tab)
 - [**It Technology 2**](https://demosites.royal-elementor-addons.com/ittech-v2/?ref=rea-wpo-pp-details-tab)
 - [**Drone**](https://demosites.royal-elementor-addons.com/drone-v1/?ref=rea-wpo-pp-details-tab)
@@ -193,6 +192,7 @@ and other custom branding related settings)
 - [**NFT**](https://demosites.royal-elementor-addons.com/nft-portfolio-v1/?ref=rea-wpo-pp-details-tab)
 - [**Car Wash**](https://demosites.royal-elementor-addons.com/carwash-v1/?ref=rea-wpo-pp-details-tab)
 - [**Pet Care**](https://demosites.royal-elementor-addons.com/pet-care-v1/?ref=rea-wpo-pp-details-tab)
+- [**Pet Shop**](https://demosites.royal-elementor-addons.com/pet-shop-v1/?ref=rea-wpo-pp-details-tab)
 - [**Digital Marketing Agency**](https://demosites.royal-elementor-addons.com/digital-marketing-agency-v1/?ref=rea-wpo-pp-details-tab)
 - [**One Page Digital Marketing Agency v1**](https://demosites.royal-elementor-addons.com/one-page-v1/?ref=rea-wpo-pp-details-tab)
 - [**One Page Digital Marketing Agency v2**](https://demosites.royal-elementor-addons.com/one-page-v2/?ref=rea-wpo-pp-details-tab)
@@ -448,8 +448,8 @@ memory_limit 256M or more
 post_max_size 64M
 
 == Changelog ==
-= Royal Elementor Addons v1.3.93 - 2024-02-24 =
-* ADDED: Children School Template Kit [**School V1**](https://demosites.royal-elementor-addons.com/school-v1/?ref=rea-wpo-pp-details-tab).
+= Royal Elementor Addons v1.3.93 - 2024-03-13 =
+* ADDED: Pet Shop Template Kit [**Pet Shop V1**](https://demosites.royal-elementor-addons.com/pet-shop-v1/?ref=rea-wpo-pp-details-tab).
 
 = Royal Elementor Addons v1.3.92 - 2024-02-20 =
 * FIXED: Minor Bugs.

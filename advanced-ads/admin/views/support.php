@@ -67,3 +67,4 @@
 	</p>
 <?php endif; ?>
 </div>
+<?php AdvancedAds\Modules\ProductExperimentationFramework\Module::get_instance()->render( 'support' ); ?>

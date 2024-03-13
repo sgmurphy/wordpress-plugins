@@ -138,6 +138,14 @@ class SP_EA_Front_Scripts {
 		if ( ! empty( $custom_css ) ) {
 				$ea_dynamic_css .= $custom_css;
 		}
+		// Focus style to improve accessibility.
+		$focus_style = isset( $settings['eap_focus_style'] ) ? $settings['eap_focus_style'] : false;
+		if ( $focus_style ) {
+			$ea_dynamic_css .= '.sp-easy-accordion .ea-header a:focus,
+			.sp-horizontal-accordion .ea-header a:focus{
+				box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+			}';
+		}
 		// Google font enqueue dequeue check.
 		$dynamic_style = array(
 			'dynamic_css' => $ea_dynamic_css,

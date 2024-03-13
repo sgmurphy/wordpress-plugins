@@ -1876,6 +1876,7 @@ class softtar{
 function cleanpath($path){	
 	$path = str_replace('\\\\', '/', $path);
 	$path = str_replace('\\', '/', $path);
+	$path = str_replace('//', '/', $path);
 	return rtrim($path, '/');
 }
 

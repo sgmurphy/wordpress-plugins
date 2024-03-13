@@ -101,6 +101,7 @@ class ComposerStaticInit_AdvancedAds
         'AdvancedAds\\Modules\\OneClick\\Tags_Conversion' => __DIR__ . '/../..' . '/modules/one-click/modules/class-tags-conversion.php',
         'AdvancedAds\\Modules\\OneClick\\Traffic_Cop' => __DIR__ . '/../..' . '/modules/one-click/modules/class-traffic-cop.php',
         'AdvancedAds\\Modules\\OneClick\\Workflow' => __DIR__ . '/../..' . '/modules/one-click/modules/class-workflow.php',
+        'AdvancedAds\\Modules\\ProductExperimentationFramework\\Module' => __DIR__ . '/../..' . '/modules/pef/class-module.php',
         'AdvancedAds\\Plugin' => __DIR__ . '/../..' . '/includes/class-plugin.php',
         'AdvancedAds\\Utilities\\Conditional' => __DIR__ . '/../..' . '/includes/utilities/class-conditional.php',
         'AdvancedAds\\Utilities\\Data' => __DIR__ . '/../..' . '/includes/utilities/class-data.php',

@@ -72,6 +72,7 @@ return array(
     'AdvancedAds\\Modules\\OneClick\\Tags_Conversion' => $baseDir . '/modules/one-click/modules/class-tags-conversion.php',
     'AdvancedAds\\Modules\\OneClick\\Traffic_Cop' => $baseDir . '/modules/one-click/modules/class-traffic-cop.php',
     'AdvancedAds\\Modules\\OneClick\\Workflow' => $baseDir . '/modules/one-click/modules/class-workflow.php',
+    'AdvancedAds\\Modules\\ProductExperimentationFramework\\Module' => $baseDir . '/modules/pef/class-module.php',
     'AdvancedAds\\Plugin' => $baseDir . '/includes/class-plugin.php',
     'AdvancedAds\\Utilities\\Conditional' => $baseDir . '/includes/utilities/class-conditional.php',
     'AdvancedAds\\Utilities\\Data' => $baseDir . '/includes/utilities/class-data.php',

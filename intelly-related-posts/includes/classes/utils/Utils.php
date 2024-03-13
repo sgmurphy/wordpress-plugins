@@ -222,6 +222,23 @@ class IRP_Utils {
         return wp_kses( $result, $this->kses_allowed_html(), array('http', 'https', 'javascript') );
     }
 
+    function sanitizeMargin($name, $default = '')
+    {
+        $result = $default;
+        if (isset($_GET[$name])) {
+            $result = $_GET[$name];
+        } elseif (isset($_POST[$name])) {
+            $result = $_POST[$name];
+        }
+
+        // Define a regular expression pattern to match invalid characters
+        $pattern = '/[^0-9pxem%rvwh]/';
+
+        $sanitizedString = preg_replace($pattern, '', $result);
+
+        return $sanitizedString;
+    }
+
     function query($query, $args = NULL) {
         global $irp;
 

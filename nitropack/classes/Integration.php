@@ -29,6 +29,7 @@ class Integration {
         "NitroPack/Integration/Hosting/WPmudev",
         "NitroPack/Integration/Hosting/Raidboxes",
         "NitroPack/Integration/Hosting/Pantheon",
+        "NitroPack/Integration/Hosting/SpinupWp",
         "NitroPack/Integration/Server/LiteSpeed",
         "NitroPack/Integration/Server/Fastly",
         "NitroPack/Integration/Server/Cloudflare",

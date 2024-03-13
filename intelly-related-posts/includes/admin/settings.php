@@ -89,8 +89,8 @@ function irp_ui_settings() {
         $template=$irp->Utils->aqs('template-', $defaults);
         $irp->Options->setTemplateStyle($template);
 
-        $irp->Options->setMarginTop($irp->Utils->qs('marginTop', '0em'));
-        $irp->Options->setMarginBottom($irp->Utils->qs('marginBottom', '1em'));
+        $irp->Options->setMarginTop($irp->Utils->sanitizeMargin('marginTop', '0em'));
+        $irp->Options->setMarginBottom($irp->Utils->sanitizeMargin('marginBottom', '1em'));
         $irp->Options->setRewriteActive($irp->Utils->iqs('irpRewriteActive'));
         $irp->Options->setRewriteBoxesCount($irp->Utils->iqs('irpRewriteBoxesCount', 1));
         //$irp->Options->setRewritePostsInBoxCount($irp->Utils->iqs('irpRewritePostsInBoxCount', 1));

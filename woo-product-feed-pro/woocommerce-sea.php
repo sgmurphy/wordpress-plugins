@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Product Feed PRO for WooCommerce
- * Version:     13.2.8
+ * Version:     13.2.9
  * Plugin URI:  https://www.adtribes.io/support/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=woosea_product_feed_pro
  * Description: Configure and maintain your WooCommerce product feeds for Google Shopping, Catalog managers, Remarketing, Bing, Skroutz, Yandex, Comparison shopping websites and over a 100 channels more.
  * Author:      AdTribes.io
@@ -48,7 +48,7 @@ if (!defined('ABSPATH')) {
  * Plugin versionnumber, please do not override.
  * Define some constants
  */
-define( 'WOOCOMMERCESEA_PLUGIN_VERSION', '13.2.8' );
+define( 'WOOCOMMERCESEA_PLUGIN_VERSION', '13.2.9' );
 define( 'WOOCOMMERCESEA_PLUGIN_NAME', 'woocommerce-product-feed-pro' );
 define( 'WOOCOMMERCESEA_PLUGIN_NAME_SHORT', 'woo-product-feed-pro' );
 
@@ -237,11 +237,12 @@ function woosea_add_facebook_pixel( $product = null ){
 	if ( ! is_object( $product ) ) {
                 global $product;
         }
-	
+
+   	$add_facebook_pixel = get_option ('add_facebook_pixel');
+	$add_facebook_capi = get_option ('add_facebook_capi');
+
 	if($add_facebook_pixel == "yes"){	
 		$fb_pagetype = WooSEA_Google_Remarketing::woosea_google_remarketing_pagetype();
-   		$add_facebook_pixel = get_option ('add_facebook_pixel');
-		$add_facebook_capi = get_option ('add_facebook_capi');
 		$viewContent = "";
 		$event_id = uniqid (rand (),true);
 		$currency = get_woocommerce_currency();     

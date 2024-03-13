@@ -18,6 +18,7 @@ if (!\class_exists('FSVendor\\WPDesk_Tracker')) {
     class WPDesk_Tracker implements \WPDesk_Tracker_Interface
     {
         const WPDESK_TRACKER_NOTICE = 'wpdesk-tracker-notice';
+        const WPDESK_TRACKER_DEACTIVATION = 'wpdesk-tracker-deactivation';
         /**
          * @var string
          */
@@ -151,6 +152,10 @@ if (!\class_exists('FSVendor\\WPDesk_Tracker')) {
         }
         public function wp_ajax_wpdesk_tracker_deactivation_handler()
         {
+            \check_ajax_referer(self::WPDESK_TRACKER_DEACTIVATION, 'security');
+            if (!\current_user_can('activate_plugins')) {
+                die;
+            }
             $this->send_deactivation_data();
         }
         public function wp_ajax_wpdesk_tracker_notice_handler()

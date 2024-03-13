@@ -5,7 +5,7 @@ Tags: captcha, recaptcha, google recaptcha, comment recaptcha, login recaptcha, 
 Requires at least: 4.9
 Requires PHP: 5.6
 Tested up to: 6.4
-Stable tag: 1.19
+Stable tag: 1.20
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -75,6 +75,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 9. Plugin settings
 
 == Changelog ==
+
+= 1.20 - 13/03/2024
+* double slash on images bug fix
 
 = 1.19 - 04/02/2024
 * fixed reCAPTCHA bug sometimes preventing checkout form re-submission after form errors are corrected in Woo

@@ -211,7 +211,7 @@ SP_EAP::createSection(
 					),
 				),
 				'title_info' => __( '<div class="ea-info-label">Accordion Layout</div> <div class="ea-short-content">Accordion Layout determines how accordion information is displayed, with choices like vertical, horizontal, or multi column layouts.</div>', 'easy-accordion-free' ),
-				'desc'       => __( 'Want to create fantastic Accordion FAQ layouts? <a href="https://easyaccordion.io/pricing/" target="_blank"><strong>Upgrade to Pro!</strong></a>', 'easy-accordion-free' ),
+				'desc' => __( 'To create fantastic Accordion FAQ layouts and access to advanced customizations, <a href="https://easyaccordion.io/pricing/" target="_blank"><strong>Upgrade to Pro!</strong></a>', 'easy-accordion-free' ),
 				'default'    => 'vertical',
 			),
 			array(
@@ -221,7 +221,7 @@ SP_EAP::createSection(
 				'preview'    => true,
 				'class'      => 'sp_eap_accordion_theme',
 				'sanitize'   => 'sanitize_text_field',
-				'subtitle'   => __( 'Select an accordion theme style. To unlock 16+ Premium Ready Accordion Themes, <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"> <b>Upgrade To Pro!</b> </a>', 'easy-accordion-free' ),
+				'subtitle'   => __( 'Select an accordion theme style. To unlock 16+ Premium Ready Accordion Themes, <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"> <b>Upgrade to Pro!</b> </a>', 'easy-accordion-free' ),
 				'options'    => array(
 					'sp-ea-one'                       => __( 'Default Theme', 'easy-accordion-free' ),
 					'sp-ea-two'                       => __( 'Theme Two', 'easy-accordion-free' ),
@@ -439,7 +439,7 @@ SP_EAP::createSection(
 			array(
 				'type'    => 'notice',
 				'class'   => 'only_pro_notice',
-				'content' => __( 'Want to make your FAQ content searchable and add an Expand/Collapse All button? <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'easy-accordion-free' ),
+				'content' => __( 'Want to make your FAQ content searchable and add an Expand/Collapse All button? <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>Upgrade to Pro!</b></a>', 'easy-accordion-free' ),
 			),
 			array(
 				'type'    => 'subheading',
@@ -615,7 +615,7 @@ SP_EAP::createSection(
 			array(
 				'type'    => 'notice',
 				'class'   => 'only_pro_notice',
-				'content' => __( 'Want to make your Accordion FAQs visually attractive? <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'easy-accordion-free' ),
+				'content' => __( 'Want to make your Accordion FAQs visually attractive with tons of flexible options? <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>Upgrade to Pro!</b></a>', 'easy-accordion-free' ),
 			),
 			array(
 				'type'    => 'subheading',
@@ -730,7 +730,7 @@ SP_EAP::createSection(
 			array(
 				'type'    => 'notice',
 				'class'   => 'only_pro_notice',
-				'content' => __( 'To unlock the full potential of your Accordion FAQs and keep visitors engaged, <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'easy-accordion-free' ),
+				'content' => __( 'To unlock the full potential of your Accordion FAQs and keep visitors engaged, <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>Upgrade to Pro!</b></a>', 'easy-accordion-free' ),
 			),
 			array(
 				'type'    => 'subheading',
@@ -904,7 +904,7 @@ SP_EAP::createSection(
 		'fields'          => array(
 			array(
 				'type'    => 'notice',
-				'content' => __( 'Want to customize everything (colors and typography) easily? <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"> <b>Upgrade To Pro!</b></a> P.S. Note: The <b>color</b> and <b>margin</b> fields work in the lite version.', 'easy-accordion-free' ),
+				'content' => __( 'Want to customize everything (colors and typography) easily? <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"> <b>Upgrade to Pro!</b></a> P.S. Note: The <b>color</b> and <b>margin</b> fields work in the lite version.', 'easy-accordion-free' ),
 			),
 			array(
 				'id'         => 'section_title_font_load',
