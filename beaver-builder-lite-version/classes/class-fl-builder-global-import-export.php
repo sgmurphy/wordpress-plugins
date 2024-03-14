@@ -24,6 +24,8 @@ class FLBuilderGlobalImportExport {
 
 		if ( current_user_can( 'manage_options' ) ) {
 
+			$data = $_REQUEST['data'];
+
 			$settings       = array();
 			$admin_settings = array();
 
@@ -35,10 +37,44 @@ class FLBuilderGlobalImportExport {
 
 			$settings['admin_settings'] = $admin_settings;
 
+			// global styles/colors
+			if ( class_exists( 'FLBuilderGlobalStyles' ) ) {
+
+				$globals = FLBuilderGlobalStyles::get_settings( false );
+				$colors  = $globals->colors;
+				unset( $globals->colors );
+				$settings['global_styles'] = $globals;
+				$settings['global_colors'] = $colors;
+			}
+
+			// sort data
+			if ( 'false' === $data['global_all'] ) {
+				if ( 'false' === $data['global'] ) {
+					unset( $settings['builder_global_settings'] );
+				}
+				if ( 'false' === $data['admin'] ) {
+					unset( $settings['admin_settings'] );
+				}
+				if ( 'false' === $data['colors'] ) {
+					unset( $settings['global_colors'] );
+				}
+				if ( 'false' === $data['styles'] ) {
+					unset( $settings['global_styles'] );
+				}
+
+				// prefix
+				if ( isset( $settings['global_colors'] ) && isset( $globals->prefix ) ) {
+					$settings['global_colors_prefix'] = $globals->prefix;
+				}
+			}
+
 			if ( ! $settings ) {
 				wp_send_json_error( 'No settings found' );
 			}
-			wp_send_json_success( wp_json_encode( $settings ) );
+			wp_send_json_success( array(
+				'selected' => $data,
+				'settings' => json_encode( $settings ),
+			) );
 		} else {
 			wp_send_json_error();
 		}
@@ -65,15 +101,49 @@ class FLBuilderGlobalImportExport {
 
 			$data = json_decode( $data );
 
-			update_option( '_fl_builder_settings', $data->builder_global_settings );
+			if ( isset( $data->builder_global_settings ) ) {
+				update_option( '_fl_builder_settings', $data->builder_global_settings, true );
+			}
 
 			// loop through admin settings
-			$settings = $data->admin_settings;
+			if ( isset( $data->admin_settings ) ) {
+				$settings = $data->admin_settings;
 
-			foreach ( $settings as $key => $setting ) {
-				update_option( $key, $setting );
+				foreach ( $settings as $key => $setting ) {
+					update_option( $key, $setting );
+				}
 			}
-			wp_send_json_success( $data );
+
+			if ( isset( $data->global_styles ) ) {
+				$globals              = FLBuilderGlobalStyles::get_settings( false );
+				$backup_colors        = $globals->colors;
+				$new_settings         = (object) json_decode( json_encode( $data->global_styles ), true );
+				$new_settings->colors = $backup_colors;
+				FLBuilderUtils::update_option( '_fl_builder_styles', $new_settings, true );
+			}
+
+			// global styles/colors...
+			if ( isset( $data->global_colors ) ) {
+				// get current settings and swap out colours
+				$globals = FLBuilderGlobalStyles::get_settings( false );
+
+				$current = $globals->colors;
+
+				$new = array_merge( (array) $current, (array) json_decode( json_encode( $data->global_colors ), true ) );
+
+				// filter out duplicates
+				$serialized      = array_map( 'serialize', $new );
+				$unique          = array_unique( $serialized );
+				$globals->colors = array_intersect_key( $new, $unique );
+
+				if ( isset( $data->global_colors_prefix ) ) {
+					$globals->prefix = $data->global_colors_prefix;
+				}
+
+				FLBuilderUtils::update_option( '_fl_builder_styles', $globals, true );
+			}
+
+			wp_send_json_success();
 		} else {
 			wp_send_json_error();
 		}
@@ -84,6 +154,7 @@ class FLBuilderGlobalImportExport {
 		check_admin_referer( 'fl_builder_import_export' );
 
 		if ( current_user_can( 'manage_options' ) ) {
+			delete_option( '_fl_builder_styles' );
 			delete_option( '_fl_builder_settings' );
 			foreach ( FLBuilderAdminSettings::registered_settings() as $setting ) {
 				delete_option( $setting );

@@ -98,3 +98,7 @@
 	position: absolute;
 	right: 0;
 }
+
+.fl-icons-filter-text-live::-webkit-input-placeholder {
+	color: inherit !important;
+}

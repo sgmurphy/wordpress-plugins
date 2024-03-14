@@ -14,7 +14,7 @@
 
         //Returning User condition cookie.
         if (elementorFrontend.config.post.id)
-            document.cookie = "isReturningVisitor" + elementorFrontend.config.post.id + "=true;SameSite=Strict;" + isSecured;
+            document.cookie = "isReturningVisitor" + elementorFrontend.config.post.id + "=true;expires=Fri, 31 Dec 2030 23:59:59 GMT;SameSite=Strict;" + isSecured;
 
     });
 

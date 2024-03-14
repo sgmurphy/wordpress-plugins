@@ -86,8 +86,7 @@ class Plugin {
 			'enabled' => $enabled,
 			'varnish' => $varnish,
 		);
-
-		\FLBuilderModel::update_admin_settings_option( '_fl_builder_cache_plugins', $settings, false );
+		\FLBuilderModel::update_admin_settings_option( '_fl_builder_cache_plugins', $settings, false, true );
 	}
 
 	/**
@@ -153,7 +152,7 @@ class Plugin {
 
 			$settings = self::get_settings();
 			if ( ! $settings['enabled'] ) {
-				return false;
+				continue;
 			}
 
 			if ( ! empty( $actions ) ) {

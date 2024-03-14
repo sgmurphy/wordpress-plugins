@@ -36,17 +36,14 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <li%s><a href="#popup-fields">%s</a></li>
                         <li%s><a href="#social-share">%s</a></li>
                         <li%s><a href="#custom-script">%s</a></li>
+                        <li%s><a href="#chatgpt-settings">%s</a></li>
                         <li%s><a href="#other-settings">%s</a></li>',
-				$last_tab == 'common-settings' ? ' class="active"' : '',
-				__( 'Common Settings', 'the-post-grid' ),
-				$last_tab == 'popup-fields' ? ' class="active"' : '',
-				__( 'PopUp field selection', 'the-post-grid' ),
-				$last_tab == 'social-share' ? ' class="active"' : '',
-				__( 'Social Share', 'the-post-grid' ),
-				$last_tab == 'custom-script' ? ' class="active"' : '',
-				__( 'Custom Script', 'the-post-grid' ),
-				$last_tab == 'other-settings' ? ' class="active"' : '',
-				__( 'Other Settings', 'the-post-grid' )
+				$last_tab == 'common-settings' ? ' class="active"' : '', __( 'Common Settings', 'the-post-grid' ),
+				$last_tab == 'popup-fields' ? ' class="active"' : '', __( 'PopUp field selection', 'the-post-grid' ),
+				$last_tab == 'social-share' ? ' class="active"' : '', __( 'Social Share', 'the-post-grid' ),
+				$last_tab == 'custom-script' ? ' class="active"' : '', __( 'Custom Script', 'the-post-grid' ),
+				$last_tab == 'chatgpt-settings' ? ' class="active"' : '', __( 'ChatGPT', 'the-post-grid' ),
+				$last_tab == 'other-settings' ? ' class="active"' : '', __( 'Other Settings', 'the-post-grid' )
 			);
 
 			ob_start();
@@ -73,6 +70,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			$html .= sprintf( '<div id="other-settings" class="rt-tab-content"%s>', $last_tab == 'other-settings' ? ' style="display:block"' : '' );
 			$html .= Fns::rtFieldGenerator( Options::rtTPGSettingsOtherSettingsFields() );
+			$html .= '</div>';
+
+            $html .= sprintf( '<div id="chatgpt-settings" class="rt-tab-content"%s>', $last_tab == 'chatgpt-settings' ? ' style="display:block"' : '' );
+			$html .= Fns::rtFieldGenerator( Options::rtTPGChatGPGSettings() );
 			$html .= '</div>';
 
 			ob_start();

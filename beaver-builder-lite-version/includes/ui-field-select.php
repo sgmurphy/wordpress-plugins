@@ -75,6 +75,11 @@ if ( field.trigger ) {
 	atts += " data-trigger='" + JSON.stringify( field.trigger ) + "'";
 }
 
+// Set data
+if ( field.set ) {
+	atts += " data-set='" + JSON.stringify( field.set ) + "'";
+}
+
 // Referenced Option Sets - See FLBuilderConfig.optionSets
 if ( ( Array.isArray( field.options ) && field.options.length === 1 ) || 'string' === typeof field.options ) {
 
@@ -117,6 +122,9 @@ if ( field.saved_data ) {
 	}
 	field.options = dataOption;
 }
+
+// Include root name (name without breakpoint suffix) on input.
+atts += " data-root-name='" + data.rootName + "'";
 #>
 <select name="{{name}}"{{{atts}}}>
 	<# if ( data.device && 'default' !== data.device ) { #>

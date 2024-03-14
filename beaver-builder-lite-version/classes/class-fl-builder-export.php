@@ -16,6 +16,7 @@ final class FLBuilderExport {
 		add_action( 'export_filters', 'FLBuilderExport::filters' );
 		add_action( 'wp_ajax_fl_builder_export_templates_data', 'FLBuilderExport::templates_data' );
 		add_action( 'export_wp', 'FLBuilderExport::export' );
+		add_filter( 'wxr_export_skip_postmeta', 'FLBuilderExport::wxr_filter_postmeta', 10, 2 );
 	}
 
 	/**
@@ -117,6 +118,22 @@ final class FLBuilderExport {
 		fl_export_wp( $_REQUEST['fl-builder-export-template'] );
 
 		die();
+	}
+
+	/**
+	 *
+	 * @param bool   $return_me
+	 * @param string $meta_key
+	 * @return bool
+	 */
+	static public function wxr_filter_postmeta( $return_me, $meta_key ) {
+		if ( '_edit_lock' == $meta_key ) {
+			$return_me = true;
+		}
+		if ( false !== strpos( $meta_key, '_fl_builder_history' ) ) {
+			$return_me = true;
+		}
+		return $return_me;
 	}
 }
 

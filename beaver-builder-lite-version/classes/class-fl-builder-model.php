@@ -1456,100 +1456,66 @@ final class FLBuilderModel {
 	 * @return array
 	 */
 	static public function get_categorized_nodes() {
-		//      global $get_categorized_nodes;
-		$nodes = array(
+		if ( self::is_post_user_template( 'module' ) ) {
+			$root_module                            = self::get_node_template_root( 'module' );
+			$nodes                                  = self::get_categorized_child_nodes( $root_module );
+			$nodes['modules'][ $root_module->node ] = self::get_module( $root_module );
+		} elseif ( self::is_post_user_template( 'column' ) ) {
+			$root_col                            = self::get_node_template_root( 'column' );
+			$nodes                               = self::get_categorized_child_nodes( $root_col );
+			$nodes['columns'][ $root_col->node ] = $root_col;
+		} else {
+			$nodes = self::get_categorized_child_nodes();
+		}
+
+		return $nodes;
+	}
+
+	/**
+	 * Returns an array of all nodes for a parent node, categorized by type.
+	 *
+	 * @param string $parent The parent node.
+	 * @return array
+	 */
+	static public function get_categorized_child_nodes( $parent = null ) {
+		$categorized = array(
 			'rows'    => array(),
 			'groups'  => array(),
 			'columns' => array(),
 			'modules' => array(),
 		);
 
-		// if ( ! empty( $get_categorized_nodes ) ) {
-		// 	return $get_categorized_nodes;
-		// }
+		$nodes = self::get_nodes( null, $parent );
 
-		if ( self::is_post_user_template( 'module' ) ) {
-			$nodes['modules'] = self::get_all_modules();
-		} elseif ( self::is_post_user_template( 'column' ) ) {
-			$root_col = self::get_node_template_root( 'column' );
-
-			$nodes['columns'][ $root_col->node ] = $root_col;
-			$col_children                        = self::get_nodes( null, $root_col );
-
-			foreach ( $col_children as $col_child ) {
-
-				if ( 'module' == $col_child->type ) {
-
-					$module = self::get_module( $col_child );
-
+		foreach ( $nodes as $node ) {
+			switch ( $node->type ) {
+				case 'row':
+					$categorized['rows'][ $node->node ] = $node;
+					break;
+				case 'column-group':
+					$categorized['groups'][ $node->node ] = $node;
+					break;
+				case 'column':
+					$categorized['columns'][ $node->node ] = $node;
+					break;
+				case 'module':
+					$module = self::get_module( $node );
 					if ( $module ) {
-						$nodes['modules'][ $col_child->node ] = $module;
+						$categorized['modules'][ $node->node ] = $module;
 					}
-				} elseif ( 'column-group' == $col_child->type ) {
-
-					$nodes['groups'][ $col_child->node ] = $col_child;
-					$group_cols                          = self::get_nodes( 'column', $col_child );
-
-					foreach ( $group_cols as $group_col ) {
-
-						$nodes['columns'][ $group_col->node ] = $group_col;
-						$modules                              = self::get_modules( $group_col );
-
-						foreach ( $modules as $module ) {
-							$nodes['modules'][ $module->node ] = $module;
-						}
-					}
-				}
+					break;
 			}
-		} else {
-			$rows = self::get_nodes( 'row' );
 
-			foreach ( $rows as $row ) {
-
-				$nodes['rows'][ $row->node ] = $row;
-				$groups                      = self::get_nodes( 'column-group', $row );
-
-				foreach ( $groups as $group ) {
-
-					$nodes['groups'][ $group->node ] = $group;
-					$cols                            = self::get_nodes( 'column', $group );
-
-					foreach ( $cols as $col ) {
-
-						$nodes['columns'][ $col->node ] = $col;
-						$col_children                   = self::get_nodes( null, $col );
-
-						foreach ( $col_children as $col_child ) {
-
-							if ( 'module' == $col_child->type ) {
-
-								$module = self::get_module( $col_child );
-
-								if ( $module ) {
-									$nodes['modules'][ $col_child->node ] = $module;
-								}
-							} elseif ( 'column-group' == $col_child->type ) {
-
-								$nodes['groups'][ $col_child->node ] = $col_child;
-								$group_cols                          = self::get_nodes( 'column', $col_child );
-
-								foreach ( $group_cols as $group_col ) {
-
-									$nodes['columns'][ $group_col->node ] = $group_col;
-									$modules                              = self::get_modules( $group_col );
-
-									foreach ( $modules as $module ) {
-										$nodes['modules'][ $module->node ] = $module;
-									}
-								}
-							}
-						}
-					}
-				}
+			if ( self::is_node_global( $node ) ) {
+				$children               = self::get_categorized_child_nodes( $node );
+				$categorized['rows']    = array_merge( $categorized['rows'], $children['rows'] );
+				$categorized['groups']  = array_merge( $categorized['groups'], $children['groups'] );
+				$categorized['columns'] = array_merge( $categorized['columns'], $children['columns'] );
+				$categorized['modules'] = array_merge( $categorized['modules'], $children['modules'] );
 			}
 		}
-		//      $get_categorized_nodes = $nodes;
-		return $nodes;
+
+		return $categorized;
 	}
 
 	/**
@@ -1965,7 +1931,7 @@ final class FLBuilderModel {
 	 * Adds a row to the current layout.
 	 *
 	 * @since 1.0
-	 * @param string $cols The type of column layout to use.
+	 * @param string $cols The type of column layout to use or the node ID of a col or group to move into this row.
 	 * @param int $position The position of the new row.
 	 * @param string $module Optional. The node ID of an existing module to move to this row.
 	 * @return object The new row object.
@@ -1991,14 +1957,24 @@ final class FLBuilderModel {
 			self::reorder_node( $row_node_id, $position );
 		}
 
-		// Add a column group.
-		$group = self::add_col_group( $row_node_id, $cols, 0 );
+		// Use an existing column group or add a new one?
+		if ( isset( $data[ $cols ] ) && 'column-group' === $data[ $cols ]->type ) {
+			$group = $data[ $cols ];
+			self::move_node( $group->node, $row_node_id, 0 );
+			$group = self::get_node( $group->node );
+		} else {
+			$group = $cols ? self::add_col_group( $row_node_id, $cols, 0 ) : null;
+		}
 
 		// Move an existing module to the row.
 		if ( $module ) {
-			$cols = self::get_nodes( 'column', $group->node );
-			$col  = array_shift( $cols );
-			self::move_node( $module, $col->node, 0 );
+			if ( $group ) {
+				$cols = self::get_nodes( 'column', $group->node );
+				$col  = array_shift( $cols );
+				self::move_node( $module, $col->node, 0 );
+			} else {
+				self::move_node( $module, $row_node_id, 0 );
+			}
 		}
 
 		// Return the updated row.
@@ -2018,7 +1994,7 @@ final class FLBuilderModel {
 		$layout_data   = self::get_layout_data();
 		$row           = self::get_node( $node_id );
 		$new_row_id    = self::generate_node_id();
-		$col_groups    = self::get_nodes( 'column-group', $row );
+		$children      = self::get_nodes( null, $row );
 		$new_nodes     = array();
 		$template_cols = array();
 
@@ -2034,11 +2010,24 @@ final class FLBuilderModel {
 			unset( $layout_data[ $new_row_id ]->template_root_node );
 		}
 
-		// Get the new child nodes.
-		foreach ( $col_groups as $col_group ) {
+		// Preliminary layout data update so the new row is available.
+		self::update_layout_data( $layout_data );
 
-			$new_nodes[ $col_group->node ] = clone $col_group;
-			$cols                          = self::get_nodes( 'column', $col_group );
+		// Get the new child nodes.
+		foreach ( $children as $child ) {
+
+			// Handle modules as direct row children.
+			if ( 'module' === $child->type ) {
+				$child_copy                     = self::copy_module( $child, $child->settings, $new_row_id );
+				$child_copy_children            = self::get_nested_nodes( $child_copy->node );
+				$new_nodes[ $child_copy->node ] = $child_copy;
+				$new_nodes                      = array_merge( $new_nodes, $child_copy_children );
+				continue;
+			}
+
+			// Handle column groups as direct row children.
+			$new_nodes[ $child->node ] = clone $child;
+			$cols                      = self::get_nodes( 'column', $child );
 
 			foreach ( $cols as $col ) {
 
@@ -2048,13 +2037,15 @@ final class FLBuilderModel {
 
 				foreach ( $nodes as $node ) {
 
-					$new_nodes[ $node->node ] = clone $node;
-
 					if ( 'module' == $node->type ) {
-						$new_nodes[ $node->node ]->settings = self::clone_module_settings( $node->settings );
+						$module_copy                     = self::copy_module( $node, $node->settings, $node->parent, $node->position );
+						$module_copy_children            = self::get_nested_nodes( $module_copy->node );
+						$new_nodes[ $module_copy->node ] = $module_copy;
+						$new_nodes                       = array_merge( $new_nodes, $module_copy_children );
 					} elseif ( 'column-group' == $node->type ) {
 
-						$nested_cols = self::get_nodes( 'column', $node );
+						$new_nodes[ $node->node ] = clone $node;
+						$nested_cols              = self::get_nodes( 'column', $node );
 
 						foreach ( $nested_cols as $nested_col ) {
 
@@ -2063,8 +2054,10 @@ final class FLBuilderModel {
 							$modules                                  = self::get_nodes( 'module', $nested_col );
 
 							foreach ( $modules as $module ) {
-								$new_nodes[ $module->node ]           = clone $module;
-								$new_nodes[ $module->node ]->settings = self::clone_module_settings( $module->settings );
+								$module_copy                     = self::copy_module( $module, $module->settings, $module->parent, $module->position );
+								$module_copy_children            = self::get_nested_nodes( $module_copy->node );
+								$new_nodes[ $module_copy->node ] = $module_copy;
+								$new_nodes                       = array_merge( $new_nodes, $module_copy_children );
 							}
 						}
 					}
@@ -2076,7 +2069,7 @@ final class FLBuilderModel {
 		if ( $settings && $settings_id ) {
 			if ( $settings_id === $row->node ) {
 				$layout_data[ $new_row_id ]->settings = (object) array_merge( (array) $row->settings, (array) $settings );
-			} else {
+			} elseif ( isset( $new_nodes[ $settings_id ] ) ) {
 				$new_nodes[ $settings_id ]->settings = (object) array_merge( (array) $new_nodes[ $settings_id ]->settings, (array) $settings );
 			}
 		}
@@ -2928,13 +2921,15 @@ final class FLBuilderModel {
 		// Get the new child nodes.
 		foreach ( $nodes as $node ) {
 
-			$new_nodes[ $node->node ] = clone $node;
-
 			if ( 'module' == $node->type ) {
-				$new_nodes[ $node->node ]->settings = self::clone_module_settings( $node->settings );
+				$module_copy                     = self::copy_module( $node, $node->settings, $node->parent, $node->position );
+				$module_copy_children            = self::get_nested_nodes( $module_copy->node );
+				$new_nodes[ $module_copy->node ] = $module_copy;
+				$new_nodes                       = array_merge( $new_nodes, $module_copy_children );
 			} elseif ( 'column-group' == $node->type ) {
 
-				$nested_cols = self::get_nodes( 'column', $node );
+				$new_nodes[ $node->node ] = clone $node;
+				$nested_cols              = self::get_nodes( 'column', $node );
 
 				foreach ( $nested_cols as $nested_col ) {
 
@@ -2954,7 +2949,7 @@ final class FLBuilderModel {
 		if ( $settings && $settings_id ) {
 			if ( $settings_id === $col->node ) {
 				$layout_data[ $new_col_id ]->settings = (object) array_merge( (array) $col->settings, (array) $settings );
-			} else {
+			} elseif ( isset( $new_nodes[ $settings_id ] ) ) {
 				$new_nodes[ $settings_id ]->settings = (object) array_merge( (array) $new_nodes[ $settings_id ]->settings, (array) $settings );
 			}
 		}
@@ -3092,6 +3087,10 @@ final class FLBuilderModel {
 			self::$modules[ $instance->slug ]                   = $instance;
 			self::$modules[ $instance->slug ]->form             = apply_filters( 'fl_builder_register_settings_form', $form, $instance->slug );
 			self::$modules[ $instance->slug ]->form['advanced'] = self::$settings_forms['module_advanced'];
+
+			// Allows for module-specific changes to the form
+			self::$modules[ $instance->slug ] = self::filter_module( self::$modules[ $instance->slug ] );
+
 			/**
 			 * Use this filter to modify the config array for a settings form when it is registered.
 			 * @see fl_builder_register_module_settings_form
@@ -3099,6 +3098,21 @@ final class FLBuilderModel {
 			 */
 			self::$modules[ $instance->slug ]->form = apply_filters( 'fl_builder_register_module_settings_form', self::$modules[ $instance->slug ]->form, $instance->slug );
 		}
+	}
+
+	/**
+	 * Allow the module to filter the full form after advanced tab is added.
+	 *
+	 * @param Object $module
+	 * @return Object $module
+	 */
+	static public function filter_module( $module ) {
+
+		// Handle css selectors when include_wrapper is false
+		if ( ! $module->include_wrapper ) {
+			$module->form['advanced']['sections']['margins']['fields']['margin']['preview']['selector'] = '';
+		}
+		return $module;
 	}
 
 	/**
@@ -3119,6 +3133,12 @@ final class FLBuilderModel {
 		if ( ! $config['module'] || ! isset( self::$modules[ $config['module'] ] ) ) {
 			return;
 		}
+		if ( 'box' === $config['module'] ) {
+			$enabled_modules = self::get_enabled_modules();
+			if ( ! in_array( $config['module'], $enabled_modules ) || is_admin() ) {
+				return;
+			}
+		}
 
 		$module                = self::$modules[ $config['module'] ];
 		$instance              = new stdClass;
@@ -3132,7 +3152,27 @@ final class FLBuilderModel {
 		$instance->enabled     = isset( $config['enabled'] ) ? $config['enabled'] : true;
 		$instance->icon        = isset( $config['icon'] ) ? $module->get_icon( $config['icon'] ) : FLBuilderModule::get_default_icon();
 
+		// Container module support.
+		$instance->accepts  = $module->accepts;
+		$instance->parents  = $module->parents;
+		$instance->template = isset( $config['template'] ) ? $config['template'] : [];
+
 		self::$module_aliases[ $alias ] = $instance;
+	}
+
+	/**
+	 * Returns a module alias if registered.
+	 *
+	 * @since 2.8
+	 * @param string $alias The alias key.
+	 * @return object|null
+	 */
+	static public function get_module_alias( $alias ) {
+		if ( isset( self::$module_aliases[ $alias ] ) ) {
+			return self::$module_aliases[ $alias ];
+		}
+
+		return null;
 	}
 
 	/**
@@ -3307,6 +3347,7 @@ final class FLBuilderModel {
 
 		// Build the default category arrays.
 		$categories[ __( 'Basic', 'fl-builder' ) ]    = array();
+		$categories[ __( 'Box', 'fl-builder' ) ]      = array();
 		$categories[ __( 'Media', 'fl-builder' ) ]    = array();
 		$categories[ __( 'Actions', 'fl-builder' ) ]  = array();
 		$categories[ __( 'Layout', 'fl-builder' ) ]   = array();
@@ -3624,27 +3665,38 @@ final class FLBuilderModel {
 	 * parent ID doesn't exist.
 	 *
 	 * @since 1.6.3
+	 * @param object $module The module that needs a parent node.
 	 * @param string $parent_id The node ID of the parent to look for.
 	 * @param int $position The position of the parent.
 	 * @return string|null The new parent ID or null if none exists.
 	 */
-	static public function add_module_parent( $parent_id = null, $position = null ) {
+	static public function add_module_parent( $module, $parent_id = null, $position = null ) {
 		$parent = ! $parent_id ? null : self::get_node( $parent_id );
+		$module = self::get_module( $module );
 
 		if ( ! $parent ) {
 			// Add a new row if we don't have a parent.
-			$row        = self::add_row( '1-col', $position );
-			$col_groups = self::get_nodes( 'column-group', $row->node );
-			$col_group  = array_shift( $col_groups );
-			$cols       = self::get_nodes( 'column', $col_group->node );
-			$parent     = array_shift( $cols );
-			$parent_id  = $parent->node;
+			if ( $module->accepts_children() ) {
+				$row       = self::add_row( null, $position );
+				$parent_id = $row->node;
+			} else {
+				$row        = self::add_row( '1-col', $position );
+				$col_groups = self::get_nodes( 'column-group', $row->node );
+				$col_group  = array_shift( $col_groups );
+				$cols       = self::get_nodes( 'column', $col_group->node );
+				$parent     = array_shift( $cols );
+				$parent_id  = $parent->node;
+			}
 		} elseif ( 'row' == $parent->type ) {
 			// Add a new column group if the parent is a row.
-			$col_group = self::add_col_group( $parent->node, '1-col', $position );
-			$cols      = self::get_nodes( 'column', $col_group->node );
-			$parent    = array_shift( $cols );
-			$parent_id = $parent->node;
+			if ( $module->accepts_children() ) {
+				$parent_id = $parent->node;
+			} else {
+				$col_group = self::add_col_group( $parent->node, '1-col', $position );
+				$cols      = self::get_nodes( 'column', $col_group->node );
+				$parent    = array_shift( $cols );
+				$parent_id = $parent->node;
+			}
 		} elseif ( 'column-group' == $parent->type ) {
 			// Add a new column if the parent is a column group.
 			$parent    = self::add_col( $parent->node, $position );
@@ -3666,6 +3718,16 @@ final class FLBuilderModel {
 		$module = is_object( $module_id ) ? $module_id : self::get_module( $module_id );
 		$nodes  = self::get_categorized_nodes();
 
+		// Check rows to find the parent for container modules.
+		if ( 'row' == $type ) {
+			foreach ( $nodes['rows'] as $row ) {
+				if ( $row->node == $module->parent ) {
+					return $row;
+				}
+			}
+		}
+
+		// Check column structure to find the parent.
 		foreach ( $nodes['columns'] as $column ) {
 
 			if ( $column->node == $module->parent ) {
@@ -3706,30 +3768,32 @@ final class FLBuilderModel {
 	 * @param int $position The new module's position.
 	 * @return object The new module object.
 	 * @return array $defaults Default settings for the module.
+	 * @return array $template Override the defined child template for this module.
 	 */
-	static public function add_default_module( $parent_id = null, $type = null, $position = null, $defaults = null ) {
+	static public function add_default_module( $parent_id = null, $type = null, $position = null, $defaults = null, $template = null ) {
 		$parent         = ( 0 === $parent_id ) ? null : self::get_node( $parent_id );
 		$settings       = self::get_module_defaults( $type );
 		$module_node_id = self::generate_node_id();
-
-		// Add a new parent if one is needed.
-		if ( ! $parent || 'row' == $parent->type || 'column-group' == $parent->type ) {
-			$parent_id = self::add_module_parent( $parent_id, $position );
-			$parent    = self::get_node( $parent_id );
-			$position  = null;
-		}
 
 		// Merge default settings if present.
 		if ( $defaults ) {
 			$settings = (object) array_merge( (array) $settings, $defaults );
 		}
 
-		// Run module update method.
+		// Get an instance of the module.
 		$class              = get_class( self::$modules[ $type ] );
 		$instance           = new $class();
 		$instance->node     = $module_node_id;
 		$instance->settings = $settings;
-		$settings           = $instance->update( $settings );
+
+		// Add a new parent if one is needed.
+		if ( ! $parent || 'row' == $parent->type || 'column-group' == $parent->type ) {
+			$parent_id = self::add_module_parent( $instance, $parent_id, $position );
+			$parent    = self::get_node( $parent_id );
+		}
+
+		// Run module update method.
+		$settings = $instance->update( $settings );
 
 		// Save the module.
 		$data                              = self::get_layout_data();
@@ -3754,26 +3818,63 @@ final class FLBuilderModel {
 			self::reorder_node( $module_node_id, $position );
 		}
 
+		// Insert children.
+		$template = $template ? $template : $instance->template;
+		if ( $instance->accepts_children() && ! empty( $template ) ) {
+			self::add_default_module_template( $module_node_id, $template );
+		}
+
 		// Send back the inserted module.
 		return self::get_module( $module_node_id );
+	}
+
+	/**
+	 * Inserts children for a module with a template defined.
+	 *
+	 * @param string $module_id
+	 * @param array $template
+	 * @return void
+	 */
+	static public function add_default_module_template( $module_id, $template ) {
+		$position = 0;
+
+		foreach ( $template as $config ) {
+			$module = self::add_default_module( $module_id, $config[0], $position, $config[1] );
+			$position++;
+
+			if ( isset( $config[2] ) ) {
+				self::add_default_module_template( $module->node, $config[2] );
+			}
+		}
 	}
 
 	/**
 	 * Make a copy of a module.
 	 *
 	 * @since 1.0
-	 * @param string $node_id Node ID of the module to copy.
+	 * @param string|object $node_id Node ID or module to copy.
 	 * @param object $settings These settings will be used for the copy if present.
+	 * @param string $parent_id Node ID of a new parent if necessary.
+	 * @param int $position Position of the new module if necessary.
 	 * @return object The new module object.
 	 */
-	static public function copy_module( $node_id = null, $settings = null ) {
-		$module = self::get_module( $node_id );
+	static public function copy_module( $node_id = null, $settings = null, $parent_id = null, $position = null ) {
+		$module   = self::get_module( $node_id );
+		$children = self::get_nodes( null, $module );
 
 		if ( $settings ) {
 			$module->settings = (object) array_merge( (array) $module->settings, (array) $settings );
 		}
 
-		return self::add_module( $module->settings->type, $module->settings, $module->parent, $module->position + 1 );
+		$parent_id   = null !== $parent_id ? $parent_id : $module->parent;
+		$position    = null !== $position ? $position : $module->position + 1;
+		$module_copy = self::add_module( $module->settings->type, $module->settings, $parent_id, $module->position + 1 );
+
+		foreach ( $children as $child ) {
+			$child_copy = self::copy_module( $child, $child->settings, $module_copy->node, $child->position );
+		}
+
+		return $module_copy;
 	}
 
 	/**
@@ -4530,7 +4631,7 @@ final class FLBuilderModel {
 		$new_settings = apply_filters( 'fl_builder_before_save_global_settings', $new_settings );
 
 		// update db with new settings.
-		FLBuilderUtils::update_option( '_fl_builder_settings', $new_settings );
+		FLBuilderUtils::update_option( '_fl_builder_settings', $new_settings, true );
 
 		return self::get_global_settings();
 	}
@@ -5300,6 +5401,51 @@ final class FLBuilderModel {
 	}
 
 	/**
+	 * Checks to see if the current post is a container module template.
+	 *
+	 * @since 2.8
+	 * @return bool
+	 */
+	static public function is_post_container_module_template() {
+
+		if ( ! self::is_post_user_template( 'module' ) ) {
+			return false;
+		}
+
+		$root   = self::get_node_template_root( 'module' );
+		$module = self::get_module( $root );
+
+		if ( ! $module->accepts_children() ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Checks to see if the current post is a module templates with
+	 * a single module that doesn't accept children.
+	 *
+	 * @since 2.8
+	 * @return bool
+	 */
+	static public function is_post_leaf_module_template() {
+
+		if ( ! self::is_post_user_template( 'module' ) ) {
+			return false;
+		}
+
+		$root   = self::get_node_template_root( 'module' );
+		$module = self::get_module( $root );
+
+		if ( $module->accepts_children() ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Saves a user defined template via AJAX.
 	 *
 	 * @since 1.1.3
@@ -5394,7 +5540,7 @@ final class FLBuilderModel {
 			'order'            => 'ASC',
 			'posts_per_page'   => '-1',
 			'suppress_filters' => false,
-			'fields' => 'ids',
+			'fields'           => 'ids',
 			'tax_query'        => array(
 				array(
 					'taxonomy' => 'fl-builder-template-type',
@@ -5405,6 +5551,9 @@ final class FLBuilderModel {
 		) );
 
 		$templates = array();
+
+		remove_filter( 'the_title', 'wptexturize' );
+		remove_filter( 'the_title', 'convert_chars' );
 
 		// Loop through templates posts and build the templates array.
 		foreach ( $posts as $post ) {
@@ -5432,6 +5581,9 @@ final class FLBuilderModel {
 				'category' => array(),
 			);
 		}
+
+		add_filter( 'the_title', 'wptexturize' );
+		add_filter( 'the_title', 'convert_chars' );
 
 		// Loop through templates and build the categorized array.
 		foreach ( $templates as $i => $template ) {
@@ -5839,15 +5991,13 @@ final class FLBuilderModel {
 			$nodes = count( $nodes ) > 0 ? $nodes : self::get_nodes( $type );
 		}
 
-		foreach ( $nodes as $node ) {
-			if ( $type == $node->type ) {
-
-				// Root parent for column template should be null.
-				if ( 'column' == $type && $node->parent ) {
-					continue;
+		if ( 'module' === $type && 1 === count( $nodes ) ) {
+			return array_pop( $nodes );
+		} else {
+			foreach ( $nodes as $node ) {
+				if ( $type === $node->type && ! $node->parent ) {
+					return $node;
 				}
-
-				return $node;
 			}
 		}
 
@@ -5950,6 +6100,7 @@ final class FLBuilderModel {
 		$template_id       = self::generate_node_id();
 		$original_parent   = $root_node->parent;
 		$original_position = $root_node->position;
+		$post_excerpt      = isset( $settings['notes'] ) ? wp_kses_post( $settings['notes'] ) : '';
 
 		// Save the node template post.
 		$post_id = wp_insert_post( array(
@@ -5958,17 +6109,41 @@ final class FLBuilderModel {
 			'post_status'    => 'publish',
 			'ping_status'    => 'closed',
 			'comment_status' => 'closed',
+			'post_excerpt'   => $post_excerpt,
 		) );
 
 		// Set the template type.
 		wp_set_post_terms( $post_id, $root_node->type, 'fl-builder-template-type' );
 
-		// Reset the root node's position.
-		$root_node->position = 0;
+		// add extra optional data
+		if ( isset( $settings['categories'] ) && ! empty( $settings['categories'] ) ) {
+			if ( is_numeric( $settings['categories'] ) ) {
+				wp_set_post_terms( $post_id, $settings['categories'], 'fl-builder-template-category' );
+			} else {
+				// new category or categories
+				$cats = explode( ',', $settings['categories'] );
+				foreach ( $cats as $cat ) {
+					$check = term_exists( $cat, 'fl-builder-template-category' );
 
-		// Remove root parent for column template.
+					if ( ! $check ) {
+						$new_term = wp_insert_term( $cat, 'fl-builder-template-category' );
+						$set      = wp_set_post_terms( $post_id, $new_term['term_id'], 'fl-builder-template-category', true );
+					} else {
+						wp_set_post_terms( $post_id, $check['term_id'], 'fl-builder-template-category', true );
+					}
+				}
+			}
+		}
+		if ( isset( $settings['featured'] ) ) {
+			add_post_meta( $post_id, '_thumbnail_id', $settings['featured'] );
+		}
+
+		// Reset the root node's position and parent.
+		$root_node->position = 0;
+		$root_node->parent   = null;
+
+		// Reset column template width.
 		if ( 'column' == $root_node->type ) {
-			$root_node->parent         = null;
 			$root_node->settings->size = 100;
 		}
 
@@ -6344,7 +6519,7 @@ final class FLBuilderModel {
 			if ( ! $parent || 'row' == $parent->type || 'column-group' == $parent->type ) {
 
 				if ( 'module' == $root_node->type ) {
-					$parent_id = self::add_module_parent( $parent_id, $position );
+					$parent_id = self::add_module_parent( $root_node, $parent_id, $position );
 					$position  = null;
 				} elseif ( 'column' == $root_node->type ) {
 					$parent_id       = self::add_col_parent( $parent_id, $position );
@@ -7226,7 +7401,7 @@ final class FLBuilderModel {
 	 * @param bool $network_override Whether to allow the network admin setting to be overridden on subsites.
 	 * @return mixed
 	 */
-	static public function update_admin_settings_option( $key, $value, $network_override = true ) {
+	static public function update_admin_settings_option( $key, $value, $network_override = true, $autoload = false ) {
 		if ( is_network_admin() ) {
 			// Update the site-wide option since we're in the network admin.
 			update_site_option( $key, $value );
@@ -7235,7 +7410,7 @@ final class FLBuilderModel {
 			delete_option( $key );
 		} else {
 			// Update the option for single install or subsite.
-			FLBuilderUtils::update_option( $key, $value );
+			FLBuilderUtils::update_option( $key, $value, $autoload );
 		}
 	}
 

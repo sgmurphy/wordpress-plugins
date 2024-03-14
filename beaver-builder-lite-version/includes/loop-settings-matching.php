@@ -7,4 +7,9 @@
 		<?php /* translators: %s: an object like posts or taxonomie */ ?>
 		<option value="related" <?php selected( $settings->{ $name . '_matching' }, 'related' ); ?>><?php printf( _x( 'Match all related %s except...', '%s is an object like posts or taxonomies.', 'fl-builder' ), $label ); ?></option>
 	<?php endif; ?>
+
+	<?php if ( 'fl_as_users' === $field['action'] ) : ?>
+		<option value="author" <?php selected( $settings->{ $name . '_matching' }, 'author' ); ?>><?php _e( 'Current author', 'fl-builder' ); ?></option>
+		<option value="loggedin" <?php selected( $settings->{ $name . '_matching' }, 'loggedin' ); ?>><?php _e( 'Current logged in user', 'fl-builder' ); ?></option>
+	<?php endif; ?>
 </select>

@@ -270,6 +270,59 @@ final class FLBuilderFonts {
 	}
 
 	/**
+	 * Add fonts to the $font array for global styles.
+	 *
+	 * @return void
+	 */
+	static public function add_fonts_for_global_css( $settings ) {
+		$google = FLBuilderFontFamilies::google();
+		$fields = array(
+			'text_typography',
+			'h1_typography',
+			'h2_typography',
+			'h3_typography',
+			'h4_typography',
+			'h5_typography',
+			'h6_typography',
+			'link_typography',
+			'button_typography',
+		);
+
+		foreach ( $fields as $field ) {
+			if ( empty( $settings->{ $field } ) ) {
+				continue;
+			}
+			$font   = $settings->{ $field }['font_family'];
+			$weight = isset( $settings->{ $field }['font_weight'] ) && '' !== $settings->{ $field }['font_weight'] ? $settings->{ $field }['font_weight'] : '400';
+
+			// handle google italics.
+			if ( isset( $google[ $font ] ) ) {
+				$selected_weight = $weight;
+				$italic          = ( isset( $settings->{ $field }['font_style'] ) ) ? $settings->{ $field }['font_style'] : '';
+
+				if ( ! $italic && count( $google[ $font ] ) === 1 && 'italic' === $google[ $font ][0] ) {
+					$italic = 'italic';
+				}
+				if ( in_array( $selected_weight . 'i', $google[ $font ] ) && 'italic' == $italic ) {
+					$weight = $selected_weight . 'i';
+				}
+				if ( ( '400' == $selected_weight || 'regular' == $selected_weight ) && 'italic' == $italic && in_array( 'italic', $google[ $font ] ) ) {
+					$weight = '400i';
+				}
+			}
+
+			if ( 'Molle' === $settings->{ $field }['font_family'] ) {
+				$weight = 'i';
+			}
+
+			self::add_font( array(
+				'family' => $settings->{ $field }['font_family'],
+				'weight' => $weight,
+			) );
+		}
+	}
+
+	/**
 	 * Add fonts to the $font array for a module.
 	 *
 	 * @since  1.6.3
@@ -436,7 +489,7 @@ final class FLBuilderFonts {
 		$recent = array_merge( (array) $recent_fonts, (array) $recent_fonts_db );
 
 		if ( isset( $_GET['fl_builder'] ) && ! empty( $recent ) && serialize( $recent ) !== serialize( $recent_fonts_db ) ) {
-			FLBuilderUtils::update_option( 'fl_builder_recent_fonts', array_slice( $recent, -11 ) );
+			FLBuilderUtils::update_option( 'fl_builder_recent_fonts', array_slice( $recent, -11 ), true );
 		}
 
 	}

@@ -9,7 +9,7 @@
 	 */
 	var PinnedUI = {
 
-		minWidth: 320,
+		minWidth: 340,
 
 		maxWidth: 600,
 
@@ -59,6 +59,22 @@
 		 */
 		isPinned: function() {
 			return $( '.fl-builder--content-library-panel', window.parent.document ).hasClass( 'fl-builder-ui-pinned' );
+		},
+
+		/**
+		 * Returns the side the panel is pinned to.
+		 *
+		 * @since 2.8
+		 * @return {String}
+		 */
+		getPinnedSide: function() {
+			var panel = $( '.fl-builder--content-library-panel', window.parent.document );
+
+			if ( this.isPinned() ) {
+				return panel.hasClass( 'fl-builder-ui-pinned-right' ) ? 'right' : 'left';
+			}
+
+			return false;
 		},
 
 		/**
@@ -219,9 +235,13 @@
 		 * @method initPanel
 		 */
 		initPanel: function() {
-			var panel = $( '.fl-builder--content-library-panel', window.parent.document ),
-				button = $( '.fl-builder-content-panel-button', window.parent.document ),
-				panelHandle = button.length == 0 ? '.fl-builder--tabs, .fl-lightbox-header' : '.fl-builder--tabs';
+			var panel       = $( '.fl-builder--content-library-panel', window.parent.document ),
+				button      = $( '.fl-builder-content-panel-button', window.parent.document ),
+				panelHandle = button.length == 0 ? '.fl-builder--tabs, .fl-lightbox-header' : '.fl-builder--tabs',
+				rootEl      = getComputedStyle(document.documentElement),
+				minWidth    = parseInt( rootEl.getPropertyValue('--fl-builder-panel-min-width') ),
+				minHeight   = parseInt( rootEl.getPropertyValue('--fl-builder-panel-min-height') ),
+				maxWidth    = parseInt( rootEl.getPropertyValue('--fl-builder-panel-max-width') );
 
 			panel.draggable( {
 				cursor		: 'move',
@@ -234,9 +254,9 @@
 				iframeFix	: true
 			} ).resizable( {
 				handles		: 'e, w',
-				minHeight	: this.minHeight,
-				minWidth	: this.minWidth,
-				maxWidth	: this.maxWidth,
+				minHeight	: minHeight,
+				minWidth	: minWidth,
+				maxWidth	: maxWidth,
 				start		: this.resizeStart.bind( this ),
 				stop		: this.resizeStop.bind( this )
 			} );

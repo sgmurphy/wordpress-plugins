@@ -203,7 +203,7 @@ class Cleverfox_Activator {
 				require CLEVERFOX_PLUGIN_DIR . 'inc/medazin/default-widgets/default-widget.php';
 			}
 			
-			if ( 'Accron' == $theme->name ){
+			if ( 'Accron' == $theme->name || 'Acronix' == $theme->name ){
 				require CLEVERFOX_PLUGIN_DIR . 'inc/accron/default-pages/upload-media.php';
 				require CLEVERFOX_PLUGIN_DIR . 'inc/accron/default-pages/home-page.php';
 				require CLEVERFOX_PLUGIN_DIR . 'inc/accron/default-widgets/default-widget.php';

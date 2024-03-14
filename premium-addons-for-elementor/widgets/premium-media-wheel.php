@@ -793,17 +793,10 @@ class Premium_Media_Wheel extends Widget_Base {
 			'media_wheel_item_border_radius',
 			array(
 				'label'      => __( 'Border Radius', 'premium-addons-for-elementor' ),
-				'type'       => Controls_Manager::SLIDER,
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
-				'range'      => array(
-					'px' => array(
-						'min'  => 0,
-						'max'  => 100,
-						'step' => 1,
-					),
-				),
 				'selectors'  => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}}.premium-adv-carousel__item' => 'border-radius: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} {{CURRENT_ITEM}}.premium-adv-carousel__item' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -1732,17 +1725,10 @@ class Premium_Media_Wheel extends Widget_Base {
 			'item_border_rad',
 			array(
 				'label'      => __( 'Border Radius', 'premium-addons-for-elementor' ),
-				'type'       => Controls_Manager::SLIDER,
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
-				'range'      => array(
-					'px' => array(
-						'min'  => 0,
-						'max'  => 100,
-						'step' => 1,
-					),
-				),
 				'selectors'  => array(
-					'{{WRAPPER}} .premium-adv-carousel__item' => 'border-radius: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .premium-adv-carousel__item' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -2750,7 +2736,7 @@ class Premium_Media_Wheel extends Widget_Base {
 					?>
 					<video src="<?php echo esc_url( $link ); ?>" <?php echo wp_kses_post( Utils::render_html_attributes( $params ) ); ?>></video>
 				<?php endif; ?>
-				<img  class="premium-adv-carousel__vid-overlay <?php echo $hover_effect; ?>" src="<?php echo esc_url( $thumbnail ); ?>" alt="<?php echo esc_attr( $video_alt ); ?>">
+				<img  class="premium-adv-carousel__vid-overlay <?php echo esc_attr( $hover_effect ); ?>" src="<?php echo esc_url( $thumbnail ); ?>" alt="<?php echo esc_attr( $video_alt ); ?>">
 
 			</div>
 		<?php

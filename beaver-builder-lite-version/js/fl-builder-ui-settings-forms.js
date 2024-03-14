@@ -34,6 +34,11 @@
 		legacyXhr : null,
 
 		/**
+		 * An array of callback functions to call when the form data changes
+		 */
+		subscribers: [],
+
+		/**
 		 * @since 2.0
 		 * @method init
 		 */
@@ -110,6 +115,7 @@
 
 				// Finish rendering.
 				if ( config.legacy || ! this.renderLegacySettings( config, callback ) ) {
+
 					this.renderComplete( config, callback );
 				} else {
 					this.showLightboxLoader();
@@ -124,6 +130,152 @@
 			}
 		},
 
+		/*
+		 * Cause the form to re-evaluate and re-render specific fields if necessary
+		 */
+		refresh: function( callback ) {
+			var form = $('.fl-builder-settings:visible', window.parent.document)
+
+			const config = this.config
+			const prevSettings = config.settings
+			config.settings = FLBuilder._getSettings( form )
+
+			// Check fields for different variation
+			const tabs = this.getDirtyConfig( config.tabs, config.settings, prevSettings )
+
+
+			const isDirty = Object.values(tabs).some( tab => {
+				if ( true === tab.hasDirty ) {
+					return true
+				}
+				return Object.values(tab.sections).some( section => {
+					if ( true === section.hasDirty ) {
+						return true
+					}
+					return Object.values(section.fields).some( field => true === field.isDirty )
+				} )
+			} )
+
+			if ( isDirty ) {
+				this.selectivelyRender( config, callback )
+			} else {
+				callback()
+			}
+		},
+
+		replaceField: function( fieldName, field, settings ) { console.log('replace field', fieldName, field )
+			const form = $('.fl-builder-settings:visible', window.parent.document)
+			const node = { id: form.data('node'), type: form.data('type') }
+			const el = form.get(0).querySelector(`.fl-field#fl-field-${fieldName}`)
+			if ( el ) {
+				const html = FLBuilderSettingsForms.renderFieldRow( fieldName, field, settings, node ).trim()
+				var template = document.createElement('template')
+				template.innerHTML = html
+				const newEl = template.content.firstChild
+				el.replaceWith( newEl )
+			}
+		},
+
+		selectivelyRender: function( config, callback ) {
+			for( let tabName in config.tabs ) {
+				const tab = config.tabs[tabName]
+				if ( true === tab.hasDirty && undefined !== tab.sections ) {
+					for( let sectionName in tab.sections ) {
+						const section = tab.sections[sectionName]
+						if ( true === section.hasDirty && undefined !== section.fields ) {
+							for( let fieldName in section.fields ) {
+								const field = section.fields[fieldName]
+								if ( true === field.isDirty ) {
+									this.replaceField( fieldName, field, config.settings )
+								}
+							}
+						}
+					}
+				}
+			}
+			callback();
+		},
+
+		/*
+		 * Return form structures that need to be updated.
+		 */
+		getDirtyConfig: function( tabs, settings, previousSettings ) {
+
+			for( let tabName in tabs ) {
+				const tab = tabs[tabName]
+				if ( undefined !== tab.sections ) {
+					for( let sectionName in tab.sections ) {
+						const section = tab.sections[sectionName]
+						if ( undefined !== section.fields ) {
+							for( let fieldName in section.fields ) {
+								const field = section.fields[fieldName]
+
+								if ( undefined !== field.variations ) {
+									const prevVariationName = previousSettings[`${fieldName}_field_variation`]
+									const variationName = settings[`${fieldName}_field_variation`]
+
+									if ( variationName !== prevVariationName ) {
+										const newConfig = { ...field, ...field.variations[variationName] }
+
+										if ( JSON.stringify(newConfig) !== JSON.stringify(field) ) {
+
+											// Mark field and containers as dirty
+											tabs[tabName].hasDirty = true
+											tabs[tabName].sections[sectionName].hasDirty = true
+											tabs[tabName].sections[sectionName].fields[fieldName] = newConfig
+											tabs[tabName].sections[sectionName].fields[fieldName].isDirty = true
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			return tabs
+		},
+
+		bindFormListener: function() {
+			const inputSelector =  `input:not(.fl-preview-ignore),
+									select:not(.fl-preview-ignore),
+									textarea:not(.fl-preview-ignore),
+									fieldset:not(.fl-preview-ignore)`
+
+			this.form = $('.fl-builder-settings:visible', window.parent.document)
+			this.lastSettings = FLBuilder._getSettings( this.form )
+			this.form.on( 'input change', inputSelector, this.watchFormChanges.bind(this) )
+		},
+
+		unbindFormListener: function() {
+			if ( ! this.form ) {
+				this.form = $('.fl-builder-settings:visible', window.parent.document)
+			}
+			const inputSelector =  `input:not(.fl-preview-ignore),
+									select:not(.fl-preview-ignore),
+									textarea:not(.fl-preview-ignore),
+									fieldset:not(.fl-preview-ignore)`
+			this.form.off( 'input change', inputSelector, this.watchFormChanges.bind(this) )
+		},
+
+		watchFormChanges: function( e ) {
+			if ( 0 < this.subscribers.length ) {
+				const lastSettings = this.lastSettings
+				const settings = FLBuilder._getSettings( this.form )
+				this.lastSettings = settings
+
+				for( let i in this.subscribers ) {
+					const callback = this.subscribers[i]
+					callback.apply( this, [ e, lastSettings, settings ] )
+				}
+			}
+		},
+
+		subscribe: function( callback ) {
+			if ( 'function' === typeof callback ) {
+				this.subscribers.push( callback )
+			}
+		},
+
 		/**
 		 * Cache current settings
 		 *
@@ -132,13 +284,14 @@
 		cacheCurrentSettings: function() {
 			var form = $('.fl-builder-settings:visible', window.parent.document);
 
-			if (!form.closest('.fl-lightbox-wrap[data-parent]').length) {
-				this.settings = FLBuilder._getSettingsForChangedCheck(this.config.nodeId, form);
+			if ( ! form.closest('.fl-lightbox-wrap[data-parent]').length ) {
+				this.settings = FLBuilder._getSettingsForChangedCheck(this.config.nodeId, form );
 
-				if (FLBuilder.preview) {
+				if ( FLBuilder.preview ) {
 					FLBuilder.preview._savedSettings = this.settings;
 				}
 			}
+			return this.settings
 		},
 
 		/**
@@ -252,6 +405,9 @@
 				if ( config.preview ) {
 					FLBuilder.preview = new FLBuilderPreview( config.preview );
 				}
+				// hook for initializing custom preview.
+				FLBuilder.triggerHook( 'initCustomPreview', config );
+
 				if ( config.helper ) {
 					config.helper.init();
 				}
@@ -260,6 +416,8 @@
 				this.cacheCurrentSettings();
 
 			}.bind( this ), 1 );
+
+			this.bindFormListener();
 		},
 
 		/**
@@ -271,7 +429,7 @@
 		 * @param {Object} settings
 		 * @return {String}
 		 */
-		renderFields: function( fields, settings ) {
+		renderFields: function( fields, settings, node ) {
 			var template         = wp.template( 'fl-builder-settings-row' ),
 				html             = '',
 				field            = null,
@@ -290,6 +448,7 @@
 				if ( ! field ) {
 					continue;
 				}
+
 				isMultiple         = field.multiple ? true : false;
 				supportsResponsive = $.inArray( field['type'], responsiveFields ) > -1,
 				value              = ! _.isUndefined( settings[ name ] ) ? settings[ name ] : '';
@@ -323,11 +482,43 @@
 					supportsMultiple : 'editor' !== field.type && 'service' !== field.type,
 					settings 		 : settings,
 					globalSettings   : globalSettings,
-					template		 : $( '#tmpl-fl-builder-field-' + field.type )
+					template		 : $( '#tmpl-fl-builder-field-' + field.type ),
+					node             : node,
 				} );
 			}
 
 			return html;
+		},
+
+		renderFieldRow: function( name, field, settings, node ) {
+			const template           = wp.template( 'fl-builder-settings-row' ),
+				  supportsResponsive = $.inArray( field['type'], FLBuilderConfig.responsiveFields ) > -1,
+				  value              = undefined !== settings[ name ] ? settings[ name ] : '',
+				  isMultiple         = field.multiple ? true : false,
+				  globalSettings     = FLBuilderConfig.global;
+
+			// Check to see if responsive is enabled for this field.
+			if ( field['responsive'] && globalSettings.responsive_enabled && ! isMultiple && supportsResponsive ) {
+				responsive = field['responsive'];
+			} else {
+				responsive = null;
+			}
+
+			return template( {
+				field    		 : field,
+				name 			 : name,
+				rootName		 : name,
+				value 			 : value,
+				preview			 : JSON.stringify( field['preview'] ? field['preview'] : { type: 'refresh' } ),
+				responsive		 : responsive,
+				rowClass		 : field['row_class'] ? ' ' + field['row_class'] : '',
+				isMultiple     	 : field.multiple ? true : false,
+				supportsMultiple : 'editor' !== field.type && 'service' !== field.type,
+				settings 		 : settings,
+				globalSettings   : FLBuilderConfig.global,
+				template		 : $( '#tmpl-fl-builder-field-' + field.type ),
+				node             : node,
+			} );
 		},
 
 		/**
@@ -556,6 +747,9 @@
 			}
 
 			// Support for Themer before it supported JS fields. This can be removed in a future version.
+			if ( ! _.isUndefined( window.FLThemeBuilderCompoundConnections ) ) {
+				FLThemeBuilderCompoundConnections._initSettingsForms(); // Must come first.
+			}
 			if ( ! _.isUndefined( window.FLThemeBuilderFieldConnections ) ) {
 				FLThemeBuilderFieldConnections._initSettingsForms();
 			}
@@ -673,7 +867,21 @@
 
 			wrapper.show();
 			field.find( '.fl-field-loader' ).remove();
-		}
+		},
+
+		/**
+		 * Returns a field controller object for a given form field.
+		 * This connects multiple responsive inputs into one field concept.
+		 *
+		 * @param String name - root name of the field
+		 * @return FLBuilderSettingsField
+		 */
+		getField: function( name ) {
+			if ( undefined === name ) {
+				return null
+			}
+			return new FLBuilderSettingField( name, this.config )
+		},
 	};
 
 	/**
@@ -696,6 +904,7 @@
 			FLBuilder.addHook( 'didSaveNodeSettings', this.updateOnNodeEvent.bind( this ) );
 			FLBuilder.addHook( 'didSaveNodeSettingsComplete', this.updateOnNodeEvent.bind( this ) );
 			FLBuilder.addHook( 'didSaveLayoutSettingsComplete', this.updateOnSaveLayoutSettings.bind( this ) );
+			FLBuilder.addHook( 'didSaveGlobalStylesComplete', this.updateOnSaveGlobalStyles.bind( this ) );
 			FLBuilder.addHook( 'didSaveGlobalSettingsComplete', this.updateOnSaveGlobalSettings.bind( this ) );
 			FLBuilder.addHook( 'didSaveGlobalSettingsComplete', this.reload );
 
@@ -761,6 +970,18 @@
 		},
 
 		/**
+		 * Updates the global settings when they are saved.
+		 *
+		 * @since 2.0
+		 * @method updateOnSaveGlobalStyles
+		 * @param {Object} e
+		 * @param {Object} settings
+		 */
+		updateOnSaveGlobalStyles: function( e, settings ) {
+			FLBuilderConfig.styles = settings;
+		},
+
+		/**
 		 * Updates the layout settings when they are saved.
 		 *
 		 * @since 2.0
@@ -783,7 +1004,9 @@
 			var event = arguments[0];
 
 			if ( event.namespace.indexOf( 'didAdd' ) > -1 ) {
-				this.addNode( 'object' === typeof arguments[1] ? arguments[1].nodeId : arguments[1] );
+				var nodeId = 'object' === typeof arguments[1] ? arguments[1].nodeId : arguments[1];
+				var settings = 'object' === typeof arguments[1] && arguments[1].settings ? arguments[1].settings : null;
+				this.addNode( nodeId, settings );
 			} else if ( event.namespace.indexOf( 'didSaveNodeSettings' ) > -1 ) {
 				this.updateNode( arguments[1].nodeId, arguments[1].settings );
 			} else if ( event.namespace.indexOf( 'didDelete' ) > -1 ) {

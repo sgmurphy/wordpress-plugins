@@ -27,7 +27,7 @@
 		init: function()
 		{
 			this._bind();
-			this._maybeShowWelcome();
+			//this._maybeShowWelcome();
 			this._initNav();
 			this._initNetworkOverrides();
 			this._initLicenseSettings();

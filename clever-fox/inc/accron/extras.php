@@ -4,12 +4,19 @@
 	*
  * Slider Default
  */
+ 
  function accron_get_slider_default() {
+	 $theme = wp_get_theme() -> name;
+	 if($theme == 'Acronix'){
+		 $slide_image = 'item1.png';
+	 }else{
+		 $slide_image = 'slider-img1.jpg';
+	 }
 	return apply_filters(
 		'accron_get_slider_default', json_encode(
 				 array(
 				array(
-					'image_url'       	=> esc_url(CLEVERFOX_PLUGIN_URL. 'inc/accron/images/slider/slider-img1.jpg'),
+					'image_url'       	=> esc_url(CLEVERFOX_PLUGIN_URL. 'inc/accron/images/slider/'.$slide_image),
 					'title'           	=> esc_html__('20 Years Of Successful Business Consulting','clever-fox'),
 					'subtitle'         	=> esc_html__('Your Business Innovative Strategies For Success','clever-fox'),
 					'text2'	  			=>  esc_html__('Our Service','clever-fox'),

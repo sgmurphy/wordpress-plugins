@@ -41,16 +41,36 @@
 	<div class="updated">
 		<p><?php _e( 'License key saved!', 'fl-builder' ); ?></p>
 	</div>
+	<?php endif;
+
+	if ( isset( $subscription->subscriptions ) && ! empty( $subscription->subscriptions ) ) {
+		echo '<p>';
+		printf( '<h3>%s</h3><ol>', _n( 'Your Subscription', 'Your subscriptions', count( $subscription->subscriptions ), 'fl-builder' ) );
+		$name = '';
+		foreach ( $subscription->subscriptions as $sub ) {
+			if ( stristr( $sub->name, 'Beaver Builder' ) ) {
+				// find bb download
+				foreach( (array) $subscription->downloads as $possible ) {
+					if ( stristr( $possible, 'Beaver Builder Plugin' ) ) {
+						$name = $possible;
+					}
+				}
+			} else {
+				$name = $sub->name;
+			}
+			printf( '<li>%s - %s</li>', $name, date_i18n( get_option( 'date_format' ), strtotime( $sub->expires ) ) );
+		}
+		echo '</ol></p>';
+	}
+	if ( ! $subscription->active ) : ?>
+		<p>
+			<?php echo sprintf( __( 'Enter your <a%s>license key</a> to enable remote updates and support.', 'fl-builder' ), ' href="' . FLBuilderModel::get_store_url( 'my-account', array(
+				'utm_medium' => 'bb-pro',
+				'utm_source' => 'license-settings-page',
+				'utm_campaign' => 'license-key-link',
+			) ) . '" target="_blank"' ) ?>
+		</p>
 	<?php endif; ?>
-
-	<p>
-		<?php echo sprintf( __( 'Enter your <a%s>license key</a> to enable remote updates and support.', 'fl-builder' ), ' href="' . FLBuilderModel::get_store_url( 'my-account', array(
-			'utm_medium' => 'bb-pro',
-			'utm_source' => 'license-settings-page',
-			'utm_campaign' => 'license-key-link',
-		) ) . '" target="_blank"' ) ?>
-	</p>
-
 	<?php if ( is_multisite() ) : ?>
 	<p>
 		<strong><?php _e( 'NOTE:', 'fl-builder' ); ?></strong> <?php _e( 'This applies to all sites on the network.', 'fl-builder' ); ?>
@@ -69,7 +89,7 @@
 
 	<div class="fl-new-license-form" <?php if ( empty( $license ) ) { echo 'style="display:none;"';} ?>>
 		<p class="submit">
-			<input type="button" class="button button-primary" value="<?php esc_attr_e( 'Enter License Key', 'fl-builder' ); ?>">
+			<input type="button" class="button button-primary" value="<?php ( $subscription->active ) ? esc_attr_e( 'Change License Key', 'fl-builder' ) : esc_attr_e( 'Enter License Key', 'fl-builder' ); ?>">
 		</p>
 	</div>
 	<?php do_action( 'fl_after_license_form'); ?>

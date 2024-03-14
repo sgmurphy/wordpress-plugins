@@ -139,6 +139,38 @@ class FLBuilderModule {
 	public $js = array();
 
 	/**
+	 * Whether to include the module wrapper divs or not. If excluded,
+	 * output MUST include a single root node with the required attributes.
+	 *
+	 * @var boolean $include_wrapper
+	 */
+	public $include_wrapper = true;
+
+	/**
+	 * An array of module keys this module accepts as children.
+	 * Set to 'all' for all children. Leave empty for none.
+	 *
+	 * @var array|string $accepts
+	 */
+	public $accepts = [];
+
+	/**
+	 * An array of container module keys this module accepts as parents.
+	 * Set to 'all' for all parents.
+	 *
+	 * @var array|string $parents
+	 */
+	public $parents = 'all';
+
+	/**
+	 * An array of module keys and settings to use as a template
+	 * for modules that accept children.
+	 *
+	 * @var array $template
+	 */
+	public $template = [];
+
+	/**
 	 * The class of the font icon for this module.
 	 *
 	 * @since 2.0
@@ -173,6 +205,10 @@ class FLBuilderModule {
 		$this->enabled         = isset( $params['enabled'] ) ? $params['enabled'] : true;
 		$this->editor_export   = isset( $params['editor_export'] ) ? $params['editor_export'] : true;
 		$this->partial_refresh = isset( $params['partial_refresh'] ) ? $params['partial_refresh'] : false;
+		$this->include_wrapper = isset( $params['include_wrapper'] ) ? $params['include_wrapper'] : true;
+		$this->accepts         = isset( $params['accepts'] ) ? $params['accepts'] : [];
+		$this->parents         = isset( $params['parents'] ) ? $params['parents'] : 'all';
+		$this->template        = isset( $params['template'] ) ? $params['template'] : [];
 
 		// We need to normalize the paths here since path comparisons
 		// break on Windows because they use backslashes.
@@ -420,5 +456,58 @@ class FLBuilderModule {
 	static public function get_widget_icon() {
 		$path = FL_BUILDER_DIR . 'img/svg/wordpress-alt.svg';
 		return file_get_contents( $path );
+	}
+
+	/**
+	 * Filter root element classes before render.
+	 *
+	 * @param array $classes
+	 * @return array
+	 */
+	public function filter_classes( $classes = [] ) {
+		return $classes;
+	}
+
+	/**
+	 * Filter root element attributes before render.
+	 *
+	 * @param array $attrs
+	 * @return array
+	 */
+	public function filter_attributes( $attrs = [] ) {
+		return $attrs;
+	}
+
+	/**
+	 * Renders the root element attributes for this module.
+	 *
+	 * @return void
+	 */
+	public function render_attributes() {
+		echo FLBuilder::render_module_attributes( $this );
+	}
+
+	/**
+	 * Check if this module accepts child nodes.
+	 *
+	 * @return bool
+	 */
+	public function accepts_children() {
+		return ! empty( $this->accepts );
+	}
+
+	/**
+	 * Renders the child nodes for this module.
+	 *
+	 * @return void
+	 */
+	public function render_children() {
+		$children = FLBuilderModel::get_nodes( null, $this );
+
+		foreach ( $children as $child ) {
+			if ( 'module' === $child->type ) {
+				FLBuilder::render_module( $child );
+			}
+		}
 	}
 }

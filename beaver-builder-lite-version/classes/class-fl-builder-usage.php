@@ -26,7 +26,11 @@ final class FLBuilderUsage {
 		$enable = intval( $_POST['enable'] );
 
 		if ( wp_verify_nonce( $_POST['_wpnonce'], 'fl-usage' ) ) {
-			update_site_option( 'fl_builder_usage_enabled', $enable );
+			if ( is_multisite() ) {
+				update_site_option( 'fl_builder_usage_enabled', $enable );
+			} else {
+				update_option( 'fl_builder_usage_enabled', $enable, true );
+			}
 		}
 
 		wp_die();
@@ -78,7 +82,11 @@ final class FLBuilderUsage {
 	public static function enable_disable() {
 
 		if ( isset( $_GET['fl_usage'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'stats_enable' ) ) {
-			update_site_option( 'fl_builder_usage_enabled', $_GET['fl_usage'] );
+			if ( is_multisite() ) {
+				update_site_option( 'fl_builder_usage_enabled', $_GET['fl_usage'] );
+			} else {
+				update_option( 'fl_builder_usage_enabled', $_GET['fl_usage'], true );
+			}
 		}
 	}
 

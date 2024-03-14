@@ -7,7 +7,11 @@
 		<?php
 		// $groups received as a magic variable from template loading.
 		foreach ( $groups as $group ) {
-			FLBuilder::render_column_group( $group );
+			if ( 'module' === $group->type ) {
+				FLBuilder::render_module( $group );
+			} else {
+				FLBuilder::render_column_group( $group );
+			}
 		}
 		?>
 		</div>

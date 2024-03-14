@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Give - Donation Plugin plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Give - Donation Plugin 3.5.1\n"
+"Project-Id-Version: Give - Donation Plugin 3.6.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/givewp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-06T22:11:27+00:00\n"
+"POT-Creation-Date: 2024-03-13T21:35:33+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: give\n"
@@ -68,8 +68,8 @@ msgstr ""
 
 #: blocks/donation-form/class-give-donation-form-block.php:137
 #: src/DonationForms/Blocks/DonationFormBlock/DataTransferObjects/BlockAttributes.php:39
-#: src/DonationForms/Properties/FormSettings.php:238
-#: src/DonationForms/Properties/FormSettings.php:288
+#: src/DonationForms/Properties/FormSettings.php:250
+#: src/DonationForms/Properties/FormSettings.php:300
 msgid "Donate now"
 msgstr ""
 
@@ -111,11 +111,11 @@ msgstr ""
 msgid "Give"
 msgstr ""
 
-#: give.php:449
+#: give.php:450
 msgid "The Visual Form Builder Beta plugin is no longer needed, since the form builder is included in your current version of GiveWP. To prevent conflicts, the Beta plugin has been deactivated and can be safely deleted."
 msgstr ""
 
-#: give.php:476
+#: give.php:477
 msgid "<strong>Attention:</strong> GiveWP 2.5.0+ requires the latest version of the Recurring Donations add-on to process payments properly with Stripe. Please update to the latest version add-on to resolve compatibility issues. If your license is active, you should see the update available in WordPress. Otherwise, you can access the latest version by <a href=\"%1$s\" target=\"_blank\">logging into your account</a> and visiting <a href=\"%1$s\" target=\"_blank\">your downloads</a> page on the GiveWP website."
 msgstr ""
 
@@ -436,7 +436,7 @@ msgstr ""
 
 #: includes/admin/admin-actions.php:1208
 #: includes/admin/payments/view-payment-details.php:738
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:179
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:187
 #: src/Receipt/DonationReceipt.php:86
 #: build/formBuilderRegistrars.js:1
 msgid "Billing Address"
@@ -800,7 +800,9 @@ msgstr ""
 #: includes/admin/payments/class-payments-table.php:168
 #: includes/admin/payments/class-payments-table.php:176
 #: includes/admin/tools/export/class-give-export-donations.php:243
+#: src/EventTickets/ListTable/Columns/DateColumn.php:37
 #: src/Exports/resources/views/export-donors-table-row.php:23
+#: assets/dist/js/give-admin-event-tickets-details.js:1189
 msgid "Start Date"
 msgstr ""
 
@@ -812,6 +814,7 @@ msgstr ""
 #: includes/admin/payments/class-payments-table.php:188
 #: includes/admin/tools/export/class-give-export-donations.php:252
 #: src/Exports/resources/views/export-donors-table-row.php:32
+#: assets/dist/js/give-admin-event-tickets-details.js:1190
 msgid "End Date"
 msgstr ""
 
@@ -827,9 +830,11 @@ msgstr ""
 #: includes/admin/donors/class-donor-table.php:165
 #: includes/admin/forms/dashboard-columns.php:569
 #: includes/admin/payments/class-payments-table.php:228
-#: assets/dist/js/give-admin-donation-forms.js:4247
+#: assets/dist/js/give-admin-donation-forms.js:4249
 #: assets/dist/js/give-admin-donations.js:3007
 #: assets/dist/js/give-admin-donors.js:2826
+#: assets/dist/js/give-admin-event-tickets-details.js:4767
+#: assets/dist/js/give-admin-event-tickets.js:4264
 #: assets/dist/js/give-admin-subscriptions.js:2038
 #: assets/dist/js/give-log-list-table-app.js:2966
 #: assets/dist/js/give-migrations-list-table-app.js:2966
@@ -855,6 +860,8 @@ msgstr ""
 #: includes/admin/tools/views/html-admin-page-system-info.php:1001
 #: src/DonationForms/V2/ListTable/Columns/TitleColumn.php:37
 #: src/Exports/DonorsExport.php:165
+#: assets/dist/js/give-admin-event-tickets-details.js:825
+#: assets/dist/js/give-admin-event-tickets-details.js:962
 msgid "Name"
 msgstr ""
 
@@ -867,6 +874,7 @@ msgstr ""
 #: includes/admin/tools/export/export-functions.php:153
 #: src/Exports/DonorsExport.php:166
 #: templates/shortcode-register.php:39
+#: assets/dist/js/give-admin-event-tickets-details.js:826
 #: build/formBuilderRegistrars.js:1
 msgid "Email"
 msgstr ""
@@ -939,6 +947,10 @@ msgstr ""
 #: assets/dist/js/give-admin-donors.js:1045
 #: assets/dist/js/give-admin-donors.js:1624
 #: assets/dist/js/give-admin-donors.js:1636
+#: assets/dist/js/give-admin-event-tickets-details.js:1791
+#: assets/dist/js/give-admin-event-tickets.js:1778
+#: assets/dist/js/give-admin-event-tickets.js:1787
+#: assets/dist/js/give-admin-event-tickets.js:2180
 #: assets/dist/js/give-admin-subscriptions.js:1111
 #: assets/dist/js/give-admin-subscriptions.js:1706
 #: assets/dist/js/give-admin-subscriptions.js:1715
@@ -967,9 +979,11 @@ msgstr ""
 #: includes/class-give-scripts.php:303
 #: includes/forms/template.php:1666
 #: assets/dist/js/admin.js:6142
-#: assets/dist/js/give-admin-donation-forms.js:5870
+#: assets/dist/js/give-admin-donation-forms.js:5872
 #: assets/dist/js/give-admin-donations.js:4630
 #: assets/dist/js/give-admin-donors.js:4449
+#: assets/dist/js/give-admin-event-tickets-details.js:6390
+#: assets/dist/js/give-admin-event-tickets.js:5887
 #: assets/dist/js/give-admin-subscriptions.js:3661
 #: assets/dist/js/give-log-list-table-app.js:4589
 #: assets/dist/js/give-log-list-table-app.js:6616
@@ -1175,6 +1189,9 @@ msgstr ""
 #: assets/dist/js/give-admin-donation-forms.js:2042
 #: assets/dist/js/give-admin-donations.js:1093
 #: assets/dist/js/give-admin-donors.js:1631
+#: assets/dist/js/give-admin-event-tickets-details.js:1013
+#: assets/dist/js/give-admin-event-tickets-details.js:1787
+#: assets/dist/js/give-admin-event-tickets.js:1783
 #: assets/dist/js/give-admin-subscriptions.js:1711
 msgid "Edit"
 msgstr ""
@@ -1345,9 +1362,12 @@ msgstr ""
 #: includes/admin/donors/donors.php:790
 #: includes/admin/donors/donors.php:882
 #: includes/admin/donors/donors.php:952
-#: assets/dist/js/give-admin-donation-forms.js:6482
+#: assets/dist/js/give-admin-donation-forms.js:6484
 #: assets/dist/js/give-admin-donations.js:5242
 #: assets/dist/js/give-admin-donors.js:5061
+#: assets/dist/js/give-admin-event-tickets-details.js:1319
+#: assets/dist/js/give-admin-event-tickets-details.js:7002
+#: assets/dist/js/give-admin-event-tickets.js:6499
 #: assets/dist/js/give-admin-subscriptions.js:4273
 #: assets/dist/js/give-log-list-table-app.js:5201
 #: assets/dist/js/give-migrations-list-table-app.js:5201
@@ -1367,7 +1387,7 @@ msgstr ""
 #: includes/forms/template.php:961
 #: includes/forms/template.php:976
 #: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:127
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:172
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:180
 #: src/Receipt/DonationReceipt.php:78
 #: templates/email-login-form.php:108
 #: templates/shortcode-profile-editor.php:118
@@ -1394,8 +1414,12 @@ msgstr ""
 #: src/DonationForms/V2/ListTable/Columns/IdColumn.php:37
 #: src/Donations/ListTable/Columns/IdColumn.php:37
 #: src/Donors/ListTable/Columns/IdColumn.php:37
+#: src/EventTickets/ListTable/Columns/IdColumn.php:37
 #: src/Subscriptions/ListTable/Columns/IdColumn.php:37
 #: templates/history-donations.php:68
+#: assets/dist/js/give-admin-event-tickets-details.js:824
+#: assets/dist/js/give-admin-event-tickets-details.js:961
+#: assets/dist/js/give-admin-event-tickets-details.js:2025
 msgid "ID"
 msgstr ""
 
@@ -1784,6 +1808,7 @@ msgstr ""
 #: includes/gateways/stripe/includes/admin/class-give-stripe-admin-settings.php:406
 #: includes/gateways/stripe/includes/admin/class-give-stripe-admin-settings.php:449
 #: includes/gateways/stripe/includes/admin/class-give-stripe-admin-settings.php:477
+#: src/BetaFeatures/Actions/RegisterSettings.php:38
 #: src/DonorDashboards/Admin/Settings.php:114
 #: src/Form/Template/Options.php:170
 #: src/Form/Template/Options.php:194
@@ -1848,6 +1873,7 @@ msgstr ""
 #: includes/gateways/stripe/includes/admin/class-give-stripe-admin-settings.php:407
 #: includes/gateways/stripe/includes/admin/class-give-stripe-admin-settings.php:450
 #: includes/gateways/stripe/includes/admin/class-give-stripe-admin-settings.php:478
+#: src/BetaFeatures/Actions/RegisterSettings.php:39
 #: src/DonorDashboards/Admin/Settings.php:115
 #: src/Form/Template/Options.php:171
 #: src/Form/Template/Options.php:195
@@ -2424,7 +2450,7 @@ msgstr ""
 
 #: includes/admin/forms/class-metabox-form-data.php:539
 #: src/DonationForms/Factories/DonationFormFactory.php:39
-#: src/DonationForms/Properties/FormSettings.php:251
+#: src/DonationForms/Properties/FormSettings.php:263
 #: src/Onboarding/DefaultFormFactory.php:67
 msgid "Thank you to all our donors, we have met our fundraising goal."
 msgstr ""
@@ -2664,7 +2690,7 @@ msgstr ""
 #: includes/admin/shortcodes/shortcode-give-donor-wall.php:56
 #: includes/admin/tools/import/class-give-import-donations.php:511
 #: src/FormBuilder/Actions/GenerateDefaultDonationFormBlockCollection.php:68
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:136
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:142
 #: src/Receipt/DonationReceipt.php:131
 #: build/adminBlocks.js:1
 #: build/formBuilderRegistrars.js:1
@@ -2675,7 +2701,7 @@ msgstr ""
 #: includes/admin/tools/export/give-export-donations-exporter.php:206
 #: includes/admin/tools/export/give-export-donations-functions.php:278
 #: src/DonationSummary/resources/views/summary.php:109
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:153
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:161
 #: src/Receipt/DonationReceipt.php:144
 #: build/donationFormRegistrars.js:1
 #: build/formBuilderRegistrars.js:1
@@ -2758,7 +2784,7 @@ msgstr ""
 #: includes/forms/template.php:924
 #: includes/forms/template.php:939
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:39
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:199
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:207
 #: templates/shortcode-profile-editor.php:67
 #: templates/shortcode-receipt.php:62
 #: build/formBuilderRegistrars.js:1
@@ -2903,7 +2929,7 @@ msgid "Donation Status"
 msgstr ""
 
 #: includes/admin/import-functions.php:483
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:132
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:138
 #: src/Receipt/DonationReceipt.php:125
 #: templates/history-donations.php:73
 #: templates/shortcode-receipt.php:106
@@ -2979,7 +3005,7 @@ msgstr ""
 #: includes/admin/shortcodes/shortcode-give-form.php:27
 #: includes/admin/shortcodes/shortcode-give-form.php:28
 #: includes/post-types.php:69
-#: src/DonationForms/Properties/FormSettings.php:237
+#: src/DonationForms/Properties/FormSettings.php:249
 #: src/Donations/ListTable/Columns/FormColumn.php:37
 #: build/adminBlocks.js:1
 #: build/formBuilderApp.js:13
@@ -4263,12 +4289,16 @@ msgid "Feature notice"
 msgstr ""
 
 #: includes/admin/settings/class-settings-gateways.php:583
-#: assets/dist/js/give-add-v2form.js:1636
-#: assets/dist/js/give-add-v2form.js:1645
-#: assets/dist/js/give-admin-donation-forms.js:3904
-#: assets/dist/js/give-admin-donation-forms.js:3913
-#: assets/dist/js/give-edit-v2form.js:1673
-#: assets/dist/js/give-edit-v2form.js:1682
+#: assets/dist/js/give-add-v2form.js:1638
+#: assets/dist/js/give-add-v2form.js:1647
+#: assets/dist/js/give-admin-donation-forms.js:3906
+#: assets/dist/js/give-admin-donation-forms.js:3915
+#: assets/dist/js/give-admin-event-tickets-details.js:4467
+#: assets/dist/js/give-admin-event-tickets-details.js:4476
+#: assets/dist/js/give-admin-event-tickets.js:3964
+#: assets/dist/js/give-admin-event-tickets.js:3973
+#: assets/dist/js/give-edit-v2form.js:1675
+#: assets/dist/js/give-edit-v2form.js:1684
 #: build/formBuilderApp.js:13
 msgid "Close dialog"
 msgstr ""
@@ -5657,6 +5687,8 @@ msgid "Table View"
 msgstr ""
 
 #: includes/admin/tools/export/pdf-reports.php:101
+#: assets/dist/js/give-admin-event-tickets-details.js:2028
+#: assets/dist/js/give-admin-event-tickets-details.js:3393
 msgid "Price"
 msgstr ""
 
@@ -6432,6 +6464,7 @@ msgstr ""
 
 #: includes/admin/tools/views/html-admin-page-system-info.php:196
 #: src/DonorDashboards/Repositories/Donations.php:378
+#: assets/dist/js/give-admin-event-tickets-details.js:821
 msgid "Unknown"
 msgstr ""
 
@@ -7097,6 +7130,9 @@ msgid "View remaining setting tabs"
 msgstr ""
 
 #: includes/admin/views/html-admin-settings.php:180
+#: assets/dist/js/give-admin-event-tickets-details.js:2785
+#: assets/dist/js/give-admin-event-tickets-details.js:3417
+#: assets/dist/js/give-admin-event-tickets.js:1335
 msgid "Save changes"
 msgstr ""
 
@@ -7616,9 +7652,11 @@ msgid "Ok"
 msgstr ""
 
 #: includes/class-give-scripts.php:307
-#: assets/dist/js/give-admin-donation-forms.js:5896
+#: assets/dist/js/give-admin-donation-forms.js:5898
 #: assets/dist/js/give-admin-donations.js:4656
 #: assets/dist/js/give-admin-donors.js:4475
+#: assets/dist/js/give-admin-event-tickets-details.js:6416
+#: assets/dist/js/give-admin-event-tickets.js:5913
 #: assets/dist/js/give-admin-subscriptions.js:3687
 #: assets/dist/js/give-log-list-table-app.js:4615
 #: assets/dist/js/give-log-list-table-app.js:6612
@@ -12895,12 +12933,17 @@ msgstr ""
 
 #: includes/forms/functions.php:1277
 #: src/DonationForms/V2/ListTable/Columns/GoalColumn.php:77
-#: assets/dist/js/give-admin-donation-forms.js:6650
-#: assets/dist/js/give-admin-donation-forms.js:8478
+#: src/EventTickets/ListTable/Columns/SalesAmountColumn.php:90
+#: assets/dist/js/give-admin-donation-forms.js:6652
+#: assets/dist/js/give-admin-donation-forms.js:8480
 #: assets/dist/js/give-admin-donations.js:5410
 #: assets/dist/js/give-admin-donations.js:7763
 #: assets/dist/js/give-admin-donors.js:5229
 #: assets/dist/js/give-admin-donors.js:7582
+#: assets/dist/js/give-admin-event-tickets-details.js:7170
+#: assets/dist/js/give-admin-event-tickets-details.js:8998
+#: assets/dist/js/give-admin-event-tickets.js:6667
+#: assets/dist/js/give-admin-event-tickets.js:8495
 #: assets/dist/js/give-admin-subscriptions.js:4441
 #: assets/dist/js/give-admin-subscriptions.js:6269
 #: assets/dist/js/give-log-list-table-app.js:5369
@@ -13007,7 +13050,7 @@ msgstr ""
 #: includes/forms/template.php:1033
 #: src/FormBuilder/Actions/ConvertGlobalDefaultOptionsToDefaultBlocks.php:34
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:109
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:208
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:216
 #: build/formBuilderRegistrars.js:1
 msgid "Comment"
 msgstr ""
@@ -13249,7 +13292,7 @@ msgstr ""
 
 #: includes/forms/widget.php:170
 #: includes/forms/widget.php:177
-#: src/DonationForms/Properties/FormSettings.php:290
+#: src/DonationForms/Properties/FormSettings.php:302
 #: src/Onboarding/DefaultFormFactory.php:140
 #: src/Views/Form/Templates/Sequoia/Actions.php:321
 #: src/Views/Form/Templates/Sequoia/optionConfig.php:178
@@ -14322,6 +14365,7 @@ msgstr ""
 #: includes/post-types.php:56
 #: src/DonationForms/V2/DonationFormsAdminPage.php:58
 #: assets/dist/js/give-admin-donation-forms.js:1449
+#: assets/dist/js/give-admin-event-tickets-details.js:975
 msgid "Donation Forms"
 msgstr ""
 
@@ -14920,6 +14964,31 @@ msgstr ""
 msgid "Total Refunds"
 msgstr ""
 
+#: src/BetaFeatures/Actions/RegisterSettings.php:29
+#: src/EventTickets/Actions/AddEventTicketsToDonationConfirmationPageDonationTotal.php:35
+msgid "Event Tickets"
+msgstr ""
+
+#: src/BetaFeatures/Actions/RegisterSettings.php:30
+msgid "If enabled, you’ll be get access to the event tickets feature where you can create events and sell tickets on your donation forms. Since this is in a beta, your feedback is crucial to help us improve and make the experience better before making it public."
+msgstr ""
+
+#: src/BetaFeatures/Actions/RegisterSettingSection.php:15
+msgid "Beta Features"
+msgstr ""
+
+#: src/BetaFeatures/ServiceProvider.php:43
+msgid "Beta features are a way to get early access to new features. These features are functional but will be updated frequently. Updates may include changes to the feature settings, admin screens, design and database."
+msgstr ""
+
+#: src/BetaFeatures/ServiceProvider.php:50
+msgid "How can we improve this feature?"
+msgstr ""
+
+#: src/BetaFeatures/ServiceProvider.php:51
+msgid "Submit your feedback."
+msgstr ""
+
 #: src/DonationForms/Actions/ConvertConsentBlockToFieldsApi.php:38
 #: src/FormMigration/Concerns/Blocks/BlockFactory.php:66
 #: build/formBuilderRegistrars.js:1
@@ -14953,7 +15022,7 @@ msgid "GiveWP Donation Form"
 msgstr ""
 
 #: src/DonationForms/Factories/DonationFormFactory.php:34
-#: src/DonationForms/Properties/FormSettings.php:231
+#: src/DonationForms/Properties/FormSettings.php:243
 #: src/Onboarding/DefaultFormFactory.php:122
 #: src/Views/Form/Templates/Classic/optionConfig.php:70
 #: src/Views/Form/Templates/Sequoia/optionConfig.php:10
@@ -14965,21 +15034,26 @@ msgstr ""
 msgid "Classic"
 msgstr ""
 
-#: src/DonationForms/FormDesigns/MultiStepFormDesign/MultiStepFormDesign.php:27
+#: src/DonationForms/FormDesigns/MultiStepFormDesign/MultiStepFormDesign.php:35
 msgid "Multi-Step"
 msgstr ""
 
-#: src/DonationForms/Properties/FormSettings.php:233
+#: src/DonationForms/FormDesigns/TwoPanelStepsFormLayout/TwoPanelStepsFormLayout.php:27
+#: build/formBuilderApp.js:13
+msgid "Two Panel"
+msgstr ""
+
+#: src/DonationForms/Properties/FormSettings.php:245
 msgid "Help our organization by donating today! Donations go to making a difference for our cause."
 msgstr ""
 
-#: src/DonationForms/Properties/FormSettings.php:255
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:321
+#: src/DonationForms/Properties/FormSettings.php:267
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:329
 msgid "Hey {first_name}, thanks for your donation!"
 msgstr ""
 
-#: src/DonationForms/Properties/FormSettings.php:259
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:338
+#: src/DonationForms/Properties/FormSettings.php:271
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:346
 msgid "{first_name}, your contribution means a lot and will be put to good use in making a difference. We’ve sent your donation receipt to {email}."
 msgstr ""
 
@@ -15152,7 +15226,7 @@ msgid "Created At"
 msgstr ""
 
 #: src/Donations/ListTable/Columns/DonorColumn.php:37
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:168
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:176
 #: src/Receipt/DonationReceipt.php:71
 #: build/formBuilderRegistrars.js:1
 msgid "Donor Name"
@@ -15427,6 +15501,91 @@ msgstr ""
 
 #: src/Email/Notifications/DonationProcessingReceipt.php:56
 msgid "Sincerely "
+msgstr ""
+
+#: src/EventTickets/Actions/AddEventTicketsToDonationConfirmationPageEventTicketDetails.php:43
+msgid "%s - %s"
+msgstr ""
+
+#: src/EventTickets/Actions/EnqueueFormBuilderScripts.php:36
+#: src/EventTickets/Fields/EventTickets.php:91
+msgid "Select Tickets"
+msgstr ""
+
+#: src/EventTickets/Actions/EnqueueFormBuilderScripts.php:40
+#: src/EventTickets/Fields/EventTickets.php:102
+msgid "Thank you for supporting our cause. Our fundraising event tickets are officially sold out. You can still contribute by making a donation."
+msgstr ""
+
+#: src/EventTickets/Actions/RegisterEventsMenuItem.php:16
+#: src/EventTickets/Actions/RegisterEventsMenuItem.php:17
+#: assets/dist/js/give-admin-event-tickets.js:2256
+msgid "Events"
+msgstr ""
+
+#: src/EventTickets/ListTable/Columns/DateColumn.php:49
+msgctxt "date format"
+msgid "m/d/Y \\a\\t g:ia"
+msgstr ""
+
+#: src/EventTickets/ListTable/Columns/DescriptionColumn.php:34
+#: src/Views/Form/Templates/Classic/optionConfig.php:77
+#: src/Views/Form/Templates/Classic/optionConfig.php:146
+#: src/Views/Form/Templates/Classic/optionConfig.php:169
+#: src/Views/Form/Templates/Classic/optionConfig.php:193
+#: src/Views/Form/Templates/Classic/optionConfig.php:249
+#: src/Views/Form/Templates/Sequoia/optionConfig.php:98
+#: src/Views/Form/Templates/Sequoia/optionConfig.php:216
+#: src/Views/Form/Templates/Sequoia/optionConfig.php:290
+#: assets/dist/js/give-admin-event-tickets-details.js:1188
+#: assets/dist/js/give-admin-event-tickets-details.js:2753
+#: assets/dist/js/give-admin-event-tickets-details.js:3383
+#: assets/dist/js/give-admin-event-tickets.js:1303
+#: assets/dist/js/give-log-list-table-app.js:6555
+#: assets/dist/js/give-log-list-table-app.js:6676
+#: build/formBuilderApp.js:1
+#: build/formBuilderApp.js:13
+msgid "Description"
+msgstr ""
+
+#: src/EventTickets/ListTable/Columns/SalesAmountColumn.php:35
+msgid "Ticket Sales"
+msgstr ""
+
+#: src/EventTickets/ListTable/Columns/SalesCountColumn.php:34
+#: assets/dist/js/give-admin-event-tickets-details.js:2027
+msgid "No. of tickets sold"
+msgstr ""
+
+#: src/EventTickets/ListTable/Columns/SalesCountColumn.php:52
+msgid "%1$d out of %2$d"
+msgstr ""
+
+#: src/EventTickets/ListTable/Columns/TitleColumn.php:36
+#: assets/dist/js/give-admin-event-tickets-details.js:1187
+#: assets/dist/js/give-admin-event-tickets-details.js:1203
+#: build/eventTicketsBlock.js:1
+msgid "Event"
+msgstr ""
+
+#: src/EventTickets/ListTable/Columns/TitleColumn.php:51
+msgid "Visit event page"
+msgstr ""
+
+#: src/EventTickets/Routes/DeleteEventsListTable.php:116
+msgid "You don't have permission to delete Events"
+msgstr ""
+
+#: src/EventTickets/Routes/DeleteEventTicketType.php:62
+msgid "This ticket type has been sold and cannot be deleted."
+msgstr ""
+
+#: src/EventTickets/Routes/DeleteEventTicketType.php:80
+msgid "You don't have permission to delete Event Ticket Types"
+msgstr ""
+
+#: src/EventTickets/Routes/GetEventsListTable.php:180
+msgid "You don't have permission to view Events"
 msgstr ""
 
 #: src/Exports/DonorsExport.php:176
@@ -15789,37 +15948,114 @@ msgstr ""
 msgid "An unexpected error occurred while processing your donation.  Please try again or contact us to help resolve."
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:128
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/Actions/UpdateDonationStatus.php:36
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/SubscriptionRenewalDonationCreated.php:55
+msgid "%s transaction ID: %s"
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/Actions/UpdateDonationStatus.php:91
+msgid "Donation Abandoned."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/Actions/UpdateDonationStatus.php:94
+msgid "Donation Cancelled."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/Actions/UpdateDonationStatus.php:97
+msgid "Donation Completed."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/Actions/UpdateDonationStatus.php:100
+msgid "Donation Failed."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/Actions/UpdateDonationStatus.php:103
+msgid "Donation Pending."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/Actions/UpdateDonationStatus.php:106
+msgid "Donation Pre Approval."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/Actions/UpdateDonationStatus.php:109
+msgid "Donation Processing."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/Actions/UpdateDonationStatus.php:112
+msgid "Donation Refunded."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/Actions/UpdateDonationStatus.php:115
+msgid "Donation Revoked."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/Actions/UpdateSubscriptionStatus.php:52
+msgid "Subscription Completed."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/Actions/UpdateSubscriptionStatus.php:55
+msgid "Subscription Expired."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/Actions/UpdateSubscriptionStatus.php:58
+msgid "Subscription Active."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/Actions/UpdateSubscriptionStatus.php:61
+msgid "Subscription Cancelled."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/Actions/UpdateSubscriptionStatus.php:64
+msgid "Subscription Failing."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/Actions/UpdateSubscriptionStatus.php:67
+msgid "Subscription Suspended."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/SubscriptionFirstDonationCompleted.php:31
+msgid "Subscription First Donation Completed."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/SubscriptionFirstDonationCompleted.php:39
+msgid "Subscription Active After The First Donation Got Completed."
+msgstr ""
+
+#: src/Framework/PaymentGateways/Webhooks/EventHandlers/SubscriptionRenewalDonationCreated.php:50
+msgid "Subscription Renewal Donation Created."
+msgstr ""
+
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:134
 #: src/Receipt/DonationReceipt.php:108
 msgid "Payment Status"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:145
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:151
 msgid "Processing Fee"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:217
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:225
 #: build/formBuilderRegistrars.js:1
 msgid "Anonymous Donation"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:244
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:252
 msgid "Subscription"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:255
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:263
 msgid "Subscription Status"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:259
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:267
 msgid "Renewal Date"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:263
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:271
 msgid "Progress"
 msgstr ""
 
-#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:267
+#: src/Framework/Receipts/Actions/GenerateConfirmationPageReceipt.php:275
 #: src/LegacySubscriptions/includes/give-subscription.php:967
 #: build/formBuilderRegistrars.js:1
 msgid "Ongoing"
@@ -18341,6 +18577,7 @@ msgstr ""
 #: src/Views/Admin/Pages/templates/reports-template.php:50
 #: assets/dist/js/admin-reports-widget.js:6607
 #: assets/dist/js/admin-reports.js:5959
+#: assets/dist/js/give-admin-event-tickets-details.js:2165
 msgid "Overview"
 msgstr ""
 
@@ -18427,21 +18664,6 @@ msgstr ""
 
 #: src/Views/Form/Templates/Classic/optionConfig.php:68
 msgid "This is the text that displays as a headline in the form header."
-msgstr ""
-
-#: src/Views/Form/Templates/Classic/optionConfig.php:77
-#: src/Views/Form/Templates/Classic/optionConfig.php:146
-#: src/Views/Form/Templates/Classic/optionConfig.php:169
-#: src/Views/Form/Templates/Classic/optionConfig.php:193
-#: src/Views/Form/Templates/Classic/optionConfig.php:249
-#: src/Views/Form/Templates/Sequoia/optionConfig.php:98
-#: src/Views/Form/Templates/Sequoia/optionConfig.php:216
-#: src/Views/Form/Templates/Sequoia/optionConfig.php:290
-#: assets/dist/js/give-log-list-table-app.js:6555
-#: assets/dist/js/give-log-list-table-app.js:6676
-#: build/formBuilderApp.js:1
-#: build/formBuilderApp.js:13
-msgid "Description"
 msgstr ""
 
 #: src/Views/Form/Templates/Classic/optionConfig.php:78
@@ -19499,7 +19721,7 @@ msgstr ""
 #: assets/dist/js/give-admin-donation-forms.js:2250
 #: assets/dist/js/give-admin-donation-forms.js:2288
 #: assets/dist/js/give-edit-v2form.js:146
-#: assets/dist/js/welcome-banner.js:275
+#: assets/dist/js/welcome-banner.js:267
 msgid "Try the new form builder"
 msgstr ""
 
@@ -19527,12 +19749,16 @@ msgstr ""
 msgid "Proceed with the new form builder"
 msgstr ""
 
-#: assets/dist/js/give-add-v2form.js:1640
-#: assets/dist/js/give-add-v2form.js:1649
-#: assets/dist/js/give-admin-donation-forms.js:3908
-#: assets/dist/js/give-admin-donation-forms.js:3917
-#: assets/dist/js/give-edit-v2form.js:1677
-#: assets/dist/js/give-edit-v2form.js:1686
+#: assets/dist/js/give-add-v2form.js:1642
+#: assets/dist/js/give-add-v2form.js:1651
+#: assets/dist/js/give-admin-donation-forms.js:3910
+#: assets/dist/js/give-admin-donation-forms.js:3919
+#: assets/dist/js/give-admin-event-tickets-details.js:4471
+#: assets/dist/js/give-admin-event-tickets-details.js:4480
+#: assets/dist/js/give-admin-event-tickets.js:3968
+#: assets/dist/js/give-admin-event-tickets.js:3977
+#: assets/dist/js/give-edit-v2form.js:1679
+#: assets/dist/js/give-edit-v2form.js:1688
 #: build/formBuilderApp.js:13
 msgid "Close dialog icon"
 msgstr ""
@@ -19630,46 +19856,56 @@ msgstr ""
 msgid "GiveWP 3.0 introduces customizable and flexible forms powered by the new Visual Donation Form Builder."
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:3965
+#: assets/dist/js/give-admin-donation-forms.js:3967
 #: assets/dist/js/give-admin-donations.js:2725
 #: assets/dist/js/give-admin-donors.js:2544
 #: assets/dist/js/give-admin-subscriptions.js:1756
 msgid "Need help? Learn more about"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:4074
+#: assets/dist/js/give-admin-donation-forms.js:4076
 #: assets/dist/js/give-admin-donations.js:2834
 #: assets/dist/js/give-admin-donors.js:2653
+#: assets/dist/js/give-admin-event-tickets-details.js:4594
+#: assets/dist/js/give-admin-event-tickets.js:4091
 #: assets/dist/js/give-admin-subscriptions.js:1865
 #: assets/dist/js/give-log-list-table-app.js:2793
 #: assets/dist/js/give-migrations-list-table-app.js:2793
 msgid "Select %1s %2s"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:4103
+#: assets/dist/js/give-admin-donation-forms.js:4105
 #: assets/dist/js/give-admin-donations.js:2863
 #: assets/dist/js/give-admin-donors.js:2682
+#: assets/dist/js/give-admin-event-tickets-details.js:4623
+#: assets/dist/js/give-admin-event-tickets.js:4120
 #: assets/dist/js/give-admin-subscriptions.js:1894
 #: assets/dist/js/give-log-list-table-app.js:2822
 #: assets/dist/js/give-migrations-list-table-app.js:2822
 msgid "Select all %s"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:4235
+#: assets/dist/js/give-admin-donation-forms.js:4237
 #: assets/dist/js/give-admin-donations.js:2995
 #: assets/dist/js/give-admin-donors.js:2814
+#: assets/dist/js/give-admin-event-tickets-details.js:4755
+#: assets/dist/js/give-admin-event-tickets.js:4252
 #: assets/dist/js/give-admin-subscriptions.js:2026
 #: assets/dist/js/give-log-list-table-app.js:2954
 #: assets/dist/js/give-migrations-list-table-app.js:2954
 msgid "Bulk Actions"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:4803
-#: assets/dist/js/give-admin-donation-forms.js:5619
+#: assets/dist/js/give-admin-donation-forms.js:4805
+#: assets/dist/js/give-admin-donation-forms.js:5621
 #: assets/dist/js/give-admin-donations.js:3563
 #: assets/dist/js/give-admin-donations.js:4379
 #: assets/dist/js/give-admin-donors.js:3382
 #: assets/dist/js/give-admin-donors.js:4198
+#: assets/dist/js/give-admin-event-tickets-details.js:5323
+#: assets/dist/js/give-admin-event-tickets-details.js:6139
+#: assets/dist/js/give-admin-event-tickets.js:4820
+#: assets/dist/js/give-admin-event-tickets.js:5636
 #: assets/dist/js/give-admin-subscriptions.js:2594
 #: assets/dist/js/give-admin-subscriptions.js:3410
 #: assets/dist/js/give-log-list-table-app.js:3522
@@ -19679,12 +19915,16 @@ msgstr ""
 msgid "item"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:4805
-#: assets/dist/js/give-admin-donation-forms.js:5621
+#: assets/dist/js/give-admin-donation-forms.js:4807
+#: assets/dist/js/give-admin-donation-forms.js:5623
 #: assets/dist/js/give-admin-donations.js:3565
 #: assets/dist/js/give-admin-donations.js:4381
 #: assets/dist/js/give-admin-donors.js:3384
 #: assets/dist/js/give-admin-donors.js:4200
+#: assets/dist/js/give-admin-event-tickets-details.js:5325
+#: assets/dist/js/give-admin-event-tickets-details.js:6141
+#: assets/dist/js/give-admin-event-tickets.js:4822
+#: assets/dist/js/give-admin-event-tickets.js:5638
 #: assets/dist/js/give-admin-subscriptions.js:2596
 #: assets/dist/js/give-admin-subscriptions.js:3412
 #: assets/dist/js/give-log-list-table-app.js:3524
@@ -19694,57 +19934,71 @@ msgstr ""
 msgid "items"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:4916
+#: assets/dist/js/give-admin-donation-forms.js:4918
 #: assets/dist/js/give-admin-donations.js:3676
 #: assets/dist/js/give-admin-donors.js:3495
+#: assets/dist/js/give-admin-event-tickets-details.js:5436
+#: assets/dist/js/give-admin-event-tickets.js:4933
 #: assets/dist/js/give-admin-subscriptions.js:2707
 #: assets/dist/js/give-log-list-table-app.js:3635
 #: assets/dist/js/give-migrations-list-table-app.js:3635
 msgid "Loading %s"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:5006
+#: assets/dist/js/give-admin-donation-forms.js:5008
 #: assets/dist/js/give-admin-donations.js:3766
 #: assets/dist/js/give-admin-donors.js:3585
+#: assets/dist/js/give-admin-event-tickets-details.js:5526
+#: assets/dist/js/give-admin-event-tickets.js:5023
 #: assets/dist/js/give-admin-subscriptions.js:2797
 #: assets/dist/js/give-log-list-table-app.js:3725
 #: assets/dist/js/give-migrations-list-table-app.js:3725
 msgid "dismiss"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:5020
+#: assets/dist/js/give-admin-donation-forms.js:5022
 #: assets/dist/js/give-admin-donations.js:3780
 #: assets/dist/js/give-admin-donors.js:3599
+#: assets/dist/js/give-admin-event-tickets-details.js:5540
+#: assets/dist/js/give-admin-event-tickets.js:5037
 #: assets/dist/js/give-admin-subscriptions.js:2811
 #: assets/dist/js/give-log-list-table-app.js:3739
 #: assets/dist/js/give-migrations-list-table-app.js:3739
 msgid "There was a problem retrieving the %s."
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:5025
+#: assets/dist/js/give-admin-donation-forms.js:5027
 #: assets/dist/js/give-admin-donations.js:3785
 #: assets/dist/js/give-admin-donors.js:3604
+#: assets/dist/js/give-admin-event-tickets-details.js:5545
+#: assets/dist/js/give-admin-event-tickets.js:5042
 #: assets/dist/js/give-admin-subscriptions.js:2816
 #: assets/dist/js/give-log-list-table-app.js:3744
 #: assets/dist/js/give-migrations-list-table-app.js:3744
 msgid "Click here to reload the page."
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:6597
+#: assets/dist/js/give-admin-donation-forms.js:6599
 #: assets/dist/js/give-admin-donations.js:5357
 #: assets/dist/js/give-admin-donors.js:5176
+#: assets/dist/js/give-admin-event-tickets-details.js:7117
+#: assets/dist/js/give-admin-event-tickets.js:6614
 #: assets/dist/js/give-admin-subscriptions.js:4388
 #: assets/dist/js/give-log-list-table-app.js:5316
 #: assets/dist/js/give-migrations-list-table-app.js:5316
 msgid "%s table"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:6632
-#: assets/dist/js/give-admin-donation-forms.js:8472
+#: assets/dist/js/give-admin-donation-forms.js:6634
+#: assets/dist/js/give-admin-donation-forms.js:8474
 #: assets/dist/js/give-admin-donations.js:5392
 #: assets/dist/js/give-admin-donations.js:7757
 #: assets/dist/js/give-admin-donors.js:5211
 #: assets/dist/js/give-admin-donors.js:7576
+#: assets/dist/js/give-admin-event-tickets-details.js:7152
+#: assets/dist/js/give-admin-event-tickets-details.js:8992
+#: assets/dist/js/give-admin-event-tickets.js:6649
+#: assets/dist/js/give-admin-event-tickets.js:8489
 #: assets/dist/js/give-admin-subscriptions.js:4423
 #: assets/dist/js/give-admin-subscriptions.js:6263
 #: assets/dist/js/give-log-list-table-app.js:5351
@@ -19754,27 +20008,33 @@ msgstr ""
 msgid "Current Page"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:8309
+#: assets/dist/js/give-admin-donation-forms.js:8311
 #: assets/dist/js/give-admin-donations.js:7594
 #: assets/dist/js/give-admin-donors.js:7413
+#: assets/dist/js/give-admin-event-tickets-details.js:8829
+#: assets/dist/js/give-admin-event-tickets.js:8326
 #: assets/dist/js/give-admin-subscriptions.js:6100
 #: assets/dist/js/give-log-list-table-app.js:7639
 #: assets/dist/js/give-migrations-list-table-app.js:7526
 msgid "Error details"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:8309
+#: assets/dist/js/give-admin-donation-forms.js:8311
 #: assets/dist/js/give-admin-donations.js:7594
 #: assets/dist/js/give-admin-donors.js:7413
+#: assets/dist/js/give-admin-event-tickets-details.js:8829
+#: assets/dist/js/give-admin-event-tickets.js:8326
 #: assets/dist/js/give-admin-subscriptions.js:6100
 #: assets/dist/js/give-log-list-table-app.js:7639
 #: assets/dist/js/give-migrations-list-table-app.js:7526
 msgid "Additional context"
 msgstr ""
 
-#: assets/dist/js/give-admin-donation-forms.js:9238
+#: assets/dist/js/give-admin-donation-forms.js:9240
 #: assets/dist/js/give-admin-donations.js:8523
 #: assets/dist/js/give-admin-donors.js:8342
+#: assets/dist/js/give-admin-event-tickets-details.js:9758
+#: assets/dist/js/give-admin-event-tickets.js:9255
 #: assets/dist/js/give-admin-subscriptions.js:7029
 #: assets/dist/js/give-log-list-table-app.js:8568
 #: assets/dist/js/give-migrations-list-table-app.js:8455
@@ -19805,6 +20065,7 @@ msgid "Really delete the following donations?"
 msgstr ""
 
 #: assets/dist/js/give-admin-donations.js:1603
+#: assets/dist/js/give-admin-event-tickets.js:2217
 #: assets/dist/js/give-admin-subscriptions.js:1150
 msgid "from "
 msgstr ""
@@ -19895,6 +20156,228 @@ msgstr ""
 
 #: assets/dist/js/give-admin-donors.js:1607
 msgid "Really delete the follow donor?"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:791
+#: assets/dist/js/give-admin-event-tickets-details.js:1158
+msgctxt "Date format for event details page"
+msgid "MM/dd/yyyy 'at' h:mmaaa"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:803
+#: assets/dist/js/give-admin-event-tickets-details.js:805
+msgid "No attendees yet"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:827
+msgid "Ticket Type"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:828
+msgid "Purchase Date"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:932
+msgid "<a>To link an event to a donation form</a>, add an event block to a donation form in the visual form builder."
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:942
+msgid "No linked form yet"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:1218
+msgid "Edit your event"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:1754
+msgid "This ticket type cannot be deleted because it has donations associated with it."
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:1757
+msgid "Really delete ticket #%d?"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:1965
+#: assets/dist/js/give-admin-event-tickets-details.js:1967
+msgid "No ticket created yet"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:1970
+msgid "Create a ticket to complete your event setup."
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:1977
+#: assets/dist/js/give-admin-event-tickets-details.js:3358
+msgid "Create ticket"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:2026
+msgid "Ticket"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:2032
+msgid "%d of %s"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:2033
+#: build/eventTicketsBlock.js:1
+#: build/eventTicketsTemplate.js:1
+msgid "Free"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:2040
+msgid "Tickets"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:2046
+msgid "Add Ticket"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:2166
+msgid "Attendees"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:2191
+msgid "Event details"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:2198
+msgid "Go to events list"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:2740
+#: assets/dist/js/give-admin-event-tickets.js:1290
+#: build/eventTicketsBlock.js:1
+msgid "Event Name"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:2744
+#: assets/dist/js/give-admin-event-tickets.js:1294
+msgid "The event must have a name!"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:2747
+#: assets/dist/js/give-admin-event-tickets.js:1297
+msgid "Enter event name"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:2763
+#: assets/dist/js/give-admin-event-tickets.js:1313
+msgid "Start date and time"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:2767
+#: assets/dist/js/give-admin-event-tickets.js:1317
+msgid "The event must have a start date!"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:2775
+#: assets/dist/js/give-admin-event-tickets.js:1325
+msgid "End date and time"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:2785
+#: assets/dist/js/give-admin-event-tickets.js:1335
+msgid "Save event"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:3358
+msgid "Edit ticket"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:3370
+msgid "Ticket Name"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:3374
+msgid "The ticket name is required."
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:3377
+msgid "Enter ticket name"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:3397
+msgid "Leave empty for"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:3398
+msgid "free"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:3405
+msgid "Capacity"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:3409
+msgid "The ticket capacity is required."
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets-details.js:3417
+msgid "Save ticket"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets.js:766
+#: assets/dist/js/give-admin-event-tickets.js:2248
+msgid "Create event"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets.js:770
+msgid "Create your event"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets.js:1770
+msgid "Really delete event #%d?"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets.js:1775
+msgid "This event cannot be deleted because it has donations associated with it."
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets.js:2176
+msgid "Search by keyword"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets.js:2177
+msgid "search events"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets.js:2208
+msgid "Really delete the following events?"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets.js:2238
+#: assets/dist/js/give-admin-event-tickets.js:2240
+#: build/eventTicketsBlock.js:1
+msgid "No event created yet"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets.js:2243
+msgid "Don’t worry, let’s help you setup your first event."
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets.js:2257
+msgid "event"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets.js:2258
+msgid "events"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets.js:2774
+msgid "Event Beta Feedback"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets.js:2784
+msgid "This is an early access to our event feature. Let us know how we can improve this feature to make your experience better. You can also choose to opt-out of accessing beta features in Settings."
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets.js:2795
+msgid "Provide Feedback"
+msgstr ""
+
+#: assets/dist/js/give-admin-event-tickets.js:2803
+msgid "Feedback"
 msgstr ""
 
 #: assets/dist/js/give-admin-subscriptions.js:1096
@@ -20073,56 +20556,52 @@ msgstr ""
 msgid "UPDATED"
 msgstr ""
 
-#: assets/dist/js/welcome-banner.js:256
-msgid "What's new in GiveWP 3.0"
+#: assets/dist/js/welcome-banner.js:255
+msgid "What’s new in the Visual Form Builder"
 msgstr ""
 
-#: assets/dist/js/welcome-banner.js:258
-msgid "GiveWP 3.0 introduces an enhanced forms experience powered by the new Visual Donations Form Builder."
+#: assets/dist/js/welcome-banner.js:257
+msgid "GiveWP introduces an enhanced forms experience powered by the new Visual Donations Form Builder."
 msgstr ""
 
-#: assets/dist/js/welcome-banner.js:265
-msgid "NEW"
-msgstr ""
-
-#: assets/dist/js/welcome-banner.js:269
+#: assets/dist/js/welcome-banner.js:262
 msgid "Create a donation form"
 msgstr ""
 
-#: assets/dist/js/welcome-banner.js:272
+#: assets/dist/js/welcome-banner.js:264
 msgid "This is powered by the new Visual Donation Form Builder"
 msgstr ""
 
-#: assets/dist/js/welcome-banner.js:279
-msgid "GiveWP 3.0 Updates"
+#: assets/dist/js/welcome-banner.js:271
+msgid "New Updates"
 msgstr ""
 
-#: assets/dist/js/welcome-banner.js:281
+#: assets/dist/js/welcome-banner.js:273
 msgid "The team is still working on some new features, add-on and payment gateway compatibility to make your form experience better."
 msgstr ""
 
-#: assets/dist/js/welcome-banner.js:284
+#: assets/dist/js/welcome-banner.js:276
 msgid "Read documentation"
 msgstr ""
 
-#: assets/dist/js/welcome-banner.js:322
+#: assets/dist/js/welcome-banner.js:315
 msgid "Spotlight on awesome features"
 msgstr ""
 
-#: assets/dist/js/welcome-banner.js:326
+#: assets/dist/js/welcome-banner.js:320
+msgid "Event tickets"
+msgstr ""
+
+#: assets/dist/js/welcome-banner.js:325
+msgid "Easily connect your events to your donation form. To enable this go to Settings > General > Beta Features and enable event tickets"
+msgstr ""
+
+#: assets/dist/js/welcome-banner.js:331
 msgid "Design mode"
 msgstr ""
 
-#: assets/dist/js/welcome-banner.js:327
+#: assets/dist/js/welcome-banner.js:332
 msgid "See exactly what your form looks like for potential donors using the “Design” tab of the builder. Changes are visible immediately."
-msgstr ""
-
-#: assets/dist/js/welcome-banner.js:333
-msgid "Custom Paragraph and Sections"
-msgstr ""
-
-#: assets/dist/js/welcome-banner.js:334
-msgid "Add custom paragraphs or add whole sections anywhere in your form, no code required."
 msgstr ""
 
 #: build/adminBlocks.js:1
@@ -20712,11 +21191,49 @@ msgid "Subscription Details"
 msgstr ""
 
 #: build/donationFormRegistrars.js:1
+msgid "Event Tickets Details"
+msgstr ""
+
+#: build/donationFormRegistrars.js:1
 msgid "Additional Details"
 msgstr ""
 
 #: build/donationFormRegistrars.js:1
 msgid "The following error occurred when submitting the form:"
+msgstr ""
+
+#: build/eventTicketsBlock.js:1
+msgid "Donors will not be able to see any event on this form"
+msgstr ""
+
+#: build/eventTicketsBlock.js:1
+msgid "<a>Create an event</a>"
+msgstr ""
+
+#: build/eventTicketsBlock.js:1
+msgid "Add or edit an event in the <a>events page</a>."
+msgstr ""
+
+#: build/eventTicketsBlock.js:1
+msgid "No events created yet. Go to the <a>events page</a> to create and manage your own event."
+msgstr ""
+
+#: build/eventTicketsBlock.js:1
+#: build/eventTicketsTemplate.js:1
+msgid "remaining"
+msgstr ""
+
+#: build/eventTicketsBlock.js:1
+#: build/eventTicketsTemplate.js:1
+msgid "Sold out"
+msgstr ""
+
+#: build/eventTicketsBlock.js:1
+msgid "No event selected yet"
+msgstr ""
+
+#: build/eventTicketsBlock.js:1
+msgid "Select your preferred event for this donation form"
 msgstr ""
 
 #: build/formBuilderApp.js:1
@@ -21316,6 +21833,18 @@ msgid "Edit in Modal"
 msgstr ""
 
 #: build/formBuilderApp.js:13
+msgid "Header Image"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Overlay"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Overlay Opacity"
+msgstr ""
+
+#: build/formBuilderApp.js:13
 msgid "These settings gives you the ability to change the overall appearance of your form to suit your brand"
 msgstr ""
 
@@ -21409,6 +21938,14 @@ msgstr ""
 
 #: build/formBuilderApp.js:13
 msgid "This walks the donor through a number of steps to the donation process. The sections are broken into steps in the form"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "Two Panel form design"
+msgstr ""
+
+#: build/formBuilderApp.js:13
+msgid "This has a side-by-side layout which breaks the sections of the donation process into steps."
 msgstr ""
 
 #: build/formBuilderApp.js:13
@@ -21880,4 +22417,16 @@ msgstr ""
 #: src/DonationForms/Blocks/DonationFormBlock/block.json
 msgctxt "block description"
 msgid "The GiveWP Donation Form block inserts an existing donation form into the page."
+msgstr ""
+
+#: build/EventTickets/resources/blocks/EventTicketsBlock/block.json
+#: src/EventTickets/resources/blocks/EventTicketsBlock/block.json
+msgctxt "block title"
+msgid "Event Tickets"
+msgstr ""
+
+#: build/EventTickets/resources/blocks/EventTicketsBlock/block.json
+#: src/EventTickets/resources/blocks/EventTicketsBlock/block.json
+msgctxt "block description"
+msgid "Sell event tickets for your cause"
 msgstr ""

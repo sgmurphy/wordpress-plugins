@@ -10,10 +10,10 @@
 	{
 
 		this._data      = $.extend( {}, this._defaults, typeof data == 'string' ? FLBuilder._jsonParse( data ) : data );
-		this._callback				= callback;
-		this._post    				= FLBuilderConfig.postId;
-		this._head    				= $('head').eq(0);
-		this._body    				= $('body').eq(0);
+		this._callback	= callback;
+		this._post    	= FLBuilderConfig.postId;
+		this._head    	= $('head').eq(0);
+		this._body    	= $('body').eq(0);
 
 		// Setup the new CSS vars if we have new CSS.
 		if ( this._data.css ) {
@@ -401,7 +401,7 @@
 					}
 					// Get sibling column groups.
 					else if ( this._data.nodeParent.hasClass( 'fl-row-content' ) ) {
-						siblings = this._data.nodeParent.find( ' > .fl-col-group' );
+						siblings = this._data.nodeParent.find( ' > .fl-col-group, > .fl-module' );
 					}
 					// Get sibling columns.
 					else if ( this._data.nodeParent.hasClass( 'fl-col-group' ) ) {

@@ -265,8 +265,8 @@
     width: 30%;
     }
 #bt_bb_dialog .bt_bb_dialog_header_tools .bt_bb_group_tab.bt_bb_group_tab_active:after {
-    height: 5px;
-    bottom: -5px;
+    height: 7.5px;
+    bottom: -6.5px;
     }
 #bt_bb_dialog .bt_bb_dialog_header_tools .bt_bb_group_tab:before {
     content: ' ';

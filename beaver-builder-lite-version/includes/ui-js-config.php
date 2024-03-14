@@ -41,6 +41,7 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 	'userCanPublish'             => current_user_can( 'publish_posts' ),
 	'userSettings'               => FLBuilderUserSettings::get(),
 	'userTemplateType'           => FLBuilderModel::get_user_template_type(),
+	'userTemplateIsLeafModule'   => FLBuilderModel::is_post_leaf_module_template(),
 	'brandingIcon'               => FLBuilderModel::get_branding_icon(),
 	'url'                        => get_permalink(),
 	'editUrl'                    => FLBuilderModel::get_edit_url(),
@@ -125,7 +126,28 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 	'wooActive'                  => class_exists( 'WooCommerce' ) ? true : false,
 	'uploadPath'                 => ( get_option( 'upload_path' ) && get_option( 'upload_path' ) != 'wp-content/uploads' ) ? true : false,
 	'uploadUrl'                  => admin_url( 'options-media.php' ),
-	'responsiveFields'           => array( 'align', 'border', 'gradient', 'dimension', 'unit', 'photo', 'select', 'typography', 'text' ),
+	'iframeEnabled'              => FLBuilderUIIFrame::is_enabled(),
+	'nodeCategoies'              => FLBuilderUISettingsForms::get_node_categories(),
+	'responsiveFields'           => array(
+		'align',
+		'border',
+		'color',
+		'gradient',
+		'dimension',
+		'unit',
+		'photo',
+		'select',
+		'typography',
+		'text',
+		'button-group',
+		'aspect-ratio',
+		'grid-tracklist',
+		'grid-area',
+		'grid-auto-flow',
+		'flex',
+		'justify',
+		'size',
+	),
 	'collapseSectionsDefault'    => apply_filters( 'fl_builder_ui_collapse_sections', false ),
 	/**
 	 * @see fl_builder_default_image_select_size
@@ -133,11 +155,15 @@ echo 'FLBuilderConfig              = ' . FLBuilderUtils::json_encode( apply_filt
 	'defaultImageSize'           => apply_filters( 'fl_builder_default_image_select_size', 'full' ),
 ) ) ) . ';';
 
+
 /**
  * Filter UI JS Strings.
  * @see fl_builder_ui_js_strings
  */
 echo 'FLBuilderStrings             = ' . FLBuilderUtils::json_encode( apply_filters('fl_builder_ui_js_strings', array(
+	'copiedToClipboard'              => esc_attr__( 'Copied to clipboard!', 'fl-builder' ),
+	'saveGlobalColorsWarning'        => esc_attr__( 'Changes to Global Colors must be saved first before modifying Global Elements. Would you like to save now?', 'fl-builder' ),
+	'deleteGlobalColorsWarning'      => esc_attr__( 'Any elements that were assigned to use this color will no longer be using this color.', 'fl-builder' ),
 	'actionsLightboxTitle'           => esc_attr__( 'What would you like to do?', 'fl-builder' ),
 	/* translators: %s: field name */
 	'addField'                       => esc_attr_x( 'Add %s', 'Field name to add.', 'fl-builder' ),
@@ -151,6 +177,8 @@ echo 'FLBuilderStrings             = ' . FLBuilderUtils::json_encode( apply_filt
 	'audiosSelectedNum'              => esc_attr__( '%d Audio Files Selected', 'fl-builder' ),
 	'blank'                          => esc_attr__( 'Blank', 'fl-builder' ),
 	'cancel'                         => esc_attr__( 'Cancel', 'fl-builder' ),
+	'reset'                          => esc_attr__( 'Reset', 'fl-builder' ),
+	'resetSettingsMessage'           => esc_attr__( 'Do you really want to reset these changes? All of your changes will be lost.', 'fl-builder' ),
 	'changeTemplate'                 => esc_attr__( 'Change Template', 'fl-builder' ),
 	'changeTemplateMessage'          => esc_attr__( 'Warning! Changing the template will replace your existing layout. Do you really want to do this?', 'fl-builder' ),
 	'colorPresets'                   => esc_attr__( 'Color Presets', 'fl-builder' ),
@@ -163,12 +191,14 @@ echo 'FLBuilderStrings             = ' . FLBuilderUtils::json_encode( apply_filt
 	'childColumn'                    => esc_attr__( 'Child Column', 'fl-builder' ),
 	'collapse_all'                   => esc_attr__( 'Collapse All', 'fl-builder' ),
 	'column'                         => esc_attr__( 'Column', 'fl-builder' ),
+	'columnGroup'                    => esc_attr__( 'Group', 'fl-builder' ),
 	'contentSliderSelectLayout'      => esc_attr__( 'Please select either a background layout or content layout before submitting.', 'fl-builder' ),
 	'contentSliderTransitionWarn'    => esc_attr__( 'Transition value should be lower than Delay value.', 'fl-builder' ),
 	'countdownDateisInThePast'       => esc_attr__( 'Error! Please enter a date that is in the future.', 'fl-builder' ),
 	'deleteAccount'                  => esc_attr__( 'Remove Account', 'fl-builder' ),
 	'deleteAccountWarning'           => esc_attr__( 'Are you sure you want to remove this account? Other modules that are connected to it will be affected.', 'fl-builder' ),
 	'deleteColumnMessage'            => esc_attr__( 'Do you really want to delete this column?', 'fl-builder' ),
+	'deleteColumnGroupMessage'       => esc_attr__( 'Do you really want to delete this column group?', 'fl-builder' ),
 	'deleteFieldMessage'             => esc_attr__( 'Do you really want to delete this item?', 'fl-builder' ),
 	'deleteModuleMessage'            => esc_attr__( 'Do you really want to delete this module?', 'fl-builder' ),
 	'deleteRowMessage'               => esc_attr__( 'Do you really want to delete this row?', 'fl-builder' ),
@@ -207,7 +237,7 @@ echo 'FLBuilderStrings             = ' . FLBuilderUtils::json_encode( apply_filt
 	'newColumn'                      => esc_attr__( 'New Column', 'fl-builder' ),
 	'newRow'                         => esc_attr__( 'New Row', 'fl-builder' ),
 	'noneColorSelected'              => esc_attr__( 'Please enter a color first.', 'fl-builder' ),
-	'noPresets'                      => esc_attr__( 'Add a color preset first.', 'fl-builder' ),
+	'noPresets'                      => esc_attr__( 'No color presets found.', 'fl-builder' ),
 	'noResultsFound'                 => esc_attr__( 'No results found.', 'fl-builder' ),
 	'noSavedRows'                    => esc_attr__( 'No saved rows found.', 'fl-builder' ),
 	'noSavedModules'                 => esc_attr__( 'No saved modules found.', 'fl-builder' ),
@@ -337,6 +367,18 @@ echo 'FLBuilderStrings             = ' . FLBuilderUtils::json_encode( apply_filt
 		'copied' => esc_attr__( 'Copied!', 'fl-builder' ),
 		'error'  => esc_attr__( 'Import Error!', 'fl-builder' ),
 		'type'   => esc_attr__( 'Missing header or wrong module type!', 'fl-builder' ),
+	),
+	'i18n'                           => array(
+		'Grid'             => __( 'Grid', 'fl-builder' ),
+		'Flex'             => __( 'Flex', 'fl-builder' ),
+		'Flex Row'         => __( 'Flex Row', 'fl-builder' ),
+		'Flex Column'      => __( 'Flex Column', 'fl-builder' ),
+		'Layered'          => __( 'Layered', 'fl-builder' ),
+		'Outline'          => __( 'Outline', 'fl-builder' ),
+		'Query Monitor'    => __( 'Query Monitor', 'fl-builder' ),
+		'No content found' => __( 'No content found', 'fl-builder' ),
+		'Add something'    => __( 'Add Something', 'fl-builder' ),
+		'to get started'   => __( 'to get started', 'fl-builder' ),
 	),
 ) ) ) . ';';
 

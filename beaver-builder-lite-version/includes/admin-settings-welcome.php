@@ -7,7 +7,7 @@ function fl_welcome_utm( $campaign ) {
 		'utm_campaign' => $campaign,
 	);
 }
-$blog_post_url   = FLBuilderModel::get_store_url( 'beaver-builder-2-7', fl_welcome_utm( 'settings-welcome-blog-post' ) );
+$blog_post_url   = FLBuilderModel::get_store_url( 'beaver-builder-2-8', fl_welcome_utm( 'settings-welcome-blog-post' ) );
 $change_logs_url = FLBuilderModel::get_store_url( 'change-logs', fl_welcome_utm( 'settings-welcome-change-logs' ) );
 $upgrade_url     = FLBuilderModel::get_upgrade_url( fl_welcome_utm( 'settings-welcome-upgrade' ) );
 $support_url     = FLBuilderModel::get_store_url( 'beaver-builder-support', fl_welcome_utm( 'settings-welcome-support' ) );
@@ -15,8 +15,8 @@ $faqs_url        = FLBuilderModel::get_store_url( 'frequently-asked-questions', 
 $forums_url      = FLBuilderModel::get_store_url( 'go/forum', fl_welcome_utm( 'settings-welcome-forums' ) );
 $docs_url        = FLBuilderModel::get_store_url( 'go/docs', fl_welcome_utm( 'settings-welcome-docs' ) );
 $fb_url          = 'https://www.facebook.com/groups/beaverbuilders/';
-$release_ver     = '2.7';
-$release_name    = '&#8220;Cascade&#8221;';
+$release_ver     = '2.8';
+$release_name    = '&#8220;Alpine&#8221;';
 ?>
 <div id="fl-welcome-form" class="fl-settings-form">
 
@@ -60,20 +60,20 @@ $release_name    = '&#8220;Cascade&#8221;';
 			<h3><?php printf( __( "What's New in Beaver Builder", 'fl-builder' ) . ' %1$s %2$s', $release_ver, $release_name ); ?></h3>
 
 			<div class="fl-welcome-col">
-			<?php /* translators: 1: version: 2: codename*/ ?>
-			<p><?php printf( __( 'We\'re thrilled to announce Beaver Builder %1$s %2$s. Beaver Builder %1$s brings a number of workflow enhancements.', 'fl-builder' ), $release_ver, $release_name ); ?></p>
+				<?php /* translators: 1: version: 2: codename*/ ?>
+				<p><?php printf( __( 'We\'re thrilled to announce Beaver Builder %1$s %2$s. Beaver Builder %1$s brings a number of workflow enhancements.', 'fl-builder' ), $release_ver, $release_name ); ?></p>
 				<ul>
-					<li class="dashicons-before dashicons-plus-alt"><?php _e( 'NEW: Completely re-designed responsive editing experience that is in an iFrame, accurate and easy to work with!', 'fl-builder' ); ?></li>
-					<li class="dashicons-before dashicons-plus-alt"><?php _e( 'NEW: More flexibility when choosing to hide/show elements at different breakpoints.', 'fl-builder' ); ?></li>
-					<li class="dashicons-before dashicons-plus-alt"><?php _e( 'NEW: Integration with ACF Pro Blocks!  ', 'fl-builder' ); ?></li>
-					<li class="dashicons-before dashicons-plus-alt"><?php _e( 'NEW: Enter CSS/JS for each row, column or module!', 'fl-builder' ); ?></li>
+					<li class="dashicons-before dashicons-plus-alt"><?php _e( 'Global Styles and Global Colors are here (This is a premium feature).', 'fl-builder' ); ?></li>
+					<li class="dashicons-before dashicons-plus-alt"><?php _e( 'The new Box module allows you to create flexbox and CSS Grid layouts.', 'fl-builder' ); ?></li>
+					<li class="dashicons-before dashicons-plus-alt"><?php _e( 'The Pop-up Maker Integration allows you to design your Pop-ups with Beaver Builder and select Popups in the link field.  ', 'fl-builder' ); ?></li>
+					<li class="dashicons-before dashicons-plus-alt"><?php _e( 'NorthCommerce module allows you to display content from NorthCommerce without having to remember the shortcodes.', 'fl-builder' ); ?></li>
 				</ul>
 				<?php /* translators: 1: blog post url: 2: changelog url */ ?>
 				<p><?php printf( __( 'There\'s a whole lot more, too! Read about everything else on our <a href="%1$s" target="_blank">update post</a> or <a href="%2$s" target="_blank">change logs</a>.', 'fl-builder' ), $blog_post_url, $change_logs_url ); ?></p>
 			</div>
 
 			<div class="fl-welcome-col">
-				<a href="https://www.youtube.com/watch?v=gailwFRz61A" target="_blank"><img class="fl-welcome-img" src="<?php echo FLBuilder::plugin_url(); ?>img/welcome-video_thumb--2.7.jpg" alt="" /></a>
+				<a href="https://youtu.be/c73thCZ6_bM" target="_blank"><img class="fl-welcome-img" src="<?php echo FLBuilder::plugin_url(); ?>img/welcome-video_thumb--2.8.jpg" alt="" /></a>
 			</div>
 
 		</div>
@@ -138,7 +138,7 @@ $release_name    = '&#8220;Cascade&#8221;';
 
 				<?php if ( true === FL_BUILDER_LITE ) : ?>
 					<?php /* translators: %s: upgrade url */ ?>
-				<p><?php printf( __( 'If you can\'t find an answer, consider upgrading to a premium version of Beaver Builder. Our expert support team is waiting to answer your questions and help you build your website. <a href="%s" target="_blank">Learn More</a>.', 'fl-builder' ), $upgrade_url ); ?></p>
+					<p><?php printf( __( 'If you can\'t find an answer, consider upgrading to a premium version of Beaver Builder. Our expert support team is waiting to answer your questions and help you build your website. <a href="%s" target="_blank">Learn More</a>.', 'fl-builder' ), $upgrade_url ); ?></p>
 				<?php else : ?>
 					<?php /* translators: %s: support url */ ?>
 					<p><?php printf( __( 'If you can\'t find an answer, feel free to <a href="%s" target="_blank">send us a message with your question.</a>', 'fl-builder' ), $support_url ); ?></p>

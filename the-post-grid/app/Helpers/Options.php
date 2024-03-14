@@ -21,7 +21,7 @@ class Options {
 		$args = apply_filters(
 			'tpg_get_post_type',
 			[
-				'public'            => true,
+				'public' => true,
 			]
 		);
 
@@ -275,6 +275,68 @@ class Options {
 
 			$other_settings = array_merge( $other_settings, $acf_settings );
 		}
+
+		return $other_settings;
+	}
+
+	public static function rtTPGChatGPGSettings() {
+		$settings = get_option( rtTPG()->options['settings'] );
+
+		$other_settings = [
+
+			'chatgpt_status' => [
+				'type'        => 'switch',
+				'name'        => 'chatgpt_status',
+				'label'       => esc_html__( 'Enable ChatGPT', 'the-post-grid' ),
+				'value'       => isset( $settings['chatgpt_status'] ) ? $settings['chatgpt_status'] : false,
+			],
+
+			'chatgpt_secret_key'    => [
+				'type'        => 'text',
+				'name'        => 'chatgpt_secret_key',
+				'label'       => esc_html__( 'OpenAI API Secret Key', 'the-post-grid' ),
+				'id'          => 'template_author',
+				'holderClass' => 'pro-field',
+				'description' => __( 'Enter the OpenAI API Secret Key <a target="_blank" href="https://platform.openai.com/account/api-keys">Make your own API</a>', 'the-post-grid' ),
+				'value'       => isset( $settings['chatgpt_secret_key'] ) ? $settings['chatgpt_secret_key'] : '',
+			],
+			'chatgpt_model'         => [
+				'type'        => 'select',
+				'name'        => 'chatgpt_model',
+				'label'       => esc_html__( 'OpenAI Model', 'the-post-grid' ),
+				'id'          => 'chatgpt_model',
+				'holderClass' => 'pro-field',
+				'class'       => 'select2',
+				'description' => __( 'Choose OpenAI model. Default: gpt-3.5-turbo', 'the-post-grid' ),
+				'options'     => [
+					'gpt-3.5-turbo'    => 'gpt-3.5-turbo',
+					'text-davinci-002' => 'text-davinci-002',
+					'text-davinci-003' => 'text-davinci-003',
+					'gpt-4'            => 'gpt-4',
+				],
+				'value'       => isset( $settings['chatgpt_model'] ) ? $settings['chatgpt_model'] : 'gpt-3.5-turbo',
+			],
+			'chatgpt_response_time' => [
+				'type'        => 'number',
+				'name'        => 'chatgpt_response_time',
+				'label'       => esc_html__( 'Response Time', 'the-post-grid' ),
+				'id'          => 'chatgpt_response_time',
+				'holderClass' => 'pro-field',
+				'description' => __( 'Choose OpenAI response time', 'the-post-grid' ),
+				'value'       => isset( $settings['chatgpt_response_time'] ) ? $settings['chatgpt_response_time'] : 60,
+			],
+			'chatgpt_max_tokens'    => [
+				'type'        => 'number',
+				'name'        => 'chatgpt_max_tokens',
+				'label'       => esc_html__( 'Max Tokens', 'the-post-grid' ),
+				'id'          => 'chatgpt_max_tokens',
+				'holderClass' => 'pro-field',
+				'description' => __( 'Enter OpenAi max token number', 'the-post-grid' ),
+				'value'       => isset( $settings['chatgpt_max_tokens'] ) ? $settings['chatgpt_max_tokens'] : 1200,
+			],
+
+
+		];
 
 		return $other_settings;
 	}

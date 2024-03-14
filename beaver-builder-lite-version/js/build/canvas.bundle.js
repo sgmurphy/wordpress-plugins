@@ -49,6 +49,7 @@ var moveNode = function moveNode(id) {
   var parentElement = null;
   var contentElement = null;
   var isColumnGroup = false;
+  var isContainerModule = false;
   var previousParentElement = nodeElement.parentElement.closest('[data-node]'); // Move within the same parent
 
   if (!parent) {
@@ -61,8 +62,13 @@ var moveNode = function moveNode(id) {
     parentElement = (0,_dom__WEBPACK_IMPORTED_MODULE_0__.getNodeElement)(parent);
     contentElement = parentElement.querySelector('.fl-node-content');
     isColumnGroup = parentElement.classList.contains('fl-col-group');
+    isContainerModule = parentElement.classList.contains('fl-module');
 
     if (isColumnGroup) {
+      contentElement = parentElement;
+    }
+
+    if (isContainerModule && !parentElement.querySelector(':scope > .fl-node-content')) {
       contentElement = parentElement;
     }
   } // Only move if the element isn't already in position

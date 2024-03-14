@@ -311,10 +311,12 @@
             FLBuilder.addHook('duplicateLayout', this.duplicateLayout.bind(this));
             FLBuilder.addHook('showLayoutSettings', this.showLayoutSettings.bind(this));
             FLBuilder.addHook('showGlobalSettings', this.showGlobalSettings.bind(this));
+            FLBuilder.addHook('showGlobalStyles', this.showGlobalStyles.bind(this));
             FLBuilder.addHook('toggleUISkin', this.toggleUISkin.bind(this));
             FLBuilder.addHook('clearLayoutCache', this.clearLayoutCache.bind(this));
             FLBuilder.addHook('launchThemerLayouts', this.launchThemerLayouts.bind(this));
             FLBuilder.addHook('toggleOutlinePanel', this.toggleOutlinePanel.bind(this));
+            FLBuilder.addHook('toggleMediaLibrary', this.toggleMediaLibrary.bind(this));
 
             // Show Keyboard Shortcuts
             if ( 'FL' in window && 'Builder' in FL ) {
@@ -359,6 +361,15 @@
         */
         showGlobalSettings: function() {
             FLBuilder._globalSettingsClicked();
+            MainMenuPanel.hide();
+        },
+
+        /**
+        * Show the global style settings lightbox
+        * @return void
+        */
+        showGlobalStyles: function() {
+            FLBuilder._globalStylesClicked();
             MainMenuPanel.hide();
         },
 
@@ -424,6 +435,41 @@
 		 */
 		toggleOutlinePanel: function() {
 			FL.Builder.togglePanel('outline');
+		},
+
+		/**
+		 * @return void
+		 */
+		toggleMediaLibrary: function() {
+			var mediaLibrary = wp.media( {
+				multiple: false
+			});
+			mediaLibrary.fl_changed = false;
+			mediaLibrary.on( 'open', function() {
+				$(mediaLibrary.el).find('.media-toolbar').hide();
+			});
+
+			mediaLibrary.on( 'selection:toggle', function() {
+				$(mediaLibrary.el).find('button.delete-attachment, a.edit-attachment').on('click', function() {
+					mediaLibrary.fl_changed = true;
+				});
+				$(mediaLibrary.el).find('textarea, input').on('change', function() {
+					mediaLibrary.fl_changed = true;
+				});
+			});
+
+			mediaLibrary.on( 'library:selection:add', function() {
+				mediaLibrary.fl_changed = true;
+			});
+
+			mediaLibrary.on( 'closed, close, escape', function() {
+				if ( mediaLibrary.fl_changed ) {
+					window.parent.location.reload();
+				}
+			})
+
+			MainMenuPanel.hide();
+			mediaLibrary.open();
 		},
 	}
 

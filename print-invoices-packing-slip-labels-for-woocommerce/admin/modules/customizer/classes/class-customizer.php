@@ -1315,12 +1315,12 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 		$module_id         = Wf_Woocommerce_Packing_List::get_module_id( $template_type );
 		if ( 'email' === $key ) {
 			$order_email = ( 0 === $wc_version ? $order->billing_email : $order->get_billing_email() );
-			return ( ! empty( $order_email ) ) ? $order_email : '';
+			return wp_kses_post( ! empty( $order_email ) ) ? $order_email : '';
 		}
 
 		if ( 'tel' === $key || 'contact_number' === $key ) {
 			$order_phone = ( 0 === $wc_version ? $order->billing_phone : $order->get_billing_phone() );
-			return ( ! empty( $order_phone ) ? $order_phone : '' );
+			return wp_kses_post( ! empty( $order_phone ) ? $order_phone : '' );
 		}
 
 		if ( 'customer_note' === $key || 'cust_note' === $key ) {
@@ -1328,7 +1328,7 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 				return '';
 			}
 			$customer_note = ( 0 === $wc_version ? $order->customer_note : $order->get_customer_note() );
-			return ( ! empty( $customer_note ) ? $customer_note : '' );
+			return wp_kses_post( ! empty( $customer_note ) ? $customer_note : '' );
 		}
 
 		if ( 'ssn' === $key ) {
@@ -1336,7 +1336,7 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 				return '';
 			}
 			$ssn_number = Wt_Pklist_Common::get_order_meta( $order_id, '_billing_ssn', true );
-			return ( ! empty( $ssn_number ) ? $ssn_number : '' );
+			return wp_kses_post( ! empty( $ssn_number ) ? $ssn_number : '' );
 		}
 
 		if ( 'vat' === $key ) {
@@ -1355,7 +1355,7 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 					break;
 				}
 			}
-			return ( ! empty( $res_vat ) && is_string( $res_vat ) ) ? $res_vat : '';
+			return wp_kses_post( ! empty( $res_vat ) && is_string( $res_vat ) ) ? $res_vat : '';
 		}
 	}
 
@@ -1726,7 +1726,14 @@ class Wf_Woocommerce_Packing_List_CustomizerLib {
 				'postcode'   => $the_options['woocommerce_wf_packinglist_sender_postalcode'],
 				'country'    => $country_code
 			);
-			$find_replace['[wfte_from_address]'] = WC()->countries->get_formatted_address( $from_address_params ) .'<br>'.$the_options['woocommerce_wf_packinglist_sender_contact_number'].'<br>'.$the_options['woocommerce_wf_packinglist_sender_vat'];
+
+			$find_replace['[wfte_from_address]'] = WC()->countries->get_formatted_address( $from_address_params );
+			if( !empty( $the_options['woocommerce_wf_packinglist_sender_contact_number'] ) ) {
+				$find_replace['[wfte_from_address]'] .= '<br>'.$the_options['woocommerce_wf_packinglist_sender_contact_number'];
+			}
+			if( !empty( $the_options['woocommerce_wf_packinglist_sender_vat'] ) ) {
+				$find_replace['[wfte_from_address]'] .= '<br>'.$the_options['woocommerce_wf_packinglist_sender_vat'];
+			}
 		}
 
 		if(!has_filter('wf_pklist_alter_shipping_return_address')){

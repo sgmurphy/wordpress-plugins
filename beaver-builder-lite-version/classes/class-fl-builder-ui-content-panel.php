@@ -16,8 +16,8 @@ class FLBuilderUIContentPanel {
 	 */
 	public static function get_panel_data() {
 
-		// Don't load the panel for module templates.
-		if ( FLBuilderModel::is_post_user_template( 'module' ) ) {
+		// Don't load the panel for leaf module templates.
+		if ( FLBuilderModel::is_post_leaf_module_template() ) {
 			return array();
 		}
 
@@ -76,7 +76,7 @@ class FLBuilderUIContentPanel {
 	private static function get_modules_tab_data() {
 
 		$data = array(
-			'should_display' => ! FLBuilderModel::is_post_user_template( 'module' ),
+			'should_display' => true,
 			'views'          => array(),
 		);
 
@@ -129,7 +129,7 @@ class FLBuilderUIContentPanel {
 	private static function get_rows_tab_data() {
 
 		$data = array(
-			'should_display' => true, /* rows tab shows even if row template */
+			'should_display' => ! FLBuilderModel::is_post_user_template( 'module' ),
 			'views'          => array(),
 		);
 

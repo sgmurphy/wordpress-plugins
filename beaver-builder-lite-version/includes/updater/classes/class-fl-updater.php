@@ -61,6 +61,9 @@ final class FLUpdater {
 		} elseif ( 'theme' == $settings['type'] ) {
 			add_filter( 'pre_set_site_transient_update_themes', array( $this, 'update_check' ) );
 		}
+		add_action( 'fl_builder_cache_cleared', function() {
+			delete_transient( 'fl_get_subscription_info' );
+		} );
 	}
 
 	/**
@@ -418,6 +421,7 @@ final class FLUpdater {
 			$license = '';
 		}
 		update_site_option( 'fl_themes_subscription_email', $license );
+		delete_transient( 'fl_get_subscription_info' );
 		return $response;
 	}
 
@@ -429,14 +433,20 @@ final class FLUpdater {
 	 * @return bool
 	 */
 	static public function get_subscription_info() {
-		return self::api_request(
-			self::$_updates_api_url,
-			array(
-				'fl-api-method' => 'subscription_info',
-				'domain'        => FLUpdater::validate_domain( network_home_url() ),
-				'license'       => FLUpdater::get_subscription_license(),
-			)
-		);
+		//phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition.Found, Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure
+		if ( false === ( $subscription_info = get_transient( 'fl_get_subscription_info' ) ) ) {
+			$subscription_info = self::api_request(
+				self::$_updates_api_url,
+				array(
+					'fl-api-method' => 'subscription_info',
+					'domain'        => FLUpdater::validate_domain( network_home_url() ),
+					'license'       => FLUpdater::get_subscription_license(),
+				)
+			);
+			set_transient( 'fl_get_subscription_info', $subscription_info );
+		}
+
+		return $subscription_info;
 	}
 
 	/**

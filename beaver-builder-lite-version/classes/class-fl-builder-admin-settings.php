@@ -525,7 +525,7 @@ final class FLBuilderAdminSettings {
 				}
 			}
 
-			FLBuilderModel::update_admin_settings_option( '_fl_builder_post_types', $post_types, true );
+			FLBuilderModel::update_admin_settings_option( '_fl_builder_post_types', $post_types, true, true );
 		}
 	}
 
@@ -557,7 +557,7 @@ final class FLBuilderAdminSettings {
 
 			// Enable pro?
 			$enable_fa_pro = isset( $_POST['fl-enable-fa-pro'] ) ? true : false;
-			FLBuilderUtils::update_option( '_fl_builder_enable_fa_pro', $enable_fa_pro );
+			FLBuilderUtils::update_option( '_fl_builder_enable_fa_pro', $enable_fa_pro, true );
 			do_action( 'fl_builder_fa_pro_save', $enable_fa_pro );
 			// Update KIT url
 			$kit_url = isset( $_POST['fl-fa-pro-kit'] ) ? $_POST['fl-fa-pro-kit'] : '';
@@ -565,10 +565,11 @@ final class FLBuilderAdminSettings {
 			preg_match( '#https:\/\/.+\.js#', $kit_url, $match );
 
 			if ( $kit_url && isset( $match[0] ) ) {
-				FLBuilderUtils::update_option( '_fl_builder_kit_fa_pro', $match[0] );
+				FLBuilderUtils::update_option( '_fl_builder_kit_fa_pro', $match[0], true );
 			} else {
 				if ( ! $kit_url ) {
-					FLBuilderUtils::update_option( '_fl_builder_kit_fa_pro', '' );
+					delete_option( '_fl_builder_kit_fa_pro' );
+					update_option( '_fl_builder_kit_fa_pro', '', true );
 				} else {
 					/* translators: %s: KIT url */
 					self::add_error( sprintf( __( 'Invalid Kit Url: we were unable to determine the URL, code entered was %s', 'fl-builder' ), '<code>' . esc_html( $kit_url ) . '</code>' ) );
@@ -718,7 +719,7 @@ final class FLBuilderAdminSettings {
 	 * @return void
 	 */
 	static private function update_enabled_icons( $enabled_icons = array() ) {
-		FLBuilderModel::update_admin_settings_option( '_fl_builder_enabled_icons', $enabled_icons, true );
+		FLBuilderModel::update_admin_settings_option( '_fl_builder_enabled_icons', $enabled_icons, true, true );
 	}
 
 	/**
@@ -803,7 +804,7 @@ final class FLBuilderAdminSettings {
 				$options      = get_option( '_fl_builder_settings', (object) array() );
 				$options->css = $css;
 				$options->js  = $js;
-				FLBuilderUtils::update_option( '_fl_builder_settings', $options );
+				FLBuilderUtils::update_option( '_fl_builder_settings', $options, true );
 			}
 		}
 	}

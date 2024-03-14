@@ -32,6 +32,11 @@ class UploadsDirectory extends DirectoryAbstract {
 			return trim( UPLOADS, '/\\' );
 		}
 
+		$upload_path = ( ! is_multisite() ) ? get_option( 'upload_path' ) : '';
+		if ( $upload_path ) {
+			return trim( $upload_path, '/\\' );
+		}
+
 		return sprintf( self::DIRECTORY_PATH, basename( WP_CONTENT_DIR ) );
 	}
 }

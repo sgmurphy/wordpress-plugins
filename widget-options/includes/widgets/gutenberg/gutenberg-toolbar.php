@@ -152,12 +152,12 @@ function blockopts_filter_before_display($block_content, $parsed_block, $obj)
 		}
 	}
 
-	if (isset($parsed_block) && isset($parsed_block['attrs']) && isset($parsed_block['attrs']['extended_widget_opts'])) {
+	if (isset($parsed_block) && isset($parsed_block['attrs']) && (isset($parsed_block['attrs']['extended_widget_opts']) || isset($parsed_block['attrs']['extended_widget_opts_block']))) {
 		global $widget_options, $current_user;
 		$instance = $parsed_block['attrs'];
 
 		//if idbase is not -1 it is a widget
-		if (isset($parsed_block['attrs']['extended_widget_opts']['id_base']) && $parsed_block['attrs']['extended_widget_opts']['id_base'] != -1) {
+		if (isset($parsed_block['attrs']['extended_widget_opts']) && isset($parsed_block['attrs']['extended_widget_opts']['id_base']) && $parsed_block['attrs']['extended_widget_opts']['id_base'] != -1) {
 			return $block_content;
 		}
 
@@ -167,7 +167,7 @@ function blockopts_filter_before_display($block_content, $parsed_block, $obj)
 		$default_language = $hasWPML ? apply_filters('wpml_default_language', NULL) : false;
 
 		$hidden     = false;
-		$opts       = (isset($instance['extended_widget_opts'])) ? $instance['extended_widget_opts'] : array();
+		$opts       = (isset($instance['extended_widget_opts'])) ? $instance['extended_widget_opts'] : (isset($instance['extended_widget_opts_block']) ? $instance['extended_widget_opts_block'] : array());
 		$visibility = array('show' => array(), 'hide' => array());
 		$tax_opts   = (isset($widget_options['settings']) && isset($widget_options['settings']['taxonomies_keys'])) ? $widget_options['settings']['taxonomies_keys'] : array();
 
@@ -701,7 +701,7 @@ function widgetopts_add_classes_post_block($block_content, $parsed_block, $obj)
 	$instance       = $parsed_block['attrs'];
 
 	if (isset($instance)) {
-		$opts           = (isset($instance['extended_widget_opts'])) ? $instance['extended_widget_opts'] : array();
+		$opts           = (isset($instance['extended_widget_opts'])) ? $instance['extended_widget_opts'] : (isset($instance['extended_widget_opts_block']) ? $instance['extended_widget_opts_block'] : array());
 	} else {
 		$opts = array();
 	}
@@ -769,6 +769,10 @@ function widgetopts_add_classes_post_block($block_content, $parsed_block, $obj)
 function widgetopts_get_types()
 {
 	global $widgetopts_types;
+	if (!(current_user_can('edit_pages') || current_user_can('edit_posts') || current_user_can('edit_theme_options'))) {
+		die;
+	}
+
 	wp_send_json_success(((!empty($widgetopts_types)) ? $widgetopts_types : widgetopts_global_types()));
 	die;
 }
@@ -778,6 +782,10 @@ add_action('wp_ajax_widgetopts_get_types', 'widgetopts_get_types');
 function widgetopts_get_taxonomies()
 {
 	global $widgetopts_taxonomies;
+	if (!(current_user_can('edit_pages') || current_user_can('edit_posts') || current_user_can('edit_theme_options'))) {
+		die;
+	}
+
 	wp_send_json_success(((!empty($widgetopts_taxonomies)) ? $widgetopts_taxonomies : widgetopts_global_taxonomies()));
 	die;
 }
@@ -785,6 +793,10 @@ add_action('wp_ajax_widgetopts_get_taxonomies', 'widgetopts_get_taxonomies');
 
 function widgetopts_acf_get_field_groups()
 {
+	if (!(current_user_can('edit_pages') || current_user_can('edit_posts') || current_user_can('edit_theme_options'))) {
+		die;
+	}
+
 	$fields = array();
 	if (function_exists('acf_get_field_groups')) {
 		$groups = acf_get_field_groups();
@@ -809,6 +821,10 @@ add_action('wp_ajax_widgetopts_acf_get_field_groups', 'widgetopts_acf_get_field_
 
 function widgetopts_get_legacy_data()
 {
+	if (!(current_user_can('edit_pages') || current_user_can('edit_posts') || current_user_can('edit_theme_options'))) {
+		die;
+	}
+
 	if (isset($_POST['id_base'])) {
 		wp_send_json_success(array());
 		die;
@@ -831,7 +847,9 @@ add_action('wp_ajax_widgetopts_get_legacy_data', 'widgetopts_get_legacy_data');
 
 function widgetopts_get_settings_ajax()
 {
-
+	if (!(current_user_can('edit_pages') || current_user_can('edit_posts') || current_user_can('edit_theme_options'))) {
+		die;
+	}
 	$settings = widgetopts_get_settings();
 
 	wp_send_json_success($settings);
@@ -841,6 +859,10 @@ add_action('wp_ajax_widgetopts_get_settings_ajax', 'widgetopts_get_settings_ajax
 
 function widgetopts_get_pages()
 {
+	if (!(current_user_can('edit_pages') || current_user_can('edit_posts') || current_user_can('edit_theme_options'))) {
+		die;
+	}
+
 	$pages = get_pages(['hierarchical' => false]);
 	wp_send_json_success($pages);
 	die;
@@ -849,6 +871,10 @@ add_action('wp_ajax_widgetopts_get_pages', 'widgetopts_get_pages');
 
 function widgetopts_get_terms()
 {
+	if (!(current_user_can('edit_pages') || current_user_can('edit_posts') || current_user_can('edit_theme_options'))) {
+		die;
+	}
+
 	$terms = array();
 
 	$_terms = array();
@@ -869,6 +895,10 @@ function widgetopts_get_users()
 {
 	global $wp_version;
 
+	if (!(current_user_can('edit_pages') || current_user_can('edit_posts') || current_user_can('edit_theme_options'))) {
+		die;
+	}
+
 	$authors = array();
 
 	$args = array();
@@ -881,7 +911,13 @@ function widgetopts_get_users()
 	$_authors  = get_users($args);
 
 	if (!empty($_authors)) {
-		$authors = $_authors;
+
+		if (is_iterable($_authors)) {
+			foreach ($_authors as $a) {
+				$displayname = isset($a->display_name) ? $a->display_name : (isset($a->data) && isset($a->data->display_name) ? $a->data->display_name : '');
+				$authors[] = ["ID" => $a->ID, "display_name" => $displayname];
+			}
+		}
 	}
 
 	wp_send_json_success($authors);
@@ -891,7 +927,9 @@ add_action('wp_ajax_widgetopts_get_users', 'widgetopts_get_users');
 
 function widgetopts_save_widget_editor_cache()
 {
-
+	if (!(current_user_can('edit_pages') || current_user_can('edit_posts') || current_user_can('edit_theme_options'))) {
+		die;
+	}
 	if (isset($_POST['editor_cache']) && (isset($_POST['widget_id']) || isset($_POST['clientId']))) {
 		$editor_cached = widgetopts_sanitize_array($_POST['editor_cache']);
 		$widget_id = isset($_POST['widget_id']) ? sanitize_key($_POST['widget_id']) : sanitize_key($_POST['clientId']);
@@ -926,6 +964,9 @@ add_action('wp_ajax_widgetopts_save_widget_editor_cache', 'widgetopts_save_widge
 
 function widgetopts_ajax_roles_search_block()
 {
+	if (!(current_user_can('edit_pages') || current_user_can('edit_posts') || current_user_can('edit_theme_options'))) {
+		die;
+	}
 	$response = [
 		'results' => [],
 		'pagination' => ['more' => false]

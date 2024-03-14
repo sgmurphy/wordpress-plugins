@@ -214,7 +214,7 @@ href="<?php echo esc_url(admin_url('admin.php?page='. esc_attr(sanitize_text_fie
 <strong><?php echo wp_kses_post($proxyCheck); ?></strong><br /><br />
 <?php echo esc_html(__('Therefore, our plugin might not work properly. Please, contact your hosting support, they can resolve this easily.', 'trustindex-plugin')); ?>
 </p>
-<a href="<?php echo wp_nonce_url('?page='. esc_attr(sanitize_text_field($_GET['page'])) .'&tab='. esc_attr(sanitize_text_field($_GET['tab'])) .'&test_proxy', 'ti-test-proxy'); ?>" class="ti-btn ti-btn-loading-on-click"><?php echo esc_html(__('Test again', 'trustindex-plugin')); ?></a>
+<a href="<?php echo esc_url(wp_nonce_url('?page='. esc_attr(sanitize_text_field($_GET['page'])) .'&tab='. esc_attr(sanitize_text_field($_GET['tab'])) .'&test_proxy', 'ti-test-proxy')); ?>" class="ti-btn ti-btn-loading-on-click"><?php echo esc_html(__('Test again', 'trustindex-plugin')); ?></a>
 </div>
 <?php endif; ?>
 <?php if (!isset($noContainerElementTabs) || !in_array($selectedTab, $noContainerElementTabs)): ?>

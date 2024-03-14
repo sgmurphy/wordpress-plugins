@@ -36,7 +36,7 @@ class B2S_Loader {
 
         define('B2S_PLUGIN_POSTPERPAGE', '25');
         define('B2S_PLUGIN_VERSION_TYPE', serialize(array(0 => 'Free', 1 => 'Smart', 2 => 'Pro', 3 => 'Business', 4 => 'Premium')));
-        define('B2S_PLUGIN_NETWORK', serialize(array(1 => 'Facebook', 2 => 'Twitter', 3 => 'Linkedin', 4 => 'Tumblr', 6 => 'Pinterest', 7 => 'Flickr', 9 => 'Diigo', 11 => 'Medium', 12 => 'Instagram', 14 => 'Torial', 15 => 'Reddit', 16 => 'Bloglovin', 17 => 'VKontakte', 18 => 'Google Business Profile', 19 => 'Xing', 21 => 'Imgur', 24 => 'Telegram', 25 => 'Blogger', 26 => 'Ravelry', 27 => 'Instapaper', 32 => 'YouTube', 35 => 'Vimeo', 36 => 'TikTok', 37 => 'Skyrock', 38 => 'Mastodon', 39 => 'Discord')));
+        define('B2S_PLUGIN_NETWORK', serialize(array(1 => 'Facebook', 2 => 'X (Twitter)', 3 => 'LinkedIn', 4 => 'Tumblr', 6 => 'Pinterest', 7 => 'Flickr', 9 => 'Diigo', 11 => 'Medium', 12 => 'Instagram', 14 => 'Torial', 15 => 'Reddit', 16 => 'Bloglovin', 17 => 'VK', 18 => 'Google Business Profile', 19 => 'Xing', 21 => 'Imgur', 24 => 'Telegram', 25 => 'Blogger', 26 => 'Ravelry', 27 => 'Instapaper', 32 => 'YouTube', 35 => 'Vimeo', 36 => 'TikTok', 37 => 'Skyrock', 38 => 'Mastodon', 39 => 'Discord')));
         define('B2S_PLUGIN_SCHED_DEFAULT_TIMES', serialize(array(1 => array(8, 13), 2 => array(9, 14), 3 => array(10, 12), 4 => array(20, 22), 6 => array(12, 15), 7 => array(7, 9), 9 => array(16, 19), 11 => array(8, 10), 12 => array(10, 12), 13 => array(11, 13), 14 => array(6, 8), 15 => array(6, 8), 16 => array(16, 19), 17 => array(21, 24), 18 => array(13, 14), 19 => array(7, 10), 21 => array(8, 11), 24 => array(10, 12), 32 => array(15, 21), 36 => array(14, 17))));
         define('B2S_PLUGIN_SCHED_DEFAULT_TIMES_INFO', serialize(array(1 => array(0 => array(8, 13)), 2 => array(0 => array(9, 14)), 3 => array(0 => array(10, 12)), 4 => array(0 => array(20, 22)), 6 => array(0 => array(12, 15)), 7 => array(0 => array(7, 9), 1 => array(17, 19)), 9 => array(0 => array(8, 10), 1 => array(11, 13), 2 => array(16, 19)), 11 => array(0 => array(8, 10)), 12 => array(0 => array(10, 12)), 14 => array(0 => array(6, 8)), 15 => array(0 => array(6, 8)), 16 => array(0 => array(16, 19)), 17 => array(0 => array(21, 1)), 18 => array(0 => array(13, 14)), 19 => array(0 => array(7, 10)), 24 => array(0 => array(10, 12), 1 => array(17, 19)), 32 => array(0 => array(15, 21)), 36 => array(0 => array(14, 17)))));
         define('B2S_PLUGIN_NETWORK_ALLOW_PROFILE', serialize(array(1, 2, 3, 4, 7, 9, 11, 14, 15, 16, 17, 18, 19, 21, 24, 25, 26, 27, 32, 35, 36, 37, 38, 39)));
@@ -1234,9 +1234,13 @@ class B2S_Loader {
             }
             $addonVideo = get_option('B2S_PLUGIN_ADDON_VIDEO_TRIAL_END_DATE');
             if ($addonVideo !== false) {
-                define('B2S_PLUGIN_ADDON_VIDEO_TRIAL_END_DATE', $addonVideo);
+                if (!empty($addonVideo)) {
+                    define('B2S_PLUGIN_ADDON_VIDEO_TRIAL_END_DATE', $addonVideo);
+                }
             }
-            define('B2S_PLUGIN_ALLOWED_USER_APPS', $tokenInfo['B2S_PLUGIN_ALLOWED_USER_APPS']);
+            if (isset($tokenInfo['B2S_PLUGIN_ALLOWED_USER_APPS'])) {
+                define('B2S_PLUGIN_ALLOWED_USER_APPS', $tokenInfo['B2S_PLUGIN_ALLOWED_USER_APPS']);
+            }
         }
         $checkUpdateOption = get_option('B2S_PLUGIN_NEXT_CHECK_UPDATE_REQUEST');
         if ($checkUpdateOption == false || $checkUpdateOption < time()) {

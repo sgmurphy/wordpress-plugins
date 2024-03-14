@@ -3,8 +3,8 @@ Contributors: marketingfire
 Tags: widgets, blocks, blocks control, gutenberg widgets, classic widgets
 Requires at least: 5.6
 Tested up to: 6.4.3
-Requires PHP: 8
-Stable tag: 4.0.1
+Requires PHP: 7.4
+Stable tag: 4.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -191,6 +191,16 @@ Widget Options is a featured pack fully lightweight plugin. Using Query Monitor 
 14. Elementor Pagebuilder Integration
 
 == Changelog ==
+
+= 4.0.3 =
+
+* Fixed: WP Customizer issue.
+
+= 4.0.2 =
+
+* Improved: Widget Options for Kadence Block compatibility.
+* Fixed: Visibility of Product Category Taxonomy for YITH AJAX Filter Preset.
+* Fixed: Missing Add Block button.
 
 = 4.0.1 =
 

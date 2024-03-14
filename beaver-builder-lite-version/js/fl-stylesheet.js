@@ -102,7 +102,7 @@
 		 * @param {String} selector
 		 * @param {String} value
 		 */
-		setProperty: function( rule, property, value )
+		setProperty: function( rule, property, value = '' )
 		{
 			var important = '';
 

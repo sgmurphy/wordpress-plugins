@@ -421,7 +421,10 @@
 			var body	  = $( 'body', window.parent.document ),
 				mask      = this._node.find( '.fl-lightbox-mask' ),
 				lightbox  = this._node.find( '.fl-lightbox' ),
-				resizable = $( '.fl-lightbox-resizable', window.parent.document ).eq( 0 );
+				resizable = $( '.fl-lightbox-resizable', window.parent.document ).eq( 0 ),
+				rootEl    = getComputedStyle(document.documentElement),
+				minWidth  = parseInt( rootEl.getPropertyValue('--fl-builder-panel-min-width') ),
+				minHeight = parseInt( rootEl.getPropertyValue('--fl-builder-panel-min-height') );
 
 			if ( this._defaults.resizable ) {
 
@@ -435,8 +438,8 @@
 					iframeFix	: true
 				} ).resizable( {
 					handles		: 'all',
-					minHeight	: 500,
-					minWidth	: 380,
+					minHeight	: minHeight,
+					minWidth	: minWidth,
 					start		: this._resizeStart.bind( this ),
 					stop		: this._resizeStop.bind( this )
 				} );

@@ -621,6 +621,7 @@ body:not(.bt_bb_fe_preview_toggle) .bt_bb_text.bt_bb_fe_editing_box > .bt_bb_fe_
     text-transform: none;
     font-weight: normal;
     background-color: #f6f7f7;
+    border-radius: 0;
     }
 #bt_bb_fe_dialog_main #bt_bb_fe_dialog_tinymce_container textarea {
     background-color: #fff;

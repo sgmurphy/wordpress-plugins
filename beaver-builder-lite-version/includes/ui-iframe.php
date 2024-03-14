@@ -1,10 +1,17 @@
+<?php
+$settings = FLBuilderUserSettings::get()['pinned'];
+$style    = '';
+if ( isset( $settings['position'] ) && '' !== $settings['position'] ) {
+	$style .= "margin-{$settings['position']}:{$settings['width']}px;";
+}
+?>
 <!DOCTYPE html>
-<html>
+<html class="fl-builder-edit fl-builder-is-showing-toolbar">
 	<head>
 		<meta name='viewport' content='width=device-width, initial-scale=1.0' />
 		<?php wp_head(); ?>
 	</head>
-	<body <?php body_class(); ?>>
+	<body <?php body_class(); ?> <?php echo "style='{$style}'"; ?>>
 		<div class="fl-builder-ui-iframe-toolbar">
 			<div class="fl-builder-ui-iframe-breakpoint-text">
 				<?php _e( 'Breakpoint', 'fl-builder' ); ?>

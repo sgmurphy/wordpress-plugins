@@ -651,6 +651,19 @@ const withSidebarTab = (BlockEdit) => {
       }
     }
 
+    let inner_block = false;
+    //for inner blocks without widget id
+    if (props.attributes.hasOwnProperty("__internalWidgetId")) {
+      // console.log("yes");
+    } else {
+      if (Object.keys(props.attributes.extended_widget_opts_block).length > 0) {
+        inner_block = true;
+        _myprops["extended_widget_opts"] = {
+          ...props.attributes.extended_widget_opts_block,
+        };
+      }
+    }
+
     const updateDynamicAttribute = (newValue, widget_id) => {
       setCacheTime = new Date().getTime();
 
@@ -771,7 +784,7 @@ const withSidebarTab = (BlockEdit) => {
     };
 
     return (
-      <div>
+      <>
         <BlockEdit {...props} />
         <InspectorControls>
           <PanelBody
@@ -805,7 +818,8 @@ const withSidebarTab = (BlockEdit) => {
                 <WidgetOptionsTab
                   widgetId={props.attributes.__internalWidgetId}
                   extended_widget_opts={
-                    props.attributes.extended_widget_opts != undefined
+                    props.attributes.extended_widget_opts != undefined ||
+                    inner_block === true
                       ? _myprops["extended_widget_opts"]
                       : _myprops.instance.raw[
                           "extended_widget_opts-" +
@@ -1010,7 +1024,7 @@ const withSidebarTab = (BlockEdit) => {
                 `}
           </style>
         </InspectorControls>
-      </div>
+      </>
     );
   };
 

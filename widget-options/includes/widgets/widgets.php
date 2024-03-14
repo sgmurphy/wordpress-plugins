@@ -58,7 +58,6 @@ function widgetopts_in_widget_form($widget, $return, $instance)
                 if (!empty($block[0]) && !empty($block[0]['attrs'])) {
                     if (!empty($block[0]['attrs']['extended_widget_opts'])) {
                         $opts = $block[0]['attrs']['extended_widget_opts'];
-                        $instance['content'] = $block[0]['innerHTML'];
                     }
                 }
             }
@@ -187,4 +186,92 @@ function widgetopts_ajax_update_callback($instance, $new_instance, $this_widget)
 }
 add_filter('widget_update_callback', 'widgetopts_ajax_update_callback', 10, 3);
 
+add_filter('widget_form_callback', function ($instance, $widget) {
+    /* if $opts is empty, try to get data from blocks */
+    if (!wp_use_widgets_block_editor()) {
+        if (empty($instance['extended_widget_opts-' . $widget->id])) {
+            if (isset($instance['content']) && !empty($instance['content'])) {
+                $block = parse_blocks($instance['content']);
+                if (!empty($block[0]) && !empty($block[0]['attrs'])) {
+                    if (!empty($block[0]['attrs']['extended_widget_opts'])) {
+                        $instance['extended_widget_opts-' . $widget->id] = $block[0]['attrs']['extended_widget_opts'];
+                    }
+                }
+            }
+        }
+
+        //remove widgetopts attribute from blocks when it is classic editor
+        if (!empty($instance['content'])) {
+            $blocks = parse_blocks($instance['content']);
+            if (is_array($blocks) && is_iterable($blocks)) {
+
+                foreach ($blocks as &$block) {
+                    if (!empty($block) && !empty($block['attrs'])) {
+                        $is_there_a_changes = false;
+                        $_block = widgetopts_unset_block_attributes($block);
+                        if ($_block !== false) {
+                            $block = $_block;
+                            $is_there_a_changes = true;
+                        }
+
+                        //inner blocks
+                        if (isset($block['innerBlocks']) && is_array($block['innerBlocks']) && !empty($block['innerBlocks'])) {
+
+                            foreach ($block['innerBlocks'] as &$block2) {
+                                $_block2 = widgetopts_unset_block_attributes($block2);
+                                if ($_block2 !== false) {
+                                    $block2 = $_block2;
+
+                                    $is_there_a_changes = true;
+                                }
+
+                                //2nd level inner blocks
+                                if (isset($block2['innerBlocks']) && is_array($block2['innerBlocks']) && !empty($block2['innerBlocks'])) {
+
+                                    foreach ($block2['innerBlocks'] as &$block3) {
+                                        $_block3 = widgetopts_unset_block_attributes($block3);
+                                        if ($_block3 !== false) {
+                                            $block3 = $_block3;
+                                            $is_there_a_changes = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if ($is_there_a_changes) {
+                            $instance['content'] = serialize_blocks($blocks);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return $instance;
+}, 100, 2);
+
+function widgetopts_unset_block_attributes($block)
+{
+    $is_there_a_changes = false;
+    if (!empty($block) && !empty($block['attrs'])) {
+        if (!empty($block['attrs']['extended_widget_opts'])) {
+            unset($block['attrs']['extended_widget_opts']);
+            $is_there_a_changes = true;
+        }
+
+        if (!empty($block['attrs']['extended_widget_opts_state'])) {
+            unset($block['attrs']['extended_widget_opts_state']);
+            $is_there_a_changes = true;
+        }
+
+        if (!empty($block['attrs']['extended_widget_opts_clientid'])) {
+            unset($block['attrs']['extended_widget_opts_clientid']);
+            $is_there_a_changes = true;
+        }
+    }
+
+    return $is_there_a_changes ? $block : false;
+}
 ?>

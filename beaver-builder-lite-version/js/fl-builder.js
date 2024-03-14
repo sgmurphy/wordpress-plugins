@@ -508,7 +508,7 @@
 		{
 			var scrollers = $('.fl-nanoscroller', window.parent.document).nanoScroller({
 				documentContext: window.parent.document,
-				alwaysVisible: true,
+				alwaysVisible: false,
 				preventPageScrolling: true,
 				paneClass: 'fl-nanoscroller-pane',
 				sliderClass: 'fl-nanoscroller-slider',
@@ -571,18 +571,28 @@
 			if ( 'row' == FLBuilderConfig.userTemplateType )  {
 				moduleConnections = FLBuilder._contentClass + ' .fl-row:not(.fl-builder-node-loading) .fl-col-group-drop-target, ' +
 									FLBuilder._contentClass + ' .fl-row:not(.fl-builder-node-loading) .fl-col-drop-target, ' +
-							  		FLBuilder._contentClass + ' .fl-row:not(.fl-builder-node-loading) .fl-col-content';
+							  		FLBuilder._contentClass + ' .fl-row:not(.fl-builder-node-loading) .fl-col-content, ' +
+									FLBuilder._contentClass + ' .fl-row:not(.fl-builder-node-loading) .fl-module[data-accepts]:not(:has(> .fl-module-content)), ' +
+									FLBuilder._contentClass + ' .fl-row:not(.fl-builder-node-loading) .fl-module[data-accepts] > .fl-module-content';
 			}
 			else if ( 'column' == FLBuilderConfig.userTemplateType ) {
 				moduleConnections = FLBuilder._contentClass + ' .fl-col-group-drop-target, ' +
 			                        FLBuilder._contentClass + ' .fl-col-drop-target, ' +
-			                        FLBuilder._contentClass + ' .fl-col-content';
+			                        FLBuilder._contentClass + ' .fl-col-content, ' +
+									FLBuilder._contentClass + ' .fl-module[data-accepts]:not(:has(> .fl-module-content)), ' +
+									FLBuilder._contentClass + ' .fl-module[data-accepts] > .fl-module-content';
+			}
+			else if ( 'module' == FLBuilderConfig.userTemplateType ) {
+				moduleConnections = FLBuilder._contentClass + ' .fl-module[data-accepts]:not(:has(> .fl-module-content)), ' +
+									FLBuilder._contentClass + ' .fl-module[data-accepts] > .fl-module-content';
 			}
 			else {
 				moduleConnections = FLBuilder._contentClass + ' .fl-row-drop-target, ' +
 									FLBuilder._contentClass + ' .fl-row:not(.fl-builder-node-loading) .fl-col-group-drop-target, ' +
 									FLBuilder._contentClass + ' .fl-row:not(.fl-builder-node-loading) .fl-col-drop-target, ' +
-							  		FLBuilder._contentClass + ' .fl-row:not(.fl-builder-node-loading) .fl-col:not(.fl-builder-node-loading):not(.fl-node-global) .fl-col-content';
+							  		FLBuilder._contentClass + ' .fl-row:not(.fl-builder-node-loading) .fl-col:not(.fl-builder-node-loading):not(.fl-node-global) .fl-col-content, ' +
+									FLBuilder._contentClass + ' .fl-row:not(.fl-builder-node-loading) .fl-module[data-accepts]:not(:has(> .fl-module-content)):not(.fl-node-global), ' +
+									FLBuilder._contentClass + ' .fl-row:not(.fl-builder-node-loading) .fl-module[data-accepts]:not(.fl-node-global) > .fl-module-content';
 			}
 
 			// Column Connections.
@@ -686,7 +696,20 @@
 				stop: FLBuilder._moduleDragStop
 			}));
 
+			// Modules and groups in columns.
 			$(FLBuilder._contentClass + ' .fl-col-content').sortable($.extend({}, defaults, {
+				cancel: '.fl-module, .fl-col-group',
+				handle: '.fl-module-sortable-proxy',
+			}));
+
+			// Modules and groups in container modules WITHOUT a wrapper.
+			$(FLBuilder._contentClass + ' .fl-module[data-accepts]:not(:has(> .fl-module-content))').sortable($.extend({}, defaults, {
+				cancel: '.fl-module, .fl-col-group',
+				handle: '.fl-module-sortable-proxy',
+			}));
+
+			// Modules and groups in container modules WITH a wrapper.
+			$(FLBuilder._contentClass + ' .fl-module[data-accepts] > .fl-module-content').sortable($.extend({}, defaults, {
 				cancel: '.fl-module, .fl-col-group',
 				handle: '.fl-module-sortable-proxy',
 			}));
@@ -734,8 +757,6 @@
 		 */
 		_bindEvents: function()
 		{
-			var isTouch = FLBuilderLayout._isTouch();
-
 			/* Links */
 			$excludedLinks = $('.fl-builder-bar a, .fl-builder--content-library-panel a, .fl-page-nav .nav a'); // links in ui shouldn't be disabled.
 			$('a').not($excludedLinks).on('click', FLBuilder._preventDefault);
@@ -766,7 +787,7 @@
 			/* Actions Lightbox */
 			$('body', window.parent.document).on( 'click', '.fl-builder-actions .fl-builder-cancel-button', FLBuilder._cancelButtonClicked);
 
-			/* Tools Actions */
+			/* Layout and Global Settings */
 			$('body', window.parent.document).on( 'click', '.fl-builder-layout-settings .fl-builder-settings-save', FLBuilder._saveLayoutSettingsClicked);
 			$('body', window.parent.document).on( 'click', '.fl-builder-layout-settings .fl-builder-settings-cancel', FLBuilder._cancelLayoutSettingsClicked);
 			$('body', window.parent.document).on( 'click', '.fl-builder-global-settings .fl-builder-settings-save', FLBuilder._saveGlobalSettingsClicked);
@@ -791,85 +812,7 @@
 			$('body', window.parent.document).on( 'click', '.fl-builder-alert-close', FLBuilder._alertClose);
 
 			/* General Overlays */
-			$('body').on( 'contextmenu', '.fl-block-overlay', FLBuilder._onContextmenu);
-
-			/* Overlay Submenus */
-			$('body').on( 'click touchend', '.fl-builder-has-submenu', FLBuilder._submenuParentClicked);
-			$('body').on( 'mouseenter', '.fl-builder-submenu-hover', FLBuilder._hoverMenuParentMouseEnter);
-			$('body').on( 'mouseleave', '.fl-builder-submenu-hover', FLBuilder._hoverMenuParentMouseLeave);
-			$('body').on( 'click touchend', '.fl-builder-has-submenu a', FLBuilder._submenuChildClicked);
-			$('body').on( 'mouseenter', '.fl-builder-submenu', FLBuilder._submenuMouseenter);
-			$('body').on( 'mouseleave', '.fl-builder-submenu', FLBuilder._submenuMouseleave);
-			$('body').on( 'mouseenter', '.fl-builder-submenu .fl-builder-has-submenu', FLBuilder._submenuNestedParentMouseenter);
-
-			/* Rows */
-			$('body').on( 'click touchend', '.fl-row-overlay .fl-block-remove', FLBuilder._deleteRowClicked);
-			$('body').on( 'click touchend', '.fl-row-overlay .fl-block-copy', FLBuilder._rowCopyClicked);
-			$('body').on( 'mousedown', '.fl-row-overlay .fl-block-move', FLBuilder._rowDragInit);
-			$('body').on( 'touchstart', '.fl-row-overlay .fl-block-move', FLBuilder._rowDragInitTouch);
-			$('body').on( 'click touchend', '.fl-row-overlay .fl-block-settings', FLBuilder._rowSettingsClicked);
-			$('body').on( 'click touchend', '.fl-row-quick-copy', FLBuilder._rowCopySettingsClicked);
-			$('body').on( 'click touchend', '.fl-row-quick-paste', FLBuilder._rowPasteSettingsClicked);
-			$('body', window.parent.document).on( 'click', '.fl-builder-row-settings .fl-builder-settings-save', FLBuilder._saveSettings);
-
-			// Row touch or mouse specific events.
-			if ( isTouch ) {
-				$('body').on( 'touchend', '.fl-row-overlay', FLBuilder._rowSettingsClicked);
-			} else {
-				$('body').on( 'click', '.fl-row-overlay', FLBuilder._rowSettingsClicked);
-			}
-
-			/* Rows Submenu */
-			$('body').on( 'click touchend', '.fl-block-col-submenu .fl-block-row-reset', FLBuilder._resetRowWidthClicked);
-
-			/* Columns */
-			$('body').on( 'mousedown', '.fl-col-overlay .fl-block-move', FLBuilder._colDragInit);
-			$('body').on( 'touchstart', '.fl-col-overlay .fl-block-move', FLBuilder._colDragInitTouch);
-			$('body').on( 'click touchend', '.fl-block-col-copy', FLBuilder._copyColClicked);
-			$('body').on( 'click touchend', '.fl-col-overlay .fl-block-remove', FLBuilder._deleteColClicked);
-			$('body').on( 'click touchend', '.fl-col-overlay .fl-block-settings', FLBuilder._colSettingsClicked);
-			$('body').on( 'click touchend', '.fl-col-quick-copy', FLBuilder._colCopySettingsClicked);
-			$('body').on( 'click touchend', '.fl-col-quick-paste', FLBuilder._colPasteSettingsClicked);
-			$('body', window.parent.document).on( 'click', '.fl-builder-col-settings .fl-builder-settings-save', FLBuilder._saveSettings);
-
-			// Column touch or mouse specific events.
-			if ( isTouch ) {
-				$('body').on( 'touchend', '.fl-col-overlay', FLBuilder._colSettingsClicked);
-			} else {
-				$('body').on( 'click', '.fl-col-overlay', FLBuilder._colSettingsClicked);
-			}
-
-			/* Columns Submenu */
-			$('body').on( 'mousedown', '.fl-block-col-submenu .fl-block-col-move', FLBuilder._colDragInit);
-			$('body').on( 'touchstart', '.fl-block-col-submenu .fl-block-col-move', FLBuilder._colDragInitTouch);
-			$('body').on( 'click touchend', '.fl-block-col-submenu .fl-block-col-edit', FLBuilder._colSettingsClicked);
-			$('body').on( 'click touchend', '.fl-block-col-submenu .fl-block-col-delete', FLBuilder._deleteColClicked);
-			$('body').on( 'click touchend', '.fl-block-col-submenu .fl-block-col-reset', FLBuilder._resetColumnWidthsClicked);
-			$('body').on( 'mouseenter', '.fl-block-col-submenu li', FLBuilder._showColHighlightGuide);
-			$('body').on( 'mouseleave', '.fl-block-col-submenu li', FLBuilder._removeColHighlightGuides);
-
-			/* Columns Submenu (Parent Column) */
-			$('body').on( 'mousedown', '.fl-block-col-submenu .fl-block-col-move-parent', FLBuilder._colDragInit);
-			$('body').on( 'touchstart', '.fl-block-col-submenu .fl-block-col-move-parent', FLBuilder._colDragInitTouch);
-			$('body').on( 'click touchend', '.fl-block-col-submenu .fl-block-col-edit-parent', FLBuilder._colSettingsClicked);
-
-			/* Modules */
-			$('body').on( 'click touchend', '.fl-module-overlay .fl-block-remove', FLBuilder._deleteModuleClicked);
-			$('body').on( 'click touchend', '.fl-module-overlay .fl-block-copy', FLBuilder._moduleCopyClicked);
-			$('body').on( 'mousedown', '.fl-module-overlay .fl-block-move', FLBuilder._moduleDragInit);
-			$('body').on( 'touchstart', '.fl-module-overlay .fl-block-move', FLBuilder._moduleDragInitTouch);
-			$('body').on( 'click touchend', '.fl-module-overlay .fl-block-settings', FLBuilder._moduleSettingsClicked);
-			$('body').on( 'click touchend', '.fl-module-quick-copy', FLBuilder._moduleCopySettingsClicked);
-			$('body').on( 'click touchend', '.fl-module-quick-paste', FLBuilder._modulePasteSettingsClicked);
-			$('body').on( 'click touchend', '.fl-module-overlay .fl-block-col-settings', FLBuilder._colSettingsClicked);
-			$('body', window.parent.document).on( 'click', '.fl-builder-module-settings .fl-builder-settings-save', FLBuilder._saveModuleClicked);
-
-			// Module touch or mouse specific events.
-			if ( isTouch ) {
-				$('body').on( 'touchend', '.fl-module-overlay', FLBuilder._moduleSettingsClicked);
-			} else {
-				$('body').on( 'click', '.fl-module-overlay', FLBuilder._moduleSettingsClicked);
-			}
+			FLBuilder._bindGeneralOverlayEvents();
 
 			/* Node Templates */
 			$('body', window.parent.document).on( 'click', '.fl-builder-settings-save-as', FLBuilder._showNodeTemplateSettings);
@@ -969,63 +912,6 @@
 			$('a').on('click', FLBuilder._preventDefault);
 			$('.fl-page-nav .nav a').on('click', FLBuilder._headerLinkClicked);
 			$('body').on( 'click', '.fl-builder-content a', FLBuilder._preventDefault);
-		},
-
-		/**
-		 * Binds the events for overlays that appear when
-		 * mousing over a row, column or module.
-		 *
-		 * @since 1.0
-		 * @access private
-		 * @method _bindOverlayEvents
-		 */
-		_bindOverlayEvents: function()
-		{
-			var content = $(FLBuilder._contentClass);
-
-			content.on( 'mouseenter touchstart', '.fl-row', FLBuilder._rowMouseenter);
-			content.on( 'mouseleave', '.fl-row', FLBuilder._rowMouseleave);
-			content.on( 'mouseleave', '.fl-row-overlay', FLBuilder._rowMouseleave);
-			content.on( 'mouseenter touchstart', '.fl-col', FLBuilder._colMouseenter);
-			content.on( 'mouseleave', '.fl-col', FLBuilder._colMouseleave);
-			content.on( 'mouseenter touchstart', '.fl-module', FLBuilder._moduleMouseenter);
-			content.on( 'mouseleave', '.fl-module', FLBuilder._moduleMouseleave);
-		},
-
-		/**
-		 * Unbinds the events for overlays that appear when
-		 * mousing over a row, column or module.
-		 *
-		 * @since 1.0
-		 * @access private
-		 * @method _destroyOverlayEvents
-		 */
-		_destroyOverlayEvents: function()
-		{
-			var content = $(FLBuilder._contentClass);
-
-			content.undelegate('.fl-row', 'mouseenter touchstart', FLBuilder._rowMouseenter);
-			content.undelegate('.fl-row', 'mouseleave', FLBuilder._rowMouseleave);
-			content.undelegate('.fl-row-overlay', 'mouseleave', FLBuilder._rowMouseleave);
-			content.undelegate('.fl-col', 'mouseenter touchstart', FLBuilder._colMouseenter);
-			content.undelegate('.fl-col', 'mouseleave', FLBuilder._colMouseleave);
-			content.undelegate('.fl-module', 'mouseenter touchstart', FLBuilder._moduleMouseenter);
-			content.undelegate('.fl-module', 'mouseleave', FLBuilder._moduleMouseleave);
-		},
-
-		/**
-		 * Hides overlays when the contextmenu event is fired on them.
-		 * This allows us to inspect the actual node in the console
-		 * instead of getting the overlay.
-		 *
-		 * @since 2.2
-		 * @access private
-		 * @method _onContextmenu
-		 * @param {Object} e The event object.
-		 */
-		_onContextmenu: function( e )
-		{
-		    $( this ).hide();
 		},
 
 		/**
@@ -1367,7 +1253,7 @@
 		_submenuNestedParentMouseenter: function( e )
 		{
 			var parent = $( this );
-			var submenu = parent.find( '.fl-builder-submenu' );
+			var submenu = parent.find( '> .fl-builder-submenu' );
 			var winWidth = $( window ).width();
 			var leftSpace = parent.offset().left;
 			var rightSpace = winWidth - ( parent.width() + leftSpace );
@@ -1903,6 +1789,24 @@
 
 			if ( FLBuilder._shapesEdited === true ) {
 				window.parent.location.reload(true);
+			}
+		},
+
+		/* Global Styles - See extensions for global styles code.
+		----------------------------------------------------------*/
+
+		/**
+		 * Shows the global builder styles lightbox when the global
+		 * styles button is clicked.
+		 *
+		 * @since 2.8
+		 */
+		_globalStylesClicked: function()
+		{
+			if ( FLBuilderConfig.lite ) {
+				FLBuilder._showProMessage( 'Global Styles' );
+			} else if ( 'undefined' !== typeof FLBuilderGlobalStyles ) {
+				FLBuilderGlobalStyles._showPanel();
 			}
 		},
 
@@ -2537,14 +2441,15 @@
 		 */
 		_initDropTargets: function()
 		{
-			var notGlobal = 'row' == FLBuilderConfig.userTemplateType ? '' : ':not(.fl-node-global)',
-				rows      = $( FLBuilder._contentClass + ' .fl-row' ),
-				row       = null,
-				groups    = $( FLBuilder._contentClass + ' .fl-row' + notGlobal ).find( '.fl-col-group' ),
-				group     = null,
-				cols      = null,
-				rootCol   = 'column' == FLBuilderConfig.userTemplateType ? $( FLBuilder._contentClass + '> .fl-col' ).eq(0) : null,
-				i         = 0;
+			var notGlobal  = 'row' == FLBuilderConfig.userTemplateType ? '' : ':not(.fl-node-global)',
+				rows       = $( FLBuilder._contentClass + ' .fl-row' ),
+				row        = null,
+				groups     = $( FLBuilder._contentClass + ' .fl-row' + notGlobal ).find( '.fl-col-group' ),
+				group      = null,
+				cols       = null,
+				rootCol    = 'column' == FLBuilderConfig.userTemplateType ? $( FLBuilder._contentClass + '> .fl-col' ).eq(0) : null,
+				modules    = $( FLBuilder._contentClass + ' .fl-row' + notGlobal ).find( '.fl-row-content > .fl-module' ),
+				i          = 0;
 
 			// Remove old drop targets.
 			$( '.fl-col-drop-target' ).remove();
@@ -2556,25 +2461,15 @@
 			rows.prepend( '<div class="fl-drop-target fl-row-drop-target"></div>' );
 			rows.append( '<div class="fl-drop-target fl-drop-target-last fl-row-drop-target fl-row-drop-target-last"></div>' );
 
-			// Add group drop targets to empty rows.
-			for ( ; i < rows.length; i++ ) {
+			// Add drop targets to empty rows.
+			rows.find( '.fl-row-content' ).prepend( '<div class="fl-drop-target fl-col-group-drop-target fl-col-group-drop-target-empty"></div>' );
+			FLBuilder._initEmptyRowDropTargets();
 
-				row = rows.eq( i );
+			// Add drop targets to container modules.
+			modules.append( '<div class="fl-drop-target fl-col-group-drop-target"></div>' );
+			modules.append( '<div class="fl-drop-target fl-drop-target-last fl-col-group-drop-target fl-col-group-drop-target-last"></div>' );
 
-				if ( 0 === row.find( '.fl-col-group' ).length ) {
-					row.find( '.fl-row-content' ).prepend( '<div class="fl-drop-target fl-col-group-drop-target"></div>' );
-				}
-			}
-
-			// Add drop target to root parent column.
-			if ( rootCol && 0 === groups.length ) {
-				groups = rootCol.find( '.fl-col-group' );
-
-				rootCol.append( '<div class="fl-drop-target fl-col-drop-target"></div>' );
-				rootCol.append( '<div class="fl-drop-target fl-drop-target-last fl-col-drop-target fl-col-drop-target-last"></div>' );
-			}
-
-			// Loop through the column groups.
+			// Add drop targets to column groups and columns.
 			for ( i = 0; i < groups.length; i++ ) {
 
 				group = groups.eq( i );
@@ -2589,6 +2484,31 @@
 				// Column drop targets.
 				cols.append( '<div class="fl-drop-target fl-col-drop-target"></div>' );
 				cols.append( '<div class="fl-drop-target fl-drop-target-last fl-col-drop-target fl-col-drop-target-last"></div>' );
+			}
+
+			// Add drop targets to root column of a column template.
+			if ( rootCol && 0 === groups.length ) {
+				groups = rootCol.find( '.fl-col-group' );
+
+				rootCol.append( '<div class="fl-drop-target fl-col-drop-target"></div>' );
+				rootCol.append( '<div class="fl-drop-target fl-drop-target-last fl-col-drop-target fl-col-drop-target-last"></div>' );
+			}
+		},
+
+		/**
+		 * Shows drop targets in empty rows with no content.
+		 *
+		 * @method _initEmptyRowDropTargets
+		 * @return void
+		 */
+		_initEmptyRowDropTargets: function()
+		{
+			var emptyRows = $( FLBuilder._contentClass + ' .fl-row-content:not(:has(*:visible))' );
+
+			$( '.fl-row-content-empty' ).removeClass( '.fl-row-content-empty' );
+
+			if ( emptyRows.length ) {
+				emptyRows.addClass( 'fl-row-content-empty' );
 			}
 		},
 
@@ -2660,8 +2580,7 @@
 			// Setup the UI for dragging.
 			FLBuilder._highlightRowsAndColsForDrag( target );
 			FLBuilder._adjustColHeightsForDrag();
-			FLBuilder._disableGlobalRows();
-			FLBuilder._disableGlobalCols();
+			FLBuilder._disableGlobalNodes();
 			FLBuilder._destroyOverlayEvents();
 			FLBuilder._initSortables();
 			$( 'body' ).addClass( 'fl-builder-dragging' );
@@ -2722,9 +2641,25 @@
 				return;
 			}
 
+			// Reset flex items with a fixed width.
+			$( '.fl-sortable-fixed-width' ).css( 'max-width', '' ).removeClass( 'fl-sortable-fixed-width' );
+
 			// Find the placeholder title.
-			if(parent.hasClass('fl-col-content')) {
-				if(ui.item.hasClass('fl-builder-block-row')) {
+			if(parent.hasClass('fl-col-content') || parent.hasClass('fl-module') || parent.hasClass('fl-module-content')) {
+
+				// Make flex items fixed width while sorting.
+				if ((/flex/).test(parent.css('display'))) {
+					ui.placeholder.hide();
+					parent.css('max-width', '');
+					parent.css('max-width', parent.outerWidth());
+					parent.addClass( 'fl-sortable-fixed-width' );
+					ui.placeholder.show();
+				}
+
+				if ((/flex/).test(parent.css('display')) && (/row|row-reverse/).test(parent.css( "flex-direction" ))) {
+					title = '';
+				}
+				else if(ui.item.hasClass('fl-builder-block-row')) {
 					title = ui.item.find('.fl-builder-block-title').text();
 				}
 				else if(ui.item.hasClass('fl-col-sortable-proxy-item')) {
@@ -2795,6 +2730,8 @@
 		 */
 		_blockDragChange: function( e, ui )
 		{
+			FLBuilder._initEmptyRowDropTargets();
+
 			ui.placeholder.css( 'opacity', '0' );
 			ui.placeholder.animate( { 'opacity': '1' }, 100 );
 		},
@@ -2814,12 +2751,39 @@
 			var prevent              = false,
 				isRowBlock           = item.hasClass( 'fl-builder-block-row' ),
 				isCol                = item.hasClass( 'fl-col-sortable-proxy-item' ),
-				isModuleItem         = item.hasClass('fl-builder-block-module'),
+				isModule         	 = item.hasClass( 'fl-builder-block-module' ) || item.hasClass( 'fl-module-sortable-proxy-item' ),
+				isContainerModule	 = parent.data( 'accepts' ),
 				isParentColGlobal    = parent.closest('.fl-col[data-template-url]').hasClass('fl-node-global'),
 				isParentCol          = parent.hasClass( 'fl-col-content' ),
 				isColTarget          = parent.hasClass( 'fl-col-drop-target' ),
 				group                = parent.parents( '.fl-col-group:not(.fl-col-group-nested)' ),
-				nestedGroup          = parent.parents( '.fl-col-group-nested' );
+				nestedGroup          = parent.parents( '.fl-col-group-nested' ),
+				parentType			 = parent.data( 'type' ),
+				itemType			 = item.data( 'type' );
+
+			// Handle container modules.
+			if ( isContainerModule ) {
+
+				const { accepts } = FLBuilderConfig.contentItems.module.filter( config => parentType === config.slug ).pop();
+
+				// Prevent rows and columns in container modules.
+				if ( isRowBlock || isCol ) {
+					prevent = true;
+				}
+				// Prevent unaccepted nodes in container modules.
+				else if ( 'object' === typeof accepts && accepts.length && ! accepts.includes( itemType ) ) {
+					prevent = true;
+				}
+			}
+
+			// Prevent modules in unaccepted parents.
+			// if ( isModule && 'widget' !== itemType ) {
+			// 	const { parents } = FLBuilderConfig.contentItems.module.filter( config => itemType === config.slug ).pop();
+			//
+			// 	if ( 'object' === typeof parents && ! parents.includes( parentType ) ) {
+			// 		prevent = true;
+			// 	}
+			// }
 
 			// Prevent columns in nested columns.
 			if ( ( isRowBlock || isCol ) && isParentCol && nestedGroup.length > 0 ) {
@@ -2860,8 +2824,13 @@
 				prevent = true;
 			}
 
-			// Prevent module from being dropped to a Global Col except when editing a column template.
-			if ( isModuleItem && isParentColGlobal && 'column' !== FLBuilderConfig.userTemplateType ) {
+			// Prevent module from being dropped to a Global Col except when editing a saved column.
+			if ( isModule && isParentColGlobal && 'column' !== FLBuilderConfig.userTemplateType ) {
+				prevent = true;
+			}
+
+			// Prevent dropping into layouts rendered via shortcode.
+			if ( parent.closest( '.fl-builder-shortcode-mask-wrap' ).length ) {
 				prevent = true;
 			}
 
@@ -2908,8 +2877,7 @@
 			FLBuilder._bindOverlayEvents();
 			FLBuilder._removeEmptyRowAndColHighlights();
 			FLBuilder._highlightEmptyCols();
-			FLBuilder._enableGlobalRows();
-			FLBuilder._enableGlobalCols();
+			FLBuilder._enableGlobalNodes();
 			FLBuilder._setupEmptyLayout();
 			$( 'body' ).removeClass( 'fl-builder-dragging' );
 			$( 'body', window.parent.document ).removeClass( 'fl-builder-dragging' );
@@ -2935,7 +2903,7 @@
 				FLBuilder._bindOverlayEvents();
 				FLBuilder._removeEmptyRowAndColHighlights();
 				FLBuilder._highlightEmptyCols();
-				FLBuilder._enableGlobalRows();
+				FLBuilder._enableGlobalNodes();
 				FLBuilder._setupEmptyLayout();
 				$( 'body' ).removeClass( 'fl-builder-dragging' );
 				$( 'body', window.parent.document ).removeClass( 'fl-builder-dragging' );
@@ -2977,6 +2945,61 @@
 		},
 
 		/**
+		 * Moves a node up a position within its parent.
+		 *
+		 * @since 2.8
+		 */
+		_moveNodeUpClicked: function( e )
+		{
+			var node = $( e.target ).closest( '[data-node]' );
+			var nodeId = node.attr( 'data-node' );
+			var data = FL.Builder.data.getNode( nodeId );
+			var position = data.position - 1;
+			var upBtn = node.find( '.fl-block-move-up' ).first();
+			var downBtn = node.find( '.fl-block-move-down' ).first();
+
+			if ( position <= 0 ) {
+				upBtn.addClass( 'fl-builder-submenu-disabled' );
+			} else {
+				upBtn.removeClass( 'fl-builder-submenu-disabled' );
+			}
+
+			downBtn.removeClass( 'fl-builder-submenu-disabled' );
+
+			FLBuilder._reorderNode( nodeId, position );
+			FLBuilder._selectNodeOverlay( node, false );
+			FL.Builder.data.updateNode( nodeId, { ...data, position } );
+		},
+
+		/**
+		 * Moves a node down a position within its parent.
+		 *
+		 * @since 2.8
+		 */
+		_moveNodeDownClicked: function( e )
+		{
+			var node = $( e.target ).closest( '[data-node]' );
+			var nodeId = node.attr( 'data-node' );
+			var data = FL.Builder.data.getNode( nodeId );
+			var position = data.position + 1;
+			var upBtn = node.find( '.fl-block-move-up' ).first();
+			var downBtn = node.find( '.fl-block-move-down' ).first();
+			var parentChildren = node.parent().find( '> [data-node]' );
+
+			if ( position >= parentChildren.length - 1 ) {
+				downBtn.addClass( 'fl-builder-submenu-disabled' );
+			} else {
+				downBtn.removeClass( 'fl-builder-submenu-disabled' );
+			}
+
+			upBtn.removeClass( 'fl-builder-submenu-disabled' );
+
+			FLBuilder._reorderNode( nodeId, position );
+			FLBuilder._selectNodeOverlay( node, false );
+			FL.Builder.data.updateNode( nodeId, { ...data, position } );
+		},
+
+		/**
 		 * Moves a node to a new parent.
 		 *
 		 * @since 1.9
@@ -3008,341 +3031,156 @@
 			FLBuilder.triggerHook( hook, data );
 		},
 
+		/* Generic Node Methods
+		----------------------------------------------------------*/
+
 		/**
-		 * Removes all node overlays and hides any tooltip helpies.
+		 * Returns a JQuery reference to the HTMLElement for particular node.
 		 *
-		 * @since 1.0
+		 * @since 2.5
 		 * @access private
-		 * @method _removeAllOverlays
+		 * @method _getjQueryElement
+		 * @return {JQuery} dom reference.
 		 */
-		_removeAllOverlays: function()
-		{
-			FLBuilder._removeRowOverlays();
-			FLBuilder._removeColOverlays();
-			FLBuilder._removeColHighlightGuides();
-			FLBuilder._removeModuleOverlays();
-			FLBuilder._hideTipTips();
-			FLBuilder._closeAllSubmenus();
+		_getJQueryElement: function( id ) {
+			return $( FLBuilder._contentClass ).find( '[data-node="' + id + '"]' )
 		},
 
 		/**
-		 * Appends a node action overlay to the layout.
+		 * Returns whether a node lays its children out
+		 * horizontally, vertically, or layered.
 		 *
-		 * @since 1.6.3.3
-		 * @access private
-		 * @method _appendOverlay
-		 * @param {Object} node A jQuery reference to the node this overlay is associated with.
-		 * @param {Object} template A rendered wp.template.
-		 * @return {Object} The overlay element.
+		 * @since 2.8
+		 * @param {Object} node
 		 */
-		_appendOverlay: function( node, template )
+		_getNodeLayoutDirection: function( node )
 		{
-			var overlayPos 	= 0,
-				overlay 	= null,
-				isRow		= node.hasClass( 'fl-row' ),
-				nodeId = node.attr('data-node'),
-				content		= isRow ? node.find( '> .fl-row-content-wrap' ) : node.find( '> .fl-node-content' ),
-				margins 	= {
-					'top' 		: parseInt( content.css( 'margin-top' ), 10 ),
-					'bottom' 	: parseInt( content.css( 'margin-bottom' ), 10 )
-				};
+			var isFlex = ( /flex/ ).test( node.parent().css( 'display' ) );
+			var isFlexRow = ( /row|row-reverse/ ).test( node.parent().css( 'flex-direction' ) );
+			var isGrid = ( /grid/ ).test( node.parent().css( 'display' ) );
+			var isLayeredGrid = isGrid && '1 / 1 / -1 / -1' === node.css( 'grid-area' );
+			var isSingleColumnGrid = 1 === window.getComputedStyle( node.parent()[0] ).getPropertyValue( 'grid-template-columns' ).split( ' ' ).length;
 
-			// Append the template.
-			node.append( template );
-
-			// Add the active class to the node.
-			node.addClass( 'fl-block-overlay-active' );
-
-			FL.Builder.data.getOutlinePanelActions().setFocusNode( nodeId );
-
-			// Init TipTips
-			FLBuilder._initTipTips();
-
-			// Get a reference to the overlay.
-			overlay = node.find( '> .fl-block-overlay' );
-
-			// Adjust the overlay positions to account for negative margins.
-			if ( margins.top < 0 ) {
-				overlayPos = parseInt( overlay.css( 'top' ), 10 );
-				overlayPos = isNaN( overlayPos ) ? 0 : overlayPos;
-				overlay.css( 'top', ( margins.top + overlayPos ) + 'px' );
-			}
-			if ( margins.bottom < 0 ) {
-				overlayPos = parseInt( overlay.css( 'bottom' ), 10 );
-				overlayPos = isNaN( overlayPos ) ? 0 : overlayPos;
-				overlay.css( 'bottom', ( margins.bottom + overlayPos ) + 'px' );
+			if ( isFlex && isFlexRow ) {
+				return 'horizontal';
+			} else if ( isGrid ) {
+				if ( isLayeredGrid ) {
+					return 'layered';
+				} else if ( ! isSingleColumnGrid ) {
+					return 'horizontal';
+				}
 			}
 
-			return overlay;
+			return 'vertical';
 		},
 
 		/**
-		 * Builds the overflow menu for an overlay if necessary.
+		 * Checks if a node requires a confirmation message before deleting.
 		 *
-		 * @since 1.9
+		 * @since 2.5
 		 * @access private
-		 * @method _buildOverlayOverflowMenu
-		 * @param {Object} overlay The overlay object.
+		 * @method _needsDeleteConfirmation
+		 * @return bool
 		 */
-		_buildOverlayOverflowMenu: function( overlay )
+		_needsDeleteConfirmation: function( node ) {
+			if ( 'module' === node.type ) {
+				return true
+			}
+
+			// Otherwise check if the container has modules
+			const el = FLBuilder._getJQueryElement( node.node )
+			return el.find( '.fl-module' ).length > 0
+		},
+
+		/**
+		 * Disables global nodes during drag.
+		 *
+		 * @since 2.8
+		 */
+		_disableGlobalNodes: function()
 		{
-			var header        = overlay.find( '.fl-block-overlay-header' ),
-				actions       = overlay.find( '.fl-block-overlay-actions' ),
-				hasRules	  = overlay.find( '.fl-block-has-rules' ),
-				original      = actions.data( 'original' ),
-				actionsWidth  = 0,
-				items         = null,
-				itemsWidth    = 0,
-				item          = null,
-				i             = 0,
-				visibleItems  = [],
-				overflowItems = [],
-				menuData      = [],
-				template	  = wp.template( 'fl-overlay-overflow-menu' );
-
-
-			// Use the original copy if we have one.
-			if ( undefined != original ) {
-				actions.after( original );
-				actions.remove();
-				actions = original;
+			if ( 'row' !== FLBuilderConfig.userTemplateType ) {
+				$( '.fl-row.fl-node-global' ).addClass( 'fl-node-disabled' );
 			}
 
-			// Save a copy of the original actions.
-			actions.data( 'original', actions.clone() );
-
-			// Get the actions width and items. Subtract any padding plus 2px (8px)
-			actionsWidth  = Math.floor(actions[0].getBoundingClientRect().width) - 8;
-			items         = actions.find( ' > i, > span.fl-builder-has-submenu' );
-
-			// Add the width of the visibility rules indicator if there is one.
-			if ( hasRules.length && actionsWidth + hasRules.outerWidth() > header.outerWidth() ) {
-				itemsWidth += hasRules.outerWidth();
+			if ( 'column' !== FLBuilderConfig.userTemplateType ) {
+				$( '.fl-row:not(.fl-node-global) .fl-col.fl-node-global' ).addClass( 'fl-node-disabled' );
 			}
 
-			// Find visible and overflow items.
-			for( ; i < items.length; i++ ) {
+			if ( 'module' !== FLBuilderConfig.userTemplateType ) {
+				$( '.fl-row:not(.fl-node-global) .fl-module.fl-node-global[data-accepts]' ).addClass( 'fl-node-disabled' );
+			}
+		},
 
-				item        = items.eq( i );
-				itemsWidth += Math.floor(item[0].getBoundingClientRect().width);
+		/**
+		 * Remove disabled global node class after drag.
+		 *
+		 * @since 2.8
+		 */
+		_enableGlobalNodes: function()
+		{
+			$( '.fl-node-disabled' ).removeClass( 'fl-node-disabled' );
+		},
 
-				if ( itemsWidth > actionsWidth ) {
-					overflowItems.push( item );
-					item.remove();
-				}
-				else {
-					visibleItems.push( item );
-				}
+		/**
+		 * Called when the node settings overlay action is clicked.
+		 *
+		 * @since 2.8
+		 */
+		_nodeSettingsClicked: function( e )
+		{
+			var button = $( this );
+			var nodeId = button.attr( 'data-target-node' );
+			var actions = FL.Builder.getActions();
+
+			if ( ! nodeId ) {
+				nodeId = button.parents( '[data-node]' ).attr( 'data-node' );
 			}
 
-			// Build the menu if we have overflow items.
-			if ( overflowItems.length > 0 ) {
+			actions.openSettings( nodeId );
+			e.stopPropagation();
+		},
 
-				if( visibleItems.length > 0 ) {
-					overflowItems.unshift( visibleItems.pop().remove() );
-				}
+		/**
+		 * Called when the node duplicate overlay action is clicked.
+		 *
+		 * @since 2.8
+		 */
+		_nodeDuplicateClicked: function( e )
+		{
+			var button = $( this );
+			var nodeId = button.attr( 'data-target-node' );
+			var actions = FL.Builder.getActions();
 
-				for( i = 0; i < overflowItems.length; i++ ) {
-
-					if ( overflowItems[ i ].is( '.fl-builder-has-submenu' ) ) {
-						menuData.push( {
-							type    : 'submenu',
-							label   : overflowItems[ i ].find( '.fa, .fas, .far' ).data( 'title' ),
-							submenu : overflowItems[ i ].find( '.fl-builder-submenu' )[0].outerHTML
-						} );
-					}
-					else {
-						menuData.push( {
-							type      : 'action',
-							label     : overflowItems[ i ].data( 'title' ),
-							className : overflowItems[ i ].removeClass( function( i, c ) {
-											return c.replace( /fl-block-([^\s]+)/, '' );
-										} ).attr( 'class' )
-						} );
-					}
-				}
-
-				actions.append( template( menuData ) );
-				FLBuilder._initTipTips();
+			if ( ! nodeId ) {
+				nodeId = button.parents( '[data-node]' ).attr( 'data-node' );
 			}
+
+			actions.copyNode( nodeId );
+			e.stopPropagation();
+		},
+
+		/**
+		 * Called when the node remove overlay action is clicked.
+		 *
+		 * @since 2.8
+		 */
+		_nodeRemoveClicked: function( e )
+		{
+			var button = $( this );
+			var nodeId = button.attr( 'data-target-node' );
+			var actions = FL.Builder.getActions();
+
+			if ( ! nodeId ) {
+				nodeId = button.parents( '[data-node]' ).attr( 'data-node' );
+			}
+
+			actions.deleteNode( nodeId );
+			e.stopPropagation();
 		},
 
 		/* Rows
 		----------------------------------------------------------*/
-
-		/**
-		 * Removes all row overlays from the page.
-		 *
-		 * @since 1.0
-		 * @access private
-		 * @method _removeRowOverlays
-		 */
-		_removeRowOverlays: function()
-		{
-			$('.fl-row').removeClass('fl-block-overlay-active');
-			$('.fl-row-overlay').remove();
-			$('.fl-module').removeClass('fl-module-adjust-height');
-			$('body').removeClass( 'fl-builder-row-resizing' );
-			FLBuilder._closeAllSubmenus();
-			FL.Builder.data.getOutlinePanelActions().setFocusNode( false );
-		},
-
-		/**
-		 * Removes all row overlays from the page.
-		 *
-		 * @since 1.0
-		 * @access private
-		 * @method _removeRowOverlays
-		 */
-		_disableGlobalRows: function()
-		{
-			if ( 'row' == FLBuilderConfig.userTemplateType ) {
-				return;
-			}
-
-			$('.fl-row.fl-node-global').addClass( 'fl-node-disabled' );
-		},
-
-		/**
-		 * Removes all global column overlays from the page.
-		 *
-		 * @since 2.1
-		 * @access private
-		 * @method _disableGlobalCols
-		 */
-		_disableGlobalCols: function()
-		{
-			if ( 'column' == FLBuilderConfig.userTemplateType ) {
-				return;
-			}
-
-			$('.fl-row:not(.fl-node-global) .fl-col.fl-node-global').addClass( 'fl-node-disabled' );
-		},
-
-		/**
-		 * Removes all row overlays from the page.
-		 *
-		 * @since 1.0
-		 * @access private
-		 * @method _removeRowOverlays
-		 */
-		_enableGlobalRows: function()
-		{
-			if ( 'row' == FLBuilderConfig.userTemplateType ) {
-				return;
-			}
-
-			$( '.fl-node-disabled' ).removeClass( 'fl-node-disabled' );
-		},
-
-		/**
-		 * Re-enable global column from the page.
-		 *
-		 * @since 2.1
-		 * @access private
-		 * @method _enableGlobalCols
-		 */
-		_enableGlobalCols: function()
-		{
-			if ( 'column' == FLBuilderConfig.userTemplateType ) {
-				return;
-			}
-
-			$( '.fl-node-disabled' ).removeClass( 'fl-node-disabled' );
-		},
-
-		/**
-		 * Shows an overlay with actions when the mouse enters a row.
-		 *
-		 * @since 1.0
-		 * @access private
-		 * @method _rowMouseenter
-		 */
-		_rowMouseenter: function()
-		{
-			if ( 'undefined' == typeof FLBuilderSettingsConfig.nodes ) {
-				return;
-			}
-			var row        	= $( this ),
-				id			= row.attr('data-node'),
-                rowTop     	= row.offset().top,
-                childTop   	= null,
-                overlay    	= null,
-                template   	= wp.template( 'fl-row-overlay' ),
-				mode 		= FLBuilderResponsiveEditing._mode,
-				settings 	= FLBuilderSettingsConfig.nodes[ id ];
-
-			if ( row.closest( '.fl-builder-node-loading' ).length ) {
-				return;
-			}
-            else if ( ! row.hasClass( 'fl-block-overlay-active' ) ) {
-
-				// Remove existing overlays.
-				FLBuilder._removeRowOverlays();
-                // Append the overlay.
-                overlay = FLBuilder._appendOverlay( row, template( {
-                    node : id,
-	                global : row.hasClass( 'fl-node-global' ),
-					hasRules : row.hasClass( 'fl-node-has-rules' ),
-					rulesTextRow : row.attr('data-rules-text'),
-					rulesTypeRow : row.attr('data-rules-type'),
-					nodeLabel : settings?.node_label,
-                } ) );
-
-                // Adjust the overlay position if covered by negative margin content.
-                row.find( '.fl-node-content:visible' ).each( function(){
-                    var top = $( this ).offset().top;
-                    childTop = ( null === childTop || childTop > top ) ? top : childTop;
-                } );
-
-                if ( null !== childTop && childTop < rowTop ) {
-	                overlay.css( 'top', ( childTop - rowTop - 30 ) + 'px' );
-                }
-
-                // Put action headers on the bottom if they're hidden.
-                if ( ( 'default' === mode && overlay.offset().top < 43 ) || ( 'default' !== mode && 0 === row.index() ) ) {
-                    overlay.addClass( 'fl-row-overlay-header-bottom' );
-                }
-
-                // Adjust the height of modules if needed.
-                row.find( '.fl-module' ).each( function(){
-                    var module = $( this );
-                    if ( module.outerHeight( true ) < 20 ) {
-                        module.addClass( 'fl-module-adjust-height' );
-                    }
-                } );
-
-                // Build the overlay overflow menu if needed.
-                FLBuilder._buildOverlayOverflowMenu( overlay );
-            }
-		},
-
-		/**
-		 * Removes overlays when the mouse leaves a row.
-		 *
-		 * @since 1.0
-		 * @access private
-		 * @method _rowMouseleave
-		 * @param {Object} e The event object.
-		 */
-		_rowMouseleave: function(e)
-		{
-			var target			= $( e.target ),
-				toElement       = $(e.toElement) || $(e.relatedTarget),
-				isOverlay       = toElement.hasClass('fl-row-overlay'),
-				isOverlayChild  = toElement.closest('.fl-row-overlay').length > 0,
-				isTipTip        = toElement.is('#tiptip_holder'),
-				isTipTipChild   = toElement.closest('#tiptip_holder').length > 0;
-
-			if ( target.closest( '.fl-block-col-resize' ).length ) {
-				return;
-			}
-			if ( isOverlay || isOverlayChild || isTipTip || isTipTipChild ) {
-				return;
-			}
-
-			FLBuilder._removeRowOverlays();
-		},
 
 		/**
 		 * Returns a helper element for row drag operations.
@@ -3374,6 +3212,10 @@
 			var handle = $( e.target ),
 				helper = $( '.fl-row-sortable-proxy-item', window.parent.document ),
 				row    = handle.closest( '.fl-row' );
+
+			if ( handle.closest( '.fl-block-move-menu' ).length ) {
+				return;
+			}
 
 			row.addClass( 'fl-node-dragging' );
 
@@ -3767,11 +3609,8 @@
 				nodeId = $( this ).closest( '.fl-row' ).attr( 'data-node' ),
 				global = button.closest( '.fl-block-overlay-global' ).length > 0;
 
-			// Allow clicks from settings button or overlay if global node but not in global node editing page
-			if ( button.hasClass( 'fl-block-settings' ) || ( global && 'row' != FLBuilderConfig.userTemplateType ) ) {
-				const actions = FL.Builder.data.getLayoutActions()
-				actions.displaySettings( nodeId )
-			}
+			const actions = FL.Builder.getActions()
+			actions.openSettings( nodeId )
 
 			e.stopPropagation()
 		},
@@ -3880,18 +3719,24 @@
 		 */
 		_highlightEmptyCols: function()
 		{
-			var notGlobal = 'row' == FLBuilderConfig.userTemplateType || 'column' == FLBuilderConfig.userTemplateType ? '' : ':not(.fl-node-global)',
-				rows 	  = $(FLBuilder._contentClass + ' .fl-row' + notGlobal),
-				cols 	  = $(FLBuilder._contentClass + ' .fl-col' + notGlobal);
+			var notGlobal = FLBuilderConfig.userTemplateType ? '' : ':not(.fl-node-global)',
+				cols 	  = $(FLBuilder._contentClass + ' .fl-col' + notGlobal),
+				modules   = $( FLBuilder._contentClass + ' .fl-module[data-accepts]' + notGlobal );
 
-			cols.removeClass('fl-col-highlight').find('.fl-col-content').css( 'height', '' );
+			cols.removeClass('fl-col-highlight').find('.fl-col-content').css( 'min-height', '' );
+			modules.removeClass('fl-module-highlight');
 
 			cols.each(function(){
-
 				var col = $(this);
-
-				if(col.find('.fl-module, .fl-col').length === 0) {
+				if(!col.find('.fl-module, .fl-col').length && !col.closest('.fl-builder-shortcode-mask-wrap').length) {
 					col.addClass('fl-col-highlight');
+				}
+			});
+
+			modules.each(function(){
+				var module = $(this);
+				if(!module.find('.fl-module').length && !module.closest('.fl-builder-shortcode-mask-wrap').length) {
+					module.addClass('fl-module-highlight');
 				}
 			});
 		},
@@ -3915,12 +3760,23 @@
 			}
 
 			// Highlight rows.
-			$( FLBuilder._contentClass + ' .fl-row' ).addClass( 'fl-row-highlight' );
+			$( FLBuilder._contentClass + ' > .fl-row' ).addClass( 'fl-row-highlight' );
 
 			// Highlight columns.
 			if ( ! target || ! target.closest( '.fl-row-overlay' ).length ) {
-				$( FLBuilder._contentClass + ' .fl-col' + notGlobal ).addClass( 'fl-col-highlight' );
+				$( FLBuilder._contentClass + ' .fl-col' + notGlobal ).each( function() {
+					if ( ! $( this ).closest( '.fl-builder-shortcode-mask-wrap' ).length ) {
+						$( this ).addClass( 'fl-col-highlight' );
+					}
+				} );
 			}
+
+			// Highlight container modules.
+			$( FLBuilder._contentClass + ' .fl-module[data-accepts]' ).each( function() {
+				if ( ! $( this ).closest( '.fl-builder-shortcode-mask-wrap' ).length ) {
+					$( this ).addClass( 'fl-module-highlight' );
+				}
+			} );
 		},
 
 		/**
@@ -3933,6 +3789,8 @@
 		_removeEmptyRowAndColHighlights: function() {
 			$( '.fl-row-highlight' ).removeClass('fl-row-highlight');
 			$( '.fl-col-highlight' ).removeClass('fl-col-highlight');
+			$( '.fl-module-highlight' ).removeClass('fl-module-highlight');
+			$( '.fl-sortable-fixed-width' ).css( 'max-width', '' ).removeClass( 'fl-sortable-fixed-width' );
 		},
 
 		/**
@@ -3957,11 +3815,15 @@
 			$( '.fl-node-drag-init' ).hide();
 
 			for ( ; i < nested.length; i++ ) {
-				FLBuilder._adjustColHeightForDrag( nested.eq( i ) );
+				if ( ! nested.eq( i ).closest( '.fl-builder-shortcode-mask-wrap' ).length ) {
+					FLBuilder._adjustColHeightForDrag( nested.eq( i ) );
+				}
 			}
 
 			for ( i = 0; i < notNested.length; i++ ) {
-				FLBuilder._adjustColHeightForDrag( notNested.eq( i ) );
+				if ( ! notNested.eq( i ).closest( '.fl-builder-shortcode-mask-wrap' ).length ) {
+					FLBuilder._adjustColHeightForDrag( notNested.eq( i ) );
+				}
 			}
 
 			$( '.fl-node-drag-init' ).show();
@@ -3977,205 +3839,8 @@
 		_adjustColHeightForDrag: function( col )
 		{
 			if ( col.find( '.fl-module:visible, .fl-col:visible' ).length ) {
-				col.height( col.height() + 45 );
+				col.css( 'min-height', col.height() + 45 );
 			}
-		},
-
-		/**
-		 * Adds a border guide to a column when the column
-		 * actions submenu is open for a module.
-		 *
-		 * @since 1.9
-		 * @access private
-		 * @method _showColHighlightGuide
-		 */
-		_showColHighlightGuide: function()
-		{
-			var li         = $( this ),
-				link       = li.find( 'a' ),
-				col        = li.closest( '.fl-col' ),
-				parentCol  = col.parents( '.fl-col' ),
-				guide      = $( '<div class="fl-col-highlight-guide"></div>' ),
-				guideTop   = null,
-				overlayTop = li.closest( '.fl-block-overlay' ).offset().top;
-
-			if ( link.hasClass( 'fl-block-col-move-parent' ) || link.hasClass( 'fl-block-col-edit-parent' ) ) {
-				col = parentCol;
-			}
-			if ( col.hasClass( 'fl-col-highlight' ) ) {
-				return;
-			}
-
-			col.find( '> .fl-col-content' ).append( guide );
-			col.addClass( 'fl-col-has-highlight-guide' );
-
-			guideTop = guide.offset().top;
-
-			if ( guideTop > overlayTop ) {
-				guide.css( 'top', ( overlayTop - guideTop + 4 ) + 'px' );
-			}
-		},
-
-		/**
-		 * Removes all column highlight guides.
-		 *
-		 * @since 1.9
-		 * @access private
-		 * @method _showColHighlightGuide
-		 */
-		_removeColHighlightGuides: function()
-		{
-			$( '.fl-col-has-highlight-guide' ).removeClass( 'fl-col-has-highlight-guide' );
-			$( '.fl-col-highlight-guide' ).remove();
-		},
-
-		/**
-		 * Shows an overlay with actions when the mouse enters a column.
-		 *
-		 * @since 1.1.9
-		 * @access private
-		 * @method _colMouseenter
-		 */
-		_colMouseenter: function( e )
-		{
-			if ( 'undefined' == typeof FLBuilderSettingsConfig.nodes ) {
-				return;
-			}
-			var col 	 	  	= $( this ),
-				group           = col.closest( '.fl-col-group' ),
-				id				= group.attr( 'data-node' ),
-				groupLoading    = group.hasClass( 'fl-col-group-has-child-loading' ),
-				global		  	= col.hasClass( 'fl-node-global' ),
-				parentGlobal  	= col.parents( '.fl-node-global' ).length > 0,
-				numCols		  	= col.closest( '.fl-col-group' ).find( '> .fl-col' ).length,
-				index           = group.find( '> .fl-col' ).index( col ),
-				first   		= 0 === index,
-				last    		= numCols === index + 1,
-				hasChildCols    = col.find( '.fl-col' ).length > 0,
-				hasModules      = col.find('.fl-module').length > 0,
-				parentCol       = col.parents( '.fl-col' ),
-				parentGroup     = parentCol.closest( '.fl-col-group' ),
-				hasParentCol    = parentCol.length > 0,
-				isColTemplate   = 'undefined' !== typeof col.data('template-url'),
-				isRootCol       = 'column' == FLBuilderConfig.userTemplateType && ! hasParentCol;
-				numParentCols	= hasParentCol ? parentGroup.find( '> .fl-col' ).length : 0,
-				parentIndex     = parentGroup.find( '> .fl-col' ).index( parentCol ),
-				parentFirst     = hasParentCol ? 0 === parentIndex : false,
-				parentLast      = hasParentCol ? numParentCols === parentIndex + 1 : false,
-				row				= col.closest('.fl-row'),
-				rowIsFixedWidth = !! row.find('.fl-row-fixed-width').addBack('.fl-row-fixed-width').length,
-				userCanResizeRows = FLBuilderConfig.rowResize.userCanResizeRows,
-				hasRules		= col.hasClass( 'fl-node-has-rules' ),
-				template 		= wp.template( 'fl-col-overlay' ),
-				overlay			= null,
-				colNode 		= col.attr( 'data-node' ),
-				settings 		= FLBuilderSettingsConfig.nodes[ colNode ];
-
-			if ( FLBuilderConfig.simpleUi && ! global ) {
-				return;
-			}
-			else if ( global && parentGlobal && hasModules && ! isColTemplate ) {
-				return;
-			}
-			else if ( global && 'column' == FLBuilderConfig.userTemplateType && hasModules ) {
-				return;
-			}
-			else if ( ! global && col.find( '.fl-module' ).length > 0 ) {
-				return;
-			}
-			else if ( col.find( '.fl-builder-node-loading-placeholder' ).length > 0 ) {
-				return;
-			}
-			else if ( ! hasModules && hasChildCols ) {
-				return;
-			}
-			else if ( parentGlobal && hasChildCols && ! isColTemplate ) {
-				return;
-			}
-			else if ( col.closest( '.fl-builder-node-loading' ).length ) {
-				return;
-			}
-			else if ( ! col.hasClass( 'fl-block-overlay-active' ) ) {
-
-				// Remove existing overlays.
-				FLBuilder._removeColOverlays();
-				FLBuilder._removeModuleOverlays();
-
-				// Append the template.
-				overlay = FLBuilder._appendOverlay( col, template( {
-					global	      		: global,
-					groupLoading  		: groupLoading,
-					numCols	      		: numCols,
-					first         		: first,
-					last   	      		: last,
-					isRootCol     		: isRootCol,
-					hasChildCols  		: hasChildCols,
-					hasParentCol  		: hasParentCol,
-					parentFirst   		: parentFirst,
-					parentLast    		: parentLast,
-					numParentCols 		: numParentCols,
-					rowIsFixedWidth 	: rowIsFixedWidth,
-					userCanResizeRows 	: userCanResizeRows,
-					hasRules			: hasRules,
-					nodeLabel 			: settings?.node_label,
-				} ) );
-
-				// Build the overlay overflow menu if needed.
-				FLBuilder._buildOverlayOverflowMenu( overlay );
-
-				// Init column resizing.
-				FLBuilder._initColDragResizing();
-			}
-
-			$( 'body' ).addClass( 'fl-block-overlay-muted' );
-		},
-
-		/**
-		 * Removes overlays when the mouse leaves a column.
-		 *
-		 * @since 1.1.9
-		 * @access private
-		 * @method _colMouseleave
-		 * @param {Object} e The event object.
-		 */
-		_colMouseleave: function(e)
-		{
-			var col             = $(this),
-				toElement       = $(e.toElement) || $(e.relatedTarget),
-				hasModules      = col.find('.fl-module').length > 0,
-				global			= col.hasClass( 'fl-node-global' ),
-				isColTemplate	= 'undefined' !== typeof col.data('template-url'),
-				isTipTip        = toElement.is('#tiptip_holder'),
-				isTipTipChild   = toElement.closest('#tiptip_holder').length > 0;
-
-			if( isTipTip || isTipTipChild ) {
-				return;
-			}
-			if( hasModules && ! isColTemplate ) {
-				return;
-			}
-
-			FLBuilder._removeColOverlays();
-			FLBuilder._removeColHighlightGuides();
-			FLBuilder._closeAllSubmenus();
-		},
-
-		/**
-		 * Removes all column overlays from the page.
-		 *
-		 * @since 1.6.4
-		 * @access private
-		 * @method _removeColOverlays
-		 */
-		_removeColOverlays: function()
-		{
-			var cols = $( '.fl-col' );
-
-			cols.removeClass('fl-block-overlay-active');
-			cols.find('.fl-col-overlay').remove();
-			$('body').removeClass('fl-block-overlay-muted');
-			FLBuilder._closeAllSubmenus();
-			FL.Builder.data.getOutlinePanelActions().setFocusNode( false );
 		},
 
 		/**
@@ -4209,14 +3874,17 @@
 				helper = $( '.fl-col-sortable-proxy-item', window.parent.document ),
 				col    = handle.closest( '.fl-col' );
 
-			if ( handle.hasClass( 'fl-block-col-move-parent' ) ) {
+			if ( handle.closest( '.fl-block-move-menu' ).length ) {
+				return;
+			} else if ( handle.hasClass( 'fl-block-col-move-parent' ) ) {
 				col = col.parents( '.fl-col' );
+			} else if ( handle.data( 'target-node' ) ) {
+				col = $( '.fl-col[data-node=' + handle.data( 'target-node' ) + ']' );
 			}
 
 			col.addClass( 'fl-node-dragging' );
 
 			FLBuilder._blockDragInit( e );
-			FLBuilder._removeColHighlightGuides();
 
 			e.target = helper[ 0 ];
 
@@ -4233,6 +3901,10 @@
 				helper = $( '.fl-col-sortable-proxy-item', window.parent.document ),
 				col    = handle.closest( '.fl-col' ),
 				moved  = false;
+
+			if ( handle.data( 'target-node' ) ) {
+				col = $( '.fl-col[data-node=' + handle.data( 'target-node' ) + ']' );
+			}
 
 			handle.on( 'touchmove', function( moveEvent ) {
 				if ( ! moved ) {
@@ -4291,7 +3963,8 @@
 				newGroup   = newParent.closest( '.fl-col-group' ),
 				newGroupId = newGroup.attr( 'data-node' ),
 				newRow     = newParent.closest('.fl-row'),
-				position   = 0;
+				position   = 0,
+				actions    = FL.Builder.data.getLayoutActions();
 
 			// Cancel if a column was dropped into itself.
 			if ( newParent.closest( '[data-node="' + colId + '"]' ).length ) {
@@ -4313,6 +3986,7 @@
 
 				// Remove empty old groups (needs to be done here for correct position).
 				if ( 0 === oldGroup.find( '.fl-col' ).length ) {
+					actions.removeNode( oldGroup.attr( 'data-node' ) );
 					oldGroup.remove();
 				}
 
@@ -4359,6 +4033,7 @@
 
 				// Remove empty old groups (needs to be done here for correct position).
 				if ( 0 === oldGroup.find( '.fl-col' ).length ) {
+					actions.removeNode( oldGroup.attr( 'data-node' ) );
 					oldGroup.remove();
 				}
 
@@ -4385,6 +4060,7 @@
 
 			// Remove empty old groups.
 			if ( 0 === oldGroup.find( '.fl-col' ).length ) {
+				actions.removeNode( oldGroup.attr( 'data-node' ) );
 				oldGroup.remove();
 			}
 
@@ -4600,9 +4276,6 @@
 			actions.deleteNode( id );
 
 			e.stopPropagation();
-
-			// Trigger the col-deleted hook.
-			FLBuilder.triggerHook( 'col-deleted' );
 		},
 
 		/**
@@ -4646,7 +4319,7 @@
 				width  = 0;
 
 			col.remove();
-			rowCols   = row.find('.fl-row-content > .fl-col-group > .fl-col');
+			rowCols   = row.find('.fl-row-content > .fl-col-group > .fl-col, .fl-row-content > .fl-module');
 			groupCols = group.find(' > .fl-col');
 
 			if(0 === rowCols.length && 'row' != FLBuilderConfig.userTemplateType && 'column' != FLBuilderConfig.userTemplateType) {
@@ -4681,8 +4354,27 @@
 
 				FLBuilder._initDropTargets();
 				FLBuilder._initSortables();
+				FLBuilder.triggerHook( 'col-deleted' );
 				FLBuilder.triggerHook( 'didDeleteColumn', nodeId );
 			}
+		},
+
+		/**
+		 * Deletes a column group.
+		 *
+		 * @since 2.8
+		 * @param {Object} group A jQuery reference of the group to delete.
+		 */
+		_deleteColGroup: function( group )
+		{
+			var nodeId = group.attr( 'data-node' );
+
+			const actions = FL.Builder.data.getLayoutActions()
+			actions.deleteNode( nodeId )
+
+			group.empty();
+			group.remove();
+			FLBuilder.triggerHook( 'didDeleteColumnGroup', nodeId );
 		},
 
 		/**
@@ -4691,7 +4383,7 @@
 		 * @since 1.6.4
 		 * @access private
 		 * @method _addCols
-		 * @param {Object} col A jQuery reference of the column to insert before or after.
+		 * @param {Object|String} col A jQuery reference of the column to insert before or after.
 		 * @param {String} insert Either before or after.
 		 * @param {String} type The type of column(s) to insert.
 		 * @param {Boolean} nested Whether these columns are nested or not.
@@ -4699,7 +4391,8 @@
 		 */
 		_addCols: function( col, insert, type, nested, module )
 		{
-			var parent   = col.closest( '.fl-col-group' ),
+			var col      = 'string' === typeof col ? $( '.fl-node-' + col ) : col,
+				parent   = col.closest( '.fl-col-group' ),
 				position = parent.find( '.fl-col' ).index( col ),
 				id       = col.attr('data-node');
 
@@ -5145,146 +4838,6 @@
 		----------------------------------------------------------*/
 
 		/**
-		 * Shows an overlay with actions when the mouse enters a module.
-		 *
-		 * @since 1.0
-		 * @access private
-		 * @method _moduleMouseenter
-		 */
-		_moduleMouseenter: function( e )
-		{
-			if ( 'undefined' == typeof FLBuilderSettingsConfig.nodes ) {
-				return;
-			}
-			var module = $( this ),
-				id       = module.attr( 'data-node' ),
-				settings = FLBuilderSettingsConfig.nodes[ id ],
-				moduleType = module.attr( 'data-type' ),
-				moduleName    = module.attr( 'data-name' ),
-				global		  = module.hasClass( 'fl-node-global' ),
-				parentGlobal  = module.parents( '.fl-node-global' ).length > 0,
-				group         = module.parents( '.fl-col-group' ).last(),
-				groupLoading  = group.hasClass( 'fl-col-group-has-child-loading' ),
-				numCols		  = module.closest( '.fl-col-group' ).find( '> .fl-col' ).length,
-				col           = module.closest( '.fl-col' ),
-				colFirst      = 0 === col.index(),
-				colNode 	  = col.attr( 'data-node' ),
-				colSettings   = FLBuilderSettingsConfig.nodes[ colNode ],
-				colLast       = numCols === col.index() + 1,
-				parentCol     = col.parents( '.fl-col' ),
-				hasParentCol  = parentCol.length > 0,
-				numParentCols = hasParentCol ? parentCol.closest( '.fl-col-group' ).find( '> .fl-col' ).length : 0,
-				parentFirst   = hasParentCol ? 0 === parentCol.index() : false,
-				parentLast    = hasParentCol ? numParentCols === parentCol.index() + 1 : false,
-				isRootCol     = 'column' == FLBuilderConfig.userTemplateType && ! hasParentCol,
-				row			  = module.closest('.fl-row'),
-				isGlobalRow   = row.hasClass( 'fl-node-global' ),
-				rowIsFixedWidth = !! row.find('.fl-row-fixed-width').addBack('.fl-row-fixed-width').length,
-				userCanResizeRows = FLBuilderConfig.rowResize.userCanResizeRows,
-				hasRules	  = module.hasClass( 'fl-node-has-rules' ),
-				rulesTextModule     = module.attr('data-rules-text'),
-				rulesTypeModule     = module.attr('data-rules-type'),
-				rulesTextCol    = col.attr('data-rules-text'),
-				rulesTypeCol    = col.attr('data-rules-type'),
-				colHasRules	  = col.hasClass( 'fl-node-has-rules' ),
-				template	  = wp.template( 'fl-module-overlay' ),
-				overlay       = null;
-
-			if ( global && parentGlobal && 'row' != FLBuilderConfig.userTemplateType && isGlobalRow ) {
-				return;
-			}
-			else if ( global && parentGlobal && 'column' != FLBuilderConfig.userTemplateType && ! isGlobalRow  ) {
-				return;
-			}
-			else if ( module.closest( '.fl-builder-node-loading' ).length ) {
-				return;
-			}
-			else if ( module.find( '.fl-inline-editor:visible' ).length ) {
-				return;
-			}
-			else if ( ! module.hasClass( 'fl-block-overlay-active' ) ) {
-
-				// Remove existing overlays.
-				FLBuilder._removeColOverlays();
-				FLBuilder._removeModuleOverlays();
-				// Append the template.
-				overlay = FLBuilder._appendOverlay( module, template( {
-					global 		  		: global,
-					moduleType	  		: moduleType,
-					moduleName	  		: moduleName,
-					nodeLabel			: settings?.node_label,
-					colNodeLabel 		: colSettings?.node_label,
-					groupLoading  		: groupLoading,
-					numCols		  		: numCols,
-					colFirst      		: colFirst,
-					colLast       		: colLast,
-					isRootCol     		: isRootCol,
-					hasParentCol  		: hasParentCol,
-					numParentCols 		: numParentCols,
-					parentFirst   		: parentFirst,
-					parentLast    		: parentLast,
-					rowIsFixedWidth 	: rowIsFixedWidth,
-					userCanResizeRows : userCanResizeRows,
-					hasRules          : hasRules,
-					rulesTextModule   : rulesTextModule,
-					rulesTypeModule   : rulesTypeModule,
-					rulesTextCol      : rulesTextCol,
-					rulesTypeCol      : rulesTypeCol,
-					colHasRules       : colHasRules,
-				} ) );
-
-				// Build the overlay overflow menu if necessary.
-				FLBuilder._buildOverlayOverflowMenu( overlay );
-
-				// Init column resizing.
-				FLBuilder._initColDragResizing();
-			}
-
-			$( 'body' ).addClass( 'fl-block-overlay-muted' );
-		},
-
-		/**
-		 * Removes overlays when the mouse leaves a module.
-		 *
-		 * @since 1.0
-		 * @access private
-		 * @method _moduleMouseleave
-		 * @param {Object} e The event object.
-		 */
-		_moduleMouseleave: function(e)
-		{
-			var module          = $(this),
-				toElement       = $(e.toElement) || $(e.relatedTarget),
-				isTipTip        = toElement.is('#tiptip_holder'),
-				isTipTipChild   = toElement.closest('#tiptip_holder').length > 0;
-
-			if(isTipTip || isTipTipChild) {
-				return;
-			}
-
-			FLBuilder._removeModuleOverlays();
-			FLBuilder._removeColHighlightGuides();
-		},
-
-		/**
-		 * Removes all module overlays from the page.
-		 *
-		 * @since 1.6.4
-		 * @access private
-		 * @method _removeModuleOverlays
-		 */
-		_removeModuleOverlays: function()
-		{
-			var modules = $('.fl-module');
-
-			modules.removeClass('fl-block-overlay-active');
-			modules.find('.fl-module-overlay').remove();
-			$('body').removeClass('fl-block-overlay-muted');
-			FLBuilder._closeAllSubmenus();
-			FL.Builder.data.getOutlinePanelActions().setFocusNode( false );
-		},
-
-		/**
 		 * Returns a helper element for module drag operations.
 		 *
 		 * @since 1.0
@@ -5311,6 +4864,13 @@
 				helper = $( '.fl-module-sortable-proxy-item', window.parent.document ),
 				module = handle.closest( '.fl-module' );
 
+			if ( handle.closest( '.fl-block-move-menu' ).length ) {
+				return;
+			} else if ( handle.data( 'target-node' ) ) {
+				module = $( '.fl-module[data-node=' + handle.data( 'target-node' ) + ']' );
+			}
+
+			helper.data( 'type', module.data('type' ) );
 			module.addClass( 'fl-node-dragging' );
 
 			FLBuilder._blockDragInit( e );
@@ -5319,7 +4879,8 @@
 
 			helper.data( 'node', module.data( 'node' ) )
 			helper.data( 'name', module.data( 'name' ) )
-		    helper.trigger( e );
+			helper.data( 'type', module.data('type' ) )
+			helper.trigger( e );
 		},
 
 		/**
@@ -5332,6 +4893,10 @@
 				helper = $( '.fl-module-sortable-proxy-item', window.parent.document ),
 				module = handle.closest( '.fl-module' ),
 				moved  = false;
+
+			if ( handle.data( 'target-node' ) ) {
+				module = $( '.fl-module[data-node=' + handle.data( 'target-node' ) + ']' );
+			}
 
 			handle.on( 'touchmove', function( moveEvent ) {
 				if ( ! moved ) {
@@ -5387,7 +4952,8 @@
 				parent   = ui.item.parent(),
 				node     = null,
 				position = 0,
-				parentId = 0;
+				parentId = 0,
+				cols     = null;
 
 			// A module was dropped back into the module list.
 			if ( parent.hasClass( 'fl-builder-modules' ) || parent.hasClass( 'fl-builder-widgets' ) ) {
@@ -5414,8 +4980,8 @@
 				else if ( parent.hasClass( 'fl-col-group-drop-target' ) ) {
 					parent   = item.closest( '.fl-row-content' );
 					parentId = parent.closest( '.fl-row' ).attr( 'data-node' );
-					node     = item.closest( '.fl-col-group' );
-					position = parent.find( ' > .fl-col-group' ).index( node );
+					node     = item.closest( '.fl-col-group, .fl-module' );
+					position = parent.find( '> .fl-col-group, > .fl-module' ).index( node );
 				}
 				// A new module was dropped into a column position.
 				else if ( parent.hasClass( 'fl-col-drop-target' ) ) {
@@ -5423,6 +4989,22 @@
 					parentId = parent.attr( 'data-node' );
 					node     = item.closest( '.fl-col' );
 					position = parent.find( ' > .fl-col' ).index( node );
+				}
+				// A new module was dropped into a container module WITHOUT a wrapper.
+				else if ( parent.hasClass( 'fl-module' ) ) {
+					var layoutDirection = FLBuilder._getNodeLayoutDirection( item );
+					if ( 'layered' === layoutDirection ) {
+						// Drop as top most item in layers.
+						position = parent.find( '> .fl-module' ).length;
+					} else {
+						position = parent.find( '> .fl-module, .fl-builder-block' ).index( item );
+					}
+					parentId = parent.attr( 'data-node' );
+				}
+				// A new module was dropped into a container module WITH a wrapper.
+				else if ( parent.hasClass( 'fl-module-content' ) ) {
+					position = parent.find( '> .fl-module, .fl-builder-block' ).index( item );
+					parentId = item.closest( '.fl-module' ).attr( 'data-node' );
 				}
 				// A new module was dropped into a column.
 				else {
@@ -5454,7 +5036,8 @@
 					node     = item.closest( '.fl-row' );
 					position = item.closest( '.fl-builder-content' ).children( '.fl-row' ).index( node );
 					position = item.closest( '.fl-drop-target-last' ).length ? position + 1 : position;
-					FLBuilder._addRow( '1-col', position, module.attr( 'data-node' ) );
+					cols     = module.attr( 'data-accepts' ) ? null : '1-col';
+					FLBuilder._addRow( cols, position, module.attr( 'data-node' ) );
 					module.remove();
 				}
 				// A module was dropped into a column group position.
@@ -5462,8 +5045,14 @@
 					node     = item.closest( '.fl-col-group' );
 					position = item.closest( '.fl-row-content ').find( ' > .fl-col-group' ).index( node );
 					position = item.closest( '.fl-drop-target-last' ).length ? position + 1 : position;
-					FLBuilder._addColGroup( item.closest( '.fl-row' ).attr( 'data-node' ), '1-col', position, module.attr( 'data-node' ) );
-					module.remove();
+					parentId = item.closest( '.fl-row' ).attr( 'data-node' );
+					if ( module.attr( 'data-accepts' ) ) {
+						FLBuilder._moveNode( parentId, module.attr( 'data-node' ), position );
+						module.show();
+					} else {
+						FLBuilder._addColGroup( parentId, '1-col', position, module.attr( 'data-node' ) );
+						module.remove();
+					}
 				}
 				// A module was dropped into a column position.
 				else if ( parent.hasClass( 'fl-col-drop-target' ) ) {
@@ -5472,16 +5061,25 @@
 					FLBuilder._addCols( node, position, '1-col', item.closest( '.fl-col-group-nested' ).length > 0, module.attr( 'data-node' ) );
 					module.remove();
 				}
-				// A module was dropped into another column.
+				// A module was dropped into another column or container module.
 				else {
-					ui.item.after( module );
-					ui.item.remove();
+					var isContainer = item.closest( '[data-accepts]' ).length;
+					var layoutDirection = FLBuilder._getNodeLayoutDirection( item );
+
+					if ( isContainer && 'layered' === layoutDirection ) {
+						// Drop as top most item in layers.
+						item.parent().append( module );
+					} else {
+						item.after( module );
+					}
+
+					item.remove();
 					module.show();
 					FLBuilder._reorderModule( module );
 				}
 
 				// Revert the proxy to its parent.
-				$( '.fl-module-sortable-proxy', window.parent.document ).append( ui.item );
+				$( '.fl-module-sortable-proxy', window.parent.document ).append( item );
 			}
 
 			FLBuilder._resizeLayout();
@@ -5497,7 +5095,7 @@
 		 */
 		_reorderModule: function(module)
 		{
-			var newParent = module.closest('.fl-col').attr('data-node'),
+			var newParent = module.parents('.fl-row, .fl-col, .fl-module').eq(0).attr('data-node'),
 				oldParent = module.attr('data-parent'),
 				nodeId    = module.attr('data-node'),
 				position  = module.index();
@@ -5529,36 +5127,6 @@
 		},
 
 		/**
-		 * Returns a JQuery reference to the HTMLElement for particular node.
-		 *
-		 * @since 2.5
-		 * @access private
-		 * @method _getjQueryElement
-		 * @return {JQuery} dom reference.
-		 */
-		_getJQueryElement: function( id ) {
-			return $( FLBuilder._contentClass ).find( '[data-node="' + id + '"]' )
-		},
-
-		/**
-		 * Checks if a node requires a confirmation message before deleting.
-		 *
-		 * @since 2.5
-		 * @access private
-		 * @method _needsDeleteConfirmation
-		 * @return bool
-		 */
-		_needsDeleteConfirmation: function( node ) {
-			if ( 'module' === node.type ) {
-				return true
-			}
-
-			// Otherwise check if the container has modules
-			const el = FLBuilder._getJQueryElement( node.node )
-			return el.find( '.fl-module' ).length > 0
-		},
-
-		/**
 		 * Deletes a module.
 		 *
 		 * @since 1.0
@@ -5569,10 +5137,17 @@
 		_deleteModule: function(module)
 		{
 			var row    = module.closest('.fl-row'),
-				nodeId = module.attr('data-node');
+				rowNodes = row.find( '[data-node]' ),
+				nodeId = module.attr('data-node'),
+				acceptsChildren = module.attr('data-accepts');
 
 			const actions = FL.Builder.data.getLayoutActions()
 			actions.deleteNode( nodeId )
+
+			// Delete the row if this is the last node in it.
+			if ( acceptsChildren && 1 === rowNodes.length ) {
+				FLBuilder._deleteRow( row );
+			}
 
 			module.empty();
 			module.remove();
@@ -5677,6 +5252,7 @@
 		_moduleSettingsClicked: function(e)
 		{
 			var button   = $( this ),
+				overlay  = button.closest( '.fl-block-overlay' ),
 				type     = button.closest( '.fl-module' ).attr( 'data-type' ),
 				nodeId   = button.closest( '.fl-module' ).attr( 'data-node' ),
 				parentId = button.closest( '.fl-col' ).attr( 'data-node' ),
@@ -5755,45 +5331,55 @@
 			var config   = FLBuilderSettingsConfig.modules[ data.type ],
 				settings = data.settings ? data.settings : FLBuilderSettingsConfig.nodes[ data.nodeId ],
 				head 	 = $( 'head', window.parent.document ),
+				module   = $( '.fl-module[data-node="' + data.nodeId + '"]' ),
 				layout   = null;
 
-			// Add settings CSS and JS.
-			if ( -1 === $.inArray( data.type, FLBuilder._loadedModuleAssets ) ) {
-				if ( '' !== config.assets.css ) {
-					head.append( config.assets.css );
+			if ( data.global && ! FLBuilderConfig.userTemplateType && module.attr( 'data-accepts' ) ) {
+				if ( FLBuilderConfig.userCanEditGlobalTemplates ) {
+					win = window.parent.open( module.attr( 'data-template-url' ) );
+					win.FLBuilderGlobalNodeId = data.nodeId;
 				}
-				if ( '' !== config.assets.js ) {
-					head.append( config.assets.js );
-				}
-				FLBuilder._loadedModuleAssets.push( data.type );
-			}
+			} else {
 
-			// Render the form.
-			FLBuilderSettingsForms.render( {
-				type	  : 'module',
-				id        : data.type,
-				nodeId    : data.nodeId,
-				className : 'fl-builder-module-settings fl-builder-' + data.type + '-settings',
-				attrs     : 'data-node="' + data.nodeId + '" data-parent="' + data.parentId + '" data-type="' + data.type + '"',
-				buttons   : ! data.global && ! FLBuilderConfig.lite && ! FLBuilderConfig.simpleUi ? ['save-as'] : [],
-				badges    : data.global ? [ FLBuilderStrings.global ] : [],
-				settings  : settings,
-				legacy    : data.legacy,
-				helper    : FLBuilder._moduleHelpers[ data.type ],
-				rules     : FLBuilder._moduleHelpers[ data.type ] ? FLBuilder._moduleHelpers[ data.type ].rules : null,
-				messages  : FLBuilder._moduleHelpers[ data.type ] ? FLBuilder._moduleHelpers[ data.type ].messages : null,
-				hide      : ( ! FLBuilderConfig.userCanEditGlobalTemplates && data.global ) ? true : false,
-				preview   : {
-					type     : 'module',
-					layout   : data.layout,
-					callback : function() {
-						FLBuilder.triggerHook( 'didAddModule', {
-							nodeId: data.nodeId,
-							moduleType: settings.type,
-						} );
+				// Add settings CSS and JS.
+				if ( -1 === $.inArray( data.type, FLBuilder._loadedModuleAssets ) ) {
+					if ( '' !== config.assets.css ) {
+						head.append( config.assets.css );
 					}
+					if ( '' !== config.assets.js ) {
+						head.append( config.assets.js );
+					}
+					FLBuilder._loadedModuleAssets.push( data.type );
 				}
-			}, callback );
+
+				// Render the form.
+				FLBuilderSettingsForms.render( {
+					type	  : 'module',
+					id        : data.type,
+					nodeId    : data.nodeId,
+					className : 'fl-builder-module-settings fl-builder-' + data.type + '-settings',
+					attrs     : 'data-node="' + data.nodeId + '" data-parent="' + data.parentId + '" data-type="' + data.type + '"',
+					buttons   : ! data.global && ! FLBuilderConfig.lite && ! FLBuilderConfig.simpleUi ? ['save-as'] : [],
+					badges    : data.global ? [ FLBuilderStrings.global ] : [],
+					settings  : settings,
+					legacy    : data.legacy,
+					helper    : FLBuilder._moduleHelpers[ data.type ],
+					rules     : FLBuilder._moduleHelpers[ data.type ] ? FLBuilder._moduleHelpers[ data.type ].rules : null,
+					messages  : FLBuilder._moduleHelpers[ data.type ] ? FLBuilder._moduleHelpers[ data.type ].messages : null,
+					hide      : ( ! FLBuilderConfig.userCanEditGlobalTemplates && data.global ) ? true : false,
+					preview   : {
+						type     : 'module',
+						layout   : data.layout,
+						callback : function() {
+							FLBuilder.triggerHook( 'didAddModule', {
+								nodeId: data.nodeId,
+								moduleType: settings.type,
+								settings: settings
+							} );
+						}
+					}
+				}, callback );
+			}
 		},
 		/**
 		 * Validates the module settings and saves them if
@@ -5922,10 +5508,26 @@
 		registerModuleHelper: function(type, obj)
 		{
 			var defaults = {
+				node: null,
+				form: null,
 				rules: {},
 				init: function(){},
 				submit: function(){ return true; },
-				preview: function(){}
+				preview: function(){},
+				getForm: function() {
+					if ( ! this.form ) {
+						this.form = $( 'form.fl-builder-settings:visible', window.parent.document ).get(0)
+					}
+					return this.form
+				},
+				getSettings: function() { return FLBuilder._getSettings( $( this.form ) ) },
+				getNodeID: function() { return this.getForm().dataset.node },
+				getNode: function() {
+					if ( ! this.node ) {
+						this.node = document.querySelector( `${FLBuilder._contentClass} .fl-module[data-node="${this.getNodeID()}"]` )
+					}
+					return this.node
+				},
 			};
 
 			FLBuilder._moduleHelpers[type] = $.extend({}, defaults, obj);
@@ -5943,6 +5545,39 @@
 		_registerModuleHelper: function(type, obj)
 		{
 			FLBuilder.registerModuleHelper(type, obj);
+		},
+
+		/**
+		 * Update the margin placeholders for modules inside containers
+		 * such as the box module that set different default margins.
+		 *
+		 * @since 2.8
+		 * @return void
+		 */
+		_initModuleMarginPlaceholders: function()
+		{
+			var form = $( '.fl-builder-module-settings:visible', window.parent.document );
+			var nodeId = form.data( 'node' );
+			var node = $( '.fl-node-' + nodeId );
+			var content = node.find( '.fl-node-content' );
+			var sides = [ 'top', 'right', 'bottom', 'left' ];
+
+			if ( ! form.length ) {
+				return;
+			} else if ( ! node.closest( '.fl-module[data-accepts]' ).length ) {
+				return;
+			} else if ( ! content.length ) {
+				content = node;
+			}
+
+			for ( var key in sides ) {
+				var input = form.find( 'input[name="margin_' + sides[ key ] + '"]' );
+				var value = input.val();
+
+				node.removeClass( 'fl-node-' + nodeId );
+				input.attr( 'placeholder', parseInt( content.css( 'margin-' + sides[ key ] ) ) );
+				node.addClass( 'fl-node-' + nodeId );
+			}
 		},
 
 		/* Node Templates
@@ -5986,6 +5621,25 @@
 					}
 				}
 			}, function() {
+				var form = $( '.fl-builder-settings:visible' );
+				var cats = FLBuilderConfig.nodeCategoies;
+				select = form.find('#fl-field-categories').find('select');
+				desc   = select.parent().find( '.fl-field-description' ).hide();
+
+				$.each(cats, function (i, item) {
+					select.append($('<option>', {
+						value: item.id,
+						text : item.name
+					}
+					));
+				});
+				select.on('change', function(){
+					if ( 'add_new' === $(this).val() ) {
+						$( '<input type="text" name="categories" value="" class="text text-full">' ).insertBefore(select);
+						select.remove();
+						desc.show();
+					}
+				});
 				if ( ! FLBuilderConfig.userCanEditGlobalTemplates ) {
 					$( '#fl-field-global', window.parent.document ).hide();
 				}
@@ -6368,6 +6022,7 @@
 			FLBuilder._initDimensionFields();
 			FLBuilder._initFieldPopupSliders();
 			FLBuilder._initPresetFields();
+			FLBuilder._initModuleMarginPlaceholders();
 			FLBuilder._focusFirstSettingsControl();
 			FLBuilder._calculateSettingsTabsOverflow();
 			FLBuilder._lightbox._resizeEditors();
@@ -6469,9 +6124,9 @@
 				$overflowMenuBtn = $lightbox.find('.fl-builder-settings-tabs-more'),
 				$tabs = $tabWrap.find('a'),
 				shouldEjectRemainingTabs = false,
-				tabsAreaWidth = lightboxWidth - 60, /* 60 is size of "more" btn */
+				tabsAreaWidth = lightboxWidth - 44, /* 60 is size of "more" btn */
 				tabsWidthTotal = 0,
-				tabPadding = isSlim ? ( 8 * 2 ) : ( 15 * 2 );
+				tabPadding = isSlim ? ( 5 * 2 ) : ( 10 * 2 );
 
 			// Reset the menu
 			$overflowMenu.html('');
@@ -6647,6 +6302,7 @@
 				moduleSettings = $( '.fl-builder-module-settings', window.parent.document ),
 				existingNodes  = null,
 				previewModule  = null,
+				previewContainer = null,
 				previewCol     = null,
 				existingCol    = null,
 				isRootCol      = 'column' == FLBuilderConfig.userTemplateType;
@@ -6661,10 +6317,11 @@
 
 				existingNodes = $(FLBuilder.preview.state.html);
 				previewModule = $('.fl-node-' + moduleSettings.data('node'));
+				previewContainer = previewModule.parents('.fl-module[data-accepts]');
 				previewCol    = previewModule.closest('.fl-col');
 				existingCol   = existingNodes.find('.fl-node-' + previewCol.data('node'));
 
-				if(existingCol.length > 0 || isRootCol) {
+				if(previewContainer.length > 0 || existingCol.length > 0 || isRootCol) {
 					FLBuilder._deleteModule(previewModule);
 				}
 				else {
@@ -7118,10 +6775,13 @@
 				hook	 	= 'didSave' + type.charAt(0).toUpperCase() + type.slice(1) + 'SettingsComplete',
 				preview		= FLBuilder.preview,
 				callback 	= function() {
-					if (preview && data.layout.partial && data.layout.nodeId === preview.nodeId && !FLBuilder._publishAndRemain ) {
+					var clearPreview = preview && data.layout.partial && data.layout.nodeId === preview.nodeId && !FLBuilder._publishAndRemain;
+
+					if ( clearPreview ) {
 						preview.clear();
 						FLBuilder.preview = null;
 					}
+
 					FLBuilder._publishAndRemain = false;
 				};
 
@@ -7241,6 +6901,7 @@
 			}
 
 			if ( ! valid ) {
+				FLBuilder._publishAndRemain = false; // Reset preview clearing
 				FLBuilder.triggerHook( 'didFailSettingsSave' );
 				FLBuilder._toggleSettingsTabErrors();
 				if ( showAlert && ! $( '.fl-builder-alert-lightbox:visible', window.parent.document ).length ) {
@@ -7249,9 +6910,6 @@
 			} else {
 				FLBuilder.triggerHook( 'didTriggerSettingsSave' );
 			}
-
-			// Reset preview clearing
-			FLBuilder._publishAndRemain = false;
 
 			return valid;
 		},
@@ -7415,12 +7073,13 @@
 		_initButtonGroupField: function()
 		{
 			var wrap = $( this ),
-				options = wrap.find( '.fl-button-group-field-option' ),
-				multiple = wrap.data( 'multiple' ),
-				min = wrap.data( 'min' ),
-				max = wrap.data( 'max' ),
-				input = wrap.find( 'input' ),
-				value = function( format ) {
+				options    = wrap.find( '.fl-button-group-field-option' ),
+				multiple   = wrap.data( 'multiple' ),
+				min        = wrap.data( 'min' ),
+				max        = wrap.data( 'max' ),
+				input      = wrap.find( 'input:not(.fl-preview-ignore)' ),
+				allowEmpty = !! wrap.data( 'allowEmpty' ),
+				value      = function( format ) {
 					var val = [];
 
 					options.each(function(i, option) {
@@ -7438,9 +7097,14 @@
 
 			options.on( 'click', function() {
 				var option = $( this ),
-					length = value( 'array' ).length;
+					length = value( 'array' ).length,
+					isSelected = '1' === option.attr( 'data-selected' );
 
-				if ( '1' == option.attr( 'data-selected' ) ) {
+				if ( ! allowEmpty && isSelected ) {
+					return;
+				}
+
+				if ( isSelected ) {
 					if ( false == min ) {
 						option.attr( 'data-selected', '0' );
 					} else {
@@ -7890,6 +7554,11 @@
 			clone.find('.fl-form-field-before').remove();
 			clone.find('.fl-form-field-after').remove();
 			clone.find('input, textarea, select').val('');
+
+			// clear color
+			clone.find('.fl-color-picker-color').css('background-color', 'transparent');
+			clone.find('.fl-color-picker-color').addClass('fl-color-picker-empty');
+
 			fieldRow.after(clone);
 			FLBuilder._initMultipleFields();
 
@@ -7946,7 +7615,8 @@
 		{
 			var row     = $(this).closest('tr'),
 				parent  = row.parent(),
-				result  = confirm(FLBuilderStrings.deleteFieldMessage);
+				global  = parent.closest('.fl-builder-settings').hasClass('fl-builder-global-styles'),
+				result  = confirm(global ? FLBuilderStrings.deleteGlobalColorsWarning : FLBuilderStrings.deleteFieldMessage);
 
 			if(result) {
 				row.remove();
@@ -8038,7 +7708,7 @@
 		_initSelectFields: function()
 		{
 			var selects = $( '.fl-builder-settings:visible', window.parent.document )
-				.find( 'select' );
+				.find( 'select:not(.fl-preview-ignore)' );
 
 			selects.on( 'change', FLBuilder._settingsSelectChanged );
 			selects.trigger( 'change' );
@@ -8046,11 +7716,15 @@
 
 			// Button groups use the same options and toggling behavior as selects.
 			var buttonGroups = $( '.fl-builder-settings:visible', window.parent.document )
-				.find( '.fl-button-group-field input[type=hidden]' );
+				.find( '.fl-button-group-field input[type=hidden]:not(.fl-preview-ignore)' );
 
 			buttonGroups.on( 'change', FLBuilder._settingsSelectChanged );
 			buttonGroups.trigger( 'change' );
 			buttonGroups.on( 'change', FLBuilder._calculateSettingsTabsOverflow );
+
+			// Remove hook first, just in case.
+			FLBuilder.removeHook('settings-form-init', FLBuilder._initSelectFieldSetFields );
+			FLBuilder.addHook('settings-form-init', FLBuilder._initSelectFieldSetFields );
 		},
 
 		/**
@@ -8062,26 +7736,39 @@
 		 * @access private
 		 * @method _settingsSelectChanged
 		 */
-		_settingsSelectChanged: function()
+		_settingsSelectChanged: function( e )
 		{
 			var select  = $(this),
+				name    = select.attr('data-root-name'),
 				toggle  = select.attr('data-toggle'),
 				hide    = select.attr('data-hide'),
 				trigger = select.attr('data-trigger'),
+				set     = select.attr('data-set'),
 				val     = select.val(),
+				rawVal  = val,
 				i       = 0,
 				mode = FLBuilderResponsiveEditing._mode,
 				responsive = select.closest( '.fl-field-responsive-setting' ),
 				modeClass = 'fl-field-responsive-setting-' + mode,
 				allowToggle = false;
 
+			if ( '' === val && name ) {
+				const field = FLBuilderSettingsForms.getField( name )
+				const inheritedVal = field?.getInheritedValue( mode )
+				val = inheritedVal ? inheritedVal : val
+			}
+
 			if ( responsive.length ) {
-				if(!select.parent().hasClass(modeClass)) {
+				if(
+					! select.parent().hasClass( modeClass ) &&
+					! select.parent().parent().hasClass( modeClass )
+				) {
 					return;
 				}
 			}
+
  			// TOGGLE sections, fields or tabs.
-			if(typeof toggle !== 'undefined') {
+			if( typeof toggle !== 'undefined' ) {
 
 				toggle = FLBuilder._jsonParse(toggle);
 				allowToggle = true;
@@ -8104,7 +7791,7 @@
 			}
 
 			// HIDE sections, fields or tabs.
-			if(typeof hide !== 'undefined') {
+			if( typeof hide !== 'undefined' ) {
 
 				hide = FLBuilder._jsonParse(hide);
 
@@ -8122,7 +7809,7 @@
 			}
 
 			// TRIGGER select inputs.
-			if(typeof trigger !== 'undefined') {
+			if( typeof trigger !== 'undefined' ) {
 
 				trigger = FLBuilder._jsonParse(trigger);
 
@@ -8159,12 +7846,114 @@
 
 					// Resize code editor fields.
 					$( prefix + inputArray[i] + suffix ).parent().find( '.fl-field[data-type="code"]' ).each( function() {
-						if ( ! FLBuilder._codeDisabled ) {
+						if ( ! FLBuilder._codeDisabled && $( this ).data( 'editor' ) ) {
 							$( this ).data( 'editor' ).resize();
 						}
 					} );
 				}
 			}
+		},
+
+		/**
+		 * Setup field 'set' configuration. Sets other fields when the value of a selector button group changes.
+		 * This is set up after the form is done rendering to avoid initial change event.
+		 *
+		 * @since 2.8
+		 * @access private
+		 * @method _initSelectFieldSetFields
+		 * @return void
+		 */
+		_initSelectFieldSetFields: function()
+		{
+			var selects = $( '.fl-builder-settings:visible', window.parent.document )
+			.find( 'select:not(.fl-preview-ignore)' );
+			var buttonGroups = $( '.fl-builder-settings:visible', window.parent.document )
+			.find( '.fl-button-group-field input[type=hidden]:not(.fl-preview-ignore)' );
+
+			selects.on( 'change', FLBuilder._settingsSelectSetFields );
+			buttonGroups.on( 'change', FLBuilder._settingsSelectSetFields );
+		},
+
+		_settingsSelectSetFields: function()
+		{
+			var select = $(this),
+				name   = select.attr('data-root-name'),
+				set    = select.attr('data-set'),
+				val    = select.val(),
+				mode = FLBuilderResponsiveEditing._mode;
+
+			// SET other fields based on value
+			if ( undefined !== set ) {
+				set = FLBuilder._jsonParse(set)
+
+				if ( typeof set[val] !== 'undefined' ) {
+
+					// Handle setting fields
+					for( let name in set[val] ) {
+						const field = FLBuilderSettingsForms.getField( name )
+						const value = set[val][name]
+
+						if ( 'object' === typeof value ) {
+							for( let key in value ) {
+								field.setSubValue( key, value[key], mode )
+							}
+						} else {
+							field.setValue( value, mode )
+						}
+					}
+				}
+			}
+		},
+
+		_toggleForm: function() {
+			const form = $( '.fl-builder-settings:visible', window.parent.document )
+			const fields = form.find('select:visible, .fl-button-group-field:visible input[type=hidden]:not(.fl-preview-ignore)')
+
+			fields.each( function() {
+				if ( this.hasAttribute('data-toggle') ) {
+					const toggle = FLBuilder._jsonParse( this.getAttribute('data-toggle') )
+					const hide = FLBuilder._jsonParse( this.getAttribute('data-hide') )
+					const name = this.getAttribute('data-root-name')
+					let val = this.value
+
+					if ( '' === val && name ) {
+						const field = FLBuilderSettingsForms.getField( name )
+						const inheritedVal = field?.getInheritedValue( FLBuilderResponsiveEditing._mode )
+						val = inheritedVal ? inheritedVal : val
+					}
+
+					// Hide everything
+					if ( toggle ) {
+						for( let i in toggle ) {
+							FLBuilder._settingsSelectToggle(toggle[i].fields, 'hide', '#fl-field-');
+							FLBuilder._settingsSelectToggle(toggle[i].sections, 'hide', '#fl-builder-settings-section-');
+							FLBuilder._settingsSelectToggle(toggle[i].tabs, 'hide', 'a[href*=fl-builder-settings-tab-', ']');
+						}
+
+						// Toggle things on
+						if( typeof toggle[val] !== 'undefined' ) {
+							FLBuilder._settingsSelectToggle(toggle[val].fields, 'show', '#fl-field-');
+							FLBuilder._settingsSelectToggle(toggle[val].sections, 'show', '#fl-builder-settings-section-');
+							FLBuilder._settingsSelectToggle(toggle[val].tabs, 'show', 'a[href*=fl-builder-settings-tab-', ']');
+						}
+					}
+
+					if ( hide ) {
+						for( let i in hide ) {
+							FLBuilder._settingsSelectToggle(hide[i].fields, 'show', '#fl-field-');
+							FLBuilder._settingsSelectToggle(hide[i].sections, 'show', '#fl-builder-settings-section-');
+							FLBuilder._settingsSelectToggle(hide[i].tabs, 'show', 'a[href*=fl-builder-settings-tab-', ']');
+						}
+
+						if( typeof hide[val] !== 'undefined' ) {
+							FLBuilder._settingsSelectToggle(hide[val].fields, 'hide', '#fl-field-');
+							FLBuilder._settingsSelectToggle(hide[val].sections, 'hide', '#fl-builder-settings-section-');
+							FLBuilder._settingsSelectToggle(hide[val].tabs, 'hide', 'a[href*=fl-builder-settings-tab-', ']');
+						}
+					}
+				}
+			} )
+
 		},
 
 		/* Color Pickers
@@ -8179,12 +7968,24 @@
 		 */
 		_initColorPickers: function()
 		{
+			if ( FLBuilder.colorPicker ) {
+				FLBuilder.colorPicker._init();
+				return;
+			}
 
-			var colorPresets 	   = FLBuilderConfig.colorPresets ? FLBuilderConfig.colorPresets : [];
 			FLBuilder.colorPicker  = new FLBuilderColorPicker({
 				mode: 'hsv',
 				elements: '.fl-color-picker .fl-color-picker-value',
-				presets: colorPresets,
+				presets: FLBuilderConfig.colorPresets ? FLBuilderConfig.colorPresets : [],
+				globals: function () {
+					var styles = FLBuilderConfig.styles;
+					var themeJSON = FLBuilderConfig.themeJSON;
+					return {
+							bb: styles ? styles.colors : [],
+							wp: themeJSON && themeJSON.color.palette.default ? themeJSON.color.palette.default : [],
+							theme: themeJSON && themeJSON.color.palette.theme ? themeJSON.color.palette.theme : []
+					}
+				},
 				labels: {
 					colorPresets 		: FLBuilderStrings.colorPresets,
 					colorPicker 		: FLBuilderStrings.colorPicker,
@@ -8962,6 +8763,9 @@
 				settings = JSON.stringify( FLBuilderSettingsConfig.forms[ type ] );
 			}
 
+			// Trigger refresh preview
+			FLBuilder.preview?.preview()
+
 			FLBuilderSettingsForms.render( {
 				id        		: type,
 				nodeId    		: form.attr( 'data-node' ),
@@ -9086,14 +8890,32 @@
 				helper        = FLBuilder._moduleHelpers[ type ],
 				link          = $( '.fl-builder-settings #fl-' + lightboxId, window.parent.document ),
 				preview       = link.parent().attr( 'data-preview-text' ),
-				previewField  = form.find( '#fl-field-' + preview ),
-				previewText   = settings[ preview ],
-				selectPreview = $( 'select[name="' + preview + '"]', window.parent.document ),
+				previewOptions = [],
+				activePreview = '',
+				previewField  = null,
+				previewText   = '',
+				selectPreview = null,
 				tmp           = document.createElement( 'div' ),
 				valid         = true;
 
-			if ( selectPreview.length > 0 ) {
-				previewText = selectPreview.find( 'option[value="' + settings[ preview ] + '"]' ).text();
+			if ( preview ) {
+				previewOptions = preview.split(',');
+			}
+
+			// Handle 'preview_text' fields
+			for ( var i = 0; i < previewOptions.length; i++ ) {
+				if ( settings[ previewOptions[i] ] ) {
+					activePreview = previewOptions[i];
+					previewText = settings[ activePreview ];
+					previewField = form.find( '#fl-field-' + activePreview );
+					selectPreview = $( 'select[name="' + activePreview + '"]', window.parent.document )
+					break;
+				}
+			}
+
+
+			if ( selectPreview && selectPreview.length > 0 ) {
+				previewText = selectPreview.find( 'option[value="' + previewText + '"]' ).text();
 			}
 
 			if ( typeof helper !== 'undefined' ) {
@@ -9107,7 +8929,7 @@
 
 			if ( valid ) {
 				if ( typeof preview !== 'undefined' && typeof previewText !== 'undefined' ) {
-					if ( 'icon' === previewField.data( 'type' ) ) {
+					if ( 'icon' === previewField?.data( 'type' ) ) {
 						previewText = '<i class="' + previewText + '"></i>';
 					}
 					else if ( previewText.length > 35 ) {
@@ -9325,12 +9147,12 @@
 						group = jQuery(this).parent().parent().attr("aria-label"),
 						head = jQuery("head", window.parent.document),
 						url = 'https://fonts.googleapis.com/css?family=' + highlighted_item,
-						link_id = highlighted_item.toLowerCase().replace( ' ', '-' ),
+						link_id = highlighted_item.toLowerCase().replaceAll( ' ', '-' ),
 						parent_id = $(this).parent().parent().parent().attr('id');
 						if ( ! parent_id ) {
 							return false;
 						}
-						if( parent_id.indexOf('select2-typographyfont_family') < 0 ) {
+						if( parent_id.indexOf('typographyfont_family') < 0 ) {
 							return false;
 						}
 						if ( 'Google' === group ) {
@@ -10485,7 +10307,7 @@
 			}
 			// Get sibling column groups.
 			else if ( parent.hasClass( 'fl-row-content' ) ) {
-				siblings = parent.find( ' > .fl-col-group' );
+				siblings = parent.find( ' > .fl-col-group, > .fl-module' );
 			}
 			// Get sibling columns.
 			else if ( parent.hasClass( 'fl-col-group' ) ) {
@@ -10787,6 +10609,7 @@
 		confirm: function( o )
 		{
 			var defaults = {
+					cssClass: '',
 					message : '',
 					ok      : function(){},
 					cancel  : function(){},
@@ -10797,7 +10620,7 @@
 				},
 				config = $.extend( {}, defaults, ( 'undefined' == typeof o ? {} : o ) )
 				lightbox = new FLLightbox({
-					className: 'fl-builder-confirm-lightbox fl-builder-alert-lightbox',
+					className: 'fl-builder-confirm-lightbox fl-builder-alert-lightbox' + config.cssClass,
 					destroyOnClose: true
 				}),
 				template = wp.template( 'fl-confirm-lightbox' );

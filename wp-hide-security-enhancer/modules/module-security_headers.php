@@ -37,7 +37,7 @@
                     $this->components[]  =   new WPH_module_general_security_header_x_permitted_cross_domain_policies();
                     
                     include( WPH_PATH . "modules/components/security-header-x-xss-protection.php");
-                    $this->components[]  =   new WPH_module_general_security_header_x_xss_protection();
+                    $this->components[]  =   new WPH_module_general_security_header_x_xss_protection(); 
                             
                     //action available for mu-plugins
                     do_action('wp-hide/module_load_components', $this);

@@ -109,7 +109,8 @@ class B2S_Ship_Navbar {
         //MaxSchedDate
         $schedule_end_date = strtotime("+ 3 years") . "000";
         if ($isVideoView) {
-            $schedule_end_date = strtotime("+ " + B2S_PLUGIN_ADDON_VIDEO["sched_in_days"] + " days") . "000";
+            $schedInDays = (defined("B2S_PLUGIN_ADDON_VIDEO")) ? (int) B2S_PLUGIN_ADDON_VIDEO["sched_in_days"] : 30;
+            $schedule_end_date = strtotime("+ " . $schedInDays . " days") . "000";
         }
 
         $content .= '<div class="b2s-network-select-btn ' . (($data->expiredDate != '0000-00-00' && $data->expiredDate <= date('Y-m-d')) ? 'b2s-network-select-btn-deactivate" ' . $onclick : '"') . ' data-instant-sharing="' . esc_attr((isset($data->instant_sharing) ? (int) $data->instant_sharing : 0)) . '" data-max-sched-date="' . esc_attr($schedule_end_date) . '" data-network-auth-id="' . esc_attr($data->networkAuthId) . '" data-network-type="' . esc_attr($data->networkType) . '" data-network-kind="' . esc_attr($data->networkKind) . '" data-network-id = "' . esc_attr($data->networkId) . '"  data-network-tos-group-id="' . esc_attr($data->networkTosGroupId) . '" data-network-display-name="' . esc_attr(strtolower(B2S_Util::remove4byte($data->networkUserName))) . '" ' . (in_array($data->networkId, array(1, 3, 15, 19, 17)) ? 'data-meta-type="og"' : (in_array($data->networkId, array(2, 24)) ? 'data-meta-type="card"' : '')) . '>';

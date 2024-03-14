@@ -324,10 +324,25 @@ final class FLBuilderAutoSuggest {
 
 		foreach ( $posts as $post ) {
 
+			switch ( $post->post_type ) {
+				case 'attachment':
+					$name  = basename( wp_get_attachment_url( $post->ID ) );
+					$value = wp_get_attachment_url( $post->ID );
+					break;
+				case 'popup':
+					$name  = esc_html( $post->post_title );
+					$value = '#popmake-' . $post->ID;
+					break;
+				default:
+					$name  = esc_html( $post->post_title );
+					$value = get_permalink( $post->ID );
+			}
+
 			$data[] = array(
-				'name'  => ( 'attachment' === $post->post_type ) ? basename( wp_get_attachment_url( $post->ID ) ) : esc_html( $post->post_title ),
-				'value' => ( 'attachment' === $post->post_type ) ? wp_get_attachment_url( $post->ID ) : get_permalink( $post->ID ),
+				'name'  => $name,
+				'value' => $value,
 				'type'  => ucfirst( $post->post_type ),
+				'id'    => $post->ID,
 			);
 		}
 

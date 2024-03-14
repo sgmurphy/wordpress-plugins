@@ -1,179 +1,339 @@
-<h4>2.7.4.5 - 03/11/2024</h4>
+<h4>2.8.0.4 - 03/13/2024</h4>
 <p><strong>Hotfix</strong></p>
 <ul>
-	<li>Icon Module: Fix shortcode not working when displaying text with the icon (#3231)</li>
-	<li>Security: Fix Authenticated(Contributor+) Stored Cross-Site Scripting via module container element (#3240)</li>
-	<li>Fix PHP warning with PHP 8.3 if Themer is active(#3160)</li>
+	<li>Security: Fix Authenticated(Contributor+) Stored Cross-Site Scripting via module container elements (#3240)</li>
+	<li>Add move action to the parent menu (#3256)</li>
+	<li>Fix not being able to open columns settings in parent menu when editing a Global Row (#3229)</li>
+	<li>Fix gradient for row background failing when using a Global Color (#3252)</li>
+	<li>Fix not being able to use flyout menu with small columns (#3258)</li>
+	<li>Fix JS error in outline panel with nodes like column groups that have no settings (#3262)</li>
+	<li>Fix the rare issue of null for a module instance (#3253)</li>
 </ul>
 
-<h4>2.7.4.4 - 02/09/2024</h4>
+<h4>2.8.0.3 - 03/06/2024</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+	<li>Fix spacing not being correct on mobile (#3246)</li>
+	<li>UI: Fix flyout menu for nodes overlapping for the mobile Breakpoint (#3248)</li>
+	<li>UI: Make dropzone for Box module larger (#3190)</li>
+	<li>PopUp Maker Integration: Fix content being missing when logged out (#3217)</li>
+	<li>Icon Module: Fix shortcode not working when displaying text with the icon (#3231)</li>
+</ul>
+
+<h4>2.8.0.2 - 02/29/2024</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+	<li>Fix moving nodes in FireFox requiring a click after drag and drop (#3191)</li>
+	<li>Fix Global Styles menu option showing when using an incompatible version of Themer (#3202)</li>
+	<li>Fix upgrading/downgrading from License tab in WP Admin settings stalling(#3181)</li>
+	<li>Fix Box Module settings not opening if used in a global saved row or column (#3173)</li>
+	<li>Fix PHP warning with PHP 8.3 if Themer is active(#3160)</li>
+	<li>Fix default padding for rows and columns not working at the small breakpoint(#3172)</li>
+	<li>Performance: Fix deleting a parent node causing a request for each child (#3204)</li>
+	<li>Fix preview issue with Box module presets (#3167)</li>
+	<li>Tweak previous link field fixes to auto-sanitize link field input to protect against XSS(#3175)</li>
+	<li>Add fixes for CPTs using core taxonomy not showing in Themer location options (#3215)</li>
+	<li>Reworked parent select menu to show actions for each node (#3212)</li>
+	<li>Fix issues with UI when WP Widgets are disabled or when moving a module that has been disabled (#3219)</li>
+</ul>
+
+<h4>2.8.0.1 - 02/09/2024</h4>
 <p><strong>Hotfix</strong></p>
 <ul>
 	<li>Fix shortcodes not rendering properly in link fields</li>
 </ul>
 
-<h4>2.7.4.3 - 02/08/2024</h4>
-<strong>Hotfix</strong>
+<h4>2.8 "Alpine" - 02/08/2024</h4>
+<p>Beaver Builder 2.8 is here! This is a major update and will be released as the official download on the My Account page first. Remote updates to all existing sites will begin soon.</p>
+
+<p>Please check out the <a href="https://www.wpbeaverbuilder.com/beaver-builder-2-8" target="_blank" rel="noopener">Release Post</a> for highlights of what's new or the <a href="https://docs.wpbeaverbuilder.com/beaver-builder/about-this-release" target="_blank" rel="noopener">"About this Release"</a> doc for all of the details.</p>
+
+<p><strong>Security</strong></p>
 <ul>
 	<li>Security: Add additional sanitization and escaping when rendering URLs to prevent XSS</li>
 	<li>Security: Fix Reflected (DOM-Based) XSS issue</li>
 	<li>Security: Fix issues with shortcodes potentially rendering protected content to those without access (#3116)</li>
-	<li>Escape HTML in UI for saved layouts (#3064)</li>
 </ul>
 
-<h4>2.7.4.2 - 12/20/2023</h4>
-<strong>Hotfix</strong>
+<p><strong>Enhancements</strong></p>
 <ul>
-	<li>Fix node CSS/JS code check applying to the HTML module(#3066)</li>
+	<li>NEW: Box Module lets you easily create flexbox and CSS grid layouts. Also new are some Box module presets to get you going faster!</li>
+	<li>NEW: Global Styles and Global Colors are here. Access via new Global Styles option in the Tools Menu</li>
+	<li>NEW: Install other licensed products right from the License tab in the BB settings (#2816)</li>
+	<li>Photo Module: Add object fit and position option to the style tab</li>
+	<li>Add integration for <a href="https://wordpress.org/plugins/popup-maker/">Popup Maker Plugin</a> so you can use BB to create the pop-ups and select popups in link fields</li>
+	<li>Added the new move menu to overlays for moving rows, columns, and modules with a click</li>
+	<li>Added the new select parent menu to overlays for selecting the parent node of columns and modules.</li>
+	<li>Added column groups to the outline panel with the ability to move and delete them</li>
+	<li>Improved the overall drag and drop experience in the outline panel</li>
+	<li>Add new <a href="https://northcommerce.com/">NorthCommerce Module</></a> that lets you display the results of NorthCommerce shortcodes</li>
+	<li>Exclude History Manager data when exporting (#2795)</li>
+	<li>Performance improvement for the Advanced tab options in the BB WP Admin Settings (#3057)</li>
+	<li>Add missing translations for strings in JS (#3121)</li>
+	<li>Add sr only text for Menu Module search icon(#3119)</li>
+	<li>Menu Module: Make link padding responsive and add new option for responsive toggle padding</li>
+	<li>Post Carousel & Post Slider: Add excerpt length option</li>
+	<li>Add notice to Icons section in WP Admin settings regarding FontAwesome</li>
+	<li>Tools Menu: Add option to open Media Library</li>
+	<li>Performance: Remove needless AJAX requests</li>
+	<li>Export/Import: Add options for what to export</li>
+	<li>CSS variables can now be used in the color picker</li>
 </ul>
 
-<h4>2.7.4.1 - 12/15/2023</h4>
-<strong>Hotfix</strong>
+<p><strong>Changes</strong></p>
 <ul>
-	<li>Fix gradients not displaying at all breakpoints (#3060)</li>
+	<li>Standardized overlays for rows, columns, and modules so they all look and work the same</li>
+	<li>Move the row actions overlay menu to the row settings menu</li>
+	<li>Removed the column menu on modules in favor of the select parent menu</li>
 </ul>
 
-<h4>2.7.4 - 12/14/2023</h4>
-<strong>Enhancements</strong>
+<p><strong>Bug Fixes</strong></p>
 <ul>
-	<li>Performance: Optimize Template loading in the UI (#3038)</li>
-	<li>Code Editor: Shortcodes no longer trigger errors in Ace Editor when Shortcode support in CSS/JS is enabled (#2872)</li>
-	<li>Node CSS/JS: HTML now detected in JS when Shortcode support in CSS/JS is not enabled (#2929)</li>
-	<li>Saved Nodes: category will now be added to the HTML in the WP Admin as a class (#2806)</li>
-	<li>Post Module: add JS trigger event <code>gridScrollComplete</code> to module wrapper for load more and scroll pagination (#1558)</li>
-	<li>Aspect Ratio: Now allows float values (#2981)</li>
+	<li>Fix issue with new modules not being enabled when upgrading (#3144)</li>
+	<li>Fix JS error when clicking in color picker after using Publish keyboard shortcut (#2489)</li>
+	<li>List Module: fix preview text not working (#2813)</li>
+	<li>Fix Tools menu title being sticky when scrolled (#3070)</li>
+	<li>Fix fatal error with "Theme My Login" plugin on their dynamically generated pages (#3078)</li>
+	<li>Fix issue with row background gradients when small data mode is enabled (#3074)</a>
+	<li>Escape HTML in UI for saved nodes/templates (#3065)</li>
+	<li>Fix PHP 8.2 deprecation notice in jsmin class (#3062)</li>
+	<li>Increase contrast on Icon Picker search placeholder in Dark Mode (#3059)</li>
+	<li>Video Module: Fix a fatal error in PHP 8+ when video width is 0 (#3072)</li>
+	<li>Fix issue with cache helper hiding hosts if you disable it (#3030)</li>
+	<li>Post Carousel Module: Fix PHP Warning when there's no featured image (#3046)</li>
+	<li>Text Editor Module: Adjust styling for active tab</li>
 </ul>
 
-<strong>Bug Fixes</strong>
+<p><strong>Developer</strong></p>
 <ul>
-	<li>WP 6.4: Fix 404 if launching BB on a new post/page with no title (#3040)</li>
-	<li>Safe Mode: images are no longer cropped (#2662)</li>
-	<li>Fix equal columns width issue at small breakpoint (#3011)</li>
-	<Li>Fix fatal error with PHP 8.2 if column CSS array key does not exist (#2983)</li>
-	<li>Accordion Module: Fix live preview of label text color (#2992)</li>
-	<li>Callout Module: If no text is added, container divs are not added (#2961)</li>
-	<li>Post Module: Fix pagination on a page with the same slug as the post type being displayed (#2774)</li>
-	<li>Post Carousel Module: Fix JS error if Move Slides option is set to blank (#3041)</li>
-	<li>Subscribe Module: Fix Aweber integration with multiple tags (#2985)</li>
-	<li>Video Module: Fix invalid date in structured data (#3005)</li>
+	<li><code>preview_text</code> parameter now accepts an array of values (#2813)</li>
+	<li>Add filters to modify settings before rendering CSS: <code>fl_builder_before_render_css_row</code>, <code>fl_builder_before_render_css_col</code>, <code>fl_builder_before_render_css_module</code> (#3109)</li>
+	<li>Fix callbacks not firing in the iFrame UI</li>
+	<li>Add category as a class to all saved node's HTML in the UI (#3087)</li>
+	<li>Add filter <code>fl_builder_global_colors_json</code> to control whether the WP colors are shown in the color picker as options</li>
 </ul>
 
-<h4>2.7.3.2 - 11/15/2023</h4>
-<strong>Hotfix</strong>
+<h4>2.8-beta.8 - 02/06/2024</h4>
+<p><strong>Security</strong></p>
 <ul>
-	<li>WP 6.4+: Fix extra space at the top of the UI (#3018)</li>
-	<li>WP 6.4+: Fix JS and pagination issues with modules that use <code>imagesloaded</code> script (#3021)</li>
+	<li>Security: Rework fix for shortcodes potentially rendering protected content to those without access so that it does not hide content for logged out users (#3153)</li>
 </ul>
 
-<h4>2.7.3.1 - 10/18/2023</h4>
-<strong>Hotfix</strong>
+<p><strong>Bug Fixes</strong></p>
 <ul>
-	<li> Revert fix pagination not working on a page with the same slug as the post type being displayed because it is creating issues with WooCommerce pagination</li>
-	<li>Tabs Module: Fix content from the first tab displaying in all tabs if a slideshow module is rendered in a tab #2968</li>
+	<li>Fix nodes with visibility rules not respecting those rules in Responsive Editing(#3147)</li>
 </ul>
 
-<h4>2.7.3 - 10/11/2023</h4>
-<strong>Enhancements</strong>
+<h4>2.8-beta.7 - 02/02/2024</h4>
+<p><strong>Security</strong></p>
 <ul>
-	<li>Add Outline Panel to the tour (#2917)</li>
-	<li>Subscribe Module: Rename SendInBlue to Brevo due to their rebrand (#2899)</li>
+	<li>Security: Add additional sanitization and escaping when rendering URLs to prevent XSS</li>
+	<li>Security: Fix Reflected (DOM-Based) XSS issue</li>
+	<li>Security: Fix issues with shortcodes potentially rendering protected content to those without access (#3116)</li>
+</ul>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Add missing translations for strings in JS (#3121)</li>
+	<li>Add sr only text for Menu Module search icon(#3119)</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fix Google Font preview on hover not working in Global Styles (#3137)</li>
+	<li>Fix missing color field connections in Icon Group Module, Search Module and Menu Module (#3129, #3130, #3122)</li>
+	<li>Fix custom width in Photo module not rendering when using Small Data Mode(#3124)</li>
+	<li>Fix PHP deprecation error when using a Global Color (#3123)</li>
+	<li>Fix button advanced gradients not working properly with the BB Theme (#3114)</li>
+	<li>Box Module: fix preview issues with Min Height setting (#3104)</li>
+	<li>Fix issue with new modules not being enabled when upgrading (#3144)</li>
+	<li>Pricing Table Module: Fix JS Error if button icon is changed</li>
+	<li>Fix unclosed element on BB Settings page in the WP Admin</li>
+	<li>Fix Box Module Layers mode not working properly</li>
+	<li>Fix equal column height alignment not working with some layouts with photo modules(#3076)</li>
+	<li>Box Module: Fix not being able to de-select alignment once selected(#2860)</li>
+	<li>Box Module: fix margins on nested box modules not working properly (#3149)</li>
 </ul>
 
-<strong>Bug Fixes</strong>
+<h4>2.8-beta.6 - 01/26/2024</h4>
+<p><strong>Enhancements</strong></p>
 <ul>
-	<li>A11y: Fix focus issues with tabbing through the page (#2492)</li>
-	<li>A11y: Fix accordion not opening when tabbing through accordion items (#1041)</li>
-	<li>Tabs Module: Fix active tab option not working when dynamic content is used (#2936)</li>
-	<li>Tabs Module: When all tabs are closed on mobile, fix first item having active styling applied (#2933)</li>
-	<li>Fix RGBA values not always displaying correctly in the color picker (#2922)</li>
-	<li>Subscribe Module: Brevo (Formerly SendInBlue) service now shows up to 50 lists (#2922)</li>
-	<li>Fix column width always rendering as 100% when Column Max Width option is enabled in Global Settings (#2888)</li>
-	<li>Outline Panel: Fix context menu being inaccessible for items at the very bottom of the page (#2850)</li>
-	<li>Fix duplicating nodes quickly creating additional greyed out clones (#2845)</li>
-	<li>Posts Module: Fix pagination not working on a page with the same slug as the post type being displayed (#2774)</li>
-	<li>Fix compatibility with ClassicPress 2.0 (#2752)</li>
-	<li>Accordion Module: Fix accordion not staying open when clicked when it is inside of a Tabs module (#2492)</li>
-	<li>Fix not being able to edit a saved module if it had 0 margins (#1989)</li>
-	<li>Post Slider Module: Fix deprecated warning notice in PHP 8.2 (#2914)</li>
-	<li>Fix Shortcode content rendering inside text module when clicking the shortcode(#2935)</li>
+	<li>NEW: Install other licensed products right from the License tab in the BB settings (#2816)</li>
+	<li>Add new options when saving a node for reuse: select a category, featured image and add internal notes (#3098)</li>
+	<li>Exclude History Manager data when exporting (#2795)</li>
+	<li>Performance improvement for the Advanced tab options in the BB WP Admin Settings (#3057)</li>
+	<li>Box Module labels in Outline Panel now consistent with the Settings labels (#3101)</li>
+	<li>Add placeholder images to Photo Grid preset</li>
+	<li>Add menu modules and placeholder image to split header preset</li>
 </ul>
 
-<h4>2.7.2.2 - 09/28/2023</h4>
-<strong>Hotfix</strong>
+<p><strong>Bug Fixes</strong></p>
 <ul>
-	<li>Prevent low privileged user roles from editing node CSS/JS, layout CSS/JS and having access to Global Settings (#2889)</li>
-	<li>Fix issue with calculation of input vars not being correct when displaying the AJAX error pop-up (#2886)</li>
-	<li>Fix tour not initiating properly on a new site and styling/placement issues (#2905 & #2919)</li>
+	<li>Fix JS error when clicking in color picker after using Publish keyboard shortcut (#2489)</li>
+	<li>List Module: fix preview text not working (#2813)</li>
+	<li>Fix Tools menu title being sticky when scrolled (#3070)</li>
+	<li>Fix fatal error with "Theme My Login" plugin on their dynamically generated pages (#3078)</li>
+	<li>Fix Button Module Advanced Gradient not working with the BB Theme (#3114)</li>
+	<li>Fix incorrect preview when switching between flex and grid display</li>
 </ul>
 
-<h4>2.7.2 - 08/24/2023</h4>
-<strong>Requirements</strong>
+<p><strong>Developer</strong></p>
 <ul>
-	<li>PHP 7 now required for this and future updates of Beaver Builder.  WordPress dropped support for PHP 5.6 in WordPress 6.3 and we are following that(#2767)<li>
+	<li><code>prevew_text</code> parameter now accepts an array of values (#2813)</li>
+	<li>Add filters to modify settings before rendering CSS: <code>fl_builder_before_render_css_row</code>, <code>fl_builder_before_render_css_col</code>, <code>fl_builder_before_render_css_module</code> (#3109)</li>
+	<li>Fix callbacks not firing in the iFrame UI</li>
+	<li>Add category as a class to all saved node's HTML in the UI (#3087)</li>
 </ul>
 
-
-<strong>Enhancements</strong>
+<h4>2.8-beta.5 - 01/11/2024</h4>
+<p><strong>Bug Fixes</strong></p>
 <ul>
-	<li>When shortcodes in CSS/JS is enabled, enable for node CSS/JS also (#2832)</li>
-	<li>Developer: Add new hooks <code>fl_builder_before_render_column</code> & <code>fl_builder_after_render_column</code> (#1647)</li>
-	<li>Prevent redirect to ?fl_builder when iFrame is disabled and you try to load the iFrame UI builder UI via direct URL (#2764)</li>
-	<li>Rename Reusable Blocks group to WordPress Patterns due to rename in WP 6.3 (#2761)</li>
-	<li>Accessibility: You can now escape out of submenus in Menu Module (#2496)</li>
-	<li>Row BackGround Videos: Show fallback photo while Vimeo video loads (#151)</li>
+	<li>Fix issue with row background gradients when small data mode is enabled (#3074)</a>
+	<li>Escape HTML in UI for saved nodes/templates (#3065)</li>
+	<li>Fix PHP 8.2 deprecation notice in jsmin class (#3062)</li>
+	<li>Increase contrast on Icon Picker search placeholder in Dark Mode (#3059)</li>
+	<li>Fix inconsistent content panel width</li>
+	<li>Video Module: Fix a fatal error in PHP 8+ when video width is 0 (#3072)</li>
+	<li>Fix issue with cache helper hiding hosts if you disable it (#3030)</li>
+	<li>Post Carousel Module: Fix PHP Warning when there's no featured image (#3046)</li>
 </ul>
 
-<strong>Bug Fixes</strong>
+<h4>2.8-beta.4 - 12/15/2023</h4>
+<p><strong>Enhancements</strong></p>
 <ul>
-	<li>Fix UI freezing after adding a custom row shape (#2841)</li>
-	<li>Fix conflicts with Appointment Hour Booking and LearnDash when iFrame UI enabled (#2837 & 2743)</li>
-	<li>Fix dragging a saved node when search in content panel is active (#2799)</li>
-	<li>Hide Advanced settings in WP Admin for Network Admin (#2762)</li>
-	<li>Posts Module: Fix loading text not being translatable (#2770)</li>
-	<li>Fix font family select scrolling down the page when iFrame UI is disabled (#2747)</li>
-	<li>Fix images going outside the container on small devices when reverse stacking is set (#2754)</li>
-	<li>Video Module: Fix lightbox when using YouTube Privacy Enhanced Mode (#2688)</li>
-	<li>ACF: Fix ACF Text editors not loading correctly in ACF Blocks used in our UI (#2823)</li>
-	<li>Fix scroll bar freezing when clicked in Content panel (#2875)</li>
+	<li>Add Photo Grid Box Preset</li>
 </ul>
 
-<h4>2.7.1.1 - 07/27/2023</h4>
-<strong>Hotfix</strong>
+<p><strong>Bug Fixes</strong></p>
 <ul>
-	<li>Fix fatal error with Pricing Table module when using PHP 8+ (#2790)</li>
-	<li>Fix selecting visibility for XL breakpoint only also selecting Large when you re-open settings (#2800)</li>
+	<li>Fix pinned settings not using variables</a>
 </ul>
 
-<h4>2.7.1 - 07/06/2023</h4>
-<strong>Enhancements</strong>
+<p><strong>Changes</strong></p>
 <ul>
-	<li>Remove the word "Settings" from Row and Column settings to be consistent with modules (#2698)</li>
-
+	<li>Rename Horizontal Stack Box preset to Flex Columns</li>
 </ul>
 
-<strong>Bug Fixes</strong>
+<h4>2.8-beta.3 - 12/08/2023</h4>
+<p><strong>Enhancements</strong></p>
 <ul>
-	<li>Fix edits to global modules in global rows not rendering properly (#2579)</li>
-	<li>Fix not being able to drag modules into global rows</li>
-	<li>Fix CSS not loading in the iFrame UI when WordPress folder name is the same as theme folder name (#2759)</li>
-	<li>Dark Mode: Global Node label text color isn't using the correct color (#2666)</li>
-	<li>Changing the URL causes a fatal error until refresh in Beaver Builder Lite (#2744)</li>
-	<li>Fix an issue when upgrading from 2.6 -> 2.7 where the breakpoint icons could have none selected (#2716)</li>
-	<li>Fix icon search when capitalizing search words (#2729)</li>
-	<li>Fix conflict with the 3rd party BB plugin, Dashboard Welcome (#2607)</li>
-	<li>Accordion Module: Fix more link showing when Post Content is selected (#2693)</li>
-	<li>Fix overlays being clipped in the iFrame UI when you have more than two columns on small devices (#2711)</li>
-	<li>Fix settings panel scrollbar freezing when directly clicked (#2701)</li>
-	<li>Fix Order by meta value not working when filtering by a different custom field (#2652)</li>
-	<li>Fix some PHP 8.2 warnings when saving modules as global (#2641)</li>
-	<li>Fix labels interfering with overlays (#2508)</li>
+	<li>NorthCommerce Module: Add button hover styles</li>
+	<li>Text Editor Module: Adjust styling for active tab</li>
+	<li>Menu Module: Make link padding responsive and add new option for responsive toggle padding</li>
+	<li>Post Carousel & Post Slider: Add excerpt length option</li>
 </ul>
 
-<h4>2.7.0.5 - 06/08/2023</h4>
-<strong>Hot Fix</strong>
+<p><strong>Bug Fixes</strong></p>
 <ul>
-	<li>Fix negative margin not working on rows (#2726)</li>
-	<li>Prevent dependent scripts/styles from loading in the iFrame UI (#2718)</li>
+	<li>Fix Export styles not copying Global Color</a>
+	<li>Box Module: Various bug fixes</li>
+</ul>
+
+<p><strong>Changes</strong></p>
+<ul>
+	<li>Add notice to Icons section in WP Admin settings regarding FontAwesome</li>
+	<li>Box Module: Remove scrolling section for now</li>
+</ul>
+
+<h4>2.8-beta.2 - 11/17/2023</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Box Module: Simplify display options, add type labels to the Outline Panel & add row/column gap support</li>
+	<li>Tools Menu: Add option to open Media Library</li>
+	<li>Performance: Remove needless AJAX requests</li>
+	<li>Photo Module: Add object fit and position option to the style tab</li>
+</ul>
+
+<p><strong>Changes</strong></p>
+<ul>
+	<li>Move services and compat classes to separate folders</li>
+	<li>Move box module custom field types into the box module folder</li>
+</ul>
+
+<h4>2.8-beta.1 - 11/06/2023</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Add global color support to border fields, box shadow, and text shadow</li>
+	<li>Remove color in global color variable name</li>
+	<li>Add new <a href="https://northcommerce.com/">NorthCommerce Module</></a> that lets you display the results of NorthCommerce shortcodes</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fix a compound field styling glitch</li>
+	<li>Fix Advanced Gradient styling</li>
+</ul>
+
+<h4>2.8-alpha.2 - 10/20/2023</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Export/Import: Add options for what to export</li>
+	<li>Popup Maker Integration: You can now select a popup in link fields to trigger a popup when a link is clicked</li>
+	<li>Box Module: Simplify auto flow field and other minor enhancements</li>
+	<li>Modules inside a Box module will have their margins set to 0 unless explicitly set in the settings after this update</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Adjust icon used for copy in Global Colors</li>
+	<li>Fix being able to drop modules into shortcode rendered layouts</li>
+</ul>
+
+<h4>2.8-alpha.1 - 9/29/2023</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Popup Maker integration: Render popup inside BB while editing</li>
+	<li>Add option to filter by current author and current logged in user in Loop settings</li>
+	<li>Make sure all Grid Area fields are responsive</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Fix Text Global Styles overriding Heading settings</li>
+	<li>Fix PHP warning from Global Styles when a block theme is active</li>
+	<li>Tabs Module: Fix module styles not overriding Global Styles</li>
+	<li>Fix inconsistent styling issue with font family dropdown</li>
+	<li>Fix Global Styles affecting Module names when dropping them onto the canvas</li>
+</ul>
+
+<h4>2.8-dev.2 - 9/15/2023</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Global Colors: are now selectable in the color picker</li>
+	<li>Global Colors: choose your own variable prefix and add a copy button for the variable</li>
+	<li>CSS variables can now be used in the color picker</li>
+	<li>Add filter <code>fl_builder_global_colors_json</code> to control whether the WP colors are shown in the color picker as options</li>
+	<li>Add integration for <a href="https://wordpress.org/plugins/popup-maker/">Popup Maker Plugin</a> so you can use BB to create the pop-ups</li>
+</ul>
+
+<p><strong>Changes</strong></p>
+<ul>
+	<li>Only load Global Styles extension if Themer is active if version 1.4.7+ is detected</li>
+	<li>Remove background blur and blending mode from Box Module for now</li>
+	<li>Show confirmation if Global Colors are not saved first after being modified</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+<ul>
+	<li>Button Group: Fix individual button settings rendering blank</li>
+</ul>
+
+<h4>2.8-dev.1 - 8/17/2023</h4>
+<p><strong>Enhancements</strong></p>
+<ul>
+	<li>Added the new box module with flexbox and CSS grid support.</li>
+	<li>Added the new global styles panel with global styling and global color definitions.</li>
+	<li>Added the new move menu to overlays for moving rows, columns, and modules with a click.</li>
+	<li>Added the new select parent menu to overlays for selecting the parent node of columns and modules.</li>
+	<li>Added column groups to the outline panel with the ability to move and delete them.</li>
+	<li>Added CSS variable support to the color picker.</li>
+	<li>Added support for building popups with the <a href="https://wordpress.org/plugins/popup-maker/" target="_blank" rel="noopener">Popup Maker plugin</a>.</li>
+	<li>Improved the overall drag and drop experience in the outline panel.</li>
+</ul>
+
+<p><strong>Changes</strong></p>
+<ul>
+	<li>Standardized overlays for rows, columns, and modules so they all look and work the same.</li>
+	<li>Move the row actions overlay menu to the row settings menu.</li>
+	<li>Removed the column menu on modules in favor of the select parent menu.</li>
 </ul>
 
 <h4>2.7.0.4 - 05/18/2023</h4>

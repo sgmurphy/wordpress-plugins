@@ -575,6 +575,8 @@ class ShortcodeController {
 				}
 			}
 
+			$parentClass = esc_attr($parentClass);
+
 			$html .= "<div class='rt-container-fluid rt-tpg-container tpg-shortcode-main-wrapper {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
 
 			// widget heading.

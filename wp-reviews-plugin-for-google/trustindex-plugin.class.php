@@ -248,6 +248,10 @@ if (count($wpdb->get_results('SHOW COLUMNS FROM `'. $tableName .'` LIKE "reviewI
 $wpdb->query('ALTER TABLE `'. $tableName .'` ADD reviewId TEXT NULL AFTER date');
 }
 }
+
+if ($version >= 10.7 && count($wpdb->get_results('SHOW COLUMNS FROM `'. $tableName .'` LIKE "hidden"')) === 0) {
+$wpdb->query('ALTER TABLE `'. $tableName .'` ADD hidden TINYINT(1) NOT NULL DEFAULT 0 AFTER id');
+}
 }
 if ($this->is_noreg_linked() && get_option($this->get_option_name('review-content'))) {
 $contentVersion = get_option($this->get_option_name('content-saved-to'));
@@ -553,7 +557,7 @@ $message = '
 <tbody>
 <tr>
 <td align="center" valign="middle" style="font-family: Arial;font-size: 16px;padding: 12px 20px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-<a title="Reply with ChatGPT! »" href="'. admin_url('admin.php') .'?page='. urlencode($this->get_plugin_slug() .'/settings.php') .'&tab=my-reviews" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;display: block;">Reply with ChatGPT! »</a>
+<a title="Reply with ChatGPT! »" href="'. admin_url('admin.php') .'?page='. urlencode($this->get_plugin_slug() .'/settings.php') .'&tab=free-widget-configurator" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;display: block;">Reply with ChatGPT! »</a>
 </td>
 </tr>
 </tbody>
@@ -703,7 +707,7 @@ $filePath = __FILE__;
 if (isset($this->plugin_slugs[ $forcePlatform ])) {
 $filePath = preg_replace('/[^\/\\\\]+([\\\\\/]trustindex-plugin\.class\.php)/', $this->plugin_slugs[ $forcePlatform ] . '$1', $filePath);
 }
-$chosedPlatform = new self($forcePlatform, $filePath, "do-not-care-11.6", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
+$chosedPlatform = new self($forcePlatform, $filePath, "do-not-care-11.7", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
 $chosedPlatform->setNotificationParam('not-using-no-widget', 'active', false);
 if (!$chosedPlatform->is_noreg_linked()) {
 return $this->error_box_for_admins(sprintf(__('You have to connect your business (%s)!', 'trustindex-plugin'), $forcePlatform));
@@ -5509,15 +5513,12 @@ $pageDetails = $this->getPageDetails();
 if (!$pageDetails) {
 return "";
 }
-if (isset($pageDetails['write_review_url']) && $pageDetails['write_review_url']) {
-return $pageDetails['write_review_url'];
-}
 $pageId = $pageDetails['id'];
 if ($this->getGoogleType($pageId) === 'shop') {
 return 'https://customerreviews.google.com/v/merchant?q=' . $pageId;
 }
 else {
-return 'http://search.google.com/local/writereview?placeid=' . $pageId;
+return 'https://admin.trustindex.io/api/googleWriteReview?place-id=' . $pageId;
 }
 }
 public function getReviewHtml($review)
@@ -5592,18 +5593,18 @@ $sqlRatingField = 'ROUND(rating / 2, 0)';
 }
 $sql = 'SELECT *, rating as original_rating, '. $sqlRatingField .' as rating FROM `'. $this->get_tablename('reviews') .'` ';
 $filter = get_option($this->get_option_name('filter'), $this->get_widget_default_filter());
-if (!$listAll && $filter) {
-if (count($filter['stars']) === 0) {
+if (!$listAll) {
+if (isset($filter['stars']) && count($filter['stars']) === 0) {
 $sql .= 'WHERE 0 ';
 }
 else {
-$sql .= 'WHERE ('. $sqlRatingField .' IN ('. implode(',', $filter['stars']) .')';
+$sql .= 'WHERE hidden = 0 AND ('. $sqlRatingField .' IN ('. implode(',', $filter['stars']) .')';
 if (in_array(5, $filter['stars'])) {
 $sql .= ' or rating IS NULL';
 }
 $sql .= ') ';
 if (isset($filter['only-ratings']) && $filter['only-ratings']) {
-$sql .= 'and text != "" ';
+$sql .= 'AND text != "" ';
 }
 }
 }

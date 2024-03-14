@@ -20,14 +20,25 @@
 			$('body').on( 'click', '#fl-import-export-form input.export', FLBuilderGlobalImportExport._exportClicked);
 			$('body').on( 'click', '#fl-import-export-form input.import', FLBuilderGlobalImportExport._importClicked);
 			$('body').on( 'click', '#fl-import-export-form input.reset', FLBuilderGlobalImportExport._resetClicked);
+			FLBuilderGlobalImportExport.bindChecks();
 		},
 
 		_exportClicked: function() {
 
 			nonce = $('#fl-import-export-form').find('#_wpnonce').val();
+
+			data = {
+				global_all: $('#fl-import-export-form input.global_all').prop('checked'),
+				admin: $('#fl-import-export-form input.admin').prop('checked'),
+				global: $('#fl-import-export-form input.global').prop('checked'),
+				styles: $('#fl-import-export-form input.styles').prop('checked'),
+				colors: $('#fl-import-export-form input.colors').prop('checked'),
+			}
+
 			// generate data file.
 			FLBuilderGlobalImportExport.ajax( {
 				action: 'export_global_settings',
+				data: data,
 				_wpnonce: nonce,
 			}, function ( response ) {
 
@@ -35,18 +46,35 @@
 					case false:
 						break;
 					case true:
-						data = response.data;
-						var blob = new Blob([data], { type: "application/octetstream" });
+						data     = response.data;
+						settings = data.settings;
+						var filename = '';
+
+						$.each( data.selected, function( e,i ) {
+							if ( 'global_all' === e && 'true' === i ) {
+								filename += 'all-';
+								return false;
+							}
+							if ( 'true' === i ) {
+								filename += e + '-';
+							}
+						});
+						date  = new Date();
+						day   = date.getDate();
+						month = date.getMonth() + 1;
+						year  = date.getFullYear();
+						filename = 'bb-settings-' + filename + `${year}-${month}-${day}` + '.txt';
+						var blob = new Blob( [settings], { type: "application/octetstream" } );
 
 						//Check the Browser type and download the File.
 						var isIE = false || !!document.documentMode;
 						if (isIE) {
-							 window.navigator.msSaveBlob(blob, fileName);
+							 window.navigator.msSaveBlob(blob, filename);
 						} else {
 							 var url = window.URL || window.webkitURL;
 							 link = url.createObjectURL(blob);
 							 var a = $("<a />");
-							 a.attr("download", 'bb-global.txt');
+							 a.attr("download", filename);
 							 a.attr("href", link);
 							 $("body").append(a);
 							 a[0].click();
@@ -137,6 +165,16 @@
 				}
 			});
 		},
+		bindChecks: function() {
+			$('body').on( 'change', '#fl-import-export-form input.global_all', function(){
+				checked = $(this).prop('checked')
+				if ( ! checked ) {
+					$('#fl-import-export-form .extra').fadeIn();
+				} else {
+					$('#fl-import-export-form .extra').fadeOut();
+				}
+			});
+		}
 	}
 	$( FLBuilderGlobalImportExport._init );
 } )( jQuery );

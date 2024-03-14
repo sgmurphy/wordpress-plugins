@@ -70,6 +70,13 @@
 	font-weight: bold;
 }
 
+/* ACF File */
+.fl-builder-ui-skin--dark .acf-fields > .acf-field .acf-file-uploader .file-icon,
+.fl-builder-ui-skin--dark .acf-fields > .acf-field .acf-file-uploader .show-if-value {
+	color: #a7b1bb;
+	background-color: transparent;
+}
+
 /* Color Picker Fields */
 .acf-color-picker button {
 	border: 1px solid #7e8993;
@@ -153,6 +160,12 @@
 .acf-repeater > table {
 	margin: 0 0 8px;
 	background: #F9F9F9;
+}
+
+.fl-builder-ui-skin--dark .acf-repeater .acf-fields.-left > .acf-field:before {
+	color: #a7b1bb;
+	background-color: transparent;
+	border-right-color: #191b21;
 }
 
 /* Flexible Content Fields */

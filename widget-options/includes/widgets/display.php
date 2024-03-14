@@ -50,6 +50,63 @@ if (!function_exists('widgetopts_display_callback')) :
         $is_types   = ('activate' == $widget_options['visibility'] && isset($widget_options['settings']['visibility']) && isset($widget_options['settings']['visibility']['post_type'])) ? true : false;
         $is_tax     = ('activate' == $widget_options['visibility'] && isset($widget_options['settings']['visibility']) && isset($widget_options['settings']['visibility']['taxonomies'])) ? true : false;
 
+        //check device
+        if ($widget_options['devices'] == 'activate' && isset($opts['devices']) && !empty($opts['devices'])) {
+
+            //for mobile and tablet
+            if (wp_is_mobile() || widgetopts_is_mobile()) {
+                //mobile
+                if (!widgetopts_is_tablet()) {
+                    if (empty($opts['devices']['options']) || $opts['devices']['options'] == 'hide') {
+                        if (isset($opts['devices']['mobile']) && $opts['devices']['mobile'] == '1') {
+                            $hidden = true;
+                        }
+                    } else if ($opts['devices']['options'] == 'show') {
+                        if (!isset($opts['devices']['mobile']) || empty($opts['devices']['mobile'])) {
+                            $hidden = true;
+                        }
+                    }
+
+                    $hidden = apply_filters('widget_options_devices_mobile', $hidden);
+                    if ($hidden) {
+                        return false;
+                    }
+                } else {
+                    //tablet
+                    if (empty($opts['devices']['options']) || $opts['devices']['options'] == 'hide') {
+                        if (isset($opts['devices']['tablet']) && $opts['devices']['tablet'] == '1') {
+                            $hidden = true;
+                        }
+                    } else if ($opts['devices']['options'] == 'show') {
+                        if (!isset($opts['devices']['tablet']) || empty($opts['devices']['tablet'])) {
+                            $hidden = true;
+                        }
+                    }
+
+                    $hidden = apply_filters('widget_options_devices_tablet', $hidden);
+                    if ($hidden) {
+                        return false;
+                    }
+                }
+            } else {
+                //for desktop
+                if (empty($opts['devices']['options']) || $opts['devices']['options'] == 'hide') {
+                    if (isset($opts['devices']['desktop']) && $opts['devices']['desktop'] == '1') {
+                        $hidden = true;
+                    }
+                } else if ($opts['devices']['options'] == 'show') {
+                    if (!isset($opts['devices']['desktop']) || empty($opts['devices']['desktop'])) {
+                        $hidden = true;
+                    }
+                }
+
+                $hidden = apply_filters('widget_options_devices_desktop', $hidden);
+                if ($hidden) {
+                    return false;
+                }
+            }
+        }
+
         $isWooPage = false;
         if (class_exists('WooCommerce')) {
             $wooPageID = 0;

@@ -47,7 +47,7 @@
                     $this->components[]  =   new WPH_module_rewrite_root_files();
                     
                     include(WPH_PATH . "/modules/components/rewrite-slash.php");
-                    $this->components[]  =   new WPH_module_rewrite_slash();
+                    $this->components[]  =   new WPH_module_rewrite_slash();  
                     
                     
                     //action available for mu-plugins

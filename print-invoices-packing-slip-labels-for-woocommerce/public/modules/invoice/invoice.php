@@ -1024,6 +1024,11 @@ class Wf_Woocommerce_Packing_List_Invoice
     {	
     	$order_id = (WC()->version < '2.7.0') ? $order->id : $order->get_id();
 	    $wf_invoice_id = Wt_Pklist_Common::get_order_meta($order_id, 'wf_invoice_number', true);
+		
+		if( !empty( $wf_invoice_id ) ) {
+			return $wf_invoice_id;
+		}
+
 	    if((empty($wf_invoice_id)) && ("set" !== $free_ord)){
 	    	$free_order_enable = Wf_Woocommerce_Packing_List::get_option('wf_woocommerce_invoice_free_orders',self::$module_id_static);
 			if("No" === $free_order_enable){

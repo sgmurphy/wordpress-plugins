@@ -1,19 +1,19 @@
 <?php return array(
     'root' => array(
         'name' => 'daandev/omgf',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => 'a36e42d7ee50e40fd67591fc915f57c8733fce2b',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'reference' => null,
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'dev' => true,
+        'dev' => false,
     ),
     'versions' => array(
         'daandev/omgf' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'a36e42d7ee50e40fd67591fc915f57c8733fce2b',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'reference' => null,
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

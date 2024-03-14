@@ -170,10 +170,10 @@ class FLBuilderUISettingsForms {
 			'editables'   => self::prep_editables_for_js_config(),
 			'nodes'       => self::prep_node_settings_for_js_config(),
 			'attachments' => self::prep_attachments_for_js_config(),
-			'settings'    => array(
+			'settings'    => apply_filters( 'fl_builder_js_config_settings_forms', array(
 				'global' => FLBuilderModel::get_global_settings(),
 				'layout' => FLBuilderModel::get_layout_settings(),
-			),
+			) ),
 			'defaults'    => array(
 				'row'     => FLBuilderModel::get_row_defaults(),
 				'column'  => FLBuilderModel::get_col_defaults(),
@@ -1048,6 +1048,29 @@ class FLBuilderUISettingsForms {
 		}
 
 		return array_merge( $sizes, $intermediate_sizes );
+	}
+
+	static public function get_node_categories() {
+
+		$categories = array();
+		$terms      = get_terms( array(
+			'post_type'  => 'fl-builder-template',
+			'taxonomy'   => 'fl-builder-template-category',
+			'hide_empty' => false,
+		) );
+
+		foreach ( (array) $terms as $term ) {
+			$categories[] = array(
+				'id'   => $term->term_id,
+				'name' => $term->name,
+			);
+		}
+		// Add new
+		$categories[] = array(
+			'id'   => 'add_new',
+			'name' => sprintf( '-- %s --', __( 'Add New Category', 'fl-builder' ) ),
+		);
+		return $categories;
 	}
 }
 

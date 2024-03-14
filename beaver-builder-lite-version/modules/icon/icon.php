@@ -168,12 +168,13 @@ FLBuilder::register_module('FLIconModule', array(
 						),
 					),
 					'duo_color1'     => array(
-						'label'      => __( 'DuoTone Icon Primary Color', 'fl-builder' ),
-						'type'       => 'color',
-						'default'    => '',
-						'show_reset' => true,
-						'show_alpha' => true,
-						'preview'    => array(
+						'label'       => __( 'DuoTone Icon Primary Color', 'fl-builder' ),
+						'type'        => 'color',
+						'connections' => array( 'color' ),
+						'default'     => '',
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'preview'     => array(
 							'type'      => 'css',
 							'selector'  => '.fl-icon i.fad:before',
 							'property'  => 'color',
@@ -181,12 +182,13 @@ FLBuilder::register_module('FLIconModule', array(
 						),
 					),
 					'duo_color2'     => array(
-						'label'      => __( 'DuoTone Icon Secondary Color', 'fl-builder' ),
-						'type'       => 'color',
-						'default'    => '',
-						'show_reset' => true,
-						'show_alpha' => true,
-						'preview'    => array(
+						'label'       => __( 'DuoTone Icon Secondary Color', 'fl-builder' ),
+						'type'        => 'color',
+						'connections' => array( 'color' ),
+						'default'     => '',
+						'show_reset'  => true,
+						'show_alpha'  => true,
+						'preview'     => array(
 							'type'      => 'css',
 							'selector'  => '.fl-icon i.fad:after',
 							'property'  => 'color',

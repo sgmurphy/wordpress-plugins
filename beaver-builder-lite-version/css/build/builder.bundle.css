@@ -26,14 +26,14 @@
 
 .fl-notifications-panel {
   position: fixed;
-  top: calc( 44px + 1px);
+  top: var(--fl-builder-top-bar-height);
   /* top bar plus border */
   left: 0;
   bottom: 0;
-  width: 380px;
+  width: var(--fl-builder-panel-width);
   background: var(--fluid-background);
   color: var(--fluid-color);
-  border-right: 1px solid #d5dadd;
+  border-right: 1px solid var(--fl-builder-outline-color);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
   font-size: 14px;
   z-index: 999999;
@@ -357,7 +357,7 @@ body.fl-builder-ui-skin--dark .fl-ui-root .fl-ui-panel {
 
 ul.fl-builder-node-outline {
   margin: 0;
-  padding: 10px 5px;
+  padding: 5px 5px 50px;
   flex: 1 1 auto;
   max-height: 100%;
   min-height: 0;
@@ -392,6 +392,13 @@ ul.fl-builder-node-outline {
     ul.fl-builder-node-outline li:after {
       top: auto;
       bottom: var(--drop-zone-offset); }
+    ul.fl-builder-node-outline li.fl-builder-outline-no-content {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: center; }
+      ul.fl-builder-node-outline li.fl-builder-outline-no-content a {
+        text-decoration: underline; }
     ul.fl-builder-node-outline li.show-drop-before:not(.is-dragging-self):before, ul.fl-builder-node-outline li.show-drop-after:not(.is-dragging-self):after {
       opacity: 1; }
     ul.fl-builder-node-outline li .fl-builder-node-empty-drop-area {
@@ -491,14 +498,16 @@ ul.fl-builder-node-outline {
         text-transform: capitalize; }
   ul.fl-builder-node-outline .fl-builder-node-type-column-group {
     border-radius: 5px; }
-  ul.fl-builder-node-outline.is-dragging-type-row ul {
-    pointer-events: none;
-    opacity: .35; }
-  ul.fl-builder-node-outline.is-dragging-type-column .fl-builder-node-type-column-group {
-    background-color: rgba(64, 128, 191, 0.12);
-    margin-bottom: 3px; }
-  ul.fl-builder-node-outline.is-dragging-type-column .fl-builder-node-type-column ul {
-    pointer-events: none;
+  ul.fl-builder-node-outline.is-dragging-type-row .fl-builder-node-type-row > ul,
+  ul.fl-builder-node-outline.is-dragging-type-row .fl-builder-node-type-row > .fl-builder-node-empty-drop-area,
+  ul.fl-builder-node-outline.is-dragging-type-column-group .fl-builder-node-type-column-group > ul,
+  ul.fl-builder-node-outline.is-dragging-type-column-group .fl-builder-node-type-column-group > .fl-builder-node-empty-drop-area,
+  ul.fl-builder-node-outline.is-dragging-type-column-group .fl-builder-node-type-module > ul,
+  ul.fl-builder-node-outline.is-dragging-type-column-group .fl-builder-node-type-module > .fl-builder-node-empty-drop-area,
+  ul.fl-builder-node-outline.is-dragging-type-column .fl-builder-node-type-column > ul,
+  ul.fl-builder-node-outline.is-dragging-type-column .fl-builder-node-type-column > .fl-builder-node-empty-drop-area,
+  ul.fl-builder-node-outline.is-dragging-type-column .fl-builder-node-type-module > ul,
+  ul.fl-builder-node-outline.is-dragging-type-column .fl-builder-node-type-module > .fl-builder-node-empty-drop-area {
     opacity: .35; }
 
 .fluid-color-scheme-dark {
@@ -512,22 +521,31 @@ ul.fl-builder-node-outline {
   .fluid-color-scheme-dark .fl-builder-node-outline li .fl-builder-node-outline-item-content.is-outline-active-node {
     color: var(--fluid-opaque-2); }
 
-.fl-builder-workspace .fl-builder-dev-experiments-panel {
-  width: 320px; }
+#fl-builder-node-outline-helper {
+  background: #fff;
+  color: #333;
+  border-radius: 4px;
+  font-size: 13px;
+  display: none;
+  padding: 5px 10px;
+  position: absolute;
+  top: -1000px;
+  white-space: nowrap; }
+
 
 .fl-builder-workspace-panel {
   position: fixed;
-  top: 45px;
+  top: var(--fl-builder-top-bar-height);
   right: 0;
   bottom: 0;
-  width: 360px;
+  width: var(--fl-builder-panel-width);
   pointer-events: auto;
   z-index: 100009;
   /* sits between overlays and settings panel */
   display: flex;
   flex-direction: column;
-  background: var(--fluid-background);
-  box-shadow: 0 10px 20px rgba(61, 77, 92, 0.15);
+  background-color: var(--fl-builder-panel-bg-color);
+  box-shadow: 0 0 0 1px var(--fl-builder-outline-color);
   overflow: auto;
   overscroll-behavior: contain; }
 

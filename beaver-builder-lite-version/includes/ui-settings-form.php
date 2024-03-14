@@ -2,17 +2,8 @@
 	<form class="fl-builder-settings {{data.className}}" {{{data.attrs}}} data-form-id="{{data.id}}" data-form-group="{{data.type}}" onsubmit="return false;">
 		<div class="fl-lightbox-header-wrap">
 			<div class="fl-builder-panel-drag-handle">
-				<svg viewBox="0 0 6 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-					<g fill-rule="nonzero" >
-						<polygon points="0 2 6 2 6 0 0 0"></polygon>
-						<polygon points="0 6 6 6 6 4 0 4"></polygon>
-						<polygon points="0 10 6 10 6 8 0 8"></polygon>
-						<polygon points="0 14 6 14 6 12 0 12"></polygon>
-						<polygon points="0 18 6 18 6 16 0 16"></polygon>
-						<polygon points="0 22 6 22 6 20 0 20"></polygon>
-						<polygon points="0 26 6 26 6 24 0 24"></polygon>
-						<polygon points="0 30 6 30 6 28 0 28"></polygon>
-					</g>
+				<svg width="4" height="20">
+					<use href="#fl-v-panel-drag-handle" />
 				</svg>
 			</div>
 			<div class="fl-lightbox-header">
@@ -36,7 +27,7 @@
 				<a href="#fl-builder-settings-tab-{{tabId}}"<# if ( tabId === data.activeTab ) { #> class="fl-active"<# } #>>{{{tab.title}}}</a>
 				<# i++; } #>
 				<button class="fl-builder-settings-tabs-more">
-					<svg viewBox="0 0 18 4" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+					<svg viewBox="0 0 18 4">
 						<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 							<g transform="translate(-520.000000, -108.000000)">
 								<path d="M524,110 C524,111.1 523.1,112 522,112 C520.9,112 520,111.1 520,110 C520,108.9 520.9,108 522,108 C523.1,108 524,108.9 524,110 Z M536,108 C534.9,108 534,108.9 534,110 C534,111.1 534.9,112 536,112 C537.1,112 538,111.1 538,110 C538,108.9 537.1,108 536,108 Z M529,108 C527.9,108 527,108.9 527,110 C527,111.1 527.9,112 529,112 C530.1,112 531,111.1 531,110 C531,108.9 530.1,108 529,108 Z"></path>
@@ -76,7 +67,7 @@
 									if ( typeof section.collapsed !== 'undefined' ) {
 										isCollapsed = section.collapsed
 									}
-									if ( '' !== section.title && true === FLBuilderConfig.collapseSectionsDefault ) {
+									if ( typeof section.title !== 'undefined' && true === FLBuilderConfig.collapseSectionsDefault && section.title && '' !== section.title ) {
 										isCollapsed = true;
 									}
 									var collapsedClass = isCollapsed ? 'fl-builder-settings-section-collapsed' : '';
@@ -108,7 +99,10 @@
 											<# } #>
 
 											<table class="fl-form-table">
-											<# var fields = FLBuilderSettingsForms.renderFields( section.fields, data.settings ); #>
+											<#
+												var node = { type: data.id };
+												var fields = FLBuilderSettingsForms.renderFields( section.fields, data.settings, node );
+											#>
 											{{{fields}}}
 											</table>
 										</div>
@@ -129,6 +123,9 @@
 				<button class="fl-builder-settings-save fl-builder-button fl-builder-button-large" href="javascript:void(0);" onclick="return false;">{{FLBuilderStrings.save}}</button>
 				<# if ( jQuery.inArray( 'save-as', data.buttons ) > -1 ) { #>
 				<button class="fl-builder-settings-save-as fl-builder-button fl-builder-button-large" href="javascript:void(0);" onclick="return false;">{{FLBuilderStrings.saveAs}}</button>
+				<# } #>
+				<# if ( data.reset ) { #>
+				<button class="fl-builder-settings-reset fl-builder-button fl-builder-button-large" href="javascript:void(0);" onclick="return false;">{{FLBuilderStrings.reset}}</button>
 				<# } #>
 				<button class="fl-builder-settings-cancel fl-builder-button fl-builder-button-large" href="javascript:void(0);" onclick="return false;">{{FLBuilderStrings.cancel}}</button>
 			</div>

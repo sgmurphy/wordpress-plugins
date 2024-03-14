@@ -859,14 +859,14 @@ jQuery(document).on('click', '.btn-send-feature-request', function(event) {
 // remember on hover
 jQuery(document).on('mouseenter', '.ti-quick-rating', function(event) {
 	let container = jQuery(this);
-	let selected = container.find('.ti-star-check.active');
+	let selected = container.find('.ti-star-check.ti-active, .star-check.active');
 
 	if (selected.length) {
 		// add index to data & remove all active stars
-		container.data('selected', selected.index()).find('.ti-star-check').removeClass('ti-active');
+		container.data('selected', selected.index()).find('.ti-star-check, .star-check').removeClass('ti-active active');
 
 		// give back active star on mouse enter
-		container.one('mouseleave', () => container.find('.ti-star-check').eq(container.data('selected')).addClass('ti-active'));
+		container.one('mouseleave', () => container.find('.ti-star-check, .star-check').eq(container.data('selected')).addClass('ti-active active'));
 	}
 });
 

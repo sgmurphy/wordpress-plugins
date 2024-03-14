@@ -51,8 +51,8 @@ class Mappress_Map extends Mappress_Obj {
 		$atts = Mappress::to_atts($vars);
 		$pois = join('', array_map(function($poi) { return $poi->to_html(); }, $this->pois));
 		
-		// Extra div forces component out of phrasing elements like <p>
-		return "\r\n<div><mappress-map {$atts}>\r\n$pois\r\n</mappress-map></div>\r\n";
+		// Extra div forces web component out of phrasing elements like <p>
+		return "<div></div>\r\n<mappress-map {$atts}>\r\n$pois\r\n</mappress-map>\r\n";
 	}
 
 	function to_json() {
@@ -325,8 +325,8 @@ class Mappress_Map extends Mappress_Obj {
 		if ($in_iframe) {
 			return "<div id='{$this->name}' class='mapp-content'></div>". $script;
 		} else {
-			return $this->get_layout() . $script;
 			Mappress::scripts_enqueue();
+			return $this->get_layout() . $script;
 		}
 	}
 

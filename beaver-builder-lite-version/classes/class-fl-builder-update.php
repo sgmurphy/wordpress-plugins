@@ -112,6 +112,10 @@ final class FLBuilderUpdate {
 			self::v_2226();
 		}
 
+		if ( version_compare( $saved_version, '2.8', '<' ) ) {
+			self::v_28();
+		}
+
 		// Clear all asset cache.
 		FLBuilderModel::delete_asset_cache_for_all_posts();
 
@@ -505,7 +509,7 @@ final class FLBuilderUpdate {
 			if ( $network ) {
 				update_site_option( '_fl_builder_user_access', $user_access );
 			} else {
-				FLBuilderUtils::update_option( '_fl_builder_user_access', $user_access );
+				FLBuilderUtils::update_option( '_fl_builder_user_access', $user_access, true );
 			}
 		}
 	}
@@ -592,6 +596,27 @@ final class FLBuilderUpdate {
 			set_transient( 'fl_debug_mode', $current, 172800 ); // 48 hours
 			delete_option( 'fl_debug_mode' );
 		}
+	}
+	/**
+	 * Add new modules added in 2.8
+	 */
+	static private function v_28() {
+
+		$enabled = FLBuilderModel::get_admin_settings_option( '_fl_builder_enabled_modules', true );
+		// Nothing to do
+		if ( ! $enabled ) {
+			return;
+		}
+		$enabled[] = 'box';
+		// add new lite modules
+		if ( true === FL_BUILDER_LITE ) {
+			$enabled[] = 'button-group';
+			$enabled[] = 'callout';
+			$enabled[] = 'cta';
+			$enabled[] = 'menu';
+			$enabled[] = 'numbers';
+		}
+		FLBuilderModel::update_admin_settings_option( '_fl_builder_enabled_modules', $enabled, true );
 	}
 }
 

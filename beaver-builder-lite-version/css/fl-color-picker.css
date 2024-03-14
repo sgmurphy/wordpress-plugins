@@ -190,11 +190,12 @@
 	height: 32px;
 }
 .fl-color-picker {
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.12);
+	box-shadow: var(--fl-builder-input-shadow);
 	background-image: url('../img/transp_bg.png');
-	border-radius: 4px;
-	width: 120px;
-	height:36px;
+	border-radius: 5px;
+	width: auto;
+	min-width: 120px;
+	height: var(--fl-builder-target-size);
 	display: flex;
 	flex-direction: row;
 }
@@ -254,7 +255,7 @@
 	border-top-left-radius: 0px;
 	border-bottom-left-radius: 0px;
 	fill: #A2AABE;
-	background-color: #E7EBEF !important;
+	background-color: var(--fl-builder-platter-bg-color) !important;
 	border-color:transparent;
 	cursor: pointer;
 	align-items: center;
@@ -409,16 +410,30 @@
 	z-index: 999999;
 }
 
-.fl-color-picker-presets-list{
+.fl-color-picker-presets-list-wrap {
+	overflow: auto;
+}
+
+.fl-color-picker-presets-list-wrap ul {
 	width: 100%;
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	overflow: auto;
 }
 
-.fl-color-picker-presets-list .fl-color-picker-preset,
-.fl-color-picker-presets-list .fl-color-picker-no-preset{
+.fl-color-picker-globals-label,
+.fl-color-picker-presets-label {
+	padding: 8px;
+	font-size: 12px;
+	border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.fl-color-picker-globals-list .fl-color-picker-preset-remove {
+	display: none;
+}
+
+.fl-color-picker-presets-list-wrap .fl-color-picker-preset,
+.fl-color-picker-presets-list-wrap .fl-color-picker-no-preset{
 	position: relative;
 	padding: 5px;
 	font-size: 12px;
@@ -430,15 +445,15 @@
 			transition: all .1s;
 
 }
-.fl-color-picker-presets-list .fl-color-picker-no-preset{
+.fl-color-picker-presets-list-wrap .fl-color-picker-no-preset{
 	padding: 18px 5px;
 	text-align:center;
 }
-.fl-color-picker-presets-list .fl-color-picker-preset:hover{
+.fl-color-picker-presets-list-wrap .fl-color-picker-preset:hover{
 	background-color: #EDEDED;
 }
 
-.fl-color-picker-presets-list .fl-color-picker-preset-color{
+.fl-color-picker-presets-list-wrap .fl-color-picker-preset-color{
 	display: inline-block;
 	width: 40px;
 	height: 20px;
@@ -448,12 +463,12 @@
 	border-radius: 2px;
 	cursor: pointer;
 }
-.fl-color-picker-presets-list .fl-color-picker-preset-label {
+.fl-color-picker-presets-list-wrap .fl-color-picker-preset-label {
 	vertical-align: middle;
 	color: #333;
 	cursor: pointer;
 }
-.fl-color-picker-presets-list .fl-color-picker-preset-remove {
+.fl-color-picker-presets-list-wrap .fl-color-picker-preset-remove {
 	position: absolute;
 	top: 50%;
 	cursor: pointer;
@@ -467,11 +482,11 @@
 	top: auto;
 	margin:auto;
 }
-.fl-color-picker-presets-list .fl-color-picker-preset-remove {
+.fl-color-picker-presets-list-wrap .fl-color-picker-preset-remove {
 	right: 5px;
 }
-.fl-color-picker-presets-list .fl-color-picker-preset-remove:hover:before,
-.fl-color-picker-presets-list .fl-color-picker-preset-remove:hover:after {
+.fl-color-picker-presets-list-wrap .fl-color-picker-preset-remove:hover:before,
+.fl-color-picker-presets-list-wrap .fl-color-picker-preset-remove:hover:after {
 	background-color: #333;
 }
 

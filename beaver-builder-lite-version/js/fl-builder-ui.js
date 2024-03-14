@@ -472,7 +472,6 @@
             FLBuilder._destroyOverlayEvents();
             FLBuilder._removeAllOverlays();
             FLBuilder._removeEmptyRowAndColHighlights();
-            FLBuilder._removeColHighlightGuides();
             FLBuilder._unbindEvents();
 
             $('html').add( 'html', window.parent.document ).removeClass('fl-builder-edit').addClass('fl-builder-show-admin-bar');
@@ -587,7 +586,6 @@
             $('html').add( 'html', window.parent.document ).addClass('fl-builder-preview');
             $('html, body').add( 'html, body', window.parent.document ).removeClass('fl-builder-edit');
             FLBuilder._removeEmptyRowAndColHighlights();
-            FLBuilder._removeColHighlightGuides();
             FLBuilder.triggerHook('didBeginPreview');
 			FLBuilderResponsivePreview.enter();
         },
@@ -856,7 +854,7 @@
             if ( this.userCanResize() ) {
                 var $layoutContent = $( FLBuilder._contentClass );
 
-				$layoutContent.on( 'mouseenter touchstart', '.fl-row', this.onDragHandleHover.bind(this) );
+				$layoutContent.on( 'mouseenter touchstart', '.fl-row, .fl-block-overlay', this.onDragHandleHover.bind(this) );
                 $layoutContent.on( 'mousedown touchstart', '.fl-block-row-resize', this.onDragHandleDown.bind(this) );
             }
         },

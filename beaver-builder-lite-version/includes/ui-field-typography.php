@@ -83,8 +83,12 @@ var fontSize = wp.template( 'fl-builder-field-unit' )( {
 	unit_name: data.name + '[][font_size][unit]',
 	unit_value: value.font_size.unit,
 	field: {
-		units: [ 'px', 'em', 'rem', 'vw' ],
-		slider: true,
+		units: [ 'px', 'em', 'rem', 'vw', 'ch', '%' ],
+		slider: {
+			min: 10,
+			max: 200,
+			step: 1,
+		},
 	},
 } );
 
@@ -124,6 +128,7 @@ var textTransform = wp.template( 'fl-builder-field-button-group' )( {
 	name: data.name + '[][text_transform]',
 	value: value.text_transform,
 	field: {
+		fill_space: true,
 		options: {
 			none: 'Normal',
 			capitalize: 'Tt',
@@ -182,7 +187,7 @@ var textShadow = wp.template( 'fl-builder-field-shadow' )( {
 
 #>
 <div class="fl-compound-field fl-typography-field">
-	<div class="fl-compound-field-section fl-typography-field-section-general">
+	<div class="fl-compound-field-section fl-typography-field-section-general fl-compound-field-section-visible">
 		<div class="fl-compound-field-section-toggle">
 			<i class="dashicons dashicons-arrow-right-alt2"></i>
 			<?php _e( 'Font', 'fl-builder' ); ?>

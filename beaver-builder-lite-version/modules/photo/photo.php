@@ -539,6 +539,14 @@ class FLPhotoModule extends FLBuilderModule {
 		}
 		return $rel;
 	}
+
+	public function filter_classes( $classes = [] ) {
+		// Object-fit support
+		if ( is_array( $this->settings->fill_container ) && ! empty( $this->settings->fill_container['fit'] ) ) {
+			$classes[] = 'fl-fill-container';
+		}
+		return $classes;
+	}
 }
 
 /**
@@ -718,7 +726,7 @@ FLBuilder::register_module('FLPhotoModule', array(
 						),
 						'preview'    => array(
 							'type'      => 'css',
-							'selector'  => '.fl-photo-img',
+							'selector'  => '.fl-photo-img, .fl-photo-content',
 							'property'  => 'width',
 							'important' => true,
 						),
@@ -744,7 +752,6 @@ FLBuilder::register_module('FLPhotoModule', array(
 							'selector' => '.fl-photo-img',
 						),
 					),
-
 					'caption_typography' => array(
 						'type'       => 'typography',
 						'label'      => __( 'Caption Typography', 'fl-builder' ),
@@ -754,6 +761,42 @@ FLBuilder::register_module('FLPhotoModule', array(
 							'selector'  => '{node}.fl-module-photo .fl-photo-caption',
 							'important' => true,
 						),
+					),
+					'fill_container'     => array(
+						'type'    => 'object-fit',
+						'label'   => __( 'Fill Container', 'fl-builder' ),
+						'preview' => [
+							'type'  => 'css',
+							'auto'  => true,
+							'rules' => [
+								[
+									'property'  => 'object-fit',
+									'selector'  => 'img.fl-photo-img',
+									'sub_value' => 'fit',
+								],
+								[
+									'property'  => 'object-position',
+									'selector'  => 'img.fl-photo-img',
+									'sub_value' => 'position',
+								],
+								[
+									'property'  => 'width',
+									'sub_value' => [
+										'setting_name' => 'width',
+										'type'         => 'unit',
+									],
+									'important' => true,
+								],
+								[
+									'property'  => 'height',
+									'sub_value' => [
+										'setting_name' => 'height',
+										'type'         => 'unit',
+									],
+									'important' => true,
+								],
+							],
+						],
 					),
 				),
 			),

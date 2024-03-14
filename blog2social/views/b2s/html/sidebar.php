@@ -73,10 +73,16 @@ $getPage = (isset($_GET['page']) && !empty($_GET['page'])) ? sanitize_text_field
                                         if (isset($licenceCond['open_daily_post_quota']) && isset($licenceCond['open_sched_post_quota'])) {
                                             ?>
                                             <hr class="b2s-margin-bottom-10">
-                                            <?php if (B2S_PLUGIN_USER_VERSION == 0) { ?>
-                                                <h3 class="b2s-h3 b2s-stats-h3"><?php esc_html_e("Publish Posts", "blog2social") ?></h3>    
+                                            <?php
+                                            if (B2S_PLUGIN_USER_VERSION > 0) {
+                                                if (defined("B2S_PLUGIN_TRAIL_END") && strtotime(B2S_PLUGIN_TRAIL_END) > time()) {
+                                                    ?>
+                                                    <h3 class="b2s-h3 b2s-stats-h3"><?php esc_html_e("Your post volume", "blog2social") ?></h3>                                                                                                    
+                                                <?php } else { ?>
+                                                    <h3 class="b2s-h3 b2s-stats-h3"><?php esc_html_e("Your yearly post volume", "blog2social") ?></h3>                                                    
+                                                <?php } ?>
                                             <?php } else { ?>
-                                                <h3 class="b2s-h3 b2s-stats-h3"><?php esc_html_e("Publish & Scheduled Posts", "blog2social") ?></h3>                                     
+                                                <h3 class="b2s-h3 b2s-stats-h3"><?php esc_html_e("Your daily post volume", "blog2social") ?></h3>                                     
                                                 <?php
                                             }
                                             $openCond = $licenceCond['open_daily_post_quota'];
@@ -101,9 +107,10 @@ $getPage = (isset($_GET['page']) && !empty($_GET['page'])) ? sanitize_text_field
                                                 )
                                             ));
                                             ?>
-                                            <div class="media-body">
-                                                <span class="b2s-span-float-left"><a target="_blank" href="<?php echo esc_url(B2S_Tools::getSupportLink('addon_post_volume')); ?>"><?php esc_html_e("Need more?", "blog2social") ?></a></span>
-                                                <span class="b2s-span-float-right"><span id="current_licence_open_sched_post_quota"><?php echo (int) $openCond ?></span> / <?php echo (int) $totalCond; ?></span>
+                                            <div class="media-body b2s-font-size-11">
+                                                <span class="b2s-span-float-left"><span id="current_licence_open_sched_post_quota" class="b2s-text-bold"><?php echo (int) $openCond ?></span> <?php esc_html_e("remaining from", "blog2social") ?> <?php echo (int) $totalCond; ?></span>
+                                                <?php $linkRouting = ((defined("B2S_PLUGIN_TRAIL_END") && strtotime(B2S_PLUGIN_TRAIL_END) > time()) || (B2S_PLUGIN_USER_VERSION == 0)) ? 'affiliate' : 'addon_post_volume'; ?>
+                                                <span class="b2s-span-float-right"><a target="_blank" href="<?php echo esc_url(B2S_Tools::getSupportLink($linkRouting)); ?>"><?php esc_html_e("Need more?", "blog2social") ?></a></span>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <?php

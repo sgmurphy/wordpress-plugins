@@ -53,6 +53,8 @@
 		_config: function()
 		{
 			var isIFrameUI = FLBuilder.UIIFrame.isEnabled();
+			var pinnedSide = FLBuilder.PinnedUI.getPinnedSide();
+			var panelPlacement = 'left' === pinnedSide ? 'right' : 'left';
 
 			var config = {
 				storage     : false,
@@ -65,31 +67,34 @@
 					{
 						animation   : false,
 						element     : '.fl-builder--content-library-panel',
-						placement   : FLBuilder.PinnedUI.isPinned() ? 'right' : 'left',
+						placement   : panelPlacement,
 						title       : FLBuilderStrings.tourTemplatesTitle,
 						content     : FLBuilderStrings.tourTemplates,
 						onShow		: function() {
 							FLBuilder.ContentPanel.show('templates');
+							FLBuilderTour._dimSection( 'body' );
 						},
 					},
 					{
 						animation   : false,
 						element     : '.fl-builder--content-library-panel',
-						placement   : FLBuilder.PinnedUI.isPinned() ? 'right' : 'left',
+						placement   : panelPlacement,
 						title       : FLBuilderStrings.tourAddRowsTitle,
 						content     : FLBuilderStrings.tourAddRows,
 						onShow      : function() {
 							FLBuilder.ContentPanel.show('rows');
+							FLBuilderTour._dimSection( 'body' );
 						}
 					},
 					{
 						animation   : false,
 						element     : '.fl-builder--content-library-panel',
-						placement   : FLBuilder.PinnedUI.isPinned() ? 'right' : 'left',
+						placement   : panelPlacement,
 						title       : FLBuilderStrings.tourAddContentTitle,
 						content     : FLBuilderStrings.tourAddContent,
 						onShow      : function() {
 							FLBuilder.ContentPanel.show('modules');
+							FLBuilderTour._dimSection( 'body' );
 						}
 					},
 					{
@@ -101,6 +106,7 @@
 						onShow      : function() {
 							var win = FLBuilder.UIIFrame.getIFrameWindow();
 							FLBuilderTour._dimSection( '.fl-builder-bar' );
+							FLBuilderTour._dimSection( '.fl-builder--content-library-panel' );
 							FLBuilder._closePanel();
 							win.jQuery( '.fl-row.fl-builder-tour-demo-content' ).trigger( 'mouseenter' );
 							win.jQuery( '.fl-row.fl-builder-tour-demo-content .fl-module' ).eq( 0 ).trigger( 'mouseenter' );
@@ -115,6 +121,7 @@
 						onShow      : function() {
 							var win = FLBuilder.UIIFrame.getIFrameWindow();
 							FLBuilderTour._dimSection( '.fl-builder-bar' );
+							FLBuilderTour._dimSection( '.fl-builder--content-library-panel' );
 							FLBuilder._closePanel();
 							win.jQuery( '.fl-row.fl-builder-tour-demo-content' ).trigger( 'mouseenter' );
 							win.jQuery( '.fl-row.fl-builder-tour-demo-content .fl-module' ).eq( 0 ).trigger( 'mouseenter' );
@@ -247,10 +254,12 @@
 		 */
 		_onEnd: function()
 		{
+			var win = FLBuilder.UIIFrame.getIFrameWindow();
+
 			$( 'body' ).off( 'fl-builder.template-selector-loaded' );
 			$( '.fl-builder-tour-mask' ).remove();
 			$( '.fl-builder-tour-dimmed' ).remove();
-			$( '.fl-builder-tour-placeholder-content' ).remove();
+			$( '.fl-builder-tour-placeholder-content', win.document ).remove();
 			$( '.fl-builder-tour-demo-content' ).removeClass( 'fl-builder-tour-demo-content' );
 
 			FLBuilder._setupEmptyLayout();

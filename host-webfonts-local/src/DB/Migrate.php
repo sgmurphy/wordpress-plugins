@@ -22,7 +22,6 @@ use OMGF\Helper as OMGF;
 defined( 'ABSPATH' ) || exit;
 
 class Migrate {
-
 	/** @var string */
 	private $current_version = '';
 
@@ -46,12 +45,17 @@ class Migrate {
 		if ( $this->should_run_migration( '5.6.0' ) ) {
 			new Migrate\V560();
 		}
+
+		if ( $this->should_run_migration( '5.8.1' ) ) {
+			new Migrate\V581();
+		}
 	}
 
 	/**
 	 * Checks whether migration script has been run.
 	 *
 	 * @param mixed $version
+	 *
 	 * @return bool
 	 */
 	private function should_run_migration( $version ) {

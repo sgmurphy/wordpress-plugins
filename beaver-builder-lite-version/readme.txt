@@ -2,9 +2,9 @@
 Contributors: justinbusa, RobbyMcCullough, billyyoung, hinampaksh, diegoliv, webmandesign, eugenealegiojo, helgatheviking, ozancanakli, brentjettgmailcom, jproffitt71, brainstormforce, ideaboxcreations, laubsterboy, nikolayyordanov, codente, pross, pedromendonca
 Tags: page builder, beaver builder, landing page, front-end builder, drag and drop editor
 Requires at least: 4.6
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 2.7.4.5
+Stable tag: 2.8.0.4
 License: GPL2+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ Beaver Builder is a flexible drag and drop page builder that works on the front 
 
 Watch the video below or [try out the demo](https://www.wpbeaverbuilder.com/go/demo?utm_medium=bb-lite&utm_source=repo-readme&utm_campaign=repo-demo-link "Beaver Builder Live Demo") to see it in action!
 
-[vimeo https://vimeo.com/122546222]
+[youtube https://youtu.be/WUGyahZ5D2s?si=Xcbq2oPmV6P3KoD2]
 
 > **Premium Support**
 >
@@ -34,8 +34,9 @@ There is a huge colony (_yeah, that's the term for a group of beavers_) of "Beav
 
 = Page Builder Features =
 
-*   Content Modules: Photo, Button, Heading, Icon, Text Editor, HTML, Audio, Video, & Sidebar.
+*   Content Modules: Box, Photo, Button, Button Group, Callout, Call to Action, Heading, Icon, Menu, Number Counter, Text Editor, HTML, Audio, Video, & Sidebar.
 *   Full-width, column-based layouts.
+*   Create flexbox and CSS grid layouts with the Box Module. Also included are some Box module presets to get you going faster!
 *   Lightweight and semantic markup for maximum performance.
 *   Photo, color, and video row backgrounds.
 *   Mobile-friendly, responsive layouts.
@@ -43,14 +44,17 @@ There is a huge colony (_yeah, that's the term for a group of beavers_) of "Beav
 *   Use WordPress Widgets and shortcodes.
 *   Works with Pages, Posts, and Custom Post Types.
 *   A friendly and supportive community.
+*   Build your own custom modules.
 
 = Premium Features =
 
-*   Additional modules: Contact Form, Tabs, Slider, Pricing Table, Map, Blog Posts, Subscribe Form, Social Icons, and many more.
+*   Additional modules: Contact Form, Tabs, Slider, Pricing Table, Map, Blog Posts, Subscribe Form and many more.
 *   Expert support from our world-class support team.
 *   Beautiful pre-made layout templates.
 *   Save, export, and reuse full-page layouts, rows, and modules.
-*   Build your own custom modules.
+*   Save a Global Color palette.
+*   Create styles that apply globally throughout your Beaver Builder layouts.
+
 
 Come by [the Beaver Builder Homepage](https://www.wpbeaverbuilder.com/?utm_medium=bb-lite&utm_source=repo-readme&utm_campaign=repo-homepage-link "Beaver Builder Homepage") to learn more about what our premium features can do for you!
 
@@ -88,16 +92,16 @@ This plugin is compatible with [ClassicPress](https://www.classicpress.net/).
 
 1. Install Beaver Builder either via the WordPress plugin directory or by uploading the files to your server at wp-content/plugins.
 
-2. After activating Beaver Builder, navigate to the settings page at Settings > Page Builder to configure the post types you would like it to work with.
+2. After activating Beaver Builder, navigate to the settings page at Settings > Beaver Builder to configure the post types you would like it to work with.
 
-3. A _Page Builder_ tab will appear on the Edit Page/Post area. Also, a _Page Builder_ option will appear in the WordPress Admin Bar on the front end of your website.
+3. A _Beaver Builder_ button will appear on the Edit Page/Post area. Also, a _Beaver Builder_ option will appear in the WordPress Admin Bar on the front end of your website.
 
-For more information, please visit our [Knowledge Base](https://www.wpbeaverbuilder.com/documentation/?utm_medium=bb-lite&utm_source=repo-readme&utm_campaign=repo-install-kb-link "Beaver Builder Knowledge Base"). Keep in mind that not all features described in the knowledge base are available in this version of the Beaver Builder plugin.
+For more information, please visit our [Knowledge Base](https://docs.wpbeaverbuilder.com/?utm_medium=bb-lite&utm_source=repo-readme&utm_campaign=repo-install-kb-link "Beaver Builder Knowledge Base"). Keep in mind that not all features described in the knowledge base are available in this version of the Beaver Builder plugin.
 
 == Frequently Asked Questions ==
 
 
-For information on using Beaver Builder, please visit our [Knowledge Base](https://www.wpbeaverbuilder.com/knowledge-base/?utm_medium=bb-lite&utm_source=repo-readme&utm_campaign=repo-faq-kb-link "Beaver Builder Knowledge Base").
+For information on using Beaver Builder, please visit our [Knowledge Base](https://docs.wpbeaverbuilder.com/?utm_medium=bb-lite&utm_source=repo-readme&utm_campaign=repo-install-kb-link "Beaver Builder Knowledge Base").
 
 For general questions or questions about purchasing a license, check out our [Frequently Asked Questions](https://www.wpbeaverbuilder.com/frequently-asked-questions/?utm_medium=bb-lite&utm_source=repo-readme&utm_campaign=repo-faq-link "Beaver Builder FAQs") page.
 
@@ -107,6 +111,8 @@ For general questions or questions about purchasing a license, check out our [Fr
 2. Starting Beaver Builder from the front end.
 3. The main editing interface.
 4. Editing basic text.
+5. Adding content to the page.
+6. Accessing the pre-made Templates.
 
 == Changelog ==
 

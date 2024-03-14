@@ -35,14 +35,12 @@ class Helper {
 	 * @param mixed  $value
 	 * @param string $setting
 	 *
-	 * @return void
+	 * @return bool
 	 */
-	public static function update_option( $setting, $value ) {
+	public static function update_option( $setting, $value, $autoload = true ) {
 		// If $setting starts with 'omgf_' it should be saved in a separate row.
 		if ( strpos( $setting, 'omgf_' ) === 0 ) {
-			update_option( $setting, $value );
-
-			return;
+			return update_option( $setting, $value, $autoload );
 		}
 
 		if ( self::$settings === null ) {
@@ -214,7 +212,7 @@ class Helper {
 		 * the (default) stylesheet handles from the optimized fonts option.
 		 */
 		if ( empty( $cache_keys ) ) {
-			$optimized_fonts = self::optimized_fonts();
+			$optimized_fonts = self::admin_optimized_fonts();
 
 			$cache_keys = array_keys( $optimized_fonts );
 		}
@@ -232,7 +230,7 @@ class Helper {
 	 *
 	 * @return array
 	 */
-	public static function optimized_fonts( $maybe_add = [], $force_add = false ) {
+	public static function admin_optimized_fonts( $maybe_add = [], $force_add = false ) {
 		static $optimized_fonts = [];
 
 		/**
@@ -240,6 +238,53 @@ class Helper {
 		 */
 		if ( empty( $optimized_fonts ) ) {
 			$optimized_fonts = self::get_option( Settings::OMGF_OPTIMIZE_SETTING_OPTIMIZED_FONTS, [] );
+		}
+
+		/**
+		 * get_option() should take care of this, but sometimes it doesn't.
+		 * @since v4.5.6
+		 */
+		if ( is_string( $optimized_fonts ) ) {
+			// phpcs:ignore
+			$optimized_fonts = unserialize( $optimized_fonts );
+		}
+
+		/**
+		 * If $maybe_add doesn't exist in the cache layer yet, add it.
+		 * @since v4.5.7
+		 */
+		if ( ! empty( $maybe_add ) && ( ! isset( $optimized_fonts[ key( $maybe_add ) ] ) || $force_add ) ) {
+			$optimized_fonts = array_merge( $optimized_fonts, $maybe_add );
+		}
+
+		return $optimized_fonts ?: [];
+	}
+
+	/**
+	 * Optimized Local Fonts to be used in the frontend. Doesn\'t contain unloaded fonts.
+	 * Use a static variable to reduce database reads/writes.
+	 * @since v5.8.1
+	 *
+	 * @param bool  $force_add
+	 * @param array $maybe_add If it doesn't exist, it's added to the cache layer.
+	 *
+	 * @return array
+	 */
+	public static function optimized_fonts( $maybe_add = [], $force_add = false ) {
+		static $optimized_fonts = [];
+
+		/**
+		 * Get a fresh copy from the database if $optimized_fonts is empty|null|false (on 1st run)
+		 */
+		if ( empty( $optimized_fonts ) ) {
+			$optimized_fonts = self::get_option( Settings::OMGF_OPTIMIZE_SETTING_OPTIMIZED_FONTS_FRONTEND, [] );
+		}
+
+		/**
+		 * Fallback to original Optimized Fonts table.
+		 */
+		if ( empty( $optimized_fonts ) ) {
+			$optimized_fonts = self::admin_optimized_fonts();
 		}
 
 		/**
@@ -321,8 +366,8 @@ class Helper {
 	 * array feature, to easily display, well, arrays in the debug log (duh!)
 	 * @since v5.3.7
 	 *
-	 * @param $array The array to be displayed in the debug log
-	 * @param $name  A descriptive name to be shown in the debug log
+	 * @param array  $array The array to be displayed in the debug log
+	 * @param string $name  A descriptive name to be shown in the debug log
 	 *
 	 * @return void
 	 */
@@ -350,7 +395,6 @@ class Helper {
 				continue;
 			}
 
-			// phpcs:ignore
 			error_log(
 				current_time( 'Y-m-d H:i:s' ) . ' ' . microtime() . ': ' . $key . ' => ' . $elem . "\n",
 				3,
@@ -388,7 +432,6 @@ class Helper {
 			return;
 		}
 
-		// phpcs:ignore
 		error_log( current_time( 'Y-m-d H:i:s' ) . ' ' . microtime() . ": $message\n", 3, self::log_file() );
 	}
 

@@ -241,7 +241,7 @@ class BlocksController {
 		$editor_type = 'edit-post';
 
 		if ( 'site-editor.php' === $pagenow ) {
-			$editor_type        = 'edit-site';
+			$editor_type = 'edit-site';
 		}
 
 		$get_tax_object = get_taxonomies( [], 'objects' );
@@ -250,29 +250,32 @@ class BlocksController {
 			unset( $get_tax_object[ $_tax ] );
 		}
 
-		$settings = get_option( rtTPG()->options['settings'] );
-		$ssList   = ! empty( $settings['social_share_items'] ) ? $settings['social_share_items'] : [];
+		$settings       = get_option( rtTPG()->options['settings'] );
+		$ssList         = ! empty( $settings['social_share_items'] ) ? $settings['social_share_items'] : [];
+		$chatgpt_status = $settings['chatgpt_status'] ?? false;
 
 		wp_localize_script( 'rttpg-blocks-js', 'rttpgParams', [
-				'editor_type'         => $editor_type,
-				'nonce'               => wp_create_nonce( 'rttpg_nonce' ),
-				'ajaxurl'             => admin_url( 'admin-ajax.php' ),
-				'site_url'            => site_url(),
-				'admin_url'           => admin_url(),
-				'plugin_url'          => RT_THE_POST_GRID_PLUGIN_URL,
-				'plugin_pro_url'      => rtTPG()->getProPath(),
-				'post_type'           => Fns::get_post_types(),
-				'all_term_list'       => Fns::get_all_taxonomy_guten(),
-				'get_taxonomies'      => $get_tax_object,
-				'get_users'           => Fns::rt_get_users(),
-				'hasPro'              => rtTPG()->hasPro(),
-				'pageTitle'           => get_the_title(),
-				'hasWoo'              => Fns::is_woocommerce(),
-				'hasAcf'              => Fns::is_acf(),
-				'ssList'              => $ssList,
-				'current_user_id'     => get_current_user_id(),
-				'disableImportButton' => apply_filters( 'rttpg_disable_gutenberg_import_button', 'no' ),
-				'iconFont'            => Fns::tpg_option( 'tpg_icon_font' )
+				'editor_type'          => $editor_type,
+				'nonce'                => wp_create_nonce( 'rttpg_nonce' ),
+				'ajaxurl'              => admin_url( 'admin-ajax.php' ),
+				'site_url'             => site_url(),
+				'admin_url'            => admin_url(),
+				'plugin_url'           => RT_THE_POST_GRID_PLUGIN_URL,
+				'plugin_pro_url'       => rtTPG()->getProPath(),
+				'post_type'            => Fns::get_post_types(),
+				'all_term_list'        => Fns::get_all_taxonomy_guten(),
+				'get_taxonomies'       => $get_tax_object,
+				'get_users'            => Fns::rt_get_users(),
+				'hasPro'               => rtTPG()->hasPro(),
+				'pageTitle'            => get_the_title(),
+				'hasWoo'               => Fns::is_woocommerce(),
+				'hasAcf'               => Fns::is_acf(),
+				'ssList'               => $ssList,
+				'current_user_id'      => get_current_user_id(),
+				'disableImportButton'  => apply_filters( 'rttpg_disable_gutenberg_import_button', 'no' ),
+				'disableChatGPTButton' => $chatgpt_status ? 'yes' : 'no',
+				'iconFont'             => Fns::tpg_option( 'tpg_icon_font' ),
+				'avatar'               => esc_url( get_avatar_url( get_current_user_id() ) )
 			]
 		);
 
@@ -286,7 +289,7 @@ class BlocksController {
 	 */
 	public function add_block_inline_css() {
 
-		$post_id = apply_filters('tpg_page_id_for_block_css',get_the_ID());
+		$post_id = apply_filters( 'tpg_page_id_for_block_css', get_the_ID() );
 
 		if ( $post_id ) {
 			$rttpg_upload_dir = wp_upload_dir()['basedir'] . '/rttpg/';

@@ -8,7 +8,7 @@ html {
 	height: 100%;
 }
 body {
-	background: #F7F7F7 !important;
+	background-color: var(--fl-builder-panel-bg-color) !important;
 	font-family: var(--fl-builder-font-family);
 	font-size: 12px;
 	line-height: 14px;
@@ -31,7 +31,7 @@ body {
 	position: relative;
 }
 .fl-builder-ui-iframe-canvas {
-	box-shadow: 0 0 20px rgb(0 0 0 / 10%);
+	box-shadow: 0 0 0 1px rgb(0 0 0 / 5%);
 	height: 100%;
 	width: 100%;
 	position: absolute;
@@ -44,8 +44,7 @@ body {
 }
 .fl-builder-ui-iframe-resizing .fl-builder-ui-iframe,
 .fl-builder-draggable-is-dragging .fl-builder-ui-iframe,
-.fl-builder-resizable-is-resizing .fl-builder-ui-iframe,
-.fl-builder-block-drag-helper {
+.fl-builder-resizable-is-resizing .fl-builder-ui-iframe {
 	pointer-events: none;
 }
 
@@ -61,6 +60,8 @@ body {
 ------------------------------------------------------ */
 
 .fl-builder-ui-iframe-resize {
+	--handle-size: 24px;
+	--grab-bar-size: 48px;
 	position: absolute;
 	display: none;
     justify-content: center;
@@ -77,25 +78,26 @@ body {
 	cursor: ns-resize;
 }
 .fl-builder-ui-iframe-resize-s div {
-	width: 30px;
+	width: var(--grab-bar-size);
 }
 .fl-builder-ui-iframe-resize-s {
-	bottom: -30px;
+	bottom: calc( 0px - var(--handle-size) );
 }
 .fl-builder-ui-iframe-resize-e,
 .fl-builder-ui-iframe-resize-w {
 	height: 100%;
 	cursor: ew-resize;
+	min-width: var(--handle-size);
 }
 .fl-builder-ui-iframe-resize-e div,
 .fl-builder-ui-iframe-resize-w div {
-	height: 30px;
+	height:  var(--grab-bar-size);
 }
 .fl-builder-ui-iframe-resize-e {
-	right: -30px;
+	right: calc( 0px - var(--handle-size) );
 }
 .fl-builder-ui-iframe-resize-w {
-	left: -30px;
+	left: calc( 0px - var(--handle-size) );
 }
 
 /* @group IFrame Toolbar
@@ -107,7 +109,7 @@ body {
 	display: none;
     align-items: center;
     justify-content: center;
-	height: 70px;
+	height: 60px;
 }
 .fl-builder-ui-iframe-toolbar .fl-builder-button,
 .fl-builder-ui-iframe-toolbar .fl-builder-button:focus,
@@ -176,8 +178,8 @@ body {
 ------------------------------------------------------ */
 
 .fl-builder-ui-iframe-responsive-editing .fl-builder-ui-iframe-wrap {
-	height: calc(100% - 70px);
-	padding: 15px 40px 40px;
+	height: calc(100% - 60px);
+	padding: 0px 40px;
 }
 .fl-builder-ui-iframe-responsive-editing .fl-builder-ui-iframe-toolbar,
 .fl-builder-ui-iframe-responsive-editing .fl-builder-ui-iframe-resize-n,

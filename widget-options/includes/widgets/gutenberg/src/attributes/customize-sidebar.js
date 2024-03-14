@@ -37,6 +37,7 @@ let widgetopts_types = {},
   widgetopts_terms = [],
   widgetopts_users = [],
   widgetopts_ajax_roles_search = {};
+let events = [];
 
 window.widgetopts_cached = {};
 
@@ -340,18 +341,43 @@ const withSidebarTab = (BlockEdit) => {
       (select) => {
         try {
           if (
+            props.attributes.__internalWidgetId == undefined ||
+            props.name != "core/legacy-widget" ||
+            events.includes(props.attributes.__internalWidgetId)
+          ) {
+            //no action needed
+          } else {
+            events.push(props.attributes.__internalWidgetId);
+            document
+              .querySelector(saveButton)
+              .addEventListener("click", async function (e) {
+                try {
+                  if (
+                    wp.data
+                      .select("core")
+                      .hasEditsForEntityRecord(
+                        "root",
+                        "widget",
+                        props.attributes.__internalWidgetId
+                      )
+                  ) {
+                    await saveEditedEntityRecord(
+                      "root",
+                      "widget",
+                      props.attributes.__internalWidgetId
+                    );
+                  }
+                } catch (e) {}
+              });
+          }
+
+          if (
             select("core").hasEditsForEntityRecord(
               "root",
               "widget",
               props.attributes.__internalWidgetId
             )
           ) {
-            saveEditedEntityRecord(
-              "root",
-              "widget",
-              props.attributes.__internalWidgetId
-            );
-
             return select("core").getEditedEntityRecord(
               "root",
               "widget",
@@ -548,10 +574,7 @@ const withSidebarTab = (BlockEdit) => {
     }
 
     //this is for block
-    if (
-      props.name != "core/legacy-widget" ||
-      props.attributes.extended_widget_opts != undefined
-    ) {
+    if (props.name != "core/legacy-widget") {
       //use the cached if exist
       if (
         window.widgetopts_cached[
@@ -585,11 +608,28 @@ const withSidebarTab = (BlockEdit) => {
       }
     }
 
-    const updateDynamicAttribute = (newValue, widget_id) => {
+    let inner_block = false;
+    //for inner blocks without widget id
+    if (props.attributes.hasOwnProperty("__internalWidgetId")) {
+      // console.log("yes");
+    } else {
+      if (Object.keys(props.attributes.extended_widget_opts_block).length > 0) {
+        inner_block = true;
+        _myprops["extended_widget_opts"] = {
+          ...props.attributes.extended_widget_opts_block,
+        };
+      }
+    }
+
+    const updateDynamicAttribute = async (newValue, widget_id) => {
       setCacheTime = new Date().getTime();
 
       if (window.autosave == undefined) {
         window.autosave = [];
+      }
+
+      if (widget_id == undefined) {
+        widget_id = props.attributes.__internalWidgetId;
       }
       window.autosave[widget_id] = true;
       let _instance = {
@@ -628,7 +668,7 @@ const withSidebarTab = (BlockEdit) => {
 
       if (props.attributes.__internalWidgetId != undefined) {
         try {
-          editEntityRecord(
+          await editEntityRecord(
             "root",
             "widget",
             props.attributes.__internalWidgetId,
@@ -638,10 +678,10 @@ const withSidebarTab = (BlockEdit) => {
             }
           );
         } catch ($e) {
-          saveEntityRecord("root", "widget", {
-            ..._entity,
-            instance: _instance,
-          });
+          // saveEntityRecord("root", "widget", {
+          //   ..._entity,
+          //   instance: _instance,
+          // });
         }
       }
 
@@ -652,82 +692,6 @@ const withSidebarTab = (BlockEdit) => {
           raw: { ..._instance.raw },
         },
       });
-
-      // if (waitingCachedCounter == 1) {
-      //   return;
-      // }
-
-      // if (saveCachedCounter != 0) {
-      //   //1 = waiting, 0 = no available queue cache
-      //   waitingCachedCounter = 1;
-
-      //   (function (_widget_id, _clientId) {
-      //     let _interval = setInterval(
-      //       function (__widget_id, __clientId) {
-      //         if (saveCachedCounter == 0) {
-      //           saveCachedCounter = 1;
-      //           intervalExecutionTime = new Date().getTime();
-
-      //           clearInterval(_interval);
-
-      //           document.querySelector(saveButton).disabled = true;
-      //           _savingCachedInDB(__widget_id, __clientId);
-      //           waitingCachedCounter = 0;
-      //         }
-      //       },
-      //       200,
-      //       _widget_id,
-      //       _clientId
-      //     );
-      //   })(widget_id, props.clientId);
-      // } else {
-      //   //1 = procesing, 0 = available for processing
-      //   saveCachedCounter = 1;
-      //   _savingCachedInDB(widget_id, props.clientId);
-      // }
-    };
-
-    const _savingCachedInDB = (_widget_id, _clientId) => {
-      wp.ajax
-        .post("widgetopts_save_widget_editor_cache", {
-          editor_cache:
-            window.widgetopts_cached["extended_widget_opts-" + _widget_id],
-          widget_id: _widget_id,
-          clientId: _clientId,
-        })
-        .always(function () {
-          saveCachedCounter = 0;
-
-          if (saveCachedCounter == 0) {
-            if (intervalExecutionTime <= setCacheTime) {
-              document.querySelector(saveButton).disabled = true;
-
-              //check if there is a data left need to save
-              last_minute_cache_saving(_widget_id, _clientId);
-            }
-
-            if (waitingCachedCounter == 0) {
-              setTimeout(function () {
-                document.querySelector(saveButton).disabled = false;
-              }, 1000);
-            }
-          }
-        });
-    };
-
-    const last_minute_cache_saving = (_widget_id, _clientId) => {
-      wp.ajax
-        .post("widgetopts_save_widget_editor_cache", {
-          editor_cache:
-            window.widgetopts_cached["extended_widget_opts-" + _widget_id],
-          widget_id: _widget_id,
-          clientId: _clientId,
-        })
-        .always(function () {
-          setTimeout(function () {
-            document.querySelector(saveButton).disabled = false;
-          }, 1000);
-        });
     };
 
     const updateCustomizedAttribute = (newValue) => {
@@ -761,19 +725,19 @@ const withSidebarTab = (BlockEdit) => {
     };
 
     // Example: Update dynamicAttribute on input change
-    const handleInputChange = (_attribute, widget_id) => {
+    const handleInputChange = async (_attribute, widget_id) => {
       if (
         props.attributes.extended_widget_opts != undefined &&
         !props.attributes.instance
       ) {
         updateCustomizedAttribute(_attribute);
       } else {
-        updateDynamicAttribute(_attribute, widget_id);
+        await updateDynamicAttribute(_attribute, widget_id);
       }
     };
 
     return (
-      <div>
+      <>
         <BlockEdit {...props} />
         <InspectorControls>
           <PanelBody
@@ -807,7 +771,9 @@ const withSidebarTab = (BlockEdit) => {
                 <WidgetOptionsTab
                   widgetId={props.attributes.__internalWidgetId}
                   extended_widget_opts={
-                    props.attributes.extended_widget_opts != undefined
+                    (props.attributes.extended_widget_opts != undefined &&
+                      props.name != "core/legacy-widget") ||
+                    inner_block === true
                       ? _myprops["extended_widget_opts"]
                       : _myprops.instance.raw[
                           "extended_widget_opts-" +
@@ -1013,7 +979,7 @@ const withSidebarTab = (BlockEdit) => {
                 `}
           </style>
         </InspectorControls>
-      </div>
+      </>
     );
   };
 

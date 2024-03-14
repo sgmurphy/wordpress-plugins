@@ -277,63 +277,39 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.5.2", "essential-blocks")}
+                                    {__("Version: 4.5.3", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("27/02/2024", "essential-blocks")}
+                                        {__("14/03/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Fixed: **Form block** not loading when used inside patterns",
+                                            "Fixed: Advanced Navigation styling issue fix",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: **Pricing Table** block feature icon color not updating properly",
+                                            "Fixed: Advanced Navigation custom navigation not working in mobile",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Images not loading properly on *Image slider** block",
+                                            "Fixed: Fluent Form & WPForms not working in multisite",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Font loading issue",
+                                            "Fixed: Wrapper conflict with custom height",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Improved: Security enhancement",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Improved: Gradient color opacity default value in all blocks",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Improved: Reduce dynamic query",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Improved: Updated new fonts in Google font library",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Few minor bug fixes & improvements",
+                                            "Fixed: Advanced video not pausing on popup close",
                                             "essential-blocks"
                                         )}
                                     </li>

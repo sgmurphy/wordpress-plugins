@@ -1414,10 +1414,18 @@ class Ajax_Post {
                             $option['B2S_PLUGIN_USER_VERSION'] = $keyResult->version;
                             if (isset($keyResult->trail) && $keyResult->trail == true && isset($keyResult->trailEndDate) && $keyResult->trailEndDate != "") {
                                 $option['B2S_PLUGIN_TRAIL_END'] = $keyResult->trailEndDate;
+                            } else {
+                                if (isset($option['B2S_PLUGIN_TRAIL_END'])) {
+                                    unset($option['B2S_PLUGIN_TRAIL_END']);
+                                }
                             }
                             //has addon
                             if (isset($keyResult->addon->video)) {
                                 $option['B2S_PLUGIN_ADDON_VIDEO'] = (array) $keyResult->addon->video;
+                            } else {
+                                if (isset($option['B2S_PLUGIN_ADDON_VIDEO'])) {
+                                    unset($option['B2S_PLUGIN_ADDON_VIDEO']);
+                                }
                             }
 
                             if (isset($keyResult->addon->app)) {
@@ -1439,6 +1447,10 @@ class Ajax_Post {
                                     }
                                 }
                                 $option['B2S_PLUGIN_ALLOWED_USER_APPS'] = serialize($network_quantities);
+                            } else {
+                                if (isset($option['B2S_PLUGIN_ALLOWED_USER_APPS'])) {
+                                    unset($option['B2S_PLUGIN_ALLOWED_USER_APPS']);
+                                }
                             }
 
 
@@ -1455,10 +1467,18 @@ class Ajax_Post {
                             $tokenInfo['B2S_PLUGIN_VERSION'] = B2S_PLUGIN_VERSION;
                             if (isset($keyResult->trail) && $keyResult->trail == true && isset($keyResult->trailEndDate) && $keyResult->trailEndDate != "") {
                                 $tokenInfo['B2S_PLUGIN_TRAIL_END'] = $keyResult->trailEndDate;
+                            } else {
+                                if (isset($option['B2S_PLUGIN_TRAIL_END'])) {
+                                    unset($option['B2S_PLUGIN_TRAIL_END']);
+                                }
                             }
                             //has addon
                             if (isset($keyResult->addon->video)) {
                                 $tokenInfo['B2S_PLUGIN_ADDON_VIDEO'] = (array) $keyResult->addon->video;
+                            } else {
+                                if (isset($option['B2S_PLUGIN_ADDON_VIDEO'])) {
+                                    unset($option['B2S_PLUGIN_ADDON_VIDEO']);
+                                }
                             }
 
                             if (isset($keyResult->addon->app)) {
@@ -1480,6 +1500,10 @@ class Ajax_Post {
                                     }
                                 }
                                 $tokenInfo['B2S_PLUGIN_ALLOWED_USER_APPS'] = serialize($network_quantities);
+                            } else {
+                                if (isset($option['B2S_PLUGIN_ALLOWED_USER_APPS'])) {
+                                    unset($option['B2S_PLUGIN_ALLOWED_USER_APPS']);
+                                }
                             }
 
                             if (isset($keyResult->licence_condition)) {

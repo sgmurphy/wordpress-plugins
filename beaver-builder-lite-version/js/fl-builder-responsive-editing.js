@@ -345,6 +345,8 @@
 
 			$( '.fl-field-responsive-toggle' ).addClass( className ).data( 'mode', mode );
 			$( '.fl-field-responsive-setting-' + mode ).css( 'display', 'inline-block' );
+
+			FLBuilder._toggleForm()
 		},
 
 		/**

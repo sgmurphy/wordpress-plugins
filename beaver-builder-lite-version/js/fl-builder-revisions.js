@@ -89,9 +89,11 @@
 		 */
 		refreshItems: function()
 		{
-			FLBuilder.ajax( {
-				action: 'refresh_revision_items'
-			}, this.refreshItemsComplete.bind( this ) );
+			if ( ! FLBuilderConfig.iframeEnabled ) {
+				FLBuilder.ajax( {
+					action: 'refresh_revision_items'
+				}, this.refreshItemsComplete.bind( this ) );
+			}
 		},
 
 		/**

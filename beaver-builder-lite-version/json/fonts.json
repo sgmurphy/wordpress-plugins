@@ -379,6 +379,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Annapurna SIL": {
+    "variants": ["regular", "700"],
+    "fallback": "serif"
+  }
+}, {
   "Annie Use Your Telescope": {
     "variants": ["regular"],
     "fallback": "cursive"
@@ -387,6 +392,11 @@
   "Anonymous Pro": {
     "variants": ["regular", "italic", "700", "700italic"],
     "fallback": "monospace"
+  }
+}, {
+  "Anta": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
   }
 }, {
   "Antic": {
@@ -2779,6 +2789,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Honk": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Hubballi": {
     "variants": ["regular"],
     "fallback": "sans-serif"
@@ -3022,6 +3037,11 @@
   "Itim": {
     "variants": ["regular"],
     "fallback": "cursive"
+  }
+}, {
+  "Jacquarda Bastarda 9": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
   }
 }, {
   "Jacques Francois": {
@@ -3307,6 +3327,11 @@
   "Kodchasan": {
     "variants": ["200", "200italic", "300", "300italic", "regular", "italic", "500", "500italic", "600", "600italic", "700", "700italic"],
     "fallback": "sans-serif"
+  }
+}, {
+  "Kode Mono": {
+    "variants": ["regular", "500", "600", "700"],
+    "fallback": "monospace"
   }
 }, {
   "Koh Santepheap": {
@@ -3799,6 +3824,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Madimi One": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Magra": {
     "variants": ["regular", "700"],
     "fallback": "sans-serif"
@@ -4055,6 +4085,11 @@
   }
 }, {
   "Michroma": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Micro 5": {
     "variants": ["regular"],
     "fallback": "sans-serif"
   }
@@ -4337,6 +4372,11 @@
   "Nabla": {
     "variants": ["regular"],
     "fallback": "sans-serif"
+  }
+}, {
+  "Namdhinggo": {
+    "variants": ["regular", "500", "600", "700", "800"],
+    "fallback": "serif"
   }
 }, {
   "Nanum Brush Script": {
@@ -5574,6 +5614,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Ojuju": {
+    "variants": ["200", "300", "regular", "500", "600", "700", "800"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Old Standard TT": {
     "variants": ["regular", "italic", "700"],
     "fallback": "serif"
@@ -6049,6 +6094,26 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Protest Guerrilla": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Protest Revolution": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Protest Riot": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Protest Strike": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Proza Libre": {
     "variants": ["regular", "italic", "500", "500italic", "600", "600italic", "700", "700italic", "800", "800italic"],
     "fallback": "sans-serif"
@@ -6475,6 +6540,11 @@
   }
 }, {
   "Rubik Glitch": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Rubik Glitch Pop": {
     "variants": ["regular"],
     "fallback": "sans-serif"
   }
@@ -6912,6 +6982,11 @@
   "Six Caps": {
     "variants": ["regular"],
     "fallback": "sans-serif"
+  }
+}, {
+  "Sixtyfour": {
+    "variants": ["regular"],
+    "fallback": "monospace"
   }
 }, {
   "Skranji": {
@@ -7777,6 +7852,11 @@
   "Work Sans": {
     "variants": ["100", "200", "300", "regular", "500", "600", "700", "800", "900", "100italic", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic", "900italic"],
     "fallback": "sans-serif"
+  }
+}, {
+  "Workbench": {
+    "variants": ["regular"],
+    "fallback": "monospace"
   }
 }, {
   "Xanh Mono": {

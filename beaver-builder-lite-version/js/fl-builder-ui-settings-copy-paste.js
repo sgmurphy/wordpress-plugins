@@ -92,17 +92,42 @@
 			if (form.length > 0 && filterStyle) {
 				for (let key in settings) {
 					let isStyle = false;
-					const singleInput = form.find('[name="' + key + '"]');
-					const arrayInput = form.find('[name*="' + key + '["]');
+					let singleInput = null;
+					let arrayInput = null;
 
-					if (singleInput.length) {
-						isStyle = singleInput.closest('.fl-field').data('is-style');
-					} else if (arrayInput.length) {
-						isStyle = arrayInput.closest('.fl-field').data('is-style');
-					}
+					if ( 'connections' === key ) {
+						const styleConnections = {};
 
-					if (!isStyle) {
-						delete settings[key];
+						for ( subkey in settings[ key ] ) {
+							singleInput = form.find('[name="' + subkey + '"]');
+							arrayInput = form.find('[name*="' + subkey + '["]');
+
+							if (singleInput.length) {
+								isStyle = singleInput.closest('.fl-field').data('is-style');
+							} else if (arrayInput.length) {
+								isStyle = arrayInput.closest('.fl-field').data('is-style');
+							}
+
+							if (isStyle) {
+								styleConnections[ subkey ] = settings[ key ][ subkey ];
+							}
+						}
+
+						settings[ key ] = styleConnections;
+
+					} else {
+						singleInput = form.find('[name="' + key + '"]');
+						arrayInput = form.find('[name*="' + key + '["]');
+
+						if (singleInput.length) {
+							isStyle = singleInput.closest('.fl-field').data('is-style');
+						} else if (arrayInput.length) {
+							isStyle = arrayInput.closest('.fl-field').data('is-style');
+						}
+
+						if (!isStyle) {
+							delete settings[key];
+						}
 					}
 				}
 			}

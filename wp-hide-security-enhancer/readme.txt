@@ -4,7 +4,7 @@ Donate link: https://www.nsp-code.com/
 Tags: wordpress hide, security, security headers, custom login, login hide
 Requires at least: 2.8
 Tested up to: 6.5
-Stable tag: 2.3.5
+Stable tag: 2.3.7
 License: GPLv2 or later
 
 Hide WordPress, wp-content, wp-includes, wp-admin, login URL, plugins, themes etc. Block the default URLs. Security Headers etc.
@@ -406,6 +406,12 @@ Please get in touch with us and we’ll do our best to include it inthe next ver
 2. Sample front html code.
 
 == Changelog ==
+
+= 2.3.7 =
+* Preserve the field types when replacing superglobals data. 
+
+= 2.3.6 =
+* Ensure the is_user_logged_in function is available before calling it. 
 
 = 2.3.5 =
 * Update the plugin headers

@@ -861,7 +861,7 @@
 
 					// Try to set the actual video dimension on 'loadedmetadata' when using URL as video source
 					vid.on('loadedmetadata', FLBuilderLayout._resizeOnLoadedMeta);
-					
+
 					return;
 				}
 
@@ -1060,7 +1060,7 @@
 								responsiveLabel = element.find( '.fl-tabs-panel-label' );
 								tabIndex 		= responsiveLabel.data( 'index' );
 								label 			= tabs.find( '.fl-tabs-labels .fl-tabs-label[data-index=' + tabIndex + ']' );
-								
+
 								label[0].click();
 								FLBuilderLayout._scrollToElement(element);
 							}, 100 );
@@ -1244,7 +1244,7 @@
 				label 			= tabs.find( '.fl-tabs-labels .fl-tabs-label[data-index=' + tabIndex + ']' );
 
 				if ( responsiveLabel.is( ':visible' ) ) {
-					
+
 					var callback = function() {
 						if ( element ) {
 							responsiveLabel.trigger( $.Event( 'click', { which: 1 } ) );

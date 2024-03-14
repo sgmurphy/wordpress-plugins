@@ -23,6 +23,19 @@ $wpdb->query("UPDATE `". $pluginManagerInstance->get_tablename('reviews') ."` SE
 }
 exit;
 }
+if (isset($_GET['toggle-hide'])) {
+check_admin_referer('ti-toggle-hide');
+$id = (int)$_GET['toggle-hide'];
+if ($id) {
+$hidden = 1;
+if ($wpdb->get_var('SELECT hidden FROM `'. $pluginManagerInstance->get_tablename('reviews') .'` WHERE id = '. $id)) {
+$hidden = 0;
+}
+$wpdb->query("UPDATE `". $pluginManagerInstance->get_tablename('reviews') ."` SET hidden = $hidden WHERE id = '$id'");
+}
+header('Location: admin.php?page=' . sanitize_text_field($_GET['page']) . '&tab=' . sanitize_text_field($_GET['tab']));
+exit;
+}
 /* Replied flag saving:
 - Google: comes after source connect
 - Facebook: we saved internal
@@ -60,9 +73,6 @@ $oldPageDetails['address'] = $pageDetails['address'];
 }
 if (isset($oldPageDetails['avatar_url'])) {
 $oldPageDetails['avatar_url'] = $pageDetails['avatar_url'];
-}
-if (isset($pageDetails['write_review_url'])) {
-$oldPageDetails['write_review_url'] = $pageDetails['write_review_url'];
 }
 $oldPageDetails['rating_number'] = $pageDetails['rating_number'];
 $oldPageDetails['rating_score'] = $pageDetails['rating_score'];
@@ -149,7 +159,7 @@ $pageDetails = $pluginManagerInstance->getPageDetails();
 <input type="hidden" id="ti-noreg-page-id" value="<?php echo esc_attr($pageDetails['id']); ?>" />
 <input type="hidden" id="ti-noreg-webhook-url" value="<?php echo $pluginManagerInstance->get_webhook_url(); ?>" />
 <input type="hidden" id="ti-noreg-email" value="<?php echo get_option('admin_email'); ?>" />
-<input type="hidden" id="ti-noreg-version" value="11.6" />
+<input type="hidden" id="ti-noreg-version" value="11.7" />
 
 <?php
 $reviewDownloadToken = get_option($pluginManagerInstance->get_option_name('review-download-token'));
@@ -186,7 +196,7 @@ update_option($pluginManagerInstance->get_option_name('review-download-token'), 
 <tbody>
 <?php foreach ($reviews as $review): ?>
 <?php $reviewText = $pluginManagerInstance->getReviewHtml($review); ?>
-<tr data-id="<?php echo esc_attr($review->id); ?>">
+<tr data-id="<?php echo esc_attr($review->id); ?>"<?php if ($review->hidden): ?> class="ti-hidden-review"<?php endif; ?>>
 <td class="ti-text-center">
 <img src="<?php echo esc_url($review->user_photo); ?>" class="ti-user-avatar" /><br />
 <?php echo esc_html($review->user); ?>
@@ -203,6 +213,7 @@ $state = 'replied';
 $hideReplyButton = false;
 $hideReplyButton = get_option($pluginManagerInstance->get_option_name('review-download-modal'), 1);
 ?>
+<?php if (!$review->hidden): ?>
 <?php if (!$hideReplyButton): ?>
 <?php if ($review->reply): ?>
 <a href="#" class="ti-btn ti-btn-default ti-btn-sm ti-btn-default-disabled btn-show-ai-reply"><?php echo __('Reply', 'trustindex-plugin'); ?></a>
@@ -213,7 +224,15 @@ $hideReplyButton = get_option($pluginManagerInstance->get_option_name('review-do
 <?php if ($review->text): ?>
 <a href="<?php echo esc_attr($review->id); ?>" class="ti-btn ti-btn-sm ti-btn-default btn-show-highlight<?php if (isset($review->highlight) && $review->highlight): ?> has-highlight<?php endif; ?>"><?php echo __('Highlight text', 'trustindex-plugin') ;?></a>
 <?php endif; ?>
-<?php if (!$hideReplyButton): ?>
+<?php endif; ?>
+<a href="<?php echo wp_nonce_url('?page='. sanitize_text_field($_GET['page']) .'&tab=my-reviews&toggle-hide='. $review->id, 'ti-toggle-hide'); ?>" class="ti-btn ti-btn-sm ti-btn-default btn-toggle-hide">
+<?php if (!$review->hidden): ?>
+<?php echo __('Hide review', 'trustindex-plugin'); ?>
+<?php else: ?>
+<?php echo __('Show review', 'trustindex-plugin'); ?>
+<?php endif; ?>
+</a>
+<?php if (!$review->hidden && !$hideReplyButton): ?>
 <div class="ti-button-dropdown ti-reply-box<?php if ($state === 'replied'): ?> ti-active<?php endif; ?>" data-state="<?php echo $state; ?>" data-original-state="<?php echo $state; ?>">
 <span class="ti-button-dropdown-arrow" data-button=".btn-show-ai-reply"></span>
 <?php if ($state !== 'copy-reply'): ?>
@@ -290,7 +309,7 @@ $hideReplyButton = get_option($pluginManagerInstance->get_option_name('review-do
 ]
 ]); ?></script>
 <?php endif; ?>
-<?php if ($review->text): ?>
+<?php if (!$review->hidden && $review->text): ?>
 <div class="ti-button-dropdown ti-highlight-box">
 <span class="ti-button-dropdown-arrow" data-button=".btn-show-highlight"></span>
 <div class="ti-button-dropdown-title">

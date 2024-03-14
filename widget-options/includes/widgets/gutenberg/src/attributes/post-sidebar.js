@@ -658,7 +658,7 @@ const withSidebarTab = (BlockEdit) => {
     };
 
     return (
-      <div>
+      <>
         <BlockEdit {...props} />
         <InspectorControls>
           <PanelBody
@@ -892,7 +892,7 @@ const withSidebarTab = (BlockEdit) => {
                 `}
           </style>
         </InspectorControls>
-      </div>
+      </>
     );
   };
 

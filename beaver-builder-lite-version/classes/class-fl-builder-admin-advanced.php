@@ -193,12 +193,12 @@ final class FLBuilderAdminAdvanced {
 				'description' => __( 'Show custom labels for Nodes.', 'fl-builder' ),
 			),
 			'shortcodes_enabled'     => array(
-				'label'    => __( 'Render shortcodes in CSS/JS', 'fl-builder' ),
-				'default'  => 0,
-				'callback' => array( __CLASS__, 'shortcodes_enabled' ),
-				'group'    => 'ui',
+				'label'       => __( 'Render shortcodes in CSS/JS', 'fl-builder' ),
+				'default'     => 0,
+				'callback'    => array( __CLASS__, 'shortcodes_enabled' ),
+				'group'       => 'ui',
 				'description' => __( 'Error checking in the code editor is disabled when this is enabled.', 'fl-builder' ),
-				'link'     => 'https://docs.wpbeaverbuilder.com/beaver-builder/advanced-builder-techniques/shortcodes/use-shortcodes-in-tools-menu-css-or-js/',
+				'link'        => 'https://docs.wpbeaverbuilder.com/beaver-builder/advanced-builder-techniques/shortcodes/use-shortcodes-in-tools-menu-css-or-js/',
 			),
 			'acf_blocks_enabled'     => array(
 				'label'       => __( 'ACF Blocks', 'fl-builder' ),
@@ -372,7 +372,12 @@ final class FLBuilderAdminAdvanced {
 	 */
 	static private function init_hooks() {
 		foreach ( self::get_settings() as $key => $setting ) {
-			$option = get_option( "_fl_builder_{$key}", $setting['default'] );
+			$option = get_option( "_fl_builder_{$key}" );
+			// make sure option is actually set to save db queries.
+			if ( false === $option ) {
+				update_option( "_fl_builder_{$key}", $setting['default'] );
+				$option = $setting['default'];
+			}
 			if ( $option != $setting['default'] && isset( $setting['callback'] ) ) {
 				call_user_func( $setting['callback'] );
 			}

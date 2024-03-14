@@ -49,10 +49,11 @@
 	 * @param {String} selector A CSS selector string.
 	 * @return {String}
 	 */
-	FLBuilderPreview.getFormattedSelector = function( prefix, selector )
+	FLBuilderPreview.getFormattedSelector = function( prefix, selector = '' )
 	{
 		var formatted = '',
-			parts 	  = selector.split( ',' ),
+			pattern   = /,(?![^()]*\))/,
+			parts 	  = selector.split( pattern ),
 			i 	  	  = 0;
 
 		for ( ; i < parts.length; i++ ) {
@@ -235,6 +236,11 @@
 			// Create the preview stylesheets
 			this._createSheets();
 
+			this._bindEvents()
+		},
+
+
+		_bindEvents() {
 			// Responsive previews
 			this._initResponsivePreviews();
 
@@ -253,6 +259,7 @@
 				break;
 
 				case 'module':
+				case 'form':
 				this._initModule();
 				break;
 			}
@@ -311,10 +318,12 @@
 				contentClass = '.fl-' + this.type + '-content';
 			}
 
+			let formSelector = '.fl-builder-settings-lightbox:visible form.fl-builder-settings'
+
 			// Class Names
 			$.extend(this.classes, {
-				settings        : '.fl-builder-' + this.type + '-settings',
-				settingsHeader  : '.fl-builder-' + this.type + '-settings .fl-lightbox-header',
+				settings        : formSelector,
+				settingsHeader  : formSelector + ' .fl-lightbox-header',
 				node            : FLBuilder._contentClass + ' .fl-node-' + this.nodeId,
 				content         : FLBuilder._contentClass + ' .fl-node-' + this.nodeId + ' > ' + contentClass
 			});
@@ -536,6 +545,9 @@
 		{
 			if(this._timeout !== null) {
 				clearTimeout(this._timeout);
+			}
+			if(this._loaderTimeout !== null) {
+				clearTimeout(this._loaderTimeout);
 			}
 		},
 
@@ -1778,7 +1790,7 @@
 			} else {
 				parent.removeClass('fl-col-group-medium-reversed');
 			}
-			
+
 			if ( enabledOn.includes( 'mobile' ) ) {
 				parent.addClass('fl-col-group-responsive-reversed');
 			} else {
@@ -1882,6 +1894,8 @@
 				callback = FLBuilderPreviewCallbacks[callback_name];
 			} else if ( 'undefined' !== typeof window[callback_name] ) {
 				callback = window[callback_name];
+			} else if ( 'undefined' !== typeof window.parent[callback_name] ) {
+				callback = window.parent[callback_name];
 			}
 
 			if ( 'function' === typeof callback ) {
@@ -1904,7 +1918,7 @@
 					case 'video':
 					case 'icon':
 					case 'ordering':
-						args.input = field.find('input');
+						args.input = field.find('input:not(.fl-preview-ignore)');
 						args.getValue = function() {
 							return args.input.val();
 						}
@@ -1939,7 +1953,7 @@
 						break;
 
 					case 'photo':
-						args.input = field.find('input[type=hidden]');
+						args.input = field.find('input[type=hidden]:not(.fl-preview-ignore)');
 						args.sizeSelect = field.find('select');
 						args.getValues = function() {
 							return {
@@ -1988,7 +2002,7 @@
 						break;
 
 					case 'animation':
-						args.input = field.find('input');
+						args.input = field.find('input:not(.fl-preview-ignore)');
 						args.select = field.find('select');
 						args.getValues = function() {
 							return {
@@ -1999,7 +2013,7 @@
 						break;
 
 					case 'link':
-						args.input = field.find('.fl-link-field-input-wrap input');
+						args.input = field.find('.fl-link-field-input-wrap input:not(.fl-preview-ignore)');
 						args.targetInput = field.find('input[name$=_target]');
 						args.noFollowInput = field.find('input[name$=_nofollow]');
 						args.getValues = function() {
@@ -2027,7 +2041,7 @@
 
 					case 'gradient':
 						// for event setup
-						args.inputs = field.find('input');
+						args.inputs = field.find('input:not(.fl-preview-ignore)');
 						args.select = field.find('select');
 						// callback helpers
 						args.gradientInputs = {};
@@ -2063,7 +2077,7 @@
 						break;
 
 					case 'shape-transform':
-						args.inputs = field.find('input');
+						args.inputs = field.find('input:not(.fl-preview-ignore)');
 						args.getValues = function() {
 							return {
 								scaleXSign: args.inputs.eq(0).val(),
@@ -2078,7 +2092,7 @@
 
 						break;
 					default:
-						args.input = field.find('input');
+						args.input = field.find('input:not(.fl-preview-ignore)');
 						args.getValue = function() {
 							return args.input.val();
 						}
@@ -2131,19 +2145,19 @@
 			switch(fieldType) {
 
 				case 'align':
-					field.find( 'input' ).on( 'change', callback );
+					field.find( 'input:not(.fl-preview-ignore)' ).on( 'change', callback );
 				break;
 
 				case 'text':
-					field.find('input[type=text]').on('keyup', callback);
+					field.find('input[type=text]:not(.fl-preview-ignore)').on('keyup', callback);
 				break;
 
 				case 'textarea':
-					field.find('textarea').on('keyup', callback);
+					field.find('textarea:not(.fl-preview-ignore)').on('keyup', callback);
 				break;
 
 				case 'select':
-					field.find('select').on('change', callback);
+					field.find('select:not(.fl-preview-ignore)').on('change', callback);
 				break;
 
 				case 'color':
@@ -2151,31 +2165,31 @@
 				break;
 
 				case 'photo':
-					field.find('select').on('change', callback);
+					field.find('select:not(.fl-preview-ignore)').on('change', callback);
 				break;
 
 				case 'multiple-photos':
-					field.find('input').on('change', callback);
+					field.find('input:not(.fl-preview-ignore)').on('change', callback);
 				break;
 
 				case 'photo-sizes':
-					field.find('select').on('change', callback);
+					field.find('select:not(.fl-preview-ignore)').on('change', callback);
 				break;
 
 				case 'video':
-					field.find('input').on('change', callback);
+					field.find('input:not(.fl-preview-ignore)').on('change', callback);
 				break;
 
 				case 'multiple-audios':
-					field.find('input').on('change', callback);
+					field.find('input:not(.fl-preview-ignore)').on('change', callback);
 				break;
 
 				case 'icon':
-					field.find('input').on('change', callback);
+					field.find('input:not(.fl-preview-ignore)').on('change', callback);
 				break;
 
 				case 'form':
-					field.on( 'change', 'input', callback);
+					field.on( 'change', 'input:not(.fl-preview-ignore)', callback);
 				break;
 
 				case 'editor':
@@ -2183,25 +2197,25 @@
 				break;
 
 				case 'code':
-					field.find('textarea').on('change', callback);
+					field.find('textarea:not(.fl-preview-ignore)').on('change', callback);
 				break;
 
 				case 'post-type':
-					field.find('select').on('change', callback);
+					field.find('select:not(.fl-preview-ignore)').on('change', callback);
 				break;
 
 				case 'suggest':
 					field.find('.as-values').on('change', callback);
-					field.find('select').on('change', callback);
+					field.find('select:not(.fl-preview-ignore)').on('change', callback);
 				break;
 
 				case 'unit':
 				case 'dimension':
-					field.find('input[type=number]').on('input', callback);
+					field.find('input[type=number]:not(.fl-preview-ignore)').on('input', callback);
 				break;
 
 				case 'ordering':
-					field.find('input[type=hidden]').on('change', callback);
+					field.find('input[type=hidden]:not(.fl-preview-ignore)').on('change', callback);
 				break;
 
 				default:
@@ -2229,19 +2243,19 @@
 			switch(fieldType) {
 
 				case 'text':
-					field.find('input[type=text]').on('keyup', callback);
+					field.find('input[type=text]:not(.fl-preview-ignore)').on('keyup', callback);
 				break;
 
 				case 'unit':
-					field.find('input[type=number]').on('keyup', callback);
+					field.find('input[type=number]:not(.fl-preview-ignore)').on('keyup', callback);
 				break;
 
 				case 'textarea':
-					field.find('textarea').on('keyup', callback);
+					field.find('textarea:not(.fl-preview-ignore)').on('keyup', callback);
 				break;
 
 				case 'code':
-					field.find('textarea').on('change', callback);
+					field.find('textarea:not(.fl-preview-ignore)').on('change', callback);
 				break;
 
 				case 'editor':
@@ -2523,13 +2537,26 @@
 			switch ( field.data( 'type' ) ) {
 
 				case 'align':
-					field.find( 'input' ).on( 'change', $.proxy( this._previewCSS, this, preview, field ) );
+				case 'justify':
+				case 'grid-auto-flow':
+					field.find( 'input:not(.fl-preview-ignore)' ).on( 'change', $.proxy( this._previewCSS, this, preview, field ) );
+				break;
+
+				case 'object-fit':
+
+					// Position Sub-field
+					field.find( 'input:not(.fl-preview-ignore)' ).on( 'input', $.proxy( this._previewCSS, this, preview, field ) );
+
+					// Fit Button Group
+					const fit = field.find( 'input[type="hidden"]:not(.fl-preview-ignore)' )
+					fit.on( 'change', $.proxy( this._previewCSS, this, preview, field ) );
+					fit.on( 'change', $.proxy( this._previewFieldObjectFit, this, preview, field ) );
 				break;
 
 				case 'border':
-					field.find( 'select' ).on( 'change', $.proxy( this._previewBorderCSS, this, preview, field ) );
-					field.find( 'input[type=number]' ).on( 'input', $.proxy( this._previewBorderCSS, this, preview, field ) );
-					field.find( 'input[type=hidden]' ).on( 'change', $.proxy( this._previewBorderCSS, this, preview, field ) );
+					field.find( 'select:not(.fl-preview-ignore)' ).on( 'change', $.proxy( this._previewBorderCSS, this, preview, field ) );
+					field.find( 'input[type=number]:not(.fl-preview-ignore)' ).on( 'input', $.proxy( this._previewBorderCSS, this, preview, field ) );
+					field.find( 'input[type=hidden]:not(.fl-preview-ignore)' ).on( 'change', $.proxy( this._previewBorderCSS, this, preview, field ) );
 				break;
 
 				case 'color':
@@ -2537,41 +2564,59 @@
 				break;
 
 				case 'dimension':
-					field.find( 'input[type=number]' ).on( 'input', $.proxy( this._previewDimensionCSS, this, preview, field ) );
+					field.find( 'input[type=number]:not(.fl-preview-ignore)' ).on( 'input', $.proxy( this._previewDimensionCSS, this, preview, field ) );
 				break;
 
 				case 'gradient':
-					field.find( 'select' ).on( 'change', $.proxy( this._previewGradientCSS, this, preview, field ) );
+					field.find( 'select:not(.fl-preview-ignore)' ).on( 'change', $.proxy( this._previewGradientCSS, this, preview, field ) );
 					field.find( '.fl-gradient-picker-angle' ).on( 'input', $.proxy( this._previewGradientCSS, this, preview, field ) );
 					field.find( '.fl-color-picker-value' ).on( 'change', $.proxy( this._previewGradientCSS, this, preview, field ) );
 					field.find( '.fl-gradient-picker-stop' ).on( 'input', $.proxy( this._previewGradientCSS, this, preview, field ) );
 				break;
 
 				case 'photo':
-					field.find( 'select' ).on( 'change', $.proxy( this._previewCSS, this, preview, field ) );
+					field.find( 'select:not(.fl-preview-ignore)' ).on( 'change', $.proxy( this._previewCSS, this, preview, field ) );
 				break;
 
 				case 'select':
-					field.find( 'select' ).on( 'change', $.proxy( this._previewCSS, this, preview, field ) );
+				case 'aspect-ratio':
+				case 'placement':
+					field.find( 'select:not(.fl-preview-ignore)' ).on( 'change', $.proxy( this._previewCSS, this, preview, field ) );
 				break;
 
 				case 'shadow':
-					field.find( 'input' ).on( 'input', $.proxy( this._previewShadowCSS, this, preview, field ) );
+					field.find( 'input:not(.fl-preview-ignore)' ).on( 'input', $.proxy( this._previewShadowCSS, this, preview, field ) );
 					field.find( '.fl-color-picker-value' ).on( 'change', $.proxy( this._previewShadowCSS, this, preview, field ) );
 				break;
 
 				case 'text':
-					field.find( 'input[type=text]' ).on( 'keyup', $.proxy( this._previewCSS, this, preview, field ) );
+					field.find( 'input[type=text]:not(.fl-preview-ignore)' ).on( 'keyup input change', $.proxy( this._previewCSS, this, preview, field ) );
+				break;
+
+				case 'hidden':
+					field.find( 'input[type=hidden]:not(.fl-preview-ignore)' ).on( 'change', $.proxy( this._previewCSS, this, preview, field ) );
 				break;
 
 				case 'typography':
-					field.find( 'select' ).on( 'change', $.proxy( this._previewTypographyCSS, this, preview, field ) );
-					field.find( 'input[type=number]' ).on( 'input', $.proxy( this._previewTypographyCSS, this, preview, field ) );
-					field.find( 'input[type=hidden]' ).on( 'change', $.proxy( this._previewTypographyCSS, this, preview, field ) );
+					field.find( 'select:not(.fl-preview-ignore)' ).on( 'change', $.proxy( this._previewTypographyCSS, this, preview, field ) );
+					field.find( 'input[type=number]:not(.fl-preview-ignore)' ).on( 'input', $.proxy( this._previewTypographyCSS, this, preview, field ) );
+					field.find( 'input[type=hidden]:not(.fl-preview-ignore)' ).on( 'change', $.proxy( this._previewTypographyCSS, this, preview, field ) );
 				break;
 
 				case 'unit':
-					field.find( 'input[type=number]' ).on( 'input', $.proxy( this._previewCSS, this, preview, field ) );
+					field.find( 'input[type=number]:not(.fl-preview-ignore)' ).on( 'input', $.proxy( this._previewCSS, this, preview, field ) );
+				break;
+
+				case 'button-group':
+				case 'grid-tracklist':
+				case 'grid-area':
+					field.find( 'input[type=hidden]:not(.fl-preview-ignore)').on( 'change', $.proxy( this._previewCSS, this, preview, field ) );
+				break;
+
+				case 'flex':
+				case 'size':
+					field.find( 'input[type=number]:not(.fl-preview-ignore)' ).on( 'input', $.proxy( this._previewCSS, this, preview, field ) );
+					field.find( 'input[type=hidden]:not(.fl-preview-ignore)').on( 'change', $.proxy( this._previewCSS, this, preview, field ) );
 				break;
 			}
 		},
@@ -2592,19 +2637,110 @@
 				property 	= preview.property,
 				unit     	= this._getPreviewCSSUnit( preview, field, e ),
 				input    	= $( e.target ),
-				value    	= input.val(),
+				subVals     = preview.substitute_values, /* substitute the css value for a staticly-defined alternative */
+				rawVal    	= input.val(),
+				value       = subVals && Object.keys( subVals ).includes( rawVal ) ? subVals[rawVal] : rawVal,
 				responsive 	= input.closest( '.fl-field-responsive-setting' ).length ? true : false,
 				important 	= preview.important && '' !== value ? ' !important' : '';
 
 			if ( property.indexOf( 'image' ) > -1 && value ) {
 				value = 'url(' + value + ')';
 			} else if ( '%' === unit && 'opacity' === property ) {
-				value = parseInt( value )/100;
-			} else if ( '' !== value ) {
+				value = parseInt( value ) / 100;
+			} else if ( '' !== value && ! isNaN(value) ) {
 				value += unit;
 			}
 
-			this.updateCSSRule( selector, property, value + important, responsive );
+			if ( preview.format_value ) {
+				value = wp.i18n.sprintf( preview.format_value, value )
+			}
+
+			/**
+			* Support for sub_value key when previewing compound fields.
+			*/
+			if ( undefined !== preview.sub_value ) {
+				const name = input.attr('name')
+				if ( 'string' === typeof preview.sub_value && ! name.endsWith( `[${preview.sub_value}]` ) ) {
+					return
+				} else if ( 'object' === typeof preview.sub_value && ! name.includes(`[${preview.sub_value.setting_name}]`) ) {
+					return
+				}
+			}
+			/**
+			 * Support for enabled property
+			 * Meant to closely match FLBuilderCSS::is_rule_enabled()
+			 */
+			if ( 'boolean' === typeof preview.enabled ) {
+				return preview.enabled
+
+			} else if ( preview.enabled && 'object' === typeof preview.enabled ) {
+				const form = $( '.fl-builder-settings:visible', window.parent.document )
+				const settings = FLBuilder._getSettings( form )
+
+				// Test each setting in the object
+				for( let name in preview.enabled ) {
+					const test = preview.enabled[name]
+
+					if ( 'object' === typeof test ) {
+
+						if ( 'nearest_value' in test ) {
+							const mode = FLBuilderResponsiveEditing._mode
+							const inherited = this.getInheritedSettingValue( name, mode, settings )
+
+							if ( 'string' === typeof test.nearest_value && test.nearest_value !== inherited ) {
+								return
+							} else if ( Array.isArray( test.nearest_value ) && ! test.nearest_value.includes( inherited ) ) {
+								return
+							}
+						}
+
+					} else if ( Array.isArray( preview.enabled[name] ) ) {
+						if ( ! preview.enabled[name].some( v => v === settings[name] ) ) {
+							return
+						}
+					} else if ( preview.enabled[name] !== settings[name] ) {
+						return
+					}
+				}
+			}
+
+			if ( Array.isArray( property ) ) {
+				for( let i in property ) {
+					this.updateCSSRule( selector, property[i], value + important, responsive );
+				}
+			} else {
+				this.updateCSSRule( selector, property, value + important, responsive );
+			}
+		},
+
+		/**
+		 * Find the nearest inherited value for a particular setting from a given breakpoint.
+		 */
+		getInheritedSettingValue: function( settingBaseName, currentBreakpoint, settings ) {
+			const isDefault = '' === currentBreakpoint || 'default' === currentBreakpoint
+			let name = isDefault ? settingBaseName : `${settingBaseName}_${currentBreakpoint}`
+
+			if ( undefined !== settings[name] ) {
+				return settings[name]
+			}
+
+			// Meant to be in reverse (most-to-least specific)
+			const current = 'default' === currentBreakpoint ? '' : currentBreakpoint
+			let breakpoints = [ 'responsive', 'medium', 'large', '' ]
+			let i = breakpoints.indexOf( current )
+			if ( -1 === i ) {
+				return null
+			}
+			breakpoints = breakpoints.slice(i)
+
+			for( let i in breakpoints ) {
+				const breakpoint = breakpoints[i]
+				name = '' === breakpoint ? settingBaseName : `${settingBaseName}_${breakpoint}`
+				if ( undefined !== settings[name] && '' !== settings[name] ) {
+					return settings[name]
+				}
+			}
+			return null
 		},
 
 		/* Border Field CSS Preview
@@ -2671,7 +2807,7 @@
 				responsive 	= input.closest( '.fl-field-responsive-setting' ).length ? true : false,
 				important 	= preview.important && '' !== value ? ' !important' : '';
 
-			if ( '' !== value && value.indexOf( 'rgb' ) < 0 ) {
+			if ( '' !== value && value.indexOf( 'rgb' ) < 0 && value.indexOf( 'var' ) < 0 ) {
 				value = '#' + value;
 			}
 
@@ -2705,6 +2841,8 @@
 				property = 'border-' + dimension.replace( '_', '-' ) + '-radius';
 			} else if ( 'border-width' === property ) {
 				property = 'border-' + dimension + '-width';
+			} else if ( 'gap' === property ) {
+				property = dimension + '-' + property;
 			} else {
 				property = property + '-' + dimension;
 			}
@@ -3090,6 +3228,20 @@
 			FLBuilderLayout._doModuleAnimation.apply( element );
 		},
 
+		_previewFieldObjectFit: function( preview, field, e ) {
+			const selector = this._getPreviewSelector( this.classes.node, preview.selector ),
+				  element = $( selector ).closest('.fl-module').get(0),
+				  className = 'fl-fill-container',
+				  fit = field.find( '.fl-button-group-field input' ).val();
+
+			if ( '' === fit && element.classList.contains( className ) ) {
+				element.classList.remove( className )
+			}
+			if ( '' !== fit && ! element.classList.contains( className ) ) {
+				element.classList.add( className )
+			}
+		},
+
 		/**
 		 * Returns a formatted selector string for a preview.
 		 *
@@ -3469,7 +3621,7 @@
 				}
 			} );
 			this.updateCSSRule( shapeSelector, 'transform', shapeTransforms.join(' ') );
-		}
+		},
 	}
 
 })(jQuery);

@@ -194,7 +194,7 @@ class FLbuilder_WPCLI_Command extends WP_CLI_Command {
 
 		$current_options->{$assoc_args['id']} = $assoc_args['value'];
 
-		$result = FLBuilderUtils::update_option( '_fl_builder_settings', $current_options );
+		$result = FLBuilderUtils::update_option( '_fl_builder_settings', $current_options, true );
 		if ( $result ) {
 			/* translators: %s: global option key */
 			WP_CLI::success( sprintf( __( "Global option '%s' updated", 'fl-builder' ), $assoc_args['id'] ) );

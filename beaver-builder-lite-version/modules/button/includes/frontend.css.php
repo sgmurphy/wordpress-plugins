@@ -35,7 +35,7 @@ FLBuilderCSS::dimension_field_rule( array(
 FLBuilderCSS::typography_field_rule( array(
 	'settings'     => $settings,
 	'setting_name' => 'typography',
-	'selector'     => ".fl-builder-content .fl-node-$id a.fl-button, .fl-builder-content .fl-node-$id a.fl-button:visited",
+	'selector'     => ".fl-builder-content .fl-node-$id a.fl-button, .fl-builder-content .fl-node-$id a.fl-button:visited, .fl-page .fl-builder-content .fl-node-$id a.fl-button, .fl-page .fl-builder-content .fl-node-$id a.fl-button:visited",
 ) );
 
 // Default background hover color
@@ -70,80 +70,58 @@ if ( 'gradient' === $settings->style ) {
 	$bg_gradient_hover_color_start = FLBuilderColor::adjust_brightness( $bg_gradient_hover_color, 30, 'lighten' );
 }
 
-// Border - Default
-FLBuilderCSS::rule( array(
-	'selector' => ".fl-builder-content .fl-node-$id a.fl-button, .fl-builder-content .fl-node-$id a.fl-button:visited",
-	'enabled'  => ! empty( $settings->bg_color ) && 'adv-gradient' !== $settings->style,
-	'props'    => array(
-		'border' => '1px solid ' . FLBuilderColor::hex_or_rgb( FLBuilderColor::adjust_brightness( $settings->bg_color, 12, 'darken' ) ),
-	),
-) );
-
-// Border - Hover Default
-FLBuilderCSS::rule( array(
-	'selector' => ".fl-builder-content .fl-node-$id a.fl-button:hover, .fl-builder-content .fl-node-$id a.fl-button:focus",
-	'enabled'  => ! empty( $settings->bg_hover_color ) && 'adv-gradient' !== $settings->style,
-	'props'    => array(
-		'border' => '1px solid ' . FLBuilderColor::hex_or_rgb( FLBuilderColor::adjust_brightness( $settings->bg_hover_color, 12, 'darken' ) ),
-	),
-) );
-
-$border_color_backup = '';
-if ( 'adv-gradient' === $settings->style ) {
-	if ( empty( $settings->border['color'] ) ) {
-		$settings->border['color'] = FLBuilderColor::hex_or_rgb( FLBuilderColor::adjust_brightness( 'a3a3a3', 12, 'darken' ) );
-	} else {
-		$border_color_backup = $settings->border['color'];
-	}
-}
 // Border - Settings
 FLBuilderCSS::border_field_rule( array(
 	'settings'     => $settings,
 	'setting_name' => 'border',
-	'selector'     => ".fl-builder-content .fl-node-$id a.fl-button, .fl-builder-content .fl-node-$id a.fl-button:visited",
+	'selector'     => ".fl-builder-content .fl-node-$id a.fl-button, .fl-builder-content .fl-node-$id a.fl-button:visited, .fl-builder-content .fl-node-$id a.fl-button:hover, .fl-builder-content .fl-node-$id a.fl-button:focus, .fl-page .fl-builder-content .fl-node-$id a.fl-button, .fl-page .fl-builder-content .fl-node-$id a.fl-button:visited, .fl-page .fl-builder-content .fl-node-$id a.fl-button:hover, .fl-page .fl-builder-content .fl-node-$id a.fl-button:focus",
 ) );
-if ( 'adv-gradient' === $settings->style ) {
-	$settings->border['color'] = $border_color_backup;
-}
 
 // Border - Hover Settings
-if ( ! empty( $settings->border_hover_color ) && is_array( $settings->border ) ) {
-	$settings->border['color'] = $settings->border_hover_color;
-}
+FLBuilderCSS::rule( array(
+	'enabled'  => ! empty( $settings->border_hover_color ),
+	'selector' => ".fl-builder-content .fl-node-$id a.fl-button:hover, .fl-builder-content .fl-node-$id a.fl-button:focus, .fl-page .fl-builder-content .fl-node-$id a.fl-button:hover, .fl-page .fl-builder-content .fl-node-$id a.fl-button:focus",
+	'props'    => array(
+		'border-color' => FLBuilderColor::hex_or_rgb( $settings->border_hover_color ),
+	),
+) );
 
-FLBuilderCSS::border_field_rule( array(
-	'settings'     => $settings,
-	'setting_name' => 'border',
-	'selector'     => ".fl-builder-content .fl-node-$id a.fl-button:hover, .fl-builder-content .fl-node-$id a.fl-button:focus",
+// Background Color
+FLBuilderCSS::rule( array(
+	'enabled'  => 'flat' === $settings->style && ! empty( $settings->bg_color ),
+	'selector' => ".fl-builder-content .fl-node-$id a.fl-button, .fl-builder-content .fl-node-$id a.fl-button:visited, .fl-page .fl-builder-content .fl-node-$id a.fl-button, .fl-page .fl-builder-content .fl-node-$id a.fl-button:visited",
+	'props'    => array(
+		'background-color' => FLBuilderColor::hex_or_rgb( $settings->bg_color ),
+	),
+) );
+
+FLBuilderCSS::rule( array(
+	'enabled'  => 'flat' === $settings->style && ! empty( $settings->bg_hover_color ),
+	'selector' => ".fl-builder-content .fl-node-$id a.fl-button:hover, .fl-page .fl-builder-content .fl-node-$id a.fl-button:hover, .fl-page .fl-builder-content .fl-node-$id a.fl-button:hover, .fl-page .fl-page .fl-builder-content .fl-node-$id a.fl-button:hover",
+	'props'    => array(
+		'background-color' => FLBuilderColor::hex_or_rgb( $settings->bg_hover_color ),
+	),
 ) );
 
 ?>
 
-<?php if ( 'flat' === $settings->style ) : ?>
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button,
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited {
-	<?php if ( ! empty( $settings->bg_color ) ) : ?>
-	background: <?php echo FLBuilderColor::hex_or_rgb( $settings->bg_color ); ?>;
-	<?php endif; ?>
-}
-<?php endif; ?>
-
 <?php if ( 'gradient' === $settings->style ) : ?>
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button,
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited {
+.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited,
+.fl-page .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button,
+.fl-page .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
+.fl-page .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited {
 	background: linear-gradient(to bottom,  <?php echo FLBuilderColor::hex_or_rgb( $bg_gradient_color_start ); ?> 0%, <?php echo FLBuilderColor::hex_or_rgb( $bg_gradient_color ); ?> 100%);
 }
 <?php elseif ( 'adv-gradient' === $settings->style ) : ?>
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button,
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited {
+.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited,
+.fl-page .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button,
+.fl-page .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
+.fl-page .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited {
 	background-image: linear-gradient(to bottom,  <?php echo FLBuilderColor::hex_or_rgb( $bg_gradient_color_start ); ?> 0%, <?php echo FLBuilderColor::hex_or_rgb( $bg_gradient_color ); ?> 100%);
-}
-<?php elseif ( 'flat' === $settings->style && ! empty( $settings->bg_hover_color ) ) : ?>
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover {
-	background-color: <?php echo FLBuilderColor::hex_or_rgb( $settings->bg_hover_color ); ?>;
 }
 <?php endif; ?>
 
@@ -151,7 +129,11 @@ FLBuilderCSS::border_field_rule( array(
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button,
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited,
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button *,
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited * {
+.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited *,
+.fl-page .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button,
+.fl-page .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited,
+.fl-page .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button *,
+.fl-page .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:visited * {
 	color: <?php echo FLBuilderColor::hex_or_rgb( $settings->text_color ); ?>;
 }
 <?php endif; ?>
@@ -171,10 +153,11 @@ FLBuilderCSS::border_field_rule( array(
 <?php endif; ?>
 
 
-<?php // if ( ! empty( $settings->bg_hover_color ) ) : ?>
 <?php if ( 'gradient' === $settings->style ) : ?>
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:focus {
+.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:focus,
+.fl-page .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
+.fl-page .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:focus {
 
 	background: <?php echo FLBuilderColor::hex_or_rgb( $bg_gradient_hover_color ); ?>;
 
@@ -187,7 +170,10 @@ FLBuilderCSS::border_field_rule( array(
 <?php if ( ! empty( $settings->text_hover_color ) ) : ?>
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
 .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover span.fl-button-text,
-.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover * {
+.fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover *,
+.fl-page .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover,
+.fl-page .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover span.fl-button-text,
+.fl-page .fl-builder-content .fl-node-<?php echo $id; ?> a.fl-button:hover * {
 	color: <?php echo FLBuilderColor::hex_or_rgb( $settings->text_hover_color ); ?>;
 }
 
@@ -231,7 +217,7 @@ if ( isset( $settings->id ) && ! empty( $settings->id ) ) {
 
 // Background Gradient
 FLBuilderCSS::rule( array(
-	'selector' => ".fl-builder-content .fl-node-$id a.fl-button, .fl-builder-content .fl-node-$id a.fl-button:hover",
+	'selector' => ".fl-builder-content .fl-node-$id a.fl-button, .fl-page .fl-builder-content .fl-node-$id a.fl-button, .fl-builder-content .fl-node-$id a.fl-button:hover, .fl-page .fl-builder-content .fl-node-$id a.fl-button:hover",
 	'enabled'  => 'adv-gradient' === $settings->style && FLBuilderColor::gradient( $settings->bg_gradient, true ),
 	'props'    => array(
 		'background-image' => FLBuilderColor::gradient( $settings->bg_gradient ),
@@ -239,7 +225,7 @@ FLBuilderCSS::rule( array(
 ) );
 
 FLBuilderCSS::rule( array(
-	'selector' => ".fl-builder-content .fl-node-$id a.fl-button:hover",
+	'selector' => ".fl-builder-content .fl-node-$id a.fl-button:hover, .fl-page .fl-builder-content .fl-node-$id a.fl-button:hover",
 	'enabled'  => 'adv-gradient' === $settings->style && FLBuilderColor::gradient( $settings->bg_gradient_hover, true ),
 	'props'    => array(
 		'background-image' => FLBuilderColor::gradient( $settings->bg_gradient_hover ),

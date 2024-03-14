@@ -219,7 +219,7 @@ class bt_bb_headline extends BT_BB_Element {
 				array( 'param_name' => 'superheadline', 'type' => 'textfield', 'heading' => esc_html__( 'Superheadline', 'bold-builder' ), 'placeholder' => esc_html__( 'Add Superheadline text', 'bold-builder' ) ),
 				array( 'param_name' => 'headline', 'type' => 'textarea', 'heading' => esc_html__( 'Headline', 'bold-builder' ), 'placeholder' => esc_html__( 'Add Headline text', 'bold-builder' ), 'preview' => true, 'preview_strong' => true ),
 				array( 'param_name' => 'subheadline', 'type' => 'textarea', 'heading' => esc_html__( 'Subheadline', 'bold-builder' ), 'placeholder' => esc_html__( 'Add Subheadline text', 'bold-builder' ), ),
-				array( 'param_name' => 'html_tag', 'type' => 'dropdown', 'heading' => esc_html__( 'Title HTML tag', 'bold-builder' ), 'preview' => true,
+				array( 'param_name' => 'html_tag', 'type' => 'dropdown', 'heading' => esc_html__( 'Headline HTML tag', 'bold-builder' ), 'preview' => true,
 					'value' => array(
 						esc_html__( 'h1', 'bold-builder' ) 	=> 'h1',
 						esc_html__( 'h2', 'bold-builder' ) 	=> 'h2',

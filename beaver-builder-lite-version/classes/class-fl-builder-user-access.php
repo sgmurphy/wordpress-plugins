@@ -205,7 +205,7 @@ final class FLBuilderUserAccess {
 
 		self::$settings = null;
 
-		FLBuilderModel::update_admin_settings_option( '_fl_builder_user_access', $settings, false );
+		FLBuilderModel::update_admin_settings_option( '_fl_builder_user_access', $settings, false, true );
 	}
 
 	/**

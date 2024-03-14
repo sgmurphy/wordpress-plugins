@@ -19,7 +19,7 @@ final class FLBuilderColor {
 	static public function hex_to_rgb( $hex ) {
 
 		// if $hex is empty or false return basic rgb data.
-		if ( ! $hex ) {
+		if ( ! $hex || strstr( $hex, 'var(--' ) ) {
 			return array(
 				'r' => 0,
 				'g' => 0,
@@ -54,7 +54,7 @@ final class FLBuilderColor {
 	 * @return string
 	 */
 	static public function hex_or_rgb( $color ) {
-		if ( ! empty( $color ) && ! stristr( $color, 'rgb' ) && ! stristr( $color, '#' ) ) {
+		if ( ! empty( $color ) && ! stristr( $color, 'rgb' ) && ! stristr( $color, 'var' ) && ! stristr( $color, '#' ) ) {
 			$color = '#' . $color;
 		}
 
@@ -144,9 +144,13 @@ final class FLBuilderColor {
 		/**
 		 * There should be 2 colours here even if one is blank
 		 * SD mode strips the blank one, we need to add it back
+		 * Same goes for stops.
 		 */
 		if ( count( $setting['colors'] ) < 2 ) {
 			$setting['colors'][] = '';
+		}
+		if ( count( $setting['stops'] ) < 2 ) {
+			$setting['stops'][] = '';
 		}
 
 		foreach ( $setting['colors'] as $i => $color ) {
@@ -158,7 +162,7 @@ final class FLBuilderColor {
 				}
 				$color = 'rgba(255,255,255,0)';
 			}
-			if ( ! strstr( $color, 'rgb' ) ) {
+			if ( ! strstr( $color, 'rgb' ) && ! strstr( $color, 'var' ) ) {
 				$color = '#' . $color;
 			}
 			if ( ! is_numeric( $stop ) ) {
@@ -207,7 +211,7 @@ final class FLBuilderColor {
 			if ( isset( $setting['spread'] ) && '' === $setting['spread'] ) {
 				$setting['spread'] = 0;
 			}
-			if ( ! strstr( $setting['color'], 'rgb' ) ) {
+			if ( ! strstr( $setting['color'], 'rgb' ) && ! strstr( $setting['color'], 'var' ) ) {
 				$setting['color'] = '#' . $setting['color'];
 			}
 

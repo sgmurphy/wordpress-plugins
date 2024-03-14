@@ -296,6 +296,17 @@ final class FLBuilderLoop {
 
 			$args[ $arg ] = $users;
 		}
+		// handle current/logged in user
+		if ( isset( $settings->users_matching ) && 'loggedin' === $settings->users_matching ) {
+			unset( $args['author__in'] );
+			unset( $args['author__not_in'] );
+			$args['author'] = get_current_user_id();
+		}
+		if ( isset( $settings->users_matching ) && 'author' === $settings->users_matching ) {
+			unset( $args['author__in'] );
+			unset( $args['author__not_in'] );
+			$args['author'] = get_the_author_meta( 'ID' );
+		}
 		foreach ( (array) $post_type as $type ) {
 			// Build the taxonomy query.
 			$taxonomies = self::taxonomies( $type );

@@ -4768,20 +4768,20 @@ class Wf_Woocommerce_Packing_List_Admin {
 	 * Function to update the plugin tax settings when woocommerce tax is changed
 	 *
 	 * @since 4.2.0
+	 * @since 4.4.2 - set the plugin tax status to exclusive tax if the WC tax is false
 	 * @return void
 	 */
 	public function update_plugin_settings_when_wc_update_settings(){
-		$wc_tax_status_old_value	= get_option('woocommerce_prices_include_tax');
-		if ( wc_tax_enabled() && isset( $_POST['woocommerce_prices_include_tax'] ) && $wc_tax_status_old_value !== $_POST['woocommerce_prices_include_tax'] ) {
-			// Update your plugin's settings here
-			$wc_tax_status	= sanitize_text_field($_POST['woocommerce_prices_include_tax']); // Sanitize the input
-			$wc_tax_status	= !empty($wc_tax_status) ? $wc_tax_status : 'no';
-			if( "yes" === $wc_tax_status ) {
-				$wt_tax	= array('in_tax'); 
+		$current_wc_page	= isset( $_GET['page'] ) ? sanitize_text_field( $_GET['page'] ) : '';
+		$wc_price_inc_tax	= get_option('woocommerce_prices_include_tax');
+		$wc_tax_enable		= ! function_exists( 'wc_tax_enabled' ) ? apply_filters( 'wc_tax_enabled', get_option( 'woocommerce_calc_taxes' ) === 'yes' ) : wc_tax_enabled();
+		
+		if ( 'wc-settings' === $current_wc_page ) {
+			if ( $wc_tax_enable &&  "yes" === $wc_price_inc_tax ) {
+				Wf_Woocommerce_Packing_List::update_option('woocommerce_wf_generate_for_taxstatus', array( 'in_tax' ) );
 			} else {
-				$wt_tax = array('ex_tax'); 
+				Wf_Woocommerce_Packing_List::update_option('woocommerce_wf_generate_for_taxstatus', array( 'ex_tax' ) );
 			}
-			Wf_Woocommerce_Packing_List::update_option('woocommerce_wf_generate_for_taxstatus', $wt_tax);
 		}
 	}
 

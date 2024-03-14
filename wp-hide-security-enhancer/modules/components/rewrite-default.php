@@ -189,7 +189,12 @@
                             if ( is_array( $value ) )
                                 $value  =   $this->_array_replacements_recursivelly( $value, $replacements );
                                 else 
-                                $value     =   preg_replace( array_values ( $replacements ) , array_keys( $replacements ), $value );
+                                {
+                                    //preserve the type
+                                    $value_type =   gettype( $value );
+                                    $value     =   preg_replace( array_values ( $replacements ) , array_keys( $replacements ), $value );
+                                    settype( $value, $value_type );
+                                }
                             
                             $helper[ $key ] = $value;
                         }

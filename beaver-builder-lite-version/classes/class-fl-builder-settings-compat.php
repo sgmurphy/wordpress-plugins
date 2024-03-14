@@ -24,11 +24,11 @@ final class FLBuilderSettingsCompat {
 	 * @return void
 	 */
 	static public function init() {
-		require_once FL_BUILDER_DIR . 'classes/class-fl-builder-settings-compat-helper.php';
-		require_once FL_BUILDER_DIR . 'classes/class-fl-builder-settings-compat-generic.php';
-		require_once FL_BUILDER_DIR . 'classes/class-fl-builder-settings-compat-row.php';
-		require_once FL_BUILDER_DIR . 'classes/class-fl-builder-settings-compat-column.php';
-		require_once FL_BUILDER_DIR . 'classes/class-fl-builder-settings-compat-module.php';
+		require_once FL_BUILDER_DIR . 'classes/compat/class-fl-builder-settings-compat-helper.php';
+		require_once FL_BUILDER_DIR . 'classes/compat/class-fl-builder-settings-compat-generic.php';
+		require_once FL_BUILDER_DIR . 'classes/compat/class-fl-builder-settings-compat-row.php';
+		require_once FL_BUILDER_DIR . 'classes/compat/class-fl-builder-settings-compat-column.php';
+		require_once FL_BUILDER_DIR . 'classes/compat/class-fl-builder-settings-compat-module.php';
 
 		self::register_helper( 'generic', 'FLBuilderSettingsCompatGeneric' );
 		self::register_helper( 'row', 'FLBuilderSettingsCompatRow' );

@@ -1,4 +1,50 @@
-<div class="fl-form-field fl-builder-custom-field"<# if ( data.field.preview_text ) { #> data-preview-text="{{{data.field.preview_text}}}"<# } #>>
+<#
+var form = FLBuilderSettingsConfig.forms[ data.field.form ];
+var text = '';
+var preview = data.field.preview_text;
+var previewData = null;
+
+function getPeviewData( form, preview, values ) {
+	var label = '';
+	var labels = [];
+	var prevData = {
+		key: '',
+		value: '',
+	}
+
+	if ( Array.isArray( preview ) ) {
+		labels = [...preview];
+	} else {
+		labels = [preview];
+		prevData.key = preview;
+	}
+
+	for( var i = 0; i < labels.length; i++ ) {
+		var s = labels[i];
+
+		for ( var tab in form.tabs ) {
+			for ( var section in form.tabs[ tab ].sections ) {
+				var fields = form.tabs[ tab ].sections[ section ].fields;
+				if ( s in fields ) {
+					if ( values[s] ) {
+						label = values[s];
+						prevData.key = s;
+						prevData.value =  values[s];;
+						return prevData;
+					}
+				}
+			}
+		}
+	}
+	
+	return prevData;
+}
+
+previewData = getPeviewData( form, preview, data.value );
+text = previewData.value;
+
+#>
+<div class="fl-form-field fl-builder-custom-field"<# if ( previewData.key ) { #> data-preview-text="{{{data.field.preview_text}}}"<# } #>>
 	<div class="fl-form-field-preview-text">
 		<#
 
@@ -7,9 +53,6 @@
 		}
 
 		if ( data.field.preview_text && 'object' === typeof data.value ) {
-
-			var form = FLBuilderSettingsConfig.forms[ data.field.form ],
-				text = '';
 
 			for ( var tab in form.tabs ) {
 

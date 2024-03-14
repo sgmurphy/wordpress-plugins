@@ -96,6 +96,22 @@
 	display: none;
 	max-width: 450px;
 }
+div#fl-license-form {
+	max-width: 550px;
+}
+
+div#fl-license-form .themer li {
+	list-style-type: none;
+	margin-bottom: 0.6em;
+}
+div#fl-license-form .themer li span{
+	color: green;
+}
+
+div#fl-license-form .themer h3 {
+	padding-top:15px;
+}
+
 .fl-settings-form-header {
 	margin-bottom: 20px !important;
 	padding: 0;

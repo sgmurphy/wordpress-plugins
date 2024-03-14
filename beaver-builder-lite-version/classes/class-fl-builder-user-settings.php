@@ -26,6 +26,7 @@ class FLBuilderUserSettings {
 		$defaults = array(
 			'skin'     => 'light',
 			'lightbox' => null,
+			'pinned'   => null,
 		);
 
 		if ( ! $meta ) {

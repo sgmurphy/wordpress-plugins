@@ -244,10 +244,16 @@ class ProductHelper {
 	 * @return mixed The formatted value of the custom field.
 	 */
 	public static function get_custom_field( $field, $product, $config ) {
+
+        $field_name = $field;
 		// Adjust the meta key for variation products.
-        $field = str_replace(AttributeValueByType::POST_META_PREFIX, "", $field );
+        if ( strpos( $field, '_cattr') !== false ) {
+            $field = str_replace(AttributeValueByType::POST_META_PREFIX, "", $field );
+        }
+
         if ( strpos( $field, '_var') !== false ) {
-            $meta_key = $product->is_type( 'variation' ) ? $field : str_replace("_var", "",$field );
+//            $meta_key = $product->is_type( 'variation' ) ? $field : str_replace("_var", "",$field );
+            $meta_key =  $field ;
         }else{
             $meta_key = $product->is_type( 'variation' ) ? $field . '_var' : $field;
         }
@@ -267,6 +273,13 @@ class ProductHelper {
 		// Retrieve the values for the new and old meta keys.
 		$new_meta_value = self::get_product_meta( $new_meta_key, $product, $config );
 		$old_meta_value = self::get_product_meta( $old_meta_key, $product, $config );
+
+        if ( strpos( $field_name, '_cattr') === false ) {
+            if ( empty( $new_meta_value) && $product->is_type('variation')) {
+                $new_meta_key = str_replace("_var", "", $new_meta_key );
+                $new_meta_value = self::get_product_meta( $new_meta_key, $product, $config );
+            }
+        }
 
 		// Return the formatted custom field value, preferring the new meta key.
 		return empty( $new_meta_value ) ? self::format_custom_field_value( $old_meta_value, $meta_key )

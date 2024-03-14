@@ -1,10 +1,9 @@
 <?php
-
 /**
  * Plugin Name: Widget Options
  * Plugin URI: https://widget-options.com/
  * Description: Additional Widget and block options for better widget and block control. Turn Widget Options into an even more flexible widget and block area manager. Upgrade to <strong><a href="http://widget-options.com/" target="_blank" >Widget Options Extended</a></strong> today!
- * Version: 4.0.1
+ * Version: 4.0.3
  * Author: Widget Options Team
  * Author URI: https://widget-options.com/
  * Text Domain: widget-options
@@ -92,7 +91,7 @@ if (!class_exists('WP_Widget_Options')) :
 
 			// Plugin version.
 			if (!defined('WIDGETOPTS_VERSION')) {
-				define('WIDGETOPTS_VERSION', '4.0.1');
+				define('WIDGETOPTS_VERSION', '4.0.3');
 			}
 
 			// Plugin Folder Path.
@@ -125,12 +124,15 @@ if (!class_exists('WP_Widget_Options')) :
 		 */
 		private function includes()
 		{
-			global $widget_options, $extended_license, $widgetopts_taxonomies, $widgetopts_pages, $widgetopts_types, $widgetopts_categories, $pagenow;
+			global $widget_options, $extended_license, $widgetopts_taxonomies, $widgetopts_pages, $widgetopts_types, $widgetopts_categories, $pagenow, $widgetopts_http_headers, $widgetopts_user_agent;
 
 			require_once WIDGETOPTS_PLUGIN_DIR . 'includes/admin/settings/register-settings.php';
 			$widget_options = widgetopts_get_settings();
 
 			require_once WIDGETOPTS_PLUGIN_DIR . 'includes/extras.php';
+			$widgetopts_http_headers = widgetopts_set_http_headers();
+			$widgetopts_user_agent = widgetopts_get_user_agent();
+
 			require_once WIDGETOPTS_PLUGIN_DIR . 'includes/scripts.php';
 
 			//call admin only resources

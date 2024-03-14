@@ -116,8 +116,8 @@ class Wf_Woocommerce_Packing_List {
 			self::$base_version = WF_PKLIST_VERSION;
 		}else 
 		{
-			$this->version = '4.4.1';
-			self::$base_version = '4.4.1';
+			$this->version = '4.4.2';
+			self::$base_version = '4.4.2';
 		}
 		if(defined('WF_PKLIST_PLUGIN_NAME'))
 		{
@@ -393,9 +393,11 @@ class Wf_Woocommerce_Packing_List {
 		
 		//ajax hook for saving settings from the form wizard
 		$this->loader->add_action('wp_ajax_wt_pklist_form_wizard_save', $this->plugin_admin, 'wt_pklist_form_wizard_save');
-		$this->loader->add_action('woocommerce_settings_save_tax',$this->plugin_admin,'update_plugin_settings_when_wc_update_settings');
+		$this->loader->add_action('woocommerce_settings_saved',$this->plugin_admin,'update_plugin_settings_when_wc_update_settings');
 		$this->loader->add_action( 'woocommerce_checkout_update_order_meta', $this, 'save_order_language_code' );
 		$this->loader->add_action( 'woocommerce_store_api_checkout_order_processed', $this, 'save_order_language_code' ); // Checkout block
+
+		
 		/**
 		 *  Set screens to show promotional banner 
 		 * 
@@ -610,12 +612,15 @@ class Wf_Woocommerce_Packing_List {
 	 * @since     2.5.0
 	 */
 	public static function default_settings( $base_id='' ) {
-		$wc_tax = !empty(get_option('woocommerce_prices_include_tax')) ? get_option('woocommerce_prices_include_tax') : 'no';
-		if("yes" === $wc_tax){
+		$wc_price_inc_tax 	= get_option('woocommerce_prices_include_tax');
+		$wc_tax_enable		= ! function_exists( 'wc_tax_enabled' ) ? apply_filters( 'wc_tax_enabled', get_option( 'woocommerce_calc_taxes' ) === 'yes' ) : wc_tax_enabled();
+
+		if ( $wc_tax_enable &&  "yes" === $wc_price_inc_tax ) {
 			$wt_tax = array('in_tax');
-		}else{
+		} else {
 			$wt_tax = array('ex_tax');
 		}
+		
 		$settings	= array(
 			'woocommerce_wf_packinglist_companyname'			=> '',
 			'woocommerce_wf_packinglist_logo'					=> '',

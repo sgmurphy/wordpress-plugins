@@ -274,7 +274,7 @@ final class FLBuilderAJAXLayout {
 		 * Get Siblings who's positions have changed.
 		 * Only need node fragments for this.
 		 */
-		$siblings      = FLBuilderModel::get_nodes( 'column-group', $group->parent );
+		$siblings      = FLBuilderModel::get_nodes( null, $group->parent );
 		$updated_nodes = array();
 		foreach ( $siblings as $sibling ) {
 			if ( is_object( $sibling ) && isset( $sibling->node ) && $sibling->node !== $group->node ) {
@@ -376,7 +376,7 @@ final class FLBuilderAJAXLayout {
 		 * Get Siblings who's positions have changed.
 		 * Only need node fragments for this.
 		 */
-		$siblings      = FLBuilderModel::get_nodes( $root->type, $root->parent );
+		$siblings      = FLBuilderModel::get_nodes( null, $root->parent );
 		$updated_nodes = array();
 		foreach ( $siblings as $sibling ) {
 			if ( is_object( $sibling ) && isset( $sibling->node ) && $sibling->node !== $root->node ) {
@@ -466,8 +466,13 @@ final class FLBuilderAJAXLayout {
 				$module = FLBuilderModel::apply_node_template( $template_id, $parent_id, $position );
 			}
 		} else {
-			$defaults = FLBuilderModel::get_module_alias_settings( $alias );
-			$module   = FLBuilderModel::add_default_module( $parent_id, $type, $position, $defaults );
+			$alias = FLBuilderModel::get_module_alias( $alias );
+
+			if ( $alias ) {
+				$module = FLBuilderModel::add_default_module( $parent_id, $type, $position, $alias->settings, $alias->template );
+			} else {
+				$module = FLBuilderModel::add_default_module( $parent_id, $type, $position );
+			}
 		}
 
 		// Maybe render the module's parent for a partial refresh?
@@ -478,38 +483,21 @@ final class FLBuilderAJAXLayout {
 
 			// Get the node to render.
 			if ( ! $parent ) {
-				$row       = FLBuilderModel::get_module_parent( 'row', $module );
-				$render_id = $row->node;
-			} elseif ( 'row' == $parent->type ) {
-				$group     = FLBuilderModel::get_module_parent( 'column-group', $module );
-				$render_id = $group->node;
+				$root      = FLBuilderModel::get_module_parent( 'row', $module );
+				$siblings  = FLBuilderModel::get_nodes( 'row' );
+				$render_id = $root->node;
+			} elseif ( 'row' == $parent->type && ! $module->accepts_children() ) {
+				$root      = FLBuilderModel::get_module_parent( 'column-group', $module );
+				$siblings  = FLBuilderModel::get_nodes( null, $root->parent );
+				$render_id = $root->node;
 			} elseif ( 'column-group' == $parent->type ) {
+				$root      = FLBuilderModel::get_module_parent( 'column', $module );
+				$siblings  = FLBuilderModel::get_nodes( 'column', $root->parent );
 				$render_id = $parent->node;
 			} else {
+				$root      = $module;
+				$siblings  = FLBuilderModel::get_nodes( null, $root->parent );
 				$render_id = $module->node;
-			}
-		} else {
-			$render_id = null;
-		}
-
-		// Get node data for redux store
-		if ( $module->partial_refresh ) {
-			if ( ! $parent ) {
-				$scope    = 'new-row';
-				$root     = FLBuilderModel::get_module_parent( 'row', $module );
-				$siblings = FLBuilderModel::get_nodes( 'row' );
-			} elseif ( 'row' == $parent->type ) {
-				$scope    = 'new-column-group';
-				$root     = FLBuilderModel::get_module_parent( 'column-group', $module );
-				$siblings = FLBuilderModel::get_nodes( 'column-group', $root->parent );
-			} elseif ( 'column-group' == $parent->type ) {
-				$scope    = 'new-column';
-				$root     = FLBuilderModel::get_module_parent( 'column', $module );
-				$siblings = FLBuilderModel::get_nodes( 'column', $root->parent );
-			} else {
-				$scope    = 'new-module';
-				$root     = $module;
-				$siblings = FLBuilderModel::get_nodes( 'module', $root->parent );
 			}
 
 			/**
@@ -538,6 +526,7 @@ final class FLBuilderAJAXLayout {
 		} else {
 			$new_nodes     = FLBuilderModel::get_layout_data();
 			$updated_nodes = array();
+			$render_id     = null;
 		}
 
 		return array(
@@ -571,13 +560,17 @@ final class FLBuilderAJAXLayout {
 		 * We need whole nodes for any newly-created nodes.
 		 * Depending on where the module was dropped, $root is the top-most new node.
 		*/
-		$new_nodes = FLBuilderModel::clean_layout_data( array( $module->node => $module ) );
+		$children  = FLBuilderModel::get_nested_nodes( $module->node );
+		$new_nodes = FLBuilderModel::clean_layout_data( array_merge(
+			array( $module->node => $module ),
+			$children
+		) );
 
 		/**
 		 * Get Siblings who's positions have changed.
 		 * Only need node fragments for this.
 		 */
-		$siblings      = FLBuilderModel::get_nodes( 'module', $module->parent );
+		$siblings      = FLBuilderModel::get_nodes( null, $module->parent );
 		$siblings      = FLBuilderModel::clean_layout_data( $siblings );
 		$updated_nodes = array();
 		foreach ( $siblings as $sibling ) {

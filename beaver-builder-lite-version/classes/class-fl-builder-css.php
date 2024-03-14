@@ -8,6 +8,14 @@
 final class FLBuilderCSS {
 
 	/**
+	 * Static list of breakpoints.
+	 *
+	 * @since 2.8
+	 * @var array $breakpoints
+	 */
+	static private $breakpoints = array( '', 'large', 'medium', 'responsive' );
+
+	/**
 	 * An array of rule arg arrays that is used
 	 * and cleared when the render method is called.
 	 *
@@ -25,6 +33,44 @@ final class FLBuilderCSS {
 	 */
 	static public function rule( $args = array() ) {
 		self::$rules[] = $args;
+	}
+
+	/**
+	 * Retrieve all breakpoints.
+	 *
+	 * @since 2.8
+	 * @return array
+	 */
+	static public function get_breakpoints() {
+		return self::$breakpoints;
+	}
+
+	/**
+	 * Returns an array of selectors for a responsive rule,
+	 * keyed to each breakpoint.
+	 *
+	 * @since 2.8
+	 * @param string|array $selector
+	 * @return array
+	 */
+	static public function get_responsive_selectors( $selector ) {
+		$selectors = [];
+
+		foreach ( self::$breakpoints as $breakpoint ) {
+			if ( ! is_array( $selector ) ) {
+				$selectors[ $breakpoint ] = $selector;
+			} elseif ( ! self::is_array_associative( $selector ) ) {
+				$selectors[ $breakpoint ] = implode( ', ', $selector );
+			} else {
+				if ( '' === $breakpoint ) {
+					$selectors[ $breakpoint ] = $selector['default'];
+				} else {
+					$selectors[ $breakpoint ] = $selector[ $breakpoint ];
+				}
+			}
+		}
+
+		return $selectors;
 	}
 
 	/**
@@ -46,20 +92,24 @@ final class FLBuilderCSS {
 			'unit'              => '',
 			'enabled'           => true,
 			'ignore'            => array(),
+			'format_value'      => null,
+			'substitute_vals'   => null,
 		);
 		$args              = wp_parse_args( $args, $default_args );
 		$settings          = $args['settings'];
 		$setting_name      = $args['setting_name'];
 		$setting_base_name = $args['setting_base_name'];
-		$selector          = is_array( $args['selector'] ) ? implode( ', ', $args['selector'] ) : $args['selector'];
+		$selectors         = self::get_responsive_selectors( $args['selector'] );
 		$prop              = $args['prop'];
 		$props             = $args['props'];
 		$default_unit      = $args['unit'];
 		$enabled           = $args['enabled'];
-		$breakpoints       = array( '', 'large', 'medium', 'responsive' );
+		$breakpoints       = self::get_breakpoints();
 		$ignore            = $args['ignore'];
+		$format_val        = $args['format_value'];
+		$substitute_vals   = $args['substitute_vals'];
 
-		if ( ! $settings || empty( $setting_name ) || empty( $selector ) ) {
+		if ( ! $settings || empty( $setting_name ) || empty( $args['selector'] ) ) {
 			return;
 		}
 
@@ -70,15 +120,66 @@ final class FLBuilderCSS {
 			}
 
 			$suffix    = empty( $breakpoint ) ? '' : "_{$breakpoint}";
-			$name      = $setting_name . $suffix;
+			$name      = ! is_array( $setting_name ) ? $setting_name . $suffix : null;
 			$base_name = empty( $setting_base_name ) ? $name : $setting_base_name . $suffix;
-			$setting   = isset( $settings->{$name} ) ? $settings->{$name} : null;
+
+			if ( ! self::is_rule_enabled( $enabled, $base_name, $settings, $breakpoint ) ) {
+				continue;
+			}
+
+			// Handle compound fields
+			if ( isset( $settings->{$base_name} ) && is_array( $settings->{$base_name} ) ) {
+
+				// This fixes an issue where the compound field base name should not be suffixed.
+				$sub_setting = $setting_name;
+
+				if ( is_string( $sub_setting ) ) {
+
+					if ( ! isset( $settings->{$base_name}[ $sub_setting ] ) ) {
+						continue;
+					}
+
+					$setting = $settings->{$base_name}[ $sub_setting ];
+
+				} elseif ( is_array( $sub_setting ) ) {
+
+					// Special sub-sub field handling
+					if ( isset( $sub_setting['setting_name'] ) ) {
+						$sub_name = $sub_setting['setting_name'];
+
+						if ( ! isset( $settings->{$base_name}[ $sub_name ] ) ) {
+							continue;
+						}
+
+						// Special handling for unit type subfields
+						if ( isset( $sub_setting['type'] ) && 'unit' === $sub_setting['type'] ) {
+							$sub     = $settings->{$base_name}[ $sub_name ];
+							$setting = isset( $sub['length'] ) ? $sub['length'] : '';
+
+							if ( '' !== $setting && isset( $sub['unit'] ) ) {
+								$setting .= $sub['unit'];
+							}
+						} else {
+							$setting = $settings->{$base_name}[ $sub_name ];
+						}
+					} else {
+						continue;
+					}
+				}
+			} else {
+				$setting = isset( $settings->{$name} ) ? $settings->{$name} : null;
+			}
+
+			// Allow staticly-defined substitute values
+			if ( $substitute_vals && in_array( $setting, array_keys( $substitute_vals ) ) ) {
+				$setting = $substitute_vals[ $setting ];
+			}
 
 			if ( null === $setting ) {
 				continue;
 			}
 
-			if ( $enabled && ! in_array( $setting, $ignore ) ) {
+			if ( ! in_array( $setting, $ignore ) ) {
 
 				if ( ! empty( $prop ) ) {
 					$props[ $prop ] = array(
@@ -88,9 +189,10 @@ final class FLBuilderCSS {
 				}
 
 				self::$rules[] = array(
-					'media'    => $breakpoint,
-					'selector' => $selector,
-					'props'    => $props,
+					'media'        => $breakpoint,
+					'selector'     => $selectors[ $breakpoint ],
+					'props'        => $props,
+					'format_value' => $args['format_value'],
 				);
 			}
 		}
@@ -110,30 +212,29 @@ final class FLBuilderCSS {
 			'selector'     => '',
 			'props'        => array(),
 			'unit'         => '',
+			'enabled'      => true,
 		) );
 		$settings          = $args['settings'];
 		$setting_base_name = $args['setting_name'];
-		$selector          = is_array( $args['selector'] ) ? implode( ', ', $args['selector'] ) : $args['selector'];
+		$selector          = $args['selector'];
 		$props             = $args['props'];
 		$unit              = $args['unit'];
+		$enabled           = $args['enabled'];
 
 		if ( ! $settings || empty( $setting_base_name ) || empty( $selector ) ) {
 			return;
 		}
 
 		foreach ( $props as $prop => $settings_name ) {
-			$rules = self::responsive_rule( array(
+			self::responsive_rule( array(
 				'settings'          => $settings,
 				'setting_name'      => $settings_name,
 				'setting_base_name' => $setting_base_name,
 				'selector'          => $selector,
 				'prop'              => $prop,
 				'unit'              => $unit,
+				'enabled'           => $enabled,
 			) );
-
-			if ( ! empty( $rules ) ) {
-				self::$rules = array_merge( self::$rules, $rules );
-			}
 		}
 	}
 
@@ -153,12 +254,12 @@ final class FLBuilderCSS {
 			'setting_name' => '',
 		) );
 		$type            = $args['type'];
-		$selector        = is_array( $args['selector'] ) ? implode( ', ', $args['selector'] ) : $args['selector'];
+		$selectors       = self::get_responsive_selectors( $args['selector'] );
 		$settings        = $args['settings'];
 		$setting_name    = $args['setting_name'];
 		$breakpoints     = array( '', 'large', 'medium', 'responsive' );
 
-		if ( empty( $type ) || empty( $selector ) || ! $settings || empty( $setting_name ) ) {
+		if ( empty( $type ) || empty( $args['selector'] ) || ! $settings || empty( $setting_name ) ) {
 			return;
 		}
 
@@ -192,7 +293,7 @@ final class FLBuilderCSS {
 
 			self::$rules[] = array(
 				'media'    => $breakpoint,
-				'selector' => $selector,
+				'selector' => $selectors[ $breakpoint ],
 				'props'    => $props,
 			);
 		}
@@ -341,7 +442,7 @@ final class FLBuilderCSS {
 	 */
 	static public function render() {
 		$rendered    = array();
-		$breakpoints = array( 'default', 'large', 'medium', 'responsive' );
+		$breakpoints = self::get_breakpoints();
 		$css         = '';
 
 		// Setup system breakpoints here to ensure proper order.
@@ -358,16 +459,17 @@ final class FLBuilderCSS {
 
 		foreach ( $rules as $args ) {
 			$defaults = array(
-				'media'    => '',
-				'selector' => '',
-				'enabled'  => true,
-				'props'    => array(),
+				'media'        => '',
+				'selector'     => '',
+				'enabled'      => true,
+				'props'        => array(),
+				'format_value' => null,
 			);
 
 			$args     = array_merge( $defaults, $args );
 			$media    = self::media_value( $args['media'] );
 			$selector = is_array( $args['selector'] ) ? implode( ', ', $args['selector'] ) : $args['selector'];
-			$props    = self::properties( $args['props'] );
+			$props    = self::properties( $args['props'], $args['format_value'] );
 
 			if ( ! $args['enabled'] || empty( $selector ) || empty( $props ) ) {
 				continue;
@@ -418,7 +520,7 @@ final class FLBuilderCSS {
 	 * @param array $props
 	 * @return string
 	 */
-	static public function properties( $props ) {
+	static public function properties( $props, $format_value = '' ) {
 		$css      = '';
 		$defaults = array(
 			'value'   => '',
@@ -445,7 +547,7 @@ final class FLBuilderCSS {
 			switch ( $type ) {
 
 				case 'color':
-					if ( strstr( $value, 'rgb' ) || strstr( $value, 'url' ) ) {
+					if ( strstr( $value, 'rgb' ) || strstr( $value, 'var' ) || strstr( $value, 'url' ) ) {
 						$css .= "\t$name: $value;\n";
 					} elseif ( 'inherit' === $value ) {
 						$css .= "\t$name: inherit;\n";
@@ -470,10 +572,20 @@ final class FLBuilderCSS {
 					break;
 
 				default:
-					$css .= "\t$name: $value";
+					$css .= "\t$name: ";
+
+					// Append unit if exists
 					if ( isset( $args['unit'] ) && '' !== $args['unit'] ) {
-						$css .= $args['unit'];
+						$value .= $args['unit'];
 					}
+
+					// Apply format string
+					if ( is_string( $format_value ) && '' !== $format_value ) {
+						$value = sprintf( $format_value, $value );
+					}
+
+					$css .= $value;
+
 					$css .= ";\n";
 			}
 		}
@@ -550,5 +662,295 @@ final class FLBuilderCSS {
 			$unit = $settings->{$setting_name . '_unit'};
 		}
 		return $unit;
+	}
+
+	/**
+	 * Automatically render CSS for a module based on its field preview data.
+	 *
+	 * @since 2.8
+	 * @param object $module
+	 * @return void
+	 */
+	static public function auto_css( $module ) {
+		$fields = FLBuilderModel::get_settings_form_fields( $module->form );
+		self::auto_css_setup_fields( $fields, $module->node, $module->settings );
+	}
+
+	/**
+	 * Loop over form fields and setup any with auto css enabled.
+	 * Handle sub-form fields.
+	 *
+	 * @return void
+	 */
+	static public function auto_css_setup_fields( $fields, $node_id, $settings ) {
+		// Get fields with auto-style enabled
+		foreach ( $fields as $handle => $field ) {
+
+			if ( 'form' === $field['type'] ) {
+				$fields = FLBuilderModel::get_settings_form_fields( $field['form'], 'general' );
+				self::auto_css_setup_fields( $fields, $node_id, $settings->{$handle} );
+
+			} elseif (
+				isset( $field['preview'] ) &&
+				isset( $field['preview']['auto'] ) &&
+				true === $field['preview']['auto']
+			) {
+				$field['handle'] = $handle;
+				self::auto_css_field( $field, $node_id, $settings );
+			}
+		}
+	}
+
+	/**
+	 * Auto-render css for a single field
+	 *
+	 * @param object $field
+	 * @param object $module
+	 * @return void
+	 */
+	static public function auto_css_field( $field, $node_id, $settings ) {
+		$preview    = $field['preview'];
+		$field_name = $field['handle'];
+		$types      = [ 'css', 'refresh' ];
+
+		// CSS Preview
+		if ( isset( $preview['type'] ) && in_array( $preview['type'], $types ) ) {
+
+			if ( isset( $preview['rules'] ) ) {
+				foreach ( $preview['rules'] as $rule ) {
+					self::auto_css_rule( $node_id, $rule, $field, $settings );
+				}
+			} else {
+				self::auto_css_rule( $node_id, $preview, $field, $settings );
+			}
+		}
+	}
+
+	/**
+	 * Check if a preview rule using auto-css is enabled.
+	 *
+	 * @param array $rule - Either $preview or one of the rule arrays specified in preview
+	 * @param string $field_name - key for the given setting
+	 * @param object $settings - node settings
+	 * @return bool
+	 */
+	static public function is_rule_enabled( $enabled, $field_name, $settings, $breakpoint ) {
+
+		if ( is_callable( $enabled ) ) {
+			return call_user_func( $enabled, $settings->{$field_name}, $settings );
+
+		} elseif ( is_bool( $enabled ) ) {
+			return $enabled;
+
+		} elseif ( is_array( $enabled ) ) {
+
+			// All matches must be true
+			$matches = [];
+			foreach ( $enabled as $property => $value ) {
+
+				// Value can be array of possible values to match
+				if ( is_array( $value ) ) {
+
+					if ( self::is_array_associative( $value ) ) {
+
+						if ( isset( $value['nearest_value'] ) ) {
+
+							$inherited = self::get_inherited_setting_value( $property, $breakpoint, $settings );
+
+							if ( is_string( $value['nearest_value'] ) ) {
+								$matches[] = $value['nearest_value'] === $inherited;
+
+							} elseif ( is_array( $value['nearest_value'] ) ) {
+								$matches[] = in_array( $inherited, $value['nearest_value'] );
+							}
+						}
+					} else {
+
+						// Simple arrays check if there are any value matches
+						$matches[] = in_array( $settings->{$property}, $value );
+					}
+
+					// Value can be strict value
+				} elseif ( isset( $settings->{$property} ) ) {
+					$matches[] = $settings->{$property} === $value;
+				}
+			}
+			return ! in_array( false, $matches );
+		}
+		return boolval( $enabled );
+	}
+
+	/**
+	 * Handle any filtering of selector strings. Meant to match FLBuilderPreview.getFormattedSelector()
+	 *
+	 * @param string selector
+	 * @return string
+	 */
+	static public function get_formatted_selector( $prefix, $selector, $node_id ) {
+		$formatted = '';
+		$parts     = preg_split( '/,(?![^()]*\))/', $selector );
+
+		foreach ( $parts as $i => $part ) {
+
+			if ( strpos( $part, '{node}' ) ) {
+				$formatted .= str_replace( '{node}', $prefix, $part );
+			} elseif ( strpos( $part, '{node_id}' ) ) {
+				$formatted .= preg_replace( '/{node_id}/', $node_id, $part );
+			} else {
+				$formatted .= $prefix . ' ' . $part;
+			}
+
+			if ( $i !== count( $parts ) - 1 ) { //phpcs:ignore WordPress.PHP.YodaConditions.NotYoda
+				$formatted .= ', ';
+			}
+		}
+
+		return trim( $formatted );
+	}
+
+	/**
+	 * Create a single auto css rule
+	 *
+	 * @param string $node_id
+	 * @param array $rule - Either $preview or a single rule array
+	 * @param array $field - field config
+	 * @param object $settings - node settings
+	 * @return void
+	*/
+	static public function auto_css_rule( $node_id, $rule, $field, $settings ) {
+
+		$post_id    = FLBuilderModel::get_post_id();
+		$field_type = $field['type'];
+		$field_name = $field['handle'];
+		$enabled    = isset( $rule['enabled'] ) ? $rule['enabled'] : true;
+
+		/**
+		 * Selector
+		 * This is meant to match the FLBuilderPreview js selector setup as closely as possible.
+		 */
+		$selector = isset( $rule['selector'] ) ? $rule['selector'] : ''; //FLBuilderConfig.postId
+		$prefix   = ".fl-builder-content-{$post_id} .fl-node-{$node_id}";
+		$selector = self::get_formatted_selector( $prefix, $selector, $node_id );
+
+		// Value modifiers
+		$format_val = isset( $rule['format_value'] ) ? $rule['format_value'] : null;
+		$sub_vals   = isset( $rule['substitute_values'] ) ? $rule['substitute_values'] : null;
+
+		switch ( $field_type ) {
+			case 'border':
+				FLBuilderCSS::border_field_rule( [
+					'settings'     => $settings,
+					'setting_name' => $field_name,
+					'selector'     => $selector,
+				] );
+				break;
+			case 'dimension':
+				$props        = [];
+				$css_property = isset( $field['preview']['property'] ) ? $field['preview']['property'] : null;
+
+				if ( ! $css_property ) {
+					return;
+				}
+
+				$keys = isset( $field['keys'] ) ? $field['keys'] : [
+					'top'    => '',
+					'right'  => '',
+					'bottom' => '',
+					'left'   => '',
+				];
+
+				foreach ( $keys as $key => $label ) {
+					switch ( $css_property ) {
+						case 'gap':
+							$props[ "{$key}-{$css_property}" ] = "{$field_name}_{$key}";
+							break;
+						default:
+							$props[ "{$css_property}-{$key}" ] = "{$field_name}_{$key}";
+					}
+				}
+
+				FLBuilderCSS::dimension_field_rule( [
+					'settings'     => $settings,
+					'setting_name' => $field_name,
+					'selector'     => $selector,
+					'unit'         => $settings->{"{$field_name}_unit"},
+					'props'        => $props,
+					'enabled'      => $enabled,
+				] );
+				break;
+			default:
+				$args = [
+					'settings'        => $settings,
+					'setting_name'    => $field_name,
+					'selector'        => $selector,
+					'prop'            => $rule['property'],
+					'format_value'    => $format_val,
+					'substitute_vals' => $sub_vals,
+					'enabled'         => $enabled,
+				];
+
+				// Support sub-values in compound fields
+				if ( isset( $rule['sub_value'] ) ) {
+
+					$args['setting_base_name'] = $field_name;
+					$args['setting_name']      = $rule['sub_value'];
+				}
+
+				if ( is_array( $rule['property'] ) ) {
+					foreach ( $rule['property'] as $property ) {
+						$args['prop'] = $property;
+						FLBuilderCSS::responsive_rule( $args );
+					}
+				} else {
+					FLBuilderCSS::responsive_rule( $args );
+				}
+		}
+	}
+
+	/**
+	 * Find the nearest inherited value for a particular setting from a given breakpoint.
+	 *
+	 * @return String | Null
+	 */
+	static public function get_inherited_setting_value( $setting_base_name, $current_breakpoint, $settings ) {
+
+		// If there's a value at the breakpoint, skip the rest
+		$name = '' === $current_breakpoint ? $setting_base_name : "{$setting_base_name}_{$current_breakpoint}";
+		if ( isset( $settings->{$name} ) && '' !== $settings->{$name} ) {
+			return $settings->{$name};
+		}
+
+		// Only want the breakpoints downstream from (and including) the specified one.
+		$breakpoints = array_reverse( self::get_breakpoints() );
+		$i           = array_search( $current_breakpoint, $breakpoints );
+		if ( false === $i ) {
+			return null;
+		}
+		$breakpoints = array_slice( $breakpoints, $i + 1 );
+
+		foreach ( $breakpoints as $breakpoint ) {
+			$name = '' === $breakpoint ? $setting_base_name : "{$setting_base_name}_{$breakpoint}";
+			if ( isset( $settings->{$name} ) && '' !== $settings->{$name} ) {
+				return $settings->{$name};
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Helper function to determine if an array is associative.
+	 * PHP 8 has a builtin one but this allows backwards compact.
+	 *
+	 * @param Array $array
+	 * @return Bool
+	 */
+	static public function is_array_associative( $array ) {
+		$i = 0;
+		foreach ( $array as $k => $v ) {
+			if ( $k !== $i++ ) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

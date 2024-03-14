@@ -516,8 +516,8 @@
         /**
         * The wp.template reference
         */
-        templateName: 'fl-content-panel-saved-view',        
-        
+        templateName: 'fl-content-panel-saved-view',
+
         bindEvents: function() {
             this.$savedSearchInput = $(this.$el[0]).find('input[name="saved-search-term"]');
             this.$savedSearchInput.on('keyup', this.onSavedSearchTermChanged.bind(this) );
@@ -542,7 +542,7 @@
 
         onSavedSearchTermChanged: function(e) {
             var value = this.$savedSearchInput.val();
-            
+
             this.showSearchResults( value );
         },
 
@@ -570,7 +570,7 @@
             tempContent = '<div class="temp-content">' + html + '</div>';
             buttonContent = $(tempContent).find('.fl-builder-panel-saved-search').wrap('</p>').parent().html();
             noButtonContent = $(tempContent.replace(buttonContent, '')).html();
-            
+
             $(this.$el).parent().find('.fl-content-panel-saved-view-content').html( noButtonContent );
             FLBuilder._initSortables();
         },
@@ -899,7 +899,7 @@
         */
         show: function(tabName) {
 
-			if ( 'module' === FLBuilderConfig.userTemplateType || FLBuilderConfig.simpleUi ) {
+			if ( FLBuilderConfig.userTemplateIsLeafModule || FLBuilderConfig.simpleUi ) {
 				return;
 			}
 

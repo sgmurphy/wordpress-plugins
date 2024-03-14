@@ -12,14 +12,14 @@
  * Plugin Name:       WooCommerce PDF Invoices, Packing Slips, Delivery Notes and Shipping Labels
  * Plugin URI:        https://www.webtoffee.com/product/woocommerce-pdf-invoices-packing-slips/
  * Description:       Prints Packing List,Invoice,Delivery Note and Shipping Label.
- * Version:           4.4.1
+ * Version:           4.4.2
  * Author:            WebToffee
  * Author URI:        https://www.webtoffee.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       print-invoices-packing-slip-labels-for-woocommerce
  * Domain Path:       /languages
- * WC tested up to:   8.5
+ * WC tested up to:   8.6
  */
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -28,7 +28,6 @@ if ( ! defined( 'WPINC' ) ) {
 
 
 include_once(ABSPATH.'wp-admin/includes/plugin.php');
-
 
 $current_plugin_name='WooCommerce PDF Invoices, Packing Slips, Delivery Notes and Shipping Labels (Basic)';
 $wt_pklist_no_plugin_conflict=true;
@@ -71,7 +70,7 @@ if(!defined('WF_PKLIST_VERSION')) //check plugin file already included
     /**
      * Currently plugin version.
      */
-    define( 'WF_PKLIST_VERSION', '4.4.1' );
+    define( 'WF_PKLIST_VERSION', '4.4.2' );
 }
 
 /**
@@ -119,6 +118,7 @@ add_action(
     function () {
         if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
             \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+            \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
         }
     }
 );

@@ -72,12 +72,16 @@ __webpack_require__.r(__webpack_exports__);
 var getDeleteConfirmationMessage = function getDeleteConfirmationMessage(type) {
   var _window$FLBuilderStri = window.FLBuilderStrings,
       deleteRowMessage = _window$FLBuilderStri.deleteRowMessage,
+      deleteColumnGroupMessage = _window$FLBuilderStri.deleteColumnGroupMessage,
       deleteColumnMessage = _window$FLBuilderStri.deleteColumnMessage,
       deleteModuleMessage = _window$FLBuilderStri.deleteModuleMessage;
 
   switch (type) {
     case 'row':
       return deleteRowMessage;
+
+    case 'column-group':
+      return deleteColumnGroupMessage;
 
     case 'column':
       return deleteColumnMessage;
@@ -119,6 +123,8 @@ var deleteNode = function deleteNode(id) {
       var col = FLBuilder._getColToDelete(el);
 
       FLBuilder._deleteCol(col);
+    } else if ('column-group' === node.type) {
+      FLBuilder._deleteColGroup(el);
     } else if ('row' === node.type) {
       FLBuilder._deleteRow(el);
     }
@@ -259,6 +265,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getSystemState": () => (/* reexport safe */ _system__WEBPACK_IMPORTED_MODULE_0__.getSystemState),
 /* harmony export */   "getSystemStore": () => (/* reexport safe */ _system__WEBPACK_IMPORTED_MODULE_0__.getSystemStore),
 /* harmony export */   "nodeExists": () => (/* reexport safe */ _layout__WEBPACK_IMPORTED_MODULE_1__.nodeExists),
+/* harmony export */   "updateNode": () => (/* reexport safe */ _layout__WEBPACK_IMPORTED_MODULE_1__.updateNode),
 /* harmony export */   "useLayoutState": () => (/* reexport safe */ _layout__WEBPACK_IMPORTED_MODULE_1__.useLayoutState),
 /* harmony export */   "useOutlinePanelState": () => (/* reexport safe */ _outlinepanel__WEBPACK_IMPORTED_MODULE_2__.useOutlinePanelState),
 /* harmony export */   "useSystemState": () => (/* reexport safe */ _system__WEBPACK_IMPORTED_MODULE_0__.useSystemState)
@@ -307,6 +314,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "moveColumn": () => (/* binding */ moveColumn),
 /* harmony export */   "moveNode": () => (/* binding */ moveNode),
 /* harmony export */   "redo": () => (/* binding */ redo),
+/* harmony export */   "removeNode": () => (/* binding */ removeNode),
 /* harmony export */   "renderHistoryState": () => (/* binding */ renderHistoryState),
 /* harmony export */   "renderLayout": () => (/* binding */ renderLayout),
 /* harmony export */   "renderNode": () => (/* binding */ renderNode),
@@ -319,6 +327,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "resizingComplete": () => (/* binding */ resizingComplete),
 /* harmony export */   "saveDraft": () => (/* binding */ saveDraft),
 /* harmony export */   "saveGlobalSettings": () => (/* binding */ saveGlobalSettings),
+/* harmony export */   "saveGlobalStyles": () => (/* binding */ saveGlobalStyles),
 /* harmony export */   "saveHistoryState": () => (/* binding */ saveHistoryState),
 /* harmony export */   "saveLayout": () => (/* binding */ saveLayout),
 /* harmony export */   "saveLayoutSettings": () => (/* binding */ saveLayoutSettings),
@@ -438,6 +447,12 @@ var updateNodeSetting = function updateNodeSetting(id, key, value) {
 var deleteNode = function deleteNode(id) {
   return {
     type: 'DELETE_NODE',
+    id: id
+  };
+};
+var removeNode = function removeNode(id) {
+  return {
+    type: 'REMOVE_NODE',
     id: id
   };
 };
@@ -688,6 +703,13 @@ var saveGlobalSettings = function saveGlobalSettings() {
   var settings = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   return {
     type: 'SAVE_GLOBAL_SETTINGS',
+    settings: settings
+  };
+};
+var saveGlobalStyles = function saveGlobalStyles() {
+  var settings = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return {
+    type: 'SAVE_GLOBAL_STYLES',
     settings: settings
   };
 };
@@ -1284,13 +1306,20 @@ var after = {
       settings: settings
     }, FLBuilder._saveGlobalSettingsComplete);
   },
+  SAVE_GLOBAL_STYLES: function SAVE_GLOBAL_STYLES(_ref31) {
+    var settings = _ref31.settings;
+    FLBuilder.ajax({
+      action: 'save_global_styles',
+      settings: settings
+    }, FLBuilderGlobalStyles._onSaveComplete);
+  },
 
   /**
   * History States
   */
-  SAVE_HISTORY_STATE: function SAVE_HISTORY_STATE(_ref31) {
-    var label = _ref31.label,
-        moduleType = _ref31.moduleType;
+  SAVE_HISTORY_STATE: function SAVE_HISTORY_STATE(_ref32) {
+    var label = _ref32.label,
+        moduleType = _ref32.moduleType;
 
     if (!FLBuilderConfig.history.enabled) {
       return false;
@@ -1308,21 +1337,22 @@ var after = {
       FLBuilderHistoryManager.setupMainMenuData();
     });
   },
-  CLEAR_HISTORY_STATES: function CLEAR_HISTORY_STATES(_ref32) {
-    var postId = _ref32.postId,
-        shouldExit = _ref32.shouldExit;
-    FLBuilder.ajax({
-      action: 'clear_history_states',
-      post_id: postId
-    }, function () {
-      if (!shouldExit) {
+  CLEAR_HISTORY_STATES: function CLEAR_HISTORY_STATES(_ref33) {
+    var postId = _ref33.postId,
+        shouldExit = _ref33.shouldExit;
+
+    if (!shouldExit) {
+      FLBuilder.ajax({
+        action: 'clear_history_states',
+        post_id: postId
+      }, function () {
         FLBuilderHistoryManager.saveCurrentState('draft_created');
-      }
-    });
+      });
+    }
   },
-  RENDER_HISTORY_STATE: function RENDER_HISTORY_STATE(_ref33, store) {
-    var position = _ref33.position,
-        callback = _ref33.callback;
+  RENDER_HISTORY_STATE: function RENDER_HISTORY_STATE(_ref34, store) {
+    var position = _ref34.position,
+        callback = _ref34.callback;
     FLBuilder.ajax({
       action: 'render_history_state',
       position: position
@@ -1339,8 +1369,8 @@ var after = {
   /**
   * Settings Panels
   */
-  DISPLAY_SETTINGS: function DISPLAY_SETTINGS(_ref34, store) {
-    var id = _ref34.id;
+  DISPLAY_SETTINGS: function DISPLAY_SETTINGS(_ref35, store) {
+    var id = _ref35.id;
     var nodes = store.getState().layout.present.nodes;
 
     if ('global' === id) {
@@ -1408,6 +1438,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getLayoutStore": () => (/* binding */ getLayoutStore),
 /* harmony export */   "getNode": () => (/* binding */ getNode),
 /* harmony export */   "nodeExists": () => (/* binding */ nodeExists),
+/* harmony export */   "updateNode": () => (/* binding */ updateNode),
 /* harmony export */   "useLayoutState": () => (/* binding */ useLayoutState)
 /* harmony export */ });
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store */ "./src/builder/data/layout/store/index.js");
@@ -1463,6 +1494,9 @@ var getNode = function getNode(id) {
   }
 
   return nodes;
+};
+var updateNode = function updateNode(id, node) {
+  store.dispatch(_actions__WEBPACK_IMPORTED_MODULE_3__.updateNode(id, node));
 };
 var getChildren = function getChildren(id) {
   var nodes = getLayoutState().layout.present.nodes;
@@ -1557,6 +1591,7 @@ var nodes = function nodes() {
       })));
 
     case 'DELETE_NODE':
+    case 'REMOVE_NODE':
       return (0,_utils__WEBPACK_IMPORTED_MODULE_2__.deleteNodeAndResolvePositions)(action.id, state);
 
     /**
@@ -1841,7 +1876,7 @@ var getNodeSettings = function getNodeSettings() {
   var id = arguments.length > 1 ? arguments[1] : undefined;
   var nodes = state.layout.present.nodes;
 
-  if (undefined === nodes[id]) {
+  if (undefined === nodes[id] || !nodes[id].settings) {
     return {};
   }
 
@@ -2489,6 +2524,7 @@ var deleteChildren = function deleteChildren(id, nodes) {
     }
   });
   toDelete.map(function (key) {
+    newNodes = deleteChildren(key, newNodes);
     delete newNodes[key];
   });
   return newNodes;
@@ -2502,19 +2538,16 @@ var deleteNodeAndResolvePositions = function deleteNodeAndResolvePositions(id, n
   }
 
   var parent = nodes[id].parent;
-  var type = nodes[id].type; // Delete the target node
+  var type = nodes[id].type; // Delete the target node and children
 
-  var newState = _objectSpread({}, nodes);
-
+  var newState = deleteChildren(id, nodes);
   delete newState[id]; // Column nodes check for empty column-groups to delete too
 
   if ('column' === type && isNodeEmpty(parent, newState)) {
     delete newState[parent];
-  } // Delete all child nodes
-
-
-  deleteChildren(id, newState); // Reset sibling positions
+  } // Reset sibling positions
   // Handle col size reset
+
 
   var siblings = getChildNodes(newState, parent);
   siblings.map(function (node, i) {
@@ -3071,7 +3104,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/builder/ui/3rd-party/query-monitor/style.scss");
+/* harmony import */ var _i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../i18n */ "./src/builder/ui/i18n/index.js");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.scss */ "./src/builder/ui/3rd-party/query-monitor/style.scss");
+
 
 
 var querymonitor = function querymonitor() {
@@ -3086,7 +3121,7 @@ var querymonitor = function querymonitor() {
       return onClick();
     };
 
-    btn.title = 'Query Monitor';
+    btn.title = (0,_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Query Monitor');
 
     if (jQuery('#query-monitor-main').length > 0) {
       actions.insertBefore(btn, saving);
@@ -3133,14 +3168,160 @@ __webpack_require__.r(__webpack_exports__);
 
 var SVGSymbols = function SVGSymbols() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("svg", {
-    id: "fl-symbol-container",
-    version: "1.1",
-    xmlns: "http://www.w3.org/2000/svg"
+    id: "fl-symbol-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("symbol", {
     id: "fl-down-caret",
     viewBox: "0 0 11 6"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("polygon", {
     points: "0 0 2.05697559 0 5.49235478 3.74058411 8.93443824 0 11 0 5.5 6"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("symbol", {
+    id: "fl-v-stack-icon",
+    fill: "currentColor",
+    width: "23",
+    height: "10",
+    viewBox: "0 0 23 10"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    width: "23",
+    height: "2"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    y: "4",
+    width: "23",
+    height: "2"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    y: "8",
+    width: "23",
+    height: "2"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("symbol", {
+    id: "fl-h-stack-icon",
+    width: "24",
+    height: "10",
+    viewBox: "0 0 24 10",
+    fill: "currentColor",
+    stroke: "none"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    width: "2",
+    height: "10"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    x: "5.5",
+    width: "2",
+    height: "10"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    x: "11",
+    width: "2",
+    height: "10"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    x: "16.5",
+    width: "2",
+    height: "10"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    x: "22",
+    width: "2",
+    height: "10"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("symbol", {
+    id: "fl-z-stack-icon",
+    width: "24",
+    height: "10",
+    viewBox: "0 0 24 10",
+    fill: "none"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    x: "1",
+    y: "1",
+    width: "22",
+    height: "8",
+    stroke: "currentColor",
+    strokeWidth: "2"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    x: "4",
+    y: "4",
+    width: "16",
+    height: "2",
+    fill: "currentColor"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("symbol", {
+    id: "fl-grid-display-icon",
+    width: "26",
+    height: "10",
+    viewBox: "0 0 26 10"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    x: "12",
+    width: "6",
+    height: "4",
+    fill: "currentColor"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    x: "12",
+    y: "6",
+    width: "6",
+    height: "4",
+    fill: "currentColor"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    width: "10",
+    height: "10",
+    fill: "currentColor"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    x: "20",
+    width: "6",
+    height: "4",
+    fill: "currentColor"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    x: "20",
+    y: "6",
+    width: "6",
+    height: "4",
+    fill: "currentColor"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("symbol", {
+    id: "fl-swiper-display-icon",
+    width: "23",
+    height: "10",
+    viewBox: "0 0 23 10"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    x: "6.75",
+    y: "0.75",
+    width: "9.5",
+    height: "8.5",
+    rx: "1.25",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("path", {
+    d: "M20 3L22 5L20 7",
+    stroke: "currentColor",
+    strokeWidth: "1.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("path", {
+    d: "M3 3L1 5L3 7",
+    stroke: "currentColor",
+    strokeWidth: "1.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("symbol", {
+    id: "fl-v-panel-drag-handle",
+    width: "4",
+    height: "20",
+    viewBox: "0 0 4 20",
+    fill: "none"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("rect", {
+    width: "4",
+    height: "20",
+    rx: "2",
+    fill: "currentColor"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("symbol", {
+    id: "fl-question-mark",
+    width: "12",
+    height: "12",
+    viewBox: "0 0 12 12",
+    fill: "none"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("path", {
+    d: "M6 12C9.28235 12 12 9.27647 12 6C12 2.71765 9.27647 0 5.99412 0C2.71765 0 0 2.71765 0 6C0 9.27647 2.72353 12 6 12ZM6 11C3.22353 11 1.00588 8.77647 1.00588 6C1.00588 3.22353 3.21765 1 5.99412 1C8.77059 1 11 3.22353 11 6C11 8.77647 8.77647 11 6 11ZM5.87647 7.21765C6.17059 7.21765 6.35294 7.02941 6.35294 6.8V6.72941C6.35294 6.4 6.54118 6.18824 6.95294 5.91765C7.52353 5.54118 7.92941 5.2 7.92941 4.49412C7.92941 3.51765 7.05882 2.98824 6.05882 2.98824C5.04706 2.98824 4.38235 3.47059 4.22353 4.01176C4.19412 4.10588 4.17647 4.2 4.17647 4.3C4.17647 4.56471 4.38235 4.70588 4.57647 4.70588C4.77647 4.70588 4.90588 4.61176 5.01177 4.47059L5.11765 4.32941C5.32353 3.98824 5.62941 3.78824 6.02353 3.78824C6.55882 3.78824 6.90588 4.09412 6.90588 4.54118C6.90588 4.94118 6.65882 5.13529 6.14706 5.49412C5.72353 5.78824 5.40588 6.1 5.40588 6.67647V6.75294C5.40588 7.05882 5.57647 7.21765 5.87647 7.21765ZM5.86471 8.97059C6.20588 8.97059 6.5 8.7 6.5 8.35882C6.5 8.01765 6.21177 7.74706 5.86471 7.74706C5.51765 7.74706 5.22941 8.02353 5.22941 8.35882C5.22941 8.69412 5.52353 8.97059 5.86471 8.97059Z",
+    fill: "currentColor"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("symbol", {
+    id: "fl-outline-list-icon",
+    width: "20",
+    height: "20",
+    viewBox: "0 0 20 20",
+    fill: "none"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("path", {
+    d: "M1.38672 5.33984C2.1582 5.33984 2.77344 4.72461 2.77344 3.95312C2.77344 3.19141 2.1582 2.56641 1.38672 2.56641C0.625 2.56641 0 3.19141 0 3.95312C0 4.72461 0.625 5.33984 1.38672 5.33984ZM5.97656 4.89062H14.0565C14.5838 4.89062 15.0038 4.48047 15.0038 3.95312C15.0038 3.42578 14.5936 3.01562 14.0565 3.01562H5.97656C5.45898 3.01562 5.03906 3.42578 5.03906 3.95312C5.03906 4.48047 5.44922 4.89062 5.97656 4.89062ZM3.88672 11.3457C4.64844 11.3457 5.27344 10.7305 5.27344 9.95898C5.27344 9.19727 4.64844 8.57227 3.88672 8.57227C3.11523 8.57227 2.49023 9.19727 2.49023 9.95898C2.49023 10.7305 3.11523 11.3457 3.88672 11.3457ZM8.47656 10.8965H16.5794C17.1068 10.8965 17.5169 10.4863 17.5169 9.95898C17.5169 9.43164 17.1068 9.02148 16.5794 9.02148H8.47656C7.94922 9.02148 7.53906 9.43164 7.53906 9.95898C7.53906 10.4863 7.94922 10.8965 8.47656 10.8965ZM6.37695 17.3516C7.14844 17.3516 7.76367 16.7363 7.76367 15.9648C7.76367 15.2031 7.14844 14.5781 6.37695 14.5781C5.61523 14.5781 4.99023 15.2031 4.99023 15.9648C4.99023 16.7363 5.61523 17.3516 6.37695 17.3516ZM10.9668 16.9023H19.0251C19.5524 16.9023 19.9626 16.4922 19.9626 15.9648C19.9626 15.4375 19.5524 15.0273 19.0251 15.0273H10.9668C10.4395 15.0273 10.0293 15.4375 10.0293 15.9648C10.0293 16.4922 10.4395 16.9023 10.9668 16.9023Z",
+    fill: "currentColor"
   })));
 };
 var Icon = function Icon() {};
@@ -3449,6 +3630,35 @@ var ContextMenu = function ContextMenu(_ref) {
 
 /***/ }),
 
+/***/ "./src/builder/ui/i18n/index.js":
+/*!**************************************!*\
+  !*** ./src/builder/ui/i18n/index.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "__": () => (/* binding */ __)
+/* harmony export */ });
+/**
+ * @since 2.8
+ * @param {String} string
+ * @return {String}
+ */
+function __(string) {
+  var strings = window.FLBuilderStrings.i18n;
+
+  if (typeof strings[string] !== 'undefined') {
+    return strings[string];
+  } else {
+    console.warn('No translation found for "' + string + '" Please add string to includes/ui-js-config.php');
+    return string;
+  }
+}
+
+/***/ }),
+
 /***/ "./src/builder/ui/index.js":
 /*!*********************************!*\
   !*** ./src/builder/ui/index.js ***!
@@ -3640,7 +3850,7 @@ var InlineEditor = /*#__PURE__*/function (_Component) {
           content.find(selector).each(function (index, module) {
             module = jQuery(module);
             module.addClass('fl-editable');
-            module.delegate('.fl-block-overlay', 'click.fl-inline-editing-init', function (e) {
+            module.on('click.fl-inline-editing-init', function (e) {
               return _this2.initEditable(e, module);
             });
           });
@@ -3666,7 +3876,7 @@ var InlineEditor = /*#__PURE__*/function (_Component) {
       this.setupEditable(module, function () {
         _this3.onModuleOverlayClick(e);
       });
-      module.undelegate('.fl-block-overlay', 'click.fl-inline-editing-init');
+      module.off('click.fl-inline-editing-init');
     }
   }, {
     key: "setupEditable",
@@ -3689,7 +3899,7 @@ var InlineEditor = /*#__PURE__*/function (_Component) {
       var form = jQuery(".fl-builder-settings[data-node=".concat(nodeId, "]"));
       var connections = settings.connections;
       module.append(overlay);
-      module.on('click', '.fl-block-overlay', this.onModuleOverlayClick.bind(this));
+      module.on('click', this.onModuleOverlayClick.bind(this));
       module.on('mouseleave', this.onModuleMouseleave.bind(this));
 
       var _loop = function _loop(key) {
@@ -3784,7 +3994,7 @@ var InlineEditor = /*#__PURE__*/function (_Component) {
       var overlays = modules.find('.fl-inline-editor');
       var extras = jQuery('.wplink-autocomplete, .ui-helper-hidden-accessible');
       editables.removeAttr('contenteditable');
-      modules.undelegate('.fl-block-overlay', 'click');
+      modules.off('click');
       modules.off('mouseleave');
       modules.removeClass('fl-editable');
       overlays.remove();
@@ -4002,7 +4212,7 @@ var InlineEditor = /*#__PURE__*/function (_Component) {
     value: function showModuleSettings(module) {
       var type = module.data('type');
       var nodeId = module.data('node');
-      var parentId = module.closest('.fl-col').data('node');
+      var parentId = module.parents('.fl-module, .fl-col').data('node');
       var global = module.hasClass('fl-node-global');
       var settings = jQuery(".fl-builder-settings[data-node=\"".concat(nodeId, "\"]"));
 
@@ -4302,7 +4512,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "registerOutlinePanel": () => (/* binding */ registerOutlinePanel)
 /* harmony export */ });
 /* harmony import */ var _outline__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./outline */ "./src/builder/ui/outline-panel/outline/index.js");
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/builder/ui/outline-panel/style.scss");
+/* harmony import */ var _i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../i18n */ "./src/builder/ui/i18n/index.js");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.scss */ "./src/builder/ui/outline-panel/style.scss");
+
 
 
 var registerOutlinePanel = function registerOutlinePanel() {
@@ -4310,7 +4522,7 @@ var registerOutlinePanel = function registerOutlinePanel() {
       registerPanel = _window$FL$Builder.registerPanel,
       togglePanel = _window$FL$Builder.togglePanel;
   registerPanel('outline', {
-    label: 'Outline',
+    label: (0,_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Outline'),
     render: _outline__WEBPACK_IMPORTED_MODULE_0__["default"],
     // legacy
     root: _outline__WEBPACK_IMPORTED_MODULE_0__["default"] // asst compat branch changes to root
@@ -4321,13 +4533,13 @@ var registerOutlinePanel = function registerOutlinePanel() {
     var saving = actions.querySelector('.fl-builder--saving-indicator');
     var btn = document.createElement('button');
     btn.classList.add('fl-builder-button', 'fl-builder-button-silent');
-    btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.38672 5.33984C2.1582 5.33984 2.77344 4.72461 2.77344 3.95312C2.77344 3.19141 2.1582 2.56641 1.38672 2.56641C0.625 2.56641 0 3.19141 0 3.95312C0 4.72461 0.625 5.33984 1.38672 5.33984ZM5.97656 4.89062H14.0565C14.5838 4.89062 15.0038 4.48047 15.0038 3.95312C15.0038 3.42578 14.5936 3.01562 14.0565 3.01562H5.97656C5.45898 3.01562 5.03906 3.42578 5.03906 3.95312C5.03906 4.48047 5.44922 4.89062 5.97656 4.89062ZM3.88672 11.3457C4.64844 11.3457 5.27344 10.7305 5.27344 9.95898C5.27344 9.19727 4.64844 8.57227 3.88672 8.57227C3.11523 8.57227 2.49023 9.19727 2.49023 9.95898C2.49023 10.7305 3.11523 11.3457 3.88672 11.3457ZM8.47656 10.8965H16.5794C17.1068 10.8965 17.5169 10.4863 17.5169 9.95898C17.5169 9.43164 17.1068 9.02148 16.5794 9.02148H8.47656C7.94922 9.02148 7.53906 9.43164 7.53906 9.95898C7.53906 10.4863 7.94922 10.8965 8.47656 10.8965ZM6.37695 17.3516C7.14844 17.3516 7.76367 16.7363 7.76367 15.9648C7.76367 15.2031 7.14844 14.5781 6.37695 14.5781C5.61523 14.5781 4.99023 15.2031 4.99023 15.9648C4.99023 16.7363 5.61523 17.3516 6.37695 17.3516ZM10.9668 16.9023H19.0251C19.5524 16.9023 19.9626 16.4922 19.9626 15.9648C19.9626 15.4375 19.5524 15.0273 19.0251 15.0273H10.9668C10.4395 15.0273 10.0293 15.4375 10.0293 15.9648C10.0293 16.4922 10.4395 16.9023 10.9668 16.9023Z" fill="currentColor"/></svg>';
+    btn.innerHTML = '<svg width="20" height="20"><use href="#fl-outline-list-icon" /></svg>';
 
     btn.onclick = function () {
       return togglePanel('outline');
     };
 
-    btn.title = 'Outline';
+    btn.title = (0,_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Outline');
     actions.insertBefore(btn, saving);
   });
 };
@@ -4373,8 +4585,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var ui_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ui/i18n */ "./src/builder/ui/i18n/index.js");
 /* harmony import */ var ui_context_menu__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ui/context-menu */ "./src/builder/ui/context-menu/index.js");
 /* harmony import */ var api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! api */ "./src/builder/api/index.js");
 /* harmony import */ var data__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! data */ "./src/builder/data/index.js");
@@ -4428,9 +4639,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
  */
 
 var Outline = function Outline() {
+  var _getSystemActions = (0,data__WEBPACK_IMPORTED_MODULE_5__.getSystemActions)(),
+      togglePanel = _getSystemActions.togglePanel;
   /**
    * Get the top-level nodes to map over
    */
+
+
   var _getLayoutHooks = (0,data__WEBPACK_IMPORTED_MODULE_5__.getLayoutHooks)(),
       useNodesWithoutSettings = _getLayoutHooks.useNodesWithoutSettings;
 
@@ -4518,7 +4733,15 @@ var Outline = function Outline() {
       level: 1,
       index: i
     }, node));
-  })));
+  }), !nodes.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+    className: "fl-builder-outline-no-content"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, (0,ui_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('No content found'), ". "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
+    onClick: function onClick() {
+      togglePanel('outline');
+
+      FLBuilder._showPanel();
+    }
+  }, (0,ui_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add something')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, " ", (0,ui_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('to get started'), "!")))));
 };
 /**
  * Generic Outline Item
@@ -4543,8 +4766,17 @@ var Item = function Item(_ref) {
   var _getLayoutHooks2 = (0,data__WEBPACK_IMPORTED_MODULE_5__.getLayoutHooks)(),
       useNodesWithoutSettings = _getLayoutHooks2.useNodesWithoutSettings;
 
+  var _getLayoutActions = (0,data__WEBPACK_IMPORTED_MODULE_5__.getLayoutActions)(),
+      removeNode = _getLayoutActions.removeNode;
+
   var children = useNodesWithoutSettings(id);
   var hasChildren = 0 < Object.keys(children).length;
+
+  var _getNode = (0,data__WEBPACK_IMPORTED_MODULE_5__.getNode)(id),
+      settings = _getNode.settings;
+
+  var parentNode = (0,data__WEBPACK_IMPORTED_MODULE_5__.getNode)(parent);
+  var parentType = !parentNode.type ? 'layout' : parentNode.type;
   /**
    * Drag info
    */
@@ -4576,21 +4808,6 @@ var Item = function Item(_ref) {
       window.removeEventListener('storage', onUpdateStorage);
     };
   }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (false === draggingItem) {
-      setShowContent((0,_storage__WEBPACK_IMPORTED_MODULE_10__.getStorage)(id, type, global));
-    } else {
-      if ('column' === draggingItem.type && 'row' === type && id !== draggingItem.id) {
-        setShowContent(true);
-      } else if ('column' === draggingItem.type && 'column' === type && id !== draggingItem.id) {
-        setShowContent(false);
-      } else if ('module' === draggingItem.type && 'row' === type && id !== draggingItem.id) {
-        setShowContent(true);
-      } else if ('module' === draggingItem.type && 'column' === type && id !== draggingItem.id) {
-        setShowContent(true);
-      }
-    }
-  }, [draggingItem]);
 
   var onUpdateStorage = function onUpdateStorage() {
     setShowContent((0,_storage__WEBPACK_IMPORTED_MODULE_10__.getStorage)(id, type, global));
@@ -4601,12 +4818,23 @@ var Item = function Item(_ref) {
     style: {
       '--level': level
     },
-    draggable: (0,_utils__WEBPACK_IMPORTED_MODULE_9__.isDraggable)(type),
+    draggable: true,
     onDragStart: function onDragStart(e) {
       // Required for draggable DOM elements
-      e.stopPropagation(); // Setup drag data
+      e.stopPropagation(); // Setup drag image
 
-      e.dataTransfer.setDragImage((0,_utils__WEBPACK_IMPORTED_MODULE_9__.getTransparentImg)(), 0, 0);
+      var ele = window.parent.document.getElementById('fl-builder-node-outline-helper');
+
+      if (!ele) {
+        ele = document.createElement('div');
+        ele.id = 'fl-builder-node-outline-helper';
+        window.parent.document.body.appendChild(ele);
+      }
+
+      ele.style.display = 'block';
+      ele.innerHTML = getItemTypeLabel(type, settings);
+      e.dataTransfer.setDragImage(ele, 0, 0); // Setup drag data
+
       e.dataTransfer.setData(type, id);
       e.dataTransfer.setData('node-id', id);
       e.dataTransfer.setData('node-type', type); // Set the item data on the root OutlineContext
@@ -4625,12 +4853,11 @@ var Item = function Item(_ref) {
       e.dataTransfer.dropEffect = 'move'; // Double check we have the right element
 
       if (!e.currentTarget.classList.contains('fl-builder-node-outline-item')) {
-        console.warn('Problem: Something other than fl-builder-node-outline-item-content');
         return;
       } // Abort if we're not dragging a type that can be dropped here.
 
 
-      if (!(0,_utils__WEBPACK_IMPORTED_MODULE_9__.shouldAllowDrop)(e.dataTransfer.types, type)) {
+      if (!(0,_utils__WEBPACK_IMPORTED_MODULE_9__.shouldAllowDrop)(parentType, parent, draggingItem.type, draggingItem.id)) {
         return;
       }
       /**
@@ -4652,64 +4879,151 @@ var Item = function Item(_ref) {
       isDraggingOver && setIsDraggingOver(false);
     },
     onDrop: function onDrop(e) {
+      e.preventDefault();
+      e.stopPropagation();
       isDraggingOver && setIsDraggingOver(false);
-      clearDraggingItem();
+      clearDraggingItem(); // Hide the drag image
 
-      if ((0,_utils__WEBPACK_IMPORTED_MODULE_9__.shouldAllowDrop)(e.dataTransfer.types, type)) {
-        // Determine which zone
-        var _e$currentTarget$getB2 = e.currentTarget.getBoundingClientRect(),
-            y = _e$currentTarget$getB2.y,
-            height = _e$currentTarget$getB2.height;
+      window.parent.document.getElementById('fl-builder-node-outline-helper').style.display = 'none'; // Return if we shouldn't drop
 
-        var zone = (0,_utils__WEBPACK_IMPORTED_MODULE_9__.isHoveringBefore)(e.clientY, y, height) ? 'before' : 'after'; // Node to be moved
+      if (!(0,_utils__WEBPACK_IMPORTED_MODULE_9__.shouldAllowDrop)(parentType, parent, draggingItem.type, draggingItem.id)) {
+        return;
+      } // Determine which zone
 
-        var nodeID = e.dataTransfer.getData('node-id');
 
-        var _getNode = (0,data__WEBPACK_IMPORTED_MODULE_5__.getNode)(nodeID),
-            currentPos = _getNode.position,
-            currentParent = _getNode.parent;
+      var _e$currentTarget$getB2 = e.currentTarget.getBoundingClientRect(),
+          y = _e$currentTarget$getB2.y,
+          height = _e$currentTarget$getB2.height;
 
-        var pos = index;
+      var zone = (0,_utils__WEBPACK_IMPORTED_MODULE_9__.isHoveringBefore)(e.clientY, y, height) ? 'before' : 'after'; // Node to be moved
 
-        if (parent === currentParent) {
-          // Reorder nodes within the same parent.
-          if ('before' === zone) {
-            if (currentPos === index - 1) {
-              return;
-            } else {
-              pos = currentPos > index ? index : Math.max(0, index - 1);
-            }
-          } else if ('after' === zone) {
-            if (currentPos === index + 1) {
-              return;
-            } else {
-              pos = currentPos > index ? index + 1 : index;
-            }
+      var nodeID = e.dataTransfer.getData('node-id');
+
+      var _getNode2 = (0,data__WEBPACK_IMPORTED_MODULE_5__.getNode)(nodeID),
+          currentPos = _getNode2.position,
+          currentParent = _getNode2.parent;
+
+      var pos = index;
+
+      if (parent === currentParent) {
+        // Reorder nodes within the same parent.
+        if ('before' === zone) {
+          if (currentPos === index - 1) {
+            return;
+          } else {
+            pos = currentPos > index ? index : Math.max(0, index - 1);
           }
-        } else {
-          // Move nodes to a new parent.
-          pos = 'after' === zone ? index + 1 : index;
-        } // Drop zone node - position comes from prop
+        } else if ('after' === zone) {
+          if (currentPos === index + 1) {
+            return;
+          } else {
+            pos = currentPos > index ? index + 1 : index;
+          }
+        }
+      } else {
+        // Move nodes to a new parent.
+        pos = 'after' === zone ? index + 1 : index;
+      }
 
+      var draggingElement = document.body.querySelector("[data-node=\"".concat(draggingItem.id, "\"]"));
+      var zoneElement = document.body.querySelector("[data-node=\"".concat(id, "\"]")); // Move the node. Wrap in a parent node if needed.
 
+      if ('layout' === parentType && 'row' !== draggingItem.type) {
+        if ('module' === draggingItem.type) {
+          var config = (0,_utils__WEBPACK_IMPORTED_MODULE_9__.getModuleConfig)(draggingItem.id);
+          var cols = 'all' === config.accepts || config.accepts.length ? null : '1-col';
+          draggingElement.remove();
+
+          FLBuilder._addRow(cols, pos, draggingItem.id);
+        } else if ('column' === draggingItem.type) {
+          var group = draggingElement.closest('.fl-col-group');
+
+          var _cols = group.querySelectorAll('.fl-col');
+
+          draggingElement.remove();
+
+          if (1 === _cols.length) {
+            removeNode(group.getAttribute('data-node'));
+            group.remove();
+          } else {
+            FLBuilder._resetColumnWidths(group);
+          }
+
+          FLBuilder._addRow(draggingItem.id, pos);
+        } else if ('column-group' === draggingItem.type) {
+          draggingElement.remove();
+
+          FLBuilder._addRow(draggingItem.id, pos);
+        }
+      } else if ('row' === parentType && ['column', 'module'].includes(draggingItem.type)) {
+        if ('module' === draggingItem.type) {
+          var _config = (0,_utils__WEBPACK_IMPORTED_MODULE_9__.getModuleConfig)(draggingItem.id);
+
+          if ('all' === _config.accepts || _config.accepts.length) {
+            moveNode(draggingItem.id, pos, parent);
+          } else {
+            draggingElement.remove();
+
+            FLBuilder._addColGroup(parent, '1-col', pos, draggingItem.id);
+          }
+        } else if ('column' === draggingItem.type) {
+          var _group = draggingElement.closest('.fl-col-group');
+
+          var _cols2 = _group.querySelectorAll('.fl-col');
+
+          draggingElement.remove();
+
+          if (1 === _cols2.length) {
+            removeNode(_group.getAttribute('data-node'));
+
+            _group.remove();
+          } else {
+            FLBuilder._resetColumnWidths(_group);
+          }
+
+          FLBuilder._addColGroup(parent, draggingItem.id, pos);
+        }
+      } else if ('column-group' === parentType && ['column', 'module'].includes(draggingItem.type)) {
+        if ('module' === draggingItem.type) {
+          var nested = !!zoneElement.closest('.fl-col-group-nested');
+          draggingElement.remove();
+
+          FLBuilder._addCols(id, zone, '1-col', nested, draggingItem.id);
+        } else if ('column' === draggingItem.type) {
+          var _group2 = draggingElement.closest('.fl-col-group');
+
+          var _cols3 = _group2.querySelectorAll('.fl-col');
+
+          moveNode(nodeID, pos, parent, [parent, currentParent]);
+
+          if (1 === _cols3.length) {
+            removeNode(_group2.getAttribute('data-node'));
+
+            _group2.remove();
+          } else {
+            FLBuilder._resetColumnWidths(_group2);
+          }
+        }
+      } else {
         moveNode(nodeID, pos, parent, [parent, currentParent]);
       }
     }
-  }, 'column-group' !== type && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ItemContent, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ItemContent, {
     id: id,
     type: type,
     global: global,
     position: index,
     level: level,
     toggleContent: toggleContent,
-    isShowingContent: showContent
-  }), 'module' !== type && !hasChildren && !global && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(EmptyDropArea, {
+    isShowingContent: showContent,
+    hasChildren: hasChildren
+  }), (0,_utils__WEBPACK_IMPORTED_MODULE_9__.shouldShowEmptyDropArea)(type, id, hasChildren, global) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(EmptyDropArea, {
     id: id,
     type: type
   }), 0 < Object.keys(children).length && showContent && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, Object.values(children).sort(data_layout_utils__WEBPACK_IMPORTED_MODULE_6__.sortNodes).map(function (node, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Item, _extends({
       key: node.node,
-      level: 'column-group' === type ? level : level + 1,
+      level: level + 1,
       index: i
     }, node));
   })));
@@ -4728,7 +5042,11 @@ var EmptyDropArea = function EmptyDropArea(_ref2) {
   var _getActions2 = (0,api__WEBPACK_IMPORTED_MODULE_4__.getActions)(),
       moveNode = _getActions2.moveNode;
 
+  var _getLayoutActions2 = (0,data__WEBPACK_IMPORTED_MODULE_5__.getLayoutActions)(),
+      removeNode = _getLayoutActions2.removeNode;
+
   var _OutlineContext$use2 = _context__WEBPACK_IMPORTED_MODULE_7__["default"].use(),
+      draggingItem = _OutlineContext$use2.draggingItem,
       clearDraggingItem = _OutlineContext$use2.clearDraggingItem;
 
   var classes = classnames__WEBPACK_IMPORTED_MODULE_1___default()('fl-builder-node-empty-drop-area', {
@@ -4737,11 +5055,9 @@ var EmptyDropArea = function EmptyDropArea(_ref2) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({
     className: classes,
     onDragOver: function onDragOver(e) {
-      if ('column' !== type) {
-        return;
-      }
-
-      if ((0,_utils__WEBPACK_IMPORTED_MODULE_9__.shouldAllowDrop)(e.dataTransfer.types, 'module')) {
+      if ((0,_utils__WEBPACK_IMPORTED_MODULE_9__.shouldAllowDrop)(type, id, draggingItem.type, draggingItem.id)) {
+        e.preventDefault();
+        e.stopPropagation();
         setIsOver(true);
       }
     },
@@ -4752,15 +5068,40 @@ var EmptyDropArea = function EmptyDropArea(_ref2) {
       setIsOver(false);
       clearDraggingItem();
 
-      if ('column' !== type) {
-        return;
-      }
+      if ((0,_utils__WEBPACK_IMPORTED_MODULE_9__.shouldAllowDrop)(type, id, draggingItem.type, draggingItem.id)) {
+        e.preventDefault();
+        e.stopPropagation();
+        var element = document.body.querySelector("[data-node=\"".concat(draggingItem.id, "\"]"));
 
-      if ((0,_utils__WEBPACK_IMPORTED_MODULE_9__.shouldAllowDrop)(e.dataTransfer.types, 'module')) {
-        // Node to be moved
-        var nodeID = e.dataTransfer.getData('node-id'); // Set the node to the first position in this parent.
+        if ('row' === type && 'column-group' !== draggingItem.type) {
+          if ('module' === draggingItem.type) {
+            var config = (0,_utils__WEBPACK_IMPORTED_MODULE_9__.getModuleConfig)(draggingItem.id);
 
-        moveNode(nodeID, 0, id);
+            if ('all' === config.accepts || config.accepts.length) {
+              moveNode(draggingItem.id, 0, id);
+            } else {
+              element.remove();
+
+              FLBuilder._addColGroup(id, '1-col', 0, draggingItem.id);
+            }
+          } else if ('column' === draggingItem.type) {
+            var group = element.closest('.fl-col-group');
+            var cols = group.querySelectorAll('.fl-col');
+            element.remove();
+
+            if (1 === cols.length) {
+              removeNode(group.getAttribute('data-node'));
+              group.remove();
+            } else {
+              FLBuilder._resetColumnWidths(group);
+            }
+
+            FLBuilder._addColGroup(id, draggingItem.id, 0);
+          }
+        } else {
+          // Set the node to the first position in this parent.
+          moveNode(draggingItem.id, 0, id);
+        }
       }
     }
   }, rest), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -4775,7 +5116,8 @@ var ItemContent = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(funct
       level = _ref3.level,
       toggleContent = _ref3.toggleContent,
       _ref3$isShowingConten = _ref3.isShowingContent,
-      isShowingContent = _ref3$isShowingConten === void 0 ? true : _ref3$isShowingConten;
+      isShowingContent = _ref3$isShowingConten === void 0 ? true : _ref3$isShowingConten,
+      hasChildren = _ref3.hasChildren;
 
   var _getLayoutHooks3 = (0,data__WEBPACK_IMPORTED_MODULE_5__.getLayoutHooks)(),
       useNodeSettings = _getLayoutHooks3.useNodeSettings;
@@ -4798,7 +5140,7 @@ var ItemContent = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(funct
 
   var hasVisibilitySettings = (0,_utils__WEBPACK_IMPORTED_MODULE_9__.hasVisibility)(settings);
   var hasCodeSettings = (0,_utils__WEBPACK_IMPORTED_MODULE_9__.hasCode)(settings);
-  var showDisclosureTriangle = ('row' === type || 'column' === type) && !global;
+  var showDisclosureTriangle = !global && hasChildren;
 
   var _useOutlinePanelState = (0,data__WEBPACK_IMPORTED_MODULE_5__.useOutlinePanelState)(),
       activeNode = _useOutlinePanelState.activeNode,
@@ -4817,7 +5159,23 @@ var ItemContent = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(funct
     'is-missing-definition': !hasDefinition,
     'is-outline-active-node': id === activeNode,
     'is-outline-focus-node': id === focusNode
-  }); // Allows delaying clicks long enough to check if its a doubleclick
+  }); // todo add fl-node-highlight
+
+  var highlightDomNode = function highlightDomNode() {
+    var el = document.querySelector(".fl-node-".concat(id));
+
+    if (el) {
+      el.classList.add('fl-node-highlight');
+    }
+  };
+
+  var clearHighlight = function clearHighlight() {
+    var els = document.querySelectorAll('.fl-node-highlight');
+    Array.from(els).forEach(function (el) {
+      el.classList.remove('fl-node-highlight');
+    });
+  }; // Allows delaying clicks long enough to check if its a doubleclick
+
 
   var _useSingleAndDoubleCl = (0,_utils__WEBPACK_IMPORTED_MODULE_9__.useSingleAndDoubleClick)({
     onClick: function onClick() {
@@ -4834,6 +5192,7 @@ var ItemContent = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(funct
 
       scrollToNode(id);
       openSettings(id);
+      clearHighlight();
     }
   }),
       _useSingleAndDoubleCl2 = _slicedToArray(_useSingleAndDoubleCl, 2),
@@ -4844,20 +5203,9 @@ var ItemContent = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(funct
     className: classes,
     onClick: onClick,
     onDoubleClick: onDoubleClick,
-    onPointerEnter: function onPointerEnter() {
-      var el = document.querySelector(".fl-node-".concat(id));
-
-      if (el) {
-        el.style.boxShadow = "inset 0 0 0 2px var(--fl-builder-".concat(global ? 'orange' : 'blue', " ), 0 0 0 1px hsla( 210, 0%, 0%, .5 )");
-      }
-    },
-    onPointerLeave: function onPointerLeave() {
-      var el = document.querySelector(".fl-node-".concat(id));
-
-      if (el) {
-        el.style.boxShadow = '';
-      }
-    },
+    onPointerEnter: highlightDomNode,
+    onPointerLeave: clearHighlight,
+    onPointerCancel: clearHighlight,
     onContextMenu: function onContextMenu(e) {
       // Already showing custom context menu, so show default browser menu.
       if (false !== contextMenu && id === contextMenu.id) {
@@ -4865,10 +5213,11 @@ var ItemContent = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(funct
         return;
       }
 
+      e.preventDefault();
       var items = {
         settings: {
           label: 'Open Settings',
-          isEnabled: hasDefinition,
+          isEnabled: 'column-group' !== type && hasDefinition,
           onClick: function onClick() {
             scrollToNode(id);
             openSettings(id);
@@ -4876,7 +5225,7 @@ var ItemContent = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(funct
         },
         clone: {
           label: 'Duplicate',
-          isEnabled: hasDefinition && !simpleUi,
+          isEnabled: 'column-group' !== type && hasDefinition && !simpleUi,
           onClick: function onClick() {
             return copyNode(id);
           }
@@ -4897,14 +5246,12 @@ var ItemContent = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(funct
         global: global,
         x: e.clientX,
         y: e.clientY
-      }); // Otherwise, show custom context menu
-
-      e.preventDefault();
+      });
     }
   }, showDisclosureTriangle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     className: "fl-builder-outline-item-gutter"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-    className: !isShowingContent && 'is-hiding-content',
+    className: !isShowingContent ? 'is-hiding-content' : '',
     onClick: function onClick(e) {
       toggleContent(e);
       e.preventDefault();
@@ -4938,25 +5285,27 @@ var ItemContent = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(funct
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_tiny_icons__WEBPACK_IMPORTED_MODULE_8__.VisibilityLogic, null)));
 });
 
-var ItemLabel = function ItemLabel(_ref4) {
-  var type = _ref4.type,
-      _ref4$settings = _ref4.settings,
-      settings = _ref4$settings === void 0 ? {} : _ref4$settings,
-      level = _ref4.level;
+var getItemTypeLabel = function getItemTypeLabel(type) {
+  var settings = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var typeLabel = undefined !== settings.type ? (0,_utils__WEBPACK_IMPORTED_MODULE_9__.getModuleTypeLabel)(settings.type) : type;
-  var description = '';
-
-  if ('column' === type && 3 <= level) {
-    typeLabel = FLBuilderStrings.childColumn;
-  }
 
   if ('row' === typeLabel) {
     typeLabel = FLBuilderStrings.row;
-  }
-
-  if ('column' === typeLabel) {
+  } else if ('column-group' === typeLabel) {
+    typeLabel = FLBuilderStrings.columnGroup;
+  } else if ('column' === typeLabel) {
     typeLabel = FLBuilderStrings.column;
   }
+
+  return typeLabel;
+};
+
+var ItemLabel = function ItemLabel(_ref4) {
+  var type = _ref4.type,
+      _ref4$settings = _ref4.settings,
+      settings = _ref4$settings === void 0 ? {} : _ref4$settings;
+  var typeLabel = getItemTypeLabel(type, settings);
+  var description = '';
 
   if ('module' === type && 'type' in settings) {
     switch (settings.type) {
@@ -4980,18 +5329,44 @@ var ItemLabel = function ItemLabel(_ref4) {
         break;
 
       case 'acf-block':
-        typeLabel = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('ACF Block');
+        typeLabel = (0,ui_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('ACF Block');
         break;
 
       case 'reusable-block':
-        typeLabel = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('WordPress Pattern');
+        typeLabel = (0,ui_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('WordPress Pattern');
+        break;
+
+      case 'box':
+        var mode = '';
+
+        switch (settings.layout) {
+          case 'flex':
+            mode = 'Flex';
+
+            if (['', 'row', 'row-reverse'].includes(settings.flex_direction)) {
+              mode = (0,ui_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Flex Row');
+            } else if (['column', 'column-reverse'].includes(settings.flex_direction)) {
+              mode = (0,ui_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Flex Column');
+            }
+
+            break;
+
+          case 'grid':
+            mode = (0,ui_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Grid');
+            break;
+
+          case 'z_stack':
+            mode = (0,ui_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Layered');
+        }
+
+        typeLabel = "".concat(typeLabel, ": ").concat(mode);
         break;
 
       case 'widget':
         var lastkeys = Object.keys(settings);
         var $last = lastkeys.slice(-2)[0];
 
-        if (typeof $last !== 'undefined') {
+        if ('undefined' !== typeof $last) {
           description = settings[$last].title;
         }
 
@@ -4999,7 +5374,7 @@ var ItemLabel = function ItemLabel(_ref4) {
     }
   }
 
-  if ('node_label' in settings && '' !== settings.node_label) {
+  if (settings && 'node_label' in settings && '' !== settings.node_label) {
     var nodeLabel = settings.node_label;
 
     if (!description || '' === description) {
@@ -5052,6 +5427,7 @@ var Icon = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_r
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_tiny_icons__WEBPACK_IMPORTED_MODULE_8__.Row, null);
 
     case 'column':
+    case 'column-group':
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_tiny_icons__WEBPACK_IMPORTED_MODULE_8__.Column, null);
 
     case 'module':
@@ -5434,23 +5810,26 @@ var Code = function Code() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getChildNodes": () => (/* binding */ getChildNodes),
+/* harmony export */   "getModuleConfig": () => (/* binding */ getModuleConfig),
 /* harmony export */   "getModuleTypeLabel": () => (/* binding */ getModuleTypeLabel),
 /* harmony export */   "getNodeTree": () => (/* binding */ getNodeTree),
-/* harmony export */   "getTransparentImg": () => (/* binding */ getTransparentImg),
+/* harmony export */   "hasChildNode": () => (/* binding */ hasChildNode),
 /* harmony export */   "hasCode": () => (/* binding */ hasCode),
 /* harmony export */   "hasVisibility": () => (/* binding */ hasVisibility),
-/* harmony export */   "isDraggable": () => (/* binding */ isDraggable),
 /* harmony export */   "isHoveringBefore": () => (/* binding */ isHoveringBefore),
 /* harmony export */   "moduleHasDefinition": () => (/* binding */ moduleHasDefinition),
 /* harmony export */   "sanitizeString": () => (/* binding */ sanitizeString),
 /* harmony export */   "shouldAllowDrop": () => (/* binding */ shouldAllowDrop),
-/* harmony export */   "useSingleAndDoubleClick": () => (/* reexport safe */ _use_single_and_double_click__WEBPACK_IMPORTED_MODULE_2__["default"])
+/* harmony export */   "shouldShowEmptyDropArea": () => (/* binding */ shouldShowEmptyDropArea),
+/* harmony export */   "useSingleAndDoubleClick": () => (/* reexport safe */ _use_single_and_double_click__WEBPACK_IMPORTED_MODULE_3__["default"])
 /* harmony export */ });
 /* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dompurify */ "./node_modules/dompurify/dist/purify.js");
 /* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(dompurify__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! api */ "./src/builder/api/index.js");
-/* harmony import */ var _use_single_and_double_click__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./use-single-and-double-click */ "./src/builder/ui/outline-panel/outline/utils/use-single-and-double-click.js");
+/* harmony import */ var data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! data */ "./src/builder/data/index.js");
+/* harmony import */ var _use_single_and_double_click__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./use-single-and-double-click */ "./src/builder/ui/outline-panel/outline/utils/use-single-and-double-click.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
 
 
 
@@ -5507,6 +5886,23 @@ var getChildNodes = function getChildNodes(id, nodes) {
     return id === node.parent;
   });
 };
+var hasChildNode = function hasChildNode(parentId, childId) {
+  var children = (0,data__WEBPACK_IMPORTED_MODULE_2__.getChildren)(parentId);
+
+  if (parentId === childId) {
+    return true;
+  }
+
+  for (var i in children) {
+    if (children[i].node === childId) {
+      return true;
+    } else if (hasChildNode(children[i].node, childId)) {
+      return true;
+    }
+  }
+
+  return false;
+};
 var getNodeTree = function getNodeTree(nodes) {
   var flat = Object.values(nodes);
   var tree = [];
@@ -5536,32 +5932,54 @@ var isHoveringBefore = function isHoveringBefore(mouseY, y, height) {
   var threshold = y + half;
   return mouseY <= threshold;
 };
-var draggableTypes = ['module', 'row', 'column'];
-var isDraggable = function isDraggable(type) {
-  var _getConfig2 = (0,api__WEBPACK_IMPORTED_MODULE_1__.getConfig)(),
-      simpleUi = _getConfig2.simpleUi;
+var shouldAllowDrop = function shouldAllowDrop(parentType, parentId, dragType, dragId) {
+  var dragRules = {
+    'layout': ['row', 'column-group', 'column', 'module'],
+    'row': ['column-group', 'column', 'module'],
+    'column-group': ['column', 'module'],
+    'column': ['module'],
+    'module': ['module']
+  };
 
-  return !simpleUi && draggableTypes.includes(type);
-};
-var shouldAllowDrop = function shouldAllowDrop() {
-  var itemTypes = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var zoneType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-  if (!draggableTypes.includes(zoneType)) {
+  if (!dragRules[parentType].includes(dragType)) {
     return false;
   }
 
-  if (zoneType === itemTypes || itemTypes.includes(zoneType)) {
-    return true;
+  if ('module' === parentType) {
+    var dragNode = (0,data__WEBPACK_IMPORTED_MODULE_2__.getNode)(dragId);
+
+    var _getModuleConfig = getModuleConfig(parentId),
+        accepts = _getModuleConfig.accepts; // Don't allow dropping into child modules of the node being dragged.
+
+
+    if (hasChildNode(dragId, parentId)) {
+      return false;
+    } // Don't allow dropping unaccepted modules into a container module.
+
+
+    if ('object' === _typeof(accepts) && accepts.length && !accepts.includes(dragNode.settings.type)) {
+      return false;
+    }
   }
 
-  return false;
+  return true;
 };
-var getTransparentImg = function getTransparentImg() {
-  var img = new Image();
-  img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-  img.style.opacity = 0;
-  return img;
+var shouldShowEmptyDropArea = function shouldShowEmptyDropArea(type, id, hasChildren, global) {
+  if (hasChildren || global) {
+    return false;
+  } else if ('module' === type) {
+    var config = getModuleConfig(id);
+
+    if ('undefined' === typeof config) {
+      return false;
+    } else if ('all' === config.accepts || 0 < config.accepts.length) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  return true;
 };
 /**
  * Cache the module type slugs
@@ -5571,8 +5989,8 @@ var moduleTypeKeys = [];
 
 var getModuleTypeKeys = function getModuleTypeKeys() {
   if (0 >= moduleTypeKeys.length) {
-    var _getConfig3 = (0,api__WEBPACK_IMPORTED_MODULE_1__.getConfig)(),
-        contentItems = _getConfig3.contentItems; // FLBuilderConfig
+    var _getConfig2 = (0,api__WEBPACK_IMPORTED_MODULE_1__.getConfig)(),
+        contentItems = _getConfig2.contentItems; // FLBuilderConfig
 
 
     moduleTypeKeys = contentItems.module.map(function (type) {
@@ -5583,6 +6001,15 @@ var getModuleTypeKeys = function getModuleTypeKeys() {
   return moduleTypeKeys;
 };
 
+var getModuleConfig = function getModuleConfig(id) {
+  var _getConfig3 = (0,api__WEBPACK_IMPORTED_MODULE_1__.getConfig)(),
+      contentItems = _getConfig3.contentItems;
+
+  var node = (0,data__WEBPACK_IMPORTED_MODULE_2__.getNode)(id);
+  return contentItems.module.filter(function (config) {
+    return node.settings.type === config.slug;
+  }).pop();
+};
 var moduleHasDefinition = function moduleHasDefinition(key) {
   var keys = getModuleTypeKeys();
   return keys.includes(key) || 'widget' === key;
@@ -7696,17 +8123,6 @@ module.exports = ReactDOM;
 
 "use strict";
 module.exports = Redux;
-
-/***/ }),
-
-/***/ "@wordpress/i18n":
-/*!**************************!*\
-  !*** external "wp.i18n" ***!
-  \**************************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = wp.i18n;
 
 /***/ })
 

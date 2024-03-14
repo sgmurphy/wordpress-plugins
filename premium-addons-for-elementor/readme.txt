@@ -5,7 +5,7 @@ Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_c
 Requires at least: 5.0
 Tested Up To: 6.4.3
 Requires PHP: 7.0
-Stable Tag: 4.10.23
+Stable Tag: 4.10.24
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -250,10 +250,11 @@ Premium Addonsis 100% Ads Free, Ads can only be detected from Youtube videos, th
 
 == Changelog ==
 
-= 4.10.23 =
+= 4.10.24 =
 
 - Tweak: Code refactored for better performance and security.
-- Fixed: Banner skin issue on small screens in Blog widget.
+- Tweak: Improved Infinite effect in Advanced Media Carousal widget.
+- Fixed: Is Returning Visitor display condition not working correctly.
 
 = 4.10.22 =
 

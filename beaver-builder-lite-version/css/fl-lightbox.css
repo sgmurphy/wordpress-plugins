@@ -7,6 +7,8 @@
 	}
 }
 .fl-lightbox-wrap {
+	--lightbox-radius: 10px;
+	--panel-header-size: 36px; /* also used in content panel */
 	bottom: 0;
 	display: none;
 	left: 0;
@@ -14,7 +16,7 @@
 	padding: 0;
 	position: fixed;
 	right: 0;
-	top: 43px;
+	top: var(--fl-builder-top-bar-height);
     z-index: 100010;
 	-webkit-backface-visibility: hidden;
 	-webkit-transform: translateZ(0);
@@ -33,11 +35,8 @@
 	pointer-events: auto;
 }
 .fl-lightbox {
-	background: #F5F7F9;
-	border-radius: 5px;
-	box-shadow: rgba(0,0,0,1) 0 4px 30px;
-	-moz-box-shadow: rgba(0,0,0,1) 0 4px 30px;
-	-webkit-box-shadow: rgba(0,0,0,1) 0 4px 30px;
+	background: var(--fl-builder-panel-bg-color);
+	border-radius: var(--lightbox-radius);
 	position: relative;
 	display: flex;
 	z-index: 100011;
@@ -53,7 +52,7 @@
 	-webkit-animation-duration: 0s;
 	-o-animation-duration: 0s;
 }
-.fl-lightbox *:not(i) {
+.fl-lightbox *:not( i, svg, use, path, rect, circle, ellipse, g, line ) {
 	color: #333;
 	font-family: var(--fl-builder-font-family);
 	font-size: 12px;
@@ -91,9 +90,8 @@
 	font-family: dashicons;
 }
 .fl-lightbox.ui-draggable {
-	box-shadow: rgba(0, 0, 0, 0.2) 0 7px 30px;
-	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 7px 30px;
-	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 7px 30px;
+	box-shadow: 0 0 0 2.5px hsla( var(--fl-builder-ui-hue), 26%, 88%, .4 ),
+				rgba(0, 0, 0, 0.2) 0 7px 30px;
 }
 
 /* Resizable */
@@ -103,7 +101,7 @@
 }
 .fl-lightbox-resizable {
 	height: 500px;
-	width: 380px;
+	width: var(--fl-builder-panel-width);
 }
 
 @media ( max-width: 500px ) {
@@ -139,9 +137,6 @@
 
 /* Lightbox Controls */
 .fl-lightbox-controls {
-  	position: absolute;
-  	right: 10px;
-  	top: 10px;
   	z-index: 5;
 }
 .fl-lightbox-controls .fa {
@@ -156,26 +151,32 @@
 
 /* Header */
 .fl-lightbox-header-wrap {
-	border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-}
-.fl-lightbox-header {
-	position: relative;
+	border-top-left-radius: var(--lightbox-radius);
+    border-top-right-radius: var(--lightbox-radius);
 }
 
 .fl-builder-settings-lightbox .fl-lightbox-header h1:before{
 	content: none !important;
 }
-
+.fl-lightbox-header {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	min-height: var(--panel-header-size);
+	padding: 0 12px 0 20px;
+	border-top-left-radius: var(--lightbox-radius);
+	border-top-right-radius: var(--lightbox-radius);
+}
 .fl-lightbox-header h1 {
+	flex: 1 1 auto;
 	color: #333 !important;
 	font-size: 16px !important;
 	font-family: var(--fl-builder-font-family);
 	font-weight: 400 !important;
 	margin: 0 !important;
-	padding: 14px 28px 15px !important;
-	padding-right: 34px !important;
-	text-align: left!important;
+	text-align: left !important;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -206,16 +207,28 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
-	flex: 0 0;
-	flex-basis: 56px;
-	padding: 10px;
+	flex: 0 0 auto;
+	padding: 5px;
+	gap: 5px;
 	text-align: right;
+	background-color: var(--fl-builder-panel-bg-color);
+	border-top: 1px solid var(--fl-builder-outline-color);
+	border-bottom-left-radius: var(--lightbox-radius);
+	border-bottom-right-radius: var(--lightbox-radius);
 }
 .fl-lightbox-footer .fl-builder-button {
-	height: 36px;
-	margin-left: 5px !important;
-	flex: 0 0 0%;
+	flex: 0 0 auto;
 	justify-content: center;
+	background-color: transparent;
+}
+.fl-lightbox-footer .fl-builder-button.fl-builder-button-primary {
+	background-color: var(--fl-builder-accent-color);
+}
+.fl-lightbox-footer .fl-builder-button.fl-builder-button-primary:hover {
+	background-color: #0197C6;
+}
+.fl-lightbox-footer .fl-builder-button.fl-builder-button-primary:active {
+	background-color: #0484AC;
 }
 .fl-lightbox-width-slim .fl-lightbox-footer {
 	justify-content: stretch;
@@ -224,9 +237,6 @@
 	flex: 1 1 100%;
 	display: block;
 	text-align: center;
-}
-.fl-lightbox-width-slim .fl-lightbox-footer .fl-builder-button:first-child {
-	margin-left:0 !important;
 }
 
 /* Tables */
