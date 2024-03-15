@@ -95,7 +95,7 @@ class NewsletterProfile extends NewsletterModule {
                     $this->redirect($this->message_url($user, $email, $res->get_error_message()));
                 }
 
-                $this->redirect($this->message_url($user, $email, $res->get_error_message()));
+                $this->redirect($this->message_url($user, $email));
                 break;
 
             case 'profile_export':

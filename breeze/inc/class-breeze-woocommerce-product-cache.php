@@ -78,7 +78,9 @@ class Breeze_Woocommerce_Product_Cache {
 						// Get related archive terms permalinks for the product.
 						$product_archives = $this->get_product_related_archive( $product_id );
 						// Merge the archive URLs.
-						$archive_urls = array_merge( $archive_urls, $product_archives );
+						if ( ! empty( $product_archives ) ) {
+							$archive_urls = array_merge( $archive_urls, $product_archives );
+						}
 					}
 				}
 

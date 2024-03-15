@@ -341,7 +341,6 @@ class Breeze_Query_Strings_Rules {
 		}
 
 		foreach ( $extracted_vars as $index => $value ) {
-			$index = mb_strtolower( trim( $index ) );
 
 			// Fetch all the query vars that are in the ignore list and found in current URL.
 			if ( in_array( $index, $ignored_query_vars, true ) ) {
