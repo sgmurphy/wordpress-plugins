@@ -10,7 +10,7 @@ namespace The_SEO_Framework\Data\Filter;
 
 use function \The_SEO_Framework\has_run;
 
-use The_SEO_Framework\{
+use \The_SEO_Framework\{
 	Data,
 	Helper\Taxonomy,
 	Helper\Post_Type,
@@ -216,10 +216,6 @@ class Plugin {
 			'oembed_use_social_image'      => 'checkbox',
 			'og_tags'                      => 'checkbox',
 			'paged_noindex'                => 'checkbox',
-			'ping_bing'                    => 'checkbox',
-			'ping_google'                  => 'checkbox',
-			'ping_use_cron_prerender'      => 'checkbox',
-			'ping_use_cron'                => 'checkbox',
 			'pint_verification'            => 'verification_code',
 			'post_modify_time'             => 'checkbox',
 			'post_publish_time'            => 'checkbox',
@@ -240,6 +236,7 @@ class Plugin {
 			'site_title'                   => 'metadata_text',
 			'sitemap_color_accent'         => 'rgb_hex',
 			'sitemap_color_main'           => 'rgb_hex',
+			'sitemap_cron_prerender'       => 'checkbox',
 			'sitemap_logo_id'              => 'absolute_integer',
 			'sitemap_logo_url'             => 'fully_qualified_url',
 			'sitemap_logo'                 => 'checkbox',
@@ -253,7 +250,7 @@ class Plugin {
 			'social_title_rem_additions'   => 'checkbox',
 			'source_the_feed'              => 'checkbox',
 			'theme_color'                  => 'rgb_hex',
-			'timestamps_format'            => 'numeric_string',
+			'timestamps_format'            => 'checkbox',
 			'title_location'               => 'title_location',
 			'title_rem_additions'          => 'checkbox',
 			'title_rem_prefixes'           => 'checkbox',

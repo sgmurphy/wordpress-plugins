@@ -156,9 +156,9 @@ trait Static_Deprecator {
 
 		if ( $deprecated ) {
 			\tsf()->_deprecated_function(
-				\esc_html( "{$this->colloquial_handle}::$name" ),
-				\esc_html( $deprecated['since'] ?? '' ),
-				\esc_html( $deprecated['alternative'] ?? '' ),
+				\esc_html( "{$this->colloquial_handle}->$name()" ), // redundant escape
+				\esc_html( $deprecated['since'] ?? '' ),            // redundant escape
+				! empty( $deprecated['alternative'] ) ? \esc_html( $deprecated['alternative'] ) : null,
 			);
 
 			$fallback = $deprecated['fallback'] ?? null;
@@ -166,7 +166,23 @@ trait Static_Deprecator {
 			if ( $fallback )
 				return \call_user_func_array( $fallback, $arguments );
 		} else {
-			\tsf()->_inaccessible_p_or_m( \esc_html( "{$this->colloquial_handle}::$name" ), 'unknown' );
+			\tsf()->_inaccessible_p_or_m( \esc_html( "{$this->colloquial_handle}->$name()" ) );
 		}
+	}
+
+	/**
+	 * Handles unapproachable invoked static methods.
+	 *
+	 * @since 5.0.5
+	 *
+	 * @param string $name      The method name.
+	 * @param array  $arguments The method arguments.
+	 * @return void
+	 */
+	final public static function __callStatic( $name, $arguments ) {
+		\tsf()->_inaccessible_p_or_m(
+			\esc_html( "$name()" ),
+			'Method is of unknown pool. Do not call pool methods statically! A fatal error might follow.',
+		);
 	}
 }

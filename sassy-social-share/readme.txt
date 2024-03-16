@@ -4,7 +4,7 @@ Donate link: https://www.heateor.com/donate/?action=Sassy+Social+Share
 Tags: social share, social sharing, social media, facebook share, facebook like, facebook social share, wordpress social share, share buttons, social share buttons, twitter tweet, whatsapp share, line share, gab share, gab social share, gab, parler share, parler social share, gettr, gettr share, gettr social share, mewe share, mewe social share, mewe, mastodon share, mastodon social share, mastodon, rutube share, rutube social share, rutube, google news, google news share, google news icon, RSS, RSS Feed, x, x share, yelp, google translate, Google maps, tiktok, Teams, flickr, threads, Gab, Gab share, Line
 Requires at least: 2.5.0
 Tested up to: 6.4.3
-Stable tag: 3.3.59
+Stable tag: 3.3.60
 License: GPLv2 or later
 
 Slickest, Simplest and Optimized Share buttons. Facebook, X (Twitter), Reddit, Pinterest, Whatsapp, Gab, Gettr and over 100 more.
@@ -125,6 +125,9 @@ Yes, we can help you with it. Just drop an email at support[at]heateor[dot]com
 4. **Universal Sharing Popup**: Universal Sharing popup having all the supported sharing and bookmarking services
 
 == Changelog ==
+= 3.3.60 [16 March 2024] =
+* [Bugfix] Search box in the More share popup was overflowing out of it in some cases
+
 = 3.3.59 [4 March 2024] =
 * [Improvement] Fixed Stored XSS vulnerability in the Follow Icons widget and [Sassy_Social_Share] shortcode
 * [Bugfix] Gettr URL in the Follow Icons widget was not working
@@ -1405,3 +1408,6 @@ Yes, we can help you with it. Just drop an email at support[at]heateor[dot]com
 * [Bugfix] Print icon in the widget was broken
 * [Bugfix] RSS Feed icon in the widget was broken
 * [Improvement] Minor improvements
+
+= 3.3.60 [16 March 2024] =
+* [Bugfix] Search box in the More share popup was overflowing out of it in some cases

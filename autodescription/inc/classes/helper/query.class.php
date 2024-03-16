@@ -314,7 +314,7 @@ class Query {
 				 * @param bool     $is_singular_archive Whether the post ID is a singular archive.
 				 * @param int|null $id                  The supplied post ID. Null when in the loop.
 				 */
-				\apply_filters(
+				(bool) \apply_filters(
 					'the_seo_framework_is_singular_archive',
 					static::is_blog_as_page( $id ),
 					$id,
@@ -343,7 +343,6 @@ class Query {
 		if ( \is_archive() && false === static::is_singular() )
 			return Query\Cache::memo( true );
 
-		// The $can_cache check is used here because it asserted $wp_query is valid on the front-end.
 		if ( isset( $GLOBALS['wp_query']->query ) && false === static::is_singular() ) {
 			global $wp_query;
 
@@ -797,8 +796,8 @@ class Query {
 		$front_id = umemo( __METHOD__ )
 			?? umemo(
 				__METHOD__,
-				'page' === \get_option( 'show_on_front' )
-					? ( (int) \get_option( 'page_on_front' ) ?: false )
+				Query\Utils::has_assigned_page_on_front()
+					? (int) \get_option( 'page_on_front' )
 					: false,
 			);
 
@@ -874,7 +873,7 @@ class Query {
 				 * @param bool $is_shop Whether the post ID is a shop.
 				 * @param int  $id      The current or supplied post ID.
 				 */
-				\apply_filters( 'the_seo_framework_is_shop', false, $post ),
+				(bool) \apply_filters( 'the_seo_framework_is_shop', false, $post ),
 				$post,
 			);
 	}
