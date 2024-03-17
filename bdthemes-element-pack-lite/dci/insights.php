@@ -332,6 +332,15 @@ if (!class_exists('Insights_SDK')) {
 				wp_die();
 			}
 
+			if (!current_user_can('manage_options')) {
+				wp_send_json(array(
+					'status'	=> 'error',
+					'title'		=> 'Error',
+					'message'	=> 'Denied, you don\'t have right permission',
+				));
+				wp_die();
+			}
+
 			if ('disallow' == $sanitized_status) {
 				update_option($allow_name, 'disallow');
 			}
@@ -434,6 +443,15 @@ if (!class_exists('Insights_SDK')) {
 					'status'  => 'error',
 					'title'   => 'Error',
 					'message' => 'Nonce verification failed',
+				));
+				wp_die();
+			}
+
+			if ( !current_user_can('manage_options') ) {
+				wp_send_json(array(
+					'status'	=> 'error',
+					'title'		=> 'Error',
+					'message'	=> 'Denied, you don\'t have right permission',
 				));
 				wp_die();
 			}

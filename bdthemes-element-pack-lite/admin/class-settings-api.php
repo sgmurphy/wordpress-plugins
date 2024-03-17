@@ -140,6 +140,9 @@ if (!class_exists('ElementPack_Settings_API')) :
                     $class .= ' ep-widget-' . esc_attr($field['args']['widget_type']);
                 }
 
+                if (!empty($field['args']['widget_type']) && 'pro' == $field['args']['widget_type'] && true !== element_pack_pro_activated()) {
+					$class .= ' ep-pro-inactive';
+				}
 
                 $used_widgets = self::get_used_widgets_obj();
                 $widget_name = 'bdt-' . str_replace(' ', '-', strtolower($field['args']['id']));

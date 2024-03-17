@@ -4,7 +4,7 @@ Donate link: https://david.dw-perspective.org.uk/donate
 Tags: cache, caching, image cache, minify, performance cache, page speed, image optimizer, compress images, optimize database, clean database
 Requires PHP: 5.6
 Requires at least: 4.5
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 3.3.1
 License: GPLv2+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html

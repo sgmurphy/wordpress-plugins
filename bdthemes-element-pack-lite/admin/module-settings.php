@@ -2349,6 +2349,34 @@ class ModuleService {
 		];
 
         $settings_fields['element_pack_third_party_widget'][] = [
+			'name'        => 'acf-tabs',
+			'label'       => esc_html__('ACF Tabs', 'bdthemes-element-pack'),
+			'type'        => 'checkbox',
+			'default'     => 'off',
+			'plugin_name' => 'advanced-custom-fields-pro',
+			'plugin_path' => 'advanced-custom-fields-pro/acf.php',
+			'paid'        => 'https://www.advancedcustomfields.com/pro/',
+			'widget_type' => 'pro',
+			'content_type' => 'acf new',
+			'demo_url'    => 'https://demo.elementpack.pro/element/acf-tabs',
+			'video_url'   => '',
+		];
+
+        $settings_fields['element_pack_third_party_widget'][] = [
+			'name'        => 'acf-list',
+			'label'       => esc_html__('ACF List', 'bdthemes-element-pack'),
+			'type'        => 'checkbox',
+			'default'     => 'off',
+			'plugin_name' => 'advanced-custom-fields-pro',
+			'plugin_path' => 'advanced-custom-fields-pro/acf.php',
+			'paid'        => 'https://www.advancedcustomfields.com/pro/',
+			'widget_type' => 'pro',
+			'content_type' => 'acf new',
+			'demo_url'    => 'https://demo.elementpack.pro/element/acf-list',
+			'video_url'   => '',
+		];
+
+        $settings_fields['element_pack_third_party_widget'][] = [
             'name'        => 'bbpress-forum-form',
             'label'       => esc_html__('bbPress Forum Form', 'bdthemes-element-pack'),
             'type'        => 'checkbox',
@@ -2543,6 +2571,7 @@ class ModuleService {
             'default'      => 'on',
             'plugin_name'  => 'caldera-forms',
             'plugin_path'  => 'caldera-forms/caldera-core.php',
+            'paid'         => 'https://calderaforms.com/updates/caldera-forms-1-9-7/',
             'widget_type'  => 'free',
             'content_type' => 'forms',
             'demo_url'     => 'https://demo.elementpack.pro/element/caldera-form/',
@@ -2933,7 +2962,7 @@ class ModuleService {
             'default'      => 'off',
             'plugin_name'  => 'bdthemes-faq',
             'plugin_path'  => 'bdthemes-faq/bdthemes-faq.php',
-            'paid'         => 'https://bdthemes.com/secure/plugins/bdthemes-faq.zip?key=40fb823b8016d31411a7fe281f41044g',
+            'paid'         => 'https://update.bdthemes.io/plugins/bdthemes-faq/bdthemes-faq.zip?key=849686abd67b099b7cdbc7cfeff49ed8',
             'widget_type'  => 'pro',
             'content_type' => 'post',
             'demo_url'     => 'https://demo.elementpack.pro/element/carousel/faq/',
@@ -3154,7 +3183,7 @@ class ModuleService {
             'default'      => 'off',
             'plugin_name'  => 'LayerSlider',
             'plugin_path'  => 'LayerSlider/layerslider.php',
-            'paid'         => 'https://codecanyon.net/item/layerslider-responsive-wordpress-slider-plugin/1362246',
+            'paid'         => 'https://layerslider.com/pricing/',
             'widget_type'  => 'pro',
             'content_type' => 'slider',
             'demo_url'     => 'https://demo.elementpack.pro/element/layer-slider/',

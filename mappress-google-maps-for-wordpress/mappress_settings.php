@@ -33,6 +33,7 @@ class Mappress_Options extends Mappress_Obj {
 		$iconScale,
 		$iframes,
 		$initialOpenInfo,
+		$kmlCenter = true,
 		$language,
 		$layout = 'left',
 		$license,

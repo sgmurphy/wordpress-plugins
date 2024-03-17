@@ -3,7 +3,7 @@ Contributors: codepeople
 Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 5.1.59
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

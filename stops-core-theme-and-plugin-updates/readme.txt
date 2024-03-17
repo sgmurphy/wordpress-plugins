@@ -4,7 +4,7 @@ Tags: updates manager, easy updates manager, disable updates manager, disable up
 Requires at least: 5.1
 Requires PHP: 5.6
 Donate link: https://easyupdatesmanager.com
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 9.0.17
 License: GPLv2 or later
 

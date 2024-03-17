@@ -20,7 +20,7 @@ mappress-map poi {
 }
 
 mappress-map.mapp-layout {
-	display: flex;
+	display: flex !important;       /* Some themse override */
 	flex-direction: column;
 	position: relative;             /* Needed for filters with web component */
 }

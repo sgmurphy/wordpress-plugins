@@ -120,8 +120,6 @@ class Fancy_List extends Module_Base {
 				'dynamic'     => [ 
 					'active' => true,
 				],
-				'label_block' => false,
-
 			]
 		);
 

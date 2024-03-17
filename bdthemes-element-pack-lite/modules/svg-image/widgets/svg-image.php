@@ -845,7 +845,7 @@ class Svg_Image extends Module_Base {
 	public function render_svg() {
 		$settings = $this->get_settings_for_display();
 		$svg_file = file_get_contents( $settings['image']['url'], true );
-		echo wp_kses_post( $svg_file );
+		echo $svg_file;
 	}
 
 	public function render_image() {

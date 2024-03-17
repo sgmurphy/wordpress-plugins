@@ -5484,10 +5484,11 @@ $(window).on('elementor/frontend/init', function () {
         //check is id exists
         var haveIds = [];
         let elements;
-        elements = document.querySelectorAll(".elementor-top-section");
+        /* elements = document.querySelectorAll(".elementor-top-section");
         if (elements.length == 0) {
           elements = document.querySelectorAll(".elementor-element.e-con");
-        }
+        } */
+        elements = document.querySelectorAll(".elementor-top-section, .elementor-element.e-con"); // if both section and container exist
 
         elements.forEach((element) => {
           var elementsWrapper = element.getAttribute("id");
@@ -5516,6 +5517,9 @@ $(window).on('elementor/frontend/init', function () {
           return temp;
         }
         var ids = multi_intersect(haveIds, sectionId).toString();
+        if (ids === "") {
+          return;
+        }
         var selectedIDs = document.querySelectorAll(ids);
         $(widgetWrapper).append(selectedIDs);
       },
@@ -11747,7 +11751,7 @@ jQuery(window).on('elementor/frontend/init', function() {
                 if ('hover' === drawerType) {
                     var timeLine = gsap.timeline(options);
                     timeLine.pause();
-                    $container.find("svg").hover(
+                    $container.hover(
                         function () {
                             timeLine.play();
                         },
