@@ -1106,21 +1106,25 @@ class Settings_Sections_Fields
                 'class'                  => 'asenha-toggle utilities ' . $field_slug,
             )
         );
+        $media_buttons = false;
+        $quicktags = false;
+        $toolbar1 = 'bold,italic,underline';
         $field_id = 'custom_admin_footer_left';
         $field_slug = 'custom-admin-footer-left';
         // https://developer.wordpress.org/reference/classes/_wp_editors/parse_settings/
         // https://www.tiny.cloud/docs/advanced/available-toolbar-buttons/
         $editor_settings = array(
-            'media_buttons' => false,
-            'textarea_name' => ASENHA_SLUG_U . '[' . $field_id . ']',
-            'textarea_rows' => 3,
-            'tiny_mce'      => true,
-            'tinymce'       => array(
-            'toolbar1'    => 'bold,italic,underline,separator,link,unlink,undo,redo',
+            'media_buttons'  => $media_buttons,
+            'textarea_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+            'textarea_rows'  => 3,
+            'tiny_mce'       => true,
+            'tinymce'        => array(
+            'toolbar1'    => $toolbar1,
             'content_css' => ASENHA_URL . 'assets/css/settings-wpeditor.css',
         ),
-            'editor_css'    => '',
-            'quicktags'     => false,
+            'editor_css'     => '',
+            'quicktags'      => $quicktags,
+            'default_editor' => 'tinymce',
         );
         add_settings_field(
             $field_id,
@@ -1143,7 +1147,7 @@ class Settings_Sections_Fields
                 'field_description' => 'Default text is: <em>Thank you for creating with <a href="https://wordpress.org/">WordPress</a></em>.',
                 'field_placeholder' => '',
                 'editor_settings'   => $editor_settings,
-                'class'             => 'asenha-textarea utilities ' . $field_slug,
+                'class'             => 'asenha-textarea admin-interface has-wpeditor ' . $field_slug,
             )
         );
         $field_id = 'custom_admin_footer_right';
@@ -1151,16 +1155,17 @@ class Settings_Sections_Fields
         // https://developer.wordpress.org/reference/classes/_wp_editors/parse_settings/
         // https://www.tiny.cloud/docs/advanced/available-toolbar-buttons/
         $editor_settings = array(
-            'media_buttons' => false,
-            'textarea_name' => ASENHA_SLUG_U . '[' . $field_id . ']',
-            'textarea_rows' => 3,
-            'tiny_mce'      => true,
-            'tinymce'       => array(
-            'toolbar1'    => 'bold,italic,underline,separator,link,unlink,undo,redo',
+            'media_buttons'  => $media_buttons,
+            'textarea_name'  => ASENHA_SLUG_U . '[' . $field_id . ']',
+            'textarea_rows'  => 3,
+            'tiny_mce'       => true,
+            'tinymce'        => array(
+            'toolbar1'    => $toolbar1,
             'content_css' => ASENHA_URL . 'assets/css/settings-wpeditor.css',
         ),
-            'editor_css'    => '',
-            'quicktags'     => false,
+            'editor_css'     => '',
+            'quicktags'      => $quicktags,
+            'default_editor' => 'tinymce',
         );
         add_settings_field(
             $field_id,
@@ -1184,7 +1189,7 @@ class Settings_Sections_Fields
                 'field_description' => 'Default text is: <em>Version ' . $wp_version . '</em>',
                 'field_placeholder' => '',
                 'editor_settings'   => $editor_settings,
-                'class'             => 'asenha-textarea utilities ' . $field_slug,
+                'class'             => 'asenha-textarea admin-interface has-wpeditor ' . $field_slug,
             )
         );
         // =================================================================

@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.4.3  
-Stable tag: 6.9.3  
+Stable tag: 6.9.4  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -72,7 +72,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **[[Pro](https://www.wpase.com/rdme-to-web)] Admin Columns Manager**. Manage and organize columns in the admin listing for pages, posts and custom post types. Currently supports ASE, ACF and Meta Box custom fields.
 * **Enhance List Tables**. Improve the usefulness of listing pages of various post types by adding / removing columns and elements, e.g. featured image, excerpt, ID columns.
 * **Display Active Plugins First**: Display active / activated plugins at the top of the Installed Plugins list.
-* **Custom Admin Footer Text**: Customize the text you see on the footer of wp-admin pages.
+* **Custom Admin Footer Text**: Customize the text you see on the footer of wp-admin pages. [ASE Pro](https://www.wpase.com/rdme-to-web) enables media upload / insertion.
 
 ### Log In / Log Out
 
@@ -124,7 +124,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 * **Image Sizes Panel**. Display a panel showing and linking to all available sizes when viewing an image in the media library. [ASE Pro](https://www.wpase.com/rdme-to-web) adds a convenient button to copy the image URL on click.
 * **View Admin as Role**. View admin pages and the site (logged-in) as one of the non-administrator user roles.
 * **Password Protection**. Password-protect the entire site to hide the content from public view and search engine bots / crawlers. [ASE Pro](https://www.wpase.com/rdme-to-web) adds IP whitelisting and bypassing via URL parameter.
-* **Maintenance Mode**. Show a simple maintenance message. [ASE Pro](https://www.wpase.com/rdme-to-web) adds option to use WYSIWYG editor, image / solid color background and custom CSS.
+* **Maintenance Mode**. Show a simple maintenance message. [ASE Pro](https://www.wpase.com/rdme-to-web) adds option to set custom page / browser tab title and use WYSIWYG editor, image / solid color background and custom CSS.
 * **Redirect 404 to Homepage**. Perform 301 (permanent) redirect to the homepage for all 404 (not found) pages.
 * **Display System Summary**. Show web server software, PHP version, database software and server IP address in the "At a Glance" dashboard widget.
 * **Search Engines Visibility Status**. Show admin bar status and admin notice when search engines are set to be discouraged from indexing the site.
@@ -172,11 +172,41 @@ You can skip step 1 and 2 if you still have access to your wp-admin dashboard.
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **81 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **82 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+
+### 6.9.4 (2024.03.18) - ASE Free and Pro
+
+* **[IMPROVED in Pro] Content Management >> Media Categories**: when in grid view, parent categories are now properly assigned when uploading new media files to a sub-category view, i.e. after clicking on a sub-category in the categories tree. Props to Alin T. for suggesting the improvement. Also simplified the UI by removing the "Media Categories" title above the categories tree.
+
+* **[IMPROVED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: "This is a required field" validation now works properly for File, Radio and Checkbox fields, while removing it from the True False field, as an empty checkbox is a valid value as well. Props to Michael S. for testing and reporting this.
+
+* **[IMPROVED in Pro] Utilities >> Maintenance Mode**: add an option to set the title of the maintenance page, which is visible in browser tab title. Props to Gálik J. for the suggestion. Also enabled wpautop() for the output of heading and description. i.e. line breaks now appear on the maintenance page.
+
+* **[IMPROVED in Free and Pro] Disable Components >> Disable Smaller Components >> Disable Emoji Support**: will also now disable conversion of text emojis into picture emojis, a.k.a. smilies. Props to [@ofmarconi](https://wordpress.org/support/users/ofmarconi/) for [reporting the issue](https://wordpress.org/support/topic/even-with-the-option-to-disable-emoji-it-continues-to-be-changed-on-the-front-en/) on their Elementor site.
+
+* **[IMPROVED in Pro] Admin Interface >> Custom Admin Footer Text**: added "Add Media" and "Visual | Text" switcher.
+
+* **[FIXED in Free and Pro] ASE Settings**: fixed an issue in some scenarios, of not being able to enter any value in the TinyMCE Visual editor. Props to Nelson T. who first reported the issue in the Custom Admin Footer Text module and being patient and supportive throughout the troubleshooting process. Additional props to Gustavo F. for reporting the same issue in the Maintenance Mode module and facilitating the troubleshooting process as well.
+
+* **[FIXED in Pro] Custom Code >> Code Snippets Manager**: fixed an issue in some scenarios, of not being able to enter any value in the snippet description's TinyMCE Visual editor. Props to Michael S. for reporting the issue.
+
+* **[FIXED in Free and Pro] Log In | Log Out >> Change Login URL**: fixed an issue where on some circumstances, after a successful login, redirection to the default / custom 404 page instead of the admin dashboard occurs. Props to Ignazio D.M. for reporting the issue.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed an issue with Elementor integration where Loop Grid widget is not showing the correct set of CPT content. Props to Thomas B. for reporting the issue in great detail (problematic URLs and annotated screenshots) and facilitating the troubleshooting process.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed a couple of deprecation notices when in PHP v8.2 for creating dynamic property.
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Custom Field Groups**: fixed an issue where custom field group's extra settings were not properly being saved.
+
+* **[FIXED in Free and Pro] Admin Interface >> Hide Admin Notices**: fixed missing settings panels in Loco Translate, e.g. Add New Language panel, as they are using divs with .notice class, which were hidden inside the Notices panel in the admin bar. These panels are now excluded from being hidden. Props to [@inboundbe](https://wordpress.org/support/users/inboundbe/) and [@kirollosa](https://wordpress.org/support/users/kirollosa/) for [reporting the issue](https://wordpress.org/support/topic/issue-with-loco-translate-2/).
+
+* **[FIXED in Free and Pro] Content Mangement >> Media Replacement**: fixed an issue where on certain scenarios, when editing a page / post / CPT with the block editor, there were media frame layout issues when trying to change the featured image. Props to Philipp Z. for reporting the issue and facilitating troubleshooting, which includes recording a 43 seconds screencast of the issue.
+
+* **[FIXED in Free and Pro] Optimizations >> Revisions Control**: fixed an issue when entering 0 revisions as the limit, after saving changes, it will revert back to the default 10 revisions. Props to [@pressthemes1](https://wordpress.org/support/users/pressthemes1/) for [reporting the issue](https://wordpress.org/support/topic/all-setting-revisions-control-to-0/).
 
 ### 6.9.3 (2024.03.12) - ASE Free and Pro
 

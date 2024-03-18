@@ -56,7 +56,7 @@ class EditProfile
 
             $error = 0;
 
-            $pfile_data['display_name'] = wpdm_sanitize_var($_POST['wpdm_profile']['display_name']);
+            $pfile_data['display_name'] = wpdm_sanitize_var($_POST['wpdm_profile']['display_name'], 'username');
             $pfile_data['user_email'] = sanitize_email($_POST['wpdm_profile']['user_email']);
 
 

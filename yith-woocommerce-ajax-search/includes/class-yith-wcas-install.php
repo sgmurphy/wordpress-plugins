@@ -9,13 +9,15 @@
 
 defined( 'ABSPATH' ) || exit;
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.SchemaChange
+
 if ( ! class_exists( 'YITH_WCAS_Install' ) ) {
 	/**
 	 * The class that init the db
 	 */
 	class YITH_WCAS_Install {
 
-		const YITH_WCAS_DB_VERSION = '1.21';
+		const YITH_WCAS_DB_VERSION = '1.53';
 
 		/**
 		 * The function that init the configuration
@@ -71,7 +73,6 @@ if ( ! class_exists( 'YITH_WCAS_Install' ) ) {
 			// retrieve table charset.
 			$charset_collate = $wpdb->get_charset_collate();
 			$sql             = "CREATE TABLE $wpdb->yith_wcas_data_index_lookup (
-				id bigint(20) NOT NULL AUTO_INCREMENT,
 				post_id bigint(20) NOT NULL,
 				name varchar(255) NOT NULL DEFAULT '',
 				description text NOT NULL DEFAULT '',
@@ -93,12 +94,11 @@ if ( ! class_exists( 'YITH_WCAS_Install' ) ) {
 				product_type varchar(20) DEFAULT '',
 				parent_category varchar(255) DEFAULT '',
 				tags mediumtext DEFAULT '',
-				lang varchar(10) NOT NULL DEFAULT '',
+				lang varchar(20) NOT NULL DEFAULT '',
 				featured tinyint(1) NOT NULL DEFAULT 0,
 				custom_fields mediumtext DEFAULT '',
 				custom_taxonomies mediumtext DEFAULT '',
-				boost decimal(4,2) NOT NULL DEFAULT 0,
-                PRIMARY KEY (id)
+				boost decimal(4,2) NOT NULL DEFAULT 0
                 )ENGINE=InnoDB $charset_collate;";
 
 			dbDelta( $sql );
@@ -108,7 +108,8 @@ if ( ! class_exists( 'YITH_WCAS_Install' ) ) {
 				post_id bigint(20) NOT NULL,
 				frequency int NOT NULL DEFAULT 0,
 				source_type varchar(20),
-				position varchar(255)
+				position varchar(255),
+				PRIMARY KEY (token_id,post_id)
                 )ENGINE=InnoDB $charset_collate;";
 
 			dbDelta( $sql );
@@ -118,7 +119,7 @@ if ( ! class_exists( 'YITH_WCAS_Install' ) ) {
 				token varchar(255) NOT NULL ,
 				frequency int NOT NULL DEFAULT 0,
 				doc_frequency int NOT NULL DEFAULT 0,
-				lang varchar(10) NOT NULL DEFAULT '',
+				lang varchar(20) NOT NULL DEFAULT '',
                 PRIMARY KEY (token_id)
                 )ENGINE=InnoDB $charset_collate;";
 
@@ -131,7 +132,7 @@ if ( ! class_exists( 'YITH_WCAS_Install' ) ) {
 				search_date datetime NOT NULL,
 				num_results int(11) DEFAULT 0,
 				clicked_product bigint(20) DEFAULT 0,
-				lang varchar(10) NOT NULL DEFAULT '',
+				lang varchar(20) NOT NULL DEFAULT '',
                 PRIMARY KEY (id)
                 )ENGINE=InnoDB $charset_collate;";
 
@@ -145,13 +146,101 @@ if ( ! class_exists( 'YITH_WCAS_Install' ) ) {
 			$wpdb->query( "CREATE INDEX index_query_lang_search_date ON $wpdb->yith_wcas_query_log (query,lang,search_date DESC)" );
 
 			$token_index = $wpdb->get_row( "SHOW INDEX FROM {$wpdb->yith_wcas_index_token} WHERE column_name = 'token' and Key_name = 'token'" );
+			$primary_key = $wpdb->get_row( "SELECT constraint_name FROM information_schema.table_constraints WHERE  table_name = '{$wpdb->yith_wcas_index_relationship}' AND constraint_name = 'PRIMARY'");
+
 			if ( ! is_null( $token_index ) ) {
 				$wpdb->query( "ALTER TABLE {$wpdb->yith_wcas_index_token} DROP INDEX token;" );
 				update_option( 'ywcas_first_indexing', 'no' );
 			}
+
+			if( is_null( $primary_key ) ){
+				$wpdb->query("ALTER TABLE {$wpdb->yith_wcas_index_relationship} ADD PRIMARY KEY (token_id,post_id)" );
+			}
+
+
+
+			self::maybe_update_table_fields();
 			update_option( 'yith_wcas_db_version', self::YITH_WCAS_DB_VERSION );
 		}
 
+
+		/**
+		 * Check if is needed update the lang field
+		 *
+		 * @return bool
+		 */
+		protected static function maybe_update_table_fields() {
+			global $wpdb;
+			$updated = false;
+
+			if( self::table_has_field_type( $wpdb->yith_wcas_data_index_lookup, 'id','bigint(20)' ) ) {
+				$wpdb->query("TRUNCATE TABLE {$wpdb->yith_wcas_data_index_lookup}" );
+				$wpdb->query("ALTER TABLE {$wpdb->yith_wcas_data_index_lookup} DROP PRIMARY KEY" );
+				$wpdb->query("ALTER TABLE {$wpdb->yith_wcas_data_index_lookup} DROP COLUMN id" );
+				$wpdb->query("ALTER TABLE {$wpdb->yith_wcas_data_index_lookup} ADD PRIMARY KEY (post_id)" );
+				$updated = true;
+			}else{
+				$primary_key = $wpdb->get_row( "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE  table_schema = schema() AND column_key = 'PRI' AND table_name = '{$wpdb->yith_wcas_data_index_lookup}' AND column_name = 'post_id'");
+				if( !$primary_key ){
+					$wpdb->query("ALTER TABLE {$wpdb->yith_wcas_data_index_lookup} ADD PRIMARY KEY (post_id)" );
+					$updated = true;
+				}
+			}
+
+
+			if( self::table_has_field_type( $wpdb->yith_wcas_data_index_lookup, 'lang','varchar(10)' ) ) {
+				self::change_field_type($wpdb->yith_wcas_data_index_lookup, 'lang', 'varchar(20)');
+				$updated = true;
+			}
+
+			if( self::table_has_field_type( $wpdb->yith_wcas_index_token, 'lang','varchar(10)' ) ) {
+				self::change_field_type($wpdb->yith_wcas_index_token, 'lang', 'varchar(20)');
+				$updated = true;
+			}
+
+			if( self::table_has_field_type( $wpdb->yith_wcas_query_log, 'lang','varchar(10)' ) ) {
+				self::change_field_type($wpdb->yith_wcas_query_log, 'lang', 'varchar(20)');
+				$updated = true;
+			}
+
+			if( $updated && 'yes' === get_option( 'ywcas_first_indexing', 'no' ) ) {
+				update_option( 'ywcas_first_indexing', 'no' );
+			}
+
+			return $updated;
+
+		}
+
+		/**
+		 * Check if a field has specific type
+		 *
+		 * @param string $table_name The table name.
+		 * @param string $field_name The field name.
+		 * @param string $field_type The field type.
+		 *
+		 * @return bool
+		 */
+		protected static function table_has_field_type ( $table_name, $field_name, $field_type ){
+			global $wpdb;
+
+			$res = $wpdb->get_row($wpdb->prepare( "SHOW COLUMNS FROM {$table_name} WHERE Field = %s AND type = %s ", $field_name, $field_type ) );
+			return !is_null( $res );
+		}
+
+		/**
+		 * Change a field type
+		 *
+		 * @param string $table_name The table name.
+		 * @param string $field_name The field name.
+		 * @param string $field_type The new field type.
+		 *
+		 * @return bool
+		 */
+		protected static function change_field_type( $table_name, $field_name, $field_type) {
+			global  $wpdb;
+
+			return $wpdb->query( "ALTER TABLE {$table_name} MODIFY {$field_name} {$field_type}");
+		}
 		/**
 		 * Check if the plugin is new or is an update.
 		 *

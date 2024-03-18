@@ -67,7 +67,8 @@ class Filter {
 		$filters = [
 			'exclude_variable_product',
 			'exclude_empty_title_products',
-			'exclude_hidden_products'
+			'exclude_hidden_products',
+            'exclude_variation_parent_private_products',
 		];
 
 		if ( Helper::is_pro() ) { // These filters only applied for pro version.
@@ -179,6 +180,22 @@ class Filter {
 
 		return false;
 	}
+
+    /**
+     * Remove  variation products whose parent status is provate.
+     *
+     * @return bool
+     */
+    public function exclude_variation_parent_private_products() {
+        if ( $this->product->is_type( 'variation' ) ) {
+            $parent_id = $this->product->get_parent_id();
+            if ( get_post_status( $parent_id ) === 'private' && !in_array('private',$this->config->get_post_status_to_include())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 	/**
 	 * Remove hidden variation products whose parent status is draft.

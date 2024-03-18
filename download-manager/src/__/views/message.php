@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) die();
     <meta http-equiv="Content-Type"
           content="<?php bloginfo( 'html_type' ); ?>; charset=<?php bloginfo( 'charset' ); ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<?php wp_head(); ?>
+    <link rel="stylesheet" href="<?php echo WPDM_ASSET_URL.'bootstrap/css/bootstrap.css'; ?>" />
     <style>
         body{
             font-family: var(--wpdm-font);
@@ -44,8 +44,9 @@ if (!defined('ABSPATH')) die();
         }
 
     </style>
+    <?php WPDM()->apply::uiColors(); ?>
 </head>
-<body>
+<body class="w3eden">
 <div class="outer">
     <div class="middle">
         <div class="inner">

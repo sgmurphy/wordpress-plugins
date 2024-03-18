@@ -258,9 +258,21 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 		 */
 		public function get_product_price_for_display( $product, $price ) {
 			if ( 'incl' === get_option( 'woocommerce_tax_display_shop' ) ) {
-				$price = wc_get_price_including_tax( $product, array( 'qty' => 1, 'price' => $price ) );
+				$price = wc_get_price_including_tax(
+					$product,
+					array(
+						'qty'   => 1,
+						'price' => $price,
+					)
+				);
 			}else{
-				$price = wc_get_price_excluding_tax( $product, array( 'qty' => 1, 'price' => $price ) );
+				$price = wc_get_price_excluding_tax(
+					$product,
+					array(
+						'qty'   => 1,
+						'price' => $price,
+					)
+				);
 			}
 
 			return $price;
@@ -438,13 +450,13 @@ if ( ! class_exists( 'YITH_WCAS_Data_Index_Indexer' ) ) {
 			$formatted_data = $this->get_formatted_data( $data );
 
 			if ( $formatted_data ) {
-				$object_id                   = YITH_WCAS_Data_Index_Lookup::get_instance()->insert( $formatted_data );
+				$inserted                   = YITH_WCAS_Data_Index_Lookup::get_instance()->insert( $formatted_data );
 				$additional_data_to_tokenize = $this->get_additional_data_to_tokenize( $data, $formatted_data['lang'] );
 
 				$formatted_data = ! empty( $additional_data_to_tokenize ) ? array_merge( $formatted_data, $additional_data_to_tokenize ) : $formatted_data;
 
-				if ( $object_id ) {
-					YITH_WCAS_Data_Index_Tokenizer::insert( $object_id, $formatted_data, $data_type );
+				if ( $inserted ) {
+					YITH_WCAS_Data_Index_Tokenizer::insert( $formatted_data['post_id'], $formatted_data, $data_type );
 				}
 			}
 		}

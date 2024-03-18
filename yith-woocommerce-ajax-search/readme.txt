@@ -2,10 +2,10 @@
 
 Contributors: yithemes
 Tags: woocommerce search by sku, woocommerce search results, woocommerce search shortcode, woocommerce search page, woocommerce search form, woocommerce search filter, woocommerce search products, woocommerce search content, woocommerce search autocomplete, woocommerce advanced search, woocommerce search category, woocommerce search product attributes, woocommerce search by tag, woocommerce search by brand, woocommerce predictive, woocommerce live search, woocommerce single product search, woocommerce site search, woocommerce search tex, tajax, search, woocommerce, products, themes, yit, e-commerce, shop, yith, ajax search, instant search, premium, yithemes, autocomplete, autosuggest, better search, category search, custom search, highlight terms, Live Search, Predictive Search, product search, relevant search, search highlight, search product, suggest, typeahead, WooCommerce Plugin, woocommerce product search, woocommerce search, wordpress ecommerce
-Requires at least: 6.2
+Requires at least: 6.3
 Requires PHP: 7.4
-Tested up to: 6.4
-Stable tag: 2.1.0
+Tested up to: 6.5
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -143,6 +143,11 @@ If you want to see a demonstration version of the premium plugin, you can see th
 6. Shortcode configuration - search results tab
 7. Search Stats tab
 == Changelog ==
+= 2.2.0 - Released on 18 March 2024 =
+* New: support for WordPress 6.5
+* New: support for WooCommerce 8.7
+* Update: YITH plugin framework
+
 = 2.1.0 - Released on 28 February 2024 =
 * New: Statistics panel to analyze the most popular searches, the most-clicked products, and searches with no results.
 * New: Support for WooCommerce 8.6

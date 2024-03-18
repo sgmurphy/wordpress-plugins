@@ -41,7 +41,7 @@ class Login
         add_shortcode('wpdm_logout_url', array($this, 'logoutURLShortcode'));
 
 
-        add_action('authenticate', [$this, 'verifyLoginEmail'], 999999, 3);
+        add_filter('authenticate', [$this, 'verifyLoginEmail'], 999999, 3);
 
     }
 
@@ -356,8 +356,10 @@ class Login
     function verifyLoginEmail($user, $user_login, $user_pass)
     {
 
+        if(get_class($user) !== 'WP_User' && !$user_login) return $user;
+
         $user_email = null;
-        if(!is_email($user_login) && !$user) {
+        if(!is_email($user_login) && !$user && $user_login) {
             $_user = get_user_by('user_login', $user_login);
             if($_user)
                 $user_email = $_user->user_email;

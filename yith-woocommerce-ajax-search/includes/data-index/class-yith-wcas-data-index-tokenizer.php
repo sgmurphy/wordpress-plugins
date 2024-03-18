@@ -151,7 +151,7 @@ class YITH_WCAS_Data_Index_Tokenizer {
 		$split_content = array_filter( $split_content );
 		$split_content = array_unique( $split_content );
 
-		return array_diff( $split_content, self::get_stop_words() );
+		return $split_content;
 	}
 
 
@@ -196,10 +196,19 @@ class YITH_WCAS_Data_Index_Tokenizer {
 	/**
 	 * Return the stop words list
 	 *
+	 * @param   string  $lang  Language.
+	 *
 	 * @return array
 	 */
-	public static function get_stop_words() {
-		return apply_filters( 'yith_wcas_stop_words', array() );
+	public static function get_stop_words( $lang = 'en_US' ) {
+		$stopwords = array();
+		$path      = apply_filters( 'yith_wcas_stop_words_path', YITH_WCAS_DIR . 'languages/stopwords/' . $lang );
+		if ( file_exists( $path ) ) {
+			$content   = file_get_contents( $path );
+			$stopwords = array_map( 'trim', explode( ',', $content ) );
+		}
+
+		return apply_filters( 'yith_wcas_stop_words', $stopwords, $lang );
 	}
 
 	/**
@@ -240,7 +249,7 @@ class YITH_WCAS_Data_Index_Tokenizer {
 	 *
 	 * @return string
 	 */
-	public static function get_synonymous( $content ) {
+	public static function get_synonymous( $content, $lang = 'en_US' ) {
 		$syn_list           = ywcas()->settings->get_synonymous();
 		$content            = mb_strtolower( $content );
 		$additional_content = $content;
@@ -261,6 +270,6 @@ class YITH_WCAS_Data_Index_Tokenizer {
 			}
 		}
 
-		return $additional_content;
+		return apply_filters('ywcas_get_synonyms', $additional_content, $content, $lang);
 	}
 }

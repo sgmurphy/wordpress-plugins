@@ -8,6 +8,7 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
 
 /**
  * Manage the Data Index Relationship table
@@ -167,7 +168,8 @@ class YITH_WCAS_Data_Index_Relationship {
 			$when .= sprintf( " WHEN position like '%s' THEN %d", '%' . $field['type'] . '%', 50 - intval( $field['priority'] ) );
 		};
 		$result = $wpdb->get_results(
-			"SELECT post_id, CASE  " . $when . " END as score FROM $wpdb->yith_wcas_index_relationship WHERE token_id IN (" . implode( ',', $tokens ) . ') ORDER BY  CASE  ' . $when . ' END DESC, frequency DESC', ARRAY_A //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			'SELECT post_id, CASE  ' . $when . " END as score FROM $wpdb->yith_wcas_index_relationship WHERE token_id IN (" . implode( ',', $tokens ) . ') ORDER BY  CASE  ' . $when . ' END DESC, frequency DESC',
+			ARRAY_A //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		);
 		return $result;
 	}

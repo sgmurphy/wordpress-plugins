@@ -131,6 +131,7 @@ function wpdm_package_size($id)
 function wpdm_file_size($file)
 {
     $file = WPDM()->fileSystem->absPath($file);
+    if(!$file) return '0.00 KB';
 	$size = filesize($file);
     $size = $size / 1024;
     if ($size > 1024) $size = number_format($size / 1024, 2) . ' MB';
@@ -1097,15 +1098,17 @@ function wpdm_hex2rgb($hex)
 }
 
 /*** developer fns **/
-function wpdmdd($data)
+function wpdmdd(...$data)
 {
-    echo "<pre>" . print_r($data, 1) . "</pre>";
+    foreach ($data as $d) {
+	    echo "<pre style='margin-bottom: 5px;padding: 10px;background: #eef1f5;border-radius: 8px'>" . print_r( $d, 1 ) . "</pre>";
+    }
     die();
 }
 
 function wpdmprecho($data, $ret = 0)
 {
-    $echo = "<pre>" . print_r($data, 1) . "</pre>";
+    $echo = "<pre style='margin-bottom: 5px;padding: 10px;background: #eef1f5;border-radius: 8px'>" . print_r($data, 1) . "</pre>";
     if ($ret == 1) return $echo;
     echo $echo;
 }

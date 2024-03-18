@@ -93,7 +93,6 @@ else {
     }
 
 
-
     $filepath = WPDM()->fileSystem->absPath($indfile, $package['ID']);
 
     if(!$filepath)

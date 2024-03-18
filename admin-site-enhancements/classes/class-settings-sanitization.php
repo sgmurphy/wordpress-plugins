@@ -597,7 +597,7 @@ class Settings_Sanitization
         if ( !isset( $options['revisions_max_number'] ) ) {
             $options['revisions_max_number'] = 10;
         }
-        $options['revisions_max_number'] = ( !empty($options['revisions_max_number']) ? sanitize_text_field( $options['revisions_max_number'] ) : 10 );
+        $options['revisions_max_number'] = ( isset( $options['revisions_max_number'] ) ? sanitize_text_field( $options['revisions_max_number'] ) : 10 );
         if ( is_array( $asenha_revisions_post_types ) ) {
             foreach ( $asenha_revisions_post_types as $post_type_slug => $post_type_label ) {
                 // e.g. $post_type_slug is post,

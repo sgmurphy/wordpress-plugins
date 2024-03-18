@@ -317,6 +317,10 @@ class __
                     $value = preg_replace("/([^a-zA-Z0-9])/", '', $value);
                     break;
 
+                case 'username':
+                    $value = preg_replace("/([^a-zA-Z0-9_\-\s])/", '', $value);
+                    break;
+
                 case 'html':
 
                     break;

@@ -3,9 +3,9 @@ Contributors: w3eden, codename065, shahriar0822, shimo16ab, shafayat-alam
 Donate link:
 Tags: download manager, document management, file manager, digital store, ecommerce, document management plugin,  download monitor, download counter, password protection, download protection
 Requires at least: 5.3
-Tested up to: 6.4
+Tested up to: 6.5
 License: GPLv3
-Stable tag: 3.2.86
+Stable tag: 3.2.87
 
 
 This File Management & Digital Store plugin will help you to control file downloads & sell digital products from your WP site.
@@ -201,6 +201,14 @@ By using this plugin, you acknowledge and agree to the terms and policies of the
 19. More features
 
 == Changelog ==
+
+= 3.2.87 - 2024.03.18 =
+* Fixed an issue with the category link shortcode
+* Fixed an issue with the private package download link
+* Fixed an issue with the file size calculation
+* Improve input sanitization function
+* Fixed an issue with file browser base dir path in Windows server
+* Fixed an XSS issue with the front-end edit profile page
 
 = 3.2.86 - 2024.02.24 =
 * Fixed short-code parameter sanitization issue with category and direct download shortcodes

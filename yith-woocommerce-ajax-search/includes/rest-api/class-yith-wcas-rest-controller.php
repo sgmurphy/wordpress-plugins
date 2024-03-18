@@ -68,7 +68,7 @@ if ( ! class_exists( 'YITH_WCAS_REST_Controller' ) ) {
 		/**
 		 * Get a collection of posts.
 		 *
-		 * @param   WP_REST_Request  $request  Full details about the request.
+		 * @param   WP_REST_Request $request  Full details about the request.
 		 *
 		 * @return WP_Error|WP_REST_Response
 		 */
@@ -99,5 +99,18 @@ if ( ! class_exists( 'YITH_WCAS_REST_Controller' ) ) {
 			return rest_ensure_response( $results );
 		}
 
+		/**
+		 * Retrieves the query params for the collections.
+		 *
+		 * @since 4.7.0
+		 *
+		 * @return array Query parameters for the collection.
+		 */
+		public function get_collection_params() {
+			$params = parent::get_collection_params();
+			$params['page']['default'] = 0;
+			$params['page']['minimum'] = 0;
+			return  $params;
+		}
 	}
 }

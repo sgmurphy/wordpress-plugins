@@ -34,7 +34,7 @@ function wpvivid_deal_restore_shut_down_error()
             $mu_path = wpvivid_transfer_path(WPMU_PLUGIN_DIR);
             if(strpos($error_file_path,$mu_path)!==false)
             {
-                @unlink($error_file_path);
+                @wp_delete_file($error_file_path);
                 $restore_task=get_option('wpvivid_restore_task',array());
 
                 $restore_task['status']='error';

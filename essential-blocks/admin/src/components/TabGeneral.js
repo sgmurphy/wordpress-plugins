@@ -277,39 +277,21 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.5.3", "essential-blocks")}
+                                    {__("Version: 4.5.4", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("14/03/2024", "essential-blocks")}
+                                        {__("18/03/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Fixed: Advanced Navigation styling issue fix",
+                                            "Improved: Security enhancement",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Advanced Navigation custom navigation not working in mobile",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Fluent Form & WPForms not working in multisite",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Wrapper conflict with custom height",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Advanced video not pausing on popup close",
+                                            "Few minor bug fixes & improvements",
                                             "essential-blocks"
                                         )}
                                     </li>

@@ -15,13 +15,60 @@ use WPDM\__\UI;
 
 class PackageController extends PackageTemplate {
 
+
 	public $ID;
+	public $title;
+	public $description;
+	public $excerpt;
+	/**
+	 * @var FileList
+	 */
+	public $fileList;
+	public $post_status;
+	public $version;
+	public $publish_date;
+	public $publish_date_timestamp;
+	public $update_date;
+	public $update_date_timestamp;
+	public $avail_date;
+	public $expire_date;
+	public $link_label;
+	public $download_count;
+	public $view_count;
+	public $access;
+	public $author;
+	public $quota;
+	public $icon;
+	public $package_size;
 	public $package;
 	public $shortCodes;
 	public $packageData = [];
 	public $files = [];
 	public $restAPI;
 	public $templateDir;
+
+	public $post_author;
+	public $post_date;
+	public $post_content;
+	public $post_title;
+	public $post_excerpt;
+	public $file_count;
+	public $thumb;
+	public $preview;
+	public $featured_image;
+	public $file_type_icon;
+	public $download_url;
+	public $download_link;
+	public $download_link_extended;
+	public $avatar;
+	public $author_profile_url;
+	public $author_name;
+	public $page_url;
+	public $page_link;
+	public $page_url_qr;
+	public $btnclass;
+	public $avatar_url;
+	public $post_modified;
 
 
 	function __construct( $ID = null ) {
@@ -379,7 +426,7 @@ class PackageController extends PackageTemplate {
 
 		foreach ( $post_vars as $key => $val ) {
 			try {
-				if ( preg_match( '/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/', $key ) ) {
+				if(isset($this->{$key})) {
 					$this->{$key} = $val;
 				}
 			} catch ( \Exception $e ) {

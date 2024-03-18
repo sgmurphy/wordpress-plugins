@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-06T20:27:29+00:00\n"
+"POT-Creation-Date: 2024-03-18T17:10:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -172,8 +172,8 @@ msgstr ""
 msgid "%d seconds"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:38
 #: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:44
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:50
 #: admin/blocks/blocks/playlist-list-item/edit.js:69
 #: admin/blocks/blocks/playlist-list-item/Placeholder.js:101
 #: admin/blocks/blocks/playlist-list-item/Placeholder.js:103
@@ -181,53 +181,53 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:56
-#: admin/blocks/shared/BlockInspectorControls.js:16
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:62
+#: admin/blocks/shared/BlockInspectorControls.js:22
 #: admin/blocks/shared/chapters/ChaptersPanel.js:6
 #: Services/Translation.php:74
 msgid "Chapters"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:65
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:71
 msgid "Audio Settings"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:68
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:74
 #: admin/blocks/shared/settings/index.js:167
 #: Integrations/Elementor/VideoWidget.php:288
 msgid "Autoplay"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:80
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:86
 #: admin/blocks/shared/settings/index.js:192
 msgid "Performance Preference"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:96
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:102
 msgid "Audio Playback Speed"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:100
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:106
 #: admin/blocks/shared/settings/index.js:219
 msgid "Page Load Speed"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:104
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:110
 #: admin/blocks/shared/settings/index.js:223
 msgid "Page Load Speed (Extreme)"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:114
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:120
 #: admin/blocks/shared/settings/index.js:232
 msgid "Poster image"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:117
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:123
 #: admin/blocks/shared/settings/index.js:235
 msgid "Select poster image"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:128
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:134
 #: admin/blocks/shared/audioPresets/Behavior.js:80
 #: admin/blocks/shared/branding/index.js:91
 #: admin/blocks/shared/presets/Behavior.js:135
@@ -237,7 +237,7 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:129
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:135
 #: admin/blocks/blocks/audio/edit.js:127
 #: admin/blocks/blocks/bunny/edit.js:413
 #: admin/blocks/blocks/hosted/edit.js:221
@@ -250,17 +250,17 @@ msgstr ""
 msgid "Replace"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:136
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:142
 #: admin/blocks/shared/settings/index.js:254
 msgid "The current poster image url is %s"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:139
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:145
 #: admin/blocks/shared/settings/index.js:257
 msgid "There is no poster image currently selected"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:150
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:156
 #: admin/blocks/shared/branding/index.js:113
 #: admin/blocks/shared/settings/index.js:268
 #: admin/blocks/shared/settings/MutedPreviewOptions.js:86
@@ -268,12 +268,12 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:158
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:164
 msgid "Audio Preset"
 msgstr ""
 
-#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:164
-#: admin/blocks/shared/BlockInspectorControls.js:46
+#: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:171
+#: admin/blocks/shared/BlockInspectorControls.js:53
 msgid "Global Player Branding"
 msgstr ""
 
@@ -1323,15 +1323,15 @@ msgstr ""
 msgid "Control Color"
 msgstr ""
 
-#: admin/blocks/shared/BlockInspectorControls.js:28
+#: admin/blocks/shared/BlockInspectorControls.js:34
 msgid "Overlays"
 msgstr ""
 
-#: admin/blocks/shared/BlockInspectorControls.js:37
+#: admin/blocks/shared/BlockInspectorControls.js:43
 msgid "Video settings"
 msgstr ""
 
-#: admin/blocks/shared/BlockInspectorControls.js:41
+#: admin/blocks/shared/BlockInspectorControls.js:47
 #: Integrations/Elementor/VideoWidget.php:318
 msgid "Video Preset"
 msgstr ""
@@ -3096,6 +3096,10 @@ msgstr ""
 
 #: Services/API/RestPresetsController.php:125
 msgid "Style for the caption."
+msgstr ""
+
+#: Services/API/RestSettingsController.php:132
+msgid "Markup is not allowed in CSS."
 msgstr ""
 
 #: Services/API/RestVideosController.php:135

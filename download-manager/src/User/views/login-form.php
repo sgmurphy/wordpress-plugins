@@ -103,7 +103,7 @@ if(!defined('ABSPATH')) die();
                     }
                     <?php } ?>
                 },
-                success: function (res) {
+                success: async function (res) {
                     WPDM.unblockUI('#loginform');
                     if (!res.success) {
                         $('form .alert-danger').hide();
@@ -118,7 +118,12 @@ if(!defined('ABSPATH')) die();
                         }
                         <?php } ?>
                     } else {
+                        await WPDM.doAction("wpdm_user_login", res);
                         $('#loginform-submit').html("<i class='fa fa-sun fa-spider'></i> "+res.message);
+                        $('#loginform-submit').html(WPDM.html("i", "", "fa fa-sun fa-spider") + " " + res.message);
+                        setTimeout(function () {
+                            location.href = "<?= wp_sanitize_redirect(htmlspecialchars_decode($log_redirect)); ?>";
+                        }, 1000);
                         location.href = "<?php echo $log_redirect; ?>";
                     }
                 }

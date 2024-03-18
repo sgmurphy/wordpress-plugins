@@ -274,6 +274,7 @@
       $('.password-protection-password').appendTo('.fields-utilities .enable-password-protection .asenha-subfields');
       
       $('.maintenance-mode').appendTo('.fields-utilities > table > tbody');
+      
       $('.maintenance-page-heading').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
       $('.maintenance-page-description').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
       $('.maintenance-page-background').appendTo('.fields-utilities .maintenance-mode .asenha-subfields');
@@ -402,7 +403,6 @@
          bodyCodeEditor.refresh(); // Insert <head>, <body> and <footer> code >> CodeMirror
          footerCodeEditor.refresh(); // Insert <head>, <body> and <footer> code >> CodeMirror
          robotsTxtEditor.refresh(); // Manage robots.txt >> CodeMirror
-         
       });
 
       $('#tab-disable-components + label').click( function() {
@@ -431,6 +431,7 @@
          $('.asenha-fields:not(.fields-utilities)').hide();
          window.location.hash = 'utilities';
          Cookies.set('asenha_tab', 'utilities', { expires: 1 }); // expires in 1 day
+         
       });
 
       // Open tab set in 'asenha_tab' cookie set on saving changes. Defaults to content-management tab when cookie is empty
@@ -458,7 +459,9 @@
                $('.asenha-toggle.'+fieldClass+' td .asenha-field-with-options').addClass('is-enabled');
                if ( codeMirrorInstances ) {
                   Object.keys(codeMirrorInstances).forEach(function(key) {
-                     codeMirrorInstances[key].refresh();
+                     if ( codeMirrorInstances[key] ) {
+                        codeMirrorInstances[key].refresh();
+                     }
                   });
                }
 
@@ -486,7 +489,9 @@
                   }
                   if ( codeMirrorInstances ) {
                      Object.keys(codeMirrorInstances).forEach(function(key) {
-                        codeMirrorInstances[key].refresh();
+                        if ( codeMirrorInstances[key] ) {
+                           codeMirrorInstances[key].refresh();                        
+                        }
                      });
                   }
 
@@ -611,8 +616,9 @@
             $(this).val(oldValue);
          }
       });
-
-      subfieldsToggler( 'maintenance_mode', 'maintenance-mode' );
+      
+      
+         subfieldsToggler( 'maintenance_mode', 'maintenance-mode' );
       
 
       

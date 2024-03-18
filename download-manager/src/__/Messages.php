@@ -111,10 +111,11 @@ class Messages {
         return $message;
     }
 
-    public static function permission_denied($ID = null){
+    public static function permission_denied($ID = null, $default = ''){
         $message = get_option("__wpdm_permission_denied_msg");
         $message = self::decode_html($message);
         $message = wpdm_escs($message);
+		if(trim($message === '')) $message = wpdm_escs($default);
         $message = trim($message) !== '' ? $message : WPDM()->ui->button('<i class="fas fa-lock mr-3"></i>'.__( "Access Denied", "download-manager" ), ['class' => 'btn btn-danger']);
         return $message;
     }

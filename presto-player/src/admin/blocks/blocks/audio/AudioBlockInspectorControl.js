@@ -14,6 +14,8 @@ import {
 } from "@wordpress/components";
 import { useInstanceId } from "@wordpress/compose";
 import { MediaUpload, MediaUploadCheck } from "@wordpress/block-editor";
+import { useSelect } from "@wordpress/data";
+import { store as coreStore } from "@wordpress/core-data";
 import VideoChapters from "@/admin/blocks/shared/chapters";
 import ProBadge from "@/admin/blocks/shared/components/ProBadge";
 import AudioPresets from "@/admin/blocks/shared/audioPresets";
@@ -23,6 +25,10 @@ const AUDIO_POSTER_ALLOWED_MEDIA_TYPES = ["image"];
 function AudioBlockInspectorControl({ attributes, setAttributes }) {
   const instanceId = useInstanceId(AudioBlockInspectorControl);
   const audioPosterDescription = `audio-block__poster-image-description-${instanceId}`;
+
+  const userCanReadSettings = useSelect((select) =>
+    select(coreStore).canUser("read", "settings")
+  );
 
   const { autoplay, poster, preload, title } = attributes;
 
@@ -160,16 +166,18 @@ function AudioBlockInspectorControl({ attributes, setAttributes }) {
       </PanelBody>
 
       {/* Global Branding  */}
-      <PanelBody
-        title={<>{__("Global Player Branding", "presto-player")}</>}
-        initialOpen={false}
-      >
-        <VideoBranding
-          setAttributes={setAttributes}
-          attributes={attributes}
-          type="audio"
-        />
-      </PanelBody>
+      {!!userCanReadSettings && (
+        <PanelBody
+          title={<>{__("Global Player Branding", "presto-player")}</>}
+          initialOpen={false}
+        >
+          <VideoBranding
+            setAttributes={setAttributes}
+            attributes={attributes}
+            type="audio"
+          />
+        </PanelBody>
+      )}
     </>
   );
 }

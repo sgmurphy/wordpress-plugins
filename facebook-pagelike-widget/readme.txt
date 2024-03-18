@@ -1,14 +1,14 @@
 === Widget for Social Page Feeds ===
 Contributors: Milap
-Tags: facebook, facebook like box, facebook simple like, facebook fan pages, facebook like button, facebook button share, facebook social bookmarking, facebook feeds, facebook feed widget, social share, wordpress social share, socialmedia, social media widget, social media sharing, social media icon 
+Tags: facebook feeds, facebook like box, facebook like button, facebook feed widget, social post feed
 Donate link: https://www.paypal.me/MilapPatel
 Requires at least: 3.0.1
 Tested up to: 6.4.2
-Stable tag: trunk
+Stable tag: 6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Formerly "Facebook Page Like Widget". This plugin adds a Simple Facebook page Like Widget into your WordPress sidebar, footer area(as widget) & Page or Post(as shortcode).
+This plugin adds a simple Facebook Page Like Widget to your WordPress sidebar, footer area (as a widget), and page or post (as a Shortcode).
 
 == Description ==
 

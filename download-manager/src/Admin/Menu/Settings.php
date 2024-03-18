@@ -122,6 +122,7 @@ class Settings
                     $optv = wpdm_sanitize_array($optv);
 					if($optn === '_wpdm_file_browser_root') {
 						$optv = realpath( get_home_path() . '/' . $optv );
+						$optv = str_replace("\\", "/", $optv);
 						if ( $optv ) {
 							$optv = trailingslashit( $optv );
 						}

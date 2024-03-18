@@ -8,6 +8,7 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 /**
  * Recover the data from database
@@ -39,7 +40,7 @@ class YITH_WCAS_Data_Index_Lookup {
 		global $wpdb;
 		$result = $wpdb->insert( $wpdb->yith_wcas_data_index_lookup, $data, $this->get_format() );
 
-		return $result ? $wpdb->insert_id : 0;
+		return $result;
 	}
 
 	/**
@@ -177,7 +178,8 @@ class YITH_WCAS_Data_Index_Lookup {
 	 */
 	public function set_boost_to_products( $ids, $boost_value ) {
 		global $wpdb;
-		return $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->yith_wcas_data_index_lookup SET boost = %f WHERE post_id IN ( ".implode( ',', $ids )." )", floatval($boost_value)) );
+
+		return $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->yith_wcas_data_index_lookup SET boost = %f WHERE post_id IN ( " . implode( ',', $ids ) . ' )', floatval( $boost_value ) ) );
 	}
 
 	/**

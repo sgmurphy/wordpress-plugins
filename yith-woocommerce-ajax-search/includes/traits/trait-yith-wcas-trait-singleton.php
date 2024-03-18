@@ -14,7 +14,7 @@ trait YITH_WCAS_Trait_Singleton {
 	 *
 	 * @var self
 	 */
-	protected static $instance = null;
+	protected static $instance = array();
 
 	/**
 	 * The logger
@@ -38,7 +38,14 @@ trait YITH_WCAS_Trait_Singleton {
 	 * @return self
 	 */
 	public static function get_instance() {
-		return ! is_null( static::$instance ) ? static::$instance : static::$instance = new static();
+
+		$calledClass = get_called_class();
+
+		if ( ! isset( static::$instance[ $calledClass ] ) ) {
+			static::$instance[ $calledClass ] = new $calledClass();
+		}
+
+		return static::$instance[ $calledClass ];
 	}
 
 	/**

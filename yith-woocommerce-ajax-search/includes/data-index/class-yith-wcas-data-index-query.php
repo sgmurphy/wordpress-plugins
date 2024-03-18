@@ -46,16 +46,16 @@ class YITH_WCAS_Data_Index_Query {
 	/**
 	 * Constructor
 	 *
-	 * @param   array $args  Arguments.
+	 * @param array $data_type  Arguments.
 	 *
 	 * @since 2.0.0
 	 */
 	public function __construct( $data_type = array('product') ) {
-		if( in_array( 'product', $data_type )){
+		if ( in_array( 'product', $data_type, true ) ) {
 			$this->get_products();
 		}
 
-		if( in_array( 'post', $data_type )){
+		if ( in_array( 'post', $data_type, true ) ) {
 			$this->get_posts_and_pages();
 		}
 

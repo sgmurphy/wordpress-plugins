@@ -90,9 +90,8 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 
 			if ( ! $total_results ) {
 				$need_store_transient = apply_filters('ywcas_store_search_query', true );
-				$synonimus            = YITH_WCAS_Data_Index_Tokenizer::get_synonymous( $query_string );
-
-				$query_tokens = $this->get_search_tokens( $synonimus );
+				$synonymous           = YITH_WCAS_Data_Index_Tokenizer::get_synonymous( $query_string, $lang );
+				$query_tokens         = $this->get_search_tokens( $synonymous, $lang );
 
 				$debug && $this->logger->log( 'Execution time 0 ' . ( hrtime( true ) - $start_search ) / 1e+9 );
 				$debug && $this->logger->log( 'Tokens ' . print_r( $query_tokens, 1 ) );
@@ -100,8 +99,7 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 				$search_result_data = $this->get_search_results( $query_tokens, $post_type, $category, $lang );
 
 				$debug && $this->logger->log( 'Execution time 1 ' . ( hrtime( true ) - $start_search ) / 1e+9 );
-
-
+				$best_token = '';
 				// If the process no return results we can check for fuzzy strings.
 				if ( apply_filters( 'yith_wcas_force_fuzzy_search', empty( $search_result_data ) && 'yes' === ywcas()->settings->get_enable_search_fuzzy() ) ) {
 					$best_token = $this->get_fuzzy_query_string( $query_tokens, $lang );
@@ -114,12 +112,18 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 					}
 				}
 
+				$search_result_data = apply_filters( 'ywcas_searching_result_data', $search_result_data, $query_string, $lang, $post_type, $category );
 				$search_result_data = $this->filter_results( $search_result_data );
 				$search_result_data = array_unique( $search_result_data, SORT_REGULAR );
-				$total_results      = count( $search_result_data );
-				$search_result_data = apply_filters( 'ywcas_search_result_data', array_values( $search_result_data ), $query_string, $post_type, $lang );
-				usort( $search_result_data, fn( $a, $b ) => $b['score'] <=> $a['score'] );
 			}
+
+			/**
+			 * Main Filter to validate all results
+			 */
+			$search_result_data = apply_filters( 'ywcas_search_result_data', array_values( $search_result_data ), $query_string, $post_type, $lang );
+				$total_results      = count( $search_result_data );
+				usort( $search_result_data, fn( $a, $b ) => $b['score'] <=> $a['score'] );
+
 			if ( $limited ) {
 				$default_settings = ywcas()->settings->get_classic_default_settings();
 				$num_of_results   = ! $num_of_results ? $default_settings['maxResults'] : $num_of_results;
@@ -220,7 +224,7 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 		public function add_score( $results, $search_results ) {
 
 			foreach ( $search_results as $search_result ) {
-				$key = array_search( $search_result['post_id'], array_column( $results, 'post_id' ) );
+				$key = array_search( $search_result['post_id'], array_column( $results, 'post_id' ) ); // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 
 				if ( false !== $key ) {
 					$boost                    = $results[ $key ]['boost'] ?? 0;
@@ -235,16 +239,17 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 		/**
 		 * Return the fuzzy query string
 		 *
-		 * @param $query_tokens
+		 * @param array  $query_tokens The token list.
+		 * @param string $lang The language.
 		 *
-		 * @return void
+		 * @return string|array
 		 */
 		public function get_fuzzy_query_string( $query_tokens, $lang ) {
 			if ( ! $query_tokens ) {
-				return array();
+				return '';
 			}
 
-			$best_token = array();
+			$best_token = '';
 
 			foreach ( $query_tokens as $query_token ) {
 				if ( strlen( $query_token ) < $this->fuzzy_prefix_length + 1 ) {
@@ -252,7 +257,7 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 				}
 				$token_names = array();
 				$token       = substr( $query_token, 0, $this->fuzzy_prefix_length );
-				$token       = $this->prepare_token( $token );
+				$token       .= '%';
 
 				$token_results = YITH_WCAS_Data_Index_Token::get_instance()->search_similar_token( $token, $lang, $this->fuzzy_max_tokens );
 
@@ -345,11 +350,15 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 		 * Return the search tokens as array ordered from word length
 		 *
 		 * @param   string  $query_string  Query string.
+		 * @param string $lang Language.
+		 *
 		 *
 		 * @return array
 		 */
-		public function get_search_tokens( $query_string ) {
+		public function get_search_tokens( $query_string, $lang ) {
 			$tokens = YITH_WCAS_Data_Index_Tokenizer::tokenize( $query_string, 'search' );
+			$stop_words = YITH_WCAS_Data_Index_Tokenizer::get_stop_words( $lang );
+			$tokens     = array_diff( $tokens, $stop_words );
 			usort(
 				$tokens,
 				function ( $a, $b ) {
@@ -460,9 +469,10 @@ if ( ! class_exists( 'YITH_WCAS_Data_Search_Engine' ) ) {
 						$result['custom_taxonomies'] = maybe_unserialize( $result['custom_taxonomies'] );
 					}
 					if ( ! $include_variations && isset( $result['product_type'] ) && 'variation' === $result['product_type'] ) {
-						if ( ! in_array( $result['post_parent'], $main_results ) ) {
+						if ( ! in_array( $result['post_parent'], $main_results ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 							$parent                                 = YITH_WCAS_Data_Index_Lookup::get_instance()->get_element_by_post_id( $result['post_parent'] );
 							$parent['score']                        = $result['score'];
+							$parent['thumbnail']                    = $result['thumbnail'];
 							$main_results[ $result['post_parent'] ] = $parent;
 						}
 					} else {

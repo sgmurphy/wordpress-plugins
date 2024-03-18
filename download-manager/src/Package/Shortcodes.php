@@ -5,9 +5,11 @@ namespace WPDM\Package;
 
 
 use WPDM\__\__;
+use WPDM\__\Messages;
 use WPDM\__\Template;
 use WPDM\__\Crypt;
 use WPDM\__\Query;
+use WPDM\__\UI;
 
 class Shortcodes
 {
@@ -55,9 +57,12 @@ class Shortcodes
         //Return if id is invalid
         if (!$id || get_post_type($id) !== 'wpdmpro') return '';
 
+        if (get_post_status($id) !== 'publish' && !is_user_logged_in()) return Messages::permission_denied($id, __('Private File - Access Forbidden', 'download-manager'));
+
         //Link template
         $template = isset($params['template']) ? $params['template'] : get_post_meta($id, '__wpdm_template', true);
         if ($template == '') $template = 'link-template-default.php';
+		$template = wp_basename($template);
         $pack = new Package($id);
         $html = "<div class='w3eden'>" . $pack->fetchTemplate($template, $id, 'link') . "</div>";
 
@@ -247,11 +252,12 @@ class Shortcodes
 
 
         $html = '';
-
+		$template = wpdm_valueof($scparams, 'template', 'link-template-default.php');
+	    $template = wp_basename($template);
         foreach ($packages as $pack){
             $pack = (array)$pack;
             //$repeater = "<div class='{$cwd_class} {$cwdsm_class} {$cwdxs_class}'>" . \WPDM\Package::fetchTemplate(wpdm_valueof($scparams, 'template', 'link-template-default.php'), $pack) . "</div>";
-            $repeater = "<div class='{$cwd_class} {$cwdsm_class} {$cwdxs_class}'>" . WPDM()->package->fetchTemplate(wpdm_valueof($scparams, 'template', 'link-template-default.php'), $pack) . "</div>";
+            $repeater = "<div class='{$cwd_class} {$cwdsm_class} {$cwdxs_class}'>" . WPDM()->package->fetchTemplate($template, $pack) . "</div>";
             $html .= $repeater;
 
         }

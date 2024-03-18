@@ -24,19 +24,7 @@ class RestSettingsController extends \WP_REST_Settings_Controller
     public function register()
     {
         add_action('rest_api_init', [$this, 'register_routes']);
-    }
-
-    /**
-     * Checks if a given request has access to read and manage settings.
-     *
-     * @since 4.7.0
-     *
-     * @param WP_REST_Request $request Full details about the request.
-     * @return bool True if the request has read access for the item, otherwise false.
-     */
-    public function get_item_permissions_check($request)
-    {
-        return current_user_can('edit_posts');
+        add_filter('rest_pre_update_setting', [$this, 'validatePlayerBrandingCSS'], 10, 3);
     }
 
     /**
@@ -100,5 +88,51 @@ class RestSettingsController extends \WP_REST_Settings_Controller
         }
 
         return $rest_options;
+    }
+
+    /**
+     * Validate player branding css setting value before updating.
+     *
+     * @param mixed           $value   The value of the setting.
+     * @param string          $setting The setting name.
+     * @param WP_REST_Request $request The request object.
+     *
+     * @return void
+     */
+    public function validatePlayerBrandingCSS($value, $setting, $request)
+    {
+        if ('presto_player_branding' !== $setting) {
+            return $value;
+        }
+
+        if (isset($request['player_css']) && !empty($request['player_css'])) {
+            $css_validation_result = $this->validateCustomCSS($request['player_css']);
+            if (is_wp_error($css_validation_result)) {
+                wp_die($css_validation_result, 400);
+            }
+        }
+
+        return $value;
+    }
+
+    /**
+     * Validate style.css as valid CSS.
+     *
+     * Currently just checks for invalid markup.
+     * 
+     * @param string $css CSS to validate.
+     * 
+     * @return true|WP_Error True if the input was validated, otherwise WP_Error.
+     */
+    protected function validateCustomCSS($css)
+    {
+        if (preg_match('#</?\w+#', $css)) {
+            return new \WP_Error(
+                'rest_custom_css_illegal_markup',
+                __('Markup is not allowed in CSS.', 'gutenberg'),
+                array('status' => 400)
+            );
+        }
+        return true;
     }
 }

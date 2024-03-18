@@ -8,6 +8,7 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 /**
  * Recover and save the query data from database
@@ -94,7 +95,7 @@ class YITH_WCAS_Data_Search_Query_Log {
 	public static function delete_all_user_searches( $user_id ) {
 		global $wpdb;
 
-		return $wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->yith_wcas_query_log WHERE user_id =%d", $user_id ) ); //phpcs:ignore
+		return $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->yith_wcas_query_log SET user_id = 0 WHERE user_id =%d", $user_id ) ); //phpcs:ignore
 	}
 
 

@@ -297,7 +297,7 @@ class Apply
         }
 
         if(!is_user_logged_in() && get_post_status($id) !== 'publish') {
-	        Messages::fullPage( 'Error', __( '404 - Not Found!', 'download-manager' ) );
+	        Messages::error( __( '403 - Access Forbidden!', 'download-manager' ), 1 );
         }
 
         $matched = (is_array(@maybe_unserialize($package['access'])) && is_user_logged_in()) ? array_intersect($current_user->roles, @maybe_unserialize($package['access'])) : array();
@@ -723,3 +723,4 @@ class Apply
 
 
 }
+

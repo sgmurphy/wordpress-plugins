@@ -1,3 +1,9 @@
+== 2.7.18 ==
+Release date: March 18, 2024
+* Fixed: Counter - Subtitle was not showing in editor
+* Fixed: Info Box - Image shrink issue with left and right alignment
+* Security Fix: Improved code security in PowerPack widgets
+
 == 2.7.17 ==
 Release date: March 1, 2024
 * Fixed: Team Member Carousel - JS error in editor when link is added
