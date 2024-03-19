@@ -29,7 +29,7 @@ class Fields
                 'type' => "round",
                 'backgroundColor' => "#2DB742",
                 'textColor' => "#fff",
-                'label' => __("Need Help? Chat with us", "ninjateam-whatsapp"),
+                'label' => __("Need Help? Chat with us", "wp-whatsapp"),
                 'width' => 300,
                 'height' => 64,
             )
@@ -70,9 +70,9 @@ class Fields
         return wp_parse_args(
             get_option('nta_wa_widget_styles', array()),
             array(
-                'title' => __("Start a Conversation", "ninjateam-whatsapp"),
-                "responseText" => __("The team typically replies in a few minutes.", "ninjateam-whatsapp"),
-                'description' => __("Hi! Click one of our member below to chat on <strong>WhatsApp</strong>", "ninjateam-whatsapp"),
+                'title' => __("Start a Conversation", "wp-whatsapp"),
+                "responseText" => __("The team typically replies in a few minutes.", "wp-whatsapp"),
+                'description' => __("Hi! Click one of our member below to chat on <strong>WhatsApp</strong>", "wp-whatsapp"),
                 'backgroundColor' => "#2db742",
                 'textColor' => "#fff",
                 'titleSize' => 18,
@@ -84,7 +84,7 @@ class Fields
                 'isShowResponseText' => 'ON',
                 'isShowPoweredBy' => 'ON',
 
-                "btnLabel" => __("Need Help? <strong>Chat with us</strong>", "ninjateam-whatsapp"),
+                "btnLabel" => __("Need Help? <strong>Chat with us</strong>", "wp-whatsapp"),
                 'btnLabelWidth' => 156,
                 'btnPosition' => 'right',
                 'btnLeftDistance' => 30,
@@ -93,7 +93,7 @@ class Fields
                 'isShowBtnLabel' => 'ON',
 
                 'isShowGDPR' => 'OFF',
-                "gdprContent" => __('Please accept our <a href="https://ninjateam.org/privacy-policy/">privacy policy</a> first to start a conversation.', "ninjateam-whatsapp"),
+                "gdprContent" => __('Please accept our <a href="https://ninjateam.org/privacy-policy/">privacy policy</a> first to start a conversation.', "wp-whatsapp"),
             )
         );
     }
@@ -122,8 +122,8 @@ class Fields
             'number' => '',
             'title' => '',
             'predefinedText' => '',
-            'willBeBackText' => __('I will be back in [njwa_time_work]', 'ninjateam-whatsapp'),
-            'dayOffsText' => __('I will be back soon', 'ninjateam-whatsapp'),
+            'willBeBackText' => __('I will be back in [njwa_time_work]', 'wp-whatsapp'),
+            'dayOffsText' => __('I will be back soon', 'wp-whatsapp'),
             'isAlwaysAvailable' => 'ON',
         );
 

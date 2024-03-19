@@ -8,6 +8,7 @@
  */
 
 namespace CustomFacebookFeed;
+use CustomFacebookFeed\Admin\CFF_Admin_Notices;
 use CustomFacebookFeed\Admin\CFF_Onboarding_Wizard;
 use CustomFacebookFeed\SB_Facebook_Data_Manager;
 use CustomFacebookFeed\Admin\CFF_Admin;
@@ -281,6 +282,17 @@ final class Custom_Facebook_Feed{
 	 */
 	public $platform_data_manager;
 
+	/**
+	 * Admin Notices
+	 *
+	 *
+	 * @since 4.4
+	 * @access public
+	 *
+	 * @var CFF_Admin_Notices
+	 */
+	public $cff_admin_notices;
+
 
 	/**
 	 * Custom_Facebook_Feed Instance.
@@ -362,8 +374,9 @@ final class Custom_Facebook_Feed{
 		$this->cff_about_us					= new CFF_About_Us();
 		$this->cff_support					= new CFF_Support();
 		$this->cff_elementor_base			= CFF_Elementor_Base::instance();
-		$this->cff_onboarding_wizard				= new CFF_Onboarding_Wizard();
+		$this->cff_onboarding_wizard		= new CFF_Onboarding_Wizard();
 
+		self::$instance->cff_admin_notices		= new CFF_Admin_Notices();
 
 		$this->cff_ppca_check_notice_dismiss();
 		$this->register_assets();

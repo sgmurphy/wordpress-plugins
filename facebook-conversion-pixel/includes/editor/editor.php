@@ -127,6 +127,14 @@ function fca_pc_add_event_form() {
 		'AddPaymentInfo' => 'AddPaymentInfo',
 		'Purchase' => 'Purchase',
 		'CompleteRegistration' => 'CompleteRegistration',
+			
+		'ViewContentTiktok' => 'ViewContent',
+		'AddToCartTiktok' => 'AddToCart',
+		'AddToWishlistTiktok' => 'AddToWishlist',
+		'InitiateCheckoutTiktok' => 'InitiateCheckout',
+		'AddPaymentInfoTiktok' => 'AddPaymentInfo',
+		'PurchaseTiktok' => 'CompletePayment',
+		'CompleteRegistrationTiktok' => 'CompleteRegistration',
 		
 		'ViewContentSnapchat' => 'VIEW_CONTENT',
 		'AddToCartSnapchat' => 'ADD_CART',
@@ -343,6 +351,7 @@ function fca_pc_add_pixel_form() {
 		'Adwords' => 'Google Ads',
 		'Pinterest' => 'Pinterest Conversions',
 		'Snapchat' => 'Snapchat Pixel',
+		'TikTok' => 'TikTok Pixel',
 		'Custom Header Script' => 'Custom Header Script',
 		
 	);
@@ -356,6 +365,7 @@ function fca_pc_add_pixel_form() {
 			'Custom Header Script' => 'Custom Header Script',
 			'Adwords' => 'Google Ads (Premium Only)',
 			'Pinterest' => 'Pinterest Conversions (Premium Only)',
+			'TikTok' => 'TikTok Pixel (Premium Only)',
 			'Snapchat' => 'Snapchat Pixel (Premium Only)',
 			
 		);
@@ -376,7 +386,7 @@ function fca_pc_add_pixel_form() {
 						<?php
 							forEach ( $types as $key => $value ) {
 								$atts = '';
-								if( FCA_PC_PLUGIN_PACKAGE === 'Lite' && in_array( $key, array( 'Pinterest', 'Snapchat', 'Adwords' ) ) ) {
+								if( FCA_PC_PLUGIN_PACKAGE === 'Lite' && in_array( $key, array( 'Pinterest', 'Snapchat', 'Adwords', 'TikTok' ) ) ) {
 									$atts = 'disabled';
 								}
 								echo "<option $atts value='" . esc_attr( $key ) . "'>$value</option>";
@@ -410,7 +420,7 @@ function fca_pc_add_pixel_form() {
 			</tr>
 			<tr id='fca-pc-ga3-input-tr'>
 				<th style="top: 0;"><?php esc_attr_e( 'Universal ID', 'facebook-conversion-pixel' ); echo fca_pc_tooltip( esc_attr__( 'Enter your Google Universal Analytics ID here', 'facebook-conversion-pixel' ) ) ?>
-					<br><a class="fca_pc_hint" href="hhttps://support.google.com/analytics/answer/10269537" target="_blank"> <?php echo esc_attr__( 'How do I get a Univesral Analytics ID?', 'facebook-conversion-pixel' ) ?></a>
+					<br><a class="fca_pc_hint" href="https://support.google.com/analytics/answer/10269537" target="_blank"> <?php echo esc_attr__( 'How do I get a Univesral Analytics ID?', 'facebook-conversion-pixel' ) ?></a>
 				</th>
 				<td id="fca-pc-ga3-helptext" class="fca-pc-validation-helptext"  title="<?php echo esc_attr__('Your GA3/Universal Analytics ID should start with "UA-" and contain a series of numbers and/or letters, like this: UA-123456789.', 'facebook-conversion-pixel' ) ?>">
 					<input id='fca-pc-modal-ga3-input' type='text' placeholder='e.g. UA-123456789' class='fca-pc-input-text' style='width: 100%'>
@@ -455,6 +465,14 @@ function fca_pc_add_pixel_form() {
 				</th>
 				<td id="fca-pc-snapchat-helptext" class="fca-pc-validation-helptext" title="<?php echo esc_attr__(' ', 'facebook-conversion-pixel' ) ?>">
 					<input id='fca-pc-modal-snapchat-input' type='text' placeholder='e.g. ca2a4cf8-b536-4b47-bdf7-a92ed596a420' class='fca-pc-input-text' style='width: 100%'>
+				</td>
+			</tr>	
+			<tr id='fca-pc-tiktok-input-tr'>
+				<th style="top: 0;"><?php esc_attr_e( 'TikTok Pixel ID', 'facebook-conversion-pixel' ); echo fca_pc_tooltip( esc_attr__( 'Enter your TikTok Pixel ID here', 'facebook-conversion-pixel' ) ) ?>
+					<br><a class="fca_pc_hint" href="https://ads.tiktok.com/help/article/get-started-pixel?lang=en#" target="_blank"> <?php echo esc_attr__( 'What is my TikTok Pixel ID?', 'facebook-conversion-pixel' ) ?></a>
+				</th>
+				<td id="fca-pc-tiktok-helptext" class="fca-pc-validation-helptext" title="<?php echo esc_attr__(' ', 'facebook-conversion-pixel' ) ?>">
+					<input id='fca-pc-modal-tiktok-input' type='text' placeholder='e.g. CKMUJJJC77U3G7B8ASE2' class='fca-pc-input-text' style='width: 100%'>
 				</td>
 			</tr>	
 			<tr class='fca-pc-exclude-input-tr'>
@@ -570,6 +588,8 @@ function fca_pc_event_panel( $options ) {
 		<button type="button" id="fca_pc_new_snapchat_event" class="button button-secondary"><span class="dashicons dashicons-plus" style="vertical-align: middle;"></span><?php esc_attr_e( 'Add Snapchat Event', 'facebook-conversion-pixel' ) ?></button>
 		
 		<button type="button" id="fca_pc_new_ga_event" class="button button-secondary"><span class="dashicons dashicons-plus" style="vertical-align: middle;"></span><?php esc_attr_e( 'Add Google Event', 'facebook-conversion-pixel' ) ?></button>
+		
+		<button type="button" id="fca_pc_new_tiktok_event" class="button button-secondary"><span class="dashicons dashicons-plus" style="vertical-align: middle;"></span><?php esc_attr_e( 'Add TikTok Event', 'facebook-conversion-pixel' ) ?></button>
 		<br>
 	</div>
 	<?php
@@ -826,6 +846,7 @@ function fca_pc_add_woo_integrations( $options ) {
 	$woo_ga_integration_on = empty( $options['woo_integration_ga'] ) ? '' : 'on';
 	$woo_pinterest_integration_on = empty( $options['woo_integration_pinterest'] ) ? '' : 'on';
 	$woo_snapchat_integration_on = empty( $options['woo_integration_snapchat'] ) ? '' : 'on';
+	$woo_tiktok_integration_on = empty( $options['woo_integration_tiktok'] ) ? '' : 'on';
 	$woo_extra_params = empty( $options['woo_extra_params'] ) ? '' : 'on';
 	$woo_delay = empty( $options['woo_delay'] ) ? 0 : intVal($options['woo_delay']);
 	$woo_feed_on = empty( $options['woo_feed'] ) ? '' : 'on';
@@ -879,6 +900,10 @@ function fca_pc_add_woo_integrations( $options ) {
 				<tr>
 					<th><?php echo esc_attr('WooCommerce events for Snapchat', 'facebook-conversion-pixel') . fca_sp_premium_only_link() ?></th>
 						<td><?php echo fca_pc_input( 'woo_integration_snapchat', '', $woo_snapchat_integration_on, 'checkbox' ) ?>
+				</tr>
+				<tr>
+					<th><?php echo esc_attr('WooCommerce events for TikTok', 'facebook-conversion-pixel') . fca_sp_premium_only_link() ?></th>
+						<td><?php echo fca_pc_input( 'woo_integration_tiktok', '', $woo_tiktok_integration_on, 'checkbox' ) ?>
 				</tr>
 				<tr>
 					<th><?php echo esc_attr( 'Delay ViewContent Event', 'facebook-conversion-pixel' ) . fca_sp_premium_only_link() ?></th>
@@ -946,6 +971,7 @@ function fca_pc_add_edd_integrations( $options ) {
 	$edd_ga_integration_on = empty( $options['edd_integration_ga'] ) ? '' : 'on';
 	$edd_pinterest_integration_on = empty( $options['edd_integration_pinterest'] ) ? '' : 'on';
 	$edd_snapchat_integration_on = empty( $options['edd_integration_snapchat'] ) ? '' : 'on';
+	$edd_tiktok_integration_on = empty( $options['edd_integration_tiktok'] ) ? '' : 'on';
 	$edd_extra_params = empty( $options['edd_extra_params'] ) ? '' : 'on';
 	$edd_delay = empty( $options['edd_delay'] ) ? 0 : intVal($options['edd_delay']);
 	$edd_feed_on = empty( $options['edd_feed'] ) ? '' : 'on';
@@ -999,6 +1025,11 @@ function fca_pc_add_edd_integrations( $options ) {
 					<span class='fca_pc_hint'><?php esc_attr_e("Automatically send the following Easy Digital Downloads events to Snapchat: Add To Cart, Purchase, and View&nbsp;Content", 'facebook-conversion-pixel' ) ?></span></td>
 				</tr>
 				<tr>
+					<th><?php echo esc_attr( 'Track EDD Events with TikTok', 'facebook-conversion-pixel' ) . fca_sp_premium_only_link() ?></th>
+						<td><?php echo fca_pc_input( 'edd_integration_tiktok', '', $edd_tiktok_integration_on, 'checkbox' ) ?>
+					<span class='fca_pc_hint'><?php esc_attr_e("Automatically send the following Easy Digital Downloads events to TikTok: Add To Cart, Add&nbsp;Payment&nbsp;Info, Purchase, View&nbsp;Content, Search, and Add&nbsp;to&nbsp;Wishlist.", 'facebook-conversion-pixel' ) ?></span></td>
+				</tr>
+				<tr>
 					<th><?php echo esc_attr( 'Delay ViewContent Event', 'facebook-conversion-pixel' ) . fca_sp_premium_only_link() ?></th>
 						<td><?php echo fca_pc_input( 'edd_delay', '', $edd_delay, 'number', "min='0' max='100' step='1'" ) ?>seconds<br>
 					<span class='fca_pc_hint'><?php esc_attr_e("Exclude bouncing visitors by delaying the ViewContent event on download pages.", 'facebook-conversion-pixel' ) ?></span></td>
@@ -1045,6 +1076,7 @@ function fca_pc_marketing_metabox() {
 
 		<ul>
 			<li><div class="dashicons dashicons-yes"></div> <?php _e( '1-Click WooCommerce & Easy Digital Downloads integration', 'facebook-conversion-pixel' ); ?></li>
+			<li><div class="dashicons dashicons-yes"></div> <?php esc_attr_e( 'TikTok Pixel', 'facebook-conversion-pixel' ); ?></li>
 			<li><div class="dashicons dashicons-yes"></div> <?php esc_attr_e( 'Pinterest Pixel', 'facebook-conversion-pixel' ); ?></li>
 			<li><div class="dashicons dashicons-yes"></div> <?php esc_attr_e( 'Snapschat Pixel', 'facebook-conversion-pixel' ); ?></li>
 			<li><div class="dashicons dashicons-yes"></div> <?php esc_attr_e( 'Google Ads', 'facebook-conversion-pixel' ); ?></li>

@@ -1,8 +1,8 @@
-<p><?php echo __('Choose how you want to redirect WhatsApp URL.', 'ninjateam-whatsapp') ?></p>
+<p><?php echo __('Choose how you want to redirect WhatsApp URL.', 'wp-whatsapp') ?></p>
 <table class="form-table">
     <tbody>
         <tr>
-            <th scope="row"><label for="nta-wa-switch-control"><?php echo __('Open in new tab', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for="nta-wa-switch-control"><?php echo __('Open in new tab', 'wp-whatsapp') ?></label></th>
             <td>
                 <div class="nta-wa-switch-control">
                     <input type="checkbox" id="nta-wa-switch-open-new-tab" name="openInNewTab" <?php checked($option['openInNewTab'], 'ON') ?>>
@@ -11,7 +11,7 @@
             </td>
         </tr>
         <tr>
-            <th scope="row"><?php echo __('URL for Desktop', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><?php echo __('URL for Desktop', 'wp-whatsapp') ?></label></th>
             <td>
                 <input name="onDesktop" id="urlOnDesktop" class="hidden" value="<?php echo esc_attr($option['onDesktop']) ?>" />
                 <div class="button-group button-large" data-setting="onDesktop">
@@ -25,7 +25,7 @@
             </td>
         </tr>
         <tr>
-            <th scope="row"><?php echo __('URL for Mobile', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><?php echo __('URL for Mobile', 'wp-whatsapp') ?></label></th>
             <td>
                 <input name="onMobile" id="urlOnMobile" class="hidden" value="<?php echo esc_attr($option['onMobile']) ?>" />
                 <div class="button-group button-large" data-setting="onMobile">
@@ -40,4 +40,4 @@
         </tr>
     </tbody>
 </table>
-<button class="button button-large button-primary wa-save"><?php echo __('Save Changes', 'ninjateam-whatsapp') ?><span></span></button>
+<button class="button button-large button-primary wa-save"><?php echo __('Save Changes', 'wp-whatsapp') ?><span></span></button>

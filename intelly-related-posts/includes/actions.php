@@ -11,6 +11,13 @@ function irp_do_action() {
 
     $action = $irp->Utils->qs('irp_action');
     $irp->Log->info('[actions::irp_do_action] Action: %s', $action);
+
+    $nonce = '';
+    if ( isset ($_POST['nonce']) )
+    {
+        $nonce = sanitize_key( $_POST['nonce'] );
+    }
+
     switch($action) {
         case 'ui_button_editor':
             call_irp_ui_button_editor($irp);
@@ -19,13 +26,13 @@ function irp_do_action() {
             call_irp_ui_box_preview($irp);
             break;
         case 'manager_trackingOn':
-            if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'manager_tracking' ) ) {
+            if ( empty($nonce) || ! wp_verify_nonce( $nonce, 'manager_tracking' ) ) {
                 exit;
             }
             call_irp_manager_trackingOn($irp);
             break;
         case 'manager_trackingOff':
-            if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'manager_tracking' ) ) {
+            if ( empty($nonce) || ! wp_verify_nonce( $nonce, 'manager_tracking' ) ) {
                 exit;
             }
             call_irp_manager_trackingOff($irp);

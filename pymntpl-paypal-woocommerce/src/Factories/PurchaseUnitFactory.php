@@ -6,6 +6,7 @@ use PaymentPlugins\PayPalSDK\Amount;
 use PaymentPlugins\PayPalSDK\PurchaseUnit;
 use PaymentPlugins\WooCommerce\PPCP\Admin\Settings\AdvancedSettings;
 use PaymentPlugins\WooCommerce\PPCP\Utilities\NumberUtil;
+use PaymentPlugins\WooCommerce\PPCP\Utils;
 
 class PurchaseUnitFactory extends AbstractFactory {
 
@@ -47,6 +48,10 @@ class PurchaseUnitFactory extends AbstractFactory {
 
 		if ( $this->order->has_shipping_address() ) {
 			$purchase_unit->setShipping( $this->factories->shipping->from_order( 'shipping' ) );
+			// remove the shipping address if it's invalid.
+			if ( ! Utils::is_valid_address( $purchase_unit->getShipping()->getAddress(), 'shipping' ) ) {
+				unset( $purchase_unit->getShipping()->address );
+			}
 		}
 		$this->filter_purchase_unit( $purchase_unit, $this->order->get_total() );
 

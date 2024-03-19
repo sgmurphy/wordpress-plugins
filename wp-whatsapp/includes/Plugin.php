@@ -21,7 +21,7 @@ class Plugin {
   public static function activate() {
     $firstTimeActive = get_option('njt_wa_first_time_active');
     if ( $firstTimeActive === false ) { 
-      $waReview = \NJTWhatsAppReview::get_instance('njt_wa', 'WhatsApp Plugin', 'ninjateam-whatsapp');
+      $waReview = \NJTWhatsAppReview::get_instance('njt_wa', 'WhatsApp Plugin', 'wp-whatsapp');
       $waReview->need_update_option(1); // 1 day
       update_option('njt_wa_first_time_active', 1);
     }
@@ -32,7 +32,7 @@ class Plugin {
       $filebirdCross->need_update_option();
 
       if ($firstTimeActive !== false) {
-        $waReview = \NJTWhatsAppReview::get_instance('njt_wa', 'WhatsApp Plugin', 'ninjateam-whatsapp');
+        $waReview = \NJTWhatsAppReview::get_instance('njt_wa', 'WhatsApp Plugin', 'wp-whatsapp');
         $waReview->need_update_option(7); // 1 day
       }
 

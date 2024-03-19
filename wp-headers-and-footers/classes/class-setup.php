@@ -29,18 +29,34 @@ if ( ! class_exists( 'WPHeaderAndFooter_Setting' ) ) :
 		 * The constructor of WPHeaderAndFooter Settings class
 		 *
 		 * @since 1.0.0
-		 * @version 2.1.0
+		 * @version 2.1.2
 		 */
 		public function __construct() {
 
-			include_once WPHEADERANDFOOTER_DIR_PATH . 'classes/class-settings-api.php';
-			include_once WPHEADERANDFOOTER_DIR_PATH . 'classes/class-diagnostics-log.php';
+			if ( $this->wphnf_setting_optimization() ) {
+				include_once WPHEADERANDFOOTER_DIR_PATH . 'classes/class-settings-api.php';
+				include_once WPHEADERANDFOOTER_DIR_PATH . 'classes/class-diagnostics-log.php';
 
-			$this->settings_api = new WPHeaderAndFooter_Settings_API();
-			$this->diagnostics  = new WPHeadersAndFooters_Diagnostics_Log();
+				$this->settings_api = new WPHeaderAndFooter_Settings_API();
+				$this->diagnostics  = new WPHeadersAndFooters_Diagnostics_Log();
 
-			add_action( 'admin_init', array( $this, 'admin_init' ) );
+				add_action( 'admin_init', array( $this, 'admin_init' ) );
+			}
 			add_action( 'admin_menu', array( $this, 'register_options_page' ) );
+		}
+
+		/**
+		 * WP Headers and Footers Settings Optimization if is_admin page.
+		 *
+		 * @since 2.1.2
+		 */
+		public function wphnf_setting_optimization() {
+
+			if ( ( is_admin() && isset( $_GET['page'] ) && 'wp-headers-and-footers' === $_GET['page'] ) || ( isset( $_POST['_wp_http_referer'] ) && strpos( $_POST['_wp_http_referer'], 'wp-headers-and-footers' ) ) ) {   // @codingStandardsIgnoreLine.
+				return true;
+			}
+
+			return false;
 		}
 
 		/**
@@ -213,7 +229,9 @@ if ( ! class_exists( 'WPHeaderAndFooter_Setting' ) ) :
 						<a href="<?php echo esc_url( 'https://wpbrigade.com' ); ?>" target="_blank"><img src="<?php echo esc_url( WPHEADERANDFOOTER_DIR_URL . 'asset/img/logo.svg' ); ?>"></a>
 					</div>
 					<div class="wp_hnf-header-cta">
-					<a href="#" id="wpheaderandfooter_diagnostic_log-header"><?php echo esc_html( 'Diagnostic' ); ?><span><?php echo esc_html( ' Log' ); ?></span></a>
+					<a href="#" id="wpheaderandfooter_diagnostic_log-header">
+						<?php echo sprintf( esc_html__( 'Diagnostic %1$sLog%2$s', 'wp-headers-and-footers' ), '<span>', '</span>' ); ?>
+					</a>
 
 					<a href="<?php echo esc_url( 'https://wordpress.org/support/plugin/wp-headers-and-footers/' ); ?>" class="wp_hnf-pro-cta" target="_blank">
 						<?php echo esc_html__( 'Support', 'wp-headers-and-footers' ); ?>

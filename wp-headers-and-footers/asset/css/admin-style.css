@@ -586,7 +586,36 @@
     margin-top: 0 !important;
   }
 }
+@media screen and (max-width: 1200px) {
+	.form-table {
+		box-sizing: border-box;
+		table-layout: fixed;
+	}
+}
+@media screen and (max-width: 767px) {
+	.settings_page_wp-headers-and-footers .wp_hnf-header-cta {
+		flex-direction: column;
+		gap: 1;
+	}
 
+	.settings_page_wp-headers-and-footers .wp_hnf-header-cta a {
+		border: none;
+		line-height: 0;
+		background-color: transparent;
+		color: #fff;
+		font-size: 18px;
+		padding: 8px;
+		font-size: 16px
+	}
+
+	.settings_page_wp-headers-and-footers .nav-tab-wrapper a,
+	.settings_page_wp-headers-and-footers .wp_hnf-header-cta a {
+		padding: 10px 20px !important;
+	}
+	#wpheaderandfooter_diagnostic_log-header{
+		padding: 0 !important;
+	}
+}
 @media screen and (max-width: 480px) {
   .settings_page_wp-headers-and-footers .wp_hnf-header-logo img {
     max-width: 160px;

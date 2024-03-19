@@ -8,20 +8,29 @@ use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\AbstractGateway;
 
 class ProductSettings extends \WC_Settings_API {
 
-	private $product_id;
+	private $product_id = 0;
 
 	public $id = 'ppcp';
 
 	public function __construct( $product_id ) {
-		$this->product_id = \is_object( $product_id ) ? $product_id->get_id() : $product_id;
+		if ( \is_numeric( $product_id ) && $product_id > 0 ) {
+			$this->product_id = $product_id;
+		} elseif ( $product_id instanceof \WC_Product ) {
+			$this->product_id = $product_id->get_id();
+		} elseif ( $product_id instanceof \WP_Post ) {
+			$this->product_id = $product_id->ID;
+		}
+
 		$this->init_form_fields();
 		$this->init_settings();
 	}
 
 	public function init_settings() {
-		$this->settings = get_post_meta( $this->product_id, $this->get_option_key(), true );
+		if ( $this->product_id > 0 ) {
+			$this->settings = get_post_meta( $this->product_id, $this->get_option_key(), true );
+		}
 
-		if ( ! is_array( $this->settings ) ) {
+		if ( ! is_array( $this->settings ) || empty( $this->settings ) ) {
 			$form_fields    = $this->get_form_fields();
 			$this->settings = array_merge( array_fill_keys( array_keys( $form_fields ), '' ), wp_list_pluck( $form_fields, 'default' ) );
 		}

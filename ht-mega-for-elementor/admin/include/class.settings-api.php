@@ -102,7 +102,9 @@ class HTMega_Settings_API {
 
             if ( isset($section['desc']) && !empty($section['desc']) ) {
                 $section['desc'] = '<div class="inside">' . $section['desc'] . '</div>';
-                $callback = create_function('', 'echo "' . str_replace( '"', '\"', $section['desc'] ) . '";');
+                $callback = function() use ($section) {
+                    echo esc_html($section['desc']);
+                };
             } else if ( isset( $section['callback'] ) ) {
                 $callback = $section['callback'];
             } else {

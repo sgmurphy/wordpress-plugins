@@ -54,7 +54,7 @@ function irp_save_meta_box_data($postId) {
         return;
     }
 
-    if (!wp_verify_nonce( sanitize_text_field($_POST['irp_meta_box_nonce']), 'irp_meta_box')) {
+    if (!wp_verify_nonce( sanitize_key($_POST['irp_meta_box_nonce']), 'irp_meta_box')) {
         return;
     }
 

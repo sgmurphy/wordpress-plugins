@@ -93,6 +93,9 @@ class AssetDataApi {
 			$data['cart'] = Utils::get_cart_data( WC()->cart );
 		}
 		if ( $product && \is_object( $product ) ) {
+			if ( $product instanceof \WP_Post && $product->post_type === 'product' ) {
+				$product = wc_get_product( $product->ID );
+			}
 			$data['product'] = Utils::get_product_data( $product );
 		}
 		if ( isset( $wp->query_vars['order-pay'] ) ) {

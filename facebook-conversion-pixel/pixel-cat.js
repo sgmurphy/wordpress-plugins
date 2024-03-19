@@ -76,7 +76,7 @@ jQuery( document ).ready(function($) {
 	}
 
 	//FB INITIAL PAGEVIEW
-	if( fca_pc_pixel_type_enabled( 'Facebook' ) ||  fca_pc_pixel_type_enabled( 'Conversions API' ) ) {
+	if( fca_pc_pixel_type_enabled( 'Facebook Pixel' ) ||  fca_pc_pixel_type_enabled( 'Conversions API' ) ) {
 		fca_pc_trigger_event( 'track', 'PageView' )		
 	}
 	
@@ -113,6 +113,9 @@ jQuery( document ).ready(function($) {
 							fca_pc_trigger_event( 'track', 'AddToCart', data.facebook )
 						}
 						
+						if( fca_pc_pixel_type_enabled( 'TikTok' ) ) {
+							fca_pc_trigger_event( 'track', 'AddToCartTiktok', data.tiktok )
+						}
 						if( fca_pc_pixel_type_enabled( 'Snapchat' ) ) {
 							fca_pc_trigger_event( 'track', 'AddToCartSnapchat', data.snapchat )
 						}
@@ -146,7 +149,7 @@ jQuery( document ).ready(function($) {
 		if ( typeof fcaPcWooPurchase !== 'undefined' ) {
 			fca_pc_trigger_event( 'track', 'Purchase', fcaPcWooPurchase )
 		}
-
+		
 		if ( typeof fcaPcWooProduct !== 'undefined' ) {
 			if( fcaPcOptions.woo_delay ) {
 				setTimeout( fca_pc_trigger_event, fcaPcOptions.woo_delay * 1000, 'track', 'ViewContent', fcaPcWooProduct  )
@@ -157,6 +160,38 @@ jQuery( document ).ready(function($) {
 			//WISHLIST
 			$( '.wl-add-to, .add_to_wishlist' ).on( 'click', function( e ){
 				fca_pc_trigger_event( 'track', 'AddToWishlist', fcaPcWooProduct )
+			})
+		}
+		
+		//WOO TIKTOK INTEGRATION
+		if ( get_cookie( 'fca_pc_woo_add_to_cart_tiktok' ) ) {
+			fca_pc_trigger_event( 'track', 'AddToCartTiktok', JSON.parse( decodeURIComponent ( get_cookie( 'fca_pc_woo_add_to_cart_tiktok' ).replace(/\+/g, '%20' ) ) ) )
+			set_cookie( 'fca_pc_woo_add_to_cart_tiktok', '' )
+		}
+
+		if ( typeof fcaPcWooCheckoutCartTiktok !== 'undefined' ) {
+			fca_pc_trigger_event( 'track', 'InitiateCheckoutTiktok', fcaPcWooCheckoutCartTiktok )
+
+			$( 'form.checkout' ).on( 'checkout_place_order', function( e ){
+				fca_pc_trigger_event( 'track', 'AddPaymentInfoTiktok', fcaPcWooCheckoutCartTiktok )
+				return true
+			})
+		}
+
+		if ( typeof fcaPcWooPurchaseTiktok !== 'undefined' ) {
+			fca_pc_trigger_event( 'track', 'PurchaseTiktok', fcaPcWooPurchaseTiktok )
+		}
+		
+		if ( typeof fcaPcWooProductTiktok !== 'undefined' ) {
+			if( fcaPcOptions.woo_delay ) {
+				setTimeout( fca_pc_trigger_event, fcaPcOptions.woo_delay * 1000, 'track', 'ViewContentTiktok', fcaPcWooProductTiktok )
+			} else {
+				fca_pc_trigger_event( 'track', 'ViewContentTiktok', fcaPcWooProductTiktok )
+			}
+
+			//WISHLIST
+			$( '.wl-add-to, .add_to_wishlist' ).on( 'click', function( e ){
+				fca_pc_trigger_event( 'track', 'AddToWishlistTiktok', fcaPcWooProductTiktok )
 			})
 		}
 		
@@ -268,6 +303,23 @@ jQuery( document ).ready(function($) {
 					}
 					fca_pc_trigger_event( 'track', 'AddToCart', product )
 				}
+			}	
+			
+			if( fca_pc_pixel_type_enabled( 'TikTok' ) ) {
+				
+				if ( typeof fcaPcEddProduct !== 'undefined' ) {
+					fca_pc_trigger_event( 'track', 'AddToCartTiktok', fcaPcEddProductTiktok )
+					
+				} else {
+					var product = {			
+						value: $(this).data( 'price' ),
+						currency: fcaPcOptions.edd_currency,
+						content_name: "Easy Digital Download ID " + $(this).data( 'download-id' ),
+						content_ids: $(this).data( 'download-id' ),
+						content_type: $(this).data( 'variable-price' ) == 'no' ? 'product' : 'product_group',			
+					}
+					fca_pc_trigger_event( 'track', 'AddToCartTiktok', product )
+				}
 			}
 			
 			if( fca_pc_pixel_type_enabled( 'GA3' ) || fca_pc_pixel_type_enabled( 'GA4' ) || fca_pc_pixel_type_enabled( 'Adwords' ) ) {
@@ -355,6 +407,22 @@ jQuery( document ).ready(function($) {
 				}
 			}
 			
+			if( fca_pc_pixel_type_enabled( 'TikTok' ) ) {
+			
+				if ( typeof fcaPcEddProductTiktok !== 'undefined' ) {
+					fca_pc_trigger_event( 'track', 'AddToWishlistTiktok', fcaPcEddProductTiktok )
+			
+				} else {
+					var product = {			
+						price: $(this).data( 'price' ),
+						currency: fcaPcOptions.edd_currency,
+						description: "Easy Digital Download ID " + $(this).data( 'download-id' ),
+						item_ids: [ $(this).data( 'download-id' ) ],		
+					}
+					fca_pc_trigger_event( 'track', 'AddToWishlistTiktok', product )
+				}
+			}
+			
 			if( fca_pc_pixel_type_enabled( 'Snapchat' ) ) {
 			
 				if ( typeof fcaPcEddProductSnapchat !== 'undefined' ) {
@@ -396,6 +464,59 @@ jQuery( document ).ready(function($) {
 		if ( get_cookie( 'fca_pc_edd_purchase' ) ) {
 			fca_pc_trigger_event( 'track', 'Purchase', JSON.parse( decodeURIComponent ( get_cookie( 'fca_pc_edd_purchase' ).replace(/\+/g, '%20' ) ) ) )
 			set_cookie( 'fca_pc_edd_purchase', '' )
+		}
+		
+		//EDD GOOGLE ANALYTICS INTEGRATION
+		if ( typeof fcaPcEddCheckoutCartGA !== 'undefined' ) {
+			fca_pc_trigger_event( 'track', 'InitiateCheckoutGA', fcaPcEddCheckoutCartGA )
+
+			//ADDPAYMENTINFO
+			$( '#edd_purchase_form' ).on( 'submit', function( e ){
+				fca_pc_trigger_event( 'track', 'AddPaymentInfoGA', fcaPcEddCheckoutCartGA )
+				return true
+			})
+		}
+
+		if ( typeof fcaPcEddProductGA !== 'undefined' ) {
+			//VIEWCONTENT
+			if( fcaPcOptions.edd_delay ) {
+				setTimeout( fca_pc_trigger_event, fcaPcOptions.edd_delay * 1000, 'track', 'ViewContent', fcaPcEddProductGA )
+			} else {
+				fca_pc_trigger_event( 'track', 'ViewContentGA', fcaPcEddProductGA )
+			}
+
+		}
+
+		//PURCHASE
+		if ( get_cookie( 'fca_pc_edd_purchase_ga' ) ) {
+			fca_pc_trigger_event( 'track', 'PurchaseGA', JSON.parse( decodeURIComponent ( get_cookie( 'fca_pc_edd_purchase_ga' ).replace(/\+/g, '%20' ) ) ) )
+			set_cookie( 'fca_pc_edd_purchase_ga', '' )
+		}
+		
+		//EDD TIKTOK INTEGRATION
+		if ( typeof fcaPcEddProductTiktok !== 'undefined' ) {
+			//VIEWCONTENT
+			if( fcaPcPost.edd_delay ) {
+				setTimeout( fca_pc_trigger_event, fcaPcPost.edd_delay * 1000, 'track', 'ViewContentTiktok', fcaPcEddProductTiktok  )
+			} else {
+				fca_pc_trigger_event( 'track', 'ViewContentTiktok', fcaPcEddProductTiktok )
+			}
+		}
+		
+		if ( typeof fcaPcEddCheckoutCartTiktok !== 'undefined' ) {
+			fca_pc_trigger_event( 'track', 'InitiateCheckoutTiktok', fcaPcEddCheckoutCartTiktok )
+
+			//ADDPAYMENTINFO
+			$( '#edd_purchase_form' ).on( 'submit', function( e ){
+				fca_pc_trigger_event( 'track', 'AddPaymentInfoTiktok', fcaPcEddCheckoutCartTiktok )
+				return true
+			})
+		}
+		
+		//PURCHASE
+		if ( get_cookie( 'fca_pc_edd_purchase_tiktok' ) ) {
+			fca_pc_trigger_event( 'track', 'PurchaseTiktok', JSON.parse( decodeURIComponent ( get_cookie( 'fca_pc_edd_purchase_tiktok' ).replace(/\+/g, '%20' ) ) ) )
+			set_cookie( 'fca_pc_edd_purchase_tiktok', '' )
 		}
 		
 		//EDD GOOGLE ANALYTICS INTEGRATION
@@ -725,6 +846,33 @@ jQuery( document ).ready(function($) {
 					
 					snaptr( name, snapchat_action, event_params, { event_id: eventID, external_id: externalID }  )				
 				}				
+			}
+		}
+		
+		if( typeof( ttq ) !== 'undefined' ){
+		
+			var events_map = new Map([
+					[ "PageViewTiktok", "PageView" ],
+					[ "ViewContentTiktok", "ViewContent" ],
+					[ "AddToCartTiktok", "AddToCart" ],				
+					[ "AddToWishlistTiktok", "AddToWishlist" ],			
+					[ "InitiateCheckoutTiktok", "InitiateCheckout" ],	
+					[ "AddPaymentInfoTiktok", "AddPaymentInfo" ],
+					[ "PurchaseTiktok", "CompletePayment" ],
+					[ "CompleteRegistrationTiktok", "CompleteRegistration" ],
+					
+					//[ "SearchTiktok", "Search" ],	
+					
+				])
+			
+			var tiktok_action = events_map.get( action )
+
+			if ( tiktok_action ) {
+				ttq.track( tiktok_action, event_params )			
+			}
+			
+			if ( name === 'trackCustom' ) {
+				ttq.track( action, event_params )	
 			}
 		}
 		

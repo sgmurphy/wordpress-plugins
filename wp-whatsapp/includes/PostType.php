@@ -39,23 +39,23 @@ class PostType
 
     public function register_post_type(){
         $labels = array(
-            'name' => __('WhatsApp Accounts'),
-            'singular_name' => __('Whatsapp Account'),
-            'add_new' => __('Add New Account', 'ninjateam-whatsapp'),
-            'add_new_item' => __('Add New Account', 'ninjateam-whatsapp'),
-            'edit_item' => __('Edit Account', 'ninjateam-whatsapp'),
-            'new_item' => __('New Account', 'ninjateam-whatsapp'),
-            'all_items' => __('All Accounts', 'ninjateam-whatsapp'),
-            'view_item' => __('View Accounts', 'ninjateam-whatsapp'),
-            'search_items' => __('Search Account', 'ninjateam-whatsapp'),
-            'featured_image' => __('Avatar (PRO)', 'ninjateam-whatsapp'),
-            'set_featured_image' => __('Select an image', 'ninjateam-whatsapp'),
-            'remove_featured_image' => __('Remove avatar', 'ninjateam-whatsapp'),
+            'name' => __('WhatsApp Accounts', 'wp-whatsapp'),
+            'singular_name' => __('Whatsapp Account', 'wp-whatsapp'),
+            'add_new' => __('Add New Account', 'wp-whatsapp'),
+            'add_new_item' => __('Add New Account', 'wp-whatsapp'),
+            'edit_item' => __('Edit Account', 'wp-whatsapp'),
+            'new_item' => __('New Account', 'wp-whatsapp'),
+            'all_items' => __('All Accounts', 'wp-whatsapp'),
+            'view_item' => __('View Accounts', 'wp-whatsapp'),
+            'search_items' => __('Search Account', 'wp-whatsapp'),
+            'featured_image' => __('Avatar (PRO)', 'wp-whatsapp'),
+            'set_featured_image' => __('Select an image', 'wp-whatsapp'),
+            'remove_featured_image' => __('Remove avatar', 'wp-whatsapp'),
         );
 
         $args = array(
             'labels' => $labels,
-            'description' => __('Manager Accounts', 'ninjateam-whatsapp'),
+            'description' => __('Manager Accounts', 'wp-whatsapp'),
             'public' => false,
             'show_ui' => true,
             'has_archive' => true,
@@ -259,12 +259,12 @@ class PostType
     {
         $columns = array(
             'cb' => '<input type="checkbox" />',
-            'title' => __('Account Name', 'ninjateam-whatsapp'),
-            'avatar' => __('Avatar', 'ninjateam-whatsapp'),
-            'number' => __('Number', 'ninjateam-whatsapp'),
-            'nta_title' => __('Title', 'ninjateam-whatsapp'),
-            'activedays' => __('Active Days', 'ninjateam-whatsapp'),
-            'shortcode' => __('Shortcode', 'ninjateam-whatsapp'),
+            'title' => __('Account Name', 'wp-whatsapp'),
+            'avatar' => __('Avatar', 'wp-whatsapp'),
+            'number' => __('Number', 'wp-whatsapp'),
+            'nta_title' => __('Title', 'wp-whatsapp'),
+            'activedays' => __('Active Days', 'wp-whatsapp'),
+            'shortcode' => __('Shortcode', 'wp-whatsapp'),
         );
         return $columns;
     }

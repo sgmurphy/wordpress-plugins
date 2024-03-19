@@ -1060,10 +1060,12 @@ class FLBuilderUISettingsForms {
 		) );
 
 		foreach ( (array) $terms as $term ) {
-			$categories[] = array(
-				'id'   => $term->term_id,
-				'name' => $term->name,
-			);
+			if ( ! is_wp_error( $term ) && is_object( $term ) ) {
+				$categories[] = array(
+					'id'   => $term->term_id,
+					'name' => $term->name,
+				);
+			}
 		}
 		// Add new
 		$categories[] = array(

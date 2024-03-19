@@ -387,6 +387,8 @@ class CFF_Source {
 		$sb_admin_email 	= get_option('admin_email');
 		$nonce           	= wp_create_nonce('cff_con');
 		$sw_flag         	= !empty($_GET['sw-feed']) ? true : false;
+        $groups_number      = CFF_Db::check_group_source() > 0 ? true : false;
+
 
 		//If the admin_url isn't returned correctly then use a fallback
 		if ($admin_url_state == '/wp-admin/admin.php?page=cff-feed-builder'
@@ -399,6 +401,7 @@ class CFF_Source {
 			'wordpress_user'   => $sb_admin_email,
 			'v'                => 'free',
 			'vn'               => CFFVER,
+            'has_group'        => $groups_number,
 			'cff_con'          => $nonce,
 			'sw_feed'          => $sw_flag
 		];
@@ -408,6 +411,7 @@ class CFF_Source {
 			'wordpress_user'   => $sb_admin_email,
 			'v'                => 'free',
 			'vn'               => CFFVER,
+            'has_group'        => $groups_number,
 			'cff_con'          => $nonce,
 			'sw_feed'          => $sw_flag
 		];
@@ -1119,5 +1123,19 @@ class CFF_Source {
 			return false;
 		}
 		return $results[0];
+	}
+
+	/**
+     * Should show group Notice
+     *
+     * @since 4.2.0
+     */
+	public static function should_show_group_deprecation()
+	{
+	 	$cff_statuses = get_option( 'cff_statuses', array() );
+		return (
+				!isset($cff_statuses['cff_group_deprecation_dismiss']) ||
+				$cff_statuses['cff_group_deprecation_dismiss'] !== true
+			) && CFF_Db::check_group_source() > 0;
 	}
 }

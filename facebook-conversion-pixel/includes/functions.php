@@ -153,6 +153,7 @@ function fca_pc_add_pixels( $options ) {
 	$ga4_pixels = array();
 	$adwords_pixels = array();
 	$pinterest_pixels = array();
+	$tiktok_pixels = array();
 	$snapchat_pixels = array();
 	
 	forEach( $pixels as $pixel ) {
@@ -181,6 +182,10 @@ function fca_pc_add_pixels( $options ) {
 				
 			case 'Snapchat':
 				$snapchat_pixels[] = $pixel;
+				break;	
+				
+			case 'TikTok':
+				$tiktok_pixels[] = $pixel;
 				break;
 						
 			default:
@@ -200,6 +205,9 @@ function fca_pc_add_pixels( $options ) {
 	}
 	if ( !empty( $facebook_pixels ) ) {		
 		fca_pc_add_facebook_pixels( $facebook_pixels, $options );
+	}
+	if ( !empty( $tiktok_pixels ) ) {		
+		fca_pc_add_tiktok_pixels( $tiktok_pixels, $options );
 	}
 	if ( !empty( $header_pixels ) ) {		
 		fca_pc_add_header_pixels( $header_pixels, $options );
@@ -242,6 +250,33 @@ function fca_pc_add_facebook_pixels( $facebook_pixels, $options ) {
 	</script>
 	<!-- DO NOT MODIFY -->
 	<!-- End Facebook Pixel Code -->
+	<?php 
+	echo ob_get_clean();
+	
+}
+
+function fca_pc_add_tiktok_pixels( $tiktok_pixels, $options ) {
+	$code = ''; //INIT CODE FOR PIXEL
+	
+	forEach ( $tiktok_pixels as $pixel ) {		
+		$pixel_id = empty( $pixel['pixel'] ) ? '' : $pixel['pixel'];
+		
+		if( $pixel_id ){			
+			$code .= "ttq.load( '$pixel_id' );";
+		}
+	}
+	
+	ob_start(); ?>
+	<!-- TikTok  -->
+	<script>
+	!function (w, d, t) {
+			  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++
+	)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=i+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+		<?= $code ?>
+		ttq.page();
+	}(window, document, 'ttq');
+	</script>
+	<!-- End TikTok -->
 	<?php 
 	echo ob_get_clean();
 	
@@ -372,11 +407,11 @@ function fca_pc_localize_pixel_options( $options ) {
 }
 
 function fca_pc_edd_auto_events_enabled( $options ) {
-	return ( !empty( $options['edd_integration'] )OR !empty( $options['edd_integration_ga'] ) OR !empty( $options['edd_integration_pinterest'] ) OR !empty( $options['edd_integration_snapchat'] ) );
+	return ( !empty( $options['edd_integration'] )OR !empty( $options['edd_integration_ga'] ) OR !empty( $options['edd_integration_pinterest'] ) OR !empty( $options['edd_integration_snapchat'] ) OR !empty( $options['edd_integration_tiktok'] ) );
 }
 
 function fca_pc_woo_auto_events_enabled( $options ) {
-	return ( !empty( $options['woo_integration'] )OR !empty( $options['woo_integration_ga'] ) OR !empty( $options['woo_integration_pinterest'] ) OR !empty( $options['woo_integration_snapchat'] ) );
+	return ( !empty( $options['woo_integration'] )OR !empty( $options['woo_integration_ga'] ) OR !empty( $options['woo_integration_pinterest'] ) OR !empty( $options['woo_integration_snapchat'] ) OR !empty( $options['woo_integration_tiktok'] ) );
 }
 
 function fca_pc_get_active_events( $options ) {

@@ -509,6 +509,10 @@ class CFF_Graph_Data
 	 */
 	public function get_posts_json_byfeed_type()
 	{
+		if ($this->is_group && !CFF_Graph_Data::should_make_group_call()) {
+			\cff_main()->cff_error_reporter->add_group_deprecation_error($this->page_id);
+			return [];
+		}
 		$posts_json = $this->get_remote_data();
 		return $posts_json;
 	}
@@ -525,6 +529,16 @@ class CFF_Graph_Data
 		$latest_record_date = (isset($this->next_urls_arr_safe['latest_record_date'])) ? $this->next_urls_arr_safe['latest_record_date'] : false;
 		$groups_post_result = $groups_post->init_group_posts($this->posts_json, $latest_record_date, $this->post_limit);
 		return $groups_post_result['posts_json'];
+	}
+
+	/**
+	 * Get Group Posts
+	 *
+	 * @since 5.0
+	 */
+	public static function should_make_group_call()
+	{
+		return time() < strtotime('2024-4-22');
 	}
 
 	/**

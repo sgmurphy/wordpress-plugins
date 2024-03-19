@@ -248,6 +248,7 @@ Vue.component('sb-add-source-component', {
                 'v' : params.v,
                 'vn' : params.vn,
                 'cff_con' : params.cff_con,
+                'has_group' : params.has_group,
                 'state' : "{'{url=" + appendURL + "}'}"
             };
 
@@ -258,6 +259,7 @@ Vue.component('sb-add-source-component', {
             var form = document.createElement('form');
             form.method = 'POST';
             form.action = ifConnectURL;
+            form.action = ifConnectURL + (params.has_group === true ? '?has_group=true' : '');
 
             for (const param in urlParams) {
                 if (urlParams.hasOwnProperty(param)) {

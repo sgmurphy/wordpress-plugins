@@ -54,7 +54,7 @@ function irp_ui_box_preview() {
     }
     if(count($ids)==0) {
         echo "<b>";
-        echo __( "No posts available. Check settings and try again.", IRP_PLUGIN_SLUG );
+        echo esc_html(__( "No posts available. Check settings and try again.", IRP_PLUGIN_SLUG ));
         echo "</b>";
         die();
     }
@@ -254,22 +254,22 @@ function irp_ui_settings() {
     $irp->Form->formEnds(false);
     $irp->Form->helps=FALSE;
 
-	$args=array('id'=>'irp-sidebar', 'style'=>'float:left; max-width: 250px; margin-left:10px');
-	$irp->Form->divStarts($args);
+    $args=array('id'=>'irp-sidebar', 'style'=>'float:left; max-width: 250px; margin-left:10px');
+    $irp->Form->divStarts($args);
 
-	$count=$irp->Tabs->getPluginsCount();
-	$plugins=array();
-	while(count($plugins)<2) {
-		$id=rand(1, $count);
-		if(!isset($plugins[$id])) {
-			$plugins[$id]=$id;
-		}
-	}
+    $count=$irp->Tabs->getPluginsCount();
+    $plugins=array();
+    while(count($plugins)<2) {
+        $id=wp_rand(1, $count);
+        if(!isset($plugins[$id])) {
+            $plugins[$id]=$id;
+        }
+    }
 
-	$count=$irp->Tabs->drawContactUsWidget();
-	foreach($plugins as $id) {
-		$count=$irp->Tabs->drawPluginWidget($id);
-	}
+    $count=$irp->Tabs->drawContactUsWidget();
+    foreach($plugins as $id) {
+        $count=$irp->Tabs->drawPluginWidget($id);
+    }
 
     $irp->Form->divEnds();
 

@@ -12,15 +12,15 @@ class I18n {
     } else {
       $locale = is_admin() ? get_user_locale() : get_locale();
     }
-    unload_textdomain('ninjateam-whatsapp');
-    load_textdomain('ninjateam-whatsapp', NTA_WHATSAPP_PLUGIN_DIR . '/languages/' . $locale . '.mo');
-    load_plugin_textdomain('ninjateam-whatsapp', false, NTA_WHATSAPP_PLUGIN_DIR . '/languages/');
+    unload_textdomain('wp-whatsapp');
+    load_textdomain('wp-whatsapp', NTA_WHATSAPP_PLUGIN_DIR . '/languages/' . $locale . '.mo');
+    load_plugin_textdomain('wp-whatsapp', false, NTA_WHATSAPP_PLUGIN_DIR . '/languages/');
   }
 
   public static function getTranslation(){
     $translation = array(
-      'online' => __('Online', 'ninjateam-whatsapp'),
-      'offline' => __('Offline', 'ninjateam-whatsapp')
+      'online' => __('Online', 'wp-whatsapp'),
+      'offline' => __('Offline', 'wp-whatsapp')
     );
 
     return $translation;

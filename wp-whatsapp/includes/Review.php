@@ -74,9 +74,9 @@ if ( ! class_exists( 'NjtReview' ) ) {
 							We will be forever grateful. Thank you in advance.
 						</p>
 						<p>
-							<a href="javascript:;" data="rateNow" class="button button-primary" style="margin-right: 5px"><?php esc_html_e( 'Rate now', 'ninjateam-whatsapp' ); ?></a>
-							<a href="javascript:;" data="later" class="button" style="margin-right: 5px"><?php esc_html_e( 'Later', 'ninjateam-whatsapp' ); ?></a>
-							<a href="javascript:;" data="alreadyDid" class="button"><?php esc_html_e( 'No, thanks', 'ninjateam-whatsapp' ); ?></a>
+							<a href="javascript:;" data="rateNow" class="button button-primary" style="margin-right: 5px"><?php esc_html_e( 'Rate now', 'wp-whatsapp' ); ?></a>
+							<a href="javascript:;" data="later" class="button" style="margin-right: 5px"><?php esc_html_e( 'Later', 'wp-whatsapp' ); ?></a>
+							<a href="javascript:;" data="alreadyDid" class="button"><?php esc_html_e( 'No, thanks', 'wp-whatsapp' ); ?></a>
 						</p>
 					</div>
 					<script>
@@ -135,7 +135,7 @@ if ( ! class_exists( 'NjtReview' ) ) {
 
 if ( ! class_exists( 'NJTWhatsAppReview' ) ) {
 	class NJTWhatsAppReview extends NjtReview {}
-	NJTWhatsAppReview::get_instance( 'njt_wa', 'WhatsApp Plugin', 'ninjateam-whatsapp' );
+	NJTWhatsAppReview::get_instance( 'njt_wa', 'WhatsApp Plugin', 'wp-whatsapp' );
 }
 
 

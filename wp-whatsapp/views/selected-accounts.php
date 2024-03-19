@@ -44,9 +44,9 @@ use NTA_WhatsApp\Helper;
     <label class="nta-list-status">
         <strong>
             <% if (_.isEmpty(activeAccounts)) { %>
-            <?php echo __('Please select accounts you want them to display in WhatsApp Chat Widget', 'ninjateam-whatsapp') ?>
+            <?php echo __('Please select accounts you want them to display in WhatsApp Chat Widget', 'wp-whatsapp') ?>
             <% } else { %>
-            <?php echo __('Selected Accounts:', 'ninjateam-whatsapp') ?>
+            <?php echo __('Selected Accounts:', 'wp-whatsapp') ?>
             <% } %>
         </strong>
     </label>

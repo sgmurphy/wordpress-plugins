@@ -1,13 +1,13 @@
 <table class="form-table" id="app-design">
-    <p><?php echo __('Setting text and style for the floating widget.', 'ninjateam-whatsapp') ?></p>
+    <p><?php echo __('Setting text and style for the floating widget.', 'wp-whatsapp') ?></p>
     <tbody>
         <tr>
-            <th scope="row"><label for="title"><?php echo __('Widget Text', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for="title"><?php echo __('Widget Text', 'wp-whatsapp') ?></label></th>
             <td><input name="title" placeholder="Start a Conversation" type="text" id="title" value="<?php echo esc_attr($option['title']) ?>" class="regular-text"></td>
         </tr>
 
         <tr>
-            <th scope="row"><label for="isShowBtnLabel"><?php echo __('Show Widget Label', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for="isShowBtnLabel"><?php echo __('Show Widget Label', 'wp-whatsapp') ?></label></th>
             <td>
                 <div class="nta-wa-switch-control" style="margin-top: 5px;">
                     <input type="checkbox" id="isShowBtnLabel" name="isShowBtnLabel" <?php checked($option['isShowBtnLabel'], 'ON') ?>>
@@ -17,12 +17,12 @@
         </tr>
 
         <tr class="<?php echo ($option['isShowBtnLabel'] === 'ON' ? '' : 'hidden') ?>">
-            <th scope="row"><label for="btnLabel"><?php echo __('Widget Label Text', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for="btnLabel"><?php echo __('Widget Label Text', 'wp-whatsapp') ?></label></th>
             <td><input name="btnLabel" placeholder="Need Help? <strong>Chat with us</strong>" type="text" id="btnLabel" value="<?php echo esc_attr($option['btnLabel']) ?>" class="regular-text"></td>
         </tr>
 
         <tr class="<?php echo ($option['isShowBtnLabel'] === 'ON' ? '' : 'hidden') ?>">
-            <th scope="row"><label for="btnLabelWidth"><?php echo __('Widget Label Width(px)', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for="btnLabelWidth"><?php echo __('Widget Label Width(px)', 'wp-whatsapp') ?></label></th>
             <td>
                 <div class="range" style='--min:0; --max:500; --value:<?php echo $option['btnLabelWidth'] ?>; --text-value:"<?php echo $option['btnLabelWidth'] ?>";'>
                     <input id="btnLabelWidth" name="btnLabelWidth" type="range" min="0" max="500" value="<?php echo esc_attr($option['btnLabelWidth']) ?>" oninput="this.parentNode.style.setProperty('--value',this.value); this.parentNode.style.setProperty('--text-value', JSON.stringify(this.value))">
@@ -33,15 +33,15 @@
         </tr>
 
         <tr>
-            <th scope="row"><label for="textColor"><?php echo __('Widget Text Color', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for="textColor"><?php echo __('Widget Text Color', 'wp-whatsapp') ?></label></th>
             <td><input type="text" id="textColor" name="textColor" value="<?php echo esc_attr($option['textColor']) ?>" class="textColor" data-default-color="#fff" /></td>
         </tr>
 
         <tr class="setting font-size">
-            <th scope="row"><label for=""><?php echo __( 'Widget Font Size', 'ninjateam-whatsapp' ) ?></label></th>
+            <th scope="row"><label for=""><?php echo __( 'Widget Font Size', 'wp-whatsapp' ) ?></label></th>
             <td>
                 <div id="title-range-slider">
-                    <p><?php echo __( 'Title', 'ninjateam-whatsapp' )  ?></p>
+                    <p><?php echo __( 'Title', 'wp-whatsapp' )  ?></p>
                     <div class="range title-size" style='--min:10; --max:20; --value:<?php echo $option['titleSize'] ?>; --text-value:"<?php echo $option['titleSize']; ?>"'>
                         <input type="range" name="titleSize" min="10" max="20" value="<?php echo esc_attr( $option['titleSize'] )?>" oninput="this.parentNode.style.setProperty('--value',this.value); this.parentNode.style.setProperty('--text-value', JSON.stringify(this.value))">
                         <output></output>
@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div id="description-range-slider">
-                    <p><?php echo __( 'Description', 'ninjateam-whatsapp' )?></p>
+                    <p><?php echo __( 'Description', 'wp-whatsapp' )?></p>
                     <div class="range description-size" style='--min:10; --max:20; --value:<?php echo $option['descriptionTextSize'] ?>; --text-value:"<?php echo $option['descriptionTextSize'] ?>"'>
                         <input type="range" name="descriptionTextSize" min="10" max="20" value="<?php echo esc_attr($option['descriptionTextSize']) ?>" oninput="this.parentNode.style.setProperty('--value',this.value); this.parentNode.style.setProperty('--text-value', JSON.stringify(this.value))"/>
                         <output></output>
@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div id="account-name-range-slider">
-                    <p><?php echo __( 'Account Name', 'ninjateam-whatsapp' ) ?></p>
+                    <p><?php echo __( 'Account Name', 'wp-whatsapp' ) ?></p>
                     <div class="range account-name-size" style='--min:10; --max:20; --value:<?php echo $option['accountNameSize']?>; --text-value:"<?php echo $option['accountNameSize'] ?>"'>
                         <input type="range" name="accountNameSize" min="10" max="20" value="<?php echo esc_attr( $option['accountNameSize'] ) ?>" oninput="this.parentNode.style.setProperty('--value',this.value); this.parentNode.style.setProperty('--text-value', JSON.stringify(this.value))" />
                         <output></output>
@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div id="regular-text-range-slider">
-                    <p><?php echo __( "Regular Text", 'ninjateam-whatsapp' ) ?></p>
+                    <p><?php echo __( "Regular Text", 'wp-whatsapp' ) ?></p>
                     <div class="range regular-text-size" style='--min:10; --max:20; --value:<?php echo $option['regularTextSize']?>; --text-value:"<?php echo $option['regularTextSize'] ?>"'>
                         <input type="range" name="regularTextSize" min="10" max="20" value="<?php echo esc_attr($option['regularTextSize']) ?>" oninput="this.parentNode.style.setProperty('--value',this.value); this.parentNode.style.setProperty('--text-value', JSON.stringify(this.value))"/>
                         <output></output>
@@ -76,19 +76,19 @@
         </tr>
 
         <tr>
-            <th scope="row"><label for="backgroundColor"><?php echo __('Widget Background Color', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for="backgroundColor"><?php echo __('Widget Background Color', 'wp-whatsapp') ?></label></th>
             <td><input id="backgroundColor" type="text" name="backgroundColor" value="<?php echo esc_attr($option['backgroundColor']) ?>" class="backgroundColor" data-default-color="#2db742" /></td>
         </tr>
         <tr>
-            <th scope="row"><label for=""><?php echo __('Widget Position', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for=""><?php echo __('Widget Position', 'wp-whatsapp') ?></label></th>
             <td>
                 <div class="setting align">
                     <div class="button-group button-large" data-setting="align">
                         <button class="button btn-left disabled njt-wa-pro-tooltip <?php echo ($option['btnPosition'] == 'left' ? 'active' : '') ?>" value="left" type="button">
-                            <?php echo __('Left', 'ninjateam-whatsapp') ?>
+                            <?php echo __('Left', 'wp-whatsapp') ?>
                         </button>
                         <button class="button btn-right <?php echo ($option['btnPosition'] == 'right' ? 'active' : '') ?>" value="right" type="button">
-                            <?php echo __('Right', 'ninjateam-whatsapp') ?>
+                            <?php echo __('Right', 'wp-whatsapp') ?>
                         </button>
                     </div>
                     <input name="btnPosition" id="btnPosition" class="hidden" value="<?php echo esc_attr($option['btnPosition']) ?>" />
@@ -96,7 +96,7 @@
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for=""><?php echo __('Widget Distance', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for=""><?php echo __('Widget Distance', 'wp-whatsapp') ?></label></th>
             <td>
                 <div id="left-range-slider">
                     <div>Left</div>
@@ -125,7 +125,7 @@
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for=""><?php echo __('Widget Scroll Bar (PRO)', 'ninjateam-whatsapp') ?><span class="dashicons dashicons-editor-help njt-wa-tooltip"></span></label></th>
+            <th scope="row"><label for=""><?php echo __('Widget Scroll Bar (PRO)', 'wp-whatsapp') ?><span class="dashicons dashicons-editor-help njt-wa-tooltip"></span></label></th>
             <td>
                 <div class="nta-wa-switch-control" style="margin-top: 5px;">
                     <input class="njt-wa-pro" type="checkbox" id="isShowScroll" name="isShowScroll" <?php checked($option['isShowScroll'], 'ON') ?>>
@@ -134,7 +134,7 @@
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for=""><?php echo __('Powered-by Label (PRO)', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for=""><?php echo __('Powered-by Label (PRO)', 'wp-whatsapp') ?></label></th>
             <td>
                 <div class="nta-wa-switch-control" style="margin-top: 5px;">
                     <input class="njt-wa-pro" type="checkbox" id="isShowPoweredBy" name="isShowPoweredBy" <?php checked($option['isShowPoweredBy'], 'ON') ?>>
@@ -153,19 +153,19 @@
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="responseText"><?php echo __('Response Time Text', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for="responseText"><?php echo __('Response Time Text', 'wp-whatsapp') ?></label></th>
             <td>
                 <?php wp_editor($option['responseText'], 'responseText', $editor_settings); ?>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="wp-description-wrap"><?php echo __('Description', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for="wp-description-wrap"><?php echo __('Description', 'wp-whatsapp') ?></label></th>
             <td>
                 <?php wp_editor($option['description'], 'description', $editor_settings_quicktags); ?>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="gdprContent"><?php echo __('GDPR Notice', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for="gdprContent"><?php echo __('GDPR Notice', 'wp-whatsapp') ?></label></th>
             <td>
                 <div class="nta-wa-switch-control" style="margin-top: 5px;">
                     <input type="checkbox" id="nta-wa-switch-gdpr" name="isShowGDPR" <?php checked($option['isShowGDPR'], 'ON') ?>>
@@ -179,4 +179,4 @@
         </tr>
     </tbody>
 </table>
-<button class="button button-large button-primary wa-save"><?php echo __('Save Changes', 'ninjateam-whatsapp') ?><span></span></button>
+<button class="button button-large button-primary wa-save"><?php echo __('Save Changes', 'wp-whatsapp') ?><span></span></button>

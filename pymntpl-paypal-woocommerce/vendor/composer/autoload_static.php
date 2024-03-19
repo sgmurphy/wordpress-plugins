@@ -9,6 +9,7 @@ class ComposerStaticInitd6aa985415b057d85bc5a1a99863499e
     public static $prefixLengthsPsr4 = array (
         'P' => 
         array (
+            'PaymentPlugins\\WooCommerce\\PPCP\\Tests\\' => 38,
             'PaymentPlugins\\WooCommerce\\PPCP\\' => 32,
             'PaymentPlugins\\PayPalSDK\\' => 25,
             'PaymentPlugins\\PPCP\\WooCommerceShipStation\\' => 43,
@@ -25,6 +26,10 @@ class ComposerStaticInitd6aa985415b057d85bc5a1a99863499e
     );
 
     public static $prefixDirsPsr4 = array (
+        'PaymentPlugins\\WooCommerce\\PPCP\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/tests',
+        ),
         'PaymentPlugins\\WooCommerce\\PPCP\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',

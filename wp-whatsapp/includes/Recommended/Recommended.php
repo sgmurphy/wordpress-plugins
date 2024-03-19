@@ -550,9 +550,9 @@ if ( ! class_exists( 'NjtWhatsAppRecommended' ) ) {
 		}
 
 		public function admin_menu() {
-			$this->sub_menu_slug = add_submenu_page( 'nta_whatsapp', __( 'Recommended Plugins', 'ninjateam-whatsapp' ), __( 'Recommended Plugins', 'ninjateam-whatsapp' ), 'manage_options', 'nta_whatsapp_recommended_plugins', array( $this, 'recommended_plugins_view' ) );
+			$this->sub_menu_slug = add_submenu_page( 'nta_whatsapp', __( 'Recommended Plugins', 'wp-whatsapp' ), __( 'Recommended Plugins', 'wp-whatsapp' ), 'manage_options', 'nta_whatsapp_recommended_plugins', array( $this, 'recommended_plugins_view' ) );
 		}
 	}
 
-	new NjtWhatsAppRecommended( 'ninjateam-whatsapp' );
+	new NjtWhatsAppRecommended( 'wp-whatsapp' );
 }

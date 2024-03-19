@@ -163,11 +163,11 @@ function fca_pc_purchase_ga( $options ) {
 				$value = $value + $item['line_total'] + $item['line_tax'];
 				$id = $woo_id_mode === 'post_id' ? $item['product_id'] : wc_get_product( $item['product_id'] )->get_sku();
 				
-				$item = array(
+				$i = array(
 					'item_id' => $id,
-					'item_name' => get_the_title( $item['product_id'] ),
+					'item_name' => esc_html( strip_tags( get_the_title( $item['product_id'] ) ) ),
 				);
-				
+								
 				$category = get_the_terms( $item['product_id'], 'product_cat' );
 				
 				if ( $category ) {
@@ -176,10 +176,10 @@ function fca_pc_purchase_ga( $options ) {
 					forEach ( $category as $term  ) {
 						
 						if( $n === 1 ) {
-							$item['item_category'] = $term->name;
+							$i['item_category'] = $term->name;
 						} else if ( $n <= $max_product_categories ) {
 							$keyname = "item_category$n"; //e.g. item_category2 
-							$item[$keyname] = $term->name;
+							$i[$keyname] = $term->name;
 						} else {
 							//ONLY SUPPORTS 5 CATEGORIES CURRENTLY
 							//https://developers.google.com/analytics/devguides/collection/ga4/reference/events#begin_checkout
@@ -188,7 +188,7 @@ function fca_pc_purchase_ga( $options ) {
 					}
 				}
 				
-				$items[] = $item;
+				$items[] = $i;
 			}
 			
 			$ga_data = array(

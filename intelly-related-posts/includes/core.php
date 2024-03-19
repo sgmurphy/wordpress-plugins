@@ -294,10 +294,8 @@ function irp_ui_first_time() {
         $irp->Options->setShowActivationNotice(FALSE);
     }
 }
-function irp_get_list_posts() {
-
-	$result = array();
-
+function irp_get_list_posts()
+{
     if ( isset($_GET['q']) ) {
         $search = trim( esc_attr( sanitize_text_field( $_GET['q']) ) );
         if ( strlen($search) > 0 ) {
@@ -310,34 +308,46 @@ function irp_get_list_posts() {
 
     $postType = '';
     if ( isset($_REQUEST['irp_post_type']) ) {
+        // could be an input of 'post, page, etc.'
         $postType = sanitize_text_field( $_REQUEST['irp_post_type'] );
     }
-	$query = array(
-		'posts_per_page' => 100,
-		'post_status' => 'publish',
-		'post_type' => $postType,
-		'order' => 'DESC',
-		'orderby' => 'date',
-		'suppress_filters' => false,
-	);
 
-	$posts = get_posts( $query );
+    // Fix this for custom post types
+    $allowedPostTypes = array('post', 'page');
 
-	foreach ($posts as $this_post) {
+    $postType = array_filter(array_map('trim', explode(',', $postType)));
 
-		$post_title = $this_post->post_title;
-		$id = $this_post->ID;
+    $result = array();
 
-		$result[] = array(
-			'text' => $post_title,
-			'id' => $id,
-		);
+    if (!empty($postType)) {
+        if (empty(array_diff($postType, $allowedPostTypes))) {
+            $query = array(
+                'posts_per_page' => 100,
+                'post_status' => 'publish',
+                'post_type' => $postType,
+                'order' => 'DESC',
+                'orderby' => 'date',
+                'suppress_filters' => false,
+                'has_password' => false,
+            );
 
-	}
+            $posts = get_posts( $query );
 
-	$posts['items'] = $result;
-	echo json_encode($posts);
+            foreach ($posts as $this_post) {
+                $post_title = $this_post->post_title;
+                $id = $this_post->ID;
 
-	die();
+                $result[] = array(
+                    'text' => $post_title,
+                    'id' => $id,
+                );
+            }
+        }
+    }
+
+    $posts['items'] = $result;
+    echo wp_json_encode($posts);
+
+    die();
 }
 add_action( 'wp_ajax_irp_list_posts', 'irp_get_list_posts' );

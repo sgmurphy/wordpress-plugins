@@ -1,18 +1,18 @@
 === Smash Balloon Social Post Feed ===
 Contributors: smashballoon, craig-at-smash-balloon, am, smub
-Tags: Facebook, Facebook feed, Facebook posts, Facebook group, Facebook page
+Tags: Facebook, Facebook feed, Facebook posts, Facebook account, Facebook page
 Requires at least: 4.1
 Requires PHP: 5.6
-Tested up to: 6.3
-Stable tag: 4.2.2
+Tested up to: 6.4
+Stable tag: 4.2.3
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Formerly "Custom Facebook Feed". Display completely customizable Facebook feeds of a Facebook page or Group. Supports Facebook oEmbeds.
+Formerly "Custom Facebook Feed". Display completely customizable Facebook feeds of a Facebook page. Supports Facebook oEmbeds.
 
 == Description ==
 
-Display Facebook posts on your WordPress site. **Completely customizable**, **responsive**, **search engine crawlable**, and **GDPR compliant** Facebook feeds. Display **unlimited Facebook feeds** from your **Facebook page** or **Facebook Group**, and completely match the look and feel of your site with tons of customization options! Automatically powers any Facebook oEmbeds on your site.
+Display Facebook posts on your WordPress site. **Completely customizable**, **responsive**, **search engine crawlable**, and **GDPR compliant** Facebook feeds. Display **unlimited Facebook feeds** from your **Facebook page**, and completely match the look and feel of your site with tons of customization options! Automatically powers any Facebook oEmbeds on your site.
 
 *"The perfect Facebook plugin with amazing support! What else do you want? Get it!"* - [JoeJeffries](http://wordpress.org/support/topic/you-dont-already-have-this?facebook)
 
@@ -27,8 +27,8 @@ With WordPress removing support for Facebook oEmbeds, the plugin will now automa
 **Super Simple to Set Up**
 One of our main priorities has always been to make our Facebook plugin as easy as possible to setup and use. Get up and running in less less than 1 minute with our signature quick setup - no Facebook Developer App required.
 
-**Display Feeds from Your Facebook Page or Facebook Group**
-Use the plugin to display Facebook feeds from a Facebook page or Facebook group that you are an admin of.
+**Display Feeds from Your Facebook Page**
+Use the plugin to display Facebook feeds from a Facebook page that you are an admin of.
 
 **Completely Customizable**
 By default the Facebook feed will adopt the styles of your WordPress theme, but your feeds can be completely customized to look however you like using our visual feed customizer - with tons of options to customize every part of your Facebook posts and feed.
@@ -52,7 +52,7 @@ We don't limit how many Facebook feeds you can display on your site. Just use th
 Built-in caching means that your Facebook feeds load lightning fast. Set your own caching time - check for new Facebook posts every few seconds, minutes, hours or days. You decide.
 
 **Like Box Widget and Visual Header**
-Include the official Facebook Like Box widget at the top or bottom of your Facebook feed and display a beautiful visual header with your Facebook page or Facebook group cover photo, profile picture, bio, and number of likes.
+Include the official Facebook Like Box widget at the top or bottom of your Facebook feed and display a beautiful visual header with your Facebook page or cover photo, profile picture, bio, and number of likes.
 
 **So Much More**
 Show and hide certain parts of each Facebook post, choose whose posts to show in the feed, customize colors, font sizes and styles, the number of Facebook posts to display, set max text lengths, translate text, custom CSS, and much, much more.
@@ -111,9 +111,9 @@ Check out our other free plugins for [Instagram](https://wordpress.org/plugins/i
 
 For a full list of FAQs and help with troubleshooting please visit the **[FAQ & Troubleshooting](https://smashballoon.com/custom-facebook-feed/faq/)** section of the Smash Balloon website
 
-= Are there any limitations on which Facebook page or Facebook group feeds I can display? =
+= Are there any limitations on which Facebook page feeds I can display? =
 
-The Facebook feed you're trying to display has to be from a publicly accessible Facebook page or Facebook group. This means that you can't display the feed from your own personal Facebook profile. This is to do with Facebook's privacy policies. You can't display a non-public Facebook feed publicly.
+The Facebook feed you're trying to display has to be from a publicly accessible Facebook page. This means that you can't display the feed from your own personal Facebook profile. This is to do with Facebook's privacy policies. You can't display a non-public Facebook feed publicly.
 
 If your Facebook page has any restrictions on it (age, for example) then it means that people have to be signed into Facebook in order to view your page. This isn't desirable for most Facebook pages as it means that it isn't accessible by people who don't have a Facebook account and that your Facebook page can't be crawled and indexed by search engines.
 
@@ -125,7 +125,7 @@ Yep! Create as many feeds as you like from different Facebook pages. Just click 
 
 = Can I display feeds from a Facebook Group? =
 
-Yep! First, authorize the plugin by using the big blue Facebook button on the "Facebook Feed" settings page and then select your Facebook group. You must be a member of the group and an admin of that Facebook group must have installed our app in the Facebook group settings. Directions for this are provided when you authorize the plugin via the Facebook Feed settings page.
+As of April of 2024 the plugin is no longer able to display posts from a Facebook group. This is due to changes on Facebook's end.
 
 = Can I display the feed from a personal Facebook profile? =
 
@@ -227,6 +227,9 @@ The most common reason for this is that an add-on or extension you have installe
 9. It's super easy to display your Facebook feed in any page or post
 
 == Changelog ==
+= 4.2.3 =
+* Important: Meta (Facebook) is ending support for group feeds. [See our related FAQ](https://smashballoon.com/doc/facebook-api-changes-affecting-groups-april-2024/?facebook&utm_campaign=facebook-free-readme&utm_source=changelog&utm_medium=groupdeprecation) for more information. Existing feeds with a Facebook group source will stop updating as of April 2024.
+* Tweak: Added a notice to the plugin settings page to inform users of the upcoming Facebook API changes affecting group feeds.
 
 = 4.2.2 =
 * Tweak: Plugin hardening.

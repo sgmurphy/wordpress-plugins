@@ -3,8 +3,8 @@ Tags: related posts, related, related articles, contextual related posts, simila
 Contributors: webberzone, ajay
 Donate link: https://ajaydsouza.com/donate/
 Stable tag: 3.4.2
-Requires at least: 5.9
-Tested up to: 6.4
+Requires at least: 6.0
+Tested up to: 6.5
 Requires PHP: 7.4
 License: GPLv2 or later
 

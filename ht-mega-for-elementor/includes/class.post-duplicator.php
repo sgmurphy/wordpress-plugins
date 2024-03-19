@@ -38,11 +38,10 @@ class HTMega_Post_Dupicator{
     public function row_actions( $actions, $post ){
         
         $enable = htmega_get_option( 'postduplicate_condition', 'htmega_general_tabs', array('all') );
-
-        if ( current_user_can('edit_posts') && ( in_array( $post->post_type, $enable ) || in_array('all', $enable) ) ) {
-            $actionurl = admin_url('admin.php?action=htmega_duplicate_post_as_draft&post=' . $post->ID );
+        if ( current_user_can( 'edit_post',$post->ID )  && ! post_password_required( $post ) && ( in_array( $post->post_type, $enable ) || in_array('all', $enable) ) ) {
+            $actionurl = admin_url( 'admin.php?action=htmega_duplicate_post_as_draft&post=' . $post->ID );
             $url = wp_nonce_url( $actionurl, 'htmega_duplicate_nonce' );
-            $actions['htmegaduplicate'] = '<a href="'.$url.'" title="'.esc_attr__( 'HT Mega Duplicator', 'htmega-addons' ).'" rel="permalink">'.esc_html__( 'HT Duplicate', 'htmega-addons' ).'</a>';
+            $actions['htmegaduplicate'] = '<a href="' . $url . '" title="' . esc_attr__( 'HT Mega Duplicator', 'htmega-addons' ) . '" rel="permalink">' . esc_html__( 'HT Duplicate', 'htmega-addons' ) . '</a>';
 
         }
         return $actions;
@@ -71,11 +70,33 @@ class HTMega_Post_Dupicator{
          * get the original post id
          */
         $post_id = ( isset( $_REQUEST['post'] ) ? absint( $_REQUEST['post'] ) : Null );
+
         /*
          * and all the original post data then
          */
         $post = sanitize_post( get_post( $post_id ), 'db' );
      
+        /*
+        * Check if the current user can edit this post
+        */
+        if ( !current_user_can( 'edit_post', $post_id ) ) {
+            wp_die( esc_html__( 'You do not have permission to duplicate this post!','htmega-addons' ) );
+        }
+
+        /*
+        * Check if the post is password protected and if the current user can edit password-protected posts
+        */
+        if ( post_password_required( $post )  && ! current_user_can( 'edit_post_passwords' ) ) {
+            wp_die( esc_html__( 'You do not have permission to duplicate this password-protected post!', 'htmega-addons' ) );
+        }
+
+        /*
+        * Check if the post is private
+        */
+        if ($post->post_status === 'private') {
+            wp_die(esc_html__('You do not have permission to duplicate this private post!', 'htmega-addons'));
+        }
+
         /*
          * if you don't want current user to be the new post author,
          * then change next couple of lines to this: $new_post_author = $post->post_author;
@@ -153,7 +174,7 @@ class HTMega_Post_Dupicator{
             wp_safe_redirect( $redirect_to );
 
         }else {
-            wp_die('Post creation failed, could not find original post: ' . $post_id);
+            wp_die( esc_html__( 'Post creation failed, could not find original post: ','htmega-addons' ) . $post_id );
         }
 
 

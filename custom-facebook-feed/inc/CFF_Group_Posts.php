@@ -8,6 +8,7 @@
  */
 namespace CustomFacebookFeed;
 
+use CustomFacebookFeed\Integrations\CFF_Graph_Data;
 use CustomFacebookFeed\SB_Facebook_Data_Encryption;
 
 if (!defined('ABSPATH'))
@@ -439,21 +440,25 @@ class CFF_Group_Posts
 
     public static function group_schedule_event($cff_cache_cron_time_unix, $cff_cron_schedule)
     {
-        if (!wp_next_scheduled('group_post_scheduler_cron')) {
-            wp_schedule_event($cff_cache_cron_time_unix, $cff_cron_schedule, 'group_post_scheduler_cron');
-        }
+		if (CFF_Graph_Data::should_make_group_call()) {
+			if (!wp_next_scheduled('group_post_scheduler_cron')) {
+				wp_schedule_event($cff_cache_cron_time_unix, $cff_cron_schedule, 'group_post_scheduler_cron');
+			}
+		}
     }
 
     public static function group_reschedule_event($cff_cache_cron_time_unix, $cff_cron_schedule)
     {
-        $timestamp = wp_next_scheduled('group_post_scheduler_cron');
-        if ($timestamp) {
-            wp_clear_scheduled_hook('group_post_scheduler_cron');
-            wp_unschedule_event($timestamp, 'group_post_scheduler_cron');
-        }
-        if (!wp_next_scheduled('group_post_scheduler_cron')) {
-            wp_schedule_event($cff_cache_cron_time_unix, $cff_cron_schedule, 'group_post_scheduler_cron');
-        }
+        if (CFF_Graph_Data::should_make_group_call()) {
+			$timestamp = wp_next_scheduled('group_post_scheduler_cron');
+			if ($timestamp) {
+				wp_clear_scheduled_hook('group_post_scheduler_cron');
+				wp_unschedule_event($timestamp, 'group_post_scheduler_cron');
+			}
+			if (!wp_next_scheduled('group_post_scheduler_cron')) {
+				wp_schedule_event($cff_cache_cron_time_unix, $cff_cron_schedule, 'group_post_scheduler_cron');
+			}
+		}
     }
 
 }

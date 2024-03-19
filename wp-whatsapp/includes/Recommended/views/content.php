@@ -62,13 +62,13 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 							'<button class="install-now button button-primary" data-install-url="%s" aria-label="%s">%s</button>',
 							esc_attr( $download_link ),
 							/* translators: %s: Plugin name and version. */
-							esc_attr( sprintf( _x( 'Install %s now', 'plugin', 'ninjateam-whatsapp' ), $name ) ),
-							__( 'Install Now', 'ninjateam-whatsapp' )
+							esc_attr( sprintf( _x( 'Install %s now', 'plugin', 'wp-whatsapp' ), $name ) ),
+							__( 'Install Now', 'wp-whatsapp' )
 						);
 					} else {
 						$action_links[] = sprintf(
 							'<button type="button" class="button button-disabled" disabled="disabled">%s</button>',
-							_x( 'Cannot Install', 'plugin', 'ninjateam-whatsapp' )
+							_x( 'Cannot Install', 'plugin', 'wp-whatsapp' )
 						);
 					}
 				}
@@ -84,14 +84,14 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 							esc_attr( $recommended_plugin['slug'] ),
 							esc_url( $install_status['url'] ),
 							/* translators: %s: Plugin name and version. */
-							esc_attr( sprintf( _x( 'Update %s now', 'plugin', 'ninjateam-whatsapp' ), $name ) ),
+							esc_attr( sprintf( _x( 'Update %s now', 'plugin', 'wp-whatsapp' ), $name ) ),
 							esc_attr( $name ),
-							__( 'Update Now', 'ninjateam-whatsapp' )
+							__( 'Update Now', 'wp-whatsapp' )
 						);
 					} else {
 						$action_links[] = sprintf(
 							'<button type="button" class="button button-disabled" disabled="disabled">%s</button>',
-							_x( 'Cannot Update', 'plugin', 'ninjateam-whatsapp' )
+							_x( 'Cannot Update', 'plugin', 'wp-whatsapp' )
 						);
 					}
 				}
@@ -108,14 +108,14 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 					$plugin_status  = '<span class="plugin-status-active">Active</span>';
 					$action_links[] = sprintf(
 						'<button type="button" class="button button-disabled" disabled="disabled">%s</button>',
-						_x( 'Activated', 'plugin', 'ninjateam-whatsapp' )
+						_x( 'Activated', 'plugin', 'wp-whatsapp' )
 					);
 				} elseif ( current_user_can( 'activate_plugin', $install_status['file'] ) ) {
 					$plugin_status = '<span class="plugin-status-inactive" data-plugin-file="' . esc_attr( $install_status['file'] ) . '">Inactive</span>';
 					if ( $compatible_php && $compatible_wp ) {
-						$button_text = __( 'Activate', 'ninjateam-whatsapp' );
+						$button_text = __( 'Activate', 'wp-whatsapp' );
 						/* translators: %s: Plugin name. */
-						$button_label = _x( 'Activate %s', 'plugin', 'ninjateam-whatsapp' );
+						$button_label = _x( 'Activate %s', 'plugin', 'wp-whatsapp' );
 						$activate_url = add_query_arg(
 							array(
 								'_wpnonce' => wp_create_nonce( 'activate-plugin_' . $install_status['file'] ),
@@ -126,9 +126,9 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 						);
 
 						if ( is_network_admin() ) {
-							$button_text = __( 'Network Activate', 'ninjateam-whatsapp' );
+							$button_text = __( 'Network Activate', 'wp-whatsapp' );
 							/* translators: %s: Plugin name. */
-							$button_label = _x( 'Network Activate %s', 'plugin', 'ninjateam-whatsapp' );
+							$button_label = _x( 'Network Activate %s', 'plugin', 'wp-whatsapp' );
 							$activate_url = add_query_arg( array( 'networkwide' => 1 ), $activate_url );
 						}
 
@@ -141,13 +141,13 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 					} else {
 						$action_links[] = sprintf(
 							'<button type="button" class="button button-disabled" disabled="disabled">%s</button>',
-							_x( 'Cannot Activate', 'plugin', 'ninjateam-whatsapp' )
+							_x( 'Cannot Activate', 'plugin', 'wp-whatsapp' )
 						);
 					}
 				} else {
 					$action_links[] = sprintf(
 						'<button type="button" class="button button-disabled" disabled="disabled">%s</button>',
-						_x( 'Installed', 'plugin', 'ninjateam-whatsapp' )
+						_x( 'Installed', 'plugin', 'wp-whatsapp' )
 					);
 				}
 				break;
@@ -177,11 +177,11 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 		if ( ! $compatible_php || ! $compatible_wp ) {
 			echo '<div class="notice inline notice-error notice-alt"><p>';
 			if ( ! $compatible_php && ! $compatible_wp ) {
-				echo esc_html__( 'This plugin doesn&#8217;t work with your versions of WordPress and PHP.', 'ninjateam-whatsapp' );
+				echo esc_html__( 'This plugin doesn&#8217;t work with your versions of WordPress and PHP.', 'wp-whatsapp' );
 				if ( current_user_can( 'update_core' ) && current_user_can( 'update_php' ) ) {
 					printf(
 						/* translators: 1: URL to WordPress Updates screen, 2: URL to Update PHP page. */
-						' ' . esc_html__( '<a href="%1$s">Please update WordPress</a>, and then <a href="%2$s">learn more about updating PHP</a>.', 'ninjateam-whatsapp' ),
+						' ' . esc_html__( '<a href="%1$s">Please update WordPress</a>, and then <a href="%2$s">learn more about updating PHP</a>.', 'wp-whatsapp' ),
 						esc_url( self_admin_url( 'update-core.php' ) ),
 						esc_url( wp_get_update_php_url() )
 					);
@@ -189,32 +189,32 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 				} elseif ( current_user_can( 'update_core' ) ) {
 					printf(
 						/* translators: %s: URL to WordPress Updates screen. */
-						' ' . esc_html__( '<a href="%s">Please update WordPress</a>.', 'ninjateam-whatsapp' ),
+						' ' . esc_html__( '<a href="%s">Please update WordPress</a>.', 'wp-whatsapp' ),
 						esc_url( self_admin_url( 'update-core.php' ) )
 					);
 				} elseif ( current_user_can( 'update_php' ) ) {
 					printf(
 						/* translators: %s: URL to Update PHP page. */
-						' ' . esc_html__( '<a href="%s">Learn more about updating PHP</a>.', 'ninjateam-whatsapp' ),
+						' ' . esc_html__( '<a href="%s">Learn more about updating PHP</a>.', 'wp-whatsapp' ),
 						esc_url( wp_get_update_php_url() )
 					);
 					wp_update_php_annotation( '</p><p><em>', '</em>' );
 				}
 			} elseif ( ! $compatible_wp ) {
-				echo esc_html__( 'This plugin doesn&#8217;t work with your version of WordPress.', 'ninjateam-whatsapp' );
+				echo esc_html__( 'This plugin doesn&#8217;t work with your version of WordPress.', 'wp-whatsapp' );
 				if ( current_user_can( 'update_core' ) ) {
 					printf(
 						/* translators: %s: URL to WordPress Updates screen. */
-						' ' . esc_html__( '<a href="%s">Please update WordPress</a>.', 'ninjateam-whatsapp' ),
+						' ' . esc_html__( '<a href="%s">Please update WordPress</a>.', 'wp-whatsapp' ),
 						esc_url( self_admin_url( 'update-core.php' ) )
 					);
 				}
 			} elseif ( ! $compatible_php ) {
-				echo esc_html__( 'This plugin doesn&#8217;t work with your version of PHP.', 'ninjateam-whatsapp' );
+				echo esc_html__( 'This plugin doesn&#8217;t work with your version of PHP.', 'wp-whatsapp' );
 				if ( current_user_can( 'update_php' ) ) {
 					printf(
 						/* translators: %s: URL to Update PHP page. */
-						' ' . esc_html__( '<a href="%s">Learn more about updating PHP</a>.', 'ninjateam-whatsapp' ),
+						' ' . esc_html__( '<a href="%s">Learn more about updating PHP</a>.', 'wp-whatsapp' ),
 						esc_url( wp_get_update_php_url() )
 					);
 					wp_update_php_annotation( '</p><p><em>', '</em>' );

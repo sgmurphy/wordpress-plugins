@@ -93,3 +93,16 @@ i.htmega-icon.htmega-threesixty-rotation-img:before {
 .ht-badge-icon {
   float: right;
 }
+
+.htmega-elementor-buttion-pro-hide{
+  display: none;
+}
+a.htmega-pro-dialog-buttons-action{
+  display: none!important;
+}
+.htmega-pro-widget a.htmega-pro-dialog-buttons-action{
+  display: inline-block!important;
+}
+.elementor-button.go-pro.dialog-button.dialog-action.dialog-buttons-action.htmega-elementor-buttion-pro-hide {
+  display: none!important;
+}

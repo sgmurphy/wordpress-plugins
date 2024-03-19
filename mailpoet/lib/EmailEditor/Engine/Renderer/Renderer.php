@@ -5,55 +5,45 @@ namespace MailPoet\EmailEditor\Engine\Renderer;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\EmailEditor\Engine\Renderer\ContentRenderer\ContentRenderer;
 use MailPoet\EmailEditor\Engine\SettingsController;
-use MailPoet\EmailEditor\Engine\ThemeController;
 use MailPoet\Util\pQuery\DomNode;
 use MailPoetVendor\Html2Text\Html2Text;
 
 class Renderer {
   private \MailPoetVendor\CSS $cssInliner;
 
-  private BlocksRegistry $blocksRegistry;
-
-  private ProcessManager $processManager;
-
   private SettingsController $settingsController;
 
-  private ThemeController $themeController;
+  private ContentRenderer $contentRenderer;
 
   const TEMPLATE_FILE = 'template.html';
-  const TEMPLATE_STYLES_FILE = 'styles.css';
+  const TEMPLATE_STYLES_FILE = 'template.css';
 
   /**
    * @param \MailPoetVendor\CSS $cssInliner
    */
   public function __construct(
     \MailPoetVendor\CSS $cssInliner,
-    ProcessManager $preprocessManager,
-    BlocksRegistry $blocksRegistry,
     SettingsController $settingsController,
-    ThemeController $themeController
+    ContentRenderer $contentRenderer
   ) {
     $this->cssInliner = $cssInliner;
-    $this->processManager = $preprocessManager;
-    $this->blocksRegistry = $blocksRegistry;
     $this->settingsController = $settingsController;
-    $this->themeController = $themeController;
+    $this->contentRenderer = $contentRenderer;
   }
 
   public function render(\WP_Post $post, string $subject, string $preHeader, string $language, $metaRobots = ''): array {
-    $parser = new \WP_Block_Parser();
-    $parsedBlocks = $parser->parse($post->post_content); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    $layout = $this->settingsController->getLayout();
+    $themeStyles = $this->settingsController->getEmailStyles();
+    $padding = $themeStyles['spacing']['padding'];
 
-    $layoutStyles = $this->settingsController->getEmailStyles()['layout'];
-    $themeData = $this->settingsController->getTheme()->get_data();
-    $contentBackground = $themeData['styles']['color']['background'] ?? $layoutStyles['background'];
-    $contentFontFamily = $themeData['styles']['typography']['fontFamily'];
-    $parsedBlocks = $this->processManager->preprocess($parsedBlocks, $layoutStyles);
-    $renderedBody = $this->renderBlocks($parsedBlocks);
+    $contentBackground = $themeStyles['color']['background']['content'];
+    $layoutBackground = $themeStyles['color']['background']['layout'];
+    $contentFontFamily = $themeStyles['typography']['fontFamily'];
+    $renderedBody = $this->contentRenderer->render($post);
 
     $styles = (string)file_get_contents(dirname(__FILE__) . '/' . self::TEMPLATE_STYLES_FILE);
-    $styles .= $this->themeController->getStylesheetForRendering();
     $styles = apply_filters('mailpoet_email_renderer_styles', $styles, $post);
 
     $template = (string)file_get_contents(dirname(__FILE__) . '/' . self::TEMPLATE_FILE);
@@ -61,7 +51,7 @@ class Renderer {
     // Replace style settings placeholders with values
     $template = str_replace(
       ['{{width}}', '{{layout_background}}', '{{content_background}}', '{{content_font_family}}', '{{padding_top}}', '{{padding_right}}', '{{padding_bottom}}', '{{padding_left}}'],
-      [$layoutStyles['width'], $layoutStyles['background'], $contentBackground, $contentFontFamily, $layoutStyles['padding']['top'], $layoutStyles['padding']['right'], $layoutStyles['padding']['bottom'], $layoutStyles['padding']['left']],
+      [$layout['contentSize'], $layoutBackground, $contentBackground, $contentFontFamily, $padding['top'], $padding['right'], $padding['bottom'], $padding['left']],
       $template
     );
 
@@ -88,28 +78,10 @@ class Renderer {
 
     $templateWithContentsDom = $this->inlineCSSStyles($templateWithContents);
     $templateWithContents = $this->postProcessTemplate($templateWithContentsDom);
-    $templateWithContents = $this->processManager->postprocess($templateWithContents);
     return [
       'html' => $templateWithContents,
       'text' => $this->renderTextVersion($templateWithContents),
     ];
-  }
-
-  public function renderBlocks(array $parsedBlocks): string {
-    do_action('mailpoet_blocks_renderer_initialized', $this->blocksRegistry);
-
-    $content = '';
-    foreach ($parsedBlocks as $parsedBlock) {
-      $content .= render_block($parsedBlock);
-    }
-
-    /**
-     *  As we use default WordPress filters, we need to remove them after email rendering
-     *  so that we don't interfere with possible post rendering that might happen later.
-     */
-    $this->blocksRegistry->removeAllBlockRendererFilters();
-
-    return $content;
   }
 
   private function injectContentIntoTemplate($template, array $content) {

@@ -519,7 +519,7 @@ if ( !class_exists( 'HTMega_Elementor_Addons_Assests' ) ) {
         public function editor_scripts() {
             wp_enqueue_style('htmega-element-editor', HTMEGA_ADDONS_PL_URL . 'assets/css/htmega-elementor-editor.css',['elementor-editor'], HTMEGA_VERSION );
             wp_enqueue_script("htmega-widgets-editor", HTMEGA_ADDONS_PL_URL ."/assets/js/htmega-widgets-editor.js", array( "elementor-editor","jquery" ), HTMEGA_VERSION,true);
-            
+            wp_enqueue_script("htmega-pormotion-editor", HTMEGA_ADDONS_PL_URL ."/assets/js/promotion.js", array( "elementor-editor","jquery" ), HTMEGA_VERSION,true);
             //Localized  promotional widget for editor js
             wp_localize_script(
                 'htmega-widgets-editor',

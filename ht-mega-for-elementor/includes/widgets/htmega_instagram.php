@@ -1549,7 +1549,7 @@ class HTMega_Elementor_Widget_Instagram extends Widget_Base {
                 }
 
                 $items = array();
-                if( is_array( $instagram_data['data'] ) && $instagram_data['data'] ){
+                if ( isset($instagram_data['data'] ) && is_array( $instagram_data['data'] ) && $instagram_data['data'] ){
 
                     foreach ( $instagram_data['data'] as $data_item ) {
                         $image_src = ( $data_item['media_type'] == 'VIDEO' ) ? $data_item['thumbnail_url'] : $data_item['media_url'];

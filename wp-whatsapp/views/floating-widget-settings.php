@@ -11,9 +11,9 @@ if (isset($_GET['tab'])) {
     <?php settings_errors(); ?>
     <div id="njt-tabs">
         <ul class="nav-tab-wrapper nta-tab-wrapper">
-            <li><a href="#tabs-1" class="nav-tab nta-selected-tab"><?php echo __('Selected Accounts', 'ninjateam-whatsapp') ?></a></li>
-            <li><a href="#tabs-2" class="nav-tab nta-design-tab" data-action="njt_wa_save_design_setting"><?php echo __('Design', 'ninjateam-whatsapp') ?></a></li>
-            <li><a href="#tabs-3" class="nav-tab nta-display-setting-tab" data-action="njt_wa_save_display_setting"><?php echo __('Display Settings', 'ninjateam-whatsapp') ?></a></li>
+            <li><a href="#tabs-1" class="nav-tab nta-selected-tab"><?php echo __('Selected Accounts', 'wp-whatsapp') ?></a></li>
+            <li><a href="#tabs-2" class="nav-tab nta-design-tab" data-action="njt_wa_save_design_setting"><?php echo __('Design', 'wp-whatsapp') ?></a></li>
+            <li><a href="#tabs-3" class="nav-tab nta-display-setting-tab" data-action="njt_wa_save_display_setting"><?php echo __('Display Settings', 'wp-whatsapp') ?></a></li>
         </ul>
         <div class="nta-tabs-content">
             <form method="post" action="options.php">

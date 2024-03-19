@@ -3,13 +3,18 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class IRP_Check {
-    var $data;
+    var $data = NULL;
 
-    public function __construct() {
+    public function getData()
+    {
         $this->data=array_merge($_POST, $_GET);
     }
 
     public function is($name, $value, $ignoreCase=TRUE) {
+        if (empty($this->data))
+        {
+            $this->getData();
+        }
         $result=FALSE;
         if(isset($this->data[$name])) {
             if($ignoreCase) {
@@ -21,6 +26,10 @@ class IRP_Check {
         return $result;
     }
     public function of($name, $default='') {
+        if (empty($this->data))
+        {
+            $this->getData();
+        }
         $result=$default;
         if(isset($this->data[$name])) {
             $result=$this->data[$name];
@@ -29,7 +38,7 @@ class IRP_Check {
     }
     public function nonce($action, $nonce='_wpnonce') {
         if(isset($_REQUEST[$nonce])) {
-            $nonce= sanitize_text_field($_REQUEST[$nonce]);
+            $nonce= sanitize_key($_REQUEST[$nonce]);
         }
         return wp_verify_nonce($nonce, $action);
     }
@@ -50,6 +59,10 @@ class IRP_Check {
     }
 
     public function value($name) {
+        if (empty($this->data))
+        {
+            $this->getData();
+        }
         $result='';
         if(isset($this->data[$name])) {
             $result=sanitize_text_field($this->data[$name]);
@@ -71,6 +84,10 @@ class IRP_Check {
         return $result;
     }
     public function email($name) {
+        if (empty($this->data))
+        {
+            $this->getData();
+        }
         $result=$this->value($name);
         if($result!='') {
             $result=sanitize_email($result);
@@ -82,6 +99,10 @@ class IRP_Check {
         return $result;
     }
     public function float($name) {
+        if (empty($this->data))
+        {
+            $this->getData();
+        }
         $result=$this->value($name);
         if($result!='' && !is_float($result)) {
             $this->error($name);
@@ -91,6 +112,10 @@ class IRP_Check {
         return $result;
     }
     public function integer($name) {
+        if (empty($this->data))
+        {
+            $this->getData();
+        }
         $result=$this->value($name);
         if($result!='' && !is_int($result)) {
             $this->error($name);

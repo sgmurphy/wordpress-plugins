@@ -1899,12 +1899,10 @@ class HMWP_Models_Rewrite
                 }
             } else {
 
-
                 //Hide the param rest route
                 if (HMWP_Classes_Tools::getOption('hmwp_disable_rest_api_param') ) {
                     $this->hideRestRouteParam();
                 }
-
 
                 //Check the whitelist IPs for accessing the hide paths
                 if (HMWP_Classes_Tools::getOption('hmwp_detectors_block') ) {

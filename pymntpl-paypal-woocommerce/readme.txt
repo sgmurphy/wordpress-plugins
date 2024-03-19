@@ -2,9 +2,9 @@
 Contributors: mr.clayton
 Tags: paypal, paylater, venmo, credit cards
 Requires at least: 4.7
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.1
-Stable tag: 1.0.45
+Stable tag: 1.0.46
 Copyright: Payment Plugins
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -45,6 +45,10 @@ Our documentation has a step-by-step guide on how to connect the plugin to your 
 Payment Plugins is the team behind several of the highest reviewed and installed Payment integrations for WooCommerce.
 
 == Changelog ==
+= 1.0.46 - 03/18/24 =
+* Fixed - Order status not being updated to processing/completed when PayPal sends payment.capture.completed event
+for payments under review. [https://wordpress.org/support/topic/status-never-changed-from-on-hold-to-processing/](https://wordpress.org/support/topic/status-never-changed-from-on-hold-to-processing/)
+* Added - Additional shipping address validations
 = 1.0.45 - 02/29/24 =
 * Updated - PHP 8.2 notice showing if debug log enabled
 * Added - Improvements to Checkout Block UI integration

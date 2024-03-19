@@ -8,7 +8,7 @@
 	Author: Fatcat Apps
 	Author URI: https://fatcatapps.com/
 	License: GPLv2
-	Version: 3.0.3
+	Version: 3.0.4
 */
 
 
@@ -31,7 +31,7 @@ if ( !defined( 'FCA_PC_PLUGIN_DIR' ) ) {
 	if ( FCA_PC_DEBUG ) {
 		define( 'FCA_PC_PLUGIN_VER', '3.0.' . time() );
 	} else {
-		define( 'FCA_PC_PLUGIN_VER', '3.0.3' );
+		define( 'FCA_PC_PLUGIN_VER', '3.0.4' );
 	}
 
 	//LOAD CORE
@@ -53,6 +53,9 @@ if ( !defined( 'FCA_PC_PLUGIN_DIR' ) ) {
 	if ( !empty( $options['woo_integration_snapchat'] ) && file_exists ( FCA_PC_PLUGIN_DIR . '/includes/integrations/woo-events-snapchat.php' ) ) {
 		include_once( FCA_PC_PLUGIN_DIR . '/includes/integrations/woo-events-snapchat.php' );
 	}
+	if ( !empty( $options['woo_integration_tiktok'] ) && file_exists ( FCA_PC_PLUGIN_DIR . '/includes/integrations/woo-events-tiktok.php' ) ) {
+		include_once( FCA_PC_PLUGIN_DIR . '/includes/integrations/woo-events-tiktok.php' );
+	}
 	if ( !empty( $options['woo_feed'] ) && file_exists ( FCA_PC_PLUGIN_DIR . '/includes/integrations/woo-feed.php' ) ) {
 		include_once( FCA_PC_PLUGIN_DIR . '/includes/integrations/woo-feed.php' );
 	}
@@ -67,6 +70,9 @@ if ( !defined( 'FCA_PC_PLUGIN_DIR' ) ) {
 	}
 	if ( !empty( $options['edd_integration_snapchat'] ) && file_exists ( FCA_PC_PLUGIN_DIR . '/includes/integrations/edd-events-snapchat.php' ) ) {
 		include_once( FCA_PC_PLUGIN_DIR . '/includes/integrations/edd-events-snapchat.php' );
+	}
+	if ( !empty( $options['edd_integration_tiktok'] ) && file_exists ( FCA_PC_PLUGIN_DIR . '/includes/integrations/edd-events-tiktok.php' ) ) {
+		include_once( FCA_PC_PLUGIN_DIR . '/includes/integrations/edd-events-tiktok.php' );
 	}
 	if ( !empty( $options['edd_feed'] ) && file_exists ( FCA_PC_PLUGIN_DIR . '/includes/integrations/edd-feed.php' ) ) {
 		include_once( FCA_PC_PLUGIN_DIR . '/includes/integrations/edd-feed.php' );

@@ -69,25 +69,25 @@ class Upgrade
             update_option('nta_wa_restored', 1);
         } catch (Exception $e) {
             wp_send_json_error(array(
-                'message' => __('Please contact us! we can\'t restore your accounts!', 'ninjateam-whatsapp'),
+                'message' => __('Please contact us! we can\'t restore your accounts!', 'wp-whatsapp'),
                 'content' => $e->getMessage(),
             ));
         }
 
-        wp_send_json_success(array('message' => __('Restored Successfully!', 'ninjateam-whatsapp')));
+        wp_send_json_success(array('message' => __('Restored Successfully!', 'wp-whatsapp')));
     }
 
     public function renderNotice(){
         ?>
             <div class="notice notice-error is-dismissible" id="njt-wa-restore-wrapper">
                 <div style="font-size: 1.3em; font-weight: 600; margin-top: 1em;">
-                    <?php _e('WhatsApp database update required', 'ninjateam-whatsapp')?>
+                    <?php _e('WhatsApp database update required', 'wp-whatsapp')?>
                 </div>
                 <p>
-                    <span><?php _e('WhatsApp has been updated! To use the latest version, you have to update your database to make your WhatsApp accounts work correctly.', 'ninjateam-whatsapp')?></span>
+                    <span><?php _e('WhatsApp has been updated! To use the latest version, you have to update your database to make your WhatsApp accounts work correctly.', 'wp-whatsapp')?></span>
                     <div>
                         <button class="button button-primary" id="nta-wa-restore">
-                            <strong><?php _e('Update WhatsApp Database', 'ninjateam-whatsapp')?></strong>
+                            <strong><?php _e('Update WhatsApp Database', 'wp-whatsapp')?></strong>
                         </button>
                     </div>
                 </p>
@@ -218,7 +218,7 @@ class Upgrade
                         'type' => "round",
                         'backgroundColor' => "#2DB742",
                         'textColor' => "#fff",
-                        'label' => __("Need Help? Chat with us", "ninjateam-whatsapp"),
+                        'label' => __("Need Help? Chat with us", "wp-whatsapp"),
                         'width' => 300,
                         'height' => 64,
                     );

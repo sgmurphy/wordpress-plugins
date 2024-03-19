@@ -1,5 +1,8 @@
 *** ShipStation for WooCommerce ***
 
+= 4.4.0 - 2024-03-19 =
+* Fix - Applying WordPress coding standards.
+
 = 4.3.9 - 2023-09-05 =
 * Fix - Security updates.
 * Tweaks - Developer dependencies update.

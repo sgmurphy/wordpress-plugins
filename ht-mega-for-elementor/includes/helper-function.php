@@ -394,10 +394,10 @@ function htmega_ajax_login(){
     if ( is_wp_error($user_signon) ){
 
         $invalid_info = !empty( $messages['invalid_info'] ) ? esc_html( $messages['invalid_info'] ) : esc_html__('Invalid username or password!', 'htmega-addons');
-        echo json_encode( [ 'loggeauth'=>false, 'message'=> $invalid_info ] );
+        echo wp_json_encode( [ 'loggeauth'=>false, 'message'=> $invalid_info ] );
     } else {
         $success_msg = !empty( $messages['success_msg'] ) ? esc_html( $messages['success_msg'] ) : esc_html__('Login Successfully', 'htmega-addons');
-        echo json_encode( [ 'loggeauth'=>true, 'message'=> $success_msg ] );
+        echo wp_json_encode( [ 'loggeauth'=>true, 'message'=> $success_msg ] );
     }
     wp_die();
 }
@@ -415,18 +415,18 @@ function htmega_ajax_register_init() {
 function htmega_ajax_register() {
 
 	if ( ! isset( $_POST['nonce'] ) ) {
-		echo json_encode( [ 'registerauth' =>false, 'message'=> esc_html__( 'Invalid Request', 'htmega-addons' ) ] );
+		echo wp_json_encode( [ 'registerauth' =>false, 'message'=> esc_html__( 'Invalid Request', 'htmega-addons' ) ] );
 		wp_die();
 	}
 
     $verified_nonce = wp_verify_nonce( $_POST['nonce'], 'htmega_register_nonce' );
     
     if ( ! $verified_nonce ) {
-        echo json_encode( [ 'registerauth' =>false, 'message'=> esc_html__( 'Invalid Request', 'htmega-addons' ) ] );
+        echo wp_json_encode( [ 'registerauth' =>false, 'message'=> esc_html__( 'Invalid Request', 'htmega-addons' ) ] );
         wp_die();
     }
     if ( ! get_option( 'users_can_register' ) ) {
-        echo json_encode( [ 'registerauth' =>false, 'message'=> esc_html__( 'User registration is currently not allowed.', 'htmega-addons' ) ] );
+        echo wp_json_encode( [ 'registerauth' =>false, 'message'=> esc_html__( 'User registration is currently not allowed.', 'htmega-addons' ) ] );
         wp_die();
     }
 
@@ -453,10 +453,10 @@ function htmega_ajax_register() {
 
         if ( is_wp_error( $register_user ) ){
             $server_error_msg = !empty( $messages['server_error_msg'] ) ? esc_html( $messages['server_error_msg'] ) : esc_html__('Something is wrong please check again!', 'htmega-addons');
-            echo json_encode( [ 'registerauth' =>false, 'message'=> $server_error_msg ] );
+            echo wp_json_encode( [ 'registerauth' =>false, 'message'=> $server_error_msg ] );
         } else {
             $success_msg = !empty( $messages['success_msg'] ) ? esc_html( $messages['success_msg'] ) : esc_html__('Successfully Register', 'htmega-addons');
-            echo json_encode( [ 'registerauth' =>true, 'message'=> $success_msg ] );
+            echo wp_json_encode( [ 'registerauth' =>true, 'message'=> $success_msg ] );
         }
     }
     wp_die();
@@ -469,27 +469,27 @@ function htmega_validation_data( $user_data = null, $messages = null ){
     if( empty( $user_data['user_login'] ) || empty( $_POST['reg_email'] ) || empty( $_POST['reg_password'] ) ){
 
         $required_msg = !empty( $messages['required_msg'] ) ? esc_html( $messages['required_msg'] ) : esc_html__('Username, Password and E-Mail are required', 'htmega-addons');
-        return json_encode( [ 'registerauth' =>false, 'message'=> $required_msg ] );
+        return wp_json_encode( [ 'registerauth' =>false, 'message'=> $required_msg ] );
     }
     if( !empty( $user_data['user_login'] ) ){
 
         if ( 4 > strlen( $user_data['user_login'] ) ) {
             $user_length_msg = !empty( $messages['user_length_msg'] ) ? esc_html( $messages['user_length_msg'] ) : esc_html__('Username too short. At least 4 characters is required', 'htmega-addons');
 
-            return json_encode( [ 'registerauth' =>false, 'message'=> $user_length_msg ] );
+            return wp_json_encode( [ 'registerauth' =>false, 'message'=> $user_length_msg ] );
         }
 
         if ( username_exists( $user_data['user_login'] ) ){
             $user_exists_msg = !empty( $messages['user_exists_msg'] ) ? esc_html( $messages['user_exists_msg'] ) : esc_html__('Sorry, that username already exists!', 'htmega-addons');
             
-            return json_encode( [ 'registerauth' =>false, 'message'=> $user_exists_msg ] );
+            return wp_json_encode( [ 'registerauth' =>false, 'message'=> $user_exists_msg ] );
         }
 
         if ( !validate_username( $user_data['user_login'] ) ) {
 
             $user_invalid_msg = !empty( $messages['user_invalid_msg'] ) ? esc_html( $messages['user_invalid_msg'] ) : esc_html__('Sorry, the username you entered is not valid', 'htmega-addons');
             
-            return json_encode( [ 'registerauth' =>false, 'message'=> $user_invalid_msg ] );
+            return wp_json_encode( [ 'registerauth' =>false, 'message'=> $user_invalid_msg ] );
         }
 
     }
@@ -498,7 +498,7 @@ function htmega_validation_data( $user_data = null, $messages = null ){
 
             $password_length_msg = !empty( $messages['password_length_msg'] ) ? esc_html( $messages['password_length_msg'] ) : esc_html__('Password length must be greater than 5', 'htmega-addons');
             
-            return json_encode( [ 'registerauth' =>false, 'message'=> $password_length_msg ] );
+            return wp_json_encode( [ 'registerauth' =>false, 'message'=> $password_length_msg ] );
         }
     }
     if( !empty( $user_data['user_email'] ) ){
@@ -506,19 +506,19 @@ function htmega_validation_data( $user_data = null, $messages = null ){
 
             $invalid_email_msg = !empty( $messages['invalid_email_msg'] ) ? esc_html( $messages['invalid_email_msg'] ) : esc_html__('Email is not valid', 'htmega-addons');
             
-            return json_encode( [ 'registerauth' =>false, 'message'=> $invalid_email_msg ] );
+            return wp_json_encode( [ 'registerauth' =>false, 'message'=> $invalid_email_msg ] );
         }
         if ( email_exists( $user_data['user_email'] ) ) {
             $email_exists_msg = !empty( $messages['email_exists_msg'] ) ? esc_html( $messages['email_exists_msg'] ) : esc_html__('Email Already in Use', 'htmega-addons');
             
-            return json_encode( [ 'registerauth' =>false, 'message'=> $email_exists_msg ] );
+            return wp_json_encode( [ 'registerauth' =>false, 'message'=> $email_exists_msg ] );
         }
     }
     if( !empty( $user_data['user_url'] ) ){
         if ( !filter_var( $user_data['user_url'], FILTER_VALIDATE_URL ) ) {
             $invalid_url_msg = !empty( $messages['invalid_url_msg'] ) ? esc_html( $messages['invalid_url_msg'] ) : esc_html__('Website is not a valid URL', 'htmega-addons');
             
-            return json_encode( [ 'registerauth' =>false, 'message'=> $invalid_url_msg ] );
+            return wp_json_encode( [ 'registerauth' =>false, 'message'=> $invalid_url_msg ] );
         }
     }
     return true;

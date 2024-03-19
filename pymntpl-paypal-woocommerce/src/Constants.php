@@ -67,4 +67,9 @@ class Constants {
 
 	const SHIPPING_PREFERENCE = 'shipping_preference';
 
+	/**
+	 * @since 1.0.46
+	 */
+	const CAPTURE_STATUS = '_paypal_capture_status';
+
 }

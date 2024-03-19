@@ -122,7 +122,7 @@ if ( !class_exists('NjtCross') ) {
             <div class="notice notice-info is-dismissible" id="njt-ads-wrapper">
                 <div class="njt-d-row njt-justify-between">
                     <div class="njt-ads-info">
-                    <h4 class="njt-ads-title"><?php _e('Recommend', 'ninjateam-whatsapp') ?></h4>
+                    <h4 class="njt-ads-title"><?php _e('Recommend', 'wp-whatsapp') ?></h4>
                     <p>To easily manage your files in WordPress media library with folders, please try FileBird plugin.</p>
                     <div class="njt-btn-row">
                         <a class="button button-primary" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($url) ?>">

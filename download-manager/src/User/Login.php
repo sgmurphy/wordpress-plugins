@@ -356,7 +356,7 @@ class Login
     function verifyLoginEmail($user, $user_login, $user_pass)
     {
 
-        if(get_class($user) !== 'WP_User' && !$user_login) return $user;
+        if((!is_object($user) || get_class($user) !== 'WP_User') && !$user_login) return $user;
 
         $user_email = null;
         if(!is_email($user_login) && !$user && $user_login) {

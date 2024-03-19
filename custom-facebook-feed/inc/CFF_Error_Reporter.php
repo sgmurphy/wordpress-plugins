@@ -65,6 +65,7 @@ class CFF_Error_Reporter
 		add_action('wp_footer', [$this, 'critical_error_notice'], 300);
 		add_action('cff_admin_notices', [$this, 'admin_error_notices']);
 		add_action('cff_admin_notices', [$this, 'platform_data_deleted_notice']);
+		add_action('cff_admin_notices', [$this, 'group_deprecation_notice']);
 		add_action('cff_admin_notices', [$this, 'platform_unused_feed_notice']);
 	}
 
@@ -438,7 +439,10 @@ class CFF_Error_Reporter
 	{
 		$are_errors = false;
 		$errors = $this->get_errors();
-		if (isset($errors['connection']['critical']) && $errors['connection']['critical'] === true) {
+		if (
+			(isset($errors['connection']['critical']) && $errors['connection']['critical'] === true) ||
+			CFF_Source::should_show_group_deprecation()
+		) {
 			return true;
 		} else {
 			$connected_accounts = CFF_Utils::cff_get_connected_accounts();
@@ -897,6 +901,86 @@ class CFF_Error_Reporter
 							</div>
 						</div>
 					<?php
+		}
+	}
+	/**
+	 * Should Add deprecation error for Groups
+	 *
+	 * @param $group_id
+	 *
+	 * @since X.X.X
+	 */
+	public function add_group_deprecation_error($group_id)
+	{
+		$group_deprecation_error = [
+			'group_ids' => []
+		];
+		if (isset($this->errors['group_deprecation'])) {
+			$group_deprecation_error['group_ids'] = $this->errors['group_deprecation']['group_ids'];
+		}
+		if (!in_array($group_id, $group_deprecation_error['group_ids'])) {
+			$group_deprecation_error['dimissed'] = false;
+			array_push($group_deprecation_error['group_ids'], $group_id);
+		}
+		$this->errors['group_deprecation'] = $group_deprecation_error;
+
+		update_option($this->reporter_key, $this->errors, false);
+	}
+
+	/**
+	 * Dismiss Group Notice
+	 *
+	 * @param $group_id
+	 *
+	 * @since X.X.X
+	 */
+	public function dismiss_group_deprecation_error()
+	{
+		if (isset($this->errors['group_deprecation'])) {
+			$this->errors['group_deprecation']['dismissed'] = true;
+			update_option($this->reporter_key, $this->errors, false);
+		}
+	}
+	public function group_deprecation_notice()
+	{
+		$errors = $this->get_errors();
+		if (
+			!empty($errors) && !empty($errors['group_deprecation']) &&
+			(!isset($errors['group_deprecation']['dismissed']) || $errors['group_deprecation']['dismissed'] !== true)
+		) {
+			$close_href = add_query_arg(array('cff_dismiss_notice' => 'group_deprecation'));
+		?>
+			<div class="cff-admin-notices cff-critical-error-notice">
+				<span class="sb-notice-icon sb-error-icon">
+					<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V13H11V15ZM11 11H9V5H11V11Z" fill="#D72C2C"/>
+					</svg>
+				</span>
+				<div class="cff-notice-body">
+					<h3 class="sb-notice-title sb-noticegroup-title">
+						<?php echo esc_html__('Group feeds will no longer update as of April 22, 2024 :', 'custom-facebook-feed') ; ?>
+					</h3>
+					<p>
+						<?php
+							echo
+							__('You have one or more feeds that will no longer update after April 22, 2024. This is caused by a change in Facebook\'s API, which we use to get new data for feed updates.', 'custom-facebook-feed') ;
+						?>
+					</p>
+					<br/>
+
+					<p class="cff-error-directions">
+						<a
+							class="cff-notice-btn cff-btn-blue" target="_blank" rel="noopener"
+							href="https://smashballoon.com/doc/facebook-api-changes-affecting-groups-april-2024">
+							<?php echo esc_html__('Learn More', 'custom-facebook-feed') ; ?>
+						</a>
+						<a class="cff-notice-btn" href="<?php echo esc_attr($close_href); ?>" rel="noopener"><?php echo esc_html__('Dismiss', 'custom-facebook-feed') ; ?></a>
+					</p>
+
+
+				</div>
+			</div>
+		<?php
 		}
 
 	}

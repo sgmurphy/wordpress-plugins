@@ -21,18 +21,18 @@ class Helper
     public static function printWorkingDays($array_data)
     {
         if ($array_data['isAlwaysAvailable'] === 'ON') {
-            return __('Always online','ninjateam-whatsapp');
+            return __('Always online','wp-whatsapp');
         }
 
         $date_string = "";
         $daysOfWeek = array(
-            'sunday' => __('Sunday', "ninjateam-whatsapp"),
-            'monday' => __('Monday', "ninjateam-whatsapp"),
-            'tuesday' => __('Tuesday', "ninjateam-whatsapp"),
-            'wednesday' => __('Wednesday', "ninjateam-whatsapp"),
-            'thursday' => __('Thursday', "ninjateam-whatsapp"),
-            'friday' => __('Friday', "ninjateam-whatsapp"),
-            'saturday' => __('Saturday', "ninjateam-whatsapp"),
+            'sunday' => __('Sunday', "wp-whatsapp"),
+            'monday' => __('Monday', "wp-whatsapp"),
+            'tuesday' => __('Tuesday', "wp-whatsapp"),
+            'wednesday' => __('Wednesday', "wp-whatsapp"),
+            'thursday' => __('Thursday', "wp-whatsapp"),
+            'friday' => __('Friday', "wp-whatsapp"),
+            'saturday' => __('Saturday', "wp-whatsapp"),
         );
 
         foreach ($array_data['daysOfWeekWorking'] as $dayKey => $dayVal) {

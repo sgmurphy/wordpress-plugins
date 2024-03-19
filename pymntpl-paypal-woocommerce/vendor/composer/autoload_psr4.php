@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'PaymentPlugins\\WooCommerce\\PPCP\\Tests\\' => array($baseDir . '/tests'),
     'PaymentPlugins\\WooCommerce\\PPCP\\' => array($baseDir . '/src'),
     'PaymentPlugins\\PayPalSDK\\' => array($vendorDir . '/paymentplugins/paypal-php-sdk/src'),
     'PaymentPlugins\\PPCP\\WooCommerceShipStation\\' => array($baseDir . '/packages/woocommerce-shipstation/src'),

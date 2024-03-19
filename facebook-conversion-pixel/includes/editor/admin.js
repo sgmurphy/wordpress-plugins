@@ -134,6 +134,97 @@ var supported_params = {
 		'custom': 1
 	},
 	
+	'ViewContentTikttok': {
+		'value': 1,
+		'currency': 1,
+		'content_name': 1,
+		'content_type': 1,
+		'content_ids': 1,
+		'content_category': 0,
+		'search_string': 0,
+		'num_items': 0,
+		'status': 0,
+		'custom': 1
+	},
+	
+	'AddToCartTiktok': {
+		'value': 1,
+		'currency': 1,
+		'content_name': 1,
+		'content_type': 1,
+		'content_ids': 1,
+		'content_category': 0,
+		'search_string': 0,
+		'num_items': 0,
+		'status': 0,
+		'custom': 1
+	},
+
+	'AddToWishlistTiktok': {
+		'value': 1,
+		'currency': 1,
+		'content_name': 1,
+		'content_type': 1,
+		'content_ids': 1,
+		'content_category': 1,
+		'search_string': 0,
+		'num_items': 0,
+		'status': 0,
+		'custom': 1
+	},
+
+	'InitiateCheckoutTiktok': {
+		'value': 1,
+		'currency': 1,
+		'content_name': 1,
+		'content_type': 1,
+		'content_ids': 1,
+		'content_category': 1,
+		'search_string': 0,
+		'num_items': 1,
+		'status': 0,
+		'custom': 1
+	},
+
+	'AddPaymentInfoTiktok': {
+		'value': 1,
+		'currency': 1,
+		'content_name': 0,
+		'content_type': 1,
+		'content_ids': 1,
+		'content_category': 1,
+		'search_string': 0,
+		'num_items': 0,
+		'status': 0,
+		'custom': 1
+	},
+
+	'PurchaseTiktok': {
+		'value': 1,
+		'currency': 1,
+		'content_name': 1,
+		'content_type': 1,
+		'content_ids': 1,
+		'content_category': 0,
+		'search_string': 0,
+		'num_items': 1,
+		'status': 0,
+		'custom': 1
+	},
+		
+	'CompleteRegistrationTiktok': {
+		'value': 1,
+		'currency': 1,
+		'content_name': 1,
+		'content_type': 0,
+		'content_ids': 0,
+		'content_category': 0,
+		'search_string': 0,
+		'num_items': 0,
+		'status': 1,
+		'custom': 1
+	},
+	
 	'ViewContentPinterest': {
 		'value': 1,
 		'currency': 1,
@@ -424,6 +515,19 @@ jQuery(document).ready(function($){
 		$('.fca_pc_pixel_row').each(function(){
 			draw_pixel( $(this), JSON.parse( $(this).find('.fca-pc-pixel-json').val() ) )
 		})
+		
+		var active_pixels = fca_pc_get_active_pixel_types()
+		
+		$('#fca-pc-modal-type-select option').each(function(){
+			if( $(this).val() === "GA3" ) {
+				if( active_pixels.indexOf("GA3") !== -1 ) {
+					$(this).show()
+				} else {
+					$(this).hide()
+				}
+			}
+		})
+		
 	}
 	draw_pixels()
 
@@ -540,6 +644,41 @@ jQuery(document).ready(function($){
 		$('#fca-pc-modal-event-pixel-type').val("Facebook")
 		$('#fca-pc-event-pixel-type-span').text("Facebook")
 		$('#fca-pc-modal-event-input').val('ViewContent').trigger( 'change' )
+		//SET VISIBILITY BY TRIGGERING SHOW/HIDE CLICK HANDLER
+		$('.fca-pc-param-toggle').not(':visible').trigger('click')
+		
+		$('#fca-pc-event-modal').show()
+		$('#fca-pc-overlay').show()
+
+	})
+	
+	
+	$('#fca_pc_new_tiktok_event').on( 'click', function(){
+		$('#fca-pc-event-save').data('eventID', '')
+
+		//SET DEFAULTS
+		$('.fca-pc-content_name').val('{post_title}')
+		$('.fca-pc-content_type').val('product')
+		$('.fca-pc-content_ids').val('{post_id}')
+		$('.fca-pc-content_category').val('{post_category}')
+		$('.fca-pc-search_string').val('')
+		$('.fca-pc-num_items').val('')
+		$('.fca-pc-status').val('')
+		$('.fca-pc-value').val('')
+		$('.fca-pc-currency').val('')
+		$('.fca-pc-event_name' ).val('')
+		
+		$('#fca-pc-modal-post-trigger-input').val('').trigger( 'change' )
+		$('#fca-pc-modal-css-trigger-input').val('')
+		$('#fca-pc-modal-url-trigger-input').val('')
+		$('#fca-pc-modal-delay-input').val(0)
+		$('#fca-pc-modal-scroll-input').val(0)
+
+		
+		fca_pc_filter_events( "TikTok" )
+		$('#fca-pc-modal-event-pixel-type').val("TikTok")
+		$('#fca-pc-event-pixel-type-span').text("TikTok")
+		$('#fca-pc-modal-event-input').val('ViewContentTiktok').trigger( 'change' )
 		//SET VISIBILITY BY TRIGGERING SHOW/HIDE CLICK HANDLER
 		$('.fca-pc-param-toggle').not(':visible').trigger('click')
 		
@@ -673,6 +812,19 @@ jQuery(document).ready(function($){
 				]
 				break	
 
+			case "TikTok":
+				supported_events = [
+					'ViewContentTiktok',
+					'AddToCartTiktok',
+					'AddToWishlistTiktok',
+					'InitiateCheckoutTiktok',
+					'AddPaymentInfoTiktok',
+					'PurchaseTiktok',
+					'CompleteRegistrationTiktok',
+					'custom'
+				]
+				break	
+
 			case "Pinterest":
 				supported_events = [
 					'ViewContentPinterest',
@@ -727,6 +879,7 @@ jQuery(document).ready(function($){
 		$('#fca-pc-modal-ga4-input').val( '' )
 		$('#fca-pc-modal-adwords-input').val( '' )
 		$('#fca-pc-modal-pinterest-input').val( '' )
+		$('#fca-pc-modal-tiktok-input').val( '' )
 		$('#fca-pc-modal-header-code').val( '' )
 		$('#fca-pc-pixel-excluded-pages').val( '' ).trigger('change')
 		
@@ -752,6 +905,7 @@ jQuery(document).ready(function($){
 		$('#fca_pc_capi_info').hide()
 		$('#fca-pc-pinterest-input-tr').hide()
 		$('#fca-pc-snapchat-input-tr').hide()
+		$('#fca-pc-tiktok-input-tr').hide()
 		
 		switch( input_value ) {
 			case 'Conversions API':
@@ -783,6 +937,10 @@ jQuery(document).ready(function($){
 				
 			case 'Snapchat':
 				$('#fca-pc-snapchat-input-tr').show()
+				break
+				
+			case 'TikTok':
+				$('#fca-pc-tiktok-input-tr').show()
 				break
 				
 			case 'Custom Header Script':
@@ -921,6 +1079,10 @@ jQuery(document).ready(function($){
 		if ( pixelType === 'Adwords' && $('#fca-pc-modal-adwords-input').val() == '' ) {
 			alert( 'Google Ads Property ID is required for this pixel type' )
 			return
+		}		
+		if ( pixelType === 'TikTok' && $('#fca-pc-modal-tiktok-input').val() == '' ) {
+			alert( 'Please enter the Pixel ID' )
+			return
 		}
 				
 		if ( pixelType === 'Custom Header Script' && $('#fca-pc-modal-header-code').val() == '' ) {
@@ -959,6 +1121,10 @@ jQuery(document).ready(function($){
 				
 			case 'Snapchat':
 				newPixel.pixel = $('#fca-pc-modal-snapchat-input').val()
+				break
+			
+			case 'TikTok':
+				newPixel.pixel = $('#fca-pc-modal-tiktok-input').val()
 				break
 				
 			case 'Custom Header Script':
@@ -1368,6 +1534,7 @@ jQuery(document).ready(function($){
 					break
 					
 				case 'GA3':
+					$('#fca-pc-ga3-input-tr').show()
 					$('#fca-pc-modal-ga3-input').val( pixel.pixel )
 					break
 					
@@ -1385,6 +1552,10 @@ jQuery(document).ready(function($){
 					
 				case 'Snapchat':
 					$('#fca-pc-modal-snapchat-input').val( pixel.pixel )
+					break
+					
+				case 'TikTok':
+					$('#fca-pc-modal-tiktok-input').val( pixel.pixel )
 					break
 					
 				case 'Custom Header Script':
@@ -1452,6 +1623,7 @@ jQuery(document).ready(function($){
 		$('#fca_pc_new_ga_event').hide()
 		$('#fca_pc_new_snapchat_event').hide()
 		$('#fca_pc_new_pinterest_event').hide()
+		$('#fca_pc_new_tiktok_event').hide()
 		
 		$('.fca-pc-pixel-json').each(function(){
 			var pixel = JSON.parse( $(this).val() )
@@ -1466,6 +1638,9 @@ jQuery(document).ready(function($){
 		}
 		if ( pixel_types.indexOf("Snapchat") !== -1 ) {
 			$('#fca_pc_new_snapchat_event').show()
+		}
+		if ( pixel_types.indexOf("TikTok") !== -1 ) {
+			$('#fca_pc_new_tiktok_event').show()
 		}
 		if ( pixel_types.indexOf("Facebook Pixel") !== -1 || pixel_types.indexOf("Conversions API") !== -1 ) {
 			$('#fca_pc_new_fb_event').show()

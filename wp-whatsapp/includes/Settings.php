@@ -60,10 +60,10 @@ class Settings
     public function addActionLinks($links)
     {
         $links = array_merge(array(
-            '<a href="' . esc_url(admin_url('/admin.php?page=nta_whatsapp_floating_widget')) . '">' . __('Settings', 'ninjateam-whatsapp') . '</a>',
+            '<a href="' . esc_url(admin_url('/admin.php?page=nta_whatsapp_floating_widget')) . '">' . __('Settings', 'wp-whatsapp') . '</a>',
         ), $links);
 
-        $links[] = '<a target="_blank" href="https://1.envato.market/WhatsApp-Plugin" style="color: #43B854; font-weight: bold">' . __('Go Pro', 'ninjateam-whatsapp') . '</a>';
+        $links[] = '<a target="_blank" href="https://1.envato.market/WhatsApp-Plugin" style="color: #43B854; font-weight: bold">' . __('Go Pro', 'wp-whatsapp') . '</a>';
         
         return $links;
     }
@@ -71,7 +71,7 @@ class Settings
     public function pluginRowMeta($links, $file){
         if ( strpos( $file, 'whatsapp.php' ) !== false ) {
             $new_links = array(
-              'doc' => '<a href="https://ninjateam.org/wordpress-whatsapp-chat-tutorial/" target="_blank">'. __("Documentation", "filebird") .'</a>'
+              'doc' => '<a href="https://ninjateam.org/wordpress-whatsapp-chat-tutorial/" target="_blank">'. __("Documentation", "wp-whatsapp") .'</a>'
             );
             
             $links = array_merge( $links, $new_links );
@@ -85,13 +85,13 @@ class Settings
         $edit_account_link = 'post-new.php?post_type=whatsapp-accounts';
 
         add_menu_page('NTA Whatsapp', 'WhatsApp', 'manage_options', 'nta_whatsapp', [$this, 'create_page_setting_widget'], NTA_WHATSAPP_PLUGIN_URL . 'assets/img/whatsapp-menu.svg', 60);
-        add_submenu_page('nta_whatsapp', __('Add New account', 'ninjateam-whatsapp'), __('Add New account', 'ninjateam-whatsapp'), 'manage_options', $edit_account_link);
-        $this->floatingWidgetSlug = add_submenu_page('nta_whatsapp', __('Floating Widget', 'ninjateam-whatsapp'), __('Floating Widget', 'ninjateam-whatsapp'), 'manage_options', 'nta_whatsapp_floating_widget', [$this, 'floating_widget_view']);
-        $this->settingSlug = add_submenu_page('nta_whatsapp', __('Settings', 'ninjateam-whatsapp'), __('Settings', 'ninjateam-whatsapp'), 'manage_options', 'nta_whatsapp_setting', [$this, 'create_page_setting_widget']);
+        add_submenu_page('nta_whatsapp', __('Add New account', 'wp-whatsapp'), __('Add New account', 'wp-whatsapp'), 'manage_options', $edit_account_link);
+        $this->floatingWidgetSlug = add_submenu_page('nta_whatsapp', __('Floating Widget', 'wp-whatsapp'), __('Floating Widget', 'wp-whatsapp'), 'manage_options', 'nta_whatsapp_floating_widget', [$this, 'floating_widget_view']);
+        $this->settingSlug = add_submenu_page('nta_whatsapp', __('Settings', 'wp-whatsapp'), __('Settings', 'wp-whatsapp'), 'manage_options', 'nta_whatsapp_setting', [$this, 'create_page_setting_widget']);
         add_submenu_page(
 			'nta_whatsapp',
 			'',
-			'<span>' . __('Go Pro', 'ninjateam-whatsapp') . '</span>',
+			'<span>' . __('Go Pro', 'wp-whatsapp') . '</span>',
 			'manage_options',
 			'go_whatsapp_pro',
 			[ $this, 'go_pro_redirects' ]
@@ -197,7 +197,7 @@ class Settings
             ],
             'timezone' => $timezone,
             'i18n' => array(
-                'select_post' => __('Select posts to display the widget', 'ninjateam-whatsapp')
+                'select_post' => __('Select posts to display the widget', 'wp-whatsapp')
             )
         ]);
         wp_enqueue_script('nta-wa-js');

@@ -1,11 +1,11 @@
 <?php 
 use NTA_WhatsApp\Helper;
 ?>
-<p><?php echo __('Display WhatsApp click to chat button on WooCommerce single product pages.', 'ninjateam-whatsapp') ?></p>
+<p><?php echo __('Display WhatsApp click to chat button on WooCommerce single product pages.', 'wp-whatsapp') ?></p>
 <table class="form-table">
     <tbody>
         <tr>
-            <th scope="row"><label for="nta-wa-switch-control"><?php echo __('Enabled', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for="nta-wa-switch-control"><?php echo __('Enabled', 'wp-whatsapp') ?></label></th>
             <td>
                 <div class="nta-wa-switch-control">
                     <input type="checkbox" id="nta-wa-switch" name="isShow" <?php checked($option['isShow'], 'ON') ?>>
@@ -14,7 +14,7 @@ use NTA_WhatsApp\Helper;
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="position"><?php echo __('Button position', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for="position"><?php echo __('Button position', 'wp-whatsapp') ?></label></th>
             <td>
                 <div class="nta-wa-d-row nta-wa-border-box">
                     <div class="nta-wa-radio-select-img njt-wa-pro-tooltip">
@@ -23,7 +23,7 @@ use NTA_WhatsApp\Helper;
                             <div class="nta-wa-radio-img-wrap">
                                 <img src="<?php echo NTA_WHATSAPP_PLUGIN_URL . 'assets/img/woo_settings/before_add_to_cart.png' ?>">
                             </div>    
-                            <span><?php echo __('Before Add to Cart button', 'ninjateam-whatsapp') ?></span>
+                            <span><?php echo __('Before Add to Cart button', 'wp-whatsapp') ?></span>
                         </label>
                     </div>
                     <div class="nta-wa-radio-select-img">
@@ -32,7 +32,7 @@ use NTA_WhatsApp\Helper;
                             <div class="nta-wa-radio-img-wrap">
                                 <img src="<?php echo NTA_WHATSAPP_PLUGIN_URL . 'assets/img/woo_settings/after_add_to_cart.png' ?>">
                             </div>    
-                            <span><?php echo __('After Add to Cart button', 'ninjateam-whatsapp') ?></span>
+                            <span><?php echo __('After Add to Cart button', 'wp-whatsapp') ?></span>
                         </label>
                     </div>
                     <div class="nta-wa-radio-select-img njt-wa-pro-tooltip">
@@ -41,7 +41,7 @@ use NTA_WhatsApp\Helper;
                             <div class="nta-wa-radio-img-wrap">
                                 <img src="<?php echo NTA_WHATSAPP_PLUGIN_URL . 'assets/img/woo_settings/after_short_desc.png' ?>">
                             </div>
-                            <span><?php echo __('After short description', 'ninjateam-whatsapp') ?></span>
+                            <span><?php echo __('After short description', 'wp-whatsapp') ?></span>
                         </label>
                     </div>
                     <div class="nta-wa-radio-select-img njt-wa-pro-tooltip">
@@ -50,33 +50,33 @@ use NTA_WhatsApp\Helper;
                             <div class="nta-wa-radio-img-wrap">
                                 <img src="<?php echo NTA_WHATSAPP_PLUGIN_URL . 'assets/img/woo_settings/after_long_desc.png' ?>">
                             </div>
-                            <span><?php echo __('After long description', 'ninjateam-whatsapp') ?></span>
+                            <span><?php echo __('After long description', 'wp-whatsapp') ?></span>
                         </label>
                     </div>
                 </div>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for="selected_accounts"><?php echo __('Select accounts to display', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for="selected_accounts"><?php echo __('Select accounts to display', 'wp-whatsapp') ?></label></th>
             <td>
                 <div id="app-woo"></div>
             </td>
         </tr>
         <tr>
-            <th scope="row"><label for=""><?php echo __('Third party integrations (PRO)', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for=""><?php echo __('Third party integrations (PRO)', 'wp-whatsapp') ?></label></th>
             <td>
                 <div class="nta-wa-built-in-feature">
                     <div class="nta-wa-switch-control">
                         <input class="njt-wa-pro" type="checkbox" id="nta-wa-dokan-enabled-switch" name="nta-wa-dokan-enabled-switch" <?php checked('OFF') ?>>
                         <label for="nta-wa-dokan-enabled-switch" class="green njt-wa-pro-tooltip"></label>
                     </div>
-                    <div class="nta-wa-label" style="margin-top:4px"><?php echo __('Enable Dokan vendor button', 'ninjateam-whatsapp') ?></div>
+                    <div class="nta-wa-label" style="margin-top:4px"><?php echo __('Enable Dokan vendor button', 'wp-whatsapp') ?></div>
                 </div>
             </td>
         </tr>
     </tbody>
 </table>
-<button class="button button-large button-primary wa-save"><?php echo __('Save Changes', 'ninjateam-whatsapp') ?><span></span></button>
+<button class="button button-large button-primary wa-save"><?php echo __('Save Changes', 'wp-whatsapp') ?><span></span></button>
 
 <script type="text/template" id="selectedAccountTemplate">
     <div class="search-account">
@@ -118,9 +118,9 @@ use NTA_WhatsApp\Helper;
     <label class="nta-list-status">
         <strong>
             <% if (_.isEmpty(activeAccounts)) { %>
-            <?php echo __('Please select accounts you want them to display in WhatsApp Chat Widget', 'ninjateam-whatsapp') ?>
+            <?php echo __('Please select accounts you want them to display in WhatsApp Chat Widget', 'wp-whatsapp') ?>
             <% } else { %>
-            <?php echo __('Selected Accounts:', 'ninjateam-whatsapp') ?>
+            <?php echo __('Selected Accounts:', 'wp-whatsapp') ?>
             <% } %>
         </strong>
     </label>

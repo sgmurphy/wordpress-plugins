@@ -228,7 +228,7 @@ class IRP_AppOptions extends IRP_Options {
         if (!$value && $this->isRewriteStaticLinks()) {
             // remove all saved links
             global $wpdb;
-            $wpdb->query( $wpdb->prepare( "DELETE FROM `wp_options` where option_name like 'IRP_POST_%'" ) );
+            $wpdb->query( $wpdb->prepare( "DELETE FROM `wp_options` where option_name like %s", array('IRP_POST_%') ) );
         }
         $this->setOption('RewriteStaticLinks', $value);
     }

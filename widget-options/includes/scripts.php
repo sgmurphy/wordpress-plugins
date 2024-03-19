@@ -21,8 +21,21 @@ if (!defined('ABSPATH')) exit;
 
 function widgetopts_load_scripts()
 {
+      global $pagenow;
       $css_dir = WIDGETOPTS_PLUGIN_URL . 'assets/css/';
       wp_enqueue_style('widgetopts-styles', $css_dir . 'widget-options.css', array(), null);
+
+      if (isset($pagenow) && $pagenow === 'customize.php') {
+            wp_add_inline_script(
+                  'customize-controls',
+                  '(function(){
+                        document.querySelector("#save").onclick = function() { 
+                              setTimeout(function(){wp.customize.previewer.refresh();}, 3000);
+                        }
+                  })();',
+                  'after'
+            );
+      }
 }
 add_action('wp_enqueue_scripts', 'widgetopts_load_scripts');
 add_action('customize_controls_enqueue_scripts', 'widgetopts_load_scripts');

@@ -3118,22 +3118,23 @@ class ElementsKit_Widget_Blog_Posts extends Widget_Base {
 							<?php endif; ?>
                             <?php
                             if($ekit_blog_posts_read_more == 'yes') :
+								$post_id = get_the_ID();
 								$btn_text = $settings['ekit_blog_posts_btn_text'];
 								$icon_align = $settings['ekit_blog_posts_btn_icon_align'];
 
-								$this->add_render_attribute('read_more_link', 'class', 'elementskit-btn');
+								$this->add_render_attribute('read_more_link' . $post_id, 'class', 'elementskit-btn');
 								if(!empty($settings['ekit_blog_posts_btn_class'])) {
-									$this->add_render_attribute('read_more_link', 'class', $settings['ekit_blog_posts_btn_class']);
+									$this->add_render_attribute('read_more_link' . $post_id, 'class', $settings['ekit_blog_posts_btn_class']);
 								}
-								$this->add_render_attribute('read_more_link', 'class', 'whitespace--normal');
-								$this->add_render_attribute('read_more_link', 'id', $settings['ekit_blog_posts_btn_id']);
-								$this->add_render_attribute('read_more_link', 'href', get_the_permalink());
+								$this->add_render_attribute('read_more_link' . $post_id, 'class', 'whitespace--normal');
+								$this->add_render_attribute('read_more_link' . $post_id, 'id', $settings['ekit_blog_posts_btn_id']);
+								$this->add_render_attribute('read_more_link' . $post_id, 'href', get_the_permalink());
                                 ?>
                                 <div class="btn-wraper">
-                                    <?php if($icon_align == 'right'): ?>
-                                        <a <?php $this->print_render_attribute_string( 'read_more_link' ); ?>>
+                                    <?php if($icon_align == 'right') : ?>
+                                        <a <?php $this->print_render_attribute_string( 'read_more_link' . $post_id ); ?>>
                                             <?php echo esc_html( $btn_text ); ?>
-                                            <?php if($settings['ekit_blog_posts_btn_icons__switch'] === 'yes'): 
+                                            <?php if($settings['ekit_blog_posts_btn_icons__switch'] === 'yes') :
 
                                                 // new icon
                                                 $migrated = isset( $settings['__fa4_migrated']['ekit_blog_posts_btn_icons'] );
@@ -3153,8 +3154,8 @@ class ElementsKit_Widget_Blog_Posts extends Widget_Base {
                                     <?php endif; ?>
 
                                     <?php if($icon_align == 'left'): ?>
-                                        <a <?php $this->print_render_attribute_string( 'read_more_link' ); ?>>
-                                        <?php if($settings['ekit_blog_posts_btn_icons__switch'] === 'yes'): 
+                                        <a <?php $this->print_render_attribute_string( 'read_more_link' . $post_id ); ?>>
+                                        	<?php if($settings['ekit_blog_posts_btn_icons__switch'] === 'yes'): 
                                                 // new icon
                                                 $migrated = isset( $settings['__fa4_migrated']['ekit_blog_posts_btn_icons'] );
                                                 // Check if its a new widget without previously selected icon using the old Icon control

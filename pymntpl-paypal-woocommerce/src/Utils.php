@@ -175,6 +175,9 @@ class Utils {
 				return $object->ID;
 			}
 		}
+		if ( $product instanceof \WP_Post ) {
+			return $product->ID;
+		}
 
 		return $product;
 	}

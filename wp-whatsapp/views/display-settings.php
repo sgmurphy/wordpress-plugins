@@ -1,8 +1,8 @@
 <table class="form-table">
-	<p><?php echo __( 'Setting text and style for the floating widget.', 'ninjateam-whatsapp' ); ?></p>
+	<p><?php echo __( 'Setting text and style for the floating widget.', 'wp-whatsapp' ); ?></p>
 	<tbody>
 		<tr>
-			<th scope="row"><label for="time_symbols"><?php echo __( 'Time Symbols', 'ninjateam-whatsapp' ); ?></label></th>
+			<th scope="row"><label for="time_symbols"><?php echo __( 'Time Symbols', 'wp-whatsapp' ); ?></label></th>
 			<td>
 				<input name="time_symbols[hourSymbol]" placeholder="h" type="text" id="time_symbols-hour" value="<?php echo esc_attr( $option['time_symbols'][0] ); ?>" class="small-text code" style="text-align: center">
 				<span>:<span>
@@ -10,7 +10,7 @@
 			</td>
 		</tr>
 		<tr>
-			<th scope="row"><label for="nta-wa-switch-control"><?php echo __( 'Show on desktop', 'ninjateam-whatsapp' ); ?></label></th>
+			<th scope="row"><label for="nta-wa-switch-control"><?php echo __( 'Show on desktop', 'wp-whatsapp' ); ?></label></th>
 			<td>
 				<div class="nta-wa-switch-control">
 					<input type="checkbox" id="nta-wa-switch" name="showOnDesktop" <?php checked( $option['showOnDesktop'], 'ON' ); ?>>
@@ -19,7 +19,7 @@
 			</td>
 		</tr>
 		<tr>
-			<th scope="row"><label for="nta-wa-switch-control"><?php echo __( 'Show on mobile', 'ninjateam-whatsapp' ); ?></label></th>
+			<th scope="row"><label for="nta-wa-switch-control"><?php echo __( 'Show on mobile', 'wp-whatsapp' ); ?></label></th>
 			<td>
 				<div class="nta-wa-switch-control">
 					<input type="checkbox" id="nta-wa-switch-mb" name="showOnMobile" <?php checked( $option['showOnMobile'], 'ON' ); ?>>
@@ -28,18 +28,18 @@
 			</td>
 		</tr>
 		<tr>
-			<th scope="row"><label for="displayCondition"><?php echo __( 'Display on Pages', 'ninjateam-whatsapp' ); ?></label></th>
+			<th scope="row"><label for="displayCondition"><?php echo __( 'Display on Pages', 'wp-whatsapp' ); ?></label></th>
 			<td>
 				<select name="displayCondition" id="displayCondition">
-					<option <?php selected( $option['displayCondition'], 'showAllPage' ); ?> value="showAllPage"><?php echo __( 'Show on all pages and posts', 'ninjateam-whatsapp' ); ?></option>
-					<option <?php selected( $option['displayCondition'], 'includePages' ); ?> value="includePages"><?php echo __( 'Show on these pages...', 'ninjateam-whatsapp' ); ?></option>
-                    <option <?php selected( $option['displayCondition'], 'excludePages' ); ?> value="excludePages"><?php echo __( 'Hide on these pages...', 'ninjateam-whatsapp' ); ?></option>
+					<option <?php selected( $option['displayCondition'], 'showAllPage' ); ?> value="showAllPage"><?php echo __( 'Show on all pages and posts', 'wp-whatsapp' ); ?></option>
+					<option <?php selected( $option['displayCondition'], 'includePages' ); ?> value="includePages"><?php echo __( 'Show on these pages...', 'wp-whatsapp' ); ?></option>
+                    <option <?php selected( $option['displayCondition'], 'excludePages' ); ?> value="excludePages"><?php echo __( 'Hide on these pages...', 'wp-whatsapp' ); ?></option>
 				</select>
 			</td>
 		</tr>
 		<th scope="row">
 			<!-- <label for="widget_show_on_pages">
-				<?php // echo __('Select pages', 'ninjateam-whatsapp') ?>
+				<?php // echo __('Select pages', 'wp-whatsapp') ?>
 			</label> -->
 		</th>
 		<td class="nta-wa-pages-content include-pages <?php echo esc_attr( $option['displayCondition'] == 'includePages' ? '' : 'hide-select' ); ?>">
@@ -95,11 +95,11 @@
 		</td>
 		</tr>
 		<tr>
-			<th scope="row"><label for="njt-post-selector"><?php echo __( 'Display on Posts (PRO)', 'ninjateam-whatsapp' ); ?></label></th>
+			<th scope="row"><label for="njt-post-selector"><?php echo __( 'Display on Posts (PRO)', 'wp-whatsapp' ); ?></label></th>
 			<td>
 				<select name="includePosts[]" id="njt-post-selector" disabled></select>
 			</td>
 		</tr>
 	</tbody>
 </table>
-<button class="button button-large button-primary wa-save"><?php echo __( 'Save Changes', 'ninjateam-whatsapp' ); ?><span></span></button>
+<button class="button button-large button-primary wa-save"><?php echo __( 'Save Changes', 'wp-whatsapp' ); ?><span></span></button>

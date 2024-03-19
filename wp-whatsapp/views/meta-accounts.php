@@ -6,7 +6,7 @@ use NTA_WhatsApp\Helper;
         <tr>
             <th scope="row">
                 <label for="number">
-                    <?php echo __('Account Number or group chat URL', 'ninjateam-whatsapp') ?>
+                    <?php echo __('Account Number or group chat URL', 'wp-whatsapp') ?>
                 </label>
             </th>
             <td>
@@ -14,13 +14,13 @@ use NTA_WhatsApp\Helper;
                     <input type="text" class="widefat" id="number" name="number" value="<?php echo esc_attr($meta['number']) ?>" autocomplete="off">
                 </p>
                 <p class="description">
-                    <?php echo __('Refer to <a href="https://faq.whatsapp.com/en/general/21016748" target="_blank">https://faq.whatsapp.com/en/general/21016748</a> for a detailed explanation.', 'ninjateam-whatsapp') ?>
+                    <?php echo __('Refer to <a href="https://faq.whatsapp.com/en/general/21016748" target="_blank">https://faq.whatsapp.com/en/general/21016748</a> for a detailed explanation.', 'wp-whatsapp') ?>
                 </p>
             </td>
         </tr>
         <tr>
             <th scope="row">
-                <label for="wa-title"><?php echo __('Title', 'ninjateam-whatsapp') ?></label>
+                <label for="wa-title"><?php echo __('Title', 'wp-whatsapp') ?></label>
             </th>
             <td>
                 <input type="text" id="wa-title" name="title" value="<?php echo esc_attr($meta['title']) ?>" class="widefat" autocomplete="off">
@@ -28,18 +28,18 @@ use NTA_WhatsApp\Helper;
         </tr>
         <tr>
             <th scope="row">
-                <label for="predefinedText"><?php echo __('Predefined Text', 'ninjateam-whatsapp') ?></label>
+                <label for="predefinedText"><?php echo __('Predefined Text', 'wp-whatsapp') ?></label>
             </th>
             <td>
                 <textarea name="predefinedText" id="predefinedText" rows="3" class="widefat"><?php echo esc_textarea($meta['predefinedText']) ?></textarea>
                 <p class="description">
-                    <?php echo __('Use [njwa_page_title] and [njwa_page_url] shortcodes to output the page\'s title and URL respectively.', 'ninjateam-whatsapp') ?>
+                    <?php echo __('Use [njwa_page_title] and [njwa_page_url] shortcodes to output the page\'s title and URL respectively.', 'wp-whatsapp') ?>
                 </p>
             </td>
         </tr>
         <tr>
             <th scope="row">
-                <label for="isAlwaysAvailable"><?php echo __('Always available online', 'ninjateam-whatsapp') ?></label>
+                <label for="isAlwaysAvailable"><?php echo __('Always available online', 'wp-whatsapp') ?></label>
             </th>
             <td>
                 <div class="nta-wa-switch-control">
@@ -51,7 +51,7 @@ use NTA_WhatsApp\Helper;
 
         <tr class="nta-btncustom-offline <?php echo ($meta['isAlwaysAvailable'] === 'ON' ? 'hidden' : '') ?>">
             <th scope="row">
-                <label><?php echo __('Custom Availability (PRO)', 'ninjateam-whatsapp') ?></label>
+                <label><?php echo __('Custom Availability (PRO)', 'wp-whatsapp') ?></label>
             </th>
             <td>
                 <?php
@@ -59,7 +59,7 @@ use NTA_WhatsApp\Helper;
                 if ($haveCustom !== false): ?> 
                 <p class="notice notice-warning" style="border-top: 0; border-bottom: 0; border-right: 0; box-shadow: none">
                     <?php echo sprintf(
-                        __('This feature is now only available in Pro version.<br>If you still want to use it, please <a href="%s">Upgrade PRO</a> or turn back to <a href="%s">Version 2.6</a><br>Need help? <a href="%s" style="color: #444">Contact us</a>', 'ninjateam-whatsapp'),
+                        __('This feature is now only available in Pro version.<br>If you still want to use it, please <a href="%s">Upgrade PRO</a> or turn back to <a href="%s">Version 2.6</a><br>Need help? <a href="%s" style="color: #444">Contact us</a>', 'wp-whatsapp'),
                         'https://1.envato.market/Upgrade-WhatsApp-Pro',
                         'https://downloads.wordpress.org/plugin/wp-whatsapp.2.6.zip',
                         'https://ninjateam.org/support/'
@@ -75,7 +75,7 @@ use NTA_WhatsApp\Helper;
                                 <td width="150">
                                     <?php if($i === 0): ?>
                                         <input class="njt-wa-pro" type="checkbox" id="daysOfWeekWorking[<?php echo esc_attr($dayKey) ?>][isWorkingOnDay]" name="daysOfWeekWorking[<?php echo ($dayKey) ?>][isWorkingOnDay]" <?php checked($meta["daysOfWeekWorking"][$dayKey]['isWorkingOnDay' ], 'ON') ?>>
-                                        <label for="daysOfWeekWorking[<?php echo ($dayKey) ?>][isWorkingOnDay]"><?php echo __(ucfirst($dayKey), 'ninjateam-whatsapp') ?> </label>
+                                        <label for="daysOfWeekWorking[<?php echo ($dayKey) ?>][isWorkingOnDay]"><?php echo __(ucfirst($dayKey), 'wp-whatsapp') ?> </label>
                                     <?php endif ?>
                                 </td>
                                 <td width="100">
@@ -92,7 +92,7 @@ use NTA_WhatsApp\Helper;
                                 <?php endif; ?>
                                 <?php if ($dayKey === 'sunday' && $i === 0) : ?>
                                     <td>
-                                        <a href="javascript:;" type="button" class="button" id="btn-apply-time"><?php echo __('Apply to All Days', 'ninjateam-whatsapp') ?></button>
+                                        <a href="javascript:;" type="button" class="button" id="btn-apply-time"><?php echo __('Apply to All Days', 'wp-whatsapp') ?></button>
                                     </td>
                                 <?php endif ?>
                             </tr>
@@ -103,12 +103,12 @@ use NTA_WhatsApp\Helper;
             </td>
         </tr>
         <tr class="nta-btncustom-offline <?php echo ($meta['isAlwaysAvailable'] === 'ON' ? 'hidden' : '') ?>">
-            <th scope="row"><label for="willBeBackText"><?php echo __('Description text when offline (PRO)', 'ninjateam-whatsapp') ?></label></th>
+            <th scope="row"><label for="willBeBackText"><?php echo __('Description text when offline (PRO)', 'wp-whatsapp') ?></label></th>
             <td>
                 <input type="text" id="willBeBackText" name="willBeBackText" value="<?php echo esc_attr($meta['willBeBackText']) ?>" class="widefat njt-wa-pro" autocomplete="off" readonly>
-                <p class="description"><?php echo __('You can use shortcode [njwa_time_work] to display the exact time this account is back to work on a working day.', 'ninjateam-whatsapp') ?></p>
+                <p class="description"><?php echo __('You can use shortcode [njwa_time_work] to display the exact time this account is back to work on a working day.', 'wp-whatsapp') ?></p>
                 <input type="text" id="dayOffsText" name="dayOffsText" value="<?php echo esc_attr($meta['dayOffsText']) ?>" class="widefat njt-wa-pro" autocomplete="off" readonly>
-                <p class="description"><?php echo __('You can use this text to display on days this account does not work.', 'ninjateam-whatsapp') ?>
+                <p class="description"><?php echo __('You can use this text to display on days this account does not work.', 'wp-whatsapp') ?>
                 </p>
             </td>
         </tr>

@@ -77,7 +77,7 @@ function modify_widget_blocks()
 		}
 	}
 }
-add_action('init', 'modify_widget_blocks');
+// add_action('init', 'modify_widget_blocks');
 
 add_filter('widget_types_to_hide_from_legacy_widget_block', function ($notAllowed) {
 	return array();

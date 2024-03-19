@@ -334,8 +334,7 @@ const withSidebarTab = (BlockEdit) => {
       ? "#customize-controls input[type=submit]#save"
       : ".edit-widgets-header__actions button.components-button.is-primary";
 
-    const { editEntityRecord, saveEditedEntityRecord, saveEntityRecord } =
-      useDispatch("core");
+    const { editEntityRecord, saveEditedEntityRecord } = useDispatch("core");
 
     let _entity = useSelect(
       (select) => {
@@ -621,7 +620,7 @@ const withSidebarTab = (BlockEdit) => {
       }
     }
 
-    const updateDynamicAttribute = async (newValue, widget_id) => {
+    const updateDynamicAttribute = (newValue, widget_id) => {
       setCacheTime = new Date().getTime();
 
       if (window.autosave == undefined) {
@@ -668,7 +667,7 @@ const withSidebarTab = (BlockEdit) => {
 
       if (props.attributes.__internalWidgetId != undefined) {
         try {
-          await editEntityRecord(
+          editEntityRecord(
             "root",
             "widget",
             props.attributes.__internalWidgetId,
@@ -685,13 +684,35 @@ const withSidebarTab = (BlockEdit) => {
         }
       }
 
-      props.setAttributes({
-        extended_widget_opts_clientid: props.clientId,
-        extended_widget_opts_state: Math.random().toString(),
-        instance: {
-          raw: { ..._instance.raw },
-        },
-      });
+      if (props.name == "core/legacy-widget") {
+        props.setAttributes({
+          extended_widget_opts_clientid: props.clientId,
+          extended_widget_opts_state: Math.random().toString(),
+        });
+      } else {
+        props.setAttributes({
+          extended_widget_opts_clientid: props.clientId,
+          extended_widget_opts_state: Math.random().toString(),
+          instance: {
+            raw: { ..._instance.raw },
+          },
+        });
+      }
+
+      let publish_button = document.querySelector(
+        "#customize-controls input[type=submit]#save"
+      );
+
+      if (publish_button) {
+        publish_button.classList.add("has-next-sibling");
+        publish_button.disabled = false;
+      }
+
+      if (document.querySelector("#customize-controls #publish-settings")) {
+        document.querySelector(
+          "#customize-controls #publish-settings"
+        ).style.display = "block";
+      }
     };
 
     const updateCustomizedAttribute = (newValue) => {
@@ -725,14 +746,14 @@ const withSidebarTab = (BlockEdit) => {
     };
 
     // Example: Update dynamicAttribute on input change
-    const handleInputChange = async (_attribute, widget_id) => {
+    const handleInputChange = (_attribute, widget_id) => {
       if (
         props.attributes.extended_widget_opts != undefined &&
         !props.attributes.instance
       ) {
         updateCustomizedAttribute(_attribute);
       } else {
-        await updateDynamicAttribute(_attribute, widget_id);
+        updateDynamicAttribute(_attribute, widget_id);
       }
     };
 

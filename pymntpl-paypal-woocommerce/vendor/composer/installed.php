@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '7f38117ee9af9d4b0b7fc8e03a5f98279743f2a6',
+        'reference' => 'aa4b6edf6c8518179a2da3fa2da7906201d227e1',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '7f38117ee9af9d4b0b7fc8e03a5f98279743f2a6',
+            'reference' => 'aa4b6edf6c8518179a2da3fa2da7906201d227e1',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -22,7 +22,7 @@
         'paymentplugins/paypal-php-sdk' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '8f3098be2f0d965237974f0a4626a0c1d1539aa0',
+            'reference' => '3193a8aa33cbafcdc12847cc35ff538069d6e8fb',
             'type' => 'library',
             'install_path' => __DIR__ . '/../paymentplugins/paypal-php-sdk',
             'aliases' => array(

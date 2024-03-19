@@ -518,9 +518,11 @@ class HTMega_Elementor_Widget_Lightbox extends Widget_Base {
 
         ?>
             <div class="htmega-lightbox <?php if( $settings['lightbox_toggler_type'] != 'image' ){ echo 'lightbox_button_only'; }?>">
+                <?php if( !empty( $settings['lightbox_toggler_image']['url'] ) ){ ?>
                 <div class="htmega-lightboxthumb">
                     <?php echo Group_Control_Image_Size::get_attachment_image_html( $settings, 'lightbox_toggler_imagesize', 'lightbox_toggler_image' );?>
                 </div>
+                <?php } ?>
                 <div class="htmega-lightbox-action">
                     <?php if( !empty($settings['zoom_icon']['value'] ) ): ?>
                         <a <?php echo $this->get_render_attribute_string( 'popup_content_attr' ); ?> ><?php echo HTMega_Icon_manager::render_icon( $settings['zoom_icon'], [ 'aria-hidden' => 'true' ] ); ?></a>

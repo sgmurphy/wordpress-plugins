@@ -1700,7 +1700,7 @@ class HTMega_Elementor_Widget_Twitter_Feed extends Widget_Base {
     
     public function get_short_link($url){
         $result = wp_remote_post( add_query_arg( 'key', apply_filters( 'google_api_key', 'AIzaSyBEPh-As7b5US77SgxbZUfMXAwWYjfpWYg' ), 'https://www.googleapis.com/urlshortener/v1/url' ), array(
-            'body' => json_encode( array( 'longUrl' => esc_url_raw( $url ) ) ),
+            'body' => wp_json_encode( array( 'longUrl' => esc_url_raw( $url ) ) ),
             'headers' => array( 'Content-Type' => 'application/json' ),
         ) );
 

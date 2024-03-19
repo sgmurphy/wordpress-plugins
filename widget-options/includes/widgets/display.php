@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) exit;
 if (!function_exists('widgetopts_display_callback')) :
     function widgetopts_display_callback($instance, $widget, $args)
     {
-        global $widget_options, $current_user, $pagenow;
+        global $widget_options, $current_user, $pagenow, $wp_customize;
 
         if (empty($instance['extended_widget_opts-' . $widget->id]) && isset($instance['content']) && !empty($instance['content'])) {
             $block = parse_blocks($instance['content']);
@@ -30,8 +30,10 @@ if (!function_exists('widgetopts_display_callback')) :
             }
         }
 
-        if ($pagenow === 'widgets.php' || is_customize_preview() || (defined('REST_REQUEST') && REST_REQUEST))
+        if (isset($wp_customize)) {
+        } else if ($pagenow === 'widgets.php' || (defined('REST_REQUEST') && REST_REQUEST)) {
             return $instance;
+        }
 
         // WPML FIX
         $hasWPML = has_filter('wpml_current_language');

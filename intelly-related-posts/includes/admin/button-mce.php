@@ -34,7 +34,7 @@ function irp_ui_button_editor() {
     if ( isset($_REQUEST['irp_post_type']) ) {
         $postType = sanitize_text_field($_REQUEST['irp_post_type']);
     }
-    wp_add_inline_script( 'irp_free_common', 'const search_data = ' . json_encode( array(
+    wp_add_inline_script( 'irp_free_common', 'const search_data = ' . wp_json_encode( array(
         'post_type' => $postType ) ) );
 
     $irp->Utils->printScriptCss();

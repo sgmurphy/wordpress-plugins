@@ -2,9 +2,9 @@
 Contributors: johndarrel
 Tags: security,firewall,hide,antivirus,wp-login,wp-admin,hide wordpress,hide wp,security plugin
 Requires at least: 4.6
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 5.0.28
+Stable tag: 5.0.29
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -201,12 +201,12 @@ Hide My WP Ghost is packed with awesome security features:
 
 > <strong>See All Premium Security Features (over 70):</strong>
 > * All the Hide My WP Ghost Free Features
-> * User Events Monitoring
+> * Cloud Events Monitoring
 > * Hide Old WordPress Common Paths by Extension
 > * Temporary Logins Without Password
 > * Two-factor Authentication By Code (2FA)
 > * Two-factor Authentication By Email (2FA)
-> * and many more
+> * and more
 > <a href="https://hidemywpghost.com/hide-my-wp-ghost-security-features/">Hide My WP Premium Feature</a>
 
 Compatible with: <strong>WP Multisite, Apache, Litespeed, Nginx and IIS</strong>.
@@ -219,7 +219,7 @@ Back-Up WordPress, Elementor Page Builder, Divi Builder, Weglot Translate, AddTo
 Compatibility Plugins List: <a href="https://hidemywpghost.com/hide-my-wp-compatibility-plugins-list/">Hide My WP Compatibility Plugins</a>
 Compatibility Theme List: <a href="https://hidemywpghost.com/hide-my-wp-ghost-compatibility-themes-list/">Hide My WP Compatibility Themes</a>
 
-Hosting Compatibility checked: **WP Engine, Inmotion Hosting, Hostgator Hosting, Godaddy Hosting, Host1plus, Payperhost, Fastcomet, Dreamhost, Bitnami Apache, Bitnami Nginx, Google Cloud Hosting, Amazon AWS Lightsail, Litespeed Hosting, Flywheels Hosting, Kinsta Hosting, Ploi.io, RunCloud**
+Hosting Compatibility checked: **WP Engine, Inmotion Hosting, Hostgator Hosting, Godaddy Hosting, Host1plus, Payperhost, Fastcomet, Dreamhost, Bitnami Apache, Bitnami Nginx, Google Cloud Hosting, Amazon AWS Lightsail, Litespeed Hosting, Flywheels Hosting, Kinsta Hosting, Ploi.io, CloudPanel, RunCloud**
 
 Being able to protect the common paths is critical because you get to keep hacker bots away from sensitive website data.
 
@@ -281,7 +281,13 @@ Enjoy!
 9. Customize the wp-admin path while logged in as an administrator
 
 == Changelog ==
-= 5.0.28 (14 Deb 2024) =
+= 5.0.29 (19 Mar 2024) =
+Update - Compatibility with WP 6.5
+Update - Compatibility with CloudPanel & Nginx servers
+Update - Compatibility with WordFence scanning
+Fixed - Hide rest_route only for visitors to avoid errors with builders
+
+= 5.0.28 (14 Feb 2024) =
 Compatibility with PHP 8.3 and WP 6.4.3
 Update - Compatibility with Hostinger
 Update - Compatibility with InstaWP

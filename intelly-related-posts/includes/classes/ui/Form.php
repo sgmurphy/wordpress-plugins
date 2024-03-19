@@ -82,7 +82,7 @@ class IRP_Form {
             <?php if($this->leftTags) {
                 $this->tag();
             }?>
-            <span style="float:left; margin-right:5px;" class="<?php echo esc_attr($aClass)?>" id="<?PHP echo esc_attr($for)?>Label"><?php echo wp_kses_post($label)?></span>
+            <span style="float:left; margin-right:5px;" class="<?php echo esc_attr($aClass)?>" id="<?PHP echo esc_url($for)?>Label"><?php echo wp_kses_post($label)?></span>
             <?php if(!$this->leftTags) {
                 $this->tag();
             }?>

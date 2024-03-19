@@ -6,7 +6,7 @@
   Plugin Name: Hide My WP Ghost Lite
   Plugin URI: https://wordpress.org/plugins/hide-my-wp/
   Description: Hide WP paths, wp-admin, wp-login, wp-content, plugins, themes, authors, XML-RPC, API, etc. Add 7G Firewall Security, Brute Force protection & more.
-  Version: 5.0.28
+  Version: 5.0.29
   Author: WPPlugins - WordPress Security Plugins
   Author URI: https://hidemywp.com
   License: GPLv2 or later

@@ -27,7 +27,7 @@ if (!function_exists('widgetopts_settings_support_box')) :
 					<?php _e('Since you are using the free version, you can get the free support on WordPress.org community forums. Thanks!', 'widget-options'); ?>
 				</p>
 				<p>
-					<a class="button-secondary" href="https://wordpress.org/support/plugin/widget-options/" target="_blank"><?php _e('Get Free Support', 'widget-options'); ?></a>
+					<a class="button-secondary" href="https://widget-options.com/contact/" target="_blank"><?php _e('Get Free Support', 'widget-options'); ?></a>
 				</p>
 				<p>
 					<?php _e('Manage your widgets better and get fast professional support by upgrading to Widget Options Extended.', 'widget-options'); ?>

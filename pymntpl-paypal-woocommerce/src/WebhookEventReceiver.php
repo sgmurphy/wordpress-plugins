@@ -2,6 +2,7 @@
 
 namespace PaymentPlugins\WooCommerce\PPCP;
 
+use PaymentPlugins\PayPalSDK\Capture;
 use PaymentPlugins\WooCommerce\PPCP\Payments\Gateways\AbstractGateway;
 use PaymentPlugins\WooCommerce\PPCP\Utilities\OrderLock;
 use PaymentPlugins\WooCommerce\PPCP\Utilities\PayPalFee;
@@ -40,15 +41,24 @@ class WebhookEventReceiver {
 			$order = wc_get_order( $capture->getCustomId() );
 			if ( $order ) {
 				if ( ! OrderLock::has_order_lock( $order ) ) {
+					$needs_payment_complete = $order->get_meta( Constants::CAPTURE_STATUS ) === Capture::PENDING;
 					/**
-					 * Only orders that don't have a transaction ID should be completed.
+					 * Only orders that don't have a transaction ID or ar pending review should be completed.
 					 */
-					if ( ! $order->get_transaction_id() ) {
+					if ( ! $order->get_transaction_id() || $needs_payment_complete || $order->has_status( 'on-hold' ) ) {
 						$paypal_order_id = $order->get_meta( Constants::ORDER_ID );
 						if ( $paypal_order_id ) {
 							$paypal_order = $this->client->orderMode( $order )->orders->retrieve( $paypal_order_id );
 							if ( ! is_wp_error( $paypal_order ) ) {
+								/**
+								 * Remove the fee data so it's not duplicated
+								 */
+								$order->update_meta_data( Constants::PAYPAL_FEE, 0 );
+								$order->update_meta_data( Constants::PAYPAL_NET, 0 );
+
 								PayPalFee::add_fee_to_order( $order, $capture->seller_receivable_breakdown, false );
+
+								$order->delete_meta_data( Constants::CAPTURE_STATUS );
 								$order->payment_complete( $capture->getId() );
 								$this->payment_handler->save_order_meta_data( $order, $paypal_order );
 							} else {

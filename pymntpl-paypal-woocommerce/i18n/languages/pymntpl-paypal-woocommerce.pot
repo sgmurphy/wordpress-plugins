@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Payment Plugins for PayPal WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Payment Plugins for PayPal WooCommerce 1.0.45\n"
+"Project-Id-Version: Payment Plugins for PayPal WooCommerce 1.0.46\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pymntpl-paypal-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-29T16:21:37+00:00\n"
+"POT-Creation-Date: 2024-03-18T22:16:57+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: pymntpl-paypal-woocommerce\n"
@@ -469,7 +469,7 @@ msgstr ""
 
 #: src/Admin/MetaBoxes/ProductData.php:29
 #: src/Payments/Gateways/PayPalGateway.php:29
-#: src/ProductSettings.php:34
+#: src/ProductSettings.php:43
 msgid "PayPal Settings"
 msgstr ""
 
@@ -1011,11 +1011,11 @@ msgstr ""
 msgid "Product %1$s"
 msgstr ""
 
-#: src/Factories/PurchaseUnitFactory.php:57
+#: src/Factories/PurchaseUnitFactory.php:62
 msgid "Order %1$s from %2$s"
 msgstr ""
 
-#: src/Factories/PurchaseUnitFactory.php:74
+#: src/Factories/PurchaseUnitFactory.php:79
 msgid "Reconciliation"
 msgstr ""
 
@@ -1077,48 +1077,48 @@ msgstr ""
 msgid "Error processing payment. Reason: %s"
 msgstr ""
 
-#: src/PaymentHandler.php:168
+#: src/PaymentHandler.php:169
 msgid "PayPal capture status is pending. Reason: %1$s. Payment will complete when capture.completed webhook is received."
 msgstr ""
 
-#: src/PaymentHandler.php:183
+#: src/PaymentHandler.php:184
 msgid "PayPal order %s created. %s"
 msgstr ""
 
-#: src/PaymentHandler.php:184
+#: src/PaymentHandler.php:185
 msgid "Capture ID: %s"
 msgstr ""
 
-#: src/PaymentHandler.php:184
+#: src/PaymentHandler.php:185
 msgid "Authorization ID: %s"
 msgstr ""
 
-#: src/PaymentHandler.php:275
+#: src/PaymentHandler.php:276
 msgid "To process a refund, there must be a transaction id associated with the order."
 msgstr ""
 
-#: src/PaymentHandler.php:278
+#: src/PaymentHandler.php:279
 msgid "This payment has a status of Authorize. Only captured payments can be refunded."
 msgstr ""
 
-#: src/PaymentHandler.php:312
+#: src/PaymentHandler.php:313
 msgid "Error capturing payment. Reason: %s"
 msgstr ""
 
-#: src/PaymentHandler.php:316
+#: src/PaymentHandler.php:317
 msgid "Payment captured in PayPal. Capture ID: %s Amount: %s"
 msgstr ""
 
-#: src/PaymentHandler.php:348
+#: src/PaymentHandler.php:349
 msgid "A valid authorization ID is required to perform a void."
 msgstr ""
 
-#: src/PaymentHandler.php:362
-#: src/PaymentHandler.php:393
+#: src/PaymentHandler.php:363
+#: src/PaymentHandler.php:394
 msgid "PayPal authorization cancelled. Authorization ID: %s"
 msgstr ""
 
-#: src/PaymentHandler.php:386
+#: src/PaymentHandler.php:387
 msgid "Order cancellation"
 msgstr ""
 
@@ -1131,7 +1131,7 @@ msgid "Error processing refund. Reason: %s"
 msgstr ""
 
 #: src/Payments/Gateways/AbstractGateway.php:248
-#: src/WebhookEventReceiver.php:120
+#: src/WebhookEventReceiver.php:130
 msgid "Order refunded in PayPal. Amount: %1$s. Refund ID: %2$s"
 msgstr ""
 
@@ -1692,19 +1692,19 @@ msgstr ""
 msgid "Marketplace"
 msgstr ""
 
-#: src/WebhookEventReceiver.php:89
+#: src/WebhookEventReceiver.php:99
 msgid "PayPal transaction %s has been cancelled."
 msgstr ""
 
-#: src/WebhookEventReceiver.php:109
+#: src/WebhookEventReceiver.php:119
 msgid "Refund created within PayPal."
 msgstr ""
 
-#: src/WebhookEventReceiver.php:135
+#: src/WebhookEventReceiver.php:145
 msgid "Dispute %1$s created. Dispute reason: %2$s."
 msgstr ""
 
-#: src/WebhookEventReceiver.php:147
+#: src/WebhookEventReceiver.php:157
 msgid "Dispute %1$s resolved."
 msgstr ""
 

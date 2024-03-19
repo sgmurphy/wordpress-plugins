@@ -163,6 +163,7 @@ class PaymentHandler {
 			PayPalFee::add_fee_to_order( $order, $result->get_capture()->getSellerReceivableBreakdown(), false );
 			$capture = $result->get_capture();
 			if ( $capture->getStatus() === Capture::PENDING ) {
+				$order->update_meta_data( Constants::CAPTURE_STATUS, Capture::PENDING );
 				$order->set_transaction_id( $capture->getId() );
 				$order->update_status( apply_filters( 'wc_ppcp_capture_pending_order_status', 'on-hold', $order, $result ),
 					sprintf( __( 'PayPal capture status is pending. Reason: %1$s. Payment will complete when capture.completed webhook is received.', 'pymntpl-paypal-woocommerce' ),

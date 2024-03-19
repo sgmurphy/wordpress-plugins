@@ -20,6 +20,13 @@ function fca_pc_woo_ajax_add_to_cart() {
 				'content_name' => $p->get_title(),
 				'content_ids' => array( $id ),
 				'content_type' => $content_type,
+			),	
+			'tiktok' => array(
+				'value' => $value,
+				'currency' => $currency,
+				'content_name' => $p->get_title(),
+				'content_ids' => array( $id ),
+				'content_type' => $content_type,
 			),
 			'ga' => array(
 				'value' => $value,

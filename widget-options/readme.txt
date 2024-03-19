@@ -4,7 +4,7 @@ Tags: widgets, blocks, blocks control, gutenberg widgets, classic widgets
 Requires at least: 5.6
 Tested up to: 6.4.3
 Requires PHP: 7.4
-Stable tag: 4.0.3
+Stable tag: 4.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -192,9 +192,13 @@ Widget Options is a featured pack fully lightweight plugin. Using Query Monitor 
 
 == Changelog ==
 
+= 4.0.4 =
+
+* Fixed: All widgets showing in “customize” view.
+
 = 4.0.3 =
 
-* Fixed: WP Customizer issue.
+* Fixed: WP Customizer saving issue.
 
 = 4.0.2 =
 

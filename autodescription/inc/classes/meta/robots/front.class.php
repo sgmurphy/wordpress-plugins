@@ -82,12 +82,12 @@ final class Front extends Factory {
 				case false:
 					// Page doesn't support metadata.
 					break;
-				case $qubit < -.33:
+				case $qubit < -.3334:
 					// 'Force' index.
 					yield 'meta_qubit_force' => false;
 					// Override with index protection.
 					goto index_protection;
-				case $qubit > .33:
+				case $qubit > .3334:
 					// Force noindex.
 					yield 'meta_qubit_force' => true;
 					// We won't override this. Terminate generator. "goto end".
@@ -145,12 +145,7 @@ final class Front extends Factory {
 			if ( Query::is_singular() ) {
 				yield from static::assert_noindex_query_pass( 'protected' );
 
-				/**
-				 * N.B. WordPress protects this query variable with options 'page_comments'
-				 * and 'default_comments_page' via `redirect_canonical()`, so we don't have to.
-				 * For reference, it fires `remove_query_arg( 'cpage', $redirect['query'] )`;
-				 */
-				if ( (int) \get_query_var( 'cpage', 0 ) > 0 )
+				if ( Query::is_comment_paged() )
 					yield from static::assert_noindex_query_pass( 'cpage' );
 			}
 		}

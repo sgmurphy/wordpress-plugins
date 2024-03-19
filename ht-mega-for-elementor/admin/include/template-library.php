@@ -215,7 +215,7 @@ class HTMega_Template_Library{
                 update_post_meta( $new_post_id, '_wp_page_template', !empty( $response_data['page_template'] ) ? $response_data['page_template'] : 'elementor_canvas' );
             }
 
-            echo json_encode(
+            echo wp_json_encode(
                 array( 
                     'id'      => $new_post_id,
                     'edittxt' => !empty( $page_title ) ? esc_html__( 'Edit Page', 'htmega-addons' ) : esc_html__( 'Edit Template', 'htmega-addons' )

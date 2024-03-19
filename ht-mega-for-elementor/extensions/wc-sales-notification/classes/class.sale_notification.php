@@ -76,7 +76,7 @@ class HTMegaWC_Sales_Notification{
             }
             set_transient( $cachekey, $products, 60 ); // Cache the results for 1 minute
         }
-        echo( json_encode( $products ) );
+        echo( wp_json_encode( $products ) );
         wp_die();
 
     }

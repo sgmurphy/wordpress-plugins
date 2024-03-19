@@ -4,10 +4,10 @@
  * Plugin Name:       WP Chat App
  * Plugin URI:        https://ninjateam.org/wordpress-whatsapp-chat
  * Description:       Integrate your WhatsApp experience directly into your website. This is one of the best way to connect and interact with your customer.
- * Version:           3.6.2
+ * Version:           3.6.3
  * Author:            NinjaTeam
  * Author URI:        https://ninjateam.org
- * Text Domain:       ninjateam-whatsapp
+ * Text Domain:       wp-whatsapp
  * Domain Path:       /languages
  */
 namespace NTA_WhatsApp;
@@ -26,7 +26,7 @@ if ( function_exists( 'NTA_WhatsApp\\init' ) ) {
 }
 
 if ( ! defined( 'NTA_WHATSAPP_VERSION' ) ) {
-	define( 'NTA_WHATSAPP_VERSION', '3.6.2' );
+	define( 'NTA_WHATSAPP_VERSION', '3.6.3' );
 }
 
 if ( ! defined( 'NTA_WHATSAPP_PLUGIN_URL' ) ) {

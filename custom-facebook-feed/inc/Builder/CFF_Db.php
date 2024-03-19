@@ -1029,4 +1029,24 @@ class CFF_Db {
 			)
 		);
 	}
+
+	/**
+	 * Check if there is a Group Source
+	 *
+	 * @param array $args
+	 *
+	 * @return int
+	 *
+	 * @since 4.0
+	 */
+	public static function check_group_source()
+	{
+		global $wpdb;
+		$sources_table_name = $wpdb->prefix . 'cff_sources';
+		$number = $wpdb->get_var("
+			SELECT count(*) FROM $sources_table_name
+			WHERE account_type = 'group'"
+		);
+		return $number;
+	}
 }

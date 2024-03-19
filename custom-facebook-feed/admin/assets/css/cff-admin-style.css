@@ -3589,7 +3589,6 @@ body .cff_review_step1_notice .cff-btn-link:not(:last-child) {
   position: relative;
   box-shadow: 0px 26.7377px 77.2886px rgb(0 0 0 / 11%), 0px 14.2952px 41.3222px rgb(0 0 0 / 9%), 0px 8.01379px 23.1649px rgb(0 0 0 / 8%), 0px 4.25607px 12.3027px rgb(0 0 0 / 6%), 0px 1.77104px 5.11942px rgb(0 0 0 / 4%);
   border-radius: 2px;
-  overflow-y: auto;
   max-height: 80vh;
 }
 .cff-fb-feedtypes-pp-ctn .cff-fb-popup-inside {
@@ -3688,4 +3687,7 @@ body .cff_review_step1_notice .cff-btn-link:not(:last-child) {
   font-weight: 600;
   line-height: 160%;
   cursor: pointer;
+}
+.sb-notice-title.sb-noticegroup-title {
+	padding-bottom: 10px;
 }

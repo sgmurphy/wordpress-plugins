@@ -129,7 +129,7 @@ class HTMEGA_Rating_Notice {
                     jQuery.post({
                         url: ajaxurl,
                         data: {
-                            nonce: <?php echo json_encode( $notice_admin_nonce ); ?>,
+                            nonce: <?php echo wp_json_encode( $notice_admin_nonce ); ?>,
                             action: 'htmega_rating_maybe_later'
                         }
                     });
@@ -140,7 +140,7 @@ class HTMEGA_Rating_Notice {
                     jQuery.post({
                         url: ajaxurl,
                         data: {
-                            nonce: <?php echo json_encode( $notice_admin_nonce ); ?>,
+                            nonce: <?php echo wp_json_encode( $notice_admin_nonce ); ?>,
                             action: 'htmega_rating_already_rated'
                         }
                     });

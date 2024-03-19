@@ -22,16 +22,15 @@
   
       elementor.hooks.addFilter("panel/elements/regionViews", function (panel) {
   
-          if ( htmegaPanelSettings.htmega_pro_installed )
-              return panel;
-  
-          var htmegaPromoHandler, proCategoryIndex,
+   if ( htmegaPanelSettings.htmega_pro_installed || _.isEmpty( htmegaPanelSettings.htmega_pro_widgets ) ) return panel;
+   
+          var proCategoryIndex,
               elementsView = panel.elements.view,
               categoriesView = panel.categories.view,
               widgets = panel.elements.options.collection,
               categories = panel.categories.options.collection,
               htmegaPorcategroy = [];
-  
+          return (
           _.each(htmegaPanelSettings.htmega_pro_widgets, function (widget, index) {
               widgets.add({
                   name: widget.key,
@@ -39,97 +38,77 @@
                   title: widget.title,
                   icon: widget.icon,
                   categories: ["htmega-pro-addons"],
-                  editable: false
+                  editable: !1
               })
-          });
+          }),
   
           widgets.each(function (widget) {
               "htmega-pro-addons" === widget.get("categories")[0] && htmegaPorcategroy.push(widget)
-          });
+          }),
   
-          proCategoryIndex = categories.findIndex({
+          (proCategoryIndex = categories.findIndex({
               name: "htmega-addons"
-          });
+          })),
   
-          proCategoryIndex && categories.add({
+          ( proCategoryIndex && categories.add({
               name: "htmega-pro-addons",
               title: "HTMega Pro Addons",
               defaultActive: 1,
-              items: htmegaPorcategroy
+              sort: !0, 
+              hideIfEmpty: !0, 
+              items: htmegaPorcategroy,
+              promotion: !1
           }, {
               at: proCategoryIndex + 1
-          });
+          })),
   
-  
-          htmegaPromoHandler = {
-              className: function () {
-  
-                  var className = 'elementor-element-wrapper';
-  
-                  if (!this.isEditable()) {
-                      className += ' elementor-element--promotion';
-                  }
-  
-                  if (this.model.get("name")) {
-                      if (0 === this.model.get("name").indexOf("htmega-"))
-                          className += ' htmega-promotion-element';
-                  }
-  
-                  return className;
-  
-              },
-  
-              isHTMegaWidget: function () {
-                  const hasProWidget = ((typeof this.model.get("name") === 'string') && (this.model.get("name").length > 0)) ? true : false;
-                  return hasProWidget;
-              },
-  
-              getElementObj: function (key) {
-  
-                  var widgetObj = htmegaPanelSettings.htmega_pro_widgets.find(function (widget, index) {
-                      if (widget.key == key)
-                          return true;
-                  });
-  
-                  return widgetObj;
-  
-              },
-  
-              onMouseDown: function () {
-  
-                  if (this.isHTMegaWidget()) {
-                      void this.constructor.__super__.onMouseDown.call(this);
-  
-                      var widgetObject = this.getElementObj(this.model.get("name"));
-                          actionURL = widgetObject?.action_url;
-                      if (undefined !== actionURL ) {
-                          elementor.promotion.showDialog({
-                              title: sprintf(wp.i18n.__('%s', 'elementor'), this.model.get("title")),
-                              content: sprintf(wp.i18n.__('Use %s widget and dozens more pro features to extend your toolbox and build sites faster and better.', 'elementor'), this.model.get("title")),
-                              top: "-7",
-                              targetElement: this.$el,
-                              actionButton: {
-                                  url: actionURL,
-                                  text: wp.i18n.__('See Demo', 'elementor')
-                              }
-                          });
+          ( panel.elements.view = elementsView.extend({
+              childView: elementsView.prototype.childView.extend(  categories = {
+                  className: function () {
+      
+                      var className = 'elementor-element-wrapper';
+      
+                      if (!this.isEditable()) {
+                          className += ' elementor-element--promotion';
                       }
-                  }
+      
+                      if (this.model.get("name")) {
+                          if (0 === this.model.get("name").indexOf("htmega-"))
+                              className += ' htmega-promotion-element';
+                      }
+      
+                      return className;
+      
+                  },
+       
+                  isHTMegaWidget: function () {
+  
+                      var hasWidget = this.model.get("name");
+                      return null != hasWidget && 0 === hasWidget.indexOf("htmega-");
+  
+                  },
+      
+                  getElementObj: function (key) {
+      
+                      var widgetObj = htmegaPanelSettings.htmega_pro_widgets.find(function (widget, index) {
+                          if (widget.key == key)
+                              return true;
+                      });
+      
+                      return widgetObj;
+      
+                  },
               }
-          }
+          )
+          })),
   
-  
-          panel.elements.view = elementsView.extend({
-              childView: elementsView.prototype.childView.extend(htmegaPromoHandler)
-          });
-  
-          panel.categories.view = categoriesView.extend({
+          ( panel.categories.view = categoriesView.extend({
               childView: categoriesView.prototype.childView.extend({
-                  childView: categoriesView.prototype.childView.prototype.childView.extend(htmegaPromoHandler)
+                  childView: categoriesView.prototype.childView.prototype.childView.extend(categories)
               })
-          });
-  
-          return panel;
+          })),
+          panel
+          );
   
       });
   

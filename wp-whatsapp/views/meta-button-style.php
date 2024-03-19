@@ -1,28 +1,28 @@
 <div class="meta-button-style">
     <div class="design-button" id="button-design">
         <table class="form-table">
-            <p><?php echo __('This styling applies only to the shortcode buttons for this account.', 'ninjateam-whatsapp') ?></a></p>
+            <p><?php echo __('This styling applies only to the shortcode buttons for this account.', 'wp-whatsapp') ?></a></p>
             <tbody>
                 <tr>
                     <th scope="row">
-                        <label for="label"><?php echo __('Button Label', 'ninjateam-whatsapp') ?></label>
+                        <label for="label"><?php echo __('Button Label', 'wp-whatsapp') ?></label>
                     </th>
                     <td>
                         <input type="text" id="label" name="label" value="<?php echo esc_attr($buttonStyles['label']) ?>" placeholder="Need help? Chat via WhatsApp" class="widefat" autocomplete="off">
-                        <p class="description"><?php echo __('This text applies only on shortcode button. Leave empty to use the default label.', 'ninjateam-whatsapp') ?>
+                        <p class="description"><?php echo __('This text applies only on shortcode button. Leave empty to use the default label.', 'wp-whatsapp') ?>
                         </p>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="type"><?php echo __('Button Style', 'ninjateam-whatsapp') ?></label></th>
+                    <th scope="row"><label for="type"><?php echo __('Button Style', 'wp-whatsapp') ?></label></th>
                     <td>
                         <div class="setting align">
                             <div class="button-group button-large" data-setting="align">
                                 <button class="button btn-round <?php echo ($buttonStyles['type'] == 'round' ? 'active' : '') ?>" value="round" type="button">
-                                    <?php echo __('Round', 'ninjateam-whatsapp') ?>
+                                    <?php echo __('Round', 'wp-whatsapp') ?>
                                 </button>
                                 <button class="button btn-square <?php echo ($buttonStyles['type'] == 'square' ? 'active' : '') ?>" value="square" type="button">
-                                    <?php echo __('Square', 'ninjateam-whatsapp') ?>
+                                    <?php echo __('Square', 'wp-whatsapp') ?>
                                 </button>
                             </div>
                             <input name="btnType" id="btnType" class="hidden" value="<?php echo esc_attr($buttonStyles['type']) ?>" />
@@ -30,13 +30,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="backgroundColor"><?php echo __('Button Background Color', 'ninjateam-whatsapp') ?></label></th>
+                    <th scope="row"><label for="backgroundColor"><?php echo __('Button Background Color', 'wp-whatsapp') ?></label></th>
                     <td>
                         <input type="text" id="backgroundColor" name="backgroundColor" value="<?php echo esc_attr($buttonStyles['backgroundColor']) ?>" class="widget-button-color" data-default-color="#2DB742" />
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="textColor"><?php echo __('Button Text Color', 'ninjateam-whatsapp') ?></label></th>
+                    <th scope="row"><label for="textColor"><?php echo __('Button Text Color', 'wp-whatsapp') ?></label></th>
                     <td>
                         <input type="text" id="textColor" name="textColor" value="<?php echo esc_attr($buttonStyles['textColor']) ?>" class="widget-button-color" data-default-color="#fff" />
                     </td>
@@ -70,7 +70,7 @@
             <% if (!_.isEmpty(buttonStyles.title)) { %>
                 <div class="wa__cs_info">
                     <div class="wa__cs_name"><%= buttonStyles.title %></div>
-                    <div class="wa__cs_status"><?php echo  __('Online', 'ninjateam-whatsapp') ?></div>
+                    <div class="wa__cs_status"><?php echo  __('Online', 'wp-whatsapp') ?></div>
                 </div>
             <% } %>
                 <div class="wa__btn_title"><%= buttonStyles.label %></div>

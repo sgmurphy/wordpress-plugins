@@ -101,19 +101,20 @@ class IRP_Logger {
             return $message;
         }
 
-        $hasErrors=false;
-        $filename=IRP_PLUGIN_ROOT."logs/".$this->name."_".gmdate("Ym").".txt";
-        if (!$handle = fopen($filename, 'a')) {
-            $hasErrors=true;
-        }
+        // uncomment this code for write debug information to log files
+        // $hasErrors=false;
+        // $filename=IRP_PLUGIN_ROOT."logs/".$this->name."_".gmdate("Ym").".txt";
+        // if (!$handle = fopen($filename, 'a')) {
+        //     $hasErrors=true;
+        // }
 
-        if(!$hasErrors && fwrite($handle, $message)===FALSE) {
-            $hasErrors=true;
-        }
+        // if(!$hasErrors && fwrite($handle, $message)===FALSE) {
+        //     $hasErrors=true;
+        // }
 
-        if(!$hasErrors) {
-            fclose($handle);
-        }
+        // if(!$hasErrors) {
+        //     fclose($handle);
+        // }
         return $message;
     }
 }

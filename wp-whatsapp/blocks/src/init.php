@@ -121,7 +121,7 @@ function njt_wa_button_render($attributes)
 		$btnStyleClass .= empty($attributes['buttonTitle']) ? ' wa__button_text_only' : '';
         $btn_icon_or_image = '';
         if (empty($attributes['imageUrl'])) {
-            $btn_icon_or_image = '<div class="wa__btn_icon"><img src="' . NTA_WHATSAPP_PLUGIN_URL . 'assets/img/whatsapp_logo.svg' . '" alt=' . esc_attr($attributes['imageAlt']) . '/></div>';
+            $btn_icon_or_image = '<div class="wa__btn_icon"><img src="' . NTA_WHATSAPP_PLUGIN_URL . 'assets/img/whatsapp_logo.svg' . '" alt="' . esc_attr($attributes['imageAlt']) . '"/></div>';
         } else {
             $btn_icon_or_image = '<div class="wa__cs_img"><div class="wa__cs_img_wrap" style="background: url(' . esc_url($attributes['imageUrl']) . ') center center no-repeat; background-size: cover;"></div></div>';
         }

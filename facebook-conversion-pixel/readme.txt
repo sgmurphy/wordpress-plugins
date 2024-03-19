@@ -8,7 +8,7 @@ Requires at least: 4.0
 Tested up to: 6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 3.0.3
+Stable tag: 3.0.4
 
 Facebook Pixel Management Made Easy. From Facebook retargeting to Google conversion tracking, this plugin includes everything you need to run successful Facebook and Google ads.
 
@@ -150,6 +150,11 @@ Pixel Cat - Conversion Pixel Manager will automatically detect your old settings
 
 
 == Changelog ==
+
+= Pixel Cat: Conversion Pixel Manager 3.0.4 =
+* Fix possible value overwrite bug with WooCommerce + Google Analytics
+* Fix default Facebook (Meta) pageview not firing w/o Conversions API being used
+* Tested up to WordPress 6.4.3
 
 = Pixel Cat: Conversion Pixel Manager 3.0.3 =
 * Fix PageView event for Facebook (Meta) pixel not firing
