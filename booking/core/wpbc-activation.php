@@ -61,23 +61,24 @@ class WPBC_BookingInstall extends WPBC_Install {
     public function is_update_from_lower_to_high_version() {
         
         $is_make_activation = false;
-        
-        // Check  conditions for different version about Upgrade
-        if ( ( class_exists( 'wpdev_bk_personal' ) ) && ( ! wpbc_is_table_exists( 'bookingtypes' ) ) )
-            $is_make_activation = true;
-           
-        if ( ( ! $is_make_activation) && ( class_exists( 'wpdev_bk_biz_s' ) ) && ( wpbc_is_field_in_table_exists( 'booking', 'pay_request' ) == 0) )
-            $is_make_activation = true;
 
-        if ( ( ! $is_make_activation) && ( class_exists( 'wpdev_bk_biz_m' ) ) && ( ! wpbc_is_table_exists( 'booking_types_meta' ) ) )
-            $is_make_activation = true;
-
-        if ( ( ! $is_make_activation) && ( class_exists( 'wpdev_bk_biz_l' ) ) && ( ! wpbc_is_table_exists( 'booking_coupons' ) ) )
-            $is_make_activation = true;
-
-        if ( ( ! $is_make_activation) && ( class_exists( 'wpdev_bk_multiuser' ) ) && ( wpbc_is_field_in_table_exists( 'booking_coupons', 'users' ) == 0) )
-            $is_make_activation = true;
-
+	    // Check  conditions for different version about Upgrade
+	    if ( ( class_exists( 'wpdev_bk_personal' ) ) && ( ! wpbc_is_table_exists( 'bookingtypes' ) ) ) {
+		    $is_make_activation = true;
+	    }
+	    if ( ( ! $is_make_activation ) && ( class_exists( 'wpdev_bk_biz_s' ) ) && ( wpbc_is_field_in_table_exists( 'booking', 'pay_request' ) == 0 ) ) {
+		    $is_make_activation = true;
+	    }
+	    																									//FixIn: 9.9.0.13
+	    if ( ( ! $is_make_activation ) && ( class_exists( 'wpdev_bk_biz_m' ) ) && ( ! wpbc_is_table_exists( 'booking_seasons' ) ) ) {
+		    $is_make_activation = true;
+	    }
+	    if ( ( ! $is_make_activation ) && ( class_exists( 'wpdev_bk_biz_l' ) ) && ( ! wpbc_is_table_exists( 'booking_coupons' ) ) ) {
+		    $is_make_activation = true;
+	    }
+	    if ( ( ! $is_make_activation ) && ( class_exists( 'wpdev_bk_multiuser' ) ) && ( wpbc_is_field_in_table_exists( 'booking_coupons', 'users' ) == 0 ) ) {
+		    $is_make_activation = true;
+	    }
         return $is_make_activation;
     }
 
@@ -1124,7 +1125,12 @@ if ( WPBC_customize_plugin ){
  $mu_option4delete[]='booking_legend_is_show_item_approved';    
     $default_options['booking_legend_text_for_item_approved'] = __( 'Booked', 'booking' );
  $mu_option4delete[]='booking_legend_text_for_item_approved';
- 
+	//FixIn: 9.9.0.5
+    $default_options['booking_legend_is_show_item_unavailable'] = 'Off';
+ $mu_option4delete[]='booking_legend_is_show_item_unavailable';
+    $default_options['booking_legend_text_for_item_unavailable'] = __( 'Unavailable', 'booking' );
+ $mu_option4delete[]='booking_legend_text_for_item_unavailable';
+
     if ( class_exists( 'wpdev_bk_biz_s' ) ) {
         $default_options['booking_legend_is_show_item_partially'] = 'On';
      $mu_option4delete[]='booking_legend_is_show_item_partially';        

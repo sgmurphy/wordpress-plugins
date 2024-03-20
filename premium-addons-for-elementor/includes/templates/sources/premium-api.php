@@ -57,7 +57,6 @@ class Premium_Templates_Source_Api extends Premium_Templates_Source_Base {
 		$this->set_templates_cache( $cached );
 
 		return $templates;
-
 	}
 
 	/**
@@ -100,7 +99,6 @@ class Premium_Templates_Source_Api extends Premium_Templates_Source_Base {
 		}
 
 		return $body['templates'];
-
 	}
 
 	/**
@@ -143,7 +141,6 @@ class Premium_Templates_Source_Api extends Premium_Templates_Source_Base {
 		}
 
 		return $body['terms'];
-
 	}
 
 	/**
@@ -186,7 +183,6 @@ class Premium_Templates_Source_Api extends Premium_Templates_Source_Base {
 		}
 
 		return $body['terms'];
-
 	}
 
 	/**
@@ -276,7 +272,6 @@ class Premium_Templates_Source_Api extends Premium_Templates_Source_Base {
 		$this->set_keywords_cache( $cached );
 
 		return $keywords;
-
 	}
 
 	/**
@@ -347,7 +342,6 @@ class Premium_Templates_Source_Api extends Premium_Templates_Source_Base {
 			'license'       => $license,
 			'content'       => $content,
 		);
-
 	}
 
 	/**

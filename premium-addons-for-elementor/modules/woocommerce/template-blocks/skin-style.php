@@ -306,11 +306,9 @@ abstract class Skin_Style {
 
 						$query_args['paged'] = $paged;
 					}
-				} else {
+				} elseif ( $settings['total_carousel_products'] > 0 ) {
 
-					if ( $settings['total_carousel_products'] > 0 ) {
 						$query_args['posts_per_page'] = $settings['total_carousel_products'];
-					}
 				}
 
 				// Get current post categories and pass to filter.
@@ -405,11 +403,9 @@ abstract class Skin_Style {
 				if ( $settings['products_numbers'] > 0 ) {
 					$query_args['posts_per_page'] = $settings['products_numbers'];
 				}
-			} else {
+			} elseif ( $settings['total_carousel_products'] > 0 ) {
 
-				if ( $settings['total_carousel_products'] > 0 ) {
 					$query_args['posts_per_page'] = $settings['total_carousel_products'];
-				}
 			}
 
 			// Default ordering args.
@@ -473,11 +469,9 @@ abstract class Skin_Style {
 					if ( $settings['products_numbers'] > 0 ) {
 						$query_args['posts_per_page'] = $settings['products_numbers'];
 					}
-				} else {
+				} elseif ( $settings['total_carousel_products'] > 0 ) {
 
-					if ( $settings['total_carousel_products'] > 0 ) {
 						$query_args['posts_per_page'] = $settings['total_carousel_products'];
-					}
 				}
 
 				// Default ordering args.
@@ -558,11 +552,9 @@ abstract class Skin_Style {
 
 					$query_args['paged'] = $paged;
 				}
-			} else {
+			} elseif ( $settings['total_carousel_products'] > 0 ) {
 
-				if ( $settings['total_carousel_products'] > 0 ) {
 					$query_args['posts_per_page'] = $settings['total_carousel_products'];
-				}
 			}
 
 			// Default ordering args.
@@ -849,7 +841,6 @@ abstract class Skin_Style {
 				</button>
 			</div>
 		<?php
-
 	}
 
 	/**
@@ -1078,7 +1069,6 @@ abstract class Skin_Style {
 		$this->end_loop_wrapper();
 
 		$this->quick_view_modal();
-
 	}
 
 		/**

@@ -1727,7 +1727,6 @@ class Premium_Person extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -1902,7 +1901,6 @@ class Premium_Person extends Widget_Base {
 		do_action( 'pa_after_member_icon' );
 
 		echo '</ul>';
-
 	}
 
 	/**
@@ -2066,7 +2064,6 @@ class Premium_Person extends Widget_Base {
 			</div>
 			<?php
 		endif;
-
 	}
 
 
@@ -2249,7 +2246,7 @@ class Premium_Person extends Widget_Base {
 			<# if( 'yes' !== settings.multiple ) { #>
 			<div {{{ view.getRenderAttributeString('person_container') }}}>
 				<div class="premium-person-image-container">
-                    <img src="{{ image_url }}"/>
+					<img src="{{ image_url }}"/>
 					<# if ( 'style2' === settings.premium_person_style && 'yes' === settings.premium_person_social_enable ) { #>
 						<div class="premium-person-social">
 							<# getSocialIcons(); #>
@@ -2332,7 +2329,7 @@ class Premium_Person extends Widget_Base {
 				#>
 					<div {{{ view.getRenderAttributeString('person_container') }}}>
 						<div class="premium-person-image-container">
-                            <img src="{{ personImageUrl }}"/>
+							<img src="{{ personImageUrl }}"/>
 							<# if ( 'style2' === settings.premium_person_style && 'yes' === person.multiple_social_enable ) { #>
 							<div class="premium-person-social">
 								<# getSocialIcons( person ); #>

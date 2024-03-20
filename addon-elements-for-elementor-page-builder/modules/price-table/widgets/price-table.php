@@ -823,11 +823,11 @@ class PriceTable extends EAE_Widget_Base {
 				<div class="plan-price-shape">
 					<div class="plan-price-shape-inner">
 						<?php if ( ! empty( $settings['price-box-text'] ) ) { ?>
-							<span class="price-text"><?php echo $settings['price-box-text']; ?></span>
+							<span class="price-text"><?php echo Helper::eae_wp_kses($settings['price-box-text']); ?></span>
 						<?php } ?>
 
 						<?php if ( ! empty( $settings['price-box-subtext'] ) ) { ?>
-							<span class="price-subtext"><?php echo $settings['price-box-subtext']; ?></span>
+							<span class="price-subtext"><?php echo Helper::eae_wp_kses($settings['price-box-subtext']); ?></span>
 						<?php } ?>
 					</div>
 				</div>
@@ -843,7 +843,7 @@ class PriceTable extends EAE_Widget_Base {
 					<?php
 					foreach ( $settings['feature-list'] as $feature ) {
 						?>
-						<li class="<?php echo ( $feature['available'] === 'yes' ) ? '' : 'strike-feature'; ?>"><?php echo $feature['text']; ?></li>
+						<li class="<?php echo esc_attr(( $feature['available'] === 'yes' ) ? '' : 'strike-feature'); ?>"><?php echo Helper::eae_wp_kses($feature['text']); ?></li>
 						<?php
 					}
 					?>
@@ -864,11 +864,11 @@ class PriceTable extends EAE_Widget_Base {
 								Icons_Manager::render_icon( $settings['icon_new'], [ 'aria-hidden' => 'true' ] );
 							else :
 								?>
-								<i class="<?php echo $settings['icon']; ?>"></i>
+								<i class="<?php echo esc_attr($settings['icon']); ?>"></i>
 							<?php endif; ?>
 						</span>
 						<?php endif; ?>
-						<span class="elementor-button-text"><?php echo $settings['action_text']; ?></span>
+						<span class="elementor-button-text"><?php echo Helper::eae_wp_kses($settings['action_text']); ?></span>
 					</span>
 				</a>
 			</div>

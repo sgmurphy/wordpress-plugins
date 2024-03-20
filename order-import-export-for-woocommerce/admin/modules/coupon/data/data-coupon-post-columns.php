@@ -17,7 +17,7 @@ return apply_filters('coupon_csv_coupon_post_columns', array(
     'individual_use'        => 'Individual use only',
     'product_ids'           => 'Product IDs',
     'product_SKUs'          => 'Product SKUs',
-    'exclude_product_ids'   => 'Exclude product IIDs',
+    'exclude_product_ids'   => 'Exclude product IDs',
     'exclude_product_SKUs'  => 'Exclude product SKUs',
     'usage_count'           => 'No of times used',
     'usage_limit'           => 'Usage limit per coupon',

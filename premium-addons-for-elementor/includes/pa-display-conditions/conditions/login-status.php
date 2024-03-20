@@ -64,5 +64,4 @@ class Login_Status extends Condition {
 
 		return Helper_Functions::get_final_result( $condition_result, $operator );
 	}
-
 }

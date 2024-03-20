@@ -189,6 +189,19 @@
     padding: 0 3px;
     line-height: 1.75em;
 }
+.wpbc_pro_label,
+.wpbc_settings_navigation_column .wpbc_settings_navigation_item a span.wpbc_pro_label{
+    text-transform: uppercase;
+    color: #f9ffe2;
+    font-size: 9px;
+    font-weight: 600;
+    border: none;
+    background: #9ac86d;
+    border-radius: 2px;
+    line-height: 1.4em;
+    padding: 0px 5px 1px;
+    margin-left: auto;
+}
 .wpdvlp-sub-tabs .wpbc_submit_button {
     float:right;
     margin:0px 5px 0px 0px;

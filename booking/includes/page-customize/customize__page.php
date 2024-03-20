@@ -76,7 +76,7 @@ class WPBC_Page_AJX_Customize_Plugin extends WPBC_Page_Structure {
 				}
 
 				$current_step_page = explode( '_', $selected_tab );		// 'calendar_skin', 'calendar_size', 'calendar_dates_selection', 'calendar_weekdays_availability', 'calendar_additional',   'form_structure', ...
-
+wpbc_bs_toolbar_tabs_html_container_start();
 				wpbc_bs_display_tab(   array(
 													  'title'       => '1. '. __( 'Calendar', 'booking' )
 													, 'hint' 	    => array( 'title' => __('Customize' ,'booking') , 'position' => 'top' )
@@ -173,7 +173,7 @@ class WPBC_Page_AJX_Customize_Plugin extends WPBC_Page_Structure {
 													//, 'position' 	=> 'right'
 													, 'css_classes' => 'wpbc_customize_plugin_support_tabs'
 									) );
-
+wpbc_bs_toolbar_tabs_html_container_end();
 
 			}
 		}
@@ -344,9 +344,10 @@ class WPBC_Page_AJX_Customize_Plugin extends WPBC_Page_Structure {
 		 * @return void
 		 */
 		private function css_fix(){
+			return;
 		    ?><style type="text/css">
 		    	.nav-tabs .nav-tab:first-child{
-				    display:none; flex: /* It's hide first Tab in toolbar. We have visible toolbar, and by default we can see page tab. But by this hook 'wpbc_toolbar_top_tabs_after' we added own custom tabs. */
+				    /*display:none;  !*flex: It's hide first Tab in toolbar. We have visible toolbar, and by default we can see page tab. But by this hook 'wpbc_toolbar_top_tabs_after' we added own custom tabs. *!*/
 			    }
 			</style><?php
 		}

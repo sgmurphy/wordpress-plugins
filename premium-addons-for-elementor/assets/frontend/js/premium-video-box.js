@@ -76,7 +76,7 @@
                     elementorFrontend.waypoint($videoBoxElement, function () {
                         playVideo();
                     }, {
-                        offset: 'top-in-view',
+                        offset: "100%",
                         triggerOnce: false
                     });
 

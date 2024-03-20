@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 5.12.3 (2024-03-19) =
+* `[Fixed]` Support for changed upload directory path based on upload_path option
+
 = 5.12.2 (2024-03-14) =
 * `[Changed]` Verification of rewrites_not_executed server configuration error
 * `[Added]` Support for changed upload directory path based on upload_path option

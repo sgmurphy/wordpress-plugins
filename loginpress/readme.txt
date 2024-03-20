@@ -1,11 +1,11 @@
 === LoginPress | wp-login Custom Login Page Customizer ===
 Requires at least: 4.0
-Tested up to: 6.4
+Tested up to: 6.5
 Contributors: WPBrigade, hiddenpearls, AbdulWahab610
 Donate link: https://loginpress.pro/pricing/?utm_source=loginpress-lite
 Author URI: https://wpbrigade.com/?utm_source=loginpress-lite&utm_medium=author-url-link
 Tags: wp-login, login, login customizer, custom login, wordpress login,
-Stable tag: 3.0.5
+Stable tag: 3.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -221,6 +221,14 @@ Please visit <a target="_blank" rel="friend" href="https://loginpress.pro?utm_so
 23. Custom Login page (Company theme) Example #23 with Captcha [Pro feature](https://loginpress.pro?utm_source=loginpress-lite&utm_medium=screenshots&utm_campaign=pro-upgrade)
 
 == Changelog ==
+
+= 3.0.6 – 2024-03-20 =
+* Bugfix: Resolved PHP warning in TAV-notification.
+* Bugfix: Addressed welcome message issue on Logout Form.
+* Enhancement: Improved styling of the Privacy Policy link on the login page.
+* Enhancement: Refactored and optimized code for improved performance.
+* Enhancement: Fixed login page display issue in the login customizer preview on WPEngine host.
+* Compatibility: Compatible with WordPress 6.5
 
 = 3.0.5 – 2024-01-04 =
 * Bugfix: Background issue for lost password form in customizer.
@@ -725,5 +733,5 @@ Please visit <a target="_blank" rel="friend" href="https://loginpress.pro?utm_so
 
 == Upgrade Notice ==
 
-= 3.0.5 =
-* Upgrade carefully. New Feature Release and Compatible with 6.4
+= 3.0.6 =
+* Upgrade carefully. New Feature Release and Compatible with 6.5

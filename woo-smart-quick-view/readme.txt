@@ -4,7 +4,8 @@ Donate link: https://wpclever.net
 Tags: woocommerce, wpc, quickview, quick-view
 Requires at least: 4.0
 Tested up to: 6.4
-Stable tag: 4.0.0
+Version: 4.0.1
+Stable tag: 4.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,12 +40,6 @@ Visit our [live demo 01](https://demo.wpclever.net/woosq/ "live demo 01") or [li
 - Premium: Add to Cart button can function as a single page or the archive page
 - Premium: Customizable the visibility and text for View Product Details button
 - Premium: Lifetime update and dedicated support
-
-= Translators =
-
-Available languages: English (Default), German, Vietnamese
-
-If you have created your own language pack, or have an update for an existing one, you can send [gettext PO and MO file](http://codex.wordpress.org/Translating_WordPress "Translating WordPress") to [us](https://wpclever.net/contact?utm_source=pot&utm_medium=woosq&utm_campaign=wporg "WPClever.net") so we can bundle it into WPC Smart Quick View.
 
 = Need more features? =
 
@@ -92,6 +87,10 @@ Example:
 });`
 
 == Changelog ==
+
+= 4.0.1 =
+* Updated: Compatible with WP 6.4 & Woo 8.7
+* Added: Option "Back to close" - Close the popup when pressing on the browser's back button
 
 = 4.0.0 =
 * Updated: Optimized the code

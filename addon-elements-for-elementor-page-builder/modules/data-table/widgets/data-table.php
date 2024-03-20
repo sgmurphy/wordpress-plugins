@@ -2756,7 +2756,7 @@ class DataTable extends EAE_Widget_Base {
 					endif;
 					?>
 					<?php if ( ! empty( $head_text ) ) : ?>
-						<span class="eae-table__column-text"><?php echo esc_attr( $head_text ); ?></span>
+						<span class="eae-table__column-text"><?php echo Helper::eae_wp_kses( $head_text ); ?></span>
 					<?php endif; ?>
 
 					<?php
@@ -2841,7 +2841,7 @@ class DataTable extends EAE_Widget_Base {
 							}
 							?>
 
-							<img class='eae-head-img' src="<?php echo esc_attr( $eae_image ); ?>"/>	
+							<img class='eae-head-img' src="<?php echo esc_url( $eae_image ); ?>"/>	
 							<?php
 							/* if close */
 						}
@@ -2983,7 +2983,7 @@ class DataTable extends EAE_Widget_Base {
 			endif;
 			?>
 			<?php if ( ! empty( $body_text ) && $data['body_text_type'] !== 'template' ) : ?>
-				<span class="eae-table-body__text"><?php echo esc_html( $body_text ); ?></span>
+				<span class="eae-table-body__text"><?php echo Helper::eae_wp_kses( $body_text ); ?></span>
 			<?php endif; ?>
 
 			<?php
@@ -3042,7 +3042,7 @@ class DataTable extends EAE_Widget_Base {
 									$image = $data['body_column_image']['url'];
 								}
 								?>
-								<img class="eae-body-image" src="<?php echo esc_attr( $image ); ?>"/>
+								<img class="eae-body-image" src="<?php echo esc_url( $image ); ?>"/>
 								<?php
 							}
 						} elseif ( ! empty( $data['body_lottie_animation_url'] ) ) {

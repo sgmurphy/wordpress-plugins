@@ -60,7 +60,6 @@ class Module {
 		if ( Helper_Functions::check_elementor_experiment( 'container' ) ) {
 			add_action( 'elementor/element/container/section_layout/after_section_end', array( $this, 'register_controls' ), 10 );
 		}
-
 	}
 
 	/**
@@ -76,7 +75,6 @@ class Module {
 		if ( ! wp_script_is( 'pa-dis-conditions', 'enqueued' ) ) {
 			wp_enqueue_script( 'pa-dis-conditions' );
 		}
-
 	}
 
 	/**
@@ -122,15 +120,15 @@ class Module {
 					'woocommerce' => array(
 						'label'   => __( 'WooCommerce (PRO)', 'premium-addons-for-elementor' ),
 						'options' => array(
-							'woo_cat_page'      => __( 'Current Category Page', 'premium-addons-for-elementor' ),
-							'woo_product_cat'   => __( 'Current Product Category', 'premium-addons-for-elementor' ),
-							'woo_product_price' => __( 'Current Product Price', 'premium-addons-for-elementor' ),
-							'woo_product_stock' => __( 'Current Product Stock', 'premium-addons-for-elementor' ),
-							'woo_orders'        => __( 'Purchased/In Cart Orders', 'premium-addons-for-elementor' ),
-							'woo_category'      => __( 'Purchased/In Cart Categories', 'premium-addons-for-elementor' ),
-							'woo_last_purchase' => __( 'Last Purchase In Cart', 'premium-addons-for-elementor' ),
-							'woo_total_price'   => __( 'Amount In Cart', 'premium-addons-for-elementor' ),
-							'woo_cart_products' => __( 'Products In Cart', 'premium-addons-for-elementor' ),
+							'woo_cat_page'          => __( 'Current Category Page', 'premium-addons-for-elementor' ),
+							'woo_product_cat'       => __( 'Current Product Category', 'premium-addons-for-elementor' ),
+							'woo_product_price'     => __( 'Current Product Price', 'premium-addons-for-elementor' ),
+							'woo_product_stock'     => __( 'Current Product Stock', 'premium-addons-for-elementor' ),
+							'woo_orders'            => __( 'Purchased/In Cart Orders', 'premium-addons-for-elementor' ),
+							'woo_category'          => __( 'Purchased/In Cart Categories', 'premium-addons-for-elementor' ),
+							'woo_last_purchase'     => __( 'Last Purchase In Cart', 'premium-addons-for-elementor' ),
+							'woo_total_price'       => __( 'Amount In Cart', 'premium-addons-for-elementor' ),
+							'woo_cart_products'     => __( 'Products In Cart', 'premium-addons-for-elementor' ),
 							'woo_purchase_products' => __( 'Purchased Products', 'premium-addons-for-elementor' ),
 						),
 					),
@@ -339,9 +337,9 @@ class Module {
 		$docs = array(
 			'https://premiumaddons.com/docs/elementor-display-conditions-tutorial/' => __( 'Getting started »', 'premium-addons-for-elementor' ),
 			'https://premiumaddons.com/docs/elementor-editor-not-loading-with-display-conditions/' => __( 'Fix editor not loading with Display Conditions enabled »', 'premium-addons-for-elementor' ),
-            'https://premiumaddons.com/docs/how-to-show-hide-element-based-on-browser-elementor-display-conditions/' => __( 'Show/Hide Element Based on Browser »', 'premium-addons-for-elementor' ),
-            'https://premiumaddons.com/docs/how-to-show-hide-element-on-specific-time-range-elementor-display-conditions/' => __( 'Show/Hide Element Based on Time Range »', 'premium-addons-for-elementor' ),
-            'https://premiumaddons.com/docs/how-to-show-hide-element-with-location-elementor-display-conditions/' => __( 'Show/Hide Element Based on Location »', 'premium-addons-for-elementor' ),
+			'https://premiumaddons.com/docs/how-to-show-hide-element-based-on-browser-elementor-display-conditions/' => __( 'Show/Hide Element Based on Browser »', 'premium-addons-for-elementor' ),
+			'https://premiumaddons.com/docs/how-to-show-hide-element-on-specific-time-range-elementor-display-conditions/' => __( 'Show/Hide Element Based on Time Range »', 'premium-addons-for-elementor' ),
+			'https://premiumaddons.com/docs/how-to-show-hide-element-with-location-elementor-display-conditions/' => __( 'Show/Hide Element Based on Location »', 'premium-addons-for-elementor' ),
 		);
 
 		$doc_index = 1;
@@ -361,10 +359,9 @@ class Module {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
-
 	}
 
 	/**
@@ -390,7 +387,6 @@ class Module {
 
 			remove_action( 'elementor/frontend/before_render', array( $this, 'check_script_enqueue' ) );
 		}
-
 	}
 
 	/**

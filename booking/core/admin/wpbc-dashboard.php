@@ -161,7 +161,8 @@ add_action( 'wp_dashboard_setup', 'wpbc_dashboard_widget_setup' );
 /** Show Booking Dashboard Widget content */
 function wpbc_dashboard_widget_show() {
 
-	$counter = wpbc_db_dashboard_get_bookings_count_arr();
+	$is_panel_visible = wpbc_is_dismissed_panel_visible( 'wpbc_dashboard_section_statistic' );        //FixIn: 9.9.0.8
+	$counter = $is_panel_visible ? wpbc_db_dashboard_get_bookings_count_arr() : array();
 
     wpbc_dashboard_widget_css();
                 
@@ -463,7 +464,7 @@ function wpbc_dashboard_section_news() {
 
 	function wpbc_dashboard_info_get_version_number() {
 
-		if ( substr( WPDEV_BK_VERSION, 0, 3 ) == '10.' ) {
+		if ( substr( WPDEV_BK_VERSION, 0, 3 ) == '11.' ) {
 
 			$show_version = substr( WPDEV_BK_VERSION, 3 );
 
@@ -572,32 +573,39 @@ function wpbc_dashboard_section_statistic( $counter ) {
 	//FixIn: 9.3.1.7
     $bk_admin_url = wpbc_get_bookings_url() . '&wh_approved=';
     ?>
-    <div class="wpbc_dashboard_section bk_right">
-        <span class="bk_header"><?php _e('Statistic' ,'booking');?>:</span>
-        <table class="bk_table">
-            <tr class="first">
-                <td class="first"> <a href="<?php echo $bk_admin_url,'&wh_what_bookings=new&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>"><span class=""><?php echo $counter['new']; ?></span></a> </td>
-                <td class=""> <a href="<?php echo $bk_admin_url,'&wh_what_bookings=new&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>"><?php _e('New (unverified) booking(s)' ,'booking');?></a></td>
-            </tr>
-            <tr>
-                <td class="first"> <a href="<?php echo $bk_admin_url,'&wh_approved=0&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>"><span class=""><?php echo $counter['pending']; ?></span></a></td>
-                <td class="pending"><a href="<?php echo $bk_admin_url,'&wh_approved=0&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>" class=""><?php _e('Pending booking(s)' ,'booking');?></a></td>
-            </tr>
-        </table>
-    </div>
-    <div class="wpbc_dashboard_section" >
-        <span class="bk_header"><?php _e('Agenda' ,'booking');?>:</span>
-        <table class="bk_table">
-            <tr class="first">
-                <td class="first"> <a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_modification_date[]=1&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>"><span><?php echo $counter['was_made_today']; ?></span></a> </td>
-                <td class="new-bookings"><a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_modification_date[]=1&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>" class=""><?php _e('New booking(s) made today' ,'booking');?></a> </td>
-            </tr>
-            <tr>
-                <td class="first"> <a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=1&view_mode=vm_listing&overwrite=1'; ?>"><span><?php echo $counter['booking_today']; ?></span></a> </td>
-                <td class="actual-bookings"> <a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=1&view_mode=vm_listing&overwrite=1'; ?>" class=""><?php _e('Bookings for today' ,'booking');?></a> </td>
-            </tr>
-        </table>
-    </div>
+	<div id='wpbc_dashboard_section_statistic'>
+		<?php
+		$is_panel_visible = wpbc_is_dismissed( 'wpbc_dashboard_section_statistic' );        //FixIn: 9.9.0.8
+		if ( $is_panel_visible ) {
+		?>
+		<div class="wpbc_dashboard_section bk_right">
+			<span class="bk_header"><?php _e('Statistic' ,'booking');?>:</span>
+			<table class="bk_table">
+				<tr class="first">
+					<td class="first"> <a href="<?php echo $bk_admin_url,'&wh_what_bookings=new&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>"><span class=""><?php echo $counter['new']; ?></span></a> </td>
+					<td class=""> <a href="<?php echo $bk_admin_url,'&wh_what_bookings=new&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>"><?php _e('New (unverified) booking(s)' ,'booking');?></a></td>
+				</tr>
+				<tr>
+					<td class="first"> <a href="<?php echo $bk_admin_url,'&wh_approved=0&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>"><span class=""><?php echo $counter['pending']; ?></span></a></td>
+					<td class="pending"><a href="<?php echo $bk_admin_url,'&wh_approved=0&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>" class=""><?php _e('Pending booking(s)' ,'booking');?></a></td>
+				</tr>
+			</table>
+		</div>
+		<div class="wpbc_dashboard_section" >
+			<span class="bk_header"><?php _e('Agenda' ,'booking');?>:</span>
+			<table class="bk_table">
+				<tr class="first">
+					<td class="first"> <a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_modification_date[]=1&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>"><span><?php echo $counter['was_made_today']; ?></span></a> </td>
+					<td class="new-bookings"><a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_modification_date[]=1&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>" class=""><?php _e('New booking(s) made today' ,'booking');?></a> </td>
+				</tr>
+				<tr>
+					<td class="first"> <a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=1&view_mode=vm_listing&overwrite=1'; ?>"><span><?php echo $counter['booking_today']; ?></span></a> </td>
+					<td class="actual-bookings"> <a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=1&view_mode=vm_listing&overwrite=1'; ?>" class=""><?php _e('Bookings for today' ,'booking');?></a> </td>
+				</tr>
+			</table>
+		</div>
+		<?php } ?>
+	</div>
     <?php
 }
 
@@ -620,7 +628,29 @@ function wpbc_get_flex_dashboard_info() {
 /** Show Flex Dashboard Conatiner  */
 function wpbc_flex_dashboard_show(){
 
-	$counter = wpbc_db_dashboard_get_bookings_count_arr();
+	//FixIn: 9.9.0.40
+	if (
+		   ( ! empty( $GLOBALS['pagenow'] ) )
+		&& ( is_admin() )
+		&& (
+			   (   'index.php' === $GLOBALS['pagenow'] )
+			|| (
+					( 'admin.php' === $GLOBALS['pagenow'] )
+				 && ( ! empty( $_GET['page'] ) )
+				 && ( 'wpbc-settings' === $_GET['page'] )
+				 && ( ( ! isset( $_GET['tab'] ) ) || ( 'general' === $_GET['tab'] ) )
+			   )
+		   )
+	) {
+
+	} else {
+		return;
+	}
+
+
+	$is_panel_visible = wpbc_is_dismissed_panel_visible( 'wpbc_dashboard_section_statistic' );        //FixIn: 9.9.0.8
+
+	$counter = ( $is_panel_visible ) ? wpbc_db_dashboard_get_bookings_count_arr() : array();
 
     wpbc_flex_dashboard_widget_css();
 
@@ -715,71 +745,73 @@ function wpbc_flex_dashboard_show(){
 
 		$bk_admin_url = wpbc_get_bookings_url();// . '&wh_approved=';
 
-		// Was made today -----------------------------------------------------------------------------------------------------
-		?>
-		<div class="wpbc_flex_dashboard_item">
-			<div class="wpbc_flex_dashboard_item_number">
-				<a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_modification_date[]=1&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>">
-					<span><?php echo $counter['was_made_today']; ?></span>
-				</a>
-			</div>
-			<div class="wpbc_flex_dashboard_item_text wpbc_flex_dashboard_item_text_was_made_today">
-				<a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_modification_date[]=1&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>" class="">
-					<?php _e('New booking(s) made today' ,'booking');?>
-				</a>
-			</div>
-		</div>
-		<?php
+		if ( ! empty( $counter ) ) {
 
-		// For today ---------------------------------------------------------------------------------------------------
-		?>
-		<div class="wpbc_flex_dashboard_item">
-			<div class="wpbc_flex_dashboard_item_number">
-				<a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=1&view_mode=vm_listing&overwrite=1'; ?>">
-					<span><?php echo $counter['booking_today']; ?></span>
-				</a>
+			// Was made today -----------------------------------------------------------------------------------------------------
+			?>
+			<div class="wpbc_flex_dashboard_item">
+				<div class="wpbc_flex_dashboard_item_number">
+					<a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_modification_date[]=1&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>">
+						<span><?php echo $counter['was_made_today']; ?></span>
+					</a>
+				</div>
+				<div class="wpbc_flex_dashboard_item_text wpbc_flex_dashboard_item_text_was_made_today">
+					<a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_modification_date[]=1&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>" class="">
+						<?php _e('New booking(s) made today' ,'booking');?>
+					</a>
+				</div>
 			</div>
-			<div class="wpbc_flex_dashboard_item_text wpbc_flex_dashboard_item_text_made_for_today">
-				<a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=1&view_mode=vm_listing&overwrite=1'; ?>" class="">
-					<?php _e('Booking(s) for today' ,'booking');?>
-				</a>
-			</div>
-		</div>
-		<?php
+			<?php
 
-		// Pending -----------------------------------------------------------------------------------------------------
-		?>
-		<div class="wpbc_flex_dashboard_item">
-			<div class="wpbc_flex_dashboard_item_number">
-				<a href="<?php echo $bk_admin_url,'&wh_approved=0&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>">
-					<span class=""><?php echo $counter['pending']; ?></span>
-				</a>
+			// For today ---------------------------------------------------------------------------------------------------
+			?>
+			<div class="wpbc_flex_dashboard_item">
+				<div class="wpbc_flex_dashboard_item_number">
+					<a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=1&view_mode=vm_listing&overwrite=1'; ?>">
+						<span><?php echo $counter['booking_today']; ?></span>
+					</a>
+				</div>
+				<div class="wpbc_flex_dashboard_item_text wpbc_flex_dashboard_item_text_made_for_today">
+					<a href="<?php echo $bk_admin_url,'&wh_trash=0&wh_booking_date[]=1&view_mode=vm_listing&overwrite=1'; ?>" class="">
+						<?php _e('Booking(s) for today' ,'booking');?>
+					</a>
+				</div>
 			</div>
-			<div class="wpbc_flex_dashboard_item_text wpbc_flex_dashboard_item_text_pending">
-				<a href="<?php echo $bk_admin_url,'&wh_approved=0&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>" class="">
-					<?php _e('Pending booking(s)' ,'booking');?>
-				</a>
+			<?php
+
+			// Pending -----------------------------------------------------------------------------------------------------
+			?>
+			<div class="wpbc_flex_dashboard_item">
+				<div class="wpbc_flex_dashboard_item_number">
+					<a href="<?php echo $bk_admin_url,'&wh_approved=0&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>">
+						<span class=""><?php echo $counter['pending']; ?></span>
+					</a>
+				</div>
+				<div class="wpbc_flex_dashboard_item_text wpbc_flex_dashboard_item_text_pending">
+					<a href="<?php echo $bk_admin_url,'&wh_approved=0&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>" class="">
+						<?php _e('Pending booking(s)' ,'booking');?>
+					</a>
+				</div>
 			</div>
-		</div>
-		<?php
+			<?php
 
 
-		// New ---------------------------------------------------------------------------------------------------------
-		?>
-		<div class="wpbc_flex_dashboard_item">
-			<div class="wpbc_flex_dashboard_item_number">
-				<a href="<?php echo $bk_admin_url,'&wh_what_bookings=new&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>">
-					<span class=""><?php echo $counter['new']; ?></span>
-				</a>
+			// New ---------------------------------------------------------------------------------------------------------
+			?>
+			<div class="wpbc_flex_dashboard_item">
+				<div class="wpbc_flex_dashboard_item_number">
+					<a href="<?php echo $bk_admin_url,'&wh_what_bookings=new&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>">
+						<span class=""><?php echo $counter['new']; ?></span>
+					</a>
+				</div>
+				<div class="wpbc_flex_dashboard_item_text wpbc_flex_dashboard_item_text_new">
+					<a href="<?php echo $bk_admin_url, '&wh_what_bookings=new&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>">
+						<?php _e( 'New (unverified) booking(s)', 'booking' ); ?>
+					</a>
+				</div>
 			</div>
-			<div class="wpbc_flex_dashboard_item_text wpbc_flex_dashboard_item_text_new">
-				<a href="<?php echo $bk_admin_url, '&wh_what_bookings=new&wh_trash=0&wh_booking_date[]=3&view_mode=vm_listing&overwrite=1'; ?>">
-					<?php _e( 'New (unverified) booking(s)', 'booking' ); ?>
-				</a>
-			</div>
-		</div>
-		<?php
-
+			<?php
+		}
 
 		// Version ---------------------------------------------------------------------------------------------------------
 		?>

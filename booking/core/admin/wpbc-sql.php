@@ -586,44 +586,49 @@ function wpbc_get_default_resource() {
  */
 function wpbc_get_all_booking_resources_list(){                                                                         //FixIn: 8.1.3.5.2
 
-        if ( ! class_exists( 'wpdev_bk_personal' ) )
-        return array();
+	if ( ! class_exists( 'wpdev_bk_personal' ) ) {
+		return array();
+	}
 
-        $resources_cache = wpbc_br_cache();                                     // Get booking resources from  cache
+	$resources_cache = wpbc_br_cache();                                     // Get booking resources from  cache
 
-        $resource_objects = $resources_cache->get_resources();
-        // $resource_objects = $resources_cache->get_single_parent_resources();
+	$resource_objects = $resources_cache->get_resources();
+	// $resource_objects = $resources_cache->get_single_parent_resources();
 
-        //$resource_options = $params['resources'];
+	//$resource_options = $params['resources'];
+	$resource_options = array();    //FixIn: 8.2.1.12
 
-        foreach ( $resource_objects as $br) {
+	foreach ( $resource_objects as $br ) {
 
-            $br_option = array();
-            $br_option['title'] = apply_bk_filter('wpdev_check_for_active_language', $br['title'] );
+		$br_option          = array();
+		$br_option['title'] = apply_bk_filter( 'wpdev_check_for_active_language', $br['title'] );
 
-            if ( (isset( $br['parent'] )) && ($br['parent'] == 0 ) && (isset( $br['count'] )) && ($br['count'] > 1 ) )
-                $br_option['title'] .= ' [' . __('parent resource', 'booking') . ']';
+		if ( ( isset( $br['parent'] ) ) && ( $br['parent'] == 0 ) && ( isset( $br['count'] ) ) && ( $br['count'] > 1 ) ) {
+			$br_option['title'] .= ' [' . __( 'parent resource', 'booking' ) . ']';
+		}
 
-            $br_option['attr'] = array();
-            $br_option['attr']['class'] = 'wpbc_single_resource';
-            if ( isset( $br['parent'] ) ) {
-                if ( $br['parent'] == 0 ) {
-                    if (  ( isset( $br['count'] ) ) && ( $br['count'] > 1 )  )
-                        $br_option['attr']['class'] = 'wpbc_parent_resource';
-                } else {
-                    $br_option['attr']['class'] = 'wpbc_child_resource';
-                }
-            }
+		$br_option['attr']          = array();
+		$br_option['attr']['class'] = 'wpbc_single_resource';
+		if ( isset( $br['parent'] ) ) {
+			if ( $br['parent'] == 0 ) {
+				if ( ( isset( $br['count'] ) ) && ( $br['count'] > 1 ) ) {
+					$br_option['attr']['class'] = 'wpbc_parent_resource';
+				}
+			} else {
+				$br_option['attr']['class'] = 'wpbc_child_resource';
+			}
+		}
 
-            $sufix = '';
+		$sufix = '';
 
-            $resource_options[ $br['id'] . $sufix ] = $br_option;
+		$resource_options[ $br['id'] . $sufix ] = $br_option;
 
-            if ( $resource_options[ $br['id'] ]['attr']['class'] === 'wpbc_child_resource' ) {
-                $resource_options[ $br['id'] ]['title'] = ' &nbsp;&nbsp;&nbsp; ' . $resource_options[ $br['id'] ]['title'];
-            }
-        }
-        return $resource_options;
+		if ( $resource_options[ $br['id'] ]['attr']['class'] === 'wpbc_child_resource' ) {
+			$resource_options[ $br['id'] ]['title'] = ' &nbsp;&nbsp;&nbsp; ' . $resource_options[ $br['id'] ]['title'];
+		}
+	}
+
+	return $resource_options;
 }
 
 //////////////////////////////////////////////////////////////////////////////// 

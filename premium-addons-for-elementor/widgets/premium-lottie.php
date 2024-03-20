@@ -222,7 +222,7 @@ class Premium_Lottie extends Widget_Base {
 					'viewport' => __( 'Viewport', 'premium-addons-for-elementor' ),
 					'hover'    => __( 'Hover', 'premium-addons-for-elementor' ),
 					'scroll'   => __( 'Scroll', 'premium-addons-for-elementor' ),
-					'click'   => __( 'Click', 'premium-addons-for-elementor' ),
+					'click'    => __( 'Click', 'premium-addons-for-elementor' ),
 				),
 				'frontend_available' => true,
 			)
@@ -517,7 +517,7 @@ class Premium_Lottie extends Widget_Base {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
 
@@ -688,7 +688,6 @@ class Premium_Lottie extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -890,6 +889,4 @@ class Premium_Lottie extends Widget_Base {
 
 		<?php
 	}
-
-
 }

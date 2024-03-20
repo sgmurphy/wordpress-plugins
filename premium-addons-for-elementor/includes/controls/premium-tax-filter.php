@@ -30,7 +30,4 @@ class Premium_Tax_Filter extends Control_Select {
 	public function get_type() {
 		return self::TYPE;
 	}
-
 }
-
-

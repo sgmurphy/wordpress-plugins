@@ -694,7 +694,6 @@ class Premium_Pinterest_Feed extends Widget_Base {
 			array(
 				'label'       => __( 'Date Format', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => 'yes',
 				'label_block' => true,
 				'description' => __( 'Know more abour date format from ', 'premium-addons-for-elementor' ) . '<a href="https://wordpress.org/documentation/article/customize-date-and-time-format/" target="_blank">here</a>',
 				'default'     => 'F j',
@@ -775,7 +774,6 @@ class Premium_Pinterest_Feed extends Widget_Base {
 		}
 
 		$this->end_controls_section();
-
 	}
 
 	private function add_general_controls() {
@@ -1138,12 +1136,11 @@ class Premium_Pinterest_Feed extends Widget_Base {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
 
 		$this->end_controls_section();
-
 	}
 
 	/** Style Controls. */
@@ -2548,7 +2545,7 @@ class Premium_Pinterest_Feed extends Widget_Base {
 
 			$board_query = 'boards/' === $settings['endpoint'];
 			$onclick     = $board_query ? $settings['boards_onclick'] : $settings['pins_onclick'];
-			$load_pins   = $board_query && 'pins' == $onclick;
+			$load_pins   = $board_query && 'pins' === $onclick;
 
 			$pinterest_settings = array(
 				'query'   => $settings['endpoint'],
@@ -2558,18 +2555,18 @@ class Premium_Pinterest_Feed extends Widget_Base {
 			if ( $board_query ) {
 				$boards_feed = get_pinterest_data( $widget_id, $settings, 'boards/' );
 
-                if( ! $boards_feed ) {
-                    return;
-                }
+				if ( ! $boards_feed ) {
+					return;
+				}
 
-				$carousel    = false;
+				$carousel = false;
 			} else {
 
 				$pinterest_feed = get_pinterest_data( $widget_id, $settings, 'pins/' );
 
-                if( ! $pinterest_feed ) {
-                    return;
-                }
+				if ( ! $pinterest_feed ) {
+					return;
+				}
 
 				$carousel = 'yes' === $settings['carousel'];
 
@@ -3092,7 +3089,7 @@ class Premium_Pinterest_Feed extends Widget_Base {
 					?>
 					<a class="premium-pinterest-feed__follow-button" href="<?php echo esc_url( $follow_url ); ?>" target="_blank">
 						<?php $this->render_pinterest_icon( 'follow' ); ?>
-						<span class="premium-pinterest-feed__follow-text"><?php echo __( 'Follow', 'premium-addons-for-elementor' ); ?></span>
+						<span class="premium-pinterest-feed__follow-text"><?php echo wp_kses_post( __( 'Follow', 'premium-addons-for-elementor' ) ); ?></span>
 					</a>
 
 				<?php } ?>
@@ -3110,14 +3107,13 @@ class Premium_Pinterest_Feed extends Widget_Base {
 				?>
 					<a class="premium-pinterest-feed__follow-button" href="<?php echo esc_url( $follow_url ); ?>" target="_blank">
 						<?php $this->render_pinterest_icon( 'follow' ); ?>
-						<span class="premium-pinterest-feed__follow-text"><?php echo __( 'Follow', 'premium-addons-for-elementor' ); ?></span>
+						<span class="premium-pinterest-feed__follow-text"><?php echo wp_kses_post( __( 'Follow', 'premium-addons-for-elementor' ) ); ?></span>
 					</a>
 
 				<?php
 			}
 			?>
 		<?php
-
 	}
 
 	/**
@@ -3324,7 +3320,6 @@ class Premium_Pinterest_Feed extends Widget_Base {
 			</span>
 
 		<?php
-
 	}
 
 	private function render_share_button( $link ) {
@@ -3335,19 +3330,19 @@ class Premium_Pinterest_Feed extends Widget_Base {
 					<i class="fa fa-share custom-fa" aria-hidden="true"></i>
 					<span class="premium-pinterest-sharer">Share</span>
 					<div class="premium-pinterest-share-menu">
-						<a data-pa-link="<?php echo $link; ?>" class="premium-pinterest-share-item premium-copy-link">
+						<a data-pa-link="<?php echo esc_url( $link ); ?>" class="premium-pinterest-share-item premium-copy-link">
 							<i class="fas fa-link"></i>
 							<span class="premium-pinterest-share-text pre-infs-fb">Copy To Clipboard</span>
 						</a>
-						<a data-pa-link="https://www.facebook.com/sharer/sharer.php?u=<?php echo $link; ?>" class="premium-pinterest-share-item">
+						<a data-pa-link="https://www.facebook.com/sharer/sharer.php?u=<?php echo esc_url( $link ); ?>" class="premium-pinterest-share-item">
 							<i class="fab fa-facebook-f if-fb"></i>
 							<span class="premium-pinterest-share-text pre-infs-fb">Share on Facebook</span>
 						</a>
-						<a data-pa-link="https://twitter.com/intent/tweet?text=tweet&url=<?php echo $link; ?>" class="premium-pinterest-share-item">
+						<a data-pa-link="https://twitter.com/intent/tweet?text=tweet&url=<?php echo esc_url( $link ); ?>" class="premium-pinterest-share-item">
 							<i class="fab fa-twitter if-tw"></i>
 							<span class="premium-pinterest-share-text pre-infs-tw">Share on Twitter</span>
 						</a>
-						<a data-pin-do="buttonPin" data-pa-link="https://www.pinterest.com/pin/create/button/?url=<?php echo $link; ?>" class="premium-pinterest-share-item">
+						<a data-pin-do="buttonPin" data-pa-link="https://www.pinterest.com/pin/create/button/?url=<?php echo esc_url( $link ); ?>" class="premium-pinterest-share-item">
 							<i class="fab fa-pinterest-p if-pi"></i>
 							<span class="premium-pinterest-share-text pre-infs-pi">Share on Pinterest</span>
 						</a>

@@ -42,22 +42,7 @@ function wc_gzd_country_to_alpha2( $country ) {
 }
 
 function wc_gzd_get_shipment_order( $order ) {
-	if ( is_numeric( $order ) ) {
-		$order = wc_get_order( $order );
-	}
-
-	if ( is_a( $order, 'WC_Order' ) ) {
-		try {
-			return new Vendidero\Germanized\Shipments\Order( $order );
-		} catch ( Exception $e ) {
-			wc_caught_exception( $e, __FUNCTION__, array( $order ) );
-			return false;
-		}
-	} elseif ( is_a( $order, 'Vendidero\Germanized\Shipments\Order' ) ) {
-		return $order;
-	}
-
-	return false;
+	return \Vendidero\Germanized\Shipments\Orders\Factory::get_order( $order );
 }
 
 function wc_gzd_get_shipment_label_title( $type, $plural = false ) {
@@ -1326,19 +1311,20 @@ function wc_gzd_get_order_shipping_provider( $order ) {
 		return false;
 	}
 
-	$provider  = false;
-	$method_id = wc_gzd_get_shipment_order_shipping_method_id( $order );
+	$provider = false;
 
-	if ( $method = wc_gzd_get_shipping_provider_method( $method_id ) ) {
-		$provider = $method->get_shipping_provider_instance();
+	foreach ( array_reverse( wc_gzd_get_shipment_order( $order )->get_shipments() ) as $shipment ) {
+		if ( $shipment->get_shipping_provider_instance() ) {
+			$provider = $shipment->get_shipping_provider_instance();
+			break;
+		}
 	}
 
 	if ( ! $provider ) {
-		foreach ( array_reverse( wc_gzd_get_shipment_order( $order )->get_shipments() ) as $shipment ) {
-			if ( $shipment->get_shipping_provider_instance() ) {
-				$provider = $shipment->get_shipping_provider_instance();
-				break;
-			}
+		$method_id = wc_gzd_get_shipment_order_shipping_method_id( $order );
+
+		if ( $method = wc_gzd_get_shipping_provider_method( $method_id ) ) {
+			$provider = $method->get_shipping_provider_instance();
 		}
 	}
 

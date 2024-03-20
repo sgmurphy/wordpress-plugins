@@ -139,7 +139,7 @@ class Premium_Testimonials extends Widget_Base {
 	 */
 	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
-        $papro_activated = apply_filters( 'papro_activated', false );
+		$papro_activated = apply_filters( 'papro_activated', false );
 
 		$this->start_controls_section(
 			'testimonial_section',
@@ -258,7 +258,7 @@ class Premium_Testimonials extends Widget_Base {
 			array(
 				'label'       => __( 'Rating Score', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::NUMBER,
-                'min'         => 0,
+				'min'         => 0,
 				'max'         => 5,
 				'description' => __( 'Leave empty if not needed.', 'premium-addons-for-elementor' ),
 			)
@@ -356,7 +356,7 @@ class Premium_Testimonials extends Widget_Base {
 				'label'       => __( 'Rating Score', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::NUMBER,
 				'description' => __( 'Leave empty if not needed.', 'premium-addons-for-elementor' ),
-                'min'         => 0,
+				'min'         => 0,
 				'max'         => 5,
 			)
 		);
@@ -474,7 +474,7 @@ class Premium_Testimonials extends Widget_Base {
 							'name'  => 'multiple',
 							'value' => 'yes',
 						),
-                        array(
+						array(
 							'name'  => 'carousel_play',
 							'value' => 'yes',
 						),
@@ -569,7 +569,7 @@ class Premium_Testimonials extends Widget_Base {
 			)
 		);
 
-        if ( ! $papro_activated ) {
+		if ( ! $papro_activated ) {
 
 			$get_pro = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/pro', 'editor-page', 'wp-editor', 'get-pro' );
 
@@ -657,13 +657,11 @@ class Premium_Testimonials extends Widget_Base {
 			)
 		);
 
-        if ( $papro_activated ) {
+		if ( $papro_activated ) {
 
-            do_action( 'pa_testimonials_skins_options', $this );
+			do_action( 'pa_testimonials_skins_options', $this );
 
-        }
-
-
+		}
 
 		$this->add_control(
 			'premium_testimonial_person_name_size',
@@ -772,7 +770,7 @@ class Premium_Testimonials extends Widget_Base {
 			)
 		);
 
-        $this->add_control(
+		$this->add_control(
 			'spacing_notice',
 			array(
 				'raw'             => __( 'Note, you may need to give a top/bottom spacing if you are not seeing the whole quotation icon or the author image.', 'premium-addons-for-elementor' ),
@@ -781,14 +779,14 @@ class Premium_Testimonials extends Widget_Base {
 			)
 		);
 
-        $this->add_control(
+		$this->add_control(
 			'equal_height',
 			array(
-				'label'       => __( 'Equal Height', 'premium-addons-for-elementor' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'description' => __( 'This option searches for the testimonial with the largest height and applies that height to the other testimonials', 'premium-addons-for-elementor' ),
-                'prefix_class'=> 'premium-testimonial__equal-',
-				'condition'  => array(
+				'label'        => __( 'Equal Height', 'premium-addons-for-elementor' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'description'  => __( 'This option searches for the testimonial with the largest height and applies that height to the other testimonials', 'premium-addons-for-elementor' ),
+				'prefix_class' => 'premium-testimonial__equal-',
+				'condition'    => array(
 					'multiple' => 'yes',
 				),
 			)
@@ -886,7 +884,7 @@ class Premium_Testimonials extends Widget_Base {
 			)
 		);
 
-        $this->add_group_control(
+		$this->add_group_control(
 			Group_Control_Css_Filter::get_type(),
 			array(
 				'name'     => 'css_filters',
@@ -1483,7 +1481,6 @@ class Premium_Testimonials extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -1498,9 +1495,9 @@ class Premium_Testimonials extends Widget_Base {
 
 		$settings = $this->get_settings_for_display();
 
-        $papro_activated = apply_filters( 'papro_activated', false );
+		$papro_activated = apply_filters( 'papro_activated', false );
 
-        if ( ! $papro_activated || version_compare( PREMIUM_PRO_ADDONS_VERSION, '2.9.8', '<' ) ) {
+		if ( ! $papro_activated || version_compare( PREMIUM_PRO_ADDONS_VERSION, '2.9.8', '<' ) ) {
 
 			if ( 'skin1' !== $settings['skin'] ) {
 
@@ -1792,7 +1789,6 @@ class Premium_Testimonials extends Widget_Base {
 
 		</div>
 		<?php
-
 	}
 
 	/**
@@ -1815,7 +1811,6 @@ class Premium_Testimonials extends Widget_Base {
 		}
 
 		echo $svg_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
 	}
 
 	/**
@@ -1838,7 +1833,5 @@ class Premium_Testimonials extends Widget_Base {
 		}
 
 		return $testionial_image_html;
-
 	}
-
 }

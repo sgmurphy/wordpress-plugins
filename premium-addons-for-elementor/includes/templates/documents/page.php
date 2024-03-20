@@ -19,5 +19,4 @@ class Premium_Page_Document extends Premium_Document_Base {
 	public function has_conditions() {
 		return false;
 	}
-
 }

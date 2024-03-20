@@ -76,7 +76,6 @@ if ( ! class_exists( 'Premium_Templates' ) ) {
 		public function __construct() {
 
 			add_action( 'init', array( $this, 'init' ) );
-
 		}
 
 		/**
@@ -100,7 +99,6 @@ if ( ! class_exists( 'Premium_Templates' ) ) {
 			$this->set_types();
 
 			$this->set_templates_manager();
-
 		}
 
 		/**
@@ -122,7 +120,6 @@ if ( ! class_exists( 'Premium_Templates' ) ) {
 			require PREMIUM_ADDONS_PATH . 'includes/templates/types/manager.php';
 
 			require PREMIUM_ADDONS_PATH . 'includes/templates/classes/api.php';
-
 		}
 
 		/**
@@ -136,7 +133,6 @@ if ( ! class_exists( 'Premium_Templates' ) ) {
 		private function set_config() {
 
 			$this->config = new Classes\Premium_Templates_Core_Config();
-
 		}
 
 		/**
@@ -150,7 +146,6 @@ if ( ! class_exists( 'Premium_Templates' ) ) {
 		private function set_assets() {
 
 			$this->assets = new Classes\Premium_Templates_Assets();
-
 		}
 
 		/**
@@ -164,7 +159,6 @@ if ( ! class_exists( 'Premium_Templates' ) ) {
 		private function set_api() {
 
 			$this->api = new Classes\Premium_Templates_API();
-
 		}
 
 		/**
@@ -178,7 +172,6 @@ if ( ! class_exists( 'Premium_Templates' ) ) {
 		private function set_types() {
 
 			$this->types = new Types\Premium_Templates_Types();
-
 		}
 
 		/**
@@ -192,7 +185,6 @@ if ( ! class_exists( 'Premium_Templates' ) ) {
 		private function set_templates_manager() {
 
 			$this->temp_manager = new Classes\Premium_Templates_Manager();
-
 		}
 
 		/**
@@ -213,7 +205,6 @@ if ( ! class_exists( 'Premium_Templates' ) ) {
 
 			return self::$instance;
 		}
-
 	}
 
 }
@@ -230,7 +221,6 @@ if ( ! function_exists( 'premium_templates' ) ) {
 	function premium_templates() {
 
 		return Premium_Templates::get_instance();
-
 	}
 }
 premium_templates();

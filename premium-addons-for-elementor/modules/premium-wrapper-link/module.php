@@ -78,7 +78,6 @@ class Module {
 			add_action( 'elementor/element/container/section_layout/after_section_end', array( $this, 'register_controls' ), 10 );
 			add_action( 'elementor/frontend/container/before_render', array( $this, 'before_render' ) );
 		}
-
 	}
 
 	/**
@@ -104,14 +103,14 @@ class Module {
 			)
 		);
 
-        $element->add_control(
-            'wrapper_link_notice',
-            array(
-                'raw'             => __( 'Please note that Wrapper Link works on the frontend.', 'premium-addons-for-elemeentor' ),
-                'type'            => Controls_Manager::RAW_HTML,
-                'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
-            )
-        );
+		$element->add_control(
+			'wrapper_link_notice',
+			array(
+				'raw'             => __( 'Please note that Wrapper Link works on the frontend.', 'premium-addons-for-elemeentor' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
+			)
+		);
 
 		$element->add_control(
 			'premium_wrapper_link_selection',
@@ -157,7 +156,6 @@ class Module {
 		);
 
 		$element->end_controls_section();
-
 	}
 
 
@@ -174,28 +172,27 @@ class Module {
 
 		$settings = $element->get_settings_for_display();
 
-		if( 'link' == $settings['premium_wrapper_link_selection'] ) {
+		if ( 'link' === $settings['premium_wrapper_link_selection'] ) {
 			$href = get_permalink( $settings['premium_wrapper_existing_link'] );
 		} else {
 			$href = $settings['premium_wrapper_link']['url'];
 		}
 
 		$link_settings = array(
-			'type'	=> $settings['premium_wrapper_link_selection'],
-			'link'  => $settings['premium_wrapper_link'],
-			'href'	=> esc_url( $href )
+			'type' => $settings['premium_wrapper_link_selection'],
+			'link' => $settings['premium_wrapper_link'],
+			'href' => esc_url( $href ),
 		);
 
 		if ( $link_settings && ( ! empty( $link_settings['link']['url'] ) || ! empty( $link_settings['existingPage'] ) ) ) {
 			$element->add_render_attribute(
 				'_wrapper',
 				array(
-					'data-premium-element-link' => json_encode( $link_settings ),
+					'data-premium-element-link' => wp_json_encode( $link_settings ),
 					'style'                     => 'cursor: pointer',
 				)
 			);
 		}
-
 	}
 
 	/**
@@ -220,10 +217,8 @@ class Module {
 	 *
 	 * @since 4.7.7
 	 * @access public
-	 *
-	 * @param object $element for current element.
 	 */
-	public function check_script_enqueue( $element ) {
+	public function check_script_enqueue() {
 
 		if ( self::$load_script ) {
 			return;
@@ -234,7 +229,6 @@ class Module {
 		self::$load_script = true;
 
 		remove_action( 'elementor/frontend/before_render', array( $this, 'check_script_enqueue' ) );
-
 	}
 
 	/**

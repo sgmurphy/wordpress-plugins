@@ -60,7 +60,6 @@ class Module {
 
 		// Check if scripts should be loaded.
 		add_action( 'elementor/frontend/widget/before_render', array( $this, 'check_script_enqueue' ) );
-
 	}
 
 	/**
@@ -84,7 +83,6 @@ class Module {
 		if ( ! wp_script_is( 'pa-feffects', 'enqueued' ) ) {
 			wp_enqueue_script( 'pa-feffects' );
 		}
-
 	}
 
 
@@ -965,7 +963,6 @@ class Module {
 		);
 
 		$element->end_controls_section();
-
 	}
 
 
@@ -992,7 +989,6 @@ class Module {
 
 			remove_action( 'elementor/frontend/widget/before_render', array( $this, 'check_script_enqueue' ) );
 		}
-
 	}
 
 	/**

@@ -65,7 +65,6 @@ class Module {
 			add_action( 'elementor/frontend/container/before_render', array( $this, 'before_render' ), 10, 1 );
 			add_action( 'elementor/frontend/container/before_render', array( $this, 'check_script_enqueue' ) );
 		}
-
 	}
 
 	/**
@@ -81,7 +80,6 @@ class Module {
 		if ( ! wp_script_is( 'pa-eq-height', 'enqueued' ) ) {
 			wp_enqueue_script( 'pa-eq-height' );
 		}
-
 	}
 
 	/**
@@ -168,6 +166,22 @@ class Module {
 		);
 
 		$element->add_control(
+			'premium_eq_height_trigger',
+			array(
+				'label'     => __( 'Trigger on', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => array(
+					'load'   => __( 'Page Load', 'premium-addons-for-elementor' ),
+					'scroll' => __( 'Scroll', 'premium-addons-for-elementor' ),
+				),
+				'default'   => 'load',
+				'condition' => array(
+					'premium_eq_height_switcher' => 'yes',
+				),
+			)
+		);
+
+		$element->add_control(
 			'premium_eq_height_enable_on',
 			array(
 				'label'       => __( 'Enable Equal Height on', 'premium-addons-for-elementor' ),
@@ -195,7 +209,6 @@ class Module {
 		);
 
 		$element->end_controls_section();
-
 	}
 
 	/**
@@ -228,6 +241,7 @@ class Module {
 				addonSettings = {
 					'targetType': targetType,
 					'target': target,
+					'trigger':settings.premium_eq_height_trigger,
 					'enableOn':settings.premium_eq_height_enable_on
 				};
 
@@ -272,6 +286,7 @@ class Module {
 			$addon_settings = array(
 				'targetType' => $target_type,
 				'target'     => $target,
+				'trigger'    => $settings['premium_eq_height_trigger'],
 				'enableOn'   => $settings['premium_eq_height_enable_on'],
 			);
 
@@ -303,7 +318,6 @@ class Module {
 			remove_action( 'elementor/frontend/section/before_render', array( $this, 'check_script_enqueue' ) );
 			remove_action( 'elementor/frontend/container/before_render', array( $this, 'check_script_enqueue' ) );
 		}
-
 	}
 
 	/**

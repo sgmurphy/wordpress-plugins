@@ -14,6 +14,7 @@ use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Box_Shadow;
+use WTS_EAE\Classes\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -2073,30 +2074,33 @@ class ComparisonTable extends EAE_Widget_Base {
 					if($settings['hide_table_'.$i] != 'yes') {
 						
 						if ( $settings[ 'table_ribbon_' . $i ] === 'yes') {
-							echo '<li class="eae-ct-heading eae-table-' . $i . ' eae-ct-ribbons-yes eae-ct-ribbons-h-' . $settings[ 'ribbons_position_' . $i ] . '">';
-							if ( $settings[ 'ribbons_position_' . $i ] === 'top' ) {
-								?>
-								<div class="eae-ct-ribbons-wrapper-top">
-									<span class="eae-ct-ribbons-inner-top">
-										<?php echo $settings[ 'table_ribbon_text_' . $i ]; ?>
-									</span>
-								</div>
-								<?php
-							} else {
-								?>
-								<div class="eae-ct-ribbons-wrapper">
-									<span class="eae-ct-ribbons-inner">
-										<?php echo $settings[ 'table_ribbon_text_' . $i ]; ?>
-									</span>
-								</div>
+							$this->add_render_attribute( 'eae-ct-heading', 'class', ['eae-ct-heading, eae-table-' . $i , ' eae-ct-ribbons-yes', 'eae-ct-ribbons-h-' . $settings[ 'ribbons_position_' . $i ]]);
+							?>
+							<li <?php echo $this->get_render_attribute_string('eae-ct-heading')?>>
+							<?php
+								if ( $settings[ 'ribbons_position_' . $i ] === 'top' ) {
+									?>
+									<div class="eae-ct-ribbons-wrapper-top">
+										<span class="eae-ct-ribbons-inner-top">
+											<?php echo Helper::eae_wp_kses($settings[ 'table_ribbon_text_' . $i ]); ?>
+										</span>
+									</div>
+									<?php
+								} else {
+									?>
+									<div class="eae-ct-ribbons-wrapper">
+										<span class="eae-ct-ribbons-inner">
+											<?php echo Helper::eae_wp_kses($settings[ 'table_ribbon_text_' . $i ]); ?>
+										</span>
+									</div>
 
-								<?php
-							}
+									<?php
+								}
 						} else {
 							echo '<li class="eae-ct-heading eae-table-' . $i . '">';
 						}
 						echo '<div class="eae-ct-heading-inner">';
-						echo $settings[ 'table_title_' . $i ];
+						echo Helper::eae_wp_kses($settings[ 'table_title_' . $i ]);
 						echo '</div>';
 						echo '</li>';
 					}	
@@ -2117,10 +2121,8 @@ class ComparisonTable extends EAE_Widget_Base {
 							$cont    = $settings['feature_box_heading'];
 						}
 						?>
-
-						<td class="<?php echo $class; ?>" rowspan="<?php echo $rowspan; ?>"> <?php echo $cont; ?></td>
+						<td class="<?php echo esc_attr($class); ?>" rowspan="<?php echo esc_attr($rowspan); ?>"> <?php echo Helper::eae_wp_kses($cont); ?></td>
 						<?php
-
 						for ( $i = 1; $i <= $settings['table_count']; $i++ ) {
 							if($settings['hide_table_'.$i] != 'yes') {
 								if ( $settings[ 'table_ribbon_' . $i ] === 'yes' ) {
@@ -2129,7 +2131,7 @@ class ComparisonTable extends EAE_Widget_Base {
 										?>
 										<div class="eae-ct-ribbons-wrapper-top">
 											<span class="eae-ct-ribbons-inner-top">
-												<?php echo $settings[ 'table_ribbon_text_' . $i ]; ?>
+												<?php echo Helper::eae_wp_kses($settings[ 'table_ribbon_text_' . $i ]); ?>
 											</span>
 										</div>
 										<?php
@@ -2137,7 +2139,7 @@ class ComparisonTable extends EAE_Widget_Base {
 										?>
 										<div class="eae-ct-ribbons-wrapper">
 											<span class="eae-ct-ribbons-inner">
-												<?php echo $settings[ 'table_ribbon_text_' . $i ]; ?>
+												<?php echo Helper::eae_wp_kses($settings[ 'table_ribbon_text_' . $i ]); ?>
 											</span>
 										</div>
 
@@ -2146,7 +2148,7 @@ class ComparisonTable extends EAE_Widget_Base {
 								} else {
 									echo '<td class="eae-ct-heading eae-table-' . $i . '">';
 								}
-								echo $settings[ 'table_title_' . $i ];
+								echo Helper::eae_wp_kses($settings[ 'table_title_' . $i ]);
 								echo '</td>';
 							}	
 						}
@@ -2159,7 +2161,9 @@ class ComparisonTable extends EAE_Widget_Base {
 						$cls = 'hide eae-ct-hide eae-fbox-heading';
 					}
 					?>
-					<td class="<?php echo $cls; ?>"><?php echo $settings['feature_box_heading']; ?></td>
+					<td class="<?php echo esc_attr($cls); ?>">
+						<?php echo Helper::eae_wp_kses($settings['feature_box_heading']); ?>
+					</td>
 					<?php
 					for ( $j = 1; $j <= $settings['table_count']; $j++ ) {
 						if($settings['hide_table_'.$j] != 'yes') {
@@ -2167,20 +2171,20 @@ class ComparisonTable extends EAE_Widget_Base {
 
 							if ( $settings[ 'table_offer_discount_' . $j ] === 'yes' ) {
 								echo '<span class="eae-ct-original-price">';
-								echo $settings[ 'table_currency_symbol_' . $j ] . $settings[ 'table_original_price_' . $j ];
+								echo Helper::eae_wp_kses($settings[ 'table_currency_symbol_' . $j ] . $settings[ 'table_original_price_' . $j ]);
 								echo '</span>';
 							}
 
 							$price            = explode( '.', $settings[ 'table_price_' . $j ] );
 							$fractional_price = '';
 							if ( count( $price ) > 1 ) {
-								$fractional_price = '<span class="eae-ct-fractional-price">' . $price[1] . '</span>';
+								$fractional_price = '<span class="eae-ct-fractional-price">' . Helper::eae_wp_kses($price[1]) . '</span>';
 							}
-							echo '<span class="eae-ct-currency">' . $settings[ 'table_currency_symbol_' . $j ] . '</span>';
-							echo '<span class="eae-ct-price">' . $price[0] . '</span>';
+							echo '<span class="eae-ct-currency">' . Helper::eae_wp_kses($settings[ 'table_currency_symbol_' . $j ]) . '</span>';
+							echo '<span class="eae-ct-price">' . Helper::eae_wp_kses($price[0]) . '</span>';
 							echo $fractional_price;
 							echo '</div>';
-							echo '<span class="eae-ct-duration">' . $settings[ 'table_duration_' . $j ] . '</span>';
+							echo '<span class="eae-ct-duration">' . Helper::eae_wp_kses($settings[ 'table_duration_' . $j ]) . '</span>';
 							echo '</td>';
 						}
 					}
@@ -2199,7 +2203,7 @@ class ComparisonTable extends EAE_Widget_Base {
 								} else {
 									echo '<span>';
 								}
-								echo $settings['features_text'][ $x - 1 ]['legend_feature_text'];
+								echo Helper::eae_wp_kses($settings['features_text'][ $x - 1 ]['legend_feature_text']);
 								echo '</span>';
 								if ( $settings['tooltip_type'] === 'icon' ) {
 									?>
@@ -2214,13 +2218,13 @@ class ComparisonTable extends EAE_Widget_Base {
 								?>
 									<span class="tooltiptext">
 										<?php
-										echo $settings['features_text'][ $x - 1 ]['legend_feature_tooltip_text'];
+										echo Helper::eae_wp_kses($settings['features_text'][ $x - 1 ]['legend_feature_tooltip_text']);
 										?>
 									</span>
 									</div>
 								<?php
 							} else {
-								echo $settings['features_text'][ $x - 1 ]['legend_feature_text'];
+								echo Helper::eae_wp_kses($settings['features_text'][ $x - 1 ]['legend_feature_text']);
 							}
 							echo '</td>';
 
@@ -2243,7 +2247,7 @@ class ComparisonTable extends EAE_Widget_Base {
 										Icons_Manager::render_icon( $icon );
 
 									} else {
-										echo $settings[ 'feature_items_' . $j ][ $x - 1 ]['feature_text'];
+										echo Helper::eae_wp_kses($settings[ 'feature_items_' . $j ][ $x - 1 ]['feature_text']);
 									}
 								} else {
 									echo '';
@@ -2257,7 +2261,7 @@ class ComparisonTable extends EAE_Widget_Base {
 					if ( ! empty( $settings['button_heading_text'] ) ) {
 						$this->add_render_attribute( 'button_heading', 'class', 'eae-button-heading' );
 					}
-					echo '<td ' . $this->get_render_attribute_string( 'button_heading' ) . '>' . $settings['button_heading_text'] . '</td>';
+					echo '<td ' . $this->get_render_attribute_string( 'button_heading' ) . '>' . Helper::eae_wp_kses($settings['button_heading_text']) . '</td>';
 					for ( $j = 1; $j <= $settings['table_count']; $j++ ) {
 						if($settings['hide_table_'.$j] != 'yes'){
 							if ( ! empty( $settings[ 'item_link_' . $j ]['url'] ) ) {
@@ -2267,11 +2271,10 @@ class ComparisonTable extends EAE_Widget_Base {
 	
 							echo '<td class="eae-table-' . $j . '">';
 							if ( $settings[ 'button_text_' . $j ] !== '' ) {
-								echo '<a ' . $this->get_render_attribute_string( 'button_' . $j . '-link-attributes' ) . '>' . $settings[ 'button_text_' . $j ] . '</a>';
+								echo '<a ' . $this->get_render_attribute_string( 'button_' . $j . '-link-attributes' ) . '>' . Helper::eae_wp_kses($settings[ 'button_text_' . $j ]) . '</a>';
 							}
 							echo '</td>';
-						}
-						
+						}	
 					}
 					?>
 				</tbody>
@@ -2355,12 +2358,13 @@ class ComparisonTable extends EAE_Widget_Base {
 														</span>
 													</div>
 												<# } #>
+												{{{ settings[ 'table_title_' + i ] }}}
 											</td>	
 										<# } else { #>
 											<td class="eae-ct-heading eae-table-{{{ i }}}">
-												<# } #>
-													{{{ settings[ 'table_title_' + i ] }}}
+											{{{ settings[ 'table_title_' + i ] }}}
 											</td>
+											<# } #>	
 										<# }  #>
 									<# } #>
 						</tr>

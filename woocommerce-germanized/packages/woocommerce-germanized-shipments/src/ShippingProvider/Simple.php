@@ -954,7 +954,7 @@ class Simple extends WC_Data implements ShippingProvider {
 			$value = $this->retrieve_password( $value );
 		}
 
-		return $value;
+		return apply_filters( "{$this->get_hook_prefix()}setting_{$clean_key}", $value, $key, $default, $context );
 	}
 
 	protected function retrieve_password( $value ) {
@@ -1343,5 +1343,15 @@ class Simple extends WC_Data implements ShippingProvider {
 		}
 
 		return $shipment_types;
+	}
+
+	public function save() {
+		$id = parent::save();
+
+		if ( $cache = \Vendidero\Germanized\Shipments\Caches\Helper::get_cache_object( 'shipping-providers' ) ) {
+			$cache->remove( $this->get_name() );
+		}
+
+		return $id;
 	}
 }

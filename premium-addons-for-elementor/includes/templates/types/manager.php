@@ -33,7 +33,6 @@ if ( ! class_exists( 'Premium_Templates_Types' ) ) {
 		public function __construct() {
 
 			$this->register_types();
-
 		}
 
 		/**
@@ -57,14 +56,13 @@ if ( ! class_exists( 'Premium_Templates_Types' ) ) {
 
 			array_walk(
 				$temp_types,
-				function( $file, $class ) {
+				function ( $file, $class ) {
 					require $file;
 					$this->register_type( $class );
 				}
 			);
 
 			do_action( 'premium-templates/types/register', $this );
-
 		}
 
 		/**
@@ -86,7 +84,6 @@ if ( ! class_exists( 'Premium_Templates_Types' ) ) {
 				register_structure()->locations->register_location( $instance->location_name(), $instance );
 
 			}
-
 		}
 
 		/**
@@ -100,7 +97,6 @@ if ( ! class_exists( 'Premium_Templates_Types' ) ) {
 		public function get_types() {
 
 			return $this->types;
-
 		}
 
 		/**
@@ -114,7 +110,6 @@ if ( ! class_exists( 'Premium_Templates_Types' ) ) {
 		public function get_type( $id ) {
 
 			return isset( $this->types[ $id ] ) ? $this->types[ $id ] : false;
-
 		}
 
 
@@ -138,9 +133,7 @@ if ( ! class_exists( 'Premium_Templates_Types' ) ) {
 			}
 
 			return $result;
-
 		}
-
 	}
 
 }

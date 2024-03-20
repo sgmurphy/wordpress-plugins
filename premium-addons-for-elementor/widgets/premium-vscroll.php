@@ -1080,7 +1080,6 @@ class Premium_Vscroll extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -1289,6 +1288,5 @@ class Premium_Vscroll extends Widget_Base {
 		}
 
 		return $id;
-
 	}
 }

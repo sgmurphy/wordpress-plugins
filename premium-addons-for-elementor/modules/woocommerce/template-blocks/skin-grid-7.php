@@ -48,4 +48,3 @@ class Skin_Grid_7 extends Skin_Style {
 		include PREMIUM_ADDONS_PATH . 'modules/woocommerce/templates/product-7.php';
 	}
 }
-

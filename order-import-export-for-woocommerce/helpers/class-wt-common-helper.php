@@ -382,3 +382,16 @@ function wt_wp_star_rating( $args = array() ) {
 }
 
 }
+
+if(!function_exists('wt_format_decimal') ){
+    function wt_format_decimal($number) {
+        $decimals = array(',', '.', ':');
+        // Remove locale from string.
+        if (!is_float($number)) {
+            $number = str_replace($decimals, '.', $number);
+            $number = preg_replace('/\.(?![^.]+$)|[^0-9.-]/', '', sanitize_text_field($number));
+        }
+        return $number;
+        
+    }
+}

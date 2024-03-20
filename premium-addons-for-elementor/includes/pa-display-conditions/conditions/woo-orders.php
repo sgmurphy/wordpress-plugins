@@ -39,7 +39,6 @@ class Woo_Orders extends Condition {
 				'pa_condition_key' => 'woo_orders',
 			),
 		);
-
 	}
 
 
@@ -66,7 +65,6 @@ class Woo_Orders extends Condition {
 				'pa_condition_key' => 'woo_orders',
 			),
 		);
-
 	}
 
 	/**
@@ -110,5 +108,4 @@ class Woo_Orders extends Condition {
 
 		return Helper_Functions::get_final_result( $condition_result, $operator );
 	}
-
 }

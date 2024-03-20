@@ -105,9 +105,11 @@ class Wt_Import_Export_For_Woo_Admin_Basic {
 
 		$product_addon_active_status = false;
 		$user_addon_active_status = false;
+		
 		if(is_plugin_active( 'product-import-export-for-woo/product-import-export-for-woo.php' )){
 			$product_addon_active_status = true;
 		}
+
 		if(is_plugin_active( 'users-customers-import-export-for-wp-woocommerce/users-customers-import-export-for-wp-woocommerce.php' )){
 			$user_addon_active_status = true;
 		}
@@ -200,7 +202,7 @@ class Wt_Import_Export_For_Woo_Admin_Basic {
                                 'name' => __('Order, Coupon, Subscription Export Import for WooCommerce'),
                                 'icon_url' => WT_O_IEW_PLUGIN_URL.'assets/images/gopro/order-ie.svg',
 								'sample_csv_url' => "https://www.webtoffee.com/wp-content/uploads/2021/04/Subscription_Sample_CSV.csv",
-								'is_active' => false
+								'is_active' => false,
                             ),							
                     )
                 );

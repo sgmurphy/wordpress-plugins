@@ -1332,7 +1332,7 @@ class Premium_Grid extends Widget_Base {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
 
@@ -2464,7 +2464,7 @@ class Premium_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'#elementor-lightbox-slideshow-{{ID}} .dialog-lightbox-close-button, #elementor-lightbox-{{ID}} .dialog-lightbox-close-button' => 'color: {{VALUE}};',
-                    '#elementor-lightbox-slideshow-{{ID}} svg, #elementor-lightbox-{{ID}} svg' => 'fill: {{VALUE}}',
+					'#elementor-lightbox-slideshow-{{ID}} svg, #elementor-lightbox-{{ID}} svg' => 'fill: {{VALUE}}',
 				),
 			)
 		);
@@ -2476,7 +2476,7 @@ class Premium_Grid extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
 					'#elementor-lightbox-slideshow-{{ID}} .dialog-lightbox-close-button:hover, #elementor-lightbox-{{ID}} .dialog-lightbox-close-button:hover' => 'color: {{VALUE}};',
-                    '#elementor-lightbox-slideshow-{{ID}} svg:hover, #elementor-lightbox-{{ID}} svg:hover' => 'fill: {{VALUE}}',
+					'#elementor-lightbox-slideshow-{{ID}} svg:hover, #elementor-lightbox-{{ID}} svg:hover' => 'fill: {{VALUE}}',
 				),
 			)
 		);
@@ -2484,7 +2484,6 @@ class Premium_Grid extends Widget_Base {
 		$this->end_controls_section();
 
 		$this->update_controls();
-
 	}
 
 	/**
@@ -2759,9 +2758,10 @@ class Premium_Grid extends Widget_Base {
 
 				$image_id = apply_filters( 'wpml_object_id', $image['premium_gallery_img']['id'], 'elementor_library', true );
 
-                //Check for Image ID, but not for the default Elementor placeholder.                
-                if( false === strpos( $image['premium_gallery_img']['url'], 'placeholder.png' ) && ! $image['premium_gallery_video'] && ! $image_id && empty( $image['premium_gallery_img']['url'] ) )
-                    continue;
+				// Check for Image ID, but not for the default Elementor placeholder.
+				if ( false === strpos( $image['premium_gallery_img']['url'], 'placeholder.png' ) && ! $image['premium_gallery_video'] && ! $image_id && empty( $image['premium_gallery_img']['url'] ) ) {
+					continue;
+				}
 
 				$image_by_id = get_post( $image_id );
 
@@ -3389,7 +3389,6 @@ class Premium_Grid extends Widget_Base {
 
 			)
 		);
-
 	}
 
 	/**

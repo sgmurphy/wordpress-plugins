@@ -55,7 +55,6 @@ require_once( WPBC_PLUGIN_DIR . '/includes/_capacity/confirmation_page.php' );  
 require_once( WPBC_PLUGIN_DIR . '/includes/_capacity/calendar_load.php' );                  // Scripts to  load calendar
 require_once( WPBC_PLUGIN_DIR . '/includes/_capacity/captcha_simple_text.php' );            // Simple text captcha checking
 
-
 require_once( WPBC_PLUGIN_DIR . '/core/wpbc-translation.php' );                 // Translation,  must be loaded after '/core/wpbc-core.php',  because there defined  add_bk_filter(), etc...
 //FixIn: 8.9.4.12
 if ( file_exists( WPBC_PLUGIN_DIR . '/core/lang/wpbc_all_translations.php' ) ){
@@ -89,9 +88,7 @@ require_once( WPBC_PLUGIN_DIR . '/core/wpbc-js.php' );                          
 // Admin UI
 require_once( WPBC_PLUGIN_DIR . '/core/admin/wpbc-toolbars.php' );              // Toolbar - BS UI Elements
 require_once( WPBC_PLUGIN_DIR . '/core/admin/wpbc-sql.php' );                   // Data Engine for Booking Listing / Calendar Overview pages
-//FixIn: 9.6.3.5
-
-//FixIn: 8.6.1.13
+//FixIn: 9.6.3.5    //FixIn: 8.6.1.13
 require_once( WPBC_PLUGIN_DIR . '/core/timeline/flex-timeline.php' );           // New. Flex. Timeline
 
 require_once( WPBC_PLUGIN_DIR . '/core/admin/wpbc-dashboard.php' );             // Dashboard Widget
@@ -100,12 +97,10 @@ require_once( WPBC_PLUGIN_DIR . '/core/admin/wpbc-dashboard.php' );             
 // Admin Pages
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//FixIn: 9.2.1
-//FixIn: 9.6.3.5
+//FixIn: 9.2.1      //FixIn: 9.6.3.5
 
 require_once( WPBC_PLUGIN_DIR . '/includes/_request/wpbc_request.php' );                                            //FixIn: 9.3.1.2        // Class for sanitizing $_REQUEST parameters and saving or getting it from  DB
 require_once( WPBC_PLUGIN_DIR . '/includes/_booking_hash/booking_hash.php' );                                       //FixIn: 9.2.3.3
-
 
 require_once( WPBC_PLUGIN_DIR . '/includes/_news/wpbc_news.php' );
 
@@ -133,7 +128,6 @@ if ( WPBC_customize_plugin ) {      //FixIn: 9.8.0.2
 	require_once( WPBC_PLUGIN_DIR . '/includes/page-customize/customize__ajax_request.php' );
 	require_once( WPBC_PLUGIN_DIR . '/includes/page-customize/customize__page.php' );
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -163,7 +157,7 @@ if ( file_exists( WPBC_PLUGIN_DIR.'/inc/_ps/personal.php' ) ){
     require_once( WPBC_PLUGIN_DIR . '/core/admin/page-email-deny.php' );        // Email - Deny - set  pending
     require_once( WPBC_PLUGIN_DIR . '/core/admin/page-email-approved.php' );    // Email - Approved
     require_once( WPBC_PLUGIN_DIR . '/core/admin/page-email-trash.php' );       // Email - Trash
-    require_once( WPBC_PLUGIN_DIR . '/core/admin/page-email-deleted.php' );     // Email - Deleted - completely  erase
+    require_once( WPBC_PLUGIN_DIR . '/core/admin/page-email-deleted.php' );     // Email - Deleted / completely erase
 
 	require_once( WPBC_PLUGIN_DIR . '/core/admin/page-ics-general.php' );		// General ICS Help Settings page		    //FixIn: 8.1.1.10
 	require_once( WPBC_PLUGIN_DIR . '/core/admin/page-ics-import.php' );        // Import ICS Help Settings page			//FixIn: 8.0
@@ -184,8 +178,19 @@ require_once WPBC_PLUGIN_DIR . '/core/lib/wpbc-booking-new.php';                
 require_once WPBC_PLUGIN_DIR . '/core/lib/wpbc-cron.php';                       // CRON  @since: 5.2.0
 
 if( is_admin() ) {
-    require_once WPBC_PLUGIN_DIR . '/core/admin/wpbc-toolbar-tiny.php';         // B o o k i n g    B u t t o n s   in   E d i t   t o o l b a r        
-} 
+	//FixIn: 9.9.0.15
+	require_once WPBC_PLUGIN_DIR . '/includes/_shortcode_popup/shortcode_tpl_js_loader.php';                            // Templates JS Loader
+    require_once WPBC_PLUGIN_DIR . '/includes/_shortcode_popup/sh_tpl_booking.php';                                     // Booking  -   Shortcode Config Content
+    require_once WPBC_PLUGIN_DIR . '/includes/_shortcode_popup/sh_tpl_booking_calendar.php';
+	require_once WPBC_PLUGIN_DIR . '/includes/_shortcode_popup/sh_tpl_booking_select.php';
+	require_once WPBC_PLUGIN_DIR . '/includes/_shortcode_popup/sh_tpl_booking_timeline.php';
+	require_once WPBC_PLUGIN_DIR . '/includes/_shortcode_popup/sh_tpl_booking_form.php';
+	require_once WPBC_PLUGIN_DIR . '/includes/_shortcode_popup/sh_tpl_booking_search.php';
+	require_once WPBC_PLUGIN_DIR . '/includes/_shortcode_popup/sh_tpl_booking_other.php';
+	require_once WPBC_PLUGIN_DIR . '/includes/_shortcode_popup/sh_tpl_booking_import.php';
+	require_once WPBC_PLUGIN_DIR . '/includes/_shortcode_popup/sh_tpl_booking_listing.php';
+    require_once WPBC_PLUGIN_DIR . '/includes/_shortcode_popup/tiny-button-popup.php';                                  // PopUp for shortcodes     and     Buttons in Edit toolbar
+}
 
 require_once WPBC_PLUGIN_DIR . '/core/sync/wpbc-gcal-class.php';                //DONE: in 7.0     // Google Calendar Feeds Import @since: 5.2.0  - v.3.0 API support @since: 5.4.0
 require_once WPBC_PLUGIN_DIR . '/core/sync/wpbc-gcal.php';                      //DONE: in 7.0     // Sync Google Calendar Events with  WPBC @since: 5.2.0  - v.3.0 API support @since: 5.4.0
@@ -193,6 +198,6 @@ require_once WPBC_PLUGIN_DIR . '/core/sync/wpbc-gcal.php';                      
 require_once( WPBC_PLUGIN_DIR . '/core/any/activation.php' );
 require_once( WPBC_PLUGIN_DIR . '/core/wpbc-activation.php' );
 
-require_once( WPBC_PLUGIN_DIR . '/core/wpbc-dev-api.php' );					// API for Booking Calendar integrations	//FixIn: 8.0
+require_once( WPBC_PLUGIN_DIR . '/core/wpbc-dev-api.php' );					    // API for Booking Calendar integrations	//FixIn: 8.0
 
 make_bk_action( 'wpbc_loaded_php_files' );

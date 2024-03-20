@@ -1496,6 +1496,25 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 			);
 		}
 
+
+		/**
+		 * Get html  preview of shortcode for Edit pages in Elementor and at Block editors
+		 *
+		 * @param $shortcode_type
+		 * @param $attr
+		 *
+		 * @return string
+		 */
+		function wpbc_get_preview_for_shortcode( $shortcode_type, $attr ) {
+
+			//FixIn: 9.9.0.39
+
+			return '<div style="border:2px dashed #ccc;text-align: center; padding:10px;display:flex;flex-flow:column wrap;justify-content: center;align-content: center;">
+						<div>WP Booking Calendar Shortcode</div>
+						<code>['.$shortcode_type.' ...]</code>
+						<div style="font-size:0.8em;">This is not a real preview. Publish the page to see it in action.</div>
+					</div>';
+		}
 	// </editor-fold>
 
 
@@ -1655,6 +1674,239 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 		}
 
 
+
+		/**
+		 * Check  if we need BLUR this section -- add CSS Class for specific versions
+		 *
+		 *  Example:   $is_blured = wpbc_is_blured( array( 'free', 'ps' ) ); 		// true in Free and  Personal versions.
+		 *
+		 * @param $versions_arr
+		 *
+		 * @return void
+		 */
+		function wpbc_is_blured( $versions_arr ){
+
+			$ver = wpbc_get_version_type__and_mu();
+
+			$is_blured = false;
+
+			switch ( $ver ) {
+				case 'free':
+					$is_blured = ( ( in_array( $ver, $versions_arr ) ) || ( in_array( 'f', $versions_arr ) ) ) ? true : $is_blured;
+					break;
+				case 'personal':
+					$is_blured = ( ( in_array( $ver, $versions_arr ) ) || ( in_array( 'ps', $versions_arr ) ) ) ? true : $is_blured;
+					break;
+				case 'biz_s':
+					$is_blured = ( ( in_array( $ver, $versions_arr ) ) || ( in_array( 'bs', $versions_arr ) ) ) ? true : $is_blured;
+					break;
+				case 'biz_m':
+					$is_blured = ( ( in_array( $ver, $versions_arr ) ) || ( in_array( 'bm', $versions_arr ) ) ) ? true : $is_blured;
+					break;
+				case 'biz_l':
+					$is_blured = ( ( in_array( $ver, $versions_arr ) ) || ( in_array( 'bl', $versions_arr ) ) ) ? true : $is_blured;
+					break;
+				case 'multiuser':
+					$is_blured = ( ( in_array( $ver, $versions_arr ) ) || ( in_array( 'mu', $versions_arr ) ) ) ? true : $is_blured;
+					break;
+				default:
+					// Default
+			}
+		    return $is_blured;
+		}
+
+
+		/**
+		 * Echo Blur CSS Class for specific versions
+		 *
+		 *  Example: wpbc_echo_blur(array('free','ps')); 		// Echo  blur in Free and  Personal versions.
+		 *
+		 * @param $versions_arr
+		 *
+		 * @return void
+		 */
+		function wpbc_echo_blur( $versions_arr ){
+
+			$is_blured = wpbc_is_blured( $versions_arr );
+
+			if ( $is_blured ) {
+				echo 'wpbc_blur';
+			}
+		}
+
+
+		/**
+		 * Show Upgrade Widget
+		 *
+		 * @param $id
+		 * @param $params
+		 *
+		 * @return string		if upgrade panel hided than  returned ''
+		 *
+		 *
+		 * Example:
+		 *                     wpbc_get_up_notice('booking_weekdays_conditions', array(
+		 * 																						'feature_link' => array( 'title' => 'feature',        'relative_url' => 'overview/#capacity' ),
+		 * 																						'upgrade_link' => array( 'title' => 'Upgrade to Pro', 'relative_url' => 'features/#bk_news_section' ),
+		 * 																						'versions'     => 'Business Large, MultiUser versions',
+		 * 																						'css'          => 'transform: translate(0) translateY(120px);'
+		 *                                                                    ));
+		 */
+		function wpbc_get__upgrade_notice__html_content( $id, $params ){
+
+			$defaults = array(
+							'feature_link' => array( 'title' => 'feature', 		  'relative_url' => 'overview/#capacity' ),
+							'upgrade_link' => array( 'title' => 'Upgrade to Pro', 'relative_url' => 'features/#bk_news_section' ),
+							'versions' 	   => 'Business Large, MultiUser versions',
+							'css'		   => 'transform: translate(0) translateY(120px);',
+							'dismiss_css_class' => '',
+							'html_dismiss_btn'  => ''
+						);
+			$params   = wp_parse_args( $params, $defaults );
+
+			ob_start();
+
+			?><div id="upgrade_notice_<?php echo esc_attr( $id ); ?>"
+				   class="wpbc_widget_content wpbc_upgrade_widget <?php echo esc_attr( str_replace( array('.','#'), '', $params['dismiss_css_class'] ) ); ?>"
+				   style="<?php echo esc_attr( $params['css'] ); ?>">
+				<div class="ui_container    ui_container_toolbar		ui_container_small       wpbc_upgrade_widget_container">
+					<div class="ui_group    ui_group__upgrade">
+						<div class="wpbc_upgrade_note wpbc_upgrade_theme_green">
+							<div>
+							<?php
+								printf( 'This %s is available in the %s. %s'
+									, '<a target="_blank" href="https://wpbookingcalendar.com/' . $params['feature_link']['relative_url'] . '">' . $params['feature_link']['title'] . '</a>'
+									, '<strong>' . $params['versions'] . '</strong>'
+									, '<a target="_blank" href="https://wpbookingcalendar.com/' . $params['upgrade_link']['relative_url'] . '">' . $params['upgrade_link']['title'] . '</a>'
+								);
+							?>
+							</div>
+							<?php
+							// Dismiss button
+							echo $params['html_dismiss_btn'];
+							?>
+						</div>
+					</div>
+				</div>
+			</div><?php
+
+			$html = ob_get_clean();
+
+			return  $html ;
+		}
+
+
+
+		/**
+		 * Get for showing Upgrade Widget Content and CSS class if needed to  blur real  content.  If
+		 *
+		 * @param $params = array(
+ 		 *																	  'id'                 => $id . '_' . 'weekdays_conditions',
+		 *														  			  'dismiss_css_class'  => '.wpbc_dismiss_weekdays_conditions',
+		 *														  			  'blured_in_versions' => array( 'free', 'ps', 'bs', 'mu' ),
+		 *														  			  'feature_link'       => array( 'title' => 'feature', 'relative_url' => 'overview/#advanced-days-selection' ),
+		 *														  			  'upgrade_link'       => array( 'title' => 'Upgrade to Pro', 'relative_url' => 'features/#bk_news_section' ),
+		 *														  			  'versions'           => 'Business Medium / Large, MultiUser versions',
+		 *														  			  'css'                => 'transform: translate(0) translateY(120px);'
+		 * 					)
+		 *
+		 * @return array(
+		 *     				'content' 				=> $upgrade_panel_html,
+		 *     				'maybe_blur_css_class' 	=> $blur_css_class
+		 * 				)
+		 *
+		 * Example of usage:
+		 *
+		 *		  		$upgrade_content_arr = wpbc_get_upgrade_widget( array(
+ 		 *																	  'id'                 => $id . '_' . 'weekdays_conditions',
+		 *														  			  'dismiss_css_class'  => '.wpbc_dismiss_weekdays_conditions',
+		 *														  			  'blured_in_versions' => array( 'free', 'ps', 'bs', 'mu' ),
+		 *														  			  'feature_link'       => array( 'title' => 'feature', 'relative_url' => 'overview/#advanced-days-selection' ),
+		 *														  			  'upgrade_link'       => array( 'title' => 'Upgrade to Pro', 'relative_url' => 'features/#bk_news_section' ),
+		 *														  			  'versions'           => 'Business Medium / Large, MultiUser versions',
+		 *														  			  'css'                => 'transform: translate(0) translateY(120px);'
+		 *														   ) );
+ 		 *
+		 * 			echo $upgrade_content_arr['content'];
+		 *
+		 *			// ... In real  content ...
+		 *          <div class=" wpbc_dismiss_weekdays_conditions <?php echo esc_attr( $upgrade_content_arr['maybe_blur_css_class'] ); ?>">
+		 *              ...
+		 *			</div>
+		 */
+		function wpbc_get_upgrade_widget( $params ) {
+
+			$defaults = array(
+								'id' 				 => 'wpbc_random_' . round( microtime( true ) * 1000 ), 			//$id . '_' . 'weekdays_conditions',
+								'blured_in_versions' => array( 'free', 'ps', 'bs', 'bm', 'bl', 'mu' ),
+								'feature_link' 		 => array( 'title' => 'feature', 'relative_url' => 'overview/#capacity' ),
+								'upgrade_link' 		 => array( 'title' => 'Upgrade to Pro', 'relative_url' => 'features/#bk_news_section' ),
+								'versions'     		 => 'Business Large, MultiUser versions',
+								'css'          		 => 'transform: translate(0) translateY(120px);',
+								'dismiss_css_class'  => ''																//'.wpbc_random_' . round( microtime( true ) * 1000 ), //'.'.$id . '_' . 'weekdays_conditions'
+						);
+			$params = wp_parse_args( $params, $defaults );
+			$up_id = $params['id'];
+
+
+			$is_blured = wpbc_is_blured( $params['blured_in_versions'] );
+
+			$upgrade_panel_html = '';
+			$blur_css_class     = '';
+
+			if ( $is_blured ) {
+
+				// ---------------------------------------------------------------------------------------------------------
+				// Is dismissed ?
+				// ---------------------------------------------------------------------------------------------------------
+				ob_start();
+				$is_upgrade_panel_visible = wpbc_is_dismissed( $up_id , array(
+																			'title' => '<span aria-hidden="true" style="font-size: 28px;">&times;</span>',
+																			'hint'  => __( 'Dismiss', 'booking' ),
+																			'class' => 'wpbc_panel_get_started_dismiss',
+																			'css'   => '',
+																			'dismiss_css_class' => $params['dismiss_css_class']
+																	) );
+				$html_dismiss_btn = ob_get_clean();
+
+				// ---------------------------------------------------------------------------------------------------------
+				// Upgrade Widget
+				// ---------------------------------------------------------------------------------------------------------
+				if ( $is_upgrade_panel_visible ) {
+
+					$upgrade_panel_html =  wpbc_get__upgrade_notice__html_content( $up_id, array(
+																'feature_link' => $params['feature_link'],
+																'upgrade_link' => $params['upgrade_link'],
+																'versions'     => $params['versions'],
+																'css'          => $params['css'],
+																'dismiss_css_class' => $params['dismiss_css_class'],
+																'html_dismiss_btn'=> $html_dismiss_btn
+														) );
+					$blur_css_class = 'wpbc_blur';
+				} else {
+
+					ob_start();
+
+					?><script type="text/javascript">
+						jQuery(document).ready(function(){
+							setTimeout(function(){
+								jQuery( '<?php echo esc_attr( $params['dismiss_css_class'] ); ?>' ).hide() ;
+							}, 100);
+						});
+					</script><?php
+
+					$upgrade_panel_html = ob_get_clean();
+				}
+			}
+
+			$upgrade_content_arr = array(
+							'content' 				=> $upgrade_panel_html,
+							'maybe_blur_css_class' 	=> $blur_css_class
+						);
+
+			return $upgrade_content_arr;
+
+		}
 	// </editor-fold>
 
 
@@ -1992,6 +2244,28 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 
 
 	// <editor-fold     defaultstate="collapsed"                        desc="  ==  Get Admin Menu URLs  ==  "  >
+
+		/**
+		 * Check  if we edit or create a new page in   WordPress ?
+		 * @return bool
+		 */
+		function wpbc_is_on_edit_page() {
+
+			//FixIn: 9.9.0.39
+
+			if ( ( ! empty( $GLOBALS['pagenow'] ) ) && ( is_admin() ) ) {
+				if (
+					   ( 'post.php'     === $GLOBALS['pagenow'] )		    // Edit - Post / Page
+					|| ( 'post-new.php' === $GLOBALS['pagenow'] )			// Add New - Post / Page
+					|| ( ( 'admin-ajax.php' === $GLOBALS['pagenow'] ) && ( ! empty( $_REQUEST['action'] ) ) && ( 'elementor_ajax' === $_REQUEST['action'] ) )		// Elementor Edit page - Ajax
+				) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 
 		/**
 		 * Get URL to specific Admin Menu page
@@ -3294,23 +3568,65 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 
 
 	// <editor-fold     defaultstate="collapsed"                        desc="  ==  Number of New Bookings  ==  "  >
-	
+
+		/**
+		 * Reset Cache for getting Number of new bookings. After this operation,  system  will  get  number of new bookings from  the DB.
+		 *
+		 * @return void
+		 */
+		function wpbc_booking_cache__new_bookings__reset(){
+			update_bk_option( 'booking_cache__new_bookings__saved_date', '' );
+		}
+		add_action( 'wpbc_track_new_booking', 'wpbc_booking_cache__new_bookings__reset' );
+		add_action( 'wpbc_set_booking_pending', 'wpbc_booking_cache__new_bookings__reset' );
+		add_action( 'wpbc_set_booking_approved', 'wpbc_booking_cache__new_bookings__reset' );
+		add_action( 'wpbc_move_booking_to_trash', 'wpbc_booking_cache__new_bookings__reset' );
+		add_action( 'wpbc_restore_booking_from_trash', 'wpbc_booking_cache__new_bookings__reset' );
+		add_action( 'wpbc_delete_booking_completely', 'wpbc_booking_cache__new_bookings__reset' );
+		add_action( 'wpbc_set_booking_as_read', 'wpbc_booking_cache__new_bookings__reset' );
+		add_action( 'wpbc_set_booking_as_unread', 'wpbc_booking_cache__new_bookings__reset' );
+
+
+		/**
+		 * Get number of new bookings
+		 * @return false|int|mixed|null
+		 */
 		function wpbc_db_get_number_new_bookings(){
-	
-			  global $wpdb;
-	
-			 //if  ( wpbc_is_field_in_table_exists('booking','is_new') == 0 )  return 0;  // do not created this field, so return 0
-	
-			  $trash_bookings = ' AND bk.trash != 1 ';                                //FixIn: 6.1.1.10  - check also  below usage of {$trash_bookings}           
-			  $sql_req = "SELECT bk.booking_id FROM {$wpdb->prefix}booking as bk WHERE  bk.is_new = 1 {$trash_bookings} " ;
-	
-			  $sql_req = apply_bk_filter('get_sql_for_checking_new_bookings', $sql_req );
-			  $sql_req = apply_bk_filter('get_sql_for_checking_new_bookings_multiuser', $sql_req );
-	
-			  $bookings = $wpdb->get_results( $sql_req );
-	
-			  return count($bookings) ;
-			
+
+			$new_bookings__number     = get_bk_option( 'booking_cache__new_bookings__number' );
+			$new_bookings__saved_date = get_bk_option( 'booking_cache__new_bookings__saved_date' );
+
+			$nowdate_str_ymdhis = date( 'Y-m-d H:i:s', strtotime( 'now' ) );
+
+			if ( ! empty( $new_bookings__saved_date ) ) {
+
+				$is_expired = ( strtotime( $new_bookings__saved_date ) <= strtotime( '-10 minutes', strtotime( $nowdate_str_ymdhis ) ) );
+
+				if ( ! $is_expired ) {
+					return $new_bookings__number;
+				}
+			}
+
+			if ( 1 ) {
+				global $wpdb;
+
+				//if  ( wpbc_is_field_in_table_exists('booking','is_new') == 0 )  return 0;  // do not created this field, so return 0
+
+				$trash_bookings = ' AND bk.trash != 1 ';                                //FixIn: 6.1.1.10  - check also  below usage of {$trash_bookings}
+				$sql_req        = "SELECT bk.booking_id FROM {$wpdb->prefix}booking as bk WHERE  bk.is_new = 1 {$trash_bookings} ";
+
+				$sql_req = apply_bk_filter( 'get_sql_for_checking_new_bookings', $sql_req );
+				$sql_req = apply_bk_filter( 'get_sql_for_checking_new_bookings_multiuser', $sql_req );
+
+				$bookings      = $wpdb->get_results( $sql_req );
+				$bookings_count = count( $bookings );
+			}
+
+
+			update_bk_option( 'booking_cache__new_bookings__number', $bookings_count );
+			update_bk_option( 'booking_cache__new_bookings__saved_date', $nowdate_str_ymdhis );
+
+			return $bookings_count;
 		}
 	
 	
@@ -3726,6 +4042,18 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 	// <editor-fold     defaultstate="collapsed"                        desc="  ==  Is Dismissed  ==  "  >
 
 		/**
+		 * Only  check  if Dismised or visible this section
+		 *
+		 * @param $element_html_id
+		 *
+		 * @return bool
+		 */
+		function wpbc_is_dismissed_panel_visible( $element_html_id ) {
+			return ( '1' != get_user_option( 'booking_win_' . $element_html_id ) );
+
+		}
+
+		/**
 		 * Show dismiss close button  for specific HTML section
 		 *
 		 * @param  string $element_html_id   - ID of HTML selection  to  dismiss
@@ -3753,6 +4081,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 								, 'is_apply_in_demo' => ! wpbc_is_this_demo()
 								, 'class' => ''									// CSS class of  close X element
 								, 'css' => ''									// Style class of  close X element
+								, 'dismiss_css_class'  => '' 					//'.'.$id . '_' . 'weekdays_conditions'
 						);
 			$params = wp_parse_args( $params, $defaults );
 
@@ -3763,15 +4092,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 
 				global $wpbc_Dismiss;
 
-				$is_panel_visible = $wpbc_Dismiss->render(
-															array(
-																	  'id' => $element_html_id
-																	, 'title' => $params['title']
-																	, 'hint' => $params['hint']
-																	, 'class' => $params['class']
-																	, 'css' => $params['css']
-															)
-													 );
+				$is_panel_visible = $wpbc_Dismiss->render( 	array(
+																	'id'                => $element_html_id,
+																	'title'             => $params['title'],
+																	'hint'              => $params['hint'],
+																	'class'             => $params['class'],
+																	'css'               => $params['css'],
+																	'dismiss_css_class' => $params['dismiss_css_class']
+														) );
 			} else {
 				$is_panel_visible = false;
 			}
@@ -4007,6 +4335,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 			if ( is_numeric( $booking_id ) ) {                                                                                  //FixIn: 8.1.2.8
 				if ( ! wpbc_is_booking_approved( $booking_id ) ) {
 					do_action( 'wpbc_booking_approved', $booking_id, 1 );                                						//FixIn: 8.7.6.1
+
 					wpbc_send_email_approved( $booking_id, 1, $email_reason );
 				}
 			} else {
@@ -4091,7 +4420,94 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 				wpbc_redirect( site_url()  );
 			}
 		}
-	
+
+
+			//FixIn: 9.9.0.43
+
+		/**
+		 * Auto  approve booking and send email, after successful  payment process
+		 *
+		 * It resolves issue in  Booking Calendar MultiUser version  for sending "regular email" to  visitors,  if was made booking for booking resource,  that  belong to  regular  user,
+		 * and was activated this option "Receive all payments only to Super Booking Admin account" at  the WP Booking Calendar > Settings General page in "Multiuser Options" section
+		 *
+		 * @param $booking_id
+		 *
+		 * @return void
+		 */
+		function wpbc_auto_approve_booking__after_payment( $booking_id ) {
+			//--------------------------------------------------------------------------------------------------		//FixIn: 9.9.0.43
+			$is_force_again = false;
+			if ( class_exists( 'wpdev_bk_multiuser' ) ) {
+
+				list( $booking_hash, $booking_resource_id ) = wpbc_hash__get_booking_hash__resource_id( $booking_id );
+
+				$user_id = apply_bk_filter( 'get_user_of_this_bk_resource', false, $booking_resource_id );
+
+				$is_booking_resource_user_super_admin = apply_bk_filter( 'is_user_super_admin', $user_id );
+
+				if (
+					( 'On' == get_bk_option( 'booking_super_admin_receive_regular_user_payments' ) )
+					&& ( ! $is_booking_resource_user_super_admin )
+				) {
+					// Finish "Super-User" forcing
+					make_bk_action( 'finish_force_using_this_user' );
+					//Reactivate data for "regular  user
+					make_bk_action( 'check_multiuser_params_for_client_side_by_user_id', $user_id );
+
+					$is_force_again = true;
+				}
+			}
+			// -------------------------------------------------------------------------------------------------
+
+			wpbc_auto_approve_booking( $booking_id );
+
+			if ( $is_force_again ) {                                                                                    //FixIn: 9.9.0.43
+				make_bk_action( 'make_force_using_this_user', - 999 );                                                  // '-999' - This ID "by default" is the ID of super booking admin user
+			}
+		}
+
+
+		/**
+		 * Auto cancel booking and send email, after successful  payment process
+		 *
+		 * It resolves issue in  Booking Calendar MultiUser version  for sending "regular email" to  visitors,  if was made booking for booking resource,  that  belong to  regular  user,
+		 * and was activated this option "Receive all payments only to Super Booking Admin account" at  the WP Booking Calendar > Settings General page in "Multiuser Options" section
+		 *
+		 * @param $booking_id
+		 *
+		 * @return void
+		 */
+		function wpbc_auto_cancel_booking__after_payment( $booking_id ) {
+			//--------------------------------------------------------------------------------------------------		//FixIn: 9.9.0.43
+			$is_force_again = false;
+			if ( class_exists( 'wpdev_bk_multiuser' ) ) {
+
+				list( $booking_hash, $booking_resource_id ) = wpbc_hash__get_booking_hash__resource_id( $booking_id );
+
+				$user_id = apply_bk_filter( 'get_user_of_this_bk_resource', false, $booking_resource_id );
+
+				$is_booking_resource_user_super_admin = apply_bk_filter( 'is_user_super_admin', $user_id );
+
+				if (
+					( 'On' == get_bk_option( 'booking_super_admin_receive_regular_user_payments' ) )
+					&& ( ! $is_booking_resource_user_super_admin )
+				) {
+					// Finish "Super-User" forcing
+					make_bk_action( 'finish_force_using_this_user' );
+					//Reactivate data for "regular  user
+					make_bk_action( 'check_multiuser_params_for_client_side_by_user_id', $user_id );
+
+					$is_force_again = true;
+				}
+			}
+			// -------------------------------------------------------------------------------------------------
+
+			wpbc_auto_cancel_booking( $booking_id );
+
+			if ( $is_force_again ) {                                                                                    //FixIn: 9.9.0.43
+				make_bk_action( 'make_force_using_this_user', - 999 );                                                  // '-999' - This ID "by default" is the ID of super booking admin user
+			}
+		}
 	// </editor-fold>
 
 

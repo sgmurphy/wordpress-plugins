@@ -928,10 +928,12 @@ class ParcelLocator {
 
 	protected static function shipping_provider_supports_locations( $provider, $location_type = 'packstation' ) {
 		if ( 'packstation' === $location_type ) {
-			return in_array( $provider, array( 'dhl', 'deutsche_post' ), true );
+			$is_supported = in_array( $provider, array( 'dhl', 'deutsche_post' ), true );
 		} else {
-			return in_array( $provider, array( 'dhl' ), true );
+			$is_supported = in_array( $provider, array( 'dhl' ), true );
 		}
+
+		return apply_filters( 'woocommerce_gzd_dhl_provider_supports_pickup_location', $is_supported, $provider, $location_type );
 	}
 
 	protected static function current_shipping_provider_supports_locations( $location_type = 'packstation' ) {
@@ -1079,7 +1081,7 @@ class ParcelLocator {
 				'required'    => false,
 				'type'        => 'text',
 				'class'       => array( 'shipping-dhl-postnumber' ),
-				'description' => _x( 'Not yet a DHL customer?', 'dhl', 'woocommerce-germanized' ) . '<br/><a href="https://www.dhl.de/de/privatkunden/kundenkonto/registrierung.html" target="_blank">' . _x( 'Register now', 'dhl', 'woocommerce-germanized' ) . '</a>',
+				'description' => _x( 'Not yet a DHL customer?', 'dhl', 'woocommerce-germanized' ) . ' <a href="https://www.dhl.de/de/privatkunden/kundenkonto/registrierung.html" target="_blank">' . _x( 'Register now', 'dhl', 'woocommerce-germanized' ) . '</a>',
 				'clear'       => true,
 				'priority'    => 45,
 			);

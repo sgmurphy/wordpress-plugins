@@ -201,7 +201,6 @@ class Helper_Functions {
 		}
 
 		return '' !== $category ? $category : __( 'Premium Addons', 'premium-addons-for-elementor' );
-
 	}
 
 	/**
@@ -339,7 +338,6 @@ class Helper_Functions {
 		}
 
 		return self::$google_localize;
-
 	}
 
 	/**
@@ -378,7 +376,6 @@ class Helper_Functions {
 		$is_active = in_array( $slug, (array) get_option( 'active_plugins', array() ), true );
 
 		return $is_active;
-
 	}
 
 	/**
@@ -517,7 +514,6 @@ class Helper_Functions {
 		}
 
 		return false;
-
 	}
 
 	/**
@@ -561,7 +557,6 @@ class Helper_Functions {
 		}
 
 		return $thumbnail_src;
-
 	}
 
 	/**
@@ -634,7 +629,6 @@ class Helper_Functions {
 		);
 
 		return $url;
-
 	}
 
 	/**
@@ -652,7 +646,6 @@ class Helper_Functions {
 		$theme = SettingsManager::get_settings_managers( 'editorPreferences' )->get_model()->get_settings( 'ui_theme' );
 
 		return $theme;
-
 	}
 
 	/**
@@ -674,7 +667,6 @@ class Helper_Functions {
 		$is_updated = get_option( 'papro_updated', true );
 
 		return $is_updated;
-
 	}
 
 	/**
@@ -841,7 +833,6 @@ class Helper_Functions {
 		}
 
 		return $devices;
-
 	}
 
 	/**
@@ -922,7 +913,6 @@ class Helper_Functions {
 		$is_enabled = $experiments_manager->is_feature_active( $experiment );
 
 		return $is_enabled;
-
 	}
 
 	/**
@@ -968,7 +958,6 @@ class Helper_Functions {
 		$path = str_replace( array( '//', '\\\\' ), array( '/', '\\' ), $file_path );
 
 		return str_replace( array( '/', '\\' ), DIRECTORY_SEPARATOR, $path );
-
 	}
 
 	/**
@@ -1210,7 +1199,6 @@ class Helper_Functions {
 		);
 
 		return $forms_array[ $preset ]; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
 	}
 
 	/**
@@ -1275,7 +1263,6 @@ class Helper_Functions {
 		} else {
 			return $shapes[ $shape ]['imagesmall'];
 		}
-
 	}
 
 	public static function get_btn_svgs( $style = 'line1' ) {
@@ -1289,11 +1276,11 @@ class Helper_Functions {
                 </svg></div>';
 				break;
 
-            case 'line3':
-                $html = '<div class="premium-btn-line-wrap"><svg class="premium-btn-svg" width="100%" height="18" viewBox="0 0 59 18">
+			case 'line3':
+				$html = '<div class="premium-btn-line-wrap"><svg class="premium-btn-svg" width="100%" height="18" viewBox="0 0 59 18">
                 <path d="M.945.149C12.3 16.142 43.573 22.572 58.785 10.842" pathLength="1"></path>
                 </svg></div>';
-                break;
+				break;
 
 			case 'line4':
 				$html = '<svg class="premium-btn-svg" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
@@ -1307,7 +1294,6 @@ class Helper_Functions {
 		}
 
 		return $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
 	}
 
 	/**
@@ -1334,7 +1320,7 @@ class Helper_Functions {
 					'style5' => apply_filters( 'pa_pro_label', __( 'In & Out (Pro)', 'premium-addons-for-elementor' ) ),
 					'style6' => apply_filters( 'pa_pro_label', __( 'Grow (Pro)', 'premium-addons-for-elementor' ) ),
 					'style7' => apply_filters( 'pa_pro_label', __( 'Double Layers (Pro)', 'premium-addons-for-elementor' ) ),
-					'style8' => apply_filters( 'pa_pro_label', __( 'Animated Underline (Pro)', 'premium-addons-for-elementor' ) )
+					'style8' => apply_filters( 'pa_pro_label', __( 'Animated Underline (Pro)', 'premium-addons-for-elementor' ) ),
 				),
 				'separator'   => 'before',
 				'label_block' => true,
@@ -1342,7 +1328,7 @@ class Helper_Functions {
 			)
 		);
 
-        do_action( 'pa_button_hover_controls', $elem, $conditions );
+		do_action( 'pa_button_hover_controls', $elem, $conditions );
 
 		$elem->add_control(
 			'premium_button_style1_dir',
@@ -1391,45 +1377,42 @@ class Helper_Functions {
 				'label_block' => true,
 			)
 		);
-
 	}
 
-    /**
-     * Get Button Class
-     *
-     * @since 4.10.17
-     * @access public
-     *
-     * @param $settings object widget settings.
-     *
-     * @return string $class css class.
-     */
-    public static function get_button_class( $settings ) {
+	/**
+	 * Get Button Class
+	 *
+	 * @since 4.10.17
+	 * @access public
+	 *
+	 * @param $settings object widget settings.
+	 *
+	 * @return string $class css class.
+	 */
+	public static function get_button_class( $settings ) {
 
-        $class = '';
+		$class = '';
 
-        $papro_activated = apply_filters( 'papro_activated', false );
+		$papro_activated = apply_filters( 'papro_activated', false );
 
-        if( ! $papro_activated && ! in_array( $settings['premium_button_hover_effect'], array( 'none', 'style1', 'style2' ) ) ) {
-            return '';
-        }
+		if ( ! $papro_activated && ! in_array( $settings['premium_button_hover_effect'], array( 'none', 'style1', 'style2' ) ) ) {
+			return '';
+		}
 
-        if ( 'style1' === $settings['premium_button_hover_effect'] ) {
+		if ( 'style1' === $settings['premium_button_hover_effect'] ) {
 			$class = 'premium-button-style1-' . $settings['premium_button_style1_dir'];
 		} elseif ( 'style2' === $settings['premium_button_hover_effect'] ) {
 			$class = 'premium-button-style2-' . $settings['premium_button_style2_dir'];
 		} elseif ( 'style5' === $settings['premium_button_hover_effect'] ) {
 			$class = 'premium-button-style5-' . $settings['premium_button_style5_dir'];
 		} elseif ( 'style6' === $settings['premium_button_hover_effect'] ) {
-			$class    = 'premium-button-style6';
+			$class = 'premium-button-style6';
 		} elseif ( 'style7' === $settings['premium_button_hover_effect'] ) {
 			$class = 'premium-button-style7-' . $settings['premium_button_style7_dir'];
 		} elseif ( 'style8' === $settings['premium_button_hover_effect'] ) {
-            $class = 'premium-button-' . $settings['underline_style'];
-        }
+			$class = 'premium-button-' . $settings['underline_style'];
+		}
 
-        return 'premium-button-' . $settings['premium_button_hover_effect'] . ' ' . $class;
-
-    }
-
+		return 'premium-button-' . $settings['premium_button_hover_effect'] . ' ' . $class;
+	}
 }

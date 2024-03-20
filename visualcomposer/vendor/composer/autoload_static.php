@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit45b2641900e136c3cee66f4a472703d1
+class ComposerStaticInit1880fd3d9f538af9e0785dc18f676393
 {
     public static $prefixLengthsPsr4 = array (
         'V' => 
@@ -136,7 +136,6 @@ class ComposerStaticInit45b2641900e136c3cee66f4a472703d1
         'VisualComposer\\Modules\\Editors\\DataAjax\\PostDataController' => __DIR__ . '/../..' . '/visualcomposer/Modules/Editors/DataAjax/PostDataController.php',
         'VisualComposer\\Modules\\Editors\\DataAjax\\PostFieldsController' => __DIR__ . '/../..' . '/visualcomposer/Modules/Editors/DataAjax/PostFieldsController.php',
         'VisualComposer\\Modules\\Editors\\DataAjax\\RevisionController' => __DIR__ . '/../..' . '/visualcomposer/Modules/Editors/DataAjax/RevisionController.php',
-        'VisualComposer\\Modules\\Editors\\DataUsage\\Controller' => __DIR__ . '/../..' . '/visualcomposer/Modules/Editors/DataUsage/Controller.php',
         'VisualComposer\\Modules\\Editors\\DataUsage\\MostUsedItemsController' => __DIR__ . '/../..' . '/visualcomposer/Modules/Editors/DataUsage/MostUsedItemsController.php',
         'VisualComposer\\Modules\\Editors\\EditPostLinks\\Controller' => __DIR__ . '/../..' . '/visualcomposer/Modules/Editors/EditPostLinks/Controller.php',
         'VisualComposer\\Modules\\Editors\\Elements\\Controller' => __DIR__ . '/../..' . '/visualcomposer/Modules/Editors/Elements/Controller.php',
@@ -155,7 +154,6 @@ class ComposerStaticInit45b2641900e136c3cee66f4a472703d1
         'VisualComposer\\Modules\\Editors\\Settings\\AlternativeSavingController' => __DIR__ . '/../..' . '/visualcomposer/Modules/Editors/Settings/AlternativeSavingController.php',
         'VisualComposer\\Modules\\Editors\\Settings\\EditorLayoutController' => __DIR__ . '/../..' . '/visualcomposer/Modules/Editors/Settings/EditorLayoutController.php',
         'VisualComposer\\Modules\\Editors\\Settings\\ItemBadgeController' => __DIR__ . '/../..' . '/visualcomposer/Modules/Editors/Settings/ItemBadgeController.php',
-        'VisualComposer\\Modules\\Editors\\Settings\\ItemDataCollectionController' => __DIR__ . '/../..' . '/visualcomposer/Modules/Editors/Settings/ItemDataCollectionController.php',
         'VisualComposer\\Modules\\Editors\\Settings\\ItemInitialHelpersController' => __DIR__ . '/../..' . '/visualcomposer/Modules/Editors/Settings/ItemInitialHelpersController.php',
         'VisualComposer\\Modules\\Editors\\Settings\\ItemPreviewController' => __DIR__ . '/../..' . '/visualcomposer/Modules/Editors/Settings/ItemPreviewController.php',
         'VisualComposer\\Modules\\Editors\\Settings\\PageEditableTemplatesController' => __DIR__ . '/../..' . '/visualcomposer/Modules/Editors/Settings/PageEditableTemplatesController.php',
@@ -313,9 +311,9 @@ class ComposerStaticInit45b2641900e136c3cee66f4a472703d1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit45b2641900e136c3cee66f4a472703d1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit45b2641900e136c3cee66f4a472703d1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit45b2641900e136c3cee66f4a472703d1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1880fd3d9f538af9e0785dc18f676393::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1880fd3d9f538af9e0785dc18f676393::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1880fd3d9f538af9e0785dc18f676393::$classMap;
 
         }, null, ClassLoader::class);
     }

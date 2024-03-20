@@ -31,7 +31,7 @@
 
 				el.after( times_options_html );
 
-				el.next('.wpbc_times_selector').find('div').on( "click", function() {
+				el.next('.wpbc_times_selector').find('div').not('.wpbc_time_picker_disabled').on( "click", function() {
 
 					// Get data value of clicked DIV time-slot
 					var selected_value = jQuery( this ).attr( 'data-value' );
@@ -80,6 +80,9 @@
 					         + '>'
 									+ el_item.title
 							 + '</div>'
+			} else {
+				// Uncomment row bellow to Show booked time slots as unavailable RED slots		//FixIn: 9.9.0.2
+				// select_div += '<div class="wpbc_time_picker_disabled">' + el_item.title + '</div>';
 			}
 
 		} );

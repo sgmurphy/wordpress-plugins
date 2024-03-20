@@ -1338,7 +1338,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 			<?php
 			$this->parent->add_render_attribute( $item['_id'] . '-icon_wrapper', 'id', $item['_id'] );
 
-			$this->parent->add_link_attributes($item['_id'] . '-icon_wrapper', $item['item_link']);
+			$this->parent->add_link_attributes($item['_id'] . '-link-attributes', $item['item_link']);
 			// $this->parent->add_render_attribute( $item['_id'] . '-link-attributes', 'href', $item['item_link']['url'] );
 			// if ( $item['item_link']['is_external'] === 'on' ) {
 			// 	$this->parent->add_render_attribute( $item['_id'] . '-link-attributes', 'target', '_blank' );
@@ -1360,7 +1360,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 				$image_align = $item['image_align'];
 			}
 			?>
-			<div id="<?php echo $item['_id']; ?>" class="eae-timeline-item elementor-repeater-item-<?php echo $item['_id']; ?> custom-image-style-<?php echo $item['tl_custom_image_style']; ?> image-position-<?php echo $image_align; ?>">
+			<div id="<?php echo $item['_id']; ?>" class="eae-timeline-item elementor-repeater-item-<?php echo $item['_id']; ?> custom-image-style-<?php echo esc_attr($item['tl_custom_image_style']); ?> image-position-<?php echo esc_attr($image_align); ?>">
 
 				<div <?php echo $this->parent->get_render_attribute_string( 'meta_wrapper' ); ?>>
 					<?php
@@ -1368,7 +1368,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 						?>
 						<div <?php echo $this->parent->get_render_attribute_string( 'meta' ); ?>>
 							<?php
-							echo $item['item_date'];
+							echo Helper::eae_wp_kses($item['item_date']);
 							?>
 						</div>
 						<?php
@@ -1405,7 +1405,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 								echo "<div class='eae-tl-item-image'>" . Group_Control_Image_Size::get_attachment_image_html( $item, 'item_content_image_size', 'item_content_image' ) . '</div>';
 							} else {
 								if ( $settings['_skin'] === 'skin2' ) {
-									echo "<div class='eae-tl-item-image'><img width='300px' src='" . $item['item_content_image']['url'] . "'></div>";
+									echo "<div class='eae-tl-item-image'><img width='300px' src='" . esc_url($item['item_content_image']['url']) . "'></div>";
 								}
 							}
 							?>
@@ -1417,7 +1417,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 											?>
 											<div class="eae-tl-item-meta-inner">
 												<?php
-												echo $item['item_date'];
+												echo Helper::eae_wp_kses($item['item_date']);
 												?>
 											</div>
 											<?php
@@ -1430,7 +1430,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 										Helper::validate_html_tag( $item['item_title_size'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ], 'h3' ),
 										$item['item_title_text']
 									);
-									echo '<div class="eae-tl-content-innner">' . $item['item_content'] . '</div>';
+									echo '<div class="eae-tl-content-innner">' . wp_kses_post($item['item_content']) . '</div>';
 									?>
 								</div>
 							</div>
@@ -1564,7 +1564,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 		if ( $settings['enable_cta'] === 'yes' ) {
 			?>
 			<div class="eae-tl-read-more">
-				<a href="<?php echo get_permalink( $post->ID ); ?>"><?php echo $settings['cta_text']; ?></a>
+				<a href="<?php echo get_permalink( $post->ID ); ?>"><?php echo Helper::eae_wp_kses($settings['cta_text']); ?></a>
 			</div>
 			<?php
 		}

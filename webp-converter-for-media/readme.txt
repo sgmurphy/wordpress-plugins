@@ -5,7 +5,7 @@ Tags: convert webp, webp, optimize images, image optimization, compress images
 Requires at least: 4.9
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 5.12.2
+Stable tag: 5.12.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -302,6 +302,9 @@ Current list of supported CDN servers:
 5. Ability to manually undo optimization of selected image
 
 == Changelog ==
+
+= 5.12.3 (2024-03-19) =
+* `[Fixed]` Support for changed upload directory path based on upload_path option
 
 = 5.12.2 (2024-03-14) =
 * `[Changed]` Verification of rewrites_not_executed server configuration error

@@ -813,7 +813,7 @@ class FlipBox extends EAE_Widget_Base {
 									Icons_Manager::render_icon( $settings['front_icon_new'], [ 'aria-hidden' => 'true' ] );
 								else :
 									?>
-									<i class="<?php echo $settings['front_icon']; ?>"></i>
+									<i class="<?php echo esc_attr($settings['front_icon']); ?>"></i>
 								<?php endif; ?>
 							</div>
 						<?php } ?>
@@ -833,7 +833,7 @@ class FlipBox extends EAE_Widget_Base {
 
 						<?php if ( ! empty( $settings['front-text'] ) ) { ?>
 							<p>
-								<?php echo $settings['front-text']; ?>
+								<?php echo Helper::eae_wp_kses($settings['front-text']); ?>
 							</p>
 						<?php } ?>
 					</div>
@@ -848,7 +848,7 @@ class FlipBox extends EAE_Widget_Base {
 									Icons_Manager::render_icon( $settings['back_icon_new'], [ 'aria-hidden' => 'true' ] );
 								else :
 									?>
-									<i class="<?php echo $settings['back_icon']; ?>"></i>
+									<i class="<?php echo esc_attr($settings['back_icon']); ?>"></i>
 								<?php endif; ?>
 							</div>
 						<?php } ?>
@@ -867,14 +867,14 @@ class FlipBox extends EAE_Widget_Base {
 
 						<?php if ( ! empty( $settings['back_text'] ) ) { ?>
 							<p>
-								<?php echo $settings['back_text']; ?>
+								<?php echo Helper::eae_wp_kses($settings['back_text']); ?>
 							</p>
 						<?php } ?>
 
 						<?php if ( ! empty( $settings['action_text'] ) ) { ?>
 							<div class="eae-fb-button-wrapper">
 								<a <?php echo $this->get_render_attribute_string( 'button' ); ?>>
-									<span class="elementor-button-text"><?php echo $settings['action_text']; ?></span>
+									<span class="elementor-button-text"><?php echo Helper::eae_wp_kses($settings['action_text']); ?></span>
 								</a>
 							</div>
 						<?php } ?>

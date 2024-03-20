@@ -422,8 +422,8 @@ function get_selected_bookings_id_in_this_list( list_tag, skip_id_length ) {
             
 	var checks, first, last, checked, sliced, lastClicked = false;
 
-	    // check all checkboxes
-        $('.wpbc_selectable_body').find('.check-column').find(':checkbox').on( 'click', function(e) {                   //FixIn: 8.7.11.12
+	// check all checkboxes
+	$('.wpbc_selectable_body').find('.check-column').find(':checkbox').on( 'click', function(e) {                   //FixIn: 8.7.11.12
 		if ( 'undefined' == e.shiftKey ) { return true; }
 		if ( e.shiftKey ) {
 			if ( !lastClicked ) { return true; }
@@ -451,10 +451,20 @@ function get_selected_bookings_id_in_this_list( list_tag, skip_id_length ) {
 			return ( 0 === unchecked.length );
 		});
 
+
 		// Disable text selection while pressing 'shift'
 		document.getSelection().removeAllRanges();              //FixIn: 8.7.6.8
 
 		return true;
+	});
+
+	//FixIn: 9.9.0.7
+	$('.wpbc_selectable_body').find('.check-column').find(':checkbox').on( 'change', function(e) {
+		if ( jQuery( this ).is( ':checked' ) ){
+			jQuery( this ).closest( '.wpbc_flextable_row' ).addClass( 'wpbc_flextable_row_selected' );
+		} else {
+			jQuery( this ).closest( '.wpbc_flextable_row' ).removeClass( 'wpbc_flextable_row_selected' );
+		}
 	});
 
 	$('.wpbc_selectable_head, .wpbc_selectable_foot').find('.check-column :checkbox').on( 'click.wp-toggle-checkboxes', function( event ) {
@@ -478,7 +488,8 @@ function get_selected_bookings_id_in_this_list( list_tag, skip_id_length ) {
 				}
 
 				return false;
-			});
+			}).trigger( 'change' );		//FixIn: 9.9.0.7
+
         //FixIn: 8.8.1.15
 		$table.find('.wpbc_selectable_head,  .wpbc_selectable_foot').filter(':visible')
                         .find('.check-column').find(':checkbox')

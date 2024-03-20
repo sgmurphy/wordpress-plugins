@@ -47,9 +47,7 @@ if ( ! class_exists( 'Premium_Structure_Section' ) ) {
 				'show_title'    => false,
 				'show_keywords' => true,
 			);
-
 		}
-
 	}
 
 }

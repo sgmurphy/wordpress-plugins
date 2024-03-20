@@ -2238,7 +2238,8 @@ class LoginPress_Entities {
 	/**
 	 * Hook to Redirect Page for Customize
 	 *
-	 * @since	1.1.3
+	 * @since   1.1.3
+	 * @version 3.0.6
 	*/
 	public function redirect_to_custom_page() {
 		if ( ! empty($_GET['page'] ) ) {
@@ -2264,8 +2265,10 @@ class LoginPress_Entities {
 					wp_safe_redirect( $url );
 
 				} else {
-
-				wp_redirect( get_admin_url() . "customize.php?url=" . wp_login_url() . '&autofocus=loginpress_panel' );
+					$login_url  = wp_login_url();
+					$parsed_url = parse_url( $login_url );
+					$login_url  = isset( $parsed_url['path'] ) ? sanitize_text_field( $parsed_url['path'] ) : 'wp-login.php';
+					wp_redirect( get_admin_url() . "customize.php?url=" . esc_url( site_url( $login_url, 'login_post') ) . '&autofocus=loginpress_panel' );
 				}
 			}
 		}
@@ -2274,21 +2277,24 @@ class LoginPress_Entities {
 	/**
 	 * Redirect to the Admin Panel After Closing LoginPress Customizer
 	 *
-	 * @since	1.0.0
-	 * @return null
+	 * @since   1.0.0
+	 * @version 3.0.6
+	 * @return  null
 	 */
 	public function menu_url() {
 
 		global $submenu;
 
 		$parent = 'index.php';
-		$page	 = 'abw';
+		$page	= 'abw';
 
-		// Create specific url for login view
-		$login_url = wp_login_url();
-		$url			 = add_query_arg(
+		// Create specific url for login view.
+		$login_url  = wp_login_url();
+		$parsed_url = parse_url( $login_url );
+		$login_url  = isset( $parsed_url['path'] ) ? sanitize_text_field( $parsed_url['path'] ) : 'wp-login.php';
+		$url        = add_query_arg(
 			array(
-				'url'		=> urlencode( $login_url ),
+				'url'		=> esc_url( site_url( $login_url, 'login_post' ) ),
 				'return' => admin_url( 'themes.php' ),
 			),
 			admin_url( 'customize.php' )
@@ -2313,11 +2319,18 @@ class LoginPress_Entities {
 	 * @param  array $errors      [description]
 	 * @param  string $redirect_to [description]
 	 * @since  1.2.0
+	 * @version 3.0.6
 	 */
 	function remove_error_messages_in_wp_customizer( $errors, $redirect_to ) {
 
 		if ( is_customize_preview() && version_compare( $GLOBALS['wp_version'], '5.2', '>=' ) ) {
 			return new WP_Error( '', '' );
+		}
+		// If Logout message is set and not empty then remove the default logout message from WordPress.
+		if ( isset( $this->loginpress_key ) && array_key_exists( 'logout_message', $this->loginpress_key ) && ! empty( $this->loginpress_key['logout_message'] ) ) {
+			if ( isset( $_GET['loggedout'] ) && TRUE == $_GET['loggedout'] && isset( $errors->errors['loggedout'] ) ) {
+				unset( $errors->errors['loggedout'] );
+			}
 		}
 		return $errors;
 	}

@@ -5,7 +5,7 @@
 
     var adminNotices = {
         'radius': 'radius_notice',
-        'offcanvas': 'offcanvas',
+        'countdown': 'countdown',
     };
 
     if (undefined !== notice) {

@@ -261,5 +261,3 @@ if ( ! function_exists( 'rplg_urlopen' ) ) {
 		}
 	}
 }
-
-

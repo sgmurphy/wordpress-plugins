@@ -46,21 +46,20 @@ $out_of_stock = 'outofstock' === get_post_meta( $product_id, '_stock_status', tr
 		echo '<div class="premium-woo-product-thumbnail">';
 		if ( $out_of_stock ) {
 			echo '<span class="pa-out-of-stock">' . esc_html( self::$settings['sold_out_string'] ) . '</span>';
-		} else {
-			if ( $product->is_on_sale() || $product->is_featured() ) { // TODO:: ADD ONLY IF THE PRODUCT IF FEATURED || ON SALE.
+		} elseif ( $product->is_on_sale() || $product->is_featured() ) {
+			// TODO:: ADD ONLY IF THE PRODUCT IF FEATURED || ON SALE.
 
 				echo '<div class="premium-woo-ribbon-container">';
 
-				if ( 'yes' === $sale_ribbon ) {
-					include PREMIUM_ADDONS_PATH . 'modules/woocommerce/templates/loop/sale-ribbon.php';
-				}
+			if ( 'yes' === $sale_ribbon ) {
+				include PREMIUM_ADDONS_PATH . 'modules/woocommerce/templates/loop/sale-ribbon.php';
+			}
 
-				if ( 'yes' === $featured_ribbon ) {
-					include PREMIUM_ADDONS_PATH . 'modules/woocommerce/templates/loop/featured-ribbon.php';
-				}
+			if ( 'yes' === $featured_ribbon ) {
+				include PREMIUM_ADDONS_PATH . 'modules/woocommerce/templates/loop/featured-ribbon.php';
+			}
 
 				echo '</div>';
-			}
 		}
 			woocommerce_template_loop_product_link_open();
 

@@ -81,7 +81,5 @@ class Device extends Condition {
 		}
 
 		return Helper_Functions::get_final_result( $condition_result, $operator );
-
 	}
-
 }

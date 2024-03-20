@@ -44,7 +44,6 @@ if ( ! class_exists( 'Premium_Templates_Assets' ) ) {
 			add_action( 'elementor/editor/after_enqueue_styles', array( $this, 'editor_styles' ) );
 
 			add_action( 'elementor/editor/footer', array( $this, 'load_footer_scripts' ) );
-
 		}
 
 		/**
@@ -66,7 +65,6 @@ if ( ! class_exists( 'Premium_Templates_Assets' ) ) {
 				PREMIUM_ADDONS_VERSION,
 				'all'
 			);
-
 		}
 
 		/**
@@ -88,7 +86,6 @@ if ( ! class_exists( 'Premium_Templates_Assets' ) ) {
 				PREMIUM_ADDONS_VERSION,
 				'all'
 			);
-
 		}
 
 		/**
@@ -132,7 +129,6 @@ if ( ! class_exists( 'Premium_Templates_Assets' ) ) {
 					)
 				)
 			);
-
 		}
 
 		/**
@@ -149,7 +145,6 @@ if ( ! class_exists( 'Premium_Templates_Assets' ) ) {
 				'modalHeader'  => '.dialog-header',
 				'modalContent' => '.dialog-message',
 			);
-
 		}
 
 		/**
@@ -165,17 +160,15 @@ if ( ! class_exists( 'Premium_Templates_Assets' ) ) {
 			$scripts = glob( PREMIUM_ADDONS_PATH . 'includes/templates/scripts/*.php' );
 
 			array_map(
-				function( $file ) {
+				function ( $file ) {
 
 					$name = basename( $file, '.php' );
 					ob_start();
 					include $file;
 					printf( '<script type="text/html" id="tmpl-premium-%1$s">%2$s</script>', $name, ob_get_clean() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
 				},
 				$scripts
 			);
-
 		}
 
 		/**
@@ -197,10 +190,7 @@ if ( ! class_exists( 'Premium_Templates_Assets' ) ) {
 			}
 
 			return self::$instance;
-
 		}
-
-
 	}
 
 }

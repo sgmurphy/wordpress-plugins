@@ -177,9 +177,9 @@
     font-size: 1em;
     padding: 5px 10px !important;
     width: auto !important;    
-    box-sizing: padding-box;
-    -moz-box-sizing: padding-box;
-    -webkit-box-sizing: padding-box;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 .wpbc-help-message {
     background-color: #FFFDFD;    
@@ -657,4 +657,21 @@ table.wpbc_input_table tr.highlight td:first-child{
 }
 .wpbc_code2{
     background-color: #f9f2f4;
+}
+/* Update View of shortcodes after  creation  of the pages */
+.wpbc_inserted_shortcode_view {
+  display: flex;
+  font-size: 13px;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+  margin: 5px 0 10px;
+  color: #276100;
+  border-radius: 3px;
+  line-height: 2.8;
+}
+.wpbc_open_page_as_new_tab {
+    font-weight: 600;
+    margin: 0 5px;
 }

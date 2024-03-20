@@ -118,7 +118,5 @@ class Ip_Location extends Condition {
 		$condition_result = is_array( $value ) && ! empty( $value ) ? in_array( $location, $value, true ) : $value === $location;
 
 		return Helper_Functions::get_final_result( $condition_result, $operator );
-
 	}
-
 }

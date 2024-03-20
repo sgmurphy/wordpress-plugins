@@ -26,7 +26,7 @@ global $post, $product, $woocommerce;
 				'alt'   => $props['alt'],
 			)
 		);
-		echo sprintf(
+		printf(
 			'<li class="woocommerce-product-gallery__image">%s</li>',
 			wp_kses_post( $image )
 		);
@@ -49,12 +49,12 @@ global $post, $product, $woocommerce;
 					)
 				);
 
-				$loop++;
+				++$loop;
 			}
 		}
 	} else {
 
-		echo sprintf( '<li><img src="%s" alt="%s" /></li>', wp_kses_post( wc_placeholder_img_src() ), esc_html( __( 'Placeholder', 'premium-addons-for-elementor' ) ) );
+		printf( '<li><img src="%s" alt="%s" /></li>', wp_kses_post( wc_placeholder_img_src() ), esc_html( __( 'Placeholder', 'premium-addons-for-elementor' ) ) );
 	}
 	?>
 	</div>

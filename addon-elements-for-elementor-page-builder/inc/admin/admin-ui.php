@@ -174,10 +174,10 @@ class Admin_Ui {
 										<option value="activate">Activate</option>
 										<option value="deactivate">Deactivate</option>
 									</select>
-									<input id="eae-apply" class="button" type="button" value="<?php echo __('Apply', 'aepro'); ?>" />
+									<input id="eae-apply" class="button" type="button" value="<?php echo esc_attr('Apply', 'wts-eae'); ?>" />
 								</div>
 								<div class="eae-module-row eae-module-group eae-widgets">
-									<h4 class="eae-group-title"><?php echo __('Widgets', 'aepro'); ?></h4>
+									<h4 class="eae-group-title"><?php echo esc_attr('Widgets', 'aepro'); ?></h4>
 								</div>
 								<?php
 									foreach ($eae_widgets as $module_key => $widget) {
@@ -199,25 +199,25 @@ class Admin_Ui {
 										}
 										
 										?>
-										<div class="<?php echo $class; ?>">
+										<div class="<?php echo esc_attr($class); ?>">
 											<?php 
 											
 											if(isset($widget['pro']) && Plugin::$is_pro === false){
 												?>
-												<input class="" type="checkbox" name="" disabled value="<?php echo $module_key; ?>" />
+												<input class="" type="checkbox" name="" disabled value="<?php echo esc_attr($module_key); ?>" />
 												<?php
 											}else{
 												?>
-												<input class="eae-module-item" type="checkbox" name="eae_modules[]" value="<?php echo $module_key; ?>" />
+												<input class="eae-module-item" type="checkbox" name="eae_modules[]" value="<?php echo esc_attr($module_key); ?>" />
 												<?php
 											}	
 											?>
 											
-											<?php echo $widget['name']; ?>
+											<?php echo esc_html($widget['name']); ?>
 
 											<?php
 												if(!empty($pro_text)){
-													echo '<span class="eae-pro-label">'.$pro_text.'</span>';
+													echo '<span class="eae-pro-label">'.esc_html($pro_text).'</span>';
 												}
 											?>
 
@@ -232,7 +232,7 @@ class Admin_Ui {
 												}else{
 													?>
 														<div class="eae-module-action">
-															<a data-action="<?php echo $action; ?>" data-moduleId="<?php echo $module_key; ?>" href="#"> <?php echo $action_text; ?> </a>
+															<a data-action="<?php echo esc_attr($action); ?>" data-moduleId="<?php echo esc_attr($module_key); ?>" href="#"> <?php echo esc_html($action_text); ?> </a>
 														</div>
 													<?php
 												}
@@ -241,7 +241,7 @@ class Admin_Ui {
 										</div>
 								<?php } ?>
 								<div class="eae-module-row eae-module-group eae-extension">
-														<h4 class="eae-group-title"><?php echo __('Extensions', 'aepro'); ?></h4>
+									<h4 class="eae-group-title"><?php echo esc_html('Extensions', 'wts-eae'); ?></h4>
 								</div>
 								<?php
 									foreach ($eae_ext as $module_key => $widget) {
@@ -258,12 +258,12 @@ class Admin_Ui {
 										}
 
 								?>
-										<div class="<?php echo $class; ?>">
-											<input class="eae-module-item" type="checkbox" name="eae_modules[]" value="<?php echo $module_key; ?>" />
-											<?php echo $widget['name']; ?>
+										<div class="<?php echo esc_attr($class); ?>">
+											<input class="eae-module-item" type="checkbox" name="eae_modules[]" value="<?php echo esc_attr($module_key); ?>" />
+											<?php echo esc_html($widget['name']); ?>
 
 											<div class="eae-module-action">
-												<a data-action="<?php echo $action; ?>" data-moduleId="<?php echo $module_key; ?>" href="#"> <?php echo $action_text; ?> </a>
+												<a data-action="<?php echo esc_attr($action); ?>" data-moduleId="<?php echo esc_attr($module_key); ?>" href="#"> <?php echo esc_html($action_text); ?> </a>
 											</div>
 										</div>
 									<?php } ?>
@@ -280,7 +280,7 @@ class Admin_Ui {
 											<br/>
 											<span class="eae-field-desc">
 												<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">
-													<?php echo _e('Click Here') ?>
+													<?php echo esc_html('Click Here') ?>
 												</a> to generate API KEY
 											</span>
 										</td>
@@ -297,7 +297,7 @@ class Admin_Ui {
 												<br/>
 												<span class="eae-field-desc">
 													<a href="https://wpvibes.link/go/youtube-api-key/" target="_blank">
-														<?php echo _e('Click Here') ?>
+														<?php echo esc_html('Click Here') ?>
 													</a> How to generate API KEY
 												</span>
 											</td>
@@ -455,7 +455,7 @@ class Admin_Ui {
 				</g>
 				</svg>
 				<h1>Elementor Addon Elements</h1>
-				<span class="eae-version"><?php echo EAE_VERSION; ?></span>
+				<span class="eae-version"><?php echo esc_html(EAE_VERSION); ?></span>
 			</div>
 
 
@@ -473,8 +473,8 @@ class Admin_Ui {
 								$target = 'target="_blank"';
 							}
 					?>
-							<li class="<?php echo $active; ?>">
-								<a <?php echo $target; ?> href="<?php echo $link['link']; ?>"><?php echo $link['label']; ?></a>
+							<li class="<?php echo esc_attr($active); ?>">
+								<a <?php echo esc_attr($target); ?> href="<?php echo esc_attr($link['link']); ?>"><?php echo esc_attr($link['label']); ?></a>
 							</li>
 					<?php
 						}

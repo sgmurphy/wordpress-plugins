@@ -204,8 +204,9 @@ class Helper {
 			$icon_name = 'eae-icon-' . $control_name;
 
 			if ( $default['icon_new'] !== '' ) {
+
 				?>
-				<div class="eae-icon <?php echo $icon_name . ' ' . $view . ' ' . $shape . ' ' . $icon_type; ?>">
+				<div class="eae-icon <?php echo esc_attr($icon_name . ' ' . $view . ' ' . $shape . ' ' . $icon_type); ?>">
 					<div class="eae-icon-wrap">
 						<?php if ( $default['icon_type'] === 'icon' ) { ?>
 							<?php
@@ -213,11 +214,11 @@ class Helper {
 								Icons_Manager::render_icon( $all_settings[ $skin_type . '_global_icon_new' ], [ 'aria-hidden' => 'true' ] );
 							else :
 								?>
-								<i class="<?php echo $default['icon']; ?>"></i>
+								<i class="<?php echo esc_attr($default['icon']); ?>"></i>
 							<?php endif; ?>
 							<?php
 						} else {
-							echo $icon_html;
+							echo esc_html($icon_html);
 						}
 						?>
 					</div>
@@ -250,7 +251,7 @@ class Helper {
 		}
 		if ( isset( $settings[ $control_name . '_eae_icon' ] ) && $settings[ $control_name . '_eae_icon' ] !== '' ) {
 			?>
-			<div class="eae-icon <?php echo $icon_name . ' ' . $view . ' ' . $shape . ' ' . $icon_type; ?>">
+			<div class="eae-icon <?php echo esc_attr($icon_name . ' ' . $view . ' ' . $shape . ' ' . $icon_type); ?>">
 				<div class="eae-icon-wrap">
 					<?php
 					if ( $settings[ $control_name . '_icon_type' ] === 'icon' ) {
@@ -260,11 +261,11 @@ class Helper {
 							Icons_Manager::render_icon( $settings[ $control_name . '_icon_new' ], [ 'aria-hidden' => 'true' ] );
 						else :
 							?>
-							<i class="<?php echo $settings[ $control_name . '_icon' ]; ?>"></i>
+							<i class="<?php echo esc_attr($settings[ $control_name . '_icon' ]); ?>"></i>
 						<?php endif; ?>
 						<?php
 					} else {
-						echo $icon_html;
+						echo esc_attr($icon_html);
 					}
 					?>
 				</div>
@@ -2081,7 +2082,8 @@ class Helper {
             if($data[$control_name.'_graphic_type'] == 'lottie') {
                 if(!empty($lottie_data['url'])){
 					
-                    ?><span <?php echo $tag->get_render_attribute_string('panel-icon');?>></span><?php
+                    ?><span <?php echo $tag->get_render_attribute_string('panel-icon');?>></span>
+					<?php
 					$tag->remove_render_attribute('panel-icon');
                 }
             }else{
@@ -2936,6 +2938,262 @@ class Helper {
 				return $default;
 			}
 		}	
+	}
+
+	
+	public static function eae_wp_kses( $text ) {
+        if ( empty( $text ) ) {
+            return '';
+        }
+		return wp_kses( $text, self::eae_allowed_html_tags(), array_merge( wp_allowed_protocols(), [ 'data' ] ) );
+	}
+
+	
+	public static function eae_allowed_html_tags() {
+		return apply_filters('eae_allowed_html_tags', 
+			[
+				'a'       => [
+					'href'   => [],
+					'title'  => [],
+					'class'  => [],
+					'rel'    => [],
+					'id'     => [],
+					'style'  => [],
+					'target' => [],
+				],
+				'q'       => [
+					'cite'  => [],
+					'class' => [],
+					'id'    => [],
+				],
+				'img'     => [
+					'src'    => [],
+					'alt'    => [],
+					'height' => [],
+					'width'  => [],
+					'class'  => [],
+					'id'     => [],
+					'style'  => []
+				],
+				'span'    => [
+					'class' => [],
+					'id'    => [],
+					'style' => []
+				],
+				'dfn'     => [
+					'class' => [],
+					'id'    => [],
+					'style' => []
+				],
+				'time'    => [
+					'datetime' => [],
+					'class'    => [],
+					'id'       => [],
+					'style'    => [],
+				],
+				'cite'    => [
+					'title' => [],
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'hr'      => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'b'       => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'p'       => [
+					'class' => [],
+					'id'    => [],
+					'style' => []
+				],
+				'i'       => [
+					'class' => [],
+					'id'    => [],
+					'style' => []
+				],
+				'u'       => [
+					'class' => [],
+					'id'    => [],
+					'style' => []
+				],
+				's'       => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'br'      => [],
+				'em'      => [
+					'class' => [],
+					'id'    => [],
+					'style' => []
+				],
+				'code'    => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'mark'    => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'small'   => [
+					'class' => [],
+					'id'    => [],
+					'style' => []
+				],
+				'abbr'    => [
+					'title' => [],
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'strong'  => [
+					'class' => [],
+					'id'    => [],
+					'style' => []
+				],
+				'del'     => [
+					'class' => [],
+					'id'    => [],
+					'style' => []
+				],
+				'ins'     => [
+					'class' => [],
+					'id'    => [],
+					'style' => []
+				],
+				'sub'     => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'sup'     => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'div'     => [
+					'class' => [],
+					'id'    => [],
+					'style' => []
+				],
+				'strike'  => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'acronym' => [],
+				'h1'      => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'h2'      => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'h3'      => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'h4'      => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'h5'      => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'h6'      => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'button'  => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'center'  => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'ul'      => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'ol'      => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'li'      => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+				],
+				'table'   => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+					'dir'   => [],
+					'align' => [],
+				],
+				'thead'   => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+					'align' => [],
+				],
+				'tbody'   => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+					'align' => [],
+				],
+				'tfoot'   => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+					'align' => [],
+				],
+				'th'      => [
+					'class'   => [],
+					'id'      => [],
+					'style'   => [],
+					'align'   => [],
+					'colspan' => [],
+					'rowspan' => [],
+				],
+				'tr'      => [
+					'class' => [],
+					'id'    => [],
+					'style' => [],
+					'align' => [],
+				],
+				'td'      => [
+					'class'   => [],
+					'id'      => [],
+					'style'   => [],
+					'align'   => [],
+					'colspan' => [],
+					'rowspan' => [],
+				],
+			]
+		);
 	}
 	
 

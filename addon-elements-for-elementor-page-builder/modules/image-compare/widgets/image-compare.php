@@ -10,6 +10,7 @@ use Elementor\Utils;
 use Elementor\Group_Control_Image_Size;
 use Elementor\Group_Control_Border;
 use Elementor\Icons_Manager;
+use WTS_EAE\Classes\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -456,7 +457,7 @@ class ImageCompare extends EAE_Widget_Base {
 					echo Group_Control_Image_Size::get_attachment_image_html( $settings, 'before_image_size', 'before_image' );
 				?>
 			<?php if ( $settings['text_before'] !== '' ) { ?>
-				<span class="eae-text-before"><?php echo $settings['text_before']; ?></span>
+				<span class="eae-text-before"><?php echo Helper::eae_wp_kses($settings['text_before']); ?></span>
 			<?php } ?>
 
 			<div <?php echo $this->get_render_attribute_string( 'icon' ); ?> >
@@ -471,7 +472,7 @@ class ImageCompare extends EAE_Widget_Base {
 					);
 				else :
 					?>
-					<i class="<?php echo $settings['slider_icon']; ?> eae-slider-icon"></i>
+					<i class="<?php echo esc_attr($settings['slider_icon']); ?> eae-slider-icon"></i>
 				<?php endif; ?>
 			</div>
 
@@ -481,10 +482,9 @@ class ImageCompare extends EAE_Widget_Base {
 				?>
 
 				<?php if ( $settings['text_after'] !== '' ) { ?>
-				<span class="eae-text-after"><?php echo $settings['text_after']; ?></span>
+				<span class="eae-text-after"><?php echo Helper::eae_wp_kses($settings['text_after']); ?></span>
 			<?php } ?>
 			</div>
-
 		</figure>
 		<?php
 	}

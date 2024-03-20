@@ -8,7 +8,7 @@ use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Border;
 use WTS_EAE\Base\EAE_Widget_Base;
 use Elementor\Group_Control_Typography;
-
+use WTS_EAE\Classes\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -357,7 +357,7 @@ class AnimatedText extends EAE_Widget_Base {
 		?>
 			<div id="eae-at-<?php echo $this->get_id(); ?>" class="eae-animtext-wrapper">
 				<div <?php echo $this->get_render_attribute_string( 'eae-at-animated' ); ?>>
-					<span <?php echo $this->get_render_attribute_string( 'eae-at-pre-txt' ); ?>><?php echo $settings['pre-text']; ?></span>
+					<span <?php echo $this->get_render_attribute_string( 'eae-at-pre-txt' ); ?>><?php echo Helper::eae_wp_kses($settings['pre-text']); ?></span>
 						<?php
 						if ( count( $settings['animation-text-list'] ) ) {
 							?>
@@ -366,7 +366,7 @@ class AnimatedText extends EAE_Widget_Base {
 								foreach ( $settings['animation-text-list'] as $animation_text ) {
 									?>
 
-									<span <?php echo $this->get_render_attribute_string( 'eae-at-animated-text' ); ?>><?php echo $animation_text['text']; ?></span>
+									<span <?php echo $this->get_render_attribute_string( 'eae-at-animated-text' ); ?>><?php echo Helper::eae_wp_kses($animation_text['text']); ?></span>
 
 									<?php
 								}
@@ -375,7 +375,7 @@ class AnimatedText extends EAE_Widget_Base {
 							<?php
 						}
 						?>
-					<span <?php echo $this->get_render_attribute_string( 'eae-at-post-txt' ); ?>><?php echo $settings['post-text']; ?></span>
+					<span <?php echo $this->get_render_attribute_string( 'eae-at-post-txt' ); ?>><?php echo Helper::eae_wp_kses($settings['post-text']); ?></span>
 				</div>
 			</div>
 			<script>

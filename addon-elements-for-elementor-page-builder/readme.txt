@@ -133,8 +133,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 8. Elementor addon widgets section
 
 == Changelog ==
+= 1.13.2 =
+* Tweak : Inline Font Icons compatibility added 
+* Enhancement : Improved code structure
+* Fixed : Timeline card link issue.
+* Fixed : Comparison Table editor ribbon bug
+
 = 1.13.1 =
-* Fixed : Fixed fatal error coming in few cases after the latest update. 
+* Fixed : WooCommerce related error handled.
 
 = 1.13 =
 * New Widget : Coupon code widget.

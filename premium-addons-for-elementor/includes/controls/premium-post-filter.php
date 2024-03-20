@@ -26,7 +26,4 @@ class Premium_Post_Filter extends Control_Select2 {
 	public function get_type() {
 		return self::TYPE;
 	}
-
 }
-
-

@@ -58,6 +58,9 @@ function ajax_WPBC_AJX_BOOKING__CREATE() {
 
 	// Escape of request params   in Ajax Post.         We use prefix 'calendar_request_params', if Ajax sent - $_REQUEST['calendar_request_params']['resource_id'], ...
 	$request_prefix = 'calendar_request_params';
+
+//$_REQUEST['calendar_request_params']['dates_ddmmyy_csv'] .= "'%2b(select+'box'+from(select+sleep(2)+from+dual+where+1=1*)a)%2b'-02-21+00:00:00";
+
 	$request_params = $user_request->get_sanitized__in_request__value_or_default( $request_prefix );                    // NOT Direct: 	$_REQUEST['calendar_request_params']['resource_id']
 
 	$request_params['request_uri'] = $_SERVER['HTTP_REFERER'];      // Parameter needed for Error in booking saving and reloading calendar again  with  these actual  parameters.
@@ -282,6 +285,13 @@ function wpbc_booking_save( $request_params ){
 
 	$local_params['is_show_payment_form'] = $re_cleaned_params["is_show_payment_form"];
 
+	//FixIn: 9.9.0.35
+	if ( $local_params['is_show_payment_form'] ) {
+		$local_params['is_show_payment_form'] = ( false !== strpos( $re_cleaned_params['request_uri'], 'is_show_payment_form=Off' ) )
+												? 0
+												: $local_params['is_show_payment_form'];       // 1|0
+	}
+
 	// Get EDIT booking data
 	$local_params['edit_resource_id']     = '';
 	$local_params['skip_booking_id']      = '';
@@ -417,7 +427,6 @@ function wpbc_booking_save( $request_params ){
 
 	$booking_new_arr = wpbc_db__booking_save( $create_booking_params, $where_to_save_booking );
 
-
 	// <editor-fold     defaultstate="collapsed"                        desc=" :: ERROR :: <-  BOOKING CREATION "  >
 	if ( 'ok' !== $booking_new_arr['status'] ) {
 		$ajx_data_arr['status']                          = $booking_new_arr['status'];
@@ -428,6 +437,17 @@ function wpbc_booking_save( $request_params ){
 	}
 	// </editor-fold>
 
+	//FixIn: 9.9.0.36
+	if (
+		   ( 0 !== $create_params['is_edit_booking'] )               // If edit booking
+		&& ( 1 != $create_params['is_duplicate_booking'] )          // If not duplicate
+	) {
+			// Log the cost  info.
+			$is_add_timezone_offset = true;
+			$booking_note = wpbc_date_localized( gmdate( 'Y-m-d H:i:s' ), '[Y-m-d H:i]', $is_add_timezone_offset ) . ' ';
+			$booking_note .= __( 'The booking has been edited', 'booking' ) . '. | Edit URL: ' . esc_url_raw( $re_cleaned_params['request_uri'] ) . '';
+			make_bk_action( 'wpdev_make_update_of_remark',  $booking_new_arr['booking_id'], $booking_note, true );
+	}
 																														// <editor-fold defaultstate="collapsed" desc=" = PERFORMANCE = "  >
 	$php_performance = php_performance_END( 'wpbc_db__booking_save' , $php_performance );
 																														// </editor-fold>
@@ -459,7 +479,7 @@ function wpbc_booking_save( $request_params ){
 	$payment_params['is_from_admin_panel']  = $create_params['is_from_admin_panel'];            //           => false    true | false
 	$payment_params['is_show_payment_form'] = $create_params['is_show_payment_form'];           //           => 1        0 | 1
 	if ( $payment_params['is_from_admin_panel'] ) {
-		$payment_params['is_show_payment_form'] = 0;
+		// $payment_params['is_show_payment_form'] = 0;                     //FixIn: 9.9.0.21
 	}
 																														// <editor-fold defaultstate="collapsed" desc=" = PERFORMANCE = "  >
 	$php_performance = php_performance_START( 'wpbc_maybe_get_payment_form' , $php_performance );
@@ -670,7 +690,17 @@ function wpbc_booking_save( $request_params ){
 					);
 	// It will  not show payment form  in Booking > Add booking page and if defined,  do not make redirect
 	if ( $payment_params['is_from_admin_panel'] ) {
-		$confirmation_params_arr['ty_is_redirect'] = 'message';     // Do not make redirect,  if it's in admin panel!
+
+		$confirmation_params_arr['ty_is_redirect'] = 'message';                                                         // Do not make redirect,  if it's in admin panel!
+
+		// But if we edit / duplicate the booking, then do redirection to Booking Listing page                          //FixIn: 9.9.0.3
+		if (
+			   (  0 !== $local_params['is_edit_booking'] )
+			// && ( empty( $local_params['is_duplicate_booking'] ) )
+		){
+			$confirmation_params_arr['ty_is_redirect'] = 'page';
+			$confirmation_params_arr['ty_url'] = wpbc_get_bookings_url() . '&view_mode=vm_listing&tab=actions&wh_booking_id=' . $confirmation_params_arr['booking_id'];
+		}
 	}
 	$confirmation = wpbc_booking_confirmation( $confirmation_params_arr );
 
@@ -806,6 +836,9 @@ function wpbc_db__booking_save( $create_params, $where_to_save_booking ) {
 		&& ( count( $create_params['dates_only_sql_arr'] ) > 1 )
 	) {
 		unset( $create_params['dates_only_sql_arr'][ ( count( $create_params['dates_only_sql_arr'] ) - 1 ) ] );                    // Remove LAST selected day in calendar //FixIn: 6.2.3.6
+		// Delete last  item    //FixIn: 9.9.0.19
+		$resources_in_dates_last_key = key( array_slice( $where_to_save_booking['resources_in_dates'], - 1, 1, true ) );
+		unset( $where_to_save_booking['resources_in_dates'][ $resources_in_dates_last_key ] );
 	}
 
 	// :: ERROR ::

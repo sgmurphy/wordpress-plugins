@@ -28,7 +28,7 @@ class CouponCode extends EAE_Widget_Base {
 	}
 
 	public function get_icon() {
-		return 'eae-icon eae-add-to-calendar';
+		return 'eae-icon eae-coupon-code';
 	}
 
 	public function get_categories() {
@@ -2483,9 +2483,11 @@ class CouponCode extends EAE_Widget_Base {
                             if(!empty($data['couponCode']) || !empty($data['title']) ){ 
                                 $this->get_coupon_html($data);
                             } if(!empty($data['expDate']) && $settings['sta_exp'] == 'yes' || $settings['source'] == 'dynamic'){ ?> 
-                            <div class="eae-exp-date"> <?php
-                                $heading = $this->get_expiry_date_html($data['expDate']);
-                                echo $heading; ?>
+                            <div class="eae-exp-date"> 
+                                <?php
+                                    $heading = $this->get_expiry_date_html($data['expDate']);
+                                    echo $heading; 
+                                ?>
                             </div> <?php
                            }
                         } 
@@ -2493,14 +2495,15 @@ class CouponCode extends EAE_Widget_Base {
                         if(!empty($data['couponCode'])){
                             if(!empty( $settings['sta_title'])){ ?>
                                 <a <?php echo $this->get_render_attribute_string('pop_container')  ?> >
-                                    <?php echo $settings['sta_title']; 
+                                    <?php echo Helper::eae_wp_kses($settings['sta_title']); 
                                         Helper::render_icon_html($settings,$this,'sta_title_icon','eae-cc-icon');
                                     ?>
                                 </a> 
                             <?php } ?>
-                            <div <?php echo $this->get_render_attribute_string('pop_wrp')  ?>>
-                                <?php  echo $this->get_prepare_html($data); ?>
-                            </div>  <?php
+                                <div <?php echo $this->get_render_attribute_string('pop_wrp')  ?>>
+                                    <?php  echo $this->get_prepare_html($data); ?>
+                                </div>  
+                            <?php
                         }   
                     }
                     break;
@@ -2511,12 +2514,12 @@ class CouponCode extends EAE_Widget_Base {
                             <?php Helper::render_icon_html($settings,$this,'peel_front_title_icon','eae-fr-cc-icon');
                             if(!empty($data['fr_title'])) {?>
                             <div class="eae-fr-title"> <?php
-                                echo $data['fr_title']; ?>
+                                echo Helper::eae_wp_kses($data['fr_title']); ?>
                             </div>
                             <?php } 
                             if(!empty($data['fr_des'])) { ?>
                             <div class="eae-fr-des"><?php
-                                echo $data['fr_des']; ?>
+                                echo Helper::eae_wp_kses($data['fr_des']); ?>
                             </div>
                             <?php } ?>
                         </div>
@@ -2529,13 +2532,15 @@ class CouponCode extends EAE_Widget_Base {
                     break;
                 case 'scratch':
                     if(!empty($data['couponCode'])){
+                        $this->add_render_attribute('eae-scratch-canvas', 'class', 'eae-coupon-canvas');
+                        $this->add_render_attribute('eae-scratch-canvas', 'id', 'eae-scratch-canvas');
+                        $this->add_render_attribute('eae-scratch-canvas', 'width', $settings['Peel_scratch_width']['size']);
+                        $this->add_render_attribute('eae-scratch-canvas', 'height', $settings['Peel_sc_height']['size']);
                         ?>
                             <div class="eae-scratch-container" id="js-container" >
-                                <canvas class="eae-coupon-canvas" id="eae-scratch-canvas" width=<?php echo $settings['Peel_scratch_width']['size'] ?> height=<?php echo $settings['Peel_sc_height']['size'] ?>></canvas>
+                                <canvas <?php echo $this->get_render_attribute_string('eae-scratch-canvas');?>></canvas>
                                 <div class="eae-back-wrapper" style= " z-index: -1;">
                                     <?php
-                                    // echo '<pre>';  print_r($data); echo '</pre>';
-                                    // die('dfaf');
                                     echo $this->get_prepare_html($data); ?>
                                 </div>  
                             </div>
@@ -2548,12 +2553,11 @@ class CouponCode extends EAE_Widget_Base {
                         <div class="eae-coupon-slide">
                             <div class="eae-slide-fr">
                                 <div class="eae-scratch-title"> 
-                                    <?php echo $data['fr_title'] ?>
+                                    <?php echo Helper::eae_wp_kses($data['fr_title']); ?>
                                 </div>
                                 <div class="eae-scratch-des"> 
-                                    <?php echo $data['fr_des'] ?>
+                                    <?php echo Helper::eae_wp_kses($data['fr_des']); ?>
                                 </div>
-
                             </div>
                             <div class="eae-coupon-back">  
                             <?php echo $this->get_prepare_html($data); ?>
@@ -2583,50 +2587,50 @@ class CouponCode extends EAE_Widget_Base {
                 $this->add_render_attribute('btn_link', 'class', 'pop-visit-btn');
         }
 
-        foreach($settings['cc_order'] as $index => $item){     
-           
-            if($item['cc_heading'] == 'Title'){
-            if(!empty($data['bk_title'])){
-                ?>
-                <div class="eae-back-title">
-                    <?php echo $data['bk_title']; ?>
-                </div>
-                <?php }
-            
-            }elseif($item['cc_heading'] == 'Description'){
-            if(!empty($data['bk_des']))  {
-                ?> 
-                <div class="eae-back-des">
-                    <?php echo $data['bk_des']; ?>
-                </div>
-                <?php }
-            
-            }elseif($item['cc_heading'] == 'Coupon' ){
-                $this->get_coupon_html($data);
-            }
-            elseif($item['cc_heading'] == 'Expire Date'){
-            if(!empty($data['expDate']) && $settings['sta_exp'] == 'yes' || $settings['source'] == 'dynamic'){ ?>
-                <div class="eae-exp-date">
-                <?php
-                    
-                    if(!empty($data['expDate'])){
-                        
-                        $heading = $this->get_expiry_date_html($data['expDate']);
-                        echo $heading;
+        foreach($settings['cc_order'] as $index => $item){            
+            switch ($item['cc_heading']) {
+                case 'Title':
+                    if(!empty($data['bk_title'])){
+                        ?>
+                        <div class="eae-back-title">
+                            <?php echo Helper::eae_wp_kses($data['bk_title']); ?>
+                        </div>
+                        <?php 
                     }
-                ?>
-                </div>
-                <?php }
+                    break;
+                case 'Description':
+                    if(!empty($data['bk_des'])) { ?> 
+                        <div class="eae-back-des">
+                            <?php echo Helper::eae_wp_kses($data['bk_des']); ?>
+                        </div>
+                    <?php }
+                    break;
+                case 'Coupon':
+                    $this->get_coupon_html($data);
+                    break;
+                case 'Expire Date':
+                    if(!empty($data['expDate']) && $settings['sta_exp'] == 'yes' || $settings['source'] == 'dynamic'){ ?>
+                        <div class="eae-exp-date">
+                        <?php
+                            if(!empty($data['expDate'])){
+                                $heading = $this->get_expiry_date_html($data['expDate']);
+                                echo Helper::eae_wp_kses($heading);
+                            }
+                        ?>
+                        </div>
+                    <?php }
+                    break;
+                case 'Visit Button':
+                    if(!empty($data['visit_btn'])) { ?>
+                    <a <?php echo $this->get_render_attribute_string('btn_link'); ?> > 
+                        <?php  
+                            echo esc_html($data['visit_btn']);
+                        ?> 
+                    </a> <?php
+                    }  
+                    break;
             }
-            elseif($item['cc_heading'] == 'Visit Button'){
-            if(!empty($data['visit_btn'])) { ?>
-                <a <?php echo $this->get_render_attribute_string('btn_link') ?> > <?php ; 
-                        echo $data['visit_btn'];
-                ?> </a> <?php
-                }
-            
-        } 
-     }
+        }
     }
     public function get_coupon_html($data){
         $settings = $this->get_settings_for_display();
@@ -2651,7 +2655,7 @@ class CouponCode extends EAE_Widget_Base {
             <?php if(!empty($data['couponCode'])){
             ?>
                 <div class="eae-code<?php echo esc_attr($codeClass); ?>" data-code-value = "<?php echo esc_attr($data['couponCode']); ?>"> 
-                    <?php echo esc_html($data['couponCode']);  ?>               
+                    <?php echo Helper::eae_wp_kses($data['couponCode']);  ?>               
                 </div> 
             <?php 
             }

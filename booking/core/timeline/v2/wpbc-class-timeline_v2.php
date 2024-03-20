@@ -553,9 +553,9 @@ class WPBC_TimelineFlex {
      */
     public function wpbc_get_clean_paramas_from_request_for_timeline() {
 
-        //FixIn: 7.0.1.15       -   replacing in this file from date( to  date_i18n(
-        $start_year  = intval( date_i18n( "Y" ) ); 
-        $start_month = intval( date_i18n( "m" ) );
+        //Replacing in this file from date( to  date_i18n(   to wpbc_datetime__no_wp_timezone(			//FixIn: 9.9.0.18
+        $start_year  = intval( wpbc_datetime__no_wp_timezone( "Y" ) );
+        $start_month = intval( wpbc_datetime__no_wp_timezone( "m" ) );
         $start_day = 1;
 //debuge( '1.( $start_year, $start_month, $start_day , $this->request_args ',  $start_year, $start_month, $start_day , $this->request_args );        
         if ( ! empty( $this->request_args['scroll_start_date'] ) ) {            // scroll_start_date=2013-07-01
@@ -586,31 +586,31 @@ class WPBC_TimelineFlex {
 
                 case '1':
                     if ( empty( $this->request_args['scroll_start_date'] ) )
-                        $start_day = intval( date_i18n( "d" ) );                               // Today date
+                        $start_day = intval( wpbc_datetime__no_wp_timezone( "d" ) );                               // Today date
 
                     if ( isset( $this->request_args['scroll_day'] ) )
                         $scroll_day = intval( $this->request_args['scroll_day'] );
 
 	                $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + intval( $scroll_day ) ), intval( $start_year ) );
-                    $wh_booking_date = date_i18n( "Y-m-d", $real_date );
+                    $wh_booking_date = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );
 
 	                $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + intval( $scroll_day ) ), intval( $start_year ) );
-                    $wh_booking_date2 = date_i18n( "Y-m-d", $real_date );
+                    $wh_booking_date2 = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );
                     break;
 
                 case '7':
                     if ( empty( $this->request_args['scroll_start_date'] ) )
-                        $start_day = intval( date_i18n( "d" ) );   //Today  date
-                    $start_week_day_num = intval( date_i18n( "w" ) );
+                        $start_day = intval( wpbc_datetime__no_wp_timezone( "d" ) );   //Today  date
+                    $start_week_day_num = intval( wpbc_datetime__no_wp_timezone( "w" ) );
                     $start_day_weeek = intval( get_bk_option( 'booking_start_day_weeek' ) ); //[0]:Sun .. [6]:Sut
                     if ( $start_week_day_num != $start_day_weeek ) {
                         for ( $d_inc = 1; $d_inc < 8; $d_inc++ ) {              // Just get week  back
 	                        $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) - intval( $d_inc ) ), intval( $start_year ) );
-                            $start_week_day_num = intval( date_i18n( "w", $real_date ) );
+                            $start_week_day_num = intval( wpbc_datetime__no_wp_timezone( "w", $real_date ) );
                             if ( $start_week_day_num == $start_day_weeek ) {
-                                $start_day   = intval( date_i18n( "d", $real_date ) );
-                                $start_year  = intval( date_i18n( "Y", $real_date ) );
-                                $start_month = intval( date_i18n( "m", $real_date ) );
+                                $start_day   = intval( wpbc_datetime__no_wp_timezone( "d", $real_date ) );
+                                $start_year  = intval( wpbc_datetime__no_wp_timezone( "Y", $real_date ) );
+                                $start_month = intval( wpbc_datetime__no_wp_timezone( "m", $real_date ) );
                                 $d_inc = 9;
                             }
                         }
@@ -620,10 +620,10 @@ class WPBC_TimelineFlex {
                         $scroll_day = intval( $this->request_args['scroll_day'] );
 
 	                $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + intval( $scroll_day ) ), intval( $start_year ) );
-                    $wh_booking_date = date_i18n( "Y-m-d", $real_date );
+                    $wh_booking_date = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );
 
 	                $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + 7 + intval( $scroll_day ) ), intval( $start_year ) );
-                    $wh_booking_date2 = date_i18n( "Y-m-d", $real_date );
+                    $wh_booking_date2 = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );
                     break;
 
                 case '30':
@@ -633,11 +633,11 @@ class WPBC_TimelineFlex {
 //debuge('3.$scroll_month, $start_month, $start_day, $start_year', $scroll_month, $start_month, $start_day, $start_year );
 	                $real_date = mktime( 0, 0, 0, ( intval( $start_month ) + intval( $scroll_month ) ), intval( $start_day ), intval( $start_year ) );
 //debuge('4.$real_date',$real_date);
-                    $wh_booking_date = date_i18n( "Y-m-d", $real_date );
+                    $wh_booking_date = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );
 //debuge('5.$wh_booking_date',$wh_booking_date);                    
 	                $real_date = mktime( 0, 0, 0, ( intval( $start_month ) + 1 + intval( $scroll_month ) ), ( intval( $start_day ) - 1 ), intval( $start_year ) );
 //debuge('6.$real_date',$real_date);         
-                    $wh_booking_date2 = date_i18n( "Y-m-d", $real_date );
+                    $wh_booking_date2 = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );
 //debuge('7.$wh_booking_date2', $wh_booking_date2);                    
                     break;
 
@@ -646,10 +646,10 @@ class WPBC_TimelineFlex {
                         $scroll_month = intval( $this->request_args['scroll_month'] );
 
 	                $real_date = mktime( 0, 0, 0, ( intval( $start_month ) + intval( $scroll_month ) ), intval( $start_day ), intval( $start_year ) );
-                    $wh_booking_date = date_i18n( "Y-m-d", $real_date );                          // '2012-12-01';
+                    $wh_booking_date = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );                          // '2012-12-01';
 
 	                $real_date = mktime( 0, 0, 0, ( intval( $start_month ) + 2 + intval( $scroll_month ) ), ( intval( $start_day ) - 1 ), intval( $start_year ) );
-                    $wh_booking_date2 = date_i18n( "Y-m-d", $real_date );                          // '2013-02-31';                    
+                    $wh_booking_date2 = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );                          // '2013-02-31';
                     break;
 
                 ////////////////////////////////////////////////////////////////////////////////
@@ -658,10 +658,10 @@ class WPBC_TimelineFlex {
                         $scroll_month = intval( $this->request_args['scroll_month'] );
 
 	                $real_date = mktime( 0, 0, 0, ( intval( $start_month ) + intval( $scroll_month ) ), intval( $start_day ), intval( $start_year ) );
-                    $wh_booking_date = date_i18n( "Y-m-d", $real_date );                          // '2012-12-01';
+                    $wh_booking_date = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );                          // '2012-12-01';
 
 	                $real_date = mktime( 0, 0, 0, ( intval( $start_month ) + 1 + intval( $scroll_month ) ), ( intval( $start_day ) - 1 ), intval( $start_year ) );
-                    $wh_booking_date2 = date_i18n( "Y-m-d", $real_date );                          // '2012-12-31';
+                    $wh_booking_date2 = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );                          // '2012-12-31';
                     break;
             }
             
@@ -672,18 +672,18 @@ class WPBC_TimelineFlex {
                 case '90':
 
                     if ( empty( $this->request_args['scroll_start_date'] ) )
-                        $start_day = intval( date_i18n( "d" ) );    //Today Date
-                    $start_week_day_num = intval( date_i18n( "w" ) );
+                        $start_day = intval( wpbc_datetime__no_wp_timezone( "d" ) );    //Today Date
+                    $start_week_day_num = intval( wpbc_datetime__no_wp_timezone( "w" ) );
                     $start_day_weeek = intval( get_bk_option( 'booking_start_day_weeek' ) ); //[0]:Sun .. [6]:Sut
 
                     if ( $start_week_day_num != $start_day_weeek ) {
                         for ( $d_inc = 1; $d_inc < 8; $d_inc++ ) {              // Just get week  back
                             $real_date = mktime( 0, 0, 0, intval($start_month), (intval($start_day) - intval($d_inc) ), intval($start_year) );
-                            $start_week_day_num = intval( date_i18n( "w", $real_date ) );
+                            $start_week_day_num = intval( wpbc_datetime__no_wp_timezone( "w", $real_date ) );
                             if ( $start_week_day_num == $start_day_weeek ) {
-                                $start_day   = intval( date_i18n( "d", $real_date ) );
-                                $start_year  = intval( date_i18n( "Y", $real_date ) );
-                                $start_month = intval( date_i18n( "m", $real_date ) );
+                                $start_day   = intval( wpbc_datetime__no_wp_timezone( "d", $real_date ) );
+                                $start_year  = intval( wpbc_datetime__no_wp_timezone( "Y", $real_date ) );
+                                $start_month = intval( wpbc_datetime__no_wp_timezone( "m", $real_date ) );
                                 $d_inc = 9;
                             }
                         }
@@ -693,24 +693,24 @@ class WPBC_TimelineFlex {
                         $scroll_day = intval( $this->request_args['scroll_day'] );
 
 	                $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + intval( $scroll_day ) ), intval( $start_year ) );
-                    $wh_booking_date = date_i18n( "Y-m-d", $real_date );                          // '2012-12-01';
+                    $wh_booking_date = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );                          // '2012-12-01';
 
 	                $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + 7 * 12 + 7 + intval( $scroll_day ) ), intval( $start_year ) );
-                    $wh_booking_date2 = date_i18n( "Y-m-d", $real_date );                          // '2013-12-31';
+                    $wh_booking_date2 = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );                          // '2013-12-31';
                     break;
 
                 case '30':
                     if ( empty( $this->request_args['scroll_start_date'] ) )
-                        $start_day = intval( date_i18n( "d" ) );    //Today Date
+                        $start_day = intval( wpbc_datetime__no_wp_timezone( "d" ) );    //Today Date
 
                     if ( isset( $this->request_args['scroll_day'] ) )
                         $scroll_day = intval( $this->request_args['scroll_day'] );
 
 	                $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + intval( $scroll_day ) ), intval( $start_year ) );
-                    $wh_booking_date = date_i18n( "Y-m-d", $real_date );                          // '2012-12-01';
+                    $wh_booking_date = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );                          // '2012-12-01';
 
 	                $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + 31 + intval( $scroll_day ) ), intval( $start_year ) );
-                    $wh_booking_date2 = date_i18n( "Y-m-d", $real_date );                          // '2013-12-31';
+                    $wh_booking_date2 = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );                          // '2013-12-31';
                     break;
 
                 default:  // 365
@@ -721,10 +721,10 @@ class WPBC_TimelineFlex {
                         $scroll_month = 0;
 
 	                $real_date = mktime( 0, 0, 0, ( intval( $start_month ) + intval( $scroll_month ) ), intval( $start_day ), intval( $start_year ) );
-                    $wh_booking_date = date_i18n( "Y-m-d", $real_date );                          // '2012-12-01';
+                    $wh_booking_date = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );                          // '2012-12-01';
 
 	                $real_date = mktime( 0, 0, 0, ( intval( $start_month ) + intval( $scroll_month ) + 13 ), ( intval( $start_day ) - 1 ), intval( $start_year ) );
-                    $wh_booking_date2 = date_i18n( "Y-m-d", $real_date );                          // '2013-12-31';
+                    $wh_booking_date2 = wpbc_datetime__no_wp_timezone( "Y-m-d", $real_date );                          // '2013-12-31';
 
                     break;
             }
@@ -973,15 +973,17 @@ class WPBC_TimelineFlex {
                 else
                     $date_bk_res_id = $bk->booking_type;
 
+				//FixIn: 9.9.0.18 -	booking
+                $my_date = wpbc_datetime__no_wp_timezone( "Y-m-d", $php_dt );                                		// '2012-12-01';
 
-                $my_date = date_i18n( "Y-m-d", $php_dt );                                // '2012-12-01';
                 if ( !isset( $dates_array[$my_date] ) ) {
                     $dates_array[$my_date] = array( array( 'id' => $bk->booking_id, 'resource' => $date_bk_res_id ) );
                 } else {
                     $dates_array[$my_date][] = array( 'id' => $bk->booking_id, 'resource' => $date_bk_res_id );
                 }
 
-                $my_time = date_i18n( "H:i:s", $php_dt );                                // '21:55:01';
+				//FixIn: 9.9.0.18 - booking
+                $my_time = wpbc_datetime__no_wp_timezone( "H:i:s", $php_dt );                                // '21:55:01';
 
                 $my_time_index = explode( ':', $my_time );
                 $my_time_index = (int) ($my_time_index[0] * 60 * 60 + $my_time_index[1] * 60 + $my_time_index[2]);
@@ -1342,7 +1344,7 @@ if(1)
                     break;
                 case '30':
                     $days_num = 31;
-                    $days_num = intval( date_i18n('t',$start_date) );           // num of days in the specific  month,  wchih  relative to $real_date from  header        //FixIn: 7.0.1.47
+                    $days_num = intval( wpbc_datetime__no_wp_timezone('t',$start_date) );           // num of days in the specific  month,  wchih  relative to $real_date from  header        //FixIn: 7.0.1.47
                     $dwa = $this->week_days_titles['1'];
                     $time_selles_num = 1;
                     break;
@@ -1368,7 +1370,7 @@ if(1)
                     break;
                 case '365':
                     $days_num = 31;        //FixIn: 8.7.6.5
-                    //$days_num = intval( date_i18n('t',$start_date) );           // num of days in the specific  month,  wchih  relative to $real_date from  header        //FixIn: 7.0.1.47
+                    //$days_num = intval( wpbc_datetime__no_wp_timezone('t',$start_date) );           // num of days in the specific  month,  wchih  relative to $real_date from  header        //FixIn: 7.0.1.47
                     $dwa = $this->week_days_titles['3'];
                     $time_selles_num = 1;
                     break;
@@ -1391,10 +1393,10 @@ if(1)
             if ( ! empty( $this->request_args['scroll_start_date'] ) )           
                 list( $start_year, $start_month, $start_day ) = explode( '-', $this->request_args['scroll_start_date'] );   // scroll_start_date=2013-07-01
             else 
-                list( $start_year, $start_month, $start_day ) = explode( '-', date_i18n( 'Y-n-j' ) );
+                list( $start_year, $start_month, $start_day ) = explode( '-', wpbc_datetime__no_wp_timezone( 'Y-n-j' ) );
             
         } else {
-                list( $start_year, $start_month, $start_day ) = explode( '-', date_i18n( 'Y-m-d', $start_date ) );
+                list( $start_year, $start_month, $start_day ) = explode( '-', wpbc_datetime__no_wp_timezone( 'Y-m-d', $start_date ) );
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1406,15 +1408,15 @@ if(1)
 			for ( $d_inc = 0; $d_inc < $days_num; $d_inc++ ) {
 
 				$real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + intval( $d_inc ) ), intval( $start_year ) );
-				$yy = date_i18n( "Y", $real_date );    //2012
-				$mm = date_i18n( "m", $real_date );    //09
-				$dd = date_i18n( "d", $real_date );    //31
-				$ww = date_i18n( "N", $real_date );    //7
+				$yy = wpbc_datetime__no_wp_timezone( "Y", $real_date );    //2012
+				$mm = wpbc_datetime__no_wp_timezone( "m", $real_date );    //09
+				$dd = wpbc_datetime__no_wp_timezone( "d", $real_date );    //31
+				$ww = wpbc_datetime__no_wp_timezone( "N", $real_date );    //7
 				$day_week = $dwa[$ww];          	   //Su
 
 				if ( ( $previous_month != $mm ) || ( 1 == $dd ) ) {
 					$previous_month = $mm;
-					$month_title = date_i18n( "F", $real_date );    //09
+					$month_title = wpbc_datetime__no_wp_timezone( "F", $real_date );    //09
 					$month_class = ' new_month ';
 				} else {
 					$month_title = '';
@@ -1469,15 +1471,15 @@ if(1)
 
 	                    $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + intval( $d_inc ) ), intval( $start_year ) );
 
-                        if ( date_i18n( 'm.d.Y' ) == date_i18n( "m.d.Y", $real_date ) )
+                        if ( wpbc_datetime__no_wp_timezone( 'm.d.Y' ) == wpbc_datetime__no_wp_timezone( "m.d.Y", $real_date ) )
                             $is_today = ' today_date ';
                         else
                             $is_today = '';
 
-                        $yy = date_i18n( "Y", $real_date );    //2012
-                        $mm = date_i18n( "m", $real_date );    //09
-                        $dd = date_i18n( "d", $real_date );    //31
-                        $ww = date_i18n( "N", $real_date );    //7
+                        $yy = wpbc_datetime__no_wp_timezone( "Y", $real_date );    //2012
+                        $mm = wpbc_datetime__no_wp_timezone( "m", $real_date );    //09
+                        $dd = wpbc_datetime__no_wp_timezone( "d", $real_date );    //31
+                        $ww = wpbc_datetime__no_wp_timezone( "N", $real_date );    //7
                         $day_week = $dwa[$ww];          	   //Su
 
                         $day_title = $dd . ' ' . $day_week;
@@ -1608,7 +1610,7 @@ if(1)
 						break;
 					case '365':
 						$row_settings['days_num'] = 31;
-						//$row_settings['days_num'] = intval( date_i18n('t',$row_settings['start_date']) );           		// num of days in the specific  month,  wchih  relative to $row_settings['real_date'] from  header        //FixIn: 7.0.1.47
+						//$row_settings['days_num'] = intval( wpbc_datetime__no_wp_timezone('t',$row_settings['start_date']) );           		// num of days in the specific  month,  wchih  relative to $row_settings['real_date'] from  header        //FixIn: 7.0.1.47
 						$row_settings['dwa'] = $this->week_days_titles['1'];
 						$row_settings['time_selles_num']  = 1;
 						break;
@@ -1663,7 +1665,7 @@ if(1)
 
 					default:  // 30
 						$row_settings['days_num'] = 32;
-						$row_settings['days_num'] = intval( date_i18n('t',$row_settings['start_date']) );           // num of days in the specific  month,  wchih  relative to $row_settings['real_date'] from  header        //FixIn: 7.0.1.47
+						$row_settings['days_num'] = intval( wpbc_datetime__no_wp_timezone('t',$row_settings['start_date']) );           // num of days in the specific  month,  wchih  relative to $row_settings['real_date'] from  header        //FixIn: 7.0.1.47
 						$row_settings['dwa'] = $this->week_days_titles['3'];
 						$row_settings['time_selles_num']  = 1;//25;
 						break;
@@ -1685,7 +1687,7 @@ if(1)
 			//FixIn: 8.1.3.34
 			$bc_time_format = get_bk_option( 'booking_time_format' );
 			if ( ! empty( $bc_time_format ) ) {                            //FixIn: 8.2.1.2
-				$time_show = date_i18n( str_replace( ':i', '', get_bk_option( 'booking_time_format' ) ), mktime( intval($time_milliseconds), 0, 0 ) );
+				$time_show = wpbc_datetime__no_wp_timezone( str_replace( ':i', '', get_bk_option( 'booking_time_format' ) ), mktime( intval($time_milliseconds), 0, 0 ) );
 				echo ( $view_days_num < 31 ) ? $time_show : '';
 			} else {
 				echo( ( $view_days_num < 31 ) ? ( ( ( $time_milliseconds ) < 10 ? '0' : '' ) . ( $time_milliseconds ) . '<sup>:00</sup>' ) : '' );
@@ -1770,7 +1772,7 @@ if(1)
 			//FixIn: 8.7.1.4
 			$bk_title = '';
 
-			$is_date = wpbc_get_date_in_correct_format( date_i18n( "Y-m-d", $row_settings['real_date'] ) );
+			$is_date = wpbc_get_date_in_correct_format( wpbc_datetime__no_wp_timezone( "Y-m-d", $row_settings['real_date'] ) );
 			if ( ( is_array( $is_date ) )  && ( ! empty( $is_date ) ) ) {
 				$bk_title = $is_date[0];
 			}
@@ -1907,16 +1909,16 @@ if(1)
 
 				/////////////////////////////////////////////////////////////////
 
-				if ( date_i18n( 'Y.m.d' ) > date_i18n( "Y.m.d", $real_date ) ) {
+				if ( wpbc_datetime__no_wp_timezone( 'Y.m.d' ) > wpbc_datetime__no_wp_timezone( "Y.m.d", $real_date ) ) {
 					$class_arr[] = 'past_date';
 				}
-				if ( date_i18n( 'Y.m.d' ) == date_i18n( "Y.m.d", $real_date ) ) {
+				if ( wpbc_datetime__no_wp_timezone( 'Y.m.d' ) == wpbc_datetime__no_wp_timezone( "Y.m.d", $real_date ) ) {
 					$class_arr[] = 'today_date';
 				}
 
 				if ( $this->is_show_day_view( $row_settings ) ) {
-					if ( ( date_i18n( 'm.d.Y' ) == date_i18n( "m.d.Y", $real_date ) )    // Today Date
-					     && ( intval( date_i18n( 'H' ) ) > intval( $time_hour ) ) ) {
+					if ( ( wpbc_datetime__no_wp_timezone( 'm.d.Y' ) == wpbc_datetime__no_wp_timezone( "m.d.Y", $real_date ) )    // Today Date
+					     && ( intval( wpbc_datetime__no_wp_timezone( 'H' ) ) > intval( $time_hour ) ) ) {
 						$class_arr[] = 'past_date';
 					}
 				}
@@ -1941,10 +1943,10 @@ if(1)
 
 			$data_in_previous_cell = $this->data_in_previous_cell;
 
-			$yy = date_i18n( "Y", $row_settings[ 'real_date' ] );    // 2012
-			$mm = date_i18n( "m", $row_settings[ 'real_date' ] );    // 09
-			$dd = date_i18n( "d", $row_settings[ 'real_date' ] );    // 31
-			$ww = date_i18n( "N", $row_settings[ 'real_date' ] );    // 7
+			$yy = wpbc_datetime__no_wp_timezone( "Y", $row_settings[ 'real_date' ] );    // 2012
+			$mm = wpbc_datetime__no_wp_timezone( "m", $row_settings[ 'real_date' ] );    // 09
+			$dd = wpbc_datetime__no_wp_timezone( "d", $row_settings[ 'real_date' ] );    // 31
+			$ww = wpbc_datetime__no_wp_timezone( "N", $row_settings[ 'real_date' ] );    // 7
 			$day_week = $row_settings[ 'dwa' ][$ww];          		 // Su
 
 			$row_settings['day_filter_id'] = $yy . '-' . $mm . '-' . $dd;
@@ -1990,9 +1992,9 @@ if(1)
 				$cell_css[] = 'flex_tl_weekday' . $ww;
 				$cell_css[] = $row_settings['day_filter_id'];
 
-			if ( date_i18n( 'm.d.Y' ) == date_i18n( "m.d.Y", $row_settings['real_date'] ) ) {
+			if ( wpbc_datetime__no_wp_timezone( 'm.d.Y' ) == wpbc_datetime__no_wp_timezone( "m.d.Y", $row_settings['real_date'] ) ) {
 				$cell_css[] = 'today_date';
-			} else if ( date_i18n( 'Y.m.d' ) > date_i18n( "Y.m.d", $row_settings['real_date'] ) ) {
+			} else if ( wpbc_datetime__no_wp_timezone( 'Y.m.d' ) > wpbc_datetime__no_wp_timezone( "Y.m.d", $row_settings['real_date'] ) ) {
 				$cell_css[] = 'past_date';
 			}
 
@@ -2054,10 +2056,10 @@ if(1)
 
 
 							$today_time_css_class='';
-							if ( date_i18n( 'Y.m.d' ) == date_i18n( "Y.m.d", $row_settings[ 'real_date' ] ) ) {
+							if ( wpbc_datetime__no_wp_timezone( 'Y.m.d' ) == wpbc_datetime__no_wp_timezone( "Y.m.d", $row_settings[ 'real_date' ] ) ) {
 								if ( $this->is_show_day_view( $row_settings ) ) {
-									if ( ( date_i18n( 'm.d.Y' ) == date_i18n( "m.d.Y", $row_settings[ 'real_date' ] ) )    // Today Date
-									     && ( intval( date_i18n( 'H' ) ) == intval( $tt ) ) ) {
+									if ( ( wpbc_datetime__no_wp_timezone( 'm.d.Y' ) == wpbc_datetime__no_wp_timezone( "m.d.Y", $row_settings[ 'real_date' ] ) )    // Today Date
+									     && ( intval( wpbc_datetime__no_wp_timezone( 'H' ) ) == intval( $tt ) ) ) {
 										$today_time_css_class = 'today_time';
 									}
 								}
@@ -2163,12 +2165,12 @@ if(1)
 	    $row_settings = $this->get_init_row_settings( $row_settings );
 
         if ( $row_settings['start_date'] !== false ) {
-        		list( $start_year, $start_month, $start_day ) = explode( '-', date_i18n( 'Y-m-d', $row_settings['start_date'] ) );
+        		list( $start_year, $start_month, $start_day ) = explode( '-', wpbc_datetime__no_wp_timezone( 'Y-m-d', $row_settings['start_date'] ) );
         } else {
             if ( ! empty( $this->request_args['scroll_start_date'] ) )
                 list( $start_year, $start_month, $start_day ) = explode( '-', $this->request_args['scroll_start_date'] );   			// scroll_start_date=2013-07-01
             else
-                list( $start_year, $start_month, $start_day ) = explode( '-', date_i18n( 'Y-n-j' ) );
+                list( $start_year, $start_month, $start_day ) = explode( '-', wpbc_datetime__no_wp_timezone( 'Y-n-j' ) );
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2235,8 +2237,8 @@ if(1)
         $is_matrix      = $this->request_args['is_matrix'];
         $scroll_day     = 0;
         $scroll_month   = 0;
-        $start_year     = date_i18n( "Y" );
-        $start_month    = date_i18n( "m" );                                          // 09            
+        $start_year     = wpbc_datetime__no_wp_timezone( "Y" );
+        $start_month    = wpbc_datetime__no_wp_timezone( "m" );                                          // 09
                         
         if ( ! empty( $this->request_args['scroll_start_date'] ) ) {            // scroll_start_date=2013-07-01
                                                                                 // Set the correct  start  date, if was selected the stard date different from the today  in the Filters Tab.
@@ -2256,7 +2258,7 @@ if(1)
                     if ( isset( $this->request_args['scroll_day'] ) )
                         $scroll_day = $this->request_args['scroll_day'];
                     if ( empty( $this->request_args['scroll_start_date'] ) )
-                        $start_day = date_i18n( "d" );                          //FixIn: 7.0.1.13
+                        $start_day = wpbc_datetime__no_wp_timezone( "d" );                          //FixIn: 7.0.1.13
                     break;
 
                 case '30':
@@ -2271,8 +2273,8 @@ if(1)
                     if ( isset( $this->request_args['scroll_day'] ) )
                         $scroll_day = $this->request_args['scroll_day'];
                     if ( empty( $this->request_args['scroll_start_date'] ) )
-                        $start_day = date_i18n( "d" );
-                    $start_week_day_num = date_i18n( "w" );
+                        $start_day = wpbc_datetime__no_wp_timezone( "d" );
+                    $start_week_day_num = wpbc_datetime__no_wp_timezone( "w" );
                     $start_day_weeek = get_bk_option( 'booking_start_day_weeek' ); //[0]:Sun .. [6]:Sut
 
                     if ( $start_week_day_num != $start_day_weeek ) {
@@ -2280,11 +2282,11 @@ if(1)
 
 	                        $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) - intval( $d_inc ) ), intval( $start_year ) );
 
-                            $start_week_day_num = date_i18n( "w", $real_date );
+                            $start_week_day_num = wpbc_datetime__no_wp_timezone( "w", $real_date );
                             if ( $start_week_day_num == $start_day_weeek ) {
-                                $start_day = date_i18n( "d", $real_date );
-                                $start_year = date_i18n( "Y", $real_date );
-                                $start_month = date_i18n( "m", $real_date );
+                                $start_day = wpbc_datetime__no_wp_timezone( "d", $real_date );
+                                $start_year = wpbc_datetime__no_wp_timezone( "Y", $real_date );
+                                $start_month = wpbc_datetime__no_wp_timezone( "m", $real_date );
                                 $d_inc = 9;
                             }
                         }
@@ -2310,19 +2312,19 @@ if(1)
 
                     $max_rows_number = 12;
                     if ( empty( $this->request_args['scroll_start_date'] ) )
-                        $start_day = date_i18n( "d" );
-                    $start_week_day_num = date_i18n( "w" );
+                        $start_day = wpbc_datetime__no_wp_timezone( "d" );
+                    $start_week_day_num = wpbc_datetime__no_wp_timezone( "w" );
                     $start_day_weeek = get_bk_option( 'booking_start_day_weeek' ); //[0]:Sun .. [6]:Sut
 
                     if ( $start_week_day_num != $start_day_weeek ) {
                         for ( $d_inc = 1; $d_inc < 8; $d_inc++ ) {                // Just get week  back
 	                        $real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) - intval( $d_inc ) ), intval( $start_year ) );
 
-                            $start_week_day_num = date_i18n( "w", $real_date );
+                            $start_week_day_num = wpbc_datetime__no_wp_timezone( "w", $real_date );
                             if ( $start_week_day_num == $start_day_weeek ) {
-                                $start_day = date_i18n( "d", $real_date );
-                                $start_year = date_i18n( "Y", $real_date );
-                                $start_month = date_i18n( "m", $real_date );
+                                $start_day = wpbc_datetime__no_wp_timezone( "d", $real_date );
+                                $start_year = wpbc_datetime__no_wp_timezone( "Y", $real_date );
+                                $start_month = wpbc_datetime__no_wp_timezone( "m", $real_date );
                                 $d_inc = 9;
                             }
                         }
@@ -2356,7 +2358,7 @@ if(1)
 					}
 
                     if ( empty( $this->request_args['scroll_start_date'] ) )
-                        $start_day = date_i18n( "d" );                          //FixIn: 7.0.1.13
+                        $start_day = wpbc_datetime__no_wp_timezone( "d" );                          //FixIn: 7.0.1.13
                     break;
             }
         }
@@ -2527,21 +2529,21 @@ if(1)
                                         case '90':
 	                                        $end_real_date = mktime( 0, 0, 0, intval( $start_month ), ( intval( $start_day ) + intval( $d_inc ) * 7 + intval( $scroll_day ) ) + 6, intval( $start_year ) );
                                             $date_format = ' j, Y'; //get_bk_option( 'booking_date_format');
-                                            echo __( date_i18n( "M", $real_date ) ) . date_i18n( $date_format, $real_date ) . ' - ' . __( date_i18n( "M", $end_real_date ) ) . date_i18n( $date_format, $end_real_date );
+                                            echo __( wpbc_datetime__no_wp_timezone( "M", $real_date ) ) . wpbc_datetime__no_wp_timezone( $date_format, $real_date ) . ' - ' . __( wpbc_datetime__no_wp_timezone( "M", $end_real_date ) ) . wpbc_datetime__no_wp_timezone( $date_format, $end_real_date );
                                             break;
 
                                         case '365':
-                                            echo __( date_i18n( "F", $real_date ) ) . ', ' . date_i18n( "Y", $real_date );
+                                            echo __( wpbc_datetime__no_wp_timezone( "F", $real_date ) ) . ', ' . wpbc_datetime__no_wp_timezone( "Y", $real_date );
                                             break;
 
                                         default:  // 30
                                             //$date_format = 'd / m / Y';
                                             $date_format = get_bk_option( 'booking_date_format' );                           //FixIn:5.4.5.13
-											$ww = date_i18n( "N", $real_date );    //7
+											$ww = wpbc_datetime__no_wp_timezone( "N", $real_date );    //7
                                             ?>
 												<div class="flex_tl_resource_title_dates_container">
-													<div class="flex_tl_resource_title_dates_days  flex_tl_weekday<?php echo $ww; ?>"><?php echo  date_i18n( $date_format, $real_date ); ?></div>
-													<div class="flex_tl_resource_title_dates_weeks flex_tl_weekday<?php echo $ww; ?>"><?php echo __( date_i18n( "D", $real_date ) ); ?></div>
+													<div class="flex_tl_resource_title_dates_days  flex_tl_weekday<?php echo $ww; ?>"><?php echo  wpbc_datetime__no_wp_timezone( $date_format, $real_date ); ?></div>
+													<div class="flex_tl_resource_title_dates_weeks flex_tl_weekday<?php echo $ww; ?>"><?php echo __( wpbc_datetime__no_wp_timezone( "D", $real_date ) ); ?></div>
 												</div>
 											<?php
                                             break;
@@ -2923,7 +2925,7 @@ if(1)
 	    if ( empty( $time_format ) ) {
 		    $time_format = 'h:i a';
 	    }
-	    $cr_date = date_i18n( $date_format . ' ' . $time_format, mysql2date( 'U', $bookings[ $bk_id ]->modification_date ) );
+	    $cr_date = wpbc_datetime__no_wp_timezone( $date_format . ' ' . $time_format, mysql2date( 'U', $bookings[ $bk_id ]->modification_date ) );
 	    $content_text .= '<div class=\'wpbc-listing-collumn field-system-info \'>';
 	    $content_text .= __( 'Created', 'booking' ) . ': ' . $cr_date;
 	    $content_text .= '</div>';
@@ -2960,7 +2962,14 @@ function wpbc_ajax_flex_timeline() {
 
     $attr = $_POST['timeline_obj'];
     $attr['nav_step'] = $_POST['nav_step'];
-    
+
+
+	//FixIn: 9.9.0.18
+	$server_zone = date_default_timezone_get();                                                                         // If in 'Theme' or 'other plugin' set  default timezone other than UTC. Save it.
+	if ( 'UTC' !== $server_zone ) {                                                                                     // Needed for WP date functions  - set timezone to  UTC
+		@date_default_timezone_set( 'UTC' );
+	}
+
     ob_start();
 
     $timeline = new WPBC_TimelineFlex();
@@ -2999,6 +3008,11 @@ function wpbc_ajax_flex_timeline() {
     $timeline_results = ob_get_contents();
 
     ob_end_clean();
+
+	//FixIn: 9.9.0.18
+	if ( 'UTC' !== $server_zone ) {                                                                                     // Back  to  previos state,  if it was changed.
+		@date_default_timezone_set( $server_zone );
+	}
 
     echo  $timeline_results ;    
 }
@@ -3074,7 +3088,15 @@ function wpbc_is_show_popover_in_flex_timeline( $is_frontend, $booking_hash ){
  */
 function bookingflextimeline_shortcode($attr) {
 
+	if ( wpbc_is_on_edit_page() ) {
+		return wpbc_get_preview_for_shortcode( 'bookingflextimeline', $attr );      //FixIn: 9.9.0.39
+	}
+
 	$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
+
+	if ( '' === $attr ) {
+		$attr = array();        //FixIn: 9.9.0.30
+	}
 
 	//if ( function_exists( 'wpbc_br_cache' ) ) $br_cache = wpbc_br_cache();  // Init booking resources cache
 	if ( isset( $attr['resource_id'] ) ) {  $attr['type'] = $attr['resource_id']; }
@@ -3103,6 +3125,12 @@ function bookingflextimeline_shortcode($attr) {
 	}
 	if ( ! isset( $attr['header_title' ] ) ) {
 		$attr['header_title' ] = '';
+	}
+
+	//FixIn: 9.9.0.18
+	$server_zone = date_default_timezone_get();                                                                         // If in 'Theme' or 'other plugin' set  default timezone other than UTC. Save it.
+	if ( 'UTC' !== $server_zone ) {                                                                                     // Needed for WP date functions  - set timezone to  UTC
+		@date_default_timezone_set( 'UTC' );
 	}
 
 	ob_start();
@@ -3160,6 +3188,11 @@ function bookingflextimeline_shortcode($attr) {
 	$timeline_results = ob_get_contents();
 
 	ob_end_clean();
+
+	//FixIn: 9.9.0.18
+	if ( 'UTC' !== $server_zone ) {                                                                                     // Back  to  previos state,  if it was changed.
+		@date_default_timezone_set( $server_zone );
+	}
 
 	return $timeline_results ;
 }

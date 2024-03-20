@@ -12,12 +12,13 @@ use Elementor\Controls_Manager;
 use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Border;
+use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
 
 // PHP Classes.
-use \Datetime;
-use \DateTimeZone;
+use Datetime;
+use DateTimeZone;
 
 // PremiumAddons Classes.
 use PremiumAddons\Includes\Helper_Functions;
@@ -83,6 +84,7 @@ class Premium_Countdown extends Widget_Base {
 	 */
 	public function get_style_depends() {
 		return array(
+			'pa-flipclock',
 			'premium-addons',
 		);
 	}
@@ -98,7 +100,7 @@ class Premium_Countdown extends Widget_Base {
 	public function get_script_depends() {
 		return array(
 			'pa-countdown',
-			'pa-tweenmax',
+			'pa-flipclock',
 			'premium-addons',
 		);
 	}
@@ -146,23 +148,26 @@ class Premium_Countdown extends Widget_Base {
 	 */
 	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
-		$this->start_controls_section(
-			'premium_countdown_global_settings',
+		$papro_activated = apply_filters( 'papro_activated', false );
+
+		$options = apply_filters(
+			'pa_countdown_options',
 			array(
-				'label' => __( 'Countdown', 'premium-addons-for-elementor' ),
+				'styles'          => array(
+					'default'  => __( 'Default', 'premium-addons-for-elementor' ),
+					'featured' => __( 'Featured Unit', 'premium-addons-for-elementor' ),
+					'circle'   => __( 'Circle (Pro)', 'premium-addons-for-elementor' ),
+					'rotate'   => __( 'Rotate (Pro)', 'premium-addons-for-elementor' ),
+					'flipping' => __( 'Flip (Pro)', 'premium-addons-for-elementor' ),
+				),
+				'style_condition' => array( 'circle', 'rotate', 'flipping' ),
 			)
 		);
 
-		$this->add_control(
-			'premium_countdown_style',
+		$this->start_controls_section(
+			'countdown_section',
 			array(
-				'label'   => __( 'Style', 'premium-addons-for-elementor' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => array(
-					'd-u-s' => __( 'Inline', 'premium-addons-for-elementor' ),
-					'd-u-u' => __( 'Block', 'premium-addons-for-elementor' ),
-				),
-				'default' => 'd-u-u',
+				'label' => __( 'Countdown', 'premium-addons-for-elementor' ),
 			)
 		);
 
@@ -188,7 +193,7 @@ class Premium_Countdown extends Widget_Base {
 				'picker_options' => array(
 					'format' => 'Ym/d H:m:s',
 				),
-				'default'        => gmdate( 'Y/m/d H:m:s', strtotime( '+ 1 Day' ) ),
+				'default'        => gmdate( 'Y/m/d H:m:s', strtotime( '+ 2 Day' ) ),
 				'dynamic'        => array(
 					'active' => true,
 				),
@@ -290,16 +295,16 @@ class Premium_Countdown extends Widget_Base {
 		);
 
 		$this->add_control(
-			'premium_countdown_s_u_time',
+			'timezone',
 			array(
-				'label'       => __( 'Time Zone', 'premium-addons-for-elementor' ),
+				'label'       => __( 'Timezone', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::SELECT,
+				'description' => __( 'Select the timezone to calculate the time left.', 'premium-addons-for-elementor' ),
 				'options'     => array(
 					'wp-time'   => __( 'WordPress Default', 'premium-addons-for-elementor' ),
 					'user-time' => __( 'User Local Time', 'premium-addons-for-elementor' ),
 				),
 				'default'     => 'wp-time',
-				'description' => __( 'This will set the current time of the option that you will choose.', 'premium-addons-for-elementor' ),
 			)
 		);
 
@@ -311,36 +316,203 @@ class Premium_Countdown extends Widget_Base {
 				'description' => __( 'Select the time units that you want to display in countdown timer.', 'premium-addons-for-elementor' ),
 				'options'     => array(
 					'Y' => __( 'Years', 'premium-addons-for-elementor' ),
-					'O' => __( 'Month', 'premium-addons-for-elementor' ),
-					'W' => __( 'Week', 'premium-addons-for-elementor' ),
-					'D' => __( 'Day', 'premium-addons-for-elementor' ),
+					'O' => __( 'Months', 'premium-addons-for-elementor' ),
+					'D' => __( 'Days', 'premium-addons-for-elementor' ),
 					'H' => __( 'Hours', 'premium-addons-for-elementor' ),
 					'M' => __( 'Minutes', 'premium-addons-for-elementor' ),
-					'S' => __( 'Second', 'premium-addons-for-elementor' ),
+					'S' => __( 'Seconds', 'premium-addons-for-elementor' ),
 				),
-				'default'     => array( 'O', 'D', 'H', 'M', 'S' ),
+				'default'     => array( 'D', 'H', 'M', 'S' ),
 				'multiple'    => true,
 				'separator'   => 'after',
+				'condition'   => array(
+					'style!' => 'flipping',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'display_options_section',
+			array(
+				'label' => __( 'Display Options', 'premium-addons-for-elementor' ),
 			)
 		);
 
 		$this->add_control(
-			'premium_countdown_flip',
+			'style',
 			array(
-				'label'       => __( 'Flipping Effect', 'premium-addons-for-elementor' ),
-				'type'        => Controls_Manager::SWITCHER,
+				'label'   => __( 'Style', 'premium-addons-for-elementor' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => $options['styles'],
+				'default' => 'default',
+			)
+		);
+
+		$this->add_control(
+			'featured_unit',
+			array(
+				'label'     => __( 'Featured Time Unit', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => array(
+					'0' => __( 'Years', 'premium-addons-for-elementor' ),
+					'1' => __( 'Months', 'premium-addons-for-elementor' ),
+					'3' => __( 'Days', 'premium-addons-for-elementor' ),
+					'4' => __( 'Hours', 'premium-addons-for-elementor' ),
+					'5' => __( 'Minutes', 'premium-addons-for-elementor' ),
+					'6' => __( 'Seconds', 'premium-addons-for-elementor' ),
+				),
+				'default'   => '3',
+				'condition' => array(
+					'style' => 'featured',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'featured_unit_size',
+			array(
+				'label'     => __( 'Featured Unit Width (PX)', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 300,
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .countdown-section:first-child .countdown-amount' => 'width: {{SIZE}}px',
+				),
+				'condition' => array(
+					'style' => 'featured',
+				),
+			)
+		);
+
+		if ( ! $papro_activated ) {
+
+			$get_pro = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/pro', 'editor-page', 'wp-editor', 'get-pro' );
+
+			$this->add_control(
+				'notification_notice',
+				array(
+					'type'            => Controls_Manager::RAW_HTML,
+					'raw'             => __( 'This option is available in Premium Addons Pro. ', 'premium-addons-for-elementor' ) . '<a href="' . esc_url( $get_pro ) . '" target="_blank">' . __( 'Upgrade now!', 'premium-addons-for-elementor' ) . '</a>',
+					'content_classes' => 'papro-upgrade-notice',
+					'condition'       => array(
+						'style' => $options['style_condition'],
+					),
+				)
+			);
+
+		}
+
+		$this->add_responsive_control(
+			'digit_size',
+			array(
+				'label'       => __( 'Digit Size (px)', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SLIDER,
+				'range'       => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 200,
+					),
+				),
+				'default'     => array(
+					'unit' => 'px',
+					'size' => 60,
+				),
 				'render_type' => 'template',
+				'selectors'   => array(
+					'{{WRAPPER}} .countdown-amount' => 'width: {{SIZE}}px; height: {{SIZE}}px;',
+					'{{WRAPPER}}.premium-countdown-block .countdown-period span' => 'width: {{SIZE}}px;',
+					'{{WRAPPER}} .premium-countdown-flipping .flip' => 'width: {{SIZE}}px;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'unit_inside_circle',
+			array(
+				'label'        => __( 'Add Units Inside Digits', 'premium-addons-for-elementor' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'prefix_class' => 'premium-countdown-uinside-',
+				'render_type'  => 'template',
+				'condition'    => array(
+					'style!' => 'flipping',
+				),
+			)
+		);
+
+		$this->add_control(
+			'unit_position',
+			array(
+				'label'        => __( 'Time Units Position', 'premium-addons-for-elementor' ),
+				'type'         => Controls_Manager::SELECT,
+				'options'      => array(
+					'inline' => __( 'Inline', 'premium-addons-for-elementor' ),
+					'block'  => __( 'Block', 'premium-addons-for-elementor' ),
+				),
+				'prefix_class' => 'premium-countdown-',
+				'render_type'  => 'template',
+				'default'      => 'block',
+				'condition'    => array(
+					'unit_inside_circle!' => 'yes',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'units_valignment',
+			array(
+				'label'     => __( 'Units Alignment', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'flex-start' => array(
+						'title' => __( 'Top', 'premium-addons-for-elementor' ),
+						'icon'  => 'eicon-arrow-up',
+					),
+					'center'     => array(
+						'title' => __( 'Center', 'premium-addons-for-elementor' ),
+						'icon'  => 'eicon-text-align-justify',
+					),
+					'flex-end'   => array(
+						'title' => __( 'Bottom', 'premium-addons-for-elementor' ),
+						'icon'  => 'eicon-arrow-down',
+					),
+				),
+				'default'   => 'flex-end',
+				'toggle'    => false,
+				'condition' => array(
+					'unit_position'       => 'inline',
+					'unit_inside_circle!' => 'yes',
+					'style!'              => 'circle',
+				),
+				'selectors' => array(
+					'{{WRAPPER}}.premium-countdown-inline .countdown-section, {{WRAPPER}}.premium-countdown-inline .flip-unit-wrap' => 'align-items: {{VALUE}};',
+				),
 			)
 		);
 
 		$this->add_control(
 			'premium_countdown_separator',
 			array(
-				'label'       => __( 'Digits Separator', 'premium-addons-for-elementor' ),
-				'description' => __( 'Enable or disable digits separator', 'premium-addons-for-elementor' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'condition'   => array(
-					'premium_countdown_style' => 'd-u-u',
+				'label'      => __( 'Digits Separator', 'premium-addons-for-elementor' ),
+				'type'       => Controls_Manager::SWITCHER,
+				'default'    => 'yes',
+				'conditions' => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'name'  => 'unit_position',
+							'value' => 'block',
+						),
+						array(
+							'name'  => 'unit_inside_circle',
+							'value' => 'yes',
+						),
+					),
 				),
 			)
 		);
@@ -348,13 +520,68 @@ class Premium_Countdown extends Widget_Base {
 		$this->add_control(
 			'premium_countdown_separator_text',
 			array(
-				'label'     => __( 'Separator Text', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::TEXT,
-				'condition' => array(
-					'premium_countdown_style'     => 'd-u-u',
-					'premium_countdown_separator' => 'yes',
+				'label'      => __( 'Separator Shape', 'premium-addons-for-elementor' ),
+				'type'       => Controls_Manager::SELECT,
+				'options'    => array(
+					':'      => __( 'Colon', 'premium-addons-for-elementor' ),
+					'.'      => __( 'Dot', 'premium-addons-for-elementor' ),
+					'custom' => __( 'Custom', 'premium-addons-for-elementor' ),
 				),
-				'default'   => ':',
+				'default'    => ':',
+				'conditions' => array(
+					'terms' => array(
+						array(
+							'name'  => 'premium_countdown_separator',
+							'value' => 'yes',
+						),
+						array(
+							'relation' => 'or',
+							'terms'    => array(
+								array(
+									'name'  => 'unit_position',
+									'value' => 'block',
+								),
+								array(
+									'name'  => 'unit_inside_circle',
+									'value' => 'yes',
+								),
+							),
+						),
+					),
+				),
+			)
+		);
+
+		$this->add_control(
+			'custom_separator',
+			array(
+				'label'      => __( 'Separator Text', 'premium-addons-for-elementor' ),
+				'type'       => Controls_Manager::TEXT,
+				'conditions' => array(
+					'terms' => array(
+						array(
+							'name'  => 'premium_countdown_separator',
+							'value' => 'yes',
+						),
+						array(
+							'name'  => 'premium_countdown_separator_text',
+							'value' => 'custom',
+						),
+						array(
+							'relation' => 'or',
+							'terms'    => array(
+								array(
+									'name'  => 'unit_position',
+									'value' => 'block',
+								),
+								array(
+									'name'  => 'unit_inside_circle',
+									'value' => 'yes',
+								),
+							),
+						),
+					),
+				),
 			)
 		);
 
@@ -388,22 +615,23 @@ class Premium_Countdown extends Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
-			'premium_countdown_on_expire_settings',
+			'expire_section',
 			array(
-				'label' => __( 'Expire', 'premium-addons-for-elementor' ),
+				'label' => __( 'After Expire', 'premium-addons-for-elementor' ),
 			)
 		);
 
 		$this->add_control(
-			'premium_countdown_expire_text_url',
+			'expiration_type',
 			array(
-				'label'       => __( 'Expire Type', 'premium-addons-for-elementor' ),
+				'label'       => __( 'Choose Action', 'premium-addons-for-elementor' ),
 				'label_block' => false,
 				'type'        => Controls_Manager::SELECT,
 				'description' => __( 'Choose whether if you want to set a message or a redirect link or leave it as digits', 'premium-addons-for-elementor' ),
 				'options'     => array(
 					'default' => __( 'Default', 'premium-addons-for-elementor' ),
 					'text'    => __( 'Message', 'premium-addons-for-elementor' ),
+					'restart' => __( 'Restart', 'premium-addons-for-elementor' ),
 					'url'     => __( 'Redirection Link', 'premium-addons-for-elementor' ),
 				),
 				'default'     => 'text',
@@ -411,46 +639,101 @@ class Premium_Countdown extends Widget_Base {
 		);
 
 		$this->add_control(
-			'default_type_notice',
+			'change_digits',
 			array(
-				'raw'             => __( 'Default option will show the expiration message as <b>Digits [00:00:00]</b>.', 'premium-addons-for-elementor' ),
-				'type'            => Controls_Manager::RAW_HTML,
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
-				'condition'       => array(
-					'premium_countdown_expire_text_url' => 'default',
+				'label'       => __( 'Change Digits To', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SELECT,
+				'description' => __( 'Choose whether if you want to set a message or a redirect link or leave it as digits', 'premium-addons-for-elementor' ),
+				'options'     => array(
+					'default' => __( 'None', 'premium-addons-for-elementor' ),
+					'dash'    => __( 'Dash', 'premium-addons-for-elementor' ),
+					'done'    => __( 'D-O-N-E', 'premium-addons-for-elementor' ),
+				),
+				'default'     => 'default',
+				'condition'   => array(
+					'expiration_type' => 'default',
+					'style!'          => 'flipping',
 				),
 			)
 		);
 
 		$this->add_control(
-			'premium_countdown_expiry_text_',
+			'expiration_text',
 			array(
-				'label'     => __( 'On expiry Text', 'premium-addons-for-elementor' ),
+				'label'     => __( 'Text', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::WYSIWYG,
 				'dynamic'   => array( 'active' => true ),
 				'default'   => __( 'Countdown Expired!', 'prmeium_elementor' ),
 				'condition' => array(
-					'premium_countdown_expire_text_url' => 'text',
+					'expiration_type' => 'text',
 				),
 			)
 		);
 
 		$this->add_control(
-			'premium_countdown_expiry_redirection_',
+			'expiration_url',
 			array(
-				'label'     => __( 'Redirect To', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::TEXT,
-				'dynamic'   => array(
+				'label'       => __( 'URL', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::TEXT,
+				'dynamic'     => array(
 					'active'     => true,
 					'categories' => array(
 						TagsModule::POST_META_CATEGORY,
 						TagsModule::URL_CATEGORY,
 					),
 				),
-				'condition' => array(
-					'premium_countdown_expire_text_url' => 'url',
+				'label_block' => true,
+				'condition'   => array(
+					'expiration_type' => 'url',
 				),
-				'default'   => get_permalink( 1 ),
+			)
+		);
+
+		$this->add_control(
+			'restart_days',
+			array(
+				'label'     => __( 'Days', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 1,
+				'condition' => array(
+					'expiration_type' => 'restart',
+				),
+			)
+		);
+
+		$this->add_control(
+			'restart_hours',
+			array(
+				'label'     => __( 'Hours', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 2,
+				'condition' => array(
+					'expiration_type' => 'restart',
+				),
+			)
+		);
+
+		$this->add_control(
+			'restart_minutes',
+			array(
+				'label'     => __( 'Minutes', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 55,
+				'condition' => array(
+					'expiration_type' => 'restart',
+				),
+			)
+		);
+
+		$this->add_control(
+			'restart_notice',
+			array(
+				'raw'             => __( 'When the action is set to restart, all times will be calculated based on the server timezone.', 'premium-addons-for-elementor' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
+				'condition'       => array(
+					'expiration_type' => 'restart',
+				),
 			)
 		);
 
@@ -459,7 +742,10 @@ class Premium_Countdown extends Widget_Base {
 		$this->start_controls_section(
 			'premium_countdown_transaltion',
 			array(
-				'label' => __( 'Strings Translation', 'premium-addons-for-elementor' ),
+				'label'     => __( 'Strings Translation', 'premium-addons-for-elementor' ),
+				'condition' => array(
+					'style' => '',
+				),
 			)
 		);
 
@@ -480,26 +766,6 @@ class Premium_Countdown extends Widget_Base {
 				'type'    => Controls_Manager::TEXT,
 				'dynamic' => array( 'active' => true ),
 				'default' => 'Days',
-			)
-		);
-
-		$this->add_control(
-			'premium_countdown_week_singular',
-			array(
-				'label'   => __( 'Week (Singular)', 'premium-addons-for-elementor' ),
-				'type'    => Controls_Manager::TEXT,
-				'dynamic' => array( 'active' => true ),
-				'default' => 'Week',
-			)
-		);
-
-		$this->add_control(
-			'premium_countdown_week_plural',
-			array(
-				'label'   => __( 'Weeks (Plural)', 'premium-addons-for-elementor' ),
-				'type'    => Controls_Manager::TEXT,
-				'dynamic' => array( 'active' => true ),
-				'default' => 'Weeks',
 			)
 		);
 
@@ -642,7 +908,47 @@ class Premium_Countdown extends Widget_Base {
 					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .countdown .countdown-section .countdown-amount, {{WRAPPER}} .premium-countdown-flip .premium-countdown-figure span' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .countdown-amount, {{WRAPPER}} .inn' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'circle_stroke_color',
+			array(
+				'label'     => __( 'Stroke Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .countdown-svg path' => 'stroke: {{VALUE}};',
+				),
+				'condition' => array(
+					'style' => 'circle',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'circle_stroke_width',
+			array(
+				'label'       => __( 'Stroke Width (px)', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SLIDER,
+				'range'       => array(
+					'px' => array(
+						'min' => 1,
+						'max' => 15,
+					),
+				),
+				'default'     => array(
+					'unit' => 'px',
+					'size' => 4,
+				),
+				'render_type' => 'template',
+				'selectors'   => array(
+					'{{WRAPPER}} .countdown-svg path' => 'stroke-width: {{SIZE}}px',
+					'{{WRAPPER}}'                     => '--pa-countdown-stroke-width: {{SIZE}}',
+				),
+				'condition'   => array(
+					'style' => 'circle',
 				),
 			)
 		);
@@ -650,12 +956,11 @@ class Premium_Countdown extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			array(
-				'name'      => 'premium_countdown_digit_typo',
-				'global'    => array(
+				'name'     => 'premium_countdown_digit_typo',
+				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_TEXT,
 				),
-				'selector'  => '{{WRAPPER}} .countdown .countdown-section .countdown-amount, {{WRAPPER}} .premium-countdown-flip .premium-countdown-figure span',
-				'separator' => 'after',
+				'selector' => '{{WRAPPER}} .countdown-amount, {{WRAPPER}} .inn',
 			)
 		);
 
@@ -668,12 +973,31 @@ class Premium_Countdown extends Widget_Base {
 					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .countdown .countdown-section .countdown-amount,
-					 {{WRAPPER}} .premium-countdown-flip .premium-countdown-figure,
-					 {{WRAPPER}} .premium-countdown-flip .premium-countdown-figure .top,
-					 {{WRAPPER}} .premium-countdown-flip .premium-countdown-figure .top-back,
-					 {{WRAPPER}} .premium-countdown-flip .premium-countdown-figure .bottom-back ' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .countdown-amount, {{WRAPPER}} .inn' => 'background-color: {{VALUE}};',
 				),
+			)
+		);
+
+		$this->add_control(
+			'flip_separator_color',
+			array(
+				'label'     => __( 'Separator Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .flip-clock-wrapper div.up::after' => 'background-color: {{VALUE}};',
+				),
+				'condition' => array(
+					'style' => 'flipping',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Text_Shadow::get_type(),
+			array(
+				'name'     => 'digits_shadow',
+				'selector' => '{{WRAPPER}} .countdown-amount span, {{WRAPPER}} .inn',
+
 			)
 		);
 
@@ -681,36 +1005,18 @@ class Premium_Countdown extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'premium_countdown_units_shadow',
-				'selector' => '{{WRAPPER}} .countdown .countdown-amount, {{WRAPPER}} .premium-countdown-figure',
-			)
-		);
-
-		$this->add_responsive_control(
-			'premium_countdown_digit_bg_size',
-			array(
-				'label'     => __( 'Width', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
-					'px' => array(
-						'min' => 1,
-						'max' => 1000,
-					),
-				),
-				'condition'=> [
-					'premium_countdown_flip'=> 'yes'
-				],
-				'selectors' => array(
-					'{{WRAPPER}} .premium-countdown-figure' => 'width: {{SIZE}}px;',
-				),
-
+				'selector' => '{{WRAPPER}} .countdown-amount, {{WRAPPER}} .flip',
 			)
 		);
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			array(
-				'name'     => 'premium_countdown_digits_border',
-				'selector' => '{{WRAPPER}} .countdown .countdown-section .countdown-amount, {{WRAPPER}} .premium-countdown-figure',
+				'name'      => 'premium_countdown_digits_border',
+				'selector'  => '{{WRAPPER}} .countdown-amount, {{WRAPPER}} .premium-countdown-figure, {{WRAPPER}} .flip',
+				'condition' => array(
+					'style!' => 'circle',
+				),
 			)
 		);
 
@@ -718,14 +1024,14 @@ class Premium_Countdown extends Widget_Base {
 			'premium_countdown_digit_border_radius',
 			array(
 				'label'      => __( 'Border Radius', 'premium-addons-for-elementor' ),
-				'type'       => Controls_Manager::DIMENSIONS,
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%', 'em' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .countdown .countdown-section .countdown-amount' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .countdown-amount, {{WRAPPER}} .flip' => 'border-radius: {{SIZE}}{{UNIT}};',
 				),
 				'condition'  => array(
-					'premium_countdown_flip!' => 'yes',
-					'digit_adv_radius!'       => 'yes',
+					'style!'            => 'circle',
+					'digit_adv_radius!' => 'yes',
 				),
 			)
 		);
@@ -736,6 +1042,9 @@ class Premium_Countdown extends Widget_Base {
 				'label'       => __( 'Advanced Border Radius', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'description' => __( 'Apply custom radius values. Get the radius value from ', 'premium-addons-for-elementor' ) . '<a href="https://9elements.github.io/fancy-border-radius/" target="_blank">here</a>',
+				'condition'   => array(
+					'style!' => 'circle',
+				),
 			)
 		);
 
@@ -746,10 +1055,26 @@ class Premium_Countdown extends Widget_Base {
 				'type'      => Controls_Manager::TEXT,
 				'dynamic'   => array( 'active' => true ),
 				'selectors' => array(
-					'{{WRAPPER}} .countdown .countdown-section .countdown-amount' => 'border-radius: {{VALUE}};',
+					'{{WRAPPER}} .countdown-amount, {{WRAPPER}} .flip' => 'border-radius: {{VALUE}};',
 				),
 				'condition' => array(
+					'style!'           => 'circle',
 					'digit_adv_radius' => 'yes',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'digits_margin',
+			array(
+				'label'      => __( 'Margin', 'premium-addons-for-elementor' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .flip' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'style' => 'flipping',
 				),
 			)
 		);
@@ -761,7 +1086,10 @@ class Premium_Countdown extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%', 'em' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .countdown .countdown-section .countdown-amount' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .countdown-amount' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'style!' => 'flipping',
 				),
 			)
 		);
@@ -785,7 +1113,7 @@ class Premium_Countdown extends Widget_Base {
 					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .countdown .countdown-section .countdown-period, {{WRAPPER}} .premium-countdown-label' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .countdown-period, {{WRAPPER}} .premium-countdown-label, {{WRAPPER}} .flip-clock-label' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -795,9 +1123,9 @@ class Premium_Countdown extends Widget_Base {
 			array(
 				'name'     => 'premium_countdown_unit_typo',
 				'global'   => array(
-					'default' => Global_Typography::TYPOGRAPHY_TEXT,
+					'default' => Global_Typography::TYPOGRAPHY_SECONDARY,
 				),
-				'selector' => '{{WRAPPER}} .countdown .countdown-section .countdown-period, {{WRAPPER}} .premium-countdown-label',
+				'selector' => '{{WRAPPER}} .countdown-period, {{WRAPPER}} .premium-countdown-label, {{WRAPPER}} .flip-clock-label',
 			)
 		);
 
@@ -807,52 +1135,28 @@ class Premium_Countdown extends Widget_Base {
 				'label'     => __( 'Background Color', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .countdown .countdown-section .countdown-period, {{WRAPPER}} .premium-countdown-label' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .countdown-period span, {{WRAPPER}} .premium-countdown-label, {{WRAPPER}} .flip-unit' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
 
-		$this->add_responsive_control(
-			'premium_countdown_separator_width',
+		$this->add_group_control(
+			Group_Control_Text_Shadow::get_type(),
 			array(
-				'label'      => __( 'Spacing in Between', 'premium-addons-for-elementor' ),
-				'type'       => Controls_Manager::SLIDER,
-				'default'    => array(
-					'size' => 40,
-				),
-				'range'      => array(
-					'px' => array(
-						'min' => 0,
-						'max' => 200,
-					),
-				),
+				'name'     => 'units_shadow',
+				'selector' => '{{WRAPPER}} .countdown-period span, {{WRAPPER}} .flip-clock-label',
+
+			)
+		);
+
+		$this->add_responsive_control(
+			'units_margin',
+			array(
+				'label'      => __( 'Margin', 'premium-addons-for-elementor' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .countdown .countdown-section, {{WRAPPER}} .premium-countdown-block' => 'margin-right: calc( {{SIZE}}{{UNIT}} / 2 ); margin-left: calc( {{SIZE}}{{UNIT}} / 2 );',
-				),
-				'conditions' => array(
-					'relation' => 'or',
-					'terms'    => array(
-						array(
-							'name'     => 'premium_countdown_style',
-							'operator' => '===',
-							'value'    => 'd-u-s',
-						),
-						array(
-							'relation' => 'and',
-							'terms'    => array(
-								array(
-									'name'     => 'premium_countdown_style',
-									'operator' => '===',
-									'value'    => 'd-u-u',
-								),
-								array(
-									'name'     => 'premium_countdown_separator',
-									'operator' => '!==',
-									'value'    => 'yes',
-								),
-							),
-						),
-					),
+					'{{WRAPPER}} .countdown-period, {{WRAPPER}} .premium-countdown-label, {{WRAPPER}} .flip-unit' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				),
 			)
 		);
@@ -864,11 +1168,85 @@ class Premium_Countdown extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .countdown-section .countdown-period, {{WRAPPER}} .premium-countdown-label' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+					'{{WRAPPER}} .countdown-period span, {{WRAPPER}} .premium-countdown-label, {{WRAPPER}} .flip-unit' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				),
-				// 'condition'  => array(
-				// 	'premium_countdown_style' => 'd-u-s',
-				// ),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'featured_unit_style',
+			array(
+				'label'     => __( 'Featured Unit', 'premium-addons-for-elementor' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array(
+					'style' => 'featured',
+				),
+			)
+		);
+
+		$this->add_control(
+			'featured_digit_color',
+			array(
+				'label'     => __( 'Digit Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .countdown-section:first-child .countdown-amount' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'featured_digit_typo',
+				'label'    => __( 'Digit Typography', 'premium-addons-for-elementor' ),
+				'selector' => '{{WRAPPER}} .countdown-section:first-child .countdown-amount',
+			)
+		);
+
+		$this->add_control(
+			'featured_unit_color',
+			array(
+				'label'     => __( 'Unit Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .countdown-section:first-child .countdown-period' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'featured_unit_typo',
+				'label'    => __( 'Unit Typography', 'premium-addons-for-elementor' ),
+				'selector' => '{{WRAPPER}} .countdown-section:first-child .countdown-period',
+			)
+		);
+
+		$this->add_responsive_control(
+			'featured_unit_spacing',
+			array(
+				'label'      => __( 'Spacing', 'premium-addons-for-elementor' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .countdown-section:first-child .countdown-period' => 'margin-top: {{SIZE}}{{UNIT}}',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'featured_digit_padding',
+			array(
+				'label'      => __( 'Digit Padding', 'premium-addons-for-elementor' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .countdown-section:first-child .countdown-amount' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				),
 			)
 		);
 
@@ -877,11 +1255,43 @@ class Premium_Countdown extends Widget_Base {
 		$this->start_controls_section(
 			'premium_countdown_separator_style',
 			array(
-				'label'     => __( 'Separator', 'premium-addons-for-elementor' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
-				'condition' => array(
-					'premium_countdown_style'     => 'd-u-u',
-					'premium_countdown_separator' => 'yes',
+				'label'      => __( 'Separator', 'premium-addons-for-elementor' ),
+				'tab'        => Controls_Manager::TAB_STYLE,
+				'conditions' => array(
+					'terms' => array(
+						array(
+							'name'  => 'premium_countdown_separator',
+							'value' => 'yes',
+						),
+						array(
+							'relation' => 'or',
+							'terms'    => array(
+								array(
+									'name'  => 'unit_position',
+									'value' => 'block',
+								),
+								array(
+									'name'  => 'unit_inside_circle',
+									'value' => 'yes',
+								),
+							),
+						),
+					),
+				),
+			)
+		);
+
+		$this->add_control(
+			'premium_countdown_separator_color',
+			array(
+				'label'     => __( 'Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .countdown_separator' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .countdown-separator-circle' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -899,32 +1309,119 @@ class Premium_Countdown extends Widget_Base {
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .countdown_separator' => 'font-size: {{SIZE}}px;',
-				),
-			)
-		);
-
-		$this->add_control(
-			'premium_countdown_separator_color',
-			array(
-				'label'     => __( 'Color', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => array(
-					'default' => Global_Colors::COLOR_SECONDARY,
-				),
-				'selectors' => array(
-					'{{WRAPPER}} .countdown_separator' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .countdown-separator-circle' => 'width: {{SIZE}}px; height: {{SIZE}}px;',
 				),
 			)
 		);
 
 		$this->add_responsive_control(
-			'premium_countdown_separator_margin',
+			'separator_spacing',
+			array(
+				'label'      => __( 'Spacing', 'premium-addons-for-elementor' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .countdown_separator' => 'margin-right: {{SIZE}}{{UNIT}}; margin-left: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'boxes_style',
+			array(
+				'label' => __( 'Boxes', 'premium-addons-for-elementor' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'boxes_bg_color',
+			array(
+				'label'     => __( 'Background Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .countdown-section, {{WRAPPER}} .flip-unit-wrap' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'boxes_shadow',
+				'selector' => '{{WRAPPER}} .countdown-section, {{WRAPPER}} .flip-unit-wrap',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'     => 'boxes_border',
+				'selector' => '{{WRAPPER}} .countdown-section, {{WRAPPER}} .flip-unit-wrap',
+			)
+		);
+
+		$this->add_control(
+			'boxes_border_radius',
+			array(
+				'label'      => __( 'Border Radius', 'premium-addons-for-elementor' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .countdown-section, {{WRAPPER}} .flip-unit-wrap' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'boxes_adv_radius!' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'boxes_adv_radius',
+			array(
+				'label'       => __( 'Advanced Border Radius', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'description' => __( 'Apply custom radius values. Get the radius value from ', 'premium-addons-for-elementor' ) . '<a href="https://9elements.github.io/fancy-border-radius/" target="_blank">here</a>',
+			)
+		);
+
+		$this->add_control(
+			'boxes_adv_radius_value',
+			array(
+				'label'     => __( 'Border Radius', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::TEXT,
+				'dynamic'   => array( 'active' => true ),
+				'selectors' => array(
+					'{{WRAPPER}} .countdown-section, {{WRAPPER}} .flip-unit-wrap' => 'border-radius: {{VALUE}};',
+				),
+				'condition' => array(
+					'boxes_adv_radius' => 'yes',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'boxes_margin',
 			array(
 				'label'      => __( 'Margin', 'premium-addons-for-elementor' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => array( 'px', 'em' ),
+				'size_units' => array( 'px', '%', 'em' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .countdown_separator' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .countdown-section, {{WRAPPER}} .flip-unit-wrap' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'boxes_padding',
+			array(
+				'label'      => __( 'Padding', 'premium-addons-for-elementor' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .countdown-section, {{WRAPPER}} .flip-unit-wrap' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -937,7 +1434,7 @@ class Premium_Countdown extends Widget_Base {
 				'label'     => __( 'Expiration Message', 'premium-addons-for-elementor' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
-					'premium_countdown_expire_text_url' => 'text',
+					'expiration_type' => 'text',
 				),
 			)
 		);
@@ -1036,14 +1533,12 @@ class Premium_Countdown extends Widget_Base {
 	/**
 	 * Handles Evergreen Counter
 	 *
-	 * @param array $settings widget settings.
-	 *
 	 * @since 4.3.9
 	 * @access protected
-	 *
-	 * @return object evergreen to-run-time.
 	 */
-	protected function get_evergreen_time( $settings ) {
+	protected function get_evergreen_time() {
+
+		$settings = $this->get_settings_for_display();
 
 		if ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
 			$http_x_headers = explode( ',', sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) );
@@ -1086,7 +1581,6 @@ class Premium_Countdown extends Widget_Base {
 		if ( strtotime( $local_due_date->format( 'Y-m-d H:i:s' ) ) > 0 && intval( $local_interval ) === $eve_interval ) {
 			return $local_due_date;
 		}
-
 	}
 
 	/**
@@ -1130,6 +1624,25 @@ class Premium_Countdown extends Widget_Base {
 
 		$settings = $this->get_settings_for_display();
 
+		$papro_activated = apply_filters( 'papro_activated', false );
+
+		if ( ! $papro_activated || version_compare( PREMIUM_PRO_ADDONS_VERSION, '2.9.14', '<' ) ) {
+
+			if ( in_array( $settings['style'], array( 'circle', 'flipping', 'rotate' ), true ) ) {
+
+				?>
+				<div class="premium-error-notice">
+					<?php
+						$message = __( 'This option is available in <b>Premium Addons Pro</b>.', 'premium-addons-for-elementor' );
+						echo wp_kses_post( $message );
+					?>
+				</div>
+				<?php
+				return false;
+
+			}
+		}
+
 		$id = $this->get_id();
 
 		$timer_type = $settings['premium_countdown_type'];
@@ -1159,72 +1672,114 @@ class Premium_Countdown extends Widget_Base {
 			}
 		}
 
-		$target_date = 'evergreen' === $timer_type ? $this->get_evergreen_time( $settings ) : str_replace( '-', '/', $settings['premium_countdown_date_time'] );
+		$target_date = 'evergreen' === $timer_type ? $this->get_evergreen_time() : str_replace( '-', '/', $settings['premium_countdown_date_time'] );
 
-		$formats = $settings['premium_countdown_units'];
-		$format  = implode( '', $formats );
-		$time    = str_replace( '-', '/', current_time( 'mysql' ) );
-
-		$sent_time = '';
-
-		if ( 'wp-time' === $settings['premium_countdown_s_u_time'] ) {
-			$sent_time = $time;
-		}
-
-		// Singular labels set up.
-		$y     = ! empty( $settings['premium_countdown_year_singular'] ) ? $settings['premium_countdown_year_singular'] : 'Year';
-		$m     = ! empty( $settings['premium_countdown_month_singular'] ) ? $settings['premium_countdown_month_singular'] : 'Month';
-		$w     = ! empty( $settings['premium_countdown_week_singular'] ) ? $settings['premium_countdown_week_singular'] : 'Week';
-		$d     = ! empty( $settings['premium_countdown_day_singular'] ) ? $settings['premium_countdown_day_singular'] : 'Day';
-		$h     = ! empty( $settings['premium_countdown_hour_singular'] ) ? $settings['premium_countdown_hour_singular'] : 'Hour';
-		$mi    = ! empty( $settings['premium_countdown_minute_singular'] ) ? $settings['premium_countdown_minute_singular'] : 'Minute';
-		$s     = ! empty( $settings['premium_countdown_second_singular'] ) ? $settings['premium_countdown_second_singular'] : 'Second';
-		$label = $y . ',' . $m . ',' . $w . ',' . $d . ',' . $h . ',' . $mi . ',' . $s;
-
-		// Plural labels set up.
-		$ys      = ! empty( $settings['premium_countdown_year_plural'] ) ? $settings['premium_countdown_year_plural'] : 'Years';
-		$ms      = ! empty( $settings['premium_countdown_month_plural'] ) ? $settings['premium_countdown_month_plural'] : 'Months';
-		$ws      = ! empty( $settings['premium_countdown_week_plural'] ) ? $settings['premium_countdown_week_plural'] : 'Weeks';
-		$ds      = ! empty( $settings['premium_countdown_day_plural'] ) ? $settings['premium_countdown_day_plural'] : 'Days';
-		$hs      = ! empty( $settings['premium_countdown_hour_plural'] ) ? $settings['premium_countdown_hour_plural'] : 'Hours';
-		$mis     = ! empty( $settings['premium_countdown_minute_plural'] ) ? $settings['premium_countdown_minute_plural'] : 'Minutes';
-		$ss      = ! empty( $settings['premium_countdown_second_plural'] ) ? $settings['premium_countdown_second_plural'] : 'Seconds';
-		$labels1 = $ys . ',' . $ms . ',' . $ws . ',' . $ds . ',' . $hs . ',' . $mis . ',' . $ss;
-
-		$pcdt_style = 'd-u-s' === $settings['premium_countdown_style'] ? ' side' : ' down';
-
-		$event = 'digit';
+		$event = $settings['expiration_type'];
 		$text  = '';
-		if ( 'text' === $settings['premium_countdown_expire_text_url'] ) {
-			$event = 'onExpiry';
-			$text  = '<div class="premium-countdown-exp-message">' . $this->parse_text_editor( $settings['premium_countdown_expiry_text_'] ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		} elseif ( 'url' === $settings['premium_countdown_expire_text_url'] ) {
-			$redirect = ! empty( $settings['premium_countdown_expiry_redirection_'] ) ? esc_url( $settings['premium_countdown_expiry_redirection_'] ) : '';
-			$event    = 'expiryUrl';
-			$text     = $redirect;
+		if ( 'url' === $event ) {
+			$text = esc_html( $settings['expiration_url'] );
+		} elseif ( 'restart' === $event ) {
+
+			if ( $is_edit_mode ) {
+				$last_target = $target_date;
+			} else {
+				$last_target = get_option( 'pa_countdown_target' . $id, false );
+			}
+
+			if ( ! $last_target ) {
+				$last_target = $target_date;
+			}
+
+			$is_date_passed = strtotime( $last_target ) < time();
+
+			if ( $is_date_passed ) {
+
+				$current_time = new DateTime();
+
+				$current_time->modify( '+' . $settings['restart_days'] . ' day' );
+				$current_time->modify( '+' . $settings['restart_hours'] . ' hours' );
+				$current_time->modify( '+' . $settings['restart_minutes'] . ' minutes' );
+
+				$target_date = str_replace( '-', '/', $current_time->format( 'Y-m-d H:i:s' ) );
+
+			} else {
+				$target_date = $last_target;
+			}
+
+			update_option( 'pa_countdown_target' . $id, $target_date );
 		}
 
-		$separator_text = ! empty( $settings['premium_countdown_separator_text'] ) ? $settings['premium_countdown_separator_text'] : '';
+		// Used to sync time with WordPress.
+		$sent_time = '';
+		if ( 'wp-time' === $settings['timezone'] ) {
+			$sent_time = str_replace( '-', '/', current_time( 'mysql' ) );
+		}
 
-		$countdown_settings = array(
-			'label1'     => $label,
-			'label2'     => $labels1,
-			'until'      => $target_date,
-			'format'     => $format,
-			'event'      => $event,
-			'text'       => $text,
-			'serverSync' => $sent_time,
-			'separator'  => $separator_text,
-			'timerType'  => $timer_type,
-			'reset'      => $reset,
-		);
+		if ( 'flipping' !== $settings['style'] ) {
 
-		$flipped = 'yes' === $settings['premium_countdown_flip'] ? 'premium-countdown-flip' : '';
+			$formats = $settings['premium_countdown_units'];
+			$format  = implode( '', $formats );
+
+			// Singular labels set up.
+			$y     = ! empty( $settings['premium_countdown_year_singular'] ) ? $settings['premium_countdown_year_singular'] : 'Year';
+			$m     = ! empty( $settings['premium_countdown_month_singular'] ) ? $settings['premium_countdown_month_singular'] : 'Month';
+			$w     = 'Week';
+			$d     = ! empty( $settings['premium_countdown_day_singular'] ) ? $settings['premium_countdown_day_singular'] : 'Day';
+			$h     = ! empty( $settings['premium_countdown_hour_singular'] ) ? $settings['premium_countdown_hour_singular'] : 'Hour';
+			$mi    = ! empty( $settings['premium_countdown_minute_singular'] ) ? $settings['premium_countdown_minute_singular'] : 'Minute';
+			$s     = ! empty( $settings['premium_countdown_second_singular'] ) ? $settings['premium_countdown_second_singular'] : 'Second';
+			$label = $y . ',' . $m . ',' . $w . ',' . $d . ',' . $h . ',' . $mi . ',' . $s;
+
+			// Plural labels set up.
+			$ys      = ! empty( $settings['premium_countdown_year_plural'] ) ? $settings['premium_countdown_year_plural'] : 'Years';
+			$ms      = ! empty( $settings['premium_countdown_month_plural'] ) ? $settings['premium_countdown_month_plural'] : 'Months';
+			$ws      = 'Weeks';
+			$ds      = ! empty( $settings['premium_countdown_day_plural'] ) ? $settings['premium_countdown_day_plural'] : 'Days';
+			$hs      = ! empty( $settings['premium_countdown_hour_plural'] ) ? $settings['premium_countdown_hour_plural'] : 'Hours';
+			$mis     = ! empty( $settings['premium_countdown_minute_plural'] ) ? $settings['premium_countdown_minute_plural'] : 'Minutes';
+			$ss      = ! empty( $settings['premium_countdown_second_plural'] ) ? $settings['premium_countdown_second_plural'] : 'Seconds';
+			$labels1 = $ys . ',' . $ms . ',' . $ws . ',' . $ds . ',' . $hs . ',' . $mis . ',' . $ss;
+
+			$countdown_settings = array(
+				// 'single'     => esc_html( $label ),
+				// 'plural'     => esc_html( $labels1 ),
+				'until'      => $target_date,
+				'serverSync' => $sent_time,
+				'format'     => $format,
+				'event'      => $event,
+				'changeTo'   => $settings['change_digits'],
+				'text'       => $text,
+				'separator'  => 'custom' !== $settings['premium_countdown_separator_text'] ? $settings['premium_countdown_separator_text'] : $settings['custom_separator'],
+				'timerType'  => $timer_type,
+				'unitsPos'   => $settings['unit_position'],
+				'reset'      => $reset,
+				'style'      => $settings['style'],
+			);
+
+			if ( 'featured' === $settings['style'] ) {
+				$countdown_settings['featuredUnit'] = $settings['featured_unit'];
+			}
+
+			$this->add_render_attribute( 'inner_counter', 'class', 'premium-addons__v-hidden' );
+
+		} else {
+
+			$countdown_settings = array(
+				'until'      => $target_date,
+				'serverSync' => $sent_time,
+				'event'      => $event,
+				'text'       => $text,
+				'timerType'  => $timer_type,
+				'separator'  => 'custom' !== $settings['premium_countdown_separator_text'] ? $settings['premium_countdown_separator_text'] : $settings['custom_separator'],
+				'reset'      => $reset,
+				'style'      => $settings['style'],
+			);
+
+		}
 
 		$this->add_render_attribute(
 			'container',
 			array(
-				'id'            => 'countDownContiner-' . esc_attr( $this->get_id() ),
 				'class'         => array( 'premium-countdown', 'premium-countdown-separator-' . esc_attr( $settings['premium_countdown_separator'] ) ),
 				'data-settings' => wp_json_encode( $countdown_settings ),
 			)
@@ -1233,14 +1788,24 @@ class Premium_Countdown extends Widget_Base {
 		$this->add_render_attribute(
 			'inner_counter',
 			array(
-				'id'    => 'countdown-' . esc_attr( $this->get_id() ),
-				'class' => array( 'premium-countdown-init', 'countdown' . esc_attr( $pcdt_style ), $flipped ),
+				'class' => array(
+					'countdown',
+					'premium-countdown-init',
+					'premium-countdown-' . $settings['style'],
+				),
 			)
 		);
 
 		?>
 		<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'container' ) ); ?>>
 			<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'inner_counter' ) ); ?>></div>
+
+            <?php if( 'text' === $event ) : ?>
+
+                <div class="premium-countdown-exp-message premium-addons__v-hidden">
+                    <?php $this->print_text_editor( $settings['expiration_text'] ); ?>
+                </div>
+            <?php endif; ?>
 		</div>
 		<?php
 	}

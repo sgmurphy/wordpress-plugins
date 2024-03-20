@@ -756,7 +756,7 @@ class Twitter extends EAE_Widget_Base {
 		}
 
 		?>
-	<a <?php echo $this->get_render_attribute_string( 'handle' ); ?> > Handle <?php echo $settings['username']; ?></a>
+	<a <?php echo $this->get_render_attribute_string( 'handle' ); ?> > Handle <?php echo esc_html($settings['username']); ?></a>
 		<?php
 	}
 
@@ -783,7 +783,7 @@ class Twitter extends EAE_Widget_Base {
 		$this->add_render_attribute( 'hashtag', 'data-url', $settings['hashtag_url'] );
 
 		?>
-		<a <?php echo $this->get_render_attribute_string( 'hashtag' ); ?> >Tweet<?php echo $settings['hashtag']; ?> </a>
+		<a <?php echo $this->get_render_attribute_string( 'hashtag' ); ?> >Tweet<?php echo esc_html($settings['hashtag']); ?> </a>
 		<?php
 	}
 

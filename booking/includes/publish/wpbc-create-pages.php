@@ -164,7 +164,8 @@ function wpbc_add_shortcode_into_page( $params = array() ) {
 						'post_title'            => esc_html( __( 'Booking Form', 'booking' ) ),
 						'shortcode'             => '[booking resource_id=1]',
 						'check_exist_shortcode' => '[booking',                      // can be an array:  array( '[booking resource_id=1]', '[booking type=1]', '[booking]' )
-						'page_id'               => 0
+						'page_id'               => 0,
+						'resource_id'           => 0            // Optional
 					);
 	$params   = wp_parse_args( $params, $defaults );
 
@@ -214,11 +215,17 @@ function wpbc_add_shortcode_into_page( $params = array() ) {
 
 			$relative_post_url = wpbc_make_link_relative( get_permalink(  $post_id ) );
 
+			// Scroll to  the booking form.
+			if ( ! empty( $params['resource_id'] ) ) {
+				$post_url .= '#bklnk' . $params['resource_id'];
+			}
+
 			return array( 'result'       => true,
 			              'relative_url' => $relative_post_url,
-			              'message'      => __( 'A new page has been created.', 'booking' ) . ' ' . sprintf( __( 'The booking form shortcode %s has been embedded into the page %s.', 'booking' )
-		                                    , "<strong>{$params['shortcode']}</strong>"
-							                , "<a href='" . esc_url( $post_url ) . "'>{$post_title}</a>"
+			              'message'      => __( 'A new page has been created.', 'booking' ) . ' ' . sprintf( __( 'The booking form shortcode %s has been embedded into the page %s', 'booking' )
+		                                    , "<code class='wpbc_inserted_shortcode_view'>{$params['shortcode']}</code>"
+							                , "<a class='wpbc_open_page_as_new_tab' href='" . esc_url( $post_url ) . "'>{$post_title}</a>"
+						                    . " <a target='_blank' class='wpbc_open_page_as_new_tab tooltip_top wpbc-bi-arrow-up-right-square' href='" . esc_url( $post_url ) . "' title='" . esc_attr( __( 'Open in new window', 'booking' ) ) . "'></a>"
 										)
 			);
 		}
@@ -240,6 +247,11 @@ function wpbc_add_shortcode_into_page( $params = array() ) {
 		$is_shortcode_already_in_page = wpbc_is_shortcode_exist_in_page( $relative_post_url, $params['check_exist_shortcode'] );
 	}
 
+	// Scroll to  the booking form.
+	if ( ! empty( $params['resource_id'] ) ) {
+		$post_url .= '#bklnk' . $params['resource_id'];
+	}
+
 	// Check  if existing page has our shortcode. We are checking for 'booking'  because it can  be '[booking]' or '[booking type=1]' ...
 	if (
 		   ( ! $is_shortcode_already_in_page )
@@ -250,17 +262,20 @@ function wpbc_add_shortcode_into_page( $params = array() ) {
 		if ( $is_sh_added ) {
 			return array( 'result'       => true,
 			              'relative_url' => $relative_post_url,
-			              'message'      => sprintf( __( 'The booking form shortcode %s has been embedded into the page %s.', 'booking' )
-		                                    , "<strong>{$params['shortcode']}</strong>"
-							                , "<a href='" . esc_url( $post_url ) . "'>{$post_title}</a>"
+			              'message'      => sprintf( __( 'The booking form shortcode %s has been embedded into the page %s', 'booking' )
+		                                    , "<code class='wpbc_inserted_shortcode_view'>{$params['shortcode']}</code>"
+							                , "<a class='wpbc_open_page_as_new_tab' href='" . esc_url( $post_url ) . "'>{$post_title}</a>"
+						                    . " <a target='_blank' class='wpbc_open_page_as_new_tab tooltip_top wpbc-bi-arrow-up-right-square' href='" . esc_url( $post_url ) . "' title='" . esc_attr( __( 'Open in new window', 'booking' ) ) . "'></a>"
+
 										)
 			);
 
 		} else {
 			return array( 'result'       => false,
 			              'message'      => sprintf( __( 'We are unable to embed the booking form shortcode %s into the page %s.', 'booking' )
-		                                    , "<strong>{$params['shortcode']}</strong>"
-							                , "<a href='" . esc_url( $post_url ) . "'>{$post_title}</a>"
+		                                    , "<code class='wpbc_inserted_shortcode_view'>{$params['shortcode']}</code>"
+							                , "<a class='wpbc_open_page_as_new_tab' href='" . esc_url( $post_url ) . "'>{$post_title}</a>"
+						                    . " <a target='_blank' class='wpbc_open_page_as_new_tab tooltip_top wpbc-bi-arrow-up-right-square' href='" . esc_url( $post_url ) . "' title='" . esc_attr( __( 'Open in new window', 'booking' ) ) . "'></a>"
 										)
 			);
 		}
@@ -268,8 +283,9 @@ function wpbc_add_shortcode_into_page( $params = array() ) {
 
 		return array( 'result'       => false,
 		              'message'      => sprintf( __( 'The Booking Calendar shortcode %s is already present on this page %s.', 'booking' )
-		                                    , "<strong>{$params['shortcode']}</strong>"
-							                , "<a href='" . esc_url( $post_url ) . "'>{$post_title}</a>"
+		                                    , "<code class='wpbc_inserted_shortcode_view'>{$params['shortcode']}</code>"
+							                , "<a class='wpbc_open_page_as_new_tab' href='" . esc_url( $post_url ) . "'>{$post_title}</a>"
+						                    . " <a target='_blank' class='wpbc_open_page_as_new_tab tooltip_top wpbc-bi-arrow-up-right-square' href='" . esc_url( $post_url ) . "' title='" . esc_attr( __( 'Open in new window', 'booking' ) ) . "'></a>"
 										)
 		);
 
@@ -362,7 +378,10 @@ function wpbc_create_page_thank_you( $default_options_to_add ) {                
 	$thank_you_page_url = get_bk_option( 'booking_thank_you_page_URL' );
 
 	if (   ( empty( $thank_you_page_url ) )                                                                             // If   No 'Thank you'   page in Settings, or it's set as Empty.
-		|| ( '/thank-you' == wpbc_make_link_relative( get_bk_option( 'booking_thank_you_page_URL' ) ) )
+		|| (
+				( '/thank-you' == wpbc_make_link_relative( get_bk_option( 'booking_thank_you_page_URL' ) ) )
+			 && ( empty( get_page_by_path( 'thank-you' ) ) )                                                            //FixIn: 9.9.0.27
+	       )
 		|| ( '/' == wpbc_make_link_relative( get_bk_option( 'booking_thank_you_page_URL' ) ) )
 	){
 		$wp_post = get_page_by_path( 'wpbc-booking-received' );

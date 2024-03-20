@@ -1,7 +1,7 @@
 === WP Meta and Date Remover ===
-Contributors: Prasad Kirpekar, freemius
+Contributors: prasadkirpekar
 Donate link: - https://paypal.me/prasadkirpekar
-Tags: free,theme,meta,date,author, website, posts, pages, metadata, post, home page, remover, entry-meta, css,front page
+Tags: date, author, remover, posts, metadata
 Requires at least: 3.0.1
 Tested up to: 6.4
 Stable tag: 2.3.2

@@ -1066,11 +1066,11 @@ class ModalPopup extends EAE_Widget_Base {
 			endif;
 		}
 		?>
-		<div class="eae-popup-wrapper eae-popup-<?php echo $id; ?>" data-id="<?php echo $id; ?>"
-			data-preview-modal="<?php echo $settings['preview_modal']; ?>" data-close-button-type="<?php echo $close_button_type; ?>"
-			data-close-btn="<?php echo $close_button; ?>" data-close-in-out="<?php echo $close_btn; ?>" data-effect =<?php echo $effect; ?>>
-			<a class="eae-popup-link icon-position-<?php echo $settings['icon_position']; ?>"
-			data-id="<?php echo $id; ?>" data-ctrl-id="<?php echo $data['id']; ?>" href="#<?php echo $id; ?>">
+		<div class="eae-popup-wrapper eae-popup-<?php echo esc_attr($id); ?>" data-id="<?php echo esc_attr($id); ?>"
+			data-preview-modal="<?php echo esc_attr($settings['preview_modal']); ?>" data-close-button-type="<?php echo esc_attr($close_button_type); ?>"
+			data-close-btn="<?php echo $close_button; ?>" data-close-in-out="<?php echo $close_btn; ?>" data-effect =<?php echo esc_attr($effect); ?>>
+			<a class="eae-popup-link icon-position-<?php echo esc_attr($settings['icon_position']); ?>"
+			data-id="<?php echo esc_attr($id); ?>" data-ctrl-id="<?php echo esc_attr($data['id']); ?>" href="#<?php echo esc_attr($id); ?>">
 				<?php if ( $settings['button_type'] === 'text' ) { ?>
 					<?php
 					if ( $settings['button_icon_new'] !== '' && $settings['icon_position'] === 'before' ) {
@@ -1081,14 +1081,14 @@ class ModalPopup extends EAE_Widget_Base {
 							Icons_Manager::render_icon( $settings['button_icon_new'], [ 'aria-hidden' => 'true' ] );
 					else :
 						?>
-						<i class="<?php echo $settings['button_icon']; ?>"></i>
+						<i class="<?php echo esc_attr($settings['button_icon']); ?>"></i>
 					<?php endif; ?>
 					</span>
 						<?php
 					}
 					?>
 						<span class="eae-popup-btn-text">
-							<?php echo $settings['button_text']; ?>
+							<?php echo Helper::eae_wp_kses($settings['button_text']); ?>
 						</span>
 					<?php if ( $settings['button_icon_new'] !== '' && $settings['icon_position'] === 'after' ) { ?>
 					<span class="eae-popup-btn-icon">
@@ -1097,7 +1097,7 @@ class ModalPopup extends EAE_Widget_Base {
 							Icons_Manager::render_icon( $settings['button_icon_new'], [ 'aria-hidden' => 'true' ] );
 					else :
 						?>
-						<i class="<?php echo $settings['button_icon']; ?>"></i>
+						<i class="<?php echo esc_attr($settings['button_icon']); ?>"></i>
 					<?php endif; ?>
 					</span>
 						<?php
@@ -1113,7 +1113,7 @@ class ModalPopup extends EAE_Widget_Base {
 			</a>
 		</div>
 
-		<div id="<?php echo $id; ?>" class="eae-popup-<?php echo $id; ?> mfp-hide eae-popup-container">
+		<div id="<?php echo esc_attr($id); ?>" class="eae-popup-<?php echo esc_attr($id); ?> mfp-hide eae-popup-container">
 			<div class="eae-popup-content">
 				<?php
 				if ( $settings['content_type'] === 'content' ) {
@@ -1132,7 +1132,7 @@ class ModalPopup extends EAE_Widget_Base {
 					if ( $settings['modal_title'] !== '' ) {
 						?>
 						<div class="eae-modal-title mfp-title">
-							<?php echo $settings['modal_title']; ?>
+							<?php echo Helper::eae_wp_kses($settings['modal_title']); ?>
 						</div>
 					<?php } ?>
 					<div class="eae-modal-content">
@@ -1143,7 +1143,7 @@ class ModalPopup extends EAE_Widget_Base {
 					if ( $settings['modal_title'] !== '' ) {
 						?>
 						<div class="eae-modal-title mfp-title">
-							<?php echo $settings['modal_title']; ?>
+							<?php echo Helper::eae_wp_kses($settings['modal_title']); ?>
 						</div>
 					<?php } ?>
 					<div class="eae-modal-content">
@@ -1154,7 +1154,7 @@ class ModalPopup extends EAE_Widget_Base {
 					if ( $settings['modal_title'] !== '' ) {
 						?>
 						<div class="eae-modal-title mfp-title">
-							<?php echo $settings['modal_title']; ?>
+							<?php echo Helper::eae_wp_kses($settings['modal_title']); ?>
 						</div>
 					<?php } ?>
 					<div class="eae-modal-content">
@@ -1165,7 +1165,7 @@ class ModalPopup extends EAE_Widget_Base {
 					if ( $settings['modal_title'] !== '' ) {
 						?>
 						<div class="eae-modal-title mfp-title">
-							<?php echo $settings['modal_title']; ?>
+							<?php echo Helper::eae_wp_kses($settings['modal_title']); ?>
 						</div>
 					<?php } ?>
 					<div class="eae-modal-content">
@@ -1173,7 +1173,7 @@ class ModalPopup extends EAE_Widget_Base {
 					</div>
 					<?php
 				}else {
-					echo $settings['content_type'];
+					echo wp_kses_post($settings['content_type']);
 				}
 				?>
 			</div>

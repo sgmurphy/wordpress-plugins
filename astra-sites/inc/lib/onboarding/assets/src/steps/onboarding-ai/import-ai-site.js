@@ -292,6 +292,8 @@ const ImportAiSite = ( { onClickNext } ) => {
 			importPercent: percentage.current,
 		} );
 
+		const copiedList = [ ...notInstalledList ];
+
 		notInstalledList.forEach( ( plugin ) => {
 			wp.updates.queue.push( {
 				action: 'install-plugin', // Required action.
@@ -321,7 +323,7 @@ const ImportAiSite = ( { onClickNext } ) => {
 							type: 'set',
 							notActivatedList: inactiveList,
 						} );
-						const notInstalledPluginList = [ ...notInstalledList ];
+						const notInstalledPluginList = copiedList;
 						notInstalledPluginList.forEach(
 							( singlePlugin, index ) => {
 								if ( singlePlugin.slug === plugin.slug ) {

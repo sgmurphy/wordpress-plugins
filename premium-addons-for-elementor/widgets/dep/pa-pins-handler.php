@@ -72,9 +72,9 @@ function get_pinterest_data( $id, $settings, $endpoint ) {
 
 		$response = json_decode( $response, true );
 
-        if( 'failure' === $response['status'] ) {
-            return;
-        }
+		if ( 'failure' === $response['status'] ) {
+			return;
+		}
 
 		$transient = $settings['reload'];
 
@@ -156,11 +156,11 @@ function get_board_pins( $widget_id, $settings, $board_id ) {
 
 	if ( $is_edit_mode || false === $response ) {
 
-        $limit = $settings['pins_per_board'];
+		$limit = $settings['pins_per_board'];
 
 		$url = PINTEREST_API_URL . 'boards/' . $board_id . '/pins';
 
-        if ( ! empty( $limit ) ) {
+		if ( ! empty( $limit ) ) {
 			$url .= '?page_size=' . $limit;
 		}
 
@@ -190,14 +190,13 @@ function get_board_pins( $widget_id, $settings, $board_id ) {
 		set_transient( $transient_name, $response, $expire_time );
 	}
 
-    $detect = new \PA_Mobile_Detect();
+	$detect = new \PA_Mobile_Detect();
 
-    if ( $detect->isTablet() && ! empty( $settings['pins_per_board_tablet'] ) ) {
-        $items = array_slice( $items, 0, $settings['pins_per_board_tablet'] );
-    } elseif ( $detect->isMobile() && ! empty( $settings['pins_per_board_mobile'] ) ) {
-        $items = array_slice( $items, 0, $settings['pins_per_board_mobile'] );
-    }
+	if ( $detect->isTablet() && ! empty( $settings['pins_per_board_tablet'] ) ) {
+		$items = array_slice( $items, 0, $settings['pins_per_board_tablet'] );
+	} elseif ( $detect->isMobile() && ! empty( $settings['pins_per_board_mobile'] ) ) {
+		$items = array_slice( $items, 0, $settings['pins_per_board_mobile'] );
+	}
 
 	return $response['items'];
 }
-

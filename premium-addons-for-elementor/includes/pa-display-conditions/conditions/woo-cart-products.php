@@ -43,7 +43,6 @@ class Woo_Cart_Products extends Condition {
 				'pa_condition_key' => 'woo_cart_products',
 			),
 		);
-
 	}
 
 	/**
@@ -85,5 +84,4 @@ class Woo_Cart_Products extends Condition {
 
 		return Helper_Functions::get_final_result( $condition_result, $operator );
 	}
-
 }

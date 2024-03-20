@@ -123,7 +123,6 @@ class Premium_Progressbar extends Widget_Base {
 				'premium-addons',
 			)
 		);
-
 	}
 
 	/**
@@ -1742,14 +1741,12 @@ class Premium_Progressbar extends Widget_Base {
 							} else {
 								echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-45%);">' . esc_attr( $item['text'] ) . ' <span class="premium-progressbar-percentage">' . esc_attr( $item['number'] ) . '%</span></p></div>';
 							}
-						} else {
-							if ( 'arrow' === $settings['premium_progressbar_select_label_icon'] ) {
+						} elseif ( 'arrow' === $settings['premium_progressbar_select_label_icon'] ) {
 								echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-45%);">' . esc_attr( $item['text'] ) . '</p><p class="premium-progressbar-arrow" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%; transform:translateX(50%);"></p></div>';
-							} elseif ( 'line_pin' === $settings['premium_progressbar_select_label_icon'] ) {
-								echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-45%)">' . esc_attr( $item['text'] ) . '</p><p class="premium-progressbar-pin" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%; transform:translateX(50%);"></p></div>';
-							} else {
-								echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-45%);">' . esc_attr( $item['text'] ) . '</p></div>';
-							}
+						} elseif ( 'line_pin' === $settings['premium_progressbar_select_label_icon'] ) {
+							echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-45%)">' . esc_attr( $item['text'] ) . '</p><p class="premium-progressbar-pin" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%; transform:translateX(50%);"></p></div>';
+						} else {
+							echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-45%);">' . esc_attr( $item['text'] ) . '</p></div>';
 						}
 					} elseif ( 'left' === $this->get_settings( 'premium_progressbar_more_labels_align' ) ) {
 						if ( 'yes' === $settings['premium_progress_bar_space_percentage_switcher'] ) {
@@ -1760,33 +1757,27 @@ class Premium_Progressbar extends Widget_Base {
 							} else {
 								echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-2%);">' . esc_attr( $item['text'] ) . ' <span class="premium-progressbar-percentage">' . esc_attr( $item['number'] ) . '%</span></p></div>';
 							}
-						} else {
-							if ( 'arrow' === $settings['premium_progressbar_select_label_icon'] ) {
+						} elseif ( 'arrow' === $settings['premium_progressbar_select_label_icon'] ) {
 								echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-10%);">' . esc_attr( $item['text'] ) . '</p><p class="premium-progressbar-arrow" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%; transform:translateX(50%);"></p></div>';
-							} elseif ( 'line_pin' === $settings['premium_progressbar_select_label_icon'] ) {
-								echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-2%);">' . esc_attr( $item['text'] ) . '</p><p class="premium-progressbar-pin" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%; transform:translateX(50%);"></p></div>';
-							} else {
-								echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-2%);">' . esc_attr( $item['text'] ) . '</p></div>';
-							}
-						}
-					} else {
-						if ( 'yes' === $settings['premium_progress_bar_space_percentage_switcher'] ) {
-							if ( 'arrow' === $settings['premium_progressbar_select_label_icon'] ) {
-								echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-82%);">' . esc_attr( $item['text'] ) . ' <span class="premium-progressbar-percentage">' . esc_attr( $item['number'] ) . '%</span></p><p class="premium-progressbar-arrow" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%; transform:translateX(50%);"></p></div>';
-							} elseif ( 'line_pin' === $settings['premium_progressbar_select_label_icon'] ) {
-								echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-95%);">' . esc_attr( $item['text'] ) . ' <span class="premium-progressbar-percentage">' . esc_attr( $item['number'] ) . '%</span></p><p class="premium-progressbar-pin" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%; transform:translateX(50%);"></p></div>';
-							} else {
-								echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-96%);">' . esc_attr( $item['text'] ) . ' <span class="premium-progressbar-percentage">' . esc_attr( $item['number'] ) . '%</span></p></div>';
-							}
+						} elseif ( 'line_pin' === $settings['premium_progressbar_select_label_icon'] ) {
+							echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-2%);">' . esc_attr( $item['text'] ) . '</p><p class="premium-progressbar-pin" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%; transform:translateX(50%);"></p></div>';
 						} else {
-							if ( 'arrow' === $settings['premium_progressbar_select_label_icon'] ) {
-								echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-71%);">' . esc_attr( $item['text'] ) . '</p><p class="premium-progressbar-arrow" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%; transform:translateX(50%);"></p></div>';
-							} elseif ( 'line_pin' === $settings['premium_progressbar_select_label_icon'] ) {
-								echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-97%);">' . esc_attr( $item['text'] ) . '</p><p class="premium-progressbar-pin" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%; transform:translateX(50%);"></p></div>';
-							} else {
-								echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-96%);">' . esc_attr( $item['text'] ) . '</p></div>';
-							}
+							echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-2%);">' . esc_attr( $item['text'] ) . '</p></div>';
 						}
+					} elseif ( 'yes' === $settings['premium_progress_bar_space_percentage_switcher'] ) {
+						if ( 'arrow' === $settings['premium_progressbar_select_label_icon'] ) {
+							echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-82%);">' . esc_attr( $item['text'] ) . ' <span class="premium-progressbar-percentage">' . esc_attr( $item['number'] ) . '%</span></p><p class="premium-progressbar-arrow" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%; transform:translateX(50%);"></p></div>';
+						} elseif ( 'line_pin' === $settings['premium_progressbar_select_label_icon'] ) {
+							echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-95%);">' . esc_attr( $item['text'] ) . ' <span class="premium-progressbar-percentage">' . esc_attr( $item['number'] ) . '%</span></p><p class="premium-progressbar-pin" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%; transform:translateX(50%);"></p></div>';
+						} else {
+							echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-96%);">' . esc_attr( $item['text'] ) . ' <span class="premium-progressbar-percentage">' . esc_attr( $item['number'] ) . '%</span></p></div>';
+						}
+					} elseif ( 'arrow' === $settings['premium_progressbar_select_label_icon'] ) {
+							echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-71%);">' . esc_attr( $item['text'] ) . '</p><p class="premium-progressbar-arrow" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%; transform:translateX(50%);"></p></div>';
+					} elseif ( 'line_pin' === $settings['premium_progressbar_select_label_icon'] ) {
+						echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-97%);">' . esc_attr( $item['text'] ) . '</p><p class="premium-progressbar-pin" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%; transform:translateX(50%);"></p></div>';
+					} else {
+						echo '<div class="premium-progressbar-multiple-label" style="' . esc_attr( $direction . ':' . $item['number'] ) . '%;"><p class = "premium-progressbar-center-label" style="transform:translateX(-96%);">' . esc_attr( $item['text'] ) . '</p></div>';
 					}
 				}
 				?>
@@ -1946,6 +1937,5 @@ class Premium_Progressbar extends Widget_Base {
 			</div>
 
 		<?php
-
 	}
 }

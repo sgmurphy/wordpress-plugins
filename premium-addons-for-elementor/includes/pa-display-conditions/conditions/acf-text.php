@@ -54,7 +54,6 @@ class Acf_Text extends Condition {
 				'pa_condition_key' => 'acf_text',
 			),
 		);
-
 	}
 
 	/**
@@ -92,7 +91,6 @@ class Acf_Text extends Condition {
 				'pa_condition_key' => 'acf_text',
 			),
 		);
-
 	}
 
 	/**
@@ -123,5 +121,4 @@ class Acf_Text extends Condition {
 
 		return Helper_Functions::get_final_result( $condition_result, $operator );
 	}
-
 }

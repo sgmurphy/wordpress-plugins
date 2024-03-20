@@ -418,7 +418,6 @@ class Skin_10 extends Skin_Base {
 		$this->end_controls_tabs();
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -645,7 +644,6 @@ class Skin_10 extends Skin_Base {
 		$this->end_controls_tabs();
 
 		$this->end_controls_section();
-
 	}
 
 	/**

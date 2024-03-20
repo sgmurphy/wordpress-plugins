@@ -27,5 +27,3 @@ class Premium_Select extends Control_Select2 {
 		return self::TYPE;
 	}
 }
-
-

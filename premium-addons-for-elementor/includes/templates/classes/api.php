@@ -46,7 +46,6 @@ if ( ! class_exists( 'Premium_Templates_API' ) ) {
 		public function __construct() {
 
 			$this->config = Templates\premium_templates()->config->get( 'api' );
-
 		}
 
 		/**
@@ -117,7 +116,6 @@ if ( ! class_exists( 'Premium_Templates_API' ) ) {
 				'sslverify' => false,
 			);
 		}
-
 	}
 
 }

@@ -91,7 +91,6 @@ class Module {
 			add_action( 'elementor/container/print_template', array( $this, 'print_template' ), 10, 2 );
 			add_action( 'elementor/frontend/container/before_render', array( $this, 'before_render' ) );
 		}
-
 	}
 
 	/**
@@ -195,7 +194,6 @@ class Module {
 		$element->end_controls_tabs();
 
 		$element->end_controls_section();
-
 	}
 
 	/**
@@ -491,7 +489,7 @@ class Module {
 			array(
 				'label'        => __( 'Prevent Stretch', 'premium-addons-for-elementor' ),
 				'type'         => Controls_Manager::SWITCHER,
-                'description'=> __('This option is used if you want to animate the divider without stretching the SVG.', 'premium-addons-pro'),
+				'description'  => __( 'This option is used if you want to animate the divider without stretching the SVG.', 'premium-addons-pro' ),
 				'prefix_class' => 'premium-sh-no-stretch-',
 				'default'      => 'yes',
 				'render_type'  => 'template',
@@ -850,8 +848,8 @@ class Module {
 					} else if( settings.premium_gdivider_grad_xpos ) {
 						var gradType = settings.premium_gdivider_grad_type,
 							gradPos = 'linear' === gradType ? settings.premium_gdivider_grad_angle.size : [settings.premium_gdivider_grad_xpos.size, settings.premium_gdivider_grad_ypos.size ],
-                            gradUnit = 'linear' === gradType ? 'deg' : '',
-                            gradOptions = {
+							gradUnit = 'linear' === gradType ? 'deg' : '',
+							gradOptions = {
 								'gradType'  : gradType,
 								'firstColor': settings.premium_gdivider_grad_firstcolor,
 								'secColor'  : settings.premium_gdivider_grad_secondcolor,
@@ -1053,7 +1051,7 @@ class Module {
 			// gradient
 			$gradient_type = $settings['premium_gdivider_grad_type'];
 			$grad_pos      = 'linear' === $gradient_type ? $settings['premium_gdivider_grad_angle']['size'] : array( $settings['premium_gdivider_grad_xpos']['size'], $settings['premium_gdivider_grad_ypos']['size'] );
-            $grad_unit = 'linear' === $gradient_type ? 'deg' : '';
+			$grad_unit     = 'linear' === $gradient_type ? 'deg' : '';
 
 			$grad_options = array(
 				'gradType'   => $gradient_type,
@@ -1066,7 +1064,7 @@ class Module {
 
 			if ( 'linear' === $grad_options['gradType'] ) {
 				$tag_close = '</linearGradient>';
-				$svg_html .= '<linearGradient id="pa-shape-divider-fill-' . $id . '" gradientUnits="objectBoundingBox"  gradientTransform="rotate(' . $grad_options['pos'] . $grad_unit.  ')">';
+				$svg_html .= '<linearGradient id="pa-shape-divider-fill-' . $id . '" gradientUnits="objectBoundingBox"  gradientTransform="rotate(' . $grad_options['pos'] . $grad_unit . ')">';
 			} else {
 				$tag_close = '</radialGradient>';
 				$svg_html .= '<radialGradient id="pa-shape-divider-fill-' . $id . '" gradientUnits="objectBoundingBox" cx="' . $grad_options['pos'][0] . '%" cy="' . $grad_options['pos'][1] . '%">';
@@ -1107,7 +1105,6 @@ class Module {
 
 			remove_action( 'elementor/frontend/before_render', array( $this, 'check_script_enqueue' ) );
 		}
-
 	}
 
 	/**

@@ -55,7 +55,6 @@ class FancyText extends WPML_Elementor_Module_With_Items {
 	protected function get_title( $field ) {
 
 		return __( 'Fancy Text: String', 'premium-addons-for-elementor' );
-
 	}
 
 	/**
@@ -71,5 +70,4 @@ class FancyText extends WPML_Elementor_Module_With_Items {
 
 		return 'LINE';
 	}
-
 }

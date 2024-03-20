@@ -8,8 +8,7 @@
     $('.woosq_icon_picker').fontIconPicker();
 
     $('.woosq-fields').sortable({
-      handle: '.move',
-      placeholder: 'woosq-field',
+      handle: '.move', placeholder: 'woosq-field',
     });
 
     $('#woosq_settings_cats').selectWoo();
@@ -39,7 +38,11 @@
     var setting = $this.data('setting');
 
     var data = {
-      action: 'woosq_add_field', type: type, field: field, setting: setting,
+      action: 'woosq_add_field',
+      type: type,
+      field: field,
+      setting: setting,
+      nonce: woosq_vars.nonce,
     };
 
     $wrapper.addClass('woosq-fields-wrapper-loading');

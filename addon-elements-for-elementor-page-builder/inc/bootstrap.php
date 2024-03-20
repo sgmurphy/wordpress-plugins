@@ -163,6 +163,12 @@ class Plugin {
 					'categories' => '["wts-eae"]',
 				],
 				[
+					'name'		=>	'google-reviews',
+					'title'      => __( 'Google Reviews', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-google-review pro-widget',
+					'categories' => '["wts-eae"]',
+				],
+				[
 					'name'       => 'image-accordion',
 					'title'      => __( 'Image Accordion', 'wts-eae' ),
 					'icon'       => 'eae-icon eae-image-accordion pro-widget',
@@ -222,6 +228,12 @@ class Plugin {
 					'icon'       => 'eae-icon eae-video-gallery pro-widget',
 					'categories' => '["wts-eae"]',
 				],
+				[
+					'name'		=>	'woo-products',
+					'title'      => __( 'Woo Products', 'wts-eae' ),
+					'icon'       => 'eae-icon eae-woo-products pro-widget',
+					'categories' => '["wts-eae"]',
+				]
 			]);
 			$config['promotionWidgets'] = $combine_array;
 			
@@ -350,34 +362,7 @@ class Plugin {
 		//  peel js 
 		wp_register_script( 'eae-peel', EAE_URL . 'assets/lib/peel/peel.js', [], '1.0.0', true );
 		wp_enqueue_style( 'eae-peel-css', EAE_URL . 'assets/lib/peel/peel.css', [], EAE_VERSION );
-		if(self::$is_pro){
-
-			
-			
-			// Floating Images
-			wp_register_script( 'eae-keyframes', EAE_URL . 'pro/assets/lib/keyframes/jquery.keyframes' . EAE_SCRIPT_SUFFIX . '.js', [ 'jquery' ], '1.0.8', true );
-
-			//Lightgallery CSS
-			wp_enqueue_style( 'lightgallery-css', EAE_URL . 'pro/assets/lib/lightgallery/css/lightgallery-bundle' . EAE_SCRIPT_SUFFIX . '.css', [], EAE_VERSION );
-			// LightGallery JS
-			wp_register_script( 'lightgallery-js', EAE_URL . 'pro/assets/lib/lightgallery/lightgallery' . EAE_SCRIPT_SUFFIX . '.js', [], '2.7.1', true );
-			wp_register_script( 'lg-fullscreen-js', EAE_URL . 'pro/assets/lib/lightgallery/plugins/fullscreen/lg-fullscreen.min.js', [], '2.7.1', true );
-			wp_register_script( 'lg-hash-js', EAE_URL . 'pro/assets/lib/lightgallery/plugins/hash/lg-hash.min.js', [], '2.7.1', true );
-			wp_register_script( 'lg-rotate-js', EAE_URL . 'pro/assets/lib/lightgallery/plugins/rotate/lg-rotate.min.js', [], '2.7.1', true );
-			wp_register_script( 'lg-share-js', EAE_URL . 'pro/assets/lib/lightgallery/plugins/share/lg-share.min.js', [], '2.7.1', true );
-			wp_register_script( 'lg-video-js', EAE_URL . 'pro/assets/lib/lightgallery/plugins/video/lg-video.min.js', [], '2.7.1', true );
-			wp_register_script( 'lg-zoom-js', EAE_URL . 'pro/assets/lib/lightgallery/plugins/zoom/lg-zoom.min.js', [], '2.7.1', true );
-			wp_register_script( 'lg-thumbnail-js', EAE_URL . 'pro/assets/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js', [], '2.7.1', true );
-			// For Vimeo video-Video Box Widget
-			wp_register_script( 'eae-player-js', EAE_URL . 'pro/assets/lib/lightgallery/player.min.js', [], '2.19.0', true );
-			// For selfhosted video-Video Box Widget
-			wp_register_script( 'eae-video-js', EAE_URL . 'pro/assets/lib/lightgallery/video.min.js', [], '8.3.0', true );
-			wp_enqueue_style( 'eae-video-css', EAE_URL . 'pro/assets/lib/lightgallery/css/video'  . '.css', [], EAE_VERSION );
-			
-			wp_register_script('eae-popper', EAE_URL . 'pro/assets/lib/tippy/popper.js', [], '2.11.8', false);
-			wp_register_script( 'eae-tippy', EAE_URL . 'pro/assets/lib/tippy/tippy.js', [], '1.1', false );
-			wp_register_style('eae-tippy-css',EAE_URL . 'pro/assets/lib/tippy/tippy.css', [], '1.1', false);
-		}
+		
 
 		wp_enqueue_script(
 			'eae-main',
@@ -400,20 +385,24 @@ class Plugin {
 			true
 		);
 
-		
-
+		$localize_data = [
+			'ajaxurl'     => admin_url( 'admin-ajax.php' ),
+			'current_url' => base64_encode( self::$helper->get_current_url_non_paged() ),
+			'nonce'       => wp_create_nonce( 'eae_forntend_ajax_nonce' ),
+			'plugin_url' => EAE_URL,
+		];
+		 
+		$localize_data = apply_filters( 'eae_localize_data', $localize_data );
+		// echo '<pre>';  print_r($localize_data); echo '</pre>';
+		// die('dfaf');
 		if ( is_plugin_active( 'elementor/elementor.php' ) ) {
 			wp_localize_script(
 				'eae-main',
 				'eae',
-				[
-					'ajaxurl'     => admin_url( 'admin-ajax.php' ),
-					'current_url' => base64_encode( self::$helper->get_current_url_non_paged() ),
-					'nonce'       => wp_create_nonce( 'eae_forntend_ajax_nonce' ),
-					'plugin_url' => EAE_URL,
-				]
+				$localize_data
 			);
 		}
+
 		wp_register_script( 'eae-particles', EAE_URL . 'assets/js/particles' . EAE_SCRIPT_SUFFIX . '.js', [ 'jquery' ], '2.0.0', true );
 		wp_register_style( 'vegas-css', EAE_URL . 'assets/lib/vegas/vegas' . EAE_SCRIPT_SUFFIX . '.css', [], '2.4.0' );
 		wp_register_script( 'vegas', EAE_URL . 'assets/lib/vegas/vegas' . EAE_SCRIPT_SUFFIX . '.js', [ 'jquery' ], '2.4.0', true );

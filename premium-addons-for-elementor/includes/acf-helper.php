@@ -36,7 +36,7 @@ class ACF_Helper {
 
 		foreach ( $posts as $post ) {
 
-			$acf_settings = unserialize( $post->post_content, ['allowed_classes' => false] ); // TODO:: check for a safer method.
+			$acf_settings = unserialize( $post->post_content, array( 'allowed_classes' => false ) ); // TODO:: check for a safer method.
 
 			$acf_type = $show_field_type ? ucwords( $acf_settings['type'] ) . ': ' : '';
 
@@ -99,7 +99,6 @@ class ACF_Helper {
 		$option_pgs_ids = self::get_acf_options_pages_ids();
 
 		return in_array( $parent, $option_pgs_ids, true );
-
 	}
 
 	/**
@@ -203,7 +202,6 @@ class ACF_Helper {
 
 			return get_field_object( $field_key )['value'];
 		}
-
 	}
 
 
@@ -230,5 +228,4 @@ class ACF_Helper {
 			}
 		}
 	}
-
 }

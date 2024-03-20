@@ -12,9 +12,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Background;
-
-
-
+use WTS_EAE\Classes\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -489,6 +487,7 @@ class ContentTicker extends EAE_Widget_Base{
                 ],
                 'selectors' => [
                     '{{WRAPPER}} .eae-content-ticker-heading i  ' => 'font-size: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .eae-content-ticker-heading svg  ' => 'font-size: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -531,6 +530,7 @@ class ContentTicker extends EAE_Widget_Base{
                 'default' => '',
                 'selectors' => [
                     '{{WRAPPER}} .eae-content-ticker-heading i' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .eae-content-ticker-heading svg' => 'fill: {{VALUE}};',
                 ],
             ]
         );
@@ -600,6 +600,7 @@ class ContentTicker extends EAE_Widget_Base{
                 'default' => '',
                 'selectors' => [
                     '{{WRAPPER}} .eae-content-ticker-heading i:hover' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .eae-content-ticker-heading svg:hover' => 'fill: {{VALUE}};',
                 ],
             ]
         );
@@ -804,6 +805,7 @@ class ContentTicker extends EAE_Widget_Base{
                 ],
                 'selectors' => [
                     '{{WRAPPER}} .eae-navigation-icon-wrapper i  ' => 'font-size: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .eae-navigation-icon-wrapper svg  ' => 'font-size: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -844,6 +846,7 @@ class ContentTicker extends EAE_Widget_Base{
                 'default' => '',
                 'selectors' => [
                     '{{WRAPPER}} .eae-navigation-icon-wrapper i' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .eae-navigation-icon-wrapper svg' => 'fill: {{VALUE}};',
                 ],
             ]
         );
@@ -854,7 +857,7 @@ class ContentTicker extends EAE_Widget_Base{
                 'name' => 'background_navigation_icon',
                 'exclude' => [ 'image' ],
                 'types' => [ 'classic', 'gradient' ],
-                'selector' => '{{WRAPPER}} .eae-navigation-icon-wrapper i',
+                'selector' => '{{WRAPPER}} .eae-navigation-icon-wrapper i, {{WRAPPER}} .eae-navigation-icon-wrapper svg',
                 'fields_options' => [
                     'background' => [
                         'default' => 'classic',
@@ -883,6 +886,7 @@ class ContentTicker extends EAE_Widget_Base{
                 'default' => '',
                 'selectors' => [
                     '{{WRAPPER}} .eae-navigation-icon-wrapper i:hover' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .eae-navigation-icon-wrapper svg:hover' => 'fill: {{VALUE}};',
                 ],
             ]
         );
@@ -893,7 +897,7 @@ class ContentTicker extends EAE_Widget_Base{
                 'name' => 'background_navigation_icon_hover',
                 'exclude' => [ 'image' ],
                 'types' => [ 'classic', 'gradient' ],
-                'selector' => '{{WRAPPER}} .eae-navigation-icon-wrapper i:hover',
+                'selector' => '{{WRAPPER}} .eae-navigation-icon-wrapper i:hover , {{WRAPPER}} .eae-navigation-icon-wrapper svg:hover',
             ]
         );
 
@@ -1055,10 +1059,9 @@ class ContentTicker extends EAE_Widget_Base{
             <div class="eae-content-ticker-heading">
                 <?php if ($settings['icon_position']=='before'){ ?>     
                     <?php Icons_Manager::render_icon( $settings['select_icon'], [ 'aria-hidden' => 'true' ] );?>
-                    <?php echo $settings['text_heading'];?>
+                    <?php echo Helper::eae_wp_kses($settings['text_heading']);?>
                 <?php } if ($settings['icon_position']=='after'){ ?>
-
-                    <?php echo $settings['text_heading'];?>
+                    <?php echo Helper::eae_wp_kses($settings['text_heading']);?>
                     <?php Icons_Manager::render_icon( $settings['select_icon'], [ 'aria-hidden' => 'true' ] );?>
                 <?php } ?>
             </div>
@@ -1077,7 +1080,7 @@ class ContentTicker extends EAE_Widget_Base{
                             <?php if ( ! empty( $item['content_list_link']['url'] ) ){
                                 ?> <a <?php $this->print_render_attribute_string( $link_key ); ?>> <?php
                             }?>
-                            <?php echo $title ?>
+                            <?php echo Helper::eae_wp_kses($title); ?>
                             <?php if ( ! empty( $item['content_list_link']['url'] ) ){
                                 ?> </a> <?php
                             }?>

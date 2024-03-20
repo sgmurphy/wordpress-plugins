@@ -5,7 +5,7 @@ use Elementor\Icons_Manager;
 use Elementor\Plugin as EPlugin;
 use Elementor\Skin_Base as Elementor_Skin_Base;
 use Elementor\Widget_Base;
-
+use WTS_EAE\Classes\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -41,14 +41,14 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 					$this->parent->set_render_attribute( 'switch-label', 'class', [ 'eae-cs-icon-align-' . $item['icon_align'], 'eae-content-switch-label' ] );
 					?>
 					<div <?php echo $this->parent->get_render_attribute_string( 'switch-wrapper' ); ?>>
-						<a href="#" class="eae-content-switch-button <?php echo $active_class; ?>">
+						<a href="#" class="eae-content-switch-button <?php echo esc_attr($active_class); ?>">
 							<div <?php echo $this->parent->get_render_attribute_string( 'switch-label' ); ?>>
 								<?php
 								if ( ! empty( $item['icon'] ) && $item['icon_align'] === 'left' ) {
 									Icons_Manager::render_icon( $item['icon'], [ 'aria-hidden' => 'true' ] );
 								}
 								?>
-								<span><?php echo $item['title']; ?></span>
+								<span><?php echo Helper::eae_wp_kses($item['title']); ?></span>
 								<?php
 								if ( ! empty( $item['icon'] ) && $item['icon_align'] === 'right' ) {
 									Icons_Manager::render_icon( $item['icon'], [ 'aria-hidden' => 'true' ] );

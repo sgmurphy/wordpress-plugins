@@ -193,7 +193,6 @@ abstract class Premium_Templates_Source_Base {
 		} else {
 			return false;
 		}
-
 	}
 
 	/**
@@ -212,7 +211,7 @@ abstract class Premium_Templates_Source_Base {
 	protected function replace_elements_ids( $content ) {
 		return \Elementor\Plugin::$instance->db->iterate_data(
 			$content,
-			function( $element ) {
+			function ( $element ) {
 				$element['id'] = \Elementor\Utils::generate_random_string();
 				return $element;
 			}
@@ -239,7 +238,7 @@ abstract class Premium_Templates_Source_Base {
 
 		return \Elementor\Plugin::$instance->db->iterate_data(
 			$content,
-			function( $element_data ) use ( $method, $with_media ) {
+			function ( $element_data ) use ( $method, $with_media ) {
 				$element = \Elementor\Plugin::$instance->elements_manager->create_element_instance( $element_data );
 
 				// If the widget/element isn't exist, like a plugin that creates a widget but deactivated.
@@ -289,10 +288,8 @@ abstract class Premium_Templates_Source_Base {
 					$element_data['settings'][ $control['name'] ] = $control_class->{$method}( $element->get_settings( $control['name'] ), $control );
 				} elseif ( 'repeater' === $control['type'] ) {
 						$element_data['settings'][ $control['name'] ] = $this->on_import_repeater( $element->get_settings( $control['name'] ), $with_media, $control );
-				} else {
-					if ( ! empty( $element_data['settings'][ $control['name'] ]['url'] ) ) {
+				} elseif ( ! empty( $element_data['settings'][ $control['name'] ]['url'] ) ) {
 						$element_data['settings'][ $control['name'] ] = $this->on_import_media( $element->get_settings( $control['name'] ), $with_media );
-					}
 				}
 			}
 		}
@@ -349,10 +346,8 @@ abstract class Premium_Templates_Source_Base {
 				if ( method_exists( $control_obj, $method ) ) {
 					if ( 'media' !== $field['type'] && 'hedia' !== $field['type'] ) {
 						$item[ $field['name'] ] = $control_obj->{$method}( $item[ $field['name'] ], $field );
-					} else {
-						if ( ! empty( $item[ $field['name'] ]['url'] ) ) {
+					} elseif ( ! empty( $item[ $field['name'] ]['url'] ) ) {
 							$item[ $field['name'] ] = $this->on_import_media( $item[ $field['name'] ], $media );
-						}
 					}
 				}
 			}

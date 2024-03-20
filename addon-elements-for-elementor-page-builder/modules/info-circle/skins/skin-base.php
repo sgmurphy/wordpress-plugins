@@ -150,8 +150,8 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 		<div class="eae-info-circle-wrapper">
 			<div class="eae-info-circle" data-active-item="1" data-autoplay="<?php echo $this->get_instance_value( 'ic_content_auto_change' ); ?>" data-delay="<?php echo $this->get_instance_value( 'ic_change_duration' ); ?>" style="opacity: 1;">
 				<?php foreach ( $settings['info_circle_items'] as $index => $item ) : ?>
-						<div class="eae-info-circle-item elementor-repeater-item-<?php echo $item['_id']; ?>" style="opacity: 1;">
-						<div id="<?php echo $item['_id']; ?>" data-id="<?php echo $item['_id']; ?>" class="eae-ic-icon-wrap" style="opacity: 1;">
+						<div class="eae-info-circle-item elementor-repeater-item-<?php echo esc_attr($item['_id']); ?>" style="opacity: 1;">
+						<div id="<?php echo esc_attr($item['_id']); ?>" data-id="<?php echo $item['_id']; ?>" class="eae-ic-icon-wrap" style="opacity: 1;">
 							<?php $this->render_icon( $item, $settings ); ?>
 						</div>
 						<div class="eae-info-circle-item__content-wrap">
@@ -162,11 +162,9 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 								Helper::validate_html_tag( $item['ic_item_title_size'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ], 'h3' ),
 								$item['ic_item_title']
 							);
-							?>
-							 
-								
+							?>								
 								<div class="eae-ic-description">
-									<p><?php echo $item['ic_item_content']; ?></p>
+									<p><?php echo wp_kses_post($item['ic_item_content']); ?></p>
 								</div>
 							</div>
 						</div>
@@ -218,7 +216,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 					switch ( $default['icon_type'] ) {
 						case 'image':
 							?>
-								<i><img src='<?php echo esc_attr( $default['image']['url'] ); ?> '/></i>
+								<i><img src='<?php echo esc_url( $default['image']['url'] ); ?> '/></i>
 								<?php
 							break;
 

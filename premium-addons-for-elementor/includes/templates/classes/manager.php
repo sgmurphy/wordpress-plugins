@@ -42,7 +42,6 @@ if ( ! class_exists( 'Premium_Templates_Manager' ) ) {
 			$this->register_sources();
 
 			add_filter( 'premium-templates-core/assets/editor/localize', array( $this, 'localize_tabs' ) );
-
 		}
 
 		/**
@@ -65,7 +64,6 @@ if ( ! class_exists( 'Premium_Templates_Manager' ) ) {
 			$data['defaultTab'] = $default;
 
 			return $data;
-
 		}
 
 		/**
@@ -94,7 +92,6 @@ if ( ! class_exists( 'Premium_Templates_Manager' ) ) {
 
 				$this->add_source( $key, $class );
 			}
-
 		}
 
 		/**
@@ -110,7 +107,6 @@ if ( ! class_exists( 'Premium_Templates_Manager' ) ) {
 			$tabs = Templates\premium_templates()->types->get_types_for_popup();
 
 			return $tabs;
-
 		}
 
 		/**
@@ -185,7 +181,6 @@ if ( ! class_exists( 'Premium_Templates_Manager' ) ) {
 			}
 
 			wp_send_json_success( $result );
-
 		}
 
 		/**
@@ -235,7 +230,6 @@ if ( ! class_exists( 'Premium_Templates_Manager' ) ) {
 			}
 
 			wp_send_json_success( $template );
-
 		}
 
 		/**
@@ -282,11 +276,10 @@ if ( ! class_exists( 'Premium_Templates_Manager' ) ) {
 
 			$ajax_manager->register_ajax_action(
 				'get_template_data',
-				function( $data ) {
+				function ( $data ) {
 					return $this->get_template_data_array( $data );
 				}
 			);
-
 		}
 
 		/**

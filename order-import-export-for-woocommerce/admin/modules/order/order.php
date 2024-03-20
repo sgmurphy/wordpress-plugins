@@ -209,16 +209,30 @@ class Wt_Import_Export_For_Woo_Basic_Order {
      *
      */
     public function wt_iew_exporter_post_types_basic($arr) {
-        $arr['order'] = __('Order', 'order-import-export-for-woocommerce');
-		$arr['coupon'] = __('Coupon', 'order-import-export-for-woocommerce');
-		$arr['product'] = __('Product', 'order-import-export-for-woocommerce');
-		$arr['product_review'] = __('Product Review', 'order-import-export-for-woocommerce');
-		$arr['product_categories'] = __('Product Categories', 'order-import-export-for-woocommerce');
-		$arr['product_tags'] = __('Product Tags', 'order-import-export-for-woocommerce');
-		$arr['user'] = __('User/Customer', 'order-import-export-for-woocommerce');
-		$arr['subscription'] = __('Subscription', 'order-import-export-for-woocommerce');
-        return $arr;
-    }
+            if (is_plugin_active('order-import-export-for-woocommerce/order-import-export-for-woocommerce.php')) {
+                $arr['order'] = __('Order', 'order-import-export-for-woocommerce');
+                $arr['coupon'] = __('Coupon', 'order-import-export-for-woocommerce');
+            }
+            if (is_plugin_active('users-customers-import-export-for-wp-woocommerce/users-customers-import-export-for-wp-woocommerce.php')) {
+                $arr['user'] = __('User/Customer', 'order-import-export-for-woocommerce');
+            }
+            if (is_plugin_active('product-import-export-for-woo/product-import-export-for-woo.php')) {
+                $arr['product'] = __('Product', 'order-import-export-for-woocommerce');
+                $arr['product_review'] = __('Product Review', 'order-import-export-for-woocommerce');
+                $arr['product_categories'] = __('Product Categories', 'order-import-export-for-woocommerce');
+                $arr['product_tags'] = __('Product Tags', 'order-import-export-for-woocommerce');
+            }
+
+            $arr['order'] = __('Order', 'order-import-export-for-woocommerce');
+            $arr['coupon'] = __('Coupon', 'order-import-export-for-woocommerce');
+            $arr['product'] = __('Product', 'order-import-export-for-woocommerce');
+            $arr['product_review'] = __('Product Review', 'order-import-export-for-woocommerce');
+            $arr['product_categories'] = __('Product Categories', 'order-import-export-for-woocommerce');
+            $arr['product_tags'] = __('Product Tags', 'order-import-export-for-woocommerce');
+            $arr['user'] = __('User/Customer', 'order-import-export-for-woocommerce');
+            $arr['subscription'] = __('Subscription', 'order-import-export-for-woocommerce');
+            return $arr;
+        }
 
     /*
      * Setting default export columns for quick export
@@ -452,6 +466,22 @@ class Wt_Import_Export_For_Woo_Basic_Order {
             'field_name' => 'exclude_already_exported',
             'help_text' => __('Enable this to exclude the previously exported orders.'),
         );
+
+        $out['exclude_line_items'] = array(
+            'label' => __("Exclude line items"),
+            'type' => 'radio',
+            'radio_fields' => array(
+                'Yes' => __('Yes', 'wt-import-export-for-woo'),
+                'No' => __('No', 'wt-import-export-for-woo')
+            ),
+            'value' => 'No',
+            'field_name' => 'exclude_line_items',
+            'help_text' => __("Option 'Yes' excludes the line items"),
+            'form_toggler'=>array(
+                'type'=>'parent',
+                'target'=>'wt_iew_exclude_line_items',
+            )
+        );
         
         $out['export_to_separate'] = array(
             'label' => __("Export line items in"),
@@ -484,6 +514,12 @@ class Wt_Import_Export_For_Woo_Basic_Order {
                         array('field'=>'wt_iew_export_to_separate', 'value'=>'row')
                     )
                 )
+            ),
+            'form_toggler'=>array(
+                'type'=>'child',
+                'id'=>'wt_iew_exclude_line_items',
+                'val'=>'No',
+                'depth'=>1, /* indicates the left margin of fields */                
             )
         );
 

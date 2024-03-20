@@ -5,7 +5,7 @@ Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_c
 Requires at least: 5.0
 Tested Up To: 6.4.3
 Requires PHP: 7.0
-Stable Tag: 4.10.24
+Stable Tag: 4.10.25
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -200,14 +200,6 @@ Love Premium Addons User? rate us on [WordPress](https://wordpress.org/support/p
 
 == Installation ==
 
-= Minimum Requirements =
-
-* WordPress 4.5 or greater
-* PHP version 5.4 or greater
-* MySQL version 5.0 or greater
-
-= Installation Instructions =
-
 - First make sure that Elementor Page Builder is installed, As this plugin works only with it.
 - Download the plugin then Upload it to the plugin folder: /wp-content/plugins/ or install it through the WordPress plugins screen directly.
 - Activate the plugin through the ‘Plugins’ screen in WordPress.
@@ -250,11 +242,17 @@ Premium Addonsis 100% Ads Free, Ads can only be detected from Youtube videos, th
 
 == Changelog ==
 
+= 4.10.25 =
+
+- Tweak: Countdown widget rebuilt - [here](https://premiumaddons.com/countdown-widget-for-elementor-page-builder/).
+- Tweak: Added option to trigger Equal Height addon on page load or scroll.
+- Tweak: Code refactored for better performance and security.
+
 = 4.10.24 =
 
 - Tweak: Code refactored for better performance and security.
 - Tweak: Improved Infinite effect in Advanced Media Carousal widget.
-- Fixed: Is Returning Visitor display condition not working correctly.
+- Fixed: Returning Visitor display condition not working correctly.
 
 = 4.10.22 =
 

@@ -27,9 +27,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Premium_Template_Tags {
 
-    /**
+	/**
 	 * Elementor Templates List
-     *
+	 *
 	 * @since 4.10.15
 	 * @var e_temps_list
 	 */
@@ -65,7 +65,7 @@ class Premium_Template_Tags {
 	 */
 	protected $options;
 
-    /**
+	/**
 	 * Rendered Settings
 	 *
 	 * @since 1.0.0
@@ -126,7 +126,7 @@ class Premium_Template_Tags {
 		);
 
 		$is_mbinstalled = extension_loaded( 'mbstring' );
-		$options = array();
+		$options        = array();
 
 		if ( ! empty( $all_posts ) && ! is_wp_error( $all_posts ) ) {
 			foreach ( $all_posts as $post ) {
@@ -155,16 +155,16 @@ class Premium_Template_Tags {
 	 */
 	public function get_id_by_title( $title ) {
 
-        if( empty( $title ) ) {
-            return;
-        }
+		if ( empty( $title ) ) {
+			return;
+		}
 
 		$args = array(
-			'post_type'      => 'elementor_library',
-			'post_status'    => 'publish',
-			'posts_per_page' => 1,
-			'title'          => $title,
-            'suppress_filters' => true
+			'post_type'        => 'elementor_library',
+			'post_status'      => 'publish',
+			'posts_per_page'   => 1,
+			'title'            => $title,
+			'suppress_filters' => true,
 		);
 
 		$query = new \WP_Query( $args );
@@ -198,16 +198,16 @@ class Premium_Template_Tags {
 	 */
 	public function get_elementor_page_list() {
 
-        if ( null === self::$e_temps_list ) {
+		if ( null === self::$e_temps_list ) {
 
-            self::$e_temps_list = get_posts(
-                array(
-                    'post_type' => 'elementor_library',
-                    'showposts' => 999,
-                )
-            );
+			self::$e_temps_list = get_posts(
+				array(
+					'post_type' => 'elementor_library',
+					'showposts' => 999,
+				)
+			);
 
-        }
+		}
 
 		$pagelist = self::$e_temps_list;
 
@@ -252,10 +252,9 @@ class Premium_Template_Tags {
 			$id = $title;
 		}
 
-		$template_content = $frontend->get_builder_content_for_display( $id );
+		$template_content = $frontend->get_builder_content_for_display( $id, true );
 
 		return $template_content;
-
 	}
 
 
@@ -355,7 +354,6 @@ class Premium_Template_Tags {
 		}
 
 		wp_send_json_success( wp_json_encode( $options ) );
-
 	}
 
 	/**
@@ -388,7 +386,6 @@ class Premium_Template_Tags {
 		}
 
 		wp_send_json_success( wp_json_encode( $related_tax ) );
-
 	}
 
 
@@ -422,7 +419,6 @@ class Premium_Template_Tags {
 		}
 
 		return $options;
-
 	}
 
 
@@ -577,7 +573,7 @@ class Premium_Template_Tags {
 							'terms'    => $settings[ 'tax_' . $index . '_' . $post_type . '_filter' ],
 							'operator' => $operator,
 						);
-						$tax_count++;
+						++$tax_count;
 					}
 				}
 			}
@@ -759,7 +755,6 @@ class Premium_Template_Tags {
 		}
 
 		return $excerpt;
-
 	}
 
 	/**
@@ -783,7 +778,6 @@ class Premium_Template_Tags {
 				echo wp_kses_post( $read_more );
 			echo '</a>';
 		echo '</div>';
-
 	}
 
 	/**
@@ -990,8 +984,8 @@ class Premium_Template_Tags {
 		endif;
 
 		?>
-		 </div>
-		 <?php
+		</div>
+		<?php
 	}
 
 	/**
@@ -1113,7 +1107,7 @@ class Premium_Template_Tags {
 								<a class="elementor-icon" href="<?php the_permalink(); ?>" target="<?php echo esc_attr( $target ); ?>" aria-hidden="true"><span><?php esc_html( the_title() ); ?></span></a>
 							</div>
 
-                            <?php do_action( 'pa_blog_after_thumbnail' ); ?>
+							<?php do_action( 'pa_blog_after_thumbnail' ); ?>
 						<?php endif; ?>
 					</div>
 				<?php endif; ?>
@@ -1204,7 +1198,6 @@ class Premium_Template_Tags {
 		}
 
 		wp_reset_postdata();
-
 	}
 
 	/**
@@ -1258,9 +1251,9 @@ class Premium_Template_Tags {
 		}
 
 		?>
-	   <div class="premium-error-notice">
-		   <?php echo wp_kses_post( $notice ); ?>
-	   </div>
+		<div class="premium-error-notice">
+			<?php echo wp_kses_post( $notice ); ?>
+		</div>
 		<?php
 	}
 
@@ -1325,7 +1318,6 @@ class Premium_Template_Tags {
 			</nav>
 			<?php
 		}
-
 	}
 
 	public function add_navigation_arrows( $prev_disabled = '', $next_disabled = '' ) {
@@ -1355,7 +1347,6 @@ class Premium_Template_Tags {
 		$this->render_pagination();
 
 		return ob_get_clean();
-
 	}
 
 	/**
@@ -1406,7 +1397,6 @@ class Premium_Template_Tags {
 		}
 
 		wp_send_json_success( $data );
-
 	}
 
 	/**
@@ -1585,7 +1575,6 @@ class Premium_Template_Tags {
 				echo wp_kses_post( $excerpt );
 			echo '</div>';
 		}
-
 	}
 
 
@@ -1907,7 +1896,6 @@ class Premium_Template_Tags {
 		} else {
 			// display a message here.
 		}
-
 	}
 
 	/**
@@ -2058,7 +2046,6 @@ class Premium_Template_Tags {
 
 		$this->print_dynamic_css( $loop_item_id, $settings['pa_loop_template_id'] );
 		$document->print_content();
-
 	}
 
 	protected function print_dynamic_css( $post_id, $post_id_for_data ) {
@@ -2218,7 +2205,7 @@ class Premium_Template_Tags {
 			<<?php echo wp_kses_post( $post_tag . ' ' . $this->get_render_attribute_string( $wrap_key ) ); ?>>
 				<?php
 				if ( $show_thumbnail ) :
-					$bg_css = !$thumbnail_src ? '' : 'style="background-image:url(' .  $thumbnail_src[0]. ')"';
+					$bg_css = ! $thumbnail_src ? '' : 'style="background-image:url(' . $thumbnail_src[0] . ')"';
 					?>
 					<div class="premium-smart-listing__post-thumbnail-wrapper">
 						<div class="premium-smart-listing__thumbnail-container" <?php echo $bg_css; ?> >
@@ -2244,7 +2231,7 @@ class Premium_Template_Tags {
 		<?php
 	}
 
-    /**
+	/**
 	 * Get all categories
 	 *
 	 * Get categories array
@@ -2257,15 +2244,15 @@ class Premium_Template_Tags {
 	public static function get_all_categories() {
 
 		$args = array(
-            'taxonomy' => 'category'
-        );
+			'taxonomy' => 'category',
+		);
 
-        $categories = get_categories( $args );
+		$categories = get_categories( $args );
 
 		$category_names = array();
 
 		foreach ( $categories as $category ) {
-            $category_names[ $category->cat_ID ] = $category->name;
+			$category_names[ $category->cat_ID ] = $category->name;
 		}
 
 		return $category_names;

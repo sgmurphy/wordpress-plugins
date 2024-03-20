@@ -3,6 +3,14 @@
 
         var premiumWrapperLinkHandler = function ($scope) {
 
+            function isURL(str) {
+                // Regular expression for URL validation
+                var urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+
+                // Test the string against the regular expression
+                return urlPattern.test(str);
+            }
+
             $scope.on('click.onWrapperLink', function () {
 
                 var settings = $scope.data('premium-element-link');
@@ -16,6 +24,10 @@
                     timeout;
 
                 anchor.id = 'premium-wrapper-link-' + id;
+
+                if (!isURL(settings.href))
+                    return;
+
                 anchor.href = settings.href;
                 anchor.target = settings.type === 'url' ? settings.link.is_external ? '_blank' : '_self' : '';
                 anchor.rel = settings.type === 'url' ? settings.link.nofollow ? 'nofollow noreferer' : '' : '';

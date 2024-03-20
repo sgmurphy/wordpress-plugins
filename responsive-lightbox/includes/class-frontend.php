@@ -1559,6 +1559,10 @@ class Responsive_Lightbox_Frontend {
 	 * @return string
 	 */
 	public function gallery_attributes( $content, $shortcode_atts ) {
+		// private gallery?
+		if ( isset( $shortcode_atts['rl_gallery_id'] ) && get_post_status( $shortcode_atts['rl_gallery_id'] ) === 'private' && ! current_user_can( 'read_private_posts' ) )
+			return '';
+
 		// check forced gallery number
 		if ( isset( $shortcode_atts['rl_gallery_no'] ) ) {
 			$shortcode_atts['rl_gallery_no'] = (int) $shortcode_atts['rl_gallery_no'];
@@ -1854,6 +1858,10 @@ class Responsive_Lightbox_Frontend {
 		// is it rl gallery?
 		$rl_gallery = $rl->options['builder']['gallery_builder'] && $rl_gallery_id && get_post_type( $rl_gallery_id ) === 'rl_gallery';
 
+		// private gallery?
+		if ( $rl_gallery && get_post_status( $rl_gallery_id ) === 'private' && ! current_user_can( 'read_private_posts' ) )
+			return '';
+
 		if ( ! array_key_exists( 'type', $shortcode_atts ) )
 			$shortcode_atts['type'] = '';
 
@@ -2074,6 +2082,10 @@ class Responsive_Lightbox_Frontend {
 		// is it rl gallery?
 		$rl_gallery = $rl->options['builder']['gallery_builder'] && $rl_gallery_id && get_post_type( $rl_gallery_id ) === 'rl_gallery';
 
+		// private gallery?
+		if ( $rl_gallery && get_post_status( $rl_gallery_id ) === 'private' && ! current_user_can( 'read_private_posts' ) )
+			return '';
+
 		if ( ! array_key_exists( 'type', $shortcode_atts ) )
 			$shortcode_atts['type'] = '';
 
@@ -2269,6 +2281,10 @@ class Responsive_Lightbox_Frontend {
 
 		// is it rl gallery?
 		$rl_gallery = $rl->options['builder']['gallery_builder'] && $rl_gallery_id && get_post_type( $rl_gallery_id ) === 'rl_gallery';
+
+		// private gallery?
+		if ( $rl_gallery && get_post_status( $rl_gallery_id ) === 'private' && ! current_user_can( 'read_private_posts' ) )
+			return '';
 
 		if ( ! array_key_exists( 'type', $shortcode_atts ) )
 			$shortcode_atts['type'] = '';

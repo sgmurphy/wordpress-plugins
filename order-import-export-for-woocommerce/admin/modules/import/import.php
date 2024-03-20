@@ -35,9 +35,11 @@ class Wt_Import_Export_For_Woo_Basic_Import
 	public $form_data=array();
 	public $temp_import_file='';
 	private $to_process='';
-        public $allowed_import_file_type_mime=array();
-        public $step_need_validation_filter=array();
-		public $allowed_mime_types = array();
+    public $allowed_import_file_type_mime=array();
+    public $step_need_validation_filter=array();
+	public $allowed_mime_types = array();
+	private $skip_from_evaluation_array = array();
+    private $decimal_columns = array();
 
 
 	public function __construct()
@@ -1174,6 +1176,9 @@ class Wt_Import_Export_For_Woo_Basic_Import
 			'mapping_fields'=>array(),
 			'meta_mapping_fields'=>array()
 		);
+
+		$this->skip_from_evaluation_array = $this->get_skip_from_evaluation();
+		$this->decimal_columns = $this->get_decimal_columns();  
 		
 		/**
 		*  	Default columns
@@ -1219,8 +1224,12 @@ class Wt_Import_Export_For_Woo_Basic_Import
 	}
 	protected function evaluate_data($key, $value, $data_row, $mapping_fields, $input_date_format)
 	{
-		$value=$this->add_input_file_data($key, $value, $data_row, $mapping_fields, $input_date_format);
+		$value=$this->add_input_file_data($key, $value, $data_row, $mapping_fields, $input_date_format,true);
 		$value=$this->do_arithmetic($value);
+
+		if(!Wt_Iew_IE_Basic_Helper::wt_string_is_json($value) && !is_serialized($value)){
+            $value = $this->add_input_file_data($key, $value, $data_row, $mapping_fields, $input_date_format);
+        }
 		$data_row=null;
 		unset($data_row);
 		return $value;
@@ -1280,8 +1289,9 @@ class Wt_Import_Export_For_Woo_Basic_Import
 
 		return $val;
 	}
-	protected function add_input_file_data($key, $str, $data_row, $mapping_fields, $input_date_format)
+	protected function add_input_file_data($key, $str, $data_row, $mapping_fields, $input_date_format,$skip_from_evaluation=false)
 	{
+		@set_time_limit(0);
 		$re = '/\{([^}]+)\}/m';
 		$matches=array();
 		preg_match_all($re, $str, $matches, PREG_SET_ORDER, 0);
@@ -1340,15 +1350,42 @@ class Wt_Import_Export_For_Woo_Basic_Import
 					}
 				}
 
-				$replace[]=$output_val;
-				$find[]=$value[0];
+				$is_need_to_replace = false;
+                if($skip_from_evaluation){   /* check whether skip or not */  
+
+					if (strpos($value[1], 'line_item_') !== false) {   /* line item content gets trimmed when ';' occurred in serialized data */
+					$value[1] = 'line_item_';//substr($value[1], 10,10);                                       
+										}
+										
+					if(!in_array($value[1], $this->skip_from_evaluation_array)){      /*  current item dont skip */                                   
+						$is_need_to_replace = true;
+					}                                    
+                } else { /* no needed to skip, so add all items to find and replace list */
+					$is_need_to_replace = true;
+				}
+
+                if($is_need_to_replace){
+                    if(in_array($value[1],$this->decimal_columns)){ /* check if it is a decimal column , if yes, format it */
+                        $output_val =  wt_format_decimal($output_val);               
+                    }
+                    $replace[]=$output_val;
+                    $find[]=$value[0];                                    
+                }
 				unset($data_key);
 			}		
 		}
+
 		$data_row=null;
 		unset($data_row);
 		return str_replace($find, $replace, $str);
 	}
+	public function get_skip_from_evaluation(){
+		return apply_filters('wt_iew_importer_skip_from_evaluation', array('post_title', 'description','post_content','short_description','post_excerpt','line_item_','shipping_items', 'fee_items', 'customer_note', 'meta:wc_productdata_options', 'order_items', 'shipping_method'));        
+	}
+	public function get_decimal_columns(){
+		return apply_filters('wt_iew_importer_decimal_columns', array('price','regular_price','_regular_price','sale_price','_sale_price'));             
+	}
 }
+
 }
 Wt_Import_Export_For_Woo_Basic::$loaded_modules['import']=new Wt_Import_Export_For_Woo_Basic_Import();

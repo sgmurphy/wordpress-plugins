@@ -75,12 +75,11 @@ if ( ! class_exists( 'Addons_Cross_CP' ) ) {
 
 			return \Elementor\Plugin::instance()->db->iterate_data(
 				$media_import,
-				function( $element ) {
+				function ( $element ) {
 					$element['id'] = Utils::generate_random_string();
 					return $element;
 				}
 			);
-
 		}
 
 		/**
@@ -94,7 +93,7 @@ if ( ! class_exists( 'Addons_Cross_CP' ) ) {
 
 			return \Elementor\Plugin::instance()->db->iterate_data(
 				$media_import,
-				function( $element_data ) {
+				function ( $element_data ) {
 					$element = \Elementor\Plugin::instance()->elements_manager->create_element_instance( $element_data );
 
 					// If the widget/element isn't exist, like a plugin that creates a widget but deactivated.
@@ -105,7 +104,6 @@ if ( ! class_exists( 'Addons_Cross_CP' ) ) {
 					return self::cross_cp_import_element( $element );
 				}
 			);
-
 		}
 
 		/**
@@ -139,10 +137,8 @@ if ( ! class_exists( 'Addons_Cross_CP' ) ) {
 						$element_data['settings'][ $control['name'] ] = $control_class->{$method}( $element->get_settings( $control['name'] ), $control );
 					} elseif ( 'repeater' === $control['type'] ) {
 							$element_data['settings'][ $control['name'] ] = self::on_import_repeater( $element->get_settings( $control['name'] ), $control );
-					} else {
-						if ( ! empty( $element_data['settings'][ $control['name'] ]['url'] ) ) {
+					} elseif ( ! empty( $element_data['settings'][ $control['name'] ]['url'] ) ) {
 							$element_data['settings'][ $control['name'] ] = self::on_import_media( $element->get_settings( $control['name'] ) );
-						}
 					}
 				}
 			}
@@ -183,10 +179,8 @@ if ( ! class_exists( 'Addons_Cross_CP' ) ) {
 					if ( method_exists( $control_obj, $method ) ) {
 						if ( 'media' !== $field['type'] && 'hedia' !== $field['type'] ) {
 							$item[ $field['name'] ] = $control_obj->{$method}( $item[ $field['name'] ], $field );
-						} else {
-							if ( ! empty( $item[ $field['name'] ]['url'] ) ) {
+						} elseif ( ! empty( $item[ $field['name'] ]['url'] ) ) {
 								$item[ $field['name'] ] = self::on_import_media( $item[ $field['name'] ] );
-							}
 						}
 					}
 				}

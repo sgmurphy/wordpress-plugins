@@ -328,9 +328,17 @@ function wpbc_booking_confirmation( $params_arr ){
 
 	if ( 'page' == $confirmation['ty_is_redirect'] ) {
 
-		$confirmation['ty_url'] = wpbc_make_link_absolute( apply_bk_filter( 'wpdev_check_for_active_language', get_bk_option( 'booking_thank_you_page_URL' ) ) );  // '/thank-you'
+		//FixIn: 9.9.0.3
+		if ( ! empty( $params_arr['ty_url'] ) ) {
 
-		$confirmation['ty_url'] .= ( ( false === strpos( $confirmation['ty_url'], '?' ) ) ? '?' : '&' ) . 'booking_hash=' . $booking_hash;
+			$confirmation['ty_url'] = $params_arr['ty_url'];
+
+		} else {
+
+			$confirmation['ty_url'] = wpbc_make_link_absolute( apply_bk_filter( 'wpdev_check_for_active_language', get_bk_option( 'booking_thank_you_page_URL' ) ) );  // '/thank-you'
+
+			$confirmation['ty_url'] .= ( ( false === strpos( $confirmation['ty_url'], '?' ) ) ? '?' : '&' ) . 'booking_hash=' . $booking_hash;
+		}
 
 	} else {
 		$confirmation['ty_url'] = '';

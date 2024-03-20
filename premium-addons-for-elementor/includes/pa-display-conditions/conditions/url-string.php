@@ -71,7 +71,5 @@ class Url_String extends Condition {
 		$condition_result = false !== strpos( $url, $value ) ? true : false;
 
 		return Helper_Functions::get_final_result( $condition_result, $operator );
-
 	}
-
 }

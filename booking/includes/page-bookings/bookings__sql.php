@@ -575,7 +575,12 @@ function wpbc_ajx__user_request_params__get_option( $user_id, $option_name ){
 				}
 			}
 
-			$sql['order'] = '';// ' ORDER BY title ASC';      // Order depends from version
+			// Order depends from version       //FixIn: 9.9.0.23
+			if ( class_exists( 'wpdev_bk_biz_l' ) ) {
+				$sql['order'] = " ORDER BY parent, prioritet, title, booking_type_id";
+			} else {
+				$sql['order'] = " ORDER BY title, booking_type_id";
+			}
 
 			global $wpdb;
 			$sql_prepared = //$wpdb->prepare(
@@ -637,7 +642,7 @@ function wpbc_ajx__user_request_params__get_option( $user_id, $option_name ){
 
 		            foreach ( $all_resources as $single_resources ) {
 
-		                $single_resources       =  $single_resources ;
+		                $single_resources       = $single_resources ;
 		                $single_resources['id'] = $single_resources['booking_type_id'];
 
 		                // Child booking resource

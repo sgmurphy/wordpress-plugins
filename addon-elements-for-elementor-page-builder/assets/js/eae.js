@@ -3945,7 +3945,6 @@ var ModuleHandler = elementorModules.frontend.handlers.Base,
                                   
                                     // const textToCopy = textWrapper.innerText;
                                     const textToCopy = textWrapper.getAttribute('data-code-value');
-                                    console.log('',textToCopy);
                                     const tempElement = document.createElement('textarea');
                                     tempElement.value = textToCopy;
                                     popUp.appendChild(tempElement);

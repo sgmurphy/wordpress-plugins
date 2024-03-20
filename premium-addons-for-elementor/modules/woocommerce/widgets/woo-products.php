@@ -221,7 +221,7 @@ class Woo_Products extends Widget_Base {
 		$this->register_style_image_section( $pro_skins );
 		$this->register_style_pagination_section( $pro_skins );
 		$this->register_style_loadmore_section( $pro_skins );
-        $this->register_style_sale_controls( $pro_skins );
+		$this->register_style_sale_controls( $pro_skins );
 		$this->register_style_featured_controls( $pro_skins );
 		$this->register_style_carousel_section( $pro_skins );
 		$this->register_style_sold_out_controls( $pro_skins );
@@ -272,7 +272,7 @@ class Woo_Products extends Widget_Base {
 				'options'   => array(
 					'grid'     => __( 'Grid', 'premium-addons-for-elementor' ),
 					'carousel' => __( 'Carousel', 'premium-addons-for-elementor' ),
-					'masonry' => __( 'Masonry', 'premium-addons-for-elementor' ),
+					'masonry'  => __( 'Masonry', 'premium-addons-for-elementor' ),
 				),
 				'condition' => array(
 					'_skin!' => $pro_skins,
@@ -411,7 +411,6 @@ class Woo_Products extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -621,7 +620,6 @@ class Woo_Products extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -855,13 +853,12 @@ class Woo_Products extends Widget_Base {
 				'default'     => __( 'No products were found for this query.', 'premium-addons-for-elementor' ),
 				'label_block' => true,
 				'condition'   => array(
-					'query_type!' => array(  'up-sells' ),
+					'query_type!' => array( 'up-sells' ),
 				),
 			)
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -967,7 +964,6 @@ class Woo_Products extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -1242,7 +1238,7 @@ class Woo_Products extends Widget_Base {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
 
@@ -1380,7 +1376,6 @@ class Woo_Products extends Widget_Base {
 		$this->end_controls_tabs();
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -1706,7 +1701,6 @@ class Woo_Products extends Widget_Base {
 		$this->end_controls_tabs();
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -1914,7 +1908,6 @@ class Woo_Products extends Widget_Base {
 		$this->end_controls_tabs();
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -2078,7 +2071,7 @@ class Woo_Products extends Widget_Base {
 		$this->end_controls_section();
 	}
 
-    /**
+	/**
 	 * Register Style Sale section.
 	 *
 	 * @access public
@@ -2660,5 +2653,4 @@ class Woo_Products extends Widget_Base {
 
 		return $product_tag;
 	}
-
 }

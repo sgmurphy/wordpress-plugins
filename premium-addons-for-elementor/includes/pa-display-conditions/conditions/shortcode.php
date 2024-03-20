@@ -39,7 +39,6 @@ class Shortcode extends Condition {
 				'pa_condition_key' => 'shortcode',
 			),
 		);
-
 	}
 
 	/**
@@ -61,7 +60,6 @@ class Shortcode extends Condition {
 				'pa_condition_key' => 'shortcode',
 			),
 		);
-
 	}
 
 
@@ -90,7 +88,5 @@ class Shortcode extends Condition {
 		$condition_result = $return_value == $compare_val ? true : false;
 
 		return Helper_Functions::get_final_result( $condition_result, $operator );
-
 	}
-
 }

@@ -43,7 +43,6 @@ class Woo_Purchase_Products extends Condition {
 				'pa_condition_key' => 'woo_purchase_products',
 			),
 		);
-
 	}
 
 	/**
@@ -71,7 +70,7 @@ class Woo_Purchase_Products extends Condition {
 			'post_type'   => wc_get_order_types(),
 			'post_status' => array_keys( wc_get_is_paid_statuses() ),
 		);
-		
+
 		$order_item_id = array();
 
 		$orders = wc_get_orders( $args );
@@ -83,17 +82,15 @@ class Woo_Purchase_Products extends Condition {
 			$order_items = $order->get_items();
 
 			foreach ( $order_items as $order_item ) {
-				
+
 				$product_id = $order_item->get_product_id();
 
 				$order_item_id[] = $product_id;
 			}
-
 		}
 
 		$condition_result = ! empty( array_intersect( (array) $compare_val, $order_item_id ) ) ? true : false;
-		
+
 		return Helper_Functions::get_final_result( $condition_result, $operator );
 	}
-
 }

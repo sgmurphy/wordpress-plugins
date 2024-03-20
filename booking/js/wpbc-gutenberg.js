@@ -366,6 +366,9 @@
 										, 'bookingedit'
 										, 'bookingcustomerlisting'
 										, 'bookingresource'
+										, 'booking_confirm'
+										, 'booking-manager-import'
+										, 'booking-manager-listing'
 									  ];
 		var wpbc_shortcode_type_arr_length = wpbc_shortcode_type_arr.length;
 
@@ -459,6 +462,32 @@
 																									'shortcode_in_text': shortcode_in_text
 																									, 'cid_key': wpbc_shortcode_type+ '_' + cid
 																						} );
+						children[ (children.length - 1) ].props.popup_tab_index = -1;									// Set index of Active tab in popup dialog
+						break;
+
+					case 'booking_confirm':
+						block_preview_el = wpbc_gt_get_visual_block_for_booking_confirm( shortcode_obj.shortcode, {
+																									'shortcode_in_text': shortcode_in_text
+																									, 'cid_key': wpbc_shortcode_type+ '_' + cid
+																						} );
+						children[ (children.length - 1) ].props.popup_tab_index = -1;									// Set index of Active tab in popup dialog
+						break;
+
+					case 'booking-manager-import':
+						block_preview_el = wpbc_gt_get_visual_block_for_booking_manager_import( shortcode_obj.shortcode, {
+																									'shortcode_in_text': shortcode_in_text
+																									, 'cid_key': wpbc_shortcode_type+ '_' + cid
+																						} );
+						//block_preview_el = el( 'div', { className: 'test' }, 'Test Import 1' );
+						children[ (children.length - 1) ].props.popup_tab_index = -1;									// Set index of Active tab in popup dialog
+						break;
+
+					case 'booking-manager-listing':
+						block_preview_el = wpbc_gt_get_visual_block_for_booking_manager_listing( shortcode_obj.shortcode, {
+																									'shortcode_in_text': shortcode_in_text
+																									, 'cid_key': wpbc_shortcode_type+ '_' + cid
+																						} );
+						//block_preview_el = el( 'div', { className: 'test' }, 'Test 2' );
 						children[ (children.length - 1) ].props.popup_tab_index = -1;									// Set index of Active tab in popup dialog
 						break;
 
@@ -1117,6 +1146,124 @@
 
 
 	/**
+	 *  Generate Visual Preview Block of Booking Confirm - system shortcode
+	 *
+	 * @param shortcode_obj	- shortcode  JavaScript obj.
+	 * @returns
+	 */
+	function wpbc_gt_get_visual_block_for_booking_confirm( shortcode_obj, params ){
+
+		// Booking Form Parameters
+		var shortcode_defaults = {
+		};
+
+		var props = _.defaults( shortcode_obj.attrs.named, shortcode_defaults );
+
+		var el = wp.element.createElement;
+
+		//FixIn: 8.7.3.18 Start
+		var inner_header = el( 'div', {className: 'wpbc_gb_block_preview_inner_header', key: 'header_' + params[ 'cid_key' ]}
+									, wpbc_gb_tpl_header( { header: 'WP Booking Calendar - ' + wp.i18n.__( 'System Block' ) , cid_key: 'header_' + params[ 'cid_key' ] } )
+							);
+		var inner_body   = el( 'div', {className: 'wpbc_gb_block_preview_inner_body', key: 'body_' + params[ 'cid_key' ] }
+									, wpbc_gb_tpl_shortcode_parameters( wpbc_parse_params_into_rows_arr_for_booking_confirm( props ,'body_' + params[ 'cid_key' ] ), { cid_key: 'body_' + params[ 'cid_key' ] } )
+							);
+		var inner_footer = el( 'div', {className: 'wpbc_gb_block_preview_inner_footer' , key: 'footer_' + params[ 'cid_key' ] }
+									, wpbc_gb_tpl_footer( { shortcode_in_text: params[ 'shortcode_in_text' ], cid_key: 'footer_' + params[ 'cid_key' ] } )
+							);
+
+		return  el( 'div', { className: 'wpbc_gb_block_shortcode_preview_wrapper wpbc_gb_block_preview_booking_confirm' , key: 'preview_wrapper_' + params[ 'cid_key' ] }
+
+						, el( 'div', { className: 'wpbc_gb_block_shortcode_preview_content' , key: 'preview_content_' + params[ 'cid_key' ] }
+								, [ inner_header, inner_body ]
+							)
+						, inner_footer
+				);
+		//FixIn: 8.7.3.18 End
+	}
+
+
+	/**
+	 *  Generate Visual Preview Block of "Booking Manager" == Import ==
+	 *
+	 * @param shortcode_obj	- shortcode  JavaScript obj.
+	 * @returns
+	 */
+	function wpbc_gt_get_visual_block_for_booking_manager_import( shortcode_obj, params ){
+
+		// Booking Form Parameters
+		var shortcode_defaults = {};
+
+		var props = _.defaults( shortcode_obj.attrs.named, shortcode_defaults );
+
+		var el = wp.element.createElement;
+
+		var inner_header = el( 'div', {className: 'wpbc_gb_block_preview_inner_header', key: 'header_' + params[ 'cid_key' ]}
+									, wpbc_gb_tpl_header( { header: 'Booking Manager - ' + wp.i18n.__( 'Import Events from .ics feed into WP Booking Calendar - Block' ) , cid_key: 'header_' + params[ 'cid_key' ] } )
+							);
+		var inner_body   = el( 'div', {className: 'wpbc_gb_block_preview_inner_body', key: 'body_' + params[ 'cid_key' ] }
+									, wpbc_gb_tpl_shortcode_parameters(
+											[
+											  { block_text: wp.i18n.__( 'This shortcode [ booking-manager-import ] is used for import bookings from .ics feed URL into the WP Booking Calendar plugin' ) }
+											]
+											, { cid_key: 'body_' + params[ 'cid_key' ] }
+									 )
+							);
+		var inner_footer = el( 'div', {className: 'wpbc_gb_block_preview_inner_footer' , key: 'footer_' + params[ 'cid_key' ] }
+									, wpbc_gb_tpl_footer( { shortcode_in_text: params[ 'shortcode_in_text' ], cid_key: 'footer_' + params[ 'cid_key' ] } )
+							);
+
+		return  el( 'div', { className: 'wpbc_gb_block_shortcode_preview_wrapper wpbc_gb_block_preview_booking_import' , key: 'preview_wrapper_' + params[ 'cid_key' ] }
+
+						, el( 'div', { className: 'wpbc_gb_block_shortcode_preview_content' , key: 'preview_content_' + params[ 'cid_key' ] }
+								, [ inner_header, inner_body ]
+							)
+						, inner_footer
+				);
+	}
+
+
+	/**
+	 *  Generate Visual Preview Block of "Booking Manager" == Import ==
+	 *
+	 * @param shortcode_obj	- shortcode  JavaScript obj.
+	 * @returns
+	 */
+	function wpbc_gt_get_visual_block_for_booking_manager_listing( shortcode_obj, params ){
+
+		// Booking Form Parameters
+		var shortcode_defaults = {};
+
+		var props = _.defaults( shortcode_obj.attrs.named, shortcode_defaults );
+
+		var el = wp.element.createElement;
+
+		var inner_header = el( 'div', {className: 'wpbc_gb_block_preview_inner_header', key: 'header_' + params[ 'cid_key' ]}
+									, wpbc_gb_tpl_header( { header: 'Booking Manager - ' + wp.i18n.__( 'Show Events Listing from .ics feed - Block' ) , cid_key: 'header_' + params[ 'cid_key' ] } )
+							);
+		var inner_body   = el( 'div', {className: 'wpbc_gb_block_preview_inner_body', key: 'body_' + params[ 'cid_key' ] }
+									, wpbc_gb_tpl_shortcode_parameters(
+											[
+											  { block_text: wp.i18n.__( 'This shortcode [ booking-manager-listing ] used for show events listing from .ics feed URL.' ) }
+											]
+											, { cid_key: 'body_' + params[ 'cid_key' ] }
+									 )
+							);
+		var inner_footer = el( 'div', {className: 'wpbc_gb_block_preview_inner_footer' , key: 'footer_' + params[ 'cid_key' ] }
+									, wpbc_gb_tpl_footer( { shortcode_in_text: params[ 'shortcode_in_text' ], cid_key: 'footer_' + params[ 'cid_key' ] } )
+							);
+
+		return  el( 'div', { className: 'wpbc_gb_block_shortcode_preview_wrapper wpbc_gb_block_preview_booking_import' , key: 'preview_wrapper_' + params[ 'cid_key' ] }
+
+						, el( 'div', { className: 'wpbc_gb_block_shortcode_preview_content' , key: 'preview_content_' + params[ 'cid_key' ] }
+								, [ inner_header, inner_body ]
+							)
+						, inner_footer
+				);
+	}
+
+
+	/**
 	 *  Generate Visual Preview Block of Booking Edit - system shortcode
 	 *
 	 * @param shortcode_obj	- shortcode  JavaScript obj.
@@ -1152,6 +1299,21 @@
 				);
 		//FixIn: 8.7.3.18 End
 	}
+
+
+		/**
+		 * Parse parameters into array of rows objects for showing in conetnt of block
+		 *
+		 * @param props
+		 */
+		function wpbc_parse_params_into_rows_arr_for_booking_confirm( props , cid_key){
+
+			// Parameters Description /////////////////////////////////
+			var rows_in_content = [];
+			rows_in_content.push( { block_text: wp.i18n.__( 'This shortcode [booking_confirm] is used on a confirmation booking page to display booking details and confirmation after a successful booking.' ) } );
+
+			return rows_in_content;
+		}
 
 
 		/**

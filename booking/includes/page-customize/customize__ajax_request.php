@@ -593,7 +593,7 @@ class WPBC_AJX__Customize_Plugin__Ajax_Request {
 				$data_arr['popover_hints'] = array();
 
 				$data_arr['popover_hints']['season_unavailable'] = '<strong>' . __( 'Season unavailable day', 'booking' ) . '</strong><hr>'
-													. sprintf( __( 'Change this date status at %sBooking %s Resources %s Availability page.', 'booking' ), '<br>', '&gt;', '&gt;' );
+													. sprintf( __( 'Change this date status at %sBooking %s Availability %s Season Availability page.', 'booking' ), '<br>', '&gt;', '&gt;' );
 				$data_arr['popover_hints']['weekdays_unavailable'] = '<strong>' . __( 'Unavailable week day', 'booking' ) . '</strong><hr>'
 												   . sprintf( __( 'Change this date status at %sBooking %s Settings General page %s in "Availability" section.', 'booking' ), '<br>', '&gt;', '<br>' );
 				$data_arr['popover_hints']['before_after_unavailable'] = '<strong>' . __( 'Unavailable day, depends on today day', 'booking' ) . '</strong><hr>'

@@ -1169,12 +1169,11 @@ class Premium_Tiktok_Feed extends Widget_Base {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
 
 		$this->end_controls_section();
-
 	}
 
 	/** Style Controls. */
@@ -2953,7 +2952,6 @@ class Premium_Tiktok_Feed extends Widget_Base {
 			}
 			?>
 		<?php
-
 	}
 
 	/**

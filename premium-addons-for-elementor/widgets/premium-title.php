@@ -130,7 +130,6 @@ class Premium_Title extends Widget_Base {
 				'lottie-js',
 			)
 		);
-
 	}
 
 	/**
@@ -1907,7 +1906,6 @@ class Premium_Title extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**

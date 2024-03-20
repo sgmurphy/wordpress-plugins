@@ -1158,18 +1158,18 @@ class Premium_Media_Wheel extends Widget_Base {
 			)
 		);
 
-        $this->add_control(
+		$this->add_control(
 			'render_event',
 			array(
-				'label'              => __( 'Trigger Animation On', 'premium-addons-for-elementor' ),
-				'type'               => Controls_Manager::SELECT,
-				'options'            => array(
+				'label'     => __( 'Trigger Animation On', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => array(
 					'scroll' => __( 'Scroll', 'premium-addons-for-elementor' ),
 					'load'   => __( 'Page Load', 'premium-addons-for-elementor' ),
 				),
-				'default'            => 'scroll',
+				'default'   => 'scroll',
 				'condition' => array(
-					'media_wheel_animation'       => 'infinite',
+					'media_wheel_animation' => 'infinite',
 				),
 			)
 		);
@@ -2419,9 +2419,9 @@ class Premium_Media_Wheel extends Widget_Base {
 		);
 
 		if ( 'infinite' === $type ) {
-			$wheel_settings['dir']     = $direction;
-			$wheel_settings['reverse'] = $settings['media_wheel_reverse'];
-            $wheel_settings['renderEvent'] = $settings['render_event'];
+			$wheel_settings['dir']         = $direction;
+			$wheel_settings['reverse']     = $settings['media_wheel_reverse'];
+			$wheel_settings['renderEvent'] = $settings['render_event'];
 		} else {
 			$wheel_settings['loop'] = $settings['media_wheel_loop'];
 			$auto_play              = 'yes' === $settings['media_wheel_autoplay'];
@@ -2519,7 +2519,6 @@ class Premium_Media_Wheel extends Widget_Base {
 			</div>
 		</div>
 		<?php
-
 	}
 
 	/**
@@ -2570,18 +2569,18 @@ class Premium_Media_Wheel extends Widget_Base {
 
 			$media_type = $item['pa_media_type'];
 
-			if($item['media_wheel_img']) {
+			if ( $item['media_wheel_img'] ) {
 
-			$image_id = apply_filters( 'wpml_object_id', $item['media_wheel_img']['id'], 'elementor_library', true );
+				$image_id = apply_filters( 'wpml_object_id', $item['media_wheel_img']['id'], 'elementor_library', true );
 
-			$image_by_id = get_post( $image_id );
+				$image_by_id = get_post( $image_id );
 
-			$alt = '';
+				$alt = '';
 
-			if ( isset( $image_by_id->post_title ) ) {
-				$alt = apply_filters( 'pa_media_alt', get_post( $image_id )->post_title );
+				if ( isset( $image_by_id->post_title ) ) {
+					$alt = apply_filters( 'pa_media_alt', get_post( $image_id )->post_title );
+				}
 			}
-		}
 
 			if ( 'template' === $media_type ) {
 				$hover_effect = '';
@@ -2696,6 +2695,7 @@ class Premium_Media_Wheel extends Widget_Base {
 	 *
 	 * @param array  $item  repeater item.
 	 * @param number $index item index.
+     * @param number $hover_effect image hover effect.
 	 */
 	private function render_carousel_video( $item, $index, $hover_effect ) {
 
@@ -2973,7 +2973,5 @@ class Premium_Media_Wheel extends Widget_Base {
 				</a>
 			<?php
 		}
-
 	}
-
 }

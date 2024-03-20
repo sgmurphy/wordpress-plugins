@@ -71,7 +71,5 @@ class User_Role extends Condition {
 		$condition_result = ! empty( array_intersect( $value, $user->roles ) ) ? true : false;
 
 		return Helper_Functions::get_final_result( $condition_result, $operator );
-
 	}
-
 }

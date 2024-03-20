@@ -45,7 +45,7 @@ class Premium_Carousel extends Widget_Base {
 	 * @access public
 	 */
 	public function getTemplateInstance() {
-		 return $this->template_instance = Premium_Template_Tags::getInstance();
+		return $this->template_instance = Premium_Template_Tags::getInstance();
 	}
 
 	/**
@@ -153,7 +153,7 @@ class Premium_Carousel extends Widget_Base {
 	 * @return string support URL.
 	 */
 	public function get_custom_help_url() {
-		 return 'https://premiumaddons.com/support/';
+		return 'https://premiumaddons.com/support/';
 	}
 
 	/**
@@ -678,7 +678,7 @@ class Premium_Carousel extends Widget_Base {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
 
@@ -1288,7 +1288,6 @@ class Premium_Carousel extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -1643,5 +1642,4 @@ class Premium_Carousel extends Widget_Base {
 		</div>
 		<?php
 	}
-
 }

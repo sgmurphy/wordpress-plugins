@@ -55,7 +55,6 @@ class Progress_Bar extends WPML_Elementor_Module_With_Items {
 	protected function get_title( $field ) {
 
 		return __( 'Progress Bar: Label Text', 'premium-addons-for-elementor' );
-
 	}
 
 	/**
@@ -70,7 +69,5 @@ class Progress_Bar extends WPML_Elementor_Module_With_Items {
 	protected function get_editor_type( $field ) {
 
 		return 'LINE';
-
 	}
-
 }

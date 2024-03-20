@@ -71,7 +71,6 @@ class Maps extends WPML_Elementor_Module_With_Items {
 		}
 
 		return '';
-
 	}
 
 	/**
@@ -94,5 +93,4 @@ class Maps extends WPML_Elementor_Module_With_Items {
 
 		return '';
 	}
-
 }

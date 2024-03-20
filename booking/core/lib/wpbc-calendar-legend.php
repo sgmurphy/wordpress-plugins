@@ -26,6 +26,8 @@ function wpbc_get_calendar_legend() {
 		if (    ( class_exists( 'wpdev_bk_biz_s' ) )
 		     && ( 'On' == get_bk_option( 'booking_legend_is_show_item_partially' ) ) ) { $items_sort[] = 'partially'; }
 
+		if ( 'On' == get_bk_option( 'booking_legend_is_show_item_unavailable' ) ) {   $items_sort[] = 'unavailable'; }  //FixIn: 9.9.0.5
+
 		$calendar_legend_html = wpbc_get_calendar_legend__content_html( array(
 																			  'is_vertical'       => ( 'On' != get_bk_option( 'booking_legend_is_vertical' ) ) ? false : true
 																			, 'text_for_day_cell' => ( 'On' != get_bk_option( 'booking_legend_is_show_numbers' ) ) ? '&nbsp;' : date( 'd' )
@@ -145,8 +147,14 @@ function wpbc_get_calendar_legend__content_html( $params ) {
 											, 'text_for_day_cell' => $my_partially
 											, 'css_class'         => ''
 										)
-						, 'unavailable' => array(
-											  'title'             => ( ! empty( $params['titles']['unavailable'] ) ) ? $params['titles']['unavailable'] : __( 'Unavailable', 'booking' )
+						, 'unavailable' => array(                       //FixIn: 9.9.0.5
+											  'title'             =>  ( ! empty( $params['titles']['unavailable'] ) )
+												                     ? $params['titles']['unavailable']
+												                     : (
+												                            ( ! empty ( apply_bk_filter( 'wpdev_check_for_active_language', get_bk_option( 'booking_legend_text_for_item_unavailable' ) ) ) )
+												                            ? apply_bk_filter( 'wpdev_check_for_active_language', get_bk_option( 'booking_legend_text_for_item_unavailable' ) )
+																			: __( 'Unavailable', 'booking' )
+												                       )
 											, 'text_for_day_cell' => $my_unavailable
 											, 'css_class'         => 'datepick-days-cell datepick-unselectable date_user_unavailable'
 										)

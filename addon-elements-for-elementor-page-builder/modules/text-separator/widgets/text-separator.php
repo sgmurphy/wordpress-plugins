@@ -496,7 +496,7 @@ class TextSeparator extends EAE_Widget_Base {
 							Icons_Manager::render_icon( $settings['icon_new'], [ 'aria-hidden' => 'true' ] );
 						else :
 							?>
-							<i class="<?php echo $settings['icon']; ?>"></i>
+							<i class="<?php echo esc_attr($settings['icon']); ?>"></i>
 						<?php endif; ?>
 					</div>
 				</div>
@@ -521,7 +521,7 @@ class TextSeparator extends EAE_Widget_Base {
 							Icons_Manager::render_icon( $settings['icon_new'], [ 'aria-hidden' => 'true' ] );
 						else :
 							?>
-							<i class="<?php echo $settings['icon']; ?>"></i>
+							<i class="<?php echo esc_attr($settings['icon']); ?>"></i>
 						<?php endif; ?>
 					</div>
 				</div>

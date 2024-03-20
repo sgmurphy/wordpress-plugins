@@ -966,7 +966,7 @@ class Premium_Modalbox extends Widget_Base {
 			);
 		}
 
-        Helper_Functions::add_btn_hover_controls( $this, array( 'premium_modal_box_display_on' => 'button' ) );
+		Helper_Functions::add_btn_hover_controls( $this, array( 'premium_modal_box_display_on' => 'button' ) );
 
 		$this->add_control(
 			'premium_modal_box_button_size',
@@ -1195,7 +1195,7 @@ class Premium_Modalbox extends Widget_Base {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
 
@@ -1472,26 +1472,26 @@ class Premium_Modalbox extends Widget_Base {
 			);
 		}
 
-        $this->add_control(
+		$this->add_control(
 			'underline_color',
 			array(
 				'label'     => __( 'Line Color', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
-                'global'    => array(
+				'global'    => array(
 					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-btn-svg'   => 'stroke: {{VALUE}};',
-                    '{{WRAPPER}} .premium-button-line2::before,  {{WRAPPER}} .premium-button-line4::before, {{WRAPPER}} .premium-button-line5::before, {{WRAPPER}} .premium-button-line5::after, {{WRAPPER}} .premium-button-line6::before, {{WRAPPER}} .premium-button-line7::before'   => 'background-color: {{VALUE}};'
+					'{{WRAPPER}} .premium-btn-svg' => 'stroke: {{VALUE}};',
+					'{{WRAPPER}} .premium-button-line2::before,  {{WRAPPER}} .premium-button-line4::before, {{WRAPPER}} .premium-button-line5::before, {{WRAPPER}} .premium-button-line5::after, {{WRAPPER}} .premium-button-line6::before, {{WRAPPER}} .premium-button-line7::before' => 'background-color: {{VALUE}};',
 				),
 				'condition' => array(
-                    'premium_modal_box_display_on' => 'button',
-					'premium_button_hover_effect' => 'style8',
+					'premium_modal_box_display_on' => 'button',
+					'premium_button_hover_effect'  => 'style8',
 				),
 			)
 		);
 
-        $this->add_control(
+		$this->add_control(
 			'first_layer_hover',
 			array(
 				'label'     => __( 'Layer #1 Color', 'premium-addons-for-elementor' ),
@@ -1503,8 +1503,8 @@ class Premium_Modalbox extends Widget_Base {
 					'{{WRAPPER}} .premium-button-style7 .premium-button-text-icon-wrapper:before' => 'background-color: {{VALUE}}',
 				),
 				'condition' => array(
-                    'premium_modal_box_display_on' => 'button',
-					'premium_button_hover_effect' => 'style7',
+					'premium_modal_box_display_on' => 'button',
+					'premium_button_hover_effect'  => 'style7',
 
 				),
 			)
@@ -1522,8 +1522,8 @@ class Premium_Modalbox extends Widget_Base {
 					'{{WRAPPER}} .premium-button-style7 .premium-button-text-icon-wrapper:after' => 'background-color: {{VALUE}}',
 				),
 				'condition' => array(
-                    'premium_modal_box_display_on' => 'button',
-					'premium_button_hover_effect' => 'style7',
+					'premium_modal_box_display_on' => 'button',
+					'premium_button_hover_effect'  => 'style7',
 				),
 			)
 		);
@@ -1541,7 +1541,7 @@ class Premium_Modalbox extends Widget_Base {
 				),
 				'condition' => array(
 					'premium_modal_box_display_on' => 'button',
-                    'premium_button_hover_effect!' => 'style7',
+					'premium_button_hover_effect!' => 'style7',
 				),
 			)
 		);
@@ -1652,7 +1652,7 @@ class Premium_Modalbox extends Widget_Base {
 			)
 		);
 
-        $this->add_control(
+		$this->add_control(
 			'header_separator_background',
 			array(
 				'label'     => __( 'Separator Color', 'premium-addons-for-elementor' ),
@@ -2137,7 +2137,7 @@ class Premium_Modalbox extends Widget_Base {
 			)
 		);
 
-        $this->add_control(
+		$this->add_control(
 			'footer_separator_background',
 			array(
 				'label'     => __( 'Separator Color', 'premium-addons-for-elementor' ),
@@ -2332,16 +2332,18 @@ class Premium_Modalbox extends Widget_Base {
 				$this->add_render_attribute( 'icon', 'class', 'premium-svg-nodraw' );
 			}
 
-            $effect_class = Helper_Functions::get_button_class( $settings );
+			$effect_class = Helper_Functions::get_button_class( $settings );
 
-			$this->add_render_attribute( 'trigger', array(
-					'type'  => 'button',
-					'class' => array(
+			$this->add_render_attribute(
+				'trigger',
+				array(
+					'type'      => 'button',
+					'class'     => array(
 						'premium-modal-trigger-btn',
 						'premium-btn-' . $settings['premium_modal_box_button_size'],
-                        $effect_class
+						$effect_class,
 					),
-                    'data-text' =>  $settings['premium_modal_box_button_text']
+					'data-text' => $settings['premium_modal_box_button_text'],
 				)
 			);
 
@@ -2458,10 +2460,12 @@ class Premium_Modalbox extends Widget_Base {
 		<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'modal' ) ); ?>>
 			<div class="premium-modal-trigger-container">
 				<?php
-				if ( 'button' === $trigger ) : ?>
+				if ( 'button' === $trigger ) :
+					?>
 					<button <?php echo wp_kses_post( $this->get_render_attribute_string( 'trigger' ) ); ?>>
 
-                        <?php if ( 'yes' === $settings['premium_modal_box_icon_switcher'] && 'before' === $settings['premium_modal_box_icon_position'] ) :
+						<?php
+						if ( 'yes' === $settings['premium_modal_box_icon_switcher'] && 'before' === $settings['premium_modal_box_icon_position'] ) :
 							if ( 'icon' === $icon_type ) :
 								if ( ( $is_new || $migrated ) && 'yes' !== $settings['draw_svg'] ) :
 									Icons_Manager::render_icon(
@@ -2471,22 +2475,27 @@ class Premium_Modalbox extends Widget_Base {
 											'aria-hidden' => 'true',
 										)
 									);
-								else : ?>
+								else :
+									?>
 										<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
-									<?php endif;
-							else : ?>
+									<?php
+									endif;
+							else :
+								?>
 								<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>>
 									<?php $this->print_unescaped_setting( 'custom_svg' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</div>
 								<?php
 							endif;
-						endif; ?>
+						endif;
+						?>
 
-                        <div class="premium-button-text-icon-wrapper">
-                            <span><?php echo wp_kses_post( $settings['premium_modal_box_button_text'] ); ?></span>
-                        </div>
+						<div class="premium-button-text-icon-wrapper">
+							<span><?php echo wp_kses_post( $settings['premium_modal_box_button_text'] ); ?></span>
+						</div>
 
-						<?php if ( 'yes' === $settings['premium_modal_box_icon_switcher'] && 'after' === $settings['premium_modal_box_icon_position'] ) :
+						<?php
+						if ( 'yes' === $settings['premium_modal_box_icon_switcher'] && 'after' === $settings['premium_modal_box_icon_position'] ) :
 							if ( 'icon' === $icon_type ) :
 								if ( ( $is_new || $migrated ) && 'yes' !== $settings['draw_svg'] ) :
 									Icons_Manager::render_icon(
@@ -2496,24 +2505,28 @@ class Premium_Modalbox extends Widget_Base {
 											'aria-hidden' => 'true',
 										)
 									);
-								else : ?>
-                                    <i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
-                                <?php endif;
-							else : ?>
+								else :
+									?>
+									<i <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>></i>
+									<?php
+								endif;
+							else :
+								?>
 								<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'icon' ) ); ?>>
 									<?php $this->print_unescaped_setting( 'custom_svg' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</div>
 								<?php
 							endif;
-						endif; ?>
+						endif;
+						?>
 
-                        <?php if ( 'style6' === $settings['premium_button_hover_effect'] && 'yes' === $settings['mouse_detect'] ) : ?>
-                            <span class="premium-button-style6-bg"></span>
-                        <?php endif; ?>
+						<?php if ( 'style6' === $settings['premium_button_hover_effect'] && 'yes' === $settings['mouse_detect'] ) : ?>
+							<span class="premium-button-style6-bg"></span>
+						<?php endif; ?>
 
-                        <?php if ( 'style8' === $settings['premium_button_hover_effect'] ) : ?>
-                            <?php echo Helper_Functions::get_btn_svgs( $settings['underline_style'] ); ?>
-                        <?php endif; ?>
+						<?php if ( 'style8' === $settings['premium_button_hover_effect'] ) : ?>
+							<?php echo Helper_Functions::get_btn_svgs( $settings['underline_style'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						<?php endif; ?>
 
 					</button>
 				<?php elseif ( 'image' === $trigger ) : ?>

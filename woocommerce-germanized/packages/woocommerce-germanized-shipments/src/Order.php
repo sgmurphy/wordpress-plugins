@@ -231,10 +231,12 @@ class Order {
 				$quantity = (int) $item['max_quantity'];
 
 				if ( $product = $order_item->get_product() ) {
-					$width  = ( empty( $product->get_width() ) ? 0 : wc_format_decimal( $product->get_width() ) ) * $quantity;
-					$length = ( empty( $product->get_length() ) ? 0 : wc_format_decimal( $product->get_length() ) ) * $quantity;
-					$height = ( empty( $product->get_height() ) ? 0 : wc_format_decimal( $product->get_height() ) ) * $quantity;
-					$weight = ( empty( $product->get_weight() ) ? 0 : wc_format_decimal( $product->get_weight() ) ) * $quantity;
+					$s_product = wc_gzd_shipments_get_product( $product );
+
+					$width  = ( empty( $s_product->get_shipping_width() ) ? 0 : wc_format_decimal( $s_product->get_shipping_width() ) ) * $quantity;
+					$length = ( empty( $s_product->get_shipping_length() ) ? 0 : wc_format_decimal( $s_product->get_shipping_length() ) ) * $quantity;
+					$height = ( empty( $s_product->get_shipping_height() ) ? 0 : wc_format_decimal( $s_product->get_shipping_height() ) ) * $quantity;
+					$weight = ( empty( $s_product->get_weight() ) ? 0 : wc_format_decimal( $product->get_weight() ) ) * $quantity;
 
 					$package_data['weight'] += $weight;
 					$package_data['volume'] += ( $width * $length * $height );
@@ -505,6 +507,15 @@ class Order {
 					'order'    => 'ASC',
 				)
 			);
+
+			/**
+			 * As by default WordPress cache engine only stores object clones
+			 * we need to update the cache after, e.g. loading shipments to make sure
+			 * those shipments are not reloaded on the next cache hit.
+			 */
+			if ( $cache = \Vendidero\Germanized\Shipments\Caches\Helper::get_cache_object( 'shipment-orders' ) ) {
+				$cache->set( $this, $this->get_order()->get_id() );
+			}
 		}
 
 		$shipments = (array) $this->shipments;
@@ -1263,7 +1274,13 @@ class Order {
 			$shipment->save();
 		}
 
-		$this->package_data = null;
+		$this->package_data        = null;
+		$this->shipments           = null;
+		$this->shipments_to_delete = null;
+
+		if ( $cache = \Vendidero\Germanized\Shipments\Caches\Helper::get_cache_object( 'shipment-orders' ) ) {
+			$cache->remove( $this->get_order()->get_id() );
+		}
 	}
 
 	/**

@@ -190,7 +190,7 @@ class Premium_Textual_Showcase extends Widget_Base {
 	 */
 	private function add_general_controls() {
 
-        $papro_activated = apply_filters( 'papro_activated', false );
+		$papro_activated = apply_filters( 'papro_activated', false );
 
 		$this->start_controls_section(
 			'sect_gen_controls',
@@ -199,7 +199,7 @@ class Premium_Textual_Showcase extends Widget_Base {
 			)
 		);
 
-		$draw_icon      = $this->check_icon_draw();
+		$draw_icon = $this->check_icon_draw();
 
 		$svg_draw_conds = array(
 			'relation' => 'or',
@@ -258,7 +258,6 @@ class Premium_Textual_Showcase extends Widget_Base {
 			)
 		);
 
-
 		$repeater->add_control(
 			'item_type',
 			array(
@@ -270,7 +269,7 @@ class Premium_Textual_Showcase extends Widget_Base {
 					'text'   => __( 'Text', 'premium-addons-for-elementor' ),
 					'image'  => __( 'Image', 'premium-addons-for-elementor' ),
 					'lottie' => __( 'Lottie', 'premium-addons-for-elementor' ),
-					'svg'    => apply_filters( 'pa_pro_label', __( 'SVG Code (Pro)', 'premium-addons-for-elementor' ) )
+					'svg'    => apply_filters( 'pa_pro_label', __( 'SVG Code (Pro)', 'premium-addons-for-elementor' ) ),
 				),
 				'default'     => 'text',
 			)
@@ -354,11 +353,11 @@ class Premium_Textual_Showcase extends Widget_Base {
 			)
 		);
 
-        if ( $papro_activated ) {
+		if ( $papro_activated ) {
 
-            do_action( 'pa_showcase_svg', $repeater );
+			do_action( 'pa_showcase_svg', $repeater );
 
-        }
+		}
 
 		$repeater->add_control(
 			'draw_svg',
@@ -795,8 +794,8 @@ class Premium_Textual_Showcase extends Widget_Base {
 				'label'     => __( 'Stroke', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'condition' => array(
-					'clipped_bg!'            => 'yes',
-					'item_type' => 'text',
+					'clipped_bg!' => 'yes',
+					'item_type'   => 'text',
 				),
 			)
 		);
@@ -810,9 +809,9 @@ class Premium_Textual_Showcase extends Widget_Base {
 					'{{WRAPPER}} {{CURRENT_ITEM}} .pa-txt-sc__main-item' => '-webkit-text-stroke-color: {{VALUE}};',
 				),
 				'condition' => array(
-					'clipped_bg!'            => 'yes',
-					'item_type' => 'text',
-					'stroke_sw' => 'yes',
+					'clipped_bg!' => 'yes',
+					'item_type'   => 'text',
+					'stroke_sw'   => 'yes',
 				),
 			)
 		);
@@ -830,9 +829,9 @@ class Premium_Textual_Showcase extends Widget_Base {
 					'{{WRAPPER}} {{CURRENT_ITEM}} .pa-txt-sc__main-item' => '-webkit-text-stroke-width: {{SIZE}}px',
 				),
 				'condition' => array(
-					'clipped_bg!'            => 'yes',
-					'item_type' => 'text',
-					'stroke_sw' => 'yes',
+					'clipped_bg!' => 'yes',
+					'item_type'   => 'text',
+					'stroke_sw'   => 'yes',
 				),
 			)
 		);
@@ -878,7 +877,7 @@ class Premium_Textual_Showcase extends Widget_Base {
 					'text'   => __( 'Text', 'premium-addons-for-elementor' ),
 					'image'  => __( 'Image', 'premium-addons-for-elementor' ),
 					'lottie' => __( 'Lottie', 'premium-addons-for-elementor' ),
-					'svg'    => apply_filters( 'pa_pro_label', __( 'SVG Code (Pro)', 'premium-addons-for-elementor' ) )
+					'svg'    => apply_filters( 'pa_pro_label', __( 'SVG Code (Pro)', 'premium-addons-for-elementor' ) ),
 				),
 				'default'     => 'none',
 			)
@@ -912,7 +911,6 @@ class Premium_Textual_Showcase extends Widget_Base {
 				),
 			)
 		);
-
 
 		$repeater->add_group_control(
 			Group_Control_Image_Size::get_type(),
@@ -963,11 +961,11 @@ class Premium_Textual_Showcase extends Widget_Base {
 			)
 		);
 
-        if ( $papro_activated ) {
+		if ( $papro_activated ) {
 
-            do_action( 'pa_showcase_svg_hover', $repeater );
+			do_action( 'pa_showcase_svg_hover', $repeater );
 
-        }
+		}
 
 		$repeater->add_control(
 			'draw_svg_hov',
@@ -1085,7 +1083,6 @@ class Premium_Textual_Showcase extends Widget_Base {
 				'conditions'
 			);
 		}
-
 
 		$repeater->add_control(
 			'lottie_url_hov',
@@ -1409,8 +1406,8 @@ class Premium_Textual_Showcase extends Widget_Base {
 				'label'     => __( 'Stroke', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'condition' => array(
-					'clipped_bg_hov!'            => 'yes',
-					'item_type_hov' => 'text',
+					'clipped_bg_hov!' => 'yes',
+					'item_type_hov'   => 'text',
 				),
 			)
 		);
@@ -1424,9 +1421,9 @@ class Premium_Textual_Showcase extends Widget_Base {
 					'{{WRAPPER}} {{CURRENT_ITEM}} .pa-txt-sc__hov-item' => '-webkit-text-stroke-color: {{VALUE}};',
 				),
 				'condition' => array(
-					'clipped_bg_hov!'            => 'yes',
-					'item_type_hov' => 'text',
-					'stroke_sw_hov' => 'yes',
+					'clipped_bg_hov!' => 'yes',
+					'item_type_hov'   => 'text',
+					'stroke_sw_hov'   => 'yes',
 				),
 			)
 		);
@@ -1444,9 +1441,9 @@ class Premium_Textual_Showcase extends Widget_Base {
 					'{{WRAPPER}} {{CURRENT_ITEM}} .pa-txt-sc__hov-item' => '-webkit-text-stroke-width: {{SIZE}}px',
 				),
 				'condition' => array(
-					'clipped_bg_hov!'            => 'yes',
-					'item_type_hov' => 'text',
-					'stroke_sw_hov' => 'yes',
+					'clipped_bg_hov!' => 'yes',
+					'item_type_hov'   => 'text',
+					'stroke_sw_hov'   => 'yes',
 				),
 			)
 		);
@@ -1564,8 +1561,8 @@ class Premium_Textual_Showcase extends Widget_Base {
 					'none'                => __( 'None', 'premium-addons-for-elementor' ),
 					'hvr-pulse-grow'      => __( 'Pulse', 'premium-addons-for-elementor' ),
 					'rotate'              => __( 'Rotate', 'premium-addons-for-elementor' ),
-                    'hvr-buzz'            => apply_filters( 'pa_pro_label', __( 'Buzz (Pro)', 'premium-addons-for-elementor' ) ),
-                    'grow'                => apply_filters( 'pa_pro_label', __( 'Grow (Pro)', 'premium-addons-for-elementor' ) ),
+					'hvr-buzz'            => apply_filters( 'pa_pro_label', __( 'Buzz (Pro)', 'premium-addons-for-elementor' ) ),
+					'grow'                => apply_filters( 'pa_pro_label', __( 'Grow (Pro)', 'premium-addons-for-elementor' ) ),
 					'd-rotate'            => apply_filters( 'pa_pro_label', __( '3D Rotate (Pro)', 'premium-addons-for-elementor' ) ),
 					'hvr-float-shadow'    => apply_filters( 'pa_pro_label', __( 'Drop Shadow (Pro)', 'premium-addons-for-elementor' ) ),
 					'hvr-wobble-vertical' => apply_filters( 'pa_pro_label', __( 'Wobble Vertical (Pro)', 'premium-addons-for-elementor' ) ),
@@ -1586,17 +1583,17 @@ class Premium_Textual_Showcase extends Widget_Base {
 				'separator'   => 'before',
 				'options'     => array(
 					'none'             => __( 'None', 'premium-addons-for-elementor' ),
-                    'strikethrough'    => __( 'Strikethrough', 'premium-addons-for-elementor' ),
+					'strikethrough'    => __( 'Strikethrough', 'premium-addons-for-elementor' ),
 					'underline'        => __( 'Underline', 'premium-addons-for-elementor' ),
 					'min-mask'         => apply_filters( 'pa_pro_label', __( 'Minimal Mask (Pro)', 'premium-addons-for-elementor' ) ),
-                    'circle'           => apply_filters( 'pa_pro_label', __( 'Circle (Pro)', 'premium-addons-for-elementor' ) ),
-                    'curly'            => apply_filters( 'pa_pro_label', __( 'Curly (Pro)', 'premium-addons-for-elementor' ) ),
-                    'h-underline'      => apply_filters( 'pa_pro_label', __( 'Hand-drawn Underline (Pro)', 'premium-addons-for-elementor' ) ),
-                    'outline'          => apply_filters( 'pa_pro_label', __( 'Outline (Pro)', 'premium-addons-for-elementor' ) ),
-                    'double-underline' => apply_filters( 'pa_pro_label', __( 'Double Underline (Pro)', 'premium-addons-for-elementor' ) ),
-                    'underline-zigzag' => apply_filters( 'pa_pro_label', __( 'Underline Zigzag (Pro)', 'premium-addons-for-elementor' ) ),
-                    'diagonal'         => apply_filters( 'pa_pro_label', __( 'Diagonal (Pro)', 'premium-addons-for-elementor' ) ),
-                    'x'                => apply_filters( 'pa_pro_label', 'X (Pro)' ),
+					'circle'           => apply_filters( 'pa_pro_label', __( 'Circle (Pro)', 'premium-addons-for-elementor' ) ),
+					'curly'            => apply_filters( 'pa_pro_label', __( 'Curly (Pro)', 'premium-addons-for-elementor' ) ),
+					'h-underline'      => apply_filters( 'pa_pro_label', __( 'Hand-drawn Underline (Pro)', 'premium-addons-for-elementor' ) ),
+					'outline'          => apply_filters( 'pa_pro_label', __( 'Outline (Pro)', 'premium-addons-for-elementor' ) ),
+					'double-underline' => apply_filters( 'pa_pro_label', __( 'Double Underline (Pro)', 'premium-addons-for-elementor' ) ),
+					'underline-zigzag' => apply_filters( 'pa_pro_label', __( 'Underline Zigzag (Pro)', 'premium-addons-for-elementor' ) ),
+					'diagonal'         => apply_filters( 'pa_pro_label', __( 'Diagonal (Pro)', 'premium-addons-for-elementor' ) ),
+					'x'                => apply_filters( 'pa_pro_label', 'X (Pro)' ),
 				),
 				'default'     => 'none',
 				'condition'   => array(
@@ -1843,7 +1840,7 @@ class Premium_Textual_Showcase extends Widget_Base {
 			)
 		);
 
-        $repeater->add_responsive_control(
+		$repeater->add_responsive_control(
 			'item_padding',
 			array(
 				'label'      => __( 'Padding', 'premium-addons-for-elementor' ),
@@ -1945,7 +1942,7 @@ class Premium_Textual_Showcase extends Widget_Base {
 				'description' => __( 'Note that the following animations are always triggered on viewport: <b>Grow, Minimal Mask</b>', 'premium-addons-for-elementor' ),
 				'options'     => array(
 					'viewport' => __( 'Viewport', 'premium-addons-for-elementor' ),
-                    'hover'    => apply_filters( 'pa_pro_label', __( 'Hover (Pro)', 'premium-addons-for-elementor' ) ),
+					'hover'    => apply_filters( 'pa_pro_label', __( 'Hover (Pro)', 'premium-addons-for-elementor' ) ),
 				),
 				'default'     => 'viewport',
 			)
@@ -2023,7 +2020,7 @@ class Premium_Textual_Showcase extends Widget_Base {
 			)
 		);
 
-        $this->add_control(
+		$this->add_control(
 			'transition',
 			array(
 				'label'      => __( 'Transition (sec)', 'premium-addons-for-elementor' ),
@@ -2109,7 +2106,7 @@ class Premium_Textual_Showcase extends Widget_Base {
 			)
 		);
 
-        $this->add_responsive_control(
+		$this->add_responsive_control(
 			'cont_padding',
 			array(
 				'label'      => __( 'Padding', 'premium-addons-for-elementor' ),
@@ -2138,9 +2135,9 @@ class Premium_Textual_Showcase extends Widget_Base {
 
 		$settings = $this->get_settings_for_display();
 
-        $papro_activated = apply_filters( 'papro_activated', false );
+		$papro_activated = apply_filters( 'papro_activated', false );
 
-        if ( ! $papro_activated || version_compare( PREMIUM_PRO_ADDONS_VERSION, '2.9.10', '<' ) ) {
+		if ( ! $papro_activated || version_compare( PREMIUM_PRO_ADDONS_VERSION, '2.9.10', '<' ) ) {
 
 			if ( 'hover' === $settings['trigger'] ) {
 
@@ -2166,26 +2163,26 @@ class Premium_Textual_Showcase extends Widget_Base {
 			<?php
 			foreach ( $content as $index => $item ) {
 
-                if ( ! $papro_activated || version_compare( PREMIUM_PRO_ADDONS_VERSION, '2.9.10', '<' ) ) {
+				if ( ! $papro_activated || version_compare( PREMIUM_PRO_ADDONS_VERSION, '2.9.10', '<' ) ) {
 
-                    if ( 'svg' === $item['item_type'] ||
-                        ( 'text' === $item['item_type'] && 'yes' === $item['clipped_bg'] ) ||
-                        ( 'text' === $item['item_type'] && ! in_array( $item['txt_effect'], array( 'none', 'strikethrough', 'underline' ) ) ) ||
-                        ( 'text' !== $item['item_type'] && ! in_array( $item['effect'], array( 'none', 'hvr-pulse-grow', 'rotate' ) ) )
-                    ) {
+					if ( 'svg' === $item['item_type'] ||
+						( 'text' === $item['item_type'] && 'yes' === $item['clipped_bg'] ) ||
+						( 'text' === $item['item_type'] && ! in_array( $item['txt_effect'], array( 'none', 'strikethrough', 'underline' ) ) ) ||
+						( 'text' !== $item['item_type'] && ! in_array( $item['effect'], array( 'none', 'hvr-pulse-grow', 'rotate' ) ) )
+					) {
 
-                        ?>
-                        <div class="premium-error-notice">
-                            <?php
-                                $message = __( 'This option is available in <b>Premium Addons Pro</b>.', 'premium-addons-for-elementor' );
-                                echo wp_kses_post( $message );
-                            ?>
-                        </div>
-                        <?php
-                        return false;
+						?>
+						<div class="premium-error-notice">
+							<?php
+								$message = __( 'This option is available in <b>Premium Addons Pro</b>.', 'premium-addons-for-elementor' );
+								echo wp_kses_post( $message );
+							?>
+						</div>
+						<?php
+						return false;
 
-                    }
-                }
+					}
+				}
 
 				$has_hover_elem   = 'none' !== $item['item_type_hov'];
 				$has_link         = 'yes' === $item['link_switcher'];
@@ -2339,7 +2336,6 @@ class Premium_Textual_Showcase extends Widget_Base {
 				$this->render_item_svg( $item, $index, $elem_type );
 				break;
 		}
-
 	}
 
 	/**
@@ -2423,9 +2419,12 @@ class Premium_Textual_Showcase extends Widget_Base {
 
 	private function get_effect_svg( $effect ) {
 
-		$effects_svg = apply_filters( 'pa_showcase_highlights', array(
-			'strikethrough'    => '<svg class="outline-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M3,75h493.5"></path></svg>',
-		) );
+		$effects_svg = apply_filters(
+			'pa_showcase_highlights',
+			array(
+				'strikethrough' => '<svg class="outline-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M3,75h493.5"></path></svg>',
+			)
+		);
 
 		return $effects_svg[ $effect ];
 	}
@@ -2490,5 +2489,4 @@ class Premium_Textual_Showcase extends Widget_Base {
 		<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'item-content-' . $item['_id'] . $elem_type ) ); ?>></div>
 		<?php
 	}
-
 }

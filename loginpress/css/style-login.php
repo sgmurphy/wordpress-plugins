@@ -3,7 +3,7 @@
  * Get option and check the key exists in it.
  *
  * @since 1.0.0
- * @version 3.0.5
+ * @version 3.0.6
  * * * * * * * * * * * * * * * */
 
 /**
@@ -270,6 +270,13 @@ function loginpress_box_shadow( $shadow, $opacity, $default_shadow = 0, $inset =
 <style type="text/css">
 *{
 	box-sizing: border-box;
+}
+.login .privacy-policy-page-link {
+    text-align: center;
+    width: 100%;
+    margin: 0em 0 2em;
+    clear: both;
+    padding-top: 10px;
 }
 html[dir="rtl"] #loginpress_showPasswordWrapper{
 	right: auto;
@@ -850,7 +857,7 @@ body.login form.shake{
 	<?php endif; ?>
 }
 
-.login #nav a, .login #nav{
+.login #nav a, .login #nav, .privacy-policy-page-link>a{
 	
 	<?php if ( ! empty( $loginpress_footer_decoration ) ) : ?>
 	text-decoration: <?php echo $loginpress_footer_decoration; ?>;
@@ -912,6 +919,9 @@ body.login form.shake{
 	color: <?php echo $copyright_text_color; ?>;
 	<?php endif; ?>
 }
+.login .privacy-policy-page-link>a.privacy-policy-link:hover{
+	text-decoration: underline;
+}
 .login #backtoblog a{
 	<?php if ( ! empty( $loginpress_back_decoration ) ) : ?>
 	text-decoration: <?php echo $loginpress_back_decoration; ?>;
@@ -921,6 +931,11 @@ body.login form.shake{
 	<?php endif; ?>
 	<?php if ( ! empty( $loginpress_back_font_size ) ) : ?>
 	font-size: <?php echo $loginpress_back_font_size; ?>;
+	<?php endif; ?>
+}
+.login .privacy-policy-page-link>a.privacy-policy-link{
+	<?php if ( ! empty( $loginpress_back_text_color ) ) : ?>
+	color: <?php echo $loginpress_back_text_color; ?>;
 	<?php endif; ?>
 }
 .login #backtoblog{
@@ -1390,6 +1405,12 @@ if ( version_compare( $GLOBALS['wp_version'], '5.9', '>=' ) && ! empty( get_avai
 		font-size: inherit;
 		width: fit-content;
 		max-width: fit-content;
+	}
+	@media screen and (max-width: 782px){
+		input[type=checkbox], input[type=radio]{
+			height: 16px;
+			width: 16px;
+		}
 	}
 <?php endif; ?>
 </style>

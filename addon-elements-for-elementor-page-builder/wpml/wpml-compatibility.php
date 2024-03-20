@@ -63,6 +63,7 @@ class WPML_Compatibility {
 		$widgets = $this->data_table( $widgets );
 		$widgets = $this->chart( $widgets );
 		$widgets = $this->content_switcher( $widgets ); 
+		
 
 		if(Plugin::$is_pro){
 		// Pro
@@ -118,6 +119,7 @@ class WPML_Compatibility {
 			$widgets = $this->image_stack( $widgets );
 			$widgets = $this->info_group( $widgets );
 			$widgets = $this->coupon_code( $widgets );
+			$widgets = $this->google_review( $widgets );
 		}
 		return $widgets;
 	}
@@ -1076,6 +1078,38 @@ class WPML_Compatibility {
 				[
 					'field'       => 'peel_visit_button',
 					'type'        => __( 'Coupon Code: Visit Button', 'wts-eae' ),
+					'editor_type' => 'LINE',
+				],
+			],
+		];
+
+		
+
+		return $widgets;
+	}
+
+	private function google_review( $widgets ){
+		$widgets['eae-google-reviews'] = [
+			'conditions' => [ 'widgetType' => 'eae-google-reviews' ],
+			'fields'     => [
+				[
+					'field'       => 'button_text',
+					'type'        => __( 'Google Review : Button Text', 'wts-eae' ),
+					'editor_type' => 'LINE',
+				],
+				[
+					'field'       => 'heading',
+					'type'        => __( 'Google Review : Header Custom Text', 'wts-eae' ),
+					'editor_type' => 'LINE',
+				],
+				[
+					'field'       => 'header_text',
+					'type'        => __( 'Google Review : Header  Text', 'wts-eae' ),
+					'editor_type' => 'LINE',
+				],
+				[
+					'field'       => 'header_button_text',
+					'type'        => __( 'Google Review : Header Button Text', 'wts-eae' ),
 					'editor_type' => 'LINE',
 				],
 			],

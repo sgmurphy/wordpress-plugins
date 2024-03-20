@@ -77,13 +77,30 @@ function wpbc_check_for_submit__page_resource_publish( $page_name ) {
 			$shortcode_resource_id = intval( $_POST['wpbc_page_resource_publish_resource_id'] );
 			$page_name               = $_POST['create_page_for_resource_publish'];
 
+			if ( ! empty( $_POST['wpbc_page_resource_publish_resource_shortcode'] ) ) {
+				//$insert_shortcode = WPBC_Settings_API::validate_textarea_post_static( 'wpbc_page_resource_publish_resource_shortcode' );
+				$insert_shortcode = wp_kses(   trim( stripslashes( $_POST[ 'wpbc_page_resource_publish_resource_shortcode' ] ) ),
+											   array_merge(    array( 		  //    'iframe' => array( 'src' => true, 'style' => true, 'id' => true, 'class' => true )
+																			  //	, 'script' => array( 'type' => true )       // Allow JS
+																),
+																wp_kses_allowed_html( 'post' )
+														)
+											);
+				$insert_shortcode = '<!-- wp:shortcode -->' . $insert_shortcode .'<!-- /wp:shortcode -->';
+			} else {
+				// auto_generated_shortcode
+				$insert_shortcode = wpbc_get_prepared_shortcode( $shortcode_resource_id );
+			}
+
+
 			// Add shortcode to  specific Page with  POST ID
 			$add_shortcode_result_arr = wpbc_add_shortcode_into_page( array(
-																		'shortcode' => wpbc_get_prepared_shortcode( $shortcode_resource_id ),
+																		'shortcode' => $insert_shortcode,
 																		'check_exist_shortcode' => '[WPBC_' . microtime() . '_WPBC]',  // Just add Fake shortcode,  so  we always add new shortcode  to  the page
 
 																		'page_post_name' => sanitize_title( $page_name ),
-																		'post_title'     => esc_html( $page_name )
+																		'post_title'     => esc_html( $page_name ),
+																		'resource_id'    => $shortcode_resource_id
 																	) );
 		}
 
@@ -107,10 +124,27 @@ function wpbc_check_for_submit__page_resource_publish( $page_name ) {
 				$check_exist_shortcode_arr[] = '[booking]';
 			}
 
+
+			if ( ! empty( $_POST['wpbc_page_resource_publish_resource_shortcode'] ) ) {
+				//$insert_shortcode = WPBC_Settings_API::validate_textarea_post_static( 'wpbc_page_resource_publish_resource_shortcode' );
+				$insert_shortcode = wp_kses(   trim( stripslashes( $_POST[ 'wpbc_page_resource_publish_resource_shortcode' ] ) ),
+											   array_merge(    array( 		  //    'iframe' => array( 'src' => true, 'style' => true, 'id' => true, 'class' => true )
+																			  //	, 'script' => array( 'type' => true )       // Allow JS
+																),
+																wp_kses_allowed_html( 'post' )
+														)
+											);
+				$insert_shortcode = '<!-- wp:shortcode -->' . $insert_shortcode .'<!-- /wp:shortcode -->';
+			} else {
+				// auto_generated_shortcode
+				$insert_shortcode = wpbc_get_prepared_shortcode( $shortcode_resource_id );
+			}
+
 			$add_shortcode_result_arr = wpbc_add_shortcode_into_page( array(
-																		'shortcode' => wpbc_get_prepared_shortcode( $shortcode_resource_id ),
+																		'shortcode' => $insert_shortcode,
 																		'page_id' 	=> $page_id,
-																		'check_exist_shortcode' => $check_exist_shortcode_arr //'[WPBC_' . microtime() . '_WPBC]'  // Just add Fake shortcode,  so  we always add new shortcode  to  the page
+																		'check_exist_shortcode' => $check_exist_shortcode_arr,  //'[WPBC_' . microtime() . '_WPBC]'  // Just add Fake shortcode,  so  we always add new shortcode  to  the page
+																		'resource_id'    => $shortcode_resource_id
 																	) );
 		}
 
@@ -132,14 +166,18 @@ function wpbc_check_for_submit__page_resource_publish( $page_name ) {
 
 		} elseif ( false === $add_shortcode_result_arr ) {
 			wpbc_show_notice__for_page_resource_publish( 'Error: You may not have chosen the correct page name.', 'warning' );
+			wpbc_show_notice__for_page_resource_publish(
+														sprintf(	__('Find more information at the %sFAQ page%s','booking'),
+																	'<a href="https://wpbookingcalendar.com/faq/#shortcodes">', '</a>'
+														), 'info');
 		}else {
 			wpbc_show_notice__for_page_resource_publish( $add_shortcode_result_arr['message'], 'warning' );
+			wpbc_show_notice__for_page_resource_publish(
+														sprintf(	__('Find more information at the %sFAQ page%s','booking'),
+																	'<a href="https://wpbookingcalendar.com/faq/#shortcodes">', '</a>'
+														), 'info');
 		}
 
-		wpbc_show_notice__for_page_resource_publish(
-													sprintf(	__('Find more information at the %sFAQ page%s','booking'),
-																'<a href="https://wpbookingcalendar.com/faq/#shortcodes">', '</a>'
-													), 'info');
 	}
 }
 add_action( 'wpbc_hook_settings_page_before_content_table', 'wpbc_check_for_submit__page_resource_publish' ,10, 1);
@@ -229,6 +267,7 @@ function wpbc_write_content_for_modal__page_resource_publish( $page_name ) {
 						<form method="post" action="">
 							<input type="hidden" name="action" value="wpbc_page_resource_publish" />
 							<input type="hidden" id="wpbc_page_resource_publish_resource_id" name="wpbc_page_resource_publish_resource_id" value="" />
+							<input type="hidden" id="wpbc_page_resource_publish_resource_shortcode" name="wpbc_page_resource_publish_resource_shortcode" value="" />
 							<input type="hidden" id="wpbc_page_resource_publish_what" name="wpbc_page_resource_publish_what" value="" />
 							<?php
 								wp_nonce_field( 'set_resource_publish_check' );
@@ -240,12 +279,14 @@ function wpbc_write_content_for_modal__page_resource_publish( $page_name ) {
 									   onclick="javascript:jQuery( '.wpbc_publish_wizard_steps').hide();
 									   					   jQuery( '.wpbc_publish_wizard_step_2').show();
 									   					   jQuery( '#wpbc_modal__resource_publish .modal-footer').show();
+														   jQuery( '#wpbc_page_resource_publish_resource_shortcode' ).val( jQuery( '#booking_resource_shortcode_' + jQuery( '#wpbc_page_resource_publish_resource_id' ).val() ).val() );
 														   jQuery( '#wpbc_page_resource_publish_what' ).val( 'edit' );"
 										><?php _e('Embed in Existing Page','booking') ?></a>
 									<a href="javascript:void(0)" class="button button-secondary"
 									   onclick="javascript:jQuery( '.wpbc_publish_wizard_steps').hide();
 									   					   jQuery( '.wpbc_publish_wizard_step_3').show();
 									   					   jQuery( '#wpbc_modal__resource_publish .modal-footer').show();
+														   jQuery( '#wpbc_page_resource_publish_resource_shortcode' ).val( jQuery( '#booking_resource_shortcode_' + jQuery( '#wpbc_page_resource_publish_resource_id' ).val() ).val() );
 														   jQuery( '#wpbc_page_resource_publish_what' ).val( 'create' );"
 										><?php _e('Create New Page','booking') ?></a>
 								</div>

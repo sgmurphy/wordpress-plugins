@@ -18,6 +18,13 @@
 	cursor: pointer;
 	width: auto;
 }
+.wpbc_times_selector div.wpbc_time_picker_disabled:hover,
+.wpbc_times_selector div.wpbc_time_picker_disabled {
+	cursor: not-allowed;
+	color:#fff;
+	background: #dc3400;
+}
+
 @media (max-width: 400px) {
 	.wpbc_times_selector div {
 		min-width: Min(200px, 100%);

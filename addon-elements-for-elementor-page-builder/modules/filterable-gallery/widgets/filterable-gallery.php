@@ -16,6 +16,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Utils;
 use Elementor\Plugin;
+use WTS_EAE\Classes\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -1395,7 +1396,7 @@ class FilterableGallery extends EAE_Widget_Base {
 		<div <?php echo $this->get_render_attribute_string( 'gallery-wrapper' ); ?>>
 			<div class="eae-gallery-filter">
 				<?php if ( $settings['show_all'] === 'yes' && count( $settings['eae_filterable_gallery_content'] ) > 1 ) { ?>
-					<a href="#" data-filter="*" data-filter-name="all" class="eae-filter-label current"><?php echo $settings['show_all_tab_text']; ?></a>
+					<a href="#" data-filter="*" data-filter-name="all" class="eae-filter-label current"><?php echo Helper::eae_wp_kses($settings['show_all_tab_text']); ?></a>
 				<?php } ?>
 				<?php
 				$demo_images = [];
@@ -1445,7 +1446,7 @@ class FilterableGallery extends EAE_Widget_Base {
 							?>
 							<div <?php echo $this->get_render_attribute_string( 'gallery-item-' . $filter_group['_id'] ); ?>>
 								<div class="eae-gallery-item-inner">
-									<a href="<?php echo $image_url; ?>" <?php echo $this->get_render_attribute_string( 'link' ); ?>>
+									<a href="<?php echo esc_url($image_url); ?>" <?php echo $this->get_render_attribute_string( 'link' ); ?>>
 										<?php if ( $settings['enable_image_ratio'] === 'yes' ) { ?>
 										<div class="eae-fg-img-wrapper">
 											<?php } ?>
@@ -1455,7 +1456,7 @@ class FilterableGallery extends EAE_Widget_Base {
 												echo $img;
 											} else {
 												?>
-												<img src="<?php echo $image['url']; ?>">
+												<img src="<?php echo esc_url($image['url']); ?>">
 												<?php
 											}
 
@@ -1464,7 +1465,7 @@ class FilterableGallery extends EAE_Widget_Base {
 										</div>
 									<?php } ?>
 										<?php if ( $settings['show_overlay'] !== 'never' ) { ?>
-											<div class="eae-grid-overlay <?php echo $animation; ?>">
+											<div class="eae-grid-overlay <?php echo esc_attr($animation); ?>">
 												<div class="eae-grid-overlay-inner">
 													<div class="eae-icon-wrapper">
 														<?php if ( ! empty( $icon ) ) { ?>
@@ -1479,7 +1480,7 @@ class FilterableGallery extends EAE_Widget_Base {
 													$caption = wp_get_attachment_caption( $image['id'] );
 													if ( ! empty( $caption ) && $settings['caption'] === 'yes' ) {
 														?>
-														<div class="eae-overlay-caption"><?php echo $caption; ?></div>
+														<div class="eae-overlay-caption"><?php echo Helper::eae_wp_kses($caption); ?></div>
 													<?php } ?>
 												</div>
 										</div>

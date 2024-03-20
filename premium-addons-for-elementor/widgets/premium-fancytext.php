@@ -1184,5 +1184,4 @@ class Premium_Fancytext extends Widget_Base {
 			</div>
 		<?php
 	}
-
 }

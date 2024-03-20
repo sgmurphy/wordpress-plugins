@@ -20,7 +20,7 @@
   font-size: 15px;
   border-bottom: 4px solid transparent;
   padding: 9px 20px;
-  margin: 0 1px;
+  margin: 0 1px 0 0;
 }
 /* Menu Icons */
 .wpdvlp-top-tabs .nav-tab .menu_icon::before {
@@ -89,6 +89,9 @@
 	color: #777 !important;
 	border-bottom: 3px solid #7AC71E;
 	background-color: transparent !important;
+}
+.wpdvlp-sub-tabs .nav-tabs .nav-tab.wpdevelop-submenu-tab-selected:focus{
+	box-shadow: none;
 }
 .wpdvlp-sub-tabs .nav-tabs .nav-tab:hover,
 .wpdvlp-sub-tabs .nav-tabs .nav-tab.wpdevelop-submenu-tab-selected:hover{
@@ -312,7 +315,7 @@ body[class*="page_wpbc"] #wpcontent .wrap.wpbc_page{
 .wpbc_page_top.wrap {
 	margin:0;
 }
-h1.wpbc_header{
+.wpbc_page_top h1.wpbc_header{
 	/*background: #fff;*/
 	/*box-shadow: 0 1px 2px #e9e9e9;*/
 	background: #fcfcfc;

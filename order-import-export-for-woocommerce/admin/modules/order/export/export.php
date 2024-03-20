@@ -22,6 +22,8 @@ class Wt_Import_Export_For_Woo_Basic_Order_Export {
     public $is_eh_stripe_active = false; 
     public $is_wc_stripe_active = false; 
 	private $wpo_wcpdf = false;
+    private $exclude_line_items = false;
+
 
     public function __construct($parent_object) {
 
@@ -60,6 +62,9 @@ class Wt_Import_Export_For_Woo_Basic_Order_Export {
             $this->is_wc_stripe_active = true;
         endif;
 		
+        if ($this->exclude_line_items) {
+			return apply_filters('hf_alter_csv_header', $export_columns);
+		}
         $max_line_items = $this->line_items_max_count;
 
         for ($i = 1; $i <= $max_line_items; $i++) {
@@ -185,6 +190,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Export {
 
         $this->export_to_separate_columns = (!empty($form_data['advanced_form_data']['wt_iew_export_to_separate']) && $form_data['advanced_form_data']['wt_iew_export_to_separate'] === 'column') ? true : false;                       
         $this->export_to_separate_rows = (!empty($form_data['advanced_form_data']['wt_iew_export_to_separate']) && $form_data['advanced_form_data']['wt_iew_export_to_separate'] === 'row') ? true : false;               
+		$this->exclude_line_items = (!empty($form_data['advanced_form_data']['wt_iew_exclude_line_items']) && $form_data['advanced_form_data']['wt_iew_exclude_line_items'] == 'Yes') ? true : false;
 
         
         $real_offset = ($current_offset + $batch_offset);
@@ -372,7 +378,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Export {
             $tax_detail = isset($tax_data['total']) ? wc_format_decimal(wc_round_tax_total(array_sum((array) $tax_data['total'])), 2) : '';
             if ($tax_detail != '0.00' && !empty($tax_detail)) {
                 $line_item['tax'] = $tax_detail;
-                $line_tax_ser = maybe_serialize($line_tax_data);
+                $line_tax_ser = json_encode($line_tax_data);
                 $line_item['tax_data'] = $line_tax_ser;
             }
 
@@ -418,13 +424,19 @@ class Wt_Import_Export_For_Woo_Basic_Order_Export {
             $item_meta = self::get_order_line_item_meta($item_id);
             foreach ($item_meta as $key => $value) {
                 switch ($key) {
-                    case 'Items':	
+                    case 'Items':
+           
                     case 'method_id':
+                       
                     case 'taxes':
-                        if (is_object($value))
+    
+                        if (is_object($value)){
                             $value = $value->meta_value;
+                            $value = json_encode(maybe_unserialize($value));
+                        }
+
                         if (is_array($value))
-                            $value = implode(',', $value);
+                            $value = json_encode($value);
                         $meta[$key] = $value;
                         break;
                 }
@@ -446,7 +458,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Export {
                 'name:' . html_entity_decode($fee['name'], ENT_NOQUOTES, 'UTF-8'),
                 'total:' . wc_format_decimal($fee['line_total'], 2),
                 'tax:' . wc_format_decimal($fee['line_tax'], 2),
-                'tax_data:' . maybe_serialize($fee['line_tax_data'])
+                'tax_data:' . json_encode($fee['line_tax_data'])
             ));
             $fee_total += (float) $fee['line_total'];
             $fee_tax_total += (float) $fee['line_tax'];
@@ -683,6 +695,9 @@ class Wt_Import_Export_For_Woo_Basic_Order_Export {
             } 
         }
 
+        if ($this->exclude_line_items) {
+			return apply_filters('hf_alter_csv_order_data', $order_export_data, array('max_line_items' => 0));
+		}
         $li = 1;
         foreach ($line_items as $line_item) {
             foreach ($line_item as $name => $value) {

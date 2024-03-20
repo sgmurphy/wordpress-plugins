@@ -1421,12 +1421,11 @@ class Premium_World_Clock extends Widget_Base {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
 
 		$this->end_controls_section();
-
 	}
 
 	/** Style Controls. */
@@ -3077,8 +3076,8 @@ class Premium_World_Clock extends Widget_Base {
 								<?php
 								if ( $show_meridiem ) {
 									?>
-										 <span class="premium-world-clock__meridiem">AM</span>
-										 <?php
+										<span class="premium-world-clock__meridiem">AM</span>
+										<?php
 								}
 								?>
 							</div>
@@ -3175,7 +3174,6 @@ class Premium_World_Clock extends Widget_Base {
 				<?php endif; ?>
 			</div>
 		<?php
-
 	}
 
 	/**
@@ -3196,5 +3194,4 @@ class Premium_World_Clock extends Widget_Base {
 
 		echo $clock_faces[ $skin ]; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
-
 }

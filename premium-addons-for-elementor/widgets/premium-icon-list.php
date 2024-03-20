@@ -1508,7 +1508,7 @@ class Premium_Icon_List extends Widget_Base {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
 
@@ -2433,9 +2433,8 @@ class Premium_Icon_List extends Widget_Base {
 							'premium-bullet-list-content-inline',
 						)
 					);
-				} else {
+				} elseif ( 'flex-start' === $settings['premium_icon_list_align'] ) {
 
-					if ( 'flex-start' === $settings['premium_icon_list_align'] ) {
 						$this->add_render_attribute(
 							$list_content_key,
 							'class',
@@ -2443,23 +2442,22 @@ class Premium_Icon_List extends Widget_Base {
 								'premium-bullet-list-content-grow-lc',
 							)
 						);
-					} elseif ( 'flex-end' === $settings['premium_icon_list_align'] ) {
-						$this->add_render_attribute(
-							$list_content_key,
-							'class',
-							array(
-								'premium-bullet-list-content-grow-rc',
-							)
-						);
-					} else {
-						$this->add_render_attribute(
-							$list_content_key,
-							'class',
-							array(
-								'premium-bullet-list-content-grow-cc',
-							)
-						);
-					}
+				} elseif ( 'flex-end' === $settings['premium_icon_list_align'] ) {
+					$this->add_render_attribute(
+						$list_content_key,
+						'class',
+						array(
+							'premium-bullet-list-content-grow-rc',
+						)
+					);
+				} else {
+					$this->add_render_attribute(
+						$list_content_key,
+						'class',
+						array(
+							'premium-bullet-list-content-grow-cc',
+						)
+					);
 				}
 
 				?>
@@ -2822,12 +2820,12 @@ class Premium_Icon_List extends Widget_Base {
 					</div>
 				<# } #>
 
-				<span class="{{{ gradient_effect_class }}}" data-text="{{{ item.list_title }}}" >{{{ item.list_title }}}</span>
+				<span class="{{ gradient_effect_class }}" data-text="{{ item.list_title }}">{{{ item.list_title }}}</span>
 				</div>
 
 				<# if ( 'yes' === item.show_badge ){ #>
 				<div class="premium-bullet-list-badge">
-					<span  {{{ view.getRenderAttributeString( textBadge ) }}}>{{{ item.badge_title }}}</span>
+					<span {{{ view.getRenderAttributeString( textBadge ) }}}>{{{ item.badge_title }}}</span>
 				</div>
 				<# } #>
 
@@ -2848,7 +2846,7 @@ class Premium_Icon_List extends Widget_Base {
 					dividerClass += '-inline';
 				}
 			#>
-			<div class=" {{dividerClass}}"></div>
+			<div class="{{dividerClass}}"></div>
 			<# }
 			});
 			#>
@@ -2856,5 +2854,4 @@ class Premium_Icon_List extends Widget_Base {
 
 		<?php
 	}
-
 }

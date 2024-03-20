@@ -55,7 +55,6 @@ class Acf_Choice extends Condition {
 				'pa_condition_key' => 'acf_choice',
 			),
 		);
-
 	}
 
 	/**
@@ -93,7 +92,6 @@ class Acf_Choice extends Condition {
 				'pa_condition_key' => 'acf_choice',
 			),
 		);
-
 	}
 
 	/**
@@ -134,5 +132,4 @@ class Acf_Choice extends Condition {
 
 		return Helper_Functions::get_final_result( $condition_result, $operator );
 	}
-
 }

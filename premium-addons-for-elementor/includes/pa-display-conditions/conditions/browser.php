@@ -73,7 +73,6 @@ class Browser extends Condition {
 		$condition_result = is_array( $value ) && ! empty( $value ) ? in_array( $user_agent, $value, true ) : $value === $user_agent;
 
 		return Helper_Functions::get_final_result( $condition_result, $operator );
-
 	}
 
 	/**
@@ -102,5 +101,4 @@ class Browser extends Condition {
 			return 'ie';
 		}
 	}
-
 }

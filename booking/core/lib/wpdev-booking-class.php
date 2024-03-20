@@ -612,6 +612,10 @@ class wpdev_booking {
 	//FixIn: 8.7.11.13
 	function booking_test_speed_shortcode( $attr ) {
 
+	    if ( wpbc_is_on_edit_page() ) {
+		    return wpbc_get_preview_for_shortcode( 'booking_test_speed', $attr );      //FixIn: 9.9.0.39
+	    }
+
 		$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
 
     	 echo '<h4>Booking Calendar Test</h4>';
@@ -645,6 +649,10 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
 	 * @return mixed|string|void
 	 */
 	function bookingcustomerlisting_shortcode( $attr ){
+
+	    if ( wpbc_is_on_edit_page() ) {
+		    return wpbc_get_preview_for_shortcode( 'bookingcustomerlisting', $attr );      //FixIn: 9.9.0.39
+	    }
 
 		$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
 
@@ -736,6 +744,10 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
      */
     function bookingtimeline_shortcode($attr) {
 
+	    if ( wpbc_is_on_edit_page() ) {
+		    return wpbc_get_preview_for_shortcode( 'bookingtimeline', $attr );      //FixIn: 9.9.0.39
+	    }
+
 		$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
 
     	//FixIn: 8.6.1.13
@@ -745,6 +757,10 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
     
     // Replace MARK at post with content at client side   -----    [booking nummonths='1' type='1']
     function booking_shortcode($attr) {
+
+	    if ( wpbc_is_on_edit_page() ) {
+		    return wpbc_get_preview_for_shortcode( 'booking', $attr );      //FixIn: 9.9.0.39
+	    }
 
 		$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
 
@@ -801,6 +817,10 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
     // Replace MARK at post with content at client side   -----    [booking nummonths='1' type='1']
     function booking_calendar_only_shortcode($attr) {
 
+	    if ( wpbc_is_on_edit_page() ) {
+		    return wpbc_get_preview_for_shortcode( 'bookingcalendar', $attr );      //FixIn: 9.9.0.39
+	    }
+
 		$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
 
         //if ( function_exists( 'wpbc_br_cache' ) ) $br_cache = wpbc_br_cache();  // Init booking resources cache
@@ -838,6 +858,10 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
     // Show only booking form, with already selected dates
     function bookingform_shortcode($attr) {
 
+	    if ( wpbc_is_on_edit_page() ) {
+		    return wpbc_get_preview_for_shortcode( 'bookingform', $attr );      //FixIn: 9.9.0.39
+	    }
+
 		$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
 
         //if ( function_exists( 'wpbc_br_cache' ) ) $br_cache = wpbc_br_cache();  // Init booking resources cache
@@ -859,6 +883,10 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
 
     // Show booking form for editing
     function bookingedit_shortcode($attr) {
+
+	    if ( wpbc_is_on_edit_page() ) {
+		    return wpbc_get_preview_for_shortcode( 'bookingedit', $attr );      //FixIn: 9.9.0.39
+	    }
 
 		$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
 
@@ -938,6 +966,10 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
     // Search form
     function bookingsearch_shortcode($attr) {
 
+	    if ( wpbc_is_on_edit_page() ) {
+		    return wpbc_get_preview_for_shortcode( 'bookingsearch', $attr );      //FixIn: 9.9.0.39
+	    }
+
 		$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
 
 
@@ -951,6 +983,10 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
     // Search Results form
     function bookingsearchresults_shortcode($attr) {
 
+	    if ( wpbc_is_on_edit_page() ) {
+		    return wpbc_get_preview_for_shortcode( 'bookingsearchresults', $attr );      //FixIn: 9.9.0.39
+	    }
+
 		$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
 
         //if ( function_exists( 'wpbc_br_cache' ) ) $br_cache = wpbc_br_cache();  // Init booking resources cache
@@ -963,6 +999,10 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
     // Select Booking form using the selectbox
     function bookingselect_shortcode($attr) {
 
+	    if ( wpbc_is_on_edit_page() ) {
+		    return wpbc_get_preview_for_shortcode( 'bookingselect', $attr );      //FixIn: 9.9.0.39
+	    }
+
 		$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
 
         //if ( function_exists( 'wpbc_br_cache' ) ) $br_cache = wpbc_br_cache();  // Init booking resources cache
@@ -974,6 +1014,10 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
 
     // Select Booking form using the selectbox
     function bookingresource_shortcode($attr) {
+
+	    if ( wpbc_is_on_edit_page() ) {
+		    return wpbc_get_preview_for_shortcode( 'bookingresource', $attr );      //FixIn: 9.9.0.39
+	    }
 
 		$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
 

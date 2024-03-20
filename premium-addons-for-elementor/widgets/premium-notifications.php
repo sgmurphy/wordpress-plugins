@@ -515,7 +515,7 @@ class Premium_Notifications extends Widget_Base {
 			)
 		);
 
-        $this->add_control(
+		$this->add_control(
 			'add_icon_with_no_posts',
 			array(
 				'label'              => __( 'Add Different Icon with no posts', 'premium-addons-for-elementor' ),
@@ -531,7 +531,7 @@ class Premium_Notifications extends Widget_Base {
 				'type'               => Controls_Manager::ICONS,
 				'condition'          => array(
 					'add_icon_with_no_posts' => 'yes',
-					'icon_type!'              => array( 'image' ),
+					'icon_type!'             => array( 'image' ),
 				),
 				'frontend_available' => true,
 			)
@@ -1924,7 +1924,7 @@ class Premium_Notifications extends Widget_Base {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
 
@@ -3532,7 +3532,6 @@ class Premium_Notifications extends Widget_Base {
 				),
 			)
 		);
-
 	}
 
 	/**
@@ -3851,7 +3850,6 @@ class Premium_Notifications extends Widget_Base {
 		<?php endif; ?>
 
 		<?php
-
 	}
 
 	/**
@@ -3911,7 +3909,5 @@ class Premium_Notifications extends Widget_Base {
 			'number' => $number,
 			'posts'  => $queried_posts_ids,
 		);
-
 	}
-
 }

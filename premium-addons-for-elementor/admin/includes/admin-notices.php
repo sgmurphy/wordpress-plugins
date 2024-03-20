@@ -61,10 +61,10 @@ class Admin_Notices {
 
 		self::$notices = array(
 			'pa-review',
-			'offcanvas',
+			'countdown',
 		);
 
-		delete_option( 'buttons_hovers' );
+		delete_option( 'offcanvas' );
 
 	}
 
@@ -106,7 +106,7 @@ class Admin_Notices {
 			return;
 		}
 
-		$this->get_offcanvas_notice();
+		$this->get_countdown_notice();
 
 	}
 
@@ -235,22 +235,22 @@ class Admin_Notices {
 
 	/**
 	 *
-	 * Shows admin notice for Off Canvas widget.
+	 * Shows admin notice for Countdown widget.
 	 *
-	 * @since 4.10.21
+	 * @since 4.10.25
 	 * @access public
 	 *
 	 * @return void
 	 */
-	public function get_offcanvas_notice() {
+	public function get_countdown_notice() {
 
-		$option = get_option( 'offcanvas' );
+		$option = get_option( 'countdown' );
 
 		if ( '1' === $option ) {
 			return;
 		}
 
-		$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-off-canvas-widget/', 'offcanvas-notification', 'wp-dash', 'offcanvas' );
+		$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/countdown-widget-for-elementor-page-builder/', 'countdown-notification', 'wp-dash', 'countdown' );
 
 		?>
 
@@ -260,11 +260,11 @@ class Admin_Notices {
 			</div>
 			<div class="pa-text-wrap">
 				<p>
-					<strong><?php echo __( 'Premium Off Canvas widget', 'premium-addons-for-elemetor' ); ?></strong>
-					<?php echo sprintf( __( 'is now available in Premium Addons Pro. <a href="%s" target="_blank">Check it out now!</a>', 'premium-addons-for-elementor' ), $link ); ?>
+					<strong><?php echo __( 'Premium Countdown widget', 'premium-addons-for-elemetor' ); ?></strong>
+					<?php echo sprintf( __( 'has been rebuilt. <a href="%s" target="_blank">Check it out now!</a>', 'premium-addons-for-elementor' ), $link ); ?>
 				</p>
 			</div>
-			<div class="pa-notice-close" data-notice="offcanvas">
+			<div class="pa-notice-close" data-notice="countdown">
 				<span class="dashicons dashicons-dismiss"></span>
 			</div>
 		</div>

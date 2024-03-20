@@ -34,6 +34,4 @@ class Skin_Grid_1 extends Skin_Style {
 		}
 		return self::$instance;
 	}
-
 }
-

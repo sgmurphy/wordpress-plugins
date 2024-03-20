@@ -39,7 +39,6 @@ class Woo_Total_Price extends Condition {
 				'pa_condition_key' => 'woo_total_price',
 			),
 		);
-
 	}
 
 	/**
@@ -65,7 +64,6 @@ class Woo_Total_Price extends Condition {
 				'pa_condition_key' => 'woo_total_price',
 			),
 		);
-
 	}
 
 
@@ -101,5 +99,4 @@ class Woo_Total_Price extends Condition {
 
 		return Helper_Functions::get_final_result( $condition_result, $operator );
 	}
-
 }

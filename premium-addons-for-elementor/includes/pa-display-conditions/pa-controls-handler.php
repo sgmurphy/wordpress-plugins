@@ -68,7 +68,6 @@ class PA_Controls_Handler {
 		if ( ! $is_edit_mode ) {
 			$this->init_actions();
 		}
-
 	}
 
 	/**
@@ -119,12 +118,12 @@ class PA_Controls_Handler {
 			'postdata'  => array(
 				'label'   => __( 'Post/Page', 'premium-addons-for-elementor' ),
 				'options' => array(
-					'post'        => __( 'Post', 'premium-addons-for-elementor' ),
-					'post_type'   => __( 'Post Type', 'premium-addons-for-elementor' ),
-					'post_format' => __( 'Post Format', 'premium-addons-for-elementor' ),
+					'post'          => __( 'Post', 'premium-addons-for-elementor' ),
+					'post_type'     => __( 'Post Type', 'premium-addons-for-elementor' ),
+					'post_format'   => __( 'Post Format', 'premium-addons-for-elementor' ),
 					'post_category' => __( 'Post Category', 'premium-addons-for-elementor' ),
-					'page'        => __( 'Page', 'premium-addons-for-elementor' ),
-					'static_page' => __( 'Website Static Pages', 'premium-addons-for-elementor' ),
+					'page'          => __( 'Page', 'premium-addons-for-elementor' ),
+					'static_page'   => __( 'Website Static Pages', 'premium-addons-for-elementor' ),
 				),
 			),
 
@@ -144,7 +143,6 @@ class PA_Controls_Handler {
 			),
 
 		);
-
 	}
 
 	/**
@@ -287,7 +285,6 @@ class PA_Controls_Handler {
 		}
 
 		return $should_render;
-
 	}
 
 	/**
@@ -378,5 +375,4 @@ class PA_Controls_Handler {
 
 		return $should_render;
 	}
-
 }

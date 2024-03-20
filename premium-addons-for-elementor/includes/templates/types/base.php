@@ -58,9 +58,7 @@ if ( ! class_exists( 'Premium_Structure_Base' ) ) {
 				'show_title'    => true,
 				'show_keywords' => true,
 			);
-
 		}
-
 	}
 
 }

@@ -1088,7 +1088,6 @@ class Premium_Maps extends Widget_Base {
 			$this->end_controls_section();
 
 		}
-
 	}
 
 	/**
@@ -1297,7 +1296,6 @@ class Premium_Maps extends Widget_Base {
 			</div>
 
 		<?php
-
 	}
 
 	/**
@@ -1415,6 +1413,5 @@ class Premium_Maps extends Widget_Base {
 			</div>
 
 		<?php
-
 	}
 }

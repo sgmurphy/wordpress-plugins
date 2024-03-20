@@ -79,7 +79,6 @@ if ( ! class_exists( 'Premium_Templates_Core_Config' ) ) {
 					),
 				),
 			);
-
 		}
 
 		/**
@@ -101,7 +100,6 @@ if ( ! class_exists( 'Premium_Templates_Core_Config' ) ) {
 			$key = Admin_Helper::get_license_key();
 
 			return $key;
-
 		}
 
 		/**
@@ -123,7 +121,6 @@ if ( ! class_exists( 'Premium_Templates_Core_Config' ) ) {
 			$status = Admin_Helper::get_license_status();
 
 			return $status;
-
 		}
 
 		/**
@@ -154,7 +151,6 @@ if ( ! class_exists( 'Premium_Templates_Core_Config' ) ) {
 				return $url;
 
 			}
-
 		}
 
 		/**
@@ -173,7 +169,6 @@ if ( ! class_exists( 'Premium_Templates_Core_Config' ) ) {
 			} else {
 				return __( 'Get Pro', 'premium-addons-for-elementor' );
 			}
-
 		}
 
 
@@ -191,7 +186,6 @@ if ( ! class_exists( 'Premium_Templates_Core_Config' ) ) {
 		public function get( $key = '' ) {
 
 			return isset( $this->config[ $key ] ) ? $this->config[ $key ] : false;
-
 		}
 
 
@@ -212,10 +206,7 @@ if ( ! class_exists( 'Premium_Templates_Core_Config' ) ) {
 			}
 
 			return self::$instance;
-
 		}
-
-
 	}
 
 }

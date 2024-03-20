@@ -2433,6 +2433,8 @@ function wpbc_ajax_WPBC_AJX_BOOKING_ACTIONS() {
 
 		$edit_booking_url .= '&booking_form={{data.parsed_fields.wpbc_custom_booking_form}}';							//FixIn: 9.4.3.12
 
+		$edit_booking_url .= '&is_show_payment_form=Off';																//FixIn: 9.9.0.38
+
 		$params = array(
 			'type'             => 'button',
 			'title'            => '',

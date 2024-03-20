@@ -258,3 +258,11 @@
     -webkit-mask-image: url('icons/call-to-action.svg');
 	mask-image: url('icons/call-to-action.svg');
 }
+.eae-coupon-code::before {
+    -webkit-mask-image: url('icons/coupon-code.svg');
+	mask-image: url('icons/coupon-code.svg');
+}
+.eae-google-review::before {
+    -webkit-mask-image: url('icons/google-review.svg');
+	mask-image: url('icons/google-review.svg');
+}

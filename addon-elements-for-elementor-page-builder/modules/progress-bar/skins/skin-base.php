@@ -10,6 +10,7 @@ use Elementor\Skin_Base as Elementor_Skin_Base;
 use Elementor\Widget_Base;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Typography;
+use WTS_EAE\Classes\Helper;
 
 abstract class Skin_Base extends Elementor_Skin_Base {
 
@@ -161,7 +162,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 		<div <?php echo $this->parent->get_render_attribute_string( 'wrapper_class' ); ?>>
 			<?php if ( $settings['progress_value_show'] ) { ?>
 			<span <?php echo $this->parent->get_render_attribute_string( 'pb_val_class' ); ?>>
-				<?php echo $settings['progress_value']['size'] . '%'; ?>
+				<?php echo Helper::eae_wp_kses($settings['progress_value']['size'] . '%'); ?>
 			</span>
 			<?php } ?>
 			<div <?php echo $this->parent->get_render_attribute_string( 'pb_bar_class' ); ?>>
@@ -169,7 +170,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 			</div>
 			<?php if ( $settings['progress_title_show'] ) { ?>
 			<span <?php echo $this->parent->get_render_attribute_string( 'pb_title_class' ); ?>>
-				<?php echo $settings['progress_title']; ?>
+				<?php echo Helper::eae_wp_kses($settings['progress_title']); ?>
 			</span>
 			<?php } ?>
 		</div>

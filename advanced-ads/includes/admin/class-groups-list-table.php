@@ -367,7 +367,7 @@ class Groups_List_Table extends WP_Terms_List_Table {
 	 * @return void
 	 */
 	private function render_edit_modal( $group ): void {
-		$group_ads_info = $this->get_group_ads_info( $group );
+		$group_ads_info = $this->get_group_ads_info( $group, 'modal' );
 		$ads            = $group_ads_info['ads'] ?? null;
 		$weights        = $group_ads_info['weights'] ?? null;
 		$ad_form_rows   = $this->get_weighted_ad_order( $weights );
@@ -464,35 +464,33 @@ class Groups_List_Table extends WP_Terms_List_Table {
 	}
 
 	/**
-	 * Get ads information for this group
+	 * Get ads information for this group.
 	 *
 	 * @param Advanced_Ads_Group $group group object.
 	 *
-	 * @return WP_Query
+	 * @return array
 	 */
-	private function get_group_ads_info( $group ) {
-		if ( isset( $this->group_ads_info[ $group->id ] ) ) {
-			return $this->group_ads_info[ $group->id ];
-		}
+	private function get_group_ads_info( $group, $view = 'list' ) {
+		/* TODO: reenable the following caching mechanism when switching to AA 2.0 */
+//		if ( isset( $this->group_ads_info[ $group->id ] ) ) {
+//			return $this->group_ads_info[ $group->id ];
+//		}
 
 		$weights = $group->get_ad_weights();
-
-		$sorted_ad_ids = array_keys( $weights );
-		$args          = [
+		$args    = [
 			'post_type'      => Entities::POST_TYPE_AD,
 			'post_status'    => [ 'publish', 'future', 'pending', 'private' ],
 			'taxonomy'       => $group->taxonomy,
 			'term'           => $group->slug,
-			'posts_per_page' => - 1,
+			'posts_per_page' => -1,
 		];
 
-		$ads        = new WP_Query( $args );
+		$ads    = new WP_Query( $args );
+		$ad_ids = wp_list_pluck( $ads->posts, 'ID' );
 
-		$ad_ids     = wp_list_pluck( $ads->posts, 'ID' );
-
-		$weights = array_reduce( $ads->posts, function( $carry, $item ) use ( $weights ) {
-			$weight             = $weights[$item->ID] ?? Advanced_Ads_Group::MAX_AD_GROUP_DEFAULT_WEIGHT;
-			$carry[ $item->ID ] = $item->post_status === 'publish' ? $weight : 0;
+		$weights = array_reduce( $ads->posts, function( $carry, $item ) use ( $weights, $view ) {
+			$weight             = $weights[ $item->ID ] ?? Advanced_Ads_Group::MAX_AD_GROUP_DEFAULT_WEIGHT;
+			$carry[ $item->ID ] = ( $view === 'modal' || $item->post_status === 'publish' ) ? $weight : 0;
 
 			return $carry;
 		}, [] );

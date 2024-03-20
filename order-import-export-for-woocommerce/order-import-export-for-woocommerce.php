@@ -6,12 +6,12 @@ Plugin URI: https://wordpress.org/plugins/order-import-export-for-woocommerce/
 Description: Export and Import Order detail including line items, From and To your WooCommerce Store.
 Author: WebToffee
 Author URI: https://www.webtoffee.com/product/woocommerce-order-coupon-subscription-export-import/
-Version: 2.4.9
+Version: 2.5.0
 Text Domain: order-import-export-for-woocommerce
 Domain Path: /languages
 Requires at least: 3.0
 Requires PHP: 5.6
-WC tested up to: 8.6.1
+WC tested up to: 8.7.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -48,17 +48,19 @@ if ( !defined( 'WT_IEW_DEBUG_BASIC_TROUBLESHOOT' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'WT_O_IEW_VERSION', '2.4.9' );
+define( 'WT_O_IEW_VERSION', '2.5.0' );
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-wt-import-export-for-woo-activator.php
  */
-function activate_wt_import_export_for_woo_basic_order() {         
+function activate_wt_import_export_for_woo_basic_order() { 
+    wt_order_activation_check();        
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wt-import-export-for-woo-activator.php';
 	Wt_Import_Export_For_Woo_Basic_Activator_Order::activate();
 }
 
+require_once plugin_dir_path( __FILE__ ) . 'class-wt-order-welcome-script.php';
 
 
 /* Checking WC is actived or not */

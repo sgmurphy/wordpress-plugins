@@ -159,15 +159,19 @@ function wpbc_js_load_vars( $where_to_load ) {
 		$booking_highlight_timeslot_word = 'WPBC_DISABLE_TIMES_TOOLTIP';
 	}
 
+	//FixIn: 9.9.0.17
+	$today_local = wpbc_datetime_localized__use_wp_timezone( date( 'Y-m-d H:i:s', strtotime( 'now' ) ), 'Y-m-d-H-i' );
+	$today_local_arr = explode( '-', $today_local );
+
     wp_localize_script( 'wpbc-global-vars'
                       , 'wpbc_global1', array(
           'wpbc_ajaxurl'                        => admin_url( 'admin-ajax.php' )
         , 'wpdev_bk_plugin_url'                 => plugins_url( '' , WPBC_FILE )                                                     
-        , 'wpbc_today'       => '['     . intval(date_i18n('Y'))            //FixIn:6.1
-                                        .','. intval(date_i18n('m')) 
-                                        .','. intval(date_i18n('d'))
-                                        .','. intval(date_i18n('H'))
-                                        .','. intval(date_i18n('i'))
+        , 'wpbc_today'       => '['     . intval( $today_local_arr[0] )            //FixIn: 9.9.0.17
+                                        .','. intval( $today_local_arr[1] )
+                                        .','. intval( $today_local_arr[2] )
+                                        .','. intval( $today_local_arr[3] )
+                                        .','. intval( $today_local_arr[4] )
                                     .']'
         , 'visible_booking_id_on_page'          => '[]'
         , 'booking_max_monthes_in_calendar'     => get_bk_option( 'booking_max_monthes_in_calendar')

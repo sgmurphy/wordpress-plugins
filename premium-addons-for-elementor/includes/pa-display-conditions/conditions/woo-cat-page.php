@@ -73,5 +73,4 @@ class Woo_Cat_Page extends Condition {
 
 		return Helper_Functions::get_final_result( $condition_result, $operator );
 	}
-
 }

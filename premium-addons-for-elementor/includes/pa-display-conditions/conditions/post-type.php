@@ -72,5 +72,4 @@ class Post_Type extends Condition {
 
 		return false;
 	}
-
 }

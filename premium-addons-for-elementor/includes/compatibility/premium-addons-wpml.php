@@ -37,7 +37,6 @@ if ( ! class_exists( 'Premium_Addons_Wpml' ) ) {
 			$this->includes();
 
 			add_filter( 'wpml_elementor_widgets_to_translate', array( $this, 'translatable_widgets' ) );
-
 		}
 
 
@@ -58,7 +57,6 @@ if ( ! class_exists( 'Premium_Addons_Wpml' ) ) {
 			$wpml_trans = Helper_Functions::check_plugin_active( 'wpml-string-translation/plugin.php' );
 
 			return $wpml && $wpml_trans;
-
 		}
 
 		/**
@@ -80,7 +78,6 @@ if ( ! class_exists( 'Premium_Addons_Wpml' ) ) {
 			include_once 'widgets/vertical-scroll.php';
 			include_once 'widgets/icon-list.php';
 			include_once 'widgets/person.php';
-
 		}
 
 		/**
@@ -657,7 +654,6 @@ if ( ! class_exists( 'Premium_Addons_Wpml' ) ) {
 
 			return self::$instance;
 		}
-
 	}
 
 }

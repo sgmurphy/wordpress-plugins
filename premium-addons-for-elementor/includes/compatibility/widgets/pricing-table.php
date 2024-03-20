@@ -65,7 +65,6 @@ class Pricing_Table extends WPML_Elementor_Module_With_Items {
 			default:
 				return '';
 		}
-
 	}
 
 	/**
@@ -80,7 +79,5 @@ class Pricing_Table extends WPML_Elementor_Module_With_Items {
 	protected function get_editor_type( $field ) {
 
 		return 'LINE';
-
 	}
-
 }

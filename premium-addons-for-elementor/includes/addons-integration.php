@@ -124,7 +124,6 @@ class Addons_Integration {
 			Addons_Cross_CP::get_instance();
 
 		}
-
 	}
 
 	/**
@@ -149,7 +148,6 @@ class Addons_Integration {
 		);
 
 		wp_localize_script( 'live-editor', 'liveEditor', $live_editor_data );
-
 	}
 
 	/**
@@ -384,7 +382,6 @@ class Addons_Integration {
 			wp_localize_script( 'pa-editor-handler', 'paEditorSettings', $data );
 
 		}
-
 	}
 
 	/**
@@ -431,7 +428,6 @@ class Addons_Integration {
 		$dynamic_css = sprintf( '#elementor-panel [class^="pa-"]::after, #elementor-panel [class*=" pa-"]::after { content: "%s"; }', $badge_text );
 
 		wp_add_inline_style( 'pa-editor', $dynamic_css );
-
 	}
 
 	/**
@@ -485,7 +481,7 @@ class Addons_Integration {
 			'all'
 		);
 
-        wp_register_style(
+		wp_register_style(
 			'tooltipster',
 			PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/tooltipster.min.css',
 			array(),
@@ -501,7 +497,7 @@ class Addons_Integration {
 			'all'
 		);
 
-        wp_register_style(
+		wp_register_style(
 			'pa-shape-divider',
 			PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/premium-shape-divider' . $suffix . '.css',
 			array(),
@@ -537,7 +533,6 @@ class Addons_Integration {
 				$this->enqueue_old_styles( $dir, $is_rtl, $suffix );
 			}
 		}
-
 	}
 
 	/**
@@ -559,7 +554,6 @@ class Addons_Integration {
 			PREMIUM_ADDONS_VERSION,
 			'all'
 		);
-
 	}
 
 	/**
@@ -941,7 +935,6 @@ class Addons_Integration {
 				)
 			);
 		}
-
 	}
 
 	/**
@@ -985,7 +978,6 @@ class Addons_Integration {
 				)
 			);
 		}
-
 	}
 
 	/**
@@ -1028,6 +1020,7 @@ class Addons_Integration {
 		wp_add_inline_style( 'premium-addons', $custom_css );
 
 		wp_enqueue_style( 'pa-slick' );
+
 	}
 
 	/**
@@ -1070,7 +1063,6 @@ class Addons_Integration {
 				$this->register_addon( $file );
 			}
 		}
-
 	}
 
 	/**
@@ -1136,7 +1128,6 @@ class Addons_Integration {
 			);
 
 		}
-
 	}
 
 	/**
@@ -1171,7 +1162,6 @@ class Addons_Integration {
 		// set_transient( $transient_name, true, $expire_time );
 
 		wp_send_json_success( $body );
-
 	}
 
 	/**
@@ -1223,7 +1213,6 @@ class Addons_Integration {
 		}
 
 		wp_send_json_success( wp_json_encode( $boards ) );
-
 	}
 
 	/**
@@ -1258,7 +1247,6 @@ class Addons_Integration {
 		// set_transient( $transient_name, true, $expire_time );
 
 		wp_send_json_success( $body );
-
 	}
 
 	/**
@@ -1366,7 +1354,6 @@ class Addons_Integration {
 		add_post_meta( $post_id, '_hash', $form_id, true );
 
 		wp_send_json_success( substr( $form_id, 0, 7 ) );
-
 	}
 
 	/**
@@ -1460,10 +1447,8 @@ class Addons_Integration {
 
 		if ( 'PremiumAddons\Widgets\Premium_Contactform' !== $class ) {
 			require $file;
-		} else {
-			if ( function_exists( 'wpcf7' ) ) {
+		} elseif ( function_exists( 'wpcf7' ) ) {
 				require $file;
-			}
 		}
 
 		if ( 'PremiumAddons\Widgets\Premium_Videobox' === $class || 'PremiumAddons\Widgets\Premium_Weather' === $class ) {
@@ -1491,7 +1476,6 @@ class Addons_Integration {
 			$widgets_manager->register( new $class() );
 
 		}
-
 	}
 
 	/**
@@ -1578,7 +1562,6 @@ class Addons_Integration {
 			$control_manager->controls_manager->register( new $premium_image_choose() );
 
 		}
-
 	}
 
 	/**
@@ -1610,7 +1593,7 @@ class Addons_Integration {
 			GlobalTooltips::get_instance();
 		}
 
-        if ( self::$modules['premium-shape-divider'] ) {
+		if ( self::$modules['premium-shape-divider'] ) {
 			Shape_Divider::get_instance();
 		}
 

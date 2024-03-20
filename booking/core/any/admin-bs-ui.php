@@ -1542,11 +1542,12 @@ function wpbc_bs_dropdown_menu( $args = array() ) {
                 'icon' => '',
                 'font_icon' => '',
                 'position' => '',
+				'style'    => '',
                 'items' => array()
         );        
 	$params = wp_parse_args( $args, $defaults );
         
-    ?><span class="dropdown <?php echo ( ( $params['position'] == 'right' ) ? 'pull-right' : '' ); ?>">              
+    ?><span class="dropdown <?php echo ( ( $params['position'] == 'right' ) ? 'pull-right' : '' ); ?>"  style="<?php echo esc_attr( $params['style'] ); ?>">
         <a href="javascript:void(0)"
            data-toggle="wpbc_dropdown" 
            aria-expanded="true"
@@ -1701,6 +1702,7 @@ function wpbc_bs_display_tab( $args = array() ) {
             'link' => 'javascript:void(0)',
             'onclick' => '',
             'css_classes' => '',
+            'text_css' 	  => '',
             'icon' => '',
             'font_icon' => '', 
             'checkbox' => false,
@@ -1778,7 +1780,7 @@ function wpbc_bs_display_tab( $args = array() ) {
 
         // Text
 
-        ?><span class="<?php echo ( $is_icon_showed ) ? 'nav-tab-text' : '';  ?>" ><?php
+        ?><span class="<?php echo ( $is_icon_showed ) ? 'nav-tab-text' : '';  ?>" style="<?php echo esc_attr( $tab['text_css'] ); ?>" ><?php
 			if ( ! empty( $tab['title'] ) ) {
 				echo ( $is_icon_showed ) ? '&nbsp;&nbsp;' : '';
 			}
@@ -1842,7 +1844,19 @@ function wpbc_bs_toolbar_sub_html_container_end() {
     </div><!-- wpdvlp-sub-tabs --><?php    
 }
 
+// FlexTable :: Tabs in Flex Table  for switching view of Table content
+function wpbc_flextable_header_tabs_html_container_start() {
 
+	?><span class="wpbc_flextable_header_tabs">
+		<div class="wpdvlp-top-tabs"><?php
+
+}
+
+function wpbc_flextable_header_tabs_html_container_end() {
+
+          ?></div><!-- wpdvlp-top-tabs -->
+    </span><!-- wpdevelop wpbc_flextable_header_tabs --><?php
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 //  HTML sections and groups

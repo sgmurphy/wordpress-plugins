@@ -181,7 +181,6 @@ class Premium_Nav_Menu extends Widget_Base {
 		$this->add_helpful_docs_section();
 
 		$this->get_menu_style_controls();
-
 	}
 
 	/**
@@ -729,7 +728,6 @@ class Premium_Nav_Menu extends Widget_Base {
 		}
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -1235,7 +1233,6 @@ class Premium_Nav_Menu extends Widget_Base {
 		$this->end_controls_section();
 
 		$this->get_dropdown_content_settings( $align_left, $align_right );
-
 	}
 
 	/**
@@ -1284,7 +1281,6 @@ class Premium_Nav_Menu extends Widget_Base {
 		}
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -1321,12 +1317,11 @@ class Premium_Nav_Menu extends Widget_Base {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -4650,7 +4645,6 @@ class Premium_Nav_Menu extends Widget_Base {
 				</div>
 			</div>
 		<?php
-
 	}
 
 	/**
@@ -4686,7 +4680,6 @@ class Premium_Nav_Menu extends Widget_Base {
 			</div>
 		</div>
 		<?php
-
 	}
 
 	/**
@@ -4753,8 +4746,8 @@ class Premium_Nav_Menu extends Widget_Base {
 		// Replace duplicated IDs
 		return preg_replace_callback(
 			$pattern,
-			function( $matches ) use ( &$id_counter, &$slug ) {
-				$id    = $matches[1];
+			function ( $matches ) use ( &$id_counter, &$slug ) {
+				$id     = $matches[1];
 				$new_id = $slug . $id . $id_counter++;
 				return 'id="' . $new_id . '"';
 			},
@@ -4983,7 +4976,6 @@ class Premium_Nav_Menu extends Widget_Base {
 		}
 
 		return $html;
-
 	}
 
 	/**
@@ -5008,6 +5000,5 @@ class Premium_Nav_Menu extends Widget_Base {
 		$html = '<span class="' . $class . '">' . wp_kses_post( $item['badge_text'] ) . '</span>';
 
 		return $html;
-
 	}
 }

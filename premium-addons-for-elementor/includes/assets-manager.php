@@ -72,7 +72,6 @@ class Assets_Manager {
 		add_action( 'wp_footer', array( $this, 'cache_post_assets' ) );
 
 		add_action( 'wp_trash_post', array( $this, 'delete_cached_options' ) );
-
 	}
 
 	/**
@@ -339,7 +338,6 @@ class Assets_Manager {
 
 		delete_option( 'pa_elements_' . $id );
 		delete_option( 'pa_edit_' . $id );
-
 	}
 
 	/**
@@ -426,7 +424,6 @@ class Assets_Manager {
 
 			self::clear_cached_file( $path );
 		}
-
 	}
 
 	/**
@@ -505,10 +502,10 @@ class Assets_Manager {
 			$common_assets = self::has_free_elements( $elements ) ? array( 'common' ) : array();
 			$common_assets = self::has_pro_elements( $elements ) ? array_merge( $common_assets, array( 'common-pro' ) ) : $common_assets;
 
-			$elements = array_merge( $elements, $common_assets );
-            $indep_elements = array(
-                'premium-world-clock'
-            );
+			$elements       = array_merge( $elements, $common_assets );
+			$indep_elements = array(
+				'premium-world-clock',
+			);
 
 		} else {
 			$indep_elements = array(
@@ -531,7 +528,7 @@ class Assets_Manager {
 
 		}
 
-        $elements = array_diff( $elements, $indep_elements );
+		$elements = array_diff( $elements, $indep_elements );
 
 		return $elements;
 	}
@@ -657,22 +654,22 @@ class Assets_Manager {
 		$pa_elems = Admin_Helper::get_free_widgets_names();
 
 		// add some other pro widgets.
-        $pa_elems = array_merge(
-            $pa_elems,
-            array(
-                'premium-smart-post-listing',
-                'premium-addon-instagram-feed',
-                'premium-notbar',
-                'premium-addon-flip-box',
-                'premium-addon-icon-box',
-                'premium-addon-magic-section',
-                'premium-whatsapp-chat'
-            )
-        );
+		$pa_elems = array_merge(
+			$pa_elems,
+			array(
+				'premium-smart-post-listing',
+				'premium-addon-instagram-feed',
+				'premium-notbar',
+				'premium-addon-flip-box',
+				'premium-addon-icon-box',
+				'premium-addon-magic-section',
+				'premium-whatsapp-chat',
+			)
+		);
 
 		$has_free = array_intersect( $post_elems, $pa_elems ) ? true : false;
 
-        return $has_free;
+		return $has_free;
 	}
 
 	/**

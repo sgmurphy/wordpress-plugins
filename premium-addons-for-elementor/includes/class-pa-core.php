@@ -43,7 +43,6 @@ if ( ! class_exists( 'PA_Core' ) ) {
 
 			// Register Activation hooks.
 			register_activation_hook( PREMIUM_ADDONS_FILE, array( $this, 'set_transient' ) );
-
 		}
 
 		/**
@@ -92,7 +91,6 @@ if ( ! class_exists( 'PA_Core' ) ) {
 
 			// load plugin necessary files.
 			$this->load_files();
-
 		}
 
 		/**
@@ -130,7 +128,6 @@ if ( ! class_exists( 'PA_Core' ) ) {
 			if ( $enabled_elements['premium-assets-generator'] ) {
 				\PremiumAddons\Includes\Assets_Manager::get_instance();
 			}
-
 		}
 
 		/**
@@ -144,7 +141,6 @@ if ( ! class_exists( 'PA_Core' ) ) {
 		public function load_domain() {
 
 			load_plugin_textdomain( 'premium-addons-for-elementor' );
-
 		}
 
 		/**
@@ -164,7 +160,6 @@ if ( ! class_exists( 'PA_Core' ) ) {
 			Compatibility\Premium_Addons_Wpml::get_instance();
 
 			Addons_Integration::get_instance();
-
 		}
 
 		/**
@@ -186,7 +181,6 @@ if ( ! class_exists( 'PA_Core' ) ) {
 				),
 				1
 			);
-
 		}
 
 		/**
@@ -223,7 +217,6 @@ if ( ! class_exists( 'PA_Core' ) ) {
 
 			return self::$instance;
 		}
-
 	}
 }
 

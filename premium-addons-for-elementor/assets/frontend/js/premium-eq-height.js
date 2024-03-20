@@ -30,7 +30,13 @@
                 return false;
             }
 
-            triggerEqualHeight();
+            if ('scroll' === addonSettings.trigger) {
+                elementorFrontend.waypoint($scope, function () {
+                    triggerEqualHeight();
+                });
+            } else {
+                triggerEqualHeight();
+            }
 
             function matchHeight(selector) {
                 var $targets = section.find(selector),

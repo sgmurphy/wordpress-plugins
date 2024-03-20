@@ -223,8 +223,8 @@ class Gmap extends EAE_Widget_Base {
 			<?php
 			foreach ( $markers as $marker ) {
 				?>
-				<div class="marker" data-lng="<?php echo $marker['long']; ?>" data-lat="<?php echo $marker['lat']; ?>" data-icon="<?php echo $marker['icon']['url']; ?>" data-icon-size="<?php echo $marker['icon_size']['size']; ?>" data-info-window="<?php echo $marker['info_window_onload']; ?>">
-					<?php echo $marker['address']; ?>
+				<div class="marker" data-lng="<?php echo esc_attr($marker['long']); ?>" data-lat="<?php echo esc_attr($marker['lat']); ?>" data-icon="<?php echo esc_attr($marker['icon']['url']); ?>" data-icon-size="<?php echo esc_attr($marker['icon_size']['size']); ?>" data-info-window="<?php echo esc_attr($marker['info_window_onload']); ?>">
+					<?php echo wp_kses_post($marker['address']); ?>
 				</div>
 				<?php
 			}

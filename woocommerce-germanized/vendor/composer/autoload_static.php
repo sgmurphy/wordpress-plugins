@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita0802ea6209fc73dea823caf7bf42ec3
+class ComposerStaticIniteeb12c07199904bd9814b081f6281648
 {
     public static $files = array (
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
@@ -434,7 +434,12 @@ class ComposerStaticInita0802ea6209fc73dea823caf7bf42ec3
         'Vendidero\\Germanized\\Shipments\\Ajax' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Ajax.php',
         'Vendidero\\Germanized\\Shipments\\Api' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Api.php',
         'Vendidero\\Germanized\\Shipments\\Automation' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Automation.php',
-        'Vendidero\\Germanized\\Shipments\\CacheHelper' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/CacheHelper.php',
+        'Vendidero\\Germanized\\Shipments\\Caches\\Helper' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Caches/Helper.php',
+        'Vendidero\\Germanized\\Shipments\\Caches\\PackagingCache' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Caches/PackagingCache.php',
+        'Vendidero\\Germanized\\Shipments\\Caches\\ShipmentCache' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Caches/ShipmentCache.php',
+        'Vendidero\\Germanized\\Shipments\\Caches\\ShipmentLabelCache' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Caches/ShipmentLabelCache.php',
+        'Vendidero\\Germanized\\Shipments\\Caches\\ShipmentOrderCache' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Caches/ShipmentOrderCache.php',
+        'Vendidero\\Germanized\\Shipments\\Caches\\ShippingProviderCache' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Caches/ShippingProviderCache.php',
         'Vendidero\\Germanized\\Shipments\\DataStores\\Label' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/DataStores/Label.php',
         'Vendidero\\Germanized\\Shipments\\DataStores\\Packaging' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/DataStores/Packaging.php',
         'Vendidero\\Germanized\\Shipments\\DataStores\\Shipment' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/DataStores/Shipment.php',
@@ -459,12 +464,14 @@ class ComposerStaticInita0802ea6209fc73dea823caf7bf42ec3
         'Vendidero\\Germanized\\Shipments\\Labels\\Query' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Labels/Query.php',
         'Vendidero\\Germanized\\Shipments\\Labels\\ReturnLabel' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Labels/ReturnLabel.php',
         'Vendidero\\Germanized\\Shipments\\Order' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Order.php',
+        'Vendidero\\Germanized\\Shipments\\Orders\\Factory' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Orders/Factory.php',
         'Vendidero\\Germanized\\Shipments\\PDFMerger' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/PDFMerger.php',
         'Vendidero\\Germanized\\Shipments\\PDFSplitter' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/PDFSplitter.php',
         'Vendidero\\Germanized\\Shipments\\Package' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Package.php',
         'Vendidero\\Germanized\\Shipments\\Packaging' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Packaging.php',
         'Vendidero\\Germanized\\Shipments\\PackagingFactory' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/PackagingFactory.php',
         'Vendidero\\Germanized\\Shipments\\Packaging\\AsyncReportGenerator' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Packaging/AsyncReportGenerator.php',
+        'Vendidero\\Germanized\\Shipments\\Packaging\\Helper' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Packaging/Helper.php',
         'Vendidero\\Germanized\\Shipments\\Packaging\\Report' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Packaging/Report.php',
         'Vendidero\\Germanized\\Shipments\\Packaging\\ReportHelper' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Packaging/ReportHelper.php',
         'Vendidero\\Germanized\\Shipments\\Packaging\\ReportQueue' => __DIR__ . '/../..' . '/packages/woocommerce-germanized-shipments/src/Packaging/ReportQueue.php',
@@ -587,9 +594,9 @@ class ComposerStaticInita0802ea6209fc73dea823caf7bf42ec3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita0802ea6209fc73dea823caf7bf42ec3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita0802ea6209fc73dea823caf7bf42ec3::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita0802ea6209fc73dea823caf7bf42ec3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticIniteeb12c07199904bd9814b081f6281648::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticIniteeb12c07199904bd9814b081f6281648::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticIniteeb12c07199904bd9814b081f6281648::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -55,7 +55,6 @@ class Carousel extends WPML_Elementor_Module_With_Items {
 	protected function get_title( $field ) {
 
 		return __( 'Carousel: Template', 'premium-addons-for-elementor' );
-
 	}
 
 	/**
@@ -71,5 +70,4 @@ class Carousel extends WPML_Elementor_Module_With_Items {
 
 		return 'LINE';
 	}
-
 }

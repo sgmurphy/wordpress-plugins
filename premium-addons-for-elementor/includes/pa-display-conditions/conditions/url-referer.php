@@ -88,7 +88,5 @@ param2=value2',
 		$condition_result = ! empty( array_intersect( $value, $query_params ) ) ? true : false;
 
 		return Helper_Functions::get_final_result( $condition_result, $operator );
-
 	}
-
 }

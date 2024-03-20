@@ -72,5 +72,4 @@ class Post extends Condition {
 
 		return false;
 	}
-
 }

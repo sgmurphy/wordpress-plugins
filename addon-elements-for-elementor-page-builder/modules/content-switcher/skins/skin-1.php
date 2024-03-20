@@ -31,7 +31,7 @@ class Skin_1 extends Skin_Base {
 		//Content Section Attribute
 		$this->parent->add_render_attribute( 'switch-content', 'class', 'eae-cs-content-section' );
 		?>
-			<div class="eae-content-switcher-wrapper eae-cs-layout-<?php echo $settings['_skin']; ?>" data-style="<?php echo $settings['_skin']; ?>" data-atab="<?php echo $active_sec['section_id']; ?>">
+			<div class="eae-content-switcher-wrapper eae-cs-layout-<?php echo esc_attr($settings['_skin']); ?>" data-style="<?php echo esc_attr($settings['_skin']); ?>" data-atab="<?php echo esc_attr($active_sec['section_id']); ?>">
 				<!--Header Secion Start-->
 				<?php
 					$this->render_header_button_skin( $settings );

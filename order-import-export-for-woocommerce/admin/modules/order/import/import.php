@@ -1094,15 +1094,15 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
         if('' !== $value){
             $shipping_line_items = explode('|', $value);
             $items = array_shift($shipping_line_items);
-            $items = substr($items, strpos($items, ":") + 1);
+            $items = json_decode(substr($items, strpos($items, ":") + 1));
             $method_id = array_shift($shipping_line_items);
-            $method_id = substr($method_id, strpos($method_id, ":") + 1);
+            $method_id = json_decode(substr($method_id, strpos($method_id, ":") + 1));
             $taxes = array_shift($shipping_line_items);
-            $taxes = substr($taxes, strpos($taxes, ":") + 1);
-            $tax_data = maybe_unserialize($taxes);
+            $tax_data = json_decode(substr($taxes, strpos($taxes, ":") + 1));
+             
             $new_tax_data = array();
-            if(isset($tax_data['total'])){
-                foreach($tax_data['total'] as $t_key => $t_value){
+            if(isset($tax_data->total)){
+                foreach($tax_data->total as $t_key => $t_value){
                     if(isset($this->item_data['tax_items'][$t_key])){
                         $new_tax_data ['total'][$this->item_data['tax_items'][$t_key]['rate_id']] = $t_value ;
                     }else{
@@ -1116,7 +1116,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
             $shipping_items = array(
                 'Items' => $items,
                 'method_id' => $method_id,
-                'taxes' => maybe_unserialize($new_tax_data)
+                'taxes' => $new_tax_data
             );
         }
         
@@ -1138,10 +1138,10 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                 $tax = substr($tax, strpos($tax, ":") + 1);
                 $tax_data = array_shift($fee_item_meta);
                 $tax_data = substr($tax_data, strpos($tax_data, ":") + 1);
-                $tax_data = maybe_unserialize($tax_data);
+                $tax_data = json_decode($tax_data);
                 $new_tax_data = array();
-                if(isset($tax_data['total'])){
-                    foreach($tax_data['total'] as $t_key => $t_value){
+                if(isset($tax_data->total)){
+                    foreach($tax_data->total as $t_key => $t_value){
                         if(isset($this->item_data['tax_items'][$t_key])){
                             $new_tax_data ['total'][$this->item_data['tax_items'][$t_key]['rate_id']] = $t_value ;
                         }else{
@@ -1385,10 +1385,10 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                 'product_name'  => !empty($unknown_product_name) ? $unknown_product_name : ''
             );
             if(!empty($tax_data)){
-                $tax_data = maybe_unserialize($tax_data);
+                $tax_data = json_decode($tax_data);
                 $new_tax_data = array();
-                if(isset($tax_data['total'])){
-                    foreach($tax_data['total'] as $t_key => $t_value){
+                if(isset($tax_data->total)){
+                    foreach($tax_data->total as $t_key => $t_value){
                         if(isset($this->item_data['tax_items'][$t_key])){
                             $new_tax_data ['total'][$this->item_data['tax_items'][$t_key]['rate_id']] = $t_value ;
                         }else{
@@ -1396,8 +1396,8 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                         }
                     }
                 }
-                if(isset($tax_data['subtotal'])){
-                    foreach($tax_data['subtotal'] as $st_key => $st_value){
+                if(isset($tax_data->subtotal)){
+                    foreach($tax_data->subtotal as $st_key => $st_value){
                         if(isset($this->item_data['tax_items'][$st_key])){
                             $new_tax_data ['subtotal'][$this->item_data['tax_items'][$st_key]['rate_id'] ] = $st_value ;
                         }else{
@@ -1937,7 +1937,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
 							if( '_reduced_stock' === $meta_key && $this->update_stock_details ){
 								continue;
 							}
-                            wc_add_order_item_meta($order_item_id, $meta_key, maybe_unserialize($meta_value));
+                            wc_add_order_item_meta($order_item_id, $meta_key, $meta_value);
                         }
                     }
                 } 
@@ -2385,19 +2385,17 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                 if (( 'Download Permissions Granted' == $meta['key'] || '_download_permissions_granted' == $meta['key'] ) && $meta['value']) {
                     $add_download_permissions = true;
                 }   
-                
                 if('_wt_import_key' == $meta['key']){
                     $object->update_meta_data('_wt_import_key', apply_filters('wt_importing_order_reference_key', $meta['value'], $data)); // for future reference, this holds the order number which in the csv.
                     continue;
                 }
-                
-                if ( is_serialized( $meta['value'] ) ) { // Don't attempt to unserialize data that wasn't serialized going in.
-                    $meta['value'] = maybe_unserialize(maybe_unserialize($meta['value']));
+                $json_ecoded_data_key = array('_wc_shipment_tracking_items', '_wcpdf_invoice_number_data', '_wcpdf_invoice_settings', '_ppcp_paypal_fees', 'eh_stripe_fee', '_stripe_fee');
+                if(in_array($meta['key'], $json_ecoded_data_key)){
+                    $meta['value'] = json_decode($meta['value']);
                 }
-                
                 $object->update_meta_data($meta['key'], $meta['value']);
             }
-
+            
             // Grant downloadalbe product permissions
             if ($add_download_permissions) {
                 $object->save();

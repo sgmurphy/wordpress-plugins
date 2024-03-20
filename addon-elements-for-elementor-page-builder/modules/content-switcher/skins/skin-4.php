@@ -2,6 +2,7 @@
 namespace WTS_EAE\Modules\ContentSwitcher\skins;
 
 use Elementor\Icons_Manager;
+use WTS_EAE\Classes\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -31,20 +32,20 @@ class Skin_4 extends Skin_Base {
 			$add_checked            = 'checked';
 		}
 		?>
-		<div class="eae-content-switcher-wrapper eae-cs-layout-<?php echo $settings['_skin']; ?>" data-style="<?php echo $settings['_skin']; ?>">
+		<div class="eae-content-switcher-wrapper eae-cs-layout-<?php echo esc_attr($settings['_skin']); ?>" data-style="<?php echo $settings['_skin']; ?>">
 			<div class="eae-cs-switch-container">
 				<div class="eae-cs-switch-wrapper">
 					<div class="eae-content-switch-label primary-label eae-cs-icon-align-<?php echo esc_attr($settings['content_list'][0]['icon_align']); ?> <?php
 					if ( $active_sec['index_no'] === 0 ) {
 						echo 'active';}
 					?>
-					" item_id="<?php echo $settings['content_list'][0]['_id']; ?>">
+					" item_id="<?php echo esc_attr($settings['content_list'][0]['_id']); ?>">
 						<?php
 						if ( ! empty( $settings['content_list'][0]['icon'] ) && $settings['content_list'][0]['icon_align'] === 'left' ) {
 							Icons_Manager::render_icon( $settings['content_list'][0]['icon'], [ 'aria-hidden' => 'true' ] );
 						}
 						?>
-						<h5 class="eae-cs-label"> <?php echo $settings['content_list'][0]['title']; ?></h5>
+						<h5 class="eae-cs-label"> <?php echo Helper::eae_wp_kses($settings['content_list'][0]['title']); ?></h5>
 						<?php
 						if ( ! empty( $settings['content_list'][0]['icon'] ) && $settings['content_list'][0]['icon_align'] === 'right' ) {
 							Icons_Manager::render_icon( $settings['content_list'][0]['icon'], [ 'aria-hidden' => 'true' ] );
@@ -61,13 +62,13 @@ class Skin_4 extends Skin_Base {
 					if ( $active_sec['index_no'] === 1 ) {
 						echo 'active';}
 					?>
-					"item_id="<?php echo $settings['content_list'][1]['_id']; ?>">
+					"item_id="<?php echo esc_attr($settings['content_list'][1]['_id']); ?>">
 						<?php
 						if ( ! empty( $settings['content_list'][1]['icon'] ) && $settings['content_list'][1]['icon_align'] === 'left' ) {
 							Icons_Manager::render_icon( $settings['content_list'][1]['icon'], [ 'aria-hidden' => 'true' ] );
 						}
 						?>
-						<h5 class="eae-cs-label"><?php echo $settings['content_list'][1]['title']; ?> </h5>
+						<h5 class="eae-cs-label"><?php echo Helper::eae_wp_kses($settings['content_list'][1]['title']); ?> </h5>
 						<?php
 						if ( ! empty( $settings['content_list'][1]['icon'] ) && $settings['content_list'][1]['icon_align'] === 'right' ) {
 							Icons_Manager::render_icon( $settings['content_list'][1]['icon'], [ 'aria-hidden' => 'true' ] );

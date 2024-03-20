@@ -320,7 +320,7 @@ class SplitText extends EAE_Widget_Base {
 		$split_count = $settings['split_count'] != '' ? $settings['split_count'] : 0;
 
 		?>
-			<div id="eae-at-<?php echo $this->get_id(); ?>" class="eae-st-transform-text-wrapper">
+			<div id="eae-at-<?php echo esc_attr($this->get_id()); ?>" class="eae-st-transform-text-wrapper">
 				<div <?php echo $this->get_render_attribute_string( 'eae-st-transform-text' ); ?>>
 					<?php if ( $settings['split_mode'] === 'text' ) { ?> 
 						<?php echo sprintf( '<%1$s class="eae-st-transform-text-title">%2$s</%1$s>', Helper::validate_html_tag( $settings['title_size'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' ], 'h3' ), '<div ' . $this->get_render_attribute_string( 'eae-st-split-text' ) . '>' . substr( $settings['text'], 0, $split_count ) . '</div><div ' . $this->get_render_attribute_string( 'eae-st-rest-text' ) . '>' . substr( $settings['text'], $split_count, strlen( $settings['text'] ) - $split_count ) . '</div>' ); ?>

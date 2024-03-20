@@ -1049,8 +1049,11 @@ abstract class Auto extends Simple implements ShippingProviderAuto {
 			$product_id = $this->get_default_product_for_zone( $config_set );
 		}
 
+		$product_id = apply_filters( "{$this->get_hook_prefix()}default_label_product", $product_id, $shipment, $this );
+
 		if ( ! array_key_exists( $product_id, $available ) && ! empty( $available ) ) {
-			$product_id = array_keys( $available )[0];
+			$original_product_id = $product_id;
+			$product_id          = apply_filters( "{$this->get_hook_prefix()}fallback_label_product", array_keys( $available )[0], $original_product_id, $shipment, $available, $this );
 		}
 
 		return $product_id;
@@ -1174,10 +1177,12 @@ abstract class Auto extends Simple implements ShippingProviderAuto {
 
 		if ( $this->is_configuration_set_setting( $setting_name_clean ) ) {
 			if ( $configuration_set = $this->get_configuration_set( $setting_name_clean ) ) {
-				return $configuration_set->get_setting( $setting_name_clean, $default );
+				$value = $configuration_set->get_setting( $setting_name_clean, $default );
 			} else {
-				return $default;
+				$value = $default;
 			}
+
+			return apply_filters( "{$this->get_hook_prefix()}setting_{$setting_name_clean}", $value, $key, $default, $context );
 		} else {
 			return parent::get_setting( $key, $default, $context );
 		}

@@ -343,7 +343,7 @@ class WPBC_Page_Settings__bresources extends WPBC_Page_Structure {
 											   class="large-text put-in" style="width:auto;font-weight:600;border:1px solid #e1e1e1;text-align: center;cursor:pointer;" />
 									</div>
 									<!--div class="ui_element">
-										<a href="javascript:void(0)" onclick="javascript:alert(1);"
+										<a href="javascript:void(0)" onclick="javascript:wpbc_resource_page_btn_click(1);"
 										   id="ui_btn_erase_availability" class="wpbc_ui_control wpbc_ui_button wpbc_ui_button_danger0 tooltip_top "
 										   title="<?php esc_attr_e( 'Customize Booking Calendar shortcode','booking'); ?>"  >
 												<span style="display: none;"><?php _e('Customize','booking'); ?>&nbsp;&nbsp;&nbsp;</span>

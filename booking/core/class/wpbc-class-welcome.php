@@ -480,6 +480,8 @@ if(0){
 
 			$this->section_9_8_css();
 
+			wpbc_welcome_section_10_0( $this );
+
 			wpbc_welcome_section_9_9( $this );
 
 			wpbc_welcome_section_9_8( $this );

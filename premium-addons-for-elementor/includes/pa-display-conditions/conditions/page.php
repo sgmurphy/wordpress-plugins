@@ -77,7 +77,5 @@ class Page extends Condition {
 		}
 
 		return false;
-
 	}
-
 }

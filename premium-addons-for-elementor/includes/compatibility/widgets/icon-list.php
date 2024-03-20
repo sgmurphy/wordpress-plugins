@@ -104,5 +104,4 @@ class Icon_List extends WPML_Elementor_Module_With_Items {
 				return '';
 		}
 	}
-
 }

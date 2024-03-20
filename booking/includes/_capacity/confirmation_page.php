@@ -115,6 +115,10 @@ function wpbc_shortcode__booking_confirmation_debug($attr, $content, $tag) {
 
 function wpbc_do_shortcode__booking_confirm( $attr ){
 
+	if ( wpbc_is_on_edit_page() ) {
+		return wpbc_get_preview_for_shortcode( 'booking_confirm', array() );      //FixIn: 9.9.0.39
+	}
+
 	ob_start();
 
 	$atts = array_change_key_case( (array) $attr, CASE_LOWER );                     // Changes the case of all keys in an array
@@ -238,6 +242,10 @@ function wpbc_do_shortcode__booking_confirm( $attr ){
 		$payment_params['is_from_admin_panel']  = false;                                            //           => false    true | false
 		$payment_params['is_show_payment_form'] = 1;                                                //           => 1        0 | 1
 
+		//FixIn: 9.9.0.35
+		if ( ( ! empty( $_GET['is_show_payment_form'] ) ) && ( 'Off' === $_GET['is_show_payment_form'] ) ) {
+			$payment_params['is_show_payment_form'] = 0;
+		}
 
 		$payment_params['costs_arr'] = array(
  											  'total_cost'   => $params_arr['payment_cost'],

@@ -95,6 +95,12 @@ class WPBC_Page_CalendarOverview extends WPBC_Page_Structure {
 
             // Show    T i m e L i n e   ///////////////////////////////////////
 
+			//FixIn: 9.9.0.18
+			$server_zone = date_default_timezone_get();                                                                         // If in 'Theme' or 'other plugin' set  default timezone other than UTC. Save it.
+			if ( 'UTC' !== $server_zone ) {                                                                                     // Needed for WP date functions  - set timezone to  UTC
+				@date_default_timezone_set( 'UTC' );
+			}
+
 			//FixIn: 8.6.1.13
 			$this->timeline = new WPBC_TimelineFlex();
 
@@ -102,6 +108,10 @@ class WPBC_Page_CalendarOverview extends WPBC_Page_Structure {
 
 			$this->timeline->show_timeline();
 
+			//FixIn: 9.9.0.18
+			if ( 'UTC' !== $server_zone ) {                                                                                     // Back  to  previos state,  if it was changed.
+				@date_default_timezone_set( $server_zone );
+			}
 
             ////////////////////////////////////////////////////////////////////
             

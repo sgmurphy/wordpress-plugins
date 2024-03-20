@@ -354,6 +354,49 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
                                                     </tr>'
                         );
         }
+
+
+		// Unavailable Legend Item      //FixIn: 9.9.0.5
+        $this->fields['booking_legend_is_show_item_unavailable_prefix'] = array(
+                                'type'          => 'pure_html'
+                                , 'group'       => 'calendar'
+                                , 'html'        => '<tr valign="top" class="wpbc_tr_set_gen_booking_legend_is_show_item_unavailable 
+                                                                            wpbc_calendar_legend_items wpbc_sub_settings_grayed">
+                                                        <th scope="row">'.
+                                                            WPBC_Settings_API::label_static( 'set_gen_booking_legend_is_show_item_unavailable'
+                                                                , array(   'title'=> __('Unavailable item' ,'booking'), 'label_css' => '' ) )
+                                                        .'</th>
+                                                        <td><fieldset>'
+                        );
+        $this->fields['booking_legend_is_show_item_unavailable'] = array(
+                                'type'          => 'checkbox'
+                                , 'default'     => $default_options_values['booking_legend_is_show_item_unavailable']         // 'On'
+                                , 'is_new_line' => false
+                                , 'group'       => 'calendar'
+                                , 'only_field'  => true
+            );
+        $this->fields['booking_legend_text_for_item_unavailable'] = array(
+                                'type'          => 'text'
+                                , 'default'     => $default_options_values['booking_legend_text_for_item_unavailable']         //__('Booked' ,'booking')
+                                , 'placeholder' => __('Unavailable' ,'booking')
+                                , 'css'         => '' //'width:8em;'
+                                , 'group'       => 'calendar'
+                                , 'only_field'  => true
+                        );
+        $this->fields['booking_legend_is_show_item_unavailable_sufix'] = array(
+                                'type'          => 'pure_html'
+                                , 'group'       => 'calendar'
+                                , 'html'        =>    '<p class="description" style="line-height: 1.7em;margin: 0;">'
+                                                        . sprintf(__('Activate and type your %stitle of unavailable%s item in legend' ,'booking'),'<b>','</b>')
+                                                    . '</p>
+                                                           </fieldset>
+                                                        </td>
+                                                    </tr>'
+                        );
+
+
+
+
 //        //  Help Section ///////////////////////////////////////////////////////
 //        $this->fields['booking_help_translation_section_after_legend_items'] = array(
 //                                  'type'              => 'help'

@@ -4,9 +4,216 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 
+function wpbc_welcome_section_10_0( $obj ){
+
+	$section_param_arr = array( 'version_num' => '10.0', 'show_expand' => false );
+
+	$obj->expand_section_start( $section_param_arr );
+
+
+	//$obj->asset_path = 'http://beta/assets/';	// TODO: 2023-11-06 comment this
+
+
+	// <editor-fold     defaultstate="collapsed"                        desc=" = F R E E = "  >
+	// -----------------------------------------------------------------------------------------------------------------
+	//  = F R E E =
+	// -----------------------------------------------------------------------------------------------------------------
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<h2><?php echo wpbc_replace_to_strong_symbols( 'Explore Simplified Integration and Enhanced Management' ); ?></h2>
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Easy Shortcode Integration' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( 'Discover the simplicity of integrating Booking Calendar shortcodes into your pages. Our updated UI for the configuration popup dialog simplifies the process of inserting booking forms, availability calendars, and other Booking Calendar shortcodes. Configuring all parameters is now super easy with our new structured wizard-style configuration dialog. Add the Booking Calendar to your page by using Booking Calendar Blocks in the WP Block Editor or by clicking on the Booking Calendar icon in the WP Classic Editor.' ); ?></li>
+				</ul>
+			</div>
+			<div class="wpbc_wn_col">
+				<img src="<?php echo $obj->section_img_url( '10.0/wp_booking_calendar_insert_shortcode_01.png' ); ?>" style="margin-top:55px" />
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Unavailable Dates legend item' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( 'Easily configure **Unavailable Dates legend item** under the calendar at WP Booking Calendar > Settings General page in the "Calendar" section.' ); ?></li>
+				</ul>
+			</div>
+			<div class="wpbc_wn_col">
+				<img src="<?php echo $obj->section_img_url( '10.0/wp_booking_calendar_unavailable_legend_01.png' ); ?>" style="margin-top:0px" />
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+	// </editor-fold>
+
+
+	// -----------------------------------------------------------------------------------------------------------------
+	//  = P A I D =
+	// -----------------------------------------------------------------------------------------------------------------
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<h2><?php echo wpbc_replace_to_strong_symbols( 'Changes in Premium Versions' ); ?></h2>
+		</div>
+
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Discover an enhanced user interface for the Resources page' ); ?></h3>
+				<?php
+				echo '<ul>'
+						. '<li>' . wpbc_replace_to_strong_symbols( '**New** **UI Design of Resource Page**. Easily toggle between table header tabs to view specific information, such as the shortcode for embedding into pages, costs, default form, or parent/child relation for defining booking resource capacity. The interface is now clearer and more straightforward for a seamless experience *(Personal, Business Small/Medium/Large, MultiUser)*.' ) . '</li>'
+					. '</ul>';
+				?>
+				<img src="<?php echo $obj->asset_path; ?>10.0/wp_booking_calendar_resources_page_03.gif" />
+				<?php
+				echo '<ul>'
+					  	. '<li>' . wpbc_replace_to_strong_symbols( '&bull; Added **search booking resources** field to Options toolbar for easy searching by ID or Title keywords (9.9.0.11) *(Personal, Business Small/Medium/Large, MultiUser)*.' ) . '</li>'
+						. '<li>' . wpbc_replace_to_strong_symbols( '&bull; You now have the ability to **save the number of booking resources per page** directly from the Booking > Resources page (at pagination section). (9.9.0.22) *(Personal, Business Small/Medium/Large, MultiUser)*' ) . '</li>'
+					. '</ul>';
+				?>
+			</div>
+		</div>
+
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Explore the super ease of configuring "Conditional Days Selection"' ); ?></h3>
+				<?php
+				echo '<ul>'
+						. '<li>' . wpbc_replace_to_strong_symbols( '&bull; Set the **number of days** for selection based **on a specific weekday**.' ) . '</li>'
+						. '<li>' . wpbc_replace_to_strong_symbols( '&bull; Determine the **number of days** for selection **in a specific season**.' ) . '</li>'
+						. '<li>' . wpbc_replace_to_strong_symbols( '&bull; Define the **number of days** for selection **starting from a specific date**.' ) . '</li>'
+						. '<li>' . wpbc_replace_to_strong_symbols( '&bull; Choose **weekdays as start days** for selection **during a specific season**.' ) . '</li>'
+						. '<li>' . wpbc_replace_to_strong_symbols( '*(Business Medium/Large, MultiUser)*' ) . '</li>'
+					. '</ul>';
+				?>
+				<img src="<?php echo $obj->asset_path; ?>10.0/wp_booking_calendar_days_selection_04_2000px.gif" />
+			</div>
+		</div>
+
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( '**New shortcode** for **displaying taxes or additional fees based on the total booking cost**.' ); ?></h3>
+				<?php
+				echo '<ul>'
+						. '<li>' . wpbc_replace_to_strong_symbols( 'This **[total_cost]** shortcode  is used for displaying additional cost hints without affecting cost calculations. Since the total cost has already been calculated at this stage.' ) . ' '
+						 		 . wpbc_replace_to_strong_symbols( 'For example, if you want to **show the tax cost as 20% inclusive part of the total booking cost**, set up your booking form fields like this: ' ) //. '</li>'
+						. '<code>&lt;div style="display:none;"&gt; [checkbox tax_fee default:on ""]&lt;/div&gt; Tax: [tax_fee_hint]</code></li>'
+						//. '<li>' . wpbc_replace_to_strong_symbols( 'The first shortcode, [checkbox tax_fee default:on ""], is crucial for cost calculation, while the second shortcode, [tax_fee_hint], reveals the cost hint.' ) . '</li>'
+						. '<li>' . wpbc_replace_to_strong_symbols( 'Now, define the additional cost for tax_fee at WP Booking Calendar > Prices > Form Options Costs page: ' ) . '<code>tax_fee = ( [total_cost] * 0.2 )</code></li>'
+						. '<li>' . wpbc_replace_to_strong_symbols( ' *(Business Medium/Large, MultiUser)*' ) . '</li>'
+					. '</ul>';
+				?>
+			</div>
+		</div>
+
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Track Changes: **Booking Edit Notification**' ); ?></h3>
+				<?php
+				echo '<ul>'
+						. '<li>' . wpbc_replace_to_strong_symbols( '&bull; Whenever a booking is edited, a note stating **\'The booking has been edited\'** will be generated for the booking. This note also contains the URL of the page where the user made the modifications. With this feature, you gain control over tracking changes to booking details.' ) . '</li>'
+						. '<li>' . wpbc_replace_to_strong_symbols( '&bull; Now, booking notes such as "Imported from Google Calendar," "Payment section displayed," "Total cost manually entered," "Automatically calculated cost," etc., will be **saved only if the "Logging actions for booking" option is activated** in the WP Booking Calendar > Settings General page in the "Admin Panel" section.' ) . '</li>'
+					. '</ul>';
+				?>
+			</div>
+		</div>
+
+
+	</div><?php
+
+
+
+	// <editor-fold     defaultstate="collapsed"                        desc="  = M I X E D = "  >
+	// -----------------------------------------------------------------------------------------------------------------
+	//  = M I X E D =
+	// -----------------------------------------------------------------------------------------------------------------
+	?><hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	<div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<h2><?php echo wpbc_replace_to_strong_symbols( 'Additional Improvements in Free and Pro versions' ); ?></h2>
+		</div>
+
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Improvements in Pro Versions' ); ?></h3>
+				<ul>
+
+					<?php // Pro ?>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Sage/Opayo gateway becoming a payment product under the Elavon brand. Update name of payment gateway from SagePay to **Opayo - Elavon**. For more information, visit: https://www.elavon.co.uk/resource-center/news-and-insights/opayo-migration-faqs.html  (9.9.0.34) *(Business Small/Medium/Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced **Booking Management** - When editing or duplicating a booking in the admin panel, you will now be redirected to the Booking Listing page, where the specific booking will be displayed. (9.9.0.3) (9.9.0.38) *(Personal, Business Small/Medium/Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced **Shortcode Functionality** - Resolve the "403 permission error" issue encountered when modifying booking forms on the WP Booking Calendar > Settings > Booking Form page by utilizing the **new shortcode [selectbox name "Option 1" "Option 2"]** instead of [select name "Option 1" "Option 2"]. This update addresses the problem faced on certain Apache servers with ModSecurity firewall, which affects specific POST requests when saving booking form configurations. *(Personal, Business Small/Medium/Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced **Deposit Management** - Now, when a booking is made in the admin panel at WP Booking Calendar > Add booking page, the deposit amount in the cost field and notes section, as well as the total cost for the booking, will be updated accordingly. This feature requires displaying payment forms at the Booking > Add booking page in such cases. (9.9.0.21) *(Business Small/Medium/Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced **Import Functionality** - You can now utilize the option \'Trash / delete all imported bookings before new import\' in situations where imports are initiated via the Google Calendar API instead of .ics feeds. This feature provides greater control over managing imported bookings and ensures a smoother import process. Please note that this feature requires the installation of the **Booking Manager** plugin.  (9.9.0.25)' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced **Payment Confirmation** - You now have the ability to **use the [booking_confirm] shortcode on the "Successful payment" page**, where users are redirected after making a payment via the Stripe or PayPal payment system. This allows you to configure the page to display a message such as \'Your payment for the booking has been successfully received. [booking_confirm]\', providing users with confirmation of their payment along with booking details. (9.9.0.37) *(Business Small/Medium/Large, MultiUser)*' ); ?></li>
+
+				</ul>
+			</div>
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Improvements in Free version' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Ability to dismiss the booking statistic section at Booking > Settings General page in "Info / News" for improved admin panel loading speed. (9.9.0.8).' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced **Performance** - To improve the speed of page loading in the admin panel, statistic functions will now run only on the Dashboard and Booking Calendar settings pages. This optimization ensures a smoother user experience by focusing resource-intensive tasks only where necessary. (9.9.0.40)' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Prevent showing real preview in Elementor to reduce potential conflicts; instead, show \'WP Booking Calendar Shortcode block\' (9.9.0.39).' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Prevent execution of Booking Calendar shortcodes while editing posts/pages, reducing potential conflicts (9.9.0.39).' ); ?></li>
+				</ul>
+
+				<div style="clear:both;height:20px;"></div>
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Under Hood Changes' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Customize showing booked time slots as inactive slots with a red background after selecting specific dates. Configure this in the ../{Booking Calendar Folder}/js/wpbc_time-selector.js file  by searching //FixIn: 9.9.0.2 (9.9.0.2).' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Update the URLs for send transactions for Opayo - Elavon (former SagePay) to an Elavon domain on 31st March 2024. For more details, please refer to the following link: https://developer.elavon.com/products/opayo-forms/v1/test-and-live-urls-4633 (9.9.0.34) *(Business Small/Medium/Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Option to **Hide Payment Form After Visitor Edits Own Booking** - You now have the ability to define not to show the payment form after a visitor edits their own booking. This can be achieved by using the shortcode **[visitorbookingediturl]&is_show_payment_form=Off** in the New (visitor) email template at the WP Booking Calendar > Settings > Emails page. (9.9.0.35) *(Business Small/Medium/Large, MultiUser)*' ); ?></li>
+				</ul>
+
+				<div style="clear:both;height:20px;"></div>
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Translations' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; **Hungarian Translation Update**. Translation has been updated, reaching 96% completion, courtesy of VinczeI.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; **German Translation Update**. Translation has been updated, reaching 96% completion, courtesy of Wibias.' ); ?></li>
+				</ul>
+
+			</div>
+		</div>
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Bug Fixes' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Resolved possible PHP 8 incompatibility issue (9.9.0.4).' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Resolved issue of showing top messages (9.9.0.10).' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Corrected the issue of incorrectly showing today\'s date as an unavailable date in the calendar on servers with a timezone different from UTC, especially in American timezones (9.9.0.17).' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Addressed the issue of incorrectly showing bookings in Calendar Overview and Timeline when the timezone was incorrectly defined by themes (in functions.php file) or other plugins via incorrectly defined the timezone via this PHP functions: like date_default_timezone_set(\'America/Chicago\'); Even it is not correct way of defining timezone, relative to https://make.wordpress.org/core/2019/09/23/date-time-improvements-wp-5-3/ . Now plugin correctly resolve this issue. (9.9.0.18).' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Re-created the "Thank you" confirmation page (such  as https://server.com/wpbc-booking-received/) if the confirmation booking page was previously defined as follow: https://server.com/thank-you/ (9.9.0.27).' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Resolved fatal error:  Uncaught Error: Cannot access offset of type string on string in ../wpbc-class-timeline_v2.php on line 3100 (9.9.0.30).' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; **Search Availability** Functionality Issue - An issue has been resolved in the Search Availability functionality. Previously, it was not possible to find pages with booking form shortcodes when the booking resource was defined using the \'resource_id\' parameter instead of \'type\'. This fix ensures that the search functionality now works as expected, allowing users to locate pages with booking forms accurately. (9.9.0.26) *(Business Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; **Correct Sorting Order for Booking Resources** - An issue has been addressed where the sorting order for booking resources in select-boxes was not defined correctly during the change of booking resource for a specific booking. This fix ensures that booking resources are displayed in the correct order. (9.9.0.23) *(Personal, Business Small/Medium/Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; **Correction of Start Day Definition** - An issue has been **resolved where Sunday was incorrectly defined as the start day for selection** in specific seasons when using conditions in the shortcode. For example, when using a shortcode like [booking resource_id=1 options=\'{start-day condition="season" for="myHighSeason" value="0"},{select-day condition="season" for="myHighSeason" value="8,15,22,29"}\'], Sunday was inaccurately identified as the start day. This fix ensures that the start day for selection in specific seasons is correctly determined. (9.9.0.9)  *(Business Medium/Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; **Corrected Saving of Booking Dates** - An issue has been resolved where booking dates were incorrectly saved if the option "Set check out date as available" was activated at the WP Booking Calendar > Settings General page in the "Calendar" section. (9.9.0.19) *(Business Small/Medium/Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; **Corrected Redirect Issue for Failed Payments** - An issue has been addressed where users were incorrectly redirected to the home page instead of the failed URL when **payments failed via iDeal (Buckaroo)**.  (9.9.0.24) *(Business Small/Medium/Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Resolved an issue causing a possible PHP Fatal error has been resolved. This error, specifically the Uncaught TypeError: Unsupported operand types: null + string, occurred in the wpbc-calc-string.php file when non-standard shortcodes with arithmetic operations were used on the WP Booking Calendar > Prices > Form Options Costs page. (9.9.0.28) *(Business Medium/Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; **Corrected Minimum Date Selection Issue** - An issue has been addressed where the minimum number of dates in the calendar was incorrectly selected if a user clicked twice on the same date, and the system had a minimum number defined higher than 1 day. (9.9.0.29) *(Business Small/Medium/Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; **Corrected End Time Selection Issue** - An issue has been resolved where, if the option "Use selected times for each booking date" was deactivated, the system incorrectly blocked end times when a user selected multiple dates. For example, if the start time was booked from 00:00 to 15:00, the system would block the end time until 15:00, even if the end date was fully available. (9.9.0.31) *(Business Small/Medium/Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; **Corrected Display Issue with Check-In/Out Dates** - An issue has been resolved where the check-in/out dates (triangles) were incorrectly shown as fully available dates in booking resources with specific capacity. This occurred when one of the child booking resources had a change-over dates situation rather than being fully booked.  (9.9.0.33) *(Business Small/Medium/Large, MultiUser)*' ); ?></li>
+				</ul>
+			</div>
+		</div>
+
+	</div><?php
+	// </editor-fold>
+
+
+	$obj->expand_section_end( $section_param_arr );
+}
+
+
 function wpbc_welcome_section_9_9( $obj ){
 
-	$section_param_arr = array( 'version_num' => '9.9', 'show_expand' => false );
+	$section_param_arr = array( 'version_num' => '9.9', 'show_expand' => !false );
 
 	$obj->expand_section_start( $section_param_arr );
 
@@ -32,6 +239,7 @@ function wpbc_welcome_section_9_9( $obj ){
 			</div>
 		</div>
 		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
 	<?php
 
 	?><div class="wpbc_wn_container">
@@ -45,6 +253,7 @@ function wpbc_welcome_section_9_9( $obj ){
 			</div>
 		</div>
 		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
 	<?php
 
 	// </editor-fold>
@@ -54,10 +263,9 @@ function wpbc_welcome_section_9_9( $obj ){
 	//  = P A I D =
 	// -----------------------------------------------------------------------------------------------------------------
 	?>
-		<div class="wpbc_wn_container">
-			<div class="wpbc_wn_section">
-				<h2><?php echo wpbc_replace_to_strong_symbols( 'Changes in Premium Versions' ); ?></h2>
-			</div>
+	<div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<h2><?php echo wpbc_replace_to_strong_symbols( 'Changes in Premium Versions' ); ?></h2>
 		</div>
 
 		<div class="wpbc_wn_section">
@@ -71,6 +279,7 @@ function wpbc_welcome_section_9_9( $obj ){
 				<img src="<?php echo $obj->asset_path; ?>9.9/wp_booking_calendar_paypal_setup_03.gif" />
 			</div>
 		</div>
+	</div>
 	<?php
 
 
@@ -80,14 +289,12 @@ function wpbc_welcome_section_9_9( $obj ){
 	//  = M I X E D =
 	// -----------------------------------------------------------------------------------------------------------------
 	?>
-		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
-		<div class="wpbc_wn_container">
-			<div class="wpbc_wn_section">
-				<h2><?php echo wpbc_replace_to_strong_symbols( 'Additional Improvements in Free and Pro versions' ); ?></h2>
-			</div>
-		</div><?php
+	<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	<div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<h2><?php echo wpbc_replace_to_strong_symbols( 'Additional Improvements in Free and Pro versions' ); ?></h2>
+		</div>
 
-		?>
 		<div class="wpbc_wn_section">
 			<div class="wpbc_wn_col">
 				<h3><?php echo wpbc_replace_to_strong_symbols( 'Improvements' ); ?></h3>
@@ -145,7 +352,6 @@ function wpbc_welcome_section_9_9( $obj ){
 
 	$obj->expand_section_end( $section_param_arr );
 }
-
 
 
 function wpbc_welcome_section_9_8( $obj ){
@@ -238,6 +444,7 @@ function wpbc_welcome_section_9_8( $obj ){
 				<img src="<?php echo $obj->section_img_url( '9.8/wp_booking_calendar_settings_02.gif' ); ?>" style="margin-top:3.5em;"/>
 			</div>
 		</div>
+	</div>
 	<?php
 
 	// </editor-fold>
@@ -247,13 +454,11 @@ function wpbc_welcome_section_9_8( $obj ){
 	//  = P A I D =
 	// -----------------------------------------------------------------------------------------------------------------
 	?>
-		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
-		<div class="wpbc_wn_container">
-			<div class="wpbc_wn_section">
-				<h2><?php echo wpbc_replace_to_strong_symbols( 'Changes in Premium Versions' ); ?></h2>
-			</div>
+	<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	<div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<h2><?php echo wpbc_replace_to_strong_symbols( 'Changes in Premium Versions' ); ?></h2>
 		</div>
-
 
 		<div class="wpbc_wn_section">
 			<div class="wpbc_wn_col">
@@ -277,7 +482,6 @@ function wpbc_welcome_section_9_8( $obj ){
 				?>
 			</div>
 		</div>
-
 
 		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
 		<div class="wpbc_wn_section">
@@ -305,7 +509,6 @@ function wpbc_welcome_section_9_8( $obj ){
 			</div>
 		</div>
 
-
 		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
 		<div class="wpbc_wn_section">
 			<div class="wpbc_wn_col">
@@ -322,7 +525,6 @@ function wpbc_welcome_section_9_8( $obj ){
 				<img src="<?php echo $obj->asset_path; ?>9.8/wp_booking_display_booking_details_05.gif" />
 			</div>
 		</div>
-
 
 		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
 		<div class="wpbc_wn_section">
@@ -396,6 +598,7 @@ function wpbc_welcome_section_9_8( $obj ){
 				?>
 			</div>
 		</div>
+	</div>
 	<?php
 
 
@@ -405,14 +608,12 @@ function wpbc_welcome_section_9_8( $obj ){
 	//  = M I X E D =
 	// -----------------------------------------------------------------------------------------------------------------
 	?>
-		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
-		<div class="wpbc_wn_container">
-			<div class="wpbc_wn_section">
-				<h2><?php echo wpbc_replace_to_strong_symbols( 'Additional Improvements in Free and Pro versions' ); ?></h2>
-			</div>
-		</div><?php
+	<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	<div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<h2><?php echo wpbc_replace_to_strong_symbols( 'Additional Improvements in Free and Pro versions' ); ?></h2>
+		</div>
 
-		?>
 		<div class="wpbc_wn_section">
 			<div class="wpbc_wn_col">
 				<ul>

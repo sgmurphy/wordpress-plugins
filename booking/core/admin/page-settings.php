@@ -83,8 +83,7 @@ class WPBC_Page_SettingsGeneral extends WPBC_Page_Structure {
                     );
 
         $subtabs = array();
-
-	    $subtabs['wpbc-settings-info'] = array( 'type' => 'html', 'html' => wpbc_get_flex_dashboard_info() );
+		$subtabs['wpbc-settings-info'] = array( 'type' => 'html', 'html' => wpbc_get_flex_dashboard_info() );
 
 if (0){
         $subtabs['wpbc-settings-calendar'] = array(   'type' => 'goto-link'

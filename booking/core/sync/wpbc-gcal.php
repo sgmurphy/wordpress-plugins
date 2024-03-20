@@ -24,6 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 
 function wpbc_silent_import_all_events() {
 
+
+
     global $wpdb;
 
     $wpbc_Google_Calendar = new WPBC_Google_Calendar();
@@ -62,6 +64,11 @@ function wpbc_silent_import_all_events() {
 
                 $wpbc_Google_Calendar->setUrl($wpbc_booking_resource_feed);
                 $wpbc_Google_Calendar->setResource($wpbc_booking_resource_id);
+
+				//FixIn: 9.9.0.25
+	            if ( function_exists( 'wpbm_delete_all_imported_bookings' ) ) {
+		            wpbm_delete_all_imported_bookings( array( 'resource_id' => $wpbc_booking_resource_id ) );
+	            }
                 $import_result = $wpbc_Google_Calendar->run();                
             }
         }                    

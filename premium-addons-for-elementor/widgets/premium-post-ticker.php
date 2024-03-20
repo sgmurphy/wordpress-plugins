@@ -1029,20 +1029,20 @@ class Premium_Post_Ticker extends Widget_Base {
 					'p'    => 'p',
 				),
 				'label_block' => true,
-				'conditions' => array(
+				'conditions'  => array(
 					'relation' => 'or',
-					'terms' => array(
+					'terms'    => array(
 						array(
-							'name' => 'ticker_title',
+							'name'     => 'ticker_title',
 							'operator' => '!==',
-							'value' => ''
+							'value'    => '',
 						),
 						array(
-							'name' => 'post_type_filter',
-							'value' => 'post'
-						)
-					)
-				)
+							'name'  => 'post_type_filter',
+							'value' => 'post',
+						),
+					),
+				),
 			)
 		);
 
@@ -1977,12 +1977,11 @@ class Premium_Post_Ticker extends Widget_Base {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
 
 		$this->end_controls_section();
-
 	}
 
 	/** Style Controls.*/
@@ -2693,7 +2692,6 @@ class Premium_Post_Ticker extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -3539,7 +3537,7 @@ class Premium_Post_Ticker extends Widget_Base {
 
 				if ( count( $icons_repeater ) > 0 ) {
 					array_map(
-						function( $repeater_item ) use ( $currency_symbol, &$custom_icon ) {
+						function ( $repeater_item ) use ( $currency_symbol, &$custom_icon ) {
 							if ( $repeater_item['symbol_name'] === $currency_symbol ) {
 								$custom_icon = $repeater_item['symbol_img']['url'];
 							}},
@@ -3589,7 +3587,7 @@ class Premium_Post_Ticker extends Widget_Base {
 							if ( ! $is_stock_element ) {
 								echo 'Per Ounce'; }
 							?>
-							 " aria-label="<?php echo esc_attr__( $price, 'premium-addons-for-elementor' ); ?>"><?php echo $price; ?></span>
+							" aria-label="<?php echo esc_attr__( $price, 'premium-addons-for-elementor' ); ?>"><?php echo $price; ?></span>
 						<?php endif; ?>
 
 						<?php if ( $show_change ) : ?>

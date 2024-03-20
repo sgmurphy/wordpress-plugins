@@ -55,7 +55,6 @@ class Vertical_Scroll extends WPML_Elementor_Module_With_Items {
 	protected function get_title( $field ) {
 
 		return __( 'Vertical Scroll: Section ID', 'premium-addons-for-elementor' );
-
 	}
 
 	/**
@@ -71,5 +70,4 @@ class Vertical_Scroll extends WPML_Elementor_Module_With_Items {
 
 		return 'LINE';
 	}
-
 }

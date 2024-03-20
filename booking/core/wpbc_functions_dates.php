@@ -6,6 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 // Localize dates
 // ---------------------------------------------------------------------------------------------------------------------
 
+
 /**
  * Return date / time in    'LOCAL_FORMAT'.
  *
@@ -45,6 +46,85 @@ function wpbc_datetime_localized( $date_str_ymdhis, $format = '', $is_add_timezo
 
 	return $local_date;
 }
+
+	// -----------------------------------------------------------------------------------------------------------------
+
+	//FixIn: 9.9.0.17
+	/**
+	 * Return date / time in    'LOCAL_FORMAT'    with  WordPress Timezone   offset   from WordPress  > Settings General page
+	 *
+	 * @param string|int $date_str_ymdhis        Date to format.
+	 * @param string     $format                 Optional. Date/Time Format,  like 'Y-m-d H:i:s'
+	 *
+	 * @return string
+	 */
+	function wpbc_datetime_localized__use_wp_timezone( $date_str_ymdhis, $format = '') {
+
+		$is_add_timezone_offset = true;
+
+		$datetime_localized = wpbc_datetime_localized( $date_str_ymdhis, $format, $is_add_timezone_offset );
+
+		return $datetime_localized;
+	}
+
+	/**
+	 * Return date / time in    'LOCAL_FORMAT'    without  WordPress Timezone   offset       - NO TIMEZONE
+	 *
+	 * @param string|int $date_str_ymdhis        Date to format.
+	 * @param string     $format                 Optional. Date/Time Format,  like 'Y-m-d H:i:s'
+	 *
+	 * @return string
+	 */
+	function wpbc_datetime_localized__no_wp_timezone( $date_str_ymdhis, $format = '') {
+
+		$is_add_timezone_offset = false;
+
+		$datetime_localized = wpbc_datetime_localized( $date_str_ymdhis, $format, $is_add_timezone_offset );
+
+		return $datetime_localized;
+	}
+
+
+	// -----------------------------------------------------------------------------------------------------------------
+
+	/**
+	 * Return date / time in    'LOCAL_FORMAT'    with  WordPress Timezone   offset   from WordPress  > Settings General page
+	 *
+	 * @param string     $format                 Optional. Date/Time Format,  like 'Y-m-d H:i:s'
+	 * @param string|int $date_str_ymdhis        Date to format.
+	 *
+	 * @return string
+	 */
+	function wpbc_datetime__use_wp_timezone( $format, $date_str_ymdhis = '' ) {
+
+		if ( '' === $date_str_ymdhis ) {
+			$date_str_ymdhis = date( 'Y-m-d H:i:s', strtotime( 'now' ) );
+		}
+
+		return wpbc_datetime_localized__use_wp_timezone( $date_str_ymdhis, $format );
+	}
+
+
+	/**
+	 * Return date / time in    'LOCAL_FORMAT'    without  WordPress Timezone   offset       - NO TIMEZONE
+	 *
+	 * @param string     $format                 Optional. Date/Time Format,  like 'Y-m-d H:i:s'
+	 * @param string|int $date_str_ymdhis        Date to format.
+	 *
+	 * @return string
+	 */
+	function wpbc_datetime__no_wp_timezone( $format, $date_str_ymdhis = '' ) {
+
+		if ( '' === $date_str_ymdhis ) {
+			$date_str_ymdhis = date( 'Y-m-d H:i:s', strtotime( 'now' ) );
+		}
+
+		return wpbc_datetime_localized__no_wp_timezone( $date_str_ymdhis, $format );
+	}
+
+
+	// -----------------------------------------------------------------------------------------------------------------
+
 
 /**
  * Return date       in    'LOCAL_FORMAT'.
@@ -439,6 +519,10 @@ function wpbc_date_get_week_day_num( $date_sql_str ) {
  */
 function wpbc_test_dates_functions() {
 
+	if ( wpbc_is_on_edit_page() ) {
+		return wpbc_get_preview_for_shortcode( 'wpbc_test_dates_functions', array() );      //FixIn: 9.9.0.39
+	}
+
 	ob_start();
 	ob_clean();
 
@@ -494,3 +578,5 @@ function wpbc_test_dates_functions() {
 add_shortcode( 'wpbc_test_dates_functions', 'wpbc_test_dates_functions' );
 // </editor-fold>
 
+//TODO: it's only  for Debug: Comment it. //FixIn: 9.9.0.17
+// date_default_timezone_set( 'America/Chicago' );          // For Debug in Booking Calendar - booking form,  for shortcode [wpbc_test_dates_functions] this line can be commented

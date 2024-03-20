@@ -3,20 +3,21 @@
 Plugin Name: WPC Smart Quick View for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Smart Quick View allows users to get a quick look of products without opening the product page.
-Version: 4.0.0
+Version: 4.0.1
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-quick-view
 Domain Path: /languages/
+Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.4
 WC requires at least: 3.0
-WC tested up to: 8.6
+WC tested up to: 8.7
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSQ_VERSION' ) && define( 'WOOSQ_VERSION', '4.0.0' );
+! defined( 'WOOSQ_VERSION' ) && define( 'WOOSQ_VERSION', '4.0.1' );
 ! defined( 'WOOSQ_LITE' ) && define( 'WOOSQ_LITE', __FILE__ );
 ! defined( 'WOOSQ_FILE' ) && define( 'WOOSQ_FILE', __FILE__ );
 ! defined( 'WOOSQ_URI' ) && define( 'WOOSQ_URI', plugin_dir_url( __FILE__ ) );
@@ -233,7 +234,9 @@ if ( ! function_exists( 'woosq_init' ) ) {
 
 				function ajax_quickview() {
 					if ( ! apply_filters( 'woosq_disable_security_check', false ) ) {
-						check_ajax_referer( 'woosq-security', 'nonce' );
+						if ( ! isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), 'woosq-security' ) ) {
+							die( 'Permissions check failed!' );
+						}
 					}
 
 					global $post, $product;
@@ -318,12 +321,12 @@ if ( ! function_exists( 'woosq_init' ) ) {
 											if ( self::get_setting( 'content_image_lightbox', 'no' ) !== 'no' ) {
 												$image_full = wp_get_attachment_image_src( $thumb_id, 'full' );
 
-												echo '<div class="thumbnail" data-id="' . $thumb_id . '">' . wp_get_attachment_image( $thumb_id, $image_size, false, [
+												echo '<div class="thumbnail" data-id="' . esc_attr( $thumb_id ) . '">' . wp_get_attachment_image( $thumb_id, $image_size, false, [
 														'data-fancybox' => 'gallery',
 														'data-src'      => esc_url( $image_full[0] )
 													] ) . '</div>';
 											} else {
-												echo '<div class="thumbnail" data-id="' . $thumb_id . '">' . wp_get_attachment_image( $thumb_id, $image_size ) . '</div>';
+												echo '<div class="thumbnail" data-id="' . esc_attr( $thumb_id ) . '">' . wp_get_attachment_image( $thumb_id, $image_size ) . '</div>';
 											}
 										}
 									} else {
@@ -446,8 +449,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
 						<?php
 						if ( self::get_setting( 'content_view_details_button', 'no' ) === 'yes' ) {
 							$view_details_text = self::localization( 'view_details', esc_html__( 'View product details', 'woo-smart-quick-view' ) );
-
-							echo sprintf( '<a class="view-details-btn" href="%s">%s</a>', $product->get_permalink(), esc_html( $view_details_text ) );
+							echo '<a class="view-details-btn" href="' . esc_url( $product->get_permalink() ) . '">' . esc_html( $view_details_text ) . '</a>';
 						}
 
 						if ( self::get_setting( 'view', 'popup' ) === 'popup' ) {
@@ -550,10 +552,10 @@ if ( ! function_exists( 'woosq_init' ) ) {
 					$active_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'settings';
 					?>
                     <div class="wpclever_settings_page wrap">
-                        <h1 class="wpclever_settings_page_title"><?php echo esc_html__( 'WPC Smart Quick View', 'woo-smart-quick-view' ) . ' ' . WOOSQ_VERSION . ' ' . ( defined( 'WOOSQ_PREMIUM' ) ? '<span class="premium" style="display: none">' . esc_html__( 'Premium', 'woo-smart-quick-view' ) . '</span>' : '' ); ?></h1>
+                        <h1 class="wpclever_settings_page_title"><?php echo esc_html__( 'WPC Smart Quick View', 'woo-smart-quick-view' ) . ' ' . esc_html( WOOSQ_VERSION ) . ' ' . ( defined( 'WOOSQ_PREMIUM' ) ? '<span class="premium" style="display: none">' . esc_html__( 'Premium', 'woo-smart-quick-view' ) . '</span>' : '' ); ?></h1>
                         <div class="wpclever_settings_page_desc about-text">
                             <p>
-								<?php printf( esc_html__( 'Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating.', 'woo-smart-quick-view' ), '<span style="color:#ffb900">&#9733;&#9733;&#9733;&#9733;&#9733;</span>' ); ?>
+								<?php printf( /* translators: stars */ esc_html__( 'Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating.', 'woo-smart-quick-view' ), '<span style="color:#ffb900">&#9733;&#9733;&#9733;&#9733;&#9733;</span>' ); ?>
                                 <br/>
                                 <a href="<?php echo esc_url( WOOSQ_REVIEWS ); ?>" target="_blank"><?php esc_html_e( 'Reviews', 'woo-smart-quick-view' ); ?></a> |
                                 <a href="<?php echo esc_url( WOOSQ_CHANGELOG ); ?>" target="_blank"><?php esc_html_e( 'Changelog', 'woo-smart-quick-view' ); ?></a> |
@@ -567,16 +569,16 @@ if ( ! function_exists( 'woosq_init' ) ) {
 						<?php } ?>
                         <div class="wpclever_settings_page_nav">
                             <h2 class="nav-tab-wrapper">
-                                <a href="<?php echo admin_url( 'admin.php?page=wpclever-woosq&tab=settings' ); ?>" class="<?php echo esc_attr( $active_tab === 'settings' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woosq&tab=settings' ) ); ?>" class="<?php echo esc_attr( $active_tab === 'settings' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
 									<?php esc_html_e( 'Settings', 'woo-smart-quick-view' ); ?>
                                 </a>
-                                <a href="<?php echo admin_url( 'admin.php?page=wpclever-woosq&tab=localization' ); ?>" class="<?php echo esc_attr( $active_tab === 'localization' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woosq&tab=localization' ) ); ?>" class="<?php echo esc_attr( $active_tab === 'localization' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
 									<?php esc_html_e( 'Localization', 'woo-smart-quick-view' ); ?>
                                 </a>
-                                <a href="<?php echo admin_url( 'admin.php?page=wpclever-woosq&tab=premium' ); ?>" class="<?php echo esc_attr( $active_tab === 'premium' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>" style="color: #c9356e;">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woosq&tab=premium' ) ); ?>" class="<?php echo esc_attr( $active_tab === 'premium' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>" style="color: #c9356e;">
 									<?php esc_html_e( 'Premium Version', 'woo-smart-quick-view' ); ?>
                                 </a>
-                                <a href="<?php echo admin_url( 'admin.php?page=wpclever-kit' ); ?>" class="nav-tab">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-kit' ) ); ?>" class="nav-tab">
 									<?php esc_html_e( 'Essential Kit', 'woo-smart-quick-view' ); ?>
                                 </a>
                             </h2>
@@ -591,6 +593,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
 								$next_prev              = self::get_setting( 'next_prev', 'yes' );
 								$sidebar_position       = self::get_setting( 'sidebar_position', '01' );
 								$sidebar_heading        = self::get_setting( 'sidebar_heading', 'no' );
+								$back_to_close          = self::get_setting( 'back_to_close', 'no' );
 								$auto_close             = self::get_setting( 'auto_close', 'yes' );
 								$perfect_scrollbar      = self::get_setting( 'perfect_scrollbar', 'yes' );
 								$loop                   = self::get_setting( 'loop', 'no' );
@@ -686,7 +689,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Shortcode', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <span class="description"><?php printf( esc_html__( 'You can add the button by manually by using the shortcode %s, eg. %s for the product with ID is 99.', 'woo-smart-quick-view' ), '<code>[woosq id="{product id}"]</code>', '<code>[woosq id="99"]</code>' ); ?></span>
+                                                <span class="description"><?php printf( /* translators: shortcode */ esc_html__( 'You can add the button by manually by using the shortcode %1$s, e.g. %2$s for the product with ID is 99.', 'woo-smart-quick-view' ), '<code>[woosq id="{product id}"]</code>', '<code>[woosq id="99"]</code>' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -742,6 +745,16 @@ if ( ! function_exists( 'woosq_init' ) ) {
                                             </td>
                                         </tr>
                                         <tr>
+                                            <th scope="row"><?php esc_html_e( 'Back to close', 'woo-smart-quick-view' ); ?></th>
+                                            <td>
+                                                <select name="woosq_settings[back_to_close]">
+                                                    <option value="yes" <?php selected( $back_to_close, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
+                                                    <option value="no" <?php selected( $back_to_close, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
+                                                </select>
+                                                <span class="description"><?php esc_html_e( 'Close the popup when pressing on the browser\'s back button.', 'woo-smart-quick-view' ); ?></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <th scope="row"><?php esc_html_e( 'Auto close', 'woo-smart-quick-view' ); ?></th>
                                             <td>
                                                 <select name="woosq_settings[auto_close]">
@@ -758,7 +771,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
                                                     <option value="yes" <?php selected( $perfect_scrollbar, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-quick-view' ); ?></option>
                                                     <option value="no" <?php selected( $perfect_scrollbar, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-quick-view' ); ?></option>
                                                 </select>
-                                                <span class="description"><?php printf( esc_html__( 'Read more about %s.', 'woo-smart-quick-view' ), '<a href="https://github.com/mdbootstrap/perfect-scrollbar" target="_blank">perfect-scrollbar</a>' ); ?></span>
+                                                <span class="description"><?php printf( /* translators: link */ esc_html__( 'Read more about %s.', 'woo-smart-quick-view' ), '<a href="https://github.com/mdbootstrap/perfect-scrollbar" target="_blank">perfect-scrollbar</a>' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -1124,6 +1137,10 @@ if ( ! function_exists( 'woosq_init' ) ) {
 							'jquery-ui-sortable',
 							'selectWoo',
 						], WOOSQ_VERSION, true );
+						wp_localize_script( 'woosq-backend', 'woosq_vars', [
+								'nonce' => wp_create_nonce( 'woosq-security' ),
+							]
+						);
 					}
 				}
 
@@ -1178,7 +1195,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
 							'effect'                  => self::get_setting( 'effect', 'mfp-3d-unfold' ),
 							'scrollbar'               => self::get_setting( 'perfect_scrollbar', 'yes' ),
 							'auto_close'              => self::get_setting( 'auto_close', 'yes' ),
-							'hashchange'              => apply_filters( 'woosq_hashchange', 'no' ),
+							'hashchange'              => apply_filters( 'woosq_hashchange', self::get_setting( 'back_to_close', 'no' ) ),
 							'cart_redirect'           => get_option( 'woocommerce_cart_redirect_after_add' ),
 							'cart_url'                => apply_filters( 'woocommerce_add_to_cart_redirect', wc_get_cart_url(), null ),
 							'close'                   => self::localization( 'close', esc_html__( 'Close (Esc)', 'woo-smart-quick-view' ) ),
@@ -1226,8 +1243,8 @@ if ( ! function_exists( 'woosq_init' ) ) {
 					}
 
 					if ( $plugin === $file ) {
-						$settings             = '<a href="' . admin_url( 'admin.php?page=wpclever-woosq&tab=settings' ) . '">' . esc_html__( 'Settings', 'woo-smart-quick-view' ) . '</a>';
-						$links['wpc-premium'] = '<a href="' . admin_url( 'admin.php?page=wpclever-woosq&tab=premium' ) . '">' . esc_html__( 'Premium Version', 'woo-smart-quick-view' ) . '</a>';
+						$settings             = '<a href="' . esc_url( admin_url( 'admin.php?page=wpclever-woosq&tab=settings' ) ) . '">' . esc_html__( 'Settings', 'woo-smart-quick-view' ) . '</a>';
+						$links['wpc-premium'] = '<a href="' . esc_url( admin_url( 'admin.php?page=wpclever-woosq&tab=premium' ) ) . '">' . esc_html__( 'Premium Version', 'woo-smart-quick-view' ) . '</a>';
 						array_unshift( $links, $settings );
 					}
 
@@ -1322,6 +1339,10 @@ if ( ! function_exists( 'woosq_init' ) ) {
 				}
 
 				function ajax_add_field() {
+					if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'woosq-security' ) ) {
+						die( 'Permissions check failed!' );
+					}
+
 					$type    = isset( $_POST['type'] ) ? sanitize_key( $_POST['type'] ) : '';
 					$field   = isset( $_POST['field'] ) ? sanitize_text_field( urldecode( $_POST['field'] ) ) : '';
 					$setting = isset( $_POST['setting'] ) ? sanitize_key( $_POST['setting'] ) : '';

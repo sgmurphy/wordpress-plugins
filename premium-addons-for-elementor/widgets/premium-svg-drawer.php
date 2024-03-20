@@ -635,7 +635,7 @@ class Premium_SVG_Drawer extends Widget_Base {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
 
@@ -851,7 +851,6 @@ class Premium_SVG_Drawer extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -920,7 +919,5 @@ class Premium_SVG_Drawer extends Widget_Base {
 			</div>
 
 		<?php
-
 	}
-
 }

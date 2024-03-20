@@ -357,9 +357,9 @@ function wpbc_get_times_in_form( $booking_form_data, $booking_type ){
 	    }
 
 	    $time_str = explode( ':', trim( $time_str ) );
-
-	    $time_str[0] = $time_str[0] + $time_str_plus;
-	    $time_str[1] = $time_str[1] + 0;
+		//FixIn: 9.9.0.4
+		$time_str[0] = intval( $time_str[0] ) + $time_str_plus;
+		$time_str[1] = intval( $time_str[1] );
 
 	    if ($time_str[0] < 10 ) $time_str[0] = '0' . $time_str[0];
 	    if ($time_str[1] < 10 ) $time_str[1] = '0' . $time_str[1];
@@ -869,7 +869,7 @@ function wpbc__sql__get_booked_dates( $params ){
 
 		$season_filters_id_arr = array();
 
-		if ( function_exists( 'wpbc_get_resource_meta' ) ) {        // BM and higher
+		if ( ( class_exists( 'wpdev_bk_biz_m' ) ) && ( function_exists( 'wpbc_get_resource_meta' ) ) ) {                // BM and higher        //FixIn: 9.9.0.13
 
 			// S Q L
 			$availability_res = wpbc_get_resource_meta( $params['resource_id'], 'availability' );

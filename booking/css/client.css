@@ -1379,6 +1379,10 @@ form.booking_form {
 .wpbc_after_booking_thank_you_section .wpbc_ty__container * {
     color: #444;
 }
+/* Fix color issue for iFrame of PayPal */
+.wpbc_after_booking_thank_you_section .wpbc_ty__container iframe {
+    color: transparent;
+}
 .wpbc_after_booking_thank_you_section .wpbc_ty__container {
     flex: 1 1 100%;
 

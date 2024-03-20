@@ -203,7 +203,7 @@ class PA_Mobile_Detect {
 		'SimValley'    => '\b(SP-80|XT-930|SX-340|XT-930|SX-310|SP-360|SP60|SPT-800|SP-120|SPT-800|SP-140|SPX-5|SPX-8|SP-100|SPX-8|SPX-12)\b',
 		// Wolfgang - a brand that is sold by Aldi supermarkets.
 		// http://www.wolfgangmobile.com/
-	   'Wolfgang'      => 'AT-B24D|AT-AS50HD|AT-AS40W|AT-AS55HD|AT-AS45q2|AT-B26D|AT-AS50Q',
+		'Wolfgang'     => 'AT-B24D|AT-AS50HD|AT-AS40W|AT-AS55HD|AT-AS45q2|AT-B26D|AT-AS50Q',
 		'Alcatel'      => 'Alcatel',
 		'Nintendo'     => 'Nintendo (3DS|Switch)',
 		// http://en.wikipedia.org/wiki/Amoi
@@ -982,7 +982,6 @@ class PA_Mobile_Detect {
 		}
 
 		return $rules;
-
 	}
 
 	/**
@@ -1062,7 +1061,6 @@ class PA_Mobile_Detect {
 		}
 
 		return false;
-
 	}
 
 	/**
@@ -1170,7 +1168,6 @@ class PA_Mobile_Detect {
 		} else {
 			return $this->matchDetectionRulesAgainstUA();
 		}
-
 	}
 
 	/**

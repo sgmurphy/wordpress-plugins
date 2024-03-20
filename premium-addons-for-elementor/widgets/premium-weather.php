@@ -224,7 +224,6 @@ class Premium_Weather extends Widget_Base {
 		$this->add_daily_forecast_section();
 		$this->add_custom_icons_section();
 		$this->add_helpful_info_section();
-
 	}
 
 	/**
@@ -1258,12 +1257,11 @@ class Premium_Weather extends Widget_Base {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
 
 		$this->end_controls_section();
-
 	}
 
 	/** Style Controls.*/
@@ -4437,19 +4435,18 @@ class Premium_Weather extends Widget_Base {
 						'aria-hidden' => 'true',
 					)
 				);
-			} else {
-				if ( 'yes' !== $settings['draw_svg'] ) {
+			} elseif ( 'yes' !== $settings['draw_svg'] ) {
 					Icons_Manager::render_icon(
 						$icon,
 						array(
 							'aria-hidden' => 'true',
 						)
 					);
-				} else {
-					?>
+			} else {
+				?>
 				<i class='premium-drawable-icon premium-svg-drawer <?php echo esc_attr( $icon['value'] ); ?>' data-svg-loop='false' data-svg-fill='<?php echo esc_attr( $draw_fill ); ?>' data-svg-sync='yes' data-svg-frames='5' data-svg-point='0' aria-hidden='hidden'></i>
 					<?php
-				}
+
 			}
 		} elseif ( 'image' === $icon_type ) {
 
@@ -4739,7 +4736,7 @@ class Premium_Weather extends Widget_Base {
 				?>
 				</div>
 				<?php
-				$i++;
+				++$i;
 		}
 		?>
 		</div>
@@ -4817,5 +4814,4 @@ class Premium_Weather extends Widget_Base {
 			}
 		}
 	}
-
 }

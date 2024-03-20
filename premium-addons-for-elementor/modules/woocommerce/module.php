@@ -199,7 +199,6 @@ class Module extends Module_Base {
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		die();
-
 	}
 
 	/**
@@ -305,7 +304,6 @@ class Module extends Module_Base {
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -326,5 +324,4 @@ class Module extends Module_Base {
 
 		return self::$instance;
 	}
-
 }

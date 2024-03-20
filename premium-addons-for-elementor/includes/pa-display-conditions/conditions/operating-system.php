@@ -107,7 +107,5 @@ class Operating_System extends Condition {
 		$result = ! empty( array_intersect( $value, $current_os ) ) ? true : false;
 
 		return Helper_Functions::get_final_result( $result, $operator );
-
 	}
-
 }

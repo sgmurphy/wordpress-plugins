@@ -1719,7 +1719,7 @@ class Premium_Videobox extends Widget_Base {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
 
@@ -2683,16 +2683,15 @@ class Premium_Videobox extends Widget_Base {
 
 			if ( 'vimeo' === $video_type ) {
 
-                //Filter any paramters after link to be added later.
-                $queryString = parse_url( $link, PHP_URL_QUERY );
+				// Filter any paramters after link to be added later.
+				$queryString = parse_url( $link, PHP_URL_QUERY );
 
-                //If video link contains paramters.
-                if( false !== strpos( $link, '?' ) ) {
-                    $link = strstr( $link, '?', true );
-                } else {
-                    $link = str_replace( '#t=', '', $link );
-                }
-
+				// If video link contains paramters.
+				if ( false !== strpos( $link, '?' ) ) {
+					$link = strstr( $link, '?', true );
+				} else {
+					$link = str_replace( '#t=', '', $link );
+				}
 
 				$options .= '&color=' . str_replace( '#', '', $settings['vimeo_controls_color'] );
 
@@ -2710,7 +2709,7 @@ class Premium_Videobox extends Widget_Base {
 
 				$options .= '&autopause=0';
 
-                $options .= '&' . $queryString . '#t=';
+				$options .= '&' . $queryString . '#t=';
 
 			} elseif ( 'dailymotion' === $video_type ) {
 				// dailymotion options.
@@ -2939,7 +2938,7 @@ class Premium_Videobox extends Widget_Base {
 
 		if ( 'yes' === $settings['mask_video_box_switcher'] ) {
 
-			$this->add_render_attribute( 'container', 'data-mask', 'true' );
+			$this->add_render_attribute( 'container', 'data-pa-mask', 'true' );
 			$this->add_render_attribute( 'mask', 'class', 'premium-video-box-mask-media' );
 
 			if ( 'blur' === $settings['premium_video_box_img_effect'] ) {
@@ -3078,7 +3077,6 @@ class Premium_Videobox extends Widget_Base {
 		$thumbnail_src = Helper_Functions::get_video_thumbnail( $video_id, $type, $size );
 
 		return $thumbnail_src;
-
 	}
 
 	/**
@@ -3119,9 +3117,9 @@ class Premium_Videobox extends Widget_Base {
 
 		if ( ! empty( $link ) ) {
 
-            $video_props = Embed::get_video_properties( $link );
-            $link        = Embed::get_embed_url( $link );
-            $id    = $video_props['video_id'];
+			$video_props = Embed::get_video_properties( $link );
+			$link        = Embed::get_embed_url( $link );
+			$id          = $video_props['video_id'];
 
 		} elseif ( ! empty( $id ) || ! empty( $embed ) ) {
 
@@ -3136,7 +3134,6 @@ class Premium_Videobox extends Widget_Base {
 			'link' => $link,
 			'id'   => $id,
 		);
-
 	}
 
 	/**
@@ -3208,7 +3205,6 @@ class Premium_Videobox extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		return ! empty( $settings['premium_video_box_image']['url'] ) && 'yes' === $settings['premium_video_box_image_switcher'];
-
 	}
 
 	/**
@@ -3276,7 +3272,7 @@ class Premium_Videobox extends Widget_Base {
 					break;
 				}
 
-				$limit_counter++;
+				++$limit_counter;
 
 				$video_url = sprintf( 'https://www.youtube.com/watch?v=%s', $id );
 
@@ -3394,7 +3390,7 @@ class Premium_Videobox extends Widget_Base {
 
 				if ( 'yes' === $settings['mask_video_box_switcher'] ) {
 
-					$this->add_render_attribute( 'container' . $id, 'data-mask', 'true' );
+					$this->add_render_attribute( 'container' . $id, 'data-pa-mask', 'true' );
 					$this->add_render_attribute( 'mask' . $id, 'class', 'premium-video-box-mask-media' );
 
 					if ( 'blur' === $settings['premium_video_box_img_effect'] ) {
@@ -3545,7 +3541,6 @@ class Premium_Videobox extends Widget_Base {
 		}
 
 		$this->render_grid_youtube_playlist( $playlist_videos );
-
 	}
 
 	/**
@@ -3569,8 +3564,5 @@ class Premium_Videobox extends Widget_Base {
 
 			)
 		);
-
 	}
-
-
 }

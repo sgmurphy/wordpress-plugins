@@ -5,10 +5,10 @@
  * Description: Elementor Addon Elements comes with 40+ widgets and extensions to extend the power of Elementor Page Builder.
  * Plugin URI: https://www.elementoraddons.com/elements-addon-elements/
  * Author: WPVibes
- * Version: 1.13.1
+ * Version: 1.13.2
  * Author URI: https://wpvibes.com/
- * Elementor tested up to: 3.19
- * Elementor Pro tested up to: 3.19
+ * Elementor tested up to: 3.20
+ * Elementor Pro tested up to: 3.20
  * Text Domain: wts-eae
  * @package WTS_EAE
  */
@@ -19,8 +19,8 @@ if(! defined('EAE_FILE')){
 	define( 'EAE_URL', plugins_url( '/', __FILE__ ) );
 	define( 'EAE_PATH', plugin_dir_path( __FILE__ ) );
 	define( 'EAE_SCRIPT_SUFFIX', defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min' );
-	define( 'EAE_VERSION', '1.13.1' );
- }
+	define( 'EAE_VERSION', '1.13.2' );
+}
 
 
 if ( ! function_exists( '_is_elementor_installed' ) ) {
@@ -50,7 +50,7 @@ if(!function_exists('eae_activate')){
 			add_action( 'admin_notices', function(){
 				?>
 				<div class="notice notice-error is-dismissible">
-					<p><?php _e( 'Elementor Addon Elements requires Elementor plugin to be active.', 'wts-eae' ); ?></p>
+					<p><?php esc_html_e( 'Elementor Addon Elements requires Elementor plugin to be active.', 'wts-eae' ); ?></p>
 				</div>
 				<?php
 			});
@@ -78,7 +78,7 @@ if(strpos($current_file_path, 'elementor-addon-elements/elementor-addon-elements
 			add_action( 'admin_notices', function(){
 				?>
 				<div class="notice notice-error is-dismissible">
-					<p><?php _e( 'Elementor Addon Elements (Free) cannot be activated along with Pro version', 'wts-eae' ); ?></p>
+					<p><?php esc_html_e( 'Elementor Addon Elements (Free) cannot be activated along with Pro version', 'wts-eae' ); ?></p>
 				</div>
 				<?php
 			});

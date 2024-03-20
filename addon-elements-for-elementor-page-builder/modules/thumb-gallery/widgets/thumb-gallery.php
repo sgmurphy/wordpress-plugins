@@ -1772,6 +1772,7 @@ class ThumbGallery extends EAE_Widget_Base {
 				'type'       => Controls_Manager::COLOR,
 				'selectors'  => [
 					'{{WRAPPER}} .eae-slider-nav-button' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .eae-slider-nav-button svg' => 'fill: {{VALUE}}',
 				],
 				'conditions' => [
 					'terms' => [
@@ -2191,13 +2192,13 @@ class ThumbGallery extends EAE_Widget_Base {
 							<?php if ( ! empty( $heading || $description || $button_text ) ) { ?>
 								<div class="eae-slide-content">
 									<?php if ( ! empty( $heading ) ) { ?>
-										<div class="eae-slide-heading"><?php echo $heading; ?></div>
+										<div class="eae-slide-heading"><?php echo Helper::eae_wp_kses($heading); ?></div>
 									<?php } ?>
 
 									<?php if ( ! empty( $description ) ) { ?>	
-									<div class="eae-slide-text"><?php echo $description; ?></div>
+									<div class="eae-slide-text"><?php echo wp_kses_post($description); ?></div>
 									<?php } ?>
-
+ 
 									<?php if ( ! empty( $button_text ) ) { ?>
 									<div class="eae-slide-button">
 										<?php
@@ -2205,9 +2206,9 @@ class ThumbGallery extends EAE_Widget_Base {
 											if ( $link !== '' && $slide['slide_link_click'] === 'button' ) { 
 												$this->add_link_attributes("eae-slide-button-$id", $slide['slide_link']);
 											?>
-											<a <?php echo $this->get_render_attribute_string("eae-slide-button-$id");?>><?php echo $button_text; ?></a> 
+											<a <?php echo $this->get_render_attribute_string("eae-slide-button-$id");?>><?php echo Helper::eae_wp_kses($button_text); ?></a> 
 										<?php } else { ?>
-											<span <?php echo $this->get_render_attribute_string("eae-slide-button-$id");?>><?php echo $button_text; ?></span> 
+											<span <?php echo $this->get_render_attribute_string("eae-slide-button-$id");?>><?php echo Helper::eae_wp_kses($button_text); ?></span> 
 										<?php } ?>
 									</div>
 									<?php } ?>

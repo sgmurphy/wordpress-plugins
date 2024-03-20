@@ -1701,7 +1701,6 @@ class Premium_Contactform extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -1819,6 +1818,5 @@ class Premium_Contactform extends Widget_Base {
 
 			<?php
 		}
-
 	}
 }

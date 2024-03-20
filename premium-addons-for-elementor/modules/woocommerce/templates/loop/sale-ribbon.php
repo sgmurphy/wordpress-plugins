@@ -28,7 +28,7 @@ if ( 'custom' === self::$settings['sale_type'] ) {
 		$sale_string  = $sale_string ? $sale_string : '-[value]%';
 		$sale_string  = str_replace( array( '[value]', '[sale]' ), array( $percent_sale, $sale_amount ), $sale_string );
 	}
-};
+}
 
 
 ?>

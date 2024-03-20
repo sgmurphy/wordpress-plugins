@@ -75,6 +75,8 @@ function wpbc_calendar_show( resource_id ){
 	// Min - Max days to scroll/show
 	// -----------------------------------------------------------------------------------------------------------------
 	var local__min_date = 0;
+ 	local__min_date = new Date( wpbc_today[ 0 ], (parseInt( wpbc_today[ 1 ] ) - 1), wpbc_today[ 2 ], 0, 0, 0 );			//FixIn: 9.9.0.17
+//console.log( local__min_date );
 	var local__max_date = _wpbc.calendar__get_param_value( resource_id, 'booking_max_monthes_in_calendar' );
 	//local__max_date = new Date(2024, 5, 28);  It is here issue of not selectable dates, but some dates showing in calendar as available, but we can not select it.
 
@@ -272,10 +274,10 @@ function wpbc_calendar_show( resource_id ){
 			case 'check_in':
 				css_classes__for_date.push( 'timespartly', 'check_in_time' );
 
-				if ( 'pending' == date_bookings_obj[ 'summary']['status_for_bookings' ] ){
+				//FixIn: 9.9.0.33
+				if ( date_bookings_obj[ 'summary' ][ 'status_for_bookings' ].indexOf( 'pending' ) > -1 ){
 					css_classes__for_date.push( 'check_in_time_date2approve' );
-				}
-				if ( 'approved' == date_bookings_obj[ 'summary']['status_for_bookings' ] ){
+				} else if ( date_bookings_obj[ 'summary' ][ 'status_for_bookings' ].indexOf( 'approved' ) > -1 ){
 					css_classes__for_date.push( 'check_in_time_date_approved' );
 				}
 				break;
@@ -283,10 +285,10 @@ function wpbc_calendar_show( resource_id ){
 			case 'check_out':
 				css_classes__for_date.push( 'timespartly', 'check_out_time' );
 
-				if ( 'pending' == date_bookings_obj[ 'summary']['status_for_bookings' ] ){
+				//FixIn: 9.9.0.33
+				if ( date_bookings_obj[ 'summary' ][ 'status_for_bookings' ].indexOf( 'pending' ) > -1 ){
 					css_classes__for_date.push( 'check_out_time_date2approve' );
-				}
-				if ( 'approved' == date_bookings_obj[ 'summary']['status_for_bookings' ] ){
+				} else if ( date_bookings_obj[ 'summary' ][ 'status_for_bookings' ].indexOf( 'approved' ) > -1 ){
 					css_classes__for_date.push( 'check_out_time_date_approved' );
 				}
 				break;
@@ -513,6 +515,22 @@ function wpbc_calendar_show( resource_id ){
 
 			// Loop  all  selected dates
 			for ( var i = 0; i < selected_dates_arr.length; i++ ){
+
+				//FixIn: 9.9.0.31
+				if (
+					   ( 'Off' === _wpbc.calendar__get_param_value( resource_id, 'booking_recurrent_time' ) )
+					&& ( selected_dates_arr.length>1 )
+				){
+					//TODO: skip some fields checking if it's start / end time for mulple dates  selection  mode.
+					//TODO: we need to fix situation  for entimes,  when  user  select  several  dates,  and in start  time booked 00:00 - 15:00 , but systsme block untill 15:00 the end time as well,  which  is wrong,  because it 2 or 3 dates selection  and end date can be fullu  available
+
+					if ( (0 == i) && (time_fields_obj[ 'name' ].indexOf( 'endtime' ) >= 0) ){
+						break;
+					}
+					if ( ( (selected_dates_arr.length-1) == i ) && (time_fields_obj[ 'name' ].indexOf( 'starttime' ) >= 0) ){
+						break;
+					}
+				}
 
 				// Get Date: '2023-08-18'
 				sql_date = selected_dates_arr[ i ];

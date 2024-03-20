@@ -68,7 +68,7 @@ class Wt_Import_Export_For_Woo_Basic_Activator_Order {
 		//creating table for saving template data================
         $search_query = "SHOW TABLES LIKE %s";
         $tb='wt_iew_mapping_template';
-        $like = '%' . $wpdb->prefix.$tb.'%';
+        $like = $wpdb->prefix.$tb;
         $table_name = $wpdb->prefix.$tb;
         if(!$wpdb->get_results($wpdb->prepare($search_query, $like), ARRAY_N)) 
         {
@@ -87,7 +87,7 @@ class Wt_Import_Export_For_Woo_Basic_Activator_Order {
         //creating table for saving export/import history================
         $search_query = "SHOW TABLES LIKE %s";
         $tb='wt_iew_action_history';
-        $like = '%'.$wpdb->prefix.$tb.'%';
+        $like = $wpdb->prefix.$tb;
         $table_name = $wpdb->prefix.$tb;
         if(!$wpdb->get_results($wpdb->prepare($search_query, $like), ARRAY_N)) 
         {

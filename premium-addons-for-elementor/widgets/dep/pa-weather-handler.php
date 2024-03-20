@@ -100,7 +100,7 @@ class Pa_Weather_Handler {
 		$weather_data = json_decode( wp_remote_retrieve_body( $weather_data ), true );
 
 		$weather_data['city_name'] = $city_data['city_name'];
-		$weather_data['timezone'] = $city_data['timezone'];
+		$weather_data['timezone']  = $city_data['timezone'];
 
 		if ( $forecast_tabs ) {
 			$weather_data['tabs_data'] = self::get_available_days( $city_data['tabs_data'] );
@@ -133,12 +133,10 @@ class Pa_Weather_Handler {
 
 			$req_url .= '?lat=' . $lat . '&lon=' . $long;
 
-		} else {
-			if ( 'coords' === $settings['custom_location_type'] ) {
+		} elseif ( 'coords' === $settings['custom_location_type'] ) {
 				$req_url .= '?lat=' . $settings['lat'] . '&lon=' . $settings['long'];
-			} else { // by city name.
-				$req_url .= '?q=' . $settings['city_name'];
-			}
+		} else { // by city name.
+			$req_url .= '?q=' . $settings['city_name'];
 		}
 
 		$req_url .= '&lang=' . $settings['lang'] . '&units=' . $settings['unit'] . '&appid=' . $settings['api_key'];
@@ -162,7 +160,7 @@ class Pa_Weather_Handler {
 			'lat'       => $city_data['city']['coord']['lat'],
 			'long'      => $city_data['city']['coord']['lon'],
 			'tabs_data' => $city_data['list'],
-			'timezone'  => $city_data['city']['timezone']
+			'timezone'  => $city_data['city']['timezone'],
 		);
 	}
 
@@ -221,5 +219,3 @@ class Pa_Weather_Handler {
 		return $days_forecast;
 	}
 }
-
-

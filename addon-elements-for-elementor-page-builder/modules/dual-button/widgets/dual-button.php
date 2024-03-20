@@ -11,6 +11,7 @@ use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Icons_Manager;
+use WTS_EAE\Classes\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -886,7 +887,7 @@ class DualButton extends EAE_Widget_Base {
 									<?php endif; ?>
 								</div>
 							<?php } ?>
-							<div class="eae-button-text"><?php echo $settings['button1_text']; ?></div>
+							<div class="eae-button-text"><?php echo Helper::eae_wp_kses($settings['button1_text']); ?></div>
 						</div>
 					</a>
 
@@ -905,7 +906,7 @@ class DualButton extends EAE_Widget_Base {
 									endif;
 									}
 									if ( $settings['separator_text'] !== '' ) {
-										echo esc_html($settings['separator_text']);
+										echo Helper::eae_wp_kses($settings['separator_text']);
 									}
 									?>
 								</span>
@@ -929,7 +930,7 @@ class DualButton extends EAE_Widget_Base {
 									endif;
 									}
 									if ( $settings['separator_text'] !== '' ) {
-										echo $settings['separator_text'];
+										echo Helper::eae_wp_kses($settings['separator_text']);
 									}
 									?>
 								</span>
@@ -945,11 +946,11 @@ class DualButton extends EAE_Widget_Base {
 										Icons_Manager::render_icon( $settings['button2_icon_new'], [ 'aria-hidden' => 'true' ] );
 									else :
 										?>
-										<i class="<?php echo $settings['button2_icon']; ?>"></i>
+										<i class="<?php echo esc_attr($settings['button2_icon']); ?>"></i>
 									<?php endif; ?>
 								</div>
 							<?php } ?>
-							<div class="eae-button-text"><?php echo $settings['button2_text']; ?></div>
+							<div class="eae-button-text"><?php echo Helper::eae_wp_kses($settings['button2_text']); ?></div>
 						</div>
 					</a>
 				</div>

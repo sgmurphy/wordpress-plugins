@@ -873,7 +873,6 @@ class Premium_Image_Scroll extends Widget_Base {
 		$this->end_controls_tabs();
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -975,7 +974,6 @@ class Premium_Image_Scroll extends Widget_Base {
 				</div>
 			</div>
 		<?php
-
 	}
 
 	/**
@@ -1070,5 +1068,4 @@ class Premium_Image_Scroll extends Widget_Base {
 		</div>
 		<?php
 	}
-
 }

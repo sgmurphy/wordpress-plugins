@@ -240,7 +240,7 @@
                         elementorFrontend.waypoint($videoBoxElement, function () {
                             playVideo();
                         }, {
-                            offset: 'top-in-view',
+                            offset: "100%",
                             triggerOnce: false
                         });
 
@@ -1123,134 +1123,135 @@
         var PremiumCountDownHandler = function ($scope, $) {
 
             var $countDownElement = $scope.find(".premium-countdown"),
+                $countDown = $countDownElement.find('.countdown'),
                 settings = $countDownElement.data("settings"),
-                id = $scope.data('id'),
-                label1 = settings.label1,
-                label2 = settings.label2,
-                newLabe1 = label1.split(","),
-                newLabel2 = label2.split(","),
                 timerType = settings.timerType,
                 until = 'evergreen' === timerType ? settings.until.date.replace(/ /g, "T") : settings.until,
                 layout = '',
-                map = {
-                    y: { index: 0, oldVal: '' },
-                    o: { index: 1, oldVal: '' },
-                    w: { index: 2, oldVal: '' },
-                    d: { index: 3, oldVal: '' },
-                    h: { index: 4, oldVal: '' },
-                    m: { index: 5, oldVal: '' },
-                    s: { index: 6, oldVal: '' }
-                };
+                computedStyle = getComputedStyle($scope[0]);
 
-            if ($countDownElement.find('#countdown-' + id).hasClass('premium-countdown-flip')) {
-                settings.format.split('').forEach(function (unit) {
-                    var lowercased = unit.toLowerCase();
+            var currentDate = new Date().getTime(),
+                untilDate = new Date(until).getTime();
 
-                    layout += '<div class="premium-countdown-block premium-countdown-' + lowercased + '"><div class="pre_time-mid"> <div class="premium-countdown-figure"><span class="top">{' + lowercased + 'nn}</span><span class="top-back"><span>{' + lowercased + 'nn}</span></span><span class="bottom">{' + lowercased + 'nn}</span><span class="bottom-back"><span>{' + lowercased + 'nn}</span></span></div><span class="premium-countdown-label">{' + lowercased + 'l}</span></div><span class="countdown_separator">{sep}</span></div>';
-                });
+            if ('' !== settings.serverSync) {
+                currentDate = new Date(settings.serverSync).getTime();
             }
 
-            $countDownElement.find('#countdown-' + id).countdown({
-                layout: layout,
-                labels: newLabel2,
-                labels1: newLabe1,
-                until: new Date(until),
-                format: settings.format,
-                padZeroes: true,
-                timeSeparator: settings.separator,
-                onTick: function (periods) {
+            // Calculate the difference in seconds between the future and current date
+            var diff = Math.round(untilDate / 1000 - currentDate / 1000);
 
-                    equalWidth();
+            if ('flipping' === settings.style) {
 
-                    if ($countDownElement.find('#countdown-' + id).hasClass('premium-countdown-flip')) {
-                        animateFigure(periods, map);
-                    }
-                },
-                onExpiry: function () {
-                    if ('onExpiry' === settings.event) {
-                        $countDownElement.find('#countdown-' + id).html(settings.text);
-                    }
-                },
-                serverSync: function () {
-                    return new Date(settings.serverSync);
-                }
-            });
+                var clock;
 
-            if (settings.reset) {
-                $countDownElement.find('.premium-countdown-init').countdown('option', 'until', new Date(until));
-            }
+                // Run countdown timer
+                clock = $countDown.FlipClock(diff, {
+                    clockFace: "DailyCounter",
+                    countdown: true,
+                    timeSeparator: settings.separator || '',
+                    callbacks: {
+                        stop: function () {
 
-            if ('expiryUrl' === settings.event) {
-                $countDownElement.find('#countdown-' + id).countdown('option', 'expiryUrl', (elementorFrontend.isEditMode()) ? '' : settings.text);
-            }
-
-            function equalWidth() {
-                var width = 0;
-                $countDownElement.find('#countdown-' + id + ' .countdown-amount').each(function (index, slot) {
-                    if (width < $(slot).outerWidth()) {
-                        width = $(slot).outerWidth();
-                    }
-                });
-
-                $countDownElement.find('#countdown-' + id + ' .countdown-amount').css('width', width);
-            }
-
-            function animateFigure(periods, map) {
-                settings.format.split('').forEach(function (unit) {
-
-                    var lowercased = unit.toLowerCase(),
-                        index = map[lowercased].index,
-                        oldVal = map[lowercased].oldVal;
-
-                    if (periods[index] !== oldVal) {
-
-                        map[lowercased].oldVal = periods[index];
-
-                        var $top = $('#countdown-' + id).find('.premium-countdown-' + lowercased + ' .top'),
-                            $back_top = $('#countdown-' + id).find('.premium-countdown-' + lowercased + ' .top-back');
-
-                        TweenMax.to($top, 0.8, {
-                            rotationX: '-180deg',
-                            transformPerspective: 300,
-                            ease: Quart.easeOut,
-                            onComplete: function () {
-                                TweenMax.set($top, { rotationX: 0 });
-                            }
-                        });
-
-                        TweenMax.to($back_top, 0.8, {
-                            rotationX: 0,
-                            transformPerspective: 300,
-                            ease: Quart.easeOut,
-                            clearProps: 'all'
-                        });
-                    }
-                });
-            }
-
-            times = $countDownElement.find('#countdown-' + id).countdown("getTimes");
-
-            function runTimer(el) {
-                return el == 0;
-            }
-
-            if (times.every(runTimer)) {
-
-                if ('onExpiry' === settings.event) {
-                    $countDownElement.find('#countdown-' + id).html(settings.text);
-                } else if ('expiryUrl' === settings.event && !elementorFrontend.isEditMode()) {
-                    var editMode = $('body').find('#elementor').length;
-                    if (0 < editMode) {
-                        $countDownElement.find('#countdown-' + id).html(
-                            "<h1>You can not redirect url from elementor Editor!!</h1>");
-                    } else {
-                        if (!elementorFrontend.isEditMode()) {
-                            window.location.href = settings.text;
+                            triggerExpirationAction();
                         }
                     }
+                });
+
+            } else {
+
+                // var single = settings.single.split(","),
+                //     plural = settings.plural.split(",");
+
+                $countDownElement.find('.countdown').countdown({
+                    $countDown: $countDown,
+                    layout: layout,
+                    // labels: single,
+                    // labels1: plural,
+                    until: diff,
+                    format: settings.format,
+                    style: settings.style,
+                    timeSeparator: settings.separator || '',
+                    unitsPos: settings.unitsPos,
+                    id: $scope.data('id'),
+                    circleStrokeWidth: computedStyle.getPropertyValue('--pa-countdown-stroke-width'),
+                    unitsInside: $scope.hasClass('premium-countdown-uinside-yes'),
+                    onExpiry: function () {
+
+                        triggerExpirationAction();
+
+                    },
+                });
+
+                //To unify digit unit width.
+                if ($scope.hasClass('premium-countdown-block')) {
+                    var currentValueWidth = $countDown.find('.countdown-amount').last().outerWidth();
+
+                    $countDown.find('.countdown-period span').css('width', currentValueWidth);
+                }
+
+                //For evergreen timer reset.
+                if (settings.reset) {
+                    $countDownElement.find('.premium-countdown-init').countdown('option', 'until', new Date(until));
+                }
+
+                if ('featured' === settings.style) {
+                    var $targetUnit = $countDownElement.find('.countdown-section-' + settings.featuredUnit);
+                    $targetUnit.parent().prepend($targetUnit);
+                }
+
+            }
+
+            if ('.' === settings.separator) {
+                $countDown.find('.countdown_separator span').addClass('countdown-separator-circle').text('');
+            }
+
+            if (diff < 0)
+                triggerExpirationAction();
+
+            function triggerExpirationAction() {
+
+                if ('default' === settings.event && 'flipping' !== settings.style) {
+                    setTimeout(function () {
+                        if ('dash' === settings.changeTo) {
+                            $countDown.find('.countdown-amount > span').text('-');
+                        } else if ('done' === settings.changeTo && $countDown.find('.countdown-show4').length > 0) {
+                            var characters = ['D', 'O', 'N', 'E'];
+
+                            characters.map(function (char, index) {
+                                $countDown.find('.countdown-amount > span').eq(index).text(char);
+                            });
+
+                        }
+
+                    }, 1000);
+                } else if ('text' === settings.event) {
+                    $countDown.remove();
+                    $scope.find(".premium-addons__v-hidden").removeClass('premium-addons__v-hidden');
+                } else if ('url' === settings.event && !elementorFrontend.isEditMode()) {
+                    if ('' !== settings.text)
+                        window.location.href = settings.text;
+                } else if ('restart' === settings.event) {
+
+                    if ('flipping' === settings.style) {
+                        setTimeout(function () {
+                            clock.setTime(diff); // Restart with the same target seconds.
+                        }, 1000);
+
+                        setTimeout(function () {
+                            clock.start(); // Restart with the same target seconds.
+                        }, 2000);
+
+                    } else {
+                        setTimeout(function () {
+                            $countDownElement.find('.premium-countdown-init').countdown('option', { until: diff });
+                        }, 1000);
+                    }
+
 
                 }
+
             }
+
 
         };
 

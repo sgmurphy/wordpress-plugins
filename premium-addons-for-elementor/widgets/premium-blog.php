@@ -1471,7 +1471,7 @@ class Premium_Blog extends Widget_Base {
 				)
 			);
 
-			$doc_index++;
+			++$doc_index;
 
 		}
 
@@ -2967,7 +2967,6 @@ class Premium_Blog extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 
@@ -3031,12 +3030,9 @@ class Premium_Blog extends Widget_Base {
 
 						$tabs_array[] = $value;
 					}
-				} else {
-
-					if ( $if_empty ) {
+				} elseif ( $if_empty ) {
 
 						$tabs_array[] = $value;
-					}
 				}
 			}
 		}
@@ -3197,7 +3193,6 @@ class Premium_Blog extends Widget_Base {
 				}
 			}
 		}
-
 	}
 
 	/**

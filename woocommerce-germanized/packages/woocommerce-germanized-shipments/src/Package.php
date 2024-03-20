@@ -2,19 +2,11 @@
 
 namespace Vendidero\Germanized\Shipments;
 
-use DVDoug\BoxPacker\ItemList;
+use Automattic\WooCommerce\Utilities\I18nUtil;
 use Exception;
-use Vendidero\Germanized\DHL\ShippingProvider\DHL;
-use Vendidero\Germanized\Shipments\DataStores\ShippingProvider;
-use Vendidero\Germanized\Shipments\Labels\ConfigurationSet;
+use Vendidero\Germanized\Shipments\Caches\Helper;
 use Vendidero\Germanized\Shipments\Packaging\ReportHelper;
-use Vendidero\Germanized\Shipments\Packing\CartItem;
 use Vendidero\Germanized\Shipments\ShippingMethod\MethodHelper;
-use Vendidero\Germanized\Shipments\ShippingMethod\ShippingMethod;
-use Vendidero\Germanized\Shipments\ShippingProvider\Helper;
-use Vendidero\Germanized\Shipments\ShippingProvider\ProductList;
-use WC_Shipping;
-use WC_Shipping_Method;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,7 +19,7 @@ class Package {
 	 *
 	 * @var string
 	 */
-	const VERSION = '3.0.5';
+	const VERSION = '3.1.0';
 
 	public static $upload_dir_suffix = '';
 
@@ -435,6 +427,10 @@ class Package {
 		}
 	}
 
+	public static function get_dimensions_unit_label( $unit ) {
+		return class_exists( 'Automattic\WooCommerce\Utilities\I18nUtil' ) ? I18nUtil::get_dimensions_unit_label( $unit ) : $unit;
+	}
+
 	/**
 	 * Generate a unique key.
 	 *
@@ -589,6 +585,7 @@ class Package {
 		Api::init();
 		FormHandler::init();
 		ReportHelper::init();
+		Helper::init();
 
 		if ( self::is_frontend_request() ) {
 			include_once self::get_path() . '/includes/wc-gzd-shipment-template-hooks.php';

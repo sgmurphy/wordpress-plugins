@@ -26,7 +26,4 @@ class Premium_Acf_Selector extends Control_Select2 {
 	public function get_type() {
 		return self::TYPE;
 	}
-
 }
-
-

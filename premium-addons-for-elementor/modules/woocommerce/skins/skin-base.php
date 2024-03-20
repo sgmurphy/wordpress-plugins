@@ -128,7 +128,6 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -193,7 +192,6 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -409,7 +407,6 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 		$this->end_controls_tabs();
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -491,7 +488,5 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
-
 }

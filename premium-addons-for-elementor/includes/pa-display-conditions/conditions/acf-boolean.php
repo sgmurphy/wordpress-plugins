@@ -59,7 +59,6 @@ class Acf_Boolean extends Condition {
 				'pa_condition_key' => 'acf_boolean',
 			),
 		);
-
 	}
 
 	/**
@@ -97,7 +96,6 @@ class Acf_Boolean extends Condition {
 				'pa_condition_key' => 'acf_boolean',
 			),
 		);
-
 	}
 
 	/**
@@ -122,12 +120,10 @@ class Acf_Boolean extends Condition {
 
 		$value = $acf_helper->get_acf_field_value( $value, $field['parent'] );
 
-		$input_val = 'true' ===  sanitize_text_field( $compare_val ) ? true : false;
+		$input_val = 'true' === sanitize_text_field( $compare_val ) ? true : false;
 
 		$condition_result = $value === $input_val ? true : false;
 
 		return Helper_Functions::get_final_result( $condition_result, $operator );
-
 	}
-
 }

@@ -69,7 +69,8 @@ class WPBC_CSS extends WPBC_JS_CSS{
             wp_enqueue_style( 'wpbc-settings-page',         wpbc_plugin_url( '/core/any/css/settings-page.css' ),       array(), WP_BK_VERSION_NUM);            
             wp_enqueue_style( 'wpbc-admin-listing-table',   wpbc_plugin_url( '/core/any/css/admin-listing-table.css' ), array(), WP_BK_VERSION_NUM);            
             wp_enqueue_style( 'wpbc-br-table',              wpbc_plugin_url( '/core/any/css/admin-br-table.css' ),      array(), WP_BK_VERSION_NUM);                        
-            wp_enqueue_style( 'wpbc-admin-modal-popups',    wpbc_plugin_url( '/css/modal.css' ),                        array(), WP_BK_VERSION_NUM);            
+            wp_enqueue_style( 'wpbc-flex-table',            wpbc_plugin_url( '/core/any/css/wpbc_flextable.css' ),      array(), WP_BK_VERSION_NUM);        // Flex: Booking resources Table    //FixIn: 9.9.0.7
+            wp_enqueue_style( 'wpbc-admin-modal-popups',    wpbc_plugin_url( '/css/modal.css' ),                        array(), WP_BK_VERSION_NUM);
             wp_enqueue_style( 'wpbc-admin-pages',           wpbc_plugin_url( '/css/admin.css' ),                        array(), WP_BK_VERSION_NUM);            
             wp_enqueue_style( 'wpbc-admin-skin',            wpbc_plugin_url( '/css/admin-skin.css' ),                   array( 'wpbc-admin-pages' ), WP_BK_VERSION_NUM);            //FixIn: 8.0.2.4
 	        //FixIn: 9.6.3.5
@@ -93,11 +94,19 @@ class WPBC_CSS extends WPBC_JS_CSS{
 				wp_add_inline_style( 'wpbc-admin-pages', $css );
 			}
 
-			// Mark last item in menu 'Get Pro' with green color
-	        if ( !  class_exists( 'wpdev_bk_personal' ) ) {
-		        $wpbc_inline_css = " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(-n+1) a { color: #adc636; }";
-		        wp_add_inline_style( 'wpbc-admin-pages', $wpbc_inline_css );
+	        $wpbc_inline_css = '';
+	        if ( ! class_exists( 'wpdev_bk_personal' ) ) {
+		        // Mark 2 last  items in menu with  line
+		        //	  $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(3) a { border-top: 1px dashed #707070;margin-top: 6px; } ";
+		        //	  $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(1) a { border-top: 1px solid #535454; padding-top: 10px; margin-top: 6px; font-weight: 600; font-size: 1em; } ";
+		        // Mark last item in menu 'Get Pro' with green color
+		        $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(-n+1) a { color: #adc636; } ";
+	        } else {
+		        // Mark 2 last  items in menu with  line
+		        //	  $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(2) a { border-top: 1px solid #535454;padding-top: 10px;margin-top: 6px; } ";
 	        }
+	        $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(1) a { border-top: 1px solid #535454;padding-top: 10px;margin-top: 6px; } ";
+	        wp_add_inline_style( 'wpbc-admin-pages', $wpbc_inline_css );
 
         }
 

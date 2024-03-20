@@ -65,7 +65,9 @@ if ( ! class_exists( 'WPCleverDashboard' ) ) {
 		}
 
 		function ajax_get_plugins() {
-			check_ajax_referer( 'wpc_dashboard', 'security' );
+			if ( ! isset( $_POST['security'] ) || ! wp_verify_nonce( sanitize_key( $_POST['security'] ), 'wpc_dashboard' ) ) {
+				die( 'Permissions check failed!' );
+			}
 
 			if ( false === ( $plugins_arr = get_transient( 'wpclever_plugins' ) ) ) {
 				$args    = (object) [
@@ -128,7 +130,7 @@ if ( ! class_exists( 'WPCleverDashboard' ) ) {
 						continue;
 					}
 
-					echo '<div class="item" data-p="' . esc_attr( isset( $pl['active_installs'] ) ? $pl['active_installs'] : 0 ) . '" data-u="' . esc_attr( isset( $pl['last_updated'] ) ? $pl['last_updated'] : 0 ) . '" data-d="' . esc_attr( isset( $pl['downloaded'] ) ? $pl['downloaded'] : 0 ) . '"><a class="thickbox" href="' . esc_url( network_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=' . $pl['slug'] . '&amp;TB_iframe=true&amp;width=600&amp;height=550' ) ) . '" title="' . esc_attr( $pl['name'] ) . '"><span class="num">' . esc_html( $i ) . '</span><span class="title">' . esc_html( $pl['name'] ) . '</span><br/><span class="info">' . esc_html( 'Version ' . $pl['version'] ) . ( isset( $pl['last_updated'] ) ? ' - Last updated: ' . date( 'M j, Y', $pl['last_updated'] ) : '' ) . '</span></a></div>';
+					echo '<div class="item" data-p="' . esc_attr( isset( $pl['active_installs'] ) ? $pl['active_installs'] : 0 ) . '" data-u="' . esc_attr( isset( $pl['last_updated'] ) ? $pl['last_updated'] : 0 ) . '" data-d="' . esc_attr( isset( $pl['downloaded'] ) ? $pl['downloaded'] : 0 ) . '"><a class="thickbox" href="' . esc_url( network_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=' . $pl['slug'] . '&amp;TB_iframe=true&amp;width=600&amp;height=550' ) ) . '" title="' . esc_attr( $pl['name'] ) . '"><span class="num">' . esc_html( $i ) . '</span><span class="title">' . esc_html( $pl['name'] ) . '</span><br/><span class="info">' . esc_html( 'Version ' . $pl['version'] . ( isset( $pl['last_updated'] ) ? ' - Last updated: ' . wp_date( 'M j, Y', $pl['last_updated'] ) : '' ) ) . '</span></a></div>';
 					$i ++;
 				}
 			} else {

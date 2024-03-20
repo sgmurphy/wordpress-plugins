@@ -87,7 +87,6 @@ class Module {
 			add_action( 'elementor/container/print_template', array( $this, 'print_template' ), 10, 2 );
 			add_action( 'elementor/frontend/container/before_render', array( $this, 'before_render' ) );
 		}
-
 	}
 
 	/**
@@ -237,7 +236,6 @@ class Module {
 		$element->end_controls_tabs();
 
 		$element->end_controls_section();
-
 	}
 
 	/**
@@ -289,7 +287,7 @@ class Module {
 				'render_type' => 'template',
 				'default'     => __( 'Hi, I\'m a global tooltip.', 'premium-addons-for-elementor' ),
 				'placeholder' => __( 'Hi, I\'m a global tooltip', 'premium-addons-for-elementor' ),
-                'dynamic'   => array(
+				'dynamic'     => array(
 					'active' => true,
 				),
 				'condition'   => array(
@@ -827,7 +825,7 @@ class Module {
 				'label'       => __( 'Min Width', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::SLIDER,
 				'render_type' => 'template',
-                'devices'     => array( 'desktop', 'tablet', 'mobile' ),
+				'devices'     => array( 'desktop', 'tablet', 'mobile' ),
 				'range'       => array(
 					'px' => array(
 						'min' => 0,
@@ -991,7 +989,7 @@ class Module {
 					});
 
 					if ( 'template' === type ) {
-                        var templateTitle = '' === settings.premium_tooltip_template ? settings.live_temp_content : settings.premium_tooltip_template;
+						var templateTitle = '' === settings.premium_tooltip_template ? settings.live_temp_content : settings.premium_tooltip_template;
 
 						view.addRenderAttribute( 'gTooltipshtml', {
 							'data-template-id': templateTitle,
@@ -1029,7 +1027,7 @@ class Module {
 										if( ! gallery[0] )
 											break;
 
-                                        tooltipContent = gallery;
+										tooltipContent = gallery;
 										view.addRenderAttribute( 'gTooltipsGallery', {
 											src: gallery[0]['url'],
 										});
@@ -1125,7 +1123,7 @@ class Module {
 
 		$elem_id = $element->get_id();
 
-        $id = apply_filters('pa_tooltips_dynamic', false) ? rand(0,1000) : $elem_id;
+		$id = apply_filters( 'pa_tooltips_dynamic', false ) ? rand( 0, 1000 ) : $elem_id;
 
 		$settings = $element->get_settings_for_display();
 
@@ -1194,7 +1192,7 @@ class Module {
 								break;
 
 							default:
-                                $content = empty( $settings['premium_tooltip_template'] ) ? $settings['live_temp_content'] : $settings['premium_tooltip_template'];
+								$content = empty( $settings['premium_tooltip_template'] ) ? $settings['live_temp_content'] : $settings['premium_tooltip_template'];
 								echo $this->getTemplateInstance()->get_template_content( $content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						}
 						?>
@@ -1231,7 +1229,7 @@ class Module {
 				'delay'        => ! empty( $settings['premium_tooltip_anime_delay'] ) ? $settings['premium_tooltip_anime_delay'] : 10,
 				'hideOn'       => $settings['hide_tooltip_on'],
 				'uniqueClass'  => $settings['pa_tooltip_class'],
-				'elemID'	=> $elem_id
+				'elemID'       => $elem_id,
 			);
 
 			$tooltip_settings['interactive'] = $tooltip_settings['follow_mouse'] ? false : 'yes' === $settings['premium_tooltip_interactive'];
@@ -1240,7 +1238,7 @@ class Module {
 				$tooltip_settings['isTourStarter'] = 'yes' === $settings['is_tour_starter'];
 			}
 
-            $element->add_render_attribute( '_wrapper', 'data-tooltip-id', $id );
+			$element->add_render_attribute( '_wrapper', 'data-tooltip-id', $id );
 
 			$element->add_render_attribute( '_wrapper', 'data-tooltip_settings', wp_json_encode( $tooltip_settings ) );
 
@@ -1277,7 +1275,6 @@ class Module {
 
 			remove_action( 'elementor/frontend/before_render', array( $this, 'check_script_enqueue' ) );
 		}
-
 	}
 
 	/**
