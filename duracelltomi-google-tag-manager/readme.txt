@@ -4,8 +4,8 @@ Donate link: https://gtm4wp.com/
 Tags: google tag manager, tag manager, gtm, google, adwords, google adwords, google ads, adwords remarketing, google ads remarketing, remarketing, google analytics, analytics, facebook ads, facebook remarketing, facebook pixel, google optimize, personalisation
 Requires at least: 3.4.0
 Requires PHP: 7.4
-Tested up to: 6.4
-Stable tag: 1.20
+Tested up to: 6.5
+Stable tag: 1.20.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -223,6 +223,15 @@ to report micro conversions and/or to serve ads only to visitors who spend more 
 6. Scroll tracking
 
 == Changelog ==
+
+= 1.20.1 =
+
+* Fix: do not load GTM container when OFF and console.log OFF. Thanks [morvy](https://github.com/morvy)
+* Fix: reverted a change where item_id in ecommerce data layer was converted to numeric type when the value was a numeric value. It will be kept as a string to preserve compatibility with other integrations.
+* Fix: JavaScript error when element ID not set correctly in scroll tracking
+* Changed: better normalize and hash user data with WooCommerce + orderData variable for enhanced conventions
+* Changed: PHP code optimization by [hans2103](https://github.com/hans2103)
+* Added: New filter to be able to modify data in the orderData variable on a WooCommerce order received page. Filter can be accessed either using the GTM4WP_WPFILTER_EEC_ORDER_DATA constant or the gtm4wp_eec_order_data string.
 
 = 1.20 =
 
@@ -890,6 +899,10 @@ Please report all bugs found in my plugin using the [contact form on my website]
 * First beta release
 
 == Upgrade Notice ==
+
+= 1.20.1 =
+
+Bugfix release
 
 = 1.20 =
 

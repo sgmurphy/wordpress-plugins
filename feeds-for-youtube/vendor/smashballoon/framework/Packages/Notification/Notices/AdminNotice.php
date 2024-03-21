@@ -14,6 +14,7 @@ if (!\defined('ABSPATH')) {
 }
 /**
  * Admin notice class.
+ * @internal
  */
 class AdminNotice extends Notice
 {

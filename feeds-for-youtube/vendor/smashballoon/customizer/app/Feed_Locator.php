@@ -2,6 +2,7 @@
 
 namespace Smashballoon\Customizer;
 
+/** @internal */
 class Feed_Locator
 {
     /**

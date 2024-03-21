@@ -466,6 +466,18 @@ class WPR_Templates_Data {
 					'label' => 'new',
 					'priority' => 6,
 				],
+				'v6' => [
+					'name' => 'Magazine Blog v6',
+					'pages' => 'home,category,single-blog,contact,',
+					'plugins' => '{}',
+					'tags' => 'blogger blog posts content news newspaper journal magazine business blog publishing theme builder sports grid slider magazine',
+					'theme-builder' => true,
+					'woo-builder' => false,
+					'off-canvas' => true,
+					'price' => $is_pro_active ? 'free' : 'free',
+					'label' => 'new',
+					'priority' => 6,
+				],
 			],
 			'yoga' => [
 				'v1' => [

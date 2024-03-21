@@ -461,7 +461,7 @@ function sby_attempt_connection() {
 		} else {
 			$account_info['username'] = '(No Channel)';
 			$account_info['channel_id'] = '';
-			$account_info['profile_picture'] = '';
+			$account_info['profile_picture'] = SBY_PLUGIN_URL . 'img/person-avatar.png';
 			$account_info['privacy'] = '';
 			$account_info['expires'] = $expires;
 			//privacyStatus

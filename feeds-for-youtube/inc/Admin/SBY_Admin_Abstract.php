@@ -15,6 +15,8 @@ abstract class SBY_Admin_Abstract {
 	protected $plugin_name;
 
 	protected $capability;
+	
+	protected $icon;
 
 	protected $tabs;
 
@@ -799,7 +801,7 @@ abstract class SBY_Admin_Abstract {
       <div class="sbspf_layouts">
 		  <?php foreach ( $args['layouts'] as $layout ) : ?>
             <div class="sbspf_layout_cell">
-              <input class="sbspf_layout_type" id="sbspf_layout_type_<?php echo esc_attr( $layout['slug'] ); ?>" name="<?php echo $this->option_name.'['.$args['name'].']'; ?>" type="radio" value="<?php echo esc_attr( $layout['slug'] ); ?>"<?php if ( $layout['slug'] === $value ) echo ' checked'?>><label for="sbspf_layout_type_<?php echo esc_attr( $layout['slug'] ); ?>"><span class="sbspf_label"><?php echo $layout['label']; ?></span><img src="<?php echo esc_url( $this->vars->plugin_url() . $layout['image'] ); ?>"></label>
+              <input class="sbspf_layout_type" id="sbspf_layout_type_<?php echo esc_attr( $layout['slug'] ); ?>" name="<?php echo $this->option_name.'['.$args['name'].']'; ?>" type="radio" value="<?php echo esc_attr( $layout['slug'] ); ?>"<?php if ( $layout['slug'] === $value ) echo ' checked'?>><label for="sbspf_layout_type_<?php echo esc_attr( $layout['slug'] ); ?>"><span class="sbspf_label"><?php echo $layout['label']; ?></span><img src="<?php echo esc_url( $this->vars->plugin_url() . $layout['image'] ); ?>" alt=""></label>
             </div>
 		  <?php endforeach; ?>
 

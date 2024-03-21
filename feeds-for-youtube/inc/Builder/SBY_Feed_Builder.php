@@ -1,6 +1,6 @@
 <?php
 /**
- * YouTube Feed Builder
+ * YouTube Feeds Builder
  *
  * @since 2.0
  */
@@ -119,7 +119,7 @@ class SBY_Feed_Builder {
 				$installed_plugins = get_plugins();
 
 				$newly_retrieved_source_connection_data = SBY_Source::maybe_source_connection_data();
-				$license_key                            = get_option( 'sbi_license_key', '' );
+				$license_key                            = get_option( 'sby_license_key', '' );
 
 				$sby_builder = array(
 					'ajaxHandler'         => admin_url( 'admin-ajax.php' ),
@@ -804,7 +804,7 @@ class SBY_Feed_Builder {
 			),
 			'youtube'  => array(
 				'displayName'         => __( 'YouTube', 'feeds-for-youtube' ),
-				'name'                => __( 'Feeds for YouTube', 'feeds-for-youtube' ),
+				'name'                => __( 'YouTube Feeds', 'feeds-for-youtube' ),
 				'author'              => __( 'By Smash Balloon', 'feeds-for-youtube' ),
 				'description'         => __( 'To display a YouTube feed, our YouTube plugin is required. It provides a simple yet powerful way to display videos from YouTube on your website, Increasing engagement with your channel while keeping visitors on your website.', 'feeds-for-youtube' ),
 				'dashboard_permalink' => admin_url( 'admin.php?page=sby-feed-builder' ),
@@ -855,7 +855,7 @@ class SBY_Feed_Builder {
 					'link' => 'https://smashballoon.com/custom-twitter-feeds/?utm_campaign='. sby_utm_campaign() .'&utm_source=balloon&utm_medium=twitter',
 				),
 				array(
-					'name' => __( 'YouTube Feed', 'feeds-for-youtube' ),
+					'name' => __( 'YouTube Feeds', 'feeds-for-youtube' ),
 					'icon' => 'youtube',
 					'link' => 'https://smashballoon.com/youtube-feed/?utm_campaign='. sby_utm_campaign() .'&utm_source=balloon&utm_medium=youtube',
 				),
@@ -885,7 +885,7 @@ class SBY_Feed_Builder {
 	 */
 	public function get_onboarding_text() {
 		// TODO: return if no legacy feeds
-		$sbi_statuses_option = get_option( 'sby_statuses', array() );
+		$sby_statuses_option = get_option( 'sby_statuses', array() );
 
 		if ( ! isset( $sby_statuses_option['legacy_onboarding'] ) ) {
 			return array( 'active' => false );
@@ -1180,36 +1180,7 @@ class SBY_Feed_Builder {
 	public static function get_source_list( $page = 1 ) {
 		$args['page'] = $page;
 		$source_data  = SBY_Db::source_query( $args );
-return; // Todo: remove this and port over below new classes
-		$encryption   = new SB_YouTube_Data_Encryption();
-
-		$return = array();
-		foreach ( $source_data as $source ) {
-			$info                  = ! empty( $source['info'] ) ? json_decode( $encryption->decrypt( $source['info'] ), true ) : array();
-			$source['header_data'] = $info;
-
-			$settings = array( 'gdpr' => 'no' );
-
-			$avatar = \SB_Instagram_Parse::get_avatar( $info, $settings );
-
-			if ( \SB_Instagram_Connected_Account::local_avatar_exists( $source['username'] ) ) {
-				$source['local_avatar_url'] = \SB_Instagram_Connected_Account::get_local_avatar_url( $source['username'] );
-				$source['local_avatar']     = \SB_Instagram_Connected_Account::get_local_avatar_url( $source['username'] );
-			} else {
-				$source['local_avatar'] = false;
-			}
-
-			$source['avatar_url']       = $avatar;
-			$source['just_added']       = ( ! empty( $_GET['sbi_username'] ) && isset( $info['username'] ) && $info['username'] === $_GET['sbi_username'] );
-			$source['error_encryption'] = false;
-			if ( isset( $source['access_token'] ) && strpos( $source['access_token'], 'IG' ) === false && strpos( $source['access_token'], 'EA' ) === false && ! $encryption->decrypt( $source['access_token'] ) ) {
-				$source['error_encryption'] = true;
-			}
-
-			$return[] = $source;
-		}
-
-		return $return;
+		return;
 	}
 
 	/**
@@ -1221,11 +1192,11 @@ return; // Todo: remove this and port over below new classes
 	 */
 	public static function get_links_with_utm() {
 		$license_key = null;
-		if ( get_option( 'sbi_license_key' ) ) {
-			$license_key = get_option( 'sbi_license_key' );
+		if ( get_option( 'sby_license_key' ) ) {
+			$license_key = get_option( 'sby_license_key' );
 		}
 		$all_access_bundle       = sprintf( 'https://smashballoon.com/all-access/?edd_license_key=%s&upgrade=true&utm_campaign=%s&utm_source=all-feeds&utm_medium=footer-banner&utm_content=learn-more', $license_key, sby_utm_campaign() );
-		$all_access_bundle_popup = sprintf( 'https://smashballoon.com/all-access/?edd_license_key=%s&upgrade=true&utm_campaign=%s&utm_source=balloon&utm_medium=all-access', $edd_license_key, sby_utm_campaign() );
+		$all_access_bundle_popup = sprintf( 'https://smashballoon.com/all-access/?edd_license_key=%s&upgrade=true&utm_campaign=%s&utm_source=balloon&utm_medium=all-access', $license_key, sby_utm_campaign() );
 		$sourceCombineCTA        = sprintf( 'https://smashballoon.com/social-wall/?edd_license_key=%s&upgrade=true&utm_campaign=%s&utm_source=customizer&utm_medium=sources&utm_content=social-wall', $license_key, sby_utm_campaign() );
 
 		return array(

@@ -63,7 +63,7 @@ class SBY_Display_Elements
 		if ( $customizer ) {
 			return ' :class="$parent.getFeedContainerClasses()" ';
 		} else {
-			$classes = ' class="'. esc_attr( implode(" ", $classes_array ) ) .' ' . esc_attr( $additional_classes ) .'"';
+			$classes = ' class="'. implode(" ", $classes_array ) .' ' . $additional_classes .'"';
 		}
 
 		return $classes;

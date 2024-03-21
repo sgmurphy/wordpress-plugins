@@ -218,6 +218,11 @@ SB_Customizer.initPromise.then((customizer) => {
 				}
 				if( data !== false ){
 					self.processNotification("licenseActivated");
+					// remove license notices
+					self.viewsActive.licenseLearnMore = false;
+					jQuery('#sby-license-expired-agp').slideUp();
+					jQuery('#sbc-builder-app').removeClass('sbc-builder-app-lite-dismiss');
+					jQuery('.sby_get_pro_highlight, .sby_get_cff, .sby_get_sbi, .sby_get_ctf').closest('li').remove();
 				}
 			})
 		},
@@ -516,7 +521,7 @@ SB_Customizer.initPromise.then((customizer) => {
 			var self = this;
 			self.selectedFeedTemplate = feedTemplate.type;
 			if ( iscustomizerPopup ) {
-				if ( !self.sbyIsPro || self.sbyLicenseNoticeActive || self.sbyLicenseInactiveState ) {
+				if ( !self.sbyIsPro || self.sbyLicenseNoticeActive || self.sbyLicenseInactiveState || !self.hasFeature('feeds_templates') ) {
 					self.activateView('feedtemplatesPopup');
 					self.viewsActive.extensionsPopupElement = 'feedTemplate';
 				} else {
@@ -1067,6 +1072,7 @@ SB_Customizer.initPromise.then((customizer) => {
 
 			self.viewsActive.onboardingPopup = false;
 			self.viewsActive.onboardingCustomizerPopup = false;
+			self.customizerScreens.activeTab = 'customize';
 
 			self.viewsActive.onboardingStep = 0;
 			var postData = {

@@ -1,5 +1,14 @@
 == Changelog ==
 
+= 5.1.60 =
+
+* Modifies the fields list popup to allow accessing the fields from the list.
+* Modifies the behavior of tooltips on mobiles.
+* Modifies the DATEDIFF operation.
+* Modifies the module that parses the form.
+* Fixes a minor issue with the fields list in the submissions data source settings (Developer and Platinum plugin versions).
+* Modifies the PayPal Checkout integration (Platinum plugin version).
+
 = 5.1.59 =
 
 * Modifies the PDFPAGESNUMBER to use PDF-JS API.

@@ -1405,4 +1405,19 @@ class Utils {
 	public static function get_plugin_discount() {
 		return self::HB_PLUGIN_DISCOUNT . '%';
 	}
+
+	/**
+	 * Returns performance score metrics.
+	 *
+	 * @return array
+	 */
+	public static function get_performance_metrics() {
+		return array(
+			'speed-index',
+			'first-contentful-paint',
+			'largest-contentful-paint',
+			'total-blocking-time',
+			'cumulative-layout-shift',
+		);
+	}
 }

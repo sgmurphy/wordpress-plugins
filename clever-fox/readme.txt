@@ -2,9 +2,9 @@
 Contributors: nayrathemes
 Tags: homepage, companion, one click demo, sections, customizer, widget, settings
 Requires at least: 6.0
-Tested up to: 6.4.3
+Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 24.8
+Stable tag: 24.9
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -176,6 +176,9 @@ Clever Fox WordPress Plugin is licensed under the GPL3 (https://www.gnu.org/lice
 
 
 == Changelog ==
+
+= 24.9 =
+* Tested WP 6.5 Compatibility
 
 = 24.8 =
 * New Theme Added [Acronix]

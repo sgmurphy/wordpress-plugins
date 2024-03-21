@@ -4,7 +4,7 @@ Tags: migrate, migrate WordPress, WordPress migration, migration, clone, transfe
 Plugin URI: https://www.migrateguru.com/
 Donate link: https://www.migrateguru.com/
 Requires at least: 4.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.6.0
 Stable tag: 5.48
 License: GPLv2 or later

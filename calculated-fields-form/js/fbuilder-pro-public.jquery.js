@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.1.59';
+	$.fbuilder['version'] = '5.1.60';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 
@@ -616,7 +616,11 @@
 								content: function (){return $(this).attr("uh");},
 								open: function( evt, ui ) {
 									try {
-										if(window.matchMedia("screen and (max-width: 640px)").matches && window.orientation != undefined){
+										if(
+											! $(evt.originalEvent.target).hasClass('cff-help-icon') &&
+											window.matchMedia("screen and (max-width: 640px)").matches &&
+											window.orientation != undefined
+										){
 											var duration = ('undefined' != typeof tooltip_duration && /^\d+$/.test(tooltip_duration)) ? tooltip_duration : 3000;
 											setTimeout( function(){$(ui.tooltip).hide('fade'); }, duration );
 										}

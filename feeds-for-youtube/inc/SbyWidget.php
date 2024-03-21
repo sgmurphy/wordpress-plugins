@@ -10,11 +10,11 @@ use WP_Widget;
 
 class SbyWidget extends WP_Widget
 {
-    function __construct() {
+    public function __construct() {
         parent::__construct(
             'youtube-feeds-widget',
-            __( 'YouTube Feed', SBY_TEXT_DOMAIN ),
-            array( 'description' => __( 'Display your YouTube feed', SBY_TEXT_DOMAIN ), )
+            __( 'YouTube Feeds', SBY_TEXT_DOMAIN ),
+            array( 'description' => __( 'Display your YouTube feeds', SBY_TEXT_DOMAIN ), )
         );
     }
 

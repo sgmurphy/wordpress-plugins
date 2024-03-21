@@ -1450,8 +1450,7 @@ if(!sby_js_exists) {
                     a(function() {
                         {
                             var a = new b;
-                            new c(a)
-
+                            new c(a);
                             //Lightbox hide photo function
                             $('.sby_lightbox_action a').off().on('click', function(){
                                 $(this).parent().find('.sby_lightbox_tooltip').toggle();
@@ -1488,7 +1487,7 @@ if(!sby_js_exists) {
                           num : $self.attr('data-num'),
                           imgRes : $self.attr('data-res'),
                           feedID : $self.attr('data-feedid'),
-                          postID : typeof $self.attr( 'data-postid' ) !== 'undefind' ? $self.attr( 'data-postid' ) : 'unknown',
+                          postID : typeof $self.attr( 'data-postid' ) !== 'undefined' ? $self.attr( 'data-postid' ) : 'unknown',
                           shortCodeAtts : $self.attr('data-shortcode-atts'),
                           resizingEnabled : (flags.indexOf('resizeDisable') === -1),
                           imageLoadEnabled : (flags.indexOf('imageLoadDisable') === -1),
@@ -1680,7 +1679,7 @@ if(!sby_js_exists) {
                     $self.find('.sby_player_outer_wrap .sby_video_thumbnail').off().on('click',function (event) {
                         if ((!feed.settings.lightboxEnabled || (feed.settings.lightboxEnabled && feed.settings.noCDN))
                           && (feed.settings.noCDN || !feed.settings.consentGiven)) {
-                            if (typeof $(this).closest('.sby_item').length
+                            if ($(this).closest('.sby_item').length
                               && typeof $(this).closest('.sby_item').attr('data-video-id') !== 'undefined') {
                                 $(this).attr('href','https://www.youtube.com/watch?v='+$(this).closest('.sby_item').attr('data-video-id'));
                             }
@@ -1723,6 +1722,11 @@ if(!sby_js_exists) {
                   feed = this;
                 videoID = typeof videoID !== 'undefined' ? videoID : this.getVideoID($self.find('.sby_item').first());
                 autoplay = typeof autoplay !== 'undefined' ? autoplay : 0;
+
+                // do not create player in customizer preview
+                if ( sbyOptions.isCustomizer !== undefined && sbyOptions.isCustomizer ) {
+                    return;
+                }
 
                 if (typeof args === 'undefined') {
                     args = {
@@ -1939,7 +1943,7 @@ if(!sby_js_exists) {
                     $self.find('.sby_video_thumbnail').on('click',function(event) {
                         if ((!feed.settings.lightboxEnabled || (feed.settings.lightboxEnabled && feed.settings.noCDN))
                           && (feed.settings.noCDN || !feed.settings.consentGiven)) {
-                            if (typeof $(this).closest('.sby_item').length
+                            if ($(this).closest('.sby_item').length
                               && typeof $(this).closest('.sby_item').attr('data-video-id') !== 'undefined') {
                                 $(this).attr('href','https://www.youtube.com/watch?v='+$(this).closest('.sby_item').attr('data-video-id'));
                             }
@@ -2580,11 +2584,9 @@ if(!sby_js_exists) {
                     $(this.el).find('.sby_player_outer_wrap').removeClass('sby_player_loading');
                     $(this.el).find('.sby_player_outer_wrap .sby_video_thumbnail').find('.sby_loader').hide().addClass('sby_hidden');
 
-                    if ($(window).width() < 480) {
-                        $('html, body').animate({
-                            scrollTop: $(this.el).find('.sby_player_outer_wrap').offset().top
-                        }, 300);
-                    }
+                    $('html, body').animate({
+                        scrollTop: $(this.el).find('.sby_player_outer_wrap').offset().top
+                    }, 300);
 
                 }
             },
@@ -3130,6 +3132,15 @@ if(!sby_js_exists) {
                   $newItem.find('.sby_info').clone(true,true)
                 );
                 //sby_info
+                // retreive the new item's data
+                let newItemVideoTitle = $newItem.find('.sby_video_title_wrap .sby_video_title').text();
+                let newItemChannel = $newItem.find('.sby_username_wrap .sby_username').text();
+                let newItemDate = $newItem.find('.sby_date_wrap .sby_date').text();
+
+                // update the player info
+                $self.find('.sby-player-info .sby-video-header-info h5').text( newItemVideoTitle );
+                $self.find('.sby-player-info .sby-video-header-meta .sby-channel-name').text( newItemChannel );
+                $self.find('.sby-player-info .sby-video-header-meta .sby-video-date').text( newItemDate );
             };
 
             this.maybeAddCTA = function(playerID,$el) {

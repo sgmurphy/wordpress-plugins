@@ -7,6 +7,7 @@
  */
 namespace Smashballoon\Customizer;
 
+/** @internal */
 class DB
 {
     const RESULTS_PER_PAGE = 20;

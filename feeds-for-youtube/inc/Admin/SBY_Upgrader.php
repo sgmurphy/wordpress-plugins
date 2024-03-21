@@ -208,7 +208,7 @@ class SBY_Upgrader {
 	 *
 	 * @since 4.0
 	 */
-	function install_upgrade() {
+	public function install_upgrade() {
 		$error = esc_html__( 'Could not install upgrade. Please download from smashballoon.com and install manually.', SBY_TEXT_DOMAIN );
 		// verify params present (oth & download link).
 		$post_oth = ! empty( $_REQUEST['oth'] ) ? sanitize_text_field( $_REQUEST['oth'] ) : '';

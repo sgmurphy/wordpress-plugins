@@ -1211,7 +1211,7 @@ class SBY_Admin extends SBY_Admin_Abstract {
 
                 <p><span><?php _e("Automatic", 'youtube-feed' ); ?>:</span> <?php echo sprintf( __( 'The plugin will only videos if consent has been given by one of these integrated %s', 'youtube-feed' ), '<a href="https://smashballoon.com/doc/gdpr-plugin-list/?youtube" target="_blank" rel="noopener">' . __( 'GDPR cookie plugins', 'youtube-feed' ) . '</a>' ); ?></p>
 
-                <p><?php echo sprintf( __( '%s to learn more about GDPR compliance in the Feeds for YouTube plugin.', 'youtube-feed' ), '<a href="https://smashballoon.com/doc/feeds-for-youtube-gdpr-compliance/?youtube" target="_blank" rel="noopener">'. __( 'Click here', 'youtube-feed' ).'</a>' ); ?></p>
+                <p><?php echo sprintf( __( '%s to learn more about GDPR compliance in the YouTube Feeds plugin.', 'youtube-feed' ), '<a href="https://smashballoon.com/doc/feeds-for-youtube-gdpr-compliance/?youtube" target="_blank" rel="noopener">'. __( 'Click here', 'youtube-feed' ).'</a>' ); ?></p>
             </div>
         </div>
 
@@ -1253,7 +1253,7 @@ class SBY_Admin extends SBY_Admin_Abstract {
                                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-check-circle fa-w-16 fa-2x"><path fill="currentColor" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z" class=""></path></svg>
                                 <b><?php echo sprintf( __( '%s detected', 'youtube-feed' ), $active_plugin ); ?></b>
                                 <br />
-								<?php _e( 'Some Feeds for YouTube features will be limited for visitors to ensure GDPR compliance until they give consent.', 'youtube-feed' ); ?>
+								<?php _e( 'Some YouTube Feeds features will be limited for visitors to ensure GDPR compliance until they give consent.', 'youtube-feed' ); ?>
                                 <a href="JavaScript:void(0);" class="sbspf_show_gdpr_list"><?php _e( 'What will be limited?', 'youtube-feed' ); ?></a>
                             </p>
 							<?php echo "<div class='sbspf_gdpr_list'>" . $gdpr_list . '</div>'; ?>

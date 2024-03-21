@@ -1240,19 +1240,28 @@ class HMWP_Models_Rewrite
         }
 
         if (HMWP_Classes_Tools::doChangePaths() ) {
-            if (HMWP_Classes_Tools::$default['hmwp_admin-ajax_url'] <> HMWP_Classes_Tools::getOption('hmwp_admin-ajax_url') ) {
+
+            if (HMWP_Classes_Tools::getDefault('hmwp_admin-ajax_url') <> HMWP_Classes_Tools::getOption('hmwp_admin-ajax_url') ) {
                 if (HMWP_Classes_Tools::getOption('hmwp_hideajax_admin')) {
-                    $find[] = '/' . HMWP_Classes_Tools::$default['hmwp_admin_url'] . '/' . HMWP_Classes_Tools::$default['hmwp_admin-ajax_url'];
+                    $find[] = '/' . HMWP_Classes_Tools::getDefault('hmwp_admin_url') . '/' . HMWP_Classes_Tools::getDefault('hmwp_admin-ajax_url');
                 } else {
-                    $find[] = '/' . HMWP_Classes_Tools::$default['hmwp_admin-ajax_url'];
+                    $find[] = '/' . HMWP_Classes_Tools::getDefault('hmwp_admin-ajax_url');
                 }
                 $replace[] = '/' . HMWP_Classes_Tools::getOption('hmwp_admin-ajax_url');
             }
-        }
 
-        if (HMWP_Classes_Tools::$default['hmwp_admin_url'] <> HMWP_Classes_Tools::getOption('hmwp_admin_url')) {
-            $find[] = '/' . HMWP_Classes_Tools::$default['hmwp_admin_url'] . '/';
-            $replace[] = '/' . HMWP_Classes_Tools::getOption('hmwp_admin_url') . '/';
+            if (HMWP_Classes_Tools::getDefault('hmwp_admin_url') <> HMWP_Classes_Tools::getOption('hmwp_admin_url')) {
+                $find[] = '/' . HMWP_Classes_Tools::getDefault('hmwp_admin_url') . '/';
+                $replace[] = '/' . HMWP_Classes_Tools::getOption('hmwp_admin_url') . '/';
+            }
+
+        }elseif ( strpos($url, HMWP_Classes_Tools::getDefault('hmwp_admin-ajax_url')) === false ) {
+
+            if (HMWP_Classes_Tools::getDefault('hmwp_admin_url') <> HMWP_Classes_Tools::getOption('hmwp_admin_url')) {
+                $find[] = '/' . HMWP_Classes_Tools::getDefault('hmwp_admin_url') . '/';
+                $replace[] = '/' . HMWP_Classes_Tools::getOption('hmwp_admin_url') . '/';
+            }
+
         }
 
         //if there is a custom path for admin or ajax
@@ -1287,20 +1296,27 @@ class HMWP_Models_Rewrite
             return $url;
         }
 
-        $from = HMWP_Classes_Tools::$default['hmwp_admin_url'];
-        $to = HMWP_Classes_Tools::getOption('hmwp_admin_url');
-
-        $find[] = network_site_url($from . '/', $to);
-        $replace[] = network_site_url('/' . HMWP_Classes_Tools::getOption('hmwp_admin_url') . '/', $to);
-
         if (HMWP_Classes_Tools::doChangePaths() ) {
-            if (HMWP_Classes_Tools::$default['hmwp_admin-ajax_url'] <> HMWP_Classes_Tools::getOption('hmwp_admin-ajax_url') ) {
+
+            if (HMWP_Classes_Tools::getDefault('hmwp_admin-ajax_url') <> HMWP_Classes_Tools::getOption('hmwp_admin-ajax_url') ) {
                 if (HMWP_Classes_Tools::getOption('hmwp_hideajax_admin') ) {
-                    $find[] = '/' . HMWP_Classes_Tools::$default['hmwp_admin_url'] . '/' . HMWP_Classes_Tools::$default['hmwp_admin-ajax_url'];
+                    $find[] = '/' . HMWP_Classes_Tools::getDefault('hmwp_admin_url') . '/' . HMWP_Classes_Tools::getDefault('hmwp_admin-ajax_url');
                 } else {
-                    $find[] = '/' . HMWP_Classes_Tools::$default['hmwp_admin-ajax_url'];
+                    $find[] = '/' . HMWP_Classes_Tools::getDefault('hmwp_admin-ajax_url');
                 }
                 $replace[] = '/' . HMWP_Classes_Tools::getOption('hmwp_admin-ajax_url');
+            }
+
+            if (HMWP_Classes_Tools::getDefault('hmwp_admin_url') <> HMWP_Classes_Tools::getOption('hmwp_admin_url')) {
+                $find[] = network_site_url(HMWP_Classes_Tools::getDefault('hmwp_admin_url') . '/', HMWP_Classes_Tools::getOption('hmwp_admin_url'));
+                $replace[] = network_site_url('/' . HMWP_Classes_Tools::getOption('hmwp_admin_url') . '/', HMWP_Classes_Tools::getOption('hmwp_admin_url'));
+            }
+
+        }elseif ( strpos($url, HMWP_Classes_Tools::getDefault('hmwp_admin-ajax_url')) === false ) {
+
+            if (HMWP_Classes_Tools::getDefault('hmwp_admin_url') <> HMWP_Classes_Tools::getOption('hmwp_admin_url')) {
+                $find[] = network_site_url(HMWP_Classes_Tools::getDefault('hmwp_admin_url') . '/', HMWP_Classes_Tools::getOption('hmwp_admin_url'));
+                $replace[] = network_site_url('/' . HMWP_Classes_Tools::getOption('hmwp_admin_url') . '/', HMWP_Classes_Tools::getOption('hmwp_admin_url'));
             }
         }
 

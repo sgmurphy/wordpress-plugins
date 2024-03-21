@@ -110,6 +110,7 @@ class Page_Cache extends Module {
 		 * @param int $post_id  Post ID.
 		 */
 		add_action( 'wphb_clear_page_cache', array( $this, 'clear_cache_action' ) );
+		add_action( 'wp_update_nav_menu', array( $this, 'clear_cache_after_menu_update' ), 10, 2 );
 		add_action( 'wphb_clear_cache_url', array( $this, 'clear_external_cache' ), 50 );
 
 		// Post status transitions.
@@ -2239,4 +2240,13 @@ class Page_Cache extends Module {
 		}
 	}
 
+	/**
+	 * Call the clear page cache after menu update.
+	 *
+	 * @param int   $menu_id   ID of the updated menu.
+	 * @param array $menu_data An array of menu data.
+	 */
+	public function clear_cache_after_menu_update( $menu_id, $menu_data = array() ) {
+		$this->clear_cache();
+	}
 }

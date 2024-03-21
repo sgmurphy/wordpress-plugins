@@ -259,7 +259,10 @@ class Admin
         );
         $this->add_section_main_subsection_marketing( $section_ids );
         $this->add_section_main_subsection_statistics( $section_ids );
-        $this->add_section_main_subsection_optimization( $section_ids );
+        // pro version
+        if ( wpm_fs()->can_use_premium_code__premium_only() || Options::pro_version_demo_active() ) {
+            $this->add_section_main_subsection_optimization( $section_ids );
+        }
     }
     
     public static function add_subsection_div( $section_ids, $sub_section_ids )
@@ -476,13 +479,6 @@ class Admin
         /**
          * Add the settings fields
          */
-        add_settings_field(
-            'wpm_plugin_google_optimize_container_id',
-            esc_html__( 'Google Optimize', 'woocommerce-google-adwords-conversion-tracking-tag' ),
-            [ $this, 'option_html_google_optimize_container_id' ],
-            'wpm_plugin_options_page',
-            $section_ids['settings_name']
-        );
         
         if ( Helpers::is_experiment() ) {
             add_settings_field(
@@ -499,15 +495,15 @@ class Admin
                 'wpm_plugin_options_page',
                 $section_ids['settings_name']
             );
-            add_settings_field(
-                'pmw_plugin_vwo_account_id',
-                esc_html__( 'VWO', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
-                [ $this, 'option_html_vwo_account_id' ],
-                'wpm_plugin_options_page',
-                $section_ids['settings_name']
-            );
         }
-    
+        
+        add_settings_field(
+            'pmw_plugin_vwo_account_id',
+            esc_html__( 'VWO', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
+            [ $this, 'option_html_vwo_account_id' ],
+            'wpm_plugin_options_page',
+            $section_ids['settings_name']
+        );
     }
     
     public function add_section_advanced()
@@ -536,6 +532,7 @@ class Admin
                 $this->add_section_advanced_subsection_linkedin( $section_ids );
             }
             $this->add_section_advanced_subsection_pinterest( $section_ids );
+            $this->add_section_advanced_subsection_snapchat( $section_ids );
             $this->add_section_advanced_subsection_reddit( $section_ids );
             $this->add_section_advanced_subsection_tiktok( $section_ids );
             if ( Environment::is_woocommerce_active() ) {
@@ -802,23 +799,7 @@ class Admin
                     $section_ids['settings_name']
                 );
             }
-            
-            // Add html for the Google Optimize anti-flicker snippet
-            add_settings_field(
-                'pmw_plugin_google_optimize_anti_flicker_snippet',
-                esc_html__( 'Google Optimize Anti-Flicker Snippet', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
-                [ $this, 'setting_html_google_optimize_anti_flicker_snippet' ],
-                'wpm_plugin_options_page',
-                $section_ids['settings_name']
-            );
-            // Add html for the Google Optimize anti-flicker snippet timeout
-            add_settings_field(
-                'pmw_plugin_google_optimize_anti_flicker_snippet_timeout',
-                esc_html__( 'Google Optimize Anti-Flicker Snippet Timeout', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
-                [ $this, 'setting_html_google_optimize_anti_flicker_snippet_timeout' ],
-                'wpm_plugin_options_page',
-                $section_ids['settings_name']
-            );
+        
         }
         
         
@@ -1073,6 +1054,23 @@ class Admin
             'pmw_setting_pinterest_user_transparency_advanced_matching',
             esc_html__( 'Pinterest: Advanced Matching', 'woocommerce-google-adwords-conversion-tracking-tag' ) . $this->html_beta(),
             [ $this, 'setting_pinterest_advanced_matching' ],
+            'wpm_plugin_options_page',
+            $section_ids['settings_name']
+        );
+    }
+    
+    public function add_section_advanced_subsection_snapchat( $section_ids )
+    {
+        $sub_section_ids = [
+            'title' => 'Snapchat',
+            'slug'  => 'snapchat',
+        ];
+        self::add_subsection_div( $section_ids, $sub_section_ids );
+        // Add the field for the Snapchat advanced matching
+        add_settings_field(
+            'plugin_snapchat_advanced_matching',
+            esc_html__( 'Snapchat Advanced Matching', 'woocommerce-google-adwords-conversion-tracking-tag' ),
+            [ $this, 'option_html_snapchat_advanced_matching' ],
             'wpm_plugin_options_page',
             $section_ids['settings_name']
         );
@@ -2258,32 +2256,21 @@ class Admin
         echo  '</p>' ;
     }
     
-    public function option_html_google_optimize_container_id()
-    {
-        ?>
-		<input class="pmw mono" id='wpm_plugin_google_optimize_container_id'
-			   name='wgact_plugin_options[google][optimize][container_id]' size='40' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['google']['optimize']['container_id'] );
-        ?>'/>
-		<?php 
-        self::display_status_icon( $this->options['google']['optimize']['container_id'], true, true );
-        //        echo self::get_documentation_html('/wgact/#/plugin-configuration?id=configure-the-plugin');
-        self::get_documentation_html_by_key( 'google_optimize_container_id' );
-        echo  '<br><br>' ;
-        esc_html_e( 'The Google Optimize container ID looks like this:', 'woocommerce-google-adwords-conversion-tracking-tag' );
-        echo  '&nbsp;<i>GTM-WMAB1BM</i>&nbsp;' ;
-        esc_html_e( 'or', 'woocommerce-google-adwords-conversion-tracking-tag' );
-        echo  '&nbsp;<i>OPT-WMAB1BM</i>' ;
-    }
-    
     public function option_html_vwo_account_id()
     {
         ?>
-		<input class="pmw mono" id='pmw_plugin_vwo_account_id' name='wgact_plugin_options[pixels][vwo][account_id]'
-			   size='40' type='text' value='<?php 
+		<input class="pmw mono"
+			   id="pmw_plugin_vwo_account_id"
+			   name="wgact_plugin_options[pixels][vwo][account_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
         esc_html_e( $this->options['pixels']['vwo']['account_id'] );
-        ?>'/>
+        ?>"
+			<?php 
+        esc_html_e( self::disable_if_demo() );
+        ?>
+		/>
 		<?php 
         self::display_status_icon( $this->options['pixels']['vwo']['account_id'], true, true );
         self::get_documentation_html_by_key( 'vwo_account_id' );
@@ -2295,11 +2282,18 @@ class Admin
     public function option_html_optimizely_project_id()
     {
         ?>
-		<input class="pmw mono" id='pmw_plugin_optimizely_project_id'
-			   name='wgact_plugin_options[pixels][optimizely][project_id]' size='40' type='text'
-			   value='<?php 
+		<input class="pmw mono"
+			   id="pmw_plugin_optimizely_project_id"
+			   name="wgact_plugin_options[pixels][optimizely][project_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
         esc_html_e( $this->options['pixels']['optimizely']['project_id'] );
-        ?>'/>
+        ?>"
+			<?php 
+        esc_html_e( self::disable_if_demo() );
+        ?>
+		/>
 		<?php 
         self::display_status_icon( $this->options['pixels']['optimizely']['project_id'], true, true );
         self::get_documentation_html_by_key( 'optimizely_project_id' );
@@ -2311,11 +2305,18 @@ class Admin
     public function option_html_ab_tasty_account_id()
     {
         ?>
-		<input class="pmw mono" id='pmw_plugin_ab_tasty_account_id'
-			   name='wgact_plugin_options[pixels][ab_tasty][account_id]' size='40' type='text'
-			   value='<?php 
+		<input class="pmw mono"
+			   id="pmw_plugin_ab_tasty_account_id"
+			   name="wgact_plugin_options[pixels][ab_tasty][account_id]"
+			   size="40"
+			   type="text"
+			   value="<?php 
         esc_html_e( $this->options['pixels']['ab_tasty']['account_id'] );
-        ?>'/>
+        ?>"
+			<?php 
+        esc_html_e( self::disable_if_demo() );
+        ?>
+		/>
 		<?php 
         self::display_status_icon( $this->options['pixels']['ab_tasty']['account_id'], true, true );
         self::get_documentation_html_by_key( 'ab_tasty_account_id' );
@@ -2927,6 +2928,31 @@ class Admin
         ?>
 		</p>
 		<?php 
+    }
+    
+    public function option_html_snapchat_advanced_matching()
+    {
+        // adding the hidden input is a hack to make WordPress save the option with the value zero,
+        // instead of not saving it and remove that array key entirely
+        // https://stackoverflow.com/a/1992745/4688612
+        ?>
+		<label>
+			<input type='hidden' value='0' name='wgact_plugin_options[snapchat][advanced_matching]'>
+			<input type='checkbox' id='plugin_snapchat_advanced_matching'
+				   name='wgact_plugin_options[snapchat][advanced_matching]'
+				   value='1' <?php 
+        checked( Options::is_snapchat_advanced_matching_enabled() );
+        ?> <?php 
+        esc_html_e( self::disable_if_demo() );
+        ?> />
+			<?php 
+        esc_html_e( 'Enable Snapchat advanced matching', 'woocommerce-google-adwords-conversion-tracking-tag' );
+        ?>
+		</label>
+		<?php 
+        self::display_status_icon( Options::is_snapchat_advanced_matching_enabled(), Options::is_snapchat_active(), true );
+        self::get_documentation_html_by_key( 'snapchat_advanced_matching' );
+        self::html_pro_feature();
     }
     
     public function option_html_reddit_advanced_matching()
@@ -3680,64 +3706,6 @@ class Admin
 			</div>
 		</div>
 		<?php 
-    }
-    
-    public function setting_html_google_optimize_anti_flicker_snippet()
-    {
-        // adding the hidden input is a hack to make WordPress save the option with the value zero,
-        // instead of not saving it and remove that array key entirely
-        // https://stackoverflow.com/a/1992745/4688612
-        ?>
-		<label>
-			<input type='hidden' value='0' name='wgact_plugin_options[google][optimize][anti_flicker]'>
-			<input type='checkbox' id='pmw_plugin_google_optimize_anti_flicker_snippet'
-				   name='wgact_plugin_options[google][optimize][anti_flicker]'
-				   value='1' <?php 
-        checked( $this->options['google']['optimize']['anti_flicker'] );
-        ?> <?php 
-        esc_html_e( self::disable_if_demo() );
-        ?> />
-			<?php 
-        esc_html_e( 'Google Optimize Anti-Flicker Snippet', 'woocommerce-google-adwords-conversion-tracking-tag' );
-        ?>
-		</label>
-		<?php 
-        self::display_status_icon( Options::get_options_obj()->google->optimize->anti_flicker, Options::is_google_optimize_active(), true );
-        self::html_pro_feature();
-        self::get_documentation_html_by_key( 'google_optimize_anti_flicker' );
-        ?>
-		<div style="margin-top: 10px">
-			<?php 
-        
-        if ( !Options::is_google_optimize_active() && Options::get_options_obj()->google->optimize->anti_flicker ) {
-            ?>
-				<span class="dashicons dashicons-info" style="padding-right: 10px"></span>
-				<?php 
-            esc_html_e( 'Enabling the Google Optimize Anti-Flicker Snippet requires Google Optimize to be active.', 'woocommerce-google-adwords-conversion-tracking-tag' );
-            ?>
-			<?php 
-        }
-        
-        ?>
-		</div>
-		<?php 
-    }
-    
-    public function setting_html_google_optimize_anti_flicker_snippet_timeout()
-    {
-        ?>
-		<input class="pmw mono" id='pmw_plugin_google_optimize_anti_flicker_snippet_timeout'
-			   name='wgact_plugin_options[google][optimize][anti_flicker_timeout]' size='4' type='text'
-			   value='<?php 
-        esc_html_e( $this->options['google']['optimize']['anti_flicker_timeout'] );
-        ?>' <?php 
-        esc_html_e( self::disable_if_demo() );
-        ?> />
-		<?php 
-        self::display_status_icon( $this->options['google']['optimize']['anti_flicker'], true, true );
-        self::get_documentation_html_by_key( 'google_optimize_anti_flicker_timeout' );
-        self::html_pro_feature();
-        //        esc_html_e('The Google Ads phone conversion label must be in the same format as on the website.', 'woocommerce-google-adwords-conversion-tracking-tag');
     }
     
     public function info_html_automatic_email_link_tracking()

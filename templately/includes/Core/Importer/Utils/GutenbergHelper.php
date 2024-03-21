@@ -87,8 +87,13 @@ class GutenbergHelper extends ImportHelper {
 					$this->replace_archive_id( $block['attrs']['ref'] );
 				}
 			}
-			if ( isset( $block['blockId'] ) && array_key_exists( $block['blockId'], $this->forms ) ) {
-				$block['attrs'][ $this->forms[ $block['blockId'] ]['attr'] ] = $this->forms[ $block['blockId'] ]['value'];
+			if ( isset( $block['attrs']['blockId'] ) && array_key_exists( $block['attrs']['blockId'], $this->forms ) ) {
+				$blockId = $block['attrs']['blockId'];
+				$form    = $this->forms[$blockId];
+				$attr    = $form['attr'];
+				$value   = (string) $form['value'];
+
+				$block['attrs'][$attr] = $value;
 			}
 
 			if ( ! empty( $block['attrs']['queryData'] ) ) {

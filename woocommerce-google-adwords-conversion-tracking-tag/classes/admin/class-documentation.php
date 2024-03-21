@@ -98,6 +98,10 @@ class Documentation {
 				'default' => '/docs/wpm/plugin-configuration/snapchat',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/',
 			],
+			'snapchat_advanced_matching'                                      => [
+				'default' => '/docs/wpm/plugin-configuration/snapchat#advanced-matching',
+				'wcm'     => '',
+			],
 			'tiktok_pixel_id'                                        => [
 				'default' => '/docs/wpm/plugin-configuration/tiktok',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/tiktok/',

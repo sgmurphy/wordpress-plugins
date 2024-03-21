@@ -301,4 +301,24 @@ class Util {
 		return $channel_id;
 	}
 
+	/**
+	 * @return string
+	 *
+	 * @since 2.1.1
+	 */
+	public static function sby_get_resized_uploads_url() {
+		$upload = wp_upload_dir();
+
+		$base_url = $upload['baseurl'];
+		$home_url = home_url();
+
+		if ( strpos( $home_url, 'https:' ) !== false ) {
+			str_replace( 'http:', 'https:', $base_url );
+		}
+
+		$resize_url = apply_filters( 'sby_resize_url', trailingslashit( $base_url ) . trailingslashit( SBY_UPLOADS_NAME ) );
+
+		return $resize_url;
+	}
+
 }

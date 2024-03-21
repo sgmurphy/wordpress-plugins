@@ -36,6 +36,8 @@ class Debug_Info
             }
             $html .= 'PHP version: ' . phpversion() . PHP_EOL;
             $html .= 'Server max execution time: ' . ini_get( 'max_execution_time' ) . PHP_EOL;
+            // show the php.ini file that is being used with full path location
+            //			$html .= 'php.ini file: ' . php_ini_loaded_file() . PHP_EOL;
             $html .= 'Freemius SDK version: ' . $fs_active_plugins->newest->version . PHP_EOL;
             $html .= 'WordPress memory limit: ' . Environment::get_wp_memory_limit() . PHP_EOL;
             $curl_available = ( Environment::is_curl_active() ? 'yes' : 'no' );

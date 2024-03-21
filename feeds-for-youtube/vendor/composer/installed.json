@@ -254,17 +254,17 @@
         },
         {
             "name": "smashballoon\/customizer",
-            "version": "1.3.7",
-            "version_normalized": "1.3.7.0",
+            "version": "1.5.1",
+            "version_normalized": "1.5.1.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:awesomemotive\/sb-customizer.git",
-                "reference": "e4e8e2da536f74d2c8df49330d0f731ab3aae8fe"
+                "reference": "44c430d034d5881028dba7d4678e89c14a14babb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/awesomemotive\/sb-customizer\/zipball\/e4e8e2da536f74d2c8df49330d0f731ab3aae8fe",
-                "reference": "e4e8e2da536f74d2c8df49330d0f731ab3aae8fe",
+                "url": "https:\/\/api.github.com\/repos\/awesomemotive\/sb-customizer\/zipball\/44c430d034d5881028dba7d4678e89c14a14babb",
+                "reference": "44c430d034d5881028dba7d4678e89c14a14babb",
                 "shasum": ""
             },
             "require": {
@@ -275,7 +275,7 @@
             "require-dev": {
                 "vlucas\/phpdotenv": "^4.0"
             },
-            "time": "2023-08-02T19:23:18+00:00",
+            "time": "2024-03-13T23:28:57+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -291,34 +291,35 @@
             ],
             "description": "The SmashBalloon customizer library.",
             "support": {
-                "source": "https:\/\/github.com\/awesomemotive\/sb-customizer\/tree\/1.3.7",
+                "source": "https:\/\/github.com\/awesomemotive\/sb-customizer\/tree\/1.5.1",
                 "issues": "https:\/\/github.com\/awesomemotive\/sb-customizer\/issues"
             },
             "install-path": "..\/smashballoon\/customizer"
         },
         {
             "name": "smashballoon\/framework",
-            "version": "dev-feature\/license_tier",
-            "version_normalized": "dev-feature\/license_tier",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git@github.com:awesomemotive\/sb-common.git",
-                "reference": "fe2f8727c0206ef5e50313c0f2149d08d8e4c1a8"
+                "reference": "f05f6d29291e30deaf915a085dadd954e796be48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/awesomemotive\/sb-common\/zipball\/fe2f8727c0206ef5e50313c0f2149d08d8e4c1a8",
-                "reference": "fe2f8727c0206ef5e50313c0f2149d08d8e4c1a8",
+                "url": "https:\/\/api.github.com\/repos\/awesomemotive\/sb-common\/zipball\/f05f6d29291e30deaf915a085dadd954e796be48",
+                "reference": "f05f6d29291e30deaf915a085dadd954e796be48",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=5.6"
             },
             "require-dev": {
                 "phpcompatibility\/php-compatibility": "^9.3",
                 "squizlabs\/php_codesniffer": "^3.7"
             },
-            "time": "2023-08-03T18:52:01+00:00",
+            "time": "2024-03-14T12:10:05+00:00",
+            "default-branch": true,
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -327,6 +328,9 @@
                 },
                 "files": [
                     "Utilities\/functions.php"
+                ],
+                "exclude-from-classmap": [
+                    "Packages\/Blocks\/blocks\/*"
                 ]
             },
             "scripts": {
@@ -342,7 +346,7 @@
             ],
             "description": "WordPress plugin framework. Developed by SmashBalloon Team.",
             "support": {
-                "source": "https:\/\/github.com\/awesomemotive\/sb-common\/tree\/feature\/license_tier",
+                "source": "https:\/\/github.com\/awesomemotive\/sb-common\/tree\/SMASH-2-usage-tracking-lib",
                 "issues": "https:\/\/github.com\/awesomemotive\/sb-common\/issues"
             },
             "install-path": "..\/smashballoon\/framework"
@@ -384,6 +388,6 @@
             "install-path": "..\/smashballoon\/stubs"
         }
     ],
-    "dev": true,
+    "dev": false,
     "dev-package-names": []
 }

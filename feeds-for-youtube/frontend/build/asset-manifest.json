@@ -1,10 +1,11 @@
 {
   "files": {
     "main.js": "/static/js/main.js",
-    "main.css": "/static/css/main.27325741.css",
+    "main.css": "/static/css/main.0797ae34.css",
     "static/images/team-avatar.png": "/static/images/team-avatar.png?b8a57dc248733c0ffb9a48aea0b0b556",
     "static/images/plugin-om.png": "/static/images/plugin-om.png?47c0b4663d97ae6d41bad01d2d6f0812",
     "static/images/social-wall-graphic.png": "/static/images/social-wall-graphic.png?96a1f22ab85d53469c1ae626e79cade8",
+    "static/images/plugin-seedprod.png": "/static/images/plugin-seedprod.png?0ea95f2a06d52e3ec18c5859a9947097",
     "static/media/header_logo.svg": "/static/media/header_logo.fcaed2dcc9dd384eece16d3a795a4b59.svg",
     "static/images/plugin-smtp.png": "/static/images/plugin-smtp.png?a51cb0ab6287ad279f6817f522c88f0f",
     "static/images/plugin-mi.png": "/static/images/plugin-mi.png?cb6ac0cb700a797342ebb25d7b4244a6",
@@ -12,6 +13,7 @@
     "static/images/support-members.png": "/static/images/support-members.png?22abf0478b27231d0fecb4a9e690d4d8",
     "static/images/plugin-wpforms.png": "/static/images/plugin-wpforms.png?9d8e6c074e7d6430812042d63135a822",
     "static/media/live.svg": "/static/media/live.4316cfa5c174e99b16f76908f5babffa.svg",
+    "static/images/plugin-push.png": "/static/images/plugin-push.png?8256cade4631869ad2ac02b68e613d4f",
     "static/media/insta-icon.svg": "/static/media/insta-icon.610561d89bc47e28cba3e8be742e7d24.svg",
     "static/media/rocket.svg": "/static/media/rocket.72c414616a153c15484048dea32ae55f.svg",
     "static/images/plugin-rp.png": "/static/images/plugin-rp.png?1234c3d78e970e4adf6c88e31006ddfc",
@@ -59,10 +61,10 @@
     "static/media/successNotification.svg": "/static/media/successNotification.32f9a33a82656f14896dd70d6b6356c9.svg",
     "static/media/checkmark.svg": "/static/media/checkmark.82b67373bc96ad542aed04168c2913c4.svg",
     "main.js.map": "/static/js/main.js.map",
-    "main.27325741.css.map": "/static/css/main.27325741.css.map"
+    "main.0797ae34.css.map": "/static/css/main.0797ae34.css.map"
   },
   "entrypoints": [
     "static/js/main.js",
-    "static/css/main.27325741.css"
+    "static/css/main.0797ae34.css"
   ]
 }

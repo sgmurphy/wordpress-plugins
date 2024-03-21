@@ -5,7 +5,7 @@ Support Website: http://smashballoon/youtube-feed/
 Tags: YouTube, YouTube feed, YouTube widget, YouTube channel, YouTube gallery
 Requires at least: 4.1
 Tested up to: 6.4
-Stable tag: 2.1.4
+Stable tag: 2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,8 @@ https://www.youtube.com/watch?v=zYHeHelzwVw
 * **Lightning fast** - post caching and minimized YouTube API requests means that your feed loads lightning fast
 * **Infinitely load more** of your videos with the 'Load More' button
 * Built-in easy to use YouTube Feed Widget
+* Support for the Divi builder. Quickly add your feed to a page using a Divi block.
+* Support for Elementor widgets. Embed a YouTube feed using Elementor.
 * Fully internationalized and translatable into any language
 * Includes a header at the top of your feed
 * Enter your own custom CSS or JavaScript for even deeper customization
@@ -166,6 +168,19 @@ By default, the plugin retrieves new videos for your YouTube gallery once every 
 6. Embed your YouTube feed using a shortcode you can copy and paste after you are done creating
 
 == Changelog ==
+= 2.2 =
+* New: Added support for displaying YouTube feeds using an Elementor widget and Divi modules.
+* Fix: Fixed the text and icon alignment in the header when both the subscribers and description were hidden
+* Fix: After clicking a video thumbnail in the gallery layout, site visitors are automatically scrolled to the video player.
+* Fix: JSON feed import feature has been fixed
+* Fix: Settings page link has been added to the plugins page action buttons
+* Fix: Single videos were having incorrect URLs
+* Fix: Single videos were displaying warnings on post previews
+* Fix: Fixed a conflict with WP Engine and the plugin notifications
+* Fix: Deprecated: strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated
+* Code: New action filters added to change post type and status for YouTube single videos
+* Fix: Plugin hardening
+
 = 2.1.4 =
 * Fix: Plugin hardening.
 

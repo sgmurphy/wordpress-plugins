@@ -308,13 +308,21 @@
 				'seconds'	: -1
 			};
 
+		return_format = return_format || 'd';
+
 		if( d1.valid() && d2.valid() ){
 			if( d1.valueOf() > d2.valueOf() ){
 				d2 = _getDateObj( date_one, date_format );
 				d1 = _getDateObj( date_two, date_format );
 			}
 
+			if ( ! /h/i.test( date_format + return_format ) ) {
+				d2.setMinutes(d2.getMinutes()-d2.getTimezoneOffset());
+				d1.setMinutes(d1.getMinutes()-d1.getTimezoneOffset());
+			}
+
 			diff = d2.valueOf() - d1.valueOf();
+
 			if( typeof return_format == 'undefined' || return_format == 'd' ){
 				r.days = Math.floor( diff/86400000 );
 			} else if(

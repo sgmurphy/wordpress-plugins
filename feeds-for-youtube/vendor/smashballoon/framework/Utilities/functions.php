@@ -2,7 +2,7 @@
 
 namespace SmashBalloon\YoutubeFeed\Vendor\Smashballoon\Framework;
 
-if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\sb_doing_it_wrong')) {
+if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\Smashballoon\\Framework\\sb_doing_it_wrong')) {
     /**
      * Wrapper for _doing_it_wrong().
      *
@@ -11,6 +11,7 @@ if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\sb_doing_it_wrong')) {
      * @param string $version Version the message was added in.
      *
      * @return void
+     * @internal
      */
     function sb_doing_it_wrong($function, $message, $version)
     {
@@ -25,7 +26,7 @@ if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\sb_doing_it_wrong')) {
         // @codingStandardsIgnoreEnd
     }
 }
-if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\sb_locate_template')) {
+if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\Smashballoon\\Framework\\sb_locate_template')) {
     /**
      * Locate a template and return the path for inclusion.
      *
@@ -40,6 +41,7 @@ if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\sb_locate_template')) 
      * @param string $default_path Default path. (default: '').
      *
      * @return string Template path.
+     * @internal
      */
     function sb_locate_template($template_name, $template_path = '', $default_path = '')
     {
@@ -60,7 +62,7 @@ if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\sb_locate_template')) 
         return apply_filters('sb_locate_template', $template, $template_name, $template_path);
     }
 }
-if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\sb_get_template')) {
+if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\Smashballoon\\Framework\\sb_get_template')) {
     /**
      * Get other templates passing attributes and including the file.
      *
@@ -70,6 +72,7 @@ if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\sb_get_template')) {
      * @param string $default_path    Default path. (default: '').
      *
      * @return void
+     * @internal
      */
     function sb_get_template($template_name, $args = [], $template_path = '', $default_path = '')
     {
@@ -102,13 +105,14 @@ if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\sb_get_template')) {
         do_action('sb_after_template_part', $action_args['template_name'], $action_args['template_path'], $action_args['located'], $action_args['args']);
     }
 }
-if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\sb_map_notice_hooks')) {
+if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\Smashballoon\\Framework\\sb_map_notice_hooks')) {
     /**
      * Map notices hooks as per plugin name.
      *
      * @param string $plugin_name Plugin name.
      *
      * @return string $plugin_hook Plugin hook.
+     * @internal
      */
     function sb_map_notice_hooks($plugin_name)
     {
@@ -117,13 +121,14 @@ if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\sb_map_notice_hooks'))
         return $plugin_hook;
     }
 }
-if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\sb_get_plugin_type')) {
+if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\Smashballoon\\Framework\\sb_get_plugin_type')) {
     /**
      * Check if the plugin is free or pro.
      *
      * @param string $plugin_name Plugin name.
      *
      * @return string $plugin_type Plugin type.
+     * @internal
      */
     function sb_get_plugin_type($plugin_name)
     {
@@ -132,15 +137,25 @@ if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\sb_get_plugin_type')) 
         return $plugin_type;
     }
 }
-function flatten_array($array)
-{
-    $result = array();
-    foreach ($array as $value) {
-        if (\is_array($value)) {
-            $result = \array_merge($result, flatten_array($value));
-        } else {
-            $result[] = $value;
+if (!\function_exists('SmashBalloon\\YoutubeFeed\\Vendor\\Smashballoon\\Framework\\flatten_array')) {
+    /**
+     * Flatten a multidimensional array.
+     * 
+     * @param array $array Array to flatten.
+     * 
+     * @return array $result Flattened array.
+     * @internal
+     */
+    function flatten_array($array)
+    {
+        $result = [];
+        foreach ($array as $value) {
+            if (\is_array($value)) {
+                $result = \array_merge($result, flatten_array($value));
+            } else {
+                $result[] = $value;
+            }
         }
+        return $result;
     }
-    return $result;
 }

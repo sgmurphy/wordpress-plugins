@@ -52,7 +52,7 @@ class SBY_Feed_Saver_Manager {
 		$feed_id     = false;
 		$is_new_feed = isset( $settings_data['new_insert'] ) ? true : false;
 		if ( ! empty( $settings_data['feed_id'] ) ) {
-			$feed_id = sanitize_text_field( wp_unslash( $settings_data['feed_id'] ) );
+			$feed_id = sanitize_text_field( $settings_data['feed_id'] );
 			unset( $settings_data['feed_id'] );
 		} elseif ( isset( $settings_data['feed_id'] ) ) {
 			unset( $settings_data['feed_id'] );
@@ -165,7 +165,9 @@ class SBY_Feed_Saver_Manager {
 		}
 
 		$feed_id = sanitize_key( $_POST['feedID'] );
-
+		// clear object cache
+		sby_clear_object_cache();
+		// clear transients
 		sby_clear_cache();
 		self::feed_customizer_fly_preview();
 		wp_die();

@@ -2,7 +2,7 @@
 /*
 Plugin Name: Post Views Counter
 Description: Post Views Counter allows you to display how many times a post, page or custom post type had been viewed in a simple, fast and reliable way.
-Version: 1.4.4
+Version: 1.4.5
 Author: dFactory
 Author URI: https://dfactory.co/
 Plugin URI: https://postviewscounter.com/
@@ -30,7 +30,7 @@ if ( ! class_exists( 'Post_Views_Counter' ) ) {
 	 * Post Views Counter final class.
 	 *
 	 * @class Post_Views_Counter
-	 * @version	1.4.4
+	 * @version	1.4.5
 	 */
 	final class Post_Views_Counter {
 
@@ -99,7 +99,7 @@ if ( ! class_exists( 'Post_Views_Counter' ) ) {
 				'deactivation_delete'	=> false,
 				'license'				=> ''
 			],
-			'version'	=> '1.4.4'
+			'version'	=> '1.4.5'
 		];
 
 		// instances
@@ -632,11 +632,15 @@ if ( ! class_exists( 'Post_Views_Counter' ) ) {
 		 * Enqueue admin scripts and styles.
 		 *
 		 * @global string $post_type
+		 * @global string $wp_version
 		 *
 		 * @param string $page
 		 * @return void
 		 */
 		public function admin_enqueue_scripts( $page ) {
+			global $post_type;
+			global $wp_version;
+
 			// register styles
 			wp_register_style( 'pvc-admin', POST_VIEWS_COUNTER_URL . '/css/admin.min.css', [], $this->defaults['version'] );
 
@@ -662,8 +666,6 @@ if ( ! class_exists( 'Post_Views_Counter' ) ) {
 			} elseif ( $page === 'post.php' || $page === 'post-new.php' ) {
 				$post_types = Post_Views_Counter()->options['general']['post_types_count'];
 
-				global $post_type;
-
 				if ( ! in_array( $post_type, (array) $post_types ) )
 					return;
 
@@ -673,16 +675,23 @@ if ( ! class_exists( 'Post_Views_Counter' ) ) {
 			} elseif ( $page === 'edit.php' ) {
 				$post_types = Post_Views_Counter()->options['general']['post_types_count'];
 
-				global $post_type;
-
 				if ( ! in_array( $post_type, (array) $post_types ) )
 					return;
 
 				wp_enqueue_style( 'pvc-admin' );
 
 				// woocommerce
-				if ( get_post_type() !== 'product' )
+				if ( get_post_type() !== 'product' ) {
 					wp_enqueue_script( 'pvc-admin-quick-edit' );
+
+					// prepare script data
+					$script_data = [
+						'nonce'			=> wp_create_nonce( 'pvc_save_bulk_post_views' ),
+						'wpVersion59'	=> version_compare( $wp_version, '5.9', '>=' )
+					];
+
+					wp_add_inline_script( 'pvc-admin-quick-edit', 'var pvcArgsQuickEdit = ' . wp_json_encode( $script_data ) . ";\n", 'before' );
+				}
 			// widgets
 			} elseif ( $page === 'widgets.php' )
 				wp_enqueue_script( 'pvc-admin-widgets', POST_VIEWS_COUNTER_URL . '/js/admin-widgets.js', [ 'jquery' ], $this->defaults['version'] );

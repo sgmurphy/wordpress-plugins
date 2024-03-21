@@ -13,6 +13,7 @@ if (!\defined('ABSPATH')) {
 }
 /**
  * Notice fields class.
+ * @internal
  */
 class NoticeFields
 {
@@ -38,7 +39,7 @@ class NoticeFields
      *
      * @var array
      */
-    protected static $allowed_tags = ['a' => ['href' => [], 'title' => [], 'target' => [], 'class' => [], 'id' => [], 'rel' => [], 'style' => [], 'data-*' => \true], 'br' => [], 'em' => [], 'strong' => [], 'span' => ['class' => [], 'id' => [], 'style' => [], 'data-*' => \true], 'p' => ['class' => [], 'id' => [], 'style' => [], 'data-*' => \true], 'div' => ['class' => [], 'id' => [], 'style' => [], 'data-*' => \true], 'img' => ['src' => [], 'class' => [], 'id' => [], 'alt' => []], 'button' => ['class' => [], 'id' => [], 'type' => [], 'style' => [], 'data-*' => \true]];
+    public static $allowed_tags = ['a' => ['href' => [], 'title' => [], 'target' => [], 'class' => [], 'id' => [], 'rel' => [], 'style' => [], 'data-*' => \true, 'v-on:click' => [], 'v-html' => [], 'v-bind:class' => []], 'br' => [], 'em' => [], 'strong' => [], 'code' => [], 'span' => ['class' => [], 'id' => [], 'style' => [], 'data-*' => \true], 'p' => ['class' => [], 'id' => [], 'style' => [], 'data-*' => \true], 'div' => ['class' => [], 'id' => [], 'style' => [], 'data-*' => \true], 'img' => ['src' => [], 'class' => [], 'id' => [], 'alt' => []], 'button' => ['class' => [], 'id' => [], 'type' => [], 'style' => [], 'data-*' => \true], 'h1' => ['class' => [], 'id' => [], 'style' => [], 'data-*' => \true], 'h2' => ['class' => [], 'id' => [], 'style' => [], 'data-*' => \true], 'h3' => ['class' => [], 'id' => [], 'style' => [], 'data-*' => \true], 'h4' => ['class' => [], 'id' => [], 'style' => [], 'data-*' => \true], 'h5' => ['class' => [], 'id' => [], 'style' => [], 'data-*' => \true], 'h6' => ['class' => [], 'id' => [], 'style' => [], 'data-*' => \true]];
     /**
      * Get id attribute for notice.
      *
@@ -131,13 +132,13 @@ class NoticeFields
                 $wrap = \str_replace('{src}', $src, $wrap);
                 $wrap = \str_replace('{alt}', $alt, $wrap);
                 $wrap = \str_replace('{overlay}', $overlay_wrap, $wrap);
-                $image_html = $wrap;
+                $image_html = wp_kses($wrap, self::$allowed_tags);
             } else {
                 $image_html = '<img src="' . esc_url($src) . '" alt="' . esc_attr($alt) . '" />';
             }
         } else {
             if (isset($image) && \is_string($image)) {
-                $image_html = $image;
+                $image_html = wp_kses($image, self::$allowed_tags);
             }
         }
         return $image_html;
@@ -213,7 +214,9 @@ class NoticeFields
                     foreach ($btn_url['args'] as $key => $value) {
                         $args[sanitize_key($key)] = sanitize_key($value);
                     }
-                    $btn_url = wp_nonce_url(add_query_arg($args), $btn_url['action'], 'sbi_nonce');
+                    $action = isset($btn_url['action']) ? sanitize_key($btn_url['action']) : '';
+                    $nonce = isset($btn_url['nonce']) ? sanitize_key($btn_url['nonce']) : 'sbi_nonce';
+                    $btn_url = wp_nonce_url(add_query_arg($args), $action, $nonce);
                 }
                 $tag = isset($button['tag']) ? $button['tag'] : 'a';
                 $btn_class = isset($button['class']) ? 'class="' . esc_attr($button['class']) . '"' : '';
@@ -253,7 +256,9 @@ class NoticeFields
                 foreach ($href['args'] as $key => $value) {
                     $args[sanitize_key($key)] = sanitize_key($value);
                 }
-                $href = wp_nonce_url(add_query_arg($args), $href['action'], 'sbi_nonce');
+                $action = isset($href['action']) ? sanitize_key($href['action']) : '';
+                $nonce = isset($href['nonce']) ? sanitize_key($href['nonce']) : 'sbi_nonce';
+                $href = wp_nonce_url(add_query_arg($args), $action, $nonce);
             }
             $url = !empty($href) ? 'href="' . esc_url($href) . '"' : '';
             $dismiss_html = '<' . esc_attr($tag) . ' ' . $url . ' ' . $attr . ' class="' . $class . '" title="' . $title . '">' . $image_html . '</' . esc_attr($tag) . '>';
@@ -312,7 +317,7 @@ class NoticeFields
                 $check = self::check_screen($condition['compare'], $condition['value']);
                 break;
             case 'option':
-                $check = self::check_option($condition['name'], $condition['compare'], $condition['value']);
+                $check = self::check_option($condition);
                 break;
         }
         return $check;
@@ -347,10 +352,17 @@ class NoticeFields
      *
      * @return boolean
      */
-    public static function check_option($name, $compare, $value)
+    public static function check_option($condition)
     {
+        $name = isset($condition['name']) ? $condition['name'] : '';
+        $compare = isset($condition['compare']) ? $condition['compare'] : '===';
+        $value = isset($condition['value']) ? $condition['value'] : '';
+        $default = isset($condition['default']) ? $condition['default'] : \false;
+        if (!$name) {
+            return \false;
+        }
         $check = \false;
-        $option = get_option($name);
+        $option = get_option($name, $default);
         switch ($compare) {
             case '===':
                 $check = $option === $value;

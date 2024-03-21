@@ -275,8 +275,8 @@ class HMWP_Classes_Tools
             'hmwp_mapping_file' => 0,
             'hmwp_text_mapping' => json_encode(
                 array(
-                    'from' => array('wp-caption'),
-                    'to' => array('caption'),
+                    'from' => array(),
+                    'to' => array(),
                 )
             ),
             'hmwp_cdn_urls' => json_encode(array()),

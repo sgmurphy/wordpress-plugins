@@ -165,20 +165,9 @@ class Google extends Pixel
     
     }
     
-    public function is_google_optimize_active()
-    {
-        
-        if ( $this->options_obj->google->optimize->container_id ) {
-            return true;
-        } else {
-            return false;
-        }
-    
-    }
-    
     public function is_google_active()
     {
-        return Options::is_google_ads_active() || Options::is_google_analytics_active() || Options::is_google_optimize_active();
+        return Options::is_google_ads_active() || Options::is_google_analytics_active();
     }
     
     public function wpm_get_order_item_price( $order_item )

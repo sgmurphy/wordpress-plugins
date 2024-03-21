@@ -39,6 +39,44 @@
     });
 
     /**
+     * Single Video Upsell Modal
+     * 
+     * @since 2.3
+     */
+    $('.sby-single-videos-upsell').parent('a').on('click', function(e) {
+        e.preventDefault();
+        // remove the already opened modal
+        $('#sby-single-videos-upsell-modal').remove();
+
+        $('#wpbody-content').prepend('<div class="sbc-extensions-pp-ctn sb-fs-boss sbc-center-boss" id="sby-single-videos-upsell-modal"><i class="fa fa-spinner fa-spin sby-loader" aria-hidden="true"></i></div>');
+
+        // send the ajax request to load plugin name and others data
+        $.ajax({
+          url: ajaxurl,
+          type: 'post',
+          data: {
+            action: 'sby_single_videos_upsell_modal',
+            nonce : sby_admin.nonce,
+          },
+          success: function (data) {
+            if (data.success == true) {
+                $('#sby-single-videos-upsell-modal').html(data.data);
+                $('body').on('click', '#sby-single-videos-upsell-modal', function(e){
+                  if (e.target !== this) return;
+                  $('#sby-single-videos-upsell-modal').remove();
+                });
+                $('body').on('click', '.sbc-popup-cls', function(e){
+                  $('#sby-single-videos-upsell-modal').remove();
+                });
+            }
+          },
+          error: function (e) {
+            console.log(e);
+          }
+        });
+    });
+
+    /**
      * Open other plugin installer modal from admin sidebar menu
      * 
      * @since 2.0

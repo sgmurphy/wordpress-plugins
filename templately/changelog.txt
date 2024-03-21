@@ -1,3 +1,12 @@
+= 3.0.4 – 21-03-2024 =
+Added: WordPress 6.5 compatibility.
+Fixed: Template import issues in LiteSpeed Server.
+Fixed: Template import issues in Gutenberg Editor.
+Fixed: Elementor editor modal's cancel button close the whole Templately modal.
+Fixed: Same form was importing multiple times when it was used in multiple pages.
+Improved: Templates Display Condition from Templately Theme Builder.
+Few minor bug fixes & improvements
+
 = 3.0.3 – 05-03-2024 =
 Improved: Dependency plugin installation process for FSI.
 Improved: Dashboard UI for better user experience.

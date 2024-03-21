@@ -11,6 +11,7 @@
 namespace Smashballoon\Customizer;
 
 use function SmashBalloon\YoutubeFeed\Vendor\DI\value;
+/** @internal */
 class Source
 {
     const BATCH_SIZE = 10;
@@ -141,7 +142,7 @@ class Source
         if (!sbi_current_user_can('manage_instagram_feed_options')) {
             wp_send_json_error();
         }
-        $args = array('page' => (int)$_POST['page']);
+        $args = array('page' => $_POST['page']);
         $source_data = \Smashballoon\Customizer\SBI_Db::source_query($args);
         echo \json_encode($source_data);
         wp_die();

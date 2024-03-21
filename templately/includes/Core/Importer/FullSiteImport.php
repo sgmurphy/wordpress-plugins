@@ -112,7 +112,9 @@ class FullSiteImport extends Base {
 		set_time_limit( 0 );
 
 		flush();
-		wp_ob_end_flush_all();
+		if(!defined('TEMPLATELY_IGNORE_FLUSH_ALL') || !TEMPLATELY_IGNORE_FLUSH_ALL){
+			wp_ob_end_flush_all();
+		}
 
 		try {
 			// TODO: Need to check if user is connected or not

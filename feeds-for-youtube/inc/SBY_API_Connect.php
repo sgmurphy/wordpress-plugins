@@ -108,7 +108,7 @@ class SBY_API_Connect
 				$error_message .= '<p>' . __( 'To create a new feed, first connect to YouTube using the "Connect to YouTube to Create a Feed" button on the settings page and connect any account.', SBY_TEXT_DOMAIN ) . '</p>';
 
 				if ( current_user_can( 'manage_youtube_feed_options' ) ) {
-					$error_message .= '<a href="' . admin_url( 'admin.php?page=youtube-feed-settings' ) . '" target="blank" rel="noopener nofollow">' . __( 'Reconnect in the YouTube Feed Settings Area' ) . '</a>';
+					$error_message .= '<a href="' . admin_url( 'admin.php?page=youtube-feed-settings' ) . '" target="blank" rel="noopener nofollow">' . __( 'Reconnect in the YouTube Feeds Settings Area' ) . '</a>';
 				}
 				global $sby_posts_manager;
 

@@ -207,19 +207,6 @@ class Borlabs_Presets {
 				'cookie_name'        => '_hjClosedSurveyInvites, _hjDonePolls, _hjMinimizedPolls, _hjDoneTestersWidgets, _hjIncludedInSample, _hjShownFeedbackMessage, _hjid, _hjRecordingLastActivity, hjTLDTest, _hjUserAttributesHash, _hjCachedUserAttributes, _hjLocalStorageTest, _hjptid',
 				'privacy_policy_url' => 'https://www.hotjar.com/legal/policies/privacy/',
 			],
-			'google-optimize'  => [
-				'active'   => Options::is_google_optimize_active(),
-				'group_id' => 'statistics',
-				'name'     => [
-					'en' => 'Google Optimize',
-					'de' => 'Google Optimize',
-				],
-				'provider' => 'google.com',
-				'purpose'  => [
-					'en' => 'Google Optimize is a web analytics service provided by Google LLC. Google Optimize uses cookies to collect non-personal information. This information includes the operating system used, the browser type, the IP address, the pages visited, the geographical location, the device and the preferred language for displaying our website. The information is stored in a pseudonymised user profile. The information will not be used by Google or by us to identify individual users or merged with other data about individual users.',
-					'de' => 'Google Optimize ist ein Web-Analyse-Service von Google LLC. Google Optimize verwendet Cookies, um nicht-personenbezogene Informationen zu sammeln. Diese Informationen umfassen das verwendete Betriebssystem, den Browsertyp, die IP-Adresse, die besuchten Seiten, den geografischen Standort, das Gerät und die bevorzugte Sprache zur Anzeige unserer Website. Die Informationen werden in einem pseudonymisierten Benutzerprofil gespeichert. Die Informationen werden von Google oder von uns nicht verwendet, um einzelne Benutzer zu identifizieren oder mit anderen Daten über einzelne Benutzer zusammengeführt.',
-				],
-			],
 			'google-analytics' => [
 				'active'             => Options::is_ga3_or_ga4_enabled(),
 				'group_id'           => 'statistics',

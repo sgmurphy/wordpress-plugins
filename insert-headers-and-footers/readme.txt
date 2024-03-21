@@ -1,14 +1,14 @@
 === WPCode - Insert Headers and Footers + Custom Code Snippets - WordPress Code Manager ===
 Contributors: WPbeginner, smub, gripgrip, wpcodeteam
-Tags: code, css, php, footer, functions, content, facebook pixel, footer code, footer scripts, footers, google analytics, head, header, header code, header scripts, headers, insert, insert code, insert scripts, js, meta, meta tags, scripts, html, javascript, multisite, code snippets
+Tags: code, css, php, header, code snippets
 Requires at least: 4.6
 Tested up to: 6.4
 Requires PHP: 5.5
-Stable tag: 2.1.9
+Stable tag: 2.1.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easily add code snippets in WordPress. Insert header and footer scripts, add PHP code snippets with conditional logic, insert ads pixel code, and more.
+Easily add code snippets in WordPress. Insert header & footer scripts, add PHP code snippets with conditional logic, insert ads pixel code, and more.
 
 
 == Description ==
@@ -231,6 +231,10 @@ WPCode comes with a ready-made code snippets library that allows you to replace 
 ... and basically any plugin that adds a functionality which can be added via custom code snippets.
 
 == Changelog ==
+
+= 2.1.10 =
+* New: When another user is editing the same snippet, we now show a warning to avoid conflicts.
+* Tweak: Improved mobile styles across the plugin admin for better readability.
 
 = 2.1.9 =
 * New: Conditional logic rule for Blog home page (posts page)

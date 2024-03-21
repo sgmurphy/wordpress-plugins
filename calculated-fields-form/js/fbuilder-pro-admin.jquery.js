@@ -68,12 +68,12 @@
     $.fbuilder['printFields'] = function(){
         var h = '<div><b>field name (title) [Exclude from submission]</b></div><hr />', w;
         $.each(window.cff_form.fBuild.getItems(), function(i, item){
-            h += '<div>'+item.name;
+			h += '<div><a href="javascript:e=window.opener.document.getElementsByClassName(\''+item.name+'\')[0];e.scrollIntoView();e.click();">'+item.name+'</a>';
             if('title' in item) h += ' ('+item.title+')';
             if('exclude' in item && item.exclude) h += '[EXCLUDED]';
             h += '</div>';
         });
-        w = window.open("","cff-fieldlist-popup", "width=500,height=300,scrollbars=1,resizable=1");
+        w = window.open("","cff-fieldlist-popup", "width=500,height=300,scrollbars=1,resizable=1,toolbar=0,titlebar=0,menubar=0");
         w.document.title = 'Fields List';
         w.document.body.innerHTML = h;
     };

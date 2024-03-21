@@ -1,10 +1,10 @@
 === Pixel Manager for WooCommerce - Track Google Analytics, Google Ads, TikTok and more ===
 Contributors: alekv, wolfbaer
-Tags: woocommerce, google analytics, google ads, facebook, conversion tracking, retargeting, remarketing, meta, capi, tiktok, microsoft ads, bing
+Tags: woocommerce, google analytics, google ads, facebook pixel, conversion tracking
 Requires at least: 3.7
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.3
-Stable tag: 1.40.1
+Stable tag: 1.41.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -289,6 +289,23 @@ We are committed to ensuring the security of our customers and their data. If yo
 1. Settings page
 
 == Changelog ==
+
+= 1.41.0  =
+*Release date - 21.03.2024*
+
+
+
+* Tweak: Added more page data output to the wpmDataLayer.
+* Tweak: Workaround for the Astra theme show_variation bug that triggers multiples times on page load on the product page.
+* Tweak: Added safeguard if server requests for fetching product data is missing input data.
+* Tweak: Added tweaks if Cookiebot is active. (Exclusions for script auto blocking and their Google Consent Mode)
+* Tweak: Removed Google Optimize as it was decommissioned by Google.
+* Tweak: Added safeguard to not run WooCommerce specific code on non-WooCommerce sites.
+* Tweak: Updated Complianz CMP cookie names.
+* Tweak: Added support for the WP Cookie Consent CMP.
+* Tweak: Bumped up WooCommerce version compatibility to 8.7
+* Tweak: Bumped up WordPress version compatibility to 6.5
+* Tweak: Updated vendor libraries.
 
 = 1.40.1  =
 *Release date - 01.03.2024*

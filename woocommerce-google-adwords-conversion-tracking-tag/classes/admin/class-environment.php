@@ -517,6 +517,10 @@ class Environment {
 		return is_plugin_active('cookie-script-com/cookie-script.php');
 	}
 
+	public static function is_wp_cookie_consent_active() {
+		return is_plugin_active('gdpr-cookie-consent/gdpr-cookie-consent.php');
+	}
+
 	public static function is_freemius_active() {
 		return function_exists('wpm_fs');
 	}
@@ -981,6 +985,29 @@ class Environment {
 		}
 
 		/**
+		 * Cookiebot
+		 *
+		 * Disable the Cookiebot Google Consent Mode if the Google Consent Mode is active in PMW
+		 */
+
+		if (self::is_cookiebot_active() && Options::is_google_consent_mode_active()) {
+			add_filter('option_cookiebot-gcm', '__return_false');
+		}
+
+		/**
+		 * WP Cookie Consent
+		 *
+		 * Disable the auto script blocker.
+		 *
+		 * Source: https://wordpress.org/plugins/gdpr-cookie-consent/
+		 */
+
+		if (self::is_wp_cookie_consent_active()) {
+			add_filter('option_wpl_options_custom-scripts', [ __CLASS__, 'add_wpl_options_custom_scripts' ]);
+			add_filter('default_option_wpl_options_custom-scripts', [ __CLASS__, 'add_wpl_options_custom_scripts' ]);
+		}
+
+		/**
 		 * WooCommerce Google Ads Dynamic Remarketing
 		 */
 
@@ -1147,7 +1174,6 @@ class Environment {
 				self::handle_rcb_integration($integration, Options::is_facebook_active(), $tag_names['facebook-ads']);
 				self::handle_rcb_integration($integration, Options::is_ga4_enabled(), $tag_names['ga4']);
 				self::handle_rcb_integration($integration, Options::is_google_ads_active(), $tag_names['google-ads']);
-				self::handle_rcb_integration($integration, Options::is_google_optimize_active(), $tag_names['google-optimize']);
 				self::handle_rcb_integration($integration, Options::is_hotjar_enabled(), $tag_names['hotjar']);
 				self::handle_rcb_integration($integration, Options::is_pinterest_active(), $tag_names['pinterest-ads']);
 				self::handle_rcb_integration($integration, Options::is_snapchat_active(), $tag_names['snapchat-ads']);
@@ -1172,6 +1198,37 @@ class Environment {
 //				}
 			});
 		}
+	}
+
+	public static function add_wpl_options_custom_scripts( $custom_scripts ) {
+
+		if (!isset($custom_scripts['whitelist_script'])) {
+			$custom_scripts['whitelist_script'] = [];
+		}
+
+		$script_to_add = [
+			'enable' => true,
+			'name'   => 'wpmDataLayer',
+			'urls'   => [
+				'wpmDataLayer',
+			],
+		];
+
+		// Check if the script is already in the array
+		$script_exists = false;
+		foreach ($custom_scripts['whitelist_script'] as $script) {
+			if ($script == $script_to_add) {
+				$script_exists = true;
+				break;
+			}
+		}
+
+		// If the script is not in the array, add it
+		if (!$script_exists) {
+			$custom_scripts['whitelist_script'][] = $script_to_add;
+		}
+
+		return $custom_scripts;
 	}
 
 	private static function handle_rcb_integration( $integration, $is_active, $type ) {

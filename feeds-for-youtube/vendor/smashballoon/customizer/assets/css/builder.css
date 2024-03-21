@@ -885,6 +885,9 @@ Social Links
 }
 
 @media all and (max-width: 960px) {
+    body.sticky-menu .sbc-popup-inside {
+        left: 0px;
+    }
     .sbc-csz-header-insider{
         width: calc(100% - 36px);
     }
@@ -1068,13 +1071,17 @@ Social Links
     background: #E2F5FF;
     border: 1px solid #E2F5FF;
 }
+.sbc-feedtypes-list .sbc-feedtype-el[data-type="favorites"],
+.sbc-feedtemplates-list .sbc-feedtemplate-el[data-feed-type="favorites"] {
+    display: none;
+}
 .sbc-feedtype-el-img {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #f3f4f5;
-    border: 3px solid #f3f4f5;
+    background: #e2f5ff;
+    border: 3px solid #e2f5ff;
     border-right: 1px solid #fff;
     margin-right: 30px;
 }
@@ -1089,13 +1096,14 @@ Social Links
     border: 1px solid #F1F1F1;
     border-bottom: 2px solid #fff;
 }
+.sbc-feedtype-el-img[data-feed-type="channel"] {
+    background-color: #f3f4f5;
+    border-color: #f3f4f5;
+}
 .sbc-feedtype-el[data-active="true"] {
     border: 2px solid #fe544f!important;
 }
-.sbc-feedtype-el-img[data-feed-type=social_wall] {
-    background-color: #fef4ef;
-    border-color: #fef4ef;
-}
+
 .sbc-advanced-feedtypes .sbc-feedtype-el-img[data-feed-type=social_wall] {
     background-color: transparent;
     border-color: transparent;
@@ -1131,6 +1139,10 @@ Social Links
     flex: 1 1 auto;
     padding: 0 20px 0 0 ;
     padding-right: 50px;
+}
+.sbc-feedtype-el-info .sb-small-p {
+    display: flex;
+    align-items: center;
 }
 .sbc-feedtype-el-info span svg {
     margin-left: 6px;
@@ -2075,6 +2087,9 @@ Controls Style
 	top: 0!important;
 	z-index: 6!important;
     background: rgba(255,255,255,0.4)!important;
+}
+[data-type=heading] .sb-control-elem-overlay{
+    opacity: 0;
 }
 #sbc-builder-app .sb-control-elem-ctn[data-type="heading"] .sb-small-p{
     font-weight: 600;
@@ -3252,6 +3267,33 @@ Welcome Screen Empty State
 .sbc-popup-inside.sbc-extpp-license-expired-border {
     border-top: 5px solid #D72C2C;
 }
+.sbc-feedtemplates-pp-ctn .sbc-popup-inside {
+    width: 1140px;
+}
+.sbc-feedtemplates-pp-ctn.sbc-feedtypes-ctn .sbc-popup-inside .sbc-feedtemplate-el {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.sbc-feedtemplates-pp-ctn.sbc-feedtypes-ctn .sbc-popup-inside .sbc-feedtemplate-el[data-feed-type="favorites"] {
+    display: none;
+}
+.sbc-feedtypes-ctn .sbc-feedtemplate-el-info svg {
+    width: auto;
+}
+.sbc-feedtemplates-popup .sbc-feedtypes-list .sbc-feedtemplate-el-info {
+    align-items: flex-start;
+    text-align: left;
+    padding: 0 12px 0;
+}
+.sbc-feedtemplates-popup .sbc-feedtypes-list .sbc-feedtemplate-el-info svg {
+    transform: translate(6px, 2px)
+}
+.sbc-feedtypes-ctn .sbc-feedtemplates-list .sbc-feedtemplate-el-info .sb-small-p {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
 .sbc-feedtemplates-popup {
     width: 1172px;
     max-width: calc(100% - 200px);
@@ -3284,6 +3326,13 @@ Welcome Screen Empty State
     grid-column-gap: 1%;
     margin: 30px 0px 20px;
 }
+
+.sbc-feedtypes-list {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-column-gap: 1%;
+    margin: 30px 0px 20px;
+}
 .sbc-feedtemplates.sby-free-style .sbc-feedtemplates-list {
     grid-template-columns: 38%;
 }
@@ -3298,9 +3347,6 @@ Welcome Screen Empty State
 }
 .sbc-feedtemplates.sby-free-style .sbc-feedtemplate-el .sbc-feedtemplate-el-info .sb-caption {
     font-size: 12px !important;
-}
-.sbc-feedtemplates.sby-free-style .sbc-feedtemplate-el svg {
-    height: 140px;
 }
 #sbc-builder-app h4.sbc-customizer-subheading:not(#sb_instagram h5) {
     font-weight: 600;
@@ -4495,4 +4541,30 @@ Feed Instance Popup
 }
 [data-sby-pro="false"] .sbc-lb-video-description {
     display: none;
+}
+
+#sbc-builder-app .account-connection-warning h3 {
+    font-size: 18px;
+    padding-right: 115px;
+}
+.account-connection-warning.sbc-popup.sbc-popup-medium .sbc-pp-popup-inside {
+    width: 460px;
+}
+.account-connection-warning.sbc-popup.sbc-popup-medium .sbc-pp-popup-cls {
+    display: none;
+}
+.account-connection-warning.sbc-popup.sbc-popup-medium .sbc-popup-content .sbc-api-form {
+    align-items: flex-start;
+    justify-content: flex-end;
+    margin-bottom: 0px;
+    gap: 10px;
+}
+.account-connection-warning .sbc-popup-content .sbc-api-form button.sbc-btn-default {
+    background-color: #fff;
+}
+.account-connection-warning.sbc-popup.sbc-popup-medium .sbc-api-form button[type=submit]{
+    padding: 10px 15px;
+}
+.account-connection-warning.sbc-popup.sbc-popup-medium .sbc-api-form button[type=submit] svg {
+    margin-right: 5px;
 }

@@ -4,7 +4,8 @@ Donate link: https://wpclever.net
 Tags: woocommerce, wpc, compare, comparison
 Requires at least: 4.0
 Tested up to: 6.4
-Stable tag: 6.2.1
+Version: 6.2.2
+Stable tag: 6.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,12 +49,6 @@ Curious about how WPC Smart Compare works? Visit our [live demo 01](https://demo
 - Support customization of all product fields, custom fields
 - HOT: Free support of compare button’s adjustment to customers’ theme design
 
-= Translators =
-
-Available languages: English (Default), Italian, Vietnamese, Russian, Spanish, Persian
-
-If you have created your own language pack, or have an update for an existing one, you can send [gettext PO and MO file](http://codex.wordpress.org/Translating_WordPress "Translating WordPress") to [us](https://wpclever.net/contact?utm_source=pot&utm_medium=woosc&utm_campaign=wporg "WPClever.net") so we can bundle it into WPC Smart Compare.
-
 = Need more features? =
 
 Please try other plugins from us:
@@ -63,10 +58,6 @@ Please try other plugins from us:
 - [WPC Fly Cart](https://wordpress.org/plugins/woo-fly-cart/ "WPC Fly Cart")
 - [WPC AJAX Add to Cart](https://wordpress.org/plugins/wpc-ajax-add-to-cart/ "WPC AJAX Add to Cart")
 - [WPC Added To Cart Notification](https://wordpress.org/plugins/woo-added-to-cart-notification/ "WPC Added To Cart Notification")
-
-= Rate us & Review =
-
-If you love our plugins, please give us a full five-star rating so that we know that our work is valued and appreciated. This will be the drive and motivation for us to further improve our plugins with more useful features. Tell us what you think and suggest some ways for improvement. We highly appreciate your support and love.
 
 == Installation ==
 
@@ -94,6 +85,10 @@ Example:
 `echo do_shortcode('[woosc id="99"]');`
 
 == Changelog ==
+
+= 6.2.2 =
+* Updated: Optimized the code
+* Updated: Compatible with WP 6.4 & Woo 8.7
 
 = 6.2.1 =
 * Fixed: Minor CSS/JS issue for the backend

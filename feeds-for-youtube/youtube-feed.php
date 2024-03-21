@@ -3,7 +3,7 @@
 Plugin Name: Feeds for YouTube
 Plugin URI: https://smashballoon.com/youtube-feed
 Description: The Feeds for YouTube plugin allows you to display customizable YouTube feeds from any YouTube channel.
-Version: 2.1.4
+Version: 2.2
 Author: Smash Balloon YouTube Team
 Author URI: https://smashballoon.com/
 Text Domain: feeds-for-youtube
@@ -38,7 +38,6 @@ use SmashBalloon\YouTubeFeed\Services\ActivationService;
 use SmashBalloon\YouTubeFeed\Services\Admin\AdminServiceContainer;
 
 require_once trailingslashit(plugin_dir_path(__FILE__)) . 'activation.php';
-
 require_once trailingslashit(plugin_dir_path(__FILE__)) . 'bootstrap.php';
 
 // The ID of the product. Used for renewals
@@ -54,7 +53,7 @@ if ( ! defined( 'SBY_PLUGIN_EDD_NAME' ) ) {
     define( 'SBY_PLUGIN_EDD_NAME', 'YouTube Feed Pro Personal' );
 }
 if ( ! defined( 'SBYVER' ) ) {
-    define( 'SBYVER', '2.1.4' );
+    define( 'SBYVER', '2.2' );
 }
 if ( ! defined( 'SBY_DBVERSION' ) ) {
     define( 'SBY_DBVERSION', '2.0' );
@@ -521,28 +520,29 @@ if ( ! function_exists( 'sby_init' ) ) {
             'custombuttoncolor1'       => '',
             'custombuttoncolor2'       => '',
             'boxedbgcolor'             => '#ffffff',
-            'boxborderradius'          => '12',
-            'enableboxshadow'          => false,
-            'descriptiontextsize'      => '13px',
-            'subscribelinkcolorbg'     => '',
-            'subscribebtnprimarycolor' => '',
-            'subscribebtnsecondarycolor' => '',
-            'subscribebtntextcolor'    => '',
+            'boxborderradius'			=> '12',
+            'enableboxshadow'			=> false,
+            'descriptiontextsize'		=> '13px',
+            'subscribelinkcolorbg'		=> '',
+            'subscribebtnprimarycolor'	=> '',
+            'subscribebtnsecondarycolor'=> '',
+            'subscribebtntextcolor'		=> '',
 
             // Video elements color
-            'playiconcolor'            => '',
-            'videotitlecolor'          => '',
-            'videouserecolor'          => '',
-            'videoviewsecolor'         => '',
-            'videocountdowncolor'      => '',
-            'videostatscolor'          => '',
-            'videodescriptioncolor'    => '',
-            'enablesubscriberlink'     => true,
+            'playiconcolor'				=> '',
+            'videotitlecolor'			=> '',
+            'videouserecolor'			=> '',
+            'videoviewsecolor'			=> '',
+            'videocountdowncolor'		=> '',
+            'videostatscolor'			=> '',
+            'videodescriptioncolor'		=> '',
+            'enablesubscriberlink'		=> true,
 
             //cron
-            'cache_cron_interval'      => '1hour',
-            'cache_cron_time'          => '1:00',
-            'cache_cron_am_pm'         => 'am'
+			'cache_cron_interval'		=> '1hour',
+			'cache_cron_time'			=> '1:00',
+			'cache_cron_am_pm'			=> 'am',
+			'disable_wp_posts'			=> false,
         );
 
         return $defaults;

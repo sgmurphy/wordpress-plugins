@@ -210,7 +210,7 @@ class SBY_Blocks {
 		$output .= sprintf(
 					'<a href="%s" class="sby-btn sby-btn-blue">%s '. $icons['chevronRight'] .'</a>', 
 					admin_url('admin.php?page=sby-feed-builder'), 
-					__('Create a YouTube Feed', SBY_TEXT_DOMAIN)
+					__('Create a YouTube Feeds', SBY_TEXT_DOMAIN)
 				);
 		$output .= '</div>
 			<div class="sby-lepd-footer">

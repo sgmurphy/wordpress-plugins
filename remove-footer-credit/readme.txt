@@ -1,10 +1,10 @@
 === Remove Footer Credit ===
 Contributors: wpchill, silkalns
 Tags: footer, credit, change, modify, replace, remove, link, HTML, text, remove footer credit
-Requires at least: 5.2
-Tested up to: 6.3
-Stable tag: 1.0.13
-Requires PHP: 5.6
+Requires at least: 5.9
+Tested up to: 6.5
+Stable tag: 1.0.14
+Requires PHP: 7.2
 License: GPLv3 or later
 
 Remove or change footer credits or any text or HTML without modifying code.
@@ -32,6 +32,9 @@ This plugin has very minimal options to keep things simple and easier to use. Yo
 
 == Changelog ==
 
+= 1.0.14 - 21.03.2024 =
+Fixed: Security issue
+
 = 1.0.13 - 24.02.2022 =
 Fixed: Replaceable text new line bug
 
@@ -41,7 +44,7 @@ Fixed: Sanitization for replaceable and replacement text
 = 1.0.11 - 11.01.2022 =
 Added: Sanitization and escapes
 
-= 1.0.10 - 03.08.2021 =
+= 1.0.10 - 20.07.2021 =
 Fixes: PHP error
 Fixes: replace string with html entities and without
 

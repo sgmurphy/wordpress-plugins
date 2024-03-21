@@ -7,7 +7,7 @@
   Author URI: https://premio.io/downloads/chaty/
   Text Domain: chaty
   Domain Path: /languages
-  Version: 3.1.9
+  Version: 3.2
   License: GPL2
 */
 
@@ -27,7 +27,7 @@ define('CHT_INC', CHT_DIR . '/includes');
 define('CHT_PRO_URL', admin_url("admin.php?page=chaty-app-upgrade"));
 define('CHT_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('CHT_PLUGIN_BASE', plugin_basename(CHT_FILE));
-define('CHT_VERSION', "3.1.9");
+define('CHT_VERSION', "3.2");
 
 if (!function_exists('wp_doing_ajax')) {
     function wp_doing_ajax()
@@ -43,6 +43,13 @@ if (!function_exists('wp_doing_ajax')) {
     }
 }
 
+/**
+ * Clear all caches.
+ *
+ * This method clears various caches used by different caching plugins
+ * and tools in order to ensure that the caches are updated correctly.
+ *
+ */
 if(!function_exists("cht_clear_all_caches")) {
     function cht_clear_all_caches()
     {
@@ -149,6 +156,15 @@ add_action('activated_plugin', 'cht_activation_redirect');
 
 register_activation_hook(CHT_FILE, 'cht_install', 10);
 
+/**
+ * Installs the Chaty plugin.
+ *
+ * This method checks if certain options are empty and if so, it sets default values for them.
+ * It also adds default values for other options if they are not already set.
+ * Additionally, it sets the initial values for the intro popup and the affiliate box options.
+ *
+ * @return void
+ */
 function cht_install()
 {
     $widgetSize = get_option('cht_numb_slug');
@@ -185,20 +201,28 @@ function cht_install()
     }
 }
 
+/**
+ * Redirects the user after activating the plugin.
+ *
+ * @param string $plugin The plugin's base name.
+ *
+ * @return void
+ */
 function cht_activation_redirect($plugin)
 {
-    if ($plugin == plugin_basename(__FILE__)) {
-        $cht_active = get_option('cht_active');
-        if($cht_active === false) {
-            $admin_url = admin_url('admin.php?page=chaty-app&widget=0');
-        } else {
-            $admin_url = admin_url('admin.php?page=chaty-app');
-        }
-        wp_redirect($admin_url);
-        exit;
+    if (!defined("DOING_AJAX") && $plugin == plugin_basename(__FILE__)) {
+        delete_option("cht_redirect");
+        add_option("cht_redirect",1);
     }
 }
 
+/**
+ * Checks if the database table 'chaty_contact_form_leads' exists and creates it if it doesn't.
+ *
+ * @return void
+ * @global string $pagenow Current page name.
+ * @global wpdb $wpdb WordPress database object.
+ */
 function chaty_plugin_check_db_table() {
     global $wpdb, $pagenow;
     $page = filter_input(INPUT_GET, 'page');

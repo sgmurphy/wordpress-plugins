@@ -7,6 +7,7 @@
  */
 namespace Smashballoon\Customizer;
 
+/** @internal */
 class Feed_Saver_Manager
 {
     private $saver;
@@ -138,6 +139,7 @@ class Feed_Saver_Manager
         if (!empty($name)) {
             $this->saver->set_feed_name($name);
         }
+        $this->saver->set_feed_id(\false);
         if ($this->saver->update_or_insert()) {
             $return = array('success' => \true, 'feed_id' => $this->saver->get_feed_id(), 'message' => __('Feed imported successfully.', 'feeds-for-youtube'));
             return $return;

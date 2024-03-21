@@ -3,7 +3,7 @@
     "description": "The SmashBalloon customizer library.",
     "type": "library",
     "minimum-stability": "stable",
-    "version": "1.3.7",
+    "version": "1.5.1",
     "autoload": {
         "psr-4": {
             "Smashballoon\\Customizer\\": "app\/"

@@ -341,6 +341,8 @@ class Helpers
         // Country
         $country = ( is_user_logged_in() && $current_user->billing_country ? $current_user->billing_country : '' );
         $country = ( $order && $order->get_billing_country() ? $order->get_billing_country() : $country );
+        // Roles
+        $roles = ( is_user_logged_in() && $current_user ? $current_user->roles : [] );
         // Add the details to the data array and return it
         // Only add the data if it exists
         $data = ( $email ? self::get_user_object_email( $data, $email ) : $data );
@@ -351,6 +353,7 @@ class Helpers
         $data = ( $state ? self::get_user_object_state( $data, $state ) : $data );
         $data = ( $postcode ? self::get_user_object_postcode( $data, $postcode ) : $data );
         $data = ( $country ? self::get_user_object_country( $data, $country ) : $data );
+        $data = ( $roles ? self::get_user_object_roles( $data, $roles ) : $data );
         self::$user_data = $data;
         return $data;
     }
@@ -359,6 +362,12 @@ class Helpers
     {
         $data = self::get_user_data( $order );
         return json_decode( wp_json_encode( $data ) );
+    }
+    
+    private static function get_user_object_roles( $data, $roles )
+    {
+        $data['roles'] = $roles;
+        return $data;
     }
     
     private static function get_user_object_email( $data, $email )
@@ -400,6 +409,7 @@ class Helpers
         $data['phone']['sha256']['e164'] = self::hash_string( $data['phone']['e164'] );
         $data['phone']['facebook'] = str_replace( '+', '', strtolower( $phone ) );
         $data['phone']['pinterest'] = self::hash_string( preg_replace( '/[^0-9]/', '', $data['phone']['e164'] ) );
+        $data['phone']['sha256']['snapchat'] = self::hash_string( str_replace( '+', '', $data['phone']['e164'] ) );
         return $data;
     }
     
@@ -460,7 +470,7 @@ class Helpers
      */
     public static function should_all_s2s_requests_be_sent_blocking()
     {
-        return (bool) apply_filters( 'pmw_send_all_s2s_requests_blocking', false );
+        return (bool) apply_filters( 'pmw_send_all_s2s_requests_blocking', false ) || Options::is_http_request_logging_enabled();
     }
     
     /**
@@ -826,12 +836,10 @@ class Helpers
     
     public static function get_script_string_allowed_html()
     {
-        return [
-            'class' => [],
-        ];
+        return [];
     }
     
-    public static function get_script_string()
+    public static function get_opening_script_string()
     {
         $script_string = '';
         $attributes = [];
@@ -839,6 +847,9 @@ class Helpers
         if ( Environment::is_iubenda_active() ) {
             // add an attribute class and add a class name _iub_cs_skip to it
             $attributes['class'][] = '_iub_cs_skip';
+        }
+        if ( Environment::is_cookiebot_active() ) {
+            $attributes['data-cookieconsent'] = [ 'ignore' ];
         }
         // Build the attribute string
         foreach ( $attributes as $attribute => $values ) {

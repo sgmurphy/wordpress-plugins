@@ -1,6 +1,6 @@
 <div class="sbc-feedtypes-ctn sbc-fs sb-box-shadow" v-if="viewsActive.selectedFeedSection == 'selectSource' && !iscustomizerScreen">
     <div class="sbc-select-source-content">
-        <p class="sbc-src-type-title" v-html="sourcesScreenText[selectedFeed].title">Channel ID, Handle, or Username</p>
+        <p class="sbc-src-type-title" v-html="sourcesScreenText[selectedFeed].title">Channel ID or Username</p>
         <input class="sbc-input" type="text" :placeholder="sourcesScreenText[selectedFeed].placeholder" v-model="selectedFeedModel[selectedFeed]">
         <p v-html="sourcesScreenText[selectedFeed].description" class="sbc-feedsource-description"></p>
         <ul v-if="sourcesScreenText[selectedFeed].lists">

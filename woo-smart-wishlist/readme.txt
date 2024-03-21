@@ -4,7 +4,8 @@ Donate link: https://wpclever.net
 Tags: woocommerce, wpc, wishlist, waitlist
 Requires at least: 4.0
 Tested up to: 6.4
-Stable tag: 4.8.3
+Version: 4.8.4
+Stable tag: 4.8.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -97,6 +98,9 @@ Example:
 `echo do_shortcode('[woosw id="99"]');`
 
 == Changelog ==
+
+= 4.8.4 =
+* Updated: Compatible with WP 6.4 & Woo 8.7
 
 = 4.8.3 =
 * Fixed: Minor CSS/JS issues

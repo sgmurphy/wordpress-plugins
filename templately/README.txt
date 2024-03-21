@@ -3,9 +3,9 @@ Contributors: templately, wpdevteam, re_enter_rupok, Asif2BD, priyomukul, rahat8
 Donate link: https://templately.com
 Tags: templates, elementor template, Gutenberg template, landing page, WoCommerce Templates
 Requires at least: 5.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.2
-Stable tag: 3.0.3
+Stable tag: 3.0.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,6 +139,15 @@ Every month we are adding new Elementor templates, along with Gutenberg template
 
 
 == Changelog ==
+= 3.0.4 – 21-03-2024 =
+Added: WordPress 6.5 compatibility.
+Fixed: Template import issues in LiteSpeed Server.
+Fixed: Template import issues in Gutenberg Editor.
+Fixed: Elementor editor modal's cancel button close the whole Templately modal.
+Fixed: Same form was importing multiple times when it was used in multiple pages.
+Improved: Templates Display Condition from Templately Theme Builder.
+Few minor bug fixes & improvements
+
 = 3.0.3 – 05-03-2024 =
 Improved: Dependency plugin installation process for FSI.
 Improved: Dashboard UI for better user experience.

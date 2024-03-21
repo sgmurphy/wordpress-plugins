@@ -1227,11 +1227,11 @@ class FMModelForm_maker {
           Cookie_fm::setCookieValueByKey($id, 'error_or_no', 1);
         }
       }
-      elseif ( $arithmetic_captcha_input != '' && isset($_POST["arithmetic_captcha_input"]) ) {
+      elseif ( isset($_POST["arithmetic_captcha_input"]) ) {
         $arithmetic_captcha_input = WDW_FM_Library(self::PLUGIN)->get('arithmetic_captcha_input');
         $_wd_arithmetic_captcha_code = Cookie_fm::getCookieByKey($id, '_wd_arithmetic_captcha_code');
         $session_wd_arithmetic_captcha_code = isset($_wd_arithmetic_captcha_code) ? $_wd_arithmetic_captcha_code : '-';
-        if ( md5($arithmetic_captcha_input) == $session_wd_arithmetic_captcha_code ) {
+        if ( $arithmetic_captcha_input != '' && md5($arithmetic_captcha_input) == $session_wd_arithmetic_captcha_code ) {
           $success = TRUE;
         }
         else {
@@ -1728,7 +1728,7 @@ class FMModelForm_maker {
                       $max_size = $untilupload[0];
                       $untilupload = $untilupload[1];
                       $fileName = explode(".", $files[ 'name' ][ $file_key ]);
-                      $fileName = WDW_FM_Library(self::PLUGIN)->generateRandomStrOrNum(10) . '.' . end($fileName);
+                      $fileName = WDW_FM_Library(self::PLUGIN)->generateRandomStrOrNum(10, 'string') . '.' . end($fileName);
                       $fileSize = $files[ 'size' ][ $file_key ];
                       if ( $fileSize > $max_size * 1024 ) {
                         $this->run_stripe_cancel_hook( $form, $stripeToken, $id );
@@ -2425,7 +2425,16 @@ class FMModelForm_maker {
             $destination = str_replace( $upload_dir['baseurl'], '', $destination );
             $destination = ltrim( $destination, '/' );
             $destination = rtrim( $destination, '/' );
-            if ( !file_exists( $upload_dir[ 'basedir' ] . '/' . $destination . '/signatures' ) ) {
+            if ( file_exists( $upload_dir[ 'basedir' ] . '/' . $destination . '/signatures' ) ) {
+                /* Create empty index.html/htaccess files */
+                if ( !file_exists( $upload_dir[ 'basedir' ] . '/' . $destination . '/signatures/index.html' ) ) {
+                    $indexfile = fopen($upload_dir[ 'basedir' ] . '/' . $destination . "/signatures/index.html", "w");
+                    fclose($indexfile);
+                    $htaccessfile = fopen($upload_dir[ 'basedir' ] . '/' . $destination . "/signatures/.htaccess", "w");
+                    fwrite($htaccessfile, "deny from all");
+                    fclose($htaccessfile);
+                }
+            } else {
               $array_dir = explode( '/', $destination . '/signatures');
               if ( !empty( $array_dir ) ) {
                 $dirTmp = $upload_dir[ 'basedir' ] . '/';
@@ -2433,7 +2442,13 @@ class FMModelForm_maker {
                   if ( !empty( $dir ) ) {
                     $dirTmp .= $dir . '/';
                     if ( !is_dir( $dirTmp ) ) {
-                      mkdir( $dirTmp, 0777 );
+                        mkdir( $dirTmp, 0777 );
+                        /* Create empty index.html/htaccess files */
+                        $indexfile = fopen($dirTmp."/index.html", "w");
+                        fclose($indexfile);
+                        $htaccessfile = fopen($dirTmp . "/.htaccess", "w");
+                        fwrite($htaccessfile, "deny from all");
+                        fclose($htaccessfile);
                     }
                   }
                 }
@@ -2448,7 +2463,7 @@ class FMModelForm_maker {
                   $base64_data = str_replace(' ', '+', $base64_data);
                   $base64_data = base64_decode($base64_data);
 
-                  $file_name = 'signature-' . WDW_FM_Library(self::PLUGIN)->generateRandomStrOrNum(10, true) . '.' . $type;
+                  $file_name = 'signature-' . WDW_FM_Library(self::PLUGIN)->generateRandomStrOrNum(10, 'mixed') . '.' . $type;
                   $file_path = $upload_dir['basedir'] . '/' . $destination . '/signatures/' . $file_name;
 
                   if (!empty($base64_data)) {

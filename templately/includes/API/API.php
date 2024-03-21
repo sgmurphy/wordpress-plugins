@@ -164,7 +164,7 @@ abstract class API extends Base {
 			->remove('cloud_activity')
 			->remove('api_key');
 
-		if( $this->utils('options')->whoami() === 'global' ) {
+		if( $this->utils('options')->who_am_i() === 'global' ) {
 			$this->utils('options')->remove_global_login();
 		}
 

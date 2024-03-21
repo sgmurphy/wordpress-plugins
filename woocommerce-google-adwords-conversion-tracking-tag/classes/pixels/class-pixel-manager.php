@@ -239,7 +239,9 @@ class Pixel_Manager
     public function inject_products_from_transient_into_datalayer( $products )
     {
         ?>
-		<script>
+		<script<?php 
+        echo  wp_kses( Helpers::get_opening_script_string(), Helpers::get_script_string_allowed_html() ) ;
+        ?>>
 			(window.wpmDataLayer = window.wpmDataLayer || {}).products = window.wpmDataLayer.products || {}
 			window.wpmDataLayer.products                               = Object.assign(window.wpmDataLayer.products, <?php 
         echo  wp_json_encode( (object) $products ) ;
@@ -359,12 +361,20 @@ class Pixel_Manager
     
     private function get_products_for_datalayer( $data )
     {
-        $product_ids = Helpers::generic_sanitization( $data['productIds'] );
+        $product_ids = Helpers::generic_sanitization( $data['product_ids'] );
         if ( !$product_ids ) {
             wp_send_json_error( 'No product IDs provided.' );
         }
         if ( !is_array( $product_ids ) ) {
             wp_send_json_error( 'Product IDs must be an array.' );
+        }
+        // if $data['page_id'] is not set, return error
+        if ( !isset( $data['page_id'] ) ) {
+            wp_send_json_error( 'No page ID provided' );
+        }
+        // if $data['page_type'] is not set, return error
+        if ( !isset( $data['page_type'] ) ) {
+            wp_send_json_error( 'No page type provided' );
         }
         // Prevent server overload if too many products are requested
         $product_ids = ( count( $product_ids ) > 50 ? array_slice( $product_ids, 0, 50 ) : $product_ids );
@@ -379,7 +389,7 @@ class Pixel_Manager
         }
         
         // Set transient with products for $data['page_id']
-        if ( 'cart' !== $data['pageType'] && 'checkout' !== $data['pageType'] && 'order_received_page' !== $data['pageType'] ) {
+        if ( 'cart' !== $data['page_type'] && 'checkout' !== $data['page_type'] && 'order_received_page' !== $data['page_type'] ) {
             set_transient( 'pmw_products_for_datalayer_' . $data['page_id'], $products, MONTH_IN_SECONDS );
         }
         wp_send_json_success( $products );
@@ -752,8 +762,8 @@ class Pixel_Manager
         // Some exclusion techniques use HTML comments, but those comments may be stripped by HTML minifiers.
         ?>
 
-		<script <?php 
-        echo  wp_kses( Helpers::get_script_string(), Helpers::get_script_string_allowed_html() ) ;
+		<script<?php 
+        echo  wp_kses( Helpers::get_opening_script_string(), Helpers::get_script_string_allowed_html() ) ;
         ?>>
 
 			window.wpmDataLayer = window.wpmDataLayer || {}
@@ -795,10 +805,8 @@ class Pixel_Manager
             $data['shop'] = $this->get_shop_data();
         }
         
+        $data['page'] = self::get_page_data();
         $data['general'] = $this->get_general_data();
-        if ( !empty($user_data) ) {
-            $data['user'] = $user_data;
-        }
         /**
          * Load the experiment settings
          */
@@ -845,7 +853,7 @@ class Pixel_Manager
         if ( $this->options_obj->pinterest->pixel_id ) {
             $data['pinterest'] = $this->get_pinterest_pixel_data();
         }
-        if ( $this->options_obj->snapchat->pixel_id ) {
+        if ( Options::is_snapchat_active() ) {
             $data['snapchat'] = $this->get_snapchat_pixel_data();
         }
         if ( Options::is_taboola_active() ) {
@@ -906,11 +914,6 @@ class Pixel_Manager
             }
         }
         
-        if ( Options::is_google_optimize_active() ) {
-            $data['optimize'] = [
-                'container_id' => Options::get_options_obj()->google->optimize->container_id,
-            ];
-        }
         return $data;
     }
     
@@ -1059,6 +1062,7 @@ class Pixel_Manager
             'dynamic_remarketing' => [
             'id_type' => Product::get_dyn_r_id_type( 'snapchat' ),
         ],
+            'advanced_matching'   => Options::is_snapchat_advanced_matching_enabled(),
         ];
     }
     
@@ -1337,8 +1341,8 @@ class Pixel_Manager
     public function ajax_pmw_get_product_ids()
     {
         $data = Helpers::get_input_vars( INPUT_POST );
-        // Change productIds back into an array
-        $data['productIds'] = explode( ',', $data['productIds'] );
+        // Change product_ids back into an array
+        $data['product_ids'] = explode( ',', $data['product_ids'] );
         $this->get_products_for_datalayer( $data );
     }
     
@@ -1554,6 +1558,25 @@ class Pixel_Manager
         $data['order_duplication_prevention'] = Shop::is_order_duplication_prevention_active();
         $data['view_item_list_trigger'] = Shop::view_item_list_trigger_settings();
         $data['variations_output'] = Options::is_shop_variations_output_active();
+        return $data;
+    }
+    
+    private static function get_page_data()
+    {
+        $data = [];
+        $data['id'] = get_the_ID();
+        $data['title'] = get_the_title();
+        $data['type'] = get_post_type();
+        $data['categories'] = get_the_category();
+        //		$data['template']   = get_page_template_slug();
+        $parent_id = wp_get_post_parent_id( $data['id'] );
+        // Parent
+        $data['parent'] = [
+            'id'         => $parent_id,
+            'title'      => get_the_title( $parent_id ),
+            'type'       => get_post_type( $parent_id ),
+            'categories' => get_the_category( $parent_id ),
+        ];
         return $data;
     }
     

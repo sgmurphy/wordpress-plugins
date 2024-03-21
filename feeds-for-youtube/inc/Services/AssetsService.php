@@ -22,7 +22,7 @@ class AssetsService extends ServiceProvider {
 
 		$js = isset( $sby_settings['custom_js'] ) ? trim( $sby_settings['custom_js'] ) : '';
 
-		echo '<!-- YouTube Feed JS -->';
+		echo '<!-- YouTube Feeds JS -->';
 		echo "\r\n";
 		echo '<script type="text/javascript">';
 		echo "\r\n";
@@ -53,7 +53,7 @@ class AssetsService extends ServiceProvider {
 		//Show CSS if an Admin (so can see Hide Photos link), if including Custom CSS or if hiding some photos
 		if ( current_user_can( 'manage_youtube_feed_options' ) || current_user_can( 'manage_options' ) ||  ! empty( $css ) ) {
 
-			echo '<!-- YouTube Feed CSS -->';
+			echo '<!-- YouTube Feeds CSS -->';
 			echo "\r\n";
 			echo '<style type="text/css">';
 
@@ -122,6 +122,7 @@ class AssetsService extends ServiceProvider {
 			'eagerload' => false,
 			'nonce'	=> wp_create_nonce( 'sby_nonce' ),
 			'isPro'	=> sby_is_pro(),
+			'isCustomizer' => \sby_doing_customizer( $sby_settings )
 		);
 		//Pass option to JS file
 		wp_localize_script('sby_scripts', 'sbyOptions', $data );

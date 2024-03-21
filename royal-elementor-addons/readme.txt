@@ -1,7 +1,7 @@
 === Royal Elementor Addons and Templates ===
 Contributors: WP Royal, rubeushagrid13, cyberpinky, elementoraddonswpr, ggedenidze1982, wprduke
 Tags: elementor, elementor templates, elementor addons, widgets for elementor, elementor widgets, elementor mega menu, elementor woocommerce builder, theme builder, header footer builder, elementor post grid, elementor product grid, addons for elementor
-Stable tag: 1.3.93
+Stable tag: 1.3.94
 Requires at least: 5.0
 Tested up to: 6.4.3
 Requires PHP: 5.6
@@ -155,6 +155,7 @@ and other custom branding related settings)
 - [**Magazine Blog v2**](https://demosites.royal-elementor-addons.com/magazine-blog-v2/?ref=rea-wpo-pp-details-tab)
 - [**Magazine Blog v3**](https://demosites.royal-elementor-addons.com/magazine-blog-v3/?ref=rea-wpo-pp-details-tab)
 - [**Magazine Blog V4**](https://demosites.royal-elementor-addons.com/magazine-blog-v4/?ref=rea-wpo-pp-details-tab)
+- [**Magazine Blog V6**](https://demosites.royal-elementor-addons.com/magazine-blog-v6/?ref=rea-wpo-pp-details-tab)
 - [**Food Blog**](https://demosites.royal-elementor-addons.com/food-blog-v1/?ref=rea-wpo-pp-details-tab)
 - [**Travel Blog**](https://demosites.royal-elementor-addons.com/travel-blog-v1/?ref=rea-wpo-pp-details-tab)
 - [**View All Demos**](https://demosites.royal-elementor-addons.com/elementor-templates/?ref=rea-wpo-pp-details-tab)
@@ -448,6 +449,9 @@ memory_limit 256M or more
 post_max_size 64M
 
 == Changelog ==
+= Royal Elementor Addons v1.3.94 - 2024-03-21 =
+* ADDED: Magazine Blog V6 Kit - [**Magazine Blog V6**](https://demosites.royal-elementor-addons.com/magazine-blog-v6/?ref=rea-wpo-pp-details-tab).
+
 = Royal Elementor Addons v1.3.93 - 2024-03-13 =
 * ADDED: Pet Shop Template Kit [**Pet Shop V1**](https://demosites.royal-elementor-addons.com/pet-shop-v1/?ref=rea-wpo-pp-details-tab).
 

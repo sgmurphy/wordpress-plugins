@@ -46,9 +46,7 @@ function gtm4wp_untexturize( $fancy ) {
 		json_decode( '"\u2014"' ) => '--', // em dash.
 	);
 
-	$normal = strtr( $fancy, $fixes );
-
-	return $normal;
+	return strtr( $fancy, $fixes );
 }
 
 /**
@@ -65,9 +63,9 @@ function gtm4wp_untexturize( $fancy ) {
 function gtm4wp_prefix_productid( $product_id, $prefix ) {
 	if ( '' !== $prefix ) {
 		return $prefix . $product_id;
-	} else {
-		return $product_id;
 	}
+
+	return $product_id;
 }
 
 /**
@@ -190,8 +188,61 @@ function gtm4wp_get_gads_product_id_variable_name( $vertical_id ) {
 
 	if ( array_key_exists( $vertical_id, $gtm4wp_business_verticals_ids ) ) {
 		return $gtm4wp_business_verticals_ids[ $vertical_id ];
-	} else {
-		return 'id';
 	}
+
+	return 'id';
 }
 
+/**
+ * Returns the result of normalizing and hashing any data.
+ *
+ * @link https://developers.google.com/google-ads/api/docs/conversions/enhanced-conversions/web#php
+ *
+ * @param string $hash_algorithm the hash algorithm to use.
+ * @param string $value the value to normalize and hash.
+ * @param bool   $trim_intermediate_spaces wether to remove all spaces before hashing (true) or only leading and trailing spaces (false).
+ * @return string the normalized and hashed email address
+ */
+function gtm4wp_normalize_and_hash( $hash_algorithm, $value, $trim_intermediate_spaces ) {
+	// Normalizes by first converting all characters to lowercase, then trimming spaces.
+	$normalized = strtolower( $value );
+	if ( true === $trim_intermediate_spaces ) {
+		// Removes leading, trailing, and intermediate spaces.
+		$normalized = str_replace( ' ', '', $normalized );
+	} else {
+		// Removes only leading and trailing spaces.
+		$normalized = trim( $normalized );
+	}
+
+	if ( '' === $normalized ) {
+		return '';
+	}
+
+	return hash( $hash_algorithm, $normalized );
+}
+
+/**
+ * Returns the result of normalizing and hashing an email address. For this use case, Google
+ * Ads requires removal of any '.' characters preceding "gmail.com" or "googlemail.com".
+ *
+ * @link https://developers.google.com/google-ads/api/docs/conversions/enhanced-conversions/web#php
+ *
+ * @param string $hash_algorithm the hash algorithm to use.
+ * @param string $email_address the email address to normalize and hash.
+ * @return string the normalized and hashed email address
+ */
+function gtm4wp_normalize_and_hash_email_address( $hash_algorithm, $email_address ) {
+	$normalized_email = strtolower( $email_address );
+	$email_parts      = explode( '@', $normalized_email );
+	if (
+		count( $email_parts ) > 1
+		&& preg_match( '/^(gmail|googlemail)\.com\s*/', $email_parts[1] )
+	) {
+		// Removes any '.' characters from the portion of the email address before the domain
+		// if the domain is gmail.com or googlemail.com.
+		$email_parts[0]   = str_replace( '.', '', $email_parts[0] );
+		$normalized_email = sprintf( '%s@%s', $email_parts[0], $email_parts[1] );
+	}
+
+	return gtm4wp_normalize_and_hash( $hash_algorithm, $normalized_email, true );
+}

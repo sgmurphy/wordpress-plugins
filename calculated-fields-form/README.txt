@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.1.59
+Stable tag: 5.1.60
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -1013,6 +1013,15 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 5.1.60 =
+
+* Modifies the fields list popup to allow accessing the fields from the list.
+* Modifies the behavior of tooltips on mobiles.
+* Modifies the DATEDIFF operation.
+* Modifies the module that parses the form.
+* Fixes a minor issue with the fields list in the submissions data source settings (Developer and Platinum plugin versions).
+* Modifies the PayPal Checkout integration (Platinum plugin version).
+
 = 5.1.59 =
 
 * Modifies the PDFPAGESNUMBER to use PDF-JS API.
@@ -1042,11 +1051,3 @@ A: Please, follow the steps below:
 = 1.2.55 =
 
 * Improves the plugin security. Special thanks to security researcher Rafie Muhammad (Patchstack)
-
-= 1.2.54 =
-
-* Improves the HTML and CSS editors in the "HTML Content" fields and the "Customize Form Design" attribute, respectively.
-* Modifies the "Upload File" control to allow asking for the number of selected files. Ex. fieldname1|r.length
-* Modifies the Popup control to allow dragging the popup window to a different position.
-* Implements the COPYHTML and COPYTEXT operations.
-* Fixes an issue in the module that assigns the default fields' values when the form has active the delay evaluation of the equations.

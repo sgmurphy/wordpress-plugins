@@ -8,6 +8,7 @@ namespace SmashBalloon\YoutubeFeed\Vendor\Interop\Container\Exception;
 use SmashBalloon\YoutubeFeed\Vendor\Psr\Container\ContainerExceptionInterface as PsrContainerException;
 /**
  * Base interface representing a generic exception in a container.
+ * @internal
  */
 interface ContainerException extends PsrContainerException
 {

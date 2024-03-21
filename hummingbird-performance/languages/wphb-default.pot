@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Hummingbird 3.7.2\n"
+"Project-Id-Version: Hummingbird 3.7.3\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
-"POT-Creation-Date: 2024-01-16 12:30:43+00:00\n"
+"POT-Creation-Date: 2024-03-21 09:32:03+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1347,7 +1347,6 @@ msgstr ""
 
 #: admin/modals/minification-advanced-modal.php:54
 #: admin/modals/minification-basic-modal.php:70
-#: admin/modals/upgrade-summary-modal.php:71
 msgid "Got it"
 msgstr ""
 
@@ -1580,55 +1579,25 @@ msgid "Keep my current settings"
 msgstr ""
 
 #: admin/modals/upgrade-summary-modal.php:40
-msgid "New: Generate Critical CSS"
+msgid "New Core Web Vital - INP"
 msgstr ""
 
 #: admin/modals/upgrade-summary-modal.php:49
 #. translators: %1$s - username, %2$s - opening <strong> tag, %3$s - closing
-#. <strong> tag, %4$s - opening <strong> tag, %5$s - closing <strong> tag
+#. <strong> tag
 msgid ""
-"Hey %1$s! Hummingbird can now %2$sautomatically generate critical CSS and "
-"optimize CSS rendering.%3$s How cool is that? All the critical CSS code "
-"will be automatically added to the page header, improving your site’s "
-"loading speed and performance. You can specify when CSS should load, and "
-"fallback CSS file(s). Are you excited? To try out this new feature, "
-"navigate to %4$sAsset Optimization > Extra Optimization.%5$s"
+"Hey %1$s! Performance reports have been updated to include %2$sGoogle's new "
+"Interaction to Next Paint (INP) core web vital.%3$s INP measures the "
+"longest time required for your page to respond to user click, tap, or "
+"keyboard interaction."
 msgstr ""
 
-#: admin/modals/upgrade-summary-modal.php:61
-msgid "Reduce first input delay"
+#: admin/modals/upgrade-summary-modal.php:59
+msgid "Run a performance test now"
 msgstr ""
 
-#: admin/modals/upgrade-summary-modal.php:62
-msgid "Reduce first contentful paint"
-msgstr ""
-
-#: admin/modals/upgrade-summary-modal.php:63
-msgid "Remove unused CSS"
-msgstr ""
-
-#: admin/modals/upgrade-summary-modal.php:64
-msgid "Remove Render-block issue"
-msgstr ""
-
-#: admin/modals/upgrade-summary-modal.php:65
-msgid "Less load time to interactive"
-msgstr ""
-
-#: admin/modals/upgrade-summary-modal.php:66
-msgid "Load page Faster"
-msgstr ""
-
-#: admin/modals/upgrade-summary-modal.php:74
-#. translators: %1$s - opening p tag, %2$s - opening <strong> tag, %3$s -
-#. closing <strong> tag, %4$s - closing p tag
-msgid ""
-"%1$sTo enable this feature, go to %2$sAsset Optimization > Extra "
-"Optimization%3$s.%4$s"
-msgstr ""
-
-#: admin/modals/upgrade-summary-modal.php:81
-msgid "Check It Out Now"
+#: admin/modals/upgrade-summary-modal.php:76
+msgid "LEARN MORE ABOUT INP"
 msgstr ""
 
 #: admin/pages/class-advanced.php:37 admin/pages/class-advanced.php:52
@@ -1905,19 +1874,23 @@ msgstr ""
 
 #: admin/pages/class-performance.php:338
 #. translators: %d - number of percent
-msgid "%d%% of loads for this page have a fast (< 50 ms) First Input Delay (FID)."
+msgid ""
+"%d%% of loads for this page have a fast (< 200 ms) Interaction to Next "
+"Paint (INP)."
 msgstr ""
 
 #: admin/pages/class-performance.php:344
 #. translators: %d - number of percent
 msgid ""
-"%d%% of loads for this page have an average (50 ms ~ 250 ms) First Input "
-"Delay (FID)."
+"%d%% of loads for this page have an average (200 ms ~ 500 ms) Interaction "
+"to Next Paint (INP)."
 msgstr ""
 
 #: admin/pages/class-performance.php:350
 #. translators: %d - number of percent
-msgid "%d%% of loads for this page have a slow (> 250 ms) First Input Delay (FID)."
+msgid ""
+"%d%% of loads for this page have a slow (> 500 ms) Interaction to Next "
+"Paint (INP)."
 msgstr ""
 
 #: admin/pages/class-performance.php:388
@@ -2542,7 +2515,7 @@ msgstr ""
 
 #: admin/views/caching/gravatar/meta-box-header.php:21
 #: admin/views/caching/page/meta-box-header.php:37
-#: core/modules/class-page-cache.php:1980 languages/react.php:293
+#: core/modules/class-page-cache.php:1981 languages/react.php:293
 msgid "Clear cache"
 msgstr ""
 
@@ -3572,23 +3545,23 @@ msgstr ""
 msgid "View full report"
 msgstr ""
 
-#: admin/views/dashboard/performance/module-meta-box.php:20
+#: admin/views/dashboard/performance/module-meta-box.php:21
 #: admin/views/performance/metrics-meta-box.php:27
 msgid "Score Metrics"
 msgstr ""
 
-#: admin/views/dashboard/performance/module-meta-box.php:23
+#: admin/views/dashboard/performance/module-meta-box.php:24
 msgid "More details"
 msgstr ""
 
-#: admin/views/dashboard/performance/module-meta-box.php:27
+#: admin/views/dashboard/performance/module-meta-box.php:28
 msgid ""
 "Your performance score is calculated based on how your site performs on "
 "each of the following metrics."
 msgstr ""
 
-#: admin/views/dashboard/performance/module-meta-box.php:41
-#: admin/views/performance/metrics-meta-box.php:156
+#: admin/views/dashboard/performance/module-meta-box.php:47
+#: admin/views/performance/metrics-meta-box.php:149
 msgid "N/A"
 msgstr ""
 
@@ -4859,8 +4832,8 @@ msgid ""
 msgstr ""
 
 #: admin/views/performance/audits/mainthread-work-breakdown.php:53
-#: admin/views/performance/metrics-meta-box.php:217
-#: admin/views/performance/metrics-meta-box.php:287
+#: admin/views/performance/metrics-meta-box.php:210
+#: admin/views/performance/metrics-meta-box.php:280
 msgid "Category"
 msgstr ""
 
@@ -5683,11 +5656,11 @@ msgid ""
 "recommendations."
 msgstr ""
 
-#: admin/views/performance/metrics-meta-box.php:167
+#: admin/views/performance/metrics-meta-box.php:160
 msgid "Historic Field Data"
 msgstr ""
 
-#: admin/views/performance/metrics-meta-box.php:173
+#: admin/views/performance/metrics-meta-box.php:166
 #. translators: %1$s - opening a tag, %2$s - closing a tag
 msgid ""
 "The field data is a historical report about how a particular URL has "
@@ -5697,67 +5670,67 @@ msgid ""
 "users’ experience with your webpage over the last 30 days."
 msgstr ""
 
-#: admin/views/performance/metrics-meta-box.php:184
+#: admin/views/performance/metrics-meta-box.php:177
 msgid ""
 "The Chrome User Experience Report does not have sufficient real-world speed "
 "data for this page. Note: This report can take months to populate and is "
 "aimed at well established websites."
 msgstr ""
 
-#: admin/views/performance/metrics-meta-box.php:193
+#: admin/views/performance/metrics-meta-box.php:186
 msgid "First Contentful Paint (FCP)"
 msgstr ""
 
-#: admin/views/performance/metrics-meta-box.php:212
+#: admin/views/performance/metrics-meta-box.php:205
 msgid ""
 "FCP is the point when the browser renders the first bit of content from the "
 "DOM - text, an image, SVG, or even a canvas element."
 msgstr ""
 
-#: admin/views/performance/metrics-meta-box.php:222
+#: admin/views/performance/metrics-meta-box.php:215
 msgid "Avg. FCP"
 msgstr ""
 
-#: admin/views/performance/metrics-meta-box.php:235
+#: admin/views/performance/metrics-meta-box.php:228
 #. translators: %s - number of seconds
 msgid ""
 "Following is the distribution of all the page loads into different FCP "
 "categories."
 msgstr ""
 
-#: admin/views/performance/metrics-meta-box.php:244
-#: admin/views/performance/metrics-meta-box.php:314
+#: admin/views/performance/metrics-meta-box.php:237
+#: admin/views/performance/metrics-meta-box.php:307
 msgid "Fast"
 msgstr ""
 
-#: admin/views/performance/metrics-meta-box.php:248
-#: admin/views/performance/metrics-meta-box.php:318
+#: admin/views/performance/metrics-meta-box.php:241
+#: admin/views/performance/metrics-meta-box.php:311
 msgid "Average"
 msgstr ""
 
-#: admin/views/performance/metrics-meta-box.php:252
-#: admin/views/performance/metrics-meta-box.php:322
+#: admin/views/performance/metrics-meta-box.php:245
+#: admin/views/performance/metrics-meta-box.php:315
 msgid "Slow"
 msgstr ""
 
-#: admin/views/performance/metrics-meta-box.php:263
-msgid "First Input Delay (FID)"
+#: admin/views/performance/metrics-meta-box.php:256
+msgid "Interaction to Next Paint (INP)"
 msgstr ""
 
-#: admin/views/performance/metrics-meta-box.php:282
+#: admin/views/performance/metrics-meta-box.php:275
 msgid ""
-"FID measure the time that the browser takes to respond to the user's first "
-"interaction with your page while the page is still loading."
+"INP measures the longest time required for your page to respond to user "
+"click, tap, or keyboard interaction."
 msgstr ""
 
-#: admin/views/performance/metrics-meta-box.php:292
-msgid "Avg. FID"
+#: admin/views/performance/metrics-meta-box.php:285
+msgid "Avg. INP"
 msgstr ""
 
-#: admin/views/performance/metrics-meta-box.php:305
+#: admin/views/performance/metrics-meta-box.php:298
 #. translators: %s - number of milliseconds
 msgid ""
-"Following is the distribution of all the page loads into different FID "
+"Following is the distribution of all the page loads into different INP "
 "categories."
 msgstr ""
 
@@ -6402,7 +6375,7 @@ msgstr ""
 msgid "Unknown Error"
 msgstr ""
 
-#: core/class-configs.php:106 core/class-installer.php:598
+#: core/class-configs.php:106 core/class-installer.php:602
 msgid "Default config"
 msgstr ""
 
@@ -6987,8 +6960,8 @@ msgid "Clear %s post cache"
 msgstr ""
 
 #: core/integration/class-gutenberg.php:138
-#: core/modules/class-page-cache.php:1894
-#: core/modules/class-page-cache.php:1996
+#: core/modules/class-page-cache.php:1895
+#: core/modules/class-page-cache.php:1997
 #. translators: %s - Cache expiration time, %s - Cache old time
 msgid "Cache for post has been cleared."
 msgstr ""
@@ -7339,14 +7312,14 @@ msgstr ""
 msgid "Disable safe mode"
 msgstr ""
 
-#: core/modules/class-page-cache.php:231
+#: core/modules/class-page-cache.php:232
 #. translators: %s: plugin name.
 msgid ""
 "%s plugin detected. Please disable it to use Hummingbird page caching "
 "functionality."
 msgstr ""
 
-#: core/modules/class-page-cache.php:243
+#: core/modules/class-page-cache.php:244
 #. translators: %1$s - opening a tag, %2$s - closing a tag, %3$s - button tag,
 #. %4$s - closing button tag
 msgid ""
@@ -7359,18 +7332,18 @@ msgid ""
 "FTP.%3$sRemove file%4$s"
 msgstr ""
 
-#: core/modules/class-page-cache.php:268
+#: core/modules/class-page-cache.php:269
 msgid ""
 "Hummingbird has halted page caching to prevent any issues while asset "
 "optimization is in progress. Page caching will resume automatically when "
 "asset optimization is complete."
 msgstr ""
 
-#: core/modules/class-page-cache.php:288
+#: core/modules/class-page-cache.php:289
 msgid "Hummingbird has halted page caching to prevent any issues with FastCGI cache"
 msgstr ""
 
-#: core/modules/class-page-cache.php:567
+#: core/modules/class-page-cache.php:568
 #. translators: %1$s - code tag, %2$s - closing code tag, %3$s - button tag,
 #. %4$s - closing button tag
 msgid ""
@@ -7379,7 +7352,7 @@ msgid ""
 "true);%2$sClick Retry to try again.%3$sRetry%4$s"
 msgstr ""
 
-#: core/modules/class-page-cache.php:583
+#: core/modules/class-page-cache.php:584
 #. translators: %1$s - code tag, %2$s - closing code tag, button tag, %3$s -
 #. closing button tag
 msgid ""
@@ -7388,35 +7361,35 @@ msgid ""
 "file:%1$sdefine('WP_CACHE', true);%2$sRetry%3$s"
 msgstr ""
 
-#: core/modules/class-page-cache.php:613
+#: core/modules/class-page-cache.php:614
 msgid "Frontpage"
 msgstr ""
 
-#: core/modules/class-page-cache.php:614
+#: core/modules/class-page-cache.php:615
 msgid "Blog"
 msgstr ""
 
-#: core/modules/class-page-cache.php:615
+#: core/modules/class-page-cache.php:616
 msgid "Pages"
 msgstr ""
 
-#: core/modules/class-page-cache.php:616
+#: core/modules/class-page-cache.php:617
 msgid "Posts"
 msgstr ""
 
-#: core/modules/class-page-cache.php:617
+#: core/modules/class-page-cache.php:618
 msgid "Archives"
 msgstr ""
 
-#: core/modules/class-page-cache.php:618
+#: core/modules/class-page-cache.php:619
 msgid "Categories"
 msgstr ""
 
-#: core/modules/class-page-cache.php:619
+#: core/modules/class-page-cache.php:620
 msgid "Tags"
 msgstr ""
 
-#: core/modules/class-page-cache.php:2237
+#: core/modules/class-page-cache.php:2238
 msgid ""
 "Hummingbird cache will not work for some pages while Critical CSS is being "
 "generated. Page caching will resume automatically when Critical CSS is "

@@ -15,6 +15,7 @@ if (!\defined('ABSPATH')) {
 }
 /**
  * Get all notices and display error warning or success notices
+ * @internal
  */
 class SBNotices
 {
@@ -101,6 +102,10 @@ class SBNotices
         add_action('admin_notices', [$this, 'display_notices']);
         add_action($notice_hook, [$this, 'display_notices']);
         add_action('admin_init', [$this, 'dismiss_notices'], 20);
+        add_filter('safe_style_css', function ($styles) {
+            $styles[] = 'display';
+            return $styles;
+        });
     }
     /**
      * Get all notices
@@ -263,11 +268,12 @@ class SBNotices
      *
      * @return void
      */
-    public function add_notice($id, $type = 'error', $args, $group = \false)
+    public function add_notice($id, $type, $args, $group = \false)
     {
         if (empty($id) || empty($args['title']) && empty($args['message'])) {
             return;
         }
+        $type = \in_array($type, ['error', 'warning', 'information'], \true) ? $type : 'error';
         $notices = $this->get_notices();
         // Check if notice already exists.
         if (isset($notices[$id])) {

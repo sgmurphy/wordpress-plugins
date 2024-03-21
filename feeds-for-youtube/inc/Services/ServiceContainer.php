@@ -10,6 +10,8 @@ use SmashBalloon\YouTubeFeed\Customizer\Tabs\TabsService;
 use SmashBalloon\YouTubeFeed\Builder\SBY_Feed_Saver_Manager;
 use SmashBalloon\YouTubeFeed\Services\Upgrade\RoutineManagerService;
 use SmashBalloon\YouTubeFeed\Services\LicenseNotification;
+use SmashBalloon\YouTubeFeed\Services\Integrations\Elementor\SBY_Elementor_Base;
+use SmashBalloon\YouTubeFeed\Services\Integrations\Divi\SBY_Divi_Handler;
 
 class ServiceContainer extends ServiceProvider {
 
@@ -27,6 +29,8 @@ class ServiceContainer extends ServiceProvider {
 		SBY_Feed_Saver_Manager::class,
 		Tooltip_Wizard::class,
 		LicenseNotification::class,
+		SBY_Elementor_Base::class,
+		SBY_Divi_Handler::class,
 	];
 
 	public function register() {

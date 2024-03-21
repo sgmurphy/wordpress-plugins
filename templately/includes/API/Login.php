@@ -181,9 +181,10 @@ class Login extends API {
             ->remove( 'cloud_activity' )
             ->remove( 'api_key' )
             ->remove( 'global_login' )
+            ->remove( 'total_download_counts' )
             ->remove( 'templates_in_clouds' );
 
-        if ( $this->utils( 'options' )->whoami() === 'global' ) {
+        if ( $this->utils( 'options' )->who_am_i() === 'global' ) {
             $this->utils( 'options' )->remove_global_login();
         }
 
@@ -201,7 +202,7 @@ class Login extends API {
 		return $global_user;
 	}
 
-    public static function is_signed() {
+    public static function is_signed(): array {
         $_response = [
             'status' => 'success'
         ];
@@ -221,7 +222,7 @@ class Login extends API {
         return $_response;
     }
 
-    public function user_meta( $meta = [] ) {
+    public function user_meta( $meta = [] ): array {
         $_meta = [
             'link_account'       => self::utils( 'options' )->link_account(),
             'unlink_account'     => self::utils( 'options' )->unlink_account(),
@@ -236,11 +237,11 @@ class Login extends API {
         return array_merge( $_meta, $meta );
     }
 
-    public static function is_globally_signed() {
+    public static function is_globally_signed(): bool {
         return rest_sanitize_boolean(  ( new static )->utils( 'options' )->is_globally_signed() );
     }
 
-    public static function signed_as_global() {
+    public static function signed_as_global(): bool {
         return rest_sanitize_boolean(  ( new static )->utils( 'options' )->signed_as_global() );
     }
 }

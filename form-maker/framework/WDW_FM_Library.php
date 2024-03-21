@@ -441,20 +441,23 @@ class WDW_FM_Library {
    * @param int $length
    * @param bool $type
    *
-   * @return string|bool  return 'String' if $type is false, and 'Number' when $type is true
+   * @return string return 'String' if $type is string, 'Number' when $type is number, php unique id when $type is mixed
    */
-  public static function generateRandomStrOrNum($length=6, $type=false) {
+  public static function generateRandomStrOrNum( $length=6, $type = 'string' ) {
     $randomStrOrNum = '';
   	$characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
 
-    for ( $i = 0; $i < $length; $i++ ) {
-    	if($type){
-	   		$randomStrOrNum .= rand(0, 9);
-			}
-	 		else {
-	   		$randomStrOrNum .= $characters[rand(0, $charactersLength - 1)];
-			}
+    if( $type == "mixed" )  {
+        $randomStrOrNum = uniqid();
+    } else {
+        for ($i = 0; $i < $length; $i++) {
+            if ( $type == 'number' ) {
+                $randomStrOrNum .= rand(0, 9);
+            } else {
+                $randomStrOrNum .= $characters[rand(0, $charactersLength - 1)];
+            }
+        }
     }
     return $randomStrOrNum;
   }

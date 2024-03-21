@@ -200,6 +200,9 @@ class HelpPage extends BaseSettingPage {
 		$output .= 'Enqueue in Head: ';
 		$output .= isset( $sby_settings['enqueue_js_in_head'] ) && $sby_settings['enqueue_js_in_head'] === true ? 'Enabled' : 'Disabled';
 		$output .= '<br />';
+		$output .= 'Disable WP Posts: ';
+		$output .= !empty($sby_settings['disable_wp_posts']) ? 'True' : 'False';;
+		$output .= '<br />';
 		$output .= 'Enqueue in Shortcode: ';
 		$output .= isset( $sby_settings['enqueue_css_in_shortcode'] ) && $sby_settings['enqueue_css_in_shortcode'] === true ? 'Enabled' : 'Disabled';
 		$output .= '<br />';

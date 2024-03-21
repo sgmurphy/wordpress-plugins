@@ -153,7 +153,8 @@ class Options {
 				],
 			],
 			'snapchat'   => [
-				'pixel_id' => '',
+				'pixel_id'          => '',
+				'advanced_matching' => false,
 			],
 			'tiktok'     => [
 				'pixel_id'          => '',
@@ -336,6 +337,10 @@ class Options {
 		return (bool) self::get_options_obj()->snapchat->pixel_id;
 	}
 
+	public static function is_snapchat_advanced_matching_enabled() {
+		return (bool) self::get_options_obj()->snapchat->advanced_matching;
+	}
+
 	public static function is_pinterest_active() {
 		return (bool) self::get_options_obj()->pinterest->pixel_id;
 	}
@@ -432,10 +437,6 @@ class Options {
 		return self::get_options_obj()->general->variations_output;
 	}
 
-	public static function is_google_optimize_active() {
-		return self::get_options_obj()->google->optimize->container_id;
-	}
-
 	public static function get_subscription_multiplier() {
 		return self::get_options_obj()->shop->subscription_value_multiplier;
 	}
@@ -444,35 +445,21 @@ class Options {
 		return self::get_options_obj()->general->lazy_load_pmw;
 	}
 
-	public static function is_google_optimize_anti_flicker_active() {
-
-		// Google Optimize must be enabled in order to use the anti-flicker snippet.
-		if (!self::is_google_optimize_active()) {
-			return false;
-		}
-
-		// Either the anti-flicker snippet is enabled in the settings by the user,
-		// or it is automatically enabled if PMW Lazy Load is enabled.
-		if (self::get_options_obj()->google->optimize->anti_flicker) {
-			return true;
-		}
-
-		return false;
-	}
-
+	/**
+	 * Ensure that lazy loading is only active if the optimizers (VWO, Optimizely, AB Tasty, etc.) allow it.
+	 * The reason is, because optimizers might flicker the page during loading (when test variations are applied).
+	 *
+	 * @return false
+	 */
 	public static function lazy_load_requirements() {
 
 		// If Google Optimize is active we need to make sure that the Google Optimize anti flicker snippet is active too
 
-		if (!self::is_google_optimize_active()) {
-			return true;
-		}
+//		if (self::is_google_optimize_active() && !self::is_google_optimize_anti_flicker_active()) {
+//			return false;
+//		}
 
-		if (self::is_google_optimize_anti_flicker_active()) {
-			return true;
-		}
-
-		return false;
+		return true;
 	}
 
 	public static function get_adroll_advertiser_id() {
@@ -572,8 +559,8 @@ class Options {
 	public static function is_at_least_one_statistics_pixel_active() {
 		return self::is_ga3_enabled()
 			|| self::is_ga4_enabled()
-			|| self::is_google_optimize_active()
-			|| self::is_hotjar_enabled();
+			|| self::is_hotjar_enabled()
+			|| self::is_vwo_active();
 	}
 
 	public static function is_at_least_one_marketing_pixel_active() {

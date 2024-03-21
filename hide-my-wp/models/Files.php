@@ -28,7 +28,9 @@ class HMWP_Models_Files
             'bmp',
             'gif',
             'jp2',
+            'weba',
             'webp',
+            'webm',
             'css',
             'scss',
             'js',
@@ -65,7 +67,9 @@ class HMWP_Models_Files
             'bmph',
             'gifh',
             'jp2h',
+            'webah',
             'webph',
+            'webmh',
             'cssh',
             'scssh',
             'jsh',
@@ -119,7 +123,6 @@ class HMWP_Models_Files
      */
     public function maybeShowNotFound()
     {
-
         //If the file doesn't exist
         //show the file content
         if (is_404() ) {
@@ -138,11 +141,11 @@ class HMWP_Models_Files
      */
     public function maybeShowLogin($url)
     {
-        if (strpos(trailingslashit($url), '/' . HMWP_Classes_Tools::getOption('hmwp_login_url') . '/') ||
-            strpos(trailingslashit($url), '/' . HMWP_Classes_Tools::getDefault('hmwp_login_url') ) ||
-            (HMWP_Classes_Tools::getOption('hmwp_lostpassword_url') <> '' && strpos(trailingslashit($url), '/' . HMWP_Classes_Tools::getOption('hmwp_lostpassword_url') . '/'))||
-            (HMWP_Classes_Tools::getOption('hmwp_logout_url') <> '' && strpos(trailingslashit($url), '/' . HMWP_Classes_Tools::getOption('hmwp_logout_url') . '/'))||
-            (HMWP_Classes_Tools::getOption('hmwp_register_url') <> '' && strpos(trailingslashit($url), '/' . HMWP_Classes_Tools::getOption('hmwp_register_url') . '/'))) {
+        //remove queries from URL
+        $url_no_query = ((strpos($url, '?') !== false) ? substr($url, 0, strpos($url, '?')) : $url) ;
+
+        if (strpos(trailingslashit($url_no_query), '/' . HMWP_Classes_Tools::getOption('hmwp_login_url') . '/') ||
+            strpos(trailingslashit($url_no_query), '/' . HMWP_Classes_Tools::getDefault('hmwp_login_url') . '/' ) ) {
 
             add_filter('hmwp_option_hmwp_remove_third_hooks', '__return_true');
 
@@ -478,10 +481,7 @@ class HMWP_Models_Files
             }
 
         } elseif (strpos(trailingslashit($new_url_no_query), '/' .HMWP_Classes_Tools::getOption('hmwp_login_url') . '/') ||
-                  strpos(trailingslashit($new_url_no_query), '/' .HMWP_Classes_Tools::getDefault('hmwp_login_url')) ||
-                  (HMWP_Classes_Tools::getOption('hmwp_lostpassword_url') && strpos(trailingslashit($new_url_no_query), '/' .HMWP_Classes_Tools::getOption('hmwp_lostpassword_url') . '/'))||
-                  (HMWP_Classes_Tools::getOption('hmwp_logout_url') && strpos(trailingslashit($new_url_no_query), '/' .HMWP_Classes_Tools::getOption('hmwp_logout_url') . '/'))||
-                  (HMWP_Classes_Tools::getOption('hmwp_register_url') && strpos(trailingslashit($new_url_no_query), '/' .HMWP_Classes_Tools::getOption('hmwp_register_url') . '/'))) {
+                  strpos(trailingslashit($new_url_no_query), '/' .HMWP_Classes_Tools::getDefault('hmwp_login_url') . '/') ) {
 
 	        add_filter('hmwp_option_hmwp_remove_third_hooks', '__return_true');
 
@@ -491,8 +491,7 @@ class HMWP_Models_Files
 
         } elseif ( $url <> $new_url ) {
 
-	        if (stripos(trailingslashit($new_url_no_query), '/' . HMWP_Classes_Tools::getDefault('hmwp_admin-ajax_url')) !== false ||
-	            stripos(trailingslashit($new_url_no_query), '/' . HMWP_Classes_Tools::getDefault('hmwp_wp-json')) !== false) {
+	        if (stripos(trailingslashit($new_url_no_query), '/' . HMWP_Classes_Tools::getDefault('hmwp_wp-json') . '/') !== false) {
 
 		        $response = false;
 
@@ -517,8 +516,8 @@ class HMWP_Models_Files
 
 		        exit();
 
-	        } elseif (strpos(trailingslashit($new_url_no_query), '/' . HMWP_Classes_Tools::getDefault('hmwp_activate_url')) !== false ||
-	                  strpos(trailingslashit($new_url_no_query), '/' . HMWP_Classes_Tools::getDefault('hmwp_wp-signup_url')) !== false ) {
+	        } elseif (strpos(trailingslashit($new_url_no_query), '/' . HMWP_Classes_Tools::getDefault('hmwp_activate_url') . '/') !== false ||
+	                  strpos(trailingslashit($new_url_no_query), '/' . HMWP_Classes_Tools::getDefault('hmwp_wp-signup_url') . '/') !== false ) {
 
 		        ob_start();
 		        include $new_path;
@@ -662,18 +661,29 @@ class HMWP_Models_Files
 
                 do_action('hmwp_files_handle_login', $url);
 
-                $actions = array(
-					'postpass',
-					'logout',
-					'lostpassword',
-					'retrievepassword',
-					'resetpass',
-					'rp',
-					'register',
-					'login',
-					'confirmaction'
-				);
-				$_REQUEST['action'] = $this->strposa($url, $actions);
+                //Get the action if exists in params
+                $params = array();
+                $query = parse_url( $url, PHP_URL_QUERY );
+                if($query <> ''){
+                    parse_str($query, $params);
+                }
+
+                if(isset($params['action'])){
+                    $actions = array(
+                        'postpass',
+                        'logout',
+                        'lostpassword',
+                        'retrievepassword',
+                        'resetpass',
+                        'rp',
+                        'register',
+                        'login',
+                        'confirmaction',
+                        'validate_2fa',
+                        'itsec-2fa',
+                    );
+                    $_REQUEST['action'] = $this->strposa($params['action'], $actions);
+                }
 
 				$urled_redirect_to = '';
 				if ( isset( $_REQUEST['redirect_to'] ) ) {

@@ -8,6 +8,8 @@ use Templately\Core\Importer\Runners\BaseRunner;
 
 class ExtraContent extends BaseRunner {
 
+	protected static $imported_form = [];
+
 	public function get_name(): string {
 		return 'extra-content';
 	}
@@ -76,11 +78,17 @@ class ExtraContent extends BaseRunner {
 
 				foreach ( $form_list as $form ) {
 					try {
+						if(isset(self::$imported_form[ $plugin_name ][ $form['form_id'] ])){
+							$result[$json_id][ $plugin_name ][ $form['id'] ] = self::$imported_form[ $plugin_name ][ $form['form_id'] ];
+							continue;
+						}
+
 						$file_path = $root_path . wp_unslash( $form['file_path'] );
 						$import = new Form( $plugin_name, $file_path, $form );
 						$data = $import->run();
 
-						$result[$json_id][ $plugin_name ][ $form['id'] ] = $data;
+						self::$imported_form[ $plugin_name ][ $form['form_id'] ] = $data;
+						$result[$json_id][ $plugin_name ][ $form['id'] ]    = $data;
 					} catch ( Exception $e ) {
 						continue;
 					}

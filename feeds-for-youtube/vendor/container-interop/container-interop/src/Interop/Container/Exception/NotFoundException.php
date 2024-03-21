@@ -8,6 +8,7 @@ namespace SmashBalloon\YoutubeFeed\Vendor\Interop\Container\Exception;
 use SmashBalloon\YoutubeFeed\Vendor\Psr\Container\NotFoundExceptionInterface as PsrNotFoundException;
 /**
  * No entry was found in the container.
+ * @internal
  */
 interface NotFoundException extends ContainerException, PsrNotFoundException
 {

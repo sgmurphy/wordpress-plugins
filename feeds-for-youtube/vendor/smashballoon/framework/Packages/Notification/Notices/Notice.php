@@ -14,6 +14,7 @@ if (!\defined('ABSPATH')) {
 }
 /**
  * Abstract Notice class.
+ * @internal
  */
 abstract class Notice
 {
@@ -193,6 +194,7 @@ abstract class Notice
             foreach ($fields as $key => $value) {
                 $notice = \str_replace('{' . $key . '}', $value, $notice);
             }
+            $notice = wp_kses($notice, NoticeFields::$allowed_tags);
         }
         return $notice;
     }
