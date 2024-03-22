@@ -1128,7 +1128,7 @@ class L_ThePlus_Clients_ListOut extends Widget_Base {
 									$output .= '<div class="grid-item flex-column flex-wrap '.$desktop_class.' '.$tablet_class.' '.$mobile_class.' '.$animated_columns.'">';
 										if(!empty($style)){
 											ob_start();
-											include L_THEPLUS_PATH. 'includes/client/client-'.esc_attr($style).'.php'; 
+											include L_THEPLUS_PATH. 'includes/client/client-'.sanitize_file_name($style).'.php'; 
 											$output .= ob_get_contents();
 											ob_end_clean();
 										}
@@ -1158,7 +1158,7 @@ class L_ThePlus_Clients_ListOut extends Widget_Base {
 						$output .= '<div class="grid-item flex-column flex-wrap '.$desktop_class.' '.$tablet_class.' '.$mobile_class.' '.$animated_columns.'">';				
 						if(!empty($style)){
 							ob_start();
-							include L_THEPLUS_PATH. 'includes/client/client-'.esc_attr($style).'.php'; 
+							include L_THEPLUS_PATH. 'includes/client/client-'.sanitize_file_name($style).'.php'; 
 							$output .= ob_get_contents();
 							ob_end_clean();
 						}

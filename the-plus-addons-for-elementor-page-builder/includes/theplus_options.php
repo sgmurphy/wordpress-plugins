@@ -15,12 +15,12 @@ class L_Theplus_Elementor_Plugin_Options
      */
     private $key = 'theplus_options';
     
-    /**
+     /**
      * Array of metaboxes/fields
      * @var array
      */
     protected $option_metabox = array();
-    
+	
     /**
      * Options Page title
      * @var string

@@ -4,7 +4,7 @@ Donate link: https://www.mooveagency.com/wordpress-plugins/gdpr-cookie-complianc
 Tags: GDPR, CCPA, DSGVO, cookie banner, cookie notice
 Stable tag: 4.13.3
 Requires at least: 4.5
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.6
 License: GPLv3
 

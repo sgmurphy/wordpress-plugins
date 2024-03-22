@@ -3,7 +3,7 @@ Contributors: wfryan, wfmattr, mmaunder, wfmatt
 Tags: security, login security, 2fa, two factor authentication, captcha, xml-rpc, mfa, 2 factor
 Requires at least: 4.5
 Requires PHP: 5.5
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 1.1.10
 
 Secure your website with Wordfence Login Security, providing two-factor authentication, login and registration CAPTCHA, and XML-RPC protection.

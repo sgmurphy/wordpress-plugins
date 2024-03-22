@@ -1416,7 +1416,7 @@ class L_ThePlus_Gallery_ListOut extends Widget_Base {
 							}
 						}						
 						//grid item loop
-						$output .= '<div class="grid-item metro-item'.esc_attr($ij).' '.$desktop_class.' '.$tablet_class.' '.$mobile_class.' '.$animated_columns.'" >';						
+						$output .= '<div class="grid-item metro-item'.sanitize_file_name($ij).' '.$desktop_class.' '.$tablet_class.' '.$mobile_class.' '.$animated_columns.'" >';						
 						if(!empty($style)){
 							ob_start();
 								include L_THEPLUS_PATH. 'includes/gallery/gallery-'.esc_attr($style).'.php'; 

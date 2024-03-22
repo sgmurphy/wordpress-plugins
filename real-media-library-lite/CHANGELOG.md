@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.22.11 (2024-03-22)
+
+
+### Bug Fixes
+
+* compatibility with BeTheme / BeBuilder (CU-861m7mmu0)
+* compatibility with WordPress 6.5 (CU-869434yv9)
+
+
+<details><summary>Dependency updates @devowl-wp/real-product-manager-wp-client 1.19.15</summary>
+
+
+**_Purpose of dependency:_** _A WordPress client for Real Product Manager_
+##### Bug Fixes
+
+* avoid race conditions when contacting our backend servers to avoid triggering rate limit notice (CU-86939q6ce)</details>
+
+<details><summary>Dependency updates @devowl-wp/utils 1.18.3</summary>
+
+
+**_Purpose of dependency:_** _Utility functionality for all your WordPress plugins._
+##### Bug Fixes
+
+* avoid race conditions when contacting our backend servers to avoid triggering rate limit notice (CU-86939q6ce)</details>
+
+
+
+
+
 ## 4.22.10 (2024-03-13)
 
 

@@ -2,7 +2,7 @@
 Contributors: optimole
 Tags: image optimization, convert webp, image optimizer, lazy load, image, optimization, convert AVIF, resize, free cdn, compress images, optimize images
 Requires at least: 5.5
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
@@ -148,6 +148,15 @@ Discover how to make the most of Otter Blocks with our detailed and user-friendl
 5. Cloud Storage
 
 == Changelog ==
+
+##### [Version 3.12.6](https://github.com/Codeinwp/optimole-wp/compare/v3.12.5...v3.12.6) (2024-03-22)
+
+* Corrected inaccuracies in notification text.
+* Compatibility was confirmed with WordPress for version 6.5.
+* Dependencies updated.
+
+
+
 
 ##### [Version 3.12.5](https://github.com/Codeinwp/optimole-wp/compare/v3.12.4...v3.12.5) (2024-02-14)
 

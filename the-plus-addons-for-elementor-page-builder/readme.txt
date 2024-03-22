@@ -4,7 +4,7 @@ Tags: Elementor, elementor widgets, elements, elementor addon, elementor templat
 Requires at least: 6.0
 Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 5.4.1
+Stable tag: 5.4.2
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -429,8 +429,12 @@ We have the most advanced caching architecture, Which will never bloat your site
 
 == Changelog ==
 
-= 5.4.1 =
+= 5.4.2 =
+Fix : Clients Listing : Security patch 
+Fix : Team Member Listing : Security patch 
+Fix : Minor Bug Fixes & Improvements
 
+= 5.4.1 =
 Add : Post Meta : option to select post modify date.
 Fix : Performance : Smart Optimized cache.
 Fix : Header meta content : Security patch (Low Severity)

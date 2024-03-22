@@ -1411,7 +1411,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 
 					if(!empty($style)){
 						ob_start();
-						include L_THEPLUS_PATH. 'includes/team-member/team-member-'.esc_attr($style).'.php';
+						include L_THEPLUS_PATH. 'includes/team-member/team-member-'.sanitize_file_name($style).'.php';
 						$output .= ob_get_contents();
 						ob_end_clean();
 					}
@@ -1446,7 +1446,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 						$output .= '<div class="grid-item '.$desktop_class.' '.$tablet_class.' '.$mobile_class.' '.$animated_columns.'">';				
 						if(!empty($style)){
 							ob_start();
-							include L_THEPLUS_PATH. 'includes/team-member/team-member-'.esc_attr($style).'.php'; 
+							include L_THEPLUS_PATH. 'includes/team-member/team-member-'.sanitize_file_name($style).'.php'; 
 							$output .= ob_get_contents();
 							ob_end_clean();
 						}
