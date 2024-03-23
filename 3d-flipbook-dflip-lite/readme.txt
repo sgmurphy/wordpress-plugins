@@ -5,7 +5,7 @@ Author URI: https://dearflip.com/go/wp-lite-author
 Contributors: deip, dearhive
 Tags: flipbook, flip book, 3d flipbook, pdf flipbook, pdf viewer
 Requires at least: 4.6
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 2.2.32
 Requires PHP: 5.3
 License: GPLv2 or later

@@ -3,7 +3,7 @@
 	Plugin Name: MouseWheel Smooth Scroll
 	Plugin URI: https://kubiq.sk
 	Description: MouseWheel smooth scrolling for your WordPress website
-	Version: 6.4.1
+	Version: 6.5
 	Author: KubiQ
 	Author URI: https://kubiq.sk
 	Text Domain: wpmss

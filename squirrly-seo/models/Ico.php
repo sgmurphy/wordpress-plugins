@@ -77,22 +77,21 @@ class SQ_Models_Ico
 
 	                if ($file_type <> 'ico') {
 	                    /* Save the file */
-	                        $this->set_image($out['tmp'], array(32, 32));
+                        $this->set_image($out['tmp'], array(32, 32));
 
-	                        if ($this->save_ico($out['favicon'])) {
+                        if ($this->save_ico($out['favicon'])) {
+                            if (!is_multisite()) {
+	                             $this->save_ico($path . "/" . 'favicon.ico');
+                            }
+                        }
 
-	                            if (!is_multisite()) {
-		                             $this->save_ico($path . "/" . 'favicon.ico');
-	                            }
-	                        }
-
-	                        foreach ($appleSizes as $size) {
-	                            $this->set_image($out['tmp'], array($size, $size));
-	                            $this->save_ico($out['favicon' . $size]);
-	                        }
+		                foreach ($appleSizes as $size) {
+	                         $this->set_image($out['tmp'], array($size, $size));
+	                         $this->save_ico($out['favicon' . $size]);
+		                }
 
 	                } else {
-						
+
 	                    copy($out['tmp'], $out['favicon']);
 	                    foreach ($appleSizes as $size) {
 	                        copy($out['tmp'], $out['favicon' . $size]);
