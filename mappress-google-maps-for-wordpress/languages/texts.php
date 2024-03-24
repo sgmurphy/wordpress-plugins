@@ -400,7 +400,6 @@ __("Directions link");
 __("Show in popup");
 __("Show in list");
 __("Popups");
-__("POI lists");
 __("Popup thumbnail size");
 __("or");
 __("Localization");

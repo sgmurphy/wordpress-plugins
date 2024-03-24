@@ -33,7 +33,6 @@ class Mappress_Options extends Mappress_Obj {
 		$iconScale,
 		$iframes,
 		$initialOpenInfo,
-		$kmlCenter = true,
 		$language,
 		$layout = 'left',
 		$license,
@@ -99,6 +98,7 @@ class Mappress_Options extends Mappress_Obj {
 		// Force web component
 		if (isset($_REQUEST['mp_wc']))
 			$options['webComponent'] = ($_REQUEST['mp_wc']) ? true : false;
+	
 		// Force iframes
 		else if (Mappress_Settings::iframes_required())
 			$options['iframes'] = true;

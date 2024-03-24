@@ -5,7 +5,7 @@ Plugin URI: https://www.mappresspro.com
 Author URI: https://www.mappresspro.com
 Pro Update URI: https://www.mappresspro.com
 Description: MapPress makes it easy to add Google Maps and Leaflet Maps to WordPress
-Version: 2.89.8
+Version: 2.89.9
 Author: Chris Richardson
 Text Domain: mappress-google-maps-for-wordpress
 Thanks to all the translators and to Scott DeJonge for his wonderful icons
@@ -41,7 +41,7 @@ if (is_dir(dirname( __FILE__ ) . '/pro')) {
 }
 
 class Mappress {
-	const VERSION = '2.89.8';
+	const VERSION = '2.89.9';
 
 	static
 		$api,
@@ -753,7 +753,7 @@ class Mappress {
 		// Global settings
 		$options = array('alignment', 'betaPoiFields', 'clustering', 'clusteringOptions', 'country', 'defaultIcon', 'directions', 'directionsList',
 		'directionsPopup', 'directionsServer', 'engine', 'filters', 'filtersPos', 'geocoder', 'geolocate',
-		'highlight', 'highlightIcon', 'iconScale', 'initialOpenInfo', 'kmlCenter', 'layout', 'lines', 'lineOpts',
+		'highlight', 'highlightIcon', 'iconScale', 'initialOpenInfo', 'layout', 'lines', 'lineOpts',
 		'mashupClick', 'mini', 'poiFields', 'poiList', 'poiListOpen', 'poiListPageSize', 'poiListViewport', 'poiZoom', 'radius', 'scrollWheel', 'search',
 		'searchBox', 'searchParam', 'searchPlaceholder', 'size', 'sizes', 'sort', 'style', 'thumbHeight', 'thumbWidth', 'thumbs', 'thumbsList', 'thumbsPopup', 
 		'tooltips', 'units', 'userLocation', 'webComponent');
@@ -858,19 +858,16 @@ class Mappress {
 		$deps = array('react', 'react-dom', 'wp-i18n');
 		if (self::$options->engine == 'leaflet')
 			$deps = array_merge(array('mappress-leaflet', 'mappress-leaflet-omnivore'), $deps);
-		// 2.89 
-		//        if (self::$options->engine != 'leaflet' || self::$options->geocoder == 'google')
-		//			$deps[] = 'mappress-google';
+
+		// Clustering ( https://github.com/googlemaps/js-markerclusterer | https://github.com/Leaflet/Leaflet.markercluster )
 		if (self::$options->clustering)
 			$deps[] = (self::$options->engine == 'leaflet') ? 'mappress-leaflet-markercluster' : 'mappress-markerclusterer';
 		$admin_deps = array('mappress', 'wp-blocks', 'wp-components', 'wp-compose', 'wp-core-data', 'wp-element', 'wp-media-utils', 'wp-i18n', 'wp-notices', 'wp-url');
 
-		// Clustering ( https://github.com/googlemaps/js-markerclusterer | https://github.com/Leaflet/Leaflet.markercluster )
 		$register = array(
 			array("mappress-leaflet", $lib . '/leaflet/leaflet.js', null, null, $footer),
 			array("mappress-leaflet-omnivore", $lib . '/leaflet/leaflet-omnivore.min.js', null, null, $footer),
-			// 2.89 array("mappress-google", self::scripts_google_tag(), null, null, $footer),
-			array('mappress-markerclusterer', self::unpkg('markerclusterer', 'index.min.js'), null, null, $footer),
+			array('mappress-markerclusterer', 'https://unpkg.com/@googlemaps/markerclusterer@2.5.3/dist/index.min.js', null, null, $footer),
 			array('mappress-leaflet-markercluster', $lib . '/leaflet/leaflet.markercluster.js', null, null, $footer),
 			array('mappress', $js . "/index_mappress.js", $deps, self::$version, $footer),
 			array('mappress_admin', $js . "/index_mappress_admin.js", $admin_deps, self::$version, $footer)
@@ -1158,22 +1155,9 @@ class Mappress {
 			if (is_object($value) || is_array($value))
 				$results[] = sprintf("%s='%s'", $lcname, json_encode($value, JSON_HEX_APOS));
 			else
-				$results[] = "$lcname='" . str_replace('&quot;', '"', $value) . "'";
+				$results[] = "$lcname='" . str_replace(array("'", '"'), array('&apos;', '&quot;'), $value) . "'";
 		}
 		return join(' ', $results);
-	}
-
-	static function unpkg($package, $filename) {
-		$urls = array(
-			'markerclusterer' => 'https://unpkg.com/@googlemaps/markerclusterer@%s/dist',
-		);
-		$versions = array(
-			'markerclusterer' => '2.0.11',
-		);
-
-		$url = $urls[$package];
-		$version = $versions[$package];
-		return apply_filters('mappress_unpkg', sprintf($url, $version) . "/$filename", $package, $filename);
 	}
 
 	/**

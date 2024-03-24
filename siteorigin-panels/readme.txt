@@ -3,8 +3,8 @@ Tags: page builder, responsive, parallax, widgets, blocks, gallery, layout, grid
 Requires at least: 4.7
 Tested up to: 6.4
 Requires PHP: 5.6.20
-Stable tag: 2.29.8
-Build time: 2024-03-19T14:48:18+00:00
+Stable tag: 2.29.9
+Build time: 2024-03-23T21:28:29+00:00
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Donate link: https://siteorigin.com/downloads/premium/
@@ -120,6 +120,11 @@ Page Builder is compatible with the vast majority of third-party plugins and wid
 SiteOrigin offers a single premium plugin that enhances and extends Page Builder, the Widgets Bundle, SiteOrigin CSS and all of our free themes. Find out more about [SiteOrigin Premium](https://siteorigin.com/downloads/premium/) and the powerful addons it offers.
 
 == Changelog ==
+
+= 2.29.9 - 23 March 2024 =
+* Layouts: Resolved import error.
+* Inline CSS Generation: Resolved inline CSS potentially printing on the site front-end.
+* Block Editor: Removed redundant shortcode fallback.
 
 = 2.29.8 - 19 March 2024 =
 * Post Loop: Update to allow HTML formatting in the widget title.

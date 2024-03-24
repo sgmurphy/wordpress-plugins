@@ -303,8 +303,10 @@ class Mappress_Map extends Mappress_Obj {
 				$args = array('transient' => $transient);
 			}
 
-			$url = get_home_url() . '?mappress=embed&' . http_build_query($args);
-
+			// Generate URL
+			$args = array_merge(array('mappress' => 'embed', $args));
+			$url = add_query_arg($args, get_home_url());
+			
 			// Width + height attributes are required for Google AMP
 			$iframe = "<iframe height='100%' width='100%' class='mapp-iframe' src='$url' scrolling='no' loading='lazy'></iframe>";
 			return $this->get_layout($iframe);
@@ -347,7 +349,7 @@ class Mappress_Map extends Mappress_Obj {
 		if (Mappress::$options->iframes && !$in_iframe) {
 			// Convert booleans to strings for iframe atts
 			$args = array_map(function($arg) { if (is_bool($arg)) return ($arg) ? "true" : "false"; else return $arg; }, (array) $this);
-
+			
 			// Query or mapid - no POIs in iframe URL
 			if ($this->query || $this->mapid) {
 				unset($args['pois']);
@@ -357,8 +359,10 @@ class Mappress_Map extends Mappress_Obj {
 				set_transient($transient, $this, 30);
 				$args = array('transient' => $transient);
 			}
-
-			$url = get_home_url() . '?mappress=embed&' . http_build_query($args);
+			
+			// Generate URL
+			$args = array_merge(array('mappress' => 'embed', $args));
+			$url = add_query_arg($args, get_home_url());
 			
 			// Note that width + height attributes are required for Google AMP
 			$layout_atts = Mappress::to_atts($atts);

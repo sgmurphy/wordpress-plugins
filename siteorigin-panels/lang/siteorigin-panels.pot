@@ -105,11 +105,11 @@ msgstr ""
 msgid " - Results For:"
 msgstr ""
 
-#: inc/admin-layouts.php:367
+#: inc/admin-layouts.php:391
 msgid "Missing layout ID or no such layout exists"
 msgstr ""
 
-#: inc/admin-layouts.php:423
+#: inc/admin-layouts.php:447
 msgid "There was a problem fetching the layout. Please try again later."
 msgstr ""
 
