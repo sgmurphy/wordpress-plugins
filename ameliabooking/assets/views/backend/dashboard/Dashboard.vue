@@ -1,6 +1,8 @@
 <template>
   <div class="am-wrap">
 
+    <get-premium-banner></get-premium-banner>
+
     <div id="am-dashboard" class="am-body">
 
       <!-- Page Header -->
@@ -11,7 +13,7 @@
         <img :src="$root.getUrl + 'public/img/spinner.svg'"/>
       </div>
 
-      <!-- Statistics -->
+            <!-- Statistics -->
       <div v-if="fetched === true && fetchedStats === true">
         <div class="am-hello am-section">
           <div class="am-user-name">
@@ -1018,6 +1020,7 @@
   import priceMixin from '../../../js/common/mixins/priceMixin'
   import PaginationBlock from '../parts/PaginationBlock.vue'
   import DialogNewCustomize from '../parts/DialogNewCustomize.vue'
+  import GetPremiumBanner from '../parts/GetPremiumBanner.vue'
 
   export default {
 
@@ -2218,6 +2221,7 @@
     },
 
     components: {
+      GetPremiumBanner,
       BarChart,
       DoughnutChart,
       LineChart,

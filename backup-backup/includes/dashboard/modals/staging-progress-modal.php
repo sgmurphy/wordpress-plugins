@@ -44,7 +44,7 @@
         </div>
 
         <div class="f16 semibold secondary hoverable pointer">
-          <a href="<?php echo get_site_url(); ?>/?backup-migration=PROGRESS_LOGS&progress-id=latest_staging.log&backup-id=current&t=<?php echo time(); ?>"
+          <a href="<?php echo get_site_url(); ?>/?backup-migration=PROGRESS_LOGS&progress-id=latest_staging.log&backup-id=current&t=<?php echo time(); ?>&sk=<?php echo bmi_get_config('REQUEST:SECRET'); ?>"
              download="staging_live_log.txt" class="nlink">
             <?php _e('Download live log', 'backup-backup') ?>
           </a>

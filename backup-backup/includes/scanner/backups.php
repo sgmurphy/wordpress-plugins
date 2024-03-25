@@ -41,6 +41,37 @@
 
     }
 
+    public function removeOldCache() {
+      $md5_file_summary_path = BMI_BACKUPS . DIRECTORY_SEPARATOR. 'md5summary.php';
+      
+      $md5summary = [];
+      if (file_exists($md5_file_summary_path)) {
+        $md5summary = file_get_contents($md5_file_summary_path);
+        $md5summary = substr($md5summary, 18, -2);
+        if (is_serialized($md5summary)) {
+          $md5summary = maybe_unserialize($md5summary);
+        }
+      }
+      
+      foreach ($md5summary as $backupName => $md5files) {
+        foreach ($md5files as $index => $md5) {
+          if (!file_exists(BMI_BACKUPS . DIRECTORY_SEPARATOR . $backupName)) {
+            if (file_exists(BMI_BACKUPS . DIRECTORY_SEPARATOR . $md5 . '.json')) {
+              @unlink(BMI_BACKUPS . DIRECTORY_SEPARATOR . $md5 . '.json');
+            }
+            unset($md5summary[$backupName][$index]);
+          }
+        }
+        
+        if (sizeof($md5summary[$backupName]) == 0) {
+          unset($md5summary[$backupName]);
+        }
+      }
+      
+      $cacheMd5String = "<?php exit; \$x = '" . serialize($md5summary) . "';";
+      file_put_contents($md5_file_summary_path, $cacheMd5String);  
+    }
+
     public function getManifestFromZip($zip_path, &$zipper) {
 
       if (!file_exists($zip_path)) return false;
@@ -156,14 +187,27 @@
 
       if (file_exists(BMI_BACKUPS))
         $backups = $this->scanBackupDir(BMI_BACKUPS);
+      
+      // $start = time();
+      // $maxTime = ini_get('max_execution_time');
 
       for ($i = 0; $i < sizeof($backups); ++$i) {
-
+        
+        // $filestart = time();
+        
         $backup = $backups[$i];
         if (!file_exists($backup['path'])) continue;
-        $manifest = $this->getManifestFromZip($backup['path'] . '/' . $backup['filename'], $zipper);
+        $path = $backup['path'] . '/' . $backup['filename'];
+        
+        $manifest = $this->getManifestFromZip($path, $zipper);
         if ($manifest) $manifests[$backup['filename']] = $manifest;
-
+        else @unlink($path);
+        
+        // $fileend = $filestart - time();
+        // $totalTime = $start - time();
+        
+        // if ($totalTime + $fileend > $maxTime) break;
+        
       }
 
       if (defined('BMI_BACKUP_PRO') && defined('BMI_PRO_INC')) {
@@ -174,6 +218,8 @@
           $external = $externalStorage->getExternalBackups();
         }
       }
+      
+      $this->removeOldCache();
 
       return [ 'local' => $manifests, 'external' => $external, 'ongoing' => $ongoing ];
 

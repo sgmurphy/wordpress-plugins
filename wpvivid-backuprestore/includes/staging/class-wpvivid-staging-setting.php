@@ -463,7 +463,7 @@ class WPvivid_Staging_Setting_Free
     public function save_setting()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {

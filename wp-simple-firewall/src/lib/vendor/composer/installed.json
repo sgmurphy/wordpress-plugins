@@ -2,21 +2,21 @@
     "packages": [
         {
             "name": "a5hleyrich/wp-background-processing",
-            "version": "1.2",
-            "version_normalized": "1.2.0.0",
+            "version": "1.3.1",
+            "version_normalized": "1.3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/deliciousbrains/wp-background-processing.git",
-                "reference": "a0018fea79b8e752f41b6a26d6b9b3397d15c52e"
+                "reference": "6d1e48165e461260075b9f161b3861c7278f71e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deliciousbrains/wp-background-processing/zipball/a0018fea79b8e752f41b6a26d6b9b3397d15c52e",
-                "reference": "a0018fea79b8e752f41b6a26d6b9b3397d15c52e",
+                "url": "https://api.github.com/repos/deliciousbrains/wp-background-processing/zipball/6d1e48165e461260075b9f161b3861c7278f71e7",
+                "reference": "6d1e48165e461260075b9f161b3861c7278f71e7",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6"
+                "php": ">=7.0"
             },
             "require-dev": {
                 "phpcompatibility/phpcompatibility-wp": "*",
@@ -28,7 +28,7 @@
             "suggest": {
                 "coenjacobs/mozart": "Easily wrap this library with your own prefix, to prevent collisions when multiple plugins use this library"
             },
-            "time": "2023-07-20T15:40:50+00:00",
+            "time": "2024-02-28T13:39:06+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -49,7 +49,7 @@
             "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks.",
             "support": {
                 "issues": "https://github.com/deliciousbrains/wp-background-processing/issues",
-                "source": "https://github.com/deliciousbrains/wp-background-processing/tree/1.2"
+                "source": "https://github.com/deliciousbrains/wp-background-processing/tree/1.3.1"
             },
             "install-path": "../a5hleyrich/wp-background-processing"
         },
@@ -503,17 +503,17 @@
         },
         {
             "name": "fernleafsystems/wordpress-services",
-            "version": "3.10.2",
-            "version_normalized": "3.10.2.0",
+            "version": "3.10.5",
+            "version_normalized": "3.10.5.0",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/fernleafsystems/wordpress/wordpress-services.git",
-                "reference": "ff2fb94e19ef298a5be4cb13aff01ae8ab29db0b"
+                "reference": "486891142caaafcd7e18a66d39d433207a1f720a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/fernleafsystems%2Fwordpress%2Fwordpress-services/repository/archive.zip?sha=ff2fb94e19ef298a5be4cb13aff01ae8ab29db0b",
-                "reference": "ff2fb94e19ef298a5be4cb13aff01ae8ab29db0b",
+                "url": "https://gitlab.com/api/v4/projects/fernleafsystems%2Fwordpress%2Fwordpress-services/repository/archive.zip?sha=486891142caaafcd7e18a66d39d433207a1f720a",
+                "reference": "486891142caaafcd7e18a66d39d433207a1f720a",
                 "shasum": ""
             },
             "require": {
@@ -531,7 +531,7 @@
                 "soundasleep/html2text": "~0.5.0",
                 "twig/twig": "^1.42"
             },
-            "time": "2024-01-29T09:13:39+00:00",
+            "time": "2024-03-25T10:09:57+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -552,7 +552,7 @@
             "description": "Base WordPress Services provider for all AptoWeb WordPress plugins",
             "support": {
                 "issues": "https://gitlab.com/fernleafsystems/wordpress/wordpress-services/-/issues",
-                "source": "https://gitlab.com/fernleafsystems/wordpress/wordpress-services/-/tree/3.10.2"
+                "source": "https://gitlab.com/fernleafsystems/wordpress/wordpress-services/-/tree/3.10.5"
             },
             "install-path": "../fernleafsystems/wordpress-services"
         },
@@ -2491,24 +2491,24 @@
         },
         {
             "name": "symfony/process",
-            "version": "v5.4.35",
-            "version_normalized": "5.4.35.0",
+            "version": "v5.4.36",
+            "version_normalized": "5.4.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "cbc28e34015ad50166fc2f9c8962d28d0fe861eb"
+                "reference": "4fdf34004f149cc20b2f51d7d119aa500caad975"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/cbc28e34015ad50166fc2f9c8962d28d0fe861eb",
-                "reference": "cbc28e34015ad50166fc2f9c8962d28d0fe861eb",
+                "url": "https://api.github.com/repos/symfony/process/zipball/4fdf34004f149cc20b2f51d7d119aa500caad975",
+                "reference": "4fdf34004f149cc20b2f51d7d119aa500caad975",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2.5",
                 "symfony/polyfill-php80": "^1.16"
             },
-            "time": "2024-01-23T13:51:25+00:00",
+            "time": "2024-02-12T15:49:53+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -2536,7 +2536,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v5.4.35"
+                "source": "https://github.com/symfony/process/tree/v5.4.36"
             },
             "funding": [
                 {

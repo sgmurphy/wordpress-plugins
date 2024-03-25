@@ -1,15 +1,15 @@
 === Social Feed Gallery ===
 Contributors: quadlayers
 Donate link: https://quadlayers.com/products/instagram-feed-gallery/
-Tags: Instagram, Instagram feed, Instagram gallery, Instagram photos, Instagram widget, Instagram pictures, social media, Facebook, Twitter, YouTube
+Tags: Instagram, Instagram feed, Instagram gallery, Instagram photos, Instagram widget
 Requires at least: 4.7
 Requires PHP: 5.6
 Tested up to: 6.4
-Stable tag: 4.3.3
+Stable tag: 4.3.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Formerly "Instagram Feed Gallery". This is most user-friendly and versatile plugin to display your Instagram feed on your WordPress website.
+Formerly known as "Instagram Feed", this is the best plugin for displaying Instagram feeds on WordPress. It also supports Instagram reels.
 
 == Description ==
 
@@ -99,6 +99,9 @@ There may be other plugins (like fancybox, elementor) that also use image links 
 5. Social Feed Gallery PRO / Masonry layout
 
 == Changelog ==
+
+= 4.3.4 =
+* Fix missing translations
 
 = 4.3.3 =
 * Instagram API permissions

@@ -3,7 +3,7 @@
 						<style>
 
 						  .cta2svg-1 {
-							fill: #0073C7;
+							fill: #DF5D16;
 						  }
 						  .cta2svg-1, .cta2svg-5 {
 							fill-rule: evenodd;
@@ -41,7 +41,7 @@
 							<text id="Download" class="cta2svg-2" transform="translate(343.744 303.232) rotate(7.542) scale(1.125)">Download</text>
 						  </g>
 						  <g id="Logo">
-							<text id="Accron" class="cta2svg-3" transform="translate(330.791 179.952) rotate(5.549)">Accron</text>
+							<text id="Acronix" class="cta2svg-3" transform="translate(330.791 179.952) rotate(5.549)">Acronix</text>
 							<g>
 							  <circle class="cta2svg-4" cx="395.735" cy="113.09" r="37.015"/>
 							  <g>

@@ -4,7 +4,7 @@ Tags: homepage, companion, one click demo, sections, customizer, widget, setting
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 24.9
+Stable tag: 25.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -176,6 +176,9 @@ Clever Fox WordPress Plugin is licensed under the GPL3 (https://www.gnu.org/lice
 
 
 == Changelog ==
+
+= 25.0 =
+* Updated Acronix Theme
 
 = 24.9 =
 * Tested WP 6.5 Compatibility

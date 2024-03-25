@@ -300,6 +300,7 @@ class SettingsStorage implements SettingsStorageInterface
                 'disableUrlParams'              => $this->getSetting('activation', 'disableUrlParams'),
                 'isNewInstallation'             => $this->getSetting('activation', 'isNewInstallation'),
                 'hideUnavailableFeatures'       => $this->getSetting('activation', 'hideUnavailableFeatures'),
+                'premiumBannerVisibility'       => $this->getSetting('activation', 'premiumBannerVisibility'),
             ],
             'roles'                  => [
                 'allowAdminBookAtAnyTime'     => $this->getSetting('roles', 'allowAdminBookAtAnyTime'),

@@ -7,95 +7,66 @@ use FernleafSystems\Wordpress\Services\Services;
 class Comments {
 
 	/**
-	 * @param string $sAuthorEmail
-	 * @return bool
+	 * @param string $email
 	 */
-	public function countApproved( $sAuthorEmail ) {
-		$nCount = 0;
-
-		if ( Services::Data()->validEmail( $sAuthorEmail ) ) {
-			$oDb = Services::WpDb();
-			$sQuery = sprintf(
-				"SELECT COUNT(*) FROM %s
-				WHERE
-					comment_author_email = '%s'
-					AND comment_approved = 1 ",
-				$oDb->getTable_Comments(),
-				esc_sql( $sAuthorEmail )
-			);
-			$nCount = (int)$oDb->getVar( $sQuery );
-		}
-
-		return $nCount;
+	public function countApproved( $email ) :int {
+		return Services::Data()->validEmail( $email ) ?
+			(int)Services::WpDb()->getVar(
+				sprintf(
+					"SELECT COUNT(*) FROM %s WHERE `comment_author_email`='%s' AND `comment_approved`=1;",
+					Services::WpDb()->getTable_Comments(),
+					esc_sql( $email )
+				)
+			) : 0;
 	}
 
 	/**
-	 * @param int $nId
+	 * @param int $ID
 	 * @return \WP_Comment|false
 	 */
-	public function getById( $nId ) {
-		return \WP_Comment::get_instance( $nId );
+	public function getById( $ID ) {
+		return \WP_Comment::get_instance( $ID );
+	}
+
+	public function getIfCommentsMustBePreviouslyApproved() :bool {
+		return Services::WpGeneral()->getOption( 'comment_whitelist' ) == 1;
 	}
 
 	/**
-	 * @return bool
+	 * @param \WP_Post|null $thePost - queries the current post if null
 	 */
-	public function getIfCommentsMustBePreviouslyApproved() {
-		return ( Services::WpGeneral()->getOption( 'comment_whitelist' ) == 1 );
-	}
-
-	/**
-	 * @param \WP_Post|null $oPost - queries the current post if null
-	 * @return bool
-	 */
-	public function isCommentsOpen( $oPost = null ) {
-		if ( is_null( $oPost ) || !is_a( $oPost, 'WP_Post' ) ) {
+	public function isCommentsOpen( $thePost = null ) :bool {
+		if ( \is_null( $thePost ) || !\is_a( $thePost, 'WP_Post' ) ) {
 			global $post;
-			$oPost = $post;
+			$thePost = $post;
 		}
-		$bOpen = is_a( $oPost, '\WP_Post' )
-				 && comments_open( $oPost->ID )
-				 && get_post_status( $oPost ) != 'trash';
-		return $bOpen;
+		return \is_a( $thePost, '\WP_Post' )
+			   && comments_open( $thePost->ID )
+			   && get_post_status( $thePost ) != 'trash';
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isCommentsOpenByDefault() {
+	public function isCommentsOpenByDefault() :bool {
 		return Services::WpGeneral()->getOption( 'default_comment_status' ) === 'open';
 	}
 
-	/**
-	 * @param string $sAuthorEmail
-	 * @return bool
-	 */
-	public function isCommentAuthorPreviouslyApproved( $sAuthorEmail ) {
-		return $this->countApproved( $sAuthorEmail ) > 0;
+	public function isCommentAuthorPreviouslyApproved( $email ) :bool {
+		return $this->countApproved( $email ) > 0;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isCommentSubmission() {
-		$oReq = Services::Request();
-		$nPostId = $oReq->post( 'comment_post_ID' );
-		return $oReq->isPost() && !empty( $nPostId ) && is_numeric( $nPostId )
+	public function isCommentSubmission() :bool {
+		$postID = Services::Request()->post( 'comment_post_ID' );
+		return Services::Request()->isPost()
+			   && !empty( $postID )
+			   && \is_numeric( $postID )
 			   && Services::WpPost()->isCurrentPage( 'wp-comments-post.php' );
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function getCommentSubmissionEmail() {
-		$sEmail = $this->isCommentSubmission() ? \trim( (string)Services::Request()->query( 'email', '' ) ) : '';
-		return Services::Data()->validEmail( $sEmail ) ? $sEmail : null;
+	public function getCommentSubmissionEmail() :?string {
+		$email = $this->isCommentSubmission() ? \trim( (string)Services::Request()->query( 'email', '' ) ) : '';
+		return Services::Data()->validEmail( $email ) ? $email : null;
 	}
 
-	/**
-	 * @return array
-	 */
-	public function getCommentSubmissionComponents() {
+	public function getCommentSubmissionComponents() :array {
 		return [
 			'comment_post_ID',
 			'author',

@@ -4,6 +4,7 @@ namespace FernleafSystems\Wordpress\Services\Core;
 
 use FernleafSystems\Wordpress\Services\Services;
 use FernleafSystems\Wordpress\Services\Utilities\PluginUserMeta;
+use FernleafSystems\Wordpress\Services\Utilities\URL;
 
 class Users {
 
@@ -58,9 +59,7 @@ class Users {
 			$uid = null;
 		}
 
-		return Services::WpGeneral()->getAdminUrl(
-			is_null( $uid ) ? 'profile.php' : 'user-edit.php?user_id='.$uid
-		);
+		return Services::WpGeneral()->getAdminUrl( \is_null( $uid ) ? 'profile.php' : 'user-edit.php?user_id='.$uid );
 	}
 
 	/**
@@ -92,12 +91,9 @@ class Users {
 		);
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getCurrentUserLevel() {
+	public function getCurrentUserLevel() :int {
 		$user = $this->getCurrentWpUser();
-		return ( $user instanceof \WP_User ) ? $user->get( 'user_level' ) : -1;
+		return ( $user instanceof \WP_User ) ? (int)$user->get( 'user_level' ) : -1;
 	}
 
 	public function getLevelToRoleMap() :array {
@@ -111,12 +107,12 @@ class Users {
 	}
 
 	/**
-	 * @param bool $bSlugsOnly
+	 * @param bool $slugsOnly
 	 * @return string[]|array[]
 	 */
-	public function getAvailableUserRoles( $bSlugsOnly = true ) {
+	public function getAvailableUserRoles( $slugsOnly = true ) {
 		require_once( ABSPATH.'wp-admin/includes/user.php' );
-		return $bSlugsOnly ? \array_keys( get_editable_roles() ) : get_editable_roles();
+		return $slugsOnly ? \array_keys( get_editable_roles() ) : get_editable_roles();
 	}
 
 	public function canSaveMeta() :bool {
@@ -214,25 +210,16 @@ class Users {
 
 	/**
 	 * @param \WP_User $user
-	 * @return string|null
 	 * @see wp-login.php
 	 */
-	public function getPasswordResetUrl( $user ) {
-		$url = null;
-
+	public function getPasswordResetUrl( $user ) :?string {
 		$key = get_password_reset_key( $user );
-		if ( !is_wp_error( $key ) ) {
-			$url = add_query_arg(
-				[
-					'action' => 'rp',
-					'key'    => $key,
-					'login'  => $user->user_login,
-				],
-				wp_login_url()
-			);
-		}
-
-		return $url;
+		return is_wp_error( $key ) ? null :
+			URL::Build( wp_login_url(), [
+				'action' => 'rp',
+				'key'    => $key,
+				'login'  => $user->user_login,
+			] );
 	}
 
 	/**

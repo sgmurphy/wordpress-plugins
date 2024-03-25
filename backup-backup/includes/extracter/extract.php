@@ -500,7 +500,7 @@
 
             $path = explode('\\', $file);
             $filename = array_pop($path);
-            $dirname = $tmp . DIRECTORY_SEPARATOR . join('/', $path);
+            $dirname = $tmp . DIRECTORY_SEPARATOR . join(DIRECTORY_SEPARATOR, $path);
 
             if (!(file_exists($dirname) && is_dir($dirname))) {
               mkdir($dirname, 0755, true);

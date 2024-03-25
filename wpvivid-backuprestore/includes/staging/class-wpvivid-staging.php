@@ -308,7 +308,7 @@ class WPvivid_Staging_Free
     public function get_custom_database_size(){
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -419,7 +419,7 @@ class WPvivid_Staging_Free
     public function get_custom_files_size(){
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -474,7 +474,7 @@ class WPvivid_Staging_Free
     public function get_custom_include_path(){
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -588,7 +588,7 @@ class WPvivid_Staging_Free
     public function get_custom_exclude_path(){
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -691,7 +691,7 @@ class WPvivid_Staging_Free
 
     public function get_custom_themes_plugins_info_ex(){
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -881,7 +881,7 @@ class WPvivid_Staging_Free
     {
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -1611,7 +1611,7 @@ class WPvivid_Staging_Free
     {
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -1661,7 +1661,7 @@ class WPvivid_Staging_Free
     public function delete_cancel_staging_site(){
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -1809,7 +1809,7 @@ class WPvivid_Staging_Free
     {
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -1929,7 +1929,7 @@ class WPvivid_Staging_Free
     {
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -2028,7 +2028,7 @@ class WPvivid_Staging_Free
     {
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -2234,7 +2234,7 @@ class WPvivid_Staging_Free
     {
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -2270,7 +2270,7 @@ class WPvivid_Staging_Free
     public function test_additional_database_connect(){
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -2319,7 +2319,7 @@ class WPvivid_Staging_Free
     public function update_staging_exclude_extension(){
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -2421,7 +2421,7 @@ class WPvivid_Staging_Free
     {
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -2541,7 +2541,7 @@ class WPvivid_Staging_Free
     {
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {

@@ -80,6 +80,7 @@ class Zip {
     if ($this->zip_progress != null) {
       $this->zip_progress->log(__("Issues during backup (packing)...", 'backup-backup'), 'ERROR');
       $this->zip_progress->log(print_r($error, true), 'ERROR');
+      $this->zip_progress->log('#004', 'END-CODE');
     }
   }
 
@@ -90,6 +91,7 @@ class Zip {
     if ($this->zip_progress != null) {
       $this->zip_progress->log(__("Issues during restore process (extracting)...", 'backup-backup'), 'ERROR');
       $this->zip_progress->log($error, 'ERROR');
+      $this->zip_progress->log('#004', 'END-CODE');
     }
   }
 
@@ -187,6 +189,24 @@ class Zip {
     
     if (file_exists($settings_path)) @unlink($settings_path);
     file_put_contents($settings_path, '<?php //' . json_encode($settings));
+  }
+  
+  // Cut Path for ZIP structure
+  public function cutDir($file) {
+
+    if (substr($file, -4) === '.sql') {
+
+      $path = 'db_tables' . DIRECTORY_SEPARATOR . basename($file);
+
+    } else {
+
+      $path = basename($file);
+
+    }
+    
+    $path = str_replace('\\', '/', $path);
+    return $path;
+    
   }
 
   public function zip_end($force_lib = false, $cron = false) {
@@ -337,7 +357,11 @@ class Zip {
       // Verbose
       $legacy = BMI_LEGACY_VERSION;
       if ($legacy) $legacy = BMI_LEGACY_HARD_VERSION;
-      $this->zip_progress->log(__("Using PclZip module to create the backup", 'backup-backup'), 'INFO');
+      if (class_exists('\ZipArchive') || class_exists('ZipArchive')) {
+        $this->zip_progress->log(__("ZipArchive is available this process should use ZipArchive", 'backup-backup'), 'INFO');
+      } else {
+        $this->zip_progress->log(__("Using PclZip module to create the backup", 'backup-backup'), 'INFO');
+      }
       if (!BMI_LEGACY_VERSION) {
         $this->zip_progress->log(__("Legacy setting: Using server-sided script and cURL based loop for better capabilities", 'backup-backup'), 'INFO');
       } elseif (!BMI_LEGACY_HARD_VERSION) {
@@ -405,7 +429,7 @@ class Zip {
             $this->zip_progress->log(__("Saving backup configuration for current session...", 'backup-backup'), 'INFO');
             $this->saveRemoteSettings($remote_settings);
             $this->zip_progress->log(__('Starting background process on server-side...', 'backup-backup'), 'INFO');
-            require_once BMI_INCLUDES . '/bypasser.php';
+            require_once BMI_INCLUDES . '/backup-process.php';
             $request = new Bypasser($identy, BMI_CONFIG_DIR, trailingslashit(WP_CONTENT_DIR), BMI_BACKUPS, trailingslashit(ABSPATH), plugin_dir_path(BMI_ROOT_FILE));
             $request->send_beat(true, $this->zip_progress);
           }
@@ -451,28 +475,76 @@ class Zip {
           $this->zip_progress->log(__("Backup will run as single-request, may be unstable...", 'backup-backup'), 'WARN');
         }
       }
-
-      // require the lib
-      if (!class_exists('PclZip')) {
-        if (!defined('PCLZIP_TEMPORARY_DIR')) {
-          $bmi_tmp_dir = BMI_TMP;
-          if (!file_exists($bmi_tmp_dir)) {
-            @mkdir($bmi_tmp_dir, 0775, true);
-          }
-          define('PCLZIP_TEMPORARY_DIR', $bmi_tmp_dir . DIRECTORY_SEPARATOR . 'bmi-');
+      
+      $zipArchive = false;
+      if (class_exists('\ZipArchive') || class_exists('ZipArchive')) {
+        if (!isset($zip)) {
+          $zip = new \ZipArchive();
         }
+
+        if ($zip) {
+          $zipArchive = true;
+        } else {
+          $zipArchive = false;
+        }
+      }
+      
+      // Check if PclZip exists
+      if ($zipArchive === false) {
+        if (!class_exists('PclZip')) {
+          if (!defined('PCLZIP_TEMPORARY_DIR')) {
+            $bmi_tmp_dir = BMI_TMP;
+            if (!file_exists($bmi_tmp_dir)) {
+              @mkdir($bmi_tmp_dir, 0775, true);
+            }
+
+            define('PCLZIP_TEMPORARY_DIR', $bmi_tmp_dir . DIRECTORY_SEPARATOR . 'bmi-');
+          }
+          
+          if (!defined('PCLZIP_READ_BLOCK_SIZE')) {
+            define('PCLZIP_READ_BLOCK_SIZE', 32768);
+          }
+        }
+
+        // Require the LIB and check if it's compatible
         if (defined('BMI_PRO_PCLZIP') && file_exists(BMI_PRO_PCLZIP)) {
           $this->zip_progress->log(__('Using dedicated PclZIP for Premium Users.', 'backup-backup'), 'INFO');
           require_once BMI_PRO_PCLZIP;
         } else {
           require_once trailingslashit(ABSPATH) . 'wp-admin/includes/class-pclzip.php';
         }
+        
+        // Get/Create the Archive
+        if (!$lib = new \PclZip($this->new_file_path)) {
+          throw new \Exception('PHP-ZIP: Permission Denied or zlib can\'t be found');
+        }
+        
+      } else {
+        
+        if (file_exists($this->new_file_path)) $zip->open($this->new_file_path);
+        else $zip->open($this->new_file_path, \ZipArchive::CREATE);
+        
+        $this->zip_progress->log('Using ZipArchive extension for this backup process.', 'INFO');
+        
       }
-      $common = $this->org_files;
 
-      if (!$lib = new \PclZip($this->new_file_path)) {
-        throw new \Exception('PHP-ZIP: Permission Denied or zlib can\'t be found');
-      }
+      // require the lib
+      // if (!class_exists('PclZip')) {
+      //   if (!defined('PCLZIP_TEMPORARY_DIR')) {
+      //     $bmi_tmp_dir = BMI_TMP;
+      //     if (!file_exists($bmi_tmp_dir)) {
+      //       @mkdir($bmi_tmp_dir, 0775, true);
+      //     }
+      //     define('PCLZIP_TEMPORARY_DIR', $bmi_tmp_dir . DIRECTORY_SEPARATOR . 'bmi-');
+      //   }
+      //   if (defined('BMI_PRO_PCLZIP') && file_exists(BMI_PRO_PCLZIP)) {
+      //     $this->zip_progress->log(__('Using dedicated PclZIP for Premium Users.', 'backup-backup'), 'INFO');
+      //     require_once BMI_PRO_PCLZIP;
+      //   } else {
+      //     require_once trailingslashit(ABSPATH) . 'wp-admin/includes/class-pclzip.php';
+      //   }
+      // }
+      $common = $this->org_files;
 
       if ($this->dbDumped === true) {
         try {
@@ -494,14 +566,40 @@ class Zip {
             $this->zip_progress->log(__('No database files found to be added into backup, ignore this message if database was not meant to be included.', 'backup-backup'), 'WARN');
             $this->zip_progress->log('No database files found to be added into backup, ignore this message if database was not meant to be included.', 'VERBOSE');
           }
+          
+          $files = array_filter($files, function ($path) {
+            if (is_readable($path) && file_exists($path) && !is_link($path)) return true;
+            else {
+              $this->zip_progress->log(sprintf(__("Excluding file that cannot be read: %s", 'backup-backup'), $path), 'warn');
+              return false;
+            }
+          });
+          
+          if ($zipArchive) {
+            for ($i = 0; $i < sizeof($files); ++$i) {
+              
+              // Add the file
+              $zip->addFile($files[$i], $this->cutDir($files[$i]));
+              
+            }
+            
+            $zAresult = $zip->close();
+            if ($zAresult !== true) {
+              
+              $this->zip_failed('Error, there is most likely not enough space for the backup.');
+              return false;
+            
+            }
+            $zip->open($this->new_file_path);
+          } else {
+            if (sizeof($files) > 0) {
+              $dbback = $lib->add($files, PCLZIP_OPT_REMOVE_PATH, $database_file_dir, PCLZIP_OPT_TEMP_FILE_THRESHOLD, $safe_limit);
+            }
 
-          if (sizeof($files) > 0) {
-            $dbback = $lib->add($files, PCLZIP_OPT_REMOVE_PATH, $database_file_dir, PCLZIP_OPT_TEMP_FILE_THRESHOLD, $safe_limit);
-          }
-
-          if ($dbback == 0) {
-            $this->zip_failed($lib->errorInfo(true));
-            return false;
+            if ($dbback == 0) {
+              $this->zip_failed($lib->errorInfo(true));
+              return false;
+            }
           }
 
         } catch (\Exception $e) {
@@ -549,7 +647,8 @@ class Zip {
             $chunks[$chunkslen - 1][] = $buffer[0];
           }
         }
-
+        
+        $backupSize = 0;
         for ($i = 0; $i < $chunkslen; ++$i) {
 
           // Abort if user wants it (check every 100 files)
@@ -567,17 +666,47 @@ class Zip {
             }
           });
           
-          if (sizeof($chunk) > 0) {
-            $back = $lib->add($chunk, PCLZIP_OPT_REMOVE_PATH, $abs, PCLZIP_OPT_ADD_PATH, 'wordpress' . DIRECTORY_SEPARATOR, PCLZIP_OPT_ADD_TEMP_FILE_ON, PCLZIP_OPT_TEMP_FILE_THRESHOLD, $safe_limit);
-          }
-          if ($back == 0) {
-            $this->zip_failed($lib->errorInfo(true));
-            return false;
+          if ($zipArchive) {
+            for ($j = 0; $j < sizeof($chunk); ++$j) {
+              
+              $path = 'wordpress' . DIRECTORY_SEPARATOR . substr($chunk[$j], strlen(ABSPATH));
+              
+              // Add the file
+              $path = str_replace('\\', '/', $path);
+              $zip->addFile($chunk[$j], $path);
+              
+            }
+            
+            $zAresult = $zip->close();
+            if ($zAresult !== true) {
+              
+              $this->zip_failed('Error, there is most likely not enough space for the backup.');
+              return false;
+            
+            }
+            $zip->open($this->new_file_path);
+          } else {
+          
+            if (sizeof($chunk) > 0) {
+              $back = $lib->add($chunk, PCLZIP_OPT_REMOVE_PATH, $abs, PCLZIP_OPT_ADD_PATH, 'wordpress' . DIRECTORY_SEPARATOR, PCLZIP_OPT_ADD_TEMP_FILE_ON, PCLZIP_OPT_TEMP_FILE_THRESHOLD, $safe_limit);
+            }
+            if ($back == 0) {
+              $this->zip_failed($lib->errorInfo(true));
+              return false;
+            }
+            
           }
 
           $curfile = (($i * $splitby) + $splitby);
           $this->zip_progress->progress($curfile . '/' . $max);
           if ($curfile % $milestoneby === 0 && $curfile < $max) {
+            
+            $currentBackupSize = filesize(BMI_BACKUPS . DIRECTORY_SEPARATOR . $this->new_file_path);
+            if ($backupSize > $currentBackupSize)
+              return $this->zip_failed('Backup size is smaller than it should be, it has been damaged, it may not be restorable, abort recommended.');
+            
+            $backupSize = $currentBackupSize;
+            
             $this->zip_progress->log(__("Milestone: ", 'backup-backup') . ($curfile . '/' . $max), 'info');
           }
         }
@@ -594,6 +723,8 @@ class Zip {
 
       if (file_exists(BMI_BACKUPS . DIRECTORY_SEPARATOR . '.abort')) {
 
+        $this->zip_progress->log('#002', 'END-CODE');
+        
         if (file_exists($database_file_dir . 'bmi_backup_manifest.json')) {
           @unlink($database_file_dir . 'bmi_backup_manifest.json');
         }
@@ -632,11 +763,30 @@ class Zip {
         $this->zip_progress->log(__("Adding manifest...", 'backup-backup'), 'INFO');
         try {
 
-          $maback = $lib->add($files, PCLZIP_OPT_REMOVE_PATH, $database_file_dir, PCLZIP_OPT_ADD_TEMP_FILE_ON, PCLZIP_OPT_TEMP_FILE_THRESHOLD, $safe_limit);
+          if ($zipArchive) {
+            for ($i = 0; $i < sizeof($files); ++$i) {
+              
+              // Add the file
+              $zip->addFile($files[$i], $this->cutDir($files[$i]));
+              
+            }
+            
+            $zAresult = $zip->close();
+            if ($zAresult !== true) {
+              
+              $this->zip_failed('Error, there is most likely not enough space for the backup.');
+              return false;
+            
+            }
+          } else {
+          
+            $maback = $lib->add($files, PCLZIP_OPT_REMOVE_PATH, $database_file_dir, PCLZIP_OPT_ADD_TEMP_FILE_ON, PCLZIP_OPT_TEMP_FILE_THRESHOLD, $safe_limit);
 
-          if ($maback == 0) {
-            $this->zip_failed($lib->errorInfo(true));
-            return false;
+            if ($maback == 0) {
+              $this->zip_failed($lib->errorInfo(true));
+              return false;
+            }
+            
           }
 
         } catch (\Exception $e) {

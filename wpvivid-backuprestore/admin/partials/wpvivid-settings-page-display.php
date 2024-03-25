@@ -688,19 +688,20 @@ function wpvivid_advanced_settings()
                 <div><p><?php esc_html_e('Maximum rows of data to be processed per request.', 'wpvivid-backuprestore'); ?></p></div>
             </div>
             <div>
-                <?php
-                $max_count_option = '';
-                for($resume_count=3; $resume_count<10; $resume_count++){
-                    if($resume_count === $wpvivid_max_resume_count){
-                        $max_count_option .= '<option selected="selected" value="'.$resume_count.'">'.$resume_count.'</option>';
+                <strong>Retrying </strong>
+                    <select option="setting" name="max_resume_count">
+                    <?php
+                    for($resume_count=3; $resume_count<10; $resume_count++){
+                        if($resume_count === $wpvivid_max_resume_count){
+                            echo '<option selected="selected" value="'.esc_attr($resume_count).'">'.esc_html($resume_count).'</option>';
+                        }
+                        else{
+                            echo '<option value="'.esc_attr($resume_count).'">'.esc_html($resume_count).'</option>';
+                        }
                     }
-                    else{
-                        $max_count_option .= '<option value="'.$resume_count.'">'.$resume_count.'</option>';
-                    }
-                }
-                $max_count_select = '<select option="setting" name="max_resume_count">'.$max_count_option.'</select>';
-                echo sprintf('<strong>Retrying </strong>%s<strong> times when encountering a time-out error</strong>', esc_html($max_count_select));
-                ?>
+                    ?>
+                    </select>
+                <strong> times when encountering a time-out error</strong>
             </div>
         </div>
     </div>

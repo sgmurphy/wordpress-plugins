@@ -155,7 +155,7 @@
     $newConfigStaticPath = BMI_STATIC_PHP_CONFIG;
     if (file_exists($newConfigStaticPath)) {
       $configContents = file_get_contents(BMI_STATIC_PHP_CONFIG);
-      if (strpos($configContents, "<?php //[]") !== false) {
+      if (strpos($configContents, "<?php //[]") !== false || strlen(trim($configContents)) == 0) {
         unlink(BMI_STATIC_PHP_CONFIG);
       }
     }
@@ -306,3 +306,7 @@
     } else bmi_render_default_config($bmi_initial_config_filepath, $bmi_initial_config_dirpath);
 
   } else bmi_render_default_config($bmi_initial_config_filepath, $bmi_initial_config_dirpath);
+
+  if (!bmi_get_config('REQUEST:SECRET')) {
+    bmi_set_config('REQUEST:SECRET', bmi_config_random_string(16));
+  }

@@ -148,6 +148,7 @@ export default function Style(props) {
             justify-content: center;
             width: 100%;
             box-sizing: border-box;
+            ${useCustomHeight && 'height: 100%;'}
         }
 
         .eb-wrapper-outer.${blockId} .eb-wrapper-inner {

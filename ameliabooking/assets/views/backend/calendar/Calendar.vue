@@ -2,6 +2,8 @@
   <div class="am-wrap">
     <div id="am-calendar" class="am-body">
 
+      <get-premium-banner></get-premium-banner>
+
       <!-- Page Header -->
       <page-header
           :categories="filterCategoriesByProviderServiceIDs(options.entities.categories)"
@@ -215,6 +217,7 @@
   import paymentMixin from '../../../js/backend/mixins/paymentMixin'
   import { FullCalendar } from 'vue-full-calendar'
   //import DialogNewCustomize from '../parts/DialogNewCustomize.vue'
+  import GetPremiumBanner from '../parts/GetPremiumBanner.vue'
 
   export default {
     mixins: [
@@ -1746,6 +1749,7 @@
     },
 
     components: {
+      GetPremiumBanner,
       PageHeader,
       FullCalendar,
       DialogEvent,

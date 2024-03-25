@@ -108,8 +108,8 @@ class Newsletters {
 
     $dateTime = new DateTime();
     $data['current_date'] = $dateTime->getCurrentDate(DateTime::DEFAULT_DATE_FORMAT);
-    $data['tomorrow_date'] = $dateTime->getCurrentDateTime()->modify( "+1 day" )
-      ->format( DateTime::DEFAULT_DATE_FORMAT );
+    $data['tomorrow_date'] = $dateTime->getCurrentDateTime()->modify("+1 day")
+      ->format(DateTime::DEFAULT_DATE_FORMAT);
     $data['current_time'] = $dateTime->getCurrentTime();
     $data['current_date_time'] = $dateTime->getCurrentDateTime()->format(DateTime::DEFAULT_DATE_TIME_FORMAT);
     $data['schedule_time_of_day'] = $dateTime->getTimeInterval(
@@ -128,7 +128,8 @@ class Newsletters {
 
     $data['sent_newsletters_count'] = $this->newslettersRepository->countBy(['status' => NewsletterEntity::STATUS_SENT]);
     $data['woocommerce_transactional_email_id'] = $this->settings->get(TransactionalEmails::SETTING_EMAIL_ID);
-    $data['display_detailed_stats'] = $this->capabilitiesManager->getCapabilities()->getDetailedAnalytics();
+    $detailedAnalyticsCapability = $this->capabilitiesManager->getCapability('detailedAnalytics');
+    $data['display_detailed_stats'] = isset($detailedAnalyticsCapability) && !$detailedAnalyticsCapability->isRestricted;
     $data['newsletters_templates_recently_sent_count'] = $this->newsletterTemplatesRepository->getRecentlySentCount();
 
     $data['product_categories'] = $this->wpPostListLoader->getWooCommerceCategories();

@@ -1,11 +1,11 @@
 === VK All in One Expansion Unit ===
 Contributors: vektor-inc,kurudrive,hinaloe,jim912,hideokamoto,nc30,SaoriMiyazaki,catherine8007,naoki0h,rickaddison7634,una9,kaorock72,kurishimak,chiakikouno,daikiweb23,doshimaf,shimotomoki,mtdkei
 Donate link:
-Tags: Google Analytics, New posts, Related Posts, sitemap, sns, twitter card, Facebook Page Plugin, OG tags,
+Tags: Google Analytics, Related Posts, sitemap, Facebook Page Plugin, OG tags
 Requires at least: 5.9.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 9.96.0.1
+Stable tag: 9.97.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,11 @@ e.g.
 2. This is an example of SNS cooperation setting screen.
 
 == Changelog ==
+
+= 9.97.0 =
+[ Specification Change ] Grouping in the activation interface.
+[ Bug fix ][ Child page index ] Fix className vulnerability.
+[ Bug Fix ][ Description ] Fixed the issue about PHP error under specified conditions.
 
 = 9.96.0 =
 [ Add setting ][ Post Type Manager ] Add a custom field setting.

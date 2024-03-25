@@ -111,7 +111,7 @@
     <?php _e('Download process should start.', 'backup-backup') ?>
   </div>
   <div id="bmi-preb-processing">
-    <?php _e('We are processing your files, please wait till it complete. You can check the progress in the "What will be backed up?" tab.', 'backup-backup') ?>
+    <?php _e('Backup Migration plugin is calculating the size of your files, please try again in a few seconds.', 'backup-backup') ?>
   </div>
   <div id="bmi-no-selected">
     <?php _e('There is nothing to backup. Please select database and / or files to backup.', 'backup-backup') ?>
@@ -193,5 +193,6 @@
   <div id="BMI_URL_ROOT"><?php echo plugin_dir_url(BMI_ROOT_FILE); ?></div>
   <div id="BMI_BLOG_URL"><?php echo get_site_url(); ?></div>
   <div id="BMI_REV"><?php echo BMI_REV; ?></div>
+  <div id="BMI_SECRET_KEY"><?php echo bmi_get_config('REQUEST:SECRET'); ?></div>
   <div><input type="text" id="bmi-support-url-translation" value="<?php echo BMI_CHAT_SUPPORT_URL ?>" hidden></div>
 </div>

@@ -3,6 +3,7 @@
 namespace FernleafSystems\Wordpress\Services\Utilities\WpOrg\Theme;
 
 use FernleafSystems\Wordpress\Services\Utilities\HttpUtil;
+use FernleafSystems\Wordpress\Services\Utilities\URL;
 
 class Download {
 
@@ -10,23 +11,12 @@ class Download {
 
 	/**
 	 * @param string $version
-	 * @return string|null
 	 */
-	public function getDownloadUrlForVersion( $version ) {
+	public function getDownloadUrlForVersion( $version ) :?string {
 		$all = ( new Versions() )
 			->setWorkingSlug( $this->getWorkingSlug() )
 			->allVersionsUrls();
-
-		if ( empty( $all[ $version ] ) ) {
-			$url = null;
-		}
-		else {
-			$url = add_query_arg( [
-				'nostats' => '1'
-			], $all[ $version ] );
-		}
-
-		return $url;
+		return empty( $all[ $version ] ) ? null : URL::Build( $all[ $version ], [ 'nostats' => '1' ] );
 	}
 
 	/**

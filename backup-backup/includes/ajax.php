@@ -26,6 +26,7 @@
   use BMI\Plugin\Staging\BMI_StagingLocal as StagingLocal;
   use BMI\Plugin\Heart\BMI_Backup_Heart as Bypasser;
   use BMI\Plugin\Staging\BMI_Staging as Staging;
+  use BMI\Plugin\Checker\Compatibility as Compatibility;
 
   /**
    * Ajax Handler for BMI
@@ -158,6 +159,8 @@
         BMP::res($this->backupBrowserMethodHandler());
       } elseif ($this->post['f'] == 'debugging') {
         BMP::res($this->debugging());
+      } elseif ($this->post['f'] == 'check-comptability') {
+        BMP::res($this->checkCompatibility());
       } elseif (has_action('bmi_premium_ajax')) {
         do_action('bmi_premium_ajax', $this->post);
       } elseif ($this->post['f'] == 'check-not-uploaded-backups') {
@@ -253,11 +256,11 @@
         
         $bytes = $this->total_size_for_backup;
         $excludedBytes = $this->total_excluded_size_for_backup;
-        
+        set_transient('bmi_latest_size_' . $f, $bytes);
       } elseif ($f == 'database') {
         
         $bytes = $this->getDatabaseSize();
-        
+        set_transient('bmi_latest_size_' . $f, $bytes);
       }
 
       return [ 'bytes' => $bytes, 'excluded' => $excludedBytes, 'readable' => BMP::humanSize($bytes) ];
@@ -607,6 +610,9 @@
         ini_set('log_errors', 1);
         ini_set('error_log', BMI_CONFIG_DIR . DIRECTORY_SEPARATOR . 'complete_logs.log');
       }
+
+      // Double check for .space_check file
+      if (file_exists(BMI_BACKUPS . '/.space_check')) @unlink(BMI_BACKUPS . '/.space_check');
 
       // Require File Scanner
       require_once BMI_INCLUDES . '/progress/zip.php';
@@ -1110,6 +1116,10 @@
         ini_set('log_errors', 1);
         ini_set('error_log', BMI_CONFIG_DIR . DIRECTORY_SEPARATOR . 'complete_logs.log');
       }
+
+
+      // Double check for .space_check file
+      if (file_exists(BMI_BACKUPS . '/.space_check')) @unlink(BMI_BACKUPS . '/.space_check');
 
       // Require File Scanner
       require_once BMI_INCLUDES . '/zipper/zipping.php';
@@ -2349,6 +2359,8 @@
       $ignored_paths_default[] = "***ABSPATH***/wp-content/uploads/wp-file-manager";
       $ignored_paths_default[] = "***ABSPATH***/wp-content/plugins/akeebabackupwp";
       $ignored_paths_default[] = "***ABSPATH***/wp-content/uploads/jetbackup";
+      $ignored_paths_default[] = "***ABSPATH***/wp-content/uploads/backup-guard";
+      $ignored_paths_default[] = "***ABSPATH***/wp-content/uploads/wp-migrate-db";
       
       // Exclude cache directory permanently as it's just cache
       // $ignored_paths_default[] = "***ABSPATH***/wp-content/cache";
@@ -3485,12 +3497,13 @@
        try {
 
         // Load bypasser
-        require_once BMI_INCLUDES . '/bypasser.php';
+        require_once BMI_INCLUDES . '/backup-process.php';
         $request = new Bypasser(false, BMI_CONFIG_DIR, trailingslashit(WP_CONTENT_DIR), BMI_BACKUPS, trailingslashit(ABSPATH), plugin_dir_path(BMI_ROOT_FILE));
         
         // Handle request
         $request->handle_batch();
-        exit;
+        $request->shutdown();
+        return;
 
       } catch (\Exception $e) {
 
@@ -3506,7 +3519,7 @@
 
       }
       
-      return BMP::res([ 'status' => 'error' ]);
+      return [ 'status' => 'error' ];
       
     }
     
@@ -3658,5 +3671,12 @@
 
     public function debugging() {
 
+    }
+
+    public function checkCompatibility() {
+      require_once BMI_INCLUDES . DIRECTORY_SEPARATOR . 'check' . DIRECTORY_SEPARATOR . 'compatibility.php';
+      $compatibility = new Compatibility();
+      $errors = $compatibility->check();
+      return ['status' => 'success', 'data' => $errors];
     }
   }

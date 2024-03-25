@@ -35,6 +35,7 @@ trait LocalCodeceptionTrait
         $this->executeWpCliAndOutput('config set WP_SITEURL ' . $configuration->getWptestsUrl(), $output, $apache_document_root);
         $this->executeWpCliAndOutput('config set WP_AUTO_UPDATE_CORE false --raw', $output, $apache_document_root);
         $this->executeWpCliAndOutput('config set AUTOMATIC_UPDATER_DISABLED false --raw', $output, $apache_document_root);
+        $this->executeWpCliAndOutput('config set FS_METHOD direct', $output, $apache_document_root);
         $this->executeWpCliAndOutput('rewrite structure \'/%postname%/\'', $output, $apache_document_root);
         $this->replace_in_file($apache_document_root . '/wp-config.php', 'if ( isset( $_SERVER[\'HTTP_X_FORWARDED_PROTO\'] ) && \'https\' === $_SERVER[\'HTTP_X_FORWARDED_PROTO\'] ) { $_SERVER[\'HTTPS\'] = \'on\'; }', '');
         $this->replace_in_file($apache_document_root . '/wp-config.php', '<?php', '<?php if ( isset( $_SERVER[\'HTTP_X_FORWARDED_PROTO\'] ) && \'https\' === $_SERVER[\'HTTP_X_FORWARDED_PROTO\'] ) { $_SERVER[\'HTTPS\'] = \'on\'; }');

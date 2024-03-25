@@ -426,11 +426,9 @@ class WPvivid_Migrate
                 </div>';
                 ?>
 
-                <?php
-                echo '<p>'.esc_html__('Note: ', 'wpvivid-backuprestore').'</p>
-                <p>'.esc_html__('1. In order to successfully complete the migration, you\'d better deactivate <a href="https://wpvivid.com/best-redirect-plugins.html" target="_blank" style="text-decoration: none;">301 redirect plugin</a>, <a href="https://wpvivid.com/8-best-wordpress-firewall-plugins.html" target="_blank" style="text-decoration: none;">firewall and security plugin</a>, and <a href="https://wpvivid.com/best-free-wordpress-caching-plugins.html" target="_blank" style="text-decoration: none;">caching plugin</a> (if they exist) before transferring website.', 'wpvivid-backuprestore').'</p>
-                <p>'.esc_html__('2. Please migrate website with the manual way when using <strong>Local by Flywheel</strong> environment.', 'wpvivid-backuprestore').'</p>';
-                ?>
+                <p><?php echo esc_html__('Note: ', 'wpvivid-backuprestore'); ?></p>
+                <p>1. In order to successfully complete the migration, you'd better deactivate <a href="https://wpvivid.com/best-redirect-plugins.html" target="_blank" style="text-decoration: none;">301 redirect plugin</a>, <a href="https://wpvivid.com/8-best-wordpress-firewall-plugins.html" target="_blank" style="text-decoration: none;">firewall and security plugin</a>, and <a href="https://wpvivid.com/best-free-wordpress-caching-plugins.html" target="_blank" style="text-decoration: none;">caching plugin</a> (if they exist) before transferring website.</p>
+                <p>2. Please migrate website with the manual way when using <strong>Local by Flywheel</strong> environment.</p>
 
                 <div style="padding: 0 0 10px 0;">
                     <?php do_action('wpvivid_migrate_part_exec'); ?>
@@ -530,7 +528,7 @@ class WPvivid_Migrate
         {
             global $wpvivid_plugin;
             check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-            $check=is_admin()&&current_user_can('administrator');
+            $check=current_user_can('manage_options');
             $check=apply_filters('wpvivid_ajax_check_security',$check);
             if(!$check)
             {
@@ -670,7 +668,7 @@ class WPvivid_Migrate
     {
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -690,7 +688,7 @@ class WPvivid_Migrate
         try {
             global $wpvivid_plugin;
             check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-            $check=is_admin()&&current_user_can('administrator');
+            $check=current_user_can('manage_options');
             $check=apply_filters('wpvivid_ajax_check_security',$check);
             if(!$check)
             {
@@ -813,7 +811,7 @@ class WPvivid_Migrate
     {
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -839,7 +837,7 @@ class WPvivid_Migrate
     {
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -914,7 +912,7 @@ class WPvivid_Migrate
     {
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -974,7 +972,7 @@ class WPvivid_Migrate
     {
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -1491,7 +1489,7 @@ class WPvivid_Migrate
     {
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {

@@ -48,7 +48,23 @@ class BMI_Checker {
       $this->logs(__('Requires at least ', 'backup-backup') . $size . __(' bytes.', 'backup-backup') . ' [' . BMP::humanSize($size) . ']');
     }
     
-    if ($this->is_enabled('disk_free_space') && intval(disk_free_space(BMI_BACKUPS)) > 100) {
+    $maxTime = 60;
+    if ($this->is_enabled('get_ini')) {
+      $maxTime = @ini_get('max_execution_time');
+      if ($this->is_enabled('ini_set')) @ini_set('max_execution_time', '259200');
+    }
+    
+    $shouldUseDiskFreeSpaceIfAvailable = false;
+    
+    // If free disk space is larger lower than 50 GBs 
+    // OR {
+    //   If there is low execution time use space check, as the other may take too much time
+    //   If size of the backup is larger than 3 GBs (as it may be to slow to check)
+    // }
+    if (disk_free_space(BMI_BACKUPS) < 1024*1024*1024*50 || ($size > 1024*1024*1024*3 && $maxTime <= 60))
+      $shouldUseDiskFreeSpaceIfAvailable = true;
+    
+    if ($this->is_enabled('disk_free_space') && intval(disk_free_space(BMI_BACKUPS)) > 100 && $shouldUseDiskFreeSpaceIfAvailable) {
 
       $this->logs(__('Disk free space function is not disabled - using it...', 'backup-backup'));
       $this->logs(__('Checking this path/partition: ', 'backup-backup') . BMI_BACKUPS);

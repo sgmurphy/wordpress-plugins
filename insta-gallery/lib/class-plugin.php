@@ -57,7 +57,7 @@ final class Plugin {
 				$admin_email = $this->get_admin_email();
 
 				$message = esc_html__( 'Hi! We would like to inform you that the business account token you are using in Social Feed Gallery is about to expire.', 'insta-gallery' );
-				$subject = esc_html__( 'Your business account is going to expire', 'insta-gallery' );
+				$subject = esc_html__( 'Your business account is about to expire.', 'insta-gallery' );
 
 				if ( $old_expiration_date >= $new_expiration ) {
 					wp_mail( $admin_email, $subject, $message );

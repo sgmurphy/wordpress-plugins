@@ -71,6 +71,10 @@ class BMI_Even_Better_Database_Restore {
     'wp_seo_404_links',
     'WP_SEO_Redirection_LOG'
   ];
+  
+  private $excludeSearchReplaceTables = [
+    'itsec_log'
+  ];
 
   /**
    * __construct - Make connection
@@ -363,6 +367,15 @@ class BMI_Even_Better_Database_Restore {
       $status['tableIndex'] = $tableIndex + 1;
       return $status;
     }
+    
+    if ($this->searchForIncludesInList($this->excludeSearchReplaceTables, $currentTable)) {
+      $this->logger->log(__('Adjustments are not required for this table.', 'backup-backup') . "(" . sanitize_text_field(strval($currentTable)) .  ")", 'INFO');
+
+      $status['step'] = 1;
+      $status['fieldAdjustments'] = 0;
+      $status['tableIndex'] = $tableIndex + 1;
+      return $status;
+    }
 
     $replaceEngine = new BMISearchReplace([$currentTable], $currentPage, $totalPages);
 
@@ -558,6 +571,15 @@ class BMI_Even_Better_Database_Restore {
 
     return $status;
 
+  }
+  
+  public function searchForIncludesInList($items, $search) {
+    $search = strtolower($search);
+    foreach ($items as $index => $item) {
+      if (strpos($search, strtolower($item)) !== false) return true;
+    }
+    
+    return false;
   }
   
   public function is_valid_plugin($plugin) {

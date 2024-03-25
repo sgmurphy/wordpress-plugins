@@ -87,6 +87,14 @@ function pmpro_admin_prep_click_events() {
     });
 }
 
+// Hide the popup if clicked outside the popup.
+jQuery(document).on('click', function (e) {
+    // Check if the clicked element is the close button or outside the pmpro-popup-wrap
+    if ( jQuery(e.target).closest('.pmpro-popup-wrap').length === 0 ) {
+        jQuery('.pmpro-popup-overlay').hide();
+    }
+});
+
 /** JQuery to hide the notifications. */
 jQuery(document).ready(function () {
     jQuery(document).on('click', '.pmpro-notice-button.notice-dismiss', function () {
@@ -786,7 +794,7 @@ jQuery(document).ready(function ($) {
 // Add Ons Page Code.
 jQuery(document).ready(function () {
     // Hide the license banner.
-    jQuery('.pmproPopupCloseButton').click(function (e) {
+    jQuery('.pmproPopupCloseButton, .pmproPopupCompleteButton').click(function (e) {
         e.preventDefault();
         jQuery('.pmpro-popup-overlay').hide();
     });
@@ -818,6 +826,7 @@ jQuery(document).ready(function () {
             document.getElementById('addon-license').innerHTML = button.siblings('input[name="pmproAddOnAdminLicense"]').val();
             jQuery('.pmpro-popup-overlay').show();
             button.removeClass('disabled');
+            return false;
         } else {
             // Remove checkmark if there.
             button.removeClass('checkmarked');
@@ -899,4 +908,133 @@ jQuery(document).ready(function () {
 
         }
     });
+});
+
+/**
+ * Add/Edit Member Page
+ */
+window.addEventListener("DOMContentLoaded", () => {
+	const tabs = document.querySelectorAll('#pmpro-edit-user-div [role="tab"]');
+	const tabList = document.querySelector('#pmpro-edit-user-div [role="tablist"]');
+	const inputs = document.querySelectorAll('#pmpro-edit-user-div input, #pmpro-edit-user-div textarea, #pmpro-edit-user-div select');
+
+	if ( tabs && tabList ) {
+		// Track whether an input has been changed.
+		let inputChanged = false;
+		inputs.forEach((input) => {
+			input.addEventListener('change', function(e) {
+				inputChanged = true;
+			});
+		});
+
+		// Add a click event handler to each tab
+		tabs.forEach((tab) => {
+			tab.addEventListener("click", function (e) {
+				if ( pmpro_changeTabs(e, inputChanged ) ) {
+					// If we changed tabs, reset the inputChanged flag.
+					inputChanged = false;
+				}
+			});
+		});
+
+		// Enable arrow navigation between tabs in the tab list
+		let tabFocus = 0;
+		tabList.addEventListener("keydown", (e) => {
+		// Move Down
+		if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+			tabs[tabFocus].setAttribute("tabindex", -1);
+			if (e.key === "ArrowDown") {
+			tabFocus++;
+			// If we're at the end, go to the start
+			if (tabFocus >= tabs.length) {
+				tabFocus = 0;
+			}
+			// Move Up
+			} else if (e.key === "ArrowUp") {
+			tabFocus--;
+			// If we're at the start, move to the end
+			if (tabFocus < 0) {
+				tabFocus = tabs.length - 1;
+			}
+			}
+
+			tabs[tabFocus].setAttribute("tabindex", 0);
+			tabs[tabFocus].focus();
+		}
+		});
+
+        // Enable the button to show more tabs.
+        document.addEventListener('click', function(e) {
+            const moreTabsToggle = e.target.closest('[role="showmore"]');
+            if (moreTabsToggle) {
+                e.preventDefault();
+                const parent = moreTabsToggle.parentNode;
+                const grandparent = parent.parentNode;
+                grandparent.querySelectorAll('[role="tab"]').forEach((t) => t.style.display = 'block');
+                parent.style.display = 'none';
+            }
+        });
+
+        // If the visible panel's corresponding tab is hidden, show all tabs.
+        const visiblePanel = document.querySelector('#pmpro-edit-user-div [role="tabpanel"]:not([hidden])');
+        if ( visiblePanel ) {
+            const visibleTab = document.querySelector(`[aria-controls="${visiblePanel.id}"]`);
+            if ( visibleTab.style.display === 'none' ) {
+                const moreTabsToggle = document.querySelector('[role="showmore"]');
+                moreTabsToggle.click();
+            }
+        }
+
+    }
+
+});
+
+function pmpro_changeTabs( e, inputChanged ) {
+	e.preventDefault();
+
+	if ( inputChanged ) {
+		const answer = window.confirm('You have unsaved changes. Are you sure you want to switch tabs?');
+		if ( ! answer ) {
+			return false;
+		}
+	}
+
+	const target = e.target;
+	const parent = target.parentNode;
+	const grandparent = parent.parentNode;
+
+	// Remove all current selected tabs
+	parent
+	.querySelectorAll('[aria-selected="true"]')
+	.forEach((t) => t.setAttribute("aria-selected", false));
+
+	// Set this tab as selected
+	target.setAttribute("aria-selected", true);
+
+	// Hide all tab panels
+	grandparent
+	.querySelectorAll('[role="tabpanel"]')
+	.forEach((p) => p.setAttribute("hidden", true));
+
+	// Show the selected panel
+	grandparent.parentNode
+	.querySelector(`#${target.getAttribute("aria-controls")}`)
+	.removeAttribute("hidden");
+
+	// Update the URL to include the panel URL in the pmpro_member_edit_panel attribute.
+	const fullPanelName = target.getAttribute('aria-controls');
+	// Need to convert pmpro-member-edit-xyz-panel to xyz.
+	const panelSlug = fullPanelName.replace(/^pmpro-member-edit-/, '').replace(/-panel$/, '');
+	const url = new URL(window.location.href);
+	url.searchParams.set('pmpro_member_edit_panel', panelSlug);
+	window.history.pushState({}, '', url);
+
+	return true;
+}
+
+/**
+ * Edit Order Page
+ */
+jQuery(document).ready(function () {
+    jQuery('.pmpro_admin-pmpro-orders select#membership_id').select2();
 });

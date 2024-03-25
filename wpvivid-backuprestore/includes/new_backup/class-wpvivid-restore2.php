@@ -36,7 +36,7 @@ class WPvivid_Restore_2
     public function init_restore_task()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -573,7 +573,7 @@ class WPvivid_Restore_2
     public function do_restore()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         if(!$check)
         {
             die();
@@ -875,7 +875,7 @@ class WPvivid_Restore_2
     public function get_restore_progress()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         if(!$check)
         {
             die();
@@ -1197,7 +1197,7 @@ class WPvivid_Restore_2
     public function finish_restore()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         if(!$check)
         {
             die();
@@ -1419,7 +1419,7 @@ class WPvivid_Restore_2
     public function restore_failed()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         if(!$check)
         {
             die();

@@ -389,6 +389,24 @@ class System_Info {
   }
 
   /**
+   * Check if cURL is work properly
+   * 
+   * @return bool 
+   */
+  public static function is_curl_work() {
+    return function_exists('curl_version') && function_exists('curl_exec') && function_exists('curl_init') && BMP::isFunctionEnabled('curl_init') && BMP::isFunctionEnabled('curl_exec');
+  }
+
+  /**
+   * Check if php cli is runnable
+   * 
+   * @return bool
+   */
+  public static function is_php_cli_runnable() {
+    return BMP::isFunctionEnabled('exec') && BMP::isFunctionEnabled('shell_exec') && BMP::isFunctionEnabled('system');
+  }
+
+  /**
    * Get changes human redeable sizes to numbers()
    *
    * @param String $num // readble size to be converted to byte

@@ -57,7 +57,7 @@ class WPvivid_Backup_2
     {
         global $wpvivid_plugin;
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -168,7 +168,7 @@ class WPvivid_Backup_2
     public function delete_ready_task_2()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -342,7 +342,7 @@ class WPvivid_Backup_2
     public function backup_now_2()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -912,7 +912,7 @@ class WPvivid_Backup_2
     public function list_tasks()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -1162,7 +1162,7 @@ class WPvivid_Backup_2
     public function shutdown_backup()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -1187,7 +1187,7 @@ class WPvivid_Backup_2
     public function delete_task()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -1533,7 +1533,7 @@ class WPvivid_Backup_2
         try
         {
             check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-            $check=is_admin()&&current_user_can('administrator');
+            $check=current_user_can('manage_options');
             $check=apply_filters('wpvivid_ajax_check_security',$check);
             if(!$check)
             {
@@ -1673,7 +1673,7 @@ class WPvivid_Backup_2
     public function migrate_now()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {

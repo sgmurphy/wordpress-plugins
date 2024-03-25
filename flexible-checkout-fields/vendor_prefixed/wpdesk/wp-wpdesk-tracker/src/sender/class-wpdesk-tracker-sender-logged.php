@@ -36,7 +36,7 @@ if (!\class_exists('FcfVendor\\WPDesk_Tracker_Sender_Logged')) {
         public function send_payload(array $payload)
         {
             if (\class_exists('FcfVendor\\WPDesk_Logger_Factory')) {
-                \FcfVendor\WPDesk_Logger_Factory::log_message("Sender payload: " . \json_encode($payload), self::LOGGER_SOURCE, \FcfVendor\WPDesk_Logger::DEBUG);
+                \FcfVendor\WPDesk_Logger_Factory::log_message('Sender payload: ' . \json_encode($payload), self::LOGGER_SOURCE, \FcfVendor\WPDesk_Logger::DEBUG);
                 try {
                     $response = $this->sender->send_payload($payload);
                     \FcfVendor\WPDesk_Logger_Factory::log_message('Sender response: ' . \json_encode($response), self::LOGGER_SOURCE, \FcfVendor\WPDesk_Logger::DEBUG);

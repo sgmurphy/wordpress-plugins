@@ -303,9 +303,8 @@ class Mappress_Map extends Mappress_Obj {
 				$args = array('transient' => $transient);
 			}
 
-			// Generate URL
-			$args = array_merge(array('mappress' => 'embed', $args));
-			$url = add_query_arg($args, get_home_url());
+			$home_url = get_home_url();            
+			$url = $home_url . ((stristr($home_url, '?') === false) ? '?' : '&') . 'mappress=embed&' . http_build_query($args);
 			
 			// Width + height attributes are required for Google AMP
 			$iframe = "<iframe height='100%' width='100%' class='mapp-iframe' src='$url' scrolling='no' loading='lazy'></iframe>";
@@ -360,9 +359,8 @@ class Mappress_Map extends Mappress_Obj {
 				$args = array('transient' => $transient);
 			}
 			
-			// Generate URL
-			$args = array_merge(array('mappress' => 'embed', $args));
-			$url = add_query_arg($args, get_home_url());
+			$home_url = get_home_url();
+			$url = $home_url . ((stristr($home_url, '?') === false) ? '?' : '&') . 'mappress=embed&' . http_build_query($args);
 			
 			// Note that width + height attributes are required for Google AMP
 			$layout_atts = Mappress::to_atts($atts);

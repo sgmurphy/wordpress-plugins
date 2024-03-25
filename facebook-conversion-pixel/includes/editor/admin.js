@@ -489,8 +489,10 @@ jQuery(document).ready(function($){
 			'.fca-pc-amp_integration,' +
 			'.fca-pc-video_events,' +
 			'.fca-pc-edd_integration_pinterest,' +
-			'.fca-pc-edd_integration_snapchat,' +
+			'.fca-pc-edd_integration_tiktok,' +
+			'.fca-pc-edd_integration_snapchat,' + 
 			'.fca-pc-woo_integration_pinterest,' +
+			'.fca-pc-woo_integration_tiktok,' +
 			'.fca-pc-woo_integration_snapchat,' +
 			'#fca-pc-pixel-excluded-pages'
 		).prop('checked', false).prop('disabled', true).closest('tr').addClass('fca-pc-integration-disabled')

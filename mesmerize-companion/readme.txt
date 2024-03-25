@@ -2,9 +2,9 @@
 
 Contributors: horearadu, extendthemes
 Tags: mesmerize companion, drag, drop, builder
-Stable tag: 1.6.147
+Stable tag: 1.6.148
 Requires at least: 5.5
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html

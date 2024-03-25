@@ -3,7 +3,7 @@ Contributors: Tips and Tricks HQ
 Donate link: https://www.tipsandtricks-hq.com/development-center
 Tags: ssl, https, force ssl, insecure content, redirection, automatic redirection, htaccess, https redirection, ssl certificate, secure page, secure, force https
 Requires at least: 5.5
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 1.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

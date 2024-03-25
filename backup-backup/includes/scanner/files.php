@@ -89,6 +89,7 @@
       if (!is_readable($path) || is_link($path)) return $files;
       foreach (new \DirectoryIterator($path) as $fileInfo) {
 
+        if (!is_readable($fileInfo->getPathname())) continue;
         if ($fileInfo->isDot()) continue;
         if ($fileInfo->isLink()) continue;
         if (!$fileInfo->isDir()) {
@@ -96,6 +97,8 @@
           try {
             $files[] = $fileInfo->getFilename() . DIRECTORY_SEPARATOR . $fileInfo->getSize();
           } catch (\Exception $e) {
+            Logger::debug('Failed to check file: ' . $fileInfo->getFilename());
+          } catch (\Throwable $e) {
             Logger::debug('Failed to check file: ' . $fileInfo->getFilename());
           }
 
@@ -122,6 +125,7 @@
       if (!is_readable($path) || is_link($path)) return $files;
       foreach (new \DirectoryIterator($path) as $fileInfo) {
 
+        if (!is_readable($fileInfo->getPathname())) continue;
         if ($fileInfo->isDot()) continue;
         if ($fileInfo->isLink()) continue;
         if (!$fileInfo->isDir()) {
@@ -129,6 +133,8 @@
           try {
             $files[] = $fileInfo->getSize();
           } catch (\Exception $e) {
+            Logger::debug('Failed to check file: ' . $fileInfo->getFilename());
+          } catch (\Throwable $e) {
             Logger::debug('Failed to check file: ' . $fileInfo->getFilename());
           }
 
@@ -156,6 +162,7 @@
       if (!is_readable($path) || is_link($path)) return $files;
       foreach (new \DirectoryIterator($path) as $fileInfo) {
 
+        if (!is_readable($fileInfo->getPathname())) continue;
         if ($fileInfo->isDot()) continue;
         if ($fileInfo->isLink()) continue;
         if (!$fileInfo->isDir()) {
@@ -163,6 +170,8 @@
           try {
             $files[] = $fileInfo->getSize();
           } catch (\Exception $e) {
+            Logger::debug('Failed to check file: ' . $fileInfo->getFilename());
+          } catch (\Throwable $e) {
             Logger::debug('Failed to check file: ' . $fileInfo->getFilename());
           }
 
@@ -198,6 +207,7 @@
         if (!is_readable($path) || is_link($path)) return $files;
         foreach (new \DirectoryIterator($path) as $fileInfo) {
 
+          if (!is_readable($fileInfo->getPathname())) continue;
           if ($fileInfo->isDot()) continue;
           if ($fileInfo->isLink()) continue;
           if (!$fileInfo->isDir()) {
@@ -205,6 +215,8 @@
             try {
               $files[] = $fileInfo->getSize();
             } catch (\Exception $e) {
+              Logger::debug('Failed to check file: ' . $fileInfo->getFilename());
+            } catch (\Throwable $e) {
               Logger::debug('Failed to check file: ' . $fileInfo->getFilename());
             }
 
@@ -247,6 +259,7 @@
       if (!is_readable($path) || is_link($path)) return $files;
       foreach (new \DirectoryIterator($path) as $fileInfo) {
 
+        if (!is_readable($fileInfo->getPathname())) continue;
         if ($fileInfo->isDot()) continue;
         if ($fileInfo->isLink()) continue;
         if (!$fileInfo->isDir()) {
@@ -279,6 +292,7 @@
       if (!is_readable($path) || is_link($path)) return $files;
       foreach (new \DirectoryIterator($path) as $fileInfo) {
 
+        if (!is_readable($fileInfo->getPathname())) continue;
         if ($fileInfo->isDot()) continue;
         if ($fileInfo->isLink()) continue;
         if (!$fileInfo->isDir()) {
@@ -316,6 +330,7 @@
       if (!is_readable($path) || is_link($path)) return $files;
       foreach (new \DirectoryIterator($path) as $fileInfo) {
 
+        if (!is_readable($fileInfo->getPathname())) continue;
         if ($fileInfo->isDot()) continue;
         if ($fileInfo->isLink()) continue;
         if (!$fileInfo->isDir()) {

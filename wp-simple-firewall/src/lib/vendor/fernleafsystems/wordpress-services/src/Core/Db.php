@@ -31,6 +31,7 @@ class Db {
 	 * @return bool|int
 	 */
 	public function doDropTable( string $table ) {
+		$this->clearResultShowTables();
 		return $this->doSql( sprintf( 'DROP TABLE IF EXISTS `%s`', $table ) );
 	}
 
@@ -54,9 +55,7 @@ class Db {
 	 * @return bool|int
 	 */
 	public function doTruncateTable( string $table ) {
-		return $this->getIfTableExists( $table ) ?
-			$this->doSql( sprintf( 'TRUNCATE TABLE `%s`', $table ) )
-			: false;
+		return $this->tableExists( $table ) ? $this->doSql( sprintf( 'TRUNCATE TABLE `%s`', $table ) ) : false;
 	}
 
 	public function getCharCollate() :string {
@@ -66,13 +65,13 @@ class Db {
 	public function tableExists( string $table ) :bool {
 		$tables = $this->showTables();
 		return empty( $tables ) ?
-			!\is_null( $this->getVar( sprintf( "SHOW TABLES LIKE '%s'", $table ) ) )
+			!\is_null( $this->getVar( sprintf( "SHOW TABLES LIKE '%s'", esc_sql( $table ) ) ) )
 			: \in_array( \strtolower( $table ), $tables );
 	}
 
 	public function showTables() :array {
 		if ( !isset( $this->resultShowTables ) ) {
-			$res = $this->selectCustom( "SHOW TABLES" );
+			$res = $this->selectCustom( 'SHOW TABLES' );
 			$this->resultShowTables = \array_filter( \array_map(
 				function ( $table ) {
 					return \strtolower( \is_array( $table ) ? (string)\current( $table ) : '' );

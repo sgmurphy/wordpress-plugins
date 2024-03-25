@@ -10,7 +10,6 @@ jQuery(document).ready(function() {
 						defaultView : 'list',
 						height: 500,
 						lang : fma_locale,
-                        requestType: 'post',
                         ui: afm_object.ui,
 						commandsOptions: {
                                         edit : {

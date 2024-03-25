@@ -105,145 +105,150 @@
       </div>
       <?php } ?>
 
+      <?php
+        if (has_action('bmi_pro_other_storage_options')) {
+          do_action('bmi_pro_other_storage_options');
+        } else {
+      ?>
       <div class="tab2-item">
-    		<div class="not_ready"></div>
-    		<div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
-    			<?php echo BMI_COMMING_SOON_PRO; ?>
-    		</div>
-    		<div class="d-flex ia-center">
+        <div class="not_ready"></div>
+        <div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
+          <?php echo BMI_COMMING_SOON_PRO; ?>
+        </div>
+        <div class="d-flex ia-center">
           <img src="<?php echo $this->get_asset('images', 'google-cloud.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">Google Cloud</span>
           <img src="<?php echo $this->get_asset('images', 'premium.svg') ?>" alt="logo" class="crown2">
         </div>
-    		<div class="ia-center">
-    			<div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
-    				<div class="bmi-knobs"><span></span></div>
-    				<div class="bmi-layer_str"></div>
-    			</div>
-    		</div>
-    	</div>
-    	<div class="tab2-item">
-    		<div class="not_ready"></div>
-    		<div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
-    			<?php echo BMI_COMMING_SOON_FREE; ?>
-    		</div>
-    		<div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'ftp.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">FTP</span></div>
-    		<div class="ia-center">
-    			<div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
-    				<div class="bmi-knobs"><span></span></div>
-    				<div class="bmi-layer_str"></div>
-    			</div>
-    		</div>
-    	</div>
-    	<div class="tab2-item">
-    		<div class="not_ready"></div>
-    		<div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
-    			<?php echo BMI_COMMING_SOON_PRO; ?>
-    		</div>
-    		<div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'sftp-scp.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">SFTP / SCP</span> <img src="<?php echo $this->get_asset('images', 'premium.svg') ?>"
-    			  alt="logo" class="crown2"></div>
-    		<div class="ia-center">
-    			<div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
-    				<div class="bmi-knobs"><span></span></div>
-    				<div class="bmi-layer_str"></div>
-    			</div>
-    		</div>
-    	</div>
-    	<div class="tab2-item">
-    		<div class="not_ready"></div>
-    		<div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
-    			<?php echo BMI_COMMING_SOON_FREE; ?>
-    		</div>
-    		<div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'Amazon.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">Amazon S3</span></div>
-    		<div class="ia-center">
-    			<div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
-    				<div class="bmi-knobs"><span></span></div>
-    				<div class="bmi-layer_str"></div>
-    			</div>
-    		</div>
-    	</div>
-    	<div class="tab2-item">
-    		<div class="not_ready"></div>
-    		<div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
-    			<?php echo BMI_COMMING_SOON_PRO; ?>
-    		</div>
-    		<div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'microsoft-azure.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">Microsoft Azure</span> <img src="<?php echo $this->get_asset('images', 'premium.svg') ?>"
-    			  alt="logo" class="crown2"></div>
-    		<div class="ia-center">
-    			<div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
-    				<div class="bmi-knobs"><span></span></div>
-    				<div class="bmi-layer_str"></div>
-    			</div>
-    		</div>
-    	</div>
-    	<div class="tab2-item">
-    		<div class="not_ready"></div>
-    		<div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
-    			<?php echo BMI_COMMING_SOON_PRO; ?>
-    		</div>
-    		<div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'onedrive.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">OneDrive</span> <img src="<?php echo $this->get_asset('images', 'premium.svg') ?>"
-    			  alt="logo" class="crown2"></div>
-    		<div class="ia-center">
-    			<div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
-    				<div class="bmi-knobs"><span></span></div>
-    				<div class="bmi-layer_str"></div>
-    			</div>
-    		</div>
-    	</div>
-    	<div class="tab2-item">
-    		<div class="not_ready"></div>
-    		<div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
-    			<?php echo BMI_COMMING_SOON_FREE; ?>
-    		</div>
-    		<div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'rackspace.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">Rackspace</span></div>
-    		<div class="ia-center">
-    			<div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
-    				<div class="bmi-knobs"><span></span></div>
-    				<div class="bmi-layer_str"></div>
-    			</div>
-    		</div>
-    	</div>
-    	<div class="tab2-item">
-    		<div class="not_ready"></div>
-    		<div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
-    			<?php echo BMI_COMMING_SOON_PRO; ?>
-    		</div>
-    		<div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'backblaze.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">Backblaze</span> <img src="<?php echo $this->get_asset('images', 'premium.svg') ?>"
-    			  alt="logo" class="crown2"></div>
-    		<div class="ia-center">
-    			<div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
-    				<div class="bmi-knobs"><span></span></div>
-    				<div class="bmi-layer_str"></div>
-    			</div>
-    		</div>
-    	</div>
-    	<div class="tab2-item">
-    		<div class="not_ready"></div>
-    		<div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
-    			<?php echo BMI_COMMING_SOON_FREE; ?>
-    		</div>
-    		<div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'dream-objects.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">DreamObjects</span></div>
-    		<div class="ia-center">
-    			<div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
-    				<div class="bmi-knobs"><span></span></div>
-    				<div class="bmi-layer_str"></div>
-    			</div>
-    		</div>
-    	</div>
-    	<div class="tab2-item">
-    		<div class="not_ready"></div>
-    		<div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
-    			<?php echo BMI_COMMING_SOON_FREE; ?>
-    		</div>
-    		<div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'openstack-swift.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">Openstack (Swift)</span></div>
-    		<div class="ia-center">
-    			<div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
-    				<div class="bmi-knobs"><span></span></div>
-    				<div class="bmi-layer_str"></div>
-    			</div>
-    		</div>
-    	</div>
+        <div class="ia-center">
+          <div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
+            <div class="bmi-knobs"><span></span></div>
+            <div class="bmi-layer_str"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tab2-item">
+        <div class="not_ready"></div>
+        <div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
+          <?php echo BMI_COMMING_SOON_FREE; ?>
+        </div>
+        <div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'ftp.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">FTP</span></div>
+        <div class="ia-center">
+          <div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
+            <div class="bmi-knobs"><span></span></div>
+            <div class="bmi-layer_str"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tab2-item">
+        <div class="not_ready"></div>
+        <div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
+          <?php echo BMI_COMMING_SOON_PRO; ?>
+        </div>
+        <div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'sftp-scp.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">SFTP / SCP</span> <img src="<?php echo $this->get_asset('images', 'premium.svg') ?>"
+            alt="logo" class="crown2"></div>
+        <div class="ia-center">
+          <div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
+            <div class="bmi-knobs"><span></span></div>
+            <div class="bmi-layer_str"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tab2-item">
+        <div class="not_ready"></div>
+        <div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
+          <?php echo BMI_COMMING_SOON_FREE; ?>
+        </div>
+        <div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'Amazon.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">Amazon S3</span></div>
+        <div class="ia-center">
+          <div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
+            <div class="bmi-knobs"><span></span></div>
+            <div class="bmi-layer_str"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tab2-item">
+        <div class="not_ready"></div>
+        <div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
+          <?php echo BMI_COMMING_SOON_PRO; ?>
+        </div>
+        <div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'microsoft-azure.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">Microsoft Azure</span> <img src="<?php echo $this->get_asset('images', 'premium.svg') ?>"
+            alt="logo" class="crown2"></div>
+        <div class="ia-center">
+          <div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
+            <div class="bmi-knobs"><span></span></div>
+            <div class="bmi-layer_str"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tab2-item">
+        <div class="not_ready"></div>
+        <div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
+          <?php echo BMI_COMMING_SOON_PRO; ?>
+        </div>
+        <div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'onedrive.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">OneDrive</span> <img src="<?php echo $this->get_asset('images', 'premium.svg') ?>"
+            alt="logo" class="crown2"></div>
+        <div class="ia-center">
+          <div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
+            <div class="bmi-knobs"><span></span></div>
+            <div class="bmi-layer_str"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tab2-item">
+        <div class="not_ready"></div>
+        <div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
+          <?php echo BMI_COMMING_SOON_FREE; ?>
+        </div>
+        <div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'rackspace.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">Rackspace</span></div>
+        <div class="ia-center">
+          <div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
+            <div class="bmi-knobs"><span></span></div>
+            <div class="bmi-layer_str"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tab2-item">
+        <div class="not_ready"></div>
+        <div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
+          <?php echo BMI_COMMING_SOON_PRO; ?>
+        </div>
+        <div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'backblaze.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">Backblaze</span> <img src="<?php echo $this->get_asset('images', 'premium.svg') ?>"
+            alt="logo" class="crown2"></div>
+        <div class="ia-center">
+          <div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
+            <div class="bmi-knobs"><span></span></div>
+            <div class="bmi-layer_str"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tab2-item">
+        <div class="not_ready"></div>
+        <div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
+          <?php echo BMI_COMMING_SOON_FREE; ?>
+        </div>
+        <div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'dream-objects.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">DreamObjects</span></div>
+        <div class="ia-center">
+          <div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
+            <div class="bmi-knobs"><span></span></div>
+            <div class="bmi-layer_str"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tab2-item">
+        <div class="not_ready"></div>
+        <div class="bg_clock_day2"><img src="<?php echo $this->get_asset('images', 'clock2.svg') ?>" alt="clock" class="clock_img" height="30px" width="30px">
+          <?php echo BMI_COMMING_SOON_FREE; ?>
+        </div>
+        <div class="d-flex ia-center"><img src="<?php echo $this->get_asset('images', 'openstack-swift.svg') ?>" alt="logo" class="tab2-img"> <span class="ml25 title_whereStored">Openstack (Swift)</span></div>
+        <div class="ia-center">
+          <div class="b2 bmi-switch"><input type="checkbox" disabled="disabled" class="checkbox">
+            <div class="bmi-knobs"><span></span></div>
+            <div class="bmi-layer_str"></div>
+          </div>
+        </div>
+      </div>
+    <?php } ?>
     </div>
-
   </div>
 </div>
 

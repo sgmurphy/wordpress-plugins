@@ -213,6 +213,125 @@ class WPvivid_Export_List extends WP_List_Table
         </tr>
         <?php
     }
+
+    protected function pagination( $which ) {
+        if ( empty( $this->_pagination_args ) ) {
+            return;
+        }
+
+        $total_items     = $this->_pagination_args['total_items'];
+        $total_pages     = $this->_pagination_args['total_pages'];
+        $infinite_scroll = false;
+        if ( isset( $this->_pagination_args['infinite_scroll'] ) ) {
+            $infinite_scroll = $this->_pagination_args['infinite_scroll'];
+        }
+
+        if ( 'top' === $which && $total_pages > 1 ) {
+            $this->screen->render_screen_reader_content( 'heading_pagination' );
+        }
+
+        $output = '<span class="displaying-num">' . sprintf( _n( '%s item', '%s items', $total_items, 'wpvivid-backuprestore' ), number_format_i18n( $total_items ) ) . '</span>';
+
+        $current              = $this->get_pagenum();
+        $removable_query_args = wp_removable_query_args();
+
+        $current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+
+        $current_url = remove_query_arg( $removable_query_args, $current_url );
+
+        $page_links = array();
+
+        $total_pages_before = '<span class="paging-input">';
+        $total_pages_after  = '</span></span>';
+
+        $disable_first = $disable_last = $disable_prev = $disable_next = false;
+
+        if ( $current == 1 ) {
+            $disable_first = true;
+            $disable_prev  = true;
+        }
+        if ( $current == 2 ) {
+            $disable_first = true;
+        }
+        if ( $current == $total_pages ) {
+            $disable_last = true;
+            $disable_next = true;
+        }
+        if ( $current == $total_pages - 1 ) {
+            $disable_last = true;
+        }
+
+        if ( $disable_first ) {
+            $page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&laquo;</span>';
+        } else {
+            $page_links[] = sprintf(
+                "<div class='first-page button'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></div>",
+                __( 'First page', 'wpvivid-backuprestore' ),
+                '&laquo;'
+            );
+        }
+
+        if ( $disable_prev ) {
+            $page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&lsaquo;</span>';
+        } else {
+            $page_links[] = sprintf(
+                "<div class='prev-page button' value='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></div>",
+                $current,
+                __( 'Previous page', 'wpvivid-backuprestore' ),
+                '&lsaquo;'
+            );
+        }
+
+        if ( 'bottom' === $which ) {
+            $html_current_page  = $current;
+            $total_pages_before = '<span class="screen-reader-text">' . __( 'Current Page', 'wpvivid-backuprestore' ) . '</span><span id="table-paging" class="paging-input"><span class="tablenav-paging-text">';
+        } else {
+            $html_current_page = sprintf(
+                "%s<input class='current-page' id='current-page-selector-import' type='text' name='paged' value='%s' size='%d' aria-describedby='table-paging' /><span class='tablenav-paging-text'>",
+                '<label for="current-page-selector-import" class="screen-reader-text">' . __( 'Current Page', 'wpvivid-backuprestore' ) . '</label>',
+                $current,
+                strlen( $total_pages )
+            );
+        }
+        $html_total_pages = sprintf( "<span class='total-pages'>%s</span>", number_format_i18n( $total_pages ) );
+        $page_links[]     = $total_pages_before . sprintf( _x( '%1$s of %2$s', 'paging', 'wpvivid-backuprestore' ), $html_current_page, $html_total_pages ) . $total_pages_after;
+
+        if ( $disable_next ) {
+            $page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&rsaquo;</span>';
+        } else {
+            $page_links[] = sprintf(
+                "<div class='next-page button' value='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></div>",
+                $current,
+                __( 'Next page', 'wpvivid-backuprestore' ),
+                '&rsaquo;'
+            );
+        }
+
+        if ( $disable_last ) {
+            $page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&raquo;</span>';
+        } else {
+            $page_links[] = sprintf(
+                "<div class='last-page button'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></div>",
+                __( 'Last page', 'wpvivid-backuprestore' ),
+                '&raquo;'
+            );
+        }
+
+        $pagination_links_class = 'pagination-links';
+        if ( ! empty( $infinite_scroll ) ) {
+            $pagination_links_class .= ' hide-if-js';
+        }
+        $output .= "\n<span class='$pagination_links_class'>" . join( "\n", $page_links ) . '</span>';
+
+        if ( $total_pages ) {
+            $page_class = $total_pages < 2 ? ' one-page' : '';
+        } else {
+            $page_class = ' no-pages';
+        }
+        $this->_pagination = "<div class='tablenav-pages{$page_class}'>$output</div>";
+
+        echo $this->_pagination;
+    }
 }
 
 class WPvivid_Impoter_taskmanager

@@ -30,7 +30,7 @@ class EscapeHelper {
    * @return string
    */
   public static function escapeHtmlStyleAttr($string) {
-    return str_replace( '&#039;', "'", esc_attr((string)$string));
+    return str_replace('&#039;', "'", esc_attr((string)$string));
   }
 
   /**

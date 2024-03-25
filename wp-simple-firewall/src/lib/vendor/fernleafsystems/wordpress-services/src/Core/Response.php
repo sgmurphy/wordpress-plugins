@@ -4,6 +4,7 @@ namespace FernleafSystems\Wordpress\Services\Core;
 
 use FernleafSystems\Wordpress\Services\Services;
 use FernleafSystems\Wordpress\Services\Utilities\File\Download\IssueFileDownloadResponse;
+use FernleafSystems\Wordpress\Services\Utilities\URL;
 
 class Response {
 
@@ -59,7 +60,7 @@ class Response {
 	 * @param bool   $bProtectAgainstInfiniteLoops - if false, ignores the redirect loop protection
 	 */
 	public function redirect( $url, $queryParams = [], $safe = true, $bProtectAgainstInfiniteLoops = true ) {
-		$url = empty( $queryParams ) ? $url : add_query_arg( $queryParams, $url );
+		$url = ( \is_string( $url ) && \is_array( $queryParams ) ) ? URL::Build( $url, $queryParams ) : $url;
 
 		// we prevent any repetitive redirect loops
 		if ( $bProtectAgainstInfiniteLoops ) {

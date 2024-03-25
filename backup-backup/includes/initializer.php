@@ -1032,10 +1032,12 @@
       $get_bmi = !empty($_GET['backup-migration']) ? sanitize_text_field($_GET['backup-migration']) : false;
       $get_bid = !empty($_GET['backup-id']) ? sanitize_text_field($_GET['backup-id']) : false;
       $get_pid = !empty($_GET['progress-id']) ? sanitize_text_field($_GET['progress-id']) : false;
+      $get_is_uncensored = !empty($_GET['uncensored']) ? sanitize_text_field($_GET['uncensored']) : false;
       $crons_enabled = !empty($_GET['crons']) ? sanitize_text_field($_GET['crons']) : false;
+      $secret_key = !empty($_GET['sk']) ? sanitize_text_field($_GET['sk']) : false;
 
       if (isset($get_bmi) && in_array($get_bmi, $allowed)) {
-        if (isset($get_bid) && strlen($get_bid) > 0) {
+        if (isset($get_bid) && strlen($get_bid) > 0 && isset($secret_key) && $secret_key === Dashboard\bmi_get_config('REQUEST:SECRET')) {
           $type = $get_bmi;
 
           if ($type == 'AFTER_RESTORE' && isset($get_pid)) {
@@ -1102,7 +1104,7 @@
                 $outsideDir = true;
               }
               
-              if (strpos(strtolower(mime_content_type($file)), 'zip') === false || $outsideDir) {
+              if ($outsideDir || strpos(strtolower(mime_content_type($file)), 'zip') === false) {
                 header('HTTP/1.0 423 Locked');
                 _e("Incorrect usage of the query request.", 'backup-backup');
                 exit;
@@ -1251,7 +1253,8 @@
                   if (ob_get_level()) ob_end_clean();
                   readfile($progress);
                   echo "\n";
-                  $this->readFileSensitive($logs);
+                  if (isset($get_is_uncensored) && $get_is_uncensored && current_user_can('administrator')) readfile($logs);
+                  else $this->readFileSensitive($logs);
                   exit;
                 } else {
                   if (file_exists($progress) && !(time() - filemtime($progress)) < (60 * 1)) {
@@ -1314,7 +1317,8 @@
                 if (file_exists($file) && (((time() - filemtime($file)) < (60 * 1)) || current_user_can('administrator'))) {
                   if (ob_get_level()) ob_end_clean();
 
-                  $this->readFileSensitive($file);
+                  if (isset($get_is_uncensored) && $get_is_uncensored && current_user_can('administrator')) readfile($file);
+                  else $this->readFileSensitive($file);
 
                   echo "\n";
                   if ($get_pid == 'latest.log') $file = dirname(BMI_BACKUPS) . DIRECTORY_SEPARATOR . 'backups' . DIRECTORY_SEPARATOR . 'latest_progress.log';
@@ -1351,7 +1355,7 @@
             try {
 
               // Load bypasser
-              require_once BMI_INCLUDES . '/bypasser.php';
+              require_once BMI_INCLUDES . '/backup-process.php';
               $request = new Bypasser($get_bid, BMI_CONFIG_DIR, trailingslashit(WP_CONTENT_DIR), BMI_BACKUPS, trailingslashit(ABSPATH), plugin_dir_path(BMI_ROOT_FILE));
               
               if (sizeof($request->remote_settings) === 0) return;
@@ -1563,6 +1567,25 @@
       //   return 'not-allowed';
       // } else return 'ask';
 
+    }
+
+    public static function getRecentSize() {
+      $folderNames = [ 'BACKUP:DATABASE' => 'database',
+        "BACKUP:FILES::PLUGINS" => 'plugins',
+        "BACKUP:FILES::UPLOADS" => 'uploads',
+        "BACKUP:FILES::THEMES" => 'themes',
+        "BACKUP:FILES::OTHERS" => 'contents_others',
+        "BACKUP:FILES::WP" => 'wordpress'
+      ];
+
+      $size = 0;
+      foreach ($folderNames as $setting => $fileName) {
+        if (Dashboard\bmi_get_config($setting) === 'true') {
+          $size += get_transient('bmi_latest_size_' . $fileName);
+        }
+
+      }
+      return $size;
     }
 
     public static function merge_arrays(&$array1, &$array2) {

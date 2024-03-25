@@ -5,6 +5,7 @@ namespace FernleafSystems\Wordpress\Services\Utilities\Integrations\WpHashes;
 use FernleafSystems\Wordpress\Services\Utilities\HttpRequest;
 use FernleafSystems\Wordpress\Services\Utilities\Integrations\RequestVO;
 use FernleafSystems\Wordpress\Services\Utilities\Integrations\WpHashes\Exceptions\ApiTokenRequiredException;
+use FernleafSystems\Wordpress\Services\Utilities\URL;
 
 abstract class ApiBase {
 
@@ -137,8 +138,8 @@ abstract class ApiBase {
 	protected function fireRequest_GET() :string {
 		$response = null;
 
-		$url = add_query_arg( $this->getQueryData(), $this->getApiUrl() );
-		$sig = md5( $url );
+		$url = URL::Build( $this->getApiUrl(), $this->getQueryData() );
+		$sig = \md5( $url );
 
 		if ( $this->isUseQueryCache() && isset( self::$QueryCache[ $sig ] ) ) {
 			$response = self::$QueryCache[ $sig ];
@@ -157,8 +158,8 @@ abstract class ApiBase {
 	protected function fireRequest_POST() :string {
 		$http = new HttpRequest();
 		$http->post(
-			add_query_arg( $this->getQueryData(), $this->getApiUrl() ),
-			array_merge( $this->getRequestDefaults(), [
+			URL::Build( $this->getApiUrl(), $this->getQueryData() ),
+			\array_merge( $this->getRequestDefaults(), [
 				'body' => $this->getRequestVO()->getRawData()
 			] )
 		);

@@ -373,12 +373,9 @@ class General {
 
 		//special case for plugin admin pages.
 		if ( $page == 'admin.php' ) {
-			$sSubPage = Services::Request()->query( 'page' );
-			if ( !empty( $sSubPage ) ) {
-				$aQueryArgs = [
-					'page' => $sSubPage,
-				];
-				$url = add_query_arg( $aQueryArgs, $url );
+			$subPage = Services::Request()->query( 'page' );
+			if ( !empty( $subPage ) ) {
+				$url = URL::Build( $url, [ 'page' => $subPage, ] );
 			}
 		}
 		return $url;
@@ -656,6 +653,11 @@ class General {
 			/** WP Fastest */
 			wpfc_exclude_current_page();
 		}
+
+		/**
+		 * prevent Litespeed cache: https://docs.litespeedtech.com/lscache/lscwp/api/#set-current-page-as-non-cacheable
+		 */
+		do_action( 'litespeed_control_set_nocache', 'nocache due to Shield' );
 
 		return \defined( 'DONOTCACHEPAGE' ) && DONOTCACHEPAGE;
 	}

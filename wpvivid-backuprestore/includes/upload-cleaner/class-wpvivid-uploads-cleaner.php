@@ -91,11 +91,10 @@ class WPvivid_Unused_Upload_Files_List extends WP_List_Table
             'jpeg',
             'png'
         );
-
+        $item['path'] = str_replace('\\', '/', $item['path']);
         $upload_dir=wp_upload_dir();
 
         $path=$upload_dir['basedir'].DIRECTORY_SEPARATOR.$item['path'];
-
         $ext = strtolower(pathinfo($item['path'], PATHINFO_EXTENSION));
         if (in_array($ext, $supported_image)&&file_exists( $path ))
         {
@@ -203,6 +202,124 @@ class WPvivid_Unused_Upload_Files_List extends WP_List_Table
             <?php $this->single_row_columns( $item ); ?>
         </tr>
         <?php
+    }
+
+    protected function pagination( $which )
+    {
+        if ( empty( $this->_pagination_args ) )
+        {
+            return;
+        }
+
+        $total_items     = $this->_pagination_args['total_items'];
+        $total_pages     = $this->_pagination_args['total_pages'];
+        $infinite_scroll = false;
+        if ( isset( $this->_pagination_args['infinite_scroll'] ) )
+        {
+            $infinite_scroll = $this->_pagination_args['infinite_scroll'];
+        }
+
+        if ( 'top' === $which && $total_pages > 1 )
+        {
+            $this->screen->render_screen_reader_content( 'heading_pagination' );
+        }
+
+        $output = '<span class="displaying-num">' . sprintf( _n( '%s item', '%s items', $total_items, 'wpvivid-backuprestore' ), number_format_i18n( $total_items ) ) . '</span>';
+
+        $current              = $this->get_pagenum();
+
+        $page_links = array();
+
+        $total_pages_before = '<span class="paging-input">';
+        $total_pages_after  = '</span></span>';
+
+        $disable_first = $disable_last = $disable_prev = $disable_next = false;
+
+        if ( $current == 1 ) {
+            $disable_first = true;
+            $disable_prev  = true;
+        }
+        if ( $current == 2 ) {
+            $disable_first = true;
+        }
+        if ( $current == $total_pages ) {
+            $disable_last = true;
+            $disable_next = true;
+        }
+        if ( $current == $total_pages - 1 ) {
+            $disable_last = true;
+        }
+
+        if ( $disable_first ) {
+            $page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&laquo;</span>';
+        } else {
+            $page_links[] = sprintf(
+                "<div class='first-page button'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></div>",
+                __( 'First page', 'wpvivid-backuprestore' ),
+                '&laquo;'
+            );
+        }
+
+        if ( $disable_prev ) {
+            $page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&lsaquo;</span>';
+        } else {
+            $page_links[] = sprintf(
+                "<div class='prev-page button' value='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></div>",
+                $current,
+                __( 'Previous page', 'wpvivid-backuprestore' ),
+                '&lsaquo;'
+            );
+        }
+
+        if ( 'bottom' === $which ) {
+            $html_current_page  = $current;
+            $total_pages_before = '<span class="screen-reader-text">' . __( 'Current Page', 'wpvivid-backuprestore' ) . '</span><span id="table-paging" class="paging-input"><span class="tablenav-paging-text">';
+        } else {
+            $html_current_page = sprintf(
+                "%s<input class='current-page'  type='text' name='paged' value='%s' size='%d' aria-describedby='table-paging' /><span class='tablenav-paging-text'>",
+                '<label  class="screen-reader-text">' . __( 'Current Page', 'wpvivid-backuprestore' ) . '</label>',
+                $current,
+                strlen( $total_pages )
+            );
+        }
+        $html_total_pages = sprintf( "<span class='total-pages'>%s</span>", number_format_i18n( $total_pages ) );
+        $page_links[]     = $total_pages_before . sprintf( _x( '%1$s of %2$s', 'paging', 'wpvivid-backuprestore' ), $html_current_page, $html_total_pages ) . $total_pages_after;
+
+        if ( $disable_next ) {
+            $page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&rsaquo;</span>';
+        } else {
+            $page_links[] = sprintf(
+                "<div class='next-page button' value='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></div>",
+                $current,
+                __( 'Next page', 'wpvivid-backuprestore' ),
+                '&rsaquo;'
+            );
+        }
+
+        if ( $disable_last ) {
+            $page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&raquo;</span>';
+        } else {
+            $page_links[] = sprintf(
+                "<div class='last-page button'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></div>",
+                __( 'Last page', 'wpvivid-backuprestore' ),
+                '&raquo;'
+            );
+        }
+
+        $pagination_links_class = 'pagination-links';
+        if ( ! empty( $infinite_scroll ) ) {
+            $pagination_links_class .= ' hide-if-js';
+        }
+        $output .= "\n<span class='$pagination_links_class'>" . join( "\n", $page_links ) . '</span>';
+
+        if ( $total_pages ) {
+            $page_class = $total_pages < 2 ? ' one-page' : '';
+        } else {
+            $page_class = ' no-pages';
+        }
+        $this->_pagination = "<div class='tablenav-pages{$page_class}'>$output</div>";
+
+        echo $this->_pagination;
     }
 
     protected function display_tablenav( $which ) {
@@ -384,15 +501,16 @@ class WPvivid_Isolate_Files_List extends WP_List_Table
         );
 
 
-
+        $item['path'] = str_replace('\\', '/', $item['path']);
+        $wpvivid_uploads_iso_dir = str_replace('\\', '/', WPVIVID_UPLOADS_ISO_DIR);
         $path=WP_CONTENT_DIR.DIRECTORY_SEPARATOR.WPVIVID_UPLOADS_ISO_DIR.DIRECTORY_SEPARATOR.$item['path'];
 
         $ext = strtolower(pathinfo($item['path'], PATHINFO_EXTENSION));
         if (in_array($ext, $supported_image)&&file_exists( $path ))
         {
-            echo "<a target='_blank' href='" . esc_url(WP_CONTENT_URL.'/'.WPVIVID_UPLOADS_ISO_DIR.'/'.$item['path']) .
+            echo "<a target='_blank' href='" . esc_url(WP_CONTENT_URL.'/'.$wpvivid_uploads_iso_dir.'/'.$item['path']) .
                 "'><img style='max-width: 48px; max-height: 48px;' src='" .
-                esc_url(WP_CONTENT_URL.'/'.WPVIVID_UPLOADS_ISO_DIR.'/'.$item['path'] ). "' />";
+                esc_url(WP_CONTENT_URL.'/'.$wpvivid_uploads_iso_dir.'/'.$item['path'] ). "' />";
         }
         else {
             echo '<span class="dashicons dashicons-no-alt"></span>';
@@ -494,6 +612,124 @@ class WPvivid_Isolate_Files_List extends WP_List_Table
             <?php $this->single_row_columns( $item ); ?>
         </tr>
         <?php
+    }
+
+    protected function pagination( $which )
+    {
+        if ( empty( $this->_pagination_args ) )
+        {
+            return;
+        }
+
+        $total_items     = $this->_pagination_args['total_items'];
+        $total_pages     = $this->_pagination_args['total_pages'];
+        $infinite_scroll = false;
+        if ( isset( $this->_pagination_args['infinite_scroll'] ) )
+        {
+            $infinite_scroll = $this->_pagination_args['infinite_scroll'];
+        }
+
+        if ( 'top' === $which && $total_pages > 1 )
+        {
+            $this->screen->render_screen_reader_content( 'heading_pagination' );
+        }
+
+        $output = '<span class="displaying-num">' . sprintf( _n( '%s item', '%s items', $total_items, 'wpvivid-backuprestore' ), number_format_i18n( $total_items ) ) . '</span>';
+
+        $current              = $this->get_pagenum();
+
+        $page_links = array();
+
+        $total_pages_before = '<span class="paging-input">';
+        $total_pages_after  = '</span></span>';
+
+        $disable_first = $disable_last = $disable_prev = $disable_next = false;
+
+        if ( $current == 1 ) {
+            $disable_first = true;
+            $disable_prev  = true;
+        }
+        if ( $current == 2 ) {
+            $disable_first = true;
+        }
+        if ( $current == $total_pages ) {
+            $disable_last = true;
+            $disable_next = true;
+        }
+        if ( $current == $total_pages - 1 ) {
+            $disable_last = true;
+        }
+
+        if ( $disable_first ) {
+            $page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&laquo;</span>';
+        } else {
+            $page_links[] = sprintf(
+                "<div class='first-page button'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></div>",
+                __( 'First page', 'wpvivid-backuprestore' ),
+                '&laquo;'
+            );
+        }
+
+        if ( $disable_prev ) {
+            $page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&lsaquo;</span>';
+        } else {
+            $page_links[] = sprintf(
+                "<div class='prev-page button' value='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></div>",
+                $current,
+                __( 'Previous page', 'wpvivid-backuprestore' ),
+                '&lsaquo;'
+            );
+        }
+
+        if ( 'bottom' === $which ) {
+            $html_current_page  = $current;
+            $total_pages_before = '<span class="screen-reader-text">' . __( 'Current Page', 'wpvivid-backuprestore' ) . '</span><span id="table-paging" class="paging-input"><span class="tablenav-paging-text">';
+        } else {
+            $html_current_page = sprintf(
+                "%s<input class='current-page'  type='text' name='paged' value='%s' size='%d' aria-describedby='table-paging' /><span class='tablenav-paging-text'>",
+                '<label  class="screen-reader-text">' . __( 'Current Page', 'wpvivid-backuprestore' ) . '</label>',
+                $current,
+                strlen( $total_pages )
+            );
+        }
+        $html_total_pages = sprintf( "<span class='total-pages'>%s</span>", number_format_i18n( $total_pages ) );
+        $page_links[]     = $total_pages_before . sprintf( _x( '%1$s of %2$s', 'paging', 'wpvivid-backuprestore' ), $html_current_page, $html_total_pages ) . $total_pages_after;
+
+        if ( $disable_next ) {
+            $page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&rsaquo;</span>';
+        } else {
+            $page_links[] = sprintf(
+                "<div class='next-page button' value='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></div>",
+                $current,
+                __( 'Next page', 'wpvivid-backuprestore' ),
+                '&rsaquo;'
+            );
+        }
+
+        if ( $disable_last ) {
+            $page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&raquo;</span>';
+        } else {
+            $page_links[] = sprintf(
+                "<div class='last-page button'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></div>",
+                __( 'Last page', 'wpvivid-backuprestore' ),
+                '&raquo;'
+            );
+        }
+
+        $pagination_links_class = 'pagination-links';
+        if ( ! empty( $infinite_scroll ) ) {
+            $pagination_links_class .= ' hide-if-js';
+        }
+        $output .= "\n<span class='$pagination_links_class'>" . join( "\n", $page_links ) . '</span>';
+
+        if ( $total_pages ) {
+            $page_class = $total_pages < 2 ? ' one-page' : '';
+        } else {
+            $page_class = ' no-pages';
+        }
+        $this->_pagination = "<div class='tablenav-pages{$page_class}'>$output</div>";
+
+        echo $this->_pagination;
     }
 
     protected function display_tablenav( $which ) {
@@ -2015,7 +2251,7 @@ class WPvivid_Uploads_Cleaner
     public function start_scan_uploads_files_task()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -2189,7 +2425,7 @@ class WPvivid_Uploads_Cleaner
     public function scan_uploads_files_from_post()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -2347,7 +2583,7 @@ class WPvivid_Uploads_Cleaner
     public function start_unused_files_task()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -2417,7 +2653,7 @@ class WPvivid_Uploads_Cleaner
     public function unused_files_task()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -2620,7 +2856,7 @@ class WPvivid_Uploads_Cleaner
     public function add_exclude_files()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -2689,7 +2925,7 @@ class WPvivid_Uploads_Cleaner
     public function get_result_list()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -2753,7 +2989,7 @@ class WPvivid_Uploads_Cleaner
     public function isolate_selected_image()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -2854,7 +3090,7 @@ class WPvivid_Uploads_Cleaner
     public function start_isolate_all_image()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -2931,7 +3167,7 @@ class WPvivid_Uploads_Cleaner
     public function isolate_all_image()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -3016,7 +3252,7 @@ class WPvivid_Uploads_Cleaner
     public function get_iso_list()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -3080,7 +3316,7 @@ class WPvivid_Uploads_Cleaner
     public function delete_selected_image()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -3146,7 +3382,7 @@ class WPvivid_Uploads_Cleaner
     public function delete_all_image()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -3205,7 +3441,7 @@ class WPvivid_Uploads_Cleaner
     public function restore_selected_image()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {
@@ -3270,7 +3506,7 @@ class WPvivid_Uploads_Cleaner
     public function restore_all_image()
     {
         check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can('administrator');
+        $check=current_user_can('manage_options');
         $check=apply_filters('wpvivid_ajax_check_security',$check);
         if(!$check)
         {

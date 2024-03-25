@@ -201,7 +201,7 @@
 
   <div class="mm mtll f16 lh28">
     <?php _e("All backup creation & restore processes are documented in log files which to debug issues.", 'backup-backup'); ?>
-    <a href="<?php echo get_site_url(); ?>/?backup-migration=PROGRESS_LOGS&progress-id=complete_logs.log&backup-id=current&t=<?php echo time(); ?>"
+    <a href="<?php echo get_site_url(); ?>/?backup-migration=PROGRESS_LOGS&progress-id=complete_logs.log&backup-id=current&t=<?php echo time(); ?> &sk=<?php echo bmi_get_config('REQUEST:SECRET'); ?>"
        download="troubleshooting-logs.txt" class="nodec hoverable secondary">
        <?php _e("Download logs.", 'backup-backup'); ?>
     </a>

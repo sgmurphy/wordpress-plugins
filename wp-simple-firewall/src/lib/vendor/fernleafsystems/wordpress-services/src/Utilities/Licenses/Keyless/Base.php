@@ -5,6 +5,7 @@ namespace FernleafSystems\Wordpress\Services\Utilities\Licenses\Keyless;
 use FernleafSystems\Utilities\Data\Adapter\DynPropertiesClass;
 use FernleafSystems\Wordpress\Services\Services;
 use FernleafSystems\Wordpress\Services\Utilities\HttpRequest;
+use FernleafSystems\Wordpress\Services\Utilities\URL;
 
 /**
  * @property string      $lookup_url_stub
@@ -44,10 +45,7 @@ abstract class Base extends DynPropertiesClass {
 			default:
 				// Doing it in the ['body'] on some sites fails with the params not passed through to query string.
 				// if they're not using the newer WP Request() class. WP 4.6+
-				$reqSuccess = $req->get(
-					add_query_arg( $bodyParams, $this->getApiRequestUrl() ),
-					$reqParams
-				);
+				$reqSuccess = $req->get( URL::Build( $this->getApiRequestUrl(), $bodyParams ), $reqParams );
 				break;
 		}
 

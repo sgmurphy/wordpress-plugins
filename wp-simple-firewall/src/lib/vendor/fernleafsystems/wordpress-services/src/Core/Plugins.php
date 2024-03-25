@@ -278,38 +278,35 @@ class Plugins {
 
 	/**
 	 * @param string $file
-	 * @return string
 	 */
-	public function getLinkPluginActivate( $file ) {
-		return add_query_arg( [
+	public function getLinkPluginActivate( $file ) :string {
+		return URL::Build( self_admin_url( 'plugins.php' ), [
 			'action'   => 'activate',
-			'plugin'   => urlencode( $file ),
+			'plugin'   => $file,
 			'_wpnonce' => wp_create_nonce( 'activate-plugin_'.$file )
-		], self_admin_url( 'plugins.php' ) );
+		] );
 	}
 
 	/**
 	 * @param string $file
-	 * @return string
 	 */
-	public function getLinkPluginDeactivate( $file ) {
-		return add_query_arg( [
+	public function getLinkPluginDeactivate( $file ) :string {
+		return URL::Build( self_admin_url( 'plugins.php' ), [
 			'action'   => 'deactivate',
-			'plugin'   => urlencode( $file ),
+			'plugin'   => $file,
 			'_wpnonce' => wp_create_nonce( 'deactivate-plugin_'.$file )
-		], self_admin_url( 'plugins.php' ) );
+		] );
 	}
 
 	/**
 	 * @param string $file
-	 * @return string
 	 */
-	public function getLinkPluginUpgrade( $file ) {
-		return add_query_arg( [
+	public function getLinkPluginUpgrade( $file ) :string {
+		return URL::Build( self_admin_url( 'update.php' ), [
 			'action'   => 'upgrade-plugin',
-			'plugin'   => urlencode( $file ),
+			'plugin'   => $file,
 			'_wpnonce' => wp_create_nonce( 'upgrade-plugin_'.$file )
-		], self_admin_url( 'update.php' ) );
+		] );
 	}
 
 	/**
@@ -508,11 +505,11 @@ class Plugins {
 	 * @return string
 	 */
 	public function getUrl_Upgrade( $file ) :string {
-		return add_query_arg( [
+		return URL::Build( self_admin_url( 'update.php' ), [
 			'action'   => 'upgrade-plugin',
-			'plugin'   => urlencode( $file ),
+			'plugin'   => $file,
 			'_wpnonce' => wp_create_nonce( 'upgrade-plugin_'.$file )
-		], self_admin_url( 'update.php' ) );
+		] );
 	}
 
 	/**
@@ -521,11 +518,11 @@ class Plugins {
 	 * @return string
 	 */
 	protected function getUrl_Action( $file, $action ) :string {
-		return add_query_arg( [
+		return URL::Build( self_admin_url( 'plugins.php' ), [
 			'action'   => $action,
-			'plugin'   => urlencode( $file ),
+			'plugin'   => $file,
 			'_wpnonce' => wp_create_nonce( $action.'-plugin_'.$file )
-		], self_admin_url( 'plugins.php' ) );
+		] );
 	}
 
 	/**

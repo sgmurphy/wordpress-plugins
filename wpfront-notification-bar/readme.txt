@@ -3,7 +3,7 @@ Contributors: syammohanm
 Donate link: http://wpfront.com/donate/
 Tags: notification bar, wordpress notification bar, top bar, bottom bar, notification, bar, quick bar, fixed bar, sticky bar, message bar, message, floating bar, notice, sticky header, special offer, discount offer, offer, important, attention bar, highlight bar, popup bar, hellobar, heads up, heads up bar, headsup, headsupbar, popup, Toolbar
 Requires at least: 5.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.0
 Stable tag: 3.4
 License: GPLv3

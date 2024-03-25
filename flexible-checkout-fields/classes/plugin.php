@@ -957,13 +957,11 @@ class Flexible_Checkout_Fields_Plugin extends \FcfVendor\WPDesk\PluginBuilder\Pl
 	 * @return array
 	 */
 	public function links_filter( $links ) {
-		$plugin_links = array(
+		$plugin_links = [
+			'<a href="' . admin_url( 'admin.php?page=' . EditFieldsForm::SETTINGS_OPTION_NAME . '&tab=marketing' ) . '" style="font-weight: bold;color: #007050">' . esc_html__( 'Start here', 'flexible-checkout-fields' ) . '</a>',
 			'<a href="' . admin_url( 'admin.php?page=' . EditFieldsForm::SETTINGS_OPTION_NAME ) . '">' . __( 'Settings', 'flexible-checkout-fields' ) . '</a>',
 			'<a href="' . esc_url( apply_filters( 'flexible_checkout_fields/short_url', '#', 'fcf-settings-row-action-docs' ) ) . '" target="_blank">' . __( 'Docs', 'flexible-checkout-fields' ) . '</a>',
-		);
-
-		// Opt-in
-		isset($links[0]) && $plugin_links[] = $links[0];
+		];
 
 		if ( ! wpdesk_is_plugin_active( 'flexible-checkout-fields-pro/flexible-checkout-fields-pro.php' ) ) {
 			$plugin_links[] = '<a href="' . esc_url( apply_filters( 'flexible_checkout_fields/short_url', '#', 'fcf-settings-row-action-upgrade' ) ) . '" target="_blank" style="color:#FF9743;font-weight:bold;">' . __( 'Upgrade to PRO', 'flexible-checkout-fields' ) . ' &rarr;</a>';

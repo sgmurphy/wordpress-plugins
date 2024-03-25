@@ -178,12 +178,12 @@
         },
         {
             "name": "wpdesk/ltv-dashboard-widget",
-            "version": "1.5.1",
-            "version_normalized": "1.5.1.0",
+            "version": "1.5.4",
+            "version_normalized": "1.5.4.0",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.wpdesk.dev/wpdesk/library/ltv-dashboard-widget",
-                "reference": "65b33a01a6980a0112d234c70797e8d71946ead3"
+                "reference": "4e16fc628b2996c8294b696f52bdb991bbe085bf"
             },
             "require": {
                 "php": ">=7.2"
@@ -196,7 +196,7 @@
                 "wimg/php-compatibility": "^8",
                 "wp-coding-standards/wpcs": "^0.14.1"
             },
-            "time": "2024-02-06T10:12:52+00:00",
+            "time": "2024-03-20T10:14:33+00:00",
             "type": "library",
             "extra": {
                 "text-domain": "wpdesk_ltv_dashboard_widget",

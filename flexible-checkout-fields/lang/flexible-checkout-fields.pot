@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Flexible Checkout Fields plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Flexible Checkout Fields 4.1.3\n"
+"Project-Id-Version: Flexible Checkout Fields 4.1.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flexible-checkout-fields\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-12T11:11:02+00:00\n"
+"POT-Creation-Date: 2024-03-25T09:56:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: flexible-checkout-fields\n"
@@ -98,29 +98,31 @@ msgid "Uploading file..."
 msgstr ""
 
 #: classes/plugin.php:961
+msgid "Start here"
+msgstr ""
+
+#: classes/plugin.php:962
 #: src/Settings/Menu.php:35
 #: vendor_prefixed/wpdesk/wp-builder/src/Plugin/AbstractPlugin.php:198
 msgid "Settings"
 msgstr ""
 
-#: classes/plugin.php:962
+#: classes/plugin.php:963
 #: vendor_prefixed/wpdesk/wp-builder/src/Plugin/AbstractPlugin.php:194
 msgid "Docs"
 msgstr ""
 
-#: classes/plugin.php:969
+#: classes/plugin.php:967
 #: src/Settings/Option/LogicAdvOption.php:58
 #: src/Settings/Option/SettingSectionsAdvOption.php:37
 msgid "Upgrade to PRO"
 msgstr ""
 
 #: classes/tracker.php:328
-#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/PluginActionLinks.php:50
 msgid "Opt-in"
 msgstr ""
 
 #: classes/tracker.php:332
-#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/PluginActionLinks.php:53
 msgid "Opt-out"
 msgstr ""
 
@@ -756,16 +758,20 @@ msgstr ""
 msgid "Grow your business with WP Desk"
 msgstr ""
 
-#: vendor_prefixed/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php:211
+#: vendor_prefixed/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php:281
 msgid "Buy now"
 msgstr ""
 
-#: vendor_prefixed/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php:213
+#: vendor_prefixed/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php:283
 msgid "Learn more"
 msgstr ""
 
-#: vendor_prefixed/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php:217
+#: vendor_prefixed/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php:287
 msgid "Download"
+msgstr ""
+
+#: vendor_prefixed/wpdesk/ltv-dashboard-widget/src/DashboardWidget.php:299
+msgid "More info"
 msgstr ""
 
 #: vendor_prefixed/wpdesk/wp-builder/src/Plugin/AbstractPlugin.php:191
@@ -869,6 +875,15 @@ msgstr ""
 msgid "You successfully opted out of collecting usage data by %1$s. If you change your mind, you can always opt in later in the plugin's quick links."
 msgstr ""
 
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/PluginActionLinks.php:55
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-notice.php:41
+msgid "Enable usage tracking"
+msgstr ""
+
+#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/PluginActionLinks.php:60
+msgid "Disable usage tracking"
+msgstr ""
+
 #: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/views/tracker-connect.php:23
 #: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-connect.php:15
 #: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-notice.php:19
@@ -954,16 +969,8 @@ msgstr ""
 msgid "Skip &amp; Deactivate"
 msgstr ""
 
-#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-deactivate.php:126
-msgid "Submit &amp; Deactivate"
-msgstr ""
-
 #: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-notice.php:22
 msgid "We need your help to improve <strong>WP Desk plugins</strong>, so they are more useful for you and the rest of <strong>30,000+ users</strong>. By collecting data on how you use our plugins, you will help us a lot. We will not collect any sensitive data, so you can feel safe."
-msgstr ""
-
-#: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-notice.php:41
-msgid "Allow"
 msgstr ""
 
 #: vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/views/tracker-opt-out-notice.php:11

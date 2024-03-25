@@ -3,6 +3,7 @@
 namespace FernleafSystems\Wordpress\Services\Core;
 
 use FernleafSystems\Wordpress\Services\Services;
+use FernleafSystems\Wordpress\Services\Utilities\URL;
 
 class Includes {
 
@@ -57,9 +58,7 @@ class Includes {
 	public function addIncludeModifiedParam( $url, $include ) :string {
 		$FS = Services::WpFs();
 		$file = path_join( ABSPATH, $include );
-		if ( $FS->isFile( $file ) ) {
-			$url = add_query_arg( [ 'mtime' => $FS->getModifiedTime( $file ) ], $url );
-		}
-		return (string)$url;
+		return ( $FS->isAccessibleFile( $file ) && \is_string( $url ) ) ?
+			URL::Build( $url, [ 'mtime' => $FS->getModifiedTime( $file ) ] ) : (string)$url;
 	}
 }

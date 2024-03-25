@@ -3,8 +3,8 @@ Contributors: wpdesk,dyszczo,grola,piotrpo,marcinkolanko,mateuszgbiorczyk,sebast
 Donate link: https://www.wpdesk.net/flexible-checkout-fields-woocommerce/
 Tags: woocommerce checkout fields, woocommerce checkout manager, woocommerce checkout editor, woocommerce custom checkout fields, customize woocommerce checkout, woocommerce checkout, woocommerce custom fields checkout, woocommerce customize checkout, customize woocommerce checkout, woocommerce custom checkout page
 Requires at least: 5.2
-Tested up to: 6.4
-Stable tag: 4.1.3
+Tested up to: 6.5
+Stable tag: 4.1.4
 Requires PHP: 7.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -61,7 +61,7 @@ Add WooCommerce additional fields to your checkout page with your new WooCommerc
 * [File Upload](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#File_Upload)
 * [Hidden](https://www.wpdesk.net/docs/flexible-checkout-fields-pro-woocommerce-docs/#Hidden)
 
-**Get all **PRO features** and priority e-mail support. ⭐[Upgrade to PRO →]**(https://www.wpdesk.net/products/flexible-checkout-fields-pro-woocommerce/?utm_source=wporg&utm_medium=link&utm_campaign=wporg-fcf)
+**Get all **PRO features** and priority e-mail support. ⭐[Upgrade to PRO →](https://www.wpdesk.net/products/flexible-checkout-fields-pro-woocommerce/?utm_source=wporg&utm_medium=link&utm_campaign=wporg-fcf)
 
 ### Well Documented
 
@@ -608,6 +608,10 @@ Yes 😊.
 If you are upgrading from the old WooCommerce Checkout Fields version (1.1, woocommerce-checkout-fields) make sure to completely delete the old version first. Your settings will be kept. If you install the new version without deleting the old one you may break your WordPress installation.
 
 == Changelog ==
+
+= 4.1.4 - 2024-03-25 =
+* Added support for WordPress 6.5
+* Added start here link on plugins page
 
 = 4.1.3 - 2024-03-12 =
 * Fixed uncaught TypeError

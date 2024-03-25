@@ -46,18 +46,18 @@
   </div>
 
   <!-- TABS -->
-  <div class="tabs cf shadow rbb">
-    <div class="tab left semibold f22 active pointer transition" data-point="create-backup-wrapper">
+  <div class="bmi-tabs cf shadow rbb">
+    <div class="bmi-tab left semibold f22 active pointer transition" data-point="create-backup-wrapper">
       <?php _e('Create backup(s)', 'backup-backup') ?>
     </div>
-    <div id="stgng" class="tab left semibold f22 pointer transition" data-point="staging-sites-wrapper">
+    <div id="stgng" class="bmi-tab left semibold f22 pointer transition" data-point="staging-sites-wrapper">
       <span class="bmi-stg-wrap">
         <?php _e('Create a staging site', 'backup-backup') ?>
         <span id="bmi-stg-new"></span>
         <i>NEW</i>
       </span>
     </div>
-    <div id="marbs" class="tab left semibold f22 pointer transition" data-point="manage-restore-wrapper">
+    <div id="marbs" class="bmi-tab left semibold f22 pointer transition" data-point="manage-restore-wrapper">
       <?php _e('Manage & Restore Backup(s)', 'backup-backup') ?>
     </div>
   </div>
@@ -67,7 +67,7 @@
   <?php require_once 'modules/quota-errors.php'; ?>
 
   <!-- @@TAB@@ Create backups(s) -->
-  <div class="tab-wrapper" id="create-backup-wrapper">
+  <div class="bmi-tab-wrapper" id="create-backup-wrapper">
 
     <!-- BACKUP BTNS -->
     <?php require_once 'modules/backup_controller.php'; ?>
@@ -146,14 +146,14 @@
   </div>
 
   <!-- @@TAB@@ Create staging site(s) -->
-  <div class="tab-wrapper rbb mbl" id="staging-sites-wrapper" style="display: none;">
+  <div class="bmi-tab-wrapper rbb mbl" id="staging-sites-wrapper" style="display: none;">
 
       <?php require_once 'chapter/staging.php'; ?>
 
   </div>
 
   <!-- @@TAB@@ Manage backups(s) -->
-  <div class="tab-wrapper rbb mbl" id="manage-restore-wrapper" style="display: none;">
+  <div class="bmi-tab-wrapper rbb mbl" id="manage-restore-wrapper" style="display: none;">
 
     <!-- Super Quick Migration -->
     <?php require_once 'modules/super-quick-migration.php'; ?>
@@ -243,6 +243,7 @@
   <?php require_once 'modals/bfs-modal.php'; ?>
   <?php require_once 'modals/after-logs-sent.php'; ?>
   <?php require_once 'modals/freeze-loading.php'; ?>
+  <?php require_once 'modals/backup-log-modal.php'; ?>
   <?php //require_once 'modals/logs-sharing-ask.php'; ?>
   <?php do_action('bmi_load_premium_modals'); ?>
 

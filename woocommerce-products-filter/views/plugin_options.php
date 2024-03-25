@@ -26,8 +26,24 @@
             </div>
             <div>
                 <?php if ($this->show_notes): ?>
-                    <br>
-                    <a href="https://codecanyon.pluginus.net/item/woof-woocommerce-products-filter/11498469" target="_blank" class="woof-button"><span class="icon-upload"></span><?php esc_html_e('Upgrade', 'woocommerce-products-filter') ?></a>
+
+
+                    <?php if (time() < 1711893655): ?>
+
+                        <br>
+                        <a href="https://products-filter.com/downloads" target="_blank">
+                            <img src="https://pluginus.net/wp-content/uploads/2024/03/spring-sale-2024-33.png" width="120" alt="Spring 2024 Sale" />
+                        </a>
+
+                    <?php else: ?>
+
+                        <br>
+                        <a href="https://codecanyon.pluginus.net/item/woof-woocommerce-products-filter/11498469" target="_blank" class="woof-button"><span class="icon-upload"></span><?php esc_html_e('Upgrade', 'woocommerce-products-filter') ?></a>
+
+
+                    <?php endif; ?>
+
+
                 <?php endif; ?>
             </div>
         </div>
@@ -1195,8 +1211,8 @@
                                         0 => esc_html__("No", 'woocommerce-products-filter'),
                                         1 => esc_html__("Yes", 'woocommerce-products-filter')
                                     );
-									
-                                    if (!isset($woof_settings['show_images_by_attr_show'])OR empty($woof_settings['show_images_by_attr_show'])) {
+
+                                    if (!isset($woof_settings['show_images_by_attr_show']) OR empty($woof_settings['show_images_by_attr_show'])) {
                                         $woof_settings['show_images_by_attr_show'] = 0;
                                     }
                                     ?>
@@ -1701,7 +1717,7 @@
                                     </div>
 
                                 </div><!--/ .woof-control-section-->
-								<?php do_action('woof_print_option_advanced'); ?>
+                                <?php do_action('woof_print_option_advanced'); ?>
                             </section>
 
                             <?php do_action('woof_print_applications_tabs_content_advanced'); ?>
