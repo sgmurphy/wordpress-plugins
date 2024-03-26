@@ -5,7 +5,7 @@ Tags: notification bar, wordpress notification bar, top bar, bottom bar, notific
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 3.4
+Stable tag: 3.4.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -69,6 +69,9 @@ The new version(1.3) allows you to filter the bar based on user roles. In this c
 1. Settings page.
 
 == Changelog ==
+
+= 3.4.1 =
+* Bug fixes.
 
 = 3.4 =
 * Bug fixes.
@@ -214,6 +217,9 @@ The new version(1.3) allows you to filter the bar based on user roles. In this c
 * Initial release
 
 == Upgrade Notice ==
+
+= 3.4.1 =
+* Bug fixes.
 
 = 3.4 =
 * Compatibility & security fixes.

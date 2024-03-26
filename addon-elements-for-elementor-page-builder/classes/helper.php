@@ -218,7 +218,7 @@ class Helper {
 							<?php endif; ?>
 							<?php
 						} else {
-							echo esc_html($icon_html);
+							echo $icon_html;
 						}
 						?>
 					</div>
@@ -265,7 +265,7 @@ class Helper {
 						<?php endif; ?>
 						<?php
 					} else {
-						echo esc_attr($icon_html);
+						echo $icon_html;
 					}
 					?>
 				</div>

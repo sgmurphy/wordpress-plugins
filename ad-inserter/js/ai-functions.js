@@ -9570,9 +9570,11 @@ if (typeof ai_rotation_triggers != 'undefined') {
   ai_process_rotations_in_element = function (el) {
 //    $("div.ai-rotate", el).each (function (index, element) {
 //      ai_process_rotation (this);
-    el.querySelectorAll ("div.ai-rotate").forEach ((element, index) => {
-      ai_process_rotation (element);
-    });
+    if (el != null) {
+      el.querySelectorAll ("div.ai-rotate").forEach ((element, index) => {
+        ai_process_rotation (element);
+      });
+    }
   }
 
   // ***
@@ -9820,7 +9822,7 @@ ai_process_sticky_elements = function () {
           // ***
 //          if (typeof main_element.prop ("tagName") != 'undefined') {
 //            var outer_width = main_element.outerWidth ();
-          if (typeof main_element.tagName != 'undefined') {
+          if (main_element != null && typeof main_element.tagName != 'undefined') {
             var outer_width = main_element.offsetWidth;
 
             if (ai_debug) {
@@ -9838,7 +9840,8 @@ ai_process_sticky_elements = function () {
             if (outer_width != 0 && outer_width <= client_width && outer_width >= main_width) {
               main_width = outer_width;
             }
-          }
+          } else
+              if (ai_debug) console.log ("AI STICKY CUSTOM MAIN CONTENT ELEMENT ERROR:", main_element);
         }
       }
   }

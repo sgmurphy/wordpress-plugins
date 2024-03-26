@@ -631,8 +631,29 @@ class Wt_Import_Export_For_Woo_Basic_Order_Export {
                 'order_notes' => implode('||', (defined('WC_VERSION') && (WC_VERSION >= 3.2)) ? self::get_order_notes_new($order) : self::get_order_notes($order)),
                 'download_permissions' => $order->is_download_permitted() ? $order->is_download_permitted() : 0,                
             );
+            
+
         }
-        
+        if( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '8.5', '>=' ) ){
+            $wc_order_attribution_device_type = $order->get_meta('_wc_order_attribution_device_type');
+            $wc_order_attribution_referrer = $order->get_meta('_wc_order_attribution_referrer');
+            $wc_order_attribution_session_count = $order->get_meta('_wc_order_attribution_session_count');
+            $wc_order_attribution_session_entry = $order->get_meta('_wc_order_attribution_session_entry');
+            $wc_order_attribution_session_pages = $order->get_meta('_wc_order_attribution_session_pages');
+            $wc_order_attribution_session_start_time = $order->get_meta('_wc_order_attribution_session_start_time');
+            $wc_order_attribution_source_type = $order->get_meta('_wc_order_attribution_source_type');
+            $wc_order_attribution_user_agent = $order->get_meta('_wc_order_attribution_user_agent');
+            $wc_order_attribution_utm_source = $order->get_meta('_wc_order_attribution_utm_source');
+            $order_data['meta:_wc_order_attribution_device_type'] = isset($wc_order_attribution_device_type) ? $wc_order_attribution_device_type : '';
+            $order_data['meta:_wc_order_attribution_referrer'] = isset($wc_order_attribution_referrer) ? $wc_order_attribution_referrer : '';
+            $order_data['meta:_wc_order_attribution_session_count'] = isset($wc_order_attribution_session_count) ? $wc_order_attribution_session_count : '';
+            $order_data['meta:_wc_order_attribution_session_entry'] = isset($wc_order_attribution_session_entry) ? $wc_order_attribution_session_entry : '';
+            $order_data['meta:_wc_order_attribution_session_pages'] = isset($wc_order_attribution_session_pages) ? $wc_order_attribution_session_pages : '';
+            $order_data['meta:_wc_order_attribution_session_start_time'] = isset($wc_order_attribution_session_start_time) ? $wc_order_attribution_session_start_time : '';
+            $order_data['meta:_wc_order_attribution_source_type'] = isset($wc_order_attribution_source_type) ? $wc_order_attribution_source_type : '';
+            $order_data['meta:_wc_order_attribution_user_agent'] = isset($wc_order_attribution_user_agent) ? $wc_order_attribution_user_agent : '';
+            $order_data['meta:_wc_order_attribution_utm_source'] = isset($wc_order_attribution_utm_source) ? $wc_order_attribution_utm_source : '';
+        }
         if ($this->is_wt_invoice_active):
             $invoice_date = $order->get_meta('_wf_invoice_date');
             $invoice_number = $order->get_meta('wf_invoice_number');
@@ -725,7 +746,6 @@ class Wt_Import_Export_For_Woo_Basic_Order_Export {
                     $order_export_data["line_item_{$i}_subtotal"] = !empty($line_items[$i-1]['sub_total']) ? $line_items[$i-1]['sub_total'] : '';
             }
         }
-		
         $order_data_filter_args = array('max_line_items' => $max_line_items);
         
         if ($this->export_to_separate_rows) {
@@ -990,19 +1010,30 @@ class Wt_Import_Export_For_Woo_Basic_Order_Export {
     }
 
     public static function format_data($data) {
-        if (!is_array($data))
-            ;
-        $data = (string) urldecode($data);
-//        $enc = mb_detect_encoding($data, 'UTF-8, ISO-8859-1', true);        
-        $use_mb = function_exists('mb_detect_encoding');
-        $enc = '';
-        if ($use_mb) {
-            $enc = mb_detect_encoding($data, 'UTF-8, ISO-8859-1', true);
-        }
-        $data = ( $enc == 'UTF-8' ) ? $data : utf8_encode($data);
+		if (!is_array($data))
+			;
+		$data = (string) urldecode($data);
 
-        return $data;
-    }
+		if (function_exists('mb_convert_encoding') &&  function_exists('mb_convert_encoding')) {
+			$encoding = mb_detect_encoding( $data, mb_detect_order(), true );
+			if ( $encoding ) {
+				return mb_convert_encoding( $data, 'UTF-8', $encoding );
+			} else {
+				return mb_convert_encoding( $data, 'UTF-8', 'UTF-8' );
+			}
+		}else{
+			$newcharstring = '';
+			$bom = apply_filters('wt_import_csv_parser_keep_bom', true);
+			if ($bom) {
+				$newcharstring .= "\xEF\xBB\xBF";
+			}
+			for ($i = 0; $i < strlen($data); $i++) {
+				$charval = ord($data[$i]);
+				$newcharstring .= Wt_Import_Export_For_Woo_Basic_Common_Helper::wt_iconv_fallback_int_utf8($charval);
+			}
+			return $newcharstring;
+		} 
+	}
 
     public static function highest_line_item_count($line_item_keys) {
    

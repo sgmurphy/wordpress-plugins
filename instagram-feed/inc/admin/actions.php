@@ -54,11 +54,23 @@ function sb_instagram_menu() {
 		''
 	);
 
+	if(version_compare(PHP_VERSION, '7.1.0') >= 0 && !is_plugin_active('feeds-for-tiktok/feeds-for-tiktok.php') && !is_plugin_active('tiktok-feeds-pro/tiktok-feeds-pro.php'))
+	{
+		add_submenu_page(
+			'sb-instagram-feed',
+			__( 'TikTok Feeds', 'instagram-feed' ),
+			'<span class="sbi_get_tiktok">' . __( 'TikTok Feeds', 'instagram-feed' ) . '</span>'. '<span class="sbi-notice-alert sbi-new-indicator"><span>New!</span></span>',
+			$cap,
+			'admin.php?page=sbtt',
+			''
+		);
+	}
+
 	if ( version_compare(PHP_VERSION, '7.1.0') >= 0 && !is_plugin_active( 'reviews-feed/sb-reviews.php' ) && !is_plugin_active( 'reviews-feed-pro/sb-reviews-pro.php' )  ) {
 		add_submenu_page(
 			'sb-instagram-feed',
 			__( 'Reviews Feed', 'instagram-feed' ) ,
-			'<span class="sbi_get_sbr">' . __( 'Reviews Feed', 'instagram-feed' ) . '</span>'. '<span class="sbi-notice-alert sbi-new-indicator"><span>New!</span></span>',
+			'<span class="sbi_get_sbr">' . __( 'Reviews Feed', 'instagram-feed' ) . '</span>',
 			$cap,
 			'admin.php?page=sbr',
 			''

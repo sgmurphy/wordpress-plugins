@@ -3,7 +3,7 @@
 Plugin Name: Call Now Button
 Plugin URI: https://callnowbutton.com
 Description: Shows a <strong>Call Now Button</strong> to your mobile visitors. Easy to use but flexible to meet more demanding requirements. Change placement and color, hide on specific pages, track how many people click them or conversions of your Google Ads campaigns. Create an account to enable extra actions such as <strong>WhatsApp</strong>, <strong>Messenger</strong>, <strong>Telegram</strong>, <strong>Signal</strong>, <strong>Skype</strong>, <strong>Viber</strong>, <strong>Line</strong>, <strong>WeChat</strong>, <strong>Zalo</strong>, <strong>Email</strong>, <strong>SMS</strong>, <strong>Maps</strong> and <strong>links</strong>. Also offers additional functionality such as advanced display rules, scheduling, geo rules, appear after scrolling, button animations and much more.
-Version: 1.4.5
+Version: 1.4.6
 Author: NowButtons.com
 Author URI: https://nowbuttons.com
 GitHub Plugin URI: https://github.com/callnowbutton/wp-plugin

@@ -9,9 +9,9 @@
  */
 
 .tribe-tickets__ticket-type-header__wrapper {
+	align-items: baseline;
 	display: flex;
 	justify-content: space-between;
-	align-items: baseline;
 }
 
 	.tribe-tickets__ticket-type-header__wrapper .tribe-tickets__ticket-type-title {
@@ -28,6 +28,7 @@
 				color: var(--tec-color-accent-primary);
 			}
 
-	.tribe-tickets__ticket-type-header__wrapper .tribe-tickets__ticket-type-title__link a:hover, .tribe-tickets__ticket-type-header__wrapper .tribe-tickets__ticket-type-title__link a:focus {
+	.tribe-tickets__ticket-type-header__wrapper .tribe-tickets__ticket-type-title__link a:hover,
+			.tribe-tickets__ticket-type-header__wrapper .tribe-tickets__ticket-type-title__link a:focus {
 				color: var(--tec-color-link-accent-hover);
 			}

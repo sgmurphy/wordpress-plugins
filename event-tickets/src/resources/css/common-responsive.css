@@ -341,7 +341,7 @@
 		box-sizing: border-box;
 		color: #fff;
 		content: '\f132';
-		font-family: 'dashicons';
+		font-family: 'dashicons', sans-serif;
 		font-size: 10px;
 		font-weight: 400;
 		height: 14px;
@@ -568,6 +568,14 @@
 			padding: 11px 14px;
 			width: auto;
 		}
+
+.tribe-common button.tribe-common-c-btn--small:hover, .tribe-common input[type="button"].tribe-common-c-btn--small:hover, .tribe-common input[type="submit"].tribe-common-c-btn--small:hover, .tribe-common a.tribe-common-c-btn--small:hover {
+				padding: 11px 14px;
+			}
+
+.tribe-common button.tribe-common-c-btn--small:disabled, .tribe-common input[type="button"].tribe-common-c-btn--small:disabled, .tribe-common input[type="submit"].tribe-common-c-btn--small:disabled, .tribe-common a.tribe-common-c-btn--small:disabled {
+				padding: 11px 14px;
+			}
 
 /* -----------------------------------------------------------------------------
 	 *

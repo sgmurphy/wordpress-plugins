@@ -76,7 +76,15 @@
 					$("#sAdvancedEditor").on("click", {obj: this}, function(e)
 						{
 							$(window).off('message');
-							$(window).on('message', function(event){$('#sEq').val(event.originalEvent.data).trigger('change');});
+							$(window).on('message', function(event) {
+								if(
+									'origin' in event.originalEvent &&
+									typeof event.originalEvent.origin == 'string' &&
+									/fxeditor/i.test(event.originalEvent.origin) &&
+									'data' in event.originalEvent &&
+									typeof event.originalEvent.data == 'string'
+								) $('#sEq').val(event.originalEvent.data).trigger('change');
+							});
                             var advEditor = '<div class="cff-light-modal" id="cff-advanced-equation-editor" role="dialog" aria-hidden="false">'+
 							'<div class="cff-light-modal-content">'+
 							'<div class="cff-light-modal-body">'+
@@ -84,14 +92,15 @@
 							'</div>'+
 							'</div>'+
 							'</div>'+
-							'<div class="cff-light-modal-close-icon" aria-label="close" title="Close">Save & Close</div>';
+							'<div class="cff-light-modal-close-icon" aria-label="close" title="Close">Save & Close</div>',
+							eq = e.data.obj.eq;
 
 							$('body').append(advEditor);
 							$('[id="cff-advanced-equation-editor"] iframe').on(
 								'load',
 								function(){
 									var args = {};
-									args.code = e.data.obj.eq;
+									args.code = eq;
 									args.fields = cff_form_fields_list;
 									if($.fbuilder['modules'])
 									{

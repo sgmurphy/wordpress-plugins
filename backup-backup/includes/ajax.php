@@ -280,7 +280,7 @@
 
         if (strpos($errstr, 'deprecated') !== false) return;
         if (strpos($errstr, 'php_uname') !== false) return;
-        if ((strpos($errstr, 'backup-migration') !== false) && (strpos($errstr, 'backup-backup') !== false)) return;
+        if (strpos($errfile, 'backup-backup') === false && strpos($errfile, 'backup-migration') === false) return;
 
         if ($errno != E_ERROR && $errno != E_CORE_ERROR && $errno != E_COMPILE_ERROR && $errno != E_USER_ERROR && $errno != E_RECOVERABLE_ERROR) {
 
@@ -366,6 +366,8 @@
 
         if (strpos($errstr, 'deprecated') !== false) return;
         if (strpos($errstr, 'php_uname') !== false) return;
+        if (strpos($errfile, 'backup-backup') === false && strpos($errfile, 'backup-migration') === false) return;
+
         if ($errno == E_NOTICE) return;
         if ($errno != E_ERROR && $errno != E_CORE_ERROR && $errno != E_COMPILE_ERROR && $errno != E_USER_ERROR && $errno != E_RECOVERABLE_ERROR) {
           if (strpos($errfile, 'backup-backup') === false && strpos($errfile, 'backup-migration') === false) return;

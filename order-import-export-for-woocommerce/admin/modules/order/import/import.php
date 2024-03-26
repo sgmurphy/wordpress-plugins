@@ -509,10 +509,64 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                 } 
                 if ('meta:_wcpdf_invoice_settings' == $column ) {
                     if(!empty($value)){
-                            $this->item_data['meta_data'][] = array('key'=>'_wcpdf_invoice_settings', 'value'=> json_decode($value, true) );
+                            $this->item_data['meta_data'][] = array('key'=>'_wcpdf_invoice_settings', 'value'=> ($value));
                     }
                     continue;
-                } 								
+                } 	
+                if ('meta:_wc_order_attribution_device_type' == $column ) {
+                    if(!empty($value)){
+                            $this->item_data['meta_data'][] = array('key'=>'_wc_order_attribution_device_type', 'value'=> $value);
+                    }
+                    continue;
+                } 
+                if ('meta:_wc_order_attribution_referrer' == $column ) {
+                    if(!empty($value)){
+                            $this->item_data['meta_data'][] = array('key'=>'_wc_order_attribution_referrer', 'value'=> $value);
+                    }
+                    continue;
+                } 
+                if ('meta:_wc_order_attribution_session_count' == $column ) {
+                    if(!empty($value)){
+                            $this->item_data['meta_data'][] = array('key'=>'_wc_order_attribution_session_count', 'value'=> $value);
+                    }
+                    continue;
+                } 
+                if ('meta:_wc_order_attribution_session_entry' == $column ) {
+                    if(!empty($value)){
+                            $this->item_data['meta_data'][] = array('key'=>'_wc_order_attribution_session_entry', 'value'=> $value);
+                    }
+                    continue;
+                } 
+                if ('meta:_wc_order_attribution_session_pages' == $column ) {
+                    if(!empty($value)){
+                            $this->item_data['meta_data'][] = array('key'=>'_wc_order_attribution_session_pages', 'value'=> $value);
+                    }
+                    continue;
+                } 
+                if ('meta:_wc_order_attribution_session_start_time' == $column ) {
+                    if(!empty($value)){
+                            $this->item_data['meta_data'][] = array('key'=>'_wc_order_attribution_session_start_time', 'value'=> $value);
+                    }
+                    continue;
+                } 
+                if ('meta:_wc_order_attribution_source_type' == $column ) {
+                    if(!empty($value)){
+                            $this->item_data['meta_data'][] = array('key'=>'_wc_order_attribution_source_type', 'value'=> $value);
+                    }
+                    continue;
+                } 
+                if ('meta:_wc_order_attribution_user_agent' == $column ) {
+                    if(!empty($value)){
+                            $this->item_data['meta_data'][] = array('key'=>'_wc_order_attribution_user_agent', 'value'=> $value);
+                    }
+                    continue;
+                } 
+                if ('meta:_wc_order_attribution_utm_source' == $column ) {
+                    if(!empty($value)){
+                            $this->item_data['meta_data'][] = array('key'=>'_wc_order_attribution_utm_source', 'value'=> $value);
+                    }
+                    continue;
+                } 
                 if(strstr($column, 'line_item_')){
                     $this->item_data['order_items'][] = $this->wt_parse_line_item_field($value,$column);
                     continue;                
@@ -530,7 +584,6 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                         $this->item_data['status'] = preg_replace('/^wc-/', '', $ord->get_status());
                     }
             }
-
             return $this->item_data;
         } catch (Exception $e) {
             return new WP_Error('woocommerce_product_importer_error', $e->getMessage(), array('status' => $e->getCode()));
@@ -695,7 +748,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                         }
                       
                     }else if($data_from_post_table && isset( $data_from_order_table) && !$data_from_order_table || $data_from_post_table && !isset( $data_from_order_table) ){
-                        if('shope_order_placehold' !== $post_table_type && $order_table_type !== $this->post_type){
+                        if('shop_order_placehold' !== $post_table_type && $post_table_type !== $this->post_type){
                             $conflict_with_existing_post = true;
                         }else{
                             $order_data =array(
@@ -1065,7 +1118,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                     break;  // go with the first one we find
                 }
             }
-            $shipping_method_obj = isset($available_methods[$shipping_method]) ? $available_methods[$shipping_method] : $shipping_method;
+            $shipping_method_obj = (isset($shipping_method) && isset($available_methods[$shipping_method])) ? $available_methods[$shipping_method] : (isset($shipping_method) ? $shipping_method: '');
         }
         return $shipping_method_obj;
     }
@@ -1964,7 +2017,7 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
 
             if (!empty($data['shipping_items'])) {
                 foreach ($data['shipping_items'] as $key => $value) {
-                    if ($shipping_order_item_id) {
+                    if (isset($shipping_order_item_id) && $shipping_order_item_id) {
                         wc_add_order_item_meta($shipping_order_item_id, $key, $value);
                     } else {
                         $shipping_order_item_id = wc_add_order_item($order_id, $shipping_order_item);
@@ -2388,10 +2441,6 @@ class Wt_Import_Export_For_Woo_Basic_Order_Import {
                 if('_wt_import_key' == $meta['key']){
                     $object->update_meta_data('_wt_import_key', apply_filters('wt_importing_order_reference_key', $meta['value'], $data)); // for future reference, this holds the order number which in the csv.
                     continue;
-                }
-                $json_ecoded_data_key = array('_wc_shipment_tracking_items', '_wcpdf_invoice_number_data', '_wcpdf_invoice_settings', '_ppcp_paypal_fees', 'eh_stripe_fee', '_stripe_fee');
-                if(in_array($meta['key'], $json_ecoded_data_key)){
-                    $meta['value'] = json_decode($meta['value']);
                 }
                 $object->update_meta_data($meta['key'], $meta['value']);
             }

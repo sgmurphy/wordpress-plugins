@@ -5,7 +5,7 @@ Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_c
 Requires at least: 5.0
 Tested Up To: 6.4.3
 Requires PHP: 7.0
-Stable Tag: 4.10.25
+Stable Tag: 4.10.26
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -241,6 +241,14 @@ Premium Addonsis 100% Ads Free, Ads can only be detected from Youtube videos, th
 14. Premium Progress Bar Widget
 
 == Changelog ==
+
+= 4.10.26 =
+
+- Tweak: Prevent main CSS file from being loaded on pages when premium widgets are not used to improve pages loading speed.
+- Fixed: Copy N' Paste feature not working.
+- Fixed: Time-based display conditions not working correctly in some cases.
+- Fixed: Is WooCommerce Product Purchased Display Condition not working correctly.
+- Fixed: Infinite effect in Advanced Carousel widget not working in some cases.
 
 = 4.10.25 =
 

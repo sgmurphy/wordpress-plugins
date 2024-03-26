@@ -86,8 +86,8 @@ class Welcome extends Base {
 	 * Assets required for the admin page to render correctly (i.e. all our react stuff)
 	 */
 	public function admin_page_assets() {
-		wp_enqueue_style( 'template-kit-import-admin', ENVATO_TEMPLATE_KIT_IMPORT_URI . 'assets/main.css', array(), filemtime( ENVATO_TEMPLATE_KIT_IMPORT_DIR . 'assets/main.css' ) );
-		wp_enqueue_script( 'template-kit-import-admin', ENVATO_TEMPLATE_KIT_IMPORT_URI . 'assets/main.js', array(), filemtime( ENVATO_TEMPLATE_KIT_IMPORT_DIR . 'assets/main.js' ), true );
+		wp_enqueue_style( 'template-kit-import-admin', ENVATO_TEMPLATE_KIT_IMPORT_URI . 'assets/react/main.css', array(), filemtime( ENVATO_TEMPLATE_KIT_IMPORT_DIR . 'assets/react/main.css' ) );
+		wp_enqueue_script( 'template-kit-import-admin', ENVATO_TEMPLATE_KIT_IMPORT_URI . 'assets/react/main.js', array(), filemtime( ENVATO_TEMPLATE_KIT_IMPORT_DIR . 'assets/react/main.js' ), true );
 	}
 
 }

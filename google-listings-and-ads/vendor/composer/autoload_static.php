@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4825a24a7f2b33a2b5c08c2fef3e3d99
+class ComposerStaticInit5d73df87777cd153dda39303397775ad
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -382,6 +382,7 @@ class ComposerStaticInit4825a24a7f2b33a2b5c08c2fef3e3d99
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\API\\Google\\Query\\AdsReportQuery' => __DIR__ . '/../..' . '/src/API/Google/Query/AdsReportQuery.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\API\\Google\\Query\\MerchantFreeListingReportQuery' => __DIR__ . '/../..' . '/src/API/Google/Query/MerchantFreeListingReportQuery.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\API\\Google\\Query\\MerchantProductReportQuery' => __DIR__ . '/../..' . '/src/API/Google/Query/MerchantProductReportQuery.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\API\\Google\\Query\\MerchantProductViewReportQuery' => __DIR__ . '/../..' . '/src/API/Google/Query/MerchantProductViewReportQuery.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\API\\Google\\Query\\MerchantQuery' => __DIR__ . '/../..' . '/src/API/Google/Query/MerchantQuery.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\API\\Google\\Query\\MerchantReportQuery' => __DIR__ . '/../..' . '/src/API/Google/Query/MerchantReportQuery.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\API\\Google\\Query\\Query' => __DIR__ . '/../..' . '/src/API/Google/Query/Query.php',
@@ -389,6 +390,7 @@ class ComposerStaticInit4825a24a7f2b33a2b5c08c2fef3e3d99
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\API\\Google\\Query\\ReportQueryTrait' => __DIR__ . '/../..' . '/src/API/Google/Query/ReportQueryTrait.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\API\\Google\\ReportTrait' => __DIR__ . '/../..' . '/src/API/Google/ReportTrait.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\API\\Google\\Settings' => __DIR__ . '/../..' . '/src/API/Google/Settings.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\API\\Google\\ShoppingContentDateTrait' => __DIR__ . '/../..' . '/src/API/Google/ShoppingContentDateTrait.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\API\\Google\\SiteVerification' => __DIR__ . '/../..' . '/src/API/Google/SiteVerification.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\API\\MicroTrait' => __DIR__ . '/../..' . '/src/API/MicroTrait.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\API\\PermissionsTrait' => __DIR__ . '/../..' . '/src/API/PermissionsTrait.php',
@@ -651,6 +653,7 @@ class ComposerStaticInit4825a24a7f2b33a2b5c08c2fef3e3d99
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Jobs\\SyncableProductsBatchedActionSchedulerJobTrait' => __DIR__ . '/../..' . '/src/Jobs/SyncableProductsBatchedActionSchedulerJobTrait.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Jobs\\UpdateAllProducts' => __DIR__ . '/../..' . '/src/Jobs/UpdateAllProducts.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Jobs\\UpdateCoupon' => __DIR__ . '/../..' . '/src/Jobs/UpdateCoupon.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Jobs\\UpdateMerchantProductStatuses' => __DIR__ . '/../..' . '/src/Jobs/UpdateMerchantProductStatuses.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Jobs\\UpdateProducts' => __DIR__ . '/../..' . '/src/Jobs/UpdateProducts.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Jobs\\UpdateShippingSettings' => __DIR__ . '/../..' . '/src/Jobs/UpdateShippingSettings.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Jobs\\UpdateSyncableProductsCount' => __DIR__ . '/../..' . '/src/Jobs/UpdateSyncableProductsCount.php',
@@ -4159,9 +4162,9 @@ class ComposerStaticInit4825a24a7f2b33a2b5c08c2fef3e3d99
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4825a24a7f2b33a2b5c08c2fef3e3d99::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4825a24a7f2b33a2b5c08c2fef3e3d99::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4825a24a7f2b33a2b5c08c2fef3e3d99::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5d73df87777cd153dda39303397775ad::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5d73df87777cd153dda39303397775ad::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5d73df87777cd153dda39303397775ad::$classMap;
 
         }, null, ClassLoader::class);
     }

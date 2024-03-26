@@ -771,11 +771,77 @@ class Helper_Functions {
 
 		$local_time_zone = isset( $_COOKIE['localTimeZone'] ) && ! empty( $_COOKIE['localTimeZone'] ) ?
 			str_replace( 'GMT ', 'GMT+', sanitize_text_field( wp_unslash( $_COOKIE['localTimeZone'] ) ) )
-			: date_default_timezone_get();
+				: self::get_location_time_zone();
 
 		$today = new \DateTime( 'now', new \DateTimeZone( $local_time_zone ) );
 
 		return $today->format( $format );
+	}
+
+	/**
+	 * Gets the user's timezone based on his ip address.
+	 *
+	 * @access public
+	 * @since 4.10.26
+	 *
+	 * @return string
+	 */
+	public static function get_location_time_zone() {
+
+		$ip_address = self::get_user_ip_address();
+
+		return self::get_timezone_by_ip( $ip_address );
+	}
+
+	/**
+	 * Get user's IP address.
+	 *
+	 * @access public
+	 * @since 4.10.26
+	 *
+	 * @return string
+	 */
+	public static function get_user_ip_address() {
+
+		if ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+
+			$x_forward = sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_FORWARDED_FOR'] ) );
+
+			if ( is_array( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+
+				$http_x_headers         = explode( ',', filter_var_array( $x_forward ) );
+				$_SERVER['REMOTE_ADDR'] = $http_x_headers[0];
+			} else {
+				$_SERVER['REMOTE_ADDR'] = $x_forward;
+			}
+		}
+
+		return isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+	}
+
+	/**
+	 * Get timezone by ip address.
+	 *
+	 * @access public
+	 * @since 4.10.26
+	 *
+	 * @param string $ip_address user's ip address.
+	 *
+	 * @return string
+	 */
+	public static function get_timezone_by_ip( $ip_address ) {
+
+		if ( '127.0.0.1' === $ip_address || empty( $ip_address ) ) {
+			return date_default_timezone_get();
+		}
+
+		$location_data = unserialize( rplg_urlopen( 'http://www.geoplugin.net/php.gp?ip=' . $ip_address )['data'] );
+
+		if ( 404 === $location_data['geoplugin_status'] ) {
+			return date_default_timezone_get();
+		}
+
+		return $location_data['geoplugin_timezone'];
 	}
 
 	/**

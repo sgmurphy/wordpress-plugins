@@ -258,6 +258,33 @@ class Wt_Import_Export_For_Woo_Basic_Common_Helper
             'table_name' => $table_name,
         );
     }
+    /**
+	 * @param int $charval
+	 *
+	 * @return string
+	 */
+	public static function wt_iconv_fallback_int_utf8($charval) {
+		if ($charval < 128) {
+			// 0bbbbbbb
+			$newcharstring = chr($charval);
+		} elseif ($charval < 2048) {
+			// 110bbbbb 10bbbbbb
+			$newcharstring  = chr(($charval >>   6) | 0xC0);
+			$newcharstring .= chr(($charval & 0x3F) | 0x80);
+		} elseif ($charval < 65536) {
+			// 1110bbbb 10bbbbbb 10bbbbbb
+			$newcharstring  = chr(($charval >>  12) | 0xE0);
+			$newcharstring .= chr(($charval >>   6) | 0xC0);
+			$newcharstring .= chr(($charval & 0x3F) | 0x80);
+		} else {
+			// 11110bbb 10bbbbbb 10bbbbbb 10bbbbbb
+			$newcharstring  = chr(($charval >>  18) | 0xF0);
+			$newcharstring .= chr(($charval >>  12) | 0xC0);
+			$newcharstring .= chr(($charval >>   6) | 0xC0);
+			$newcharstring .= chr(($charval & 0x3F) | 0x80);
+		}
+		return $newcharstring;
+	}
     
 }
 }

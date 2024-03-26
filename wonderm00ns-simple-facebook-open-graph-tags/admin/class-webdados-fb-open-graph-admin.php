@@ -114,85 +114,96 @@ class Webdados_FB_Admin {
 		// Add an nonce field so we can check for it later.
 		wp_nonce_field( 'webdados_fb_open_graph_custom_box', 'webdados_fb_open_graph_custom_box_nonce' );
 		// Current image value
-		$value_image = get_post_meta($post->ID, '_webdados_fb_open_graph_specific_image', true);
-		?>
-		<p>
-			<strong>
-				<label for="webdados_fb_open_graph_specific_image">
-					<?php _e('Use this image', 'wonderm00ns-simple-facebook-open-graph-tags'); ?>:
-				</label>
-			</strong>
-			<br/>
-			<input type="text" id="webdados_fb_open_graph_specific_image" name="webdados_fb_open_graph_specific_image" value="<?php echo esc_attr( $value_image ); ?>" size="50"/>
-			<input id="webdados_fb_open_graph_specific_image_button" class="button" type="button" value="<?php echo esc_attr( __('Upload/Choose','wonderm00ns-simple-facebook-open-graph-tags') ); ?>"/>
-			<input id="webdados_fb_open_graph_specific_image_button_clear" class="button" type="button" value="<?php echo esc_attr( __('Clear field','wonderm00ns-simple-facebook-open-graph-tags') ); ?>"/>
-			<br/>
-			<?php printf( __( 'Recommended size: %dx%dpx', 'wonderm00ns-simple-facebook-open-graph-tags' ), $webdados_fb->img_w, $webdados_fb->img_h ); ?>
-			<script type="text/javascript">
-			jQuery(document).ready(function($){
-				// Instantiates the variable that holds the media library frame.
-				var meta_image_frame;
-				// Runs when the image button is clicked.
-				$('#webdados_fb_open_graph_specific_image_button').click(function(e){
-					// Prevents the default action from occuring.
-					e.preventDefault();
-					// If the frame already exists, re-open it.
-					if ( meta_image_frame ) {
-						meta_image_frame.open();
-						return;
-					}
-					// Sets up the media library frame
-					meta_image_frame = wp.media.frames.meta_image_frame = wp.media({
-						title: "<?php _e('Select image', 'wonderm00ns-simple-facebook-open-graph-tags'); ?>",
-						button: { text:  "<?php _e('Use this image', 'wonderm00ns-simple-facebook-open-graph-tags'); ?>" },
-						library: { type: 'image' }
-					});
-					// Runs when an image is selected.
-					meta_image_frame.on('select', function(){
-						// Grabs the attachment selection and creates a JSON representation of the model.
-						var media_attachment = meta_image_frame.state().get('selection').first().toJSON();
-						// Sends the attachment URL to our custom image input field.
-						$('#webdados_fb_open_graph_specific_image').val(media_attachment.url);
-					});
-					// Opens the media library frame.
-					meta_image_frame.open();
-				});
-				// Clear
-				$('#webdados_fb_open_graph_specific_image_button_clear').click(function(e){
-					// Prevents the default action from occuring.
-					e.preventDefault();
-					// Clears field
-					$('#webdados_fb_open_graph_specific_image').val('');
-				});
-			});
-			</script>
-		</p>
 
-		<?php
-		// Current description value
-		$value_description = get_post_meta($post->ID, '_webdados_fb_open_graph_specific_description', true);
-		?>
-		<p>
-			<strong>
-				<label for="webdados_fb_open_graph_specific_description">
-					<?php _e('Use this description', 'wonderm00ns-simple-facebook-open-graph-tags'); ?>:
-				</label>
-			</strong>
-			<br/>
-			<?php
-			if ( $webdados_fb->is_yoast_seo_active() && ( $this->options['fb_show_wpseoyoast'] == 1 ) ) {
-				_e('The Yoast SEO integration is active, so it\'s description will be used', 'wonderm00ns-simple-facebook-open-graph-tags');
-			} else {
-				?>
-				<textarea id="webdados_fb_open_graph_specific_description" name="webdados_fb_open_graph_specific_description" style="width: 100%;" rows="3"><?php echo esc_textarea(trim($value_description)); ?></textarea>
-				<br/>
-				<?php
-				_e('If this field is not filled, the description will be generated from the excerpt, if it exists, or from the content', 'wonderm00ns-simple-facebook-open-graph-tags');
-			}
-			?>
-		</p>
-		<?php
-		
+        $ogtags_featured_image = true;
+        $ogtags_featured_image = apply_filters( 'fb_ogtags_featured_image', $ogtags_featured_image );
+
+        if ( $ogtags_featured_image ) {
+	        $value_image = get_post_meta($post->ID, '_webdados_fb_open_graph_specific_image', true);
+	        ?>
+            <p>
+                <strong>
+                    <label for="webdados_fb_open_graph_specific_image">
+				        <?php _e('Use this image', 'wonderm00ns-simple-facebook-open-graph-tags'); ?>:
+                    </label>
+                </strong>
+                <br/>
+                <input type="text" id="webdados_fb_open_graph_specific_image" name="webdados_fb_open_graph_specific_image" value="<?php echo esc_attr( $value_image ); ?>" size="50"/>
+                <input id="webdados_fb_open_graph_specific_image_button" class="button" type="button" value="<?php echo esc_attr( __('Upload/Choose','wonderm00ns-simple-facebook-open-graph-tags') ); ?>"/>
+                <input id="webdados_fb_open_graph_specific_image_button_clear" class="button" type="button" value="<?php echo esc_attr( __('Clear field','wonderm00ns-simple-facebook-open-graph-tags') ); ?>"/>
+                <br/>
+		        <?php printf( __( 'Recommended size: %dx%dpx', 'wonderm00ns-simple-facebook-open-graph-tags' ), $webdados_fb->img_w, $webdados_fb->img_h ); ?>
+                <script type="text/javascript">
+                    jQuery(document).ready(function($){
+                        // Instantiates the variable that holds the media library frame.
+                        var meta_image_frame;
+                        // Runs when the image button is clicked.
+                        $('#webdados_fb_open_graph_specific_image_button').click(function(e){
+                            // Prevents the default action from occuring.
+                            e.preventDefault();
+                            // If the frame already exists, re-open it.
+                            if ( meta_image_frame ) {
+                                meta_image_frame.open();
+                                return;
+                            }
+                            // Sets up the media library frame
+                            meta_image_frame = wp.media.frames.meta_image_frame = wp.media({
+                                title: "<?php _e('Select image', 'wonderm00ns-simple-facebook-open-graph-tags'); ?>",
+                                button: { text:  "<?php _e('Use this image', 'wonderm00ns-simple-facebook-open-graph-tags'); ?>" },
+                                library: { type: 'image' }
+                            });
+                            // Runs when an image is selected.
+                            meta_image_frame.on('select', function(){
+                                // Grabs the attachment selection and creates a JSON representation of the model.
+                                var media_attachment = meta_image_frame.state().get('selection').first().toJSON();
+                                // Sends the attachment URL to our custom image input field.
+                                $('#webdados_fb_open_graph_specific_image').val(media_attachment.url);
+                            });
+                            // Opens the media library frame.
+                            meta_image_frame.open();
+                        });
+                        // Clear
+                        $('#webdados_fb_open_graph_specific_image_button_clear').click(function(e){
+                            // Prevents the default action from occuring.
+                            e.preventDefault();
+                            // Clears field
+                            $('#webdados_fb_open_graph_specific_image').val('');
+                        });
+                    });
+                </script>
+            </p>
+
+	        <?php
+        }
+
+        $ogtags_page_description = true;
+        $ogtags_page_description = apply_filters( 'fb_ogtags_page_description', $ogtags_page_description );
+
+        if ( $ogtags_page_description ) {
+	        // Current description value
+	        $value_description = get_post_meta($post->ID, '_webdados_fb_open_graph_specific_description', true);
+	        ?>
+            <p>
+                <strong>
+                    <label for="webdados_fb_open_graph_specific_description">
+				        <?php _e('Use this description', 'wonderm00ns-simple-facebook-open-graph-tags'); ?>:
+                    </label>
+                </strong>
+                <br/>
+		        <?php
+		        if ( $webdados_fb->is_yoast_seo_active() && ( $this->options['fb_show_wpseoyoast'] == 1 ) ) {
+			        _e('The Yoast SEO integration is active, so it\'s description will be used', 'wonderm00ns-simple-facebook-open-graph-tags');
+		        } else {
+			        ?>
+                    <textarea id="webdados_fb_open_graph_specific_description" name="webdados_fb_open_graph_specific_description" style="width: 100%;" rows="3"><?php echo esc_textarea(trim($value_description)); ?></textarea>
+                    <br/>
+			        <?php
+			        _e('If this field is not filled, the description will be generated from the excerpt, if it exists, or from the content', 'wonderm00ns-simple-facebook-open-graph-tags');
+		        }
+		        ?>
+            </p>
+	        <?php
+        }
 	}
 	public function save_meta_boxes($post_id) {
 		global $webdados_fb_open_graph_settings;

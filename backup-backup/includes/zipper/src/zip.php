@@ -468,12 +468,13 @@ class Zip {
       } else {
         if (defined('BMI_USING_CLI_FUNCTIONALITY') && BMI_USING_CLI_FUNCTIONALITY === true) {
           $this->zip_progress->log(__("Backup is running under PHP CLI environment.", 'backup-backup'), 'INFO');
-          if ($this->dbDumped === false) {
-            $this->createDatabaseDump($dbbackupname, $better_database_files_dir, $database_file, $database_file_dir);
-          }
         } else {
           $this->zip_progress->log(__("Backup will run as single-request, may be unstable...", 'backup-backup'), 'WARN');
         }
+      }
+      
+      if ($this->dbDumped === false) {
+        $this->createDatabaseDump($dbbackupname, $better_database_files_dir, $database_file, $database_file_dir);
       }
       
       $zipArchive = false;
@@ -575,30 +576,30 @@ class Zip {
             }
           });
           
-          if ($zipArchive) {
-            for ($i = 0; $i < sizeof($files); ++$i) {
+          if (sizeof($files) > 0) {
+            if ($zipArchive) {
+              for ($i = 0; $i < sizeof($files); ++$i) {
+                
+                // Add the file
+                $zip->addFile($files[$i], $this->cutDir($files[$i]));
+                
+              }
               
-              // Add the file
-              $zip->addFile($files[$i], $this->cutDir($files[$i]));
+              $zAresult = $zip->close();
+              if ($zAresult !== true) {
+                
+                $this->zip_failed('Error, there is most likely not enough space for the backup.');
+                return false;
               
-            }
-            
-            $zAresult = $zip->close();
-            if ($zAresult !== true) {
-              
-              $this->zip_failed('Error, there is most likely not enough space for the backup.');
-              return false;
-            
-            }
-            $zip->open($this->new_file_path);
-          } else {
-            if (sizeof($files) > 0) {
+              }
+              $zip->open($this->new_file_path);
+            } else {
               $dbback = $lib->add($files, PCLZIP_OPT_REMOVE_PATH, $database_file_dir, PCLZIP_OPT_TEMP_FILE_THRESHOLD, $safe_limit);
-            }
 
-            if ($dbback == 0) {
-              $this->zip_failed($lib->errorInfo(true));
-              return false;
+              if ($dbback == 0) {
+                $this->zip_failed($lib->errorInfo(true));
+                return false;
+              }
             }
           }
 
@@ -666,35 +667,36 @@ class Zip {
             }
           });
           
-          if ($zipArchive) {
-            for ($j = 0; $j < sizeof($chunk); ++$j) {
+          if (sizeof($chunk) > 0) {
+            if ($zipArchive) {
+              for ($j = 0; $j < sizeof($chunk); ++$j) {
+                
+                $path = 'wordpress' . DIRECTORY_SEPARATOR . substr($chunk[$j], strlen(ABSPATH));
+                
+                // Add the file
+                $path = str_replace('\\', '/', $path);
+                $zip->addFile($chunk[$j], $path);
+                
+              }
               
-              $path = 'wordpress' . DIRECTORY_SEPARATOR . substr($chunk[$j], strlen(ABSPATH));
+              $zAresult = $zip->close();
+              if ($zAresult !== true) {
+                
+                $this->zip_failed('Error, there is most likely not enough space for the backup.');
+                return false;
               
-              // Add the file
-              $path = str_replace('\\', '/', $path);
-              $zip->addFile($chunk[$j], $path);
-              
-            }
+              }
+              $zip->open($this->new_file_path);
+            } else {
             
-            $zAresult = $zip->close();
-            if ($zAresult !== true) {
-              
-              $this->zip_failed('Error, there is most likely not enough space for the backup.');
-              return false;
-            
-            }
-            $zip->open($this->new_file_path);
-          } else {
-          
-            if (sizeof($chunk) > 0) {
               $back = $lib->add($chunk, PCLZIP_OPT_REMOVE_PATH, $abs, PCLZIP_OPT_ADD_PATH, 'wordpress' . DIRECTORY_SEPARATOR, PCLZIP_OPT_ADD_TEMP_FILE_ON, PCLZIP_OPT_TEMP_FILE_THRESHOLD, $safe_limit);
+              
+              if ($back == 0) {
+                $this->zip_failed($lib->errorInfo(true));
+                return false;
+              }
+              
             }
-            if ($back == 0) {
-              $this->zip_failed($lib->errorInfo(true));
-              return false;
-            }
-            
           }
 
           $curfile = (($i * $splitby) + $splitby);

@@ -226,8 +226,8 @@
 		}
 .event-tickets .tribe-tickets__form .tribe-tickets__tickets-form__series-pass-header {
 		color: var(--tec-color-text-primary);
-		padding-top: var(--tec-spacer-6);
 		font-size: var(--tec-font-size-3);
+		padding-top: var(--tec-spacer-6);
 	}
 @media (min-width: 768px) {
 			.event-tickets .tribe-tickets__form .tribe-tickets__form-field-input-text label:not([for*='text-area']), .event-tickets .tribe-tickets__form .tribe-tickets__form-field-input-select label:not([for*='text-area']) {

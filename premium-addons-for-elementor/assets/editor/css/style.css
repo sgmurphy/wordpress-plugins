@@ -208,7 +208,7 @@ html:not([dir="rtl"]) .pa-tiktok-feed:before {
 
 .pa-showcase:before {
     content: "\e94c";
-  }
+}
 
 .editor-pa-doc {
     font-style: italic;
@@ -748,4 +748,75 @@ html:not([dir="rtl"]) .premium-promotion-pro-btn {
 
 .premium-rotate-icon {
     transform: rotate(90deg);
+}
+
+/* Copy Paste functionality */
+#pa-paste-area-dialog {
+    text-align: center;
+}
+#pa-paste-area-dialog .dialog-header {
+    -webkit-padding-before: 60px;
+    padding-block-start: 60px;
+    font-size: 30px;
+}
+#pa-paste-area-dialog .dialog-message {
+    padding: 0 15px 15px;
+    font-size: 15px;
+    position: relative;
+}
+#pa-paste-area-dialog #pa-paste-area-dialog__input {
+    background: transparent;
+    color: transparent;
+    border-color: transparent;
+    padding: 0;
+    margin: 0;
+    height: 100px;
+    position: absolute;
+    top: -60px;
+    left: 0;
+    right: 0;
+}
+#pa-paste-area-dialog #pa-paste-area-dialog__input:focus {
+    border-color: transparent;
+    outline: none;
+}
+#pa-paste-area-dialog .dialog-widget-content {
+    width: 400px;
+}
+#pa-paste-area-dialog .dialog-widget-content .eicon-loading {
+    display: none;
+}
+#pa-paste-area-dialog .dialog-widget-content.e-state-loading .eicon-loading {
+    display: block;
+    -webkit-margin-before: 15px;
+    margin-block-start: 15px;
+}
+#pa-paste-area-dialog .dialog-widget-content {
+    padding: 25px;
+}
+#pa-paste-area-dialog .dialog-close-button {
+    margin-top: 0;
+    z-index: 11;
+}
+#pa-paste-area-dialog .dialog-header {
+    font-size: 23px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+#pa-paste-area-dialog .dialog-message {
+    font-size: 14px;
+    line-height: 1.3;
+    margin-bottom: 10px;
+}
+#pa-paste-area-dialog input#pa-paste-input {
+    background: transparent;
+    color: transparent;
+    border-color: transparent;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
 }

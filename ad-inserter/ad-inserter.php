@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Ad Inserter
-Version: 2.7.33
+Version: 2.7.34
 Description: Ad management with many advanced advertising features to insert ads at optimal positions
 Author: Igor Funa
 Author URI: http://igorfuna.com/
@@ -16,6 +16,12 @@ Requires PHP: 7.2
 /*
 
 Change Log
+
+Ad Inserter 2.7.34 - 2024-03-14
+- Added support for ^ character to invert viewports in the VIEWPORT separator
+- Added support for index parameter for counter shortcodes
+- Changed text for content marker
+- Few minor bug fixes, cosmetic changes and code improvements
 
 Ad Inserter 2.7.33 - 2024-01-03
 - Changed widget class name
@@ -7485,55 +7491,58 @@ function generate_alignment_css () {
 
   $alignment_css = '';
   $alignments = array ();
-  $used_blocks = unserialize ($ai_db_options_extract [AI_EXTRACT_USED_BLOCKS]);
-  foreach ($used_blocks as $used_block) {
-    $obj = $block_object [$used_block];
-    $alignment_type = $obj->get_alignment_type ();
 
-    switch ($alignment_type) {
-      case AI_ALIGNMENT_DEFAULT:
-      case AI_ALIGNMENT_LEFT:
-      case AI_ALIGNMENT_RIGHT:
-      case AI_ALIGNMENT_CENTER:
-      case AI_ALIGNMENT_FLOAT_LEFT:
-      case AI_ALIGNMENT_FLOAT_RIGHT:
-//      case AI_ALIGNMENT_STICKY_LEFT:
-//      case AI_ALIGNMENT_STICKY_RIGHT:
-//      case AI_ALIGNMENT_STICKY_TOP:
-//      case AI_ALIGNMENT_STICKY_BOTTOM:
-        $alignment_name = strtolower ($styles [$alignment_type][0]);
-        if (!in_array ($alignment_name, $alignments)) {
-          $alignments []= $alignment_name;
-          $alignment_css .= '.' . $block_class_name . str_replace (' ', '-', $alignment_name) .' {' . $styles [$alignment_type][1] . "}\n";
-        }
-        break;
-      case AI_ALIGNMENT_STICKY:
-        $sticky_css = $obj->alignment_style ($alignment_type);
-        $alignment_name = strtolower (md5 ($sticky_css));
-        if (!in_array ($alignment_name, $alignments)) {
-          $alignments []= $alignment_name;
-//          $alignment_css .= '.' . $block_class_name . str_replace (' ', '-', $alignment_name) .' {' . $sticky_css . "}\n";
-          $alignment_css .= '.' . $block_class_name . $alignment_name .' {' . $sticky_css . "}\n";
-        }
-        break;
-      case AI_ALIGNMENT_CUSTOM_CSS:
-        $custom_css = $obj->get_custom_css ();
-        $alignment_name = strtolower (md5 ($custom_css));
-        if (!in_array ($alignment_name, $alignments)) {
-          $alignments []= $alignment_name;
-//          $alignment_css .= '.' . $block_class_name . str_replace (' ', '-', $alignment_name) .' {' . str_replace ('&#039;', "'", $custom_css) . "}\n";
-          $alignment_css .= '.' . $block_class_name . $alignment_name .' {' . str_replace ('&#039;', "'", $custom_css) . "}\n";
-        }
-        break;
-    }
+  if (isset ($ai_db_options_extract [AI_EXTRACT_USED_BLOCKS]) && is_string ($ai_db_options_extract [AI_EXTRACT_USED_BLOCKS]) && strlen ($ai_db_options_extract [AI_EXTRACT_USED_BLOCKS]) != 0) {
+    $used_blocks = unserialize ($ai_db_options_extract [AI_EXTRACT_USED_BLOCKS]);
+    foreach ($used_blocks as $used_block) {
+      $obj = $block_object [$used_block];
+      $alignment_type = $obj->get_alignment_type ();
 
-    if ($alignment_type != AI_ALIGNMENT_CUSTOM_CSS) {
-      $size_css = $obj->size_background_style ();
-//      $size_name = strtolower (md5 ($size_css));
-      $size_name = ai_css_to_name ($size_css);
-      if (!in_array ($size_name, $alignments)) {
-        $alignments []= $size_name;
-        $alignment_css .= '.' . $block_class_name . $size_name .' {' . str_replace ('&#039;', "'", $size_css) . "}\n";
+      switch ($alignment_type) {
+        case AI_ALIGNMENT_DEFAULT:
+        case AI_ALIGNMENT_LEFT:
+        case AI_ALIGNMENT_RIGHT:
+        case AI_ALIGNMENT_CENTER:
+        case AI_ALIGNMENT_FLOAT_LEFT:
+        case AI_ALIGNMENT_FLOAT_RIGHT:
+  //      case AI_ALIGNMENT_STICKY_LEFT:
+  //      case AI_ALIGNMENT_STICKY_RIGHT:
+  //      case AI_ALIGNMENT_STICKY_TOP:
+  //      case AI_ALIGNMENT_STICKY_BOTTOM:
+          $alignment_name = strtolower ($styles [$alignment_type][0]);
+          if (!in_array ($alignment_name, $alignments)) {
+            $alignments []= $alignment_name;
+            $alignment_css .= '.' . $block_class_name . str_replace (' ', '-', $alignment_name) .' {' . $styles [$alignment_type][1] . "}\n";
+          }
+          break;
+        case AI_ALIGNMENT_STICKY:
+          $sticky_css = $obj->alignment_style ($alignment_type);
+          $alignment_name = strtolower (md5 ($sticky_css));
+          if (!in_array ($alignment_name, $alignments)) {
+            $alignments []= $alignment_name;
+  //          $alignment_css .= '.' . $block_class_name . str_replace (' ', '-', $alignment_name) .' {' . $sticky_css . "}\n";
+            $alignment_css .= '.' . $block_class_name . $alignment_name .' {' . $sticky_css . "}\n";
+          }
+          break;
+        case AI_ALIGNMENT_CUSTOM_CSS:
+          $custom_css = $obj->get_custom_css ();
+          $alignment_name = strtolower (md5 ($custom_css));
+          if (!in_array ($alignment_name, $alignments)) {
+            $alignments []= $alignment_name;
+  //          $alignment_css .= '.' . $block_class_name . str_replace (' ', '-', $alignment_name) .' {' . str_replace ('&#039;', "'", $custom_css) . "}\n";
+            $alignment_css .= '.' . $block_class_name . $alignment_name .' {' . str_replace ('&#039;', "'", $custom_css) . "}\n";
+          }
+          break;
+      }
+
+      if ($alignment_type != AI_ALIGNMENT_CUSTOM_CSS) {
+        $size_css = $obj->size_background_style ();
+  //      $size_name = strtolower (md5 ($size_css));
+        $size_name = ai_css_to_name ($size_css);
+        if (!in_array ($size_name, $alignments)) {
+          $alignments []= $size_name;
+          $alignment_css .= '.' . $block_class_name . $size_name .' {' . str_replace ('&#039;', "'", $size_css) . "}\n";
+        }
       }
     }
   }
@@ -9524,40 +9533,45 @@ function ai_process_shortcode (&$block, $atts) {
     if ($parameters ['counter'] != '') {
       $counter_name = strtolower ($parameters ['counter']);
 
+      $index = 0;
+      if ($parameters ['index'] != '' && is_numeric ($parameters ['index'])) {
+        $index = (int) $parameters ['index'];
+      }
+
       switch ($counter_name) {
         case 'block':
           if (isset ($ai_wp_data [AI_CURRENT_BLOCK_NUMBER]) && isset ($ad_inserter_globals [AI_BLOCK_COUNTER_NAME . $ai_wp_data [AI_CURRENT_BLOCK_NUMBER]])) {
-            return $ad_inserter_globals [AI_BLOCK_COUNTER_NAME . $ai_wp_data [AI_CURRENT_BLOCK_NUMBER]];
+            return $ad_inserter_globals [AI_BLOCK_COUNTER_NAME . $ai_wp_data [AI_CURRENT_BLOCK_NUMBER]] + $index;
           }
           break;
         case 'content':
           if (isset ($ad_inserter_globals [AI_CONTENT_COUNTER_NAME])) {
-            return $ad_inserter_globals [AI_CONTENT_COUNTER_NAME];
+            return $ad_inserter_globals [AI_CONTENT_COUNTER_NAME] + $index;
           }
           break;
         case 'excerpt':
           if (isset ($ad_inserter_globals [AI_EXCERPT_COUNTER_NAME])) {
-            return $ad_inserter_globals [AI_EXCERPT_COUNTER_NAME];
+            return $ad_inserter_globals [AI_EXCERPT_COUNTER_NAME] + $index;
           }
           break;
         case 'before-post':
           if (isset ($ad_inserter_globals [AI_LOOP_BEFORE_COUNTER_NAME])) {
-            return $ad_inserter_globals [AI_LOOP_BEFORE_COUNTER_NAME];
+            return $ad_inserter_globals [AI_LOOP_BEFORE_COUNTER_NAME] + $index;
           }
           break;
         case 'after-post':
           if (isset ($ad_inserter_globals [AI_LOOP_AFTER_COUNTER_NAME])) {
-            return $ad_inserter_globals [AI_LOOP_AFTER_COUNTER_NAME];
+            return $ad_inserter_globals [AI_LOOP_AFTER_COUNTER_NAME] + $index;
           }
           break;
         case 'widget':
           if (isset ($ai_wp_data [AI_CURRENT_BLOCK_NUMBER]) && isset ($ad_inserter_globals [AI_WIDGET_COUNTER_NAME . $ai_wp_data [AI_CURRENT_BLOCK_NUMBER]])) {
-            return $ad_inserter_globals [AI_WIDGET_COUNTER_NAME . $ai_wp_data [AI_CURRENT_BLOCK_NUMBER]];
+            return $ad_inserter_globals [AI_WIDGET_COUNTER_NAME . $ai_wp_data [AI_CURRENT_BLOCK_NUMBER]] + $index;
           }
           break;
         case 'php':
           if (isset ($ai_wp_data [AI_CURRENT_BLOCK_NUMBER]) && isset ($ad_inserter_globals [AI_PHP_FUNCTION_CALL_COUNTER_NAME . $ai_wp_data [AI_CURRENT_BLOCK_NUMBER]])) {
-            return $ad_inserter_globals [AI_PHP_FUNCTION_CALL_COUNTER_NAME . $ai_wp_data [AI_CURRENT_BLOCK_NUMBER]];
+            return $ad_inserter_globals [AI_PHP_FUNCTION_CALL_COUNTER_NAME . $ai_wp_data [AI_CURRENT_BLOCK_NUMBER]] + $index;
           }
           break;
       }

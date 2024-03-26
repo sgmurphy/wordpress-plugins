@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.1.61 =
+
+* Modifies the multiple files behavior in Upload File control to allow adding new files without losing the previous files selected.
+* Modifies the calculated field integration with the advanced editor to avoid conflicts with some browser extensions.
+* Removes deprecated code.
+* Fixes a minor issue with the JS minify module.
+* Fixes an issue in the Popup control on pages with multiple forms.
+
 = 5.1.60 =
 
 * Modifies the fields list popup to allow accessing the fields from the list.

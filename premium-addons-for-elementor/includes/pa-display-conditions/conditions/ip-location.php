@@ -71,20 +71,7 @@ class Ip_Location extends Condition {
 	 */
 	public function compare_location( $settings, $operator, $value, $compare_val, $tz, $method ) {
 
-		if ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
-
-			$x_forward = sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_FORWARDED_FOR'] ) );
-
-			if ( is_array( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
-
-				$http_x_headers         = explode( ',', filter_var_array( $x_forward ) );
-				$_SERVER['REMOTE_ADDR'] = $http_x_headers[0];
-			} else {
-				$_SERVER['REMOTE_ADDR'] = $x_forward;
-			}
-		}
-
-		$ip_address = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+		$ip_address = Helper_Functions::get_user_ip_address();
 
 		if ( 'old' === $method ) {
 

@@ -509,6 +509,10 @@ class Addons_Integration {
 
 		$type = get_post_type();
 
+        if( ! $type ) {
+			return;
+		}
+
 		// If dynamic assets is disabled.
 		if ( ! $assets_gen_enabled || ( 'page' !== $type && 'post' !== $type ) ) {
 			$this->enqueue_old_styles( $dir, $is_rtl, $suffix );
@@ -1392,6 +1396,7 @@ class Addons_Integration {
 			array(
 				'ajax_url'            => admin_url( 'admin-ajax.php' ),
 				'nonce'               => wp_create_nonce( 'premium_cross_cp_import' ),
+                'widget_not_found'    => __( 'The widget type you are trying to paste is not available on this site.', 'premium-addons-for-elementor' ),
 				'elementorCompatible' => $elementor_old,
 			)
 		);

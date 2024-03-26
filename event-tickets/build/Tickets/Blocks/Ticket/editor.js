@@ -3060,6 +3060,8 @@ const TICKET_TYPES = {
 const PREFIX = 'prefix';
 const SUFFIX = 'postfix';
 const PRICE_POSITIONS = [PREFIX, SUFFIX];
+
+// eslint-disable-next-line no-undef
 const TICKET_LABELS = (_tribe_editor_config = tribe_editor_config) === null || _tribe_editor_config === void 0 ? void 0 : (_tribe_editor_config$ = _tribe_editor_config.tickets) === null || _tribe_editor_config$ === void 0 ? void 0 : _tribe_editor_config$.ticketLabels;
 
 /***/ }),
@@ -4578,19 +4580,18 @@ const getDefaultCurrencyPosition = () => {
  *
  * @param {number} ticketId The ticket ID.
  * @param {string} ticketType The ticket types, e.g. `default`, `series_pass`, etc.
- * @param {object} post The post object.
+ * @param {Object} post The post object.
  */
 const isTicketEditableFromPost = (ticketId, ticketType, post) => {
   /**
    * Filters whether a ticket can be edited from a post.
    *
    * @since 5.8.0
-   *
    * @param {boolean} isEditable Whether or not the ticket can be edited from the post.
    * @param {Object} context The context of the filter.
    * @param {number} context.ticketId The ticket ID.
    * @param {string} context.ticketType The ticket types, e.g. `default`, `series_pass`, etc.
-   * @param {object} context.post The post object.
+   * @param {Object} context.post The post object.
    */
   return Object(external_wp_hooks_["applyFilters"])('tec.tickets.blocks.editTicketFromPost', true, {
     ticketId,
@@ -4598,9 +4599,6 @@ const isTicketEditableFromPost = (ticketId, ticketType, post) => {
     post
   });
 };
-// EXTERNAL MODULE: ./src/modules/data/utils.js
-var utils = __webpack_require__("BNqv");
-
 // CONCATENATED MODULE: ./src/modules/data/blocks/ticket/reducers/tickets/ticket/details.js
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -4613,7 +4611,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -5098,7 +5095,6 @@ function reducer_objectSpread(target) { for (var i = 1; i < arguments.length; i+
 
 
 
-
 const reducer_DEFAULT_STATE = {
   headerImage: header_image["a" /* DEFAULT_STATE */],
   isSelected: false,
@@ -5240,6 +5236,9 @@ var rsvp_actions = __webpack_require__("qkor");
 // EXTERNAL MODULE: ./src/modules/data/blocks/rsvp/reducers/header-image.js
 var reducers_header_image = __webpack_require__("56gU");
 
+// EXTERNAL MODULE: ./src/modules/data/utils.js
+var utils = __webpack_require__("BNqv");
+
 // EXTERNAL MODULE: external "tribe.common.data"
 var external_tribe_common_data_ = __webpack_require__("ZNLL");
 
@@ -5341,23 +5340,23 @@ function formatTicketFromRestToAttributeFormat(ticket) {
   const sold = (ticket === null || ticket === void 0 ? void 0 : (_ticket$capacity_deta4 = ticket.capacity_details) === null || _ticket$capacity_deta4 === void 0 ? void 0 : _ticket$capacity_deta4.sold) || 0;
   const isShared = capacityType === constants["SHARED"] || capacityType === constants["CAPPED"] || capacityType === constants["GLOBAL"];
   return {
-    "id": ticket.id,
-    "type": ticket.type,
-    "title": ticket.title,
-    "description": ticket.description,
-    "capacityType": capacityType,
-    "price": (ticket === null || ticket === void 0 ? void 0 : ticket.cost) || '0.00',
-    "capacity": capacity,
-    "available": available,
-    "sharedCapacity": capacity,
-    "sold": sold,
-    "shareSold": sold,
-    "isShared": isShared,
-    "currencyDecimalPoint": (ticket === null || ticket === void 0 ? void 0 : (_ticket$cost_details = ticket.cost_details) === null || _ticket$cost_details === void 0 ? void 0 : _ticket$cost_details.currency_decimal_separator) || '.',
-    "currencyNumberOfDecimals": (ticket === null || ticket === void 0 ? void 0 : (_ticket$cost_details2 = ticket.cost_details) === null || _ticket$cost_details2 === void 0 ? void 0 : _ticket$cost_details2.currency_decimal_numbers) || 2,
-    "currencyPosition": (ticket === null || ticket === void 0 ? void 0 : (_ticket$cost_details3 = ticket.cost_details) === null || _ticket$cost_details3 === void 0 ? void 0 : _ticket$cost_details3.currency_position) || 'prefix',
-    "currencySymbol": (ticket === null || ticket === void 0 ? void 0 : ticket.cost_details.currency_symbol) || '$',
-    "currencyThousandsSep": (ticket === null || ticket === void 0 ? void 0 : (_ticket$cost_details4 = ticket.cost_details) === null || _ticket$cost_details4 === void 0 ? void 0 : _ticket$cost_details4.currency_thousand_separator) || ','
+    id: ticket.id,
+    type: ticket.type,
+    title: ticket.title,
+    description: ticket.description,
+    capacityType: capacityType,
+    price: (ticket === null || ticket === void 0 ? void 0 : ticket.cost) || '0.00',
+    capacity: capacity,
+    available: available,
+    sharedCapacity: capacity,
+    sold: sold,
+    shareSold: sold,
+    isShared: isShared,
+    currencyDecimalPoint: (ticket === null || ticket === void 0 ? void 0 : (_ticket$cost_details = ticket.cost_details) === null || _ticket$cost_details === void 0 ? void 0 : _ticket$cost_details.currency_decimal_separator) || '.',
+    currencyNumberOfDecimals: (ticket === null || ticket === void 0 ? void 0 : (_ticket$cost_details2 = ticket.cost_details) === null || _ticket$cost_details2 === void 0 ? void 0 : _ticket$cost_details2.currency_decimal_numbers) || 2,
+    currencyPosition: (ticket === null || ticket === void 0 ? void 0 : (_ticket$cost_details3 = ticket.cost_details) === null || _ticket$cost_details3 === void 0 ? void 0 : _ticket$cost_details3.currency_position) || 'prefix',
+    currencySymbol: (ticket === null || ticket === void 0 ? void 0 : ticket.cost_details.currency_symbol) || '$',
+    currencyThousandsSep: (ticket === null || ticket === void 0 ? void 0 : (_ticket$cost_details4 = ticket.cost_details) === null || _ticket$cost_details4 === void 0 ? void 0 : _ticket$cost_details4.currency_thousand_separator) || ','
   };
 }
 function* updateUneditableTickets() {
@@ -5387,7 +5386,7 @@ function* updateUneditableTickets() {
   const restFormatUneditableTickets = data.tickets
   // Remove the editable tickets.
   .filter(ticket => !isTicketEditableFromPost(ticket.id, ticket.type, post));
-  let uneditableTickets = [];
+  const uneditableTickets = [];
   if (restFormatUneditableTickets.length >= 1) {
     for (const ticket of restFormatUneditableTickets) {
       const formattedUneditableTicket = yield formatTicketFromRestToAttributeFormat(ticket);
@@ -5399,7 +5398,6 @@ function* updateUneditableTickets() {
    * Fires after the uneditable tickets have been updated from the backend.
    *
    * @since 5.8.0
-   *
    * @param {Object[]} uneditableTickets The uneditable tickets just fetched from the backend.
    */
   Object(external_wp_hooks_["doAction"])('tec.tickets.blocks.uneditableTicketsUpdated', uneditableTickets);
@@ -7473,12 +7471,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteTicket", function() { return deleteTicket; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketInitialState", function() { return setTicketInitialState; });
 /* harmony import */ var _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("QFGf");
-/* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("RmXt");
-/* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__);
 /**
  * Internal dependencies
  */
-
 
 
 //

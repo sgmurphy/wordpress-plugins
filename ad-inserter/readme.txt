@@ -4,9 +4,9 @@ Contributors: adinserter, spacetime
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LHGZEMRTR7WB4
 Tags: ads, adsense, amp, ad rotation, ad manager
 Requires at least: 4.9
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.2
-Stable tag: 2.7.33
+Stable tag: 2.7.34
 License: GPLv3
 
 Manage Google AdSense, Media.net, Amazon banners, ads.txt, ad rotation, sticky widgets, AMP ads, DFP, tracking, AdSense header and footer code
@@ -362,6 +362,12 @@ If you are not happy to reveal this information and you have opted in, simply di
 
 == Changelog ==
 
+= 2.7.34 =
+- Added support for ^ character to invert viewports in the VIEWPORT separator
+- Added support for index parameter for counter shortcodes
+- Changed text for content marker
+- Few minor bug fixes, cosmetic changes and code improvements
+
 = 2.7.33 =
 - Changed widget class name
 - Added option to define maximum number of list selection items
@@ -561,6 +567,13 @@ If you are not happy to reveal this information and you have opted in, simply di
 For the changelog of earlier versions, please refer to the separate changelog.txt file.
 
 == Upgrade Notice ==
+
+= 2.7.34 =
+Added support for ^ character to invert viewports in the VIEWPORT separator;
+Added support for index parameter for counter shortcodes;
+Changed text for content marker;
+Few minor bug fixes, cosmetic changes and code improvements
+
 
 = 2.7.33 =
 Changed widget class name;

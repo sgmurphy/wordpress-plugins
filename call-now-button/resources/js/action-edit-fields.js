@@ -88,6 +88,8 @@ function cnb_action_update_appearance(value) {
     valueTextEle.removeAttr("required")
     whatsappValueEle.removeAttr("required")
 
+    valueTextEle.prop('type', 'text')
+
     switch (value) {
         case 'ANCHOR':
             valueLabelEle.text('Page anchor')
@@ -96,10 +98,12 @@ function cnb_action_update_appearance(value) {
         case 'EMAIL':
             valueLabelEle.text('E-mail address')
             valueTextEle.attr("required", "required")
+            valueTextEle.prop('type', 'email')
             break
         case 'LINK':
             valueLabelEle.text('Full URL')
             valueTextEle.attr("required", "required")
+            valueTextEle.prop('type', 'url')
             break
         case 'MAP':
             valueLabelEle.text('Address')
@@ -108,10 +112,12 @@ function cnb_action_update_appearance(value) {
         case 'PHONE':
             valueLabelEle.text('Phone number')
             valueTextEle.attr("required", "required")
+            valueTextEle.prop('type', 'tel')
             break
         case 'SMS':
             valueLabelEle.text('Phone number')
             valueTextEle.attr("required", "required")
+            valueTextEle.prop('type', 'tel')
             // SMS has a field conflict with WhatsApp, fix it
             jQuery('#action-properties-message-whatsapp').attr('disabled', true)
             jQuery('#action-properties-message-sms').attr('disabled', false)
@@ -119,6 +125,7 @@ function cnb_action_update_appearance(value) {
         case 'WHATSAPP':
             valueLabelEle.text('WhatsApp number')
             intlInputLabelEle.text('WhatsApp number')
+            valueTextEle.prop('type', 'tel')
             cnb_switch_to_intl_input()
 
             // WhatsApp has a field conflict with SMS, fix it
@@ -139,11 +146,13 @@ function cnb_action_update_appearance(value) {
         case 'SIGNAL':
             valueLabelEle.text('Signal number')
             intlInputLabelEle.text('Signal number')
+            valueTextEle.prop('type', 'tel')
             cnb_switch_to_intl_input()
             break
         case 'IFRAME':
             valueLabelEle.text('Iframe URL')
             valueTextEle.attr("required", "required")
+            valueTextEle.prop('type', 'url')
             break
         case 'TALLY':
             valueLabelEle.text('Tally Form ID')
@@ -157,6 +166,7 @@ function cnb_action_update_appearance(value) {
             // Value is regular phone number by default
             valueLabelEle.text('Skype number / username')
             valueTextEle.attr("required", "required")
+            valueTextEle.prop('type', 'tel')
             break
         case 'ZALO':
             valueLabelEle.text('Zalo user/group name')
@@ -166,6 +176,7 @@ function cnb_action_update_appearance(value) {
             valueLabelEle.text('Viber Bot URI')
             intlInputLabelEle.text('Phone number')
             valueTextEle.attr("required", "required")
+            valueTextEle.prop('type', 'url')
             break
         case 'LINE':
             valueLabelEle.text('Line username')
@@ -176,7 +187,6 @@ function cnb_action_update_appearance(value) {
             valueTextEle.attr("required", "required")
             break
         case 'CHAT':
-            const valueEle = jQuery('.cnb-action-value')
             valueLabelEle.text('Action value')
             valueTextEle.removeAttr("required", "required")
             valueEle.hide()

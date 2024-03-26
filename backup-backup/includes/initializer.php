@@ -1389,6 +1389,7 @@
     }
 
     public static function res($array) {
+      $GLOBALS['BMI::RESPONSE::SENT'] = true;
       echo json_encode(Backup_Migration_Plugin::sanitize($array));
 
       if (defined('BMI_USING_CLI_FUNCTIONALITY') && BMI_USING_CLI_FUNCTIONALITY === true) {

@@ -554,6 +554,7 @@ class TextSeparator extends EAE_Widget_Base {
 		view.addRenderAttribute( 'title', 'class', 'eae-separator-title' );
 
 		view.addInlineEditingAttributes( 'title' );
+		let titleHtmlTag = window.eae.validateHTMLTag(settings.html_tag, null, 'h2');
 		#>
 		<div  {{{ view.getRenderAttributeString( 'separator_wrapper' ) }}}>
 		<div class="eae-sep-holder sep-left">
@@ -571,9 +572,7 @@ class TextSeparator extends EAE_Widget_Base {
 			</div>
 		</div>
 		<# } #>
-
-		<{{{settings.html_tag}}} {{{ view.getRenderAttributeString( 'title' ) }}} >{{{ settings.title }}}</{{{settings.html_tag}}}>
-
+		<{{{titleHtmlTag}}} {{{ view.getRenderAttributeString( 'title' ) }}} >{{{ settings.title }}}</{{{titleHtmlTag}}}>
 		<# if((iconHTML.rendered) && settings.icon_position == 'after') { #>
 		<div class="eae-separator-icon-wrapper">
 			<div class="eae-separator-icon-inner">

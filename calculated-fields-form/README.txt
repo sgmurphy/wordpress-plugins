@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.1.60
+Stable tag: 5.1.61
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -1013,6 +1013,14 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 5.1.61 =
+
+* Modifies the multiple files behavior in Upload File control to allow adding new files without losing the previous files selected.
+* Modifies the calculated field integration with the advanced editor to avoid conflicts with some browser extensions.
+* Removes deprecated code.
+* Fixes a minor issue with the JS minify module.
+* Fixes an issue in the Popup control on pages with multiple forms.
+
 = 5.1.60 =
 
 * Modifies the fields list popup to allow accessing the fields from the list.
@@ -1047,7 +1055,3 @@ A: Please, follow the steps below:
 * Resolved a dependency issue that occurs when there are more than ten forms inserted on a single page.
 * Fixes a warning in the notification emails module (Professional, Developer, and Platinum versions)
 * Modifies the MailPoet add-on (Platinum version)
-
-= 1.2.55 =
-
-* Improves the plugin security. Special thanks to security researcher Rafie Muhammad (Patchstack)

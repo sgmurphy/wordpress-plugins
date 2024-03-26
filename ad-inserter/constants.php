@@ -35,7 +35,7 @@ if (!defined( 'AD_INSERTER_NAME'))
   define ('AD_INSERTER_NAME', 'Ad Inserter');
 
 if (!defined( 'AD_INSERTER_VERSION'))
-  define ('AD_INSERTER_VERSION', '2.7.33');
+  define ('AD_INSERTER_VERSION', '2.7.34');
 
 if (!defined ('AD_INSERTER_PLUGIN_BASENAME'))
   define ('AD_INSERTER_PLUGIN_BASENAME', plugin_basename (__FILE__));
@@ -1053,7 +1053,7 @@ define ('DEFAULT_VIEWPORT_WIDTH_3', 0);
 
 define ('AI_MARKER_START',              '%##');
 define ('AI_MARKER_END',                '##%');
-define ('AI_CONTENT_MARKER',            'AI CONTENT END');
+define ('AI_CONTENT_MARKER',            'CONTENT END');
 
 define ('CONTENT_HOOK_BLOCKS',          'content_hook');
 define ('EXCERPT_HOOK_BLOCKS',          'excerpt_hook');

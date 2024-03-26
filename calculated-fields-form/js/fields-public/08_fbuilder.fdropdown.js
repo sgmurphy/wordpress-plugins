@@ -167,7 +167,7 @@
 				{
                     _default = _default || false;
                     nochange = nochange || false;
-					if(!$.isArray(v)) v = [v];
+					if(!Array.isArray(v)) v = [v];
 					var t, e, n = this.name, selector;
 					for(var i in v)
 					{
@@ -185,24 +185,24 @@
 						var me = this,
                             bk = me.val(true);
 
-						if('texts' in choices && $.isArray(choices.texts)) me.choices = choices.texts;
-						if('values' in choices && $.isArray(choices.values)) me.choicesVal = choices.values;
-                        if('dependencies' in choices && $.isArray(choices.dependencies))
+						if('texts' in choices && Array.isArray(choices.texts)) me.choices = choices.texts;
+						if('values' in choices && Array.isArray(choices.values)) me.choicesVal = choices.values;
+                        if('dependencies' in choices && Array.isArray(choices.dependencies))
                         {
                             me.choicesDep = choices.dependencies.map(
                                 function(x){
-                                    return ($.isArray(x)) ? x.map(
+                                    return (Array.isArray(x)) ? x.map(
                                         function(y){
                                             return (typeof y == 'number') ? 'fieldname'+parseInt(y) : y;
                                         }) : x;
                                 }
 );
                         }
-						if('optgroup' in choices && $.isArray(choices.optgroup)) me.optgroup = choices.optgroup;
+						if('optgroup' in choices && Array.isArray(choices.optgroup)) me.optgroup = choices.optgroup;
 						var html = me.show(),
 							e = $('.'+me.name);
 						e.find('select').html($(html).find('select').html());
-						if(!$.isArray(bk)) bk = [bk];
+						if(!Array.isArray(bk)) bk = [bk];
                         for(var j in bk)
                         {
                             try{ bk[j] = JSON.parse(bk[j]); }catch(err){}

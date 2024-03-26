@@ -102,7 +102,7 @@
 					});
 
 					if ( ! /^\s*$/.test( me.open_onclick ) ) {
-						let btn = getField( me.open_onclick );
+						let btn = getField( me.open_onclick+me.form_identifier );
 						if ( btn != false ) {
 							$( document ).on( 'click', '#'+btn.jQueryRef().find( 'input' ).attr('id'), function(){
 								SHOWFIELD(me.name);

@@ -61,8 +61,20 @@ $base_columns = array(
     'coupon_items' => 'Coupon items',
     'refund_items' => 'Refund items',
     'order_notes' => 'Order notes',
-    'download_permissions' => 'Download permissions'
+    'download_permissions' => 'Download permissions',
+
 );
+if( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '8.5', '>=' ) ):
+    $base_columns['meta:_wc_order_attribution_device_type'] = 'wc order attribution device type';
+    $base_columns['meta:_wc_order_attribution_referrer']    = 'wc order attribution referrer';
+    $base_columns['meta:_wc_order_attribution_session_count'] = 'wc order attribution session count';
+    $base_columns['meta:_wc_order_attribution_session_entry'] = 'wc order attribution session entry';
+    $base_columns['meta:_wc_order_attribution_session_pages'] = 'wc order attribution session pages';
+    $base_columns['meta:_wc_order_attribution_session_start_time'] = 'wc order attribution session start time';
+    $base_columns['meta:_wc_order_attribution_source_type']= 'wc order attribution source type';
+    $base_columns['meta:_wc_order_attribution_user_agent'] = 'wc order attribution user agent';
+    $base_columns['meta:_wc_order_attribution_utm_source'] = 'wc order attribution utm source';
+endif; 
 
 if (!function_exists('is_plugin_active'))
     require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
@@ -91,18 +103,17 @@ if (class_exists('WPO_WCPDF')):
 	$base_columns['meta:_wcpdf_invoice_date_formatted'] = 'WCPDF Invoice date formatted';
 	$base_columns['meta:_wcpdf_invoice_settings'] = 'WCPDF Invoice settings';
 endif;
+
 if (is_plugin_active('woocommerce-paypal-payments/woocommerce-paypal-payments.php')):
-    $base_columns['meta:_ppcp_paypal_fees'] = 'Paypal fees';
+    $base_columns['meta:_ppcp_paypal_fees'] = 'Wc Paypal fees';
 endif;
 
-
-
 if (is_plugin_active('eh-stripe-payment-gateway/stripe-payment-gateway.php')):
-    $base_columns['meta:eh_stripe_fees'] = 'eh_stripe_fees';
+    $base_columns['meta:eh_stripe_fees'] = 'Wt stripe fees';
 endif;
 
 if (is_plugin_active('woocommerce-gateway-stripe/woocommerce-gateway-stripe.php')):
-    $base_columns['meta:_stripe_fees'] = 'Stripe fees';
+    $base_columns['meta:_stripe_fees'] = 'Wc Stripe fees';
 endif;
 
 return apply_filters('hf_csv_order_post_columns', $base_columns);

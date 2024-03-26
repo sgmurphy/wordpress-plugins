@@ -448,6 +448,10 @@ Minimum php version 5.6
 memory_limit 256M or more
 post_max_size 64M
 
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/royal-elementor-addons)
+
 == Changelog ==
 = Royal Elementor Addons v1.3.95 - 2024-03-22 =
 * FIXED: Minor Bugs.

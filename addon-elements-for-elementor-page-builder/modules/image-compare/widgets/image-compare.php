@@ -502,14 +502,35 @@ class ImageCompare extends EAE_Widget_Base {
 
 		iconHTML = elementor.helpers.renderIcon( view, settings.slider_icon_new, { 'aria-hidden': true  , 'class' : 'eae-slider-icon'}, 'i' , 'object' ),
 		migrated = elementor.helpers.isIconMigrated( settings, 'slider_icon_new' );
+
+		let before_img = {
+			id: settings.before_image.id,
+			url: settings.before_image.url,
+			size: settings.before_image_size_size,
+			dimension: settings.before_image_size_custom_dimension,
+			model: view.getEditModel()
+		};
+
+		var before_image_url = elementor.imagesManager.getImageUrl( before_img );
+		var beforeImageHtml = '<img src="' + _.escape( before_image_url ) + '"  data-skip-lazy="1" class="eae-before-image"/>';
+		let after_img = {
+			id: settings.after_image.id,
+			url: settings.after_image.url,
+			size: settings.after_image_size_size,
+			dimension: settings.after_image_size_custom_dimension,
+			model: view.getEditModel()
+		};
+
+		var after_image_url = elementor.imagesManager.getImageUrl( after_img );
+		var afterImageHtml = '<img src="' + _.escape( after_image_url ) + '" data-skip-lazy="1" class="eae-after-image"/>';
 		#>
 
 		<div {{{ view.getRenderAttributeString( 'wrapper') }}} >
-		<img src="{{{ settings.before_image.url }}}" data-skip-lazy="1"/>
+		{{{beforeImageHtml}}}
 		<# if(settings.text_before) {#>
 			<span class="eae-text-before">{{{settings.text_before}}}</span>
 		<# } #>
-		<div class="eae-img-comp-slider"">
+		<div class="eae-img-comp-slider">
 		<# if ( iconHTML.rendered && ( ! settings.slider_icon || migrated ) ) { #>
 			{{{iconHTML.value}}}
 		<# } else { #>
@@ -518,7 +539,7 @@ class ImageCompare extends EAE_Widget_Base {
 		</div>
 
 		<div class="eae-img-comp-img eae-img-comp-overlay">
-			<img src="{{{ settings.after_image.url }}}" data-skip-lazy="1">
+			{{{afterImageHtml}}}
 			<# if(settings.text_after) { #>
 			<span class="eae-text-after">{{{settings.text_after}}}</span>
 			<# } #>

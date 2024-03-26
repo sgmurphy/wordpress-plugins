@@ -36,6 +36,17 @@ class Template_Kit_Import extends API {
 	}
 
 	/**
+	 * @return \WP_REST_Response
+	 */
+	public function fetch_permissions() {
+        $permissions = [
+            "can_use_template_kits" => current_user_can('install_themes')
+        ];
+
+		return $this->format_success( $permissions );
+	}
+
+	/**
 	 * @param $request \WP_REST_Request
 	 *
 	 * @return \WP_REST_Response
@@ -319,5 +330,18 @@ class Template_Kit_Import extends API {
 		$this->register_endpoint( 'importSingleTemplate', array( $this, 'import_single_template' ) );
 		$this->register_endpoint( 'getSingleTemplateImportData', array( $this, 'get_single_template_for_import' ) );
 		$this->register_endpoint( 'importElementorTemplateImage', array( $this, 'import_elementor_template_image' ) );
+
+        register_rest_route(
+            ENVATO_TEMPLATE_KIT_IMPORT_API_NAMESPACE,
+            'fetchPermissions',
+            array(
+                array(
+                    'methods'             => \WP_REST_Server::CREATABLE,
+                    'callback'            => array( $this, 'fetch_permissions' ),
+                    'permission_callback' => '__return_true',
+                    'args'                => array(),
+                ),
+            )
+        );
 	}
 }

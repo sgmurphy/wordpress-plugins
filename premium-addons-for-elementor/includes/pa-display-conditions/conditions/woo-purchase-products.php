@@ -63,29 +63,29 @@ class Woo_Purchase_Products extends Condition {
 
 		$order_item_id = array();
 
-		$args = array(
-			'numberposts' => -1,
-			'meta_key'    => '_customer_user',
-			'meta_value'  => get_current_user_id(),
-			'post_type'   => wc_get_order_types(),
-			'post_status' => array_keys( wc_get_is_paid_statuses() ),
-		);
+		if ( is_user_logged_in() ) {
 
-		$order_item_id = array();
+			$args = array(
+				'limit'    => -1,
+				'status'   => array( 'wc-completed' ),
+				'customer' => get_current_user_id(),
 
-		$orders = wc_get_orders( $args );
+			);
 
-		foreach ( $orders as $order ) {
+			$orders = wc_get_orders( $args );
 
-			$order = wc_get_order( $order->ID );
+			foreach ( $orders as $order ) {
 
-			$order_items = $order->get_items();
+				$order = wc_get_order( $order->ID );
 
-			foreach ( $order_items as $order_item ) {
+				$order_items = $order->get_items();
 
-				$product_id = $order_item->get_product_id();
+				foreach ( $order_items as $order_item ) {
 
-				$order_item_id[] = $product_id;
+					$product_id = $order_item->get_product_id();
+
+					$order_item_id[] = $product_id;
+				}
 			}
 		}
 

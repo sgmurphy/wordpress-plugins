@@ -1010,7 +1010,7 @@
         }
 
       } else {
-        if (!$this->statusSent) {
+        if (!$this->statusSent && !isset($GLOBALS['BMI::RESPONSE::SENT'])) {
           $this->statusSent = true;
           return BMP::res([ 'status' => 'success' ]);
         }
@@ -1030,7 +1030,7 @@
       
       $this->res = $res;
       
-      if (!$this->statusSent) {
+      if (!$this->statusSent && !isset($GLOBALS['BMI::RESPONSE::SENT'])) {
         $this->statusSent = true;
         BMP::res($res);
       }

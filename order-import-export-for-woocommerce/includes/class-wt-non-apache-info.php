@@ -9,11 +9,13 @@ if ( !class_exists( 'wt_inform_server_secure' ) ) {
 		/**
 		 * config options 
 		 */
-		public $plugin			 = "";
-		public $banner_message		 = "";
+		public $plugin			         = "";
+		public $banner_message		     = "";
 		public $sholud_show_server_info	 = '';
-                public $ajax_action_name         = '';
-                public $plugin_title             = 'Order Import Export';
+        public $ajax_action_name         = '';
+        public $plugin_title             = 'Order Import Export';
+		public $banner_css_class         = "";
+
 
 		public function __construct( $plugin ) {
 			$this->plugin					 = $plugin;

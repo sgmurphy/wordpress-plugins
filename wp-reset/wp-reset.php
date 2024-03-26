@@ -3,15 +3,15 @@
   Plugin Name: WP Reset
   Plugin URI: https://wpreset.com/
   Description: Reset the entire site or just selected parts while reserving the option to undo by using snapshots.
-  Version: 1.99
+  Version: 2.00
   Requires at least: 4.0
   Requires PHP: 5.2
-  Tested up to: 6.4
+  Tested up to: 6.5
   Author: WebFactory Ltd
   Author URI: https://www.webfactoryltd.com/
   Text Domain: wp-reset
 
-  Copyright 2015 - 2023  WebFactory Ltd  (email: wpreset@webfactoryltd.com)
+  Copyright 2015 - 2024  WebFactory Ltd  (email: wpreset@webfactoryltd.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as
@@ -2645,14 +2645,14 @@ class WP_Reset
         fclose($htaccess_file);
       }
 
-      $world_dumper->dump(trailingslashit(WP_CONTENT_DIR) . $this->snapshots_folder . '/wp-reset-snapshot-' . $uid . '.sql.gz', $uid . '_');
+      $world_dumper->dump(trailingslashit(WP_CONTENT_DIR) . $this->snapshots_folder . '/wp-reset-snapshot-' . md5($uid) . '.sql.gz', $uid . '_');
     } catch (Shuttle_Exception $e) {
       return new WP_Error(1, 'Couldn\'t create snapshot: ' . $e->getMessage());
     }
 
-    do_action('wp_reset_export_snapshot', 'wp-reset-snapshot-' . $uid . '.sql.gz');
+    do_action('wp_reset_export_snapshot', 'wp-reset-snapshot-' . md5($uid) . '.sql.gz');
 
-    return 'wp-reset-snapshot-' . $uid . '.sql.gz';
+    return 'wp-reset-snapshot-' . md5($uid) . '.sql.gz';
   } // export_snapshot
 
 

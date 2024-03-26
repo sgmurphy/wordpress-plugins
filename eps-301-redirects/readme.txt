@@ -1,9 +1,9 @@
 === 301 Redirects - Easy Redirect Manager ===
 Contributors: WebFactory
-Tags: 301 redirect, redirects, redirect, 404 error log, redirection, 302, seo, 302 redirect, 404, 404 redirect, 301, 307, 404 log
+Tags: 301 redirect, redirect, 404 error log, redirection, redirects
 Requires at least: 4.0
-Tested up to: 6.4
-Stable tag: 2.74
+Tested up to: 6.5
+Stable tag: 2.75
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -60,6 +60,19 @@ Install our free <a href="https://wordpress.org/plugins/wp-force-ssl/">WP Force 
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Begin adding redirects in the Settings -> 301 Redirects menu item
 
+== Frequently Asked Questions ==
+
+= How to disable this plugin? =
+
+Just use standard Plugin overview page in WordPress admin section and deactivate it or rename plugin folder /wp-content/plugins/eps-301-redirects over FTP access.
+
+= Will it slow my site down? =
+
+No, it won't. It's only loaded on the pages it protects.
+
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/eps-301-redirects)
 
 
 == Screenshots ==
@@ -69,6 +82,10 @@ Install our free <a href="https://wordpress.org/plugins/wp-force-ssl/">WP Force 
 
 
 == Changelog ==
+
+= 2.75 =
+* 2024/03/25
+* WordPress 6.5 compatibility
 
 = 2.74 =
 * 2024/02/20

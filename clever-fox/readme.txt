@@ -1,10 +1,10 @@
 === Clever Fox, One Click Website Importer by Nayra Themes ===
 Contributors: nayrathemes
-Tags: homepage, companion, one click demo, sections, customizer, widget, settings
+Tags: homepage setup, companion, one click demo, sections, customizer
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 25.0
+Stable tag: 25.1.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -176,6 +176,9 @@ Clever Fox WordPress Plugin is licensed under the GPL3 (https://www.gnu.org/lice
 
 
 == Changelog ==
+
+= 25.1.1 =
+* Update Plugin Tag
 
 = 25.0 =
 * Updated Acronix Theme

@@ -141,8 +141,28 @@ class CnbAction implements JsonSerializable {
             $action->iconText = ( new CnbUtils() )->cnb_actiontype_to_icontext( $action->actionType );
         }
 
+		CnbAction::sanitize_action_value($action);
+
         return $action;
     }
+
+	/**
+	 * @param $action CnbAction
+	 *
+	 * @return void
+	 */
+	private static function sanitize_action_value( $action ) {
+		// In case the action type has a value that represents a URL, ensure that the URL is correct
+		switch ($action->actionType) {
+			case 'LINK':
+			case 'IFRAME':
+				$action->actionValue = sanitize_url($action->actionValue, array( 'http', 'https' ) );
+				break;
+			case 'EMAIL':
+				$action->actionValue = sanitize_email($action->actionValue);
+				break;
+		}
+	}
 
     /**
      * @param $objects stdClass[]|array[]|WP_Error|null

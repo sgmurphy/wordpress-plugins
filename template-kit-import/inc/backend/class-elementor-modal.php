@@ -40,12 +40,12 @@ class Elementor_Modal extends Base {
 		// First load our main react bundle so we've got access to the modal code from within 'elementor_modal.js';
 		Welcome::get_instance()->admin_page_assets();
 		// Now load our custom elementor_modal.js code and css:
-		wp_enqueue_script( 'elements-elementor-modal', ENVATO_TEMPLATE_KIT_IMPORT_URI . 'assets/elementor_modal.js', array( 'jquery' ), ENVATO_TEMPLATE_KIT_IMPORT_VER );
+		wp_enqueue_script( 'elements-elementor-modal', ENVATO_TEMPLATE_KIT_IMPORT_URI . 'assets/custom/elementor_modal.js', array( 'jquery' ), ENVATO_TEMPLATE_KIT_IMPORT_VER );
 	}
 
 	public function enqueue_embedded_iframe_styles() {
-		wp_enqueue_style( 'template-kit-import-admin', ENVATO_TEMPLATE_KIT_IMPORT_URI . 'assets/main.css', array(), filemtime( ENVATO_TEMPLATE_KIT_IMPORT_DIR . 'assets/main.css' ) );
-		wp_enqueue_style( 'elements-elementor-modal', ENVATO_TEMPLATE_KIT_IMPORT_URI . 'assets/elementor_modal.css', array(), ENVATO_TEMPLATE_KIT_IMPORT_VER );
+		wp_enqueue_style( 'template-kit-import-admin', ENVATO_TEMPLATE_KIT_IMPORT_URI . 'assets/react/main.css', array(), filemtime( ENVATO_TEMPLATE_KIT_IMPORT_DIR . 'assets/react/main.css' ) );
+		wp_enqueue_style( 'elements-elementor-modal', ENVATO_TEMPLATE_KIT_IMPORT_URI . 'assets/custom/elementor_modal.css', array(), ENVATO_TEMPLATE_KIT_IMPORT_VER );
 	}
 
 }

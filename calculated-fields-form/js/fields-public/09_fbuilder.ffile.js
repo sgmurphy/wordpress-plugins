@@ -14,6 +14,7 @@
 			thumb_width: '80px',
 			thumb_height: '',
 			_patch: false, // Used only if the submission is being updated to preserves the previous values
+			_files_list: [],
 			init: function(){
 				this.thumb_width  = String(this.thumb_width).trim();
 				this.thumb_height = String(this.thumb_height).trim();
@@ -56,12 +57,46 @@
 						}
 					});
 
+				$('#'+me.name).on( 'click', function(){
+					me._files_list = [];
+					if ( me.multiple ) {
+						for ( var i = 0; i < this.files.length; i++ ) {
+							me._files_list.push( this.files[i] );
+						}
+					}
+				});
+
 				$('#'+me.name).on( 'change', function(){
+
 					var h = this.files.length, n = 0;
+
 					$(this).siblings('span.files-list').remove();
 					$('[id="'+me.name+'_patch"]').remove();
-					if(1 <= h)
+					if(1 <= h || me._files_list.length )
 					{
+						if ( me.multiple && typeof DataTransfer != 'undefined' ) {
+							try {
+								var _dataTransfer = new DataTransfer(),
+									_preventDuplication = {};
+								// Copy from files input tags
+								for (var i = 0; i < h; i++) {
+									_dataTransfer.items.add( this.files[i] );
+									_preventDuplication[ this.files[i]['name'] + '|' + this.files[i]['size'] ] = true;
+								}
+
+								// Copy from list
+								for(var i = 0, k = me._files_list.length; i < k; i++) {
+									if ( me._files_list[i]['name'] + '|' + me._files_list[i]['size'] in _preventDuplication ) continue;
+									_dataTransfer.items.add( me._files_list[i] );
+								}
+
+								this.files = _dataTransfer.files;
+								h = this.files.length;
+							} catch ( err ) {
+								console.log( err );
+							}
+						}
+
 						var filesContainer = $('<span class="files-list"></span>');
 						for(var i = 0; i < h; i++)
 						{
@@ -86,7 +121,7 @@
 					}
 				});
 
-                $('#'+me.name+'_clearer').on( 'click', function(){$('#'+me.name).val('').trigger('change').valid();});
+                $('#'+me.name+'_clearer').on( 'click', function(){ me._files_list= []; $('#'+me.name).val('').trigger('change').valid();});
 			},
 			val : function(raw, no_quotes)
 			{

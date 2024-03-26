@@ -305,7 +305,7 @@ class Module {
 		var slider_data = [];
 		slides = settings.eae_bg_slider_images;
 		for(var i in slides){
-		slider_data[i]  = slides[i].url;
+		slider_data[i]  = _.escape(slides[i].url);
 		}
 		slides_path_string = slider_data.join();
 		}

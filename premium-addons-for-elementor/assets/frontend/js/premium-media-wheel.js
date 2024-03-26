@@ -177,6 +177,18 @@
             $scope.find(".premium-adv-carousel__media-wrap").css("background", "unset");
         }
 
+        function setHorizontalWidth() {
+            var horAlignWidth = 0;
+
+            $scope.find('.premium-adv-carousel__item').each(function () {
+                horAlignWidth += $(this).outerWidth(true);
+            });
+
+            $mediaItemsContainer.css({ 'width': horAlignWidth });
+
+            return horAlignWidth;
+        }
+
         function runInfiniteAnimation() {
 
             var $mediaItem = $scope.find('.premium-adv-carousel__item'),
@@ -185,7 +197,6 @@
                 start = 'transform: translateX(' + 0 + 'px)',
                 end = 'transform: translateX(-50%)',
                 scrollDir = settings.reverse,
-                horAlignWidth = 0,
                 verAlignWidth = 10,
                 duration = settings.speed * 1000 + 'ms',
                 animeName = 'pa-scroll-' + $scope.data('id'),
@@ -193,16 +204,13 @@
 
             if ('horizontal' === direction) {
 
-                $mediaItem.each(function () {
-                    horAlignWidth += $(this).outerWidth(true);
-                });
+                var horAlignWidth = setHorizontalWidth();
 
                 $mediaItemsContainer.css({
                     'height': containerHeight,
                     'position': 'relative'
                 });
 
-                $mediaItemsContainer.css({ 'width': horAlignWidth });
                 $mediaItemsContainer.find('.premium-adv-carousel__item-outer-wrapper').css('position', 'absolute');
 
                 if ('normal' === scrollDir) {
@@ -215,20 +223,27 @@
                     factor = 'normal' === scrollDir ? -1 : 1,
                     accumlativeWidth = 0;
 
+                // clone the items till the width is equal to the viewport width
+                while (horAlignWidth <= $scope.outerWidth()) {
+
+                    cloneItems();
+                    // recalculate the full width.
+                    horAlignWidth = setHorizontalWidth();
+                };
+
                 gsap.set($scope.find('.premium-adv-carousel__item-outer-wrapper'), { // animates the carousel.
                     x: function (i) {
 
                         transformVal = accumlativeWidth;
 
-                        accumlativeWidth = accumlativeWidth + $mediaItem.eq(i).outerWidth(true) + parseFloat(slidesSpacing);
+                        accumlativeWidth = accumlativeWidth + $scope.find('.premium-adv-carousel__item').eq(i).outerWidth(true) + parseFloat(slidesSpacing);
 
                         return (transformVal) * factor
                     }
                 });
 
+                var fullWidth = (horAlignWidth + ($mediaItem.length * parseFloat(slidesSpacing)));
                 // var fullWidth = (horAlignWidth + (($mediaItem.length - 2) * parseFloat(slidesSpacing)));
-                var fullWidth = (horAlignWidth + (($mediaItem.length) * parseFloat(slidesSpacing)));
-
                 var animation = gsap.to($scope.find('.premium-adv-carousel__item-outer-wrapper'), {
                     duration: settings.speed,
                     ease: "none",
@@ -239,7 +254,7 @@
                             var remainder = parseFloat(x) % fullWidth,
                                 clampedValue = Math.max(remainder, -fullWidth);
 
-                            return 'normal' === scrollDir ? clampedValue : remainder
+                            return 'normal' === scrollDir ? clampedValue : remainder;
 
                         })
                     },
@@ -277,6 +292,15 @@
 
             }
 
+        }
+
+        function cloneItems() {
+            var itemLen = $mediaItemsContainer.children().length,
+                docFragment = new DocumentFragment();
+
+            $mediaItemsContainer.find('.premium-adv-carousel__item-outer-wrapper:lt(' + itemLen + ')').clone(true, true).appendTo(docFragment);
+
+            $mediaItemsContainer.append(docFragment);
         }
 
         function getPrettyPhotoSettings() {

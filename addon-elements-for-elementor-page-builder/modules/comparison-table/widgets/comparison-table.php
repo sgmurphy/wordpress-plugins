@@ -2126,7 +2126,7 @@ class ComparisonTable extends EAE_Widget_Base {
 						for ( $i = 1; $i <= $settings['table_count']; $i++ ) {
 							if($settings['hide_table_'.$i] != 'yes') {
 								if ( $settings[ 'table_ribbon_' . $i ] === 'yes' ) {
-									echo '<td class="eae-ct-heading eae-ct-ribbons-yes eae-ct-ribbons-h-' . $settings[ 'ribbons_position_' . $i ] . ' eae-table-' . $i . '">';
+									echo '<td class="eae-ct-heading eae-ct-ribbons-yes eae-ct-ribbons-h-' . esc_attr($settings[ 'ribbons_position_' . $i ]) . ' eae-table-' . $i . '">';
 									if ( $settings[ 'ribbons_position_' . $i ] === 'top' ) {
 										?>
 										<div class="eae-ct-ribbons-wrapper-top">
@@ -2456,7 +2456,7 @@ class ComparisonTable extends EAE_Widget_Base {
 							<td {{{ view.getRenderAttributeString( 'button_heading' ) }}}> {{{ button_heading }}} </td>
 							<# for ( j=1; j <=settings['table_count']; j++ ) { 
 								if(settings['hide_table_' + j] != 'yes'){
-									view.addRenderAttribute( 'button_' + j + '-link-attributes' , 'href' , settings[ 'item_link_' + j ]['url'] ); 
+									view.addRenderAttribute( 'button_' + j + '-link-attributes' , 'href' , _.escape(settings[ 'item_link_' + j ]['url']) ); 
 									view.addRenderAttribute( 'button_' + j + '-link-attributes' , 'class' , 'eae-ct-btn' ); 
 									if ( settings[ 'item_link_' + j ]['is_external']=='on' ) { 
 										view.addRenderAttribute( 'button_' + j + '-link-attributes' , 'target' , '_blank' ); 

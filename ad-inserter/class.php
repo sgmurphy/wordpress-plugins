@@ -2974,8 +2974,15 @@ abstract class ai_CodeBlock extends ai_BaseCodeBlock {
           foreach ($codes as $viewport_code_index => $viewport_code) {
 
             $viewport_code = $this->ai_processFallbackSeparator ($viewport_code);
+            $viewport_text = strtolower ($viewport_parameters [$viewport_code_index]['viewport']);
 
-            $separator_viewports = explode (',', strtolower ($viewport_parameters [$viewport_code_index]['viewport']));
+            $viewport_list_type = AI_WHITE_LIST;
+            if ($viewport_text [0] == '^') {
+              $viewport_list_type = AI_BLACK_LIST;
+              $viewport_text = substr ($viewport_text, 1);
+            }
+
+            $separator_viewports = explode (',', $viewport_text);
             foreach ($separator_viewports as $index => $separator_viewport) {
               $separator_viewports [$index] = trim ($separator_viewport);
             }
@@ -2987,6 +2994,11 @@ abstract class ai_CodeBlock extends ai_BaseCodeBlock {
 
               if ($viewport_name != '') {
                 $viewport_found = in_array ($viewport_name, $separator_viewports);
+
+                if ($viewport_list_type == AI_BLACK_LIST) {
+                  $viewport_found = !$viewport_found;
+                }
+
                 if ($viewport_found) {
                   $viewport_classes .= " ai-viewport-" . $viewport;
                 } else {
@@ -4910,7 +4922,7 @@ abstract class ai_CodeBlock extends ai_BaseCodeBlock {
 
             // All viewports selected
             if ($viewport_classes == '' && $invisible_viewport_classes == 'ai-viewport-0') {
-              // $processed_code already contains code for isnertion
+              // $processed_code already contains code for insertion
             } else
             // No viewport selected
             if ($viewport_classes == 'ai-viewport-0' && $invisible_viewport_classes == '') {
@@ -10877,8 +10889,10 @@ class ai_code_generator {
           $option_time  = '';
           $option_index  = '';
           $option_scheduling  = '';
+          $option_append_prepend = '';
         } else {
             $option_name = isset ($rotate_parameters [$index - 1]['name']) ? $rotate_parameters [$index - 1]['name'] : '';
+            $option_append_prepend = isset ($rotate_parameters [$index - 1]['code']) ? $rotate_parameters [$index - 1]['code'] : '';
             if (isset ($rotate_parameters [$index - 1]['share'])) {
               if (is_numeric ($rotate_parameters [$index - 1]['share'])) {
                 $option_share = intval ($rotate_parameters [$index - 1]['share']);
@@ -10894,7 +10908,7 @@ class ai_code_generator {
           }
 
         if ($index == 0 && $option_code == '') continue;
-        $data ['options'] []= array ('code' => $option_code, 'name' => $option_name, 'share' => $option_share, 'time' => $option_time, 'index' => $option_index, 'scheduling' => $option_scheduling, 'groups' => $rotation_groups);
+        $data ['options'] []= array ('code' => $option_code, 'name' => $option_name, 'share' => $option_share, 'time' => $option_time, 'index' => $option_index, 'scheduling' => $option_scheduling, 'groups' => $rotation_groups, 'prepend-append' => $option_append_prepend);
       }
     }
 

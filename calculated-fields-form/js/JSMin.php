@@ -300,7 +300,7 @@ class JSMin {
 				$c = null;
 			}
 		}
-		if ( ord( $c ) >= self::ORD_SPACE || "\n" === $c || null === $c ) {
+        if ( $c === null || ord($c) >= self::ORD_SPACE || $c === "\n" ) {
 			return $c;
 		}
 		if ( "\r" === $c ) {

@@ -50,6 +50,7 @@ class MyStickyMenuBackend
 		
 		add_action( 'wp_ajax_mystickymenu_review_box', [$this, "mystickymenu_review_box"]);
 		add_action( 'wp_ajax_mystickymenu_review_box_message', [$this, "mystickymenu_review_box_message"]);
+        add_action( 'admin_init' , [$this, 'check_for_redirection']);
 	}
 	
 	
@@ -314,17 +315,27 @@ class MyStickyMenuBackend
                 add_option("mystickymenu_intro_box", "show");
             }
 			if(!defined( 'DOING_AJAX' )) {
-				$welcomebar_widgets = get_option("mysticky_option_welcomebar");
-				if ( $welcomebar_widgets ) {
-					wp_redirect( admin_url( 'admin.php?page=my-stickymenu-welcomebar' ) ) ;
-				} else {
-					wp_redirect( admin_url( 'admin.php?page=my-stickymenu-welcomebar&widget=0' ) ) ;
-				}
-				
-				exit;
+                add_option("msm_redirection", 1);
 			}
 		}
 	}
+
+    public function check_for_redirection()
+    {
+        if(!defined( 'DOING_AJAX' )) {
+            $status = get_option("msm_redirection");
+            if($status) {
+                delete_option("msm_redirection");
+                $welcomebar_widgets = get_option("mysticky_option_welcomebar");
+                if ($welcomebar_widgets) {
+                    wp_redirect(admin_url('admin.php?page=my-stickymenu-welcomebar'));
+                } else {
+                    wp_redirect(admin_url('admin.php?page=my-stickymenu-welcomebar&widget=0'));
+                }
+                exit;
+            }
+        }
+    }
 
     public function mysticky_admin_script($hook) {
 		

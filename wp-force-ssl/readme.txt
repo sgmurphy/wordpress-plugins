@@ -2,9 +2,9 @@
 Contributors: WebFactory
 Tags: ssl, force ssl, add ssl, install ssl, https, ssl certificate, ssl redirect, mixed content, hsts, lets encrypt, generate ssl certificate
 Requires at least: 4.6
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.2
-Stable Tag: 1.65
+Stable Tag: 1.66
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,9 @@ Yes, you do need an SSL certificate. If you don't have one you can buy <a href="
 = After activating WP Force SSL, do I need to do anything else? =
 No, nothing. After activating WP Force SSL, the main option "redirect SSL" will already be active. What you can do is use our tests to make sure everything related to SSL is working.
 
+= How can I report security bugs? =
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/wp-force-ssl)
+
 == Screenshots ==
 
 1. Built-in tests verify your SSL configuration
@@ -81,6 +84,10 @@ No, nothing. After activating WP Force SSL, the main option "redirect SSL" will 
 
 
 == Changelog ==
+
+= v1.66 =
+- 2024/03/26
+- WordPress 6.5 and PHP 8.2 compatibility
 
 = v1.65 =
 - 2022/01/12

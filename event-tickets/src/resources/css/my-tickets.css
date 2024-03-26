@@ -338,7 +338,7 @@
 		box-sizing: border-box;
 		color: #fff;
 		content: '\f132';
-		font-family: 'dashicons';
+		font-family: 'dashicons', sans-serif;
 		font-size: 10px;
 		font-weight: 400;
 		height: 14px;
@@ -566,6 +566,14 @@
 			width: auto;
 		}
 
+.tribe-common button.tribe-common-c-btn--small:hover, .tribe-common input[type="button"].tribe-common-c-btn--small:hover, .tribe-common input[type="submit"].tribe-common-c-btn--small:hover, .tribe-common a.tribe-common-c-btn--small:hover {
+				padding: 11px 14px;
+			}
+
+.tribe-common button.tribe-common-c-btn--small:disabled, .tribe-common input[type="button"].tribe-common-c-btn--small:disabled, .tribe-common input[type="submit"].tribe-common-c-btn--small:disabled, .tribe-common a.tribe-common-c-btn--small:disabled {
+				padding: 11px 14px;
+			}
+
 /* -----------------------------------------------------------------------------
 	 *
 	 * Button: Link
@@ -680,7 +688,7 @@
 .tribe-tickets__tickets-page-wrapper {
 	border-top: 1px solid var(--tec-color-border-default);
 	padding-top: var(--tec-spacer-5);
- }
+}
 
 .tribe-tickets .tec-tickets__my-tickets-list-title-container {
 		padding: var(--tec-spacer-2) 0;
@@ -776,20 +784,20 @@
 	line-height: var(--tec-line-height-3);
 }
 
-.single-tribe_event_series .tribe_event_series-title{
+.single-tribe_event_series .tribe_event_series-title {
 		display: none;
 	}
 
 .single-tribe_event_series .tribe-events-schedule h2 {
 		font-size: var(--tec-font-size-3);
-		line-height: var(--tec-line-height-3);
 		font-weight: var(--tec-font-weight-regular);
+		line-height: var(--tec-line-height-3);
 	}
 
 .single-tribe_event_series .tribe-events-cost {
 		color: var(--tec-color-text-primary);
-		font-weight: var(--tec-font-weight-bold);
 		font-size: var(--tec-font-size-3);
+		font-weight: var(--tec-font-weight-bold);
 		line-height: var(--tec-line-height-2);
 		text-transform: uppercase;
 	}
@@ -852,7 +860,7 @@
 }
 		}
 
-@media(min-width: 960px) {
+@media (min-width: 960px) {
 
 					.tribe-tickets ul.tribe-orders-list .tribe-tickets-list > .tribe-item > div {
 						flex: 0 1 auto;

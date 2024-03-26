@@ -109,10 +109,28 @@ class Wt_Import_Export_For_Woo_Basic_Coupon_Bulk_Export {
 		if (!is_array($data))
 			;
 		$data = (string) urldecode($data);
-		$enc = mb_detect_encoding($data, 'UTF-8, ISO-8859-1', true);
-		$data = ( $enc == 'UTF-8' ) ? $data : utf8_encode($data);
-		return $data;
+
+		if (function_exists('mb_convert_encoding') &&  function_exists('mb_convert_encoding')) {
+			$encoding = mb_detect_encoding( $data, mb_detect_order(), true );
+			if ( $encoding ) {
+				return mb_convert_encoding( $data, 'UTF-8', $encoding );
+			} else {
+				return mb_convert_encoding( $data, 'UTF-8', 'UTF-8' );
+			}
+		}else{
+			$newcharstring = '';
+			$bom = apply_filters('wt_import_csv_parser_keep_bom', true);
+			if ($bom) {
+				$newcharstring .= "\xEF\xBB\xBF";
+			}
+			for ($i = 0; $i < strlen($data); $i++) {
+				$charval = ord($data[$i]);
+				$newcharstring .= Wt_Import_Export_For_Woo_Basic_Common_Helper::wt_iconv_fallback_int_utf8($charval);
+			}
+			return $newcharstring;
+		} 
 	}
+	
 
 	/**
 	 * Wrap a column in quotes for the CSV

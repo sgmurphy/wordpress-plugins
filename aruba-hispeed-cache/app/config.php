@@ -76,7 +76,7 @@ return array(
     ),
 
     'constant' => array(
-        'ARUBA_HISPEED_CACHE_VERSION' => '2.0.7',
+        'ARUBA_HISPEED_CACHE_VERSION' => '2.0.8',
         'ARUBA_HISPEED_CACHE_PLUGIN' => true,
         'ARUBA_HISPEED_CACHE_FILE' => $file,
         'ARUBA_HISPEED_CACHE_BASEPATH' => \plugin_dir_path($file),

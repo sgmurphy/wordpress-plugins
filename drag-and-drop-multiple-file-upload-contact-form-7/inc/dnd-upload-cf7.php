@@ -54,7 +54,6 @@
 
 	// Add custom script in footer
 	add_action('wp_footer','dnd_custom_scripts');
-    add_action('wp_footer','dnd_custom_style');
 
 	// Flamingo Hooks
 	add_action('before_delete_post', 'dnd_remove_uploaded_files');
@@ -194,6 +193,7 @@
 		// Create directory
 		if ( ! is_dir( trailingslashit( $upload['basedir'] ) . $uploads_dir ) ) {
 			wp_mkdir_p( trailingslashit( $upload['basedir'] ) . $uploads_dir );
+            chmod( trailingslashit( $upload['basedir'] ) . $uploads_dir, 0755 );
 		}
 
 		// Make sure directory exist before returning
@@ -441,9 +441,18 @@
 
 	// Load js and css
 	function dnd_cf7_scripts() {
+		global $post;
 
 		// Get plugin version
 		$version = dnd_upload_cf7_version;
+
+		// Loads assets when needed load/unload js
+		$load_on_cf7_page = apply_filters( 'dnd_cf7_load_on_cf7_page', true );
+
+		// Don't load styles/scripts on regular pages that don't have CF7 shortcode.
+		if ( $load_on_cf7_page && $post && ! has_shortcode( $post->post_content, 'contact-form-7' ) ) {
+			return;
+		}
 
 		// enque script (Use native Javascript or jQuery)
         if( get_option('drag_n_drop_use_jquery') == 'yes' ){
@@ -453,7 +462,7 @@
         }
 
         // All data options
-        $data_options = apply_filters('dnd_cf7_data_options', 
+        $data_options = apply_filters('dnd_cf7_data_options',
             array(
                 'tag'				=>	( get_option('drag_n_drop_heading_tag') ? get_option('drag_n_drop_heading_tag') : 'h3' ),
                 'text'				=>	( get_option('drag_n_drop_text') ? get_option('drag_n_drop_text') : __('Drag & Drop Files Here','drag-and-drop-multiple-file-upload-contact-form-7') ),
@@ -474,16 +483,16 @@
 		//  registered script with data for a JavaScript variable.
 		wp_localize_script( 'codedropz-uploader', 'dnd_cf7_uploader',
 			array(
-				'ajax_url' 				=> 	admin_url( 'admin-ajax.php' ),
+				'ajax_url' 				=> 	apply_filters( 'dnd_cf7_ajax_url', admin_url( 'admin-ajax.php' ) ),
 				'ajax_nonce'			=>	wp_create_nonce( "dnd-cf7-security-nonce" ),
 				'drag_n_drop_upload' 	=>  $data_options,
 				'dnd_text_counter'	=>	__('of','drag-and-drop-multiple-file-upload-contact-form-7'),
 				'disable_btn'		=>	( get_option('drag_n_drop_disable_btn') == 'yes' ? true : false )
 			)
 		);
-        
+
 		// enque style
-		//wp_enqueue_style( 'dnd-upload-cf7', plugins_url ('/assets/css/dnd-upload-cf7.css', dirname(__FILE__) ), '', $version );
+		wp_enqueue_style( 'dnd-upload-cf7', plugins_url ('/assets/css/dnd-upload-cf7.css', dirname(__FILE__) ), '', $version );
 	}
 
 	// Generate tag
@@ -750,7 +759,7 @@
             'limit'     =>  10485760,
             'filetypes' =>  dnd_upload_default_ext()
         );
-        
+
         // Loop all upload tags
 		if( $tags && is_array( $tags ) ) {
 			foreach( $tags as $tag ) {
@@ -767,7 +776,7 @@
 
     // Get contact form data
     function dnd_get_upload_form( $form_id ){
-        
+
         // Initialize contact form instance
 		$form = WPCF7_ContactForm::get_instance( $form_id );
 
@@ -862,7 +871,7 @@
             if( $validate_mime ){
 
                 if( ! function_exists('wp_check_filetype_and_ext') ){
-                    require_once ABSPATH .'wp-admin/includes/file.php'; 
+                    require_once ABSPATH .'wp-admin/includes/file.php';
                 }
 
                 // Get file type and extension name
@@ -1011,7 +1020,7 @@
 
 		// not allowed file types
 		$not_allowed = array( 'php', 'php3','php4','phtml','exe','script', 'app', 'asp', 'bas', 'bat', 'cer', 'cgi', 'chm', 'cmd', 'com', 'cpl', 'crt', 'csh', 'csr', 'dll', 'drv', 'fxp', 'flv', 'hlp', 'hta', 'htaccess', 'htm', 'htpasswd', 'inf', 'ins', 'isp', 'jar', 'js', 'jse', 'jsp', 'ksh', 'lnk', 'mdb', 'mde', 'mdt', 'mdw', 'msc', 'msi', 'msp', 'mst', 'ops', 'pcd', 'pif', 'pl', 'prg', 'ps1', 'ps2', 'py', 'rb', 'reg', 'scr', 'sct', 'sh', 'shb', 'shs', 'sys', 'swf', 'tmp', 'torrent', 'url', 'vb', 'vbe', 'vbs', 'vbscript', 'wsc', 'wsf', 'wsf', 'wsh' );
-		
+
 		// allowed ext.
 		$allowed_ext = array('ipt');
 
@@ -1040,7 +1049,7 @@
 			echo '<h1>Drag & Drop Uploader - Settings</h1>';
 
 				echo '<div class="update-nag notice" style="width: 98%;padding: 0px 10px;margin-bottom: 5px;">';
-					echo '<p>Checkout more features on <a href="https://codedropz.com/purchase-plugin/" target="_blank">Pro Version</a></p>';
+					echo '<p><span style="color:#038d03;">Upgrade Now</span> for Extra Features: Explore the <a href="https://codedropz.com/purchase-plugin/" target="_blank">Pro Version</a> Today!</a></p>';
 				echo '</div>';
 
 				// Error settings
@@ -1207,13 +1216,6 @@
 		</script>
 		<?php
 	}
-
-    // Custom css style - Inline
-    function dnd_custom_style(){
-        echo '<style id="multiple-file-upload">';
-            include dnd_upload_cf7_directory . '/assets/css/dnd-upload-cf7.css';
-        echo '</style>';
-    }
 
 	// Define custom (safe) file extension.
 	function dnd_upload_default_ext() {

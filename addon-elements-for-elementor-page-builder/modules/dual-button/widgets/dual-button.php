@@ -961,9 +961,58 @@ class DualButton extends EAE_Widget_Base {
 
 	public function content_template() {
 		?>
-		<# view.addRenderAttribute( 'button1' , 'class' , 'eae-button-1-wrapper' ); if ( settings['button1_link']['url'] !=='' ) { view.addRenderAttribute( 'button1' , 'href' , settings['button1_link']['url'] ); if ( settings['button1_link']['is_external'] !=='' ) { view.addRenderAttribute( 'button1' , 'target' , '_blank' ); } } view.addRenderAttribute( 'button2' , 'class' , 'eae-button-2-wrapper' ); if ( settings['button2_link']['url'] !=='' ) { view.addRenderAttribute( 'button2' , 'href' , settings['button2_link']['url'] ); if ( settings['button2_link']['is_external'] !=='' ) { view.addRenderAttribute( 'button2' , 'target' , '_blank' ); } } view.addRenderAttribute( 'button1_inner' , 'class' , 'eae-button-1' ); view.addRenderAttribute( 'button1_inner' , 'class' , 'icon-' + settings['button1_icon_align'] ); view.addRenderAttribute( 'button2_inner' , 'class' , 'eae-button-2' ); view.addRenderAttribute( 'button2_inner' , 'class' , 'icon-' + settings['button2_icon_align'] ); view.addRenderAttribute( 'wrapper' , 'class' , 'eae-dual-button-wrapper' ); view.addRenderAttribute( 'wrapper' , 'class' , 'button-style-' + settings['button_layout'] ); if ( settings['button_animation'] !=='none' ) { if ( settings['button_animation']=='style_1' ) { view.addRenderAttribute( 'button1' , 'class' , 'eae-sweep-left' ); view.addRenderAttribute( 'button2' , 'class' , 'eae-sweep-right' ); } else if ( settings['button_animation']=='style_2' ) { view.addRenderAttribute( 'button1' , 'class' , 'eae-sweep-right' ); view.addRenderAttribute( 'button2' , 'class' , 'eae-sweep-left' ); } else if ( settings['button_animation']=='style_3' ) { view.addRenderAttribute( 'button1' , 'class' , 'eae-bounce-left' ); view.addRenderAttribute( 'button2' , 'class' , 'eae-bounce-right' ); } else if ( settings['button_animation']=='style_4' ) { view.addRenderAttribute( 'button1' , 'class' , 'eae-bounce-right' ); view.addRenderAttribute( 'button2' , 'class' , 'eae-bounce-left' ); } else if ( settings['button_animation']=='style_5' ) { view.addRenderAttribute( 'button1' , 'class' , 'eae-sweep-top' ); view.addRenderAttribute( 'button2' , 'class' , 'eae-sweep-bottom' ); } else if ( settings['button_animation']=='style_6' ) { view.addRenderAttribute( 'button1' , 'class' , 'eae-sweep-bottom' ); view.addRenderAttribute( 'button2' , 'class' , 'eae-sweep-top' ); } else if ( settings['button_animation']=='style_7' ) { view.addRenderAttribute( 'button1' , 'class' , 'eae-bounce-top' ); view.addRenderAttribute( 'button2' , 'class' , 'eae-bounce-bottom' ); } else if ( settings['button_animation']=='style_8' ) { view.addRenderAttribute( 'button1' , 'class' , 'eae-bounce-bottom' ); view.addRenderAttribute( 'button2' , 'class' , 'eae-bounce-top' ); } } iconHTML=elementor.helpers.renderIcon( view, settings.button1_icon_new, { 'aria-hidden' : true }, 'i' , 'object' ), migrated=elementor.helpers.isIconMigrated( settings, 'button1_icon_new' ), button2_iconHTML=elementor.helpers.renderIcon( view, settings.button2_icon_new, { 'aria-hidden' : true }, 'i' , 'object' ), button2_migrated=elementor.helpers.isIconMigrated( settings, 'button2_icon_new' ), separator_iconHTML=elementor.helpers.renderIcon( view, settings.separator_icon_new, { 'aria-hidden' : true }, 'i' , 'object' ), separator_migrated=elementor.helpers.isIconMigrated( settings, 'separator_icon_new' ), #>
-
-
+		<# 
+		view.addRenderAttribute( 'button1' , 'class' , 'eae-button-1-wrapper' ); 
+		if ( settings['button1_link']['url'] !=='' ) { 
+			view.addRenderAttribute( 'button1' , 'href' ,  _.escape(settings['button1_link']['url']) ); 
+			if ( settings['button1_link']['is_external'] !=='' ) { 
+				view.addRenderAttribute( 'button1' , 'target' , '_blank' ); 
+			} 
+		}
+		view.addRenderAttribute( 'button2' , 'class' , 'eae-button-2-wrapper' );
+		 if ( settings['button2_link']['url'] !=='' ) { 
+			view.addRenderAttribute( 'button2' , 'href' , _.escape(settings['button2_link']['url']) ); 
+			if ( settings['button2_link']['is_external'] !=='' ) { 
+				view.addRenderAttribute( 'button2' , 'target' , '_blank' ); 
+			} 
+		} 
+		view.addRenderAttribute( 'button1_inner' , 'class' , 'eae-button-1' );
+		view.addRenderAttribute( 'button1_inner' , 'class' , 'icon-' + settings['button1_icon_align'] ); 
+		view.addRenderAttribute( 'button2_inner' , 'class' , 'eae-button-2' ); 
+		view.addRenderAttribute( 'button2_inner' , 'class' , 'icon-' + settings['button2_icon_align'] ); 
+		view.addRenderAttribute( 'wrapper' , 'class' , 'eae-dual-button-wrapper' ); 
+		view.addRenderAttribute( 'wrapper' , 'class' , 'button-style-' + settings['button_layout'] ); 
+		if ( settings['button_animation'] !=='none' ) { if ( settings['button_animation']=='style_1' ) { 
+			view.addRenderAttribute( 'button1' , 'class' , 'eae-sweep-left' ); 
+			view.addRenderAttribute( 'button2' , 'class' , 'eae-sweep-right' ); 
+		} else if ( settings['button_animation']=='style_2' ) { 
+			view.addRenderAttribute( 'button1' , 'class' , 'eae-sweep-right' ); 
+			view.addRenderAttribute( 'button2' , 'class' , 'eae-sweep-left' ); 
+		} else if ( settings['button_animation']=='style_3' ) { 
+			view.addRenderAttribute( 'button1' , 'class' , 'eae-bounce-left' ); 
+			view.addRenderAttribute( 'button2' , 'class' , 'eae-bounce-right' ); 
+		} else if ( settings['button_animation']=='style_4' ) { 
+			view.addRenderAttribute( 'button1' , 'class' , 'eae-bounce-right' ); 
+			view.addRenderAttribute( 'button2' , 'class' , 'eae-bounce-left' ); 
+		} else if ( settings['button_animation']=='style_5' ) { 
+			view.addRenderAttribute( 'button1' , 'class' , 'eae-sweep-top' ); 
+			view.addRenderAttribute( 'button2' , 'class' , 'eae-sweep-bottom' ); 
+		} else if ( settings['button_animation']=='style_6' ) { 
+			view.addRenderAttribute( 'button1' , 'class' , 'eae-sweep-bottom' ); 
+			view.addRenderAttribute( 'button2' , 'class' , 'eae-sweep-top' ); } 
+			else if ( settings['button_animation']=='style_7' ) { 
+				view.addRenderAttribute( 'button1' , 'class' , 'eae-bounce-top' ); 
+				view.addRenderAttribute( 'button2' , 'class' , 'eae-bounce-bottom' ); 
+			} else if ( settings['button_animation']=='style_8' ) { 
+				view.addRenderAttribute( 'button1' , 'class' , 'eae-bounce-bottom' ); 
+				view.addRenderAttribute( 'button2' , 'class' , 'eae-bounce-top' ); 
+			} } 
+			iconHTML=elementor.helpers.renderIcon( view, settings.button1_icon_new, { 'aria-hidden' : true }, 'i' , 'object' ), migrated=elementor.helpers.isIconMigrated( settings, 'button1_icon_new' ), 
+			
+			button2_iconHTML=elementor.helpers.renderIcon( view, settings.button2_icon_new, { 'aria-hidden' : true }, 'i' , 'object' ), 
+			
+			button2_migrated=elementor.helpers.isIconMigrated( settings, 'button2_icon_new' ), separator_iconHTML=elementor.helpers.renderIcon( view, settings.separator_icon_new, { 'aria-hidden' : true }, 'i' , 'object' ), separator_migrated=elementor.helpers.isIconMigrated( settings, 'separator_icon_new' )
+			#>
 			<div class="eae-dual-button-main-wrapper">
 				<div {{{ view.getRenderAttributeString( 'wrapper' ) }}}>
 					<div class="eae-button1">
@@ -989,16 +1038,16 @@ class DualButton extends EAE_Widget_Base {
 										<# if ( settings['separator_icon_new'] !=='' ) { #>
 											<# if ( separator_iconHTML.rendered && ( ! settings.separator_icon || migrated ) ) { #>
 												{{{ separator_iconHTML.value }}}
-												<# } else { #>
-													<i class="{{ settings.separator_icon }}" aria-hidden="true"></i>
-													<# } #>
-														<# } if ( settings['separator_text'] !=='' ) { #>
-															{{{ settings['separator_text'] }}}
-															<# } #>
+											<# } else { #>
+												<i class="{{ settings.separator_icon }}" aria-hidden="true"></i>
+											<# } #>
+										<# } if ( settings['separator_text'] !=='' ) { #>
+												{{{ settings['separator_text'] }}}
+										<# } #>
 									</span>
 								</span>
 							</span>
-							<# } #>
+						<# } #>
 					</div>
 					<div class="eae-button2">
 						<# if ( settings['separator_icon_new']['value'] !='' || settings['separator_text'] !='' ) { #>

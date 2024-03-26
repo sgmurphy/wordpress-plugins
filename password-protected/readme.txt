@@ -2,9 +2,9 @@
 Contributors: wpexpertsio
 Tags: password, maintenance mode, coming soon page, password protect, login
 Requires at least: 4.6
-Tested up to: 6.4.3
+Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 2.6.8
+Stable tag: 2.7
 License: GPLv2 or later
 
 The ultimate password protection plugin that protects your WordPress site with a single password.
@@ -138,13 +138,9 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 4. Password Protected advanced settings page.
 
 == Changelog ==
-= 2.6.8 =
-- Fix: Gutenberg compatibility issue fixed - REST API was getting blocked
-
-= 2.6.7 =
-- Security: Patched two security improvements suggested by Wordfence team.
-- Fix: Updated depreciated PHP function to make it compatible with the latest PHP version.
-- Compatibility: Improved compatibility with Elementor.
+= 2.7 =
+- New: Added Password Activity Report to provide weekly insights on access attempts to your protected sites.
+- New: Added Categoric Tabs and Sub-Tabs User Interface for easy navigation and better user experience.
 
 = 2.6.6 =
 - Improvement - Added support for HTML in the above and bottom text displayed in the password screen.

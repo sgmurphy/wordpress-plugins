@@ -1,4 +1,4 @@
-
+window.eae = {};
 window.renderIconHtml = function(view,elementor,sett,control_name, wClass = '', index=''){
     // console.log("View => ", view);
     // data.addRenderAttribute('key', 'context', 'value');
@@ -68,4 +68,18 @@ window.renderIconHtml = function(view,elementor,sett,control_name, wClass = '', 
         }       
     }
     return iconHtml;
+}
+
+window.eae.validateHTMLTag = function( $tag, $collection = null, $fallback = null){
+   if($collection == null){
+        $collection = ['h1','h2','h3','h4','h5','h6','p','span','div'];
+   }
+   if($fallback == null){
+    $fallback = 'h3';
+   }    
+   if($collection.includes($tag)){
+        return $tag;
+   }else{
+        return $fallback;
+   }
 }

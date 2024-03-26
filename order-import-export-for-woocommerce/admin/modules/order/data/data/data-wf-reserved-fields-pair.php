@@ -62,6 +62,17 @@ $base_reserved_columns = array(
     'line_item_' => array('title' => 'Line_item_', 'description' => 'Line Items', 'field_type' => 'start_with'),
     'download_permissions' => array('title' => 'Downloadable product permissions ', 'description' => 'Permissions for order items will automatically be granted when the order status changes to processing or completed.'),
 );
+if( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '8.5', '>=' ) ):
+ $base_reserved_columns['meta:_wc_order_attribution_device_type'] = array('title' => 'wc order attribution device type', 'description' => '');
+ $base_reserved_columns['meta:_wc_order_attribution_referrer'] = array('title' => 'wc order attribution referrer', 'description' => '');
+ $base_reserved_columns['meta:_wc_order_attribution_session_count'] = array('title' => 'wc order attribution session count', 'description' => '');
+ $base_reserved_columns['meta:_wc_order_attribution_session_entry'] = array('title' => 'wc order attribution session entry', 'description' => '');
+ $base_reserved_columns['meta:_wc_order_attribution_session_pages'] = array('title' => 'wc order attribution session pages', 'description' => '');
+ $base_reserved_columns['meta:_wc_order_attribution_session_start_time'] = array('title' => 'wc order attribution session start time', 'description' => '');
+ $base_reserved_columns['meta:_wc_order_attribution_source_type'] = array('title' => 'wc order attribution source type', 'description' => '');
+ $base_reserved_columns['meta:_wc_order_attribution_user_agent'] = array('title' => 'wc order attribution user agent', 'description' => '');
+ $base_reserved_columns['meta:_wc_order_attribution_utm_source'] = array('title' => 'wc order attribution utm source', 'description' => '');
+endif;
 
 if (!function_exists('is_plugin_active'))
     require_once( ABSPATH . '/wp-admin/includes/plugin.php' );

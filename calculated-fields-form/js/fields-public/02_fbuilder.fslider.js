@@ -226,7 +226,7 @@
 							var e = $('[id="'+this.name+'_slider"]'), c = this.val(), r = false;
 							if(ignore) v = 0;
 							e.slider('option', 'min', v);
-							if($.isArray(c)){if(c[0] < v){c[0] = v; r = true;}}
+							if(Array.isArray(c)){if(c[0] < v){c[0] = v; r = true;}}
 							else if(c < v){c = v; r = true;}
 							if(r) this.setVal(c);
 							this.set_min_caption(v);
@@ -239,7 +239,7 @@
 							var e = $('[id="'+this.name+'_slider"]'), c = this.val(), r = false;
 							if(ignore) v = 100;
 							e.slider('option', 'max', v);
-							if($.isArray(c)){if(v < c[1]){c[1] = v; r = true;}}
+							if(Array.isArray(c)){if(v < c[1]){c[1] = v; r = true;}}
 							else if(v < c){c = v; r = true;}
 							if(r) this.setVal(c);
 							this.set_max_caption(v);
@@ -362,7 +362,7 @@
 						try{ v = JSON.parse(v); }catch(err){}
 						try{
 							$('[name="'+this.name+'"]').val(v);
-							$('#'+this.name+'_slider').slider((($.isArray(v)) ? 'values' : 'value'), (this.logarithmic ? this._inverse(v) : v) );
+							$('#'+this.name+'_slider').slider(((Array.isArray(v)) ? 'values' : 'value'), (this.logarithmic ? this._inverse(v) : v) );
 							this._setFieldValue(v, nochange);
 						}catch(err){}
 					}

@@ -8,6 +8,7 @@ if(!class_exists('Wt_Import_Export_For_Woo_Basic_Coupon_Export')){
 class Wt_Import_Export_For_Woo_Basic_Coupon_Export {
 
     public $parent_module = null;
+    public $export_shortcodes = false;
 
     public function __construct($parent_object) {
 
@@ -26,17 +27,14 @@ class Wt_Import_Export_For_Woo_Basic_Coupon_Export {
      */
     public function prepare_data_to_export($form_data, $batch_offset) {
 
-
         $export_statuses = !empty($form_data['filter_form_data']['wt_iew_statuses']) ? $form_data['filter_form_data']['wt_iew_statuses'] : array('publish', 'pending', 'private', 'draft','future');
         $cpn_categories = !empty($form_data['filter_form_data']['wt_iew_types']) ? $form_data['filter_form_data']['wt_iew_types'] : array_keys(wc_get_coupon_types());
         $coupon_amount_from = !empty($form_data['filter_form_data']['wt_iew_coupon_amount_from']) ? $form_data['filter_form_data']['wt_iew_coupon_amount_from'] : 0;
         $coupon_amount_to = !empty($form_data['filter_form_data']['wt_iew_coupon_amount_to']) ? $form_data['filter_form_data']['wt_iew_coupon_amount_to'] : 0;
         $coupon_exp_date_from = !empty($form_data['filter_form_data']['wt_iew_coupon_exp_date_from']) ? $form_data['filter_form_data']['wt_iew_coupon_exp_date_from'] : '0000-00-00';
-        $coupon_exp_date_to = !empty($form_data['filter_form_data']['wt_iew_coupon_exp_date_to']) ? $form_data['filter_form_data']['wt_iew_coupon_exp_date_to'] : '0000-00-00';
-                       
+        $coupon_exp_date_to = !empty($form_data['filter_form_data']['wt_iew_coupon_exp_date_to']) ? $form_data['filter_form_data']['wt_iew_coupon_exp_date_to'] : '0000-00-00';       
         $export_sortby = !empty($form_data['filter_form_data']['wt_iew_sort_columns']) ? implode(' ', $form_data['filter_form_data']['wt_iew_sort_columns']) : 'ID'; // get_post accept spaced string
         $export_sort_order = !empty($form_data['filter_form_data']['wt_iew_order_by']) ? $form_data['filter_form_data']['wt_iew_order_by'] : 'ASC';
-        
         $export_limit = !empty($form_data['filter_form_data']['wt_iew_limit']) ? intval($form_data['filter_form_data']['wt_iew_limit']) : 999999999; //user limit
         $current_offset = !empty($form_data['filter_form_data']['wt_iew_offset']) ? intval($form_data['filter_form_data']['wt_iew_offset']) : 0; //user offset        
         $batch_count = !empty($form_data['advanced_form_data']['wt_iew_batch_count']) ? $form_data['advanced_form_data']['wt_iew_batch_count'] : 10;

@@ -61,7 +61,7 @@ class BMI_Checker {
     //   If there is low execution time use space check, as the other may take too much time
     //   If size of the backup is larger than 3 GBs (as it may be to slow to check)
     // }
-    if (disk_free_space(BMI_BACKUPS) < 1024*1024*1024*50 || ($size > 1024*1024*1024*3 && $maxTime <= 60))
+    if ($this->is_enabled('disk_free_space') && (disk_free_space(BMI_BACKUPS) < 1024*1024*1024*50 || ($size > 1024*1024*1024*3 && $maxTime <= 60)))
       $shouldUseDiskFreeSpaceIfAvailable = true;
     
     if ($this->is_enabled('disk_free_space') && intval(disk_free_space(BMI_BACKUPS)) > 100 && $shouldUseDiskFreeSpaceIfAvailable) {

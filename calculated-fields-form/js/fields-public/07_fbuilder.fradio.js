@@ -154,13 +154,13 @@
 					if($.isPlainObject(choices))
 					{
 						var bk = this.val(true);
-						if('texts' in choices && $.isArray(choices.texts)) this.choices = choices.texts;
-						if('values' in choices && $.isArray(choices.values)) this.choicesVal = choices.values;
-                        if('dependencies' in choices && $.isArray(choices.dependencies))
+						if('texts' in choices && Array.isArray(choices.texts)) this.choices = choices.texts;
+						if('values' in choices && Array.isArray(choices.values)) this.choicesVal = choices.values;
+                        if('dependencies' in choices && Array.isArray(choices.dependencies))
                         {
                             this.choicesDep = choices.dependencies.map(
                                 function(x){
-                                    return ($.isArray(x)) ? x.map(
+                                    return (Array.isArray(x)) ? x.map(
                                         function(y){
                                             return (typeof y == 'number') ? 'fieldname'+parseInt(y) : y;
                                         }) : x;

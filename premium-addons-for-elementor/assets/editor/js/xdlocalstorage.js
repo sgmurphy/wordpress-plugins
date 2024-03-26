@@ -1,94 +1,181 @@
-"use strict";
-window.XdUtils = window.XdUtils || function () {
-    function a(a, b) {
-        var c, d = b || {};
-        for (c in a) a.hasOwnProperty(c) && (d[c] = a[c]);
-        return d
+/**
+ * Created by dagan on 07/04/2014.
+ */
+'use strict';
+/* global console, XsUtils */
+window.XsUtils = window.XsUtils || (function () {
+
+    function extend(object, defaultObject) {
+        var result = defaultObject || {};
+        var key;
+        for (key in object) {
+            if (object.hasOwnProperty(key)) {
+                result[key] = object[key];
+            }
+        }
+        return result;
     }
+
+    //public interface
     return {
-        extend: a
-    }
-}(), window.xdLocalStorage = window.xdLocalStorage || function () {
-    function a(a) {
-        k[a.id] && (k[a.id](a), delete k[a.id])
-    }
+        extend: extend
+    };
+})();
 
-    function b(b) {
-        var c;
-        try {
-            c = JSON.parse(b.data)
-        } catch (a) { }
-        c && c.namespace === h && ("iframe-ready" === c.id ? (m = !0, i.initCallback()) : a(c))
-    }
-
-    function c(a, b, c, d) {
-        j++, k[j] = d;
-        var e = {
-            namespace: h,
-            id: j,
-            action: a,
-            key: b,
-            value: c
-        };
-        g.contentWindow.postMessage(JSON.stringify(e), "*")
-    }
-
-    function d(a) {
-        i = XdUtils.extend(a, i);
-        var c = document.createElement("div");
-        window.addEventListener ? window.addEventListener("message", b, !1) : window.attachEvent("onmessage", b), c.innerHTML = '<iframe id="' + i.iframeId + '" src=' + i.iframeUrl + ' style="display: none;"></iframe>', document.body.appendChild(c), g = document.getElementById(i.iframeId)
-    }
-
-    function e() {
-        return l ? !!m || (console.log("You must wait for iframe ready message before using the api."), !1) : (console.log("You must call xdLocalStorage.init() before using it."), !1)
-    }
-
-    function f() {
-        return "complete" === document.readyState
-    }
-    var g, h = "cross-domain-pa-cp-message",
-        i = {
+window.xsLocalStorage = window.xsLocalStorage || (function () {
+    var MESSAGE_NAMESPACE = "cross-domain-pa-cp-message",
+        options = {
             iframeId: "cross-domain-iframe",
-            iframeUrl: void 0,
+            iframeUrl: undefined,
             initCallback: function () { }
-        },
-        j = -1,
-        k = {},
-        l = !1,
-        m = !0;
-    return {
-        init: function (a) {
-            if (!a.iframeUrl) throw "You must specify iframeUrl";
-            if (l) return void console.log("xdLocalStorage was already initialized!");
-            l = !0, f() ? d(a) : document.addEventListener ? document.addEventListener("readystatechange", function () {
-                f() && d(a)
-            }) : document.attachEvent("readystatechange", function () {
-                f() && d(a)
-            })
-        },
-        setItem: function (a, b, d) {
-            e() && c("set", a, b, d)
-        },
-        getItem: function (a, b) {
-            e() && c("get", a, null, b)
-        },
-        removeItem: function (a, b) {
-            e() && c("remove", a, null, b)
-        },
-        key: function (a, b) {
-            e() && c("key", a, null, b)
-        },
-        getSize: function (a) {
-            e() && c("size", null, null, a)
-        },
-        getLength: function (a) {
-            e() && c("length", null, null, a)
-        },
-        clear: function (a) {
-            e() && c("clear", null, null, a)
-        },
-        wasInit: function () {
-            return l
+        };
+    var requestId = -1;
+    var iframe;
+    var requests = {};
+    var wasInit = false;
+    var iframeReady = true;
+
+    function applyCallback(data) {
+        if (requests[data.id]) {
+            requests[data.id](data);
+            delete requests[data.id];
         }
     }
-}();
+
+    function receiveMessage(event) {
+        var data;
+        try {
+            data = JSON.parse(event.data);
+        } catch (err) {
+            //not our message, can ignore
+        }
+        if (data && data.namespace === MESSAGE_NAMESPACE) {
+            if (data.id === 'iframe-ready') {
+                iframeReady = true;
+                options.initCallback();
+            } else {
+                applyCallback(data);
+            }
+        }
+    }
+
+    function buildMessage(action, key, value, callback) {
+        requestId++;
+        requests[requestId] = callback;
+        var data = {
+            namespace: MESSAGE_NAMESPACE,
+            id: requestId,
+            action: action,
+            key: key,
+            value: value
+        };
+        iframe.contentWindow.postMessage(JSON.stringify(data), '*');
+    }
+
+    function init(customOptions) {
+        options = XsUtils.extend(customOptions, options);
+        var temp = document.createElement('div');
+
+        if (window.addEventListener) {
+            window.addEventListener('message', receiveMessage, false);
+        } else {
+            window.attachEvent('onmessage', receiveMessage);
+        }
+
+        temp.innerHTML = '<iframe id="' + options.iframeId + '" src=' + options.iframeUrl + ' style="display: none;"></iframe>';
+        document.body.appendChild(temp);
+        iframe = document.getElementById(options.iframeId);
+    }
+
+    function isApiReady() {
+        if (!wasInit) {
+            return false;
+        }
+        if (!iframeReady) {
+            return false;
+        }
+        return true;
+    }
+
+    function isDomReady() {
+        return (document.readyState === 'complete');
+    }
+
+    return {
+        //callback is optional for cases you use the api before window load.
+        init: function (customOptions) {
+            if (!customOptions.iframeUrl) {
+                throw 'Please specify the iframe URL';
+            }
+            if (wasInit) {
+                return;
+            }
+            wasInit = true;
+            if (isDomReady()) {
+                init(customOptions);
+            } else {
+                if (document.addEventListener) {
+                    // All browsers expect IE < 9
+                    document.addEventListener('readystatechange', function () {
+                        if (isDomReady()) {
+                            init(customOptions);
+                        }
+                    });
+                } else {
+                    // IE < 9
+                    document.attachEvent('readystatechange', function () {
+                        if (isDomReady()) {
+                            init(customOptions);
+                        }
+                    });
+                }
+            }
+        },
+        setItem: function (key, value, callback) {
+            if (!isApiReady()) {
+                return;
+            }
+            buildMessage('set', key, value, callback);
+        },
+
+        getItem: function (key, callback) {
+            if (!isApiReady()) {
+                return;
+            }
+            buildMessage('get', key, null, callback);
+        },
+        removeItem: function (key, callback) {
+            if (!isApiReady()) {
+                return;
+            }
+            buildMessage('remove', key, null, callback);
+        },
+        key: function (index, callback) {
+            if (!isApiReady()) {
+                return;
+            }
+            buildMessage('key', index, null, callback);
+        },
+        getSize: function (callback) {
+            if (!isApiReady()) {
+                return;
+            }
+            buildMessage('size', null, null, callback);
+        },
+        getLength: function (callback) {
+            if (!isApiReady()) {
+                return;
+            }
+            buildMessage('length', null, null, callback);
+        },
+        clear: function (callback) {
+            if (!isApiReady()) {
+                return;
+            }
+            buildMessage('clear', null, null, callback);
+        },
+        wasInit: function () {
+            return wasInit;
+        }
+    };
+})();
