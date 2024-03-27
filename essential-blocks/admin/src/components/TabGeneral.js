@@ -277,39 +277,27 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.5.5", "essential-blocks")}
+                                    {__("Version: 4.5.6", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("25/03/2024", "essential-blocks")}
+                                        {__("27/03/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Added: Browse Template option for multiple blocks",
+                                            "Fixed: Post Grid & Post Carousel block is not working in editor",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Added: Sticky Post enable/disable option in Post Query",
+                                            "Fixed: Testimonial block is not working in editor",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Added: Options to add image/icon/text in **Accordion** block title Prefix & Suffix",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Infobox block color issue",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Slider block attempt recovery issue",
+                                            "Few minor bug fixes & improvements",
                                             "essential-blocks"
                                         )}
                                     </li>

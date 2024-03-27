@@ -4,7 +4,7 @@ Tags: homepage setup, companion, one click demo, sections, customizer
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 25.1.1
+Stable tag: 25.1.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -70,7 +70,7 @@ Clever Fox plugin to enhance the functionality of free themes made by <a href="h
 - [Medazin](https://wordpress.org/themes/medazin/)
 - [TimeBlog](https://wordpress.org/themes/timeblog/)
 - [Convo](https://wordpress.org/themes/convo/)
-- [Avenza]
+- [Avenza](https://wordpress.org/themes/avenza/)
 - [Acronix]
 
 == Installation ==
@@ -146,7 +146,7 @@ Yes, This plugin is specially make for Nayra Themes. You can install theme for e
 - [Medazin](https://wordpress.org/themes/medazin/)
 - [TimeBlog](https://wordpress.org/themes/timeblog/)
 - [Convo](https://wordpress.org/themes/convo/)
-- [Avenza]
+- [Avenza](https://wordpress.org/themes/avenza/)
 - [Acronix]
 
 == Screenshots ==
@@ -176,6 +176,9 @@ Clever Fox WordPress Plugin is licensed under the GPL3 (https://www.gnu.org/lice
 
 
 == Changelog ==
+
+= 25.1.2 =
+* Theme Link Updated
 
 = 25.1.1 =
 * Update Plugin Tag

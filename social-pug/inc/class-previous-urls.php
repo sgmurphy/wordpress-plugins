@@ -118,7 +118,7 @@ class Previous_URLs {
 	 * @return array
 	 */
 	private function get_previous_post_urls() : array {
-		$post_previous_urls = dpsp_maybe_unserialize( get_post_meta( $this->post_id, 'dpsp_post_single_previous_urls', true ) );
+		$post_previous_urls = dpsp_maybe_convert_post_meta_to_json( $this->post_id, 'dpsp_post_single_previous_urls', true );
 		return ( ! empty( $post_previous_urls ) ? $post_previous_urls : [] );
 	}
 }

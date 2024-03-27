@@ -141,7 +141,8 @@ class CnbAction implements JsonSerializable {
             $action->iconText = ( new CnbUtils() )->cnb_actiontype_to_icontext( $action->actionType );
         }
 
-		CnbAction::sanitize_action_value($action);
+		$error = CnbAction::sanitize_action_value($action);
+		if ( $error ) return $error;
 
         return $action;
     }
@@ -149,17 +150,26 @@ class CnbAction implements JsonSerializable {
 	/**
 	 * @param $action CnbAction
 	 *
-	 * @return void
+	 * @return WP_Error|void
 	 */
 	private static function sanitize_action_value( $action ) {
 		// In case the action type has a value that represents a URL, ensure that the URL is correct
 		switch ($action->actionType) {
 			case 'LINK':
 			case 'IFRAME':
-				$action->actionValue = sanitize_url($action->actionValue, array( 'http', 'https' ) );
+				// phpcs:ignore WordPress.WP
+				$sanitized_value = sanitize_url($action->actionValue, array( 'http', 'https' ) );
+				if ( empty( $sanitized_value )) {
+					return new WP_Error( 'CNB_ACTION_VALUE_INVALID', 'The Full URL for your action contains an invalid URL. Please use a valid URL that starts with http:// or https://' );
+				}
+				$action->actionValue = $sanitized_value;
 				break;
 			case 'EMAIL':
-				$action->actionValue = sanitize_email($action->actionValue);
+				$sanitized_value = sanitize_email($action->actionValue);
+				if ( ! is_email( $sanitized_value ) ) {
+					return new WP_Error( 'CNB_ACTION_VALUE_INVALID', 'The Email address for your action is invalid. Please use a valid email address.' );
+				}
+				$action->actionValue = $sanitized_value;
 				break;
 		}
 	}

@@ -5,7 +5,7 @@ Donate link: https://gravitypdf.com/donate-to-plugin/
 Tags: gravityforms, gravity, forms, pdf, automation, attachment, email
 Requires at least: 5.3
 Tested up to: 6.5
-Stable tag: 6.9.0
+Stable tag: 6.9.1
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.txt
@@ -106,6 +106,15 @@ Gravity PDF can be run on most modern shared web hosting without any issues. It 
 16. A bunch of paid PDF designs are available, as well as additional functionality.
 
 == Changelog ==
+
+= 6.9.1 =
+* Security: Disable the Signed URL feature in the [gravitypdf] shortcode when a URL parameter provides the entry ID (e.g. Page Confirmations)
+* Bug: Gracefully handle invalid conditional logic rules when adding date entry meta support
+* Bug: Display field for entry metadata PDF conditional rule when there are no form fields compatible with conditional logic
+* Bug: Ensure the template cache is correctly cleared when PDF Debug Mode is enabled
+* Bug: Flush the template cache after installing new templates via the PDF Template Manager
+* Bug: Clear template cache when plugin deactivated
+* Housekeeping: Small improvement to performance when reading template and font files from disk
 
 = 6.9.0 =
 * Feature: Add new conditional logic options to PDFs eg. Payment Status, Date Created, Starred (props: Gravity Wiz)

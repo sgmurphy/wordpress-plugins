@@ -553,7 +553,7 @@ function dpsp_post_location_overwrite_option( $return, $location_slug, $settings
 	}
 
 	// Pull share options meta data
-	$share_options = dpsp_maybe_unserialize( get_post_meta( $post_obj->ID, 'dpsp_share_options', true ) );
+	$share_options = dpsp_maybe_convert_post_meta_to_json( $post_obj->ID, 'dpsp_share_options', true );
 
 	if ( ! empty( $share_options['locations_overwrite'] ) && is_array( $share_options['locations_overwrite'] ) && in_array( $location_slug, $share_options['locations_overwrite'], true ) ) {
 		return false;
@@ -683,7 +683,9 @@ function dpsp_get_svg_icon_output( $slug ) {
 }
 
 /**
- * Attempts to recursively unserialize the given value.
+ * 
+ * Deprecated March 2024
+ * Old description: Attempts to recursively unserialize the given value.
  *
  * @param mixed $value
  * @return mixed
@@ -700,6 +702,52 @@ function dpsp_maybe_unserialize( $value ) {
 		$value = maybe_unserialize( $value );
 		$type  = gettype( $value );
 		$index++;
+	}
+
+	return $value;
+}
+
+/**
+ * 
+ * Helper function to convert previously PHP serialized data 
+ * into JSON encoded strings and add a new post meta key
+ * with _json appended, leaving the old PHP serialized data
+ * in place.
+ * - If the value is already JSON encoded return the decoded obj.
+ * - If the value isn't serialized, return string
+ * json_decode returns associative arrays and goes 5 levels
+ * deep per dpsp_maybe_unserialize being recursive previously
+ * 
+ * @param mixed $value
+ * @return mixed
+ * 
+ */
+function dpsp_maybe_convert_post_meta_to_json( $id, $key ) {
+	if ( empty( $id ) || empty( $key ) ) {
+		return false;
+	}
+
+	// Check for JSON encoded key first,
+	// if not present, assume the old PHP serialized key exists
+	$value = get_post_meta( $id, $key . '_json', true );
+	$value = ( empty( $value ) || !$value ) ? get_post_meta( $id, $key, true ) : $value;
+
+	// If the value is an array it means it was serialized and has not yet
+	// been converted to JSON. Any other data format can be left as-is.
+	if ( is_array( $value ) || is_object( $value ) ) {
+		// Convert the data to JSON, store it, and return.
+		$json_encoded_value = json_encode( $value, JSON_UNESCAPED_UNICODE );
+
+		update_post_meta( $id, $key . '_json', $json_encoded_value ); // Append _json to create new key
+
+		$value = json_decode( $json_encoded_value, true, 5 );
+	} else {
+		// If this is JSON, decode it before returning.
+		$decoded = json_decode( $value, true, 5 );
+
+		if ( json_last_error() === JSON_ERROR_NONE ) {
+			$value = $decoded;
+		}
 	}
 
 	return $value;
@@ -728,6 +776,23 @@ function dpsp_get_svg_data_for_networks( $networks ) {
 		$data[ $slug ] = $icon->get_data();
 	}
 	return $data;
+}
+
+/**
+ * Determines if the string provided is valid JSON
+ * Used primarily to determine if a stored custom field value
+ * is already encoded JSON.
+ * 
+ * @param string $string A string, likely returned from the database, also likely a serialized PHP Object
+ * @return boolean
+ */
+function dpsp_is_json( $string ) {
+	try {
+		$result = json_decode( $string );
+	} catch (\Throwable $th) {
+		print_r($th);
+	}
+	return json_last_error() === JSON_ERROR_NONE;
 }
 
 /**

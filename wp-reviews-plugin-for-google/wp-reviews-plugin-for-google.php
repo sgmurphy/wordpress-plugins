@@ -4,12 +4,12 @@ Plugin Name: Widgets for Google Reviews
 Plugin Title: Widgets for Google Reviews Plugin
 Plugin URI: https://wordpress.org/plugins/wp-reviews-plugin-for-google/
 Description: Embed Google reviews fast and easily into your WordPress site. Increase SEO, trust and sales using Google reviews.
-Tags: google, google places reviews, reviews, widget, google business, review, testimonial, testimonials, slider, rating, google my business, customer review
+Tags: google, google places reviews, reviews, widget, google business
 Author: Trustindex.io <support@trustindex.io>
 Author URI: https://www.trustindex.io/
 Contributors: trustindex
 License: GPLv2 or later
-Version: 11.7
+Version: 11.7.1
 Text Domain: wp-reviews-plugin-for-google
 Domain Path: /languages
 Donate link: https://www.trustindex.io/prices/
@@ -19,7 +19,7 @@ Copyright 2019 Trustindex Kft (email: support@trustindex.io)
 */
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 require_once plugin_dir_path( __FILE__ ) . 'trustindex-plugin.class.php';
-$trustindex_pm_google = new TrustindexPlugin_google("google", __FILE__, "11.7", "Widgets for Google Reviews", "Google");
+$trustindex_pm_google = new TrustindexPlugin_google("google", __FILE__, "11.7.1", "Widgets for Google Reviews", "Google");
 register_activation_hook(__FILE__, [ $trustindex_pm_google, 'activate' ]);
 register_deactivation_hook(__FILE__, [ $trustindex_pm_google, 'deactivate' ]);
 add_action('plugins_loaded', [ $trustindex_pm_google, 'load' ]);
@@ -35,7 +35,7 @@ add_action('init', function() {
 global $trustindex_pm_google;
 if (!isset($trustindex_pm_google) || is_null($trustindex_pm_google)) {
 require_once plugin_dir_path( __FILE__ ) . 'trustindex-plugin.class.php';
-$trustindex_pm_google = new TrustindexPlugin_google("google", __FILE__, "11.7", "Widgets for Google Reviews", "Google");
+$trustindex_pm_google = new TrustindexPlugin_google("google", __FILE__, "11.7.1", "Widgets for Google Reviews", "Google");
 }
 $path = wp_upload_dir()['baseurl'] .'/'. $trustindex_pm_google->getCssFile(true);
 if (is_ssl()) {
@@ -97,6 +97,63 @@ return;
 <?php
 }
 add_action('admin_notices', 'ti_woocommerce_notice');
+}
+
+
+add_action('wp_ajax_nopriv_'. $trustindex_pm_google->get_webhook_action(), $trustindex_pm_google->get_webhook_action());
+add_action('wp_ajax_'. $trustindex_pm_google->get_webhook_action(), $trustindex_pm_google->get_webhook_action());
+function trustindex_reviews_hook_google()
+{
+global $trustindex_pm_google;
+global $wpdb;
+$token = isset($_POST['token']) ? sanitize_text_field($_POST['token']) : "";
+if (isset($_POST['test']) && $token === get_option($trustindex_pm_google->get_option_name('review-download-token'))) {
+echo $token;
+exit;
+}
+$ourToken = $trustindex_pm_google->is_review_download_in_progress();
+if (!$ourToken) {
+$ourToken = get_option($trustindex_pm_google->get_option_name('review-download-token'));
+}
+try {
+if (!$token || $ourToken !== $token) {
+throw new Exception('Token invalid');
+}
+if (!$trustindex_pm_google->is_noreg_linked() || !$trustindex_pm_google->is_table_exists('reviews')) {
+throw new Exception('Platform not connected');
+}
+$name = 'Unknown source';
+if (isset($_POST['error']) && $_POST['error']) {
+update_option($trustindex_pm_google->get_option_name('review-download-inprogress'), 'error', false);
+}
+else {
+if (isset($_POST['details'])) {
+$trustindex_pm_google->save_details($_POST['details']);
+$trustindex_pm_google->save_reviews(isset($_POST['reviews']) ? $_POST['reviews'] : []);
+}
+delete_option($trustindex_pm_google->get_option_name('review-download-inprogress'));
+delete_option($trustindex_pm_google->get_option_name('review-manual-download'));
+}
+update_option($trustindex_pm_google->get_option_name('download-timestamp'), time() + (86400 * 10), false);
+$trustindex_pm_google->setNotificationParam('review-download-available', 'do-check', true);
+$isConnecting = get_option($trustindex_pm_google->get_option_name('review-download-is-connecting'));
+if (!$isConnecting && !$trustindex_pm_google->getNotificationParam('review-download-finished', 'hidden')) {
+$trustindex_pm_google->setNotificationParam('review-download-finished', 'active', true);
+}
+delete_option($trustindex_pm_google->get_option_name('review-download-is-connecting'));
+if (!$trustindex_pm_google->getNotificationParam('review-download-available', 'hidden')) {
+$trustindex_pm_google->setNotificationParam('review-download-available', 'do-check', true);
+$trustindex_pm_google->setNotificationParam('review-download-available', 'active', false);
+}
+if (!$isConnecting) {
+$trustindex_pm_google->sendNotificationEmail('review-download-finished');
+}
+echo $ourToken;
+}
+catch(Exception $e) {
+echo 'Error in WP: '. $e->getMessage();
+}
+exit;
 }
 add_action('admin_notices', function() {
 global $trustindex_pm_google;

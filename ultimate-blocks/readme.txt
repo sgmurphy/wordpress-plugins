@@ -2,8 +2,8 @@
 Contributors: dotcamp, ultimateblocks, imtiazrayhan, istiakrayhan, erdembircan, alexius08
 Tags: blocks, gutenberg blocks, gutenberg, block editor, free
 Requires at least: 5.8
-Tested up to: 6.4
-Stable tag: 3.1.4
+Tested up to: 6.5
+Stable tag: 3.1.5
 Requires PHP: 5.6
 License: GPL3+
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
@@ -149,6 +149,19 @@ That's it. You're done!
 3. Tabbed Content Block.
 
 == Changelog ==
+
+= 3.1.5 =
+
+* NEW: Number settings (Show Number, Number Prefix, Number Suffix) in the progress bar block.
+* IMPROVE: Change default counter, and label font size in the counter block.
+* FIX: Counter bug when change animation.
+* FIX: Attribute schema validating warning in (styled list, advanced video, how to).
+* FIX: Countdown styling not working on frontend.
+* FIX: Advanced heading not working in table of content.
+* FIX: Image slider not showing properly in row block.
+* FIX: Anchor issue in tabbed content block.
+* PRO: NEW: Load more pagination in post grid.
+* PRO: FIX: Schema indexing error Bad escape sequence in string in review block.
 
 = 3.1.4 =
 

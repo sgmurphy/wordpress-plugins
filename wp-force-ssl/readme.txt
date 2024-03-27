@@ -1,6 +1,6 @@
 === WP Force SSL & HTTPS SSL Redirect ===
 Contributors: WebFactory
-Tags: ssl, force ssl, add ssl, install ssl, https, ssl certificate, ssl redirect, mixed content, hsts, lets encrypt, generate ssl certificate
+Tags: ssl, force ssl, https, ssl certificate, mixed content
 Requires at least: 4.6
 Tested up to: 6.5
 Requires PHP: 5.2

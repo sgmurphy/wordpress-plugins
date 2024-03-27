@@ -663,7 +663,7 @@ class aThemes_Hero_Slider extends Widget_Base {
 
 					$this->add_inline_editing_attributes( $repeater_setting_key );
 					?>
-					<div data-swiper-autoplay="<?php echo esc_attr( $settings['autoplay_speed'] ); ?>" class="swiper-slide elementor-repeater-item-<?php echo $item['_id']; ?>" style="background-image: url('<?php echo $item['background_image']['url']; ?>');">
+					<div data-swiper-autoplay="<?php echo esc_attr( $settings['autoplay_speed'] ); ?>" class="swiper-slide elementor-repeater-item-<?php echo esc_attr( $item['_id'] ); ?>" style="background-image: url('<?php echo esc_url( $item['background_image']['url'] ); ?>');">
 						<?php if ( $item['enable_overlay'] ) : ?>
 						<div class="slide-overlay"></div>
 						<?php endif; ?>						

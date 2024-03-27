@@ -261,7 +261,7 @@ function pmpro_membership_level_profile_fields($user)
 									?>
 									<label for="<?php echo esc_attr( $shown_level_name_prefix ); ?>[subscription_action]" style="display: none">
 										<select name="<?php echo esc_attr( $shown_level_name_prefix ); ?>[subscription_action]">
-											<option value="cancel"><?php esc_html_e( 'Cancel payment subscription (Reccomended)', 'paid-memberships-pro' ); ?></option>
+											<option value="cancel"><?php esc_html_e( 'Cancel payment subscription (Recommended)', 'paid-memberships-pro' ); ?></option>
 											<option value="keep"><?php esc_html_e( 'Keep subscription active', 'paid-memberships-pro' ); ?></option>
 										</select>
 									</label>
@@ -364,7 +364,7 @@ function pmpro_membership_level_profile_fields($user)
 													<p><?php echo esc_html( $subscription->get_cost_text() ); ?></p>
 													<label for="<?php echo esc_attr( $name_prefix ); ?>[subscription_action]" style="display: none">
 														<select name="<?php echo esc_attr( $name_prefix ); ?>[subscription_action]">
-															<option value="cancel"><?php esc_html_e( 'Cancel payment subscription (Reccomended)', 'paid-memberships-pro' ); ?></option>
+															<option value="cancel"><?php esc_html_e( 'Cancel payment subscription (Recommended)', 'paid-memberships-pro' ); ?></option>
 															<option value="keep"><?php esc_html_e( 'Keep subscription active', 'paid-memberships-pro' ); ?></option>
 														</select>
 													</label>
@@ -1313,6 +1313,10 @@ function pmpro_change_password_form() {
  * Add a link to the Edit Member page in PMPro inline with the Edit User screen's page title.
  */
 function pmpro_add_edit_member_link_on_profile( $user ) {
+	// Only show the link to users who can edit members.
+	if ( ! current_user_can( pmpro_get_edit_member_capability() ) ) {
+		return;
+	}
 	?>
 	<script>
 		jQuery(document).ready(function() {

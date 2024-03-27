@@ -106,7 +106,7 @@ class DPSP_Network_Buttons_Outputter {
 		}
 
 		// Get custom sharable content ( custom tweet, pinterest image and pinterest description )
-		$share_options = dpsp_maybe_unserialize( get_post_meta( $post_obj->ID, 'dpsp_share_options', true ) );
+		$share_options = dpsp_maybe_convert_post_meta_to_json( $post_obj->ID, 'dpsp_share_options', true );
 
 		if ( ! empty( $share_options['custom_tweet'] ) ) {
 			$post_details['custom_tweet'] = $share_options['custom_tweet'];
@@ -382,7 +382,7 @@ class DPSP_Network_Buttons_Outputter {
 		$pinterest_description = '';
 
 		$post_obj      = dpsp_get_current_post();
-		$share_options = dpsp_maybe_unserialize( get_post_meta( $post_obj->ID, 'dpsp_share_options', true ) );
+		$share_options = dpsp_maybe_convert_post_meta_to_json( $post_obj->ID, 'dpsp_share_options', true );
 
 		// Set the custom Pinterest description of the post if it exists
 		if ( ! empty( $share_options['custom_description_pinterest'] ) ) {

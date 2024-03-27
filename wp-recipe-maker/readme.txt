@@ -5,7 +5,7 @@ Tags: recipe, recipes, food, cooking, schema
 Requires at least: 4.4
 Tested up to: 6.5
 Requires PHP: 5.4
-Stable tag: trunk
+Stable tag: 9.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,6 +136,13 @@ Yes! We pride ourselves on offering awesome support and almost always answer sup
 6. Fully compatible with the Classic Editor.
 
 == Changelog ==
+= 9.3.1 =
+* Improvement: Consistency of spacing in recipe notes
+* Fix: Prevent PHP error when using old versions of Yoast SEO
+* Fix: Better matching of YouTube URLs when using query paramaters
+* Fix: Importing of deprecated mv_recipe shortcode from Create
+* Fix: Prevent long URLs when doing a search on the comments page
+
 = 9.3.0 =
 * Feature: Patterns for the Template Editor
 * Feature: Expandable block for the Template Editor
@@ -222,6 +229,9 @@ Yes! We pride ourselves on offering awesome support and almost always answer sup
 For earlier versions, please refer to [our full changelog](https://help.bootstrapped.ventures/article/124-wp-recipe-maker-changelog).
 
 == Upgrade notice ==
+= 9.3.1 =
+Fixes a few small issues
+
 = 9.3.0 =
 Some great new features and improvements
 

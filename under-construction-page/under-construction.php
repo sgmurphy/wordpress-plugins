@@ -7,11 +7,11 @@
   Version: 3.99
   Requires at least: 4.0
   Requires PHP: 5.2
-  Tested up to: 6.4
+  Tested up to: 6.5
   Author URI: https://www.webfactoryltd.com/
   Text Domain: under-construction-page
 
-  Copyright 2015 - 2023  WebFactory Ltd  (email: ucp@webfactoryltd.com)
+  Copyright 2015 - 2024  WebFactory Ltd  (email: ucp@webfactoryltd.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as

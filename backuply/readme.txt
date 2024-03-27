@@ -2,9 +2,9 @@
 Contributors: softaculous, backuply
 Tags: backup, restore, database backup, cloud backup, wordpress backup, migration, cloning, backuply, local backup, amazon s3, database, google drive, gdrive, dropbox, FTP, SCP, SFTP, onedrive, WebDAV
 Requires at least: 4.7
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.5
-Stable tag: 1.2.8
+Stable tag: 1.2.9
 License: LGPL v2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -84,6 +84,11 @@ Go To your WordPress install -> Plugins -> Add New Button -> In Search Box searc
 7. **Backup Process** easy to understand backup progress.
 
 == Changelog ==
+
+= 1.2.9 (March 26th 2024) =
+* [Bug-Fix] There was an issue with download for some user because of their WordPress not supporting tar or gz mime types, this has been fixed.
+* [Bug-Fix] There was an issue when syncing a backup uploaded manually which originally belonged to backup location other than Local Folder, would not show in the Backup History, that has been fixed.
+* [Task] Tested with WordPress 6.5.
 
 = 1.2.8 (March 13 2024) =
 * [Improvement] We have made improvements to make Backup Downloads better.

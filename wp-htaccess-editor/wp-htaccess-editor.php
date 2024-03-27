@@ -6,14 +6,14 @@
   Version: 1.71
   Requires at least: 4.0
   Requires PHP: 5.2
-  Tested up to: 6.4
+  Tested up to: 6.5
   Author: WebFactory Ltd
   Author URI: https://www.webfactoryltd.com/
   Text Domain: wp-htaccess-editor
   Network: true
 
   Copyright 2011 - 2018  Lukenzi  (email: lukenzi@gmail.com)
-  Copyright 2018 - 2023  WebFactory Ltd (email: support@webfactoryltd.com)
+  Copyright 2018 - 2024  WebFactory Ltd (email: support@webfactoryltd.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as

@@ -364,7 +364,7 @@ class MediaAccessControl
         ?><script>
             jQuery(function ($) {
                 $('.w3eden.media-access-control-container').remove();
-                $('.attachment-info .details').after("<br style='clear:both;'/><hr style='clear:both;margin-bottom:10px'/><div class='w3eden media-access-control-container'><div  id='wpdm-media-access'><div class='panel panel-default'><div class='panel-body'><i class='fa fa-sun fa-spin'></i> <?php echo __( "Checking status...", "download-manager" ); ?></div></div></div></div>");
+                $('.attachment-info .details').after("<div class='w3eden media-access-control-container'><br style='clear:both;'/><hr style='clear:both;margin-bottom:10px'/><div  id='wpdm-media-access'><div class='panel panel-default'><div class='panel-body'><i class='fa fa-sun fa-spin'></i> <?php echo __( "Checking status...", "download-manager" ); ?></div></div></div></div>");
                 xhr = $.ajax({
                     type: "GET",
                     url: ajaxurl,

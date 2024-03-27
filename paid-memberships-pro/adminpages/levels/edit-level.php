@@ -62,8 +62,8 @@ if (empty($level)) {
 	$level = new stdClass();
 	$level->id = NULL;
 	$level->name = NULL;
-	$level->description = NULL;
-	$level->confirmation = NULL;
+	$level->description = '';
+	$level->confirmation = '';
 	$level->initial_payment = NULL;
 	$level->billing_amount = NULL;
 	$level->cycle_number = 1;
@@ -497,7 +497,7 @@ if (!empty($page_msg)) { ?>
 							'href' => array(),
 						),
 					);
-					echo wp_kses( sprintf( __('WARNING: This level is set with both a recurring billing amount and an expiration date. You only need to set one of these unless you really want this membership to expire after a certain number of payments. For more information, <a target="_blank" rel="nofollow noopener" href="%s">see our post here</a>.', 'paid-memberships-pro'), 'https://www.paidmembershipspro.com/important-notes-on-recurring-billing-and-expiration-dates-for-membership-levels/?utm_source=plugin&utm_medium=pmpro-membershiplevels&utm_campaign=blog&utm_content=important-notes-on-recurring-billing-and-expiration-dates-for-membership-levels'), $allowed_html );
+					echo wp_kses( sprintf( __('WARNING: This level is set with both a recurring billing amount and an expiration date. You only need to set one of these unless you really want this membership to expire after a certain number of payments. For more information, <a target="_blank" rel="nofollow noopener" href="%s">see our post here</a>.', 'paid-memberships-pro'), 'https://www.paidmembershipspro.com/membership-level-recurring-billing-and-expiration-date/?utm_source=plugin&utm_medium=pmpro-membershiplevels&utm_campaign=blog&utm_content=important-notes-on-recurring-billing-and-expiration-dates-for-membership-levels'), $allowed_html );
 				?></p>
 			</div>
 			<script>

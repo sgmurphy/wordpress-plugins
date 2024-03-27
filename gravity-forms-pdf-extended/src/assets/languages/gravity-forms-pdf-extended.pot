@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-03 22:45+0000\n"
+"POT-Creation-Date: 2024-03-26 05:50+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -590,11 +590,11 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:231, ../../Helper/Helper_PDF_List_Table.php:220, ../../Model/Model_Form_Settings.php:931
+#: ../../Helper/Helper_Data.php:231, ../../Helper/Helper_PDF_List_Table.php:220, ../../Model/Model_Form_Settings.php:922
 msgid "Active"
 msgstr ""
 
-#: ../../Helper/Helper_Data.php:232, ../../Helper/Helper_PDF_List_Table.php:223, ../../Model/Model_Form_Settings.php:881, ../../Model/Model_Form_Settings.php:931
+#: ../../Helper/Helper_Data.php:232, ../../Helper/Helper_PDF_List_Table.php:223, ../../Model/Model_Form_Settings.php:872, ../../Model/Model_Form_Settings.php:922
 msgid "Inactive"
 msgstr ""
 
@@ -1442,11 +1442,11 @@ msgstr ""
 msgid "This form doesn't have any PDFs. Let's go %1$screate one%2$s."
 msgstr ""
 
-#: ../../Helper/Helper_Templates.php:230
+#: ../../Helper/Helper_Templates.php:224
 msgid "Requires Gravity PDF"
 msgstr ""
 
-#: ../../Helper/Helper_Templates.php:341, ../../Helper/Helper_Templates.php:421
+#: ../../Helper/Helper_Templates.php:335, ../../Helper/Helper_Templates.php:416
 msgid "Legacy"
 msgstr ""
 
@@ -1470,11 +1470,11 @@ msgstr ""
 msgid "PDF saved successfully. %1$sBack to PDF list.%2$s"
 msgstr ""
 
-#: ../../Model/Model_Form_Settings.php:812
+#: ../../Model/Model_Form_Settings.php:803
 msgid "PDF successfully deleted."
 msgstr ""
 
-#: ../../Model/Model_Form_Settings.php:875
+#: ../../Model/Model_Form_Settings.php:866
 msgid "PDF successfully duplicated."
 msgstr ""
 
@@ -1526,7 +1526,7 @@ msgstr ""
 msgid "The PDF could not be saved."
 msgstr ""
 
-#: ../../Model/Model_PDF.php:2168
+#: ../../Model/Model_PDF.php:2163
 msgid "Could not find PDF configuration requested"
 msgstr ""
 

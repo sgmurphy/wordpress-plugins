@@ -308,6 +308,38 @@ else if ($ti_command === 'save-amp-notice-hide') {
 update_option($pluginManagerInstance->get_option_name('amp-hidden-notification'), 1, false);
 exit;
 }
+else if ($ti_command === 'review-manual-download') {
+check_admin_referer('ti-download-reviews');
+$response = wp_remote_post('https://admin.trustindex.io/source/wordpressPageRequest', [
+'body' => [ 'id' => get_option($pluginManagerInstance->get_option_name('review-download-request-id')) ],
+'timeout' => '30',
+'redirection' => '5',
+'blocking' => true
+]);
+if (is_wp_error($response)) {
+$wp_query->set_404();
+status_header(404);
+}
+else {
+$json = json_decode(wp_remote_retrieve_body($response), true);
+if (isset($json['error']) && $json['error']) {
+update_option($pluginManagerInstance->get_option_name('review-download-inprogress'), 'error', false);
+}
+else if (isset($json['details'])) {
+$pluginManagerInstance->save_details($json['details']);
+$pluginManagerInstance->save_reviews(isset($json['reviews']) ? $json['reviews'] : []);
+delete_option($pluginManagerInstance->get_option_name('review-download-token'));
+delete_option($pluginManagerInstance->get_option_name('review-download-inprogress'));
+delete_option($pluginManagerInstance->get_option_name('review-manual-download'));
+update_option($pluginManagerInstance->get_option_name('download-timestamp'), time() + (86400 * 10), false);
+}
+else {
+$wp_query->set_404();
+status_header(404);
+}
+}
+exit;
+}
 if (isset($_GET['recreate'])) {
 check_admin_referer('ti-recreate');
 $pluginManagerInstance->uninstall();
@@ -391,7 +423,30 @@ include(plugin_dir_path(__FILE__) . '../include/step-list.php');
 </p>
 </div>
 <?php endif; ?>
-
+<?php if ($isReviewDownloadInProgress === 'error'): ?>
+<div class="ti-box ti-notice-error">
+<p>
+<?php echo __('While downloading the reviews, we noticed that your connected page is not found.<br />If it really exists, please contact us to resolve the issue or try connect it again.', 'trustindex-plugin'); ?><br />
+</p>
+</div>
+<?php elseif ($isReviewDownloadInProgress): ?>
+<div class="ti-notice ti-notice-warning">
+<p>
+<?php echo __('Your reviews are being downloaded.', 'trustindex-plugin') . ' ' . __('This process should only take a few minutes.', 'trustindex-plugin'); ?>
+<br />
+<?php echo __('While you wait, you can start the widget setup with some review templates.', 'trustindex-plugin'); ?>
+<?php if ($pluginManagerInstance->is_review_manual_download()): ?>
+<br />
+<a href="#" id="ti-review-manual-download" data-nonce="<?php echo wp_create_nonce('ti-download-reviews'); ?>" class="ti-btn ti-btn-sm ti-tooltip ti-toggle-tooltip" style="margin-top: 5px">
+<?php echo __('Manual download', 'trustindex-plugin'); ?>
+<span class="ti-tooltip-message">
+<?php echo __('Your reviews are being downloaded.', 'trustindex-plugin') . ' ' . __('This process should only take a few minutes.', 'trustindex-plugin'); ?>
+</span>
+</a>
+<?php endif; ?>
+</p>
+</div>
+<?php endif; ?>
 <?php if ($pluginManager::is_amp_active() && !get_option($pluginManagerInstance->get_option_name('amp-hidden-notification'), 0)): ?>
 <div class="ti-notice ti-notice-warning is-dismissible">
 <p>
@@ -440,7 +495,7 @@ update_option($pluginManagerInstance->get_option_name('review-download-token'), 
 <input type="hidden" id="ti-noreg-connect-token" name="ti-noreg-connect-token" value="<?php echo $reviewDownloadToken; ?>" />
 <input type="hidden" id="ti-noreg-webhook-url" value="<?php echo $pluginManagerInstance->get_webhook_url(); ?>" />
 <input type="hidden" id="ti-noreg-email" value="<?php echo get_option('admin_email'); ?>" />
-<input type="hidden" id="ti-noreg-version" value="11.7" />
+<input type="hidden" id="ti-noreg-version" value="11.7.1" />
 <input type="hidden" id="ti-noreg-review-download" name="review_download" value="0" />
 <input type="hidden" id="ti-noreg-review-request-id" name="review_request_id" value="" />
 <input type="hidden" id="ti-noreg-manual-download" name="manual_download" value=0 />
@@ -449,8 +504,33 @@ update_option($pluginManagerInstance->get_option_name('review-download-token'), 
 <p><?php echo __("A popup window should be appear! Please, go to there and continue the steps! (If there is no popup window, you can check the the browser's popup blocker)", 'trustindex-plugin'); ?></p>
 </div>
 <a href="#" class="ti-btn btn-connect-public"><?php echo __('Connect', 'trustindex-plugin'); ?></a>
+<?php
+
+$labelText = sprintf(__('%s Business URL', 'trustindex-plugin'), 'Google');
+$infoText = __("Type your business/company's URL and select from the list", 'trustindex-plugin');
+$errorText = sprintf(__('Please add your URL again: this is not a valid %s page.', 'trustindex-plugin'), "Google");
+$placeholder = __('e.g.:', 'trustindex-plugin') . ' ' . esc_attr($exampleUrl);
 
 
+
+
+?>
+<div class="ti-notice ti-notice-error ti-d-none" id="ti-connect-error">
+<p><?php echo $errorText; ?></p>
+</div>
+<div class="ti-connect-platform">
+<div class="ti-connect-platform-inner">
+<label><?php echo $labelText; ?>:</label>
+<input class="ti-form-control" placeholder="<?php echo $placeholder; ?>" type="text" />
+<a href="#" class="ti-btn"><?php echo __('Check', 'trustindex-plugin'); ?></a>
+</div>
+<span class="ti-info-text"><?php echo $infoText; ?></span>
+</div>
+<div class="ti-source-box ti-d-none">
+<img />
+<div class="ti-source-info"></div>
+<a href="#" class="ti-btn btn-connect"><?php echo __('Connect', 'trustindex-plugin'); ?></a>
+</div>
 </form>
 </div>
 <?php endif; ?>

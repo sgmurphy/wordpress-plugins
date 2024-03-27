@@ -7933,12 +7933,31 @@ function frmAdminBuildJS() {
 		showShortcodeBox( this );
 	}
 
+	function updateShortcodesPopupPosition( target ) {
+		let moreIcon;
+		if ( target instanceof Event ) {
+			const useElements = document.querySelectorAll( '.frm-single-settings .frm-show-box.frmsvg use' );
+			const openTrigger = Array.from( useElements ).find( use => use.getAttribute( 'href' ) === '#frm_close_icon' );
+			if ( 'undefined' === typeof openTrigger ) {
+				return;
+			}
+			moreIcon = openTrigger.parentElement;
+		} else {
+			moreIcon = target;
+		}
+
+		const moreIconPosition = moreIcon.getBoundingClientRect();
+		const shortCodesPopup  = document.getElementById( 'frm_adv_info' );
+		const parentPos        = shortCodesPopup.parentElement.getBoundingClientRect();
+
+		shortCodesPopup.style.top = ( moreIconPosition.top - parentPos.top + 32 ) + 'px';
+		shortCodesPopup.style.left = ( moreIconPosition.left - parentPos.left - 280 ) + 'px';
+	}
+
 	function showShortcodeBox( moreIcon, shouldFocus ) {
-		var pos = moreIcon.getBoundingClientRect(),
-			input = getInputForIcon( moreIcon ),
+		var input = getInputForIcon( moreIcon ),
 			box = document.getElementById( 'frm_adv_info' ),
-			classes = moreIcon.className,
-			parentPos = box.parentElement.getBoundingClientRect();
+			classes = moreIcon.className;
 
 		if ( moreIcon.tagName === 'svg' ) {
 			moreIcon = moreIcon.firstElementChild;
@@ -7955,8 +7974,7 @@ function frmAdminBuildJS() {
 		if ( classes.indexOf( 'frm_close_icon' ) !== -1 ) {
 			hideShortcodes( box );
 		} else {
-			box.style.top = ( pos.top - parentPos.top + 32 ) + 'px';
-			box.style.left = ( pos.left - parentPos.left - 280 ) + 'px';
+			updateShortcodesPopupPosition( moreIcon );
 
 			jQuery( '.frm_code_list a' ).removeClass( 'frm_noallow' );
 			if ( input.classList.contains( 'frm_not_email_to' ) ) {
@@ -9978,6 +9996,7 @@ function frmAdminBuildJS() {
 			handleNameFieldOnFormBuilder();
 			toggleSectionHolder();
 			handleShowPasswordLiveUpdate();
+			document.addEventListener( 'scroll', updateShortcodesPopupPosition, true );
 		},
 
 		settingsInit: function() {
@@ -10252,11 +10271,11 @@ function frmAdminBuildJS() {
 
 		inboxInit: function() {
 			jQuery( '.frm_inbox_dismiss, footer .frm-button-secondary, footer .frm-button-primary' ).on( 'click', function( e ) {
-				var message = this.parentNode.parentNode,
-					key = message.getAttribute( 'data-message' ),
-					href = this.getAttribute( 'href' ),
-					dismissedMessage = message.cloneNode( true );
-					dismissedMessagesWrapper = document.querySelector( '.frm-dismissed-inbox-messages' );
+				const message                  = this.parentNode.parentNode;
+				const key                      = message.getAttribute( 'data-message' );
+				const href                     = this.getAttribute( 'href' );
+				const dismissedMessage         = message.cloneNode( true );
+				const dismissedMessagesWrapper = document.querySelector( '.frm-dismissed-inbox-messages' );
 
 				if ( 'free_templates' === key && ! this.classList.contains( 'frm_inbox_dismiss' ) ) {
 					return;
@@ -10266,29 +10285,48 @@ function frmAdminBuildJS() {
 
 				data = {
 					action: 'frm_inbox_dismiss',
-					key: key,
+					key,
 					nonce: frmGlobal.nonce
 				};
-				postAjax( data, function() {
-					if ( href !== '#' ) {
-						window.location = href;
-						return true;
+
+				const isInboxSlideIn = 'frm_inbox_slide_in' === message.id;
+				if ( isInboxSlideIn ) {
+					message.classList.remove( 's11-fadein' );
+					message.classList.add( 's11-fadeout' );
+					message.addEventListener( 'animationend', () => message.remove(), { once: true });
+				}
+
+				postAjax(
+					data,
+					() => {
+						if ( isInboxSlideIn ) {
+							return;
+						}
+
+						if ( href !== '#' ) {
+							window.location = href;
+							return true;
+						}
+
+						fadeOut(
+							message,
+							() => {
+								if ( null !== dismissedMessagesWrapper ) {
+									dismissedMessage.classList.remove( 'frm-fade' );
+									dismissedMessage.querySelector( '.frm-inbox-message-heading' )?.removeChild( dismissedMessage.querySelector( '.frm-inbox-message-heading .frm_inbox_dismiss' ) );
+									dismissedMessagesWrapper.append( dismissedMessage );
+								}
+								if ( 1 === message.parentNode.querySelectorAll( '.frm-inbox-message-container' ).length ) {
+									document.getElementById( 'frm_empty_inbox' ).classList.remove( 'frm_hidden' );
+									message.parentNode.closest( '.frm-active' ).classList.add( 'frm-empty-inbox' );
+								}
+								message.parentNode.removeChild( message );
+							}
+						);
 					}
-					fadeOut( message, function() {
-						if ( null !== dismissedMessagesWrapper ) {
-							dismissedMessage.classList.remove( 'frm-fade' );
-							dismissedMessage.querySelector( '.frm-inbox-message-heading' ).removeChild( dismissedMessage.querySelector( '.frm-inbox-message-heading .frm_inbox_dismiss' ) );
-							dismissedMessagesWrapper.append( dismissedMessage );
-						}
-						if ( 1 === message.parentNode.querySelectorAll( '.frm-inbox-message-container' ).length ) {
-							document.getElementById( 'frm_empty_inbox' ).classList.remove( 'frm_hidden' );
-							message.parentNode.closest( '.frm-active' ).classList.add( 'frm-empty-inbox' );
-						}
-						message.parentNode.removeChild( message );
-					});
-				});
+				);
 			});
-			jQuery( '#frm-dismiss-inbox' ).on( 'click', function( e ) {
+			jQuery( '#frm-dismiss-inbox' ).on( 'click', function() {
 				data = {
 					action: 'frm_inbox_dismiss',
 					key: 'all',
@@ -10302,7 +10340,7 @@ function frmAdminBuildJS() {
 				});
 			});
 
-			if ( ! document.getElementById( 'frm_empty_inbox' ).classList.contains( 'frm_hidden' ) ) {
+			if ( false === document.getElementById( 'frm_empty_inbox' )?.classList.contains( 'frm_hidden' ) ) {
 				showActiveCampaignForm();
 			}
 		},
@@ -10356,9 +10394,14 @@ function frmAdminBuildJS() {
 				captchaType.addEventListener( 'change', handleCaptchaTypeChange );
 			}
 
-			document.querySelector( '.frm_captchas' ).addEventListener( 'change', function() {
-				document.querySelector( '.captcha_settings .frm_note_style' ).classList.toggle( 'frm_hidden' );
+			document.querySelector( '.frm_captchas' ).addEventListener( 'change', function( event ) {
+				const captchaValueOnLoad = document.querySelector( '.frm_captchas input[checked="checked"]' )?.value;
+				const showNote           = event.target.value !== captchaValueOnLoad;
+				document.querySelector( '.captcha_settings .frm_note_style' ).classList.toggle( 'frm_hidden', ! showNote );
 			});
+
+			// Set fieldsUpdated to 0 to avoid the unsaved changes pop up.
+			frmDom.util.documentOn( 'submit', '.frm_settings_form', () => fieldsUpdated = 0 );
 		},
 
 		exportInit: function() {
@@ -10528,11 +10571,6 @@ jQuery( document ).ready(
 	}
 );
 
-function frm_remove_tag( htmlTag ) { // eslint-disable-line camelcase
-	console.warn( 'DEPRECATED: function frm_remove_tag in v2.0' );
-	jQuery( htmlTag ).remove();
-}
-
 function frm_show_div( div, value, showIf, classId ) { // eslint-disable-line camelcase
 	if ( value == showIf ) {
 		jQuery( classId + div ).fadeIn( 'slow' ).css( 'visibility', 'visible' );
@@ -10548,25 +10586,6 @@ function frmCheckAll( checked, n ) {
 function frmCheckAllLevel( checked, n, level ) {
 	var $kids = jQuery( '.frm_catlevel_' + level ).children( '.frm_checkbox' ).children( 'label' );
 	$kids.children( 'input[name^="' + n + '"]' ).prop( 'checked', ! ! checked );
-}
-
-function frm_add_logic_row( id, formId ) { // eslint-disable-line camelcase
-	console.warn( 'DEPRECATED: function frm_add_logic_row in v2.0' );
-	jQuery.ajax({
-		type: 'POST',
-		url: ajaxurl,
-		data: {
-			action: 'frm_add_logic_row',
-			form_id: formId,
-			field_id: id,
-			meta_name: jQuery( '#frm_logic_row_' + id + ' > div' ).length,
-			nonce: frmGlobal.nonce
-		},
-		success: function( html ) {
-			jQuery( '#frm_logic_row_' + id ).append( html );
-		}
-	});
-	return false;
 }
 
 function frmGetFieldValues( fieldId, cur, rowNumber, fieldType, htmlName ) {

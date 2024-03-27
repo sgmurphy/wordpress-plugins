@@ -104,7 +104,7 @@ function pmpro_setOption( $s, $v = null, $sanitize_function = 'sanitize_text_fie
 
 	if ( is_array( $v ) ) {
 		$v = implode( ',', $v );
-	} else {
+	} elseif ( is_string( $v ) ) {
 		$v = trim( $v );
 	}
 
@@ -664,7 +664,7 @@ function pmpro_get_membership_expiration_text( $level, $user ) {
 	}
 
 	// Apply legacy filter pmpro_account_membership_expiration_text.
-	if ( is_admin() && has_filter( 'pmpro_account_membership_expiration_text' ) ) {
+	if ( ! is_admin() && has_filter( 'pmpro_account_membership_expiration_text' ) ) {
 		/**
 		 * Legacy filter for showing the expiration date on the frontend.
 		 *
@@ -786,7 +786,7 @@ function pmpro_next_payment( $user_id = null, $order_status = 'success', $format
 
 	if ( $user_id ) {
 		// Convert passed order status to a subscription status.
-		$subscription_status = $order_status === 'success' ? 'active' : 'cancelled';
+		$subscription_status = ( $order_status === 'success' || ( is_array( $order_status ) && in_array( 'success', $order_status ) ) ) ? 'active' : 'cancelled';
 		$subscriptions = PMPro_Subscription::get_subscriptions_for_user( $user_id, null, $subscription_status );
 		if ( ! empty( $subscriptions ) ) {
 			return $subscriptions[0]->get_next_payment_date( $format );
@@ -1978,6 +1978,10 @@ function pmpro_checkDiscountCode( $code, $level_id = null, $return_errors = fals
 }
 
 function pmpro_no_quotes( $s, $quotes = array( "'", '"' ) ) {
+	if ( empty( $s ) ) {
+		$s = '';
+	}
+
 	return str_replace( $quotes, '', $s );
 }
 

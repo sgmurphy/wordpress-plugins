@@ -4,8 +4,8 @@
     tinymce.create( 'tinymce.plugins.wpDiscuz',{
 
         init : function (ed, url) {
-            if (ed.id === "content" || ed.id === "main_content_content_vb_tiny_mce") {
-                ed.addButton('wpDiscuz', {
+            // if (ed.id === "content" || ed.id === "main_content_content_vb_tiny_mce") {
+            ed.addButton('wpDiscuz', {
                     image: wpdObject.image,
                     tooltip: wpdObject.tooltip,
                     onclick: function () {
@@ -13,12 +13,13 @@
                         var dialogWidth = 600;
                         var W = (dialogWidth < w) ? dialogWidth : w;
                         $('#wpd-inline-question').val('');
+                        tinymce.activeEditor = ed;
                         var text = tinymce.activeEditor.selection.getContent();
                         $('#wpd-inline-content').html(text ? text : '<span class="wpd-text-error">' + wpdObject.no_text_selected + '</span>');
                         tb_show(wpdObject.popup_title, '#TB_inline?width=' + W + '&height=400&inlineId=wpdiscuz_feedback_dialog');
                     }
                 });
-            }
+            // }
         },
 
         getInfo : function(){

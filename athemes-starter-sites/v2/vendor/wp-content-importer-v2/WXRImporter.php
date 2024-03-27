@@ -65,6 +65,7 @@ class ATSS_WXRImporter extends WP_Importer {
 
 	protected $url_remap = array();
 	protected $featured_images = array();
+	public static $attachments_url_filenames_replacement_map = array();
 
 	/**
 	 * Logger instance.
@@ -102,13 +103,15 @@ class ATSS_WXRImporter extends WP_Importer {
 		$this->exists = $empty_types;
 
 		$this->options = wp_parse_args( $options, array(
-			'prefill_existing_posts'    => true,
-			'prefill_existing_comments' => true,
-			'prefill_existing_terms'    => true,
-			'update_attachment_guids'   => false,
-			'fetch_attachments'         => false,
-			'aggressive_url_search'     => false,
-			'default_author'            => null,
+			'disable_cache'                    => apply_filters( 'atss_disable_demo_content_cache', false ),
+			'prefill_existing_posts'           => true,
+			'prefill_existing_comments'        => true,
+			'prefill_existing_terms'           => true,
+			'update_attachment_guids'          => false,
+			'fetch_attachments'                => false,
+			'aggressive_url_search'            => false,
+			'replace_attachment_url_filenames' => true,
+			'default_author'                   => null,
 		) );
 
 	}
@@ -499,6 +502,10 @@ class ATSS_WXRImporter extends WP_Importer {
 
 		if ( $this->options['aggressive_url_search'] ) {
 			$this->replace_attachment_urls_in_content();
+		}
+
+		if ( $this->options['replace_attachment_url_filenames'] ) {
+			$this->replace_attachment_urls_filenames_in_content();
 		}
 
 		$this->remap_featured_images();
@@ -1122,7 +1129,13 @@ class ATSS_WXRImporter extends WP_Importer {
 		// [ATSS] Placeholder attachment action.
 		do_action( 'atss_importer.processed.attachment', $upload );
 
-		// as per wp-admin/includes/upload.php
+		$remote_url_new = basename( $remote_url );
+		$upload_url     = basename( $upload['url'] );
+
+		if ( $remote_url_new !== $upload_url ) {
+			self::$attachments_url_filenames_replacement_map[ $remote_url_new ] = basename( $upload['url'] );
+		}
+
 		$post_id = wp_insert_attachment( $post, $upload['file'] );
 		if ( is_wp_error( $post_id ) ) {
 			return $post_id;
@@ -2346,6 +2359,19 @@ class ATSS_WXRImporter extends WP_Importer {
 	}
 
 	/**
+	 * Use stored mapping information to update old attachment URLs filenames
+	 */
+	protected function replace_attachment_urls_filenames_in_content() {
+		global $wpdb;
+
+		foreach ( self::$attachments_url_filenames_replacement_map as $from_url_filename => $to_url_filename ) {
+			// remap url filenames in post_content
+			$query = $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_content = REPLACE(post_content, %s, %s)", $from_url_filename, $to_url_filename );
+			$wpdb->query( $query );
+		}
+	}
+
+	/**
 	 * Update _thumbnail_id meta to new, imported attachment IDs
 	 */
 	function remap_featured_images() {
@@ -2440,6 +2466,10 @@ class ATSS_WXRImporter extends WP_Importer {
 	 * @return int|bool Existing post ID if it exists, false otherwise.
 	 */
 	protected function post_exists( $data ) {
+		if ( $this->options['disable_cache'] ) {
+			return false;
+		}
+
 		// Constant-time lookup if we prefilled
 		$exists_key = $data['guid'];
 
@@ -2494,6 +2524,10 @@ class ATSS_WXRImporter extends WP_Importer {
 	 * @return int|bool Existing comment ID if it exists, false otherwise.
 	 */
 	protected function comment_exists( $data ) {
+		if ( $this->options['disable_cache'] ) {
+			return false;
+		}
+
 		$exists_key = sha1( $data['comment_author'] . ':' . $data['comment_date'] );
 
 		// Constant-time lookup if we prefilled
@@ -2548,6 +2582,10 @@ class ATSS_WXRImporter extends WP_Importer {
 	 * @return int|bool Existing term ID if it exists, false otherwise.
 	 */
 	protected function term_exists( $data ) {
+		if ( $this->options['disable_cache'] ) {
+			return false;
+		}
+
 		$exists_key = sha1( $data['taxonomy'] . ':' . $data['slug'] );
 
 		// Constant-time lookup if we prefilled

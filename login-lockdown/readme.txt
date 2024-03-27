@@ -1,8 +1,8 @@
 === Login Lockdown - Protect Login Form ===
 Contributors: WebFactory
-Tags: security, login, login form, protect login, captcha, login control, login blocking, lockdown, ban ip, bruteforce
+Tags: login, block login, protect login, captcha, lockdown
 Requires at least: 4.0
-Tested up to: 6.4
+Tested up to: 6.5
 Stable Tag: 2.09
 Requires PHP: 5.2
 License: GPLv2 or later

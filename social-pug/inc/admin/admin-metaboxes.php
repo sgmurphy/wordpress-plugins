@@ -51,7 +51,7 @@ function dpsp_share_options_output( $post ) {
 	$pinterest_settings = Mediavine\Grow\Settings::get_setting( 'dpsp_pinterest_share_images_setting', [] );
 
 	// Pull share options meta data
-	$share_options = dpsp_maybe_unserialize( get_post_meta( $post->ID, 'dpsp_share_options', true ) );
+	$share_options = dpsp_maybe_convert_post_meta_to_json( $post->ID, 'dpsp_share_options', true );
 
 	if ( empty( $share_options ) || ! is_array( $share_options ) ) {
 		$share_options = [];
@@ -232,7 +232,7 @@ function dpsp_share_options_output( $post ) {
 
 					echo '<label><span class="dpsp-admin-icon dpsp-admin-icon-pinterest">' . wp_kses( dpsp_get_svg_icon_output( 'pinterest' ), View_Loader::get_allowed_tags() ) . '</span>' . esc_html__( 'Pinterest Hidden Images', 'social-pug' ) . '</label>';
 
-					$hidden_images = dpsp_maybe_unserialize( get_post_meta( $post->ID, 'dpsp_pinterest_hidden_images', true ) );
+					$hidden_images = dpsp_maybe_convert_post_meta_to_json( $post->ID, 'dpsp_pinterest_hidden_images', true );
 					$hidden_images = ( ! empty( $hidden_images ) && is_array( $hidden_images ) ? $hidden_images : [] );
 
 					// Add the image thumbnails
@@ -386,7 +386,7 @@ function dpsp_share_statistics_output( $post, array $config = [] ) {
 
 			echo '<div id="dpsp-shares-recovery-post-previous-urls">';
 
-				$urls = dpsp_maybe_unserialize( get_post_meta( $post->ID, 'dpsp_post_single_previous_urls', true ) );
+				$urls = dpsp_maybe_convert_post_meta_to_json( $post->ID, 'dpsp_post_single_previous_urls', true );
 
 				echo '<div class="dpsp-shares-recovery-post-previous-urls-header">';
 
@@ -615,7 +615,8 @@ function dpsp_save_post_meta( $post_id ) {
 		$share_options = '';
 	}
 
-	update_post_meta( $post_id, 'dpsp_share_options', $share_options );
+	update_post_meta( $post_id, 'dpsp_share_options_json', json_encode( $share_options, JSON_UNESCAPED_UNICODE ) );
+	update_post_meta( $post_id, 'dpsp_share_options', $share_options ); // Maintaining backwards compatibitly, to be deprecated TODO: Remove when safe to do so
 
 	// Save information for the Pinterest hidden images
 	$save_multiple_pinterest_images_nonce = filter_input( INPUT_POST, 'dpsp_save_multiple_pinterest_images' );
@@ -634,7 +635,8 @@ function dpsp_save_post_meta( $post_id ) {
 		}
 
 		// Update hidden images value
-		update_post_meta( $post_id, 'dpsp_pinterest_hidden_images', $hidden_images );
+		update_post_meta( $post_id, 'dpsp_pinterest_hidden_images_json', json_encode( $hidden_images, JSON_UNESCAPED_UNICODE ) );
+		update_post_meta( $post_id, 'dpsp_pinterest_hidden_images', $hidden_images ); // Maintaining backwards compatibitly, to be deprecated TODO: Remove when safe to do so
 	}
 
 	// Save information for the Share Statistics meta-box
@@ -659,7 +661,8 @@ function dpsp_save_post_meta( $post_id ) {
 	}
 
 	// Update previous URL's
-	update_post_meta( $post_id, 'dpsp_post_single_previous_urls', $previous_urls );
+	update_post_meta( $post_id, 'dpsp_post_single_previous_urls_json', json_encode( $previous_urls, JSON_UNESCAPED_UNICODE ) );
+	update_post_meta( $post_id, 'dpsp_post_single_previous_urls', $previous_urls ); // Maintaining backwards compatibitly, to be deprecated TODO: Remove when safe to do so
 }
 
 /**

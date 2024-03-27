@@ -3,7 +3,7 @@ Contributors: gVectors Team
 Tags: comment, comments, ajax comments, comment form, comment fields
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 7.6.15
+Stable tag: 7.6.16
 Requires PHP: 5.6 and higher
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -188,6 +188,12 @@ Nothing will be lost!  **Comments - wpDiscuz** will show all old comments.
 **IMPORTANT!**
 
 Please don't forget delete all caches and purge CDN after the update.
+
+= Comments - wpDiscuz v7.6.16 - 27.03.2024 =
+
+* Fixed: Issue in the unsubscribe template HTML
+* Fixed: Vulnerability in uploaded files
+* Added: Support of inline commenting in ACF rich editor
 
 = Comments - wpDiscuz v7.6.15 - 03.02.2024 =
 

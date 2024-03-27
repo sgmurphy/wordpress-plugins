@@ -707,13 +707,13 @@ $filePath = __FILE__;
 if (isset($this->plugin_slugs[ $forcePlatform ])) {
 $filePath = preg_replace('/[^\/\\\\]+([\\\\\/]trustindex-plugin\.class\.php)/', $this->plugin_slugs[ $forcePlatform ] . '$1', $filePath);
 }
-$chosedPlatform = new self($forcePlatform, $filePath, "do-not-care-11.7", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
+$chosedPlatform = new self($forcePlatform, $filePath, "do-not-care-11.7.1", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
 $chosedPlatform->setNotificationParam('not-using-no-widget', 'active', false);
 if (!$chosedPlatform->is_noreg_linked()) {
 return $this->error_box_for_admins(sprintf(__('You have to connect your business (%s)!', 'trustindex-plugin'), $forcePlatform));
 }
 else {
-return $chosedPlatform->get_noreg_list_reviews($forcePlatform);
+return '<pre class="ti-widget">'. $chosedPlatform->get_noreg_list_reviews($forcePlatform) .'</pre>';
 }
 }
 else {
@@ -5640,7 +5640,9 @@ $reviews = $this->getRandomReviews(10);
 }
 if (!count($reviews)) {
 $text = sprintf(__('There are no reviews on your %s platform.', 'trustindex-plugin'), ucfirst($this->getShortName()));
-
+if ($this->is_review_download_in_progress()) {
+$text = __('Your reviews are being downloaded.', 'trustindex-plugin') . ' ' . __('This process should only take a few minutes.', 'trustindex-plugin');
+}
 return $this->error_box_for_admins($text);
 }
 if (self::is_amp_active() && self::is_amp_enabled()) {
@@ -5652,11 +5654,14 @@ wp_enqueue_script($scriptName, 'https://cdn.trustindex.io/loader.js', [], false,
 }
 $scripts = wp_scripts();
 if (isset($scripts->registered[ $scriptName ]) && !isset($scripts->registered[ $scriptName ]->extra['after'])) {
-wp_add_inline_script($scriptName, '(function ti_init() {
+wp_add_inline_script($scriptName, '
+(function ti_init() {
 if(typeof Trustindex == "undefined"){setTimeout(ti_init, 1985);return false;}
 if(typeof Trustindex.pager_inited != "undefined"){return false;}
 Trustindex.init_pager(document.querySelectorAll(".ti-widget"));
-})();');
+})();
+document.querySelectorAll("pre.ti-widget").forEach(item => item.replaceWith(item.firstChild));
+');
 }
 if ($content === false || empty($content) || (strpos($content, '<!-- R-LIST -->') === false && $needToParse)) {
 if (!$this->templateCache) {
@@ -5725,6 +5730,7 @@ $classAppends []= $freeCssClass;
 if ($classAppends) {
 $content = str_replace('" data-layout-id=', ' '. implode(' ', $classAppends) .'" data-layout-id=', $content);
 }
+$content = str_replace('" data-layout-id=', '" data-no-translation="true" data-layout-id=', $content);
 if ($dateformat === 'modern') {
 $content = preg_replace('/class="(ti-widget[^\'"]*)" data-layout-id=/', 'class="$1" data-time-locale="'. self::$widget_date_format_locales[ $lang ] .'" data-layout-id=', $content);
 }

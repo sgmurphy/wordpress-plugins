@@ -2,9 +2,9 @@
 Contributors: eatingrules, cdevroe, nerdpressteam, iova.mihai
 Tags: social share, social sharing, social media, social network, social buttons
 Requires at least: 5.3
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.1
-Stable tag: 1.33.1
+Stable tag: 1.33.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Add Pinterest, Facebook, Twitter/X social network sharing buttons with a Floatin
 
 == Description ==
 
-New: NerdPress has acquired Grow Social from Mediavine. [Read our blog post](https://www.nerdpress.net/announcing-hubbub/)
+New: [NerdPress](https://www.nerdpress.net/) has acquired Grow Social from Mediavine. [Read our blog post](https://www.nerdpress.net/announcing-hubbub/)
 
 **What can Hubbub Lite do for you?**
 
@@ -28,7 +28,7 @@ Hubbub Lite, formerly Grow Social by Mediavine, is one of the easiest to use soc
 = Pro Features =
 * **17+ Additional Social Media Networks (including Threads)** - Reach more people by adding any of the following social share networks Flipboard, Threads, Reddit, Yummly, VK, Tumblr, WhatsApp, Buffer, Telegram, Pocket, and Email
 * **Social Media Open Graph Tags** - Customize the social media preview title, description and images that your users share on social media using industry standard Open Graph tags which work across all social networks and chat services.
-* **Social Share Count** - Display the posts social share count **( including Twitter )** to provide social media proof and increase your website's credibility.
+* **Social Share Counts** - Display the posts social share count **( including Twitter )** to provide social media proof and increase your website's credibility.
 * **Mobile Sticky Footer Share Buttons** - Place the share buttons in a sticky bar that stays at the bottom of a user's mobile device
 * **Pop-Up Share Buttons** - Trigger a pop-up with the sharing buttons when a user triggers an action
 * **Custom Button Colors and Hover Colors** - Personalize the color of your share buttons to match your website's design
@@ -42,8 +42,8 @@ Hubbub Lite, formerly Grow Social by Mediavine, is one of the easiest to use soc
 
 = Website and Documentation =
 
-* [morehubbub.com/](https://morehubbub.com/)
-* [Support documentation](https://morehubbub.com/docs/)
+* [Visit morehubbub.com/](https://morehubbub.com/)
+* [Hubbub Support docs](https://morehubbub.com/docs/)
 
 == Installation ==
 
@@ -86,6 +86,10 @@ Hubbub Pro has additional add-ons for migrating data from a few popular alternat
 
 == Changelog ==
 This changelog is for Hubbub Lite. Here is [the changelog for Hubbub Pro](https://morehubbub.com/changelog/).
+
+= 1.33.2 =
+* March 27, 2024
+* Improvement: Modernized how we store metadata which removed a potential third-party POP Chain vulnerability. Thanks to Wordfence for working with us.
 
 = 1.33.1 =
 * March 6, 2024

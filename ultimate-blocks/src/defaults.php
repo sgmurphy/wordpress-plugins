@@ -96,7 +96,7 @@ $defaultValues = array(
 				'default' => array()
 			),
 			'videoId'              => array(
-				'type'    => 'integer',
+				'type'    => 'number',
 				'default' => - 1,
 			),
 			'videoSource'          => array(
@@ -1073,7 +1073,7 @@ $defaultValues = array(
 				)
 			),
 			'totalTimeText'       => array(
-				'type'    => 'text',
+				'type'    => 'string',
 				'default' => __( 'Total time: ' )
 			),
 			'cost'                => array(
@@ -1677,6 +1677,18 @@ $defaultValues = array(
 			'blockID'            => array(
 				'type'    => 'string',
 				'default' => ''
+			),
+			'numberPrefix'            => array(
+				'type'    => 'string',
+				'default' => ''
+			),
+			'numberSuffix'            => array(
+				'type'    => 'string',
+				'default' => '%'
+			),
+			'showNumber'            => array(
+				'type'    => 'boolean',
+				'default' => true
 			),
 			'padding' => array(
 				'type' 	=> 'array',
@@ -2347,7 +2359,7 @@ $defaultValues = array(
                 'default' => ''
             ),
             'list' => array(
-                'type' => 'text',
+                'type' => 'string',
                 'default' => '' //phased out, formerly <li>Item 1</li><li>Item 2</li><li>Item 3</li>'
             ),
             'listItem' => array(
@@ -2825,11 +2837,11 @@ $defaultValues = array(
 				),
 				'labelFontSize' => array(
 					'type' => 'string',
-					'default' => ''
+					'default' => '16px'
 				),
 				'counterFontSize' => array(
 					'type' => 'string',
-					'default' => ''
+					'default' => '48px'
 				),
 				'prefix' => array(
 					'type' => 'string',

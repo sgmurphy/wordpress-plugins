@@ -1,8 +1,8 @@
 === Visual CSS Style Editor ===
 Tags: CSS, visual CSS, CSS editor, design, customize, font, animation, yellow pencil, theme
 Requires at least: 4.0
-Tested up to: 6.4
-Stable tag: 7.6.0
+Tested up to: 6.5
+Stable tag: 6.5
 Contributors: WaspThemes
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -169,6 +169,9 @@ Yes, In the WordPress Dashboard, go to Appearance > YellowPencil Editor. Select 
 
 
 == Changelog ==
+= 7.6.1 =
+- Fixed: a few minor bugs.
+
 = 7.6.0 =
 - Fixed: Issue of "Edit With YellowPencil" button showing up on unrelated pages in WordPress panel.
 

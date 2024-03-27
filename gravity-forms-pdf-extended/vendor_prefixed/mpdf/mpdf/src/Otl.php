@@ -1316,6 +1316,9 @@ class Otl
                                 if (!($this->OTLdata[$ptr]['mask'] & $mask)) {
                                     continue;
                                 }
+                                if (!isset($this->OTLdata[$ptr + 1])) {
+                                    continue;
+                                }
                                 $nextGlyph = $this->OTLdata[$ptr + 1]['hex'];
                                 $nextGID = $this->OTLdata[$ptr + 1]['uni'];
                                 if (isset($this->GSLuCoverage[$lu][$c][$nextGID])) {

@@ -530,6 +530,12 @@ class WpdiscuzAddons implements WpDiscuzConstants
                 return;
             }
         }
+        $ischecked = get_transient('wpdiscuz_addons_check');
+        if(!$ischecked){
+           set_transient('wpdiscuz_addons_check', true, WEEK_IN_SECONDS);
+        }else{
+            return;
+        }
         $plugins = [];
         if (is_plugin_active("wpdiscuz-ads-manager/class-WpdiscuzAdsManager.php")) {
             global $wpdiscuzAM;

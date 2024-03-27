@@ -92,7 +92,7 @@ if ( ! class_exists( 'Password_protected_Activity_Report_Settings' ) ) {
 		}
 
 		public function activity_report_field_callback( $args ) {
-			$checked = get_option( 'password_protected_activity_report_enable', 'yes' );
+			$checked = get_option( 'password_protected_activity_report_enable', 'no' );
 			$checked = 'yes' === $checked ? 'checked' : '';
 			echo '<div class="pp-toggle-wrapper">
 				<input id="' . esc_attr( $args['label_for'] ) . '" value="yes" name="password_protected_activity_report_enable" type="checkbox" ' . $checked . ' />
@@ -197,7 +197,7 @@ if ( ! class_exists( 'Password_protected_Activity_Report_Settings' ) ) {
 		}
 
 		public static function is_activity_report_enabled() {
-			return 'yes' === get_option( 'password_protected_activity_report_enable', 'yes' );
+			return 'yes' === get_option( 'password_protected_activity_report_enable', 'no' );
 		}
 
 		public static function get_report_interval() {

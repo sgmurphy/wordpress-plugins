@@ -34,8 +34,20 @@ String.prototype.wpdm_hash = function () {
 
 var WPDM = {
 
+    actions: {},
+
     init: function ($) {
 
+    },
+
+    addAction: function (action, func) {
+        if(!WPDM.actions[action]) WPDM.actions[action] = [];
+        WPDM.actions[action].push(func);
+    },
+
+    doAction: function (action, params) {
+        if(typeof WPDM.actions[action] !== 'undefined')
+            WPDM.actions[action].forEach(fn => fn(params));
     },
 
     copy: function ($id) {

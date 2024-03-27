@@ -1,10 +1,10 @@
 === Maps Widget for Google Maps ===
 Contributors: WebFactory
-Tags: google maps, maps, map, google map, google maps widget, map markers, wp google maps, wp google map, map plugin, directions, google map plugin, map widget
+Tags: google maps, map, google map, google maps widget, map widget
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.0
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 4.25
 Requires PHP: 5.2
 

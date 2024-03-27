@@ -218,14 +218,16 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants
 
                     $attachmentId = self::encrypt($attachment->ID);
 
+					$alt = get_post_meta($attachment->ID, "_wp_attachment_image_alt", true);
+
                     $images .= "<div class='wmu-attachment wmu-attachment-$attachmentId'>";
                     if ($lightboxCls) {
                         $images .= "<a href='$url' class='wmu-attached-image-link $lightboxCls'>";
-                        $images .= "<img style='$style' alt='" . get_post_meta($attachment->ID, "_wp_attachment_image_alt", true) . "' title='" . esc_attr($attachment->post_excerpt) . "' id='wmu-attachemnt-$attachmentId' class='attachment-$size size-$size wmu-attached-image' src='$srcValue' wmu-data-src='$dataSrcValue' $secondarySizeKey='$secondarySize' />";
+                        $images .= "<img style='$style' alt='" . esc_attr($alt) . "' title='" . esc_attr($attachment->post_excerpt) . "' id='wmu-attachemnt-$attachmentId' class='attachment-$size size-$size wmu-attached-image' src='$srcValue' wmu-data-src='$dataSrcValue' $secondarySizeKey='$secondarySize' />";
                         $images .= "</a>";
                     } else {
                         $images .= apply_filters("wpdiscuz_mu_attached_image_before", "<a href='$url' class='wmu-attached-image-link' target='_blank' rel='noreferrer ugc'>", $attachment->ID);
-                        $images .= "<img style='$style' alt='" . get_post_meta($attachment->ID, "_wp_attachment_image_alt", true) . "' title='" . esc_attr($attachment->post_excerpt) . "' id='wmu-attachemnt-$attachmentId' class='attachment-$size size-$size wmu-attached-image' src='$srcValue' wmu-data-src='$dataSrcValue' $secondarySizeKey='$secondarySize' />";
+                        $images .= "<img style='$style' alt='" . esc_attr($alt) . "' title='" . esc_attr($attachment->post_excerpt) . "' id='wmu-attachemnt-$attachmentId' class='attachment-$size size-$size wmu-attached-image' src='$srcValue' wmu-data-src='$dataSrcValue' $secondarySizeKey='$secondarySize' />";
                         $images .= apply_filters("wpdiscuz_mu_attached_image_after", "</a>", $attachment->ID);
                     }
                     $images .= $deleteHtml;

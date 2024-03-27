@@ -7,11 +7,11 @@ Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
 Version: 2.32
 Requires at least: 3.6
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.2
 Text Domain: sticky-menu-or-anything-on-scroll
 
-  Copyright 2020 - 2023  WebFactory Ltd  (email: support@webfactoryltd.com)
+  Copyright 2020 - 2024  WebFactory Ltd  (email: support@webfactoryltd.com)
   Copyright 2019 - 2020  @senff
 
   This program is free software; you can redistribute it and/or modify

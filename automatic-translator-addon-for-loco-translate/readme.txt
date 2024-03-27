@@ -3,9 +3,9 @@ Contributors: narinder-singh, satindersingh
 Donate link: https://paypal.me/CoolPlugins/10USD/
 Tags: translate, translation, translator, localization, loco, loco translate, loco addon, google translate, deepl
 Requires at least:5.0
-Tested up to:6.4.3
+Tested up to:6.5
 Requires PHP: 5.6
-Loco Translate Tested Up to: 2.6.6
+Loco Translate Tested Up to: 2.6.7
 Stable tag: 2.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

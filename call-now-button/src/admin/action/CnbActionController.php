@@ -201,8 +201,12 @@ class CnbActionController {
 
             foreach ( $actions as $action ) {
                 $processed_action = CnbAction::fromObject( $action );
-                // do the processing
-                $result = CnbAdminCloud::cnb_update_action( $cnb_cloud_notifications, $processed_action );
+				if ( is_wp_error( $processed_action ) ) {
+					$cnb_cloud_notifications[] = CnbAdminCloud::cnb_admin_get_error_message( 'update', 'action', $processed_action );
+				} else {
+					// do the processing
+					$result = CnbAdminCloud::cnb_update_action( $cnb_cloud_notifications, $processed_action );
+				}
             }
 
             // redirect the user to the appropriate page

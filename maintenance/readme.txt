@@ -1,6 +1,6 @@
 === Maintenance ===
 Contributors: WebFactory
-Tags: maintenance, maintenance mode, maintenance page, coming soon, coming soon page, under construction, under construction page, bunny fonts
+Tags: maintenance, maintenance mode, maintenance page, coming soon, coming soon page
 Requires at least: 4.0
 Tested up to: 6.5
 Stable tag: 4.08

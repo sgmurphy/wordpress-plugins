@@ -965,6 +965,16 @@ global $backuply, $error, $success, $protocols, $wpdb;
 	//Load the theme's header
 	backuply_page_header('Backup');
 	
+	$backups_dir = backuply_glob('backups');
+	$backups_info_dir = backuply_glob('backups_info');
+	
+	if(empty($backups_dir) || empty($backups_info_dir)){
+		
+		$backup_folder_suffix = wp_generate_password(6, false);
+		
+		$error['folder_issue'] = __('Backuply was unable to create a directory where it creates backups, please create the following folders in wp-content/backuply directory', 'backuply') . '<code>backups_info-' . $backup_folder_suffix .'</code> and <code>backups-' . $backup_folder_suffix . '</code> <a href="https://backuply.com/docs/common-issues/backup-unable-to-open-in-write-mode/" target="_blank">Read More for detailed guide</a>';
+	}
+
 	if(!empty($error)){
 		backuply_report_error($error);
 	}
@@ -1828,18 +1838,32 @@ if(file_exists(BACKUPLY_BACKUP_DIR . 'restoration/restoration.php')){
 						$proto_id = !empty($all_info->backup_location) ? $all_info->backup_location : '';
 		
 						if(!empty($all_info->backup_location)) {
-							if(empty($backuply_remote_backup_locs[$all_info->backup_location]['protocol'])) {
+
+							if(empty($backuply_remote_backup_locs[$all_info->backup_location]) || empty($backuply_remote_backup_locs[$all_info->backup_location]['protocol'])) {
+								$backups_folder = backuply_glob('backups');
+
+								// This is to fix the given case: When the user uploads the backup file, and syncs it and if 
+								// the info file has a backup_location set with some id and there is no backup location added
+								// with that ID then the backup does not shows in the history tab.
+								// So if that case happens we unset the backup_location so that the backups could be shown as
+								// local folder backup.
+								if(empty($backups_folder) ||  !file_exists($backups_folder . '/'. $all_info->name. '.tar.gz')){
+									continue;
+								}
+
+								$all_info->backup_location = null;
+							}
+
+							if(!empty($all_info->backup_location) && !array_key_exists($backuply_remote_backup_locs[$all_info->backup_location]['protocol'], backuply_get_protocols())) {
 								continue;
 							}
 							
-							if(!array_key_exists($backuply_remote_backup_locs[$all_info->backup_location]['protocol'], backuply_get_protocols())) {
-								continue;
+							if(!empty($all_info->backup_location)){
+								$backup_protocol = $backuply_remote_backup_locs[$all_info->backup_location]['protocol'];
+								$s3_compat = !empty($backuply_remote_backup_locs[$all_info->backup_location]['s3_compatible']) ? $backuply_remote_backup_locs[$all_info->backup_location]['s3_compatible'] : '';
+								$backup_loc_name = $backuply_remote_backup_locs[$all_info->backup_location]['name'];
+								$backup_server_host = isset($backuply_remote_backup_locs[$all_info->backup_location]['server_host']) ? $backuply_remote_backup_locs[$all_info->backup_location]['server_host'] : '-';
 							}
-							
-							$backup_protocol = $backuply_remote_backup_locs[$all_info->backup_location]['protocol'];
-							$s3_compat = !empty($backuply_remote_backup_locs[$all_info->backup_location]['s3_compatible']) ? $backuply_remote_backup_locs[$all_info->backup_location]['s3_compatible'] : '';
-							$backup_loc_name = $backuply_remote_backup_locs[$all_info->backup_location]['name'];
-							$backup_server_host = isset($backuply_remote_backup_locs[$all_info->backup_location]['server_host']) ? $backuply_remote_backup_locs[$all_info->backup_location]['server_host'] : '-';
 
 						}
 						

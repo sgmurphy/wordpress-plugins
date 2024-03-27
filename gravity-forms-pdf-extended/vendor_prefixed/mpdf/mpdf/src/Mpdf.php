@@ -29,7 +29,7 @@ class Mpdf implements \GFPDF_Vendor\Psr\Log\LoggerAwareInterface
     use Strict;
     use FpdiTrait;
     use MpdfPsrLogAwareTrait;
-    const VERSION = '8.2.2';
+    const VERSION = '8.2.3';
     const SCALE = 72 / 25.4;
     const OBJECT_IDENTIFIER = "»¤¬";
     var $useFixedNormalLineHeight;
@@ -11588,7 +11588,7 @@ class Mpdf implements \GFPDF_Vendor\Psr\Log\LoggerAwareInterface
         }
         /* -- WATERMARK -- */
         if ($this->watermarkText && $this->showWatermarkText) {
-            $this->watermark($this->watermarkText, $this->watermarkAngle, 120, $this->watermarkTextAlpha);
+            $this->watermark($this->watermarkText, $this->watermarkAngle, \is_int($this->watermark_size) ? $this->watermark_size : 120, $this->watermarkTextAlpha);
             // Watermark text
         }
         if ($this->watermarkImage && $this->showWatermarkImage) {

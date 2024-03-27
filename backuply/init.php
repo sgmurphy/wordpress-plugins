@@ -10,7 +10,7 @@ if(!function_exists('add_action')){
 	exit;
 }
 
-define('BACKUPLY_VERSION', '1.2.8');
+define('BACKUPLY_VERSION', '1.2.9');
 define('BACKUPLY_DIR', dirname(BACKUPLY_FILE));
 define('BACKUPLY_URL', plugins_url('', BACKUPLY_FILE));
 define('BACKUPLY_BACKUP_DIR', str_replace('\\' , '/', WP_CONTENT_DIR).'/backuply/');
@@ -186,7 +186,7 @@ function backuply_load_plugin(){
 			$showing_promo = true;
 			add_action('admin_notices', 'backuply_promo');
 		}
-		
+
 		// Are we to disable the promo
 		if(isset($_REQUEST['backuply_promo']) && (int)$_REQUEST['backuply_promo'] == 0 ){
 			if(!wp_verify_nonce(backuply_optreq('security'), 'backuply_promo_nonce')) {
@@ -329,6 +329,8 @@ function backuply_admin_menu(){
 
 // Backuply - Backup Page
 function backuply_settings_page_handle(){
+	add_filter('upload_mimes', 'backuply_add_mime_types'); // In case tar or gz are not supported
+	
 	include_once BACKUPLY_DIR . '/main/settings.php';
 	backuply_page_backup();
 	backuply_page_theme();

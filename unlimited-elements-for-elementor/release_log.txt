@@ -1,6 +1,8 @@
 
 
+
 version 1.5.100:
+
 
 * Fix: fixed js run for background output not always happend
 * Feature: added option to connect the filters to some specific grid group

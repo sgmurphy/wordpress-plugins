@@ -60,21 +60,6 @@ Install our free <a href="https://wordpress.org/plugins/wp-force-ssl/">WP Force 
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Begin adding redirects in the Settings -> 301 Redirects menu item
 
-== Frequently Asked Questions ==
-
-= How to disable this plugin? =
-
-Just use standard Plugin overview page in WordPress admin section and deactivate it or rename plugin folder /wp-content/plugins/eps-301-redirects over FTP access.
-
-= Will it slow my site down? =
-
-No, it won't. It's only loaded on the pages it protects.
-
-= How can I report security bugs? =
-
-You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/eps-301-redirects)
-
-
 == Screenshots ==
 
 1. 301 Redirects admin area
@@ -201,7 +186,6 @@ Click the small X beside the redirect you wish to remove.
 
 Unfortunately this is not supported. You should look into <a href="https://wp301redirects.com/?ref=wporg">WP 301 Redirects PRO</a> for these advanced features.
 
-
 =What about query strings?=
 
 By default, any URL with a query string is considered unique, and will redirect to a unique page (if you so wish). The query string will be added to the Destination URL, which allows you to keep your tracking codes, affiliate codes, and other important data! If you want to have full control over query strings, ignore them, add or remove them consider upgrading to <a href="https://wp301redirects.com/?ref=wporg">WP 301 Redirects PRO</a>.
@@ -215,3 +199,11 @@ When you deactivate the plugin, obviously, redirects stop working. But, they are
 By default, the 404 error log is limited to the last (chronologically) fifty 404 errors. Since the log doesn't use a custom database table for storage but rather an array saved in WP options, 50 is a safe number that ensures the log works on all sites, that it doesn't take up too much space in the database and that it doesn't slow down the site.
 The code imposes no limits on the log size and you can easily overwrite the default limit by using the <i>eps_301_max_404_logs</i> filter or by using the following code snippet to raise the limit to 200:
 `add_filter('eps_301_max_404_logs', function($log_max) { return 200; });`
+
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/eps-301-redirects)
+
+= Will it slow my site down? =
+
+No, it won't. The code is highly optimized and thoroughly tested.

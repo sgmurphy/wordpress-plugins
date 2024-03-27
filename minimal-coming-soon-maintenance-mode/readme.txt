@@ -1,9 +1,9 @@
 === Minimal Coming Soon – Coming Soon Page ===
 Contributors: WebFactory
-Tags: coming soon, coming soon page, maintenance mode, maintenance mode page, coming soon mode, under construction, maintenance mode page, landing page, subscribe form, maintenance, coming soon builder, coming soon status
+Tags: coming soon, coming soon page, maintenance mode, coming soon mode, coming soon builder
 Requires at least: 4.0
 Requires PHP: 5.2
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 2.38
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -23,7 +23,7 @@ You can collect leads and subscribers on your Coming Soon Page via the Mailchimp
 
 = Coming Soon Plugin Features =
 
-* Check out <a href="https://comingsoonwp.com/themes/">200+ themes</a> that come with the PRO version, <a href="https://comingsoonwp.com/image-filters/">26+ Instagram filters</a> and <a href="https://comingsoonwp.com/content-animations/">47+ spectacular content animations</a> for Coming Soon Pages
+* Check out <a href="https://comingsoonwp.com/themes/">300+ themes</a> that come with the PRO version, <a href="https://comingsoonwp.com/image-filters/">26+ Instagram filters</a> and <a href="https://comingsoonwp.com/content-animations/">47+ spectacular content animations</a> for Coming Soon Pages
 * Works with all WordPress themes and plugins
 * Completely customizable look and feel including background color, cover image, fonts, logo
 * Includes <a href="https://comingsoonwp.com/">over two million premium images</a> in PRO version

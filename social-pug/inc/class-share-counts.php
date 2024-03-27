@@ -334,11 +334,12 @@ class Share_Counts extends \Social_Pug {
 	 * @return array
 	 */
 	public static function post_share_counts( int $post_id ) : array {
-		$meta_shares = dpsp_maybe_unserialize( get_post_meta( $post_id, 'dpsp_networks_shares', true ) );
-		if ( is_string( $meta_shares ) && strpos( $meta_shares, '1:' ) === 0 ) {
-			$meta_shares[0] = 's';
-			$meta_shares = dpsp_maybe_unserialize( $meta_shares );
-		}
+		$meta_shares = dpsp_maybe_convert_post_meta_to_json( $post_id, 'dpsp_networks_shares', true );
+		// The below is likely no longer needed.
+		// if ( is_string( $meta_shares ) && strpos( $meta_shares, '1:' ) === 0 ) {
+		// 	$meta_shares[0] = 's';
+		// 	$meta_shares = dpsp_maybe_unserialize( $meta_shares );
+		// }
 
 		$shares      = is_array( $meta_shares ) ? $meta_shares : [];
 		return apply_filters( 'dpsp_get_post_share_counts', $shares, $post_id );
@@ -361,7 +362,7 @@ class Share_Counts extends \Social_Pug {
 			$post_id = $post_obj->ID;
 		}
 
-		$total_share_meta = dpsp_maybe_unserialize( get_post_meta( $post_id, 'dpsp_networks_shares_total', true ) );
+		$total_share_meta = dpsp_maybe_convert_post_meta_to_json( $post_id, 'dpsp_networks_shares_total', true );
 		$total_shares     = $total_share_meta ? $total_share_meta : [];
 
 		/**

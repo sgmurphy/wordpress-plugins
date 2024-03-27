@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'gravitypdf/gravitypdf',
-        'pretty_version' => '6.9.0',
-        'version' => '6.9.0.0',
-        'reference' => '88c6573120b0060eafbb07b33615a7c92caf3960',
+        'pretty_version' => '6.9.1',
+        'version' => '6.9.1.0',
+        'reference' => '88e212e705f716fa72af1a2245f5252ef8365162',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -23,9 +23,9 @@
             ),
         ),
         'gravitypdf/gravitypdf' => array(
-            'pretty_version' => '6.9.0',
-            'version' => '6.9.0.0',
-            'reference' => '88c6573120b0060eafbb07b33615a7c92caf3960',
+            'pretty_version' => '6.9.1',
+            'version' => '6.9.1.0',
+            'reference' => '88e212e705f716fa72af1a2245f5252ef8365162',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -95,9 +95,9 @@
             'dev_requirement' => false,
         ),
         'mpdf/mpdf' => array(
-            'pretty_version' => 'v8.2.2',
-            'version' => '8.2.2.0',
-            'reference' => '596a87b876d7793be7be060a8ac13424de120dd5',
+            'pretty_version' => 'v8.2.3',
+            'version' => '8.2.3.0',
+            'reference' => '6f723a96becf989a831e38caf758d28364a69939',
             'type' => 'library',
             'install_path' => __DIR__ . '/../mpdf/mpdf',
             'aliases' => array(),

@@ -185,6 +185,16 @@ async function livePreview() {
         }
     }
 
+    // Fix: Filter out LINK and IFRAME actions, then test if the actionValue is a proper URL, otherwise show an error
+    for (const actionId in parsedData.actions) {
+        const action = parsedData.actions[actionId]
+        const result = verifyAction(action)
+        if (!result) {
+            delete parsedData.actions[actionId]
+            parsedData.actions_ordered = parsedData.actions_ordered.filter(item => item !== actionId);
+        }
+    }
+
     // Delete old items
     jQuery('.cnb-single.call-now-button').remove()
     jQuery('.cnb-full.call-now-button').remove()
@@ -244,6 +254,20 @@ async function livePreview() {
 
         return result
     }
+}
+
+function verifyAction(action) {
+    if (action.actionType === 'LINK' || action.actionType === 'IFRAME') {
+        try {
+            new URL(action.actionValue)
+            jQuery('#cnb_action_value_input')[0]?.setCustomValidity('');
+            return true;
+        } catch (e) {
+            jQuery('#cnb_action_value_input')[0]?.setCustomValidity('This action requires a valid URL, including the protocol (http:// or https://).');
+            return false
+        }
+    }
+    return true
 }
 
 /*** Scheduler: Day and Time selector **/

@@ -191,7 +191,7 @@ function dpsp_get_post_image_url( $post_id = 0, $size = 'full' ) {
  */
 function dpsp_get_post_custom_title( $post_id = 0 ) {
 	// Check to see if a custom title is in place
-	$share_options = dpsp_maybe_unserialize( get_post_meta( $post_id, 'dpsp_share_options', true ) );
+	$share_options = dpsp_maybe_convert_post_meta_to_json( $post_id, 'dpsp_share_options', true );
 
 	// Set custom title
 	$post_title = ( ! empty( $share_options['custom_title'] ) ? $share_options['custom_title'] : '' );
@@ -207,7 +207,7 @@ function dpsp_get_post_custom_title( $post_id = 0 ) {
 function dpsp_get_post_custom_description( $post_id = 0 ) {
 
 	// Check to see if a custom description is in place
-	$share_options = dpsp_maybe_unserialize( get_post_meta( $post_id, 'dpsp_share_options', true ) );
+	$share_options = dpsp_maybe_convert_post_meta_to_json( $post_id, 'dpsp_share_options', true );
 
 	// Set post description
 	$post_description = ( ! empty( $share_options['custom_description'] ) ? $share_options['custom_description'] : '' );
@@ -225,7 +225,7 @@ function dpsp_get_post_custom_description( $post_id = 0 ) {
  */
 function dpsp_get_post_custom_image_data( $post_id = 0, $size = 'full' ) {
 	// Check to see if a custom description is in place
-	$share_options = dpsp_maybe_unserialize( get_post_meta( $post_id, 'dpsp_share_options', true ) );
+	$share_options = dpsp_maybe_convert_post_meta_to_json( $post_id, 'dpsp_share_options', true );
 
 	if ( empty( $share_options['custom_image']['id'] ) ) {
 		return null;
@@ -286,7 +286,7 @@ function dpsp_add_custom_post_image_data( $post_image_data = [], $post_id = 0, $
  */
 function dpsp_get_post_pinterest_title( $post_id = 0 ) {
 	// Check to see if a custom title is in place
-	$share_options = dpsp_maybe_unserialize( get_post_meta( $post_id, 'dpsp_share_options', true ) );
+	$share_options = dpsp_maybe_convert_post_meta_to_json( $post_id, 'dpsp_share_options', true );
 
 	// Set post Pinterest title
 	$pinterest_title = ( ! empty( $share_options['custom_title_pinterest'] ) ? $share_options['custom_title_pinterest'] : '' );
@@ -301,7 +301,7 @@ function dpsp_get_post_pinterest_title( $post_id = 0 ) {
  */
 function dpsp_get_post_pinterest_description( $post_id = 0 ) {
 	// Check to see if a custom description is in place
-	$share_options = dpsp_maybe_unserialize( get_post_meta( $post_id, 'dpsp_share_options', true ) );
+	$share_options = dpsp_maybe_convert_post_meta_to_json( $post_id, 'dpsp_share_options', true );
 
 	// Set post Pinterest description
 	$pinterest_description = ( ! empty( $share_options['custom_description_pinterest'] ) ? $share_options['custom_description_pinterest'] : '' );
@@ -317,7 +317,7 @@ function dpsp_get_post_pinterest_description( $post_id = 0 ) {
  */
 function dpsp_get_post_pinterest_image_id( $post_id = 0 ) {
 	// Check to see if a custom description is in place
-	$share_options = dpsp_maybe_unserialize( get_post_meta( $post_id, 'dpsp_share_options', true ) );
+	$share_options = dpsp_maybe_convert_post_meta_to_json( $post_id, 'dpsp_share_options', true );
 
 	if ( empty( $share_options['custom_image_pinterest']['id'] ) ) {
 		return 0;
@@ -335,7 +335,7 @@ function dpsp_get_post_pinterest_image_id( $post_id = 0 ) {
  */
 function dpsp_get_post_pinterest_image_data( $post_id = 0, $size = 'full' ) {
 	// Check to see if a custom description is in place
-	$share_options = dpsp_maybe_unserialize( get_post_meta( $post_id, 'dpsp_share_options', true ) );
+	$share_options = dpsp_maybe_convert_post_meta_to_json( $post_id, 'dpsp_share_options', true );
 
 	if ( empty( $share_options['custom_image_pinterest']['id'] ) ) {
 		return null;

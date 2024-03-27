@@ -10,9 +10,9 @@ Text Domain: google-maps-widget
 Domain Path: lang
 Requires at least: 4.0
 Requires PHP: 5.2
-Tested up to: 6.4
+Tested up to: 6.5
 
-  Copyright 2012 - 2023  WebFactory Ltd  (email : gmw@webfactoryltd.com)
+  Copyright 2012 - 2024  WebFactory Ltd  (email : gmw@webfactoryltd.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as

@@ -89,7 +89,7 @@ function cnb_animate_saving() {
 			event.preventDefault()
 			return
 		}
-		// Check if the form will actually subbmit...
+		// Check if the form will actually validate...
 		const form = jQuery(this).closest('form')
 		const valid = form[0].checkValidity()
 		if (valid) {

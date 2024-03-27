@@ -12,7 +12,7 @@ Plugin Name: Category Posts Widget
 Plugin URI: https://wordpress.org/plugins/category-posts/
 Description: Adds a widget that shows the most recent posts from a single category.
 Author: TipTopPress
-Version: 4.9.15
+Version: 4.9.16
 Author URI: https://tiptoppress.com
 Text Domain: category-posts
 Domain Path: /languages
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-const VERSION        = '4.9.15';
+const VERSION        = '4.9.16';
 const DOC_URL        = 'https://tiptoppress.com/category-posts-widget/documentation-4-9/';
 const PRO_URL        = 'https://tiptoppress.com/term-and-category-based-posts-widget/';
 const SUPPORT_URL    = 'https://wordpress.org/support/plugin/category-posts/';
@@ -461,11 +461,10 @@ function equal_cover_content_height( $number, $widgetsettings ) {
 				cat_posts_namespace.layout_wrap_text = {
 					<?php	/* Handle item */ echo "\r\n"; ?>
 					preWrap : function (widget) {
-						// var _widget = jQuery(widget);
 						jQuery(widget).find('.cat-post-item').each(function(){
 							var _that = jQuery(this);
 							_that.find('p.cpwp-excerpt-text').addClass('cpwp-wrap-text');
-							_that.find('p.cpwp-excerpt-text').closest('div').wrap('<div class="cpwp-wrap-text-stage"></div>');;
+							_that.find('p.cpwp-excerpt-text').closest('div').wrap('<div class="cpwp-wrap-text-stage"></div>');
 						});
 						return;
 					},
@@ -543,7 +542,6 @@ function equal_cover_content_height( $number, $widgetsettings ) {
 				let widget = jQuery('#<?php echo esc_attr( $number ); ?>');
 
 				jQuery( document ).ready(function () {
-					cat_posts_namespace.layout_wrap_text.preWrap(widget);
 					cat_posts_namespace.layout_wrap_text.setClass(widget);
 					<?php	/* No ratio calculation if one or more dimensions is set to 0 */ echo "\r\n"; ?>
 					<?php	if ( isset( $widgetsettings['thumb_w'] ) && 0 !== intval( $widgetsettings['thumb_w'] ) &&
@@ -560,6 +558,15 @@ function equal_cover_content_height( $number, $widgetsettings ) {
 						cat_posts_namespace.layout_img_size.setHeight(widget);
 					<?php	endif; echo "\r\n"; ?>
 				});
+
+				// low-end mobile 
+				cat_posts_namespace.layout_wrap_text.preWrap(widget);
+				cat_posts_namespace.layout_wrap_text.setClass(widget);
+				<?php	/* No ratio calculation if one or more dimensions is set to 0 */ echo "\r\n"; ?>
+				<?php	if ( isset( $widgetsettings['thumb_w'] ) && 0 !== intval( $widgetsettings['thumb_w'] ) &&
+							isset( $widgetsettings['thumb_h'] ) && 0 !== intval( $widgetsettings['thumb_h'] ) ) : echo "\r\n"; ?>
+					cat_posts_namespace.layout_img_size.setHeight(widget);
+				<?php	endif; echo "\r\n"; ?>
 
 			}
 		</script>
@@ -981,7 +988,7 @@ add_action( 'customize_save_after', __NAMESPACE__ . '\customize_save_after', 100
 function uninstall() {
 	delete_option( 'widget-' . WIDGET_BASE_ID ); // delete the option storing the widget options.
 	delete_post_meta_by_key( SHORTCODE_META ); // delete the meta storing the shortcode.
-	delete_metadata( 'user', 0, __NAMESPACE__, '', true );  // delete all user metadata.
+	// delete_metadata( 'user', 0, __NAMESPACE__, '', true );  // delete all user metadata.	// df 2024-03-26 Deletion failed: https://wordpress.org/support/topic/deletion-failed-there-has-been-a-critical-error-on-this-website-5/
 }
 
 register_uninstall_hook( __FILE__, __NAMESPACE__ . '\uninstall' );

@@ -300,6 +300,9 @@ DEFAULT_HTML;
 		return array_merge( $default_settings, $field_type_settings );
 	}
 
+	/**
+	 * @return array
+	 */
 	protected function default_field_settings() {
 		return array(
 			'type'           => $this->type,
@@ -319,6 +322,7 @@ DEFAULT_HTML;
 			'max'            => true,
 			'range'          => false,
 			'captcha_size'   => false,
+			'captcha_theme'  => false,
 			'format'         => false,
 			'show_image'     => false,
 			'default'        => true,
@@ -422,6 +426,19 @@ DEFAULT_HTML;
 
 		/* translators: %s: Field name */
 		$option_title = sprintf( __( '%s Options', 'formidable' ), $short_name );
+
+		$display_format = FrmField::get_option( $args['field'], 'image_options' );
+
+		/**
+		 * Allows updating a flag that determines whether Bulk edit option should be visible on page load.
+		 *
+		 * @since 6.8.4
+		 *
+		 * @param bool   $should_hide_bulk_edit
+		 * @param string $display_format
+		 * @param array  $args
+		 */
+		$should_hide_bulk_edit = apply_filters( 'frm_should_hide_bulk_edit', $display_format === '1', $display_format, $args );
 
 		include( FrmAppHelper::plugin_path() . '/classes/views/frm-fields/back-end/field-options.php' );
 	}

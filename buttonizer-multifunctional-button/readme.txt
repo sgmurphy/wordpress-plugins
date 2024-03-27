@@ -3,7 +3,7 @@ Contributors: Buttonizer, freemius
 Buy plugin: https://buttonizer.io
 Tags: Conversion, action button, call, marketing, Social Sharing
 Requires at least: 4.7
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 3.4.3
 Requires PHP: 7.0
 License: GPLv2 or later

@@ -48,9 +48,9 @@ if (wp_is_block_theme()) {
                             <?php esc_html_e($wpdiscuz->options->getPhrase("wc_user_settings_email_me_delete_links_desc")) ?>
                         </div>
                     </div>
-                </div>
-                <?php
-            }
+                <?php } ?>
+            </div>
+            <?php
             do_action("wpdiscuz_subscription_template_after");
             if (wp_is_block_theme()) {
                 ?>

@@ -1840,3 +1840,16 @@ function backuply_delete_tmp(){
 	}
 
 }
+
+function backuply_add_mime_types($mimes) {
+	
+    if(!array_key_exists('tar', $mimes)){
+        $mimes['tar'] =  'application/x-tar';
+    }
+    
+    if(!array_key_exists('gz|gzip', $mimes) && !array_key_exists('gz', $mimes)){
+        $mimes['gz|gzip'] = 'application/x-gzip';
+    }
+
+    return $mimes;
+}
