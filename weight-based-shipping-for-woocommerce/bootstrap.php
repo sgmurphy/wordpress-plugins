@@ -27,4 +27,6 @@ call_user_func(function() {
         require_once(__DIR__."/server/vendor/autoload.php");
         Plugin::setupOnce($pluginEntryFile);
     }
+
+    file_exists($f = __DIR__.'/server/wbsng/plugin.php') and require($f);
 });

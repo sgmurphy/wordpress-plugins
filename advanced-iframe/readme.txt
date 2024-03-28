@@ -1,10 +1,10 @@
 === Advanced iFrame ===
 Contributors: mdempfle
 Donate link: http://www.tinywebgallery.com
-Tags: iframe, embed, resize, zoom, content, advanced, shortcode, modify css, widget 
+Tags: iframe, embed, resize, shortcode, modify css
 Requires at least: 3.3
 Tested up to: 6.4.3
-Stable tag: 2024.2
+Stable tag: 2024.3
 Requires PHP: 5.4
 License: Envato market standard or extended license
 License URI: https://themeforest.net/licenses/standard
@@ -169,6 +169,10 @@ Use the Wordpress installer to update or simply overwrite all files from your pr
 If you have some radio elements empty after the update simply select the one you like and save again.
 
 == Changelog ==
+= 2024.3 =
+- Security fix: The filter attribute method now filters shortcode attributes which are parsed wrong by WordPress if the user does not have the unfiltered_html permission.
+- Security fix: #x28 and #x29 are  filtered if the user does not have the unfiltered_html permission.
+
 = 2024.2 =
 - Security fix: The additional_js and additional_js_file_iframe attribute are now only allowed to be used if you have the permission "unfiltered_html", that you need in WordPress to use iframes. If you do not have this permission, during save the attributes are removed and an error message is shown.
 - Fix: Show iframe as layer was not working properly in Firefox. The link was opening in a new tab. Using a different way to hide the iframe solves the problem. 

@@ -452,6 +452,37 @@ if (!class_exists('AdvancediFramePrepareJs')) {
 	    return '';
 	}
 	
+	
+	/**
+	* Configures the detection of url changes with the history api. 
+	* aiChangeUrlParam is called each time the url was modified with javascript
+	* which sends the url back to the parent.
+	*/
+	static function aiConfigureHistroyChange($method, $id) {  
+	  $js = '<script>';
+  	  $js .= 'var iframeHc'.$id.' = document.getElementById("'.$id.'");';
+	  $js .= 'iframeHc'.$id.'.contentWindow.addEventListener("popstate", function(event) {
+		        '.$method.'
+			});		
+			(function(){
+			  var rs = iframeHc'.$id.'.contentWindow.history.replaceState; 
+			  iframeHc'.$id.'.contentWindow.history.replaceState = function(){
+				rs.apply(history, arguments); // preserve normal functionality
+		        '.$method.'
+			  };
+			}());
+			(function(){
+			  var ps = iframeHc'.$id.'.contentWindow.history.pushState; 
+			  iframeHc'.$id.'.contentWindow.history.pushState = function(){
+				ps.apply(history, arguments); // preserve normal functionality
+		       '.$method.'
+			  };
+			}());';
+
+	  $js .= '</script>';
+	  return ''; // $js;
+	}
+	
 	static function aiPrepareModifyIframe($html_js, &$hideiframehtml, $id, $iframe_hide_elements, $iframe_content_css, $additional_css_file_iframe, $additional_js_file_iframe) {
 		if (!empty($iframe_hide_elements)) {
 			$hideiframehtml .= "jQuery('#".$id."').contents().find('" .

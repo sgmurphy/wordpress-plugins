@@ -148,7 +148,10 @@ export default ({ attributes, setAttributes, clientId }) => {
             setAttributes={({ id, title }) => {
               setAttributes({ selectedItem: id });
               replaceInnerBlocks(playListWrapper?.clientId, [
-                createBlock("presto-player/playlist-list-item", { id, title }),
+                createBlock("presto-player/playlist-list-item", {
+                  id,
+                  title,
+                }),
               ]);
             }}
           />

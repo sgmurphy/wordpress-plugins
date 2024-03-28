@@ -146,8 +146,8 @@
       'Dgm\\WpAjaxApi\\Internal\\Nonce' => 'WbsVendors\\Dgm\\WpAjaxApi\\Internal\\Nonce',
       'Dgm\\WpAjaxApi\\Internal\\NormalizedEndpoint' => 'WbsVendors\\Dgm\\WpAjaxApi\\Internal\\NormalizedEndpoint',
       'Dgm\\WpAjaxApi\\Internal\\ResponseException' => 'WbsVendors\\Dgm\\WpAjaxApi\\Internal\\ResponseException',
-      'Composer\\Autoload\\ComposerStaticInitdb8f510fed05587be30443cce6b43174' => 'WbsVendors\\Composer\\Autoload\\ComposerStaticInitdb8f510fed05587be30443cce6b43174',
-      'ComposerAutoloaderInitdb8f510fed05587be30443cce6b43174' => 'WbsVendors_ComposerAutoloaderInitdb8f510fed05587be30443cce6b43174',
+      'Composer\\Autoload\\ComposerStaticInit3f756d81958e7117018a331e415d366f' => 'WbsVendors\\Composer\\Autoload\\ComposerStaticInit3f756d81958e7117018a331e415d366f',
+      'ComposerAutoloaderInit3f756d81958e7117018a331e415d366f' => 'WbsVendors_ComposerAutoloaderInit3f756d81958e7117018a331e415d366f',
       'Composer\\Autoload\\ClassLoader' => 'WbsVendors\\Composer\\Autoload\\ClassLoader',
     ),
     'func' => 
@@ -304,8 +304,8 @@
       'WbsVendors\\Dgm\\WpAjaxApi\\Internal\\Nonce' => 'Dgm\\WpAjaxApi\\Internal\\Nonce',
       'WbsVendors\\Dgm\\WpAjaxApi\\Internal\\NormalizedEndpoint' => 'Dgm\\WpAjaxApi\\Internal\\NormalizedEndpoint',
       'WbsVendors\\Dgm\\WpAjaxApi\\Internal\\ResponseException' => 'Dgm\\WpAjaxApi\\Internal\\ResponseException',
-      'WbsVendors\\Composer\\Autoload\\ComposerStaticInitdb8f510fed05587be30443cce6b43174' => 'Composer\\Autoload\\ComposerStaticInitdb8f510fed05587be30443cce6b43174',
-      'WbsVendors_ComposerAutoloaderInitdb8f510fed05587be30443cce6b43174' => 'ComposerAutoloaderInitdb8f510fed05587be30443cce6b43174',
+      'WbsVendors\\Composer\\Autoload\\ComposerStaticInit3f756d81958e7117018a331e415d366f' => 'Composer\\Autoload\\ComposerStaticInit3f756d81958e7117018a331e415d366f',
+      'WbsVendors_ComposerAutoloaderInit3f756d81958e7117018a331e415d366f' => 'ComposerAutoloaderInit3f756d81958e7117018a331e415d366f',
       'WbsVendors\\Composer\\Autoload\\ClassLoader' => 'Composer\\Autoload\\ClassLoader',
     ),
     'func' => 

@@ -4,7 +4,7 @@ Donate link: https://codecanyon.net/item/whatsapp-chat-wordpress/22800580
 Tags: whatsapp, whatsapp chat, woocommerce whatsapp, click to chat, whatsapp business, whats app, wame, wp social chat, join chat, wp whatsapp
 Requires at least: 3.0
 Tested up to: 6.5
-Stable tag: 3.6.3
+Stable tag: 3.6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Integrate WhatsApp experience directly into your WordPress website.
 
 == Description ==
 
-WhatsApp Chat plugin for WordPress allows you to add WhatsApp floating button, stationary button, widget, web beacon to your website. 
+WhatsApp Chat plugin for WordPress allows you to add a WhatsApp floating button, stationary button, widget, and web beacon to your website. 
 
 [DEMO](https://demo.ninjateam.org/whatsapp-chat-wordpress/) | [GO PRO](https://1.envato.market/WP-WhatsApp) 💎
 
@@ -135,6 +135,9 @@ Definitely yes! The pro version comes with cutting edge features and performance
 3. WhatsApp Gutenberg Block Demo
 
 == Changelog ==
+
+= Mar 28, 2024 – Version 3.6.4 =
+- Fixed: Wordfence bug report
 
 = Mar 19, 2024 – Version 3.6.3 =
 - Updated: Change text-domain

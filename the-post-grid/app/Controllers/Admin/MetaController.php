@@ -10,6 +10,9 @@ namespace RT\ThePostGrid\Controllers\Admin;
 use RT\ThePostGrid\Helpers\Fns;
 use RT\ThePostGrid\Helpers\Options;
 
+//phpcs:disable WordPress.Security.NonceVerification.Recommended
+//phpcs:disable WordPress.Security.NonceVerification.Missing
+
 // Do not allow directly accessing this file.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit( 'This script cannot be accessed directly.' );
@@ -32,7 +35,7 @@ class MetaController {
 	}
 
 	/**
-	 * manage Column
+	 * Manage Column
 	 *
 	 * @param string $column Column.
 	 * @return void
@@ -40,7 +43,7 @@ class MetaController {
 	public function manage_rttpg_columns( $column ) {
 		switch ( $column ) {
 			case 'shortcode':
-				echo '<input type="text" onfocus="this.select();" readonly="readonly" value="[the-post-grid id=&quot;' . get_the_ID() . '&quot; title=&quot;' . get_the_title() . '&quot;]" class="large-text code rt-code-sc">';
+				echo '<input type="text" onfocus="this.select();" readonly="readonly" value="[the-post-grid id=&quot;' . get_the_ID() . '&quot; title=&quot;' . get_the_title() . '&quot;]" class="large-text code rt-code-sc">';  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				break;
 			default:
 				break;
@@ -89,30 +92,22 @@ class MetaController {
 		}
 
 		// scripts.
-		wp_enqueue_script(
-			[
-				'jquery',
-				'jquery-ui-datepicker',
-				'wp-color-picker',
-				$select2Id,
-				'imagesloaded',
-				'rt-isotope-js',
-				'rt-tpg-admin',
-				'rt-tpg-admin-preview',
-			]
-		);
+		wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'jquery-ui-datepicker' );
+		wp_enqueue_script( 'wp-color-picker' );
+		wp_enqueue_script( $select2Id );
+		wp_enqueue_script( 'imagesloaded' );
+		wp_enqueue_script( 'rt-isotope-js' );
+		wp_enqueue_script( 'rt-tpg-admin' );
+		wp_enqueue_script( 'rt-tpg-admin-preview' );
 
 		// styles.
-		wp_enqueue_style(
-			[
-				'wp-color-picker',
-				'rt-select2',
-				'rt-fontawsome',
-				'rt-flaticon',
-				'rt-tpg-admin',
-				'rt-tpg-admin-preview',
-			]
-		);
+		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_style( 'rt-select2' );
+		wp_enqueue_style( 'rt-fontawsome' );
+		wp_enqueue_style( 'rt-flaticon' );
+		wp_enqueue_style( 'rt-tpg-admin' );
+		wp_enqueue_style( 'rt-tpg-admin-preview' );
 
 		wp_localize_script(
 			'rt-tpg-admin',
@@ -123,7 +118,6 @@ class MetaController {
 				'ajaxurl' => esc_url( admin_url( 'admin-ajax.php' ) ),
 			]
 		);
-
 	}
 
 	/**
@@ -338,7 +332,7 @@ class MetaController {
 		$mates = Fns::rtAllOptionFields();
 
 		foreach ( $mates as $metaKey => $field ) {
-			$rValue = ! empty( $_REQUEST[ $metaKey ] ) ? $_REQUEST[ $metaKey ] : null;
+			$rValue = ! empty( $_REQUEST[ $metaKey ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $metaKey ] ) ) : null;
 			$value  = Fns::sanitize( $field, $rValue );
 
 			if ( empty( $field['multiple'] ) ) {
@@ -476,6 +470,5 @@ class MetaController {
 		if ( isset( $_POST['_tpg_last_active_tab'] ) && $active_tab = sanitize_text_field( wp_unslash( $_POST['_tpg_last_active_tab'] ) ) ) {
 			update_post_meta( $post_id, '_tpg_last_active_tab', $active_tab );
 		}
-
 	}
 }

@@ -4,7 +4,7 @@ Tags: widgets, blocks, blocks control, gutenberg widgets, classic widgets
 Requires at least: 5.6
 Tested up to: 6.4.3
 Requires PHP: 7.4
-Stable tag: 4.0.4
+Stable tag: 4.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -192,29 +192,41 @@ Widget Options is a featured pack fully lightweight plugin. Using Query Monitor 
 
 == Changelog ==
 
+= 4.0.5 =
+
+* Added: Additional options for category visibility, can now select Archive and Single posts, Archive only, or Singe Posts only 
+* Fixed: Content is updated and removed during page editing
+* Fixed: response is not a valid json response
+* Fixed: Ajax select2 search field
+* Fixed: Compatibility issue with All In One SEO plugin
+* Fixed: Compatibility issue with Woo Pick List plugin
+* Fixed: Compatibility issue with Jetpack
+* Fixed: Compatibility issue with Table of Content lugin
+* Fixed: Devices Restriction, condition now working in mobile
+
 = 4.0.4 =
 
-* Fixed: All widgets showing in “customize” view.
+* Fixed: All widgets showing in “customize” view
 
 = 4.0.3 =
 
-* Fixed: WP Customizer saving issue.
+* Fixed: WP Customizer saving issue
 
 = 4.0.2 =
 
 * Improved: Widget Options for Kadence Block compatibility.
-* Fixed: Visibility of Product Category Taxonomy for YITH AJAX Filter Preset.
-* Fixed: Missing Add Block button.
+* Fixed: Visibility of Product Category Taxonomy for YITH AJAX Filter Preset
+* Fixed: Missing Add Block button
 
 = 4.0.1 =
 
-* Improved: Added UI to enable and disable Widget Options in posts, pages, and other custom post types gutenberg blocks.
+* Improved: Added UI to enable and disable Widget Options in posts, pages, and other custom post types gutenberg blocks
 * Fixed: PHP Warning - Undefined array key "content"
 * Fixed: WP_Block_Type_Registry::register error
 
 = 4.0.0 =
 
-* Widget Options is now a Gutenberg Block-Enabled plugin.
+* Widget Options is now a Gutenberg Block-Enabled plugin
 * Improved: Compatibility with WP 6.3 and 6.4
 * Improved: User Interface
 * Improved: Error Handling

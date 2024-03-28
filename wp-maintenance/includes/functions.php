@@ -238,10 +238,6 @@ function wpm_get_ip() {
 	if (isset($_SERVER['HTTP_CLIENT_IP'])) {
 		return esc_html($_SERVER['HTTP_CLIENT_IP']);
 	}
-	// IP derrière un proxy
-	elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-		return esc_html($_SERVER['HTTP_X_FORWARDED_FOR']);
-	}
 	// Sinon : IP normale
 	else {
 		return (isset($_SERVER['REMOTE_ADDR']) ? esc_html($_SERVER['REMOTE_ADDR']) : '');

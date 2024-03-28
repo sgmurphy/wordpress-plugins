@@ -34,7 +34,9 @@ class VideoPostType
         // limit media hub posts
         add_filter('pre_get_posts', [$this, 'limitMediaHubPosts']);
 
-        add_action( 'transition_post_status', [$this, 'set_title_on_publish_only'], 10, 3 );
+        add_action('transition_post_status', [$this, 'set_title_on_publish_only'], 10, 3);
+
+        add_filter('post_thumbnail_id', [$this, 'attach_poster_image_url'], 10, 2);
     }
 
     /**
@@ -284,21 +286,53 @@ class VideoPostType
     /**
      * Set media hub video title when kept empty before publish.
      */
-    public function set_title_on_publish_only( $new_status, $old_status, $post ) {
-        if ( ( 'publish' === $new_status && 'publish' !== $old_status )
+    public function set_title_on_publish_only($new_status, $old_status, $post)
+    {
+        if (('publish' === $new_status && 'publish' !== $old_status)
             && 'pp_video_block' === $post->post_type
         ) {
-            
-            if( empty( $post->post_title ) ) {
+
+            if (empty($post->post_title)) {
                 $new_title = "Presto Player #" . $post->ID;
-    
+
                 $post_update = array(
                     'ID'         => $post->ID,
                     'post_title' => $new_title
                 );
-            
-                wp_update_post( $post_update );
+
+                wp_update_post($post_update);
             }
         }
+    }
+
+    /**
+     * Attach the poster image URL to the video post.
+     *
+     * @param int   $id   Current thumbnail ID.
+     * @param WP_Post $post Post object.
+     * @return int Attachment ID or original thumbnail ID.
+     */
+    public function attach_poster_image_url($id, $post)
+    {
+        if ('pp_video_block' !== $post->post_type) {
+            return $id;
+        }
+        $block = $this->get_media_hub_block($post);
+        $poster = isset($block) && isset($block['attrs']['poster']) ? $block['attrs']['poster'] : '';
+        $attachment_id = attachment_url_to_postid($poster);
+        return $attachment_id ? $attachment_id : $id;
+    }
+
+    /**
+     * Get the media hub block.
+     *
+     * @param WP_Post $post Post object.
+     * @return array|bool The media hub block array or false if block not found.
+     */
+    public function get_media_hub_block($post)
+    {
+        $blocks = parse_blocks($post->post_content);
+        $first_block = wp_get_first_block($blocks, 'presto-player/reusable-edit');
+        return isset($first_block['innerBlocks'][0]) ? $first_block['innerBlocks'][0] : false;
     }
 }

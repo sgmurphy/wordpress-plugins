@@ -4,7 +4,7 @@
  * Plugin Name:       WP Chat App
  * Plugin URI:        https://ninjateam.org/wordpress-whatsapp-chat
  * Description:       Integrate your WhatsApp experience directly into your website. This is one of the best way to connect and interact with your customer.
- * Version:           3.6.3
+ * Version:           3.6.4
  * Author:            NinjaTeam
  * Author URI:        https://ninjateam.org
  * Text Domain:       wp-whatsapp
@@ -12,13 +12,13 @@
  */
 namespace NTA_WhatsApp;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 if ( function_exists( 'NTA_WhatsApp\\init' ) ) {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/Fallback.php';
 	add_action(
 		'admin_init',
-		function() {
+		function () {
 			deactivate_plugins( plugin_basename( __FILE__ ) );
 		}
 	);
@@ -26,7 +26,7 @@ if ( function_exists( 'NTA_WhatsApp\\init' ) ) {
 }
 
 if ( ! defined( 'NTA_WHATSAPP_VERSION' ) ) {
-	define( 'NTA_WHATSAPP_VERSION', '3.6.3' );
+	define( 'NTA_WHATSAPP_VERSION', '3.6.4' );
 }
 
 if ( ! defined( 'NTA_WHATSAPP_PLUGIN_URL' ) ) {
@@ -64,16 +64,16 @@ spl_autoload_register(
 	}
 );
 
-if (file_exists(dirname(__FILE__) . '/includes/Review.php')) {
-	require_once dirname(__FILE__) . '/includes/Review.php';
+if ( file_exists( __DIR__ . '/includes/Review.php' ) ) {
+	require_once __DIR__ . '/includes/Review.php';
 }
 
-if (file_exists(dirname(__FILE__) . '/includes/Cross.php')) {
-	require_once dirname(__FILE__) . '/includes/Cross.php';
+if ( file_exists( __DIR__ . '/includes/Cross.php' ) ) {
+	require_once __DIR__ . '/includes/Cross.php';
 }
 
-if (file_exists(dirname(__FILE__) . '/includes/Recommended/Recommended.php')) {
-	require_once dirname(__FILE__) . '/includes/Recommended/Recommended.php';
+if ( file_exists( __DIR__ . '/includes/Recommended/Recommended.php' ) ) {
+	require_once __DIR__ . '/includes/Recommended/Recommended.php';
 }
 
 if ( ! function_exists( 'NTA_WhatsApp\\init' ) ) {
@@ -94,7 +94,7 @@ if ( ! function_exists( 'NTA_WhatsApp\\init' ) ) {
 }
 
 
-add_action('plugins_loaded', 'NTA_WhatsApp\\init');
+add_action( 'plugins_loaded', 'NTA_WhatsApp\\init' );
 
-register_activation_hook(__FILE__, array('NTA_WhatsApp\\Plugin', 'activate'));
-register_deactivation_hook(__FILE__, array('NTA_WhatsApp\\Plugin', 'deactivate'));
+register_activation_hook( __FILE__, array( 'NTA_WhatsApp\\Plugin', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'NTA_WhatsApp\\Plugin', 'deactivate' ) );

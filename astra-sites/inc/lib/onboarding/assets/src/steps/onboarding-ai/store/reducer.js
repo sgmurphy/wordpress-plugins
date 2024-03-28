@@ -53,14 +53,8 @@ export const defaultOnboardingAIState = {
 		keywords: aiStepValues?.image_keywords || [],
 		selectedImages: !! selectedImages?.length
 			? selectedImages
-			: [
-					...( aiStepValues?.images?.landscape ?? [] ),
-					...( aiStepValues?.images?.portrait ?? [] ),
-			  ],
-		imagesPreSelected:
-			!! aiStepValues?.images?.landscape?.length ||
-			!! aiStepValues?.images?.portrait?.length ||
-			false,
+			: [ ...( aiStepValues?.images ?? [] ) ],
+		imagesPreSelected: !! aiStepValues?.images || false,
 		businessContact: {
 			phone: aiStepValues?.business_phone || '',
 			email: aiStepValues?.business_email || '',

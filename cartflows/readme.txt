@@ -2,8 +2,8 @@
 Contributors: sujaypawar, wpcrafter
 Tags: woocommerce, funnel builder, sales funnels, elementor, beaver builder
 Requires at least: 5.8
-Tested up to: 6.4
-Stable tag: 2.0.5
+Tested up to: 6.5
+Stable tag: 2.0.6
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -321,6 +321,10 @@ This includes, but is not limited to:
 5. Easily edit anything with your page builder.
 
 == Changelog ==
+
+= Version 2.0.6 - Thursday, 28th March 2024 =
+* Improvement: Improved the CSS for 404 page for the admin interface.
+* Fix: Fixed the selection issue with set default product option on the checkout page.
 
 = Version 2.0.5 - Monday, 11th March 2024 =
 * Improvement: Added the product names on the hover of the product tag in the dynamic conditions dropdown option

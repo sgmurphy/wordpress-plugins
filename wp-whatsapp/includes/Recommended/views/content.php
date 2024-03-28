@@ -238,7 +238,7 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 		</div>
 		<div class="plugin-card-bottom">
 			<div class="vers column-rating">
-				<?php echo sprintf( '<span class="plugin-status" >%s: %s</span>', esc_html( 'Status' ), wp_kses_post( $plugin_status ) ); ?>
+				<?php printf( '<span class="plugin-status" >%s: %s</span>', esc_html( 'Status' ), wp_kses_post( $plugin_status ) ); ?>
 			</div>
 			<div class="column-updated">
 				<?php

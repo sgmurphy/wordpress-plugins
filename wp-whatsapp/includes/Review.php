@@ -20,7 +20,7 @@ if ( ! class_exists( 'NjtReview' ) ) {
 		}
 
 		public static function get_instance( $pluginPrefix, $pluginName, $textDomain ) {
-			if ( null == self::$instance ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self( $pluginPrefix, $pluginName, $textDomain );
 				self::$instance->doHooks();
 			}
@@ -34,7 +34,7 @@ if ( ! class_exists( 'NjtReview' ) ) {
 				add_action( "wp_ajax_{$this->pluginPrefix}_save_review", array( $this, 'save_review' ) );
 			}
 
-			if ( $option == '1' ) {
+			if ( $option === '1' ) {
 				$this->reviewed = true;
 			}
 		}
@@ -44,9 +44,9 @@ if ( ! class_exists( 'NjtReview' ) ) {
 
 			$field = sanitize_text_field( $_POST['field'] );
 
-			if ( $field == 'later' ) {
+			if ( $field === 'later' ) {
 				$this->need_update_option( 3 );
-			} elseif ( $field == 'alreadyDid' || 'rateNow' == $field ) {
+			} elseif ( $field === 'alreadyDid' || 'rateNow' === $field ) {
 				update_option( "{$this->pluginPrefix}_review", 1 );
 			}
 			wp_send_json_success();
@@ -62,10 +62,10 @@ if ( ! class_exists( 'NjtReview' ) ) {
 
 		public function add_notification() {
 			if ( function_exists( 'get_current_screen' ) ) {
-				if ( get_current_screen()->id == 'plugins' || get_post_type() == 'whatsapp-accounts' ) {
+				if ( get_current_screen()->id === 'plugins' || get_post_type() === 'whatsapp-accounts' ) {
 					$selector = esc_attr( $this->pluginPrefix ) . '-review';
 					?>
-					<div class="notice notice-success is-dismissible" id="<?php echo $selector; ?>">
+					<div class="notice notice-success is-dismissible" id="<?php echo esc_attr( $selector ); ?>">
 						<h3><?php _e( "Give {$this->pluginName} a review" ); ?></h3>
 						<p>
 							<?php _e( "Thank you for choosing {$this->pluginName}. We hope you love it. Could you take a couple of seconds posting a nice review to share your happy experience?" ); ?>

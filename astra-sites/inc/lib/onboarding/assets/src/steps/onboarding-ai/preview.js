@@ -109,23 +109,9 @@ const SitePreview = ( { onClickContinue } ) => {
 	};
 
 	const handleIframeLoading = () => {
-		const landscape = [];
-		const portrait = [];
-
-		selectedImages.forEach( ( image ) => {
-			if ( image.orientation === 'landscape' ) {
-				landscape.push( image );
-			} else {
-				portrait.push( image );
-			}
-		} );
-
-		if ( 0 === landscape.length ) {
-			landscape.push( astraSitesVars?.placeholder_images[ 0 ] );
-		}
-
-		if ( 0 === portrait.length ) {
-			portrait.push( astraSitesVars?.placeholder_images[ 1 ] );
+		if ( 0 === selectedImages.length ) {
+			selectedImages.push( astraSitesVars?.placeholder_images[ 0 ] );
+			selectedImages.push( astraSitesVars?.placeholder_images[ 1 ] );
 		}
 
 		if ( aiSiteLogo?.url ) {
@@ -160,8 +146,7 @@ const SitePreview = ( { onClickContinue } ) => {
 		sendPostMessage( {
 			param: 'images',
 			data: {
-				landscape,
-				portrait,
+				...selectedImages,
 			},
 			preview_type: 'full',
 		} );

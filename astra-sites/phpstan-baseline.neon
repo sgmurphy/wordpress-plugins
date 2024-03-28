@@ -511,31 +511,6 @@ parameters:
 			path: inc/classes/class-astra-sites-error-handler.php
 
 		-
-			message: "#^Method Astra_Sites_Image_Processing\\:\\:buffer_images_for_processing\\(\\) has parameter \\$image_meta with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-image-processing.php
-
-		-
-			message: "#^Method Astra_Sites_Image_Processing\\:\\:buffer_images_for_processing\\(\\) has parameter \\$new_sizes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-image-processing.php
-
-		-
-			message: "#^Method Astra_Sites_Image_Processing\\:\\:buffer_images_for_processing\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-image-processing.php
-
-		-
-			message: "#^Method Astra_Sites_Image_Processing\\:\\:defer_image_processing_while_import\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-image-processing.php
-
-		-
-			message: "#^Static property Astra_Sites_Image_Processing\\:\\:\\$instance \\(object\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: inc/classes/class-astra-sites-image-processing.php
-
-		-
 			message: "#^Argument of an invalid type array\\<string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-importer-log.php

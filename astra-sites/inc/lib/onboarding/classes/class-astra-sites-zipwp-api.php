@@ -614,9 +614,12 @@ class Astra_Sites_ZipWP_Api {
 
 		$api_endpoint = $this->get_api_domain() . '/starter-templates/wxr/';
 
+		$site = get_option( 'zipwp_import_site_details', array() );
+
 		$post_data = array(
 			'template' => isset($request['template']) ? sanitize_text_field($request['template']) : '',
 			'business_name' => isset($request['business_name']) ? $request['business_name'] : '',
+			'uuid' => isset($site['uuid']) ? sanitize_text_field($site['uuid']) : '',
 		);
 
 		$request_args = array(
@@ -814,6 +817,7 @@ class Astra_Sites_ZipWP_Api {
 			'business_phone' => isset( $request['business_phone'] ) ? sanitize_text_field( $request['business_phone'] ) : '',
 			'business_category' => isset($request['business_category']) ? sanitize_text_field($request['business_category']) : '',
 			'category_name' => isset($request['business_category']) ? sanitize_text_field($request['business_category']) : '',
+			'business_category_name' => isset($request['business_category']) ? sanitize_text_field($request['business_category']) : '',
 			'image_keyword' => isset( $request['keywords'] ) ? $request['keywords'] : [],
 			'images' => isset( $request['images'] ) ? $request['images'] : [],
 			'social_profiles' => isset( $request['social_profiles'] ) ? $request['social_profiles'] : [],

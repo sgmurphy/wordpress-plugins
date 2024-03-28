@@ -1667,11 +1667,16 @@ function aiChangeUrlParam(loc, param, orig, prefix, isDirect) {
 		var newUrl = aiRemoveQueryString(window.location.href);
 		var locDecoded = decodeURIComponent(loc);
 		var queryStart = locDecoded.indexOf('?');
+		var hashStart = locDecoded.indexOf('#');
 		if (queryStart !== -1) {
 			var queryPart = locDecoded.slice(queryStart + 1);
 			newUrl += '?' + queryPart;
 			keepSlash = true;
-		}		
+		} else if (hashStart !== -1) {
+			var hashPart = locDecoded.slice(hashStart + 1);
+			newUrl += '?hash=' + hashPart;
+			keepSlash = true;
+	    } 		
 	 } 
 	 if (aiEndsWidth(newUrl, param + "=")) { 
         newUrl = aiRemoveURLParameter(newUrl, param);
@@ -1682,7 +1687,8 @@ function aiChangeUrlParam(loc, param, orig, prefix, isDirect) {
 	  fullUrl = fullUrl.split("/" + param + "/",1)[0];
 	  newUrl = aiRemoveURLParameter(fullUrl, param);
    }
-
+   var seperator = (newUrl.indexOf('?') >= 0) ? '&' : '?'; 
+   newUrl = newUrl.replace("#", seperator + "hash=");
    aiSetBrowserUrl(newUrl, keepSlash); 
 }
 

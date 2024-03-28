@@ -59,6 +59,13 @@ if (!function_exists('widgetopts_options_page')) :
 				<span class="widgetopts-mascot"></span>
 			</div>
 
+			<!-- <div class="widgetopts-get-latest-updates">
+				<h2><?php _e('Get the latest updates and features from Widget Options!', 'widget-options'); ?></h2>
+				<h2><?php _e('Email', 'widget-options'); ?>:</h2>
+				<input type="email" name="widgetopts_update_and_feaures_email" />
+				<button id="widgetoptsSubmitUpdateFeaturesEmail" class="button button-secondary">Submit</button>
+			</div> -->
+
 			<div id="poststuff" class="widgetopts-poststuff">
 				<div id="post-body" class="metabox-holder columns-2 hide-if-no-js">
 					<div id="postbox-container-2" class="postbox-container">

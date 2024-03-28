@@ -74,7 +74,7 @@ class Options {
 
 	public static function rtMetaKeyType() {
 		return [
-			'meta_value'          => esc_html__( 'Meta value', 'the-post-grid' ),
+			'meta_value'          => esc_html__( 'Meta value', 'the-post-grid' ), //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 			'meta_value_num'      => esc_html__( 'Meta value number', 'the-post-grid' ),
 			'meta_value_datetime' => esc_html__( 'Meta value datetime', 'the-post-grid' ),
 		];
@@ -486,7 +486,7 @@ class Options {
 				'class'       => 'full',
 				'description' => esc_html__( 'List of post IDs to show (comma-separated values, for example: 1,2,3)', 'the-post-grid' ),
 			],
-			'post__not_in' => [
+			'post__not_in' => [ //phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
 				'name'        => 'post__not_in',
 				'label'       => esc_html__( 'Exclude', 'the-post-grid' ),
 				'type'        => 'text',

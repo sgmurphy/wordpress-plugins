@@ -310,7 +310,17 @@ function widgetopts_tabcontent_visibility($args)
                         isset($widget_options['settings']['visibility']) &&
                         isset($widget_options['settings']['visibility']['taxonomies']) &&
                         '1' == $widget_options['settings']['visibility']['taxonomies']
-                    ) { ?>
+                    ) {
+                        $options_page = 1;
+                        if (
+                            isset($args['params']) &&
+                            isset($args['params']['visibility']) &&
+                            isset($args['params']['visibility']['tax_terms_page']) &&
+                            isset($args['params']['visibility']['tax_terms_page']['category'])
+                        ) {
+                            $options_page = $args['params']['visibility']['tax_terms_page']['category'];
+                        }
+                    ?>
                         <!--  start tax tab content -->
                         <div id="extended-widget-opts-visibility-tab-<?php echo $args['id']; ?>-tax" class="extended-widget-opts-visibility-tabcontent extended-widget-opts-inner-tabcontent extended-widget-opts-tabcontent-taxonomies">
                             <div class="extended-widget-opts-inner-lists" style="height: 230px;padding: 5px;overflow:auto;">
@@ -332,6 +342,22 @@ function widgetopts_tabcontent_visibility($args)
                                         ?>
                                     </select>
                                 </div>
+
+                                <p>
+                                    <strong><?php _e('Select Pages', 'widget-options'); ?></strong><br>
+                                    <small><?php _e('Select where to show/hide widget.', 'widget-options'); ?></small><br>
+                                    <select class="widefat" name="<?php echo $args['namespace']; ?>[extended_widget_opts][visibility][tax_terms_page][category]">
+                                        <option value="1" <?php if ($options_page == 1) {
+                                                                echo 'selected="selected"';
+                                                            } ?>><?php _e('Archive and Single posts', 'widget-options'); ?></option>
+                                        <option value="2" <?php if ($options_page == 2) {
+                                                                echo 'selected="selected"';
+                                                            } ?>><?php _e('Archive only', 'widget-options'); ?></option>
+                                        <option value="3" <?php if ($options_page == 3) {
+                                                                echo 'selected="selected"';
+                                                            } ?>><?php _e('Single posts only', 'widget-options'); ?></option>
+                                    </select>
+                                </p>
 
                                 <h4 id="extended-widget-opts-taxonomies"><?php _e('Taxonomies', 'widget-options'); ?> +/-</h4>
                                 <div class="extended-widget-opts-taxonomies">

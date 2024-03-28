@@ -2497,7 +2497,7 @@ function create_label(i, w_field_label) {
 }
 
 function change_label(id, label, type) {
-  label = label.replace(/<\/?(?!(?:\/*b|\/*p|\/*a|\/*strong|\/*span|\/*br|\/*ul|\/*ol|\/*li|\/*i)\b)(?:[^>"']|"[^"]*"|'[^']*')*>/ig, "");
+  label = label.replace(/(<([^>]+)>)/ig, '');
   if (!type) {
     var label_value = label.replace(/[\'\"]/g, "");
     document.getElementById(id).innerHTML = label;

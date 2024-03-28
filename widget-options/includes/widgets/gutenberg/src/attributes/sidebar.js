@@ -656,7 +656,10 @@ const withSidebarTab = (BlockEdit) => {
     if (props.attributes.hasOwnProperty("__internalWidgetId")) {
       // console.log("yes");
     } else {
-      if (Object.keys(props.attributes.extended_widget_opts_block).length > 0) {
+      if (
+        Object.keys(props.attributes?.extended_widget_opts_block ?? []).length >
+        0
+      ) {
         inner_block = true;
         _myprops["extended_widget_opts"] = {
           ...props.attributes.extended_widget_opts_block,
@@ -725,6 +728,7 @@ const withSidebarTab = (BlockEdit) => {
           props.attributes.__internalWidgetId,
           {
             instance: _instance,
+            id: props.attributes.__internalWidgetId,
           }
         );
       }
@@ -740,9 +744,9 @@ const withSidebarTab = (BlockEdit) => {
             _instance.raw["extended_widget_opts-" + widget_id],
           extended_widget_opts_clientid: props.clientId,
           extended_widget_opts_state: Math.random().toString(),
-          instance: {
-            raw: { ..._instance.raw },
-          },
+          // instance: {
+          //   raw: { ..._instance.raw },
+          // },
         });
       }
 
@@ -838,11 +842,7 @@ const withSidebarTab = (BlockEdit) => {
                   widgetopts_terms={widgetopts_terms}
                   widgetopts_users={widgetopts_users}
                   widgetopts_ajax_roles_search={widgetopts_ajax_roles_search}
-                  editor={
-                    props.attributes.extended_widget_opts == undefined
-                      ? "widget"
-                      : "post"
-                  }
+                  editor={isWidgetBlockEditor ? "widget" : "post"}
                 />
               ) : (
                 <p>Loading...</p>
@@ -1031,8 +1031,10 @@ const withSidebarTab = (BlockEdit) => {
   return _return;
 };
 
-wp.hooks.addFilter(
-  "editor.BlockEdit",
-  "extended-widget-options/sidebar-component",
-  withSidebarTab
-);
+wp.domReady(function () {
+  wp.hooks.addFilter(
+    "editor.BlockEdit",
+    "extended-widget-options/sidebar-component",
+    withSidebarTab
+  );
+});

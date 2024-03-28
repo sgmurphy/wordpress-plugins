@@ -226,6 +226,13 @@ class AJAX {
 	 * @since 1.9.3
 	 */
 	public function clear_frontend_cache() {
+		check_ajax_referer( 'wphb-fetch', 'nonce' );
+
+		// Check permission.
+		if ( ! current_user_can( Utils::get_admin_capability() ) ) {
+			die();
+		}
+
 		$pc_module = Utils::get_module( 'page_cache' );
 		$status    = $pc_module->clear_cache();
 
@@ -242,6 +249,13 @@ class AJAX {
 	 * @since 1.9.3
 	 */
 	public function clear_global_cache() {
+		check_ajax_referer( 'wphb-fetch', 'nonce' );
+
+		// Check permission.
+		if ( ! current_user_can( Utils::get_admin_capability() ) ) {
+			die();
+		}
+
 		$modules = Utils::get_active_cache_modules();
 
 		foreach ( $modules as $module => $name ) {
@@ -336,6 +350,13 @@ class AJAX {
 	 * @since 2.7.2
 	 */
 	public function clear_frontend_cloudflare() {
+		check_ajax_referer( 'wphb-fetch', 'nonce' );
+
+		// Check permission.
+		if ( ! current_user_can( Utils::get_admin_capability() ) ) {
+			die();
+		}
+
 		$status = Utils::get_module( 'cloudflare' )->clear_cache();
 
 		if ( ! $status ) {
@@ -1194,6 +1215,13 @@ class AJAX {
 	 * Set a flag that marks the minification check files as started.
 	 */
 	public function minification_start_check() {
+		check_ajax_referer( 'wphb-fetch', 'nonce' );
+
+		// Check permission.
+		if ( ! current_user_can( Utils::get_admin_capability() ) ) {
+			die();
+		}
+
 		$minify_module = Utils::get_module( 'minify' );
 		$minify_module->init_scan();
 
@@ -1208,6 +1236,13 @@ class AJAX {
 	 * Process step during minification scan.
 	 */
 	public function minification_check_step() {
+		check_ajax_referer( 'wphb-fetch', 'nonce' );
+
+		// Check permission.
+		if ( ! current_user_can( Utils::get_admin_capability() ) ) {
+			die();
+		}
+
 		$minify_module = Utils::get_module( 'minify' );
 
 		$urls         = $minify_module->scanner->get_scan_urls();
@@ -1228,6 +1263,13 @@ class AJAX {
 	 * @since 1.4.5
 	 */
 	public function minification_cancel_scan() {
+		check_ajax_referer( 'wphb-fetch', 'nonce' );
+
+		// Check permission.
+		if ( ! current_user_can( Utils::get_admin_capability() ) ) {
+			die();
+		}
+
 		$minify_module = Utils::get_module( 'minify' );
 		$minify_module->toggle_service( false );
 		$minify_module->clear_cache();
@@ -1239,6 +1281,13 @@ class AJAX {
 	 * Finish minification scan.
 	 */
 	public function minification_finish_scan() {
+		check_ajax_referer( 'wphb-fetch', 'nonce' );
+
+		// Check permission.
+		if ( ! current_user_can( Utils::get_admin_capability() ) ) {
+			die();
+		}
+
 		Utils::get_module( 'minify' )->scanner->finish_scan();
 
 		wp_send_json_success(

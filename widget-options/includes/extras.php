@@ -207,17 +207,18 @@ function widgetopts_set_http_headers()
 }
 
 /**
- * Check if the device is mobile.
- * Returns true if any type of mobile device detected
- * @return bool
+ * Checks if the request is coming from a mobile device based on HTTP headers.
+ *
+ * @return bool True if the request is from a mobile device, false otherwise.
  */
 function widgetopts_is_mobile()
 {
     global $widgetopts_http_headers;
 
-    $mobile_headers = array(
-        'HTTP_ACCEPT' => array('values' => array('application/x-obml2d', 'application/vnd.rim.html', 'text/vnd.wap.wml', 'application/vnd.wap.xhtml+xml')),
-        'HTTP_UA_CPU' => array('values' => array('ARM')),
+    // Define mobile headers and their corresponding values
+    $mobile_headers = [
+        'HTTP_ACCEPT' => ['values' => ['application/x-obml2d', 'application/vnd.rim.html', 'text/vnd.wap.wml', 'application/vnd.wap.xhtml+xml']],
+        'HTTP_UA_CPU' => ['values' => ['ARM']],
         'HTTP_X_WAP_PROFILE' => null,
         'HTTP_PROFILE' => null,
         'HTTP_X_HUAWEI_USERID' => null,
@@ -230,23 +231,73 @@ function widgetopts_is_mobile()
         'HTTP_X_ATT_DEVICEID' => null,
         'HTTP_UA_OS' => null,
         'HTTP_X_MOBILE_GATEWAY' => null,
-    );
+    ];
 
+    // Check each mobile header for a match
     foreach ($mobile_headers as $key => $value) {
         if (isset($widgetopts_http_headers[$key])) {
             if (isset($value['values']) && is_array($value['values'])) {
                 foreach ($value['values'] as $_match) {
                     if (strpos($widgetopts_http_headers[$key], $_match) !== false) {
-                        return true;
+                        return true; // Found a match, request is from a mobile device
                     }
                 }
             } else {
-                return true;
+                return true; // Found a match, request is from a mobile device
             }
         }
     }
 
-    return false;
+    // If no match is found, try another method
+    return widgetopts_is_mobile_or_tablet();
+}
+
+function widgetopts_is_mobile_or_tablet($tablet_only = false)
+{
+    global $widgetopts_user_agent;
+    $user_agent = $widgetopts_user_agent;
+
+    // Check for common mobile and tablet User-Agent patterns
+    $mobile_patterns = array(
+        '/android/i',
+        '/iphone|ipod/i',
+        '/blackberry/i',
+        '/iemobile/i',
+        '/windows phone/i',
+        '/opera mini/i',
+        '/mobile safari/i'
+    );
+
+    $tablet_patterns = array(
+        '/ipad/i',
+        '/android(?!.*mobile)/i',
+        '/kindle|silk/i',
+        '/playbook/i',
+        '/tablet/i'
+    );
+
+    if ($tablet_only === false) {
+        // Check if the User-Agent matches any of the mobile patterns
+        foreach ($mobile_patterns as $pattern) {
+            if (preg_match($pattern, $user_agent)) {
+                return true; // Request is from a mobile device
+            }
+        }
+    }
+
+    // Check if the User-Agent matches any of the tablet patterns
+    foreach ($tablet_patterns as $pattern) {
+        if (preg_match($pattern, $user_agent)) {
+            return true; // Request is from a tablet device
+        }
+    }
+
+    // Additional checks for specific tablet devices or browsers
+    if (stripos($user_agent, 'Macintosh') !== false && stripos($user_agent, 'iPad') !== false) {
+        return true; // Request is from an iPad
+    }
+
+    return false; // Request is neither from a mobile nor tablet device (default to desktop)
 }
 
 /**
@@ -381,23 +432,36 @@ function widgetopts_is_tablet()
     );
 
     $is_tablet = false;
-    foreach ($tablets as $tablet) {
-        if (!empty($user_agent)) {
-            $is_tablet = (bool) preg_match(sprintf('#%s#is', $tablet), $widgetopts_user_agent, $matches);
-            if ($is_tablet) {
-                break;
-            }
+    foreach ($tablets as $brand => $pattern) {
+        // Check if the tablet matches the current brand's pattern
+        if (preg_match('#' . $pattern . '#i', $widgetopts_user_agent)) {
+            // Tablet matched, so echo the brand
+            $is_tablet = true;
+            break;
         }
+    }
+
+    // If no match is found, try another method, check only the most common keyword
+    if (!$is_tablet) {
+        $is_tablet = widgetopts_is_mobile_or_tablet(true);
     }
 
     return $is_tablet;
 }
 
+/**
+ * Retrieves the user agent string from HTTP headers.
+ *
+ * @return string The concatenated user agent string.
+ */
 function widgetopts_get_user_agent()
 {
     global $widgetopts_http_headers;
+
     $user_agent = '';
-    $user_agents = array(
+
+    // Define the user agent headers to check
+    $user_agents = [
         'HTTP_USER_AGENT',
         'HTTP_X_ORIGINAL_USER_AGENT',
         'HTTP_X_OPERAMINI_PHONE_UA',
@@ -406,12 +470,14 @@ function widgetopts_get_user_agent()
         'HTTP_X_SKYFIRE_PHONE',
         'HTTP_X_UCBROWSER_DEVICE_UA',
         'HTTP_DEVICE_STOCK_UA',
-    );
+    ];
+
+    // Concatenate user agents from available headers
     foreach ($user_agents as $ua) {
         if (isset($widgetopts_http_headers[$ua]) && !empty($widgetopts_http_headers[$ua])) {
             $user_agent .= $widgetopts_http_headers[$ua] . " ";
         }
     }
 
-    return trim($user_agent);
+    return trim($user_agent); // Trim the concatenated user agent string and return
 }

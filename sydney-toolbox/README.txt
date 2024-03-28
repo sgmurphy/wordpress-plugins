@@ -2,8 +2,8 @@
 Contributors: athemes, vladff
 Tags: sydney, custom post types, custom fields
 Requires at least: 4.0
-Tested up to: 6.1
-Stable tag: 1.27
+Tested up to: 6.4
+Stable tag: 1.28
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,9 @@ None yet.
 == Screenshots ==
 
 == Changelog ==
+
+= 1.28 =
+* added wpml-config.xml file
 
 = 1.27 =
 * fixed missing escaping in slider widget

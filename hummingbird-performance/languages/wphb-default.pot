@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Hummingbird 3.7.3\n"
+"Project-Id-Version: Hummingbird 3.7.4\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
-"POT-Creation-Date: 2024-03-21 09:32:03+00:00\n"
+"POT-Creation-Date: 2024-03-27 15:07:21+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -39,12 +39,12 @@ msgstr ""
 msgid "Speedy"
 msgstr ""
 
-#: admin/ajax/class-minify.php:508 admin/class-ajax.php:1479
+#: admin/ajax/class-minify.php:508 admin/class-ajax.php:1528
 msgid "Error removing asset file."
 msgstr ""
 
-#: admin/ajax/class-minify.php:532 admin/class-ajax.php:1268
-#: admin/class-ajax.php:1892 admin/class-ajax.php:2334 core/class-utils.php:188
+#: admin/ajax/class-minify.php:532 admin/class-ajax.php:1317
+#: admin/class-ajax.php:1941 admin/class-ajax.php:2383 core/class-utils.php:188
 #: core/modules/class-minify.php:1644
 msgid "Settings updated"
 msgstr ""
@@ -179,99 +179,99 @@ msgstr ""
 msgid "Setup Wizard"
 msgstr ""
 
-#: admin/class-ajax.php:328
+#: admin/class-ajax.php:342
 msgid "Cache purged."
 msgstr ""
 
-#: admin/class-ajax.php:864
+#: admin/class-ajax.php:885
 msgid ""
 "Cannot process the form. Please define either the Email/API key or the API "
 "token."
 msgstr ""
 
-#: admin/class-ajax.php:1248
+#: admin/class-ajax.php:1297
 #. translators: %s - number of assets
 msgid "%s assets found!"
 msgstr ""
 
-#: admin/class-ajax.php:1333 core/class-utils.php:214
+#: admin/class-ajax.php:1382 core/class-utils.php:214
 msgid "Settings updated. Generating Critical CSS, this could take about a minute."
 msgstr ""
 
-#: admin/class-ajax.php:1618
+#: admin/class-ajax.php:1667
 msgid "Invalid type specified."
 msgstr ""
 
-#: admin/class-ajax.php:1629
+#: admin/class-ajax.php:1678
 msgid "Error deleting data."
 msgstr ""
 
-#: admin/class-ajax.php:1637
+#: admin/class-ajax.php:1686
 #. translators: %d: number of database entries
 msgid "%d database entries were deleted successfully."
 msgstr ""
 
-#: admin/class-ajax.php:1829
+#: admin/class-ajax.php:1878
 msgid "Module not found"
 msgstr ""
 
-#: admin/class-ajax.php:1840
+#: admin/class-ajax.php:1889
 msgid "Log file not found or empty"
 msgstr ""
 
-#: admin/class-ajax.php:1848
+#: admin/class-ajax.php:1897
 msgid "Log file purged"
 msgstr ""
 
-#: admin/class-ajax.php:2005
+#: admin/class-ajax.php:2054
 msgid "Import failed - No settings file has been submitted."
 msgstr ""
 
-#: admin/class-ajax.php:2014
+#: admin/class-ajax.php:2063
 msgid "Import failed - Something went wrong on uploading settings file."
 msgstr ""
 
-#: admin/class-ajax.php:2022 admin/class-ajax.php:2030
+#: admin/class-ajax.php:2071 admin/class-ajax.php:2079
 msgid "Import failed - You selected wrong settings file."
 msgstr ""
 
-#: admin/class-ajax.php:2039
+#: admin/class-ajax.php:2088
 msgid "Import failed - Settings data is empty."
 msgstr ""
 
-#: admin/class-ajax.php:2048
+#: admin/class-ajax.php:2097
 msgid "Import failed - Asset optimization settings data not found."
 msgstr ""
 
-#: admin/class-ajax.php:2057
+#: admin/class-ajax.php:2106
 msgid "Settings imported and configured successfully."
 msgstr ""
 
-#: admin/class-ajax.php:2124
+#: admin/class-ajax.php:2173
 msgid "Missing config ID"
 msgstr ""
 
-#: admin/class-ajax.php:2185 admin/class-ajax.php:2225
+#: admin/class-ajax.php:2234 admin/class-ajax.php:2274
 msgid "There was some error in generating Critical CSS"
 msgstr ""
 
-#: admin/class-ajax.php:2187
+#: admin/class-ajax.php:2236
 msgid "Critical CSS is being generated"
 msgstr ""
 
-#: admin/class-ajax.php:2189
+#: admin/class-ajax.php:2238
 msgid "Critical CSS generated"
 msgstr ""
 
-#: admin/class-ajax.php:2221
+#: admin/class-ajax.php:2270
 msgid "Critical CSS is being re-generated"
 msgstr ""
 
-#: admin/class-ajax.php:2227
+#: admin/class-ajax.php:2276
 msgid "Critical CSS re-generated"
 msgstr ""
 
-#: admin/class-ajax.php:2257
+#: admin/class-ajax.php:2306
 msgid "Critical CSS file deleted successfully"
 msgstr ""
 

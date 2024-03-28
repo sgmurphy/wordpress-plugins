@@ -15,69 +15,105 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 function widgetopts_toolbar_scripts()
 {
-	wp_register_script(
-		'widgetopts-gutenberg-toolbar',
-		WIDGETOPTS_PLUGIN_URL . 'includes/widgets/gutenberg/build/index.js',
-		['wp-blocks', 'wp-components', 'wp-element', 'wp-i18n', 'wp-block-editor'],
-		filemtime(WIDGETOPTS_PLUGIN_DIR . 'includes/widgets/gutenberg/build/index.js')
-	);
-	wp_enqueue_script('widgetopts-gutenberg-toolbar');
-	wp_localize_script('widgetopts-gutenberg-toolbar', 'widgetoptsGutenberg', array(
-		'ajaxurl' => admin_url('admin-ajax.php'),
-	));
+	global $widget_options, $pagenow;
+
+	if (($pagenow != 'widgets.php' && $pagenow != 'customize.php') &&
+		(!isset($widget_options["hide_page_and_post_block"]) || $widget_options["hide_page_and_post_block"] != "activate") ||
+		($widget_options["hide_page_and_post_block"] == "activate" && isset($widget_options["settings"]) &&
+			isset($widget_options["settings"]["hide_page_and_post_block"]) &&
+			$widget_options["settings"]["hide_page_and_post_block"]["page_and_post_block"] == "1")
+	) {
+		//do nothing
+	} else {
+		wp_register_script(
+			'widgetopts-gutenberg-toolbar',
+			WIDGETOPTS_PLUGIN_URL . 'includes/widgets/gutenberg/build/index.js',
+			['wp-blocks', 'wp-components', 'wp-element', 'wp-i18n', 'wp-block-editor'],
+			filemtime(WIDGETOPTS_PLUGIN_DIR . 'includes/widgets/gutenberg/build/index.js')
+		);
+		wp_enqueue_script('widgetopts-gutenberg-toolbar');
+		wp_localize_script('widgetopts-gutenberg-toolbar', 'widgetoptsGutenberg', array(
+			'ajaxurl' => admin_url('admin-ajax.php'),
+		));
+	}
 }
 add_action('enqueue_block_editor_assets', 'widgetopts_toolbar_scripts');
 
-function modify_widget_blocks()
+function widgetopts_check_widget_editor_referer($customizer = false)
 {
-	global $pagenow;
+	// Check if the HTTP referer is set
+	if (isset($_SERVER['HTTP_REFERER'])) {
+		// Parse the referer URL
+		$referer_url = parse_url($_SERVER['HTTP_REFERER']);
 
-	$registered_blocks = \WP_Block_Type_Registry::get_instance()->get_all_registered();
-
-	foreach ($registered_blocks as $block_name => $block_type) {
-		if (isset($block_type->attributes) && is_array($block_type->attributes)) {
-			if ($pagenow !== 'widgets.php') {
-				if (isset($block_type->attributes['instance']) && $pagenow === 'customize.php') {
-					if (isset($block_type->attributes['instance']['raw'])) {
-						if (empty($block_type->attributes['instance']['raw']['extended_widget_opts'])) {
-							// $block_type->attributes['instance']['raw']['extended_widget_opts'] = array(
-							// 	'type' => 'object',
-							// 	'default' => (object)[]
-							// );
-						}
-					}
-				} else if (empty($block_type->attributes['extended_widget_opts'])) {
-					$block_type->attributes['extended_widget_opts'] = array(
-						'type' => 'object',
-						'default' => (object)[]
-					);
-				}
-			}
-
-			if ($pagenow == 'widgets.php') {
-				$block_type->attributes['extended_widget_opts_block'] = array(
-					'type' => 'object',
-					'default' => (object)[]
-				);
-			}
-
-			$block_type->attributes['extended_widget_opts_state'] = array(
-				'type' => 'number',
-				'default' => 0
-			);
-
-			$block_type->attributes['extended_widget_opts_clientid'] = array(
-				'type' => 'string',
-				'default' => ''
-			);
-
-			unregister_block_type($block_name);
-
-			register_block_type($block_type); // Re-register the block with updated attributes
+		$path = $customizer === true ? '/wp-admin/customize.php' : '/wp-admin/widgets.php';
+		// Check if the referer URL is from the widget editor
+		if (strpos($referer_url['path'], $path) !== false) {
+			// The request likely came from the widget editor
+			return true;
 		}
 	}
+
+	return false;
 }
-// add_action('init', 'modify_widget_blocks');
+
+add_action('rest_api_init', function () {
+	global $wp_widget_factory;
+
+	if (isset($wp_widget_factory) && isset($wp_widget_factory->widgets)) {
+		// Modify the show_instance_in_rest option for each registered widget type
+		foreach ($wp_widget_factory->widgets as $widget) {
+			if (isset($widget->widget_options) && is_array($widget->widget_options)) {
+				if (stristr($widget->id, 'tribe-widget-events-list')) {
+					$widget->widget_options['show_instance_in_rest'] = true;
+				}
+			}
+		}
+	}
+}, 999);
+
+add_filter('register_block_type_args', function ($args, $name) {
+	//if block type is luckywp/tableofcontents use type string
+	if ($name == 'luckywp/tableofcontents') {
+		$args['attributes']['extended_widget_opts_block'] = array(
+			'type' => 'string',
+			'default' => json_encode((object)[])
+		);
+
+		$args['attributes']['extended_widget_opts'] = array(
+			'type' => 'string',
+			'default' => json_encode((object)[])
+		);
+	} else {
+		//if block type is not luckywp/tableofcontents use type object
+		$args['attributes']['extended_widget_opts_block'] = array(
+			'type' => 'object',
+			'default' => (object)[]
+		);
+
+		$args['attributes']['extended_widget_opts'] = array(
+			'type' => 'object',
+			'default' => (object)[]
+		);
+	}
+
+	$args['attributes']['extended_widget_opts_state'] = array(
+		'type' => 'string',
+		'default' => ''
+	);
+
+	$args['attributes']['extended_widget_opts_clientid'] = array(
+		'type' => 'string',
+		'default' => ''
+	);
+
+	$args['attributes']['dateUpdated'] = array(
+		'type' => 'string',
+		'default' => ''
+	);
+
+	return $args;
+}, 50, 2);
 
 add_filter('widget_types_to_hide_from_legacy_widget_block', function ($notAllowed) {
 	return array();
@@ -113,7 +149,10 @@ if (wp_use_widgets_block_editor()) {
 			if (isset($new_instance['extended_widget_opts-undefined']) && empty($new_instance['extended_widget_opts-' . $obj->id])) {
 				$instance['extended_widget_opts-' . $obj->id] = $new_instance['extended_widget_opts-undefined'];
 
-				$instance['extended_widget_opts-' . $obj->id]['id_base'] = $base === false ? '-1' : $base[0];
+				array_pop($base);
+				$new_base = implode('-', $base);
+
+				$instance['extended_widget_opts-' . $obj->id]['id_base'] = $base === false ? '-1' : $new_base;
 				unset($new_instance['extended_widget_opts-undefined']);
 				if (isset($instance['extended_widget_opts-undefined'])) {
 					unset($instance['extended_widget_opts-undefined']);
@@ -863,7 +902,23 @@ function widgetopts_get_pages()
 		die;
 	}
 
-	$pages = get_pages(['hierarchical' => false]);
+	$pages = [];
+
+	$widgetopts_pages_args = array(
+		'post_type'      => 'page',
+		'post_status'    => 'publish',
+		'posts_per_page' => -1,
+		'orderby'        => 'title',
+		'order'          => 'ASC'
+	);
+
+	$widgetopts_pages_query = new WP_Query($widgetopts_pages_args);
+
+	if ($widgetopts_pages_query->have_posts()) {
+		$pages = $widgetopts_pages_query->posts;
+		wp_reset_postdata(); // Reset the query back to the original state.
+	}
+
 	wp_send_json_success($pages);
 	die;
 }

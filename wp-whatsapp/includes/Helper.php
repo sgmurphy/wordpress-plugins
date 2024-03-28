@@ -1,116 +1,116 @@
 <?php
 namespace NTA_WhatsApp;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
-class Helper
-{
-    protected static $instance = null;
-    public static function getInstance()
-    {
-        if (null == self::$instance) {
-            self::$instance = new self;
-        }
-    return self::$instance;
-    }
+class Helper {
 
-    public function __construct()
-    {
-    }
-    
-    public static function printWorkingDays($array_data)
-    {
-        if ($array_data['isAlwaysAvailable'] === 'ON') {
-            return __('Always online','wp-whatsapp');
-        }
+	protected static $instance = null;
+	public static function getInstance() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
 
-        $date_string = "";
-        $daysOfWeek = array(
-            'sunday' => __('Sunday', "wp-whatsapp"),
-            'monday' => __('Monday', "wp-whatsapp"),
-            'tuesday' => __('Tuesday', "wp-whatsapp"),
-            'wednesday' => __('Wednesday', "wp-whatsapp"),
-            'thursday' => __('Thursday', "wp-whatsapp"),
-            'friday' => __('Friday', "wp-whatsapp"),
-            'saturday' => __('Saturday', "wp-whatsapp"),
-        );
+	public function __construct() {
+	}
 
-        foreach ($array_data['daysOfWeekWorking'] as $dayKey => $dayVal) {
-            if ($dayVal["isWorkingOnDay"] === 'ON') {
-                $date_string .= $daysOfWeek[$dayKey] . ', ';
-            }
-        }
+	public static function printWorkingDays( $array_data ) {
+		if ( $array_data['isAlwaysAvailable'] === 'ON' ) {
+			return __( 'Always online', 'wp-whatsapp' );
+		}
 
-        $date_string = trim($date_string, ', ');
-        return $date_string;
-    }
+		$date_string = '';
+		$daysOfWeek  = array(
+			'sunday'    => __( 'Sunday', 'wp-whatsapp' ),
+			'monday'    => __( 'Monday', 'wp-whatsapp' ),
+			'tuesday'   => __( 'Tuesday', 'wp-whatsapp' ),
+			'wednesday' => __( 'Wednesday', 'wp-whatsapp' ),
+			'thursday'  => __( 'Thursday', 'wp-whatsapp' ),
+			'friday'    => __( 'Friday', 'wp-whatsapp' ),
+			'saturday'  => __( 'Saturday', 'wp-whatsapp' ),
+		);
 
-    public static function getValueOrDefault($object, $objectKey, $defaultValue = '')
-    {
-        return (isset($object[$objectKey]) ? $object[$objectKey] : $defaultValue);
-    }
+		foreach ( $array_data['daysOfWeekWorking'] as $dayKey => $dayVal ) {
+			if ( $dayVal['isWorkingOnDay'] === 'ON' ) {
+				$date_string .= $daysOfWeek[ $dayKey ] . ', ';
+			}
+		}
 
-    public static function buildTimeSelector($default = '08:00', $interval = '+30 minutes')
-    {
-        $output = '';
+		$date_string = trim( $date_string, ', ' );
+		return $date_string;
+	}
 
-        $current = strtotime('00:00');
-        $end = strtotime('23:59');
-        
-        while ($current <= $end) {
-            $time = date('H:i', $current);
-            $sel = ($time == $default) ? ' selected' : '';
+	public static function getValueOrDefault( $object, $objectKey, $defaultValue = '' ) {
+		return ( isset( $object[ $objectKey ] ) ? $object[ $objectKey ] : $defaultValue );
+	}
 
-            $output .= "<option value=\"{$time}\"{$sel}>" . date('H:i', $current) . '</option>';
-            $current = strtotime($interval, $current);
-        }
-        $sel = ($default === '23:59') ? ' selected' : '';
-        $output .= "<option value=\"23:59\"{$sel}>" . '23:59' . '</option>';
-        return $output;
-    }
+	public static function buildTimeSelector( $default = '08:00', $interval = '+30 minutes' ) {
+		$output = '';
 
-    public static function sanitize_array($var)
-    {
-        if (is_array($var)) {
-            return array_map('self::sanitize_array', $var);
-        } else {
-            return is_scalar($var) ? sanitize_text_field($var) : $var;
-        }
-    }
+		$current = strtotime( '00:00' );
+		$end     = strtotime( '23:59' );
 
-    public static function checkGDPR($option){
-        if ($option['isShowGDPR'] === 'OFF') return false;
-        if (isset($_COOKIE["nta-wa-gdpr"]) && $_COOKIE["nta-wa-gdpr"] == 'accept') return false;
-        return true;
-    }
+		while ( $current <= $end ) {
+			$time = date( 'H:i', $current );
+			$sel  = ( $time == $default ) ? ' selected' : '';
 
-    public static function isSaveNewPost($refererUrl){
-        $add_new_action = strpos($refererUrl, 'post-new.php');
-        if ($add_new_action !== false) return true;
-        return false;
-    }
+			$output .= "<option value=\"{$time}\"{$sel}>" . date( 'H:i', $current ) . '</option>';
+			$current = strtotime( $interval, $current );
+		}
+		$sel     = ( $default === '23:59' ) ? ' selected' : '';
+		$output .= "<option value=\"23:59\"{$sel}>" . '23:59' . '</option>';
+		return $output;
+	}
 
-    public static function wp_timezone_string(){
-        $timezone_string = get_option( 'timezone_string' );
- 
-        if ( $timezone_string ) {
-            return $timezone_string;
-        }
-    
-        $offset  = (float) get_option( 'gmt_offset' );
-        $hours   = (int) $offset;
-        $minutes = ( $offset - $hours );
-    
-        $sign      = ( $offset < 0 ) ? '-' : '+';
-        $abs_hour  = abs( $hours );
-        $abs_mins  = abs( $minutes * 60 );
-        $tz_offset = sprintf( '%s%02d:%02d', $sign, $abs_hour, $abs_mins );
-    
-        return $tz_offset;
-    }
+	public static function sanitize_array( $var ) {
+		if ( is_array( $var ) ) {
+			return array_map( 'self::sanitize_array', $var );
+		} else {
+			return is_scalar( $var ) ? sanitize_text_field( $var ) : $var;
+		}
+	}
 
-    public static function print_icon(){
-        return '<svg width="48px" height="48px" class="nta-whatsapp-default-avatar" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	public static function checkGDPR( $option ) {
+		if ( $option['isShowGDPR'] === 'OFF' ) {
+			return false;
+		}
+		if ( isset( $_COOKIE['nta-wa-gdpr'] ) && $_COOKIE['nta-wa-gdpr'] == 'accept' ) {
+			return false;
+		}
+		return true;
+	}
+
+	public static function isSaveNewPost( $refererUrl ) {
+		$add_new_action = strpos( $refererUrl, 'post-new.php' );
+		if ( $add_new_action !== false ) {
+			return true;
+		}
+		return false;
+	}
+
+	public static function wp_timezone_string() {
+		$timezone_string = get_option( 'timezone_string' );
+
+		if ( $timezone_string ) {
+			return $timezone_string;
+		}
+
+		$offset  = (float) get_option( 'gmt_offset' );
+		$hours   = (int) $offset;
+		$minutes = ( $offset - $hours );
+
+		$sign      = ( $offset < 0 ) ? '-' : '+';
+		$abs_hour  = abs( $hours );
+		$abs_mins  = abs( $minutes * 60 );
+		$tz_offset = sprintf( '%s%02d:%02d', $sign, $abs_hour, $abs_mins );
+
+		return $tz_offset;
+	}
+
+	public static function print_icon() {
+		return '<svg width="48px" height="48px" class="nta-whatsapp-default-avatar" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
             <path style="fill:#EDEDED;" d="M0,512l35.31-128C12.359,344.276,0,300.138,0,254.234C0,114.759,114.759,0,255.117,0
             S512,114.759,512,254.234S395.476,512,255.117,512c-44.138,0-86.51-14.124-124.469-35.31L0,512z"/>
@@ -124,5 +124,5 @@ class Helper
             c-1.766,1.766-4.414,2.648-7.062,1.766c-15.007-5.297-65.324-26.483-92.69-79.448c-0.883-2.648-0.883-5.297,0.883-7.062
             l21.186-23.834c1.766-2.648,2.648-6.179,1.766-8.828l-25.6-57.379C193.324,138.593,190.676,135.945,187.145,135.945"/>
         </svg>';
-    }
+	}
 }

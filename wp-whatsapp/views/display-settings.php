@@ -33,7 +33,7 @@
 				<select name="displayCondition" id="displayCondition">
 					<option <?php selected( $option['displayCondition'], 'showAllPage' ); ?> value="showAllPage"><?php echo __( 'Show on all pages and posts', 'wp-whatsapp' ); ?></option>
 					<option <?php selected( $option['displayCondition'], 'includePages' ); ?> value="includePages"><?php echo __( 'Show on these pages...', 'wp-whatsapp' ); ?></option>
-                    <option <?php selected( $option['displayCondition'], 'excludePages' ); ?> value="excludePages"><?php echo __( 'Hide on these pages...', 'wp-whatsapp' ); ?></option>
+					<option <?php selected( $option['displayCondition'], 'excludePages' ); ?> value="excludePages"><?php echo __( 'Hide on these pages...', 'wp-whatsapp' ); ?></option>
 				</select>
 			</td>
 		</tr>
@@ -60,7 +60,7 @@
 									echo 'checked="checked"';
 						}
 						?>
-								 name="includePages[]" class="includePages" type="checkbox" value="<?php echo esc_attr( $page->ID ); ?>" id="nta-wa-hide-page-<?php echo esc_attr( $page->ID ); ?>" />
+								name="includePages[]" class="includePages" type="checkbox" value="<?php echo esc_attr( $page->ID ); ?>" id="nta-wa-hide-page-<?php echo esc_attr( $page->ID ); ?>" />
 						<label for="nta-wa-hide-page-<?php echo esc_attr( $page->ID ); ?>"><?php echo esc_html( $page->post_title ); ?></label>
 					</li>
 					<?php
@@ -85,7 +85,7 @@
 									echo 'checked="checked"';
 						}
 						?>
-								 name="excludePages[]" class="excludePages" type="checkbox" value="<?php echo esc_attr( $page->ID ); ?>" id="nta-wa-show-page-<?php echo esc_attr( $page->ID ); ?>" />
+								name="excludePages[]" class="excludePages" type="checkbox" value="<?php echo esc_attr( $page->ID ); ?>" id="nta-wa-show-page-<?php echo esc_attr( $page->ID ); ?>" />
 						<label for="nta-wa-show-page-<?php echo esc_attr( $page->ID ); ?>"><?php echo esc_html( $page->post_title ); ?></label>
 					</li>
 					<?php

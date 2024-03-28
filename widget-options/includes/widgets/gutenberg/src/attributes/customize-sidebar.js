@@ -207,7 +207,7 @@ if (window.jQuery != undefined) {
 /**
  * Add Custom Select to Image Sidebar
  */
-const withSidebarTab = (BlockEdit) => {
+const withSidebarTabCustomize = (BlockEdit) => {
   //this part will be executed only once for all blocks
   const fetchData = (prop) => {
     if (nowFetchingData) {
@@ -813,12 +813,7 @@ const withSidebarTab = (BlockEdit) => {
                   widgetopts_terms={widgetopts_terms}
                   widgetopts_users={widgetopts_users}
                   widgetopts_ajax_roles_search={widgetopts_ajax_roles_search}
-                  editor={
-                    props.attributes.extended_widget_opts == undefined ||
-                    isWpCustomizer
-                      ? "widget"
-                      : "post"
-                  }
+                  editor={isWpCustomizer ? "widget" : "post"}
                 />
               ) : (
                 <p>Loading...</p>
@@ -1007,8 +1002,10 @@ const withSidebarTab = (BlockEdit) => {
   return _return;
 };
 
-wp.hooks.addFilter(
-  "editor.BlockEdit",
-  "extended-widget-options/sidebar-component",
-  withSidebarTab
-);
+wp.domReady(function () {
+  wp.hooks.addFilter(
+    "editor.BlockEdit",
+    "extended-widget-options/sidebar-component",
+    withSidebarTabCustomize
+  );
+});

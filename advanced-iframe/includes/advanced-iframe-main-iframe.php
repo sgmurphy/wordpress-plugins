@@ -537,8 +537,11 @@ if (!empty($resize_on_element_resize)) {
     $onload_str .= 'initResizeIframe'.$id.'();';
 }
 
+$htmlJs = '';
 if ($add_iframe_url_as_param === 'same') {
-    $onload_str .= 'aiChangeUrlParam(aigetIframeLocation("'.$id.'"), "'.$map_parameter_to_url.'","'.$src_orig.'","'.$add_iframe_url_as_param_prefix.'",'.$add_iframe_url_as_param_direct.');';
+    $changeUrlParam = 'aiChangeUrlParam(aigetIframeLocation("'.$id.'"), "'.$map_parameter_to_url.'","'.$src_orig.'","'.$add_iframe_url_as_param_prefix.'",'.$add_iframe_url_as_param_direct.');';
+	$onload_str .= $changeUrlParam;
+	$htmlJs = AdvancediFramePrepareJs::aiConfigureHistroyChange($changeUrlParam, $id);
 }
 
 if ($use_iframe_title_for_parent === 'same') {
@@ -555,6 +558,7 @@ if ($onload_str != '') {
 
 $html .= '></iframe>';
 
+$html .= $htmlJs;
 if ($show_iframe_as_layer_div) {
   if ($show_iframe_as_layer_div_header) {
     $html .= '</div>';

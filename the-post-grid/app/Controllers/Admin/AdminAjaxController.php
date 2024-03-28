@@ -10,6 +10,8 @@ namespace RT\ThePostGrid\Controllers\Admin;
 use RT\ThePostGrid\Helpers\Fns;
 use RT\ThePostGrid\Helpers\Options;
 
+//phpcs:disable WordPress.Security.NonceVerification.Recommended
+
 // Do not allow directly accessing this file.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit( 'This script cannot be accessed directly.' );
@@ -122,7 +124,7 @@ class AdminAjaxController {
 
 			if ( $post__not_in ) {
 				$post__not_in         = explode( ',', $post__not_in );
-				$args['post__not_in'] = $post__not_in;
+				$args['post__not_in'] = $post__not_in; //phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
 			}
 
 			/* LIMIT */
@@ -189,7 +191,7 @@ class AdminAjaxController {
 			}
 
 			if ( ! empty( $taxQ ) ) {
-				$args['tax_query'] = $taxQ;
+				$args['tax_query'] = $taxQ; //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			}
 
 			if ( in_array( 'order', $adv_filter ) ) {
@@ -206,7 +208,7 @@ class AdminAjaxController {
 
 					if ( in_array( $order_by, array_keys( Options::rtMetaKeyType() ), true ) && $meta_key ) {
 						$args['orderby']  = $order_by;
-						$args['meta_key'] = $meta_key;
+						$args['meta_key'] = $meta_key; //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 					}
 				}
 			}
@@ -225,12 +227,12 @@ class AdminAjaxController {
 						break;
 					case 'price':
 						$args['orderby']  = 'meta_value_num';
-						$args['meta_key'] = '_price';
+						$args['meta_key'] = '_price'; //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 						$args['order']    = 'ASC';
 						break;
 					case 'price-desc':
 						$args['orderby']  = 'meta_value_num';
-						$args['meta_key'] = '_price';
+						$args['meta_key'] = '_price'; //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 						$args['order']    = 'DESC';
 						break;
 					case 'rating':
@@ -315,7 +317,7 @@ class AdminAjaxController {
 				$args['posts_per_archive_page'] = $args['posts_per_page'];
 			}
 
-			$containerDataAttr = null;
+			$containerDataAttr  = null;
 			$containerDataAttr .= " data-layout='{$layout}' data-desktop-col='{$dCol}'  data-tab-col='{$tCol}'  data-mobile-col='{$mCol}'";
 
 			$dCol = 5 === $dCol ? '24' : round( 12 / $dCol );
@@ -413,7 +415,7 @@ class AdminAjaxController {
 					$popupType = ! empty( $_REQUEST['popup_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['popup_type'] ) ) : 'single';
 					if ( 'single' === $popupType ) {
 						$arg['anchorClass'] .= ' tpg-single-popup';
-						$isSinglePopUp      = true;
+						$isSinglePopUp       = true;
 					} else {
 						$arg['anchorClass'] .= ' tpg-multi-popup';
 					}
@@ -432,7 +434,7 @@ class AdminAjaxController {
 
 				if ( 'single' === $popupType ) {
 					$arg['anchorClass'] .= ' tpg-single-popup';
-					$isSinglePopUp      = true;
+					$isSinglePopUp       = true;
 				} else {
 					$arg['anchorClass'] .= ' tpg-multi-popup';
 				}
@@ -473,6 +475,7 @@ class AdminAjaxController {
 			}
 
 			if ( in_array( '_taxonomy_filter', $filters ) && $taxFilter && $action_term ) {
+				//phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 				$args['tax_query'] = [
 					[
 						'taxonomy' => $taxFilter,
@@ -560,7 +563,7 @@ class AdminAjaxController {
 
 			$data              .= Fns::layoutStyle( $layoutID, $styleMeta, $layout );
 			$containerDataAttr .= '';
-			$parentClass       = esc_attr( $parentClass );
+			$parentClass        = esc_attr( $parentClass );
 			$data              .= "<div class='rt-container-fluid rt-tpg-container tpg-shortcode-main-wrapper {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
 			// widget heading.
 			$heading_tag       = isset( $_REQUEST['tpg_heading_tag'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_heading_tag'] ) ) : 'h2';
@@ -585,7 +588,7 @@ class AdminAjaxController {
 			$filters = ! empty( $_REQUEST['tgp_filter'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['tgp_filter'] ) ) : [];
 
 			if ( ! empty( $filters ) && ( $isGrid || $isOffset || $isWooCom ) ) {
-				$data                      .= "<div class='rt-layout-filter-container rt-clear'><div class='rt-filter-wrap'>";
+				$data                     .= "<div class='rt-layout-filter-container rt-clear'><div class='rt-filter-wrap'>";
 				$allText                   = apply_filters( 'tpg_filter_all_text', esc_html__( 'All', 'the-post-grid' ), $_REQUEST );
 				$selectedSubTermsForButton = null;
 
@@ -603,7 +606,7 @@ class AdminAjaxController {
 					}
 
 					if ( ! $filterType || 'dropdown' === $filterType ) {
-						$data             .= "<div class='rt-filter-item-wrap rt-tax-filter rt-filter-dropdown-wrap parent-dropdown-wrap{$postCountClass}' data-taxonomy='{$taxFilter}'>";
+						$data            .= "<div class='rt-filter-item-wrap rt-tax-filter rt-filter-dropdown-wrap parent-dropdown-wrap{$postCountClass}' data-taxonomy='{$taxFilter}'>";
 						$termDefaultText  = $allText;
 						$dataTerm         = 'all';
 						$htmlButton       = '';
@@ -627,7 +630,7 @@ class AdminAjaxController {
 										foreach ( $subTerms as $stId => $t ) {
 											$count       = $count + absint( $t['count'] );
 											$sTPostCount = ( $post_count ? " (<span class='rt-post-count'>{$t['count']}</span>)" : null );
-											$item        .= "<span class='term-dropdown-item rt-filter-dropdown-item' data-term='{$stId}'><span class='rt-text'>{$t['name']}{$sTPostCount}</span></span>";
+											$item       .= "<span class='term-dropdown-item rt-filter-dropdown-item' data-term='{$stId}'><span class='rt-text'>{$t['name']}{$sTPostCount}</span></span>";
 										}
 
 										if ( $post_count ) {
@@ -671,7 +674,7 @@ class AdminAjaxController {
 									$htmlButton .= "<span class='term-dropdown-item rt-filter-dropdown-item' data-term='{$id}'><span class='rt-text'>{$term['name']}{$postCount}</span>{$sT}</span>";
 								}
 
-								$i ++;
+								$i++;
 							}
 						}
 
@@ -712,7 +715,7 @@ class AdminAjaxController {
 
 										foreach ( $subTerms as $stId => $t ) {
 											$sTPostCount = ( $post_count ? " (<span class='rt-post-count'>{$t['count']}</span>)" : null );
-											$sT          .= "<span class='rt-filter-button-item' data-term='{$stId}'>{$t['name']}{$sTPostCount}</span>";
+											$sT         .= "<span class='rt-filter-button-item' data-term='{$stId}'>{$t['name']}{$sTPostCount}</span>";
 										}
 
 										$sT .= '</div>';
@@ -750,7 +753,7 @@ class AdminAjaxController {
 
 						if ( ! $hide_all_button ) {
 							$pCountH = ( $post_count ? " (<span class='rt-post-count'>{$bCount}</span>)" : null );
-							$data    .= "<span class='term-button-item rt-filter-button-item {$allSelect}' data-term='all'>" . $allText . "{$pCountH}</span>";
+							$data   .= "<span class='term-button-item rt-filter-button-item {$allSelect}' data-term='all'>" . $allText . "{$pCountH}</span>";
 						}
 
 						$data .= $bItems;
@@ -773,11 +776,11 @@ class AdminAjaxController {
 					}
 
 					if ( ! $filterType || 'dropdown' === $filterType ) {
-						$data            .= "<div class='rt-filter-item-wrap rt-author-filter rt-filter-dropdown-wrap parent-dropdown-wrap{$postCountClass}'>";
+						$data           .= "<div class='rt-filter-item-wrap rt-author-filter rt-filter-dropdown-wrap parent-dropdown-wrap{$postCountClass}'>";
 						$termDefaultText = $allText;
 						$dataAuthor      = 'all';
 						$htmlButton      = '';
-						$htmlButton      .= '<span class="author-dropdown rt-filter-dropdown">';
+						$htmlButton     .= '<span class="author-dropdown rt-filter-dropdown">';
 
 						if ( ! empty( $users ) ) {
 							foreach ( $users as $user ) {
@@ -834,7 +837,7 @@ class AdminAjaxController {
 
 						if ( ! $hide_all_button ) {
 							$pCountH = ( $post_count ? " (<span class='rt-post-count'>{$bCount}</span>)" : null );
-							$data    .= "<span class='author-button-item rt-filter-button-item {$allSelect}' data-author='all'>" . $allText . "{$pCountH}</span>";
+							$data   .= "<span class='author-button-item rt-filter-button-item {$allSelect}' data-author='all'>" . $allText . "{$pCountH}</span>";
 						}
 
 						$data .= $bItems;
@@ -884,9 +887,9 @@ class AdminAjaxController {
 
 				if ( in_array( '_sort_order', $filters ) ) {
 					$action_order = ( ! empty( $args['order'] ) ? strtoupper( trim( $args['order'] ) ) : 'DESC' );
-					$data         .= '<div class="rt-filter-item-wrap rt-sort-order-action">';
-					$data         .= "<span class='rt-sort-order-action-arrow' data-sort-order='{$action_order}'>&nbsp;<span></span></span>";
-					$data         .= '</div>';
+					$data        .= '<div class="rt-filter-item-wrap rt-sort-order-action">';
+					$data        .= "<span class='rt-sort-order-action-arrow' data-sort-order='{$action_order}'>&nbsp;<span></span></span>";
+					$data        .= '</div>';
 				}
 
 				$data .= "</div>$selectedSubTermsForButton</div>";
@@ -912,7 +915,7 @@ class AdminAjaxController {
 							'rtl'             => in_array( 'rtl', $cOpt ) ? true : false,
 						]
 					);
-					$data              .= sprintf(
+					$data             .= sprintf(
 						'<div class="rt-swiper-holder swiper"  data-rtowl-options="%s"><div class="swiper-wrapper">',
 						htmlspecialchars( wp_json_encode( $slider_js_options ) )
 					);
@@ -932,10 +935,11 @@ class AdminAjaxController {
 					global $wp_version;
 
 					if ( version_compare( $wp_version, '4.5', '>=' ) ) {
+						//phpcs:ignore WordPress.WP.DeprecatedParameters.Get_termsParam2Found
 						$terms = get_terms(
 							$isotope_filter,
 							[
-								'meta_key'   => '_rt_order',
+								'meta_key'   => '_rt_order', //phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 								'orderby'    => 'meta_value_num',
 								'order'      => 'ASC',
 								'hide_empty' => false,
@@ -944,8 +948,8 @@ class AdminAjaxController {
 						);
 					} else {
 						$terms = get_terms(
-							$isotope_filter,
 							[
+								'taxonomy'   => $isotope_filter,
 								'orderby'    => 'name',
 								'order'      => 'ASC',
 								'hide_empty' => false,
@@ -954,7 +958,7 @@ class AdminAjaxController {
 						);
 					}
 
-					$data           .= '<div class="tpg-iso-filter">';
+					$data          .= '<div class="tpg-iso-filter">';
 					$htmlButton     = $drop = null;
 					$fSelectTrigger = false;
 
@@ -1027,7 +1031,7 @@ class AdminAjaxController {
 						$l = 0;
 					}
 
-					$arg['postCount']     = $gridPostCount ++;
+					$arg['postCount']     = $gridPostCount++;
 					$pID                  = get_the_ID();
 					$arg['pID']           = $pID;
 					$arg['title']         = Fns::get_the_title( $pID, $arg );
@@ -1101,7 +1105,7 @@ class AdminAjaxController {
 								$defaultImgId,
 								$customImgSize
 							) : null;
-							$offsetSmallHtml  .= Fns::get_template_html( 'layouts/' . $layout, $arg );
+							$offsetSmallHtml .= Fns::get_template_html( 'layouts/' . $layout, $arg );
 						}
 					} else {
 						$arg['imgSrc'] = ! $fImg ? Fns::getFeatureImageSrc(
@@ -1111,10 +1115,10 @@ class AdminAjaxController {
 							$defaultImgId,
 							$customImgSize
 						) : null;
-						$data          .= Fns::get_template_html( 'layouts/' . $layout, $arg );
+						$data         .= Fns::get_template_html( 'layouts/' . $layout, $arg );
 					}
-					$offLoop ++;
-					$l ++;
+					$offLoop++;
+					$l++;
 				endwhile;
 
 				if ( $isOffset ) {
@@ -1151,11 +1155,11 @@ class AdminAjaxController {
 				}
 			} else {
 				$not_found_text = isset( $_REQUEST['tgp_not_found_text'] ) && ! empty( $_REQUEST['tgp_not_found_text'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tgp_not_found_text'] ) ) : esc_html__( 'No post found', 'the-post-grid' );
-				$data           .= '<p>' . $not_found_text . '</p>';
+				$data          .= '<p>' . $not_found_text . '</p>';
 			}
 
-			$data        .= $preLoaderHtml;
-			$data        .= '</div>'; // End row.
+			$data       .= $preLoaderHtml;
+			$data       .= '</div>'; // End row.
 			$htmlUtility = null;
 
 			if ( $pagination && ! $isCarousel ) {
@@ -1236,5 +1240,4 @@ class AdminAjaxController {
 		);
 		die();
 	}
-
 }

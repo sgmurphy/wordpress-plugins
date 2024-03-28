@@ -168,6 +168,11 @@ if (!function_exists('widgetopts_display_callback')) :
                     $visibility['categories'] = $visibility['tax_terms']['category'];
                 }
 
+                $selected_taxterms_page = 1;
+                if (isset($visibility['tax_terms_page']) && isset($visibility['tax_terms_page']['category'])) {
+                    $selected_taxterms_page = $visibility['tax_terms_page']['category'];
+                }
+
                 //for taxonomy category checking
                 if (!isset($visibility['taxonomies'])) {
                     $visibility['taxonomies'] = array();
@@ -182,13 +187,13 @@ if (!function_exists('widgetopts_display_callback')) :
                 // WPML TRANSLATION OBJECT FIX
                 $category_id = ($hasWPML) ? apply_filters('wpml_object_id', get_query_var('cat'), 'category', true, $default_language) : get_query_var('cat');
 
-                if ($visibility_opts == 'hide' && ((array_key_exists($category_id, $visibility['categories']) && $visibility['categories'][$category_id] == '1') || in_array($category_id, $visibility['categories']) || ($is_misc && isset($visibility['misc']['archives'])))) {
+                if ($visibility_opts == 'hide' && ((array_key_exists($category_id, $visibility['categories']) && $visibility['categories'][$category_id] == '1') || (in_array($category_id, $visibility['categories']) && ($selected_taxterms_page == 1 || $selected_taxterms_page == 2)) || ($is_misc && isset($visibility['misc']['archives'])))) {
                     $hidden = true; //hide if exists on hidden pages
-                } elseif ($visibility_opts == 'show' && ((!array_key_exists($category_id, $visibility['categories']) && empty($visibility['categories'][$category_id])) && !in_array($category_id, $visibility['categories']) && !($is_misc && isset($visibility['misc']['archives'])))) {
+                } elseif ($visibility_opts == 'show' && ((!array_key_exists($category_id, $visibility['categories']) && empty($visibility['categories'][$category_id])) && !(in_array($category_id, $visibility['categories']) && ($selected_taxterms_page == 1 || $selected_taxterms_page == 2)) && !($is_misc && isset($visibility['misc']['archives'])))) {
                     $hidden = true; //hide if doesn't exists on visible pages
-                } elseif (((array_key_exists($category_id, $visibility['categories']) && $visibility['categories'][$category_id] == '1') || in_array($category_id, $visibility['categories'])) && $visibility_opts == 'hide') {
+                } elseif (((array_key_exists($category_id, $visibility['categories']) && $visibility['categories'][$category_id] == '1') || (in_array($category_id, $visibility['categories']) && ($selected_taxterms_page == 1 || $selected_taxterms_page == 2))) && $visibility_opts == 'hide') {
                     $hidden = true; //hide to all categories
-                } elseif (((array_key_exists($category_id, $visibility['categories']) && $visibility['categories'][$category_id] == '1') || in_array($category_id, $visibility['categories']) || ($is_misc && isset($visibility['misc']['archives']))) && $visibility_opts == 'show') {
+                } elseif (((array_key_exists($category_id, $visibility['categories']) && $visibility['categories'][$category_id] == '1') || (in_array($category_id, $visibility['categories']) && ($selected_taxterms_page == 1 || $selected_taxterms_page == 2)) || ($is_misc && isset($visibility['misc']['archives']))) && $visibility_opts == 'show') {
                     $hidden = false; //hide to all categories
                 }
 
@@ -282,6 +287,15 @@ if (!function_exists('widgetopts_display_callback')) :
                     }
                 }
 
+                if (isset($visibility['tax_terms']['category'])) {
+                    $visibility['categories'] = $visibility['tax_terms']['category'];
+                }
+
+                $selected_taxterms_page = 1;
+                if (isset($visibility['tax_terms_page']) && isset($visibility['tax_terms_page']['category'])) {
+                    $selected_taxterms_page = $visibility['tax_terms_page']['category'];
+                }
+
                 if (!isset($visibility['types'])) {
                     $visibility['types'] = array();
                 }
@@ -308,9 +322,13 @@ if (!function_exists('widgetopts_display_callback')) :
                         $checked_cats = (intval($checked_cats[0]) == 0) ? $visibility['categories'] : $checked_cats;
                         $intersect      = array_intersect($cats, $checked_cats);
                         if (!empty($intersect) && $visibility_opts == 'hide') {
-                            $hidden = true;
+                            if ($selected_taxterms_page == 1 || $selected_taxterms_page == 3) {
+                                $hidden = true;
+                            }
                         } elseif (!empty($intersect) && $visibility_opts == 'show') {
-                            $hidden = false;
+                            if ($selected_taxterms_page == 1 || $selected_taxterms_page == 3) {
+                                $hidden = false;
+                            }
                         }
                     }
                 }

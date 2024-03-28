@@ -251,7 +251,7 @@ $	 */
 			];
 
 			if ( ! empty( trim( $this->statement_descriptor ) ) ) {
-				$data['statement_descriptor'] = $this->statement_descriptor;
+				$data['statement_descriptor_suffix'] = $this->statement_descriptor;
 			}
 
 			if ( $this->should_save_card( $order_id ) ) {
@@ -262,7 +262,7 @@ $	 */
 			Logger::info( sprintf( __( 'Begin processing payment with new payment method for order %1$1s for the amount of %2$2s', 'checkout-plugins-stripe-woo' ), $order_id, $order->get_total() ) );
 			$intent_data = $this->get_payment_intent( $order_id, $idempotency_key, apply_filters( 'cpsw_card_payment_intent_post_data', $data ) );
 			if ( $intent_data ) {
-				
+
 				$response_data = [
 					'result'         => 'success',
 					'redirect'       => $this->get_return_url( $order ),

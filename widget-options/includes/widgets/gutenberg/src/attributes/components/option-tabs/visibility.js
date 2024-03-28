@@ -264,6 +264,43 @@ const VisibilityTabPanel = (props) => {
     props.onUpdateDynamicAttribute(_attribute, props.widgetId);
   };
 
+  const handleInputChangeSelectorTaxonomiesPage = (event, key1, key2, key3) => {
+    let _attribute = { ...props.extended_widget_opts };
+    if (
+      _attribute[key1] == undefined ||
+      (_attribute[key1] != undefined && _attribute[key1].length == 0)
+    ) {
+      _attribute[key1] = {};
+    }
+
+    if (
+      _attribute[key1][key2] == undefined ||
+      (_attribute[key1][key2] != undefined &&
+        _attribute[key1][key2].length == 0)
+    ) {
+      _attribute[key1][key2] = {};
+    }
+
+    if (
+      _attribute[key1][key2][key3] == undefined ||
+      (_attribute[key1][key2][key3] != undefined &&
+        _attribute[key1][key2][key3].length == 0)
+    ) {
+      _attribute[key1][key2][key3] = 1;
+    }
+
+    let _options = 1;
+    for (let i = 0; i < event.target.options.length; i++) {
+      if (event.target.options[i].selected) {
+        _options = event.target.options[i].value;
+        break;
+      }
+    }
+    _attribute[key1][key2][key3] = _options;
+
+    props.onUpdateDynamicAttribute(_attribute, props.widgetId);
+  };
+
   const handleInputChange = (event, key1, key2) => {
     let _attribute = { ...props.extended_widget_opts };
     if (
@@ -896,6 +933,54 @@ const VisibilityTabPanel = (props) => {
                                   })}
                                 </select>
                               </div>
+                              <p>
+                                <strong>{__("Select Pages")}</strong>
+                                <br />
+                                <small>
+                                  {__("Select where to show/hide widget.")}
+                                </small>
+                                <br />
+                                <select
+                                  class="widefat"
+                                  name={
+                                    "extended_widget_opts[visibility][tax_terms_page][" +
+                                    index +
+                                    "]"
+                                  }
+                                  onChange={(event) =>
+                                    handleInputChangeSelectorTaxonomiesPage(
+                                      event,
+                                      "visibility",
+                                      "tax_terms_page",
+                                      index
+                                    )
+                                  }
+                                  value={
+                                    props.extended_widget_opts["visibility"] !=
+                                      undefined &&
+                                    props.extended_widget_opts["visibility"][
+                                      "tax_terms_page"
+                                    ] != undefined &&
+                                    props.extended_widget_opts["visibility"][
+                                      "tax_terms_page"
+                                    ][index] != undefined
+                                      ? props.extended_widget_opts[
+                                          "visibility"
+                                        ]["tax_terms_page"][index]
+                                      : "1"
+                                  }
+                                >
+                                  <option value="1">
+                                    {__("Archive and Single posts")}
+                                  </option>
+                                  <option value="2">
+                                    {__("Archive only")}
+                                  </option>
+                                  <option value="3">
+                                    {__("Single posts only")}
+                                  </option>
+                                </select>
+                              </p>
                             </div>
                           ) : (
                             ""

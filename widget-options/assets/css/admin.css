@@ -1351,6 +1351,26 @@ body.wp-customizer .extended-widget-opts-tabs .wp-picker-holder .iris-slider {
   height: 1px !important;
 }
 
-.body.wp-customizer .select2-container {
+body.wp-customizer .select2-container {
   z-index: 999999;
+}
+
+.widgetopts-get-latest-updates {
+  display: flex;
+  align-items: center;
+  grid-gap: 0.5em;
+}
+
+.widgetopts-get-latest-updates
+  input[name="widgetopts_update_and_feaures_email"] {
+  height: fit-content;
+}
+
+.widgetopts-get-latest-updates #widgetoptsSubmitUpdateFeaturesEmail {
+  height: fit-content;
+}
+
+/**fixed conflict of all in one seo multi select**/
+.multiselect.aioseo-select {
+  overflow: unset !important;
 }

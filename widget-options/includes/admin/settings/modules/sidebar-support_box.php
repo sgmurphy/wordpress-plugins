@@ -71,7 +71,7 @@ function widgetopts_settings_reco_box()
 			<?php $login_wp_url = "https://loginwp.com/ref/11/"; ?>
 			<p>
 				<?php echo sprintf(
-					esc_html__('%sLoginWP%s #1 WordPress User Redirection Plugin. Redirect users to different URLs after they log in, log out and register based on different', 'widget-options'),
+					esc_html__('%sLoginWP%s #1 WordPress User Redirection Plugin. Redirect users to different URLs after they log in, log out and register based on different.', 'widget-options'),
 					'<a class="widgetopts-link" href="' . $login_wp_url . '" target="_blank" style="margin-bottom: 5px;">',
 					$link_icon . '</a>'
 				); ?>

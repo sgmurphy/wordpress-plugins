@@ -2,7 +2,7 @@
 /*
 Plugin Name: Advanced iFrame
 Plugin URI: https://1.envato.market/VDRDJ
-Version: 2024.2
+Version: 2024.3
 Text Domain: advanced-iframe
 Domain Path: /languages
 Author: Michael Dempfle
@@ -47,7 +47,7 @@ define('AIP_URL_CUSTOM', plugins_url() . '/advanced-iframe-custom/');
 include dirname(__FILE__) . '/includes/advanced-iframe-main-helper.php';
 include dirname(__FILE__) . '/includes/advanced-iframe-main-cookie.php';
 
-$aiVersion = '2024.2';
+$aiVersion = '2024.3';
 // check $aiJsSize
 
 if (!class_exists('advancediFrame')) {
@@ -918,7 +918,7 @@ if (!class_exists('advancediFrame')) {
 				
 		function createMinimizedAiJs($backend) {
 			global $aiVersion;
-			$aiJsSize = 89306;
+			$aiJsSize = 89611;
 			$newContent = file_get_contents(dirname(__FILE__) . '/js/ai.js');
 			$oldFileName = dirname(__FILE__) . '/js/ai.min.js';
 			if ((strlen($newContent) == $aiJsSize) && file_exists($oldFileName)) {		   
@@ -1537,10 +1537,15 @@ if (!class_exists('advancediFrame')) {
 	}
 	
 	function filterAttribute($attribute, $attsArray, $content) {
-		foreach($attsArray as $element) {
+		foreach($attsArray as $key => $element) {
 			if (AdvancedIframeHelper::ai_startsWith($element, $attribute)) {
 				$element_replace = addslashes(rtrim($element,']'));
 				$content = str_replace(' ' . $element_replace, '', $content);
+			}
+			if ($key === $attribute) {
+				$element_replace = $key . "=" . addslashes(rtrim($element,']'));
+				$content = str_replace(' ' . $element_replace, '', $content);
+				$content = str_replace(' ' . $key . '=', '', $content);
 			}
 		}
 	    return $content;
@@ -1550,7 +1555,7 @@ if (!class_exists('advancediFrame')) {
 	* Detects possible XSS attacks in the shortcode attributes.
 	*/
 	function filterXSSAttributes($attsArray, $content) {
-		$replaceArray = array("'",' ', '(',')',';');
+		$replaceArray = array("'",' ', '(',')',"\\x29", "\\x28");
 		foreach($attsArray as $element) {	
 			$checkedElement = str_replace($replaceArray, '', $element);
 			if ($checkedElement != $element) {
@@ -1657,7 +1662,7 @@ if (isset($cons_advancediFrame)) {
 
             $cap = ai_map_role_to_capability($aiOptions['roles']);
             add_menu_page('Advanced iFrame' . $pro, 'Advanced iFrame' . $pro, $cap, 'advanced-iframe', 
-			    array($cons_advancediFrame, 'printAdminPage'), AIP_IMGURL.'/logo_24x24.png' );
+			    array($cons_advancediFrame, 'printAdminPage'), AIP_IMGURL.'/logo_24x24.png', '80.001');
             if (!empty($aiOptions['alternative_shortcode'])) {
                 // setup shortcode alternative style
                 add_shortcode($aiOptions['alternative_shortcode'], array($cons_advancediFrame, 'do_iframe_script'), 1);
@@ -1737,9 +1742,10 @@ function advanced_iframe_widget_init()
 if (!isset($aip_standalone) && file_exists(dirname(__FILE__) . "/includes/advanced-iframe-widget.php")) {
     require_once('includes/advanced-iframe-widget.php');
     add_action('widgets_init', 'advanced_iframe_widget_init');
+    if ($isFreemiusMigration) {
     add_filter('site_transient_update_plugins', 'ai_remove_update');
  	add_filter('auto_update_plugin', 'ai_remove_auto_update', 10,2);
-	
+	}
 }
 
 // ==============================================
@@ -1759,12 +1765,18 @@ function advanced_iframe_plugin_version()
 // ==============================================
 function advanced_iframe_plugin_meta_free($links, $file)
 {
+	global $isFreemiusMigration; 
     if (strpos($file, '/advanced-iframe') !== false) {
         $iconstyle = 'style="-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;"';
         $reviewlink = 'https://wordpress.org/support/view/plugin-reviews/advanced-iframe?rate=5#postform';
+        if ($isFreemiusMigration) {
+		     $links = array_merge($links, array('<a href="' . $reviewlink . '"><span class="dashicons dashicons-star-filled"' . 
+			    $iconstyle . 'title="Give a 5 Star Review"></span></a>'));
+		} else {
         $links = array_merge($links, array('<a target="_blank" href="https://1.envato.market/rNeNd">Advanced iFrame Pro</a>',
             '<a href="' . $reviewlink . '"><span class="dashicons dashicons-star-filled"' . $iconstyle . 'title="Give a 5 Star Review"></span></a>'
         ));
+		}
     }
     return $links;
 }

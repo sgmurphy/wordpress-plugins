@@ -54,30 +54,17 @@ export const ColumnItem = ( { template, isRecommended, position } ) => {
 		if ( ! loadingSkeleton.current ) {
 			return;
 		}
-		const landscape = [];
-		const portrait = [];
-		selectedImages.forEach( ( image ) => {
-			if ( image.orientation === 'landscape' ) {
-				landscape.push( image );
-			} else {
-				portrait.push( image );
-			}
-		} );
 
-		if ( 0 === landscape.length ) {
-			landscape.push( astraSitesVars?.placeholder_images[ 0 ] );
-		}
-
-		if ( 0 === portrait.length ) {
-			portrait.push( astraSitesVars?.placeholder_images[ 1 ] );
+		if ( 0 === selectedImages.length ) {
+			selectedImages.push( astraSitesVars?.placeholder_images[ 0 ] );
+			selectedImages.push( astraSitesVars?.placeholder_images[ 1 ] );
 		}
 
 		sendPostMessage(
 			{
 				param: 'images',
 				data: {
-					landscape,
-					portrait,
+					...selectedImages,
 				},
 			},
 			uuid

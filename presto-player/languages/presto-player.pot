@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-18T17:10:58+00:00\n"
+"POT-Creation-Date: 2024-03-28T18:01:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -27,7 +27,7 @@ msgstr ""
 #: admin/blocks/blocks/bunny/popup/stream/CollectionHeader.js:98
 #: admin/blocks/blocks/bunny/popup/stream/collections/CreateCollection.js:79
 #: admin/blocks/blocks/bunny/popup/stream/Sidebar.js:158
-#: admin/blocks/blocks/playlist-list-item/Placeholder.js:186
+#: admin/blocks/blocks/playlist-list/create.js:35
 #: admin/blocks/shared/audio-placeholder.js:140
 #: admin/blocks/shared/audio-placeholder.js:144
 #: admin/blocks/shared/audioPresets/Edit.js:340
@@ -75,6 +75,7 @@ msgid "Top Users"
 msgstr ""
 
 #: admin/analytics/components/TopVideos.js:56
+#: admin/blocks/shared/components/SelectMediaDropdown.js:141
 #: admin/integrations/divi/fields/VideoSelector/VideoSelector.jsx:113
 msgid "Untitled"
 msgstr ""
@@ -174,9 +175,11 @@ msgstr ""
 
 #: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:44
 #: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:50
-#: admin/blocks/blocks/playlist-list-item/edit.js:69
-#: admin/blocks/blocks/playlist-list-item/Placeholder.js:101
-#: admin/blocks/blocks/playlist-list-item/Placeholder.js:103
+#: admin/blocks/blocks/playlist-list-item/edit.js:31
+#: admin/blocks/blocks/playlist-list-item/Placeholder.js:53
+#: admin/blocks/blocks/playlist-list-item/Placeholder.js:55
+#: admin/blocks/blocks/playlist-list/create.js:17
+#: admin/blocks/blocks/playlist-list/create.js:19
 #: admin/blocks/shared/chapters/components/Chapter.js:37
 msgid "Title"
 msgstr ""
@@ -531,7 +534,8 @@ msgid "Enter a collection name"
 msgstr ""
 
 #: admin/blocks/blocks/bunny/popup/stream/collections/CreateCollection.js:76
-#: admin/blocks/blocks/playlist-list-item/Placeholder.js:114
+#: admin/blocks/blocks/playlist-list-item/Placeholder.js:66
+#: admin/blocks/blocks/playlist-list/create.js:28
 #: admin/settings/pages/parts/Webhooks/NewWebhook.js:122
 #: Integrations/BeaverBuilder/ReusableVideoModule/Module.php:139
 #: Integrations/Elementor/ReusableVideoWidget.php:150
@@ -739,19 +743,19 @@ msgstr ""
 msgid "Private video self-hosted block."
 msgstr ""
 
-#: admin/blocks/blocks/playlist-list-item/edit.js:67
-#: admin/blocks/blocks/playlist/edit.js:206
+#: admin/blocks/blocks/playlist-list-item/edit.js:29
+#: admin/blocks/blocks/playlist/edit.js:209
 #: admin/settings/app.js:94
 #: admin/settings/pages/General.js:117
 msgid "General"
 msgstr ""
 
-#: admin/blocks/blocks/playlist-list-item/edit.js:76
+#: admin/blocks/blocks/playlist-list-item/edit.js:38
 #: Services/Translation.php:87
 msgid "Duration"
 msgstr ""
 
-#: admin/blocks/blocks/playlist-list-item/edit.js:96
+#: admin/blocks/blocks/playlist-list-item/edit.js:57
 msgid "Title..."
 msgstr ""
 
@@ -760,7 +764,8 @@ msgstr ""
 msgid "Playlist Item"
 msgstr ""
 
-#: admin/blocks/blocks/playlist-list-item/Placeholder.js:91
+#: admin/blocks/blocks/playlist-list-item/Placeholder.js:43
+#: admin/blocks/shared/components/SelectMediaDropdown.js:99
 #: admin/settings/app.js:47
 #: admin/settings/components/Group.js:25
 #: admin/settings/pages/parts/EmailExport.js:39
@@ -768,28 +773,18 @@ msgstr ""
 msgid "Something went wrong"
 msgstr ""
 
-#: admin/blocks/blocks/playlist-list-item/Placeholder.js:123
+#: admin/blocks/blocks/playlist-list-item/Placeholder.js:75
 msgid "Go Back"
 msgstr ""
 
-#: admin/blocks/blocks/playlist-list-item/Placeholder.js:141
-msgid "Select Media"
+#: admin/blocks/blocks/playlist-list/create.js:10
+msgid "Add New Playlist Item"
 msgstr ""
 
-#: admin/blocks/blocks/playlist-list-item/Placeholder.js:142
-msgid "Create or select media"
-msgstr ""
-
-#: admin/blocks/blocks/playlist-list-item/Placeholder.js:143
-msgid "Search"
-msgstr ""
-
-#: admin/blocks/blocks/playlist-list-item/Placeholder.js:162
-msgid "Add New"
-msgstr ""
-
-#: admin/blocks/blocks/playlist-list-item/Placeholder.js:177
-msgid "Add To Playlist"
+#: admin/blocks/blocks/playlist-list/edit.js:21
+#: admin/blocks/shared/media/MediaPopup.js:268
+#: admin/blocks/shared/media/MediaPopupTemplate.js:22
+msgid "Add Media"
 msgstr ""
 
 #: admin/blocks/blocks/playlist-list/index.js:39
@@ -816,31 +811,31 @@ msgstr ""
 msgid "Presto Player Playlist"
 msgstr ""
 
-#: admin/blocks/blocks/playlist/edit.js:168
+#: admin/blocks/blocks/playlist/edit.js:171
 msgid "Highlight Color"
 msgstr ""
 
-#: admin/blocks/blocks/playlist/edit.js:187
+#: admin/blocks/blocks/playlist/edit.js:190
 msgid "Pass highlight color to player"
 msgstr ""
 
-#: admin/blocks/blocks/playlist/edit.js:188
+#: admin/blocks/blocks/playlist/edit.js:191
 msgid "Use the playlist highlight color as player color in case your playlist color is different from your brand."
 msgstr ""
 
-#: admin/blocks/blocks/playlist/edit.js:208
+#: admin/blocks/blocks/playlist/edit.js:211
 msgid "Playlist Title"
 msgstr ""
 
-#: admin/blocks/blocks/playlist/edit.js:214
+#: admin/blocks/blocks/playlist/edit.js:217
 msgid "Playlist Items Text - Singular"
 msgstr ""
 
-#: admin/blocks/blocks/playlist/edit.js:220
+#: admin/blocks/blocks/playlist/edit.js:223
 msgid "Playlist Items Text - Plural"
 msgstr ""
 
-#: admin/blocks/blocks/playlist/edit.js:226
+#: admin/blocks/blocks/playlist/edit.js:229
 msgid "Transition Duration (Seconds)"
 msgstr ""
 
@@ -1385,9 +1380,33 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
+#: admin/blocks/shared/components/EntitySearchDropdown.js:34
+msgid "None found."
+msgstr ""
+
+#: admin/blocks/shared/components/EntitySearchDropdown.js:58
+msgid "Add New"
+msgstr ""
+
+#: admin/blocks/shared/components/EntitySearchDropdown.js:95
+msgid "Load More"
+msgstr ""
+
+#: admin/blocks/shared/components/EntitySearchDropdown.js:138
+msgid "Search..."
+msgstr ""
+
 #: admin/blocks/shared/components/ProBadge.js:5
 #: admin/settings/pages/General.js:135
 msgid "Pro"
+msgstr ""
+
+#: admin/blocks/shared/components/SelectMediaDropdown.js:122
+msgid "Create or select media"
+msgstr ""
+
+#: admin/blocks/shared/components/SelectMediaDropdown.js:135
+msgid "Choose media"
 msgstr ""
 
 #: admin/blocks/shared/components/UrlSelect.js:75
@@ -1412,11 +1431,6 @@ msgstr ""
 
 #: admin/blocks/shared/media/MediaPopup.js:187
 msgid "Please don't navigate away from this page."
-msgstr ""
-
-#: admin/blocks/shared/media/MediaPopup.js:268
-#: admin/blocks/shared/media/MediaPopupTemplate.js:22
-msgid "Add Media"
 msgstr ""
 
 #: admin/blocks/shared/media/MediaPopup.js:300
@@ -1912,7 +1926,7 @@ msgid "Choose an audience"
 msgstr ""
 
 #: admin/blocks/shared/presets/parts/MailchimpConfig.js:75
-#: Services/VideoPostType.php:180
+#: Services/VideoPostType.php:182
 msgid "Tag"
 msgstr ""
 
@@ -2117,12 +2131,12 @@ msgid "Video Options"
 msgstr ""
 
 #: admin/integrations/divi/fields/VideoSelector/VideoSelector.jsx:210
-#: Services/VideoPostType.php:198
+#: Services/VideoPostType.php:200
 msgid "Edit Video"
 msgstr ""
 
 #: admin/integrations/divi/fields/VideoSelector/VideoSelector.jsx:214
-#: Services/VideoPostType.php:197
+#: Services/VideoPostType.php:199
 msgid "New Video"
 msgstr ""
 
@@ -3360,120 +3374,120 @@ msgstr ""
 msgid "Start Over"
 msgstr ""
 
-#: Services/VideoPostType.php:83
+#: Services/VideoPostType.php:85
 msgid "Shortcode"
 msgstr ""
 
-#: Services/VideoPostType.php:84
+#: Services/VideoPostType.php:86
 msgid "PHP Function"
 msgstr ""
 
-#: Services/VideoPostType.php:120
+#: Services/VideoPostType.php:122
 msgid "Enter a title..."
 msgstr ""
 
-#: Services/VideoPostType.php:175
+#: Services/VideoPostType.php:177
 msgctxt "post type general name"
 msgid "Media Tags"
 msgstr ""
 
-#: Services/VideoPostType.php:176
+#: Services/VideoPostType.php:178
 msgctxt "post type singular name"
 msgid "Media Tag"
 msgstr ""
 
-#: Services/VideoPostType.php:177
+#: Services/VideoPostType.php:179
 msgctxt "admin menu"
 msgid "Search Media Tags"
 msgstr ""
 
-#: Services/VideoPostType.php:178
+#: Services/VideoPostType.php:180
 msgctxt "add new on admin bar"
 msgid "Popular Media Tags"
 msgstr ""
 
-#: Services/VideoPostType.php:191
+#: Services/VideoPostType.php:193
 msgctxt "post type general name"
 msgid "Media Hub"
 msgstr ""
 
-#: Services/VideoPostType.php:192
+#: Services/VideoPostType.php:194
 msgctxt "post type singular name"
 msgid "Media"
 msgstr ""
 
-#: Services/VideoPostType.php:193
+#: Services/VideoPostType.php:195
 msgctxt "admin menu"
 msgid "Media"
 msgstr ""
 
-#: Services/VideoPostType.php:194
+#: Services/VideoPostType.php:196
 msgctxt "add new on admin bar"
 msgid "Video"
 msgstr ""
 
-#: Services/VideoPostType.php:195
+#: Services/VideoPostType.php:197
 msgctxt "Video"
 msgid "Add New"
 msgstr ""
 
-#: Services/VideoPostType.php:196
+#: Services/VideoPostType.php:198
 msgid "Add New Video"
 msgstr ""
 
-#: Services/VideoPostType.php:199
+#: Services/VideoPostType.php:201
 msgid "View Video"
 msgstr ""
 
-#: Services/VideoPostType.php:200
+#: Services/VideoPostType.php:202
 msgid "All Videos"
 msgstr ""
 
-#: Services/VideoPostType.php:201
+#: Services/VideoPostType.php:203
 msgid "Search Media"
 msgstr ""
 
-#: Services/VideoPostType.php:202
+#: Services/VideoPostType.php:204
 msgid "No Videos found."
 msgstr ""
 
-#: Services/VideoPostType.php:203
+#: Services/VideoPostType.php:205
 msgid "No Videos found in Trash."
 msgstr ""
 
-#: Services/VideoPostType.php:204
+#: Services/VideoPostType.php:206
 msgid "Filter Videos list"
 msgstr ""
 
-#: Services/VideoPostType.php:205
+#: Services/VideoPostType.php:207
 msgid "Videos list navigation"
 msgstr ""
 
-#: Services/VideoPostType.php:206
+#: Services/VideoPostType.php:208
 msgid "Videos list"
 msgstr ""
 
-#: Services/VideoPostType.php:207
+#: Services/VideoPostType.php:209
 msgid "Video published."
 msgstr ""
 
-#: Services/VideoPostType.php:208
+#: Services/VideoPostType.php:210
 msgid "Video published privately."
 msgstr ""
 
-#: Services/VideoPostType.php:209
+#: Services/VideoPostType.php:211
 msgid "Video reverted to draft."
 msgstr ""
 
-#: Services/VideoPostType.php:210
+#: Services/VideoPostType.php:212
 msgid "Video scheduled."
 msgstr ""
 
-#: Services/VideoPostType.php:211
+#: Services/VideoPostType.php:213
 msgid "Video updated."
 msgstr ""
 
-#: Services/VideoPostType.php:254
+#: Services/VideoPostType.php:256
 msgid "Show all %s"
 msgstr ""
 
