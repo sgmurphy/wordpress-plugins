@@ -14,7 +14,7 @@ function wpfront_ure_widget_permissions_update_widget_title(id) {
     var ROLES_USERS = 4;
 
     $(function () {
-        var $widgets_holder = $('.widget-liquid-right');
+        var $widgets_holder = $('.widget-liquid-right, .block-editor-writing-flow');
         
         $widgets_holder.on('change', 'input.user-restriction-type', function () {
             var $this = $(this);

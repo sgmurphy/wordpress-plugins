@@ -47,7 +47,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on tumblr',
 		'es' => 'Compartir en tumblr',
 		'fi' => 'Jaa tumblrissä',
-		'fr' => 'Partager sur tumblr',
+		'fr' => 'Envoyer par tumblr',
 		'hr' => 'Podijelite na tumblr',
 		'hu' => 'Megosztás tumblren',
 		'it' => 'Condividi su tumblr',

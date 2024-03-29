@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -23,8 +23,8 @@
 
 /**
  * Controller for WPFront User Role Editor Debug
- * @author Jinu Varghese
- * @copyright 2014 WPFront.com
+ * @author Syam Mohan
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE;
@@ -38,8 +38,8 @@ use \WPFront\URE\Options\iWPFront_User_Role_Editor_Settings_Controller;
 /**
  * Debug controller
  *
- * @author Jinu Varghese
- * @copyright 2014 WPFront.com
+ * @author Syam Mohan
+ * @copyright 2014 wpfront.com
  */
 if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Debug')) {
 
@@ -208,9 +208,14 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Debug')) {
             return true;
         }
 
+        /**
+         *
+         * @param string $key
+         * @return boolean
+         */
         public function is_disabled($key) {
             if ($this->debug_enabled() == false) {
-                return;
+                return false;
             }
 
             $obj = $this->get_settings_obj();
@@ -249,6 +254,13 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Debug')) {
             }
 
             return $this->debug_enabled;
+        }
+
+        /**
+         * @return void
+         */
+        public function clear_cache() {
+            $this->settings_obj = null;
         }
 
     }

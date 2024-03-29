@@ -35,7 +35,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on diaspora*',
 		'es' => 'Compartir en diaspora*',
 		'fi' => 'Jaa diaspora*issä',
-		'fr' => 'Partager sur diaspora*',
+		'fr' => 'Envoyer par diaspora*',
 		'hr' => 'Podijelite na diaspora*',
 		'hu' => 'Megosztás diaspora*',
 		'it' => 'Condividi su diaspora*',

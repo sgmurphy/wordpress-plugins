@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Controller for WPFront User Role Editor Delete Role
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Roles;
@@ -42,7 +42,7 @@ if (!class_exists('\WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Delete')) {
      * Delete Role
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Role_Delete extends \WPFront\URE\WPFront_User_Role_Editor_View_Controller {
         
@@ -72,7 +72,6 @@ if (!class_exists('\WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Delete')) {
                 
                 if(!current_user_can($this->get_cap())) {
                     $this->WPFURE->permission_denied();
-                    return true;
                 }
                 
                 $roles = $this->get_delete_data();
@@ -89,20 +88,25 @@ if (!class_exists('\WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Delete')) {
                 
                 return true;
             }
-            
+
+            $delete = false;
             if(!empty($_GET['delete_role'])) {
-                return true;
+                $delete = true;
             }
             
             if(!empty($_POST['action_top']) && $_POST['action_top'] === 'delete' && !empty($_POST['selected-roles'])) {
-                return true;
+                $delete = true;
             }
             
             if(!empty($_POST['action_bottom']) && $_POST['action_bottom'] === 'delete' && !empty($_POST['selected-roles'])) {
-                return true;
+                $delete = true;
+            }
+
+            if($delete && !current_user_can($this->get_cap())) {
+                $this->WPFURE->permission_denied();
             }
             
-            return false;
+            return $delete;
         }
         
         /**

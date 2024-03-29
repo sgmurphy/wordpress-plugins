@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class ISWUpdate020000 extends Wbcr_Factory458_Update {
+class ISWUpdate020000 extends Wbcr_Factory474_Update {
 
 	public function install() {
 		require_once WIS_PLUGIN_DIR . "/includes/class-feeds.php";

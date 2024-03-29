@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Controller for WPFront User Role Editor Bulk Edit
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Bulk_Edit;
@@ -48,7 +48,7 @@ if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Bulk_Edit')) 
      * Bulk Edit class
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Bulk_Edit extends \WPFront\URE\WPFront_User_Role_Editor_View_Controller {
         const MENU_SLUG = 'wpfront-user-role-editor-bulk-edit';
@@ -83,7 +83,7 @@ if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Bulk_Edit')) 
                 return;
             }
             
-            $controllers = self::instance()->get_controllers();
+            $controllers = $this->get_controllers();
             if(empty($controllers)) {
                 return;
             }

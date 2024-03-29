@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -24,8 +24,8 @@
 /**
  * Template for WPFront User Role Editor Post Type
  *
- * @author Vaisagh D <vaisaghd@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @author Syam Mohan <syam@wpfront.com>
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Post_Type;
@@ -47,6 +47,12 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_List
          * @var WPFront_User_Role_Editor_Post_Type 
          */
         private $controller;
+
+        /**
+         *
+         * @var WPFront_User_Role_Editor_Post_Type
+         */
+        private $PostType;
 
         /**
          * 

@@ -2,7 +2,7 @@
 
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,8 +25,8 @@
 /**
  * Controller for WPFront User Role Editor Read Others Custom Capabilities.
  *
- * @author Jinu Varghese
- * @copyright 2014 WPFront.com
+ * @author Syam Mohan
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Post_Type\Custom_Caps;
@@ -42,8 +42,8 @@ if (!class_exists('\WPFront\URE\Post_Type\Custom_Caps\WPFront_User_Role_Editor_R
     /**
      * Read others capability class
      *
-     * @author Jinu Varghese
-     * @copyright 2014 WPFront.com
+     * @author Syam Mohan
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Read_Others_Capability extends WPFront_User_Role_Editor_Post_Type_Custom_Capability {
 

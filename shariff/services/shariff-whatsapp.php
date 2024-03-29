@@ -42,7 +42,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on Whatsapp',
 		'es' => 'Compartir en Whatsapp',
 		'fi' => 'Jaa WhatsAppissä',
-		'fr' => 'Partager sur Whatsapp',
+		'fr' => 'Envoyer par Whatsapp',
 		'hr' => 'Podijelite na Whatsapp',
 		'hu' => 'Megosztás WhatsAppen',
 		'it' => 'Condividi su Whatsapp',

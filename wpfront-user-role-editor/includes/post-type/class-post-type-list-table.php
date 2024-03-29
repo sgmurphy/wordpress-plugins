@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -24,8 +24,8 @@
 /**
  * WPFront User Role Editor Post Type List Table
  *
- * @author Vaisagh D <vaisaghd@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @author Syam Mohan <syam@wpfront.com>
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Post_Type;
@@ -43,8 +43,8 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Lis
     /**
      * Post Type List Table
      *
-     * @author Vaisagh D <vaisaghd@wpfront.com>
-     * @copyright 2015 WPFront.com
+     * @author Syam Mohan <syam@wpfront.com>
+     * @copyright 2015 wpfront.com
      */
     class WPFront_User_Role_Editor_Post_Type_List_Table extends \WP_List_Table {
 
@@ -78,6 +78,10 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Lis
             ));
         }
 
+        /**
+         * 
+         * @return array
+         */
         function get_bulk_actions() {
             $actions = array();
 
@@ -94,6 +98,10 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Lis
             return $actions;
         }
 
+        /**
+         * 
+         * @return array
+         */
         function get_columns() {
             $columns = array(
                 'cb' => '<input type="checkbox" />',
@@ -110,9 +118,9 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Lis
 
         function display_rows() {
             foreach ($this->items as $item) {
-                $alt = empty($alt) ? 'alternate' : '';
+                $alt = empty($alt) ? 'alternate ' : '';
                 ?>
-                <tr class="<?php echo $alt; ?>">
+                <tr class="<?php echo $alt; echo esc_attr($item->name); ?>">
                     <?php
                     list( $columns, $hidden ) = $this->get_column_info();
 
@@ -162,6 +170,10 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Lis
             }
         }
 
+        /**
+         * 
+         * @param stdClass $item
+         */
         protected function cb_cell($item) {
             ?>
             <th scope="row" class="check-column">
@@ -173,6 +185,11 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Lis
             <?php
         }
 
+        /**
+         * 
+         * @param stdClass $item
+         * @param string $attributes
+         */
         protected function name_cell($item, $attributes) {
             ?>
 
@@ -227,6 +244,10 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Lis
             <?php
         }
 
+        /**
+         * 
+         * @param stdClass $item
+         */
         protected function label_cell($item) {
             ?>
             <td class="label column-label">
@@ -235,6 +256,10 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Lis
             <?php
         }
 
+        /**
+         * 
+         * @param stdClass $item
+         */
         protected function source_cell($item) {
             ?>
             <td class="source column-source">
@@ -257,6 +282,10 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Lis
             <?php
         }
 
+        /**
+         * 
+         * @param stdClass $item
+         */
         protected function status_cell($item) {
             $i = '';
             ?>
@@ -277,6 +306,11 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Lis
             <?php
         }
 
+        /**
+         * 
+         * @param stdClass $item
+         * @return void
+         */
         protected function taxonomies_cell($item) {
             ?>
             <td class="taxonomies column-taxonomies">
@@ -299,6 +333,10 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Lis
             <?php
         }
 
+        /**
+         * 
+         * @param stdClass $item
+         */
         protected function edited_cell($item) {
             $i = '';
             if (!empty($item->entity)) {

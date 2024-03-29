@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Cache for WPFront User Role Editor
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE;
@@ -40,7 +40,7 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Cache')) {
      * Cache class
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     abstract class WPFront_User_Role_Editor_Cache {
         
@@ -108,6 +108,16 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Cache')) {
             }
             
             wp_cache_delete($key, $this->global_group);
+        }
+
+        /**
+         * Returns the current objects cache group name
+         *
+         * @return string
+         */
+        protected function get_cache_group()
+        {
+            return $this->group;
         }
         
     }

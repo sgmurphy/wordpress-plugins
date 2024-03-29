@@ -38,7 +38,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on Mix',
 		'es' => 'Compartir en Mix',
 		'fi' => 'Jaa Mixissa',
-		'fr' => 'Partager sur Mix',
+		'fr' => 'Envoyer par Mix',
 		'hr' => 'Podijelite na Mix',
 		'hu' => 'Megosztás Mix',
 		'it' => 'Condividi su Mix',

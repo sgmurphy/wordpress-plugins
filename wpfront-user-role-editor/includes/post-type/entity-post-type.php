@@ -2,7 +2,7 @@
 
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,8 +25,8 @@
 /**
  * Entity for WPFront User Role Editor Post Type
  *
- * @author Vaisagh D <vaisaghd@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @author Syam Mohan <syam@wpfront.com>
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Post_Type;
@@ -35,13 +35,13 @@ if (!defined('ABSPATH')) {
     exit();
 }
 
-if (!class_exists('WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Post_Type_Entity')) {
+if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Entity')) {
 
     /**
      * Post Type Entity
      *
-     * @author Vaisagh D <vaisaghd@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @author Syam Mohan <syam@wpfront.com>
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Post_Type_Entity extends \WPFront\URE\WPFront_User_Role_Editor_Entity_Base {
 
@@ -55,7 +55,7 @@ if (!class_exists('WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Post_Type
         /**
          * Post Type Name.
          * 
-         * @var text
+         * @var string
          */
         public $name;
 
@@ -76,7 +76,7 @@ if (!class_exists('WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Post_Type
         /**
          * Post Type Object.
          * 
-         * @var \WP_Post_Type 
+         * @var array<string,mixed>
          */
         public $post_type_arg;
 
@@ -241,10 +241,9 @@ if (!class_exists('WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Post_Type
         }
 
         /**
-         * Returns all post types.
+         * Returns all post type entities.
          * 
-         * @param string $role
-         * @return bool
+         * @return array<string,WPFront_User_Role_Editor_Post_Type_Entity>
          */
         public function get_all() {
             $data = $this->cache_get('all_post_types');
@@ -265,7 +264,7 @@ if (!class_exists('WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Post_Type
                 $entity = new WPFront_User_Role_Editor_Post_Type_Entity();
 
                 $entity->id = intval($value->id);
-                $entity->name = $value->name;
+                $entity->name = strval($value->name);
                 $entity->label = $value->label;
                 $entity->status = intval($value->status);
                 $entity->post_type_arg = maybe_unserialize($value->post_type_arg);
@@ -300,6 +299,12 @@ if (!class_exists('WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Post_Type
             return !empty($result);
         }
 
+        /**
+         * 
+         * @global \wpdb $wpdb
+         * @param string $taxonomy
+         * @param array $post_types
+         */
         public function sync_taxonomies($taxonomy, $post_types) {
             $tablename = $this->table_name();
 
@@ -345,6 +350,11 @@ if (!class_exists('WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Post_Type
             $this->cache_flush();
         }
 
+        /**
+         * 
+         * @param string $post_type
+         * @param array $taxonomies
+         */
         protected function sync($post_type, $taxonomies) {
             $entity = new \WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies_Entity();
             $entity->sync_post_types($post_type, $taxonomies);

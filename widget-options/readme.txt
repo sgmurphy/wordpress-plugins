@@ -4,7 +4,7 @@ Tags: widgets, blocks, blocks control, gutenberg widgets, classic widgets
 Requires at least: 5.6
 Tested up to: 6.4.3
 Requires PHP: 7.4
-Stable tag: 4.0.5
+Stable tag: 4.0.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -192,6 +192,10 @@ Widget Options is a featured pack fully lightweight plugin. Using Query Monitor 
 
 == Changelog ==
 
+= 4.0.5.1 =
+
+* Fixed: Notification about the new features
+
 = 4.0.5 =
 
 * Added: Additional options for category visibility, can now select Archive and Single posts, Archive only, or Singe Posts only 
@@ -201,7 +205,8 @@ Widget Options is a featured pack fully lightweight plugin. Using Query Monitor 
 * Fixed: Compatibility issue with All In One SEO plugin
 * Fixed: Compatibility issue with Woo Pick List plugin
 * Fixed: Compatibility issue with Jetpack
-* Fixed: Compatibility issue with Table of Content lugin
+* Fixed: Compatibility issue with Table of Content plugin
+* Fixed: Compatibility issue with WP Recipe plugin
 * Fixed: Devices Restriction, condition now working in mobile
 
 = 4.0.4 =

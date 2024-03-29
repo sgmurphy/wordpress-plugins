@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Utilities for WPFront User Role Editor
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE;
@@ -42,7 +42,7 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Utils')) {
      * Utils class
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Utils {
         
@@ -97,7 +97,7 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Utils')) {
          * @return boolean
          */
         public static function doing_ajax() {
-            if (defined('DOING_AJAX') && DOING_AJAX) {
+            if(wp_doing_ajax()) {
                 return true;
             }
 
@@ -146,6 +146,40 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Utils')) {
                 </p>
             </div>
             <?php
+        }
+        
+        public static function encrypt($data) {
+            $method = 'AES-256-CBC';
+            
+            $key = wp_salt();
+            $iv = wp_salt('secure_auth');
+            
+            $key = hash('sha256', $key);
+            
+            $iv = hash('sha256', $iv);
+            $iv = substr($iv, 0, 16);
+            
+            $result = openssl_encrypt($data, $method, $key, 0, $iv);
+            $result = base64_encode($result);
+            
+            return $result;
+        }
+        
+        public static function decrypt($data) {
+            $method = 'AES-256-CBC';
+            
+            $key = wp_salt();
+            $iv = wp_salt('secure_auth');
+            
+            $key = hash('sha256', $key);
+            
+            $iv = hash('sha256', $iv);
+            $iv = substr($iv, 0, 16);
+            
+            $data = base64_decode($data);
+            $result = openssl_decrypt($data, $method, $key, 0, $iv);
+            
+            return $result;
         }
     }
     

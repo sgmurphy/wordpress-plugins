@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Template for WPFront User Role Editor Role Delete
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Roles;
@@ -86,6 +86,10 @@ if(!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Delete_View'))
             }
         }
         
+        /**
+         * 
+         * @param stdClass $data
+         */
         protected function display_role_data($data) {
             printf('%s: <strong>%s</strong> [<strong>%s</strong>]', __('Role', 'wpfront-user-role-editor'), esc_html($data->name), esc_html($data->display_name));
             if(!empty($data->status_message)) {

@@ -35,7 +35,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on tencent weibo',
 		'es' => 'Compartir en tencent weibo',
 		'fi' => 'Jaa tencent weiboissä',
-		'fr' => 'Partager sur tencent weibo',
+		'fr' => 'Envoyer par tencent weibo',
 		'hr' => 'Podijelite na tencent weibo',
 		'hu' => 'Megosztás tencent weiboen',
 		'it' => 'Condividi su tencent weibo',

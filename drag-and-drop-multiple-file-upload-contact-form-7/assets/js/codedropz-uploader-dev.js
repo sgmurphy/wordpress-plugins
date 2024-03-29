@@ -1,8 +1,8 @@
 /**
- * CodeDropz Uploader v1.3.7.5
+ * CodeDropz Uploader v1.3.7.7
  * Copyright 2018 Glen Mongaya
  * CodeDrop Drag&Drop Uploader
- * @version 1.3.7.5
+ * @version 1.3.7.7
  * @author CodeDropz, Glen Don L. Mongaya
  * @license The MIT License (MIT)
  */
@@ -44,7 +44,7 @@
 					+ '<div class="codedropz-upload-inner">'
 						+ '<'+ dnd_cf7_uploader.drag_n_drop_upload.tag +'>'+ options.text +'</'+ dnd_cf7_uploader.drag_n_drop_upload.tag +'>'
 						+ '<span>'+ options.separator +'</span>'
-						+'<div class="codedropz-btn-wrap"><a class="cd-upload-btn" href="javascript:void(0)">'+ options.button_text +'</a></div>'
+						+'<div class="codedropz-btn-wrap"><a class="cd-upload-btn" href="#">'+ options.button_text +'</a></div>'
 						+'</div>'
 					+ '</div>'
 					+ '<span class="dnd-upload-counter"><span>0</span> '+ dnd_cf7_uploader.dnd_text_counter +' '+ parseInt(options.max_file) +'</span>'
@@ -104,7 +104,7 @@
 				// Run the uploader
 				DND_Setup_Uploader( this.files, 'click' );
 			});
-           
+
             // Remove accept attribute on mobile devices
             if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
                 input.removeAttr('accept');
@@ -257,7 +257,7 @@
 					var fileDetails = '<div class="dnd-upload-image"><span class="file"></span></div>'
 					+ '<div class="dnd-upload-details">'
 						+ '<span class="name"><span>'+ file.name +'</span><em>('+ CodeDropz_Object.bytesToSize( file.size ) +')</em></span>'
-						+ '<a href="javascript:void(0)" title="'+ dnd_cf7_uploader.drag_n_drop_upload.delete.title +'" class="remove-file" data-storage="'+ dataStorageName +'"><span class="dnd-icon-remove"></span></a>'
+						+ '<a href="#" title="'+ dnd_cf7_uploader.drag_n_drop_upload.delete.title +'" class="remove-file" data-storage="'+ dataStorageName +'"><span class="dnd-icon-remove"></span></a>'
 						+ '<span class="dnd-progress-bar"><span></span></span>'
 					+ '</div>';
 
@@ -278,10 +278,10 @@
 
 						// Compute Progress bar
 						progress_width = ( percent * statusBar.width() / 100);
-                        
+
                         // Set status bar in-progress
                         $('#' + statusbar).addClass('in-progress');
-                        
+
                         if( percent == 100 ) {
                             $('span', statusBar ).width('100%').text( percent + '% ' );
                         }else {
@@ -318,6 +318,7 @@
 
 		// Remove File
 		$(document).on("click",'.dnd-icon-remove',function(e){
+			e.preventDefault();
 			var _self = $(this),
 				_dnd_status = _self.parents('.dnd-upload-status'),
 				_parent_wrap = _self.parents('.codedropz-upload-wrapper'),

@@ -4,12 +4,12 @@ Donate link: http://davidlingren.com/#donate
 Tags: categories, images, media, media library, tags
 Requires at least: 4.1
 Tested up to: 6.5
-Stable tag: 3.14
+Stable tag: 3.15
 Requires PHP: 5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Enhances the Media Library; powerful [mla_gallery] [mla_tag_cloud] [mla_term_list] [mla_custom_list], taxonomy support, IPTC/EXIF/XMP/PDF processing, bulk/quick edit.
+Enhances the Media Library; powerful gallery and list shortcodes, full taxonomy support, IPTC/EXIF/XMP/PDF processing, bulk/quick edit.
 
 == Description ==
 
@@ -79,7 +79,7 @@ If you find the Media Library Assistant plugin useful and would like to support 
 
 1. Use the `[mla_gallery]` shortcode to add galleries of images, documents and more to your posts and pages
 
-1. Use the `[mla_tag_cloud]`, `[mla_term_list]` and `mla_custom_list]` shortcodes to add clickable lists of taxonomy terms and custom field values to your posts and pages
+1. Use the `[mla_tag_cloud]`, `[mla_term_list]` and `[mla_custom_list]` shortcodes to add clickable lists of taxonomy terms and custom field values to your posts and pages
 
 == Frequently Asked Questions ==
 
@@ -186,6 +186,9 @@ All of the MLA source code has been annotated with "DocBlocks", a special type o
 9. The Media Manager popup modal window showing additional filters for date and taxonomy terms. Also shows the enhanced Search Media box and the full-function taxonomy support in the ATTACHMENT DETAILS area.
 
 == Changelog ==
+
+= 3.15 =
+* Fix: Eliminate PHP Fatal Error when accessing Example Plugins from the Settings/Media Library Assistant Documentation tab.
 
 = 3.14 =
 * New: Four new field-level prefix values provide access to the custom fields and taxonomy terms of an item's parent or the post/page in which the `[mla_gallery]` shortcode occurs.
@@ -356,8 +359,8 @@ All of the MLA source code has been annotated with "DocBlocks", a special type o
 
 == Upgrade Notice ==
 
-= 3.14 =
-IMPORTANT: WordPress 6.5 updates and two security fixes. New and enhanced example plugins. Shortcode enhancements. Seven enhancements in all, eleven fixes.
+= 3.15 =
+IMPORTANT: Eliminate PHP Fatal Error when accessing Example Plugins from the Settings/Media Library Assistant Documentation tab.
 
 == Acknowledgements ==
 

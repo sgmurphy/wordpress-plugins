@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Template for WPFront User Role Editor Login Redirect Add Edit
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Login_Redirect;
@@ -83,8 +83,8 @@ if(!class_exists('WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Login_Redi
                     <?php echo __('Add New Login Redirect', 'wpfront-user-role-editor'); ?>
                     <p><?php echo __('Enter the URL where the user will be redirected after login or on wp-admin access.', 'wpfront-user-role-editor'); ?></p>
                 </h2>
-                <div id="login-redirect-custom-role-disabled" class="error below-h2 hidden">
-                    <p><?php echo __('Custom roles not supported in free version.', 'wpfront-user-role-editor') . ' ' . sprintf('<a target="_blank" href="https://wpfront.com/lgnred">%s</a>', __('Upgrade to Pro.', 'wpfront-user-role-editor')); ?></p>
+                <div id="login-redirect-custom-role-disabled" class="notice error below-h2 hidden">
+                    <p><?php echo __('Custom roles are not supported in free version.', 'wpfront-user-role-editor') . ' ' . sprintf('<a target="_blank" href="https://wpfront.com/lgnred">%s</a>', __('Upgrade to Pro.', 'wpfront-user-role-editor')); ?></p>
                 </div>
                 <?php
             } else {

@@ -38,7 +38,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on Threema',
 		'es' => 'Compartir en Threema',
 		'fi' => 'Jaa Threemaissä',
-		'fr' => 'Partager sur Threema',
+		'fr' => 'Envoyer par Threema',
 		'hr' => 'Podijelite na Threema',
 		'hu' => 'Megosztás Threemaen',
 		'it' => 'Condividi su Threema',

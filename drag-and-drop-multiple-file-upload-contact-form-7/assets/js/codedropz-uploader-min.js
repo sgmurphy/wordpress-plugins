@@ -1,8 +1,8 @@
 /**
- * CodeDropz Uploader v1.3.7.5
+ * CodeDropz Uploader v1.3.7.7
  * Copyright 2018 Glen Mongaya
  * CodeDrop Drag&Drop Uploader
- * @version 1.3.7.5
+ * @version 1.3.7.7
  * @author CodeDropz, Glen Don L. Mongaya
  * @license The MIT License (MIT)
  */
@@ -58,7 +58,7 @@
                 <div class="codedropz-upload-inner">
                     <${dnd_cf7_uploader.drag_n_drop_upload.tag}>${options.text}</${dnd_cf7_uploader.drag_n_drop_upload.tag}>
                     <span>${options.separator}</span>
-                    <div class="codedropz-btn-wrap"><a class="cd-upload-btn" href="javascript:void(0)">${options.button_text}</a></div>
+                    <div class="codedropz-btn-wrap"><a class="cd-upload-btn" href="#">${options.button_text}</a></div>
                 </div>
                 </div>
                 <span class="dnd-upload-counter"><span>0</span> ${dnd_cf7_uploader.dnd_text_counter} ${parseInt(options.max_file)}</span>
@@ -129,7 +129,7 @@
             // Run the uploader
             DND_Setup_Uploader(this.files, 'click');
         });
-        
+
         // Remove accept attribute on mobile devices
         if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
             input.removeAttribute('accept');
@@ -211,7 +211,7 @@
 
                 // Increment count
                 localStorage.setItem( dataStorageName, ( Number( localStorage.getItem( dataStorageName ) ) + 1 ) );
-            
+
                 // Make sure there's no error
                 if( has_error === false ) {
 
@@ -298,7 +298,7 @@
                     </div>
                     <div class="dnd-upload-details">
                         <span class="name"><span>${file.name}</span><em>(${CodeDropz_Object.bytesToSize(file.size)})</em></span>
-                        <a href="javascript:void(0)" title="${dnd_cf7_uploader.drag_n_drop_upload.delete.title}" class="remove-file" data-storage="${dataStorageName}">
+                        <a href="#" title="${dnd_cf7_uploader.drag_n_drop_upload.delete.title}" class="remove-file" data-storage="${dataStorageName}">
                         <span class="dnd-icon-remove"></span>
                         </a>
                         <span class="dnd-progress-bar"><span></span></span>
@@ -380,19 +380,20 @@
     document.addEventListener("click", function(e) {
         if( !e.target.classList.contains("dnd-icon-remove") ) return;
 
+		e.preventDefault();
         var _self = e.target,
             _dnd_status = _self.closest(".dnd-upload-status"),
             _parent_wrap = _self.closest(".codedropz-upload-wrapper"),
             removeStorageData = _self.parentElement.getAttribute("data-storage"),
             storageCount = Number(localStorage.getItem(removeStorageData));
-        
+
         // Direct remove the file if there's any error.
         if (_dnd_status.classList.contains("in-progress") || _dnd_status.querySelector(".has-error")) {
             _dnd_status.remove();
             localStorage.setItem(removeStorageData, storageCount - 1);
             return false;
         }
-        
+
         // Change text Status
         _self.classList.add("deleting");
         _self.textContent = dnd_cf7_uploader.drag_n_drop_upload.delete.text + "...";
@@ -407,9 +408,9 @@
                 if (response.success) {
 
                     // Reduce file count and status bar element.
-                    _dnd_status.remove();   
+                    _dnd_status.remove();
                     localStorage.setItem(removeStorageData, storageCount - 1);
-                    
+
                     // Remove error msg
                     if ( _parent_wrap.querySelectorAll(".dnd-upload-status").length <= 1 ){
                         if( _parent_wrap.querySelector(".has-error-msg") ){
@@ -469,7 +470,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 statEl.remove();
             });
         }
-        
+
         if (counter) {
             counter.textContent = '0';
         }
@@ -514,7 +515,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     // If it's complete remove disabled attribute in button
                     if ( ( span && span.classList.contains('optional') ) || ! span || checkboxInput.checked || form.classList.contains('wpcf7-acceptance-as-validation')) {
-                        setTimeout(function(){ 
+                        setTimeout(function(){
                             const submitButton = form.querySelector('button[type=submit], input[type=submit]');
                             if( submitButton ){
                                 submitButton.removeAttribute('disabled');
@@ -536,7 +537,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         });
 
-		
+
 
 	}
 

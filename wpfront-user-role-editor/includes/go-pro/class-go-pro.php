@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Controller for WPFront User Role Editor Go Pro
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Go_Pro;
@@ -42,7 +42,7 @@ if (!class_exists('\WPFront\URE\Go_Pro\WPFront_User_Role_Editor_Go_Pro')) {
      * Go Pro class
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Go_Pro extends \WPFront\URE\WPFront_User_Role_Editor_View_Controller {
         

@@ -38,7 +38,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on SMS',
 		'es' => 'Compartir en SMS',
 		'fi' => 'Jaa SMS',
-		'fr' => 'Partager sur SMS',
+		'fr' => 'Envoyer par SMS',
 		'hr' => 'Podijelite na SMS',
 		'hu' => 'Megosztás SMS',
 		'it' => 'Condividi su SMS',

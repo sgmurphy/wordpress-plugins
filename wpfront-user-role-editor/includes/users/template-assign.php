@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Template for WPFront User Role Editor Assign
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Assign_Migrate;
@@ -215,6 +215,12 @@ if (!class_exists('WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_Assign_Vi
                                 var page_url = <?php echo json_encode(AssignMigrate::instance()->get_self_url() . '&user=') ?>;
                                 window.location.replace(page_url + ui.item.value);
                                 return false;
+                            },
+                            focus: function (event, ui) {
+                                if (ui.item.label) {
+                                    $(this).val(ui.item.label);
+                                    event.preventDefault();
+                                }
                             },
                             change: function (event, ui) {
                                 if (!ui.item) {

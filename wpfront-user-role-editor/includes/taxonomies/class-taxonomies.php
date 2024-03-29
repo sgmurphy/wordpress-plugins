@@ -2,7 +2,7 @@
 
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,8 +25,8 @@
 /**
  * Controller for WPFront User Role Editor Taxonomies
  *
- * @author Vaisagh D <vaisaghd@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @author Syam Mohan <syam@wpfront.com>
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Taxonomies;
@@ -47,8 +47,8 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
     /**
      * Taxonomies List class
      *
-     * @author Vaisagh D <vaisaghd@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @author Syam Mohan <syam@wpfront.com>
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Taxonomies extends \WPFront\URE\WPFront_User_Role_Editor_View_Controller {
 
@@ -142,6 +142,10 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             return $args;
         }
 
+        /**
+         * 
+         * @param string $taxonomy
+         */
         public function attach_post_types_on_taxonomy_registration($taxonomy) {
             $entity_all = $this->get_all_entities();
             if (isset($entity_all[$taxonomy])) {
@@ -179,8 +183,8 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             if (!isset($this->taxonomy_args[$taxonomy])) {
                 return;
             }
-            
-            if(isset($this->taxonomy_args[$taxonomy]['labels'])) {
+
+            if (isset($this->taxonomy_args[$taxonomy]['labels'])) {
                 $this->taxonomy_args[$taxonomy]['labels'] = (array) $this->taxonomy_args[$taxonomy]['labels']; //fix if the param supplied is not array
             } else {
                 $this->taxonomy_args[$taxonomy]['labels'] = array();
@@ -274,6 +278,12 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             return;
         }
 
+        /**
+         * 
+         * @param string $screen
+         * @param array $datas
+         * @return void
+         */
         private function activate_deactivate_taxonomies($screen, $datas = null) {
             switch ($screen) {
                 case 'activate':
@@ -343,6 +353,11 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             exit;
         }
 
+        /**
+         * 
+         * @param string $screen
+         * @return void
+         */
         protected function add_edit_taxonomies($screen) {
             $data = null;
             $clone = null;
@@ -406,7 +421,7 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
                         'post_mime_type', 'post_status', 'post_tag', 'post_type', 'posts', 'posts_per_archive_page', 'posts_per_page', 'preview', 'robots',
                         's', 'search', 'second', 'sentence', 'showposts', 'static', 'status', 'subpost', 'subpost_id', 'tag', 'tag__and', 'tag__in', 'tag__not_in',
                         'tag_id', 'tag_slug__and', 'tag_slug__in', 'taxonomy', 'tb', 'term', 'terms', 'theme', 'title', 'type', 'types', 'w', 'withcomments', 'withoutcomments',
-                        'year'
+                        'year', 'tags', 'categories'
                     ];
                     if (in_array($name, $reserved)) {
                         $this->errorMsg = __('This taxonomy name is reserved and can not be added.', 'wpfront-user-role-editor');
@@ -426,7 +441,7 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
                     }
                 }
 
-                $labels = $this->get_submitted_text('label');
+                $labels = sanitize_text_field($this->get_submitted_text('label'));
                 if (empty($labels)) {
                     $this->errorMsg = __('Plural label must be provided.', 'wpfront-user-role-editor');
                     return;
@@ -434,7 +449,7 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
 
                 $entity->label = $labels; //WordPress stores plural on label.
 
-                $label = $this->get_submitted_text('singular_name');
+                $label = sanitize_text_field($this->get_submitted_text('singular_name'));
                 if (empty($label)) {
                     $this->errorMsg = __('Singular label must be provided.', 'wpfront-user-role-editor');
                     return;
@@ -481,6 +496,11 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             }
         }
 
+        /**
+         * 
+         * @param string $action
+         * @param array $datas
+         */
         private function handle_action($action, $datas = null) {
             switch ($action) {
                 case 'delete':
@@ -536,10 +556,21 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             $this->objView = new WPFront_User_Role_Editor_Taxonomy_Delete_View($this, $entities, $action);
         }
 
+        /**
+         * 
+         * @param string $screen
+         * @param array $taxonomy_args
+         * @param WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies_Entity $entity
+         * @return array
+         */
         protected function sanitize_add_edit_taxonomy_args($screen, $taxonomy_args, $entity) {
             return $taxonomy_args;
         }
 
+        /**
+         * 
+         * @return array
+         */
         private function get_labels_arg() {
             $args = array();
             $args['name'] = $this->get_submitted_text('label');
@@ -568,8 +599,8 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
                 'back_to_items'
             ];
             foreach ($props as $prop) {
-                $value = $this->get_submitted_text($prop);
-                if ($value !== null) {
+                $value = sanitize_text_field($this->get_submitted_text($prop));
+                if (!empty($value)) {
                     $args[$prop] = $value;
                 }
             }
@@ -578,6 +609,10 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             return $args;
         }
 
+        /**
+         * 
+         * @return array
+         */
         private function get_advanced_settings_arg() {
             $args = array();
 
@@ -592,6 +627,23 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
                     $args[$prop] = $value;
                 }
             }
+
+            if (isset($args['rest_base'])) {
+                $rest_base = sanitize_key($args['rest_base']);
+                if ($args['rest_base'] != $rest_base) {
+                    $this->errorMsg = __('This "REST Base" is not allowed (Use only lowercase letters, numbers, underscores and hyphens).', 'wpfront-user-role-editor');
+                    return;
+                }
+            }
+
+            if (isset($args['rest_controller_class'])) {
+                $rest_controller_class = sanitize_text_field($args['rest_controller_class']);
+                if ($args['rest_controller_class'] != $rest_controller_class) {
+                    $this->errorMsg = __('This "REST Controller Class" name is not allowed.', 'wpfront-user-role-editor');
+                    return;
+                };
+            }
+
 
             $props = [
                 'public',
@@ -618,7 +670,13 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             if (!empty($args['query_var'])) {
                 $slug = $this->get_submitted_text('query_var_slug');
                 if ($slug !== null) {
-                    $args['query_var'] = $slug;
+                    $sanitized_slug = sanitize_key($slug);
+                    if ($sanitized_slug != $slug) {
+                        $this->errorMsg = __('This "Query Var" is not allowed.', 'wpfront-user-role-editor');
+                        return;
+                    } else {
+                        $args['query_var'] = $slug;
+                    }
                 }
             }
 
@@ -732,6 +790,10 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             return $taxonomies;
         }
 
+        /**
+         * 
+         * @return string
+         */
         public function get_active_list_filter() {
             if (empty($_GET['list'])) {
                 return 'all';
@@ -756,6 +818,10 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             return $list;
         }
 
+        /**
+         * 
+         * @return array
+         */
         protected function get_all_entities() {
             if ($this->entities !== null) {
                 return $this->entities;
@@ -764,19 +830,42 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             $entity = new WPFront_User_Role_Editor_Taxonomies_Entity();
             $this->entities = $entity->get_all();
 
+			//remove empty labels
+            foreach ($this->entities as $tax => $entity) {
+                if(isset($entity->taxonomy_arg["labels"])) {
+                    $labels = $entity->taxonomy_arg["labels"];
+                    foreach ($labels as $key => $label) {
+                        if(empty($label)) {
+                            unset($labels[$key]);
+                        }
+                    }
+                    $entity->taxonomy_arg["labels"] = $labels;
+                }
+            }
+
             $this->entities = $this->sanitize_pro_fields($this->entities);
 
             return $this->entities;
         }
 
+        /**
+         * 
+         * @param array $entities
+         * @return array
+         */
         protected function sanitize_pro_fields($entities) {
-            foreach ($entities as $post_type => $entity) {
+            foreach ($entities as $tax => $entity) {
                 $entity->capability_type = null;
             }
 
             return $entities;
         }
-
+                
+        /**
+         * 
+         * @param string $search
+         * @return array
+         */
         public function search($search) {
             $taxonomies = $this->get_all_taxonomies_data();
             $taxonomies = $this->sort_taxonomies_data($taxonomies);
@@ -800,6 +889,11 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             return $taxonomies;
         }
 
+        /**
+         * 
+         * @param array $taxonomies
+         * @return array
+         */
         protected function sort_taxonomies_data($taxonomies) {
             $built_in_taxonomies = array();
             $other_taxonomies = array();
@@ -828,6 +922,10 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             return array_merge($built_in_taxonomies, $other_taxonomies, $user_defined_taxonomies);
         }
 
+        /**
+         * 
+         * @return array
+         */
         public function get_list_filter_data() {
             $filter_data = array();
             $built_in = [];
@@ -897,6 +995,10 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             $this->taxonomies_cache_clear = true;
         }
 
+        /**
+         * 
+         * @return array
+         */
         public function get_all_taxonomies_data() {
             if (!$this->taxonomies_cache_clear && !empty($this->taxonomies_cache)) {
                 return $this->taxonomies_cache;
@@ -1071,6 +1173,10 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             return $this->get_self_url(['screen' => 'delete', 'name' => $name]);
         }
 
+        /**
+         * 
+         * @return string
+         */
         public function get_edit_url($name) {
             return $this->get_self_url(['screen' => 'edit', 'name' => $name]);
         }
@@ -1084,6 +1190,10 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             return $this->get_add_new_url($name);
         }
 
+        /**
+         * 
+         * @return string
+         */
         public function get_restore_url($name) {
             if (empty($name)) {
                 return $this->get_self_url(['screen' => 'restore']);
@@ -1092,6 +1202,11 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             return $this->get_self_url(['screen' => 'restore', 'name' => $name]);
         }
 
+        /**
+         * 
+         * @param string $name
+         * @return null|string
+         */
         protected function get_submitted_text($name) {
             if (empty($_POST[$name])) {
                 return null;
@@ -1106,6 +1221,11 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             return $txt;
         }
 
+        /**
+         * 
+         * @param string $name
+         * @return bool|null
+         */
         protected function get_submitted_boolean($name) {
             if (isset($_POST[$name]) && $_POST[$name] == '') {
                 return null;
@@ -1114,6 +1234,11 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             return !empty($_POST[$name]);
         }
 
+        /**
+         * 
+         * @param string $name
+         * @return array
+         */
         private function get_submitted_array($name) {
             if (!empty($_POST[$name]) && is_array($_POST[$name])) {
                 return $_POST[$name];
@@ -1122,6 +1247,11 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             return [];
         }
 
+        /**
+         * 
+         * @param string $taxonomy
+         * @return stdClass|null
+         */
         public function get_taxonomy_data($taxonomy) {
             $lists = $this->get_all_taxonomies_data();
             if (!empty($lists[$taxonomy])) {
@@ -1131,6 +1261,10 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             return null;
         }
 
+        /**
+         * 
+         * @return stdClass
+         */
         protected function get_taxonomy_data_from_url() {
             if (empty($_GET['name'])) {
                 wp_safe_redirect($this->get_self_url());
@@ -1147,6 +1281,11 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             return $taxonomy;
         }
 
+        /**
+         * 
+         * @param string $slug
+         * @return boolean
+         */
         protected function is_valid_slug($slug) {
             if (empty($slug)) {
                 return false;
@@ -1195,6 +1334,11 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             );
         }
 
+        /**
+         * 
+         * @param string $taxonomy
+         * @param string $object_type
+         */
         public function registered_taxonomy_for_object_type($taxonomy, $object_type) {
             $data = $this->get_all_taxonomies_data();
             if (isset($data[$taxonomy])) {
@@ -1205,6 +1349,11 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
             }
         }
 
+        /**
+         * 
+         * @param string $taxonomy
+         * @param string $object_type
+         */
         public function unregistered_taxonomy_for_object_type($taxonomy, $object_type) {
             $data = $this->get_all_taxonomies_data();
             if (isset($data[$taxonomy])) {
@@ -1217,6 +1366,19 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies')
 
         public static function get_debug_setting() {
             return array('key' => 'taxonomies', 'label' => __('Taxonomies', 'wpfront-user-role-editor'), 'position' => 100, 'description' => __('Disables all taxonomy functionalities.', 'wpfront-user-role-editor'));
+        }
+
+        /**
+         * Sanitizes label as capability string
+         *
+         * @param string $label
+         * @return string
+         */
+        public function sanitize_capability_type($label) {
+            $label = strtolower($label);
+            $label = preg_replace("/[^a-z0-9]/", '_', $label);
+
+            return $label === null ? '' : $label;
         }
 
     }

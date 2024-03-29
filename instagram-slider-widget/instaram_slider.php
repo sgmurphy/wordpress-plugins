@@ -2,11 +2,11 @@
 /*
 Plugin Name: Social Slider Feed
 Plugin URI: https://cm-wp.com/instagram-slider-widget
-Version: 2.1.0
+Version: 2.2.0
 Description: Shows Instagram, Facebook and YouTube responsive feeds in widgets, posts, pages, or anywhere else using shortcodes
 Author: creativemotion
 Author URI: https://cm-wp.com/
-Requires PHP: 7.0
+Requires PHP: 8.0
 Text Domain: instagram-slider-widget
 Domain Path: /languages
 License:     GPL2
@@ -20,7 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Подключаем класс проверки совместимости
 require_once dirname( __FILE__ ) . '/libs/factory/core/includes/class-factory-requirements.php';
-//require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
 
 $plugin_info = [
 	'prefix'             => 'wis_',
@@ -80,22 +79,22 @@ $plugin_info = [
 	'subscribe_settings' => [ 'group_id' => '105407119' ],
 
 	'load_factory_modules' => [
-		[ 'libs/factory/bootstrap', 'factory_bootstrap_459', 'admin' ],
-		[ 'libs/factory/forms', 'factory_forms_455', 'admin' ],
-		[ 'libs/factory/pages', 'factory_pages_457', 'admin' ],
-		[ 'libs/factory/freemius', 'factory_freemius_145', 'all' ],
-		[ 'libs/factory/adverts', 'factory_adverts_135', 'admin' ],
-		[ 'libs/factory/templates', 'factory_templates_110', 'admin' ],
-		[ 'libs/factory/logger', 'factory_logger_123', 'all' ],
+		[ 'libs/factory/bootstrap', 'factory_bootstrap_476', 'admin' ],
+		[ 'libs/factory/forms', 'factory_forms_474', 'admin' ],
+		[ 'libs/factory/pages', 'factory_pages_474', 'admin' ],
+		[ 'libs/factory/freemius', 'factory_freemius_164', 'all' ],
+		[ 'libs/factory/adverts', 'factory_adverts_152', 'admin' ],
+		[ 'libs/factory/templates', 'factory_templates_127', 'admin' ],
+		[ 'libs/factory/logger', 'factory_logger_140', 'all' ],
 	],
 ];
 
 global $wis_compatibility;
 
-$wis_compatibility = new Wbcr_Factory458_Requirements( __FILE__, array_merge( $plugin_info, [
+$wis_compatibility = new Wbcr_Factory474_Requirements( __FILE__, array_merge( $plugin_info, [
 	'plugin_already_activate'          => defined( 'WIS_PLUGIN_ACTIVE' ),
-	'required_php_version'             => '7.0',
-	'required_wp_version'              => '4.8.0',
+	'required_php_version'             => '8.0',
+	'required_wp_version'              => '6.0.0',
 	'required_clearfy_check_component' => false,
 ] ) );
 
@@ -113,7 +112,7 @@ define( 'WIS_PLUGIN_FILE', __FILE__ );
 define( 'WIS_ABSPATH', dirname( __FILE__ ) );
 define( 'WIS_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 define( 'WIS_PLUGIN_SLUG', dirname( plugin_basename( __FILE__ ) ) );
-define( 'WIS_PLUGIN_URL', plugins_url( null, __FILE__ ) );
+define( 'WIS_PLUGIN_URL', plugins_url( '', __FILE__ ) );
 define( 'WIS_PLUGIN_DIR', dirname( __FILE__ ) );
 
 define( 'WIS_COMPONENTS_URL', WIS_PLUGIN_URL . '/components' );

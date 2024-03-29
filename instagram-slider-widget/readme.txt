@@ -2,9 +2,9 @@
 Contributors: creativemotion
 Tags: instagram, instagram feed, instagram gallery, instagram photos, Instagram widget
 Requires at least: 5.0
-Tested up to: 6.1
-Requires PHP: 7.0
-Stable tag: 2.1.0
+Tested up to: 6.5
+Requires PHP: 8.0
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,11 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 10. Highlight
 
 == Changelog ==
+
+= 2.2.0 =
+* There was an error connecting Instagram and Facebook accounts for a long time. This is due to bureaucratic problems when passing application moderation in the Meta company. We have fixed the bugs for now.
+* Compatibility with Wordpress 6.5
+* Сompatibility with php 8.3
 
 = 2.1.0 =
 * Fix instagram and facebook feed. Need to reconnect all accounts!

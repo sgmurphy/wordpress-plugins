@@ -37,7 +37,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on Odnoklassniki',
 		'es' => 'Compartir en Odnoklassniki',
 		'fi' => 'Jaa Odnoklassniki',
-		'fr' => 'Partager sur Odnoklassniki',
+		'fr' => 'Envoyer par Odnoklassniki',
 		'hr' => 'Podijelite na Odnoklassniki',
 		'hu' => 'Megosztás Odnoklassniki',
 		'it' => 'Condividi su Odnoklassniki',

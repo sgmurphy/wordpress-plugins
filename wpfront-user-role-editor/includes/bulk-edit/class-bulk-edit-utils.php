@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -24,8 +24,8 @@
 /**
  * Utilities for Bulk Edit 
  *
- * @author Jinu Varghese
- * @copyright 2014 WPFront.com
+ * @author Syam Mohan
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Bulk_Edit;
@@ -34,6 +34,7 @@ if (!defined('ABSPATH')) {
     exit();
 }
 
+use WP_Users_List_Table;
 use WPFront\URE\WPFront_User_Role_Editor as URE;
 
 if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Bulk_Edit_Utils')) {
@@ -41,11 +42,11 @@ if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Bulk_Edit_Uti
     /**
      * Bulk Edit Utils class
      *
-     * @author Jinu Varghese
-     * @copyright 2014 WPFront.com
+     * @author Syam Mohan
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Bulk_Edit_Utils {
-        
+
         public static function users_list_view() {
             ?>
             <p>
@@ -200,6 +201,7 @@ if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Bulk_Edit_Uti
                             $container.find("td.email.column-email > a").contents().unwrap();
                             $container.find("th.column-email > a").contents().unwrap();
                             $container.find("td.column-posts > a").contents().unwrap();
+                            $container.find("th.sortable").removeClass("sortable").find("span.sorting-indicators, th.sortable span.screen-reader-text").remove();
 
                             $container.find("tbody th:first-child input[type='checkbox']").each(function () {
                                 var $this = $(this);
@@ -219,16 +221,45 @@ if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Bulk_Edit_Uti
         /**
          * Returns an array of user ids
          * 
+         * @param int $index
+         * @param int $process_records
+         * @param bool $include_current_user
+         * @param WPFront\URE\PPRO\User_Post_Permissions\WPFront_User_Role_Editor_User_Post_Permissions_Queue_Entity $data
+         * @param stdClass $meta_data
          * @return int[]
          */
-        public static function get_user_ids($index, $process_records, $include_current_user = false) {
+        public static function get_user_ids($index, $process_records, $include_current_user = false, &$data = '', &$meta_data = '') {
             $query = array();
-            
-            if(!$include_current_user){
+
+            if (!empty($data->source)) {
+                if ($data->source === 'user') {
+                    if ($index === 0 && !empty($data->data_key)) {  // return only one user
+                        return array($data->data_key);
+                    } else {
+                        return [];
+                    }
+                }
+                if ($data->source === 'role') {
+                    if ($data->action_type === 'delete') {
+                        if (isset($data->data_key[$index])) {
+                            return array($data->data_key[$index]);  // return user_id from array of user ids
+                        } else {
+                            return [];
+                        }
+                    }
+
+                    if ($data->action_type === 'add') {
+                        $meta_data->user_by_role = true;
+                        $query['role'] = reset($data->data_key);  // userids based on role, data_key is array of roles
+                    }
+                }
+            }
+
+            if (!$include_current_user) {
                 $current_user_id = get_current_user_id();
                 $query['exclude'] = $current_user_id;
             }
-            
+
             $query['orderby'] = 'ID';
             $query['order'] = 'ASC';
             $query['offset'] = $index;
@@ -244,14 +275,137 @@ if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Bulk_Edit_Uti
 
             return $users;
         }
-        
-        public static function get_post_ids($post_type, $post_id_index, $process_records) {
+
+        /**
+         * 
+         * @param null|string $post_type
+         * @param int $post_id_index
+         * @param int $process_records
+         * @param WPFront\URE\PPRO\User_Post_Permissions\WPFront_User_Role_Editor_User_Post_Permissions_Queue_Entity $data
+         * @param stdClass $meta_data
+         * @return int[]
+         */
+        public static function get_post_ids(&$post_type, &$post_id_index, $process_records, $data = '', &$meta_data = '') {
             $query = array();
+            $query['post_type'] = $post_type;
+
+            if (!empty($data->source) && isset($data->data_key)) {
+                if ($data->source === 'post') {
+                    if (empty($data->data_key)) {
+                        return [];
+                    }
+
+                    $post_type = get_post_type($data->data_key);
+                    if (!is_post_type_hierarchical($post_type)) {
+                        if (!empty($meta_data->recursive_call)) { // from source => term
+                            unset($meta_data->recursive_call);
+                            return ($post_id_index === -1) ? array($data->data_key) : [];
+                        }
+                        return ($post_id_index === 0) ? array($data->data_key) : [];
+                    } else {
+                        if (!isset($meta_data->data_key_main)) {
+                            $meta_data->data_key_main = $data->data_key;
+                            $post_id_index = -1;                       // to return post id once and then check for children
+                        }
+
+                        if (!isset($meta_data->post_ids)) { // post_ids stored to check for children
+                            $meta_data->post_ids = array();
+                        }
+
+                        if ($post_id_index === -1) {
+                            return array($data->data_key);
+                        }
+
+                        $query['post_parent'] = $data->data_key;  // find children of post_id
+                        $query['post_type'] = 'any';
+                    }
+                }
+                if ($data->source === 'term') {
+                    if (!isset($meta_data->post_ids)) {
+                        $meta_data->post_ids = array();
+                    }
+
+                    if ($data->action_type === 'delete') {
+                        if (!isset($meta_data->data_key_main)) {
+                            $meta_data->data_key_main = $data->data_key;
+                        }
+
+                        if (!isset($meta_data->top_level_post_ids)) {
+                            $meta_data->top_level_post_ids = $meta_data->data_key_main; // initial data key is array of post_ids
+                            $data->data_key = '';
+                        }
+
+                        if (empty($data->data_key)) {
+                            $data->data_key = array_shift($meta_data->top_level_post_ids);
+                            if (empty($data->data_key)) {
+                                return [];
+                            }
+
+                            $post_id_index = -1;    // to return post id once and then check for children
+                        }
+
+                        $data_key = $data->data_key;
+
+                        $data = new \stdClass;
+                        $data->source = 'post';
+                        $data->data_key = $data_key;
+                        $meta_data->recursive_call = true;
+
+                        $post_type = null;
+                        return (WPFront_User_Role_Editor_Bulk_Edit_Utils::class)::get_post_ids($post_type, $post_id_index, 1, $data, $meta_data);
+                    }
+
+                    if ($data->action_type === 'edit') {
+                        if (!isset($meta_data->data_key_main)) {
+                            $meta_data->data_key_main = $data->data_key;  //main data key
+                        }
+
+                        if (!empty($data->data_key) && !term_exists((int) $data->data_key)) { // data_key => post_id
+                            $data_key = $data->data_key;
+
+                            $data = new \stdClass;
+                            $data->source = 'post';
+                            $data->data_key = $data_key;
+                            $meta_data->recursive_call = true;
+
+                            $post_type = null;
+                            return (WPFront_User_Role_Editor_Bulk_Edit_Utils::class)::get_post_ids($post_type, $post_id_index, 1, $data, $meta_data);
+                        } else { // data_key => term_id
+                            if ($post_id_index !== 0) {  // return one post_id and check for its children
+                                return [];
+                            }
+
+                            if (!isset($meta_data->term_query_index)) {
+                                $meta_data->term_query_index = 0;
+                            } else {
+                                $meta_data->term_query_index++;
+                            }
+
+                            $term_id = $meta_data->data_key_main;
+                            $term = get_term($term_id);
+
+                            if (!empty($term->taxonomy)) {
+                                $query['post_type'] = 'any';
+                                $query['tax_query'] = array(array(
+                                        'taxonomy' => $term->taxonomy,
+                                        'field' => 'term_id',
+                                        'terms' => $term_id
+                                ));
+                                $query['offset'] = $meta_data->term_query_index;
+                            } else {
+                                return [];
+                            }
+                        }
+                    }
+                }
+            }
 
             $query['orderby'] = 'ID';
 
             if ($post_id_index !== null) {
-                $query['offset'] = $post_id_index;
+                if (!isset($query['offset'])) {
+                    $query['offset'] = $post_id_index;
+                }
             } else {
                 $query['posts_per_page'] = -1;
             }
@@ -261,7 +415,6 @@ if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Bulk_Edit_Uti
             }
 
             $query['fields'] = 'ids';
-            $query['post_type'] = $post_type;
             $query['post_status'] = 'any';
 
             $wp_query = new \WP_Query($query);
@@ -270,13 +423,12 @@ if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Bulk_Edit_Uti
             return $post_ids;
         }
 
-        
         /**
          * Returns the user ids to edit.
          * 
          * @return string[] all|array
          */
-        public static function get_current_selected_users() { 
+        public static function get_current_selected_users() {
             if (empty($_POST['select-users'])) {
                 return null;
             }
@@ -298,13 +450,13 @@ if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Bulk_Edit_Uti
                 return explode(',', $selected_users);
             }
         }
-        
+
         /**
          * Returns current selected users count.
          * 
          * @return int
          */
-        public static function get_current_selected_users_count() { 
+        public static function get_current_selected_users_count() {
             $selected_users = self::get_current_selected_users();
 
             if ($selected_users === 'all') {
@@ -317,8 +469,11 @@ if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Bulk_Edit_Uti
 
         /**
          * Returns the user table on selected users.
+         *
+         * @param boolean $die
+         * @return void
          */
-        public static function users_table_callback() { 
+        public static function users_table_callback($die = true) {
             check_ajax_referer('users-table', 'nonce');
 
             $GLOBALS['hook_suffix'] = '';
@@ -326,8 +481,8 @@ if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Bulk_Edit_Uti
             $screen = \WP_Screen::get();
             $screen->id = 'users';
             \WP_Screen::get($screen)->set_current_screen();
-            
-            add_filter('user_row_actions', array(WPFront_User_Role_Editor_Bulk_Edit_Utils::class ,'users_table_row_actions'), PHP_INT_MAX);
+
+            add_filter('user_row_actions', array(WPFront_User_Role_Editor_Bulk_Edit_Utils::class, 'users_table_row_actions'), PHP_INT_MAX);
             add_filter('bulk_actions-users', array(WPFront_User_Role_Editor_Bulk_Edit_Utils::class, 'users_table_bulk_actions'), PHP_INT_MAX);
 
             if (isset($_POST['orderby'])) {
@@ -339,21 +494,26 @@ if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Bulk_Edit_Uti
             }
 
             $wp_list_table = _get_list_table('WP_Users_List_Table');
-            $wp_list_table->prepare_items();
-            $wp_list_table->views();
-            $wp_list_table->search_box(__('Search Users'), 'user');
-            $wp_list_table->display();
+            if($wp_list_table instanceof WP_Users_List_Table) {
+                $wp_list_table->prepare_items();
+                $wp_list_table->views();
+                $wp_list_table->search_box(__('Search Users'), 'user');
+                $wp_list_table->display();
+            }
 
-            die();
+            if ($die) {
+                die();
+            }
         }
-        
-        public static function users_table_bulk_actions() {   
+
+        public static function users_table_bulk_actions() {
             return array();
         }
 
-        public static function users_table_row_actions() {     
+        public static function users_table_row_actions() {
             return array();
         }
+
     }
 
 }

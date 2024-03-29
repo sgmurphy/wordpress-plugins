@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * WPFront User Role Editor Login Redirect List Table
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Login_Redirect;
@@ -47,7 +47,7 @@ if (!class_exists('\WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Login_Re
      * Login Redirect List Table
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2015 WPFront.com
+     * @copyright 2015 wpfront.com
      */
     class WPFront_User_Role_Editor_Login_Redirect_List_Table extends \WP_List_Table {
 
@@ -123,10 +123,9 @@ if (!class_exists('\WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Login_Re
 
         function display_rows() {
             foreach ($this->items as $item) {
-                $alt = empty($alt) ? 'alternate' : '';
-                $item->role_display = $this->get_role_display($item->role);
+                $alt = empty($alt) ? 'alternate ' : '';
                 ?>
-                <tr class="<?php echo $alt; ?>">
+                <tr class="<?php echo $alt; echo esc_attr($item->role); ?>">
                     <?php
                     list( $columns, $hidden ) = $this->get_column_info();
                     
@@ -149,7 +148,7 @@ if (!class_exists('\WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Login_Re
                                 break;
                             
                             case 'priority':
-                                echo "<td $attributes>" . esc_html($item->priority) . "</td>";
+                                echo "<td $attributes>" . $item->priority . "</td>";
                                 break;
 
                             case 'url':
@@ -178,7 +177,7 @@ if (!class_exists('\WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Login_Re
         protected function cb_cell($item) {
             ?>
             <th scope="row" class="check-column">
-                <label class="screen-reader-text" for="role_<?php echo esc_attr($item->role); ?>"><?php echo sprintf(__('Select %s', 'wpfront-user-role-editor'), esc_html($item->role_display)); ?></label>
+                <label class="screen-reader-text" for="role_<?php echo esc_attr($item->role); ?>"><?php echo sprintf(__('Select %s', 'wpfront-user-role-editor'), esc_html($this->get_role_display($item->role))); ?></label>
                 <input type="checkbox" id="role_<?php echo esc_attr($item->role); ?>" name="roles[]" value="<?php echo esc_attr($item->role); ?>" />
             </th>
             <?php
@@ -198,14 +197,14 @@ if (!class_exists('\WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Login_Re
                     ?>
                     <strong>
                         <a href="<?php echo esc_attr($edit_link); ?>" class="edit">
-                            <?php echo esc_html($item->role_display); ?>
+                            <?php echo esc_html($this->get_role_display($item->role)); ?>
                         </a>
                     </strong>
                     <?php
                 } else {
                     ?>
                     <strong>
-                        <?php echo esc_html($item->role_display); ?>
+                        <?php echo esc_html($this->get_role_display($item->role)); ?>
                     </strong>
                     <?php
                 }

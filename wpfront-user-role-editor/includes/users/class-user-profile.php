@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Controller for WPFront User Role Editor User Profile
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Assign_Migrate;
@@ -47,7 +47,7 @@ if (!class_exists('\WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_User_Pro
      * User Profile class
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_User_Profile extends \WPFront\URE\WPFront_User_Role_Editor_Controller {
         
@@ -74,7 +74,7 @@ if (!class_exists('\WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_User_Pro
             
             //invite_user - add
             //signup_user - add
-            add_action('add_user_to_blog', array($this, 'add_user_to_blog'), PHP_INT_MAX, 1);
+            add_action('add_user_to_blog', array($this, 'add_user_to_blog'), PHP_INT_MAX, 3);
             
             if(!$this->in_admin_ui()) {
                 return;
@@ -246,7 +246,7 @@ if (!class_exists('\WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_User_Pro
             return $allowed_roles;
         }
         
-        public function add_user_to_blog($user_id) {
+        public function add_user_to_blog($user_id, $role, $blog_id) {
             if($this->invited_users_roles !== null) { //invite/signup email click
                 $roles = array();
                 foreach ($this->invited_users_roles as $role) {
@@ -409,7 +409,7 @@ if (!class_exists('\WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_User_Pro
             
             if($action == 'update' && $option_page == 'general') {
                 $roles = array();
-                if(!empty($_POST['wpfront-secondary-roles'] && is_array($_POST['wpfront-secondary-roles']))) {
+                if(!empty($_POST['wpfront-secondary-roles']) && is_array($_POST['wpfront-secondary-roles'])) {
                     $roles = array_keys($_POST['wpfront-secondary-roles']);
                 }
                 

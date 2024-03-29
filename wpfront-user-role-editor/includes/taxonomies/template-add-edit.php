@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -24,8 +24,8 @@
 /**
  * Template for WPFront User Role Editor Taxonomies Add Edit
  *
- * @author Vaisagh D <vaisaghd@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @author Syam Mohan <syam@wpfront.com>
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Taxonomies;
@@ -48,6 +48,11 @@ if (!class_exists('WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies_Ad
         private $controller;
         private $taxonomy_data;
         private $taxonomy_obj;
+        /**
+         *
+         * @var \stdClass|null
+         */
+        private $clone_from;
 
         public function __construct($controller, $data = null, $taxonomy_obj = null, $clone = null) {
             $this->controller = $controller;
@@ -152,10 +157,10 @@ if (!class_exists('WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies_Ad
         public function action_buttons() {
             submit_button();
             ?>
-            <p>
+            <p class="auto-populate-labels">
                 <a class="auto-populate-labels button button-secondary"><?php echo __('Auto Populate Labels', 'wpfront-user-role-editor'); ?></a>
             </p>
-            <p>
+            <p class="clear-labels">
                 <a class="clear-labels button button-secondary"><?php echo __('Clear Labels', 'wpfront-user-role-editor'); ?></a>
             </p>
             <?php

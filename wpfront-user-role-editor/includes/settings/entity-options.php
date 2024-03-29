@@ -2,7 +2,7 @@
 
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -26,7 +26,7 @@
  * Entity for WPFront User Role Editor Options
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Options;
@@ -41,7 +41,7 @@ if (!class_exists('WPFront\URE\Options\WPFront_User_Role_Editor_Options_Entity')
      * Options Entity
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Options_Entity extends \WPFront\URE\WPFront_User_Role_Editor_Entity_Base {
 

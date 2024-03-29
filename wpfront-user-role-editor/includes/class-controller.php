@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Controllers for WPFront User Role Editor
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE;
@@ -40,7 +40,7 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Controller')) {
      * Controller class
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     abstract class WPFront_User_Role_Editor_Controller extends WPFront_User_Role_Editor_Cache {
         
@@ -82,6 +82,11 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Controller')) {
             $this->RolesHelperClass = \WPFront\URE\WPFront_User_Role_Editor_Roles_Helper::class;
         }
         
+        /**
+         * Method to create the singlton
+         *
+         * @return static
+         */
         public static function instance() {
             $key = static::class;
             
@@ -175,7 +180,7 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_View_Controller')) {
      * View Controller class
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     abstract class WPFront_User_Role_Editor_View_Controller extends WPFront_User_Role_Editor_Controller {
         
@@ -272,7 +277,7 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_View')) {
      * View base
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     abstract class WPFront_User_Role_Editor_View {
         

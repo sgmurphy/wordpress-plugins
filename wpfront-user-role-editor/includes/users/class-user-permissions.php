@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Controller for WPFront User Role Editor User Permissions
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\User_Permissions;
@@ -45,7 +45,7 @@ if (!class_exists('\WPFront\URE\User_Permissions\WPFront_User_Role_Editor_User_P
      * User Permissions class
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_User_Permissions extends \WPFront\URE\WPFront_User_Role_Editor_Controller {
         
@@ -76,8 +76,7 @@ if (!class_exists('\WPFront\URE\User_Permissions\WPFront_User_Role_Editor_User_P
                 add_filter("wpfront_ure_capability_{$cap}_ui_help_link", array($this, 'cap_help_link'), 10, 2);
             }
             
-            $this->add_capabilities_to_roles();
-            
+            add_action('admin_init', array($this, 'add_capabilities_to_roles'));
             add_filter('wpfront_ure_restore_role_custom_caps', array($this, 'restore_role_custom_caps'));
         }
         
@@ -93,14 +92,19 @@ if (!class_exists('\WPFront\URE\User_Permissions\WPFront_User_Role_Editor_User_P
                 return;
             }
 
-            global $wp_roles;
-
+            $flag = false;
+            $wp_roles = wp_roles();
             foreach ($wp_roles->role_objects as $key => $role) {
                 foreach (self::$user_capabilities as $u_cap => $cap) {
-                    if ($role->has_cap($cap)) {
+                    if ($role->has_cap($cap) && !$role->has_cap($u_cap)) {
                         $role->add_cap($u_cap);
+                        $flag = true;
                     }
                 }
+            }
+
+            if($flag) {
+                return;
             }
 
             Options::instance()->set_option($option_key, true);

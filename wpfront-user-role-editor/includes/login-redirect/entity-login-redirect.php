@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Entity for WPFront User Role Editor Login Redirect
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Login_Redirect;
@@ -45,7 +45,7 @@ if (!class_exists('WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Login_Red
      * Login Redirect Entity
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Login_Redirect_Entity extends \WPFront\URE\WPFront_User_Role_Editor_Entity_Base {
         

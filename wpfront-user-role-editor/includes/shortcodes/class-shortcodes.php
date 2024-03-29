@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Controller for WPFront User Role Editor Shortcodes
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Shortcodes;
@@ -45,7 +45,7 @@ if (!class_exists('\WPFront\URE\Shortcodes\WPFront_User_Role_Editor_Shortcodes')
      * Shortcodes class
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Shortcodes extends \WPFront\URE\WPFront_User_Role_Editor_Controller {
         
@@ -61,6 +61,14 @@ if (!class_exists('\WPFront\URE\Shortcodes\WPFront_User_Role_Editor_Shortcodes')
             add_shortcode(self::CURRENT_USER_ROLES, array($this, 'process_current_user_roles'));
         }
         
+        /**
+         * 
+         * @global type $wp_roles
+         * @param type $atts
+         * @param type $content
+         * @param type $shortcode
+         * @return string
+         */
         public function process_current_user_roles($atts, $content, $shortcode) {
             if(!is_user_logged_in()) {
                 return '';

@@ -66,7 +66,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on LinkedIn',
 		'es' => 'Compartir en LinkedIn',
 		'fi' => 'Jaa LinkedInissä',
-		'fr' => 'Partager sur LinkedIn',
+		'fr' => 'Envoyer par LinkedIn',
 		'hr' => 'Podijelite na LinkedIn',
 		'hu' => 'Megosztás LinkedInen',
 		'it' => 'Condividi su LinkedIn',

@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Controller for WPFront User Role Editor Login Redirect
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Login_Redirect;
@@ -47,7 +47,7 @@ if (!class_exists('\WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Login_Re
      * Login Redirect class
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Login_Redirect extends \WPFront\URE\WPFront_User_Role_Editor_View_Controller {
         const MENU_SLUG = 'wpfront-user-role-editor-login-redirect';
@@ -238,11 +238,11 @@ if (!class_exists('\WPFront\URE\Login_Redirect\WPFront_User_Role_Editor_Login_Re
                 if(empty($_POST['url'])) {
                     return;
                 }
-                $url = $_POST['url'];
+                $url = esc_url_raw($_POST['url']);
                 
                 $logout_url = '';
                 if(!empty($_POST['logout_url'])) {
-                    $logout_url = $_POST['logout_url'];
+                    $logout_url = esc_url_raw($_POST['logout_url']);
                 }
                 
                 $deny_wpadmin = !empty($_POST['deny_wpadmin']);

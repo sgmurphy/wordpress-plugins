@@ -1,6 +1,6 @@
 <?php
 
-namespace WBCR\Factory_458\Components;
+namespace WBCR\Factory_474\Components;
 
 /**
  * This file groups the settings for quick setup
@@ -17,12 +17,13 @@ if( !defined('ABSPATH') ) {
 
 class Install_Button {
 
+	public $plugin;
 	protected $type;
 	protected $plugin_slug;
 
 	protected $classes = [
 		'button',
-		'wfactory-458-process-button'
+		'wfactory-474-process-button'
 	];
 	protected $data = [];
 	protected $base_path;
@@ -37,7 +38,7 @@ class Install_Button {
 	 * @throws \Exception
 	 * @since  4.3.3
 	 */
-	public function __construct(\Wbcr_Factory458_Plugin $plugin, $type, $plugin_slug)
+	public function __construct(\Wbcr_Factory474_Plugin $plugin, $type, $plugin_slug)
 	{
 		if( empty($type) || !is_string($plugin_slug) ) {
 			throw new \Exception('Empty type or plugin_slug attribute.');
@@ -67,7 +68,7 @@ class Install_Button {
 
 		// Set default data
 		$this->add_data('storage', $this->type);
-		$this->add_data('i18n', \WBCR\Factory_Templates_110\Helpers::getEscapeJson($this->get_i18n()));
+		$this->add_data('i18n', \WBCR\Factory_Templates_127\Helpers::getEscapeJson($this->get_i18n()));
 		$this->add_data('wpnonce', wp_create_nonce('updates'));
 	}
 
@@ -77,6 +78,7 @@ class Install_Button {
 
 	/**
 	 * todo: для совместимости со старыми плагинами
+	 *
 	 * @return string
 	 * @throws \Exception
 	 * @since  4.3.3
@@ -88,6 +90,7 @@ class Install_Button {
 
 	/**
 	 * todo: для совместимости со старыми плагинами
+	 *
 	 * @return string
 	 * @since  4.3.3
 	 */
@@ -99,13 +102,14 @@ class Install_Button {
 	/**
 	 * Print an install a link
 	 * todo: для совместимости со старыми плагинами
+	 *
 	 * @throws \Exception
 	 * @since  4.3.3
 	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
 	 */
 	public function renderLink()
 	{
-		echo $this->get_link();
+		echo esc_html($this->get_link());
 	}
 
 	/**
@@ -123,6 +127,7 @@ class Install_Button {
 
 	/**
 	 * todo: для совместимости со старыми плагинами
+	 *
 	 * @param $class
 	 *
 	 * @throws \Exception
@@ -135,6 +140,7 @@ class Install_Button {
 
 	/**
 	 * todo: для совместимости со старыми плагинами
+	 *
 	 * @param $class
 	 *
 	 * @return bool
@@ -420,13 +426,13 @@ class Install_Button {
 	protected function get_i18n()
 	{
 		return [
-			'activate' => __('Activate', 'wbcr_factory_458'),
-			'install' => __('Install', 'wbcr_factory_458'),
-			'deactivate' => __('Deactivate', 'wbcr_factory_458'),
-			'delete' => __('Delete', 'wbcr_factory_458'),
-			'loading' => __('Please wait...', 'wbcr_factory_458'),
-			'preparation' => __('Preparation...', 'wbcr_factory_458'),
-			'read' => __('Read more', 'wbcr_factory_458')
+			'activate' => __('Activate', 'wbcr_factory_474'),
+			'install' => __('Install', 'wbcr_factory_474'),
+			'deactivate' => __('Deactivate', 'wbcr_factory_474'),
+			'delete' => __('Delete', 'wbcr_factory_474'),
+			'loading' => __('Please wait...', 'wbcr_factory_474'),
+			'preparation' => __('Preparation...', 'wbcr_factory_474'),
+			'read' => __('Read more', 'wbcr_factory_474')
 		];
 	}
 

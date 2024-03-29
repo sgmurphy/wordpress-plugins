@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Cache for WPFront User Role Editor
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE;
@@ -40,7 +40,7 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Uninstall')) {
      * Uninstall class
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Uninstall {
         
@@ -48,6 +48,10 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Uninstall')) {
         private static $callbacks = array();
         
         public static function register_entity($entity) {
+            if(!$entity instanceof WPFront_User_Role_Editor_Entity_Base) {
+                return;
+            }
+            
             if($entity instanceof \WPFront\URE\Options\WPFront_User_Role_Editor_Options_Entity) {
                 return;
             }

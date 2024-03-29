@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -24,8 +24,8 @@
 /**
  * Template for WPFront User Role Editor Post Type Add Edit
  *
- * @author Vaisagh D <vaisaghd@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @author Syam Mohan <syam@wpfront.com>
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Post_Type;
@@ -132,6 +132,11 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
                     'group_name' => 'advanced_settings',
                     'title' => __('Advanced Settings', 'wpfront-user-role-editor'),
                     'render' => 'postbox_render_advanced_settings'
+                ],
+                (object) [
+                    'group_name' => 'capability_settings',
+                    'title' => __('Capability Settings', 'wpfront-user-role-editor'),
+                    'render' => 'postbox_render_capability_settings'
                 ]
             ];
         }
@@ -152,10 +157,10 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
         public function action_buttons() {
             submit_button();
             ?>
-            <p>
+            <p class="auto-populate-labels">
                 <a class="auto-populate-labels button button-secondary"><?php echo __('Auto Populate Labels', 'wpfront-user-role-editor'); ?></a>
             </p>
-            <p>
+            <p class="clear-labels">
                 <a class="clear-labels button button-secondary"><?php echo __('Clear Labels', 'wpfront-user-role-editor'); ?></a>
             </p>
             <?php
@@ -275,7 +280,7 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
                             __('All Items Label', 'wpfront-user-role-editor'),
                             'all_items',
                             __('Label to signify all items in a submenu link. Default is All posts for non-hierarchical types (like posts) and All pages for hierarchical types (like pages). Leave empty to use default value.', 'wpfront-user-role-editor'),
-                            __('%S0', 'wpfront-user-role-editor')
+                            __('All %S0', 'wpfront-user-role-editor')
                     );
                     ?>  
                     <?php
@@ -283,7 +288,7 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
                             __('Archives Label', 'wpfront-user-role-editor'),
                             'archives',
                             __('Label for archives in nav menus. Default is Post Archives for non-hierarchical types (like posts) and Page Archives for hierarchical types (like pages). Leave empty to use default value.', 'wpfront-user-role-editor'),
-                            __('%S0', 'wpfront-user-role-editor')
+                            __('%S1 Archives', 'wpfront-user-role-editor')
                     );
                     ?>  
                     <?php
@@ -529,6 +534,46 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
             <?php
         }
 
+        public function postbox_render_capability_settings() {
+            $disable = $this->is_capability_settings_disabled();
+            ?>
+            <table class="form-table">
+                <tbody>
+                    <?php
+                    $this->textbox_advanced_settings(
+                            __('Capability Type', 'wpfront-user-role-editor'),
+                            'capability_type',
+                            __('The string used to build the read, edit, and delete capabilities. May be passed as an array to allow for alternative plurals when using this argument as a base to construct the capabilities. Default is post.', 'wpfront-user-role-editor'),
+                            null,
+                            null,
+                            $disable
+                    );
+                    $this->dropdown_advanced_settings_boolean(
+                            __('Map Meta Cap', 'wpfront-user-role-editor'),
+                            'map_meta_cap',
+                            __('Whether to use the internal default meta capability handling. Default false.', 'wpfront-user-role-editor'),
+                            '',
+                            false,
+                            null,
+                            null,
+                            $disable
+                    );
+                    ?>                                     
+                </tbody>
+            </table>
+            <?php
+        }
+
+        /**
+         * Returns whether capability settings is disabled
+         *
+         * @return boolean
+         */
+        protected function is_capability_settings_disabled()
+        {
+            return true;
+        }
+
         protected function textbox_basic_settings($label, $name) {
             $value = $this->get_property_value($name);
             $attr = 'maxlength="20" ';
@@ -544,6 +589,14 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
             $this->textbox_row($label, $name, $value, (object) ['required' => true, 'attr' => $attr]);
         }
 
+        /**
+         * 
+         * @param string $label
+         * @param string $name
+         * @param type $default_value
+         * @param type $arg_value
+         * @param type $current_property_value
+         */
         protected function dropdown_basic_settings($label, $name, $default_value = '', $arg_value = null, $current_property_value = null) {
             $options = [(object) ['label' => __('Active', 'wpfront-user-role-editor'), 'value' => true], (object) ['label' => __('Inactive', 'wpfront-user-role-editor'), 'value' => false]];
             $attr = '';
@@ -570,11 +623,18 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
             $this->dropdown_row($label, $name, $options, $arg_value, (object) ['attr' => $attr]);
         }
 
+        /**
+         * 
+         * @param string $label
+         * @param string $name
+         * @param string $help
+         * @param string $auto_format
+         */
         protected function textbox_additional_labels($label, $name, $help, $auto_format = '') {
             $this->textbox_row($label, $name, $this->get_labels_value($name), (object) ['help' => $help, 'help_current_value' => $this->get_current_labels_value($name), 'auto_format' => $auto_format]);
         }
 
-        protected function dropdown_advanced_settings_boolean($label, $name, $help, $default_value = '', $exclude_default = false, $arg_value = null, $current_property_value = null) {
+        protected function dropdown_advanced_settings_boolean($label, $name, $help, $default_value = '', $exclude_default = false, $arg_value = null, $current_property_value = null, $disabled = false) {
             $options = [(object) ['label' => __('True', 'wpfront-user-role-editor'), 'value' => true], (object) ['label' => __('False', 'wpfront-user-role-editor'), 'value' => false]];
             if (!$exclude_default) {
                 array_unshift($options, (object) ['label' => __('Default', 'wpfront-user-role-editor'), 'value' => '']);
@@ -606,7 +666,7 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
                 $current_property_value = __('False', 'wpfront-user-role-editor');
             }
 
-            $obj = ['help' => $help, 'help_current_value' => $current_property_value];
+            $obj = ['help' => $help, 'help_current_value' => $current_property_value, 'disabled' => $disabled];
 
 
             //On POST with a validation error $arg_value will be one of empty string, 1 or 0 
@@ -715,7 +775,7 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
             return;
         }
 
-        protected function textbox_advanced_settings($label, $name, $help, $prop_value = null, $prop_current_value = null) {
+        protected function textbox_advanced_settings($label, $name, $help, $prop_value = null, $prop_current_value = null, $disabled = false) {
             if ($name === 'custom_supports') {
                 $prop_value = $this->get_property_value('supports');
                 $core_supports = array_keys($this->get_core_supports());
@@ -761,13 +821,15 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
                 }
             }
 
-            $this->textbox_row($label, $name, $prop_value, (object) ['help' => $help, 'help_current_value' => $prop_current_value]);
+            $this->textbox_row($label, $name, $prop_value, (object) ['help' => $help, 'help_current_value' => $prop_current_value, 'disabled' => $disabled]);
         }
 
-        protected function checkbox_advanced_settings($label, $name, $help) {
-            $this->checkbox_row($label, $name, (object) ['help' => $help]);
-        }
-
+        /**
+         * 
+         * @param string $label
+         * @param string $name
+         * @param string $help
+         */
         protected function multilist_advanced_settings($label, $name, $help) {
             $options = [];
             $values = $this->get_property_value($name);
@@ -822,6 +884,13 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
             ];
         }
 
+        /**
+         * 
+         * @param string $label
+         * @param string $name
+         * @param string $value
+         * @param stdClass $obj
+         */
         protected function textbox_row($label, $name, $value, $obj) {
             $attr = '';
             $class = '';
@@ -837,6 +906,9 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
             if (!empty($obj->auto_format)) {
                 $attr .= 'data-auto-format="' . esc_attr($obj->auto_format) . '" ';
                 $class .= 'auto-populate';
+            }
+            if(!empty($obj->disabled)) {
+                $attr .= 'disabled="true" ';
             }
             if (is_array($value)) {
                 $value = implode(', ', $value);
@@ -861,11 +933,22 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
             <?php
         }
 
+        /**
+         * 
+         * @param string $label
+         * @param string $name
+         * @param array $options
+         * @param type $value
+         * @param stdClass $obj
+         */
         protected function dropdown_row($label, $name, $options, $value, $obj) {
             $attr = '';
             $placeholder = '';
             if (!empty($obj->attr)) {
                 $attr .= $obj->attr . ' ';
+            }
+            if(!empty($obj->disabled)) {
+                $attr .= 'disabled="true" ';
             }
             if ($name === 'show_in_menu') {
                 $placeholder = __('top level menu', 'wpfront-user-role-editor');
@@ -916,6 +999,14 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
             <?php
         }
 
+        /**
+         * 
+         * @param string $label
+         * @param string $name
+         * @param array $values
+         * @param array $options
+         * @param stdClass $obj
+         */
         protected function multilist_row($label, $name, $values, $options, $obj) {
             if (empty($values)) {
                 $values = [];
@@ -946,6 +1037,11 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
             <?php
         }
 
+        /**
+         * 
+         * @param string $pretext
+         * @param string $current_value
+         */
         protected function echo_help_tooltip($pretext, $current_value) {
             $title = esc_attr($pretext);
             if (!empty($this->post_type_obj)) {
@@ -956,6 +1052,12 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
             <?php
         }
 
+        /**
+         * 
+         * @param string $prop
+         * @param string $default
+         * @return type
+         */
         protected function get_property_value($prop, $default = '') {
             if (!empty($_POST['submit'])) {
                 return !isset($_POST[$prop]) ? $default : $_POST[$prop];
@@ -1020,6 +1122,12 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
             return $default;
         }
 
+        /**
+         * 
+         * @param string $prop
+         * @param string $default
+         * @return string
+         */
         protected function get_labels_value($prop, $default = '') {
             if (!empty($_POST['submit'])) {
                 return empty($_POST[$prop]) ? $default : $_POST[$prop];
@@ -1044,6 +1152,11 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
             return $default;
         }
 
+        /**
+         * 
+         * @param string $prop
+         * @return type
+         */
         protected function get_current_labels_value($prop) {
             if (!empty($this->post_type_obj) && isset($this->post_type_obj->labels) && isset($this->post_type_obj->labels->$prop)) {
                 return $this->post_type_obj->labels->$prop;
@@ -1052,6 +1165,11 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
             return '';
         }
 
+        /**
+         * 
+         * @param string $prop
+         * @return type
+         */
         protected function get_current_property_value($prop) {
             if (!empty($this->post_type_obj)) {
                 if (isset($this->post_type_obj->$prop)) {
@@ -1129,7 +1247,7 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
                     $div.find("select.has-depends, select[name='rewrite'], select[name='hierarchical']").trigger('change');
 
                     //auto populate labels and validation
-                    $div.find(".auto-populate-labels").on('click', function () {
+                    $div.find("a.auto-populate-labels").on('click', function () {
                         var S0 = $("input[name='label']");
                         var S1 = $("input[name='singular_name']");
 
@@ -1185,7 +1303,7 @@ if (!class_exists('WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Add_
                     });
 
                     //clear labels
-                    $div.find(".clear-labels").on('click', function () {
+                    $div.find("a.clear-labels").on('click', function () {
                         $div.find("#postbox-labels input.auto-populate").val('');
                         return false;
                     });

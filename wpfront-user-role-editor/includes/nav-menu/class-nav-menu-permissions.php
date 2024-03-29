@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Controller for WPFront User Role Editor Nav Menu Permissions
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Nav_Menu;
@@ -47,7 +47,7 @@ if (!class_exists('\WPFront\URE\Nav_Menu\WPFront_User_Role_Editor_Nav_Menu_Permi
      * Nav Menu Permissions
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Nav_Menu_Permissions extends \WPFront\URE\WPFront_User_Role_Editor_Controller {
         

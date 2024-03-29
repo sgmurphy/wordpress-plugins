@@ -2,7 +2,7 @@
 
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,8 +25,8 @@
 /**
  * Controller for WPFront User Role Editor Create Posts Custom Capabilities.
  *
- * @author Jinu Varghese
- * @copyright 2014 WPFront.com
+ * @author Syam Mohan
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Post_Type\Custom_Caps;
@@ -42,8 +42,8 @@ if (!class_exists('\WPFront\URE\Post_Type\Custom_Caps\WPFront_User_Role_Editor_C
     /**
      * Create Posts capability class
      *
-     * @author Jinu Varghese
-     * @copyright 2014 WPFront.com
+     * @author Syam Mohan
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Create_Posts_Capability extends WPFront_User_Role_Editor_Post_Type_Custom_Capability {
 
@@ -57,25 +57,27 @@ if (!class_exists('\WPFront\URE\Post_Type\Custom_Caps\WPFront_User_Role_Editor_C
         protected function cap_prefix() {
             return 'create';
         }
-        
+
         /**
          * Returns cap prefix to add before in sort.
          */
         protected function add_before_prefix() {
             return 'edit';
         }
-        
-         /**
+
+        /** 
          * Returns the cap to check while defining role defaults.
+         * 
+         * @param string $post_type
          */
-        protected  function role_default_value_cap($post_type){
+        protected function role_default_value_cap($post_type) {
             return 'edit_' . $this->cap_names[$post_type][1];
         }
-        
+
         protected function can_merge() {
             return false;
         }
-        
+
         protected function get_debug_setting() {
             return array('key' => 'create-custom-capability', 'label' => __('"create" Capabilities', 'wpfront-user-role-editor'), 'position' => 30, 'description' => __('Disables all "create_" capabilities.', 'wpfront-user-role-editor'));
         }

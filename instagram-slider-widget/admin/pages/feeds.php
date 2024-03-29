@@ -64,12 +64,13 @@ class WIS_FeedsPage extends WIS_Page {
 		$this->menu_title     = __( 'Social Slider Feed', 'instagram-slider-widget' );
 		$this->menu_sub_title = __( 'Feeds', 'instagram-slider-widget' );
 		$this->menu_tab_title = __( 'Feeds', 'instagram-slider-widget' );
-		$this->menu_icon      = '~/admin/assets/img/wis.png';
+
 		$this->capabilitiy    = 'manage_options';
 
 		parent::__construct( $plugin );
 
 		$this->plugin = $plugin;
+		$this->menu_icon      = '~/admin/assets/img/wis.png';
 	}
 
 	public function assets( $scripts, $styles ) {

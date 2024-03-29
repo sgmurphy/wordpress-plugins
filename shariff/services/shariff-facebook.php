@@ -38,7 +38,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on Facebook',
 		'es' => 'Compartir en Facebook',
 		'fi' => 'Jaa Facebookissa',
-		'fr' => 'Partager sur Facebook',
+		'fr' => 'Envoyer par Facebook',
 		'hr' => 'Podijelite na Facebooku',
 		'hu' => 'Megosztás Facebookon',
 		'it' => 'Condividi su Facebook',

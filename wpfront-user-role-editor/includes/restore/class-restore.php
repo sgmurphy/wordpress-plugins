@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Controller for WPFront User Role Editor Restore Role
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Restore;
@@ -42,7 +42,7 @@ if (!class_exists('\WPFront\URE\Restore\WPFront_User_Role_Editor_Restore')) {
      * Restore Role
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Restore extends \WPFront\URE\WPFront_User_Role_Editor_View_Controller {
 
@@ -69,7 +69,9 @@ if (!class_exists('\WPFront\URE\Restore\WPFront_User_Role_Editor_Restore')) {
          * Adds ajax functions on admin_init
          */
         public function admin_init() {
-            add_action('wp_ajax_wpfront_user_role_editor_restore_role', array($this, 'restore_role_callback'), 10, 0);
+            if(current_user_can($this->get_cap())) {
+                add_action('wp_ajax_wpfront_user_role_editor_restore_role', array($this, 'restore_role_callback'), 10, 0);
+            }
         }
 
         /**
@@ -169,25 +171,29 @@ if (!class_exists('\WPFront\URE\Restore\WPFront_User_Role_Editor_Restore')) {
             check_ajax_referer('restore-role', 'nonce');
 
             if (!current_user_can($this->get_cap())) {
-                wp_die(-1, 403);
+                wp_send_json_error(__('Permission denied.', 'wpfront-user-role-editor'));
             }
 
             if (empty($_POST['role'])) {
-                wp_die(-1, 403);
+                wp_send_json_error(__('Invalid request.', 'wpfront-user-role-editor'));
             }
 
             $role = $_POST['role'];
             $allowed_roles = $this->get_restorable_roles();
 
             if (!array_key_exists($role, $allowed_roles)) {
-                wp_die(-1, 403);
+                wp_send_json_error(__('Invalid role.', 'wpfront-user-role-editor'));
             }
 
             $this->restore_role($role);
 
-            wp_die(json_encode(true));
+            wp_send_json_success();
         }
 
+        /**
+         * 
+         * @param string $role
+         */
         protected function restore_role($role) {
             $remove_non_std = $this->remove_nonstandard_capabilities_restore();
             if ($remove_non_std) {
@@ -214,14 +220,28 @@ if (!class_exists('\WPFront\URE\Restore\WPFront_User_Role_Editor_Restore')) {
                         $grant = array_merge($grant, $caps);
                     }
                 }
+
+                $custom_caps = apply_filters('wpfront_ure_restore_role_custom_caps', array(), $role);
+                $grant = array_merge($grant, array_keys($custom_caps));
+
+                $custom_caps = apply_filters('wpfront_ure_administrator_caps_to_process', []);
+                $grant = array_merge($grant, $custom_caps);
+
                 $grant = array_fill_keys($grant, true);
                 $this->RolesHelperClass::add_capabilities_to_role($role, $grant);
             } else {
                 $caps = $this->RolesHelperClass::get_standard_capabilities($role);
                 $custom_caps = apply_filters('wpfront_ure_restore_role_custom_caps', array(), $role);
 
+                $grant = array();
+                $remove = array();
                 $custom_caps_check = array();
                 foreach ($custom_caps as $cap => $depend_on) {
+                    if($depend_on === true) {
+                        $grant[$cap] = true;
+                        continue;
+                    }
+
                     if ($cap === $depend_on) {
                         continue;
                     }
@@ -233,8 +253,6 @@ if (!class_exists('\WPFront\URE\Restore\WPFront_User_Role_Editor_Restore')) {
                     $custom_caps_check[$depend_on][] = $cap;
                 }
 
-                $grant = array();
-                $remove = array();
                 if (is_array($caps)) {
                     foreach ($caps as $cap => $enabled) {
                         if ($enabled) {
@@ -252,6 +270,14 @@ if (!class_exists('\WPFront\URE\Restore\WPFront_User_Role_Editor_Restore')) {
             }
         }
 
+        /**
+         * 
+         * @param array $custom_caps
+         * @param string $cap
+         * @param boolean $enabled
+         * @param array $grant
+         * @param array $remove
+         */
         protected function custom_caps_restore($custom_caps, $cap, $enabled, &$grant, &$remove) {
             if (isset($custom_caps[$cap])) {
                 $check = $custom_caps[$cap];

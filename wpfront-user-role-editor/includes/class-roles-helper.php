@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Helper class for WPFront User Role Editor
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE;
@@ -43,7 +43,7 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Roles_Helper')) {
      * Roles helper class
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Roles_Helper {
 
@@ -260,7 +260,7 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Roles_Helper')) {
          * Returns role object or null.
          * 
          * @param string $role_name
-         * @return \WP_Role
+         * @return \WP_Role|null
          */
         public static function get_role($role_name) {
             return wp_roles()->get_role($role_name);
@@ -587,12 +587,12 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Roles_Helper')) {
                     }
 
                     $groups = self::get_capabilty_groups();
-                    foreach ($groups as $name => $group) {
-                        if ($group->type === 'other') {
+                    foreach ($groups as $name => $g) {
+                        if ($g->type === 'other') {
                             continue;
                         }
 
-                        $caps = self::get_group_capabilities($group);
+                        $caps = self::get_group_capabilities($g);
 
                         if (!is_array($caps)) {
                             continue;
@@ -694,6 +694,8 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Roles_Helper')) {
             }
 
             self::$custom_capability_groups[$key] = (object) array('key' => $key, 'label' => $display, 'type' => 'custom', 'caps' => array());
+
+            self::$group_capabilities_cache = [];
         }
 
         /**
@@ -711,6 +713,8 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Roles_Helper')) {
             }
 
             self::$custom_capability_groups[$group_key]->caps[$cap] = true;
+
+            self::$group_capabilities_cache = [];
 
             return true;
         }
@@ -822,21 +826,32 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Roles_Helper')) {
         }
 
         public static function add_wpfront_caps_to_roles() {
+            if(is_multisite()) {
+                return;
+            }
+            
             $role = self::get_role(self::ADMINISTRATOR_ROLE_KEY);
             if (!empty($role)) {
                 $key = 'role_capabilities_processed';
                 $processed = \WPFront\URE\Options\WPFront_User_Role_Editor_Options::instance()->get_option($key);
+
                 if (version_compare($processed, \WPFront\URE\WPFront_User_Role_Editor::VERSION, '>=')) {
                     return;
                 }
+                
+                $caps = apply_filters('wpfront_ure_administrator_caps_to_process', self::$ROLE_CAPS);
 
-                if (!is_multisite()) {
-                    foreach (self::$ROLE_CAPS as $cap) {
+                $flag = false;
+                foreach ($caps as $cap) {
+                    if(!$role->has_cap($cap)) {
                         $role->add_cap($cap);
+                        $flag = true;
                     }
                 }
 
-                \WPFront\URE\Options\WPFront_User_Role_Editor_Options::instance()->set_option($key, \WPFront\URE\WPFront_User_Role_Editor::VERSION);
+                if(!$flag) {
+                    \WPFront\URE\Options\WPFront_User_Role_Editor_Options::instance()->set_option($key, \WPFront\URE\WPFront_User_Role_Editor::VERSION);
+                }
             }
         }
 
@@ -868,8 +883,6 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor_Roles_Helper')) {
             add_filter('wpfront_ure_restore_role_custom_caps', '\WPFront\URE\WPFront_User_Role_Editor_Roles_Helper::restore_role_custom_caps');
 
             add_filter('wpfront_ure_capability_ui_help_link', '\WPFront\URE\WPFront_User_Role_Editor_Roles_Helper::cap_help_link', 10, 3);
-
-            self::add_wpfront_caps_to_roles();
         }
         
         public static function clear_cache() {

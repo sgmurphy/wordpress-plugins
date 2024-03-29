@@ -2,7 +2,7 @@
 
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,8 +25,8 @@
 /**
  * Controller for WPFront User Role Editor Post Type
  *
- * @author Vaisagh D <vaisaghd@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @author Syam Mohan <syam@wpfront.com>
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Post_Type;
@@ -49,8 +49,8 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
     /**
      * Post Type List class
      *
-     * @author Vaisagh D <vaisaghd@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @author Syam Mohan <syam@wpfront.com>
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Post_Type extends \WPFront\URE\WPFront_User_Role_Editor_View_Controller {
 
@@ -190,6 +190,10 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
                 $args = WPFront_User_Role_Editor_Post_Type_Custom_Capability::register_post_type_args($this, $args, $post_type);
             }
 
+            $args = wp_parse_args($args);
+            if (isset($args['labels'])) {
+                $args['labels'] = wp_parse_args($args['labels']);
+            }
             $this->post_type_args[$post_type] = $args;
 
             return $args;
@@ -209,6 +213,10 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
 
             if (!empty($this->post_type_args[$post_type]['labels']['singular_name'])) {
                 return;
+            }
+
+            if (empty($this->post_type_args[$post_type]['labels'])) {
+                $this->post_type_args[$post_type]['labels'] = array();
             }
 
             $this->post_type_args[$post_type]['labels']['singular_name'] = $post_type_object->labels->singular_name;
@@ -303,6 +311,12 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return;
         }
 
+        /**
+         * 
+         * @param string $screen
+         * @param array $datas
+         * @return void
+         */
         private function activate_deactivate_post_type($screen, $datas = null) {
             switch ($screen) {
                 case 'activate':
@@ -373,6 +387,11 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             exit;
         }
 
+        /**
+         * 
+         * @param string $screen
+         * @return void
+         */
         private function add_edit_post_type($screen) {
             $data = null;
             $clone = null;
@@ -455,7 +474,7 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
                     }
                 }
 
-                $labels = $this->get_submitted_text('label');
+                $labels = sanitize_text_field($this->get_submitted_text('label'));
                 if (empty($labels)) {
                     $this->errorMsg = __('Plural label must be provided.', 'wpfront-user-role-editor');
                     return;
@@ -463,7 +482,7 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
 
                 $entity->label = $labels; //WordPress stores plural on label.
 
-                $label = $this->get_submitted_text('singular_name');
+                $label = sanitize_text_field($this->get_submitted_text('singular_name'));
                 if (empty($label)) {
                     $this->errorMsg = __('Singular label must be provided.', 'wpfront-user-role-editor');
                     return;
@@ -519,10 +538,25 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             }
         }
 
+        /**
+         * Sanitizes posted values
+         * 
+         * @SuppressWarnings(PHPMD)
+         *
+         * @param string $screen
+         * @param array<string,mixed> $post_type_args
+         * @param WPFront_User_Role_Editor_Post_Type_Entity $entity
+         * @return array<string,mixed>
+         */
         protected function sanitize_add_edit_post_type_args($screen, $post_type_args, $entity) {
             return $post_type_args;
         }
 
+        /**
+         * 
+         * @param string $action
+         * @param array $datas
+         */
         private function handle_action($action, $datas = null) {
             switch ($action) {
                 case 'delete':
@@ -595,8 +629,32 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
                 }
             }
 
+            if (isset($args['rest_base'])) {
+                $rest_base = sanitize_key($args['rest_base']);
+                if ($args['rest_base'] != $rest_base) {
+                    $this->errorMsg = __('This "REST Base" is not allowed (Use only lowercase letters, numbers, underscores and hyphens).', 'wpfront-user-role-editor');
+                    return;
+                }
+            }
+
+            if (isset($args['rest_controller_class'])) {
+                $rest_controller_class = sanitize_text_field($args['rest_controller_class']);
+                if ($args['rest_controller_class'] != $rest_controller_class) {
+                    $this->errorMsg = __('This "REST Controller Class" name is not allowed.', 'wpfront-user-role-editor');
+                    return;
+                };
+            }
+
             if (isset($args['menu_position'])) {
                 $args['menu_position'] = (int) $args['menu_position'];
+            }
+
+            if (isset($args['menu_icon'])) {
+                $menu_icon = sanitize_text_field($args['menu_icon']);
+                if ($args['menu_icon'] != $menu_icon) {
+                    $this->errorMsg = __('This "Menu Icon" is not allowed.', 'wpfront-user-role-editor');
+                    return;
+                }
             }
 
             $props = [
@@ -646,8 +704,14 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
 
             if (!empty($args['show_in_menu'])) {
                 $slug = $this->get_submitted_text('show_in_menu_slug');
+                $sanitized_slug = sanitize_text_field($slug);
                 if ($slug !== null) {
-                    $args['show_in_menu'] = $slug;
+                    if ($sanitized_slug != $slug) {
+                        $this->errorMsg = __('This "Show in Menu" name is not allowed.', 'wpfront-user-role-editor');
+                        return;
+                    } else {
+                        $args['show_in_menu'] = $slug;
+                    }
                 }
             }
 
@@ -665,8 +729,14 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
 
             if (!empty($args['query_var'])) {
                 $slug = $this->get_submitted_text('query_var_slug');
+                $sanitized_slug = sanitize_key($slug);
                 if ($slug !== null) {
-                    $args['query_var'] = $slug;
+                    if ($sanitized_slug != $slug) {
+                        $this->errorMsg = __('This "Query Var" is not allowed.', 'wpfront-user-role-editor');
+                        return;
+                    } else {
+                        $args['query_var'] = $slug;
+                    }
                 }
             }
 
@@ -755,8 +825,8 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             ];
 
             foreach ($props as $prop) {
-                $value = $this->get_submitted_text($prop);
-                if ($value !== null) {
+                $value = sanitize_text_field($this->get_submitted_text($prop));
+                if (!empty($value)) {
                     $args[$prop] = $value;
                 }
             }
@@ -765,6 +835,11 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return $args;
         }
 
+        /**
+         * Returns Post type data based on URL param.   
+         *
+         * @return object|null
+         */
         private function get_post_type_data_from_url() {
             if (empty($_GET['name'])) {
                 wp_safe_redirect($this->get_self_url());
@@ -781,6 +856,11 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return $post_type;
         }
 
+        /**
+         * 
+         * @param string $name
+         * @return null|string
+         */
         protected function get_submitted_text($name) {
             if (empty($_POST[$name])) {
                 return null;
@@ -795,6 +875,11 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return $txt;
         }
 
+        /**
+         * 
+         * @param string $name
+         * @return array|null
+         */
         private function get_submitted_array($name) {
             if (!empty($_POST[$name]) && is_array($_POST[$name])) {
                 return $_POST[$name];
@@ -803,13 +888,18 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return null;
         }
 
+        /**
+         * 
+         * @param string $name
+         * @return array
+         */
         protected function get_submitted_text_array($name) {
             if (!empty($_POST[$name])) {
                 $txt = $_POST[$name];
                 $values = explode(',', $txt);
                 $result = [];
                 foreach ($values as $value) {
-                    $result[] = trim($value);
+                    $result[] = sanitize_text_field($value);
                 }
 
                 return $result;
@@ -818,6 +908,11 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return null;
         }
 
+        /**
+         * 
+         * @param string $name
+         * @return boolean|null
+         */
         protected function get_submitted_boolean($name) {
             if (isset($_POST[$name]) && $_POST[$name] == '') {
                 return null;
@@ -863,6 +958,10 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return $list;
         }
 
+        /**
+         * 
+         * @return array
+         */
         public function get_list_filter_data() {
             $filter_data = array();
             $built_in = [];
@@ -933,6 +1032,11 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return $filter_data;
         }
 
+        /**
+         * 
+         * @param array $post_types
+         * @return array
+         */
         public function apply_active_list_filter($post_types = null) {
             if ($post_types === null) {
                 $post_types = $this->get_all_post_types_data();
@@ -983,6 +1087,10 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return $post_types;
         }
 
+        /**
+         * 
+         * @return array
+         */
         protected function get_all_entities() {
             if ($this->entities !== null) {
                 return $this->entities;
@@ -995,6 +1103,17 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
                 if (!is_array($entity->post_type_arg)) { //customized from role add/edit screen.
                     $entity->post_type_arg = array();
                     $entity->post_type_arg['map_meta_cap'] = true;
+                } else {
+                    //remove empty labels
+                    if(isset($entity->post_type_arg['labels'])) {
+                        $labels = $entity->post_type_arg['labels'];
+                        foreach ($labels as $key => $label) {
+                            if(empty($label)) {
+                                unset($labels[$key]);
+                }
+                        }
+                        $entity->post_type_arg['labels'] = $labels;
+                    }
                 }
 
                 if (!empty($entity->capability_type)) {
@@ -1007,6 +1126,11 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return $this->entities;
         }
 
+        /**
+         * 
+         * @param array $entities
+         * @return array
+         */
         protected function sanitize_pro_fields($entities) {
             foreach ($entities as $post_type => $entity) {
                 if (isset($entity->post_type_arg['capability_type'])) {
@@ -1030,7 +1154,7 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
         /**
          * Returns list of post types.
          *
-         * @return object[] Associative(post_type => object)
+         * @return array<string,object> Associative(post_type => object)
          */
         public function get_all_post_types_data() {
             if (!$this->post_types_cache_clear && !empty($this->post_types_cache)) {
@@ -1055,13 +1179,13 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
                 $data->source_type = $post_type_obj->_builtin ? self::SOURCE_TYPE_BUILTIN : self::SOURCE_TYPE_OTHER;
                 $taxes = get_object_taxonomies($post_type_obj->name);
                 $data->taxonomies = is_array($taxes) ? $taxes : [];
-                
+
                 if (isset($this->post_type_args[$name])) {
                     $data->post_type_arg = $this->post_type_args[$name];
                 } else {
                     $data->post_type_arg = array();
                 }
-                
+
                 $data->entity = null;
 
                 $exiting[$name] = $data;
@@ -1137,9 +1261,10 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
         }
 
         /**
-         * Returns the post type.
+         * Returns the built-data
          *
-         * @return string
+         * @param string $post_type
+         * @return object|null
          */
         public function get_post_type_data($post_type) {
             $lists = $this->get_all_post_types_data();
@@ -1150,6 +1275,11 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return null;
         }
 
+        /**
+         * 
+         * @param string $search
+         * @return array
+         */
         public function search($search) {
             $post_types = $this->get_all_post_types_data();
             $post_types = $this->sort_post_types_data($post_types);
@@ -1173,6 +1303,11 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return $post_types;
         }
 
+        /**
+         * 
+         * @param array $post_types
+         * @return array
+         */
         protected function sort_post_types_data($post_types) {
             $built_in_post_types = array();
             $other_post_types = array();
@@ -1201,6 +1336,11 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return array_merge($built_in_post_types, $other_post_types, $user_defined_post_types);
         }
 
+        /**
+         * 
+         * @param string $slug
+         * @return boolean
+         */
         protected function is_valid_slug($slug) {
             if (empty($slug)) {
                 return false;
@@ -1209,6 +1349,11 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return sanitize_key($slug) === $slug;
         }
 
+        /**
+         * 
+         * @param string $slug
+         * @return boolean
+         */
         protected function is_valid_rewrite_slug($slug) {
             $key = strtolower($slug);
             $key = preg_replace('/[^a-z0-9_\-\/]/', '', $key);
@@ -1216,6 +1361,11 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return $key === $slug;
         }
 
+        /**
+         * 
+         * @param string $ep_mask
+         * @return boolean
+         */
         private function is_valid_ep_mask($ep_mask) {
             return !preg_match("/[^0-9]/", $ep_mask);
         }
@@ -1295,6 +1445,11 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return $this->get_add_new_url($name);
         }
 
+        /**
+         * 
+         * @param string $name
+         * @return string
+         */
         public function get_restore_url($name) {
             if (empty($name)) {
                 return $this->get_self_url(['screen' => 'restore']);
@@ -1303,6 +1458,10 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return $this->get_self_url(['screen' => 'restore', 'name' => $name]);
         }
 
+        /**
+         * 
+         * @return array
+         */
         public function get_user_visible_cpt() {
             $post_types = get_post_types(array(
                 '_builtin' => false
@@ -1323,6 +1482,11 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return $cpts;
         }
 
+        /**
+         * 
+         * @param WP_Post_Type $post_type_object
+         * @return boolean
+         */
         protected function is_cpt_user_visible($post_type_object) {
             if ($post_type_object->_builtin) {
                 return false;
@@ -1331,6 +1495,12 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             return is_post_type_viewable($post_type_object) || $post_type_object->show_ui || $post_type_object->capability_type !== 'post';
         }
 
+        /**
+         * 
+         * @param type $group_obj
+         * @param type $disabled
+         * @return string
+         */
         public function get_cpt_customizable_hint_text($group_obj, $disabled) {
             $post_type_obj = get_post_type_object($group_obj->key);
             $post_type = $post_type_obj->capability_type;
@@ -1360,7 +1530,7 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type')) 
             parent::admin_print_styles();
             wp_enqueue_style('wpfront-user-role-editor-post-types', WPFURE::instance()->get_asset_url('css/chosen/chosen.min.css'), array(), WPFURE::VERSION);
         }
-        
+
         public static function get_debug_setting() {
             return array('key' => 'post-type', 'label' => __('Post Types', 'wpfront-user-role-editor'), 'position' => 90, 'description' => __('Disables all Post Type functionalities including custom capabilities.', 'wpfront-user-role-editor'));
         }

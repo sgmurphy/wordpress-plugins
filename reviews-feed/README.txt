@@ -1,4 +1,4 @@
-=== Reviews Feed – Add Testimonials and Customer Reviews From Google Reviews, Yelp Reviews, TripAdvisor Reviews, and More ===
+=== Reviews Feed – Add Testimonials and Customer Reviews From Google Reviews, Yelp, TripAdvisor, and More ===
 Contributors: smashballoon, craig-at-smash-balloon, am, smub
 Tags: Google reviews, reviews, testimonials, yelp, Google business
 Requires at least: 4.1
@@ -8,11 +8,11 @@ Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Display Google reviews and Yelp reviews from real customers for any business in a clean, customizable feed on your site.
+Display Google and Yelp reviews from real customers for any business in a clean, customizable feed on your site.
 
 == Description ==
 
-Display Google business reviews and Yelp reviews on your site, either in the same single feed or in multiple different ones. Provide social proof through real customer testimonials that will turn site visitors into paying customers.
+Display Yelp and Google business reviews on your site, either in the same single feed or in multiple different ones. Provide social proof through real customer testimonials that will turn site visitors into paying customers.
 
 https://www.youtube.com/watch?v=MFNuktbnaXE
 
@@ -20,7 +20,7 @@ If a Google business listing has a physical location, you can display your lates
 
 Showing Google rating and Yelp reviews on your website is one of the best ways to convince site visitors to do business with you and boost your conversions. Customer testimonials are crucial to building positive brand trust for online businesses.
 
-Our plugin makes it easy to set up an automatically updating feed of Google reviews and Yelp reviews. After installing the plugin, create a feed by visiting the Reviews Feed menu item that appears in your dashboard. Configure a source of reviews for your feed, customize the look and feel, then use a shortcode to display your reviews feed anywhere on your site. It takes less than a minute to get started.
+Our plugin makes it easy to set up an automatically updating feed of Google and Yelp reviews. After installing the plugin, create a feed by visiting the Reviews Feed menu item that appears in your dashboard. Configure a source of reviews for your feed, customize the look and feel, then use a shortcode to display your reviews feed anywhere on your site. It takes less than a minute to get started.
 
 = Features =
 * Super **simple to set up**
@@ -33,7 +33,7 @@ Our plugin makes it easy to set up an automatically updating feed of Google revi
 * Display the reviewer's name, date and start rating of each Google review or Yelp review
 * Show the **overall star rating** of your Google or Yelp listing in a customizable header at the top of the feed
 * Prompt site visitors to leave a review on Google or Yelp with a button in the header
-* Display your Google reviews and Yelp reviews in chronological order or reverse chronological order.
+* Display your Google and Yelp reviews in chronological order or reverse chronological order.
 * Automatically show new reviews, collected daily when you enter you own API keys (free and easy to get)
 * Handy block for easily adding your reviews feed to posts and pages using the block editor
 
@@ -41,12 +41,12 @@ Our plugin makes it easy to set up an automatically updating feed of Google revi
 * **Build Brand Trust** - Customer reviews are essential to building trust with customers
 * **Social Proof** - Real customer reviews, proven to increase sales.
 * **Display Your Reviews Your Way** - Customize your Google review and Yelp review feeds to look exactly the way you want, so that they blend seamlessly into your site or pop out at your visitors!
-* **Keep Your Site Looking Fresh** - Show your latest Google reviews and Yelp reviews updated automatically every day.
-* **Super Simple to Set Up** - Once installed, you can be displaying your Google reviews and Yelp reviews within a minute! No confusing steps or special account needed.
+* **Keep Your Site Looking Fresh** - Show your latest Yelp and Google reviews and Yelp reviews updated automatically every day.
+* **Super Simple to Set Up** - Once installed, you can be displaying your Yelp and Google reviews within a minute! No confusing steps or special account needed.
 
 = Pro Version =
 In order to maintain the free version of the plugin on an ongoing basis, and to provide quick and effective support for free, we offer a Pro version of the plugin. The Pro version allows you to:
-* Include Facebook reviews, Trustpilot reviews, TripAdvisor reviews, and WordPress.org reviews
+* Include Trustpilot, TripAdvisor, WordPress.org and Facebook reviews in your feed
 * Filter reviews by star rating
 * Create and add reviews manually to feeds
 * Create custom collections of specific reviews to display anywhere
@@ -87,13 +87,13 @@ For simple step-by-step directions on how to set up the Reviews Feed plugin, ple
 
 **Single Reviews Feed**
 
-Copy and paste the following shortcode directly into the page, post or widget where you'd like the Google reviews and Yelp reviews feed to show up: `[reviews-feed feed=1]`
+Copy and paste the following shortcode directly into the page, post or widget where you'd like the Yelp and Google reviews feed to show up: `[reviews-feed feed=1]`
 
 **Multiple Reviews Feeds**
 
 If you'd like to display multiple review feeds, then you can set different settings by creating another feed using the customizer: `[reviews-feed feed=2]`
 
-You can display as many different Google reviews and Yelp reviews feeds as you like, on either the same page or on different pages, by just using the shortcode options below after creating multiple reviews feeds in the customizer. For example:
+You can display as many different Yelp and Google reviews feeds as you like, on either the same page or on different pages, by just using the shortcode options below after creating multiple reviews feeds in the customizer. For example:
 `[reviews-feed feed=2]`
 `[reviews-feed feed=3]`
 `[reviews-feed feed=4]`
@@ -180,13 +180,13 @@ Don't have time to update the reviews on your site? Save time and increase effic
 Customize your review feeds to look exactly the way you want, so that they blend seamlessly into your site or pop out at your visitors!
 
 **No Coding Required**
-Choose from tons of built-in Reviews Feed customization options to create a truly unique feed of your Google reviews and Yelp reviews.
+Choose from tons of built-in Reviews Feed customization options to create a truly unique feed of your Yelp and Google reviews.
 
 **Super simple to set up**
-Once installed, you can be displaying your Google reviews and Yelp reviews in under a minute! No confusing steps or registration needed.
+Once installed, you can be displaying your Yelp and Google reviews in under a minute! No confusing steps or registration needed.
 
 **Mind-blowing Customer Support**
-We understand that sometimes you need help, have issues or just have questions. We love our users and strive to provide the best support experience in the business. We're experts in the Google reviews and Yelp reviews API and can provide unparalleled service and expertise. If you need support then just let us know and we'll get back to you right away.
+We understand that sometimes you need help, have issues or just have questions. We love our users and strive to provide the best support experience in the business. We're experts in the Yelp and Google reviews API and can provide unparalleled service and expertise. If you need support then just let us know and we'll get back to you right away.
 
 = What can it do? =
 
@@ -194,7 +194,7 @@ We understand that sometimes you need help, have issues or just have questions. 
 * Completely responsive and mobile ready –your reviews feed layout looks great on any screen size and in any container width
 * Display multiple reviews feeds on the same page or on different pages throughout your site by creating multiple feeds in our customizer
 * Choose a language for your Google reviews content to display in or leave reviews untranslated.
-* Collect and permanently store new Google reviews and Yelp reviews over time. Use our feature to load more reviews on the page.
+* Collect and permanently store new Google and Yelp reviews over time. Use our feature to load more reviews on the page.
 * Encourage visitors to leave their own reviews with a link to Google or Yelp to rate your business.
 
 == Changelog ==

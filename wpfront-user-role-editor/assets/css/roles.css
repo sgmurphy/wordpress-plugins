@@ -1,6 +1,6 @@
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -448,7 +448,9 @@ div.wpfront-user-role-editor-post-type-extended-permission table th.role {
 
 div.wpfront-user-role-editor-post-type-extended-permission table th.view,
 div.wpfront-user-role-editor-post-type-extended-permission table th.edit,
-div.wpfront-user-role-editor-post-type-extended-permission table th.delete {
+div.wpfront-user-role-editor-post-type-extended-permission table th.delete,
+div.wpfront-user-role-editor-post-type-extended-permission table th.comment,
+div.wpfront-user-role-editor-post-type-extended-permission table th.publish{
     width: 3%;
 }
 
@@ -470,7 +472,7 @@ div.wpfront-user-role-editor-post-type-extended-permission table td.redirect {
 }
 
 div.wpfront-user-role-editor-post-type-extended-permission table td.redirect input.url {
-    width: 70%;
+    width: 65%;
     max-width: 30em;
 }
 
@@ -482,16 +484,20 @@ div.wpfront-user-role-editor-post-type-extended-permission table td.redirect inp
 #wpfront-user-role-editor-role-permissions-requires-login th {
     text-align: left;
 }
+
 div.wpfront-user-role-editor-post-type-extended-permission table colgroup.view,
 div.wpfront-user-role-editor-post-type-extended-permission table colgroup.edit,
 div.wpfront-user-role-editor-post-type-extended-permission table colgroup.delete,
+div.wpfront-user-role-editor-post-type-extended-permission table colgroup.comment,
+div.wpfront-user-role-editor-post-type-extended-permission table colgroup.publish,
 div.wpfront-user-role-editor-post-type-extended-permission table colgroup.view-deny-action {
     border-left: 1px solid #ededed;
 }
-div.wpfront-user-role-editor-post-type-extended-permission table colgroup.view,
-div.wpfront-user-role-editor-post-type-extended-permission table colgroup.delete {
+
+div.wpfront-user-role-editor-post-type-extended-permission table colgroup.alt {
     background-color: #fbfbfb;
 }
+
 div.wpfront-user-role-editor-post-type-extended-permission table {
     border-collapse: collapse;
 }

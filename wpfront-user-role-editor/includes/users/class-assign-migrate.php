@@ -2,7 +2,7 @@
 
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -26,7 +26,7 @@
  * Controller for WPFront User Role Editor Assign Migrate
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Assign_Migrate;
@@ -48,7 +48,7 @@ if (!class_exists('\WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_Assign_M
      * Assign Migrate class
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Assign_Migrate extends \WPFront\URE\WPFront_User_Role_Editor_View_Controller {
 
@@ -94,7 +94,7 @@ if (!class_exists('\WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_Assign_M
             if ($debug->is_disabled('assign-migrate')) {
                 return;
             }
-            
+
             add_action('admin_init', array($this, 'admin_init'));
 
             if (!$this->in_admin_ui()) {
@@ -110,7 +110,9 @@ if (!class_exists('\WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_Assign_M
          * Adds ajax functions on admin_init
          */
         public function admin_init() {
-            add_action('wp_ajax_wpfront_user_role_editor_assign_roles_user_autocomplete', array($this, 'assign_roles_user_autocomplete_callback'), 10, 0);
+            if(current_user_can($this->get_cap())) {
+                add_action('wp_ajax_wpfront_user_role_editor_assign_roles_user_autocomplete', array($this, 'assign_roles_user_autocomplete_callback'), 10, 0);
+            }
         }
 
         public function admin_print_scripts() {
@@ -154,7 +156,7 @@ if (!class_exists('\WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_Assign_M
                     return;
                 }
 
-                $user_id = $_POST['assign-user-id'];
+                $user_id = intval($_POST['assign-user-id']);
                 $user = get_userdata($user_id);
 
                 if (empty($user)) {
@@ -470,7 +472,18 @@ if (!class_exists('\WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_Assign_M
             Utils::set_help_tab($tabs, $sidebar);
         }
 
+        /**
+         * Autocomplete callback
+         * 
+         * @SuppressWarnings(PHPMD)
+         *
+         * @return void
+         */
         public function assign_roles_user_autocomplete_callback() {
+            if(!current_user_can($this->get_cap())) {
+                wp_send_json_error();
+            }
+
             $search_string = $_REQUEST['term'];
 
             $args = array(
@@ -488,6 +501,8 @@ if (!class_exists('\WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_Assign_M
             );
             $users_found = get_users($args);
 
+            $users_found = array_values(array_filter($users_found, array($this, 'filter_promote_user')));
+
             $user_details = array();
             foreach ($users_found as $user) {
                 $user_details[] = array(
@@ -496,8 +511,7 @@ if (!class_exists('\WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_Assign_M
                 );
             }
 
-            echo json_encode($user_details);
-            exit;
+            wp_send_json($user_details);
         }
 
     }

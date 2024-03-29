@@ -4,8 +4,8 @@
  * Plugin Name: WPFront User Role Editor
  * Plugin URI: http://wpfront.com/user-role-editor-pro/ 
  * Description: Allows you to manage your site's security using user role permissions.
- * Version: 3.2.1.11184
- * Requires at least: 5.0
+ * Version: 4.1.0
+ * Requires at least: 5.1
  * Requires PHP: 7.0
  * Author: Syam Mohan
  * Author URI: http://wpfront.com
@@ -16,7 +16,7 @@
 
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -46,7 +46,7 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor')) {
 
     class WPFront_User_Role_Editor {
 
-        const VERSION = '3.2.1.11184';
+        const VERSION = '4.1.0.03291';
         const PLUGIN_SLUG = 'wpfront-user-role-editor';
 
         protected static $instance = null;
@@ -83,13 +83,8 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor')) {
          * Loads controller files and fires wpfront_ure_init.
          */
         public static function init() {
-            add_action('plugins_loaded', array(self::instance(), 'plugins_loaded'));
             self::instance()->includes();
             add_action('admin_enqueue_scripts', array(self::instance(), 'admin_enqueue_styles'));
-        }
-
-        public function plugins_loaded() {
-            load_plugin_textdomain('wpfront-user-role-editor', false, basename($this->plugin_dir) . '/languages/');
         }
 
         /**
@@ -106,6 +101,7 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor')) {
             require_once $this->includes_dir . 'class-debug.php';
             require_once $this->includes_dir . 'users/class-assign-migrate.php';
             require_once $this->includes_dir . 'users/class-user-profile.php';
+            require_once $this->includes_dir . 'users/class-user-switching.php';
             require_once $this->includes_dir . 'roles/class-roles-list.php';
             require_once $this->includes_dir . 'roles/class-role-add-edit.php';
             require_once $this->includes_dir . 'restore/class-restore.php';
@@ -119,11 +115,13 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor')) {
             require_once $this->includes_dir . 'shortcodes/class-shortcodes.php';
             require_once $this->includes_dir . 'post-type/class-post-type.php';
             require_once $this->includes_dir . 'taxonomies/class-taxonomies.php';
+            require_once $this->includes_dir . 'comments/class-comment-capabilities.php';
             require_once $this->includes_dir . 'wp/includes.php';
             require_once $this->includes_dir . 'go-pro/class-go-pro.php';
+            
+            require_once $this->includes_dir . 'extended-permissions/class-post-type-extended-permissions.php';
 
             require_once $this->includes_dir . 'integration/plugins/class-wpfront-user-role-editor-plugin-integration.php';
-
 
             if (file_exists($this->includes_dir . 'ppro/includes.php')) {
                 require_once $this->includes_dir . 'ppro/includes.php';
@@ -208,9 +206,9 @@ if (!class_exists('\WPFront\URE\WPFront_User_Role_Editor')) {
          */
         public function permission_denied() {
             wp_die(
-                    __('You do not have sufficient permissions to access this page.', 'wpfront-user-role-editor'),
+                    __('Sorry, you are not allowed to access this page.', 'wpfront-user-role-editor'),
                     __('Access Denied', 'wpfront-user-role-editor'),
-                    array('response' => 403, 'back_link' => true)
+                    array('response' => 403)
             );
         }
 

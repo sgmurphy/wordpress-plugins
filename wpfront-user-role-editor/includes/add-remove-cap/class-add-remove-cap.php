@@ -2,7 +2,7 @@
 
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -26,7 +26,7 @@
  * Controller for WPFront User Role Editor Add Edit Capability
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Bulk_Edit;
@@ -41,7 +41,6 @@ use WPFront\URE\WPFront_User_Role_Editor_Roles_Helper as RolesHelper;
 use WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Bulk_Edit as BulkEdit;
 use \WPFront\URE\WPFront_User_Role_Editor_Debug;
 
-
 require_once dirname(__FILE__) . '/template-add-remove-cap.php';
 
 if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Add_Remove_Cap')) {
@@ -50,7 +49,7 @@ if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Add_Remove_Ca
      * Restore Role
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Add_Remove_Cap extends \WPFront\URE\WPFront_User_Role_Editor_View_Controller implements iWPFront_URE_Bulk_Edit_Controller {
 
@@ -79,11 +78,11 @@ if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Add_Remove_Ca
         protected function _register($controllers) {
             $debug = WPFront_User_Role_Editor_Debug::instance();
             $debug->add_setting('add-remove-cap', __('Add or Remove Capability', 'wpfront-user-role-editor'), 20, __('Disables add or remove capability functionality.', 'wpfront-user-role-editor'));
-            
-            if($debug->is_disabled('add-remove-cap')) {
+
+            if ($debug->is_disabled('add-remove-cap')) {
                 return $controllers;
             }
-            
+
             if (!$this->in_admin_ui()) {
                 return $controllers;
             }
@@ -123,8 +122,18 @@ if (!class_exists('\WPFront\URE\Bulk_Edit\WPFront_User_Role_Editor_Add_Remove_Ca
                 if (!isset($_POST['capability'])) {
                     return;
                 }
+
                 $capability = trim($_POST['capability']);
 
+                if ($action_type == 'add') {
+                    $sanitized_capability = sanitize_key($_POST['capability']);
+                    
+                    if ($capability != $sanitized_capability) {
+                        $this->error = __('Invalid capability.', 'wpfront-user-role-editor');
+                        return;
+                    }
+                }
+                
                 if ($capability == '') {
                     $this->error = __('Invalid capability.', 'wpfront-user-role-editor');
                     return;

@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -33,7 +33,7 @@ if (!class_exists('\WPFront\URE\Integration\WPFront_User_Role_Editor_Plugin_Dupl
      * Main class of Duplicator Integration
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Plugin_Duplicator extends WPFront_User_Role_Editor_Plugin_Integration {
 

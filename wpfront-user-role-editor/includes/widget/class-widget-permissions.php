@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Controller for WPFront User Role Editor Widget Permissions
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Widget;
@@ -45,7 +45,7 @@ if (!class_exists('\WPFront\URE\Widget\WPFront_User_Role_Editor_Widget_Permissio
      * Widget Permissions
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Widget_Permissions extends \WPFront\URE\WPFront_User_Role_Editor_Controller {
 
@@ -103,10 +103,15 @@ if (!class_exists('\WPFront\URE\Widget\WPFront_User_Role_Editor_Widget_Permissio
          * @return object
          */
         protected function get_meta_data($instance) {
-            if (empty($instance) || empty($instance[self::$META_DATA_KEY])) {
-                $data = (OBJECT) array('type' => self::$ALL_USERS);
-            } else {
+            $data = null;
+            
+            if (!empty($instance[self::$META_DATA_KEY])) {
                 $data = $instance[self::$META_DATA_KEY];
+                $data = (OBJECT) $data;
+            }
+            
+            if(!isset($data->type)) {
+                $data = (OBJECT) array('type' => self::$ALL_USERS);
             }
 
             $data->type = intval($data->type);
@@ -129,7 +134,7 @@ if (!class_exists('\WPFront\URE\Widget\WPFront_User_Role_Editor_Widget_Permissio
         /**
          * Hooks into in_widget_form, display widget custom fields.
          * 
-         * @param \WP_Widget $this     The widget instance (passed by reference).
+         * @param \WP_Widget $widget  The widget instance (passed by reference).
          * @param null      $return   Return null if new fields are added.
          * @param array     $instance An array of the widget's settings.
          */
@@ -146,6 +151,7 @@ if (!class_exists('\WPFront\URE\Widget\WPFront_User_Role_Editor_Widget_Permissio
             ?>
             <p>
                 <label><?php echo __('User Restrictions', 'wpfront-user-role-editor'); ?></label>
+                <br />
                 <span class="user-restriction-container">
                     <label><input class="user-restriction-type" type="radio" name="<?php echo esc_attr($widget->get_field_name('user-restriction-type')); ?>" value="<?php echo self::$ALL_USERS; ?>" <?php echo $data->type === self::$ALL_USERS ? 'checked' : ''; ?> /><?php echo __('All Users', 'wpfront-user-role-editor'); ?></label>
                     <label><input class="user-restriction-type" type="radio" name="<?php echo esc_attr($widget->get_field_name('user-restriction-type')); ?>" value="<?php echo self::$LOGGEDIN_USERS; ?>" <?php echo $data->type === self::$LOGGEDIN_USERS ? 'checked' : ''; ?> /><?php echo __('Logged in Users', 'wpfront-user-role-editor'); ?></label>
@@ -186,8 +192,8 @@ if (!class_exists('\WPFront\URE\Widget\WPFront_User_Role_Editor_Widget_Permissio
          * @param array     $instance     The current widget instance's settings.
          * @param array     $new_instance Array of new widget settings.
          * @param array     $old_instance Array of old widget settings.
-         * @param WP_Widget $this         The current widget instance.
-         * @return object
+         * @param \WP_Widget $widget         The current widget instance.
+         * @return array
          */
         public function widget_update_callback($instance, $new_instance, $old_instance, $widget) {
             if (!current_user_can(self::CAP)) {
@@ -195,6 +201,12 @@ if (!class_exists('\WPFront\URE\Widget\WPFront_User_Role_Editor_Widget_Permissio
                     $instance[self::$META_DATA_KEY] = (OBJECT) array('type' => self::$ALL_USERS);
                 else
                     $instance[self::$META_DATA_KEY] = $old_instance[self::$META_DATA_KEY];
+                return $instance;
+            }
+
+            //block editor update
+            if(isset($new_instance[self::$META_DATA_KEY])) {
+                $instance[self::$META_DATA_KEY] = (object)$new_instance[self::$META_DATA_KEY];
                 return $instance;
             }
 
@@ -208,8 +220,8 @@ if (!class_exists('\WPFront\URE\Widget\WPFront_User_Role_Editor_Widget_Permissio
          * @param array     $instance     The current widget instance's settings.
          * @param array     $new_instance Array of new widget settings.
          * @param array     $old_instance Array of old widget settings.
-         * @param WP_Widget $this         The current widget instance.
-         * @return array
+         * @param \WP_Widget $widget       The current widget instance.
+         * @return \stdClass
          */
         protected function get_widget_post_data($instance, $new_instance, $old_instance, $widget) {
             if (empty($new_instance['user-restriction-type'])) {
@@ -222,7 +234,7 @@ if (!class_exists('\WPFront\URE\Widget\WPFront_User_Role_Editor_Widget_Permissio
         /**
          * Hooks into widget_display_callback, display logic.
          * @param array     $instance The current widget instance's settings.
-         * @param WP_Widget $this     The current widget instance.
+         * @param \WP_Widget $widget   The current widget instance.
          * @param array     $args     An array of default widget arguments.
          * @return boolean
          */

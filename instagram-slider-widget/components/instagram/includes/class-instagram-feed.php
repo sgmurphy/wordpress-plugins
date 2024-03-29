@@ -403,21 +403,21 @@ class WIS_Instagram_Feed extends WIS_Feed {
 					}
 
 					$args = [
-						'fields'       => 'id,username,caption,comments_count,like_count,media_type,media_url,permalink,timestamp,children{media_url,media_type},owner,thumbnail_url',
 						'access_token' => $account['token'],
+						'fields'       => 'id,username,caption,comments_count,like_count,media_type,media_url,permalink,timestamp,children{media_url,media_type},owner,thumbnail_url',
 						'limit'        => 50,
 					];
 
-					$url      = add_query_arg( $args, WFB_FACEBOOK_SELF_URL . $account['id'] . '/media' );
-					$response = wp_remote_get( $url ); // phpcs:ignore
+					$url      = WFB_FACEBOOK_SELF_URL . $account['id'] . '/media';
+					$response = wp_remote_get( esc_url( add_query_arg( $args, $url ) ) );
 					if ( 200 == wp_remote_retrieve_response_code( $response ) ) {
 						$media   = json_decode( wp_remote_retrieve_body( $response ), true );
 						$results = $media['data'];
 
 						$stories_url      = WFB_FACEBOOK_SELF_URL . $account['id'] . '/stories';
 						$url              = add_query_arg( [
-							'fields'       => 'media_type,media_url,permalink,timestamp',
 							'access_token' => $account['token'],
+							'fields'       => 'media_type,media_url,permalink,timestamp',
 						], $stories_url );
 						$stories_response = wp_remote_get( $url );
 						if ( 200 == wp_remote_retrieve_response_code( $stories_response ) ) {
@@ -448,8 +448,8 @@ class WIS_Instagram_Feed extends WIS_Feed {
 						'limit'        => 50,
 						'access_token' => $account['token'],
 					];
-					$url      = add_query_arg( $args, WIG_USERS_SELF_MEDIA_URL . $account['id'] );
-					$response = wp_remote_get( $url );  // phpcs:ignore
+					$url      = WIG_USERS_SELF_MEDIA_URL . $account['id'];
+					$response = wp_remote_get( esc_url( add_query_arg( $args, $url ) ) );
 					if ( 200 == wp_remote_retrieve_response_code( $response ) ) {
 						$media   = json_decode( wp_remote_retrieve_body( $response ), true );
 						$results = $media['media']['data'];
@@ -473,7 +473,7 @@ class WIS_Instagram_Feed extends WIS_Feed {
 						'q'            => $search_string,
 					];
 					$url      = WFB_FACEBOOK_SELF_URL . 'ig_hashtag_search';
-					$response = wp_remote_get( esc_url_raw( add_query_arg( $args, $url ) ) );
+					$response = wp_remote_get( esc_url( add_query_arg( $args, $url ) ) );
 					if ( 200 == wp_remote_retrieve_response_code( $response ) ) {
 						$media    = json_decode( wp_remote_retrieve_body( $response ), true );
 						$args     = [
@@ -484,7 +484,7 @@ class WIS_Instagram_Feed extends WIS_Feed {
 							'limit'        => 50,
 						];
 						$url      = WFB_FACEBOOK_SELF_URL . $media['data'][0]['id'] . '/recent_media';
-						$response = wp_remote_get( esc_url_raw( add_query_arg( $args, $url ) ) );
+						$response = wp_remote_get( esc_url( add_query_arg( $args, $url ) ) );
 						if ( 200 == wp_remote_retrieve_response_code( $response ) ) {
 							$media            = json_decode( wp_remote_retrieve_body( $response ), true );
 							$media['hashtag'] = true;
@@ -648,7 +648,7 @@ class WIS_Instagram_Feed extends WIS_Feed {
 		$output = '';
 		WIS_Plugin::app()->logger->info( "Feed query: " . json_encode( [ $search_for, $refresh_hour, $images_number ] ) );
 		$images_data = $this->feed_query( $search_for, $refresh_hour, $images_number );
-		//WIS_Plugin::app()->logger->info( "Feed images: " . json_encode( $images_data ) );
+		WIS_Plugin::app()->logger->info( "Feed images: " . json_encode( $images_data ) );
 
 		if ( isset( $images_data['error'] ) ) {
 			return $images_data['error'];
@@ -656,7 +656,7 @@ class WIS_Instagram_Feed extends WIS_Feed {
 
 		if ( $args['show_feed_header'] && $is_business ) {
 			$account_data = $accounts[ $images_data[0]['username'] ] ?? [];
-			//WIS_Plugin::app()->logger->info( "Account data: " . json_encode( $account_data ) );
+			// WIS_Plugin::app()->logger->info( "Account data: " . json_encode( $account_data ) );
 
 			if ( WIS_Plugin::app()->is_premium() ) {
 				$output .= WIS_Premium::app()->display_header_with_stories( $account, $account_data, $images_data['stories'], $args['enable_stories'] );
@@ -867,7 +867,7 @@ class WIS_Instagram_Feed extends WIS_Feed {
 		];
 
 		$url      = WIG_USERS_SELF_URL;
-		$url      = esc_url_raw( add_query_arg( $args, $url ) );
+		$url      = esc_url( add_query_arg( $args, $url ) );
 		$response = wp_remote_get( $url );
 		if ( 200 == wp_remote_retrieve_response_code( $response ) ) {
 			$user          = json_decode( wp_remote_retrieve_body( $response ), true );
@@ -992,7 +992,7 @@ class WIS_Instagram_Feed extends WIS_Feed {
 				break;
 			case 'VIDEO':
 				$m['type']      = 'GraphVideo';
-				$m['video']     = $media['media_url'];
+				$m['video']     = $media['media_url'] ?? '';
 				$m['thumbnail'] = $media['thumbnail_url'];
 				$m['image']     = $media['thumbnail_url'];
 				break;
@@ -1022,7 +1022,7 @@ class WIS_Instagram_Feed extends WIS_Feed {
 		$m['link']      = $media['permalink'];
 		$m['user_id']   = $media['owner']['id'];
 		$m['timestamp'] = strtotime( $media['timestamp'] );
-		$m['url']       = $media['media_url'];
+		$m['url']       = $media['media_url'] ?? '';
 		$m['comments']  = $media['comments_count'];
 		$m['likes']     = $media['like_count'];
 
@@ -1184,7 +1184,12 @@ class WIS_Instagram_Feed extends WIS_Feed {
 		$a = $a['timestamp'] ?? 0;
 		$b = $b['timestamp'] ?? 0;
 
-		return $a > $b;
+		if ( $a == $b ) {
+			return 0;
+		}
+
+		return ( $a < $b ) ? - 1 : 1;
+
 	}
 
 	/**
@@ -1194,21 +1199,37 @@ class WIS_Instagram_Feed extends WIS_Feed {
 		$a = $a['timestamp'] ?? 0;
 		$b = $b['timestamp'] ?? 0;
 
-		return $a < $b;
+		if ( $a == $b ) {
+			return 0;
+		}
+
+		return ( $a > $b ) ? - 1 : 1;
 	}
 
 	/**
 	 * Sort Function for popularity Ascending
 	 */
 	public function sort_popularity_ASC( $a, $b ) {
-		return $a['popularity'] > $b['popularity'];
+		$a = $a['popularity'] ?? 0;
+		$b = $b['popularity'] ?? 0;
+		if ( $a == $b ) {
+			return 0;
+		}
+
+		return ( $a < $b ) ? - 1 : 1;
 	}
 
 	/**
 	 * Sort Function for popularity Descending
 	 */
 	public function sort_popularity_DESC( $a, $b ) {
-		return $a['popularity'] < $b['popularity'];
+		$a = $a['popularity'] ?? 0;
+		$b = $b['popularity'] ?? 0;
+		if ( $a == $b ) {
+			return 0;
+		}
+
+		return ( $a > $b ) ? - 1 : 1;
 	}
 
 }

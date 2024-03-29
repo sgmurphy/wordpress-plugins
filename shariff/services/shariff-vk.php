@@ -38,7 +38,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on VK',
 		'es' => 'Compartir en VK',
 		'fi' => 'Jaa VKissa',
-		'fr' => 'Partager sur VK',
+		'fr' => 'Envoyer par VK',
 		'hr' => 'Podijelite na VKu',
 		'hu' => 'Megosztás VKon',
 		'it' => 'Condividi su VK',

@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Template for WPFront User Role Editor Role Add/Edit
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Roles;
@@ -204,6 +204,11 @@ if (!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Add_Edit_View
             wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false);
         }
 
+        /**
+         * 
+         * @param type $context
+         * @param array $args
+         */
         public function postbox_render($context, $args) {
             $value = $args['args'];
             
@@ -227,6 +232,10 @@ if (!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Add_Edit_View
             <?php
         }
 
+        /**
+         * 
+         * @param stdClass $value
+         */
         public function render_caps($value) {
             foreach ($value->caps as $cap) {
                 $enabled = apply_filters("wpfront_ure_capability_{$cap}_functionality_enabled", true, $cap);
@@ -251,10 +260,20 @@ if (!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Add_Edit_View
             }
         }
 
+        /**
+         * 
+         * @param stdClass $value
+         * @return string
+         */
         protected function postbox_title($value) {
             return '<label class="select-all ' . ($value->deprecated ? 'deprecated' : 'active') . '"><input id="' . $value->key . '" type="checkbox" class="select-all" ' . ($value->disabled ? 'disabled' : '') . ' />' . $value->display_name . '</label>';
         }
 
+        /**
+         * 
+         * @param string $cap
+         * @return type
+         */
         protected function get_cap_state($cap) {
             $role_data = $this->RoleAddEdit->get_role_data();
             if (empty($role_data)) {
@@ -268,10 +287,20 @@ if (!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Add_Edit_View
             return null;
         }
 
+        /**
+         * 
+         * @param string $cap
+         * @return boolean
+         */
         protected function is_cap_granted($cap) {
             return $this->get_cap_state($cap) === true;
         }
 
+        /**
+         * 
+         * @param string $cap
+         * @return boolean
+         */
         protected function is_cap_denied($cap) {
             return $this->get_cap_state($cap) === false;
         }
@@ -371,6 +400,12 @@ if (!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Add_Edit_View
             ?>
             <script type="text/javascript">
                 (function ($) {
+                    if(typeof $.escapeSelector === "undefined") {
+                        $.escapeSelector = function(selector) {
+                            return selector;
+                        };
+                    }
+
                     var editRole = <?php echo $this->RoleAddEdit->edit_role() ? 'true' : 'false'; ?>;
                     var $viewType = $('input.view-type');
 

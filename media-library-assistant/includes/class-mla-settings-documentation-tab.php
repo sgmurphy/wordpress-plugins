@@ -1184,7 +1184,7 @@ class MLA_Example_List_Table extends WP_List_Table {
 			$wp_plugins[plugin_basename( $plugin_file )] = $plugin_data;
 		}
 
-		uasort( $wp_plugins, 'MLASettings_Documentation::_sort_uname_callback' );
+		uasort( $wp_plugins, 'MLA_Example_List_Table::_sort_uname_callback' );
 
 		// End code adapted from /wp-admin/includes/plugin.php function get_plugins()
 

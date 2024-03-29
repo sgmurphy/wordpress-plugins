@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Controller for WPFront User Role Editor Options
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Options;
@@ -51,19 +51,19 @@ if (!class_exists('WPFront\URE\Options\WPFront_User_Role_Editor_Options')) {
      * Options Controller
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Options extends \WPFront\URE\WPFront_User_Role_Editor_View_Controller implements iWPFront_User_Role_Editor_Settings_Controller {
         
         /**
          *
-         * @var iWPFront_User_Role_Editor_Settings_Controller 
+         * @var iWPFront_User_Role_Editor_Settings_Controller[]
          */
         protected $controllers = null;
         
         /**
          *
-         * @var iWPFront_User_Role_Editor_Settings_Controller[] 
+         * @var iWPFront_User_Role_Editor_Settings_Controller
          */
         protected $current_controller = null;
 
@@ -97,7 +97,7 @@ if (!class_exists('WPFront\URE\Options\WPFront_User_Role_Editor_Options')) {
             if(current_user_can($this->get_cap())) {
                 $url = $this->get_self_url();
                 $text = __('Settings', 'wpfront-user-role-editor');
-                $a = sprintf('<a href="%s">%s</a>', $url, $text);
+                $a = sprintf('<a id="wpfront-user-role-editor-settings" href="%s">%s</a>', $url, $text);
                 array_unshift($links, $a);
             }
             
@@ -143,6 +143,10 @@ if (!class_exists('WPFront\URE\Options\WPFront_User_Role_Editor_Options')) {
         
         public function load_view_callback($options) {
             $this->load_option_keys();
+
+            foreach ($this->option_keys as $key => $group) {
+                do_action('wpfront_ure_options_ui_field_' . $key . '_load_view', $key);
+            }
             
             if(!empty($_POST['submit'])) {
                 foreach ($this->option_keys as $key => $group) {
@@ -237,6 +241,13 @@ if (!class_exists('WPFront\URE\Options\WPFront_User_Role_Editor_Options')) {
             }
         }
         
+        /**
+         * Returns settings value
+         *
+         * @param string $key
+         * @param boolean $fallback Whether to fallback to network settings 
+         * @return boolean
+         */
         public function get_option_boolean($key, $fallback = false) {
             return filter_var($this->get_option($key, $fallback), FILTER_VALIDATE_BOOLEAN);
         }
@@ -254,6 +265,13 @@ if (!class_exists('WPFront\URE\Options\WPFront_User_Role_Editor_Options')) {
             return $result;
         }
         
+        /**
+         * Returns network admin settings value
+         *
+         * @param string $key
+         * @param string $prefix Default 'ms_'  
+         * @return boolean
+         */
         public function get_network_option_boolean($key, $prefix = 'ms_') {
             return filter_var($this->get_network_option($key, $prefix), FILTER_VALIDATE_BOOLEAN);
         }

@@ -3,7 +3,7 @@
  * Plugin Name: Shariff Wrapper
  * Plugin URI: https://wordpress.org/plugins-wp/shariff/
  * Description: Shariff provides share buttons that respect the privacy of your visitors and follow the General Data Protection Regulation (GDPR).
- * Version: 4.6.11
+ * Version: 4.6.12
  * Author: Jan-Peter Lambeck & 3UU
  * Author URI: https://wordpress.org/plugins/shariff/
  * License: MIT
@@ -34,7 +34,7 @@ $shariff3uu = array_merge( $shariff3uu_basic, $shariff3uu_design, $shariff3uu_ad
  */
 function shariff3uu_update() {
 	// Adjust code version.
-	$code_version = '4.6.11';
+	$code_version = '4.6.12';
 
 	// Get basic options.
 	$shariff3uu_basic = (array) get_option( 'shariff3uu_basic' );
@@ -1126,7 +1126,7 @@ function shariff3uu_render( $atts ) {
 		}
 		// Add external api if entered, elseif test the subapi setting, elseif pretty permalinks are not activated fall back to manual rest route, else use the home url.
 		if ( isset( $shariff3uu['external_host'] ) && ! empty( $shariff3uu['external_host'] ) && isset( $shariff3uu['external_direct'] ) ) {
-			$output .= ' data-backendurl="' . $shariff3uu['external_host'] . '"';
+			$output .= ' data-backendurl="' . esc_attr($shariff3uu['external_host']) . '"';
 		} elseif ( isset( $shariff3uu['subapi'] ) && 1 === $shariff3uu['subapi'] ) {
 			$output .= ' data-backendurl="' . strtok( get_bloginfo( 'wpurl' ), '?' ) . '/wp-json/shariff/v1/share_counts?"';
 		} elseif ( ! get_option( 'permalink_structure' ) ) {
@@ -1227,7 +1227,7 @@ function shariff3uu_render( $atts ) {
 
 				// Replace $main_color with $wcag_color and $secondary_color with $wcag_secondary, if $wacg_theme is selected.
 				if ( isset( $atts['theme'] ) && 'wcag' === $atts['theme'] && isset( $wcag_color ) && '' !== $wcag_color ) {
-					$main_color      = $wcag_color;
+					$main_color      = esc_attr( $wcag_color );
 					$secondary_color = '#000';
 				}
 
@@ -1238,7 +1238,7 @@ function shariff3uu_render( $atts ) {
 				}
 
 				// Start <li.
-				$output .= '<li class="shariff-button ' . $service;
+				$output .= '<li class="shariff-button ' . esc_attr( $service ) ;
 
 				// No custom colors.
 				if ( ! array_key_exists( 'maincolor', $atts ) ) {
@@ -1257,8 +1257,8 @@ function shariff3uu_render( $atts ) {
 						$output .= ' shariff-secondary-color';
 						$css     = '.shariff-secondary-color{background-color:' . esc_attr( $atts['secondarycolor'] ) . '}';
 					} else {
-						$output .= ' shariff-' . $service . '-secondary-color';
-						$css     = '.shariff-' . $service . '-secondary-color{background-color:' . $secondary_color . '}';
+						$output .= ' shariff-' . esc_attr( $service ) . '-secondary-color';
+						$css     = '.shariff-' . esc_attr( $service ) . '-secondary-color{background-color:' . $secondary_color . '}';
 					}
 					if ( false === strpos( $dynamic_css, $css ) ) {
 						$dynamic_css .= $css;
@@ -1280,7 +1280,7 @@ function shariff3uu_render( $atts ) {
 						$output .= 'background-color:' . $secondary_color;
 					}
 					// Border radius?
-					if ( array_key_exists( 'borderradius', $atts ) && array_key_exists( 'theme', $atts ) && 'round' === $atts['theme'] ) {
+					if ( array_key_exists( 'borderradius', $atts ) && array_key_exists( 'theme', $atts ) && 'round' === $atts['theme'] && is_numeric( $atts['borderradius'] ) ) {
 						$output       .= ';border-radius:' . $atts['borderradius'] . '%';
 						$border_radius = ';border-radius:' . $atts['borderradius'] . '%';
 					}

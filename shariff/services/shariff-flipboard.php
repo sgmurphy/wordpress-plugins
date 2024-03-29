@@ -38,7 +38,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on Flipboard',
 		'es' => 'Compartir en Flipboard',
 		'fi' => 'Jaa Flipboardissä',
-		'fr' => 'Partager sur Flipboard',
+		'fr' => 'Envoyer par Flipboard',
 		'hr' => 'Podijelite na Flipboardu',
 		'hu' => 'Megosztás Flipboardon',
 		'it' => 'Condividi su Flipboard',

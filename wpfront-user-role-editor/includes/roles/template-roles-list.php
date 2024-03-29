@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Template for WPFront User Role Editor List Roles
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Roles;
@@ -122,6 +122,10 @@ if(!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Roles_List_View')) 
             <?php
         }
         
+        /**
+         * 
+         * @param string $position
+         */
         protected function bulk_actions($position) {
             ?>
             <div class="tablenav <?php echo $position; ?>">
@@ -190,6 +194,12 @@ if(!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Roles_List_View')) 
             }
         }
         
+        /**
+         * 
+         * @param string $role_name
+         * @param array $value
+         * @param int $index
+         */
         protected function create_row($role_name, $value, $index) {
             ?>
             <tr id="<?php echo $role_name; ?>" class="<?php echo $index % 2 == 0 ? 'alternate' : ''; ?>">
@@ -205,6 +215,12 @@ if(!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Roles_List_View')) 
             <?php
         }
         
+        /**
+         * 
+         * @param string $role_name
+         * @param string $display_name
+         * @param boolean $is_editable
+         */
         protected function cell_select_checkbox($role_name, $display_name, $is_editable) {
             ?>
             <th scope="row" class="check-column">
@@ -216,12 +232,30 @@ if(!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Roles_List_View')) 
             <?php
         }
         
+        /**
+         * 
+         * @param string $role_name
+         * @param array $value
+         */
         protected function cell_display_name($role_name, $value) {
             $display_name = $value['display_name'];
-            $edit_url = esc_url_raw(($value['edit_url']));
+
+            $edit_url = '';
+            if(!empty($value['edit_url'])) {
+                $edit_url = esc_url_raw($value['edit_url']);
+            }
+
             $is_editable = $value['is_editable'];
-            $delete_url = esc_url_raw($value['delete_url']);
-            $set_default_url = esc_url_raw($value['set_default_url']);
+
+            $delete_url = '';
+            if(!empty($value['delete_url'])) {
+                $delete_url = esc_url_raw($value['delete_url']);
+            }
+
+            $set_default_url = '';
+            if(!empty($value['set_default_url'])) {
+                $set_default_url = esc_url_raw($value['set_default_url']);
+            }
             ?>
             <td class="displayname column-displayname">
                 <strong>
@@ -238,6 +272,15 @@ if(!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Roles_List_View')) 
             <?php
         }
         
+        /**
+         * 
+         * @param string $role_name
+         * @param array $role_data
+         * @param string $edit_url
+         * @param boolean $is_editable
+         * @param string $delete_url
+         * @param string $set_default_url
+         */
         protected function row_actions($role_name, $role_data, $edit_url, $is_editable, $delete_url, $set_default_url) {
             ?>
             <div class="row-actions">
@@ -268,6 +311,11 @@ if(!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Roles_List_View')) 
             <?php
         }
         
+        /**
+         * 
+         * @param string $role_name
+         * @param array $value
+         */
         protected function cell_role_name($role_name, $value) {
             ?>
             <td class="rolename column-rolename">
@@ -276,6 +324,10 @@ if(!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Roles_List_View')) 
             <?php
         }
         
+        /**
+         * 
+         * @param boolean $is_default
+         */
         protected function cell_role_type($is_default) {
             ?>
             <td class="roletype column-roletype">
@@ -284,6 +336,10 @@ if(!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Roles_List_View')) 
             <?php
         }
         
+        /**
+         * 
+         * @param int $user_default
+         */
         protected function cell_user_default($user_default) {
             ?>
             <td class="userdefault column-userdefault num">
@@ -302,6 +358,10 @@ if(!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Roles_List_View')) 
             <?php
         }
         
+        /**
+         * 
+         * @param int $user_count
+         */
         protected function cell_user_count($user_count) {
             ?>
             <td class="usercount column-usercount num">
@@ -310,6 +370,10 @@ if(!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Roles_List_View')) 
             <?php
         }
         
+        /**
+         * 
+         * @param int $caps_count
+         */
         protected function cell_caps_count($caps_count) {
             ?>
             <td class="capscount column-capscount num">
@@ -318,6 +382,10 @@ if(!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Roles_List_View')) 
             <?php
         }
         
+        /**
+         * 
+         * @param string $role_name
+         */
         protected function cell_custom_columns($role_name) {
             $custom_columns = $this->get_custom_columns();
             
@@ -371,6 +439,11 @@ if(!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Roles_List_View')) 
             return $role_data;
         }
         
+        /**
+         * 
+         * @param array $role_data
+         * @return array
+         */
         protected function apply_active_list_filter($role_data) {
             switch ($this->get_active_list_filter()) {
                 case 'all':
@@ -404,6 +477,11 @@ if(!class_exists('WPFront\URE\Roles\WPFront_User_Role_Editor_Roles_List_View')) 
             return $role_data;
         }
         
+        /**
+         * 
+         * @param array $role_data
+         * @return array
+         */
         protected function apply_search_term($role_data) {
             $search = $this->get_search_term();
             $search = strtolower(trim($search));

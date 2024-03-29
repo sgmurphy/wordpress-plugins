@@ -1,5 +1,6 @@
 p span.user-restriction-container {
-    display: inline-block;
+    display: table;
+    width: 100%;
 }
 
 p span.user-restriction-container label {

@@ -45,7 +45,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on X',
 		'es' => 'Compartir en X',
 		'fi' => 'Jaa X',
-		'fr' => 'Partager sur X',
+		'fr' => 'Envoyer par X',
 		'hr' => 'Podijelite na X',
 		'hu' => 'Megosztás X',
 		'it' => 'Condividi su X',

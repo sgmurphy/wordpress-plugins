@@ -38,7 +38,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on buffer',
 		'es' => 'Compartir en buffer',
 		'fi' => 'Jaa bufferissä',
-		'fr' => 'Partager sur buffer',
+		'fr' => 'Envoyer par buffer',
 		'hr' => 'Podijelite na buffer',
 		'hu' => 'Megosztás bufferen',
 		'it' => 'Condividi su buffer',

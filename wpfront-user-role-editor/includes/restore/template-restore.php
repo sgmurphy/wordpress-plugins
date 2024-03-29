@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Template for WPFront User Role Editor Role Restore
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Restore;
@@ -70,9 +70,14 @@ if(!class_exists('WPFront\URE\Restore\WPFront_User_Role_Editor_Restore_View')) {
             
         }
         
+        /**
+         * 
+         * @param string $role_name
+         * @param string $display_name
+         */
         protected function display_role_row($role_name, $display_name) {
             ?>
-            <tr class="form-field">
+            <tr class="form-field <?php echo esc_attr($role_name); ?>">
                 <th scope="row">
                     <?php echo esc_html($display_name); ?>
                 </th>
@@ -126,13 +131,13 @@ if(!class_exists('WPFront\URE\Restore\WPFront_User_Role_Editor_Restore_View')) {
 
                         var response_process = function(response) {
                             if (typeof response === "undefined" || response == null) {
-                                response = {"result": false, "message": <?php echo json_encode(__('Unexpected error / Timed out', 'wpfront-user-role-editor')); ?>};
+                                response = {"success": false, "data": <?php echo json_encode(__('Unexpected error / Timed out', 'wpfront-user-role-editor')); ?>};
                             }
                             _this.hide();
-                            if (response.result)
+                            if (response.success)
                                 _this.next().show();
                             else
-                                _this.next().text(response.message).css("color", "Red").show();
+                                _this.next().text(response.data).css("color", "Red").show();
 
                             $("button.restore-role-confirm").prop("disabled", false);
                         };

@@ -2,7 +2,7 @@
 
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,8 +25,8 @@
 /**
  * Entity for WPFront User Role Editor Taxonomies
  *
- * @author Vaisagh D <vaisaghd@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @author Syam Mohan <syam@wpfront.com>
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Taxonomies;
@@ -40,8 +40,8 @@ if (!class_exists('WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies_En
     /**
      * Taxonomy Entity
      *
-     * @author Vaisagh D <vaisaghd@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @author Syam Mohan <syam@wpfront.com>
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Taxonomies_Entity extends \WPFront\URE\WPFront_User_Role_Editor_Entity_Base {
 
@@ -55,7 +55,7 @@ if (!class_exists('WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies_En
         /**
          * Taxonomy Name.
          * 
-         * @var text
+         * @var string
          */
         public $name;
 
@@ -83,7 +83,7 @@ if (!class_exists('WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies_En
         /**
          * Taxonomy Object.
          * 
-         * @var \WP_Taxonomy 
+         * @var array<string,mixed>
          */
         public $taxonomy_arg;
         
@@ -241,10 +241,9 @@ if (!class_exists('WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies_En
         }
 
         /**
-         * Returns all taxonomy.
+         * Returns all taxonomy entities.
          * 
-         * @param string $role
-         * @return bool
+         * @return array<string,WPFront_User_Role_Editor_Taxonomies_Entity>
          */
         public function get_all() {
             $data = $this->cache_get('all_taxonomies');
@@ -265,7 +264,7 @@ if (!class_exists('WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies_En
                 $entity = new WPFront_User_Role_Editor_Taxonomies_Entity();
 
                 $entity->id = intval($value->id);
-                $entity->name = $value->name;
+                $entity->name = strval($value->name);
                 $entity->label = $value->label;
                 $entity->status = intval($value->status);
                 $entity->taxonomy_arg = maybe_unserialize($value->taxonomy_arg);

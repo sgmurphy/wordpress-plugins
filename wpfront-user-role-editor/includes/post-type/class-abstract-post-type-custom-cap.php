@@ -2,7 +2,7 @@
 
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,8 +25,8 @@
 /**
  * Class for WPFront User Role Editor Post Type Custom Capabilities.
  *
- * @author Jinu Varghese
- * @copyright 2014 WPFront.com
+ * @author Syam Mohan
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Post_Type;
@@ -45,8 +45,8 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Cus
     /**
      * Post Type Custom capability class
      *
-     * @author Jinu Varghese
-     * @copyright 2014 WPFront.com
+     * @author Syam Mohan
+     * @copyright 2014 wpfront.com
      */
     abstract class WPFront_User_Role_Editor_Post_Type_Custom_Capability {
 
@@ -302,6 +302,10 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Cus
             return $settings_key;
         }
 
+        /**
+         * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+         * @SuppressWarnings(PHPMD.NPathComplexity)
+         */
         protected function update_role_caps($post_type, $cap, $check_cap, $capability_type, $settings_key) {
             if ($post_type !== 'post' && $capability_type === 'post') {
                 return;
@@ -314,20 +318,30 @@ if (!class_exists('\WPFront\URE\Post_Type\WPFront_User_Role_Editor_Post_Type_Cus
                 return;
             }
 
+            $flag = false;
             $role_names = RolesHelper::get_roles();
             foreach ($role_names as $role_name) {
                 $role = RolesHelper::get_role($role_name);
                 
                 if($check_cap === true) {
-                    $role->add_cap($cap, true);
+                    if(!empty($role) && !$role->has_cap($cap)) {
+                        $role->add_cap($cap, true);
+                        $flag = true;
+                    }
+
                     continue;
                 }
                 
                 if (isset($role->capabilities[$check_cap])) {
                     if (!isset($role->capabilities[$cap])) {
                         $role->add_cap($cap, $role->capabilities[$check_cap]);
+                        $flag = true;
                     }
                 }
+            }
+
+            if($flag) {
+                return;
             }
 
             if (empty($value)) {

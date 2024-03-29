@@ -39,7 +39,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on Telegram',
 		'es' => 'Compartir en Telegram',
 		'fi' => 'Jaa Telegramissä',
-		'fr' => 'Partager sur Telegram',
+		'fr' => 'Envoyer par Telegram',
 		'hr' => 'Podijelite na Telegram',
 		'hu' => 'Megosztás Telegramen',
 		'it' => 'Condividi su Telegram',

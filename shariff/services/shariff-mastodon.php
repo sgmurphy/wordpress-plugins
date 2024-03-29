@@ -45,7 +45,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on Mastodon',
 		'es' => 'Compartir en Mastodon',
 		'fi' => 'Jaa Mastodonissa',
-		'fr' => 'Partager sur Mastodon',
+		'fr' => 'Envoyer par Mastodon',
 		'hr' => 'Podijelite na Mastodonu',
 		'hu' => 'Megosztás Mastodonon',
 		'it' => 'Condividi su Mastodon',

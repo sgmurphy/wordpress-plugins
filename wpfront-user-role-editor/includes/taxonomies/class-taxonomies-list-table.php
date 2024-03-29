@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -24,8 +24,8 @@
 /**
  * WPFront User Role Editor Taxonomies List Table
  *
- * @author Vaisagh D <vaisaghd@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @author Syam Mohan <syam@wpfront.com>
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Taxonomies;
@@ -43,8 +43,8 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies_L
     /**
      * Taxonomies List Table
      *
-     * @author Vaisagh D <vaisaghd@wpfront.com>
-     * @copyright 2015 WPFront.com
+     * @author Syam Mohan <syam@wpfront.com>
+     * @copyright 2015 wpfront.com
      */
     class WPFront_User_Role_Editor_Taxonomies_List_Table extends \WP_List_Table {
 
@@ -110,9 +110,9 @@ if (!class_exists('\WPFront\URE\Taxonomies\WPFront_User_Role_Editor_Taxonomies_L
 
         function display_rows() {
             foreach ($this->items as $item) {
-                $alt = empty($alt) ? 'alternate' : '';
+                $alt = empty($alt) ? 'alternate ' : '';
                 ?>
-                <tr class="<?php echo $alt; ?>">
+                <tr class="<?php echo $alt; echo esc_attr($item->name); ?>">
                     <?php
                     list( $columns, $hidden ) = $this->get_column_info();
 

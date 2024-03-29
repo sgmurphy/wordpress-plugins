@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Template for WPFront User Role Editor Assign Migrate
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Assign_Migrate;
@@ -34,6 +34,7 @@ if (!defined('ABSPATH')) {
     exit();
 }
 
+use Exception;
 use WPFront\URE\WPFront_User_Role_Editor as URE;
 use WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_Assign_Migrate as AssignMigrate;
 
@@ -61,6 +62,14 @@ if(!class_exists('WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_Assign_Mig
             </tr>
             <?php
         }
+
+        /**
+         *
+         * @return string|null
+         */
+        protected function get_current_primary_role() {
+            throw new Exception();
+        }
         
         protected function primary_role_dropdown($roles) {
             ?>
@@ -74,6 +83,14 @@ if(!class_exists('WPFront\URE\Assign_Migrate\WPFront_User_Role_Editor_Assign_Mig
                 ?>
             </select>
             <?php
+        }
+
+        /**
+         *
+         * @return int[]|string[]
+         */
+        protected function get_current_secondary_roles() {
+            throw new Exception();
         }
         
         protected function secondary_roles_row($roles) {

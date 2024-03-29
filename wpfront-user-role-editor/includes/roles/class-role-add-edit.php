@@ -1,7 +1,7 @@
 <?php
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -25,7 +25,7 @@
  * Controller for WPFront User Role Editor Add/Edit Role
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\Roles;
@@ -44,7 +44,7 @@ if (!class_exists('\WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Add_Edit')) 
      * Add Edit Role
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Role_Add_Edit extends \WPFront\URE\WPFront_User_Role_Editor_View_Controller {
         
@@ -96,7 +96,9 @@ if (!class_exists('\WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Add_Edit')) 
          * Adds ajax functions on admin_init
          */
         public function admin_init() {
-            add_action('wp_ajax_wpfront_user_role_editor_copy_capabilities', array($this, 'copy_capabilities_callback'), 10, 0);
+            if(current_user_can($this->get_cap())) {
+                add_action('wp_ajax_wpfront_user_role_editor_copy_capabilities', array($this, 'copy_capabilities_callback'), 10, 0);
+            }
         }
         
         public function admin_print_scripts() {
@@ -191,6 +193,10 @@ if (!class_exists('\WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Add_Edit')) 
             }
             
             if(!empty($_GET['edit_role'])) {
+                if(!current_user_can($this->get_cap())) {
+                    $this->WPFURE->permission_denied();
+                }
+                
                 if(empty($this->get_role_data())) {
                     if(wp_safe_redirect($this->RolesList->get_list_roles_url())) {
                         exit();
@@ -283,7 +289,7 @@ if (!class_exists('\WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Add_Edit')) 
             $error = null;
             
             if(!empty($_POST['role_name'])) {
-                $role_name = strtolower(preg_replace('/\W/', '', preg_replace('/ /', '_', trim($_POST['role_name']))));
+                $role_name = sanitize_key($_POST['role_name']);
                 if($role_name === '') {
                     $is_role_name_valid = false;
                     $error = __('Role name cannot be empty.', 'wpfront-user-role-editor');
@@ -307,7 +313,7 @@ if (!class_exists('\WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Add_Edit')) 
             $error = null;
             
             if(!empty($_POST['display_name'])) {
-                $display_name = trim($_POST['display_name']);
+                $display_name = sanitize_text_field($_POST['display_name']);
                 if($display_name === '') {
                     $is_display_name_valid = false;
                     $error = __('Display name cannot be empty.', 'wpfront-user-role-editor');
@@ -336,10 +342,20 @@ if (!class_exists('\WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Add_Edit')) 
             return $capabilities;
         }
         
+        /**
+         * 
+         * @param string $role_name
+         * @return boolean
+         */
         protected function is_role_exists($role_name) {
             return $this->RolesHelperClass::is_role($role_name);
         }
         
+        /**
+         * 
+         * @param string $role_name
+         * @return boolean
+         */
         protected function is_role_editable($role_name) {
             $editable_roles = get_editable_roles();
             return array_key_exists($role_name, $editable_roles);
@@ -432,6 +448,10 @@ if (!class_exists('\WPFront\URE\Roles\WPFront_User_Role_Editor_Role_Add_Edit')) 
          */
         public function copy_capabilities_callback() {
             check_ajax_referer('copy-capabilities', 'nonce');
+
+            if(!current_user_can($this->get_cap())) {
+                wp_die('{}');
+            }
 
             if (empty($_POST['role'])) {
                 wp_die('{}');

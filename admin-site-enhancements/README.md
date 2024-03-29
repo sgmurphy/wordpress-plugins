@@ -43,7 +43,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 ### FEATURES & MODULES
 
 **60 modules** in total:
-**36** free modules | **16** free modules with Pro features | **8** Pro modules
+**52** free modules (16 has Pro features) | **8** Pro modules
 
 [**See all features >>**](https://www.wpase.com/features/)
 

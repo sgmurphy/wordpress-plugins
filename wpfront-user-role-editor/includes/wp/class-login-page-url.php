@@ -2,7 +2,7 @@
 
 /*
   WPFront User Role Editor Plugin
-  Copyright (C) 2014, WPFront.com
+  Copyright (C) 2014, wpfront.com
   Website: wpfront.com
   Contact: syam@wpfront.com
 
@@ -26,7 +26,7 @@
  * Controller for WPFront User Role Editor Login Page Url.
  *
  * @author Syam Mohan <syam@wpfront.com>
- * @copyright 2014 WPFront.com
+ * @copyright 2014 wpfront.com
  */
 
 namespace WPFront\URE\WP;
@@ -44,7 +44,7 @@ if (!class_exists('\WPFront\URE\WP\WPFront_User_Role_Editor_Login_Page_Url')) {
      * Login_Page_Url class
      *
      * @author Syam Mohan <syam@wpfront.com>
-     * @copyright 2014 WPFront.com
+     * @copyright 2014 wpfront.com
      */
     class WPFront_User_Role_Editor_Login_Page_Url {
 
@@ -86,7 +86,9 @@ if (!class_exists('\WPFront\URE\WP\WPFront_User_Role_Editor_Login_Page_Url')) {
          * Adds ajax functions on admin_init
          */
         public function admin_init() {
-            add_action('wp_ajax_wpfront_user_role_editor_login_page_url_autocomplete', array(self::instance(), 'autocomplete_callback'));
+            if(current_user_can('manage_options')) {
+                add_action('wp_ajax_wpfront_user_role_editor_login_page_url_autocomplete', array(self::instance(), 'autocomplete_callback'));
+            }
         }
 
         /**
@@ -159,6 +161,12 @@ if (!class_exists('\WPFront\URE\WP\WPFront_User_Role_Editor_Login_Page_Url')) {
                                 $("#login_page_url_selected_post_id").val(ui.item.value);
                                 return false;
                             },
+                            focus: function (event, ui) {
+                                if (ui.item.label) {
+                                    $(this).val(ui.item.label);
+                                    event.preventDefault();
+                                }
+                            },
                             change: function (event, ui) {
                                 if (!ui.item) {
                                     $("#login_page_url_selected_post_id").val('');
@@ -175,7 +183,16 @@ if (!class_exists('\WPFront\URE\WP\WPFront_User_Role_Editor_Login_Page_Url')) {
 
         }
 
+        /**
+         * Autocomplete Posts.
+         * 
+         * @SuppressWarnings(PHPMD)
+         */
         public function autocomplete_callback() {
+            if(!current_user_can('manage_options')) {
+                wp_send_json_error();
+            }
+
             $search_string = $_REQUEST['term'];
 
             $args = array(
@@ -184,27 +201,29 @@ if (!class_exists('\WPFront\URE\WP\WPFront_User_Role_Editor_Login_Page_Url')) {
                 'post_status' => 'publish',
                 'posts_per_page' => 10
             );
-            $post_found = get_posts($args);
+            $posts_found = get_posts($args);
 
-            $post_title = array();
-            foreach ($post_found as $posts) {
-                $post_title[] = array(
-                    "label" => $posts->post_title,
-                    "value" => $posts->ID
+            $posts_title = array();
+            foreach ($posts_found as $post) {
+                $posts_title[] = array(
+                    "label" => $post->post_title,
+                    "value" => $post->ID
                 );
             }
 
-            echo json_encode($post_title);
-            exit();
+            wp_send_json($posts_title);
         }
 
         public function login_page_url_options_ui_update() {
             $key = 'login_page_url';
 
+            $value = '';
             if (!empty($_POST['login_page_url_selected_post_id'])) {
                 $value = intval($_POST['login_page_url_selected_post_id']);
             } else {
-                $value = $_POST[$key];
+                if(!empty($_POST[$key])) {
+                    $value = esc_url_raw($_POST[$key]);
+                }
             }
 
             Options::instance()->set_option($key, $value);

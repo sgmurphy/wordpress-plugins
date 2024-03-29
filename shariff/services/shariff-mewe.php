@@ -38,7 +38,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on MeWe',
 		'es' => 'Compartir en MeWe',
 		'fi' => 'Jaa MeWeissa',
-		'fr' => 'Partager sur MeWe',
+		'fr' => 'Envoyer par MeWe',
 		'hr' => 'Podijelite na MeWeu',
 		'hu' => 'Megosztás MeWeon',
 		'it' => 'Condividi su MeWe',

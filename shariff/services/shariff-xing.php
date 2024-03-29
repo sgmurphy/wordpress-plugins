@@ -38,7 +38,7 @@ if ( isset( $frontend ) && 1 === $frontend ) {
 		'en' => 'Share on XING',
 		'es' => 'Compartir en XING',
 		'fi' => 'Jaa XINGissä',
-		'fr' => 'Partager sur XING',
+		'fr' => 'Envoyer par XING',
 		'hr' => 'Podijelite na XING',
 		'hu' => 'Megosztás XINGen',
 		'it' => 'Condividi su XING',

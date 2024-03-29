@@ -36,19 +36,19 @@ msgstr ""
 msgid "https://siteorigin.com"
 msgstr ""
 
-#: siteorigin-panels.php:423
+#: siteorigin-panels.php:425
 msgid "Read More"
 msgstr ""
 
-#: siteorigin-panels.php:606
+#: siteorigin-panels.php:625
 msgid "Edit Home Page"
 msgstr ""
 
-#: siteorigin-panels.php:626, tpl/js-templates.php:39, tpl/js-templates.php:41
+#: siteorigin-panels.php:645, tpl/js-templates.php:39, tpl/js-templates.php:41
 msgid "Live Editor"
 msgstr ""
 
-#: compat/layout-block.php:109
+#: compat/layout-block.php:110
 msgid "You need to add a widget, row, or prebuilt layout before you'll see anything here. :)"
 msgstr ""
 
@@ -113,35 +113,35 @@ msgstr ""
 msgid "There was a problem fetching the layout. Please try again later."
 msgstr ""
 
-#: inc/admin-widget-dialog.php:96
+#: inc/admin-widget-dialog.php:101
 msgid "Widgets Bundle"
 msgstr ""
 
-#: inc/admin-widget-dialog.php:111
+#: inc/admin-widget-dialog.php:116
 msgid "Enable more widgets in the 1{Widgets Bundle settings}."
 msgstr ""
 
-#: inc/admin-widget-dialog.php:117, inc/data/widgets-bundle.php:11, inc/data/widgets-bundle.php:23, inc/data/widgets-bundle.php:35, inc/data/widgets-bundle.php:47, inc/data/widgets-bundle.php:59, inc/data/widgets-bundle.php:71
+#: inc/admin-widget-dialog.php:122, inc/data/widgets-bundle.php:11, inc/data/widgets-bundle.php:23, inc/data/widgets-bundle.php:35, inc/data/widgets-bundle.php:47, inc/data/widgets-bundle.php:59, inc/data/widgets-bundle.php:71
 msgid "SiteOrigin Widgets Bundle"
 msgstr ""
 
-#: inc/admin-widget-dialog.php:118
+#: inc/admin-widget-dialog.php:123
 msgid "Install the 1{Widgets Bundle} to get extra widgets."
 msgstr ""
 
-#: inc/admin-widget-dialog.php:126
+#: inc/admin-widget-dialog.php:131
 msgid "Page Builder Widgets"
 msgstr ""
 
-#: inc/admin-widget-dialog.php:134
+#: inc/admin-widget-dialog.php:139
 msgid "You can enable the legacy (PB) widgets in the 1{Page Builder settings}."
 msgstr ""
 
-#: inc/admin-widget-dialog.php:142
+#: inc/admin-widget-dialog.php:147
 msgid "WordPress Widgets"
 msgstr ""
 
-#: inc/admin-widget-dialog.php:182, inc/settings.php:425
+#: inc/admin-widget-dialog.php:203, inc/settings.php:425
 msgid "Recommended Widgets"
 msgstr ""
 
@@ -165,7 +165,7 @@ msgstr ""
 msgid "Addons"
 msgstr ""
 
-#: inc/admin.php:194, inc/admin.php:704, inc/admin.php:1477, inc/admin.php:1481, tpl/js-templates.php:217
+#: inc/admin.php:194, inc/admin.php:704, inc/admin.php:1485, inc/admin.php:1489, tpl/js-templates.php:217
 msgid "Page Builder"
 msgstr ""
 
@@ -513,201 +513,201 @@ msgstr ""
 msgid "Home Page"
 msgstr ""
 
-#: inc/admin.php:897
+#: inc/admin.php:903
 msgid "Untitled Widget"
 msgstr ""
 
-#: inc/admin.php:1080
+#: inc/admin.php:1088
 msgid "Soft Blue"
 msgstr ""
 
-#: inc/admin.php:1087
+#: inc/admin.php:1095
 msgid "Soft Red"
 msgstr ""
 
-#: inc/admin.php:1094
+#: inc/admin.php:1102
 msgid "Grayish Violet"
 msgstr ""
 
-#: inc/admin.php:1101
+#: inc/admin.php:1109
 msgid "Lime Green"
 msgstr ""
 
-#: inc/admin.php:1108
+#: inc/admin.php:1116
 msgid "Desaturated Yellow"
 msgstr ""
 
-#: inc/admin.php:1177
+#: inc/admin.php:1185
 msgid "You need to install 1{%1$s} to use the widget 2{%2$s}."
 msgstr ""
 
-#: inc/admin.php:1183
+#: inc/admin.php:1191
 msgid "Save and reload this page to start using the widget after you've installed it."
 msgstr ""
 
-#: inc/admin.php:1199
+#: inc/admin.php:1207
 msgid "The widget 1{%1$s} is not available. Please try locate and install the missing plugin. Post on the 2{support forums} if you need help."
 msgstr ""
 
-#: inc/admin.php:1391, inc/styles-admin.php:27
+#: inc/admin.php:1399, inc/styles-admin.php:27
 msgid "The supplied nonce is invalid."
 msgstr ""
 
-#: inc/admin.php:1392, inc/admin.php:1917, inc/styles-admin.php:28
+#: inc/admin.php:1400, inc/admin.php:1925, inc/styles-admin.php:28
 msgid "Invalid nonce."
 msgstr ""
 
-#: inc/admin.php:1399
+#: inc/admin.php:1407
 msgid "Please specify the type of widget form to be rendered."
 msgstr ""
 
-#: inc/admin.php:1400
+#: inc/admin.php:1408
 msgid "Missing widget type."
 msgstr ""
 
-#: inc/admin.php:1497
+#: inc/admin.php:1505
 msgid "%s Widget"
 msgid_plural "%s Widgets"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/admin.php:1536
+#: inc/admin.php:1544
 msgid "Get the row, column, and widget %link%."
 msgstr ""
 
-#: inc/admin.php:1538
+#: inc/admin.php:1546
 msgid "Animations Addon"
 msgstr ""
 
-#: inc/admin.php:1541
+#: inc/admin.php:1549
 msgid "Get the %link%. Build custom post types with reusable Page Builder layouts."
 msgstr ""
 
-#: inc/admin.php:1543
+#: inc/admin.php:1551
 msgid "CPT Builder Addon"
 msgstr ""
 
-#: inc/admin.php:1546
+#: inc/admin.php:1554
 msgid "Get the %link%. Add beautiful and customizable text overlays with animations to your images."
 msgstr ""
 
-#: inc/admin.php:1548
+#: inc/admin.php:1556
 msgid "Image Overlay Addon"
 msgstr ""
 
-#: inc/admin.php:1551
+#: inc/admin.php:1559
 msgid "Get a %link% for the SiteOrigin Image, Masonry, and Slider Widgets."
 msgstr ""
 
-#: inc/admin.php:1553
+#: inc/admin.php:1561
 msgid "Lightbox Addon"
 msgstr ""
 
-#: inc/admin.php:1556
+#: inc/admin.php:1564
 msgid "Link an entire Page Builder row, column, or widget with the %link%."
 msgstr ""
 
-#: inc/admin.php:1558
+#: inc/admin.php:1566
 msgid "Link Overlay Addon"
 msgstr ""
 
-#: inc/admin.php:1561
+#: inc/admin.php:1569
 msgid "Get the %link%. Create a widget once, use it everywhere. Update it and the changes reflect in all instances of the widget."
 msgstr ""
 
-#: inc/admin.php:1563
+#: inc/admin.php:1571
 msgid "Mirror Widgets Addon"
 msgstr ""
 
-#: inc/admin.php:1566
+#: inc/admin.php:1574
 msgid "Upload multiple image frames at once to Widgets Bundle Slider and Image Grid type widgets with %link%."
 msgstr ""
 
-#: inc/admin.php:1568, inc/admin.php:1573, inc/admin.php:1603, inc/admin.php:1608, inc/admin.php:1613, inc/admin.php:1618, inc/admin.php:1623, inc/admin.php:1628
+#: inc/admin.php:1576, inc/admin.php:1581, inc/admin.php:1611, inc/admin.php:1616, inc/admin.php:1621, inc/admin.php:1626, inc/admin.php:1631, inc/admin.php:1636
 msgid "SiteOrigin Premium"
 msgstr ""
 
-#: inc/admin.php:1571
+#: inc/admin.php:1579
 msgid "Add parallax background images to your slider type widgets with %link%."
 msgstr ""
 
-#: inc/admin.php:1576
+#: inc/admin.php:1584
 msgid "Hide rows and widgets based for logged-in or logged-out users with the %link%."
 msgstr ""
 
-#: inc/admin.php:1578, inc/admin.php:1583, inc/admin.php:1588
+#: inc/admin.php:1586, inc/admin.php:1591, inc/admin.php:1596
 msgid "Toggle Visibility Addon"
 msgstr ""
 
-#: inc/admin.php:1581
+#: inc/admin.php:1589
 msgid "Show or hide rows and widgets between a selected date range with the %link%."
 msgstr ""
 
-#: inc/admin.php:1586
+#: inc/admin.php:1594
 msgid "Hide rows and widgets on specific devices with the %link%."
 msgstr ""
 
-#: inc/admin.php:1591
+#: inc/admin.php:1599
 msgid "Get a %link% with SiteOrigin Premium."
 msgstr ""
 
-#: inc/admin.php:1593
+#: inc/admin.php:1601
 msgid "Tooltip Addon"
 msgstr ""
 
-#: inc/admin.php:1596
+#: inc/admin.php:1604
 msgid "Use Google Fonts in SiteOrigin Widgets with the %link%."
 msgstr ""
 
-#: inc/admin.php:1598
+#: inc/admin.php:1606
 msgid "Webfont Selector Addon"
 msgstr ""
 
-#: inc/admin.php:1601
+#: inc/admin.php:1609
 msgid "Get fast email support for Page Builder with %link%."
 msgstr ""
 
-#: inc/admin.php:1606
+#: inc/admin.php:1614
 msgid "Organize your Page Builder rows with custom background colors using %link%."
 msgstr ""
 
-#: inc/admin.php:1611
+#: inc/admin.php:1619
 msgid "Add widget, column, and row Retina background images for high-pixel-density displays with %link%."
 msgstr ""
 
-#: inc/admin.php:1616
+#: inc/admin.php:1624
 msgid "Upgrade to %link% and copy-paste rows and widgets between domains to build pages faster."
 msgstr ""
 
-#: inc/admin.php:1621
+#: inc/admin.php:1629
 msgid "Boost your page-building speed by upgrading to %link% – copy and paste rows and widgets across domains with ease!"
 msgstr ""
 
-#: inc/admin.php:1626
+#: inc/admin.php:1634
 msgid "Introduce dynamic video backgrounds to any Page Builder row, column, or widget with %link%."
 msgstr ""
 
-#: inc/admin.php:1634
+#: inc/admin.php:1642
 msgid "Get the %link%. Create custom templates for the Product, Archives, Shop, Cart, and Checkout pages."
 msgstr ""
 
-#: inc/admin.php:1636
+#: inc/admin.php:1644
 msgid "WooCommerce Templates Addon"
 msgstr ""
 
-#: inc/admin.php:1691
+#: inc/admin.php:1699
 msgid "Dismiss Notice"
 msgstr ""
 
-#: inc/admin.php:1883
+#: inc/admin.php:1891
 msgid "Toggle editor selection menu"
 msgstr ""
 
-#: inc/admin.php:1884, inc/admin.php:1948, settings/tpl/settings.php:9
+#: inc/admin.php:1892, inc/admin.php:1956, settings/tpl/settings.php:9
 msgid "SiteOrigin Page Builder"
 msgstr ""
 
-#: inc/admin.php:1885
+#: inc/admin.php:1893
 msgid "Block Editor"
 msgstr ""
 

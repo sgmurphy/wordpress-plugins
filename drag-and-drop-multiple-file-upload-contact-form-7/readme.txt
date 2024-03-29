@@ -4,7 +4,7 @@ Donate link : http://codedropz.com/donation
 Tags: drag and drop, contact form 7, ajax uploader, multiple file, upload
 Requires at least: 3.0.1
 Tested up to: 6.4
-Stable tag: 1.3.7.6
+Stable tag: 1.3.7.7
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -158,10 +158,13 @@ To install this plugin see below:
 
 == Changelog ==
 
+= 1.3.7.7 =
+- Fixes - js/css enabled as default 'dnd_cf7_load_on_cf7_page' filter
+- Fixes - Remove javascript:void and replaced with '#' on browse and delete for SEO purposes (JS)
+
 = 1.3.7.6 =
 - Fixes - Removed inline css and use proper enqueue (https://wordpress.org/support/topic/html-validation-error-21/)
 - Minor bug fixes and improvements
--
 
 = 1.3.7.5 =
 - Fixes - Fixed JS error for custom button type submit.

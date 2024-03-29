@@ -447,7 +447,7 @@
 		$version = dnd_upload_cf7_version;
 
 		// Loads assets when needed load/unload js
-		$load_on_cf7_page = apply_filters( 'dnd_cf7_load_on_cf7_page', true );
+		$load_on_cf7_page = apply_filters( 'dnd_cf7_load_on_cf7_page', false );
 
 		// Don't load styles/scripts on regular pages that don't have CF7 shortcode.
 		if ( $load_on_cf7_page && $post && ! has_shortcode( $post->post_content, 'contact-form-7' ) ) {
