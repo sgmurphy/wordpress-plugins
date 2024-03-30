@@ -4,7 +4,7 @@
 
 namespace WbsVendors\Composer\Autoload;
 
-class ComposerStaticInit3f756d81958e7117018a331e415d366f
+class ComposerStaticInit623fc0d7b12d2a5eaa6ea8492ac6734c
 {
     public static $files = array (
         'b411d774a68934fe83360f73e6fe640f' => __DIR__ . '/..' . '/dangoodman/composer-capsule-runtime/autoload.php',
@@ -83,16 +83,14 @@ class ComposerStaticInit3f756d81958e7117018a331e415d366f
         'WbsVendors\\Dgm\\ClassNameAware\\ClassNameAware' => __DIR__ . '/..' . '/dangoodman/class-name-aware/ClassNameAware.php',
         'WbsVendors\\Dgm\\SimpleProperties\\SimpleProperties' => __DIR__ . '/..' . '/dangoodman/simple-properties/SimpleProperties.php',
         'WbsVendors\\Dgm\\WcTools\\WcTools' => __DIR__ . '/..' . '/dangoodman/wc-tools/WcTools.php',
-        'WbsVendors_DgmWpDismissibleNotices' => __DIR__ . '/..' . '/dangoodman/wp-plugin-bootstrap-guard/DgmWpDismissibleNotices.php',
-        'WbsVendors_DgmWpPluginBootstrapGuard' => __DIR__ . '/..' . '/dangoodman/wp-plugin-bootstrap-guard/DgmWpPluginBootstrapGuard.php',
     );
 
     public static function getInitializer(\WbsVendors\Composer\Autoload\ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = \WbsVendors\Composer\Autoload\ComposerStaticInit3f756d81958e7117018a331e415d366f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = \WbsVendors\Composer\Autoload\ComposerStaticInit3f756d81958e7117018a331e415d366f::$prefixDirsPsr4;
-            $loader->classMap = \WbsVendors\Composer\Autoload\ComposerStaticInit3f756d81958e7117018a331e415d366f::$classMap;
+            $loader->prefixLengthsPsr4 = \WbsVendors\Composer\Autoload\ComposerStaticInit623fc0d7b12d2a5eaa6ea8492ac6734c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = \WbsVendors\Composer\Autoload\ComposerStaticInit623fc0d7b12d2a5eaa6ea8492ac6734c::$prefixDirsPsr4;
+            $loader->classMap = \WbsVendors\Composer\Autoload\ComposerStaticInit623fc0d7b12d2a5eaa6ea8492ac6734c::$classMap;
 
         }, null, \WbsVendors\Composer\Autoload\ClassLoader::class);
     }
