@@ -646,6 +646,9 @@
 .siteorigin-panels-builder.so-display-narrow .so-builder-toolbar .so-switch-to-standard {
   display: none !important;
 }
+.siteorigin-panels-builder .ui-sortable-handle {
+  text-align: left;
+}
 .so-widget.ui-sortable-helper.widget-being-dragged {
   z-index: 500002 !important;
   opacity: 0.9;

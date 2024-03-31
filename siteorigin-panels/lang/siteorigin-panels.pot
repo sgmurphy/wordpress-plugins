@@ -1707,7 +1707,7 @@ msgstr ""
 msgid "Order By"
 msgstr ""
 
-#: widgets/widgets.php:697, widgets/widgets.php:878, inc/widgets/post-content.php:72, inc/widgets/post-loop.php:403
+#: widgets/widgets.php:697, widgets/widgets.php:878, inc/widgets/post-content.php:69, inc/widgets/post-loop.php:403
 msgid "None"
 msgstr ""
 
@@ -1976,15 +1976,15 @@ msgstr ""
 msgid "Displays content from the current post."
 msgstr ""
 
-#: inc/widgets/post-content.php:73, inc/widgets/post-loop-helper.php:40, inc/widgets/post-loop.php:304, widgets/widgets/call-to-action/call-to-action.php:15, widgets/widgets/list/list.php:15, widgets/widgets/price-box/price-box.php:15
+#: inc/widgets/post-content.php:70, inc/widgets/post-loop-helper.php:40, inc/widgets/post-loop.php:304, widgets/widgets/call-to-action/call-to-action.php:15, widgets/widgets/list/list.php:15, widgets/widgets/price-box/price-box.php:15
 msgid "Title"
 msgstr ""
 
-#: inc/widgets/post-content.php:74
+#: inc/widgets/post-content.php:71
 msgid "Featured Image"
 msgstr ""
 
-#: inc/widgets/post-content.php:80
+#: inc/widgets/post-content.php:77
 msgid "Display Content"
 msgstr ""
 

@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: MetForm 3.8.5\n"
+"Project-Id-Version: MetForm 3.8.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/metform\n"
-"POT-Creation-Date: 2024-03-11 09:07:47+00:00\n"
+"POT-Creation-Date: 2024-03-31 09:46:57+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1996,17 +1996,17 @@ msgid "Your data inserted on ActiveCampaign."
 msgstr ""
 
 #: core/integrations/onboard/classes/plugin-status.php:57
-#: utils/apps/apps.php:311
+#: utils/apps/apps.php:373 utils/emailkit/emailkit.php:212
 msgid "Activated"
 msgstr ""
 
 #: core/integrations/onboard/classes/plugin-status.php:60
-#: utils/apps/apps.php:314
+#: utils/apps/apps.php:376 utils/emailkit/emailkit.php:215
 msgid "Activate Now"
 msgstr ""
 
 #: core/integrations/onboard/classes/plugin-status.php:65
-#: utils/apps/apps.php:319
+#: utils/apps/apps.php:381 utils/emailkit/emailkit.php:220
 msgid "Install Now"
 msgstr ""
 
@@ -2031,7 +2031,7 @@ msgid "Sign Up info"
 msgstr ""
 
 #: core/integrations/onboard/views/layout-onboard.php:17
-msgid "Website Powerup"
+msgid "Upgrade Your Site"
 msgstr ""
 
 #: core/integrations/onboard/views/layout-onboard.php:18
@@ -2055,10 +2055,7 @@ msgid "Finalizing info"
 msgstr ""
 
 #: core/integrations/onboard/views/onboard-steps/step-01.php:4
-#: core/integrations/onboard/views/onboard-steps/step-04.php:4
-msgid ""
-"Check Out the Easy to Understand Video Tutorials to learn the detailed use "
-"of MetForm."
+msgid "Get Started with MetForm!"
 msgstr ""
 
 #: core/integrations/onboard/views/onboard-steps/step-01.php:22
@@ -2084,7 +2081,7 @@ msgstr ""
 
 #: core/integrations/onboard/views/onboard-steps/step-01.php:29
 #: core/integrations/onboard/views/onboard-steps/step-02.php:16
-#: core/integrations/onboard/views/onboard-steps/step-03.php:69
+#: core/integrations/onboard/views/onboard-steps/step-03.php:90
 #: core/integrations/onboard/views/onboard-steps/step-04.php:29
 #: core/integrations/onboard/views/onboard-steps/step-05.php:32
 msgid "Back"
@@ -2092,10 +2089,10 @@ msgstr ""
 
 #: core/integrations/onboard/views/onboard-steps/step-01.php:30
 #: core/integrations/onboard/views/onboard-steps/step-02.php:17
-#: core/integrations/onboard/views/onboard-steps/step-03.php:70
+#: core/integrations/onboard/views/onboard-steps/step-03.php:91
 #: core/integrations/onboard/views/onboard-steps/step-04.php:30
 #: core/integrations/onboard/views/onboard-steps/step-05.php:33
-msgid "Next Step"
+msgid "Next"
 msgstr ""
 
 #: core/integrations/onboard/views/onboard-steps/step-02.php:4
@@ -2103,7 +2100,9 @@ msgid "The Best Form Builder Plugin for Elementor."
 msgstr ""
 
 #: core/integrations/onboard/views/onboard-steps/step-02.php:5
-msgid "Sign Up to Join a Big Community of Marketers, Developers, and Think Tankers"
+msgid ""
+"Sign up to join a community of like-minded marketers, developers, and "
+"thought leaders in WordPress!"
 msgstr ""
 
 #: core/integrations/onboard/views/onboard-steps/step-02.php:11
@@ -2135,7 +2134,7 @@ msgid "on your personal AI assistant for Content & SEO right inside WordPress!"
 msgstr ""
 
 #: core/integrations/onboard/views/onboard-steps/step-03.php:30
-msgid "Completely customize your  WooCommerce WordPress"
+msgid "Your Ultimate Page Builder Blocks for Gutenberg"
 msgstr ""
 
 #: core/integrations/onboard/views/onboard-steps/step-03.php:40
@@ -2143,11 +2142,25 @@ msgid "All-in-One Addons for Elementor"
 msgstr ""
 
 #: core/integrations/onboard/views/onboard-steps/step-03.php:50
+msgid "Completely customize your  WooCommerce WordPress"
+msgstr ""
+
+#: core/integrations/onboard/views/onboard-steps/step-03.php:61
+msgid "No-Code Email Customizer for WordPress"
+msgstr ""
+
+#: core/integrations/onboard/views/onboard-steps/step-03.php:71
 msgid "Integrate all your social media to your website"
 msgstr ""
 
-#: core/integrations/onboard/views/onboard-steps/step-03.php:60
+#: core/integrations/onboard/views/onboard-steps/step-03.php:81
 msgid "Integrate various styled review system in your website"
+msgstr ""
+
+#: core/integrations/onboard/views/onboard-steps/step-04.php:4
+msgid ""
+"Check Out the Easy to Understand Video Tutorials to learn the detailed use "
+"of MetForm."
 msgstr ""
 
 #: core/integrations/onboard/views/onboard-steps/step-05.php:4
@@ -2212,9 +2225,7 @@ msgid "Congratulations!"
 msgstr ""
 
 #: core/integrations/onboard/views/onboard-steps/step-06.php:4
-msgid ""
-"Let’s dive into developing your website with the world’s best addons for "
-"Elementor."
+msgid "Let’s start your journey with the best form plugin for Elementor!"
 msgstr ""
 
 #: core/integrations/onboard/views/settings-sections/dashboard.php:12
@@ -2499,8 +2510,8 @@ msgstr ""
 
 #: plugin.php:237
 msgid ""
-"ElementsKit Elementor addons is an ultimate and all-in-one addons for "
-"Elementor."
+"All-in-one Elementor addon trusted by 1 Million+ users, makes your website "
+"builder process easier with ultimate freedom."
 msgstr ""
 
 #: plugin.php:241
@@ -2509,113 +2520,134 @@ msgstr ""
 
 #: plugin.php:244
 msgid ""
-"AI SEO content writer, OpenAI ChatGPT Chatbot, Ai Copilot, NLP keyword "
-"research, SERP analysis & SEO tool for WordPress."
+"Your personal AI assistant for content and SEO. Write content that ranks on "
+"Google with NLP keywords and SERP analysis data."
 msgstr ""
 
 #: plugin.php:248
-msgid "ShopEngine"
+msgid "GutenKit"
 msgstr ""
 
 #: plugin.php:251
 msgid ""
-"WooCommerce builder for Elementor with 70+ widgets, product templates & "
-"sliders, shopping cart, quick view, wishlist, and more."
+"Gutenberg blocks, patterns, and templates that extend the page-building "
+"experience using the WordPress block editor."
 msgstr ""
 
 #: plugin.php:255
-msgid "Blocks for ShopEngine"
+msgid "ShopEngine"
 msgstr ""
 
 #: plugin.php:258
 msgid ""
-"Want a Gutenberg addon for easily building and customizing WooCommerce "
-"pages with templates and blocks? Then your wait is over."
+"Complete WooCommerce solution for Elementor to fully customize any pages "
+"including cart, checkout, shop page, and so on.\n"
+"                "
 msgstr ""
 
-#: plugin.php:262
+#: plugin.php:263
+msgid "EmailKit"
+msgstr ""
+
+#: plugin.php:266
+msgid ""
+"Advanced email customizer for WooCommerce and WordPress. Build, customize, "
+"and send emails from WordPress to boost your sales!"
+msgstr ""
+
+#: plugin.php:270
 msgid "Wp Social"
 msgstr ""
 
-#: plugin.php:265
+#: plugin.php:273
 msgid ""
-"Wp social lets you add social login, social counter, and social share "
-"buttons of different styles to your WordPress website."
+"Add social share, login, and engagement counter — unified solution for all "
+"social media with tons of different styles for your website."
 msgstr ""
 
-#: plugin.php:269
-msgid "Genie Image"
-msgstr ""
-
-#: plugin.php:272
-msgid ""
-"Trying to simplify your image creation journey? The Genie Image is a "
-"powerful text-to-image WordPress plugin developed using OpenAI DALL-E 2."
-msgstr ""
-
-#: plugin.php:276
+#: plugin.php:277
 msgid "WP Ultimate Review"
 msgstr ""
 
-#: plugin.php:279
+#: plugin.php:280
 msgid ""
-"WP Ultimate Review is the compact review plugin that allows you to collect "
-"social proof for your WordPress website."
+"Collect and showcase reviews on your website to build brand credibility and "
+"social proof with the easiest solution."
 msgstr ""
 
-#: plugin.php:283
+#: plugin.php:284
 msgid "FundEngine"
 msgstr ""
 
-#: plugin.php:286
+#: plugin.php:287
 msgid ""
-"Fundraising Donation plugin and Crowdfunding Platform comes with Single "
-"donation and crowdfunding solution."
+"Create fundraising, crowdfunding, and donation websites with PayPal and "
+"Stripe payment gateway integration."
 msgstr ""
 
-#: plugin.php:368
+#: plugin.php:291
+msgid "Blocks for ShopEngine"
+msgstr ""
+
+#: plugin.php:294
+msgid ""
+"All in one WooCommerce solution for Gutenberg! Build your WooCommerce pages "
+"in a block editor with full customization."
+msgstr ""
+
+#: plugin.php:298
+msgid "Genie Image"
+msgstr ""
+
+#: plugin.php:301
+msgid ""
+"AI-powered text-to-image generator for WordPress with OpenAI’s DALL-E 2 "
+"technology to generate high-quality images in one click."
+msgstr ""
+
+#: plugin.php:397
 msgid "Minimum length should be "
 msgstr ""
 
-#: plugin.php:369
+#: plugin.php:398
 msgid " character long."
 msgstr ""
 
-#: plugin.php:370
+#: plugin.php:399
 msgid "Maximum length should be "
 msgstr ""
 
-#: plugin.php:371
+#: plugin.php:400
 msgid "Maximum number should be "
 msgstr ""
 
-#: plugin.php:372
+#: plugin.php:401
 msgid "Minimum number should be "
 msgstr ""
 
-#: plugin.php:548
+#: plugin.php:577
 msgid "Activate Elementor"
 msgstr ""
 
-#: plugin.php:555
+#: plugin.php:584
 msgid "Install Elementor"
 msgstr ""
 
-#: plugin.php:559 plugin.php:593
+#: plugin.php:588 plugin.php:622
 #. translators: MetForm plugin version requirement. %s is the required
 #. Elementor version.
 msgid "MetForm requires Elementor version %1$s+, which is currently NOT RUNNING."
 msgstr ""
 
-#: plugin.php:575
+#: plugin.php:604
 msgid "MetForm Pro"
 msgstr ""
 
-#: plugin.php:579 plugin.php:596
+#: plugin.php:608 plugin.php:625
 msgid "We have MetForm Pro version. Check out our pro feature."
 msgstr ""
 
-#: plugin.php:591
+#: plugin.php:620
 msgid "Update Elementor"
 msgstr ""
 
@@ -3322,11 +3354,11 @@ msgstr ""
 msgid "Image select Options"
 msgstr ""
 
-#: utils/apps/apps.php:366
+#: utils/apps/apps.php:426
 msgid "Activate"
 msgstr ""
 
-#: utils/apps/apps.php:371
+#: utils/apps/apps.php:443
 msgid "Read Docs"
 msgstr ""
 

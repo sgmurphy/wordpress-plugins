@@ -25,7 +25,7 @@ final class Plugin {
 
     public function version()
     {
-        return '3.8.5';
+        return '3.8.6';
     }
 
     public function package_type()
@@ -234,61 +234,90 @@ final class Plugin {
                 'name' => esc_html__('ElementsKit', 'metform'),
                 'url'  => 'https://wordpress.org/plugins/elementskit-lite/',
                 'icon' => $apps_img_path. 'elementskit.gif',
-                'desc' => esc_html__('ElementsKit Elementor addons is an ultimate and all-in-one addons for Elementor.', 'metform'),
+                'desc' => esc_html__('All-in-one Elementor addon trusted by 1 Million+ users, makes your website builder process easier with ultimate freedom.', 'metform'),
                 'docs' => 'https://wpmet.com/doc/elementskit/',
             ],
             'getgenie/getgenie.php' => [
                 'name' => esc_html__('GetGenie', 'metform'),
                 'url'  => 'https://wordpress.org/plugins/getgenie/',
                 'icon' => $apps_img_path.'getgenie.gif',
-                'desc' => esc_html__('AI SEO content writer, OpenAI ChatGPT Chatbot, Ai Copilot, NLP keyword research, SERP analysis & SEO tool for WordPress.', 'metform'),
+                'desc' => esc_html__('Your personal AI assistant for content and SEO. Write content that ranks on Google with NLP keywords and SERP analysis data.', 'metform'),
                 'docs' => 'https://getgenie.ai/docs/',
+            ],
+            'gutenkit-blocks-addon/gutenkit-blocks-addon.php' => [
+                'name' => esc_html__('GutenKit', 'metform'),
+                'url'  => 'https://wordpress.org/plugins/gutenkit-blocks-addon/',
+                'icon' => $apps_img_path. 'guten-kit.png',
+                'desc' => esc_html__('Gutenberg blocks, patterns, and templates that extend the page-building experience using the WordPress block editor.', 'metform'),
+                'docs' => 'https://wpmet.com/doc/gutenkit/',
             ],
             'shopengine/shopengine.php' => [
                 'name' => esc_html__('ShopEngine', 'metform'),
                 'url'  => 'https://wordpress.org/plugins/shopengine/',
                 'icon' => $apps_img_path. 'shopengine.gif',
-                'desc' => esc_html__('WooCommerce builder for Elementor with 70+ widgets, product templates & sliders, shopping cart, quick view, wishlist, and more.', 'metform'),
+                'desc' => esc_html__('Complete WooCommerce solution for Elementor to fully customize any pages including cart, checkout, shop page, and so on.
+                ', 'metform'),
                 'docs' => 'https://wpmet.com/doc/shopengine/',
             ],
-            'blocks-for-shopengine/shopengine-gutenberg-addon.php' => [
-                'name' => esc_html__('Blocks for ShopEngine', 'metform'),
-                'url'  => 'https://wordpress.org/plugins/blocks-for-shopengine/',
-                'icon' => $apps_img_path . 'shopengine.gif',
-                'desc' => esc_html__('Want a Gutenberg addon for easily building and customizing WooCommerce pages with templates and blocks? Then your wait is over.', 'metform'),
-                'docs' => 'https://wpmet.com/doc/shopengine/',
+            'emailkit/EmailKit.php' => [
+                'name' => esc_html__('EmailKit', 'metform'),
+                'url'  => 'https://wordpress.org/plugins/emailkit/',
+                'icon' => $apps_img_path . 'emailkit.png',
+                'desc' => esc_html__('Advanced email customizer for WooCommerce and WordPress. Build, customize, and send emails from WordPress to boost your sales!', 'metform'),
+                'docs' => 'https://wpmet.com/doc/emailkit/',
             ],
             'wp-social/wp-social.php' => [
                 'name' => esc_html__('Wp Social', 'metform'),
                 'url'  => 'https://wordpress.org/plugins/wp-social/',
                 'icon' => $apps_img_path . 'wp-social.png',
-                'desc' => esc_html__('Wp social lets you add social login, social counter, and social share buttons of different styles to your WordPress website.', 'metform'),
+                'desc' => esc_html__('Add social share, login, and engagement counter — unified solution for all social media with tons of different styles for your website.', 'metform'),
                 'docs' => 'https://wpmet.com/doc/wp-social/',
-            ],
-            'genie-image-ai/genie-image-ai.php' => [
-                'name' => esc_html__('Genie Image', 'metform'),
-                'url'  => 'https://wordpress.org/plugins/genie-image-ai/',
-                'icon' => $apps_img_path . 'genie-image.png',
-                'desc' => esc_html__('Trying to simplify your image creation journey? The Genie Image is a powerful text-to-image WordPress plugin developed using OpenAI DALL-E 2.', 'metform'),
-                'docs' => 'https://getgenie.ai/docs/',
             ],
             'wp-ultimate-review/wp-ultimate-review.php' => [
                 'name' => esc_html__('WP Ultimate Review', 'metform'),
                 'url'  => 'https://wordpress.org/plugins/wp-ultimate-review/',
                 'icon' => $apps_img_path . 'ultimate-review.png',
-                'desc' => esc_html__('WP Ultimate Review is the compact review plugin that allows you to collect social proof for your WordPress website.', 'metform'),
+                'desc' => esc_html__('Collect and showcase reviews on your website to build brand credibility and social proof with the easiest solution.', 'metform'),
                 'docs' => 'https://wpmet.com/doc/wp-ultimate-review/',
             ],
             'wp-fundraising-donation/wp-fundraising.php' => [
                 'name' => esc_html__('FundEngine', 'metform'),
                 'url'  => 'https://wordpress.org/plugins/wp-fundraising-donation/',
                 'icon' => $apps_img_path . 'fundengine.png',
-                'desc' => esc_html__('Fundraising Donation plugin and Crowdfunding Platform comes with Single donation and crowdfunding solution.', 'metform'),
+                'desc' => esc_html__('Create fundraising, crowdfunding, and donation websites with PayPal and Stripe payment gateway integration.', 'metform'),
                 'docs' => 'https://wpmet.com/doc/fundengine/',
+            ],
+            'blocks-for-shopengine/shopengine-gutenberg-addon.php' => [
+                'name' => esc_html__('Blocks for ShopEngine', 'metform'),
+                'url'  => 'https://wordpress.org/plugins/blocks-for-shopengine/',
+                'icon' => $apps_img_path . 'shopengine.gif',
+                'desc' => esc_html__('All in one WooCommerce solution for Gutenberg! Build your WooCommerce pages in a block editor with full customization.', 'metform'),
+                'docs' => 'https://wpmet.com/doc/shopengine/',
+            ],
+            'genie-image-ai/genie-image-ai.php' => [
+                'name' => esc_html__('Genie Image', 'metform'),
+                'url'  => 'https://wordpress.org/plugins/genie-image-ai/',
+                'icon' => $apps_img_path . 'genie-image.png',
+                'desc' => esc_html__('AI-powered text-to-image generator for WordPress with OpenAI’s DALL-E 2 technology to generate high-quality images in one click.', 'metform'),
+                'docs' => 'https://getgenie.ai/docs/',
             ],
         ]
         )
         ->call();
+
+    
+        if( !did_action('edit_with_emailkit_loaded') && class_exists('\Wpmet\Libs\Emailkit') ) {
+            
+            $current_theme = '';
+
+            if( function_exists('wp_get_theme') ) {
+                $mf_theme = wp_get_theme();
+                $current_theme = $mf_theme->get( 'TextDomain' );
+            }
+            if( $current_theme != 'marketo' && $current_theme != 'blo' ) {
+                new \Wpmet\Libs\Emailkit();
+            }            
+        }
 
         // Check if Elementor installed and activated.
         if (!did_action('elementor/loaded')) {

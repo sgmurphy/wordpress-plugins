@@ -2,7 +2,7 @@
     <div class="mf-onboard-step-2-content">
         <div class="mf-onboard-main-header">
             <h1 class="mf-onboard-main-header--title"><strong><?php echo esc_html__('The Best Form Builder Plugin for Elementor.', 'metform'); ?></strong></h1>
-            <p class="mf-onboard-main-header--description"><?php echo esc_html__('Sign Up to Join a Big Community of Marketers, Developers, and Think Tankers', 'metform'); ?></p>
+            <p class="mf-onboard-main-header--description"><?php echo esc_html__('Sign up to join a community of like-minded marketers, developers, and thought leaders in WordPress!', 'metform'); ?></p>
         </div>
         <div class="mf-onboard-signup">
             <label for="signup"><i class="icon xs-onboard-mail"></i></label>
@@ -14,7 +14,7 @@
 
     <div class="mf-onboard-pagination">
         <a class="mf-onboard-btn mf-onboard-pagi-btn prev" href="#"><i class="xs-onboard-arrow-left"></i><?php echo esc_html__('Back', 'metform'); ?></a>
-        <a class="mf-onboard-btn mf-onboard-pagi-btn next" href="#"><?php echo esc_html__('Next Step', 'metform'); ?></a>
+        <a class="mf-onboard-btn mf-onboard-pagi-btn next" href="#"><?php echo esc_html__('Next', 'metform'); ?></a>
     </div>
 
     <div class="mf-onboard-shapes">

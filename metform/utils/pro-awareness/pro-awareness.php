@@ -247,6 +247,11 @@ if(!class_exists('\Wpmet\Libs\Pro_Awareness')) :
 
 		public static function enqueue_scripts() {
 			echo "
+			<script>
+			jQuery(document).ready( function($) {   
+				$('.pro_aware').parent().attr('target','_blank');  
+			});
+            </script>
             <style>
             .wpmet_pro_a-grid-container {
                 max-width: 1350px;

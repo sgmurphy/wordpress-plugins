@@ -505,7 +505,7 @@ Class MetForm_Input_Radio extends Widget_Base{
 								name="<?php echo esc_attr($mf_input_name); ?>"
 								value="<?php echo esc_attr($option['mf_input_option_value']); ?>"
 								data-checked="<?php echo esc_attr($option['mf_input_option_selected']); ?>"
-								<?php echo esc_attr($option['mf_input_option_status']); ?>
+								<?php echo esc_attr( $option['mf_input_option_status'] === 'disabled' ? 'disabled' : '' ); ?>
 								<?php if ( !$is_edit_mode ): ?>
 									onChange=${ parent.handleChange }
 									aria-invalid=${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}

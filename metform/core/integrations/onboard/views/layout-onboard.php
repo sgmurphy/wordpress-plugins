@@ -14,7 +14,7 @@ $onboard_steps = [
         'icon'      => esc_attr('xs-onboard-user')
     ],
     'step-03' => [
-        'title'     => esc_html__('Website Powerup', 'metform'),
+        'title'     => esc_html__('Upgrade Your Site', 'metform'),
         'sub-title' => esc_html__('Website Powerup info', 'metform'),
         'icon'      => esc_attr('xs-onboard-layout')
     ],

@@ -487,7 +487,7 @@ Class MetForm_Input_Checkbox extends Widget_Base{
 								value="<?php echo esc_attr($option['mf_input_option_value']); ?>"
 								defaultChecked="<?php echo esc_attr($option['mf_input_option_selected'] === 'checked' ? true : false) ?>"
 								
-								<?php echo esc_attr($option['mf_input_option_status']); ?>
+								<?php echo esc_attr($option['mf_input_option_status'] === 'disabled' ? 'disabled' : ''); ?>
 								<?php if ( !$is_edit_mode ): ?>
 									onInput=${ el =>  parent.handleCheckbox(el.target, 'onClick') }
 									aria-invalid=${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}

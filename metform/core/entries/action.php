@@ -481,7 +481,7 @@ class Action
 
         do_action("metform_after_store_form_data", $form_id, $form_data, $this->form_settings, $attributes);
 
-        $this->response->data['redirect_to'] = (empty($this->form_settings['redirect_to'])) ? '' : add_query_arg('id', $this->entry_id, $this->form_settings['redirect_to']);
+        $this->response->data['redirect_to'] = !empty($this->form_settings['redirect_to']) ? $this->form_settings['redirect_to'] : '';
         
         $bypass_form_data = json_decode(get_post_meta($form_id, 'mf_redirect_params_status', true));
         

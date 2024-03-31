@@ -1,9 +1,9 @@
-=== Premium Addons for Elementor ===
+﻿=== Premium Addons for Elementor ===
 Contributors: Leap13, Rimoun
 Tags: elementor, elementor addons, widgets, elementor elements, templates
 Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme
 Requires at least: 5.0
-Tested Up To: 6.4.3
+Tested Up To: 6.5
 Requires PHP: 7.0
 Stable Tag: 4.10.26
 License: GPL v3.0

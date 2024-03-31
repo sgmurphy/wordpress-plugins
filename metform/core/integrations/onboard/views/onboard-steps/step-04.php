@@ -27,7 +27,7 @@ echo esc_html__('Check Out the Easy to Understand Video Tutorials to learn the d
 </div>
 <div class="mf-onboard-pagination">
     <a class="mf-onboard-btn mf-onboard-pagi-btn prev" href="#"><i class="xs-onboard-arrow-left"></i><?php echo esc_html__('Back', 'metform'); ?></a>
-    <a class="mf-onboard-btn mf-onboard-pagi-btn next" href="#"><?php echo esc_html__('Next Step', 'metform'); ?></a>
+    <a class="mf-onboard-btn mf-onboard-pagi-btn next" href="#"><?php echo esc_html__('Next', 'metform'); ?></a>
 </div>
 <div class="mf-onboard-shapes">
     <img src="<?php echo esc_url(self::get_url()); ?>assets/images/onboard/shape-07.png" alt="" class="shape-07">

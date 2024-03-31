@@ -515,7 +515,7 @@ Class MetForm_Input_File_Upload extends Widget_base{
 					className="mf-input mf-input-file-upload <?php echo esc_attr($class); ?>"
 					id="mf-input-file-upload-<?php echo esc_attr($this->get_id()); ?>" 
 					name="<?php echo esc_attr($mf_input_name); ?>" 
-					<?php echo esc_attr($mf_input_multiple_file) ?>
+					<?php echo esc_attr( $mf_input_multiple_file === 'multiple' ? 'multiple' : '' ) ?>
 					accept="<?php echo esc_attr($accept != null ? $accept : '');?>"
 					onInput=${ parent.handleFileUpload }
 					aria-invalid=${validation.errors['<?php echo esc_attr($mf_input_name); ?>'] ? 'true' : 'false'}

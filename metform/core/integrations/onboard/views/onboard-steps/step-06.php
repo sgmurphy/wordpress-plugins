@@ -1,7 +1,7 @@
 <div class="mf-onboard-main-header">
     <img class="mf-onboard-main-header--thumb" src="<?php echo esc_url(self::get_url()); ?>assets/images/congrats-shape.png" alt="">
     <h1 class="mf-onboard-main-header--title"><strong><?php echo esc_html__('Congratulations!', 'metform'); ?></strong></h1>
-    <p class="mf-onboard-main-header--description"><?php echo esc_html__('Let’s dive into developing your website with the world’s best addons for Elementor.', 'metform'); ?></p>
+    <p class="mf-onboard-main-header--description"><?php echo esc_html__('Let’s start your journey with the best form plugin for Elementor!', 'metform'); ?></p>
     <button class="mf-onboard-btn mf-admin-settings-form-submit" type="submit"><div class="mf-spinner"></div> <?php echo esc_html__('Save Changes', 'metform'); ?></button>
 </div>
 <div class="mf-onboard-shapes">

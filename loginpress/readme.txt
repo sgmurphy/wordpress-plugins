@@ -1,4 +1,4 @@
-=== Change Login Logo, Login Page, Login Captcha| Custom Login Page Customizer | LoginPress ===
+=== LoginPress | Custom Login Page Customizer ===
 Requires at least: 4.0
 Tested up to: 6.5
 Contributors: WPBrigade, hiddenpearls, AbdulWahab610

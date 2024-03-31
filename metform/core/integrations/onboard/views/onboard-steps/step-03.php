@@ -26,9 +26,9 @@ echo esc_html__('Take your website to the next level', 'metform'); ?></strong></
         <div class="attr-col-lg-4">
             <div class="mf-onboard-single-plugin">
                 <label>
-                    <img class="mf-onboard-single-plugin--logo" src="<?php echo esc_url(self::get_url()); ?>assets/images/products/shopengine-logo.svg" alt="ShopEngine">
-                    <p class="mf-onboard-single-plugin--description"><?php echo esc_html__('Completely customize your  WooCommerce WordPress', 'metform'); ?></p>
-                    <?php $plugin = $pluginStatus->get_status('shopengine/shopengine.php'); ?>
+                    <img class="mf-onboard-single-plugin--logo" src="<?php echo esc_url(self::get_url()); ?>assets/images/products/gutenkit-logo.svg" alt="GutenKit">
+                    <p class="mf-onboard-single-plugin--description"><?php echo esc_html__('Your Ultimate Page Builder Blocks for Gutenberg', 'metform'); ?></p>
+                    <?php $plugin = $pluginStatus->get_status('gutenkit-blocks-addon/gutenkit-blocks-addon.php'); ?>
                     <a data-plugin_status="<?php echo esc_attr($plugin['status']); ?>" data-activation_url="<?php echo esc_url($plugin['activation_url']); ?>" href="<?php echo esc_url($plugin['installation_url']); ?>" class="mf-pro-btn mf-onboard-single-plugin--install_plugin <?php echo $plugin['status'] == 'activated' ? 'activated' : ''; ?>"><?php echo esc_html($plugin['title'] , 'metform'); ?></a>
                 </label>
             </div>
@@ -36,9 +36,30 @@ echo esc_html__('Take your website to the next level', 'metform'); ?></strong></
         <div class="attr-col-lg-4">
             <div class="mf-onboard-single-plugin">
                 <label>
-                    <img class="mf-onboard-single-plugin--logo" src="<?php echo esc_url(self::get_url()); ?>assets/images/products/elementskit-logo.svg" alt="Metform">
+                    <img class="mf-onboard-single-plugin--logo" src="<?php echo esc_url(self::get_url()); ?>assets/images/products/elementskit-logo.svg" alt="Elementskit">
                     <p class="mf-onboard-single-plugin--description"><?php echo esc_html__('All-in-One Addons for Elementor', 'metform'); ?></p>
                     <?php $plugin = $pluginStatus->get_status('elementskit-lite/elementskit-lite.php'); ?>
+                    <a data-plugin_status="<?php echo esc_attr($plugin['status']); ?>" data-activation_url="<?php echo esc_url($plugin['activation_url']); ?>" href="<?php echo esc_url($plugin['installation_url']); ?>" class="mf-pro-btn mf-onboard-single-plugin--install_plugin <?php echo $plugin['status'] == 'activated' ? 'activated' : ''; ?>"><?php echo esc_html($plugin['title'], 'metform'); ?></a>
+                </label>
+            </div>
+        </div>
+        <div class="attr-col-lg-4">
+            <div class="mf-onboard-single-plugin">
+                <label>
+                    <img class="mf-onboard-single-plugin--logo" src="<?php echo esc_url(self::get_url()); ?>assets/images/products/shopengine-logo.svg" alt="ShopEngine">
+                    <p class="mf-onboard-single-plugin--description" style="position: absolute;bottom: 89px;left: 27px;"><?php echo esc_html__('Completely customize your  WooCommerce WordPress', 'metform'); ?></p>
+                    <?php $plugin = $pluginStatus->get_status('shopengine/shopengine.php'); ?>
+                    <a data-plugin_status="<?php echo esc_attr($plugin['status']); ?>" style="position: absolute;bottom: 37px;left: 27px;" data-activation_url="<?php echo esc_url($plugin['activation_url']); ?>" href="<?php echo esc_url($plugin['installation_url']); ?>" class="mf-pro-btn mf-onboard-single-plugin--install_plugin <?php echo $plugin['status'] == 'activated' ? 'activated' : ''; ?>"><?php echo esc_html($plugin['title'], 'metform'); ?></a>
+                </label>
+            </div>
+        </div>
+
+        <div class="attr-col-lg-4">
+            <div class="mf-onboard-single-plugin">
+                <label>
+                    <img class="mf-onboard-single-plugin--logo" src="<?php echo esc_url(self::get_url()); ?>assets/images/products/emailkit-logo.svg" alt="EmailKit">
+                    <p class="mf-onboard-single-plugin--description"><?php echo esc_html__('No-Code Email Customizer for WordPress', 'metform'); ?></p>
+                    <?php $plugin = $pluginStatus->get_status('emailkit/EmailKit.php'); ?>
                     <a data-plugin_status="<?php echo esc_attr($plugin['status']); ?>" data-activation_url="<?php echo esc_url($plugin['activation_url']); ?>" href="<?php echo esc_url($plugin['installation_url']); ?>" class="mf-pro-btn mf-onboard-single-plugin--install_plugin <?php echo $plugin['status'] == 'activated' ? 'activated' : ''; ?>"><?php echo esc_html($plugin['title'], 'metform'); ?></a>
                 </label>
             </div>
@@ -57,9 +78,9 @@ echo esc_html__('Take your website to the next level', 'metform'); ?></strong></
             <div class="mf-onboard-single-plugin">
                 <label>
                     <img class="mf-onboard-single-plugin--logo" src="<?php echo esc_url(self::get_url()); ?>assets/images/products/ultimate-review-logo.svg" alt="UltimateReview">
-                    <p class="mf-onboard-single-plugin--description"><?php echo esc_html__('Integrate various styled review system in your website', 'metform'); ?></p>
+                    <p class="mf-onboard-single-plugin--description" style="position: absolute; bottom:92px;" ><?php echo esc_html__('Integrate various styled review system in your website', 'metform'); ?></p>
                     <?php $plugin = $pluginStatus->get_status('wp-ultimate-review/wp-ultimate-review.php'); ?>
-                    <a data-plugin_status="<?php echo esc_attr($plugin['status']); ?>" data-activation_url="<?php echo esc_url($plugin['activation_url']); ?>" href="<?php echo esc_url($plugin['installation_url']); ?>" class="mf-pro-btn mf-onboard-single-plugin--install_plugin <?php echo $plugin['status'] == 'activated' ? 'activated' : ''; ?>"><?php echo esc_html($plugin['title'], 'metform'); ?></a>
+                    <a data-plugin_status="<?php echo esc_attr($plugin['status']); ?>" style="position:absolute; bottom:37px; left:27px;" data-activation_url="<?php echo esc_url($plugin['activation_url']); ?>" href="<?php echo esc_url($plugin['installation_url']); ?>" class="mf-pro-btn mf-onboard-single-plugin--install_plugin <?php echo $plugin['status'] == 'activated' ? 'activated' : ''; ?>"><?php echo esc_html($plugin['title'], 'metform'); ?></a>
                 </label>
             </div>
         </div>
@@ -67,7 +88,7 @@ echo esc_html__('Take your website to the next level', 'metform'); ?></strong></
 </div>
 <div class="mf-onboard-pagination">
     <a class="mf-onboard-btn mf-onboard-pagi-btn prev" data-plugin_status="<?php echo esc_attr($plugin['status']); ?>" data-activation_url="<?php echo esc_url($plugin['activation_url']) ?>" href="#"><i class="xs-onboard-arrow-left"></i><?php echo esc_html__('Back', 'metform'); ?></a>
-    <a class="mf-onboard-btn mf-onboard-pagi-btn next" data-plugin_status="<?php echo esc_attr($plugin['status']); ?>" data-activation_url="<?php echo esc_url($plugin['activation_url']) ?>" href="#"><?php echo esc_html__('Next Step', 'metform'); ?></a>
+    <a class="mf-onboard-btn mf-onboard-pagi-btn next" data-plugin_status="<?php echo esc_attr($plugin['status']); ?>" data-activation_url="<?php echo esc_url($plugin['activation_url']) ?>" href="#"><?php echo esc_html__('Next', 'metform'); ?></a>
 </div>
 <div class="mf-onboard-shapes">
     <img src="<?php echo esc_url(self::get_url()); ?>assets/images/shape-06.png" alt="" class="shape-06">
