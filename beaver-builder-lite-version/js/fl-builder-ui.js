@@ -1102,9 +1102,11 @@
             FLBuilder._bindOverlayEvents();
             $( 'body' ).add( 'body', window.parent.document ).removeClass( 'fl-builder-row-resizing' );
 
-            $( '.fl-block-overlay' ).each( function() {
-	            FLBuilder._buildOverlayOverflowMenu( $( this ) );
-            } );
+			requestAnimationFrame( () => {
+				$( '.fl-block-overlay' ).each( function() {
+		            FLBuilder._buildOverlayOverflowMenu( $( this ) );
+	            } );
+            } )
 
             // Set the resizing flag to false with a timeout so other events get the right value.
 			setTimeout( function() { FLBuilder._colResizing = false; }, 50 );

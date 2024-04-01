@@ -145,10 +145,11 @@ if ( ! class_exists( 'LP_Order_Post_Type' ) ) {
 
 				$created_via = $order->get_created_via();
 				if ( empty( $created_via ) ) {
+					$created_via = 'manual';
 					$order->set_created_via( 'manual' );
 				}
 
-				if ( isset( $_POST['order-customer'] ) ) {
+				if ( isset( $_POST['order-customer'] ) && $created_via === 'manual' ) {
 					$user_id = LP_Request::get_param( 'order-customer' );
 					$order->set_user_id( $user_id );
 				}
@@ -369,8 +370,9 @@ if ( ! class_exists( 'LP_Order_Post_Type' ) ) {
 		 *
 		 * @return mixed
 		 * @since 2.1.7
+		 * @deprecated 4.2.6.4
 		 */
-		public function row_actions( $actions, $post ) {
+		/*public function row_actions( $actions, $post ) {
 			if ( ! empty( $actions['inline hide-if-no-js'] ) ) {
 				unset( $actions['inline hide-if-no-js'] );
 			}
@@ -378,25 +380,8 @@ if ( ! class_exists( 'LP_Order_Post_Type' ) ) {
 				$actions['edit'] = preg_replace( '/>(.*?)<\/a>/', '>' . __( 'View Order', 'learnpress' ) . '</a>', $actions['edit'] );
 			}
 
-			$order = learn_press_get_order( $post->ID );
-			if ( $order->is_multi_users() ) {
-				$actions['child-orders'] = sprintf(
-					'<a href="%s">%s</a>',
-					esc_url_raw(
-						add_query_arg(
-							array(
-								'post_type' => LP_ORDER_CPT,
-								'parent'    => $post->ID,
-							),
-							admin_url( 'edit.php' )
-						)
-					),
-					__( 'View child orders', 'learnpress' )
-				);
-			}
-
 			return $actions;
-		}
+		}*/
 
 		/**
 		 * re-order the orders by newest

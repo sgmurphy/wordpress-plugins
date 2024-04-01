@@ -756,6 +756,7 @@ class Astra_Sites_ZipWP_Api {
 			if ( $response_body ) {
 				$exported_data = $response_data['data'];
 				update_option( 'astra_sites_import_data', $exported_data, 'no' );
+				set_transient( 'astra_sites_current_import_template_type', 'ai', HOUR_IN_SECONDS );
 				update_option( 'astra_sites_batch_process_complete', 'no' );
 				$host_url = $exported_data['host'] ?? '';
 				update_option( 'ast_ai_import_current_url', $host_url );

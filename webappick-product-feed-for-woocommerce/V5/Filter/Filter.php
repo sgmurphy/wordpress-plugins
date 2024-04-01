@@ -68,6 +68,7 @@ class Filter {
 			'exclude_variable_product',
 			'exclude_empty_title_products',
 			'exclude_hidden_products',
+            'exclude_variation_parent_draft_products',
             'exclude_variation_parent_private_products',
 		];
 
@@ -204,10 +205,13 @@ class Filter {
 	 */
 	public function exclude_variation_parent_draft_products() {
 		if( $this->product->is_type('variation') ){
+            $post_status = $this->config->get_post_status_to_include();
 			$parent_id = $this->product->get_parent_id();
 			if( $this->config->remove_hidden_products() && get_post_status( $parent_id ) === 'draft' ){
 				return true;
-			}
+			}else if( !in_array("draft", $post_status ) && get_post_status( $parent_id ) === 'draft' ) {
+                return true;
+            }
 		}
 		return false;
 	}

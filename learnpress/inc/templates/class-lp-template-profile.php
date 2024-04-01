@@ -16,7 +16,12 @@ class LP_Template_Profile extends LP_Abstract_Template {
 
 	public function sidebar() {
 		$profile = LP_Profile::instance();
-		if ( $profile->get_user_current()->is_guest() ) {
+		if ( $profile->get_user()->is_guest() ) {
+			return;
+		}
+
+		if ( $profile->get_user_current()->is_guest()
+		     && 'yes' !== LP_Profile::get_option_publish_profile() ) {
 			return;
 		}
 
@@ -227,9 +232,7 @@ class LP_Template_Profile extends LP_Abstract_Template {
 
 	public function order_details() {
 		$profile = LP_Profile::instance();
-
-		$order = $profile->get_view_order();
-
+		$order   = $profile->get_view_order();
 		if ( false === $order ) {
 			return;
 		}
@@ -260,13 +263,15 @@ class LP_Template_Profile extends LP_Abstract_Template {
 	}
 
 	public function dashboard_not_logged_in() {
-		$profile = LP_Global::profile();
-
-		if ( ! $profile->get_user()->is_guest() ) {
+		if ( is_user_logged_in() ) {
 			return;
 		}
 
-		if ( 'yes' === LP_Settings::instance()->get( 'enable_login_profile' ) || 'yes' === LP_Settings::instance()->get( 'enable_register_profile' ) ) {
+		if ( ! LP_Profile::instance()->get_user()->is_guest() ) {
+			return;
+		}
+
+		if ( 'yes' === LP_Settings::get_option( 'enable_login_profile' ) ) {
 			return;
 		}
 
@@ -274,13 +279,15 @@ class LP_Template_Profile extends LP_Abstract_Template {
 	}
 
 	public function login_form() {
-		$profile = LP_Global::profile();
-
-		if ( ! $profile->get_user()->is_guest() ) {
+		if ( is_user_logged_in() ) {
 			return;
 		}
 
-		if ( 'yes' !== LP_Settings::instance()->get( 'enable_login_profile' ) ) {
+		if ( ! LP_Profile::instance()->get_user()->is_guest() ) {
+			return;
+		}
+
+		if ( 'yes' !== LP_Settings::get_option( 'enable_login_profile', 'no' ) ) {
 			return;
 		}
 
@@ -288,13 +295,15 @@ class LP_Template_Profile extends LP_Abstract_Template {
 	}
 
 	public function register_form() {
-		$profile = LP_Global::profile();
-
-		if ( ! $profile->get_user()->is_guest() ) {
+		if ( is_user_logged_in() ) {
 			return;
 		}
 
-		if ( 'yes' !== LP_Settings::instance()->get( 'enable_register_profile' ) || ! get_option( 'users_can_register' ) ) {
+		if ( ! LP_Profile::instance()->get_user()->is_guest() ) {
+			return;
+		}
+
+		if ( 'yes' !== LP_Settings::get_option( 'enable_register_profile' ) || ! get_option( 'users_can_register' ) ) {
 			return;
 		}
 
@@ -303,8 +312,13 @@ class LP_Template_Profile extends LP_Abstract_Template {
 
 	/**
 	 * @return bool|LP_User|mixed
+	 * @deprecated 4.2.6.4
 	 */
 	protected function get_user() {
+		_deprecated_function( __METHOD__, '4.2.6.4' );
+
+		return false;
+
 		return LP_Profile::instance()->get_user();
 	}
 }

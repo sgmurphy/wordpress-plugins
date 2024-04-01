@@ -69,6 +69,10 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing_Misc' ) ) :
 		 * @return void
 		 */
 		public static function replace_images() {
+						
+			if ( 'ai' !== get_transient( 'astra_sites_current_import_template_type' ) ) {
+				return;
+			}
 
 			if ( false === get_option( 'astra_sites_ai_import_started', false ) ) {
 				return;

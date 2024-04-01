@@ -1,3 +1,20 @@
+<h4>2.8.0.7 - 04/01/2024</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+    <li>Fix XSS issue in Button & Button Group Modules when using lightbox (#3306)</li>
+</ul>
+
+<h4>2.8.0.6 - 03/20/2024</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+	<li>Fix a JS error when saving Global Settings if Row Shapes are disabled (#3284)</li>
+	<li>Fix various drag and drop issues with container modules (#3290)</li>
+	<li>Fix dropping saved columns into the main layout causing a fatal error (#3290)</li>
+	<li>Various builder and overlay improvements (#3278)</li>
+	<li>Fix global modules rendering twice when dropping in a new row (#3290)</li>
+	<li>Fix nested box modules in the main layout having zero margins when box modules are present in a Themer layout (#3264)</li>
+</ul>
+
 <h4>2.8.0.5 - 03/19/2024</h4>
 <p><strong>Hotfix</strong></p>
 <ul>

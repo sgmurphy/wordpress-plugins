@@ -3,7 +3,7 @@
 $button_node_id = "fl-node-$id";
 
 if ( isset( $settings->id ) && ! empty( $settings->id ) ) {
-	$button_node_id = $settings->id;
+	$button_node_id = esc_attr( $settings->id );
 }
 
 ?>

@@ -22,7 +22,7 @@ if ( ! empty( $settings->link ) ) {
 	<span class="fl-icon">
 		<?php if ( ! empty( $settings->link ) ) : ?>
 			<?php if ( ! empty( $settings->text ) ) : ?>
-			<a href="<?php echo esc_url( do_shortcode( $settings->link ) ); ?>" target="<?php echo $settings->link_target; ?>" tabindex="-1" aria-hidden="true" aria-labelledby="fl-icon-text-<?php echo ( isset( $module->node ) ? $module->node : $settings->id ); ?>"<?php echo $module->get_rel(); ?>>
+			<a href="<?php echo esc_url( do_shortcode( $settings->link ) ); ?>" target="<?php echo $settings->link_target; ?>" tabindex="-1" aria-hidden="true" aria-labelledby="fl-icon-text-<?php echo ( isset( $module->node ) ? $module->node : esc_attr( $settings->id ) ); ?>"<?php echo $module->get_rel(); ?>>
 			<?php else : ?>
 			<a href="<?php echo esc_url( do_shortcode( $settings->link ) ); ?>" target="<?php echo $settings->link_target; ?>"<?php echo $module->get_rel(); ?>>
 			<?php endif; ?>
@@ -36,7 +36,7 @@ if ( ! empty( $settings->link ) ) {
 		<?php endif; ?>
 	</span>
 	<?php if ( ! empty( $settings->text ) ) : ?>
-		<div id="fl-icon-text-<?php echo ( isset( $module->node ) ? $module->node : $settings->id ); ?>" class="<?php echo $text_class; ?>">
+		<div id="fl-icon-text-<?php echo ( isset( $module->node ) ? $module->node : esc_attr( $settings->id ) ); ?>" class="<?php echo $text_class; ?>">
 			<?php if ( ! empty( $settings->link ) ) : ?>
 			<a href="<?php echo esc_url( do_shortcode( $settings->link ) ); ?>" target="<?php echo $settings->link_target; ?>" class="<?php echo $text_link_class; ?>"<?php echo $module->get_rel(); ?>>
 			<?php endif; ?>

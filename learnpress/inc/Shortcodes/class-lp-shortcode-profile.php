@@ -68,12 +68,25 @@ if ( ! class_exists( 'LP_Shortcode_Profile' ) ) {
 		 * @return string
 		 */
 		public function output() {
-			$profile = LP_Global::profile();
+			$profile = LP_Profile::instance();
 			$output  = '';
 			wp_enqueue_style( 'learnpress' );
 			wp_enqueue_script( 'lp-profile' );
 
 			try {
+				if ( ! LP_Page_Controller::is_page_profile() ) {
+					$customer_message = [
+						'status'  => 'error',
+						'content' => sprintf(
+							__( 'This shortcode LP Profile only use on the page <a href="%s">%s</a>', 'learnpress' ),
+							admin_url( 'admin.php?page=learn-press-settings' ),
+							'<strong>' . esc_html__( 'Profile', 'learnpress' ) . '</strong>'
+						)
+					];
+					Template::instance()->get_frontend_template( 'global/lp-message.php', compact( 'customer_message' ) );
+					return ob_get_clean();
+				}
+
 				ob_start();
 				if ( is_wp_error( $this->can_view_profile() ) ) {
 					$messages = [

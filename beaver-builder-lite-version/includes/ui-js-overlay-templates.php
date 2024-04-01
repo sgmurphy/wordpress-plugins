@@ -7,8 +7,8 @@
 				<# } else { #>
 
 					<# if ( 'row' !== FLBuilderConfig.userTemplateType && ! FLBuilderConfig.simpleUi ) { #>
-						<span class="fl-block-move fl-builder-has-submenu fl-builder-submenu-hover">
-							<svg class="fl-tip" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" title="<?php _e( 'Move', 'fl-builder' ); ?>">
+						<span class="fl-builder-has-submenu fl-builder-submenu-hover">
+							<svg class="fl-block-move fl-tip" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" title="<?php _e( 'Move', 'fl-builder' ); ?>">
 								<path d="M1.29977 10.6381C0.883609 10.2612 0.914435 9.70728 1.30747 9.35342L3.7736 7.09948C4.3593 6.56099 5.07602 6.9764 5.07602 7.68412V9.18418H9.18366V5.06862H7.68087C6.97186 5.06862 6.5557 4.34551 7.08746 3.76856L9.35321 1.30692C9.71542 0.914591 10.2626 0.88382 10.6402 1.29922L12.906 3.76087C13.4454 4.3532 13.0293 5.06862 12.3126 5.06862H10.8252V9.18418H14.9251V7.68412C14.9251 6.9764 15.6418 6.56099 16.2275 7.09948L18.6937 9.36112C19.1021 9.72267 19.1021 10.2765 18.6937 10.6381L16.2352 12.8997C15.6418 13.4459 14.9251 13.0228 14.9251 12.3074V10.8227H10.8252V14.9306H12.3126C13.0293 14.9306 13.4454 15.646 12.906 16.2383L10.6402 18.7C10.278 19.1 9.72313 19.1 9.36092 18.7L7.08746 16.2306C6.5557 15.6537 6.97186 14.9306 7.68087 14.9306H9.18366V10.8227H5.07602V12.3074C5.07602 13.0228 4.3593 13.4459 3.76589 12.8997L1.29977 10.6381Z" fill="currentColor"/>
 							</svg>
 							<ul class="fl-builder-submenu fl-block-move-menu">
@@ -75,8 +75,8 @@
 				<# } else { #>
 
 					<# if ( 'column' !== FLBuilderConfig.userTemplateType && ! FLBuilderConfig.simpleUi ) { #>
-						<span class="fl-block-move fl-builder-has-submenu fl-builder-submenu-hover">
-							<svg class="fl-tip" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" title="<?php _e( 'Move', 'fl-builder' ); ?>">
+						<span class="fl-builder-has-submenu fl-builder-submenu-hover">
+							<svg class="fl-block-move fl-tip" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" title="<?php _e( 'Move', 'fl-builder' ); ?>">
 								<path d="M1.29977 10.6381C0.883609 10.2612 0.914435 9.70728 1.30747 9.35342L3.7736 7.09948C4.3593 6.56099 5.07602 6.9764 5.07602 7.68412V9.18418H9.18366V5.06862H7.68087C6.97186 5.06862 6.5557 4.34551 7.08746 3.76856L9.35321 1.30692C9.71542 0.914591 10.2626 0.88382 10.6402 1.29922L12.906 3.76087C13.4454 4.3532 13.0293 5.06862 12.3126 5.06862H10.8252V9.18418H14.9251V7.68412C14.9251 6.9764 15.6418 6.56099 16.2275 7.09948L18.6937 9.36112C19.1021 9.72267 19.1021 10.2765 18.6937 10.6381L16.2352 12.8997C15.6418 13.4459 14.9251 13.0228 14.9251 12.3074V10.8227H10.8252V14.9306H12.3126C13.0293 14.9306 13.4454 15.646 12.906 16.2383L10.6402 18.7C10.278 19.1 9.72313 19.1 9.36092 18.7L7.08746 16.2306C6.5557 15.6537 6.97186 14.9306 7.68087 14.9306H9.18366V10.8227H5.07602V12.3074C5.07602 13.0228 4.3593 13.4459 3.76589 12.8997L1.29977 10.6381Z" fill="currentColor"/>
 							</svg>
 							<ul class="fl-builder-submenu fl-block-move-menu">
@@ -246,8 +246,8 @@
 				<# } else { #>
 
 					<# if ( ! data.isRootModule && ! FLBuilderConfig.simpleUi ) { #>
-						<span class="fl-block-move fl-builder-has-submenu fl-builder-submenu-hover">
-							<svg class="fl-tip" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" title="<?php _e( 'Move', 'fl-builder' ); ?>">
+						<span class="fl-builder-has-submenu fl-builder-submenu-hover">
+							<svg class="fl-block-move fl-tip" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" title="<?php _e( 'Move', 'fl-builder' ); ?>">
 								<path d="M1.29977 10.6381C0.883609 10.2612 0.914435 9.70728 1.30747 9.35342L3.7736 7.09948C4.3593 6.56099 5.07602 6.9764 5.07602 7.68412V9.18418H9.18366V5.06862H7.68087C6.97186 5.06862 6.5557 4.34551 7.08746 3.76856L9.35321 1.30692C9.71542 0.914591 10.2626 0.88382 10.6402 1.29922L12.906 3.76087C13.4454 4.3532 13.0293 5.06862 12.3126 5.06862H10.8252V9.18418H14.9251V7.68412C14.9251 6.9764 15.6418 6.56099 16.2275 7.09948L18.6937 9.36112C19.1021 9.72267 19.1021 10.2765 18.6937 10.6381L16.2352 12.8997C15.6418 13.4459 14.9251 13.0228 14.9251 12.3074V10.8227H10.8252V14.9306H12.3126C13.0293 14.9306 13.4454 15.646 12.906 16.2383L10.6402 18.7C10.278 19.1 9.72313 19.1 9.36092 18.7L7.08746 16.2306C6.5557 15.6537 6.97186 14.9306 7.68087 14.9306H9.18366V10.8227H5.07602V12.3074C5.07602 13.0228 4.3593 13.4459 3.76589 12.8997L1.29977 10.6381Z" fill="currentColor"/>
 							</svg>
 							<ul class="fl-builder-submenu fl-block-move-menu">
@@ -388,7 +388,7 @@
 					</div>
 				<# } #>
 			<# } #>
-			<# if ( data.userCanResizeRows && data.numCols > 0 ) { #>
+			<# if ( data.userCanResizeRows ) { #>
 				<# if ( ( ( data.colFirst && ! data.hasParentCol ) || ( data.colFirst && data.parentFirst ) ) && data.rowIsFixedWidth ) { #>
 					<div class="fl-block-row-resize fl-block-col-resize fl-block-col-resize-w">
 						<div class="fl-block-col-resize-handle-wrap">

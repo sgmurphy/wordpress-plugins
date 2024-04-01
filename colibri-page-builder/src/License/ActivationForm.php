@@ -246,7 +246,9 @@ class ActivationForm {
                         form.hide();
                         $('.spinner-holder.plugin-installer-spinner .message').text('Installing Colibri Page Builder PRO...');
                         $('.spinner-holder.plugin-installer-spinner').show();
-                        wp.ajax.post('colibriwp-page-builder-maybe-install-pro').done(function () {
+                        wp.ajax.post('colibriwp-page-builder-maybe-install-pro', {
+                            _wpnonce: '<?php echo wp_create_nonce( 'colibriwp-page-builder-maybe-install-pro-nonce' );?>'
+                        }).done(function () {
                             $('.spinner-holder.plugin-installer-spinner .message').text('Colibri Page Builder PRO sucessfully installed');
                             $('.spinner-holder.plugin-installer-spinner .spinner').remove();
                         }).fail(function () {
@@ -377,7 +379,7 @@ class ActivationForm {
 	}
 
 	public function maybeInstallPRO() {
-
+		check_ajax_referer('colibriwp-page-builder-maybe-install-pro-nonce');
 
 		add_filter( 'colibri_page_builder/companion/update_remote_data', function ( $data ) {
 			$data['args'] = array(
@@ -417,6 +419,8 @@ class ActivationForm {
 			$ac[] = "colibri-page-builder-pro/colibri-page-builder-pro.php";
 
 			update_option( 'active_plugins', $ac );
+
+            update_option('colibri_page_builder_pro_activation_time', time());
 
 		}
 

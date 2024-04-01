@@ -167,6 +167,14 @@ First check the questions mentioned in the FAQ tab inside the plugin settings pa
 
 == Changelog ==
 
+#####   Version 4.7.9 (2024-04-01)
+
+### Improvements
+- **Updated internal dependencies**
+
+
+
+
 #####   Version 4.7.8 (2024-03-29)
 
 ### Fixes

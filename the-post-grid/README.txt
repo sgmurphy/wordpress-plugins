@@ -4,7 +4,7 @@ Donate link:
 Tags: post grid, content grid, post display, post slider, post grid elementor addon
 Requires at least: 4.5
 Tested up to: 6.2
-Stable tag: 7.6.0
+Stable tag: 7.6.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -374,6 +374,9 @@ With the Post Grid PRO, you get to use the Single Page Builder, which is based o
 11. Elementor Page builder
 
 == Changelog ==
+
+= 7.6.1 =
+* Fixed: Shortcode data not saved
 
 = 7.6.0 =
 * Fixed: Shortcode Layout images broken

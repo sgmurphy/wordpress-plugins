@@ -1,8 +1,8 @@
 /******/ (() => { // webpackBootstrap
 var __webpack_exports__ = {};
-/*!*****************************************************!*\
-  !*** ./assets/src/apps/js/admin/course-material.js ***!
-  \*****************************************************/
+/*!************************************************!*\
+  !*** ./assets/src/js/admin/course-material.js ***!
+  \************************************************/
 document.addEventListener('DOMContentLoaded', function () {
   const postID = document.getElementById('current-material-post-id').value,
     max_file_size = document.getElementById('material-max-file-size').value,
@@ -16,21 +16,24 @@ document.addEventListener('DOMContentLoaded', function () {
   const getResponse = async (ele, postID) => {
     const elementMaterial = document.querySelector('.lp-material--table tbody');
     try {
-      const formData = new FormData(),
-        url = `${lpGlobalSettings.rest}lp/v1/material/item-materials/${postID}?is_admin=1&per_page=-1`;
+      const url = `${lpDataAdmin.lp_rest_url}lp/v1/material/item-materials/${postID}?is_admin=1&per_page=-1`;
       fetch(url, {
         method: 'GET',
         headers: {
-          'X-WP-Nonce': lpGlobalSettings.nonce
+          'X-WP-Nonce': lpGlobalSettings.nonce,
+          'Content-Type': 'application/json'
         }
-      }) // wrapped
-      .then(res => res.text()).then(data => {
-        data = JSON.parse(data);
-        if (data.status !== 200) {
+      }).then(response => response.json()).then(response => {
+        const {
+          data,
+          status
+        } = response;
+        if (status !== 'success') {
+          console.error(response.message);
           return;
         }
-        if (data.data && data.data.length > 0) {
-          const materials = data.data;
+        if (data && data.items.length > 0) {
+          const materials = data.items;
           if (ele.querySelector('.lp-skeleton-animation')) {
             ele.querySelector('.lp-skeleton-animation').remove();
           }

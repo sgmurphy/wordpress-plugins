@@ -62,12 +62,13 @@ class NewsletterStatistics extends NewsletterModule {
             $host = parse_url($url, PHP_URL_HOST);
             $blog_host = parse_url(home_url(), PHP_URL_HOST);
 
+            $verified = $signature == md5($email_id . ';' . $user_id . ';' . $url . ';' . $anchor . $this->get_main_option('key'));
+
             // For matching hosts the redirect is safe even without the signature
             if ($host !== $blog_host) {
                 // Protection against open-redirect
-                $verified = $signature == md5($email_id . ';' . $user_id . ';' . $url . ';' . $anchor . $this->get_main_option('key'));
                 if (!$verified) {
-                    $this->dienow('Invalid link', 'The link signature (which grants a valid redirection and protects from redirect attacks) is not valid.', 404);
+                    $this->dienow('Invalid link', 'The link signature (which grants a valid redirection and protects from open redirect attacks) is not valid.', 404);
                 }
             }
 
@@ -81,6 +82,10 @@ class NewsletterStatistics extends NewsletterModule {
                 $user = $this->get_user($user_id);
                 if (!$user) {
                     $this->dienow(__('Subscriber not found', 'newsletter'), 'This tracking link contains a reference to a subscriber no more present', 404);
+                } else {
+                    if ($verified) {
+                        $this->set_user_cookie($user);
+                    }
                 }
             }
 
@@ -88,9 +93,6 @@ class NewsletterStatistics extends NewsletterModule {
             if (!$email) {
                 $this->dienow('Invalid newsletter', 'The link originates from a newsletter not found (it could have been deleted)', 404);
             }
-
-            $this->set_user_cookie($user);
-
             setcookie('tnpe', $email->id . '-' . $email->token, time() + 60 * 60 * 24 * 365, '/');
 
             $is_action = strpos($url, '?na=');
@@ -98,18 +100,20 @@ class NewsletterStatistics extends NewsletterModule {
             $ip = $this->get_remote_ip();
             $ip = $this->process_ip($ip);
 
-            if (!$is_action) {
-                $url = apply_filters('newsletter_pre_save_url', $url, $email, $user);
-                $this->add_click($url, $user_id, $email_id, $ip);
-                $this->update_open_value(self::SENT_CLICK, $user_id, $email_id, $ip);
-            } else {
-                // Track a Newsletter action as an email read and not a click
-                $this->update_open_value(self::SENT_READ, $user_id, $email_id, $ip);
+            if ($verified) {
+                if (!$is_action) {
+                    $url = apply_filters('newsletter_pre_save_url', $url, $email, $user);
+                    $this->add_click($url, $user_id, $email_id, $ip);
+                    $this->update_open_value(self::SENT_CLICK, $user_id, $email_id, $ip);
+                } else {
+                    // Track a Newsletter action as an email read and not a click
+                    $this->update_open_value(self::SENT_READ, $user_id, $email_id, $ip);
+                }
+                $this->update_user_ip($user, $ip);
+                $this->update_user_last_activity($user);
             }
-            $this->reset_stats_time($email_id);
 
-            $this->update_user_ip($user, $ip);
-            $this->update_user_last_activity($user);
+            $this->reset_stats_time($email_id);
 
             header('Location: ' . apply_filters('newsletter_redirect_url', $url, $email, $user));
             die();
@@ -168,6 +172,9 @@ class NewsletterStatistics extends NewsletterModule {
      */
     function reset_stats_time($email_id) {
         global $wpdb;
+        if (!$email_id) {
+            return;
+        }
         $wpdb->update(NEWSLETTER_EMAILS_TABLE, ['stats_time' => 0], ['id' => $email_id]);
     }
 

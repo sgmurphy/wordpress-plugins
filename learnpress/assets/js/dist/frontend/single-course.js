@@ -44,6 +44,7 @@ function lpMaterialsLoad(is_curriculum = false) {
     }
     const elementMaterial = ele.querySelector('.course-material-table');
     const loadMoreBtn = document.querySelector('.lp-loadmore-material');
+    const elListItems = document.querySelector('.lp-list-material');
     try {
       const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
         path: (0,_wordpress_url__WEBPACK_IMPORTED_MODULE_0__.addQueryArgs)(`lp/v1/material/item-materials/${itemID}`, {
@@ -54,26 +55,21 @@ function lpMaterialsLoad(is_curriculum = false) {
       const {
         data,
         status,
-        message,
-        load_more
+        message
       } = response;
-      // console.log(response);
-      // let section_ids = data.section_ids;
-      if (status !== 200) {
-        throw new Error(message || 'Error');
+      if (status !== 'success') {
+        return console.log(message);
       }
-      if (data.length > 0) {
+      if (data.items && data.items.length > 0) {
         if (ele.querySelector('.lp-skeleton-animation')) {
           ele.querySelector('.lp-skeleton-animation').remove();
         }
-        // console.log( data );
         elementMaterial.style.display = 'table';
-        elementMaterial.querySelector('tbody').insertAdjacentHTML('beforeend', data);
-        // for (var i = 0; i < data.length; i++) {
-        // 	insertRow( elementMaterial.querySelector( 'tbody' ), data[i].file_name, data[i].file_type, data[i].file_size, data[i].file_path );
-        // }
+        elementMaterial.querySelector('tbody').insertAdjacentHTML('beforeend', data.items);
+      } else {
+        elListItems.innerHTML = message;
       }
-      if (load_more) {
+      if (data.load_more) {
         loadMoreBtn.style.display = 'inline-block';
         loadMoreBtn.setAttribute('page', page + 1);
         if (loadMoreBtn.classList.contains('loading')) {

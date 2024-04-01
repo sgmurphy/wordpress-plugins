@@ -1767,7 +1767,7 @@
 				FLBuilder._lightbox.close();
 
 				// if number of global shapes has changed then refresh.
-				if ( 'undefined' != typeof FLBuilder.original_shapes && FLBuilder.original_shapes.length !== settings.shape_form.length ) {
+				if ( 'undefined' != typeof FLBuilder.original_shapes && FLBuilder.original_shapes.length !== settings.shape_form?.length ) {
 					FLBuilder._shapesEdited = true;
 				}
 			}
@@ -3335,8 +3335,8 @@
 				// A new row was dropped into a column group position.
 				else if ( parent.hasClass( 'fl-col-group-drop-target' ) ) {
 
-					group    = item.closest( '.fl-col-group' );
-					position = item.closest( '.fl-row' ).find( '.fl-row-content > .fl-col-group' ).index( group );
+					group    = item.closest( '.fl-col-group, .fl-module' );
+					position = item.closest( '.fl-row' ).find( '.fl-row-content' ).find( '> .fl-col-group, > .fl-module' ).index( group );
 
 					FLBuilder._addColGroup(
 						item.closest( '.fl-row' ).attr( 'data-node' ),
@@ -4038,7 +4038,7 @@
 				}
 
 				// Find the new group position.
-				position = newRow.find( '.fl-row-content > .fl-col-group' ).index( newGroup );
+				position = newRow.find( '.fl-row-content' ).find( ' > .fl-col-group,  > .fl-module' ).index( newGroup );
 				position = newParent.hasClass( 'fl-drop-target-last' ) ? position + 1 : position;
 
 				// Add the new group.
@@ -4653,18 +4653,23 @@
 				siblingRound 	= minRound;
 			}
 
+			// Show the feedback divs. Race condition with requestAnimationFrame
+			// and drag stop requires it to be done here.
+			data.feedbackLeft.show();
+			data.feedbackRight.show();
+
 			requestAnimationFrame( () => {
 
 				// rapid DOM manipulations should generally happen inside a requestAnimationFrame
 
 				// Set the feedback values.
 				if ( directionRef == data.direction ) {
-					data.feedbackLeft.html( colRound.toFixed( 1 ) + '%'  ).show();
-					data.feedbackRight.html( siblingRound.toFixed( 1 ) + '%'  ).show();
+					data.feedbackLeft.html( colRound.toFixed( 1 ) + '%'  );
+					data.feedbackRight.html( siblingRound.toFixed( 1 ) + '%'  );
 				}
 				else {
-					data.feedbackLeft.html( siblingRound.toFixed( 1 ) + '%'  ).show();
-					data.feedbackRight.html( colRound.toFixed( 1 ) + '%'  ).show();
+					data.feedbackLeft.html( siblingRound.toFixed( 1 ) + '%'  );
+					data.feedbackRight.html( colRound.toFixed( 1 ) + '%'  );
 				}
 
 				// Set the width attributes.
@@ -4681,11 +4686,11 @@
 				}
 
 				// Dispatch to store
-				data.layoutActions.resizeColumn( data.id, colRound, data.siblingId, siblingRound, false )
-			} )
+				data.layoutActions.resizeColumn( data.id, colRound, data.siblingId, siblingRound, false );
 
-			// Build the overlay overflow menu if needed.
-			FLBuilder._buildOverlayOverflowMenu( overlay );
+				// Build the overlay overflow menu if needed.
+				FLBuilder._buildOverlayOverflowMenu( overlay );
+			} )
 
 			// Trigger the col-resize-drag hook.
 			FLBuilder.triggerHook( 'col-resize-drag' );
@@ -5083,6 +5088,7 @@
 			}
 
 			FLBuilder._resizeLayout();
+			FLBuilder._initDropTargets();
 		},
 
 		/**
@@ -5480,8 +5486,8 @@
 				data.settings = FLBuilderSettingsConfig.defaults.modules[ data.type ];
 			}
 
-			// Render the module if a settings form is already open or if it's a global saved module.
-			if ( $( 'form.fl-builder-settings', window.parent.document ).length || data.global ) {
+			// Render the module if a settings form is already open.
+			if ( $( 'form.fl-builder-settings', window.parent.document ).length ) {
 				if ( data.layout ) {
 					FLBuilder._renderLayout( data.layout );
 					showSettingsForm = true;
@@ -5804,7 +5810,7 @@
 				else if ( parent.hasClass( 'fl-col-group-drop-target' ) ) {
 					parent   = item.closest( '.fl-row-content' );
 					parentId = item.closest( '.fl-row' ).attr( 'data-node' );
-					position = item.closest( '.fl-row' ).find( '.fl-row-content > .fl-col-group' ).index( item.closest( '.fl-col-group' ) );
+					position = item.closest( '.fl-row' ).find( '.fl-row-content' ).find( ' > .fl-col-group,  > .fl-module' ).index( item.closest( '.fl-col-group, .fl-module' ) );
 				}
 				// A column was dropped into a column position.
 				else if ( parent.hasClass( 'fl-col-drop-target' ) ) {
@@ -5852,13 +5858,29 @@
 				else if ( parent.hasClass( 'fl-col-group-drop-target' ) ) {
 					parent   = item.closest( '.fl-row-content' );
 					parentId = parent.closest( '.fl-row' ).attr( 'data-node' );
-					position = parent.find( ' > .fl-col-group' ).index( item.closest( '.fl-col-group' ) );
+					position = parent.find( ' > .fl-col-group, > .fl-module' ).index( item.closest( '.fl-col-group, .fl-module' ) );
 				}
 				// Dropped into a column position.
 				else if ( parent.hasClass( 'fl-col-drop-target' ) ) {
 					parent   = item.closest('.fl-col-group');
 					position = parent.children('.fl-col').index( item.closest('.fl-col') );
 					parentId = parent.attr('data-node');
+				}
+				// Dropped into a container module WITHOUT a wrapper.
+				else if ( parent.hasClass( 'fl-module' ) ) {
+					var layoutDirection = FLBuilder._getNodeLayoutDirection( item );
+					if ( 'layered' === layoutDirection ) {
+						// Drop as top most item in layers.
+						position = parent.find( '> .fl-module' ).length;
+					} else {
+						position = parent.find( '> .fl-module, .fl-builder-block' ).index( item );
+					}
+					parentId = parent.attr( 'data-node' );
+				}
+				// Dropped into a container module WITH a wrapper.
+				else if ( parent.hasClass( 'fl-module-content' ) ) {
+					position = parent.find( '> .fl-module, .fl-builder-block' ).index( item );
+					parentId = item.closest( '.fl-module' ).attr( 'data-node' );
 				}
 				// Dropped into a column.
 				else {

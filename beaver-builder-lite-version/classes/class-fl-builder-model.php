@@ -2831,7 +2831,7 @@ final class FLBuilderModel {
 
 		if ( ! $parent ) {
 			// Add a new row if we don't have a parent, but don't add column.
-			$row        = self::add_row( null, $position );
+			$row        = self::add_row( '0-cols', $position );
 			$col_groups = self::get_nodes( 'column-group', $row->node );
 			$col_group  = array_shift( $col_groups );
 			$parent_id  = $col_group->node;

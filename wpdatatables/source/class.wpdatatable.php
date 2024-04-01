@@ -1752,6 +1752,9 @@ class WPDataTable
             $highestColumn = $objWorksheet->getHighestDataColumn();
 
             $headingsArray = $objWorksheet->rangeToArray('A1:' . $highestColumn . '1', null, true, true, true);
+            while (!end($headingsArray[1])) {
+                array_pop($headingsArray[1]);
+            };
             foreach ($headingsArray[1] as $heading) {
                 if ($heading === '' || $heading === null)
                     throw new WDTException(esc_html__('One or more columns doesn\'t have a header. Please enter headers for all columns in order to proceed.'));

@@ -480,6 +480,11 @@ const Images = ( { onClickPrevious, onClickNext } ) => {
 		selImages = selectedImages,
 		skip = false
 	) => {
+		if ( ! skip && selImages.length === 0 ) {
+			selImages.push( astraSitesVars?.placeholder_images[ 0 ] );
+			selImages.push( astraSitesVars?.placeholder_images[ 1 ] );
+		}
+
 		await apiFetch( {
 			path: 'zipwp/v1/user-details',
 			method: 'POST',

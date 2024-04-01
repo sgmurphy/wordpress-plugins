@@ -34,8 +34,8 @@
 			parentBody.on( 'click', '.fl-builder-row-settings .fl-lightbox-footer button', FLBuilder._deselectNodeOverlay );
 			parentBody.on( 'click', FLBuilder._deselectNodeOverlay );
 			body.on( 'click', FLBuilder._deselectNodeOverlay );
-			body.on( 'click touchend', '.fl-block-overlay .fl-block-select-parent', FLBuilder._selectNodeParentOnIconClick);
-			body.on( 'click touchend', '.fl-block-overlay .fl-block-select-parent-menu > li > a', FLBuilder._selectNodeParentOnMenuClick);
+			body.on( 'click', '.fl-block-overlay .fl-block-select-parent', FLBuilder._selectNodeParentOnIconClick);
+			body.on( 'click', '.fl-block-overlay .fl-block-select-parent-menu > li > a', FLBuilder._selectNodeParentOnMenuClick);
 			body.on( 'mouseenter', '.fl-block-overlay .fl-block-select-parent-menu a', FLBuilder._highlightNodeParentOnMenuHover);
 			body.on( 'mouseleave', '.fl-block-overlay .fl-block-select-parent-menu a', FLBuilder._removeNodeParentHighlight);
 			body.on( 'mousedown', '.fl-block-overlay .fl-block-select-parent-menu a', FLBuilder._removeNodeParentHighlight);
@@ -257,7 +257,8 @@
 		 */
 		_getNodeParentMenuData: function( node )
 		{
-			var parents = node.parents( '.fl-row, .fl-col, .fl-module' ).add( node );
+			var selector = '.fl-row, .fl-col, .fl-module';
+			var parents = node.parentsUntil( FLBuilder._contentClass, selector ).add( node );
 			var data = [];
 
 			if ( ! parents.length ) {
@@ -689,7 +690,7 @@
 				groupLoading  = group.hasClass( 'fl-col-group-has-child-loading' ),
 				numCols		  = module.closest( '.fl-col-group' ).find( '> .fl-col' ).length,
 				col           = module.closest( '.fl-col' ),
-				colFirst      = 0 === col.index(),
+				colFirst      = col.index() <= 0,
 				colNode 	  = col.attr( 'data-node' ),
 				colLast       = numCols === col.index() + 1,
 				parentCol     = col.parents( '.fl-col' ),
@@ -863,6 +864,39 @@
 		},
 
 		/**
+		 * Resize an overlay for flex layouts if there is enough
+		 * space next to the module. This prevents the overflow menu
+		 * from showing when it is not necessary.
+		 *
+		 * @since 2.8
+		 * @param {Object} overlay
+		 */
+		_resizeOverlay: function( overlay ) {
+			if ( ! overlay.hasClass( 'fl-module-overlay' ) ) {
+				return;
+			}
+
+			var module = overlay.closest( '.fl-module' );
+			var parentModule = module.parents( '.fl-module' );
+			var layoutDirection = FLBuilder._getNodeLayoutDirection( module );
+
+			if ( ! parentModule.length || 'horizontal' !== layoutDirection ) {
+				return;
+			} else if ( module.next( '.fl-module' ).length ) {
+				return;
+			}
+
+			var siblings = module.siblings( '.fl-module' );
+			var siblingsWidth = 0;
+
+			siblings.each( function() {
+				siblingsWidth += $( this ).outerWidth();
+			} );
+
+			overlay.width( parentModule.width() - siblingsWidth )
+		},
+
+		/**
 		 * Builds the overflow menu for an overlay if necessary.
 		 *
 		 * @since 1.9
@@ -875,6 +909,8 @@
 				hasRules	  = overlay.find( '.fl-block-has-rules' ),
 				original      = actions.data( 'original' ),
 				actionsWidth  = 0,
+				actionsLeft   = 0,
+				actionsRight  = 0,
 				items         = null,
 				itemsWidth    = 0,
 				item          = null,
@@ -884,6 +920,8 @@
 				menuData      = [],
 				template	  = wp.template( 'fl-overlay-overflow-menu' );
 
+			// Resize the overlay if there is enough space.
+			FLBuilder._resizeOverlay( overlay );
 
 			// Use the original copy if we have one.
 			if ( undefined != original ) {
@@ -895,8 +933,10 @@
 			// Save a copy of the original actions.
 			actions.data( 'original', actions.clone() );
 
-			// Get the actions width and items. Subtract any padding (10px) plus 2px (12px)
-			actionsWidth  = Math.floor(actions[0].getBoundingClientRect().width);
+			// Get the actions width and items.
+			actionsLeft   = parseInt( actions.css( 'padding-left' ) );
+			actionsRight  = parseInt( actions.css( 'padding-right' ) );
+			actionsWidth  = actions.outerWidth() - actionsLeft - actionsRight;
 			items         = actions.find( ' > i, > span' );
 
 			// Add the width of the visibility rules indicator if there is one.
@@ -939,7 +979,7 @@
 							type    : 'submenu',
 							label   : overflowItems[ i ].find( '.fa, .fas, .far, svg' ).data( 'title' ),
 							submenu : overflowItems[ i ].find( '.fl-builder-submenu' )[0].outerHTML,
-							className : overflowItems[ i ].find( '> i' ).removeClass( function( i, c ) {
+							className : overflowItems[ i ].find( '> i, > svg' ).removeClass( function( i, c ) {
 											return c.replace( /fl-block-([^\s]+)/, '' );
 										} ).attr( 'class' )
 						} );

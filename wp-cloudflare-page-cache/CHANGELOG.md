@@ -1,3 +1,8 @@
+#####   Version 4.7.9 (2024-04-01)
+
+### Improvements
+- **Updated internal dependencies**
+
 #####   Version 4.7.8 (2024-03-29)
 
 ### Fixes

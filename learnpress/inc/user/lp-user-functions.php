@@ -155,7 +155,10 @@ function learn_press_add_user_roles() {
 		$teacher->add_cap( 'edit_published_' . $course_cap );
 		$teacher->add_cap( 'edit_' . $course_cap );
 		$teacher->add_cap( 'delete_' . $course_cap );
-		$teacher->add_cap( 'unfiltered_html' );
+		//$teacher->add_cap( 'unfiltered_html' );
+		if ( $teacher->has_cap( 'unfiltered_html' ) ) {
+			$teacher->remove_cap( 'unfiltered_html' );
+		}
 
 		$settings->get( 'required_review' );
 
@@ -913,7 +916,13 @@ function learn_press_profile_tab_edit_content( $current, $tab, $user ) {
 	);
 }
 
+/**
+ * @deprecated 4.2.6.4
+ */
 function learn_press_get_profile_endpoints() {
+	_deprecated_function( __FUNCTION__, '4.2.6.4' );
+	return [];
+
 	$endpoints = (array) LP_Settings::instance()->get( 'profile_endpoints' );
 	$tabs      = LP_Profile::instance()->get_tabs();
 	if ( $tabs ) {
@@ -1858,7 +1867,7 @@ add_filter( 'learn-press/after-form-register-fields', 'lp_add_default_fields' );
 
 function lp_custom_register_fields_display() {
 	?>
-	<?php $custom_fields = LP_Settings::instance()->get( 'register_profile_fields' ); ?>
+	<?php $custom_fields = LP_Profile::get_register_fields_custom(); ?>
 
 	<?php if ( $custom_fields ) : ?>
 		<?php foreach ( $custom_fields as $custom_field ) : ?>
@@ -1956,7 +1965,7 @@ function lp_get_user_custom_register_fields( $user_id = 0 ) {
 }
 
 function lp_get_user_custom_fields() {
-	$custom_fields = LP_Settings::instance()->get( 'register_profile_fields' );
+	$custom_fields = LP_Settings::get_option( 'register_profile_fields', [] );
 
 	$output = array();
 

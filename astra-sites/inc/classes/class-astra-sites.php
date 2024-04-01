@@ -660,6 +660,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			if ( 200 === $code ) {
 				update_option( 'astra_sites_import_data', $demo_data, 'no' );
+				set_transient( 'astra_sites_current_import_template_type', 'classic', HOUR_IN_SECONDS );
 				wp_send_json_success( $demo_data );
 			}
 

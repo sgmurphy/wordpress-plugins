@@ -6324,6 +6324,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Reddit Mono": {
+    "variants": ["200", "300", "regular", "500", "600", "700", "800", "900"],
+    "fallback": "monospace"
+  }
+}, {
   "Redressed": {
     "variants": ["regular"],
     "fallback": "cursive"
@@ -7354,6 +7359,11 @@
     "fallback": "sans-serif"
   }
 }, {
+  "Tac One": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
   "Tai Heritage Pro": {
     "variants": ["regular", "700"],
     "fallback": "serif"
@@ -7876,6 +7886,26 @@
 }, {
   "Yantramanav": {
     "variants": ["100", "300", "regular", "500", "700", "900"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Yarndings 12": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Yarndings 12 Charted": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Yarndings 20": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
+  }
+}, {
+  "Yarndings 20 Charted": {
+    "variants": ["regular"],
     "fallback": "sans-serif"
   }
 }, {

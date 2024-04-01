@@ -1060,6 +1060,15 @@ const ImportAiSite = ( { onClickNext } ) => {
 			formData.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 			formData.append( 'index', index );
 			try {
+				dispatch( {
+					type: 'set',
+					importStatus: sprintf(
+						//translators: %s: Image number.
+						__( 'Downloading Image %s', 'astra-sites' ),
+						index + 1
+					),
+				} );
+
 				const response = await fetch( ajaxurl, {
 					method: 'POST',
 					body: formData,
@@ -1067,16 +1076,7 @@ const ImportAiSite = ( { onClickNext } ) => {
 
 				const data = await response.json();
 
-				if ( data.success ) {
-					dispatch( {
-						type: 'set',
-						importStatus: sprintf(
-							//translators: %s: Image number.
-							__( 'Downloading Image %s', 'astra-sites' ),
-							index + 1
-						),
-					} );
-				} else {
+				if ( ! data.success ) {
 					report(
 						__( 'Downloading images failed.', 'astra-sites' ),
 						'',

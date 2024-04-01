@@ -3,8 +3,8 @@ Contributors: divisupreme, kenng87
 Tags: Divi, Divi Module, Divi Page Builder, divi theme, divi builder, Divi Extensions
 Donate link: https://divisupreme.com/supreme-modules-lite-for-divi/
 Requires at least: 4.5
-Tested up to: 6.3.1
-Requires PHP: 5.6
+Tested up to: 6.4.3
+Requires PHP: 7.4
 Stable tag: 2.5.3
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -49,7 +49,7 @@ Divi Supreme Extentions
 
 Many more Divi Modules and Extensions coming soon...
 
-View [Demo for Divi Supreme](https://suprememodules.com/) or [Demo for Divi Supreme Pro](https://divisupreme.com/features/).
+View [Demo for Divi Supreme](https://divisupreme.com/supreme-modules-lite-for-divi/) or [Demo for Divi Supreme Pro](https://divisupreme.com/features/).
 
 = Divi Supreme Pro =
 [GO Pro](https://divisupreme.com/) Over 40+ Premium Divi Modules and counting to help you speed up your workflow. Packed with everything you need to build amazing website without any effort. Whether you're just starting out with web design or are an accomplished developer with multiple personal and client projects to think about, Divi Supreme Pro will significantly improve the quality of your design work. With 40+ premium Divi modules and Divi extensions to choose from, this plugin is exactly what you need to extend the functionality of your favorite page builder.

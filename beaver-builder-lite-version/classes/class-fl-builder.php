@@ -3681,6 +3681,7 @@ final class FLBuilder {
 				break;
 			case 'module':
 				if ( ! $node->include_wrapper ) {
+					$selector_prefix = $selector_prefix . '.fl-module-' . $node->settings->type;
 					$selector_suffix = '';
 				} else {
 					$selector_suffix = ' > .fl-module-content';
@@ -3872,7 +3873,7 @@ final class FLBuilder {
 			if ( $module->include_wrapper ) {
 				$selector = '.fl-node-' . $module->node . ' > .fl-module-content';
 			} else {
-				$selector = '.fl-node-' . $module->node;
+				$selector = '.fl-node-' . $module->node . '.fl-module-' . $module->settings->type;
 			}
 
 			$css .= '@media (max-width: ' . esc_attr( $global_settings->responsive_breakpoint ) . 'px) { ';

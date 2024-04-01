@@ -3,7 +3,7 @@ Contributors: disqus, alexkingorg, crowdfavorite, zeeg, tail, thetylerhayes, rya
 Tags: disqus, comments, engagement, threaded, email, notification, spam, avatars, community, profile, widget
 Requires at least: 4.4
 Tested up to: 6.4.2
-Stable tag: 3.0.24.1
+Stable tag: 3.1
 Requires PHP: 5.6
 
 Disqus is the web's most popular comment system. Use Disqus to increase engagement, retain readers, and grow your audience.
@@ -13,6 +13,8 @@ Disqus is the web's most popular comment system. Use Disqus to increase engageme
 [Disqus](https://disqus.com/) is the web’s most popular commenting system trusted by millions of publishers to increase reader engagement, grow audience and traffic, and monetize content. Disqus helps publishers of all sizes engage directly with their audiences to build loyalty, retain readers, and foster thriving communities.
 
 The Disqus for WordPress plugin lets site owners and developers easily add Disqus to their sites, replacing the default WordPress comment system. Disqus installs in minutes and automatically imports your existing comments.
+
+In addition to our free-to-use, ad-supported Basic plan, we also offer ad-optional subscription plans that come with more advanced features and access to priority support. Please see our [pricing page](https://disqus.com/pricing/) for more details.
 
 = Why Disqus? =
 
@@ -123,6 +125,12 @@ Go to [https://disqus.com/help/wordpress](https://disqus.com/help/wordpress)
 11. Moderate by Email Notifications
 
 == Changelog ==
+= 3.1 =
+* Disqus Embed now loads correctly on WordPress Block Themes.
+* Improved visibility for latest plugin version and important changes.
+* Added links to remove ads and clarified language around ad-supported plans.
+* Modernized styling and effects to match Disqus colors.
+
 = 3.0.24.1 =
 * Add WP 6.4 to Github Actions CI and fixed dependency issues for WP 6.4
 

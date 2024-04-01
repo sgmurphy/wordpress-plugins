@@ -5,7 +5,7 @@ Donate link: https://bowo.io/asenha-sp-rdm
 Tags: enhancements, tweaks, optimizations, tools  
 Requires at least: 4.6  
 Tested up to: 6.4.3  
-Stable tag: 6.9.5  
+Stable tag: 6.9.6  
 Requires PHP: 5.6  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -51,7 +51,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 * **[[Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Conveniently register and edit custom post types, custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor.
 * **Content Duplication**. One-click duplication of pages, posts and CPTs. [ASE Pro](https://www.wpase.com/rdme-to-web) enables duplication only for certain user roles and adds location option for duplication link.
-* **Content Order**. Enable custom ordering of various post types in wp-admin and on the frontend. [ASE Pro](https://www.wpase.com/rdme-to-web) enables toggling taxonomy terms and / or excerpt on the ordering page.
+* **Content Order**. Enable custom ordering of various post types that are hierarchical or support page attributes, in wp-admin and on the frontend. [ASE Pro](https://www.wpase.com/rdme-to-web) enables ordering of post types that are non-hierarchical and does not support page attributes, and also enable toggling taxonomy terms and / or excerpt on the ordering page.
 * **[[Pro](https://www.wpase.com/rdme-to-web)] Terms Order**. Enable custom ordering of terms from various taxonomies in wp-admin and on the frontend.
 * **[[Pro](https://www.wpase.com/rdme-to-web)] Media Categories**. Add categories for the media library and enable drag-and-drop categorization of media items.
 * **Media Replacement**. Easily replace any type of media file with a new one while ensuring no existing links will break. [ASE Pro](https://www.wpase.com/rdme-to-web) allows replacing media from the grid view of media library as well.
@@ -175,11 +175,35 @@ You can skip step 1 and 2 if you still have access to your wp-admin dashboard.
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **83 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **69 _point_ releases** (e.g. 1.1.0 ) and **86 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+
+### 6.9.6.2 (2024.04.01) - ASE Pro
+
+* **[FIXED in Pro] Content Management >> Content Order**: fixed PHP warnings as reported by Yoshihiro T. and a developer at mez#####e.co.
+
+### 6.9.6.1 (2024.04.01) - ASE Pro
+
+* **[FIXED in Pro] Content Management >> Custom Content Types >> Options Pages**: fixed an issue where getting an option page's option value in the frontend returns empty value. Props to Darren for reporting this with a short but clear screencast that illustrates the issue in Breakdance builder.
+
+### 6.9.6 (2024.04.01) - ASE Free and Pro
+
+* **[IMPROVED in Free and Pro] Log In | Log Out >> Redirect After Login & Logout**: make it possible to redirect to the homepage by leaving the redirection slug input blank. Props to [@mateuszkalamarz](https://wordpress.org/support/users/mateuszkalamarz/) for [reporting the issue](https://wordpress.org/support/topic/redirect-after-login-doesnt-allow-front-page/) and prompting the improvement.
+
+* **[IMPROVED in Free and Pro] Log In | Log Out >> Change Login URL**: properly redirect /wp-login (without .php) to the /not_found/ URL. It was showing the login form on some scenarios. Props to Artur M. for reporting this and help with troubleshooting.
+
+* **[IMPROVED in Pro] Content Management >> Content Order**: it's now possible to enable custom ordering for post types that are not hierarchical and don't support page attributes, e.g. posts and WooCommerce products. Props to Kay L., Eirini Z. and Hampus E. for suggesting this improvement.
+
+* **[IMPROVED in Pro] Admin Interface >> Admin Columns Manager**: Post Parent and Menu Order are now included in Default columns for all post types.
+
+* **[FIXED in Free and Pro] Disable Components >> Disable Gutenberg**: fixed an issue where the "Add Form" button from Gravity Forms is not present next to "Add Media" button in the post/page edit screen when gutenberg / block editor is disabled for a post type. Props to [Kazam Creative](https://wordpress.org/support/users/goldenagemedia/) for [reporting the issue](https://wordpress.org/support/topic/bug-add-shortcode-to-visual-editor-buttons-disappear/).
+
+* **[FIXED in Pro] Content Management >> Custom Content Types**: in some scenarios, the WYSIWYG field is not responsive, and thus, not usable when editing a post using that field type with the block editor. This is now fixed. Props to Philipp Z. for reporting the issue and facilitating the troubleshooting.
+
+* **[FIXED in Free and Pro] ASE Settings**: fixed PHP warning reported by [@osblaga](https://wordpress.org/support/users/osblaga/) in [this thread](https://wordpress.org/support/topic/error-when-activating-wp-ase-plugin/).
 
 ### 6.9.5 (2024.03.25) - ASE Free and Pro
 
@@ -196,6 +220,8 @@ Each **_point release_** usually corresponds with the addition of one new module
 * **[IMPROVED in Pro] Disable Components >> Disable Gutenberg & Disable Comments**: added additional option to "Disable only on" or "Disable except on" the selected post types. This should make it easier to include or exclude only certain post types despite new post types being registered on the site. i.e. no need to continually check newly added post types to disable Gutenberg / comments on.
 
 * **[IMPROVED in Pro] Content Management >> Media Categories**: css adjustment to fix toolbar items spilling over to the second line in the grid view on certain scenarios.
+
+* **[IMPROVED in Free and Pro] Increase code modularity** across all modules. One is by switching from autoloading vendor libraries using Composer to loading them when the corresponding modules are enabled. The other by breaking down module category classes, e.g. class-content-management.php, that has grown large as new features and modules are added to each category, into smaller ones, e.g. class-content-duplication.php.
 
 * **[CHANGED in Free and Pro] Disable Components >> Disable Block-based Widgets Settings Screen**: is now moved under Disable Smaller Components module.
 
@@ -388,43 +414,5 @@ Each **_point release_** usually corresponds with the addition of one new module
 * **[FIXED][Pro] Admin Interface >> Admin Columns Manager**: fixed an issue with SureMembers Access Groups listing page not showing the group title and action links when Admin Columns Manager is active. Props to Volker D. for reporting the issue and facilitating troubleshooting.
 
 * **[FIXED][Pro] Admin Interface >> Admin Columns Manager**: nothing is listed in the Custom Fields section when organizing columns for WooCommerce Orders (shop_order), including custom fields from ACF. Props to Jacob E. for reporting the issue and providing additional information to help troubleshoot the issue.
-
-### 6.5.0 (2024.01.22) - ASE Free and Pro
-
-* **[NEW][Free][Pro] Content Management >> Media Library Infinite Scrolling**: Re-enable infinite scrolling in the grid view of the media library. Useful for scrolling through a large library. Props to [@benbaudart](https://wordpress.org/support/users/benbaudart/) for [suggesting this](https://wordpress.org/support/topic/feature-request-infinite-scroll-in-media-library/).
-
-* **[IMPROVED][Pro] Admin Interface >> Admin Columns Manager**: make WP core, ASE, ACF and Meta Box columns with values that are sortable to be automatically sortable, i.e. can be sorted ASC / DESC on clicking the column header. **To enable this, please open the admin columns manager for the post types you have, and click Save Changes**. Props to Julian S. and Uli L for suggesting a feature in this area.
-
-* **[IMPROVED][Free][Pro] Admin Interface >> Hide Admin Notices**: will now properly handle hiding notices on GenerateBlocks settings page. Props to [@tpfoster](https://wordpress.org/support/users/tpfoster/) for [reporting this](https://wordpress.org/support/topic/hide-admin-notices-doesnt-work-on-every-page/) in great detail, which helped with troubleshooting.
-
-* **[IMPROVED][Pro] Utilities >> Local User Avatar**: make sure local avatar is used for [get_avatar_url()](https://developer.wordpress.org/reference/functions/get_avatar_url/). Props to Sunny T. for reporting that Cwicly Image block does not load local avatar when "Dynamic Data >> WordPress >> Author Profile Picture" is selected as the data source, @ardyan for reporting gravatar image was still loaded on their site.
-
-* **[FIXED][Pro] Admin Interface >> Admin Columns Manager**: fixed an issue where Screen Options toggle was not properly toggling RankMath's SEO Title and SEO Desc columns. Props to Sunny T. for reporting the issue.
-
-* **[FIXED][Pro] Admin Interface >> Admin Columns Manager**: fixed missing column values from EDD Orders page. Props to Deborah S. for reporting the issue and helping with troubleshooting.
-
-* **[FIXED][Free][Pro] Optimizations >> Heartbeat Control**: fixed PHP warnign. Props to Maek M. for reporting the issue along with the error log entry.
-
-* **[FIXED][Free][Pro] Disable Components >> Disable Comments**: fixed PHP warning issue. Props to @ken0429ng for reporting the issue.
-
-* **[FIXED][Free][Pro] Fatal error on site migration**: fixed a fatal error that occurred after migrating a site with ASE configured. Props to Bart van O. and JW for reporting the issue and helping with troubleshooting.
-
-### 6.4.0 (2024.01.15) - ASE Free and Pro
-
-* **[NEW][Pro] Content Management >> Terms Order**: Enable custom ordering of terms from various "hierarchical" taxonomies.
-
-* **[IMPROVED][Pro] Admin Interface >> Admin Columns Manager**: allow extra columns, e.g. from plugins like WPML and Yoast SEO, to use their original title, which sometimes are icons, e.g. language/country flag to signify language, or traffic light to signify SEO score. Props to Sebastian A. for reporting the issue with WPML language column needing to use the original title, which is the language/country flag, different for each enabled languages.
-
-* **[IMPROVED[Pro] Admin Interface >> Admin Columns Manager**: added support for wp_block post type used for all user-created block patterns since WP v6.3. It will allow showing the sync status column added in the 'wp_pattern_sync_status' post meta. Props to Francois G. for suggesting this.
-
-* **[FIXED][Free][Pro] Admin Interface >> Hde Admin Notices**: fixed another PHP warning.
-
-* **[FIXED][Free][Pro] Settings page**: fixed plugin conflicts causing ASE settings page to go blank, i.e. does not work properly. This is usually caused by other plugins loading scripts on ASE settings page that causes some JS error. Two such plugins if active will no longer cause the issue.
-
-* **[FIXED][Free][Pro] Utilities >> Image Sizes Panel**: fixed fatal error in a certain scenario when GamiPress plugin is enabled. Props to Peter J. for reporting the issue complete with the relevant error log entry, which helped with troubleshooting.
-
-* **[FIXED][Free][Pro] Security >> Email Address Obfuscator**: fixed PHP warning on scenarios where user agent is not detectable.
-
-* **[FIXED][Pro] Content Management >> Custom Content Types**: fixed PHP warning during sanitization of checkbox fields during CPT creation / editing. Also fixed PHP warning when trying to detect post type label for the admin column in the Custom Post Types listing page.
 
 [**See the full changelog >>**](https://www.wpase.com/documentation/changelog/)
