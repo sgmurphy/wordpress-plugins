@@ -19,7 +19,7 @@ namespace AIOSEO\BrokenLinkChecker {
 		 *
 		 * @var BrokenLinkChecker
 		 */
-		private static $instance = null;
+		private static $instance;
 
 		/**
 		 * Plugin version for enqueueing, etc.
@@ -47,7 +47,7 @@ namespace AIOSEO\BrokenLinkChecker {
 		 *
 		 * @var Core\Core
 		 */
-		public $core = null;
+		public $core;
 
 		/**
 		 * InternalOptions class instance.
@@ -56,7 +56,7 @@ namespace AIOSEO\BrokenLinkChecker {
 		 *
 		 * @var Options\InternalOptions
 		 */
-		public $internalOptions = null;
+		public $internalOptions;
 
 		/**
 		 * Pre updates class instance.
@@ -65,7 +65,7 @@ namespace AIOSEO\BrokenLinkChecker {
 		 *
 		 * @var Main\PreUpdates
 		 */
-		public $preUpdates = null;
+		public $preUpdates;
 
 		/**
 		 * Helpers class instance.
@@ -74,7 +74,7 @@ namespace AIOSEO\BrokenLinkChecker {
 		 *
 		 * @var Utils\Helpers
 		 */
-		public $helpers = null;
+		public $helpers;
 
 		/**
 		 * Options class instance.
@@ -83,7 +83,7 @@ namespace AIOSEO\BrokenLinkChecker {
 		 *
 		 * @var Options\Options
 		 */
-		public $options = null;
+		public $options;
 
 		/**
 		 * Updates class instance.
@@ -92,7 +92,7 @@ namespace AIOSEO\BrokenLinkChecker {
 		 *
 		 * @var Main\Updates
 		 */
-		public $updates = null;
+		public $updates;
 
 		/**
 		 * Action scheduler class.
@@ -101,7 +101,7 @@ namespace AIOSEO\BrokenLinkChecker {
 		 *
 		 * @var Utils\ActionScheduler
 		 */
-		public $actionScheduler = null;
+		public $actionScheduler;
 
 		/**
 		 * License class.
@@ -110,7 +110,7 @@ namespace AIOSEO\BrokenLinkChecker {
 		 *
 		 * @var Admin\License
 		 */
-		public $license = null;
+		public $license;
 
 		/**
 		 * Access class.
@@ -119,7 +119,7 @@ namespace AIOSEO\BrokenLinkChecker {
 		 *
 		 * @var Utils\Access
 		 */
-		public $access = null;
+		public $access;
 
 		/**
 		 * Main class instance.
@@ -128,7 +128,7 @@ namespace AIOSEO\BrokenLinkChecker {
 		 *
 		 * @var Main\Main
 		 */
-		public $main = null;
+		public $main;
 
 		/**
 		 * API class instance.
@@ -137,7 +137,7 @@ namespace AIOSEO\BrokenLinkChecker {
 		 *
 		 * @var Api\Api
 		 */
-		public $api = null;
+		public $api;
 
 		/**
 		 * Standalone class instance.
@@ -146,7 +146,7 @@ namespace AIOSEO\BrokenLinkChecker {
 		 *
 		 * @var Standalone\Standalone
 		 */
-		public $standalone = null;
+		public $standalone;
 
 		/**
 		 * Notifications class instance.
@@ -155,7 +155,7 @@ namespace AIOSEO\BrokenLinkChecker {
 		 *
 		 * @var Admin\Notifications
 		 */
-		public $notifications = null;
+		public $notifications;
 
 		/**
 		 * VueSettings class instance.
@@ -164,7 +164,16 @@ namespace AIOSEO\BrokenLinkChecker {
 		 *
 		 * @var Utils\VueSettings
 		 */
-		public $vueSettings = null;
+		public $vueSettings;
+
+		/**
+		 * Admin class instance.
+		 *
+		 * @since 1.2.0
+		 *
+		 * @var Admin\Admin
+		 */
+		public $admin;
 
 		/**
 		 * The main BrokenLinkChecker Instance.
@@ -317,8 +326,7 @@ namespace AIOSEO\BrokenLinkChecker {
 			$this->api             = new Api\Api();
 			$this->standalone      = new Standalone\Standalone();
 			$this->notifications   = new Admin\Notifications();
-
-			new Admin\Admin();
+			$this->admin           = new Admin\Admin();
 
 			add_action( 'init', [ $this, 'loadInit' ], 999 );
 		}

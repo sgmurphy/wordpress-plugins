@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AIOSEO\\BrokenLinkChecker\\Admin\\Admin' => $baseDir . '/app/Admin/Admin.php',
     'AIOSEO\\BrokenLinkChecker\\Admin\\License' => $baseDir . '/app/Admin/License.php',
+    'AIOSEO\\BrokenLinkChecker\\Admin\\Notices\\Review' => $baseDir . '/app/Admin/Notices/Review.php',
     'AIOSEO\\BrokenLinkChecker\\Admin\\Notifications' => $baseDir . '/app/Admin/Notifications.php',
     'AIOSEO\\BrokenLinkChecker\\Api\\Api' => $baseDir . '/app/Api/Api.php',
     'AIOSEO\\BrokenLinkChecker\\Api\\BrokenLinks' => $baseDir . '/app/Api/BrokenLinks.php',
@@ -21,6 +22,7 @@ return array(
     'AIOSEO\\BrokenLinkChecker\\Api\\Plugins' => $baseDir . '/app/Api/Plugins.php',
     'AIOSEO\\BrokenLinkChecker\\Api\\Post' => $baseDir . '/app/Api/Post.php',
     'AIOSEO\\BrokenLinkChecker\\Api\\PostsTerms' => $baseDir . '/app/Api/PostsTerms.php',
+    'AIOSEO\\BrokenLinkChecker\\Api\\Redirects' => $baseDir . '/app/Api/Redirects.php',
     'AIOSEO\\BrokenLinkChecker\\Api\\VueSettings' => $baseDir . '/app/Api/VueSettings.php',
     'AIOSEO\\BrokenLinkChecker\\BrokenLinkChecker' => $baseDir . '/app/BrokenLinkChecker.php',
     'AIOSEO\\BrokenLinkChecker\\Core\\Assets' => $baseDir . '/app/Core/Assets.php',
@@ -47,6 +49,7 @@ return array(
     'AIOSEO\\BrokenLinkChecker\\Options\\Cache' => $baseDir . '/app/Options/Cache.php',
     'AIOSEO\\BrokenLinkChecker\\Options\\InternalOptions' => $baseDir . '/app/Options/InternalOptions.php',
     'AIOSEO\\BrokenLinkChecker\\Options\\Options' => $baseDir . '/app/Options/Options.php',
+    'AIOSEO\\BrokenLinkChecker\\Standalone\\Highlighter' => $baseDir . '/app/Standalone/Highlighter.php',
     'AIOSEO\\BrokenLinkChecker\\Standalone\\SetupWizard' => $baseDir . '/app/Standalone/SetupWizard.php',
     'AIOSEO\\BrokenLinkChecker\\Standalone\\Standalone' => $baseDir . '/app/Standalone/Standalone.php',
     'AIOSEO\\BrokenLinkChecker\\Traits\\Helpers\\Api' => $baseDir . '/app/Traits/Helpers/Api.php',

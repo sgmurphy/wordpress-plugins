@@ -146,6 +146,6 @@ class Data {
 			return 100;
 		}
 
-		return floor( 100 - ( ( $linksToCheck / $totalLinks ) * 100 ) );
+		return ceil( 100 - ( ( $linksToCheck / $totalLinks ) * 100 ) );
 	}
 }

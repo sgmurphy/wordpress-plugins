@@ -123,8 +123,8 @@
 	 *
 	 * Once all post meta migrated, notice would not be shown anymore.
 	 *
-	 * @param Wbcr_Factory473_Plugin $plugin
-	 * @param Wbcr_FactoryPages473_ImpressiveThemplate $obj
+	 * @param Wbcr_Factory474_Plugin $plugin
+	 * @param Wbcr_FactoryPages474_ImpressiveThemplate $obj
 	 *
 	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
 	 * @since  1.3.0
@@ -146,11 +146,11 @@
 	 * Flush configuration after saving the settings
 	 *
 	 * @param WRIO_Plugin $plugin
-	 * @param Wbcr_FactoryPages473_ImpressiveThemplate $obj
+	 * @param Wbcr_FactoryPages474_ImpressiveThemplate $obj
 	 *
 	 * @return bool
 	 */
-	/*add_action('wbcr_factory_473_imppage_after_form_save', function ($plugin, $obj) {
+	/*add_action('wbcr_factory_474_imppage_after_form_save', function ($plugin, $obj) {
 		$is_rio = WRIO_Plugin::app()->getPluginName() == $plugin->getPluginName();
 	
 		if( $is_rio ) {
@@ -174,14 +174,14 @@
 		return $page_url;
 	}
 	
-	add_filter( 'wbcr_factory_pages_473_imppage_rating_widget_url', 'wio_rating_widget_url', 10, 2 );
+	add_filter( 'wbcr_factory_pages_474_imppage_rating_widget_url', 'wio_rating_widget_url', 10, 2 );
 	
 	/**
 	 * Widget with the offer to buy Clearfy Business
 	 *
 	 * @param array $widgets
 	 * @param string $position
-	 * @param Wbcr_Factory473_Plugin $plugin
+	 * @param Wbcr_Factory474_Plugin $plugin
 	 */
 	add_filter( 'wbcr/factory/pages/impressive/widgets', function ( $widgets, $position, $plugin ) {
 		if ( $plugin->getPluginName() == WRIO_Plugin::app()->getPluginName() ) {
@@ -321,8 +321,8 @@
 	 * Отправка уведомлений и скором окончании квоты в Impressive
 	 * Уведомления создаются только если квота <= 100
 	 *
-	 * @param Wbcr_Factory473_Plugin $plugin Экземпляр плагина, который передается в функцию обратного вызова
-	 * @param Wbcr_FactoryPages473_ImpressiveThemplate $obj Экземпляр страницы, который передается в функцию обратного вызова
+	 * @param Wbcr_Factory474_Plugin $plugin Экземпляр плагина, который передается в функцию обратного вызова
+	 * @param Wbcr_FactoryPages474_ImpressiveThemplate $obj Экземпляр страницы, который передается в функцию обратного вызова
 	 *
 	 * @author Alexander Gorenkov <g.a.androidjc2@ya.ru>
 	 * @since  1.4.2

@@ -55,6 +55,7 @@ class Api {
 			'options'                      => [ 'callback' => [ 'VueSettings', 'saveChanges' ], 'access' => 'aioseo_blc_broken_links_page' ],
 			'plugins/deactivate'           => [ 'callback' => [ 'Plugins', 'deactivatePlugins' ], 'access' => 'install_plugins' ],
 			'plugins/install'              => [ 'callback' => [ 'Plugins', 'installPlugins' ], 'access' => 'install_plugins' ],
+			'redirects/url'                => [ 'callback' => [ 'Redirects', 'getRedirectUrl' ], 'access' => [ 'aioseo_blc_broken_links_page' ] ],
 			'settings/toggle-card'         => [ 'callback' => [ 'VueSettings', 'toggleCard' ], 'access' => 'aioseo_blc_broken_links_page' ],
 			'settings/toggle-radio'        => [ 'callback' => [ 'VueSettings', 'toggleRadio' ], 'access' => 'aioseo_blc_broken_links_page' ],
 			'settings/items-per-page'      => [ 'callback' => [ 'VueSettings', 'changeItemsPerPage' ], 'access' => 'aioseo_blc_broken_links_page' ]

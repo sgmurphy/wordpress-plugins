@@ -3,7 +3,7 @@ Contributors: RebelCode, jeangalea, markzahra, Mekku, gabygalea
 Plugin URI: https://www.wprssaggregator.com
 Tags: RSS, RSS feed, RSS aggregator, autoblogging, RSS import, autoblog, feed to post, news aggregator, news feeds, YouTube video feeds, rss to post, content curation
 Requires at least: 4.0 or higher
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.4
 Stable tag: 4.23.7
 License: GPLv3

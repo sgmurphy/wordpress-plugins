@@ -6,7 +6,7 @@
   "license": "proprietary",
   "require": {
     "10web-utils/10web-queue": "dev-master",
-    "10web/authorization": "dev-master",
+    "10web/authorization": "dev-dev",
     "10web-utils/10web-wp-transients": "dev-master",
     "enqueue/fs": "^0.10.0"
   },

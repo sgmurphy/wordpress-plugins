@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-28T18:01:37+00:00\n"
+"POT-Creation-Date: 2024-04-02T12:54:42+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -75,7 +75,7 @@ msgid "Top Users"
 msgstr ""
 
 #: admin/analytics/components/TopVideos.js:56
-#: admin/blocks/shared/components/SelectMediaDropdown.js:141
+#: admin/blocks/shared/components/SelectMediaDropdown.js:135
 #: admin/integrations/divi/fields/VideoSelector/VideoSelector.jsx:113
 msgid "Untitled"
 msgstr ""
@@ -765,7 +765,7 @@ msgid "Playlist Item"
 msgstr ""
 
 #: admin/blocks/blocks/playlist-list-item/Placeholder.js:43
-#: admin/blocks/shared/components/SelectMediaDropdown.js:99
+#: admin/blocks/shared/components/SelectMediaDropdown.js:93
 #: admin/settings/app.js:47
 #: admin/settings/components/Group.js:25
 #: admin/settings/pages/parts/EmailExport.js:39
@@ -1380,19 +1380,19 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: admin/blocks/shared/components/EntitySearchDropdown.js:34
-msgid "None found."
-msgstr ""
-
-#: admin/blocks/shared/components/EntitySearchDropdown.js:58
+#: admin/blocks/shared/components/EntitySearchDropdown.js:47
 msgid "Add New"
 msgstr ""
 
-#: admin/blocks/shared/components/EntitySearchDropdown.js:95
+#: admin/blocks/shared/components/EntitySearchDropdown.js:54
+msgid "None found."
+msgstr ""
+
+#: admin/blocks/shared/components/EntitySearchDropdown.js:89
 msgid "Load More"
 msgstr ""
 
-#: admin/blocks/shared/components/EntitySearchDropdown.js:138
+#: admin/blocks/shared/components/EntitySearchDropdown.js:132
 msgid "Search..."
 msgstr ""
 
@@ -1401,11 +1401,11 @@ msgstr ""
 msgid "Pro"
 msgstr ""
 
-#: admin/blocks/shared/components/SelectMediaDropdown.js:122
+#: admin/blocks/shared/components/SelectMediaDropdown.js:116
 msgid "Create or select media"
 msgstr ""
 
-#: admin/blocks/shared/components/SelectMediaDropdown.js:135
+#: admin/blocks/shared/components/SelectMediaDropdown.js:129
 msgid "Choose media"
 msgstr ""
 

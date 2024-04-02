@@ -34,6 +34,7 @@ export default ({ clientId, isSelected }) => {
       <SelectMediaDropdown
         onCreate={() => setModal(true)}
         value={selectedItemIds}
+        popoverProps={{ placement: "bottom-center" }}
         onSelect={(video) =>
           insertBlock(
             createBlock("presto-player/playlist-list-item", {

@@ -453,3 +453,29 @@ function cv_comp_scripts_priority( $args ) {
 
 	return $args;
 }
+
+/** Show notice for Elementor, when showing full content
+ * @since 3.7.0
+ */
+add_filter( PT_CV_PREFIX_ . 'full_content_notice', 'cv_comp_content_notice_for_elementor', 10, 2 );
+function cv_comp_content_notice_for_elementor( $settings, $prefix ) {
+	$settings = cv_is_active_plugin( 'elementor' ) ? array(
+		'label'			 => array(
+			'text' => '',
+		),
+		'extra_setting'	 => array(
+			'params' => array(
+				'width' => 12,
+			),
+		),
+		'params'	 => array(
+			array(
+				'type'		 => 'html',
+				'content'	 => sprintf( '<p class="cvp-notice" style="background: #ff00001a; display: inline-block; padding: 5px;">%s</p>', __( "To ensure correct rendering in Elementor, please add this view shortcode to the HTML widget (which has &lt;/&gt; icon)", 'content-views-query-and-display-post-page' ) ),
+			),
+		),
+		'dependence' => array( $prefix . 'content-show', 'full' ),
+	) : [];
+
+	return $settings;
+}

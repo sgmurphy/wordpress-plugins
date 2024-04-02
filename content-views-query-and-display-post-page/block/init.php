@@ -582,6 +582,11 @@ if ( !class_exists( 'ContentViews_Block' ) ) {
 					'type'		 => 'string',
 					'default'	 => 'h3',
 				],
+				'headingHide' => [
+					'__key'	     => '__SAME__',
+					'type'		 => 'boolean',
+					'default'	 => true,
+				],
 				'sameAs'				 => [
 					'type'     => 'string',
 					'default'  => '',
@@ -619,6 +624,20 @@ if ( !class_exists( 'ContentViews_Block' ) ) {
 					'__key'		 => 'other-lightbox-enable-navigation',
 					'type'		 => 'boolean',
 					'default'	 => true,
+				],
+				'linkNofollow'			 => [
+					'__key'	 => 'link-follow',
+					'type'	 => 'boolean',
+				],
+				'noPostFound'			 => [
+					'__key'		 => '__SAME__',
+					'type'		 => 'string',
+					'default'	 => '',
+				],
+				'noPostText'			 => [
+					'__key'		 => '__SAME__',
+					'type'		 => 'string',
+					'default'	 => '',
 				],
 			];
 
@@ -663,7 +682,11 @@ if ( !class_exists( 'ContentViews_Block' ) ) {
 			}
 
 			// compatible: /extendify
-			$atts[ "extUtilities" ] = [ 'type' => 'array', ];
+			$atts[ "extUtilities" ]	 = [ 'type' => 'array', ];
+			// compatible: /gutenify
+			$atts[ "customCss" ]		 = [ 'type' => 'string', ];
+			$atts[ "blockClientId" ]	 = [ 'type' => 'string', ];
+			$atts[ "gutenifyStyles" ]	 = [ 'type' => 'string', ];
 
 			return apply_filters( PT_CV_PREFIX_ . 'block_attributes', $atts );
 		}
@@ -716,6 +739,12 @@ if ( !class_exists( 'ContentViews_Block' ) ) {
 		}
 
 		static function heading_output() {
+			if ( PT_CV_Functions::setting_value( PT_CV_PREFIX . 'headingHide' ) ) {
+				if ( PT_CV_Functions::get_global_variable( 'no_post_found' ) ) {
+					return '';
+				}
+			}
+
 			global $pt_cv_id;
 
 

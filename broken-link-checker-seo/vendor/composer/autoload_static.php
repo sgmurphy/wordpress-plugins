@@ -23,6 +23,7 @@ class ComposerStaticInit0529d6e4fa34503461e6d0dcc97d844d
     public static $classMap = array (
         'AIOSEO\\BrokenLinkChecker\\Admin\\Admin' => __DIR__ . '/../..' . '/app/Admin/Admin.php',
         'AIOSEO\\BrokenLinkChecker\\Admin\\License' => __DIR__ . '/../..' . '/app/Admin/License.php',
+        'AIOSEO\\BrokenLinkChecker\\Admin\\Notices\\Review' => __DIR__ . '/../..' . '/app/Admin/Notices/Review.php',
         'AIOSEO\\BrokenLinkChecker\\Admin\\Notifications' => __DIR__ . '/../..' . '/app/Admin/Notifications.php',
         'AIOSEO\\BrokenLinkChecker\\Api\\Api' => __DIR__ . '/../..' . '/app/Api/Api.php',
         'AIOSEO\\BrokenLinkChecker\\Api\\BrokenLinks' => __DIR__ . '/../..' . '/app/Api/BrokenLinks.php',
@@ -36,6 +37,7 @@ class ComposerStaticInit0529d6e4fa34503461e6d0dcc97d844d
         'AIOSEO\\BrokenLinkChecker\\Api\\Plugins' => __DIR__ . '/../..' . '/app/Api/Plugins.php',
         'AIOSEO\\BrokenLinkChecker\\Api\\Post' => __DIR__ . '/../..' . '/app/Api/Post.php',
         'AIOSEO\\BrokenLinkChecker\\Api\\PostsTerms' => __DIR__ . '/../..' . '/app/Api/PostsTerms.php',
+        'AIOSEO\\BrokenLinkChecker\\Api\\Redirects' => __DIR__ . '/../..' . '/app/Api/Redirects.php',
         'AIOSEO\\BrokenLinkChecker\\Api\\VueSettings' => __DIR__ . '/../..' . '/app/Api/VueSettings.php',
         'AIOSEO\\BrokenLinkChecker\\BrokenLinkChecker' => __DIR__ . '/../..' . '/app/BrokenLinkChecker.php',
         'AIOSEO\\BrokenLinkChecker\\Core\\Assets' => __DIR__ . '/../..' . '/app/Core/Assets.php',
@@ -62,6 +64,7 @@ class ComposerStaticInit0529d6e4fa34503461e6d0dcc97d844d
         'AIOSEO\\BrokenLinkChecker\\Options\\Cache' => __DIR__ . '/../..' . '/app/Options/Cache.php',
         'AIOSEO\\BrokenLinkChecker\\Options\\InternalOptions' => __DIR__ . '/../..' . '/app/Options/InternalOptions.php',
         'AIOSEO\\BrokenLinkChecker\\Options\\Options' => __DIR__ . '/../..' . '/app/Options/Options.php',
+        'AIOSEO\\BrokenLinkChecker\\Standalone\\Highlighter' => __DIR__ . '/../..' . '/app/Standalone/Highlighter.php',
         'AIOSEO\\BrokenLinkChecker\\Standalone\\SetupWizard' => __DIR__ . '/../..' . '/app/Standalone/SetupWizard.php',
         'AIOSEO\\BrokenLinkChecker\\Standalone\\Standalone' => __DIR__ . '/../..' . '/app/Standalone/Standalone.php',
         'AIOSEO\\BrokenLinkChecker\\Traits\\Helpers\\Api' => __DIR__ . '/../..' . '/app/Traits/Helpers/Api.php',

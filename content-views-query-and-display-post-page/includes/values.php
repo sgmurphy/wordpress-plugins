@@ -467,6 +467,13 @@ if ( !class_exists( 'PT_CV_Values' ) ) {
 			);
 		}
 
+		static function nopost_options() {
+			return [
+				''			 => 'Show the default text',
+				'changetext' => 'Show custom text',
+			];
+		}
+
 		// from Pro
 		static function view_type_pro() {
 			$result = array(
@@ -551,6 +558,19 @@ if ( !class_exists( 'PT_CV_Values' ) ) {
 			// ovl 2 3 4 5 7 8
 			$olv3 = self::ovl_layouts( 2 );
 			return array_values( array_diff( $olv3, [ 'ovl6', 'overlay6' ] ) );
+		}
+
+		static function imported_layout( $name ) {
+			$require_pro = '6.0';
+			$pro_version = get_option( 'pt_cv_version_pro' );
+
+			if ( !$pro_version || version_compare( $pro_version, $require_pro, '<' ) ) {
+				if ( !array_key_exists( $name, self::hybrid_layouts() ) ) {
+					$name = preg_replace( [ '/overlay([2-9]+)/', '/onebig(\d+)/' ], [ 'ovl$1', 'bigpost$1' ], $name );
+				}
+			}
+
+			return $name;
 		}
 
 	}

@@ -2,9 +2,9 @@
 Contributors: pt-guy
 Tags: post grid, post blocks, recent posts, gutenberg blocks, grid, display posts, post list, post slider, post accordion, gutenberg, blocks, category post, news, magazine, portfolio, latest posts, related posts
 Requires at least: 3.3
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 3.6.4
+Stable tag: 3.7.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -157,8 +157,15 @@ All blocks support posts, pages, custom post types and come with a lot of option
 - **[Scrollable Post Block](https://contentviewspro.com/demo/blocks/scrollable/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This post block displays your posts in a carousel/slider layout with navigation, indicator and autoplay to explore more posts easily
 - **[Timeline Block](https://contentviewspro.com/demo/blocks/timeline/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This post block displays your posts in a classic Timeline layout like Facebook
 - **[Big Post 1 Block](https://contentviewspro.com/demo/blocks/big-post-1/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This post block displays one big post above other small posts. Big post and small posts can be customized separately
-- **[Big Post 2 Block](https://contentviewspro.com/demo/blocks/big-post-2/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This post block displays one big post beside other small posts.
-- **[Post Overlay 1-8 Blocks](https://contentviewspro.com/demo/blocks/overlay-1/?utm_source=wordpress&utm_medium=link)** - These post blocks show posts in advanced grid layouts with overlay over the post image.
+- **[Big Post 2 Block](https://contentviewspro.com/demo/blocks/big-post-2/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This post block displays one big post beside other small posts. Big post and small posts can be customized separately
+- **[Post Overlay 1 Block](https://contentviewspro.com/demo/blocks/overlay-1/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This post grid block displays a beautiful grid layout with overlay over post image
+- **[Post Overlay 2 Block](https://contentviewspro.com/demo/blocks/overlay-2/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This custom post grid block has one post showing beside other stacked posts, and overlay enabled
+- **[Post Overlay 3 Block](https://contentviewspro.com/demo/blocks/overlay-3/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This advanced post grid block displays one post beside 3 other posts (shown in 2 rows), with text overlay
+- **[Post Overlay 4 Block](https://contentviewspro.com/demo/blocks/overlay-4/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This post grid block shows one post next to 3 other posts (shown in 2 columns), and overlay for image
+- **[Post Overlay 5 Block](https://contentviewspro.com/demo/blocks/overlay-5/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This new post grid block has one post beside 4 other posts (shown in a 2x2 grid), with overlay enabled
+- **[Post Overlay 6 Block](https://contentviewspro.com/demo/blocks/overlay-6/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This custom post grid block shows one post above other posts (shown in columns), with overlay on image
+- **[Post Overlay 7 Block](https://contentviewspro.com/demo/blocks/overlay-7/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This post grid block has one post next to & above other posts, and overlay over the image
+- **[Post Overlay 8 Block](https://contentviewspro.com/demo/blocks/overlay-8/?utm_source=wordpress&utm_medium=link&utm_campaign=readme)** - This modern post grid block shows 2 posts and 4 other posts in an advanced grid, with text overlay
 
 
 == Installation ==
@@ -226,6 +233,20 @@ If you encounter any difficulties or if you have questions about Content Views, 
 
 
 == Changelog ==
+
+= 3.7.0 =
+* New: [Block] Add the Alignment option to "Read More"
+* New: [Shortcode] Add option "Show the default image" to Thumbnail settings
+* New: [Shortcode] Add "Heading Text" feature
+* New: Add option to hide, modify the "No Posts Found" text in blocks and shortcode
+* Fix: [Shortcode] Top Meta text is not clearly visible in Overlay layouts
+* Fix: [Block] Unexpected block errors caused by another block plugin
+* Fix: [Block] ReactDOM.render is no longer supported in React 18
+* Fix: [Block] Text is invisible in Overlay blocks when not showing thumbnail
+* Update: Sort layout names in Library popup/page
+* Update: Tweak CSS of the "Top Meta"
+* Update: Add default bottom margin to fields
+* Update: [Shortcode] Add instruction when showing full content in the Elementor page builder
 
 = 3.6.4 =
 * Fix: [Shortcode] fix CSS output in some edge cases

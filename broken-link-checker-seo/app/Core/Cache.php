@@ -73,7 +73,7 @@ class Cache {
 		// If we have something, let's normalize it.
 		if ( $values ) {
 			foreach ( $values as &$value ) {
-				$value['value'] = maybe_unserialize( $value['value'] );
+				$value['value'] = aioseoBrokenLinkChecker()->helpers->maybeUnserialize( $value['value'] );
 			}
 			// Return only the single cache value.
 			if ( ! $isLikeGet ) {

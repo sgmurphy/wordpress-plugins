@@ -6,7 +6,7 @@
  *
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
- * Version: 1.0.270
+ * Version: 1.0.272
  * Text Domain: colibri-page-builder
  */
 
@@ -64,7 +64,7 @@ if (!defined("COLIBRI_PAGE_BUILDER_AUTOLOAD")) {
 }
 
 if (!defined("COLIBRI_PAGE_BUILDER_VERSION")) {
-	define("COLIBRI_PAGE_BUILDER_VERSION", "1.0.270");
+	define("COLIBRI_PAGE_BUILDER_VERSION", "1.0.272");
 }
 
 require_once 'support/wp-5.8.php';
@@ -76,26 +76,17 @@ add_filter('colibri_page_builder/installed', '__return_true');
 require_once 'extend-builder/extend-builder.php';
 require_once 'recommendations/wpmu.php';
 
-function colibriwp_check_builder_activation_source()
-{
-    $theme = get_template();
-    $option = "${theme}_start-source";
-    $start_source = get_option($option);
+if (!function_exists('colibriwp_check_builder_activation_source')) {
+    function colibriwp_check_builder_activation_source()
+    {
+        $theme = get_template();
+        $option = "${theme}_start-source";
+        $start_source = get_option($option);
 
-    if (!$start_source) {
-        update_option($option, 'manual');
+        if (!$start_source) {
+            update_option($option, 'manual');
+        }
     }
-}
-add_action('colibri_page_builder/activated', 'colibriwp_check_builder_activation_source');
 
-function colibriwp_clear_builder_activation_source()
-{
-    $theme = get_template();
-    $option = "${theme}_start-source";
-    $start_source = get_option($option);
-
-    if ($start_source) {
-        delete_option($option);
-    }
+    add_action('colibri_page_builder/activated', 'colibriwp_check_builder_activation_source');
 }
-add_action('colibri_page_builder/deactivated', 'colibriwp_clear_builder_activation_source');

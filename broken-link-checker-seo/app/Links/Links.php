@@ -135,6 +135,11 @@ class Links {
 			$post = get_post( $post );
 		}
 
+		// Check if we didn't scan this post in the last 3 seconds. This is to prevent a second, subsequent request from scanning the same post.
+		if ( aioseoBrokenLinkChecker()->core->cache->get( 'aioseo_blc_scan_post_' . $post->ID ) ) {
+			return;
+		}
+
 		if ( ! aioseoBrokenLinkChecker()->helpers->isScannablePost( $post ) ) {
 			return;
 		}
@@ -144,6 +149,9 @@ class Links {
 		$aioseoPost                 = Models\Post::getPost( $post->ID );
 		$aioseoPost->link_scan_date = gmdate( 'Y-m-d H:i:s' );
 		$aioseoPost->save();
+
+		// Set a transient to prevent scanning the same post again in the next 3 seconds.
+		aioseoBrokenLinkChecker()->core->cache->update( 'aioseo_blc_scan_post_' . $post->ID, true, 3 );
 	}
 
 	/**

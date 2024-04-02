@@ -91,6 +91,8 @@ if ( !defined( 'ABSPATH' ) ) {
 function cvsetting_tmp_utm1( $campaign = '' ) {
 	return '?utm_source=setting-page&utm_medium=dashboard&utm_campaign=' . $campaign;
 }
+
+$cvsetting_haspro = get_option( 'pt_cv_version_pro' );
 ?>
 
 <div class="cv-admin-settings">
@@ -120,7 +122,7 @@ function cvsetting_tmp_utm1( $campaign = '' ) {
 		</div>
 		<div class="cv-admin-grid-right">
 			<div class="cv-admin-section features-list">
-				<h3 class="cv-hl-text">More Benefits And Values For Your Site</h3>
+				<h3 class="cv-hl-text"><?php echo $cvsetting_haspro ? 'Top Premium Features Available' : 'More Benefits And Values For Your Site'; ?></h3>
 				<ul>
 					<li>
 						<h4>Fully Support Custom Post Type, Custom Taxonomy, Custom Field</h4>
@@ -148,7 +150,9 @@ function cvsetting_tmp_utm1( $campaign = '' ) {
 						<div>Display Google Ads, banners... in post grid easily (<a href="https://contentviewspro.com/demo/show-advertisements-in-layout/<?php echo cvsetting_tmp_utm1('showads'); ?>" target="_blank">read more</a>)</div>
 					</li>
 				</ul>
+				<?php if ( !$cvsetting_haspro ) { ?>
 				<a href="https://www.contentviewspro.com/<?php echo cvsetting_tmp_utm1('upgrade'); ?>" target="_blank" class="btn">Get Pro Now</a>
+				<?php } ?>
 			</div>
 			<div class="cv-admin-section">
 				<h3>Demo</h3>

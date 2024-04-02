@@ -26,10 +26,11 @@ class Options {
 	protected $defaults = [
 		// phpcs:disable WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound
 		'general'  => [
-			'linkTweaks' => [
+			'linkTweaks'           => [
 				'nofollowBroken'    => [ 'type' => 'boolean', 'default' => false ],
 				'limitModifiedDate' => [ 'type' => 'boolean', 'default' => false ]
-			]
+			],
+			'highlightBrokenLinks' => [ 'type' => 'boolean', 'default' => false ]
 		],
 		'advanced' => [
 			'enable'         => [ 'type' => 'boolean', 'default' => false ],

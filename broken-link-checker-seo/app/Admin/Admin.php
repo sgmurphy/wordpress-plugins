@@ -52,6 +52,15 @@ class Admin {
 	public $plugin = '';
 
 	/**
+	 * The list of pages.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @var array
+	 */
+	private $pages = [];
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since 1.0.0
@@ -65,7 +74,7 @@ class Admin {
 		add_action( 'admin_menu', [ $this, 'hideScheduledActionsMenu' ], 999 );
 		add_filter( 'language_attributes', [ $this, 'addDirAttribute' ], 3000 );
 
-		add_filter( 'plugin_row_meta', [ $this, 'registerRowMeta' ], 10, 2 );
+		// add_filter( 'plugin_row_meta', [ $this, 'registerRowMeta' ], 10, 2 );
 		add_filter( 'plugin_action_links_' . AIOSEO_BROKEN_LINK_CHECKER_PLUGIN_BASENAME, [ $this, 'registerActionLinks' ], 10, 2 );
 
 		add_action( 'admin_footer', [ $this, 'addAioseoModalPortal' ] );
@@ -148,6 +157,8 @@ class Admin {
 			[ $this, 'renderMenuPage' ]
 		);
 
+		$this->pages[] = $this->pageSlug . '-seo-settings';
+
 		add_action( "load-{$hook}", [ $this, 'redirectSeoSettings' ] );
 
 		$hook = add_submenu_page(
@@ -158,6 +169,8 @@ class Admin {
 			$this->pageSlug . '-about',
 			[ $this, 'renderMenuPage' ]
 		);
+
+		$this->pages[] = $this->pageSlug . '-about';
 
 		add_action( "load-{$hook}", [ $this, 'checkCurrentPage' ] );
 	}
@@ -205,6 +218,7 @@ class Admin {
 
 			$this->currentPage = $page;
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueueMenuAssets' ], 11 );
+			add_filter( 'admin_footer_text', [ $this, 'addFooterText' ] );
 
 			break;
 		}
@@ -340,7 +354,7 @@ class Admin {
 		if ( $this->plugin === $pluginFile && ! empty( $actionLinks ) ) {
 			foreach ( $actionLinks as $key => $value ) {
 				$link = [
-					$key => '<a href="' . $value['url'] . '">' . $value['label'] . '</a>'
+					$key => '<a href="' . $value['url'] . '" target="_blank">' . $value['label'] . '</a>'
 				];
 
 				$actions = 'after' === $position ? array_merge( $actions, $link ) : array_merge( $link, $actions );
@@ -361,5 +375,78 @@ class Admin {
 		if ( ! function_exists( 'aioseo' ) ) {
 			echo '<div id="aioseo-modal-portal"></div>';
 		}
+	}
+
+	/**
+	 * Checks whether the current page is a Broken Link Checker menu page.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return bool Whether the current page is a Broken Link Checker menu page.
+	 */
+	public function isBlcScreen() {
+		$currentScreen = aioseoBrokenLinkChecker()->helpers->getCurrentScreen();
+		if ( empty( $currentScreen->id ) ) {
+			return false;
+		}
+
+		$adminPages = array_keys( $this->pages );
+		$adminPages = array_map( function( $slug ) {
+			if ( 'aioseo' === $slug ) {
+				return 'toplevel_page_broken-link-checker';
+			}
+
+			return 'broken-link-checker_page_' . $slug;
+		}, $adminPages );
+
+		return in_array( $currentScreen->id, $adminPages, true );
+	}
+
+	/**
+	 * Add footer text to the WordPress admin screens.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return string The footer text.
+	 */
+	public function addFooterText() {
+		$linkText = esc_html__( 'Give us a 5-star rating!', 'aioseo-broken-link-checker' );
+		$href     = 'https://wordpress.org/support/plugin/broken-link-checker-seo/reviews/?filter=5#new-post';
+
+		$link1 = sprintf(
+			'<a href="%1$s" target="_blank" title="%2$s">&#9733;&#9733;&#9733;&#9733;&#9733;</a>',
+			$href,
+			$linkText
+		);
+
+		$link2 = sprintf(
+			'<a href="%1$s" target="_blank" title="%2$s">WordPress.org</a>',
+			$href,
+			$linkText
+		);
+
+		printf(
+			// Translators: 1 - The plugin name ("Broken Link Checker"), - 2 - This placeholder will be replaced with star icons, - 3 - "WordPress.org" - 4 - The plugin name ("Broken Link Checker").
+			esc_html__( 'Please rate %1$s %2$s on %3$s to help us spread the word. Thank you!', 'aioseo-broken-link-checker' ),
+			sprintf( '<strong>%1$s</strong>', esc_html( AIOSEO_BROKEN_LINK_CHECKER_PLUGIN_NAME ) ),
+			wp_kses_post( $link1 ),
+			wp_kses_post( $link2 )
+		);
+
+		// Stop WP Core from outputting its version number and instead add both theirs & ours.
+		global $wp_version;
+		printf(
+			wp_kses_post( '<p class="alignright">%1$s</p>' ),
+			sprintf(
+				// Translators: 1 - WP Core version number, 2 - BLC version number.
+				esc_html__( 'WordPress %1$s | BLC %2$s', 'aioseo-broken-link-checker' ),
+				esc_html( $wp_version ),
+				esc_html( AIOSEO_BROKEN_LINK_CHECKER_VERSION )
+			)
+		);
+
+		remove_filter( 'update_footer', 'core_update_footer' );
+
+		return '';
 	}
 }

@@ -69,7 +69,7 @@ class WRIO_SettingsPage extends WRIO_Page {
 	 *
 	 * @return void
 	 * @since 1.0.0
-	 * @see   Wbcr_FactoryPages473_AdminPage
+	 * @see   Wbcr_FactoryPages474_AdminPage
 	 *
 	 */
 	public function assets( $scripts, $styles ) {

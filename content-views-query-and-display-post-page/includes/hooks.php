@@ -359,11 +359,15 @@ if ( !class_exists( 'PT_CV_Hooks' ) ) {
 			}
 
 			if ( $view_type === 'overlaygrid' ) {
+				$show_thumb = PT_CV_Functions::setting_value( PT_CV_PREFIX . 'show-field-thumbnail' );
 				if ( PT_CV_Functions::setting_value( PT_CV_PREFIX . 'overOnHover' ) && PT_CV_Functions::setting_value( PT_CV_PREFIX . 'overlaid' ) ) {
 					$args[] = PT_CV_PREFIX . 'onhover';
 				}
-				if ( ! PT_CV_Functions::setting_value( PT_CV_PREFIX . 'overlaid' ) ) {
+				if ( ! PT_CV_Functions::setting_value( PT_CV_PREFIX . 'overlaid' ) || ! $show_thumb ) {
 					$args[] = PT_CV_PREFIX . 'nooverlay';
+				}
+				if ( ! $show_thumb ) {
+					$args[] = PT_CV_PREFIX . 'nothumb';
 				}
 				if ( PT_CV_Functions::setting_value( PT_CV_PREFIX . 'overlayClickable' ) ) {
 					$args[] = PT_CV_PREFIX . 'clickable';
@@ -452,6 +456,7 @@ if ( !class_exists( 'PT_CV_Hooks' ) ) {
 
 					$metaWhich	 = PT_CV_Functions::setting_value( PT_CV_PREFIX . "metaWhichOthers" );
 					$meta		 = ContentViews_Block::values_from_block( array( 'tmp1' => $metaWhich ), 'tmp1', array() );
+					$meta		 = apply_filters( PT_CV_PREFIX_ . 'metafield_hybrid', $meta, $metaWhich );
 					foreach ( $meta as $field ) {
 						$args[ 'field-settings' ][ 'meta-fields' ][ $field ] = 'yes';
 					}
@@ -487,7 +492,13 @@ if ( !class_exists( 'PT_CV_Hooks' ) ) {
 			$layout		 = PT_CV_Functions::setting_value( PT_CV_PREFIX . 'whichLayout' );
 			$is_overlay	 = ($view_type === 'overlaygrid');
 			if ( $is_overlay || ($view_type === 'blockgrid' && $layout !== 'layout1') ) {
-				if ( !empty( $args[ 'thumbnail' ] ) ) {
+				// wrap for overlay when not showing image
+				$force_wrap = false;
+				if ( $is_overlay && ! PT_CV_Functions::setting_value( PT_CV_PREFIX . 'show-field-thumbnail' ) ) {
+					$force_wrap = true;
+				}
+
+				if ( !empty( $args[ 'thumbnail' ] ) || $force_wrap ) {
 					$exclude_fields = apply_filters( PT_CV_PREFIX_ . 'overlay_exclude', array( 'thumbnail' ) );
 
 					$others = array();
@@ -662,6 +673,17 @@ if ( !class_exists( 'PT_CV_Hooks' ) ) {
 				$view_version = ltrim( $args[ PT_CV_PREFIX . 'version' ], 'free-' );
 				if ( version_compare( $view_version, '3.0.2', '<=' ) ) {
 					$args[ PT_CV_PREFIX . 'field-excerpt-readmore' ] = 'yes';
+				}
+
+				if ( version_compare( $view_version, '3.6.4', '>' ) ) {
+					if ( empty( $args[ PT_CV_PREFIX . 'defaultImg' ] ) ) {
+						$args[ PT_CV_PREFIX . 'field-thumbnail-nodefault' ] = 'yes';
+					}
+				} else {
+					// show default image for new layouts as previous versions
+					if ( in_array( $args[ PT_CV_PREFIX . 'view-type' ], [ 'grid1', 'list1', 'overlay1' ] ) ) {
+						$args[ PT_CV_PREFIX . 'defaultImg' ] = 'yes';
+					}
 				}
 			}
 

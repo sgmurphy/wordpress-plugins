@@ -3,7 +3,7 @@ Contributors: embedplus
 Plugin Name: YouTube WordPress Plugin by Embed Plus
 Tags: youtube gallery, youtube wordpress plugin, channel gallery, playlist gallery, defer css javascript, youtube channel, youtube live stream, lazy load, facade
 Requires at least: 4.5
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 14.2.1
 License: GPLv3 or later
 

@@ -269,6 +269,7 @@ html {
 /*** Fields settings ***/
 .pt-cv-field-setting {
     margin-left: 0 !important;
+    margin-top: 15px;
 }
 
 .pt-cv-content-setting {
@@ -337,6 +338,7 @@ div.pt-cv-topmeta-enable label {font-weight: normal !important}
 .pt-wrap .alert {text-align: center}
 p.cvgopro {color: #888; /*background: #fffdf0;*/}
 .cvgopro a {text-decoration: underline;}
+#pt-cv-preview-box .cvgopro {font-size: 16px; color: #111;}
 .control-label:empty ~ .pt-params .text-muted:first-child {margin-top: -3px;}
 .upgrade-notice {padding-top: 7px;}
 
@@ -560,4 +562,14 @@ p.cvgopro {color: #888; /*background: #fffdf0;*/}
 /* Hide Templates tab in Add/Edit View page */
 #cv-library-toview #contentviews-popup-content .cvb-popup-tag > div:nth-child(2) {
 	display: none !important;
+}
+
+/* Extra */
+.pt-cv-heading-settings {
+	margin-top: 15px;
+	margin-bottom: 15px !important;
+}
+
+.pt-cv-thumbnail-setting {
+	padding-bottom: 15px;
 }

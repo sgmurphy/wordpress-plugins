@@ -43,6 +43,7 @@ if ( !class_exists( 'PT_CV_BlockToView' ) ) {
 			add_filter( PT_CV_PREFIX_ . 'thumbnail_position_extra', array( 'PT_CV_Settings', 'thumbnail_position_extra_settings' ) );
 			add_filter( PT_CV_PREFIX_ . 'layout_format_depend', array( __CLASS__, 'filter_layout_format_depend' ) );
 			add_filter( PT_CV_PREFIX_ . 'ppp_settings', array( 'PT_CV_Settings', 'ppp_settings' ) );
+			add_filter( PT_CV_PREFIX_ . 'heading_settings', array( 'PT_CV_Settings', 'headingtext_settings' ) );
 
 			add_filter( PT_CV_PREFIX_ . 'dargs_hybrid', array( __CLASS__, 'filter_dargs_hybrid' ) );
 			add_filter( PT_CV_PREFIX_ . 'field_href_class', array( __CLASS__, 'filter_field_href_class' ), 9, 2 );
@@ -78,7 +79,7 @@ if ( !class_exists( 'PT_CV_BlockToView' ) ) {
 			$layout = isset( $GLOBALS[ 'cv_blockname_origin' ] ) ? $GLOBALS[ 'cv_blockname_origin' ] : '';
 			if ( $layout && PT_CV_Values::isprlayout( $layout ) ) {
 				$url = esc_url( 'https://www.contentviewspro.com/?utm_source=client&utm_medium=preview&utm_campaign=proLayout&utm_content=' . $layout );
-				$css = '<style>#pt-cv-preview-box .pt-cv-view {margin: 0 !important} .pt-cv-pagination-wrapper {display: none !important}</style>';
+				$css = '<style>#pt-cv-preview-box .pt-cv-view {margin: 0 !important} .pt-cv-pagination-wrapper, .pt-cv-heading-container, .pt-cv-no-post {display: none !important}</style>';
 				printf( '<p class="cvgopro">To access this PRO layout, please %s upgrade now %s</p>%s', '<a href="' . $url . '" onclick="window.open(\'' . $url . '\')">', '</a>', $css );
 			}
 		}
@@ -162,7 +163,7 @@ if ( !class_exists( 'PT_CV_BlockToView' ) ) {
 			
 				$showf1		 = [ 'show-field-thumbnail', 'show-field-taxoterm', 'show-field-title', 'show-field-content', 'show-field-readmore', 'show-field-meta-fields', 'show-field-custom-fields', 'show-field-wooprice', 'show-field-wooatc' ];
 				$showf2		 = [ 'show-field-taxoterm-Others', 'show-field-content-Others', 'show-field-readmore-Others', 'show-field-meta-fields-Others', ];
-				$showf3		 = [ 'meta-fields-date', 'meta-fields-author', 'meta-fields-taxonomy', 'meta-fields-comment', 'showHeading' ];
+				$showf3		 = [ 'meta-fields-date', 'meta-fields-author', 'meta-fields-taxonomy', 'meta-fields-comment', 'showHeading', 'headingHide', 'defaultImg', 'metaWhichOthers' ];
 				$show_fields = array_merge( $showf1, $showf2, $showf3 );
 				if ( !$importing ) {
 					foreach ( $show_fields as $field ) {
@@ -237,7 +238,7 @@ if ( !class_exists( 'PT_CV_BlockToView' ) ) {
 				// correct view type, for import/output
 				if ( $importing ) {
 					// view type in View UI = blockName in Block
-					$args[ PT_CV_PREFIX . 'view-type' ] = $block_name;
+					$args[ PT_CV_PREFIX . 'view-type' ] = PT_CV_Values::imported_layout( $block_name );
 				} else if ( !defined( 'PT_CV_VIEW_PAGE' ) ) {
 					// view type in shortcode output = viewType in Block
 					$args[ PT_CV_PREFIX . 'view-type' ] = $default_atts[ 'viewType' ];
@@ -423,15 +424,6 @@ if ( !class_exists( 'PT_CV_BlockToView' ) ) {
 						$args[ 'fields' ][]									 = 'content';
 						$args[ 'field-settings' ][ 'content' ][ 'show' ]	 = 'excerpt';
 						$args[ 'field-settings' ][ 'content' ][ 'length' ]	 = '0';
-					}
-				}
-
-				// modify meta fields of other posts
-				if ( isset( $args[ 'field-settings' ][ 'meta-fields' ] ) ) {
-					foreach ( $args[ 'field-settings' ][ 'meta-fields' ] as $field => $val ) {
-						if ( !PT_CV_Functions::setting_value( PT_CV_PREFIX . 'meta-fields-' . $field ) ) {
-							unset( $args[ 'field-settings' ][ 'meta-fields' ] [ $field ] );
-						}
 					}
 				}
 			}

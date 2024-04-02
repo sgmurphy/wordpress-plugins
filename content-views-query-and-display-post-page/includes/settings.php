@@ -252,6 +252,34 @@ if ( !class_exists( 'PT_CV_Settings' ) ) {
 						),
 					),
 				),
+
+				array(
+					'label'	 => array(
+						'text' => __( 'When no posts found', 'content-views-query-and-display-post-page' ),
+					),
+					'params' => array(
+						array(
+							'type'		 => 'radio',
+							'name'		 => 'noPostFound',
+							'options'	 => PT_CV_Values::nopost_options(),
+							'std'		 => '',
+						),
+					),
+				),
+				array(
+					'label'		 => array(
+						'text' => '',
+					),
+					'params'	 => array(
+						array(
+							'type'	 => 'text',
+							'name'	 => 'noPostText',
+							'std'	 => '',
+							'desc'	 => __( 'Enter your text here. Leave empty to hide it', 'content-views-query-and-display-post-page' ),
+						),
+					),
+					'dependence' => array( 'noPostFound', 'changetext' ),
+				)
 			);
 
 			$result = apply_filters( PT_CV_PREFIX_ . 'settings_other', $result, $prefix );
@@ -366,6 +394,7 @@ if ( !class_exists( 'PT_CV_Settings' ) ) {
 						array(
 							'type'	 => 'group',
 							'params' => array(
+								apply_filters( PT_CV_PREFIX_ . 'full_content_notice', [], $prefix ),
 								array(
 									'label'			 => array(
 										'text' => '',
@@ -1085,7 +1114,7 @@ if ( !class_exists( 'PT_CV_Settings' ) ) {
 				'params'		 => array(
 					array(
 						'type'		 => 'html',
-						'content'	 => sprintf( '<p><strong>%s</strong>.</p>', sprintf( __( 'This layout requires PRO version %s or higher', 'content-views-query-and-display-post-page' ), $require_pro ) ),
+						'content'	 => sprintf( '<p class="alert alert-danger" style="display: inline-block"><strong>%s</strong>.</p>', sprintf( __( 'This layout requires PRO version %s or higher', 'content-views-query-and-display-post-page' ), $require_pro ) ),
 					),
 				),
 			) : [];
@@ -1426,7 +1455,6 @@ if ( !class_exists( 'PT_CV_Settings' ) ) {
 										'std'		 => 'above_title',
 									),
 								),
-								'dependence' => array( 'view-type', 'collapsible', '!=' ),
 							),
 							PT_CV_Settings::others_settings( 'show-field-taxoterm-Others', __( 'For Other Posts', 'content-views-pro' ) ),
 						),
@@ -1497,7 +1525,8 @@ if ( !class_exists( 'PT_CV_Settings' ) ) {
 					array(
 						'type'	 => 'group',
 						'params' => array(
-							PT_CV_Settings::others_settings( 'show-field-meta-fields-Others', __( 'For Other Posts', 'content-views-pro' ) )
+							PT_CV_Settings::others_settings( 'show-field-meta-fields-Others', __( 'For Other Posts', 'content-views-pro' ) ),
+							apply_filters( PT_CV_PREFIX_ . 'metafield_extra_settings_2', [] )
 						),
 					),
 				),
@@ -1627,6 +1656,20 @@ if ( !class_exists( 'PT_CV_Settings' ) ) {
 					),
 				);
 				$args[]	 = PT_CV_Settings::get_cvpro( 'lazyImg', __( 'Defer loading of images until they are needed, to improve page load time', 'content-views-query-and-display-post-page' ) );
+
+				$args[] = array(
+					'label'	 => array(
+						'text' => __( 'Default image' ),
+					),
+					'params' => array(
+						array(
+							'type'		 => 'checkbox',
+							'name'		 => 'defaultImg',
+							'options'	 => PT_CV_Values::yes_no( 'yes', __( 'Show the default image if no thumbnail found', 'content-views-query-and-display-post-page' ) ),
+							'std'		 => 'yes',
+						),
+					),
+				);
 			}
 
 			return $args;
@@ -1680,6 +1723,104 @@ if ( !class_exists( 'PT_CV_Settings' ) ) {
 			);
 
 			return $args;
+		}
+
+		static function headingtext_settings() {
+
+			$depend_on = array( 'showHeading', 'yes' );
+
+			return array(
+				'label'			 => array(
+					'text' => __( 'Heading text', 'content-views-query-and-display-post-page' ),
+				),
+				'extra_setting'	 => array(
+					'params' => array(
+						'wrap-class' => PT_CV_Html::html_group_class(),
+						'group-class'=> PT_CV_PREFIX . 'heading-settings',
+					),
+				),
+				'params'		 => array(
+					array(
+						'type'	 => 'group',
+						'params' => array(
+							array(
+								'label'			 => array(
+									'text' => '',
+								),
+								'extra_setting'	 => array(
+									'params' => array(
+										'width' => 12,
+									),
+								),
+								'params'		 => array(
+									array(
+										'type'		 => 'checkbox',
+										'name'		 => 'showHeading',
+										'options'	 => PT_CV_Values::yes_no( 'yes', __( 'Enable' ) ),
+										'std'		 => '',
+										'desc'		 => __( 'Show custom text above the posts', 'content-views-query-and-display-post-page' ),
+									),
+								),
+							),
+							array(
+								'label'	 => array(
+									'text' => __( 'Text', 'content-views-query-and-display-post-page' ),
+								),
+								'params' => array(
+									array(
+										'type'	 => 'text',
+										'name'	 => 'headingText',
+										'std'	 => __( 'Heading here', 'content-views-query-and-display-post-page' ),
+									),
+								),
+								'dependence' => $depend_on,
+							),
+							array(
+								'label'		 => array(
+									'text' => __( 'Style', 'content-views-query-and-display-post-page' ),
+								),
+								'params'	 => array(
+									array(
+										'type'		 => 'select',
+										'name'		 => 'headingStyle',
+										'options'	 => ContentViews_Block_Common::headingtext_styles(),
+										'std'		 => '',
+									),
+								),
+								'dependence' => $depend_on,
+							),
+							array(
+								'label'		 => array(
+									'text' => __( 'HTML tag', 'content-views-query-and-display-post-page' ),
+								),
+								'params'	 => array(
+									array(
+										'type'		 => 'select',
+										'name'		 => 'headingTag',
+										'options'	 => PT_CV_Values::title_tag(),
+										'std'		 => '',
+									),
+								),
+								'dependence' => $depend_on,
+							),
+							array(
+								'label'			 => array(
+									'text' => __( 'Visibility', 'content-views-query-and-display-post-page' ),
+								),
+								'params'		 => array(
+									array(
+										'type'		 => 'checkbox',
+										'name'		 => 'headingHide',
+										'options'	 => PT_CV_Values::yes_no( 'yes', __( 'Hide when no posts found', 'content-views-query-and-display-post-page' ) ),
+										'std'		 => 'yes',
+									),
+								),
+								'dependence' => $depend_on,
+							)
+						),
+					),
+				),
+			);
 		}
 
 	}

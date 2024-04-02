@@ -112,6 +112,25 @@ class LinkStatus extends Model {
 	}
 
 	/**
+	 * Returns all broken links for a given post ID.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param int    $postId The post ID.
+	 * @return array         The list of broken links.
+	 */
+	public static function getBrokenByPostId( $postId ) {
+		$query = aioseoBrokenLinkChecker()->core->db->start( 'aioseo_blc_link_status as als' )
+			->join( 'aioseo_blc_links as al', 'als.id = al.blc_link_status_id' )
+			->where( 'al.post_id', $postId )
+			->where( 'als.broken', true )
+			->where( 'als.dismissed', false );
+
+		return $query->run()
+			->result();
+	}
+
+	/**
 	 * Returns link status row results based on the given arguments.
 	 * This is basically a wrapper/query builder that we use to fetch all the data we need for the Broken Links Report.
 	 *

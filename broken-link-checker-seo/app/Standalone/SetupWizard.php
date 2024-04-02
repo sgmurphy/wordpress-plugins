@@ -172,7 +172,7 @@ class SetupWizard {
 	}
 
 	/**
-	 * Outputs the content of the current step.
+	 * Outputs the div to mount on.
 	 *
 	 * @since 1.0.0
 	 *

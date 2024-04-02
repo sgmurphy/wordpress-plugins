@@ -14,7 +14,11 @@ class OptimizerWebPageValidations
 
     public function allowed_request_method()
     {
-        return in_array(strtoupper($_SERVER['REQUEST_METHOD']), ['GET', 'HEAD']); // phpcs:ignore
+        if (isset($_SERVER['REQUEST_METHOD'])) {
+            return in_array(strtoupper($_SERVER['REQUEST_METHOD']), ['GET', 'HEAD']);
+        }
+
+        return false;
     }
 
     /**

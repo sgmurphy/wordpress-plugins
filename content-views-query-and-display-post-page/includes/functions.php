@@ -484,7 +484,7 @@ if ( !class_exists( 'PT_CV_Functions' ) ) {
 			$taxonomy_terms		 = array();
 			$post_terms			 = array();
 			$taxonomies			 = $taxo ? (array) $taxo : get_taxonomies( array( 'public' => true ), 'names' );
-			$taxonomies_to_show	 = apply_filters( PT_CV_PREFIX_ . 'taxonomies_to_show', $taxonomies );
+			$taxonomies_to_show	 = $taxo ? $taxonomies : apply_filters( PT_CV_PREFIX_ . 'taxonomies_to_show', $taxonomies );
 			$post_id			 = is_object( $post ) ? $post->ID : $post;
 			$terms				 = wp_get_object_terms( $post_id, $taxonomies );
 
@@ -779,9 +779,9 @@ if ( !class_exists( 'PT_CV_Functions' ) ) {
 
 				do_action( PT_CV_PREFIX_ . 'after_process_item' );
 			} else {
-				$_class			 = apply_filters( PT_CV_PREFIX_ . 'content_no_post_found_class', 'alert alert-warning ' . PT_CV_PREFIX . 'no-post' );
-				$_text			 = PT_CV_Html::no_post_found();
-				$content_items[] = sprintf( '<div class="%s">%s</div>', esc_attr( $_class ), $_text );
+				$_class			 = apply_filters( PT_CV_PREFIX_ . 'content_no_post_found_class', PT_CV_PREFIX . 'no-post' );
+				$_text			 = PT_CV_Functions::setting_value( PT_CV_PREFIX . 'noPostFound' ) ? trim( PT_CV_Functions::setting_value( PT_CV_PREFIX . 'noPostText' ) ) : PT_CV_Html::no_post_found();
+				$content_items[] = sprintf( '<div class="%s">%s</div>', esc_attr( $_class ), wp_kses_post( $_text ) );
 				$empty_result	 = true;
 				PT_CV_Functions::set_global_variable( 'no_post_found', $empty_result );
 			}

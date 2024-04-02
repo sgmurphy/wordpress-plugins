@@ -4,13 +4,13 @@
  * Plugin URI: https://robinoptimizer.com
  * Description: Optimize images without losing quality, speed up your website load, improve SEO and save money on server and CDN bandwidth.
  * Author: Creative Motion <info@cm-wp.com>
- * Version: 1.6.7
+ * Version: 1.6.9
  * Text Domain: robin-image-optimizer
  * Domain Path: /languages/
  * Author URI: https://cm-wp.com
- * Framework Version: FACTORY_473_VERSION
- * Requires at least: 4.8
- * Requires PHP: 7.0
+ * Framework Version: FACTORY_474_VERSION
+ * Requires at least: 5.6
+ * Requires PHP: 7.4
  */
 
 // Exit if accessed directly
@@ -87,19 +87,19 @@ $plugin_info = [
 
 	// FRAMEWORK MODULES
 	'load_factory_modules' => [
-		['libs/factory/bootstrap', 'factory_bootstrap_475', 'admin'],
-		['libs/factory/forms', 'factory_forms_469', 'admin'],
-		['libs/factory/pages', 'factory_pages_473', 'admin'],
-		['libs/factory/templates', 'factory_templates_126', 'all'],
-		['libs/factory/logger', 'factory_logger_138', 'all'],
-		['libs/factory/freemius', 'factory_freemius_163', 'all'],
-		['libs/factory/adverts', 'factory_adverts_151', 'admin'],
+		['libs/factory/bootstrap', 'factory_bootstrap_476', 'admin'],
+		['libs/factory/forms', 'factory_forms_474', 'admin'],
+		['libs/factory/pages', 'factory_pages_474', 'admin'],
+		['libs/factory/templates', 'factory_templates_127', 'all'],
+		['libs/factory/logger', 'factory_logger_140', 'all'],
+		['libs/factory/freemius', 'factory_freemius_164', 'all'],
+		['libs/factory/adverts', 'factory_adverts_152', 'admin'],
 		['libs/factory/feedback', 'factory_feedback_127', 'admin'],
 		['libs/factory/processing', 'factory_processing_109', 'all'],
 	],
 ];
 
-$wrio_compatibility = new Wbcr_Factory473_Requirements(__FILE__, array_merge($plugin_info, [
+$wrio_compatibility = new Wbcr_Factory474_Requirements(__FILE__, array_merge($plugin_info, [
 	'plugin_already_activate' => defined('WRIO_PLUGIN_ACTIVE'),
 	'required_php_version' => '7.0',
 	'required_wp_version' => '4.8.0',

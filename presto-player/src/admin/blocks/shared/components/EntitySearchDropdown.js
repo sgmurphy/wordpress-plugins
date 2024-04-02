@@ -4,6 +4,7 @@ import {
   MenuGroup,
   MenuItem,
   Dropdown,
+  Disabled,
 } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 import { SearchControl } from "@wordpress/components";
@@ -23,18 +24,6 @@ const EntitySearchDropdown = ({
 }) => {
   const renderContent = () => {
     if (isLoading && !options.length) return <Spinner />;
-
-    if (!options.length)
-      return (
-        <p
-          css={css`
-            margin-left: 0.5em;
-          `}
-        >
-          {__("None found.", "presto-player")}
-        </p>
-      );
-
     return (
       <>
         {!!onCreate && (
@@ -60,22 +49,27 @@ const EntitySearchDropdown = ({
           </MenuGroup>
         )}
 
-        <MenuGroup>
-          {(options || []).map((item) => {
-            if (renderItem) return renderItem({ item, onSelect });
-            return (
-              <MenuItem
-                icon={item?.icon}
-                iconPosition="left"
-                onClick={() => onSelect(item)}
-                {...item}
-              >
-                {item?.title?.raw || "Untitled"}
-              </MenuItem>
-            );
-          })}
-        </MenuGroup>
-
+        {!options.length && search ? (
+          <Disabled>
+            <MenuItem>{__("None found.", "presto-player")}</MenuItem>
+          </Disabled>
+        ) : (
+          <MenuGroup>
+            {(options || []).map((item) => {
+              if (renderItem) return renderItem({ item, onSelect });
+              return (
+                <MenuItem
+                  icon={item?.icon}
+                  iconPosition="left"
+                  onClick={() => onSelect(item)}
+                  {...item}
+                >
+                  {item?.title?.raw || "Untitled"}
+                </MenuItem>
+              );
+            })}
+          </MenuGroup>
+        )}
         {hasMore && options.length && (
           <div
             css={css`

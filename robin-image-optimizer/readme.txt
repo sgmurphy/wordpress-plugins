@@ -1,9 +1,9 @@
 === Robin image optimizer — save money on image compression  ===
 Tags: image, optimizer, image optimization, resmush.it, smush, jpg, png, gif, optimization, compression, Compress, Images, Pictures, Reduce Image Size
 Contributors: webcraftic, creativemotion
-Requires at least: 4.8
-Tested up to: 6.4
-Requires PHP: 7.0
+Requires at least: 5.6
+Tested up to: 6.5
+Requires PHP: 7.3
 Stable tag: trunk
 License: GPLv2
 
@@ -112,9 +112,6 @@ Robin image optimizer PRO has full integration with NextGen Gallery, which helps
 4. Media library
 
 == Changelog ==
-= 1.6.7 (13.02.2024) =
-* Added: Compatibility with wpml
-
 = 1.6.6 (23.11.2023) =
 * WordPress 6.4 Compatibility
 * Added: Compatibility with php 8.2

@@ -85,6 +85,9 @@ trait Vue {
 			case 'about':
 				$this->addAboutData();
 				break;
+			case 'highlighter':
+				$this->addHighlighterData();
+				break;
 			case 'links':
 				$this->addBrokenLinksReportData();
 				break;
@@ -110,6 +113,21 @@ trait Vue {
 	 */
 	private function addAboutData() {
 		$this->vueData['plugins'] = $this->getPluginData();
+	}
+
+	/**
+	 * Adds the data for the Highlighter screen.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return void
+	 */
+	private function addHighlighterData() {
+		if ( is_admin() || ! is_single() ) {
+			return;
+		}
+
+		$this->vueData['brokenLinks'] = Models\LinkStatus::getBrokenByPostId( get_the_ID() );
 	}
 
 	/**
@@ -144,11 +162,20 @@ trait Vue {
 		$limit = aioseoBrokenLinkChecker()->vueSettings->tablePagination['brokenLinks'];
 
 		$this->vueData += [
+			'linkStatuses' => $this->getLinkStatusesData( $limit ),
+			'plugins'      => [
+				'isAioseoActive'          => function_exists( 'aioseo' ),
+				'isAioseoRedirectsActive' => function_exists( 'aioseoRedirects' )
+			],
 			'postTypes'    => $this->getPublicPostTypes( false, false, true ),
 			'postStatuses' => $this->getPublicPostStatuses(),
+			'scans'        => [
+				'percentages' => [
+					'links'        => aioseoBrokenLinkChecker()->main->links->data->getScanPercentage(),
+					'linkStatuses' => aioseoBrokenLinkChecker()->main->linkStatus->data->getScanPercentage()
+				]
+			]
 		];
-
-		$this->vueData['linkStatuses'] = $this->getLinkStatusesData( $limit );
 	}
 
 	/**

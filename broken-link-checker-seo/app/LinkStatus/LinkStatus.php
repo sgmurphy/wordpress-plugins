@@ -189,7 +189,7 @@ class LinkStatus {
 		$responseBody = json_decode( wp_remote_retrieve_body( $response ) );
 		if ( is_wp_error( $response ) && 200 !== $responseCode || empty( $responseBody->success ) ) {
 			// If the scan data cannot be found on the server, wipe the scan ID so the scan restarts.
-			if ( ! empty( $responseBody->message ) && ! empty( $responseBody->error ) && 'missing-scan-data' === strtolower( $responseBody->error ) ) {
+			if ( ! empty( $responseBody->error ) && 'missing-scan-data' === strtolower( $responseBody->error ) ) {
 				aioseoBrokenLinkChecker()->internalOptions->internal->scanId = '';
 			}
 

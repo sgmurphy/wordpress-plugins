@@ -23,7 +23,7 @@ abstract class CommonTableActions {
 	 * @return \WP_REST_Response          The response.
 	 */
 	public static function unlink( $request ) {
-		$body   = $request->get_json_params();
+		$body         = $request->get_json_params();
 		$linkStatusId = ! empty( $body['linkStatusId'] ) ? intval( $body['linkStatusId'] ) : null;
 		$linkId       = ! empty( $body['linkId'] ) ? intval( $body['linkId'] ) : null;
 		if ( empty( $linkStatusId ) && empty( $linkId ) ) {

@@ -162,7 +162,7 @@ class Easy_Accordion_Free_Admin {
 	 * @return void
 	 */
 	public function sp_ea_redirect_after_activation( $file ) {
-		if ( SP_EA_BASENAME === $file && ! ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+		if ( SP_EA_BASENAME === $file && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) && ! ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 			exit( esc_url( wp_safe_redirect( admin_url( 'edit.php?post_type=sp_easy_accordion&page=eap_help' ) ) ) );
 		}
 	}

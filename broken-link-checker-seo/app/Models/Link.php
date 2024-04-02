@@ -201,7 +201,7 @@ class Link extends Model {
 	 */
 	public static function rowQuery( $linkStatusId, $limit = 5, $offset = 0, $whereClause = '' ) {
 		$linkRows = self::baseQuery( $linkStatusId, $whereClause )
-			->select( 'al.id, al.post_id, al.external, al.anchor, al.phrase' )
+			->select( 'al.id, al.post_id, p.post_type, al.external, al.anchor, al.phrase' )
 			->limit( $limit, $offset )
 			->run()
 			->result();
@@ -215,7 +215,8 @@ class Link extends Model {
 			$linkRow->context = [
 				'permalink' => get_permalink( $linkRow->post_id ),
 				'postTitle' => aioseoBrokenLinkChecker()->helpers->getPostTitle( $linkRow->post_id ),
-				'editLink'  => get_edit_post_link( $linkRow->post_id, '' )
+				'editLink'  => get_edit_post_link( $linkRow->post_id, '' ),
+				'postType'  => $linkRow->post_type
 			];
 
 			$rowsWithData[] = $linkRow;
@@ -250,12 +251,33 @@ class Link extends Model {
 	 * @return Database               The query.
 	 */
 	public static function baseQuery( $linkStatusId, $whereClause = '' ) {
+		$includedPostTypes    = aioseoBrokenLinkChecker()->helpers->getIncludedPostTypes();
+		$includedPostStatuses = aioseoBrokenLinkChecker()->helpers->getIncludedPostStatuses();
+		$excludedPostIds      = aioseoBrokenLinkChecker()->helpers->getExcludedPostIds();
+		$excludedDomains      = aioseoBrokenLinkChecker()->helpers->getExcludedDomains();
+
 		$query = aioseoBrokenLinkChecker()->core->db->start( 'aioseo_blc_links as al' )
 			->join( 'posts as p', 'p.ID = al.post_id', 'RIGHT' )
 			->where( 'al.blc_link_status_id', $linkStatusId );
 
 		if ( ! empty( $whereClause ) ) {
 			$query->whereRaw( $whereClause );
+		}
+
+		if ( ! empty( $includedPostStatuses ) ) {
+			$query->whereIn( 'p.post_status', $includedPostStatuses );
+		}
+
+		if ( ! empty( $includedPostTypes ) ) {
+			$query->whereIn( 'p.post_type', $includedPostTypes );
+		}
+
+		if ( ! empty( $excludedPostIds ) ) {
+			$query->whereNotIn( 'p.ID', $excludedPostIds );
+		}
+
+		if ( ! empty( $excludedDomains ) ) {
+			$query->whereNotIn( 'al.hostname', $excludedDomains );
 		}
 
 		$excludedDomains = aioseoBrokenLinkChecker()->helpers->getExcludedDomains();

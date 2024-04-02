@@ -594,7 +594,7 @@ class OptimizerUtils
         // phpcs:ignore Squiz.PHP.CommentedOutCode.Found
         //    $imgid = attachment_url_to_postid($url); // phpcs:ignore
         $wp_uploads = wp_upload_dir();
-        $attachment_id = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_wp_attached_file' AND meta_value = %s", str_replace($wp_uploads['baseurl'] . '/', '', $url))); // phpcs:ignore
+        $attachment_id = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_wp_attached_file' AND meta_value = %s LIMIT 1", str_replace($wp_uploads['baseurl'] . '/', '', $url))); // phpcs:ignore
 
         return $attachment_id;
     }
@@ -1022,7 +1022,7 @@ class OptimizerUtils
         $rest_url = wp_parse_url(trailingslashit(rest_url()));
         $current_url = wp_parse_url(add_query_arg([]));
 
-        return strpos($current_url['path'], $rest_url['path'], 0) === 0;
+        return isset($current_url['path']) && strpos($current_url['path'], $rest_url['path'], 0) === 0;
     }
 
     /**

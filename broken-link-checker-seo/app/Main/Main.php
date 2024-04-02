@@ -1,6 +1,7 @@
 <?php
 namespace AIOSEO\BrokenLinkChecker\Main;
 
+use AIOSEO\BrokenLinkChecker\Highlighter;
 use AIOSEO\BrokenLinkChecker\Links;
 use AIOSEO\BrokenLinkChecker\LinkStatus;
 use AIOSEO\BrokenLinkChecker\Models;

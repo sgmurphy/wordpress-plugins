@@ -43,8 +43,9 @@ class Updates {
 			aioseoBrokenLinkChecker()->internalOptions->internal->minimumLinkScanDate = date( 'Y-m-d H:i:s', time() );
 		}
 
-		if ( version_compare( $lastActiveVersion, '4.4.2', '<' ) ) {
-			$this->dropInvalidLinks();
+		if ( version_compare( $lastActiveVersion, '1.2.0', '<' ) ) {
+			$this->dropInvalidMediaLinks();
+			$this->dropLinksWithInvalidHash();
 		}
 	}
 
@@ -193,7 +194,7 @@ class Updates {
 	 *
 	 * @return void
 	 */
-	private function dropInvalidLinks() {
+	private function dropInvalidMediaLinks() {
 		$tableName = aioseoBrokenLinkChecker()->core->db->prefix . 'aioseo_blc_links';
 
 		aioseoBrokenLinkChecker()->core->db->execute(
@@ -204,6 +205,31 @@ class Updates {
 
 		aioseoBrokenLinkChecker()->core->db->execute(
 			"DELETE FROM {$tableName} WHERE url LIKE 'mailto:%' OR url LIKE 'tel:%'"
+		);
+	}
+
+	/**
+	 * Removes all links with percentage signs from the database as these had invalid hashes.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return void
+	 */
+	private function dropLinksWithInvalidHash() {
+		$blcPosts = aioseoBrokenLinkChecker()->core->db->prefix . 'aioseo_blc_posts';
+		$blcLinks = aioseoBrokenLinkChecker()->core->db->prefix . 'aioseo_blc_links';
+
+		aioseoBrokenLinkChecker()->core->db->execute(
+			"UPDATE {$blcPosts} SET link_scan_date = NULL
+			WHERE post_id IN (
+				SELECT post_id FROM {$blcLinks} WHERE url LIKE '%\\%%'
+			)"
+		);
+
+		$blcLinkStatus = aioseoBrokenLinkChecker()->core->db->prefix . 'aioseo_blc_link_status';
+
+		aioseoBrokenLinkChecker()->core->db->execute(
+			"DELETE FROM {$blcLinkStatus} WHERE url LIKE '%\\%%'"
 		);
 	}
 }

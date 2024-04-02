@@ -24,15 +24,6 @@ class Data {
 	private $ignoredExtensions = [];
 
 	/**
-	 * The parsed URL.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var string
-	 */
-	private $parsedUrl = '';
-
-	/**
 	 * Class constructor.
 	 *
 	 * @since 1.0.0
@@ -88,7 +79,7 @@ class Data {
 				continue;
 			}
 
-			$urls[ sha1( $data['url'] ) ] = $data['url'];
+			$urls[ $data['url_hash'] ] = $data['url'];
 
 			$blcLinkStatusId = '%d';
 			if ( empty( $data['blc_link_status_id'] ) ) {
@@ -189,7 +180,7 @@ class Data {
 
 			if (
 				! empty( $parsedUrl['path'] ) &&
-				preg_match( '/\.(.*?)$/i', ! empty( $parsedUrl['path'] ), $extension ) &&
+				preg_match( '/\.(.*?)$/i', $parsedUrl['path'], $extension ) &&
 				! empty( $extension[1] ) &&
 				in_array( $extension[1], $this->ignoredExtensions, true )
 			) {
@@ -224,6 +215,9 @@ class Data {
 
 			// Reformat the URL to get rid of params and fragments.
 			$url = $this->geturlWithoutParamsAndFragment( $parsedUrl );
+
+			// We need to escape it here so the hash is calculated based on the escaped version.
+			$url = esc_url( $url );
 
 			$linkData = [
 				'post_id'            => (int) $postId,
@@ -405,7 +399,7 @@ class Data {
 			return 100;
 		}
 
-		return floor( 100 - ( ( $postsToScan / $totalScannablePosts ) * 100 ) );
+		return ceil( 100 - ( ( $postsToScan / $totalScannablePosts ) * 100 ) );
 	}
 
 	/**

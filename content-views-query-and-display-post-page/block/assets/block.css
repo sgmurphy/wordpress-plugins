@@ -168,6 +168,7 @@
 	overflow-y: auto;
 	background: #fff;
 	padding: 0 30px;
+	font-size: 14px;
 }
 
 .cvb-close-btn1 {
@@ -314,6 +315,7 @@
 .cvb-popup-filter li {
 	text-transform: capitalize;
 	padding: 5px 10px;
+	margin-bottom: 5px;
 }
 
 .contentviews-popup-import.importing {
@@ -471,8 +473,8 @@
     white-space: pre-wrap;
 }
 
-.cvb-mb8 {
-	margin-bottom: 8px;
+.contentviews-panelbody .cvb-mb8 {
+	margin-bottom: 8px !important;
 }
 
 /* Fix: Sort > Custom Field > Field dropdown shows under Author */
@@ -597,6 +599,10 @@
 .cvb-responsive-buttons .dashicon {
 	font-size: 16px;
 	height: 16px;
+}
+
+.cvp-typo .dashicon {
+	font-size: 23px;
 }
 
 .cvb-units {
@@ -873,4 +879,13 @@ option:disabled {
 
 .cv-toolbar-btn svg {
 	fill: #ff6a6f;
+}
+
+/* For output in editor only */
+.cv-npf {
+	grid-template-columns: auto !important;
+}
+.cv-npf .pt-cv-no-post:empty:after {
+	content: "(Visible to admin only - you set empty text when no posts found)";
+	color: #888;
 }

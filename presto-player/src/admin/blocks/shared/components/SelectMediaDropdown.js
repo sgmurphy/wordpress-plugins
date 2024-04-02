@@ -20,15 +20,9 @@ const SelectMediaDropdown = ({ onSelect, value, ...props }) => {
   const { createErrorNotice } = useDispatch(noticesStore);
   const { receiveEntityRecords } = useDispatch(coreStore);
 
-  // handle the selection of a video.
-  const handleSelection = async (video) => {
-    if (!video?.id) return;
-    const item = await select(coreStore).getEntityRecord(
-      "postType",
-      "pp_video_block",
-      video?.id
-    );
-    onSelect(item);
+  const handleSelection = (video) => {
+    if (!video) return;
+    onSelect(video);
   };
 
   // debounce the search.

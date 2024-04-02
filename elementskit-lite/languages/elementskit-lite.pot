@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the ElementsKit Lite package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ElementsKit Lite 3.0.7\n"
+"Project-Id-Version: ElementsKit Lite 3.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/elementskit-lite\n"
-"POT-Creation-Date: 2024-03-19 06:57:26+00:00\n"
+"POT-Creation-Date: 2024-03-31 10:06:43+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -57,11 +57,11 @@ msgstr ""
 msgid "which is currently NOT RUNNING."
 msgstr ""
 
-#: elementskit-lite.php:406
+#: elementskit-lite.php:405
 msgid "ElementsKit requires PHP version"
 msgstr ""
 
-#: elementskit-lite.php:408
+#: elementskit-lite.php:407
 msgid "which is currently NOT RUNNING on this server."
 msgstr ""
 
@@ -103,6 +103,22 @@ msgstr ""
 msgid "Create a Table First"
 msgstr ""
 
+#: libs/emailkit/emailkit.php:213 libs/forms/pages/template.php:18
+#: libs/framework/classes/plugin-status.php:56
+#: libs/our-plugins/our-plugins.php:370
+msgid "Activated"
+msgstr ""
+
+#: libs/emailkit/emailkit.php:216 libs/framework/classes/plugin-status.php:59
+#: libs/our-plugins/our-plugins.php:373
+msgid "Activate Now"
+msgstr ""
+
+#: libs/emailkit/emailkit.php:221 libs/framework/classes/plugin-status.php:64
+#: libs/our-plugins/our-plugins.php:378
+msgid "Install Now"
+msgstr ""
+
 #: libs/forms/forms.php:106 libs/forms/forms.php:107
 msgid "Forms"
 msgstr ""
@@ -129,20 +145,8 @@ msgstr ""
 msgid "Activating..."
 msgstr ""
 
-#: libs/forms/pages/template.php:18 libs/framework/classes/plugin-status.php:56
-msgid "Activated"
-msgstr ""
-
 #: libs/framework/attr.php:60 modules/onepage-scroll/extend-controls.php:74
 msgid "ElementsKit Settings"
-msgstr ""
-
-#: libs/framework/classes/plugin-status.php:59
-msgid "Activate Now"
-msgstr ""
-
-#: libs/framework/classes/plugin-status.php:64
-msgid "Install Now"
 msgstr ""
 
 #: libs/framework/controls/settings/switch.php:53
@@ -939,6 +943,14 @@ msgid ""
 "You can disable the elements you are not using on your site. That will "
 "disable all associated assets of those widgets to improve your site loading "
 "speed."
+msgstr ""
+
+#: libs/our-plugins/our-plugins.php:423
+msgid "Activate"
+msgstr ""
+
+#: libs/our-plugins/our-plugins.php:440
+msgid "Read Docs"
 msgstr ""
 
 #: libs/pro-awareness/pro-awareness.php:158
@@ -1916,6 +1928,120 @@ msgstr ""
 
 #: modules/widget-builder/init.php:112
 msgid "Builder"
+msgstr ""
+
+#: plugin.php:198
+msgid "Our Plugins"
+msgstr ""
+
+#: plugin.php:201
+msgid "Take Your WordPress Website To Next Level!"
+msgstr ""
+
+#: plugin.php:204
+msgid ""
+"Our diverse range of plugins has every solution for WordPress, Gutenberg, "
+"Elementor, and WooCommerce."
+msgstr ""
+
+#: plugin.php:210
+msgid "GetGenie AI"
+msgstr ""
+
+#: plugin.php:213
+msgid ""
+"Your personal AI assistant for content and SEO. Write content that ranks on "
+"Google with NLP keywords and SERP analysis data."
+msgstr ""
+
+#: plugin.php:217
+msgid "GutenKit"
+msgstr ""
+
+#: plugin.php:220
+msgid ""
+"Gutenberg blocks, patterns, and templates that extend the page-building "
+"experience using the WordPress block editor."
+msgstr ""
+
+#: plugin.php:224
+msgid "ShopEngine"
+msgstr ""
+
+#: plugin.php:227
+msgid ""
+"Complete WooCommerce solution for Elementor to fully customize any pages "
+"including cart, checkout, shop page, and so on."
+msgstr ""
+
+#: plugin.php:231
+msgid "MetForm"
+msgstr ""
+
+#: plugin.php:234
+msgid ""
+"Drag & drop form builder for Elementor to create contact forms, multi-step "
+"forms, and more — smoother, faster, and better!"
+msgstr ""
+
+#: plugin.php:238
+msgid "EmailKit"
+msgstr ""
+
+#: plugin.php:241
+msgid ""
+"Advanced email customizer for WooCommerce and WordPress. Build, customize, "
+"and send emails from WordPress to boost your sales!"
+msgstr ""
+
+#: plugin.php:245
+msgid "WP Social"
+msgstr ""
+
+#: plugin.php:248
+msgid ""
+"Add social share, login, and engagement counter — unified solution for all "
+"social media with tons of different styles for your website."
+msgstr ""
+
+#: plugin.php:252
+msgid "WP Ultimate Review"
+msgstr ""
+
+#: plugin.php:255
+msgid ""
+"Collect and showcase reviews on your website to build brand credibility and "
+"social proof with the easiest solution."
+msgstr ""
+
+#: plugin.php:259
+msgid "FundEngine"
+msgstr ""
+
+#: plugin.php:262
+msgid ""
+"Create fundraising, crowdfunding, and donation websites with PayPal and "
+"Stripe payment gateway integration."
+msgstr ""
+
+#: plugin.php:266
+msgid "Blocks for ShopEngine"
+msgstr ""
+
+#: plugin.php:269
+msgid ""
+"All in one WooCommerce solution for Gutenberg! Build your WooCommerce pages "
+"in a block editor with full customization."
+msgstr ""
+
+#: plugin.php:273
+msgid "Genie Image"
+msgstr ""
+
+#: plugin.php:276
+msgid ""
+"AI-powered text-to-image generator for WordPress with OpenAI’s DALL-E 2 "
+"technology to generate high-quality images in one click."
 msgstr ""
 
 #: widgets/accordion/accordion-handler.php:12

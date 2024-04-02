@@ -129,10 +129,25 @@ class OptimizerDataRepository
             ];
             $two_optimized_pages = \TenWebOptimizer\OptimizerUtils::getCriticalPages();
 
-            $args = [
+            $posts_args = [
+                'meta_key' => 'two_mode',
+                'post_type' => 'any',
+            ];
+            $optimized_posts = new WP_Query($posts_args);
+
+            $terms_args = [
+                'taxonomy' => [],
+                'hide_empty' => false,
                 'meta_key' => 'two_mode',
             ];
-            $optimized_posts = new WP_Query($args);
+
+            $terms = get_terms($terms_args);
+
+            $users_args = [
+                'meta_key' => 'two_mode',
+            ];
+
+            $users = get_users($users_args);
 
             if (isset($optimized_posts->posts)) {
                 foreach ($optimized_posts->posts as $post) {
@@ -143,6 +158,40 @@ class OptimizerDataRepository
                             'url' => get_permalink($post->ID),
                             'status' => 'success',
                         ];
+                    }
+                }
+            }
+
+            if (is_array($terms)) {
+                foreach ($terms as $term) {
+                    if (isset($term->term_id)) {
+                        $id = 'term_' . $term->term_id;
+
+                        if (!isset($two_optimized_pages[$id])) {
+                            $two_optimized_pages[$id] = [
+                                'id' => $id,
+                                'title' => $term->name,
+                                'url' => get_term_link($term->term_id),
+                                'status' => 'success',
+                            ];
+                        }
+                    }
+                }
+            }
+
+            if (is_array($users)) {
+                foreach ($users as $user) {
+                    if (isset($user->data, $user->data->ID)) {
+                        $id = 'user_' . $user->data->ID;
+
+                        if (!isset($two_optimized_pages[$id])) {
+                            $two_optimized_pages[$id] = [
+                                'id' => $id,
+                                'title' => $user->data->display_name,
+                                'url' => get_author_posts_url($user->data->ID),
+                                'status' => 'success',
+                            ];
+                        }
                     }
                 }
             }

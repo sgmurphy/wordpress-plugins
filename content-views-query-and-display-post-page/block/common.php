@@ -149,6 +149,7 @@ class ContentViews_Block_Common {
 				'style_options'	 => ContentViews_Block::style_options(),
 				'field_toggles'	 => ContentViews_Block::field_toggles(),
 				'target_options' => PT_CV_Values::open_in(),
+				'nopost_options' => PT_CV_Values::nopost_options(),
 				'border_styles'				 => array(
 					'none'	 => __( 'None', 'content-views-query-and-display-post-page' ),
 					'solid'	 => __( 'Solid', 'content-views-query-and-display-post-page' ),
@@ -160,14 +161,7 @@ class ContentViews_Block_Common {
 					'inset'	 => __( 'Inset', 'content-views-query-and-display-post-page' ),
 					'outset' => __( 'Outset', 'content-views-query-and-display-post-page' ),
 				),
-				'heading_styles'			 => array(
-					'heading1'	 => __( 'Heading 1', 'content-views-query-and-display-post-page' ),
-					'heading2'	 => __( 'Heading 2', 'content-views-query-and-display-post-page' ),
-					'heading3'	 => __( 'Heading 3', 'content-views-query-and-display-post-page' ),
-					'heading4'	 => __( 'Heading 4', 'content-views-query-and-display-post-page' ),
-					'heading5'	 => __( 'Heading 5', 'content-views-query-and-display-post-page' ),
-					'heading6'	 => __( 'Heading 6', 'content-views-query-and-display-post-page' ),
-				),
+				'heading_styles'			 => self::headingtext_styles(),
 				'thumb_effects'				 => self::thumbnail_effects(),
 				'overlaytypes'				 => self::ovl_types(),
 				'ovlposi'					 => self::ovl_positions(),
@@ -301,6 +295,17 @@ class ContentViews_Block_Common {
 			'overlay6'	 => [ 'layout1' => '', 'layout2' => '', 'layout3' => '', ],
 			'overlay7'	 => [ 'layout1' => '', 'layout2' => 1, 'layout3' => 1, 'layout4' => 1, 'layout5' => 1 ],
 			'overlay8'	 => [ 'layout1' => 1, 'layout2' => 1, 'layout3' => 1, 'layout4' => 1, ],
+		);
+	}
+
+	static function headingtext_styles() {
+		return array(
+			'heading1'	 => __( 'Heading 1', 'content-views-query-and-display-post-page' ),
+			'heading2'	 => __( 'Heading 2', 'content-views-query-and-display-post-page' ),
+			'heading3'	 => __( 'Heading 3', 'content-views-query-and-display-post-page' ),
+			'heading4'	 => __( 'Heading 4', 'content-views-query-and-display-post-page' ),
+			'heading5'	 => __( 'Heading 5', 'content-views-query-and-display-post-page' ),
+			'heading6'	 => __( 'Heading 6', 'content-views-query-and-display-post-page' ),
 		);
 	}
 
@@ -505,6 +510,9 @@ class ContentViews_Block_Common {
 			}
 			if ( $field === 'thumbnailAll' ) {
 				$field_selector = array( $view_selector . ' .' . PT_CV_PREFIX . 'thumb-wrapper' => array( 'margin' ), $view_selector . ' .' . PT_CV_PREFIX . 'thumbnail' => '' );
+			}
+			if ( $field === 'readmore' ) {
+				$field_selector = array( $view_selector . ' .' . PT_CV_PREFIX . 'rmwrap' => array( 'text-align' ), $field_selector => '' );
 			}
 			if ( $field === 'taxoterm' ) {
 				$field_selector = array( $field_selector => array( 'margin' ), $field_selector . ' *' => '' );
