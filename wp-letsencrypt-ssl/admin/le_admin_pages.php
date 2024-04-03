@@ -4,7 +4,7 @@
  * @package WP Encryption
  *
  * @author     Go Web Smarty
- * @copyright  Copyright (C) 2019-2023, Go Web Smarty
+ * @copyright  Copyright (C) 2019-2024, Go Web Smarty
  * @license    http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3
  * @link       https://gowebsmarty.com
  * @since      Class available since Release 5.0.0
@@ -26,6 +26,7 @@
  */
 require_once WPLE_DIR . 'admin/le_admin_page_wrapper.php';
 require_once WPLE_DIR . 'classes/le-advanced-scanner.php';
+require_once WPLE_DIR . 'classes/le-security.php';
 class WPLE_SubAdmin extends WPLE_Admin_Page
 {
     private  $threats = array() ;
@@ -38,8 +39,12 @@ class WPLE_SubAdmin extends WPLE_Admin_Page
         add_action( 'wp_ajax_wple_review_notice', [ $this, 'wple_review_notice_disable' ] );
         add_action( 'wp_ajax_wple_mxerror_ignore', [ $this, 'wple_mx_ignore' ] );
         add_action( 'wp_ajax_wple_update_settings', [ $this, 'wple_update_settings' ] );
+        add_action( 'wp_ajax_wple_update_security', [ $this, 'wple_update_security' ] );
+        //7.0.0
         add_action( 'admin_bar_menu', [ $this, 'wple_ssl_toolbar' ], 100 );
         add_filter( 'site_status_tests', [ $this, 'wple_vulnerable_components' ] );
+        //since 6.7.0
+        add_filter( 'wp_headers', [ $this, 'wple_enforce_security_headers' ] );
     }
     
     /**
@@ -54,11 +59,19 @@ class WPLE_SubAdmin extends WPLE_Admin_Page
         $notifications = ( FALSE !== $ecount ? '<span class="awaiting-mod">' . (int) $ecount . '</span>' : '' );
         add_submenu_page(
             'wp_encryption',
-            'SSL Health and Security',
-            __( 'SSL Health and Security', 'wp-letsencrypt-ssl' ) . ' ' . $notifications . '',
+            'SSL Health and Headers',
+            __( 'SSL Health and Headers', 'wp-letsencrypt-ssl' ) . ' ' . $notifications . '',
             'manage_options',
             'wp_encryption_ssl_health',
             [ $this, 'wple_sslhealth_page' ]
+        );
+        add_submenu_page(
+            'wp_encryption',
+            'Vulnerability Scanner & Security',
+            __( 'Vulnerability Scanner & Security', 'wp-letsencrypt-ssl' ),
+            'manage_options',
+            'wp_encryption_security',
+            [ $this, 'wple_security_page' ]
         );
         add_submenu_page(
             'wp_encryption',
@@ -621,8 +634,16 @@ class WPLE_SubAdmin extends WPLE_Admin_Page
         $score = 0;
         $featurelist = '<ul>';
         $error_count = 0;
+        $viaAlternateMethod = array();
+        // Enabled through secondary sources
+        // $response = wp_safe_remote_head(site_url(), array());
+        // $dictionary = wp_remote_retrieve_headers($response);
+        // $currentHeaders = $dictionary ? $dictionary->getAll() : array();
         foreach ( $scoredefinitions as $key => $desc ) {
             $isenabled = $this->wple_feature_check( $key );
+            if ( $isenabled == 2 ) {
+                $viaAlternateMethod[] = $key;
+            }
             $sayyesno = '<span class="wple-no">no</span>';
             
             if ( $isenabled ) {
@@ -634,6 +655,8 @@ class WPLE_SubAdmin extends WPLE_Admin_Page
             
             $featurelist .= '<li class="' . esc_attr( $key ) . '">' . $sayyesno . WPLE_Trait::wple_kses( $desc, 'a' ) . (( $key == 'tls_version' ? '<span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="TLS version should be 1.2 or above. Contact your hosting support to update TLS version or our Annual PRO plan can offer TLS1.2 protocol."></span>' : (( $key == 'security_headers' ? '<span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="X-XSS and X-Content-Type-Options header"></span>' : '' )) )) . '</li>';
         }
+        set_transient( 'wple_alternate_headers', $viaAlternateMethod, 60 * 60 );
+        //1 hour
         $featurelist .= '<br /><li class="wplenote note-info"><strong>Recommended:</strong> Run Insecure content scanner & make sure no issue exists (<a href="/wp-admin/admin.php?page=wp_encryption_mixed_scanner">Scan now</a>)</li>';
         //5.7.0
         $plugin = false;
@@ -719,9 +742,17 @@ class WPLE_SubAdmin extends WPLE_Admin_Page
                     return 1;
                 }
                 break;
+            case 'httponly_cookies':
+                if ( get_option( 'wple_' . $key ) ) {
+                    return 1;
+                }
+                $arr = session_get_cookie_params();
+                if ( $arr['httponly'] ) {
+                    return 2;
+                }
+                break;
             case 'mixed_content_fixer':
             case 'hsts':
-            case 'httponly_cookies':
             case 'ssl_monitoring':
             case 'disable_directory_listing':
                 if ( get_option( 'wple_' . $key ) ) {
@@ -765,115 +796,7 @@ class WPLE_SubAdmin extends WPLE_Admin_Page
     private function wple_ssl_settings()
     {
         $output = '<div class="wple-activessl-info">
-    <div class="wple-activessl-info-inner">
-    <h2>Vulnerability Scan</h2>
-    <small>By enabling this option, you grant access to list of installed plugins, themes to scan for known vulnerabilities using <a href="https://vulnerability.wpsysadmin.com/" target="_blank" rel="noreferrer nofollow">WPVulnerability API</a>.</small>
-    <ul>';
-        $vuln_headers = array(
-            'Enable Vulnerability Scanner'                    => [
-            'key'     => 'vulnerability_scan',
-            'desc'    => 'Scans installed versions of your WordPress core, plugins, themes for known vulnerabilities.',
-            'premium' => 0,
-        ],
-            'Enable Daily Scan (Premium)'                     => [
-            'key'     => 'daily_vulnerability_scan',
-            'desc'    => 'Automatically Scans installed versions of your WordPress core, plugins, themes for known vulnerabilities everyday.',
-            'premium' => 1,
-        ],
-            'Enable Instant Notification (Premium)'           => [
-            'key'     => 'notify_vulnerability_scan',
-            'desc'    => 'Immediately notifies you via email / admin notice when a medium+ vulnerability is found.',
-            'premium' => 1,
-        ],
-            'Enable Automatic Vulnerability Fixing (Premium)' => [
-            'key'     => 'autofix_vulnerability_scan',
-            'desc'    => 'Automatically update vulnerable plugin, theme, core as soon as updated patch is found',
-            'premium' => 1,
-        ],
-        );
-        foreach ( $vuln_headers as $optlabel => $optarr ) {
-            $output .= '<li><label>' . esc_html( $optlabel ) . ' <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="' . esc_attr( $optarr['desc'] ) . '"></span></label>';
-            $disabled = ( isset( $optarr['premium'] ) ? $optarr['premium'] : 0 );
-            $output .= '<div class="plan-toggler" style="text-align: left; margin: 40px 0 0px;">
-      <span></span>
-      <label class="toggle">
-      <input class="toggle-checkbox wple-setting" data-opt="' . esc_attr( $optarr['key'] ) . '" type="checkbox" ' . checked( get_option( "wple_" . esc_attr( $optarr['key'] ) ), "1", false ) . disabled( $disabled, '1', false ) . '>
-      <div class="toggle-switch disabled' . intval( $disabled ) . '" style="transform: scale(0.6);"></div>
-      
-      </label>
-      </div>';
-            $output .= '</li>';
-        }
-        $threats = get_transient( 'wple_vulnerability_scan' );
-        $threatcount = 0;
-        $vuln_table = '<h3 style="text-align:center">Please run the scan to detect vulnerabilities</h3>';
-        if ( is_array( $threats ) && count( $threats ) == 0 ) {
-            $vuln_table = '<h3 style="text-align:center">All good! No vulnerabilities found.</h3>';
-        }
-        
-        if ( is_array( $threats ) && count( $threats ) > 0 ) {
-            $threatcount = count( $threats );
-            //vulnerabilities found
-            $vuln_table = '<h3 style="text-align:center">Vulnerabilities Found! Please update WordPress, Themes, Plugins accordingly.</h3>
-      <table id="wple-vuln-table">
-      <thead>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Severity</th>
-      </thead>
-      <tbody>';
-            $sevr = array(
-                'c'       => 'critical',
-                'h'       => 'high',
-                'm'       => 'medium',
-                'l'       => 'low',
-                'unknown' => 'unknown',
-            );
-            foreach ( $threats as $slug => $data ) {
-                
-                if ( $slug == 'wordpress' ) {
-                    $severity = ( array_key_exists( $data['severity'], $sevr ) ? $sevr[$data['severity']] : $data['severity'] );
-                    $vuln_table .= '<tr class="wple-vuln-row">
-          <td><b>' . ucfirst( esc_html( $data['label'] ) ) . '</b> <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="' . esc_attr( $data['desc'] ) . '"></span></td>
-          <td>' . ucfirst( esc_html( $data['type'] ) ) . '</td>
-          <td class="' . esc_attr( $severity ) . '">' . ucfirst( esc_html( $severity ) ) . '</td>
-          </tr>';
-                } else {
-                    $severity = ( array_key_exists( $data[0]['severity'], $sevr ) ? $sevr[$data[0]['severity']] : $data['severity'] );
-                    $vuln_table .= '<tr class="wple-vuln-row">
-        <td><b>' . ucfirst( esc_html( $data[0]['label'] ) ) . '</b> <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="' . esc_attr( $data[0]['desc'] ) . '"></span></td>
-        <td>' . ucfirst( esc_html( $data[0]['type'] ) ) . '</td>
-        <td class="' . esc_attr( $severity ) . '">' . ucfirst( esc_html( $severity ) ) . '</td>
-        </tr>';
-                }
-            
-            }
-            $vuln_table .= '</tbody>
-      </table>';
-            $vuln_table .= '<div class="wple-vuln-pro">Above vulnerablities might exist on your site since many days!. Update to Pro version & be notified as soon as a vulnerability is found in daily scan.</div>';
-        }
-        
-        $vuln_style = '';
-        if ( !get_option( 'wple_vulnerability_scan' ) ) {
-            $vuln_style = 'display:none';
-        }
-        $vulnerabilityexists = ( $threatcount > 0 ? 'wple-vuln-active' : '' );
-        $output .= '</ul>
-
-    <div id="wple-vulnerability-scanner" style="' . esc_attr( $vuln_style ) . '">
-      <div class="wple-vuln-count">
-      <div class="wple-vuln-countinner ' . esc_attr( $vulnerabilityexists ) . '">
-        <strong>' . esc_html( $threatcount ) . '</strong><br/>
-        <small>Vulnerabilities</small>
-      </div>
-      </div>
-      <div class="wple-vuln-results">
-      ' . $vuln_table . '
-      <div class="wple-vuln-scan"><a href="' . wp_nonce_url( admin_url( 'admin.php?page=wp_encryption_ssl_health' ), 'wple_vulnerability', 'wple_vuln' ) . '"><span class="dashicons dashicons-image-rotate"></span> Scan Now</a></div>     
-      </div>
-    </div>
     
-    </div>
     <div class="wple-activessl-info-inner">
     
     <h2>Active SSL Info</h2>';
@@ -887,7 +810,7 @@ class WPLE_SubAdmin extends WPLE_Admin_Page
         ],
             'Enable HttpOnly Secure Cookies' => [
             'key'  => 'httponly_cookies',
-            'desc' => 'Cookies are accessible server side only. Even if XSS flaw exists in client side or user accidently access a link exploting the flaw, client side script cannot read the cookies',
+            'desc' => 'Cookies are made accessible server side only. Even if XSS flaw exists in client side or user accidently access a link exploting the flaw, client side script cannot read the cookies',
         ],
             'Disable directory listing'      => [
             'key'  => 'disable_directory_listing',
@@ -929,18 +852,29 @@ class WPLE_SubAdmin extends WPLE_Admin_Page
         $output .= '<div class="wple-ssl-settings" data-update="' . wp_create_nonce( 'wplesettingsupdate' ) . '">
     <h2>Settings</h2>';
         $output .= '<ul>';
+        $enabledViaAlternate = get_transient( 'wple_alternate_headers' );
+        //from wple_feature_check
+        $enabledViaAlternate = ( is_array( $enabledViaAlternate ) ? $enabledViaAlternate : array() );
         foreach ( $sslopts as $optlabel => $optarr ) {
             $output .= '<li><label>' . esc_html( $optlabel ) . ' <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="' . esc_attr( $optarr['desc'] ) . '"></span></label>';
             $disabled = ( isset( $optarr['premium'] ) ? $optarr['premium'] : 0 );
-            $output .= '<div class="plan-toggler" style="text-align: left; margin: 40px 0 0px;">
-      <span></span>
+            $isActive = get_option( "wple_" . esc_attr( $optarr['key'] ) );
+            $viaSecondary = false;
+            if ( in_array( $optarr['key'], $enabledViaAlternate ) ) {
+                $isActive = $viaSecondary = 1;
+            }
+            $output .= '<div class="plan-toggler" style="text-align: left; margin: 40px 0 0px;">';
+            if ( $viaSecondary ) {
+                $output .= '<span class="dashicons dashicons-info-outline wple-tooltip" style="margin: 7px 0; color: #ff8900;" data-tippy="We have detected that this header is already enforced via other sources like wp-config, htaccess or php.ini"></span>';
+            }
+            $output .= '
       <label class="toggle">
-      <input class="toggle-checkbox wple-setting" data-opt="' . esc_attr( $optarr['key'] ) . '" type="checkbox" ' . checked( get_option( "wple_" . esc_attr( $optarr['key'] ) ), "1", false ) . disabled( $disabled, '1', false ) . '>
+      <input class="toggle-checkbox wple-setting" data-opt="' . esc_attr( $optarr['key'] ) . '" type="checkbox" ' . checked( $isActive, "1", false ) . disabled( $disabled, '1', false ) . '>
       <div class="toggle-switch disabled' . intval( $disabled ) . '" style="transform: scale(0.6);"></div>
       
-      </label>
-      </div>';
-            $output .= '</li>';
+      </label>';
+            $output .= '</div>
+      </li>';
         }
         $output .= '</ul>
     <br />
@@ -959,7 +893,8 @@ class WPLE_SubAdmin extends WPLE_Admin_Page
       </div>';
             $output .= '</li>';
         }
-        $output .= '<li class="wple-setting-error"><label>' . __( 'You must have a valid SSL certificate installed on your site before enabling this feature', 'wp-letsencrypt-ssl' ) . '!.</label></li>';
+        $output .= '<li class="wple-setting-error"><label>' . __( 'You must have a valid SSL certificate installed on your site before enabling this feature', 'wp-letsencrypt-ssl' ) . '!.</label></li>
+    <li class="wple-sec-scanner"><a href="https://securityheaders.com/" target="_blank" rel="nofollow">Security Header Scanner <span class="dashicons dashicons-external"></span></a></li>';
         $output .= '</ul>';
         $output .= '</div>';
         return $output;
@@ -1023,6 +958,7 @@ class WPLE_SubAdmin extends WPLE_Admin_Page
         );
         //file writing not required
         $ssl_not_required = array(
+            'httponly_cookies',
             'disable_directory_listing',
             'ssl_monitoring',
             'xxss',
@@ -1208,6 +1144,23 @@ class WPLE_SubAdmin extends WPLE_Admin_Page
         ) );
     }
     
+    // public function wple_sitelockmonitor__premium_only()
+    // {
+    //   $page = '<div class="sitelock-recommend">
+    //   <h2>' . __('Sitelock Monitor', 'wp-letsencrypt-ssl') . '</h2>
+    //   <p>Don\'t leave your website security behind!, Access wide range of tools like Malware scanner, Spam scanner, Risk score assessment, Vulnerability scanner & SSL scanner including access to your private SiteLock Monitor Dashboard with our <b>SITELOCK</b> plan.</p>
+    //   <img src="https://wpencryption.com/wp-content/uploads/2023/03/sitelock-monitor-1405x1536.png"/>';
+    //   $lic = wple_fs()->_get_license();
+    //   if (FALSE != $lic) {
+    //     if ($lic->expiration != '') { //annual
+    //       $page .= '<a href="' . admin_url('admin.php?page=wp_encryption-pricing&checkout=true&plan_id=20784&plan_name=sitelock&billing_cycle=annual&currency=usd') . '">UPGRADE TO SITELOCK PLAN</a>';
+    //     } else { //lifetime
+    //       $page .= '<a href="https://checkout.freemius.com/mode/dialog/plugin/5090/plan/20784/" target="_blank">BUY SITELOCK PLAN</a>';
+    //     }
+    //   }
+    //   $page .= '</div>';
+    //   $this->generate_page($page);
+    // }
     /**
      * WP Site Health Tests
      *
@@ -1354,6 +1307,274 @@ class WPLE_SubAdmin extends WPLE_Admin_Page
             'test'        => 'wple_themes_vulnerability',
         );
         return $result;
+    }
+    
+    public function wple_enforce_security_headers( $headers = array() )
+    {
+        if ( get_option( 'wple_upgrade_insecure' ) ) {
+            $headers['Content-Security-Policy'] = 'upgrade-insecure-requests';
+        }
+        if ( get_option( 'wple_hsts' ) ) {
+            $headers['Strict-Transport-Security'] = 'max-age=31536000;includeSubDomains';
+        }
+        if ( get_option( 'wple_xxss' ) ) {
+            $headers['x-xss-protection'] = '1; mode=block';
+        }
+        if ( get_option( 'wple_xcontenttype' ) ) {
+            $headers['X-Content-Type-Options'] = 'nosniff';
+        }
+        return $headers;
+    }
+    
+    /**
+     * Security page
+     *
+     * @return html
+     */
+    public function wple_security_page()
+    {
+        $html = '<div id="wple-ssl-health" class="wple-security">';
+        $html .= '<div class="wple-activessl-info">
+    <div class="wple-activessl-info-inner">
+    <h2>Vulnerability Scan</h2>
+    <small>By enabling this option, you grant access to list of installed plugins, themes to scan for known vulnerabilities using <a href="https://vulnerability.wpsysadmin.com/" target="_blank" rel="noreferrer nofollow">WPVulnerability API</a>.</small>
+    <ul>';
+        $vuln_headers = array(
+            'Enable Vulnerability Scanner'                    => [
+            'key'     => 'vulnerability_scan',
+            'desc'    => 'Scans installed versions of your WordPress core, plugins, themes for known vulnerabilities.',
+            'premium' => 0,
+        ],
+            'Enable Daily Scan (Premium)'                     => [
+            'key'     => 'daily_vulnerability_scan',
+            'desc'    => 'Automatically Scans installed versions of your WordPress core, plugins, themes for known vulnerabilities everyday.',
+            'premium' => 1,
+        ],
+            'Enable Instant Notification (Premium)'           => [
+            'key'     => 'notify_vulnerability_scan',
+            'desc'    => 'Immediately notifies you via email / admin notice when a medium+ vulnerability is found.',
+            'premium' => 1,
+        ],
+            'Enable Automatic Vulnerability Fixing (Premium)' => [
+            'key'     => 'autofix_vulnerability_scan',
+            'desc'    => 'Automatically update vulnerable plugin, theme, core as soon as updated patch is found',
+            'premium' => 1,
+        ],
+        );
+        $output = '';
+        foreach ( $vuln_headers as $optlabel => $optarr ) {
+            $output .= '<li><label>' . str_ireplace( 'Premium', '<a href="' . admin_url( 'admin.php?page=wp_encryption-pricing' ) . '">Premium</a>', esc_html( $optlabel ) ) . ' <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="' . esc_attr( $optarr['desc'] ) . '"></span></label>';
+            $disabled = ( isset( $optarr['premium'] ) ? $optarr['premium'] : 0 );
+            $output .= '<div class="plan-toggler" style="text-align: left; margin: 40px 0 0px;">
+      <span></span>
+      <label class="toggle">
+      <input class="toggle-checkbox wple-setting" data-opt="' . esc_attr( $optarr['key'] ) . '" type="checkbox" ' . checked( get_option( "wple_" . esc_attr( $optarr['key'] ) ), "1", false ) . disabled( $disabled, '1', false ) . '>
+      <div class="toggle-switch disabled' . intval( $disabled ) . '" style="transform: scale(0.6);"></div>
+      
+      </label>
+      </div>';
+            $output .= '</li>';
+        }
+        $threats = get_transient( 'wple_vulnerability_scan' );
+        $threatcount = 0;
+        $vuln_table = '<h3 style="text-align:center">Please run the scan to detect vulnerabilities</h3>';
+        if ( is_array( $threats ) && count( $threats ) == 0 ) {
+            $vuln_table = '<h3 style="text-align:center">All good! No vulnerabilities found.</h3>';
+        }
+        
+        if ( is_array( $threats ) && count( $threats ) > 0 ) {
+            $threatcount = count( $threats );
+            //vulnerabilities found
+            $vuln_table = '<h3 style="text-align:center">Vulnerabilities Found! Please update WordPress, Themes, Plugins accordingly.</h3>
+      <table id="wple-vuln-table">
+      <thead>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Severity</th>
+      </thead>
+      <tbody>';
+            $sevr = array(
+                'c'       => 'critical',
+                'h'       => 'high',
+                'm'       => 'medium',
+                'l'       => 'low',
+                'unknown' => 'unknown',
+            );
+            foreach ( $threats as $slug => $data ) {
+                
+                if ( $slug == 'wordpress' ) {
+                    $severity = '';
+                    if ( array_key_exists( 'severity', $data ) ) {
+                        $severity = ( array_key_exists( $data['severity'], $sevr ) ? $sevr[$data['severity']] : $data['severity'] );
+                    }
+                    $vuln_table .= '<tr class="wple-vuln-row">
+          <td><b>' . ucfirst( esc_html( $data['label'] ) ) . '</b> <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="' . esc_attr( $data['desc'] ) . '"></span></td>
+          <td>' . ucfirst( esc_html( $data['type'] ) ) . '</td>
+          <td class="' . esc_attr( $severity ) . '">' . ucfirst( esc_html( $severity ) ) . '</td>
+          </tr>';
+                } else {
+                    $severity = '';
+                    if ( array_key_exists( 'severity', $data[0] ) ) {
+                        $severity = ( array_key_exists( $data[0]['severity'], $sevr ) ? $sevr[$data[0]['severity']] : (( array_key_exists( 'severity', $data ) ? $data['severity'] : '' )) );
+                    }
+                    $vuln_table .= '<tr class="wple-vuln-row">
+        <td><b>' . ucfirst( esc_html( $data[0]['label'] ) ) . '</b> <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="' . esc_attr( $data[0]['desc'] ) . '"></span></td>
+        <td>' . ucfirst( esc_html( $data[0]['type'] ) ) . '</td>
+        <td class="' . esc_attr( $severity ) . '">' . ucfirst( esc_html( $severity ) ) . '</td>
+        </tr>';
+                }
+            
+            }
+            $vuln_table .= '</tbody>
+      </table>';
+            $vuln_table .= '<div class="wple-vuln-pro">Above vulnerablities might exist on your site since many days!. Upgrade to Pro version & be notified as soon as a vulnerability is found in daily scan.</div>';
+        }
+        
+        $vuln_style = '';
+        if ( !get_option( 'wple_vulnerability_scan' ) ) {
+            $vuln_style = 'display:none';
+        }
+        $vulnerabilityexists = ( $threatcount > 0 ? 'wple-vuln-active' : '' );
+        $output .= '</ul>
+
+    <div id="wple-vulnerability-scanner" style="' . esc_attr( $vuln_style ) . '">
+      <div class="wple-vuln-count">
+      <div class="wple-vuln-countinner ' . esc_attr( $vulnerabilityexists ) . '">
+        <strong>' . esc_html( $threatcount ) . '</strong><br/>
+        <small>Vulnerabilities</small>
+      </div>
+      </div>
+      <div class="wple-vuln-results">
+      ' . $vuln_table . '
+      <div class="wple-vuln-scan"><a href="' . wp_nonce_url( admin_url( 'admin.php?page=wp_encryption_security' ), 'wple_vulnerability', 'wple_vuln' ) . '"><span class="dashicons dashicons-image-rotate"></span> Scan Now</a></div>     
+      </div>
+    </div>
+    
+    </div>
+    </div>';
+        $html .= $output;
+        $html .= '<div class="wple-ssl-score">
+    <h2>Security</h2>
+    ' . $this->wple_security_settings() . '
+    </div>';
+        $html .= '<div class="wple-ssl-settings">
+    <h2>Actions Needed</h2>
+    </div>';
+        $html .= '</div>';
+        echo  $html ;
+    }
+    
+    public function wple_security_settings()
+    {
+        $stored_opts = ( get_option( 'wple_security_settings' ) ? get_option( 'wple_security_settings' ) : array() );
+        $opts = array(
+            'stop_user_enumeration' => [
+            'label' => 'Stop user enumeration',
+            'desc'  => 'Prevent exposure of USERNAME on /wp-json/wp/v2/users, /?author=1 & oEmbed requests.',
+        ],
+            'hide_wp_version'       => [
+            'label' => 'Hide WordPress version',
+            'desc'  => 'Hackers target exposed vulnerabilities based on WP version. Hide your WordPress version with WP hash.',
+        ],
+            'disallow_file_edit'    => [
+            'label' => 'Disallow File Edit',
+            'desc'  => 'Disallow editing of theme, plugin PHP files via wp-admin interface. Built-in file editors are first tool used by attackers if they are able to login.',
+        ],
+            'anyone_can_register'   => [
+            'label' => 'Disable anyone can register option',
+            'desc'  => 'Disable user registration on site.',
+        ],
+            'hide_login_error'      => [
+            'label' => 'Hide login error',
+            'desc'  => 'WordPress shows whether a username or email is valid on wp-login page. This setting will hide that exposure.',
+        ],
+            'disable_pingback'      => [
+            'label' => 'Disable pingbacks',
+            'desc'  => 'Protect against WordPress pingback vulnerability via DDOS attacks.',
+        ],
+            'remove_feeds'          => [
+            'label' => 'Remove RSS & Atom feeds',
+            'desc'  => 'RSS & Atom feeds can be used to read your site content and even site scraping. If you are not using feeds to share your site content, you can disable it here.',
+        ],
+            'deny_php_uploads'      => [
+            'label' => 'Deny php execution in uploads directory',
+            'desc'  => 'Deny execution of any php files inside wp-content/uploads/ directory which is meant for images & files.',
+        ],
+        );
+        $output = '<form id="wple-security-settings" data-update="' . wp_create_nonce( 'wple_security' ) . '">
+    <ul>';
+        foreach ( $opts as $key => $item ) {
+            $ischecked = '';
+            if ( in_array( $key, $stored_opts ) ) {
+                $ischecked = 'checked="checked"';
+            }
+            if ( $key == 'anyone_can_register' && !get_option( 'users_can_register' ) ) {
+                $ischecked = 'checked="checked"';
+            }
+            $output .= '<li>
+      <label>' . esc_html( $item['label'] ) . ' <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="' . esc_attr( $item['desc'] ) . '"></span></label>
+      <div class="plan-toggler" style="text-align: left; margin: 40px 0 0px;">
+      <label class="toggle">
+      <input class="toggle-checkbox" name="' . esc_attr( $key ) . '" type="checkbox" ' . $ischecked . '>
+      <div class="toggle-switch disabled0" style="transform: scale(0.6);"></div>      
+      </label>
+      </div>
+      </li>';
+        }
+        $output .= '</ul>
+    </form>';
+        return $output;
+    }
+    
+    /**
+     * Update security settings
+     *
+     * @since 7.0.0
+     */
+    public function wple_update_security()
+    {
+        
+        if ( !current_user_can( 'manage_options' ) || !wp_verify_nonce( $_POST['nc'], 'wple_security' ) ) {
+            echo  0 ;
+            exit;
+        }
+        
+        $save = [];
+        $security_class = new WPLE_Security();
+        foreach ( $_POST['opt'] as $setting ) {
+            $key = sanitize_text_field( $setting['name'] );
+            $save[] = $key;
+            //one time actions
+            
+            if ( $key == 'disallow_file_edit' ) {
+                $security_class->wple_disallow_file_edit();
+            } else {
+                
+                if ( $key == 'anyone_can_register' ) {
+                    $security_class->wple_anyone_can_register( false );
+                } else {
+                    if ( $key == 'deny_php_uploads' ) {
+                        $security_class->wple_deny_php_in_uploads( true );
+                    }
+                }
+            
+            }
+        
+        }
+        //remove of disabled settings
+        $prevopts = ( get_option( 'wple_security_settings' ) ? get_option( 'wple_security_settings' ) : array() );
+        if ( in_array( 'disallow_file_edit', $prevopts ) && !in_array( 'disallow_file_edit', $save ) ) {
+            $security_class->wple_disallow_file_edit( 'false' );
+        }
+        if ( in_array( 'anyone_can_register', $prevopts ) && !in_array( 'anyone_can_register', $save ) ) {
+            $security_class->wple_anyone_can_register( true );
+        }
+        if ( in_array( 'deny_php_uploads', $prevopts ) && !in_array( 'deny_php_uploads', $save ) ) {
+            $security_class->wple_deny_php_in_uploads( false );
+        }
+        update_option( 'wple_security_settings', $save );
+        echo  1 ;
+        exit;
     }
 
 }

@@ -342,7 +342,7 @@ class aThemes_Portfolio extends Widget_Base {
 						
 						<?php
 							if ( ! empty( $item['link']['url'] ) ) {
-								$this->add_render_attribute( 'button-' . $c, 'href', $item['link']['url'] );
+								$this->add_render_attribute( 'button-' . $c, 'href', esc_url( $item['link']['url'] ) );
 								$this->add_render_attribute( 'button-' . $c, 'class', 'project-pop-wrap' );
 
 								if ( $item['link']['is_external'] ) {
@@ -365,8 +365,8 @@ class aThemes_Portfolio extends Widget_Base {
 						</a>
 						<a href="#">
 							<?php if ( $item['image']['url'] ) :
-								$this->add_render_attribute( 'image-' . $index, 'src', $item['image']['url'] );
-								$this->add_render_attribute( 'image-' . $index, 'alt', Control_Media::get_image_alt( $item['image'] ) );							
+								$this->add_render_attribute( 'image-' . $index, 'src', esc_url( $item['image']['url'] ) );
+								$this->add_render_attribute( 'image-' . $index, 'alt', esc_html( Control_Media::get_image_alt( $item['image'] ) ) );							
 							?>
 							<img <?php echo $this->get_render_attribute_string( 'image-' . $index ); ?>/>
 							<?php endif; ?>

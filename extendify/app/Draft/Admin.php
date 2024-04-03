@@ -44,6 +44,10 @@ class Admin
             return;
         }
 
+        if (!current_user_can(Config::$requiredCapability)) {
+            return;
+        }
+
         $draftData = $this->fetchDraftData();
         if (! $draftData) {
             return;

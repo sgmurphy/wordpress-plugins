@@ -4,7 +4,7 @@ Tags: security, login security, 2fa, two factor authentication, captcha, xml-rpc
 Requires at least: 4.5
 Requires PHP: 5.5
 Tested up to: 6.5
-Stable tag: 1.1.10
+Stable tag: 1.1.11
 
 Secure your website with Wordfence Login Security, providing two-factor authentication, login and registration CAPTCHA, and XML-RPC protection.
 
@@ -57,6 +57,9 @@ Secure your website with Wordfence Login Security.
 3. Configuration options include XML-RPC protection and login page CAPTCHA.
 
 == Changelog ==
+
+= 1.1.11 - April 3, 2024 =
+* Fix: Revised the behavior of the reCAPTCHA verification to use the documented expiration period of the token and response to avoid sending verification requests too frequently, which could artificially lower scores in some circumstances
 
 = 1.1.10 - March 11, 2024 =
 * Change: Removed the extra site link from the CAPTCHA verification email message to avoid confusion with the verify link

@@ -135,14 +135,21 @@ if ( ! class_exists( 'CPCFF_REVISIONS' ) ) {
 		 */
 		private function _delete_older() {
 			$formid = $this->_form_obj->get_id();
-			$this->_db->query(
+			$revisionid = $this->_db->get_var(
 				$this->_db->prepare(
-					'DELETE FROM ' . $this->_table . ' WHERE formid=%d AND id IN (SELECT * FROM (SELECT id FROM ' . $this->_table . ' WHERE formid=%d ORDER BY time DESC LIMIT %d,18446744073709551615) AS tmp)',
-					$formid,
-					$formid,
-					$this->_max
+					'SELECT id FROM '.$this->_table.' WHERE formid=%d ORDER BY id DESC LIMIT %d,1',
+					$formid,$this->_max
 				)
 			);
+
+			if ( ! empty( $revisionid ) ) {
+				$this->_db->query(
+					$this->_db->prepare(
+						'DELETE FROM '.$this->_table.' WHERE formid=%d AND id < %d',
+						$formid,$revisionid
+					)
+				);
+			}
 		} // End _delete_older
 	} // End CPCFF_REVISIONS
 }

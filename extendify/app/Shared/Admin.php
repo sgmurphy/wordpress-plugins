@@ -93,7 +93,7 @@ class Admin
                 'showAIConsent' => ($partnerData['showAIConsent'] ?? false),
                 'consentTermsUrl' => ($partnerData['consentTermsUrl'] ?? ''),
                 'userGaveConsent' => $userConsent ? $userConsent : false,
-                'activePlugins' => get_option('active_plugins', []),
+                'activePlugins' => array_map('esc_attr', array_values(\get_option('active_plugins', []))),
                 'frontPage' => get_option('page_on_front', 0),
             ]),
             'before'

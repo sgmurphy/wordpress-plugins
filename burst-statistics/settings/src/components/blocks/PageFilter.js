@@ -1,29 +1,33 @@
 import {useFiltersStore} from '../../store/useFiltersStore';
 import Icon from '../../utils/Icon';
 import {__} from '@wordpress/i18n';
-import {useGoalFieldsStore} from '../../store/useGoalFieldsStore';
+import {useGoalsStore} from '../../store/useGoalsStore';
 import { useInsightsStore } from '../../store/useInsightsStore';
 
 export const PageFilter = () => {
   const filters = useFiltersStore((state) => state.filters);
   const filtersConf = useFiltersStore((state) => state.filtersConf);
   const setFilters = useFiltersStore((state) => state.setFilters);
-  const goalFields = useGoalFieldsStore((state) => state.goalFields);
+  const goals = useGoalsStore((state) => state.goals);
+  const getGoal = useGoalsStore((state) => state.getGoal);
   const animate = useFiltersStore((state) => state.animate);
   const setInsightsMetrics = useInsightsStore((state) => state.setMetrics);
   const insightsMetrics = useInsightsStore((state) => state.getMetrics());
   let title = '';
 
   const getGoalsTitle = (id) => {
-    if (!goalFields[id]) {
-      return '';
+    let goal = getGoal(id);
+    if ( goal ) {
+      return goal.title;
     }
-    return goalFields[id].goal_title.value;
+    return '';
   }
+
   const getCountryTitle = (code) => {
     if (!code) {
       return '';
     }
+    code = code.toUpperCase();
     const countryLabel = burst_settings.countries[code];
     return countryLabel ? countryLabel : code
   }

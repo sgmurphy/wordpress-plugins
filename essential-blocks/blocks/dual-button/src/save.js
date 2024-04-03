@@ -28,7 +28,7 @@ const Save = ({ attributes }) => {
                 >
                     <a
                         className={"eb-button-parent eb-button-one"}
-                        href={buttonURLOne}
+                        href={buttonURLOne === '#' ? '' : buttonURLOne}
                         {...(buttonOneNewWindow && { target: "_blank" })}
                         rel="noopener"
                     >
@@ -53,7 +53,7 @@ const Save = ({ attributes }) => {
 
                     <a
                         className={"eb-button-parent eb-button-two"}
-                        href={buttonURLTwo}
+                        href={buttonURLTwo === '#' ? '' : buttonURLTwo}
                         {...(buttonTwoNewWindow && { target: "_blank" })}
                         rel="noopener"
                     >

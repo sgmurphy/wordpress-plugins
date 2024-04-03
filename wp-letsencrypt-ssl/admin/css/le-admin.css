@@ -2269,7 +2269,8 @@ label.disabled {
 
 /** 5.5.0 **/
 .wple-ssl-score,
-.wple-ssl-settings, .wple-activessl-info {
+.wple-ssl-settings,
+.wple-activessl-info {
   background: #fff;
   -webkit-box-shadow: 0px 0px 10px #ddd;
           box-shadow: 0px 0px 10px #ddd;
@@ -2279,7 +2280,8 @@ label.disabled {
 }
 
 .wple-ssl-score h2,
-.wple-ssl-settings h2, .wple-activessl-info h2 {
+.wple-ssl-settings h2,
+.wple-activessl-info h2 {
   margin-top: 0;
   font-size: 21px;
 }
@@ -2296,12 +2298,14 @@ div#wple-ssl-health {
   width: calc(49% - 40px);
 }
 
-.wple-ssl-settings, .wple-activessl-info {
+.wple-ssl-settings,
+.wple-activessl-info {
   width: calc(25% - 40px);
 }
 
 .wple-ssl-score h2:after,
-.wple-ssl-settings h2:after, .wple-activessl-info h2:after {
+.wple-ssl-settings h2:after,
+.wple-activessl-info h2:after {
   content: "";
   display: block;
   background: #eee;
@@ -2364,19 +2368,23 @@ div#wple-ssl-health {
   color: #fff;
 }
 
-.wple-ssl-settings label, .wple-activessl-info label {
+.wple-ssl-settings label,
+.wple-activessl-info label {
   cursor: default;
 }
 
-.wple-ssl-settings .plan-toggler, .wple-activessl-info .plan-toggler {
+.wple-ssl-settings .plan-toggler,
+.wple-activessl-info .plan-toggler {
   margin: 0 !important;
 }
 
-.wple-ssl-settings .plan-toggler label, .wple-activessl-info .plan-toggler label {
+.wple-ssl-settings .plan-toggler label,
+.wple-activessl-info .plan-toggler label {
   cursor: pointer !important;
 }
 
-.wple-ssl-settings ul li, .wple-activessl-info ul li {
+.wple-ssl-settings ul li,
+.wple-activessl-info ul li {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -2389,11 +2397,13 @@ div#wple-ssl-health {
           justify-content: space-between;
 }
 
-.wple-ssl-settings .toggle-checkbox:checked + .toggle-switch, .wple-activessl-info .toggle-checkbox:checked + .toggle-switch {
+.wple-ssl-settings .toggle-checkbox:checked + .toggle-switch,
+.wple-activessl-info .toggle-checkbox:checked + .toggle-switch {
   background: #5dc55d;
 }
 
-.wple-ssl-settings ul li.wple-setting-error, .wple-activessl-info ul li.wple-setting-error {
+.wple-ssl-settings ul li.wple-setting-error,
+.wple-activessl-info ul li.wple-setting-error {
   background: rgba(253, 167, 167, 0.5490196078);
   padding: 10px;
   text-align: center;
@@ -2404,20 +2414,17 @@ div#wple-ssl-health {
 }
 
 .wple-activessl-info {
-  -webkit-box-shadow: none !important;
-          box-shadow: none !important;
-  background: none !important;
   padding: 0 !important;
   width: 28% !important;
-}
-
-.wple-activessl-info-inner {
   background: #fff;
   -webkit-box-shadow: 0px 0px 10px #ddd;
           box-shadow: 0px 0px 10px #ddd;
+  border-radius: 5px;
+}
+
+.wple-activessl-info-inner {
   padding: 30px;
   margin-bottom: 20px;
-  border-radius: 5px;
 }
 
 .wple-ssl-settings label span {
@@ -2687,11 +2694,15 @@ span.wple-grade-B {
   background: orange !important;
 }
 
-span.wple-grade-C, span.wple-grade-D, span.wple-grade-E, span.wple-grade-F {
+span.wple-grade-C,
+span.wple-grade-D,
+span.wple-grade-E,
+span.wple-grade-F {
   background: #f05858 !important;
 }
 
-.wple-grade-T, .wple-grade-M {
+.wple-grade-T,
+.wple-grade-M {
   background: red !important;
 }
 
@@ -2843,7 +2854,8 @@ table#wple-vuln-table {
   margin: 20px 0;
 }
 
-table#wple-vuln-table th:first-child, #wple-vuln-table tr td:first-child {
+table#wple-vuln-table th:first-child,
+#wple-vuln-table tr td:first-child {
   text-align: left;
 }
 
@@ -2867,7 +2879,8 @@ tr.wple-vuln-row .high {
   color: rgba(250, 50, 50, 0.7882352941);
 }
 
-tr.wple-vuln-row .low, tr.wple-vuln-row .medium {
+tr.wple-vuln-row .low,
+tr.wple-vuln-row .medium {
   color: #ffad17;
 }
 
@@ -2982,6 +2995,58 @@ a.wple-sslcheck {
   color: #666;
 }
 
+li.wple-sec-scanner {
+  text-align: center;
+  display: block !important;
+  margin: 5px 0;
+}
+
+li.wple-sec-scanner a {
+  text-decoration: none;
+}
+
+/** security page **/
+form#wple-security-settings li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 20px 0;
+}
+
+form#wple-security-settings li label {
+  width: 75%;
+  font-size: 15px;
+  line-height: 26px;
+}
+
+form#wple-security-settings li .plan-toggler {
+  width: 60px;
+  margin: 0 !important;
+}
+
+form#wple-security-settings {
+  margin: 5px 0 100px 0;
+  display: inline-block;
+  width: 100%;
+}
+
+form#wple-security-settings .toggle-checkbox:checked + .toggle-switch {
+  background: #5dc55d !important;
+}
+
+/** temp **/
+.wple-security .wple-ssl-settings {
+  display: none !important;
+}
+
+.wple-security .wple-activessl-info {
+  width: 50% !important;
+}
+
+/** **/
 .progress--circle {
   position: relative;
   display: inline-block;

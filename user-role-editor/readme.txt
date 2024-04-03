@@ -2,7 +2,7 @@
 Contributors: shinephp
 Tags: user, role, editor, security, access
 Requires at least: 4.4
-Tested up to: 6.4.3
+Tested up to: 6.5
 Stable tag: 4.64.2
 Requires PHP: 7.3
 License: GPLv2 or later

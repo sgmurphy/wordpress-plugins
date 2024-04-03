@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'hcaptcha/hcaptcha-wordpress-plugin',
-        'pretty_version' => '3.10.1',
-        'version' => '3.10.1.0',
-        'reference' => '6fe2abd7c85013692397cc19d36299da059f6b6a',
+        'pretty_version' => '4.0.0',
+        'version' => '4.0.0.0',
+        'reference' => '7493071ac4b6bf1b4995e864892a783b156cc077',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,18 +11,18 @@
     ),
     'versions' => array(
         'hcaptcha/hcaptcha-wordpress-plugin' => array(
-            'pretty_version' => '3.10.1',
-            'version' => '3.10.1.0',
-            'reference' => '6fe2abd7c85013692397cc19d36299da059f6b6a',
+            'pretty_version' => '4.0.0',
+            'version' => '4.0.0.0',
+            'reference' => '7493071ac4b6bf1b4995e864892a783b156cc077',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'matthiasmullie/minify' => array(
-            'pretty_version' => '1.3.72',
-            'version' => '1.3.72.0',
-            'reference' => '531fdeef1911ffe27a53f8a19c297648c78f757e',
+            'pretty_version' => '1.3.73',
+            'version' => '1.3.73.0',
+            'reference' => 'cb7a9297b4ab070909cefade30ee95054d4ae87a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../matthiasmullie/minify',
             'aliases' => array(),

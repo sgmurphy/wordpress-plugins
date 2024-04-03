@@ -3,7 +3,7 @@ Contributors: optimole, salvatorefresta, isaumya
 Tags: cloudflare cache, improve speed, improve performance, page caching
 Requires at least: 4.9
 Requires PHP: 7.0
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

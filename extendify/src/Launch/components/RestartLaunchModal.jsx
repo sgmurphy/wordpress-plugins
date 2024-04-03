@@ -7,7 +7,12 @@ import classnames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export const RestartLaunchModal = ({ setPage, resetState }) => {
-	const oldPages = window.extOnbData.oldPagesIds ?? [];
+	const oldPages = window.extOnbData.resetSiteInformation.pagesIds ?? [];
+	const oldNavigations =
+		window.extOnbData.resetSiteInformation.navigationsIds ?? [];
+	const templatePartsIds =
+		window.extOnbData.resetSiteInformation.templatePartsIds ?? [];
+
 	const [open, setOpen] = useState(false);
 	const [processing, setProcessing] = useState(false);
 	const initialFocus = useRef(null);
@@ -18,11 +23,47 @@ export const RestartLaunchModal = ({ setPage, resetState }) => {
 		setProcessing(true);
 		resetState();
 		for (const pageId of oldPages) {
-			await apiFetch({
-				path: `/wp/v2/pages/${pageId}`,
-				method: 'DELETE',
-			});
+			try {
+				await apiFetch({
+					path: `/wp/v2/pages/${pageId}`,
+					method: 'DELETE',
+				});
+			} catch (responseError) {
+				console.warn(
+					`delete pages failed to delete a page (id: ${pageId}) with the following error`,
+					responseError,
+				);
+			}
 		}
+		// delete the wp_navigation posts created by Launch
+		for (const navigationId of oldNavigations) {
+			try {
+				await apiFetch({
+					path: `/wp/v2/navigation/${navigationId}`,
+					method: 'DELETE',
+				});
+			} catch (responseError) {
+				console.warn(
+					`delete navigation failed to delete a navigation (id: ${navigationId}) with the following error`,
+					responseError,
+				);
+			}
+		}
+
+		for (const template of templatePartsIds) {
+			try {
+				await apiFetch({
+					path: `/wp/v2/template-parts/${template}?force=true`,
+					method: 'DELETE',
+				});
+			} catch (responseError) {
+				console.warn(
+					`delete template failed to delete template (id: ${template}) with the following error`,
+					responseError,
+				);
+			}
+		}
+
 		setOpen(false);
 	};
 

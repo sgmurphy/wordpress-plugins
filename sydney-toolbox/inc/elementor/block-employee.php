@@ -348,9 +348,9 @@ class aThemes_Employee extends Widget_Base {
 			    <div class="team-inner">
 					<?php
 					if ( ! empty( $settings['image']['url'] ) ) {
-						$this->add_render_attribute( 'image', 'src', $settings['image']['url'] );
-						$this->add_render_attribute( 'image', 'alt', Control_Media::get_image_alt( $settings['image'] ) );
-						$this->add_render_attribute( 'image', 'title', Control_Media::get_image_title( $settings['image'] ) );
+						$this->add_render_attribute( 'image', 'src', esc_url( $settings['image']['url'] ) );
+						$this->add_render_attribute( 'image', 'alt', esc_html( Control_Media::get_image_alt( $settings['image'] ) ) );
+						$this->add_render_attribute( 'image', 'title', esc_html( Control_Media::get_image_title( $settings['image'] ) ) );
 					?>
 					<div class="avatar">
 						<img <?php echo $this->get_render_attribute_string( 'image' ); ?>/>
@@ -362,7 +362,7 @@ class aThemes_Employee extends Widget_Base {
 			    <div class="team-content">
 			        <div class="name">
 						<?php if ( ! empty( $settings['link']['url'] ) ) {
-							$this->add_render_attribute( 'link', 'href', $settings['link']['url'] );
+							$this->add_render_attribute( 'link', 'href', esc_url( $settings['link']['url'] ) );
 
 							if ( $settings['link']['is_external'] ) {
 								$this->add_render_attribute( 'link', 'target', '_blank' );
@@ -405,7 +405,7 @@ class aThemes_Employee extends Widget_Base {
 						<div class="pos"><?php echo esc_html( $settings['position'] ); ?></div>		
 						<h5 class="name">
 							<?php if ( ! empty( $settings['link']['url'] ) ) {
-								$this->add_render_attribute( 'link', 'href', $settings['link']['url'] );
+								$this->add_render_attribute( 'link', 'href', esc_url( $settings['link']['url'] ) );
 
 								if ( $settings['link']['is_external'] ) {
 									$this->add_render_attribute( 'link', 'target', '_blank' );

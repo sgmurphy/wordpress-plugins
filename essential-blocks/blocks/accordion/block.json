@@ -7,6 +7,7 @@
   "description": "Display your FAQs & improve user experience with Accordion/Toggle block",
   "textdomain": "essential-blocks",
   "supports": {
+    "anchor": true,
     "align": ["wide", "full"]
   },
   "editorScript": "essential-blocks-editor-script"

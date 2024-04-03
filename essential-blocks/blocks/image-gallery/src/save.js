@@ -28,7 +28,7 @@ const Save = ({ attributes }) => {
     if (sources.length === 0) return null;
 
     let lightBoxHtml = {
-        id: "eb-gallery-img-content",
+        rel: "noopener",
     };
     if (!disableLightBox) {
         lightBoxHtml = {
@@ -129,7 +129,7 @@ const Save = ({ attributes }) => {
                                     }
                                     {...lightBoxHtml}
                                     className={`eb-gallery-img-content eb-filter-img-${filters}`}
-                                    rel="noopener"
+
                                 >
                                     {innerHtml}
                                 </a>
@@ -158,7 +158,6 @@ const Save = ({ attributes }) => {
                                             : "_self"
                                     }
                                     className={`eb-gallery-img-content eb-filter-img-${filters}`}
-                                    rel="noopener"
                                 >
                                     {innerHtml}
                                 </a>

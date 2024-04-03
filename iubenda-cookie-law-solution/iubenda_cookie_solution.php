@@ -3,7 +3,7 @@
  * Plugin Name: iubenda | All-in-one Compliance for GDPR / CCPA Cookie Consent + more
  * Plugin URI: https://www.iubenda.com
  * Description: The iubenda plugin is an <strong>all-in-one</strong>, extremely easy to use 360° compliance solution, with text crafted by actual lawyers, that quickly <strong>scans your site and auto-configures to match your specific setup</strong>.  It supports the GDPR (DSGVO, RGPD), UK-GDPR, ePrivacy, LGPD, USPR, CalOPPA, PECR and more.
- * Version: 3.10.1
+ * Version: 3.10.2
  * Author: iubenda
  * Author URI: https://www.iubenda.com
  * License: MIT License
@@ -45,7 +45,7 @@ define( 'IUB_DEBUG', false );
  * @property Iubenda_Legal_Widget       $widget
  *
  * @class   iubenda
- * @version 3.10.1
+ * @version 3.10.2
  */
 class iubenda {
 // phpcs:enable
@@ -138,7 +138,7 @@ class iubenda {
 	 *
 	 * @var string
 	 */
-	public $version = '3.10.1';
+	public $version = '3.10.2';
 
 	/**
 	 * Plugin activation info.
@@ -303,6 +303,14 @@ class iubenda {
 	public $iub_auto_blocking;
 
 	/**
+	 * Class Iubenda_Configuration_Parser
+	 * Parses configurations from Iubenda code.
+	 *
+	 * @var Configuration_Parser
+	 */
+	public $configuration_parser;
+
+	/**
 	 * Disable object clone.
 	 *
 	 * @throws Exception Cloning is not allowed.
@@ -348,6 +356,7 @@ class iubenda {
 			self::$instance->no_script_policy_embedder = new No_Script_Policy_Embedder();
 			self::$instance->iub_auto_blocking         = new Auto_Blocking();
 			self::$instance->radar_dashboard_widget    = new Radar_Dashboard_Widget();
+			self::$instance->configuration_parser      = new Configuration_Parser();
 		}
 
 		return self::$instance;
@@ -522,6 +531,7 @@ class iubenda {
 	 */
 	private function includes() {
 		include_once IUBENDA_PLUGIN_PATH . 'includes/functions.php';
+		include_once IUBENDA_PLUGIN_PATH . 'includes/class-configuration-parser.php';
 		include_once IUBENDA_PLUGIN_PATH . 'includes/class-iubenda-settings.php';
 		include_once IUBENDA_PLUGIN_PATH . 'includes/class-iubenda-forms.php';
 		include_once IUBENDA_PLUGIN_PATH . 'includes/class-iubenda-amp.php';
@@ -1162,125 +1172,6 @@ class iubenda {
 	}
 
 	/**
-	 * Get configuration data parsed from iubenda code
-	 *
-	 * @param   string $code  code.
-	 * @param   array  $args  args.
-	 *
-	 * @return array
-	 */
-	public function parse_configuration( $code, $args = array() ) {
-		// Check if the embed code have Callback Functions inside it or not.
-		if ( strpos( $code, 'callback' ) !== false ) {
-			$code = $this->replace_the_callback_functions_to_parse_configuration( $code );
-		}
-
-		$configuration = array();
-		$defaults      = array(
-			'mode'  => 'basic',
-			'parse' => false,
-		);
-
-		// parse incoming $args into an array and merge it with $defaults.
-		$args = wp_parse_args( $args, $defaults );
-
-		if ( empty( $code ) ) {
-			return $configuration;
-		}
-
-		// parse code if needed.
-		$parsed_code = true === $args['parse'] ? $this->parse_code( $code, true ) : $code;
-
-		// get script.
-		$parsed_script = '';
-
-		preg_match_all( '/src\=(?:[\"|\'])(.*?)(?:[\"|\'])/', $parsed_code, $matches );
-
-		// find the iubenda script url.
-		if ( ! empty( $matches[1] ) ) {
-			foreach ( $matches[1] as $found_script ) {
-				if ( wp_http_validate_url( $found_script ) && strpos( $found_script, 'iubenda_cs.js' ) ) {
-					$parsed_script = $found_script;
-					continue;
-				}
-			}
-		}
-
-		// strip tags.
-		$parsed_code = wp_kses( $parsed_code, array() );
-
-		// get configuration.
-		preg_match( '/_iub.csConfiguration *= *{(.*?)\};/', $parsed_code, $matches );
-
-		if ( ! empty( $matches[1] ) ) {
-			$parsed_code = '{' . $matches[1] . '}';
-		}
-
-		// decode.
-		$decoded = json_decode( $parsed_code, true );
-
-		if ( ! empty( $decoded ) && is_array( $decoded ) ) {
-
-			$decoded['script'] = $parsed_script;
-
-			// basic mode.
-			if ( 'basic' === $args['mode'] ) {
-				if ( isset( $decoded['banner'] ) ) {
-					unset( $decoded['banner'] );
-				}
-				if ( isset( $decoded['callback'] ) ) {
-					unset( $decoded['callback'] );
-				}
-				if ( isset( $decoded['perPurposeConsent'] ) ) {
-					unset( $decoded['perPurposeConsent'] );
-				}
-				// Banner mode to get banner configuration only.
-			} elseif ( 'banner' === (string) $args['mode'] ) {
-				if ( isset( $decoded['banner'] ) ) {
-					return $decoded['banner'];
-				}
-
-				return array();
-			}
-
-			$configuration = $decoded;
-		}
-
-		return $configuration;
-	}
-
-	/**
-	 * Get configuration data parsed from TC & PP iubenda code.
-	 *
-	 * @param string $code Embed code.
-	 *
-	 * @return array|false
-	 */
-	public function parse_tc_pp_configuration( $code ) {
-		if ( empty( $code ) ) {
-			return false;
-		}
-
-		// Remove slashes and backslashes before use preg match all.
-		$code = stripslashes( $code );
-
-		preg_match_all( '/<a[^>]+href=([\'"])(?<href>.+?)\1[^>]*>/i', $code, $result );
-		$url = iub_array_get( $result, 'href.0' );
-
-		if ( ! $url ) {
-			return false;
-		}
-
-		$button_style     = strpos( stripslashes( $code ), 'iubenda-white' ) !== false ? 'white' : 'black';
-		$cookie_policy_id = basename( $url );
-
-		return array(
-			'button_style'     => $button_style,
-			'cookie_policy_id' => $cookie_policy_id,
-		);
-	}
-
-	/**
 	 * Domain info helper function.
 	 *
 	 * @param type $domainb domainb.
@@ -1439,50 +1330,6 @@ class iubenda {
 
 		// Reload Options.
 		$this->settings->load_defaults();
-	}
-
-	/**
-	 * Workaround to replace the callback functions with empty json array to parse configuration.
-	 *
-	 * @param string $code embed code.
-	 *
-	 * @return string|string[]
-	 */
-	private function replace_the_callback_functions_to_parse_configuration( $code ) {
-		$callback_position       = strpos( $code, 'callback' );
-		$opened_callback_braces  = strpos( $code, '{', $callback_position );
-		$closing_callback_braces = $this->find_closing_bracket( $code, $opened_callback_braces );
-
-		return substr_replace( $code, '{', $opened_callback_braces, $closing_callback_braces - $opened_callback_braces );
-	}
-
-	/**
-	 * Find closing bracket.
-	 *
-	 * @param string $target_string  String.
-	 * @param string $open_position  Open Position.
-	 *
-	 * @return mixed
-	 */
-	private function find_closing_bracket( $target_string, $open_position ) {
-		$close_pos = $open_position;
-		$counter   = 1;
-		while ( $counter > 0 ) {
-
-			// To Avoid the infinity loop.
-			if ( ! isset( $target_string[ $close_pos + 1 ] ) ) {
-				break;
-			}
-
-			$c = $target_string[ ++$close_pos ];
-			if ( '{' === (string) $c ) {
-				++$counter;
-			} elseif ( '}' === (string) $c ) {
-				--$counter;
-			}
-		}
-
-		return $close_pos;
 	}
 
 	/**

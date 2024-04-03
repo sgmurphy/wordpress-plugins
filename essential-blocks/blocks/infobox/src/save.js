@@ -55,7 +55,7 @@ export default function save({ attributes }) {
         <div {...useBlockProps.save()}>
             {isInfoClick ? (
                 <a
-                    href={infoboxLink}
+                    href={infoboxLink == undefined ? '' : infoboxLink}
                     target={linkNewTab ? "_blank" : "_self"}
                     rel="noopener noreferrer"
                     className="info-click-link info-wrap-link"

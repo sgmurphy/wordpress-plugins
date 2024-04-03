@@ -160,7 +160,7 @@ const Save = ({ attributes }) => {
                                             <div className="eb-pricing-footer" data-icon={buttonIcon}>
                                                 <div className="eb-pricing-button-wrapper">
                                                     <a
-                                                        href={buttonURL}
+                                                        href={buttonURL == '#' ? '' : buttonURL}
                                                         {...(newWindow && { target: "_blank" })}
                                                         className="eb-pricing-button"
                                                     >
@@ -319,7 +319,7 @@ const Save = ({ attributes }) => {
                                         <div className="eb-pricing-footer" data-icon={buttonIcon}>
                                             <div className="eb-pricing-button-wrapper">
                                                 <a
-                                                    href={buttonURL}
+                                                    href={buttonURL == '#' ? '' : buttonURL}
                                                     {...(newWindow && { target: "_blank" })}
                                                     className="eb-pricing-button"
                                                 >

@@ -4,7 +4,7 @@
  * @package WP Encryption
  *
  * @author     Go Web Smarty
- * @copyright  Copyright (C) 2019-2023, Go Web Smarty
+ * @copyright  Copyright (C) 2019-2024, Go Web Smarty
  * @license    http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3
  * @link       https://gowebsmarty.com
  * @since      Class available since Release 5.1.0
@@ -850,8 +850,15 @@ class WPLE_Trait
         
         if ( is_writable( ABSPATH . '.htaccess' ) ) {
             $htaccess = file_get_contents( ABSPATH . '.htaccess' );
+            //remove older one
+            $group = "/#\\s?BEGIN\\s?WP_Encryption_Well_Known.*?#\\s?END\\s?WP_Encryption_Well_Known/s";
+            if ( preg_match( $group, $htaccess ) ) {
+                $htaccess = preg_replace( $group, "", $htaccess );
+            }
             $rule = "\n" . "# BEGIN WP_Encryption_Well_Known\n";
-            $rule .= "RewriteRule ^.well-known/(.*)\$ - [L]" . "\n";
+            //$rule .= "RewriteRule ^.well-known/(.*)$ - [L]" . "\n";
+            $rule .= "RewriteCond %{REQUEST_FILENAME} !.well-known/" . "\n";
+            $rule .= 'RewriteRule "(^|/)\\.(?!well-known)" - [F]' . "\n";
             $rule .= "# END WP_Encryption_Well_Known" . "\n";
             $finalrule = preg_replace( "/\n+/", "\n", $rule );
             $newhtaccess = $finalrule . $htaccess;

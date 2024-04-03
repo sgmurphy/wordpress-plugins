@@ -168,7 +168,7 @@ const attributes = {
     },
     filterBGColor: {
         type: "string",
-        default: "var(--eb-global-background-color)",
+        default: "var(--eb-global-tertiary-color)",
     },
     filterActBGColor: {
         type: "string",

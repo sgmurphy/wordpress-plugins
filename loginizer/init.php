@@ -5,7 +5,7 @@ if(!function_exists('add_action')){
 	exit;
 }
 
-define('LOGINIZER_VERSION', '1.8.3');
+define('LOGINIZER_VERSION', '1.8.4');
 define('LOGINIZER_DIR', dirname(LOGINIZER_FILE));
 define('LOGINIZER_URL', plugins_url('', LOGINIZER_FILE));
 define('LOGINIZER_PRO_URL', 'https://loginizer.com/features#compare');
@@ -229,11 +229,28 @@ function loginizer_load_plugin(){
 	$loginizer['notify_email'] = empty($options['notify_email']) ? 0 : $options['notify_email'];
 	$loginizer['notify_email_address'] = lz_is_multisite() ? get_site_option('admin_email') : get_option('admin_email');
 	$loginizer['trusted_ips'] = empty($options['trusted_ips']) ? false : true;
+	$loginizer['blocked_screen'] = empty($options['blocked_screen']) ? false : true;
+
 	
 	if(!empty($options['notify_email_address'])){
 		$loginizer['notify_email_address'] = $options['notify_email_address'];
 		$loginizer['custom_notify_email'] = 1;
 	}
+	
+	// Login Success Email Notification.
+	$loginizer['login_mail'] = get_option('loginizer_login_mail', []);
+	$loginizer['login_mail_default_sub'] = __('Login Successful at $sitename', 'loginizer');
+	$loginizer['login_mail_default_msg'] = __('Hello $user_login,
+
+Your account was recently logged in from the IP : $ip
+Time : $date 
+If it was not you who logged in then please report this to us immediately.
+
+Regards,
+$sitename','loginizer');
+
+	$loginizer['login_mail_subject'] = empty($loginizer['login_mail']['subject']) ? $loginizer['login_mail_default_sub']: $loginizer['login_mail']['subject'];
+	$loginizer['login_mail_body'] = empty($loginizer['login_mail']['body']) ? $loginizer['login_mail_default_msg'] : $loginizer['login_mail']['body'];
 	
 	// Default messages
 	$loginizer['d_msg']['inv_userpass'] = __('Incorrect Username or Password', 'loginizer');
@@ -268,8 +285,8 @@ function loginizer_load_plugin(){
 	}
 		
 	// Load the blacklist and whitelist
-	$loginizer['blacklist'] = get_option('loginizer_blacklist');
-	$loginizer['whitelist'] = get_option('loginizer_whitelist');
+	$loginizer['blacklist'] = get_option('loginizer_blacklist', []);
+	$loginizer['whitelist'] = get_option('loginizer_whitelist', []);
 	$loginizer['2fa_whitelist'] = get_option('loginizer_2fa_whitelist');
 	
 	// It should not be false
@@ -381,6 +398,11 @@ $site_name';
 	$loginizer['captcha_theme'] = empty($options['captcha_theme']) ? 'light' : $options['captcha_theme'];
 	$loginizer['captcha_size'] = empty($options['captcha_size']) ? 'normal' : $options['captcha_size'];
 	$loginizer['captcha_lang'] = empty($options['captcha_lang']) ? '' : $options['captcha_lang'];
+	$loginizer['turn_captcha_key'] = empty($options['turn_captcha_key']) ? '' : $options['turn_captcha_key'];
+	$loginizer['turn_captcha_secret'] = empty($options['turn_captcha_secret']) ? '' : $options['turn_captcha_secret'];
+	$loginizer['turn_captcha_theme'] = empty($options['turn_captcha_theme']) ? 'light' : $options['turn_captcha_theme'];
+	$loginizer['turn_captcha_size'] = empty($options['turn_captcha_size']) ? 'normal' : $options['turn_captcha_size'];
+	$loginizer['turn_captcha_lang'] = empty($options['turn_captcha_lang']) ? '' : $options['turn_captcha_lang'];
 	$loginizer['captcha_user_hide'] = !isset($options['captcha_user_hide']) ? 0 : $options['captcha_user_hide'];
 	$loginizer['captcha_no_css_login'] = !isset($options['captcha_no_css_login']) ? 0 : $options['captcha_no_css_login'];
 	$loginizer['captcha_no_js'] = 1;
@@ -401,7 +423,15 @@ $site_name';
 	$loginizer['captcha_subtract'] =  !isset($options['captcha_subtract']) ? 1 : $options['captcha_subtract'];
 	$loginizer['captcha_multiply'] =  !isset($options['captcha_multiply']) ? 0 : $options['captcha_multiply'];
 	$loginizer['captcha_divide'] =  !isset($options['captcha_divide']) ? 0 : $options['captcha_divide'];
-	
+	$loginizer['captcha_status'] =  !isset($options['captcha_status']) ? 0 : $options['captcha_status'];
+
+	// hcaptcha
+	$loginizer['hcaptcha_secretkey'] =  !isset($options['hcaptcha_secretkey']) ? '' : $options['hcaptcha_secretkey'];
+	$loginizer['hcaptcha_sitekey'] =  !isset($options['hcaptcha_sitekey']) ? '' : $options['hcaptcha_sitekey'];
+	$loginizer['hcaptcha_theme'] = empty($options['hcaptcha_theme']) ? 'light' : $options['hcaptcha_theme'];
+	$loginizer['hcaptcha_lang'] = empty($options['hcaptcha_lang']) ? '' : $options['hcaptcha_lang'];
+	$loginizer['hcaptcha_size'] = empty($options['hcaptcha_size']) ? 'normal' : $options['hcaptcha_size'];
+
 	// 2fa/question
 	$options = get_option('loginizer_2fa');
 	$loginizer['2fa_app'] = !isset($options['2fa_app']) ? 0 : $options['2fa_app'];
@@ -535,7 +565,13 @@ function loginizer_wp_authenticate($user, $username, $password){
 		// This is used by WP Activity Log
 		apply_filters( 'wp_login_blocked', $username );
 		
-		return new WP_Error('ip_blacklisted', __('Your IP is not whitelisted, so you can not log in', 'loginizer'));
+		// Shows a blocked screen
+		if(!empty($loginizer['blocked_screen'])){
+			$lz_error['trusted_ip'] = __('You are restricted from logging in as your IP is not whitelisted.', 'loginizer');
+			loginizer_blocked_page($lz_error);
+		}
+		
+		return new WP_Error('ip_blacklisted', __('You are restricted from logging in as your IP is not whitelisted.', 'loginizer'));
 	}
 	
 	// Are you blacklisted ?
@@ -544,6 +580,11 @@ function loginizer_wp_authenticate($user, $username, $password){
 		
 		// This is used by WP Activity Log
 		apply_filters( 'wp_login_blocked', $username );
+		
+		// Shows a blocked screen
+		if(!empty($loginizer['blocked_screen'])){
+			loginizer_blocked_page($lz_error);
+		}
 		
 		return new WP_Error('ip_blacklisted', implode('', $lz_error), 'loginizer');
 	}
@@ -568,6 +609,11 @@ function loginizer_wp_authenticate($user, $username, $password){
 
 	// This is used by WP Activity Log
 	apply_filters( 'wp_login_blocked', $username );
+	
+	// Shows a blocked screen
+	if(!empty($loginizer['blocked_screen'])){
+		loginizer_blocked_page($lz_error);
+	}
 	
 	return new WP_Error('ip_blocked', implode('', $lz_error), 'loginizer');
 
@@ -701,7 +747,6 @@ function loginizer_is_whitelisted(){
 	
 }
 
-
 // When the login fails, then this is called
 // We need to update the database
 function loginizer_login_failed($username, $is_2fa = ''){
@@ -796,8 +841,58 @@ Loginizer';
 	}
 }
 
-function loginizer_login_success($user_login, $user){
+function loginizer_login_success($user_login, $user) {
+	global $loginizer;
+
 	loginizer_update_attempt_stats(1);
+
+	if(empty($loginizer['login_mail']['enable'])){
+		return;
+	}
+
+	if(empty($user_login) && empty($user)){
+		error_log('Loginizer: No user information to send email');
+		return;
+	}
+
+	if(empty($user)){
+		$user = get_user_by('login', $user_login);
+	}
+
+	if(empty($user)){
+		error_log('Loginizer: Unable to get the user');
+		return;
+	}
+
+	if(empty($loginizer['login_mail']['roles']) || !is_array($loginizer['login_mail']['roles'])){
+		return;
+	}
+
+	// Check if the user role is enabled for email notification.
+	if(!array_intersect($user->roles, $loginizer['login_mail']['roles'])){
+		return;
+	}
+
+	// Setting up data variables.
+	$date = date("Y-m-d H:i:s", time()) . ' ' . date_default_timezone_get();
+	$sitename = lz_is_multisite() ? get_site_option('site_name') : get_option('blogname');
+	$email = $user->data->user_email;
+
+	$vars = array(
+		'date' => $date,
+		'ip' => esc_html($loginizer['current_ip']),
+		'sitename' => $sitename,
+		'user_login' => $user_login
+	);
+
+	$message = lz_lang_vars_name($loginizer['login_mail_body'], $vars);
+	$subject = lz_lang_vars_name($loginizer['login_mail_subject'], $vars);
+
+	// Sending notification
+	if(empty(wp_mail($email, $subject, $message))){
+		error_log(__('There was a problem sending your email.', 'loginizer'));
+		return;
+	}
 }
 
 function loginizer_update_attempt_stats($type){

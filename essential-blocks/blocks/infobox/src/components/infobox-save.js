@@ -84,7 +84,7 @@ export default function InfoboxContainer({ requiredProps }) {
                         {enableButton && !isInfoClick ? (
                             <div className="eb-infobox-btn-wrapper">
                                 <a
-                                    href={infoboxLink}
+                                    href={infoboxLink == undefined ? '' : infoboxLink}
                                     target={linkNewTab ? "_blank" : "_self"}
                                     rel="noopener noreferrer"
                                     className={`infobox-btn  ${btnEffect || " "

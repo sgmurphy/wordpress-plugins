@@ -43,13 +43,6 @@ class Admin
 
         $this->loadScripts();
 
-        add_action('after_setup_theme', function () {
-            // phpcs:ignore WordPress.Security.NonceVerification
-            if (isset($_GET['extendify-disable-admin-bar'])) {
-                show_admin_bar(false);
-            }
-        });
-
         ResourceData::scheduleCache();
     }
 
@@ -112,7 +105,7 @@ class Admin
             Config::$slug . '-assist-page-scripts',
             'window.extAssistData = ' . \wp_json_encode([
                 'devbuild' => \esc_attr(Config::$environment === 'DEVELOPMENT'),
-                'siteId' => \get_option('extendify_site_id', ''),
+                'siteId' => \esc_attr(\get_option('extendify_site_id', '')),
                 // Only send insights if they have opted in explicitly.
                 'insightsEnabled' => defined('EXTENDIFY_INSIGHTS_URL'),
                 'root' => \esc_url_raw(\rest_url(Config::$slug . '/' . Config::$apiVersion)),
@@ -121,21 +114,23 @@ class Admin
                 'home' => \esc_url_raw(\get_home_url()),
                 'siteCreatedAt' => $siteInstalled ? $siteInstalled : null,
                 'asset_path' => \esc_url(EXTENDIFY_URL . 'public/assets'),
-                'launchCompleted' => Config::$launchCompleted,
+                'launchCompleted' => (bool) \esc_attr(Config::$launchCompleted),
                 'dismissedNotices' => $dismissed,
                 'partnerLogo' => \esc_attr(PartnerData::$logo),
                 'partnerName' => \esc_attr(PartnerData::$name),
                 'partnerId' => \esc_attr(PartnerData::$id),
                 'blockTheme' => \wp_is_block_theme(),
                 'hasCustomizer' => \has_action('customize_register'),
-                'themeSlug' => \get_option('stylesheet'),
+                'themeSlug' => \esc_attr(\get_option('stylesheet')),
                 'wpLanguage' => \get_locale(),
-                'disableRecommendations' => (bool) \esc_attr(PartnerData::$disableRecommendations),
+                'disableRecommendations' => (bool) \esc_attr(PartnerData::setting('disableRecommendations')),
                 'domainsSuggestionSettings' => [
-                    'showBanner' => (bool) \esc_attr(PartnerData::$showDomainBanner),
-                    'showTask' => (bool) \esc_attr(PartnerData::$showDomainTask),
-                    'tlds' => \esc_attr(PartnerData::$domainTLDs),
-                    'searchUrl' => \esc_attr(PartnerData::$domainSearchURL),
+                    'showBanner' => (bool) \esc_attr(PartnerData::setting('showDomainBanner')),
+                    'showTask' => (bool) \esc_attr(PartnerData::setting('showDomainTask')),
+                    'showSecondaryBanner' => (bool) \esc_attr(PartnerData::setting('showSecondaryDomainBanner')),
+                    'showSecondaryTask' => (bool) \esc_attr(PartnerData::setting('showSecondaryDomainTask')),
+                    'stagingSites' => array_map('esc_attr', PartnerData::setting('stagingSites')),
+                    'searchUrl' => \esc_attr(PartnerData::setting('domainSearchURL')),
                 ],
                 'userData' => [
                     'taskData' => TasksController::get(),
@@ -145,7 +140,8 @@ class Admin
                     'tasksDependencies' => $this->getTasksDependecies(),
                 ],
                 'resourceData' => (new ResourceData())->getData(),
-                'canSeeRestartLaunch' => $this->canRunLaunchAgain(),
+                'canSeeRestartLaunch' => (bool) \esc_attr($this->canRunLaunchAgain()),
+                'editSiteNavigationMenuLink' => \current_theme_supports('menus') ? esc_url(\admin_url('nav-menus.php')) : esc_url(\admin_url('site-editor.php?path=%2Fnavigation')),
             ]),
             'before'
         );
@@ -188,7 +184,6 @@ class Admin
         }
     }
 
-
     /**
      * Check to see if specific tasks are completed or not.
      *
@@ -206,6 +201,5 @@ class Admin
             'completedSetupGivewp' => $completedSetupGivewp,
             'completedWoocommerceStore' => $completedwWoocommerceStore,
         ];
-
     }
 }

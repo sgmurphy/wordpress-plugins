@@ -1,156 +1,417 @@
-<?php 
-namespace HTMega\RatingNotice;
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly.
+<?php  
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class HTMEGA_Rating_Notice {
-    private $previous_date;
-    private $plugin_slug = 'ht-mega-for-elementor';
-    private $plugin_name = 'HT Mega Elementor Addons';
-    private $logo_url = HTMEGA_ADDONS_PL_URL . "admin/assets/images/logo.png";
-    private $after_click_maybe_later_days = '-20 days';
-    private $after_installed_days = '-14 days';
-    private $installed_date_option_key = 'htmega_elementor_addons_activation_time';
+if ( ! class_exists( 'HasTech_Notices' ) ){
+    class HasTech_Notices{
 
-    public function __construct() {
-        $this->previous_date = false == get_option('htmega_maybe_later_time') ? strtotime( $this->after_installed_days ) : strtotime( $this->after_click_maybe_later_days );
-        if ( current_user_can('administrator') ) {
-            if ( empty( get_option('htmega_rating_already_rated', false ) ) ) {
-                add_action( 'admin_init', [$this, 'check_plugin_install_time'] );
+        /**
+         * [$instance]
+         * @var null
+         */
+        private static $instance = null;
+
+        /**
+         * Plugin Domain
+         *
+         * @var string
+         */
+        private static $plugin_domain = 'htmega-addons';
+
+        /**
+         * All Notices
+         *
+         * @var array
+         */
+        private static $notices = [];
+
+        /**
+         * [instance]
+         * @return [HasTech_Notices]
+         */
+        public static function instance(){
+            if( is_null( self::$instance ) ){
+                self::$instance = new self();
             }
+            return self::$instance;
         }
 
-        if ( is_admin() ) {
-            add_action( 'admin_head', [$this, 'enqueue_scripts' ] );
+        /**
+         * [__construct]
+         */
+        public function __construct(){
+            add_action( 'admin_notices', [ $this, 'show_admin_notices' ] );
+            add_action(	'admin_footer', [ $this, 'enqueue_scripts' ], 999 );
+            add_action( 'wp_ajax_hastech_notices', [ $this, 'ajax_dismiss' ] );
         }
 
-        add_action( 'wp_ajax_htmega_rating_maybe_later', [ $this, 'htmega_rating_maybe_later' ] );
-        add_action( 'wp_ajax_htmega_rating_already_rated', [ $this, 'htmega_rating_already_rated' ] );
-    }
+        /**
+         * Ajax Action for Notice dismiss
+         *
+         * @return void
+         */
+        public function ajax_dismiss() {
 
-    public function check_plugin_install_time() {
-        $installed_date = get_option( $this->installed_date_option_key );
+            $nonce = !empty( $_POST['notice_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['notice_nonce'] ) ) : '';
 
-        if ( false == get_option( 'htmega_maybe_later_time' ) && false !== $installed_date && $this->previous_date >= $installed_date ) {
-            add_action( 'admin_notices', [ $this, 'rating_notice_content' ] );
+            if( !wp_verify_nonce( $nonce, 'hastech_notices_nonce') ) {
+                $error_message = [
+                    'message'  => __('Are you cheating?', self::$plugin_domain)
+                ];
+                wp_send_json_error( $error_message );
+            }
 
-        } else if ( false != get_option( 'htmega_maybe_later_time' ) && $this->previous_date >= get_option( 'htmega_maybe_later_time' ) ) {
-            add_action( 'admin_notices', [ $this, 'rating_notice_content' ] );
+            $notice_id   = ( isset( $_POST['noticeid'] ) ) ? sanitize_key( $_POST['noticeid'] ) : '';
+            $alreadydid  = ( isset( $_POST['alreadydid'] ) ) ? sanitize_key( $_POST['alreadydid'] ) : '';
+            $expire_time = ( isset( $_POST['expiretime'] ) ) ? sanitize_text_field( wp_unslash( $_POST['expiretime'] ) ) : '';
+            $close_by    = ( isset( $_POST['closeby'] ) ) ? sanitize_key( $_POST['closeby'] ) : '';
 
+            if ( ! empty( $notice_id ) ) {
+
+                if( !empty( $alreadydid ) ) {
+                    update_option( $notice_id , true );
+                }else{
+                    if ( 'user' === $close_by ) {
+                        update_user_meta( get_current_user_id(), $notice_id, true );
+                    } else {
+                        set_transient( $notice_id, true, $expire_time );
+                    }
+                }
+
+                wp_send_json_success();
+            }
+
+            wp_send_json_error();
         }
-    }
 
-    public function htmega_rating_maybe_later() {
-		$nonce = $_POST['nonce'];
+        /**
+         * Script
+         *
+         * @return void
+         */
+        public function enqueue_scripts() {
 
-		if ( ! wp_verify_nonce( $nonce, 'htmega-plugin-notice-nonce')  || ! current_user_can( 'manage_options' ) ) {
-		  exit;
-		}
-
-        update_option( 'htmega_maybe_later_time', strtotime('now') );
-    }
-
-    function htmega_rating_already_rated() {
-		$nonce = $_POST['nonce'];
-
-		if ( ! wp_verify_nonce( $nonce, 'htmega-plugin-notice-nonce')  || ! current_user_can( 'manage_options' ) ) {
-		  exit; 
-		}
-
-        update_option( 'htmega_rating_already_rated' , true );
-    }
-    
-    public function rating_notice_content() {
-        if ( is_admin() ) {
-            echo '<div class="notice htmega-rating-notice is-dismissible" style="border-left-color: #2271b1!important; display: flex; align-items: center;">
-                        <div class="htmega-rating-notice-logo">
-                            <img src="' . $this->logo_url . '">
-                        </div>
-                        <div>
-                            <h3>Thank you for choosing '. $this->plugin_name .' to design your website!</h3>
-                            <p style="">Would you mind doing us a huge favor by providing your feedback on WordPress? Your support helps us spread the word and greatly boosts our motivation.</p>
-                            <p>
-                                <a href="https://wordpress.org/support/plugin/'. $this->plugin_slug .'/reviews/?filter=5#new-post" target="_blank" class="htmega-you-deserve-it button button-primary"> OK, you deserve it!</a>
-                                <a class="htmega-maybe-later"><span class="dashicons dashicons-clock"></span> Maybe Later</a>
-                                <a class="htmega-already-rated"><span class="dashicons dashicons-yes"></span> I Already did</a>
-                            </p>
-                        </div>
-                </div>';
-        }
-    }
-
-    public static function enqueue_scripts() {
-        echo "<style>
-            .htmega-rating-notice {
-              padding: 10px 20px;
-              border-top: 0;
-              border-bottom: 0;
+            $styles = ".hastech-admin-notice.promo-banner {
+                position: relative;
+                padding-top: 20px !important;
+                padding-right: 40px;
             }
-            .htmega-rating-notice-logo {
-                margin-right: 20px;
-                width: 100px;
-                height: 100px;
+            .hastech-admin-notice.notice img, .hastech-review-notice-wrap img{
+                width: 100%;
             }
-            .htmega-rating-notice-logo img {
-                max-width: 100%;
-            }
-            .htmega-rating-notice h3 {
-              margin-bottom: 0;
-            }
-            .htmega-rating-notice p {
-              margin-top: 3px;
-              margin-bottom: 15px;
-              display:flex;
-            }
-            .htmega-maybe-later,
-            .htmega-already-rated {
-                text-decoration: none;
-                margin-left: 12px;
-                font-size: 14px;
-                cursor: pointer;
-                display: inline-flex;
+            .hastech-review-notice-wrap{
+                border-left-color: #2271b1 !important;
+                display: flex;
+                justify-content: left;
                 align-items: center;
-                justify-content: center;
+                padding: 10px 0;
             }
-            .htmega-already-rated .dashicons,
-            .htmega-maybe-later .dashicons {
-              vertical-align: middle;
+            .hastech-review-notice-content {
+                margin-left: 15px;
             }
-            .htmega-rating-notice .notice-dismiss {
-                display: none;
+            .hastech-review-notice-action {
+                display: flex;
+                align-items: center;
+                padding-top: 10px;
             }
-        </style>";
-        $notice_admin_nonce = wp_create_nonce('htmega-plugin-notice-nonce');
-        ?>
+            .hastech-review-notice-action span.dashicons {
+                font-size: 1.4em;
+                padding-left: 10px;
+            }
+            .hastech-review-notice-action a {
+                padding-left: 5px;
+                text-decoration: none;
+            }
+            .hastech-review-notice-content h3 {
+                margin: 0;
+            }";
 
-        <script type="text/javascript">
-            (function ($) {
-                $(document).on( 'click', '.htmega-maybe-later', function() {
-                    $('.htmega-rating-notice').slideUp();
-                    jQuery.post({
+            $scripts = "jQuery(document).ready( function($) {
+                $( '.hastech-admin-notice.is-dismissible' ).on( 'click', '.notice-dismiss,.hastech-notice-close', function(e) {
+                    e.preventDefault();
+                    let noticeWrap = $( this ).parents( '.hastech-admin-notice' ),
+                        noticeId = noticeWrap.attr( 'id' ) || '',
+                        expireTime = noticeWrap.attr( 'expire-time' ) || '',
+                        closeBy = noticeWrap.attr( 'close-by' ) || '',
+                        alreadyDid = $( this ).attr('data-already-did') || '',
+                        noticeNonce = '".esc_html( wp_create_nonce( 'hastech_notices_nonce' ) )."';
+
+                    noticeWrap.css('opacity','0.5');
+            
+                    $.ajax({
                         url: ajaxurl,
+                        type: 'POST',
                         data: {
-                            nonce: <?php echo wp_json_encode( $notice_admin_nonce ); ?>,
-                            action: 'htmega_rating_maybe_later'
+                            action 	: 'hastech_notices',
+                            noticeid: noticeId,
+                            closeby : closeBy,
+                            expiretime : expireTime,
+                            alreadydid : alreadyDid,
+                            notice_nonce: noticeNonce
+                        },
+                        success: function( response ) {
+                            noticeWrap.css('display','none');
+                        },
+                        complete: function( response ){
+                            noticeWrap.css('display','none');
                         }
                     });
+            
                 });
+            });";
+            
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            printf( '<style>%s</style>', $styles );
+            printf( '<script>%s</script>', $scripts );
+        }
 
-                $(document).on( 'click', '.htmega-already-rated', function() {
-                    $('.htmega-rating-notice').slideUp();
-                    jQuery.post({
-                        url: ajaxurl,
-                        data: {
-                            nonce: <?php echo wp_json_encode( $notice_admin_nonce ); ?>,
-                            action: 'htmega_rating_already_rated'
+        /**
+         * Set Notices
+         *
+         * @param array $args
+         * @return void
+         */
+        public static function set_notice( $args = [] ) {
+            self::$notices[] = $args;
+        }
+
+        /**
+         * Sort Notices
+         *
+         * @param [type] $notice_a
+         * @param [type] $notice_b
+         */
+        public function sort_notices($notice_a, $notice_b){
+            if ( ! isset( $notice_a['priority'] ) ) {
+                $notice_a['priority'] = 1;
+            }
+            if ( ! isset( $notice_b['priority'] ) ) {
+                $notice_b['priority'] = 1;
+            }
+
+            if ( $notice_a['priority'] == $notice_b['priority'] ) {
+                return 0;
+            }
+            return ( $notice_a['priority'] < $notice_b['priority'] ) ? -1 : 1;
+        }
+
+        /**
+         * Get all notices
+         */
+        private function get_notices() {
+            usort( self::$notices, [ $this, 'sort_notices' ] );
+            return self::$notices;
+        }
+
+        /**
+         * Notice Prepare For Display
+         *
+         * @param [type] $notice_data
+         */
+        private function prepare_notice( $notice_data ){
+            $defaults = [
+                'id'            => '',
+                'type'          => 'info', // Notice type. Default 'info' Expected [info, warning, notice, error]
+                'dismissible'   => false,
+                'close_by' 		=> 'user', // Default 'user' Expected [user, transient]
+                'expire_time'	=> WEEK_IN_SECONDS,
+                'display_after' => false,
+                'is_show'		=> true,
+                'data'          => '',
+                'message'       => '',
+                'message_type'  => 'text', // Message Type. Default 'text' Expected [html, text]
+                'button'		=> [],
+                'banner'		=> [],
+                'priority'      => 1,
+                'dismissible_btn'=> '',
+                'capability'     => 'manage_options'
+            ];
+            $notice = wp_parse_args( $notice_data, $defaults );
+
+            $classes = [ 'hastech-admin-notice' ];
+
+            if ( isset( $notice['type'] ) ) {
+                $classes[] = 'notice-' . $notice['type'];
+                if( $notice['type'] !== 'custom'){
+                    $classes[] = 'notice';
+                }else{
+                    $notice['dismissible_btn'] = '<button type="button" class="notice-dismiss"><span class="screen-reader-text">'.esc_html__('Dismiss this notice.',self::$plugin_domain).'</span></button>';
+                }
+            }
+
+            if( !empty( $notice['banner'] ) ){
+                $classes[] = 'promo-banner';
+            }
+
+            // If notice is dismissible then add "is-dismissible" class.
+            if ( true === $notice['dismissible'] ) {
+                $classes[] 		= 'is-dismissible';
+                $notice['data'] = ' expire-time=' . esc_attr( $notice['expire_time'] ) . ' ';
+            }
+
+            $notice['id'] = 'hastech-notice-id-' . $notice['id'];
+            $notice['classes'] = implode( ' ', $classes );
+            $notice['data'] .= ' close-by=' . esc_attr( $notice['close_by'] ) . ' ';
+
+            return $notice;
+
+        }
+
+        /**
+         * Show Admin Notices
+         *
+         * @return void
+         */
+        public function show_admin_notices(){
+            $notices_displayed_count = 0;
+            $notices = $this->get_notices();
+
+            foreach ( $notices as $notice ) {
+
+                // Only Show one notice at a time.
+                if ( $notices_displayed_count > 0 ) {
+                    break;
+                }
+
+                $notice = self::instance()->prepare_notice( $notice );
+
+                if ( isset( $notice['is_show'] ) && current_user_can( $notice['capability'] ) ) {
+                    if ( true === $notice['is_show'] ) {
+                        if ( self::is_expired( $notice ) ) {
+                            self::html( $notice );
+                            ++$notices_displayed_count;
                         }
-                    });
-                });
-            })(jQuery);
-        </script>
+                    }
+                }
 
-        <?php
+            }
+
+        }
+
+        /**
+         * Add Notices
+         *
+         * @param [type] $notice
+         * @return void
+         */
+        public static function add_notice( $notice_data ) {
+
+            $notice = self::instance()->prepare_notice( $notice_data );
+
+            // Check Notice visible condition.
+            if ( isset( $notice['is_show'] ) && current_user_can( $notice['capability'] ) ) {
+                if ( true === $notice['is_show'] ) {
+                    if ( self::is_expired( $notice ) ) {
+                        self::html( $notice );
+                    }
+                }
+            }
+
+        }
+
+        /**
+         * Gerenare Notice HTML
+         *
+         * @param array $notice_arg
+         * @return void
+         */
+        public static function html( $notice_arg = [] ){
+            ?>
+                <div id="<?php echo esc_attr( $notice_arg['id'] ); ?>" class="<?php echo esc_attr( $notice_arg['classes'] ); ?>" <?php self::render_attribute($notice_arg['data']); ?>>
+                    <?php
+                        // Notice Image
+                        if( !empty( $notice_arg['banner'] ) ){
+                            printf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( $notice_arg['banner']['url'] ), $notice_arg['banner']['image'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        }
+
+                        // Notice Message
+                        if( $notice_arg['message_type'] === 'text'){
+                            printf('<p>%1$s</p>', __( $notice_arg['message'] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        }else{
+                            echo wp_kses_post( $notice_arg['message'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        }
+
+                        // If notice type custom and dismissible true
+                        if ( true === $notice_arg['dismissible'] ) {
+                            printf('%1$s', __( $notice_arg['dismissible_btn'] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        }
+
+                        // Notice Action Button
+                        if( !empty( $notice_arg['button'] ) ){
+                            printf('<p><a href="%1$s" class="button-primary">%2$s</a></p>', esc_url( $notice_arg['button']['url'] ), esc_html( $notice_arg['button']['text'] ) );
+                        }
+                    ?>
+                </div>
+            <?php
+        }
+
+        /**
+         * Data Attribute Render
+         *
+         * @param [type] $data
+         * @return void
+         */
+        public static function render_attribute( $data ){
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo $data;
+        }
+
+        /**
+         * Check Notice Show Expirity
+         *
+         * @param [type] $notice
+         */
+        private static function is_expired( $notice ) {
+
+            if( isset( $notice['display_after'] ) && false !== $notice['display_after'] ){
+
+                // Check if already did : rated / something else
+                if ( get_option( $notice['id'], false ) ) {
+                    return false;
+                }
+
+                $transient = get_transient( $notice['id'] );
+
+                if( false === $transient ){
+
+                    $expired = get_user_meta( get_current_user_id(), $notice['id'], true );
+                    
+                    if ( 'notice_delayed' !== $expired && true !== $expired ) {
+                        set_transient( $notice['id'], 'notice_delayed', $notice['display_after'] );
+                        update_user_meta( get_current_user_id(), $notice['id'], 'notice_delayed' );
+
+                        return false;
+                    }
+
+                    // Verify the user meta status to determine if the current user notice has been dismissed or if the delay has been completed.
+                    $user_meta = get_user_meta( get_current_user_id(), $notice['id'], true );
+
+                    if ( empty( $user_meta ) || 'notice_delayed' === $user_meta ) {
+                        return true;
+                    }
+
+                }
+
+                return false;
+
+            }else{
+                if ( 'user' === $notice['close_by'] ) {
+                    $expired = get_user_meta( get_current_user_id(), $notice['id'], true );
+                } elseif ( 'transient' === $notice['close_by'] ) {
+                    $expired = get_transient( $notice['id'] );
+                }
+        
+                if ( false === $expired || empty( $expired ) ) {
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+        }
+
     }
+
+    // Call instance
+    HasTech_Notices::instance();
 
 }
-
-new HTMEGA_Rating_Notice();

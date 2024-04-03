@@ -243,6 +243,14 @@ class LEConnector
         if ( $privateKeyFile == '' ) {
             $privateKeyFile = $this->accountKeys['private_key'];
         }
+        if ( !file_exists( $privateKeyFile ) ) {
+            WPLE_Trait::wple_logger(
+                "Could not create key files due to file permission issues. Please check if folder permission is set to 0755.",
+                "error",
+                "a",
+                true
+            );
+        }
         $privateKey = openssl_pkey_get_private( file_get_contents( $privateKeyFile ) );
         $details = openssl_pkey_get_details( $privateKey );
         $protected = array(

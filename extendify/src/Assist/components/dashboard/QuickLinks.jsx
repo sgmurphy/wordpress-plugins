@@ -8,11 +8,18 @@ import {
 	header,
 	footer,
 	reusableBlock,
+	navigation,
 } from '@wordpress/icons';
 import classNames from 'classnames';
 
 const { devbuild } = window.extSharedData;
-const { themeSlug, adminUrl, blockTheme, hasCustomizer } = window.extAssistData;
+const {
+	themeSlug,
+	adminUrl,
+	blockTheme,
+	hasCustomizer,
+	editSiteNavigationMenuLink,
+} = window.extAssistData;
 
 const showRestartLaunch =
 	devbuild || window.extAssistData.canSeeRestartLaunch || false;
@@ -67,6 +74,13 @@ export const QuickLinks = ({ className }) => {
 			slug: 'edit-footer',
 			icon: footer,
 			show: themeSlug === 'extendable',
+		},
+		{
+			title: __('Edit Site Navigation', 'extendify-local'),
+			link: editSiteNavigationMenuLink,
+			slug: 'edit-site-navigation',
+			icon: navigation,
+			show: true,
 		},
 		{
 			// translators: "Reset site" refers to the action of resetting the user's WordPress site to a fresh state.

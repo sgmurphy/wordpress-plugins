@@ -724,4 +724,33 @@
       },
     });
   });
+
+  $("#wple-security-settings input").change(function(){
+    var opts = $("#wple-security-settings").serializeArray();
+    var nc = $("#wple-security-settings").attr("data-update");
+
+    jQuery.ajax({
+      method: 'POST',
+      url: ajaxurl,
+      dataType: 'text',
+      data: {
+        action: 'wple_update_security',
+        opt: opts,
+        nc: nc
+      },
+      beforeSend: function () {        
+      },
+      error: function () {
+        alert('Could not update setting! Please try again.');
+      },
+      success: function (response) {
+        if(response==0){
+          alert('Could not update setting! Please try again.');
+        } else {
+          console.log(response);
+        }
+      }
+    });
+
+  });
 })(jQuery);

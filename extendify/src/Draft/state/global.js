@@ -10,6 +10,11 @@ const storage = {
 };
 // Values added here should also be added to Admin.php ln ~200
 const startingState = {
+	aiImageOptions: {
+		prompt: '',
+		style: 'vivid',
+		size: '1024x1024',
+	},
 	imageCredits: {
 		remaining: 10,
 		total: 10,
@@ -43,11 +48,23 @@ const store = (set) => ({
 	resetImageCredits() {
 		set({ imageCredits: startingState.imageCredits });
 	},
+	setAiImageOption(option, value) {
+		set((state) => ({
+			aiImageOptions: { ...state.aiImageOptions, [option]: value },
+		}));
+	},
 });
 const withDevtools = devtools(store, { name: 'Extendify Draft Globals' });
 const withPersist = persist(withDevtools, {
 	name: 'extendify_draft_settings',
 	storage: createJSONStorage(() => storage),
 	skipHydration: true,
+	partialize: (state) => {
+		// Remove the prompt
+		return {
+			...state,
+			aiImageOptions: { ...state.aiImageOptions, prompt: '' },
+		};
+	},
 });
 export const useGlobalStore = create(withPersist);

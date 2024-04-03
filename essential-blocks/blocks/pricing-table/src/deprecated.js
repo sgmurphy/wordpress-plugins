@@ -11,6 +11,11 @@ const deprecated = [
         supports: {
             align: ["wide", "full"],
         },
+        // migrate({ buttonURL }) {
+        //     return {
+        //         buttonURL: buttonURL == '#' ? '' : buttonURL
+        //     }
+        // },
         save: ({ attributes }) => {
             const {
                 blockId,
@@ -137,7 +142,6 @@ const deprecated = [
                                                                                     <EBDisplayIcon
                                                                                         className={`eb-pricebox-icon`}
                                                                                         icon={icon}
-                                                                                        style={{ color: color }}
                                                                                     />
                                                                                     <span className="eb-pricebox-feature-text">
                                                                                         {text}
@@ -148,7 +152,6 @@ const deprecated = [
                                                                                     <EBDisplayIcon
                                                                                         className={`eb-pricebox-icon`}
                                                                                         icon={icon}
-                                                                                        style={{ color: color }}
                                                                                     />
                                                                                     <span className="eb-pricebox-feature-text">
                                                                                         {text}

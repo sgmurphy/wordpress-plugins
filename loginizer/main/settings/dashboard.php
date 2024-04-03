@@ -83,7 +83,7 @@ input[type="text"], textarea, select {
 	$lz_ip = lz_getip();
 	
 	if($lz_ip != '127.0.0.1' && @$_SERVER['SERVER_ADDR'] == $lz_ip){
-		echo '<div class="update-message notice error inline notice-error notice-alt"><p style="color:red"> &nbsp; Your Server IP Address seems to match the Client IP detected by Loginizer. You might want to change the IP detection method to HTTP_X_FORWARDED_FOR under System Information section.</p></div><br>';
+		echo '<div class="update-message notice error inline notice-error notice-alt"><p style="color:red"> &nbsp; '.__('Your Server IP Address seems to match the Client IP detected by Loginizer. You might want to change the IP detection method to HTTP_X_FORWARDED_FOR under System Information section.', 'loginizer').'</p></div><br>';
 	 }
 	
 	loginizer_newsletter_subscribe();

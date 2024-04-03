@@ -4,22 +4,34 @@ import {useFields} from '../../../store/useFieldsStore';
 import useLicenseStore from "../../../store/useLicenseStore";
 import {useState, useEffect} from "@wordpress/element";
 import TaskElement from "../TaskElement";
+import Icon from "../../../utils/Icon";
 const License = (props) => {
-    const {fields, setChangedField, updateField} = useFields();
+    const {fields, updateField} = useFields();
     const {licenseStatus, setLicenseStatus} = useLicenseStore();
-    const [noticesLoaded, setNoticesLoaded] = useState(false);
-    const [notices, setNotices] = useState(false);
+    const disabledState = {output:{
+            dismissible:false,
+            icon:'skeleton',
+            label:__('Loading', 'burst-statistics'),
+            msg: false,
+            plusone:false,
+            url:false,
+        }
+    };
+    const skeletonNotices = [
+        disabledState,
+        disabledState,
+        disabledState
+    ];
+    const [notices, setNotices] = useState(skeletonNotices);
     const getLicenseNotices = () => {
         return doAction('license_notices', {}).then( ( response ) => {
             return response;
         });
     }
-
     useEffect( () => {
         getLicenseNotices().then(( response ) => {
             setLicenseStatus(response.licenseStatus);
             setNotices(response.notices);
-            setNoticesLoaded(true);
         });
     }, [fields] );
 
@@ -28,12 +40,10 @@ const License = (props) => {
     }
 
     const toggleActivation = () => {
-         setNoticesLoaded(false);
         if ( licenseStatus==='valid' ) {
             doAction('deactivate_license').then( ( response ) => {
                 setLicenseStatus(response.licenseStatus);
                 setNotices(response.notices);
-                setNoticesLoaded(true);
             });
         } else {
             let data = {};
@@ -42,7 +52,6 @@ const License = (props) => {
 			doAction('activate_license', data).then( ( response ) => {
                 setLicenseStatus(response.licenseStatus);
                 setNotices(response.notices);
-                setNoticesLoaded(true);
             });
         }
     }
@@ -71,8 +80,7 @@ const License = (props) => {
                      </button>
                  </div>
              </div>
-                {!noticesLoaded && <>Loading...</>}
-                {noticesLoaded && notices.map((notice, i) => <TaskElement key={i} index={i} notice={notice} highLightField=""/>)}
+                {notices.map((notice, i) => <TaskElement key={i} index={i} notice={notice} highLightField=""/>)}
             </div>
     );
 }

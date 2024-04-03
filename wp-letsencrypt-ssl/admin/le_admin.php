@@ -4,7 +4,7 @@
  * @package WP Encryption
  *
  * @author     Go Web Smarty
- * @copyright  Copyright (C) 2019-2023, Go Web Smarty
+ * @copyright  Copyright (C) 2019-2024, Go Web Smarty
  * @license    http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3
  * @link       https://gowebsmarty.com
  * @since      Class available since Release 1.0.0
@@ -180,7 +180,7 @@ class WPLE_Admin
             update_option( 'wple_version', WPLE_PLUGIN_VER );
         } else {
             
-            if ( version_compare( get_option( 'wple_version' ), '6.5.0', '<=' ) ) {
+            if ( version_compare( get_option( 'wple_version' ), '6.6.0', '<=' ) ) {
                 delete_option( 'wple_plan_choose' );
                 update_option( 'wple_version', WPLE_PLUGIN_VER );
             }

@@ -69,4 +69,28 @@ class WPController
 
         return new \WP_REST_Response(true, 200);
     }
+
+    /**
+     * Create a post of type wp_navigation with meta.
+     *
+     * @param \WP_REST_Request $request - The request.
+     * @return \WP_REST_Response
+     */
+    public static function createNavigationWithMeta($request)
+    {
+        $post = \wp_insert_post([
+            'post_type' => 'wp_navigation',
+            'post_title' => $request->get_param('title'),
+            'post_name' => $request->get_param('slug'),
+            'post_status' => 'publish',
+            'post_content' => $request->get_param('content'),
+        ]);
+
+        \add_post_meta($post, 'made_with_extendify_launch', 1);
+
+        return new \WP_REST_Response([
+            'success' => true,
+            'id' => $post,
+        ]);
+    }
 }

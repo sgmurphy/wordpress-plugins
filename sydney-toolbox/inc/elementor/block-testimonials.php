@@ -323,8 +323,8 @@ class aThemes_Testimonials extends Widget_Base {
                     <div class="customer">
                         <blockquote class="whisper"><?php echo wp_kses_post( $item['testimonial'] ); ?></blockquote>                               
 						<?php if ( $item['image']['url'] ) :
-						$this->add_render_attribute( 'image-' . $index, 'src', $item['image']['url'] );
-						$this->add_render_attribute( 'image-' . $index, 'alt', Control_Media::get_image_alt( $item['image'] ) );							
+						$this->add_render_attribute( 'image-' . $index, 'src', esc_url( $item['image']['url'] ) );
+						$this->add_render_attribute( 'image-' . $index, 'alt', esc_html( Control_Media::get_image_alt( $item['image'] ) ) );							
 						?>
                         <div class="avatar">
 							<img <?php echo $this->get_render_attribute_string( 'image-' . $index ); ?>/>

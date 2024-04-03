@@ -12,6 +12,8 @@
 			choiceSelected:"",
             select2:false,
 			multiple:false,
+			first_choice:false,
+			first_choice_text:"",
 			vChoices:1,
 			showDep:false,
 			show:function()
@@ -24,7 +26,7 @@
 						op_o = false,
 						l 	 = c.length,
 						classDep = '',
-						str  = '',
+						str  = ( this.first_choice ? '<option value="">'+cff_esc_attr(this.first_choice_text)+'</option>' : ''),
 						n 	 = this.name.match(/fieldname\d+/)[0];
 
 					if (typeof this.choicesDep == "undefined" || this.choicesDep == null)

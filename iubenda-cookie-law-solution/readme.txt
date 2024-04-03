@@ -4,16 +4,15 @@ Donate link:
 Tags: cookie consent, gdpr, cookie banner, rgpd, privacy policy, dsgvo, gdpr compliance, lgpd, ccpa, terms and conditions, cpra, privacy notice
 Requires at least: 5.0
 Requires PHP: 7.0.0
-Tested up to: 6.4
-Stable tag: 3.10.1
+Tested up to: 6.5
+Stable tag: 3.10.2
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 The solution for GDPR compliance + more. Get your cookie banner, privacy policy, terms and conditions and handle cookie consent in just one plugin.
 
 == Description ==
 
-The iubenda plugin is an **all-in-one**, extremely easy to use 360° compliance solution, with text crafted by actual lawyers, that quickly **scans your site and auto-configures to match your specific setup**.  It supports the GDPR (DSGVO, RGPD), UK-GDPR, ePrivacy, LGPD, CPRA / CCPA, CalOPPA, PECR and more.
-
+The iubenda plugin is an **all-in-one**, extremely easy to use 360° compliance solution, with text crafted by actual lawyers, that quickly **scans your site and auto-configures to match your specific setup**. It supports the GDPR (DSGVO, RGPD), UK-GDPR, ePrivacy, LGPD, CPRA / CCPA, CalOPPA, PECR and more, and seamlessly integrates with the latest versions of Google Consent Mode and IAB's TCF.
 It allows you to:
 
 * **⚡️Scan your site and have solutions auto-configured** to match your site's specific needs.
@@ -55,7 +54,7 @@ Includes cookie banner/CCPA notice, and cookie consent management (blocking scri
 * Lightning-fast: **won’t affect page performance**.
 * **Auto-detects and blocks a wide range of 3rd party script**s like Google Analytics, Google Maps, Facebook and Instagram widgets, Youtube, Twitter, PayPal, Disqus, Outbrain, AdRoll, Kissmetrics, Freshchat and more.
 * Allows you to provide your users with **granular, per-category preference control** (e.g. basic functionalities, experience enhancement, targeting & advertising)
-* **Google Consent Mode v2** support (no extra setup required): Enables **efficient conversion tracking** even without user consent for cookies and tracking technologies, **enhancing Google Analytics and Ads performance**.
+* **Google Consent Mode** (both **Basic** and **Advanced** implementations; no extra setup required): Enables **efficient conversion tracking** even without user consent for cookies and tracking technologies, **enhancing Google Analytics and Ads performance**.
 * Integrates with IAB’s [Transparency and Consent Framework](https://www.iubenda.com/en/help/7440-enable-preference-management-iab-framework#revenue) (**TCF**) to maximize ad revenue (needed if your site uses ad networks like Google ads and more)
 * Compatible with **Google’s Accelerated Mobile Pages** (AMP)
 * Allows you to auto-detect and **limit prior-blocking and cookie consent requests only to users from the EU** – where this is a legal requirement **for GDPR compliance** – while running cookies scripts normally in regions where you are still legally allowed to do so.
@@ -266,6 +265,13 @@ The Brazilian General Data Protection Law, the ***Lei Geral de Proteção de Dad
 * * *
 
 == Changelog ==
+
+= 3.10.2 =
+* Support for WordPress 6.5
+* Fix: DNS Lookup Optimization
+
+= 3.10.2-beta =
+* Fix: DNS Lookup Optimization
 
 = 3.10.1 =
 * Prioritize the iubenda script over other scripts.
@@ -853,5 +859,6 @@ The Brazilian General Data Protection Law, the ***Lei Geral de Proteção de Dad
 
 == Upgrade Notice ==
 
-= 3.10.1 =
-* Prioritize the iubenda script over other scripts.
+= 3.10.2 =
+* Support for WordPress 6.5
+* Fix: DNS Lookup Optimization

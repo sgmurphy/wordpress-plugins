@@ -1539,7 +1539,7 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
                 echo '<div class="gallery-wrap">';
                     foreach ( $accordion_list_two as $itemtwo ) {
                         ?>
-                            <div class="item" <?php if( !empty($itemtwo['accordion_image']['url']) ){ echo 'style="background-image:url('.$itemtwo['accordion_image']['url'].')"'; } ?>></div>
+                            <div class="item" <?php if( !empty($itemtwo['accordion_image']['url']) ){ echo 'style="background-image:url(' . esc_url( $itemtwo['accordion_image']['url'] ) .')"'; } ?>></div>
                         <?php
                     }
                 echo '</div>';

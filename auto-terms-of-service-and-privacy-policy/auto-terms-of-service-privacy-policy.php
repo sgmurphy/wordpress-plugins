@@ -5,7 +5,7 @@ Plugin URI: https://wpautoterms.com
 Description: Create Privacy Policy with GDPR and CCPA, Terms & Conditions, Disclaimers. Cookie Consent Notice Banner. More Compliance Kits to help you get compliant with the law.
 Author: WP AutoTerms
 Author URI: https://wpautoterms.com
-Version: 2.5.0
+Version: 2.5.1
 License: GPLv2 or later
 Text Domain: wpautoterms
 Domain Path: /languages

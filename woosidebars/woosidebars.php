@@ -8,7 +8,7 @@
  * Version: 1.4.6
  * Stable tag: 1.4.6
  * Requires at least: 4.1
- * Tested up to: 5.8.3
+ * Tested up to: 6.5
  * License: GPL v3 or later - http://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: woosidebars
  * Domain Path: /lang

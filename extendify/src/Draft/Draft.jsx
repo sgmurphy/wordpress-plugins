@@ -74,7 +74,12 @@ export const Draft = () => {
 	const isImageBlock = () => {
 		if (selectedBlockClientIds.length === 0) return false;
 
-		const supportedBlocks = ['core/image', 'core/media-text'];
+		const supportedBlocks = [
+			'core/image',
+			'core/media-text',
+			'core/gallery',
+			'core/cover',
+		];
 		const targetBlock = getBlock(selectedBlockClientIds[0]);
 		if (!targetBlock) return false;
 

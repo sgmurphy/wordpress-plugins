@@ -395,7 +395,7 @@ function loginizer_feature_available($feature = '', $return = 0){
 	}else{
 		echo '<div style="color:#a94442; background-color:#f2dede; border-color:#ebccd1; padding:15px; margin-bottom:20px; border:1px solid transparent; border-radius:4px;">'.$msg.'</div>';
 	}
-	
+
 }
 
 // Checks if the email is valid
@@ -403,4 +403,36 @@ function lz_valid_email($email){
 
 	return filter_var($email, FILTER_VALIDATE_EMAIL);
 
+}
+
+function loginizer_blocked_page($lz_error){
+
+	// We are checking if this is a login page or not
+	if(false === stripos(wp_login_url(), $_SERVER['REQUEST_URI'])){
+		return;
+	}
+
+	echo '<!DOCTYPE html><html><head>
+		<meta name="robots" content="noindex, noarchive">
+		<meta name="referrer" content="strict-origin-when-cross-origin">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>'.__('You can not access this page', 'loginizer').'</title>
+		<style>html,body{height:100%}
+		.loginizer-blocked-wrapper{display:flex; align-items:center; justify-content:space-between; flex-direction:column; height:100%;} footer{border-top:1px solid #dadada; width:40vh; text-align:center;}</style>
+		</head>
+		<body style="font-family:sans-serif; font-size:calc(15px + 0.390625vw);margin:0;">
+			<div class="loginizer-blocked-wrapper">
+			<div style="margin-top:10em;">
+				<h1 align="center">'.__('You can not access this page', 'loginizer').'</h1>
+				<p align="center">'.wp_kses_post(implode('', $lz_error)).'</p>
+			</div>
+		<footer>';
+		if(!defined('LOGINIZER_PREMIUM')){
+			echo '<p>Powered by Loginizer</p>';
+		} else {
+			echo '<p>Powered by ' . esc_html(get_bloginfo('name')) . '</p>';
+		}
+		
+		echo '</footer></div></body></html>';
+		die();
 }

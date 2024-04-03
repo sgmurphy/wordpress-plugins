@@ -2,9 +2,9 @@
 Contributors: andergmartins, htmgarcia, publishpress, stevejburge, rochdesigns
 Tags: slideshow, slider, image slider, carousel, gallery, flex slider, wordpress slider, nivoslider, rotating banner, image sliders, slide show, responsive slideshow, seo slideshow, unsplash, post sliders, video sliders, YouTube sliders, Vimeo sliders, HTML sliders, external URL sliders, layer sliders, best WordPress slider, best slider, best slideshow, best carousel, easy slider, easy slideshow, flex slider, woocommerce slider, woocommerce slideshow, video slider, video captions, video subtitles
 Requires at least: 5.0
-Stable tag: 3.62.0
+Stable tag: 3.70.0
 Requires PHP: 7.0
-Tested up to: 6.4.3
+Tested up to: 6.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -316,6 +316,27 @@ Yes, you can build Elementor slides and Beaver Builder slideshows. You can creat
 
 The format is based on [Keep a Changelog recommendations](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
+
+ [3.70.0] - 03 Apr, 2024 =
+
+* ADDED: Loading screen when creating slideshows, #976;
+* ADDED: Tooltips for main area of editing screen, #813;
+* ADDED: Mobile settings for arrows and navigation, #896;
+* ADDED: Allow id and class attributes in TinyMCE, #949;
+* ADDED: Allow to add custom themes through files, #824;
+* ADDED: Infinite Loop option for Carousel mode, #593;
+* FIXED: Simply Dark theme deprecation notice, #971;
+* FIXED: Hidden slides still counting in navigation, #920;
+* FIXED: Thumb slides are not listed in order, #578;
+* FIXED: Italian, Spanish and French translation updates, #935;
+* CHANGED: Optimize image size, #952; 
+* CHANGED: Easing description, #922; 
+* CHANGED: Tooltip for mobile icon, #946; 
+* CHANGED: Remove TinyMCE text preview, #940;
+* CHANGED: Tooltips for Center align, Fade in, Transition speed, #819, #886, #884;
+* CHANGED: Put "Easing" under the "Effect" option, #883;
+* CHANGED: "Effect" to "Transition Effect" option, #884;
+* CHANGED: "Animation speed" to "Transition speed" option, #884;
 
 = [3.62.0] - 04 Mar, 2024 =
 

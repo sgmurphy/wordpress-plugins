@@ -60,7 +60,7 @@ class Iubenda_PP_Product_Service extends Iubenda_Abstract_Product_Service {
 				$new_pp_option[ "code_{$lang_id}" ] = $privacy_policy_generator->handle( $lang_id, $privacy_policy_id, $new_pp_option['button_style'] );
 				$codes_statues[]                    = true;
 			} else {
-				$parsed_code = iubenda()->parse_tc_pp_configuration( $code );
+				$parsed_code = iubenda()->configuration_parser->extract_tc_pp_config_from_code( $code );
 				// check if code is empty or code is invalid.
 				$codes_statues[] = (bool) $parsed_code;
 

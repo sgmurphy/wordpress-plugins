@@ -1,9 +1,9 @@
 === Meta Tag Manager ===
 Contributors: pxlite, msykes, netweblogic
-Tags: google, SEO, yahoo, tags, webmaster tools, meta, meta tags, meta-tags, og, ogp, open graph, twitter cards, schema, rich-snippets, structured-data
+Tags: meta, tags, meta tags, open graph, seo
 Text Domain: meta-tag-manager
 Requires at least: 3.6
-Tested up to: 6.4.3
+Tested up to: 6.5
 Stable tag: 3.1
 
 Easily add and manage custom meta tags to various parts of your site or on individual posts, such as Yahoo and Google verification tags.

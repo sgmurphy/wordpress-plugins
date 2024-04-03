@@ -3,9 +3,9 @@ Contributors: wahid0003, webappick, nashirbabu, hasanazizul
 Donate link: https://webappick.com
 Tags: WooCommerce Product Feed, WooCommerce, Google Shopping, Google Merchant, Facebook Catalog, Bing Shopping, Instagram Shop, Skroutz Data Feed, XML Feed, CSV Feed, TXT Feed, Product Feed
 Requires at least: 4.4
-Tested Up To: 6.4
+Tested Up To: 6.5
 Requires PHP: 5.6
-Stable tag: 6.4.21
+Stable tag: 6.4.22
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -590,6 +590,9 @@ Using pro version:
 4. Category Mapping
 
 == Changelog ==
+
+= 6.4.22 (2024-04-03) =
+* Tweak: WordPress 6.5 compatibility checked.
 
 = 6.4.21 (2024-04-01) =
 * Fixed: Drafted variations, not excluding issue

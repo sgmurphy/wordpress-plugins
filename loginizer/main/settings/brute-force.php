@@ -53,6 +53,20 @@ function loginizer_page_brute_force(){
 		
 	}
 	
+	if(isset($_POST['save_lz_login_email'])){
+	
+		$login_email['enable'] = (int) lz_optpost('loginizer_login_mail_enable');
+		$login_email['subject'] = sanitize_textarea_field($_POST['loginizer_login_mail_subject']);
+		$login_email['body'] = sanitize_textarea_field($_POST['loginizer_login_mail_body']);
+		$login_email['roles'] = map_deep($_POST['loginizer_login_mail_roles'], 'sanitize_text_field');
+
+		// Save the options
+		update_option('loginizer_login_mail', $login_email);
+
+		// Mark as saved
+		$GLOBALS['lz_saved'] = true;
+	}
+	
 	// The Brute Force Settings
 	if(isset($_POST['save_lz'])){
 		
@@ -64,6 +78,7 @@ function loginizer_page_brute_force(){
 		$notify_email = (int) lz_optpost('notify_email');
 		$notify_email_address = lz_optpost('notify_email_address');
 		$trusted_ips = lz_optpost('trusted_ips');
+		$blocked_screen = lz_optpost('blocked_screen');
 		
 		if(!empty($notify_email_address) && !lz_valid_email($notify_email_address)){
 			$error[] = __('Email address is invalid', 'loginizer');
@@ -111,6 +126,7 @@ function loginizer_page_brute_force(){
 			$option['notify_email'] = $notify_email;
 			$option['notify_email_address'] = $notify_email_address;
 			$option['trusted_ips'] = $trusted_ips;
+			$option['blocked_screen'] = $blocked_screen;
 			
 			// Save the options
 			update_option('loginizer_options', $option);
@@ -390,7 +406,7 @@ function loginizer_page_brute_force(){
 			
 			foreach($ips as $ip){
 				if(!lz_valid_ip($ip)){
-					$error[] = 'The IP - '.esc_html($ip).' is invalid !';
+					$error[] = sprintf(__('The IP - %s is invalid !', 'loginizer'), esc_html($ip));
 				}
 			}
 			
@@ -699,6 +715,13 @@ function loginizer_page_brute_force(){
 				<td>
 					<input type="checkbox" <?php echo lz_POSTchecked('trusted_ips', (empty($loginizer['trusted_ips']) ? false : true)); ?> name="trusted_ips" id="trusted_ips"/>
 					<?php _e('If enabled Loginizer will only allow whitlisted IP\'s to Login.', 'loginizer'); ?>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row" valign="top"><label for="blocked_screen"><?php echo __('Blocked Screen','loginizer') . ((time() < strtotime('30 May 2024')) ? ' <span style="color:red;">New</span>' : '') ?></label></th>
+				<td>
+					<input type="checkbox" <?php echo lz_POSTchecked('blocked_screen', (empty($loginizer['blocked_screen']) ? false : true)); ?> name="blocked_screen" id="blocked_screen"/>
+					<?php _e('Shows a error page in place of login page if the user gets locked out or is blacklisted, to prevent attacker from trying to login when locked out which saves resources.', 'loginizer'); ?>
 				</td>
 			</tr>
 		</table><br />
@@ -1082,6 +1105,87 @@ function lz_shift_check_all(check_class){
 			</form>
 		</div>
 	</div>
+	
+	<div id="" class="postbox">
+		<div class="postbox-header">
+			<h2 class="hndle ui-sortable-handle">
+				<span><?php echo __('Login Notification', 'loginizer') . ((time() < strtotime('30 May 2024')) ? ' <span style="color:red;">New</span>' : '');?></span>
+			</h2>
+		</div>
+		<div class="inside">
+			<form action="" method="post" enctype="multipart/form-data">
+			<?php wp_nonce_field('loginizer-options'); ?>
+			<table class="form-table">
+				<tr>
+					<td scope="row" valign="top" style="width:350px !important">
+						<label for="loginizer_login_mail_enable"><?php echo __('Enable Notification', 'loginizer'); ?></label>
+						<p class="description"><?php echo __('If enabled, user will get notified about successful login attempt.', 'loginizer'); ?></p>
+					</td>
+					<td>
+						<input type="checkbox" value="1" name="loginizer_login_mail_enable" id="loginizer_login_mail_enable" <?php echo lz_POSTchecked('loginizer_login_mail_enable', (empty($loginizer['login_mail']['enable']) ? false : true)); ?> />
+
+					</td>
+				</tr>
+				<tr>
+					<td scope="row" valign="top">
+						<label for="loginizer_login_mail_subject"><?php echo __('Email Subject', 'loginizer'); ?></label><br>
+						<span class="exp"><?php echo __('Set blank to reset to the default subject', 'loginizer'); ?></span>
+						<br />Default : <pre style="font-size:10px"><?php echo esc_html($loginizer['login_mail_default_sub']); ?></pre>
+					</td>
+					<td valign="top">
+						<input type="text" size="40" value="<?php echo lz_htmlizer(!empty($_POST['loginizer_login_mail_subject']) ? $_POST['loginizer_login_mail_subject'] : (empty($loginizer['login_mail']['subject']) ? '' : $loginizer['login_mail']['subject'])); ?>" name="loginizer_login_mail_subject" id="loginizer_login_mail_subject" />
+					</td>
+				</tr>
+
+				<tr>
+					<td scope="row" valign="top">
+						<label for="loginizer_login_mail_body"><?php echo __('Email Body', 'loginizer'); ?></label><br>
+						<span class="exp"><?php echo __('Set blank to reset to the default message', 'loginizer'); ?></span>
+						<br />Default : <pre style="font-size:10px"><?php echo esc_html($loginizer['login_mail_default_msg']); ?></pre>
+					</td>
+					<td valign="top">
+						<textarea rows="10" style="width:55%" name="loginizer_login_mail_body" id="loginizer_login_mail_body"><?php echo lz_htmlizer(!empty($_POST['loginizer_login_mail_body']) ? $_POST['loginizer_login_mail_body'] : (empty($loginizer['login_mail']['body']) ? '' : $loginizer['login_mail']['body'])); ?></textarea>
+						<br />Variables :
+						<br />$sitename - The Site Name
+						<br />$user_login - User Name
+						<br />$date - Time and Date ( current date and time of Login )
+						<br />$ip - Device IP Address from which login happned
+					</td>
+						
+					</td>
+				</tr>
+				<tr>
+					<td scope="row" valign="top" style="width:350px !important">
+						<label for="loginizer_login_mail_roles"><?php echo __('Select Roles', 'loginizer'); ?></label><br/>
+						<span class="exp"><?php echo __('Select the user roles for whom you want to send successful login notification.', 'loginizer'); ?></span>
+					</td>
+					<td align="top">
+					<?php
+						$editable_roles = get_editable_roles();
+						echo '<div style="max-height:150px; overflow:auto;">';
+
+						foreach($editable_roles as $role => $details) {
+							$name = translate_user_role($details['name']);
+							// Preselect specified role.
+							if((!empty($loginizer['login_mail']['roles']) && in_array($role, $loginizer['login_mail']['roles'])) || (!empty($_POST['loginizer_login_mail_roles']) && in_array($role, $_POST['loginizer_login_mail_roles']))){
+								echo '<input type="checkbox" checked name="loginizer_login_mail_roles[]" value="' . esc_attr($role) . '" style="margin-top:5px">'.esc_html($name).'</option>';
+							} else {
+								echo '<input type="checkbox" value="' . esc_attr($role) . '" name="loginizer_login_mail_roles[]">'.esc_html($name).'</option>';
+							}
+
+							echo '<br/>';
+						}
+						echo '</div>';
+					?>
+					</td>
+				</tr>
+			</table><br />
+			<center><input name="save_lz_login_email" class="button button-primary action" value="<?php echo __('Save Settings', 'loginizer'); ?>" type="submit" /></center>
+			</form>
+		
+		</div>
+	</div>
+
 <?php
 
 loginizer_page_footer();

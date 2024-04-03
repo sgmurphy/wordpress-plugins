@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) {
 }
 
 use Extendify\ApiRouter;
+use Extendify\Assist\Controllers\DomainsSuggestionController;
 use Extendify\Assist\Controllers\GlobalsController;
 use Extendify\Assist\Controllers\QuickLinksController;
 use Extendify\Assist\Controllers\RecommendationsController;
@@ -18,7 +19,6 @@ use Extendify\HelpCenter\Controllers\TourController;
 use Extendify\HelpCenter\Controllers\RouterController as HelpCenterRouterController;
 use Extendify\HelpCenter\Controllers\SupportArticlesController;
 
-use Extendify\Draft\Controllers\DraftController;
 use Extendify\Draft\Controllers\ImageController;
 use Extendify\Draft\Controllers\UserSettingsController;
 
@@ -49,6 +49,7 @@ use Extendify\Shared\Controllers\UserSettingsController as SharedUserSettingsCon
         ApiRouter::get('/launch/suggested-plugins', [DataController::class, 'getSuggestedPlugins']);
         ApiRouter::get('/launch/ping', [DataController::class, 'ping']);
         ApiRouter::get('/launch/prefetch-assist-data', [WPController::class, 'prefetchAssistData']);
+        ApiRouter::post('/launch/create-navigation', [WPController::class, 'createNavigationWithMeta']);
 
         // Assist.
         ApiRouter::get('/assist/recommendations', [RecommendationsController::class, 'fetchRecommendations']);
@@ -61,9 +62,9 @@ use Extendify\Shared\Controllers\UserSettingsController as SharedUserSettingsCon
         ApiRouter::get('/assist/router-data', [RouterController::class, 'get']);
         ApiRouter::get('/assist/global-data', [GlobalsController::class, 'get']);
         ApiRouter::post('/assist/global-data', [GlobalsController::class, 'store']);
-        ApiRouter::get('/assist/active-plugins', [AssistWPController::class, 'getActivePlugins']);
         ApiRouter::get('/assist/tasks/dependency-completed', [TasksController::class, 'dependencyCompleted']);
         ApiRouter::get('/assist/quicklinks', [QuickLinksController::class, 'fetchQuickLinks']);
+        ApiRouter::post('/assist/delete-domains-recommendations', [DomainsSuggestionController::class, 'deleteCache']);
 
         // Help Center.
         ApiRouter::get('/help-center/tours', [TourController::class, 'fetchTours']);

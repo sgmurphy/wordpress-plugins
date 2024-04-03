@@ -103,7 +103,7 @@ class Iubenda_AMP {
 				$code = iub_array_get( iubenda()->options['cs'], 'code_default' );
 			}
 
-			$configuration_raw = iubenda()->parse_configuration( $code );
+			$configuration_raw = iubenda()->configuration_parser->extract_cs_config_from_code_amp( $code );
 
 			if ( isset( $configuration_raw['gdprAppliesGlobally'] ) && ! $configuration_raw['gdprAppliesGlobally'] ) {
 				echo '
@@ -150,7 +150,7 @@ class Iubenda_AMP {
 				$code = iub_array_get( iubenda()->options['cs'], 'code_default' );
 			}
 
-			$configuration = iubenda()->parse_configuration( $code );
+			$configuration = iubenda()->configuration_parser->extract_cs_config_from_code_amp( $code );
 
 			if ( empty( $configuration ) ) {
 				return;
@@ -286,14 +286,14 @@ class Iubenda_AMP {
 	public function prepare_amp_template( $code ) {
 		$html = '';
 
-		$configuration_raw = iubenda()->parse_configuration( $code );
+		$configuration_raw = iubenda()->configuration_parser->extract_cs_config_from_code_amp( $code );
 
 		if ( empty( $configuration_raw ) ) {
 			$code              = stripslashes( $code );
-			$configuration_raw = iubenda()->parse_configuration( $code );
+			$configuration_raw = iubenda()->configuration_parser->extract_cs_config_from_code_amp( $code );
 		}
 
-		$banner_configuration = iubenda()->parse_configuration(
+		$banner_configuration = iubenda()->configuration_parser->extract_cs_config_from_code_amp(
 			$code,
 			array(
 				'mode'  => 'banner',

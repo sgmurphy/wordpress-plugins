@@ -277,27 +277,45 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.5.6", "essential-blocks")}
+                                    {__("Version: 4.5.7", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("27/03/2024", "essential-blocks")}
+                                        {__("03/04/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Fixed: Post Grid & Post Carousel block is not working in editor",
+                                            "Added: Site Logo and Featured Image support in Advanced Image block",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Testimonial block is not working in editor",
+                                            "Added: Exclude Password Protected posts for all dynamic blocks",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Few minor bug fixes & improvements",
+                                            "Added: Full Width block control for almost all blocks",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Animation not working inside Popup Block",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Improved: Accesibility Support",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Improved: Security enhancement",
                                             "essential-blocks"
                                         )}
                                     </li>

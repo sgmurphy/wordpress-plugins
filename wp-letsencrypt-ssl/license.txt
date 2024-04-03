@@ -1,6 +1,6 @@
 WP Encryption - WordPress Plugin, 2019 Go Web Smarty
 
-Copyright (C) 2019-2023, Go Web Smarty <vj@gowebsmarty.com>
+Copyright (C) 2019-2024, Go Web Smarty <vj@gowebsmarty.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

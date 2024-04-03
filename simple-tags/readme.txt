@@ -2,7 +2,7 @@
 Contributors: publishpress, kevinB, stevejburge, andergmartins, olatechpro, ojopaul
 Tags: category, tag, taxonomy, related posts, tag cloud, terms, tagging, navigation, tag manager, tags manager, term manager, terms manager, ai, openai, open ai, ibm watson, dandelion, open calais, lseg, refinitiv, autotagger, auto tagging
 Requires at least: 3.3
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 3.20.0
 Requires PHP: 7.2.5
 License: GPLv2 or later

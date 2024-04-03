@@ -1,7 +1,7 @@
 === Broken Link Checker by AIOSEO – Easily Fix/Monitor Internal and External links ===
 Contributors: aioseo, smub, benjaminprojas
 Tags: broken links, internal link, external link, links, test links, check links, bad links, seo
-Tested up to: 6.4.3
+Tested up to: 6.5
 Requires at least: 5.3
 Requires PHP: 5.6
 Stable tag: 1.2.0
@@ -141,7 +141,7 @@ Visit <a href="http://www.wpbeginner.com/" rel="friend" title="WPBeginner">WPBeg
 
 **New in Version 1.0.2**
 
-* Updated: Broken links scan starts immmediately after user connects to their account.
+* Updated: Broken links scan starts immediately after user connects to their account.
 
 **New in Version 1.0.1**
 
@@ -155,6 +155,6 @@ Visit <a href="http://www.wpbeginner.com/" rel="friend" title="WPBeginner">WPBeg
 
 == Upgrade Notice ==
 
-= 1.1.0 =
+= 1.2.0 =
 
 This update adds major improvements and bug fixes.

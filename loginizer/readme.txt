@@ -2,9 +2,9 @@
 Contributors: softaculous, loginizer, pagelayer
 Tags: security, access, admin, Loginizer, login, logs, ban ip, failed login, ip, whitelist ip, blacklist ip, failed attempts, lockouts, hack, authentication, login, security, rename login url, rename login, rename wp-admin, secure wp-admin, rename admin url, secure admin, brute force protection
 Requires at least: 3.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.5
-Stable tag: 1.8.3
+Stable tag: 1.8.4
 License: LGPLv2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -26,6 +26,9 @@ Free Features :
 * Whitelist IPs
 * Custom error messages on failed login.
 * Permission check for important files and folders.
+* Allow only Trusted IP.
+* Blocked Screen in place of the Login page.
+* Email Notification on successful login.
 
 = Get Support and Pro Features =
 
@@ -38,7 +41,7 @@ Pro Features :
 * Two Factor Auth via Email - On login, an email will be sent to the email address of that account with a temporary 6 digit code to complete the login.
 * Two Factor Auth via App - The user can configure the account with a 2FA App like Google Authenticator, Authy, etc.
 * Login Challenge Question - The user can setup a <i>Challenge Question and Answer</i> as an additional security layer. After Login, the user will need to answer the question to complete the login.
-* reCAPTCHA - Google's reCAPTCHA v3/v2 can be configured for the Login screen, Comments Section, Registration Form, etc. to prevent automated brute force attacks. Supports WooCommerce as well.
+* reCAPTCHA - Google's reCAPTCHA v3/v2, Cloudflare Turnstile, hCAPTCHA can be configured for the Login screen, Comments Section, Registration Form, etc. to prevent automated brute force attacks. Supports WooCommerce as well.
 * Rename Login Page - The Admin can rename the login URL (slug) to something different from wp-login.php to prevent automated brute force attacks.
 * Rename WP-Admin URL - The Admin area in WordPress is accessed via wp-admin. With loginizer you can change it to anything e.g. site-admin
 * CSRF Protection - This helps in preventing CSRF attacks as it updates the admin URL with a session string which makes it difficult and nearly impossible for the attacker to predict the URL.
@@ -79,6 +82,12 @@ That's it. You're done!
 3. Loginizer Brute Force Settings page
 
 == Changelog ==
+
+= 1.8.4 =
+* [Feature] Block Page, now instead of showing error on the Login page of user being blacklisted, you can just show a page with error, reducing the resource being used to show the error.
+* [Feature] Email notification on successful login and you can enforce this on your users too.
+* [Pro Feature] Added Cloudflare Turnstile, and hCaptcha.
+* [Task] Tested with WordPress 6.5.
 
 = 1.8.3 =
 * [Task] We have removed unwanted code.

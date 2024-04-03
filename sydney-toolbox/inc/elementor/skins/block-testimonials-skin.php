@@ -24,8 +24,8 @@ class aThemes_Testimonials_Skin extends Elementor\Skin_Base {
 				<?php foreach ( $settings['testimonials_list'] as $index => $item ) : ?>
 					<div class="customer">
 						<?php if ( $item['image']['url'] ) :
-							$this->parent->add_render_attribute( 'image-' . $index, 'src', $item['image']['url'] );
-							$this->parent->add_render_attribute( 'image-' . $index, 'alt', Elementor\Control_Media::get_image_alt( $item['image'] ) );							
+							$this->parent->add_render_attribute( 'image-' . $index, 'src', esc_url( $item['image']['url'] ) );
+							$this->parent->add_render_attribute( 'image-' . $index, 'alt', esc_html( Elementor\Control_Media::get_image_alt( $item['image'] ) ) );							
 							?>
 							<div class="avatar">
 								<img <?php echo $this->parent->get_render_attribute_string( 'image-' . $index ); ?>/>

@@ -3,7 +3,7 @@ Contributors: elzahlan
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=G8LC4VSYKYSGA
 Tags: Category Image, Category Images, Categories Images, taxonomy image, taxonomy images, taxonomies images, category icon, categories icons, category logo, categories logos, admin, wp-admin, category image plugin, categories images plugin, category featured image, categories featured images, feature image for category,term image, tag image, term images, tag images, media category
 Requires at least: 2.8
-Tested up to: 6.3.2
+Tested up to: 6.5
 Stable tag: 3.1.0
 License: GPLv2 or later
 

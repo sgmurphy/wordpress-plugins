@@ -40,39 +40,20 @@ class PartnerData
     public static $colors = [];
 
     /**
-     * The partner recommendations status
-     *
-     * @var boolean
-     */
-    public static $disableRecommendations = false;
-
-    /**
-     * The partner suggest domains banner status
-     *
-     * @var boolean
-     */
-    public static $showDomainBanner = false;
-
-    /**
-     * The partner suggested domains card status
-     *
-     * @var boolean
-     */
-    public static $showDomainTask = false;
-
-    /**
-     * The partner suggested domains tlds
+     * The partner configuration.
      *
      * @var array
      */
-    public static $domainTLDs = ['com', 'net'];
-
-    /**
-     * The partner suggested domains search url
-     *
-     * @var string
-     */
-    public static $domainSearchURL = '';
+    protected static $config = [
+        'disableRecommendations' => false,
+        'showDomainBanner' => false,
+        'showDomainTask' => false,
+        'showSecondaryDomainBanner' => false,
+        'showSecondaryDomainTask' => false,
+        'domainTLDs' => ['com', 'net'],
+        'stagingSites' => ['wordpress.test'],
+        'domainSearchURL' => '',
+    ];
 
     // phpcs:disable Generic.Metrics.CyclomaticComplexity.TooHigh
     /**
@@ -96,12 +77,21 @@ class PartnerData
             return;
         }
 
+        if (!current_user_can(Config::$requiredCapability)) {
+            return;
+        }
+
         $data = self::getPartnerData();
-        self::$disableRecommendations = ($data['disableRecommendations'] ?? self::$disableRecommendations);
-        self::$showDomainBanner = ($data['showDomainBanner'] ?? self::$showDomainBanner);
-        self::$showDomainTask = ($data['showDomainTask'] ?? self::$showDomainTask);
-        self::$domainTLDs = implode(',', ($data['domainTLDs'] ?? self::$domainTLDs));
-        self::$domainSearchURL = ($data['domainSearchURL'] ?? self::$domainSearchURL);
+        self::$config['disableRecommendations'] = ($data['disableRecommendations'] ?? self::$config['disableRecommendations']);
+        self::$config['showDomainBanner'] = ($data['showDomainBanner'] ?? self::$config['showDomainBanner']);
+        self::$config['showDomainTask'] = ($data['showDomainTask'] ?? self::$config['showDomainTask']);
+        self::$config['showSecondaryDomainTask'] = ($data['showSecondaryDomainTask'] ?? self::$config['showSecondaryDomainTask']);
+        self::$config['showSecondaryDomainBanner'] = ($data['showSecondaryDomainBanner'] ?? self::$config['showSecondaryDomainBanner']);
+        self::$config['domainTLDs'] = implode(',', array_map(function ($item) {
+            return trim(str_replace('.', '', $item));
+        }, ($data['domainTLDs'] ?? self::$config['domainTLDs'])));
+        self::$config['stagingSites'] = array_map('trim', ($data['stagingSites'] ?? self::$config['stagingSites']));
+        self::$config['domainSearchURL'] = ($data['domainSearchURL'] ?? self::$config['domainSearchURL']);
         self::$logo = isset($data['logo'][0]['thumbnails']['large']['url']) ? $data['logo'][0]['thumbnails']['large']['url'] : self::$logo;
         self::$name = ($data['Name'] ?? self::$name);
         self::$colors = [
@@ -190,5 +180,16 @@ class PartnerData
         }
 
         return $cssVariables;
+    }
+
+    /**
+     * Return the value of the setting.
+     *
+     * @param string $settingKey - The key of the config.
+     * @return mixed
+     */
+    public static function setting($settingKey)
+    {
+        return self::$config[$settingKey];
     }
 }

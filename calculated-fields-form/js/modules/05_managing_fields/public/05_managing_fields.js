@@ -410,7 +410,6 @@
 								function()
 								{
 									var id = f.attr('id');
-									if( 'validate' in f ) f.validate().resetForm();
 									f.find('.select2-hidden-accessible').trigger('change');
 									f.find(':data(manually)').removeData('manually');
 									$.fbuilder['showHideDep']({ 'formIdentifier' : fid });
@@ -439,6 +438,7 @@
 										$.fbuilder['calculator'].defaultCalc('#'+id, false);
 										f.removeClass( 'cff-reset-form' );
 									}
+									if( 'validate' in f ) f.validate().resetForm();
 								},
 								50
 							);

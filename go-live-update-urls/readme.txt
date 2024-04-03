@@ -3,9 +3,9 @@ Contributors: Mat Lipe, onpointplugins
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40onpointplugins%2ecom&lc=US&item_name=Go%20Live%20Update%20Urls&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: search and replace, database, urls, domain, update urls
 Requires at least: 6.1.0
-Tested up to: 6.4.3
+Tested up to: 6.5.0
 Requires PHP: 7.2.0
-Stable tag: 6.7.2
+Stable tag: 6.7.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -51,7 +51,7 @@ Troubleshooting information <a target="_blank" href="https://onpointplugins.com/
 Send pull requests via the <a href="https://github.com/lipemat/go-live-update-urls/">Github Repo</a>
 
 <h3>Go PRO</h3>
-Our [PRO Version](https://onpointplugins.com/product/go-live-update-urls-pro/?utm_source=readme&utm_campaign=gopro&utm_medium=dot-org) brings additional functionality to this plugin. Check out [the demo](https://onpointplugins.com/go-live-update-urls/go-live-update-urls-pro-demo/?utm_source=demo&utm_campaign=gopro&utm_medium=dot-org) to see if the PRO version is useful for you.
+Our [PRO version](https://onpointplugins.com/product/go-live-update-urls-pro/?utm_source=readme&utm_campaign=gopro&utm_medium=dot-org) brings additional functionality to this plugin. Check out [the demo](https://onpointplugins.com/go-live-update-urls/go-live-update-urls-pro-demo/?utm_source=demo&utm_campaign=gopro&utm_medium=dot-org) to see if the PRO version is useful for you.
 
 * Updates database tables created by plugins without fear of breaking.
 * Database tables are organized into simple intuitive sections.
@@ -111,6 +111,14 @@ If you find you are running into issues with custom tables, you may want to chec
 3. Update prevented due to incomplete data entered.
 
 == Changelog ==
+= 6.7.3 =
+* Improved the readme.
+* Added a plugin domain to the translation files headers.
+* Bumped required WordPress version to 6.1.0.
+* Added live preview supporting using a playground blueprint.
+* Update PHPUnit support to version 10.
+* Tested to WordPress version 6.5.0.
+*
 = 6.7.2 =
 * Fixed deprecated notices in PHP 8.2.
 * Introduced `go_live_update_urls_sanitize_field` function.

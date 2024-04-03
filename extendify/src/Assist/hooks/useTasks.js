@@ -1,8 +1,13 @@
-import { showDomainTask } from '@assist/lib/domains';
+import {
+	showDomainTask,
+	showSecondaryDomainTask,
+	domainSearchUrl,
+} from '@assist/lib/domains';
 import addPage from '@assist/tasks/add-page';
 import demoCard from '@assist/tasks/demo-card';
 import domainRecommendation from '@assist/tasks/domain-recommendation';
 import editHomepage from '@assist/tasks/edit-homepage';
+import secondaryDomainRecommendation from '@assist/tasks/secondary-domain-recommendation';
 import setupGivewp from '@assist/tasks/setup-givewp';
 import setupHubspot from '@assist/tasks/setup-hubspot';
 import setupSimplyAppointments from '@assist/tasks/setup-simply-appointments';
@@ -23,6 +28,7 @@ export const useTasks = () => {
 		'site-builder-launcher': { ...siteBuilderLauncher },
 		'site-assistant-tour': { ...siteAssistantTour },
 		'domain-recommendation': { ...domainRecommendation },
+		'secondary-domain-recommendation': { ...secondaryDomainRecommendation },
 		'demo-card': { ...demoCard },
 		'edit-homepage': { ...editHomepage },
 		'add-page': { ...addPage },
@@ -55,7 +61,8 @@ export const useTasks = () => {
 				goals,
 				activePlugins: pluginsToCheck,
 				userGoals,
-				showDomainTask,
+				showDomainTask: showDomainTask && domainSearchUrl,
+				showSecondaryDomainTask: showSecondaryDomainTask && domainSearchUrl,
 			});
 		}),
 	};

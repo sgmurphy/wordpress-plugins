@@ -100,7 +100,16 @@ function loginizer_page_recaptcha(){
 			$GLOBALS['lz_cleared'] = true;
 			
 		}else{
-		
+			
+			$option['captcha_status'] = (int) lz_optpost('captcha_status');
+
+			//hcaptcha
+			$option['hcaptcha_secretkey'] = lz_optpost('hcaptcha_secretkey');
+			$option['hcaptcha_sitekey'] = lz_optpost('hcaptcha_sitekey');
+			$option['hcaptcha_lang'] = lz_optpost('hcaptcha_lang');
+			$option['hcaptcha_theme'] = lz_optpost('hcaptcha_theme');
+			$option['hcaptcha_size'] = lz_optpost('hcaptcha_size');
+
 			// Google Captcha
 			$option['captcha_type'] = lz_optpost('captcha_type');
 			$option['captcha_key'] = lz_optpost('captcha_key');
@@ -109,6 +118,13 @@ function loginizer_page_recaptcha(){
 			$option['captcha_size'] = lz_optpost('captcha_size');
 			$option['captcha_lang'] = lz_optpost('captcha_lang');
 			$option['captcha_domain'] = lz_optpost('captcha_domain');
+			
+			// Cloudflare Turnstil Captcha
+			$option['turn_captcha_key'] = lz_optpost('turn_captcha_key');
+			$option['turn_captcha_secret'] = lz_optpost('turn_captcha_secret');
+			$option['turn_captcha_theme'] = lz_optpost('turn_captcha_theme');
+			$option['turn_captcha_size'] = lz_optpost('turn_captcha_size');
+			$option['turn_captcha_lang'] = lz_optpost('turn_captcha_lang');
 			
 			// No Google Captcha
 			$option['captcha_text'] = lz_optpost('captcha_text');
@@ -139,8 +155,60 @@ function loginizer_page_recaptcha(){
 					$lz_error['captcha_text'] = __('The Captcha key was not submitted', 'loginizer');
 				}
 				
+			}else if(!empty($_POST['captcha_status']) && $_POST['captcha_status'] == 3){
+
+				if(strlen($option['hcaptcha_sitekey']) < 32 || strlen($option['hcaptcha_sitekey']) > 50){
+					$lz_error['hcaptcha_sitekey'] = __('The hCAPTCHA key is invalid', 'loginizer');
+				}
+				
+				// Is secret valid ?
+				if(strlen($option['hcaptcha_secretkey']) < 32 || strlen($option['hcaptcha_secretkey']) > 50){
+					$lz_error['hcaptcha_secretkey'] = __('The hCAPTCHA secret is invalid', 'loginizer');
+				}
+				
+				// Is theme valid ?
+				if(empty($lz_env['theme'][$option['hcaptcha_theme']])){
+					$lz_error['hcaptcha_theme'] = __('The hCaptcha theme is invalid', 'loginizer');
+				}
+				
+				// Is size valid ?
+				if(empty($lz_env['size'][$option['hcaptcha_size']])){
+					$lz_error['hcaptcha_size'] = __('The Turnstile size is invalid', 'loginizer');
+				}
+				
+				// Is lang valid ?
+				if(empty($lz_env['lang'][$option['turn_captcha_lang']])){
+					$lz_error['turn_captcha_lang'] = __('The Turnstile language is invalid', 'loginizer');
+				}
+				
+			}else if(!empty($_POST['captcha_status']) && $_POST['captcha_status'] == 4){
+
+				if(strlen($option['turn_captcha_key']) < 24 || strlen($option['turn_captcha_key']) > 50){
+					$lz_error['turn_captcha_key'] = __('The Turnstile Site key is invalid', 'loginizer');
+				}
+				
+				// Is secret valid ?
+				if(strlen($option['turn_captcha_secret']) < 32 || strlen($option['turn_captcha_secret']) > 50){
+					$lz_error['turn_captcha_secret'] = __('The Turnstile secret key is invalid', 'loginizer');
+				}
+				
+				// Is theme valid ?
+				if(empty($lz_env['theme'][$option['turn_captcha_theme']])){
+					$lz_error['turn_captcha_theme'] = __('The Turnstile theme is invalid', 'loginizer');
+				}
+				
+				// Is size valid ?
+				if(empty($lz_env['size'][$option['turn_captcha_size']])){
+					$lz_error['turn_captcha_size'] = __('The Turnstile size is invalid', 'loginizer');
+				}
+				
+				// Is lang valid ?
+				if(empty($lz_env['lang'][$option['turn_captcha_lang']])){
+					$lz_error['turn_captcha_lang'] = __('The Turnstile language is invalid', 'loginizer');
+				}
+
 			}else{
-			
+
 				// Make the checks
 				if(strlen($option['captcha_key']) < 32 || strlen($option['captcha_key']) > 50){
 					$lz_error['captcha_key'] = __('The reCAPTCHA key is invalid', 'loginizer');
@@ -242,13 +310,71 @@ input[type="text"], textarea, select {
 				<td>
 					<select name="captcha_status" id="captcha_status" onchange="lz_captcha_status();">
 						<?php
-							echo '<option '.lz_POSTselect('captcha_status', 0, (empty($loginizer['captcha_key']) && empty($loginizer['captcha_no_google']) ? true : false)).' value="0">'.__('Disabled', 'loginizer').'</option>
+							echo '<option '.lz_POSTselect('captcha_status', 0, (empty($loginizer['captcha_key']) && empty($loginizer['captcha_no_google']) && empty($loginizer['captcha_status']) ? true : false)).' value="0">'.__('Disabled', 'loginizer').'</option>
 							<option '.lz_POSTselect('captcha_status', 1, (!empty($loginizer['captcha_key']) ? true : false)).' value="1">'.__('Google reCAPTCHA', 'loginizer').'</option>
-							<option '.lz_POSTselect('captcha_status', 2, (!empty($loginizer['captcha_no_google']) ? true : false)).' value="2">'.__('Math Captcha', 'loginizer').'</option>';
+							<option '.lz_POSTselect('captcha_status', 2, (!empty($loginizer['captcha_no_google']) ? true : false)).' value="2">'.__('Math Captcha', 'loginizer').'</option>
+							<option '.lz_POSTselect('captcha_status', 3, ((!empty($loginizer['captcha_status']) && $loginizer['captcha_status'] == 3) ? true : false)).' value="3">'.__('hCAPTCHA', 'loginizer').'</option>
+							<option '.lz_POSTselect('captcha_status', 4, ((!empty($loginizer['captcha_status']) && $loginizer['captcha_status'] == 4) ? true : false)).' value="4">'.__('Cloudflare Turnstile', 'loginizer').'</option>';
 						?>
 					</select>
 				</td>
 			</tr>
+
+			<tr class="hcaptcha">
+				<td scope="row" valign="top"><label for="hcaptcha_sitekey"><b><?php echo __('Site Key', 'loginizer'); ?></b></label><br>
+				<?php echo __('Make sure you enter the correct keys as per the reCAPTCHA type selected above', 'loginizer'); ?>
+				</td>
+				<td>
+					<input type="text" size="50" value="<?php echo lz_optpost('hcaptcha_sitekey', $loginizer['hcaptcha_sitekey']); ?>" name="hcaptcha_sitekey" id="hcaptcha_sitekey" /><br />
+					<?php echo __('Get the Site Key and Secret Key from <a href="https://www.hcaptcha.com/" target="_blank">hcaptcha</a>', 'loginizer'); ?>
+				</td>
+			</tr>
+
+			<tr class="hcaptcha">
+				<td scope="row" valign="top"><label for="hcaptcha_secretkey"><b><?php echo __('Secret Key', 'loginizer'); ?></b></label></td>
+				<td>
+					<input type="text" size="50" value="<?php echo lz_optpost('hcaptcha_secretkey', $loginizer['hcaptcha_secretkey']); ?>" name="hcaptcha_secretkey" id="hcaptcha_secretkey" />
+				</td>
+			</tr>
+			<tr class="hcaptcha">
+				<td scope="row" valign="top"><label for="hcaptcha_theme"><b><?php echo __('Theme', 'loginizer'); ?></b></label></td>
+				<td>
+					<select name="hcaptcha_theme" id="hcaptcha_theme">
+						<?php
+							foreach($lz_env['theme'] as $k => $v){
+								echo '<option '.lz_POSTselect('hcaptcha_theme', $k, ($loginizer['hcaptcha_theme'] == $k ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';
+							}
+						?>
+					</select>
+				</td>
+			</tr>
+			<tr class="hcaptcha">
+				<td scope="row" valign="top"><label for="hcaptcha_lang"><b><?php echo __('Language', 'loginizer'); ?></b></label></td>
+				<td>
+					<select name="hcaptcha_lang" id="hcaptcha_lang">
+						<?php
+							foreach($lz_env['lang'] as $k => $v){
+								echo '<option '.lz_POSTselect('hcaptcha_lang', $k, ($loginizer['hcaptcha_lang'] == $k ? true : false)).' value="'.esc_attr($k).'">'.esc_attr($v).'</value>';
+							}
+						?>
+					</select>
+				</td>
+			</tr>
+
+			<tr class="hcaptcha">
+				<td scope="row" valign="top"><label for="hcaptcha_size"><b><?php echo __('Size', 'loginizer'); ?></b></label></td>
+				<td>
+					<select name="hcaptcha_size" id="hcaptcha_size">
+						<?php
+							foreach($lz_env['size'] as $k => $v){
+								echo '<option '.lz_POSTselect('hcaptcha_size', $k, ($loginizer['hcaptcha_size'] == $k ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';
+							}
+						?>
+					</select>
+				</td>
+			</tr>
+			
+
 			<tr class="lz_google_cap">
 				<td scope="row" valign="top"><label><b><?php echo __('reCAPTCHA type', 'loginizer'); ?></b></label><br>
 				<?php echo __('Choose the type of reCAPTCHA', 'loginizer'); ?><br />
@@ -281,7 +407,7 @@ input[type="text"], textarea, select {
 					<select name="captcha_theme" id="captcha_theme">
 						<?php
 							foreach($lz_env['theme'] as $k => $v){
-								echo '<option '.lz_POSTselect('captcha_theme', $k, ($loginizer['captcha_theme'] == $k ? true : false)).' value="'.$k.'">'.$v.'</value>';								
+								echo '<option '.lz_POSTselect('captcha_theme', $k, ($loginizer['captcha_theme'] == $k ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';								
 							}
 						?>
 					</select>
@@ -293,7 +419,7 @@ input[type="text"], textarea, select {
 					<select name="captcha_lang" id="captcha_lang">
 						<?php
 							foreach($lz_env['lang'] as $k => $v){
-								echo '<option '.lz_POSTselect('captcha_lang', $k, ($loginizer['captcha_lang'] == $k ? true : false)).' value="'.$k.'">'.$v.'</value>';								
+								echo '<option '.lz_POSTselect('captcha_lang', $k, ($loginizer['captcha_lang'] == $k ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';								
 							}
 						?>
 					</select>
@@ -305,7 +431,7 @@ input[type="text"], textarea, select {
 					<select name="captcha_size" id="captcha_size">
 						<?php
 							foreach($lz_env['size'] as $k => $v){
-								echo '<option '.lz_POSTselect('captcha_size', $k, ($loginizer['captcha_size'] == $k ? true : false)).' value="'.$k.'">'.$v.'</value>';								
+								echo '<option '.lz_POSTselect('captcha_size', $k, ($loginizer['captcha_size'] == $k ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';
 							}
 						?>
 					</select>
@@ -326,6 +452,59 @@ input[type="text"], textarea, select {
 					</select>
 				</td>
 			</tr>
+			
+			<tr class="lz_turnstile_cap">
+				<td scope="row" valign="top"><label for="turn_captcha_key"><b><?php echo __('Site Key', 'loginizer'); ?></b></label><br>
+				</td>
+				<td>
+					<input type="text" size="50" value="<?php echo lz_optpost('turn_captcha_key', $loginizer['turn_captcha_key']); ?>" name="turn_captcha_key" id="turn_captcha_key" /><br />
+					<?php echo __('Get the Site Key and Secret Key from <a href="https://dash.cloudflare.com/sign-up?to=/:account/turnstile" target="_blank">Cloudflare Turnstile</a>', 'loginizer'); ?>
+				</td>
+			</tr>
+			<tr class="lz_turnstile_cap">
+				<td scope="row" valign="top"><label for="turn_captcha_secret"><b><?php echo __('Secret Key', 'loginizer'); ?></b></label></td>
+				<td>
+					<input type="password" size="50" value="<?php echo lz_optpost('turn_captcha_secret', $loginizer['turn_captcha_secret']); ?>" name="turn_captcha_secret" id="turn_captcha_secret" />
+				</td>
+			</tr>
+			<tr class="lz_turnstile_cap">
+				<td scope="row" valign="top"><label for="turn_captcha_theme"><b><?php echo __('Theme', 'loginizer'); ?></b></label></td>
+				<td>
+					<select name="turn_captcha_theme" id="turn_captcha_theme">
+						<?php
+							foreach($lz_env['theme'] as $k => $v){
+								echo '<option '.lz_POSTselect('turn_captcha_theme', $k, ($loginizer['turn_captcha_theme'] == $k ? true : false)).' value="'.esc_attr($k).'">'.esc_html($v).'</value>';								
+							}
+						?>
+					</select>
+				</td>
+			</tr>
+			
+			<tr class="lz_turnstile_cap">
+				<td scope="row" valign="top"><label for="turn_captcha_lang"><b><?php echo __('Language', 'loginizer'); ?></b></label></td>
+				<td>
+					<select name="turn_captcha_lang" id="turn_captcha_lang">
+						<?php
+							foreach($lz_env['lang'] as $k => $v){
+								echo '<option '.lz_POSTselect('turn_captcha_lang', $k, ($loginizer['turn_captcha_lang'] == $k ? true : false)).' value="'.$k.'">'.$v.'</value>';								
+							}
+						?>
+					</select>
+				</td>
+			</tr>
+			<tr class="lz_turnstile_cap lz_google_cap_size">
+				<td scope="row" valign="top"><label for="turn_captcha_size"><b><?php echo __('Size', 'loginizer'); ?></b></label></td>
+				<td>
+					<select name="turn_captcha_size" id="turn_captcha_size">
+						<?php
+							foreach($lz_env['size'] as $k => $v){
+								echo '<option '.lz_POSTselect('turn_captcha_size', $k, ($loginizer['turn_captcha_size'] == $k ? true : false)).' value="'.$k.'">'.$v.'</value>';								
+							}
+						?>
+					</select>
+				</td>
+			</tr>
+
 			<tr class="lz_math_cap">
 				<td scope="row" valign="top">
 					<label for="captcha_text"><b><?php echo __('Captcha Text', 'loginizer'); ?></b></label><br>
@@ -449,16 +628,35 @@ function lz_captcha_status(){
 	if(cur_captcha_status == 1){
 		jQuery(".lz_google_cap").show();
 		jQuery(".lz_math_cap").hide();
+		jQuery('.lz_turnstile_cap').hide();
 		jQuery(".lz_cap").show();
 		google_recaptcha_type();
+		jQuery(".hcaptcha").hide();
 		
 	}else if(cur_captcha_status == 2){
 		jQuery(".lz_google_cap").hide();
 		jQuery(".lz_math_cap").show();
+		jQuery('.lz_turnstile_cap').hide();
 		jQuery(".lz_cap").show();
+		jQuery(".hcaptcha").hide();
+		
+	}else if(cur_captcha_status == 3){
+		jQuery(".hcaptcha").show();
+		jQuery(".lz_math_cap").hide();
+		jQuery('.lz_turnstile_cap').hide();
+		jQuery(".lz_cap").show();
+		jQuery(".lz_google_cap").hide();
+	}else if(cur_captcha_status == 4){
+		jQuery(".hcaptcha").hide();
+		jQuery(".lz_math_cap").hide();
+		jQuery('.lz_turnstile_cap').show();
+		jQuery(".lz_cap").show();
+		jQuery(".lz_google_cap").hide();
 	}else{
+		jQuery(".hcaptcha").hide();
 		jQuery(".lz_google_cap").hide();
 		jQuery(".lz_math_cap").hide();
+		jQuery('.lz_turnstile_cap').hide();
 		jQuery(".lz_cap").hide();
 	}
 	

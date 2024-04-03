@@ -7,7 +7,12 @@ import { __ } from '@wordpress/i18n';
 import { render } from '@draft/lib/dom';
 import { magic } from '@draft/svg';
 
-const supportedBlocks = ['core/image', 'core/media-text'];
+const supportedBlocks = [
+	'core/image',
+	'core/media-text',
+	'core/gallery',
+	'core/cover',
+];
 
 export const GenerateImageButtons = (CurrentComponents, props) => {
 	const { openGeneralSidebar } = useDispatch(editPostStore);
@@ -62,13 +67,13 @@ export const GenerateImageButtons = (CurrentComponents, props) => {
 		<>
 			<CurrentComponents {...props} />
 			<BlockControls>
-				<ToolbarReplaceButton {...props} />
+				<ToolbarButtons {...props} />
 			</BlockControls>
 		</>
 	);
 };
 
-const ToolbarReplaceButton = ({ name, attributes }) => {
+const ToolbarButtons = ({ name, attributes }) => {
 	const { openGeneralSidebar } = useDispatch(editPostStore);
 
 	useEffect(() => {
@@ -79,10 +84,13 @@ const ToolbarReplaceButton = ({ name, attributes }) => {
 		// use async iife to allow frame delays
 		(async () => {
 			await new Promise((r) => (rafOuter = requestAnimationFrame(r)));
-			// Find a button on the toolbar that says replace
+			// Find a button on the toolbar that says replace or add
 			const replaceBtn = Array.from(
 				document.querySelectorAll('[data-toolbar-item="true"]'),
-			)?.find((btn) => btn.textContent === __('Replace'));
+			)?.find(
+				(btn) =>
+					btn.textContent === __('Replace') || btn.textContent === __('Add'),
+			);
 			if (!replaceBtn) return;
 
 			const element = (
@@ -97,7 +105,7 @@ const ToolbarReplaceButton = ({ name, attributes }) => {
 				</MenuItem>
 			);
 			observer = new MutationObserver((mutations) => {
-				// Replace button is open
+				// Button is open
 				if (mutations[0].target.getAttribute('aria-expanded') === 'true') {
 					// Find the popover section we want to attach to
 					const pClass = '.block-editor-media-replace-flow__media-upload-menu';

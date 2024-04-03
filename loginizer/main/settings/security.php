@@ -22,7 +22,7 @@ function loginizer_page_security(){
 	if(count($_POST) > 0){
 		check_admin_referer('loginizer-options');
 	}
-	
+
 	if(isset($_POST['save_lz'])){
 		
 		$option['login_slug'] = lz_optpost('login_slug');
@@ -276,7 +276,7 @@ function loginizer_page_security(){
 function loginizer_page_security_T(){
 	
 	global $loginizer, $lz_error, $lz_env;
-	
+
 	// Universal header
 	loginizer_page_header('Security Settings');
 	

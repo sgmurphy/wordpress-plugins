@@ -7,11 +7,84 @@ import InfoboxContainer from "./components/infobox-save-depricated";
 import InfoboxContainer2 from "./components/infobox-save-depricated-2";
 import InfoboxContainer3 from "./components/infobox-save-depricated-3";
 import InfoboxContainer4 from "./components/infobox-save-depricated-4";
+import InfoboxContainer5 from "./components/infobox-save-depricated-5";
 import { omit } from "lodash";
 
 import attributes from "./attributes";
 
 const deprecated = [
+    {
+        attributes: { ...attributes },
+        supports: {
+            align: ["wide", "full"],
+        },
+        save: ({ attributes }) => {
+            const {
+                blockId,
+                selectedIcon,
+                infoboxIcon,
+                number = 0,
+                media,
+                imageUrl,
+                imageAlt,
+                enableSubTitle,
+                enableDescription,
+                infoboxLink,
+                linkNewTab,
+                enableButton,
+                isInfoClick,
+                buttonText,
+                title,
+                subTitle,
+                description,
+                titleTag,
+                subTitleTag,
+                btnEffect,
+                classHook,
+            } = attributes;
+
+            const requiredProps = {
+                selectedIcon,
+                infoboxIcon,
+                blockId,
+                number,
+                media,
+                imageUrl,
+                imageAlt,
+                enableSubTitle,
+                enableDescription,
+                infoboxLink,
+                linkNewTab,
+                enableButton,
+                isInfoClick,
+                buttonText,
+                title,
+                subTitle,
+                description,
+                titleTag,
+                subTitleTag,
+                btnEffect,
+                classHook,
+            };
+
+            return (
+                <div {...useBlockProps.save()}>
+                    {isInfoClick ? (
+                        <a
+                            href={infoboxLink}
+                            target={linkNewTab ? "_blank" : "_self"}
+                            rel="noopener noreferrer"
+                            className="info-click-link info-wrap-link"
+                        >
+                            <InfoboxContainer5 requiredProps={requiredProps} />
+                        </a>
+                    ) : (
+                        <InfoboxContainer5 requiredProps={requiredProps} />
+                    )}
+                </div>
+            );
+        },
+    },
     {
         attributes: omit({ ...attributes }, ["infoboxIcon"]),
         migrate(attributes) {

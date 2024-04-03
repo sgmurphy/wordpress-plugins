@@ -198,7 +198,7 @@ export const CreatingSite = () => {
 			);
 			await waitFor200Response();
 
-			const updatedHeaderCode = addLaunchPagesToNav(
+			const updatedHeaderCode = await addLaunchPagesToNav(
 				navPages,
 				pageIds,
 				style?.headerCode,

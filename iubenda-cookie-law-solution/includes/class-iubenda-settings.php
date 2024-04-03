@@ -1021,7 +1021,7 @@ class Iubenda_Settings {
 			foreach ( $languages as $k => $v ) {
 				$code = iub_array_get( iubenda()->options['cs'], "code_{$k}" );
 				if ( $code ) {
-					$banner      = iubenda()->parse_configuration( $code, array( 'mode' => 'banner' ) );
+					$banner      = iubenda()->configuration_parser->extract_cs_config_from_code( $code, array( 'mode' => 'banner' ) );
 					$style       = iub_array_get( $banner, 'backgroundColor' ) ? 'White' : 'Dark';
 					$legislation = ( new Iubenda_CS_Product_Service() )->get_legislation_from_embed_code( $code );
 
@@ -1169,21 +1169,22 @@ class Iubenda_Settings {
 						$result['codes_statues'][ "{$product_name}_codes" ][] = ! empty( $code );
 
 						// get public_id & site_id if only the product key is CS and had a valid embed code.
-						$parsed_code = array_filter( iubenda()->parse_configuration( $code ) );
-						if ( 'cs' === $product_key && ! empty( $parsed_code ) ) {
+						if ( 'cs' === $product_key ) {
+							$site_id = iubenda()->configuration_parser->retrieve_info_from_script_by_key( $code, 'siteId' );
 							// getting site id to save it into Iubenda global option.
-							if ( iub_array_get( $parsed_code, 'siteId' ) ?? null ) {
-								$result['site_id'] = iub_array_get( $parsed_code, 'siteId' );
+							if ( ! empty( $site_id ) ) {
+								$result['site_id'] = $site_id;
 							}
 
-							// getting public id to save it into Iubenda global option by lang.
-							if ( iub_array_get( $parsed_code, 'cookiePolicyId' ) ?? null ) {
-								$result['public_ids'][ $lang_id ] = iub_array_get( $parsed_code, 'cookiePolicyId' );
+							$cookie_policy_id = iubenda()->configuration_parser->retrieve_info_from_script_by_key( $code, 'cookiePolicyId' );
+							// getting site id to save it into Iubenda global option.
+							if ( ! empty( $cookie_policy_id ) ) {
+								$result['public_ids'][ $lang_id ] = $cookie_policy_id;
 							}
 						}
 
 						if ( in_array( $product_key, array( 'pp', 'tc' ), true ) ) {
-							$parsed_code = iubenda()->parse_tc_pp_configuration( $code );
+							$parsed_code = iubenda()->configuration_parser->extract_tc_pp_config_from_code( $code );
 
 							// getting public id to save it into Iubenda global option lang.
 							if ( $parsed_code ) {

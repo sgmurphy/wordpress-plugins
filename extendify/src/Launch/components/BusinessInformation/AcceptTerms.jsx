@@ -1,4 +1,5 @@
 import { __, sprintf } from '@wordpress/i18n';
+import classNames from 'classnames';
 
 export const AcceptTerms = ({ setAcceptTerms, acceptTerms, termsUrl }) => {
 	if (!termsUrl) return null;
@@ -15,7 +16,10 @@ export const AcceptTerms = ({ setAcceptTerms, acceptTerms, termsUrl }) => {
 					checked={acceptTerms}
 				/>
 				<svg
-					className="absolute block inset-0 h-6 w-5 text-white"
+					className={classNames('absolute block inset-0 h-6 w-5', {
+						'text-white': acceptTerms,
+						'text-transparent': !acceptTerms,
+					})}
 					viewBox="1 0 20 20"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"

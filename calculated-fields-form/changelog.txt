@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.1.62 =
+
+* Optimizes the plugin queries.
+* Allows entering placeholder in dropdown fields.
+* Modifies the PDF Generator add-on to integrate it with the Multilanguage for Calculated Fields Form complementary plugin.
+* Modifies the user permissions add-on.
+
 = 5.1.61 =
 
 * Modifies the multiple files behavior in Upload File control to allow adding new files without losing the previous files selected.

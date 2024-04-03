@@ -140,24 +140,19 @@ class Iubenda_CS_Product_Service extends Iubenda_Abstract_Product_Service {
 				if ( ! empty( $option ) && 0 === strpos( $index, 'code_' ) ) {
 					$lang_id = substr( $index, 5 );
 
-					// Getting data from embed code.
-					$parsed_code = iubenda()->parse_configuration( $option );
-
-					// Alternative method if parse_configuration return empty.
-					if ( empty( $parsed_code ) ) {
-						$parsed_code = $this->parse_configuration_by_regex( $option );
-					}
-
 					$new_cs_option[ "manual_{$index}" ] = $option;
 					$codes_statues[ $lang_id ]          = true;
+
+					$cookie_policy_id = iubenda()->configuration_parser->retrieve_info_from_script_by_key( $option, 'cookiePolicyId' );
 					// getting cookiePolicyId to save it into Iubenda global option.
-					if ( ! empty( iub_array_get( $parsed_code, 'cookiePolicyId' ) ) ) {
-						$global_options['public_ids'][ $lang_id ] = sanitize_key( iub_array_get( $parsed_code, 'cookiePolicyId' ) );
+					if ( ! empty( $cookie_policy_id ) ) {
+						$global_options['public_ids'][ $lang_id ] = sanitize_key( $cookie_policy_id );
 					}
 
+					$site_id = iubenda()->configuration_parser->retrieve_info_from_script_by_key( $option, 'siteId' );
 					// getting site id to save it into Iubenda global option.
-					if ( empty( iub_array_get( $global_options, 'site_id' ) ) && ! empty( iub_array_get( $parsed_code, 'siteId' ) ) ) {
-						$global_options['site_id'] = sanitize_key( iub_array_get( $parsed_code, 'siteId' ) );
+					if ( ! empty( $site_id ) && empty( iub_array_get( $global_options, 'site_id' ) ) ) {
+						$global_options['site_id'] = sanitize_key( $site_id );
 					}
 
 					// generate amp template file.
@@ -169,11 +164,9 @@ class Iubenda_CS_Product_Service extends Iubenda_Abstract_Product_Service {
 						$new_cs_option['amp_template_done'][ $lang_id ] = iub_array_get( $amp_options, 'amp_template_done' );
 					}
 
-					// Try to get the Site ID from code.
-					$parsed_site_id = iub_array_get( $parsed_code, 'siteId' );
-					if ( $parsed_site_id ) {
+					if ( ! empty( $site_id ) ) {
 						// Check if auto-blocking is enabled for this site.
-						iubenda()->iub_auto_blocking->fetch_auto_blocking_status_by_site_id( $parsed_site_id );
+						iubenda()->iub_auto_blocking->fetch_auto_blocking_status_by_site_id( $site_id );
 					}
 				}
 			}
@@ -278,7 +271,7 @@ class Iubenda_CS_Product_Service extends Iubenda_Abstract_Product_Service {
 	 * @return string
 	 */
 	public function get_legislation_from_embed_code( $code ) {
-		$parsed_options = iubenda()->parse_configuration( $code );
+		$parsed_options = iubenda()->configuration_parser->extract_cs_config_from_code( $code );
 		$legislation    = array();
 
 		// If code not parsed for any reason return dots.

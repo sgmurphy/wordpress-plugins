@@ -93,11 +93,17 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 			} else {
 				$old_stats = get_post( $exists )->post_content;
 			}
-			// Remove timestamp before comparing.
-			$test_stats            = json_decode( $stats );
-			$test_stats->timestamp = '';
-			$test_old              = json_decode( $old_stats );
-			$test_old->timestamp   = '';
+			// Remove timestamp before comparing. Otherwise, these will always be different.
+			$test_stats = json_decode( $stats );
+			if ( null !== $test_stats ) {
+				// If decode fails, don't attempt to unset timestamp.
+				$test_stats->timestamp = '';
+			}
+			$test_old = json_decode( $old_stats );
+			if ( null !== $test_old ) {
+				// If decode fails for any reason, move on, don't try to unset the timestamp.
+				$test_old->timestamp = '';
+			}
 			if ( json_encode( $test_stats ) !== json_encode( $test_old ) ) {
 				add_post_meta( $exists, '_wpa_old_event', array( $test_stats, $test_old ) );
 				// stats have changed; record the change.
@@ -125,7 +131,7 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 		);
 		$stat  = wp_insert_post( $post );
 		$terms = array( $type );
-		require_once( ABSPATH . '/wp-admin/includes/dashboard.php' );
+		require_once ABSPATH . '/wp-admin/includes/dashboard.php';
 		$browser = wp_check_browser_version();
 		add_post_meta( $stat, '_wpa_browser', json_encode( $browser ) );
 		$terms[] = $browser['name'];
@@ -372,7 +378,7 @@ function wpa_stats_data_point( $post, $type, $limit = 5 ) {
 		}
 		$i = $limit;
 		foreach ( $history as $h ) {
-			$i --;
+			--$i;
 			if ( $i < 1 ) {
 				$line .= '<li><a href="' . get_edit_post_link( $post_ID ) . '">' . __( 'View full record', 'wp-accessibility' ) . '</a></li>';
 				break;
@@ -584,7 +590,7 @@ function wpa_format_stats( $type, $data, $history ) {
 		$data = (array) $data;
 		$i    = 0;
 		foreach ( $data as $k => $d ) {
-			$i++;
+			++$i;
 		}
 		return $i;
 	}

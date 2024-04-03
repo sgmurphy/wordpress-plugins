@@ -121,7 +121,7 @@ const Save = ({ attributes }) => {
                                                             image.buttonUrl &&
                                                                 image.isValidUrl
                                                                 ? image.buttonUrl
-                                                                : "#"
+                                                                : ""
                                                         }
                                                         className="eb-slider-button"
                                                         target={
@@ -148,7 +148,7 @@ const Save = ({ attributes }) => {
                                                             image.secondButtonUrl &&
                                                                 image.isValidUrl
                                                                 ? image.secondButtonUrl
-                                                                : "#"
+                                                                : ""
                                                         }
                                                         className="eb-slider-button"
                                                         target={

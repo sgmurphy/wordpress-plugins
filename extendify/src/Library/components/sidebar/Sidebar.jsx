@@ -25,11 +25,6 @@ export const Sidebar = () => {
 				</div>
 			)}
 			<div className="overflow-y-auto pb-16 flex flex-col gap-4">
-				{/* TODO: This will eventually only show if the users has a license key  */}
-				{/* <div className="hidden md:flex flex-col overflow-hidden px-4">
-                    <SourceControl />
-                </div> */}
-
 				<div className="hidden md:flex flex-col px-4 overflow-x-hidden">
 					<SiteTypeControl />
 				</div>

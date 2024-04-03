@@ -560,7 +560,7 @@ class aThemes_Pricing_Table extends Widget_Base {
 
 			<?php
 				if ( ! empty( $settings['button_url']['url'] ) ) {
-					$this->add_render_attribute( 'button', 'href', $settings['button_url']['url'] );
+					$this->add_render_attribute( 'button', 'href', esc_url( $settings['button_url']['url'] ) );
 					$this->add_render_attribute( 'button', 'class', 'elementor-button' );
 
 					if ( $settings['button_url']['is_external'] ) {

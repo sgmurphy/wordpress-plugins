@@ -69,7 +69,7 @@ const save = ({ attributes }) => {
                     {showButton && (
                         <div className="eb-cia-button-wrapper">
                             <a
-                                href={buttonURL}
+                                href={buttonURL == undefined ? '' : buttonURL}
                                 target={linkNewTab ? "_blank" : "_self"}
                                 rel="noopener"
                             >

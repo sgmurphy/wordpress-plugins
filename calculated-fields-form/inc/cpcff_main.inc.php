@@ -70,6 +70,12 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		private $_forms = array();
 
 		/**
+		 * List of forms categories.
+		 * Instance property.
+		 */
+		private $_categories = array();
+
+		/**
 		 * Instance of the CPCFF_AMP class to manage the forms in AMP pages
 		 * Instance property.
 		 *
@@ -707,17 +713,17 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 		 */
 		public function get_categories( $html = '', &$current = null ) {
 			global $wpdb;
-			$categories = $wpdb->get_results( 'SELECT DISTINCT category FROM ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . ' WHERE category IS NOT NULL AND category <> ""', ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
-			if ( empty( $html ) ) {
-				return $categories;
-			}
+			if ( empty( $this->_categories) )
+				$this->_categories = $wpdb->get_results('SELECT DISTINCT category FROM '.$wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE.' WHERE category IS NOT NULL AND category <> ""', ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+
+            if(empty($html)) return $this->_categories;
 
 			$output = '';
 			$flag   = false;
 
-			if ( ! empty( $categories ) ) {
-				foreach ( $categories as $category ) {
+			if ( ! empty( $this->_categories ) ) {
+				foreach ( $this->_categories as $category ) {
 					$selected = '';
 
 					if ( $current === $category['category'] ) {

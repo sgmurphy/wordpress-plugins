@@ -4,7 +4,7 @@
  * @package WP Encryption
  *
  * @author     Go Web Smarty
- * @copyright  Copyright (C) 2019-2023, Go Web Smarty
+ * @copyright  Copyright (C) 2019-2024, Go Web Smarty
  * @license    http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3
  * @link       https://gowebsmarty.com
  * @since      Class available since Release 1.0.0
@@ -715,6 +715,7 @@ class WPLE_Core
                 //?wpleauto
                 
                 if ( $starthttpverification ) {
+                    WPLE_Trait::static_wellknown_htaccess();
                     $this->wple_get_pendings();
                     //get http challenges
                 }
@@ -739,7 +740,7 @@ class WPLE_Core
                                 
                                 if ( $rsponse !== trim( $challenge['content'] ) ) {
                                     WPLE_Trait::remove_wellknown_htaccess();
-                                    WPLE_Trait::static_wellknown_htaccess();
+                                    ///WPLE_Trait::static_wellknown_htaccess();
                                     //re-try again
                                     $rsponse = $this->wple_get_file_response( $acmefile );
                                     //ultimate failure

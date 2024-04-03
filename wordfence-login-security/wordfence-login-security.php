@@ -4,7 +4,7 @@ Plugin Name: Wordfence Login Security
 Description: Wordfence Login Security
 Author: Wordfence
 Author URI: https://www.wordfence.com/
-Version: 1.1.10
+Version: 1.1.11
 Network: true
 Requires at least: 4.5
 Requires PHP: 5.5
@@ -38,8 +38,8 @@ if ($wfCoreActive && !(isset($wfCoreLoading) && $wfCoreLoading)) {
 else {
 	define('WORDFENCE_LS_FROM_CORE', ($wfCoreActive && isset($wfCoreLoading) && $wfCoreLoading));
 	
-	define('WORDFENCE_LS_VERSION', '1.1.10');
-	define('WORDFENCE_LS_BUILD_NUMBER', '1710170444');
+	define('WORDFENCE_LS_VERSION', '1.1.11');
+	define('WORDFENCE_LS_BUILD_NUMBER', '1712157269');
 
 	define('WORDFENCE_LS_PLUGIN_BASENAME', plugin_basename(__FILE__));
 	

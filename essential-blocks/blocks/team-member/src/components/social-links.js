@@ -11,7 +11,7 @@ export default function SocialLinks({
                 <li key={index}>
                     <a
                         className={icnEffect || " "}
-                        href={link ? link : "#"}
+                        href={link ? link : ""}
                         {...(link && {
                             target: linkNewTab ? "_blank" : "_self",
                         })}

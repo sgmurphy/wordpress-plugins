@@ -1104,7 +1104,7 @@ class WpdiscuzHelper implements WpDiscuzConstants {
         }
         if (comments_open($post_ID) && ( $form = $this->wpdiscuzForm->getForm($post_ID) ) && $form->getFormID()) {
             $meta_before = get_post_meta($post_ID, $meta_key, true);
-            if(!is_string($meta_before)){
+            if(!is_string($meta_before) || !is_string($meta_value)){
                 return;
             }
             preg_match_all(self::$inlineFormPattern, $meta_before, $matchesBefore, PREG_SET_ORDER);

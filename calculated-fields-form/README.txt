@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.1.61
+Stable tag: 5.1.62
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -1013,6 +1013,13 @@ A: Please, follow the steps below:
 
 == Changelog ==
 
+= 5.1.62 =
+
+* Optimizes the plugin queries.
+* Allows entering placeholder in dropdown fields.
+* Modifies the PDF Generator add-on to integrate it with the Multilanguage for Calculated Fields Form complementary plugin.
+* Modifies the user permissions add-on.
+
 = 5.1.61 =
 
 * Modifies the multiple files behavior in Upload File control to allow adding new files without losing the previous files selected.
@@ -1048,10 +1055,3 @@ A: Please, follow the steps below:
 * Implements the resize popup feature.
 * Fixes an issue in Select2 dropdown fields with long choices' texts.
 * Improves the plugin security by sanitizing and escaping the cp_ref_page parameter (Professional, Developer, and Platinum versions). Thanks to Adam Goodlin, Wordfence Customer Support Engineer.
-
-= 1.2.56 =
-
-* Removes deprecated JS code.
-* Resolved a dependency issue that occurs when there are more than ten forms inserted on a single page.
-* Fixes a warning in the notification emails module (Professional, Developer, and Platinum versions)
-* Modifies the MailPoet add-on (Platinum version)

@@ -24,9 +24,9 @@ export const Header = () => {
 			<div className="max-w-[996px] w-full mx-auto mt-auto flex flex-col px-4">
 				<div className="flex flex-wrap justify-between items-center my-6 gap-x-4 gap-y-2">
 					{window.extAssistData?.partnerLogo && (
-						<div className="w-32 md:w-36 md:max-h-9 flex items-center">
+						<div className="flex items-center h-10 max-w-52	md:max-w-72 overflow-hidden">
 							<img
-								className="h-full w-full"
+								className="max-w-full max-h-full object-contain"
 								src={window.extAssistData.partnerLogo}
 								alt={window.extAssistData.partnerName}
 							/>

@@ -318,7 +318,7 @@ endif;
 				}
 			}
 			$records_per_page = get_option('calculated-fields-form-records-per-page', 20);
-			$myrows = $wpdb->get_results( "SELECT * FROM " . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . ' WHERE 1=1 ' . ( $cff_current_form_category != '' ? $wpdb->prepare( ' AND category=%s ', $cff_current_form_category ) : '' ) . ( $cff_search_form_term != '' ? $wpdb->prepare( ' AND (form_name LIKE %s OR form_structure LIKE %s)', '%' . $cff_search_form_term . '%', '%' . $cff_search_form_term . '%' ) : '' ) . " ORDER BY " . $orderby . ( 'id' == $orderby ? " DESC" : " ASC" ) );  // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+            $myrows = $wpdb->get_results( "SELECT id,form_name,category FROM " . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . ' WHERE 1=1 ' . ( $cff_current_form_category != '' ? $wpdb->prepare( ' AND category=%s ', $cff_current_form_category ) : '' ) . ( $cff_search_form_term != '' ? $wpdb->prepare( ' AND (form_name LIKE %s OR form_structure LIKE %s)', '%' . $cff_search_form_term . '%', '%' . $cff_search_form_term . '%' ) : '' ) . " ORDER BY " . $orderby . ( 'id' == $orderby ? " DESC" : " ASC" ) );  // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 			$total_pages = ceil( count( $myrows ) / $records_per_page );
 			$current_page = ! empty( $_REQUEST['page-number'] ) && is_numeric( $_REQUEST['page-number'] ) ?

@@ -122,8 +122,53 @@ final class HTMega_Addons_Elementor {
 
         }
         
+        // Admin Notices
+        add_action( 'admin_head', [ $this, 'admin_rating_notice' ] );
     }
 
+    /**
+     * Rating Notice
+     *
+     * @return void
+     */
+    public function admin_rating_notice(){
+
+        if ( get_option( 'htmega_rating_already_rated', false ) ) {
+            return;
+        }
+        
+        $logo_url = esc_url(HTMEGA_ADDONS_PL_URL . "admin/assets/images/logo.png");
+
+        $message = '<div class="hastech-review-notice-wrap">
+                    <div class="hastech-rating-notice-logo">
+                        <img src="' . $logo_url . '" alt="' . esc_attr__('HT Mega','htmega-addons') . '" style="max-width:85px"/>
+                    </div>
+                    <div class="hastech-review-notice-content">
+                        <h3>' . esc_html__('Thank you for choosing HT Mega to design your website!','htmega-addons').'</h3>
+                        <p>' . esc_html__('Would you mind doing us a huge favor by providing your feedback on WordPress? Your support helps us spread the word and greatly boosts our motivation.', 'htmega-addons') . '</p>
+                        <div class="hastech-review-notice-action">
+                            <a href="https://wordpress.org/support/plugin/ht-mega-for-elementor/reviews/?filter=5#new-post" class="hastech-notice-close hastech-review-notice button-primary" target="_blank">' . esc_html__('Ok, you deserve it!','htmega-addons') . '</a>
+                            <span class="dashicons dashicons-calendar"></span>
+                            <a href="#" class="hastech-notice-close hastech-review-notice">' . esc_html__('Maybe Later','htmega-addons').'</a>
+                            <span class="dashicons dashicons-smiley"></span>
+                            <a href="#" data-already-did="yes" class="hastech-notice-close hastech-review-notice">' . esc_html__('I already did','htmega-addons') . '</a>
+                        </div>
+                    </div>
+                </div>';
+
+        \HasTech_Notices::set_notice(
+            [
+                'id'          => 'htmega-rating-notice',
+                'type'        => 'info',
+                'dismissible' => true,
+                'message_type' => 'html',
+                'message'     => $message,
+                'display_after' => ( 2 * WEEK_IN_SECONDS ),
+                'expire_time' => MONTH_IN_SECONDS,
+                'close_by'    => 'transient'
+            ]
+        );
+    }
     /**
      * [add_image_size]
      * @return [void]

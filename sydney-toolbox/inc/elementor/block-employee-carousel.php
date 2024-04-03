@@ -339,8 +339,8 @@ class aThemes_Employee_Carousel extends Widget_Base {
 			        </div>
 					<?php
 					if ( ! empty( $item['image']['url'] ) ) {
-						$this->add_render_attribute( 'image-' . $index, 'src', $item['image']['url'] );
-						$this->add_render_attribute( 'image-' . $index, 'alt', Control_Media::get_image_alt( $item['image'] ) );
+						$this->add_render_attribute( 'image-' . $index, 'src', esc_url( $item['image']['url'] ) );
+						$this->add_render_attribute( 'image-' . $index, 'alt', esc_html( Control_Media::get_image_alt( $item['image'] ) ) );
 					?>
 					<div class="avatar">
 						<img <?php echo $this->get_render_attribute_string( 'image-' . $index ); ?>/>

@@ -202,7 +202,11 @@ class Admin
                 'wpLanguage' => \get_locale(),
                 'wpVersion' => \get_bloginfo('version'),
                 'siteCreatedAt' => get_user_option('user_registered', 1),
-                'oldPagesIds' => $this->getLaunchCreatedPages(),
+                'resetSiteInformation' => [
+                    'pagesIds' => array_map('esc_attr', $this->getLaunchCreatedPages()),
+                    'navigationsIds' => array_map('esc_attr', $this->getLaunchCreatedNavigations()),
+                    'templatePartsIds' => array_map('esc_attr', $this->getTemplatePartIds()),
+                ],
             ]),
             'before'
         );
@@ -237,4 +241,38 @@ class Admin
             return get_post_meta($post, 'made_with_extendify_launch') ? $post : false;
         }, $posts)));
     }
+
+    /**
+     * Returns all the navigations created by Extendify.
+     *
+     * @return array
+     */
+    public static function getLaunchCreatedNavigations()
+    {
+        $posts = get_posts([
+            'numberposts' => -1,
+            'post_status' => 'publish',
+            'post_type' => 'wp_navigation',
+            // only return the ID field.
+            'fields' => 'ids',
+        ]);
+
+        return array_values(array_filter(array_map(function ($post) {
+            return get_post_meta($post, 'made_with_extendify_launch') ? $post : false;
+        }, $posts)));
+    }
+
+    /**
+     * Returns the idz of the header and footer template part created by extendify.
+     *
+     * @return array
+     */
+    public static function getTemplatePartIds()
+    {
+        return [
+            (get_block_template( get_stylesheet() . '//header', 'wp_template_part' )->id ?? ''),
+            (get_block_template( get_stylesheet() . '//footer', 'wp_template_part' )->id ?? ''),
+        ];
+    }
+
 }

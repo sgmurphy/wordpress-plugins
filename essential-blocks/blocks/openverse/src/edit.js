@@ -5,7 +5,7 @@ import { __ } from "@wordpress/i18n";
 import {
     BlockControls,
     useBlockProps,
-    BlockAlignmentToolbar,
+    AlignmentToolbar,
 } from "@wordpress/block-editor";
 import {
     ToolbarGroup,
@@ -271,7 +271,7 @@ export default function Edit(props) {
         <>
             {isSelected && imageurl && <Inspector {...props} />}
             <BlockControls>
-                <BlockAlignmentToolbar
+                <AlignmentToolbar
                     value={imageAlign}
                     onChange={(newAlign) => setimageAlign(newAlign)}
                     controls={["left", "center", "right"]}

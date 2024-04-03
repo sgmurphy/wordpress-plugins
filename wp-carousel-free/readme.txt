@@ -2,8 +2,8 @@
 Contributors: shapedplugin, khalilu, shamimmiashuhagh, rubel_miah
 Tags: wordpress carousel, best carousel plugin, image carousel, image slider, post carousel, custom post carousel, custom taxonomy carousel, woocommerce product carousel, content carousel, video carousel, video slider, video lightbox, youtube carousel, video gallery, carousel, slider, responsive slider, responsive carousel, carousel slider, ticker carousel, center mode carousel, slide anything, image gallery, image lightbox, wordpress image gallery, photo gallery, gallery slider, wordpress gallery plugin, gallery, post slider, vimeo slider, self hosted video carousel, content slider, wordpress slider, featured content slider, html slider, horizontal carousel slider, posts content slider, product carousel, woocommerce slider, woocommerce product slider
 Requires at least: 5.0
-Tested up to: 6.4.2
-Stable tag: 2.6.2
+Tested up to: 6.5
+Stable tag: 2.6.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -325,6 +325,10 @@ Thank you!
 
 
 == Changelog ==
+
+= 2.6.3 – Apr 03, 2024 =
+* Fix: The warning was found when the plugin was activated via the WP-Cli command.
+* Tested: WordPress 6.5 compatibility.
 
 = 2.6.2 – Jan 23, 2024 =
 * Improved: The Help Page has been redesigned to make it more user-friendly.

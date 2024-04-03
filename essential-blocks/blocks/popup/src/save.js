@@ -59,7 +59,7 @@ const Save = ({ attributes }) => {
                         {"btn_click" === trigger && (
                             <>
                                 <div className={`eb-popup-button${alignmentClass}`}>
-                                    <a className="eb-popup-button-anchor">
+                                    <a className="eb-popup-button-anchor" role="button">
                                         {"button" === btnType && (
                                             <>
                                                 {btnIcon && "left" === iconPosition && (

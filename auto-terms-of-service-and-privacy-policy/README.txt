@@ -2,9 +2,9 @@
 Contributors: wpautoterms
 Tags: privacy policy, terms and conditions, ccpa, gdpr, eu privacy directive, cookie notice, cookie banner, cookie consent, disclosure, disclaimer, affiliate, legal
 Requires at least: 4.2
-Tested up to: 6.1.1
+Tested up to: 6.5
 Requires PHP: 5.3
-Stable tag: 2.5.0
+Stable tag: 2.5.1
 License: GPL version 3 or any later version
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -93,7 +93,7 @@ One of the requirements of the EU Cookies Directive is to inform users about the
 
 The "Cookies Notice" Kit (available only under a WP AutoTerms Premium license) helps you show an announcement bar through your WordPress website that can be used to comply with the EU Cookies Directive.
 
-Currently, the Cookies Notice kit IS NOT a solution to load your third party JS scripts. You can only use the kit to show a notice message to users. 
+Currently, the Cookies Notice kit IS NOT a solution to load your third party JS scripts. You can only use the kit to show a notice message to users.
 
 = How can I add a disclaimer at the end of my post when I have affiliate links? =
 
@@ -118,6 +118,10 @@ Installing the plugin is easy. Just follow these steps:
 5. When the upload is finished, activate the plugin via the prompt. A message will show confirming a successful activation.
 
 == Changelog ==
+
+= Version 2.5.1 =
+* Apr 2, 2024
+* Updated: Testing with recent WP versions
 
 = Version 2.5.0 =
 * Nov 18, 2022
@@ -210,7 +214,7 @@ Installing the plugin is easy. Just follow these steps:
 * Feature: Allow for the Legal Page slug to be editable from the Edit page directly
 * Feature: Drag-to-order links for the Links to Legal Pages kit
 * Fix: Update to Legal Pages notice incorrectly sets the cookie as `undefined`
-* Fix: Bugfix for Legal Pages Widget 
+* Fix: Bugfix for Legal Pages Widget
 * Fix: Added National Capital Region (Metro Manila) for Philippines
 
 = Version 2.2.6 =
@@ -296,7 +300,7 @@ Installing the plugin is easy. Just follow these steps:
 
 = Version 2.1.1 =
 * Aug 2, 2018
-* Require a minimum of PHP 5.3 
+* Require a minimum of PHP 5.3
 
 = Version 2.1.0 =
 * Aug 1, 2018

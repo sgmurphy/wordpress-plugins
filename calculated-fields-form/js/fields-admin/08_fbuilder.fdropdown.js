@@ -20,6 +20,8 @@
 			choiceSelected:"",
             select2: false,
 			multiple: false,
+			first_choice:false,
+			first_choice_text:"",
 			vChoices: 1,
 			showDep:false,
 			init:function()
@@ -177,6 +179,8 @@
 						evt 	= [
 							{s:'[name="sToSubmit"]', e:"click", l:"toSubmit"},
 							{s:'[name="sMerge"]', e:"change", l:"merge", f: function(el){return (el.is(':checked')) ? 1 : 0;}},
+							{s:"#sFirstChoiceText",e:"change keyup", l:"first_choice_text"},
+							{s:'[name="sFirstChoice"]', e:"click", l:"first_choice", f: function(el){return el.is(':checked');}},
 							{s:'[name="sSelect2"]', e:"change", l:"select2", f: function(el){return el.is(':checked');}},
 							{s:'[name="sMultiple"]', e:"click", l:"multiple", f: function(el){return el.is(':checked');}},
 							{s:'[name="sVChoices"]', e:"change keyup", l:"vChoices", f: function(el){
@@ -197,6 +201,10 @@
 							$(this).html(str);
 						});
 					$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this, evt);
+				},
+				firstChoice:function()
+				{
+					return '<div class="choicesSet"><label><input type="checkbox" name="sFirstChoice" '+((this.first_choice) ? ' CHECKED ' : '')+'/> Includes an additional first choice as placeholder.</label><label>First choice text:<input type="text" id="sFirstChoiceText" name="sFirstChoiceText" class="large" value="'+cff_esc_attr(this.first_choice_text)+'" /></label></div>';
 				},
 				mergeValues: function()
 				{
@@ -249,6 +257,6 @@
 							str += '<div class="choicesEditDep"><span>If selected show:</span> <select class="dependencies" i="'+i+'" j="'+j+'" dname="'+this.name+'" dvalue="" ></select><div class="choice-ctrls"><a class="choice_addDep ui-icon ui-icon-circle-plus" i="'+i+'" j="'+j+'" title="Add another dependency."></a><a class="choice_removeDep ui-icon ui-icon-circle-minus" i="'+i+'" j="'+j+'" title="Delete this dependency."></a></div></div>';
 						}
 					}
-					return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices <a class="helpfbuilder dep" text="Dependencies are used to show/hide other fields depending of the option selected in this field.">help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a></label><div><div class="t">Text</div><div class="t">Value</div><div>optgroup</div><div class="clearer" /></div>'+str+this.mergeValues()+this.attributeToSubmit()+this.multipleSelection()+'</div>';
+					return '<div class="choicesSet '+((this.showDep)?"show":"hide")+'"><label>Choices <a class="helpfbuilder dep" text="Dependencies are used to show/hide other fields depending of the option selected in this field.">help?</a> <a href="" class="showHideDependencies">'+((this.showDep)?"Hide":"Show")+' Dependencies</a></label><div><div class="t">Text</div><div class="t">Value</div><div>optgroup</div><div class="clearer" /></div>'+str+this.firstChoice()+this.mergeValues()+this.attributeToSubmit()+this.multipleSelection()+'</div>';
 				}
 	});

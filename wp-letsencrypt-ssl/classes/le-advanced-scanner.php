@@ -4,7 +4,7 @@
  * @package WP Encryption
  *
  * @author     Go Web Smarty
- * @copyright  Copyright (C) 2019-2023, Go Web Smarty. All Rights Reserved.
+ * @copyright  Copyright (C) 2019-2024, Go Web Smarty. All Rights Reserved.
  * @link       https://gowebsmarty.com
  * @since      Class available since Release 5.7.0
  *

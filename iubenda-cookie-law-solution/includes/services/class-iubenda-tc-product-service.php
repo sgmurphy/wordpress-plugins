@@ -44,7 +44,7 @@ class Iubenda_TC_Product_Service extends Iubenda_Abstract_Product_Service {
 		// loop on iubenda->>language.
 		foreach ( $languages as $lang_id => $v ) {
 			$code        = iub_array_get( $new_tc_option, "code_{$lang_id}" );
-			$parsed_code = iubenda()->parse_tc_pp_configuration( $code );
+			$parsed_code = iubenda()->configuration_parser->extract_tc_pp_config_from_code( $code );
 			// check if code is empty or code is invalid.
 			$codes_statues[] = (bool) $parsed_code;
 

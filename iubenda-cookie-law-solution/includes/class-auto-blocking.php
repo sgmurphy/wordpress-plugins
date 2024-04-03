@@ -43,7 +43,7 @@ class Auto_Blocking {
 	 * @return string The site ID.
 	 */
 	public function get_site_id_from_cs_code( $script ) {
-		return $this->retrieve_info_from_script_by_key( $script, 'siteId' );
+		return iubenda()->configuration_parser->retrieve_info_from_script_by_key( $script, 'siteId' );
 	}
 
 	/**
@@ -54,7 +54,7 @@ class Auto_Blocking {
 	 * @return string The Cookie Policy ID.
 	 */
 	public function get_cookie_policy_id_from_cs_code( $script ) {
-		return $this->retrieve_info_from_script_by_key( $script, 'cookiePolicyId' );
+		return iubenda()->configuration_parser->retrieve_info_from_script_by_key( $script, 'cookiePolicyId' );
 	}
 
 	/**
@@ -212,37 +212,5 @@ class Auto_Blocking {
 		}
 
 		wp_send_json( $this->is_autoblocking_feature_available( $site_id ) );
-	}
-
-	/**
-	 * Retrieve information from the provided script by a given key.
-	 *
-	 * This function extracts specific information from a script based on the provided key.
-	 * It first attempts to parse the configuration using iubenda()->parse_configuration().
-	 * If parsing fails, it tries parsing with $this->cs_product_service->parse_configuration_by_regex().
-	 *
-	 * @param string $script The script from which to extract information.
-	 * @param string $key    The key for the information to retrieve.
-	 *
-	 * @return string The extracted information, or an empty string if not found.
-	 */
-	private function retrieve_info_from_script_by_key( string $script, string $key ) {
-		// Remove slashes from the script.
-		$script = stripslashes( $script );
-
-		// Try to parse the configuration using iubenda()->parse_configuration().
-		$parsed_configuration = iubenda()->parse_configuration( $script );
-		if ( ! empty( $parsed_configuration ) && isset( $parsed_configuration[ $key ] ) ) {
-			return $parsed_configuration[ $key ];
-		}
-
-		// If parsing fails, try parsing with $this->cs_product_service->parse_configuration_by_regex().
-		$parsed_configuration_by_regex = $this->cs_product_service->parse_configuration_by_regex( $script );
-		if ( ! empty( $parsed_configuration_by_regex ) && isset( $parsed_configuration_by_regex[ $key ] ) ) {
-			return $parsed_configuration_by_regex[ $key ];
-		}
-
-		// Return an empty string if the key is not found.
-		return '';
 	}
 }
