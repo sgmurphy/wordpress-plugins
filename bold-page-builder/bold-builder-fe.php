@@ -17,11 +17,23 @@ function bt_bb_fe_init() {
 	if ( current_user_can( 'edit_pages' ) ) {
 		BT_BB_FE::$editor_active = true;
 		BT_BB_FE::$elements = apply_filters( 'bt_bb_fe_elements', array(
+		
+			'bt_bb_accordion' => array(
+				'edit_box_selector' => '',
+				'params' => array(
+					'style'        => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
+					'shape'        => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
+					'color_scheme' => array( 'ajax_filter' => array( 'class', 'style' ) ),
+				),
+			),
 			'bt_bb_accordion_item' => array(
-				'edit_box_selector' => '> .bt_bb_accordion_item_title',
+				'edit_box_selector' => '',
 				'params' => array(
 					'title' => array( 'js_handler' => array( 'target_selector' => '.bt_bb_accordion_item_title', 'type' => 'inner_html' ) ),
 				),
+				'drag_and_drop' => array(
+					'target_selector' => '.bt_bb_accordion_item_content'
+				)
 			),
 			'bt_bb_button' => array(
 				'edit_box_selector' => '',
@@ -168,6 +180,9 @@ function bt_bb_fe_init() {
 					'content_display'	=> array( 'ajax_filter' => array( 'class', 'data-bt-override-class' ) ),
 					'content_align'		=> array( 'js_handler'  => array( 'target_selector' => '', 'type' => 'class' ) ),
 				),
+				'drag_and_drop' => array(
+					'target_selector' => '.bt_bb_image_content_inner'
+				)
 			),
 			'bt_bb_latest_posts' => array(
 				'edit_box_selector' => '',
@@ -235,6 +250,22 @@ function bt_bb_fe_init() {
 					'shape'				=> array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
 				),
 			),
+			/*'bt_bb_row' => array(
+				'edit_box_selector' => '',
+				'params' => array(
+					'column_gap'       => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
+					'row_width'        => array( 'ajax_filter' => array( 'class', 'style' ) ),
+					'color_scheme'     => array( 'ajax_filter' => array( 'class', 'style' ) ),
+					'background_color' => array( 'js_handler'  => array( 'target_selector' => '', 'type' => 'background_color' ) ),
+				),
+			),
+			'bt_bb_row_inner' => array(
+				'edit_box_selector' => '',
+				'params' => array(
+					'column_gap'       => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
+					'row_width'        => array( 'ajax_filter' => array( 'class', 'style' ) ),
+				),
+			),*/
 			'bt_bb_section' => array(
 				'edit_box_selector' => '',
 				'params' => array(
@@ -271,18 +302,18 @@ function bt_bb_fe_init() {
 			'bt_bb_service' => array(
 				'edit_box_selector' => '',
 				'params' => array(
-					'ai_prompt'		=> array(),
-					'icon'			=> array(),
-					'title'			=> array( 'js_handler'  => array( 'target_selector' => '.bt_bb_service_content_title', 'type' => 'inner_html' ) ),
-					'html_tag'		=> array(),
-					'text'			=> array( 'js_handler'  => array( 'target_selector' => '.bt_bb_service_content_text', 'type' => 'inner_html_nl2br' ) ),
-					'url'			=> array( 'js_handler'  => array( 'target_selector' => 'a.bt_bb_icon_holder, .bt_bb_service_content_title a', 'type' => 'attr', 'attr' => 'href' ) ),
-					'target'		=> array( 'js_handler'  => array( 'target_selector' => 'a.bt_bb_icon_holder, .bt_bb_service_content_title a', 'type' => 'attr', 'attr' => 'target' ) ),
-					'size'			=> array( 'ajax_filter' => array( 'class', 'data-bt-override-class' ) ),
-					'color_scheme'	=> array( 'ajax_filter' => array( 'class', 'style' ) ), 
-					'style'			=> array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
-					'shape'			=> array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
-					'align'			=> array( 'ajax_filter' => array( 'class', 'data-bt-override-class' ) ),
+					'ai_prompt'    => array(),
+					'icon'         => array(),
+					'title'        => array( 'js_handler'  => array( 'target_selector' => '.bt_bb_service_content_title', 'type' => 'inner_html' ) ),
+					'html_tag'     => array(),
+					'text'         => array( 'js_handler'  => array( 'target_selector' => '.bt_bb_service_content_text', 'type' => 'inner_html_nl2br' ) ),
+					'url'          => array( 'js_handler'  => array( 'target_selector' => 'a.bt_bb_icon_holder, .bt_bb_service_content_title a', 'type' => 'attr', 'attr' => 'href' ) ),
+					'target'       => array( 'js_handler'  => array( 'target_selector' => 'a.bt_bb_icon_holder, .bt_bb_service_content_title a', 'type' => 'attr', 'attr' => 'target' ) ),
+					'size'         => array( 'ajax_filter' => array( 'class', 'data-bt-override-class' ) ),
+					'color_scheme' => array( 'ajax_filter' => array( 'class', 'style' ) ), 
+					'style'        => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
+					'shape'        => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
+					'align'        => array( 'ajax_filter' => array( 'class', 'data-bt-override-class' ) ),
 				),
 			),
 			'bt_bb_slider' => array(
@@ -290,6 +321,14 @@ function bt_bb_fe_init() {
 				'ajax_slick' => true,
 				'params' => array(
 					'images' => array(),
+				),
+			),
+			'bt_bb_tabs' => array(
+				'edit_box_selector' => '',
+				'params' => array(
+					'style'        => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
+					'shape'        => array( 'js_handler' => array( 'target_selector' => '', 'type' => 'class' ) ),
+					'color_scheme' => array( 'ajax_filter' => array( 'class', 'style' ) ),
 				),
 			),
 			'bt_bb_tab_item' => array(

@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Google Listings and Ads plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Google Listings and Ads 2.6.4\n"
+"Project-Id-Version: Google Listings and Ads 2.6.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/google-listings-and-ads\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-26T04:40:15+00:00\n"
+"POT-Creation-Date: 2024-04-04T16:40:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: google-listings-and-ads\n"
@@ -1578,13 +1578,12 @@ msgid "You’ve gotten %s+ clicks on your free listings! 🎉"
 msgstr ""
 
 #: src/Notes/ReviewAfterClicks.php:81
-#: src/Notes/ReviewAfterConversions.php:92
+#: src/Notes/ReviewAfterConversions.php:83
 msgid "Congratulations! Tell us what you think about Google Listings & Ads by leaving a review. Your feedback will help us make WooCommerce even better for you."
 msgstr ""
 
-#. translators: %s number of conversions
-#: src/Notes/ReviewAfterConversions.php:87
-msgid "You’ve gotten %s+ conversions through Google Ads! 🎉"
+#: src/Notes/ReviewAfterConversions.php:81
+msgid "You got your first conversion on Google Ads! 🎉"
 msgstr ""
 
 #: src/Notes/SetupCampaign.php:48

@@ -63,6 +63,7 @@ class Process {
 
 	/**
 	 * Populates ?edit= parameter. To make sure OMGF doesn't run while editing posts.
+	 *
 	 * @var string[]
 	 */
 	private $edit_actions = [
@@ -75,7 +76,8 @@ class Process {
 
 	/**
 	 * Break out early, e.g. if we want to parse other resources and don't need to
-	 * setup all the hooks and filters.
+	 * set up all the hooks and filters.
+	 *
 	 * @since v5.4.0
 	 * @var bool $break
 	 */
@@ -83,6 +85,7 @@ class Process {
 
 	/**
 	 * OMGF_Frontend_Functions constructor.
+	 *
 	 * @var $break bool
 	 */
 	public function __construct( $break = false ) {
@@ -90,9 +93,9 @@ class Process {
 		$this->break     = $break;
 
 		if ( ! $this->timestamp ) {
-			$this->timestamp = time();
+			$this->timestamp = time(); // @codeCoverageIgnore
 
-			OMGF::update_option( Settings::OMGF_CACHE_TIMESTAMP, $this->timestamp );
+			OMGF::update_option( Settings::OMGF_CACHE_TIMESTAMP, $this->timestamp ); // @codeCoverageIgnore
 		}
 
 		$this->init();
@@ -100,6 +103,7 @@ class Process {
 
 	/**
 	 * Actions and hooks.
+	 *
 	 * @return void
 	 */
 	private function init() {
@@ -115,10 +119,7 @@ class Process {
 		if ( $this->break ||
 			isset( $_GET[ 'nomgf' ] ) ||
 			( ( $test_mode_enabled && ! current_user_can( 'manage_options' ) && ! isset( $_GET[ 'omgf_optimize' ] ) ) &&
-				( $test_mode_enabled &&
-					! current_user_can( 'manage_options' ) &&
-					! isset( $_GET[ 'omgf_optimize' ] ) &&
-					! isset( $_GET[ 'omgf' ] ) ) ) ) {
+				( ! current_user_can( 'manage_options' ) && ! isset( $_GET[ 'omgf' ] ) ) ) ) {
 			return;
 		}
 
@@ -156,7 +157,7 @@ class Process {
 		$preloaded_fonts = apply_filters( 'omgf_frontend_preloaded_fonts', OMGF::preloaded_fonts() );
 
 		if ( ! $preloaded_fonts ) {
-			return;
+			return; // @codeCoverageIgnore
 		}
 
 		$optimized_fonts = apply_filters( 'omgf_frontend_optimized_fonts', OMGF::optimized_fonts() );
@@ -167,7 +168,7 @@ class Process {
 				$preloads_stylesheet = $preloaded_fonts[ $stylesheet_handle ] ?? [];
 
 				if ( ! in_array( $font_face->id, array_keys( $preloads_stylesheet ) ) ) {
-					continue;
+					continue; // @codeCoverageIgnore
 				}
 
 				$font_id          = $font_face->id;
@@ -197,8 +198,8 @@ class Process {
 					 */
 					$file_path = str_replace( OMGF_UPLOAD_URL, OMGF_UPLOAD_DIR, apply_filters( 'omgf_frontend_process_url', $url ) );
 
-					if ( ! file_exists( $file_path ) || in_array( $url, $preloaded ) ) {
-						continue;
+					if ( ! defined( 'DAAN_DOING_TESTS' ) && ! file_exists( $file_path ) || in_array( $url, $preloaded ) ) {
+						continue; // @codeCoverageIgnore
 					}
 
 					$preloaded[] = $url;
@@ -216,8 +217,11 @@ class Process {
 
 	/**
 	 * Start output buffer.
+	 *
 	 * @action template_redirect
 	 * @return bool|string valid HTML.
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public function maybe_buffer_output() {
 		/**
@@ -249,6 +253,7 @@ class Process {
 
 		/**
 		 * Honor PageSpeed=off parameter as used by mod_pagespeed, in use by some pagebuilders,
+		 *
 		 * @see https://www.modpagespeed.com/doc/experiment#ModPagespeed
 		 */
 		if ( array_key_exists( 'PageSpeed', $_GET ) && 'off' === $_GET[ 'PageSpeed' ] ) {
@@ -272,6 +277,7 @@ class Process {
 
 	/**
 	 * Returns the buffer for filtering, so page cache doesn't break.
+	 *
 	 * @since v5.0.0 Tested with:
 	 *               - Asset Cleanup Pro
 	 *                 - Works
@@ -296,6 +302,8 @@ class Process {
 	 * Not tested (yet):
 	 * TODO: [OMGF-41] - Swift Performance
 	 * @return string Valid HTML
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public function return_buffer( $html ) {
 		if ( ! $html ) {
@@ -307,6 +315,7 @@ class Process {
 
 	/**
 	 * We're downloading the fonts, so preconnecting to Google is a waste of time. Literally.
+	 *
 	 * @since v5.0.5 Use a regular expression to match all resource hints.
 	 *
 	 * @param string $html Valid HTML.
@@ -321,7 +330,7 @@ class Process {
 		preg_match_all( '/(?=\<link).+?(?<=>)/s', $html, $resource_hints );
 
 		if ( empty( $resource_hints[ 0 ] ) ) {
-			return $html;
+			return $html; // @codeCoverageIgnore
 		}
 
 		/**
@@ -337,7 +346,7 @@ class Process {
 				preg_match( '/rel=[\'"](.*?)[ \'"]/', $resource_hint, $attr );
 
 				if ( empty( $url[ 2 ] ) || empty( $attr[ 1 ] ) ) {
-					return false;
+					return false; // @codeCoverageIgnore
 				}
 
 				$url  = $url[ 2 ];
@@ -368,7 +377,7 @@ class Process {
 	 */
 	public function parse( $html ) {
 		if ( $this->is_amp() ) {
-			return apply_filters( 'omgf_processed_html', $html, $this );
+			return apply_filters( 'omgf_processed_html', $html, $this ); // @codeCoverageIgnore
 		}
 
 		/**
@@ -377,7 +386,7 @@ class Process {
 		preg_match_all( '/<link.*?[\/]?>/s', $html, $links );
 
 		if ( empty( $links[ 0 ] ) ) {
-			return apply_filters( 'omgf_processed_html', $html, $this );
+			return apply_filters( 'omgf_processed_html', $html, $this ); // @codeCoverageIgnore
 		}
 
 		/**
@@ -390,9 +399,9 @@ class Process {
 		$links = array_filter(
 			$links[ 0 ],
 			function ( $link ) {
-				return strpos( $link, 'fonts.googleapis.com/css' ) !== false ||
-					strpos( $link, 'fonts.bunny.net/css' ) !== false ||
-					strpos( $link, 'fonts-api.wp.com/css' ) !== false;
+				return str_contains( $link, 'fonts.googleapis.com/css' ) ||
+					str_contains( $link, 'fonts.bunny.net/css' ) ||
+					str_contains( $link, 'fonts-api.wp.com/css' );
 			}
 		);
 
@@ -406,6 +415,7 @@ class Process {
 		/**
 		 * Use string position of $search to make sure only that instance of the string is replaced.
 		 * This is to prevent duplicate replaces.
+		 *
 		 * @since v5.3.7
 		 */
 		foreach ( $search_replace[ 'search' ] as $key => $search ) {
@@ -420,7 +430,7 @@ class Process {
 		$count_iframes = count( $found_iframes );
 
 		foreach ( TaskManager::IFRAMES_LOADING_FONTS as $script_id => $script ) {
-			if ( strpos( $html, $script ) !== false && ! in_array( $script_id, $found_iframes ) ) {
+			if ( str_contains( $html, $script ) && ! in_array( $script_id, $found_iframes ) ) {
 				$found_iframes[] = $script_id;
 			}
 		}
@@ -466,7 +476,7 @@ class Process {
 			 * No valid href attribute provide in link element.
 			 */
 			if ( ! isset( $href[ 'href' ] ) ) {
-				continue;
+				continue; // @codeCoverageIgnore
 			}
 
 			/**
@@ -480,6 +490,7 @@ class Process {
 			 * If no valid id attribute was found then this means that this stylesheet wasn't enqueued
 			 * using proper WordPress conventions. We generate our own using the length of the href attribute
 			 * to serve as a UID. This prevents clashes with other non-properly enqueued stylesheets on other pages.
+			 *
 			 * @since v5.1.4
 			 */
 			if ( ! $id ) {
@@ -488,6 +499,7 @@ class Process {
 
 			/**
 			 * Compatibility fix for Divi Builder
+			 *
 			 * @since v5.1.3 Because Divi Builder uses the same handle for Google Fonts on each page,
 			 *               even when these contain Google Fonts, let's append a (kind of) unique
 			 *               identifier to the string, to make sure we can make a difference between
@@ -496,34 +508,38 @@ class Process {
 			 *               many different Google Fonts stylesheets configured throughout their pages and
 			 *               blame OMGF for the fact that it detects all those different stylesheets. :-/
 			 */
-			if ( OMGF::get_option( Settings::OMGF_ADV_SETTING_COMPATIBILITY ) && strpos( $id, 'et-builder-googlefonts' ) !== false ) {
+			if ( OMGF::get_option( Settings::OMGF_ADV_SETTING_COMPATIBILITY ) && str_contains( $id, 'et-builder-googlefonts' ) ) {
 				$google_fonts[ $key ][ 'id' ] = $id . '-' . strlen( $href[ 'href' ] );
 			} elseif ( OMGF::get_option( Settings::OMGF_ADV_SETTING_COMPATIBILITY ) && $id === 'google-fonts-1' ) {
 				/**
 				 * Compatibility fix for Elementor
+				 *
 				 * @since v5.1.4 Because Elementor uses the same (annoyingly generic) handle for Google Fonts
 				 *               stylesheets on each page, even when these contain different Google Fonts than
 				 *               other pages, let's append a (kind of) unique identifier to the string, to make
 				 *               sure we can make a difference between different Google Fonts configurations.
 				 */
 				$google_fonts[ $key ][ 'id' ] = str_replace( '-1', '-' . strlen( $href[ 'href' ] ), $id );
-			} elseif ( strpos( $id, 'sp-wpcp-google-fonts' ) !== false ) {
+			} elseif ( str_contains( $id, 'sp-wpcp-google-fonts' ) ) {
 				/**
 				 * Compatibility fix for Category Slider Pro for WooCommerce by ShapedPlugin
+				 *
 				 * @since v5.3.7 This plugin finds it necessary to provide each Google Fonts stylesheet with a
 				 *               unique identifier on each pageload, to make sure its never cached. The worst idea ever.
 				 *               On top of that, it throws OMGF off the rails entirely, eventually crashing the site.
 				 */
 				$google_fonts[ $key ][ 'id' ] = 'sp-wpcp-google-fonts';
-			} elseif ( strpos( $id, 'sp-lc-google-fonts' ) !== false ) {
+			} elseif ( str_contains( $id, 'sp-lc-google-fonts' ) ) {
 				/**
 				 * Compatibility fix for Logo Carousel Pro by ShapedPlugin
+				 *
 				 * @since v5.3.8 Same reason as above.
 				 */
 				$google_fonts[ $key ][ 'id' ] = 'sp-lc-google-fonts';
-			} elseif ( apply_filters( 'omgf_frontend_process_convert_pro_compatibility', strpos( $id, 'cp-google-fonts' ) !== false ) ) {
+			} elseif ( apply_filters( 'omgf_frontend_process_convert_pro_compatibility', str_contains( $id, 'cp-google-fonts' ) ) ) {
 				/**
 				 * Compatibility fix for Convert Pro by Brainstorm Force
+				 *
 				 * @since  v5.5.4 Same reason as above, although it kind of makes sense in this case (since Convert Pro allows
 				 *               to create pop-ups and people tend to get creative. I just hope the ID isn't random.)
 				 * @filter omgf_frontend_process_convert_pro_compatibility Allows people to disable this feature, in case the different
@@ -546,6 +562,7 @@ class Process {
 
 	/**
 	 * Strip "-css" from the end of the stylesheet id, which WordPress adds to properly enqueued stylesheets.
+	 *
 	 * @since v5.0.1 This eases the migration from v4.6.0.
 	 *
 	 * @param mixed $handle
@@ -553,8 +570,8 @@ class Process {
 	 * @return mixed
 	 */
 	private function strip_css_tag( $handle ) {
-		if ( ! $this->ends_with( $handle, '-css' ) ) {
-			return $handle;
+		if ( ! str_ends_with( $handle, '-css' ) ) {
+			return $handle; // @codeCoverageIgnore
 		}
 
 		$pos = strrpos( $handle, '-css' );
@@ -564,25 +581,6 @@ class Process {
 		}
 
 		return $handle;
-	}
-
-	/**
-	 * Checks if a $string ends with $end.
-	 * @since v5.0.2
-	 *
-	 * @param string $end
-	 * @param string $string
-	 *
-	 * @return bool
-	 */
-	private function ends_with( $string, $end ) {
-		$len = strlen( $end );
-
-		if ( $len === 0 ) {
-			return true;
-		}
-
-		return ( substr( $string, - $len ) === $end );
 	}
 
 	/**
@@ -648,7 +646,7 @@ class Process {
 			/**
 			 * If required parameters aren't set, this request is most likely invalid. Let's just remove it.
 			 */
-			if ( ! isset( $query[ 'family' ] ) ) {
+			if ( apply_filters( 'omgf_frontend_process_invalid_request', ! isset( $query[ 'family' ] ), $href ) ) {
 				$search[ $key ]  = $stack[ 'link' ];
 				$replace[ $key ] = '';
 
@@ -698,6 +696,7 @@ class Process {
 
 	/**
 	 * Because all great themes come packed with extra Cumulative Layout Shifting.
+	 *
 	 * @since v5.4.3 Added compatibility for Highlight Pro; a Mesmerize based theme and Mesmerize,
 	 *               the non-premium theme.
 	 *
@@ -708,7 +707,7 @@ class Process {
 	public function remove_mesmerize_filter( $tag ) {
 		if ( ( wp_get_theme()->template === 'mesmerize-pro' ||
 				wp_get_theme()->template === 'highlight-pro' ||
-				wp_get_theme()->template === 'mesmerize' ) && strpos( $tag, 'fonts.googleapis.com' ) !== false ) {
+				wp_get_theme()->template === 'mesmerize' ) && str_contains( $tag, 'fonts.googleapis.com' ) ) {
 			return str_replace( 'href="" data-href', 'href', $tag );
 		}
 

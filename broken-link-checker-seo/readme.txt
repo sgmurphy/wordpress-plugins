@@ -1,6 +1,6 @@
 === Broken Link Checker by AIOSEO – Easily Fix/Monitor Internal and External links ===
 Contributors: aioseo, smub, benjaminprojas
-Tags: broken links, internal link, external link, links, test links, check links, bad links, seo
+Tags: broken links, internal link, external link, check links, seo
 Tested up to: 6.5
 Requires at least: 5.3
 Requires PHP: 5.6
@@ -8,7 +8,7 @@ Stable tag: 1.2.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
-Broken Link Checker by AIOSEO is an essential tool for ensuring that all internal and external links on your website are functioning correctly. Quickly check your site for broken links and easily fix them to improve SEO.
+Broken Link Checker by AIOSEO ensures all links on your website are working. Check your site for broken links and easily fix them to improve SEO.
 
 == Description ==
 

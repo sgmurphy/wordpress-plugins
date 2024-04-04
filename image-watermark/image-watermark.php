@@ -2,7 +2,7 @@
 /*
 Plugin Name: Image Watermark
 Description: Image Watermark allows you to automatically watermark images uploaded to the WordPress Media Library and bulk watermark previously uploaded images.
-Version: 1.7.3
+Version: 1.7.4
 Author: dFactory
 Author URI: http://www.dfactory.co/
 Plugin URI: http://www.dfactory.co/products/image-watermark/
@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) )
  * Image Watermark class.
  *
  * @class Image_Watermark
- * @version	1.7.3
+ * @version	1.7.4
  */
 final class Image_Watermark {
 
@@ -78,7 +78,7 @@ final class Image_Watermark {
 				'backup_quality' => 90
 			]
 		],
-		'version'	 => '1.7.3'
+		'version'	 => '1.7.4'
 	];
 	public $options = [];
 
@@ -323,7 +323,7 @@ final class Image_Watermark {
 		}
 
 		if ( $pagenow === 'upload.php' ) {
-			if ( $this->options['watermark_image']['manual_watermarking'] == 1 ) {
+			if ( $this->options['watermark_image']['manual_watermarking'] == 1 && current_user_can( 'upload_files' ) ) {
 				wp_enqueue_script( 'image-watermark-admin-media', IMAGE_WATERMARK_URL . '/js/admin-media.js', [ 'jquery' ], $this->defaults['version'], false );
 
 				// prepare script data
@@ -510,11 +510,15 @@ final class Image_Watermark {
 	 */
 	public function watermark_action_ajax() {
 		// Security & data check
-		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX || ! isset( $_POST['_iw_nonce'] ) || ! isset( $_POST['iw-action'] ) || ! isset( $_POST['attachment_id'] ) || ! is_numeric( $_POST['attachment_id'] ) || ! wp_verify_nonce( $_POST['_iw_nonce'], 'image-watermark' ) )
+		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX || ! isset( $_POST['_iw_nonce'] ) || ! isset( $_POST['iw-action'] ) || ! isset( $_POST['attachment_id'] ) || ! is_numeric( $_POST['attachment_id'] ) || ! wp_verify_nonce( $_POST['_iw_nonce'], 'image-watermark' ) || ! current_user_can( 'upload_files' ) )
 			wp_send_json_error( __( 'Cheatin uh?', 'image-watermark' ) );
 
+		// cast post id
 		$post_id = (int) $_POST['attachment_id'];
-		$action = in_array( $_POST['iw-action'], [ 'applywatermark', 'removewatermark' ], true ) ? $_POST['iw-action'] : false;
+
+		// sanitize action name
+		$action = sanitize_key( $_POST['iw-action'] );
+		$action = in_array( $action, [ 'applywatermark', 'removewatermark' ], true ) ? $action : false;
 
 		// only if manual watermarking is turned and we have a valid action
 		// if the action is NOT "removewatermark" we also require a watermark image to be set

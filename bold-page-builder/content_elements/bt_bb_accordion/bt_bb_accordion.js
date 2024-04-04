@@ -1,11 +1,11 @@
 (function( $ ) {
 	"use strict";
-	$( '.bt_bb_accordion_item_title' ).click(function() {
+	$( '.bt_bb_accordion' ).on( 'click', '.bt_bb_accordion_item_title', function() {
 		var $item = $( this ).closest( '.bt_bb_accordion_item' );
 		if ( ! $item.hasClass('on') ) {
 			$( this ).closest( '.bt_bb_accordion' ).find( '.bt_bb_accordion_item.on' ).removeClass( 'on' );
 			$item.addClass( 'on' );
-			if( ! window.initialaccordion ){
+			if( ! window.bt_bb_initialaccordion ){
 				// var diff = $( this ).offset().top + $( this ).closest( '.bt_bb_accordion_item' ).outerHeight() - ( $( 'html' ).scrollTop() + $( window ).height() );
 				// var diff = $( this ).offset().top - ( $( 'html' ).scrollTop() );
 				// console.log( isOnScreen( $(this) ) );    
@@ -19,7 +19,7 @@
 				}
 
 			} else {
-				window.initialaccordion = false;
+				window.bt_bb_initialaccordion = false;
 			}
 		
 		} else {
@@ -28,7 +28,7 @@
 	});
 	$( '.bt_bb_accordion' ).each(function() {
 		if ( $( this ).data( 'closed' ) != 'closed' ) {
-			window.initialaccordion = true;
+			window.bt_bb_initialaccordion = true;
 			$( this ).find( '.bt_bb_accordion_item_title' ).first().click();
 		}
 	});

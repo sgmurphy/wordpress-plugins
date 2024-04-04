@@ -421,7 +421,10 @@ const price_container_mapStateToProps = (state, ownProps) => ({
   isDisabled: ticket["f" /* selectors */].isTicketDisabled(state, ownProps),
   isUnlimited: ticket["f" /* selectors */].isUnlimitedTicket(state, ownProps),
   price: ticket["f" /* selectors */].getTicketPrice(state, ownProps) || '0',
-  tempPrice: ticket["f" /* selectors */].getTicketTempPrice(state, ownProps)
+  tempPrice: ticket["f" /* selectors */].getTicketTempPrice(state, ownProps),
+  showSalePrice: ticket["f" /* selectors */].showSalePrice(state, ownProps),
+  salePrice: ticket["f" /* selectors */].getSalePrice(state, ownProps) || '',
+  onSale: ticket["f" /* selectors */].getTicketOnSale(state, ownProps)
 });
 const price_container_mapDispatchToProps = (dispatch, ownProps) => ({
   onTempPriceChange: e => {
@@ -481,17 +484,26 @@ var container_header_style = __webpack_require__("c9DT");
 
 
 
+
 const TicketContainerHeader = _ref => {
   let {
     clientId,
-    isSelected
+    isSelected,
+    isOnSale
   } = _ref;
   if (isSelected) {
     return null;
   }
+  function OnSaleLabel() {
+    return wp.element.createElement("div", {
+      className: "tribe-editor__ticket__container-header__sale-label-container"
+    }, wp.element.createElement("span", {
+      className: "tribe-editor__ticket__container-header__sale-label"
+    }, constants["SALE_PRICE_LABELS"].on_sale));
+  }
   return wp.element.createElement(external_React_["Fragment"], null, wp.element.createElement("div", {
     className: "tribe-editor__ticket__container-header-details"
-  }, wp.element.createElement(title_container, {
+  }, isOnSale && wp.element.createElement(OnSaleLabel, null), wp.element.createElement(title_container, {
     clientId: clientId,
     isSelected: isSelected
   }), wp.element.createElement(description_container, {
@@ -507,7 +519,8 @@ const TicketContainerHeader = _ref => {
 };
 TicketContainerHeader.propTypes = {
   clientId: external_tribe_modules_propTypes_default.a.string,
-  isSelected: external_tribe_modules_propTypes_default.a.bool
+  isSelected: external_tribe_modules_propTypes_default.a.bool,
+  isOnSale: external_tribe_modules_propTypes_default.a.bool
 };
 /* harmony default export */ var container_header_template = (TicketContainerHeader);
 // EXTERNAL MODULE: external "lodash.isEmpty"
@@ -899,7 +912,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 
-const onFromDateChange = (dispatch, ownProps) => (date, modifiers, dayPickerInput) => {
+const container_onFromDateChange = (dispatch, ownProps) => (date, modifiers, dayPickerInput) => {
   dispatch(ticket["a" /* actions */].handleTicketStartDate(ownProps.clientId, date, dayPickerInput));
 };
 const onFromTimePickerChange = (dispatch, ownProps) => e => {
@@ -909,7 +922,7 @@ const onFromTimePickerClick = (dispatch, ownProps) => (value, onClose) => {
   dispatch(ticket["a" /* actions */].handleTicketStartTime(ownProps.clientId, value));
   onClose();
 };
-const onToDateChange = (dispatch, ownProps) => (date, modifiers, dayPickerInput) => {
+const container_onToDateChange = (dispatch, ownProps) => (date, modifiers, dayPickerInput) => {
   dispatch(ticket["a" /* actions */].handleTicketEndDate(ownProps.clientId, date, dayPickerInput));
 };
 const onToTimePickerChange = (dispatch, ownProps) => e => {
@@ -962,10 +975,10 @@ const duration_container_mapStateToProps = (state, ownProps) => {
   };
 };
 const duration_container_mapDispatchToProps = (dispatch, ownProps) => ({
-  onFromDateChange: onFromDateChange(dispatch, ownProps),
+  onFromDateChange: container_onFromDateChange(dispatch, ownProps),
   onFromTimePickerChange: onFromTimePickerChange(dispatch, ownProps),
   onFromTimePickerClick: onFromTimePickerClick(dispatch, ownProps),
-  onToDateChange: onToDateChange(dispatch, ownProps),
+  onToDateChange: container_onToDateChange(dispatch, ownProps),
   onToTimePickerChange: onToTimePickerChange(dispatch, ownProps),
   onToTimePickerClick: onToTimePickerClick(dispatch, ownProps),
   dispatch
@@ -1724,11 +1737,366 @@ var react_number_format_es = __webpack_require__("aZ9c");
 // EXTERNAL MODULE: ./src/Tickets/Blocks/Ticket/app/editor/container-content/price/style.pcss
 var price_style = __webpack_require__("3VdD");
 
-// CONCATENATED MODULE: ./src/Tickets/Blocks/Ticket/app/editor/container-content/price/template.js
+// EXTERNAL MODULE: ./src/Tickets/Blocks/Ticket/app/editor/container-content/sale-price/style.pcss
+var sale_price_style = __webpack_require__("EEha");
+
+// EXTERNAL MODULE: ./node_modules/react-day-picker/moment/index.js
+var moment = __webpack_require__("1rrs");
+
+// CONCATENATED MODULE: ./src/Tickets/Blocks/Ticket/app/editor/container-content/sale-price/template.js
 
 
 function template_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function template_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? template_ownKeys(Object(source), !0).forEach(function (key) { defineProperty_default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : template_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+/**
+ * External dependencies
+ */
+
+
+
+
+
+/**
+ * Wordpress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+/**
+ * SalePrice component.
+ *
+ * @since 5.9.0
+ */
+class template_SalePrice extends external_React_["PureComponent"] {
+  constructor(props) {
+    super(props);
+    this.id = uniqid_default()('ticket-sale-price');
+  }
+  render() {
+    const {
+      isDisabled,
+      currencyDecimalPoint,
+      currencyNumberOfDecimals,
+      currencyPosition,
+      currencySymbol,
+      currencyThousandsSep,
+      minDefaultPrice,
+      tempPrice,
+      toggleSalePrice,
+      salePriceChecked,
+      salePrice,
+      updateSalePrice,
+      dateFormat,
+      fromDate,
+      toDate,
+      fromDateInput,
+      toDateInput,
+      onFromDateChange,
+      onToDateChange,
+      validSalePrice
+    } = this.props;
+
+    /**
+     * Props to pass to the NumericFormat component
+     */
+    const numericFormatProps = template_objectSpread(template_objectSpread({}, currencyPosition === constants["PREFIX"] && {
+      prefix: currencySymbol
+    }), currencyPosition === constants["SUFFIX"] && {
+      suffix: currencySymbol
+    });
+
+    /**
+     * Handles the change of the sale price.
+     * @param e The event.
+     */
+    const handleChange = e => {
+      if (!isNaN(e.value) && e.value >= minDefaultPrice) {
+        updateSalePrice(e);
+      }
+    };
+
+    /**
+     * The sale price classes.
+     */
+    const salPriceClasses = external_tribe_modules_classnames_default()('tribe-editor__input tribe-editor__ticket__sale-price-input', {
+      'tribe-editor__ticket__sale-price--error': !validSalePrice
+    });
+
+    /**
+     * Props for the FromDate input.
+     */
+    const FromDateProps = {
+      value: fromDateInput,
+      format: dateFormat,
+      formatDate: moment["formatDate"],
+      parseDate: moment["parseDate"],
+      placeholder: dateFormat,
+      dayPickerProps: {
+        selectedDays: [fromDate, {
+          from: fromDate,
+          to: toDate
+        }],
+        disabledDays: {
+          after: toDate
+        },
+        modifiers: {
+          start: fromDate,
+          end: toDate
+        },
+        toMonth: toDate
+      },
+      onDayChange: onFromDateChange,
+      inputProps: {
+        disabled: isDisabled
+      }
+    };
+
+    /**
+     * Props for the ToDate input.
+     */
+    const ToDateProps = {
+      value: toDateInput,
+      format: dateFormat,
+      formatDate: moment["formatDate"],
+      parseDate: moment["parseDate"],
+      placeholder: dateFormat,
+      dayPickerProps: {
+        selectedDays: [fromDate, {
+          from: fromDate,
+          to: toDate
+        }],
+        disabledDays: {
+          before: fromDate
+        },
+        modifiers: {
+          start: fromDate,
+          end: toDate
+        },
+        month: fromDate,
+        fromMonth: fromDate
+      },
+      onDayChange: onToDateChange,
+      inputProps: {
+        disabled: isDisabled
+      }
+    };
+    return wp.element.createElement("div", {
+      className: "tribe-editor__ticket__sale-price-wrapper"
+    }, wp.element.createElement(external_tribe_common_elements_["Checkbox"], {
+      className: "tribe-editor__ticket__sale-price-checkbox",
+      id: this.id
+      // eslint-disable-next-line no-undef
+      ,
+      label: constants["SALE_PRICE_LABELS"].add_sale_price
+      // eslint-disable-next-line no-undef
+      ,
+      "aria-label": constants["SALE_PRICE_LABELS"].add_sale_price,
+      checked: salePriceChecked,
+      onChange: toggleSalePrice,
+      value: salePriceChecked,
+      disabled: isDisabled
+    }), salePriceChecked && wp.element.createElement("div", {
+      className: "tribe-editor__ticket__sale-price--fields"
+    }, wp.element.createElement("div", {
+      className: "tribe-editor__ticket__sale-price__input-wrapper"
+    }, wp.element.createElement(external_tribe_common_elements_["LabeledItem"], {
+      className: "tribe-editor__ticket__sale-price--label",
+      label: constants["SALE_PRICE_LABELS"].sale_price_label
+    }), wp.element.createElement(react_number_format_es["a" /* NumericFormat */], extends_default()({
+      allowNegative: false,
+      className: salPriceClasses,
+      decimalScale: currencyNumberOfDecimals,
+      decimalSeparator: currencyDecimalPoint,
+      displayType: "input",
+      fixedDecimalScale: true
+    }, numericFormatProps, {
+      onValueChange: handleChange,
+      thousandSeparator: currencyThousandsSep,
+      value: salePrice,
+      disabled: isDisabled
+    }))), !validSalePrice && wp.element.createElement("div", {
+      className: 'tribe-editor__ticket__sale-price__error-message'
+    }, constants["SALE_PRICE_LABELS"].invalid_price), wp.element.createElement("div", {
+      className: "tribe-editor__ticket__sale-price--dates"
+    }, wp.element.createElement(external_tribe_common_elements_["LabeledItem"], {
+      className: "tribe-editor__ticket__sale-price__dates--label",
+      label: constants["SALE_PRICE_LABELS"].on_sale_from
+    }), wp.element.createElement("div", {
+      className: "tribe-editor__ticket__sale-price--start-date"
+    }, wp.element.createElement(external_tribe_common_elements_["DayPickerInput"], FromDateProps)), wp.element.createElement("span", null, constants["SALE_PRICE_LABELS"].to), wp.element.createElement("div", {
+      className: "tribe-editor__ticket__sale-price--end-date"
+    }, wp.element.createElement(external_tribe_common_elements_["DayPickerInput"], ToDateProps)))));
+  }
+}
+defineProperty_default()(template_SalePrice, "propTypes", {
+  isDisabled: external_tribe_modules_propTypes_default.a.bool,
+  currencyDecimalPoint: external_tribe_modules_propTypes_default.a.string,
+  currencyNumberOfDecimals: external_tribe_modules_propTypes_default.a.number,
+  currencyPosition: external_tribe_modules_propTypes_default.a.string,
+  currencySymbol: external_tribe_modules_propTypes_default.a.string,
+  currencyThousandsSep: external_tribe_modules_propTypes_default.a.string,
+  minDefaultPrice: external_tribe_modules_propTypes_default.a.string,
+  tempPrice: external_tribe_modules_propTypes_default.a.string,
+  toggleSalePrice: external_tribe_modules_propTypes_default.a.func,
+  salePriceChecked: external_tribe_modules_propTypes_default.a.bool,
+  salePrice: external_tribe_modules_propTypes_default.a.string,
+  updateSalePrice: external_tribe_modules_propTypes_default.a.func,
+  dateFormat: external_tribe_modules_propTypes_default.a.string,
+  fromDate: external_tribe_modules_propTypes_default.a.instanceOf(Date),
+  toDate: external_tribe_modules_propTypes_default.a.instanceOf(Date),
+  fromDateInput: external_tribe_modules_propTypes_default.a.string,
+  toDateInput: external_tribe_modules_propTypes_default.a.string,
+  onFromDateChange: external_tribe_modules_propTypes_default.a.func,
+  onToDateChange: external_tribe_modules_propTypes_default.a.func,
+  validSalePrice: external_tribe_modules_propTypes_default.a.bool
+});
+/* harmony default export */ var sale_price_template = (template_SalePrice);
+// CONCATENATED MODULE: ./src/Tickets/Blocks/Ticket/app/editor/container-content/sale-price/container.js
+/**
+ * External dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+/**
+ * Handles the change event of the from date input.
+ *
+ * @since 5.9.0
+ *
+ * @param {Function} dispatch The dispatch function.
+ * @param {Object} ownProps The component's own props.
+ *
+ * @returns {Function} The change event handler.
+ */
+const sale_price_container_onFromDateChange = (dispatch, ownProps) => (date, modifiers, dayPickerInput) => {
+  const {
+    clientId
+  } = ownProps;
+  if (dayPickerInput.input.value === '') {
+    dispatch(ticket["a" /* actions */].setTicketTempSaleStartDate(clientId, ''));
+    dispatch(ticket["a" /* actions */].setTicketTempSaleStartDateMoment(clientId, ''));
+    dispatch(ticket["a" /* actions */].setTicketTempSaleStartDateInput(clientId, ''));
+    dispatch(ticket["a" /* actions */].setTicketHasChanges(clientId, true));
+    return;
+  }
+  dispatch(ticket["a" /* actions */].processTicketSaleStartDate(clientId, date, dayPickerInput));
+};
+
+/**
+ * Handles the change event of the date picker input.
+ *
+ * @since 5.9.0
+ *
+ * @param dispatch The dispatch function.
+ * @param ownProps The component's own props.
+ *
+ * @returns {Function} The change event handler.
+ */
+const sale_price_container_onToDateChange = (dispatch, ownProps) => (date, modifiers, dayPickerInput) => {
+  const {
+    clientId
+  } = ownProps;
+  if (dayPickerInput.input.value === '') {
+    dispatch(ticket["a" /* actions */].setTicketTempSaleEndDate(clientId, ''));
+    dispatch(ticket["a" /* actions */].setTicketTempSaleEndDateMoment(clientId, ''));
+    dispatch(ticket["a" /* actions */].setTicketTempSaleEndDateInput(clientId, ''));
+    dispatch(ticket["a" /* actions */].setTicketHasChanges(clientId, true));
+    return;
+  }
+  dispatch(ticket["a" /* actions */].processTicketSaleEndDate(clientId, date, dayPickerInput));
+};
+
+/**
+ * Maps the state to the component's props.
+ *
+ * @since 5.9.0
+ *
+ * @param state The state.
+ * @param ownProps The component's own props.
+ *
+ * @returns {Object} The component's props.
+ */
+const sale_price_container_mapStateToProps = (state, ownProps) => {
+  const datePickerFormat = external_tribe_common_utils_["globals"].tecDateSettings().datepickerFormat ? external_tribe_common_utils_["moment"].toFormat(external_tribe_common_utils_["globals"].tecDateSettings().datepickerFormat) : 'LL';
+  const startDateMoment = ticket["f" /* selectors */].getTicketTempSaleStartDateMoment(state, ownProps);
+  const endDateMoment = ticket["f" /* selectors */].getTicketTempSaleEndDateMoment(state, ownProps);
+  const fromDate = startDateMoment && startDateMoment.toDate();
+  const toDate = endDateMoment && endDateMoment.toDate();
+  const fromDateInput = typeof startDateMoment === 'object' && startDateMoment.isValid() ? ticket["f" /* selectors */].getTicketTempSaleStartDateInput(state, ownProps) : '';
+  const toDateInput = typeof endDateMoment === 'object' && endDateMoment.isValid() ? ticket["f" /* selectors */].getTicketTempSaleEndDateInput(state, ownProps) : '';
+  return {
+    isDisabled: ticket["f" /* selectors */].isTicketDisabled(state, ownProps),
+    currencyDecimalPoint: ticket["f" /* selectors */].getTicketCurrencyDecimalPoint(state, ownProps),
+    currencyNumberOfDecimals: ticket["f" /* selectors */].getTicketCurrencyNumberOfDecimals(state, ownProps),
+    currencyPosition: ticket["f" /* selectors */].getTicketCurrencyPosition(state, ownProps),
+    currencySymbol: ticket["f" /* selectors */].getTicketCurrencySymbol(state, ownProps),
+    currencyThousandsSep: ticket["f" /* selectors */].getTicketCurrencyThousandsSep(state, ownProps),
+    minDefaultPrice: ticket["f" /* selectors */].isZeroPriceValid(state, ownProps) ? 0 : 1,
+    tempPrice: ticket["f" /* selectors */].getTicketTempPrice(state, ownProps),
+    salePriceChecked: ticket["f" /* selectors */].getTempSalePriceChecked(state, ownProps),
+    salePrice: ticket["f" /* selectors */].getTempSalePrice(state, ownProps),
+    dateFormat: datePickerFormat,
+    fromDate: fromDate,
+    toDate: toDate,
+    fromDateInput: fromDateInput,
+    toDateInput: toDateInput,
+    validSalePrice: ticket["f" /* selectors */].isTicketSalePriceValid(state, ownProps)
+  };
+};
+
+/**
+ * Maps dispatch functions to the component's props.
+ *
+ * @since 5.9.0
+ *
+ * @param {Function} dispatch The dispatch function.
+ * @param {Object} ownProps The component's own props.
+ *
+ * @returns {Object} The component's props.
+ */
+const sale_price_container_mapDispatchToProps = (dispatch, ownProps) => ({
+  toggleSalePrice: e => {
+    const {
+      clientId
+    } = ownProps;
+    dispatch(ticket["a" /* actions */].setTempSalePriceChecked(clientId, e.target.checked));
+    dispatch(ticket["a" /* actions */].setTicketHasChanges(clientId, true));
+  },
+  updateSalePrice: e => {
+    const {
+      clientId
+    } = ownProps;
+    dispatch(ticket["a" /* actions */].setTempSalePrice(clientId, e.value));
+    dispatch(ticket["a" /* actions */].setTicketHasChanges(clientId, true));
+  },
+  onFromDateChange: sale_price_container_onFromDateChange(dispatch, ownProps),
+  onToDateChange: sale_price_container_onToDateChange(dispatch, ownProps)
+});
+
+/**
+ * Connects the component to the store and exports it.
+ */
+/* harmony default export */ var sale_price_container = (Object(external_tribe_modules_redux_["compose"])(Object(external_tribe_common_hoc_["withStore"])(), Object(external_tribe_modules_reactRedux_["connect"])(sale_price_container_mapStateToProps, sale_price_container_mapDispatchToProps))(sale_price_template));
+// CONCATENATED MODULE: ./src/Tickets/Blocks/Ticket/app/editor/container-content/price/template.js
+
+
+function price_template_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function price_template_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? price_template_ownKeys(Object(source), !0).forEach(function (key) { defineProperty_default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : price_template_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 /**
  * External dependencies
  */
@@ -1749,6 +2117,7 @@ function template_objectSpread(target) { for (var i = 1; i < arguments.length; i
 
 
 
+
 class template_Price extends external_React_["PureComponent"] {
   constructor(props) {
     super(props);
@@ -1764,9 +2133,11 @@ class template_Price extends external_React_["PureComponent"] {
       isDisabled,
       minDefaultPrice,
       onTempPriceChange,
-      tempPrice
+      tempPrice,
+      showSalePrice,
+      clientId
     } = this.props;
-    const numericFormatProps = template_objectSpread(template_objectSpread({}, currencyPosition === constants["PREFIX"] && {
+    const numericFormatProps = price_template_objectSpread(price_template_objectSpread({}, currencyPosition === constants["PREFIX"] && {
       prefix: currencySymbol
     }), currencyPosition === constants["SUFFIX"] && {
       suffix: currencySymbol
@@ -1778,6 +2149,8 @@ class template_Price extends external_React_["PureComponent"] {
     };
     return wp.element.createElement("div", {
       className: external_tribe_modules_classnames_default()('tribe-editor__ticket__price', 'tribe-editor__ticket__content-row', 'tribe-editor__ticket__content-row--price')
+    }, wp.element.createElement("div", {
+      className: "tribe-editor__ticket__price-wrapper"
     }, wp.element.createElement(external_tribe_common_elements_["LabeledItem"], {
       className: "tribe-editor__ticket__price-label",
       forId: this.id,
@@ -1798,7 +2171,9 @@ class template_Price extends external_React_["PureComponent"] {
       onValueChange: handleChange,
       thousandSeparator: currencyThousandsSep,
       value: tempPrice
-    })));
+    }))), showSalePrice && wp.element.createElement(sale_price_container, {
+      clientId: clientId
+    }));
   }
 }
 defineProperty_default()(template_Price, "propTypes", {
@@ -1810,7 +2185,9 @@ defineProperty_default()(template_Price, "propTypes", {
   isDisabled: external_tribe_modules_propTypes_default.a.bool,
   minDefaultPrice: external_tribe_modules_propTypes_default.a.string,
   onTempPriceChange: external_tribe_modules_propTypes_default.a.func.isRequired,
-  tempPrice: external_tribe_modules_propTypes_default.a.string
+  tempPrice: external_tribe_modules_propTypes_default.a.string,
+  showSalePrice: external_tribe_modules_propTypes_default.a.bool,
+  clientId: external_tribe_modules_propTypes_default.a.string
 });
 /* harmony default export */ var container_content_price_template = (template_Price);
 // CONCATENATED MODULE: ./src/Tickets/Blocks/Ticket/app/editor/container-content/price/container.js
@@ -1834,7 +2211,9 @@ const container_content_price_container_mapStateToProps = (state, ownProps) => (
   currencyThousandsSep: ticket["f" /* selectors */].getTicketCurrencyThousandsSep(state, ownProps),
   isDisabled: ticket["f" /* selectors */].isTicketDisabled(state, ownProps),
   minDefaultPrice: ticket["f" /* selectors */].isZeroPriceValid(state, ownProps) ? 0 : 1,
-  tempPrice: ticket["f" /* selectors */].getTicketTempPrice(state, ownProps)
+  tempPrice: ticket["f" /* selectors */].getTicketTempPrice(state, ownProps),
+  showSalePrice: ticket["f" /* selectors */].showSalePrice(state, ownProps),
+  clientId: ownProps.clientId
 });
 const container_content_price_container_mapDispatchToProps = (dispatch, ownProps) => ({
   onTempPriceChange: e => {
@@ -2062,6 +2441,7 @@ var container_panel = __webpack_require__("2LK8");
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -2111,10 +2491,13 @@ const TicketContainer = _ref4 => {
     isDisabled,
     isFuture,
     isPast,
-    isSelected
+    isSelected,
+    isOnSale
   } = _ref4;
   return wp.element.createElement(modules_elements["ContainerPanel"], {
-    className: "tribe-editor__ticket__container",
+    className: external_tribe_modules_classnames_default()('tribe-editor__ticket__container', {
+      'tribe-editor__ticket-on-sale': isOnSale
+    }),
     layout: container_panel["a" /* LAYOUT */].ticket,
     icon: wp.element.createElement(TicketContainerIcon, {
       isDisabled: isDisabled,
@@ -2123,7 +2506,8 @@ const TicketContainer = _ref4 => {
     }),
     header: wp.element.createElement(container_header_template, {
       clientId: clientId,
-      isSelected: isSelected
+      isSelected: isSelected,
+      isOnSale: isOnSale
     }),
     content: wp.element.createElement(container_content_container, {
       clientId: clientId
@@ -2135,7 +2519,8 @@ TicketContainer.propTypes = {
   isDisabled: external_tribe_modules_propTypes_default.a.bool,
   isFuture: external_tribe_modules_propTypes_default.a.bool,
   isPast: external_tribe_modules_propTypes_default.a.bool,
-  isSelected: external_tribe_modules_propTypes_default.a.bool
+  isSelected: external_tribe_modules_propTypes_default.a.bool,
+  isOnSale: external_tribe_modules_propTypes_default.a.bool
 };
 /* harmony default export */ var container_template = (TicketContainer);
 // CONCATENATED MODULE: ./src/Tickets/Blocks/Ticket/app/editor/container/container.js
@@ -2154,7 +2539,8 @@ TicketContainer.propTypes = {
 const container_container_mapStateToProps = (state, ownProps) => ({
   isDisabled: ticket["f" /* selectors */].isTicketDisabled(state, ownProps),
   isFuture: ticket["f" /* selectors */].isTicketFuture(state, ownProps),
-  isPast: ticket["f" /* selectors */].isTicketPast(state, ownProps)
+  isPast: ticket["f" /* selectors */].isTicketPast(state, ownProps),
+  isOnSale: ticket["f" /* selectors */].getTicketOnSale(state, ownProps)
 });
 /* harmony default export */ var container_container = (Object(external_tribe_modules_redux_["compose"])(Object(external_tribe_common_hoc_["withStore"])(), Object(external_tribe_modules_reactRedux_["connect"])(container_container_mapStateToProps))(container_template));
 // EXTERNAL MODULE: ./src/Tickets/Blocks/Ticket/app/editor/dashboard/move-delete/style.pcss
@@ -2345,7 +2731,15 @@ const container_onCancelClick = (state, dispatch, ownProps) => () => {
       startTimeInput: ticket["f" /* selectors */].getTicketStartTimeInput(state, ownProps),
       endTimeInput: ticket["f" /* selectors */].getTicketEndTimeInput(state, ownProps),
       capacityType: ticket["f" /* selectors */].getTicketCapacityType(state, ownProps),
-      capacity: ticket["f" /* selectors */].getTicketCapacity(state, ownProps)
+      capacity: ticket["f" /* selectors */].getTicketCapacity(state, ownProps),
+      salePriceChecked: ticket["f" /* selectors */].getSalePriceChecked(state, ownProps),
+      salePrice: ticket["f" /* selectors */].getSalePrice(state, ownProps),
+      saleStartDate: ticket["f" /* selectors */].getTicketSaleStartDate(state, ownProps),
+      saleStartDateInput: ticket["f" /* selectors */].getTicketSaleStartDateInput(state, ownProps),
+      saleStartDateMoment: ticket["f" /* selectors */].getTicketSaleStartDateMoment(state, ownProps),
+      saleEndDate: ticket["f" /* selectors */].getTicketSaleEndDate(state, ownProps),
+      saleEndDateInput: ticket["f" /* selectors */].getTicketSaleEndDateInput(state, ownProps),
+      saleEndDateMoment: ticket["f" /* selectors */].getTicketSaleEndDateMoment(state, ownProps)
     }));
     dispatch(ticket["a" /* actions */].setTicketsTempSharedCapacity(ticket["f" /* selectors */].getTicketsSharedCapacity(state)));
     dispatch(ticket["a" /* actions */].setTicketHasChanges(ownProps.clientId, false));
@@ -3019,7 +3413,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SUFFIX", function() { return SUFFIX; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PRICE_POSITIONS", function() { return PRICE_POSITIONS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TICKET_LABELS", function() { return TICKET_LABELS; });
-var _tribe_editor_config, _tribe_editor_config$;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SALE_PRICE_LABELS", function() { return SALE_PRICE_LABELS; });
+var _window, _window$tribe_editor_, _window$tribe_editor_2, _window2, _window2$tribe_editor, _window2$tribe_editor2;
 const TC = 'tribe-commerce';
 const EDD = 'edd';
 const WOO = 'woo';
@@ -3062,11 +3457,19 @@ const SUFFIX = 'postfix';
 const PRICE_POSITIONS = [PREFIX, SUFFIX];
 
 // eslint-disable-next-line no-undef
-const TICKET_LABELS = (_tribe_editor_config = tribe_editor_config) === null || _tribe_editor_config === void 0 ? void 0 : (_tribe_editor_config$ = _tribe_editor_config.tickets) === null || _tribe_editor_config$ === void 0 ? void 0 : _tribe_editor_config$.ticketLabels;
+const TICKET_LABELS = (_window = window) === null || _window === void 0 ? void 0 : (_window$tribe_editor_ = _window.tribe_editor_config) === null || _window$tribe_editor_ === void 0 ? void 0 : (_window$tribe_editor_2 = _window$tribe_editor_.tickets) === null || _window$tribe_editor_2 === void 0 ? void 0 : _window$tribe_editor_2.ticketLabels;
+const SALE_PRICE_LABELS = (_window2 = window) === null || _window2 === void 0 ? void 0 : (_window2$tribe_editor = _window2.tribe_editor_config) === null || _window2$tribe_editor === void 0 ? void 0 : (_window2$tribe_editor2 = _window2$tribe_editor.tickets) === null || _window2$tribe_editor2 === void 0 ? void 0 : _window2$tribe_editor2.salePrice;
 
 /***/ }),
 
 /***/ "DoMS":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "EEha":
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
@@ -4063,6 +4466,7 @@ __webpack_require__.d(selectors_namespaceObject, "getTicketDetails", function() 
 __webpack_require__.d(selectors_namespaceObject, "getTicketTitle", function() { return getTicketTitle; });
 __webpack_require__.d(selectors_namespaceObject, "getTicketDescription", function() { return getTicketDescription; });
 __webpack_require__.d(selectors_namespaceObject, "getTicketPrice", function() { return getTicketPrice; });
+__webpack_require__.d(selectors_namespaceObject, "getTicketOnSale", function() { return getTicketOnSale; });
 __webpack_require__.d(selectors_namespaceObject, "getTicketSku", function() { return getTicketSku; });
 __webpack_require__.d(selectors_namespaceObject, "getTicketIACSetting", function() { return getTicketIACSetting; });
 __webpack_require__.d(selectors_namespaceObject, "getTicketStartDate", function() { return getTicketStartDate; });
@@ -4080,6 +4484,14 @@ __webpack_require__.d(selectors_namespaceObject, "getTicketEndTimeInput", functi
 __webpack_require__.d(selectors_namespaceObject, "getTicketCapacityType", function() { return getTicketCapacityType; });
 __webpack_require__.d(selectors_namespaceObject, "getTicketCapacity", function() { return getTicketCapacity; });
 __webpack_require__.d(selectors_namespaceObject, "getTicketCapacityInt", function() { return getTicketCapacityInt; });
+__webpack_require__.d(selectors_namespaceObject, "getSalePriceChecked", function() { return getSalePriceChecked; });
+__webpack_require__.d(selectors_namespaceObject, "getSalePrice", function() { return getSalePrice; });
+__webpack_require__.d(selectors_namespaceObject, "getTicketSaleStartDate", function() { return getTicketSaleStartDate; });
+__webpack_require__.d(selectors_namespaceObject, "getTicketSaleStartDateInput", function() { return getTicketSaleStartDateInput; });
+__webpack_require__.d(selectors_namespaceObject, "getTicketSaleStartDateMoment", function() { return getTicketSaleStartDateMoment; });
+__webpack_require__.d(selectors_namespaceObject, "getTicketSaleEndDate", function() { return getTicketSaleEndDate; });
+__webpack_require__.d(selectors_namespaceObject, "getTicketSaleEndDateInput", function() { return getTicketSaleEndDateInput; });
+__webpack_require__.d(selectors_namespaceObject, "getTicketSaleEndDateMoment", function() { return getTicketSaleEndDateMoment; });
 __webpack_require__.d(selectors_namespaceObject, "isUnlimitedTicket", function() { return isUnlimitedTicket; });
 __webpack_require__.d(selectors_namespaceObject, "isSharedTicket", function() { return isSharedTicket; });
 __webpack_require__.d(selectors_namespaceObject, "isIndependentTicket", function() { return isIndependentTicket; });
@@ -4112,6 +4524,16 @@ __webpack_require__.d(selectors_namespaceObject, "getTicketTempCapacityType", fu
 __webpack_require__.d(selectors_namespaceObject, "getTicketTempCapacity", function() { return getTicketTempCapacity; });
 __webpack_require__.d(selectors_namespaceObject, "getTicketTempCapacityInt", function() { return getTicketTempCapacityInt; });
 __webpack_require__.d(selectors_namespaceObject, "getTicketTempCapacityTypeOption", function() { return getTicketTempCapacityTypeOption; });
+__webpack_require__.d(selectors_namespaceObject, "getTempSalePriceChecked", function() { return getTempSalePriceChecked; });
+__webpack_require__.d(selectors_namespaceObject, "getTempSalePrice", function() { return getTempSalePrice; });
+__webpack_require__.d(selectors_namespaceObject, "getTicketTempSaleStartDate", function() { return getTicketTempSaleStartDate; });
+__webpack_require__.d(selectors_namespaceObject, "getTicketTempSaleStartDateInput", function() { return getTicketTempSaleStartDateInput; });
+__webpack_require__.d(selectors_namespaceObject, "getTicketTempSaleStartDateMoment", function() { return getTicketTempSaleStartDateMoment; });
+__webpack_require__.d(selectors_namespaceObject, "getTicketTempSaleEndDate", function() { return getTicketTempSaleEndDate; });
+__webpack_require__.d(selectors_namespaceObject, "getTicketTempSaleEndDateInput", function() { return getTicketTempSaleEndDateInput; });
+__webpack_require__.d(selectors_namespaceObject, "getTicketTempSaleEndDateMoment", function() { return getTicketTempSaleEndDateMoment; });
+__webpack_require__.d(selectors_namespaceObject, "showSalePrice", function() { return selectors_showSalePrice; });
+__webpack_require__.d(selectors_namespaceObject, "isTicketSalePriceValid", function() { return isTicketSalePriceValid; });
 __webpack_require__.d(selectors_namespaceObject, "isTempTitleValid", function() { return isTempTitleValid; });
 __webpack_require__.d(selectors_namespaceObject, "isTempCapacityValid", function() { return isTempCapacityValid; });
 __webpack_require__.d(selectors_namespaceObject, "isTempSharedCapacityValid", function() { return isTempSharedCapacityValid; });
@@ -4139,6 +4561,7 @@ __webpack_require__.d(selectors_namespaceObject, "hasTicketProviders", function(
 __webpack_require__.d(selectors_namespaceObject, "canCreateTickets", function() { return canCreateTickets; });
 __webpack_require__.d(selectors_namespaceObject, "getCurrentPostTypeLabel", function() { return getCurrentPostTypeLabel; });
 __webpack_require__.d(selectors_namespaceObject, "currentPostIsEvent", function() { return currentPostIsEvent; });
+__webpack_require__.d(selectors_namespaceObject, "getNumericPrice", function() { return getNumericPrice; });
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/defineProperty.js
 var defineProperty = __webpack_require__("lSNA");
@@ -4309,6 +4732,7 @@ const getTicketDetails = Object(external_tribe_modules_reselect_["createSelector
 const getTicketTitle = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.title);
 const getTicketDescription = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.description);
 const getTicketPrice = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.price);
+const getTicketOnSale = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.on_sale);
 const getTicketSku = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.sku);
 const getTicketIACSetting = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.iac);
 const getTicketStartDate = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.startDate);
@@ -4326,6 +4750,14 @@ const getTicketEndTimeInput = Object(external_tribe_modules_reselect_["createSel
 const getTicketCapacityType = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.capacityType);
 const getTicketCapacity = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.capacity);
 const getTicketCapacityInt = Object(external_tribe_modules_reselect_["createSelector"])([getTicketCapacity], capacity => parseInt(capacity, 10) || 0);
+const getSalePriceChecked = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.salePriceChecked);
+const getSalePrice = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.salePrice);
+const getTicketSaleStartDate = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.saleStartDate);
+const getTicketSaleStartDateInput = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.saleStartDateInput);
+const getTicketSaleStartDateMoment = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.saleStartDateMoment);
+const getTicketSaleEndDate = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.saleEndDate);
+const getTicketSaleEndDateInput = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.saleEndDateInput);
+const getTicketSaleEndDateMoment = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.saleEndDateMoment);
 const isUnlimitedTicket = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.capacityType === TICKET_TYPES[UNLIMITED]);
 const isSharedTicket = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.capacityType === TICKET_TYPES[SHARED]);
 const isIndependentTicket = Object(external_tribe_modules_reselect_["createSelector"])([getTicketDetails], details => details.capacityType === TICKET_TYPES[INDEPENDENT]);
@@ -4377,6 +4809,29 @@ const getTicketTempCapacityInt = Object(external_tribe_modules_reselect_["create
 const getTicketTempCapacityTypeOption = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempCapacityType], capacityType => external_lodash_find_default()(CAPACITY_TYPE_OPTIONS, {
   value: capacityType
 }) || {});
+const getTempSalePriceChecked = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempDetails], tempDetails => tempDetails.salePriceChecked);
+const getTempSalePrice = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempDetails], tempDetails => tempDetails.salePrice);
+const getTicketTempSaleStartDate = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempDetails], tempDetails => tempDetails.saleStartDate);
+const getTicketTempSaleStartDateInput = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempDetails], tempDetails => tempDetails.saleStartDateInput);
+const getTicketTempSaleStartDateMoment = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempDetails], tempDetails => tempDetails.saleStartDateMoment);
+const getTicketTempSaleEndDate = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempDetails], tempDetails => tempDetails.saleEndDate);
+const getTicketTempSaleEndDateInput = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempDetails], tempDetails => tempDetails.saleEndDateInput);
+const getTicketTempSaleEndDateMoment = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempDetails], tempDetails => tempDetails.saleEndDateMoment);
+const selectors_showSalePrice = Object(external_tribe_modules_reselect_["createSelector"])([getTicketsProvider], provider => provider === constants["TICKETS_COMMERCE_MODULE_CLASS"]);
+const isTicketSalePriceValid = Object(external_tribe_modules_reselect_["createSelector"])([getTempSalePrice, getTicketTempPrice, getTicketCurrencyDecimalPoint, getTicketCurrencyNumberOfDecimals, getTicketCurrencyThousandsSep], (salePrice, price, decimalPoint, decimalPlaces, thousandSep) => {
+  if (salePrice === '' || price === '') {
+    return true;
+  }
+  if (!decimalPoint || !decimalPlaces || !thousandSep) {
+    return true;
+  }
+
+  // eslint-disable-next-line no-use-before-define
+  const salePriceVal = getNumericPrice(salePrice, decimalPoint, decimalPlaces, thousandSep);
+  // eslint-disable-next-line no-use-before-define
+  const priceVal = getNumericPrice(price, decimalPoint, decimalPlaces, thousandSep);
+  return salePriceVal < priceVal;
+});
 const isTempTitleValid = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempTitle], title => external_lodash_trim_default()(title) !== '');
 const isTempCapacityValid = Object(external_tribe_modules_reselect_["createSelector"])([getTicketTempCapacity], capacity => external_lodash_trim_default()(capacity) !== '' && !isNaN(capacity) && capacity > 0);
 const isTempSharedCapacityValid = Object(external_tribe_modules_reselect_["createSelector"])([getTicketsTempSharedCapacity], capacity => external_lodash_trim_default()(capacity) !== '' && !isNaN(capacity) && capacity > 0);
@@ -4451,6 +4906,18 @@ const getCurrentPostTypeLabel = function () {
 const currentPostIsEvent = () => {
   const post = postConfig();
   return (post === null || post === void 0 ? void 0 : post.type) === 'tribe_events';
+};
+const getNumericPrice = (price, decimalPoint, decimalPlaces, thousandSep) => {
+  // Remove thousand separators.
+  let newValue = price.replace(new RegExp('\\' + thousandSep, 'g'), '');
+
+  // Replace decimal separator with period.
+  newValue = newValue.replace(decimalPoint, '.');
+
+  // Round to specified number of decimal places.
+  newValue = parseFloat(newValue).toFixed(decimalPlaces);
+  newValue = parseInt(newValue.replace('.', ''));
+  return newValue;
 };
 // EXTERNAL MODULE: external "wp.hooks"
 var external_wp_hooks_ = __webpack_require__("g56x");
@@ -4627,6 +5094,7 @@ const DEFAULT_STATE = {
   title: '',
   description: '',
   price: '',
+  on_sale: false,
   sku: '',
   iac: details_iac,
   startDate: external_tribe_common_utils_["moment"].toDatabaseDate(currentMoment),
@@ -4641,7 +5109,15 @@ const DEFAULT_STATE = {
   endTimeInput: external_tribe_common_utils_["moment"].toTime(details_endMoment),
   capacityType: constants["TICKET_TYPES"][constants["UNLIMITED"]],
   capacity: '',
-  type: 'default'
+  type: 'default',
+  salePriceChecked: false,
+  salePrice: '',
+  saleStartDate: '',
+  saleStartDateInput: '',
+  saleStartDateMoment: '',
+  saleEndDate: '',
+  saleEndDateInput: '',
+  saleEndDateMoment: ''
 };
 /* harmony default export */ var ticket_details = (function () {
   let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : DEFAULT_STATE;
@@ -4658,6 +5134,10 @@ const DEFAULT_STATE = {
     case types["SET_TICKET_PRICE"]:
       return _objectSpread(_objectSpread({}, state), {}, {
         price: action.payload.price
+      });
+    case types["SET_TICKET_ON_SALE"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        on_sale: action.payload.onSale
       });
     case types["SET_TICKET_SKU"]:
       return _objectSpread(_objectSpread({}, state), {}, {
@@ -4723,6 +5203,38 @@ const DEFAULT_STATE = {
       return _objectSpread(_objectSpread({}, state), {}, {
         type: action.payload.type
       });
+    case types["SET_TICKET_SALE_PRICE_CHECK"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        salePriceChecked: action.payload.checked
+      });
+    case types["SET_TICKET_SALE_PRICE"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        salePrice: action.payload.salePrice
+      });
+    case types["SET_TICKET_SALE_START_DATE"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        saleStartDate: action.payload.startDate
+      });
+    case types["SET_TICKET_SALE_START_DATE_INPUT"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        saleStartDateInput: action.payload.startDateInput
+      });
+    case types["SET_TICKET_SALE_START_DATE_MOMENT"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        saleStartDateMoment: action.payload.startDateMoment
+      });
+    case types["SET_TICKET_SALE_END_DATE"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        saleEndDate: action.payload.endDate
+      });
+    case types["SET_TICKET_SALE_END_DATE_INPUT"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        saleEndDateInput: action.payload.endDateInput
+      });
+    case types["SET_TICKET_SALE_END_DATE_MOMENT"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        saleEndDateMoment: action.payload.endDateMoment
+      });
     default:
       return state;
   }
@@ -4767,7 +5279,15 @@ const temp_details_DEFAULT_STATE = {
   startTimeInput: external_tribe_common_utils_["moment"].toTime(temp_details_currentMoment),
   endTimeInput: external_tribe_common_utils_["moment"].toTime(temp_details_endMoment),
   capacityType: constants["TICKET_TYPES"][constants["UNLIMITED"]],
-  capacity: ''
+  capacity: '',
+  salePriceChecked: false,
+  salePrice: '',
+  saleStartDate: '',
+  saleStartDateInput: '',
+  saleStartDateMoment: '',
+  saleEndDate: '',
+  saleEndDateInput: '',
+  saleEndDateMoment: ''
 };
 /* harmony default export */ var temp_details = (function () {
   let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : temp_details_DEFAULT_STATE;
@@ -4841,6 +5361,38 @@ const temp_details_DEFAULT_STATE = {
       return temp_details_objectSpread(temp_details_objectSpread({}, state), {}, {
         capacity: action.payload.capacity
       });
+    case types["SET_TICKET_TEMP_SALE_PRICE_CHECK"]:
+      return temp_details_objectSpread(temp_details_objectSpread({}, state), {}, {
+        salePriceChecked: action.payload.checked
+      });
+    case types["SET_TICKET_TEMP_SALE_PRICE"]:
+      return temp_details_objectSpread(temp_details_objectSpread({}, state), {}, {
+        salePrice: action.payload.salePrice
+      });
+    case types["SET_TICKET_TEMP_SALE_START_DATE"]:
+      return temp_details_objectSpread(temp_details_objectSpread({}, state), {}, {
+        saleStartDate: action.payload.startDate
+      });
+    case types["SET_TICKET_TEMP_SALE_START_DATE_INPUT"]:
+      return temp_details_objectSpread(temp_details_objectSpread({}, state), {}, {
+        saleStartDateInput: action.payload.startDateInput
+      });
+    case types["SET_TICKET_TEMP_SALE_START_DATE_MOMENT"]:
+      return temp_details_objectSpread(temp_details_objectSpread({}, state), {}, {
+        saleStartDateMoment: action.payload.startDateMoment
+      });
+    case types["SET_TICKET_TEMP_SALE_END_DATE"]:
+      return temp_details_objectSpread(temp_details_objectSpread({}, state), {}, {
+        saleEndDate: action.payload.endDate
+      });
+    case types["SET_TICKET_TEMP_SALE_END_DATE_INPUT"]:
+      return temp_details_objectSpread(temp_details_objectSpread({}, state), {}, {
+        saleEndDateInput: action.payload.endDateInput
+      });
+    case types["SET_TICKET_TEMP_SALE_END_DATE_MOMENT"]:
+      return temp_details_objectSpread(temp_details_objectSpread({}, state), {}, {
+        saleEndDateMoment: action.payload.endDateMoment
+      });
     default:
       return state;
   }
@@ -4884,6 +5436,7 @@ const ticket_DEFAULT_STATE = {
     case types["SET_TICKET_TITLE"]:
     case types["SET_TICKET_DESCRIPTION"]:
     case types["SET_TICKET_PRICE"]:
+    case types["SET_TICKET_ON_SALE"]:
     case types["SET_TICKET_SKU"]:
     case types["SET_TICKET_IAC_SETTING"]:
     case types["SET_TICKET_START_DATE"]:
@@ -4902,6 +5455,14 @@ const ticket_DEFAULT_STATE = {
     case types["SET_TICKET_TYPE_DESCRIPTION"]:
     case types["SET_TICKET_TYPE_ICON_URL"]:
     case types["SET_TICKET_TYPE_NAME"]:
+    case types["SET_TICKET_SALE_PRICE_CHECK"]:
+    case types["SET_TICKET_SALE_PRICE"]:
+    case types["SET_TICKET_SALE_START_DATE"]:
+    case types["SET_TICKET_SALE_START_DATE_INPUT"]:
+    case types["SET_TICKET_SALE_START_DATE_MOMENT"]:
+    case types["SET_TICKET_SALE_END_DATE"]:
+    case types["SET_TICKET_SALE_END_DATE_INPUT"]:
+    case types["SET_TICKET_SALE_END_DATE_MOMENT"]:
       return ticket_objectSpread(ticket_objectSpread({}, state), {}, {
         details: ticket_details(state.details, action)
       });
@@ -4922,6 +5483,14 @@ const ticket_DEFAULT_STATE = {
     case types["SET_TICKET_TEMP_END_TIME_INPUT"]:
     case types["SET_TICKET_TEMP_CAPACITY_TYPE"]:
     case types["SET_TICKET_TEMP_CAPACITY"]:
+    case types["SET_TICKET_TEMP_SALE_PRICE_CHECK"]:
+    case types["SET_TICKET_TEMP_SALE_PRICE"]:
+    case types["SET_TICKET_TEMP_SALE_START_DATE"]:
+    case types["SET_TICKET_TEMP_SALE_START_DATE_INPUT"]:
+    case types["SET_TICKET_TEMP_SALE_START_DATE_MOMENT"]:
+    case types["SET_TICKET_TEMP_SALE_END_DATE"]:
+    case types["SET_TICKET_TEMP_SALE_END_DATE_INPUT"]:
+    case types["SET_TICKET_TEMP_SALE_END_DATE_MOMENT"]:
       return ticket_objectSpread(ticket_objectSpread({}, state), {}, {
         tempDetails: temp_details(state.tempDetails, action)
       });
@@ -5003,6 +5572,7 @@ const byClientId = function () {
     case types["SET_TICKET_TITLE"]:
     case types["SET_TICKET_DESCRIPTION"]:
     case types["SET_TICKET_PRICE"]:
+    case types["SET_TICKET_ON_SALE"]:
     case types["SET_TICKET_SKU"]:
     case types["SET_TICKET_IAC_SETTING"]:
     case types["SET_TICKET_START_DATE"]:
@@ -5053,6 +5623,22 @@ const byClientId = function () {
     case types["SET_TICKET_TYPE_ICON_URL"]:
     case types["SET_TICKET_TYPE_NAME"]:
     case types["REGISTER_TICKET_BLOCK"]:
+    case types["SET_TICKET_SALE_PRICE_CHECK"]:
+    case types["SET_TICKET_TEMP_SALE_PRICE_CHECK"]:
+    case types["SET_TICKET_SALE_PRICE"]:
+    case types["SET_TICKET_TEMP_SALE_PRICE"]:
+    case types["SET_TICKET_SALE_START_DATE"]:
+    case types["SET_TICKET_SALE_START_DATE_INPUT"]:
+    case types["SET_TICKET_SALE_START_DATE_MOMENT"]:
+    case types["SET_TICKET_SALE_END_DATE"]:
+    case types["SET_TICKET_SALE_END_DATE_INPUT"]:
+    case types["SET_TICKET_SALE_END_DATE_MOMENT"]:
+    case types["SET_TICKET_TEMP_SALE_START_DATE"]:
+    case types["SET_TICKET_TEMP_SALE_START_DATE_INPUT"]:
+    case types["SET_TICKET_TEMP_SALE_START_DATE_MOMENT"]:
+    case types["SET_TICKET_TEMP_SALE_END_DATE"]:
+    case types["SET_TICKET_TEMP_SALE_END_DATE_INPUT"]:
+    case types["SET_TICKET_TEMP_SALE_END_DATE_MOMENT"]:
       return tickets_objectSpread(tickets_objectSpread({}, state), {}, {
         [action.payload.clientId]: tickets_ticket(state[action.payload.clientId], action)
       });
@@ -5140,6 +5726,7 @@ const reducer_DEFAULT_STATE = {
     case types["SET_TICKET_TITLE"]:
     case types["SET_TICKET_DESCRIPTION"]:
     case types["SET_TICKET_PRICE"]:
+    case types["SET_TICKET_ON_SALE"]:
     case types["SET_TICKET_SKU"]:
     case types["SET_TICKET_IAC_SETTING"]:
     case types["SET_TICKET_START_DATE"]:
@@ -5154,6 +5741,14 @@ const reducer_DEFAULT_STATE = {
     case types["SET_TICKET_END_TIME_INPUT"]:
     case types["SET_TICKET_CAPACITY_TYPE"]:
     case types["SET_TICKET_CAPACITY"]:
+    case types["SET_TICKET_SALE_PRICE_CHECK"]:
+    case types["SET_TICKET_SALE_PRICE"]:
+    case types["SET_TICKET_SALE_START_DATE"]:
+    case types["SET_TICKET_SALE_START_DATE_INPUT"]:
+    case types["SET_TICKET_SALE_START_DATE_MOMENT"]:
+    case types["SET_TICKET_SALE_END_DATE"]:
+    case types["SET_TICKET_SALE_END_DATE_INPUT"]:
+    case types["SET_TICKET_SALE_END_DATE_MOMENT"]:
     case types["SET_TICKET_TEMP_TITLE"]:
     case types["SET_TICKET_TEMP_DESCRIPTION"]:
     case types["SET_TICKET_TEMP_PRICE"]:
@@ -5171,6 +5766,14 @@ const reducer_DEFAULT_STATE = {
     case types["SET_TICKET_TEMP_END_TIME_INPUT"]:
     case types["SET_TICKET_TEMP_CAPACITY_TYPE"]:
     case types["SET_TICKET_TEMP_CAPACITY"]:
+    case types["SET_TICKET_TEMP_SALE_PRICE_CHECK"]:
+    case types["SET_TICKET_TEMP_SALE_PRICE"]:
+    case types["SET_TICKET_TEMP_SALE_START_DATE"]:
+    case types["SET_TICKET_TEMP_SALE_START_DATE_INPUT"]:
+    case types["SET_TICKET_TEMP_SALE_START_DATE_MOMENT"]:
+    case types["SET_TICKET_TEMP_SALE_END_DATE"]:
+    case types["SET_TICKET_TEMP_SALE_END_DATE_INPUT"]:
+    case types["SET_TICKET_TEMP_SALE_END_DATE_MOMENT"]:
     case types["SET_TICKET_SOLD"]:
     case types["SET_TICKET_AVAILABLE"]:
     case types["SET_TICKET_ID"]:
@@ -5549,6 +6152,13 @@ function* setBodyDetails(clientId) {
   if (capacityType === sagas_TICKET_TYPES[sagas_SHARED]) {
     body.append('ticket[event_capacity]', yield Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketsTempSharedCapacity));
   }
+  const showSalePrice = yield Object(external_tribe_modules_reduxSaga_effects_["select"])(selectors_showSalePrice, props);
+  if (showSalePrice) {
+    body.append('ticket[sale_price][checked]', yield Object(external_tribe_modules_reduxSaga_effects_["select"])(getTempSalePriceChecked, props));
+    body.append('ticket[sale_price][price]', yield Object(external_tribe_modules_reduxSaga_effects_["select"])(getTempSalePrice, props));
+    body.append('ticket[sale_price][start_date]', yield Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempSaleStartDate, props));
+    body.append('ticket[sale_price][end_date]', yield Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempSaleEndDate, props));
+  }
   return body;
 }
 function* removeTicketBlock(clientId) {
@@ -5598,7 +6208,9 @@ function* fetchTicket(action) {
         capacity,
         supports_attendee_information,
         attendee_information_fields,
-        type
+        type,
+        sale_price_data,
+        on_sale
       } = ticket;
       /* eslint-enable camelcase */
 
@@ -5621,11 +6233,22 @@ function* fetchTicket(action) {
         endTime = yield Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toDatabaseTime, endMoment);
         endTimeInput = yield Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toTime, endMoment);
       }
+      const salePriceChecked = (sale_price_data === null || sale_price_data === void 0 ? void 0 : sale_price_data.enabled) || false;
+      const salePrice = (sale_price_data === null || sale_price_data === void 0 ? void 0 : sale_price_data.sale_price) || '';
+      const sale_start_date = (sale_price_data === null || sale_price_data === void 0 ? void 0 : sale_price_data.start_date) || ''; // eslint-disable-line camelcase
+      const saleStartDateMoment = yield Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toMoment, sale_start_date);
+      const saleStartDate = yield Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toDatabaseDate, saleStartDateMoment);
+      const saleStartDateInput = yield datePickerFormat ? Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toDate, saleStartDateMoment, datePickerFormat) : Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toDate, saleStartDateMoment);
+      const sale_end_date = (sale_price_data === null || sale_price_data === void 0 ? void 0 : sale_price_data.end_date) || ''; // eslint-disable-line camelcase
+      const saleEndDateMoment = yield Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toMoment, sale_end_date);
+      const saleEndDate = yield Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toDatabaseDate, saleEndDateMoment);
+      const saleEndDateInput = yield datePickerFormat ? Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toDate, saleEndDateMoment, datePickerFormat) : Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toDate, saleEndDateMoment);
       const details = {
         attendeeInfoFields: attendee_information_fields,
         title,
         description,
         price: cost_details.values[0],
+        on_sale,
         sku,
         iac,
         startDate,
@@ -5640,7 +6263,15 @@ function* fetchTicket(action) {
         endTimeInput,
         capacityType: capacity_type,
         capacity,
-        type
+        type,
+        salePriceChecked,
+        salePrice,
+        saleStartDate,
+        saleStartDateInput,
+        saleStartDateMoment,
+        saleEndDate,
+        saleEndDateInput,
+        saleEndDateMoment
       };
       yield Object(external_tribe_modules_reduxSaga_effects_["all"])([Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketDetails"](clientId, details)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempDetails"](clientId, details)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketSold"](clientId, totals.sold)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketAvailable"](clientId, totals.stock)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketCurrencySymbol"](clientId, cost_details.currency_symbol)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketCurrencyPosition"](clientId, cost_details.currency_position)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketProvider"](clientId, provider)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketHasAttendeeInfoFields"](clientId, supports_attendee_information)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketHasBeenCreated"](clientId, true))]);
     }
@@ -5685,7 +6316,12 @@ function* createNewTicket(action) {
         yield Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketsSharedCapacity"](tempSharedCapacity));
       }
       const available = ticket.capacity_details.available === -1 ? 0 : ticket.capacity_details.available;
-      const [title, description, price, sku, iac, startDate, startDateInput, startDateMoment, endDate, endDateInput, endDateMoment, startTime, endTime, startTimeInput, endTimeInput, capacityType, capacity] = yield Object(external_tribe_modules_reduxSaga_effects_["all"])([Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempTitle, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempDescription, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempPrice, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempSku, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempIACSetting, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempStartDate, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempStartDateInput, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempStartDateMoment, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempEndDate, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempEndDateInput, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempEndDateMoment, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempStartTime, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempEndTime, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempStartTimeInput, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempEndTimeInput, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempCapacityType, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempCapacity, props)]);
+      const {
+        sale_price_data
+      } = ticket; // eslint-disable-line camelcase
+      const salePriceChecked = (sale_price_data === null || sale_price_data === void 0 ? void 0 : sale_price_data.enabled) || false;
+      const salePrice = (sale_price_data === null || sale_price_data === void 0 ? void 0 : sale_price_data.sale_price) || '';
+      const [title, description, price, sku, iac, startDate, startDateInput, startDateMoment, endDate, endDateInput, endDateMoment, startTime, endTime, startTimeInput, endTimeInput, capacityType, capacity, saleStartDate, saleStartDateInput, saleStartDateMoment, saleEndDate, saleEndDateInput, saleEndDateMoment] = yield Object(external_tribe_modules_reduxSaga_effects_["all"])([Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempTitle, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempDescription, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempPrice, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempSku, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempIACSetting, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempStartDate, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempStartDateInput, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempStartDateMoment, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempEndDate, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempEndDateInput, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempEndDateMoment, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempStartTime, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempEndTime, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempStartTimeInput, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempEndTimeInput, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempCapacityType, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempCapacity, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempSaleStartDate, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempSaleStartDateInput, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempSaleStartDateMoment, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempSaleEndDate, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempSaleEndDateInput, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempSaleEndDateMoment, props)]);
       yield Object(external_tribe_modules_reduxSaga_effects_["all"])([Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketDetails"](clientId, {
         title,
         description,
@@ -5703,8 +6339,16 @@ function* createNewTicket(action) {
         startTimeInput,
         endTimeInput,
         capacityType,
-        capacity
-      })), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketId"](clientId, ticket.id)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketHasBeenCreated"](clientId, true)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketAvailable"](clientId, available)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketProvider"](clientId, PROVIDER_CLASS_TO_PROVIDER_MAPPING[ticket.provider_class])), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketHasChanges"](clientId, false))]);
+        capacity,
+        salePriceChecked,
+        salePrice,
+        saleStartDate,
+        saleStartDateInput,
+        saleStartDateMoment,
+        saleEndDate,
+        saleEndDateInput,
+        saleEndDateMoment
+      })), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTempSalePriceChecked"](clientId, salePriceChecked)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTempSalePrice"](clientId, salePrice)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketId"](clientId, ticket.id)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketHasBeenCreated"](clientId, true)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketAvailable"](clientId, available)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketProvider"](clientId, PROVIDER_CLASS_TO_PROVIDER_MAPPING[ticket.provider_class])), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketHasChanges"](clientId, false))]);
       yield Object(external_tribe_modules_reduxSaga_effects_["fork"])(saveTicketWithPostSave, clientId);
     }
   } catch (e) {
@@ -5751,14 +6395,28 @@ function* updateTicket(action) {
     });
     if (response.ok) {
       const {
-        capacity_details
-      } = ticket; // eslint-disable-line camelcase
+        capacity_details,
+        sale_price_data,
+        on_sale
+      } = ticket; // eslint-disable-line camelcase, max-len
       const available = capacity_details.available === -1 ? 0 : capacity_details.available;
+      const salePriceChecked = (sale_price_data === null || sale_price_data === void 0 ? void 0 : sale_price_data.enabled) || false;
+      const salePrice = (sale_price_data === null || sale_price_data === void 0 ? void 0 : sale_price_data.sale_price) || '';
+      const datePickerFormat = tecDateSettings().datepickerFormat;
+      const sale_start_date = (sale_price_data === null || sale_price_data === void 0 ? void 0 : sale_price_data.start_date) || ''; // eslint-disable-line camelcase
+      const saleStartDateMoment = yield Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toMoment, sale_start_date);
+      const saleStartDate = yield Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toDatabaseDate, saleStartDateMoment);
+      const saleStartDateInput = yield datePickerFormat ? Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toDate, saleStartDateMoment, datePickerFormat) : Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toDate, saleStartDateMoment);
+      const sale_end_date = (sale_price_data === null || sale_price_data === void 0 ? void 0 : sale_price_data.end_date) || ''; // eslint-disable-line camelcase
+      const saleEndDateMoment = yield Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toMoment, sale_end_date);
+      const saleEndDate = yield Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toDatabaseDate, saleEndDateMoment);
+      const saleEndDateInput = yield datePickerFormat ? Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toDate, saleEndDateMoment, datePickerFormat) : Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toDate, saleEndDateMoment);
       const [title, description, price, sku, iac, startDate, startDateInput, startDateMoment, endDate, endDateInput, endDateMoment, startTime, endTime, startTimeInput, endTimeInput, capacityType, capacity] = yield Object(external_tribe_modules_reduxSaga_effects_["all"])([Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempTitle, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempDescription, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempPrice, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempSku, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempIACSetting, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempStartDate, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempStartDateInput, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempStartDateMoment, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempEndDate, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempEndDateInput, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempEndDateMoment, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempStartTime, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempEndTime, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempStartTimeInput, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempEndTimeInput, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempCapacityType, props), Object(external_tribe_modules_reduxSaga_effects_["select"])(getTicketTempCapacity, props)]);
       yield Object(external_tribe_modules_reduxSaga_effects_["all"])([Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketDetails"](clientId, {
         title,
         description,
         price,
+        on_sale,
         sku,
         iac,
         startDate,
@@ -5772,8 +6430,16 @@ function* updateTicket(action) {
         startTimeInput,
         endTimeInput,
         capacityType,
-        capacity
-      })), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketSold"](clientId, capacity_details.sold)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketAvailable"](clientId, available)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketHasChanges"](clientId, false))]);
+        capacity,
+        salePriceChecked,
+        salePrice,
+        saleStartDate,
+        saleStartDateInput,
+        saleStartDateMoment,
+        saleEndDate,
+        saleEndDateInput,
+        saleEndDateMoment
+      })), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketSold"](clientId, capacity_details.sold)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketAvailable"](clientId, available)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketHasChanges"](clientId, false)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTempSalePrice"](clientId, salePrice)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTempSalePriceChecked"](clientId, salePriceChecked)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleStartDate"](clientId, saleStartDate)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleStartDateInput"](clientId, saleStartDateInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleStartDateMoment"](clientId, saleStartDateMoment)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleEndDate"](clientId, saleEndDate)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleEndDateInput"](clientId, saleEndDateInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleEndDateMoment"](clientId, saleEndDateMoment))]);
     }
   } catch (e) {
     console.error(e);
@@ -5979,6 +6645,8 @@ function* setTicketDetails(action) {
     title,
     description,
     price,
+    on_sale,
+    // eslint-disable-line camelcase
     sku,
     iac,
     startDate,
@@ -5993,9 +6661,17 @@ function* setTicketDetails(action) {
     endTimeInput,
     capacityType,
     capacity,
-    type
+    type,
+    salePriceChecked,
+    salePrice,
+    saleStartDate,
+    saleStartDateInput,
+    saleStartDateMoment,
+    saleEndDate,
+    saleEndDateInput,
+    saleEndDateMoment
   } = details;
-  yield Object(external_tribe_modules_reduxSaga_effects_["all"])([Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketAttendeeInfoFields"](clientId, attendeeInfoFields)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTitle"](clientId, title)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketDescription"](clientId, description)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketPrice"](clientId, price)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketSku"](clientId, sku)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketIACSetting"](clientId, iac)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketStartDate"](clientId, startDate)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketStartDateInput"](clientId, startDateInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketStartDateMoment"](clientId, startDateMoment)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketEndDate"](clientId, endDate)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketEndDateInput"](clientId, endDateInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketEndDateMoment"](clientId, endDateMoment)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketStartTime"](clientId, startTime)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketEndTime"](clientId, endTime)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketStartTimeInput"](clientId, startTimeInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketEndTimeInput"](clientId, endTimeInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketCapacityType"](clientId, capacityType)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketCapacity"](clientId, capacity)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketType"](clientId, type))]);
+  yield Object(external_tribe_modules_reduxSaga_effects_["all"])([Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketAttendeeInfoFields"](clientId, attendeeInfoFields)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTitle"](clientId, title)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketDescription"](clientId, description)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketPrice"](clientId, price)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketOnSale"](clientId, on_sale)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketSku"](clientId, sku)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketIACSetting"](clientId, iac)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketStartDate"](clientId, startDate)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketStartDateInput"](clientId, startDateInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketStartDateMoment"](clientId, startDateMoment)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketEndDate"](clientId, endDate)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketEndDateInput"](clientId, endDateInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketEndDateMoment"](clientId, endDateMoment)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketStartTime"](clientId, startTime)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketEndTime"](clientId, endTime)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketStartTimeInput"](clientId, startTimeInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketEndTimeInput"](clientId, endTimeInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketCapacityType"](clientId, capacityType)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketCapacity"](clientId, capacity)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketType"](clientId, type)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setSalePriceChecked"](clientId, salePriceChecked)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setSalePrice"](clientId, salePrice)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketSaleStartDate"](clientId, saleStartDate)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketSaleStartDateInput"](clientId, saleStartDateInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketSaleStartDateMoment"](clientId, saleStartDateMoment)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketSaleEndDate"](clientId, saleEndDate)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketSaleEndDateInput"](clientId, saleEndDateInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketSaleEndDateMoment"](clientId, saleEndDateMoment))]);
 }
 function* setTicketTempDetails(action) {
   const {
@@ -6019,9 +6695,17 @@ function* setTicketTempDetails(action) {
     startTimeInput,
     endTimeInput,
     capacityType,
-    capacity
+    capacity,
+    salePriceChecked,
+    salePrice,
+    saleStartDate,
+    saleStartDateInput,
+    saleStartDateMoment,
+    saleEndDate,
+    saleEndDateInput,
+    saleEndDateMoment
   } = tempDetails;
-  yield Object(external_tribe_modules_reduxSaga_effects_["all"])([Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempTitle"](clientId, title)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempDescription"](clientId, description)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempPrice"](clientId, price)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSku"](clientId, sku)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempIACSetting"](clientId, iac)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempStartDate"](clientId, startDate)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempStartDateInput"](clientId, startDateInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempStartDateMoment"](clientId, startDateMoment)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempEndDate"](clientId, endDate)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempEndDateInput"](clientId, endDateInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempEndDateMoment"](clientId, endDateMoment)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempStartTime"](clientId, startTime)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempEndTime"](clientId, endTime)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempStartTimeInput"](clientId, startTimeInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempEndTimeInput"](clientId, endTimeInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempCapacityType"](clientId, capacityType)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempCapacity"](clientId, capacity))]);
+  yield Object(external_tribe_modules_reduxSaga_effects_["all"])([Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempTitle"](clientId, title)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempDescription"](clientId, description)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempPrice"](clientId, price)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSku"](clientId, sku)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempIACSetting"](clientId, iac)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempStartDate"](clientId, startDate)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempStartDateInput"](clientId, startDateInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempStartDateMoment"](clientId, startDateMoment)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempEndDate"](clientId, endDate)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempEndDateInput"](clientId, endDateInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempEndDateMoment"](clientId, endDateMoment)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempStartTime"](clientId, startTime)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempEndTime"](clientId, endTime)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempStartTimeInput"](clientId, startTimeInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempEndTimeInput"](clientId, endTimeInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempCapacityType"](clientId, capacityType)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempCapacity"](clientId, capacity)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTempSalePriceChecked"](clientId, salePriceChecked)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTempSalePrice"](clientId, salePrice)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleStartDate"](clientId, saleStartDate)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleStartDateInput"](clientId, saleStartDateInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleStartDateMoment"](clientId, saleStartDateMoment)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleEndDate"](clientId, saleEndDate)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleEndDateInput"](clientId, saleEndDateInput)), Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleEndDateMoment"](clientId, saleEndDateMoment))]);
 }
 
 /**
@@ -6233,6 +6917,30 @@ function* handleTicketEndDate(action) {
   yield Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempEndDateInput"](clientId, dayPickerInput.state.value));
   yield Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempEndDateMoment"](clientId, endDateMoment));
 }
+function* handleTicketSaleStartDate(action) {
+  const {
+    clientId,
+    date,
+    dayPickerInput
+  } = action.payload;
+  const startDateMoment = yield date ? Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toMoment, date) : undefined;
+  const startDate = yield date ? Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toDatabaseDate, startDateMoment) : '';
+  yield Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleStartDate"](clientId, startDate));
+  yield Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleStartDateInput"](clientId, dayPickerInput.state.value));
+  yield Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleStartDateMoment"](clientId, startDateMoment));
+}
+function* handleTicketSaleEndDate(action) {
+  const {
+    clientId,
+    date,
+    dayPickerInput
+  } = action.payload;
+  const endDateMoment = yield date ? Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toMoment, date) : undefined;
+  const endDate = yield date ? Object(external_tribe_modules_reduxSaga_effects_["call"])(external_tribe_common_utils_["moment"].toDatabaseDate, endDateMoment) : '';
+  yield Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleEndDate"](clientId, endDate));
+  yield Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleEndDateInput"](clientId, dayPickerInput.state.value));
+  yield Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketTempSaleEndDateMoment"](clientId, endDateMoment));
+}
 function* handleTicketStartTime(action) {
   const {
     clientId,
@@ -6326,6 +7034,14 @@ function* handler(action) {
       yield Object(external_tribe_modules_reduxSaga_effects_["call"])(handleTicketDurationError, action.payload.clientId);
       yield Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketHasChanges"](action.payload.clientId, true));
       break;
+    case types["HANDLE_TICKET_SALE_START_DATE"]:
+      yield Object(external_tribe_modules_reduxSaga_effects_["call"])(handleTicketSaleStartDate, action);
+      yield Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketHasChanges"](action.payload.clientId, true));
+      break;
+    case types["HANDLE_TICKET_SALE_END_DATE"]:
+      yield Object(external_tribe_modules_reduxSaga_effects_["call"])(handleTicketSaleEndDate, action);
+      yield Object(external_tribe_modules_reduxSaga_effects_["put"])(actions["setTicketHasChanges"](action.payload.clientId, true));
+      break;
     case types["HANDLE_TICKET_START_TIME"]:
       yield Object(external_tribe_modules_reduxSaga_effects_["call"])(handleTicketStartTime, action);
       yield Object(external_tribe_modules_reduxSaga_effects_["call"])(handleTicketStartTimeInput, action);
@@ -6348,7 +7064,7 @@ function* handler(action) {
   }
 }
 function* watchers() {
-  yield Object(external_tribe_modules_reduxSaga_effects_["takeEvery"])([types["SET_TICKETS_INITIAL_STATE"], types["RESET_TICKETS_BLOCK"], types["SET_TICKET_INITIAL_STATE"], types["FETCH_TICKET"], types["CREATE_NEW_TICKET"], types["UPDATE_TICKET"], types["DELETE_TICKET"], types["FETCH_TICKETS_HEADER_IMAGE"], types["UPDATE_TICKETS_HEADER_IMAGE"], types["DELETE_TICKETS_HEADER_IMAGE"], types["SET_TICKET_DETAILS"], types["SET_TICKET_TEMP_DETAILS"], types["HANDLE_TICKET_START_DATE"], types["HANDLE_TICKET_END_DATE"], types["HANDLE_TICKET_START_TIME"], types["HANDLE_TICKET_END_TIME"], move_types["k" /* MOVE_TICKET_SUCCESS */], types["UPDATE_UNEDITABLE_TICKETS"]], handler);
+  yield Object(external_tribe_modules_reduxSaga_effects_["takeEvery"])([types["SET_TICKETS_INITIAL_STATE"], types["RESET_TICKETS_BLOCK"], types["SET_TICKET_INITIAL_STATE"], types["FETCH_TICKET"], types["CREATE_NEW_TICKET"], types["UPDATE_TICKET"], types["DELETE_TICKET"], types["FETCH_TICKETS_HEADER_IMAGE"], types["UPDATE_TICKETS_HEADER_IMAGE"], types["DELETE_TICKETS_HEADER_IMAGE"], types["SET_TICKET_DETAILS"], types["SET_TICKET_TEMP_DETAILS"], types["HANDLE_TICKET_START_DATE"], types["HANDLE_TICKET_END_DATE"], types["HANDLE_TICKET_START_TIME"], types["HANDLE_TICKET_END_TIME"], types["HANDLE_TICKET_SALE_START_DATE"], types["HANDLE_TICKET_SALE_END_DATE"], move_types["k" /* MOVE_TICKET_SUCCESS */], types["UPDATE_UNEDITABLE_TICKETS"]], handler);
   yield Object(external_tribe_modules_reduxSaga_effects_["fork"])(handleEventStartDateChanges);
 }
 // CONCATENATED MODULE: ./src/modules/data/blocks/ticket/index.js
@@ -6724,7 +7440,10 @@ const TicketContainerHeaderPriceLabel = _ref => {
     currencyPosition,
     currencySymbol,
     isUnlimited,
-    price
+    price,
+    showSalePrice,
+    salePrice,
+    onSale
   } = _ref;
   const getAvailableLabel = () => isUnlimited ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('unlimited', 'event-tickets') : wp.element.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, wp.element.createElement("span", {
     className: "tribe-editor__ticket__container-header-label__available"
@@ -6734,7 +7453,18 @@ const TicketContainerHeaderPriceLabel = _ref => {
   }), currencyPosition === _moderntribe_tickets_data_blocks_ticket_constants__WEBPACK_IMPORTED_MODULE_6__["SUFFIX"] && {
     suffix: currencySymbol
   });
+
+  /**
+   * Check if the ticket is on sale and the sale price is valid to be displayed.
+   */
+  const hasValidSalePrice = onSale && showSalePrice && salePrice !== '';
+
+  /**
+   * The price class to be used.
+   */
+  const priceClass = hasValidSalePrice ? 'tribe-editor__ticket__container-header-price__price--on-sale' : 'tribe-editor__ticket__container-header-price__price';
   return wp.element.createElement(react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, wp.element.createElement(react_number_format__WEBPACK_IMPORTED_MODULE_4__[/* NumericFormat */ "a"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    className: priceClass,
     allowNegative: false,
     decimalScale: currencyNumberOfDecimals,
     decimalSeparator: currencyDecimalPoint,
@@ -6743,6 +7473,16 @@ const TicketContainerHeaderPriceLabel = _ref => {
   }, numericFormatProps, {
     thousandSeparator: currencyThousandsSep,
     value: price
+  })), hasValidSalePrice && wp.element.createElement(react_number_format__WEBPACK_IMPORTED_MODULE_4__[/* NumericFormat */ "a"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    className: 'tribe-editor__ticket__container-header-price__sale-price',
+    allowNegative: false,
+    decimalScale: currencyNumberOfDecimals,
+    decimalSeparator: currencyDecimalPoint,
+    displayType: "text",
+    fixedDecimalScale: true
+  }, numericFormatProps, {
+    thousandSeparator: currencyThousandsSep,
+    value: salePrice
   })), wp.element.createElement("div", {
     className: "tribe-editor__ticket__container-header-label"
   }, getAvailableLabel()));
@@ -6755,7 +7495,10 @@ TicketContainerHeaderPriceLabel.propTypes = {
   currencySymbol: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
   currencyThousandsSep: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
   isUnlimited: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
-  price: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string
+  price: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  showSalePrice: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
+  salePrice: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  onSale: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool
 };
 const TicketContainerHeaderPrice = _ref2 => {
   let {
@@ -6766,7 +7509,10 @@ const TicketContainerHeaderPrice = _ref2 => {
     currencySymbol,
     currencyThousandsSep,
     isUnlimited,
-    price
+    price,
+    showSalePrice,
+    salePrice,
+    onSale
   } = _ref2;
   return wp.element.createElement("div", {
     className: "tribe-editor__ticket__container-header-price"
@@ -6778,7 +7524,10 @@ const TicketContainerHeaderPrice = _ref2 => {
     currencySymbol: currencySymbol,
     currencyThousandsSep: currencyThousandsSep,
     isUnlimited: isUnlimited,
-    price: price
+    price: price,
+    showSalePrice: showSalePrice,
+    salePrice: salePrice,
+    onSale: onSale
   }));
 };
 TicketContainerHeaderPrice.propTypes = {
@@ -6793,7 +7542,10 @@ TicketContainerHeaderPrice.propTypes = {
   isUnlimited: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
   onTempPriceChange: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
   price: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
-  tempPrice: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string
+  tempPrice: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  showSalePrice: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
+  salePrice: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+  onSale: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool
 };
 /* harmony default export */ __webpack_exports__["a"] = (TicketContainerHeaderPrice);
 
@@ -6864,6 +7616,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_TITLE", function() { return SET_TICKET_TITLE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_DESCRIPTION", function() { return SET_TICKET_DESCRIPTION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_PRICE", function() { return SET_TICKET_PRICE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_ON_SALE", function() { return SET_TICKET_ON_SALE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_SKU", function() { return SET_TICKET_SKU; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_IAC_SETTING", function() { return SET_TICKET_IAC_SETTING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_START_DATE", function() { return SET_TICKET_START_DATE; });
@@ -6878,6 +7631,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_END_TIME_INPUT", function() { return SET_TICKET_END_TIME_INPUT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_CAPACITY_TYPE", function() { return SET_TICKET_CAPACITY_TYPE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_CAPACITY", function() { return SET_TICKET_CAPACITY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_SALE_PRICE_CHECK", function() { return SET_TICKET_SALE_PRICE_CHECK; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_SALE_PRICE", function() { return SET_TICKET_SALE_PRICE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_SALE_START_DATE", function() { return SET_TICKET_SALE_START_DATE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_SALE_START_DATE_INPUT", function() { return SET_TICKET_SALE_START_DATE_INPUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_SALE_START_DATE_MOMENT", function() { return SET_TICKET_SALE_START_DATE_MOMENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_SALE_END_DATE", function() { return SET_TICKET_SALE_END_DATE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_SALE_END_DATE_INPUT", function() { return SET_TICKET_SALE_END_DATE_INPUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_SALE_END_DATE_MOMENT", function() { return SET_TICKET_SALE_END_DATE_MOMENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_TEMP_TITLE", function() { return SET_TICKET_TEMP_TITLE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_TEMP_DESCRIPTION", function() { return SET_TICKET_TEMP_DESCRIPTION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_TEMP_PRICE", function() { return SET_TICKET_TEMP_PRICE; });
@@ -6895,6 +7656,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_TEMP_END_TIME_INPUT", function() { return SET_TICKET_TEMP_END_TIME_INPUT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_TEMP_CAPACITY_TYPE", function() { return SET_TICKET_TEMP_CAPACITY_TYPE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_TEMP_CAPACITY", function() { return SET_TICKET_TEMP_CAPACITY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_TEMP_SALE_PRICE_CHECK", function() { return SET_TICKET_TEMP_SALE_PRICE_CHECK; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_TEMP_SALE_PRICE", function() { return SET_TICKET_TEMP_SALE_PRICE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_TEMP_SALE_START_DATE", function() { return SET_TICKET_TEMP_SALE_START_DATE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_TEMP_SALE_START_DATE_INPUT", function() { return SET_TICKET_TEMP_SALE_START_DATE_INPUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_TEMP_SALE_START_DATE_MOMENT", function() { return SET_TICKET_TEMP_SALE_START_DATE_MOMENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_TEMP_SALE_END_DATE", function() { return SET_TICKET_TEMP_SALE_END_DATE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_TEMP_SALE_END_DATE_INPUT", function() { return SET_TICKET_TEMP_SALE_END_DATE_INPUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_TEMP_SALE_END_DATE_MOMENT", function() { return SET_TICKET_TEMP_SALE_END_DATE_MOMENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_SOLD", function() { return SET_TICKET_SOLD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_AVAILABLE", function() { return SET_TICKET_AVAILABLE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_TICKET_ID", function() { return SET_TICKET_ID; });
@@ -6922,6 +7691,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HANDLE_TICKET_END_DATE", function() { return HANDLE_TICKET_END_DATE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HANDLE_TICKET_START_TIME", function() { return HANDLE_TICKET_START_TIME; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HANDLE_TICKET_END_TIME", function() { return HANDLE_TICKET_END_TIME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HANDLE_TICKET_SALE_START_DATE", function() { return HANDLE_TICKET_SALE_START_DATE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HANDLE_TICKET_SALE_END_DATE", function() { return HANDLE_TICKET_SALE_END_DATE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_TICKET", function() { return FETCH_TICKET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATE_NEW_TICKET", function() { return CREATE_NEW_TICKET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_TICKET", function() { return UPDATE_TICKET; });
@@ -6966,6 +7737,7 @@ const REMOVE_TICKET_BLOCKS = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTE
 const SET_TICKET_TITLE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_TITLE`;
 const SET_TICKET_DESCRIPTION = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_DESCRIPTION`;
 const SET_TICKET_PRICE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_PRICE`;
+const SET_TICKET_ON_SALE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_ON_SALE`;
 const SET_TICKET_SKU = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_SKU`;
 const SET_TICKET_IAC_SETTING = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_IAC_SETTING`;
 const SET_TICKET_START_DATE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_START_DATE`;
@@ -6980,6 +7752,14 @@ const SET_TICKET_START_TIME_INPUT = `${_moderntribe_tickets_data_utils__WEBPACK_
 const SET_TICKET_END_TIME_INPUT = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_END_TIME_INPUT`;
 const SET_TICKET_CAPACITY_TYPE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_CAPACITY_TYPE`;
 const SET_TICKET_CAPACITY = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_CAPACITY`;
+const SET_TICKET_SALE_PRICE_CHECK = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_SALE_PRICE_CHECK`;
+const SET_TICKET_SALE_PRICE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_SALE_PRICE`;
+const SET_TICKET_SALE_START_DATE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_SALE_START_DATE`;
+const SET_TICKET_SALE_START_DATE_INPUT = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_SALE_START_DATE_INPUT`;
+const SET_TICKET_SALE_START_DATE_MOMENT = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_SALE_START_DATE_MOMENT`;
+const SET_TICKET_SALE_END_DATE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_SALE_END_DATE`;
+const SET_TICKET_SALE_END_DATE_INPUT = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_SALE_END_DATE_INPUT`;
+const SET_TICKET_SALE_END_DATE_MOMENT = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_SALE_END_DATE_MOMENT`;
 const SET_TICKET_TEMP_TITLE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_TEMP_TITLE`;
 const SET_TICKET_TEMP_DESCRIPTION = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_TEMP_DESCRIPTION`;
 const SET_TICKET_TEMP_PRICE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_TEMP_PRICE`;
@@ -6997,6 +7777,14 @@ const SET_TICKET_TEMP_START_TIME_INPUT = `${_moderntribe_tickets_data_utils__WEB
 const SET_TICKET_TEMP_END_TIME_INPUT = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_TEMP_END_TIME_INPUT`;
 const SET_TICKET_TEMP_CAPACITY_TYPE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_TEMP_CAPACITY_TYPE`;
 const SET_TICKET_TEMP_CAPACITY = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_TEMP_CAPACITY`;
+const SET_TICKET_TEMP_SALE_PRICE_CHECK = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_TEMP_SALE_PRICE_CHECK`;
+const SET_TICKET_TEMP_SALE_PRICE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_TEMP_SALE_PRICE`;
+const SET_TICKET_TEMP_SALE_START_DATE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_TEMP_SALE_START_DATE`;
+const SET_TICKET_TEMP_SALE_START_DATE_INPUT = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_TEMP_SALE_START_DATE_INPUT`;
+const SET_TICKET_TEMP_SALE_START_DATE_MOMENT = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_TEMP_SALE_START_DATE_MOMENT`;
+const SET_TICKET_TEMP_SALE_END_DATE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_TEMP_SALE_END_DATE`;
+const SET_TICKET_TEMP_SALE_END_DATE_INPUT = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_TEMP_SALE_END_DATE_INPUT`;
+const SET_TICKET_TEMP_SALE_END_DATE_MOMENT = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_TEMP_SALE_END_DATE_MOMENT`;
 const SET_TICKET_SOLD = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_SOLD`;
 const SET_TICKET_AVAILABLE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_AVAILABLE`;
 const SET_TICKET_ID = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/SET_TICKET_ID`;
@@ -7029,6 +7817,8 @@ const HANDLE_TICKET_START_DATE = `${_moderntribe_tickets_data_utils__WEBPACK_IMP
 const HANDLE_TICKET_END_DATE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/HANDLE_TICKET_END_DATE`;
 const HANDLE_TICKET_START_TIME = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/HANDLE_TICKET_START_TIME`;
 const HANDLE_TICKET_END_TIME = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/HANDLE_TICKET_END_TIME`;
+const HANDLE_TICKET_SALE_START_DATE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/HANDLE_TICKET_SALE_START_DATE`;
+const HANDLE_TICKET_SALE_END_DATE = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/HANDLE_TICKET_SALE_END_DATE`;
 const FETCH_TICKET = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/FETCH_TICKET`;
 const CREATE_NEW_TICKET = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/CREATE_NEW_TICKET`;
 const UPDATE_TICKET = `${_moderntribe_tickets_data_utils__WEBPACK_IMPORTED_MODULE_0__[/* PREFIX_TICKETS_STORE */ "n"]}/UPDATE_TICKET`;
@@ -7408,6 +8198,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketTitle", function() { return setTicketTitle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketDescription", function() { return setTicketDescription; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketPrice", function() { return setTicketPrice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketOnSale", function() { return setTicketOnSale; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketSku", function() { return setTicketSku; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketIACSetting", function() { return setTicketIACSetting; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketStartDate", function() { return setTicketStartDate; });
@@ -7426,6 +8217,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketTempTitle", function() { return setTicketTempTitle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketTempDescription", function() { return setTicketTempDescription; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketTempPrice", function() { return setTicketTempPrice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSalePriceChecked", function() { return setSalePriceChecked; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSalePrice", function() { return setSalePrice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketSaleStartDate", function() { return setTicketSaleStartDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketSaleStartDateInput", function() { return setTicketSaleStartDateInput; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketSaleStartDateMoment", function() { return setTicketSaleStartDateMoment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketSaleEndDate", function() { return setTicketSaleEndDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketSaleEndDateInput", function() { return setTicketSaleEndDateInput; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketSaleEndDateMoment", function() { return setTicketSaleEndDateMoment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTempSalePriceChecked", function() { return setTempSalePriceChecked; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTempSalePrice", function() { return setTempSalePrice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketTempSaleStartDate", function() { return setTicketTempSaleStartDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketTempSaleStartDateInput", function() { return setTicketTempSaleStartDateInput; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketTempSaleStartDateMoment", function() { return setTicketTempSaleStartDateMoment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketTempSaleEndDate", function() { return setTicketTempSaleEndDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketTempSaleEndDateInput", function() { return setTicketTempSaleEndDateInput; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketTempSaleEndDateMoment", function() { return setTicketTempSaleEndDateMoment; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketTempSku", function() { return setTicketTempSku; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketTempIACSetting", function() { return setTicketTempIACSetting; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketTempStartDate", function() { return setTicketTempStartDate; });
@@ -7463,6 +8270,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTicketTempDetails", function() { return setTicketTempDetails; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleTicketStartDate", function() { return handleTicketStartDate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleTicketEndDate", function() { return handleTicketEndDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "processTicketSaleStartDate", function() { return processTicketSaleStartDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "processTicketSaleEndDate", function() { return processTicketSaleEndDate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleTicketStartTime", function() { return handleTicketStartTime; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleTicketEndTime", function() { return handleTicketEndTime; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchTicket", function() { return fetchTicket; });
@@ -7581,6 +8390,13 @@ const setTicketPrice = (clientId, price) => ({
   payload: {
     clientId,
     price
+  }
+});
+const setTicketOnSale = (clientId, onSale) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_ON_SALE,
+  payload: {
+    clientId,
+    onSale
   }
 });
 const setTicketSku = (clientId, sku) => ({
@@ -7712,6 +8528,262 @@ const setTicketTempPrice = (clientId, price) => ({
   payload: {
     clientId,
     price
+  }
+});
+
+/**
+ * Set the sale price checked status for a ticket.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {boolean} checked Whether the sale price is checked.
+ * @returns {{payload: {clientId, checked}, type: string}} The action.
+ */
+const setSalePriceChecked = (clientId, checked) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_SALE_PRICE_CHECK,
+  payload: {
+    clientId,
+    checked
+  }
+});
+
+/**
+ * Set the sale price for a ticket.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {string} salePrice The sale price.
+ * @returns {{payload: {clientId, salePrice}, type: string}} The action.
+ */
+const setSalePrice = (clientId, salePrice) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_SALE_PRICE,
+  payload: {
+    clientId,
+    salePrice
+  }
+});
+
+/**
+ * Set the sale start date for a ticket.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {string} startDate The start date.
+ * @returns {{payload: {clientId, startDate}, type: string}} The action.
+ */
+const setTicketSaleStartDate = (clientId, startDate) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_SALE_START_DATE,
+  payload: {
+    clientId,
+    startDate
+  }
+});
+
+/**
+ * Set the sale start date input for a ticket.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {string} startDateInput The start date input.
+ * @returns {{payload: {clientId, startDateInput}, type: string}} The action.
+ */
+const setTicketSaleStartDateInput = (clientId, startDateInput) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_SALE_START_DATE_INPUT,
+  payload: {
+    clientId,
+    startDateInput
+  }
+});
+
+/**
+ * Set the sale start date moment for a ticket.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {Object} startDateMoment The start date moment.
+ * @returns {{payload: {clientId, startDateMoment}, type: string}} The action.
+ */
+const setTicketSaleStartDateMoment = (clientId, startDateMoment) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_SALE_START_DATE_MOMENT,
+  payload: {
+    clientId,
+    startDateMoment
+  }
+});
+
+/**
+ * Set the sale end date for a ticket.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {string} endDate The end date.
+ * @returns {{payload: {clientId, endDate}, type: string}} The action.
+ */
+const setTicketSaleEndDate = (clientId, endDate) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_SALE_END_DATE,
+  payload: {
+    clientId,
+    endDate
+  }
+});
+
+/**
+ * Set the sale end date input for a ticket.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {string} endDateInput The end date input.
+ * @returns {{payload: {clientId, endDateInput}, type: string}} The action.
+ */
+const setTicketSaleEndDateInput = (clientId, endDateInput) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_SALE_END_DATE_INPUT,
+  payload: {
+    clientId,
+    endDateInput
+  }
+});
+
+/**
+ * Set the sale end date moment for a ticket.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {Object} endDateMoment The end date moment.
+ * @returns {{payload: {clientId, endDateMoment}, type: string}} The action.
+ */
+const setTicketSaleEndDateMoment = (clientId, endDateMoment) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_SALE_END_DATE_MOMENT,
+  payload: {
+    clientId,
+    endDateMoment
+  }
+});
+
+/**
+ * Set the Temp Sale Price Checked status for a ticket.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {boolean} checked Whether the sale price is checked.
+ * @returns {{payload: {clientId, checked}, type: string}} The action.
+ */
+const setTempSalePriceChecked = (clientId, checked) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_TEMP_SALE_PRICE_CHECK,
+  payload: {
+    clientId,
+    checked
+  }
+});
+
+/**
+ * Set the Temp Sale Price for a ticket.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {string} salePrice The sale price.
+ * @returns {{payload: {clientId, salePrice}, type: string}} The action.
+ */
+const setTempSalePrice = (clientId, salePrice) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_TEMP_SALE_PRICE,
+  payload: {
+    clientId,
+    salePrice
+  }
+});
+
+/**
+ * Set the Temp Sale Start Date for a ticket.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {string} startDate The start date.
+ * @returns {{payload: {clientId, startDate}, type: string}} The action.
+ */
+const setTicketTempSaleStartDate = (clientId, startDate) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_TEMP_SALE_START_DATE,
+  payload: {
+    clientId,
+    startDate
+  }
+});
+
+/**
+ * Set the Temp Sale Start Date input for a ticket.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {string} startDateInput The start date input.
+ * @returns {{payload: {clientId, startDateInput}, type: string}} The action.
+ */
+const setTicketTempSaleStartDateInput = (clientId, startDateInput) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_TEMP_SALE_START_DATE_INPUT,
+  payload: {
+    clientId,
+    startDateInput
+  }
+});
+
+/**
+ * Set the Temp Sale Start Date moment for a ticket.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {Object} startDateMoment The start date moment.
+ * @returns {{payload: {clientId, startDateMoment}, type: string}} The action.
+ */
+const setTicketTempSaleStartDateMoment = (clientId, startDateMoment) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_TEMP_SALE_START_DATE_MOMENT,
+  payload: {
+    clientId,
+    startDateMoment
+  }
+});
+
+/**
+ * Set the Temp Sale End Date for a ticket.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {string} endDate The end date.
+ * @returns {{payload: {clientId, endDate}, type: string}} The action.
+ */
+const setTicketTempSaleEndDate = (clientId, endDate) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_TEMP_SALE_END_DATE,
+  payload: {
+    clientId,
+    endDate
+  }
+});
+
+/**
+ * Set the Temp Sale End Date input for a ticket.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {string} endDateInput The end date input.
+ * @returns {{payload: {clientId, endDateInput}, type: string}} The action.
+ */
+const setTicketTempSaleEndDateInput = (clientId, endDateInput) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_TEMP_SALE_END_DATE_INPUT,
+  payload: {
+    clientId,
+    endDateInput
+  }
+});
+
+/**
+ * Set the Temp Sale End Date moment for a ticket.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {Object} endDateMoment The end date moment.
+ * @returns {{payload: {clientId, endDateMoment}, type: string}} The action.
+ */
+const setTicketTempSaleEndDateMoment = (clientId, endDateMoment) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].SET_TICKET_TEMP_SALE_END_DATE_MOMENT,
+  payload: {
+    clientId,
+    endDateMoment
   }
 });
 const setTicketTempSku = (clientId, sku) => ({
@@ -7969,6 +9041,42 @@ const handleTicketStartDate = (clientId, date, dayPickerInput) => ({
 });
 const handleTicketEndDate = (clientId, date, dayPickerInput) => ({
   type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].HANDLE_TICKET_END_DATE,
+  payload: {
+    clientId,
+    date,
+    dayPickerInput
+  }
+});
+
+/**
+ * Process the ticket sale start date.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {string} date The date.
+ * @param {string} dayPickerInput The day picker input.
+ * @returns {{payload: {date, dayPickerInput, clientId}, type: string}} The action.
+ */
+const processTicketSaleStartDate = (clientId, date, dayPickerInput) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].HANDLE_TICKET_SALE_START_DATE,
+  payload: {
+    clientId,
+    date,
+    dayPickerInput
+  }
+});
+
+/**
+ * Process the ticket sale end date.
+ *
+ * @since 5.9.0
+ * @param {string} clientId The client ID of the ticket.
+ * @param {string} date The date.
+ * @param {string} dayPickerInput The day picker input.
+ * @returns {{payload: {date, dayPickerInput, clientId}, type: string}} The action.
+ */
+const processTicketSaleEndDate = (clientId, date, dayPickerInput) => ({
+  type: _moderntribe_tickets_data_blocks_ticket__WEBPACK_IMPORTED_MODULE_0__[/* types */ "g"].HANDLE_TICKET_SALE_END_DATE,
   payload: {
     clientId,
     date,

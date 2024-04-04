@@ -251,7 +251,6 @@ export default () => {
           disabled={!prestoPlayer?.isPremium}
           option={{ id: "player_css" }}
           value={branding?.player_css}
-          key={branding?.player_css}
           onChange={(player_css) => updateBranding({ player_css })}
         />
       </Group>

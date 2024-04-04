@@ -19,7 +19,7 @@ use function current_user_can;
 use function do_action;
 use function esc_html__;
 use function get_bloginfo;
-use function mb_convert_encoding;
+use function mb_encode_numericentity;
 use function update_option;
 use function wp_create_nonce;
 use function wp_kses_stripslashes;
@@ -124,14 +124,15 @@ class Lazy_Load_Manager extends Setting_Base {
 	 */
 	public static function table_html_shortcode( $html, $force = false ) {
 		// ext-mbstring check
-		if ( function_exists( 'mb_convert_encoding' ) ) {
+		if ( function_exists( 'mb_encode_numericentity' ) ) {
 			$is_lazy_load_enabled = $force || static::get_instance()->get_settings()['enabled'];
 			$dom_handler          = new DOMDocument();
 
 			$charset = get_bloginfo( 'charset' );
 
-			// need to provide a to_encoding value for mb_convert_encoding since that value is nullable only for PHP 8.0+
-			$handle_status = @$dom_handler->loadHTML( mb_convert_encoding( $html, 'HTML-ENTITIES', $charset ), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOWARNING | LIBXML_NOERROR );
+			$converted_html = mb_encode_numericentity( $html, [ 0x80, 0x10ffff, 0, 0xffff ], $charset );
+
+			$handle_status = @$dom_handler->loadHTML( $converted_html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOWARNING | LIBXML_NOERROR );
 
 			if ( $handle_status ) {
 				$dom_query      = new DOMXPath( $dom_handler );

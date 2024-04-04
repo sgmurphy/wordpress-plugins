@@ -21,12 +21,16 @@ use OMGF\Admin\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * @codeCoverageIgnore
+ */
 class V534 {
 	/** @var $version string The version number this migration script was introduced with. */
 	private $version = '5.3.4';
 
 	/**
 	 * Buid
+	 *
 	 * @return void
 	 */
 	public function __construct() {
@@ -35,6 +39,7 @@ class V534 {
 
 	/**
 	 * Initialize
+	 *
 	 * @return void
 	 */
 	private function init() {
@@ -48,6 +53,7 @@ class V534 {
 				foreach ( $variants as $key => $variant ) {
 					/**
 					 * Optimized Fonts needs upgrading if $variants is still an indexed array.
+					 *
 					 * @since v5.3.0 $variants should be an associative array.
 					 */
 					if ( is_numeric( $key ) ) {

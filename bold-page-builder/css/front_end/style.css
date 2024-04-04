@@ -335,26 +335,32 @@ body:not(.bt_bb_fe_preview_toggle) .bt_bb_fe_editing_box:not(.bt_bb_floating_ima
 	position: relative;
 }
 
-body:not(.bt_bb_fe_preview_toggle) .bt_bb_fe_edit_box:hover {
+body:not(.bt_bb_fe_preview_toggle) .bt_bb_fe_edit_box {
 	cursor: pointer;
+}
+
+body.bt_bb_fe_preview_toggle .bt_bb_fe_before {
+	display: none !important;
 }
 
 .bt_bb_fe_before {
 	content: '';
 	position: absolute;
-	top: -5px;
-	bottom: -5px;
-	left: -5px;
-	right: -5px;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
 	width: auto;
 	height: auto;
     visibility: visible;
 	/* box-shadow: inset 0px 0px 0px 2px steelblue; */
 	border: 2px dotted steelblue;
 	opacity: .5;
-	&:hover {
+	min-height: 1px;
+	cursor: pointer;
+	/*&:hover {
 		background: lightblue;
-	}
+	}*/
 	.bt_bb_section > & {
 		top: 0px;
 		bottom: 0px;
@@ -365,7 +371,11 @@ body:not(.bt_bb_fe_preview_toggle) .bt_bb_fe_edit_box:hover {
 		top: 0px;
 		bottom: 0px;
 		left: 0px;
-		right: 0px;	
+		right: 0px;
+		background: none;
+	}
+	.bt_bb_fe_edit_box > & {
+		background: lightblue;
 	}
 	/*.bt_bb_separator > &,
 	.bt_bb_separator_v2  > & {
@@ -384,15 +394,23 @@ body:not(.bt_bb_fe_preview_toggle) .bt_bb_fe_editing_box > .bt_bb_fe_before {
 /* fix: bt_bb_separator */
 body:not(.bt_bb_fe_preview_toggle) .bt_bb_separator.bt_bb_top_spacing_none.bt_bb_bottom_spacing_none.bt_bb_fe_edit_box > .bt_bb_fe_before, 
 body:not(.bt_bb_fe_preview_toggle) .bt_bb_separator.bt_bb_top_spacing_none.bt_bb_bottom_spacing_none.bt_bb_fe_editing_box > .bt_bb_fe_before {
+	/*min-height: 20px;
+	top: -10px;*/
+}
+
+body:not(.bt_bb_fe_preview_toggle) .bt_bb_separator {
 	min-height: 20px;
-	top: -10px;
 }
 
 /* fix: bt_bb_separator_v2 */
 body:not(.bt_bb_fe_preview_toggle) .bt_bb_separator_v2.bt_bb_top_spacing_none.bt_bb_bottom_spacing_none.bt_bb_fe_edit_box > .bt_bb_fe_before, 
 body:not(.bt_bb_fe_preview_toggle) .bt_bb_separator_v2.bt_bb_top_spacing_none.bt_bb_bottom_spacing_none.bt_bb_fe_editing_box > .bt_bb_fe_before {
+	/*min-height: 20px;
+	top: -10px;*/
+}
+
+body:not(.bt_bb_fe_preview_toggle) .bt_bb_separator_v2 {
 	min-height: 20px;
-	top: -10px;
 }
 
 body.logged-in.bt_bb_plugin_active:not(.bt_bb_fe_preview_toggle) {
@@ -416,13 +434,13 @@ body:not(.bt_bb_fe_preview_toggle) .bt_bb_slider.bt_bb_fe_editing_box > .bt_bb_f
 /* fix: bt_bb_button */
 body:not(.bt_bb_fe_preview_toggle) .bt_bb_button.bt_bb_fe_edit_box .bt_bb_fe_before, 
 body:not(.bt_bb_fe_preview_toggle) .bt_bb_button.bt_bb_fe_editing_box .bt_bb_fe_before {
-	z-index: 1;
+	z-index: 15; /* float fix, .bt_bb_slider.bt_bb_fe_editing_box > .bt_bb_fe_before has z-index 11 so 15 is ok?  */
 }
 
 /* fix: bt_bb_icon */
 body:not(.bt_bb_fe_preview_toggle) .bt_bb_icon.bt_bb_fe_edit_box > .bt_bb_fe_before, 
 body:not(.bt_bb_fe_preview_toggle) .bt_bb_icon.bt_bb_fe_editing_box > .bt_bb_fe_before {
-	z-index: 1;
+	z-index: 15; /* float fix, .bt_bb_slider.bt_bb_fe_editing_box > .bt_bb_fe_before has z-index 11 so 15 is ok?  */
 }
 
 body:not(.bt_bb_fe_preview_toggle) .bt_bb_icon.bt_bb_fe_edit > .bt_bb_icon_holder[data-ico-="&#x;"]:before {
@@ -462,7 +480,7 @@ body:not(.bt_bb_fe_preview_toggle) .bt_bb_headline.bt_bb_fe_editing_box > .bt_bb
 body:not(.bt_bb_fe_preview_toggle) .bt_bb_image.bt_bb_fe_edit_box > .bt_bb_fe_before, 
 body:not(.bt_bb_fe_preview_toggle) .bt_bb_image.bt_bb_fe_editing_box > .bt_bb_fe_before {
 	/* fix: transform: scale3d */
-	z-index: 1;
+	z-index: 15; /* float fix, .bt_bb_slider.bt_bb_fe_editing_box > .bt_bb_fe_before has z-index 11 so 15 is ok?  */
 	/* fix: rounded images */
 	border-radius: inherit;
 }
@@ -1416,6 +1434,17 @@ body.bt_bb_fe_add_section {
 	}
 }
 
+/* drag and drop related */
+
+body.logged-in.bt_bb_plugin_active:not(.bt_bb_fe_preview_toggle) {
+	.bt_bb_column {
+		min-height: 40px;
+	}
+	.bt_bb_column_inner {
+		min-height: 30px;
+	}
+}
+
 .bt_bb_dd_tip {
 	position: fixed;
 	background: white;
@@ -1425,4 +1454,8 @@ body.bt_bb_fe_add_section {
 	border: 1px solid rgba(0, 0, 0, .25);
 	pointer-events: none;
 	padding: 0 .75em;
+	z-index: 100000;
+	font-family: sans-serif;
+	font-size: 12px;
+	display: none;
 }

@@ -2027,6 +2027,10 @@ if (!function_exists('element_pack_array_except')) {
 if (!function_exists('bdt_license_validation')) {
 	function bdt_license_validation() {
 
+		if ( ! class_exists( 'ElementPack\Base\Element_Pack_Base' ) ) {
+            return false;
+        }
+
 		$license_key = get_option(Element_Pack_Base::get_lic_key_param('element_pack_license_key'));
 
 		if (isset($license_key) && !empty($license_key)) {

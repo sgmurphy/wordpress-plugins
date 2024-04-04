@@ -21,8 +21,10 @@ use OMGF\Helper as OMGF;
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * @codeCoverageIgnore
+ */
 class V560 {
-
 	/** @var $version string The version number this migration script was introduced with. */
 	private $version = '5.6.0';
 

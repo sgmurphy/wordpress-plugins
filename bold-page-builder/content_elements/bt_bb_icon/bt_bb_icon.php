@@ -40,11 +40,6 @@ class bt_bb_icon extends BT_BB_Element {
 		
 		if ( $color_scheme != '' ) $class[] = $this->prefix . 'color_scheme_' .  $color_scheme_id;
 		
-		// var_dump( $color_scheme );
-		// var_dump( $color_scheme_id );
-		// var_dump( $color_scheme_colors );
-		// var_dump( bt_bb_get_color_scheme_array() );
-
 		$style_attr = '';
 		$el_style = apply_filters( $this->shortcode . '_style', $el_style, $atts );
 		if ( $el_style != '' ) {

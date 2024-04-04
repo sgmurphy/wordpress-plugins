@@ -11,7 +11,7 @@
      ];
 
 ?>
-<div<?php echo wp_kses_data( get_block_wrapper_attributes() ); ?>>
+<?php echo "<div " . wp_kses_data( get_block_wrapper_attributes() ) . ">"; ?>
     <div class="<?php echo esc_attr( implode( ' ', $_parent_classes ) ); ?>">
         <div
             class="<?php echo esc_attr( implode( ' ', $_wrapper_classes ) ); ?> eb-post-grid-wrapper"

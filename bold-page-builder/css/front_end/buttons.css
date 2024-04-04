@@ -159,4 +159,9 @@
 	&.bt_bb_style_clean a:hover {
 		color: var(--secondary-color);
 	}
+	&:not(.bt_bb_fe_editing) .bt_bb_fe_before:not(:hover) {
+		display: block;
+		border: 0;
+		z-index: 15; /* float fix, .bt_bb_slider.bt_bb_fe_editing_box > .bt_bb_fe_before in style.css has z-index 11 so 15 is ok?  */
+	}
 }

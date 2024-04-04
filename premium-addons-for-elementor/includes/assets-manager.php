@@ -236,14 +236,8 @@ class Assets_Manager {
 
 		$is_edit_mode = Helper_Functions::is_edit_mode();
 
-        if( $is_edit_mode ) {
-            return;
-        }
-
-        //Keep the $is_updated set to false, will enqueue the CSS files on the frontpage.
-		if ( ! $this->is_built_with_elementor() ) {
-			self::$is_updated = 'updated';
-            return;
+		if ( ! $this->is_built_with_elementor() || $is_edit_mode ) {
+			return;
 		}
 
 		$this->set_post_id();

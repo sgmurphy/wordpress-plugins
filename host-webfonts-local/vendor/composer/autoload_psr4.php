@@ -6,5 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'OMGF\\Tests\\Unit\\' => array($baseDir . '/tests/unit'),
+    'OMGF\\Tests\\Integration\\' => array($baseDir . '/tests/integration'),
+    'OMGF\\Tests\\' => array($baseDir . '/tests'),
     'OMGF\\' => array($baseDir . '/src'),
 );

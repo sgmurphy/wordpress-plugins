@@ -2,7 +2,7 @@
 Contributors: dnesscarkey
 Tags: custom fonts, font embed, font uploader, typography, install font 
 Requires at least: 3.0
-Tested up to: 6.4.2
+Tested up to: 6.5
 Stable tag: 6.3.05
 
 Upload custom fonts using font uploader. Custom fonts are auto converted to compressed woff2 for better performance. Self Hosted & GDPR compliant custom font plugin.

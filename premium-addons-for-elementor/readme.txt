@@ -1,11 +1,11 @@
-﻿=== Premium Addons for Elementor ===
+=== Premium Addons for Elementor ===
 Contributors: Leap13, Rimoun
 Tags: elementor, elementor addons, widgets, elementor elements, templates
 Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme
 Requires at least: 5.0
 Tested Up To: 6.5
 Requires PHP: 7.0
-Stable Tag: 4.10.26
+Stable Tag: 4.10.27
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -241,6 +241,12 @@ Premium Addonsis 100% Ads Free, Ads can only be detected from Youtube videos, th
 14. Premium Progress Bar Widget
 
 == Changelog ==
+
+= 4.10.27 =
+
+- Fixed: Unnecessary files loaded on website's dashboard.
+- Fixed: Layout broken in some cases when Dynamic Assets Generate feature is enabled.
+- Fixed: Enable SVG Draw option hidden when Hide Plugin Row Meta Links white-labeling option enabled.
 
 = 4.10.26 =
 

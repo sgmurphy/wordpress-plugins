@@ -18,6 +18,7 @@ update_option($pluginManagerInstance->get_option_name('load-css-inline'), $v, fa
 if ($v && is_file($pluginManagerInstance->getCssFile())) {
 unlink($pluginManagerInstance->getCssFile());
 }
+$pluginManagerInstance->handleCssFile();
 header('Location: admin.php?page=' . sanitize_text_field($_GET['page']) . '&tab=advanced');
 exit;
 }
@@ -26,6 +27,7 @@ check_admin_referer('ti-delete-css');
 if (is_file($pluginManagerInstance->getCssFile())) {
 unlink($pluginManagerInstance->getCssFile());
 }
+$pluginManagerInstance->handleCssFile();
 header('Location: admin.php?page=' . sanitize_text_field($_GET['page']) . '&tab=advanced');
 exit;
 }
@@ -38,7 +40,7 @@ exit;
 }
 $yesIcon = '<span class="dashicons dashicons-yes-alt"></span>';
 $noIcon = '<span class="dashicons dashicons-dismiss"></span>';
-$pluginUpdated = ($pluginManagerInstance->get_plugin_current_version() <= "11.7.1");
+$pluginUpdated = ($pluginManagerInstance->get_plugin_current_version() <= "11.8.2");
 $cssInline = get_option($pluginManagerInstance->get_option_name('load-css-inline'), 0);
 $css = get_option($pluginManagerInstance->get_option_name('css-content'));
 ?>

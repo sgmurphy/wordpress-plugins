@@ -16,7 +16,7 @@ class bt_bb_separator extends BT_BB_Element {
 		) ), $atts, $this->shortcode ) );
 		
 		$text = html_entity_decode( $text, ENT_QUOTES, 'UTF-8' );
-		if ( $text != '' ) $text = '<span class="bt_bb_separator_v2_inner_text">' . $text . '</span>';
+		if ( $text != '' ) $text = '<span class="bt_bb_separator_v2_inner_text">' . wp_kses_post( $text ) . '</span>';
 		
 		// $class = array( $this->shortcode );
 		$class = array( $this->shortcode . '_v2' );

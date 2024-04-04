@@ -396,7 +396,7 @@ function gtm4wp_woocommerce_datalayer_filter_items( $data_layer ) {
 			$data_layer['customerBillingPostcode']  = $woo_customer->get_billing_postcode();
 			$data_layer['customerBillingCountry']   = $woo_customer->get_billing_country();
 			$data_layer['customerBillingEmail']     = $woo_customer->get_billing_email();
-			$data_layer['customerBillingEmailHash'] = hash( 'sha256', $woo_customer->get_billing_email() );
+			$data_layer['customerBillingEmailHash'] = gtm4wp_normalize_and_hash_email_address( 'sha256', $woo_customer->get_billing_email() );
 			$data_layer['customerBillingPhone']     = $woo_customer->get_billing_phone();
 
 			$data_layer['customerShippingFirstName'] = $woo_customer->get_shipping_first_name();
@@ -1256,6 +1256,7 @@ function gtm4wp_woocommerce_get_product_list_item_extra_tag( $product, $listtype
 			'productlink'    => $permalink,
 			'item_list_name' => $list_name,
 			'index'          => (int) $itemix + ( $posts_per_page * ( $paged - 1 ) ),
+			'product_type'   => $product->get_type(),
 		),
 		'productlist'
 	);

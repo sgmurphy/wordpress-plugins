@@ -183,6 +183,9 @@ class bt_bb_headline extends BT_BB_Element {
 		}
 		
 		$headline = nl2br( $headline );
+		
+		// XSS fix
+		$html_tag = substr( $html_tag, 0, 2 );
 
 		$output = '<header' . $id_attr . ' class="' . esc_attr( $class_attr ) . '"' . $style_attr . ' data-bt-override-class="' . htmlspecialchars( json_encode( $data_override_class, JSON_FORCE_OBJECT ), ENT_QUOTES, 'UTF-8' ) . '">';
 		if ( $superheadline_outside != '' ) $output .= '<div class="' . $this->shortcode . '_superheadline_outside' . '">' . $superheadline_outside . '</div>';

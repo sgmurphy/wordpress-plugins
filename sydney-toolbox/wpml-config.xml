@@ -76,5 +76,12 @@
         <field type="Timeline: text">text</field>
       </fields-in-item>
     </widget>    
+    <widget name="athemes-testimonials">
+      <fields-in-item items_of="testimonials_list">
+        <field type="Testimonial: Name" editor_type="LINE">name</field>
+        <field type="Testimonial: Position" editor_type="LINE">position</field>
+        <field type="Testimonial: Testimonial" editor_type="LINE">testimonial</field>
+      </fields-in-item>      
+    </widget>    
   </elementor-widgets>
 </wpml-config>

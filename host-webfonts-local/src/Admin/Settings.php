@@ -20,6 +20,9 @@ use OMGF\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Settings extends Admin {
 	const OMGF_ADMIN_PAGE = 'optimize-webfonts';
 
@@ -85,9 +88,11 @@ class Settings extends Admin {
 		'latin'               => 'Latin',
 		'latin-ext'           => 'Latin Extended',
 		'malayalam'           => 'Malayalam',
+		'math'                => 'Math',
 		'myanmar'             => 'Myanmar',
 		'oriya'               => 'Oriya',
 		'sinhala'             => 'Sinhala',
+		'symbols'             => 'Symbols',
 		'tamil'               => 'Tamil',
 		'telugu'              => 'Telugu',
 		'thai'                => 'Thai',
@@ -156,6 +161,8 @@ class Settings extends Admin {
 	/**
 	 * Advanced Settings
 	 */
+	const OMGF_ADV_SETTING_LEGACY_MODE          = 'legacy';
+
 	const OMGF_ADV_SETTING_COMPATIBILITY        = 'compatibility';
 
 	const OMGF_ADV_SETTING_SUBSETS              = 'subsets';
@@ -246,26 +253,27 @@ class Settings extends Admin {
 			wp_die( __( "You're not cool enough to access this page.", 'host-webfonts-local' ) );
 		}
 		?>
-        <div class="wrap omgf">
-            <h1><?php echo apply_filters( 'omgf_settings_page_title', __( 'OMGF | Optimize My Google Fonts', 'host-webfonts-local' ) ); ?></h1>
+		<div class="wrap omgf">
+			<h1><?php echo apply_filters( 'omgf_settings_page_title', __( 'OMGF | Optimize My Google Fonts', 'host-webfonts-local' ) ); ?></h1>
 
-            <p>
+			<p>
 				<?php echo get_plugin_data( OMGF_PLUGIN_FILE )[ 'Description' ]; ?>
-            </p>
+			</p>
 
-            <div class="settings-column">
-                <h2 class="omgf-nav nav-tab-wrapper">
+			<div class="settings-column">
+				<h2 class="omgf-nav nav-tab-wrapper">
 					<?php do_action( 'omgf_settings_tab' ); ?>
-                </h2>
+				</h2>
 
 				<?php do_action( 'omgf_settings_content' ); ?>
-            </div>
-        </div>
+			</div>
+		</div>
 		<?php
 	}
 
 	/**
 	 * Register all settings.
+	 *
 	 * @throws ReflectionException
 	 */
 	public function register_settings() {
@@ -286,6 +294,7 @@ class Settings extends Admin {
 
 	/**
 	 * Get all settings using the constants in this class.
+	 *
 	 * @return array
 	 * @throws ReflectionException
 	 */
@@ -310,7 +319,7 @@ class Settings extends Admin {
 		$settings = array_filter(
 			$constants,
 			function ( $key ) use ( $needle ) {
-				return strpos( $key, $needle ) !== false;
+				return str_contains( $key, $needle );
 			},
 			ARRAY_FILTER_USE_KEY
 		);
@@ -324,6 +333,7 @@ class Settings extends Admin {
 
 	/**
 	 * Add Local Fonts tab to Settings Screen.
+	 *
 	 * @return void
 	 */
 	public function optimize_fonts_tab() {
@@ -337,10 +347,10 @@ class Settings extends Admin {
 	 */
 	private function generate_tab( $id, $icon = null, $label = null ) {
 		?>
-        <a class="nav-tab dashicons-before <?php echo $icon; ?> <?php echo $this->active_tab == $id ? 'nav-tab-active' : ''; ?>"
-           href="<?php echo $this->generate_tab_link( $id ); ?>">
+		<a class="nav-tab dashicons-before <?php echo $icon; ?> <?php echo $this->active_tab == $id ? 'nav-tab-active' : ''; ?>"
+		   href="<?php echo $this->generate_tab_link( $id ); ?>">
 			<?php echo $label; ?>
-        </a>
+		</a>
 		<?php
 	}
 
@@ -369,6 +379,7 @@ class Settings extends Admin {
 
 	/**
 	 * Add Help Tab to Settings Screen.
+	 *
 	 * @return void
 	 */
 	public function help_tab() {
@@ -390,7 +401,7 @@ class Settings extends Admin {
 			return;
 		}
 		?>
-        <form id="<?php echo esc_attr( $field ); ?>-form" name="omgf-settings-form" method="post" action="<?php echo apply_filters(
+		<form id="<?php echo esc_attr( $field ); ?>-form" name="omgf-settings-form" method="post" action="<?php echo apply_filters(
 			'omgf_form_action',
 			admin_url( 'options.php?tab=' . $this->active_tab ),
 			$this->page,
@@ -401,6 +412,7 @@ class Settings extends Admin {
 			settings_fields( $field );
 			/**
 			 * We use a custom update action, so we can group all settings in one DB row upon form submit.
+			 *
 			 * @see \OMGF\Helper update_options()
 			 */
 			$settings_fields = ob_get_clean();
@@ -418,7 +430,7 @@ class Settings extends Admin {
 			<?php if ( $this->active_tab !== self::OMGF_SETTINGS_FIELD_HELP ) : ?>
 				<?php submit_button( $this->submit_button_text, 'primary', 'submit', false, empty( $this->get_settings() ) ? 'disabled' : null ); ?>
 			<?php endif; ?>
-        </form>
+		</form>
 		<?php
 	}
 
@@ -438,6 +450,7 @@ class Settings extends Admin {
 
 	/**
 	 * Render Help content
+	 *
 	 * @return void
 	 */
 	public function help_content() {
@@ -459,6 +472,7 @@ class Settings extends Admin {
 
 	/**
 	 * Changes footer text.
+	 *
 	 * @return string
 	 */
 	public function footer_text_left() {
@@ -483,7 +497,7 @@ class Settings extends Admin {
 		/**
 		 * If a WordPress update is available, show the original text.
 		 */
-		if ( strpos( $text, 'Get Version' ) !== false ) {
+		if ( str_contains( $text, 'Get Version' ) ) {
 			return $text;
 		}
 

@@ -1229,7 +1229,7 @@
 					}
 				});
 			}
-
+			
 			_thisObj.changeUrlByFilterParams($filtersDataFrontend);
 			_thisObj.QStringWork('wpf_reload', '', noWooPage, $filterWrapper, 'remove');
 
@@ -1261,6 +1261,12 @@
 				'open_one_by_one': $generalSettings['settings']['open_one_by_one'] ? $generalSettings['settings']['open_one_by_one'] : '',
 				'obo_only_children': $generalSettings['settings']['obo_only_children'] ? $generalSettings['settings']['obo_only_children'] : '',
 			};
+			var $withPerPage = $filterWrapper.find('select.wpfPerPageDD'),
+				perPageCount = $withPerPage.length ? $withPerPage.find('option:selected') : '';
+			if (perPageCount.length) {
+				$filterSettings['count_product_shop'] = perPageCount.val();
+			}
+				
 			$filterSettings['sort_by_title'] = ($generalSettings['settings']['sort_by_title'] != undefined && $generalSettings['settings']['sort_by_title'] == '1' ? true : false);
 			if (typeof $defQuery !== 'undefined' && $defQuery.length) $filterSettings['default_query'] = JSON.parse($defQuery);
                         
@@ -1297,7 +1303,7 @@
 			$queryVars = JSON.stringify($queryVars);
 			$shortcodeAttr = JSON.stringify($shortcodeAttr);
 			
-			if ($filterSettings['count_product_shop'] > 0) {
+			if ($filterSettings['count_product_shop'] > 0 && !clearAll) {
 				_thisObj.QStringWork('wpf_count', $filterSettings['count_product_shop'], noWooPage, $filterWrapper, 'change');
 			}
 			if ($filterSettings['sort_by_title']) {
@@ -1558,6 +1564,7 @@
 			}
 			if(clearAll) {
 				_thisObj.QStringWork('wpf_order', '', noWooPage, $filterWrapper, 'remove');
+				_thisObj.QStringWork('wpf_count', '', noWooPage, $filterWrapper, 'remove');
 				_thisObj.QStringWork('all_products_filtering', '', noWooPage, $filterWrapper, 'remove');
 				_thisObj.QStringWork('wpf_oistock', '', noWooPage, $filterWrapper, 'remove');
 				_thisObj.QStringWork('wpf_fbv', '', noWooPage, $filterWrapper, 'remove');
@@ -2558,7 +2565,7 @@
 			var elem = $filter.find('input:checked').closest('li'),
 				name = elem.find('.wpfFilterTaxNameWrapper').html();
 		} else {
-			var elem = $filter.find('option:selected'),
+			var elem = $filter.find('select:not(.wpfPerPageDD)').find('option:selected'),
 				name = elem.html();
 		}
 		if (elem.length) {

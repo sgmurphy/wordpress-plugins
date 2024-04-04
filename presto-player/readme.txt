@@ -3,8 +3,8 @@ Contributors: 2winfactor, wpcrafter
 Donate link: https://prestoplayer.com
 Tags: video, audio, youtube, vimeo, lms, elementor, learndash, beaver builder, lifterlms
 Requires at least: 5.6
-Tested up to: 6.4
-Stable tag: 2.3.1
+Tested up to: 6.5
+Stable tag: 2.3.2
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -149,6 +149,9 @@ It is also important to point out that BunnyNet has a $1 per month minimum.
 
 
 == Changelog ==
+
+= 2.3.2 =
+* Fix: Custom css box sometimes losing focus during typing.
 
 = 2.3.1 =
 * Fix: Ensure new media items can be created on playlist block when no media items are present.

@@ -78,6 +78,8 @@ export default function Edit(props) {
         enableLink,
     } = attributes;
 
+    let urls = image.url;
+
     // this useEffect is for creating a unique id for each block's unique className by a random unique number
     useEffect(() => {
         const BLOCK_PREFIX = "eb-advanced-image";
@@ -88,6 +90,11 @@ export default function Edit(props) {
             select,
             clientId,
         });
+
+        // for old version support
+        if (imgSource === undefined && image.url.length > 0) {
+            setAttributes({ imgSource: 'custom' });
+        }
     }, []);
 
     const blockProps = useBlockProps({
@@ -95,7 +102,7 @@ export default function Edit(props) {
     });
 
     // Get only urls
-    let urls = image.url;
+
     const oldImageData = wp.data.select("core").getMedia(image.id);
     const prevImageSize = useRef(imageSize);
 
@@ -483,7 +490,6 @@ export default function Edit(props) {
 
                 {!imgSource && (
                     <>
-
                         <div className="eb-adv-img-editor-source-select">
                             <h2>Please Select an Image Source</h2>
                             <div
@@ -545,7 +551,7 @@ export default function Edit(props) {
                 {imgSource && (
                     <>
                         <>
-                            {imgSource === 'custom' && (
+                            {imgSource === 'custom' && urls.length == 0 && (
                                 <>
                                     {image.url === "" && (
                                         <MediaPlaceholder
@@ -630,7 +636,7 @@ export default function Edit(props) {
                             )}
                         </>
 
-                        {((imgSource === 'custom' && urls) || (imgSource === 'featured-img' && featuredImage != 0)) && (
+                        {((imgSource === 'custom' && urls.length > 0) || (imgSource === 'featured-img' && featuredImage != 0)) && (
                             <>
                                 <BlockControls>
                                     <ToolbarGroup>

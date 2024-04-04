@@ -1146,7 +1146,7 @@ class WoofiltersViewWpf extends ViewWpf {
 		}
 
 		$noActive = $optionsSelected ? '' : 'wpfNotActive';
-
+		
 		$html =
 			'<div class="wpfFilterWrapper ' . $noActive . '"' .
 				$this->setFitlerId() .
@@ -1159,6 +1159,30 @@ class WoofiltersViewWpf extends ViewWpf {
 
 		$html .= $this->generateFilterHeaderHtml($filter, $filterSettings, $noActive);
 		$html .= $this->generateDescriptionHtml($filter);
+		
+		$perPage = '';
+		$perPageLeft = false;
+		if ($this->getFilterSetting($settings, 'f_show_per_page', false)) {
+			$perPageList = explode(',', $this->getFilterSetting($settings, 'f_per_page_list', '48,24,12'));
+			$perPageLeft = $this->getFilterSetting($settings, 'f_per_page_position', 'left') == 'left';
+			$perPage = '<select class="wpfPerPageDD">';
+			if ( ReqWpf::getVar('wpf_count') ) {
+				$countSelected = ReqWpf::getVar('wpf_count');
+			} else {
+				$countSelected = empty($perPageList) ? 0 : $perPageList[0];
+			}
+		
+			foreach ($perPageList as $l) {
+				$n = (int) trim($l);
+				if (!empty($n)) {
+					$perPage .= '<option value="' . $n . '"' . ( $n == $countSelected ? ' selected' : '' ) . '>' . $n . '</option>';
+				}
+			}
+			$perPage .= '</select>';
+			$this->setFilterCss('#' . self::$blockId . ' .wpfFilterContent {display:flex}');
+			$this->setFilterCss('#' . self::$blockId . ' .wpfPerPageDD {margin-' . ( $perPageLeft ? 'right' : 'left' ) . ': 2px;}');
+		}
+		
 
 		self::$leer = true;
 		$htmlOpt    = $this->generateTaxonomyOptionsHtml( $productSortBy, $sortBySelected, $filter );
@@ -1167,7 +1191,7 @@ class WoofiltersViewWpf extends ViewWpf {
 				$html .= '<ul class="wpfFilterVerScroll">' . $htmlOpt . '</ul>';
 				break;
 			case 'dropdown':
-				$html .= '<select>' . $htmlOpt . '</select>';
+				$html .= ( $perPageLeft ? $perPage : '') . '<select>' . $htmlOpt . '</select>' . ( $perPageLeft ? '' : $perPage );
 				break;
 			case 'mul_dropdown':
 				$settings['f_single_select']              = true;

@@ -31,11 +31,10 @@ html .bt_bb_wrapper .bt_bb_separator_v2:where([style*=border-width]) {
 	&.bt_bb_border_style_dotted { border-bottom: 1px dotted #ccc; }
 	&.bt_bb_border_style_dashed { border-bottom: 1px dashed #ccc; }
 	
-	body.logged-in.bt_bb_plugin_active:not(.bt_bb_fe_preview_toggle):not(.bt_bb_fe_preview_toggle) &:not(.btWithText):before { 
-		border-bottom: 6px solid transparent; 
-		/* margin-top: -3px;  */
-		margin-bottom: -6px; 
-	} 
+	body.logged-in.bt_bb_plugin_active:not(.bt_bb_fe_preview_toggle):not(.bt_bb_fe_preview_toggle) &:not(.btWithText):not(.bt_bb_fe_editing) .bt_bb_fe_before:not(:hover) {
+		display: block;
+		border: 0;
+	}
 	/* :not(.btWithText) fix for Nifty theme */
 	
 	&.bt_bb_bottom_spacing_extra_small { margin-bottom: 0.5em; body:not(.bt_bb_fe_preview_toggle) &.bt_bb_fe_edit template.bt_bb_fe_before { margin-bottom: -0.5em; } }

@@ -40,7 +40,7 @@ class bt_bb_text extends BT_BB_Element {
 		$data_content = '';
 		
 		if ( current_user_can( 'edit_pages' ) ) {
-			$data_content = ' ' . 'data-content="' . esc_attr( $content ) . '"';
+			$data_content = ' ' . 'data-content="' . esc_attr( wpautop( $content ) ) . '"';
 		}
 		
 		if ( strpos( $content, '[' ) == 0 && substr( $content, -1 ) == ']' ) {

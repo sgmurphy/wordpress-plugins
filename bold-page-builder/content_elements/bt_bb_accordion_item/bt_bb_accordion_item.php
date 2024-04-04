@@ -26,7 +26,7 @@ class bt_bb_accordion_item extends BT_BB_Element {
 
 		$output = '<div class="' . esc_attr( implode( ' ', $class ) ) . '">';
 			$output .= '<div class="bt_bb_accordion_item_title">' . $title . '</div>';
-			$output .= '<div class="bt_bb_accordion_item_content">' . wpautop( do_shortcode( $content ) ) . '</div>';
+			$output .= '<div class="bt_bb_accordion_item_content">' . do_shortcode( $content ) . '</div>'; // removed wpautop (empty p in text)
 		$output .= '</div>';
 		
 		$output = apply_filters( 'bt_bb_general_output', $output, $atts );

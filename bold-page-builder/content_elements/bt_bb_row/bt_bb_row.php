@@ -146,7 +146,7 @@ class bt_bb_row extends BT_BB_Element {
 						esc_html__( '100px', 'bold-builder' ) => '100'
 					)
 				),
-				array( 'param_name' => 'row_width', 'type' => 'radio', 'heading' => esc_html__( 'Row/Columns', 'bold-builder' ), 'description' => __( 'For the best experience set Section Layout to Wide. Read more in our <a href="https://documentation.bold-themes.com/bold-builder/row-layouts/" target="_blank">documentation</a>.', 'bold-builder' ), 'preview' => true,
+				array( 'param_name' => 'row_width', 'type' => 'radio', 'heading' => esc_html__( 'Row/Columns', 'bold-builder' ), 'default' => 'default', 'description' => __( 'For the best experience set Section Layout to Wide. Read more in our <a href="https://documentation.bold-themes.com/bold-builder/row-layouts/" target="_blank">documentation</a>.', 'bold-builder' ), 'preview' => true,
 					'value' => array(
 						esc_html__( 'Default', 'bold-builder' ) 										=> 'default',
 						

@@ -16,6 +16,7 @@
 
 namespace OMGF;
 
+use OMGF\Admin\Settings;
 use OMGF\Frontend\Process;
 
 class Filters {
@@ -23,8 +24,9 @@ class Filters {
 	 * Generic filters.
 	 */
 	public function __construct() {
-		add_filter( 'content_url', [ $this, 'force_ssl' ], 1000, 2 );
+		add_filter( 'content_url', [ $this, 'force_ssl' ], 1000 );
 		add_filter( 'home_url', [ $this, 'force_ssl' ], 1000, 2 );
+		add_filter( 'omgf_optimize_user_agent', [ $this, 'maybe_do_legacy_mode' ] );
 		add_filter( 'pre_update_option_omgf_optimized_fonts', [ $this, 'base64_decode_optimized_fonts' ] );
 		add_filter( 'vc_get_vc_grid_data_response', [ $this, 'parse_vc_grid_data' ], 10 );
 	}
@@ -39,9 +41,7 @@ class Filters {
 	 * @return bool|array
 	 */
 	public function base64_decode_optimized_fonts( $value ) {
-		// phpcs:ignore
-		if ( is_string( $value ) && base64_decode( $value, true ) ) {
-			// phpcs:ignore
+		if ( is_string( $value ) && base64_encode( base64_decode( $value, true ) ) === $value ) {
 			return base64_decode( $value );
 		}
 
@@ -50,30 +50,44 @@ class Filters {
 
 	/**
 	 * content_url uses is_ssl() to detect whether SSL is used. This fails for servers behind
-	 * load balancers and/or reverse proxies. So, we double check with this filter.
+	 * load balancers and/or reverse proxies. So, we double-check with this filter.
+	 *
 	 * @since v4.4.4
 	 *
 	 * @param mixed $url
-	 * @param mixed $path
 	 *
 	 * @return mixed
+	 * @todo  Is this still needed, since we're using protocol relative URLs now?
 	 */
-	public function force_ssl( $url, $path ) {
+	public function force_ssl( $url ) {
 		/**
 		 * Only rewrite URLs requested by this plugin. We don't want to interfere with other plugins.
 		 */
-		if ( strpos( $url, OMGF_UPLOAD_URL ) === false ) {
+		if ( ! str_contains( $url, OMGF_UPLOAD_URL ) ) {
 			return $url;
 		}
 
 		/**
 		 * If the user entered https:// in the Home URL option, it's safe to assume that SSL is used.
 		 */
-		if ( ! is_ssl() && strpos( get_home_url(), 'https://' ) !== false ) {
-			$url = str_replace( 'http://', 'https://', $url );
+		if ( ! is_ssl() && str_contains( get_home_url(), 'https://' ) ) {
+			$url = str_replace( 'http://', 'https://', $url ); // @codeCoverageIgnore
 		}
 
 		return $url;
+	}
+
+	/**
+	 * @param $user_agent
+	 *
+	 * @return mixed|string[]
+	 */
+	public function maybe_do_legacy_mode( $user_agent ) {
+		if ( ! empty( Helper::get_option( Settings::OMGF_ADV_SETTING_LEGACY_MODE ) ) ) {
+			return Optimize::USER_AGENT_COMPATIBILITY[ 'woff2' ];
+		}
+
+		return $user_agent;
 	}
 
 	/**

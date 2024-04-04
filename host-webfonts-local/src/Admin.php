@@ -56,8 +56,8 @@ class Admin {
 		$this->maybe_do_after_update_notice();
 
 		add_filter( 'alloptions', [ $this, 'force_optimized_fonts_from_db' ] );
-		add_filter( 'pre_update_option_omgf_cache_keys', [ $this, 'clean_up_cache' ], 10, 3 );
-		add_filter( 'pre_update_option_omgf_settings', [ $this, 'settings_changed' ], 10, 3 );
+		add_action( 'update_option_omgf_cache_keys', [ $this, 'clean_up_cache' ], 10, 2 );
+		add_action( 'update_option_omgf_settings', [ $this, 'maybe_show_stale_cache_notice' ], 10, 2 );
 	}
 
 	/**
@@ -69,6 +69,7 @@ class Admin {
 
 	/**
 	 * Detection Settings tab
+	 *
 	 * @return void
 	 */
 	private function do_detection_settings() {
@@ -77,6 +78,7 @@ class Admin {
 
 	/**
 	 * Advanced Settings tab
+	 *
 	 * @return void
 	 */
 	private function do_advanced_settings() {
@@ -85,6 +87,7 @@ class Admin {
 
 	/**
 	 * Help Tab
+	 *
 	 * @return void
 	 */
 	private function do_help() {
@@ -93,6 +96,7 @@ class Admin {
 
 	/**
 	 * Add failsafe for failing premium plugin updates.
+	 *
 	 * @return Updates
 	 */
 	private function maybe_handle_failed_premium_plugin_updates() {
@@ -114,6 +118,8 @@ class Admin {
 
 	/**
 	 * Checks if an update notice should be displayed after updating.
+	 *
+	 * @codeCoverageIgnore
 	 */
 	private function maybe_do_after_update_notice() {
 		if ( OMGF_CURRENT_DB_VERSION != false && version_compare( OMGF_CURRENT_DB_VERSION, OMGF_DB_VERSION, '<' ) ) {
@@ -157,6 +163,8 @@ class Admin {
 
 	/**
 	 * Add notice to admin screen.
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public function print_notices() {
 		Notice::print_notices();
@@ -173,7 +181,7 @@ class Admin {
 	 */
 	public function force_optimized_fonts_from_db( $alloptions ) {
 		if ( isset( $alloptions[ Settings::OMGF_OPTIMIZE_SETTING_OPTIMIZED_FONTS ] ) &&
-			$alloptions[ Settings::OMGF_OPTIMIZE_SETTING_OPTIMIZED_FONTS ] == false ) {
+			! $alloptions[ Settings::OMGF_OPTIMIZE_SETTING_OPTIMIZED_FONTS ] ) {
 			unset( $alloptions[ Settings::OMGF_OPTIMIZE_SETTING_OPTIMIZED_FONTS ] );
 		}
 
@@ -183,18 +191,14 @@ class Admin {
 	/**
 	 * Triggered when unload settings is changed, cleans up old cache files.
 	 * TODO: Clean up doesn't work on 2nd run?
-	 *
-	 * @param $old_value
-	 * @param $value
-	 * @param $option_name
 	 */
 	public function clean_up_cache( $value, $old_value ) {
 		if ( $old_value == $value ) {
-			return $value;
+			return; // @codeCoverageIgnore
 		}
 
 		if ( $old_value == null ) {
-			return $value;
+			return; // @codeCoverageIgnore
 		}
 
 		$cache_keys = explode( ',', $old_value );
@@ -206,94 +210,91 @@ class Admin {
 				OMGF::delete( $entry );
 			}
 		}
-
-		return $value;
 	}
 
 	/**
 	 * Shows notice if $option_name is in $show_notice array.
-	 * @see $show_notice
 	 *
-	 * @param $old_settings
-	 * @param $new_value
+	 * @see $show_message
 	 *
-	 * @return mixed
+	 * @param $old_values
+	 * @param $values
+	 *
+	 * @return void
 	 */
-	public function settings_changed( $values, $old_values, $option_name ) {
+	public function maybe_show_stale_cache_notice( $old_values, $values ) {
 		/**
 		 * Don't show this message on the Main tab.
 		 */
-		if ( array_key_exists( 'tab', $_GET ) && $_GET[ 'tab' ] === Settings::OMGF_SETTINGS_FIELD_OPTIMIZE ) {
-			return $values;
+		if ( ! array_key_exists( 'tab', $_GET ) || ( $_GET[ 'tab' ] === Settings::OMGF_SETTINGS_FIELD_OPTIMIZE ) ) {
+			return; // @codeCoverageIgnore
 		}
 
 		/**
 		 * If either of these isn't an array, this means they haven't been set before.
 		 */
 		if ( ! is_array( $old_values ) || ! is_array( $values ) ) {
-			return $values;
+			return; // @codeCoverageIgnore
 		}
 
 		/**
 		 * Fetch options from array, so we can compare both.
 		 */
-		$old  = array_filter(
+		$old = array_filter(
 			$old_values,
 			function ( $key ) {
 				return in_array( $key, $this->stale_cache_options, true );
 			},
 			ARRAY_FILTER_USE_KEY
 		);
-		$new  = array_filter(
+		$new = array_filter(
 			$values,
 			function ( $key ) {
 				return in_array( $key, $this->stale_cache_options, true );
 			},
 			ARRAY_FILTER_USE_KEY
 		);
+
 		$diff = $this->array_diff( $new, $old );
 
-		/**
-		 * If $old_value equals false, that means it's never been set before.
-		 */
-		if ( $diff ) {
-			global $wp_settings_errors;
+		if ( empty( $diff ) ) {
+			return;
+		}
 
-			$show_message = true;
+		global $wp_settings_errors;
 
-			if ( ! empty( $wp_settings_errors ) ) {
-				foreach ( $wp_settings_errors as $error ) {
-					if ( strpos( $error[ 'code' ], 'omgf' ) !== false ) {
-						$show_message = false;
+		$show_message = true;
 
-						break;
-					}
-				}
+		if ( ! empty( $wp_settings_errors ) ) {
+			foreach ( $wp_settings_errors as $error ) {
+				if ( str_contains( $error[ 'code' ], 'omgf' ) ) {
+					$show_message = false;
 
-				if ( $show_message ) {
-					$wp_settings_errors = [];
+					break;
 				}
 			}
 
 			if ( $show_message ) {
-				OMGF::update_option( Settings::OMGF_CACHE_IS_STALE, true );
-
-				add_settings_error(
-					'general',
-					'omgf_cache_style',
-					sprintf(
-						__(
-							'OMGF\'s cached stylesheets don\'t reflect the current settings. Refresh the cache from the <a href="%s">Task Manager</a>.',
-							'host-webfonts-local'
-						),
-						admin_url( Settings::OMGF_OPTIONS_GENERAL_PAGE_OPTIMIZE_WEBFONTS )
-					),
-					'success'
-				);
+				$wp_settings_errors = []; // @codeCoverageIgnore
 			}
 		}
 
-		return $values;
+		if ( $show_message ) {
+			OMGF::update_option( Settings::OMGF_CACHE_IS_STALE, true );
+
+			add_settings_error(
+				'general',
+				'omgf_cache_stale',
+				sprintf(
+					__(
+						'OMGF\'s cached stylesheets don\'t reflect the current settings. Refresh the cache from the <a href="%s">Task Manager</a>.',
+						'host-webfonts-local'
+					),
+					admin_url( Settings::OMGF_OPTIONS_GENERAL_PAGE_OPTIMIZE_WEBFONTS )
+				),
+				'success'
+			);
+		}
 	}
 
 	/**
@@ -305,6 +306,8 @@ class Admin {
 	 * @return bool Whether $array1 contains different values, $compared to array2.
 	 */
 	private function array_diff( $array1, $array2 ) {
+		$diff = false;
+
 		foreach ( $array1 as $key => $value ) {
 			if ( is_array( $value ) ) {
 				$diff = $this->array_diff( $value, $array2[ $key ] );
@@ -316,7 +319,7 @@ class Admin {
 				continue;
 			}
 
-			$diff = isset( $array2[ $key ] ) ? $value !== $array2[ $key ] : true;
+			$diff = ! isset( $array2[ $key ] ) || $value !== $array2[ $key ];
 
 			if ( $diff ) {
 				break;

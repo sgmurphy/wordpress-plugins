@@ -18,7 +18,7 @@ $footerMeta = array_map(
 );
 
 $thumbnail_inside_content_wpr = false;
-if ( $enableThumbnailSort && in_array( $preset, ['style-1', 'style-2', 'style-3'] ) ) {
+if ( $enableThumbnailSort && in_array( $preset, [ 'style-1', 'style-2', 'style-3' ] ) ) {
     $thumbnail_inside_content_wpr = true;
 }
 
@@ -51,7 +51,7 @@ foreach ( $posts as $result ) {
                 'categories' => $categories,
                 'tags'       => $tags,
                 'readtime'   => $readtime
-            ]
+             ]
         ),
         $result->ID,
         $allMeta

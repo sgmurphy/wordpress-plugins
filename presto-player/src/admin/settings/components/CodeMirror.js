@@ -1,32 +1,45 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { BaseControl } from "@wordpress/components";
-import { useEffect, useRef } from "@wordpress/element";
+import { useEffect, useRef, useState } from "@wordpress/element";
 import classNames from "classnames";
 
 export default ({ option, value, className, disabled, onChange }) => {
-  let codeMirror;
+  const [codeMirror, setCodeMirror] = useState(null);
 
   const handleChange = (instance) => {
     if (disabled) {
       return;
     }
-    instance.save();
-    onChange(textRef.current.value);
+    onChange(instance.getValue());
   };
 
   const textRef = useRef();
+
   useEffect(() => {
-    if (!wp?.CodeMirror) {
+    // return if the code mirror instance is already set
+    if (!wp?.CodeMirror || codeMirror) {
       return;
     }
-    codeMirror = wp.CodeMirror.fromTextArea(textRef.current, {
+    const cmInstance = wp.CodeMirror.fromTextArea(textRef.current, {
       type: "text/css",
       lineNumbers: true,
     });
-
-    codeMirror.on("change", handleChange);
+    cmInstance.on("change", handleChange);
+    setCodeMirror(cmInstance);
   }, []);
+
+  // set an initial player css value for the code mirror instance
+  useEffect(() => {
+    if (!wp?.CodeMirror || !codeMirror) {
+      return;
+    }
+    // return if the value is empty, or if the codeMirror instance already has a value
+    if (!value || codeMirror.getValue()) {
+      return;
+    }
+    codeMirror.setValue(value);
+  }, [value]);
 
   return (
     <div className={classNames(className, "presto-settings__setting")}>
@@ -41,7 +54,7 @@ export default ({ option, value, className, disabled, onChange }) => {
         label={option?.name}
         help={option?.help}
       >
-        <textarea onChange={handleChange} ref={textRef} rows="5" disabled>
+        <textarea ref={textRef} rows="5" disabled>
           {value}
         </textarea>
       </BaseControl>

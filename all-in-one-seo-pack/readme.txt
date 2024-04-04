@@ -1,10 +1,10 @@
 === All in One SEO – Best WordPress SEO Plugin – Easily Improve SEO Rankings & Increase Traffic ===
 Contributors: aioseo, smub, benjaminprojas
-Tags: SEO, Google Search Console, XML Sitemap, meta description, schema, meta title, rich snippets, woocommerce seo, local seo, open graph, google news sitemap, video sitemap, robots.txt, seo audit, content analysis, seo plugin, redirection
+Tags: SEO, Google Search Console, XML Sitemap, meta description, schema
 Tested up to: 6.5
 Requires at least: 5.3
 Requires PHP: 7.0
-Stable tag: 4.5.9.2
+Stable tag: 4.6.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -227,6 +227,12 @@ AIOSEO&reg; is a registered trademark of Semper Plugins LLC. When writing about 
 
 == Changelog ==
 
+**New in Version 4.6.0**
+
+* New: Redirects Integration with Broken Link Checker - If you're using both AIOSEO Redirects and BLC, you can now easily add redirects for any of your (broken) links inside the links report.
+* Updated: Compatibility with Broken Link Checker 1.2.0 and AIOSEO Redirects 1.3.9.
+* Fixed: Localized a number of strings that previously could not correctly be translated.
+
 **New in Version 4.5.9.2**
 
 * Updated: Compatibility fixes for WordPress 6.5.
@@ -332,31 +338,6 @@ AIOSEO&reg; is a registered trademark of Semper Plugins LLC. When writing about 
 **New in Version 4.5.3.1**
 
 * Fixed: AIOSEO Settings modal sometimes opening in Divi visual editor when user performs unrelated action.
-
-**New in Version 4.5.3**
-
-* New: Added support for importing Locations from Yoast SEO into Local SEO.
-* New: Added support for LiteSpeed servers to Redirection Manager.
-* Updated: Numerous performance updates under the hood.
-* Updated: SEO Revisions now tracks changes to the Cornerstone Content setting.
-* Updated: Redirect's manual 404s now load a 404 WP template instead of just sending a 404 header to the browser.
-* Updated: Added post status badges to the Links Report in Link Assistant to show the post status of non-published posts.
-* Updated: Improved style compatibility between AIOSEO and the Extra theme.
-* Fixed: Paged Format now uses the global separator tag.
-* Fixed: Product schema is no longer output when the product does not have a valid price set.
-* Fixed: Various schema graphs now consider timezones when outputting dates and no longer output incorrect timestamps.
-* Fixed: Redirect modal UI now works correctly when a post is trashed.
-* Fixed: Redirects no longer prevent the use of WP CLI.
-* Fixed: Redirect's HTTP Headers table no longer disappears after inserting a value in the field.
-* Fixed: When editing a redirect the edit screen no longer closes after selecting a value.
-* Fixed: Error when importing robots.txt rules with certain regex patterns.
-* Fixed: File structure issue that caused some localized strings from being excluded in language files.
-* Fixed: Cornerstone Content setting removed for attachment pages.
-* Fixed: Setup Wizard sometimes showing wrong step count.
-* Fixed: Snippet preview showing incorrect preview for Taxonomy Title smart tag when no primary category is selected.
-* Fixed: Search Statistics now correctly syncs the homepage with what is selected under Settings > Reading.
-* Fixed: Plugin conflict with the Autoptimization plugin where the frontend of the site shows a whitescreen when logged-in users are using Russian as their locale.
-* Fixed: Conflict with block-based themes in WP 6.0+.
 
 **See our [changelog on aioseo.com](https://aioseo.com/changelog/?utm_source=wprepo&utm_medium=link&utm_campaign=liteplugin) for previous releases.**
 

@@ -5,7 +5,7 @@ Tags: google tag manager, tag manager, gtm, google, adwords, google adwords, goo
 Requires at least: 3.4.0
 Requires PHP: 7.4
 Tested up to: 6.5
-Stable tag: 1.20.1
+Stable tag: 1.20.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -223,6 +223,14 @@ to report micro conversions and/or to serve ads only to visitors who spend more 
 6. Scroll tracking
 
 == Changelog ==
+
+= 1.20.2 =
+
+* Fix: Wrong ID parameter used tracking product variations (id instead of item_id). Thanks [micmaf](https://github.com/micmaf)
+* Fix: do not track add_to_cart in product lists when 'Select options' or 'View products' buttons are clicked
+* Fix: JavaScript reference error while updating cart count in WooCommerce. Thanks [Sakuk3](https://github.com/Sakuk3)
+* Fix: hash customerBillingEmailHash just like orderData.customer.billing.email_hash (for enhanced conversions, use the value in orderData)
+* Added: minimum required WooCommerce version (currently 5.0+) is displayed now on GTM4WP admin
 
 = 1.20.1 =
 
@@ -899,6 +907,10 @@ Please report all bugs found in my plugin using the [contact form on my website]
 * First beta release
 
 == Upgrade Notice ==
+
+= 1.20.2 =
+
+Bugfix release
 
 = 1.20.1 =
 

@@ -58,23 +58,16 @@ if (isset($_POST['save-reply-generated'])) {
 update_option($pluginManagerInstance->get_option_name('reply-generated'), 1, false);
 exit;
 }
-if (isset($_POST['review_download_request'])) {
-check_admin_referer('ti-download-reviews');
-delete_option($pluginManagerInstance->get_option_name('review-download-token'));
-update_option($pluginManagerInstance->get_option_name('review-download-inprogress'), sanitize_text_field($_POST['review_download_request']), false);
-update_option($pluginManagerInstance->get_option_name('review-manual-download'), (int)$_POST['manual_download'], false);
-if (isset($_POST['review_download_request_id'])) {
-update_option($pluginManagerInstance->get_option_name('review-download-request-id'), sanitize_text_field($_POST['review_download_request_id']), false);
-}
-update_option($pluginManagerInstance->get_option_name('review-download-modal'), 0, false);
-$pluginManagerInstance->setNotificationParam('review-download-available', 'active', false);
-exit;
-}
+
 if (isset($_POST['review_download_timestamp'])) {
 check_admin_referer('ti-download-reviews');
 $pageDetails = isset($_POST['page_details']) ? json_decode(stripcslashes($_POST['page_details']), true) : null;
 if (isset($pageDetails['reviews']) && is_array($pageDetails['reviews']) && $pageDetails['reviews']) {
 $pluginManagerInstance->save_reviews($pageDetails['reviews']);
+if (!$pluginManagerInstance->getNotificationParam('review-download-finished', 'hidden')) {
+$pluginManagerInstance->setNotificationParam('review-download-finished', 'active', true);
+}
+$pluginManagerInstance->sendNotificationEmail('review-download-finished');
 }
 $oldPageDetails = $pluginManagerInstance->getPageDetails();
 if (isset($pageDetails['name'])) {
@@ -95,10 +88,6 @@ if (!$pluginManagerInstance->getNotificationParam('review-download-available', '
 $pluginManagerInstance->setNotificationParam('review-download-available', 'do-check', true);
 $pluginManagerInstance->setNotificationParam('review-download-available', 'active', false);
 }
-if (!$pluginManagerInstance->getNotificationParam('review-download-finished', 'hidden')) {
-$pluginManagerInstance->setNotificationParam('review-download-finished', 'active', true);
-}
-$pluginManagerInstance->sendNotificationEmail('review-download-finished');
 exit;
 }
 $reviews = [];
@@ -170,7 +159,7 @@ $pageDetails = $pluginManagerInstance->getPageDetails();
 <input type="hidden" id="ti-noreg-page-id" value="<?php echo esc_attr($pageDetails['id']); ?>" />
 <input type="hidden" id="ti-noreg-webhook-url" value="<?php echo $pluginManagerInstance->get_webhook_url(); ?>" />
 <input type="hidden" id="ti-noreg-email" value="<?php echo get_option('admin_email'); ?>" />
-<input type="hidden" id="ti-noreg-version" value="11.7.1" />
+<input type="hidden" id="ti-noreg-version" value="11.8.2" />
 
 <?php
 $reviewDownloadToken = get_option($pluginManagerInstance->get_option_name('review-download-token'));
@@ -186,30 +175,7 @@ update_option($pluginManagerInstance->get_option_name('review-download-token'), 
 <p><?php echo sprintf(__('Automatic review update, creating unlimited review widgets, downloading and displaying all reviews, %d review platforms available!', 'trustindex-plugin'), 131); ?></p>
 <a href="https://www.trustindex.io/ti-redirect.php?a=sys&c=wp-google-pro" class="ti-btn"><?php echo __('Create a Free Account for More Features', 'trustindex-plugin'); ?></a>
 </div>
-<?php if ($isReviewDownloadInProgress === 'error'): ?>
-<div class="ti-notice ti-mb-1 ti-notice-error">
-<p>
-<?php echo __('While downloading the reviews, we noticed that your connected page is not found.<br />If it really exists, please contact us to resolve the issue or try connect it again.', 'trustindex-plugin'); ?><br />
-</p>
-</div>
-<?php elseif ($isReviewDownloadInProgress): ?>
-<div class="ti-notice ti-mb-1 ti-notice-warning">
-<p>
-<?php echo __('Your reviews are being downloaded.', 'trustindex-plugin') . ' ' . __('This process should only take a few minutes.', 'trustindex-plugin'); ?>
-<br />
-<?php echo __('While you wait, you can start the widget setup with some review templates.', 'trustindex-plugin'); ?>
-<?php if ($pluginManagerInstance->is_review_manual_download()): ?>
-<br />
-<a href="#" id="ti-review-manual-download" data-nonce="<?php echo wp_create_nonce('ti-download-reviews'); ?>" class="ti-btn ti-btn-sm ti-tooltip ti-toggle-tooltip" style="margin-top: 5px">
-<?php echo __('Manual download', 'trustindex-plugin') ;?>
-<span class="ti-tooltip-message">
-<?php echo __('Your reviews are being downloaded.', 'trustindex-plugin') . ' ' . __('This process should only take a few minutes.', 'trustindex-plugin'); ?>
-</span>
-</a>
-<?php endif; ?>
-</p>
-</div>
-<?php endif; ?>
+
 <?php if (!count($reviews)): ?>
 <?php if (!$isReviewDownloadInProgress): ?>
 <div class="ti-notice ti-notice-warning">
@@ -368,26 +334,6 @@ $hideReplyButton = get_option($pluginManagerInstance->get_option_name('review-do
 </table>
 <?php endif; ?>
 </div>
-<?php if ($reviews && get_option($pluginManagerInstance->get_option_name('review-download-modal'), 1)): ?>
-<div class="ti-modal ti-rateus-modal" style="display: block">
-<div class="ti-modal-dialog">
-<div class="ti-modal-content">
-<span class="ti-close-icon btn-modal-close"></span>
-<div class="ti-modal-body">
-<div class="ti-rateus-title"><?php echo sprintf(__('New feature: %s', 'trustindex-plugin'), __('Reply with ChatGPT', 'trustindex-plugin')); ?></div>
-<p>
-<?php echo __('In order to use this feature, your reviews need to be updated.', 'trustindex-plugin'); ?><br />
-<?php echo __('This could take a little while, so please refresh the page after 3 minutes!', 'trustindex-plugin'); ?>
-</p>
-</div>
-<div class="ti-modal-footer">
-<a href="#" class="ti-btn ti-btn-default btn-modal-close"><?php echo __('Cancel', 'trustindex-plugin') ;?></a>
-<a href="#" data-nonce="<?php echo wp_create_nonce('ti-download-reviews'); ?>" class="ti-btn ti-btn-loading-on-click btn-download-reviews"><?php echo __('Update', 'trustindex-plugin') ;?></a>
-</div>
-</div>
-</div>
-</div>
-<?php endif; ?>
 <?php if (!get_option($pluginManagerInstance->get_option_name('rate-us-feedback'), 0)): ?>
 <?php include(plugin_dir_path(__FILE__ ) . '../include/rate-us-feedback-box.php'); ?>
 <?php endif; ?>

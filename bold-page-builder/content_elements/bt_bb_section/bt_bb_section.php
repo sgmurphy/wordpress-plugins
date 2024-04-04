@@ -3,7 +3,9 @@
 class bt_bb_section extends BT_BB_Element {
 
 	function handle_shortcode( $atts, $content ) {
-
+		
+		// require_once( dirname(__FILE__) . '/../../content_elements_misc/misc.php' );
+		
 		extract( shortcode_atts( apply_filters( 'bt_bb_extract_atts_' . $this->shortcode, array(
 			'layout'                		=> '',
 			'full_screen'           		=> '',
@@ -294,7 +296,7 @@ class bt_bb_section extends BT_BB_Element {
 
 	function map_shortcode() {
 		
-		require_once( dirname(__FILE__) . '/../../content_elements_misc/misc.php' );
+		// require_once( dirname(__FILE__) . '/../../content_elements_misc/misc.php' );
 		$color_scheme_arr = bt_bb_get_color_scheme_param_array();
 
 		bt_bb_map( $this->shortcode, array( 'name' => esc_html__( 'Section', 'bold-builder' ), 'description' => esc_html__( 'Basic root element', 'bold-builder' ), 'root' => true, 'container' => 'vertical', 'accept' => array( 'bt_bb_row' => true ), 'toggle' => true, 'auto_add' => 'bt_bb_row', 'show_settings_on_create' => false,

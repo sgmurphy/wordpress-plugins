@@ -3,13 +3,13 @@ Contributors: bdthemes, selimmw, mohammaadfarid, bdkoder, maudud, abutalib, soha
 Donate link: http://bdthemes.com/
 Tags:  elementor addons, elementor widget, elementor extensions, elementor addon, addons
 Requires at least: 5.0.0
-Tested up to: 6.4.3
+Tested up to: 6.5
 Requires PHP: 7.4.0
-Stable tag: 5.5.5
+Stable tag: 5.5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Elementor requires at least: 3.0.0
-Elementor tested up to: 3.20.1
+Elementor tested up to: 3.20.3
 
 Best Addon for Elementor WordPress Plugin with 70+ Most Popular Elements that need your everyday website page building.
 
@@ -129,6 +129,10 @@ https://youtu.be/u9JRd824Mjc
 
 
 == Changelog ==
+
+= 5.5.6 [4th April 2024] =
+
+* Updated: System improved
 
 = 5.5.5 [17th March 2024] =
 

@@ -23,7 +23,6 @@ class MetaModelWpf extends ModelWpf {
 
 	private function setKeys() {
 		$this->keysArray = array();
-		$this->keysSQL   = array();
 		$len             = $this->maxKeySize;
 		for ($k = 2; $k <= $len; $k++) {
 			$this->keysArray['key' . $k] = '';

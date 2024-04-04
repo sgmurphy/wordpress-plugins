@@ -553,7 +553,7 @@
 		});
 
 		// tabs
-		$( '.bt_bb_tabs .bt_bb_tabs_header li' ).on( 'click', function() {
+		$( '.bt_bb_tabs .bt_bb_tabs_header' ).on( 'click', 'li', function() {
 			$( this ).siblings().removeClass( 'on' );
 			$( this ).addClass( 'on' );
 			$( this ).closest( '.bt_bb_tabs' ).children('.bt_bb_tabs_tabs').children( '.bt_bb_tab_item' ).removeClass( 'on' );
@@ -662,6 +662,7 @@
 		if ( parseInt( height ) <= 0 ) height = 400;
 		
 		var container = jQuery( '#' + map_id ).parent();
+		var googleApiMapId = document.getElementById( map_id ).id;
 		
 		var locations = container.find( '.bt_bb_map_location' );
 		
@@ -699,7 +700,7 @@
 			var centerLatLng = [ lat_sum / n, lng_sum / n ];
 		}
 		
-		var img_src = '<img src="https://maps.googleapis.com/maps/api/staticmap?center=' + centerLatLng.toString() + '&zoom=' + zoom + markerStr + '&size=640x' + height + '&scale=2&style=' + atob( custom_style ) + '&key=' + api_key + '">';
+		var img_src = 'aaa<img src="https://maps.googleapis.com/maps/api/staticmap?center=' + centerLatLng.toString() + '&zoom=' + zoom + markerStr + '&size=640x' + height + '&scale=2&style=' + atob( custom_style ) + '&key=' + api_key + '">';
 		container.find( '.bt_bb_google_maps_map.bt_bb_map_map' ).append( img_src ).on('click', function(){ $( '.bt_bb_map_location_show' ).removeClass( 'bt_bb_map_location_show' ).nextOrFirst().addClass( 'bt_bb_map_location_show' ) });
 		
 		locations.eq( 0 ).addClass( 'bt_bb_map_location_show' );
@@ -715,8 +716,14 @@
 	
 	window.bt_bb_gmap_init = function ( map_id, zoom, custom_style ) {
 
+		var mapElement = document.getElementById( map_id );
+		
 		var myLatLng = new google.maps.LatLng( 0, 0 );
+		
+		var googleApiMapId = mapElement.id;
+		
 		var mapOptions = {
+			mapId: googleApiMapId,
 			zoom: zoom,
 			center: myLatLng,
 			scrollwheel: false,
@@ -729,8 +736,6 @@
 			streetViewControl: true,
 			mapTypeControl: true
 		}
-
-		var mapElement = document.getElementById( map_id );
 
 		if ( mapElement )
 		{

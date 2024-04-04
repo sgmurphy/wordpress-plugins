@@ -23,6 +23,7 @@ use OMGF\StylesheetGenerator;
 class Helper {
 	/**
 	 * Property to hold all settings.
+	 *
 	 * @var mixed
 	 */
 	private static $settings;
@@ -30,6 +31,7 @@ class Helper {
 	/**
 	 * This is basically a wrapper around update_option() to offer a centralized interface for
 	 * storing OMGF's settings in the wp_options table.
+	 *
 	 * @since v5.6.0
 	 *
 	 * @param mixed  $value
@@ -39,12 +41,12 @@ class Helper {
 	 */
 	public static function update_option( $setting, $value, $autoload = true ) {
 		// If $setting starts with 'omgf_' it should be saved in a separate row.
-		if ( strpos( $setting, 'omgf_' ) === 0 ) {
+		if ( str_starts_with( $setting, 'omgf_' ) ) {
 			return update_option( $setting, $value, $autoload );
 		}
 
 		if ( self::$settings === null ) {
-			self::$settings = self::get_settings();
+			self::$settings = self::get_settings(); // @codeCoverageIgnore
 		}
 
 		self::$settings[ $setting ] = $value;
@@ -54,6 +56,7 @@ class Helper {
 
 	/**
 	 * Gets all settings for OMGF.
+	 *
 	 * @filter omgf_settings
 	 * @since  5.5.7
 	 * @return array
@@ -73,7 +76,7 @@ class Helper {
 		);
 
 		if ( empty( self::$settings ) ) {
-			self::$settings = get_option( 'omgf_settings', [] );
+			self::$settings = get_option( 'omgf_settings', [] ); // @codeCoverageIgnore
 		}
 
 		return apply_filters( 'omgf_settings', wp_parse_args( self::$settings, $defaults ) );
@@ -82,20 +85,21 @@ class Helper {
 	/**
 	 * This is basically a wrapper around delete_option() to offer a centralized interface for
 	 * removing OMGF's settings in the wp_options table.
+	 *
 	 * @since v5.6.0
 	 *
 	 * @param string $setting
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	public static function delete_option( $setting ) {
-		if ( strpos( $setting, 'omgf_' ) === 0 || apply_filters( 'omgf_delete_option', false, $setting ) ) {
+		if ( str_starts_with( $setting, 'omgf_' ) || apply_filters( 'omgf_delete_option', false, $setting ) ) {
 			return delete_option( $setting );
 		}
 
 		// This prevents settings from 'mysteriously' returning after being unset.
 		if ( empty( self::$settings ) ) {
-			self::$settings = self::get_settings();
+			self::$settings = self::get_settings(); // @codeCoverageIgnore
 		}
 
 		unset( self::$settings[ $setting ] );
@@ -119,6 +123,7 @@ class Helper {
 	/**
 	 * Method to retrieve OMGF's settings from database.
 	 * WARNING: DO NOT ATTEMPT TO RETRIEVE WP CORE SETTINGS USING THIS METHOD. IT WILL FAIL.
+	 *
 	 * @filter omgf_setting_{$name}
 	 * @since  v5.6.0
 	 *
@@ -127,7 +132,7 @@ class Helper {
 	 */
 	public static function get_option( $name, $default = null ) {
 		// If $name starts with 'omgf_' it means it is saved in a separate row.
-		if ( strpos( $name, 'omgf_' ) === 0 ) {
+		if ( str_starts_with( $name, 'omgf_' ) ) {
 			$value = get_option( $name, $default );
 
 			return apply_filters( 'omgf_setting_' . str_replace( 'omgf_', '', $name ), $value );
@@ -180,11 +185,11 @@ class Helper {
 	public static function get_cache_key( $handle ) {
 		$cache_keys = self::cache_keys();
 
-		foreach ( $cache_keys as $index => $key ) {
+		foreach ( $cache_keys as $key ) {
 			/**
 			 * @since v4.5.16 Convert $handle to lowercase, because $key is saved lowercase, too.
 			 */
-			if ( strpos( $key, strtolower( $handle ) ) !== false ) {
+			if ( str_contains( $key, strtolower( $handle ) ) ) {
 				return $key;
 			}
 		}
@@ -194,6 +199,7 @@ class Helper {
 
 	/**
 	 * Fetch cache keys from the DB.
+	 *
 	 * @since v5.6.4 Extract cache keys from Optimized Fonts option if the option itself appears empty.
 	 * @return array
 	 */
@@ -212,9 +218,9 @@ class Helper {
 		 * the (default) stylesheet handles from the optimized fonts option.
 		 */
 		if ( empty( $cache_keys ) ) {
-			$optimized_fonts = self::admin_optimized_fonts();
+			$optimized_fonts = self::admin_optimized_fonts(); // @codeCoverageIgnore
 
-			$cache_keys = array_keys( $optimized_fonts );
+			$cache_keys = array_keys( $optimized_fonts ); //@codeCoverageIgnore
 		}
 
 		return $cache_keys;
@@ -223,6 +229,7 @@ class Helper {
 	/**
 	 * Optimized Local Fonts to be displayed in the Optimize Local Fonts table.
 	 * Use a static variable to reduce database reads/writes.
+	 *
 	 * @since v4.5.7
 	 *
 	 * @param bool  $force_add
@@ -242,15 +249,16 @@ class Helper {
 
 		/**
 		 * get_option() should take care of this, but sometimes it doesn't.
+		 *
 		 * @since v4.5.6
 		 */
 		if ( is_string( $optimized_fonts ) ) {
-			// phpcs:ignore
-			$optimized_fonts = unserialize( $optimized_fonts );
+			$optimized_fonts = unserialize( $optimized_fonts ); // @codeCoverageIgnore
 		}
 
 		/**
 		 * If $maybe_add doesn't exist in the cache layer yet, add it.
+		 *
 		 * @since v4.5.7
 		 */
 		if ( ! empty( $maybe_add ) && ( ! isset( $optimized_fonts[ key( $maybe_add ) ] ) || $force_add ) ) {
@@ -263,6 +271,7 @@ class Helper {
 	/**
 	 * Optimized Local Fonts to be used in the frontend. Doesn\'t contain unloaded fonts.
 	 * Use a static variable to reduce database reads/writes.
+	 *
 	 * @since v5.8.1
 	 *
 	 * @param bool  $force_add
@@ -289,15 +298,16 @@ class Helper {
 
 		/**
 		 * get_option() should take care of this, but sometimes it doesn't.
+		 *
 		 * @since v4.5.6
 		 */
 		if ( is_string( $optimized_fonts ) ) {
-			// phpcs:ignore
-			$optimized_fonts = unserialize( $optimized_fonts );
+			$optimized_fonts = unserialize( $optimized_fonts ); // @codeCoverageIgnore
 		}
 
 		/**
 		 * If $maybe_add doesn't exist in the cache layer yet, add it.
+		 *
 		 * @since v4.5.7
 		 */
 		if ( ! empty( $maybe_add ) && ( ! isset( $optimized_fonts[ key( $maybe_add ) ] ) || $force_add ) ) {
@@ -308,7 +318,7 @@ class Helper {
 	}
 
 	/**
-	 * @since v5.4.4 Returns the subsets that're available in all requested fonts/stylesheets.
+	 * @since v5.4.4 Returns the available subsets in all requested fonts/stylesheets.
 	 *               Functions as a temporary cache layer to reduce DB reads with get_option().
 	 * @return array
 	 */
@@ -323,8 +333,7 @@ class Helper {
 		 * get_option() should take care of this, but sometimes it doesn't.
 		 */
 		if ( is_string( $subsets ) ) {
-			// phpcs:ignore
-			$subsets = unserialize( $subsets );
+			$subsets = unserialize( $subsets ); // @codeCoverageIgnore
 		}
 
 		/**
@@ -335,7 +344,8 @@ class Helper {
 		}
 
 		/**
-		 * Return only subsets that're available in all font families.
+		 * Return only subsets that are available in all font families.
+		 *
 		 * @see OMGF_Optimize_Run
 		 */
 		if ( $intersect ) {
@@ -343,12 +353,12 @@ class Helper {
 			 * @var array $filtered_subsets Contains an array of Font Families along with the available selected subsets, e.g.
 			 *                              { 'Lato' => { 'latin', 'latin-ext' } }
 			 */
-			$filtered_subsets = array_values( array_filter( $subsets ) );
+			$filtered_subsets = apply_filters( 'omgf_available_filtered_subsets', array_values( array_filter( $subsets ) ) );
 
 			self::debug_array( __( 'Filtered Subsets', 'host-webfonts-local' ), $filtered_subsets );
 
 			if ( count( $filtered_subsets ) === 1 ) {
-				return reset( $filtered_subsets );
+				return reset( $filtered_subsets ); // @codeCoverageIgnore
 			}
 
 			if ( ! empty( $filtered_subsets ) ) {
@@ -358,18 +368,21 @@ class Helper {
 			return $filtered_subsets;
 		}
 
-		return $subsets;
+		return apply_filters( 'omgf_available_subsets', $subsets );
 	}
 
 	/**
 	 * To prevent "Cannot use output buffering  in output buffering display handlers" errors, I introduced a debug
 	 * array feature, to easily display, well, arrays in the debug log (duh!)
+	 *
 	 * @since v5.3.7
 	 *
-	 * @param array  $array The array to be displayed in the debug log
-	 * @param string $name  A descriptive name to be shown in the debug log
+	 * @param array|object $array The array to be displayed in the debug log
+	 * @param string       $name  A descriptive name to be shown in the debug log
 	 *
 	 * @return void
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public static function debug_array( $name, $array ) {
 		if ( ! self::get_option( Settings::OMGF_ADV_SETTING_DEBUG_MODE ) ||
@@ -405,7 +418,10 @@ class Helper {
 
 	/**
 	 * Returns the absolute path to the log file.
+	 *
 	 * @return string
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public static function log_file() {
 		static $log_file;
@@ -423,6 +439,8 @@ class Helper {
 	 * @param mixed $message
 	 *
 	 * @return void
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public static function debug( $message ) {
 		if ( ! self::get_option( Settings::OMGF_ADV_SETTING_DEBUG_MODE ) ||
@@ -432,7 +450,7 @@ class Helper {
 			return;
 		}
 
-		error_log( current_time( 'Y-m-d H:i:s' ) . ' ' . microtime() . ": $message\n", 3, self::log_file() );
+		error_log( current_time( 'Y-m-d H:i:s' ) . ' ' . microtime() . ": $message\n", 3, self::log_file() ); // @codeCoverageIgnore
 	}
 
 	/**

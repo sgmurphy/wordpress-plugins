@@ -129,41 +129,43 @@ $row_meta = Helper_Functions::is_hide_row_meta();
 													<span><?php echo esc_html_e( 'pro', 'premium-addons-for-elementor' ); ?></span>
 												<?php endif; ?>
 											</p>
-											<?php if ( ! $row_meta ) : ?>
-												<div class="pa-element-meta">
-													<div>
-														<?php if ( isset( $elem['demo'] ) ) : ?>
-															<a class="pa-element-link" href="<?php echo esc_url( $elem['demo'] ); ?>" target="_blank">
-																<?php echo esc_html_e( 'Live Demo', 'premium-addons-for-elementor' ); ?>
-																<span class="pa-element-link-separator"></span>
-															</a>
-														<?php endif; ?>
-														<?php if ( isset( $elem['doc'] ) ) : ?>
-															<a class="pa-element-link" href="<?php echo esc_url( $elem['doc'] ); ?>" target="_blank">
-																<?php echo esc_html_e( 'Docs', 'premium-addons-for-elementor' ); ?>
-																<?php if ( isset( $elem['tutorial'] ) ) : ?>
-																	<span class="pa-element-link-separator"></span>
-																<?php endif; ?>
-															</a>
-														<?php endif; ?>
-														<?php if ( isset( $elem['tutorial'] ) ) : ?>
-															<a class="pa-element-link" href="<?php echo esc_url( $elem['tutorial'] ); ?>" target="_blank">
-																<?php echo esc_html_e( 'Video Tutorial', 'premium-addons-for-elementor' ); ?>
-															</a>
-														<?php endif; ?>
-													</div>
-													<div>
-														<?php
-														if ( isset( $elem['draw_svg'] ) ) :
-															$svg_key = 'svg_' . $elem['key'];
-															?>
-															<input type="checkbox" id="<?php echo esc_attr( $svg_key ); ?>" name="<?php echo esc_attr( $svg_key ); ?>" <?php echo checked( 1, $enabled_elements[ $svg_key ], false ); ?>>
-															<label for="<?php echo esc_attr( $svg_key ); ?>"></label>
-															<span><?php esc_html_e( 'Enable SVG Draw', 'premium-addons-for-elementor' ); ?></span>
-														<?php endif; ?>
-													</div>
-												</div>
-											<?php endif; ?>
+
+                                            <div class="pa-element-meta">
+                                                <?php if ( ! $row_meta ) : ?>
+                                                    <div>
+                                                        <?php if ( isset( $elem['demo'] ) ) : ?>
+                                                            <a class="pa-element-link" href="<?php echo esc_url( $elem['demo'] ); ?>" target="_blank">
+                                                                <?php echo esc_html_e( 'Live Demo', 'premium-addons-for-elementor' ); ?>
+                                                                <span class="pa-element-link-separator"></span>
+                                                            </a>
+                                                        <?php endif; ?>
+                                                        <?php if ( isset( $elem['doc'] ) ) : ?>
+                                                            <a class="pa-element-link" href="<?php echo esc_url( $elem['doc'] ); ?>" target="_blank">
+                                                                <?php echo esc_html_e( 'Docs', 'premium-addons-for-elementor' ); ?>
+                                                                <?php if ( isset( $elem['tutorial'] ) ) : ?>
+                                                                    <span class="pa-element-link-separator"></span>
+                                                                <?php endif; ?>
+                                                            </a>
+                                                        <?php endif; ?>
+                                                        <?php if ( isset( $elem['tutorial'] ) ) : ?>
+                                                            <a class="pa-element-link" href="<?php echo esc_url( $elem['tutorial'] ); ?>" target="_blank">
+                                                                <?php echo esc_html_e( 'Video Tutorial', 'premium-addons-for-elementor' ); ?>
+                                                            </a>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                <?php endif; ?>
+
+                                                <div>
+                                                    <?php
+                                                    if ( isset( $elem['draw_svg'] ) ) :
+                                                        $svg_key = 'svg_' . $elem['key'];
+                                                        ?>
+                                                        <input type="checkbox" id="<?php echo esc_attr( $svg_key ); ?>" name="<?php echo esc_attr( $svg_key ); ?>" <?php echo checked( 1, $enabled_elements[ $svg_key ], false ); ?>>
+                                                        <label for="<?php echo esc_attr( $svg_key ); ?>"></label>
+                                                        <span><?php esc_html_e( 'Enable SVG Draw', 'premium-addons-for-elementor' ); ?></span>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
 										</div>
 									</div>
 									<label class="switch">

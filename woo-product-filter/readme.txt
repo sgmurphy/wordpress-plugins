@@ -3,8 +3,8 @@ Contributors: WBW
 Donate link: https://woobewoo.com/product/woocommerce-filter/
 Tags: product filter, WooCommerce product filter, shop filter, e-commerce filter, WooCommerce filter
 Requires at least: 3.4.0
-Tested up to: 6.4
-Stable tag: 2.5.6
+Tested up to: 6.5
+Stable tag: 2.5.7
  
 Filter products by categories, attributes, prices, and more. Elementor Compatibility. Shoppers easily find products with WooCommerce Product Filter
 
@@ -146,6 +146,12 @@ If none of this advice helps you, contact us via [support form on our website](h
 You may help us translate the plugin into your language and get the PRO version of the plugin for free as soon as it is released. If this method seems to be too complicated, please send us a request and we will let you know as soon as the WBW Filter plugin will be available in your localization.
 
 == Changelog ==
+
+= 2.5.7 =
+ * Added compatibility with Woo-products from PowerPack Pro for Elementor
+ * Added dropdown to choose the number of products per page
+ * Added custom orderby
+ * Minor issues fix
 
 = 2.5.6 =
  * Readme fix

@@ -9,11 +9,26 @@ class ComposerStaticInit20ffbdf9670d31d6ed9d94ce50faf1c3
     public static $prefixLengthsPsr4 = array (
         'O' => 
         array (
+            'OMGF\\Tests\\Unit\\' => 16,
+            'OMGF\\Tests\\Integration\\' => 23,
+            'OMGF\\Tests\\' => 11,
             'OMGF\\' => 5,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'OMGF\\Tests\\Unit\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/tests/unit',
+        ),
+        'OMGF\\Tests\\Integration\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/tests/integration',
+        ),
+        'OMGF\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/tests',
+        ),
         'OMGF\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',

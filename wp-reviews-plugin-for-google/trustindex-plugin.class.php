@@ -220,55 +220,8 @@ update_option($this->get_option_name('active'), '0');
 public function load()
 {
 global $wpdb;
-$version = $this->version;
 $this->loadI18N();
-
-if ($this->is_noreg_linked()) {
-$tableName = $this->get_tablename('reviews');
-
-if ($version >= 6.3 && count($wpdb->get_results('SHOW COLUMNS FROM `'. $tableName .'` LIKE "highlight"')) === 0) {
-$wpdb->query('ALTER TABLE `'. $tableName .'` ADD highlight VARCHAR(11) NULL AFTER rating');
-}
-
-if ($version >= 10.1) {
-if (count($wpdb->get_results('SHOW COLUMNS FROM `'. $tableName .'` LIKE "reply"')) === 0) {
-$wpdb->query('ALTER TABLE `'. $tableName .'` ADD reply TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL AFTER date');
-if (count($wpdb->get_results('SHOW COLUMNS FROM `'. $tableName .'` LIKE "replied"')) === 1) {
-$wpdb->query('ALTER TABLE `'. $tableName .'` DROP replied');
-}
-if (in_array($this->getShortName(), [ 'facebook', 'google' ])) {
-delete_option($this->get_option_name('download-timestamp'));
-delete_option($this->get_option_name('review-download-inprogress'));
-delete_option($this->get_option_name('review-manual-download'));
-delete_option($this->get_option_name('review-download-request-id'));
-delete_option($this->get_option_name('review-download-modal'));
-}
-}
-if (count($wpdb->get_results('SHOW COLUMNS FROM `'. $tableName .'` LIKE "reviewId"')) === 0) {
-$wpdb->query('ALTER TABLE `'. $tableName .'` ADD reviewId TEXT NULL AFTER date');
-}
-}
-
-if ($version >= 10.7 && count($wpdb->get_results('SHOW COLUMNS FROM `'. $tableName .'` LIKE "hidden"')) === 0) {
-$wpdb->query('ALTER TABLE `'. $tableName .'` ADD hidden TINYINT(1) NOT NULL DEFAULT 0 AFTER id');
-}
-}
-if ($this->is_noreg_linked() && get_option($this->get_option_name('review-content'))) {
-$contentVersion = get_option($this->get_option_name('content-saved-to'));
-if (!$contentVersion || $contentVersion != $version) {
-update_option($this->get_option_name('content-saved-to'), $version, false);
-delete_option($this->get_option_name('review-content'));
-$this->noreg_save_css(true);
-}
-}
-if ($this->is_review_download_in_progress()) {
-delete_option($this->get_option_name('download-timestamp'));
-delete_option($this->get_option_name('review-download-inprogress'));
-delete_option($this->get_option_name('review-manual-download'));
-delete_option($this->get_option_name('review-download-request-id'));
-delete_option($this->get_option_name('review-download-modal'));
-}
-$this->handleCssFile();
+include $this->get_plugin_dir() . 'include' . DIRECTORY_SEPARATOR . 'update.php';
 if (get_option($this->get_option_name('activation-redirect'))) {
 delete_option($this->get_option_name('activation-redirect'));
 wp_redirect(admin_url('admin.php?page=' . $this->get_plugin_slug() . '/settings.php'));
@@ -297,25 +250,6 @@ if ( !class_exists('TrustindexGutenbergPlugin') && function_exists( 'register_bl
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'static' . DIRECTORY_SEPARATOR . 'block-editor' . DIRECTORY_SEPARATOR . 'block-editor.php';
 TrustindexGutenbergPlugin::instance();
 }
-$oldRateUs = get_option('trustindex-'. $this->getShortName() .'-rate-us');
-if ($oldRateUs) {
-if ($oldRateUs === 'hide') {
-$this->setNotificationParam('rate-us', 'hidden', true);
-}
-else {
-$this->setNotificationParam('rate-us', 'active', true);
-$this->setNotificationParam('rate-us', 'timestamp', $oldRateUs);
-}
-}
-$oldNotificationEmail = get_option('trustindex-'. $this->getShortName() .'-review-download-notification-email');
-if ($oldNotificationEmail) {
-$this->setNotificationParam('review-download-finished', 'email', $oldNotificationEmail);
-}
-$usedOptions = [];
-foreach ($this->get_option_names() as $optName) {
-$usedOptions []= $this->get_option_name($optName);
-}
-$wpdb->query('DELETE FROM `'. $wpdb->options .'` WHERE option_name LIKE "trustindex-'. $this->getShortName() .'-%" AND option_name NOT IN ("'. implode('", "', $usedOptions) .'")');
 }
 public function loadI18N()
 {
@@ -473,6 +407,7 @@ return [
 'reviews-load-more',
 'activation-redirect',
 'notifications',
+'update-version-check',
 ];
 }
 public function setNotificationParam($type, $param, $value)
@@ -707,7 +642,7 @@ $filePath = __FILE__;
 if (isset($this->plugin_slugs[ $forcePlatform ])) {
 $filePath = preg_replace('/[^\/\\\\]+([\\\\\/]trustindex-plugin\.class\.php)/', $this->plugin_slugs[ $forcePlatform ] . '$1', $filePath);
 }
-$chosedPlatform = new self($forcePlatform, $filePath, "do-not-care-11.7.1", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
+$chosedPlatform = new self($forcePlatform, $filePath, "do-not-care-11.8.2", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
 $chosedPlatform->setNotificationParam('not-using-no-widget', 'active', false);
 if (!$chosedPlatform->is_noreg_linked()) {
 return $this->error_box_for_admins(sprintf(__('You have to connect your business (%s)!', 'trustindex-plugin'), $forcePlatform));
@@ -5640,9 +5575,7 @@ $reviews = $this->getRandomReviews(10);
 }
 if (!count($reviews)) {
 $text = sprintf(__('There are no reviews on your %s platform.', 'trustindex-plugin'), ucfirst($this->getShortName()));
-if ($this->is_review_download_in_progress()) {
-$text = __('Your reviews are being downloaded.', 'trustindex-plugin') . ' ' . __('This process should only take a few minutes.', 'trustindex-plugin');
-}
+
 return $this->error_box_for_admins($text);
 }
 if (self::is_amp_active() && self::is_amp_enabled()) {
@@ -6206,11 +6139,11 @@ wp_die();
 public function trustindex_add_scripts($hook)
 {
 if ($hook === 'widgets.php') {
-wp_enqueue_script('trustindex_script', $this->get_plugin_file_url('static/js/admin-widget.js'));
-wp_enqueue_style('trustindex_style', $this->get_plugin_file_url('static/css/admin-widget.css'));
+wp_enqueue_script('trustindex_script', $this->get_plugin_file_url('static/js/admin-widget.js'), [], $this->version);
+wp_enqueue_style('trustindex_style', $this->get_plugin_file_url('static/css/admin-widget.css'), [], $this->version);
 }
 else if ($hook === 'post.php') {
-wp_enqueue_style('trustindex_editor_style', $this->get_plugin_file_url('static/css/admin-editor.css'));
+wp_enqueue_style('trustindex_editor_style', $this->get_plugin_file_url('static/css/admin-editor.css'), [], $this->version);
 }
 else {
 $tmp = explode(DIRECTORY_SEPARATOR, $this->plugin_file_path);
@@ -6219,19 +6152,19 @@ $tmp = explode('/', $hook);
 $currentSlug = array_shift($tmp);
 if ($pluginSlug === $currentSlug) {
 if (file_exists($this->get_plugin_dir() . 'static' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'admin-page-settings.css')) {
-wp_enqueue_style('trustindex_settings_style_'. $this->getShortName(), $this->get_plugin_file_url('static/css/admin-page-settings.css'));
+wp_enqueue_style('trustindex_settings_style_'. $this->getShortName(), $this->get_plugin_file_url('static/css/admin-page-settings.css'), [], $this->version);
 }
 if (file_exists($this->get_plugin_dir() . 'static' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'admin-page-settings-common.js')) {
-wp_enqueue_script('trustindex_settings_script_common_'. $this->getShortName(), $this->get_plugin_file_url('static/js/admin-page-settings-common.js'));
+wp_enqueue_script('trustindex_settings_script_common_'. $this->getShortName(), $this->get_plugin_file_url('static/js/admin-page-settings-common.js'), [], $this->version);
 }
 if(file_exists($this->get_plugin_dir() . 'static' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'admin-page-settings-connect.js')) {
-wp_enqueue_script('trustindex_settings_script_connect_'. $this->getShortName(), $this->get_plugin_file_url('static/js/admin-page-settings-connect.js'));
+wp_enqueue_script('trustindex_settings_script_connect_'. $this->getShortName(), $this->get_plugin_file_url('static/js/admin-page-settings-connect.js'), [], $this->version);
 }
 }
 }
 wp_register_script('trustindex_admin_notification', $this->get_plugin_file_url('static/js/admin-notification.js') );
 wp_enqueue_script('trustindex_admin_notification');
-wp_enqueue_style('trustindex_admin_notification', $this->get_plugin_file_url('static/css/admin-notification.css'));
+wp_enqueue_style('trustindex_admin_notification', $this->get_plugin_file_url('static/css/admin-notification.css'), [], $this->version);
 }
 
 

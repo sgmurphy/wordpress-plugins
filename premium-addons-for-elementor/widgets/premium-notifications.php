@@ -3816,9 +3816,9 @@ class Premium_Notifications extends Widget_Base {
 
 					<?php endif; ?>
 
-					<<?php echo wp_kses_post( $settings['header_size'] ); ?> class="pa-rec-title">
+					<<?php echo Helper_Functions::validate_html_tag( $settings['header_size'] ); ?> class="pa-rec-title">
 						<?php echo wp_kses_post( $settings['header_text'] ); ?>
-					</<?php echo wp_kses_post( $settings['header_size'] ); ?>>
+					</<?php echo Helper_Functions::validate_html_tag( $settings['header_size'] ); ?>>
 
 
 				</div>

@@ -833,12 +833,42 @@
 		max-width: 85px;
 	}
 
+.tribe-common .tribe-tickets__commerce-checkout-cart-item-price .tec-tickets-price, .event-tickets .tribe-tickets__commerce-checkout-cart-item-price .tec-tickets-price {
+			display: flex;
+			grid-gap: var(--tec-spacer-1);
+			gap: var(--tec-spacer-1);
+		}
+
+.tribe-common .tribe-tickets__commerce-checkout-cart-item-price .tec-tickets-price .tec-tickets-price__regular-price, .event-tickets .tribe-tickets__commerce-checkout-cart-item-price .tec-tickets-price .tec-tickets-price__regular-price {
+				color: var(--tec-color-text-secondary);
+				font-size: var(--tec-font-size-2);
+				font-weight: var(--tec-font-weight-normal);
+				text-decoration: line-through;
+			}
+
+.tribe-common .tribe-tickets__commerce-checkout-cart-item-price .tec-tickets-price .tec-tickets-price__sale-price, .event-tickets .tribe-tickets__commerce-checkout-cart-item-price .tec-tickets-price .tec-tickets-price__sale-price {
+				color: var(--tec-color-text-primary);
+				font-size: var(--tec-font-size-3);
+				font-weight: var(--tec-font-weight-bold);
+			}
+
+.tribe-common .tribe-tickets__commerce-checkout-cart-item-price .tec-tickets-price > ins, .event-tickets .tribe-tickets__commerce-checkout-cart-item-price .tec-tickets-price > ins {
+				order: 2;
+				text-decoration: none;
+			}
+
+.tribe-common .tribe-tickets__commerce-checkout-cart-item-price .tec-tickets-price > del, .event-tickets .tribe-tickets__commerce-checkout-cart-item-price .tec-tickets-price > del {
+				order: 1;
+				text-decoration: none;
+			}
+
 .tribe-common .tribe-tickets__commerce-checkout-cart-item-quantity, .event-tickets .tribe-tickets__commerce-checkout-cart-item-quantity {
 		flex: 0 0 60px;
 		font-weight: bold;
 	}
 
 .tribe-common .tribe-tickets__commerce-checkout-cart-item-subtotal, .event-tickets .tribe-tickets__commerce-checkout-cart-item-subtotal {
+		font-weight: var(--tec-font-weight-bold);
 		text-align: right;
 	}
 

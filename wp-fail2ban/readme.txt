@@ -4,7 +4,7 @@ Author URI: https://invis.net/?utm_source=wordpress.org&utm_medium=readme&utm_ca
 Plugin URI: https://wp-fail2ban.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=wp-fail2ban-premium-5.2.2
 Tags: fail2ban, login, security, syslog, brute force, protection, classicpress
 Requires at least: 4.2
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 5.2.2.1
 Requires PHP: 7.4
 License: GPLv3 or later

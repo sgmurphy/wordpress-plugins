@@ -21,12 +21,16 @@ use OMGF\Helper as OMGF;
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * @codeCoverageIgnore
+ */
 class V581 {
 	/** @var $version string The version number this migration script was introduced with. */
 	private $version = '5.8.1';
 
 	/**
 	 * Build class
+	 *
 	 * @return void
 	 */
 	public function __construct() {
@@ -35,6 +39,7 @@ class V581 {
 
 	/**
 	 * Initialize
+	 *
 	 * @return void
 	 */
 	private function init() {

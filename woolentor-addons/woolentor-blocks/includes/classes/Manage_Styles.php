@@ -270,14 +270,14 @@ class Manage_Styles {
 			foreach ( $reusable_id as $id ) {
 				$reusable_dir_path = $upload_css_dir_url."woolentor-addons/woolentor-css-{$id}.css";
 				if (file_exists( $reusable_dir_path )) {
-					$reusable_block_css .= $wp_filesystem->get_contents( $reusable_dir_path );
+					$reusable_block_css .= file_get_contents( $reusable_dir_path );
 				}else{
 					$reusable_block_css .= get_post_meta($id, '_woolentor_css', true);
 				}
 			}
 
 			if ( file_exists( $css_file_path ) ) {
-				echo '<style type="text/css">'.$wp_filesystem->get_contents( $css_file_path ).$reusable_block_css.'</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<style type="text/css">'.file_get_contents( $css_file_path ).$reusable_block_css.'</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			} else {
 				$css = get_post_meta( $post_id, '_woolentor_css', true );
 				if( $css ) {

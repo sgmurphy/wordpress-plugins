@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-02T12:54:42+00:00\n"
+"POT-Creation-Date: 2024-04-03T20:42:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -2278,23 +2278,23 @@ msgstr ""
 msgid "Quickly add custom css to the player web component."
 msgstr ""
 
-#: admin/settings/pages/General.js:259
+#: admin/settings/pages/General.js:258
 msgid "Uninstall Options"
 msgstr ""
 
-#: admin/settings/pages/General.js:260
+#: admin/settings/pages/General.js:259
 msgid "Options to remove data on uninstall."
 msgstr ""
 
-#: admin/settings/pages/General.js:266
+#: admin/settings/pages/General.js:265
 msgid "Remove data on uninstall"
 msgstr ""
 
-#: admin/settings/pages/General.js:267
+#: admin/settings/pages/General.js:266
 msgid "This removes all data on uninstall."
 msgstr ""
 
-#: admin/settings/pages/General.js:273
+#: admin/settings/pages/General.js:272
 msgid "Caution: Data Loss. Are you sure you want to remove all the data from this plugin? This is irreversible!"
 msgstr ""
 

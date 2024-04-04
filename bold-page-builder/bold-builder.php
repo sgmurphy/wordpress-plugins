@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Bold Builder
  * Description: WordPress page builder.
- * Version: 4.8.8
+ * Version: 4.8.9
  * Author: BoldThemes
  * Author URI: https://www.bold-themes.com
  * Text Domain: bold-builder
@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // VERSION --------------------------------------------------------- \\
-define( 'BT_BB_VERSION', '4.8.8' );
+define( 'BT_BB_VERSION', '4.8.9' );
 // VERSION --------------------------------------------------------- \\
  
 /**
@@ -905,8 +905,8 @@ function bt_bb_translate() {
 	echo 'window.bt_bb_text.dd = {};';
 	echo 'window.bt_bb_text.dd.move = "' . esc_html__( 'Move', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text.dd.copy = "' . esc_html__( 'Copy', 'bold-builder' ) . '";';
-	echo 'window.bt_bb_text.dd.after = "' . esc_html__( 'after', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text.dd.before = "' . esc_html__( 'before', 'bold-builder' ) . '";';
+	echo 'window.bt_bb_text.dd.after = "' . esc_html__( 'after', 'bold-builder' ) . '";';
 	echo 'window.bt_bb_text.dd.to = "' . esc_html__( 'to', 'bold-builder' ) . '";';
 	
 	echo '</script>';
@@ -1183,18 +1183,7 @@ function bt_bb_wpautop( $content ) {
 	if ( ! bt_bb_active_for_post_type_fe() ) {
 		return $content;
 	}
-	foreach( BT_BB_Root::$elements as $base => $params ) {
-		$proxy = new BT_BB_FE_Map_Proxy( $base, $params );
-	}	
-	global $bt_bb_root_base;
-	$bt_bb_content = false;
-	foreach( $bt_bb_root_base as $item ) {
-		if ( strpos( trim( $content ), '[' . $item ) === 0 ) {
-			$bt_bb_content = true;
-			break;
-		}
-	}
-	if ( $bt_bb_content ) {
+	if ( strpos( trim( $content ), '[bt_' ) === 0 ) {
 		remove_filter( 'the_content', 'wpautop' );
 	} else if ( BT_BB_Root::$init_wpautop !== false ) {
 		add_filter( 'the_content', 'wpautop' );
@@ -1556,12 +1545,18 @@ class BT_BB_Basic_Element {
 	}
 
 	function init() {
+		
+		require_once( dirname(__FILE__) . '/content_elements_misc/misc.php' );
+		
 		$this->prefix = 'bt_bb_';
 		$this->prefix_backend = 'bt_bb_';
 		$this->shortcode = get_class( $this );
 		$this->extra_responsive_data_override_param = [];
 		add_shortcode( $this->shortcode, array( $this, 'handle_shortcode' ) );
-		add_action( 'wp_loaded', array( $this, 'map_shortcode' ) );
+		
+		// add_action( 'wp_loaded', array( $this, 'map_shortcode' ) );
+		add_action( 'admin_bar_init', array( $this, 'map_shortcode' ) );
+		
 		//$this->map_shortcode();
 		$this->add_params();
 		add_filter( 'bt_bb_extract_atts_' . $this->shortcode, array( $this, 'atts_callback' ) );
@@ -1905,6 +1900,9 @@ function bt_bb_honor_ssl_for_attachments( $url ) {
 add_action( 'content_save_pre', 'bt_bb_save_pre' );
 function bt_bb_save_pre( $content ) {
 	if ( ! current_user_can( 'unfiltered_html' ) ) {
+		if ( str_contains( $content, '[bt_bb_price_list' ) ) {
+			wp_die( esc_html__( 'Sorry, you are not allowed to save Price List element.', 'bold-builder' ) );
+		}
 		if ( str_contains( $content, '[bt_bb_raw_content' ) ) {
 			wp_die( esc_html__( 'Sorry, you are not allowed to save Raw Content element.', 'bold-builder' ) );
 		}

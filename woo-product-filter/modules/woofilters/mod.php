@@ -27,6 +27,7 @@ class WoofiltersWpf extends ModuleWpf {
 	public $originalWCQuery              = null;
 	public static $otherShortcodeAttr    = array();
 	public $clausesByParam               = array();
+	public $fields                       = array();
 
 	public function init() {
 		DispatcherWpf::addFilter( 'mainAdminTabs', array( $this, 'addAdminTab' ) );
@@ -202,7 +203,7 @@ class WoofiltersWpf extends ModuleWpf {
 						$this,
 						'loadProductsFilterForProductGrid'
 					), 999 );
-				} else if ( in_array($widgetName, array('aux_advance_recent_product', 'premium-woo-products', 'shop-standard')) ) {
+				} else if ( in_array($widgetName, array('aux_advance_recent_product', 'premium-woo-products', 'shop-standard', 'pp-woo-products')) ) {
 					$this->mainWCQueryFiltered = '';
 					add_action( 'pre_get_posts', array($this,'loadProductsFilterForProductGrid'), 999 );
 				}
@@ -232,7 +233,8 @@ class WoofiltersWpf extends ModuleWpf {
 		if ( !$existFilter ) {
 			if (ReqWpf::existGetVar('wpf_')) {
 				$existFilter = true;
-			} if (ReqWpf::getVar('action', 'post') == 'divi_filter_loadmore_ajax_handler' && ReqWpf::getVar('with_wpf_filter', 'post')) {
+			}
+			if (ReqWpf::getVar('action', 'post') == 'divi_filter_loadmore_ajax_handler' && ReqWpf::getVar('with_wpf_filter', 'post')) {
 				if (isset( $query->query_vars['post_type'] ) && 'product' == $query->query_vars['post_type']) {
 					parse_str(ReqWpf::getVar('with_wpf_filter', 'post'), $addParams); 
 					if (is_array($addParams)) {

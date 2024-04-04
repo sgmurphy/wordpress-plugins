@@ -24,13 +24,23 @@ defined( 'ABSPATH' ) || exit;
 
 class Optimize {
 	/**
-	 * User Agents set to be used to make requests to the Google Fonts API.
-	 * @see          https://wordpress.org/support/topic/wrong-font-weight-only-in-firefox-2/
-	 * @since        v5.6.4 Using Win7 User-Agent to prevent rendering issues on older systems.
+	 * User Agent set to be used to make requests to the Google Fonts API in Compatibility Mode.
+	 *
+	 * @see   https://wordpress.org/support/topic/wrong-font-weight-only-in-firefox-2/
+	 * @since v5.6.4 Using Win7 User-Agent to prevent rendering issues on older systems.
 	 *               This results in 0,2KB larger WOFF2 files, but seems like a fair trade off.
+	 * @since v5.9.0 Moved this User Agent to the new Legacy Mode option, because this user agent
+	 *               no longer supports variable fonts.
+	 */
+	const USER_AGENT_COMPATIBILITY = [
+		'woff2' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0',
+	];
+
+	/**
+	 * User Agent to be used to make requests to the Google Fonts API.
 	 */
 	const USER_AGENT = [
-		'woff2' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0',
+		'woff2' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0',
 	];
 
 	/** @var string $url */
@@ -92,6 +102,7 @@ class Optimize {
 	 */
 	public function process() {
 		if ( ! $this->handle || ! $this->original_handle ) {
+			// @codeCoverageIgnoreStart
 			Notice::set_notice(
 				sprintf(
 					__(
@@ -107,13 +118,14 @@ class Optimize {
 			);
 
 			return '';
+			// @codeCoverageIgnoreEnd
 		}
 
 		/**
 		 * Convert protocol relative URLs.
 		 */
-		if ( strpos( $this->url, '//' ) === 0 ) {
-			$this->url = 'https:' . $this->url;
+		if ( str_starts_with( $this->url, '//' ) ) {
+			$this->url = 'https:' . $this->url; // @codeCoverageIgnore
 		}
 
 		$local_file = $this->path . '/' . $this->handle . '.css';
@@ -122,6 +134,7 @@ class Optimize {
 		 * @since v3.6.0 Allows us to bail early, if a fresh copy of files/stylesheets isn't necessary.
 		 */
 		if ( file_exists( $local_file ) && $this->return_early ) {
+			// @codeCoverageIgnoreStart
 			switch ( $this->return ) {
 				case 'path':
 					return $local_file;
@@ -132,6 +145,7 @@ class Optimize {
 				default:
 					return str_replace( OMGF_UPLOAD_DIR, OMGF_UPLOAD_URL, $local_file );
 			}
+			// @codeCoverageIgnoreEnd
 		}
 
 		/**
@@ -146,27 +160,35 @@ class Optimize {
 		$fonts          = $this->convert_to_fonts_object( $stylesheet );
 
 		if ( empty( $fonts ) ) {
-			return '';
+			return ''; // @codeCoverageIgnore
 		}
 
 		foreach ( $fonts as $id => &$font ) {
 			/**
 			 * Sanitize font family, because it may contain spaces.
+			 *
 			 * @since v4.5.6
 			 */
 			$font->family = rawurlencode( $font->family );
 
 			OMGF::debug( __( 'Processing downloads for', 'host-webfonts-local' ) . ' ' . $font->family . '...' );
 
-			if ( ! isset( $font->variants ) || empty( $font->variants ) ) {
-				continue;
+			if ( empty( $font->variants ) ) {
+				continue; // @codeCoverageIgnore
+			}
+
+			$filenames        = array_column( $font->variants, 'woff2' );
+			$is_variable_font = false;
+
+			if ( $filenames != array_unique( $filenames ) ) {
+				$is_variable_font = true;
 			}
 
 			foreach ( $font->variants as $variant_id => &$variant ) {
 				/**
 				 * @since v5.3.0 Variable fonts use one filename for all font weights/styles. That's why we drop the weight from the filename.
 				 */
-				if ( isset( $this->variable_fonts[ $id ] ) ) {
+				if ( $is_variable_font ) {
 					$filename = strtolower( $id . '-' . $variant->fontStyle . '-' . ( isset( $variant->subset ) ? $variant->subset : '' ) );
 				} else {
 					$filename = strtolower(
@@ -176,6 +198,7 @@ class Optimize {
 
 				/**
 				 * Encode font family, because it may contain spaces.
+				 *
 				 * @since v4.5.6
 				 */
 				$variant->fontFamily = rawurlencode( $variant->fontFamily );
@@ -196,7 +219,7 @@ class Optimize {
 		$stylesheet = OMGF::generate_stylesheet( $fonts );
 
 		if ( ! file_exists( $this->path ) ) {
-			wp_mkdir_p( $this->path );
+			wp_mkdir_p( $this->path ); // @codeCoverageIgnore
 		}
 
 		file_put_contents( $local_file, $stylesheet );
@@ -211,6 +234,7 @@ class Optimize {
 
 		/**
 		 * $current_stylesheet is added to temporary cache layer, if it isn't present in database.
+		 *
 		 * @since v4.5.7
 		 */
 		$optimized_fonts = OMGF::admin_optimized_fonts( $current_stylesheet_bak, true );
@@ -234,10 +258,8 @@ class Optimize {
 		switch ( $this->return ) {
 			case 'path':
 				return $local_file;
-				break;
 			case 'object':
 				return $current_stylesheet;
-				break;
 			default: // 'url'
 				return str_replace( OMGF_UPLOAD_DIR, OMGF_UPLOAD_URL, $local_file );
 		}
@@ -258,6 +280,7 @@ class Optimize {
 			[
 				/**
 				 * Allow WP devs to use a different User-Agent, e.g. for compatibility with older browsers/OSes.
+				 *
 				 * @filter omgf_optimize_user_agent
 				 */ 'user-agent' => apply_filters( 'omgf_optimize_user_agent', self::USER_AGENT[ 'woff2' ] ),
 			]
@@ -266,7 +289,7 @@ class Optimize {
 		$code = wp_remote_retrieve_response_code( $response );
 
 		if ( $code !== 200 ) {
-			return '';
+			return ''; // @codeCoverageIgnore
 		}
 
 		return wp_remote_retrieve_body( $response );
@@ -284,8 +307,8 @@ class Optimize {
 
 		preg_match_all( '/font-family:\s\'(.*?)\';/', $stylesheet, $font_families );
 
-		if ( ! isset( $font_families[ 1 ] ) || empty( $font_families[ 1 ] ) ) {
-			return [];
+		if ( empty( $font_families[ 1 ] ) ) {
+			return []; // @codeCoverageIgnore
 		}
 
 		$font_families = array_unique( $font_families[ 1 ] );
@@ -336,20 +359,20 @@ class Optimize {
 		 */
 		preg_match_all( apply_filters( 'omgf_optimize_parse_variants_regex', '/\/\*\s.*?}/s', $this->url ), $stylesheet, $font_faces );
 
-		if ( ! isset( $font_faces[ 0 ] ) || empty( $font_faces[ 0 ] ) ) {
-			return [];
+		if ( empty( $font_faces[ 0 ] ) ) {
+			return []; // @codeCoverageIgnore
 		}
 
 		OMGF::debug( sprintf( __( 'Found %s @font-face statements.', 'host-webfonts-local' ), count( $font_faces[ 0 ] ) ) );
 
 		$font_object = [];
 
-		foreach ( $font_faces[ 0 ] as $key => $font_face ) {
+		foreach ( $font_faces[ 0 ] as $font_face ) {
 			/**
 			 * @since v5.3.3 Exact match for font-family attribute, to prevent similar font names from falling thru, e.g. Roboto and Roboto Slab.
 			 */
 			if ( ! preg_match( '/font-family:[\s\'"]*?' . $font_family . '[\'"]?;/', $font_face ) ) {
-				continue;
+				continue; // @codeCoverageIgnore
 			}
 
 			preg_match( '/font-style:\s(normal|italic);/', $font_face, $font_style );
@@ -358,15 +381,12 @@ class Optimize {
 			preg_match( '/\/\*\s([a-z\-0-9\[\]]+?)\s\*\//', $font_face, $subset );
 			preg_match( '/unicode-range:\s(.*?);/', $font_face, $range );
 
-			$subset[ 1 ] = trim( $subset[ 1 ], '[]' );
+			$subset = ! empty( $subset[ 1 ] ) ? trim( $subset[ 1 ], '[]' ) : '';
 
 			/**
 			 * @since v5.3.0 No need to keep this if this variant belongs to a subset we don't need.
 			 */
-			if ( ! empty( $subset ) &&
-				isset( $subset[ 1 ] ) &&
-				! in_array( $subset[ 1 ], OMGF::get_option( settings::OMGF_ADV_SETTING_SUBSETS ) ) &&
-				! is_numeric( $subset[ 1 ] ) ) {
+			if ( ! empty( $subset ) && ! in_array( $subset, OMGF::get_option( settings::OMGF_ADV_SETTING_SUBSETS ) ) && ! is_numeric( $subset ) ) {
 				continue;
 			}
 
@@ -374,12 +394,11 @@ class Optimize {
 			 * If $subset is empty, assume it's a logographic (Chinese, Japanese, etc.) character set.
 			 * TODO: [OMGF-87] the Used Subsets option doesn't work here. Can we make it work?
 			 */
-			if ( is_numeric( $subset[ 1 ] ) ) {
-				$subset[ 1 ] = 'logogram-' . $subset[ 1 ];
+			if ( is_numeric( $subset ) ) {
+				$subset = 'logogram-' . $subset;
 			}
 
-			$key                             =
-				$subset[ 1 ] . '-' . $font_weight[ 1 ] . ( $font_style[ 1 ] === 'normal' ? '' : '-' . $font_style[ 1 ] );
+			$key                             = $subset . '-' . $font_weight[ 1 ] . ( $font_style[ 1 ] === 'normal' ? '' : '-' . $font_style[ 1 ] );
 			$font_object[ $key ]             = new \stdClass();
 			$font_object[ $key ]->id         = $font_weight[ 1 ] . ( $font_style[ 1 ] === 'normal' ? '' : $font_style[ 1 ] );
 			$font_object[ $key ]->fontFamily = $font_family;
@@ -387,8 +406,8 @@ class Optimize {
 			$font_object[ $key ]->fontWeight = $font_weight[ 1 ];
 			$font_object[ $key ]->woff2      = $font_src[ 1 ];
 
-			if ( ! empty( $subset ) && isset( $subset[ 1 ] ) ) {
-				$font_object[ $key ]->subset = $subset[ 1 ];
+			if ( ! empty( $subset ) ) {
+				$font_object[ $key ]->subset = $subset;
 			}
 
 			if ( ! empty( $range ) && isset( $range[ 1 ] ) ) {
@@ -427,8 +446,8 @@ class Optimize {
 
 		preg_match_all( '/\/\*\s([a-z\-]+?)\s\*\//', $stylesheet, $subsets );
 
-		if ( ! isset( $subsets[ 1 ] ) || empty( $subsets[ 1 ] ) ) {
-			return [];
+		if ( empty( $subsets[ 1 ] ) ) {
+			return []; // @codeCoverageIgnore
 		}
 
 		$subsets = array_unique( $subsets[ 1 ] );
@@ -459,7 +478,7 @@ class Optimize {
 
 		OMGF::debug( __( 'Looking for unloads for: ', 'host-webfonts-local' ) . $url );
 
-		if ( strpos( $url, '/css2' ) !== false ) {
+		if ( str_contains( $url, '/css2' ) ) {
 			$url = $this->unload_css2( $url );
 		} else {
 			$url = $this->unload_css( $url );
@@ -479,11 +498,11 @@ class Optimize {
 		$query = wp_parse_url( $url, PHP_URL_QUERY );
 
 		foreach ( $font_families = explode( '&', $query ) as $key => $family ) {
-			preg_match( '/family=(?<name>[A-Za-z\s]+)[\:]?/', $family, $name );
+			preg_match( '/family=(?<name>[A-Za-z\s]+)[:]?/', $family, $name );
 			preg_match( '/:(?P<axes>[a-z,]+)@/', $family, $axes );
 			preg_match( '/@(?P<tuples>[0-9,;]+)[&]?/', $family, $tuples );
 
-			if ( ! isset( $name[ 'name' ] ) || empty( $name[ 'name' ] ) ) {
+			if ( empty( $name[ 'name' ] ) ) {
 				continue;
 			}
 
@@ -494,13 +513,13 @@ class Optimize {
 				continue;
 			}
 
-			if ( ! isset( $axes[ 'axes' ] ) || empty( $axes[ 'axes' ] ) ) {
+			if ( empty( $axes[ 'axes' ] ) ) {
 				$axes = 'wght';
 			} else {
 				$axes = $axes[ 'axes' ];
 			}
 
-			if ( ! isset( $tuples[ 'tuples' ] ) || empty( $tuples[ 'tuples' ] ) ) {
+			if ( empty( $tuples[ 'tuples' ] ) ) {
 				/**
 				 * Variable Fonts API returns only regular (normal, 400) if no variations are defined.
 				 */
@@ -567,7 +586,7 @@ class Optimize {
 			 */
 			foreach ( $tuples as &$tuple ) {
 				// Convert shorthand syntax to regular syntax.
-				if ( strpos( $tuple, 'i' ) !== false && strpos( $tuple, 'italic' ) === false ) {
+				if ( str_contains( $tuple, 'i' ) && ! str_contains( $tuple, 'italic' ) ) {
 					$tuple = str_replace( 'i', 'italic', $tuple );
 				}
 			}
@@ -612,7 +631,7 @@ class Optimize {
 	 * }
 	 * @formatter:on
 	 *
-	 * @return array
+	 * @return object
 	 */
 	private function rewrite_variants( $current, $replacement ) {
 		OMGF::debug( __( 'Rewriting URLs for each font variant...', 'host-webfonts-local' ) );
@@ -621,8 +640,8 @@ class Optimize {
 		OMGF::debug_array( 'Replacement Fonts Set', $replacement );
 
 		foreach ( $current as $font_family => &$properties ) {
-			if ( ! isset( $properties->variants ) || empty( $properties->variants ) ) {
-				continue;
+			if ( empty( $properties->variants ) ) {
+				continue; // @codeCoverageIgnore
 			}
 
 			foreach ( $properties->variants as $id => &$variant ) {

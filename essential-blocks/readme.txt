@@ -4,7 +4,7 @@ Tags: block, gutenberg, blocks, gutenberg blocks, editor, button, post grid, TOC
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 4.5.7
+Stable tag: 4.5.8
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -225,6 +225,11 @@ Yes, you can effortlessly display your WooCommerce products on your store websit
 If you found the recent version of Essential Blocks isn’t working or conflicting with other plugins, then you can use earlier versions of the plugin.
 
 == Changelog ==
+
+= 4.5.8 - 04/04/2024
+- Fixed: Selected image not displaying in editor issue in **Advanced Image** block
+- Fixed: **Post Grid** block markup mismatch issue
+- Fixed: Attempt recovery issue in **Pricing Table** && **Slider** block
 
 = 4.5.7 - 03/04/2024
 - Added: Site Logo and Featured Image support in **Advanced Image** block

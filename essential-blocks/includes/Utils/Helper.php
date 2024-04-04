@@ -641,9 +641,10 @@ hr.eb-update-warning__separator {
                 <?php echo esc_html( $upgrade_notice ); ?>
             </div>
         </div>
-        <?php }?>
+        <?php
+        }?>
     </div>
 </div>
 <?php
-    }
+}
 }

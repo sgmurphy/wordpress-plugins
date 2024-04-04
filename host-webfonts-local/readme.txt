@@ -1,18 +1,18 @@
 === OMGF | GDPR/DSGVO Compliant, Faster Google Fonts. Easy. ===
 Contributors: DaanvandenBergh
-Tags: google, fonts, gdpr, dsgvo, cache, speed, preload, font-display, webfonts, subsets, remove, minimize, external, requests
-Requires at least: 4.6
-Tested up to: 6.4
-Stable tag: 5.8.3
+Tags: google, fonts, gdpr, dsgvo, cache
+Requires at least: 5.9
+Tested up to: 6.5
+Stable tag: 5.9.0
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-**OMGF can be downloaded for free without any paid subscription from [the official WordPress repository](https://wordpress.org/plugins/host-webfonts-local/).**
-
 OMGF automagically caches the Google Fonts used by your theme/plugins locally. No configuration (or brains) required!
 
 == Description ==
+
+**OMGF can be downloaded for free without any paid subscription from [the official WordPress repository](https://wordpress.org/plugins/host-webfonts-local/).**
 
 > How could using fonts via Google's service possibly run afoul of GDPR? The fact of the matter is that, when a font is requested by the user's browser, their IP is logged by Google and used for analytics.
 > — Lifehacker
@@ -45,6 +45,7 @@ All Google Fonts are listed in the **Optimize Local Fonts** section of OMGF's se
 - "Dig deeper" to find Google Fonts and optimize further. OMGF Pro supports:
   - `@font-face` and `@import` statements inside **inline `<style>` blocks**,
   - `@font-face` and `@import` statements inside **local stylesheets** loaded by your theme and/or plugins,
+  - `@font-face` and `@import` statements inside **externally hosted stylesheets** loaded by your theme and/or plugins,
   - Web Font Loader (`webfont.js`),
   - Early Access Google Fonts,
   - Material Icons.
@@ -78,6 +79,18 @@ For the FAQ, [click here](https://daan.dev/docs/omgf-pro-faq/).
 5. Advanced Settings. Change these to make OMGF work with your configuration (if needed). The default settings will suffice for most configurations.
 
 == Changelog ==
+
+= 5.9.0 =
+* Removed: Early Access promo setting from Detection Settings tab, because it's considered "obsolete and unsupported by Google" and therefore will soon be removed from OMGF Pro.
+  - If you have it enabled now in OMGF Pro, it will still work, until you update OMGF Pro (update isn't released yet).
+* Improved: OMGF now recognizes the `math` and `symbols` unicode ranges.
+* Added: Legacy Mode - anyone running into the broken 'A' issue, should enable it. Be warned that it will impact font compression rates.
+* Improved: PHP 8 compatibility (using constants as callable is deprecated in PHP 8)
+* Fixed: using Auto-config Used Subsets would cause warnings on new installs.
+* Fixed: updating settings would fail if tab parameter wasn't set.
+* Improved: prevent duplicate constant defines.
+* Several minor code improvements.
+* Tested with WP 6.5
 
 = 5.8.3 =
 * Fixed: removed a trailing comma to support PHP 7.0 and 7.1.
@@ -239,7 +252,7 @@ For the FAQ, [click here](https://daan.dev/docs/omgf-pro-faq/).
 * OMGF will now warn you when it detects you're using the following scripts loading Google Fonts in iframes:
   - Active Campaign
   - Channext
-  - Conversio 
+  - Conversio
   - Gastronovi
   - Google Campaign Manager 360
   - HubSpot
@@ -393,7 +406,7 @@ For the FAQ, [click here](https://daan.dev/docs/omgf-pro-faq/).
 * Added: Compatibility with Mesmerize Pro theme; this theme loads Google Fonts asynchronously, which causes CLS.
 * Added: UNIX timestamp cached stylesheets to make sure browser cache of visitors is busted, upon cache refresh.
 * Fixed: Running Save & Optimize a 2nd time could trigger some firewall rules, due to the serialized array being passed along with the settings form's POST action. This serialized array is now stored in the form using base64_encode() and decoded before being saved to the database.
-* Fixed: Since the Google Fonts API has removed the `subsets` paramater and returns all subsets by default, OMGF now does the same. Unlike the Google Fonts API, OMGF does still respect and apply the parameter if it set, because it is still used by many themes and plugins. 
+* Fixed: Since the Google Fonts API has removed the `subsets` paramater and returns all subsets by default, OMGF now does the same. Unlike the Google Fonts API, OMGF does still respect and apply the parameter if it set, because it is still used by many themes and plugins.
   * Re-worded Force Subsets (Pro) featured to clarify this behavior.
 * Fixed: Some resource hints that were added using unconventional methods (i.e. *not* using `wp_resource_hints()`) weren't removed.
 * Fixed: If no regular Google Fonts stylesheets were present, the `omgf_processed_html` filter would never be triggered.

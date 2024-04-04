@@ -6,7 +6,7 @@ Author URI: https://superadmin.es
 Contributors: cesarmaeso
 Tags: LOPD, RGPD, cookies, legal, privacidad
 Requires at least: 4.7
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 1.3.9
 Requires PHP: 5.6
 License: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html

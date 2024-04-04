@@ -393,7 +393,7 @@ class Groups_List_Table extends WP_Terms_List_Table {
 				$row .= '<td class="ad-list-entry-name">';
 				$row .= '<a target="_blank" href="' . esc_url( $ad_url ) . '" title="' . $link_title . '">' . esc_html( $ad->post_title ) . '</a></td>';
 				$row .= '<td>' . \Advanced_Ads_Admin_Ad_Type::get_ad_schedule_output( $ad_id ) . '</td>';
-				$row .= '<td><select name="advads-groups[' . $ad_id . '][ads][' . $ad_id . ']">';
+				$row .= '<td><select name="advads-groups[' . $group_id . '][ads][' . $ad_id . ']">';
 
 				$options = [];
 				for ( $i = 0; $i <= $max_weight; $i++ ) {

@@ -3,7 +3,7 @@ Contributors: athemes, vladff
 Tags: sydney, custom post types, custom fields
 Requires at least: 4.0
 Tested up to: 6.4
-Stable tag: 1.29
+Stable tag: 1.30
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
