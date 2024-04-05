@@ -337,6 +337,7 @@ SP_WPCF::createSection(
 				'title'      => __( 'Space', 'wp-carousel-free' ),
 				'subtitle'   => __( 'Set a space between the items.', 'wp-carousel-free' ),
 				'title_help' => '<div class="sp_wpcp-img-tag"><img src="' . plugin_dir_url( __DIR__ ) . 'img/help-visuals/space.svg" alt="Space"></div><div class="sp_wpcp-info-label">' . __( 'Space', 'wp-carousel-free' ) . '</div>',
+				'sanitize'   => 'wpcf_sanitize_number_array_field',
 				'right'      => true,
 				'top'        => true,
 				'left'       => false,
@@ -358,6 +359,7 @@ SP_WPCF::createSection(
 				'class'      => 'wpcp_number_of_columns',
 				'title'      => __( 'Column(s)', 'wp-carousel-free' ),
 				'subtitle'   => __( 'Set number of column on devices.', 'wp-carousel-free' ),
+				'sanitize'   => 'wpcf_sanitize_number_array_field',
 				'title_help' => '<div class="sp_wpcp-img-tag"><img src="' . plugin_dir_url( __DIR__ ) . 'img/help-visuals/column.svg" alt="Column(s)"></div><div class="sp_wpcp-info-label">' . __( 'Column(s)', 'wp-carousel-free' ) . '</div>',
 				'default'    => array(
 					'lg_desktop' => '5',
@@ -585,6 +587,7 @@ SP_WPCF::createSection(
 				'type'       => 'color_group',
 				'title'      => __( 'Color', 'wp-carousel-free' ),
 				'subtitle'   => __( 'Set pagination color.', 'wp-carousel-free' ),
+				'sanitize'   => 'wpcf_sanitize_color_group_field',
 				'dependency' => array( 'wpcp_carousel_type|wpcp_layout|wpcp_source_pagination', '!=|==|==', 'image-carousel|grid|true', true ),
 				'options'    => array(
 					'color'        => __( 'Color', 'wp-carousel-free' ),
@@ -609,6 +612,7 @@ SP_WPCF::createSection(
 				'class'      => 'pro_only_field',
 				'title'      => __( 'Color', 'wp-carousel-free' ),
 				'subtitle'   => __( 'Set pagination color.', 'wp-carousel-free' ),
+				'sanitize'   => 'wpcf_sanitize_color_group_field',
 				'dependency' => array( 'wpcp_carousel_type|wpcp_layout', '==|==', 'image-carousel|grid', true ),
 				'options'    => array(
 					'color'        => __( 'Color', 'wp-carousel-free' ),
@@ -748,8 +752,8 @@ SP_WPCF::createSection(
 				'id'         => 'wpcp_slide_border',
 				'type'       => 'border',
 				'title'      => __( 'Item Border', 'wp-carousel-free' ),
-				'subtitle'   => __( 'Set border for the slide.', 'wp-carousel-free' ),
 				'subtitle'   => __( 'Set border for the items.', 'wp-carousel-free' ),
+				'sanitize'   => 'wpcf_sanitize_border_field',
 				'title_help' => '<div class="sp_wpcp-img-tag"><img src="' . plugin_dir_url( __DIR__ ) . 'img/help-visuals/slider-border.svg" alt="Items Border"></div><div class="sp_wpcp-info-label">' . __( 'Items Border', 'wp-carousel-free' ) . '</div>',
 				'all'        => true,
 				'default'    => array(
@@ -1127,6 +1131,7 @@ SP_WPCF::createSection(
 				'type'       => 'border',
 				'title'      => __( 'Image Border', 'wp-carousel-free' ),
 				'subtitle'   => __( 'Set border for the product image.', 'wp-carousel-free' ),
+				'sanitize'   => 'wpcf_sanitize_border_field',
 				'all'        => true,
 				'default'    => array(
 					'all'   => '1',
@@ -1225,6 +1230,7 @@ SP_WPCF::createSection(
 								'type'            => 'spacing',
 								'title'           => __( 'Speed', 'wp-carousel-free' ),
 								'subtitle'        => __( 'The timeout between sliding to the next slide in milliseconds.', 'wp-carousel-free' ),
+								'sanitize'        => 'wpcf_sanitize_number_array_field',
 								'all'             => true,
 								'all_text'        => false,
 								'all_placeholder' => 'speed',
@@ -1266,6 +1272,7 @@ SP_WPCF::createSection(
 								'type'     => 'color_group',
 								'title'    => __( 'Lightbox Navigation Arrow', 'wp-carousel-free' ),
 								'subtitle' => __( 'Set navigation color for the lightbox.', 'wp-carousel-free' ),
+								'sanitize' => 'wpcf_sanitize_color_group_field',
 								'options'  => array(
 									'color1' => __( 'Color', 'wp-carousel-free' ),
 									'color2' => __( 'Hover Color', 'wp-carousel-free' ),
@@ -1378,6 +1385,7 @@ SP_WPCF::createSection(
 								'class'    => 'pro_only_field',
 								'title'    => __( 'Icon Color', 'wp-carousel-free' ),
 								'subtitle' => __( 'Set color for the lightbox icon.', 'wp-carousel-free' ),
+								'sanitize' => 'wpcf_sanitize_color_group_field',
 								'options'  => array(
 									'color1' => __( 'Color', 'wp-carousel-free' ),
 									'color2' => __( 'Hover Color', 'wp-carousel-free' ),
@@ -1673,10 +1681,11 @@ SP_WPCF::createSection(
 							array(
 								'id'         => 'carousel_auto_play_speed',
 								'type'       => 'slider',
+								'sanitize'   => 'wpcf_sanitize_number_field',
 								'title'      => __( 'AutoPlay Delay Time', 'wp-carousel-free' ),
 								'subtitle'   => __( 'Set auto play delay time in millisecond.', 'wp-carousel-free' ),
 								'title_help' => __(
-									'<div class="sp_wpcp-info-label">AutoPlay Delay Time</div><div class="sp_wpcp-short-content">Set autoplay delay or interval time. The amount of time to delay between automatically cycling a weather item. e.g. 1000 milliseconds(ms) = 1 second.</div>',
+									'<div class="sp_wpcp-info-label">AutoPlay Delay Time</div><div class="sp_wpcp-short-content">Set autoplay delay or interval time. The amount of time to delay between automatically carousel item. e.g. 1000 milliseconds(ms) = 1 second.</div>',
 									'wp-carousel-free'
 								),
 								'unit'       => __( 'ms', 'wp-carousel-free' ),
@@ -1693,6 +1702,7 @@ SP_WPCF::createSection(
 							array(
 								'id'         => 'standard_carousel_scroll_speed',
 								'type'       => 'slider',
+								'sanitize'   => 'wpcf_sanitize_number_field',
 								'title'      => __( 'Carousel Speed', 'wp-carousel-free' ),
 								'subtitle'   => __( 'Set autoplay scroll speed in millisecond.', 'wp-carousel-free' ),
 								'title_help' => __( '<div class="sp_wpcp-info-label">Carousel Speed</div><div class="sp_wpcp-short-content">Set carousel scrolling speed. e.g. 1000 milliseconds(ms) = 1 second.</div>', 'wp-carousel-free' ),
@@ -1743,6 +1753,7 @@ SP_WPCF::createSection(
 								'type'       => 'column',
 								'title'      => __( 'Carousel Row', 'wp-carousel-free' ),
 								'subtitle'   => __( 'Set number of carousel row on device.', 'wp-carousel-free' ),
+								'sanitize'   => 'wpcf_sanitize_number_array_field',
 								'lg_desktop' => true,
 								'desktop'    => true,
 								'laptop'     => true,
@@ -1923,6 +1934,7 @@ SP_WPCF::createSection(
 								'class'      => 'standard_width_of_spacing_field carousel-nav-pro-options',
 								'title'      => __( 'Icon Size', 'wp-carousel-free' ),
 								'subtitle'   => __( 'Set a size for the nav arrow icon.', 'wp-carousel-free' ),
+								'sanitize'   => 'wpcf_sanitize_number_array_field',
 								'style'      => false,
 								'color'      => false,
 								'all'        => true,
@@ -1947,6 +1959,7 @@ SP_WPCF::createSection(
 								'class'      => 'carousel-nav-pro-options',
 								'title'      => __( 'Background', 'wp-carousel-free' ),
 								'subtitle'   => __( 'Set color for the carousel navigation arrow.', 'wp-carousel-free' ),
+								'sanitize'   => 'wpcf_sanitize_color_group_field',
 								'options'    => array(
 									'color1' => __( 'Color', 'wp-carousel-free' ),
 									'color2' => __( 'Hover Color', 'wp-carousel-free' ),
@@ -1967,6 +1980,7 @@ SP_WPCF::createSection(
 								'type'       => 'color_group',
 								'title'      => __( 'Navigation Color', 'wp-carousel-free' ),
 								'subtitle'   => __( 'Set color for the carousel navigation.', 'wp-carousel-free' ),
+								'sanitize'   => 'wpcf_sanitize_color_group_field',
 								'options'    => array(
 									'color1' => __( 'Color', 'wp-carousel-free' ),
 									'color2' => __( 'Hover Color', 'wp-carousel-free' ),
@@ -2076,6 +2090,7 @@ SP_WPCF::createSection(
 								'subtitle'    => __( 'Set margin for carousel pagination.', 'wp-carousel-free' ),
 								'output_mode' => 'margin',
 								'unit_text'   => 'Unit',
+								'sanitize'    => 'wpcf_sanitize_number_array_field',
 								'class'       => 'wpcp_carousel_pagination_pro_options',
 								'min'         => '-200',
 								'default'     => array(
@@ -2092,6 +2107,7 @@ SP_WPCF::createSection(
 								'type'       => 'color_group',
 								'title'      => __( 'Pagination Color', 'wp-carousel-free' ),
 								'subtitle'   => __( 'Set color for the carousel pagination dots.', 'wp-carousel-free' ),
+								'sanitize'   => 'wpcf_sanitize_color_group_field',
 								'options'    => array(
 									'color1' => __( 'Color', 'wp-carousel-free' ),
 									'color2' => __( 'Active Color', 'wp-carousel-free' ),

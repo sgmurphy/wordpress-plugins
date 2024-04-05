@@ -7,7 +7,7 @@ Tags: elementor, elementor addons, elementor extensions, elementor widgets, page
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 5.8
-Stable Tag: 8.3.6
+Stable Tag: 8.3.7
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -261,6 +261,9 @@ Email us at support[at]livemeshthemes.com and we will be happy to assist you.
 
 
 
+
+= 8.3.7 =
+* Added - Escaping the data output for posts grid, posts gridbox slider, posts multislider, posts slider, heading, marquee text, tab slider widgets for enhanced validation of user input.
 
 = 8.3.6 =
 * Added - Escaping the style and template settings for sliders, posts grid, posts block, gallery, testimonials, services, team widgets for enhanced validation of user input.
@@ -741,4 +744,3 @@ Email us at support[at]livemeshthemes.com and we will be happy to assist you.
 
 = 1.0 =
 * Initial release.
-

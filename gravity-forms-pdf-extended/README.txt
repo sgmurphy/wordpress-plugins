@@ -5,7 +5,7 @@ Donate link: https://gravitypdf.com/donate-to-plugin/
 Tags: gravityforms, gravity, forms, pdf, automation, attachment, email
 Requires at least: 5.3
 Tested up to: 6.5
-Stable tag: 6.9.1
+Stable tag: 6.10.0
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.txt
@@ -106,6 +106,9 @@ Gravity PDF can be run on most modern shared web hosting without any issues. It 
 16. A bunch of paid PDF designs are available, as well as additional functionality.
 
 == Changelog ==
+
+= 6.10.0 =
+* Feature: Add native support for the Legal Signature and Legal Consent form fields added by the Legal Signing for Gravity Forms plugin
 
 = 6.9.1 =
 * Security: Disable the Signed URL feature in the [gravitypdf] shortcode when a URL parameter provides the entry ID (e.g. Page Confirmations)

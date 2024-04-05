@@ -3,8 +3,8 @@ Contributors: unicorn03, unicorn07, erku, alexclassroom,
 Donate link: https://www.buymeacoffee.com/tentacleplugins
 Tags: headers security, hsts, headers, clickjacking, csp
 Requires at least: 4.7
-Tested up to: 6.4
-Stable tag: 5.0.35
+Tested up to: 6.5
+Stable tag: 5.0.36
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -258,7 +258,9 @@ This will cause the <a href="https://developers.cloudflare.com/cache/how-to/purg
 
 == Changelog ==
 
-= 5.0.35 =
-We don't want to tell you what to do, but here's the point: if you've updated the Headers Security Advanced & HSTS WP plugin last time, you've seen that when we suggest doing so, we don't just say it and leave it at that. Well, with this 5.0.35 version we've added and fixed a lot (we got rid of some bugs, tidied up some pesky pixels and updated the graphics) and it all works great. Are we agreed? Touch "update" and we'll provide you with the most beautiful, fastest, and most impressive plugin around. Enjoy!
-- Fixed: Fixed the bug that could delete the plugin rules of the header customization function (X-Frame-Options and Permissions-Policy), this was caused by the customization of ALLOW-FROM Fixed the bug that could delete the plugin rules of the header customization function (X-Frame-Options and Permissions-Policy), this was caused by the customization of ALLOW-FROM
+= 5.0.36 =
+We don't want to tell you what to do, but here's the point: if you've updated the Headers Security Advanced & HSTS WP plugin last time, you've seen that when we suggest doing so, we don't just say it and leave it at that. Well, with this 5.0.36 version we've added and fixed a lot (we got rid of some bugs, tidied up some pesky pixels and updated the graphics) and it all works great. Are we agreed? Touch "update" and we'll provide you with the most beautiful, fastest, and most impressive plugin around. Enjoy!
+- New: The plugin is now fully compatible with WordPress 6.5. I commitment to maintain compatibility with the latest versions of WordPress to ensure that your site runs smoothly;
+- New: In the most recent version, I have introduced a new feature that allows you to fix duplicate headers in one click. This option is designed to give you more control and avoid the "duplicate headers" warning;
+- Upgrade: Fixed the bug that could delete the plugin rules of the header customization function (X-Frame-Options and Permissions-Policy), this was caused by the customization of ALLOW-FROM Fixed the bug that could delete the plugin rules of the header customization function (X-Frame-Options and Permissions-Policy), this was caused by the customization of ALLOW-FROM;
 - Delete: deleted the 'X-XSS-Protection' header because this functionality is no longer in the standards path.

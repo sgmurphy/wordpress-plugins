@@ -1096,7 +1096,7 @@ class Sassy_Social_Share_Follow_Widget extends WP_Widget {
 			<span>https://gab.com/ID</span><br/><br/>
 			<label for="<?php echo $this->get_field_id( 'gettr' ); ?>"><?php _e( 'Gettr URL:', 'sassy-social-share' ); ?></label> 
 			<input style="width: 95%" class="widefat" id="<?php echo $this->get_field_id( 'gettr' ); ?>" name="<?php echo $this->get_field_name( 'gettr' ); ?>" type="text" value="<?php echo $instance['gettr']; ?>" /><br/>
-			<span>https://gettr.com/ID</span><br/><br/>
+			<span>https://gettr.com/user/ID</span><br/><br/>
 			<label for="<?php echo $this->get_field_id( 'github' ); ?>"><?php _e( 'Github URL:', 'sassy-social-share' ); ?></label> 
 			<input style="width: 95%" class="widefat" id="<?php echo $this->get_field_id( 'github' ); ?>" name="<?php echo $this->get_field_name( 'github' ); ?>" type="text" value="<?php echo $instance['github']; ?>" /><br/>
 			<span>https://github.com/ID</span><br/><br/>

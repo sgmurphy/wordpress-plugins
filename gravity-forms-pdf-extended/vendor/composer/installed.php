@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'gravitypdf/gravitypdf',
-        'pretty_version' => '6.9.1',
-        'version' => '6.9.1.0',
-        'reference' => '88e212e705f716fa72af1a2245f5252ef8365162',
+        'pretty_version' => '6.10.0',
+        'version' => '6.10.0.0',
+        'reference' => '70840a61a535f1e60f6cb229168ca847b76d1b70',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -23,9 +23,9 @@
             ),
         ),
         'gravitypdf/gravitypdf' => array(
-            'pretty_version' => '6.9.1',
-            'version' => '6.9.1.0',
-            'reference' => '88e212e705f716fa72af1a2245f5252ef8365162',
+            'pretty_version' => '6.10.0',
+            'version' => '6.10.0.0',
+            'reference' => '70840a61a535f1e60f6cb229168ca847b76d1b70',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -77,9 +77,9 @@
             'dev_requirement' => false,
         ),
         'masterminds/html5' => array(
-            'pretty_version' => '2.8.1',
-            'version' => '2.8.1.0',
-            'reference' => 'f47dcf3c70c584de14f21143c55d9939631bc6cf',
+            'pretty_version' => '2.9.0',
+            'version' => '2.9.0.0',
+            'reference' => 'f5ac2c0b0a2eefca70b2ce32a5809992227e75a6',
             'type' => 'library',
             'install_path' => __DIR__ . '/../masterminds/html5',
             'aliases' => array(),

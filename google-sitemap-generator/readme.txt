@@ -2,7 +2,7 @@
 Contributors: auctollo
 Tags: sitemap, seo, xml sitemap, indexnow, google sitemaps, google search console, news sitemap, image sitemap, image seo, video sitemap, video seo, woocommerce, robots.txt, site kit, schema, bing, baidu, yandex
 Requires at least: 4.6
-Tested up to: 6.4.3
+Tested up to: 6.5
 Stable tag: 4.1.19
 Requires PHP: 5.0
 License: GPLv2 or later

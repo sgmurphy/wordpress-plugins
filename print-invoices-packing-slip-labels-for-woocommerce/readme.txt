@@ -1,11 +1,11 @@
 === WooCommerce PDF Invoices, Packing Slips, Delivery Notes and Shipping Labels ===
 Contributors: WebToffee
-Version: 4.4.2
+Version: 4.4.3
 Donate link: https://www.webtoffee.com/plugins/
 Tags: WooCommerce, PDF, invoice, packing slip, print invoice, packing list, shipping label, delivery note, dispatch label, WooCommerce invoice, WooCommerce PDF invoices, order
 Requires at least: 3.0.1
-Tested up to: 6.4
-Stable tag: 4.4.2
+Tested up to: 6.5
+Stable tag: 4.4.3
 Requires PHP: 5.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -28,7 +28,7 @@ When you sell internationally, it is a standard requirement in many countries to
 
 Furthermore, it establishes an extra line of communication between you and the customer and adds a human touch.
 
-&#9989; Tested OK with WooCommerce 8.6.1
+&#9989; Tested OK with WooCommerce 8.7.0
 &#9989; Tested OK up to PHP 8.2
 
 = New updates =
@@ -278,6 +278,12 @@ Yes. The plugin addresses the needs of a multilingual website and is compatible 
 17. Invoice general settings
 
 == Changelog ==
+
+= 4.4.3 2024-04-05 =
+* [Fix] - Addressed security issues
+* [Tweak] - Improved the verification and role capability check
+* [Compatibility] - Tested OK with WordPress v6.5
+* [Compatibility] - Tested OK with WooCommerce v8.7.0
 
 = 4.4.2 2024-03-14 =
 * [Fix] - Improved efficiency for faster generation of invoice numbers
@@ -948,9 +954,8 @@ Yes. The plugin addresses the needs of a multilingual website and is compatible 
  
 == Upgrade Notice ==
 
-= 4.4.2 =
-* [Fix] - Improved efficiency for faster generation of invoice numbers
+= 4.4.3 =
 * [Fix] - Addressed security issues
-* [Tweak] - Adjusted pricing display for exclusive tax scenarios and WooCommerce tax settings
-* [Tweak] - Introduced a filter for customizing PDF output using the Dompdf library
-* [Compatibility] - Tested OK with WooCommerce v8.6.1
+* [Tweak] - Improved the verification and role capability check
+* [Compatibility] - Tested OK with WordPress v6.5
+* [Compatibility] - Tested OK with WooCommerce v8.7.0

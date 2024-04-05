@@ -46,10 +46,10 @@ class Wp_Carousel_Free_Import_Export {
 						'meta'        => array(),
 					);
 					foreach ( get_post_meta( $shortcode->ID ) as $metakey => $value ) {
-						$shortcode_export['meta'][ $metakey ] = $value[0];
+						$shortcode_export['meta'][ $metakey ] = maybe_unserialize( $value[0] );
 					}
-					$str  = isset( $shortcode_export['meta']['sp_wpcp_upload_options'] ) ? $shortcode_export['meta']['sp_wpcp_upload_options'] : '';
-					$data = unserialize( $str );
+					$str  = isset( $shortcode_export['meta']['sp_wpcp_upload_options'] ) ? maybe_unserialize( $shortcode_export['meta']['sp_wpcp_upload_options'] ) : '';
+					$data = maybe_unserialize( $str );
 					if ( 'image-carousel' === $data['wpcp_carousel_type'] ) {
 						$image_gallery      = explode( ',', $data['wpcp_gallery'] );
 						$gallery_attachment = array();
@@ -206,9 +206,9 @@ class Wp_Carousel_Free_Import_Export {
 						}
 					}
 					$gallery_img_url_id                          = implode( ',', $gallery_id );
-					$data                                        = unserialize( $shortcode['meta']['sp_wpcp_upload_options'] );
-					$data['wpcp_gallery']                        = $gallery_img_url_id;
-					$shortcode['meta']['sp_wpcp_upload_options'] = serialize( $data );
+					$option_data                                 = $shortcode['meta']['sp_wpcp_upload_options'];
+					$option_data['wpcp_gallery']                 = $gallery_img_url_id;
+					$shortcode['meta']['sp_wpcp_upload_options'] = $option_data;
 				}
 				if ( is_wp_error( $new_shortcode_id ) ) {
 					throw new Exception( $new_shortcode_id->get_error_message() );
@@ -219,7 +219,7 @@ class Wp_Carousel_Free_Import_Export {
 						update_post_meta(
 							$new_shortcode_id,
 							$key,
-							maybe_unserialize( str_replace( '{#ID#}', $new_shortcode_id, $value ) )
+							$value
 						);
 					}
 				}

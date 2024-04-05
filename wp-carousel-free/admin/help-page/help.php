@@ -54,7 +54,7 @@ class WP_Carousel_Free_Help {
 	 *
 	 * @var array
 	 */
-	protected static $not_show_plugin_list = array( 'aitasi-coming-soon', 'latest-posts', 'widget-post-slider', 'easy-lightbox-wp' );
+	protected static $not_show_plugin_list = array( 'aitasi-coming-soon', 'latest-posts', 'widget-post-slider', 'easy-lightbox-wp', 'wp-carousel-free' );
 
 	/**
 	 * Help Page construct function.

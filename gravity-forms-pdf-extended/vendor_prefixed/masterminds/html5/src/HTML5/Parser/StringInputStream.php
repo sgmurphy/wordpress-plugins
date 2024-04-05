@@ -155,6 +155,7 @@ class StringInputStream implements \GFPDF_Vendor\Masterminds\HTML5\Parser\InputS
      *
      * @return string The current character.
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->data[$this->char];
@@ -163,6 +164,7 @@ class StringInputStream implements \GFPDF_Vendor\Masterminds\HTML5\Parser\InputS
      * Advance the pointer.
      * This is part of the Iterator interface.
      */
+    #[\ReturnTypeWillChange]
     public function next()
     {
         ++$this->char;
@@ -170,6 +172,7 @@ class StringInputStream implements \GFPDF_Vendor\Masterminds\HTML5\Parser\InputS
     /**
      * Rewind to the start of the string.
      */
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         $this->char = 0;
@@ -179,6 +182,7 @@ class StringInputStream implements \GFPDF_Vendor\Masterminds\HTML5\Parser\InputS
      *
      * @return bool Whether the current pointer location is valid.
      */
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         return $this->char < $this->EOF;
@@ -280,6 +284,7 @@ class StringInputStream implements \GFPDF_Vendor\Masterminds\HTML5\Parser\InputS
         }
         return \false;
     }
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->char;

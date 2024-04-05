@@ -1,7 +1,7 @@
 === Redirect 404 to Homepage ===
 Contributors: pipdig
 Requires at least: 4.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2 or later

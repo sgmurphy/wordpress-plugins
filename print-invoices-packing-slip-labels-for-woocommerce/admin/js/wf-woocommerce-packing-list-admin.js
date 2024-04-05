@@ -555,13 +555,13 @@ var wf_notify_msg=
 	error:function(message, auto_close)
 	{
 		var auto_close=(auto_close!== undefined ? auto_close : true);
-		var er_elm=jQuery('<div class="notify_msg notify_msg_error">'+message+'</div>');				
+		var er_elm=jQuery('<div class="notify_msg notify_msg_error"><div class="notify_msg_content"><svg class="notify_msg_content_icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#D63638"/><path d="M10.0996 5V11" stroke="white" stroke-width="2.2" stroke-linecap="round"/><circle cx="10.2" cy="15.2" r="1.2" fill="white"/></svg><span>'+message+'</span></div>');				
 		this.setNotify(er_elm, auto_close);
 	},
 	success:function(message, auto_close)
 	{
 		var auto_close=(auto_close!== undefined ? auto_close : true);
-		var suss_elm=jQuery('<div class="notify_msg notify_msg_success">'+message+'</div>');				
+		var suss_elm=jQuery('<div class="notify_msg notify_msg_success"><div class="notify_msg_content"><svg class="notify_msg_content_icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#20B93E"/><path d="M14.0931 7.21515L8.29143 13.0168L5.6543 10.3797" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>'+message+'</span></div>');				
 		this.setNotify(suss_elm, auto_close);
 	},
 	setNotify:function(elm, auto_close)
@@ -1409,14 +1409,22 @@ var wt_pklist_cta_banner_dismiss = {
 var wt_pklist_settings_debug = {
 	Set:function(){
 		jQuery('.wt_pklist_export_settings').on('click',function(){
+			var export_nonce = jQuery('#wtpdf_debug_settings_export_nonce_id').val();
 			jQuery.ajax({
-				type:'get',
+				type:'POST',
 				url:wf_pklist_params.ajaxurl,
-				data:{'action':'wt_pklist_settings_json','_wpnonce':wf_pklist_params.nonces.wf_packlist},
-				success:function(data)
+				data:{'action':'wt_pklist_settings_json','_wpnonce':export_nonce},
+				dataType:'json',
+				success:function(result)
 				{
-					// console.log(data);
-					wt_pklist_settings_debug.downloadJSON(data)
+					if ( null !== result && typeof result === 'object' ) {
+						if ( 'success' in result && 'response' in result ) {
+							wf_notify_msg.success( result.success );
+							wt_pklist_settings_debug.downloadJSON(result.response)
+						} else {
+							wf_notify_msg.error( result.error );
+						}
+					}
 				},
 				error: function(xhr, status, error) {
 					console.error('Error:', error);

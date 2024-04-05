@@ -111,23 +111,20 @@ if ( ! defined( 'WPINC' ) ) {
 	</form>
 	
 	<hr>
-	<table class="wf-form-table wt_pklist_debug_table">
-		<tr valign="top">
-			<th scope="row"><?php _e("Export settings (JSON)","print-invoices-packing-slip-labels-for-woocommerce"); ?></th>
-			<td>
-				<input type="button" class="wt_pklist_imp_exp_settings wt_pklist_export_settings button-primary" value="<?php _e("Export","print-invoices-packing-slip-labels-for-woocommerce"); ?>">
-			</td>
-		</tr>
-	</table>
+	<form id="wt_pklist_export_settings_form">
+		<input type="hidden" name="_wtpdf_debug_settings_export_nonce" id="wtpdf_debug_settings_export_nonce_id" value="<?php echo esc_attr( wp_create_nonce( WF_PKLIST_PLUGIN_NAME . '_debug_export_form' ) ); ?>">		
+		<table class="wf-form-table wt_pklist_debug_table">
+			<tr valign="top">
+				<th scope="row"><?php _e("Export settings (JSON)","print-invoices-packing-slip-labels-for-woocommerce"); ?></th>
+				<td>
+					<input type="button" class="wt_pklist_imp_exp_settings wt_pklist_export_settings button-primary" value="<?php _e("Export","print-invoices-packing-slip-labels-for-woocommerce"); ?>">
+				</td>
+			</tr>
+		</table>
+	</form>
 
 	<form id="wt_pklist_import_settings_form" method="post" enctype="multipart/form-data">
-		<?php
-			// Set nonce:
-			if(function_exists('wp_nonce_field'))
-			{
-				wp_nonce_field(WF_PKLIST_PLUGIN_NAME);
-			}
-		?>		
+		<input type="hidden" name="_wtpdf_debug_settings_import_nonce" id="_wtpdf_debug_settings_import_nonce_id" value="<?php echo esc_attr( wp_create_nonce( WF_PKLIST_PLUGIN_NAME . '_debug_import_form' ) ); ?>">		
 		<table class="wf-form-table wt_pklist_debug_table" style="width:60%;">
 			<tr valign="top">
 				<th scope="row" style="width: 24%;"><?php _e("Import settings (JSON)","print-invoices-packing-slip-labels-for-woocommerce"); ?></th>
@@ -174,7 +171,7 @@ if ( ! defined( 'WPINC' ) ) {
 					</table>
 					<br>
 					<?php printf(__('To proceed with the import, please type %1$s in the field below',"print-invoices-packing-slip-labels-for-woocommerce"),'`confirm`'); ?>
-					<input type="text" id="wt_pklist_settings_import_confirm_text" name="wt_pklist_settings_import_confirm_text" style="margin-top: 12px;">
+					<input type="text" id="wt_pklist_settings_import_confirm_text" name="wt_pklist_settings_import_confirm_text" style="margin-top: 12px;" autocomplete="off">
 					<span id="wt_pklist_import_settings_popup_error"></span>
 				</div>
 			</div>
@@ -191,13 +188,7 @@ if ( ! defined( 'WPINC' ) ) {
 	</form>
 
 	<form id="wt_pklist_reset_settings_form" method="post">
-		<?php
-			// Set nonce:
-			if(function_exists('wp_nonce_field'))
-			{
-				wp_nonce_field(WF_PKLIST_PLUGIN_NAME);
-			}
-		?>		
+		<input type="hidden" name="_wtpdf_debug_settings_reset_nonce" id="wtpdf_debug_settings_reset_nonce_id" value="<?php echo esc_attr( wp_create_nonce( WF_PKLIST_PLUGIN_NAME . '_debug_reset_form' ) ); ?>">	
 		<table class="wf-form-table wt_pklist_debug_table">
 			<tr valign="top">
 				<th scope="row"><?php _e("Reset all settings to default","print-invoices-packing-slip-labels-for-woocommerce"); ?></th>
@@ -233,7 +224,7 @@ if ( ! defined( 'WPINC' ) ) {
 					</table>
 					<?php printf(__('To proceed with the reset, please type %1$s in the field below',"print-invoices-packing-slip-labels-for-woocommerce"),'`confirm`'); ?>
 					<br>
-					<input type="text" id="wt_pklist_settings_reset_confirm_text" name="wt_pklist_settings_reset_confirm_text" style="margin-top: 12px;">
+					<input type="text" id="wt_pklist_settings_reset_confirm_text" name="wt_pklist_settings_reset_confirm_text" style="margin-top: 12px;" autocomplete="off">
 					<span id="wt_pklist_reset_settings_popup_error"></span>
 				</div>
 			</div>

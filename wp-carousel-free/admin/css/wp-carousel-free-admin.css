@@ -266,7 +266,8 @@
 }
 
 #sp_wpcf_live_preview img {
-    width: 100%;
+    max-width: 100%;
+    height: auto;
 }
 
 /* Gutenberg selector field style */

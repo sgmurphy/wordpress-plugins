@@ -1,4 +1,4 @@
-.HeaderSecurityAdvancedHSTSWPROSHUEgrid_settings {grid-column-gap: 2.5rem; display: grid; grid-template-columns: repeat(1,1fr); width: 70%;}
+.HeaderSecurityAdvancedHSTSWPROSHUEgrid_settings {grid-column-gap: 2.5rem; display: grid; grid-template-columns: repeat(1,1fr); width: 87%;}
 .HeaderSecurityAdvancedHSTSWPROSHUEtxexttextSize p {font-size: 11px; color: #717171; text-align: justify; font-weight: 400;}
 .HeaderSecurityAdvancedHSTSWPROSHUEtxextSizeCenter {font-size: 10px; color: #717171; text-align: center;}
 .HeaderSecurityAdvancedHSTSWPROSHUEts03 {line-height: 1.8 !important;}
@@ -12,7 +12,7 @@
 .HeaderSecurityAdvancedHSTSWPROSHUEbksnack:hover {color: #f1f1f1;background: linear-gradient(to right, #0965c8, #023c66);}
 .HeaderSecurityAdvancedHSTSWPROSHUEbksnacka {border-radius: 24px; box-sizing: border-box; color: #ffffff !important; cursor: pointer; display: inline-block; font-size: .975rem; font-weight: 500; margin: 0; outline: 0; overflow: hidden; padding: 0.425rem 1.1rem; text-decoration: none; text-overflow: ellipsis; transition: all .15s ease-in-out; vertical-align: top; background: linear-gradient(to right, #0976ea, #005ea3);}
 .HeaderSecurityAdvancedHSTSWPROSHUEbksnacka:hover {color: #f1f1f1;background: linear-gradient(to right, #0965c8, #023c66);}
-.HeaderSecurityAdvancedHSTSWPROSHUEbkgsuccess {align-items: baseline; background: linear-gradient(to right, #0f135e, #af4ecd); color: #fff; display: flex; padding: 1.5rem 2.25rem 1.5rem 4rem; margin: 1em 1em -1em 1em; margin-bottom: -1em !important; z-index: 10; position: relative;}
+.HeaderSecurityAdvancedHSTSWPROSHUEbkgsuccess {align-items: baseline; background: linear-gradient(to right, #0f135e, #af4ecd); color: #fff; display: flex; padding: 1.5rem 2.25rem 1.5rem 4rem; margin: 1em 1em -1em 1em; margin-bottom: -1em !important; z-index: 10; position: relative; border-radius: 20px 20px 0px 0px;}
 .HeaderSecurityAdvancedHSTSWPROSHUEttxred {color: #8600af;}
 .HeaderSecurityAdvancedHSTSWPROSHUEtxsilv {color: #3c434a; font-size: 1.8rem; line-height: 2.1rem; font-weight:600; margin: 0 0 2rem; width: 70%;}
 .HeaderSecurityAdvancedHSTSWPROSHUEbkgpadw {background: #ffffff; margin: 1em; padding: 4rem 4rem 6rem;}
@@ -28,12 +28,15 @@
 .HeaderSecurityAdvancedHSTSWPROSHUErw1:active {color:#ffffff;} 
 .HeaderSecurityAdvancedHSTSWPROSHUEims11 {height: 30px; width: 30px; margin-top: -6px !important;} 
 .HeaderSecurityAdvancedHSTSWPROSHUEtboxy1314 {color: #5b06b0;} 
+.HeaderSecurityAdvancedHSTSWPROSHUEdleft2953 {margin-left: 15px;}
 .HeaderSecurityAdvancedHSTSWPROSHUEtboxy1348 {color: #5b06b0;} 
 .HeaderSecurityAdvancedHSTSWPROSHUEtboxy1440 {color: #5b06b0; margin-bottom: -7px;} 
 .HeaderSecurityAdvancedHSTSWPROSHUEbadge2049{width: auto; height: auto; display: inline-flex; align-items: center; border-radius: 100px; background-color: #f1e3ff; color: #5b06b0; text-transform: capitalize; font-size: 14px; padding: .5rem 1.3rem; margin-top: -15px; margin-right: 10px;}
 .HeaderSecurityAdvancedHSTSWPROSHUEbadge2049 a {text-decoration: none; color: #5b06b0;}
 .HeaderSecurityAdvancedHSTSWPROSHUEbadge1950{width: auto; height: auto; display: inline-flex; align-items: center; border-radius: 100px; background-color: #f1e3ff; color: #5b06b0; text-transform: capitalize; font-size: 14px; padding: .5rem 1.3rem; margin-top: -15px; margin-right: 10px;}
 .HeaderSecurityAdvancedHSTSWPROSHUEbadge1950 a {text-decoration: none; color: #5b06b0;}
+.HeaderSecurityAdvancedHSTSWPROSHUEbadge2450{width: auto; height: auto; display: inline-flex; align-items: center; border-radius: 100px; background-color: #f1e3ff; color: #5b06b0; text-transform: capitalize; font-size: 14px; padding: .5rem 1.3rem; margin-top: 15px; margin-right: 10px;}
+.HeaderSecurityAdvancedHSTSWPROSHUEbadge2450 a {text-decoration: none; color: #5b06b0;}
 .HeaderSecurityAdvancedHSTSWPROSHUEcltab1636 {width: 250px !important;} 
 .HeaderSecurityAdvancedHSTSWPROSHUEselspeed1127 {display:flex;margin-top:30px;}
 .HeaderSecurityAdvancedHSTSWPROSHUEselspace1128t {margin-top: 60px; margin-bottom: 60px;}

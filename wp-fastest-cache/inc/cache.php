@@ -119,7 +119,7 @@
 
 
 			if(strlen($_SERVER["REQUEST_URI"]) > 1){ // for the sub-pages
-				if(!preg_match("/\.html/i", $_SERVER["REQUEST_URI"])){
+				if(!preg_match("/\.(html|xml)/i", $_SERVER["REQUEST_URI"])){
 					if($this->is_trailing_slash()){
 						if(!preg_match("/\/$/", $_SERVER["REQUEST_URI"])){
 							if(isset($_SERVER["QUERY_STRING"]) && $_SERVER["QUERY_STRING"] && defined('WPFC_CACHE_QUERYSTRING') && WPFC_CACHE_QUERYSTRING){

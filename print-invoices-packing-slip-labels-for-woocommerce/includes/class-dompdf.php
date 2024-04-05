@@ -27,7 +27,7 @@ class Wt_Pklist_Dompdf
     /**
      * To generate the PDF for WooCommerce order documents
      *
-     * @since 4.5.0 - Added a filter to have more customization in templatewise
+     * @since 4.4.2 - Added a filter to have more customization in templatewise
      * 
      */
 	public function generate($upload_dir, $html, $action, $is_preview, $file_path, $args=array())

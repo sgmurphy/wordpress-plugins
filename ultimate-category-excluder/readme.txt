@@ -3,7 +3,7 @@ Contributors: Marios Alexandrou
 Donate link: https://infolific.com/technology/software-worth-using/ultimate-category-excluder/
 Tags: category, categories, exclude, exclude category, exclude categories, visible, hidden, hide, invisible, remove
 Requires at least: 5.0
-Tested up to: 6.4.2
+Tested up to: 6.5
 License: GPLv2 or later
 
 Ultimate Category Excluder allows you to quickly and easily exclude categories from your front page, archives, feeds, and search results.

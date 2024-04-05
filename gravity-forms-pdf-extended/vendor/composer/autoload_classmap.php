@@ -46,6 +46,8 @@ return array(
     'GFPDF\\Helper\\Fields\\Field_Default' => $baseDir . '/src/Helper/Fields/Field_Default.php',
     'GFPDF\\Helper\\Fields\\Field_Discount' => $baseDir . '/src/Helper/Fields/Field_Discount.php',
     'GFPDF\\Helper\\Fields\\Field_Email' => $baseDir . '/src/Helper/Fields/Field_Email.php',
+    'GFPDF\\Helper\\Fields\\Field_Fg_Ls_Consent' => $baseDir . '/src/Helper/Fields/Field_Fg_Ls_Consent.php',
+    'GFPDF\\Helper\\Fields\\Field_Fg_Ls_Signature' => $baseDir . '/src/Helper/Fields/Field_Fg_Ls_Signature.php',
     'GFPDF\\Helper\\Fields\\Field_Fileupload' => $baseDir . '/src/Helper/Fields/Field_Fileupload.php',
     'GFPDF\\Helper\\Fields\\Field_Form' => $baseDir . '/src/Helper/Fields/Field_Form.php',
     'GFPDF\\Helper\\Fields\\Field_Hidden' => $baseDir . '/src/Helper/Fields/Field_Hidden.php',

@@ -88,6 +88,10 @@
 	line-height: 0;
 }
 
+.wpcp-carousel-section.wpcp-image-carousel .wpcp-single-item figure {
+	text-align: center;
+}
+
 .wpcp-carousel-section .wpcp-single-item img[data-lazy] {
 	width: 32px;
 }

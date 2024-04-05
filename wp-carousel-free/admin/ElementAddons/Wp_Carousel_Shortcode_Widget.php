@@ -121,7 +121,7 @@ class Wp_Carousel_Shortcode_Widget extends \Elementor\Widget_Base {
 			return;
 		}
 
-		$post_id = $sp_wp_carousel_shortcode;
+		$post_id = (int) $sp_wp_carousel_shortcode;
 
 		if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
 			// Preset Layouts.
@@ -134,8 +134,8 @@ class Wp_Carousel_Shortcode_Widget extends \Elementor\Widget_Base {
 			WP_Carousel_Free_Shortcode::wpcf_html_show( $upload_data, $shortcode_data, $post_id, $main_section_title );
 			?>
 			<script>
-				jQuery('#wpcp-preloader-' + <?php echo esc_attr( $post_id ); ?>).animate({ opacity: 0 }, 600).remove();
-				jQuery('#sp-wp-carousel-free-id-' + <?php echo esc_attr( $post_id ); ?>).animate({ opacity: 1 }, 600);
+				jQuery('#wpcp-preloader-' + <?php echo intval( $post_id ); ?>).animate({ opacity: 0 }, 600).remove();
+				jQuery('#sp-wp-carousel-free-id-' + <?php echo intval( $post_id ); ?>).animate({ opacity: 1 }, 600);
 			</script>
 			<script src="<?php echo esc_url( WPCAROUSELF_URL . 'public/js/wp-carousel-free-public.min.js' ); ?>" ></script>
 			<script src="<?php echo esc_url( WPCAROUSELF_URL . 'public/js/fancybox-config.min.js' ); ?>" ></script>

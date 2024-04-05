@@ -410,20 +410,18 @@ if ( ! class_exists( 'SP_WPCF_Metabox' ) ) {
 								foreach ( $tabs as $fields ) {
 									$fields = $fields['fields'];
 									foreach ( $fields as $field ) {
-										$field_id    = ! empty( $field['id'] ) ? $field['id'] : '';
+										$field_id    = ! empty( $field['id'] ) ? sanitize_key( $field['id'] ) : '';
 										$field_value = isset( $request[ $field_id ] ) ? $request[ $field_id ] : '';
 
 										// Sanitize "post" request of field.
-										if ( ! isset( $field['sanitize'] ) ) {
+										if ( isset( $field['sanitize'] ) && is_callable( $field['sanitize'] ) ) {
+											$data[ $field_id ] = call_user_func( $field['sanitize'], $field_value );
+										} else {
 											if ( is_array( $field_value ) ) {
 												$data[ $field_id ] = wp_kses_post_deep( $field_value );
 											} else {
 												$data[ $field_id ] = wp_kses_post( $field_value );
 											}
-										} elseif ( isset( $field['sanitize'] ) && is_callable( $field['sanitize'] ) ) {
-											$data[ $field_id ] = call_user_func( $field['sanitize'], $field_value );
-										} else {
-											$data[ $field_id ] = $field_value;
 										}
 
 										// Validate "post" request of field.
@@ -440,19 +438,17 @@ if ( ! class_exists( 'SP_WPCF_Metabox' ) ) {
 								}
 							} elseif ( ! empty( $field['id'] ) ) {
 
-								$field_id    = $field['id'];
+								$field_id    = sanitize_key( $field['id'] );
 								$field_value = isset( $request[ $field_id ] ) ? $request[ $field_id ] : '';
 								// Sanitize "post" request of field.
-								if ( ! isset( $field['sanitize'] ) ) {
+								if ( isset( $field['sanitize'] ) && is_callable( $field['sanitize'] ) ) {
+										$data[ $field_id ] = call_user_func( $field['sanitize'], $field_value );
+								} else {
 									if ( is_array( $field_value ) ) {
 										$data[ $field_id ] = wp_kses_post_deep( $field_value );
 									} else {
 										$data[ $field_id ] = wp_kses_post( $field_value );
 									}
-								} elseif ( isset( $field['sanitize'] ) && is_callable( $field['sanitize'] ) ) {
-										$data[ $field_id ] = call_user_func( $field['sanitize'], $field_value );
-								} else {
-									$data[ $field_id ] = $field_value;
 								}
 
 								// Validate "post" request of field.

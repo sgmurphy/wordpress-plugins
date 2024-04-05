@@ -114,15 +114,16 @@ SP_WPCF::createSection(
 		'icon'   => 'fa fa-copyright',
 		'fields' => array(
 			array(
-				'id'      => 'wm_watermark_type',
-				'title'   => __( 'Watermark Type', 'wp-carousel-free' ),
-				'type'    => 'button_set',
-				'class'   => 'only_pro_settings',
-				'options' => array(
+				'id'       => 'wm_watermark_type',
+				'title'    => __( 'Watermark Type', 'wp-carousel-free' ),
+				'type'     => 'button_set',
+				'sanitize' => 'sanitize_text_field',
+				'class'    => 'only_pro_settings',
+				'options'  => array(
 					'logo' => __( 'Logo', 'wp-carousel-free' ),
 					'text' => __( 'Text', 'wp-carousel-free' ),
 				),
-				'default' => 'logo',
+				'default'  => 'logo',
 			),
 			array(
 				'id'         => 'wm_image',

@@ -166,8 +166,8 @@ class WP_Carousel_Free_Shortcode {
 			$swipetoslide          = $is_swipetoslide ? 'true' : 'false';
 			$rtl                   = ( 'ltr' === $carousel_direction ) ? 'true' : 'false';
 			$carousel_classes     .= ' wpcp-standard';
-			$wpcp_swiper_options   = 'data-swiper=\'{ "accessibility":true, "spaceBetween":' . $space_between . ', "arrows":' . $arrows . ', "freeMode": ' . $free_mode . ', "autoplay":' . $auto_play . ', "autoplaySpeed":' . $autoplay_speed . ', "dots":' . $dots . ', "infinite":' . $infinite . ', "speed":' . $speed . ', "pauseOnHover":' . $pause_on_hover . ',
-			"slidesToShow":{"lg_desktop":' . $column_lg_desktop . ', "desktop": ' . $column_desktop . ', "laptop": ' . $column_sm_desktop . ', "tablet": ' . $column_tablet . ', "mobile": ' . $column_mobile . '}, "responsive":{"desktop":' . $desktop_size . ', "laptop": ' . $laptop_size . ', "tablet": ' . $tablet_size . ', "mobile": ' . $mobile_size . '}, "rtl":' . $rtl . ', "lazyLoad": "' . $lazy_load_image . '", "swipe": ' . $swipe . ', "draggable": ' . $draggable . ', "swipeToSlide":' . $swipetoslide . ' }\' ';
+			$wpcp_swiper_options   = '{ "accessibility":true, "spaceBetween":' . $space_between . ', "arrows":' . $arrows . ', "freeMode": ' . $free_mode . ', "autoplay":' . $auto_play . ', "autoplaySpeed":' . $autoplay_speed . ', "dots":' . $dots . ', "infinite":' . $infinite . ', "speed":' . $speed . ', "pauseOnHover":' . $pause_on_hover . ',
+			"slidesToShow":{"lg_desktop":' . $column_lg_desktop . ', "desktop": ' . $column_desktop . ', "laptop": ' . $column_sm_desktop . ', "tablet": ' . $column_tablet . ', "mobile": ' . $column_mobile . '}, "responsive":{"desktop":' . $desktop_size . ', "laptop": ' . $laptop_size . ', "tablet": ' . $tablet_size . ', "mobile": ' . $mobile_size . '}, "rtl":' . $rtl . ', "lazyLoad": "' . $lazy_load_image . '", "swipe": ' . $swipe . ', "draggable": ' . $draggable . ', "swipeToSlide":' . $swipetoslide . ' }';
 			// Carousel Configurations.
 			if ( wpcf_get_option( 'wpcp_swiper_js', true ) ) {
 				wp_enqueue_script( 'wpcf-swiper-js' );

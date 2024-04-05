@@ -3,7 +3,7 @@
  * Plugin Name: Headers Security Advanced & HSTS WP
  * Plugin URI: https://www.tentacleplugins.com/
  * Description: Headers Security Advanced & HSTS WP - Simple, Light and Fast. The plugin uses advanced security rules that provide huge levels of protection and it is important that your site uses it. This step is important to submit your website and/or domain to an approved HSTS list. Google officially compiles this list and it is used by Chrome, Firefox, Opera, Safari, IE11 and Edge. You can forward your site to the official HSTS preload directory. Cross Site Request Forgery (CSRF) is a common attack with the installation of Headers Security Advanced & HSTS WP will help you mitigate CSRF on your WordPress site.
- * Version: 5.0.35
+ * Version: 5.0.36
  * Text Domain: headers-security-advanced-hsts-wp
  * Domain Path: /languages
  * Author: 🐙 Andrea Ferro
@@ -23,28 +23,36 @@ if ( ! function_exists( 'add_action' ) ) {
     die( 'Don\'t try to be smart with us, only real ninjas can enter here!' );
 }
 
-const HSTS_PLUGIN_VERSION = '5.0.35';
+const HSTS_PLUGIN_VERSION = '5.0.36';
 const HSTS_STANDARD_VALUE_CSP = 'upgrade-insecure-requests;';
 const HSTS_STANDARD_VALUE_PERMISSIONS_POLICY = 'accelerometer=(), autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(self), encrypted-media=(), fullscreen=*, geolocation=(self), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), payment=*, picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), xr-spatial-tracking=(), gamepad=(), serial=()';
 
 function hsts_plugin_get_headers( array $headers = array() ): array {
-    $headers['Access-Control-Allow-Methods']             = 'GET,POST';
-    $headers['Access-Control-Allow-Headers']             = 'Content-Type, Authorization';
-    $headers['Content-Security-Policy']                  = hsts_plugin_get_csp_header();
-    $headers['Cross-Origin-Embedder-Policy']             = "unsafe-none; report-to='default'";
-    $headers['Cross-Origin-Embedder-Policy-Report-Only'] = "unsafe-none; report-to='default'";
-    $headers['Cross-Origin-Opener-Policy']               = 'unsafe-none';
-    $headers['Cross-Origin-Opener-Policy-Report-Only']   = "unsafe-none; report-to='default'";
-    $headers['Cross-Origin-Resource-Policy']             = 'cross-origin';
-    $headers['Permissions-Policy']                       = hsts_plugin_get_permissions_policy_header();
-    $headers['Referrer-Policy']                          = 'strict-origin-when-cross-origin';
-    $headers['Strict-Transport-Security']                = hsts_plugin_get_hsts_header();
-    $headers['X-Content-Security-Policy']                = 'default-src \'self\'; img-src *; media-src * data:;';
-    $headers['X-Content-Type-Options']                   = 'nosniff';
-    $headers['X-Frame-Options']                          = hsts_plugin_get_x_frame_options_header();
-    $headers['X-Permitted-Cross-Domain-Policies']        = 'none';
+        $headers['Access-Control-Allow-Methods']             = 'GET,POST';
+        $headers['Access-Control-Allow-Headers']             = 'Content-Type, Authorization';
+        $headers['Content-Security-Policy']                  = hsts_plugin_get_csp_header();
+        $headers['Cross-Origin-Embedder-Policy']             = "unsafe-none; report-to='default'";
+        $headers['Cross-Origin-Embedder-Policy-Report-Only'] = "unsafe-none; report-to='default'";
+        $headers['Cross-Origin-Opener-Policy']               = 'unsafe-none';
+        $headers['Cross-Origin-Opener-Policy-Report-Only']   = "unsafe-none; report-to='default'";
+        $headers['Cross-Origin-Resource-Policy']             = 'cross-origin';
+        if (!get_option('disable_csp_header')) {
+        $headers['Permissions-Policy']                       = hsts_plugin_get_permissions_policy_header();
+        }
+        $headers['Referrer-Policy']                          = 'strict-origin-when-cross-origin';
+        if (!get_option('disable_hsts_header')) {
+            $headers['Strict-Transport-Security'] = hsts_plugin_get_hsts_header();
+        }
+        $headers['X-Content-Security-Policy']                = 'default-src \'self\'; img-src *; media-src * data:;';
+        if (!get_option('disable_x_content_type_options_header')) {
+            $headers['X-Content-Type-Options'] = 'nosniff';
+        }
+        if (!get_option('disable_x_frame_options_header')) {
+            $headers['X-Frame-Options'] = hsts_plugin_get_x_frame_options_header();
+        }
+        $headers['X-Permitted-Cross-Domain-Policies']        = 'none';
 
-    return $headers;
+        return $headers;
 }
 add_filter( 'wp_headers', 'hsts_plugin_get_headers' );
 
@@ -123,6 +131,8 @@ function hsts_plugin_settings_page(): void {
         <h4 class="HeaderSecurityAdvancedHSTSWPROSHUEtboxy1440"><?php esc_html_e( 'Quick selection:', 'headers-security-advanced-hsts-wp' ); ?></h4>
         <div class="HeaderSecurityAdvancedHSTSWPROSHUEselspeed1127 HeaderSecurityAdvancedHSTSWPROSHUEselspace1128">
             <div><span class="HeaderSecurityAdvancedHSTSWPROSHUEbadge1950"><a href="#HSTSPRELOADLISTSUB"><?php esc_html_e( 'Strict Transport Security (HSTS)', 'headers-security-advanced-hsts-wp' ); ?></a></span></div>
+            <div><span class="HeaderSecurityAdvancedHSTSWPROSHUEbadge1950"><a href="#HSTSCSP"><?php esc_html_e( 'Content Security Policy (CSP)', 'headers-security-advanced-hsts-wp' ); ?></a></span></div>
+            <div><span class="HeaderSecurityAdvancedHSTSWPROSHUEbadge1950"><a href="#HSTSPERMISSIONS"><?php esc_html_e( 'Permissions Policy', 'headers-security-advanced-hsts-wp' ); ?></a></span></div>
         </div>
         <form method="post" action="options.php">
             <?php settings_fields( 'hsts-plugin-settings-group' ); ?>
@@ -234,9 +244,6 @@ function hsts_plugin_settings_page(): void {
                         </div>
                     </td>
                 </tr>
-               <div class="HeaderSecurityAdvancedHSTSWPROSHUEselspeed1127 HeaderSecurityAdvancedHSTSWPROSHUEselspace1128">
-               <div><span class="HeaderSecurityAdvancedHSTSWPROSHUEbadge1950"><a href="#HSTSCSP"><?php esc_html_e( 'Content Security Policy (CSP)', 'headers-security-advanced-hsts-wp' ); ?></a></span></div>
-              </div>
                 <tr id="HSTSCSP">
                     <th scope="row">
                             <label for="hsts_csp">
@@ -259,9 +266,6 @@ function hsts_plugin_settings_page(): void {
                         <textarea id="hsts_csp" name="hsts_csp" rows="5" cols="50" placeholder="if not customized the value of the plugin is used"><?php echo esc_textarea(get_option('hsts_csp')); ?></textarea>
                     </td>
                 </tr>
-                <div class="HeaderSecurityAdvancedHSTSWPROSHUEselspeed1127 HeaderSecurityAdvancedHSTSWPROSHUEselspace1128">
-               <div><span class="HeaderSecurityAdvancedHSTSWPROSHUEbadge1950"><a href="#HSTSPERMISSIONS"><?php esc_html_e( 'Permissions Policy', 'headers-security-advanced-hsts-wp' ); ?></a></span></div>
-              </div>
               <tr id="HSTSPERMISSIONS">
                     <th scope="row">
                             <label for="hsts_pp">
@@ -315,6 +319,29 @@ function hsts_plugin_settings_page(): void {
                     </div>
 
                     </td>
+                    <br />
+                    <h4 class="HeaderSecurityAdvancedHSTSWPROSHUEtboxy1440"><?php esc_html_e( 'Resolve duplicate site headers (beta):', 'headers-security-advanced-hsts-wp' ); ?></h4><br />
+                    <div class="HeaderSecurityAdvancedHSTSWPROSHUEbadge2450">
+                        <label for="disable_hsts_header">
+                            <input type="checkbox" id="disable_hsts_header" name="disable_hsts_header" value="1" <?php checked(1, get_option('disable_hsts_header'), true); ?>/>
+                            <?php esc_html_e('Disable (Strict-Transport-Security).', 'headers-security-advanced-hsts-wp'); ?>
+                        </label><br/>
+                        </div><div class="HeaderSecurityAdvancedHSTSWPROSHUEbadge2450">
+                        <label for="disable_csp_header">
+                            <input type="checkbox" id="disable_csp_header" name="disable_csp_header" value="1" <?php checked(1, get_option('disable_csp_header'), true); ?>/>
+                            <?php esc_html_e('Disable (Permissions-Policy).', 'headers-security-advanced-hsts-wp'); ?>
+                        </label><br/></div>
+                        <div class="HeaderSecurityAdvancedHSTSWPROSHUEbadge2450">
+                        <label for="disable_x_content_type_options_header">
+                            <input type="checkbox" id="disable_x_content_type_options_header" name="disable_x_content_type_options_header" value="1" <?php checked(1, get_option('disable_x_content_type_options_header'), true); ?>/>
+                            <?php esc_html_e('Disable (X-Content-Type-Options).', 'headers-security-advanced-hsts-wp'); ?>
+                        </label><br/></div>
+                        <div class="HeaderSecurityAdvancedHSTSWPROSHUEbadge2450">
+                        <label for="disable_x_frame_options_header">
+                            <input type="checkbox" id="disable_x_frame_options_header" name="disable_x_frame_options_header" value="1" <?php checked(1, get_option('disable_x_frame_options_header'), true); ?>/>
+                            <?php esc_html_e('Disable (X-Frame-Options).', 'headers-security-advanced-hsts-wp'); ?>
+                        </label><br/>
+                    </div>
                 </tr>
 
             </table>
@@ -353,6 +380,11 @@ function hsts_plugin_settings_init(): void {
     register_setting( 'hsts-plugin-settings-group', 'hsts_pp', 'sanitize_text_field');
     register_setting( 'hsts-plugin-settings-group', 'hsts_x_frame_options');
     register_setting( 'hsts-plugin-settings-group', 'hsts_x_frame_options_allow_from_url');
+
+    register_setting( 'hsts-plugin-settings-group', 'disable_hsts_header', 'intval');
+    register_setting( 'hsts-plugin-settings-group', 'disable_csp_header', 'intval');
+    register_setting( 'hsts-plugin-settings-group', 'disable_x_content_type_options_header', 'intval');
+    register_setting( 'hsts-plugin-settings-group', 'disable_x_frame_options_header', 'intval');
 
 }
 add_action( 'admin_init', 'hsts_plugin_settings_init' );
@@ -485,7 +517,7 @@ function hsts_plugin_flush_rewrite_rules(): void {
 }
 
 function hsts_plugin_delete_old_options(): void {
-    // Last referenced by plugin version 5.0.35.
+    // Last referenced by plugin version 5.0.36.
     delete_option( 'HEADERS_SECURITY_ADVANCED_HSTS_WP_PLUGIN_VERSION' );
 }
 

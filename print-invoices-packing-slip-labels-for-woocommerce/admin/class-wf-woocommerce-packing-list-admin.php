@@ -4102,10 +4102,17 @@ class Wf_Woocommerce_Packing_List_Admin {
 	 * Ajax function to export the plugin settings and templates as a json file from debug module
 	 *
 	 * @since 4.1.3
+	 * @since 4.4.3 - [Fix] - Added nonce verification and role capability check
 	 * @return void
 	 */
 	public function wt_pklist_settings_json(){
-		if(Wf_Woocommerce_Packing_List_Admin::check_write_access()) 
+		$export_module_nonce = $_POST['_wpnonce'] ? sanitize_text_field( $_POST['_wpnonce'] ) : '';
+		if( !wp_verify_nonce( $export_module_nonce, WF_PKLIST_PLUGIN_NAME . '_debug_export_form' ) || !Wf_Woocommerce_Packing_List_Admin::check_role_access() ) {
+			echo json_encode( array( 'error' => __('You are not allowed to do this action', 'print-invoices-packing-slip-labels-for-woocommerce' ) ) );
+			die;
+		}
+
+		if(Wf_Woocommerce_Packing_List_Admin::check_role_access()) 
     	{
 			$options = self::get_all_option_of_this_plugin();
 			$response = array('wt_pklist_key' => 'wt_pklist','options' => array(),'wfpklist_template_data' => array());
@@ -4133,7 +4140,8 @@ class Wf_Woocommerce_Packing_List_Admin {
 					'updated_at'	=> $temp->updated_at,
 				);
 			}
-			wp_send_json($response);	
+			$result = array( 'success' => true, 'response' => $response );
+			echo json_encode($result);	
 			die;
 		}
 	}
@@ -4143,112 +4151,117 @@ class Wf_Woocommerce_Packing_List_Admin {
 	 *
 	 * @since 4.1.3
 	 * @since 4.3.0 - [Fix] - Update the options other than the plugin settings from the user customized json file issue
+	 * @since 4.4.3 - [Fix] - Added nonce verification and role capability check
 	 * @return void
 	 */
 	public function wt_pklist_import_settings(){
 		if(isset($_POST['wt_pklist_settings_import_confirm_text']))
 		{
 			if("confirm" === $_POST['wt_pklist_settings_import_confirm_text']){
-				if(!Wf_Woocommerce_Packing_List_Admin::check_write_access()) 
-				{
-					return;
-				}
-				
-				$template_import = isset($_POST['template_import']) ? sanitize_text_field($_POST['template_import']) : 'append';
-				require_once(ABSPATH . 'wp-load.php');
-				if ($_FILES['wt_pklist_import_setting_file']['error'] === UPLOAD_ERR_OK) {
-					$file = $_FILES['wt_pklist_import_setting_file']['tmp_name'];
-					// Read the contents of the file
-					$contents = file_get_contents($file);
-				
-					// Parse the JSON data
-					$data = json_decode($contents, true);
-					$error_code = 0;
-					$error_message = '';
-					if ($data !== null) {
-						if(!empty($data)){
-							if(3 === count($data) && isset($data['wt_pklist_key']) && "wt_pklist" === $data['wt_pklist_key'] && isset($data['options']) && isset($data['wfpklist_template_data'])){
-								foreach($data as $data_key => $value){
-									if("options" === $data_key){
-										$all_settings = self::get_all_option_of_this_plugin();
-										if(is_array($value) && !empty($value)){
-											foreach($value as $meta_key => $meta_value){
-												if(in_array($meta_key,$all_settings)){ // check the meta key is related to this plugin settings
-													update_option($meta_key,$meta_value);
+				$import_module_nonce = isset( $_POST['_wtpdf_debug_settings_import_nonce'] ) ? sanitize_text_field( $_POST['_wtpdf_debug_settings_import_nonce'] ) : '';
+ 				if( !wp_verify_nonce( $import_module_nonce, WF_PKLIST_PLUGIN_NAME . '_debug_import_form' ) || !Wf_Woocommerce_Packing_List_Admin::check_role_access() ) {
+					self::wt_pklist_safe_redirect_or_die( null, __( 'You are not allowed to do this action', 'print-invoices-packing-slip-labels-for-woocommerce') );
+				} else {
+					$template_import = isset($_POST['template_import']) ? sanitize_text_field($_POST['template_import']) : 'append';
+					require_once(ABSPATH . 'wp-load.php');
+					if ( $_FILES['wt_pklist_import_setting_file']['error'] === UPLOAD_ERR_OK ) {
+						$file = $_FILES['wt_pklist_import_setting_file']['tmp_name'];
+						// Read the contents of the file
+						$contents = file_get_contents($file);
+					
+						// Parse the JSON data
+						$data = json_decode($contents, true);
+						$error_code = 0;
+						$error_message = '';
+						if ($data !== null) {
+							if(!empty($data)){
+								if(3 === count($data) && isset($data['wt_pklist_key']) && "wt_pklist" === $data['wt_pklist_key'] && isset($data['options']) && isset($data['wfpklist_template_data'])){
+									foreach($data as $data_key => $value){
+										if("options" === $data_key){
+											$all_settings = self::get_all_option_of_this_plugin();
+											if(is_array($value) && !empty($value)){
+												foreach($value as $meta_key => $meta_value){
+													if(in_array($meta_key,$all_settings)){ // check the meta key is related to this plugin settings
+														update_option($meta_key,$meta_value);
+													}
 												}
+											}else{
+												$error_message 	= __("Settings are empty","print-invoices-packing-slip-labels-for-woocommerce");
+												$error_code		= 5;
+												break;
 											}
-										}else{
-											$error_message 	= __("Settings are empty","print-invoices-packing-slip-labels-for-woocommerce");
-											$error_code		= 5;
-											break;
-										}
-									}elseif("wfpklist_template_data" === $data_key){
-										if(is_array($value) && !empty($value)){
-											global $wpdb;
-											$table_name=$wpdb->prefix.Wf_Woocommerce_Packing_List::$template_data_tb;
-											if('override' === $template_import){
-												$wpdb->query("TRUNCATE TABLE $table_name");
-											}
-											foreach($value as $row_key => $row_val){
-												$search_template_name = $wpdb->get_row($wpdb->prepare("SELECT `id_wfpklist_template_data` from $table_name WHERE `template_name` LIKE %s AND `template_type` LIKE %s",array(esc_sql($row_val['template_name']),esc_sql($row_val['template_type']))));
-												if(!$search_template_name){
-													$template_name = $row_val['template_name'];
-												}else{
-													$template_name = $row_val['template_name'].'_'.time();
+										}elseif("wfpklist_template_data" === $data_key){
+											if(is_array($value) && !empty($value)){
+												global $wpdb;
+												$table_name=$wpdb->prefix.Wf_Woocommerce_Packing_List::$template_data_tb;
+												if('override' === $template_import){
+													$wpdb->query("TRUNCATE TABLE $table_name");
 												}
+												foreach($value as $row_key => $row_val){
+													$search_template_name = $wpdb->get_row($wpdb->prepare("SELECT `id_wfpklist_template_data` from $table_name WHERE `template_name` LIKE %s AND `template_type` LIKE %s",array(esc_sql($row_val['template_name']),esc_sql($row_val['template_type']))));
+													if(!$search_template_name){
+														$template_name = $row_val['template_name'];
+													}else{
+														$template_name = $row_val['template_name'].'_'.time();
+													}
 
-												$search_is_active = $wpdb->get_row($wpdb->prepare("SELECT `id_wfpklist_template_data` from $table_name WHERE `is_active` = %d AND `template_type` LIKE %s",array(esc_sql($row_val['is_active']),esc_sql($row_val['template_type']))));
-												$is_active	= (!$search_is_active) ? $row_val['is_active'] : 0;
-												$insert_data=array(
-													'template_name'	=> $template_name,
-													'template_html'	=> $row_val['template_html'],
-													'template_from'	=> $row_val['template_from'],
-													'template_type'	=> $row_val['template_type'],
-													'is_dc_compatible' => $row_val['is_dc_compatible'],
-													'created_at'	=> $row_val['created_at'],
-													'updated_at'	=> $row_val['updated_at'],
-													'is_active'		=>  $is_active
-												);
-												$insert_data_type=array(
-													'%s','%s','%d','%s','%d','%d','%d','%d'
-												); 
-												$wpdb->insert($table_name,$insert_data,$insert_data_type);
+													$search_is_active = $wpdb->get_row($wpdb->prepare("SELECT `id_wfpklist_template_data` from $table_name WHERE `is_active` = %d AND `template_type` LIKE %s",array(esc_sql($row_val['is_active']),esc_sql($row_val['template_type']))));
+													$is_active	= (!$search_is_active) ? $row_val['is_active'] : 0;
+													$insert_data=array(
+														'template_name'	=> $template_name,
+														'template_html'	=> $row_val['template_html'],
+														'template_from'	=> $row_val['template_from'],
+														'template_type'	=> $row_val['template_type'],
+														'is_dc_compatible' => $row_val['is_dc_compatible'],
+														'created_at'	=> $row_val['created_at'],
+														'updated_at'	=> $row_val['updated_at'],
+														'is_active'		=>  $is_active
+													);
+													$insert_data_type=array(
+														'%s','%s','%d','%s','%d','%d','%d','%d'
+													); 
+													$wpdb->insert($table_name,$insert_data,$insert_data_type);
+												}
 											}
 										}
 									}
-								}
-								if(0 === $error_code){
-									$error_message = __("Imported successfully","print-invoices-packing-slip-labels-for-woocommerce");
-									update_option('wt_pklist_import_date',time());
+									if(0 === $error_code){
+										$error_message = __("Imported successfully","print-invoices-packing-slip-labels-for-woocommerce");
+										update_option('wt_pklist_import_date',time());
+									}
+								}else{
+									$error_message 	= __("Incorrect file","print-invoices-packing-slip-labels-for-woocommerce");
+									$error_code 	= 4;	
 								}
 							}else{
-								$error_message 	= __("Incorrect file","print-invoices-packing-slip-labels-for-woocommerce");
-								$error_code 	= 4;	
+								$error_message 	= __("Error: Empty JSON file","print-invoices-packing-slip-labels-for-woocommerce");
+								$error_code 	= 3;
 							}
-						}else{
-							$error_message 	= __("Error: Empty JSON file","print-invoices-packing-slip-labels-for-woocommerce");
-							$error_code 	= 3;
+						} else {
+							$error_message 	= __("Error: Invalid JSON data","print-invoices-packing-slip-labels-for-woocommerce");
+							$error_code 	= 2;
 						}
 					} else {
-						$error_message 	= __("Error: Invalid JSON data","print-invoices-packing-slip-labels-for-woocommerce");
-						$error_code 	= 2;
+						$error_message 	= __("Error uploading the file","print-invoices-packing-slip-labels-for-woocommerce");
+						$error_message .= $_FILES['file']['error'];
+						$error_code		= 1;
 					}
-				} else {
-					$error_message 	= __("Error uploading the file","print-invoices-packing-slip-labels-for-woocommerce");
-					$error_message .= $_FILES['file']['error'];
-					$error_code		= 1;
-				}
 
-				$logger_res_array = array(
-					'message' 		=> $error_message,
-					'imported_data' => $data,
-					'error_code'	=> $error_code,
-					'import_date'	=> time(),
-				);
-				$logger = wc_get_logger();
-				$logger->info( wc_print_r( $logger_res_array, true ), array( 'source' => 'wt_pklist_import' ) );
-				$_POST['wt_status'] = $error_code;
-				$_POST['wt_status_message'] = $error_message;
+					$logger_res_array = array(
+						'message' 		=> $error_message,
+						'imported_data' => $data,
+						'error_code'	=> $error_code,
+						'import_date'	=> time(),
+					);
+
+					$track_log          = ( defined( 'WP_DEBUG' ) && WP_DEBUG ) || apply_filters( 'wt_pklist_debug_enable_translation_log', false );	
+					if ( function_exists( 'wc_get_logger' ) && ! empty( $logger_res_array ) && true === $track_log ) {
+						$logger = wc_get_logger();
+						$logger->info( wc_print_r( $logger_res_array, true ), array( 'source' => 'wt_pklist_import' ) );
+					}
+					$_POST['wt_status'] = $error_code;
+					$_POST['wt_status_message'] = $error_message;
+				}
 			}
 		}
 	}
@@ -4257,45 +4270,56 @@ class Wf_Woocommerce_Packing_List_Admin {
 	 * Ajax function to reset the plugin settings and templates from debug module
 	 *
 	 * @since 4.1.3
+	 * @since 4.4.3 - [Fix] - Added nonce verification and role capability check
 	 * @return void
 	 */
 	 public function wt_pklist_reset_settings(){
-		if(isset($_POST['wt_pklist_settings_reset_confirm_text'])){
-			require_once WF_PKLIST_PLUGIN_PATH . 'includes/class-wf-woocommerce-packing-list-activator.php';
-			require_once plugin_dir_path(WF_PKLIST_PLUGIN_FILENAME)."admin/modules/migrator/migrator.php"; 
-			$options = self::get_all_option_of_this_plugin();
-			
-			foreach($options as $option){
-				delete_option($option);
-			}
 
-			if(!isset($_POST['dont_reset_template'])){
-				global $wpdb;
-				$table_name=$wpdb->prefix.Wf_Woocommerce_Packing_List::$template_data_tb;
-				$delete_the_template = $wpdb->query("TRUNCATE TABLE $table_name");
-			}else{
-				$delete_the_template = 0;
-				update_option('wf_pklist_templates_migrated',1);
-			}
-	
-			// reset to default settings
-			Wf_Woocommerce_Packing_List_Activator::install_tables();
-			Wf_Woocommerce_Packing_List_Activator::copy_address_from_woo();
-			Wf_Woocommerce_Packing_List_Activator::save_plugin_version();
-			Wf_Woocommerce_Packing_List_Migrator::migrate();
-			$this->admin_modules();
-			$public_obj = new Wf_Woocommerce_Packing_List_Public( $this->plugin_name, $this->version );
-			$public_obj->common_modules();
-			
-			update_option('wt_pklist_reset_date',time());
-			if(false === $delete_the_template)
-			{
-				$_POST['wt_status_message'] =  __("Error:","print-invoices-packing-slip-labels-for-woocommerce") . $wpdb->last_error.__("Truncation did not complete as expected.","print-invoices-packing-slip-labels-for-woocommerce");
-				$_POST['wt_reset_status'] = 0;
-			}
-			else
-			{
-				$_POST['wt_reset_status'] = 1;
+		if(isset($_POST['wt_pklist_settings_reset_confirm_text'])){
+
+			$reset_nonce	= isset( $_POST['_wtpdf_debug_settings_reset_nonce'] ) ? sanitize_text_field( $_POST['_wtpdf_debug_settings_reset_nonce'] ) : '';
+			if( !wp_verify_nonce( $reset_nonce, WF_PKLIST_PLUGIN_NAME . '_debug_reset_form' ) || !Wf_Woocommerce_Packing_List_Admin::check_role_access() ) { // added nonce verification and capability check
+				
+				self::wt_pklist_safe_redirect_or_die( null, __( 'You are not allowed to do this action', 'print-invoices-packing-slip-labels-for-woocommerce') );	
+
+			} else {
+
+				require_once WF_PKLIST_PLUGIN_PATH . 'includes/class-wf-woocommerce-packing-list-activator.php';
+				require_once plugin_dir_path(WF_PKLIST_PLUGIN_FILENAME)."admin/modules/migrator/migrator.php"; 
+				$options = self::get_all_option_of_this_plugin();
+				
+				foreach($options as $option){
+					delete_option($option);
+				}
+
+				if(!isset($_POST['dont_reset_template'])){
+					global $wpdb;
+					$table_name=$wpdb->prefix.Wf_Woocommerce_Packing_List::$template_data_tb;
+					$delete_the_template = $wpdb->query("TRUNCATE TABLE $table_name");
+				}else{
+					$delete_the_template = 0;
+					update_option('wf_pklist_templates_migrated',1);
+				}
+		
+				// reset to default settings
+				Wf_Woocommerce_Packing_List_Activator::install_tables();
+				Wf_Woocommerce_Packing_List_Activator::copy_address_from_woo();
+				Wf_Woocommerce_Packing_List_Activator::save_plugin_version();
+				Wf_Woocommerce_Packing_List_Migrator::migrate();
+				$this->admin_modules();
+				$public_obj = new Wf_Woocommerce_Packing_List_Public( $this->plugin_name, $this->version );
+				$public_obj->common_modules();
+				
+				update_option('wt_pklist_reset_date',time());
+				if(false === $delete_the_template)
+				{
+					$_POST['wt_status_message'] =  __("Error:","print-invoices-packing-slip-labels-for-woocommerce") . $wpdb->last_error.__("Truncation did not complete as expected.","print-invoices-packing-slip-labels-for-woocommerce");
+					$_POST['wt_reset_status'] = 0;
+				}
+				else
+				{
+					$_POST['wt_reset_status'] = 1;
+				}
 			}
 		}
 	}

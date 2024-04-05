@@ -10,6 +10,7 @@ use \Elementor\Group_Control_Background;
 use \Elementor\Group_Control_Typography;
 use \Elementor\Icons_Manager;
 use \Elementor\Widget_Base;
+use \ExclusiveAddons\Elementor\Helper;
 
 class Button extends Widget_Base {
 
@@ -480,6 +481,9 @@ class Button extends Widget_Base {
 	}
 
 	protected function render() {
+		
+		$output = '';
+		
 		$settings = $this->get_settings_for_display();
 		
 		$this->add_render_attribute( 
@@ -499,24 +503,22 @@ class Button extends Widget_Base {
 		}
 
 		$this->add_inline_editing_attributes( 'exclusive_button_text', 'none' );
-		$this->add_render_attribute( 'exclusive_button_link_url', 'class', 'exad-button-action' );
 
-		if( $settings['exclusive_button_link_url']['url'] ) {
-			$this->add_render_attribute( 'exclusive_button_link_url', 'href', esc_url( $settings['exclusive_button_link_url']['url'] ) );
-			if( $settings['exclusive_button_link_url']['is_external'] ) {
-				$this->add_render_attribute( 'exclusive_button_link_url', 'target', '_blank' );
-			}
-			if( $settings['exclusive_button_link_url']['nofollow'] ) {
-				$this->add_render_attribute( 'exclusive_button_link_url', 'rel', 'nofollow' );
-			}
+		if ( ! empty( $settings['exclusive_button_link_url']['url'] ) ) {
+			
+			$this->add_link_attributes( 'url', $settings['exclusive_button_link_url'] );
+			
+			$this->add_render_attribute( 'url', 'class', 'exad-button-action' );
 		}
+		
+		ob_start();
 		?>
 
-		<div <?php echo $this->get_render_attribute_string( 'exad_exclusive_button' ); ?>>
+		<div <?php $this->print_render_attribute_string( 'exad_exclusive_button' ); ?>>
 
 			<?php do_action( 'exad_button_wrapper_before' ); ?>
 
-			<a <?php echo $this->get_render_attribute_string( 'exclusive_button_link_url' ); ?>>
+			<a <?php $this->print_render_attribute_string( 'url' ); ?>>
 				<?php do_action( 'exad_button_begin_anchor_tag' );
 
 				if ( ! empty( $settings['exad_exclusive_button_icon']['value'] ) ) :
@@ -529,7 +531,7 @@ class Button extends Widget_Base {
 				endif;
 				?>
 
-				<span <?php echo $this->get_render_attribute_string( 'exclusive_button_text' ); ?>>
+				<span <?php $this->print_render_attribute_string( 'exclusive_button_text' ); ?>>
 					<?php echo esc_html( $settings['exclusive_button_text'] ); ?>
 				</span>
 
@@ -553,6 +555,10 @@ class Button extends Widget_Base {
 			<?php do_action( 'exad_button_wrapper_after' ); ?>
 		</div>
 		<?php	
+		
+		$output = ob_get_clean();
+		
+		print Helper::exad_wp_kses( $output ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**

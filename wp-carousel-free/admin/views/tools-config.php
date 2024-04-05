@@ -74,11 +74,12 @@ SP_WPCF::createSection(
 
 			),
 			array(
-				'id'      => 'export',
-				'class'   => 'wpcp_export',
-				'type'    => 'button_set',
-				'title'   => ' ',
-				'options' => array(
+				'id'       => 'export',
+				'class'    => 'wpcp_export',
+				'type'     => 'button_set',
+				'sanitize' => 'sanitize_text_field',
+				'title'    => ' ',
+				'options'  => array(
 					'' => 'Export',
 				),
 			),

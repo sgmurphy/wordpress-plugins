@@ -19,9 +19,11 @@
 .wf_sub_tab li{ display:inline-block; border-left: solid 1px #ccc; padding:3px 10px; cursor: pointer;}
 .wf_sub_tab_content{ display: none; float:left; width:100%; height:auto; }
 
-.notify_msg{ position:fixed; width:350px; padding:15px; font-weight:bold; font-size:12px; right:60px; top:0px; opacity:0; border-radius:5px; z-index:1000000000; text-shadow:0px 1px 1px #fff; line-height:22px;}
-.notify_msg_error{ background:#ffdbdb; color:#90534e; border:solid 1px #dfc5c6; }
-.notify_msg_success{ background:#e1ffdb; color:#75936f; border:solid 1px #cfecce; }
+.notify_msg{ position:fixed; width:350px; padding: 20px 28px; font-weight:500; font-size:14px; right:60px; top:0px; opacity:0; border-radius:6px; z-index:1000000000; text-shadow:0px 1px 1px #fff; line-height:17px;}
+.notify_msg_content{display: flex; align-items: center;}
+.notify_msg_content_icon{ margin-right: 10px;}
+.notify_msg_error{ background: #FFF5F5; border: 1px solid #EEADAD; color: #962627; }
+.notify_msg_success{ border:solid 1px #96CFA4; background: #F7FDF9; color: #006116;}
 .wf-tab-content .button{ border-color:#e5e5e5; }
 .wf-tab-content .button-primary{ border:none; }
 .wf-tab-content .button-secondary{ border-color:#e5e5e5; color:#666; }

@@ -29,6 +29,9 @@
                     
                     //ensure to revert any urls of the superglobalvariables
                     add_action( 'wp-hide/modules_components_run/completed', array( $this, '_modules_components_run_completed' ) );
+                    
+                    
+                    add_filter ( 'wph/components/rewrite-default/superglobal_variables_replacements' , array ( $this, 'do_superglobal_variables_replacements' ), 10, 3 );
                         
                 }
                 
@@ -57,7 +60,7 @@
                                 {
                                     if  ( is_array($value) )
                                         {
-                                            $_GET[ $key ]  =   $this->_array_replacements_recursivelly( $_GET[ $key ], $replacements );
+                                            $_GET[ $key ]  =   $this->_array_replacements_recursivelly( $_GET[ $key ], $replacements, 'GET' );
                                                                         
                                             $_key       =   preg_replace( array_values ( $replacements ) , array_keys( $replacements ), $key );
                                             if  ( $_key !=  $key )
@@ -83,7 +86,7 @@
                                 {
                                     if  ( is_array($value) )
                                         {
-                                            $_POST[ $key ]  =   $this->_array_replacements_recursivelly( $_POST[ $key ], $replacements );
+                                            $_POST[ $key ]  =   $this->_array_replacements_recursivelly( $_POST[ $key ], $replacements, 'POST' );
                                                                         
                                             $_key       =   preg_replace( array_values ( $replacements ) , array_keys( $replacements ), $key );
                                             if  ( $_key !=  $key )
@@ -109,7 +112,7 @@
                                 {
                                     if  ( is_array($value) )
                                         {
-                                            $_REQUEST[ $key ]  =   $this->_array_replacements_recursivelly( $_REQUEST[ $key ], $replacements );
+                                            $_REQUEST[ $key ]  =   $this->_array_replacements_recursivelly( $_REQUEST[ $key ], $replacements, 'REQUEST' );
                                                                         
                                             $_key       =   preg_replace( array_values ( $replacements ) , array_keys( $replacements ), $key );
                                             if  ( $_key !=  $key )
@@ -136,7 +139,7 @@
                                 {
                                     if  ( is_array($value) )
                                         {
-                                            $_FILES[ $key ]  =   $this->_array_replacements_recursivelly( $_FILES[ $key ], $replacements );
+                                            $_FILES[ $key ]  =   $this->_array_replacements_recursivelly( $_FILES[ $key ], $replacements, 'FILES' );
                                                                         
                                             $_key       =   preg_replace( array_values ( $replacements ) , array_keys( $replacements ), $key );
                                             if  ( $_key !=  $key )
@@ -175,7 +178,7 @@
                 }
                 
                 
-            function _array_replacements_recursivelly ( $array, $replacements ) 
+            function _array_replacements_recursivelly ( $array, $replacements, $superglobal_type ) 
                 {
                     if ( !is_array( $array ) ) 
                         return $array;
@@ -184,10 +187,13 @@
                     
                     foreach ($array as $key => $value) 
                         {
+                            if  (  ! apply_filters('wph/components/rewrite-default/superglobal_variables_replacements', TRUE, $key, $superglobal_type ) )
+                                continue;
+                            
                             $key       =   preg_replace( array_values ( $replacements ) , array_keys( $replacements ), $key );
                             
                             if ( is_array( $value ) )
-                                $value  =   $this->_array_replacements_recursivelly( $value, $replacements );
+                                $value  =   $this->_array_replacements_recursivelly( $value, $replacements, $superglobal_type );
                                 else 
                                 {
                                     //preserve the type
@@ -200,8 +206,22 @@
                         }
                     
                     return $helper;
-                } 
-        
-
+                }
+                
+            /**
+            * control certain data to be preserved as is
+            *     
+            * @param mixed $do_replace
+            * @param mixed $key
+            * @param mixed $superglobal_type
+            */
+            function do_superglobal_variables_replacements( $do_replace, $key, $superglobal_type ) 
+                {
+                    //Ignore the _wp_http_referer to avoid fails when conpare between the urls 
+                    if ( $key == '_wp_http_referer' )
+                        return FALSE;
+                        
+                    return $do_replace;      
+                }
         }
 ?>

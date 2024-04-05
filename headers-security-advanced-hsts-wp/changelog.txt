@@ -1,3 +1,8 @@
+= 5.0.35 =
+We don't want to tell you what to do, but here's the point: if you've updated the Headers Security Advanced & HSTS WP plugin last time, you've seen that when we suggest doing so, we don't just say it and leave it at that. Well, with this 5.0.35 version we've added and fixed a lot (we got rid of some bugs, tidied up some pesky pixels and updated the graphics) and it all works great. Are we agreed? Touch "update" and we'll provide you with the most beautiful, fastest, and most impressive plugin around. Enjoy!
+- Fixed: Fixed the bug that could delete the plugin rules of the header customization function (X-Frame-Options and Permissions-Policy), this was caused by the customization of ALLOW-FROM Fixed the bug that could delete the plugin rules of the header customization function (X-Frame-Options and Permissions-Policy), this was caused by the customization of ALLOW-FROM
+- Delete: deleted the 'X-XSS-Protection' header because this functionality is no longer in the standards path.
+
 = 5.0.34 =
 We don't want to tell you what to do, but here's the point: if you've updated the Headers Security Advanced & HSTS WP plugin last time, you've seen that when we suggest doing so, we don't just say it and leave it at that. Well, with this 5.0.34 version we've added and fixed a lot (we got rid of some bugs, tidied up some pesky pixels and updated the graphics) and it all works great. Are we agreed? Touch "update" and we'll provide you with the most beautiful, fastest, and most impressive plugin around. Enjoy!
 - Upgrade: New feature to customize headers (X-Frame-Options and Permissions-Policy), if not customized will use an automated value from OWASP.

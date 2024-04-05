@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit0dcd37c8a4ecd36ac70a6b5e279be34d
+class ComposerStaticInit3d022fc50f11cb35cfe4542baccfe882
 {
     public static $files = array (
         '16e4325dd9bdbbd2ce8c9530b088e50b' => __DIR__ . '/..' . '/codeinwp/themeisle-sdk/load.php',
@@ -142,6 +142,10 @@ class ComposerStaticInit0dcd37c8a4ecd36ac70a6b5e279be34d
         'Stripe\\BaseStripeClientInterface' => __DIR__ . '/..' . '/stripe/stripe-php/lib/BaseStripeClientInterface.php',
         'Stripe\\BillingPortal\\Configuration' => __DIR__ . '/..' . '/stripe/stripe-php/lib/BillingPortal/Configuration.php',
         'Stripe\\BillingPortal\\Session' => __DIR__ . '/..' . '/stripe/stripe-php/lib/BillingPortal/Session.php',
+        'Stripe\\Billing\\Meter' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Billing/Meter.php',
+        'Stripe\\Billing\\MeterEvent' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Billing/MeterEvent.php',
+        'Stripe\\Billing\\MeterEventAdjustment' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Billing/MeterEventAdjustment.php',
+        'Stripe\\Billing\\MeterEventSummary' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Billing/MeterEventSummary.php',
         'Stripe\\Capability' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Capability.php',
         'Stripe\\Card' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Card.php',
         'Stripe\\CashBalance' => __DIR__ . '/..' . '/stripe/stripe-php/lib/CashBalance.php',
@@ -151,6 +155,7 @@ class ComposerStaticInit0dcd37c8a4ecd36ac70a6b5e279be34d
         'Stripe\\Climate\\Product' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Climate/Product.php',
         'Stripe\\Climate\\Supplier' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Climate/Supplier.php',
         'Stripe\\Collection' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Collection.php',
+        'Stripe\\ConfirmationToken' => __DIR__ . '/..' . '/stripe/stripe-php/lib/ConfirmationToken.php',
         'Stripe\\ConnectCollectionTransfer' => __DIR__ . '/..' . '/stripe/stripe-php/lib/ConnectCollectionTransfer.php',
         'Stripe\\CountrySpec' => __DIR__ . '/..' . '/stripe/stripe-php/lib/CountrySpec.php',
         'Stripe\\Coupon' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Coupon.php',
@@ -196,6 +201,7 @@ class ComposerStaticInit0dcd37c8a4ecd36ac70a6b5e279be34d
         'Stripe\\FinancialConnections\\AccountOwnership' => __DIR__ . '/..' . '/stripe/stripe-php/lib/FinancialConnections/AccountOwnership.php',
         'Stripe\\FinancialConnections\\Session' => __DIR__ . '/..' . '/stripe/stripe-php/lib/FinancialConnections/Session.php',
         'Stripe\\FinancialConnections\\Transaction' => __DIR__ . '/..' . '/stripe/stripe-php/lib/FinancialConnections/Transaction.php',
+        'Stripe\\Forwarding\\Request' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Forwarding/Request.php',
         'Stripe\\FundingInstructions' => __DIR__ . '/..' . '/stripe/stripe-php/lib/FundingInstructions.php',
         'Stripe\\HttpClient\\ClientInterface' => __DIR__ . '/..' . '/stripe/stripe-php/lib/HttpClient/ClientInterface.php',
         'Stripe\\HttpClient\\CurlClient' => __DIR__ . '/..' . '/stripe/stripe-php/lib/HttpClient/CurlClient.php',
@@ -210,6 +216,8 @@ class ComposerStaticInit0dcd37c8a4ecd36ac70a6b5e279be34d
         'Stripe\\Issuing\\CardDetails' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Issuing/CardDetails.php',
         'Stripe\\Issuing\\Cardholder' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Issuing/Cardholder.php',
         'Stripe\\Issuing\\Dispute' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Issuing/Dispute.php',
+        'Stripe\\Issuing\\PersonalizationDesign' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Issuing/PersonalizationDesign.php',
+        'Stripe\\Issuing\\PhysicalBundle' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Issuing/PhysicalBundle.php',
         'Stripe\\Issuing\\Token' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Issuing/Token.php',
         'Stripe\\Issuing\\Transaction' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Issuing/Transaction.php',
         'Stripe\\LineItem' => __DIR__ . '/..' . '/stripe/stripe-php/lib/LineItem.php',
@@ -255,6 +263,10 @@ class ComposerStaticInit0dcd37c8a4ecd36ac70a6b5e279be34d
         'Stripe\\Service\\BillingPortal\\BillingPortalServiceFactory' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/BillingPortal/BillingPortalServiceFactory.php',
         'Stripe\\Service\\BillingPortal\\ConfigurationService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/BillingPortal/ConfigurationService.php',
         'Stripe\\Service\\BillingPortal\\SessionService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/BillingPortal/SessionService.php',
+        'Stripe\\Service\\Billing\\BillingServiceFactory' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Billing/BillingServiceFactory.php',
+        'Stripe\\Service\\Billing\\MeterEventAdjustmentService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Billing/MeterEventAdjustmentService.php',
+        'Stripe\\Service\\Billing\\MeterEventService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Billing/MeterEventService.php',
+        'Stripe\\Service\\Billing\\MeterService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Billing/MeterService.php',
         'Stripe\\Service\\ChargeService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/ChargeService.php',
         'Stripe\\Service\\Checkout\\CheckoutServiceFactory' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Checkout/CheckoutServiceFactory.php',
         'Stripe\\Service\\Checkout\\SessionService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Checkout/SessionService.php',
@@ -262,6 +274,7 @@ class ComposerStaticInit0dcd37c8a4ecd36ac70a6b5e279be34d
         'Stripe\\Service\\Climate\\OrderService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Climate/OrderService.php',
         'Stripe\\Service\\Climate\\ProductService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Climate/ProductService.php',
         'Stripe\\Service\\Climate\\SupplierService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Climate/SupplierService.php',
+        'Stripe\\Service\\ConfirmationTokenService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/ConfirmationTokenService.php',
         'Stripe\\Service\\CoreServiceFactory' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/CoreServiceFactory.php',
         'Stripe\\Service\\CountrySpecService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/CountrySpecService.php',
         'Stripe\\Service\\CouponService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/CouponService.php',
@@ -278,6 +291,8 @@ class ComposerStaticInit0dcd37c8a4ecd36ac70a6b5e279be34d
         'Stripe\\Service\\FinancialConnections\\FinancialConnectionsServiceFactory' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/FinancialConnections/FinancialConnectionsServiceFactory.php',
         'Stripe\\Service\\FinancialConnections\\SessionService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/FinancialConnections/SessionService.php',
         'Stripe\\Service\\FinancialConnections\\TransactionService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/FinancialConnections/TransactionService.php',
+        'Stripe\\Service\\Forwarding\\ForwardingServiceFactory' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Forwarding/ForwardingServiceFactory.php',
+        'Stripe\\Service\\Forwarding\\RequestService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Forwarding/RequestService.php',
         'Stripe\\Service\\Identity\\IdentityServiceFactory' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Identity/IdentityServiceFactory.php',
         'Stripe\\Service\\Identity\\VerificationReportService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Identity/VerificationReportService.php',
         'Stripe\\Service\\Identity\\VerificationSessionService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Identity/VerificationSessionService.php',
@@ -288,6 +303,8 @@ class ComposerStaticInit0dcd37c8a4ecd36ac70a6b5e279be34d
         'Stripe\\Service\\Issuing\\CardholderService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Issuing/CardholderService.php',
         'Stripe\\Service\\Issuing\\DisputeService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Issuing/DisputeService.php',
         'Stripe\\Service\\Issuing\\IssuingServiceFactory' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Issuing/IssuingServiceFactory.php',
+        'Stripe\\Service\\Issuing\\PersonalizationDesignService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Issuing/PersonalizationDesignService.php',
+        'Stripe\\Service\\Issuing\\PhysicalBundleService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Issuing/PhysicalBundleService.php',
         'Stripe\\Service\\Issuing\\TokenService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Issuing/TokenService.php',
         'Stripe\\Service\\Issuing\\TransactionService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Issuing/TransactionService.php',
         'Stripe\\Service\\MandateService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/MandateService.php',
@@ -334,10 +351,12 @@ class ComposerStaticInit0dcd37c8a4ecd36ac70a6b5e279be34d
         'Stripe\\Service\\Terminal\\LocationService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Terminal/LocationService.php',
         'Stripe\\Service\\Terminal\\ReaderService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Terminal/ReaderService.php',
         'Stripe\\Service\\Terminal\\TerminalServiceFactory' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Terminal/TerminalServiceFactory.php',
+        'Stripe\\Service\\TestHelpers\\ConfirmationTokenService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/TestHelpers/ConfirmationTokenService.php',
         'Stripe\\Service\\TestHelpers\\CustomerService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/TestHelpers/CustomerService.php',
         'Stripe\\Service\\TestHelpers\\Issuing\\AuthorizationService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/TestHelpers/Issuing/AuthorizationService.php',
         'Stripe\\Service\\TestHelpers\\Issuing\\CardService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/TestHelpers/Issuing/CardService.php',
         'Stripe\\Service\\TestHelpers\\Issuing\\IssuingServiceFactory' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/TestHelpers/Issuing/IssuingServiceFactory.php',
+        'Stripe\\Service\\TestHelpers\\Issuing\\PersonalizationDesignService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/TestHelpers/Issuing/PersonalizationDesignService.php',
         'Stripe\\Service\\TestHelpers\\Issuing\\TransactionService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/TestHelpers/Issuing/TransactionService.php',
         'Stripe\\Service\\TestHelpers\\RefundService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/TestHelpers/RefundService.php',
         'Stripe\\Service\\TestHelpers\\Terminal\\ReaderService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/TestHelpers/Terminal/ReaderService.php',
@@ -521,9 +540,9 @@ class ComposerStaticInit0dcd37c8a4ecd36ac70a6b5e279be34d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit0dcd37c8a4ecd36ac70a6b5e279be34d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit0dcd37c8a4ecd36ac70a6b5e279be34d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit0dcd37c8a4ecd36ac70a6b5e279be34d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3d022fc50f11cb35cfe4542baccfe882::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3d022fc50f11cb35cfe4542baccfe882::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3d022fc50f11cb35cfe4542baccfe882::$classMap;
 
         }, null, ClassLoader::class);
     }
